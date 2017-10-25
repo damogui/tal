@@ -1,0 +1,116 @@
+apply plugin: 'com.bmuschko.tomcat'
+apply plugin: 'com.bmuschko.tomcat-base'
+apply plugin: 'java'
+apply plugin: 'war'
+
+def projectName="$name"
+
+dependencies {
+
+    compile project(':netsharp-core')
+    compile project(':netsharp-cache-service')
+    compile project(':weixin-mp-sdk')
+	compile project(':weixin-qy-sdk')
+    compile project(':netsharp-persistence')
+    compile project(':netsharp-communication')
+    compile project(':netsharp-basebiz')
+    compile project(':netsharp-panda')
+    compile project(':netsharp-basebiz-web')
+    compile project(':netsharp-scrum')
+    compile project(':netsharp-weixin')
+    compile project(':netsharp-cache-plugin')
+    compile project(':netsharp-weixin-ui')
+    compile project(':netsharp-api')
+    compile project(':gsb-entity')
+    compile project(':gsb-ma')
+    compile project(':gsb-er')
+    compile project(':gsb-bd')
+    compile project(':gsb-cms')
+    compile project(':gsb-crm')
+    compile project(':gsb-product')
+    compile project(':gsb-trade')
+    compile project(':gsb-uc')
+    compile project(':gsb-controls')
+    providedCompile group: 'org.apache.tomcat', name: 'tomcat-websocket', version: '8.0.21'
+    providedCompile group: 'org.apache.tomcat', name: 'tomcat-coyote', version: '8.0.21'
+    providedCompile group: 'org.apache.tomcat', name: 'tomcat-catalina', version: '8.0.21'
+    
+}
+
+
+task deployPanda(dependsOn: war) << {
+    println("deploy $projectName to $tomcat_webapps")
+    copy {
+        from "build/libs/netsharp-web-1.0-SNAPSHOT.war"
+        into tomcat_webapps
+        include "*.war"
+        rename('netsharp-web-1.0-SNAPSHOT.war', 'ROOT.war')
+    }
+}
+
+task runPanda(dependsOn: tomcatRun){}
+
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.bmuschko:gradle-tomcat-plugin:2.2.2'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    def tomcatVersion = '8.0.21'
+    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+            "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
+            "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+}
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java']
+        }
+        resources {
+            srcDirs = ["src/main/resources/${env}"]
+        }
+    }
+    test {
+        java {
+            srcDirs = ['src/test/java']
+        }
+        resources {
+            srcDirs = ['src/test/resources']
+        }
+    }
+}
+
+
+tomcat {
+//    httpPort = 8090
+//    httpsPort = 8091
+//    enableSSL = true
+    contextPath = '/'
+//
+//    users {
+//        user {
+//            username = 'user1'
+//            password = '123456'
+//            roles = ['developers', 'admin']
+//        }
+//
+//        user {
+//            username = 'user2'
+//            password = 'abcdef'
+//            roles = ['manager']
+//        }
+//    }
+}
+
+
+

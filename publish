@@ -1,0 +1,31 @@
+gradle -b netsharp-core/build.gradle uploadArchives
+gradle -b netsharp-persistence/build.gradle uploadArchives
+gradle -b netsharp-cache-base/build.gradle uploadArchives
+gradle -b netsharp-cache-service/build.gradle uploadArchives
+gradle -b netsharp-cache-plugin/build.gradle uploadArchives
+gradle -b netsharp-communication/build.gradle uploadArchives
+gradle -b netsharp-basebiz/build.gradle uploadArchives
+gradle -b netsharp-panda/build.gradle uploadArchives
+gradle -b netsharp-basebiz-web/build.gradle uploadArchives
+gradle -b weixin-api/build.gradle uploadArchives
+gradle -b netsharp-weixin/build.gradle uploadArchives
+gradle -b netsharp-prj/build.gradle uploadArchives
+gradle -b netsharp-devprj/build.gradle uploadArchives
+gradle -b netsharp-nsf/build.gradle uploadArchives
+
+
+gradlew -b netsharp-core/build.gradle uploadArchives
+gradlew -b netsharp-persistence/build.gradle uploadArchives
+gradlew -b netsharp-cache-base/build.gradle uploadArchives
+gradlew -b netsharp-cache-service/build.gradle uploadArchives
+gradlew -b netsharp-cache-plugin/build.gradle uploadArchives
+gradlew -b netsharp-communication/build.gradle uploadArchives
+gradlew -b netsharp-basebiz/build.gradle uploadArchives
+gradlew -b netsharp-panda/build.gradle uploadArchives
+gradlew -b netsharp-basebiz-web/build.gradle uploadArchives
+gradlew -b netsharp-scrum/build.gradle uploadArchives
+gradlew -b netsharp-weixin/build.gradle uploadArchives
+gradlew -b netsharp-prj/build.gradle uploadArchives
+gradlew -b netsharp-devprj/build.gradle uploadArchives
+gradlew -b gsb-taurus-sdk/build.gradle uploadArchives
+

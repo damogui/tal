@@ -1,0 +1,8 @@
+tomcat=/netsharp/tomcat/apache-tomcat-7.0.68
+rm $tomcat/webapps/ROOT.war
+rm -drf $tomcat/webapps/ROOT
+#rm -rdf /root/.gradle
+sh $tomcat/bin/shutdown.sh
+svn update
+gradle deployPanda
+sh $tomcat/bin/startup.sh

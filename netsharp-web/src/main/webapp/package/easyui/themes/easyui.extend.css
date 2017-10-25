@@ -1,0 +1,595 @@
+
+html,body{
+	font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+	font-size: 14px;
+	background-color:#f1f4f5;
+	padding:0;
+	margin:0;
+}
+.layout-panel-west .panel-header {
+  background-color: #fff !important;
+  height:26px;
+  line-height:26px;
+  border-right-width: 0px;
+}
+.layout-panel-center .panel-header{
+
+    background-color: #f2f2f2 !important;
+}
+
+
+.layout-panel-west .panel-header .panel-title {
+	font-size: 14px;
+	color: rgba(118,131,143,.9);
+	height: 22px;
+	line-height: 28px;
+	/* padding-left: 5px; */
+}
+.panel-tool a{
+	color:#444;
+}
+
+.tabs-header, 
+.tabs-scroller-left, 
+.tabs-scroller-right, 
+.tabs-tool, 
+.tabs, .tabs-panels, 
+.tabs li a.tabs-inner, 
+.tabs li.tabs-selected a.tabs-inner, 
+.tabs-header-bottom .tabs li.tabs-selected a.tabs-inner, 
+.tabs-header-left .tabs li.tabs-selected a.tabs-inner, 
+.tabs-header-right .tabs li.tabs-selected a.tabs-inner{
+    border-color: #e4eaec;
+}
+.tabs-header{
+	
+	border-left-width: 0px;
+	border-right-width: 0px;
+	background-color: #fff;
+}
+.tabs-title {
+    font-size: 14px;
+    color: rgba(118,131,143,.9);
+}
+.tabs{
+	padding-left:0;
+}
+.tabs li{
+	
+	margin: 0 2px -1px 0;
+}
+.tabs li a.tabs-inner {
+  background: #fff;
+  color: #444;
+  filter: none;
+  border-radius: 0;
+  padding:0 15px;
+  border-radius: 0px;
+  color: rgba(118,131,143,.9);
+}
+.tabs li.tabs-selected a.tabs-inner {
+    background-color: #f1f4f5;
+    font-weight: normal;
+    border-bottom: 1px solid #f1f4f5;
+    color: rgba(118,131,143,.9);
+}
+.tabs-icon{
+	
+	font-size: 16px;
+	margin-top: -9px;
+}
+
+.tabs-panels {
+	border-width: 0px;
+	border-left-width: 0px;
+}
+
+/* .datagrid-header{
+	
+	background-color: #f2f2f2;
+	border-bottom-width: 0px;
+} */
+.datagrid-pager.pagination{
+	
+	background-color: #fff;
+}
+
+.datagrid-header,.datagrid-header-inner,.datagrid-htable{
+	
+	height:31px !important;
+}
+
+.datagrid-header-inner .datagrid-cell{
+	text-align: center !important;
+}
+
+.datagrid-header-rownumber, .datagrid-cell-rownumber{
+	
+	padding: 6px 0px;
+	/* background-color: #f2f2f2; */
+}
+
+.datagrid-header td, .datagrid-body td, .datagrid-footer td{
+	
+	border-style: solid;
+}
+
+.datagrid-header .datagrid-htable tr td{
+	
+	padding:0 !important;
+	border-bottom-width:0;
+}
+
+.datagrid-row-selected {
+    background: #CCE6FF;
+    color: #000;
+}
+
+.datagrid-header .datagrid-cell, .datagrid-header .datagrid-cell-group {
+    color: #000;
+}
+
+.panel-header, .panel-body {
+    border-color: #eee;
+}
+.query-panel {
+	margin-bottom: 15px;
+}
+
+.btn.easyui-linkbutton,.btn.easyui-menubutton {
+	margin-top: 0;
+	border-width:0;
+	display: inline-block;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 7px;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 14px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    opacity: .9;
+	background:none; 
+    border: 1px solid #C9C9C9 !important;
+    background-color: #fff !important;
+    color: #555 !important;
+	
+}
+
+.btn.easyui-linkbutton:hover{
+	opacity:.8;
+	filter:alpha(opacity=80);
+	border-radius: 2px;
+	padding: 0 7px;
+	border: 1px solid #009688 !important;
+	color:#555;
+}
+
+.btn.easyui-linkbutton.normal{
+	color: #fff !important;
+	background-color: #FF5722 !important;
+	border-width: 0px !important;
+}
+
+.btn.easyui-linkbutton.primary {
+
+    color: #fff !important;
+    background-color: #1E9FFF !important;
+    border-width: 0px !important;
+}
+
+.btn.easyui-linkbutton.green {
+
+    color: #fff !important;
+    background-color: #5FB878 !important;
+    border-width: 0px !important;
+}
+
+.btn.easyui-linkbutton.danger {
+    background-color: #FF5722 !important;
+}
+/* .toolbar .l-btn-icon-left .l-btn-text{
+	
+	margin: 0 4px 0 20px;
+} */
+
+.l-btn-text{
+
+	line-height: 28px;
+}
+.l-btn-icon{
+	font-size:14px;
+}
+.menu-line {
+    border-left: none;
+    border-right: none;
+}
+.menu{
+	padding: 0px;
+	width:150px;
+}
+.menu .l-btn{
+	width:100%;
+	border-left-width:0px;
+	border-right-width:0px;
+	border-bottom-width:0px;
+	border-radius:0px;
+	text-align: left;
+}
+.menu .l-btn:first{
+	border-top-width:0px;
+}
+
+
+.datagrid-empty{
+	height: 100%;
+    line-height: 300px;
+}
+
+
+.query-panel .title {
+    font-size: 14px;
+	padding:0 15px;
+}
+
+.query-panel [query='1']{
+	
+	margin:3px 0;
+}
+
+.query-panel .easyui-linkbutton{
+	
+	padding: 2px 8px !important;
+	box-shadow:none;
+}
+
+.l-btn-text{
+	
+	font-size:14px;
+}
+
+span.textbox{
+	
+	border-radius:2px;
+}
+.combo input.textbox-text,.numberbox input.textbox-text{
+	
+	height: 30px !important;
+    line-height: 30px !important;
+    font-size: 12px;
+}
+.textbox.combo .textbox-icon.combo-arrow {
+    height: 30px !important;
+    background-color: #fff;
+}
+
+.textbox.combo{
+	
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+}
+
+
+.easyui-tooltip{
+	font-size:14px;
+	cursor: pointer;
+}
+
+.tooltip.tooltip-bottom{
+
+	color:#fff;
+	background-color: #000;
+	border-width:0 !important;
+	border-radius: 2px;
+}
+
+.tooltip.tooltip-bottom .tooltip-content{
+	
+	line-height:20px !important;
+	padding:0 10px !important;
+}
+
+#center {
+	border-width:0px;
+	background-color: #f1f4f5;
+}
+
+.page-content{
+	padding: 20px;
+	margin: 20px;
+	background-color: #fff;
+}
+
+#datagrid .toolbar{
+	
+	margin-bottom: 10px;
+}
+
+#datagrid .toolbar .l-btn{
+	box-sizing: border-box;
+	background: transparent;
+    border-left-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-radius: 0px;
+    filter: none;
+    margin-right: -4px;
+    padding:0 5px;
+    border-color:#e4eaec;
+    background-color: #f8f9f9;
+}
+
+#datagrid .toolbar .l-btn-text {
+    line-height: 32px;
+}
+.m-btn .l-btn-left {
+	
+	padding-right:12px;
+ }
+#datagrid .toolbar .l-btn:first-child{
+	
+	border-radius: 3px 0 0 3px;
+}
+#datagrid .toolbar .l-btn:last-child{
+
+	border-right-width: 1px;
+	border-radius: 0 3px 3px 0;
+}
+#datagrid .toolbar .l-btn-plain:hover {
+	color:#007acf;
+  	padding:0 5px;
+    border-right-width: 0px;
+    opacity:.8;
+	filter:alpha(opacity=80);
+}
+
+.toolbar .l-btn-icon-left .l-btn-text {
+    margin: 0 4px 0 22px;
+}
+
+#datagrid .toolbar .l-btn-plain:last-child:hover {
+ 
+    border-right-width:1px;
+}
+div.h10{
+	height:10px;
+	width:100%
+}
+#east,#west {
+	border-top-width:0px;
+}
+
+#west .toolbar{
+	
+	padding: 1px 0 1px 2px;
+	border-bottom: 1px solid #ddd;
+}
+
+/*表单 开始*/
+.formContent{
+	
+	padding:20px;
+}
+
+.form-panel td {
+
+	padding:5px;
+}
+
+.form-panel td.label_td {
+
+	width:120px;
+	text-align:right;
+	padding-right:5px;
+    line-height: 40px;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.form-panel td.control_td {
+	
+	text-align:left;
+}
+
+.form-panel tr {
+	border: 1px solid #c9c9c9;
+}
+.form-panel input[type='checkbox'] {
+	width:16px;
+	height:16px;
+	border-width:0px;
+	border-radius:0px;
+}
+.switchbutton-on {
+    background: #5FB878;
+    border-radius: 2px;
+}
+.nsInput {
+	font-size: 12px;
+	border: 1px #ddd solid;
+	height: 30px;
+	line-height: 24px;
+	padding:3px 5px;
+	-moz-border-radius: 2px 2px 2px 2px;
+  	-webkit-border-radius: 2px 2px 2px 2px;
+  	border-radius: 2px 2px 2px 2px;
+  	width: 191px;
+  	box-sizing: border-box;
+}
+
+.form-panel textarea{
+
+	border: 1px #ddd solid;
+    line-height: 18px;
+    padding: 5px 5px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius:  2px 2px 2px 2px;
+    border-radius:  2px 2px 2px 2px;
+  	box-sizing: border-box;
+  	resize:vertical;
+}
+
+.form-panel .nsInput.validatebox-invalid {
+    border: 1px #ffa8a8 solid !important;
+    background-color: #fff;
+    color: #404040;
+}
+
+.detail{
+	padding-top:10px;
+} 
+.easyui-tabs .detail{
+	padding-top:0px;
+} 
+/*表单 结束*/
+
+.datagrid-cell .easyui-linkbutton {
+
+    height: 24px;
+    line-height: 24px;
+    font-size: 12px;
+	margin-right:2px;
+}
+
+.menu-shadow, .combo-p {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    filter: none;
+}
+
+/*FroalaEditor*/
+.fr-toolbar,.fr-wrapper{
+	border: 1px solid #D3D3D3 !important;
+	box-shadow:none !important;
+}
+
+.fr-wrapper{
+	
+	border-top-width:0 !important;
+}
+
+/*tree*/
+.tree-node-selected {
+	background: #e7eaec;
+	color: #575765;
+}
+.tree-node {
+	white-space: nowrap;
+	cursor: pointer;
+	line-height: 18px;
+	height:18px;
+}
+
+.tree-title {
+	line-height: 18px;
+	padding-left: 4px;
+	color: #000000;
+}
+
+.datagrid-cell i.fa{
+	
+	font-size:16px;
+}
+.datagrid-cell i.fa-close{
+	
+	color:red;
+}
+
+.datagrid-cell i.fa-check{
+	
+	color:green;
+}
+
+
+.filebox .textbox-text,.filebox .textbox-button{
+	
+	height:30px !important;
+	line-height:30px !important;
+}
+.filebox .l-btn-text{
+    line-height: 35px;
+}
+
+.btn-preview{
+	
+	margin-left:5px;
+}
+.image-preview{
+	
+	max-width:200px;
+}
+
+
+.combo-clear {
+
+  height: 30px;
+  width: 18px;
+  overflow: hidden;  
+  display: inline-block;  
+  vertical-align: top;  
+  cursor: pointer;  
+  opacity: 0.6;  
+  filter: alpha(opacity=60); 
+  text-align:center;
+  line-height:30px;
+  color:#404040;
+}  
+.combo-clear-hover {  
+  opacity: 1.0;  
+  filter: alpha(opacity=100);  
+}  
+.reference-magnifier {
+
+    height: 20px;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align:middle;
+    padding:5px;
+    cursor: pointer;
+}
+.reference-magnifier-hover {
+    opacity: 1.0;
+    filter: alpha(opacity=100);
+}
+.reference-magnifier {
+    background-color: #f3f3f3;
+    border-left: solid #D3D3D3 1px;
+    font-size: 16px !important;
+    text-align: center;
+}
+.reference-magnifier-hover {
+    background-color: #e2e2e2;
+}
+.reference-magnifier:hover {
+    background-color: #e2e2e2;
+}
+
+.radiogroupbox,.checkboxgroup{
+	font-size:14px;
+	padding:10px 10px 10px 0;
+}
+.radiogroupbox .radio-item,.checkboxgroup .check-item{
+	float:left;
+	margin-right: 10px;
+}
+.radiogroupbox .radio-item label,.checkboxgroup .check-item label{
+
+	padding-right: 10px;
+}
+.radiogroupbox .radio-item input[type=radio],.checkboxgroup .check-item input[type=checkbox]{
+
+	vertical-align:middle;
+	margin:0;
+}
+
+.textbox-disabled, .textbox-label-disabled {
+    opacity: initial;
+}
+
+.layui-layer{
+	
+	position: fixed !important;
+}

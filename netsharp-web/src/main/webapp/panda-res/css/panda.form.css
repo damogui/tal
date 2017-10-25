@@ -1,0 +1,93 @@
+#center,#north {
+	border-width:0px;
+	background:#ffffff;
+}
+
+.tabs-header{
+	border-left-width:0px;
+	border-right-width:0px;
+}
+
+.tabs-panels{
+	
+	border-left-width:0px;
+	border-right-width:0px;
+	border-bottom-width:0px;
+}
+.tabs-panels .panel{
+	overflow-y:auto;
+	height: 100%;
+}
+
+.tabs-panels .panel .toolbar{
+	position:absolute;
+	width:100%;
+	z-index: 1000;
+	border-top-width:0px;
+}
+
+.tabs-panels .panel form{
+	padding-top: 30px;
+}
+.tabs li a.tabs-inner{
+	
+	border-radius:0px !important;
+}
+.tabs li.tabs-selected a.tabs-inner {
+    background-color: #fafafa;
+    font-weight: normal;
+    border-bottom: 1px solid #fafafa;
+}
+.tabs-title{
+	
+	color:#404040;
+}
+.toolbar {
+	padding-top: 2px;
+	padding-bottom: 2px;
+	border-bottom: 1px solid #ddd;
+	padding-left: 2px;
+	background: #fafafa;
+}
+
+input:disabled,textarea:disabled{
+
+	background-color: rgba(235, 235, 228,0.6) !important;
+	color:#404040;
+	cursor: no-drop;
+}
+
+input[disabled],input:disabled{
+	background-color: rgba(235, 235, 228,0.6) !important;
+	color:#404040;
+	cursor: no-drop;
+}
+
+*html input.disabled{
+	background-color: rgba(235, 235, 228,0.6) !important;
+	color:#404040;
+	cursor: no-drop;
+}
+
+.datagrid .toolbar{
+	position:inherit !important;
+	width:100%;
+}
+
+fieldset{
+	
+	border: 1px #D3D3D3 solid;
+	margin-bottom:15px;
+	max-width:1000px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+}
+
+legend{
+	
+	color: black;
+	font-size:14px;
+}
+
+.datagrid-btable tr{height: 31px;}
