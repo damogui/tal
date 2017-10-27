@@ -10,9 +10,9 @@ org.netsharp.scrum.web.StoryTraceFormPart = org.netsharp.panda.commerce.FormPart
 
         var url = window.location.href;
         
-        var parentId = System.Url.getParameter("projectId");
+        var storyId = System.Url.getParameter("storyId");
 
-        this.invokeService("newInstance", [parentId], function (jmessage) {
+        this.invokeService("newInstance", [storyId], function (jmessage) {
         	
         	me.currentItem = jmessage;
             me.viewModel.currentItem = me.currentItem;

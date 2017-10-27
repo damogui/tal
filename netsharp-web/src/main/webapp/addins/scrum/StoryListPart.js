@@ -19,7 +19,11 @@ org.netsharp.scrum.web.StoryListPart = org.netsharp.panda.commerce.ListPart.Exte
 			return;
 		}
 		
+		var me = this;
 		var url = "/panda/scrum/trace/form?storyId="+item.id;
-		window.open(url);
+		IMessageBox.open("任务跟进", url, 1050, 500, function() {
+			
+			me.reload();
+		});
 	},
 });
