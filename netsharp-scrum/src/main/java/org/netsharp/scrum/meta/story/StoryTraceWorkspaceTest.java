@@ -123,12 +123,14 @@ public class StoryTraceWorkspaceTest extends WorkspaceCreationBase {
 			PReference reference = referenceService.byCode(Story.class.getSimpleName());
 			//Assert.isTrue(reference!=null);
 			field.setReference(reference);
+			field.setFullColumn(true);
+			field.setWidth(600);
 		}
 		
 		field = addFormField(form, "content", "内容", ControlTypes.TEXTAREA, false, false);
 		field.setHeight(300);
 		field.setWidth(600);
-		
+		field.setFullColumn(false);
 		return form;
 	}
 }
