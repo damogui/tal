@@ -8,19 +8,38 @@ import org.netsharp.authorization.UserPermissionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
+import org.netsharp.entity.IEntity;
 import org.netsharp.notify.INotifyervice;
+import org.netsharp.organization.entity.Employee;
+import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.scrum.base.IBugService;
 import org.netsharp.scrum.entity.Bug;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.DateManage;
+import org.netsharp.util.ReflectManager;
 import org.netsharp.util.StringManager;
 
 @Service
 public class BugService extends PersistableService<Bug> implements IBugService {
+	
 	public BugService() {
 		super();
 
 		this.type = Bug.class;
+	}
+	
+	public Bug newInstance() {
+		
+		Bug bug = super.newInstance();{
+			
+			Employee testor = new Employee();
+			testor.setId(bug.getCreatorId());
+			testor.setName(bug.getCreator());
+			bug.setTestor(testor);
+			bug.setTestorId(bug.getCreatorId());
+		}
+		
+		return bug;
 	}
 
 	@Override

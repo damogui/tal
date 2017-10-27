@@ -28,10 +28,19 @@ public class Bug extends BizEntity {
 	
 	@Column(name="putor_id")
 	private Integer putorId;
+	
 	@Reference(foreignKey="putorId")
 	private Employee putor;//提出人
 	
+	@Column(name="project_id")
+	private Integer projectId;
+	
+	@Reference(foreignKey="projectId")
+	private Project project;//提出人
+	
+	
 	private StoryStatus status = StoryStatus.hibernate;//支持状态
+	
 	@Column(size=2000)
 	private String content;//缺陷描述
 	
@@ -39,13 +48,17 @@ public class Bug extends BizEntity {
 	private String service;//开发说明
 	
 	private Importance importance = Importance.general;//重要性
+	
 	private Urgency urgency = Urgency.general;//紧急性
 	
 	@Column(name="estimate_hours")
 	private Double estimateHours;//估时，以小时为单位
+	
 	@Column(name="actual_hours")
 	private Double actualHours;//实际耗时，以小时为单位
 	
+	@Column(name="file_path",size=200)
+	private String filePath;
 	
 	public StoryStatus getStatus() {
 		return status;
@@ -146,5 +159,23 @@ public class Bug extends BizEntity {
 		else{
 			this.developerId=this.developer.getId();
 		}
+	}
+	public String getFilePath() {
+		return filePath;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+	public Integer getProjectId() {
+		return projectId;
+	}
+	public void setProjectId(Integer projectId) {
+		this.projectId = projectId;
+	}
+	public Project getProject() {
+		return project;
+	}
+	public void setProject(Project project) {
+		this.project = project;
 	}
 }

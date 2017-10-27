@@ -19,6 +19,7 @@ import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.entity.PReference;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.scrum.entity.Bug;
+import org.netsharp.scrum.entity.Project;
 
 public class BugWorkspaceTest  extends WorkspaceCreationBase {
 	
@@ -51,7 +52,9 @@ public class BugWorkspaceTest  extends WorkspaceCreationBase {
 		datagrid.setPageSize(25);
 
 		addColumn(datagrid, "code", "编码", ControlTypes.TEXT_BOX, 100, true);
+		addColumn(datagrid, "project.name", "项目", ControlTypes.TEXT_BOX, 150, true);
 		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 200, true);
+		
 		addColumn(datagrid, "status", "状态", ControlTypes.ENUM_BOX, 100, true);
 		addColumn(datagrid, "importance", "重要性", ControlTypes.ENUM_BOX, 100);
 		addColumn(datagrid, "urgency", "紧急性", ControlTypes.ENUM_BOX, 100);
@@ -117,6 +120,20 @@ public class BugWorkspaceTest  extends WorkspaceCreationBase {
 
 			queryProject.getQueryItems().add(item);
 		}
+		
+		item = new PQueryItem();
+		{
+			item.toNew();
+			item.setPropertyName("project.name");
+			item.setHeader("项目");
+			item.setControlType(ControlTypes.REFERENCE_BOX);
+
+			IPReferenceService referenceService = ServiceFactory.create(IPReferenceService.class);
+			PReference reference = referenceService.byCode(Project.class.getSimpleName());
+			item.setReference(reference);
+			queryProject.getQueryItems().add(item);
+		}
+		
 
 		item = new PQueryItem();
 		{
@@ -167,6 +184,14 @@ public class BugWorkspaceTest  extends WorkspaceCreationBase {
 
 		PFormField field = null;
 
+		
+		field = addFormField(form, "project.name", "项目", ControlTypes.REFERENCE_BOX, true, false);
+		{
+			IPReferenceService referenceService = ServiceFactory.create(IPReferenceService.class);
+			PReference reference = referenceService.byCode(Project.class.getSimpleName());
+			//Assert.isTrue(reference!=null);
+			field.setReference(reference);
+		}
 		addFormField(form, "code", "编码", ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "name", "名称", ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "status", "状态", ControlTypes.ENUM_BOX, true, false);
@@ -199,7 +224,9 @@ public class BugWorkspaceTest  extends WorkspaceCreationBase {
 			//Assert.isTrue(reference!=null);
 			field.setReference(reference);
 		}
-
+		
+		field = addFormField(form, "filePath", "图片",ControlTypes.QINIUUPLOAD, false, false);
+		
 		field = addFormField(form, "content", "缺陷内容", ControlTypes.TEXTAREA, false, false);
 		{
 			field.setHeight(200);
