@@ -1,10 +1,12 @@
 package org.netsharp.scrum.entity;
 
+import org.netsharp.core.annotations.BizCode;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.scrum.dic.ProjectStatus;
 
+@BizCode(bizType="PJ")
 @Table(name="scrum_project",header="项目")
 public class Project extends TaskBase {
 

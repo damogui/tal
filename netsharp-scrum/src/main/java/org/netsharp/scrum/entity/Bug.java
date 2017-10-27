@@ -1,5 +1,6 @@
 package org.netsharp.scrum.entity;
 
+import org.netsharp.core.annotations.BizCode;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
@@ -9,6 +10,7 @@ import org.netsharp.scrum.dic.Importance;
 import org.netsharp.scrum.dic.StoryStatus;
 import org.netsharp.scrum.dic.Urgency;
 
+@BizCode(bizType="BUG")
 @Table(name="scrum_bug",header="研发缺陷")
 public class Bug extends BizEntity {
 	

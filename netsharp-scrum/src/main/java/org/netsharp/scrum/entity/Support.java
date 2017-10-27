@@ -1,5 +1,6 @@
 package org.netsharp.scrum.entity;
 
+import org.netsharp.core.annotations.BizCode;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
@@ -10,6 +11,7 @@ import org.netsharp.scrum.dic.StoryStatus;
 import org.netsharp.scrum.dic.SupportType;
 import org.netsharp.scrum.dic.Urgency;
 
+@BizCode(bizType="SU")
 @Table(name="scrum_support",header="服务支持")
 public class Support extends BizEntity {
 

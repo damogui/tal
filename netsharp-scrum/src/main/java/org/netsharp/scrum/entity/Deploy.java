@@ -2,12 +2,14 @@ package org.netsharp.scrum.entity;
 
 import java.util.Date;
 
+import org.netsharp.core.annotations.BizCode;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.BizEntity;
 import org.netsharp.organization.entity.Employee;
 
+@BizCode(bizType="DP")
 @Table(name="scrum_deploy_plan",header="部署计划")
 public class Deploy extends BizEntity{
 	

@@ -2,10 +2,12 @@ package org.netsharp.scrum.entity;
 
 import java.util.Date;
 
+import org.netsharp.core.annotations.BizCode;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.BizEntity;
 
+@BizCode(bizType="IT")
 @Table(name="scrum_iteration",header="迭代")
 public class Iteration extends BizEntity {
 	

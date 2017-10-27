@@ -2,10 +2,12 @@ package org.netsharp.scrum.entity;
 
 import java.util.Date;
 
+import org.netsharp.core.annotations.BizCode;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.BizEntity;
 
+@BizCode(bizType="GO")
 @Table(name="scrum_goal",header="目标")
 public class Goal  extends BizEntity {
 	

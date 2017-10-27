@@ -3,6 +3,7 @@ package org.netsharp.scrum.entity;
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.netsharp.core.annotations.BizCode;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
@@ -10,6 +11,7 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.organization.entity.Organization;
 import org.netsharp.scrum.dic.StoryStatus;
 
+@BizCode(bizType="ST")
 @Table(name="scrum_story",header="用户任务")
 public class Story extends TaskBase {
 	
