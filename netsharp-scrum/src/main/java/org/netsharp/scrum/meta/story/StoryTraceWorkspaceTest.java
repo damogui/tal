@@ -7,6 +7,7 @@ import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.panda.base.IPReferenceService;
 import org.netsharp.panda.controls.ControlTypes;
+import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.dic.OrderbyMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
@@ -38,6 +39,10 @@ public class StoryTraceWorkspaceTest extends WorkspaceCreationBase {
 		this.formServiceController=StoryTraceFormPart.class.getName();
 		this.formJsController=StoryTraceFormPart.class.getName();
 		this.formJsImport="/addins/scrum/StoryTraceFormPart.js";
+		
+		formOpenMode = OpenMode.WINDOW;
+		openWindowWidth = 700;
+		openWindowHeight = 500;
 	} 
 
 	@Override
@@ -91,7 +96,7 @@ public class StoryTraceWorkspaceTest extends WorkspaceCreationBase {
 		{
 			item.toNew();
 			item.setPropertyName("creator");
-			item.setHeader("创建人");
+			item.setHeader("跟进人");
 			item.setControlType(ControlTypes.TEXT_BOX);
 			
 			queryProject.getQueryItems().add(item);
@@ -101,7 +106,7 @@ public class StoryTraceWorkspaceTest extends WorkspaceCreationBase {
 		{
 			item.toNew();
 			item.setPropertyName("createTime");
-			item.setHeader("创建时间");
+			item.setHeader("跟进时间");
 			item.setControlType(ControlTypes.DATE_BOX);
 			
 			queryProject.getQueryItems().add(item);
@@ -123,14 +128,15 @@ public class StoryTraceWorkspaceTest extends WorkspaceCreationBase {
 			PReference reference = referenceService.byCode(Story.class.getSimpleName());
 			//Assert.isTrue(reference!=null);
 			field.setReference(reference);
-			field.setFullColumn(true);
-			field.setWidth(600);
 		}
+		
+		 addFormField(form, "creator", "跟进人", ControlTypes.TEXT_BOX, false, true);
+		 
+		 addFormField(form, "createTime", "跟进时间", ControlTypes.TEXT_BOX, false, true);
 		
 		field = addFormField(form, "content", "内容", ControlTypes.TEXTAREA, false, false);
 		field.setHeight(300);
 		field.setWidth(600);
-		field.setFullColumn(false);
 		return form;
 	}
 }
