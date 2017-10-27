@@ -14,16 +14,15 @@ public class StoryTraceFormPart extends FormPart {
 	public IPersistable newInstance(Object par) {
 
 		this.getService();
-
 		IPersistable entity = this.service.newInstance();
 		StoryTrace trace = (StoryTrace)entity;
 		
 		if(par!=null){
-			int projectId = Integer.valueOf(par.toString());
 			
+			int storyId = Integer.valueOf(par.toString());
 			IStoryService prjService = ServiceFactory.create(IStoryService.class);
-			Story project = prjService.byId(projectId);
-			
+			Story project = prjService.byId(storyId);
+			trace.setStoryId(storyId);
 			trace.setStory(project);	
 		}
 
