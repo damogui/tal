@@ -143,21 +143,15 @@ function QiniuJsSDK() {
     }
 
 
-    var qiniuUploadUrl;
+    var qiniuUploadUrl;    
     if (window.location.protocol === 'https:') {
-        qiniuUploadUrl = 'https://up.qbox.me';
+        qiniuUploadUrl = 'https://up-z1.qbox.me';
     } else {
-        qiniuUploadUrl = 'http://upload.qiniu.com';
+        qiniuUploadUrl = 'http://up-z1.qiniu.com';
     }
-
-    /**
-     * qiniu upload urls
-     * 'qiniuUploadUrls' is used to change target when current url is not avaliable
-     * @type {Array}
-     */
     var qiniuUploadUrls = [
-        "http://upload.qiniu.com",
-        "http://up.qiniu.com",
+        "http://upload-z1.qiniu.com",
+        "http://up-z1.qiniu.com",
     ];
 
     var changeUrlTimes = 0;

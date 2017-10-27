@@ -150,8 +150,6 @@ org.netsharp.controls.QiNiuUpload = org.netsharp.controls.TextBox.Extends({
 		var uploader = Qiniu.uploader({
 			runtimes: 'html5,flash,html4',
 			browse_button: buttonId,
-//			container: 'controllersmartShopToolbar',
-//			drop_element: 'controllersmartShopToolbar',
 			max_file_size: '1000mb',
 			flash_swf_url: 'plupload/Moxie.swf',
 			dragdrop: true,
@@ -176,7 +174,7 @@ org.netsharp.controls.QiNiuUpload = org.netsharp.controls.TextBox.Extends({
 				return token;
 			},
 
-			domain: 'http://cdn2.yikuaixiu.com/',
+			domain: 'http://o9sowo9h1.bkt.clouddn.com/',
 			get_new_uptoken: true,
 			// downtoken_url: '/downtoken',
 			// unique_names: true,
@@ -207,7 +205,7 @@ org.netsharp.controls.QiNiuUpload = org.netsharp.controls.TextBox.Extends({
 
 				},
 				'FileUploaded': function(up, file, info) {
-					var url = 'http://cdn2.yikuaixiu.com/' + file.id;
+					var url = 'http://o9sowo9h1.bkt.clouddn.com/' + file.id;
 					$("#" + me.propertyName).filebox("setText", url);
 				},
 				'Error': function(up, err, errTip) {
