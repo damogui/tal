@@ -1,9 +1,15 @@
 package org.netsharp.scrum.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.netsharp.communication.Service;
+import org.netsharp.core.EntityState;
 import org.netsharp.scrum.base.IStoryService;
 import org.netsharp.scrum.entity.Story;
+import org.netsharp.scrum.entity.StoryParticipant;
 import org.netsharp.service.PersistableService;
+import org.netsharp.util.StringManager;
 
 @Service
 public class StoryService extends PersistableService<Story> implements IStoryService {
@@ -17,6 +23,22 @@ public class StoryService extends PersistableService<Story> implements IStorySer
 	public Story save(Story entity) {
 
 //		EntityState state = entity.getEntityState();
+		
+		if(entity.getEntityState() != EntityState.Deleted){
+
+			if(entity.getParticipants()!= null && entity.getParticipants().size() >0){
+				
+				List<String> ss = new ArrayList<String>();
+				for(StoryParticipant sp :entity.getParticipants()){
+					
+					ss.add(sp.getParticipant().getName());
+				}
+				
+				String participants = StringManager.join(",",ss);
+				entity.setParticipantStr(participants);
+			}
+		}
+		
 
 		super.save(entity);
 

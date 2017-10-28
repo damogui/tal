@@ -57,11 +57,11 @@ public class StoryTraceWorkspaceTest extends WorkspaceCreationBase {
 		
 		PDatagrid datagrid = super.createDatagrid(node);
 		datagrid.setPageSize(25);
-		
-		addColumn(datagrid, "story.name", "项目", ControlTypes.TEXT_BOX, 200, true);
+		addColumn(datagrid, "story.project.name", "项目", ControlTypes.TEXT_BOX, 150);
+		addColumn(datagrid, "story.name", "任务", ControlTypes.TEXT_BOX, 150);
 		addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 150);
-		addColumn(datagrid, "content", "内容", ControlTypes.TEXTAREA, 500, true);
-		PDatagridColumn column = addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATE_BOX, 150);
+		addColumn(datagrid, "content", "内容", ControlTypes.TEXTAREA, 500);
+		PDatagridColumn column = addColumn(datagrid, "createTime", "跟进时间", ControlTypes.DATE_BOX, 150);
 		column.setOrderbyMode(OrderbyMode.DESC);
 		
 		return datagrid;

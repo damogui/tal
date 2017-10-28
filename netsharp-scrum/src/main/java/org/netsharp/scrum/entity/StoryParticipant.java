@@ -27,6 +27,9 @@ public class StoryParticipant extends Entity {
 	@Column(name="estimate_hours")
 	private Double estimateHours;//估时，以小时为单位
 	
+    @Column(name = "memoto",header="备注", size = 1000)
+    private String memoto;
+    
 	public Integer storyId() {
 		return storyId;
 	}
@@ -71,6 +74,17 @@ public class StoryParticipant extends Entity {
 	public void setEstimateHours(Double estimateHours) {
 		this.estimateHours = estimateHours;
 	}
-	
+	public Integer getStoryId() {
+		return storyId;
+	}
+	public void setStoryId(Integer storyId) {
+		this.storyId = storyId;
+	}
+	public String getMemoto() {
+		return memoto;
+	}
+	public void setMemoto(String memoto) {
+		this.memoto = memoto;
+	}
 	
 }

@@ -44,6 +44,9 @@ public class Story extends TaskBase {
 	@Subs(subType=StoryParticipant.class,foreignKey="storyId")
 	private List<StoryParticipant> participants;
 	
+	@Column(name="participant_str")
+	private String participantStr;
+	
 	public StoryStatus getStatus() {
 		return status;
 	}
@@ -123,6 +126,13 @@ public class Story extends TaskBase {
 	public void setOrganization(Organization organization) {
 		this.organization = organization;
 	}
-	
+
+	public String getParticipantStr() {
+		return participantStr;
+	}
+
+	public void setParticipantStr(String participantStr) {
+		this.participantStr = participantStr;
+	}
 	
 }

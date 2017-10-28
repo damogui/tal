@@ -53,16 +53,16 @@ public class StoryWorkspaceTest extends WorkspaceCreationBase {
 
 		datagrid.setPageSize(25);
 
-		addColumn(datagrid, "code", "编码", ControlTypes.TEXT_BOX, 100, true);
+		addColumn(datagrid, "code", "编码", ControlTypes.TEXT_BOX, 150, true);
+		addColumn(datagrid, "status", "状态", ControlTypes.ENUM_BOX, 80);
 		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 300, true);
-		addColumn(datagrid, "iteration.name", "迭代", ControlTypes.TEXT_BOX, 150);
+		addColumn(datagrid, "iteration.name", "迭代", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "project.name", "项目", ControlTypes.TEXT_BOX, 150);
 		addColumn(datagrid, "project.product.name", "产品", ControlTypes.TEXT_BOX, 150);
 		addColumn(datagrid, "project.deploy.name", "上线计划", ControlTypes.TEXT_BOX, 150);
 		addColumn(datagrid, "project.deploy.deployTime", "上线日期", ControlTypes.TEXT_BOX, 150);
-		addColumn(datagrid, "organization.name", "部门", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "owner.name", "负责人", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "status", "任务状态", ControlTypes.ENUM_BOX, 100);
+		addColumn(datagrid, "participantStr", "参与者", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "bizUser.name", "客户", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "csr", "客户满意度", ControlTypes.ENUM_BOX, 100);
 		addColumn(datagrid, "importance", "重要性", ControlTypes.ENUM_BOX, 100);
@@ -240,7 +240,7 @@ public class StoryWorkspaceTest extends WorkspaceCreationBase {
 		PDatagridColumn column = null;
 		addColumn(datagrid, "participant.name", "参与者", ControlTypes.TEXT_BOX, 150);
 		addColumn(datagrid, "estimateHours", "估时(小时)", ControlTypes.NUMBER_BOX, 100);
-		
+		addColumn(datagrid, "memoto", "说明", ControlTypes.NUMBER_BOX, 300);
 		PPart part = new PPart();
 		{
 			part.setCode("participants");
@@ -280,6 +280,7 @@ public class StoryWorkspaceTest extends WorkspaceCreationBase {
 		PFormField field = null;
 		field = addFormFieldRefrence(form, "participant.name", "参与者", null,  Employee.class.getSimpleName(), true, false);
 		addFormField(form, "estimateHours", "估时(小时)", null, ControlTypes.NUMBER_BOX, true, false);
+		addFormField(form, "memoto", "说明", null, ControlTypes.TEXTAREA, false, false);
 		return form;
 	}
 	
