@@ -207,6 +207,7 @@ org.netsharp.controls.QiNiuUpload = org.netsharp.controls.TextBox.Extends({
 				'FileUploaded': function(up, file, info) {
 					var url = 'http://o9sowo9h1.bkt.clouddn.com/' + file.id;
 					$("#" + me.propertyName).filebox("setText", url);
+					me.preview(url);
 				},
 				'Error': function(up, err, errTip) {
 					IMessageBox.info('服务器繁忙，请刷新重试!' + errTip);
@@ -231,6 +232,8 @@ org.netsharp.controls.QiNiuUpload = org.netsharp.controls.TextBox.Extends({
 			propertyValue = "";
 		}
 		$("#" + this.propertyName).filebox("setText", propertyValue);
+		
+		this.preview(propertyValue);
 	},
 
 	clear: function() {
@@ -241,6 +244,15 @@ org.netsharp.controls.QiNiuUpload = org.netsharp.controls.TextBox.Extends({
 	},
 	enable: function() {
 		$("#" + this.propertyName).filebox("enable");
+	},
+	preview:function(path){
+		if(System.isnull(path)){
+			
+			return;
+		}
+	    var filebox = $(this.uiElement).next();
+	    filebox.parent().find('.btn-preview').remove();
+	    filebox.after('<a target="_blank" href="'+path+'" class="btn-preview">预览</a>');
 	}
 });
 
