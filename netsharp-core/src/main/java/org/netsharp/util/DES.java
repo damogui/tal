@@ -6,7 +6,7 @@ import org.netsharp.core.NetsharpException;
 
 public class DES {
 
-//	private final static String DES = "DES";
+//	private final static String DES  = "DES";
 	private static String key = null;
 
 	public static String getKey() {
