@@ -192,7 +192,7 @@ public class BugWorkspaceTest  extends WorkspaceCreationBase {
 			//Assert.isTrue(reference!=null);
 			field.setReference(reference);
 		}
-		addFormField(form, "code", "编码", ControlTypes.TEXT_BOX, true, false);
+		addFormField(form, "code", "编码", ControlTypes.TEXT_BOX, false, true);
 		addFormField(form, "name", "名称", ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "status", "状态", ControlTypes.ENUM_BOX, true, false);
 		field = addFormField(form, "importance", "重要性", ControlTypes.ENUM_BOX, false, false);

@@ -53,13 +53,13 @@ public class IterationWorkspaceTest extends WorkspaceCreationBase {
 		PForm form = new PForm(node, MtableManager.getMtable(entity).getName());
 		form.setColumnCount(3);
 
-		addFormField(form, "code", "编码", ControlTypes.TEXT_BOX, true, false);
+		addFormField(form, "code", "编码", ControlTypes.TEXT_BOX, false, true);
 		addFormField(form, "name", "名称", ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "isCurrent", "当前迭代", ControlTypes.CHECK_BOX, false, false);
-		addFormField(form, "startTime", "开始时间", ControlTypes.DATE_BOX, false, false);
-		addFormField(form, "endTime", "结束时间", ControlTypes.DATE_BOX, false, false);
+		addFormField(form, "startTime", "开始时间", ControlTypes.DATE_BOX, true, false);
+		addFormField(form, "endTime", "结束时间", ControlTypes.DATE_BOX, true, false);
 		
-		PFormField field = addFormField(form, "content", "正文", ControlTypes.TEXTAREA, false, false);
+		PFormField field = addFormField(form, "content", "正文", ControlTypes.TEXTAREA, true, false);
 		{
 			field.setFullColumn(true);
 			field.setHeight(200);

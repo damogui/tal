@@ -8,15 +8,12 @@ import org.netsharp.authorization.UserPermissionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
-import org.netsharp.entity.IEntity;
 import org.netsharp.notify.INotifyervice;
 import org.netsharp.organization.entity.Employee;
-import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.scrum.base.IBugService;
 import org.netsharp.scrum.entity.Bug;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.DateManage;
-import org.netsharp.util.ReflectManager;
 import org.netsharp.util.StringManager;
 
 @Service
