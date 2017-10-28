@@ -1,152 +1,148 @@
 package com.gongsibao.taurus.entity;
 
-
-/**   
- * @ClassName:  Tm   
+/**
+ * @ClassName: Tm
  * @Description:TODO 商标
  * @author: 韩伟
- * @date:   2017年10月19日 上午11:12:36   
- *     
- * @Copyright: 2017 www.netsharp.org Inc. All rights reserved. 
+ * @date: 2017年10月19日 上午11:12:36
+ * 
+ * @Copyright: 2017 www.netsharp.org Inc. All rights reserved.
  */
-public class Tm implements IEntity{
+public class Tm implements IEntity {
 
-	/**   
-	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
-	 */   
+	/**
+	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
+	 */
 	private static final long serialVersionUID = -81645783403246227L;
-
 
 	/**
 	 * @Fields name : TODO(id)
 	 */
 	private int id;
-	
 
 	/**
 	 * @Fields name : TODO(登记号)
 	 */
 	private String regNo;
-	
 
 	/**
 	 * @Fields name : TODO(商标分类)
 	 */
 	private String classify;
-	
 
 	/**
 	 * @Fields name : TODO(商标名称)
 	 */
 	private String tmName;
-	
 
 	/**
 	 * @Fields name : TODO(商标所有者)
 	 */
 	private String applicantCn;
-	 
-	 
+
 	/**
 	 * @Fields name : TODO( 状态)
 	 */
 	private String status;
-	 
-	
-	/**   
-	 * @Fields agent : TODO(用一句话描述这个变量表示什么)   
-	 */   
+
+	/**
+	 * @Fields agent : TODO(用一句话描述这个变量表示什么)
+	 */
 	private String agent;
-	
-	/**   
-	 * @Fields color : TODO(用一句话描述这个变量表示什么)   
-	 */   
+
+	/**
+	 * @Fields color : TODO(用一句话描述这个变量表示什么)
+	 */
 	private String color;
-	
-	/**   
-	 * @Fields announcemenIssue : TODO(用一句话描述这个变量表示什么)   
-	 */   
+
+	/**
+	 * @Fields announcemenIssue : TODO(用一句话描述这个变量表示什么)
+	 */
 	private int announcemenIssue;
-	
-	/**   
-	 * @Fields announcementDate : TODO(用一句话描述这个变量表示什么)   
-	 */   
+
+	/**
+	 * @Fields announcementDate : TODO(用一句话描述这个变量表示什么)
+	 */
 	private String announcementDate;
-	
-	/**   
-	 * @Fields regDate : TODO(用一句话描述这个变量表示什么)   
-	 */   
+
+	/**
+	 * @Fields regDate : TODO(用一句话描述这个变量表示什么)
+	 */
 	private String regDate;
-	
-	/**   
-	 * @Fields appDate : TODO(用一句话描述这个变量表示什么)   
-	 */   
+
+	/**
+	 * @Fields appDate : TODO(用一句话描述这个变量表示什么)
+	 */
 	private String appDate;
-	
-	/**   
-	 * @Fields applicantEn : TODO(用一句话描述这个变量表示什么)   
-	 */   
+
+	/**
+	 * @Fields applicantEn : TODO(用一句话描述这个变量表示什么)
+	 */
 	private String applicantEn;
-	
-	/**   
-	 * @Fields applicantOther1 : TODO(用一句话描述这个变量表示什么)   
-	 */   
+
+	/**
+	 * @Fields applicantOther1 : TODO(用一句话描述这个变量表示什么)
+	 */
 	private String applicantOther1;
-	
-	/**   
-	 * @Fields intCls : TODO(用一句话描述这个变量表示什么)   
-	 */   
+
+	/**
+	 * @Fields intCls : TODO(用一句话描述这个变量表示什么)
+	 */
 	private int intCls;
-	
-	/**   
-	 * @Fields applicantOther2 : TODO(用一句话描述这个变量表示什么)   
-	 */   
+
+	/**
+	 * @Fields applicantOther2 : TODO(用一句话描述这个变量表示什么)
+	 */
 	private String applicantOther2;
-	
-	/**   
-	 * @Fields yxqrq : TODO(用一句话描述这个变量表示什么)   
-	 */   
+
+	/**
+	 * @Fields yxqrq : TODO(用一句话描述这个变量表示什么)
+	 */
 	private String yxqrq;
-	
-	/**   
-	 * @Fields privateDateStart : TODO(用一句话描述这个变量表示什么)   
-	 */   
+
+	/**
+	 * @Fields privateDateStart : TODO(用一句话描述这个变量表示什么)
+	 */
 	private String privateDateStart;
-	
-	/**   
-	 * @Fields gjzcrq : TODO(用一句话描述这个变量表示什么)   
-	 */   
+
+	/**
+	 * @Fields gjzcrq : TODO(用一句话描述这个变量表示什么)
+	 */
 	private String gjzcrq;
-	
-	/**   
-	 * @Fields hqzdrq : TODO(用一句话描述这个变量表示什么)   
-	 */   
+
+	/**
+	 * @Fields hqzdrq : TODO(用一句话描述这个变量表示什么)
+	 */
 	private String hqzdrq;
-	
-	/**   
-	 * @Fields category : TODO(用一句话描述这个变量表示什么)   
-	 */   
+
+	/**
+	 * @Fields category : TODO(用一句话描述这个变量表示什么)
+	 */
 	private int category;
-	
-	/**   
-	 * @Fields regIssue : TODO(用一句话描述这个变量表示什么)   
-	 */   
+
+	/**
+	 * @Fields regIssue : TODO(用一句话描述这个变量表示什么)
+	 */
 	private int regIssue;
-	
-	/**   
-	 * @Fields addressEn : TODO(用一句话描述这个变量表示什么)   
-	 */   
+
+	/**
+	 * @Fields addressEn : TODO(用一句话描述这个变量表示什么)
+	 */
 	private String addressEn;
-	
-	/**   
-	 * @Fields privateDateEnd : TODO(用一句话描述这个变量表示什么)   
-	 */   
+
+	/**
+	 * @Fields privateDateEnd : TODO(用一句话描述这个变量表示什么)
+	 */
 	private String privateDateEnd;
-	
-	/**   
-	 * @Fields addressCn : TODO(用一句话描述这个变量表示什么)   
-	 */   
+
+	/**
+	 * @Fields addressCn : TODO(用一句话描述这个变量表示什么)
+	 */
 	private String addressCn;
+
+	private String path;
+
+	private Tmdesc tmdesc;
 
 	public int getId() {
 		return id;
@@ -346,5 +342,26 @@ public class Tm implements IEntity{
 
 	public void setAddressCn(String addressCn) {
 		this.addressCn = addressCn;
+	}
+
+	public Tmdesc getTmdesc() {
+		return tmdesc;
+	}
+
+	public void setTmdesc(Tmdesc tmdesc) {
+		this.tmdesc = tmdesc;
+	}
+
+	public String getPath() {
+
+		if (path != null && path != "" && !path.contains("http:")) {
+
+			path = "http://www.telecredit.cn/groupvsp/" + path;
+		}
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
 	}
 }

@@ -1,6 +1,8 @@
 package org.netsharp.meta.platform;
 
 import org.netsharp.autoencoder.entity.Encoder;
+import org.netsharp.autoencoder.entity.EncoderRule;
+import org.netsharp.autoencoder.entity.EncoderType;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
@@ -10,10 +12,10 @@ import org.netsharp.panda.dic.OrderbyMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PForm;
-import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PPart;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.entity.PWorkspace;
+import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
@@ -39,14 +41,14 @@ public class EncoderWorkspaceTest  extends WorkspaceCreationBase{
 		
 		PDatagridColumn column = null;
 		addColumn(datagrid, "code", "编码", ControlTypes.TEXT_BOX, 80,true);
-		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 100,true);
+		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 150,true);
 		addColumn(datagrid, "billType", "单据类型", ControlTypes.TEXT_BOX,100, true);
-		addColumn(datagrid, "entityType", "实体类型", ControlTypes.TEXT_BOX,100, true);
+		addColumn(datagrid, "entityType", "实体类型", ControlTypes.TEXT_BOX,300, true);
 		addColumn(datagrid, "expandClassName", "扩展规则类", ControlTypes.TEXT_BOX,100, false);
 		addColumn(datagrid, "dateFormat", "日期格式",ControlTypes.TEXT_BOX,80, false);
 		addColumn(datagrid, "totalLength", "总长度", ControlTypes.NUMBER_BOX,80, false);
 		addColumn(datagrid, "sequenceLength", "序列长度", ControlTypes.NUMBER_BOX,80, false);		
-		addColumn(datagrid, "isPolishing", "是否补齐", ControlTypes.CHECK_BOX,50, false);
+		addColumn(datagrid, "isPolishing", "是否补齐", ControlTypes.BOOLCOMBO_BOX,60, false);
 		addColumn(datagrid, "updator", "最后修改人", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "updateTime", "最后修改时间", ControlTypes.DATETIME_BOX, 150, false);
 		addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 100, false);
@@ -73,11 +75,15 @@ public class EncoderWorkspaceTest  extends WorkspaceCreationBase{
 	@Override
 	protected void addDetailGridPart(PWorkspace workspace) {
 
-		ResourceNode node = this.resourceService.byCode(PFormField.class.getSimpleName());
+		ResourceNode node = this.resourceService.byCode(EncoderRule.class.getSimpleName());
 		PDatagrid datagrid = new PDatagrid(node, "编码规则");
 		datagrid.setShowTitle(true);
 		addColumn(datagrid, "rowNum", "行号", ControlTypes.NUMBER_BOX, 150);
-		addColumn(datagrid, "rowType", "类别", ControlTypes.ENUM_BOX, 80);
+		PDatagridColumn column = addColumn(datagrid, "rowType", "类别", ControlTypes.ENUM_BOX, 80);{
+			
+			String formatter = EnumUtil.getColumnFormatter(EncoderType.class);
+			column.setFormatter(formatter);
+		}
 		addColumn(datagrid, "ruleFormat", "格式", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "ruleDetail", "内容", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "ruleLength", "长度", ControlTypes.NUMBER_BOX, 80);

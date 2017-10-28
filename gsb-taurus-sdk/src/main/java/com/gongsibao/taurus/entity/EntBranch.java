@@ -1,5 +1,7 @@
 package com.gongsibao.taurus.entity;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 
 /**   
  * @ClassName:  EntBranch   
@@ -25,7 +27,9 @@ public class EntBranch implements IEntity{
 	
 	/**   
 	 * @Fields name : TODO(分支机构名称)   
-	 */   
+	 */
+	
+	@JsonProperty("entName")
 	private String name;
 
 	public String getId() {

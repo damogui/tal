@@ -11,6 +11,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import com.gongsibao.taurus.TaurusException;
 import com.gongsibao.taurus.WebClient;
 import com.gongsibao.taurus.message.ResponseMessage;
+import com.gongsibao.taurus.message.response.EntShareholderResponseMessage;
 import com.gongsibao.taurus.util.ConfigHelper;
 import com.gongsibao.taurus.util.MD5Util;
 import com.gongsibao.taurus.util.StringManager;
@@ -135,6 +136,15 @@ public abstract class AbstractApi<T extends ResponseMessage<?>> {
 
 			return null;
 		}
+		
+		//接口返回不规范，特殊处理。hw 2017-10-25
+		Class<?> responseTypeClass = getResponseType();
+		if(responseTypeClass.equals(EntShareholderResponseMessage.class)){
+			
+			json = json.replaceAll("\"paidIn\":\"-\"", "\"paidIn\":[]");
+			json = json.replaceAll("\"subcribe\":\"-\"", "\"subcribe\":[]");
+		}
+
 		// System.out.println(json);
 		T response = null;
 
