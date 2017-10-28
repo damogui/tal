@@ -26,7 +26,7 @@ public class EncoderRule extends Entity implements Serializable {
     @JsonIgnore
 	private Encoder encoder;
 
-	@Column(name = "row_type", typeName = "char", defaultValue = "A", size = 1,header="类别 A : 固定文本, B：日期 , C：序列")
+	@Column(name = "row_type", typeName = "char", defaultValue = "1", size = 1,header="类别 A : 固定文本, B：日期 , C：序列")
 	private EncoderType rowType;
 	
 	@Column(name = "rule_format",header="格式")
