@@ -4,7 +4,7 @@ import org.netsharp.wx.qy.Request;
 
 public class UserDeleteRequest extends Request<UserDeleteResponse> {
 
-	private Integer userid;
+	private String userid;
 
 	public UserDeleteRequest() {
 		super();
@@ -24,11 +24,11 @@ public class UserDeleteRequest extends Request<UserDeleteResponse> {
 		return "https://qyapi.weixin.qq.com/cgi-bin/user/delete?access_token=" + this.getAccessToken() + "&userid=" + this.getUserid();
 	}
 
-	public Integer getUserid() {
+	public String getUserid() {
 		return userid;
 	}
 
-	public void setUserid(Integer userid) {
+	public void setUserid(String userid) {
 		this.userid = userid;
 	}
 

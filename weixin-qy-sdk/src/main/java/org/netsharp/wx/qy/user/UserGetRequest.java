@@ -4,7 +4,7 @@ import org.netsharp.wx.qy.Request;
 
 public class UserGetRequest extends Request<UserGetResponse> {
 
-	private Integer userid;
+	private String userid;
 
 	public UserGetRequest() {
 		super();
@@ -24,11 +24,11 @@ public class UserGetRequest extends Request<UserGetResponse> {
 		return "https://qyapi.weixin.qq.com/cgi-bin/user/get?access_token=" + this.getAccessToken() + "&userid=" + this.userid;
 	}
 
-	public Integer getUserid() {
+	public String getUserid() {
 		return userid;
 	}
 
-	public void setUserid(Integer userid) {
+	public void setUserid(String userid) {
 		this.userid = userid;
 	}
 
