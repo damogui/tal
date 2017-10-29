@@ -8,13 +8,13 @@ import org.netsharp.authorization.UserPermissionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
-import org.netsharp.notify.INotifyervice;
 import org.netsharp.organization.entity.Employee;
 import org.netsharp.scrum.base.IBugService;
 import org.netsharp.scrum.entity.Bug;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.DateManage;
 import org.netsharp.util.StringManager;
+import org.netsharp.wx.ea.base.IEaMessageService;
 
 @Service
 public class BugService extends PersistableService<Bug> implements IBugService {
@@ -51,7 +51,7 @@ public class BugService extends PersistableService<Bug> implements IBugService {
 	
 	private void sendWxMessage(Bug entity,String operation){
 
-		INotifyervice wxpa = ServiceFactory.create(INotifyervice.class);
+		IEaMessageService eMessageService = ServiceFactory.create(IEaMessageService.class);
 		List<String> ss = new ArrayList<String>();
 		String executor = UserPermissionManager.getUserPermission().getEmployee().getName();
 		ss.add(executor + operation + "了BUG");
@@ -72,7 +72,7 @@ public class BugService extends PersistableService<Bug> implements IBugService {
 			ls.add(entity.getDeveloper().getMobile());
 
 			//wxpa.send("SCRUM", content, StringManager.join("|", ls));
-			wxpa.send("SCRUM", content, StringManager.join("|", ls));
+			eMessageService.send("SCRUM", content, StringManager.join("|", ls));
 		}
 	}
 

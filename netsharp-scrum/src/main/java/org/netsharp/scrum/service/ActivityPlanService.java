@@ -9,12 +9,12 @@ import java.util.List;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
-import org.netsharp.notify.INotifyervice;
 import org.netsharp.scrum.base.IActivityPlanService;
 import org.netsharp.scrum.entity.ActivityPlan;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.DateManage;
 import org.netsharp.util.StringManager;
+import org.netsharp.wx.ea.base.IEaMessageService;
 
 @Service
 public class ActivityPlanService extends PersistableService<ActivityPlan> implements IActivityPlanService {
@@ -33,7 +33,7 @@ public class ActivityPlanService extends PersistableService<ActivityPlan> implem
 
 		entity = this.pm.byId(entity);
 
-		INotifyervice wxpa = ServiceFactory.create(INotifyervice.class);
+		IEaMessageService eMessageService = ServiceFactory.create(IEaMessageService.class);
 
 		List<String> ss = new ArrayList<String>();
 
@@ -47,7 +47,7 @@ public class ActivityPlanService extends PersistableService<ActivityPlan> implem
 		}
 		String content = StringManager.join( ss );
 
-		wxpa.sendAll("SCRUM", content);
+		eMessageService.sendAll("SCRUM", content);
 
 		return entity;
 	}

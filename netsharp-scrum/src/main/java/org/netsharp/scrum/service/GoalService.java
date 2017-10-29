@@ -7,11 +7,11 @@ import org.netsharp.authorization.UserPermissionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
-import org.netsharp.notify.INotifyervice;
 import org.netsharp.scrum.base.IGoalService;
 import org.netsharp.scrum.entity.Goal;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.StringManager;
+import org.netsharp.wx.ea.base.IEaMessageService;
 
 @Service
 public class GoalService extends PersistableService<Goal> implements IGoalService {
@@ -29,7 +29,7 @@ public class GoalService extends PersistableService<Goal> implements IGoalServic
 
 		entity = this.pm.byId(entity);
 
-		INotifyervice wxpa = ServiceFactory.create(INotifyervice.class);
+		IEaMessageService eMessageService = ServiceFactory.create(IEaMessageService.class);
 
 		List<String> ss = new ArrayList<String>();
 
@@ -43,7 +43,7 @@ public class GoalService extends PersistableService<Goal> implements IGoalServic
 
 		String content = StringManager.join(StringManager.NewLine, ss);
 
-		wxpa.sendAll("SCRUM", content);
+		eMessageService.sendAll("SCRUM", content);
 
 		return entity;
 	}

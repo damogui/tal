@@ -8,12 +8,12 @@ import org.netsharp.authorization.UserPermissionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
-import org.netsharp.notify.INotifyervice;
 import org.netsharp.scrum.base.IDeployService;
 import org.netsharp.scrum.entity.Deploy;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.DateManage;
 import org.netsharp.util.StringManager;
+import org.netsharp.wx.ea.base.IEaMessageService;
 
 @Service
 public class DeployService extends PersistableService<Deploy> implements IDeployService {
@@ -31,7 +31,7 @@ public class DeployService extends PersistableService<Deploy> implements IDeploy
 
 		entity = this.pm.byId(entity);
 
-		INotifyervice wxpa = ServiceFactory.create(INotifyervice.class);
+		IEaMessageService eMessageService = ServiceFactory.create(IEaMessageService.class);
 
 		List<String> ss = new ArrayList<String>();
 
@@ -44,7 +44,7 @@ public class DeployService extends PersistableService<Deploy> implements IDeploy
 
 		String content = StringManager.join(StringManager.NewLine, ss);
 
-		wxpa.sendAll("SCRUM", content);
+		eMessageService.sendAll("SCRUM", content);
 
 		return entity;
 	}

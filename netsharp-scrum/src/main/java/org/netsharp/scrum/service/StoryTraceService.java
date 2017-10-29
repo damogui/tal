@@ -6,12 +6,12 @@ import java.util.List;
 import org.netsharp.authorization.UserPermissionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
-import org.netsharp.notify.INotifyervice;
 import org.netsharp.scrum.base.IStoryTraceService;
 import org.netsharp.scrum.entity.StoryTrace;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.DateManage;
 import org.netsharp.util.StringManager;
+import org.netsharp.wx.ea.base.IEaMessageService;
 
 @Service
 public class StoryTraceService extends PersistableService<StoryTrace> implements IStoryTraceService {
@@ -32,8 +32,8 @@ public class StoryTraceService extends PersistableService<StoryTrace> implements
 		ss.add(entity.getContent());
 		{
 			String content = StringManager.join(StringManager.NewLine, ss);
-			INotifyervice wxpaService = ServiceFactory.create(INotifyervice.class);
-			wxpaService.send("SCRUM", content,  UserPermissionManager.getUserPermission().getEmployee().getMobile());
+			IEaMessageService eMessageService = ServiceFactory.create(IEaMessageService.class);
+			eMessageService.send("SCRUM", content,  UserPermissionManager.getUserPermission().getEmployee().getMobile());
 		}
 		return entity;
 	}

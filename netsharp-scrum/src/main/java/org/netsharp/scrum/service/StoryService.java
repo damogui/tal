@@ -8,13 +8,13 @@ import org.netsharp.authorization.UserPermissionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
-import org.netsharp.notify.INotifyervice;
 import org.netsharp.scrum.base.IStoryService;
 import org.netsharp.scrum.entity.Story;
 import org.netsharp.scrum.entity.StoryParticipant;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.DateManage;
 import org.netsharp.util.StringManager;
+import org.netsharp.wx.ea.base.IEaMessageService;
 
 @Service
 public class StoryService extends PersistableService<Story> implements IStoryService {
@@ -76,8 +76,8 @@ public class StoryService extends PersistableService<Story> implements IStorySer
 			for (StoryParticipant pp : entity.getParticipants()) {
 				ls.add(pp.getParticipantId().toString());
 			}			
-			INotifyervice wxpaService = ServiceFactory.create(INotifyervice.class);
-			wxpaService.send("SCRUM", content, StringManager.join("|", ls));
+			IEaMessageService eMessageService = ServiceFactory.create(IEaMessageService.class);
+			eMessageService.send("SCRUM", content, StringManager.join("|", ls));
 		}
 		return entity;
 	}

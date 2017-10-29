@@ -8,12 +8,12 @@ import org.netsharp.authorization.UserPermissionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
-import org.netsharp.notify.INotifyervice;
 import org.netsharp.scrum.base.IIterationService;
 import org.netsharp.scrum.entity.Iteration;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.DateManage;
 import org.netsharp.util.StringManager;
+import org.netsharp.wx.ea.base.IEaMessageService;
 
 @Service
 public class IterationService extends PersistableService<Iteration> implements IIterationService {
@@ -32,7 +32,7 @@ public class IterationService extends PersistableService<Iteration> implements I
 
 		entity = this.pm.byId(entity);
 
-		INotifyervice wxpa = ServiceFactory.create(INotifyervice.class);
+		IEaMessageService eMessageService = ServiceFactory.create(IEaMessageService.class);
 
 		List<String> ss = new ArrayList<String>();
 
@@ -48,7 +48,7 @@ public class IterationService extends PersistableService<Iteration> implements I
 		{
 			String content = StringManager.join(StringManager.NewLine, ss);
 
-			wxpa.sendAll("SCRUM", content);
+			eMessageService.sendAll("SCRUM", content);
 		}
 
 		return entity;
