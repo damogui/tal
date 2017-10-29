@@ -43,7 +43,7 @@ public class WxeaMessageService extends PersistableService<WxeaMessage> implemen
 	}
 
 	private void updateTOUsers(WxeaMessage entity) {
-		String cmdText = "UPDATE wx_configuration SET to_user=(SELECT GROUP_CONCAT(DISTINCT receiver_id SEPARATOR '|') FROM wx_fix_receiver WHERE pmconfig_id=?) WHERE id=?";
+		String cmdText = "UPDATE wx_ea_configuration SET to_user=(SELECT GROUP_CONCAT(DISTINCT receiver_id SEPARATOR '|') FROM wx_ea_message_receiver WHERE pmconfig_id=?) WHERE id=?";
 		QueryParameters qps = new QueryParameters();
 		qps.add("@pmconfig_id", entity.getId(), Types.INTEGER);
 		qps.add("@id", entity.getId(), Types.INTEGER);
@@ -74,7 +74,7 @@ public class WxeaMessageService extends PersistableService<WxeaMessage> implemen
 
 	@Override
 	public String getFixReceiversByCode(String code) {
-		String cmdText = "SELECT GROUP_CONCAT(DISTINCT fix.receiver_id SEPARATOR '|') AS receivers FROM wx_configuration cnf LEFT JOIN wx_fix_receiver fix ON cnf.id=fix.pmconfig_id WHERE cnf.code=?";
+		String cmdText = "SELECT GROUP_CONCAT(DISTINCT fix.receiver_id SEPARATOR '|') AS receivers FROM wx_ea_configuration cnf LEFT JOIN wx_ea_message_receiver fix ON cnf.id=fix.pmconfig_id WHERE cnf.code=?";
 		QueryParameters qps = new QueryParameters();
 		qps.add("@code", code, Types.VARCHAR);
 		DataTable dt = this.pm.executeTable(cmdText, qps);
