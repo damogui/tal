@@ -55,7 +55,7 @@ public class OrganizationWorkspaceTest extends WorkspaceCreationBase {
 	@Test
 	@Override
 	public void run() {
-//		this.createToolbar();
+		this.createToolbar();
 		this.createFormToolbar();
 		this.createTreeWorkspace();
 		this.createFormWorkspace();
@@ -86,21 +86,9 @@ public class OrganizationWorkspaceTest extends WorkspaceCreationBase {
 			item.setOperationTypeId(-1);
 			item.setSeq(9999);
 			item.setIcon("fa fa-user-o");
-			item.setDisabled(true);
+			//item.setDisabled(true);
 			toolbar.getItems().add(item);
 		}
-
-//		item = new PToolbarItem();
-//		{
-//			item.toNew();
-//			item.setCode("doChangeParent");
-//			item.setName("调整父级");
-//			item.setCommand("{controller}.doChangeParent();");
-//			item.setOperationTypeId(-1L);
-//			item.setSeq(4030);
-//			item.setIcon("icon-settings");
-//			toolbar.getItems().add(item);
-//		}
 
 		IPToolbarService toolbarService = ServiceFactory.create(IPToolbarService.class);
 		toolbarService.save(toolbar);
@@ -158,7 +146,7 @@ public class OrganizationWorkspaceTest extends WorkspaceCreationBase {
 			part.setDockStyle(DockType.LEFT);
 			part.setStyle("width:280px;");
 			part.setResourceNode(node);
-			part.setToolbar("panda/tree");
+			part.setToolbar("panda/tree/organization");
 			part.setUrl(this.urlForm);
 
 			part.setServiceController(OrganizationTreePart.class.getName());

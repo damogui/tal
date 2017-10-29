@@ -22,7 +22,6 @@ import org.netsharp.panda.controls.utility.UrlHelper;
 import org.netsharp.panda.core.comunication.IHtmlWriter;
 import org.netsharp.util.ReflectManager;
 import org.netsharp.util.StringManager;
-import org.netsharp.wx.ea.organization.DepartmentHelper;
 import org.netsharp.wx.ea.organization.EmployeeHelper;
 
 public class OrganizationTreePart extends TreePart {
@@ -113,15 +112,22 @@ public class OrganizationTreePart extends TreePart {
 		String ret = "同步完成!";
 		Environment env = Application.getContext().getEnvironment();
 		
-		if ( env != Environment.Product) {
-			ret = "只有正式环境才可同步!";
-		} else {
-			try {
-				DepartmentHelper.update();
-				EmployeeHelper.run();
-			} catch (Exception e) {
-				ret = e.getMessage();
-			}
+//		if ( env != Environment.Product) {
+//			ret = "只有正式环境才可同步!";
+//		} else {
+//			try {
+//				DepartmentHelper.update();
+//				EmployeeHelper.run();
+//			} catch (Exception e) {
+//				ret = e.getMessage();
+//			}
+//		}
+		
+		try {
+//			DepartmentHelper.update();
+			EmployeeHelper.run();
+		} catch (Exception e) {
+			ret = e.getMessage();
 		}
 		return ret;
 	}
