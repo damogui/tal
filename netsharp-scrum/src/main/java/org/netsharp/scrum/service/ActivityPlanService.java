@@ -37,7 +37,7 @@ public class ActivityPlanService extends PersistableService<ActivityPlan> implem
 
 		List<String> ss = new ArrayList<String>();
 
-		ss.add(entity.getCreator() + state.getText() + "了活动计划");
+		ss.add("【活动计划】"+entity.getCreator() + state.getText() + "了活动计划");
 		ss.add(entity.getName());
 		ss.add(DateManage.toLongString(new Date()));
 		try {

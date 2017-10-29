@@ -35,7 +35,7 @@ public class GoalService extends PersistableService<Goal> implements IGoalServic
 
 		String executor = UserPermissionManager.getUserPermission().getEmployee().getName();
 
-		ss.add(executor + state.getText() + "了目标管理");
+		ss.add("【目标管理】"+executor + state.getText() + "了目标管理");
 		ss.add(entity.getName());
 		;
 		ss.add("提出人:" + entity.getCreator());

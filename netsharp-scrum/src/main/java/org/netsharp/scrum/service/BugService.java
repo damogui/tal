@@ -54,7 +54,7 @@ public class BugService extends PersistableService<Bug> implements IBugService {
 		IEaMessageService eMessageService = ServiceFactory.create(IEaMessageService.class);
 		List<String> ss = new ArrayList<String>();
 		String executor = UserPermissionManager.getUserPermission().getEmployee().getName();
-		ss.add(executor + operation + "了BUG");
+		ss.add("【BUG】"+executor + operation + "了BUG");
 		ss.add(entity.getName());
 		ss.add(entity.getStatus().getText());
 		ss.add(DateManage.toLongString(new Date()));

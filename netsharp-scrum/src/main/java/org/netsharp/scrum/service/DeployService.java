@@ -36,7 +36,7 @@ public class DeployService extends PersistableService<Deploy> implements IDeploy
 		List<String> ss = new ArrayList<String>();
 
 		String executor = UserPermissionManager.getUserPermission().getEmployee().getName();
-		ss.add(executor + state.getText() + "了部署计划");
+		ss.add("【部署计划】"+executor + state.getText() + "了部署计划");
 		ss.add(entity.getName());
 		ss.add(DateManage.toLongString(new Date()));
 		ss.add("部署日期:"+DateManage.toString( entity.getDeployTime() ) + "  周"+DateManage.getDayofWeekUpper(entity.getDeployTime()));

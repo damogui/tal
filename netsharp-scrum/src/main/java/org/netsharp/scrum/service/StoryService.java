@@ -54,7 +54,7 @@ public class StoryService extends PersistableService<Story> implements IStorySer
 
 		String executor = UserPermissionManager.getUserPermission().getEmployee().getName();
 
-		ss.add(executor + state.getText() + "了用户任务");
+		ss.add("【任务】"+executor + state.getText() + "了用户任务");
 		ss.add(entity.getName());
 		ss.add(entity.getStatus().getText());
 		ss.add(DateManage.toLongString(new Date()));

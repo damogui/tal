@@ -26,7 +26,7 @@ public class StoryTraceService extends PersistableService<StoryTrace> implements
 		entity = super.save(entity);
 		List<String> ss = new ArrayList<String>();
 		String executor = UserPermissionManager.getUserPermission().getEmployee().getName();
-		ss.add(executor +"添加了用户任务跟进");
+		ss.add("【跟进】"+executor +"添加了用户任务跟进");
 		ss.add(DateManage.toLongString(entity.getCreateTime()));
 		ss.add("用户任务："+entity.getStory().getName());
 		ss.add(entity.getContent());

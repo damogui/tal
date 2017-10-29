@@ -38,7 +38,7 @@ public class SupportService extends PersistableService<Support> implements ISupp
 		// ss.add(EmployeeContextHolder.getEmployeeContext().getEmployeeName() +
 		// state + "了支持");
 		String executor = UserPermissionManager.getUserPermission().getEmployee().getName();
-		ss.add(executor + state.getText() + "了支持");
+		ss.add("【支持】"+executor + state.getText() + "了支持");
 		ss.add(entity.getName());
 		ss.add(entity.getStatus().getText());
 		ss.add(DateManage.toLongString(new Date()));

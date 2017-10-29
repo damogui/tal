@@ -37,7 +37,7 @@ public class IterationService extends PersistableService<Iteration> implements I
 		List<String> ss = new ArrayList<String>();
 
 		String executor = UserPermissionManager.getUserPermission().getEmployee().getName();
-		ss.add(executor + state.getText() + "了迭代");
+		ss.add("【迭代】"+executor + state.getText() + "了迭代");
 		ss.add(entity.getName());
 		ss.add(DateManage.toLongString(new Date()));
 		ss.add("起始日期:" + DateManage.toLongString(entity.getStartTime()));
