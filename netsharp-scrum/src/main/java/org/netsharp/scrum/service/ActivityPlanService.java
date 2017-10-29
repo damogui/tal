@@ -47,7 +47,7 @@ public class ActivityPlanService extends PersistableService<ActivityPlan> implem
 		}
 		String content = StringManager.join( ss );
 
-		wxpa.sendAll("WeChat", content);
+		wxpa.sendAll("SCRUM", content);
 
 		return entity;
 	}

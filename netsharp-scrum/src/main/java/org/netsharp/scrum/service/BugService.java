@@ -41,20 +41,20 @@ public class BugService extends PersistableService<Bug> implements IBugService {
 
 	@Override
 	public Bug save(Bug entity) {
-
+		
 		EntityState state = entity.getEntityState();
-
 		super.save(entity);
-
 		entity = this.pm.byId(entity);
+		sendWxMessage(entity,state.getText());
+		return entity;
+	}
+	
+	private void sendWxMessage(Bug entity,String operation){
 
 		INotifyervice wxpa = ServiceFactory.create(INotifyervice.class);
-
 		List<String> ss = new ArrayList<String>();
-
 		String executor = UserPermissionManager.getUserPermission().getEmployee().getName();
-
-		ss.add(executor + state.getText() + "了BUG");
+		ss.add(executor + operation + "了BUG");
 		ss.add(entity.getName());
 		ss.add(entity.getStatus().getText());
 		ss.add(DateManage.toLongString(new Date()));
@@ -67,15 +67,13 @@ public class BugService extends PersistableService<Bug> implements IBugService {
 		{
 			String content = StringManager.join(StringManager.NewLine, ss);
 			List<String> ls = new ArrayList<String>();
-			ls.add(UserPermissionManager.getUserPermission().getEmployee().getId().toString());
-			ls.add(entity.getTestorId().toString());
-			ls.add(entity.getDeveloperId().toString());
-			ls.add(entity.getCreatorId().toString());
+			ls.add(UserPermissionManager.getUserPermission().getEmployee().getMobile());
+			ls.add(entity.getTestor().getMobile());
+			ls.add(entity.getDeveloper().getMobile());
 
-			wxpa.send("WeChat", content, StringManager.join("|", ls));
+			//wxpa.send("SCRUM", content, StringManager.join("|", ls));
+			wxpa.send("SCRUM", content, StringManager.join("|", ls));
 		}
-
-		return entity;
 	}
 
 }

@@ -43,7 +43,7 @@ public class GoalService extends PersistableService<Goal> implements IGoalServic
 
 		String content = StringManager.join(StringManager.NewLine, ss);
 
-		wxpa.sendAll("WeChat", content);
+		wxpa.sendAll("SCRUM", content);
 
 		return entity;
 	}

@@ -44,7 +44,7 @@ public class DeployService extends PersistableService<Deploy> implements IDeploy
 
 		String content = StringManager.join(StringManager.NewLine, ss);
 
-		wxpa.sendAll("WeChat", content);
+		wxpa.sendAll("SCRUM", content);
 
 		return entity;
 	}
