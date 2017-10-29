@@ -31,7 +31,6 @@ public class DepartmentHelper {
 	private static IOrganizationService service = ServiceFactory.create(IOrganizationService.class);
 	private static WxeaApp wxpa = null;
 	private static Log logger = LogFactory.getLog(DepartmentHelper.class);
-	private static boolean is_product = Environment.Product.equals(Application.getContext().getEnvironment());
 
 	/**
 	 * 同步指定部门下所属的部门
@@ -39,9 +38,7 @@ public class DepartmentHelper {
 	 * @param parentId
 	 */
 	public static void update(Integer parentId) {
-		if (!is_product) {
-			return;
-		}
+
 		initWxpaConfiguration();
 		String filter = " disabled=0 and parentId=" + parentId;
 
@@ -66,9 +63,7 @@ public class DepartmentHelper {
 	}
 
 	public static void runDelete() {
-		if (!is_product) {
-			return;
-		}
+
 		initWxpaConfiguration();
 		delete();
 

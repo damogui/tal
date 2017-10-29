@@ -6,13 +6,11 @@ import java.util.List;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.netsharp.application.Application;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.DataTable;
 import org.netsharp.core.Oql;
 import org.netsharp.core.Row;
-import org.netsharp.dic.Environment;
-import org.netsharp.organization.base.IOrganizationEmployeeService;
+import org.netsharp.organization.base.IEmployeeService;
 import org.netsharp.organization.base.IOrganizationService;
 import org.netsharp.organization.entity.Employee;
 import org.netsharp.organization.entity.OrganizationEmployee;
@@ -35,22 +33,19 @@ public class EmployeeHelper {
 	private static IOrganizationService service = ServiceFactory.create(IOrganizationService.class);
 	private static WxeaApp wxpa = null;
 	private static Log logger = LogFactory.getLog(EmployeeHelper.class);
-	private static boolean is_product = Environment.Product.equals(Application.getContext().getEnvironment());
+//	private static boolean is_product = Environment.Product.equals(Application.getContext().getEnvironment());
 
 	/**
 	 * 同步所有人员
 	 */
 	public static void run() {
 
-		if (!is_product) {
-			return;
-		}
 		initWxpaConfiguration();
 		List<Integer> qiyeIds = getOrg();
-		for (Integer id : qiyeIds) {
-			create(id);
-		}
-
+//		for (Integer id : qiyeIds) {
+//			create(id);
+//		}
+		create(1);
 	}
 
 	/**
@@ -60,15 +55,15 @@ public class EmployeeHelper {
 	 * @param depIds
 	 * @param empId
 	 */
-	public static void updateUserDepartments(String[] depIds, Integer empId) {
-		if (!is_product) {
-			return;
-		}
+	public static void updateUserDepartments(String[] depIds, String empId) {
+//		if (!is_product) {
+//			return;
+//		}
 		initWxpaConfiguration();
 		try {
 			AccessToken token = AccessTokenManage.get(wxpa.getCorpid(), wxpa.getCorpsecret());
 			UserGetRequest userGetRequest = new UserGetRequest();
-			userGetRequest.setUserid(Integer.parseInt(empId.toString()));
+			userGetRequest.setUserid(empId);
 			userGetRequest.setToken(token);
 			UserGetResponse response = userGetRequest.getResponse();
 			if (response != null) {
@@ -105,9 +100,7 @@ public class EmployeeHelper {
 	 * 删除所有人员
 	 */
 	public static void runDelete() {
-		if (!is_product) {
-			return;
-		}
+
 		initWxpaConfiguration();
 		List<Integer> orgids = getOrg();
 		for (Integer id : orgids) {
@@ -129,7 +122,7 @@ public class EmployeeHelper {
 		try {
 			AccessToken token = AccessTokenManage.get(corpId, corpsecret);
 			UserGetRequest userGetRequest = new UserGetRequest();
-			userGetRequest.setUserid(Integer.parseInt(empId));
+			userGetRequest.setUserid(empId);
 			userGetRequest.setToken(token);
 			UserGetResponse response = userGetRequest.getResponse();
 			if (response != null) {
@@ -147,10 +140,11 @@ public class EmployeeHelper {
 	}
 
 	private static void create(Integer qiyeIds) {
-		List<OrganizationEmployee> list = getEmployees(qiyeIds);
-		qiyeIds = qiyeIds * 10;
-		for (OrganizationEmployee organizationEmployee : list) {
-			Employee emp = organizationEmployee.getEmployee();
+		List<Employee> list = getEmployees(qiyeIds);
+//		qiyeIds = qiyeIds * 10;
+		
+		for (Employee emp : list) {
+//			Employee emp = organizationEmployee.getEmployee();
 
 			if (emp != null && !emp.getDisabled()) {
 				String[] strs = new String[1];
@@ -165,7 +159,7 @@ public class EmployeeHelper {
 					if (emp.getPost() != null) {
 						user.setPosition(emp.getPost().getPathName());
 					}
-					user.setUserid(emp.getId().toString());
+					user.setUserid(emp.getMobile());
 				}
 
 				UserCreateRequest userCreateRequest = new UserCreateRequest();
@@ -175,7 +169,7 @@ public class EmployeeHelper {
 					userCreateRequest.setUser(user);
 				}
 				try {
-					if (!hasEmployee(emp.getId().toString(), wxpa.getCorpid(), wxpa.getCorpsecret())) {
+					if (!hasEmployee(emp.getMobile(), wxpa.getCorpid(), wxpa.getCorpsecret())) {
 						userCreateRequest.getResponse();
 					}
 
@@ -195,39 +189,52 @@ public class EmployeeHelper {
 	}
 
 	private static void delelte(Integer orgId) {
-		List<OrganizationEmployee> list = getEmployees(orgId);
-		for (OrganizationEmployee organizationEmployee : list) {
-			Employee emp = organizationEmployee.getEmployee();
-
-			if (emp != null) {
-				UserDeleteRequest userDeleteRequest = new UserDeleteRequest();
-				{
-					AccessToken token = AccessTokenManage.get(wxpa.getCorpid(), wxpa.getCorpsecret());
-					userDeleteRequest.setToken(token);
-					userDeleteRequest.setUserid(emp.getId());
-				}
-				try {
-					userDeleteRequest.getResponse();
-				} catch (Exception e) {
-					logger.warn(e.getMessage());
-				}
-
-			}
-
-		}
+//		List<OrganizationEmployee> list = getEmployees(orgId);
+//		for (OrganizationEmployee organizationEmployee : list) {
+//			Employee emp = organizationEmployee.getEmployee();
+//
+//			if (emp != null) {
+//				UserDeleteRequest userDeleteRequest = new UserDeleteRequest();
+//				{
+//					AccessToken token = AccessTokenManage.get(wxpa.getCorpid(), wxpa.getCorpsecret());
+//					userDeleteRequest.setToken(token);
+//					userDeleteRequest.setUserid(emp.getMobile());
+//				}
+//				try {
+//					userDeleteRequest.getResponse();
+//				} catch (Exception e) {
+//					logger.warn(e.getMessage());
+//				}
+//
+//			}
+//
+//		}
 	}
-
-	private static List<OrganizationEmployee> getEmployees(Integer qyWeiXinId) {
+	
+	private static List<Employee> getEmployees(Integer qyWeiXinId) {
 		Oql oql = new Oql();
 		{
-			oql.setSelects("ID,employee.*,organization.*");
-			oql.setType(OrganizationEmployee.class);
-			oql.setFilter("employee.disabled=0 and organization.qyWeiXinId=" + qyWeiXinId);
+			oql.setSelects("*");
+			oql.setType(Employee.class);
+			oql.setFilter("employee.disabled=0");
 		}
-		IOrganizationEmployeeService service = ServiceFactory.create(IOrganizationEmployeeService.class);
-		List<OrganizationEmployee> list = service.queryList(oql);
+		IEmployeeService service = ServiceFactory.create(IEmployeeService.class);
+		List<Employee> list = service.queryList(oql);
 		return list;
 	}
+
+//	private static List<OrganizationEmployee> getEmployees(Integer qyWeiXinId) {
+//		Oql oql = new Oql();
+//		{
+//			oql.setSelects("ID,employee.*,organization.*");
+//			oql.setType(OrganizationEmployee.class);
+////			oql.setFilter("employee.disabled=0 and organization.qyWeiXinId=" + qyWeiXinId);
+//			oql.setFilter("employee.disabled=0");
+//		}
+//		IOrganizationEmployeeService service = ServiceFactory.create(IOrganizationEmployeeService.class);
+//		List<OrganizationEmployee> list = service.queryList(oql);
+//		return list;
+//	}
 
 	private static List<Integer> getOrg() {
 		String sql = "SELECT qy_weixin_id  FROM sys_permission_organization WHERE disabled=0 and id NOT IN ( SELECT  DISTINCT parent_Id FROM sys_permission_organization WHERE parent_Id IS NOT NULL)";
