@@ -243,7 +243,8 @@ org.netsharp.controls.DateBoxQueryItem = org.netsharp.controls.Control.Extends({
         return qp;
     },
 	clear: function() {
-		$('#' + this.propertyName).datebox('setValue','');
+		$('#Start_' + this.propertyName).datebox('setValue','');
+		$('#End_' + this.propertyName).datebox('setValue','');
 	}
 });
 
