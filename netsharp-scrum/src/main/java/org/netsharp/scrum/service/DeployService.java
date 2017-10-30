@@ -33,19 +33,22 @@ public class DeployService extends PersistableService<Deploy> implements IDeploy
 
 		IEaMessageService eMessageService = ServiceFactory.create(IEaMessageService.class);
 
-		List<String> ss = new ArrayList<String>();
+		if (entity.getEntityState() != EntityState.Deleted) {
 
-		String executor = UserPermissionManager.getUserPermission().getEmployee().getName();
-		ss.add("【部署计划】"+executor + state.getText() + "了部署计划");
-		ss.add(entity.getName());
-		ss.add(DateManage.toLongString(new Date()));
-		ss.add("部署日期:"+DateManage.toString( entity.getDeployTime() ) + "  周"+DateManage.getDayofWeekUpper(entity.getDeployTime()));
-		ss.add(entity.getContent());
+			List<String> ss = new ArrayList<String>();
 
-		String content = StringManager.join(StringManager.NewLine, ss);
+			String executor = UserPermissionManager.getUserPermission().getEmployee().getName();
+			ss.add("【部署计划】"+executor + state.getText() + "了部署计划");
+			ss.add(entity.getName());
+			ss.add(DateManage.toLongString(new Date()));
+			ss.add("部署日期:"+DateManage.toString( entity.getDeployTime() ) + "  周"+DateManage.getDayofWeekUpper(entity.getDeployTime()));
+			ss.add(entity.getContent());
 
-		eMessageService.sendAll("SCRUM", content);
+			String content = StringManager.join(StringManager.NewLine, ss);
 
+			eMessageService.sendAll("SCRUM", content);
+
+		}
 		return entity;
 	}
 }

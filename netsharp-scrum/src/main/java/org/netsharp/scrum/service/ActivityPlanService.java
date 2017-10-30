@@ -35,19 +35,21 @@ public class ActivityPlanService extends PersistableService<ActivityPlan> implem
 
 		IEaMessageService eMessageService = ServiceFactory.create(IEaMessageService.class);
 
-		List<String> ss = new ArrayList<String>();
+		if (entity.getEntityState() != EntityState.Deleted) {
+			
+			List<String> ss = new ArrayList<String>();
+			ss.add("【活动计划】"+entity.getCreator() + state.getText() + "了活动计划");
+			ss.add(entity.getName());
+			ss.add(DateManage.toLongString(new Date()));
+			try {
+				ss.add(URLDecoder.decode(entity.getContent(), "UTF-8"));
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			String content = StringManager.join( ss );
 
-		ss.add("【活动计划】"+entity.getCreator() + state.getText() + "了活动计划");
-		ss.add(entity.getName());
-		ss.add(DateManage.toLongString(new Date()));
-		try {
-			ss.add(URLDecoder.decode(entity.getContent(), "UTF-8"));
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+			eMessageService.sendAll("SCRUM", content);
 		}
-		String content = StringManager.join( ss );
-
-		eMessageService.sendAll("SCRUM", content);
 
 		return entity;
 	}

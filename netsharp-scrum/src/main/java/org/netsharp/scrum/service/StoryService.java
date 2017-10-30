@@ -49,35 +49,37 @@ public class StoryService extends PersistableService<Story> implements IStorySer
 
 		entity = this.pm.byId(entity);
 
+		if(entity.getEntityState() != EntityState.Deleted){
 
-		List<String> ss = new ArrayList<String>();
+			List<String> ss = new ArrayList<String>();
 
-		String executor = UserPermissionManager.getUserPermission().getEmployee().getName();
+			String executor = UserPermissionManager.getUserPermission().getEmployee().getName();
 
-		ss.add("【任务】"+executor + state.getText() + "了用户任务");
-		ss.add(entity.getName());
-		ss.add(entity.getStatus().getText());
-		ss.add(DateManage.toLongString(new Date()));
-		ss.add("迭代:" + entity.getIteration().getName());
-		ss.add("负责人:" + entity.getOwner().getName());
-		ss.add("客户:" + entity.getBizUser().getName());
-		ss.add("提出人:" + entity.getCreator());
-		ss.add("紧急程度:" + entity.getUrgency().getText());
-		ss.add("估时:" + entity.getEstimateHours()+"小时");
-		ss.add(entity.getContent());
+			ss.add("【任务】"+executor + state.getText() + "了用户任务");
+			ss.add(entity.getName());
+			ss.add(entity.getStatus().getText());
+			ss.add(DateManage.toLongString(new Date()));
+			ss.add("迭代:" + entity.getIteration().getName());
+			ss.add("负责人:" + entity.getOwner().getName());
+			ss.add("客户:" + entity.getBizUser().getName());
+			ss.add("提出人:" + entity.getCreator());
+			ss.add("紧急程度:" + entity.getUrgency().getText());
+			ss.add("估时:" + entity.getEstimateHours()+"小时");
+			ss.add(entity.getContent());
 
-		{
-			String content = StringManager.join(StringManager.NewLine, ss);
-			List<String> ls = new ArrayList<String>();
-			ls.add(UserPermissionManager.getUserPermission().getEmployee().getMobile());
-			ls.add(entity.getOwner().getMobile());
-			ls.add(entity.getBizUser().getMobile());
-			ls.add(entity.getBizUser().getMobile());		
-			for (StoryParticipant pp : entity.getParticipants()) {
-				ls.add(pp.getParticipantId().toString());
-			}			
-			IEaMessageService eMessageService = ServiceFactory.create(IEaMessageService.class);
-			eMessageService.send("SCRUM", content, StringManager.join("|", ls));
+			{
+				String content = StringManager.join(StringManager.NewLine, ss);
+				List<String> ls = new ArrayList<String>();
+				ls.add(UserPermissionManager.getUserPermission().getEmployee().getMobile());
+				ls.add(entity.getOwner().getMobile());
+				ls.add(entity.getBizUser().getMobile());
+				ls.add(entity.getBizUser().getMobile());		
+				for (StoryParticipant pp : entity.getParticipants()) {
+					ls.add(pp.getParticipantId().toString());
+				}			
+				IEaMessageService eMessageService = ServiceFactory.create(IEaMessageService.class);
+				eMessageService.send("SCRUM", content, StringManager.join("|", ls));
+			}
 		}
 		return entity;
 	}

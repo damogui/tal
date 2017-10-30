@@ -29,21 +29,21 @@ public class GoalService extends PersistableService<Goal> implements IGoalServic
 
 		entity = this.pm.byId(entity);
 
-		IEaMessageService eMessageService = ServiceFactory.create(IEaMessageService.class);
+		if (entity.getEntityState() != EntityState.Deleted) {
 
-		List<String> ss = new ArrayList<String>();
+			IEaMessageService eMessageService = ServiceFactory.create(IEaMessageService.class);
+			List<String> ss = new ArrayList<String>();
+			String executor = UserPermissionManager.getUserPermission().getEmployee().getName();
 
-		String executor = UserPermissionManager.getUserPermission().getEmployee().getName();
+			ss.add("【目标管理】"+executor + state.getText() + "了目标管理");
+			ss.add(entity.getName());
 
-		ss.add("【目标管理】"+executor + state.getText() + "了目标管理");
-		ss.add(entity.getName());
-		;
-		ss.add("提出人:" + entity.getCreator());
-		ss.add(entity.getContent());
+			ss.add("提出人:" + entity.getCreator());
+			ss.add(entity.getContent());
 
-		String content = StringManager.join(StringManager.NewLine, ss);
-
-		eMessageService.sendAll("SCRUM", content);
+			String content = StringManager.join(StringManager.NewLine, ss);
+			eMessageService.sendAll("SCRUM", content);
+		}
 
 		return entity;
 	}

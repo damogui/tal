@@ -45,7 +45,10 @@ public class BugService extends PersistableService<Bug> implements IBugService {
 		EntityState state = entity.getEntityState();
 		super.save(entity);
 		entity = this.pm.byId(entity);
-		sendWxMessage(entity,state.getText());
+		if (entity.getEntityState() != EntityState.Deleted) {
+
+			sendWxMessage(entity,state.getText());
+		}
 		return entity;
 	}
 	
