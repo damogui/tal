@@ -186,7 +186,7 @@ org.netsharp.controls.CheckBoxQueryItem=org.netsharp.controls.Control.Extends({
 });
 
 
-org.netsharp.controls.DateboxQueryItem = org.netsharp.controls.Control.Extends({
+org.netsharp.controls.DateBoxQueryItem = org.netsharp.controls.Control.Extends({
     ctor: function () {
         this.base();
     },
