@@ -34,10 +34,10 @@ public class UserWalletLog extends BaseEntity{
 	@Column(name="price",header="金额")
 	private Integer price;
 	
-	@Column(name="type",header="类型0充值1消费")
+	@Column(name="type",header="类型0充值1消费2活动优惠")
 	private WalletType type;
 	
-	@Column(name="payment_type",header="支付类型")
+	@Column(name="payment_type",header="支付类型:0未知, 1微信支付,2支付宝,3现金")
 	private PaymentType paymentType;
 	
 	@Column(name = "company_name", header = "消费公司名称")

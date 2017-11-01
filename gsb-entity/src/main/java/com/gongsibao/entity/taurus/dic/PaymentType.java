@@ -5,7 +5,7 @@ import org.netsharp.base.IEnum;
 
 public enum PaymentType implements IEnum {
 
-	UNKNOWN(0, "未知"),WEIXIN(1, "微信支付"), ALIPAY(2, "支付宝"), CASH(3, "现金");
+	UNKNOWN(0, "未知"),WEIXIN(1, "微信支付"), ALIPAY(2, "支付宝"), CASH(3, "现金"), TRANSFER(4, "转账");
 	private int value;
 	private String text;
 

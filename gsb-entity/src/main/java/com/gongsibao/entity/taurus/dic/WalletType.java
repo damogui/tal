@@ -5,7 +5,7 @@ import org.netsharp.base.IEnum;
 
 public enum WalletType implements IEnum {
 
-	RECHARGE(0, "充值"), CONSUMPTION(1, "消费"), DISCOUNT(2, "活动优惠");
+	RECHARGE(0, "充值"), CONSUMPTION(1, "消费"), DISCOUNT(2, "赠送");
 	private int value;
 	private String text;
 
