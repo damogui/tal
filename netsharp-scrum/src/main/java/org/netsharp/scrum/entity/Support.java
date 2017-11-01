@@ -29,8 +29,14 @@ public class Support extends BizEntity {
 	@Reference(foreignKey="ownerId")
 	private Employee owner;//处理人
 	
+	@Column(name="sender_id")
+	private Integer senderId;
+	@Reference(foreignKey="senderId")
+	private Employee sender;//抄送人
+	
 	@Column(name="putor_id")
 	private Integer putorId;
+	
 	@Reference(foreignKey="putorId")
 	private Employee putor;//提出人
 	
@@ -154,7 +160,17 @@ public class Support extends BizEntity {
 	public void setType(SupportType type) {
 		this.type = type;
 	}
-	
-	
+	public Integer getSenderId() {
+		return senderId;
+	}
+	public void setSenderId(Integer senderId) {
+		this.senderId = senderId;
+	}
+	public Employee getSender() {
+		return sender;
+	}
+	public void setSender(Employee sender) {
+		this.sender = sender;
+	}
 }
 

@@ -233,6 +233,14 @@ public class SupportWorkspaceTest extends WorkspaceCreationBase {
 			//Assert.isTrue(reference != null);
 			field.setReference(reference);
 		}
+		
+		field = addFormField(form, "sender.name", "抄送人", ControlTypes.REFERENCE_BOX, true, false);
+		{
+			IPReferenceService referenceService = ServiceFactory.create(IPReferenceService.class);
+			PReference reference = referenceService.byCode(Employee.class.getSimpleName());
+			field.setReference(reference);
+		}
+		
 
 		field = addFormField(form, "content", "提出人说明", ControlTypes.TEXTAREA, false, false);
 		{

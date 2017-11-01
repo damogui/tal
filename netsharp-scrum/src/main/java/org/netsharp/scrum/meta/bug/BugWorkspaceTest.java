@@ -51,19 +51,20 @@ public class BugWorkspaceTest  extends WorkspaceCreationBase {
 		PDatagrid datagrid = super.createDatagrid(node);
 		datagrid.setPageSize(25);
 
-		addColumn(datagrid, "code", "编码", ControlTypes.TEXT_BOX, 100, true);
-		addColumn(datagrid, "project.name", "项目", ControlTypes.TEXT_BOX, 150, true);
-		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 200, true);
+		addColumn(datagrid, "code", "编码", ControlTypes.TEXT_BOX, 100 );
+		addColumn(datagrid, "type", "类型", ControlTypes.TEXT_BOX, 80);
+		addColumn(datagrid, "project.name", "项目", ControlTypes.TEXT_BOX, 150);
+		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 200);
 		
-		addColumn(datagrid, "status", "状态", ControlTypes.ENUM_BOX, 100, true);
+		addColumn(datagrid, "status", "状态", ControlTypes.ENUM_BOX, 100);
 		addColumn(datagrid, "importance", "重要性", ControlTypes.ENUM_BOX, 100);
 		addColumn(datagrid, "urgency", "紧急性", ControlTypes.ENUM_BOX, 100);
 		addColumn(datagrid, "estimateHours", "估时(小时)", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "actualHours", "耗时(小时)", ControlTypes.TEXT_BOX, 100);
 		
-		addColumn(datagrid, "testor.name", "测试员", ControlTypes.TEXT_BOX, 100, true);
-		addColumn(datagrid, "developer.name", "开发者", ControlTypes.TEXT_BOX, 100, true);
-		addColumn(datagrid, "putor.name", "提出人", ControlTypes.TEXT_BOX, 100, true);
+		addColumn(datagrid, "testor.name", "测试员", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "developer.name", "开发者", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "putor.name", "提出人", ControlTypes.TEXT_BOX, 100);
 		
 		PDatagridColumn column = addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATE_BOX, 150);
 		column.setOrderbyMode(OrderbyMode.DESC);
@@ -81,7 +82,26 @@ public class BugWorkspaceTest  extends WorkspaceCreationBase {
 			queryProject.setResourceNode(node);
 		}
 
+
 		PQueryItem item = new PQueryItem();
+		{
+			item.toNew();
+			item.setPropertyName("code");
+			item.setHeader("编码");
+			item.setControlType(ControlTypes.TEXT_BOX);
+
+			queryProject.getQueryItems().add(item);
+		}
+		item = new PQueryItem();
+		{
+			item.toNew();
+			item.setPropertyName("type");
+			item.setHeader("类型");
+			item.setControlType(ControlTypes.ENUM_BOX);
+
+			queryProject.getQueryItems().add(item);
+		}	
+		item = new PQueryItem();
 		{
 			item.toNew();
 			item.setPropertyName("name");
@@ -194,6 +214,7 @@ public class BugWorkspaceTest  extends WorkspaceCreationBase {
 		}
 		addFormField(form, "code", "编码", ControlTypes.TEXT_BOX, false, true);
 		addFormField(form, "name", "名称", ControlTypes.TEXT_BOX, true, false);
+		addFormField(form, "type", "类型", ControlTypes.ENUM_BOX, true, false);
 		addFormField(form, "status", "状态", ControlTypes.ENUM_BOX, true, false);
 		field = addFormField(form, "importance", "重要性", ControlTypes.ENUM_BOX, false, false);
 		field = addFormField(form, "urgency", "紧急性", ControlTypes.ENUM_BOX, false, false);
@@ -225,7 +246,10 @@ public class BugWorkspaceTest  extends WorkspaceCreationBase {
 			field.setReference(reference);
 		}
 		
-		field = addFormField(form, "filePath", "图片",ControlTypes.QINIUUPLOAD, false, false);
+		field = addFormField(form, "filePath", "图片1",ControlTypes.QINIUUPLOAD, false, false);
+		field = addFormField(form, "filePath1", "图片2",ControlTypes.QINIUUPLOAD, false, false);
+		field = addFormField(form, "filePath2", "图片3",ControlTypes.QINIUUPLOAD, false, false);
+		field = addFormField(form, "filePath3", "图片4",ControlTypes.QINIUUPLOAD, false, false);
 		
 		field = addFormField(form, "content", "缺陷内容", ControlTypes.TEXTAREA, false, false);
 		{

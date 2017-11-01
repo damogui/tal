@@ -48,6 +48,12 @@ public class SupportService extends PersistableService<Support> implements
 			ss.add(DateManage.toLongString(new Date()));
 			ss.add("负责人:" + entity.getOwner().getName());
 			ss.add("提出人:" + entity.getPutor().getName());
+			
+			if(entity.getSender() != null){
+				
+				ss.add("抄送人:" + entity.getSender().getName());
+			}
+			
 			ss.add("紧急程度:" + entity.getUrgency().getText());
 			ss.add("估时:" + entity.getEstimateHours() + "小时");
 			ss.add(entity.getContent());
@@ -60,6 +66,10 @@ public class SupportService extends PersistableService<Support> implements
 
 				if (entity.getPutorId() != null) {
 					ls.add(entity.getPutor().getMobile());
+				}
+				
+				if (entity.getSenderId() != null) {
+					ls.add(entity.getSender().getMobile());
 				}
 
 				IEaMessageService eMessageService = ServiceFactory
