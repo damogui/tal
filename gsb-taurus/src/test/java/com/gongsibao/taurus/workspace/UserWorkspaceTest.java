@@ -7,11 +7,14 @@ import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
+import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.DockType;
+import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PForm;
+import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PPart;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.entity.PWorkspace;
@@ -30,9 +33,9 @@ import com.gongsibao.entity.taurus.dic.DingtalkKeywordStatus;
 import com.gongsibao.entity.taurus.dic.PaymentType;
 import com.gongsibao.entity.taurus.dic.WalletType;
 import com.gongsibao.taurus.web.UserFormPart;
+import com.gongsibao.taurus.web.WalletLogsDetailPart;
 
-public class UserWorkspaceTest  extends WorkspaceCreationBase{
-
+public class UserWorkspaceTest extends WorkspaceCreationBase {
 
 	@Override
 	@Before
@@ -43,20 +46,21 @@ public class UserWorkspaceTest  extends WorkspaceCreationBase{
 		entity = User.class;
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = "客户信息";
-		resourceNodeCode = "GSB_TAURUS_"+User.class.getSimpleName();
+		resourceNodeCode = "GSB_TAURUS_" + User.class.getSimpleName();
 		formServiceController = UserFormPart.class.getName();
-		formJsController =UserFormPart.class.getName();
+		formJsController = UserFormPart.class.getName();
 		formJsImport = "/gsb/taurus/js/user.form.part.js";
-		
+		formOpenMode = OpenMode.WINDOW;
+		openWindowWidth = 800;
+		openWindowHeight =650;
 	}
-	
-	
-	/**   
-	 * @Title: walletLogsDetailPartToolbar   
-	 * @Description: TODO(充值记录)   
-	 * @param:       
-	 * @return: void      
-	 * @throws   
+
+	/**
+	 * @Title: walletLogsDetailPartToolbar
+	 * @Description: TODO(充值记录)
+	 * @param:
+	 * @return: void
+	 * @throws
 	 */
 	@Test
 	public void walletLogsDetailPartToolbar() {
@@ -102,8 +106,7 @@ public class UserWorkspaceTest  extends WorkspaceCreationBase{
 		addColumn(datagrid, "updateTime", "修改时间", ControlTypes.DATETIME_BOX, 130);
 		return datagrid;
 	}
-	
-	
+
 	@Override
 	protected PForm createForm(ResourceNode node) {
 
@@ -112,14 +115,15 @@ public class UserWorkspaceTest  extends WorkspaceCreationBase{
 			form.toNew();
 			form.setResourceNode(node);
 			form.setName(this.meta.getName() + "表单");
-			form.setColumnCount(3);
+			form.setColumnCount(2);
 		}
 
 		String groupName = null;
 		addFormField(form, "mobile", "手机号", groupName, ControlTypes.TEXT_BOX, true, false);
-		addFormField(form, "amount", "余额", groupName, ControlTypes.NUMBER_BOX, false, true);
+		addFormField(form, "amount", "余额", groupName, ControlTypes.DECIMAL_FEN_BOX, false, true);
 		addFormField(form, "createTime", "创建时间", groupName, ControlTypes.DATETIME_BOX, false, true);
-		addFormField(form, "remark", "备注", groupName, ControlTypes.TEXTAREA, true, false);
+		addFormField(form, "updateTime", "修改时间", groupName, ControlTypes.DATETIME_BOX, false, true);
+		addFormField(form, "remark", "备注", groupName, ControlTypes.TEXTAREA, false, false);
 
 		return form;
 	}
@@ -131,26 +135,47 @@ public class UserWorkspaceTest  extends WorkspaceCreationBase{
 		createDingtalkKeywordsDetailPart(workspace);
 	}
 
-
 	private void createWalletLogsDetailPart(PWorkspace workspace) {
 
 		ResourceNode node = this.resourceService.byCode("GSB_TAURUS_" + UserWalletLog.class.getSimpleName());
 		PDatagrid datagrid = new PDatagrid(node, "钱包记录");
 		{
+			datagrid.setShowCheckbox(false);
 			PDatagridColumn column = null;
 			addColumn(datagrid, "paymentNo", "支付流水号", ControlTypes.TEXT_BOX, 150);
 			addColumn(datagrid, "code", "编号", ControlTypes.TEXT_BOX, 150);
-			column = addColumn(datagrid, "type", "类型", ControlTypes.ENUM_BOX, 100);{
+			column = addColumn(datagrid, "type", "类型", ControlTypes.ENUM_BOX, 100);
+			{
 				String formatter = EnumUtil.getColumnFormatter(WalletType.class);
 				column.setFormatter(formatter);
 			}
-			column = addColumn(datagrid, "paymentType", "支付类型", ControlTypes.ENUM_BOX, 100);{
+			column = addColumn(datagrid, "paymentType", "支付类型", ControlTypes.ENUM_BOX, 100);
+			{
 				String formatter = EnumUtil.getColumnFormatter(PaymentType.class);
 				column.setFormatter(formatter);
 			}
-			addColumn(datagrid, "price", "金额", ControlTypes.DECIMAL_BOX, 100);
+			addColumn(datagrid, "price", "金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+			
+			column = addColumn(datagrid, "id", "操作", ControlTypes.TEXT_BOX, 60);{
+				
+				String formatter = "return controllerwalletLogs.operationFormatter(value,row);";
+				column.setFormatter(formatter);
+				column.setAlign(DatagridAlign.CENTER);
+			}
 		}
-
+		
+		PForm form = new PForm();
+		{
+			form.toNew();
+			form.setResourceNode(node);
+			form.setColumnCount(1);
+			form.setName("充值");
+			
+			addFormField(form, "paymentType", "支付类型",ControlTypes.ENUM_BOX, true, false);
+			addFormField(form, "price", "充值金额",ControlTypes.DECIMAL_BOX, true, false);
+			addFormField(form, "discountAmount", "赠送金额",ControlTypes.DECIMAL_BOX, false, false);
+			addFormField(form, "remark", "备注",ControlTypes.TEXTAREA, false, false);
+		}
 
 		PPart part = new PPart();
 		{
@@ -164,12 +189,17 @@ public class UserWorkspaceTest  extends WorkspaceCreationBase{
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("taurus/user/recharge/detail");
+			part.setServiceController(WalletLogsDetailPart.class.getName());
+			part.setJsController(WalletLogsDetailPart.class.getName());
+			part.setWindowWidth(450);
+			part.setWindowHeight(400);
+			part.setForm(form);
 		}
 		workspace.getParts().add(part);
-		
+
 		part = workspace.getParts().get(0);
 		{
-			part.setStyle("height:300px;");
+			part.setStyle("height:250px;");
 			part.setDockStyle(DockType.TOP);
 		}
 	}
@@ -179,6 +209,7 @@ public class UserWorkspaceTest  extends WorkspaceCreationBase{
 		ResourceNode node = this.resourceService.byCode("GSB_TAURUS_" + UserCollectCompany.class.getSimpleName());
 		PDatagrid datagrid = new PDatagrid(node, "关注企业");
 		{
+			datagrid.setShowCheckbox(false);
 			addColumn(datagrid, "companyName", "企业名称", ControlTypes.TEXT_BOX, 300);
 			addColumn(datagrid, "remark", "说明", ControlTypes.TEXT_BOX, 300);
 		}
@@ -186,7 +217,7 @@ public class UserWorkspaceTest  extends WorkspaceCreationBase{
 		PPart part = new PPart();
 		{
 			part.toNew();
-			part.setName("关联企业");
+			part.setName("关注企业");
 			part.setCode("collectCompanys");
 			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
 			part.setRelationRole("collectCompanys");
@@ -195,17 +226,19 @@ public class UserWorkspaceTest  extends WorkspaceCreationBase{
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 		}
-		
+
 		workspace.getParts().add(part);
 	}
-	
+
 	private void createDingtalkKeywordsDetailPart(PWorkspace workspace) {
 
 		ResourceNode node = this.resourceService.byCode("GSB_TAURUS_" + UserDingtalkKeyword.class.getSimpleName());
 		PDatagrid datagrid = new PDatagrid(node, "舆情关键字");
 		{
+			datagrid.setShowCheckbox(false);
 			addColumn(datagrid, "keyword", "关键字", ControlTypes.TEXT_BOX, 200);
-			PDatagridColumn column = addColumn(datagrid, "status", "状态", ControlTypes.ENUM_BOX, 100);{
+			PDatagridColumn column = addColumn(datagrid, "status", "状态", ControlTypes.ENUM_BOX, 100);
+			{
 				String formatter = EnumUtil.getColumnFormatter(DingtalkKeywordStatus.class);
 				column.setFormatter(formatter);
 			}
@@ -223,10 +256,9 @@ public class UserWorkspaceTest  extends WorkspaceCreationBase{
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 		}
-		
+
 		workspace.getParts().add(part);
 	}
-
 
 	@Override
 	protected PQueryProject createQueryProject(ResourceNode node) {
