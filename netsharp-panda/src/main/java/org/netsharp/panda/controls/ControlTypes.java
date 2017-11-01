@@ -31,7 +31,8 @@ public enum ControlTypes implements IEnum{
 	PASSWORDTEXT_BOX(26,"密码输入框","PasswordTextBox"),
 	PICTURE_FILE_BOX(27,"图片上传","PictureFileBox"),
 	RADIO_BOX_GROUP(28,"单选分组","RadioboxGroup"),
-	CHECK_BOX_GROUP(29,"多选分组","CheckboxGroup");
+	CHECK_BOX_GROUP(29,"多选分组","CheckboxGroup"),
+	DECIMAL_FEN_BOX(30,"金额(分)输入框","DecimalFenBox");
 	private int value;
 	private String text;
 	private String name;

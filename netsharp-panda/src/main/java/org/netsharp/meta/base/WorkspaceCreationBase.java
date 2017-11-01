@@ -372,6 +372,13 @@ public abstract class WorkspaceCreationBase {
 			column.setWidth(60);
 			column.setAlign(DatagridAlign.CENTER);
 		}
+		
+		if (controlType == ControlTypes.DECIMAL_FEN_BOX) {
+
+			column.setAlign(DatagridAlign.RIGHT);
+			String formatter = "return (value/100).toFixed(2);";
+			column.setFormatter(formatter);
+		} 
 
 		if (controlType == ControlTypes.DATETIME_BOX) {
 
