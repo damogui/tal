@@ -8,6 +8,13 @@ public class StringManager {
 	private static String Empty = "";
 	public static String NewLine = System.getProperty("line.separator");
 
+    public static String trimToEmpty(Object obj) {
+        if (null == obj) {
+            return "";
+        }
+        return trimToEmpty(obj.toString());
+    }
+    
 	public static Boolean isNullOrEmpty(String value) {
 
 		if (value == null) {

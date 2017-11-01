@@ -7,25 +7,37 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.netsharp.core.NetsharpException;
 
 public class DateManage {
 
-	public static final SimpleDateFormat STD_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-	public static final SimpleDateFormat STD_TIME_FORMAT = new SimpleDateFormat("HH:mm:ss");
-	public static final SimpleDateFormat STD_DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	public static final SimpleDateFormat STD_SHORT_DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-	public static final SimpleDateFormat STD_DATE_TIME_FORMATX = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-	public static final SimpleDateFormat FILE_DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd_HHmmss");
-	public static final SimpleDateFormat INT_DATE_FORMAT = new SimpleDateFormat("yyyyMMdd");
-	public static final SimpleDateFormat LONG_DATE_FORMAT = new SimpleDateFormat("yyyyMMddHHmmss");
+	public static final SimpleDateFormat STD_DATE_FORMAT = new SimpleDateFormat(
+			"yyyy-MM-dd");
+	public static final SimpleDateFormat STD_TIME_FORMAT = new SimpleDateFormat(
+			"HH:mm:ss");
+	public static final SimpleDateFormat STD_DATE_TIME_FORMAT = new SimpleDateFormat(
+			"yyyy-MM-dd HH:mm:ss");
+	public static final SimpleDateFormat STD_SHORT_DATE_TIME_FORMAT = new SimpleDateFormat(
+			"yyyy-MM-dd HH:mm");
+	public static final SimpleDateFormat STD_DATE_TIME_FORMATX = new SimpleDateFormat(
+			"yyyy-MM-dd HH:mm:ss.SSS");
+	public static final SimpleDateFormat FILE_DATE_TIME_FORMAT = new SimpleDateFormat(
+			"yyyy-MM-dd_HHmmss");
+	public static final SimpleDateFormat INT_DATE_FORMAT = new SimpleDateFormat(
+			"yyyyMMdd");
+	public static final SimpleDateFormat LONG_DATE_FORMAT = new SimpleDateFormat(
+			"yyyyMMddHHmmss");
 	public static final String COMMON_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 	public static final String DATE_FORMAT_PWD = "yyyyMMddHHmmss";
 	public static final String SIMPLE_DATE = "yyyy-MM-dd";
 
-	private static SimpleDateFormat shortFormate = new SimpleDateFormat("yyyy-MM-dd");
-	private static SimpleDateFormat longFormate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	private static SimpleDateFormat dataFileName = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+	private static SimpleDateFormat shortFormate = new SimpleDateFormat(
+			"yyyy-MM-dd");
+	private static SimpleDateFormat longFormate = new SimpleDateFormat(
+			"yyyy-MM-dd HH:mm:ss");
+	private static SimpleDateFormat dataFileName = new SimpleDateFormat(
+			"yyyy-MM-dd-HH-mm-ss");
 
 	public static int getYear(Date date) {
 		Calendar calendar = new GregorianCalendar();
@@ -149,14 +161,19 @@ public class DateManage {
 		temp.setTime(end);
 		temp.add(Calendar.DATE, 1);
 
-		int year = endCalendar.get(Calendar.YEAR) - startCalendar.get(Calendar.YEAR);
-		int month = endCalendar.get(Calendar.MONTH) - startCalendar.get(Calendar.MONTH);
+		int year = endCalendar.get(Calendar.YEAR)
+				- startCalendar.get(Calendar.YEAR);
+		int month = endCalendar.get(Calendar.MONTH)
+				- startCalendar.get(Calendar.MONTH);
 
-		if ((startCalendar.get(Calendar.DATE) == 1) && (temp.get(Calendar.DATE) == 1)) {
+		if ((startCalendar.get(Calendar.DATE) == 1)
+				&& (temp.get(Calendar.DATE) == 1)) {
 			return year * 12 + month + 1;
-		} else if ((startCalendar.get(Calendar.DATE) != 1) && (temp.get(Calendar.DATE) == 1)) {
+		} else if ((startCalendar.get(Calendar.DATE) != 1)
+				&& (temp.get(Calendar.DATE) == 1)) {
 			return year * 12 + month;
-		} else if ((startCalendar.get(Calendar.DATE) == 1) && (temp.get(Calendar.DATE) != 1)) {
+		} else if ((startCalendar.get(Calendar.DATE) == 1)
+				&& (temp.get(Calendar.DATE) != 1)) {
 			return year * 12 + month;
 		} else {
 			return (year * 12 + month - 1) < 0 ? 0 : (year * 12 + month);
@@ -173,20 +190,23 @@ public class DateManage {
 	// 去掉时分秒
 	@SuppressWarnings("deprecation")
 	public static Date toDate(Date date) {
-		date = DateManage.addDate(date, Calendar.HOUR_OF_DAY, 0 - date.getHours());
+		date = DateManage.addDate(date, Calendar.HOUR_OF_DAY,
+				0 - date.getHours());
 		date = DateManage.addDate(date, Calendar.MINUTE, 0 - date.getMinutes());
 		date = DateManage.addDate(date, Calendar.SECOND, 0 - date.getSeconds());
 
 		return date;
 	}
 
-	public static String getDateFilter(String propertyName, Date date, Date date2) {
+	public static String getDateFilter(String propertyName, Date date,
+			Date date2) {
 
 		SimpleDateFormat formate = new SimpleDateFormat("yyyy-MM-dd");
 		String str = formate.format(date);
 		String str2 = formate.format(date2);
 
-		return propertyName + ">='" + str + " 00:00:00' AND " + propertyName + "<'" + str2 + " 00:00:00'";
+		return propertyName + ">='" + str + " 00:00:00' AND " + propertyName
+				+ "<'" + str2 + " 00:00:00'";
 	}
 
 	public static String getDateFilter(String propertyName, Date date, int days) {
@@ -199,7 +219,8 @@ public class DateManage {
 
 		// return
 		// propertyName+">='"+str+" 00:00:00' AND "+propertyName+"<'"+str2+" 00:00:00'";
-		return propertyName + ">='" + str + " 00:00:00' AND " + propertyName + "<'" + str2 + " 00:00:00'";
+		return propertyName + ">='" + str + " 00:00:00' AND " + propertyName
+				+ "<'" + str2 + " 00:00:00'";
 	}
 
 	public static Date parse(String str) {
@@ -211,7 +232,8 @@ public class DateManage {
 		}
 	}
 
-	public static String getMonthFilter(String propertyName, Date date, int month) {
+	public static String getMonthFilter(String propertyName, Date date,
+			int month) {
 
 		return propertyName;
 
@@ -220,7 +242,8 @@ public class DateManage {
 	@SuppressWarnings("deprecation")
 	public static boolean dayEquals(Date d1, Date d2) {
 
-		return d1.getDay() == d2.getDay() && d1.getMonth() == d2.getMonth() && d1.getYear() == d2.getYear();
+		return d1.getDay() == d2.getDay() && d1.getMonth() == d2.getMonth()
+				&& d1.getYear() == d2.getYear();
 	}
 
 	public static String toString(Date date) {
@@ -237,9 +260,10 @@ public class DateManage {
 		}
 		return longFormate.format(date);
 	}
-	
+
 	public static Long toLong(Date date) {
-		return date == null ? null : Long.valueOf(LONG_DATE_FORMAT.format(date));
+		return date == null ? null : Long
+				.valueOf(LONG_DATE_FORMAT.format(date));
 	}
 
 	public static String toFileName(Date date) {
@@ -263,7 +287,8 @@ public class DateManage {
 		return DateManage.get(year, month, date, 0, 0, 0, 0);
 	}
 
-	public static Date get(int year, int month, int date, int hourOfDay, int minute, int second, int millSecond) {
+	public static Date get(int year, int month, int date, int hourOfDay,
+			int minute, int second, int millSecond) {
 		year = narrow(year, 0, 9999);
 		month = narrow(month, 1, 12);
 		switch (month) {
@@ -304,7 +329,8 @@ public class DateManage {
 	}
 
 	// 默认时区"GMT+08:00"
-	public final static TimeZone defaultTimezone = TimeZone.getTimeZone("GMT+08:00");
+	public final static TimeZone defaultTimezone = TimeZone
+			.getTimeZone("GMT+08:00");
 
 	public static Calendar getCalendar(TimeZone timeZone) {
 		if (timeZone == null) {
@@ -315,5 +341,25 @@ public class DateManage {
 
 	public static boolean isLeapYear(int year) {
 		return year % 400 == 0 || year % 4 == 0 && year % 100 != 0;
+	}
+
+	/**
+	 * 计算两个日期相差的年数
+	 *
+	 * @param beforeDate
+	 * @param afterDate
+	 * @return
+	 */
+	public static int getDistinceYear(Date beforeDate, Date afterDate) {
+
+		try {
+			String beforeYear = DateFormatUtils.format(beforeDate, "yyyy");
+			String afterYear = DateFormatUtils.format(afterDate, "yyyy");
+			return Math.abs(Integer.parseInt(afterYear)
+					- Integer.parseInt(beforeYear));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 }
