@@ -1,8 +1,11 @@
 package com.gongsibao.taurus.service;
 
+import java.util.Date;
+
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
+import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.service.PersistableService;
 
 import com.gongsibao.entity.taurus.User;
@@ -40,7 +43,7 @@ public class UserWalletLogService extends PersistableService<UserWalletLog> impl
 		discountAmount = discountAmount == null ? 0 : discountAmount * 100;// 赠送金额
 
 		// 充值日志
-		UserWalletLog rechargeLog = new UserWalletLog();
+		UserWalletLog rechargeLog = this.newInstance();
 		{
 			rechargeLog.toNew();
 			rechargeLog.setUserId(userId);
@@ -52,7 +55,7 @@ public class UserWalletLogService extends PersistableService<UserWalletLog> impl
 		}
 
 		// 赠送日志
-		UserWalletLog discountLog = new UserWalletLog();
+		UserWalletLog discountLog = this.newInstance();
 		{
 			discountLog.toNew();
 			discountLog.setUserId(userId);
@@ -81,7 +84,7 @@ public class UserWalletLogService extends PersistableService<UserWalletLog> impl
 
 		discountLog.setUndone(true);
 		this.save(discountLog);
-		
+
 		User user = userService.byId(discountLog.getUserId());
 		if (user != null) {
 
@@ -91,5 +94,14 @@ public class UserWalletLogService extends PersistableService<UserWalletLog> impl
 			userService.save(user);
 		}
 		return false;
+	}
+
+	public UserWalletLog newInstance() {
+		UserWalletLog entity = new UserWalletLog();
+		entity.toNew();
+		entity.setCreateTime(new Date());
+		entity.setCreator(SessionManager.getUserName());
+		entity.setCreatorId(SessionManager.getUserId());
+		return entity;
 	}
 }

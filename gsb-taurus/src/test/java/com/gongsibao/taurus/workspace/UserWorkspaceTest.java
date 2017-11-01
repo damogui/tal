@@ -144,18 +144,18 @@ public class UserWorkspaceTest extends WorkspaceCreationBase {
 			PDatagridColumn column = null;
 			addColumn(datagrid, "paymentNo", "支付流水号", ControlTypes.TEXT_BOX, 150);
 			addColumn(datagrid, "code", "编号", ControlTypes.TEXT_BOX, 150);
-			column = addColumn(datagrid, "type", "类型", ControlTypes.ENUM_BOX, 100);
+			column = addColumn(datagrid, "type", "类型", ControlTypes.ENUM_BOX, 80);
 			{
 				String formatter = EnumUtil.getColumnFormatter(WalletType.class);
 				column.setFormatter(formatter);
 			}
-			column = addColumn(datagrid, "paymentType", "支付类型", ControlTypes.ENUM_BOX, 100);
+			column = addColumn(datagrid, "paymentType", "支付类型", ControlTypes.ENUM_BOX, 80);
 			{
 				String formatter = EnumUtil.getColumnFormatter(PaymentType.class);
 				column.setFormatter(formatter);
 			}
-			addColumn(datagrid, "price", "金额", ControlTypes.DECIMAL_FEN_BOX, 100);
-			
+			addColumn(datagrid, "price", "金额", ControlTypes.DECIMAL_FEN_BOX, 80);
+			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
 			column = addColumn(datagrid, "id", "操作", ControlTypes.TEXT_BOX, 60);{
 				
 				String formatter = "return controllerwalletLogs.operationFormatter(value,row);";
