@@ -1,5 +1,6 @@
 package com.gongsibao.entity.taurus;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
@@ -7,7 +8,7 @@ import org.netsharp.core.annotations.Table;
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.Dict;
 
-@Table(name="jnz_user_company_industry",header="用户不同的公司之间选择的行业之间的关系")
+@Table(name="jnz_user_company_industry",orderBy="pkid DESC",header="用户不同的公司之间选择的行业之间的关系")
 public class UserCompanyIndustry extends BaseEntity{
 
 	/**   
@@ -15,6 +16,7 @@ public class UserCompanyIndustry extends BaseEntity{
 	 */   
 	private static final long serialVersionUID = -2054133744661138418L;
 
+	@JsonIgnore
 	@Reference(foreignKey="userId")
     private User user;
     

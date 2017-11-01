@@ -1,13 +1,16 @@
 package com.gongsibao.entity.taurus;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Exclusive;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.taurus.dic.PaymentType;
 import com.gongsibao.entity.taurus.dic.WalletType;
 
-@Table(name="jnz_user_wallet_log",header="用户钱包日志")
+@Table(name="jnz_user_wallet_log",orderBy="pkid DESC",header="用户钱包日志")
 public class UserWalletLog extends BaseEntity{
 
 	/**   
@@ -15,6 +18,10 @@ public class UserWalletLog extends BaseEntity{
 	 */   
 	private static final long serialVersionUID = -1129870239055750903L;
 
+	@JsonIgnore
+	@Reference(foreignKey="userId")
+    private User user;
+	
 	@Column(name="user_id",header="用户Id")
 	private Integer userId;
 	
@@ -41,6 +48,14 @@ public class UserWalletLog extends BaseEntity{
 	
 	@Column(name = "remark",size=200, header = "说明")
 	private String remark;
+	
+	@Column(name = "undone",size=200, header = "是否已撤销")
+	private Boolean undone;
+	
+	@Exclusive
+	@Column(name="discount_amount",header="赠送金额")
+	private Integer discountAmount;
+	
 	
 	public String getPaymentNo() {
 		return paymentNo;
@@ -114,5 +129,27 @@ public class UserWalletLog extends BaseEntity{
 		this.paymentType = paymentType;
 	}
 
-	
+	public Boolean getUndone() {
+		return undone;
+	}
+
+	public void setUndone(Boolean undone) {
+		this.undone = undone;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Integer getDiscountAmount() {
+		return discountAmount;
+	}
+
+	public void setDiscountAmount(Integer discountAmount) {
+		this.discountAmount = discountAmount;
+	}
 }

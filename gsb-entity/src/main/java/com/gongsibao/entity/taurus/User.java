@@ -34,7 +34,7 @@ public class User extends BaseEntity{
 	@Subs(foreignKey="userId",header="关注企业",subType=UserCollectCompany.class)
 	private List<UserCollectCompany> collectCompanys;
 	
-	@Subs(foreignKey="accountId",header="舆情关键字",subType=UserDingtalkKeyword.class)
+	@Subs(foreignKey="userId",header="舆情关键字",subType=UserDingtalkKeyword.class)
 	private List<UserDingtalkKeyword> dingtalkKeywords;
 
 	public String getMobile() {

@@ -1,5 +1,6 @@
 package com.gongsibao.entity.taurus;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
@@ -7,7 +8,7 @@ import org.netsharp.core.annotations.Table;
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.taurus.dic.AttentionStatus;
 
-@Table(name="jnz_user_opt_company_map",header="用户和公司的操作记录表")
+@Table(name="jnz_user_opt_company_map",orderBy="pkid DESC",header="用户和公司的操作记录表")
 public class UserCollectCompany extends BaseEntity{
 
 	/**   
@@ -15,7 +16,7 @@ public class UserCollectCompany extends BaseEntity{
 	 */   
 	private static final long serialVersionUID = -4591296237420533150L;
 
-    
+	@JsonIgnore
 	@Reference(foreignKey="userId")
     private User user;
     

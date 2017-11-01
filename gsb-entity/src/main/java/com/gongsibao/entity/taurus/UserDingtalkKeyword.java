@@ -1,12 +1,14 @@
 package com.gongsibao.entity.taurus;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.taurus.dic.DingtalkKeywordStatus;
 
-@Table(name = "uc_account_dingtalk_keyword")
+@Table(name = "jnz_user_dingtalk_keyword",orderBy="pkid DESC")
 public class UserDingtalkKeyword extends BaseEntity {
 
 	/**
@@ -14,8 +16,12 @@ public class UserDingtalkKeyword extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 1766348187971203598L;
 	
-	@Column(name = "account_id")
-	private Integer accountId;
+	@JsonIgnore
+	@Reference(foreignKey="userId")
+    private User user;
+	
+	@Column(name="user_id",header="用户Id")
+	private Integer userId;
 	
 	private String keyword;
 	
@@ -24,15 +30,13 @@ public class UserDingtalkKeyword extends BaseEntity {
 	
 	@Column(name = "company_name", header = "消费公司名称")
 	private String companyName;
-	
-    //用户类别（0：uc_account（会员用户），1:jnz_user（金牛座用户））
 
-	public Integer getAccountId() {
-		return accountId;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setAccountId(Integer accountId) {
-		this.accountId = accountId;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 	public String getKeyword() {
