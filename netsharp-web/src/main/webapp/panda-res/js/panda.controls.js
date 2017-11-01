@@ -332,6 +332,26 @@ org.netsharp.controls.DecimalBox = org.netsharp.controls.NumberBox.Extends({
 		this.base();
 	}
 });
+org.netsharp.controls.DecimalFenBox = org.netsharp.controls.NumberBox.Extends({
+	ctor: function() {
+		this.base();
+	},
+	get: function(entity) {
+
+		var propertyValue = $(this.uiElement).numberbox('getFloatValue');
+		entity[this.propertyName] = propertyValue*100;
+	},
+
+	set: function(entity) {
+
+		var propertyValue = entity[this.propertyName];
+		if (System.isnull(propertyValue)) {
+			propertyValue = "";
+		}
+
+		$(this.uiElement).numberbox('setFloatValue', propertyValue/100);
+	}
+});
 
 org.netsharp.controls.PercentageBox = org.netsharp.controls.NumberBox.Extends({
 	ctor: function() {
