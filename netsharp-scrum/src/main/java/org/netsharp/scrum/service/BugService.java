@@ -18,46 +18,53 @@ import org.netsharp.wx.ea.base.IEaMessageService;
 
 @Service
 public class BugService extends PersistableService<Bug> implements IBugService {
-	
+
 	public BugService() {
 		super();
 
 		this.type = Bug.class;
 	}
-	
+
 	public Bug newInstance() {
-		
-		Bug bug = super.newInstance();{
-			
+
+		Bug bug = super.newInstance();
+		{
+
 			Employee testor = new Employee();
 			testor.setId(bug.getCreatorId());
 			testor.setName(bug.getCreator());
 			bug.setTestor(testor);
 			bug.setTestorId(bug.getCreatorId());
 		}
-		
+
 		return bug;
 	}
 
 	@Override
 	public Bug save(Bug entity) {
-		
+
 		EntityState state = entity.getEntityState();
 		super.save(entity);
-		entity = this.pm.byId(entity);
-		if (entity.getEntityState() != EntityState.Deleted) {
+		Bug bug = this.pm.byId(entity);
+		if (state != EntityState.Deleted) {
 
-			sendWxMessage(entity,state.getText());
+			new Thread() {
+				@Override
+				public void run() {
+
+					sendWxMessage(bug, state.getText());
+				}
+			}.start();
 		}
-		return entity;
+		return bug;
 	}
-	
-	private void sendWxMessage(Bug entity,String operation){
+
+	private void sendWxMessage(Bug entity, String operation) {
 
 		IEaMessageService eMessageService = ServiceFactory.create(IEaMessageService.class);
 		List<String> ss = new ArrayList<String>();
 		String executor = UserPermissionManager.getUserPermission().getEmployee().getName();
-		ss.add("【BUG】"+executor + operation + "了BUG");
+		ss.add("【BUG】" + executor + operation + "了BUG");
 		ss.add(entity.getName());
 		ss.add(entity.getStatus().getText());
 		ss.add(DateManage.toLongString(new Date()));
@@ -74,7 +81,7 @@ public class BugService extends PersistableService<Bug> implements IBugService {
 			ls.add(entity.getTestor().getMobile());
 			ls.add(entity.getDeveloper().getMobile());
 
-			//wxpa.send("SCRUM", content, StringManager.join("|", ls));
+			// wxpa.send("SCRUM", content, StringManager.join("|", ls));
 			eMessageService.send("SCRUM", content, StringManager.join("|", ls));
 		}
 	}
