@@ -34,6 +34,7 @@ import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.trade.SoOrder;
 
 public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
+	
 	@Override
 	@Before
 	public void setup() {

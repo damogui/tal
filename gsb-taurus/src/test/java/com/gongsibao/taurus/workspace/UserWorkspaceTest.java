@@ -210,8 +210,10 @@ public class UserWorkspaceTest extends WorkspaceCreationBase {
 		PDatagrid datagrid = new PDatagrid(node, "关注企业");
 		{
 			datagrid.setShowCheckbox(false);
+			addColumn(datagrid, "status", "关注", ControlTypes.BOOLCOMBO_BOX, 80);
 			addColumn(datagrid, "companyName", "企业名称", ControlTypes.TEXT_BOX, 300);
 			addColumn(datagrid, "remark", "说明", ControlTypes.TEXT_BOX, 300);
+			
 		}
 
 		PPart part = new PPart();

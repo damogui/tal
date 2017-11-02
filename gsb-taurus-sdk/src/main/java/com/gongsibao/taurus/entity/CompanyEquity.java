@@ -1,7 +1,6 @@
 package com.gongsibao.taurus.entity;
 
 
-import java.sql.Timestamp;
 
 /**
  * Created by cxq on 2017/11/1.
@@ -28,7 +27,7 @@ public class CompanyEquity implements IEntity{
     private String equityAmount;
 
     // 股权出质设立登记日期
-    private Timestamp regDate;
+    private String regDate;
 
     // 状态
     private String state;
@@ -73,11 +72,11 @@ public class CompanyEquity implements IEntity{
         this.equityAmount = equityAmount;
     }
 
-    public Timestamp getRegDate() {
+    public String getRegDate() {
         return regDate;
     }
 
-    public void setRegDate(Timestamp regDate) {
+    public void setRegDate(String regDate) {
         this.regDate = regDate;
     }
 

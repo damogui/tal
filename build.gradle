@@ -24,6 +24,18 @@ ext {
     tomcat_start = tomcat_bin + '/startup.' + extensionName
     tomcat_stop = tomcat_bin + '/shutdown.' + extensionName
     tomcat_webapps = "${tomcat_home}" + "/webapps"
+
+    ykx_maven_url="http://59.110.124.28:8081/nexus/content/groups/public/"
+    if (env == 'test') {
+        netsharpVersion = netsharp_version_test
+    } else if(env == 'prod'){
+        netsharpVersion = netsharp_version_prod
+    }else{
+        ykx_maven_url="http://59.110.124.28:8081/nexus/content/groups/public/"
+        netsharpVersion = netsharp_version_dev
+    }
+
+
     if (project_version =~ /-SNAPSHOT$/) {
         repository_url = "http://59.110.124.28:8081/nexus/content/repositories/snapshots/"
     } else {
@@ -66,21 +78,19 @@ configure(subprojects.findAll { it.name != 'dao' }) {
             }
         }
     }
-
     repositories {
         mavenLocal()
-
         maven {
             credentials {
                 username 'ykx'
                 password '2wsx3edc'
             }
-            url "http://112.126.66.37:8081/nexus/content/groups/public/"
+            url "${ykx_maven_url}"
         }
-
-        //maven { url 'http://maven.oschina.net/content/groups/public/' }
+    //    maven { url 'http://maven.oschina.net/content/groups/public/' }
         mavenCentral()
     }
+
 	dependencies { compile("org.slf4j:slf4j-api:1.7.5")}
     if (it.name == 'netsharp-web') {
 

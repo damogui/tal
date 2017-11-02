@@ -1,0 +1,46 @@
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+
+    compile project(':gsb-entity')
+    compile project(':gsb-ma')
+    compile project(':gsb-er')
+    compile project(':gsb-bd')
+    compile project(':gsb-cms')
+    compile project(':gsb-crm')
+    compile project(':gsb-product')
+    compile project(':gsb-trade')
+    compile project(':gsb-uc')
+    compile project(':gsb-taurus')
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+group = 'test.multiwindow'
+ext {
+    projTitle = 'Test MultiWindow'
+    projVersion = '1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java']
+        }
+        resources {
+            srcDirs = ['src/main/resources']
+        }
+    }
+    test {
+        java {
+            srcDirs = ['src/test/java']
+        }
+        resources {
+            srcDirs = ["src/test/resources/${env}"]
+        }
+    }
+}
+

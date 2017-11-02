@@ -16,12 +16,10 @@ repositories {
 
 dependencies {
     compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
-    compile project(':netsharp-core')
-    compile project(':netsharp-persistence')
-    compile project(':netsharp-communication')
-    compile project(':netsharp-basebiz')
-    compile project(':gsb-er')
-    
+
+    compile project(':gsb-entity')
+    compile project(':gsb-taurus')
+    compile project(':gsb-taurus-sdk')
     compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-grizzly2-servlet', version: '2.13'
     compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet-core', version: '2.13'//javax.ws.rs
     compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.0.1'

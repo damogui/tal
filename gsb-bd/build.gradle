@@ -16,11 +16,6 @@ repositories {
 
 dependencies {
 
-    compile project(':netsharp-core')
-    compile project(':netsharp-persistence')
-    compile project(':netsharp-communication')
-    compile project(':netsharp-basebiz')
-    compile project(':netsharp-panda')
     compile project(':gsb-entity')
 }
 

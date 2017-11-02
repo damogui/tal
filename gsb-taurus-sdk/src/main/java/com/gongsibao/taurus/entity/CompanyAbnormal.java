@@ -1,7 +1,6 @@
 package com.gongsibao.taurus.entity;
 
 
-import java.sql.Timestamp;
 
 /**
  * Created by cxq on 2017/11/1.
@@ -16,10 +15,10 @@ public class CompanyAbnormal implements IEntity{
 	private Long id;
 
     // 列入日期
-    private Timestamp putDate;
+    private String putDate;
 
     // 移除日期
-    private Timestamp removeDate;
+    private String removeDate;
 
     // 做出决定机关
     private String putDepartment;
@@ -41,19 +40,19 @@ public class CompanyAbnormal implements IEntity{
         this.id = id;
     }
 
-    public Timestamp getPutDate() {
+    public String getPutDate() {
         return putDate;
     }
 
-    public void setPutDate(Timestamp putDate) {
+    public void setPutDate(String putDate) {
         this.putDate = putDate;
     }
 
-    public Timestamp getRemoveDate() {
+    public String getRemoveDate() {
         return removeDate;
     }
 
-    public void setRemoveDate(Timestamp removeDate) {
+    public void setRemoveDate(String removeDate) {
         this.removeDate = removeDate;
     }
 

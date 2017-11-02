@@ -1,0 +1,5 @@
+#org.springsource.ide.eclipse.gradle.core.preferences.GradleProjectPreferences
+#Thu Nov 02 19:33:41 CST 2017
+build.family.org.gradle.tooling.model.eclipse.HierarchicalEclipseProject=;gsb-bd;gsb-cms;gsb-controls;gsb-crm;gsb-entity;gsb-er;gsb-ma;gsb-product;gsb-taurus;gsb-taurus-sdk;gsb-test;gsb-trade;gsb-uc;gsb-web;netsharp-api;
+org.springsource.ide.eclipse.gradle.linkedresources=
+org.springsource.ide.eclipse.gradle.rootprojectloc=

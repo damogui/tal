@@ -1,6 +1,5 @@
 package com.gongsibao.taurus.entity;
 
-import java.sql.Timestamp;
 
 /**
  * Created by cxq on 2017/11/1.
@@ -19,7 +18,7 @@ public class CompanyMortgage implements IEntity{
     private String regNum;
 
     //登记日期
-    private Timestamp regDate;
+    private String	 regDate;
 
     //登记机关
     private String regDepartment;
@@ -46,11 +45,11 @@ public class CompanyMortgage implements IEntity{
         this.regNum = regNum;
     }
 
-    public Timestamp getRegDate() {
+    public String getRegDate() {
         return regDate;
     }
 
-    public void setRegDate(Timestamp regDate) {
+    public void setRegDate(String regDate) {
         this.regDate = regDate;
     }
 
