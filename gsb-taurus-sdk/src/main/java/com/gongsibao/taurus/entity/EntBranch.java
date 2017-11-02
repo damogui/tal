@@ -32,6 +32,9 @@ public class EntBranch implements IEntity{
 	@JsonProperty("entName")
 	private String name;
 
+	
+	private String businessAddress;
+	
 	public String getId() {
 		return Id;
 	}
@@ -47,4 +50,14 @@ public class EntBranch implements IEntity{
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public String getBusinessAddress() {
+		return businessAddress;
+	}
+
+	public void setBusinessAddress(String businessAddress) {
+		this.businessAddress = businessAddress;
+	}
+	
+	
 }
