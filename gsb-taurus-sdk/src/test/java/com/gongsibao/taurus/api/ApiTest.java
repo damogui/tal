@@ -80,10 +80,10 @@ public class ApiTest {
 //
 //		// 2.6 分支机构
 //		
-//		ResponseMessage<EntBranch> entBranchList = TaurusApiService.getEntBranchList(companyName,0,10);
-//		json = mapper.writeValueAsString(entBranchList);
-//		System.out.println(json);
-//		System.err.println(entBranchList.getTotalSize()+"：分支机构--------------------------------------------------------------------");
+		ResponseMessage<EntBranch> entBranchList = TaurusApiService.getEntBranchList(companyName,0,10);
+		json = mapper.writeValueAsString(entBranchList);
+		System.out.println(json);
+		System.err.println(entBranchList.getTotalSize()+"：分支机构--------------------------------------------------------------------");
 //
 //		// 2.5 企业变更记录
 //		ResponseMessage<EntChangeRecord> entChangeRecordList = TaurusApiService.getEntChangeRecordList(companyName,0,10);
