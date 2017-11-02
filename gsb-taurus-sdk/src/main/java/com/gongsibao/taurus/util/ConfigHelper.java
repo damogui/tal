@@ -3,6 +3,7 @@ package com.gongsibao.taurus.util;
 public class ConfigHelper {
 
 	public static final String DOMAIN = "http://www.telecredit.cn";
+//	public static final String DOMAIN = "http://127.0.0.1:18080";
 	
 	public static final String APP_KEY = "gongsibao";
 	

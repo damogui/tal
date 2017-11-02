@@ -4,7 +4,11 @@ import java.util.List;
 
 import com.gongsibao.taurus.api.AnnualReportApi;
 import com.gongsibao.taurus.api.ApiFactory;
+import com.gongsibao.taurus.api.CompanyAbnormalApi;
+import com.gongsibao.taurus.api.CompanyEquityApi;
+import com.gongsibao.taurus.api.CompanyMortgageApi;
 import com.gongsibao.taurus.api.CopyrightApi;
+import com.gongsibao.taurus.api.CourtAnnouncementApi;
 import com.gongsibao.taurus.api.CourtExecutiveApi;
 import com.gongsibao.taurus.api.DishonestInfoApi;
 import com.gongsibao.taurus.api.EntBranchApi;
@@ -27,7 +31,11 @@ import com.gongsibao.taurus.api.TmflowApi;
 import com.gongsibao.taurus.api.WorksCopyrightApi;
 import com.gongsibao.taurus.entity.AnnualReport;
 import com.gongsibao.taurus.entity.Company;
+import com.gongsibao.taurus.entity.CompanyAbnormal;
+import com.gongsibao.taurus.entity.CompanyEquity;
+import com.gongsibao.taurus.entity.CompanyMortgage;
 import com.gongsibao.taurus.entity.Copyright;
+import com.gongsibao.taurus.entity.CourtAnnouncement;
 import com.gongsibao.taurus.entity.CourtExecutive;
 import com.gongsibao.taurus.entity.DishonestInfo;
 import com.gongsibao.taurus.entity.EntBranch;
@@ -498,6 +506,62 @@ public class TaurusApiService {
 		api.setCurrentPage(currentPage);
 		api.setPageSize(pageSize);
 		ResponseMessage<Company> response = api.getResponse();
+		if (response == null) {
+
+			return null;
+		}
+		return response;
+	}
+	
+	public static ResponseMessage<CompanyAbnormal> getAbnormalList(String companyName,int currentPage,int pageSize) {
+
+		CompanyAbnormalApi api = ApiFactory.create(CompanyAbnormalApi.class);
+		api.setCompanyName(companyName);
+		api.setCurrentPage(currentPage);
+		api.setPageSize(pageSize);
+		ResponseMessage<CompanyAbnormal> response = api.getResponse();
+		if (response == null) {
+
+			return null;
+		}
+		return response;
+	}
+	
+	public static ResponseMessage<CompanyEquity> getEquityList(String companyName,int currentPage,int pageSize) {
+
+		CompanyEquityApi api = ApiFactory.create(CompanyEquityApi.class);
+		api.setCompanyName(companyName);
+		api.setCurrentPage(currentPage);
+		api.setPageSize(pageSize);
+		ResponseMessage<CompanyEquity> response = api.getResponse();
+		if (response == null) {
+
+			return null;
+		}
+		return response;
+	}
+	
+	public static ResponseMessage<CompanyMortgage> getMortgageList(String companyName,int currentPage,int pageSize) {
+
+		CompanyMortgageApi api = ApiFactory.create(CompanyMortgageApi.class);
+		api.setCompanyName(companyName);
+		api.setCurrentPage(currentPage);
+		api.setPageSize(pageSize);
+		ResponseMessage<CompanyMortgage> response = api.getResponse();
+		if (response == null) {
+
+			return null;
+		}
+		return response;
+	}
+	
+	public static ResponseMessage<CourtAnnouncement> getCourtAnnouncementList(String companyName,int currentPage,int pageSize) {
+
+		CourtAnnouncementApi api = ApiFactory.create(CourtAnnouncementApi.class);
+		api.setCompanyName(companyName);
+		api.setCurrentPage(currentPage);
+		api.setPageSize(pageSize);
+		ResponseMessage<CourtAnnouncement> response = api.getResponse();
 		if (response == null) {
 
 			return null;
