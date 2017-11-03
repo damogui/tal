@@ -19,6 +19,16 @@ public class ConfigHelper {
 	 */
 	public static String getFullApiUrl(String url){
 		
+//		/tele/companymortgage
+//		/tele/courtannouncement
+//		/tele/companyabnormal
+//		/tele/companyequity
+		
+		if(url.contains("/tele/")){
+			
+			return "http://tele.gongsibao.cn"+url;
+		}
+		
 		return ConfigHelper.DOMAIN + url;
 	}
 }

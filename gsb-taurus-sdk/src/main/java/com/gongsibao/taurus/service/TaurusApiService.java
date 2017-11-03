@@ -1,15 +1,14 @@
 package com.gongsibao.taurus.service;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
 
 import com.gongsibao.taurus.api.AnnualReportApi;
 import com.gongsibao.taurus.api.ApiFactory;
+import com.gongsibao.taurus.api.CompanyAbnormalApi;
+import com.gongsibao.taurus.api.CompanyEquityApi;
+import com.gongsibao.taurus.api.CompanyMortgageApi;
 import com.gongsibao.taurus.api.CopyrightApi;
+import com.gongsibao.taurus.api.CourtAnnouncementApi;
 import com.gongsibao.taurus.api.CourtExecutiveApi;
 import com.gongsibao.taurus.api.DishonestInfoApi;
 import com.gongsibao.taurus.api.EntBranchApi;
@@ -510,184 +509,189 @@ public class TaurusApiService {
 
 	public static ResponseMessage<CompanyAbnormal> getAbnormalList(String companyName, int currentPage, int pageSize) {
 
-		// CompanyAbnormalApi api = ApiFactory.create(CompanyAbnormalApi.class);
-		// api.setCompanyName(companyName);
-		// api.setCurrentPage(currentPage);
-		// api.setPageSize(pageSize);
-		// ResponseMessage<CompanyAbnormal> response = api.getResponse();
-		// if (response == null) {
-		//
-		// return null;
-		// }
+		CompanyAbnormalApi api = ApiFactory.create(CompanyAbnormalApi.class);
+		api.setCompanyName(companyName);
+		api.setCurrentPage(currentPage);
+		api.setPageSize(pageSize);
+		ResponseMessage<CompanyAbnormal> response = api.getResponse();
+		if (response == null) {
 
-		ResponseMessage<CompanyAbnormal> response = new ResponseMessage<CompanyAbnormal>();
-		List<CompanyAbnormal> list = new ArrayList<CompanyAbnormal>();
-		{
-			CompanyAbnormal entity = new CompanyAbnormal();
-			{
-
-				entity.setId(222078129L);
-				entity.setPutDate("2015-08-10 00:00:00");
-				entity.setRemoveDate("2016-07-29 00:00:00");
-				entity.setPutDepartment("梅河口市市场监督管理局");
-				entity.setRemoveDepartment("梅河口市市场监督管理局");
-				entity.setRemoveReason("列入经营异常名录3年内且依照《经营异常名录管理办法》第六条规定被列入经营异常名录的企业，可以在补报未报年份的年度报告并公示后，申请移出");
-			}
-			list.add(entity);
-
-			entity = new CompanyAbnormal();
-			{
-
-				entity.setId(222078130L);
-				entity.setPutDate("2015-08-10 00:00:00");
-				entity.setRemoveDate("2016-08-02 00:00:00");
-				entity.setPutDepartment("梅河口市市场监督管理局");
-				entity.setRemoveDepartment("梅河口市市场监督管理局");
-				entity.setRemoveReason("列入经营异常名录3年内且依照《经营异常名录管理办法》第六条规定被列入经营异常名录的企业，可以在补报未报年份的年度报告并公示后，申请移出");
-			}
-			list.add(entity);
+			return null;
 		}
-		response.setList(list);
+
+		// ResponseMessage<CompanyAbnormal> response = new
+		// ResponseMessage<CompanyAbnormal>();
+		// List<CompanyAbnormal> list = new ArrayList<CompanyAbnormal>();
+		// {
+		// CompanyAbnormal entity = new CompanyAbnormal();
+		// {
+		//
+		// entity.setId(222078129L);
+		// entity.setPutDate("2015-08-10 00:00:00");
+		// entity.setRemoveDate("2016-07-29 00:00:00");
+		// entity.setPutDepartment("梅河口市市场监督管理局");
+		// entity.setRemoveDepartment("梅河口市市场监督管理局");
+		// entity.setRemoveReason("列入经营异常名录3年内且依照《经营异常名录管理办法》第六条规定被列入经营异常名录的企业，可以在补报未报年份的年度报告并公示后，申请移出");
+		// }
+		// list.add(entity);
+		//
+		// entity = new CompanyAbnormal();
+		// {
+		//
+		// entity.setId(222078130L);
+		// entity.setPutDate("2015-08-10 00:00:00");
+		// entity.setRemoveDate("2016-08-02 00:00:00");
+		// entity.setPutDepartment("梅河口市市场监督管理局");
+		// entity.setRemoveDepartment("梅河口市市场监督管理局");
+		// entity.setRemoveReason("列入经营异常名录3年内且依照《经营异常名录管理办法》第六条规定被列入经营异常名录的企业，可以在补报未报年份的年度报告并公示后，申请移出");
+		// }
+		// list.add(entity);
+		// }
+		// response.setList(list);
 		return response;
 	}
 
 	public static ResponseMessage<CompanyEquity> getEquityList(String companyName, int currentPage, int pageSize) {
 
-		// CompanyEquityApi api = ApiFactory.create(CompanyEquityApi.class);
-		// api.setCompanyName(companyName);
-		// api.setCurrentPage(currentPage);
-		// api.setPageSize(pageSize);
-		// ResponseMessage<CompanyEquity> response = api.getResponse();
-		// if (response == null) {
-		//
-		// return null;
-		// }
+		CompanyEquityApi api = ApiFactory.create(CompanyEquityApi.class);
+		api.setCompanyName(companyName);
+		api.setCurrentPage(currentPage);
+		api.setPageSize(pageSize);
+		ResponseMessage<CompanyEquity> response = api.getResponse();
+		if (response == null) {
 
-		ResponseMessage<CompanyEquity> response = new ResponseMessage<CompanyEquity>();
-		List<CompanyEquity> list = new ArrayList<CompanyEquity>();
-		{
-			CompanyEquity entity = new CompanyEquity();
-			{
-
-				entity.setId(13890154L);
-				entity.setRegNumber("110108002734659_0002");
-				entity.setPledgor("李彦宏");
-				entity.setPledgee("百度在线网络技术（北京）有限公司");
-				entity.setEquityAmount("9950 万元");
-				entity.setRegDate("2011-12-22 00:00:00");
-				entity.setState("有效");
-			}
-			list.add(entity);
-
-			entity = new CompanyEquity();
-			{
-
-				entity.setId(13890155L);
-				entity.setRegNumber("110108002734659_0003");
-				entity.setPledgor("王湛");
-				entity.setPledgee("百度在线网络技术（北京）有限公司");
-				entity.setEquityAmount("50 万元");
-				entity.setRegDate("2017-05-09 00:00:00");
-				entity.setState("无效");
-			}
-			list.add(entity);
+			return null;
 		}
-		response.setList(list);
+
+		// ResponseMessage<CompanyEquity> response = new
+		// ResponseMessage<CompanyEquity>();
+		// List<CompanyEquity> list = new ArrayList<CompanyEquity>();
+		// {
+		// CompanyEquity entity = new CompanyEquity();
+		// {
+		//
+		// entity.setId(13890154L);
+		// entity.setRegNumber("110108002734659_0002");
+		// entity.setPledgor("李彦宏");
+		// entity.setPledgee("百度在线网络技术（北京）有限公司");
+		// entity.setEquityAmount("9950 万元");
+		// entity.setRegDate("2011-12-22 00:00:00");
+		// entity.setState("有效");
+		// }
+		// list.add(entity);
+		//
+		// entity = new CompanyEquity();
+		// {
+		//
+		// entity.setId(13890155L);
+		// entity.setRegNumber("110108002734659_0003");
+		// entity.setPledgor("王湛");
+		// entity.setPledgee("百度在线网络技术（北京）有限公司");
+		// entity.setEquityAmount("50 万元");
+		// entity.setRegDate("2017-05-09 00:00:00");
+		// entity.setState("无效");
+		// }
+		// list.add(entity);
+		// }
+		// response.setList(list);
 		return response;
 	}
 
 	public static ResponseMessage<CompanyMortgage> getMortgageList(String companyName, int currentPage, int pageSize) {
 
-//		CompanyMortgageApi api = ApiFactory.create(CompanyMortgageApi.class);
-//		api.setCompanyName(companyName);
-//		api.setCurrentPage(currentPage);
-//		api.setPageSize(pageSize);
-//		ResponseMessage<CompanyMortgage> response = api.getResponse();
-//		if (response == null) {
-//
-//			return null;
-//		}
-		
-		ResponseMessage<CompanyMortgage> response = new ResponseMessage<CompanyMortgage>();
-		List<CompanyMortgage> list = new ArrayList<CompanyMortgage>();
-		{
-			CompanyMortgage entity = new CompanyMortgage();
-			{
+		CompanyMortgageApi api = ApiFactory.create(CompanyMortgageApi.class);
+		api.setCompanyName(companyName);
+		api.setCurrentPage(currentPage);
+		api.setPageSize(pageSize);
+		ResponseMessage<CompanyMortgage> response = api.getResponse();
+		if (response == null) {
 
-				entity.setId(5662L);
-				entity.setRegNum("黑克山工商动抵登字（2015）第35号");
-				entity.setRegDate("2015-04-29 00:00:00");
-				entity.setRegDepartment("黑龙江省克山县工商行政管理局");
-				entity.setStatus("有效");
-				entity.setAmount("150万元");
-			}
-			list.add(entity);
-
-			entity = new CompanyMortgage();
-			{
-				entity.setId(8640010L);
-				entity.setRegNum("黑克山工商动抵登字（2015）第35号");
-				entity.setRegDate("2015-04-29 00:00:00");
-				entity.setRegDepartment("克山县市场监督管理局");
-				entity.setStatus("有效");
-				entity.setAmount("150万元");
-			}
-			list.add(entity);
+			return null;
 		}
-		response.setList(list);
+
+		// ResponseMessage<CompanyMortgage> response = new
+		// ResponseMessage<CompanyMortgage>();
+		// List<CompanyMortgage> list = new ArrayList<CompanyMortgage>();
+		// {
+		// CompanyMortgage entity = new CompanyMortgage();
+		// {
+		//
+		// entity.setId(5662L);
+		// entity.setRegNum("黑克山工商动抵登字（2015）第35号");
+		// entity.setRegDate("2015-04-29 00:00:00");
+		// entity.setRegDepartment("黑龙江省克山县工商行政管理局");
+		// entity.setStatus("有效");
+		// entity.setAmount("150万元");
+		// }
+		// list.add(entity);
+		//
+		// entity = new CompanyMortgage();
+		// {
+		// entity.setId(8640010L);
+		// entity.setRegNum("黑克山工商动抵登字（2015）第35号");
+		// entity.setRegDate("2015-04-29 00:00:00");
+		// entity.setRegDepartment("克山县市场监督管理局");
+		// entity.setStatus("有效");
+		// entity.setAmount("150万元");
+		// }
+		// list.add(entity);
+		// }
+		// response.setList(list);
 		return response;
 	}
 
 	public static ResponseMessage<CourtAnnouncement> getCourtAnnouncementList(String companyName, int currentPage, int pageSize) {
 
-//		CourtAnnouncementApi api = ApiFactory.create(CourtAnnouncementApi.class);
-//		api.setCompanyName(companyName);
-//		api.setCurrentPage(currentPage);
-//		api.setPageSize(pageSize);
-//		ResponseMessage<CourtAnnouncement> response = api.getResponse();
-//		if (response == null) {
-//
-//			return null;
-//		}
+		 CourtAnnouncementApi api =
+		 ApiFactory.create(CourtAnnouncementApi.class);
+		 api.setCompanyName(companyName);
+		 api.setCurrentPage(currentPage);
+		 api.setPageSize(pageSize);
+		 ResponseMessage<CourtAnnouncement> response = api.getResponse();
+		 if (response == null) {
 		
-		ResponseMessage<CourtAnnouncement> response = new ResponseMessage<CourtAnnouncement>();
-		List<CourtAnnouncement> list = new ArrayList<CourtAnnouncement>();
-		{
-			CourtAnnouncement entity = new CourtAnnouncement();
-			{
+		 return null;
+		 }
 
-				entity.setId(80L);
-				entity.setPublishdate("2016-01-06");
-				entity.setBltntype("62");
-				entity.setParty1("安得利（北京）食品贸易有限公司");
-				entity.setContent("北京臻香思餐饮管理有限公司：\n本院对原告安得利（北京）食品贸易有限公司诉你方买卖合同纠纷一案已审理终结。现依法向你方公告送达（2015）朝民（商）初字第29066号民事判决书。被告自公告之日起60日内来本院领取民事判决书，逾期则视为送达。如不服本判决，可在公告期满后15日内，向本院递交上诉状及副本，上诉于北京市第三中级人民法院。逾期未上诉的，本判决即发生法律效力。 \n");
-
-			}
-			list.add(entity);
-
-			entity = new CourtAnnouncement();
-			{
-				entity.setId(136753L);
-				entity.setPublishdate("2015-10-31");
-				entity.setBltntype("132");
-				entity.setParty1("北京麦冬仓储有限公司");
-				entity.setContent("北京臻香思餐饮管理有限公司：\n本院受理原告北京麦冬仓储有限公司诉被告北京臻香思餐饮管理有限公司仓储合同纠纷一案，现依法向你公告送达起诉状副本、应诉通知书、开庭传票。自本公告发出之日起经过60日即视为送达。提出答辩状的期限为公告送达期满后次日起15日内。并定于答辩期满后第1个工作日上午9时（遇法定节假日顺延）在本院第44法庭公开开庭审理。 \n");
-
-			}
-			list.add(entity);
-			
-			entity = new CourtAnnouncement();
-			{
-				entity.setId(147330L);
-				entity.setPublishdate("2015-10-24");
-				entity.setBltntype("132");
-				entity.setParty1("于爱匣");
-				entity.setContent("北京臻香思餐饮管理有限公司：                   \n本院受理的（2015）朝民（商）初字第33814号原告于爱匣诉被告北京臻香思餐饮管理有限公司合伙协议纠纷一案，现依法向你公告送达民事起诉状副本、开庭传票、应诉通知书、举证通知书。原告的诉讼请求为：1、确认原被告于2014年5月16日签订的《合伙协议》已解除；2、被告返还原告出资款20万元；3、诉讼费被告承担。自公告发出之日起60日视为送达。提出答辩状和举证的时限为送达期满后的15日内。并定于举证期满后第1个工作日上午9时（如遇法定节假日顺延）在北京市朝阳区华威北里甲14号民四庭开庭审理，逾期将依法缺席判决。\n");
-
-			}
-			list.add(entity);
-		}
-		response.setList(list);
+		// ResponseMessage<CourtAnnouncement> response = new
+		// ResponseMessage<CourtAnnouncement>();
+		// List<CourtAnnouncement> list = new ArrayList<CourtAnnouncement>();
+		// {
+		// CourtAnnouncement entity = new CourtAnnouncement();
+		// {
+		//
+		// entity.setId(80L);
+		// entity.setPublishdate("2016-01-06");
+		// entity.setBltntype("62");
+		// entity.setParty1("安得利（北京）食品贸易有限公司");
+		// entity.setContent("北京臻香思餐饮管理有限公司：\n本院对原告安得利（北京）食品贸易有限公司诉你方买卖合同纠纷一案已审理终结。现依法向你方公告送达（2015）朝民（商）初字第29066号民事判决书。被告自公告之日起60日内来本院领取民事判决书，逾期则视为送达。如不服本判决，可在公告期满后15日内，向本院递交上诉状及副本，上诉于北京市第三中级人民法院。逾期未上诉的，本判决即发生法律效力。 \n");
+		//
+		// }
+		// list.add(entity);
+		//
+		// entity = new CourtAnnouncement();
+		// {
+		// entity.setId(136753L);
+		// entity.setPublishdate("2015-10-31");
+		// entity.setBltntype("132");
+		// entity.setParty1("北京麦冬仓储有限公司");
+		// entity.setContent("北京臻香思餐饮管理有限公司：\n本院受理原告北京麦冬仓储有限公司诉被告北京臻香思餐饮管理有限公司仓储合同纠纷一案，现依法向你公告送达起诉状副本、应诉通知书、开庭传票。自本公告发出之日起经过60日即视为送达。提出答辩状的期限为公告送达期满后次日起15日内。并定于答辩期满后第1个工作日上午9时（遇法定节假日顺延）在本院第44法庭公开开庭审理。 \n");
+		//
+		// }
+		// list.add(entity);
+		//
+		// entity = new CourtAnnouncement();
+		// {
+		// entity.setId(147330L);
+		// entity.setPublishdate("2015-10-24");
+		// entity.setBltntype("132");
+		// entity.setParty1("于爱匣");
+		// entity.setContent("北京臻香思餐饮管理有限公司：                   \n本院受理的（2015）朝民（商）初字第33814号原告于爱匣诉被告北京臻香思餐饮管理有限公司合伙协议纠纷一案，现依法向你公告送达民事起诉状副本、开庭传票、应诉通知书、举证通知书。原告的诉讼请求为：1、确认原被告于2014年5月16日签订的《合伙协议》已解除；2、被告返还原告出资款20万元；3、诉讼费被告承担。自公告发出之日起60日视为送达。提出答辩状和举证的时限为送达期满后的15日内。并定于举证期满后第1个工作日上午9时（如遇法定节假日顺延）在北京市朝阳区华威北里甲14号民四庭开庭审理，逾期将依法缺席判决。\n");
+		//
+		// }
+		// list.add(entity);
+		// }
+		// response.setList(list);
 		return response;
 	}
 }
