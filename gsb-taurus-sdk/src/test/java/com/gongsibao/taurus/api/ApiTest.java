@@ -80,10 +80,10 @@ public class ApiTest {
 //
 //		// 2.6 分支机构
 //		
-		ResponseMessage<EntBranch> entBranchList = TaurusApiService.getEntBranchList(companyName,0,10);
-		json = mapper.writeValueAsString(entBranchList);
-		System.out.println(json);
-		System.err.println(entBranchList.getTotalSize()+"：分支机构--------------------------------------------------------------------");
+//		ResponseMessage<EntBranch> entBranchList = TaurusApiService.getEntBranchList(companyName,0,10);
+//		json = mapper.writeValueAsString(entBranchList);
+//		System.out.println(json);
+//		System.err.println(entBranchList.getTotalSize()+"：分支机构--------------------------------------------------------------------");
 //
 //		// 2.5 企业变更记录
 //		ResponseMessage<EntChangeRecord> entChangeRecordList = TaurusApiService.getEntChangeRecordList(companyName,0,10);
@@ -175,11 +175,11 @@ public class ApiTest {
 //		System.out.println(json);
 //		System.err.println(reportWebInfoList.getTotalSize()+"：年报网站信息--------------------------------------------------------------------");
 //		
-//		// 2.23 模糊查询公司信息
-//		ResponseMessage<Company> entList = TaurusApiService.getEntList("百度",0,10);
-//		json = mapper.writeValueAsString(entList);
-//		System.out.println(json);
-//		System.err.println(entList.getTotalSize()+"：模糊查询公司信息--------------------------------------------------------------------");
+		// 2.23 模糊查询公司信息
+		ResponseMessage<Company> entList = TaurusApiService.getEntList("百度",0,10);
+		json = mapper.writeValueAsString(entList);
+		System.out.println(json);
+		System.err.println(entList.getTotalSize()+"：模糊查询公司信息--------------------------------------------------------------------");
 		
 		//经营异常
 		ResponseMessage<CompanyAbnormal> abnormalList = TaurusApiService.getAbnormalList("吉林省筑森林业有限公司",0,10);
