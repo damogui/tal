@@ -40,7 +40,7 @@
 				var details = roadmap.details[i];
 				html.push('<div class="history">');
 				html.push('<div class="date">' + details.date + '</div>');
-				html.push('<div class="dot" style="background: '+details.status+';"></div><span class="name t2">' + details.name + '</span><br>');
+				html.push('<div class="dot" style="background: '+getColor(details.status)+';"></div><span class="name t2">' + details.name + '</span><br>');
 				//html.push('<span class="t3">' + details.date + '</span><br>');
 				html.push('<span>' + details.memoto + '</span>');
 				html.push('</div>');
@@ -49,6 +49,12 @@
 			html.push('</div>');
 			
 			document.getElementById('roadmap').innerHTML = html.join('');
+		}
+		
+		function getColor(status){
+			
+			var list = ['green','red','blue','gray'];
+			return list[status-1];
 		}
 		
 		createPhase(roadmap);
