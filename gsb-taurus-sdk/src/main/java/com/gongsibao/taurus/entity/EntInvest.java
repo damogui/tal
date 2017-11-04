@@ -35,6 +35,17 @@ public class EntInvest implements IEntity{
 	 * @Fields name : TODO(成立日期)   
 	 */   
 	private String foundDt;
+	
+	private String managementState;
+	
+
+	public String getManagementState() {
+		return managementState;
+	}
+
+	public void setManagementState(String managementState) {
+		this.managementState = managementState;
+	}
 
 	public String getRegisteredCapital() {
 		return registeredCapital;
