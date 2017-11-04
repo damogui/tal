@@ -55,15 +55,19 @@ public class UserWalletLogService extends PersistableService<UserWalletLog> impl
 		}
 
 		// 赠送日志
-		UserWalletLog discountLog = this.newInstance();
-		{
-			discountLog.toNew();
-			discountLog.setUserId(userId);
-			discountLog.setType(WalletType.DISCOUNT);
-			discountLog.setPrice(discountAmount);
-			discountLog.setPaymentType(PaymentType.UNKNOWN);
-			discountLog.setRemark(remark);
-			this.save(discountLog);
+		
+		if(discountAmount >0){
+
+			UserWalletLog discountLog = this.newInstance();
+			{
+				discountLog.toNew();
+				discountLog.setUserId(userId);
+				discountLog.setType(WalletType.DISCOUNT);
+				discountLog.setPrice(discountAmount);
+				discountLog.setPaymentType(PaymentType.UNKNOWN);
+				discountLog.setRemark(remark);
+				this.save(discountLog);
+			}
 		}
 
 		// 更新用户余额
