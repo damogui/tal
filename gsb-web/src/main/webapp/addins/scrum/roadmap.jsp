@@ -54,7 +54,7 @@
 		function getColor(status){
 			
 			var list = ['green','red','blue','gray'];
-			return list[status-1];
+			return list[status+1];
 		}
 		
 		createPhase(roadmap);
