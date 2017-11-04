@@ -16,7 +16,7 @@ import com.gongsibao.taurus.util.SmsHelper;
 public class WebClient {
 
 //    private static Log    logger      = LogFactory.getLog(WebClient.class);
-    private        int    timspan     = 60000; // 连接读取超时30秒
+    private        int    timspan     = 30000; // 连接读取超时30秒
     private static String encoding    = "UTF-8";
     private        String contentType = "application/x-www-form-urlencoded";
 
