@@ -175,18 +175,18 @@ public class ApiTest {
 //		System.out.println(json);
 //		System.err.println(reportWebInfoList.getTotalSize()+"：年报网站信息--------------------------------------------------------------------");
 //		
-		// 2.23 模糊查询公司信息
-		ResponseMessage<Company> entList = TaurusApiService.getEntList("百度",0,10);
-		json = mapper.writeValueAsString(entList);
-		System.out.println(json);
-		System.err.println(entList.getTotalSize()+"：模糊查询公司信息--------------------------------------------------------------------");
+//		// 2.23 模糊查询公司信息
+//		ResponseMessage<Company> entList = TaurusApiService.getEntList("百度",0,10);
+//		json = mapper.writeValueAsString(entList);
+//		System.out.println(json);
+//		System.err.println(entList.getTotalSize()+"：模糊查询公司信息--------------------------------------------------------------------");
 		
 		//经营异常
-		ResponseMessage<CompanyAbnormal> abnormalList = TaurusApiService.getAbnormalList("吉林省筑森林业有限公司",0,10);
-		json = mapper.writeValueAsString(abnormalList);
-		System.out.println(json);
-		System.err.println(abnormalList.getTotalSize()+"：经营异常--------------------------------------------------------------------");
-		
+//		ResponseMessage<CompanyAbnormal> abnormalList = TaurusApiService.getAbnormalList("吉林省筑森林业有限公司",0,10);
+//		json = mapper.writeValueAsString(abnormalList);
+//		System.out.println(json);
+//		System.err.println(abnormalList.getTotalSize()+"：经营异常--------------------------------------------------------------------");
+//		System.out.println("");
 		//股权出质
 		ResponseMessage<CompanyEquity> equityList = TaurusApiService.getEquityList("北京百度网讯科技有限公司",0,10);
 		json = mapper.writeValueAsString(equityList);
@@ -195,17 +195,17 @@ public class ApiTest {
 		
 		
 		//动产抵押
-		ResponseMessage<CompanyMortgage> mortgageList = TaurusApiService.getMortgageList("克山县裕民玉米种植专业合作社",0,10);
-		json = mapper.writeValueAsString(mortgageList);
-		System.out.println(json);
-		System.err.println(mortgageList.getTotalSize()+"：动产抵押--------------------------------------------------------------------");
+//		ResponseMessage<CompanyMortgage> mortgageList = TaurusApiService.getMortgageList("克山县裕民玉米种植专业合作社",0,10);
+//		json = mapper.writeValueAsString(mortgageList);
+//		System.out.println(json);
+//		System.err.println(mortgageList.getTotalSize()+"：动产抵押--------------------------------------------------------------------");
 		
 		
 		//法院公告
-		ResponseMessage<CourtAnnouncement> courtAnnouncementList = TaurusApiService.getCourtAnnouncementList("北京臻香思餐饮管理有限公司",0,10);
-		json = mapper.writeValueAsString(courtAnnouncementList);
-		System.out.println(json);
-		System.err.println(courtAnnouncementList.getTotalSize()+"：法院公告--------------------------------------------------------------------");
+//		ResponseMessage<CourtAnnouncement> courtAnnouncementList = TaurusApiService.getCourtAnnouncementList("北京臻香思餐饮管理有限公司",0,10);
+//		json = mapper.writeValueAsString(courtAnnouncementList);
+//		System.out.println(json);
+//		System.err.println(courtAnnouncementList.getTotalSize()+"：法院公告--------------------------------------------------------------------");
 	}
 
 }
