@@ -205,7 +205,6 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 		ResourceNode node = this.resourceService.byCode(CustomerProdMap.class.getSimpleName());
 		PDatagrid datagrid = new PDatagrid(node, "意向产品");
 		{
-			
 			addColumn(datagrid, "product.name", "产品", ControlTypes.TEXT_BOX, 300);
 			addColumn(datagrid, "dProvince.name", "省份", ControlTypes.TEXT_BOX, 150);
 			addColumn(datagrid, "dCity.name", "城市", ControlTypes.TEXT_BOX, 150);
@@ -221,7 +220,6 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 			PFormField formField = null;
 			formField = addFormFieldRefrence(form, "product.name", "意向产品",null,  "CRM_"+Product.class.getSimpleName(), true, false);{
 				
-				formField.setFullColumn(true);
 				formField.setWidth(300);
 			}
 			formField = addFormField(form, "dProvince.name", "省份", ControlTypes.CUSTOMER, false, false);
