@@ -8,7 +8,7 @@ def projectName="$name"
 dependencies {
 
 
-    compile project(':netsharp-api')
+    compile project(':gsb-api')
     compile project(':gsb-entity')
     compile project(':gsb-ma')
     compile project(':gsb-er')
