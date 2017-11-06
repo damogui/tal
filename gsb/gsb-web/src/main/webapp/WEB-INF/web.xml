@@ -33,7 +33,7 @@
         <!-- 配置自己的资源加载类去加载资源 -->
         <init-param>
             <param-name>javax.ws.rs.Application</param-name>
-            <param-value>org.netsharp.api.config.RestServiceConfig</param-value>
+            <param-value>com.gongsibao.api.config.RestServiceConfig</param-value>
         </init-param>
         
         <!-- <init-param>  -->
