@@ -100,7 +100,7 @@ public class UserWorkspaceTest extends WorkspaceCreationBase {
 		datagrid.setToolbar("panda/datagrid/row/edit");
 		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
 		addColumn(datagrid, "mobile", "手机号", ControlTypes.TEXT_BOX, 100, true);
-		addColumn(datagrid, "amount", "余额", ControlTypes.DECIMAL_BOX, 100);
+		addColumn(datagrid, "amount", "余额", ControlTypes.DECIMAL_FEN_BOX, 100);
 		addColumn(datagrid, "remark", "备注", ControlTypes.TEXT_BOX, 300);
 		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
 		addColumn(datagrid, "updateTime", "修改时间", ControlTypes.DATETIME_BOX, 130);
