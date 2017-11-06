@@ -82,8 +82,8 @@ configure(subprojects.findAll { it.name != 'dao' }) {
         mavenLocal()
         maven {
             credentials {
-                username 'ykx'
-                password '2wsx3edc'
+                username 'admin'
+                password 'gongsibao2015'
             }
             url "${ykx_maven_url}"
         }

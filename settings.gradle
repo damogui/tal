@@ -1,6 +1,6 @@
 rootProject.name = 'netsharp-gongsibao'
 
-include 'netsharp-api'
+include 'gsb-api'
 include 'gsb-entity'
 include 'gsb-ma'
 include 'gsb-er'
