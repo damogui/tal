@@ -126,7 +126,7 @@ public class CustomerService extends GsbPersistableService<Customer> implements 
 	} 
 
 	@Override
-	public Customer bySwtCustomerId(Integer swtCustomerId) {
+	public Customer bySwtCustomerId(String swtCustomerId) {
 
 		StringBuilder builder = new StringBuilder();
 		builder.append("Customer.*,");

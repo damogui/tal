@@ -8,5 +8,5 @@ public interface ICustomerService extends IPersistableService<Customer> {
 	
 	Customer validationContactWay(Integer id,String contactWay,String type);
 	
-	Customer bySwtCustomerId(Integer swtCustomerId);
+	Customer bySwtCustomerId(String swtCustomerId);
 }

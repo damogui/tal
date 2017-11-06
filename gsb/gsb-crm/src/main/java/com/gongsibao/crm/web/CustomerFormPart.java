@@ -36,7 +36,7 @@ public class CustomerFormPart extends FormPart{
 		return navigation;
 	}
 	
-	public FormNavigation bySwtCustomerId(Integer swtCustomerId) {
+	public FormNavigation bySwtCustomerId(String swtCustomerId) {
 
 		this.getService();
 
