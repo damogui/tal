@@ -145,7 +145,7 @@ public class CustomerService extends GsbPersistableService<Customer> implements 
 			oql.setType(this.type);
 			oql.setSelects(builder.toString());
 			oql.setFilter("swtCustomerId=?");
-			oql.getParameters().add("swtCustomerId", swtCustomerId, Types.INTEGER);
+			oql.getParameters().add("swtCustomerId", swtCustomerId, Types.VARCHAR);
 		}
 
 		Customer entity = this.queryFirst(oql);
@@ -170,5 +170,47 @@ public class CustomerService extends GsbPersistableService<Customer> implements 
 		
 		IPersister<SoOrder> orderPm = PersisterFactory.create();
 		return orderPm.queryList(oql);
+	}
+
+	@Override
+	public Customer byContactWay(String contactWay, String type) {
+		
+		StringBuilder builder = new StringBuilder();
+		builder.append("Customer.*,");
+		builder.append("Customer.allocationOrg.*,");
+		builder.append("Customer.prodDetails.*,");
+		builder.append("Customer.prodDetails.product.{id,name},");
+		builder.append("Customer.prodDetails.dProvince.*,");
+		builder.append("Customer.prodDetails.dCity.*,");
+		builder.append("Customer.prodDetails.dCounty.*,");
+		builder.append("Customer.companys.*,");
+		builder.append("Customer.companys.company.{id,companyName},");
+		builder.append("Customer.follows.*,");
+		builder.append("Customer.orders.*");
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects(builder.toString());
+			oql.setFilter(type+"=?");
+			oql.getParameters().add("contactWay", contactWay, Types.VARCHAR);
+		}
+
+		Customer entity = this.queryFirst(oql);
+
+		if(entity != null && entity.getAccountId() !=null && entity.getAccountId()!=0){
+			
+			 List<SoOrder> orders = getOrderList(entity.getAccountId());
+			 entity.setOrders(orders);
+		}
+		return entity;
+	}
+
+	@Override
+	public Customer bindSwtCustomerId(String swtCustomerId, int customerId) {
+		
+		Customer customer = byId(customerId);
+		customer.setSwtCustomerId(swtCustomerId);
+		customer = this.save(customer);
+		return customer;
 	}
 }

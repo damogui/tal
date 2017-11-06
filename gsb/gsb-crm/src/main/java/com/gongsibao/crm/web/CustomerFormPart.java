@@ -38,8 +38,6 @@ public class CustomerFormPart extends FormPart{
 	
 	public FormNavigation bySwtCustomerId(String swtCustomerId) {
 
-		this.getService();
-
 		FormNavigation navigation = this.createFormNavigation(id);
 		IPersistable obj = customerService.bySwtCustomerId(swtCustomerId);
 		if (obj == null) {
@@ -52,4 +50,22 @@ public class CustomerFormPart extends FormPart{
 		return navigation;
 	}
 	
+	public FormNavigation byContactWay(String contactWay,String type) {
+
+		//type:mobile,telephone,qq,weixin
+		FormNavigation navigation = this.createFormNavigation(id);
+		IPersistable obj = customerService.byContactWay(contactWay,type);
+		navigation.Entity = obj;
+
+		return navigation;
+	}
+	
+	public FormNavigation bindSwtCustomerId(String swtCustomerId,int customerId){
+		
+		FormNavigation navigation = this.createFormNavigation(id);
+		IPersistable obj = customerService.bindSwtCustomerId(swtCustomerId,customerId);
+		navigation.Entity = obj;
+
+		return navigation;
+	}
 }

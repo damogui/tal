@@ -94,22 +94,22 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "sex", "性别", groupName, ControlTypes.RADIO_BOX_GROUP, false, false);
 		formField = addFormField(form, "mobile", "手机", groupName, ControlTypes.TEXT_BOX, true, false);{
 			
-			//formField.setTroikaTrigger("controllercustomer.contactWayChange(this);");
+			formField.setTroikaTrigger("controllercustomer.contactWayChange(this);");
 			formField.setTroikaValidation("validationContactWay['mobile','手机']");
 		}
 		formField = addFormField(form, "telephone", "座机", groupName, ControlTypes.TEXT_BOX, true, false);{
 			
-			//formField.setTroikaTrigger("controllercustomer.contactWayChange(this);");
+			formField.setTroikaTrigger("controllercustomer.contactWayChange(this);");
 			formField.setTroikaValidation("validationContactWay['telephone','座机']");
 		}
 		formField = addFormField(form, "weixin", "微信", groupName, ControlTypes.TEXT_BOX, true, false);{
 			
-			//formField.setTroikaTrigger("controllercustomer.contactWayChange(this);");
+			formField.setTroikaTrigger("controllercustomer.contactWayChange(this);");
 			formField.setTroikaValidation("validationContactWay['weixin','微信']");
 		}
 		formField = addFormField(form, "qq", "QQ", groupName, ControlTypes.TEXT_BOX, true, false);{
 			
-			//formField.setTroikaTrigger("controllercustomer.contactWayChange(this);");
+			formField.setTroikaTrigger("controllercustomer.contactWayChange(this);");
 			formField.setTroikaValidation("validationContactWay['qq','QQ']");
 		}
 		addFormField(form, "email", "Email", groupName, ControlTypes.TEXT_BOX, false, false);
