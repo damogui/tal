@@ -93,18 +93,61 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
     },
 	contactWayChange:function(el){
 		
-		var ctrlsIds = ['mobile','telephone','weixin','qq'];
+		var ctrlsIds = [{code:'mobile',text:'手机号'},
+		                {code:'telephone',text:'座机'},
+		                {code:'weixin',text:'微信'},
+		                {code:'qq',text:'QQ'}];
 		var ctrlId = el.id;
-		
+		var currentItem = null;
 		$(ctrlsIds).each(function(i,item){
 			
-			if(ctrlId != item){
+			if(ctrlId != item.code){
 				
-				$("#"+item).validatebox('disableValidation');
+				$("#"+item.code).validatebox('disableValidation');
 			}else{
 				
-				$("#"+item).validatebox('enableValidation');
+				currentItem = item;
+				$("#"+item.code).validatebox('enableValidation');
 			}
+		});
+		
+		var me = this;
+		var swtCustomerId = this.queryString("swtCustomerId");
+		if(swtCustomerId && this.viewModel.currentItem.entityState == EntityState.New){
+			//从商务通客户端打开
+			var contactWay = $(el).val();
+			var type = $(el).attr('id');
+	        this.invokeService("byContactWay", [contactWay,type], function (jmessage) {
+	        	
+	        	var nav = jmessage;
+	        	if(nav.Entity){
+
+	        		var msg = currentItem.text+'【'+contactWay+'】已存在，是否绑定至已有客户信息？';
+	        		IMessageBox.confirm(msg,function(isOk){
+	        			
+	        			if(isOk){
+	        				
+	        				me.bindSwtCustomerId(swtCustomerId,nav.Entity.id);
+	        			}
+	        		});
+	        	}
+	        	
+	        });
+		}
+	},
+	bindSwtCustomerId:function(swtCustomerId,customerId){
+		
+		var me = this;
+		this.invokeService("bindSwtCustomerId", [swtCustomerId,customerId], function (jmessage) {
+			
+	       	 var nav = jmessage;
+	         me.viewModel.currentItem = nav.Entity;
+	         if(me.viewModel.currentItem.entityState != EntityState.New){
+	
+	        	 me.viewModel.currentItem.entityState = EntityState.Persist;
+	         }
+	         me.paging = nav.Paging;
+	         me.databind();
 		});
 	},
 	validationContactWay:function(contactWay,type,callback){
@@ -195,7 +238,8 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
     		$("#maybeRemark").prop("disabled", true);
     	}
     	
-    }
+    },
+   
 });
 
 /**
