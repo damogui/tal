@@ -19,6 +19,9 @@ public class User extends BaseEntity{
 	@Column(name = "mobile", header = "手机号")
 	private String mobile;
 	
+//	@Column(name = "name", header = "联系人姓名")
+//	private String name;
+	
 	@Column(name="amount",header="余额")
 	private int amount = 0;
 	
@@ -44,6 +47,14 @@ public class User extends BaseEntity{
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
+	
+//	public String getName() {
+//		return name;
+//	}
+//
+//	public void setName(String name) {
+//		this.name = name;
+//	}
 
 	public String getTicket() {
 		return ticket;
