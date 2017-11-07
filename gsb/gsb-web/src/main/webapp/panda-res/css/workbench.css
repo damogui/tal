@@ -172,8 +172,8 @@ ul,li{
 .nav-right .user-info {
 	float: left;
 	padding: 0 10px 0 10px;
-	height: 48px;
-	line-height: 48px;
+	height: 46px;
+	line-height: 46px;
 }
 
 .nav-right .user-info img {
@@ -182,7 +182,7 @@ ul,li{
 	height: 25px;
 	border-radius: 50%;
 	margin-right: 10px;
-	margin-top: 13px;
+	margin-top: 11px;
 }
 
 .nav-right .user-info span {
