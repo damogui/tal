@@ -22,7 +22,7 @@
 
         var state = $.data(target,"radiogroupbox");
         state.radiogroupbox.find(".radio-value").val(value);
-        if(value !=null && value !=undefined){
+        if(value !=null && value !=undefined&& value !=''){
 
             var radioItem = state.radiogroupbox.find('input[type=radio][value='+value+']');
             radioItem.prop('checked',true);
