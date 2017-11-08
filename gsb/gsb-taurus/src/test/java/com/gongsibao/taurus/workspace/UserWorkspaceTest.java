@@ -10,6 +10,7 @@ import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.OpenMode;
+import org.netsharp.panda.dic.OrderbyMode;
 import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
@@ -100,9 +101,15 @@ public class UserWorkspaceTest extends WorkspaceCreationBase {
 		datagrid.setToolbar("panda/datagrid/row/edit");
 		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
 		addColumn(datagrid, "mobile", "手机号", ControlTypes.TEXT_BOX, 100, true);
-		addColumn(datagrid, "amount", "余额", ControlTypes.DECIMAL_FEN_BOX, 100);
+		PDatagridColumn column = addColumn(datagrid, "amount", "余额", ControlTypes.DECIMAL_FEN_BOX, 100);{
+			
+			column.setOrderbyMode(OrderbyMode.DESC);
+		}
 		addColumn(datagrid, "remark", "备注", ControlTypes.TEXT_BOX, 300);
-		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
+		column = addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);{
+			
+			column.setOrderbyMode(OrderbyMode.DESC);
+		}
 		addColumn(datagrid, "updateTime", "修改时间", ControlTypes.DATETIME_BOX, 130);
 		return datagrid;
 	}
