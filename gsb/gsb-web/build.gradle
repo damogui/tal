@@ -30,10 +30,10 @@ dependencies {
 task deployPanda(dependsOn: war) << {
     println("deploy $projectName to $tomcat_webapps")
     copy {
-        from "build/libs/netsharp-web-1.0-SNAPSHOT.war"
+        from "build/libs/gsb-web-1.0-SNAPSHOT.war"
         into tomcat_webapps
         include "*.war"
-        rename('netsharp-web-1.0-SNAPSHOT.war', 'ROOT.war')
+        rename('gsb-web-1.0-SNAPSHOT.war', 'ROOT.war')
     }
 }
 

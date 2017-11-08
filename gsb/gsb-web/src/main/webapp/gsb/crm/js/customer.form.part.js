@@ -4,6 +4,14 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
     ctor: function () {
         this.base();
     },
+    getaddState:function(){
+    	
+    	var swtCustomerId = this.queryString("swtCustomerId");
+    	if(swtCustomerId){
+    	
+    		return UiElementState.Hide;
+    	}
+    },
     onload: function () {
 
         var id = this.queryString("id");
@@ -239,8 +247,61 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
     	}
     	
     },
-   
+    edit:function(){
+    	
+    	//编辑
+    	this.enable();
+    	
+    	var mobile = $('#mobile').val();
+    	alert(mobile);
+    	if(!System.isnull(mobile)){
+    		
+    		$('#mobile').prop('disabled',true);
+    	}
+    },
+    follow:function(){
+    	
+    	//切换到【沟通日志】
+    	$("#tabcenter").tabs('select',4);
+    	
+    	//将【内容】设置为可写
+    	$('#content').prop('disabled',false);
+    	
+    	//跟进
+    	controllerfollows.add();
+    }
 });
+
+
+com.gongsibao.crm.web.OrderDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
+
+	edit:function(rowData){
+		
+		IMessageBox.info("暂不支持查看");
+		return;
+	}
+});
+
+
+
+com.gongsibao.crm.web.FlowDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
+
+	
+	addBefore:function(){
+		
+    	//将【内容】设置为禁用
+    	$('#content').prop('disabled',false);
+    	
+	},	
+	editBefore:function(){
+
+    	//将【内容】设置为禁用
+    	$('#content').prop('disabled',true);
+    	
+	}
+});
+
+
 
 /**
  * 扩展联系方式验证

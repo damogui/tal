@@ -3,6 +3,8 @@ package com.gongsibao.panda.temp;
 import java.io.File;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import jxl.Cell;
 import jxl.Sheet;
@@ -27,7 +29,7 @@ public class TaurusUserImportTest {
 	@Test
 	public void run() {
 
-		importExcel("D:/user.xls");
+		importExcel("D:/user1.xls");
 	}
 
 	/**
@@ -58,12 +60,19 @@ public class TaurusUserImportTest {
 					if(oldUser == null){
 
 						j++;
+						dto.setCreateTime(new Date());
 						userService.save(dto);
 					}else{
 						
 						oldUser.setAmount(dto.getAmount());
 						oldUser.setRemark(dto.getRemark());
-						oldUser.setWalletLogs(dto.getWalletLogs());
+						
+						List<UserWalletLog> logs = dto.getWalletLogs();
+						for(UserWalletLog log : logs){
+							
+							log.setUserId(oldUser.getId());
+						}
+						oldUser.setWalletLogs(logs);
 						userService.save(oldUser);
 						System.err.println("已存在:" + dto.getMobile());
 					}
@@ -87,7 +96,7 @@ public class TaurusUserImportTest {
 			entity.setWalletLogs(new ArrayList<UserWalletLog>());
 		}
 
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 6; i++) {
 
 			if (titleCell[i].getContents() != null) {
 
@@ -169,7 +178,7 @@ public class TaurusUserImportTest {
 		Oql oql = new Oql();
 		{
 			oql.setType(User.class);
-			oql.setSelects("Customer.id");
+			oql.setSelects("*");
 			oql.setFilter("mobile = ?");
 		}
 		QueryParameters qps = new QueryParameters();
