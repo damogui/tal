@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.BusinessException;
+import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
 import org.netsharp.service.PersistableService;
 
@@ -19,6 +21,22 @@ public class UserService extends PersistableService< User> implements IUserServi
     public UserService(){
         super();
         this.type= User.class;
+    }
+    
+    @Override
+    public User save(User entity) {
+    	
+    	if(entity.getEntityState() == EntityState.New){
+    		
+    		User oldUser  = byMobile(entity.getMobile());
+    		if(oldUser != null){
+    			
+    			new BusinessException("手机号已存在！");
+    		}
+    	}
+    	
+    	entity = super.save(entity);
+    	return entity;
     }
     
     @Override
