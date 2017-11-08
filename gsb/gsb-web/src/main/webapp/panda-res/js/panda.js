@@ -127,7 +127,7 @@ org.netsharp.panda.core.View = System.Object.Extends({
     setState: function () {
  
         for (var i = 0; i < this.statusControls.length; i++) {
-
+        	
             var uielement = this.statusControls[i];
             if (uielement == undefined || uielement == null) {
 
@@ -137,7 +137,6 @@ org.netsharp.panda.core.View = System.Object.Extends({
             //var name = uielement.id;        
             var name = $(uielement).attr("code");
             var methodName = "get" + name + "State";
-           
             var state = null;
             var expression = "if (this." + methodName + " != null && this." + methodName + " != undefined) {state=this." + methodName + "();}";
             eval(expression);

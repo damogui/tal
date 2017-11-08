@@ -390,6 +390,7 @@ org.netsharp.panda.commerce.DetailPart = org.netsharp.panda.core.View.Extends({
 	 */
 	add : function() {
 
+		this.addBefore();
 		var me = this;
 		this.invokeService("newInstance", [], function(data) {
 
@@ -433,7 +434,8 @@ org.netsharp.panda.commerce.DetailPart = org.netsharp.panda.core.View.Extends({
 	 * 
 	 */
 	edit:function(rowData){
-		
+
+		this.editBefore();
 		var me = this;
 		this.viewModel.setEntity(rowData);
 //		this.getDialog().dialog('open');
@@ -461,6 +463,12 @@ org.netsharp.panda.commerce.DetailPart = org.netsharp.panda.core.View.Extends({
 			  $('#'+formName).css('display','none');
 		  }
 		});
+	},
+	addBefore:function(){
+		
+	},
+	editBefore:function(){
+		
 	},
 
 	/******************************************
