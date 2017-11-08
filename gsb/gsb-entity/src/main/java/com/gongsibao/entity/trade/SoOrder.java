@@ -88,7 +88,7 @@ public class SoOrder extends BaseEntity {
 //    @Column(name="add_time",header="创建时间")
 //    private Date addTime;
     @Column(name="is_bbk",header="IsBbk")
-    private String isBbk;
+    private String isBbk="0";
     @Column(name="add_user_id",header="创建人")
     private Integer addUserId;
     @Reference(foreignKey="addUserId",header="创建人")

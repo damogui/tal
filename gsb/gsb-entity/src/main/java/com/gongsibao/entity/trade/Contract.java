@@ -48,7 +48,7 @@ public class Contract extends BaseEntity {
     @Column(name="add_time",header="AddTime")
     private Date addTime;
     @Column(name="is_bbk",header="IsBbk")
-    private String isBbk;
+    private String isBbk="0";
     @Column(name="add_user_id",header="AddUserId")
     private Integer addUserId;
     @Column(header="remark")

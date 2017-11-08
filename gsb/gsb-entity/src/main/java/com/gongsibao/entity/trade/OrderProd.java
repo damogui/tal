@@ -52,7 +52,7 @@ public class OrderProd extends BaseEntity {
     @Column(name="invoice_title",header="发票抬头")
     private String invoiceTitle;
     @Column(name="is_bbk",header="IsBbk")
-    private String isBbk;
+    private String isBbk="0";
     @Column(name="apply_no",header="支付账号")
     private String applyNo;
     @Column(name="handle_name",header="处理人")

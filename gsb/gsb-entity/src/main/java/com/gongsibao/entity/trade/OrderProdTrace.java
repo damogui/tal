@@ -29,7 +29,7 @@ public class OrderProdTrace extends BaseEntity {
     @Column(name="add_time",header="创建时间")
     private Date addTime;
     @Column(name="is_bbk",header="IsBbk")
-    private String isBbk;
+    private String isBbk="0";
     @Column(header="remark")
     private String remark;
     @Column(name="is_send_sms",header="短信发送")

@@ -24,7 +24,7 @@ public class OrderProdUserMap extends BaseEntity {
     @Column(name="add_time",header="AddTime")
     private Date addTime;
     @Column(name="is_bbk",header="IsBbk")
-    private String isBbk;
+    private String isBbk="0";
 
     public Integer getUserId() {
         return userId;

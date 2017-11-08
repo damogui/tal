@@ -20,7 +20,7 @@ public class OrderProdOrganizationMap extends BaseEntity {
     @Column(name="add_time",header="AddTime")
     private Date addTime;
     @Column(name="is_bbk",header="IsBbk")
-    private String isBbk;
+    private String isBbk="0";
 
     public Integer getOrderProdId() {
         return orderProdId;

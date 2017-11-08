@@ -115,7 +115,7 @@ public class CompanyIntention extends BaseEntity {
     @Column(name="add_time")
     private Date addTime;
     @Column(name="is_bbk")
-    private String isBbk;
+    private String isBbk="0";
     private Integer taxpayer;
     @Column(name="certificate_term_validity")
     private String certificateTermValidity;

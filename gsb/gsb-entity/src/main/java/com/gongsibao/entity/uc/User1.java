@@ -36,7 +36,7 @@ public class User1 extends BaseEntity {
     @Column(name="add_time")
     private Date addTime;
     @Column(name="is_bbk")
-    private String isBbk;
+    private String isBbk="0";
     @Column(name="add_user_id")
     private Integer addUserId;
     @Column(name="is_accept_order")

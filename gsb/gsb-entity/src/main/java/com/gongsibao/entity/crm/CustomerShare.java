@@ -22,7 +22,7 @@ public class CustomerShare extends BaseEntity {
     @Column(name="share_time")
     private Date shareTime;
     @Column(name="is_bbk")
-    private String isBbk;
+    private String isBbk ="0";
 
     public Integer getCustomerId() {
         return customerId;

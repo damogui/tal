@@ -28,7 +28,7 @@ public class OrderProdItem extends BaseEntity {
     @Column(name="price_refund",header="PriceRefund")
     private Integer priceRefund;
     @Column(name="is_bbk",header="IsBbk")
-    private String isBbk;
+    private String isBbk="0";
 
     public Integer getOrderProdId() {
         return orderProdId;

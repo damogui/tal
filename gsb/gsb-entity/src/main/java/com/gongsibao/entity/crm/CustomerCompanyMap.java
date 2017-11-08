@@ -27,7 +27,7 @@ public class CustomerCompanyMap extends BaseEntity {
     private CompanyIntention company;
     
     @Column(name="is_bbk")
-    private String isBbk;
+    private String isBbk = "0";
 
     public Integer getCustomerId() {
         return customerId;
