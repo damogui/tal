@@ -29,7 +29,7 @@ public class CustomerProdMap extends BaseEntity {
     private Product product;
     
     @Column(name="city_id")
-    private Integer cityId;
+    private Integer cityId = 0;
     
 	@Column(name="d_province_id")
 	private Integer dProvinceId;
