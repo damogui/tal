@@ -34,10 +34,10 @@ public class UserWalletLogService extends PersistableService<UserWalletLog> impl
 			throw new BusinessException("用户不存在");
 		}
 
-		if (rechargeAmount == null || rechargeAmount.compareTo(0) == 0) {
-
-			throw new BusinessException("充值金额不能为0");
-		}
+//		if (rechargeAmount == null || rechargeAmount.compareTo(0) == 0) {
+//
+//			throw new BusinessException("充值金额不能为0");
+//		}
 
 		rechargeAmount = rechargeAmount * 100;// 转换为分
 		discountAmount = discountAmount == null ? 0 : discountAmount * 100;// 赠送金额
