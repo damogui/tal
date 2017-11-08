@@ -96,22 +96,11 @@ public class CustomerService extends GsbPersistableService<Customer> implements 
 	@Override
 	public Customer byId(Object id) {
 
-		StringBuilder builder = new StringBuilder();
-		builder.append("Customer.*,");
-		builder.append("Customer.allocationOrg.*,");
-		builder.append("Customer.prodDetails.*,");
-		builder.append("Customer.prodDetails.product.{id,name},");
-		builder.append("Customer.prodDetails.dProvince.*,");
-		builder.append("Customer.prodDetails.dCity.*,");
-		builder.append("Customer.prodDetails.dCounty.*,");
-		builder.append("Customer.companys.*,");
-		builder.append("Customer.companys.company.{id,companyName},");
-		builder.append("Customer.follows.*,");
-		builder.append("Customer.orders.*");
+		String selectFields = getSelectFullFields();
 		Oql oql = new Oql();
 		{
 			oql.setType(this.type);
-			oql.setSelects(builder.toString());
+			oql.setSelects(selectFields);
 			oql.setFilter("id=?");
 			oql.getParameters().add("id", id, Types.INTEGER);
 		}
@@ -128,22 +117,11 @@ public class CustomerService extends GsbPersistableService<Customer> implements 
 	@Override
 	public Customer bySwtCustomerId(String swtCustomerId) {
 
-		StringBuilder builder = new StringBuilder();
-		builder.append("Customer.*,");
-		builder.append("Customer.allocationOrg.*,");
-		builder.append("Customer.prodDetails.*,");
-		builder.append("Customer.prodDetails.product.{id,name},");
-		builder.append("Customer.prodDetails.dProvince.*,");
-		builder.append("Customer.prodDetails.dCity.*,");
-		builder.append("Customer.prodDetails.dCounty.*,");
-		builder.append("Customer.companys.*,");
-		builder.append("Customer.companys.company.{id,companyName},");
-		builder.append("Customer.follows.*,");
-		builder.append("Customer.orders.*");
+		String selectFields = getSelectFullFields();
 		Oql oql = new Oql();
 		{
 			oql.setType(this.type);
-			oql.setSelects(builder.toString());
+			oql.setSelects(selectFields);
 			oql.setFilter("swtCustomerId=?");
 			oql.getParameters().add("swtCustomerId", swtCustomerId, Types.VARCHAR);
 		}
@@ -175,22 +153,11 @@ public class CustomerService extends GsbPersistableService<Customer> implements 
 	@Override
 	public Customer byContactWay(String contactWay, String type) {
 		
-		StringBuilder builder = new StringBuilder();
-		builder.append("Customer.*,");
-		builder.append("Customer.allocationOrg.*,");
-		builder.append("Customer.prodDetails.*,");
-		builder.append("Customer.prodDetails.product.{id,name},");
-		builder.append("Customer.prodDetails.dProvince.*,");
-		builder.append("Customer.prodDetails.dCity.*,");
-		builder.append("Customer.prodDetails.dCounty.*,");
-		builder.append("Customer.companys.*,");
-		builder.append("Customer.companys.company.{id,companyName},");
-		builder.append("Customer.follows.*,");
-		builder.append("Customer.orders.*");
+		String selectFields = getSelectFullFields();
 		Oql oql = new Oql();
 		{
 			oql.setType(this.type);
-			oql.setSelects(builder.toString());
+			oql.setSelects(selectFields);
 			oql.setFilter(type+"=?");
 			oql.getParameters().add("contactWay", contactWay, Types.VARCHAR);
 		}
@@ -212,5 +179,22 @@ public class CustomerService extends GsbPersistableService<Customer> implements 
 		customer.setSwtCustomerId(swtCustomerId);
 		customer = this.save(customer);
 		return customer;
+	}
+	
+	private String getSelectFullFields(){
+		
+		StringBuilder builder = new StringBuilder();
+		builder.append("Customer.*,");
+		builder.append("Customer.allocationOrg.*,");
+		builder.append("Customer.prodDetails.*,");
+		builder.append("Customer.prodDetails.product.{id,name},");
+		builder.append("Customer.prodDetails.dProvince.*,");
+		builder.append("Customer.prodDetails.dCity.*,");
+		builder.append("Customer.prodDetails.dCounty.*,");
+		builder.append("Customer.companys.*,");
+		builder.append("Customer.companys.company.{id,companyName},");
+		builder.append("Customer.follows.*,");
+		builder.append("Customer.orders.*");
+		return builder.toString();
 	}
 }
