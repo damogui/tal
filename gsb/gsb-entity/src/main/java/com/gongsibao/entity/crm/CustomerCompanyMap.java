@@ -27,7 +27,7 @@ public class CustomerCompanyMap extends BaseEntity {
     private CompanyIntention company;
     
     @Column(name="is_bbk")
-    private Boolean isBbk =false;
+    private String isBbk;
 
     public Integer getCustomerId() {
         return customerId;
@@ -41,10 +41,10 @@ public class CustomerCompanyMap extends BaseEntity {
     public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
     }
-    public Boolean getIsBbk() {
+    public String getIsBbk() {
         return isBbk;
     }
-    public void setIsBbk(Boolean isBbk) {
+    public void setIsBbk(String isBbk) {
         this.isBbk = isBbk;
     }
 	public Customer getCustomer() {
