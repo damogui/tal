@@ -284,70 +284,62 @@ PandaHelper.ShowLogin = function () {
 //	  alert(value); //得到value
 //	  layer.close(index);
 //});
-	
-    if ($("#pandaWindow").length == 0) {
-        $("body").append("<div id='pandaWindow'></div>");
-    }
 
     var content = '<br/><p style="padding-left:50px;">&nbsp;帐号：<input id="loginName" type="text" class="easyui-validatebox nsInput" required="true" style="width:180px;"></input></p>'
         + '<p style="padding-left:50px;">&nbsp;密码：<input id="loginPassword" type="password" class="easyui-validatebox nsInput" required="true" style="width:180px;"></input></p>';
 
-    $("#pandaWindow").dialog({
-        title: '登录',
-        width: 350,
-        height: 200,
-        closed: false,
-        cache: false,
-        modal: true,
-        content: content,
-        buttons: [{
-            text: '登录',
-            iconCls: 'fa fa-check',
-            handler: function () {
+	layer.open({
+		  type: 1,
+		  title: '登录',
+		  fixed: false,
+		  maxmin: false,
+		  shadeClose:true,
+		  area: ['350px', '230px'],
+		  content: content,
+		  btn: ['登录', '取消'],
+		  yes:function(index, layero){
+			  
+              var loginName = $("#loginName").val();
+              var loginPassword = $("#loginPassword").val();
+              if (System.isnull(loginName)) {
 
-                var loginName = $("#loginName").val();
-                var loginPassword = $("#loginPassword").val();
-                if (loginName == "") {
+                  $("#loginName").focus();
+                  return;
+              }
+              if (System.isnull(loginPassword)) {
 
-                    $("#loginName").focus();
-                    return;
-                }
-                if (loginPassword == "") {
+                  $("#loginPassword").focus();
+                  return;
+              }
+              var pars = [];
+              pars.push(loginName);
 
-                    $("#loginPassword").focus();
-                    return;
-                }
+              try {
 
-                var pars = [];
-                pars.push(loginName);
+                  pars.push($.md5(loginPassword + "user!@#123").substring(8,24));
 
-                try {
+              } catch (e) {
+                  document.write("<script language=javascript src='/package/jquery/jquery.md5.js'></script>");
+                  pars.push($.md5(loginPassword + "user!@#123").substring(8,24));
+              }
+              var jServiceLocator = new org.netsharp.core.JServiceLocator();
+              jServiceLocator.invoke("org.netsharp.organization.controller.LoginController", "login", pars, function (message) {
+            	  
+                  if (message.result == 1) {
+                	  
+                	  	IMessageBox.toast('登录成功');
+                	  	layer.closeAll();
+                  } else if (message.result == 2) {
+                	  
+                  		IMessageBox.info("已经停用的用户不能登录!");
+                  } else {
+                	  
+                  		IMessageBox.info("您的用户名或密码错误!");
+                  }
+              });
+		  }
+	});
 
-                    pars.push($.md5(loginPassword));
-
-                } catch (e) {
-                    document.write("<script language=javascript src='/package/jquery/jquery.md5.js'></script>");
-                    pars.push($.md5(loginPassword));
-                }
-                var jServiceLocator = new org.netsharp.core.JServiceLocator();
-                jServiceLocator.invoke("org.netsharp.organization.controller.LoginController", "login", pars, function (message) {
-                    if (message == 1) {
-                        $("#pandaWindow").dialog("close");
-                    } else if (message == 2) {
-                    	IMessageBox.info("已经停用的用户不能登录!");
-                    } else {
-                    	IMessageBox.info("您的用户名或密码错误!");
-                    }
-                });
-            }
-        }, {
-            text: '取消',
-            iconCls: 'fa fa-close',
-            handler: function () {
-                $("#pandaWindow").dialog("close");
-            }
-        }]
-    });
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------
