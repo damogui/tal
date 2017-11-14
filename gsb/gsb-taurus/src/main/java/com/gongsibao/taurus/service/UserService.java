@@ -16,30 +16,31 @@ import com.gongsibao.taurus.base.IUserDingtalkKeywordService;
 import com.gongsibao.taurus.base.IUserService;
 
 @Service
-public class UserService extends GsbPersistableService< User> implements IUserService {
+public class UserService extends GsbPersistableService<User> implements IUserService {
 
-    public UserService(){
-        super();
-        this.type= User.class;
-    }
-    
-    @Override
-    public User save(User entity) {
-    	
-    	if(entity.getEntityState() == EntityState.New){
-    		
-    		User oldUser  = byMobile(entity.getMobile());
-    		if(oldUser != null){
-    			
-    			new BusinessException("手机号已存在！");
-    		}
-    	}    	entity = super.save(entity);
-    	return entity;
-    }
-    
-    @Override
-    public User byId(Object id) {
-    	
+	public UserService() {
+		super();
+		this.type = User.class;
+	}
+
+	@Override
+	public User save(User entity) {
+
+		if (entity.getEntityState() == EntityState.New) {
+
+			User oldUser = byMobile(entity.getMobile());
+			if (oldUser != null) {
+
+				new BusinessException("手机号已存在！");
+			}
+		}
+		entity = super.save(entity);
+		return entity;
+	}
+
+	@Override
+	public User byId(Object id) {
+
 		Oql oql = new Oql();
 		{
 			oql.setType(this.type);
@@ -48,13 +49,13 @@ public class UserService extends GsbPersistableService< User> implements IUserSe
 			oql.getParameters().add("id", id, Types.INTEGER);
 		}
 		User user = this.queryFirst(oql);
-		
-		//查询舆情关键字
+
+		// 查询舆情关键字
 		IUserDingtalkKeywordService keywordService = ServiceFactory.create(IUserDingtalkKeywordService.class);
 		List<UserDingtalkKeyword> keywordList = keywordService.queryList(user.getId());
 		user.setDingtalkKeywords(keywordList);
 		return user;
-    }
+	}
 
 	@Override
 	public User byMobile(String mobile) {

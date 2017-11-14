@@ -5,9 +5,10 @@ import java.util.Date;
 import org.netsharp.core.annotations.Auto;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Id;
+import org.netsharp.entity.IEntity;
 import org.netsharp.entity.Persistable;
 
-public class BaseEntity extends Persistable{
+public class BaseEntity extends Persistable implements IEntity{
 	
 	private static final long serialVersionUID = -8014614866116107945L;
 	
@@ -88,5 +89,17 @@ public class BaseEntity extends Persistable{
 
 	public void setUpdator(String updator) {
 		this.updator = updator;
+	}
+
+	@Override
+	public Date getTs() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setTs(Date ts) {
+		// TODO Auto-generated method stub
+		
 	}
 }
