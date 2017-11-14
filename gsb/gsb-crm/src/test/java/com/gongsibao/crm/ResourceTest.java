@@ -10,6 +10,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import com.gongsibao.crm.base.ICompanyIntentionService;
 import com.gongsibao.crm.base.ICustomerCompanyMapService;
 import com.gongsibao.crm.base.ICustomerFollowService;
+import com.gongsibao.crm.base.ICustomerOrderService;
 import com.gongsibao.crm.base.ICustomerProdMapService;
 import com.gongsibao.crm.base.ICustomerService;
 import com.gongsibao.crm.base.ICustomerServiceConfigService;
@@ -18,6 +19,7 @@ import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.crm.Customer;
 import com.gongsibao.entity.crm.CustomerCompanyMap;
 import com.gongsibao.entity.crm.CustomerFollow;
+import com.gongsibao.entity.crm.CustomerOrder;
 import com.gongsibao.entity.crm.CustomerProdMap;
 import com.gongsibao.entity.crm.CustomerServiceConfig;
 import com.gongsibao.entity.product.Product;
@@ -56,6 +58,8 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(CustomerCompanyMap.class.getName(), "关联企业", CustomerCompanyMap.class.getSimpleName(), ICustomerCompanyMapService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(CustomerFollow.class.getName(), "沟通日志", CustomerFollow.class.getSimpleName(), ICustomerFollowService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(SoOrder.class.getName(), "订单记录", SoOrder.class.getSimpleName(), IPersistableService.class.getName(), node1.getId());
+			
+			this.createResourceNodeVoucher(CustomerOrder.class.getName(), "订单列表", "CRM_"+CustomerOrder.class.getSimpleName(), ICustomerOrderService.class.getName(), node1.getId());
 		}
 	}
 }

@@ -24,7 +24,7 @@ public class UserDingtalkKeywordService extends PersistableService< UserDingtalk
 		{
 			oql.setType(this.type);
 			oql.setSelects("*");
-			oql.setFilter("type=1");
+			oql.setFilter("type=1 and accountId="+userId);
 		}
 		return this.queryList(oql);
 	}

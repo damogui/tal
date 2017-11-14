@@ -8,15 +8,15 @@ import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
-import org.netsharp.service.PersistableService;
 
+import com.gongsibao.bd.service.GsbPersistableService;
 import com.gongsibao.entity.taurus.User;
 import com.gongsibao.entity.taurus.UserDingtalkKeyword;
 import com.gongsibao.taurus.base.IUserDingtalkKeywordService;
 import com.gongsibao.taurus.base.IUserService;
 
 @Service
-public class UserService extends PersistableService< User> implements IUserService {
+public class UserService extends GsbPersistableService< User> implements IUserService {
 
     public UserService(){
         super();
@@ -33,9 +33,7 @@ public class UserService extends PersistableService< User> implements IUserServi
     			
     			new BusinessException("手机号已存在！");
     		}
-    	}
-    	
-    	entity = super.save(entity);
+    	}    	entity = super.save(entity);
     	return entity;
     }
     

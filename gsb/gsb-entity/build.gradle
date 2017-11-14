@@ -30,7 +30,6 @@ dependencies {
 	compile group: 'org.netsharp', name: 'netsharp-cache-plugin', version: "$netsharpVersion"
 	compile group: 'org.netsharp', name: 'netsharp-persistence', version: "$netsharpVersion"
 }
-
 test {
     systemProperties 'property': 'value'
 }

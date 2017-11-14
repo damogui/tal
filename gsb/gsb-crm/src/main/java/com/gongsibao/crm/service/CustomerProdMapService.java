@@ -2,6 +2,7 @@ package com.gongsibao.crm.service;
 
 import org.netsharp.communication.Service;
 
+import com.gongsibao.bd.service.GsbPersistableService;
 import com.gongsibao.crm.base.ICustomerProdMapService;
 import com.gongsibao.entity.crm.CustomerProdMap;
 

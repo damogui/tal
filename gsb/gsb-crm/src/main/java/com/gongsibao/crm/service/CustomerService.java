@@ -11,6 +11,7 @@ import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.util.StringManager;
 
+import com.gongsibao.bd.service.GsbPersistableService;
 import com.gongsibao.crm.base.ICustomerService;
 import com.gongsibao.entity.crm.Customer;
 import com.gongsibao.entity.crm.CustomerProdMap;

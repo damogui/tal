@@ -5,6 +5,7 @@ import org.netsharp.meta.base.NavigationBase;
 import org.netsharp.panda.plugin.entity.PNavigation;
 
 import com.gongsibao.entity.crm.Customer;
+import com.gongsibao.entity.crm.CustomerOrder;
 import com.gongsibao.entity.crm.CustomerServiceConfig;
 
 public class NavigationTest extends NavigationBase {
@@ -32,6 +33,8 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_Pool_" + Customer.class.getSimpleName(), "客户池", "/crm/customer/pool/list", 4);
 			createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_Operation_" + Customer.class.getSimpleName(), "客户操作", "/crm/customer/operation/list", 5);
 			createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_" + CustomerServiceConfig.class.getSimpleName(), "客服配置", "/crm/customer/service/config/list", 6);
+			
+			createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_" + CustomerOrder.class.getSimpleName(), "订单列表", "/crm/customer/order/list", 7);
 		}
 	}
 }
