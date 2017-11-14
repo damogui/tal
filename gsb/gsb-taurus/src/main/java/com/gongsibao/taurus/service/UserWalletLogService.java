@@ -6,8 +6,8 @@ import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
 import org.netsharp.persistence.session.SessionManager;
-import org.netsharp.service.PersistableService;
 
+import com.gongsibao.bd.service.GsbPersistableService;
 import com.gongsibao.entity.taurus.User;
 import com.gongsibao.entity.taurus.UserWalletLog;
 import com.gongsibao.entity.taurus.dic.PaymentType;
@@ -16,7 +16,7 @@ import com.gongsibao.taurus.base.IUserService;
 import com.gongsibao.taurus.base.IUserWalletLogService;
 
 @Service
-public class UserWalletLogService extends PersistableService<UserWalletLog> implements IUserWalletLogService {
+public class UserWalletLogService extends GsbPersistableService<UserWalletLog> implements IUserWalletLogService {
 
 	IUserService userService = ServiceFactory.create(IUserService.class);
 

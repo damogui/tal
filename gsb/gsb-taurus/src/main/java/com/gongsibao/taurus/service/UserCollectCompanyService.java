@@ -1,13 +1,13 @@
 package com.gongsibao.taurus.service;
 
 import org.netsharp.communication.Service;
-import org.netsharp.service.PersistableService;
 
+import com.gongsibao.bd.service.GsbPersistableService;
 import com.gongsibao.entity.taurus.UserCollectCompany;
 import com.gongsibao.taurus.base.IUserCollectCompanyService;
 
 @Service
-public class UserCollectCompanyService extends PersistableService<UserCollectCompany> implements IUserCollectCompanyService {
+public class UserCollectCompanyService extends GsbPersistableService<UserCollectCompany> implements IUserCollectCompanyService {
 
     public UserCollectCompanyService(){
         super();
