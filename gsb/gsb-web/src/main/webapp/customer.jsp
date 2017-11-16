@@ -22,13 +22,13 @@
 <body>
 	<%
 		String swtCustomerId = request.getParameter("swtCustomerId");
-		String swtServiceIdMd5 = org.netsharp.util.EncrypUtil.md5(request.getParameter("swtServiceId"));
+		String swtServiceId = request.getParameter("swtServiceId");
 		
 		String ts = request.getParameter("ts");
 
 		String nopermissionUrl = "/nav/panda-bizbase/authorization/nopermission";
 		ICustomerServiceConfigService configService = ServiceFactory.create(ICustomerServiceConfigService.class);
-		CustomerServiceConfig entity = configService.bySwtServiceId(swtServiceIdMd5);
+		CustomerServiceConfig entity = configService.bySwtServiceId(swtServiceId);
 		if (entity == null) {
 
 			response.sendRedirect(nopermissionUrl);
@@ -50,7 +50,7 @@
 			if (result.getResult() != 1) {
 				response.sendRedirect(nopermissionUrl);
 			}
-			response.sendRedirect("/panda/crm/customer/all/form?swtCustomerId=" + swtCustomerId+"&swtServiceId="+employee.getId());
+			//response.sendRedirect("/panda/crm/customer/all/form?swtCustomerId=" + swtCustomerId+"&swtServiceId="+employee.getId());
 		}
 	%>
 </body>
@@ -58,7 +58,7 @@
 <div>
 	swtCustomerId：<%=swtCustomerId%></div>
 <div>
-	swtServiceId：<%=swtServiceIdMd5%></div>
+	swtServiceId：<%=swtServiceId%></div>
 <div>
 	ts：<%=ts%></div>
 </html>
