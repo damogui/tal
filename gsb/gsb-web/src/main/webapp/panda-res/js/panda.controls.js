@@ -146,7 +146,6 @@ org.netsharp.controls.QiNiuUpload = org.netsharp.controls.TextBox.Extends({
 
 		var buttonId = "button_" + this.propertyName;
 		var me = this;
-
 		var uploader = Qiniu.uploader({
 			runtimes: 'html5,flash,html4',
 			browse_button: buttonId,
@@ -207,7 +206,7 @@ org.netsharp.controls.QiNiuUpload = org.netsharp.controls.TextBox.Extends({
 				'FileUploaded': function(up, file, info) {
 					var url = 'http://o9sowo9h1.bkt.clouddn.com/' + file.id;
 					$("#" + me.propertyName).filebox("setText", url);
-					me.preview(url);
+					me.preview(url,file);
 				},
 				'Error': function(up, err, errTip) {
 					IMessageBox.info('服务器繁忙，请刷新重试!' + errTip);
@@ -245,14 +244,118 @@ org.netsharp.controls.QiNiuUpload = org.netsharp.controls.TextBox.Extends({
 	enable: function() {
 		$("#" + this.propertyName).filebox("enable");
 	},
-	preview:function(path){
+	preview:function(path,file){
+		
 		if(System.isnull(path)){
-			
 			return;
 		}
 	    var filebox = $(this.uiElement).next();
-	    filebox.parent().find('.btn-preview').remove();
-	    filebox.after('<a target="_blank" href="'+path+'" class="btn-preview">预览</a>');
+	    var labelTd = filebox.parent().prev();
+	    var text =labelTd.text().trim();
+	    labelTd.html('<a target="_blank" href="'+path+'" class="btn-preview">'+text+'</a>');
+	}
+});
+
+org.netsharp.controls.OSSUpload = org.netsharp.controls.QiNiuUpload.Extends({
+	ctor: function() {
+		this.base();
+	},
+	getButtonId:function(){
+		
+		return "button_" + this.propertyName;
+	},
+	init:function(){
+		
+		var buttonId = this.getButtonId();
+		var me = this;
+		var uploader = new plupload.Uploader({
+			runtimes : 'html5,flash,silverlight,html4',
+			browse_button :buttonId, 
+			//container: document.getElementById('container'),
+			flash_swf_url : '/package/plupload/js/Moxie.swf',
+			silverlight_xap_url : '/package/plupload/js/Moxie.xap',
+		    url : 'http://oss.aliyuncs.com',
+		    multi_selection: false,
+			init: {
+				PostInit: function() {
+//		            me.setUploadParam(uploader);
+				},
+
+				FilesAdded: function(up, files) {
+
+					me.setUploadParam(up);
+					uploader.start();
+				},
+
+				UploadProgress: function(up, file) {
+					IMessageBox.loading.show();
+				},
+
+				FileUploaded: function(up, file, info) {
+
+					
+					IMessageBox.loading.hide();
+		            if (info.status == 200)
+		            {
+		            	var path = up.getOption().url+'/'+ up.getOption().multipart_params.key;
+						$("#" + me.propertyName).filebox("setText", path);
+						me.preview(path,file);
+		            }
+		            else
+		            {
+		            	IMessageBox.info(info.response);
+		            } 
+				},
+
+				Error: function(up, err) {
+
+					IMessageBox.error(err.response);
+				}
+			}
+		});
+
+		uploader.init();
+	},
+	setUploadParam:function (up)
+	{
+		var me = this;
+		var serviceLocator = new org.netsharp.core.JServiceLocator();
+		serviceLocator.invoke("org.netsharp.web.AliyunOssController", "getOssConfig", [],function(data) {
+
+			config = data;
+			var suffix= me.getSuffix(up.files[0].name);
+			var filename=  me.randomString() + suffix;
+	        var newMultipartParams = {
+	            'key' : config.dir + '_' + filename,
+	            'policy': config.policyBase64,
+	            'OSSAccessKeyId': config.accessid, 
+	            'success_action_status' : '200',
+	            'signature': config.signature,
+	        };
+
+	        up.setOption({
+	            'url': config.host,
+	            'multipart_params': newMultipartParams
+	        });
+		},null, false);
+	},
+	randomString:function (len) {
+	　　len = len || 32;
+	　　var chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';   
+	　　var maxPos = chars.length;
+	　　var pwd = '';
+	　　for (i = 0; i < len; i++) {
+	    　　pwd += chars.charAt(Math.floor(Math.random() * maxPos));
+	    }
+	    return pwd;
+	},
+	getSuffix:function (filename) {
+	    pos = filename.lastIndexOf('.')
+	    suffix = ''
+	    if (pos != -1) {
+	        suffix = filename.substring(pos)
+	    }
+	    return suffix;
 	}
 });
 
@@ -446,9 +549,16 @@ org.netsharp.controls.FileBox = org.netsharp.controls.TextBox.Extends({
 			
 			return;
 		}
+		if(System.isnull(path)){
+			return;
+		}
 	    var filebox = $(this.uiElement).next();
-	    filebox.parent().find('.btn-preview').remove();
-	    filebox.after('<a target="_blank" href="'+path+'" class="btn-preview">下载</a>');
+	    var labelTd = filebox.parent().prev();
+	    var text =labelTd.text().trim();
+	    labelTd.html('<a target="_blank" href="'+path+'" class="btn-preview">'+text+'</a>');
+//	    var filebox = $(this.uiElement).next();
+//	    filebox.parent().find('.btn-preview').remove();
+//	    filebox.after('<a target="_blank" href="'+path+'" class="btn-preview">下载</a>');
 	},
 	set: function(entity) {
 		

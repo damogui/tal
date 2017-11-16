@@ -317,7 +317,7 @@ $.extend($.fn.datagrid.methods, {
         if(clear.size()==0){
         	
             //创建清除按钮。  
-            clear = $('<span class="combo-clear fa fa-close" style="position: relative;right:55px;top: 0;"></span>');
+            clear = $('<span class="combo-clear fa fa-close" style="position: absolute;right:30px;top: 0;"></span>');
             //清除按钮添加悬停效果。  
             clear.unbind("mouseenter.filebox mouseleave.filebox").bind("mouseenter.filebox mouseleave.filebox",  
                 function(event){  

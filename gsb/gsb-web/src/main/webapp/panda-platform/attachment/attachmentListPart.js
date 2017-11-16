@@ -9,7 +9,6 @@ org.netsharp.core.attachmentListController = System.Object.Extends({
 	getSelections : function() {
 
 		var rows = $("#attachment_grid").datagrid('getSelections');
-
 		return rows;
 	},
 	getSelectionIds : function() {
@@ -49,7 +48,7 @@ org.netsharp.core.attachmentListController = System.Object.Extends({
 	init:function(){
 
 		this.initDataGrid();
-		this.initUploadify();
+		this.initUpload();
 	},
 	initDataGrid:function(){
 		
@@ -70,7 +69,9 @@ org.netsharp.core.attachmentListController = System.Object.Extends({
 				           {field:'fileExtend',title:'扩展名',width:50,align:"right"},
 				           {field:'downLoadCount',title:'下载次数',width:60,align:"center"},
 				           {field:'alias',title:'操作',width:60,align:"center",formatter:function(value,rowData,rowIndex){
-				        	   return "<a href='/download?name="+rowData.name+"&path="+rowData.path+"' onclick='listController.updateDownLoadCount("+rowData.id+");'>下载</a>";
+				        	   //return "<a href='/download?name="+rowData.name+"&path="+rowData.path+"' onclick='listController.updateDownLoadCount("+rowData.id+");'>下载</a>";
+				        	   
+				        	   return "<a target='_blank' href='"+rowData.path+"' onclick='listController.updateDownLoadCount("+rowData.id+");'>下载</a>";
 				           }},
 				           {field:'creator',title:'上传人',width:60,align:"center"},
 				           {field:'createTime',title:'上传时间',width:130,align:"center"}				           
@@ -79,48 +80,26 @@ org.netsharp.core.attachmentListController = System.Object.Extends({
 			});
 		});
 	},
-	initUploadify:function(){
+	initUpload:function(){
 
-		 var me = this;
-		 $("#uploadify").uploadify({
-	            swf: "/package/uploadify/uploadify.swf",
-	            uploader: '/uploadify?folder=attachment',
-//	            buttonImage: "/package/uploadify/upload.png",
-	            'buttonText': '上传',
-	            fileTypeDesc: '请选择文件',
-	            fileTypeExts: '*.rar;*.zip;*.xls;*.doc;*.docx;*.jpg;*.gif;*.png;*.bmp',
-	            height: 24,
-	            width: 52,
-	            multi: false,
-	            auto: true,
-	            onUploadError: function (file, errorCode, errorMsg, errorString) {
-
-	                alert('文件 ' + file.name + '不能上传: ' +errorCode+' '+errorMsg+' '+ errorString);
-	            },
-	            onSelect: function (file) {
-
-	            },
-	            onUploadSuccess: function (file, data, response) {
-	            	
-	            	var entity = {
-	            			name:file.name,
-	            			fileExtend:file.type,
-	            			path:data,
-	            			viewCount:0,
-	            			downLoadCount:0,
-	            			foreignKey:me.foreignKey,
-	            			entityId:me.entityId,
-	            			entityState:EntityState.New
-	            	};
-	            	
-	            	me.save(entity);
-	            }
-	        });
+		var upload = new org.netsharp.controls.AttachmentUpload();
+		upload.parent = this;
+		upload.init();
 	},
 	
-    save: function (entity) {
+    save: function (path,fileType,fileName) {
 
     	var me = this;
+    	var entity = {
+			name:fileName,
+			fileExtend:fileType,
+			path:path,
+			viewCount:0,
+			downLoadCount:0,
+			foreignKey:me.foreignKey,
+			entityId:me.entityId,
+			entityState:EntityState.New
+		};
         this.invoke("save", [entity], function (data) {
         	
         	me.initDataGrid();
@@ -161,5 +140,24 @@ org.netsharp.core.attachmentListController = System.Object.Extends({
 				});
 			}
 		});
+	}
+});
+
+org.netsharp.controls.AttachmentUpload = org.netsharp.controls.OSSUpload.Extends({
+	ctor: function() {
+		this.base();
+		this.parent = null;
+	},
+	getButtonId:function(){
+		
+		return "btn_upload";
+	},
+	preview:function(path,file){
+		
+		if(System.isnull(path)){
+			return;
+		}
+		debugger;
+		this.parent.save(path,file.type,file.name);
 	}
 });
