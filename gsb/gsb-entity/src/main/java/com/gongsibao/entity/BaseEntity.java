@@ -17,22 +17,22 @@ public class BaseEntity extends Persistable implements IEntity{
 	@Column(name="pkid",header="id")
 	private Integer id;
 	
-    @Column(name="add_user_id",header="添加人")
+    @Column(name="add_user_id",header="娣诲姞浜�")
     private Integer creatorId = 0;
     
-	@Column(name="add_time",header="创建时间")
+	@Column(name="add_time",header="鍒涘缓鏃堕棿")
     private Date createTime;
     
-    @Column(name="upd_user_id",header="修改人")
+    @Column(name="upd_user_id",header="淇敼浜�")
     private Integer updatorId = 0;
     
-    @Column(name="upd_time",header="修改时间")
+    @Column(name="upd_time",header="淇敼鏃堕棿")
     private Date updateTime;
     
-	@Column(name = "creator", header = "创建人名称")
+	@Column(name = "creator", header = "鍒涘缓浜哄悕绉�")
 	private String creator;
 
-	@Column(name = "updator", header = "更新人名称")
+	@Column(name = "updator", header = "鏇存柊浜哄悕绉�")
 	private String updator;
 
 	public Integer getId() {
@@ -91,7 +91,7 @@ public class BaseEntity extends Persistable implements IEntity{
 		this.updator = updator;
 	}
 
-	@Override
+	/*@Override
 	public Date getTs() {
 		// TODO Auto-generated method stub
 		return null;
@@ -101,5 +101,5 @@ public class BaseEntity extends Persistable implements IEntity{
 	public void setTs(Date ts) {
 		// TODO Auto-generated method stub
 		
-	}
+	}*/
 }
