@@ -38,3 +38,5 @@
 /gsb/.classpath
 /gsb/gsb-taurus-sdk/bin
 /gsb/gsb-api/.settings
+/gsb/gsb-api/.classpath
+/gsb/gsb-api/.project
