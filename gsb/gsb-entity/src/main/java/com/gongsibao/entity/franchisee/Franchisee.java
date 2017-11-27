@@ -95,7 +95,7 @@ public class Franchisee extends BizEntity{
     @Column(name="next_track_date",header="下次跟进日期")
     private Date nextTrackDate;
     
-    @Column(name="last_track_time",header="最后跟进看覅看")
+    @Column(name="last_track_time",header="最后跟进时间")
     private Date lastTrackTime;
     
     @Column(name="intention_degree",header="意向度")

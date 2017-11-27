@@ -204,6 +204,13 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 		addFormFieldRefrence(form, "department.name", "所属部门", groupName, "Organization-Department", false, false);
 		addFormFieldRefrence(form, "owner.name", "业务员", groupName, "Employee", false, false);
 		addFormField(form, "nextTrackDate", "下次跟进时间", groupName, ControlTypes.DATE_BOX, false, true);
+		addFormField(form, "lastTrackTime", "最后跟进时间", groupName, ControlTypes.DATETIME_BOX, false, true);
+		
+		formField = addFormField(form, "lastTrackContent", "最后跟进内容", groupName, ControlTypes.TEXTAREA, false, true);
+		{
+			formField.setFullColumn(true);
+			formField.setHeight(100);
+		}
 		return form;
 	}
 
