@@ -83,12 +83,24 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 		item = new PToolbarItem();
 		{
 			item.toNew();
+			item.setCode("matching");
+			item.setIcon("fa fa-drivers-license");
+			item.setName("客户ID");
+			item.setCommand(null);
+			item.setOperationType(ot1);
+			item.setSeq(4000);
+			item.setCommand("{controller}.matching();");
+			toolbar.getItems().add(item);
+		}
+		item = new PToolbarItem();
+		{
+			item.toNew();
 			item.setCode("follow");
 			item.setIcon("fa fa-mail-reply-all");
 			item.setName("跟进");
 			item.setCommand(null);
 			item.setOperationType(ot1);
-			item.setSeq(4000);
+			item.setSeq(5000);
 			item.setCommand("{controller}.follow();");
 			toolbar.getItems().add(item);
 		}

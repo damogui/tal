@@ -269,6 +269,17 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
     	
     	//跟进
     	controllerfollows.add();
+    },
+    matching:function(){
+    	
+    	IMessageBox.prompt("客户Id匹配","请输入客户Id",function(pass,index){
+    		
+    	    if(!/^[0-9]*$/.test(pass)){
+    	        IMessageBox.error("请输入数字!");
+    	        return;
+    	    }
+    	    window.location.href='/panda/crm/customer/all/form?id='+pass;
+    	});
     }
 });
 

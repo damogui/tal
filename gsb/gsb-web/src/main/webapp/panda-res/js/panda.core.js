@@ -231,11 +231,11 @@ var IMessageBox =
         },
         prompt: function (title, message, callback) {
 
-        	layer.prompt({title: title, formType: 1}, function(pass, index){
+        	layer.prompt({title: title, formType: 0}, function(pass, index){
               if (callback && pass) {
-                  callback(pass);
+                  callback(pass,index);
               }
-    		  layer.close(index);
+    		  //layer.close(index);
     		});
         },
         open: function (header, url, width, height, callback) {
