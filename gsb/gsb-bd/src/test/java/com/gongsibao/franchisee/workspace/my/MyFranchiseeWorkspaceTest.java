@@ -32,7 +32,7 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 		urlForm = "/bd/franchisee/my/form";
 		entity = Franchisee.class;
 		meta = MtableManager.getMtable(entity);
-		formPartName = listPartName = "客户信息";
+		formPartName = listPartName = "供应商信息";
 		resourceNodeCode = "BD_MY_MY";
 		listFilter = "ownerId='{userId}'";
 	}
@@ -185,7 +185,7 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 		formField = addFormField(form, "memoto", "备注", groupName, ControlTypes.TEXTAREA, false, false);
 		{
 			formField.setFullColumn(true);
-			formField.setHeight(50);
+			formField.setHeight(100);
 		}
 		
 		

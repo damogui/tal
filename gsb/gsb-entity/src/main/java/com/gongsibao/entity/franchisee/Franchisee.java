@@ -18,7 +18,7 @@ import com.gongsibao.entity.franchisee.dic.ExpectedSign;
 import com.gongsibao.entity.franchisee.dic.IntentionDegree;
 import com.gongsibao.entity.franchisee.dic.TrackProgress;
 
-@Table(name="bd_franchisee",header="加盟商")
+@Table(name="bd_franchisee",header="供应商")
 public class Franchisee extends BizEntity{
 
 	/**   
