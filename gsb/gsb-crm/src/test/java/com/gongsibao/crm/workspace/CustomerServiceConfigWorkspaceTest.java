@@ -37,6 +37,8 @@ public class CustomerServiceConfigWorkspaceTest extends WorkspaceCreationBase{
 			datagrid.setToolbar("panda/datagrid/row/edit");
 			datagrid.setName("客服配置列表");
 		}
+		
+		addColumn(datagrid, "type", "类型", ControlTypes.ENUM_BOX, 80);
 		addColumn(datagrid, "employee.name", "人员", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "swtServiceId", "商务通Id", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
@@ -50,6 +52,7 @@ public class CustomerServiceConfigWorkspaceTest extends WorkspaceCreationBase{
 		form.setColumnCount(1);
 		addFormFieldRefrence(form, "employee.name", "人员", null, "Employee", true, false);
 		addFormField(form, "swtServiceId", "商务通Id", null, ControlTypes.TEXT_BOX, true);
+		addFormField(form, "type", "类型", null, ControlTypes.ENUM_BOX, true);
 		return form;
 	}
 	

@@ -298,6 +298,11 @@ com.gongsibao.crm.web.FlowDetailPart = org.netsharp.panda.commerce.DetailPart.Ex
     	//将【内容】设置为禁用
     	$('#content').prop('disabled',true);
     	
+	},
+	saveAfter:function(){
+		
+		//调用表单保存
+		this.parent.save();
 	}
 });
 

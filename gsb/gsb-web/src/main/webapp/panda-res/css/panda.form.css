@@ -52,19 +52,19 @@
 
 input:disabled,textarea:disabled{
 
-	background-color: rgba(235, 235, 228,0.6) !important;
+	background-color: #f3f7f9 !important;
 	color:#404040;
 	cursor: no-drop;
 }
 
 input[disabled],input:disabled{
-	background-color: rgba(235, 235, 228,0.6) !important;
+	background-color: #f3f7f9 !important;
 	color:#404040;
 	cursor: no-drop;
 }
 
 *html input.disabled{
-	background-color: rgba(235, 235, 228,0.6) !important;
+	background-color: #f3f7f9 !important;
 	color:#404040;
 	cursor: no-drop;
 }
@@ -91,3 +91,8 @@ legend{
 }
 
 .datagrid-btable tr{height: 31px;}
+
+.layui-layer-content form{
+	
+	padding-top:0 !important;
+}

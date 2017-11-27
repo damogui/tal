@@ -467,6 +467,7 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 		PDatagrid datagrid = new PDatagrid(node, "沟通日志");
 		{
 			addColumn(datagrid, "content", "内容", ControlTypes.TEXT_BOX, 500);
+			addColumn(datagrid, "creator", "沟通人", ControlTypes.DATETIME_BOX, 130);
 			addColumn(datagrid, "createTime", "沟通时间", ControlTypes.DATETIME_BOX, 130);
 		}
 

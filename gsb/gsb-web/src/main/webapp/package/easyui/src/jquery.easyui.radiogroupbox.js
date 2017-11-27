@@ -125,11 +125,14 @@
 		var i = 0;
         state.data = data;
         data.forEach(function(element) {
-            
+//	        <div class="radio-custom radio-primary">
+//	            <input type="radio" id="inputRadiosUnchecked" name="inputRadios">
+//	            <label for="inputRadiosUnchecked">未选中</label>
+//	        </div>         
             var text = element[opts.textField];
 			var value = element[opts.valueField];
 			var itemId=targetId+'_'+value;
-            var radioItem = $('<span class="radio-item"><input type="radio" id="'+itemId+'"\
+            var radioItem = $('<span class="radio-item radio-custom radio-primary"><input type="radio" id="'+itemId+'"\
              name="'+targetId+'" value="'+value+'">\
              <label for="'+itemId+'">'+text+'</label>\
              </span>').appendTo(radiogroupbox);

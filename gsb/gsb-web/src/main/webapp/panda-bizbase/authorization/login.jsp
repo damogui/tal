@@ -4,8 +4,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>管理系统登录</title>
-
+<link  rel='stylesheet' type='text/css' href='/package/font-awesome/css/font-awesome.min.css'/>
 <link rel="stylesheet" type="text/css" href="/package/animsition/animsition.css">
+<link rel="stylesheet" type="text/css" href="/panda-res/css/global.css">
 <link rel="stylesheet" type="text/css" href="/panda-bizbase/authorization/css/login.css">
 </head>
 <body class="page-login layout-full page-dark">
@@ -50,6 +51,7 @@
                             <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码">
                         </div>
                         <div class="form-group clearfix">
+                        
                             <div class="checkbox-custom checkbox-inline checkbox-primary pull-left">
                                 <input type="checkbox" id="remember" name="remember">
                                 <label for="remember">自动登录</label>

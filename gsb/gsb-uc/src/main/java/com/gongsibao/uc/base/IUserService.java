@@ -5,4 +5,7 @@ import org.netsharp.base.IPersistableService;
 import com.gongsibao.entity.uc.User;
 
 public interface IUserService extends IPersistableService<User> {
+	
+
+	User byMobilePhone(String mobilePhone);
 }

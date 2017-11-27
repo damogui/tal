@@ -127,17 +127,19 @@ org.netsharp.core.JServiceLocator = System.Object.Extends({
                     }
                 } else if (result.type == ResultType.loginTimeout) {
 
-                    IMessageBox.confirm("未登录或登录超时！重新登录吗？", function (r) {
-
-                        if (r) {
-
-                            PandaHelper.ShowLogin();
-                        } else {
-
-                            window.open('', '_self', '');
-                            window.close();
-                        }
-                    });
+//                    IMessageBox.confirm("未登录或登录超时！重新登录吗？", function (r) {
+//
+//                        if (r) {
+//
+//                            PandaHelper.ShowLogin();
+//                        } else {
+//
+//                            window.open('', '_self', '');
+//                            window.close();
+//                        }
+//                    });
+                	
+                	window.top.location.href='/nav/panda-bizbase/authorization/login';
                 }
                 if ($.messager) {
                     $.messager.progress('close');

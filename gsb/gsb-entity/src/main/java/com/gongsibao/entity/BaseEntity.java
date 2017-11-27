@@ -90,16 +90,4 @@ public class BaseEntity extends Persistable implements IEntity{
 	public void setUpdator(String updator) {
 		this.updator = updator;
 	}
-
-	@Override
-	public Date getTs() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setTs(Date ts) {
-		// TODO Auto-generated method stub
-		
-	}
 }

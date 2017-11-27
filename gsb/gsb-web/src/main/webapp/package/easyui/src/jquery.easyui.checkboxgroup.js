@@ -223,14 +223,18 @@
         var checkboxgroup = state.checkboxgroup;
         checkboxgroup.find('.radio-item').remove();
         checkboxgroup.find(".radio-value").remove();
-        
+//      <div class="checkbox-custom checkbox-inline checkbox-primary pull-left">
+//	    <input type="checkbox" id="remember" name="remember">
+//	    <label for="remember">自动登录</label>
+//	</div>   
         var i = 0;
         data.forEach(function(element) {
         	i++;
             var text = element[opts.textField];
             var value = element[opts.valueField];
             var itemId=targetId+'_'+value;
-            var radioItem = $('<span class="check-item"><input type="checkbox" id="'+itemId+'"\
+            var radioItem = $('<span class="check-item checkbox-custom checkbox-inline checkbox-primary pull-left">\
+            		<input type="checkbox" id="'+itemId+'"\
              name="'+targetId+'" value="'+value+'">\
              <label for="'+itemId+'">'+text+'</label>\
              </span>').appendTo(checkboxgroup);
@@ -272,7 +276,7 @@
         var hidden = $("<input type=\"hidden\" class=\"checkbox-value\">").appendTo(checkboxgroup);
         hidden.val(opts.value);
 	}
-	
+
 	/**
 	 * 创建组件dom
 	 */

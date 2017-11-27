@@ -6,6 +6,8 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 import org.netsharp.organization.entity.Employee;
 
+import com.gongsibao.entity.crm.dic.ServiceType;
+
 @Table(name="crm_customer_service_config",header="客服配置")
 public class CustomerServiceConfig  extends Entity{
 
@@ -23,8 +25,19 @@ public class CustomerServiceConfig  extends Entity{
     @Column(name="swt_service_id",header="商务通客服Id")
     private String swtServiceId;
     
+    @Column(name="type",header="类型")
+    private ServiceType type;
+    
     @Column(name="swt_service_id_md5",header="冗余加密")
     private String swtServiceIdMD5;
+    
+	public ServiceType getType() {
+		return type;
+	}
+
+	public void setType(ServiceType type) {
+		this.type = type;
+	}
 
 	public Employee getEmployee() {
 		return employee;

@@ -156,60 +156,7 @@ button, input, select, textarea {
     font-family: "Helvetica Neue",Helvetica,Tahoma,Arial,"Microsoft Yahei","Hiragino Sans GB","WenQuanYi Micro Hei",sans-serif;
 }
 
-.checkbox-custom label {
-    position: relative;
-    display: inline-block;
-    padding-left: 10px;
-    vertical-align: middle;
-}
-.checkbox-custom label, .radio-custom label {
-    min-height: 22px;
-    margin-bottom: 0;
-    font-weight: 400;
-    cursor: pointer;
-}
-.checkbox-custom label::before {
-    position: absolute;
-    left: 0;
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    margin-left: -20px;
-    content: "";
-    background-color: #fff;
-    border: 1px solid #e4eaec;
-    border-radius: 3px;
-    -webkit-transition: all .3s ease-in-out 0s;
-    -o-transition: all .3s ease-in-out 0s;
-    transition: all .3s ease-in-out 0s;
-}
 
-.checkbox-primary input[type=checkbox]:checked+label::before, .checkbox-primary input[type=radio]:checked+label::before {
-    background-color: #62a8ea;
-    border-color: #62a8ea;
-}
-
-.checkbox-primary input[type=checkbox]:checked+label::after, .checkbox-primary input[type=radio]:checked+label::after {
-    color: #fff;
-}
-.checkbox-custom input[type=checkbox]:checked+label::after, .checkbox-custom input[type=radio]:checked+label::after {
-    font-family: "Web Icons";
-    content: "\f192";
-}
-.checkbox-custom label::after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    padding-top: 1px;
-    margin-left: -20px;
-    font-size: 12px;
-    line-height: 20px;
-    color: #76838f;
-    text-align: center;
-}
 .pull-right {
     float: right!important;
 }
@@ -280,6 +227,68 @@ button, input, select, textarea {
 .brand-img{
 	width:100%;
 }
+
+
+.checkbox-custom label {
+    position: relative;
+    display: inline-block;
+    padding-left: 10px;
+    vertical-align: middle;
+}
+.checkbox-custom label, .radio-custom label {
+    min-height: 22px;
+    margin-bottom: 0;
+    font-weight: 400;
+    cursor: pointer;
+}
+.checkbox-custom label::before {
+    position: absolute;
+    left: 0;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-left: -20px;
+    content: "";
+    background-color: #fff;
+    border: 1px solid #e4eaec;
+    border-radius: 3px;
+    -webkit-transition: all .3s ease-in-out 0s;
+    -o-transition: all .3s ease-in-out 0s;
+    transition: all .3s ease-in-out 0s;
+}
+
+.checkbox-primary input[type=checkbox]:checked+label::before, .checkbox-primary input[type=radio]:checked+label::before {
+    background-color: #1f7bb6;
+    border-color: #1f7bb6;
+}
+
+.checkbox-primary input[type=checkbox]:checked+label::after, .checkbox-primary input[type=radio]:checked+label::after {
+    color: #fff;
+}
+.checkbox-custom input[type=checkbox]:checked+label::after, .checkbox-custom input[type=radio]:checked+label::after {
+	
+    font-family: "Web Icons";
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    content: "\f00c";
+}
+.checkbox-custom label::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    padding-top: 2.5px;
+    margin-left: -20px;
+    font-size: 12px;
+    line-height: 20px;
+    color: #76838f;
+    text-align: center;
+}
+
 /**************************************************************/
 
 .page-login.page-dark.layout-full:after {

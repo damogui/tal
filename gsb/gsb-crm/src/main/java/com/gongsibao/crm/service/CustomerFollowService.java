@@ -22,9 +22,16 @@ public class CustomerFollowService extends PersistableService<CustomerFollow> im
 		CustomerFollow entity = new CustomerFollow();
 		entity.toNew();
 		entity.setCreateTime(new Date());
-		//entity.setCreateTime(new Date());
-		//entity.setCreator(SessionManager.getUserName());
+		entity.setCreateTime(new Date());
+		entity.setCreator(SessionManager.getUserName());
 		entity.setCreatorId(SessionManager.getUserId());
+		
+		return entity;
+	}
+	
+	public CustomerFollow save(CustomerFollow entity){
+		
+		entity = super.save(entity);
 		
 		return entity;
 	}

@@ -5,17 +5,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.netsharp.communication.Service;
+import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.BusinessException;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
+import org.netsharp.organization.base.IEmployeeService;
+import org.netsharp.organization.entity.Employee;
 import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
+import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.bd.service.GsbPersistableService;
 import com.gongsibao.crm.base.ICustomerService;
+import com.gongsibao.crm.base.ICustomerServiceConfigService;
 import com.gongsibao.entity.crm.Customer;
+import com.gongsibao.entity.crm.CustomerFollow;
 import com.gongsibao.entity.crm.CustomerProdMap;
+import com.gongsibao.entity.crm.dic.FollowStatus;
+import com.gongsibao.entity.crm.dic.ServiceType;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.uc.User;
+import com.gongsibao.uc.base.IUserService;
 
 @Service
 public class CustomerService extends GsbPersistableService<Customer> implements ICustomerService {
@@ -28,8 +39,30 @@ public class CustomerService extends GsbPersistableService<Customer> implements 
 	@Override
 	public Customer save(Customer entity) {
 
+		
+		//获取当前跟进人对应UC体系的Id
+		Employee employee = this.getEmployee();
+		IUserService userService = ServiceFactory.create(IUserService.class);
+		User user = userService.byMobilePhone(employee.getLoginName());
+		if(user == null){
+			
+			throw new BusinessException("帐号体系不一致，请联系技术部处理");
+		}
+		
 		if (entity.getEntityState() != EntityState.Deleted) {
 
+			if(entity.getEntityState() == EntityState.New){
+
+				entity.setCreatorId(user.getId());
+				
+				ICustomerServiceConfigService  configService = ServiceFactory.create(ICustomerServiceConfigService.class);
+				ServiceType type = configService.getTypeByEmployeeId(employee.getId());
+				if(type == ServiceType.AFTER_SALES){
+					
+					entity.setFollowUserId(user.getId());
+				}
+			}
+			
 			if (entity.getfProvinceId() != null) {
 
 				entity.setCityId(entity.getfProvinceId());
@@ -65,11 +98,42 @@ public class CustomerService extends GsbPersistableService<Customer> implements 
 					}
 				}
 			}
+			
+			//当有跟进记录，并且跟进状态为【未跟进】时，将跟进状态更新为【初步跟进】
+			if(entity.getFollows() != null && entity.getFollows().size()>0){
+				
+				if(entity.getFollowStatus() == FollowStatus.FOLLOW_STATUS_1){
 
+					entity.setFollowStatus(FollowStatus.FOLLOW_STATUS_2);
+				}
+
+				for(CustomerFollow follow : entity.getFollows()){
+					
+					if(follow.getEntityState() ==  EntityState.New){
+						
+						follow.setCreatorId(user.getId());
+					}
+				}
+			}
 		}
 
 		entity = super.save(entity);
 		return entity;
+	}
+	
+	private Employee getEmployee(){
+		
+		
+		Oql oql = new Oql();
+		{
+			oql.setType(Employee.class);
+			oql.setSelects("employee.{id,loginName}");
+			oql.setFilter(" id=? ");
+			oql.getParameters().add("id", SessionManager.getUserId(), Types.INTEGER);
+		}
+		IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
+		Employee employee = employeeService.queryFirst(oql);
+		return employee;
 	}
 
 	@Override

@@ -2,7 +2,6 @@ package com.gongsibao.crm.service;
 
 import java.sql.Types;
 
-import org.netsharp.autoencoder.core.EncoderManager;
 import org.netsharp.communication.Service;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
@@ -11,6 +10,7 @@ import org.netsharp.util.EncrypUtil;
 
 import com.gongsibao.crm.base.ICustomerServiceConfigService;
 import com.gongsibao.entity.crm.CustomerServiceConfig;
+import com.gongsibao.entity.crm.dic.ServiceType;
 
 @Service
 public class CustomerServiceConfigService extends PersistableService<CustomerServiceConfig> implements ICustomerServiceConfigService{
@@ -43,5 +43,22 @@ public class CustomerServiceConfigService extends PersistableService<CustomerSer
 			oql.getParameters().add("swtServiceIdMd5", swtServiceIdMd5, Types.VARCHAR);
 		}
 		return this.queryFirst(oql);
+	}
+
+	@Override
+	public ServiceType getTypeByEmployeeId(Integer employeeId) {
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects("*");
+			oql.setFilter("employeeId=?");
+			oql.getParameters().add("employeeId", employeeId, Types.INTEGER);
+		}
+		CustomerServiceConfig config =  this.queryFirst(oql);
+		if(config == null){
+			
+			return null;
+		}
+		return config.getType();
 	}
 }

@@ -381,6 +381,7 @@ org.netsharp.panda.commerce.DetailPart = org.netsharp.panda.core.View.Extends({
         }
         
         this.getDialog().dialog('close');
+		this.saveAfter();
 	},
 
 	/******************************************
@@ -468,6 +469,9 @@ org.netsharp.panda.commerce.DetailPart = org.netsharp.panda.core.View.Extends({
 		
 	},
 	editBefore:function(){
+		
+	},
+	saveAfter:function(){
 		
 	},
 

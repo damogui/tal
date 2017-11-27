@@ -5,8 +5,7 @@
 <%@ page import="com.gongsibao.entity.crm.CustomerServiceConfig"%>
 <%@ page import="org.netsharp.organization.entity.Employee"%>
 <%@ page import="org.netsharp.organization.controller.LoginController"%>
-<%@ page
-	import="org.netsharp.organization.controller.dto.LoginResultDTO"%>
+<%@ page import="org.netsharp.organization.controller.dto.LoginResultDTO"%>
 <%@ page import="org.netsharp.panda.core.HttpContext"%>
 <%@ page import="org.netsharp.panda.core.comunication.ServletRequest"%>
 <%@ page import="org.netsharp.panda.core.comunication.ServletResponse"%>

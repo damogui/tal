@@ -3,25 +3,19 @@ package com.gongsibao.entity.crm;
 import java.util.Date;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.netsharp.core.annotations.Auto;
 import org.netsharp.core.annotations.Column;
-import org.netsharp.core.annotations.Id;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
-import org.netsharp.entity.Persistable;
+
+import com.gongsibao.entity.BaseEntity;
 
 @Table(name="crm_customer_follow")
-public class CustomerFollow extends Persistable {
+public class CustomerFollow extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = -1841356716602770525L;
-	
-	@Id
-	@Auto
-	@Column(name="pkid",header="id")
-	private Integer id;
-	
+
 	@Column(name="customer_id")
     private Integer customerId;
 	
@@ -36,14 +30,6 @@ public class CustomerFollow extends Persistable {
     
     @Column(name="follow_time")
     private Date createTime;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public Integer getCustomerId() {
 		return customerId;

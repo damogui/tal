@@ -11,7 +11,8 @@ public enum FollowStatus implements IEnum {
 	FOLLOW_STATUS_4(4014, "已签单"), 
 	FOLLOW_STATUS_5(4015, "无效客户"), 
 	FOLLOW_STATUS_6(4016, "流失客户"), 
-	FOLLOW_STATUS_7(4020, "潜在客户");
+	FOLLOW_STATUS_7(4017, "渠道合作"), 
+	FOLLOW_STATUS_8(4020, "潜在客户");
 	private int value;
 	private String text;
 

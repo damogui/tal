@@ -18,6 +18,7 @@ dependencies {
 
     compile project(':gsb-entity')
     compile project(':gsb-bd')
+    compile project(':gsb-uc')
     compile project(':gsb-controls')
 }
 
