@@ -11,6 +11,7 @@ import org.netsharp.service.PersistableService;
 
 import com.gongsibao.entity.franchisee.Franchisee;
 import com.gongsibao.entity.franchisee.FranchiseeTrack;
+import com.gongsibao.franchisee.base.IFranchiseeService;
 import com.gongsibao.franchisee.base.IFranchiseeTrackService;
 	
 @Service
@@ -42,7 +43,7 @@ public class FranchiseeTrackService extends PersistableService<FranchiseeTrack> 
 	 */
 	private void updateFranchiseeTrack(FranchiseeTrack entity) {
 		
-		FranchiseeService franchiseeService = ServiceFactory.create(FranchiseeService.class);
+		IFranchiseeService franchiseeService = ServiceFactory.create(IFranchiseeService.class);
 		Franchisee franchisee =  franchiseeService.byId(entity.getFranchiseeId());
 		franchisee.setIntentionDegree(entity.getIntentionDegree());
 		franchisee.setExpectedSign(entity.getExpectedSign());
