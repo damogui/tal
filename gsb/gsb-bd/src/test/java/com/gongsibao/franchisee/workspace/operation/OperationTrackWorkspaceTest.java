@@ -1,6 +1,7 @@
 package com.gongsibao.franchisee.workspace.operation;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.core.MtableManager;
 
 import com.gongsibao.entity.franchisee.FranchiseeTrack;
@@ -20,4 +21,9 @@ public class OperationTrackWorkspaceTest  extends DepartmentTrackWorkspaceTest{
 		resourceNodeCode = "GSB_BD_OPERATION_Track";
 	}
 	
+	@Test
+	public void run() {
+
+		createListWorkspace();
+	}
 }

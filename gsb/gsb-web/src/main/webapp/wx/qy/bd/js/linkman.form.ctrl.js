@@ -65,6 +65,10 @@ org.netsharp.we.core.linkmanFormCtrl = org.netsharp.we.core.formCtrl.Extends({
       	  
       	  $.toptip('请输入手机号');
       	  return false;
+        }else if(!/^0?(13[0-9]|15[012356789]|18[0123456789]|14[57]|17[01367])[0-9]{8}$/.test(mobile)){
+        	  
+    	  $.toptip('手机号格式错误');
+    	  return false;
         }
         
         if(weixin == ""){

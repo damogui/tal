@@ -1,9 +1,11 @@
 package com.gongsibao.franchisee.workspace.my;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
+import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.DockType;
@@ -15,12 +17,20 @@ import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PPart;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.entity.PWorkspace;
+import org.netsharp.panda.plugin.dic.ToolbarType;
+import org.netsharp.panda.plugin.entity.PToolbar;
+import org.netsharp.panda.plugin.entity.PToolbarItem;
+import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.entity.franchisee.Franchisee;
 import com.gongsibao.entity.franchisee.FranchiseeLinkman;
 import com.gongsibao.entity.franchisee.FranchiseeTrack;
+import com.gongsibao.entity.franchisee.dic.ExpectedSign;
+import com.gongsibao.entity.franchisee.dic.IntentionDegree;
+import com.gongsibao.entity.franchisee.dic.TrackProgress;
+import com.gongsibao.franchisee.web.FranchiseeFormPart;
 
 public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 
@@ -28,6 +38,7 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 	@Before
 	public void setup() {
 
+		super.setup();
 		urlList = "/bd/franchisee/my/list";
 		urlForm = "/bd/franchisee/my/form";
 		entity = Franchisee.class;
@@ -35,6 +46,79 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 		formPartName = listPartName = "供应商信息";
 		resourceNodeCode = "BD_MY_MY";
 		listFilter = "ownerId='{userId}'";
+		formJsImport = "/gsb/bd/js/franchisee.form.part.js";
+		formServiceController = FranchiseeFormPart.class.getName();
+		formJsController = FranchiseeFormPart.class.getName();
+		this.formToolbarPath = "bd/franchisee/form";
+	}
+	
+	@Test
+	public void run() {
+		fromToolbar();
+		createListWorkspace();
+		createFormWorkspace();
+	}
+	
+	public void fromToolbar() {
+
+		ResourceNode node = this.resourceService.byCode(resourceNodeCode);
+		OperationType ot1 = operationTypeService.byCode(OperationTypes.add);
+		OperationType otAdd = operationTypeService.byCode(OperationTypes.add);
+		OperationType otUpdate = operationTypeService.byCode(OperationTypes.update);
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			//toolbar.setBasePath("panda/form/edit");
+			toolbar.setPath(this.formToolbarPath);
+			toolbar.setName("供应商表单");
+			toolbar.setResourceNode(node);
+			toolbar.setToolbarType(ToolbarType.BASE);
+		}
+
+		PToolbarItem item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("follow");
+			item.setIcon("fa fa-mail-reply-all");
+			item.setName("跟进");
+			item.setCommand(null);
+			item.setOperationType(ot1);
+			item.setSeq(5000);
+			item.setCommand("{controller}.follow();");
+			toolbar.getItems().add(item);
+		}
+		
+		item = new PToolbarItem();
+		{
+
+			item.toNew();
+			item.setCode("add");
+			item.setIcon("fa fa-plus");
+			item.setName("新增");
+			item.setCommand(null);
+			item.setSeq(600);
+			item.setCommand("{controller}.add();");
+			item.setOperationType(otAdd);
+			toolbar.getItems().add(item);
+		}
+
+		item = new PToolbarItem();
+		{
+
+			item.toNew();
+			item.setCode("save");
+			item.setIcon("fa fa-save");
+			item.setName("保存");
+			item.setCommand(null);
+			item.setSeq(700);
+			item.setCommand("{controller}.save();");
+
+			item.setOperationType(otAdd);
+			item.setOperationType2(otUpdate);
+			toolbar.getItems().add(item);
+		}
+
+		toolbarService.save(toolbar);
 	}
 	
 
@@ -289,10 +373,22 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 		PDatagrid datagrid = new PDatagrid(node, "跟进信息");
 		{
 			addColumn(datagrid, "nextTrackDate", "下次跟进时间", ControlTypes.DATE_BOX, 130);
-			addColumn(datagrid, "intentionDegree", "意向度", ControlTypes.ENUM_BOX, 100);
-			addColumn(datagrid, "trackProgress", "进度", ControlTypes.ENUM_BOX, 100);
-			addColumn(datagrid, "expectedSign", "预计签单时间", ControlTypes.ENUM_BOX, 100);
-			addColumn(datagrid, "content", "内容", ControlTypes.TEXT_BOX, 500);
+			PDatagridColumn column = addColumn(datagrid, "intentionDegree", "意向度", ControlTypes.ENUM_BOX, 100);{
+
+				String formatter = EnumUtil.getColumnFormatter(IntentionDegree.class);
+				column.setFormatter(formatter);
+			}
+			column = addColumn(datagrid, "trackProgress", "进度", ControlTypes.ENUM_BOX, 100);{
+
+				String formatter = EnumUtil.getColumnFormatter(TrackProgress.class);
+				column.setFormatter(formatter);
+			}
+			column = addColumn(datagrid, "expectedSign", "预计签单时间", ControlTypes.ENUM_BOX, 100);{
+
+				String formatter = EnumUtil.getColumnFormatter(ExpectedSign.class);
+				column.setFormatter(formatter);
+			}
+			column = addColumn(datagrid, "content", "内容", ControlTypes.TEXT_BOX, 500);
 		}
 
 		PForm form = new PForm();
@@ -321,7 +417,6 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 			}
 			formField = addFormField(form, "content", "内容", ControlTypes.TEXTAREA, true, false);
 			{
-				formField.setReadonly(true);
 				formField.setWidth(400);
 				formField.setHeight(100);
 				formField.setFullColumn(false);
@@ -341,8 +436,8 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 			part.setDockStyle(DockType.DOCUMENTHOST);
 //			part.setToolbar("crm/customer/flow/detail");
 //			part.setJsController("com.gongsibao.crm.web.FlowDetailPart");
-			part.setWindowWidth(550);
-			part.setWindowHeight(420);
+			part.setWindowWidth(600);
+			part.setWindowHeight(470);
 			part.setForm(form);
 		}
 

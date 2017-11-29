@@ -135,6 +135,7 @@ org.netsharp.we.core.franchiseeFormCtrl = org.netsharp.we.core.formCtrl.Extends(
     	
         var name = $('#name').val();
         var pccids = $('#city-picker').attr('data-codes').split(',');
+        var mobile = $('#mobile').val();
         
         if(System.isnull(name)){
       	  
@@ -146,6 +147,12 @@ org.netsharp.we.core.franchiseeFormCtrl = org.netsharp.we.core.formCtrl.Extends(
       	  
       	  $.toptip('请选择地区');
       	  return false;
+        }
+        
+        if(mobile != "" && !/^0?(13[0-9]|15[012356789]|18[0123456789]|14[57]|17[01367])[0-9]{8}$/.test(mobile)){
+        	  
+        	$.toptip('手机号格式错误');
+        	  return false;
         }
         return true;
     },

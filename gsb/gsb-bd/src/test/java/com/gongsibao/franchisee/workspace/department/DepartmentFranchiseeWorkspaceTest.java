@@ -1,6 +1,7 @@
 package com.gongsibao.franchisee.workspace.department;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.core.MtableManager;
 
 import com.gongsibao.entity.franchisee.Franchisee;
@@ -11,6 +12,8 @@ public class DepartmentFranchiseeWorkspaceTest  extends MyFranchiseeWorkspaceTes
 	@Override
 	@Before
 	public void setup() {
+		
+		super.setup();
 		urlList = "/bd/department/franchisee/list";
 		urlForm = "/bd/franchisee/my/form";
 		entity = Franchisee.class;
@@ -18,5 +21,11 @@ public class DepartmentFranchiseeWorkspaceTest  extends MyFranchiseeWorkspaceTes
 		formPartName = listPartName = "供应商信息";
 		resourceNodeCode = "BD_DEPARTMENT_Franchisee";
 		listFilter = "departmentId='{departmentId}'";
+	}
+	
+	@Test
+	public void run() {
+
+		createListWorkspace();
 	}
 }

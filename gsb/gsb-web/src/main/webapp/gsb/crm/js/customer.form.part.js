@@ -253,7 +253,6 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
     	this.enable();
     	
     	var mobile = $('#mobile').val();
-    	alert(mobile);
     	if(!System.isnull(mobile)){
     		
     		$('#mobile').prop('disabled',true);
@@ -310,10 +309,15 @@ com.gongsibao.crm.web.FlowDetailPart = org.netsharp.panda.commerce.DetailPart.Ex
     	$('#content').prop('disabled',true);
     	
 	},
-	saveAfter:function(){
+	saveAfter:function(entity){
 		
-		//调用表单保存
-		this.parent.save();
+		entity.id=null;
+		var me = this;
+		this.invokeService("save", [entity], function(data) {
+
+			me.parent.byId(entity.customerId);
+		});
+		
 	}
 });
 

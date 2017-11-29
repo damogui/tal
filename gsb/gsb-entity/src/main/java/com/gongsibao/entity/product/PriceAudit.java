@@ -15,16 +15,22 @@ public class PriceAudit extends BaseEntity {
 	private static final long serialVersionUID = 2919907714282312596L;
 	@Column(name="product_id")
     private Integer productId;
+	
     @Column(name="organization_id")
     private Integer organizationId;
+    
     @Column(name="audit_status_id")
     private Integer auditStatusId;
+    
     @Column(name="audit_status_type")
     private Integer auditStatusType;
+    
     @Column(name="add_time")
     private Date addTime;
+    
     @Column(name="add_user_id")
     private Integer addUserId;
+    
     private String remark;
 
     public Integer getProductId() {

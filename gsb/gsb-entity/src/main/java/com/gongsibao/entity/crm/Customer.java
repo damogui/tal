@@ -105,7 +105,7 @@ public class Customer extends BaseEntity {
     private Integer backUserId = 0;
     
     @Column(name="customer_source",header="411 CRM客户来源: 4111 58同城推广、 4112百度广告投放、 4113地推活动、 4114老客户介绍、 4115 企业信息关联、 4116 渠道商、 4117 外呼拓客")
-    private CustomerSource customerSource;
+    private CustomerSource customerSource = CustomerSource.CUSTOMER_SOURCE_0;
     
     @Column(name="customer_source_other",header="客户来源选择其他时填写的详情")
     private String customerSourceOther;
@@ -138,7 +138,7 @@ public class Customer extends BaseEntity {
     private String bbk = "0";
     
     @Column(name="assign_org_id",header="分配部门Id")
-    private Integer allocationOrgId = 0;
+    private Integer allocationOrgId = -1;
     
     @Reference(foreignKey="allocationOrgId",header="分配部门")
     private Organization allocationOrg;
@@ -457,7 +457,7 @@ public class Customer extends BaseEntity {
 
 	public AllocationType getAllocationType() {
 		
-		if(this.allocationOrgId != null && this.allocationOrgId.compareTo(0)!=0){
+		if(this.allocationOrgId != null && this.allocationOrgId.compareTo(0)==1){
 			
 			return AllocationType.TYPE_2;
 		}

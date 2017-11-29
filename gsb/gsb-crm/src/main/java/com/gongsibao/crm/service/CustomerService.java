@@ -98,23 +98,7 @@ public class CustomerService extends GsbPersistableService<Customer> implements 
 					}
 				}
 			}
-			
-			//当有跟进记录，并且跟进状态为【未跟进】时，将跟进状态更新为【初步跟进】
-			if(entity.getFollows() != null && entity.getFollows().size()>0){
-				
-				if(entity.getFollowStatus() == FollowStatus.FOLLOW_STATUS_1){
 
-					entity.setFollowStatus(FollowStatus.FOLLOW_STATUS_2);
-				}
-
-				for(CustomerFollow follow : entity.getFollows()){
-					
-					if(follow.getEntityState() ==  EntityState.New){
-						
-						follow.setCreatorId(user.getId());
-					}
-				}
-			}
 		}
 
 		entity = super.save(entity);

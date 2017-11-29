@@ -1,6 +1,7 @@
 package com.gongsibao.franchisee.workspace.department;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.core.MtableManager;
 
 import com.gongsibao.entity.franchisee.Franchisee;
@@ -18,5 +19,11 @@ public class DepartmentUnTrackWorkspaceTest  extends MyFranchiseeWorkspaceTest{
 		formPartName = listPartName = "客户信息";
 		resourceNodeCode = "BD_DEPARTMENT_Franchisee_UnTrack";
 		listFilter = "organizationId='{departmentId}' and nextTrackDate<now()";
+	}
+	
+	@Test
+	public void run() {
+
+		createListWorkspace();
 	}
 }

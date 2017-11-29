@@ -3,7 +3,6 @@ package com.gongsibao.api.conroller.taurus;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
@@ -14,21 +13,18 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.lang.StringUtils;
-import com.gongsibao.api.conroller.taurus.analysis.AnalysisContext;
-import com.gongsibao.api.conroller.taurus.analysis.AnalysisManager;
-import com.gongsibao.api.conroller.taurus.dic.TrademarkAttentionDegree;
-import com.gongsibao.api.conroller.taurus.dto.AnalysisDTO;
-import com.gongsibao.api.conroller.taurus.dto.CompanyRegistryInfoDTO;
-import com.gongsibao.api.conroller.taurus.dto.HaveProtectedTmCategoryDTO;
-import com.gongsibao.api.conroller.taurus.dto.SuggestProtectedTmCategoryDTO;
-import com.gongsibao.api.conroller.taurus.dto.TmInfoDTO;
-import com.gongsibao.api.conroller.taurus.dto.TmOrCopyrightDTO;
 import org.netsharp.util.DateManage;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.api.auth.AuthAnnotation;
+import com.gongsibao.api.conroller.taurus.analysis.AnalysisContext;
+import com.gongsibao.api.conroller.taurus.analysis.AnalysisManager;
+import com.gongsibao.api.conroller.taurus.dto.AnalysisDTO;
+import com.gongsibao.api.conroller.taurus.dto.CompanyRegistryInfoDTO;
+import com.gongsibao.api.conroller.taurus.dto.HaveProtectedTmCategoryDTO;
+import com.gongsibao.api.conroller.taurus.dto.TmInfoDTO;
+import com.gongsibao.api.conroller.taurus.dto.TmOrCopyrightDTO;
 import com.gongsibao.api.util.ApiException;
-import com.gongsibao.entity.yj.YjTrademarkCategory;
 import com.gongsibao.taurus.entity.AnnualReport;
 import com.gongsibao.taurus.entity.Company;
 import com.gongsibao.taurus.entity.Copyright;
@@ -46,6 +42,7 @@ import com.gongsibao.taurus.entity.Tm;
 import com.gongsibao.taurus.entity.WorksCopyright;
 import com.gongsibao.taurus.message.ResponseMessage;
 import com.gongsibao.taurus.service.TaurusApiService;
+
 
 @Path("/jnz/company")
 @Consumes(MediaType.APPLICATION_JSON)
