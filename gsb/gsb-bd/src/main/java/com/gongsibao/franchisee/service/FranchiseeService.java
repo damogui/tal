@@ -8,6 +8,7 @@ import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.franchisee.Franchisee;
 import com.gongsibao.entity.franchisee.FranchiseeLinkman;
+import com.gongsibao.franchisee.base.IFranchiseeLinkmanService;
 import com.gongsibao.franchisee.base.IFranchiseeService;
 
 @Service
@@ -42,7 +43,7 @@ public class FranchiseeService extends PersistableService<Franchisee> implements
 		
 		if(!StringManager.isNullOrEmpty(entity.getLinkmanName())){
 
-			FranchiseeLinkmanService linkmanService = ServiceFactory.create(FranchiseeLinkmanService.class);
+			IFranchiseeLinkmanService linkmanService = ServiceFactory.create(IFranchiseeLinkmanService.class);
 			FranchiseeLinkman linkman = new FranchiseeLinkman();{
 				
 				linkman.toNew();
