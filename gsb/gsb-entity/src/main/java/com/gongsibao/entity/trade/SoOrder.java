@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.gongsibao.entity.uc.Account;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
@@ -27,8 +28,11 @@ public class SoOrder extends BaseEntity {
 	@Reference(foreignKey="type",header="订单类型")
 	private Dict typeDict;
     
-    @Column(name="account_id",header="账户")
+    @Column(name="account_id",header="客户")
     private Integer accountId;
+
+    @Reference(foreignKey = "accountId",header = "客户")
+    private Account account;
     
     @Column(name="account_name",header="账户名称")
     private String accountName;
