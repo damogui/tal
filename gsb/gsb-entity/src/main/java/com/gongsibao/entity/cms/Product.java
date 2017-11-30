@@ -10,13 +10,17 @@ import com.gongsibao.entity.BaseEntity;
 @Table(name="cms_product")
 public class Product extends BaseEntity {
     /**   
-	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
+	 * @Fields serialVersionUID : TODO(鐢ㄤ竴鍙ヨ瘽鎻忚堪杩欎釜鍙橀噺琛ㄧず浠�涔�)   
 	 */   
 	private static final long serialVersionUID = -1099819795496453198L;
 	@Column(name="product_id")
     private Integer productId;
     @Column(name="package_id")
     private Integer packageId;
+    
+    @Column(name="cooperation_company_id",header="合作公司")
+    private Integer cooperationCompanyId;
+    
     private String showprice;
     @Column(name="prod_name")
     private String prodName;
@@ -75,7 +79,14 @@ public class Product extends BaseEntity {
     public void setPackageId(Integer packageId) {
         this.packageId = packageId;
     }
-    public String getShowprice() {
+    
+    public Integer getCooperationCompanyId() {
+		return cooperationCompanyId;
+	}
+	public void setCooperationCompanyId(Integer cooperationCompanyId) {
+		this.cooperationCompanyId = cooperationCompanyId;
+	}
+	public String getShowprice() {
         return showprice;
     }
     public void setShowprice(String showprice) {
