@@ -73,6 +73,4 @@ public class SellingDemandTurnoverDetail extends Entity{
 	public void setTurnoverGrade(TurnoverGrade turnoverGrade) {
 		this.turnoverGrade = turnoverGrade;
 	}
-	
-	
 }

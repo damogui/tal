@@ -21,8 +21,6 @@ public class AcquisitionDemand extends Demand {
 	//--------------------
 	// 意向信息
 	//--------------------	
-
-	
 	@Column(name="regist_date_begin",header="成立日期开始")
 	private Date registDateBegin;
 	

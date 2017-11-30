@@ -16,8 +16,6 @@ import com.gongsibao.entity.ma.dic.OrderAuditState;
 @Table(name="ma_order",header="订单信息")
 public class MaOrder extends BizEntity {
 
-	
-	
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   

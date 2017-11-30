@@ -10,12 +10,8 @@ import com.gongsibao.entity.ma.dic.EnterpriseQualification;
 @Table(name="ma_demand_qualification_detail",header="企业资质明细")
 public class DemandQualificationDetail extends Entity{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6722272228081823427L;
 
-    
 	@Column(name="demand_id",header="销售需求")
 	private Integer demandId;
 	
