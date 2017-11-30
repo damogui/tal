@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.gongsibao.entity.product.Product;
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 
@@ -73,6 +75,12 @@ public class OrderProd extends BaseEntity {
 
     @Subs(subType=OrderProdTrace.class,foreignKey="orderProdId",header="跟进记录")
     private List<OrderProdTrace> traces = new ArrayList<OrderProdTrace>();
+
+    @Reference(foreignKey = "orderId",header="销售订单")
+    private SoOrder soOrder;
+
+    @Reference(foreignKey = "productId",header="产品")
+    private Product product;
     
     public String getNo() {
         return no;
@@ -242,4 +250,20 @@ public class OrderProd extends BaseEntity {
 	public void setTraces(List<OrderProdTrace> traces) {
 		this.traces = traces;
 	}
+
+    public SoOrder getSoOrder() {
+        return soOrder;
+    }
+
+    public void setSoOrder(SoOrder soOrder) {
+        this.soOrder = soOrder;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 }
