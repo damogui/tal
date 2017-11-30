@@ -20,15 +20,9 @@ cooperativeModeDictionary.add(4, "加盟");
 cooperativeModeDictionary.add(5, "合伙人");
 
 var businessScopeDictionary = new System.Dictionary();
-businessScopeDictionary.add(2011, "行政审批");
-businessScopeDictionary.add(2012, "资本运作");
-businessScopeDictionary.add(2013, "网络营销");
-businessScopeDictionary.add(2014, "法律服务");
-businessScopeDictionary.add(2015, "小蜜商城");
-businessScopeDictionary.add(2016, "知识产权");
-businessScopeDictionary.add(2017, "财税服务");
-businessScopeDictionary.add(2018, "工商服务");
-businessScopeDictionary.add(2019, "公司宝典");
+businessScopeDictionary.add(1, "工商服务");
+businessScopeDictionary.add(2, "知识产权");
+businessScopeDictionary.add(3, "财会税务");
 
 var expectedSignDictionary = new System.Dictionary();
 expectedSignDictionary.add(1, "两天内");

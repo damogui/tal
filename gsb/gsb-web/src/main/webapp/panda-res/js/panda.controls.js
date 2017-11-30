@@ -1296,7 +1296,7 @@ org.netsharp.controls.CheckboxGroup = org.netsharp.controls.Control.Extends({
 			for(var i=0;i<newItems.length;i++){
 				
 				var newItem = newItems[i];
-				if(oldItem[enumFieldName].toString() == newItem[enumFieldName].toString()){
+				if(oldItem[enumFieldName] != null && oldItem[enumFieldName].toString() == newItem[enumFieldName].toString()){
 					
 					return true;
 				}
@@ -1311,7 +1311,7 @@ org.netsharp.controls.CheckboxGroup = org.netsharp.controls.Control.Extends({
 			for(var i=0;i<oldItems.length;i++){
 				
 				var oldItem = oldItems[i];
-				if(oldItem[enumFieldName].toString() == newItem[enumFieldName].toString()){
+				if(oldItem[enumFieldName] != null && oldItem[enumFieldName].toString() == newItem[enumFieldName].toString()){
 					
 					return false;
 				}
