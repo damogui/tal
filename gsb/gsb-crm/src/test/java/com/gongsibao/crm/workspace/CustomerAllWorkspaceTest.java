@@ -296,7 +296,7 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 			PFormField formField = null;
 			formField = addFormFieldRefrence(form, "product.name", "意向产品", null, "CRM_" + Product.class.getSimpleName(), true, false);
 			{
-
+				formField.setTroikaTrigger("controllerprodDetails.productChange(newValue,oldValue);");
 				formField.setWidth(300);
 			}
 			formField = addFormField(form, "dProvince.name", "省份", ControlTypes.CUSTOMER, false, false);
@@ -331,6 +331,7 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("panda/datagrid/detail");
+			part.setJsController("com.gongsibao.crm.web.ProdMapDetailPart");
 			part.setWindowWidth(550);
 			part.setWindowHeight(350);
 			part.setForm(form);

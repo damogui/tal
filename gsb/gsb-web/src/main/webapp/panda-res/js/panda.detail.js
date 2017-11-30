@@ -349,7 +349,7 @@ org.netsharp.panda.commerce.DetailPart = org.netsharp.panda.core.View.Extends({
         if (!isValidated) {
             return;
         }
-        
+        layer.closeAll();
         this.viewModel.context = this.context;
         var entity = this.viewModel.getEntity();
         this.viewModel.clear();

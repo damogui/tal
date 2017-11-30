@@ -112,7 +112,7 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
         	IMessageBox.error("请填写【咨询路径】");
         	return false;
         }
-        return isValidate;
+        return true;
     },
 	contactWayChange:function(el){
 		
@@ -133,7 +133,7 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
 				$("#"+item.code).validatebox('enableValidation');
 			}
 		});
-		
+		debugger;
 		var me = this;
 		var swtCustomerId = this.queryString("swtCustomerId");
 		if(swtCustomerId && this.viewModel.currentItem.entityState == EntityState.New){
@@ -307,6 +307,18 @@ com.gongsibao.crm.web.OrderDetailPart = org.netsharp.panda.commerce.DetailPart.E
 	}
 });
 
+com.gongsibao.crm.web.ProdMapDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
+	
+	productChange:function(newValue,oldValue){
+		
+		//为空时，重置查询条件：q
+		if(System.isnull(newValue)){
+			
+			var options = $('#product_name').combogrid('options');
+			var qp = options.queryParams;
+		}
+	}
+});
 
 
 com.gongsibao.crm.web.FlowDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
@@ -359,7 +371,7 @@ $.extend($.fn.validatebox.defaults.rules, {
 
         		isValidator = data==null?true:false;
         	},null, false);
-
+        	
         	return isValidator;
         },    
         message: '该{1}已存在'   
