@@ -6,7 +6,6 @@
 <title>管理系统登录</title>
 <link  rel='stylesheet' type='text/css' href='/package/font-awesome/css/font-awesome.min.css'/>
 <link rel="stylesheet" type="text/css" href="/package/animsition/animsition.css">
-<link rel="stylesheet" type="text/css" href="/panda-res/css/global.css">
 <link rel="stylesheet" type="text/css" href="/panda-bizbase/authorization/css/login.css">
 </head>
 <body class="page-login layout-full page-dark">

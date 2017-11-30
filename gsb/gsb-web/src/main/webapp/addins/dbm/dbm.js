@@ -1,7 +1,9 @@
 System.Declare("org.netsharp.dbm.web");
 
 org.netsharp.dbm.web.DbmController = System.Object.Extends({
-	
+	 ctor: function () {
+		this.base(); 
+	 },
 	intitailize : function(){
 		
 		var bodyHeight = $("body").height();

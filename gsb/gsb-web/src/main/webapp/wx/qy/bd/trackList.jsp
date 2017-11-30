@@ -35,6 +35,16 @@
 	  $(function(){
 		  ctrl.init();
 	  });
+	  
+	  //解决微信IOS里返回不加载问题问题
+	  window.addEventListener("pageshow", function() {
+	  	
+	    if(sessionStorage.goBack==1){
+	  	  
+ 	      location.reload();
+ 	      sessionStorage.setItem('goBack',0);
+	    }
+      });
 	</script>
 </body>
 </html>

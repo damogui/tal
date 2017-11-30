@@ -31,30 +31,7 @@
         <p class="weui-grid__label">待跟进客户</p>
       </a>
 
-      <a href="javascript:;" class="weui-grid js_grid">
-        <div class="weui-grid__icon" style="color:#4C84C4;">
-          <i class="fa fa-bar-chart"></i>
-        </div>
-        <p class="weui-grid__label">日统计</p>
-      </a>
-      <a href="javascript:;" class="weui-grid js_grid">
-        <div class="weui-grid__icon" style="color:#4C84C4;">
-          <i class="fa fa-bar-chart"></i>
-        </div>
-        <p class="weui-grid__label">周统计</p>
-      </a>
-      <a href="javascript:;" class="weui-grid js_grid">
-        <div class="weui-grid__icon" style="color:#4C84C4;">
-          <i class="fa fa-bar-chart"></i>
-        </div>
-        <p class="weui-grid__label">月统计</p>
-      </a>
-      <a href="" class="weui-grid js_grid">
-        <div class="weui-grid__icon" style="color:#4C84C4;">
-          <i class="fa fa-area-chart"></i>
-        </div>
-        <p class="weui-grid__label">客户统计</p>
-      </a>
+
       <a href="trackList?employeeId=<%=employeeId %>" class="weui-grid js_grid">
         <div class="weui-grid__icon" style="color:#4C84C4;">
           <i class="fa fa-list-ol"></i>
@@ -67,6 +44,33 @@
         </div>
         <p class="weui-grid__label">个人信息</p>
       </a>
+      <a href="" class="weui-grid js_grid">
+        <div class="weui-grid__icon" style="color:#ddd;">
+          <i class="fa fa-area-chart"></i>
+        </div>
+        <p class="weui-grid__label">客户统计</p>
+      </a>
+
+
+      <a href="javascript:;" class="weui-grid js_grid">
+        <div class="weui-grid__icon" style="color:#ddd;">
+          <i class="fa fa-bar-chart"></i>
+        </div>
+        <p class="weui-grid__label">日统计</p>
+      </a>
+      <a href="javascript:;" class="weui-grid js_grid">
+        <div class="weui-grid__icon" style="color:#ddd;">
+          <i class="fa fa-bar-chart"></i>
+        </div>
+        <p class="weui-grid__label">周统计</p>
+      </a>
+      <a href="javascript:;" class="weui-grid js_grid">
+        <div class="weui-grid__icon" style="color:#ddd;">
+          <i class="fa fa-bar-chart"></i>
+        </div>
+        <p class="weui-grid__label">月统计</p>
+      </a>
+
     </div>
 </body>
 </html>

@@ -75,7 +75,7 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
     	//TYPE_2(2, "指定部门");
 		if(newValue==1){
 
-			$("#allocationOrgId").combobox('disable').combobox('disableValidation').combobox('clear');
+			$("#allocationOrgId").combobox('disable').combobox('disableValidation').combobox('setValue','-1');
 		}else{
 
 			$("#allocationOrgId").combobox('enable').combobox('enableValidation');
@@ -84,6 +84,7 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
     validate: function () {
 
         var isValidate = $("#" + this.context.formName).form('validate');
+
         if(isValidate){
         	
         	var ctrlsIds = ['mobile','telephone','weixin','qq'];
@@ -96,6 +97,20 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
         		IMessageBox.error("【手机】、【座机】、【微信】、【QQ】 最少填写一项。");
         		return false;
         	}
+        }
+        
+        var remark = $('#remark').val();
+        if(System.isnull(remark)){
+        	
+        	IMessageBox.error("请填写【售前备注】");
+        	return false;
+        }
+        
+        var consultWay = $('#consultWay').combobox('getValue');
+        if(System.isnull(consultWay)){
+        	
+        	IMessageBox.error("请填写【咨询路径】");
+        	return false;
         }
         return isValidate;
     },

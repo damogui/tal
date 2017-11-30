@@ -171,7 +171,7 @@ org.netsharp.we.core.franchiseeFormCtrl = org.netsharp.we.core.formCtrl.Extends(
     	    setTimeout(function() {
     	    	var employeeId = me.queryString('employeeId');
     	    	window.location.href = 'franchiseeList?employeeId='+entity.ownerId;
-    	    }, 2000);
+    	    }, 1000);
     	});
     }
 });

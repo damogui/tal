@@ -151,12 +151,12 @@
     </div>
     
     <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_default" href="javascript:window.history.back();">返回</a>
+      <a class="weui-btn weui-btn_default" href="javascript:history.back();">返回</a>
     </div>
+    
 	<%@include file="/wx/qy/bd/include/footer.jsp" %>
 	<script src="/wx/qy/bd/js/enum.items.js"></script>
 	<script src="/wx/qy/bd/js/franchisee.detail.ctrl.js"></script>
-
 	<script>
 
 	  var ctrl = new org.netsharp.we.core.franchiseeDetailCtrl();

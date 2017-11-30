@@ -44,7 +44,7 @@
 
 	</div>
     <div class="weui-btn-area">
-       <a class="weui-btn weui-btn_default" href="javascript:window.history.back();">返回</a>
+       <a class="weui-btn weui-btn_default" href="javascript:history.back();">返回</a>
     </div>
 	<%@include file="/wx/qy/bd/include/footer.jsp" %>
 	<script src="/wx/qy/bd/js/enum.items.js"></script>
@@ -54,31 +54,12 @@
 	  var ctrl = new org.netsharp.we.core.trackDetailCtrl();
 	  $(function(){
 		  ctrl.init();
-	  });
-
-/* 	  function pushHistory() {  
-	          var state = {  
-	              title: "title",  
-	              url: "#"  
-	          };  
-	          window.history.pushState(state, "title", "#");  
-	  }   
-	  $(function(){  
-          pushHistory();  
-          var bool=false;  
-          setTimeout(function(){  
-                bool=true;  
-          },1500);  
-          window.addEventListener("popstate", function(e) {  
-	            if(bool)  
-	              {  
-	                      alert("我监听到了浏览器的返回按钮事件啦");
-	                      //根据自己的需求实现自己的功能  WeixinJSBridge.call('closeWindow');//本人是直接关闭微信页面;项目需要
-	              }  
-	              pushHistory();  
-	                
-	      }, false);  
-      });   */
+          $(window).on('popstate', function () {
+        	  
+       	   	  alert(1);
+       	   	  //sessionStorage.goBack==1;
+          });
+	  }); 
     </script>
 </body>
 </html>

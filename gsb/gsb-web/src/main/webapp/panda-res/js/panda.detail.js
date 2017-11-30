@@ -419,7 +419,7 @@ org.netsharp.panda.commerce.DetailPart = org.netsharp.panda.core.View.Extends({
 			  yes:function(index, layero){
 				  
 				  me.save();
-				  layer.close(index);
+				  //layer.close(index);
 			  },
 			  end:function(){
 				  
@@ -457,7 +457,7 @@ org.netsharp.panda.commerce.DetailPart = org.netsharp.panda.core.View.Extends({
 		  yes:function(index, layero){
 			  
 			  me.save();
-			  layer.close(index);
+			  //layer.close(index);
 		  },
 		  end:function(){
 			  

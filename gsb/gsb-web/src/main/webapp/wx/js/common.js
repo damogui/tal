@@ -132,7 +132,6 @@ org.netsharp.we.core = {};
 System.Declare("org.netsharp.we.core.view");
 org.netsharp.we.core.view = System.Object.Extends({
     ctor: function () {
-
     	this.context = {};
     	this.service = null;
     },

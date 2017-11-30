@@ -52,3 +52,4 @@ org.netsharp.we.core.franchiseeTrackListCtrl = org.netsharp.we.core.trackListCtr
     	});
     }
 });
+

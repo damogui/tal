@@ -5,7 +5,7 @@ import org.netsharp.base.IEnum;
 
 public enum CustomerSource implements IEnum{
 
-	CUSTOMER_SOURCE_0(0, ""), 
+	CUSTOMER_SOURCE_0(0, "未知"), 
 	CUSTOMER_SOURCE_4181(4181, "PC官网"), 
 	CUSTOMER_SOURCE_4185(4185, "400百度"), 
 	CUSTOMER_SOURCE_4184(4184, "百度寻客"), 

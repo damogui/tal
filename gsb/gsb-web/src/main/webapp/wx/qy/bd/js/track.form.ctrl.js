@@ -124,7 +124,7 @@ org.netsharp.we.core.trackFormCtrl = org.netsharp.we.core.formCtrl.Extends({
     		$.toptip('提交成功', 'success');
     	    setTimeout(function() {
     	    	window.location.href = 'franchiseeTrackList?franchiseeId='+result.franchiseeId;
-    	    }, 2000);
+    	    },1000);
     	});
     }
 });
