@@ -1,7 +1,5 @@
 package com.gongsibao.entity.bd;
 
-import java.util.Date;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
@@ -16,23 +14,25 @@ public class Dict extends BaseEntity {
 	
     @Column(header="类型")
     private Integer type;
+    
     @Column(header="名称")
     private String name;
+    
     @Column(header="别名")
     private String alias;
+    
     @Column(header="编码")
     private Integer code;
+    
     @Column(header="sort")
     private Double sort;
+    
     @Column(name="is_enabled",header="使用中")
-    private Integer isEnabled;
-    @Column(name="add_time",header="创建时间")
-    private Date addTime;
-    @Column(name="add_user_id",header="创建人")
-    private Integer addUserId;
+    private Integer enabled = 1;
+    
     @Column(header="备注")
     private String remark;
-
+    
     public Integer getParentId() {
 		return parentId;
 	}
@@ -69,25 +69,14 @@ public class Dict extends BaseEntity {
     public void setSort(Double sort) {
         this.sort = sort;
     }
-    public Integer getIsEnabled() {
-        return isEnabled;
-    }
-    public void setIsEnabled(Integer isEnabled) {
-        this.isEnabled = isEnabled;
-    }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
-    public Integer getAddUserId() {
-        return addUserId;
-    }
-    public void setAddUserId(Integer addUserId) {
-        this.addUserId = addUserId;
-    }
-    public String getRemark() {
+
+    public Integer getEnabled() {
+		return enabled;
+	}
+	public void setEnabled(Integer enabled) {
+		this.enabled = enabled;
+	}
+	public String getRemark() {
         return remark;
     }
     public void setRemark(String remark) {

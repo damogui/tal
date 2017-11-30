@@ -20,9 +20,7 @@ import com.gongsibao.bd.service.GsbPersistableService;
 import com.gongsibao.crm.base.ICustomerService;
 import com.gongsibao.crm.base.ICustomerServiceConfigService;
 import com.gongsibao.entity.crm.Customer;
-import com.gongsibao.entity.crm.CustomerFollow;
 import com.gongsibao.entity.crm.CustomerProdMap;
-import com.gongsibao.entity.crm.dic.FollowStatus;
 import com.gongsibao.entity.crm.dic.ServiceType;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.uc.User;
@@ -106,7 +104,6 @@ public class CustomerService extends GsbPersistableService<Customer> implements 
 	}
 	
 	private Employee getEmployee(){
-		
 		
 		Oql oql = new Oql();
 		{
