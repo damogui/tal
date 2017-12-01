@@ -1,5 +1,6 @@
 package com.gongsibao.entity.trade;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -90,8 +91,8 @@ public class SoOrder extends BaseEntity {
     @Reference(foreignKey="packageId",header="套餐")
    	private Package packageProduct;
     
-//    @Column(name="add_time",header="创建时间")
-//    private Date addTime;
+    @Column(name="add_time",header="创建时间")
+    private Timestamp addTime;
     @Column(name="is_bbk",header="IsBbk")
     private String isBbk="0";
     @Column(name="add_user_id",header="创建人")
@@ -275,12 +276,12 @@ public class SoOrder extends BaseEntity {
     public void setPackageId(Integer packageId) {
         this.packageId = packageId;
     }
-//    public Date getAddTime() {
-//        return addTime;
-//    }
-//    public void setAddTime(Date addTime) {
-//        this.addTime = addTime;
-//    }
+    public Timestamp getAddTime() {
+        return addTime;
+    }
+    public void setAddTime(Timestamp addTime) {
+        this.addTime = addTime;
+    }
     public String getIsBbk() {
         return isBbk;
     }
