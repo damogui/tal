@@ -1,5 +1,7 @@
 package com.gongsibao.entity.crm;
 
+import java.util.Date;
+
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
@@ -30,6 +32,9 @@ public class CustomerServiceConfig  extends Entity{
     
     @Column(name="swt_service_id_md5",header="冗余加密")
     private String swtServiceIdMD5;
+    
+    @Column(name="use_date",header="开始使用时间")
+    private Date useDate;
     
 	public ServiceType getType() {
 		return type;
@@ -70,5 +75,12 @@ public class CustomerServiceConfig  extends Entity{
 	public void setSwtServiceIdMD5(String swtServiceIdMD5) {
 		this.swtServiceIdMD5 = swtServiceIdMD5;
 	}
-	
+
+	public Date getUseDate() {
+		return useDate;
+	}
+
+	public void setUseDate(Date useDate) {
+		this.useDate = useDate;
+	}
 }

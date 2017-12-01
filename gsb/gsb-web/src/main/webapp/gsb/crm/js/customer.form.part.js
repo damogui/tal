@@ -98,6 +98,13 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
         		return false;
         	}
         }
+
+        var consultWay = $('#consultWay').combobox('getValue');
+        if(System.isnull(consultWay)){
+        	
+        	IMessageBox.error("请填写【咨询路径】");
+        	return false;
+        }
         
         var remark = $('#remark').val();
         if(System.isnull(remark)){
@@ -106,12 +113,6 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
         	return false;
         }
         
-        var consultWay = $('#consultWay').combobox('getValue');
-        if(System.isnull(consultWay)){
-        	
-        	IMessageBox.error("请填写【咨询路径】");
-        	return false;
-        }
         return true;
     },
 	contactWayChange:function(el){

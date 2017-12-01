@@ -2,6 +2,7 @@ package com.gongsibao.crm.service;
 
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.netsharp.communication.Service;
@@ -59,6 +60,9 @@ public class CustomerService extends GsbPersistableService<Customer> implements 
 					
 					entity.setFollowUserId(user.getId());
 				}
+				
+				//更新最后一次使用时间
+				configService.updateLastUseDate(employee.getId(), new Date());
 			}
 			
 			if (entity.getfProvinceId() != null) {
