@@ -1,7 +1,5 @@
 package com.gongsibao.entity.uc;
 
-import java.sql.Date;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
@@ -12,50 +10,76 @@ public class User extends BaseEntity {
 
 	private static final long serialVersionUID = 6562120272245433851L;
 	
+	@Column(name="passwd",header="密码")
 	private String passwd;
+	
+	@Column(name="ticket",header="凭证")
     private String ticket;
-    @Column(name="real_name")
+    
+    @Column(name="real_name",header="姓名")
     private String name;
+    
+    @Column(name="email",header="邮箱")
     private String email;
+    
+    @Column(name="qq",header="QQ")
     private String qq;
+    
+    @Column(name="weixin",header="微信号")
     private String weixin;
-    @Column(name="mobile_phone")
+    
+    @Column(name="mobilePhone",header="手机号")
     private String mobilePhone;
+    
+    @Column(name="sex",header="性别")
     private Integer sex;
-    @Column(name="ability_id")
+    
+    @Column(name="ability_id",header="业务员类型 107 1071金牌，1072银牌，1073铜牌，1074普通")
     private Integer abilityId;
-    @Column(name="priority_id")
+    
+    @Column(name="priority_id",header="业务员分配优先级 109 1091金牌，1092银牌，1073铜牌，1094普通")
     private Integer priorityId;
-    @Column(name="office_id")
+    
+    @Column(name="office_id",header="分公司id")
     private Integer officeId;
-    @Column(name="is_inner")
+    
+    @Column(name="is_inner",header="是否内部员工 0否, 1是")
     private Integer isInner;
-    @Column(name="head_thumb_file_id")
+    
+    @Column(name="head_thumb_file_id",header="头像图片序号")
     private Integer headThumbFileId;
-    @Column(name="user_type_id")
+    
+    @Column(name="user_type_id",header="用户类型序号，type=2")
     private Integer userTypeId;
-    @Column(name="is_enabled")
+    
+    @Column(name="is_enabled",header="是否启用 0否 1是")
     private Integer isEnabled;
-    @Column(name="add_time")
-    private Date addTime;
-    @Column(name="is_bbk")
+
+    @Column(name="is_bbk",header="是否八百客")
     private String isBbk="0";
-    @Column(name="add_user_id")
-    private Integer addUserId;
-    @Column(name="is_accept_order")
+
+    @Column(name="is_accept_order",header="是否接单 0不接单 1接单")
     private Integer isAcceptOrder;
+    
+    @Column(name="remark",header="备注")
     private String remark;
-    @Column(name="supply_status")
+    
+    @Column(name="supply_status",header="供应商审核状态 1、初次申请 2 等待审核 3审核驳回 4 审核通过 5审核通过后修改-等待审核, 6信息修改审核驳回")
     private Integer supplyStatus;
-    @Column(name="supply_reject_reason")
+    
+    @Column(name="supply_reject_reason",header="供应商审核驳回原因")
     private String supplyRejectReason;
-    @Column(name="supply_type")
+    
+    @Column(name="supply_type",header="供应商类型 0 无, 1 cp, 2 sp")
     private Integer supplyType;
-    @Column(name="login_valid")
+    
+    @Column(name="login_valid",header="登录验证 1ukey, 2短信, 3都验证")
     private Integer loginValid;
-    @Column(name="ukey_pid")
+    
+    @Column(name="ukey_pid",header="ukey的pid")
     private String ukeyPid;
-    @Column(name="pub_key")
+    
+    @Column(name="pub_key",header="公钥")
     private String pubKey;
 
     public String getPasswd() {
@@ -142,24 +166,14 @@ public class User extends BaseEntity {
     public void setIsEnabled(Integer isEnabled) {
         this.isEnabled = isEnabled;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+
     public String getIsBbk() {
         return isBbk;
     }
     public void setIsBbk(String isBbk) {
         this.isBbk = isBbk;
     }
-    public Integer getAddUserId() {
-        return addUserId;
-    }
-    public void setAddUserId(Integer addUserId) {
-        this.addUserId = addUserId;
-    }
+
     public Integer getIsAcceptOrder() {
         return isAcceptOrder;
     }
