@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
+import org.netsharp.organization.dic.OrganizationType;
 
 import com.gongsibao.entity.BaseEntity;
 
@@ -16,6 +17,9 @@ public class Organization extends BaseEntity {
 
 	@Column(name = "pid", header = "父序号，默认0")
 	private Integer pid;
+	
+	@Column(name = "organization_type", header = "组织类型")
+	private OrganizationType organizationType;
 
 	@Column(name = "name", header = "注：公司名称")
 	private String name;
@@ -144,5 +148,13 @@ public class Organization extends BaseEntity {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public OrganizationType getOrganizationType() {
+		return organizationType;
+	}
+
+	public void setOrganizationType(OrganizationType organizationType) {
+		this.organizationType = organizationType;
 	}
 }
