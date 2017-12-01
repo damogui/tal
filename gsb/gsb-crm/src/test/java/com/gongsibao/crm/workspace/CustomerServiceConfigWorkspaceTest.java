@@ -41,6 +41,7 @@ public class CustomerServiceConfigWorkspaceTest extends WorkspaceCreationBase{
 		addColumn(datagrid, "type", "类型", ControlTypes.ENUM_BOX, 80);
 		addColumn(datagrid, "employee.name", "人员", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "swtServiceId", "商务通Id", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "useDate", "最后使用时间", ControlTypes.DATETIME_BOX, 130);
 		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
 		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100);
 		return datagrid;

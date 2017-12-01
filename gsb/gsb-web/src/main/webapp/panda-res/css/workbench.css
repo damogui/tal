@@ -194,7 +194,7 @@ ul,li{
 	position: relative;
 	display: block;
 	cursor: pointer;
-	float: left;
+	float: right;
 	padding: 0 15px;
 	height: 48px;
 	background: #1c2d39;

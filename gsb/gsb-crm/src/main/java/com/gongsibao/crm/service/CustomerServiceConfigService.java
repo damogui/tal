@@ -1,12 +1,15 @@
 package com.gongsibao.crm.service;
 
 import java.sql.Types;
+import java.util.Date;
 
 import org.netsharp.communication.Service;
 import org.netsharp.core.EntityState;
+import org.netsharp.core.MtableManager;
 import org.netsharp.core.Oql;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.EncrypUtil;
+import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.crm.base.ICustomerServiceConfigService;
 import com.gongsibao.entity.crm.CustomerServiceConfig;
@@ -47,10 +50,11 @@ public class CustomerServiceConfigService extends PersistableService<CustomerSer
 
 	@Override
 	public ServiceType getTypeByEmployeeId(Integer employeeId) {
+		
 		Oql oql = new Oql();
 		{
 			oql.setType(this.type);
-			oql.setSelects("*");
+			oql.setSelects("id,type");
 			oql.setFilter("employeeId=?");
 			oql.getParameters().add("employeeId", employeeId, Types.INTEGER);
 		}
@@ -60,5 +64,17 @@ public class CustomerServiceConfigService extends PersistableService<CustomerSer
 			return null;
 		}
 		return config.getType();
+	}
+
+	@Override
+	public boolean updateLastUseDate(Integer employeeId, Date useDate) {
+
+		UpdateBuilder updateBuilder = new UpdateBuilder();
+		{
+			updateBuilder.update(MtableManager.getMtable(this.type).getTableName());
+			updateBuilder.set("use_date", useDate);
+			updateBuilder.where("employee_id =" +employeeId);
+		}
+		return this.pm.executeNonQuery(updateBuilder.toSQL(), null) > 0;
 	}
 }

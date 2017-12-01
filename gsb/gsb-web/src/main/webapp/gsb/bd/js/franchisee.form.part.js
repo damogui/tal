@@ -8,12 +8,38 @@ com.gongsibao.franchisee.web.FranchiseeFormPart = org.netsharp.panda.commerce.Fo
     	
     	//切换到【沟通日志】
     	$("#tabcenter").tabs('select',2);
-//    	
-//    	//将【内容】设置为可写
-//    	$('#content').prop('disabled',false);
-//    	
-//    	//跟进
-//    	controllerfollows.add();
+	
+    	//将【内容】设置为可写
+    	$('#content').prop('disabled',false);
+    	
+    	//跟进
+    	controllertracks.add();
     }
 });
 
+com.gongsibao.franchisee.web.TrackDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
+
+	
+	addBefore:function(){
+		
+    	//将【内容】设置为禁用
+    	$('#content').prop('disabled',false);
+    	
+	},	
+	editBefore:function(){
+
+    	//将【内容】设置为禁用
+    	$('#content').prop('disabled',true);
+    	
+	},
+	saveAfter:function(entity){
+		
+		entity.id=null;
+		var me = this;
+		this.invokeService("save", [entity], function(data) {
+
+			me.parent.byId(entity.customerId);
+		});
+		
+	}
+});

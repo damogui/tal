@@ -31,6 +31,7 @@ import com.gongsibao.entity.franchisee.dic.ExpectedSign;
 import com.gongsibao.entity.franchisee.dic.IntentionDegree;
 import com.gongsibao.entity.franchisee.dic.TrackProgress;
 import com.gongsibao.franchisee.web.FranchiseeFormPart;
+import com.gongsibao.franchisee.web.TrackDetailPart;
 
 public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 
@@ -435,7 +436,8 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 //			part.setToolbar("crm/customer/flow/detail");
-//			part.setJsController("com.gongsibao.crm.web.FlowDetailPart");
+			part.setJsController(TrackDetailPart.class.getName());
+			part.setServiceController(TrackDetailPart.class.getName());
 			part.setWindowWidth(600);
 			part.setWindowHeight(470);
 			part.setForm(form);

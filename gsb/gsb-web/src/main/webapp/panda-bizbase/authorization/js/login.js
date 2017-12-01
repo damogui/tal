@@ -16,6 +16,7 @@ org.netsharp.core.LoginController = System.Object.Extends({
 		this.setCookies();
 	},
 	setCookies : function() {
+
 		var c = System.Cookies.get("netsharp_login");
 		if (c != null) {
 			var j = null;
