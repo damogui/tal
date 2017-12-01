@@ -36,10 +36,10 @@ public class Organization extends BaseEntity {
 	private Integer level = 0;
 
 	@Column(name = "is_leaf", header = "是否叶子节点 0否, 1是")
-	private Boolean isLeaf = true;
+	private Integer isLeaf = 1;
 
 	@Column(name = "is_enabled", header = "是否启用 0否, 1是")
-	private Boolean enabled = true;
+	private Integer enabled = 1;
 
 	@Column(name = "add_time", header = "创建时间")
 	private Date addTime;
@@ -106,19 +106,19 @@ public class Organization extends BaseEntity {
 		this.level = level;
 	}
 
-	public Boolean getIsLeaf() {
+	public Integer getIsLeaf() {
 		return isLeaf;
 	}
 
-	public void setIsLeaf(Boolean isLeaf) {
+	public void setIsLeaf(Integer isLeaf) {
 		this.isLeaf = isLeaf;
 	}
 
-	public Boolean getEnabled() {
+	public Integer getEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(Boolean enabled) {
+	public void setEnabled(Integer enabled) {
 		this.enabled = enabled;
 	}
 

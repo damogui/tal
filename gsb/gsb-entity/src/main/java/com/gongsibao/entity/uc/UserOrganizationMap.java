@@ -1,6 +1,7 @@
 package com.gongsibao.entity.uc;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
@@ -18,7 +19,7 @@ public class UserOrganizationMap extends BaseEntity {
     @Column(name="organization_id")
     private Integer organizationId;
     @Column(name="add_time")
-    private Date addTime;
+    private Timestamp addTime;
     @Column(name="add_user_id")
     private Integer addUserId;
 
@@ -34,10 +35,10 @@ public class UserOrganizationMap extends BaseEntity {
     public void setOrganizationId(Integer organizationId) {
         this.organizationId = organizationId;
     }
-    public Date getAddTime() {
+    public Timestamp getAddTime() {
         return addTime;
     }
-    public void setAddTime(Date addTime) {
+    public void setAddTime(Timestamp addTime) {
         this.addTime = addTime;
     }
     public Integer getAddUserId() {
