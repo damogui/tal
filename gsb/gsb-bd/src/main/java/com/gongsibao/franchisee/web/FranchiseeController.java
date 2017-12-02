@@ -7,6 +7,8 @@ import java.util.List;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.core.Paging;
+import org.netsharp.organization.base.IEmployeeService;
+import org.netsharp.organization.entity.Employee;
 import org.netsharp.panda.anno.Authorization;
 import org.netsharp.panda.commerce.EasyuiDatagridResult;
 import org.netsharp.util.StringManager;
@@ -204,6 +206,14 @@ public class FranchiseeController {
 	public FranchiseeTrack getTrackById(Integer id){
 		
 		FranchiseeTrack entity = trackService.byId(id);
+		return entity;
+	}
+	
+	@Authorization(is = false)
+	public Employee getEmployeeInfo(Integer employeeId){
+		
+		IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
+		Employee entity = employeeService.byId(employeeId);
 		return entity;
 	}
 	

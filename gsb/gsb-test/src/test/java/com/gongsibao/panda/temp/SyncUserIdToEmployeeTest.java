@@ -11,6 +11,7 @@ import org.netsharp.organization.entity.Employee;
 import org.netsharp.organization.entity.OrganizationEmployee;
 import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
+import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.uc.User;
 import com.gongsibao.uc.base.IUserService;
@@ -49,6 +50,9 @@ public class SyncUserIdToEmployeeTest {
 	}
 
 	private void syncUpdate() {
+
+		updateEmployee();
+
 		List<User> userList = this.queryAllUserList();
 		List<Employee> employeeList = this.queryAllEmployeeList();
 
@@ -74,16 +78,36 @@ public class SyncUserIdToEmployeeTest {
 
 	private void createEmployee(User user) {
 
+		if (isHas(user.getMobilePhone())) {
+
+			return;
+		}
 		Employee employee = new Employee();
 		{
 			employee.toNew();
 			employee.setLoginName(user.getMobilePhone());
 			employee.setMobile(user.getMobilePhone());
-			employee.setName(user.getName());
+			
+			String name = user.getName();
+			if(StringManager.isNullOrEmpty(name)){
+				name = user.getMobilePhone();
+			}
+			employee.setName(name);
 			employee.setEmail(user.getEmail());
-			employee.setDisabled(!(user.getIsEnabled() > 0));
+			employee.setDisabled(!(user.getIsEnabled()));
 		}
 		employeeService.save(employee);
+		
+		System.err.println("新增：" + employee.getMobile()+"，"+employee.getName());
+	}
+
+	private boolean isHas(String mobile) {
+
+		String cmdText = "select count(0) from sys_permission_employee where mobile='" + mobile + "'";
+
+		int count = pm.executeInt(cmdText, null);
+
+		return count > 0;
 	}
 
 	private List<User> queryUnSyncUserList() {
@@ -92,12 +116,19 @@ public class SyncUserIdToEmployeeTest {
 		{
 			oql.setType(User.class);
 			oql.setSelects("*");
-			oql.setFilter("mobile_phone not in (select login_name from sys_permission_employee)");
+			oql.setFilter("mobile_phone not in (select mobile from sys_permission_employee) and mobile_phone <>'' and mobile_phone is not null");
 		}
 
 		List<User> list = userService.queryList(oql);
 		System.out.println("未同步User数量：" + list.size());
 		return list;
+	}
+
+	private void updateEmployee() {
+
+		String cmdText = "UPDATE sys_permission_employee set mobile=login_name";
+		Integer deleteCount = pm.executeNonQuery(cmdText, null);
+		System.out.println("共更新：" + deleteCount);
 	}
 
 	/**
@@ -169,7 +200,7 @@ public class SyncUserIdToEmployeeTest {
 		}
 
 		List<OrganizationEmployee> list = oeService.queryList(oql);
-		System.out.println("oldEmployeeId：" + oldEmployeeId + "newEmployeeId：" + newEmployeeId);
+		System.out.println("oldEmployeeId：" + oldEmployeeId + "，newEmployeeId：" + newEmployeeId);
 		for (OrganizationEmployee oe : list) {
 
 			oe.setEmployeeId(newEmployeeId);
