@@ -1,9 +1,11 @@
 package com.gongsibao.entity.trade;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.uc.Account;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
@@ -89,8 +91,8 @@ public class SoOrder extends BaseEntity {
     @Reference(foreignKey="packageId",header="套餐")
    	private Package packageProduct;
     
-//    @Column(name="add_time",header="创建时间")
-//    private Date addTime;
+    @Column(name="add_time",header="创建时间")
+    private Timestamp addTime;
     @Column(name="is_bbk",header="IsBbk")
     private String isBbk="0";
     @Column(name="add_user_id",header="创建人")
@@ -104,6 +106,10 @@ public class SoOrder extends BaseEntity {
     private Integer isDelete;
     @Column(name="company_id",header="公司")
     private Integer companyId;
+
+    @Reference(foreignKey = "companyId",header="公司")
+    private CompanyIntention companyIntention;
+
     @Column(header="备注")
     private String remark;
     @Column(name="platform_source",header="平台来源")
@@ -116,7 +122,7 @@ public class SoOrder extends BaseEntity {
    	private User deliver;
     @Column(name="deliver_addr",header="邮寄地址")
     private String deliverAddr;
-    @Column(name="account_type",header="账户类型")
+    @Column(name="account_type",header="账户类型")//1新2老
     private Integer accountType;
     @Reference(foreignKey="accountType",header="账户类型")
    	private Dict accountTypeDict;
@@ -125,7 +131,7 @@ public class SoOrder extends BaseEntity {
     
     @Subs(subType=OrderProd.class,foreignKey="orderId",header="产品明细")
     private List<OrderProd> products = new ArrayList<OrderProd>();
-    
+
     @Subs(subType=OrderPayMap.class,foreignKey="orderId",header="支付明细")
     private List<OrderPayMap> pays = new ArrayList<OrderPayMap>();
     
@@ -270,12 +276,12 @@ public class SoOrder extends BaseEntity {
     public void setPackageId(Integer packageId) {
         this.packageId = packageId;
     }
-//    public Date getAddTime() {
-//        return addTime;
-//    }
-//    public void setAddTime(Date addTime) {
-//        this.addTime = addTime;
-//    }
+    public Timestamp getAddTime() {
+        return addTime;
+    }
+    public void setAddTime(Timestamp addTime) {
+        this.addTime = addTime;
+    }
     public String getIsBbk() {
         return isBbk;
     }
@@ -432,4 +438,12 @@ public class SoOrder extends BaseEntity {
 	public void setPackageProduct(Package packageProduct) {
 		this.packageProduct = packageProduct;
 	}
+
+    public CompanyIntention getCompanyIntention() {
+        return companyIntention;
+    }
+
+    public void setCompanyIntention(CompanyIntention companyIntention) {
+        this.companyIntention = companyIntention;
+    }
 }
