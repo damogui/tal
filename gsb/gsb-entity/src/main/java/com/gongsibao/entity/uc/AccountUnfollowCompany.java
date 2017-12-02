@@ -5,6 +5,7 @@ import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.yj.Company;
 
 @Table(name="uc_account_unfollow_company",header="用户取消关注企业表")
 public class AccountUnfollowCompany extends BaseEntity {
@@ -20,6 +21,9 @@ public class AccountUnfollowCompany extends BaseEntity {
 	
     @Column(name="company_id",header="企业id")
     private Integer companyId;
+    
+	@Reference(foreignKey="companyId",header="云聚企业")
+	private Company company;
 
     public Integer getAccountId() {
         return accountId;
@@ -33,4 +37,16 @@ public class AccountUnfollowCompany extends BaseEntity {
     public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
     }
+	public Account getAccount() {
+		return account;
+	}
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+	public Company getCompany() {
+		return company;
+	}
+	public void setCompany(Company company) {
+		this.company = company;
+	}
 }

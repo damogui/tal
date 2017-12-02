@@ -5,6 +5,7 @@ import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.yj.Company;
 
 @Table(name="uc_account_dingtalk_keyword")
 public class AccountDingtalkKeyword extends BaseEntity {
@@ -22,7 +23,10 @@ public class AccountDingtalkKeyword extends BaseEntity {
     private String keyword;
     
 	@Column(name="yj_company_id",header="云聚企业id")
-    private Integer yJCompanyId;
+    private Integer companyId;
+	
+	@Reference(foreignKey="companyId",header="云聚企业")
+	private Company company;
 	
 	@Column(name="status",header="0:正常 1:删除")
     private Boolean deleted = false;
@@ -60,12 +64,20 @@ public class AccountDingtalkKeyword extends BaseEntity {
 		this.keyword = keyword;
 	}
 
-	public Integer getyJCompanyId() {
-		return yJCompanyId;
+	public Integer getCompanyId() {
+		return companyId;
 	}
 
-	public void setyJCompanyId(Integer yJCompanyId) {
-		this.yJCompanyId = yJCompanyId;
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 
 	public Boolean getDeleted() {

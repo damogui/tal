@@ -7,6 +7,7 @@ import org.netsharp.core.annotations.Table;
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.uc.dic.DingtalkFileType;
+import com.gongsibao.entity.yj.Company;
 
 @Table(name="uc_account_dingtalk_file",header="钉钉用户文件")
 public class AccountDingtalkFile extends BaseEntity {
@@ -35,6 +36,9 @@ public class AccountDingtalkFile extends BaseEntity {
     @Column(name="company_id",header="企业id")
     private Integer companyId;
     
+	@Reference(foreignKey="companyId",header="云聚企业")
+	private Company company;
+    
     @Column(name="type",header="0:企业档案、1：知产档案")
     private DingtalkFileType type;
     
@@ -43,6 +47,16 @@ public class AccountDingtalkFile extends BaseEntity {
 
 	@Reference(foreignKey="categoryId",header="档案类型")
 	private Dict category;
+	
+	
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
 
 	public Integer getFileId() {
 		return fileId;

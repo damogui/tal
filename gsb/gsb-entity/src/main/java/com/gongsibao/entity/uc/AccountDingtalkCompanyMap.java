@@ -1,9 +1,11 @@
 package com.gongsibao.entity.uc;
 
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.yj.Company;
 
 @Table(name="uc_account_dingtalk_company_map")
 public class AccountDingtalkCompanyMap extends BaseEntity {
@@ -32,6 +34,9 @@ public class AccountDingtalkCompanyMap extends BaseEntity {
     @Column(name="company_id",header="云聚企业id")
     private Integer companyId;
     
+	@Reference(foreignKey="companyId",header="云聚企业")
+	private Company company;
+    
     @Column(name="is_admin",header="是否为企业的管理员, 1表示是, 0表示不是")
     private Boolean admined = false;
     
@@ -40,6 +45,16 @@ public class AccountDingtalkCompanyMap extends BaseEntity {
     
     @Column(name="position",header="职位信息")
     private String position;
+    
+    
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
 
 	public Integer getAccountDingtalkId() {
 		return accountDingtalkId;

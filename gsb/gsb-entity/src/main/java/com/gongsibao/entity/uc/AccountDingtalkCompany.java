@@ -1,10 +1,12 @@
 package com.gongsibao.entity.uc;
 
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.uc.dic.AuthLevel;
+import com.gongsibao.entity.yj.Company;
 
 @Table(name="uc_account_dingtalk_company")
 public class AccountDingtalkCompany extends BaseEntity {
@@ -14,6 +16,9 @@ public class AccountDingtalkCompany extends BaseEntity {
 	private static final long serialVersionUID = -6027874014286488658L;
 	@Column(name="company_id",header="云聚企业id")
     private Integer companyId;
+	
+	@Reference(foreignKey="companyId",header="云聚企业")
+	private Company company;
 	
     @Column(name="is_auth",header="企业是否经过钉钉认证")
     private Boolean legal = false;
@@ -62,6 +67,14 @@ public class AccountDingtalkCompany extends BaseEntity {
     
     @Column(name="corpLogoUrl",header="企业logo")
     private String corpLogoUrl;
+    
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
 
 	public Integer getCompanyId() {
 		return companyId;
