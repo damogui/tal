@@ -1,14 +1,12 @@
 package com.gongsibao.entity.trade;
 
-import java.sql.Date;
-
-import com.gongsibao.entity.bd.Dict;
-import com.gongsibao.entity.uc.User;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.bd.Dict;
+import com.gongsibao.entity.uc.User;
 
 @Table(name="so_order_prod_user_map")
 public class OrderProdUserMap extends BaseEntity {
@@ -18,11 +16,13 @@ public class OrderProdUserMap extends BaseEntity {
 	private static final long serialVersionUID = 5651659159306865523L;
 	@Column(name="user_id",header="负责人")
     private Integer userId;
+	
     @Reference(foreignKey="userId",header="负责人")
     private User user;
 
     @Column(name="order_prod_id",header="订单明细")
     private Integer orderProdId;
+    
     @Reference(foreignKey="orderProdId",header="订单明细")
     private OrderProd orderProd;
 

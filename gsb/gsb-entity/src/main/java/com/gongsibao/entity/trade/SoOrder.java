@@ -1,12 +1,9 @@
 package com.gongsibao.entity.trade;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.gongsibao.entity.crm.CompanyIntention;
-import com.gongsibao.entity.uc.Account;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
@@ -14,9 +11,11 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.Dict;
+import com.gongsibao.entity.crm.CompanyIntention;
+import com.gongsibao.entity.uc.Account;
 import com.gongsibao.entity.uc.User;
 
-@Table(name="so_order")
+@Table(name="so_order",header="销售订单")
 public class SoOrder extends BaseEntity {
 	
 	private static final long serialVersionUID = 8766647536940983034L;
@@ -38,72 +37,100 @@ public class SoOrder extends BaseEntity {
     
     @Column(name="account_name",header="账户名称")
     private String accountName;
+    
     @Column(name="account_mobile",header="手机号")
     private String accountMobile;
+    
     @Column(name="pay_status_id",header="支付状态")
     private Integer payStatusId;
+    
     @Reference(foreignKey="payStatusId",header="支付状态")
 	private Dict payStatus;
+    
     @Column(name="pay_time",header="支付时间")
     private Date payTime;
+    
     @Column(name="process_status_id",header="执行进度")
     private Integer processStatusId;
+    
     @Reference(foreignKey="processStatusId",header="执行进度")
 	private Dict processStatus;
+    
     @Column(name="refund_status_id",header="退款状态")
     private Integer refundStatusId;
+    
     @Reference(foreignKey="refundStatusId",header="退款状态")
   	private Dict refundStatus;
+    
     @Column(name="total_price",header="总金额")
     private Integer totalPrice;
+    
     @Column(name="payable_price",header="未支付金额")
     private Integer payablePrice;
+    
     @Column(name="paid_price",header="已支付金额")
     private Integer paidPrice;
+    
     @Column(name="source_type_id",header="来源类型")
     private Integer sourceTypeId;
+    
     @Reference(foreignKey="sourceTypeId",header="来源类型")
   	private Dict sourceType;
+    
     @Column(name="is_installment",header="多次支付")
     private Integer isInstallment;
+    
     @Column(name="installment_mode",header="多次支付方式")
     private String installmentMode;
+    
     @Column(name="installment_audit_status_id",header="多次支付状态")
     private Integer installmentAuditStatusId;
+    
     @Reference(foreignKey="installmentAuditStatusId",header="多次支付状态")
   	private Dict installmentAuditStatus;
+    
     @Column(name="is_change_price",header="改过价")
     private Integer isChangePrice;
+    
     @Column(name="is_carry_over",header="IsCarryOver")
     private Integer isCarryOver;
+    
     @Column(name="change_price_audit_status_id",header="改价审核状态")
     private Integer changePriceAuditStatusId;
+    
     @Reference(foreignKey="changePriceAuditStatusId",header="多次支付状态")
   	private Dict changePriceAuditStatus;
+    
     @Column(name="is_invoice",header="开票")
     private Integer isInvoice;
+    
     @Column(header="description")
     private String description;
+    
     @Column(name="is_package",header="套餐")
     private Integer isPackage;
+    
     @Column(name="package_id",header="套餐")
     private Integer packageId;
+    
     @Reference(foreignKey="packageId",header="套餐")
    	private Package packageProduct;
-    
-    @Column(name="add_time",header="创建时间")
-    private Timestamp addTime;
+
     @Column(name="is_bbk",header="IsBbk")
     private String isBbk="0";
+    
     @Column(name="add_user_id",header="创建人")
     private Integer addUserId;
+    
     @Reference(foreignKey="addUserId",header="创建人")
    	private User addUser;
     
     @Column(name="prod_name",header="产品名称")
     private String prodName;
+    
     @Column(name="is_delete",header="已删除")
     private Integer isDelete;
+    
     @Column(name="company_id",header="公司")
     private Integer companyId;
 
@@ -112,20 +139,28 @@ public class SoOrder extends BaseEntity {
 
     @Column(header="备注")
     private String remark;
+    
     @Column(name="platform_source",header="平台来源")
     private Integer platformSource;
+    
     @Reference(foreignKey="platformSource",header="平台来源")
    	private Dict platformSourceDict;
+    
     @Column(name="deliver_id",header="邮寄人")
     private Integer deliverId;
-    @Reference(foreignKey="deliverId",header="创建人")
+    
+    @Reference(foreignKey="deliverId",header="邮寄人")
    	private User deliver;
+    
     @Column(name="deliver_addr",header="邮寄地址")
     private String deliverAddr;
+    
     @Column(name="account_type",header="账户类型")//1新2老
     private Integer accountType;
+    
     @Reference(foreignKey="accountType",header="账户类型")
    	private Dict accountTypeDict;
+    
     @Column(name="is_expire_sms",header="过期短信提醒")
     private Integer isExpireSms;
     
@@ -276,12 +311,7 @@ public class SoOrder extends BaseEntity {
     public void setPackageId(Integer packageId) {
         this.packageId = packageId;
     }
-    public Timestamp getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Timestamp addTime) {
-        this.addTime = addTime;
-    }
+
     public String getIsBbk() {
         return isBbk;
     }

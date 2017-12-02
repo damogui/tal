@@ -5,19 +5,23 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="so_refund_item_price")
+@Table(name="so_refund_item_price",header="退单项价格")
 public class RefundItemPrice extends BaseEntity {
 
 	private static final long serialVersionUID = -3421520323370993973L;
 	
 	@Column(name="refund_id",header="RefundId")
     private Integer refundId;
+	
     @Column(name="order_prod_item_id",header="订单产品")
     private Integer orderProdItemId;
+    
     @Column(header="金额")
     private Integer amount;
+    
     @Column(header="成本")
     private Integer cost;
+    
     @Column(name="so_refund_item_id",header="订单退款明细")
     private Integer soRefundItemId;
 

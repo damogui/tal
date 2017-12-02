@@ -7,36 +7,41 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="so_cost_invoice")
+@Table(name="so_cost_invoice",header="请款申请表")
 public class CostInvoice extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 1210118499769673504L;
-	@Column(name="account_name",header="AccountName")
+	@Column(name="account_name",header="客户名称")
     private String accountName;
-    @Column(name="invoice_info",header="InvoiceInfo")
+
+    @Column(name="invoice_info",header="发票内容")
     private String invoiceInfo;
-    @Column(header="amount")
+    
+    @Column(name="amount",header="发票金额")
     private Integer amount;
-    @Column(name="invoice_time",header="InvoiceTime")
+    
+    @Column(name="invoice_time",header="开票日期")
     private Date invoiceTime;
-    @Column(name="type_id",header="TypeId")
+    
+    @Column(name="type_id",header="开票类型，type=308")
     private Integer typeId;
-    @Column(header="status")
+    
+    @Column(name="status",header="0待审核, 1通过, 2驳回")
     private Integer status;
-    @Column(header="remark")
+    
+    @Column(name="remark",header="成本备注")
     private String remark;
-    @Column(name="audit_user",header="AuditUser")
+    
+    @Column(name="audit_user",header="审核人")
     private Integer auditUser;
-    @Column(name="audit_remark",header="AuditRemark")
+    
+    @Column(name="audit_remark",header="审核意见")
     private String auditRemark;
+    
     @Column(name="add_user",header="AddUser")
     private Integer addUser;
-    @Column(name="add_time",header="AddTime")
-    private Date addTime;
-    @Column(name="upd_time",header="UpdTime")
-    private Date updTime;
 
     public String getAccountName() {
         return accountName;
@@ -98,16 +103,5 @@ public class CostInvoice extends BaseEntity {
     public void setAddUser(Integer addUser) {
         this.addUser = addUser;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
-    public Date getUpdTime() {
-        return updTime;
-    }
-    public void setUpdTime(Date updTime) {
-        this.updTime = updTime;
-    }
+
 }

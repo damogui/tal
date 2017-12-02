@@ -1,7 +1,5 @@
 package com.gongsibao.entity.trade;
 
-import java.sql.Date;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
@@ -11,26 +9,29 @@ import com.gongsibao.entity.BaseEntity;
 public class OrderProdTraceFile extends BaseEntity {
 
 	private static final long serialVersionUID = 7952438505448731011L;
-	
-	@Column(name="order_prod_trace_id",header="OrderProdTraceId")
+	  
+	@Column(name="order_prod_trace_id",header="订单项记录序号")
     private Integer orderProdTraceId;
-    @Column(name="prod_workflow_file_id",header="ProdWorkflowFileId")
+	
+    @Column(name="prod_workflow_file_id",header="订单处理流程材料序号")
     private Integer prodWorkflowFileId;
-    @Column(name="prod_workflow_file_name",header="ProdWorkflowFileName")
+    
+    @Column(name="prod_workflow_file_name",header="订单处理流程材料名称")
     private String prodWorkflowFileName;
-    @Column(name="file_id",header="FileId")
+    
+    @Column(name="file_id",header="上传材料序号")
     private Integer fileId;
-    @Column(name="is_new",header="IsNew")
+    
+    @Column(name="is_new",header="上传材料是否最新(1:最新;2:历史)")
     private Integer isNew;
-    @Column(name="audit_status_id",header="AuditStatusId")
+    
+    @Column(name="audit_status_id",header="审核状态序号，type=105，1051 待审核、1053 驳回审核、1054 审核通过")
     private Integer auditStatusId;
-    @Column(name="add_time",header="AddTime")
-    private Date addTime;
-    @Column(name="add_user_id",header="AddUserId")
-    private Integer addUserId;
-    @Column(header="remark")
+    
+    @Column(name="remark",header="说明")
     private String remark;
-    @Column(name="is_top",header="IsTop")
+    
+    @Column(name="is_top",header="是否置顶：0否 1是")
     private Integer isTop;
 
     public Integer getOrderProdTraceId() {
@@ -68,18 +69,6 @@ public class OrderProdTraceFile extends BaseEntity {
     }
     public void setAuditStatusId(Integer auditStatusId) {
         this.auditStatusId = auditStatusId;
-    }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
-    public Integer getAddUserId() {
-        return addUserId;
-    }
-    public void setAddUserId(Integer addUserId) {
-        this.addUserId = addUserId;
     }
     public String getRemark() {
         return remark;

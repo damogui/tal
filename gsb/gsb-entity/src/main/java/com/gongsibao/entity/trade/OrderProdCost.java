@@ -1,30 +1,31 @@
 package com.gongsibao.entity.trade;
 
-import java.sql.Date;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="so_order_prod_cost")
+@Table(name="so_order_prod_cost",header="产品订单成本")
 public class OrderProdCost extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = -7886316440641294453L;
-	@Column(name="order_prod_id",header="OrderProdId")
+
+	@Column(name="order_prod_id",header="产品订单id")
     private Integer orderProdId;
-    @Column(name="receiver_id",header="ReceiverId")
+	
+    @Column(name="receiver_id",header="收款方id")
     private Integer receiverId;
-    @Column(header="cost")
+    
+    @Column(name="cost",header="成本")
     private Integer cost;
-    @Column(name="organization_id",header="OrganizationId")
+    
+    @Column(name="organization_id",header="成本部门")
     private Integer organizationId;
-    @Column(header="remark")
+    
+    @Column(name="remark",header="成本备注")
     private String remark;
-    @Column(name="add_time",header="AddTime")
-    private Date addTime;
 
     public Integer getOrderProdId() {
         return orderProdId;
@@ -55,11 +56,5 @@ public class OrderProdCost extends BaseEntity {
     }
     public void setRemark(String remark) {
         this.remark = remark;
-    }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
     }
 }

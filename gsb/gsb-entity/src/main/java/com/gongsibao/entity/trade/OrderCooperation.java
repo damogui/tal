@@ -5,21 +5,26 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="so_order_cooperation",header="¶©µ¥¹éÊôÈë×¤¹«Ë¾")
+@Table(name="so_order_cooperation",header="ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¤ï¿½ï¿½Ë¾")
 public class OrderCooperation extends BaseEntity{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	
 
-	@Column(name="order_id",header="¶©µ¥ĞòºÅ")
+	/**   
+	 * @Fields serialVersionUID : TODO(ç”¨ä¸€å¥è¯æè¿°è¿™ä¸ªå˜é‡è¡¨ç¤ºä»€ä¹ˆ)   
+	 */   
+	private static final long serialVersionUID = -1407501547018300129L;
+
+	@Column(name="order_id",header="ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")
     private Integer orderId;
-    @Column(name="cooperation_company_id",header="Èë×¤¹«Ë¾")
+	
+    @Column(name="cooperation_company_id",header="ï¿½ï¿½×¤ï¿½ï¿½Ë¾")
     private Integer cooperationCompanyId;
-    @Column(name="branch_id",header="·ÖÖ§»ú¹¹id")
+    
+    @Column(name="branch_id",header="ï¿½ï¿½Ö§ï¿½ï¿½ï¿½ï¿½id")
     private Integer branch_id;
-    @Column(name="branch_name",header="·ÖÖ§»ú¹¹Ãû³Æ")
+    
+    @Column(name="branch_name",header="ï¿½ï¿½Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")
     private String branch_name;
     
     

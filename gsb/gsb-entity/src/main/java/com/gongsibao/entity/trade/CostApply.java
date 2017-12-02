@@ -7,36 +7,41 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="so_cost_apply")
+@Table(name="so_cost_apply",header="请款申请表")
 public class CostApply extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 279739555189523764L;
-	@Column(header="amount")
+	@Column(name="payee_name",header="付款金额")
     private Integer amount;
-    @Column(name="invoice_time",header="InvoiceTime")
+
+    @Column(name="invoice_time",header="收发票日期")
     private Date invoiceTime;
-    @Column(name="payee_name",header="PayeeName")
+    
+    @Column(name="payee_name",header="收款单位名称")
     private String payeeName;
-    @Column(name="payee_bank",header="PayeeBank")
+    
+    @Column(name="payee_bank",header="收款单位开户行")
     private String payeeBank;
-    @Column(name="payee_bank_no",header="PayeeBankNo")
+    
+    @Column(name="payee_bank_no",header="收款单位银行账号")
     private String payeeBankNo;
-    @Column(header="status")
+    
+    @Column(name="status",header="0待审核, 1通过, 2驳回")
     private Integer status;
-    @Column(header="remark")
+    
+    @Column(name="remark",header="成本备注")
     private String remark;
-    @Column(name="audit_user",header="AuditUser")
+    
+    @Column(name="audit_user",header="审核人")
     private Integer auditUser;
-    @Column(name="audit_remark",header="AuditRemark")
+    
+    @Column(name="audit_remark",header="审核意见")
     private String auditRemark;
-    @Column(name="add_user",header="AddUser")
+    
+    @Column(name="add_user",header="添加人")
     private Integer addUser;
-    @Column(name="add_time",header="AddTime")
-    private Date addTime;
-    @Column(name="upd_time",header="UpdTime")
-    private Date updTime;
 
     public Integer getAmount() {
         return amount;
@@ -98,16 +103,5 @@ public class CostApply extends BaseEntity {
     public void setAddUser(Integer addUser) {
         this.addUser = addUser;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
-    public Date getUpdTime() {
-        return updTime;
-    }
-    public void setUpdTime(Date updTime) {
-        this.updTime = updTime;
-    }
+
 }

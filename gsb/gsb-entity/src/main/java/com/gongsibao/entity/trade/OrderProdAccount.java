@@ -1,7 +1,5 @@
 package com.gongsibao.entity.trade;
 
-import java.sql.Date;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
@@ -13,19 +11,19 @@ public class OrderProdAccount extends BaseEntity {
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 3638796260241707133L;
-	@Column(name="order_prod_id",header="OrderProdId")
+	@Column(name="order_prod_id",header="订单项序号")
     private Integer orderProdId;
-    @Column(header="account")
+	
+    @Column(name="account",header="帐号")
     private String account;
-    @Column(header="passwd")
+    
+    @Column(name="passwd",header="密码")
     private String passwd;
-    @Column(name="add_time",header="AddTime")
-    private Date addTime;
-    @Column(name="add_user_id",header="AddUserId")
-    private Integer addUserId;
-    @Column(header="remark")
+    
+    @Column(name="remark",header="备注  （注:如果该账户所对应的产品为多个，如ICP+IDE申请，等此类商品，需要明确在备注标识查询产品，如ICP IDE（随意格式），此标注只针对多个产品时有效")
     private String remark;
-    @Column(name="is_crawl",header="IsCrawl")
+    
+    @Column(name="is_crawl",header="是否抓取0：未抓取1：已抓取")
     private Integer isCrawl;
 
     public Integer getOrderProdId() {
@@ -46,18 +44,7 @@ public class OrderProdAccount extends BaseEntity {
     public void setPasswd(String passwd) {
         this.passwd = passwd;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
-    public Integer getAddUserId() {
-        return addUserId;
-    }
-    public void setAddUserId(Integer addUserId) {
-        this.addUserId = addUserId;
-    }
+
     public String getRemark() {
         return remark;
     }
