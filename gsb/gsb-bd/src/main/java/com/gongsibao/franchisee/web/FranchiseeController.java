@@ -221,6 +221,7 @@ public class FranchiseeController {
 	 */
 	private Object doQuery(Integer ownerId, String searchKeyWord,Boolean isAwait, Integer pageIndex, Integer pageSize){
 		
+		
 		List<Franchisee> list = new ArrayList<Franchisee>();
 		Paging paging = new Paging();
 		{
@@ -242,15 +243,16 @@ public class FranchiseeController {
 		}
 
 		String filter = StringManager.join(" and ", ss);
-		Oql oql = new Oql();
-		{
+		Oql oql = new Oql();{
+
 			oql.setType(Franchisee.class);
 			oql.setSelects("id,name,trackProgress");
 			oql.setFilter(filter);
-			oql.setOrderby("nextTrackDate Desc,createTime Desc");
+			oql.setOrderby("nextTrackDate Asc,createTime Desc");
 			oql.setPaging(paging);
 			oql.getParameters().add("ownerId", ownerId, Types.INTEGER);
 		}
+
 		list = franchiseeService.queryList(oql);
 		List<FranchiseeDTO> dtoList = FranchiseeDTO.toDtoList(list);
 		EasyuiDatagridResult result = new EasyuiDatagridResult();
