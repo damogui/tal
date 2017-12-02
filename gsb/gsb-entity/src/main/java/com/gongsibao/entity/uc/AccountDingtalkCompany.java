@@ -1,11 +1,10 @@
 package com.gongsibao.entity.uc;
 
-import java.sql.Date;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.uc.dic.AuthLevel;
 
 @Table(name="uc_account_dingtalk_company")
 public class AccountDingtalkCompany extends BaseEntity {
@@ -13,147 +12,190 @@ public class AccountDingtalkCompany extends BaseEntity {
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = -6027874014286488658L;
-	@Column(name="company_id")
+	@Column(name="company_id",header="云聚企业id")
     private Integer companyId;
-    @Column(name="is_auth")
-    private Integer isAuth;
-    @Column(name="is_manager")
-    private Integer isManager;
-    @Column(name="rights_level")
-    private Integer rightsLevel;
-    @Column(name="corp_name")
+	
+    @Column(name="is_auth",header="企业是否经过钉钉认证")
+    private Boolean legal = false;
+    
+    @Column(name="is_manager",header="当前用户是否为该企业的管理人员")
+    private Boolean manager = false;
+    
+    @Column(name="rights_level",header="该企业的权益等级")
+    private Integer rightsLevel = 0;
+    
+    @Column(name="corp_name",header="企业名称")
     private String corpName;
-    @Column(name="corp_id")
+    
+    @Column(name="corp_id",header="企业id")
     private String corpId;
-    @Column(name="invite_code")
+    
+    @Column(name="invite_code",header="表示邀请码，只有填写过且是ISV自己邀请码的数据才会返回,否则值为空字符串")
     private String inviteCode;
+    
+    @Column(name="industry",header="表示企业所属行业")
     private String industry;
-    @Column(name="license_code")
+    
+    @Column(name="license_code",header="序列号")
     private String licenseCode;
-    @Column(name="auth_channel")
+    
+    @Column(name="auth_channel",header="渠道码")
     private String authChannel;
-    @Column(name="auth_channel_type")
+    
+    @Column(name="auth_channel_type",header="渠道类型,为了避免渠道码重复，可与渠道码共同确认渠道（可能为空。非空时当前只有满天星类型，值为STAR_ACTIVITY）")
     private String authChannelType;
-    @Column(name="permanent_code")
+    
+    @Column(name="permanent_code",header="钉钉企业临时/永久授权码")
     private String permanentCode;
-    @Column(name="is_authenticated")
-    private Integer isAuthenticated;
-    @Column(name="auth_level")
-    private Integer authLevel;
-    @Column(name="invite_url")
+    
+    @Column(name="is_authenticated",header="企业是否认证")
+    private Boolean authenticated = false;
+    
+    @Column(name="auth_level",header="企业认证等级，0：未认证，1：高级认证，2：中级认证，3：初级认证")
+    private AuthLevel authLevel;
+    
+    @Column(name="invite_url",header="企业邀请链接")
     private String inviteUrl;
+    
+    @Column(name="agent",header="授权的应用信息")
     private String agent;
-    @Column(name="corp_logo_url")
+    
+    @Column(name="corpLogoUrl",header="企业logo")
     private String corpLogoUrl;
-    @Column(name="add_time")
-    private Date addTime;
 
-    public Integer getCompanyId() {
-        return companyId;
-    }
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
-    }
-    public Integer getIsAuth() {
-        return isAuth;
-    }
-    public void setIsAuth(Integer isAuth) {
-        this.isAuth = isAuth;
-    }
-    public Integer getIsManager() {
-        return isManager;
-    }
-    public void setIsManager(Integer isManager) {
-        this.isManager = isManager;
-    }
-    public Integer getRightsLevel() {
-        return rightsLevel;
-    }
-    public void setRightsLevel(Integer rightsLevel) {
-        this.rightsLevel = rightsLevel;
-    }
-    public String getCorpName() {
-        return corpName;
-    }
-    public void setCorpName(String corpName) {
-        this.corpName = corpName;
-    }
-    public String getCorpId() {
-        return corpId;
-    }
-    public void setCorpId(String corpId) {
-        this.corpId = corpId;
-    }
-    public String getInviteCode() {
-        return inviteCode;
-    }
-    public void setInviteCode(String inviteCode) {
-        this.inviteCode = inviteCode;
-    }
-    public String getIndustry() {
-        return industry;
-    }
-    public void setIndustry(String industry) {
-        this.industry = industry;
-    }
-    public String getLicenseCode() {
-        return licenseCode;
-    }
-    public void setLicenseCode(String licenseCode) {
-        this.licenseCode = licenseCode;
-    }
-    public String getAuthChannel() {
-        return authChannel;
-    }
-    public void setAuthChannel(String authChannel) {
-        this.authChannel = authChannel;
-    }
-    public String getAuthChannelType() {
-        return authChannelType;
-    }
-    public void setAuthChannelType(String authChannelType) {
-        this.authChannelType = authChannelType;
-    }
-    public String getPermanentCode() {
-        return permanentCode;
-    }
-    public void setPermanentCode(String permanentCode) {
-        this.permanentCode = permanentCode;
-    }
-    public Integer getIsAuthenticated() {
-        return isAuthenticated;
-    }
-    public void setIsAuthenticated(Integer isAuthenticated) {
-        this.isAuthenticated = isAuthenticated;
-    }
-    public Integer getAuthLevel() {
-        return authLevel;
-    }
-    public void setAuthLevel(Integer authLevel) {
-        this.authLevel = authLevel;
-    }
-    public String getInviteUrl() {
-        return inviteUrl;
-    }
-    public void setInviteUrl(String inviteUrl) {
-        this.inviteUrl = inviteUrl;
-    }
-    public String getAgent() {
-        return agent;
-    }
-    public void setAgent(String agent) {
-        this.agent = agent;
-    }
-    public String getCorpLogoUrl() {
-        return corpLogoUrl;
-    }
-    public void setCorpLogoUrl(String corpLogoUrl) {
-        this.corpLogoUrl = corpLogoUrl;
-    }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+	public Integer getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
+	}
+
+	public Boolean getLegal() {
+		return legal;
+	}
+
+	public void setLegal(Boolean legal) {
+		this.legal = legal;
+	}
+
+	public Boolean getManager() {
+		return manager;
+	}
+
+	public void setManager(Boolean manager) {
+		this.manager = manager;
+	}
+
+	public Integer getRightsLevel() {
+		return rightsLevel;
+	}
+
+	public void setRightsLevel(Integer rightsLevel) {
+		this.rightsLevel = rightsLevel;
+	}
+
+	public String getCorpName() {
+		return corpName;
+	}
+
+	public void setCorpName(String corpName) {
+		this.corpName = corpName;
+	}
+
+	public String getCorpId() {
+		return corpId;
+	}
+
+	public void setCorpId(String corpId) {
+		this.corpId = corpId;
+	}
+
+	public String getInviteCode() {
+		return inviteCode;
+	}
+
+	public void setInviteCode(String inviteCode) {
+		this.inviteCode = inviteCode;
+	}
+
+	public String getIndustry() {
+		return industry;
+	}
+
+	public void setIndustry(String industry) {
+		this.industry = industry;
+	}
+
+	public String getLicenseCode() {
+		return licenseCode;
+	}
+
+	public void setLicenseCode(String licenseCode) {
+		this.licenseCode = licenseCode;
+	}
+
+	public String getAuthChannel() {
+		return authChannel;
+	}
+
+	public void setAuthChannel(String authChannel) {
+		this.authChannel = authChannel;
+	}
+
+	public String getAuthChannelType() {
+		return authChannelType;
+	}
+
+	public void setAuthChannelType(String authChannelType) {
+		this.authChannelType = authChannelType;
+	}
+
+	public String getPermanentCode() {
+		return permanentCode;
+	}
+
+	public void setPermanentCode(String permanentCode) {
+		this.permanentCode = permanentCode;
+	}
+
+	public Boolean getAuthenticated() {
+		return authenticated;
+	}
+
+	public void setAuthenticated(Boolean authenticated) {
+		this.authenticated = authenticated;
+	}
+
+	public AuthLevel getAuthLevel() {
+		return authLevel;
+	}
+
+	public void setAuthLevel(AuthLevel authLevel) {
+		this.authLevel = authLevel;
+	}
+
+	public String getInviteUrl() {
+		return inviteUrl;
+	}
+
+	public void setInviteUrl(String inviteUrl) {
+		this.inviteUrl = inviteUrl;
+	}
+
+	public String getAgent() {
+		return agent;
+	}
+
+	public void setAgent(String agent) {
+		this.agent = agent;
+	}
+
+	public String getCorpLogoUrl() {
+		return corpLogoUrl;
+	}
+
+	public void setCorpLogoUrl(String corpLogoUrl) {
+		this.corpLogoUrl = corpLogoUrl;
+	}
 }

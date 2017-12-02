@@ -1,7 +1,5 @@
 package com.gongsibao.entity.uc;
 
-import java.sql.Date;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
@@ -13,16 +11,23 @@ public class Role extends BaseEntity {
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 5596388151147746516L;
+	
+    @Column(name="name",header="角色名称")
 	private String name;
+	
+    @Column(name="tag",header="角色标志(拼音首字母)")
     private String tag;
+    
+    @Column(name="description",header="描述信息")
     private String description;
-    private Double sort;
-    @Column(name="is_enabled")
-    private Integer isEnabled;
-    @Column(name="add_time")
-    private Date addTime;
-    @Column(name="add_user_id")
-    private Integer addUserId;
+    
+    @Column(name="sort",header="排序")
+    private Double sort = 1D;
+    
+    @Column(name="is_enabled",header="是否启用 0否 1是")
+    private Boolean enabled = true;
+    
+    @Column(name="remark",header="说明")
     private String remark;
 
     public String getName() {
@@ -49,28 +54,17 @@ public class Role extends BaseEntity {
     public void setSort(Double sort) {
         this.sort = sort;
     }
-    public Integer getIsEnabled() {
-        return isEnabled;
-    }
-    public void setIsEnabled(Integer isEnabled) {
-        this.isEnabled = isEnabled;
-    }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
-    public Integer getAddUserId() {
-        return addUserId;
-    }
-    public void setAddUserId(Integer addUserId) {
-        this.addUserId = addUserId;
-    }
+
     public String getRemark() {
         return remark;
     }
     public void setRemark(String remark) {
         this.remark = remark;
     }
+	public Boolean getEnabled() {
+		return enabled;
+	}
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
 }
