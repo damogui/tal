@@ -11,21 +11,39 @@ import com.gongsibao.entity.BaseEntity;
 public class Banner extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
-	 */   
+	 */
 	private static final long serialVersionUID = -644106723328689345L;
+	
+	@Column(name="name",header="")
 	private String name;
+	
+	@Column(name="description",header="")
     private String description;
+    
+	@Column(name="color",header="")
     private Integer color;
+    
+	@Column(name="url",header="")
     private String url;
+    
+	@Column(name="img",header="")
     private String img;
+    
+	@Column(name="sort",header="")
     private Integer sort;
+    
+	@Column(name="status",header="")
     private Integer status;
+    
     @Column(name="add_time",header="")
     private Date addTime;
+    
     @Column(name="add_user",header="")
     private Integer addUser;
+    
     @Column(name="upd_time",header="")
     private Date updTime;
+    
     @Column(name="upd_user",header="")
     private Integer updUser;
 

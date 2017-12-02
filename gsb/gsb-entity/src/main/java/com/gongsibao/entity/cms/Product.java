@@ -15,57 +15,82 @@ public class Product extends BaseEntity {
 	private static final long serialVersionUID = -1099819795496453198L;
 	@Column(name="product_id",header="")
     private Integer productId;
+	
     @Column(name="package_id",header="")
     private Integer packageId;
     
     @Column(name="cooperation_company_id",header="合作公司")
     private Integer cooperationCompanyId;
     
+    @Column(name="showprice",header="")
     private String showprice;
+    
     @Column(name="prod_name",header="")
     private String prodName;
+    
+    @Column(name="summary",header="")
     private String summary;
+    
     @Column(name="app_pord_img_url_id",header="")
     private Integer appPordImgUrlId;
+    
     @Column(name="un_app_pord_img_url_id",header="")
     private Integer unAppPordImgUrlId;
+    
     @Column(name="prod_icon_img_url_id",header="")
     private Integer prodIconImgUrlId;
+    
     @Column(name="package_prod_icon_url_id",header="")
     private Integer packageProdIconUrlId;
+    
+    @Column(name="status",header="")
     private Integer status;
+    
     @Column(name="php_id",header="")
     private Integer phpId;
+    
+    @Column(name="sort",header="")
     private Double sort;
+    
     @Column(name="is_show",header="")
     private Integer isShow;
+    
     @Column(name="is_hot",header="")
     private Integer isHot;
+    
     @Column(name="last_update_time",header="")
     private Date lastUpdateTime;
+    
     @Column(name="attribute_category",header="")
     private Integer attributeCategory;
+    
     @Column(name="first_aggregation_name",header="")
     private String firstAggregationName;
+    
     @Column(name="second_aggregation_name",header="")
     private String secondAggregationName;
+    
     @Column(name="price_description",header="")
     private String priceDescription;
+    
     @Column(name="promotional_copy",header="")
     private String promotionalCopy;
+    
     @Column(name="service_area_description",header="")
     private String serviceAreaDescription;
+    
     @Column(name="regist_address_description",header="")
     private String registAddressDescription;
+    
     @Column(name="service_period_description",header="")
     private String servicePeriodDescription;
+    
     @Column(name="buy_count_description",header="")
     private String buyCountDescription;
-    @Column(name="add_user_id",header="")
-    private Integer addUserId;
+
+    @Column(name="remark",header="")
     private String remark;
-    @Column(name="add_time",header="")
-    private Date addTime;
+
 
     public Integer getProductId() {
         return productId;
@@ -218,22 +243,12 @@ public class Product extends BaseEntity {
     public void setBuyCountDescription(String buyCountDescription) {
         this.buyCountDescription = buyCountDescription;
     }
-    public Integer getAddUserId() {
-        return addUserId;
-    }
-    public void setAddUserId(Integer addUserId) {
-        this.addUserId = addUserId;
-    }
+
     public String getRemark() {
         return remark;
     }
     public void setRemark(String remark) {
         this.remark = remark;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+
 }

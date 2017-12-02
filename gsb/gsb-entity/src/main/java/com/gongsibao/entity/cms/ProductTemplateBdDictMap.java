@@ -1,7 +1,5 @@
 package com.gongsibao.entity.cms;
 
-import java.sql.Date;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
@@ -15,15 +13,15 @@ public class ProductTemplateBdDictMap extends BaseEntity {
 	private static final long serialVersionUID = 9066252837501569111L;
 	@Column(name="product_id",header="")
     private Integer productId;
+	
     @Column(name="city_id",header="")
     private Integer cityId;
+    
     @Column(name="template_id",header="")
     private Integer templateId;
-    @Column(name="add_user_id",header="")
-    private Integer addUserId;
+    
+    @Column(name="remark",header="")
     private String remark;
-    @Column(name="add_time",header="")
-    private Date addTime;
 
     public Integer getProductId() {
         return productId;
@@ -43,22 +41,11 @@ public class ProductTemplateBdDictMap extends BaseEntity {
     public void setTemplateId(Integer templateId) {
         this.templateId = templateId;
     }
-    public Integer getAddUserId() {
-        return addUserId;
-    }
-    public void setAddUserId(Integer addUserId) {
-        this.addUserId = addUserId;
-    }
+
     public String getRemark() {
         return remark;
     }
     public void setRemark(String remark) {
         this.remark = remark;
-    }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
     }
 }

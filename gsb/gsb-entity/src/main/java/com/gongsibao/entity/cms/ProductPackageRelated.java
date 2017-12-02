@@ -1,7 +1,5 @@
 package com.gongsibao.entity.cms;
 
-import java.sql.Date;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
@@ -15,18 +13,22 @@ public class ProductPackageRelated extends BaseEntity {
 	private static final long serialVersionUID = 7034823526769842310L;
 	@Column(name="cms_product_id",header="")
     private Integer cmsProductId;
+	
     @Column(name="package_id",header="")
     private Integer packageId;
+    
     @Column(name="product_name",header="")
     private String productName;
+    
     @Column(name="package_name",header="")
     private String packageName;
+    
+    @Column(name="sort",header="")
     private Integer sort;
-    @Column(name="add_user_id",header="")
-    private Integer addUserId;
+
+    @Column(name="remark",header="")
     private String remark;
-    @Column(name="add_time",header="")
-    private Date addTime;
+
 
     public Integer getCmsProductId() {
         return cmsProductId;
@@ -58,22 +60,12 @@ public class ProductPackageRelated extends BaseEntity {
     public void setSort(Integer sort) {
         this.sort = sort;
     }
-    public Integer getAddUserId() {
-        return addUserId;
-    }
-    public void setAddUserId(Integer addUserId) {
-        this.addUserId = addUserId;
-    }
+
     public String getRemark() {
         return remark;
     }
     public void setRemark(String remark) {
         this.remark = remark;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+
 }

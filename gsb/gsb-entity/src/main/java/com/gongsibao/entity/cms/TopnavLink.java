@@ -1,7 +1,5 @@
 package com.gongsibao.entity.cms;
 
-import java.sql.Date;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
@@ -15,17 +13,25 @@ public class TopnavLink extends BaseEntity {
 	private static final long serialVersionUID = 2944660772037343051L;
 	@Column(name="category_id",header="")
     private Integer categoryId;
+	
+	@Column(name="name",header="")
     private String name;
+    
+	@Column(name="url",header="")
     private String url;
+    
+	@Column(name="recommend",header="")
     private Integer recommend;
+    
+	@Column(name="status",header="")
     private Integer status;
+    
+	@Column(name="sort",header="")
     private Integer sort;
-    @Column(name="add_time",header="")
-    private Date addTime;
+
     @Column(name="add_user",header="")
     private Integer addUser;
-    @Column(name="upd_time",header="")
-    private Date updTime;
+
     @Column(name="upd_user",header="")
     private Integer updUser;
 
@@ -65,24 +71,14 @@ public class TopnavLink extends BaseEntity {
     public void setSort(Integer sort) {
         this.sort = sort;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+
     public Integer getAddUser() {
         return addUser;
     }
     public void setAddUser(Integer addUser) {
         this.addUser = addUser;
     }
-    public Date getUpdTime() {
-        return updTime;
-    }
-    public void setUpdTime(Date updTime) {
-        this.updTime = updTime;
-    }
+
     public Integer getUpdUser() {
         return updUser;
     }

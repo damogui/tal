@@ -1,7 +1,5 @@
 package com.gongsibao.entity.cms;
 
-import java.sql.Date;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
@@ -15,20 +13,24 @@ public class ProductRelated extends BaseEntity {
 	private static final long serialVersionUID = -4972462548667533047L;
 	@Column(name="cms_product_id",header="")
     private Integer cmsProductId;
+	
     @Column(name="product_id",header="")
     private Integer productId;
+    
     @Column(name="recommend_product_id",header="")
     private Integer recommendProductId;
+    
     @Column(name="product_name",header="")
     private String productName;
+    
     @Column(name="recommend_product_name",header="")
     private String recommendProductName;
-    @Column(name="add_user_id",header="")
-    private Integer addUserId;
+    
+    @Column(name="sort",header="")
     private Double sort;
+
+    @Column(name="remark",header="")
     private String remark;
-    @Column(name="add_time",header="")
-    private Date addTime;
 
     public Integer getCmsProductId() {
         return cmsProductId;
@@ -60,12 +62,7 @@ public class ProductRelated extends BaseEntity {
     public void setRecommendProductName(String recommendProductName) {
         this.recommendProductName = recommendProductName;
     }
-    public Integer getAddUserId() {
-        return addUserId;
-    }
-    public void setAddUserId(Integer addUserId) {
-        this.addUserId = addUserId;
-    }
+
     public Double getSort() {
         return sort;
     }
@@ -78,10 +75,5 @@ public class ProductRelated extends BaseEntity {
     public void setRemark(String remark) {
         this.remark = remark;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+
 }
