@@ -19,9 +19,9 @@ public class CustomerMessage extends BaseEntity {
     private Integer dataId;
     @Column(name="data_type",header="DataType")
     private Integer dataType;
-    @Column(header="content")
+    @Column(name="",header="content")
     private String content;
-    @Column(header="type")
+    @Column(name="",header="type")
     private Integer type;
     @Column(name="add_time",header="AddTime")
     private Date addTime;

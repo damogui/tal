@@ -19,7 +19,7 @@ public class Tenant extends BaseEntity {
     private Integer maxAccount;
     @Column(name="manager_id",header="ManagerId")
     private Integer managerId;
-    @Column(header="domain")
+    @Column(name="",header="domain")
     private String domain;
     @Column(name="is_enabled",header="IsEnabled")
     private Integer isEnabled;

@@ -7,22 +7,22 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="cms_product_template_bd_dict_map")
+@Table(name="cms_product_template_bd_dict_map",header="")
 public class ProductTemplateBdDictMap extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 9066252837501569111L;
-	@Column(name="product_id")
+	@Column(name="product_id",header="")
     private Integer productId;
-    @Column(name="city_id")
+    @Column(name="city_id",header="")
     private Integer cityId;
-    @Column(name="template_id")
+    @Column(name="template_id",header="")
     private Integer templateId;
-    @Column(name="add_user_id")
+    @Column(name="add_user_id",header="")
     private Integer addUserId;
     private String remark;
-    @Column(name="add_time")
+    @Column(name="add_time",header="")
     private Date addTime;
 
     public Integer getProductId() {

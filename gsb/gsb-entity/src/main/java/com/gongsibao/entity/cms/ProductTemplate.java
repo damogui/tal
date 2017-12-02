@@ -7,30 +7,30 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="cms_product_template")
+@Table(name="cms_product_template",header="")
 public class ProductTemplate extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 321978296688381712L;
 	private String name;
-    @Column(name="is_default")
+    @Column(name="is_default",header="")
     private Integer isDefault;
     private String content;
-    @Column(name="add_user_id")
+    @Column(name="add_user_id",header="")
     private Integer addUserId;
-    @Column(name="product_id")
+    @Column(name="product_id",header="")
     private Integer productId;
-    @Column(name="cms_product_id")
+    @Column(name="cms_product_id",header="")
     private Integer cmsProductId;
     private String title;
     private String keyword;
-    @Column(name="page_description")
+    @Column(name="page_description",header="")
     private String pageDescription;
-    @Column(name="product_name")
+    @Column(name="product_name",header="")
     private String productName;
     private String remark;
-    @Column(name="add_time")
+    @Column(name="add_time",header="")
     private Date addTime;
 
     public String getName() {

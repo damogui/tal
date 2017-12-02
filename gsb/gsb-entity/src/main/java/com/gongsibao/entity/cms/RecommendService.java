@@ -7,30 +7,30 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="cms_recommend_service")
+@Table(name="cms_recommend_service",header="")
 public class RecommendService extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = -4179515733823349839L;
-	@Column(name="category_id")
+	@Column(name="category_id",header="")
     private Integer categoryId;
     private String name;
     private String description;
     private String price;
-    @Column(name="price_type")
+    @Column(name="price_type",header="")
     private Integer priceType;
     private String url;
     private String img;
     private Integer sort;
     private Integer status;
-    @Column(name="add_time")
+    @Column(name="add_time",header="")
     private Date addTime;
-    @Column(name="add_user")
+    @Column(name="add_user",header="")
     private Integer addUser;
-    @Column(name="upd_time")
+    @Column(name="upd_time",header="")
     private Date updTime;
-    @Column(name="upd_user")
+    @Column(name="upd_user",header="")
     private Integer updUser;
 
     public Integer getCategoryId() {

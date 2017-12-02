@@ -7,22 +7,22 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="crm_company_position")
+@Table(name="crm_company_position",header="")
 public class CompanyPosition extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 5789648367055571062L;
 	private String name;
-    @Column(name="mutex_group_no")
+    @Column(name="mutex_group_no",header="")
     private Integer mutexGroupNo;
     private String description;
-    @Column(name="is_must")
+    @Column(name="is_must",header="")
     private String isMust;
     private Integer sort;
-    @Column(name="add_user_id")
+    @Column(name="add_user_id",header="")
     private Integer addUserId;
-    @Column(name="add_time")
+    @Column(name="add_time",header="")
     private Date addTime;
 
     public String getName() {

@@ -13,21 +13,21 @@ public class User extends BaseEntity {
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 5766892072256976179L;
-	@Column(header="name")
+	@Column(name="",header="name")
     private String name;
-    @Column(header="mobile")
+    @Column(name="",header="mobile")
     private String mobile;
-    @Column(header="email")
+    @Column(name="",header="email")
     private String email;
-    @Column(header="passwd")
+    @Column(name="",header="passwd")
     private String passwd;
-    @Column(header="ticket")
+    @Column(name="",header="ticket")
     private String ticket;
-    @Column(header="avatar")
+    @Column(name="",header="avatar")
     private String avatar;
     @Column(name="ding_qr_code_url",header="DingQrCodeUrl")
     private String dingQrCodeUrl;
-    @Column(header="role")
+    @Column(name="",header="role")
     private String role;
     @Column(name="is_inside",header="IsInside")
     private Integer isInside;

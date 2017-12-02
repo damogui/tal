@@ -7,7 +7,7 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="cms_hot_keywrod")
+@Table(name="cms_hot_keywrod",header="")
 public class HotKeywrod extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
@@ -15,12 +15,12 @@ public class HotKeywrod extends BaseEntity {
 	private static final long serialVersionUID = -1650039623314283831L;
 	private String name;
     private Integer sort;
-    @Column(name="is_enabled")
+    @Column(name="is_enabled",header="")
     private Integer isEnabled;
     private String remark;
-    @Column(name="add_user_id")
+    @Column(name="add_user_id",header="")
     private Integer addUserId;
-    @Column(name="add_time")
+    @Column(name="add_time",header="")
     private Date addTime;
 
     public String getName() {

@@ -7,30 +7,30 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="cms_guest_voice")
+@Table(name="cms_guest_voice",header="")
 public class GuestVoice extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 1390638669938323116L;
 	private String name;
-    @Column(name="guest_name")
+    @Column(name="guest_name",header="")
     private String guestName;
-    @Column(name="guest_port")
+    @Column(name="guest_port",header="")
     private String guestPort;
-    @Column(name="guest_evaluation")
+    @Column(name="guest_evaluation",header="")
     private String guestEvaluation;
     private String img;
     private Integer sort;
     private Integer spider;
     private Integer status;
-    @Column(name="add_time")
+    @Column(name="add_time",header="")
     private Date addTime;
-    @Column(name="add_user")
+    @Column(name="add_user",header="")
     private Integer addUser;
-    @Column(name="upd_time")
+    @Column(name="upd_time",header="")
     private Date updTime;
-    @Column(name="upd_user")
+    @Column(name="upd_user",header="")
     private Integer updUser;
 
     public String getName() {

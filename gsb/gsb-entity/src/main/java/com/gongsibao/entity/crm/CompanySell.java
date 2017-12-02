@@ -7,27 +7,27 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="crm_company_sell")
+@Table(name="crm_company_sell",header="")
 public class CompanySell extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 5740389249163183228L;
-	@Column(name="company_id")
+	@Column(name="company_id",header="")
     private Integer companyId;
-    @Column(name="contact_name")
+    @Column(name="contact_name",header="")
     private String contactName;
-    @Column(name="contact_mobile")
+    @Column(name="contact_mobile",header="")
     private String contactMobile;
-    @Column(name="sell_name")
+    @Column(name="sell_name",header="")
     private String sellName;
-    @Column(name="city_id")
+    @Column(name="city_id",header="")
     private Integer cityId;
     private Integer price;
     private Integer status;
-    @Column(name="audit_status")
+    @Column(name="audit_status",header="")
     private Integer auditStatus;
-    @Column(name="add_time")
+    @Column(name="add_time",header="")
     private Date addTime;
 
     public Integer getCompanyId() {

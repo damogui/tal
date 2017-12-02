@@ -7,26 +7,26 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="cms_topnav_link")
+@Table(name="cms_topnav_link",header="")
 public class TopnavLink extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 2944660772037343051L;
-	@Column(name="category_id")
+	@Column(name="category_id",header="")
     private Integer categoryId;
     private String name;
     private String url;
     private Integer recommend;
     private Integer status;
     private Integer sort;
-    @Column(name="add_time")
+    @Column(name="add_time",header="")
     private Date addTime;
-    @Column(name="add_user")
+    @Column(name="add_user",header="")
     private Integer addUser;
-    @Column(name="upd_time")
+    @Column(name="upd_time",header="")
     private Date updTime;
-    @Column(name="upd_user")
+    @Column(name="upd_user",header="")
     private Integer updUser;
 
     public Integer getCategoryId() {

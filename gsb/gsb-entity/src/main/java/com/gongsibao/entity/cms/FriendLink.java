@@ -7,7 +7,7 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="cms_friend_link")
+@Table(name="cms_friend_link",header="")
 public class FriendLink extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
@@ -20,13 +20,13 @@ public class FriendLink extends BaseEntity {
     private Integer sort;
     private Integer spider;
     private Integer status;
-    @Column(name="add_time")
+    @Column(name="add_time",header="")
     private Date addTime;
-    @Column(name="add_user")
+    @Column(name="add_user",header="")
     private Integer addUser;
-    @Column(name="upd_time")
+    @Column(name="upd_time",header="")
     private Date updTime;
-    @Column(name="upd_user")
+    @Column(name="upd_user",header="")
     private Integer updUser;
 
     public Integer getType() {

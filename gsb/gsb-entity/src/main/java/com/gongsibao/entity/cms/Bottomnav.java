@@ -7,13 +7,13 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="cms_bottomnav")
+@Table(name="cms_bottomnav",header="")
 public class Bottomnav extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 3920385162116885953L;
-	@Column(name="bottom_category")
+	@Column(name="bottom_category",header="")
     private Integer bottomCategory;
     private String name;
     private String url;
@@ -21,13 +21,13 @@ public class Bottomnav extends BaseEntity {
     private Integer spider;
     private Integer sort;
     private Integer status;
-    @Column(name="add_time")
+    @Column(name="add_time",header="")
     private Date addTime;
-    @Column(name="add_user")
+    @Column(name="add_user",header="")
     private Integer addUser;
-    @Column(name="upd_time")
+    @Column(name="upd_time",header="")
     private Date updTime;
-    @Column(name="upd_user")
+    @Column(name="upd_user",header="")
     private Integer updUser;
 
     public Integer getBottomCategory() {

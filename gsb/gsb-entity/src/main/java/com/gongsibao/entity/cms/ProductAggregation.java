@@ -5,15 +5,15 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="cms_product_aggregation")
+@Table(name="cms_product_aggregation",header="")
 public class ProductAggregation extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = -6570890560339636600L;
-	@Column(name="parent_id")
+	@Column(name="parent_id",header="")
     private Integer parentId;
-    @Column(name="cms_product_id")
+    @Column(name="cms_product_id",header="")
     private Integer cmsProductId;
     private String name;
     private Double sort;

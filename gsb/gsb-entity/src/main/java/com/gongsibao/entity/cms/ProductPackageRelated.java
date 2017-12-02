@@ -7,25 +7,25 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="cms_product_package_related")
+@Table(name="cms_product_package_related",header="")
 public class ProductPackageRelated extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 7034823526769842310L;
-	@Column(name="cms_product_id")
+	@Column(name="cms_product_id",header="")
     private Integer cmsProductId;
-    @Column(name="package_id")
+    @Column(name="package_id",header="")
     private Integer packageId;
-    @Column(name="product_name")
+    @Column(name="product_name",header="")
     private String productName;
-    @Column(name="package_name")
+    @Column(name="package_name",header="")
     private String packageName;
     private Integer sort;
-    @Column(name="add_user_id")
+    @Column(name="add_user_id",header="")
     private Integer addUserId;
     private String remark;
-    @Column(name="add_time")
+    @Column(name="add_time",header="")
     private Date addTime;
 
     public Integer getCmsProductId() {

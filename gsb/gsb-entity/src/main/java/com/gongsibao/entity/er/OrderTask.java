@@ -13,7 +13,7 @@ public class OrderTask extends BaseEntity {
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = -6161050199907350221L;
-	@Column(header="name")
+	@Column(name="",header="name")
     private String name;
     @Column(name="workflow_id",header="WorkflowId")
     private Integer workflowId;
@@ -23,11 +23,11 @@ public class OrderTask extends BaseEntity {
     private Integer cityId;
     @Column(name="role_id",header="RoleId")
     private Integer roleId;
-    @Column(header="property")
+    @Column(name="",header="property")
     private Integer property;
-    @Column(header="days")
+    @Column(name="",header="days")
     private Integer days;
-    @Column(header="cost")
+    @Column(name="",header="cost")
     private Integer cost;
     @Column(name="begin_time",header="BeginTime")
     private Date beginTime;
@@ -39,13 +39,13 @@ public class OrderTask extends BaseEntity {
     private Date startTime;
     @Column(name="complete_time",header="CompleteTime")
     private Date completeTime;
-    @Column(header="place")
+    @Column(name="",header="place")
     private String place;
-    @Column(header="status")
+    @Column(name="",header="status")
     private Integer status;
     @Column(name="is_complain",header="IsComplain")
     private Integer isComplain;
-    @Column(header="complain")
+    @Column(name="",header="complain")
     private String complain;
     @Column(name="is_high_risk",header="IsHighRisk")
     private Integer isHighRisk;
@@ -53,7 +53,7 @@ public class OrderTask extends BaseEntity {
     private Integer isEnabled;
     @Column(name="is_current",header="IsCurrent")
     private Integer isCurrent;
-    @Column(header="sort")
+    @Column(name="",header="sort")
     private Integer sort;
     @Column(name="is_overtime",header="IsOvertime")
     private Integer isOvertime;
@@ -65,7 +65,7 @@ public class OrderTask extends BaseEntity {
     private Date addTime;
     @Column(name="tenant_id",header="TenantId")
     private Integer tenantId;
-    @Column(header="frequency")
+    @Column(name="",header="frequency")
     private Integer frequency;
     @Column(name="remind_days",header="RemindDays")
     private Integer remindDays;

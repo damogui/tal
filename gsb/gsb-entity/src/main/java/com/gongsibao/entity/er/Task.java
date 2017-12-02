@@ -13,19 +13,19 @@ public class Task extends BaseEntity {
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = -5699252859693217962L;
-	@Column(header="name")
+	@Column(name="",header="name")
     private String name;
     @Column(name="workflow_id",header="WorkflowId")
     private Integer workflowId;
     @Column(name="city_id",header="CityId")
     private Integer cityId;
-    @Column(header="property")
+    @Column(name="",header="property")
     private Integer property;
-    @Column(header="days")
+    @Column(name="",header="days")
     private Integer days;
     @Column(name="is_high_risk",header="IsHighRisk")
     private Integer isHighRisk;
-    @Column(header="cost")
+    @Column(name="",header="cost")
     private Integer cost;
     @Column(name="role_id",header="RoleId")
     private Integer roleId;
@@ -35,11 +35,11 @@ public class Task extends BaseEntity {
     private Integer addUserId;
     @Column(name="add_time",header="AddTime")
     private Date addTime;
-    @Column(header="sort")
+    @Column(name="",header="sort")
     private Integer sort;
     @Column(name="tenant_id",header="TenantId")
     private Integer tenantId;
-    @Column(header="frequency")
+    @Column(name="",header="frequency")
     private Integer frequency;
     @Column(name="remind_days",header="RemindDays")
     private Integer remindDays;

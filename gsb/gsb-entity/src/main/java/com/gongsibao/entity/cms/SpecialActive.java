@@ -7,7 +7,7 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="cms_special_active")
+@Table(name="cms_special_active",header="")
 public class SpecialActive extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
@@ -15,20 +15,20 @@ public class SpecialActive extends BaseEntity {
 	private static final long serialVersionUID = -8092706452181831443L;
 	private String name;
     private String description;
-    @Column(name="active_time")
+    @Column(name="active_time",header="")
     private Date activeTime;
     private String url;
     private String img;
-    @Column(name="img_big")
+    @Column(name="img_big",header="")
     private String imgBig;
     private Integer status;
-    @Column(name="add_time")
+    @Column(name="add_time",header="")
     private Date addTime;
-    @Column(name="add_user")
+    @Column(name="add_user",header="")
     private Integer addUser;
-    @Column(name="upd_time")
+    @Column(name="upd_time",header="")
     private Date updTime;
-    @Column(name="upd_user")
+    @Column(name="upd_user",header="")
     private Integer updUser;
 
     public String getName() {

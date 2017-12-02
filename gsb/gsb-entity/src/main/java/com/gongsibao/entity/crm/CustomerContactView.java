@@ -7,15 +7,15 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="crm_customer_contact_view")
+@Table(name="crm_customer_contact_view",header="")
 public class CustomerContactView extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = -4139956421536575463L;
-	@Column(name="user_id")
+	@Column(name="user_id",header="")
     private Integer userId;
-    @Column(name="customer_id")
+    @Column(name="customer_id",header="")
     private Integer customerId;
     private String mobile;
     private String email;
@@ -23,11 +23,11 @@ public class CustomerContactView extends BaseEntity {
     private String qq;
     private String weixin;
     private String ip;
-    @Column(name="ip_addr")
+    @Column(name="ip_addr",header="")
     private String ipAddr;
-    @Column(name="user_agent")
+    @Column(name="user_agent",header="")
     private String userAgent;
-    @Column(name="add_time")
+    @Column(name="add_time",header="")
     private Date addTime;
 
     public Integer getUserId() {

@@ -7,64 +7,64 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="cms_product")
+@Table(name="cms_product",header="")
 public class Product extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(鐢ㄤ竴鍙ヨ瘽鎻忚堪杩欎釜鍙橀噺琛ㄧず浠�涔�)   
 	 */   
 	private static final long serialVersionUID = -1099819795496453198L;
-	@Column(name="product_id")
+	@Column(name="product_id",header="")
     private Integer productId;
-    @Column(name="package_id")
+    @Column(name="package_id",header="")
     private Integer packageId;
     
     @Column(name="cooperation_company_id",header="合作公司")
     private Integer cooperationCompanyId;
     
     private String showprice;
-    @Column(name="prod_name")
+    @Column(name="prod_name",header="")
     private String prodName;
     private String summary;
-    @Column(name="app_pord_img_url_id")
+    @Column(name="app_pord_img_url_id",header="")
     private Integer appPordImgUrlId;
-    @Column(name="un_app_pord_img_url_id")
+    @Column(name="un_app_pord_img_url_id",header="")
     private Integer unAppPordImgUrlId;
-    @Column(name="prod_icon_img_url_id")
+    @Column(name="prod_icon_img_url_id",header="")
     private Integer prodIconImgUrlId;
-    @Column(name="package_prod_icon_url_id")
+    @Column(name="package_prod_icon_url_id",header="")
     private Integer packageProdIconUrlId;
     private Integer status;
-    @Column(name="php_id")
+    @Column(name="php_id",header="")
     private Integer phpId;
     private Double sort;
-    @Column(name="is_show")
+    @Column(name="is_show",header="")
     private Integer isShow;
-    @Column(name="is_hot")
+    @Column(name="is_hot",header="")
     private Integer isHot;
-    @Column(name="last_update_time")
+    @Column(name="last_update_time",header="")
     private Date lastUpdateTime;
-    @Column(name="attribute_category")
+    @Column(name="attribute_category",header="")
     private Integer attributeCategory;
-    @Column(name="first_aggregation_name")
+    @Column(name="first_aggregation_name",header="")
     private String firstAggregationName;
-    @Column(name="second_aggregation_name")
+    @Column(name="second_aggregation_name",header="")
     private String secondAggregationName;
-    @Column(name="price_description")
+    @Column(name="price_description",header="")
     private String priceDescription;
-    @Column(name="promotional_copy")
+    @Column(name="promotional_copy",header="")
     private String promotionalCopy;
-    @Column(name="service_area_description")
+    @Column(name="service_area_description",header="")
     private String serviceAreaDescription;
-    @Column(name="regist_address_description")
+    @Column(name="regist_address_description",header="")
     private String registAddressDescription;
-    @Column(name="service_period_description")
+    @Column(name="service_period_description",header="")
     private String servicePeriodDescription;
-    @Column(name="buy_count_description")
+    @Column(name="buy_count_description",header="")
     private String buyCountDescription;
-    @Column(name="add_user_id")
+    @Column(name="add_user_id",header="")
     private Integer addUserId;
     private String remark;
-    @Column(name="add_time")
+    @Column(name="add_time",header="")
     private Date addTime;
 
     public Integer getProductId() {
