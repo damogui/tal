@@ -17,7 +17,7 @@ public class CustomerMessageLog extends BaseEntity {
     private Integer erCustomerId;
     @Column(name="er_customer_message_id",header="ErCustomerMessageId")
     private Integer erCustomerMessageId;
-    @Column(name="",header="status")
+    @Column(name="status",header="status")
     private Integer status;
     @Column(name="add_time",header="AddTime")
     private Date addTime;

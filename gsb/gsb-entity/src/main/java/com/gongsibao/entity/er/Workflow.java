@@ -13,7 +13,7 @@ public class Workflow extends BaseEntity {
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = -545492082183418655L;
-	@Column(name="",header="name")
+	@Column(name="name",header="name")
     private String name;
     @Column(name="is_template",header="IsTemplate")
     private Integer isTemplate;
@@ -23,7 +23,7 @@ public class Workflow extends BaseEntity {
     private Integer addUserId;
     @Column(name="add_time",header="AddTime")
     private Date addTime;
-    @Column(name="",header="status")
+    @Column(name="status",header="status")
     private Integer status;
     @Column(name="tenant_id",header="TenantId")
     private Integer tenantId;

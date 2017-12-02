@@ -13,11 +13,11 @@ public class Product extends BaseEntity {
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = -680565880557682252L;
-	@Column(name="",header="price")
+	@Column(name="price",header="price")
     private Integer price;
-    @Column(name="",header="name")
+    @Column(name="name",header="name")
     private String name;
-    @Column(name="",header="status")
+    @Column(name="status",header="status")
     private Integer status;
     @Column(name="add_user_id",header="AddUserId")
     private Integer addUserId;

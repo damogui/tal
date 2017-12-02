@@ -15,19 +15,19 @@ public class OrderTaskItem extends BaseEntity {
 	private static final long serialVersionUID = -2876062094125812582L;
 	@Column(name="order_task_id",header="OrderTaskId")
     private Integer orderTaskId;
-    @Column(name="",header="name")
+    @Column(name="name",header="name")
     private String name;
     @Column(name="is_must",header="IsMust")
     private Integer isMust;
-    @Column(name="",header="type")
+    @Column(name="type",header="type")
     private Integer type;
-    @Column(name="",header="content")
+    @Column(name="content",header="content")
     private String content;
-    @Column(name="",header="sort")
+    @Column(name="sort",header="sort")
     private Integer sort;
     @Column(name="upd_time",header="UpdTime")
     private Date updTime;
-    @Column(name="",header="v")
+    @Column(name="v",header="v")
     private Integer v;
 
     public Integer getOrderTaskId() {

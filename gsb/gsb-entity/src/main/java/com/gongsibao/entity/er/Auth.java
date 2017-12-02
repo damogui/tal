@@ -13,17 +13,17 @@ public class Auth extends BaseEntity {
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = -8793245235464215363L;
-	@Column(header="pid")
+	@Column(name="pid",header="pid")
     private Integer pid;
-    @Column(header="name")
+    @Column(name="name",header="name")
     private String name;
-    @Column(header="sref")
+    @Column(name="sref",header="sref")
     private String sref;
-    @Column(header="icon")
+    @Column(name="icon",header="icon")
     private String icon;
     @Column(name="is_menu",header="IsMenu")
     private Integer isMenu;
-    @Column(header="sort")
+    @Column(name="sort",header="sort")
     private Double sort;
     @Column(name="add_time",header="AddTime")
     private Date addTime;

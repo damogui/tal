@@ -13,7 +13,7 @@ public class RoleGroup extends BaseEntity {
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 85233601889298569L;
-	@Column(name="",header="name")
+	@Column(name="name",header="name")
     private String name;
     @Column(name="add_time",header="AddTime")
     private Date addTime;

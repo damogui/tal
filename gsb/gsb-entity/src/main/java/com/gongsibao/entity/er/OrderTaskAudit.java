@@ -19,7 +19,7 @@ public class OrderTaskAudit extends BaseEntity {
     private Integer orderTaskId;
     @Column(name="audit_user_id",header="AuditUserId")
     private Integer auditUserId;
-    @Column(name="",header="status")
+    @Column(name="status",header="status")
     private Integer status;
     @Column(name="ch_old_id",header="ChOldId")
     private Integer chOldId;
