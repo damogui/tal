@@ -8,10 +8,10 @@ import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
-import com.gongsibao.entity.other.EmployeeExtendBusiness;
-import com.gongsibao.entity.other.dic.LoginValid;
-import com.gongsibao.entity.other.dic.SupplyStatus;
-import com.gongsibao.entity.other.dic.SupplyType;
+import com.gongsibao.entity.bd.Dict;
+import com.gongsibao.entity.uc.dic.LoginValid;
+import com.gongsibao.entity.uc.dic.SupplyStatus;
+import com.gongsibao.entity.uc.dic.SupplyType;
 
 @Table(name="uc_user",header="员工信息")
 public class User extends BaseEntity {
@@ -45,8 +45,14 @@ public class User extends BaseEntity {
     @Column(name="ability_id",header="业务员类型 107 1071金牌，1072银牌，1073铜牌，1074普通")
     private Integer abilityId;
     
+    @Reference(foreignKey="abilityId")
+    private Dict abbility;
+    
     @Column(name="priority_id",header="业务员分配优先级 109 1091金牌，1092银牌，1073铜牌，1094普通")
     private Integer priorityId;
+    
+    @Reference(foreignKey="priorityId")
+    private Dict priority;
     
     @Column(name="office_id",header="分公司id")
     private Integer officeId;
@@ -55,7 +61,7 @@ public class User extends BaseEntity {
     private Organization office;
     
     @Column(name="is_inner",header="是否内部员工 0否, 1是")
-    private Boolean isInner;
+    private Boolean isInner = true;
     
     @Column(name="head_thumb_file_id",header="头像图片序号")
     private Integer headThumbFileId;
@@ -70,7 +76,7 @@ public class User extends BaseEntity {
     private String isBbk="0";
 
     @Column(name="is_accept_order",header="是否接单 0不接单 1接单")
-    private Boolean isAcceptOrder;
+    private Boolean isAcceptOrder = false;
     
     @Column(name="remark",header="备注")
     private String remark;
@@ -94,13 +100,17 @@ public class User extends BaseEntity {
     private String pubKey;
     
     @Subs(subType=UserBusiness.class,foreignKey="userId",header="归属事业部")
-    private List<EmployeeExtendBusiness> business;
+    private List<UserBusiness> business;
 
     @Subs(subType=UserRoleMap.class,foreignKey="userId",header="角色")
     private List<UserRoleMap> roles;
     
-    @Subs(subType=UserRoleMap.class,foreignKey="userId",header="所属组织机构")
+    @Subs(subType=UserOrganizationMap.class,foreignKey="userId",header="所属组织机构")
     private List<UserOrganizationMap> organizations;
+    
+    @Subs(subType=UserBirthday.class,foreignKey="userId",header="生日记录")
+    private List<UserBirthday> birthdays;
+    
 
 	public String getPasswd() {
 		return passwd;
@@ -302,12 +312,36 @@ public class User extends BaseEntity {
 		this.pubKey = pubKey;
 	}
 
-	public List<EmployeeExtendBusiness> getBusiness() {
+	public Dict getAbbility() {
+		return abbility;
+	}
+
+	public void setAbbility(Dict abbility) {
+		this.abbility = abbility;
+	}
+
+	public Dict getPriority() {
+		return priority;
+	}
+
+	public void setPriority(Dict priority) {
+		this.priority = priority;
+	}
+
+	public List<UserBusiness> getBusiness() {
 		return business;
 	}
 
-	public void setBusiness(List<EmployeeExtendBusiness> business) {
+	public void setBusiness(List<UserBusiness> business) {
 		this.business = business;
+	}
+
+	public List<UserBirthday> getBirthdays() {
+		return birthdays;
+	}
+
+	public void setBirthdays(List<UserBirthday> birthdays) {
+		this.birthdays = birthdays;
 	}
 
 	public List<UserRoleMap> getRoles() {

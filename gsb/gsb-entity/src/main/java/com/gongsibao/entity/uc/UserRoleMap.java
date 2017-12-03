@@ -1,7 +1,5 @@
 package com.gongsibao.entity.uc;
 
-import java.sql.Date;
-
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
@@ -28,15 +26,9 @@ public class UserRoleMap extends BaseEntity {
     @Reference(foreignKey="roleId")
     private Role role;
     
-    @Column(name="can_pass")
-    private Integer canPass;
+    @Column(name="can_pass",header="能否传递 0否 1是")
+    private Boolean canPass = true;
     
-    @Column(name="add_time")
-    private Date addTime;
-    
-    @Column(name="add_user_id")
-    private Integer addUserId;
-
     public Integer getUserId() {
         return userId;
     }
@@ -49,24 +41,7 @@ public class UserRoleMap extends BaseEntity {
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
-    public Integer getCanPass() {
-        return canPass;
-    }
-    public void setCanPass(Integer canPass) {
-        this.canPass = canPass;
-    }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
-    public Integer getAddUserId() {
-        return addUserId;
-    }
-    public void setAddUserId(Integer addUserId) {
-        this.addUserId = addUserId;
-    }
+
 	public User getUser() {
 		return user;
 	}
@@ -79,4 +54,12 @@ public class UserRoleMap extends BaseEntity {
 	public void setRole(Role role) {
 		this.role = role;
 	}
+	public Boolean getCanPass() {
+		return canPass;
+	}
+	public void setCanPass(Boolean canPass) {
+		this.canPass = canPass;
+	}
+	
+	
 }

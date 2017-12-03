@@ -1,7 +1,5 @@
 package com.gongsibao.entity.uc;
 
-import java.sql.Timestamp;
-
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
@@ -27,11 +25,6 @@ public class UserOrganizationMap extends BaseEntity {
     
     @Reference(foreignKey="organizationId")
     private Organization organization;
-    
-    @Column(name="add_time")
-    private Timestamp addTime;
-    @Column(name="add_user_id")
-    private Integer addUserId;
 
     public Integer getUserId() {
         return userId;
@@ -45,18 +38,7 @@ public class UserOrganizationMap extends BaseEntity {
     public void setOrganizationId(Integer organizationId) {
         this.organizationId = organizationId;
     }
-    public Timestamp getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Timestamp addTime) {
-        this.addTime = addTime;
-    }
-    public Integer getAddUserId() {
-        return addUserId;
-    }
-    public void setAddUserId(Integer addUserId) {
-        this.addUserId = addUserId;
-    }
+
 	public User getUser() {
 		return user;
 	}
