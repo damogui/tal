@@ -3,26 +3,24 @@ package com.gongsibao.entity.franchisee.dic;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
-public enum TrackProgress  implements IEnum{
+public enum FranchiseeReportType implements IEnum{
 
-	TRACK_PROGRESS_1(1, "未拜访"), 
-	TRACK_PROGRESS_2(2, "电话拜访"),
-	TRACK_PROGRESS_3(3, "陌拜"),
-	TRACK_PROGRESS_4(4, "洽谈中"),
-	TRACK_PROGRESS_5(5, "已合作"),
-	TRACK_PROGRESS_6(6, "已中止"),
-	TRACK_PROGRESS_7(7, "已合作中止");
+	year(1, "年"),
+	month(2, "月"),
+	week(3, "周"),
+	date(4, "日");
 	private int value;
 	private String text;
-	TrackProgress(int value, String text) {
+
+	FranchiseeReportType(int value, String text) {
 		this.value = value;
 		this.text = text;
 	}
 
 	@JsonCreator
-	public static TrackProgress getItem(int value) {
+	public static FranchiseeReportType getItem(int value) {
 
-		for (TrackProgress item : values()) {
+		for (FranchiseeReportType item : values()) {
 
 			if (item.getValue() == value) {
 				return item;
