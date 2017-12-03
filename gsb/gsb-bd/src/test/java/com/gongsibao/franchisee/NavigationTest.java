@@ -8,14 +8,14 @@ public class NavigationTest extends NavigationBase {
 
 	@Before
 	public void setup() {
-		this.treeName = "BD管理";
+		this.treeName = "招商CRM";
 		this.treePath = "panda/gsb/franchisee";
 		this.resourceNode = "GSB_BD";
 	}
 
 	public void createAccodions() {
 
-		this.doCreateAccodions("GSB_BD", "BD管理", "fa fa-users fa-fw", 3);
+		this.doCreateAccodions("GSB_BD", "招商CRM", "fa fa-users fa-fw", 3);
 	}
 
 	@Override

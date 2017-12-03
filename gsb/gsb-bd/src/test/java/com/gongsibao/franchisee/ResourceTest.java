@@ -22,9 +22,9 @@ public class ResourceTest extends ResourceCreationBase {
 	@Before
 	public void setup() {
 
-		parentNodeName = "BD管理";
+		parentNodeName = "招商CRM";
 		parentNodeCode = "GSB_BD";
-		pluginName = "BD管理";
+		pluginName = "招商CRM";
 		seq = 3;
 		entityClass = ResourceNode.class;
 	}
