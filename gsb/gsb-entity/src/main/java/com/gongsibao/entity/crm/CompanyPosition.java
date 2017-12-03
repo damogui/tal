@@ -1,7 +1,5 @@
 package com.gongsibao.entity.crm;
 
-import java.sql.Date;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
@@ -20,10 +18,6 @@ public class CompanyPosition extends BaseEntity {
     @Column(name="is_must",header="")
     private String isMust;
     private Integer sort;
-    @Column(name="add_user_id",header="")
-    private Integer addUserId;
-    @Column(name="add_time",header="")
-    private Date addTime;
 
     public String getName() {
         return name;
@@ -55,16 +49,5 @@ public class CompanyPosition extends BaseEntity {
     public void setSort(Integer sort) {
         this.sort = sort;
     }
-    public Integer getAddUserId() {
-        return addUserId;
-    }
-    public void setAddUserId(Integer addUserId) {
-        this.addUserId = addUserId;
-    }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+
 }

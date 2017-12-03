@@ -1,6 +1,6 @@
 package com.gongsibao.entity.uc;
 
-import java.sql.Date;
+import java.util.Date;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;

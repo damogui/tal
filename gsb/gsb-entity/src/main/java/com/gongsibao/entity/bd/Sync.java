@@ -1,6 +1,7 @@
 package com.gongsibao.entity.bd;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
@@ -19,8 +20,7 @@ public class Sync extends BaseEntity {
     private Integer mPkid;
     @Column(name="s_id",header="SId")
     private String sId;
-    @Column(name="add_time",header="AddTime")
-    private Date addTime;
+
     @Column(name="m_last_update_time",header="MLastUpdateTime")
     private Date mLastUpdateTime;
     @Column(name="s_last_update_time",header="SLastUpdateTime")
@@ -46,12 +46,7 @@ public class Sync extends BaseEntity {
     public void setSId(String sId) {
         this.sId = sId;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+
     public Date getMLastUpdateTime() {
         return mLastUpdateTime;
     }

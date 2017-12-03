@@ -1,6 +1,5 @@
 package com.gongsibao.entity.crm;
 
-import java.sql.Date;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
@@ -21,10 +20,6 @@ public class CustomerLog extends BaseEntity {
     private Integer userId;
     @Column(name="organization_id",header="")
     private Integer organizationId;
-    @Column(name="add_user_id",header="")
-    private Integer addUserId;
-    @Column(name="add_time",header="")
-    private Date addTime;
 
     public Integer getCustomerId() {
         return customerId;
@@ -50,16 +45,5 @@ public class CustomerLog extends BaseEntity {
     public void setOrganizationId(Integer organizationId) {
         this.organizationId = organizationId;
     }
-    public Integer getAddUserId() {
-        return addUserId;
-    }
-    public void setAddUserId(Integer addUserId) {
-        this.addUserId = addUserId;
-    }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+
 }

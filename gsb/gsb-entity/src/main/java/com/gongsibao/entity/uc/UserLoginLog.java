@@ -1,6 +1,5 @@
 package com.gongsibao.entity.uc;
 
-import java.sql.Date;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
@@ -30,9 +29,6 @@ public class UserLoginLog extends BaseEntity {
     
     @Column(name="user_agent")
     private String userAgent;
-    
-    @Column(name="add_time")
-    private Date addTime;
 
     public String getIp() {
         return ip;
@@ -58,12 +54,7 @@ public class UserLoginLog extends BaseEntity {
     public void setUserAgent(String userAgent) {
         this.userAgent = userAgent;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+
 	public User getUser() {
 		return user;
 	}

@@ -1,7 +1,5 @@
 package com.gongsibao.entity.bd;
 
-import java.sql.Date;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
@@ -21,10 +19,7 @@ public class AuditLog extends BaseEntity {
     private Integer statusId;
     @Column(header="content")
     private String content;
-    @Column(name="add_time",header="AddTime")
-    private Date addTime;
-    @Column(name="add_user_id",header="AddUserId")
-    private Integer addUserId;
+
     @Column(header="remark")
     private String remark;
     @Column(header="level")
@@ -54,18 +49,7 @@ public class AuditLog extends BaseEntity {
     public void setContent(String content) {
         this.content = content;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
-    public Integer getAddUserId() {
-        return addUserId;
-    }
-    public void setAddUserId(Integer addUserId) {
-        this.addUserId = addUserId;
-    }
+
     public String getRemark() {
         return remark;
     }

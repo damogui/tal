@@ -1,6 +1,5 @@
 package com.gongsibao.entity.crm;
 
-import java.sql.Date;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
@@ -42,8 +41,7 @@ public class CompanyPlayer extends BaseEntity {
     private String nation;
     private String political;
     private String remark;
-    @Column(name="add_time",header="")
-    private Date addTime;
+
 
     public Integer getCompanyId() {
         return companyId;
@@ -165,10 +163,5 @@ public class CompanyPlayer extends BaseEntity {
     public void setRemark(String remark) {
         this.remark = remark;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+
 }

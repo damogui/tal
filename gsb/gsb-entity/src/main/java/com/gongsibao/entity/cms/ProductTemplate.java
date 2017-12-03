@@ -1,7 +1,5 @@
 package com.gongsibao.entity.cms;
 
-import java.sql.Date;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
@@ -30,8 +28,7 @@ public class ProductTemplate extends BaseEntity {
     @Column(name="product_name",header="")
     private String productName;
     private String remark;
-    @Column(name="add_time",header="")
-    private Date addTime;
+
 
     public String getName() {
         return name;
@@ -99,10 +96,5 @@ public class ProductTemplate extends BaseEntity {
     public void setRemark(String remark) {
         this.remark = remark;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+
 }

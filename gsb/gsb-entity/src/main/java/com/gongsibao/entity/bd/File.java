@@ -1,7 +1,5 @@
 package com.gongsibao.entity.bd;
 
-import java.sql.Date;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
@@ -21,10 +19,6 @@ public class File extends BaseEntity {
     private String name;
     @Column(header="url")
     private String url;
-    @Column(name="add_time",header="AddTime")
-    private Date addTime;
-    @Column(name="add_user_id",header="AddUserId")
-    private Integer addUserId;
 
     public String getTabName() {
         return tabName;
@@ -50,16 +44,5 @@ public class File extends BaseEntity {
     public void setUrl(String url) {
         this.url = url;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
-    public Integer getAddUserId() {
-        return addUserId;
-    }
-    public void setAddUserId(Integer addUserId) {
-        this.addUserId = addUserId;
-    }
+
 }

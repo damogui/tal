@@ -20,9 +20,9 @@ public class SupplerProd extends BaseEntity {
     private Dict prod;
 	
     @Column(name="uc_suppler_id")
-    private Integer ucSupplerId;
+    private Integer supplerId;
     
-    @Reference(foreignKey="ucSupplerId")
+    @Reference(foreignKey="supplerId")
     private Suppler suppler;
 
 	public Integer getProdId() {
@@ -41,12 +41,12 @@ public class SupplerProd extends BaseEntity {
 		this.prod = prod;
 	}
 
-	public Integer getUcSupplerId() {
-		return ucSupplerId;
+	public Integer getSupplerId() {
+		return supplerId;
 	}
 
-	public void setUcSupplerId(Integer ucSupplerId) {
-		this.ucSupplerId = ucSupplerId;
+	public void setSupplerId(Integer supplerId) {
+		this.supplerId = supplerId;
 	}
 
 	public Suppler getSuppler() {

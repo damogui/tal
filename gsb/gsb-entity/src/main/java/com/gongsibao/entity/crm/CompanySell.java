@@ -1,7 +1,5 @@
 package com.gongsibao.entity.crm;
 
-import java.sql.Date;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
@@ -27,8 +25,7 @@ public class CompanySell extends BaseEntity {
     private Integer status;
     @Column(name="audit_status",header="")
     private Integer auditStatus;
-    @Column(name="add_time",header="")
-    private Date addTime;
+
 
     public Integer getCompanyId() {
         return companyId;
@@ -78,10 +75,5 @@ public class CompanySell extends BaseEntity {
     public void setAuditStatus(Integer auditStatus) {
         this.auditStatus = auditStatus;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+
 }

@@ -1,6 +1,7 @@
 package com.gongsibao.entity.cms;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;

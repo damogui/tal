@@ -1,6 +1,5 @@
 package com.gongsibao.entity.er;
 
-import java.sql.Date;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
@@ -19,10 +18,7 @@ public class Workflow extends BaseEntity {
     private Integer isTemplate;
     @Column(name="group_id",header="GroupId")
     private Integer groupId;
-    @Column(name="add_user_id",header="AddUserId")
-    private Integer addUserId;
-    @Column(name="add_time",header="AddTime")
-    private Date addTime;
+
     @Column(name="status",header="status")
     private Integer status;
     @Column(name="tenant_id",header="TenantId")
@@ -46,18 +42,7 @@ public class Workflow extends BaseEntity {
     public void setGroupId(Integer groupId) {
         this.groupId = groupId;
     }
-    public Integer getAddUserId() {
-        return addUserId;
-    }
-    public void setAddUserId(Integer addUserId) {
-        this.addUserId = addUserId;
-    }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+
     public Integer getStatus() {
         return status;
     }

@@ -6,7 +6,7 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name = "uc_account_cooperation", header = "��Ա��פ��˾������")
+@Table(name = "uc_account_cooperation", header = "合作公司帐号中间表")
 public class AccountCooperation extends BaseEntity {
 
 	/**

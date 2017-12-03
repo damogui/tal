@@ -1,6 +1,6 @@
 package com.gongsibao.entity.crm;
 
-import java.sql.Date;
+import java.util.Date;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
@@ -42,12 +42,7 @@ public class CustomerShare extends BaseEntity {
     public void setShareUserId(Integer shareUserId) {
         this.shareUserId = shareUserId;
     }
-    public Date getShareTime() {
-        return shareTime;
-    }
-    public void setShareTime(Date shareTime) {
-        this.shareTime = shareTime;
-    }
+
     public String getIsBbk() {
         return isBbk;
     }

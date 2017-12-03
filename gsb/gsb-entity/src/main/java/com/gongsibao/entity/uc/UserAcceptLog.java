@@ -1,14 +1,12 @@
 package com.gongsibao.entity.uc;
 
-import java.sql.Date;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="uc_user_accept_log")
+@Table(name="uc_user_accept_log",header="业务员接单日志")
 public class UserAcceptLog extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
@@ -20,18 +18,14 @@ public class UserAcceptLog extends BaseEntity {
     @Column(name="user_id")
     private Integer userId;
     
-    @Reference(foreignKey="userId")
+    @Reference(foreignKey="userId",header="业务员")
     private User user;
     
     @Column(name="operator_id")
     private Integer operatorId;
     
-    @Reference(foreignKey="operatorId")
+    @Reference(foreignKey="operatorId",header="操作员")
     private User operator;
-    
-    @Column(name="add_time")
-    private Date addTime;
-
 
     public Integer getUserId() {
         return userId;
@@ -45,12 +39,7 @@ public class UserAcceptLog extends BaseEntity {
     public void setOperatorId(Integer operatorId) {
         this.operatorId = operatorId;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+
 	public Boolean getIsAcceptOrde() {
 		return isAcceptOrde;
 	}

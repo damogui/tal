@@ -1,7 +1,5 @@
 package com.gongsibao.entity.crm;
 
-import java.sql.Date;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
@@ -27,8 +25,6 @@ public class CustomerContactView extends BaseEntity {
     private String ipAddr;
     @Column(name="user_agent",header="")
     private String userAgent;
-    @Column(name="add_time",header="")
-    private Date addTime;
 
     public Integer getUserId() {
         return userId;
@@ -90,10 +86,5 @@ public class CustomerContactView extends BaseEntity {
     public void setUserAgent(String userAgent) {
         this.userAgent = userAgent;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+
 }
