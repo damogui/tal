@@ -65,7 +65,6 @@ public class DictComboBox implements IPropertyControl{
 	        	
 	        	control.width = formField.getWidth();
 			}
-
 		}
 
 		String refFilter = formField.getRefFilter();
@@ -89,6 +88,7 @@ public class DictComboBox implements IPropertyControl{
 			oql.setType(Dict.class);
 			oql.setSelects("id,name");
 			oql.setFilter(refFilter + " and enabled=1");
+			oql.setOrderby(" sort ");
 		}
 		IDictService service = ServiceFactory.create(IDictService.class);
 		return service.queryList(oql);
