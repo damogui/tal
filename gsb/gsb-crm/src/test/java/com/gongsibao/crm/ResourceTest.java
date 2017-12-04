@@ -2,9 +2,7 @@ package com.gongsibao.crm;
 
 import org.junit.Before;
 import org.netsharp.base.IPersistableService;
-import org.netsharp.communication.ServiceFactory;
 import org.netsharp.meta.base.ResourceCreationBase;
-import org.netsharp.resourcenode.IResourceNodeService;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.crm.base.ICompanyIntentionService;
@@ -26,8 +24,6 @@ import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.trade.SoOrder;
 
 public class ResourceTest extends ResourceCreationBase {
-
-	IResourceNodeService service = ServiceFactory.create(IResourceNodeService.class);
 
 	@Before
 	public void setup() {

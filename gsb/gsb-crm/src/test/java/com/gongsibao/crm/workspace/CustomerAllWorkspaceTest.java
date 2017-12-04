@@ -51,7 +51,6 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 		formServiceController = CustomerFormPart.class.getName();
 		formJsController = CustomerFormPart.class.getName();
 		formJsImport = "/gsb/crm/js/customer.form.part.js|/gsb/gsb.customer.controls.js";
-
 	}
 
 	@Test
@@ -150,13 +149,11 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "sex", "性别", groupName, ControlTypes.RADIO_BOX_GROUP, false, false);
 		formField = addFormField(form, "mobile", "手机", groupName, ControlTypes.TEXT_BOX, true, false);
 		{
-
 			formField.setTroikaTrigger("controllercustomer.contactWayChange(this);");
 			formField.setTroikaValidation("validationContactWay['mobile','手机']");
 		}
 		formField = addFormField(form, "telephone", "座机", groupName, ControlTypes.TEXT_BOX, true, false);
 		{
-
 			formField.setTroikaTrigger("controllercustomer.contactWayChange(this);");
 			formField.setTroikaValidation("validationContactWay['telephone','座机']");
 		}
