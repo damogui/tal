@@ -40,12 +40,16 @@ public class SoOrder extends BaseEntity {
 	private Dict payStatus;
     @Column(name="pay_time",header="支付时间")
     private Date payTime;
+    
     @Column(name="process_status_id",header="执行进度")
     private Integer processStatusId;
+    
     @Reference(foreignKey="processStatusId",header="执行进度")
 	private Dict processStatus;
+    
     @Column(name="refund_status_id",header="退款状态")
     private Integer refundStatusId;
+    
     @Reference(foreignKey="refundStatusId",header="退款状态")
   	private Dict refundStatus;
     @Column(name="total_price",header="总金额")

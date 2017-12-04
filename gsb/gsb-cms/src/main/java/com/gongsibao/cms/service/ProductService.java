@@ -6,6 +6,7 @@ import org.netsharp.service.PersistableService;
 import com.gongsibao.cms.base.IProductService;
 import com.gongsibao.entity.cms.Product;
 
+
 @Service
 public class ProductService extends PersistableService<Product> implements IProductService {
 
@@ -13,4 +14,5 @@ public class ProductService extends PersistableService<Product> implements IProd
         super();
         this.type=Product.class;
     }
+    
 }
