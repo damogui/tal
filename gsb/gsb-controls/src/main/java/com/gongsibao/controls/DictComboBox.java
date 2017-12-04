@@ -88,7 +88,7 @@ public class DictComboBox implements IPropertyControl{
 		{
 			oql.setType(Dict.class);
 			oql.setSelects("id,name");
-			oql.setFilter(refFilter);
+			oql.setFilter(refFilter + " and enabled=1");
 		}
 		IDictService service = ServiceFactory.create(IDictService.class);
 		return service.queryList(oql);
