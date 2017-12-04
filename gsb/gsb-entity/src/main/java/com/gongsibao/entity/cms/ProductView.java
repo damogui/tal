@@ -19,7 +19,7 @@ public class ProductView extends Persistable{
 	private String serviceClass;
 	private String prodName;
 	private String showprice;
-	private Integer total;
+	private Long total;
 	public Integer getId() {
 		return id;
 	}
@@ -45,13 +45,11 @@ public class ProductView extends Persistable{
 	public void setShowprice(String showprice) {
 		this.showprice = showprice;
 	}
-	public Integer getTotal() {
+	public Long getTotal() {
 		return total;
 	}
-	public void setTotal(Integer total) {
+	public void setTotal(Long total) {
 		this.total = total;
 	}
-	
-	
 	
 }
