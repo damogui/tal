@@ -1,6 +1,7 @@
 package com.gongsibao.entity.trade;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
@@ -15,34 +16,45 @@ public class Pay extends BaseEntity {
 	
 	@Column(header="编号")
     private String no;
+	
     @Column(header="金额")
     private Integer amount;
+    
     @Column(name="pay_way_type_id",header="支付类型")
     private Integer payWayTypeId;
+    
     @Column(name="success_status_id",header="成功状态")
     private Integer successStatusId;
+    
     @Column(name="confirm_time",header="确认时间")
     private Date confirmTime;
+    
     @Column(name="offline_way_type_id",header="线下类型")
     private Integer offlineWayTypeId;
+    
     @Column(name="offline_installment_type",header="线下结算类型")
     private Integer offlineInstallmentType;
+    
     @Column(name="offline_payer_name",header="线下支付名称")
     private String offlinePayerName;
+    
     @Column(name="offline_bank_no",header="线下银行卡好")
     private String offlineBankNo;
+    
     @Column(name="offline_remark",header="线下备注")
     private String offlineRemark;
+    
     @Column(name="offline_audit_status_id",header="审核状态")
     private Integer offlineAuditStatusId;
+    
     @Column(name="offline_add_user_id",header="神恶化人")
     private Integer offlineAddUserId;
+    
     @Column(name="online_bank_code_id",header="在线银行卡")
     private String onlineBankCodeId;
+    
     @Column(name="online_trade_no",header="在线交易号")
     private String onlineTradeNo;
-    @Column(name="add_time",header="创建时间")
-    private Date addTime;
 
     public String getNo() {
         return no;
@@ -128,10 +140,5 @@ public class Pay extends BaseEntity {
     public void setOnlineTradeNo(String onlineTradeNo) {
         this.onlineTradeNo = onlineTradeNo;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+
 }

@@ -1,6 +1,7 @@
 package com.gongsibao.entity.er;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
@@ -13,7 +14,7 @@ public class OrderGroup extends BaseEntity {
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 3098995847740545994L;
-	@Column(header="name")
+	@Column(name="name",header="name")
     private String name;
     @Column(name="is_enabled",header="IsEnabled")
     private Integer isEnabled;

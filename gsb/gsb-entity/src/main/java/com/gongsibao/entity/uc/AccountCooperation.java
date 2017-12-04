@@ -1,11 +1,12 @@
 package com.gongsibao.entity.uc;
 
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name = "uc_account_cooperation", header = "»áÔ±Èë×¤¹«Ë¾¹ØÁª±í")
+@Table(name = "uc_account_cooperation", header = "åˆä½œå…¬å¸å¸å·ä¸­é—´è¡¨")
 public class AccountCooperation extends BaseEntity {
 
 	/**
@@ -13,16 +14,24 @@ public class AccountCooperation extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Column(name = "account_id", header = "ÓÃ»§id")
+	@Column(name = "account_id", header = "åˆä½œå¸å·Id")
 	private Integer accountId;
-	@Column(name = "cooperation_company_id", header = "ºÏ»ï¹«Ë¾id")
+	
+	@Reference(foreignKey="accountId",header="åˆä½œå¸å·")
+	private Account account;
+	
+	@Column(name = "cooperation_company_id", header = "åˆä½œå…¬å¸Id")
 	private Integer cooperationCompanyId;
-	@Column(name = "branch_id", header = "ºÏ»ï¹«Ë¾·ÖÖ§»ú¹¹id")
+	
+	@Column(name = "branch_id", header = "ä¸‹å±å…¬å¸ID")
 	private Integer branchId;
-	@Column(name="open_type",header = "µÇÂ¼ÀàĞÍ 1Î¢ĞÅ")
+	
+	@Column(name="open_type",header = "å¼€æˆ·ç±»å‹")
 	private String openType;
-	@Column(name = "openid", header = "ÓÃ»§µÇÂ¼Æ½Ì¨id")
+	
+	@Column(name = "openid", header = "openid")
 	private String openid;
+	
 	public Integer getAccountId() {
 		return accountId;
 	}

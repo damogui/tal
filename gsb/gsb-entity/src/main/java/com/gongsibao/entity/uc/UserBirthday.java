@@ -13,8 +13,14 @@ public class UserBirthday extends BaseEntity {
 	private static final long serialVersionUID = 5895836443733150284L;
 	@Column(name="user_id")
     private Integer userId;
+	
+	@Column(name="user_id",header="姓名")
     private String name;
+    
+	@Column(name="birdthday",header="生日")
     private String birdthday;
+    
+	@Column(name="email",header="邮箱")
     private String email;
 
     public Integer getUserId() {

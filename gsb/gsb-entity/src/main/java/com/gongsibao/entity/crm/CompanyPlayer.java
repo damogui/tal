@@ -1,49 +1,47 @@
 package com.gongsibao.entity.crm;
 
-import java.sql.Date;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="crm_company_player")
+@Table(name="crm_company_player",header="")
 public class CompanyPlayer extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 6230552625093105953L;
-	@Column(name="company_id")
+	@Column(name="company_id",header="")
     private Integer companyId;
     private String name;
     private String sex;
     private String telephone;
     private String mobile;
     private String email;
-    @Column(name="is_complete")
+    @Column(name="is_complete",header="")
     private Integer isComplete;
     private String address;
     private String education;
-    @Column(name="certificate_type")
+    @Column(name="certificate_type",header="")
     private String certificateType;
-    @Column(name="certificate_no")
+    @Column(name="certificate_no",header="")
     private String certificateNo;
-    @Column(name="province_name")
+    @Column(name="province_name",header="")
     private String provinceName;
     private Integer capital;
-    @Column(name="capital_percent")
+    @Column(name="capital_percent",header="")
     private Integer capitalPercent;
-    @Column(name="stock_type")
+    @Column(name="stock_type",header="")
     private Integer stockType;
-    @Column(name="paid_years")
+    @Column(name="paid_years",header="")
     private String paidYears;
-    @Column(name="bus_no")
+    @Column(name="bus_no",header="")
     private String busNo;
     private String nation;
     private String political;
     private String remark;
-    @Column(name="add_time")
-    private Date addTime;
+
 
     public Integer getCompanyId() {
         return companyId;
@@ -165,10 +163,5 @@ public class CompanyPlayer extends BaseEntity {
     public void setRemark(String remark) {
         this.remark = remark;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+
 }

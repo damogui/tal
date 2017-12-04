@@ -7,6 +7,8 @@ import java.util.List;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.core.Paging;
+import org.netsharp.organization.base.IEmployeeService;
+import org.netsharp.organization.entity.Employee;
 import org.netsharp.panda.anno.Authorization;
 import org.netsharp.panda.commerce.EasyuiDatagridResult;
 import org.netsharp.util.StringManager;
@@ -207,6 +209,14 @@ public class FranchiseeController {
 		return entity;
 	}
 	
+	@Authorization(is = false)
+	public Employee getEmployeeInfo(Integer employeeId){
+		
+		IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
+		Employee entity = employeeService.byId(employeeId);
+		return entity;
+	}
+	
 	/**   
 	 * @Title: doQuery   
 	 * @Description: TODO(这里用一句话描述这个方法的作用)   
@@ -220,6 +230,7 @@ public class FranchiseeController {
 	 * @throws   
 	 */
 	private Object doQuery(Integer ownerId, String searchKeyWord,Boolean isAwait, Integer pageIndex, Integer pageSize){
+		
 		
 		List<Franchisee> list = new ArrayList<Franchisee>();
 		Paging paging = new Paging();
@@ -242,15 +253,16 @@ public class FranchiseeController {
 		}
 
 		String filter = StringManager.join(" and ", ss);
-		Oql oql = new Oql();
-		{
+		Oql oql = new Oql();{
+
 			oql.setType(Franchisee.class);
 			oql.setSelects("id,name,trackProgress");
 			oql.setFilter(filter);
-			oql.setOrderby("nextTrackDate Desc,createTime Desc");
+			oql.setOrderby("nextTrackDate Asc,createTime Desc");
 			oql.setPaging(paging);
 			oql.getParameters().add("ownerId", ownerId, Types.INTEGER);
 		}
+
 		list = franchiseeService.queryList(oql);
 		List<FranchiseeDTO> dtoList = FranchiseeDTO.toDtoList(list);
 		EasyuiDatagridResult result = new EasyuiDatagridResult();

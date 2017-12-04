@@ -5,15 +5,15 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="crm_company_sell_industry_map")
+@Table(name="crm_company_sell_industry_map",header="")
 public class CompanySellIndustryMap extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 8272541292887956686L;
-	@Column(name="sell_id")
+	@Column(name="sell_id",header="")
     private Integer sellId;
-    @Column(name="industry_id")
+    @Column(name="industry_id",header="")
     private Integer industryId;
 
     public Integer getSellId() {

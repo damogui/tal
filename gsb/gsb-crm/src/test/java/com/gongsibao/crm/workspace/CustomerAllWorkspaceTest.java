@@ -23,6 +23,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.controls.CityComboBox;
+import com.gongsibao.controls.DictComboBox;
 import com.gongsibao.controls.OrganizationComboBox;
 import com.gongsibao.crm.web.CustomerFormPart;
 import com.gongsibao.crm.web.FlowDetailPart;
@@ -49,7 +50,7 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 		resourceNodeCode = "CRM_All_" + Customer.class.getSimpleName();
 		formServiceController = CustomerFormPart.class.getName();
 		formJsController = CustomerFormPart.class.getName();
-		formJsImport = "/gsb/crm/js/customer.form.part.js";
+		formJsImport = "/gsb/crm/js/customer.form.part.js|/gsb/gsb.customer.controls.js";
 
 	}
 
@@ -123,7 +124,7 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "city.name", "所在地区", ControlTypes.TEXTAREA, 130);
 		addColumn(datagrid, "mobile", "手机", ControlTypes.DECIMAL_BOX, 100);
 		addColumn(datagrid, "qq", "QQ", ControlTypes.DECIMAL_BOX, 100);
-		addColumn(datagrid, "customerSource", "客户来源", ControlTypes.ENUM_BOX, 80);
+		addColumn(datagrid, "customerSource.name", "客户来源", ControlTypes.ENUM_BOX, 80);
 		addColumn(datagrid, "important", "客户等级", ControlTypes.ENUM_BOX, 80);
 		addColumn(datagrid, "followStatus", "沟通状态", ControlTypes.ENUM_BOX, 80);
 		// addColumn(datagrid, "hasEntrust", "意向产品", ControlTypes.TEXT_BOX, 80);
@@ -179,10 +180,10 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 			formField.setTroikaTrigger("controllercustomer.allocationTypeChange(newValue, oldValue);");
 		}
 
-		formField = addFormField(form, "customerSource", "客户来源", groupName, ControlTypes.ENUM_BOX, true, false);
+		formField = addFormField(form, "customerSource.name", "客户来源", groupName, ControlTypes.CUSTOMER, true, false);
 		{
-
-			formField.setTroikaTrigger("controllercustomer.customerSourceChange(newValue, oldValue);");
+			formField.setCustomerControlType(DictComboBox.class.getName());
+			formField.setRefFilter("type=411");
 		}
 
 		formField = addFormField(form, "consultWay", "咨询途径", groupName, ControlTypes.ENUM_BOX, true, false);
@@ -296,7 +297,7 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 			PFormField formField = null;
 			formField = addFormFieldRefrence(form, "product.name", "意向产品", null, "CRM_" + Product.class.getSimpleName(), true, false);
 			{
-
+				formField.setTroikaTrigger("controllerprodDetails.productChange(newValue,oldValue);");
 				formField.setWidth(300);
 			}
 			formField = addFormField(form, "dProvince.name", "省份", ControlTypes.CUSTOMER, false, false);
@@ -331,6 +332,7 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("panda/datagrid/detail");
+			part.setJsController("com.gongsibao.crm.web.ProdMapDetailPart");
 			part.setWindowWidth(550);
 			part.setWindowHeight(350);
 			part.setForm(form);

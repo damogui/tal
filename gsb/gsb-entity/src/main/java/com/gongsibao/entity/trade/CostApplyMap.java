@@ -11,9 +11,10 @@ public class CostApplyMap extends BaseEntity {
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = -6076329817296408228L;
-	@Column(name="apply_id",header="ApplyId")
+	@Column(name="apply_id",header="请款申请id")
     private Integer applyId;
-    @Column(name="cost_id",header="CostId")
+	
+    @Column(name="cost_id",header="成本id")
     private Integer costId;
 
     public Integer getApplyId() {
@@ -28,4 +29,4 @@ public class CostApplyMap extends BaseEntity {
     public void setCostId(Integer costId) {
         this.costId = costId;
     }
-}
+} 

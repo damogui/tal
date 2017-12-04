@@ -5,29 +5,37 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="so_order_prod_item")
+@Table(name="so_order_prod_item",header="订单项价格")
 public class OrderProdItem extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 6055087505229323231L;
-	@Column(name="order_prod_id",header="OrderProdId")
+	@Column(name="order_prod_id",header="订单项序号")
     private Integer orderProdId;
-    @Column(name="price_id",header="PriceId")
+
+    @Column(name="price_id",header="定价序号")
     private Integer priceId;
-    @Column(name="unit_name",header="UnitName")
+    
+    @Column(name="unit_name",header="单位名称")
     private String unitName;
-    @Column(name="service_name",header="ServiceName")
+    
+    @Column(name="service_name",header="服务名称")
     private String serviceName;
-    @Column(header="quantity")
+    
+    @Column(name="quantity",header="数量")
     private Integer quantity;
-    @Column(header="price")
+    
+    @Column(name="price",header="单价")
     private Integer price;
-    @Column(name="price_original",header="PriceOriginal")
+    
+    @Column(name="price_original",header="原价")
     private Integer priceOriginal;
-    @Column(name="price_refund",header="PriceRefund")
+    
+    @Column(name="price_refund",header="已退款价")
     private Integer priceRefund;
-    @Column(name="is_bbk",header="IsBbk")
+    
+    @Column(name="is_bbk",header="是否是八百客的数据")
     private String isBbk="0";
 
     public Integer getOrderProdId() {

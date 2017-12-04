@@ -9,9 +9,11 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import com.gongsibao.entity.franchisee.Franchisee;
 import com.gongsibao.entity.franchisee.FranchiseeBusinessScope;
 import com.gongsibao.entity.franchisee.FranchiseeLinkman;
+import com.gongsibao.entity.franchisee.FranchiseeReport;
 import com.gongsibao.entity.franchisee.FranchiseeTrack;
 import com.gongsibao.franchisee.base.IFranchiseeBusinessScopeService;
 import com.gongsibao.franchisee.base.IFranchiseeLinkmanService;
+import com.gongsibao.franchisee.base.IFranchiseeReportService;
 import com.gongsibao.franchisee.base.IFranchiseeService;
 import com.gongsibao.franchisee.base.IFranchiseeTrackService;
 
@@ -22,9 +24,9 @@ public class ResourceTest extends ResourceCreationBase {
 	@Before
 	public void setup() {
 
-		parentNodeName = "BD管理";
+		parentNodeName = "招商CRM";
 		parentNodeCode = "GSB_BD";
-		pluginName = "BD管理";
+		pluginName = "招商CRM";
 		seq = 3;
 		entityClass = ResourceNode.class;
 	}
@@ -49,9 +51,9 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(FranchiseeTrack.class.getName(), "跟进列表", "BD_DEPARTMENT_Franchisee_Track" , IFranchiseeTrackService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(Franchisee.class.getName(), "未跟进供应商", "BD_DEPARTMENT_Franchisee_UnTrack", IFranchiseeService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(FranchiseeTrack.class.getName(), "跟进统计", "BD_DEPARTMENT_Franchisee_Track_Report", IFranchiseeTrackService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(Franchisee.class.getName(), "日统计", "BD_DEPARTMENT_Day_Report" , IFranchiseeService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(Franchisee.class.getName(), "周统计", "BD_DEPARTMENT_Week_Report", IFranchiseeService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(Franchisee.class.getName(), "月统计", "BD_DEPARTMENT_Month_Report", IFranchiseeService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(FranchiseeReport.class.getName(), "日统计", "BD_DEPARTMENT_Day_Report" , IFranchiseeReportService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(FranchiseeReport.class.getName(), "周统计", "BD_DEPARTMENT_Week_Report", IFranchiseeReportService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(FranchiseeReport.class.getName(), "月统计", "BD_DEPARTMENT_Month_Report", IFranchiseeReportService.class.getName(), node1.getId());
 		}
 		
 		node1 = this.createResourceNodeCategory("运营统计", "GSB_BD_OPERATION", node.getId());
@@ -60,9 +62,9 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(FranchiseeTrack.class.getName(), "跟进列表", "GSB_BD_OPERATION_Track", IFranchiseeTrackService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(Franchisee.class.getName(), "未跟进供应商", "GSB_BD_OPERATION_UnTrack", IFranchiseeService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(FranchiseeTrack.class.getName(), "跟进统计", "GSB_BD_OPERATION_Track_Report", IFranchiseeTrackService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(Franchisee.class.getName(), "日统计", "GSB_BD_OPERATION_Day_Report", IFranchiseeService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(Franchisee.class.getName(), "周统计", "GSB_BD_OPERATION_Week_Report", IFranchiseeService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(Franchisee.class.getName(), "月统计", "GSB_BD_OPERATION_Month_Report", IFranchiseeService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(FranchiseeReport.class.getName(), "日统计", "GSB_BD_OPERATION_Day_Report", FranchiseeReport.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(FranchiseeReport.class.getName(), "周统计", "GSB_BD_OPERATION_Week_Report", FranchiseeReport.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(FranchiseeReport.class.getName(), "月统计", "GSB_BD_OPERATION_Month_Report", FranchiseeReport.class.getName(), node1.getId());
 		}
 	}
 }

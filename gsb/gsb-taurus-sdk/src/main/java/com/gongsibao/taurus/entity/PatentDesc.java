@@ -1,5 +1,7 @@
 package com.gongsibao.taurus.entity;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 
 /**
  * @ClassName: PatentDesc
@@ -31,6 +33,8 @@ public class PatentDesc implements IEntity {
 	/**
 	 * @Fields appNumber : TODO(申请号)
 	 */
+	
+	@JsonProperty(value="appnumber")
 	private String appNumber;
 
 	/**
@@ -41,6 +45,7 @@ public class PatentDesc implements IEntity {
 	/**
 	 * @Fields appDate : TODO(申请日)
 	 */
+	@JsonProperty(value="appdate")
 	private String appDate;
 
 	/**

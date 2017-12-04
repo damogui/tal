@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.gongsibao.entity.product.Product;
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 
@@ -17,54 +19,79 @@ public class OrderProd extends BaseEntity {
 	
 	@Column(header="编号")
     private String no;
+	
     @Column(name="order_id",header="订单")
     private Integer orderId;
+    
     @Column(name="product_id",header="产品")
     private Integer productId;
+    
     @Column(name="product_name",header="产品名称")
     private String productName;
+    
     @Column(name="city_id",header="城市")
     private Integer cityId;
+    
     @Column(name="company_id",header="公司")
     private Integer companyId;
+    
     @Column(name="process_status_id",header="进度")
     private Integer processStatusId;
+    
     @Column(name="audit_status_id",header="审核状态")
     private Integer auditStatusId;
-    @Column(header="price")
+    
+    @Column(name="price",header="价格")
     private Integer price;
+    
     @Column(name="price_original",header="原价")
     private Integer priceOriginal;
+    
     @Column(name="is_refund",header="退款")
     private Integer isRefund;
+    
     @Column(name="is_complaint",header="客户抱怨")
     private Integer isComplaint;
+    
     @Column(name="is_assign",header="已分配")
     private Integer isAssign;
+    
     @Column(name="processed_days",header="已处理天数")
     private Integer processedDays;
+    
     @Column(name="need_days",header="待处理天数")
     private Integer needDays;
+    
     @Column(name="timeout_days",header="过期时间")
     private Integer timeoutDays;
+    
     @Column(name="invoice_state",header="发票状态")
     private Integer invoiceState;
+    
     @Column(name="invoice_title",header="发票抬头")
     private String invoiceTitle;
+    
     @Column(name="is_bbk",header="IsBbk")
     private String isBbk="0";
+    
     @Column(name="apply_no",header="支付账号")
     private String applyNo;
+    
     @Column(name="handle_name",header="处理人")
     private String handleName;
+    
     @Column(name="cost_status",header="成本状态")
     private Integer costStatus;
+    
     @Column(name="settle_id",header="结算方式")
     private Integer settleId;
+    
     @Column(name="settle_price",header="结算价格")
     private Integer settlePrice;
+    
     @Column(name="settle_status",header="结算状态")
     private Integer settleStatus;
+    
     @Column(name="settle_time",header="结算时间")
     private Date settleTime;
     
@@ -73,6 +100,12 @@ public class OrderProd extends BaseEntity {
 
     @Subs(subType=OrderProdTrace.class,foreignKey="orderProdId",header="跟进记录")
     private List<OrderProdTrace> traces = new ArrayList<OrderProdTrace>();
+
+    @Reference(foreignKey = "orderId",header="销售订单")
+    private SoOrder soOrder;
+
+    @Reference(foreignKey = "productId",header="产品")
+    private Product product;
     
     public String getNo() {
         return no;
@@ -242,4 +275,20 @@ public class OrderProd extends BaseEntity {
 	public void setTraces(List<OrderProdTrace> traces) {
 		this.traces = traces;
 	}
+
+    public SoOrder getSoOrder() {
+        return soOrder;
+    }
+
+    public void setSoOrder(SoOrder soOrder) {
+        this.soOrder = soOrder;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 }

@@ -1,7 +1,5 @@
 package com.gongsibao.entity.trade;
 
-import java.sql.Date;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
@@ -9,28 +7,31 @@ import com.gongsibao.entity.BaseEntity;
 
 @Table(name="so_order_discount")
 public class OrderDiscount extends BaseEntity {
+
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 1894864532185900021L;
-	@Column(name="order_id",header="OrderId")
+	@Column(name="order_id",header="订单序号")
     private Integer orderId;
-    @Column(name="type_id",header="TypeId")
+	
+    @Column(name="type_id",header="优惠类型序号，type=309")
     private Integer typeId;
-    @Column(name="preferential_id",header="PreferentialId")
+    
+    @Column(name="preferential_id",header="优惠券ID")
     private Integer preferentialId;
-    @Column(header="amount")
+    
+    @Column(name="amount",header="优惠金额，优惠前-优惠后")
     private Integer amount;
-    @Column(name="add_time",header="AddTime")
-    private Date addTime;
-    @Column(header="remark")
+    
+    @Column(name="remark",header="说明")
     private String remark;
-    @Column(header="sqlid")
+    
+    @Column(name="sqlid",header="对应SQL库的优惠券ID")
     private String sqlid;
-    @Column(header="no")
+    
+    @Column(name="no",header="优惠券号码")
     private String no;
-    @Column(name="add_user_id",header="AddUserId")
-    private Integer addUserId;
 
     public Integer getOrderId() {
         return orderId;
@@ -56,12 +57,7 @@ public class OrderDiscount extends BaseEntity {
     public void setAmount(Integer amount) {
         this.amount = amount;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+
     public String getRemark() {
         return remark;
     }
@@ -80,10 +76,6 @@ public class OrderDiscount extends BaseEntity {
     public void setNo(String no) {
         this.no = no;
     }
-    public Integer getAddUserId() {
-        return addUserId;
-    }
-    public void setAddUserId(Integer addUserId) {
-        this.addUserId = addUserId;
-    }
+
+    
 }

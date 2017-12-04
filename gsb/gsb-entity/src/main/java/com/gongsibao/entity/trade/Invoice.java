@@ -1,7 +1,5 @@
 package com.gongsibao.entity.trade;
 
-import java.sql.Date;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
@@ -9,43 +7,56 @@ import com.gongsibao.entity.BaseEntity;
 
 @Table(name="so_invoice",header="发票")
 public class Invoice extends BaseEntity {
+
+
 	
 	private static final long serialVersionUID = -3543797519223170163L;
-	@Column(header="title")
+	@Column(name="title",header="抬头")
     private String title;
-    @Column(name="company_id",header="CompanyId")
+	
+    @Column(name="company_id",header="开票公司，type=307")
     private Integer companyId;
-    @Column(name="type_id",header="TypeId")
+    
+    @Column(name="type_id",header="开票类型，type=308")
     private Integer typeId;
-    @Column(header="amount")
+    
+    @Column(name="amount",header="发票金额")
     private Integer amount;
-    @Column(header="content")
+    
+    @Column(name="content",header="发票内容")
     private String content;
-    @Column(name="audit_status_id",header="AuditStatusId")
+    
+    @Column(name="audit_status_id",header="审核状态序号，type=105")
     private Integer auditStatusId;
-    @Column(name="receiver_name",header="ReceiverName")
+    
+    @Column(name="receiver_name",header="接收人姓名")
     private String receiverName;
-    @Column(name="receiver_mobile_phone",header="ReceiverMobilePhone")
+    
+    @Column(name="receiver_mobile_phone",header="接收人手机")
     private String receiverMobilePhone;
-    @Column(name="receiver_address",header="ReceiverAddress")
+    
+    @Column(name="receiver_address",header="接收人地址")
     private String receiverAddress;
-    @Column(name="vat_tax_no",header="VatTaxNo")
+
+    @Column(name="vat_tax_no",header="增值税公司税号")
     private String vatTaxNo;
-    @Column(name="vat_address",header="VatAddress")
+    
+    @Column(name="vat_address",header="增值税公司注册地址")
     private String vatAddress;
-    @Column(name="vat_phone",header="VatPhone")
+    
+    @Column(name="vat_phone",header="增值税公司注册电话")
     private String vatPhone;
-    @Column(name="vat_bank_name",header="VatBankName")
+    
+    @Column(name="vat_bank_name",header="增值税公司开户行名称")
     private String vatBankName;
-    @Column(name="vat_bank_no",header="VatBankNo")
+    
+    @Column(name="vat_bank_no",header="增值税公司开户行帐号")
     private String vatBankNo;
-    @Column(name="file_id",header="FileId")
+    
+    @Column(name="file_id",header="附件序号")
     private Integer fileId;
-    @Column(name="add_time",header="AddTime")
-    private Date addTime;
-    @Column(name="add_user_id",header="AddUserId")
-    private Integer addUserId;
-    @Column(header="remark")
+
+    @Column(name="remark",header="说明")
     private String remark;
 
     public String getTitle() {
@@ -138,18 +149,7 @@ public class Invoice extends BaseEntity {
     public void setFileId(Integer fileId) {
         this.fileId = fileId;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
-    public Integer getAddUserId() {
-        return addUserId;
-    }
-    public void setAddUserId(Integer addUserId) {
-        this.addUserId = addUserId;
-    }
+
     public String getRemark() {
         return remark;
     }

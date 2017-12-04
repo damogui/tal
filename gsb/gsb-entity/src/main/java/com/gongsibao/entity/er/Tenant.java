@@ -1,6 +1,6 @@
 package com.gongsibao.entity.er;
 
-import java.sql.Date;
+import java.util.Date;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
@@ -19,7 +19,7 @@ public class Tenant extends BaseEntity {
     private Integer maxAccount;
     @Column(name="manager_id",header="ManagerId")
     private Integer managerId;
-    @Column(header="domain")
+    @Column(name="domain",header="domain")
     private String domain;
     @Column(name="is_enabled",header="IsEnabled")
     private Integer isEnabled;

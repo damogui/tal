@@ -1,6 +1,5 @@
 package com.gongsibao.entity.er;
 
-import java.sql.Date;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
@@ -13,30 +12,27 @@ public class User extends BaseEntity {
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 5766892072256976179L;
-	@Column(header="name")
+	@Column(name="name",header="name")
     private String name;
-    @Column(header="mobile")
+    @Column(name="mobile",header="mobile")
     private String mobile;
-    @Column(header="email")
+    @Column(name="email",header="email")
     private String email;
-    @Column(header="passwd")
+    @Column(name="passwd",header="passwd")
     private String passwd;
-    @Column(header="ticket")
+    @Column(name="ticket",header="ticket")
     private String ticket;
-    @Column(header="avatar")
+    @Column(name="avatar",header="avatar")
     private String avatar;
     @Column(name="ding_qr_code_url",header="DingQrCodeUrl")
     private String dingQrCodeUrl;
-    @Column(header="role")
+    @Column(name="role",header="role")
     private String role;
     @Column(name="is_inside",header="IsInside")
     private Integer isInside;
     @Column(name="is_outside",header="IsOutside")
     private Integer isOutside;
-    @Column(name="add_time",header="AddTime")
-    private Date addTime;
-    @Column(name="add_user_id",header="AddUserId")
-    private Integer addUserId;
+
     @Column(name="tenant_id",header="TenantId")
     private Integer tenantId;
     @Column(name="uc_user_id",header="UcUserId")
@@ -104,21 +100,8 @@ public class User extends BaseEntity {
     public void setIsOutside(Integer isOutside) {
         this.isOutside = isOutside;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
-    public Integer getAddUserId() {
-        return addUserId;
-    }
-    public void setAddUserId(Integer addUserId) {
-        this.addUserId = addUserId;
-    }
-    public Integer getTenantId() {
-        return tenantId;
-    }
+
+
     public void setTenantId(Integer tenantId) {
         this.tenantId = tenantId;
     }

@@ -5,15 +5,16 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="so_order_invoice_map")
+@Table(name="so_order_invoice_map",header="订单和发票关系'")
 public class OrderInvoiceMap extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 1442220211790152099L;
-	@Column(name="order_id",header="OrderId")
+	@Column(name="order_id",header="订单序号")
     private Integer orderId;
-    @Column(name="invoice_id",header="InvoiceId")
+	
+    @Column(name="invoice_id",header="发票序号")
     private Integer invoiceId;
 
     public Integer getOrderId() {

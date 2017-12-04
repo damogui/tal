@@ -1,6 +1,6 @@
 package com.gongsibao.entity.er;
 
-import java.sql.Date;
+import java.util.Date;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
@@ -19,7 +19,7 @@ public class OrderTaskAudit extends BaseEntity {
     private Integer orderTaskId;
     @Column(name="audit_user_id",header="AuditUserId")
     private Integer auditUserId;
-    @Column(header="status")
+    @Column(name="status",header="status")
     private Integer status;
     @Column(name="ch_old_id",header="ChOldId")
     private Integer chOldId;

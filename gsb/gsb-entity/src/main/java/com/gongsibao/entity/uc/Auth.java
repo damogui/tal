@@ -1,7 +1,5 @@
 package com.gongsibao.entity.uc;
 
-import java.sql.Date;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
@@ -13,115 +11,147 @@ public class Auth extends BaseEntity {
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 3141491144897813669L;
+	
+	@Column(name="pid",header="上级Id")
 	private Integer pid;
+	
+	@Column(name="name",header="名称")
     private String name;
+    
+    @Column(name="url",header="路径")
     private String url;
+    
+    @Column(name="sref",header="前端-sref路由")
     private String sref;
+    
+    @Column(name="tag",header="标签")
     private String tag;
+    
+    @Column(name="description",header="描述")
     private String description;
+    
+    @Column(name="icon",header="图标")
     private String icon;
-    @Column(name="is_menu")
-    private Integer isMenu;
-    private Double sort;
+    
+    @Column(name="is_menu",header="是否菜单")
+    private Boolean isMenu = true;
+    
+    @Column(name="sort",header="排序")
+    private Double sort = 1D;
+    
+    @Column(name="level",header="")
     private Integer level;
-    @Column(name="is_leaf")
-    private Integer isLeaf;
-    @Column(name="is_enabled")
-    private Integer isEnabled;
-    @Column(name="add_time")
-    private Date addTime;
-    @Column(name="add_user_id")
-    private Integer addUserId;
+    
+    @Column(name="is_leaf",header="是否叶子节点")
+    private Boolean leaf = true;
+    
+    @Column(name="is_enabled",header="是否启用")
+    private Boolean enabled;
+
+    @Column(name="remark",header="备注")
     private String remark;
 
-    public Integer getPid() {
-        return pid;
-    }
-    public void setPid(Integer pid) {
-        this.pid = pid;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public String getUrl() {
-        return url;
-    }
-    public void setUrl(String url) {
-        this.url = url;
-    }
-    public String getSref() {
-        return sref;
-    }
-    public void setSref(String sref) {
-        this.sref = sref;
-    }
-    public String getTag() {
-        return tag;
-    }
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-    public String getDescription() {
-        return description;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    public String getIcon() {
-        return icon;
-    }
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-    public Integer getIsMenu() {
-        return isMenu;
-    }
-    public void setIsMenu(Integer isMenu) {
-        this.isMenu = isMenu;
-    }
-    public Double getSort() {
-        return sort;
-    }
-    public void setSort(Double sort) {
-        this.sort = sort;
-    }
-    public Integer getLevel() {
-        return level;
-    }
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
-    public Integer getIsLeaf() {
-        return isLeaf;
-    }
-    public void setIsLeaf(Integer isLeaf) {
-        this.isLeaf = isLeaf;
-    }
-    public Integer getIsEnabled() {
-        return isEnabled;
-    }
-    public void setIsEnabled(Integer isEnabled) {
-        this.isEnabled = isEnabled;
-    }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
-    public Integer getAddUserId() {
-        return addUserId;
-    }
-    public void setAddUserId(Integer addUserId) {
-        this.addUserId = addUserId;
-    }
-    public String getRemark() {
-        return remark;
-    }
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
+	public Integer getPid() {
+		return pid;
+	}
+
+	public void setPid(Integer pid) {
+		this.pid = pid;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getSref() {
+		return sref;
+	}
+
+	public void setSref(String sref) {
+		this.sref = sref;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+	public Boolean getIsMenu() {
+		return isMenu;
+	}
+
+	public void setIsMenu(Boolean isMenu) {
+		this.isMenu = isMenu;
+	}
+
+	public Double getSort() {
+		return sort;
+	}
+
+	public void setSort(Double sort) {
+		this.sort = sort;
+	}
+
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
+
+	public Boolean getLeaf() {
+		return leaf;
+	}
+
+	public void setLeaf(Boolean leaf) {
+		this.leaf = leaf;
+	}
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 }

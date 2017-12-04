@@ -1,30 +1,44 @@
 package com.gongsibao.entity.cms;
 
-import java.sql.Date;
+import java.util.Date;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="cms_cooperation")
+@Table(name="cms_cooperation",header="")
 public class Cooperation extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 3956980463685715307L;
+	
+	@Column(name="name",header="")
 	private String name;
+	
+	@Column(name="description",header="")
     private String description;
+	
+	@Column(name="img",header="")
     private String img;
+	
+	@Column(name="sort",header="")
     private Integer sort;
+	
+	@Column(name="status",header="")
     private Integer status;
-    @Column(name="add_time")
+	
+    @Column(name="add_time",header="")
     private Date addTime;
-    @Column(name="add_user")
+    
+    @Column(name="add_user",header="")
     private Integer addUser;
-    @Column(name="upd_time")
+    
+    @Column(name="upd_time",header="")
     private Date updTime;
-    @Column(name="upd_user")
+    
+    @Column(name="upd_user",header="")
     private Integer updUser;
 
     public String getName() {

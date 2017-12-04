@@ -1,6 +1,7 @@
 package com.gongsibao.entity.bd;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
@@ -45,10 +46,7 @@ public class Preferential extends BaseEntity {
     private String explain1;
     @Column(header="remark")
     private String remark;
-    @Column(name="add_user_id",header="AddUserId")
-    private Integer addUserId;
-    @Column(name="add_time",header="AddTime")
-    private Date addTime;
+
 
     public String getPaymentMethod() {
         return paymentMethod;
@@ -146,16 +144,5 @@ public class Preferential extends BaseEntity {
     public void setRemark(String remark) {
         this.remark = remark;
     }
-    public Integer getAddUserId() {
-        return addUserId;
-    }
-    public void setAddUserId(Integer addUserId) {
-        this.addUserId = addUserId;
-    }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+
 }

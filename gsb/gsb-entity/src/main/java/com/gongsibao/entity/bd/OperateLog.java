@@ -1,7 +1,5 @@
 package com.gongsibao.entity.bd;
 
-import java.sql.Date;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
@@ -21,10 +19,6 @@ public class OperateLog extends BaseEntity {
     private String changeRecord;
     @Column(name="operate_status",header="OperateStatus")
     private Integer operateStatus;
-    @Column(name="add_user_id",header="AddUserId")
-    private Integer addUserId;
-    @Column(name="add_time",header="AddTime")
-    private Date addTime;
 
     public String getTabName() {
         return tabName;
@@ -50,16 +44,5 @@ public class OperateLog extends BaseEntity {
     public void setOperateStatus(Integer operateStatus) {
         this.operateStatus = operateStatus;
     }
-    public Integer getAddUserId() {
-        return addUserId;
-    }
-    public void setAddUserId(Integer addUserId) {
-        this.addUserId = addUserId;
-    }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+
 }

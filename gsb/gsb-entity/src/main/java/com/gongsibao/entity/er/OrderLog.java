@@ -1,6 +1,6 @@
 package com.gongsibao.entity.er;
 
-import java.sql.Date;
+import java.util.Date;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
@@ -13,17 +13,17 @@ public class OrderLog extends BaseEntity {
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 5610018336198931405L;
-	@Column(header="type")
+	@Column(name="type",header="type")
     private Integer type;
     @Column(name="order_id",header="OrderId")
     private Integer orderId;
     @Column(name="order_task_id",header="OrderTaskId")
     private Integer orderTaskId;
-    @Column(header="title")
+    @Column(name="title",header="title")
     private String title;
-    @Column(header="log")
+    @Column(name="log",header="log")
     private String log;
-    @Column(header="enclosure")
+    @Column(name="enclosure",header="enclosure")
     private String enclosure;
     @Column(name="add_user_id",header="AddUserId")
     private Integer addUserId;

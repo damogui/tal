@@ -1,6 +1,5 @@
 package com.gongsibao.entity.trade;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,36 +15,49 @@ public class OrderProdTrace extends BaseEntity {
 	private static final long serialVersionUID = -5637326992812474888L;
 	@Column(name="order_prod_id",header="产品")
     private Integer orderProdId;
+	
     @Column(name="order_prod_status_id",header="产品状态")
     private Integer orderProdStatusId;
+    
     @Column(name="type_id",header="产品类型")
     private Integer typeId;
+    
     @Column(name="operator_type",header="操作类型")
     private Integer operatorType;
+    
     @Column(header="说明")
     private String info;
+    
     @Column(name="operator_id",header="操作人")
     private Integer operatorId;
-    @Column(name="add_time",header="创建时间")
-    private Date addTime;
+    
     @Column(name="is_bbk",header="IsBbk")
     private String isBbk="0";
+    
     @Column(header="remark")
     private String remark;
+    
     @Column(name="is_send_sms",header="短信发送")
     private Integer isSendSms;
+    
     @Column(name="express_content",header="发送内容")
     private String expressContent;
+    
     @Column(name="express_to",header="接收人")
     private String expressTo;
+    
     @Column(name="express_company_name",header="发送公司名称")
     private String expressCompanyName;
+    
     @Column(name="express_no",header="发送编号")
     private String expressNo;
+    
     @Column(name="processd_days",header="已处理天数")
     private Integer processdDays;
+    
     @Column(name="timeout_days",header="待处理天数")
     private Integer timeoutDays;
+    
     @Column(name="tip_color",header="提醒颜色")
     private String tipColor;
     
@@ -89,12 +101,7 @@ public class OrderProdTrace extends BaseEntity {
     public void setOperatorId(Integer operatorId) {
         this.operatorId = operatorId;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+
     public String getIsBbk() {
         return isBbk;
     }

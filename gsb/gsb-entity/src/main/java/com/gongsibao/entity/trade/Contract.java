@@ -1,69 +1,90 @@
 package com.gongsibao.entity.trade;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="so_contract")
+@Table(name="so_contract",header="合同")
 public class Contract extends BaseEntity {
 
 	private static final long serialVersionUID = -802740307282932651L;
-	@Column(name="order_id",header="OrderId")
+	@Column(name="order_id",header="订单序号")
     private Integer orderId;
-    @Column(name="sgining_time",header="SginingTime")
+	
+    @Column(name="sgining_time",header="签约日期")
     private Date sginingTime;
-    @Column(name="sgining_company_id",header="SginingCompanyId")
+    
+    @Column(name="sgining_company_id",header="签单公司，type=316，3161汉唐信通（北京）咨询股份有限公司、3162汉唐信通（北京）科技有限公司")
     private Integer sginingCompanyId;
-    @Column(name="is_urgeney",header="IsUrgeney")
+    
+    @Column(name="is_urgeney",header="是否加急")
     private Integer isUrgeney;
-    @Column(name="sgining_user_id",header="SginingUserId")
+    
+    @Column(name="sgining_user_id",header="签单业务员序号")
     private Integer sginingUserId;
-    @Column(name="customer_id",header="CustomerId")
+    
+    @Column(name="customer_id",header="客户序号")
     private Integer customerId;
-    @Column(name="real_amount",header="RealAmount")
+    
+    @Column(name="real_amount",header="实际合同额")
     private Integer realAmount;
-    @Column(name="has_data_fee",header="HasDataFee")
+    
+    @Column(name="has_data_fee",header="是否有材料撰写情况")
     private Integer hasDataFee;
-    @Column(name="data_fee_count_type_id",header="DataFeeCountTypeId")
+
+    @Column(name="data_fee_count_type_id",header="材料撰写次数类型序号，type=317，3171无、3172首期一次、3173末期一次、3174首期一次末期一次")
     private Integer dataFeeCountTypeId;
-    @Column(name="first_payment",header="FirstPayment")
+    
+    @Column(name="first_payment",header="首期付款")
     private Integer firstPayment;
-    @Column(name="final_payment",header="FinalPayment")
+    
+    @Column(name="final_payment",header="末期付款")
     private Integer finalPayment;
-    @Column(name="has_liquidated_damages",header="HasLiquidatedDamages")
+    
+    @Column(name="has_liquidated_damages",header="是否有违约金")
     private Integer hasLiquidatedDamages;
-    @Column(name="has_breach",header="HasBreach")
+    
+    @Column(name="has_breach",header="是否有违约责任事项")
     private Integer hasBreach;
-    @Column(name="liquidated_damages",header="LiquidatedDamages")
+    
+    @Column(name="liquidated_damages",header="违约金额")
     private Integer liquidatedDamages;
-    @Column(name="breach_info",header="BreachInfo")
+    
+    @Column(name="breach_info",header="违约责任")
     private String breachInfo;
-    @Column(name="file_id",header="FileId")
+    
+    @Column(name="file_id",header="附件序号")
     private Integer fileId;
-    @Column(name="audit_status_id",header="AuditStatusId")
+    
+    @Column(name="audit_status_id",header="审核状态序号，type=105，1051待审核、1052通过、1053不通过")
     private Integer auditStatusId;
-    @Column(name="add_time",header="AddTime")
-    private Date addTime;
+    
     @Column(name="is_bbk",header="IsBbk")
     private String isBbk="0";
-    @Column(name="add_user_id",header="AddUserId")
-    private Integer addUserId;
-    @Column(header="remark")
+
+    @Column(name="remark",header="说明")
     private String remark;
-    @Column(name="license_no",header="LicenseNo")
+    
+    @Column(name="license_no",header="营业执照号")
     private String licenseNo;
-    @Column(name="contract_title",header="ContractTitle")
+    
+    @Column(name="contract_title",header="合同标题")
     private String contractTitle;
-    @Column(name="company_name",header="CompanyName")
+    
+    @Column(name="company_name",header="公司名称")
     private String companyName;
-    @Column(name="contract_type",header="ContractType")
+    
+    @Column(name="contract_type",header="合同类型1：个人；2：企业")
     private Integer contractType;
-    @Column(name="contract_sign",header="ContractSign")
+    
+    @Column(name="contract_sign",header="合同签署状态0：平台没签署；1：平台签署")
     private Integer contractSign;
-    @Column(name="is_electronics",header="IsElectronics")
+    
+    @Column(name="is_electronics",header="是否电子合同0：纸质；1：电子")
     private Integer isElectronics;
 
     public Integer getOrderId() {
@@ -168,24 +189,14 @@ public class Contract extends BaseEntity {
     public void setAuditStatusId(Integer auditStatusId) {
         this.auditStatusId = auditStatusId;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+
     public String getIsBbk() {
         return isBbk;
     }
     public void setIsBbk(String isBbk) {
         this.isBbk = isBbk;
     }
-    public Integer getAddUserId() {
-        return addUserId;
-    }
-    public void setAddUserId(Integer addUserId) {
-        this.addUserId = addUserId;
-    }
+
     public String getRemark() {
         return remark;
     }

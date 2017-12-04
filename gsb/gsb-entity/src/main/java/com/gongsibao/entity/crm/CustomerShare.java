@@ -1,27 +1,27 @@
 package com.gongsibao.entity.crm;
 
-import java.sql.Date;
+import java.util.Date;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="crm_customer_share")
+@Table(name="crm_customer_share",header="")
 public class CustomerShare extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 2152429777856544213L;
-	@Column(name="customer_id")
+	@Column(name="customer_id",header="")
     private Integer customerId;
-    @Column(name="follow_user_id")
+    @Column(name="follow_user_id",header="")
     private Integer followUserId;
-    @Column(name="share_user_id")
+    @Column(name="share_user_id",header="")
     private Integer shareUserId;
-    @Column(name="share_time")
+    @Column(name="share_time",header="")
     private Date shareTime;
-    @Column(name="is_bbk")
+    @Column(name="is_bbk",header="")
     private String isBbk ="0";
 
     public Integer getCustomerId() {
@@ -42,12 +42,7 @@ public class CustomerShare extends BaseEntity {
     public void setShareUserId(Integer shareUserId) {
         this.shareUserId = shareUserId;
     }
-    public Date getShareTime() {
-        return shareTime;
-    }
-    public void setShareTime(Date shareTime) {
-        this.shareTime = shareTime;
-    }
+
     public String getIsBbk() {
         return isBbk;
     }

@@ -13,7 +13,6 @@ import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.dic.AllocationType;
 import com.gongsibao.entity.crm.dic.ConsultWay;
-import com.gongsibao.entity.crm.dic.CustomerSource;
 import com.gongsibao.entity.crm.dic.FollowStatus;
 import com.gongsibao.entity.crm.dic.Important;
 import com.gongsibao.entity.crm.dic.Sex;
@@ -104,8 +103,14 @@ public class Customer extends BaseEntity {
     @Column(name="back_user_id",header="上一次退回人")
     private Integer backUserId = 0;
     
-    @Column(name="customer_source",header="411 CRM客户来源: 4111 58同城推广、 4112百度广告投放、 4113地推活动、 4114老客户介绍、 4115 企业信息关联、 4116 渠道商、 4117 外呼拓客")
-    private CustomerSource customerSource = CustomerSource.CUSTOMER_SOURCE_0;
+//    @Column(name="customer_source",header="411 CRM客户来源: 4111 58同城推广、 4112百度广告投放、 4113地推活动、 4114老客户介绍、 4115 企业信息关联、 4116 渠道商、 4117 外呼拓客")
+//    private CustomerSource customerSource = CustomerSource.CUSTOMER_SOURCE_0;
+    
+    @Column(name="customer_source",header="退回次数")
+    private Integer customerSourceId = 0;
+    
+    @Reference(foreignKey="customerSourceId",header="CRM客户来源")
+    private Dict customerSource;
     
     @Column(name="customer_source_other",header="客户来源选择其他时填写的详情")
     private String customerSourceOther;
@@ -344,11 +349,19 @@ public class Customer extends BaseEntity {
 		this.backUserId = backUserId;
 	}
 
-	public CustomerSource getCustomerSource() {
+	public Integer getCustomerSourceId() {
+		return customerSourceId;
+	}
+
+	public void setCustomerSourceId(Integer customerSourceId) {
+		this.customerSourceId = customerSourceId;
+	}
+
+	public Dict getCustomerSource() {
 		return customerSource;
 	}
 
-	public void setCustomerSource(CustomerSource customerSource) {
+	public void setCustomerSource(Dict customerSource) {
 		this.customerSource = customerSource;
 	}
 

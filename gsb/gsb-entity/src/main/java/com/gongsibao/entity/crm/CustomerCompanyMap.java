@@ -7,26 +7,26 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="crm_customer_company_map")
+@Table(name="crm_customer_company_map",header="")
 public class CustomerCompanyMap extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = -1106443484204494839L;
-	@Column(name="customer_id")
+	@Column(name="customer_id",header="")
     private Integer customerId;
 	
 	@JsonIgnore
-    @Reference(foreignKey="customerId")
+    @Reference(foreignKey="customerId",header="")
     private Customer customer;
     
-    @Column(name="company_id")
+    @Column(name="company_id",header="")
     private Integer companyId;
     
-    @Reference(foreignKey="companyId")
+    @Reference(foreignKey="companyId",header="")
     private CompanyIntention company;
     
-    @Column(name="is_bbk")
+    @Column(name="is_bbk",header="")
     private String isBbk = "0";
 
     public Integer getCustomerId() {

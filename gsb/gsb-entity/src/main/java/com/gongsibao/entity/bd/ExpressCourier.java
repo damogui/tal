@@ -1,7 +1,5 @@
 package com.gongsibao.entity.bd;
 
-import java.sql.Date;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
@@ -25,8 +23,7 @@ public class ExpressCourier extends BaseEntity {
     private Double sort;
     @Column(name="is_enabled",header="IsEnabled")
     private Integer isEnabled;
-    @Column(name="add_time",header="AddTime")
-    private Date addTime;
+
     @Column(header="remark")
     private String remark;
 
@@ -66,12 +63,7 @@ public class ExpressCourier extends BaseEntity {
     public void setIsEnabled(Integer isEnabled) {
         this.isEnabled = isEnabled;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+
     public String getRemark() {
         return remark;
     }

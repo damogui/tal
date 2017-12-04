@@ -1,4 +1,4 @@
-package com.gongsibao.panda;
+package com.gongsibao.panda.temp;
 
 import org.junit.Test;
 import org.netsharp.communication.ServiceFactory;

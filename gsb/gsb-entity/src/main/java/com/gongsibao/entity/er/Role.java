@@ -1,6 +1,7 @@
 package com.gongsibao.entity.er;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
@@ -13,13 +14,13 @@ public class Role extends BaseEntity {
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 3362900848839212024L;
-	@Column(header="pid")
+	@Column(name="pid",header="pid")
     private Integer pid;
     @Column(name="group_id",header="GroupId")
     private Integer groupId;
-    @Column(header="name")
+    @Column(name="name",header="name")
     private String name;
-    @Column(header="del")
+    @Column(name="del",header="del")
     private Integer del;
     @Column(name="add_time",header="AddTime")
     private Date addTime;

@@ -6,14 +6,15 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="so_order_pay_map")
+@Table(name="so_order_pay_map",header="订单和支付关系")
 public class OrderPayMap extends BaseEntity {
 	
 	private static final long serialVersionUID = -9139177565018673953L;
 	
-	@Column(name="order_id",header="订单")
+	@Column(name="order_id",header="订单序号")
     private Integer orderId;
-    @Column(name="pay_id",header="支付")
+	
+    @Column(name="pay_id",header="支付序号")
     private Integer payId;
     
     @Reference(header="支付",foreignKey="payId")

@@ -9,26 +9,26 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="crm_customer_follow")
+@Table(name="crm_customer_follow",header="")
 public class CustomerFollow extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = -1841356716602770525L;
 
-	@Column(name="customer_id")
+	@Column(name="customer_id",header="")
     private Integer customerId;
 	
 	@JsonIgnore
-    @Reference(foreignKey="customerId")
+    @Reference(foreignKey="customerId",header="")
     private Customer customer;
 	
     private String content;
     
-    @Column(name="follow_user_id")
+    @Column(name="follow_user_id",header="")
     private Integer creatorId;
     
-    @Column(name="follow_time")
+    @Column(name="follow_time",header="")
     private Date createTime;
 
 	public Integer getCustomerId() {

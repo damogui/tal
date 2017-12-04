@@ -13,13 +13,13 @@ public class TaskItem extends BaseEntity {
 	private static final long serialVersionUID = -4324612046721174545L;
 	@Column(name="task_id",header="TaskId")
     private Integer taskId;
-    @Column(header="name")
+    @Column(name="name",header="name")
     private String name;
     @Column(name="is_must",header="IsMust")
     private Integer isMust;
-    @Column(header="type")
+    @Column(name="type",header="type")
     private Integer type;
-    @Column(header="sort")
+    @Column(name="sort",header="sort")
     private Integer sort;
 
     public Integer getTaskId() {

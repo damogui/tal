@@ -1,32 +1,28 @@
 package com.gongsibao.entity.product;
 
-import java.sql.Date;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="prod_package")
+@Table(name="prod_package",header="产品包")
 public class ProductPackage extends BaseEntity {
 
 	private static final long serialVersionUID = 2084809012877696348L;
 	
+	@Column(name="name",header="名称")
 	private String name;
+	
 	@Exclusive//这个字段可能是mysql关键字，查询就会报错
+	@Column(name="desc",header="标题（显示名称）")
     private String desc;
+	
+	@Column(name="sort",header="拍下")
     private Integer sort;
-    @Column(name="is_enabled")
-    private Integer isEnabled;
-    @Column(name="add_user_id")
-    private Integer addUserId;
-    @Column(name="add_time")
-    private Date addTime;
-    @Column(name="upd_user_id")
-    private Integer updUserId;
-    @Column(name="upd_time")
-    private Date updTime;
+    
+    @Column(name="is_enabled",header="是否启用")
+    private Boolean enabled = true;
 
     public String getName() {
         return name;
@@ -46,34 +42,12 @@ public class ProductPackage extends BaseEntity {
     public void setSort(Integer sort) {
         this.sort = sort;
     }
-    public Integer getIsEnabled() {
-        return isEnabled;
-    }
-    public void setIsEnabled(Integer isEnabled) {
-        this.isEnabled = isEnabled;
-    }
-    public Integer getAddUserId() {
-        return addUserId;
-    }
-    public void setAddUserId(Integer addUserId) {
-        this.addUserId = addUserId;
-    }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
-    public Integer getUpdUserId() {
-        return updUserId;
-    }
-    public void setUpdUserId(Integer updUserId) {
-        this.updUserId = updUserId;
-    }
-    public Date getUpdTime() {
-        return updTime;
-    }
-    public void setUpdTime(Date updTime) {
-        this.updTime = updTime;
-    }
+	public Boolean getEnabled() {
+		return enabled;
+	}
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
+    
 }

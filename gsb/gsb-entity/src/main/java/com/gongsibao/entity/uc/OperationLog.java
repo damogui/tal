@@ -1,32 +1,34 @@
 package com.gongsibao.entity.uc;
 
-import java.sql.Date;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="uc_operation_log")
+@Table(name="uc_operation_log",header="操作日志")
 public class OperationLog extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 6616980631295477691L;
-	@Column(name="user_id")
+	@Column(name="user_id",header="用户Id")
     private Integer userId;
-    @Column(name="user_name")
+	
+    @Column(name="user_name",header="姓名")
     private String userName;
-    @Column(name="organization_id")
+    
+    @Column(name="organization_id",header="组织Id")
     private Integer organizationId;
-    @Column(name="organization_name")
+    
+    @Column(name="organization_name",header="所属组织")
     private String organizationName;
-    @Column(name="parent_menu_name")
+    
+    @Column(name="parent_menu_name",header="上级菜单 名称")
     private String parentMenuName;
-    @Column(name="menu_name")
+    
+    @Column(name="menu_name",header="菜单 名称")
     private String menuName;
-    @Column(name="add_time")
-    private Date addTime;
+
 
     public Integer getUserId() {
         return userId;
@@ -64,10 +66,6 @@ public class OperationLog extends BaseEntity {
     public void setMenuName(String menuName) {
         this.menuName = menuName;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+
+    
 }

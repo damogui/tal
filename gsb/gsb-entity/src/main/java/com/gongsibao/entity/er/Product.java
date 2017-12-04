@@ -1,6 +1,6 @@
 package com.gongsibao.entity.er;
 
-import java.sql.Date;
+import java.util.Date;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
@@ -13,11 +13,11 @@ public class Product extends BaseEntity {
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = -680565880557682252L;
-	@Column(header="price")
+	@Column(name="price",header="price")
     private Integer price;
-    @Column(header="name")
+    @Column(name="name",header="name")
     private String name;
-    @Column(header="status")
+    @Column(name="status",header="status")
     private Integer status;
     @Column(name="add_user_id",header="AddUserId")
     private Integer addUserId;

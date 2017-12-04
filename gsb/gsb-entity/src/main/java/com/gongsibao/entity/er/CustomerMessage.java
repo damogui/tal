@@ -1,6 +1,7 @@
 package com.gongsibao.entity.er;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
@@ -19,9 +20,9 @@ public class CustomerMessage extends BaseEntity {
     private Integer dataId;
     @Column(name="data_type",header="DataType")
     private Integer dataType;
-    @Column(header="content")
+    @Column(name="content",header="content")
     private String content;
-    @Column(header="type")
+    @Column(name="type",header="type")
     private Integer type;
     @Column(name="add_time",header="AddTime")
     private Date addTime;

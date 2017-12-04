@@ -1,11 +1,11 @@
 package com.gongsibao.entity.trade;
 
-import java.sql.Date;
-
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.uc.Organization;
 
 @Table(name="so_order_prod_organization_map")
 public class OrderProdOrganizationMap extends BaseEntity {
@@ -13,13 +13,19 @@ public class OrderProdOrganizationMap extends BaseEntity {
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 69923830325841766L;
-	@Column(name="order_prod_id",header="OrderProdId")
+	@Column(name="order_prod_id",header="产品订单序号")
     private Integer orderProdId;
+
+    @Reference(foreignKey="orderProdId",header="组织序号")
+    private OrderProd orderProd;
+
     @Column(name="organization_id",header="OrganizationId")
     private Integer organizationId;
-    @Column(name="add_time",header="AddTime")
-    private Date addTime;
-    @Column(name="is_bbk",header="IsBbk")
+    
+    @Reference(foreignKey="organizationId",header="组织机构")
+    private Organization organization;
+
+    @Column(name="is_bbk",header="是否是八百客的数据")
     private String isBbk="0";
 
     public Integer getOrderProdId() {
@@ -34,16 +40,27 @@ public class OrderProdOrganizationMap extends BaseEntity {
     public void setOrganizationId(Integer organizationId) {
         this.organizationId = organizationId;
     }
-    public Date getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
+
     public String getIsBbk() {
         return isBbk;
     }
     public void setIsBbk(String isBbk) {
         this.isBbk = isBbk;
+    }
+
+    public OrderProd getOrderProd() {
+        return orderProd;
+    }
+
+    public void setOrderProd(OrderProd orderProd) {
+        this.orderProd = orderProd;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
     }
 }

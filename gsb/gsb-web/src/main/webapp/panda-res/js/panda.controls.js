@@ -1092,7 +1092,7 @@ org.netsharp.controls.PccBox = org.netsharp.controls.Control.Extends({
 
 			options.onChange = function(newValue,oldValue){
 				
-				if(newValue){
+				if(newValue && typeof newValue === 'number'){
 					bindData(newValue,changeCtrlId);
 				}else{
 					$('#' + changeCtrlId).combobox('setValue',null);
