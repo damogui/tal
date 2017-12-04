@@ -22,7 +22,7 @@ public class OrderCooperation extends BaseEntity{
     private Integer cooperationCompanyId;
     
     @Column(name="branch_id",header="分支机构id")
-    private Integer branch_id; 
+    private Integer branch_id;
     
     @Column(name="branch_name",header="分支机构名称")
     private String branch_name;
