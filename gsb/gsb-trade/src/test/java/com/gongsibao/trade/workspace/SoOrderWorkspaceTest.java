@@ -29,7 +29,7 @@ public class SoOrderWorkspaceTest extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "TRADE_"+SoOrder.class.getSimpleName();
-		
+		listPartImportJs = "/gsb/gsb.customer.controls.js";
 		formOpenMode = OpenMode.WINDOW;
 	}
 
