@@ -6,6 +6,7 @@ import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
+import org.netsharp.organization.dic.Gender;
 
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.Dict;
@@ -40,15 +41,15 @@ public class User extends BaseEntity {
     private String mobilePhone;
     
     @Column(name="sex",header="性别")
-    private Integer sex;
+    private Gender sex;
     
-    @Column(name="ability_id",header="业务员类型 107 1071金牌，1072银牌，1073铜牌，1074普通")
+    @Column(name="ability_id",header="服务能力 107 1071金牌，1072银牌，1073铜牌，1074普通")
     private Integer abilityId;
     
     @Reference(foreignKey="abilityId")
     private Dict abbility;
     
-    @Column(name="priority_id",header="业务员分配优先级 109 1091金牌，1092银牌，1073铜牌，1094普通")
+    @Column(name="priority_id",header="分配优先级 109 1091金牌，1092银牌，1073铜牌，1094普通")
     private Integer priorityId;
     
     @Reference(foreignKey="priorityId")
@@ -70,7 +71,7 @@ public class User extends BaseEntity {
     private Integer userTypeId;
     
     @Column(name="is_enabled",header="是否启用 0否 1是")
-    private Boolean isEnabled;
+    private Boolean enabled;
 
     @Column(name="is_bbk",header="是否八百客")
     private String isBbk="0";
@@ -93,10 +94,10 @@ public class User extends BaseEntity {
     @Column(name="login_valid",header="登录验证 1ukey, 2短信, 3都验证")
     private LoginValid loginValid;
     
-    @Column(name="ukey_pid",header="ukey的pid")
+    @Column(name="ukey_pid",header="Ukey序列号")
     private String ukeyPid;
     
-    @Column(name="pub_key",header="公钥")
+    @Column(name="pub_key",header="Ukey公钥")
     private String pubKey;
     
     @Subs(subType=UserBusiness.class,foreignKey="userId",header="归属事业部")
@@ -107,10 +108,6 @@ public class User extends BaseEntity {
     
     @Subs(subType=UserOrganizationMap.class,foreignKey="userId",header="所属组织机构")
     private List<UserOrganizationMap> organizations;
-    
-    @Subs(subType=UserBirthday.class,foreignKey="userId",header="生日记录")
-    private List<UserBirthday> birthdays;
-    
 
 	public String getPasswd() {
 		return passwd;
@@ -168,11 +165,11 @@ public class User extends BaseEntity {
 		this.mobilePhone = mobilePhone;
 	}
 
-	public Integer getSex() {
+	public Gender getSex() {
 		return sex;
 	}
 
-	public void setSex(Integer sex) {
+	public void setSex(Gender sex) {
 		this.sex = sex;
 	}
 
@@ -231,13 +228,13 @@ public class User extends BaseEntity {
 	public void setUserTypeId(Integer userTypeId) {
 		this.userTypeId = userTypeId;
 	}
-
-	public Boolean getIsEnabled() {
-		return isEnabled;
+	
+	public Boolean getEnabled() {
+		return enabled;
 	}
 
-	public void setIsEnabled(Boolean isEnabled) {
-		this.isEnabled = isEnabled;
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	public String getIsBbk() {
@@ -334,14 +331,6 @@ public class User extends BaseEntity {
 
 	public void setBusiness(List<UserBusiness> business) {
 		this.business = business;
-	}
-
-	public List<UserBirthday> getBirthdays() {
-		return birthdays;
-	}
-
-	public void setBirthdays(List<UserBirthday> birthdays) {
-		this.birthdays = birthdays;
 	}
 
 	public List<UserRoleMap> getRoles() {

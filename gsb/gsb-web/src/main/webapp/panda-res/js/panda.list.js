@@ -651,7 +651,7 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 		  var code = s2[0];
 		  var css = s2[1];
 		  var text = s2[2];
-		  var btn = '<a size="small" class="easyui-linkbutton btn {0}" onclick="{1}.{2}(\'{3}\')">{4}</a>'.format(css,controller,code,row.id,text);
+		  var btn = '<a class="grid-btn" href="javascript:{1}.{2}(\'{3}\');">{4}</a>'.format(css,controller,code,row.id,text);
 		  builder.append(btn);
 	  });
 	  return builder.toString();

@@ -134,7 +134,7 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
 				$("#"+item.code).validatebox('enableValidation');
 			}
 		});
-		debugger;
+
 		var me = this;
 		var swtCustomerId = this.queryString("swtCustomerId");
 		if(swtCustomerId && this.viewModel.currentItem.entityState == EntityState.New){

@@ -13,7 +13,7 @@ public class Auth extends BaseEntity {
 	private static final long serialVersionUID = 3141491144897813669L;
 	
 	@Column(name="pid",header="上级Id")
-	private Integer pid;
+	private Integer parentId;
 	
 	@Column(name="name",header="名称")
     private String name;
@@ -25,7 +25,7 @@ public class Auth extends BaseEntity {
     private String sref;
     
     @Column(name="tag",header="标签")
-    private String tag;
+    private String flag;
     
     @Column(name="description",header="描述")
     private String description;
@@ -51,12 +51,14 @@ public class Auth extends BaseEntity {
     @Column(name="remark",header="备注")
     private String remark;
 
-	public Integer getPid() {
-		return pid;
+    
+
+	public Integer getParentId() {
+		return parentId;
 	}
 
-	public void setPid(Integer pid) {
-		this.pid = pid;
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
 	}
 
 	public String getName() {
@@ -83,12 +85,12 @@ public class Auth extends BaseEntity {
 		this.sref = sref;
 	}
 
-	public String getTag() {
-		return tag;
+	public String getFlag() {
+		return flag;
 	}
 
-	public void setTag(String tag) {
-		this.tag = tag;
+	public void setFlag(String flag) {
+		this.flag = flag;
 	}
 
 	public String getDescription() {

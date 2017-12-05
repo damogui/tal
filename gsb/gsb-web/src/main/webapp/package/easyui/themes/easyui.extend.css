@@ -952,3 +952,15 @@ div.h10{
 .form-horizontal .input-group-addon .checkbox-custom,.form-horizontal .input-group-addon .radio-custom {
 	min-height: 22px
 }
+
+.grid-btn{
+	color: #1E7BB6;
+	margin:0 2px;
+	text-decoration: none;
+}
+
+
+.grid-btn:hover{
+	color: red;
+	text-decoration: underline;
+}
