@@ -311,7 +311,7 @@ public class UserWorkspaceTest  extends WorkspaceCreationBase{
 		}
 		addFormField(form, "qq", "QQ", groupName, ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "weixin", "微信", groupName, ControlTypes.TEXT_BOX, false, false);
-		addFormField(form, "sex", "性别", groupName, ControlTypes.ENUM_BOX, false, false);
+		addFormField(form, "sex", "性别", groupName, ControlTypes.ENUM_BOX, true, false);
 		
 		field = addFormField(form, "ukeyPid", "Ukey序列号", groupName, ControlTypes.TEXT_BOX, false, false);{
 			
