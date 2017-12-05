@@ -26,12 +26,6 @@ public abstract class BaseCatEntity extends CatEntity{
 	@Column(name = "level", header = "层级")
 	private Integer level = 0;
 	
-	@Column(size = 300,name="path_code",header="路径编码")
-	private String pathCode;
-
-	@Column(size = 500,name="path_name",header="路径名称")
-	private String pathName;
-	
 	public Integer getPkid() {
 		return pkid;
 	}
@@ -62,21 +56,5 @@ public abstract class BaseCatEntity extends CatEntity{
 
 	public void setLevel(Integer level) {
 		this.level = level;
-	}
-
-	public String getPathCode() {
-		return pathCode;
-	}
-
-	public void setPathCode(String pathCode) {
-		this.pathCode = pathCode;
-	}
-
-	public String getPathName() {
-		return pathName;
-	}
-
-	public void setPathName(String pathName) {
-		this.pathName = pathName;
 	}
 }

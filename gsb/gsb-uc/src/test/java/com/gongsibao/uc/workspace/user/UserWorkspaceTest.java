@@ -1,4 +1,4 @@
-package com.gongsibao.uc.workspace;
+package com.gongsibao.uc.workspace.user;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -3,21 +3,15 @@ package com.gongsibao.entity.uc;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
-import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.BaseCatEntity;
 
 @Table(name="uc_auth")
-public class Auth extends BaseEntity {
+public class Auth extends BaseCatEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 3141491144897813669L;
-	
-	@Column(name="pid",header="上级Id")
-	private Integer parentId;
-	
-	@Column(name="name",header="名称")
-    private String name;
-    
+
     @Column(name="url",header="路径")
     private String url;
     
@@ -35,39 +29,13 @@ public class Auth extends BaseEntity {
     
     @Column(name="is_menu",header="是否菜单")
     private Boolean isMenu = true;
-    
-    @Column(name="sort",header="排序")
-    private Double sort = 1D;
-    
-    @Column(name="level",header="")
-    private Integer level;
-    
-    @Column(name="is_leaf",header="是否叶子节点")
-    private Boolean leaf = true;
-    
+
     @Column(name="is_enabled",header="是否启用")
     private Boolean enabled;
 
     @Column(name="remark",header="备注")
     private String remark;
 
-    
-
-	public Integer getParentId() {
-		return parentId;
-	}
-
-	public void setParentId(Integer parentId) {
-		this.parentId = parentId;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public String getUrl() {
 		return url;
@@ -115,30 +83,6 @@ public class Auth extends BaseEntity {
 
 	public void setIsMenu(Boolean isMenu) {
 		this.isMenu = isMenu;
-	}
-
-	public Double getSort() {
-		return sort;
-	}
-
-	public void setSort(Double sort) {
-		this.sort = sort;
-	}
-
-	public Integer getLevel() {
-		return level;
-	}
-
-	public void setLevel(Integer level) {
-		this.level = level;
-	}
-
-	public Boolean getLeaf() {
-		return leaf;
-	}
-
-	public void setLeaf(Boolean leaf) {
-		this.leaf = leaf;
 	}
 
 	public Boolean getEnabled() {
