@@ -1,5 +1,6 @@
 package com.gongsibao.franchisee.service;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,12 +67,14 @@ public class FranchiseeService extends PersistableService<Franchisee> implements
 	}
 
 	@Override
-	public Map<Integer, Integer> getCustomersAllTotal(Integer ownerId,String currentTime) {
+	public Map<Integer, Integer> getCustomersAllTotal(Integer ownerId,
+			String currentTime) {
 		Map<Integer, Integer> returnMap = new HashMap<Integer, Integer>();
 
 		StringBuilder sqlBuilder = new StringBuilder();
-		sqlBuilder.append("SELECT owner_id,COUNT(1) as count from bd_franchisee WHERE create_time <= '"+currentTime+"'");
-		sqlBuilder.append(" and owner_id="+ownerId);
+		sqlBuilder.append("SELECT owner_id,COUNT(1) as count from bd_franchisee WHERE create_time <= '"
+						+ currentTime + "'");
+		sqlBuilder.append(" and owner_id=" + ownerId);
 		sqlBuilder.append(" GROUP BY owner_id");
 		DataTable dataTable = this.pm.executeTable(sqlBuilder.toString(), null);
 
@@ -84,104 +87,109 @@ public class FranchiseeService extends PersistableService<Franchisee> implements
 	}
 
 	@Override
-	public FranchiseeReport getReportEntity(Integer ownerId,String currentTime) {
-		FranchiseeReport returnEntity =new FranchiseeReport();
-		
+	public FranchiseeReport statistReport(Integer ownerId, String currentTime) {
+		FranchiseeReport returnEntity = new FranchiseeReport();
+
 		StringBuilder sqlBuilder = new StringBuilder();
 		sqlBuilder.append("SELECT id,last_tracker_id,last_track_time,intention_degree,track_progress,expected_sign,create_time");
-		sqlBuilder.append(" from bd_franchisee WHERE create_time <= '"+currentTime+"' and owner_id = "+ownerId);
+		sqlBuilder.append(" from bd_franchisee WHERE create_time <= '"
+				+ currentTime + "' and owner_id = " + ownerId);
 		DataTable dataTable = this.pm.executeTable(sqlBuilder.toString(), null);
-		//已跟进
-		Integer getTrackCount=0;
-		//意向度
-		Integer getIntentionDegree1=0;
-		Integer getIntentionDegree2=0;
-		Integer getIntentionDegree3=0;
-		//进度
-		Integer getTrackProgress1=0;
-		Integer getTrackProgress2=0;
-		Integer getTrackProgress3=0;
-		Integer getTrackProgress4=0;
-		Integer getTrackProgress5=0;
-		Integer getTrackProgress6=0;
-		Integer getTrackProgress7=0;
-		//预计签单
-		Integer getExpectedSign1=0;
-		Integer getExpectedSign2=0;
-		Integer getExpectedSign3=0;
-		Integer getExpectedSign4=0;
-		Integer getExpectedSign5=0;
-		
+		// 已跟进
+		Integer getTrackCount = 0;
+		// 意向度
+		Integer getIntentionDegree1 = 0;
+		Integer getIntentionDegree2 = 0;
+		Integer getIntentionDegree3 = 0;
+		// 进度
+		Integer getTrackProgress1 = 0;
+		Integer getTrackProgress2 = 0;
+		Integer getTrackProgress3 = 0;
+		Integer getTrackProgress4 = 0;
+		Integer getTrackProgress5 = 0;
+		Integer getTrackProgress6 = 0;
+		Integer getTrackProgress7 = 0;
+		// 预计签单
+		Integer getExpectedSign1 = 0;
+		Integer getExpectedSign2 = 0;
+		Integer getExpectedSign3 = 0;
+		Integer getExpectedSign4 = 0;
+		Integer getExpectedSign5 = 0;
+
 		for (IRow row : dataTable) {
-			Integer lastTrackerId = Integer.parseInt(row.getString("last_tracker_id"));//最后跟进人Id
-			Integer intentionDegree = Integer.parseInt(row.getString("intention_degree"));//意向度
-			Integer trackProgress = Integer.parseInt(row.getString("track_progress"));//进度
-			Integer expectedSign = Integer.parseInt(row.getString("expected_sign"));//预计签单
-			//获取已跟进人数
-			if(ownerId.equals(lastTrackerId)){
-				getTrackCount+=1;
+			Integer lastTrackerId = Integer.parseInt(row
+					.getString("last_tracker_id"));// 最后跟进人Id
+			Integer intentionDegree = Integer.parseInt(row
+					.getString("intention_degree"));// 意向度
+			Integer trackProgress = Integer.parseInt(row
+					.getString("track_progress"));// 进度
+			Integer expectedSign = Integer.parseInt(row
+					.getString("expected_sign"));// 预计签单
+			
+			// 获取已跟进人数
+			if (ownerId.equals(lastTrackerId)) {
+				getTrackCount += 1;
 			}
-			//获取意向度统计
+			// 获取意向度统计
 			switch (intentionDegree) {
 			case 1:
-				getIntentionDegree1+=1;
+				getIntentionDegree1 += 1;
 				break;
 			case 2:
-				getIntentionDegree2+=1;
+				getIntentionDegree2 += 1;
 				break;
 			default:
-				getIntentionDegree3+=1;
+				getIntentionDegree3 += 1;
 				break;
 			}
-			//进度
+			// 进度
 			switch (trackProgress) {
 			case 1:
-				getTrackProgress1+=1;
+				getTrackProgress1 += 1;
 				break;
 			case 2:
-				getTrackProgress2+=1;
+				getTrackProgress2 += 1;
 				break;
 			case 3:
-				getTrackProgress3+=1;
+				getTrackProgress3 += 1;
 				break;
 			case 4:
-				getTrackProgress4+=1;
+				getTrackProgress4 += 1;
 				break;
 			case 5:
-				getTrackProgress5+=1;
+				getTrackProgress5 += 1;
 				break;
 			case 6:
-				getTrackProgress6+=1;
+				getTrackProgress6 += 1;
 				break;
 			default:
-				getTrackProgress7+=1;
+				getTrackProgress7 += 1;
 				break;
 			}
-			//预计签单
+			// 预计签单
 			switch (expectedSign) {
 			case 1:
-				getExpectedSign1+=1;
+				getExpectedSign1 += 1;
 				break;
 			case 2:
-				getExpectedSign2+=1;
+				getExpectedSign2 += 1;
 				break;
 			case 3:
-				getExpectedSign3+=1;
+				getExpectedSign3 += 1;
 				break;
 			case 4:
-				getExpectedSign4+=1;
+				getExpectedSign4 += 1;
 				break;
 			default:
-				getExpectedSign5+=1;
+				getExpectedSign5 += 1;
 				break;
 			}
 		}
 		returnEntity.setTrackCount(getTrackCount);
-		
 		returnEntity.setIntentionDegree1Count(getIntentionDegree1);
 		returnEntity.setIntentionDegree2Count(getIntentionDegree2);
 		returnEntity.setIntentionDegree3Count(getIntentionDegree3);
-		
+
 		returnEntity.setTrackProgress1Count(getTrackProgress1);
 		returnEntity.setTrackProgress2Count(getTrackProgress2);
 		returnEntity.setTrackProgress3Count(getTrackProgress3);
@@ -189,7 +197,7 @@ public class FranchiseeService extends PersistableService<Franchisee> implements
 		returnEntity.setTrackProgress5Count(getTrackProgress5);
 		returnEntity.setTrackProgress6Count(getTrackProgress6);
 		returnEntity.setTrackProgress7Count(getTrackProgress7);
-		
+
 		returnEntity.setExpectedSign1Count(getExpectedSign1);
 		returnEntity.setExpectedSign2Count(getExpectedSign2);
 		returnEntity.setExpectedSign3Count(getExpectedSign3);
@@ -197,5 +205,5 @@ public class FranchiseeService extends PersistableService<Franchisee> implements
 		returnEntity.setExpectedSign5Count(getExpectedSign5);
 		return returnEntity;
 	}
-
+	
 }
