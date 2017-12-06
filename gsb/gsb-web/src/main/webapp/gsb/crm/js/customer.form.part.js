@@ -98,7 +98,7 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
         		return false;
         	}
         	
-        	if(!/^0?(13[0-9]|15[012356789]|18[0123456789]|14[57]|17[013678])[0-9]{8}$/.test(mobile)){
+        	if(!System.isnull(mobile)&&!/^0?(13[0-9]|15[012356789]|18[0123456789]|14[57]|17[013678])[0-9]{8}$/.test(mobile)){
         		
         		IMessageBox.error("【手机】格式错误");
         		return false;
