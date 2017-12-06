@@ -1,4 +1,4 @@
-package com.gongsibao.uc.workspace;
+package com.gongsibao.uc.workspace.user;
 
 import org.junit.Before;
 import org.netsharp.core.MtableManager;
@@ -51,18 +51,18 @@ public class AuthWorkspaceTest extends WorkspaceCreationBase{
 		PDatagrid datagrid = super.createDatagrid(node);
 		datagrid.setToolbar("panda/datagrid/row/edit");
 		PDatagridColumn column = null;
-		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "url", "路径", ControlTypes.TEXT_BOX, 150);
-		addColumn(datagrid, "sref", "sref", ControlTypes.TEXT_BOX, 80);
+		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 200);
+		addColumn(datagrid, "url", "路径", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "sref", "sref", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "flag", "标签", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "icon", "图标", ControlTypes.TEXT_BOX, 80);
-		addColumn(datagrid, "isMenu", "是否菜单", ControlTypes.TEXT_BOX, 80);
+		addColumn(datagrid, "isMenu", "是否菜单", ControlTypes.BOOLCOMBO_BOX, 80);
 		
 		column = addColumn(datagrid, "sort", "顺序", ControlTypes.TEXT_BOX, 60);{
 			column.setOrderbyMode(OrderbyMode.ASC);
 		}
 		
-		column = addColumn(datagrid, "enabled", "状态", ControlTypes.TEXT_BOX, 60);{
+		column = addColumn(datagrid, "enabled", "状态", ControlTypes.ENUM_BOX, 60);{
 			
 			column.setStyler("return row.enabled==false?'color:red;':'color:#5FB878;';");
 			column.setFormatter(" return value==false?'停用':'启用';");

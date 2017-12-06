@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.netsharp.meta.base.ResourceCreationBase;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
+import com.gongsibao.entity.uc.Account;
 import com.gongsibao.entity.uc.Auth;
 import com.gongsibao.entity.uc.Organization;
 import com.gongsibao.entity.uc.Role;
@@ -12,6 +13,7 @@ import com.gongsibao.entity.uc.UserBusiness;
 import com.gongsibao.entity.uc.UserLoginLog;
 import com.gongsibao.entity.uc.UserOrganizationMap;
 import com.gongsibao.entity.uc.UserRoleMap;
+import com.gongsibao.uc.base.IAccountService;
 import com.gongsibao.uc.base.IAuthService;
 import com.gongsibao.uc.base.IOrganizationService;
 import com.gongsibao.uc.base.IRoleService;
@@ -54,6 +56,11 @@ public class ResourceTest  extends ResourceCreationBase{
 			this.createResourceNodeVoucher(Auth.class.getName(), "菜单管理", "User_Center_" + Auth.class.getSimpleName(), IAuthService.class.getName(), node1.getId());
 			
 			this.createResourceNodeVoucher(UserLoginLog.class.getName(), "登录日志", "User_Center_" + UserLoginLog.class.getSimpleName(), IUserLoginLogService.class.getName(), node1.getId());
+		}
+		
+		node1 = this.createResourceNodeCategory("会员中心", "GSB_Account", node.getId());
+		{
+			this.createResourceNodeVoucher(Account.class.getName(), "会员列表", "Account_Center_" + Account.class.getSimpleName(), IAccountService.class.getName(), node1.getId());
 		}
 	}
 }
