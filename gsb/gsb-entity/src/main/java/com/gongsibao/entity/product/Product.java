@@ -1,6 +1,9 @@
 package com.gongsibao.entity.product;
 
+import java.util.List;
+
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
@@ -71,6 +74,12 @@ public class Product extends BaseEntity {
 
 	@Column(name = "income_rate", header = "供应商分层比例")
 	private Integer incomeRate = 80;
+	
+	@Subs(subType = ProductBusiness.class, foreignKey = "productId", header = "归属事业部")
+	private List<ProductBusiness> business;
+	
+	@Subs(subType = ProductService.class, foreignKey = "productId", header = "归属事业部")
+	private List<ProductService> services;
 
 	public Integer getTypeId() {
 		return typeId;

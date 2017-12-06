@@ -5,7 +5,7 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="so_order_discount")
+@Table(name="so_order_discount",header="优惠劵信息")
 public class OrderDiscount extends BaseEntity {
 
     /**   

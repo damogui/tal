@@ -37,6 +37,16 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
 		});
 		
     },
+    added: function (currentItem) {
+
+    	var swtCustomerId = this.queryString("swtCustomerId");
+    	if(!System.isnull(swtCustomerId)){
+    		
+    		//设置默认值
+    		currentItem.customerSourceId = 4181;
+    		currentItem.consultWay = 42143;
+    	}
+    },
     databindafter:function(){
     	
     	if(this.viewModel.currentItem.entityState == EntityState.Persist){
@@ -64,6 +74,9 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
              if(vm.currentItem.entityState != EntityState.New){
 
                  vm.currentItem.entityState = EntityState.Persist;
+             }else{
+            	 vm.currentItem.customerSourceId = 4181;
+            	 vm.currentItem.consultWay = 42143;
              }
              me.paging = nav.Paging;
              me.databind();
@@ -92,7 +105,7 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
         	var telephone = $("#telephone").val();
         	var weixin = $("#weixin").val();
         	var qq = $("#qq").val();
-        	if(!System.isnull(mobile) && System.isnull(telephone) && System.isnull(weixin) && System.isnull(qq)){
+        	if(System.isnull(mobile) && System.isnull(telephone) && System.isnull(weixin) && System.isnull(qq)){
         		
         		IMessageBox.error("【手机】、【座机】、【微信】、【QQ】 最少填写一项");
         		return false;
