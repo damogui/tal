@@ -92,7 +92,7 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
         	var telephone = $("#telephone").val();
         	var weixin = $("#weixin").val();
         	var qq = $("#qq").val();
-        	if(System.isnull(mobile) && System.isnull(telephone) && System.isnull(weixin) && System.isnull(qq)){
+        	if(!System.isnull(mobile) && System.isnull(telephone) && System.isnull(weixin) && System.isnull(qq)){
         		
         		IMessageBox.error("【手机】、【座机】、【微信】、【QQ】 最少填写一项");
         		return false;
