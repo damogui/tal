@@ -92,12 +92,19 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
         	var telephone = $("#telephone").val();
         	var weixin = $("#weixin").val();
         	var qq = $("#qq").val();
-        	if(System.isnull(mobile) && System.isnull(telephone) && System.isnull(weixin) && System.isnull(qq)){
+        	if(!System.isnull(mobile) && System.isnull(telephone) && System.isnull(weixin) && System.isnull(qq)){
         		
-        		IMessageBox.error("【手机】、【座机】、【微信】、【QQ】 最少填写一项。");
+        		IMessageBox.error("【手机】、【座机】、【微信】、【QQ】 最少填写一项");
+        		return false;
+        	}
+        	
+        	if(!System.isnull(mobile)&&!/^0?(13[0-9]|15[012356789]|18[0123456789]|14[57]|17[013678])[0-9]{8}$/.test(mobile)){
+        		
+        		IMessageBox.error("【手机】格式错误");
         		return false;
         	}
         }
+        
 
         var consultWay = $('#consultWay').combobox('getValue');
         if(System.isnull(consultWay)){
@@ -134,7 +141,7 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
 				$("#"+item.code).validatebox('enableValidation');
 			}
 		});
-		debugger;
+
 		var me = this;
 		var swtCustomerId = this.queryString("swtCustomerId");
 		if(swtCustomerId && this.viewModel.currentItem.entityState == EntityState.New){
@@ -296,6 +303,9 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
     	    window.location.href='/panda/crm/customer/all/form?id='+pass;
     	});
     }
+    
+
+  //['mobile','validationContactWay['mobile','手机']']
 });
 
 
@@ -350,7 +360,6 @@ com.gongsibao.crm.web.FlowDetailPart = org.netsharp.panda.commerce.DetailPart.Ex
 });
 
 
-
 /**
  * 扩展联系方式验证
  */
@@ -368,14 +377,14 @@ $.extend($.fn.validatebox.defaults.rules, {
     			
     			id = controllercustomer.viewModel.currentItem.id;
     		}
-        	serviceLocator.invoke(controllercustomer.context.service, 'validationContactWay', [id,value,param[0]], function(data){
+        	serviceLocator.invoke(controllercustomer.context.service, 'validationContactWay', [id,value.trim(),param[0]], function(data){
 
         		isValidator = data==null?true:false;
         	},null, false);
         	
         	return isValidator;
         },    
-        message: '该{1}已存在'   
+        message: '{1}已存在'   
     }
 });
 

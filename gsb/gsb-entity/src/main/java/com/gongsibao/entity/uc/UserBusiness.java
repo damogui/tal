@@ -23,7 +23,7 @@ public class UserBusiness extends BaseEntity {
 	@Column(name="user_id")
     private Integer userId;
 	
-	@Reference(foreignKey="businessId",header="归属事业部")
+	@Reference(foreignKey="businessId",header="归属事业部：108")
 	private Dict business;
 	
     @Column(name="business_id")

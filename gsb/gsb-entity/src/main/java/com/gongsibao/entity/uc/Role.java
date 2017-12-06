@@ -16,7 +16,7 @@ public class Role extends BaseEntity {
 	private String name;
 	
     @Column(name="tag",header="角色标志(拼音首字母)")
-    private String tag;
+    private String flag;
     
     @Column(name="description",header="描述信息")
     private String description;
@@ -36,13 +36,14 @@ public class Role extends BaseEntity {
     public void setName(String name) {
         this.name = name;
     }
-    public String getTag() {
-        return tag;
-    }
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-    public String getDescription() {
+    
+    public String getFlag() {
+		return flag;
+	}
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
+	public String getDescription() {
         return description;
     }
     public void setDescription(String description) {

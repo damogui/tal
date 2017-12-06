@@ -94,7 +94,7 @@ public class SyncUserIdToEmployeeTest {
 			}
 			employee.setName(name);
 			employee.setEmail(user.getEmail());
-			employee.setDisabled(!(user.getIsEnabled()));
+			employee.setDisabled(!(user.getEnabled()));
 		}
 		employeeService.save(employee);
 		
