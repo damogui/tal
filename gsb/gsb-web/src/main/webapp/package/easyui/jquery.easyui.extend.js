@@ -51,7 +51,7 @@ $.extend($.fn.validatebox.defaults.rules, {
     },
     mobile: {
         validator: function (value, param) {
-            return /^0?(13[0-9]|15[012356789]|18[0123456789]|14[57]|17[013678])[0-9]{8}$/.test(value);
+            return /^0?(13[0-9]|15[012356789]|18[0123456789]|14[57]|17[0135678])[0-9]{8}$/.test(value);
         },
         message: '手机号码不正确'
     },
