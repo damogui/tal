@@ -4,15 +4,14 @@ import java.util.Date;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
-import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.CatEntity;
 import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.franchisee.dic.FranchiseeReportType;
 import com.gongsibao.entity.uc.Organization;
 
-@Table(name="bd_franchisee_report",header="供应商报表")
 public class FranchiseeReport extends CatEntity{
+
 	/**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   

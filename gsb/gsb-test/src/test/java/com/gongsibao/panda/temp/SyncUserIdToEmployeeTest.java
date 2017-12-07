@@ -61,18 +61,27 @@ public class SyncUserIdToEmployeeTest {
 		int syncCount = 0;
 		for (Employee employee : employeeList) {
 			employee.toNew();
+			employee.setMemoto(employee.getId().toString());// 备份原Id
+			if(employee.getLoginName().equals("13301503086")){
+				
+				System.out.println("13301503086");
+			}
 			Integer userId = this.getUserIdByMobile(userList, employee.getLoginName());
 			if (userId != null) {
 
 				syncCount++;
-				employee.setMemoto(employee.getId().toString());// 备份原Id
-
-				this.updateOrganizationEmployee(employee.getId(), userId);
-
+				
 				employee.setId(userId);
+				employeeService.save(employee);
+			}else{
+				
+				employee.setId(null);
+				
 			}
+			
+			Integer oldEmployeeId = Integer.parseInt(employee.getMemoto());
+			this.updateOrganizationEmployee(oldEmployeeId, userId);
 		}
-		employeeService.saves(employeeList);
 		System.out.println("同步数量：" + syncCount);
 	}
 
@@ -208,3 +217,54 @@ public class SyncUserIdToEmployeeTest {
 		oeService.saves(list);
 	}
 }
+
+//
+///*1.更新员工登录帐号*/
+//update sys_permission_employee set login_name = mobile where mobile is not null and mobile <>'';
+//
+///*2.备份原Id到Code*/
+//update sys_permission_employee set `code` = id;
+//
+///*3.更新user的Id至员工备注*/
+//UPDATE sys_permission_employee employee LEFT JOIN uc_user USER1 ON employee.login_name = USER1.mobile_phone set memoto = USER1.pkid;
+//
+//UPDATE sys_permission_employee set id=memoto where memoto is not null and memoto<>''
+//
+///*5.更新组织机构对应关系的employeeId*/
+//
+//update sys_permission_organization_employee oe LEFT JOIN sys_permission_employee employee on oe.employee_id = employee.code set oe.employee_id = employee.id;
+//
+//INSERT INTO sys_permission_employee (
+//		id,
+//		login_name,
+//	  pwd,
+//		NAME,
+//		mobile,
+//		email,
+//		weixin,
+//		qq
+//	) SELECT
+//		*
+//	FROM
+//		(
+//			SELECT
+//				b.pkid,
+//				b.mobile_phone,
+//				b.passwd,
+//				b.real_name,
+//				b.mobile_phone as mobile,
+//				b.email,
+//				b.weixin,
+//				b.qq
+//			FROM
+//				uc_user as b
+//			WHERE
+//				b.mobile_phone NOT IN (
+//					SELECT
+//						mobile
+//					FROM
+//						sys_permission_employee
+//				)
+//		) AS u
+
+
