@@ -15,28 +15,31 @@ import com.gongsibao.u8.base.IVoucherLogService;
 
 public class ResourceTest extends ResourceCreationBase {
 
+	public static String resourcePrefix = "GSB_Basic";
+
 	IResourceNodeService service = ServiceFactory.create(IResourceNodeService.class);
 
-	//初始化资源
+	// 初始化资源
 	@Before
 	public void setup() {
 		parentNodeName = "基础配置";
-		parentNodeCode = "GSB_Basic";
+		parentNodeCode = resourcePrefix;
 		pluginName = "基础配置";
 		seq = 3;
 		entityClass = ResourceNode.class;
 	}
 
-	//创建资源节点
+	// 创建资源节点
 	@Override
 	protected void createResourceNodeVouchers(ResourceNode node) {
+
+		String prefix = ResourceTest.resourcePrefix;
 		ResourceNode node1 = null;
-		node1 = this.createResourceNodeCategory("U8配置", "GSB_Basic_U8", node.getId());
+		node1 = this.createResourceNodeCategory("U8配置", prefix + "_U8", node.getId());
 		{
-			this.createResourceNodeVoucher(SetOfBooks.class.getName(), "账套列表", "GSB_Basic_U8_" + SetOfBooks.class.getSimpleName(),ISetOfBooksService.class.getName(), node1.getId());		
-			this.createResourceNodeVoucher(U8Bank.class.getName(), "科目银行列表", "GSB_Basic_U8_" + U8Bank.class.getSimpleName(),IU8BankService.class.getName(), node1.getId());		
-			this.createResourceNodeVoucher(VoucherLog.class.getName(), "凭证日志记录", "GSB_Basic_U8_" + VoucherLog.class.getSimpleName(),IVoucherLogService.class.getName(), node1.getId());		
-			
+			this.createResourceNodeVoucher(SetOfBooks.class.getName(), "账套列表", node1.getCode() + "_" + SetOfBooks.class.getSimpleName(), ISetOfBooksService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(U8Bank.class.getName(), "科目银行列表", node1.getCode() + "_" + U8Bank.class.getSimpleName(), IU8BankService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(VoucherLog.class.getName(), "凭证日志记录", node1.getCode() + "_" + VoucherLog.class.getSimpleName(), IVoucherLogService.class.getName(), node1.getId());
 		}
 	}
 }
