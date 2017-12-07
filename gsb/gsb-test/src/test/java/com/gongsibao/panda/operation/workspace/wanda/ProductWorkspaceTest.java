@@ -7,12 +7,8 @@ import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
-import org.netsharp.panda.entity.PForm;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
-
-
-
 
 import com.gongsibao.entity.cms.ProductView;
 
@@ -23,11 +19,11 @@ public class ProductWorkspaceTest extends WorkspaceCreationBase{
 	public void setup() {
 
 		entity = ProductView.class;
-		urlList = "/cms/product/list";
+		urlList = "/wanda/product/list";
 		listPartName = formPartName = "服务列表";		
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "CMS_"+ProductView.class.getSimpleName();
+		resourceNodeCode = "GSB_WANDA"+ProductView.class.getSimpleName();
 		
 		formOpenMode = OpenMode.WINDOW;
 	}

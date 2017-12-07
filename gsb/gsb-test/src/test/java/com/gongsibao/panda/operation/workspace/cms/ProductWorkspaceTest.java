@@ -1,4 +1,4 @@
-package com.gongsibao.panda.operation.cms;
+package com.gongsibao.panda.operation.workspace.cms;
 
 import org.netsharp.meta.base.WorkspaceCreationBase;
 

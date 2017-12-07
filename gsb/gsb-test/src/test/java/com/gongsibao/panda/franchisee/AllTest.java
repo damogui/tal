@@ -4,14 +4,16 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import com.gongsibao.franchisee.workspace.department.DepartmentFranchiseeWorkspaceTest;
-import com.gongsibao.franchisee.workspace.department.DepartmentTrackWorkspaceTest;
-import com.gongsibao.franchisee.workspace.department.DepartmentUnTrackWorkspaceTest;
-import com.gongsibao.franchisee.workspace.my.MyFranchiseeWorkspaceTest;
-import com.gongsibao.franchisee.workspace.my.UnTrackFranchiseeWorkspaceTest;
-import com.gongsibao.franchisee.workspace.operation.OperationFranchiseeWorkspaceTest;
-import com.gongsibao.franchisee.workspace.operation.OperationTrackWorkspaceTest;
-import com.gongsibao.franchisee.workspace.operation.OperationUnTrackWorkspaceTest;
+import com.gongsibao.panda.franchisee.workspace.department.DepartmentFranchiseeWorkspaceTest;
+import com.gongsibao.panda.franchisee.workspace.department.DepartmentTrackWorkspaceTest;
+import com.gongsibao.panda.franchisee.workspace.department.DepartmentUnTrackWorkspaceTest;
+import com.gongsibao.panda.franchisee.workspace.my.MyFranchiseeWorkspaceTest;
+import com.gongsibao.panda.franchisee.workspace.my.UnTrackFranchiseeWorkspaceTest;
+import com.gongsibao.panda.franchisee.workspace.operation.OperationFranchiseeWorkspaceTest;
+import com.gongsibao.panda.franchisee.workspace.operation.OperationTrackWorkspaceTest;
+import com.gongsibao.panda.franchisee.workspace.operation.OperationUnTrackWorkspaceTest;
+
+
 @RunWith(Suite.class)
 @SuiteClasses({
 	ResourceTest.class, 
