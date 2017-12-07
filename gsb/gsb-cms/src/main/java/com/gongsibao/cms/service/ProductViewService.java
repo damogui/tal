@@ -1,21 +1,9 @@
 package com.gongsibao.cms.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.netsharp.communication.Service;
-import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.DataTable;
-import org.netsharp.core.IRow;
-import org.netsharp.core.Oql;
 import org.netsharp.service.PersistableService;
-import org.netsharp.util.StringManager;
 
-import com.gongsibao.cms.base.IProductService;
 import com.gongsibao.cms.base.IProductViewService;
-import com.gongsibao.entity.cms.Product;
 import com.gongsibao.entity.cms.ProductView;
 
 @Service
@@ -26,7 +14,7 @@ public class ProductViewService extends PersistableService<ProductView>
 		super();
 		this.type = ProductView.class;
 	}
-
+/*
 	@Override
 	public List<ProductView> queryList(Oql oql) {
 
@@ -39,6 +27,7 @@ public class ProductViewService extends PersistableService<ProductView>
 			productOql.setSelects("*");
 			productOql.setFilter(oql.getFilter());
 			productOql.setPaging(oql.getPaging());
+			
 		}
 		List<Product> list = productService.queryList(productOql);
 		//oql.setPaging(productOql.getPaging());
@@ -87,5 +76,5 @@ public class ProductViewService extends PersistableService<ProductView>
 			getMap.put(productId, count);
 		}
 		return getMap;
-	}
+	}*/
 }

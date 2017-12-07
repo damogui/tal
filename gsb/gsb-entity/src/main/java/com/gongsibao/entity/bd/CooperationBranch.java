@@ -5,30 +5,30 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="bd_cooperation_branch",header="Èë×¤¹ã³¡±í")
+@Table(name="bd_cooperation_branch",header="å…¥é©»å¹¿åœºè¡¨")
 public class CooperationBranch extends BaseEntity{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Column(name="cooperation_company_id",header="ºÏ×÷¹«Ë¾ ×Öµätype508")
+	@Column(name="cooperation_company_id",header="åˆä½œå…¬å¸ å­—å…¸type508")
     private Integer cooperationCompanyId;
-    @Column(name="branch_code",header="·ÖÖ§»ú¹¹±àÂë")
+    @Column(name="branch_code",header="åˆ†æ”¯æœºæ„ç¼–ç ")
     private Integer branchCode;
-    @Column(name="branch_name",header="·ÖÖ§»ú¹¹Ãû³Æ")
+    @Column(name="branch_name",header="åˆ†æ”¯æœºæ„åç§°")
     private String branchName;
-    @Column(name="province_id",header="Ê¡")
+    @Column(name="province_id",header="çœ")
     private Integer provinceId;
-    @Column(name="city_id",header="ÊĞ")
+    @Column(name="city_id",header="å¸‚")
     private Integer cityId;
-    @Column(name="area_id",header="Çø")
+    @Column(name="area_id",header="åŒº")
     private Integer areaId;
     @Column(header="addr")
     private String addr;
-    @Column(name="is_enabled",header="1ÆôÓÃ 0Í£ÓÃ")
+    @Column(name="is_enabled",header="1å¯ç”¨ 0åœç”¨")
     private Integer isEnabled;
-    @Column(name="sort",header="ÅÅĞò")
+    @Column(name="sort",header="æ’åº")
     private Integer sort;
 	public Integer getCooperationCompanyId() {
 		return cooperationCompanyId;

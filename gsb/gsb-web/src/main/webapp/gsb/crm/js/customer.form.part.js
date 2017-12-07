@@ -37,6 +37,16 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
 		});
 		
     },
+    added: function (currentItem) {
+
+    	var swtCustomerId = this.queryString("swtCustomerId");
+    	if(!System.isnull(swtCustomerId)){
+    		
+    		//设置默认值
+    		currentItem.customerSourceId = 4181;
+    		currentItem.consultWay = 42143;
+    	}
+    },
     databindafter:function(){
     	
     	if(this.viewModel.currentItem.entityState == EntityState.Persist){
@@ -64,6 +74,9 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
              if(vm.currentItem.entityState != EntityState.New){
 
                  vm.currentItem.entityState = EntityState.Persist;
+             }else{
+            	 vm.currentItem.customerSourceId = 4181;
+            	 vm.currentItem.consultWay = 42143;
              }
              me.paging = nav.Paging;
              me.databind();
@@ -98,7 +111,7 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
         		return false;
         	}
         	
-        	if(!System.isnull(mobile)&&!/^0?(13[0-9]|15[012356789]|18[0123456789]|14[57]|17[013678])[0-9]{8}$/.test(mobile)){
+        	if(!System.isnull(mobile)&&!/^0?(13[0-9]|15[012356789]|18[0123456789]|14[57]|17[0135678])[0-9]{8}$/.test(mobile)){
         		
         		IMessageBox.error("【手机】格式错误");
         		return false;

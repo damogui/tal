@@ -5,7 +5,7 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="so_order_cooperation",header="����������פ��˾")
+@Table(name="so_order_cooperation",header="订单归属入驻公司")
 public class OrderCooperation extends BaseEntity{
 
 	
@@ -15,16 +15,16 @@ public class OrderCooperation extends BaseEntity{
 	 */   
 	private static final long serialVersionUID = -1407501547018300129L;
 
-	@Column(name="order_id",header="�������")
+	@Column(name="order_id",header="订单序号")
     private Integer orderId;
 	
-    @Column(name="cooperation_company_id",header="��פ��˾")
+    @Column(name="cooperation_company_id",header="入驻公司")
     private Integer cooperationCompanyId;
     
-    @Column(name="branch_id",header="��֧����id")
+    @Column(name="branch_id",header="分支机构id")
     private Integer branch_id;
     
-    @Column(name="branch_name",header="��֧��������")
+    @Column(name="branch_name",header="分支机构名称")
     private String branch_name;
     
     
