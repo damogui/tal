@@ -124,7 +124,10 @@ public abstract class AbstractApi<T extends ResponseMessage<?>> {
 		System.out.println("请求结果："+json);
 		int startIndex = 8;
 		int endIndex = json.indexOf(",\"seqNum\"");
-		String cutJson = json.substring(startIndex, endIndex);
+		String cutJson = json;
+		if (endIndex > 0) {
+			cutJson = cutJson.substring(startIndex, endIndex);
+		}
 		T response = this.deserialize(cutJson);
 		return response;
 	}

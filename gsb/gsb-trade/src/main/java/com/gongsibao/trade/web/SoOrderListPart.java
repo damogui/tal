@@ -6,6 +6,7 @@ import org.netsharp.communication.ServiceFactory;
 import org.netsharp.panda.commerce.ListPart;
 
 import com.gongsibao.entity.trade.OrderProdTrace;
+import com.gongsibao.franchisee.job.FranchiseeReportJob;
 import com.gongsibao.trade.base.IOrderProdTraceService;
 
 

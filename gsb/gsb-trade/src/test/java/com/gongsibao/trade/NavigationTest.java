@@ -27,5 +27,10 @@ public class NavigationTest extends NavigationBase {
 		{
 			createPTreeNode(tree, "GSB_TRADE_Enquiry", null, "TRADE_" + SoOrder.class.getSimpleName(), "订单查询列表", "/trade/order/list", 1);
 		}
+		
+		createPTreeNode(tree, null, "fa fa-users fa-fw", "GSB_TRADE_Order", "订单管理", "", 2);
+		{
+			createPTreeNode(tree, "GSB_TRADE_Enquiry", null, "TRADE_" + SoOrder.class.getSimpleName(), "订单查询列表", "/trade/order/list", 1);
+		}
 	}
 }

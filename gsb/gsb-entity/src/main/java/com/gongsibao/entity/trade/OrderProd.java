@@ -95,17 +95,20 @@ public class OrderProd extends BaseEntity {
     @Column(name="settle_time",header="结算时间")
     private Date settleTime;
     
+    @Reference(foreignKey = "orderId",header="销售订单")
+    private SoOrder soOrder;
+
+    @Reference(foreignKey = "productId",header="产品")
+    private Product product;
+    
     @Subs(subType=OrderProdItem.class,foreignKey="orderProdId",header="服务明细")
     private List<OrderProdItem> items = new ArrayList<OrderProdItem>();
 
     @Subs(subType=OrderProdTrace.class,foreignKey="orderProdId",header="跟进记录")
     private List<OrderProdTrace> traces = new ArrayList<OrderProdTrace>();
 
-    @Reference(foreignKey = "orderId",header="销售订单")
-    private SoOrder soOrder;
-
-    @Reference(foreignKey = "productId",header="产品")
-    private Product product;
+    @Subs(subType=OrderProdCost.class,foreignKey="orderProdId",header="订单成本")
+    private List<OrderProdCost> costs = new ArrayList<OrderProdCost>();
     
     public String getNo() {
         return no;
@@ -291,4 +294,10 @@ public class OrderProd extends BaseEntity {
     public void setProduct(Product product) {
         this.product = product;
     }
+	public List<OrderProdCost> getCosts() {
+		return costs;
+	}
+	public void setCosts(List<OrderProdCost> costs) {
+		this.costs = costs;
+	}
 }

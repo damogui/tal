@@ -172,6 +172,10 @@ public class SoOrder extends BaseEntity {
     
     @Subs(subType=Refund.class,foreignKey="orderId",header="退款明细")
     private List<Refund> redunds = new ArrayList<Refund>();
+    
+    @Subs(subType=OrderDiscount.class,foreignKey="orderId",header="优惠明细")
+    private List<OrderDiscount> discounts = new ArrayList<OrderDiscount>();
+    
 
     public Integer getType() {
         return type;
@@ -476,4 +480,16 @@ public class SoOrder extends BaseEntity {
     public void setCompanyIntention(CompanyIntention companyIntention) {
         this.companyIntention = companyIntention;
     }
+	public Account getAccount() {
+		return account;
+	}
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+	public List<OrderDiscount> getDiscounts() {
+		return discounts;
+	}
+	public void setDiscounts(List<OrderDiscount> discounts) {
+		this.discounts = discounts;
+	}
 }
