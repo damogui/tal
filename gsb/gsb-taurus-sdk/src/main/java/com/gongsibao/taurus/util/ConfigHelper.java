@@ -25,8 +25,9 @@ public class ConfigHelper {
 //		/tele/companyequity
 		
 		if(url.contains("/tele/")){
-			
-			return "http://tele.gongsibao.cn"+url;
+			return "http://tele.gongsibao.cn" + url;
+		} else if (url.contains("/bigdata/")) {
+			return "http://api.gongsibao.com" + url;
 		}
 		
 		return ConfigHelper.DOMAIN + url;
