@@ -1,21 +1,19 @@
 package com.gongsibao.entity.u8;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.netsharp.core.annotations.Column;
-import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
+import org.netsharp.entity.Entity;
 
-import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.json.JsonTaxRateBigDecimalSerializer;
 import com.gongsibao.entity.u8.dic.SetOfBooksType;
 import com.gongsibao.entity.uc.User;
 
 @Table(name = "u8_set_of_books")
-public class SetOfBooks extends BaseEntity {
+public class SetOfBooks extends Entity {
 
 	/**
 	 * 
@@ -50,8 +48,6 @@ public class SetOfBooks extends BaseEntity {
 	@Column(name = "is_enabled", header = "是否可用（0：不可用 1：可用）")
 	private Boolean enabled = true;
 
-	@Reference(foreignKey = "creatorId")
-	private User user;
 
 	public String getName() {
 		return name;
@@ -123,14 +119,6 @@ public class SetOfBooks extends BaseEntity {
 
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 }

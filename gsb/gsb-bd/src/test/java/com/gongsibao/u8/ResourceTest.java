@@ -7,7 +7,11 @@ import org.netsharp.resourcenode.IResourceNodeService;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.u8.SetOfBooks;
+import com.gongsibao.entity.u8.U8Bank;
+import com.gongsibao.entity.u8.VoucherLog;
 import com.gongsibao.u8.base.ISetOfBooksService;
+import com.gongsibao.u8.base.IU8BankService;
+import com.gongsibao.u8.base.IVoucherLogService;
 
 public class ResourceTest extends ResourceCreationBase {
 
@@ -30,6 +34,8 @@ public class ResourceTest extends ResourceCreationBase {
 		node1 = this.createResourceNodeCategory("U8管理", "GSB_U8_Manage", node.getId());
 		{
 			this.createResourceNodeVoucher(SetOfBooks.class.getName(), "账套列表", "U8_" + SetOfBooks.class.getSimpleName(),ISetOfBooksService.class.getName(), node1.getId());		
+			this.createResourceNodeVoucher(U8Bank.class.getName(), "科目银行列表", "U8_" + U8Bank.class.getSimpleName(),IU8BankService.class.getName(), node1.getId());		
+			this.createResourceNodeVoucher(VoucherLog.class.getName(), "凭证日志记录", "U8_" + VoucherLog.class.getSimpleName(),IVoucherLogService.class.getName(), node1.getId());		
 			
 		}
 	}
