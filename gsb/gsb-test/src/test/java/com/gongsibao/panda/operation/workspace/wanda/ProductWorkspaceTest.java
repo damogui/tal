@@ -1,4 +1,4 @@
-package com.gongsibao.panda.operation.wanda.workspace;
+package com.gongsibao.panda.operation.workspace.wanda;
 
 import org.junit.Before;
 import org.netsharp.core.MtableManager;

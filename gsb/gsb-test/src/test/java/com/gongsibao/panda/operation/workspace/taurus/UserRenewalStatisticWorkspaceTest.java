@@ -1,4 +1,4 @@
-package com.gongsibao.panda.operation.taurus.workspace;
+package com.gongsibao.panda.operation.workspace.taurus;
 
 import org.junit.Before;
 import org.netsharp.core.MtableManager;
@@ -10,19 +10,21 @@ import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.entity.taurus.NewUserPerDayView;
+import com.gongsibao.entity.taurus.UserRenewalStatisticView;
 
-public class NewUserPerDayWorkspaceTest extends WorkspaceCreationBase {
+
+
+public class UserRenewalStatisticWorkspaceTest extends WorkspaceCreationBase {
 
 	@Before
 	public void setup() {
-		entity = NewUserPerDayView.class;
-		urlList = "/taurus/user/perDay/list";
-		listPartName = formPartName = "每日新增用户数";
+		entity = UserRenewalStatisticView.class;
+		urlList = "/taurus/user/renewalStatistic/list";
+		listPartName = formPartName = "续费统计";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_TAURUS_"
-				+ NewUserPerDayView.class.getSimpleName();
+				+ UserRenewalStatisticView.class.getSimpleName();
 
 		formOpenMode = OpenMode.WINDOW;
 	}
@@ -33,11 +35,12 @@ public class NewUserPerDayWorkspaceTest extends WorkspaceCreationBase {
 		{
 			datagrid.toNew();
 			datagrid.setResourceNode(node);
-			datagrid.setName("每日新增用户数");
+			datagrid.setName("续费统计");
 			datagrid.setShowCheckbox(false);
 		}
-		addColumn(datagrid, "dates", "日期", ControlTypes.TEXT_BOX, 150);
-		addColumn(datagrid, "userCount", "新增用户数", ControlTypes.NUMBER_BOX, 100);
+		addColumn(datagrid, "dates", "日期", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "totalAmount", "总金额", ControlTypes.DECIMAL_BOX, 100);
+		addColumn(datagrid, "renewalTimes", "续费次数", ControlTypes.NUMBER_BOX, 100);
 		return datagrid;
 	}
 

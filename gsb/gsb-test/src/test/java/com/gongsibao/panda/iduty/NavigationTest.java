@@ -1,4 +1,4 @@
-package com.gongsibao.panda.flow;
+package com.gongsibao.panda.iduty;
 
 public class NavigationTest {
 

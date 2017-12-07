@@ -1,4 +1,4 @@
-package com.gongsibao.panda.operation.taurus.workspace;
+package com.gongsibao.panda.operation.workspace.taurus;
 
 import org.junit.Before;
 import org.junit.Test;

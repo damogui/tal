@@ -1,4 +1,4 @@
-package com.gongsibao.panda.trade;
+package com.gongsibao.panda.iduty;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -12,3 +12,4 @@ import org.junit.runners.Suite.SuiteClasses;
 public class AllTest {
 
 }
+
