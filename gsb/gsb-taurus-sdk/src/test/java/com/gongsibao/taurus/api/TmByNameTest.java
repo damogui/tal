@@ -2,6 +2,7 @@ package com.gongsibao.taurus.api;
 
 import com.gongsibao.taurus.entity.Tm;
 import com.gongsibao.taurus.message.ResponseMessage;
+import com.gongsibao.taurus.service.TaurusApiService;
 import com.gongsibao.taurus.util.json.JacksonObjectMapper;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Test;
@@ -18,11 +19,8 @@ public class TmByNameTest {
 	String json = "";
 	@Test
 	public void TmByName(){
-		System.out.println("商标：");
-		TmByNameApi api = ApiFactory.create(TmByNameApi.class);
-		api.setName("支付宝");
-		ResponseMessage<Tm> response = api.getResponse();
-		
+		System.out.println("通过名称查商标：");
+		ResponseMessage<Tm> response = TaurusApiService.getTmByName("支付宝", 1, 2);
 		try {
 			json = mapper.writeValueAsString(response);
 			System.err.println(json);
