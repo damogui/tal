@@ -10,6 +10,7 @@ import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PForm;
+import org.netsharp.panda.entity.PFormField;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.u8.SetOfBooks;
@@ -53,7 +54,7 @@ public class SetOfBooksWorkspace extends WorkspaceCreationBase  {
 		column = addColumn(datagrid, "abbreviation", "简称", ControlTypes.TEXT_BOX, 200);{
 			column.setAlign(DatagridAlign.CENTER);
 		}		
-		addColumn(datagrid, "isEnabled", "是否可用", ControlTypes.BOOLCOMBO_BOX, 50);
+		addColumn(datagrid, "enabled", "是否可用", ControlTypes.BOOLCOMBO_BOX, 50);
 		addColumn(datagrid, "user.name", "添加人", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "createTime", "添加时间", ControlTypes.DATETIME_BOX, 20);
 		return datagrid;
@@ -67,12 +68,14 @@ public class SetOfBooksWorkspace extends WorkspaceCreationBase  {
 		addFormField(form, "name", "名称", null, ControlTypes.TEXT_BOX, true, false);		
 		addFormField(form, "senderNo", "外部系统编号", null, ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "type", "类型", null, ControlTypes.TEXT_BOX, true, false);
-		addFormField(form, "taxRate", "税率", null, ControlTypes.DECIMAL_BOX, true, false);		
+		PFormField field = addFormField(form, "taxRate", "税率", null, ControlTypes.DECIMAL_BOX, true, false);		{
+			field.setPrecision(3);
+		}
 		addFormField(form, "sort", "排序编号", null, ControlTypes.NUMBER_BOX, true, false);
 		addFormField(form, "accountCode", "科目编码", null, ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "enterName", "默认的制单人", null, ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "abbreviation", "简称", null, ControlTypes.TEXT_BOX, true, false);
-		addFormField(form, "isEnabled", "是否可用", null, ControlTypes.CHECK_BOX, true, false);
+		addFormField(form, "enabled", "是否可用", null, ControlTypes.SWITCH_BUTTON, true, false);
 		return form;
 	}
 	

@@ -1,17 +1,20 @@
 package com.gongsibao.entity.u8;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.json.JsonTaxRateBigDecimalSerializer;
 import com.gongsibao.entity.u8.dic.SetOfBooksType;
 import com.gongsibao.entity.uc.User;
 
-@Table(name="u8_set_of_books")
+@Table(name = "u8_set_of_books")
 public class SetOfBooks extends BaseEntity {
 
 	/**
@@ -19,36 +22,36 @@ public class SetOfBooks extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 3718467057006336462L;
 
-	@Column(name="name",header = "名称")
+	@Column(name = "name", header = "名称")
 	private String name;
 
-	@Column(name="sender_no",header = "外部系统编号")
+	@Column(name = "sender_no", header = "外部系统编号")
 	private String senderNo;
 
-	@Column(name="type",header = "类型（0：咨询 1：科技）")
+	@Column(name = "type", header = "类型（0：咨询 1：科技）")
 	private SetOfBooksType type = SetOfBooksType.Zixun;
 
-	@JsonDeserialize(using=JsonTaxRateBigDecimalSerializer.class)  
-	@Column(name="tax_rate",header = "税率")
+	@JsonSerialize(using = JsonTaxRateBigDecimalSerializer.class)
+	@Column(name = "tax_rate", header = "税率")
 	private BigDecimal taxRate;
-	
-	@Column(name="sort",header="排序编号")
-	private Integer sort;
-	
-	@Column(name="account_code",header="科目编码")
-	private String accountCode;
-	
-	@Column(name="enter_name",header="默认的制单人")
-	private String enterName;
-	
-	@Column(name="abbreviation",header="简称")
-	private String abbreviation;
-	
-	@Column(name="is_enabled",header="是否可用（0：不可用 1：可用）")
-	private Integer isEnabled;
 
-    @Reference(foreignKey="creatorId")
-    private User user;
+	@Column(name = "sort", header = "排序编号")
+	private Integer sort;
+
+	@Column(name = "account_code", header = "科目编码")
+	private String accountCode;
+
+	@Column(name = "enter_name", header = "默认的制单人")
+	private String enterName;
+
+	@Column(name = "abbreviation", header = "简称")
+	private String abbreviation;
+
+	@Column(name = "is_enabled", header = "是否可用（0：不可用 1：可用）")
+	private Boolean enabled = true;
+
+	@Reference(foreignKey = "creatorId")
+	private User user;
 
 	public String getName() {
 		return name;
@@ -56,7 +59,7 @@ public class SetOfBooks extends BaseEntity {
 
 	public void setName(String name) {
 		this.name = name;
-	}	
+	}
 
 	public String getSenderNo() {
 		return senderNo;
@@ -114,13 +117,13 @@ public class SetOfBooks extends BaseEntity {
 		this.abbreviation = abbreviation;
 	}
 
-	public Integer getIsEnabled() {
-		return isEnabled;
+	public Boolean getEnabled() {
+		return enabled;
 	}
 
-	public void setIsEnabled(Integer isEnabled) {
-		this.isEnabled = isEnabled;
-	}	
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
 
 	public User getUser() {
 		return user;
