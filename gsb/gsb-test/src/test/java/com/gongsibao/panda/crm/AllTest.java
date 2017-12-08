@@ -4,14 +4,13 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import com.gongsibao.crm.reference.CityReferenceTest;
-import com.gongsibao.crm.reference.CompanyIntentionReferenceTest;
-import com.gongsibao.crm.reference.CustomerRefereneTest;
-import com.gongsibao.crm.reference.ProductReferenceTest;
-import com.gongsibao.crm.workspace.CustomerAllWorkspaceTest;
-import com.gongsibao.crm.workspace.CustomerOrderWorkspaceTest;
-import com.gongsibao.crm.workspace.CustomerServiceConfigWorkspaceTest;
-
+import com.gongsibao.panda.crm.reference.CityReferenceTest;
+import com.gongsibao.panda.crm.reference.CompanyIntentionReferenceTest;
+import com.gongsibao.panda.crm.reference.CustomerRefereneTest;
+import com.gongsibao.panda.crm.reference.ProductReferenceTest;
+import com.gongsibao.panda.crm.workspace.CustomerAllWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.CustomerOrderWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.CustomerServiceConfigWorkspaceTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
