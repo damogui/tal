@@ -1,6 +1,9 @@
 package com.gongsibao.franchisee.job;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.netsharp.communication.ServiceFactory;
@@ -27,7 +30,22 @@ public class FranchiseeReportJob implements IJob {
 		// 1.先查询招商部员工信息
 		Integer departId = 6;
 		Integer[] employeeId = { 1093, 1094, 1459, 1460, 1711, 1712, 1721 };
-
+		//临时部门假数据
+		Map<Integer, List<Integer>> tempDepartmentMap=new HashMap<Integer, List<Integer>>();
+		List<Integer>getOne=new ArrayList<Integer>();
+		getOne.add(1093);
+		getOne.add(1094);
+		getOne.add(1459);
+		getOne.add(1460);
+		getOne.add(1711);
+		getOne.add(1712);
+		getOne.add(1721);
+		tempDepartmentMap.put(6, getOne);
+		List<Integer>getTwo=new ArrayList<Integer>();
+		getTwo.add(120);
+		getTwo.add(1076);
+		getTwo.add(1722);
+		tempDepartmentMap.put(1, getTwo);
 		// 获取当前时间
 		Calendar cal = Calendar.getInstance();// 使用日历类
 		int year = cal.get(Calendar.YEAR);// 得到年
@@ -53,6 +71,10 @@ public class FranchiseeReportJob implements IJob {
 				FranchiseeReport entity = new FranchiseeReport();
 				entity.setOrganizationId(departId);
 				entity.setOwnerId(item);
+				entity.setType(FranchiseeReportType.date);
+				entity.setYear(year);
+				entity.setMonth(month);
+				entity.setDate(cal.getTime());
 				entity.toNew();
 				reportService.save(entity);
 			} else {
