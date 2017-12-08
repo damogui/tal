@@ -403,7 +403,7 @@ org.netsharp.controls.NumberBoxQueryItem = org.netsharp.controls.Control.Extends
         return qp;
     },
 	clear: function() {
-		$('#' + this.propertyName).combobox('setValue','');
+		$('#' + this.propertyName).numberbox('setValue','');
 	}
 });
 
