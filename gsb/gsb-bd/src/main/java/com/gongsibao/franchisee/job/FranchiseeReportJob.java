@@ -1,8 +1,6 @@
 package com.gongsibao.franchisee.job;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Map;
 
 import org.netsharp.communication.ServiceFactory;
@@ -13,7 +11,6 @@ import com.gongsibao.entity.franchisee.dic.FranchiseeReportType;
 import com.gongsibao.entity.franchisee.dto.FranchiseeReportDto;
 import com.gongsibao.franchisee.base.IFranchiseeReportService;
 import com.gongsibao.franchisee.base.IFranchiseeService;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 /**   
  * @ClassName:  FranchiseeReportJob   
