@@ -388,8 +388,7 @@ org.netsharp.controls.NumberBoxQueryItem = org.netsharp.controls.Control.Extends
         	
         	if(interval){
         		
-        		var operation = $("#shortcut_"+propertyName).combobox("getValue");
-        		qp.Filter = propertyName + operation + propertyValue+" ";
+        		qp.Filter = propertyName + '=' + propertyValue+" ";
         	}else{
 
         		qp.Filter = propertyName + ">=" + propertyValue+" ";

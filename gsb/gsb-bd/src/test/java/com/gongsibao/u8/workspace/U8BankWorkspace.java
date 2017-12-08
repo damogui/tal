@@ -49,7 +49,7 @@ public class U8BankWorkspace extends WorkspaceCreationBase {
 		addColumn(datagrid, "name", "银行/科目名称", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "no", "卡号", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "code", "科目编号", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "abbreviation", "简称", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "abbreviation", "简称", ControlTypes.TEXT_BOX, 150);
 		addColumn(datagrid, "setOfBooks.name", "账套名称", ControlTypes.TEXT_BOX, 200);		
 		column = addColumn(datagrid, "type", "类型", ControlTypes.TEXT_BOX, 100);{
 			column.setAlign(DatagridAlign.CENTER);
@@ -64,7 +64,7 @@ public class U8BankWorkspace extends WorkspaceCreationBase {
 
 		addColumn(datagrid, "enabled", "是否可用", ControlTypes.BOOLCOMBO_BOX, 50);
 		addColumn(datagrid, "creator", "添加人", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "createTime", "添加时间", ControlTypes.ENUM_BOX, 20);
+		addColumn(datagrid, "createTime", "添加时间", ControlTypes.DATETIME_BOX, 100);
 		return datagrid;
 	}
 
