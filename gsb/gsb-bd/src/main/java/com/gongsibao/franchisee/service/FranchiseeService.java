@@ -13,7 +13,7 @@ import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.franchisee.Franchisee;
 import com.gongsibao.entity.franchisee.FranchiseeLinkman;
-import com.gongsibao.entity.franchisee.dto.FranchiseeReportDto;
+import com.gongsibao.entity.franchisee.FranchiseeReport;
 import com.gongsibao.franchisee.base.IFranchiseeLinkmanService;
 import com.gongsibao.franchisee.base.IFranchiseeService;
 
@@ -66,29 +66,30 @@ public class FranchiseeService extends PersistableService<Franchisee> implements
 	}
 
 	@Override
-	public Map<Integer, Integer> getCustomersAllTotal(String currentTime) {
+	public Map<Integer, Integer> getCustomersAllTotal(Integer ownerId,String currentTime) {
 		Map<Integer, Integer> returnMap = new HashMap<Integer, Integer>();
 
 		StringBuilder sqlBuilder = new StringBuilder();
-		sqlBuilder.append("SELECT owner_id,COUNT(1) as count from bd_franchisee WHERE create_time <= '2017-12-04 23:59:59'");
+		sqlBuilder.append("SELECT owner_id,COUNT(1) as count from bd_franchisee WHERE create_time <= '"+currentTime+"'");
+		sqlBuilder.append(" and owner_id="+ownerId);
 		sqlBuilder.append(" GROUP BY owner_id");
 		DataTable dataTable = this.pm.executeTable(sqlBuilder.toString(), null);
 
 		for (IRow row : dataTable) {
-			Integer ownerId = Integer.parseInt(row.getString("owner_id"));
+			Integer getOwnerId = Integer.parseInt(row.getString("owner_id"));
 			Integer count = Integer.parseInt(row.getString("count"));
-			returnMap.put(ownerId, count);
+			returnMap.put(getOwnerId, count);
 		}
 		return returnMap;
 	}
 
 	@Override
-	public FranchiseeReportDto getList(Integer ownerId,String currentTime) {
-		FranchiseeReportDto returnEntity =new FranchiseeReportDto();
+	public FranchiseeReport getReportEntity(Integer ownerId,String currentTime) {
+		FranchiseeReport returnEntity =new FranchiseeReport();
 		
 		StringBuilder sqlBuilder = new StringBuilder();
 		sqlBuilder.append("SELECT id,last_tracker_id,last_track_time,intention_degree,track_progress,expected_sign,create_time");
-		sqlBuilder.append(" from bd_franchisee WHERE create_time <= '2017-12-05 23:59:59' and owner_id = "+ownerId);
+		sqlBuilder.append(" from bd_franchisee WHERE create_time <= '"+currentTime+"' and owner_id = "+ownerId);
 		DataTable dataTable = this.pm.executeTable(sqlBuilder.toString(), null);
 		//已跟进
 		Integer getTrackCount=0;
