@@ -119,9 +119,9 @@ public class VoucherLogWorkspace extends WorkspaceCreationBase {
 		
 		ResourceNode node = this.getResourceNode();
 		operationService.addOperation(node,OperationTypes.view);
-		operationService.addOperation(node,OperationTypes.add);
-		operationService.addOperation(node,OperationTypes.update);
-		operationService.addOperation(node,OperationTypes.delete);
+//		operationService.addOperation(node,OperationTypes.add);
+//		operationService.addOperation(node,OperationTypes.update);
+//		operationService.addOperation(node,OperationTypes.delete);
 	}
 	
 }
