@@ -72,6 +72,7 @@ public class PatentDesc implements IEntity {
 	/**
 	 * @Fields applicantName : TODO(申请（专利权）人)
 	 */
+	@JsonProperty(value = "applicantname")
 	private String applicantName;
 
 	/**
