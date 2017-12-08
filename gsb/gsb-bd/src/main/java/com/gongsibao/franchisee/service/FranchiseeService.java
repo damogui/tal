@@ -14,7 +14,6 @@ import org.netsharp.util.StringManager;
 import com.gongsibao.entity.franchisee.Franchisee;
 import com.gongsibao.entity.franchisee.FranchiseeLinkman;
 import com.gongsibao.entity.franchisee.FranchiseeReport;
-import com.gongsibao.entity.franchisee.dto.FranchiseeReportDto;
 import com.gongsibao.franchisee.base.IFranchiseeLinkmanService;
 import com.gongsibao.franchisee.base.IFranchiseeService;
 
