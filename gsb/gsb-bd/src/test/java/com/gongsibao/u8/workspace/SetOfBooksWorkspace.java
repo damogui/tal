@@ -50,7 +50,7 @@ public class SetOfBooksWorkspace extends WorkspaceCreationBase  {
 		column = addColumn(datagrid, "type", "类型", ControlTypes.TEXT_BOX, 100);{
 			column.setAlign(DatagridAlign.CENTER);
 		}
-		addColumn(datagrid, "taxRate", "税率", ControlTypes.DECIMAL_BOX, 100);	
+		//addColumn(datagrid, "taxRate", "税率", ControlTypes.DECIMAL_BOX, 100);	
 		addColumn(datagrid, "sort", "排序编号", ControlTypes.NUMBER_BOX, 100);
 		addColumn(datagrid, "accountCode", "科目编码", ControlTypes.TEXT_BOX, 150);
 		addColumn(datagrid, "enterName", "默认的制单人", ControlTypes.TEXT_BOX, 100);
@@ -59,7 +59,7 @@ public class SetOfBooksWorkspace extends WorkspaceCreationBase  {
 		}		
 		addColumn(datagrid, "enabled", "是否可用", ControlTypes.BOOLCOMBO_BOX, 50);
 		addColumn(datagrid, "creator", "添加人", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "createTime", "添加时间", ControlTypes.DATETIME_BOX, 20);
+		addColumn(datagrid, "createTime", "添加时间", ControlTypes.DATETIME_BOX, 100);
 		return datagrid;
 	}
 

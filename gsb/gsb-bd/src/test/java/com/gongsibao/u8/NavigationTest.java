@@ -31,7 +31,7 @@ public class NavigationTest extends NavigationBase {
 		{
 			createPTreeNode(tree, "GSB_U8_Manage", null, "U8_" + SetOfBooks.class.getSimpleName(), "账套列表", "/u8/setofBbooks/list", 1);//二级菜单
 			createPTreeNode(tree, "GSB_U8_Manage", null, "U8_" + U8Bank.class.getSimpleName(), "科目银行列表", "/u8/bank/list", 1);//二级菜单
-			createPTreeNode(tree, "GSB_U8_Manage", null, "U8_" + VoucherLog.class.getSimpleName(), "凭证日志记录", "/u8/bank/list", 1);//二级菜单
+			createPTreeNode(tree, "GSB_U8_Manage", null, "U8_" + VoucherLog.class.getSimpleName(), "凭证日志记录", "/u8/voucherLog/list", 1);//二级菜单
 		}
 	}
 }
