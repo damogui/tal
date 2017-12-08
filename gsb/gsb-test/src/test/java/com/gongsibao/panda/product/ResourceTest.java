@@ -28,7 +28,7 @@ public class ResourceTest extends ResourceCreationBase {
 
 		String prefix = ResourceTest.resourcePrefix;
 		ResourceNode node1 = null;
-		node1 = this.createResourceNodeCategory("产品管理", prefix + "_Manager", node.getId());
+		node1 = this.createResourceNodeCategory("产品管理", prefix + "_Manage", node.getId());
 		{
 			this.createResourceNodeVoucher(Product.class.getName(), "产品列表", node1.getCode() + "_Product", IProductService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(Product.class.getName(), "在售列表", node1.getCode() + "_OnSale", IProductService.class.getName(), node1.getId());
