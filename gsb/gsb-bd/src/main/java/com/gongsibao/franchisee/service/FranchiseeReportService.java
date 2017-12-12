@@ -10,8 +10,6 @@ import org.netsharp.core.DataTable;
 import org.netsharp.core.IRow;
 import org.netsharp.service.PersistableService;
 
-import sun.text.resources.cldr.FormatData;
-
 import com.gongsibao.entity.franchisee.FranchiseeReport;
 import com.gongsibao.entity.franchisee.dic.FranchiseeReportType;
 import com.gongsibao.franchisee.base.IFranchiseeReportService;
