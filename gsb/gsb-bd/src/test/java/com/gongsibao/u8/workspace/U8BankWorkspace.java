@@ -14,7 +14,6 @@ import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.entity.u8.SetOfBooks;
 import com.gongsibao.entity.u8.U8Bank;
 
 public class U8BankWorkspace extends WorkspaceCreationBase {
