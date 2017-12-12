@@ -371,7 +371,6 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 			PFormField formField = null;
 			formField = addFormFieldRefrence(form, "company.companyName", "公司名称", null, CompanyIntention.class.getSimpleName(), true, false);
 			{
-
 				formField.setWidth(300);
 			}
 		}

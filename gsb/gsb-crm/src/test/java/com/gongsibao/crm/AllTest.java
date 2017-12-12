@@ -8,6 +8,7 @@ import com.gongsibao.crm.reference.CityReferenceTest;
 import com.gongsibao.crm.reference.CompanyIntentionReferenceTest;
 import com.gongsibao.crm.reference.CustomerRefereneTest;
 import com.gongsibao.crm.reference.ProductReferenceTest;
+import com.gongsibao.crm.workspace.CompanyIntentionWorkspaceTest;
 import com.gongsibao.crm.workspace.CustomerAllWorkspaceTest;
 import com.gongsibao.crm.workspace.CustomerOrderWorkspaceTest;
 import com.gongsibao.crm.workspace.CustomerServiceConfigWorkspaceTest;
@@ -30,6 +31,8 @@ import com.gongsibao.crm.workspace.CustomerServiceConfigWorkspaceTest;
 //		
 		CustomerServiceConfigWorkspaceTest.class,
 		CustomerOrderWorkspaceTest.class,
+		CompanyIntentionWorkspaceTest.class,
+		
 		NavigationTest.class
 		})
 		
