@@ -44,8 +44,8 @@ public class ResourceTest extends ResourceCreationBase {
 		node1 = this.createResourceNodeCategory("U8配置", prefix + "_U8", node.getId());
 		{
 			this.createResourceNodeVoucher(SetOfBooks.class.getName(), "账套列表", node1.getCode() + "_" + SetOfBooks.class.getSimpleName(), ISetOfBooksService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(U8Bank.class.getName(), "科目银行列表", node1.getCode() + "_" + U8Bank.class.getSimpleName(), IU8BankService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(VoucherLog.class.getName(), "凭证日志记录", node1.getCode() + "_" + VoucherLog.class.getSimpleName(), IVoucherLogService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(U8Bank.class.getName(), "科目银行", node1.getCode() + "_" + U8Bank.class.getSimpleName(), IU8BankService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(VoucherLog.class.getName(), "凭证日志", node1.getCode() + "_" + VoucherLog.class.getSimpleName(), IVoucherLogService.class.getName(), node1.getId());
 		}
 	}
 }
