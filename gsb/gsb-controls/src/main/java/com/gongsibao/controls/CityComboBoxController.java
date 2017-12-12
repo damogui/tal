@@ -4,13 +4,11 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.util.StringManager;
 
-import com.gongsibao.bd.base.IDictService;
 import com.gongsibao.entity.bd.Dict;
 
 public class CityComboBoxController {
