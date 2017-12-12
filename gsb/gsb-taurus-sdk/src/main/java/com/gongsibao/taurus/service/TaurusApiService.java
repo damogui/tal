@@ -2,33 +2,7 @@ package com.gongsibao.taurus.service;
 
 import java.util.List;
 
-import com.gongsibao.taurus.api.AnnualReportApi;
-import com.gongsibao.taurus.api.ApiFactory;
-import com.gongsibao.taurus.api.CompanyAbnormalApi;
-import com.gongsibao.taurus.api.CompanyEquityApi;
-import com.gongsibao.taurus.api.CompanyMortgageApi;
-import com.gongsibao.taurus.api.CopyrightApi;
-import com.gongsibao.taurus.api.CourtAnnouncementApi;
-import com.gongsibao.taurus.api.CourtExecutiveApi;
-import com.gongsibao.taurus.api.DishonestInfoApi;
-import com.gongsibao.taurus.api.EntBranchApi;
-import com.gongsibao.taurus.api.EntChangeRecordApi;
-import com.gongsibao.taurus.api.EntInvestApi;
-import com.gongsibao.taurus.api.EntMemberApi;
-import com.gongsibao.taurus.api.EntRegistryApi;
-import com.gongsibao.taurus.api.EntSearchApi;
-import com.gongsibao.taurus.api.EntShareholderApi;
-import com.gongsibao.taurus.api.IcpInfoApi;
-import com.gongsibao.taurus.api.JudgmentApi;
-import com.gongsibao.taurus.api.PatentDescApi;
-import com.gongsibao.taurus.api.PatentsApi;
-import com.gongsibao.taurus.api.ReportOutboundInvestmentApi;
-import com.gongsibao.taurus.api.ReportShareholderApi;
-import com.gongsibao.taurus.api.ReportWebInfoApi;
-import com.gongsibao.taurus.api.TmApi;
-import com.gongsibao.taurus.api.TmdescApi;
-import com.gongsibao.taurus.api.TmflowApi;
-import com.gongsibao.taurus.api.WorksCopyrightApi;
+import com.gongsibao.taurus.api.*;
 import com.gongsibao.taurus.entity.AnnualReport;
 import com.gongsibao.taurus.entity.Company;
 import com.gongsibao.taurus.entity.CompanyAbnormal;
@@ -313,6 +287,24 @@ public class TaurusApiService {
 
 		TmApi api = ApiFactory.create(TmApi.class);
 		api.setCompanyName(companyName);
+		api.setCurrentPage(currentPage);
+		api.setPageSize(pageSize);
+		ResponseMessage<Tm> response = api.getResponse();
+		return response;
+	}
+
+
+	/**
+	 * @Title: getTm
+	 * @Description: 通过名称获取商标列表
+	 * @param: @param tmName
+	 * @param: @return
+	 * @return: List<DishonestInfo>
+	 * @throws
+	 */
+	public static ResponseMessage<Tm> getTmByName(String tmName, int currentPage, int pageSize) {
+		TmByNameApi api = ApiFactory.create(TmByNameApi.class);
+		api.setTmName(tmName);
 		api.setCurrentPage(currentPage);
 		api.setPageSize(pageSize);
 		ResponseMessage<Tm> response = api.getResponse();

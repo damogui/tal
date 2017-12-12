@@ -1,7 +1,9 @@
 package com.gongsibao.taurus.entity;
 
 
-/**   
+import org.codehaus.jackson.annotate.JsonProperty;
+
+/**
  * @ClassName:  Tmdesc   
  * @Description:TODO 商标详情
  * @author: 韩伟
@@ -45,7 +47,8 @@ public class Tmdesc implements IEntity{
 	
 	/**   
 	 * @Fields application_cn : TODO(申请人中文)   
-	 */   
+	 */
+	@JsonProperty(value = "applicantCn")
 	private String applicationCn; 
 	
 	/**   

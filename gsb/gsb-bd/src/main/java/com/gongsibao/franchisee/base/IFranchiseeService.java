@@ -18,10 +18,12 @@ public interface IFranchiseeService extends IPersistableService<Franchisee>{
 	public Map<Integer, Integer> getCustomersAllTotal(Integer ownerId,String currentTime);
 	
 	/**
-	 * 根据条件查询符合报表数据的集合
+	 * 根据条件统计报表数据的集合
 	 * @param ownerId 业务员Id
 	 * @param currentTime 当前时间
-	 * @return
+	 * @return  
 	 */
-	public FranchiseeReport getReportEntity(Integer ownerId,String currentTime);
+	public FranchiseeReport statistReport(Integer ownerId,String currentTime);
+	
+	
 }

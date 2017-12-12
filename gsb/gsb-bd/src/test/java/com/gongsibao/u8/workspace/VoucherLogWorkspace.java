@@ -56,7 +56,9 @@ public class VoucherLogWorkspace extends WorkspaceCreationBase {
 		addColumn(datagrid, "type", "类型", ControlTypes.ENUM_BOX, 100);	
 		addColumn(datagrid, "voucherId", "u8生成的凭证号", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "dsc", "u8返回信息说明", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "succeed", "成功标识(0:成功;非0:失败)", ControlTypes.TEXT_BOX, 180);
+		column = addColumn(datagrid, "succeed", "成功标识", ControlTypes.TEXT_BOX, 80);{
+			column.setFormatter("return value=='0'?'成功':'失败'; ");
+		}
 		addColumn(datagrid, "refundItemId", "退产品单退款编号", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "setOfBooks.name", "账套名称", ControlTypes.TEXT_BOX, 200);				
 		addColumn(datagrid, "createTime", "添加时间", ControlTypes.DATETIME_BOX, 100);				
@@ -117,9 +119,9 @@ public class VoucherLogWorkspace extends WorkspaceCreationBase {
 		
 		ResourceNode node = this.getResourceNode();
 		operationService.addOperation(node,OperationTypes.view);
-		operationService.addOperation(node,OperationTypes.add);
-		operationService.addOperation(node,OperationTypes.update);
-		operationService.addOperation(node,OperationTypes.delete);
+//		operationService.addOperation(node,OperationTypes.add);
+//		operationService.addOperation(node,OperationTypes.update);
+//		operationService.addOperation(node,OperationTypes.delete);
 	}
 	
 }
