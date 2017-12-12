@@ -1,4 +1,4 @@
-package com.gongsibao.panda.franchisee.workspace.department;
+package com.gongsibao.panda.franchisee.workspace.operation;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,26 +17,26 @@ import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.franchisee.FranchiseeReport;
-import com.gongsibao.franchisee.web.DepartmentDayReportController;
+import com.gongsibao.franchisee.web.FranchiseeYearReportController;
 
-public class DepartmentDayReportWorkspaceTest  extends WorkspaceCreationBase{
+public class OperationYearReportWorkspaceTest  extends WorkspaceCreationBase{
 
 	@Override
 	@Before
 	public void setup() {
 		entity = FranchiseeReport.class;
-		urlList = "/bd/department/day/report";
-		listPartName = formPartName = "日统计";
+		urlList = "/bd/operation/year/report";
+		listPartName = formPartName = "年统计";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "BD_DEPARTMENT_Day_Report";
+		resourceNodeCode = "GSB_BD_OPERATION_Year_Report";
 		listPartType = PartType.TREEGRID_PART.getId();
 		formOpenMode = OpenMode.WINDOW;
-		listFilter="type=4";
+		listFilter="type=1";
 		// 扩展
-		listPartServiceController = DepartmentDayReportController.class.getName();
-		listPartJsController = DepartmentDayReportController.class.getName();
-		listPartImportJs = "/gsb/bd/js/departReport/day.report.part.js";
+		listPartServiceController = FranchiseeYearReportController.class.getName();
+		listPartJsController = FranchiseeYearReportController.class.getName();
+		listPartImportJs = "/gsb/bd/js/year.report.part.js";
 		listToolbarPath="/bd/crm/report/toolbar";
 	}
 
@@ -48,11 +48,11 @@ public class DepartmentDayReportWorkspaceTest  extends WorkspaceCreationBase{
 			toolbar.toNew();
 			toolbar.setBasePath("panda/datagrid/edit");
 			toolbar.setPath(listToolbarPath);
-			toolbar.setName("部门日统计工具栏");
+			toolbar.setName("运营年统计工具栏");
 			toolbar.setResourceNode(node);
 		}
-		addToolbarItem(toolbar, "disabled", "生成日报", "fa-stop-circle-o",
-				"departDayReports()", null, 5);
+		addToolbarItem(toolbar, "disabled", "生成年报", "fa-stop-circle-o",
+				"operYearReports()", null, 5);
 		toolbarService.save(toolbar);
 	}
 
@@ -68,7 +68,7 @@ public class DepartmentDayReportWorkspaceTest  extends WorkspaceCreationBase{
 		{
 		}
 
-		column = addColumn(datagrid, "date", "日期", ControlTypes.DATE_BOX,
+		column = addColumn(datagrid, "year", "年份", ControlTypes.NUMBER_BOX,
 				100, true);
 		{
 		}
@@ -183,7 +183,7 @@ public class DepartmentDayReportWorkspaceTest  extends WorkspaceCreationBase{
 	  protected PQueryProject createQueryProject(ResourceNode node) {
 		  PQueryProject queryProject = super.createQueryProject(node);
 		  queryProject.toNew(); 
-		  PQueryItem item = addQueryItem(queryProject, "date", "日期",ControlTypes.DATE_BOX);{
+		  PQueryItem item = addQueryItem(queryProject, "date", "日期",ControlTypes.MONTH_BOX);{
 			  item.setInterzone(true);
 			  item.setShortcut(true);
 		  }
