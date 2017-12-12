@@ -1,4 +1,4 @@
-package com.gongsibao.er.workspace.config;
+package com.gongsibao.panda.iduty.workspace.config;
 
 import org.junit.Test;
 import org.netsharp.communication.ServiceFactory;
@@ -11,13 +11,10 @@ import org.netsharp.panda.entity.PWorkspace;
 import org.netsharp.resourcenode.IResourceNodeService;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.entity.er.Order;
-
-public class CustomerWorkspaceTest {
-
-	private String url = "/er/config/3/list";
-	private String name = "客户管理";
-	private String code = "ER_Config_3_" + Order.class.getSimpleName();
+public class TemplateWorkspaceTest {
+	private String url = "/iduty/config/template/list";
+	private String name = "模版管理";
+	private String code = "GSB_IDuty_Config_Template";
 
 	@Test
 	public void execute() {
@@ -34,7 +31,7 @@ public class CustomerWorkspaceTest {
 			workspace.setName(this.name);
 			workspace.setCode(this.code);
 			workspace.setResourceNode(node);
-			workspace.setRedirectUrl("http://t2.gongsibao.net/erpct2/index.html#/app/cm/customerManage");
+			workspace.setRedirectUrl("http://t2.gongsibao.net/erpct2/index.html#/app/cm/templetManage");
 			workspace.setOperationTypeId(opt.getId());
 			workspace.toNew();
 		}

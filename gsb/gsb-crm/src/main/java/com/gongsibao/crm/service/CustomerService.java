@@ -9,6 +9,7 @@ import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
 import org.netsharp.core.EntityState;
+import org.netsharp.core.MtableManager;
 import org.netsharp.core.Oql;
 import org.netsharp.organization.base.IEmployeeService;
 import org.netsharp.organization.entity.Employee;
@@ -16,6 +17,7 @@ import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.util.StringManager;
+import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.bd.service.GsbPersistableService;
 import com.gongsibao.crm.base.ICustomerService;
@@ -38,33 +40,39 @@ public class CustomerService extends GsbPersistableService<Customer> implements 
 	@Override
 	public Customer save(Customer entity) {
 
-		
-		//获取当前跟进人对应UC体系的Id
+		// 获取当前跟进人对应UC体系的Id
 		Employee employee = this.getEmployee();
 		IUserService userService = ServiceFactory.create(IUserService.class);
 		User user = userService.byMobilePhone(employee.getLoginName());
-		if(user == null){
-			
+		if (user == null) {
+
 			throw new BusinessException("帐号体系不一致，请联系技术部处理");
 		}
-		
+
 		if (entity.getEntityState() != EntityState.Deleted) {
 
-			if(entity.getEntityState() == EntityState.New){
+			if (entity.getEntityState() == EntityState.New) {
+
+				// 校验是否已存在
+				Boolean isHas = this.hasMobile(entity.getMobile().trim());
+				if (isHas) {
+
+					throw new BusinessException("手机号已存在");
+				}
 
 				entity.setCreatorId(user.getId());
-				
-				ICustomerServiceConfigService  configService = ServiceFactory.create(ICustomerServiceConfigService.class);
+
+				ICustomerServiceConfigService configService = ServiceFactory.create(ICustomerServiceConfigService.class);
 				ServiceType type = configService.getTypeByEmployeeId(employee.getId());
-				if(type == ServiceType.AFTER_SALES){
-					
+				if (type == ServiceType.AFTER_SALES) {
+
 					entity.setFollowUserId(user.getId());
 				}
-				
-				//更新最后一次使用时间
+
+				// 更新最后一次使用时间
 				configService.updateLastUseDate(employee.getId(), new Date());
 			}
-			
+
 			if (entity.getfProvinceId() != null) {
 
 				entity.setCityId(entity.getfProvinceId());
@@ -106,9 +114,31 @@ public class CustomerService extends GsbPersistableService<Customer> implements 
 		entity = super.save(entity);
 		return entity;
 	}
-	
-	private Employee getEmployee(){
-		
+
+	/**
+	 * @Title: hasMobile
+	 * @Description: TODO(判断手机号是否存在)
+	 * @param: @param mobile
+	 * @param: @return
+	 * @return: Boolean
+	 * @throws
+	 */
+	private Boolean hasMobile(String mobile) {
+
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects("*");
+			oql.setFilter(" mobile=? ");
+			oql.getParameters().add("mobile", mobile, Types.VARCHAR);
+		}
+
+		return this.queryCount(oql) > 0;
+
+	}
+
+	private Employee getEmployee() {
+
 		Oql oql = new Oql();
 		{
 			oql.setType(Employee.class);
@@ -142,7 +172,7 @@ public class CustomerService extends GsbPersistableService<Customer> implements 
 
 		return this.queryFirst(oql);
 	}
-	
+
 	@Override
 	public Customer byId(Object id) {
 
@@ -156,13 +186,13 @@ public class CustomerService extends GsbPersistableService<Customer> implements 
 		}
 
 		Customer entity = this.queryFirst(oql);
-		if(entity.getAccountId() !=null && entity.getAccountId()!=0){
-			
-			 List<SoOrder> orders = getOrderList(entity.getAccountId());
-			 entity.setOrders(orders);
+		if (entity.getAccountId() != null && entity.getAccountId() != 0) {
+
+			List<SoOrder> orders = getOrderList(entity.getAccountId());
+			entity.setOrders(orders);
 		}
 		return entity;
-	} 
+	}
 
 	@Override
 	public Customer bySwtCustomerId(String swtCustomerId) {
@@ -178,16 +208,16 @@ public class CustomerService extends GsbPersistableService<Customer> implements 
 
 		Customer entity = this.queryFirst(oql);
 
-		if(entity != null && entity.getAccountId() !=null && entity.getAccountId()!=0){
-			
-			 List<SoOrder> orders = getOrderList(entity.getAccountId());
-			 entity.setOrders(orders);
+		if (entity != null && entity.getAccountId() != null && entity.getAccountId() != 0) {
+
+			List<SoOrder> orders = getOrderList(entity.getAccountId());
+			entity.setOrders(orders);
 		}
 		return entity;
 	}
-	
-	private List<SoOrder> getOrderList(int accountId){
-		
+
+	private List<SoOrder> getOrderList(int accountId) {
+
 		Oql oql = new Oql();
 		{
 			oql.setType(SoOrder.class);
@@ -195,44 +225,57 @@ public class CustomerService extends GsbPersistableService<Customer> implements 
 			oql.setFilter("accountId=?");
 			oql.getParameters().add("accountId", accountId, Types.INTEGER);
 		}
-		
+
 		IPersister<SoOrder> orderPm = PersisterFactory.create();
 		return orderPm.queryList(oql);
 	}
 
 	@Override
 	public Customer byContactWay(String contactWay, String type) {
-		
+
 		String selectFields = getSelectFullFields();
 		Oql oql = new Oql();
 		{
 			oql.setType(this.type);
 			oql.setSelects(selectFields);
-			oql.setFilter(type+"=?");
+			oql.setFilter(type + "=?");
 			oql.getParameters().add("contactWay", contactWay, Types.VARCHAR);
 		}
 
 		Customer entity = this.queryFirst(oql);
 
-		if(entity != null && entity.getAccountId() !=null && entity.getAccountId()!=0){
-			
-			 List<SoOrder> orders = getOrderList(entity.getAccountId());
-			 entity.setOrders(orders);
+		if (entity != null && entity.getAccountId() != null && entity.getAccountId() != 0) {
+
+			List<SoOrder> orders = getOrderList(entity.getAccountId());
+			entity.setOrders(orders);
 		}
 		return entity;
 	}
 
+	/**   
+	 * <p>Title: bindSwtCustomerId</p>   
+	 * <p>Description:绑定商务通Id </p>   
+	 * @param swtCustomerId
+	 * @param customerId
+	 * @return   
+	 * @see com.gongsibao.crm.base.ICustomerService#bindSwtCustomerId(java.lang.String, int)   
+	 */
 	@Override
 	public Customer bindSwtCustomerId(String swtCustomerId, int customerId) {
-		
+
+		UpdateBuilder updateBuilder = new UpdateBuilder();
+		{
+			updateBuilder.update(MtableManager.getMtable(this.type).getTableName());
+			updateBuilder.set("swt_customer_id", swtCustomerId);
+			updateBuilder.where("pkid =" + customerId);
+		}
+		this.pm.executeNonQuery(updateBuilder.toSQL(), null);
 		Customer customer = byId(customerId);
-		customer.setSwtCustomerId(swtCustomerId);
-		customer = this.save(customer);
 		return customer;
 	}
-	
-	private String getSelectFullFields(){
-		
+
+	private String getSelectFullFields() {
+
 		StringBuilder builder = new StringBuilder();
 		builder.append("Customer.*,");
 		builder.append("Customer.allocationOrg.*,");

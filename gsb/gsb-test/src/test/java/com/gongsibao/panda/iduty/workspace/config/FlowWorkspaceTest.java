@@ -1,4 +1,4 @@
-package com.gongsibao.er.workspace.config;
+package com.gongsibao.panda.iduty.workspace.config;
 
 import org.junit.Test;
 import org.netsharp.communication.ServiceFactory;
@@ -11,12 +11,10 @@ import org.netsharp.panda.entity.PWorkspace;
 import org.netsharp.resourcenode.IResourceNodeService;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.entity.er.Order;
-
-public class GoodsWorkspaceTest {
-	private String url = "/er/config/4/list";
-	private String name = "商品管理";
-	private String code = "ER_Config_4_" + Order.class.getSimpleName();
+public class FlowWorkspaceTest {
+	private String url = "/iduty/config/flow/list";
+	private String name = "流程管理";
+	private String code = "GSB_IDuty_Config_Flow";
 
 	@Test
 	public void execute() {
@@ -33,7 +31,7 @@ public class GoodsWorkspaceTest {
 			workspace.setName(this.name);
 			workspace.setCode(this.code);
 			workspace.setResourceNode(node);
-			workspace.setRedirectUrl("http://t2.gongsibao.net/erpct2/index.html#/app/cm/goodsManage/");
+			workspace.setRedirectUrl("http://t2.gongsibao.net/erpct2/index.html#/app/cm/flowManage");
 			workspace.setOperationTypeId(opt.getId());
 			workspace.toNew();
 		}

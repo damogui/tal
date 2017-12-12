@@ -42,7 +42,7 @@ public class CustomerServiceConfigService extends PersistableService<CustomerSer
 		{
 			oql.setType(this.type);
 			oql.setSelects("CustomerServiceConfig.*,CustomerServiceConfig.employee.*");
-			oql.setFilter("swtServiceIdMD5=?");
+			oql.setFilter("swtServiceIdMD5=? and employee.disabled = 0");
 			oql.getParameters().add("swtServiceIdMd5", swtServiceIdMd5, Types.VARCHAR);
 		}
 		return this.queryFirst(oql);

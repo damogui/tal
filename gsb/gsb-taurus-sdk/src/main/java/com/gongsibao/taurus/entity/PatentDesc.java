@@ -40,6 +40,7 @@ public class PatentDesc implements IEntity {
 	/**
 	 * @Fields pubNumber : TODO(公开（公告）号)
 	 */
+    @JsonProperty(value = "pubnumber")
 	private String pubNumber;
 
 	/**
@@ -71,6 +72,7 @@ public class PatentDesc implements IEntity {
 	/**
 	 * @Fields applicantName : TODO(申请（专利权）人)
 	 */
+	@JsonProperty(value = "applicantname")
 	private String applicantName;
 
 	/**

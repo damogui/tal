@@ -1,4 +1,4 @@
-package com.gongsibao.er;
+package com.gongsibao.tools;
 
 import java.util.List;
 
@@ -31,6 +31,7 @@ public class SyncUserTest {
 	IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
 	String memotoKey = "iDuty";
 
+	
 	@Test
 	public void run() {
 

@@ -13,12 +13,12 @@ public class TmByNameApi extends AbstractApi<TmByNameResponseMessage> {
     /**
      * 商标名称（查询参数）
      */
-    private String name;
+    private String tmName;
 
     @Override
     protected void setExtendParameter(List<String> parameters) {
         if (null != parameters) {
-            parameters.add("name=" + this.getName());
+            parameters.add("name=" + this.getTmName());
         }
     }
 
@@ -32,11 +32,11 @@ public class TmByNameApi extends AbstractApi<TmByNameResponseMessage> {
         return TmByNameResponseMessage.class;
     }
 
-    public String getName() {
-        return name;
+    public String getTmName() {
+        return tmName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTmName(String tmName) {
+        this.tmName = tmName;
     }
 }

@@ -1,4 +1,4 @@
-package com.gongsibao.er.workspace.task;
+package com.gongsibao.panda.iduty.workspace.task;
 
 import org.junit.Test;
 import org.netsharp.communication.ServiceFactory;
@@ -11,37 +11,36 @@ import org.netsharp.panda.entity.PWorkspace;
 import org.netsharp.resourcenode.IResourceNodeService;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.entity.er.Order;
-
-public class ReportWorkspaceTest {
-	private String url = "/er/task/1/list";
-	private String name="指挥中心";
-	private String code="ER_Task_1_" + Order.class.getSimpleName();
+public class MyTaskWorkspaceTest {
 	
+	private String url = "/iduty/task/my/list";
+	private String name = "我的任务";
+	private String code = "GSB_IDuty_Task_My_Task";
+
 	@Test
 	public void execute() {
-		
+
 		IResourceNodeService nodeService = ServiceFactory.create(IResourceNodeService.class);
 		ResourceNode node = nodeService.byCode(this.code);
-		
+
 		IOperationTypeService operationTypeService = ServiceFactory.create(IOperationTypeService.class);
 		OperationType opt = operationTypeService.byCode(OperationTypes.view);
-		
+
 		PWorkspace workspace = new PWorkspace();
 		{
 			workspace.setUrl(this.url);
 			workspace.setName(this.name);
 			workspace.setCode(this.code);
 			workspace.setResourceNode(node);
-			workspace.setRedirectUrl("http://t2.gongsibao.net/erpct2/index.html#/app/tms/controlCenter");
+			workspace.setRedirectUrl("http://t2.gongsibao.net/erpct2/index.html#/app/tms/myTask/");
 			workspace.setOperationTypeId(opt.getId());
 			workspace.toNew();
 		}
-		
+
 		IPWorkspaceService workspaceService = ServiceFactory.create(IPWorkspaceService.class);
 		workspaceService.save(workspace);
 	}
-	
+
 	@Test
 	public void operation() {
 

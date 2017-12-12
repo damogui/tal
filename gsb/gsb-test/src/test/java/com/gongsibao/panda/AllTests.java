@@ -20,19 +20,21 @@ import org.junit.runners.Suite.SuiteClasses;
 //      com.gongsibao.crm.AllTest.class,
 //      com.gongsibao.cms.AllTest.class,
 //      com.gongsibao.trade.AllTest.class,
+    com.gongsibao.crm.AllTest.class,
+    com.gongsibao.trade.AllTest.class,
       
       com.gongsibao.u8.AllTest.class,
       
-//      com.gongsibao.uc.AllTest.class,
+//    com.gongsibao.uc.AllTest.class,
 //    com.gongsibao.taurus.AllTest.class,
 //    com.gongsibao.franchisee.AllTest.class,
 	
 //    com.gongsibao.crm.AllTest.class,
-//    com.gongsibao.cms.AllTest.class,
-//    com.gongsibao.trade.AllTest.class,
-//    com.gongsibao.taurus.AllTest.class,
+    com.gongsibao.cms.AllTest.class,
+    com.gongsibao.trade.AllTest.class,
+    com.gongsibao.taurus.AllTest.class,
 //    com.gongsibao.uc.AllTest.class,
-//    com.gongsibao.franchisee.AllTest.class,
+    com.gongsibao.franchisee.AllTest.class,
 
 	org.netsharp.meta.end.AllTests.class,
 	

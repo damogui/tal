@@ -14,7 +14,7 @@ public class TmByNameService implements ITaurusApiService<Tm> {
     @Override
     public List<Tm> get(String name) {
         TmByNameApi api = ApiFactory.create(TmByNameApi.class);
-        api.setName(name);
+        api.setTmName(name);
         ResponseMessage<Tm> response = api.getResponse();
         if (response == null) {
             return null;

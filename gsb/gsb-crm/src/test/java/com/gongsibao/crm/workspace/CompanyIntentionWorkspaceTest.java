@@ -11,21 +11,21 @@ import org.netsharp.panda.entity.PForm;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.entity.crm.CustomerServiceConfig;
+import com.gongsibao.entity.crm.CompanyIntention;
 
-public class CustomerServiceConfigWorkspaceTest extends WorkspaceCreationBase{
+public class CompanyIntentionWorkspaceTest extends WorkspaceCreationBase{
+
 
 	@Before
 	public void setup() {
 
-		entity = CustomerServiceConfig.class;
-		urlList = "/crm/customer/service/config/list";
-		urlForm = "/crm/customer/service/config/form";
-		listPartName = formPartName = "客服配置";		
+		entity = CompanyIntention.class;
+		urlList = "/crm/customer/company/list";
+		urlForm = "/crm/customer/company/form";
+		listPartName = formPartName = "企业信息";		
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "CRM_"+CustomerServiceConfig.class.getSimpleName();
-		listFilter = "employee.disabled = 0 or employee.disabled is null";
+		resourceNodeCode = CompanyIntention.class.getSimpleName();
 		formOpenMode = OpenMode.WINDOW;
 	}
 
@@ -36,14 +36,11 @@ public class CustomerServiceConfigWorkspaceTest extends WorkspaceCreationBase{
 			datagrid.toNew();
 			datagrid.setResourceNode(node);
 			datagrid.setToolbar("panda/datagrid/row/edit");
-			datagrid.setName("客服配置列表");
+			datagrid.setName("企业信息列表");
 		}
 		
-		addColumn(datagrid, "type", "类型", ControlTypes.ENUM_BOX, 80);
-		addColumn(datagrid, "employee.name", "人员", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "swtServiceId", "商务通Id", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "useDate", "最后使用时间", ControlTypes.DATETIME_BOX, 130);
-		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
+		addColumn(datagrid, "companyName", "公司名称", ControlTypes.TEXT_BOX, 150);
+
 		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100);
 		return datagrid;
 	}
@@ -52,10 +49,9 @@ public class CustomerServiceConfigWorkspaceTest extends WorkspaceCreationBase{
 
 		PForm form = super.createForm(node);
 		form.setColumnCount(1);
-		addFormFieldRefrence(form, "employee.name", "人员", null, "Employee", true, false);
-		addFormField(form, "swtServiceId", "商务通Id", null, ControlTypes.TEXT_BOX, true);
-		addFormField(form, "type", "类型", null, ControlTypes.ENUM_BOX, true);
-		addFormField(form, "swtServiceIdMD5", "MD5", null, ControlTypes.TEXT_BOX, true,true);
+
+		addFormField(form, "companyName", "公司名称", null, ControlTypes.TEXT_BOX, true);
+
 		return form;
 	}
 	
@@ -65,8 +61,8 @@ public class CustomerServiceConfigWorkspaceTest extends WorkspaceCreationBase{
 
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
-		addQueryItem(queryProject, "type", "类型", ControlTypes.ENUM_BOX);
-		addQueryItem(queryProject, "swtServiceId", "商务通Id", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "companyName", "公司名称", ControlTypes.TEXT_BOX);
+
 		return queryProject;
 	}
 	
@@ -77,6 +73,6 @@ public class CustomerServiceConfigWorkspaceTest extends WorkspaceCreationBase{
 		operationService.addOperation(node,OperationTypes.view);
 		operationService.addOperation(node,OperationTypes.add);
 		operationService.addOperation(node,OperationTypes.update);
-		operationService.addOperation(node,OperationTypes.delete);
+		//operationService.addOperation(node,OperationTypes.delete);
 	}
 }
