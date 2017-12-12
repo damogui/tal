@@ -1,4 +1,4 @@
-package com.gongsibao.bd.reference;
+package com.gongsibao.panda.basic.reference;
 
 import org.junit.Before;
 import org.netsharp.meta.base.ReferenceCreationBase;
@@ -7,16 +7,17 @@ import org.netsharp.panda.dic.IntelligentMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.entity.bd.Dict;
+import com.gongsibao.entity.u8.SetOfBooks;
 
-public class DictReferenceTest extends ReferenceCreationBase{
+
+public class SetOfBooksReferenceTest extends ReferenceCreationBase{
 	
 	@Before
 	public void setup() {
 		
-		resourceNodeCode =  "Config_" + Dict.class.getSimpleName();
-		datagridName = referenceName = "字典参照";
-		referenceCode = Dict.class.getSimpleName();
+		resourceNodeCode =  "U8_" + SetOfBooks.class.getSimpleName();
+		datagridName = referenceName = "账套参照";
+		referenceCode = SetOfBooks.class.getSimpleName();
 		intelligentMode = IntelligentMode.LIKE;
 		intelligentFields = "name";
 		filter = "enabled=1";

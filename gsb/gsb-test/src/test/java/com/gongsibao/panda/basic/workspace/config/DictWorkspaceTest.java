@@ -1,16 +1,13 @@
-package com.gongsibao.bd.workspace;
+package com.gongsibao.panda.basic.workspace.config;
 
 import org.junit.Before;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
-import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
-import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PForm;
-import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
@@ -22,12 +19,12 @@ public class DictWorkspaceTest extends WorkspaceCreationBase  {
 	public void setup() {
 
 		entity = Dict.class;//实体
-		urlList = "/config/dict/list";//列表的url
-		urlForm = "/config/dict/form";//弹出框的url
+		urlList = "/basic/config/dict/list";//列表的url
+		urlForm = "/basic/config/dict/form";//弹出框的url
 		listPartName = formPartName = "字典信息";
 		meta = MtableManager.getMtable(entity);//获取实体元数据
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "Config_"+Dict.class.getSimpleName();//菜单节点码（名称）
+		resourceNodeCode = "GSB_Basic_Config_" + Dict.class.getSimpleName();//菜单节点码（名称）
 		
 		formOpenMode = OpenMode.WINDOW;//编辑框打开的形式
 		openWindowHeight=400;

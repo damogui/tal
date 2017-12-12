@@ -1,4 +1,4 @@
-package com.gongsibao.u8.workspace;
+package com.gongsibao.panda.basic.workspace.u8;
 
 import org.junit.Before;
 import org.netsharp.core.MtableManager;
@@ -17,18 +17,18 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import com.gongsibao.controls.DictComboBox;
 import com.gongsibao.entity.u8.U8Bank;
 
-public class U8BankWorkspace extends WorkspaceCreationBase {
+public class U8BankWorkspaceTest extends WorkspaceCreationBase {
 
 	@Before
 	public void setup() {
 
 		entity = U8Bank.class;//实体
-		urlList = "/u8/bank/list";//列表的url
-		urlForm = "/u8/bank/form";//弹出框的url
+		urlList = "/basic/u8/bank/list";//列表的url
+		urlForm = "/basic/u8/bank/form";//弹出框的url
 		listPartName = formPartName = "科目银行信息";
 		meta = MtableManager.getMtable(entity);//获取实体元数据
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "U8_"+U8Bank.class.getSimpleName();//菜单节点码（名称）
+		resourceNodeCode = "GSB_Basic_U8_" + U8Bank.class.getSimpleName();//菜单节点码（名称）
 		
 		formOpenMode = OpenMode.WINDOW;//编辑框打开的形式
 		openWindowWidth = 900;
@@ -121,7 +121,4 @@ public class U8BankWorkspace extends WorkspaceCreationBase {
 		operationService.addOperation(node,OperationTypes.update);
 		operationService.addOperation(node,OperationTypes.delete);
 	}
-
-	
-	
 }
