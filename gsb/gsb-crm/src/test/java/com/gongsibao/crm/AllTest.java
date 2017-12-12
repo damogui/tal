@@ -10,12 +10,8 @@ import com.gongsibao.crm.reference.CustomerRefereneTest;
 import com.gongsibao.crm.reference.ProductReferenceTest;
 import com.gongsibao.crm.workspace.CompanyIntentionWorkspaceTest;
 import com.gongsibao.crm.workspace.CustomerAllWorkspaceTest;
-import com.gongsibao.crm.workspace.CustomerMyWorkspaceTest;
-import com.gongsibao.crm.workspace.CustomerOpertionWorkspaceTest;
 import com.gongsibao.crm.workspace.CustomerOrderWorkspaceTest;
-import com.gongsibao.crm.workspace.CustomerPoolWorkspaceTest;
 import com.gongsibao.crm.workspace.CustomerServiceConfigWorkspaceTest;
-import com.gongsibao.crm.workspace.EnterpriseWorkspaceTest;
 
 
 @RunWith(Suite.class)
@@ -28,10 +24,10 @@ import com.gongsibao.crm.workspace.EnterpriseWorkspaceTest;
 		
 		
 		CustomerAllWorkspaceTest.class,
-		CustomerMyWorkspaceTest.class,
-		EnterpriseWorkspaceTest.class,
-		CustomerPoolWorkspaceTest.class,
-		CustomerOpertionWorkspaceTest.class,
+//		CustomerMyWorkspaceTest.class,
+//		EnterpriseWorkspaceTest.class,
+//		CustomerPoolWorkspaceTest.class,
+//		CustomerOpertionWorkspaceTest.class,
 		
 		CustomerServiceConfigWorkspaceTest.class,
 		CustomerOrderWorkspaceTest.class,
