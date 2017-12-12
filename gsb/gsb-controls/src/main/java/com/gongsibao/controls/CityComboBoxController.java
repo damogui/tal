@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
+import org.netsharp.persistence.IPersister;
+import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.bd.base.IDictService;
@@ -34,7 +36,7 @@ public class CityComboBoxController {
 
 		String filter = StringManager.join(" and ",ss);
 		oql.setFilter(filter);
-		IDictService service = ServiceFactory.create(IDictService.class);
-		return service.queryList(oql);
+		 IPersister<Dict> pm = PersisterFactory.create();
+		return pm.queryList(oql);
 	}
 }

@@ -3,7 +3,6 @@ package com.gongsibao.controls;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Mtable;
 import org.netsharp.core.MtableManager;
 import org.netsharp.core.Oql;
@@ -16,9 +15,10 @@ import org.netsharp.panda.controls.input.Combobox;
 import org.netsharp.panda.controls.input.SelectOption;
 import org.netsharp.panda.entity.PForm;
 import org.netsharp.panda.entity.PFormField;
+import org.netsharp.persistence.IPersister;
+import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.util.StringManager;
 
-import com.gongsibao.bd.base.IDictService;
 import com.gongsibao.entity.bd.Dict;
 
 /**   
@@ -90,7 +90,8 @@ public class DictComboBox implements IPropertyControl{
 			oql.setFilter(refFilter + " and enabled=1");
 			oql.setOrderby(" sort ");
 		}
-		IDictService service = ServiceFactory.create(IDictService.class);
-		return service.queryList(oql);
+		
+		 IPersister<Dict> pm = PersisterFactory.create();
+		return pm.queryList(oql);
 	}
 }
