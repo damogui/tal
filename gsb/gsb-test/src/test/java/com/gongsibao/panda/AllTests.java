@@ -21,7 +21,7 @@ import org.junit.runners.Suite.SuiteClasses;
 //      com.gongsibao.cms.AllTest.class,
 //      com.gongsibao.trade.AllTest.class,
     com.gongsibao.crm.AllTest.class,
-    com.gongsibao.trade.AllTest.class,
+   // com.gongsibao.trade.AllTest.class,
       
       com.gongsibao.u8.AllTest.class,
       
