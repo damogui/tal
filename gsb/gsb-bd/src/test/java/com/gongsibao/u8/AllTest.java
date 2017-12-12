@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import com.gongsibao.bd.reference.DictReferenceTest;
 import com.gongsibao.u8.reference.U8BankReferenceTest;
 import com.gongsibao.u8.workspace.SetOfBooksWorkspace;
 import com.gongsibao.u8.workspace.U8BankWorkspace;

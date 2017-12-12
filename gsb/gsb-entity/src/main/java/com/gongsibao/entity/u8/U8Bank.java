@@ -3,11 +3,11 @@ package com.gongsibao.entity.u8;
 import java.math.BigDecimal;
 
 import org.netsharp.core.annotations.Column;
-import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
+import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.u8.dic.U8BankType;
 
 @Table(name = "u8_bank")
@@ -48,13 +48,13 @@ public class U8Bank extends Entity {
 	@Column(name = "supplier_id", header = "u8供应商id")
 	private String supplierId;
 
-	//自连id
+	// 自连id
 	@Column(name = "prepay_subject_id", header = "预付科目id")
 	private Integer prepaySubjectId;
 
 	@Reference(foreignKey = "prepaySubjectId")
 	private U8Bank prepaySubject;
-	
+
 	@Column(name = "personnel_id", header = "u8人员id(个人id)")
 	private String personnelId;
 
@@ -63,7 +63,13 @@ public class U8Bank extends Entity {
 
 	@Column(name = "tax_rate", header = "供应商税率")
 	private BigDecimal taxRate;
-	
+
+	@Column(name = "offline_way_type_id", header = "原线下付款方式序号，字典：311")
+	private Integer offlineWayTypeId;
+
+	@Reference(foreignKey = "offlineWayTypeId")
+	private Dict offlineWayType;
+
 	public String getName() {
 		return name;
 	}
@@ -102,7 +108,7 @@ public class U8Bank extends Entity {
 
 	public void setSetOfBooksId(Integer setOfBooksId) {
 		this.setOfBooksId = setOfBooksId;
-	}	
+	}
 
 	public SetOfBooks getSetOfBooks() {
 		return setOfBooks;
@@ -183,4 +189,21 @@ public class U8Bank extends Entity {
 	public void setTaxRate(BigDecimal taxRate) {
 		this.taxRate = taxRate;
 	}
+
+	public Integer getOfflineWayTypeId() {
+		return offlineWayTypeId;
+	}
+
+	public void setOfflineWayTypeId(Integer offlineWayTypeId) {
+		this.offlineWayTypeId = offlineWayTypeId;
+	}
+
+	public Dict getOfflineWayType() {
+		return offlineWayType;
+	}
+
+	public void setOfflineWayType(Dict offlineWayType) {
+		this.offlineWayType = offlineWayType;
+	}
+
 }

@@ -4,6 +4,7 @@ import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.bd.dic.DictType;
 
 @Table(name="bd_dict")
 public class Dict extends BaseEntity {
@@ -13,7 +14,7 @@ public class Dict extends BaseEntity {
     private Integer parentId;
 	
     @Column(header="类型")
-    private Integer type;
+    private DictType type=DictType.Diqu;
     
     @Column(header="名称")
     private String name;
@@ -28,7 +29,7 @@ public class Dict extends BaseEntity {
     private Double sort;
     
     @Column(name="is_enabled",header="使用中")
-    private Integer enabled = 1;
+    private Boolean enabled = true;
     
     @Column(header="备注")
     private String remark;
@@ -39,13 +40,14 @@ public class Dict extends BaseEntity {
 	public void setParentId(Integer parentId) {
 		this.parentId = parentId;
 	}
-	public Integer getType() {
-        return type;
-    }
-    public void setType(Integer type) {
-        this.type = type;
-    }
-    public String getName() {
+
+    public DictType getType() {
+		return type;
+	}
+	public void setType(DictType type) {
+		this.type = type;
+	}
+	public String getName() {
         return name;
     }
     public void setName(String name) {
@@ -70,10 +72,10 @@ public class Dict extends BaseEntity {
         this.sort = sort;
     }
 
-    public Integer getEnabled() {
+	public Boolean getEnabled() {
 		return enabled;
 	}
-	public void setEnabled(Integer enabled) {
+	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
 	}
 	public String getRemark() {

@@ -17,7 +17,6 @@ repositories {
 dependencies {
 
     compile project(':gsb-entity')
-    compile project(':gsb-bd')
 }
 
 test {

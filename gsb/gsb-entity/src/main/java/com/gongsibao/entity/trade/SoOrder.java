@@ -12,6 +12,7 @@ import org.netsharp.core.annotations.Table;
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.CompanyIntention;
+import com.gongsibao.entity.trade.dic.OrderManualVoucherStatus;
 import com.gongsibao.entity.uc.Account;
 import com.gongsibao.entity.uc.User;
 
@@ -92,8 +93,19 @@ public class SoOrder extends BaseEntity {
     @Column(name="is_change_price",header="改过价")
     private Integer isChangePrice;
     
-    @Column(name="is_carry_over",header="IsCarryOver")
+    @Column(name="is_carry_over",header="是否是结转订单，默认否")
     private Integer isCarryOver;
+    
+    @Column(name="carry_over_order_id",header="结转订单id")
+    private Integer carryOverOrderId;
+    
+    //是否生成u8凭证手动处理（异常）（0：否、1：是(跨月异常)） 2:（e支付（财务二维码））、（刷卡）付款方式标记异常 3:由于借贷方金额都为零，无法生成凭证（【确认收入凭证】，金额太小造成，如：0.01，0.1） 4:由于借贷方金额都为零，无法生成凭证（【退款凭证】，金额太小造成，如：0.01，0.1）
+    @Column(name="is_manual_voucher",header="是否生成u8凭证手动处理（异常）")
+    private Integer isManualVoucher;
+    
+    @Column(name="manual_voucher_status",header="凭证手动处理状态（0:未完成 1:已完成）")
+    private OrderManualVoucherStatus manualVoucherStatus = OrderManualVoucherStatus.NotStarted;
+    
     
     @Column(name="change_price_audit_status_id",header="改价审核状态")
     private Integer changePriceAuditStatusId;
@@ -492,4 +504,24 @@ public class SoOrder extends BaseEntity {
 	public void setDiscounts(List<OrderDiscount> discounts) {
 		this.discounts = discounts;
 	}
+	public Integer getCarryOverOrderId() {
+		return carryOverOrderId;
+	}
+	public void setCarryOverOrderId(Integer carryOverOrderId) {
+		this.carryOverOrderId = carryOverOrderId;
+	}
+	public Integer getIsManualVoucher() {
+		return isManualVoucher;
+	}
+	public void setIsManualVoucher(Integer isManualVoucher) {
+		this.isManualVoucher = isManualVoucher;
+	}
+	public OrderManualVoucherStatus getManualVoucherStatus() {
+		return manualVoucherStatus;
+	}
+	public void setManualVoucherStatus(OrderManualVoucherStatus manualVoucherStatus) {
+		this.manualVoucherStatus = manualVoucherStatus;
+	}
+	
+	
 }
