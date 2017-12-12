@@ -1,4 +1,4 @@
-package com.gongsibao.db;
+package com.gongsibao.tools.db;
 
 import java.util.ArrayList;
 import java.util.List;

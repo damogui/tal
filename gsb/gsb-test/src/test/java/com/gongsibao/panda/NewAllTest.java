@@ -19,9 +19,9 @@ import org.junit.runners.Suite.SuiteClasses;
 	//1.基础信息
 	com.gongsibao.panda.basic.AllTest.class,
 	
-//    //2.客户管理
+    //2.客户管理
 //	com.gongsibao.panda.crm.AllTest.class,
-//	
+	
     //3.招商CRM
 	com.gongsibao.panda.franchisee.AllTest.class,
 //	

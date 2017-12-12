@@ -1,4 +1,4 @@
-package com.gongsibao.panda.temp;
+package com.gongsibao.tools.temp;
 
 public enum EnumTest {
 	MON(1,"一"), TUE(2,"二"), WED(3,"三"), THU(4,"四"), FRI(5,"五"), SAT(6,"六") {

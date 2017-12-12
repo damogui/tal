@@ -1,4 +1,4 @@
-package com.gongsibao.reporting;
+package com.gongsibao.tools.reporting;
 
 import com.gongsibao.entity.uc.Organization;
 import org.netsharp.core.Oql;
