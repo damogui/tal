@@ -46,7 +46,7 @@ import org.junit.runners.Suite.SuiteClasses;
 //    com.gongsibao.trade.AllTest.class,
 //    com.gongsibao.taurus.AllTest.class,
 //    com.gongsibao.uc.AllTest.class,
-    com.gongsibao.franchisee.AllTest.class,
+
 
 	org.netsharp.meta.end.AllTests.class,
 	

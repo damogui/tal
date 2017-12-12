@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.netsharp.core.MtableManager;
 
 import com.gongsibao.entity.franchisee.Franchisee;
-import com.gongsibao.franchisee.workspace.my.MyFranchiseeWorkspaceTest;
+import com.gongsibao.panda.franchisee.workspace.my.MyFranchiseeWorkspaceTest;
 
 public class DepartmentFranchiseeWorkspaceTest  extends MyFranchiseeWorkspaceTest{
 

@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.netsharp.core.MtableManager;
 
 import com.gongsibao.entity.franchisee.FranchiseeTrack;
-import com.gongsibao.franchisee.workspace.department.DepartmentTrackWorkspaceTest;
+import com.gongsibao.panda.franchisee.workspace.department.DepartmentTrackWorkspaceTest;
 
 public class OperationTrackWorkspaceTest  extends DepartmentTrackWorkspaceTest{
 
