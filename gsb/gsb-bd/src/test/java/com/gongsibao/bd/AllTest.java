@@ -11,7 +11,7 @@ import com.gongsibao.bd.workspace.DictWorkspaceTest;
 @SuiteClasses({ 
 		ResourceTest.class, 
 		
-		DictReferenceTest.class,
+//		DictReferenceTest.class,
 		
 		//字典
 		DictWorkspaceTest.class,

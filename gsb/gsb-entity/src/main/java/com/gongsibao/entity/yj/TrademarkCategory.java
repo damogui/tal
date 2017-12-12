@@ -2,11 +2,10 @@ package com.gongsibao.entity.yj;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
-
-import com.gongsibao.entity.BaseEntity;
+import org.netsharp.entity.Persistable;
 
 @Table(name="yj_trademark_category")
-public class TrademarkCategory extends BaseEntity {
+public class TrademarkCategory extends Persistable {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   

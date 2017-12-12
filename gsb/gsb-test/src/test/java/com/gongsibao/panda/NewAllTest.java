@@ -43,7 +43,6 @@ import org.junit.runners.Suite.SuiteClasses;
     //9.报表中心
 	com.gongsibao.panda.report.AllTest.class,
 
-	
 	//处理资源Id
 	org.netsharp.meta.end.AllTests.class,
 	})

@@ -1,12 +1,13 @@
 package com.gongsibao.entity.yj;
 
-import com.gongsibao.entity.BaseEntity;
 import java.sql.Timestamp;
+
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
+import org.netsharp.entity.Persistable;
 
 @Table(name="yj_company_opexception")
-public class CompanyOpexception extends BaseEntity {
+public class CompanyOpexception extends Persistable {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   

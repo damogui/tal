@@ -1,15 +1,14 @@
 package com.gongsibao.entity.yj;
 
-import com.gongsibao.entity.BaseEntity;
-
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
+import org.netsharp.entity.Persistable;
 
 @Table(name="yj_company_avg_score")
-public class CompanyAvgScore extends BaseEntity {
+public class CompanyAvgScore extends Persistable {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
