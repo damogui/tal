@@ -8,6 +8,7 @@ import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PForm;
+import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.crm.CustomerServiceConfig;
@@ -24,7 +25,7 @@ public class CustomerServiceConfigWorkspaceTest extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "CRM_"+CustomerServiceConfig.class.getSimpleName();
-		
+		listFilter = "employee.disabled = 0 or employee.disabled is null";
 		formOpenMode = OpenMode.WINDOW;
 	}
 
@@ -54,7 +55,19 @@ public class CustomerServiceConfigWorkspaceTest extends WorkspaceCreationBase{
 		addFormFieldRefrence(form, "employee.name", "人员", null, "Employee", true, false);
 		addFormField(form, "swtServiceId", "商务通Id", null, ControlTypes.TEXT_BOX, true);
 		addFormField(form, "type", "类型", null, ControlTypes.ENUM_BOX, true);
+		addFormField(form, "swtServiceIdMD5", "MD5", null, ControlTypes.TEXT_BOX, true,true);
 		return form;
+	}
+	
+
+	@Override
+	protected PQueryProject createQueryProject(ResourceNode node) {
+
+		PQueryProject queryProject = super.createQueryProject(node);
+		queryProject.toNew();
+		addQueryItem(queryProject, "type", "类型", ControlTypes.ENUM_BOX);
+		addQueryItem(queryProject, "swtServiceId", "商务通Id", ControlTypes.TEXT_BOX);
+		return queryProject;
 	}
 	
 	@Override
