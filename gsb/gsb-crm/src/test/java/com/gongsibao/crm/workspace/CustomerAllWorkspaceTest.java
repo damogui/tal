@@ -121,7 +121,9 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "accountId", "是否会员", ControlTypes.BOOLCOMBO_BOX, 100);
 		addColumn(datagrid, "realName", "客户名称", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "city.name", "所在地区", ControlTypes.TEXTAREA, 130);
-		addColumn(datagrid, "mobile", "手机", ControlTypes.DECIMAL_BOX, 100);
+		column = addColumn(datagrid, "mobile", "手机", ControlTypes.DECIMAL_BOX, 100);{
+			column.setFormatter("if(value&&value.length==11){return value.substr(0,3)+'****'+value.substr(7);}");
+		}
 		addColumn(datagrid, "qq", "QQ", ControlTypes.DECIMAL_BOX, 100);
 		addColumn(datagrid, "customerSource.name", "客户来源", ControlTypes.ENUM_BOX, 80);
 		addColumn(datagrid, "important", "客户等级", ControlTypes.ENUM_BOX, 80);
