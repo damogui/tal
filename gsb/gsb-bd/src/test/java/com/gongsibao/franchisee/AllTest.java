@@ -4,15 +4,21 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import com.gongsibao.franchisee.web.DepartmentYearReportController;
+import com.gongsibao.franchisee.workspace.department.DepartmentDayReportWorkspaceTest;
 import com.gongsibao.franchisee.workspace.department.DepartmentFranchiseeWorkspaceTest;
+import com.gongsibao.franchisee.workspace.department.DepartmentMonthReportWorkspaceTest;
 import com.gongsibao.franchisee.workspace.department.DepartmentTrackWorkspaceTest;
 import com.gongsibao.franchisee.workspace.department.DepartmentUnTrackWorkspaceTest;
+import com.gongsibao.franchisee.workspace.department.DepartmentYearReportWorkspaceTest;
 import com.gongsibao.franchisee.workspace.my.MyFranchiseeWorkspaceTest;
 import com.gongsibao.franchisee.workspace.my.UnTrackFranchiseeWorkspaceTest;
 import com.gongsibao.franchisee.workspace.operation.OperationDayReportWorkspaceTest;
 import com.gongsibao.franchisee.workspace.operation.OperationFranchiseeWorkspaceTest;
+import com.gongsibao.franchisee.workspace.operation.OperationMonthReportWorkspaceTest;
 import com.gongsibao.franchisee.workspace.operation.OperationTrackWorkspaceTest;
 import com.gongsibao.franchisee.workspace.operation.OperationUnTrackWorkspaceTest;
+import com.gongsibao.franchisee.workspace.operation.OperationYearReportWorkspaceTest;
 @RunWith(Suite.class)
 @SuiteClasses({
 	ResourceTest.class, 
@@ -21,22 +27,23 @@ import com.gongsibao.franchisee.workspace.operation.OperationUnTrackWorkspaceTes
 	MyFranchiseeWorkspaceTest.class,
 //	WorkbenchWorkspaceTest.class,
 	
-	DepartmentFranchiseeWorkspaceTest.class,
+	/*DepartmentFranchiseeWorkspaceTest.class,
 	DepartmentTrackWorkspaceTest.class,
-	DepartmentUnTrackWorkspaceTest.class,
+	DepartmentUnTrackWorkspaceTest.class,*/
 //	DepartmentTrackReportWorkspaceTest.class,
-//	DepartmentDayReportWorkspaceTest.class,
-//	DepartmentWeekReportWorkspaceTest.class,
-//	DepartmentMonthReportWorkspaceTest.class,
+	DepartmentDayReportWorkspaceTest.class,
+	DepartmentYearReportWorkspaceTest.class,
+	DepartmentMonthReportWorkspaceTest.class,
 //
 //
-	OperationFranchiseeWorkspaceTest.class,
+	/*OperationFranchiseeWorkspaceTest.class,
 	OperationTrackWorkspaceTest.class,
-	OperationUnTrackWorkspaceTest.class,
+	OperationUnTrackWorkspaceTest.class,*/
 //	OperationTrackReportWorkspaceTest.class,
 	OperationDayReportWorkspaceTest.class,
-//	OperationWeekReportWorkspaceTest.class,
-//	OperationMonthReportWorkspaceTest.class,
+	OperationYearReportWorkspaceTest.class,
+ 	OperationMonthReportWorkspaceTest.class,
+
 	
 	NavigationTest.class
 })
