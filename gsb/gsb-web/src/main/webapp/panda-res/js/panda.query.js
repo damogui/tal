@@ -423,6 +423,72 @@ org.netsharp.controls.CustomerControl= org.netsharp.controls.Control.Extends({
 });
 
 
+org.netsharp.controls.MonthDateBoxQueryItem = org.netsharp.controls.Control.Extends({
+    ctor: function () {
+        this.base();
+    },
+    get : function () {
+
+        this.propertyName = $('#' + this.uiElement.id).attr('propertyName');
+
+        var propertyValue = $('#' + this.uiElement.id).datebox('getValue');
+
+        if (propertyValue == null || propertyValue == undefined || propertyValue == "") {
+            return null;
+        }
+
+
+        var qp = new org.netsharp.core.QueryParameter();
+        qp.ParameterName = "@" + this.propertyName;
+        qp.DbType = "DateTime";
+        qp.Value = propertyValue;
+
+        if (this.uiElement.id.indexOf("Start_") == 0) {
+
+        	qp.Filter = this.propertyName + ">='" + qp.Value+"-01'";
+        }else {
+
+        	var value = propertyValue+"-01";
+        	var day = new Date(value);
+        	var daycount = day.getDays();
+        	value = propertyValue + "-" + daycount + " 23:59:59";
+            qp.Filter = this.propertyName + "<'" + value+"'";
+        }
+        return qp;
+    },
+	clear: function() {
+		
+		$('#' + this.propertyName).datebox('setValue','');
+	}
+});
+
+org.netsharp.controls.MonthBoxQueryItem = org.netsharp.controls.EnumBoxQueryItem.Extends({
+    ctor: function () {
+        this.base();
+    },
+    get : function () {
+    	
+        var propertyValue = $('#' + this.propertyName).combobox('getValues');
+        if (propertyValue == null || propertyValue == undefined || propertyValue == "" || propertyValue == "-1") {
+        	
+            return null;
+        }
+        var qp = new org.netsharp.core.QueryParameter();
+        qp.ParameterName = "@" + this.propertyName;
+        qp.DbType = "String";
+        qp.Value = propertyValue[0];
+
+        qp.Filter = this.propertyName.replace("_",".") + " ='" + propertyValue + "'";
+        return qp;
+    }
+});
+
+org.netsharp.controls.YearBoxQueryItem = org.netsharp.controls.MonthBoxQueryItem.Extends({
+    ctor: function () {
+        this.base();
+    }
+});
+
 org.netsharp.core.QueryParameter = System.Object.Extends({
 	
     ctor: function () {

@@ -11,8 +11,10 @@ import com.gongsibao.franchisee.workspace.my.MyFranchiseeWorkspaceTest;
 import com.gongsibao.franchisee.workspace.my.UnTrackFranchiseeWorkspaceTest;
 import com.gongsibao.franchisee.workspace.operation.OperationDayReportWorkspaceTest;
 import com.gongsibao.franchisee.workspace.operation.OperationFranchiseeWorkspaceTest;
+import com.gongsibao.franchisee.workspace.operation.OperationMonthReportWorkspaceTest;
 import com.gongsibao.franchisee.workspace.operation.OperationTrackWorkspaceTest;
 import com.gongsibao.franchisee.workspace.operation.OperationUnTrackWorkspaceTest;
+import com.gongsibao.franchisee.workspace.operation.OperationYearReportWorkspaceTest;
 @RunWith(Suite.class)
 @SuiteClasses({
 	ResourceTest.class, 
@@ -35,8 +37,8 @@ import com.gongsibao.franchisee.workspace.operation.OperationUnTrackWorkspaceTes
 	OperationUnTrackWorkspaceTest.class,
 //	OperationTrackReportWorkspaceTest.class,
 	OperationDayReportWorkspaceTest.class,
-//	OperationWeekReportWorkspaceTest.class,
-//	OperationMonthReportWorkspaceTest.class,
+	OperationYearReportWorkspaceTest.class,
+ 	OperationMonthReportWorkspaceTest.class,
 	
 	NavigationTest.class
 })

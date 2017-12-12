@@ -17,14 +17,15 @@ public interface IFranchiseeReportService  extends IPersistableService<Franchise
 	 */
 	public void createDayReport(Map<Integer, List<Integer>> departmentMap);
 	/**
-	 * 生成员工月报
+	 * 根据生成报表的类型，生成员工的年、月报
 	 * @param getMap  key-departId(部门id)、value-employeeIds(部门下的员工集合)
+	 * @param ReportType 统计类型： 1-年、2-月、4-日
 	 */
-	public void createMonthReport(Map<Integer, List<Integer>> departmentMap);
+	public void createYearMonthReport(Map<Integer, List<Integer>> departmentMap,FranchiseeReportType reportType);
 	/**
-	 * 生成部门的报表
+	 * 生成部门的年、月、日报表
 	 * @param departmentId 部门id
 	 * @param ReportType 统计类型： 1-年、2-月、4-日
 	 */
-	public void createDepartDayReport(Integer departmentId,FranchiseeReportType reportType);
+	public void createDepartReport(Integer departmentId,FranchiseeReportType reportType);
 }

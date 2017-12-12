@@ -8,6 +8,7 @@ import java.util.Map;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.job.core.IJob;
 
+import com.gongsibao.entity.franchisee.dic.FranchiseeReportType;
 import com.gongsibao.franchisee.base.IFranchiseeReportService;
 
 /**
@@ -45,8 +46,8 @@ public class FranchiseeReportJob implements IJob {
 		// 报表接口
 		IFranchiseeReportService reportService = ServiceFactory.create(IFranchiseeReportService.class);
 		reportService.createDayReport(tempDepartmentMap);
-		reportService.createMonthReport(tempDepartmentMap);
-
+		reportService.createYearMonthReport(tempDepartmentMap,FranchiseeReportType.month);
+		reportService.createYearMonthReport(tempDepartmentMap,FranchiseeReportType.year);
 		// 2.根据员工信息查询对应客户状态的数据，保存FranchiseeReport信息
 
 		// 3.注意：这里需要处理上下级状态，数据展现出来是树结构

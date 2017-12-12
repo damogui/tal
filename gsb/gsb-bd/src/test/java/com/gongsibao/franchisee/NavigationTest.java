@@ -46,9 +46,9 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, "GSB_BD_OPERATION", null, "GSB_BD_OPERATION_Track", "跟进列表", "/bd/operation/franchisee/track/list", 2);
 			createPTreeNode(tree, "GSB_BD_OPERATION", null, "GSB_BD_OPERATION_UnTrack", "未跟进供应商", "/bd/operation/franchisee/untrack/list", 3);
 			createPTreeNode(tree, "GSB_BD_OPERATION", null, "GSB_BD_OPERATION_Track_Report", "跟进统计", "/bd/operation/track/report", 4);
-			createPTreeNode(tree, "GSB_BD_OPERATION", null, "GSB_BD_OPERATION_Day_Report", "日统计", "/bd/operation/day/report", 5);
-			createPTreeNode(tree, "GSB_BD_OPERATION", null, "GSB_BD_OPERATION_Week_Report", "周统计", "/bd/operation/week/report", 6);
-			createPTreeNode(tree, "GSB_BD_OPERATION", null, "GSB_BD_OPERATION_Month_Report", "月统计", "/bd/operation/month/report", 7);
+			createPTreeNode(tree, "GSB_BD_OPERATION", null, "GSB_BD_OPERATION_Day_Report", "日统计", "/bd/operation/day/report", 5);			
+			createPTreeNode(tree, "GSB_BD_OPERATION", null, "GSB_BD_OPERATION_Month_Report", "月统计", "/bd/operation/month/report", 6);
+			createPTreeNode(tree, "GSB_BD_OPERATION", null, "GSB_BD_OPERATION_Year_Report", "年统计", "/bd/operation/year/report", 7);
 		}
 	}
 }
