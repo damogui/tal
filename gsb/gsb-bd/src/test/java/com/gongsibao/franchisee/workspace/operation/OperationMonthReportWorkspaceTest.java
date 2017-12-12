@@ -51,8 +51,8 @@ public class OperationMonthReportWorkspaceTest  extends WorkspaceCreationBase{
 			toolbar.setName("运营月统计工具栏");
 			toolbar.setResourceNode(node);
 		}
-		addToolbarItem(toolbar, "disabled", "生成", "fa-stop-circle-o",
-				"generateReports()", null, 5);
+		addToolbarItem(toolbar, "disabled", "生成月报", "fa-stop-circle-o",
+				"operMonthReports()", null, 5);
 		toolbarService.save(toolbar);
 	}
 

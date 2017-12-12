@@ -11,13 +11,10 @@ import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
-import org.netsharp.panda.entity.PQueryItem;
-import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.franchisee.FranchiseeReport;
-import com.gongsibao.franchisee.web.FranchiseeDayReportController;
 import com.gongsibao.franchisee.web.FranchiseeYearReportController;
 
 public class OperationYearReportWorkspaceTest  extends WorkspaceCreationBase{
@@ -52,8 +49,8 @@ public class OperationYearReportWorkspaceTest  extends WorkspaceCreationBase{
 			toolbar.setName("运营年统计工具栏");
 			toolbar.setResourceNode(node);
 		}
-		addToolbarItem(toolbar, "disabled", "生成", "fa-stop-circle-o",
-				"generateReports()", null, 5);
+		addToolbarItem(toolbar, "disabled", "生成年报", "fa-stop-circle-o",
+				"operYearReports()", null, 5);
 		toolbarService.save(toolbar);
 	}
 
