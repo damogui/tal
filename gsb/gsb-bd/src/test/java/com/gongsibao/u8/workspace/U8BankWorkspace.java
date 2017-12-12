@@ -14,11 +14,7 @@ import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-<<<<<<< HEAD
 import com.gongsibao.controls.DictComboBox;
-import com.gongsibao.entity.bd.Dict;
-=======
->>>>>>> 4761c512c70879c14b3428abe8c6157f5605c89a
 import com.gongsibao.entity.u8.U8Bank;
 
 public class U8BankWorkspace extends WorkspaceCreationBase {
@@ -35,15 +31,9 @@ public class U8BankWorkspace extends WorkspaceCreationBase {
 		resourceNodeCode = "U8_"+U8Bank.class.getSimpleName();//菜单节点码（名称）
 		
 		formOpenMode = OpenMode.WINDOW;//编辑框打开的形式
-<<<<<<< HEAD
 		openWindowWidth = 900;
-		openWindowHeight = 750;
-		
+		openWindowHeight = 750;		
 		formJsImport = "/gsb/gsb.customer.controls.js";
-=======
-		openWindowWidth = 800;
-		openWindowHeight = 650;
->>>>>>> 4761c512c70879c14b3428abe8c6157f5605c89a
 	}
 
 	//默认的grid信息的配置
@@ -58,22 +48,14 @@ public class U8BankWorkspace extends WorkspaceCreationBase {
 		
 		PDatagridColumn column = null;
 		addColumn(datagrid, "name", "银行/科目名称", ControlTypes.TEXT_BOX, 200);
-<<<<<<< HEAD
 		//addColumn(datagrid, "no", "卡号", ControlTypes.TEXT_BOX, 200);
-=======
-		addColumn(datagrid, "no", "卡号", ControlTypes.TEXT_BOX, 200);
->>>>>>> 4761c512c70879c14b3428abe8c6157f5605c89a
 		addColumn(datagrid, "code", "科目编号", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "abbreviation", "简称", ControlTypes.TEXT_BOX, 150);
 		addColumn(datagrid, "setOfBooks.name", "账套名称", ControlTypes.TEXT_BOX, 200);		
 		column = addColumn(datagrid, "type", "类型", ControlTypes.TEXT_BOX, 100);{
 			column.setAlign(DatagridAlign.CENTER);
 		}
-<<<<<<< HEAD
 		addColumn(datagrid, "offlineWayType.name", "原付款方式", ControlTypes.TEXT_BOX, 100);
-=======
-		
->>>>>>> 4761c512c70879c14b3428abe8c6157f5605c89a
 		addColumn(datagrid, "supplierId", "u8供应商id", ControlTypes.TEXT_BOX, 100);
 		//addColumn(datagrid, "prepaySubject.name", "预付科目", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "personnelId", "u8人员id", ControlTypes.TEXT_BOX, 100);
@@ -101,39 +83,25 @@ public class U8BankWorkspace extends WorkspaceCreationBase {
 
 		PForm form = super.createForm(node);
 		form.setColumnCount(2);
-		
-<<<<<<< HEAD
+
 		PFormField field =null;
-		
-=======
->>>>>>> 4761c512c70879c14b3428abe8c6157f5605c89a
+
 		addFormField(form, "name", "银行/科目名称", ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "no", "卡号", ControlTypes.TEXT_BOX,  false, false);
 		addFormField(form, "code", "科目编号", ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "abbreviation", "简称", ControlTypes.TEXT_BOX,  false, false);
-<<<<<<< HEAD
 		//addFormFieldRefrence(form, "setOfBooks.name", "账套名称",null,  SetOfBooks.class.getSimpleName(), false, false);DictReference
 		addFormField(form, "type", "类型", ControlTypes.ENUM_BOX, true, false);		
 		addFormField(form, "supplierId", "u8供应商id", ControlTypes.TEXT_BOX,  false, false);	
 		addFormFieldRefrence(form, "prepaySubject.name", "预付科目",null, U8Bank.class.getSimpleName(), false, false);
 		addFormField(form, "personnelId", "u8人员id", ControlTypes.TEXT_BOX,  false, false);
-
 		field = addFormField(form, "offlineWayType.name", "原线下付款方式", null, ControlTypes.CUSTOMER, false, false);
 		{
 			field.setCustomerControlType(DictComboBox.class.getName());
 			field.setRefFilter("type=311");
 		}
-		addFormField(form, "deptId", "u8部门id", ControlTypes.TEXT_BOX, false, false);		
-		field = addFormField(form, "taxRate", "税率", null, ControlTypes.DECIMAL_BOX, true, false);		{
-=======
-		//addFormFieldRefrence(form, "setOfBooks.name", "账套名称",null,  SetOfBooks.class.getSimpleName(), false, false);
-		addFormField(form, "type", "类型", ControlTypes.ENUM_BOX, true, false);		
-		addFormField(form, "supplierId", "u8供应商id", ControlTypes.TEXT_BOX,  false, false);		
-		addFormFieldRefrence(form, "prepaySubject.name", "预付科目",null, U8Bank.class.getSimpleName(), false, false);		
-		addFormField(form, "personnelId", "u8人员id", ControlTypes.TEXT_BOX,  false, false);
-		addFormField(form, "deptId", "u8部门id", ControlTypes.TEXT_BOX, false, false);		
-		PFormField field = addFormField(form, "taxRate", "税率", null, ControlTypes.DECIMAL_BOX, true, false);		{
->>>>>>> 4761c512c70879c14b3428abe8c6157f5605c89a
+		addFormField(form, "deptId", "u8部门id", ControlTypes.TEXT_BOX, false, false);				
+		field = addFormField(form, "taxRate", "税率", null, ControlTypes.DECIMAL_BOX, false, false);		{
 			field.setPrecision(3);
 		}
 		addFormField(form, "sort", "排序编号", ControlTypes.NUMBER_BOX,  false, false);
@@ -153,5 +121,7 @@ public class U8BankWorkspace extends WorkspaceCreationBase {
 		operationService.addOperation(node,OperationTypes.update);
 		operationService.addOperation(node,OperationTypes.delete);
 	}
+
+	
 	
 }
