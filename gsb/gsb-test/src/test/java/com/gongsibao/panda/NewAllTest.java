@@ -24,13 +24,13 @@ import org.junit.runners.Suite.SuiteClasses;
 	
     //3.招商CRM
 	com.gongsibao.panda.franchisee.AllTest.class,
-//	
-//    //4.iduty
+	
+    //4.iduty
 //	com.gongsibao.panda.iduty.AllTest.class,
-//	
-//    //5.运营管理
-//	com.gongsibao.panda.operation.AllTest.class,
-//	
+	
+    //5.运营管理
+	com.gongsibao.panda.operation.AllTest.class,
+	
 //    //6.商品管理
 //	com.gongsibao.panda.product.AllTest.class,
 //	

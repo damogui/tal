@@ -12,18 +12,18 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.cms.ProductView;
 
-public class ProductWorkspaceTest extends WorkspaceCreationBase{
+public class WanDaProductWorkspaceTest extends WorkspaceCreationBase{
 
 	
 	@Before
 	public void setup() {
 
 		entity = ProductView.class;
-		urlList = "/wanda/product/list";
+		urlList = "/operation/wanda/product/list";
 		listPartName = formPartName = "服务列表";		
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_WANDA"+ProductView.class.getSimpleName();
+		resourceNodeCode = "GSB_WANDA_"+ProductView.class.getSimpleName();
 		
 		formOpenMode = OpenMode.WINDOW;
 	}

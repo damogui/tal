@@ -4,7 +4,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import com.gongsibao.cms.workspace.ProductWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.cms.ProductPackageWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.supplier.CPAuditWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.supplier.SPAuditWorkspaceTest;
@@ -14,6 +13,8 @@ import com.gongsibao.panda.operation.workspace.taurus.NewUserPerDayWorkspaceTest
 import com.gongsibao.panda.operation.workspace.taurus.UserConsStatisticWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.taurus.UserRenewalStatisticWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.taurus.UserWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.wanda.WanDaProductWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
 
 
 @RunWith(Suite.class)
@@ -28,19 +29,16 @@ import com.gongsibao.panda.operation.workspace.taurus.UserWorkspaceTest;
 	UserRenewalStatisticWorkspaceTest.class,
 	ActiveUserWorkspaceTest.class,
 	DayStatisticWorkspaceTest.class,
-	
+
 	//万达
-	ProductWorkspaceTest.class,
-	
-	//CMS
-	ProductPackageWorkspaceTest.class,
-	ProductWorkspaceTest.class,
-	
-	//钉钉
-	
-	//供应商
-	CPAuditWorkspaceTest.class,
-	SPAuditWorkspaceTest.class,
+	WanDaSoOrderWorkspaceTest.class,
+	WanDaProductWorkspaceTest.class,
+//	
+//	//钉钉
+//	
+//	//供应商
+//	CPAuditWorkspaceTest.class,
+//	SPAuditWorkspaceTest.class,
 	
 	
 	NavigationTest.class
