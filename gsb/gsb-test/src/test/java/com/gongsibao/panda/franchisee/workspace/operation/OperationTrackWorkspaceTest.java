@@ -19,6 +19,7 @@ public class OperationTrackWorkspaceTest  extends DepartmentTrackWorkspaceTest{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = "跟进信息";
 		resourceNodeCode = "GSB_BD_OPERATION_Track";
+		listFilter = null;
 	}
 	
 	@Test

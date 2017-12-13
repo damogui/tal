@@ -20,6 +20,7 @@ public class OperationFranchiseeWorkspaceTest  extends MyFranchiseeWorkspaceTest
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = "供应商信息";
 		resourceNodeCode = "GSB_BD_OPERATION_Franchisee";
+		listFilter = null;
 	}
 	
 	
