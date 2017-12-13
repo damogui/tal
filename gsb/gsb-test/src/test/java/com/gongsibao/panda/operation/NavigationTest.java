@@ -11,6 +11,7 @@ import com.gongsibao.entity.taurus.NewUserPerDayView;
 import com.gongsibao.entity.taurus.User;
 import com.gongsibao.entity.taurus.UserConsStatisticView;
 import com.gongsibao.entity.taurus.UserRenewalStatisticView;
+import com.gongsibao.entity.trade.SoOrder;
 
 public class NavigationTest extends NavigationBase {
 	@Before
@@ -40,7 +41,8 @@ public class NavigationTest extends NavigationBase {
 		
 		createPTreeNode(tree, null, "fa fa-file-o fa-fw", "GSB_WANDA", "万达项目", "", 1);
 		{
-			createPTreeNode(tree, "GSB_CMS_Manager", null, "GSB_WANDA_" + ProductView.class.getSimpleName(), "服务列表", "/cms/product/list", 1);
+			createPTreeNode(tree, "GSB_WANDA", null, "GSB_WANDA_" + ProductView.class.getSimpleName(), "服务列表", "/operation/wanda/product/list", 1);
+			createPTreeNode(tree, "GSB_WANDA", null, "GSB_WANDA_" + SoOrder.class.getSimpleName(), "订单列表", "/operation/wanda/order/list", 1);
 		}
 	}
 }

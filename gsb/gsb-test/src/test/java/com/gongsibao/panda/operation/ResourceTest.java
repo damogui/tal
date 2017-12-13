@@ -17,6 +17,7 @@ import com.gongsibao.entity.taurus.UserConsStatisticView;
 import com.gongsibao.entity.taurus.UserDingtalkKeyword;
 import com.gongsibao.entity.taurus.UserRenewalStatisticView;
 import com.gongsibao.entity.taurus.UserWalletLog;
+import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.taurus.base.IActiveUserViewService;
 import com.gongsibao.taurus.base.IDayStatisticViewService;
 import com.gongsibao.taurus.base.INewUserPerDayViewService;
@@ -26,6 +27,7 @@ import com.gongsibao.taurus.base.IUserDingtalkKeywordService;
 import com.gongsibao.taurus.base.IUserRenewalStatisticViewService;
 import com.gongsibao.taurus.base.IUserService;
 import com.gongsibao.taurus.base.IUserWalletLogService;
+import com.gongsibao.trade.base.IOrderService;
 
 public class ResourceTest extends ResourceCreationBase {
 
@@ -61,6 +63,7 @@ public class ResourceTest extends ResourceCreationBase {
 		node1 = this.createResourceNodeCategory("万达项目", "GSB_WANDA", node.getId());
 		{
 			this.createResourceNodeVoucher(ProductView.class.getName(), "服务列表", "GSB_WANDA_" + ProductView.class.getSimpleName(),IProductViewService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(SoOrder.class.getName(), "订单列表", "GSB_WANDA_" + SoOrder.class.getSimpleName(),IOrderService.class.getName(), node1.getId());
 		}
 
 //		node1 = this.createResourceNodeCategory("ICompany", "GSB_WANDA", node.getId());
