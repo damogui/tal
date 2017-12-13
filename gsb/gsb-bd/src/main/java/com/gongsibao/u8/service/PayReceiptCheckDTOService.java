@@ -1,4 +1,4 @@
-package com.gongsibao.trade.service;
+package com.gongsibao.u8.service;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import org.netsharp.service.PersistableService;
 
 import com.gongsibao.entity.trade.dic.PayReceiptStatus;
 import com.gongsibao.entity.trade.dto.PayReceiptCheckDTO;
-import com.gongsibao.trade.base.IPayReceiptCheckDTOService;
+import com.gongsibao.u8.base.IPayReceiptCheckDTOService;
 
 @Service
 public class PayReceiptCheckDTOService extends PersistableService<PayReceiptCheckDTO> implements IPayReceiptCheckDTOService {

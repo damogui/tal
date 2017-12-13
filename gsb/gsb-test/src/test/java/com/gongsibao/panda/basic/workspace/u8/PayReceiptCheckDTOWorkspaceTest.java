@@ -1,6 +1,7 @@
 package com.gongsibao.panda.basic.workspace.u8;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
@@ -17,6 +18,7 @@ import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.trade.dto.PayReceiptCheckDTO;
+import com.gongsibao.u8.web.PayReceiptCheckDTOController;
 
 public class PayReceiptCheckDTOWorkspaceTest extends WorkspaceCreationBase  {
 
@@ -34,6 +36,26 @@ public class PayReceiptCheckDTOWorkspaceTest extends WorkspaceCreationBase  {
 		formOpenMode = OpenMode.WINDOW;//编辑框打开的形式
 		openWindowHeight=400;
 		openWindowWidth=800;
+		
+		listPartServiceController = PayReceiptCheckDTOController.class.getName();
+		listPartJsController = PayReceiptCheckDTOController.class.getName();
+		listPartImportJs = "/gsb/bd/js/u8/pay.receipt.part.js";
+		listToolbarPath="/basic/u8/receiptcheck/toolbar";
+	}
+	
+	@Test
+	public void createToolbar() {
+		ResourceNode node = this.getResourceNode();
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			toolbar.setBasePath("panda/datagrid/edit");
+			toolbar.setPath(listToolbarPath);
+			toolbar.setName("账套信息工具栏");
+			toolbar.setResourceNode(node);
+		}
+		addToolbarItem(toolbar, "disabled", "绑定回单编号", "fa-stop-circle-o","bindReceiptWeb();", null, 5);
+		toolbarService.save(toolbar);
 	}
 
 	//默认的grid信息的配置

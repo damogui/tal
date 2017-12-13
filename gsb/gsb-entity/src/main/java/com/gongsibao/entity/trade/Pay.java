@@ -7,6 +7,7 @@ import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.trade.dic.PayReceiptStatus;
 
 @Table(name="so_pay")
 public class Pay extends BaseEntity {
@@ -55,6 +56,13 @@ public class Pay extends BaseEntity {
     
     @Column(name="online_trade_no",header="在线交易号")
     private String onlineTradeNo;
+    
+    @Column(name="receipt_no",header="回单编号")
+    private String receiptNo;
+    
+    @Column(name="receipt_status",header="回单处理状态（0：未完成 1已完成：）")
+    private PayReceiptStatus receiptStatus=PayReceiptStatus.NotStarted;
+    
 
     public String getNo() {
         return no;
@@ -140,5 +148,19 @@ public class Pay extends BaseEntity {
     public void setOnlineTradeNo(String onlineTradeNo) {
         this.onlineTradeNo = onlineTradeNo;
     }
+	public String getReceiptNo() {
+		return receiptNo;
+	}
+	public void setReceiptNo(String receiptNo) {
+		this.receiptNo = receiptNo;
+	}
+	public PayReceiptStatus getReceiptStatus() {
+		return receiptStatus;
+	}
+	public void setReceiptStatus(PayReceiptStatus receiptStatus) {
+		this.receiptStatus = receiptStatus;
+	}
+    
+    
 
 }
