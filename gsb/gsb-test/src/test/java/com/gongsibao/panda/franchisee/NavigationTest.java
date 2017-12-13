@@ -15,7 +15,7 @@ public class NavigationTest extends NavigationBase {
 
 	public void createAccodions() {
 
-		this.doCreateAccodions("GSB_BD", "招商CRM", "fa fa-users fa-fw", 3);
+		this.doCreateAccodions("GSB_BD", "招商CRM", "fa fa-user-o fa-fw", 3);
 	}
 
 	@Override
