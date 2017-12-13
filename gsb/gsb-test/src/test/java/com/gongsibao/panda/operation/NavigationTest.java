@@ -22,13 +22,13 @@ public class NavigationTest extends NavigationBase {
 
 	public void createAccodions() {
 
-		this.doCreateAccodions("GSB_OPERATION", "运营管理", "fa fa-users fa-fw", 0);
+		this.doCreateAccodions("GSB_OPERATION", "运营管理", "fa fa-file fa-fw", 0);
 	}
 
 	@Override
 	protected void doCreateTree(PNavigation tree) {
 
-		createPTreeNode(tree, null, "fa fa-users fa-fw", "GSB_TAURUS", "金牛座", "", 1);
+		createPTreeNode(tree, null, "fa fa-file-o fa-fw", "GSB_TAURUS", "金牛座", "", 1);
 		{
 			createPTreeNode(tree, "GSB_TAURUS", null, "GSB_TAURUS_" + User.class.getSimpleName(), "用户管理", "/taurus/user/list", 1);
 			createPTreeNode(tree, "GSB_TAURUS", null, "GSB_TAURUS_" + NewUserPerDayView.class.getSimpleName(), "每日新增用户数", "/taurus/user/perDay/list", 1);
@@ -38,9 +38,9 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, "GSB_TAURUS", null, "GSB_TAURUS_" + DayStatisticView.class.getSimpleName(), "日统计数据", "/taurus/user/dayStatistic/list", 1);
 		}
 		
-		createPTreeNode(tree, null, "fa fa-users fa-fw", "GSB_WANDA", "万达项目", "", 1);
+		createPTreeNode(tree, null, "fa fa-file-o fa-fw", "GSB_WANDA", "万达项目", "", 1);
 		{
-			createPTreeNode(tree, "GSB_CMS_Manager", null, "GSB_WANDA" + ProductView.class.getSimpleName(), "服务列表", "/cms/product/list", 1);
+			createPTreeNode(tree, "GSB_CMS_Manager", null, "GSB_WANDA_" + ProductView.class.getSimpleName(), "服务列表", "/cms/product/list", 1);
 		}
 	}
 }

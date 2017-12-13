@@ -23,7 +23,7 @@ public class WanDaProductWorkspaceTest extends WorkspaceCreationBase{
 		listPartName = formPartName = "服务列表";		
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_WANDA"+ProductView.class.getSimpleName();
+		resourceNodeCode = "GSB_WANDA_"+ProductView.class.getSimpleName();
 		
 		formOpenMode = OpenMode.WINDOW;
 	}
