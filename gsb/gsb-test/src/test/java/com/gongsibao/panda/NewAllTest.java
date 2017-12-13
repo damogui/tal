@@ -32,10 +32,10 @@ import org.junit.runners.Suite.SuiteClasses;
 	com.gongsibao.panda.operation.AllTest.class,
 	
     //6.商品管理
-	com.gongsibao.panda.product.AllTest.class,
+//	com.gongsibao.panda.product.AllTest.class,
 	
     //7.用户中心
-	com.gongsibao.panda.user.AllTest.class,
+//	com.gongsibao.panda.user.AllTest.class,
 	
     //8.交易中心
 	com.gongsibao.panda.trade.AllTest.class,
