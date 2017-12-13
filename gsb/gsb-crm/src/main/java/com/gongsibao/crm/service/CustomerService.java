@@ -125,6 +125,10 @@ public class CustomerService extends GsbPersistableService<Customer> implements 
 	 */
 	private Boolean hasMobile(String mobile) {
 
+		if(StringManager.isNullOrEmpty(mobile)){
+			
+			return false;
+		}
 		Oql oql = new Oql();
 		{
 			oql.setType(this.type);
