@@ -25,8 +25,8 @@ import org.junit.runners.Suite.SuiteClasses;
     //3.招商CRM
 	com.gongsibao.panda.franchisee.AllTest.class,
 	
-    //4.iduty
-	com.gongsibao.panda.iduty.AllTest.class,
+    //4.股转中心
+	com.gongsibao.panda.ma.AllTest.class,
 	
     //5.运营管理
 	com.gongsibao.panda.operation.AllTest.class,
@@ -38,10 +38,10 @@ import org.junit.runners.Suite.SuiteClasses;
 //	com.gongsibao.panda.user.AllTest.class,
 	
     //8.交易中心
-	com.gongsibao.panda.trade.AllTest.class,
+//	com.gongsibao.panda.trade.AllTest.class,
 	
     //9.报表中心
-	com.gongsibao.panda.report.AllTest.class,
+//	com.gongsibao.panda.report.AllTest.class,
 
 	//处理资源Id
 	org.netsharp.meta.end.AllTests.class,
