@@ -21,8 +21,8 @@ public class SetOfBooksWorkspace extends WorkspaceCreationBase  {
 	public void setup() {
 
 		entity = SetOfBooks.class;//实体
-		urlList = "/u8/setofBbooks/list";//列表的url
-		urlForm = "/u8/setofBbooks/form";//弹出框的url
+		urlList = "/basic/u8/setofBbooks/list";//列表的url
+		urlForm = "/basic/u8/setofBbooks/form";//弹出框的url
 		listPartName = formPartName = "账套信息";
 		meta = MtableManager.getMtable(entity);//获取实体元数据
 		formPartName = listPartName = meta.getName();
@@ -55,7 +55,7 @@ public class SetOfBooksWorkspace extends WorkspaceCreationBase  {
 			column.setAlign(DatagridAlign.CENTER);
 		}		
 		addColumn(datagrid, "enabled", "是否可用", ControlTypes.BOOLCOMBO_BOX, 50);
-		addColumn(datagrid, "user.name", "添加人", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "creator", "添加人", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "createTime", "添加时间", ControlTypes.DATETIME_BOX, 20);
 		return datagrid;
 	}
