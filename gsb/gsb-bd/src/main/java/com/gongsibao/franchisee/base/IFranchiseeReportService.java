@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.netsharp.base.IPersistableService;
+import org.netsharp.organization.entity.Organization;
 
 import com.gongsibao.entity.franchisee.FranchiseeReport;
 import com.gongsibao.entity.franchisee.dic.FranchiseeReportType;
@@ -28,4 +29,11 @@ public interface IFranchiseeReportService  extends IPersistableService<Franchise
 	 * @param ReportType 统计类型： 1-年、2-月、4-日
 	 */
 	public void createDepartReport(Integer departmentId,FranchiseeReportType reportType);
+	
+	/**
+	 * 根据ParentId获取‘组织机构’集合
+	 * @param parentId
+	 * @return
+	 */
+	public List<Organization> getOListByParentId(Integer parentId);
 }

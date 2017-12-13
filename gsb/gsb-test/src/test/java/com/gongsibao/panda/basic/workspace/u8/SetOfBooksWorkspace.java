@@ -11,24 +11,27 @@ import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PForm;
 import org.netsharp.panda.entity.PFormField;
+import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.u8.SetOfBooks;
 
 public class SetOfBooksWorkspace extends WorkspaceCreationBase  {
-	
+
 	@Before
 	public void setup() {
 
 		entity = SetOfBooks.class;//实体
-		urlList = "/u8/setofBbooks/list";//列表的url
-		urlForm = "/u8/setofBbooks/form";//弹出框的url
+		urlList = "/basic/u8/setofBbooks/list";//列表的url
+		urlForm = "/basic/u8/setofBbooks/form";//弹出框的url
 		listPartName = formPartName = "账套信息";
 		meta = MtableManager.getMtable(entity);//获取实体元数据
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "U8_"+SetOfBooks.class.getSimpleName();//菜单节点码（名称）
+		resourceNodeCode = "GSB_Basic_U8_" + SetOfBooks.class.getSimpleName();//菜单节点码（名称）
 		
 		formOpenMode = OpenMode.WINDOW;//编辑框打开的形式
+		openWindowHeight=400;
+		openWindowWidth=800;
 	}
 
 	//默认的grid信息的配置
@@ -47,7 +50,7 @@ public class SetOfBooksWorkspace extends WorkspaceCreationBase  {
 		column = addColumn(datagrid, "type", "类型", ControlTypes.TEXT_BOX, 100);{
 			column.setAlign(DatagridAlign.CENTER);
 		}
-		addColumn(datagrid, "taxRate", "税率", ControlTypes.DECIMAL_BOX, 100);	
+		//addColumn(datagrid, "taxRate", "税率", ControlTypes.DECIMAL_BOX, 100);	
 		addColumn(datagrid, "sort", "排序编号", ControlTypes.NUMBER_BOX, 100);
 		addColumn(datagrid, "accountCode", "科目编码", ControlTypes.TEXT_BOX, 150);
 		addColumn(datagrid, "enterName", "默认的制单人", ControlTypes.TEXT_BOX, 100);
@@ -55,19 +58,27 @@ public class SetOfBooksWorkspace extends WorkspaceCreationBase  {
 			column.setAlign(DatagridAlign.CENTER);
 		}		
 		addColumn(datagrid, "enabled", "是否可用", ControlTypes.BOOLCOMBO_BOX, 50);
-		addColumn(datagrid, "user.name", "添加人", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "createTime", "添加时间", ControlTypes.DATETIME_BOX, 20);
+		addColumn(datagrid, "creator", "添加人", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "createTime", "添加时间", ControlTypes.DATETIME_BOX, 100);
 		return datagrid;
 	}
 
+	@Override
+	protected PQueryProject createQueryProject(ResourceNode node) {
+		PQueryProject queryProject = super.createQueryProject(node);
+		queryProject.toNew();
+		addQueryItem(queryProject, "name", "名称", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "type", "类型", ControlTypes.ENUM_BOX);
+		return queryProject;
+	}
 	//默认的表单配置信息
 	protected PForm createForm(ResourceNode node) {
 
 		PForm form = super.createForm(node);
-		form.setColumnCount(1);
+		form.setColumnCount(2);
 		addFormField(form, "name", "名称", null, ControlTypes.TEXT_BOX, true, false);		
 		addFormField(form, "senderNo", "外部系统编号", null, ControlTypes.TEXT_BOX, true, false);
-		addFormField(form, "type", "类型", null, ControlTypes.TEXT_BOX, true, false);
+		addFormField(form, "type", "类型", null, ControlTypes.ENUM_BOX, true, false);
 		PFormField field = addFormField(form, "taxRate", "税率", null, ControlTypes.DECIMAL_BOX, true, false);		{
 			field.setPrecision(3);
 		}

@@ -19,6 +19,10 @@ public class CompanyIntentionReferenceTest  extends ReferenceCreationBase{
 		referenceCode = CompanyIntention.class.getSimpleName();
 		intelligentMode = IntelligentMode.LIKE;
 		intelligentFields = "companyName";
+		canNew = true;
+		popupUrl="";
+		width= 800;
+		height = 600;
 	}
 
 	public PDatagrid createDatagrid(ResourceNode node) {
