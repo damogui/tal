@@ -7,6 +7,7 @@ import org.junit.runners.Suite.SuiteClasses;
 import com.gongsibao.panda.basic.reference.SetOfBooksReferenceTest;
 import com.gongsibao.panda.basic.reference.U8BankReferenceTest;
 import com.gongsibao.panda.basic.workspace.config.DictWorkspaceTest;
+import com.gongsibao.panda.basic.workspace.u8.PayReceiptCheckDTOWorkspaceTest;
 import com.gongsibao.panda.basic.workspace.u8.SetOfBooksWorkspace;
 import com.gongsibao.panda.basic.workspace.u8.U8BankWorkspaceTest;
 import com.gongsibao.panda.basic.workspace.u8.VoucherLogWorkspaceTest;
@@ -28,6 +29,9 @@ import com.gongsibao.panda.basic.workspace.u8.VoucherLogWorkspaceTest;
 	SetOfBooksWorkspace.class,
 	U8BankWorkspaceTest.class,
 	VoucherLogWorkspaceTest.class,
+	
+	//回单核对
+	PayReceiptCheckDTOWorkspaceTest.class,
 	
 	
 	
