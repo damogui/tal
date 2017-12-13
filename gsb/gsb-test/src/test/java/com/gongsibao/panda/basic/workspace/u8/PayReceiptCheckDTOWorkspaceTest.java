@@ -57,7 +57,7 @@ public class PayReceiptCheckDTOWorkspaceTest extends WorkspaceCreationBase  {
 		addColumn(datagrid, "paidPrice", "订单已支付金额", ControlTypes.DECIMAL_BOX, 100);
 		addColumn(datagrid, "amount", "支付金额", ControlTypes.DECIMAL_BOX, 100);
 		addColumn(datagrid, "bookName", "付款账套", ControlTypes.TEXT_BOX, 200);
-		addColumn(datagrid, "bankName", "支付方式", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "bankName", "支付方式", ControlTypes.TEXT_BOX, 150);
 		addColumn(datagrid, "receiptStatus", "回单处理状态", ControlTypes.ENUM_BOX, 100);
 		addColumn(datagrid, "addTime", "订单创建日期", ControlTypes.DATETIME_BOX, 100);
 		addColumn(datagrid, "returnTime", "回款日期", ControlTypes.DATETIME_BOX, 100);
@@ -105,6 +105,8 @@ public class PayReceiptCheckDTOWorkspaceTest extends WorkspaceCreationBase  {
 		addQueryItem(queryProject, "receiptNo", "回单编号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "id", "支付编号", ControlTypes.NUMBER_BOX);
 		addQueryItem(queryProject, "receiptStatus", "回单处理状态", ControlTypes.ENUM_BOX);
+		addQueryItem(queryProject, "addTime", "订单创建日期", ControlTypes.DATE_BOX);
+		addQueryItem(queryProject, "returnTime", "回款日期", ControlTypes.DATE_BOX);
 		return queryProject;
 	}
 	//默认的表单配置信息
