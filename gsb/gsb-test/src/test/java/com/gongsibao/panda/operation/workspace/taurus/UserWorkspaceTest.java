@@ -98,9 +98,13 @@ public class UserWorkspaceTest extends WorkspaceCreationBase {
 
 		PDatagrid datagrid = super.createDatagrid(node);
 		datagrid.setToolbar("panda/datagrid/row/edit");
+		
+		PDatagridColumn column = null;
 		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-		addColumn(datagrid, "mobile", "手机号", ControlTypes.TEXT_BOX, 100, true);
-		PDatagridColumn column = addColumn(datagrid, "amount", "余额", ControlTypes.DECIMAL_FEN_BOX, 100);{
+		column = addColumn(datagrid, "mobile", "手机", ControlTypes.TEXT_BOX, 100);{
+			column.setFormatter("if(value&&value.length==11){return value.substr(0,3)+'****'+value.substr(7);}");
+		}
+		column = addColumn(datagrid, "amount", "余额", ControlTypes.DECIMAL_FEN_BOX, 100);{
 			
 			column.setOrderbyMode(OrderbyMode.DESC);
 		}
