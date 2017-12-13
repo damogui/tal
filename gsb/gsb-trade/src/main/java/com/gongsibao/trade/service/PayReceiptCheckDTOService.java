@@ -51,8 +51,8 @@ public class PayReceiptCheckDTOService extends PersistableService<PayReceiptChec
 		DataTable dataTable = this.pm.executeTable(sqlBuffer.toString(), null);
 		List<PayReceiptCheckDTO> reslis = new ArrayList<>();
 		for (IRow row : dataTable) {
-			PayReceiptCheckDTO dto = new PayReceiptCheckDTO();			
-			Integer id = getInteger(row.getString("id"));//支付id
+			PayReceiptCheckDTO dto = new PayReceiptCheckDTO();	
+			Integer id = row.getInteger("id");//支付id
 			Integer orderId = row.getInteger("orderId");//订单id
 			String orderNo = row.getString("orderNo");// 订单编号
 			Integer payablePrice = row.getInteger("payablePrice");// 订单应付价
@@ -104,15 +104,6 @@ public class PayReceiptCheckDTOService extends PersistableService<PayReceiptChec
 		DecimalFormat df=new DecimalFormat("0.00");		
 		return Double.parseDouble(df.format((float)a/b));
 	}
-	
-	
-	private Integer getInteger(String val) {
-		return val==null?0:Integer.parseInt(val);
-	}
-	
-	private String getString(String val) {
-		return val==null?"":val;
-	}
-    
-    
+
+
 }
