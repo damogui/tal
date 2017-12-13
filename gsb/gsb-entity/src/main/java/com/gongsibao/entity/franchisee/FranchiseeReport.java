@@ -7,9 +7,9 @@ import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.CatEntity;
 import org.netsharp.organization.entity.Employee;
+import org.netsharp.organization.entity.Organization;
 
 import com.gongsibao.entity.franchisee.dic.FranchiseeReportType;
-import com.gongsibao.entity.uc.Organization;
 
 @Table(name="bd_franchisee_report",header="供应商报表")
 public class FranchiseeReport extends CatEntity{
