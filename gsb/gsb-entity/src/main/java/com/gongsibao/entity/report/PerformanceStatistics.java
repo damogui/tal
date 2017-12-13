@@ -29,17 +29,17 @@ public class PerformanceStatistics extends CatEntity{
 	@Column(name = "organization_id", header = "部门Id")
 	private Integer organizationId;
 	
-    @Column(name="owner_id",header="业务员Id")
-    private Integer ownerId;
+    @Column(name="salesman_id",header="业务员Id")
+    private Integer salesmanId;
     
-    @Reference(foreignKey="ownerId")
-    private User owner;
+    @Reference(foreignKey="salesmanId")
+    private User salesman;
     
     @Column(name="year",header="年")
     private int year;
     
-    @Column(name="quarter",header="季")
-    private int quarter;
+    @Column(name="season",header="季")
+    private int season;
     
     @Column(name="month",header="月")
     private int month;
@@ -94,21 +94,21 @@ public class PerformanceStatistics extends CatEntity{
 	public void setOrganizationId(Integer organizationId) {
 		this.organizationId = organizationId;
 	}
-
-	public Integer getOwnerId() {
-		return ownerId;
+	
+	public Integer getSalesmanId() {
+		return salesmanId;
 	}
 
-	public void setOwnerId(Integer ownerId) {
-		this.ownerId = ownerId;
+	public void setSalesmanId(Integer salesmanId) {
+		this.salesmanId = salesmanId;
 	}
 
-	public User getOwner() {
-		return owner;
+	public User getSalesman() {
+		return salesman;
 	}
 
-	public void setOwner(User owner) {
-		this.owner = owner;
+	public void setSalesman(User salesman) {
+		this.salesman = salesman;
 	}
 
 	public int getYear() {
@@ -119,12 +119,12 @@ public class PerformanceStatistics extends CatEntity{
 		this.year = year;
 	}
 
-	public int getQuarter() {
-		return quarter;
+	public int getSeason() {
+		return season;
 	}
 
-	public void setQuarter(int quarter) {
-		this.quarter = quarter;
+	public void setSeason(int season) {
+		this.season = season;
 	}
 
 	public int getMonth() {

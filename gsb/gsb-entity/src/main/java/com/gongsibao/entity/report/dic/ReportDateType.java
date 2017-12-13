@@ -6,7 +6,7 @@ import org.netsharp.base.IEnum;
 public enum ReportDateType implements IEnum{
 
 	YEAR(1, "年"),
-	QUARTER(2, "季"),
+	SEASON(2, "季"),
 	MONTH(3, "月"),
 	WEEK(4, "周"),
 	DATE(5, "日");
