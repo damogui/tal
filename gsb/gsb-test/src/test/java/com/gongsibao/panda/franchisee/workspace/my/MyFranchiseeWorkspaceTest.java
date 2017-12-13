@@ -169,9 +169,11 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 		column = addColumn(datagrid, "linkmanName", "联系人", ControlTypes.TEXT_BOX, 80);{
 			column.setGroupName(groupName);
 		}
-		column = addColumn(datagrid, "mobile", "手机号", ControlTypes.TEXT_BOX, 100);{
-			column.setGroupName(groupName);
+
+		column = addColumn(datagrid, "mobile", "手机", ControlTypes.TEXT_BOX, 100);{
+			column.setFormatter("if(value&&value.length==11){return value.substr(0,3)+'****'+value.substr(7);}");
 		}
+		
 		column = addColumn(datagrid, "post", "职务", ControlTypes.TEXT_BOX, 80);{
 			column.setAlign(DatagridAlign.CENTER);
 			column.setGroupName(groupName);
