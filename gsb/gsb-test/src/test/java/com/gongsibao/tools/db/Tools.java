@@ -1,4 +1,4 @@
-package com.gongsibao.db;
+package com.gongsibao.tools.db;
 
 import java.io.FileWriter;
 import java.io.IOException;
