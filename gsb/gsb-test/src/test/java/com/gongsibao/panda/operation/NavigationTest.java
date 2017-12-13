@@ -23,7 +23,7 @@ public class NavigationTest extends NavigationBase {
 
 	public void createAccodions() {
 
-		this.doCreateAccodions("GSB_OPERATION", "运营管理", "fa-file-o fa-fw", 0);
+		this.doCreateAccodions("GSB_OPERATION", "运营管理", "fa fa-file-o fa-fw", 0);
 	}
 
 	@Override

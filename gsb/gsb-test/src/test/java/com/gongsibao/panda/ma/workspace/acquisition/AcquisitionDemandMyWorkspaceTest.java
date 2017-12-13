@@ -7,7 +7,6 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.ma.AcquisitionDemand;
 import com.gongsibao.ma.web.AcquisitionDemandFormPart;
-
 public class AcquisitionDemandMyWorkspaceTest extends AcquisitionDemandWorkspaceTest{
 
 	@Override

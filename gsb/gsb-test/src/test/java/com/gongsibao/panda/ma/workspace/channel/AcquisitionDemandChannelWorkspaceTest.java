@@ -16,7 +16,8 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import com.gongsibao.entity.ma.AcquisitionDemand;
 import com.gongsibao.ma.web.AcquisitionDemandFormPart;
 import com.gongsibao.panda.ma.workspace.acquisition.AcquisitionDemandWorkspaceTest;
-
+//		addColumn(datagrid, "name", "收购人", ControlTypes.TEXT_BOX, 80);
+//		addColumn(datagrid, "mobile", "收购电话", ControlTypes.TEXT_BOX, 100);
 public class AcquisitionDemandChannelWorkspaceTest extends AcquisitionDemandWorkspaceTest {
 
 	@Override

@@ -28,7 +28,42 @@ import com.gongsibao.entity.ma.dic.SelingStatus;
 import com.gongsibao.ma.web.AcquisitionDemandFormPart;
 import com.gongsibao.ma.web.AcquisitionDemandListPart;
 import com.gongsibao.ma.web.AcquisitionDemandMatchingDetailPart;
-
+/**
+ * @author hw
+ * 收购需求
+ */
+/**   
+	 * @Title: createSubdiaryieCompanyDetailPart   
+	 * @Description: TODO(创建子公司明细)   
+	 * @param: @param workspace      
+	 * @return: void      
+	 * @throws   
+	 */
+/**   
+	 * @Title: createSubdiaryieCompanyDetailPart   
+	 * @Description: TODO(创建匹配明细)   
+	 * @param: @param workspace      
+	 * @return: void      
+	 * @throws   
+	 */
+/**
+ * @author hw
+ * 收购需求
+ */
+/**   
+	 * @Title: createSubdiaryieCompanyDetailPart   
+	 * @Description: TODO(创建子公司明细)   
+	 * @param: @param workspace      
+	 * @return: void      
+	 * @throws   
+	 */
+/**   
+	 * @Title: createSubdiaryieCompanyDetailPart   
+	 * @Description: TODO(创建匹配明细)   
+	 * @param: @param workspace      
+	 * @return: void      
+	 * @throws   
+	 */
 /**
  * @author hw
  * 收购需求
@@ -321,3 +356,4 @@ public class AcquisitionDemandWorkspaceTest extends WorkspaceCreationBase{
 		operationService.addOperation(node, OperationTypes.delete);
 	}
 }
+

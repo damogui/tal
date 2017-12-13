@@ -14,9 +14,46 @@ import org.junit.runners.Suite.SuiteClasses;
 //	org.netsharp.wx.meta.AllTests.class,
 //  org.netsharp.cache.plugin.AllTests.class,
 //  org.netsharp.scrum.meta.AllTests.class,
-	
+
+   // com.gongsibao.ma.AllTest.class,
+
+//    com.gongsibao.er.AllTest.class,
+//      com.gongsibao.crm.AllTest.class,
+//      com.gongsibao.cms.AllTest.class,
+      //com.gongsibao.trade.AllTest.class,
+    //com.gongsibao.crm.AllTest.class,
+    //com.gongsibao.trade.AllTest.class,
+
+    //com.gongsibao.bd.AllTest.class,
+      //com.gongsibao.u8.AllTest.class,
+      
+      //com.gongsibao.u8.AllTest.class,
+
+//    com.gongsibao.ma.AllTest.class,
+//    com.gongsibao.crm.AllTest.class,
+//    com.gongsibao.cms.AllTest.class,
+//    com.gongsibao.trade.AllTest.class,
+//      
+//      com.gongsibao.u8.AllTest.class,
+
       
     com.gongsibao.uc.AllTest.class,
+    //com.gongsibao.taurus.AllTest.class,
+    //com.gongsibao.franchisee.AllTest.class,
+    //com.gongsibao.crm.AllTest.class,
+    //com.gongsibao.cms.AllTest.class,
+   // com.gongsibao.trade.AllTest.class,
+    //com.gongsibao.taurus.AllTest.class,
+//    com.gongsibao.crm.AllTest.class,
+//    com.gongsibao.cms.AllTest.class,
+//    com.gongsibao.trade.AllTest.class,
+//    com.gongsibao.taurus.AllTest.class,
+//    com.gongsibao.uc.AllTest.class,
+    //com.gongsibao.franchisee.AllTest.class,
+
+      
+    com.gongsibao.uc.AllTest.class,
+
 
 	org.netsharp.meta.end.AllTests.class,
 	
