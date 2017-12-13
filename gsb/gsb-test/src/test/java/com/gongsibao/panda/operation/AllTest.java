@@ -4,8 +4,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import com.gongsibao.cms.workspace.ProductWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.cms.ProductPackageWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.cms.ProductWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.supplier.CPAuditWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.supplier.SPAuditWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.taurus.ActiveUserWorkspaceTest;
