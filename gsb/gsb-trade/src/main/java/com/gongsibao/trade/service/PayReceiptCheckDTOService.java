@@ -27,9 +27,11 @@ public class PayReceiptCheckDTOService extends PersistableService<PayReceiptChec
 	@Override
 	public List<PayReceiptCheckDTO> queryList(Oql oql) {
 
+	    String filterString =	oql.getFilter();
 		Paging paging = oql.getPaging();
 		int startIndex = (paging.getPageNo()-1)*paging.getPageSize();
 		StringBuffer sqlBuffer =new StringBuffer();
+		sqlBuffer.append("SELECT * FROM ( ");
 		sqlBuffer.append("SELECT p.`pkid` as id, oi.`pkid` orderId, oi.`no` orderNo,oi.`payable_price` 'payablePrice',oi.`paid_price` 'paidPrice', p.`receipt_no` 'receiptNo',p.`receipt_status` 'receiptStatus',p.`amount`, ");
 		sqlBuffer.append("book.`name` 'bookName',ub.`name` 'bankName',oi.`add_time` 'addTime', ");
 		sqlBuffer.append("(CASE p.pay_way_type_id WHEN 3101 THEN p.confirm_time WHEN 3102 THEN (SELECT add_time FROM bd_audit_log WHERE type_id = 1045 AND form_id = p.`pkid` AND status_id = 1054 ORDER BY LEVEL DESC LIMIT 1) ELSE NULL END) 'returnTime' ");
@@ -39,8 +41,9 @@ public class PayReceiptCheckDTOService extends PersistableService<PayReceiptChec
 		sqlBuffer.append("JOIN u8_bank_so_pay_map uopm ON uopm.`pay_id`=p.`pkid` AND uopm.`type`=0 ");
 		sqlBuffer.append("JOIN u8_bank ub ON ub.id=uopm.`u8_bank_id` ");
 		sqlBuffer.append("JOIN u8_set_of_books book ON book.`id`=ub.`set_of_books_id` ");
-		sqlBuffer.append("WHERE p.`success_status_id`=3123 AND offline_audit_status_id=1054 ");
-		sqlBuffer.append("LIMIT "+startIndex+", "+paging.getPageSize()+" ");
+		sqlBuffer.append("WHERE p.`success_status_id`=3123 AND offline_audit_status_id=1054)t ");
+		sqlBuffer.append(filterString==null?"":"WHERE "+filterString);//拼接sql语句的where条件
+		sqlBuffer.append(" LIMIT "+startIndex+", "+paging.getPageSize()+" ");
 		
 		paging.setTotalCount(getqueryListCount());
 		oql.setPaging(paging);

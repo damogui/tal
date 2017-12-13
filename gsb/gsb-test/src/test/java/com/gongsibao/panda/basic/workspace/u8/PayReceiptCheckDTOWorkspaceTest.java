@@ -4,14 +4,16 @@ import org.junit.Before;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
+import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
-import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PForm;
-import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PQueryProject;
+import org.netsharp.panda.plugin.dic.ToolbarType;
+import org.netsharp.panda.plugin.entity.PToolbar;
+import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.trade.dto.PayReceiptCheckDTO;
@@ -61,6 +63,39 @@ public class PayReceiptCheckDTOWorkspaceTest extends WorkspaceCreationBase  {
 		addColumn(datagrid, "returnTime", "回款日期", ControlTypes.DATETIME_BOX, 100);
 		return datagrid;
 	}
+	
+	//自定义工具栏
+	public void fromToolbar() {
+
+			ResourceNode node = this.resourceService.byCode(resourceNodeCode);
+			OperationType ot1 = operationTypeService.byCode(OperationTypes.add);
+			OperationType otAdd = operationTypeService.byCode(OperationTypes.add);
+			OperationType otUpdate = operationTypeService.byCode(OperationTypes.update);
+			PToolbar toolbar = new PToolbar();
+			{
+				toolbar.toNew();
+				//toolbar.setBasePath("panda/form/edit");
+				toolbar.setPath(this.formToolbarPath);
+				toolbar.setName("供应商表单");
+				toolbar.setResourceNode(node);
+				toolbar.setToolbarType(ToolbarType.BASE);
+			}
+
+			PToolbarItem item = new PToolbarItem();
+			{
+				item.toNew();
+				item.setCode("follow");
+				item.setIcon("fa fa-mail-reply-all");
+				item.setName("跟进");
+				item.setCommand(null);
+				item.setOperationType(ot1);
+				item.setSeq(5000);
+				item.setCommand("{controller}.follow();");
+				toolbar.getItems().add(item);
+			}
+
+			toolbarService.save(toolbar);
+		}
 
 	@Override
 	protected PQueryProject createQueryProject(ResourceNode node) {
@@ -68,7 +103,7 @@ public class PayReceiptCheckDTOWorkspaceTest extends WorkspaceCreationBase  {
 		queryProject.toNew();
 		addQueryItem(queryProject, "orderNo", "订单号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "receiptNo", "回单编号", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "id", "支付编号", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "id", "支付编号", ControlTypes.NUMBER_BOX);
 		addQueryItem(queryProject, "receiptStatus", "回单处理状态", ControlTypes.ENUM_BOX);
 		return queryProject;
 	}
