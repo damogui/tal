@@ -8,6 +8,7 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.CatEntity;
 
 import com.gongsibao.entity.report.dic.ReportDateType;
+import com.gongsibao.entity.report.dic.ReportOrganizationType;
 import com.gongsibao.entity.uc.Organization;
 import com.gongsibao.entity.uc.User;
 
@@ -20,14 +21,17 @@ public class PerformanceStatistics extends CatEntity{
 	private static final long serialVersionUID = -63320755248597454L;
 	
 	
-	@Column(name = "type", header = "统计时间类型")
-	private ReportDateType type;
+	@Column(name = "date_type", header = "统计时间类型")
+	private ReportDateType dateType;
 	
-	@Column(name = "organizationId", header = "部门")
-	private Organization organization;
+	@Column(name = "organization_type", header = "统计组织类型")
+	private ReportOrganizationType organizationType;
+	
+	@Column(name = "department", header = "部门")
+	private Organization department;
 
-	@Column(name = "organization_id", header = "部门Id")
-	private Integer organizationId;
+	@Column(name = "department_id", header = "部门Id")
+	private Integer departmentId;
 	
     @Column(name="salesman_id",header="业务员Id")
     private Integer salesmanId;
@@ -71,30 +75,38 @@ public class PerformanceStatistics extends CatEntity{
     @Column(name="order_count",header="订单量")
     private int orderCount = 0;
 
-	public ReportDateType getType() {
-		return type;
+	public ReportDateType getDateType() {
+		return dateType;
 	}
 
-	public void setType(ReportDateType type) {
-		this.type = type;
+	public void setDateType(ReportDateType dateType) {
+		this.dateType = dateType;
 	}
 
-	public Organization getOrganization() {
-		return organization;
+	public ReportOrganizationType getOrganizationType() {
+		return organizationType;
 	}
 
-	public void setOrganization(Organization organization) {
-		this.organization = organization;
+	public void setOrganizationType(ReportOrganizationType organizationType) {
+		this.organizationType = organizationType;
 	}
 
-	public Integer getOrganizationId() {
-		return organizationId;
+	public Organization getDepartment() {
+		return department;
 	}
 
-	public void setOrganizationId(Integer organizationId) {
-		this.organizationId = organizationId;
+	public void setDepartment(Organization department) {
+		this.department = department;
 	}
-	
+
+	public Integer getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(Integer departmentId) {
+		this.departmentId = departmentId;
+	}
+
 	public Integer getSalesmanId() {
 		return salesmanId;
 	}
