@@ -46,18 +46,18 @@ public class PayReceiptCheckDTOWorkspaceTest extends WorkspaceCreationBase  {
 		
 		PDatagridColumn column = null;
 		addColumn(datagrid, "id", "支付编号", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "receiptNo", "回单编号", ControlTypes.TEXT_BOX, 200);
-		column = addColumn(datagrid, "orderId", "订单id", ControlTypes.TEXT_BOX, 200);{
+		addColumn(datagrid, "receiptNo", "回单编号", ControlTypes.TEXT_BOX, 100);
+		column = addColumn(datagrid, "orderId", "订单id", ControlTypes.TEXT_BOX, 100);{
 			column.setVisible(false);
 		}
-        addColumn(datagrid, "orderNo", "订单号", ControlTypes.TEXT_BOX, 200);
-		addColumn(datagrid, "payablePrice", "订单金额", ControlTypes.TEXT_BOX, 200);
-		addColumn(datagrid, "paidPrice", "订单已支付金额", ControlTypes.TEXT_BOX, 200);
-		addColumn(datagrid, "amount", "支付金额", ControlTypes.TEXT_BOX, 200);
+        addColumn(datagrid, "orderNo", "订单号", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "payablePrice", "订单金额", ControlTypes.DECIMAL_BOX, 100);
+		addColumn(datagrid, "paidPrice", "订单已支付金额", ControlTypes.DECIMAL_BOX, 100);
+		addColumn(datagrid, "amount", "支付金额", ControlTypes.DECIMAL_BOX, 100);
 		addColumn(datagrid, "bookName", "付款账套", ControlTypes.TEXT_BOX, 200);
-		addColumn(datagrid, "bankName", "支付方式", ControlTypes.TEXT_BOX, 200);
+		addColumn(datagrid, "bankName", "支付方式", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "receiptStatus", "回单处理状态", ControlTypes.ENUM_BOX, 100);
-		addColumn(datagrid, "addTime", "订单创建日期", ControlTypes.TEXT_BOX, 200);
+		addColumn(datagrid, "addTime", "订单创建日期", ControlTypes.DATETIME_BOX, 100);
 		addColumn(datagrid, "returnTime", "回款日期", ControlTypes.DATETIME_BOX, 100);
 		return datagrid;
 	}
