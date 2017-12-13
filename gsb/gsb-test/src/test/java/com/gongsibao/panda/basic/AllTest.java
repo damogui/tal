@@ -8,8 +8,6 @@ import com.gongsibao.panda.basic.workspace.u8.PayReceiptCheckDTOWorkspaceTest;
 import com.gongsibao.panda.basic.workspace.u8.SetOfBooksWorkspace;
 import com.gongsibao.panda.basic.workspace.u8.U8BankWorkspaceTest;
 import com.gongsibao.panda.basic.workspace.u8.VoucherLogWorkspaceTest;
-import com.gongsibao.panda.operation.NavigationTest;
-import com.gongsibao.panda.operation.ResourceTest;
 
 
 @RunWith(Suite.class)

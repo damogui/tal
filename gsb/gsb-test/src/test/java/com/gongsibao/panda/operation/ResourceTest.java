@@ -63,19 +63,19 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(ProductView.class.getName(), "服务列表", "GSB_WANDA" + ProductView.class.getSimpleName(),IProductViewService.class.getName(), node1.getId());
 		}
 
-		node1 = this.createResourceNodeCategory("ICompany", "GSB_WANDA", node.getId());
-		{
-			this.createResourceNodeVoucher(ProductView.class.getName(), "服务列表", "GSB_WANDA" + ProductView.class.getSimpleName(),IProductViewService.class.getName(), node1.getId());
-		}
-		
-		node1 = this.createResourceNodeCategory("供应商管理", "GSB_WANDA", node.getId());
-		{
-			this.createResourceNodeVoucher(ProductView.class.getName(), "服务列表", "GSB_WANDA" + ProductView.class.getSimpleName(),IProductViewService.class.getName(), node1.getId());
-		}
-	
-		node1 = this.createResourceNodeCategory("网站CMS", "GSB_WANDA", node.getId());
-		{
-			this.createResourceNodeVoucher(ProductView.class.getName(), "服务列表", "GSB_WANDA" + ProductView.class.getSimpleName(),IProductViewService.class.getName(), node1.getId());
-		}
+//		node1 = this.createResourceNodeCategory("ICompany", "GSB_WANDA", node.getId());
+//		{
+//			this.createResourceNodeVoucher(ProductView.class.getName(), "服务列表", "GSB_WANDA" + ProductView.class.getSimpleName(),IProductViewService.class.getName(), node1.getId());
+//		}
+//		
+//		node1 = this.createResourceNodeCategory("供应商管理", "GSB_WANDA", node.getId());
+//		{
+//			this.createResourceNodeVoucher(ProductView.class.getName(), "服务列表", "GSB_WANDA" + ProductView.class.getSimpleName(),IProductViewService.class.getName(), node1.getId());
+//		}
+//	
+//		node1 = this.createResourceNodeCategory("网站CMS", "GSB_WANDA", node.getId());
+//		{
+//			this.createResourceNodeVoucher(ProductView.class.getName(), "服务列表", "GSB_WANDA" + ProductView.class.getSimpleName(),IProductViewService.class.getName(), node1.getId());
+//		}
 	}
 }

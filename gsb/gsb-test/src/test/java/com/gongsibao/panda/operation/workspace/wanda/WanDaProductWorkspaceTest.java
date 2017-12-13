@@ -12,7 +12,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.cms.ProductView;
 
-public class ProductWorkspaceTest extends WorkspaceCreationBase{
+public class WanDaProductWorkspaceTest extends WorkspaceCreationBase{
 
 	
 	@Before

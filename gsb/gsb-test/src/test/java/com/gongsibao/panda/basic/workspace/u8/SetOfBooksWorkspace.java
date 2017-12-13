@@ -26,7 +26,7 @@ public class SetOfBooksWorkspace extends WorkspaceCreationBase  {
 		listPartName = formPartName = "账套信息";
 		meta = MtableManager.getMtable(entity);//获取实体元数据
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "U8_"+SetOfBooks.class.getSimpleName();//菜单节点码（名称）
+		resourceNodeCode = "GSB_Basic_U8_"+SetOfBooks.class.getSimpleName();//菜单节点码（名称）
 		
 		formOpenMode = OpenMode.WINDOW;//编辑框打开的形式
 	}
