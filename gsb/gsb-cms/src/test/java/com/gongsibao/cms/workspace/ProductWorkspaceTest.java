@@ -1,4 +1,4 @@
-package com.gongsibao.panda.operation.workspace.wanda;
+package com.gongsibao.cms.workspace;
 
 import org.junit.Before;
 import org.netsharp.core.MtableManager;
@@ -7,23 +7,27 @@ import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
+import org.netsharp.panda.entity.PForm;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
+
+
+
 import com.gongsibao.entity.cms.ProductView;
 
-public class WanDaProductWorkspaceTest extends WorkspaceCreationBase{
+public class ProductWorkspaceTest extends WorkspaceCreationBase{
 
 	
 	@Before
 	public void setup() {
 
 		entity = ProductView.class;
-		urlList = "/operation/wanda/product/list";
+		urlList = "/cms/product/list";
 		listPartName = formPartName = "服务列表";		
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_WANDA_"+ProductView.class.getSimpleName();
+		resourceNodeCode = "CMS_"+ProductView.class.getSimpleName();
 		
 		formOpenMode = OpenMode.WINDOW;
 	}

@@ -7,8 +7,6 @@ import java.util.Map;
 
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.job.core.IJob;
-import org.netsharp.organization.base.IOrganizationService;
-import org.netsharp.organization.entity.Organization;
 
 import com.gongsibao.entity.franchisee.dic.FranchiseeReportType;
 import com.gongsibao.franchisee.base.IFranchiseeReportService;
@@ -27,9 +25,7 @@ public class FranchiseeReportJob implements IJob {
 	public void execute(String par) {
 
 		// ====1.先查询招商部员工信息
-		// 报表接口
-		IOrganizationService organizaService = ServiceFactory.create(IOrganizationService.class);
-		List<Organization> getOrganList = organizaService.getByFunction("Channel");
+		
 		//临时部门假数据
 		Map<Integer, List<Integer>> tempDepartmentMap=new HashMap<Integer, List<Integer>>();
 		List<Integer>getOne=new ArrayList<Integer>();
@@ -58,23 +54,4 @@ public class FranchiseeReportJob implements IJob {
 		// 4.注意:类，代码，方法的设计，不要堆在一起
 		// 5.这里只是一个入口
 	}
-	   private void getOrganizationList(Integer organId) {  
-	        try {
-	        	IFranchiseeReportService reportService = ServiceFactory.create(IFranchiseeReportService.class);
-	            List<Organization> list = reportService.getOListByParentId(organId);  
-	            if (null != list && list.size()>0) {  
-	                for (int i = 0; i < list.size(); i++) {  
-	                	Organization department = list.get(i);
-	                	//判断是否是叶子节点
-	                	if(department.getIsLeaf()){
-	                		
-	                	}else{
-	                		getOrganizationList(department.getId());
-	                	} 
-	                }  
-	            }  
-	        } catch (Exception e) {  
-	            e.printStackTrace();  
-	        }  
-	    }
 }
