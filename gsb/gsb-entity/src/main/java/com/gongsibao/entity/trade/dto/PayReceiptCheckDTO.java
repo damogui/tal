@@ -9,50 +9,50 @@ import org.netsharp.entity.Persistable;
 
 import com.gongsibao.entity.trade.dic.PayReceiptStatus;
 
-@Table(name="pay_receipt_check_view",isView=true)
-public class PayReceiptCheckDTO   extends  Persistable{
+@Table(name = "pay_receipt_check_view", isView = true)
+public class PayReceiptCheckDTO extends Persistable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 744623124771034969L;
-	
-	/*id必须存在否者运行失败*/
+
+	/* id必须存在否者运行失败 */
 	@Id
 	@Auto
 	private Integer id;
-	
-    //订单id
-	private Integer orderId;
-	
-    //订单编号
-	private String orderNo;
-	
-    //订单应付金额
-	private Integer payablePrice;
-	
-    //订单已付金额
-	private Integer paidPrice;
 
-    //支付回单号
+	// 订单id
+	private Integer orderId;
+
+	// 订单编号
+	private String orderNo;
+
+	// 订单应付金额
+	private double payablePrice;
+
+	// 订单已付金额
+	private double paidPrice;
+
+	// 支付回单号
 	private String receiptNo;
-	
-    //支付回单状态
+
+	// 支付回单状态
 	private PayReceiptStatus receiptStatus = PayReceiptStatus.NotStarted;
-	
-    //支付金额
-	private Integer amount;
-	
-    //订单id
+
+	// 支付金额
+	private double amount;
+
+	// 订单id
 	private String bookName;
-	
-    //支付方式
+
+	// 支付方式
 	private String bankName;
-	
-    //订单创建日期
+
+	// 订单创建日期
 	private Date addTime;
-	
-	//回款日期
+
+	// 回款日期
 	private Date returnTime;
 
 	public Integer getId() {
@@ -79,19 +79,19 @@ public class PayReceiptCheckDTO   extends  Persistable{
 		this.orderNo = orderNo;
 	}
 
-	public Integer getPayablePrice() {
+	public double getPayablePrice() {
 		return payablePrice;
 	}
 
-	public void setPayablePrice(Integer payablePrice) {
+	public void setPayablePrice(double payablePrice) {
 		this.payablePrice = payablePrice;
 	}
 
-	public Integer getPaidPrice() {
-		return paidPrice;
+	public double getPaidPrice() {
+		return paidPrice; 
 	}
 
-	public void setPaidPrice(Integer paidPrice) {
+	public void setPaidPrice(double paidPrice) {
 		this.paidPrice = paidPrice;
 	}
 
@@ -111,11 +111,11 @@ public class PayReceiptCheckDTO   extends  Persistable{
 		this.receiptStatus = receiptStatus;
 	}
 
-	public Integer getAmount() {
+	public double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(Integer amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 
@@ -151,6 +151,4 @@ public class PayReceiptCheckDTO   extends  Persistable{
 		this.returnTime = returnTime;
 	}
 
-	
-	
 }

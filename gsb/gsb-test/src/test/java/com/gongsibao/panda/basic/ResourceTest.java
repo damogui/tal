@@ -10,7 +10,7 @@ import com.gongsibao.entity.trade.dto.PayReceiptCheckDTO;
 import com.gongsibao.entity.u8.SetOfBooks;
 import com.gongsibao.entity.u8.U8Bank;
 import com.gongsibao.entity.u8.VoucherLog;
-import com.gongsibao.trade.base.IPayReceiptCheckDTOService;
+import com.gongsibao.u8.base.IPayReceiptCheckDTOService;
 import com.gongsibao.u8.base.ISetOfBooksService;
 import com.gongsibao.u8.base.IU8BankService;
 import com.gongsibao.u8.base.IVoucherLogService;
