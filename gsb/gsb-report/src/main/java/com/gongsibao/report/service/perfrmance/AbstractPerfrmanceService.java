@@ -34,10 +34,25 @@ public abstract class AbstractPerfrmanceService {
 		}
 	}
 	
+	/**   
+	 * @Title: before   
+	 * @Description: TODO(补全)   
+	 * @param:       
+	 * @return: void      
+	 * @throws   
+	 */
 	public abstract void before();
 
 	public abstract void doExecute(Integer principalId, Date date);
 
+	/**   
+	 * @Title: nextServiceExecute   
+	 * @Description: TODO(执行下一步统计)   
+	 * @param: @param principalId
+	 * @param: @param date      
+	 * @return: void      
+	 * @throws   
+	 */
 	public void nextServiceExecute(Integer principalId, Date date) {
 
 		this.nextService.execute(principalId, date);
