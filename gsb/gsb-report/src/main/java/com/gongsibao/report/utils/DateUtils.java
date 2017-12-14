@@ -1,4 +1,4 @@
-package com.gongsibao.report.service;
+package com.gongsibao.report.utils;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;

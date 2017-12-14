@@ -1,5 +1,21 @@
 package com.gongsibao.report.service.perfrmance.salesman;
 
-public class PerfrmanceSalesmanYearService {
+import java.util.Date;
+
+import com.gongsibao.report.service.perfrmance.AbstractPerfrmanceService;
+
+public class PerfrmanceSalesmanYearService extends AbstractPerfrmanceService {
+
+	@Override
+	public void before() {
+
+	}
+
+	@Override
+	public void doExecute(Integer principalId, Date date) {
+
+		// 执行单人年统计
+		this.nextService.execute(principalId, date);
+	}
 
 }
