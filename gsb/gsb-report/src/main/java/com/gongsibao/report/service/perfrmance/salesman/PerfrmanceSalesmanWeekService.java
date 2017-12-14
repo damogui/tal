@@ -17,7 +17,7 @@ public class PerfrmanceSalesmanWeekService extends AbstractPerfrmanceService{
 	@Override
 	public void before() {
 		
-		this.setNextService(new PerfrmanceSalesmanMonthService());
+		this.setNextService(new PerfrmanceSalesmanDayService());
 	}
 	
 	@Override

@@ -3,12 +3,14 @@ package com.gongsibao.report.service.perfrmance.salesman;
 import java.util.Date;
 
 import com.gongsibao.report.service.perfrmance.AbstractPerfrmanceService;
+import com.gongsibao.report.service.perfrmance.department.PerfrmanceDepartmentDayService;
 
 public class PerfrmanceSalesmanYearService extends AbstractPerfrmanceService {
 
 	@Override
 	public void before() {
 
+		this.setNextService(new PerfrmanceDepartmentDayService());
 	}
 
 	@Override
