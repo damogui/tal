@@ -1,7 +1,5 @@
 package com.gongsibao.uc.base;
 
-import java.util.List;
-
 import org.netsharp.base.IPersistableService;
 
 import com.gongsibao.entity.uc.User;
@@ -29,13 +27,4 @@ public interface IUserService extends IPersistableService<User> {
 	 */
 	Boolean hasMobile(Integer id,String mobile);
 	
-	/**   
-	 * @Title: getIds   
-	 * @Description: TODO(根据部门Id获取下面所有UserId，需要递归处理子部门)   
-	 * @param: @param departmentId
-	 * @param: @return      
-	 * @return: List<Integer>      
-	 * @throws   
-	 */
-	List<Integer> getIdList(Integer departmentId);
 }

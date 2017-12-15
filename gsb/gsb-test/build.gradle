@@ -11,6 +11,7 @@ dependencies {
     compile project(':gsb-trade')
     compile project(':gsb-uc')
     compile project(':gsb-taurus')
+    compile project(':gsb-report')
 }
 
 apply plugin: 'java'

@@ -1,20 +1,25 @@
 package com.gongsibao.report.service.perfrmance.department;
 
-import java.util.Date;
-
 import com.gongsibao.report.service.perfrmance.AbstractPerfrmanceService;
 
 public class PerfrmanceDepartmentSeasonService extends AbstractPerfrmanceService{
 
 	@Override
-	public void doExecute(Integer principalId,Date date) {
+	public void doExecute() {
 		
 		
 	}
 	
 	@Override
 	public void before() {
-		
-		this.setNextService(new PerfrmanceDepartmentYearService());
+		AbstractPerfrmanceService netService = new PerfrmanceDepartmentYearService();
+		netService.setContext(context);
+		this.setNextService(netService);
+	}
+
+	@Override
+	public Boolean delete() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 }

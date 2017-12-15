@@ -7,22 +7,15 @@ import java.util.List;
 import org.netsharp.application.Application;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.DataTable;
 import org.netsharp.core.EntityState;
-import org.netsharp.core.IRow;
-import org.netsharp.core.MtableManager;
 import org.netsharp.core.Oql;
-import org.netsharp.core.QueryParameters;
 import org.netsharp.organization.base.IEmployeeService;
 import org.netsharp.organization.entity.Employee;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.EncrypUtil;
 import org.netsharp.util.StringManager;
-import org.netsharp.util.sqlbuilder.SelectBuilder;
 
 import com.gongsibao.entity.uc.User;
-import com.gongsibao.entity.uc.UserOrganizationMap;
-import com.gongsibao.uc.base.IOrganizationService;
 import com.gongsibao.uc.base.IUserService;
 
 @Service
@@ -137,45 +130,5 @@ public class UserService extends PersistableService<User> implements IUserServic
 		oql.setFilter(filter);
 
 		return this.queryCount(oql) > 0;
-	}
-
-	IOrganizationService organizationService = ServiceFactory.create(IOrganizationService.class);
-
-	@Override
-	public List<Integer> getIdList(Integer departmentId) {
-
-		List<Integer> userIdList = new ArrayList<Integer>();
-
-		Boolean isHasChild = organizationService.hasChildDepartment(departmentId);
-		if (isHasChild) {
-
-			List<Integer> childDepartmentIdList = organizationService.getChildDepartmentIdList(departmentId);
-			for (Integer childDepartmentId : childDepartmentIdList) {
-
-				//递归获取UserId
-				List<Integer> childUserIdList = getIdList(childDepartmentId);
-				userIdList.addAll(childUserIdList);
-			}
-
-		} else {
-
-			SelectBuilder builder = SelectBuilder.getInstance();
-			{
-				builder.select("user_id");
-				builder.from(MtableManager.getMtable(UserOrganizationMap.class).getTableName());
-				builder.where("organization_id=?");
-			}
-
-			QueryParameters qps = new QueryParameters();
-			qps.add("departmentId", departmentId, Types.INTEGER);
-
-			DataTable dataTable = this.pm.executeTable(builder.toSQL(), qps);
-			for (IRow row : dataTable) {
-
-				Integer userId = row.getInteger("user_id");
-				userIdList.add(userId);
-			}
-		}
-		return userIdList;
 	}
 }

@@ -9,7 +9,7 @@ public enum ReportDateType implements IEnum{
 	SEASON(2, "季"),
 	MONTH(3, "月"),
 	WEEK(4, "周"),
-	DATE(5, "日");
+	DAY(5, "日");
 	
 	private int value;
 	private String text;

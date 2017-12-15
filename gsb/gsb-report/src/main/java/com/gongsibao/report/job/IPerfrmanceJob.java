@@ -14,7 +14,8 @@ public class IPerfrmanceJob implements IJob{
 		
 		IPerformanceStatisticsService service = ServiceFactory.create(IPerformanceStatisticsService.class);
 		Date date = new Date();
-		service.generate(date);
+		int[] departmentIdIds = { 4, 5 };//汉唐信通，供应商
+		service.generate(date,departmentIdIds);
 	}
 
 }

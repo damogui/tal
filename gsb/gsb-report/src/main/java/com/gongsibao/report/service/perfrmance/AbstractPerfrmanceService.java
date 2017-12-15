@@ -1,10 +1,18 @@
 package com.gongsibao.report.service.perfrmance;
 
-import java.util.Date;
+import org.netsharp.communication.ServiceFactory;
+import org.netsharp.persistence.IPersister;
+import org.netsharp.persistence.PersisterFactory;
+
+import com.gongsibao.entity.report.PerformanceStatistics;
+import com.gongsibao.report.base.IPerformanceStatisticsService;
 
 public abstract class AbstractPerfrmanceService {
 
+	protected IPersister<PerformanceStatistics> pm = PersisterFactory.create();
 	
+	protected IPerformanceStatisticsService statisticsService;
+
 	/**
 	 * @Fields context : TODO(报表统计上下文)
 	 */
@@ -17,46 +25,46 @@ public abstract class AbstractPerfrmanceService {
 
 	/**
 	 * @Title: execute
-	 * @Description: TODO(执行)
-	 * @param: @param context
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @param: @param principalId 部门Id，业务员Id
+	 * @param: @param date 统计日期
 	 * @return: void
 	 * @throws
 	 */
-	public void execute(Integer principalId, Date date) {
-		
+	public void execute() {
+
 		this.before();
 
-		this.doExecute(principalId, date);
+		this.delete();
+		
+		this.doExecute();
 
 		if (this.nextService != null) {
 
-			this.nextServiceExecute(principalId, date);
+			this.nextService.execute();
 		}
 	}
+
+	/**
+	 * @Title: before
+	 * @Description: TODO(补全)
+	 * @param:
+	 * @return: void
+	 * @throws
+	 */
+	public abstract void before();
 	
 	/**   
-	 * @Title: before   
-	 * @Description: TODO(补全)   
+	 * @Title: delete   
+	 * @Description: TODO(删除)   
 	 * @param:       
 	 * @return: void      
 	 * @throws   
 	 */
-	public abstract void before();
+	public abstract Boolean delete();
 
-	public abstract void doExecute(Integer principalId, Date date);
+	public abstract void doExecute();
 
-	/**   
-	 * @Title: nextServiceExecute   
-	 * @Description: TODO(执行下一步统计)   
-	 * @param: @param principalId
-	 * @param: @param date      
-	 * @return: void      
-	 * @throws   
-	 */
-	public void nextServiceExecute(Integer principalId, Date date) {
-
-		this.nextService.execute(principalId, date);
-	}
 
 	public PerfrmanceContext getContext() {
 		return context;
@@ -72,5 +80,14 @@ public abstract class AbstractPerfrmanceService {
 
 	public void setNextService(AbstractPerfrmanceService nextService) {
 		this.nextService = nextService;
+	}
+
+	public IPerformanceStatisticsService getStatisticsService() {
+
+		if (statisticsService == null) {
+
+			statisticsService = ServiceFactory.create(IPerformanceStatisticsService.class);
+		}
+		return statisticsService;
 	}
 }

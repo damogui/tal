@@ -27,7 +27,7 @@ public class PerformanceStatistics extends CatEntity{
 	@Column(name = "organization_type", header = "统计组织类型")
 	private ReportOrganizationType organizationType;
 	
-	@Column(name = "department", header = "部门")
+    @Reference(foreignKey="departmentId")
 	private Organization department;
 
 	@Column(name = "department_id", header = "部门Id")
@@ -40,16 +40,19 @@ public class PerformanceStatistics extends CatEntity{
     private User salesman;
     
     @Column(name="year",header="年")
-    private int year;
+    private Integer year;
     
     @Column(name="season",header="季")
-    private int season;
+    private Integer season;
     
     @Column(name="month",header="月")
-    private int month;
+    private Integer month;
     
     @Column(name="week",header="周")
-    private int week;
+    private Integer week;
+    
+    @Column(name="day",header="日")
+    private Integer day;
     
     @Column(name="date",header="日期")
     private Date date;
@@ -123,36 +126,40 @@ public class PerformanceStatistics extends CatEntity{
 		this.salesman = salesman;
 	}
 
-	public int getYear() {
+	public Integer getYear() {
 		return year;
 	}
 
-	public void setYear(int year) {
+	public void setYear(Integer year) {
 		this.year = year;
 	}
 
-	public int getSeason() {
+	public Integer getSeason() {
 		return season;
 	}
 
-	public void setSeason(int season) {
+	public void setSeason(Integer season) {
 		this.season = season;
 	}
 
-	public int getMonth() {
+	public Integer getMonth() {
 		return month;
 	}
 
-	public void setMonth(int month) {
+	public void setMonth(Integer month) {
 		this.month = month;
 	}
 
-	public int getWeek() {
+	public Integer getWeek() {
 		return week;
 	}
 
-	public void setWeek(int week) {
+	public void setWeek(Integer week) {
 		this.week = week;
+	}
+
+	public void setDay(Integer day) {
+		this.day = day;
 	}
 
 	public Date getDate() {
@@ -218,4 +225,13 @@ public class PerformanceStatistics extends CatEntity{
 	public void setOrderCount(int orderCount) {
 		this.orderCount = orderCount;
 	}
+
+	public int getDay() {
+		return day;
+	}
+
+	public void setDay(int day) {
+		this.day = day;
+	}
+	
 }

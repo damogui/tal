@@ -1,8 +1,8 @@
 package com.gongsibao.report.utils;
 
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -39,7 +39,7 @@ public class DateUtils {
 				pattern = YYYYMMDD;
 			}
 			SimpleDateFormat format = new SimpleDateFormat(pattern);
-			date = (Date) format.parse(strDate);
+			date = format.parse(strDate);
 		} catch (Exception e) {
 			logger.error("parseDate error:" + e);
 		}
@@ -166,7 +166,7 @@ public class DateUtils {
 		monday.setTime(date);
 		monday.setFirstDayOfWeek(FIRST_DAY_OF_WEEK);
 		monday.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-		return (Date) monday.getTime();
+		return monday.getTime();
 	}
 
 	/**
@@ -180,7 +180,7 @@ public class DateUtils {
 		sunday.setTime(date);
 		sunday.setFirstDayOfWeek(FIRST_DAY_OF_WEEK);
 		sunday.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-		return (Date) sunday.getTime();
+		return sunday.getTime();
 	}
 
 	/**
@@ -229,7 +229,7 @@ public class DateUtils {
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
 		c.set(Calendar.DAY_OF_MONTH, c.getActualMinimum(Calendar.DAY_OF_MONTH));
-		return (Date) c.getTime();
+		return c.getTime();
 	}
 
 	/**
@@ -242,7 +242,7 @@ public class DateUtils {
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
 		c.set(Calendar.DAY_OF_MONTH, c.getActualMaximum(Calendar.DAY_OF_MONTH));
-		return (Date) c.getTime();
+		return c.getTime();
 	}
 
 	/**
@@ -287,7 +287,7 @@ public class DateUtils {
 	 * @return
 	 */
 	public static int getRemainDayOfSeason(Date date) {
-		return getDayOfSeason(date) - getPassDayOfSeason(date);
+		return getDayOfSeason(date)- getPassDayOfSeason(date);
 	}
 
 	/**
@@ -330,9 +330,9 @@ public class DateUtils {
 		int nSeason = getSeason(date);
 		if (nSeason == 1) {// 第一季度
 			c.set(Calendar.MONTH, Calendar.JANUARY);
-			season[0] = (Date) c.getTime();
+			season[0] = c.getTime();
 			c.set(Calendar.MONTH, Calendar.FEBRUARY);
-			season[1] = (Date) c.getTime();
+			season[1] = c.getTime();
 			c.set(Calendar.MONTH, Calendar.MARCH);
 			season[2] = (Date)c.getTime();
 		} else if (nSeason == 2) {// 第二季度
