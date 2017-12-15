@@ -80,44 +80,15 @@ public class PayReceiptCheckDTOWorkspaceTest extends WorkspaceCreationBase  {
 		addColumn(datagrid, "amount", "支付金额", ControlTypes.DECIMAL_BOX, 100);
 		addColumn(datagrid, "bookName", "付款账套", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "bankName", "支付方式", ControlTypes.TEXT_BOX, 150);
-		addColumn(datagrid, "receiptStatus", "回单处理状态", ControlTypes.ENUM_BOX, 100);
+		column = addColumn(datagrid, "receiptStatus", "回单处理状态", ControlTypes.ENUM_BOX, 100);
+		{
+			column.setFormatter("return controllerpayReceiptCheckDTOList.changeReceiptStatusFormatter(value,row,index);");
+		}
 		addColumn(datagrid, "addTime", "订单创建日期", ControlTypes.DATETIME_BOX, 100);
 		addColumn(datagrid, "returnTime", "回款日期", ControlTypes.DATETIME_BOX, 100);
 		return datagrid;
 	}
-	
-	//自定义工具栏
-	public void fromToolbar() {
 
-			ResourceNode node = this.resourceService.byCode(resourceNodeCode);
-			OperationType ot1 = operationTypeService.byCode(OperationTypes.add);
-			OperationType otAdd = operationTypeService.byCode(OperationTypes.add);
-			OperationType otUpdate = operationTypeService.byCode(OperationTypes.update);
-			PToolbar toolbar = new PToolbar();
-			{
-				toolbar.toNew();
-				//toolbar.setBasePath("panda/form/edit");
-				toolbar.setPath(this.formToolbarPath);
-				toolbar.setName("供应商表单");
-				toolbar.setResourceNode(node);
-				toolbar.setToolbarType(ToolbarType.BASE);
-			}
-
-			PToolbarItem item = new PToolbarItem();
-			{
-				item.toNew();
-				item.setCode("follow");
-				item.setIcon("fa fa-mail-reply-all");
-				item.setName("跟进");
-				item.setCommand(null);
-				item.setOperationType(ot1);
-				item.setSeq(5000);
-				item.setCommand("{controller}.follow();");
-				toolbar.getItems().add(item);
-			}
-
-			toolbarService.save(toolbar);
-		}
 
 	@Override
 	protected PQueryProject createQueryProject(ResourceNode node) {
@@ -132,23 +103,23 @@ public class PayReceiptCheckDTOWorkspaceTest extends WorkspaceCreationBase  {
 		return queryProject;
 	}
 	//默认的表单配置信息
-	protected PForm createForm(ResourceNode node) {
+	/*protected PForm createForm(ResourceNode node) {
 
 		PForm form = super.createForm(node);
 		form.setColumnCount(2);
-		/*addFormField(form, "name", "名称", null, ControlTypes.TEXT_BOX, true, false);		
-		addFormField(form, "senderNo", "外部系统编号", null, ControlTypes.TEXT_BOX, true, false);*/
+		addFormField(form, "name", "名称", null, ControlTypes.TEXT_BOX, true, false);		
+		addFormField(form, "senderNo", "外部系统编号", null, ControlTypes.TEXT_BOX, true, false);
 		return form;
-	}
+	}*/
 	
 	//默认的表单操作
 	@Override
 	protected void doOperation() {
 		
-		ResourceNode node = this.getResourceNode();
+		/*ResourceNode node = this.getResourceNode();
 		operationService.addOperation(node,OperationTypes.view);
 		operationService.addOperation(node,OperationTypes.add);
 		operationService.addOperation(node,OperationTypes.update);
-		operationService.addOperation(node,OperationTypes.delete);
+		operationService.addOperation(node,OperationTypes.delete);*/
 	}
 }
