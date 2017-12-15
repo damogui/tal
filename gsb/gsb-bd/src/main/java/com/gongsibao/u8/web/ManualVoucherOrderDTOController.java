@@ -27,9 +27,9 @@ public class ManualVoucherOrderDTOController extends ListPart {
 	}
 	
 	//获取当前跟进人的跟进记录
-	public List<SoOrderVoucherFollow> getOrderVoucherFollowLogByUserId(){
+	public List<SoOrderVoucherFollow> getOrderVoucherFollowLogByUserId(int orderId){
 		ISoOrderVoucherFollowService voucherFollowService = ServiceFactory.create(ISoOrderVoucherFollowService.class);
-		return voucherFollowService.getOrderVoucherFollowLogByUserId();
+		return voucherFollowService.getOrderVoucherFollowLogByUserId(orderId);
 	}
 	
 }

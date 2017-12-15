@@ -32,13 +32,14 @@ public class SoOrderVoucherFollowService extends PersistableService<SoOrderVouch
 
 	//获取当前登录人的跟进记录
 	@Override
-	public List<SoOrderVoucherFollow> getOrderVoucherFollowLogByUserId() {
+	public List<SoOrderVoucherFollow> getOrderVoucherFollowLogByUserId(int orderId) {
 
 		Oql oql = new Oql();
 		{
 			oql.setType(this.type);
 			oql.setSelects("*");
-			oql.setFilter("creator_id='{userId}'");
+			oql.setFilter("creator_id='{userId}' AND orderId="+orderId+"");
+			oql.setOrderby("id Desc ");
 		}
 
 		return this.queryList(oql);

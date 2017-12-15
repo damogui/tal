@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
+import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
@@ -49,8 +50,8 @@ public class ManualVoucherOrderDTOWorkspaceTest extends WorkspaceCreationBase  {
 			toolbar.setName("手动凭证订单工具栏");
 			toolbar.setResourceNode(node);
 		}
-		addToolbarItem(toolbar, "disabled", "新增凭证跟进记录", "fa fa-edit","addOrderVoucherFollowLogWeb();", null, 5);
-		addToolbarItem(toolbar, "disabled", "查看凭证跟进记录", "fa fa-edit","bindReceiptWeb();", null, 5);
+		addToolbarItem(toolbar, "disabled", "新增凭证跟进记录", "fa fa-edit","addOrderVoucherFollowLogWeb()", null, 5);
+		addToolbarItem(toolbar, "disabled", "查看凭证跟进记录", "fa fa-edit","viewVoucherFollowLogWeb()", null, 5);
 		toolbarService.save(toolbar);
 	}
 
@@ -104,9 +105,9 @@ public class ManualVoucherOrderDTOWorkspaceTest extends WorkspaceCreationBase  {
 	@Override
 	protected void doOperation() {
 		
-		/*ResourceNode node = this.getResourceNode();
+		ResourceNode node = this.getResourceNode();
 		operationService.addOperation(node,OperationTypes.view);
-		operationService.addOperation(node,OperationTypes.add);
+		/*operationService.addOperation(node,OperationTypes.add);
 		operationService.addOperation(node,OperationTypes.update);
 		operationService.addOperation(node,OperationTypes.delete);*/
 	}

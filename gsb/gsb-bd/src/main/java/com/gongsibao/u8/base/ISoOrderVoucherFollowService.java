@@ -10,5 +10,5 @@ public interface ISoOrderVoucherFollowService extends IPersistableService<SoOrde
 
 	Boolean addOrderVoucherFollowLog(int orderId,String content);
 	
-	List<SoOrderVoucherFollow> getOrderVoucherFollowLogByUserId();
+	List<SoOrderVoucherFollow> getOrderVoucherFollowLogByUserId(int orderId);
 }

@@ -6,19 +6,15 @@ com.gongsibao.u8.web.ManualVoucherOrderDTOController = org.netsharp.panda.commer
 				this.base();
 			},
 			addOrderVoucherFollowLogWeb : function() {
-
 				var me = this;
 				var row = this.getSelectedItem();
 				if (row == null) {
-
 					IMessageBox.info('请选择记录');
 					return;
 				}
-
 				var orderId = row.id;		
 				//内容
-				var content = '<br/><p style="padding-left:50px;">&nbsp;内容：<textarea rows="8" cols="50"  id="txtContent" ></textarea></p>';
-				
+				var content = '<br/><p style="padding-left:50px;">&nbsp;内容：<textarea rows="8" cols="50"  id="txtContent" ></textarea></p>';				
 				// window.top.layer.open({
 				layer.open({
 					type : 1,
@@ -30,29 +26,59 @@ com.gongsibao.u8.web.ManualVoucherOrderDTOController = org.netsharp.panda.commer
 					content : content,
 					btn : [ '保存', '取消' ],// 可以无限个按钮
 					yes : function(index, layero) {
-
 						var content = $("#txtContent").val();
-
 						if (System.isnull(content)) {
 							IMessageBox.info('请输入内容');
 							return false;
 						}
-
 						me.doAddOrderVoucherFollowLogWeb(orderId, content);
 					},
 					btn2 : function(index, layero) {
-
 					}
 				});
 
 			},
 			doAddOrderVoucherFollowLogWeb : function(orderId, content) {
-
+				var me = this;
 				this.invokeService("addOrderVoucherFollowLog", [ orderId, content ],
 						function() {
+							me.reload();
 							IMessageBox.toast('添加成功');
+							layer.closeAll();
 							return;
 						});
+			},
+			viewVoucherFollowLogWeb : function() {
+
+				var me = this;
+				var row = this.getSelectedItem();
+				if (row == null) {
+
+					IMessageBox.info('请选择记录');
+					return;
+				}
+				var orderId = row.id;
+				this.invokeService("getOrderVoucherFollowLogByUserId", [orderId], function(data) {					
+					var body = "";
+					$.each(data,function(k,v){
+						body+="<tr><td>"+v.content+"</td><td>"+v.creator+"</td><td>"+v.createTime+"</td></tr>";
+					});					
+					//内容
+					var content = '<table border=0 title="凭证跟进记录">'
+						+'<tr><th>内容</th><th>跟进人</th><th>跟进时间</th></tr>'
+						+body
+						+'</table>';
+
+					layer.open({
+						type : 1,
+						title : '凭证跟进记录',
+						fixed : false,
+						maxmin : false,
+						shadeClose : false,
+						area : [ '500px', '300px' ],
+						content : content
+					});
+				});	
 			},
 			changeManualVoucherStatusFormatter:function(value,row,index){
 				
@@ -62,18 +88,15 @@ com.gongsibao.u8.web.ManualVoucherOrderDTOController = org.netsharp.panda.commer
 				+',onText:\'已完成\',offText:\'未完成\','
 				+'onChange:function(checked){ controllermanualVoucherOrderDTOList.changeManualVoucherStatus(\''+row.id+'\',checked);}">';
 			},
-			changeManualVoucherStatus(orderId,value){
-				
+			changeManualVoucherStatus(orderId,value){				
 				var state = value==true?1:0;
 				var me = this;
 				this.invokeService("changeManualVoucherStatus", [orderId,state], function(data) {
-
 					me.reload();
 					IMessageBox.toast("操作成功！");
 				});
 			},
-			onLoadSuccess:function(data){
-				
+			onLoadSuccess:function(data){				
 				$('.easyui-switchbutton').switchbutton();
 			}
 		});
