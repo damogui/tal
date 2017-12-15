@@ -20,9 +20,9 @@ public class HanWeiTest {
 
 		IPerformanceStatisticsService service = ServiceFactory.create(IPerformanceStatisticsService.class);
 		
-		int[] departmentIdIds = { 4, 5 };// 汉唐信通，供应商
-
-		for (int i = 1; i <= 5; i++) {
+		//int[] departmentIdIds = { 4, 5 };// 汉唐信通，供应商
+		int[] departmentIdIds = { 4};// 汉唐信通，供应商
+		for (int i = 1; i <= 1; i++) {
 
 			Date date =DateManage.parse("2017-11-"+i);
 			//Date date = DateManage.toDate(new Date());

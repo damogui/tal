@@ -1,44 +1,134 @@
 package com.gongsibao.report.service.perfrmance.department;
 
 import java.sql.Types;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.netsharp.core.DataTable;
+import org.netsharp.core.IRow;
 import org.netsharp.core.MtableManager;
 import org.netsharp.core.QueryParameters;
+import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.DeleteBuilder;
+import org.netsharp.util.sqlbuilder.SelectBuilder;
+import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.entity.report.PerformanceStatistics;
 import com.gongsibao.entity.report.dic.ReportDateType;
 import com.gongsibao.entity.report.dic.ReportOrganizationType;
 import com.gongsibao.report.service.perfrmance.AbstractPerfrmanceService;
-import com.gongsibao.report.utils.DateUtils;
 
-public class PerfrmanceDepartmentMonthService extends AbstractPerfrmanceService{
+public class PerfrmanceDepartmentMonthService extends AbstractPerfrmanceDepartmentService{
 
-	@Override
 	public void doExecute() {
 
-	}
-	
-	private PerformanceStatistics create(Date date, Integer salesmanId, Integer departmentId) {
+		SelectBuilder builder = SelectBuilder.getInstance();
+		{
+			builder.select("department_id as departmentId", "year", "month", "season", "SUM(receivable_amount) as receivableAmount", "SUM(paid_amount) as paidAmount",
+					"SUM(refund_amount) as refundAmount", "SUM(net_receivables) as netReceivables", "SUM(net_paid_amount) as netPaidAmount", "SUM(product_count) as productCount",
+					"SUM(order_count) as orderCount");
+			builder.from(MtableManager.getMtable(PerformanceStatistics.class).getTableName());
+			builder.where("year=?", "month=?", "date_type=?", "organization_type=?");
+			builder.groupBy("department_id");
+		}
 
+		QueryParameters qps = new QueryParameters();
+		qps.add("year", this.context.getYear(), Types.INTEGER);
+		qps.add("month", this.context.getMonth(), Types.INTEGER);
+		qps.add("dateType", ReportDateType.DAY.getValue(), Types.INTEGER);
+		qps.add("organizationType", ReportOrganizationType.DEPARTMENT.getValue(), Types.INTEGER);
+		DataTable dataTable = this.pm.executeTable(builder.toSQL(), qps);
+
+		List<Integer> departmentIdList = new ArrayList<Integer>();
+		for (IRow row : dataTable) {
+
+			Integer departmentId = row.getInteger("departmentId");
+			departmentIdList.add(departmentId);
+			this.create(row);
+		}
+	}
+
+	private PerformanceStatistics create(IRow row) {
+
+		Integer departmentId = Integer.parseInt(row.getString("departmentId"));
+		Integer year = row.getInteger("year");
+		Integer season = row.getInteger("season");
+		Integer month = row.getInteger("month");
+		Integer receivableAmount = Integer.parseInt(row.getString("receivableAmount"));
+		Integer paidAmount = Integer.parseInt(row.getString("paidAmount"));
+		Integer refundAmount = Integer.parseInt(row.getString("refundAmount"));
+		Integer netReceivables = Integer.parseInt(row.getString("netReceivables"));
+		Integer netPaidAmount = Integer.parseInt(row.getString("netPaidAmount"));
+		Integer productCount = Integer.parseInt(row.getString("productCount"));
+		Integer orderCount = Integer.parseInt(row.getString("orderCount"));
 		PerformanceStatistics entity = new PerformanceStatistics();
 		{
 			entity.toNew();
 			entity.setDepartmentId(departmentId);
-			entity.setSalesmanId(salesmanId);
 			entity.setDateType(ReportDateType.MONTH);
-			entity.setOrganizationType(ReportOrganizationType.SALESMAN);
-			entity.setWeek(DateUtils.getWeekOfYear(date));
-			entity.setSeason(DateUtils.getSeason(date));
-			entity.setMonth(DateUtils.getMonth(date));
-			entity.setYear(DateUtils.getYear(date));
-			entity.setDay(DateUtils.getPassDayOfMonth(date));
-			entity.setDate(this.context.getDate());
+			entity.setOrganizationType(ReportOrganizationType.DEPARTMENT);
+			entity.setSeason(season);
+			entity.setMonth(month);
+			entity.setYear(year);
+			entity.setReceivableAmount(receivableAmount);
+			entity.setPaidAmount(paidAmount);
+			entity.setRefundAmount(refundAmount);
+			entity.setNetReceivables(netReceivables);
+			entity.setNetPaidAmount(netPaidAmount);
+			entity.setProductCount(productCount);
+			entity.setOrderCount(orderCount);
 		}
 		entity = this.getStatisticsService().save(entity);
 		return entity;
 	}
+
+	public void updateParentId(PerformanceStatistics entity) {
+
+		List<Integer> childDepartmentIdList = getChildDepartmentIdList(entity.getDepartmentId());
+		if (childDepartmentIdList.size() == 0) {
+
+			return;
+		}
+
+		String childIds = StringManager.join(",", childDepartmentIdList);
+		UpdateBuilder updateBuilder = new UpdateBuilder();
+		{
+			updateBuilder.update(MtableManager.getMtable(PerformanceStatistics.class).getTableName());
+			updateBuilder.set("parent_id", entity.getId());
+			updateBuilder.where("year=?", "month=?", "date_type=?", "organization_type=?", "department_id in (" + childIds + ")");
+		}
+
+		QueryParameters qps = new QueryParameters();
+		qps.add("year", this.getContext().getYear(), Types.INTEGER);
+		qps.add("month", this.getContext().getMonth(), Types.INTEGER);
+		qps.add("dateType", ReportDateType.MONTH.getValue(), Types.INTEGER);
+		qps.add("organizationType", ReportOrganizationType.DEPARTMENT.getValue(), Types.INTEGER);
+		this.pm.executeNonQuery(updateBuilder.toSQL(), qps);
+	}
+
+
+	@Override
+	public Boolean delete() {
+
+		DeleteBuilder deleteBuilder = DeleteBuilder.getInstance();
+		{
+			deleteBuilder.deleteFrom(MtableManager.getMtable(PerformanceStatistics.class).getTableName());
+			deleteBuilder.where("year=?", "month=?", "date_type=?", "organization_type=?");
+		}
+
+		QueryParameters qps = new QueryParameters();
+		{
+			qps.add("year", this.getContext().getYear(), Types.INTEGER);
+			qps.add("month", this.getContext().getMonth(), Types.INTEGER);
+			qps.add("dateType", ReportDateType.MONTH.getValue(), Types.INTEGER);
+			qps.add("organizationType", ReportOrganizationType.DEPARTMENT.getValue(), Types.INTEGER);
+		}
+
+		String cmdText = deleteBuilder.toSQL();
+		int deleteCount = this.pm.executeNonQuery(cmdText, qps);
+		return deleteCount > 0;
+	}
+
 	
 	@Override
 	public void before() {
@@ -46,22 +136,5 @@ public class PerfrmanceDepartmentMonthService extends AbstractPerfrmanceService{
 		AbstractPerfrmanceService netService = new PerfrmanceDepartmentSeasonService();
 		netService.setContext(context);
 		this.setNextService(netService);
-	}
-
-	@Override
-	public Boolean delete() {
-
-		String ids = this.context.getSalesmanIds();
-		DeleteBuilder deleteBuilder = DeleteBuilder.getInstance();
-		{
-			deleteBuilder.deleteFrom(MtableManager.getMtable(PerformanceStatistics.class).getTableName());
-			deleteBuilder.where("date=?","date_type=?","organization_type=?", "salesman_id in (" + ids + ")");
-		}
-		QueryParameters qps = new QueryParameters();
-		qps.add("date",  this.context.getDate(), Types.DATE);
-		qps.add("day", ReportDateType.MONTH.getValue(), Types.INTEGER);
-		qps.add("organizationType",  ReportOrganizationType.SALESMAN.getValue(), Types.INTEGER);
-		String cmdText = deleteBuilder.toSQL();
-		return this.pm.executeNonQuery(cmdText, qps) > 0;
 	}
 }

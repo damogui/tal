@@ -71,7 +71,7 @@ public class OrganizationService extends PersistableService<Organization> implem
 
 		DataTable dataTable = this.pm.executeTable(builder.toSQL(), qps);
 		for (IRow row : dataTable) {
-			
+
 			Integer id = row.getInteger("id");
 			idList.add(id);
 		}
@@ -91,5 +91,30 @@ public class OrganizationService extends PersistableService<Organization> implem
 
 		Boolean isHas = this.queryCount(oql) > 0;
 		return isHas;
+	}
+
+	@Override
+	public Integer getParentDepartementId(Integer departmentId) {
+
+		SelectBuilder builder = SelectBuilder.getInstance();
+		{
+			builder.select("pid");
+			builder.from(MtableManager.getMtable(this.type).getTableName());
+			builder.where("pkid=?");
+		}
+
+		QueryParameters qps = new QueryParameters();
+		qps.add("departmentId", departmentId, Types.INTEGER);
+
+		DataTable dataTable = this.pm.executeTable(builder.toSQL(), qps);
+		return dataTable.get(0).getInteger("pid");
+	}
+
+	@Override
+	public List<Integer> getLateralDepartementIdList(Integer departmentId) {
+
+		Integer parentDepartementId = getParentDepartementId(departmentId);
+		List<Integer> idList = getChildDepartmentIdList(parentDepartementId);
+		return idList;
 	}
 }

@@ -42,7 +42,7 @@ public class PerfrmanceSalesmanWeekService extends AbstractPerfrmanceService {
 					"SUM(refund_amount) as refundAmount", "SUM(net_receivables) as netReceivables", "SUM(net_paid_amount) as netPaidAmount", "SUM(product_count) as productCount",
 					"SUM(order_count) as orderCount");
 			builder.from(MtableManager.getMtable(PerformanceStatistics.class).getTableName());
-			builder.where("year=?", "week=?", "date_type=?");
+			builder.where("year=?", "week=?", "date_type=?", "organization_type=?","salesman_id is not null");
 			builder.groupBy("salesman_id");
 		}
 
@@ -50,6 +50,7 @@ public class PerfrmanceSalesmanWeekService extends AbstractPerfrmanceService {
 		qps.add("year", this.context.getYear(), Types.INTEGER);
 		qps.add("week", this.context.getWeek(), Types.INTEGER);
 		qps.add("dateType", ReportDateType.DAY.getValue(), Types.INTEGER);
+		qps.add("organizationType", ReportOrganizationType.SALESMAN.getValue(), Types.INTEGER);
 		DataTable dataTable = this.pm.executeTable(builder.toSQL(), qps);
 		for (IRow row : dataTable) {
 

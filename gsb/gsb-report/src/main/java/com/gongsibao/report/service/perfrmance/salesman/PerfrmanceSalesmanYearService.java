@@ -35,7 +35,7 @@ public class PerfrmanceSalesmanYearService extends AbstractPerfrmanceService {
 					"SUM(refund_amount) as refundAmount", "SUM(net_receivables) as netReceivables", "SUM(net_paid_amount) as netPaidAmount", "SUM(product_count) as productCount",
 					"SUM(order_count) as orderCount");
 			builder.from(MtableManager.getMtable(PerformanceStatistics.class).getTableName());
-			builder.where("year=?", "season=?", "date_type=?");
+			builder.where("year=?", "season=?", "date_type=?","salesman_id is not null");
 			builder.groupBy("salesman_id");
 		}
 

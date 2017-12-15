@@ -45,11 +45,12 @@ public class UserOrganizationMapService extends PersistableService<UserOrganizat
 			Oql oql = new Oql();
 			{
 				oql.setType(UserOrganizationMap.class);
-				oql.setSelects("*");
-				oql.setFilter("organization_id=? and user.enabled=1");
+				oql.setSelects("UserOrganizationMap.*,user.id");
+				oql.setFilter("organization_id=? and user.enabled=?");
 				
 				QueryParameters qps = new QueryParameters();
 				qps.add("departmentId", departmentId, Types.INTEGER);
+				qps.add("enabled", true, Types.BOOLEAN);
 				oql.setParameters(qps);
 				
 			}

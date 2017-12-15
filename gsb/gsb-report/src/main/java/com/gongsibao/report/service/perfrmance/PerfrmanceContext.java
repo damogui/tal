@@ -36,15 +36,6 @@ public class PerfrmanceContext {
 	 */
 	private Date date;
 
-	private Integer year;
-
-	private Integer season;
-
-	private Integer month;
-
-	private Integer week;
-
-	private Integer day;
 
 	private List<UserOrganizationMap> mapList;
 
