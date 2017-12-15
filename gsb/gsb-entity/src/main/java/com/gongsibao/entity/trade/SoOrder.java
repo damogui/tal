@@ -21,10 +21,10 @@ public class SoOrder extends BaseEntity {
 	
 	private static final long serialVersionUID = 8766647536940983034L;
 	
-    @Column(header="编码")
+    @Column(name="no",header="编码")
     private String no;
     
-	@Column(header="订单类型")
+	@Column(name="type",header="订单类型")
     private Integer type;
 	
 	@Reference(foreignKey="type",header="订单类型")
@@ -101,7 +101,7 @@ public class SoOrder extends BaseEntity {
     
     //是否生成u8凭证手动处理（异常）（0：否、1：是(跨月异常)） 2:（e支付（财务二维码））、（刷卡）付款方式标记异常 3:由于借贷方金额都为零，无法生成凭证（【确认收入凭证】，金额太小造成，如：0.01，0.1） 4:由于借贷方金额都为零，无法生成凭证（【退款凭证】，金额太小造成，如：0.01，0.1）
     @Column(name="is_manual_voucher",header="是否生成u8凭证手动处理（异常）")
-    private Integer isManualVoucher;
+    private OrderManualVoucherStatus isManualVoucher = OrderManualVoucherStatus.NotStarted;
     
     @Column(name="manual_voucher_status",header="凭证手动处理状态（0:未完成 1:已完成）")
     private OrderManualVoucherStatus manualVoucherStatus = OrderManualVoucherStatus.NotStarted;
@@ -116,7 +116,7 @@ public class SoOrder extends BaseEntity {
     @Column(name="is_invoice",header="开票")
     private Integer isInvoice;
     
-    @Column(header="description")
+    @Column(name="description",header="description")
     private String description;
     
     @Column(name="is_package",header="套餐")
@@ -149,7 +149,7 @@ public class SoOrder extends BaseEntity {
     @Reference(foreignKey = "companyId",header="公司")
     private CompanyIntention companyIntention;
 
-    @Column(header="备注")
+    @Column(name="remark",header="备注")
     private String remark;
     
     @Column(name="platform_source",header="平台来源")
@@ -510,10 +510,11 @@ public class SoOrder extends BaseEntity {
 	public void setCarryOverOrderId(Integer carryOverOrderId) {
 		this.carryOverOrderId = carryOverOrderId;
 	}
-	public Integer getIsManualVoucher() {
+
+	public OrderManualVoucherStatus getIsManualVoucher() {
 		return isManualVoucher;
 	}
-	public void setIsManualVoucher(Integer isManualVoucher) {
+	public void setIsManualVoucher(OrderManualVoucherStatus isManualVoucher) {
 		this.isManualVoucher = isManualVoucher;
 	}
 	public OrderManualVoucherStatus getManualVoucherStatus() {

@@ -1,5 +1,5 @@
 System.Declare("com.gongsibao.u8.web");
-com.gongsibao.u8.web.PayReceiptCheckDTOController = org.netsharp.panda.commerce.ListPart
+com.gongsibao.u8.web.ManualVoucherOrderDTOController = org.netsharp.panda.commerce.ListPart
 		.Extends({
 
 			ctor : function() {
@@ -60,19 +60,19 @@ com.gongsibao.u8.web.PayReceiptCheckDTOController = org.netsharp.panda.commerce.
 							return;
 						});
 			},
-			changeReceiptStatusFormatter:function(value,row,index){
+			changeManualVoucherStatusFormatter:function(value,row,index){
 				
 				var checked = value=='已完成'?true:false;
 				return '<input class="easyui-switchbutton" data-options="'
 				+'checked:'+checked
 				+',onText:\'已完成\',offText:\'未完成\','
-				+'onChange:function(checked){ controllerpayReceiptCheckDTOList.changeReceiptStatus(\''+row.id+'\',checked);}">';
+				+'onChange:function(checked){ controllermanualVoucherOrderDTOList.changeManualVoucherStatus(\''+row.id+'\',checked);}">';
 			},
-			changeReceiptStatus(payId,value){
+			changeManualVoucherStatus(orderId,value){
 				
 				var state = value==true?1:0;
 				var me = this;
-				this.invokeService("changeReceiptStatus", [payId,state], function(data) {
+				this.invokeService("changeManualVoucherStatus", [orderId,state], function(data) {
 
 					me.reload();
 					IMessageBox.toast("操作成功！");

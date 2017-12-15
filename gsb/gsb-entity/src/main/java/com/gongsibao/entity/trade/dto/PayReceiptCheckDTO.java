@@ -9,7 +9,7 @@ import org.netsharp.entity.Persistable;
 
 import com.gongsibao.entity.trade.dic.PayReceiptStatus;
 
-@Table(name = "pay_receipt_check_view", isView = true)
+@Table(name = "pay_receipt_check_dto", isView = true)
 public class PayReceiptCheckDTO extends Persistable {
 
 	/**

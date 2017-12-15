@@ -28,7 +28,7 @@ public class PayReceiptCheckDTOWorkspaceTest extends WorkspaceCreationBase  {
 		entity = PayReceiptCheckDTO.class;//实体
 		urlList = "/basic/u8/receiptcheck/list";//列表的url
 		urlForm = "/basic/u8/receiptcheck/form";//弹出框的url
-		listPartName = formPartName = "账套信息";
+		listPartName = formPartName = "回单核对";
 		meta = MtableManager.getMtable(entity);//获取实体元数据
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_Basic_U8_" + PayReceiptCheckDTO.class.getSimpleName();//菜单节点码（名称）
@@ -51,7 +51,7 @@ public class PayReceiptCheckDTOWorkspaceTest extends WorkspaceCreationBase  {
 			toolbar.toNew();
 			toolbar.setBasePath("panda/datagrid/edit");
 			toolbar.setPath(listToolbarPath);
-			toolbar.setName("账套信息工具栏");
+			toolbar.setName("回单核对工具栏");
 			toolbar.setResourceNode(node);
 		}
 		addToolbarItem(toolbar, "disabled", "绑定回单编号", "fa-stop-circle-o","bindReceiptWeb();", null, 5);
@@ -102,15 +102,8 @@ public class PayReceiptCheckDTOWorkspaceTest extends WorkspaceCreationBase  {
 		addQueryItem(queryProject, "returnTime", "回款日期", ControlTypes.DATE_BOX);
 		return queryProject;
 	}
-	//默认的表单配置信息
-	/*protected PForm createForm(ResourceNode node) {
 
-		PForm form = super.createForm(node);
-		form.setColumnCount(2);
-		addFormField(form, "name", "名称", null, ControlTypes.TEXT_BOX, true, false);		
-		addFormField(form, "senderNo", "外部系统编号", null, ControlTypes.TEXT_BOX, true, false);
-		return form;
-	}*/
+	
 	
 	//默认的表单操作
 	@Override

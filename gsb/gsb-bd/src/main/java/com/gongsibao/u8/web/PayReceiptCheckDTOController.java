@@ -16,16 +16,12 @@ public class PayReceiptCheckDTOController extends ListPart{
 		Pay pay =payService.byId(payId);
 		pay.setReceiptNo(receiptNo);		
 		payService.save(pay);
-		
-		
 	}
 	
 	//改变回单状态
-	public void changeReceiptStatus(int payId,int receiptStatus){
+	public Boolean changeReceiptStatus(int payId,PayReceiptStatus receiptStatus){
 		IPayService payService=  ServiceFactory.create(IPayService.class);		
-		Pay pay =payService.byId(payId);
-		pay.setReceiptStatus(PayReceiptStatus.values()[receiptStatus]);
-		payService.save(pay);
+		return payService.changeReceiptStatus(payId, receiptStatus);
 	}
 	
 }
