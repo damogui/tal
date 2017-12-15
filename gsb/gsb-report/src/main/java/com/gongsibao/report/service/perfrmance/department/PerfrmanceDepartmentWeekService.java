@@ -9,7 +9,6 @@ import org.netsharp.core.IRow;
 import org.netsharp.core.MtableManager;
 import org.netsharp.core.QueryParameters;
 import org.netsharp.util.StringManager;
-import org.netsharp.util.sqlbuilder.DeleteBuilder;
 import org.netsharp.util.sqlbuilder.SelectBuilder;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
@@ -24,7 +23,7 @@ public class PerfrmanceDepartmentWeekService extends AbstractPerfrmanceDepartmen
 
 		SelectBuilder builder = SelectBuilder.getInstance();
 		{
-			builder.select("department_id as departmentId", "year", "month", "season", "week", "SUM(receivable_amount) as receivableAmount", "SUM(paid_amount) as paidAmount",
+			builder.select("department_id as departmentId", "year", "week", "SUM(receivable_amount) as receivableAmount", "SUM(paid_amount) as paidAmount",
 					"SUM(refund_amount) as refundAmount", "SUM(net_receivables) as netReceivables", "SUM(net_paid_amount) as netPaidAmount", "SUM(product_count) as productCount",
 					"SUM(order_count) as orderCount");
 			builder.from(MtableManager.getMtable(PerformanceStatistics.class).getTableName());
@@ -52,38 +51,6 @@ public class PerfrmanceDepartmentWeekService extends AbstractPerfrmanceDepartmen
 		}
 	}
 
-	private PerformanceStatistics create(IRow row) {
-
-		Integer departmentId = Integer.parseInt(row.getString("departmentId"));
-		Integer year = row.getInteger("year");
-		Integer week = row.getInteger("week");
-		Integer receivableAmount = Integer.parseInt(row.getString("receivableAmount"));
-		Integer paidAmount = Integer.parseInt(row.getString("paidAmount"));
-		Integer refundAmount = Integer.parseInt(row.getString("refundAmount"));
-		Integer netReceivables = Integer.parseInt(row.getString("netReceivables"));
-		Integer netPaidAmount = Integer.parseInt(row.getString("netPaidAmount"));
-		Integer productCount = Integer.parseInt(row.getString("productCount"));
-		Integer orderCount = Integer.parseInt(row.getString("orderCount"));
-		PerformanceStatistics entity = new PerformanceStatistics();
-		{
-			entity.toNew();
-			entity.setDepartmentId(departmentId);
-			entity.setDateType(ReportDateType.WEEK);
-			entity.setOrganizationType(ReportOrganizationType.DEPARTMENT);
-			entity.setYear(year);
-			entity.setWeek(week);
-			entity.setReceivableAmount(receivableAmount);
-			entity.setPaidAmount(paidAmount);
-			entity.setRefundAmount(refundAmount);
-			entity.setNetReceivables(netReceivables);
-			entity.setNetPaidAmount(netPaidAmount);
-			entity.setProductCount(productCount);
-			entity.setOrderCount(orderCount);
-		}
-		entity = this.getStatisticsService().save(entity);
-		return entity;
-	}
-
 	public void updateParentId(PerformanceStatistics entity) {
 
 		List<Integer> childDepartmentIdList = getChildDepartmentIdList(entity.getDepartmentId());
@@ -109,28 +76,6 @@ public class PerfrmanceDepartmentWeekService extends AbstractPerfrmanceDepartmen
 	}
 
 	@Override
-	public Boolean delete() {
-
-		DeleteBuilder deleteBuilder = DeleteBuilder.getInstance();
-		{
-			deleteBuilder.deleteFrom(MtableManager.getMtable(PerformanceStatistics.class).getTableName());
-			deleteBuilder.where("year=?", "week=?", "date_type=?", "organization_type=?");
-		}
-
-		QueryParameters qps = new QueryParameters();
-		{
-			qps.add("year", this.getContext().getYear(), Types.INTEGER);
-			qps.add("week", this.context.getWeek(), Types.INTEGER);
-			qps.add("dateType", ReportDateType.WEEK.getValue(), Types.INTEGER);
-			qps.add("organizationType", ReportOrganizationType.DEPARTMENT.getValue(), Types.INTEGER);
-		}
-
-		String cmdText = deleteBuilder.toSQL();
-		int deleteCount = this.pm.executeNonQuery(cmdText, qps);
-		return deleteCount > 0;
-	}
-
-	@Override
 	public void before() {
 
 		AbstractPerfrmanceService netService = new PerfrmanceDepartmentMonthService();
@@ -138,4 +83,8 @@ public class PerfrmanceDepartmentWeekService extends AbstractPerfrmanceDepartmen
 		this.setNextService(netService);
 	}
 
+	@Override
+	public ReportDateType getReportDateType() {
+		return ReportDateType.WEEK;
+	}
 }

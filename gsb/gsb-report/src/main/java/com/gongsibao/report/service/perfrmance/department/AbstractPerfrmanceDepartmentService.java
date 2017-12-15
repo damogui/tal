@@ -10,6 +10,7 @@ import org.netsharp.core.MtableManager;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.SelectBuilder;
 
+import com.gongsibao.entity.report.dic.ReportOrganizationType;
 import com.gongsibao.entity.uc.Organization;
 import com.gongsibao.report.service.perfrmance.AbstractPerfrmanceService;
 import com.gongsibao.uc.base.IOrganizationService;
@@ -17,6 +18,11 @@ import com.gongsibao.uc.base.IOrganizationService;
 public abstract class AbstractPerfrmanceDepartmentService extends AbstractPerfrmanceService {
 
 	protected IOrganizationService organizationService = ServiceFactory.create(IOrganizationService.class);
+	
+	protected ReportOrganizationType getReportOrganizationType(){
+		
+		return ReportOrganizationType.DEPARTMENT;
+	}
 	
 	/**
 	 * @Title: getParentDepartmentIdList
@@ -59,5 +65,4 @@ public abstract class AbstractPerfrmanceDepartmentService extends AbstractPerfrm
 		
 		return organizationService.getChildDepartmentIdList(departmentId);
 	}
-	
 }
