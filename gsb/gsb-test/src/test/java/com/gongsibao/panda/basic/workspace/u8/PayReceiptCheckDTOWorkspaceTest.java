@@ -54,7 +54,7 @@ public class PayReceiptCheckDTOWorkspaceTest extends WorkspaceCreationBase  {
 			toolbar.setName("回单核对工具栏");
 			toolbar.setResourceNode(node);
 		}
-		addToolbarItem(toolbar, "disabled", "绑定回单编号", "fa-stop-circle-o","bindReceiptWeb();", null, 5);
+		addToolbarItem(toolbar, "disabled", "绑定回单编号", "fa fa-edit","bindReceiptWeb();", null, 5);
 		toolbarService.save(toolbar);
 	}
 

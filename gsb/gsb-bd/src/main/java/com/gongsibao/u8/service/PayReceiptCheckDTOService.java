@@ -41,10 +41,11 @@ public class PayReceiptCheckDTOService extends PersistableService<PayReceiptChec
 		sqlBuffer.append("JOIN u8_bank_so_pay_map uopm ON uopm.`pay_id`=p.`pkid` AND uopm.`type`=0 ");
 		sqlBuffer.append("JOIN u8_bank ub ON ub.id=uopm.`u8_bank_id` ");
 		sqlBuffer.append("JOIN u8_set_of_books book ON book.`id`=ub.`set_of_books_id` ");
-		sqlBuffer.append("WHERE p.`success_status_id`=3123 AND offline_audit_status_id=1054)t ");		
+		sqlBuffer.append("WHERE p.`success_status_id`=3123 AND offline_audit_status_id=1054 ");		
+		sqlBuffer.append("ORDER BY p.`pkid`  DESC ");
+		sqlBuffer.append("LIMIT "+startIndex+", "+paging.getPageSize()+")t  ");
 		sqlBuffer.append(filterString==null?"":"WHERE "+filterString);//拼接sql语句的where条件
-		sqlBuffer.append("ORDER BY t.id DESC ");
-		sqlBuffer.append(" LIMIT "+startIndex+", "+paging.getPageSize()+" ");
+		
 		
 		paging.setTotalCount(getqueryListCount());
 		oql.setPaging(paging);

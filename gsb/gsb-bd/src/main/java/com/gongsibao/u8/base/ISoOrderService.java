@@ -8,4 +8,5 @@ import com.gongsibao.entity.trade.dic.OrderManualVoucherStatus;
 public interface ISoOrderService extends IPersistableService<SoOrder> {
 
 	Boolean updateManuaVoucherStatus(Integer orderId,OrderManualVoucherStatus status);
+
 }

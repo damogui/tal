@@ -3,7 +3,7 @@ package com.gongsibao.entity.trade.dic;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
-public enum OrderIsManualVoucher implements IEnum  {
+public enum OrderIsManualVoucherType implements IEnum  {
 
 	
 //	1、回款跨月
@@ -21,15 +21,15 @@ public enum OrderIsManualVoucher implements IEnum  {
 	private int value;
 	private String text;
 
-	OrderIsManualVoucher(int value, String text) {
+	OrderIsManualVoucherType(int value, String text) {
 		this.value = value;
 		this.text = text;
 	}
 
 	@JsonCreator
-	public static OrderIsManualVoucher getItem(int value) {
+	public static OrderIsManualVoucherType getItem(int value) {
 
-		for (OrderIsManualVoucher item : values()) {
+		for (OrderIsManualVoucherType item : values()) {
 
 			if (item.getValue() == value) {
 				return item;

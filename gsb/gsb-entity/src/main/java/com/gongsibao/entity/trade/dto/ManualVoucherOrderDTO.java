@@ -7,7 +7,7 @@ import org.netsharp.core.annotations.Id;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Persistable;
 
-import com.gongsibao.entity.trade.dic.OrderIsManualVoucher;
+import com.gongsibao.entity.trade.dic.OrderIsManualVoucherType;
 import com.gongsibao.entity.trade.dic.OrderManualVoucherStatus;
 
 @Table(name = "manual_voucher_order_dto", isView = true)
@@ -38,7 +38,7 @@ public class ManualVoucherOrderDTO extends Persistable  {
 	private OrderManualVoucherStatus manualVoucherStatus = OrderManualVoucherStatus.NotStarted;
 	
 	//是否生成u8凭证手动处理（异常）（0：否、1：是(跨月异常)） 2:（e支付（财务二维码））、（刷卡）付款方式标记异常 3:由于借贷方金额都为零，无法生成凭证（【确认收入凭证】，金额太小造成，如：0.01，0.1） 4:由于借贷方金额都为零，无法生成凭证（【退款凭证】，金额太小造成，如：0.01，0.1）、5、结转订单
-	private OrderIsManualVoucher isManualVoucher =OrderIsManualVoucher.Hkky ;
+	private OrderIsManualVoucherType isManualVoucher =OrderIsManualVoucherType.Hkky ;
 	
 	//首款回款日期
 	private Date returnTime;
@@ -102,11 +102,11 @@ public class ManualVoucherOrderDTO extends Persistable  {
 		this.manualVoucherStatus = manualVoucherStatus;
 	}
 
-	public OrderIsManualVoucher getIsManualVoucher() {
+	public OrderIsManualVoucherType getIsManualVoucher() {
 		return isManualVoucher;
 	}
 
-	public void setIsManualVoucher(OrderIsManualVoucher isManualVoucher) {
+	public void setIsManualVoucher(OrderIsManualVoucherType isManualVoucher) {
 		this.isManualVoucher = isManualVoucher;
 	}
 

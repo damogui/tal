@@ -5,7 +5,7 @@ com.gongsibao.u8.web.ManualVoucherOrderDTOController = org.netsharp.panda.commer
 			ctor : function() {
 				this.base();
 			},
-			bindReceiptWeb : function() {
+			addOrderVoucherFollowLogWeb : function() {
 
 				var me = this;
 				var row = this.getSelectedItem();
@@ -15,36 +15,30 @@ com.gongsibao.u8.web.ManualVoucherOrderDTOController = org.netsharp.panda.commer
 					return;
 				}
 
-				var payId = row.id;
-				var orderNo = row.orderNo;
-				var receiptNo = row.receiptNo;
-
-				var content = '<br/><p style="padding-left:50px;">&nbsp;订单编号：<input  type="text" disabled="disabled"  class="easyui-validatebox nsInput"  value="'
-						+ orderNo
-						+ '" style="width:180px;"></input></p>'
-						+ '<p style="padding-left:50px;">&nbsp;回单号：<input id="txtReceiptNo" type="text" class="easyui-validatebox nsInput" value="'
-						+ receiptNo
-						+ '" required="true" style="width:180px;"></input></p>';
+				var orderId = row.id;		
+				//内容
+				var content = '<br/><p style="padding-left:50px;">&nbsp;内容：<textarea rows="8" cols="50"  id="txtContent" ></textarea></p>';
+				
 				// window.top.layer.open({
 				layer.open({
 					type : 1,
-					title : '绑定回单编号',
+					title : '新增凭证跟进记录',
 					fixed : false,
 					maxmin : false,
 					shadeClose : false,
 					area : [ '500px', '300px' ],
 					content : content,
 					btn : [ '保存', '取消' ],// 可以无限个按钮
-					btn1 : function(index, layero) {
+					yes : function(index, layero) {
 
-						var receiptNo = $("#txtReceiptNo").val();
+						var content = $("#txtContent").val();
 
-						if (System.isnull(receiptNo)) {
-							IMessageBox.info('请输入回单编号');
+						if (System.isnull(content)) {
+							IMessageBox.info('请输入内容');
 							return false;
 						}
 
-						me.doBindReceiptWeb(payId, receiptNo);
+						me.doAddOrderVoucherFollowLogWeb(orderId, content);
 					},
 					btn2 : function(index, layero) {
 
@@ -52,11 +46,11 @@ com.gongsibao.u8.web.ManualVoucherOrderDTOController = org.netsharp.panda.commer
 				});
 
 			},
-			doBindReceiptWeb : function(payId, receiptNo) {
+			doAddOrderVoucherFollowLogWeb : function(orderId, content) {
 
-				this.invokeService("bindReceiptNo", [ payId, receiptNo ],
+				this.invokeService("addOrderVoucherFollowLog", [ orderId, content ],
 						function() {
-							IMessageBox.toast('绑定成功');
+							IMessageBox.toast('添加成功');
 							return;
 						});
 			},

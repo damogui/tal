@@ -11,7 +11,7 @@ import org.netsharp.core.Oql;
 import org.netsharp.core.Paging;
 import org.netsharp.service.PersistableService;
 
-import com.gongsibao.entity.trade.dic.OrderIsManualVoucher;
+import com.gongsibao.entity.trade.dic.OrderIsManualVoucherType;
 import com.gongsibao.entity.trade.dic.OrderManualVoucherStatus;
 import com.gongsibao.entity.trade.dto.ManualVoucherOrderDTO;
 import com.gongsibao.u8.base.IManualVoucherOrderDTOService;
@@ -54,10 +54,12 @@ public class ManualVoucherOrderDTOService extends PersistableService<ManualVouch
 		sqlBuffer.append("LEFT JOIN (SELECT MIN(pkid) 'pkid',customer_id,company_id FROM crm_customer_company_map GROUP BY customer_id) ccm ON ccm.customer_id = c.pkid ");
 		sqlBuffer.append("LEFT JOIN crm_company_intention cri ON cri.pkid = ccm.company_id ");		
 		sqlBuffer.append("LEFT JOIN crm_company_intention cri1 ON oi.`company_id` = cri1.`pkid` ");
-		sqlBuffer.append("WHERE oi.is_manual_voucher!=0 AND oi.paid_price>0)t ");	
+		sqlBuffer.append("WHERE oi.is_manual_voucher!=0 AND oi.paid_price>0 ");	
+		sqlBuffer.append("ORDER BY oi.pkid DESC ");
+		sqlBuffer.append("LIMIT "+startIndex+", "+paging.getPageSize()+" )t");
 		sqlBuffer.append(filterString==null?"":"WHERE "+filterString);//拼接sql语句的where条件
-		sqlBuffer.append("ORDER BY t.id DESC ");
-		sqlBuffer.append(" LIMIT "+startIndex+", "+paging.getPageSize()+" ");
+		
+		
 		
 		paging.setTotalCount(getqueryListCount());
 		oql.setPaging(paging);
@@ -72,7 +74,7 @@ public class ManualVoucherOrderDTOService extends PersistableService<ManualVouch
 			dto.setId(row.getInteger("id"));
 			dto.setOrderNo(row.getString("orderNo"));			
 			dto.setCustName(row.getString("custName"));
-			dto.setIsManualVoucher(OrderIsManualVoucher.values()[row.getInteger("isManualVoucher")]);
+			dto.setIsManualVoucher(OrderIsManualVoucherType.values()[row.getInteger("isManualVoucher")]);
 			dto.setManualVoucherStatus(OrderManualVoucherStatus.values()[row.getInteger("manualVoucherStatus")] );
 			dto.setOperator(row.getString("operator"));
 			dto.setPaidPrice(paidPrice==null?0:getDivRes(paidPrice,100));

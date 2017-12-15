@@ -49,8 +49,8 @@ public class ManualVoucherOrderDTOWorkspaceTest extends WorkspaceCreationBase  {
 			toolbar.setName("手动凭证订单工具栏");
 			toolbar.setResourceNode(node);
 		}
-		addToolbarItem(toolbar, "disabled", "新增凭证跟进记录", "fa-stop-circle-o","bindReceiptWeb();", null, 5);
-		addToolbarItem(toolbar, "disabled", "查看凭证跟进记录", "fa-stop-circle-o","bindReceiptWeb();", null, 5);
+		addToolbarItem(toolbar, "disabled", "新增凭证跟进记录", "fa fa-edit","addOrderVoucherFollowLogWeb();", null, 5);
+		addToolbarItem(toolbar, "disabled", "查看凭证跟进记录", "fa fa-edit","bindReceiptWeb();", null, 5);
 		toolbarService.save(toolbar);
 	}
 
@@ -90,7 +90,7 @@ public class ManualVoucherOrderDTOWorkspaceTest extends WorkspaceCreationBase  {
 		queryProject.toNew();
 		addQueryItem(queryProject, "orderNo", "订单号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "operator", "业务员", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "custName", "客户名称", ControlTypes.NUMBER_BOX);
+		addQueryItem(queryProject, "custName", "客户名称", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "isManualVoucher", "手动原因", ControlTypes.ENUM_BOX);
 		addQueryItem(queryProject, "manualVoucherStatus", "凭证状态", ControlTypes.ENUM_BOX);
 		addQueryItem(queryProject, "addTime", "订单创建日期", ControlTypes.DATE_BOX);

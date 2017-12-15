@@ -29,4 +29,6 @@ public class SoOrderService extends PersistableService<SoOrder> implements ISoOr
 		String cmdText = updateBuilder.toSQL();
 		return this.pm.executeNonQuery(cmdText, null) > 0;
 	}
+	
+	
 }
