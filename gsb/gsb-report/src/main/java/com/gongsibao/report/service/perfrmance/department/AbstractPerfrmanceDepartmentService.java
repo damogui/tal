@@ -20,7 +20,7 @@ public abstract class AbstractPerfrmanceDepartmentService extends AbstractPerfrm
 	
 	/**
 	 * @Title: getParentDepartmentIdList
-	 * @Description: TODO(根据子部门Id集合获取所有上级部门Id集合)
+	 * @Description: TODO(根据子部门Id集合获取所有上级部门Id集合1)
 	 * @param: @param ChildDepartmentIdList
 	 * @param: @return
 	 * @return: List<Integer>
