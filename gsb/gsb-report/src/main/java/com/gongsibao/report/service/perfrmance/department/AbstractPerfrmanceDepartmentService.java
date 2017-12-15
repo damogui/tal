@@ -55,7 +55,7 @@ public abstract class AbstractPerfrmanceDepartmentService extends AbstractPerfrm
 	
 	/**   
 	 * @Title: getChildDepartmentIdList   
-	 * @Description: TODO(这里用一句话描述这个方法的作用  )   
+	 * @Description: TODO(这里用一句话描述这个方法的作用)   
 	 * @param: @param departmentId
 	 * @param: @return      
 	 * @return: List<Integer>      
