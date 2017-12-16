@@ -61,7 +61,7 @@ public class OrganizationService extends PersistableService<Organization> implem
 		List<Integer> idList = new ArrayList<Integer>();
 		SelectBuilder builder = SelectBuilder.getInstance();
 		{
-			builder.select("id");
+			builder.select("pkid");
 			builder.from(MtableManager.getMtable(this.type).getTableName());
 			builder.where("pid=?");
 		}
@@ -72,7 +72,7 @@ public class OrganizationService extends PersistableService<Organization> implem
 		DataTable dataTable = this.pm.executeTable(builder.toSQL(), qps);
 		for (IRow row : dataTable) {
 
-			Integer id = row.getInteger("id");
+			Integer id = row.getInteger("pkid");
 			idList.add(id);
 		}
 		return idList;
