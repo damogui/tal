@@ -51,7 +51,6 @@ public class DayWorkspaceTest extends WorkspaceCreationBase {
 			column.setVisible(false);
 			column.setSystem(true);
 		}
-		column = addColumn(datagrid, "id", "id", ControlTypes.NUMBER_BOX, 80);
 		return datagrid;
 	}
 

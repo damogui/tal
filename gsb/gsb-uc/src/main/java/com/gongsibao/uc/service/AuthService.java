@@ -41,7 +41,7 @@ public class AuthService extends PersistableService<Auth> implements IAuthServic
 			updateBuilder.update(MtableManager.getMtable(this.type).getTableName());
 			updateBuilder.set("id", entity.getId());
 			//updateBuilder.set("pid", entity.getParentId());
-			updateBuilder.where("pkid =" +entity.getPkid());
+			//updateBuilder.where("pkid =" +entity.getPkid());
 		}
 		return this.pm.executeNonQuery(updateBuilder.toSQL(), null) > 0;
 	}

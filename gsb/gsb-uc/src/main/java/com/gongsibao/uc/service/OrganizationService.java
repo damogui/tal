@@ -50,7 +50,7 @@ public class OrganizationService extends PersistableService<Organization> implem
 			updateBuilder.update(MtableManager.getMtable(this.type).getTableName());
 			updateBuilder.set("id", entity.getId());
 			// updateBuilder.set("pid", entity.getParentId());
-			updateBuilder.where("pkid =" + entity.getPkid());
+			//updateBuilder.where("pkid =" + entity.getPkid());
 		}
 		return this.pm.executeNonQuery(updateBuilder.toSQL(), null) > 0;
 	}
