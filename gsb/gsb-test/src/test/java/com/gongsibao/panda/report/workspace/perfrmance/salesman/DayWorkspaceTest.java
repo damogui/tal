@@ -56,7 +56,7 @@ public class DayWorkspaceTest extends WorkspaceCreationBase {
 		
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
-		PQueryItem item = addQueryItem(queryProject, "departmentId", "部门", ControlTypes.TEXT_BOX);
+		PQueryItem item = addQueryItem(queryProject, "department.shortName", "部门", ControlTypes.TEXT_BOX);
 		item = addQueryItem(queryProject, "date", "日期", ControlTypes.DATE_BOX);
 		{
 			item.setInterzone(true);

@@ -18,13 +18,13 @@ public class OrganizationReferenceTest extends ReferenceCreationBase{
 		datagridName = referenceName = "组织参照";
 		referenceCode = "Gsb_Organization";
 		intelligentMode = IntelligentMode.LIKE;
-		intelligentFields = "name";
+		intelligentFields = "shortName";
 	}
 
 	public PDatagrid createDatagrid(ResourceNode node) {
 
 		PDatagrid datagrid = super.createDatagrid(node);
-		addColumn( datagrid,"name", "名称", ControlTypes.TEXT_BOX,200,null,false);
+		addColumn( datagrid,"shortName", "名称", ControlTypes.TEXT_BOX,200,null,false);
 		return datagrid;
 	}
 }

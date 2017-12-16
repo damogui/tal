@@ -64,8 +64,8 @@ public class SeasonWorkspaceTest extends WorkspaceCreationBase{
 		
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
-		
-		PQueryItem item = addQueryItem(queryProject, "departmentId", "部门", ControlTypes.TEXT_BOX);
+		PQueryItem item = null;
+		addRefrenceQueryItem(queryProject, "department.shortName", "部门", "Gsb_Organization");
 	    item = addQueryItem(queryProject, "year", "年", ControlTypes.YEAR_BOX);
 		{
 			item.setInterzone(true);
