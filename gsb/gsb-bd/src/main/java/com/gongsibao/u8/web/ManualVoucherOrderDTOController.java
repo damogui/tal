@@ -1,9 +1,7 @@
 package com.gongsibao.u8.web;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.netsharp.authorization.UserPermission;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.panda.commerce.ListPart;
 
@@ -19,17 +17,17 @@ public class ManualVoucherOrderDTOController extends ListPart {
 		ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
 		return orderService.updateManuaVoucherStatus(orderId, manuaVoucherStatus);
 	}
-	
-	//添加跟进记录
-	public Boolean addOrderVoucherFollowLog(int orderId,String content){		
+
+	// 添加跟进记录
+	public Boolean addOrderVoucherFollowLog(int orderId, String content) {
 		ISoOrderVoucherFollowService voucherFollowService = ServiceFactory.create(ISoOrderVoucherFollowService.class);
 		return voucherFollowService.addOrderVoucherFollowLog(orderId, content);
 	}
-	
-	//获取当前跟进人的跟进记录
-	public List<SoOrderVoucherFollow> getOrderVoucherFollowLogByUserId(int orderId){
+
+	// 获取当前跟进人的跟进记录
+	public List<SoOrderVoucherFollow> getOrderVoucherFollowLogByUserId(int orderId) {
 		ISoOrderVoucherFollowService voucherFollowService = ServiceFactory.create(ISoOrderVoucherFollowService.class);
 		return voucherFollowService.getOrderVoucherFollowLogByUserId(orderId);
 	}
-	
+
 }

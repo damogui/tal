@@ -56,7 +56,7 @@ com.gongsibao.u8.web.ManualVoucherOrderDTOController = org.netsharp.panda.commer
 					return;
 				}
 				var orderId = row.id;
-				this.invokeService("getOrderVoucherFollowLogByUserId", [orderId], function(data) {					
+				this.invokeService("getOrderVoucherFollowLogByUserId", [orderId], function(data) {
 					var body = "";
 					$.each(data,function(k,v){
 						body+="<tr><td>"+v.content+"</td><td>"+v.creator+"</td><td>"+v.createTime+"</td></tr>";
