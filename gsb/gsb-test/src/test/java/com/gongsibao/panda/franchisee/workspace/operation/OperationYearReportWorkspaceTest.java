@@ -1,7 +1,6 @@
 package com.gongsibao.panda.franchisee.workspace.operation;
 
 import org.junit.Before;
-import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
@@ -13,11 +12,9 @@ import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
-import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.franchisee.FranchiseeReport;
-import com.gongsibao.franchisee.web.FranchiseeYearReportController;
 
 public class OperationYearReportWorkspaceTest  extends WorkspaceCreationBase{
 
@@ -26,7 +23,7 @@ public class OperationYearReportWorkspaceTest  extends WorkspaceCreationBase{
 	public void setup() {
 		entity = FranchiseeReport.class;
 		urlList = "/bd/operation/year/report";
-		listPartName = formPartName = "年统计";
+		listPartName = formPartName = "运营年统计";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_BD_OPERATION_Year_Report";
@@ -34,37 +31,18 @@ public class OperationYearReportWorkspaceTest  extends WorkspaceCreationBase{
 		formOpenMode = OpenMode.WINDOW;
 		listFilter="type=1";
 		// 扩展
-		listPartServiceController = FranchiseeYearReportController.class.getName();
-		listPartJsController = FranchiseeYearReportController.class.getName();
-		listPartImportJs = "/gsb/bd/js/operation/year.report.part.js";
 		listToolbarPath="/bd/crm/report/toolbar";
-	}
-
-	@Test
-	public void createToolbar() {
-		ResourceNode node = this.getResourceNode();
-		PToolbar toolbar = new PToolbar();
-		{
-			toolbar.toNew();
-			toolbar.setBasePath("panda/datagrid/edit");
-			toolbar.setPath(listToolbarPath);
-			toolbar.setName("运营年统计工具栏");
-			toolbar.setResourceNode(node);
-		}
-		addToolbarItem(toolbar, "disabled", "生成年报", "fa-stop-circle-o",
-				"operYearReports()", null, 5);
-		toolbarService.save(toolbar);
 	}
 
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
 
 		PDatagrid datagrid = super.createDatagrid(node);
-		datagrid.setTreeField("organizationId");
+		datagrid.setTreeField("showOrganName");
 		PDatagridColumn column = null;
 		
-		column = addColumn(datagrid, "organizationId", "部门", ControlTypes.TEXT_BOX,
-				100, true);
+		column = addColumn(datagrid, "showOrganName", "部门", ControlTypes.TEXT_BOX,
+				180, true);
 		{
 		}
 
@@ -183,7 +161,7 @@ public class OperationYearReportWorkspaceTest  extends WorkspaceCreationBase{
 	  protected PQueryProject createQueryProject(ResourceNode node) {
 		  PQueryProject queryProject = super.createQueryProject(node);
 		  queryProject.toNew(); 
-		  PQueryItem item = addQueryItem(queryProject, "date", "日期",ControlTypes.YEAR_BOX);{
+		  PQueryItem item = addQueryItem(queryProject, "year", "年份",ControlTypes.YEAR_BOX);{
 			  item.setInterzone(true);
 			  item.setShortcut(true);
 		  }

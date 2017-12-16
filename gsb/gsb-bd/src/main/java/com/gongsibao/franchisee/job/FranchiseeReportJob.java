@@ -31,7 +31,9 @@ public class FranchiseeReportJob implements IJob {
 		IFranchiseeReportService reportService = ServiceFactory.create(IFranchiseeReportService.class);
 		Map<Integer, Integer> getMap = new HashMap<>();
 		// 2.根据员工信息查询对应客户状态的数据，保存FranchiseeReport信息
-		getMap = reportService.recursiveByOrgaId(getMap, getOrganList.get(0).getId());
+		//getMap = reportService.recursiveByOrgaId(getMap, getOrganList.get(0).getId());
+		getMap = reportService.recursiveByOrgaId(getMap, 3765);
+		
 		// 3.注意：这里需要处理上下级状态，数据展现出来是树结构
 		reportService.statDireReportNo(FranchiseeReportType.date);
 		reportService.statDireReportNo(FranchiseeReportType.month);

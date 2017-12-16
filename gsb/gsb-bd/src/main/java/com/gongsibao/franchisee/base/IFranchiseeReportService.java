@@ -14,18 +14,20 @@ public interface IFranchiseeReportService  extends IPersistableService<Franchise
 	/**
 	 * 生成员工日报
 	 * @param employeeId 员工id
+	 * @param employeeName 员工name
 	 * @param parentId 该员工父Id
 	 * @param orgaId 组织机构Id
 	 */
-	public void createStaffDayReport(Integer employeeId,Integer parentId,Integer orgaId);
+	public void createStaffDayReport(Integer employeeId,String employeeName,Integer parentId,Integer orgaId);
 	/**
 	 * 根据报表的类型，生成员工的年、月报
 	 * @param employeeId 员工id
+	 * @param employeeName 员工name
 	 * @param parentId 父Id
 	 * @param orgaId 组织机构Id
 	 * @param reportType 报表类型
 	 */
-	public void createStaffYearMonthReport(Integer employeeId, Integer parentId,Integer orgaId,FranchiseeReportType reportType);
+	public void createStaffYearMonthReport(Integer employeeId,String employeeName, Integer parentId,Integer orgaId,FranchiseeReportType reportType);
 	
 	/**
 	 * 根据orgaId(组织机构表中的Id)获取‘组织机构表’集合
@@ -49,9 +51,9 @@ public interface IFranchiseeReportService  extends IPersistableService<Franchise
 	/**
 	 * 根据orgaId（组织机构表中的Id），获取员工id
 	 * @param orgaId 组织机构表的主键
-	 * @return
+	 * @return Map<Integer, String> id  name
 	 */
-	public Integer getEmployeeIdByOrganId(Integer orgaId);
+	public Map<Integer, String> getEmployeeIdByOrganId(Integer orgaId);
 	
 	/**
 	 * 生成员工父节点的报表
