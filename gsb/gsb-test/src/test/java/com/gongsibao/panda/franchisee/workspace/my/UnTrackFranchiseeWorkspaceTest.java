@@ -18,7 +18,7 @@ public class UnTrackFranchiseeWorkspaceTest  extends MyFranchiseeWorkspaceTest{
 		urlForm = "/bd/franchisee/my/form";
 		entity = Franchisee.class;
 		meta = MtableManager.getMtable(entity);
-		formPartName = listPartName = "供应商信息";
+		formPartName = listPartName = "客户信息";
 		resourceNodeCode = "BD_MY_UN_TRACK";
 		listFilter = "ownerId='{userId}' and TO_DAYS(next_track_date) - TO_DAYS(NOW())<=7";
 	}

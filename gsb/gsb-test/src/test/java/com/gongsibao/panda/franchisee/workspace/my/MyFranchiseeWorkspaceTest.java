@@ -46,7 +46,7 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 		urlForm = "/bd/franchisee/my/form";
 		entity = Franchisee.class;
 		meta = MtableManager.getMtable(entity);
-		formPartName = listPartName = "供应商信息";
+		formPartName = listPartName = "客户信息";
 		resourceNodeCode = "BD_MY_MY";
 		listFilter = "ownerId='{userId}'";
 		formJsImport = "/gsb/bd/js/franchisee.form.part.js";
@@ -77,7 +77,7 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 			toolbar.toNew();
 			//toolbar.setBasePath("panda/form/edit");
 			toolbar.setPath(this.formToolbarPath);
-			toolbar.setName("供应商表单");
+			toolbar.setName("客户表单");
 			toolbar.setResourceNode(node);
 			toolbar.setToolbarType(ToolbarType.BASE);
 		}
