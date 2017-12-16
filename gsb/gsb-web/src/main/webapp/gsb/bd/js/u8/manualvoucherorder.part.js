@@ -61,7 +61,8 @@ com.gongsibao.u8.web.ManualVoucherOrderDTOController = org.netsharp.panda.commer
 						body+="<tr><td>"+v.content+"</td><td>"+v.creator+"</td><td>"+v.createTime+"</td></tr>";
 					});							
 					body = System.isnull(body)?"<tr style='color:grey;'><td style='text-align:center'  colspan=3>暂无记录</td></tr>":body;		
-					var content =controllermanualVoucherOrderDTOList.getVoucherFollowTableStyle()+ '<table class="gridtable">'
+					var content =controllermanualVoucherOrderDTOList.getVoucherFollowTableStyle()
+											+ '<table class="gridtable">'
 											+'<tr><th>内容</th><th>跟进人</th><th>跟进时间</th></tr>'
 											+body
 										   +'</table>';
