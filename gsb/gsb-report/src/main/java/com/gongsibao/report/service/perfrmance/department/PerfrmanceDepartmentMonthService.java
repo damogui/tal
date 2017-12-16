@@ -38,12 +38,16 @@ public class PerfrmanceDepartmentMonthService extends AbstractPerfrmanceDepartme
 		qps.add("organizationType", ReportOrganizationType.DEPARTMENT.getValue(), Types.INTEGER);
 		DataTable dataTable = this.pm.executeTable(builder.toSQL(), qps);
 
-		List<Integer> departmentIdList = new ArrayList<Integer>();
+		List<PerformanceStatistics> list = new ArrayList<PerformanceStatistics>();
 		for (IRow row : dataTable) {
 
-			Integer departmentId = row.getInteger("departmentId");
-			departmentIdList.add(departmentId);
-			this.create(row);
+			PerformanceStatistics entity = this.create(row);
+			list.add(entity);
+		}
+		
+		for (PerformanceStatistics entity : list) {
+
+			updateParentId(entity);
 		}
 	}
 

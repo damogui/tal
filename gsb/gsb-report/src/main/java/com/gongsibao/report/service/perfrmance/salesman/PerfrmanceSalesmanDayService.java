@@ -23,9 +23,8 @@ public class PerfrmanceSalesmanDayService extends AbstractPerfrmanceSalesmanServ
 
 		// 要根据sql统计重新计算值
 		
-		
-		
 	}
+	
 
 	private PerformanceStatistics create(Date date, Integer salesmanId, Integer departmentId) {
 
