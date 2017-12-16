@@ -13,7 +13,7 @@ com.gongsibao.u8.web.ManualVoucherOrderDTOController = org.netsharp.panda.commer
 					return;
 				}
 				var orderId = row.id;		
-				//内容
+				// 内容
 				var content = '<br/><p style="padding-left:50px;">&nbsp;内容：<textarea rows="8" cols="50"  id="txtContent" ></textarea></p>';				
 				// window.top.layer.open({
 				layer.open({
@@ -49,11 +49,9 @@ com.gongsibao.u8.web.ManualVoucherOrderDTOController = org.netsharp.panda.commer
 						});
 			},
 			viewVoucherFollowLogWeb : function() {
-
 				var me = this;
 				var row = this.getSelectedItem();
 				if (row == null) {
-
 					IMessageBox.info('请选择记录');
 					return;
 				}
@@ -62,26 +60,53 @@ com.gongsibao.u8.web.ManualVoucherOrderDTOController = org.netsharp.panda.commer
 					var body = "";
 					$.each(data,function(k,v){
 						body+="<tr><td>"+v.content+"</td><td>"+v.creator+"</td><td>"+v.createTime+"</td></tr>";
-					});					
-					//内容
-					var content = '<table border=0 title="凭证跟进记录">'
-						+'<tr><th>内容</th><th>跟进人</th><th>跟进时间</th></tr>'
-						+body
-						+'</table>';
-
+					});							
+					body = System.isnull(body)?"<tr style='color:grey;'><td style='text-align:center'  colspan=3>暂无记录</td></tr>":body;		
+					var content =controllermanualVoucherOrderDTOList.getVoucherFollowTableStyle()+ '<table class="gridtable">'
+											+'<tr><th>内容</th><th>跟进人</th><th>跟进时间</th></tr>'
+											+body
+										   +'</table>';
 					layer.open({
 						type : 1,
 						title : '凭证跟进记录',
 						fixed : false,
 						maxmin : false,
 						shadeClose : false,
-						area : [ '500px', '300px' ],
+						area : [ '600px', '300px' ],
 						content : content
 					});
 				});	
 			},
-			changeManualVoucherStatusFormatter:function(value,row,index){
-				
+			getVoucherFollowTableStyle:function(){
+				var style='<style type="text/css">'
+					+'table.gridtable {'
+					+'font-family: verdana,arial,sans-serif;'
+					+'font-size:11px;'
+					+'color:#333333;'
+					+'border-width: 1px;'
+					+'border-color: #666666;'
+					+'border-collapse: collapse;'
+					+'margin-left: 5px;'
+					+'width:550px;'
+					+'}'
+					+'table.gridtable th {'
+					+'border-width: 1px;'
+					+'padding: 8px;'
+					+'border-style: solid;'
+					+'border-color: #666666;'
+					+'background-color: #dedede;'
+					+'}'
+					+'table.gridtable td {'
+					+'border-width: 1px;'
+					+'padding: 8px;'
+					+'border-style: solid;'
+					+'border-color: #666666;'
+					+'background-color: #ffffff;'
+					+'}'
+					+'</style>';
+				return style;
+			},
+			changeManualVoucherStatusFormatter:function(value,row,index){				
 				var checked = value=='已完成'?true:false;
 				return '<input class="easyui-switchbutton" data-options="'
 				+'checked:'+checked
