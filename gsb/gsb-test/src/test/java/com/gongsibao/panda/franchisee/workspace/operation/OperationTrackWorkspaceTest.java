@@ -12,9 +12,10 @@ public class OperationTrackWorkspaceTest  extends DepartmentTrackWorkspaceTest{
 	@Override
 	@Before
 	public void setup() {
-
+		
+		super.setup();
 		urlList = "/bd/operation/franchisee/track/list";
-		urlForm = "/bd/operation/franchisee/track/form";
+		urlForm = "/bd/department/franchisee/track/form";
 		entity = FranchiseeTrack.class;
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = "跟进信息";

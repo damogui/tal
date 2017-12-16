@@ -5,6 +5,8 @@ import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
+import org.netsharp.panda.dic.DatagridAlign;
+import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PForm;
@@ -28,6 +30,10 @@ public class DepartmentTrackWorkspaceTest  extends WorkspaceCreationBase{
 		formPartName = listPartName = "跟进信息";
 		resourceNodeCode = "BD_DEPARTMENT_Franchisee_Track";
 		listFilter = "franchisee.departmentId='{departmentId}'";
+		formOpenMode =OpenMode.WINDOW;
+		openWindowHeight = 450;
+		openWindowWidth = 900;
+		
 	}
 	
 
@@ -37,14 +43,17 @@ public class DepartmentTrackWorkspaceTest  extends WorkspaceCreationBase{
 		PDatagrid datagrid = super.createDatagrid(node);
 		datagrid.setToolbar("panda/datagrid/row/edit");
 		PDatagridColumn column = null;
-		column = addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-		addColumn(datagrid, "creator", "跟进人", ControlTypes.TEXT_BOX, 80);
-		addColumn(datagrid, "createTime", "跟进时间", ControlTypes.TEXT_BOX, 80);
-		addColumn(datagrid, "franchisee.name", "公司名称", ControlTypes.TEXT_BOX, 150, true);
+		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+		column = addColumn(datagrid, "creator", "跟进人", ControlTypes.TEXT_BOX, 80);{
+			
+			column.setAlign(DatagridAlign.CENTER);
+		}
+		addColumn(datagrid, "createTime", "跟进时间", ControlTypes.DATETIME_BOX, 130);
+		addColumn(datagrid, "franchisee.name", "公司名称", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "intentionDegree", "意向度", ControlTypes.ENUM_BOX, 80);
 		addColumn(datagrid, "trackProgress", "进度", ControlTypes.ENUM_BOX, 80);
-		addColumn(datagrid, "nextTrackDate", "下次跟进时间", ControlTypes.DECIMAL_BOX, 100);
-		addColumn(datagrid, "content", "跟进内容", ControlTypes.TEXT_BOX, 80);
+		addColumn(datagrid, "nextTrackDate", "下次跟进时间", ControlTypes.DATE_BOX, 100);
+		addColumn(datagrid, "content", "跟进内容", ControlTypes.TEXT_BOX, 300);
 
 		return datagrid;
 	}
@@ -63,11 +72,8 @@ public class DepartmentTrackWorkspaceTest  extends WorkspaceCreationBase{
 		PFormField formField = null;
 		
 		String groupName =null;
-		formField = addFormField(form, "franchisee.name", "公司名称", groupName, ControlTypes.TEXT_BOX, true, false);{
-			//formField.setFullColumn(true);
-		}
+//		addFormFieldRefrence(form, "franchisee.name", "公司名称", groupName, Franchisee.class.getSimpleName(), false, false);
 		addFormField(form, "intentionDegree", "意向度", groupName, ControlTypes.ENUM_BOX, false, true);
-		addFormField(form, "CooperativeMode", "合作模式", groupName, ControlTypes.ENUM_BOX, false, true);
 		addFormField(form, "trackProgress", "进度", groupName, ControlTypes.ENUM_BOX, false, true);
 		addFormField(form, "nextTrackDate", "下次跟进时间", groupName, ControlTypes.DATE_BOX, false, true);
 		addFormField(form, "creator", "跟进人", groupName, ControlTypes.TEXT_BOX, false, true);

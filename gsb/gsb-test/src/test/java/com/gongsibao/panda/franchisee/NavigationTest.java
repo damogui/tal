@@ -31,8 +31,8 @@ public class NavigationTest extends NavigationBase {
 		createPTreeNode(tree, null, null, "GSB_BD_DEPARTMENT", "部门统计", "", 2);
 		{
 			createPTreeNode(tree, "GSB_BD_DEPARTMENT", null, "BD_DEPARTMENT_Franchisee", "供应商列表", "/bd/department/franchisee/list", 1);
-			createPTreeNode(tree, "GSB_BD_DEPARTMENT", null, "BD_DEPARTMENT_Franchisee_Track", "跟进列表", "/bd/department/franchisee/track/list", 2);
-			createPTreeNode(tree, "GSB_BD_DEPARTMENT", null, "BD_DEPARTMENT_Franchisee_UnTrack", "未跟进供应商", "/bd/department/franchisee/untrack/list", 3);
+			createPTreeNode(tree, "GSB_BD_DEPARTMENT", null, "BD_DEPARTMENT_Franchisee_UnTrack", "未跟进供应商", "/bd/department/franchisee/untrack/list", 2);
+			createPTreeNode(tree, "GSB_BD_DEPARTMENT", null, "BD_DEPARTMENT_Franchisee_Track", "跟进列表", "/bd/department/franchisee/track/list", 3);
 			createPTreeNode(tree, "GSB_BD_DEPARTMENT", null, "BD_DEPARTMENT_Franchisee_Track_Report", "跟进统计", "/bd/department/track/report", 4);
 			createPTreeNode(tree, "GSB_BD_DEPARTMENT", null, "BD_DEPARTMENT_Day_Report", "日统计", "/bd/department/day/report", 5);			
 			createPTreeNode(tree, "GSB_BD_DEPARTMENT", null, "BD_DEPARTMENT_Month_Report", "月统计", "/bd/department/month/report", 6);
@@ -43,8 +43,8 @@ public class NavigationTest extends NavigationBase {
 		createPTreeNode(tree, null, null, "GSB_BD_OPERATION", "运营统计", "", 3);
 		{
 			createPTreeNode(tree, "GSB_BD_OPERATION", null, "GSB_BD_OPERATION_Franchisee", "供应商列表", "/bd/operation/franchisee/list", 1);
-			createPTreeNode(tree, "GSB_BD_OPERATION", null, "GSB_BD_OPERATION_Track", "跟进列表", "/bd/operation/franchisee/track/list", 2);
-			createPTreeNode(tree, "GSB_BD_OPERATION", null, "GSB_BD_OPERATION_UnTrack", "未跟进供应商", "/bd/operation/franchisee/untrack/list", 3);
+			createPTreeNode(tree, "GSB_BD_OPERATION", null, "GSB_BD_OPERATION_UnTrack", "未跟进供应商", "/bd/operation/franchisee/untrack/list", 2);
+			createPTreeNode(tree, "GSB_BD_OPERATION", null, "GSB_BD_OPERATION_Track", "跟进列表", "/bd/operation/franchisee/track/list", 3);
 			createPTreeNode(tree, "GSB_BD_OPERATION", null, "GSB_BD_OPERATION_Track_Report", "跟进统计", "/bd/operation/track/report", 4);
 			createPTreeNode(tree, "GSB_BD_OPERATION", null, "GSB_BD_OPERATION_Day_Report", "日统计", "/bd/operation/day/report", 5);
 			createPTreeNode(tree, "GSB_BD_OPERATION", null, "GSB_BD_OPERATION_Month_Report", "月统计", "/bd/operation/month/report", 6);
