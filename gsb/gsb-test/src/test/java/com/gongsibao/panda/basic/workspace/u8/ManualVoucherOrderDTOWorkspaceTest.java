@@ -51,7 +51,7 @@ public class ManualVoucherOrderDTOWorkspaceTest extends WorkspaceCreationBase  {
 			toolbar.setResourceNode(node);
 		}
 		addToolbarItem(toolbar, "disabled", "新增凭证跟进记录", "fa fa-edit","addOrderVoucherFollowLogWeb()", null, 5);
-		addToolbarItem(toolbar, "disabled", "查看凭证跟进记录", "fa fa-edit","viewVoucherFollowLogWeb()", null, 5);
+		addToolbarItem(toolbar, "disabled", "查看凭证跟进记录", "fa fa-file-text-o","viewVoucherFollowLogWeb()", null, 5);
 		toolbarService.save(toolbar);
 	}
 
