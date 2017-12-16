@@ -28,6 +28,7 @@ import com.gongsibao.entity.franchisee.Franchisee;
 import com.gongsibao.entity.franchisee.FranchiseeLinkman;
 import com.gongsibao.entity.franchisee.FranchiseeTrack;
 import com.gongsibao.entity.franchisee.dic.ExpectedSign;
+import com.gongsibao.entity.franchisee.dic.FranchiseeTrackType;
 import com.gongsibao.entity.franchisee.dic.IntentionDegree;
 import com.gongsibao.entity.franchisee.dic.TrackProgress;
 import com.gongsibao.franchisee.web.FranchiseeFormPart;
@@ -382,7 +383,10 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 		PDatagrid datagrid = new PDatagrid(node, "跟进信息");
 		{
 			PDatagridColumn column = addColumn(datagrid, "trackType", "跟进类型", ControlTypes.ENUM_BOX, 80);
-			
+			{
+				String formatter = EnumUtil.getColumnFormatter(FranchiseeTrackType.class);
+				column.setFormatter(formatter);
+			}
 			addColumn(datagrid, "nextTrackDate", "下次跟进时间", ControlTypes.DATE_BOX, 130);
 			column = addColumn(datagrid, "intentionDegree", "意向度", ControlTypes.ENUM_BOX, 100);{
 
