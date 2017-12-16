@@ -29,7 +29,7 @@ public class DepartmentYearReportWorkspaceTest  extends WorkspaceCreationBase{
 		resourceNodeCode = "BD_DEPARTMENT_Year_Report";
 		listPartType = PartType.TREEGRID_PART.getId();
 		formOpenMode = OpenMode.WINDOW;
-		listFilter="type=1";
+		listFilter="type=1 and organization_id in ({departments})";
 		// 扩展
 		listToolbarPath="/bd/crm/report/toolbar";
 	}

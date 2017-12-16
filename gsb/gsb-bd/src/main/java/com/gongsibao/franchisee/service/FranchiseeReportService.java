@@ -150,6 +150,7 @@ public class FranchiseeReportService extends PersistableService<FranchiseeReport
 			int getIntentionDegree1 = Integer.parseInt(row.getString("intIntention_degree1_count"));// 意向度：高
 			int getIntentionDegree2 = Integer.parseInt(row.getString("intIntention_degree2_count"));// 意向度：中
 			int getIntentionDegree3 = Integer.parseInt(row.getString("intIntention_degree3_count"));// 意向度：低
+			
 			// 进度
 			Integer getTrackProgress1 = Integer.parseInt(row.getString("track_progress1_count"));// 进度：未拜访
 			Integer getTrackProgress2 = Integer.parseInt(row.getString("track_progress2_count"));// 进度：电话拜访
@@ -158,6 +159,7 @@ public class FranchiseeReportService extends PersistableService<FranchiseeReport
 			Integer getTrackProgress5 = Integer.parseInt(row.getString("track_progress5_count"));// 进度：已合作
 			Integer getTrackProgress6 = Integer.parseInt(row.getString("track_progress6_count"));// 进度：已中止
 			Integer getTrackProgress7 = Integer.parseInt(row.getString("track_progress7_count"));// 进度：已合作中止
+			
 			FranchiseeReport entity = new FranchiseeReport();
 			// 判断统计类型 ：1-年、2-月、3-周、4-日
 			switch (reportType.getValue()) {

@@ -141,6 +141,7 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 		}
 		column = addColumn(datagrid, "legalPerson", "法人", ControlTypes.TEXT_BOX, 80);{
 			column.setGroupName(groupName);
+			column.setAlign(DatagridAlign.CENTER);
 		}
 		column = addColumn(datagrid, "annualIncome", "年收入(万)", ControlTypes.DECIMAL_BOX, 80);{
 			column.setGroupName(groupName);

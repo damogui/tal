@@ -19,8 +19,7 @@ import com.gongsibao.franchisee.base.IFranchiseeLinkmanService;
 import com.gongsibao.franchisee.base.IFranchiseeService;
 
 @Service
-public class FranchiseeService extends PersistableService<Franchisee> implements
-		IFranchiseeService {
+public class FranchiseeService extends PersistableService<Franchisee> implements IFranchiseeService {
 
 	public FranchiseeService() {
 		super();
@@ -50,8 +49,7 @@ public class FranchiseeService extends PersistableService<Franchisee> implements
 
 		if (!StringManager.isNullOrEmpty(entity.getLinkmanName())) {
 
-			IFranchiseeLinkmanService linkmanService = ServiceFactory
-					.create(IFranchiseeLinkmanService.class);
+			IFranchiseeLinkmanService linkmanService = ServiceFactory.create(IFranchiseeLinkmanService.class);
 			FranchiseeLinkman linkman = new FranchiseeLinkman();
 			{
 
@@ -67,13 +65,11 @@ public class FranchiseeService extends PersistableService<Franchisee> implements
 	}
 
 	@Override
-	public Map<Integer, Integer> getCustomersAllTotal(Integer ownerId,
-			String currentTime) {
+	public Map<Integer, Integer> getCustomersAllTotal(Integer ownerId, String currentTime) {
 		Map<Integer, Integer> returnMap = new HashMap<Integer, Integer>();
 
 		StringBuilder sqlBuilder = new StringBuilder();
-		sqlBuilder.append("SELECT owner_id,COUNT(1) as count from bd_franchisee WHERE create_time <= '"
-						+ currentTime + "'");
+		sqlBuilder.append("SELECT owner_id,COUNT(1) as count from bd_franchisee WHERE create_time <= '" + currentTime + "'");
 		sqlBuilder.append(" and owner_id=" + ownerId);
 		sqlBuilder.append(" GROUP BY owner_id");
 		DataTable dataTable = this.pm.executeTable(sqlBuilder.toString(), null);
@@ -92,8 +88,7 @@ public class FranchiseeService extends PersistableService<Franchisee> implements
 
 		StringBuilder sqlBuilder = new StringBuilder();
 		sqlBuilder.append("SELECT id,last_tracker_id,last_track_time,intention_degree,track_progress,expected_sign,create_time");
-		sqlBuilder.append(" from bd_franchisee WHERE create_time <= '"
-				+ currentTime + "' and owner_id = " + ownerId);
+		sqlBuilder.append(" from bd_franchisee WHERE create_time <= '" + currentTime + "' and owner_id = " + ownerId);
 		DataTable dataTable = this.pm.executeTable(sqlBuilder.toString(), null);
 		// 已跟进
 		Integer getTrackCount = 0;
@@ -117,15 +112,11 @@ public class FranchiseeService extends PersistableService<Franchisee> implements
 		Integer getExpectedSign5 = 0;
 
 		for (IRow row : dataTable) {
-			Integer lastTrackerId = Integer.parseInt(row
-					.getString("last_tracker_id"));// 最后跟进人Id
-			Integer intentionDegree = Integer.parseInt(row
-					.getString("intention_degree"));// 意向度
-			Integer trackProgress = Integer.parseInt(row
-					.getString("track_progress"));// 进度
-			Integer expectedSign = Integer.parseInt(row
-					.getString("expected_sign"));// 预计签单
-			
+			Integer lastTrackerId = row.getString("last_tracker_id") != null ? Integer.parseInt(row.getString("last_tracker_id")) : 0;// 最后跟进人Id
+			Integer intentionDegree = row.getString("intention_degree") != null ?  Integer.parseInt(row.getString("intention_degree")): 0;// 意向度
+			Integer trackProgress =  row.getString("track_progress") != null ? Integer.parseInt(row.getString("track_progress")): 0;// 进度
+			Integer expectedSign =  row.getString("expected_sign") != null ? Integer.parseInt(row.getString("expected_sign")): 0;// 预计签单
+
 			// 获取已跟进人数
 			if (ownerId.equals(lastTrackerId)) {
 				getTrackCount += 1;
@@ -205,5 +196,5 @@ public class FranchiseeService extends PersistableService<Franchisee> implements
 		returnEntity.setExpectedSign5Count(getExpectedSign5);
 		return returnEntity;
 	}
-	
+
 }

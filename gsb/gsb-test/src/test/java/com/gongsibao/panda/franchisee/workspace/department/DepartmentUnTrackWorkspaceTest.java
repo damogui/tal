@@ -18,7 +18,7 @@ public class DepartmentUnTrackWorkspaceTest  extends MyFranchiseeWorkspaceTest{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = "客户信息";
 		resourceNodeCode = "BD_DEPARTMENT_Franchisee_UnTrack";
-		listFilter = "organizationId='{departmentId}' and nextTrackDate<now()";
+		listFilter = "department_id in ({departments}) and nextTrackDate<now()";
 	}
 	
 	@Test

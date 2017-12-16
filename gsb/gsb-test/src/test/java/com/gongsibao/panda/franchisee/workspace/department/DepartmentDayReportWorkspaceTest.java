@@ -29,7 +29,7 @@ public class DepartmentDayReportWorkspaceTest  extends WorkspaceCreationBase{
 		resourceNodeCode = "BD_DEPARTMENT_Day_Report";
 		listPartType = PartType.TREEGRID_PART.getId();
 		formOpenMode = OpenMode.WINDOW;
-		listFilter="type=4";
+		listFilter="type=4 and organization_id in ({departments})";
 		// 扩展
 		listToolbarPath="/bd/crm/report/toolbar";
 	}

@@ -20,7 +20,7 @@ public class DepartmentFranchiseeWorkspaceTest  extends MyFranchiseeWorkspaceTes
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = "供应商信息";
 		resourceNodeCode = "BD_DEPARTMENT_Franchisee";
-		listFilter = "departmentId='{departmentId}'";
+		listFilter = "department_id in ({departments})";
 	}
 	
 	@Test

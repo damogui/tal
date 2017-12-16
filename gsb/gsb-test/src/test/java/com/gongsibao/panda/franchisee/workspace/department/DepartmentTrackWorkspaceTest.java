@@ -29,7 +29,7 @@ public class DepartmentTrackWorkspaceTest  extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = "跟进信息";
 		resourceNodeCode = "BD_DEPARTMENT_Franchisee_Track";
-		listFilter = "franchisee.departmentId='{departmentId}'";
+		listFilter = "franchisee.department_id in ({departments})";
 		formOpenMode =OpenMode.WINDOW;
 		openWindowHeight = 450;
 		openWindowWidth = 900;
