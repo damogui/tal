@@ -39,13 +39,13 @@ public class DepartmentTrackWorkspaceTest  extends WorkspaceCreationBase{
 
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
-
+ 
 		PDatagrid datagrid = super.createDatagrid(node);
 		datagrid.setToolbar("panda/datagrid/row/edit");
 		PDatagridColumn column = null;
 		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
 		addColumn(datagrid, "trackType", "跟进类型", ControlTypes.ENUM_BOX, 80);
-		column = addColumn(datagrid, "creator", "跟进人", ControlTypes.TEXT_BOX, 80);{
+		column = addColumn(datagrid, "creator", "跟进 人", ControlTypes.TEXT_BOX, 80);{
 			
 			column.setAlign(DatagridAlign.CENTER);
 		}
