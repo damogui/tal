@@ -7,44 +7,50 @@ import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
+import org.netsharp.organization.base.IEmployeeService;
+import org.netsharp.organization.base.IOrganizationService;
+import org.netsharp.organization.entity.Employee;
+import org.netsharp.organization.entity.Organization;
+import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.service.PersistableService;
 
 import com.gongsibao.entity.franchisee.Franchisee;
 import com.gongsibao.entity.franchisee.FranchiseeTrack;
+import com.gongsibao.entity.franchisee.dic.FranchiseeTrackType;
 import com.gongsibao.franchisee.base.IFranchiseeService;
 import com.gongsibao.franchisee.base.IFranchiseeTrackService;
-	
+
 @Service
 public class FranchiseeTrackService extends PersistableService<FranchiseeTrack> implements IFranchiseeTrackService {
 
-    public FranchiseeTrackService(){
-        super();
-        this.type=FranchiseeTrack.class;
-    }
-    
+	public FranchiseeTrackService() {
+		super();
+		this.type = FranchiseeTrack.class;
+	}
+
 	@Override
 	public FranchiseeTrack save(FranchiseeTrack entity) {
-		
+
 		EntityState entityState = entity.getEntityState();
 		entity = super.save(entity);
-		if(entityState == EntityState.New){
-			
+		if (entityState == EntityState.New) {
+
 			this.updateFranchiseeTrack(entity);
 		}
 		return entity;
 	}
-	
-	/**   
-	 * @Title: updateFranchiseeTrack   
+
+	/**
+	 * @Title: updateFranchiseeTrack
 	 * @Description: 更新供应商跟进信息
-	 * @param: @param entity      
-	 * @return: void      
-	 * @throws   
+	 * @param: @param entity
+	 * @return: void
+	 * @throws
 	 */
 	private void updateFranchiseeTrack(FranchiseeTrack entity) {
-		
+
 		IFranchiseeService franchiseeService = ServiceFactory.create(IFranchiseeService.class);
-		Franchisee franchisee =  franchiseeService.byId(entity.getFranchiseeId());
+		Franchisee franchisee = franchiseeService.byId(entity.getFranchiseeId());
 		franchisee.setIntentionDegree(entity.getIntentionDegree());
 		franchisee.setExpectedSign(entity.getExpectedSign());
 		franchisee.setTrackProgress(entity.getTrackProgress());
@@ -71,7 +77,7 @@ public class FranchiseeTrackService extends PersistableService<FranchiseeTrack> 
 
 	@Override
 	public List<FranchiseeTrack> getTrackByOwnerId(Integer ownerId) {
-		
+
 		Oql oql = new Oql();
 		{
 			oql.setType(this.type);
@@ -81,5 +87,66 @@ public class FranchiseeTrackService extends PersistableService<FranchiseeTrack> 
 			oql.getParameters().add("ownerId", ownerId, Types.INTEGER);
 		}
 		return this.queryList(oql);
+	}
+
+	@Override
+	public void addAllotTrack(String[] ss, Integer departmentId, Integer ownerId) {
+
+		Employee employee = getEmployee(ownerId);
+		Organization organization = getDepartment(departmentId);
+		String content = SessionManager.getUserName() + "分配给【" + organization.getName() + "】";
+		if (ownerId != null) {
+
+			content += "的【" + employee.getName() + "】";
+		}
+		
+		for (String franchiseeId : ss) {
+
+			FranchiseeTrack track = this.newInstance();
+			{
+				track.setContent(content);
+				track.setFranchiseeId(Integer.parseInt(franchiseeId));
+				track.setTrackType(FranchiseeTrackType.SYSTEM);
+			}
+			this.save(track);
+		}
+	}
+
+	/**
+	 * @param departmentId
+	 * @return
+	 */
+	private Organization getDepartment(Integer departmentId) {
+
+		IOrganizationService organizationService = ServiceFactory.create(IOrganizationService.class);
+		Oql oql = new Oql();
+		{
+			oql.setType(Organization.class);
+			oql.setSelects("id,name");
+			oql.setFilter(" id=? ");
+			oql.getParameters().add("id", departmentId, Types.INTEGER);
+		}
+
+		Organization organization = organizationService.queryFirst(oql);
+		return organization;
+	}
+
+	/**
+	 * @param employeeId
+	 * @return
+	 */
+	private Employee getEmployee(Integer employeeId) {
+
+		IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
+		Oql oql = new Oql();
+		{
+			oql.setType(Employee.class);
+			oql.setSelects("id,name");
+			oql.setFilter(" id=? ");
+			oql.getParameters().add("id", employeeId, Types.INTEGER);
+		}
+
+		Employee employee = employeeService.queryFirst(oql);
+		return employee;
 	}
 }

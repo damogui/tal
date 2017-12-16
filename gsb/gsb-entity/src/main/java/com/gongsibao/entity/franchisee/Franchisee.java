@@ -15,6 +15,7 @@ import org.netsharp.pcc.entity.ProvinceCityCounty;
 
 import com.gongsibao.entity.franchisee.dic.CooperativeMode;
 import com.gongsibao.entity.franchisee.dic.ExpectedSign;
+import com.gongsibao.entity.franchisee.dic.FranchiseeAllotStatus;
 import com.gongsibao.entity.franchisee.dic.IntentionDegree;
 import com.gongsibao.entity.franchisee.dic.TrackProgress;
 
@@ -121,6 +122,9 @@ public class Franchisee extends BizEntity{
 	
 	@Subs(foreignKey="franchiseeId",header="跟进信息",subType=FranchiseeTrack.class)
 	private List<FranchiseeTrack> tracks;
+	
+    @Column(name="allot_status",header="分配状态")
+    private FranchiseeAllotStatus allotStatus = FranchiseeAllotStatus.UNABSORBED;
 	
 
 	public Date getLastTrackTime() {
@@ -371,5 +375,13 @@ public class Franchisee extends BizEntity{
 
 	public void setLastTracker(Employee lastTracker) {
 		this.lastTracker = lastTracker;
+	}
+
+	public FranchiseeAllotStatus getAllotStatus() {
+		return allotStatus;
+	}
+
+	public void setAllotStatus(FranchiseeAllotStatus allotStatus) {
+		this.allotStatus = allotStatus;
 	}
 }

@@ -31,6 +31,7 @@ import com.gongsibao.entity.franchisee.dic.ExpectedSign;
 import com.gongsibao.entity.franchisee.dic.IntentionDegree;
 import com.gongsibao.entity.franchisee.dic.TrackProgress;
 import com.gongsibao.franchisee.web.FranchiseeFormPart;
+import com.gongsibao.franchisee.web.FranchiseeListPart;
 import com.gongsibao.franchisee.web.TrackDetailPart;
 
 public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
@@ -51,6 +52,10 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 		formServiceController = FranchiseeFormPart.class.getName();
 		formJsController = FranchiseeFormPart.class.getName();
 		this.formToolbarPath = "bd/franchisee/form";
+		
+		listPartImportJs = "/gsb/bd/js/franchisee.list.part.js";
+		listPartJsController = FranchiseeListPart.class.getName();
+		listPartServiceController = FranchiseeListPart.class.getName();
 	}
 	
 	@Test
@@ -376,8 +381,10 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 		ResourceNode node = this.resourceService.byCode(FranchiseeTrack.class.getSimpleName());
 		PDatagrid datagrid = new PDatagrid(node, "跟进信息");
 		{
+			PDatagridColumn column = addColumn(datagrid, "trackType", "跟进类型", ControlTypes.ENUM_BOX, 80);
+			
 			addColumn(datagrid, "nextTrackDate", "下次跟进时间", ControlTypes.DATE_BOX, 130);
-			PDatagridColumn column = addColumn(datagrid, "intentionDegree", "意向度", ControlTypes.ENUM_BOX, 100);{
+			column = addColumn(datagrid, "intentionDegree", "意向度", ControlTypes.ENUM_BOX, 100);{
 
 				String formatter = EnumUtil.getColumnFormatter(IntentionDegree.class);
 				column.setFormatter(formatter);
@@ -456,6 +463,7 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 		queryProject.toNew();
 		addQueryItem(queryProject, "name", "公司名称", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "mobile", "手机", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "weixin", "微信号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "intentionDegree", "意向度", ControlTypes.ENUM_BOX);
 		addQueryItem(queryProject, "cooperativeMode", "合作模式", ControlTypes.ENUM_BOX);
 		addQueryItem(queryProject, "trackProgress", "进度", ControlTypes.ENUM_BOX);

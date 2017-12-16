@@ -26,4 +26,13 @@ public interface IFranchiseeService extends IPersistableService<Franchisee>{
 	public FranchiseeReport statistReport(Integer ownerId,String currentTime);
 	
 	
+	/**
+	 * 分配客户给业务员
+	 * @param ids
+	 * @param departmentId
+	 * @param ownerId
+	 * @return
+	 */
+	Boolean allot(String[] ss,Integer departmentId,Integer ownerId);
+	
 }

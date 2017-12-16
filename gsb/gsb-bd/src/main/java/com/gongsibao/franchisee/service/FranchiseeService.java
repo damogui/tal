@@ -1,6 +1,5 @@
 package com.gongsibao.franchisee.service;
 
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,14 +8,17 @@ import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.DataTable;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.IRow;
+import org.netsharp.core.MtableManager;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.StringManager;
+import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.entity.franchisee.Franchisee;
 import com.gongsibao.entity.franchisee.FranchiseeLinkman;
 import com.gongsibao.entity.franchisee.FranchiseeReport;
 import com.gongsibao.franchisee.base.IFranchiseeLinkmanService;
 import com.gongsibao.franchisee.base.IFranchiseeService;
+import com.gongsibao.franchisee.base.IFranchiseeTrackService;
 
 @Service
 public class FranchiseeService extends PersistableService<Franchisee> implements IFranchiseeService {
@@ -113,9 +115,9 @@ public class FranchiseeService extends PersistableService<Franchisee> implements
 
 		for (IRow row : dataTable) {
 			Integer lastTrackerId = row.getString("last_tracker_id") != null ? Integer.parseInt(row.getString("last_tracker_id")) : 0;// 最后跟进人Id
-			Integer intentionDegree = row.getString("intention_degree") != null ?  Integer.parseInt(row.getString("intention_degree")): 0;// 意向度
-			Integer trackProgress =  row.getString("track_progress") != null ? Integer.parseInt(row.getString("track_progress")): 0;// 进度
-			Integer expectedSign =  row.getString("expected_sign") != null ? Integer.parseInt(row.getString("expected_sign")): 0;// 预计签单
+			Integer intentionDegree = row.getString("intention_degree") != null ? Integer.parseInt(row.getString("intention_degree")) : 0;// 意向度
+			Integer trackProgress = row.getString("track_progress") != null ? Integer.parseInt(row.getString("track_progress")) : 0;// 进度
+			Integer expectedSign = row.getString("expected_sign") != null ? Integer.parseInt(row.getString("expected_sign")) : 0;// 预计签单
 
 			// 获取已跟进人数
 			if (ownerId.equals(lastTrackerId)) {
@@ -195,6 +197,25 @@ public class FranchiseeService extends PersistableService<Franchisee> implements
 		returnEntity.setExpectedSign4Count(getExpectedSign4);
 		returnEntity.setExpectedSign5Count(getExpectedSign5);
 		return returnEntity;
+	}
+
+	@Override
+	public Boolean allot(String[] ss, Integer departmentId, Integer ownerId) {
+
+		String ids = StringManager.join(",", ss);
+		UpdateBuilder updateBuilder = new UpdateBuilder();
+		{
+			updateBuilder.update(MtableManager.getMtable(this.type).getTableName());
+			updateBuilder.set("department_id", departmentId);
+			updateBuilder.set("owner_id", ownerId);
+			updateBuilder.where("id in (" + ids + ")");
+		}
+		Boolean isAllot = this.pm.executeNonQuery(updateBuilder.toSQL(), null)>0;
+
+		//创建分配跟进
+		IFranchiseeTrackService trackService = ServiceFactory.create(IFranchiseeTrackService.class);
+		trackService.addAllotTrack(ss, departmentId, ownerId);
+		return isAllot;
 	}
 
 }
