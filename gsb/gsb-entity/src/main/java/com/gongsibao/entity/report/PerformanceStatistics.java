@@ -27,7 +27,7 @@ public class PerformanceStatistics extends CatEntity{
 	@Column(name = "organization_type", header = "统计组织类型")
 	private ReportOrganizationType organizationType;
 	
-    @Reference(foreignKey="departmentId")
+    @Reference(foreignKey="departmentId",primaryKey="pkid")
 	private Organization department;
 
 	@Column(name = "department_id", header = "部门Id")

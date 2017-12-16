@@ -32,7 +32,7 @@ public class OrganizationService extends PersistableService<Organization> implem
 		EntityState entityState = entity.getEntityState();
 		if (entityState != EntityState.Deleted) {
 
-			entity.setPid(entity.getParentId());
+			//entity.setPid(entity.getParentId());
 		}
 		entity = super.save(entity);
 

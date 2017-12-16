@@ -10,6 +10,7 @@ import com.gongsibao.panda.franchisee.workspace.department.DepartmentFranchiseeW
 import com.gongsibao.panda.franchisee.workspace.department.DepartmentMonthReportWorkspaceTest;
 import com.gongsibao.panda.franchisee.workspace.department.DepartmentTrackWorkspaceTest;
 import com.gongsibao.panda.franchisee.workspace.department.DepartmentUnTrackWorkspaceTest;
+import com.gongsibao.panda.franchisee.workspace.department.DepartmentYearReportWorkspaceTest;
 import com.gongsibao.panda.franchisee.workspace.my.MyFranchiseeWorkspaceTest;
 import com.gongsibao.panda.franchisee.workspace.my.UnTrackFranchiseeWorkspaceTest;
 import com.gongsibao.panda.franchisee.workspace.operation.OperationDayReportWorkspaceTest;
@@ -37,7 +38,9 @@ import com.gongsibao.panda.franchisee.workspace.operation.OperationYearReportWor
 	DepartmentDayReportWorkspaceTest.class,
 //	DepartmentWeekReportWorkspaceTest.class,
 	DepartmentMonthReportWorkspaceTest.class,
-
+	DepartmentYearReportWorkspaceTest.class,
+	
+	
 	OperationFranchiseeWorkspaceTest.class,
 	OperationTrackWorkspaceTest.class,
 	OperationUnTrackWorkspaceTest.class,

@@ -23,7 +23,7 @@ public class AuthService extends PersistableService<Auth> implements IAuthServic
 		EntityState entityState = entity.getEntityState();
 		if(entityState != EntityState.Deleted){
 			
-			entity.setPid(entity.getParentId());
+			//entity.setPid(entity.getParentId());
 		}
 		entity = super.save(entity);
 		

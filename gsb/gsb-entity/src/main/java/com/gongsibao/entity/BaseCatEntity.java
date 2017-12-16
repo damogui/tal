@@ -4,8 +4,9 @@ import org.netsharp.core.annotations.Auto;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Id;
 import org.netsharp.entity.CatEntity;
+import org.netsharp.entity.Entity;
 
-public abstract class BaseCatEntity extends CatEntity{
+public abstract class BaseCatEntity extends BaseEntity{
 
 	/**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   

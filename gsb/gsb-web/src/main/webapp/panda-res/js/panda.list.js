@@ -93,7 +93,7 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 		}
 	},
 	onLoadSuccess:function(data){
-		
+
 	},
 	onSelect : function(rowIndex, rowData) {
 
