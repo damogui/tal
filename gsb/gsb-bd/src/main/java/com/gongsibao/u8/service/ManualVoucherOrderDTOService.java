@@ -51,8 +51,8 @@ public class ManualVoucherOrderDTOService extends PersistableService<ManualVouch
 		sqlBuffer.append("LEFT JOIN crm_company_intention cri1 ON oi.`company_id` = cri1.`pkid` ");
 		sqlBuffer.append("WHERE oi.is_manual_voucher!=0 AND oi.paid_price>0 ");	
 		sqlBuffer.append("ORDER BY oi.pkid DESC ");
-		sqlBuffer.append("LIMIT "+startIndex+", "+paging.getPageSize()+" )t");
-		sqlBuffer.append(filterString==null?"":"WHERE "+filterString);//拼接sql语句的where条件
+		sqlBuffer.append("LIMIT "+startIndex+", "+paging.getPageSize()+" )t ");
+		sqlBuffer.append(filterString==null?"":" WHERE "+filterString);//拼接sql语句的where条件
 		
 		
 		

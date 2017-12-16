@@ -8,4 +8,6 @@ import com.gongsibao.entity.trade.dic.PayReceiptStatus;
 public interface IPayService extends IPersistableService<Pay> {
 
 	Boolean changeReceiptStatus(int payId,PayReceiptStatus receiptStatus);
+	
+	int updateAuditStatus(int payId, int auditStatusId, int oldStatusId, int successStatusId);
 }

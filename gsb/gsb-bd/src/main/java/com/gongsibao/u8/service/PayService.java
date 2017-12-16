@@ -21,11 +21,25 @@ public class PayService extends PersistableService<Pay> implements IPayService {
 		UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("so_pay");
-			updateSql.set("receipt_status",receiptStatus.getValue());
-			updateSql.where("pkid="+payId);
+			updateSql.set("receipt_status", receiptStatus.getValue());
+			updateSql.where("pkid=" + payId);
 		}
 		String cmdText = updateSql.toSQL();
 		return this.pm.executeNonQuery(cmdText, null) > 0;
+	}
+
+	@Override
+	public int updateAuditStatus(int payId, int auditStatusId, int oldStatusId, int successStatusId) {
+		String oldStatusIdWhereString = oldStatusId == 0 ? "" : " AND offline_audit_status_id=" + oldStatusId + "";
+		UpdateBuilder updateSql = UpdateBuilder.getInstance();
+		{
+			updateSql.update("so_pay");
+			updateSql.set("success_status_id", successStatusId);
+			updateSql.set("offline_audit_status_id", auditStatusId);
+			updateSql.where("pkid=" + payId + "" + oldStatusIdWhereString + "");
+		}
+		String cmdText = updateSql.toSQL();
+		return this.pm.executeNonQuery(cmdText, null);
 	}
 
 }
