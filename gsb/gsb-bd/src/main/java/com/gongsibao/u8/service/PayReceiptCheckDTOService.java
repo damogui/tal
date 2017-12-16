@@ -34,7 +34,7 @@ public class PayReceiptCheckDTOService extends PersistableService<PayReceiptChec
 		sqlBuffer.append("SELECT * FROM ( ");
 		sqlBuffer.append("SELECT p.`pkid` as id, oi.`pkid` orderId, oi.`no` orderNo,oi.`payable_price` 'payablePrice',oi.`paid_price` 'paidPrice', p.`receipt_no` 'receiptNo',p.`receipt_status` 'receiptStatus',p.`amount`, ");
 		sqlBuffer.append("book.`name` 'bookName',ub.`abbreviation` 'bankName',oi.`add_time` 'addTime', ");
-		sqlBuffer.append("(CASE p.pay_way_type_id WHEN 3101 THEN p.confirm_time WHEN 3102 THEN (SELECT add_time FROM bd_audit_log WHERE type_id = 1045 AND form_id = p.`pkid` AND status_id = 1054 ORDER BY LEVEL DESC LIMIT 1) ELSE NULL END) 'returnTime' ");
+		sqlBuffer.append("p.confirm_time 'returnTime' ");
 		sqlBuffer.append("FROM so_pay p ");
 		sqlBuffer.append("JOIN so_order_pay_map opm ON p.`pkid`=opm.`pay_id` ");
 		sqlBuffer.append("JOIN so_order oi ON oi.`pkid`=opm.`order_id` ");

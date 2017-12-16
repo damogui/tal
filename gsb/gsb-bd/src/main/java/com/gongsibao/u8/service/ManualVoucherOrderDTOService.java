@@ -41,12 +41,7 @@ public class ManualVoucherOrderDTOService extends PersistableService<ManualVouch
 		sqlBuffer.append("WHEN (ccm.pkid IS NULL OR cri.company_name='') THEN (CASE WHEN c.real_name='' THEN c.`mobile` ELSE c.real_name END) ELSE cri.company_name END) 'custName', ");
 		sqlBuffer.append("oi.pkid 'id',oi.no 'orderNo',oi.payable_price 'payablePrice',oi.paid_price 'paidPrice', ");
 		sqlBuffer.append("oi.manual_voucher_status 'manualVoucherStatus',oi.is_manual_voucher 'isManualVoucher', ");
-		sqlBuffer.append("(SELECT (CASE so_pay.`pay_way_type_id` WHEN 3101 THEN so_pay.`confirm_time` ELSE bd_audit_log.`add_time` END) FROM so_order  ");		
-		sqlBuffer.append("JOIN (SELECT order_id,MIN(pay_id) 'pay_id' FROM so_order_pay_map GROUP BY order_id) opm ON opm.`order_id`=so_order.`pkid` ");
-		sqlBuffer.append("JOIN so_pay ON opm.`pay_id`=so_pay.`pkid` ");
-		sqlBuffer.append("LEFT JOIN bd_audit_log ON bd_audit_log.`form_id`=opm.pay_id AND type_id = 1045 AND status_id = 1054 ");
-		sqlBuffer.append("WHERE so_pay.success_status_id=3123 AND offline_audit_status_id=1054 AND so_order.`pkid`=oi.pkid ");
-		sqlBuffer.append("ORDER BY bd_audit_log.LEVEL LIMIT 1) 'returnTime',  ");
+		sqlBuffer.append("oi.pay_time 'returnTime',  ");
 		sqlBuffer.append("oi.add_time 'addTime' ");
 		sqlBuffer.append("FROM so_order oi  ");
 		sqlBuffer.append("JOIN uc_account a ON a.pkid = oi.account_id  ");
