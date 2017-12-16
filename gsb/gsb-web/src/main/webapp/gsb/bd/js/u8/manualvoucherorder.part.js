@@ -1,6 +1,5 @@
 System.Declare("com.gongsibao.u8.web");
-com.gongsibao.u8.web.ManualVoucherOrderDTOController = org.netsharp.panda.commerce.ListPart
-		.Extends({
+com.gongsibao.u8.web.ManualVoucherOrderDTOController = org.netsharp.panda.commerce.ListPart.Extends({
 
 			ctor : function() {
 				this.base();
@@ -124,4 +123,4 @@ com.gongsibao.u8.web.ManualVoucherOrderDTOController = org.netsharp.panda.commer
 			onLoadSuccess:function(data){				
 				$('.easyui-switchbutton').switchbutton();
 			}
-		});
+});

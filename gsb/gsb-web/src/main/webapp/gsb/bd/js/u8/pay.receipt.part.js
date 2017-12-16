@@ -1,12 +1,10 @@
 System.Declare("com.gongsibao.u8.web");
-com.gongsibao.u8.web.PayReceiptCheckDTOController = org.netsharp.panda.commerce.ListPart
-		.Extends({
+com.gongsibao.u8.web.PayReceiptCheckDTOController = org.netsharp.panda.commerce.ListPart.Extends({
 
 			ctor : function() {
 				this.base();
 			},
 			bindReceiptWeb : function() {
-
 				var me = this;
 				var row = this.getSelectedItem();
 				if (row == null) {
@@ -59,8 +57,7 @@ com.gongsibao.u8.web.PayReceiptCheckDTOController = org.netsharp.panda.commerce.
 							return;
 						});
 			},
-			changeReceiptStatusFormatter:function(value,row,index){
-				
+			changeReceiptStatusFormatter:function(value,row,index){				
 				var checked = value=='已完成'?true:false;
 				return '<input class="easyui-switchbutton" data-options="'
 				+'checked:'+checked
@@ -77,8 +74,7 @@ com.gongsibao.u8.web.PayReceiptCheckDTOController = org.netsharp.panda.commerce.
 					IMessageBox.toast("操作成功！");
 				});
 			},
-			onLoadSuccess:function(data){
-				
+			onLoadSuccess:function(data){				
 				$('.easyui-switchbutton').switchbutton();
 			}
-		});
+});
