@@ -17,7 +17,7 @@ public class UserOrganizationMap extends BaseEntity {
     private Integer userId;
 	
     @JsonIgnore
-    @Reference(foreignKey="userId")
+    @Reference(foreignKey="userId",primaryKey="pkid")
     private User user;
 	
     @Column(name="organization_id")

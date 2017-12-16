@@ -26,6 +26,17 @@ public abstract class BaseCatEntity extends CatEntity{
 	@Column(name = "level", header = "层级")
 	private Integer level = 0;
 	
+	@Column(name = "short_name", header = "注：组织名称")
+	private String shortName;
+	
+	public String getShortName() {
+		return shortName;
+	}
+
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
+
 	public Integer getPkid() {
 		return pkid;
 	}
