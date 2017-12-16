@@ -29,18 +29,18 @@ public class ResourceTest extends ResourceCreationBase{
 		ResourceNode node1 = null;
 		node1 = this.createResourceNodeCategory("业绩统计", prefix + "_Perfrmance", node.getId());
 		{
-			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "部门日统计", node1.getCode() + "_Department_Day", IPerformanceStatisticsService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "部门周统计", node1.getCode() + "_Department_Week", IPerformanceStatisticsService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "部门月统计", node1.getCode() + "_Department_Month", IPerformanceStatisticsService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "部门季统计", node1.getCode() + "_Department_Season", IPerformanceStatisticsService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "部门年统计", node1.getCode() + "_Department_Year", IPerformanceStatisticsService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "部门_日统计", node1.getCode() + "_Department_Day", IPerformanceStatisticsService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "部门_周统计", node1.getCode() + "_Department_Week", IPerformanceStatisticsService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "部门_月统计", node1.getCode() + "_Department_Month", IPerformanceStatisticsService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "部门_季统计", node1.getCode() + "_Department_Season", IPerformanceStatisticsService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "部门_年统计", node1.getCode() + "_Department_Year", IPerformanceStatisticsService.class.getName(), node1.getId());
 			
 			
-			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "业务员日统计", node1.getCode() + "_Salesman_Day", IPerformanceStatisticsService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "业务员周统计", node1.getCode() + "_Salesman_Week", IPerformanceStatisticsService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "业务员月统计", node1.getCode() + "_Salesman_Month", IPerformanceStatisticsService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "业务员季统计", node1.getCode() + "_Salesman_Season", IPerformanceStatisticsService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "业务员年统计", node1.getCode() + "_Salesman_Year", IPerformanceStatisticsService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "业务员_日统计", node1.getCode() + "_Salesman_Day", IPerformanceStatisticsService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "业务员_周统计", node1.getCode() + "_Salesman_Week", IPerformanceStatisticsService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "业务员_月统计", node1.getCode() + "_Salesman_Month", IPerformanceStatisticsService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "业务员_季统计", node1.getCode() + "_Salesman_Season", IPerformanceStatisticsService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "业务员_年统计", node1.getCode() + "_Salesman_Year", IPerformanceStatisticsService.class.getName(), node1.getId());
 			
 		}
 
