@@ -37,7 +37,7 @@ public class SeasonWorkspaceTest extends WorkspaceCreationBase{
 		datagrid.setTreeField("department_shortName");
 		PDatagridColumn column = null;
 
-		column = addColumn(datagrid, "salesman.shortName", "部门", ControlTypes.TEXT_BOX, 250, true);
+		column = addColumn(datagrid, "department.shortName", "部门", ControlTypes.TEXT_BOX, 250, true);
 		column = addColumn(datagrid, "year", "年份", ControlTypes.TEXT_BOX, 100, true);{
 			column.setAlign(DatagridAlign.CENTER);
 		}
