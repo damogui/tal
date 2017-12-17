@@ -49,6 +49,7 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, "GSB_BD_OPERATION", null, "GSB_BD_OPERATION_Day_Report", "日统计", "/bd/operation/day/report", 5);
 			createPTreeNode(tree, "GSB_BD_OPERATION", null, "GSB_BD_OPERATION_Month_Report", "月统计", "/bd/operation/month/report", 6);
 			createPTreeNode(tree, "GSB_BD_OPERATION", null, "GSB_BD_OPERATION_Year_Report", "年统计", "/bd/operation/year/report", 7);
+			createPTreeNode(tree, "GSB_BD_OPERATION", null, "GSB_BD_OPERATION_SWT", "商务通测试", "/bd/operation/swt/list", 8);
 		}
 	}
 }

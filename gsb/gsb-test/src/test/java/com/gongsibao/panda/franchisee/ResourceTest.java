@@ -65,6 +65,7 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(FranchiseeReport.class.getName(), "日统计", "GSB_BD_OPERATION_Day_Report", IFranchiseeReportService.class.getName(), node1.getId());			
 			this.createResourceNodeVoucher(FranchiseeReport.class.getName(), "月统计", "GSB_BD_OPERATION_Month_Report", IFranchiseeReportService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(FranchiseeReport.class.getName(), "年统计", "GSB_BD_OPERATION_Year_Report", IFranchiseeReportService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(Franchisee.class.getName(), "商务通测试", "GSB_BD_OPERATION_SWT", IFranchiseeService.class.getName(), node1.getId());
 		}
 	}
 }
