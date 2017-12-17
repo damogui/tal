@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import com.gongsibao.panda.franchisee.reference.BdOrganizationFilterReferenceTest;
 import com.gongsibao.panda.franchisee.reference.FranchiseeReferenceTest;
 import com.gongsibao.panda.franchisee.workspace.department.DepartmentDayReportWorkspaceTest;
 import com.gongsibao.panda.franchisee.workspace.department.DepartmentFranchiseeWorkspaceTest;
@@ -26,6 +27,7 @@ import com.gongsibao.panda.franchisee.workspace.operation.OperationYearReportWor
 	ResourceTest.class, 
 	
 	FranchiseeReferenceTest.class,
+	BdOrganizationFilterReferenceTest.class,
 	
 	UnTrackFranchiseeWorkspaceTest.class,
 	MyFranchiseeWorkspaceTest.class,

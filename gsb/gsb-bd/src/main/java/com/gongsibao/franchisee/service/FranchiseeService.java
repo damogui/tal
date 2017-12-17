@@ -16,6 +16,7 @@ import org.netsharp.util.sqlbuilder.UpdateBuilder;
 import com.gongsibao.entity.franchisee.Franchisee;
 import com.gongsibao.entity.franchisee.FranchiseeLinkman;
 import com.gongsibao.entity.franchisee.FranchiseeReport;
+import com.gongsibao.entity.franchisee.dic.FranchiseeAllotStatus;
 import com.gongsibao.franchisee.base.IFranchiseeLinkmanService;
 import com.gongsibao.franchisee.base.IFranchiseeService;
 import com.gongsibao.franchisee.base.IFranchiseeTrackService;
@@ -206,6 +207,7 @@ public class FranchiseeService extends PersistableService<Franchisee> implements
 		UpdateBuilder updateBuilder = new UpdateBuilder();
 		{
 			updateBuilder.update(MtableManager.getMtable(this.type).getTableName());
+			updateBuilder.set("allot_status", FranchiseeAllotStatus.ALLOCATED.getValue());
 			updateBuilder.set("department_id", departmentId);
 			updateBuilder.set("owner_id", ownerId);
 			updateBuilder.where("id in (" + ids + ")");

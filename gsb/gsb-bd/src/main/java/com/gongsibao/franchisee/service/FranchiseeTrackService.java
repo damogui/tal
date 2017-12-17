@@ -33,7 +33,7 @@ public class FranchiseeTrackService extends PersistableService<FranchiseeTrack> 
 
 		EntityState entityState = entity.getEntityState();
 		entity = super.save(entity);
-		if (entityState == EntityState.New) {
+		if (entityState == EntityState.New && entity.getTrackType() == FranchiseeTrackType.MANUAL) {
 
 			this.updateFranchiseeTrack(entity);
 		}

@@ -92,13 +92,13 @@ public class OperationFranchiseeWorkspaceTest  extends MyFranchiseeWorkspaceTest
 	protected PQueryProject createQueryProject(ResourceNode node) {
 		
 		PQueryProject queryProject = super.createQueryProject(node);
-		addQueryItem(queryProject, "creator", "创建人", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "createTime", "创建时间", ControlTypes.DATE_BOX);
 		addQueryItem(queryProject, "lastTracker.name", "最后跟进人", ControlTypes.TEXT_BOX);
-		PQueryItem queryItem = addRefrenceQueryItem(queryProject, "department.name", "所属部门", "Organization-Department");{
+		PQueryItem queryItem = addRefrenceQueryItem(queryProject, "department.name", "所属部门", "BD-Organization-Department-Filter");{
 			queryItem.setRefFilter("organizationType="+OrganizationType.DEPARTMENT.getValue());
 		}
 		addQueryItem(queryProject, "allotStatus", "状态", ControlTypes.ENUM_BOX);
+		addQueryItem(queryProject, "creator", "创建人", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "createTime", "创建时间", ControlTypes.DATE_BOX);
 		return queryProject;
 	}
 }
