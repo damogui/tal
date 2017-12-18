@@ -7,10 +7,10 @@
 </head>
 <body>
 	<div class="weui-search-bar" id="searchBar">
-	  <form class="weui-search-bar__form">
+	  <form class="weui-search-bar__form" action="" onsubmit="return false;">
 	    <div class="weui-search-bar__box">
 	      <i class="weui-icon-search"></i>
-	      <input type="search" class="weui-search-bar__input" id="searchKeyWord" placeholder="搜索" onsearch="ctrl.query()">
+	      <input type="search" class="weui-search-bar__input" id="searchKeyWord" placeholder="搜索" onsearch="ctrl.filter()">
 	      <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
 	    </div>
 	    <label class="weui-search-bar__label" id="searchText">
@@ -18,7 +18,7 @@
 	      <span>搜索</span>
 	    </label>
 	  </form>
-	  <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
+	  <a href="javascript:ctrl.cancel();" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
 	</div>
 	<div class="weui_body">
 	
