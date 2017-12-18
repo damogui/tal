@@ -14,7 +14,7 @@ import org.junit.runners.Suite.SuiteClasses;
 	
 //	org.netsharp.wx.meta.AllTests.class,
 //  org.netsharp.cache.plugin.AllTests.class,
-//  org.netsharp.scrum.meta.AllTests.class,
+    org.netsharp.scrum.meta.AllTests.class,
     
 	//1.基础信息
 	com.gongsibao.panda.basic.AllTest.class,
