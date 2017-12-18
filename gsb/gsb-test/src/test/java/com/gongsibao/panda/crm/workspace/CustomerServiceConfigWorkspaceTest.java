@@ -8,6 +8,7 @@ import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PForm;
+import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.crm.CustomerServiceConfig;
@@ -55,6 +56,17 @@ public class CustomerServiceConfigWorkspaceTest extends WorkspaceCreationBase{
 		addFormField(form, "swtServiceId", "商务通Id", null, ControlTypes.TEXT_BOX, true);
 		addFormField(form, "type", "类型", null, ControlTypes.ENUM_BOX, true);
 		return form;
+	}
+	
+	@Override
+	protected PQueryProject createQueryProject(ResourceNode node) {
+
+		PQueryProject queryProject = super.createQueryProject(node);
+		queryProject.toNew();
+		addQueryItem(queryProject, "type", "类型", ControlTypes.ENUM_BOX);
+		addQueryItem(queryProject, "employee.name", "人员", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "swtServiceId", "商务通Id", ControlTypes.TEXT_BOX);
+		return queryProject;
 	}
 	
 	@Override
