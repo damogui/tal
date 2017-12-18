@@ -27,22 +27,25 @@ public class ResourceTest extends ResourceCreationBase{
 
 		String prefix = ResourceTest.resourcePrefix;
 		ResourceNode node1 = null;
-		node1 = this.createResourceNodeCategory("业绩统计", prefix + "_Perfrmance", node.getId());
+		node1 = this.createResourceNodeCategory("部门业绩统计", prefix + "_Perfrmance", node.getId());
 		{
-			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "部门_日统计", node1.getCode() + "_Department_Day", IPerformanceStatisticsService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "部门_周统计", node1.getCode() + "_Department_Week", IPerformanceStatisticsService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "部门_月统计", node1.getCode() + "_Department_Month", IPerformanceStatisticsService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "部门_季统计", node1.getCode() + "_Department_Season", IPerformanceStatisticsService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "部门_年统计", node1.getCode() + "_Department_Year", IPerformanceStatisticsService.class.getName(), node1.getId());
-			
-			
-			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "业务员_日统计", node1.getCode() + "_Salesman_Day", IPerformanceStatisticsService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "业务员_周统计", node1.getCode() + "_Salesman_Week", IPerformanceStatisticsService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "业务员_月统计", node1.getCode() + "_Salesman_Month", IPerformanceStatisticsService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "业务员_季统计", node1.getCode() + "_Salesman_Season", IPerformanceStatisticsService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "业务员_年统计", node1.getCode() + "_Salesman_Year", IPerformanceStatisticsService.class.getName(), node1.getId());
-			
+			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "日统计", node1.getCode() + "_Department_Day", IPerformanceStatisticsService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "周统计", node1.getCode() + "_Department_Week", IPerformanceStatisticsService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "月统计", node1.getCode() + "_Department_Month", IPerformanceStatisticsService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "季统计", node1.getCode() + "_Department_Season", IPerformanceStatisticsService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "年统计", node1.getCode() + "_Department_Year", IPerformanceStatisticsService.class.getName(), node1.getId());
+
 		}
 
+		node1 = this.createResourceNodeCategory("业务员业绩统计", prefix + "_Perfrmance", node.getId());
+		{
+
+			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "日统计", node1.getCode() + "_Salesman_Day", IPerformanceStatisticsService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "周统计", node1.getCode() + "_Salesman_Week", IPerformanceStatisticsService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "月统计", node1.getCode() + "_Salesman_Month", IPerformanceStatisticsService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "季统计", node1.getCode() + "_Salesman_Season", IPerformanceStatisticsService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "年统计", node1.getCode() + "_Salesman_Year", IPerformanceStatisticsService.class.getName(), node1.getId());
+			
+		}
 	}
 }
