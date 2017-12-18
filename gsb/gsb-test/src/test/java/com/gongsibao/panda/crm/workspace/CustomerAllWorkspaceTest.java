@@ -116,7 +116,7 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 		datagrid.setToolbar("panda/datagrid/row/edit");
 		PDatagridColumn column = null;
 		column = addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-		addColumn(datagrid, "allocationOrg.name", "分配部门", ControlTypes.TEXT_BOX, 100, true);
+		addColumn(datagrid, "allocationOrg.shortName", "分配部门", ControlTypes.TEXT_BOX, 100, true);
 		addColumn(datagrid, "email", "email", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "accountId", "是否会员", ControlTypes.BOOLCOMBO_BOX, 100);
 		addColumn(datagrid, "realName", "客户名称", ControlTypes.TEXT_BOX, 80);
