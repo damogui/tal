@@ -232,7 +232,7 @@ org.netsharp.controls.DateBoxQueryItem = org.netsharp.controls.Control.Extends({
         		
         	}else{
 
-                qp.Filter = this.propertyName + "='" + qp.Value + " 00:00:00' ";
+                qp.Filter = this.propertyName + ">='" + qp.Value + " 00:00:00' ";
         	}
         }
         else {
