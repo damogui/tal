@@ -28,7 +28,7 @@ import com.gongsibao.panda.basic.workspace.u8.VoucherLogWorkspaceTest;
 	ManualVoucherOrderDTOWorkspaceTest.class,	
 	
 	//收款审核
-	ReceivablesAuditDTOWorkspaceTest.class,	
+	//ReceivablesAuditDTOWorkspaceTest.class,	
 	NavigationTest.class
 	
 })

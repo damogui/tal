@@ -148,6 +148,7 @@ public class ReceivablesAuditDTOService extends PersistableService<ReceivablesAu
 		return resMap;
 	}
 
+	//收款审核写到一半，发现要把之前的审核逻辑搬过来，工作量太大，所以暂时不挪过来了（20171218）
 	@Override
 	public Integer payAudit(Integer payId, Integer auditId, Integer auditStatusId, String remark, String confirmTime) {
 		IAuditLogService auditLogService = ServiceFactory.create(IAuditLogService.class);
@@ -163,6 +164,7 @@ public class ReceivablesAuditDTOService extends PersistableService<ReceivablesAu
 			auditLogOql.setFilter("form_id=" + payId + " AND type_id=" + typeId + " AND add_user_id={userId} AND status_id=1051");
 		}
 		List<AuditLog> auditLogList = auditLogService.queryList(auditLogOql);
+		
 		if (CollectionUtils.isEmpty(auditLogList)) {
 			// 审核任务不存在
 			return -2;
