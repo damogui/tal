@@ -301,7 +301,7 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 		
 		
 		addFormField(form, "intentionDegree", "意向度", groupName, ControlTypes.ENUM_BOX, false, true);
-		addFormField(form, "CooperativeMode", "合作模式", groupName, ControlTypes.ENUM_BOX, false, true);
+		addFormField(form, "CooperativeMode", "合作模式", groupName, ControlTypes.ENUM_BOX, false, false);
 		addFormField(form, "trackProgress", "进度", groupName, ControlTypes.ENUM_BOX, false, true);
 		addFormField(form, "expectedSign", "预计签单时间", groupName, ControlTypes.ENUM_BOX, false, true);
 		addFormFieldRefrence(form, "department.name", "所属部门", groupName, "Organization-Department", false, false);
