@@ -10,6 +10,7 @@ import com.gongsibao.entity.taurus.DayStatisticView;
 import com.gongsibao.entity.taurus.NewUserPerDayView;
 import com.gongsibao.entity.taurus.User;
 import com.gongsibao.entity.taurus.UserConsStatisticView;
+import com.gongsibao.entity.taurus.UserInfo;
 import com.gongsibao.entity.taurus.UserRenewalStatisticView;
 import com.gongsibao.entity.trade.SoOrder;
 
@@ -31,7 +32,8 @@ public class NavigationTest extends NavigationBase {
 
 		createPTreeNode(tree, null, "fa fa-file-o fa-fw", "GSB_TAURUS", "金牛座", "", 1);
 		{
-			createPTreeNode(tree, "GSB_TAURUS", null, "GSB_TAURUS_" + User.class.getSimpleName(), "用户管理", "/taurus/user/list", 1);
+			createPTreeNode(tree, "GSB_TAURUS", null, "GSB_TAURUS_" + User.class.getSimpleName(), "帐号信息", "/taurus/user/list", 1);
+			createPTreeNode(tree, "GSB_TAURUS", null, "GSB_TAURUS_" + UserInfo.class.getSimpleName(), "用户信息", "/taurus/userinfo/list", 1);
 			createPTreeNode(tree, "GSB_TAURUS", null, "GSB_TAURUS_" + NewUserPerDayView.class.getSimpleName(), "每日新增用户数", "/taurus/user/perDay/list", 1);
 			createPTreeNode(tree, "GSB_TAURUS", null, "GSB_TAURUS_" + UserConsStatisticView.class.getSimpleName(), "消费统计", "/taurus/user/consStatistic/list", 1);
 			createPTreeNode(tree, "GSB_TAURUS", null, "GSB_TAURUS_" + UserRenewalStatisticView.class.getSimpleName(), "续费统计", "/taurus/user/renewalStatistic/list", 1);

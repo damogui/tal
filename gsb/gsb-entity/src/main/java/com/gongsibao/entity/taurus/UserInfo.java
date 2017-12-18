@@ -15,7 +15,7 @@ public class UserInfo extends Entity{
 	 */   
 	private static final long serialVersionUID = -72659637425287821L;
 
-	@Reference(foreignKey="userId")
+	@Reference(foreignKey="userId",primaryKey="pkid")
     private User user;
 	
 	@Column(name="user_id",header="用户Id")

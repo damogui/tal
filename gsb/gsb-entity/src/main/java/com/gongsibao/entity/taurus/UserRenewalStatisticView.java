@@ -1,7 +1,6 @@
 package com.gongsibao.entity.taurus;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 import org.netsharp.core.annotations.Auto;
 import org.netsharp.core.annotations.Id;
