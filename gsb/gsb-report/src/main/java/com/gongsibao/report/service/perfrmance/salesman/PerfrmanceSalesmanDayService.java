@@ -1,6 +1,5 @@
 package com.gongsibao.report.service.perfrmance.salesman;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.netsharp.core.DataTable;
