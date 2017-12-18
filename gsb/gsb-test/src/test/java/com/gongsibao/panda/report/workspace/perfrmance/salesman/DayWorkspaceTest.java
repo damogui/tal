@@ -23,7 +23,7 @@ public class DayWorkspaceTest extends WorkspaceCreationBase {
 		listPartName = formPartName = "业务员日统计";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_Report_Perfrmance_Salesman_Day";
+		resourceNodeCode = "GSB_Report_Salesman_Perfrmance_Day";
 		listFilter = "dateType=5 and organizationType=1";
 	}
 

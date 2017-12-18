@@ -25,7 +25,7 @@ public class DayWorkspaceTest extends WorkspaceCreationBase {
 		listPartName = formPartName = "部门日统计";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_Report_Perfrmance_Department_Day";
+		resourceNodeCode = "GSB_Report_Department_Perfrmance_Day";
 		listFilter = "dateType=5 and organizationType=2";
 		listPartType = PartType.TREEGRID_PART.getId();
 	}

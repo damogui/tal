@@ -24,7 +24,7 @@ public class WeekWorkspaceTest  extends WorkspaceCreationBase{
 		listPartName = formPartName = "业务员月统计";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_Report_Perfrmance_Salesman_Week";
+		resourceNodeCode = "GSB_Report_Salesman_Perfrmance_Week";
 		listFilter = "dateType=4 and organizationType=1";
 	}
 

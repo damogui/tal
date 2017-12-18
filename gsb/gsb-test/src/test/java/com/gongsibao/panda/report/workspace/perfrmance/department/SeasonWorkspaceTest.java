@@ -25,7 +25,7 @@ public class SeasonWorkspaceTest extends WorkspaceCreationBase{
 		listPartName = formPartName = "部门季统计";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_Report_Perfrmance_Department_Season";
+		resourceNodeCode = "GSB_Report_Department_Perfrmance_Season";
 		listFilter = "dateType=2 and organizationType=2";
 		listPartType = PartType.TREEGRID_PART.getId();
 	}

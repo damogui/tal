@@ -24,7 +24,7 @@ public class YearWorkspaceTest extends WorkspaceCreationBase{
 		listPartName = formPartName = "业务员月统计";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_Report_Perfrmance_Salesman_Year";
+		resourceNodeCode = "GSB_Report_Salesman_Perfrmance_Year";
 		listFilter = "dateType=1 and organizationType=1";
 	}
 
