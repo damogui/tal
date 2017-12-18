@@ -219,13 +219,22 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 		column = addColumn(datagrid, "lastTrackTime", "最后跟进时间", ControlTypes.DATETIME_BOX, 130);{
 			column.setGroupName(groupName);
 		}
-		column = addColumn(datagrid, "lastTracker", "最后跟进人", ControlTypes.DATE_BOX, 100);{
+		column = addColumn(datagrid, "lastTracker.name", "最后跟进人", ControlTypes.DATE_BOX, 100);{
 			column.setGroupName(groupName);
 		}
 		column = addColumn(datagrid, "lastTrackContent", "最后跟进内容", ControlTypes.TEXT_BOX, 300);{
 			column.setGroupName(groupName);
 		}	
 
+		groupName = null;
+		column = addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);{
+			column.setGroupName(groupName);
+		}
+		
+		column = addColumn(datagrid, "creator", "创建人", ControlTypes.DATETIME_BOX, 80);{
+			column.setAlign(DatagridAlign.CENTER);
+		}
+		
 		return datagrid;
 	}
 
