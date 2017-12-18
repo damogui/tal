@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div class="weui-search-bar" id="searchBar">
-	  <form class="weui-search-bar__form">
+	  <form class="weui-search-bar__form"  action="" onsubmit="return false;">
 	    <div class="weui-search-bar__box">
 	      <i class="weui-icon-search"></i>
 	      <input type="search" class="weui-search-bar__input" id="searchKeyWord" placeholder="搜索" onsearch="ctrl.filter()">
