@@ -49,12 +49,12 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 		formPartName = listPartName = "客户信息";
 		resourceNodeCode = "BD_MY_MY";
 		listFilter = "ownerId='{userId}'";
-		formJsImport = "/gsb/bd/js/franchisee.form.part.js";
+		formJsImport = "/gsb/franchisee/js/franchisee.form.part.js";
 		formServiceController = FranchiseeFormPart.class.getName();
 		formJsController = FranchiseeFormPart.class.getName();
 		this.formToolbarPath = "bd/franchisee/form";
 		
-		listPartImportJs = "/gsb/bd/js/franchisee.list.part.js";
+		listPartImportJs = "/gsb/franchisee/js/franchisee.list.part.js";
 		listPartJsController = FranchiseeListPart.class.getName();
 		listPartServiceController = FranchiseeListPart.class.getName();
 	}
@@ -412,7 +412,11 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 				String formatter = EnumUtil.getColumnFormatter(ExpectedSign.class);
 				column.setFormatter(formatter);
 			}
-			column = addColumn(datagrid, "content", "内容", ControlTypes.TEXT_BOX, 500);
+			column = addColumn(datagrid, "content", "内容", ControlTypes.TEXT_BOX, 400);
+			column = addColumn(datagrid, "creator", "跟进人", ControlTypes.TEXT_BOX, 80);{
+				column.setAlign(DatagridAlign.CENTER);
+			}
+			column = addColumn(datagrid, "createTime", "跟进时间", ControlTypes.DATETIME_BOX, 130);
 		}
 
 		PForm form = new PForm();

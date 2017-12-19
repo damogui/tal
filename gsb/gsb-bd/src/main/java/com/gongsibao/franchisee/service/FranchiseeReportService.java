@@ -28,6 +28,30 @@ public class FranchiseeReportService extends PersistableService<FranchiseeReport
 		this.type = FranchiseeReport.class;
 	}
 
+
+	@Override
+	public Boolean execute(Date date) {
+		
+		// 1.先查询招商部员工信息
+		IOrganizationService organizaService = ServiceFactory.create(IOrganizationService.class);
+		List<Organization> getOrganList = organizaService.getByFunction("Channel");
+		IFranchiseeReportService reportService = ServiceFactory.create(IFranchiseeReportService.class);
+		Map<Integer, Integer> getMap = new HashMap<>();
+		
+		// 2.根据员工信息查询对应客户状态的数据，保存FranchiseeReport信息
+		getMap = reportService.recursiveByOrgaId(getMap, getOrganList.get(0).getId());
+		//getMap = reportService.recursiveByOrgaId(getMap, 2101204994);
+		
+		// 3.注意：这里需要处理上下级状态，数据展现出来是树结构
+		reportService.statDireReportNo(FranchiseeReportType.date);
+		reportService.statDireReportNo(FranchiseeReportType.month);
+		reportService.statDireReportNo(FranchiseeReportType.year);
+		// 4.注意:类，代码，方法的设计，不要堆在一起
+		// 5.这里只是一个入口
+		
+		return true;
+	}
+	
 	/**
 	 * 处理时间
 	 * 
@@ -441,26 +465,4 @@ public class FranchiseeReportService extends PersistableService<FranchiseeReport
 		
 	}
 
-	@Override
-	public Boolean execute(Date date) {
-		
-		// 1.先查询招商部员工信息
-		IOrganizationService organizaService = ServiceFactory.create(IOrganizationService.class);
-		List<Organization> getOrganList = organizaService.getByFunction("Channel");
-		IFranchiseeReportService reportService = ServiceFactory.create(IFranchiseeReportService.class);
-		Map<Integer, Integer> getMap = new HashMap<>();
-		
-		// 2.根据员工信息查询对应客户状态的数据，保存FranchiseeReport信息
-		getMap = reportService.recursiveByOrgaId(getMap, getOrganList.get(0).getId());
-		//getMap = reportService.recursiveByOrgaId(getMap, 2101204994);
-		
-		// 3.注意：这里需要处理上下级状态，数据展现出来是树结构
-		reportService.statDireReportNo(FranchiseeReportType.date);
-		reportService.statDireReportNo(FranchiseeReportType.month);
-		reportService.statDireReportNo(FranchiseeReportType.year);
-		// 4.注意:类，代码，方法的设计，不要堆在一起
-		// 5.这里只是一个入口
-		
-		return true;
-	}
 }

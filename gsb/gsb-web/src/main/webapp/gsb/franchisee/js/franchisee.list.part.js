@@ -71,8 +71,12 @@ com.gongsibao.franchisee.web.FranchiseeListPart = org.netsharp.panda.commerce.Li
 
 								var options = {
 									columns : [ [ {
-										field : 'pathName',
+										field : 'name',
 										title : '名称',
+										width : 100
+									},{
+										field : 'pathName',
+										title : '全称',
 										width : 150
 									} ] ],
 									url : '\/panda\/rest\/reference?code=BD-Organization-Department-Filter&filter=organizationType____3',

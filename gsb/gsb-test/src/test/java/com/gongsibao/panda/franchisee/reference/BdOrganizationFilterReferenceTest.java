@@ -23,7 +23,7 @@ public class BdOrganizationFilterReferenceTest  extends ReferenceCreationBase{
 		datagridName = referenceName = "BD部门参照【自定义条件】";
 		referenceCode = "BD-Organization-Department-Filter";
 		intelligentMode = IntelligentMode.LIKE;
-		intelligentFields = "pathName";
+		intelligentFields = "name,pathName";
 		gridFilter = "organizationType = "+OrganizationType.DEPARTMENT.getValue();
 		filterBuilder = BdOrganizationReferenceFilter.class.getName();
 	}
@@ -32,7 +32,8 @@ public class BdOrganizationFilterReferenceTest  extends ReferenceCreationBase{
 
 		PDatagrid datagrid = super.createDatagrid(node);
 		datagrid.setOrderby("pathCode");
-		addColumn( datagrid,"pathName", "名称", ControlTypes.TEXT_BOX,200,null,false);
+		addColumn( datagrid,"name", "名称", ControlTypes.TEXT_BOX,200,null,false);
+		addColumn( datagrid,"pathName", "全称", ControlTypes.TEXT_BOX,200,null,false);
 		PDatagridColumn column = addColumn( datagrid,"pathCode", "编码", ControlTypes.TEXT_BOX,200,null,false);{
 			column.setOrderbyMode(OrderbyMode.ASC);
 			column.setVisible(false);
