@@ -36,13 +36,13 @@ public class FranchiseeService extends PersistableService<Franchisee> implements
 	@Override
 	public Franchisee save(Franchisee entity) {
 
+		//校验：手机号、微信号、QQ、座机
 		this.verify(entity);
 
 		EntityState entityState = entity.getEntityState();
 		entity = super.save(entity);
 		if (entityState == EntityState.New) {
 
-			// 手机号、微信号、QQ、座机
 			this.createMainLinkMan(entity);
 		}
 		return entity;
