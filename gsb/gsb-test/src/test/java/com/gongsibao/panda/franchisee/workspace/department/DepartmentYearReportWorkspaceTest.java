@@ -37,7 +37,7 @@ public class DepartmentYearReportWorkspaceTest  extends WorkspaceCreationBase{
 		
 		listPartServiceController = FranchiseeReportController.class.getName();
 		listPartJsController = FranchiseeReportController.class.getName();
-		listPartImportJs = "/gsb/franchisee/js/operation/report.part.js";
+		listPartImportJs = "/gsb/franchisee/js/report.part.js";
 		listToolbarPath="/bd/crm/report/toolbar";
 	}
 
