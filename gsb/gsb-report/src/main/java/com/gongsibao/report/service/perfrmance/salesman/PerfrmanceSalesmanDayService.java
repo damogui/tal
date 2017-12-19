@@ -53,7 +53,7 @@ public class PerfrmanceSalesmanDayService extends AbstractPerfrmanceSalesmanServ
 		sqlBuilder.append(" from so_order o");
 		sqlBuilder.append(" LEFT JOIN so_refund r on o.pkid=r.order_id");
 		sqlBuilder.append(" LEFT JOIN so_order_pay_map m on o.pkid=m.order_id");
-		sqlBuilder.append(" GROUP BY o.pkid");
+		sqlBuilder.append(" GROUP BY o.pkid HAVING o.pay_time LIKE CONCAT('%',DATE_FORMAT(now(), '%Y-%m-%d'),'%')");
 		sqlBuilder.append(") as one");
 		sqlBuilder.append(" LEFT JOIN so_order_prod as pr ON one.orderId = pr.order_id");
 		sqlBuilder.append(") as two");
