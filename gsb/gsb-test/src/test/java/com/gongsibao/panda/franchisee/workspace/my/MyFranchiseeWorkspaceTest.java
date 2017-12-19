@@ -9,6 +9,7 @@ import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.DockType;
+import org.netsharp.panda.dic.OrderbyMode;
 import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
@@ -135,8 +136,9 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 		PDatagrid datagrid = super.createDatagrid(node);
 		datagrid.setToolbar("panda/datagrid/row/edit");
 		PDatagridColumn column = null;
-		column = addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);{
-			//column.setGroupName(groupName);
+		column = addColumn(datagrid, "creatorId", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+		column = addColumn(datagrid, "id", "客户Id", ControlTypes.TEXT_BOX, 80, true);{
+			column.setAlign(DatagridAlign.CENTER);
 		}
 		column = addColumn(datagrid, "name", "公司名称", ControlTypes.TEXT_BOX, 200, true);{
 			//column.setGroupName(groupName);
@@ -229,6 +231,7 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 		groupName = null;
 		column = addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);{
 			column.setGroupName(groupName);
+			column.setOrderbyMode(OrderbyMode.DESC);
 		}
 		
 		column = addColumn(datagrid, "creator", "创建人", ControlTypes.DATETIME_BOX, 80);{
@@ -267,7 +270,10 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 		formField = addFormField(form, "county.name", "区/县",groupName,ControlTypes.PCC_BOX, true, false);{
 			formField.setDataOptions("level:3");
 		}
-		
+		addFormField(form, "CooperativeMode", "合作模式", groupName, ControlTypes.ENUM_BOX, false, false);
+		formField = addFormField(form, "id", "客户Id",groupName,ControlTypes.TEXT_BOX, false, true);{
+			
+		}
 		formField = addFormField(form, "registerAddress", "注册地址", groupName, ControlTypes.TEXT_BOX, false, false);
 		{
 			formField.setFullColumn(true);
@@ -294,18 +300,19 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 		
 		groupName = "联系信息";
 		addFormField(form, "linkmanName", "联系人", groupName, ControlTypes.TEXT_BOX, false, false);
-		addFormField(form, "mobile", "手机号", groupName, ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "post", "职务", groupName, ControlTypes.TEXT_BOX, false, false);
+		addFormField(form, "mobile", "手机号", groupName, ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "weixin", "微信", groupName, ControlTypes.TEXT_BOX, false, false);
+		addFormField(form, "qq", "QQ", groupName, ControlTypes.TEXT_BOX, false, false);
+		addFormField(form, "tel", "座机", groupName, ControlTypes.TEXT_BOX, false, false);
 		groupName = "跟进信息";
 		
 		
 		addFormField(form, "intentionDegree", "意向度", groupName, ControlTypes.ENUM_BOX, false, true);
-		addFormField(form, "CooperativeMode", "合作模式", groupName, ControlTypes.ENUM_BOX, false, false);
 		addFormField(form, "trackProgress", "进度", groupName, ControlTypes.ENUM_BOX, false, true);
 		addFormField(form, "expectedSign", "预计签单时间", groupName, ControlTypes.ENUM_BOX, false, true);
-		addFormFieldRefrence(form, "department.name", "所属部门", groupName, "Organization-Department", false, false);
-		addFormFieldRefrence(form, "owner.name", "业务员", groupName, "Employee", false, false);
+		addFormFieldRefrence(form, "department.name", "所属部门", groupName, "Organization-Department", false, true);
+		addFormFieldRefrence(form, "owner.name", "业务员", groupName, "Employee", false, true);
 		addFormField(form, "nextTrackDate", "下次跟进时间", groupName, ControlTypes.DATE_BOX, false, true);
 		addFormField(form, "lastTrackTime", "最后跟进时间", groupName, ControlTypes.DATETIME_BOX, false, true);
 		
@@ -332,6 +339,8 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 			addColumn(datagrid, "mobile", "手机", ControlTypes.TEXT_BOX, 100);
 			addColumn(datagrid, "post", "职务", ControlTypes.TEXT_BOX, 100);
 			addColumn(datagrid, "weixin", "微信号", ControlTypes.TEXT_BOX, 100);
+			addColumn(datagrid, "qq", "QQ", ControlTypes.TEXT_BOX, 100);
+			addColumn(datagrid, "tel", "座机", ControlTypes.TEXT_BOX, 100);
 			addColumn(datagrid, "main", "主联系人", ControlTypes.BOOLCOMBO_BOX, 80);
 		}
 		PForm form = new PForm();
@@ -358,6 +367,14 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 			{
 				formField.setWidth(300);
 			}
+			formField = addFormField(form, "qq", "QQ",ControlTypes.TEXT_BOX, false, false);
+			{
+				formField.setWidth(300);
+			}
+			formField = addFormField(form, "tel", "座机",ControlTypes.TEXT_BOX, false, false);
+			{
+				formField.setWidth(300);
+			}
 			formField = addFormField(form, "main", "主联系人", ControlTypes.SWITCH_BUTTON, false, false);
 		}
 
@@ -374,7 +391,7 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("panda/datagrid/detail");
 			part.setWindowWidth(550);
-			part.setWindowHeight(370);
+			part.setWindowHeight(480);
 			part.setForm(form);
 		}
 		workspace.getParts().add(part);

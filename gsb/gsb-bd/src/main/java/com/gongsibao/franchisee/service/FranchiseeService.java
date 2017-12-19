@@ -1,14 +1,18 @@
 package com.gongsibao.franchisee.service;
 
+import java.sql.Types;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.BusinessException;
 import org.netsharp.core.DataTable;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.IRow;
 import org.netsharp.core.MtableManager;
+import org.netsharp.core.Oql;
+import org.netsharp.core.QueryParameters;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
@@ -32,10 +36,13 @@ public class FranchiseeService extends PersistableService<Franchisee> implements
 	@Override
 	public Franchisee save(Franchisee entity) {
 
+		this.verify(entity);
+
 		EntityState entityState = entity.getEntityState();
 		entity = super.save(entity);
 		if (entityState == EntityState.New) {
 
+			// 手机号、微信号、QQ、座机
 			this.createMainLinkMan(entity);
 		}
 		return entity;
@@ -65,6 +72,58 @@ public class FranchiseeService extends PersistableService<Franchisee> implements
 			}
 			linkmanService.save(linkman);
 		}
+	}
+
+	private void verify(Franchisee entity) {
+
+		int mobileCount = getCountByContactWay("mobile", entity.getMobile(),entity.getId());
+		if (mobileCount > 0) {
+
+			throw new BusinessException("手机号【" + entity.getMobile() + "】已存在");
+		}
+
+		int weixinCount = getCountByContactWay("weixin", entity.getWeixin(),entity.getId());
+		if (weixinCount > 0) {
+
+			throw new BusinessException("微信号【" + entity.getWeixin() + "】已存在");
+		}
+
+		int qqCount = getCountByContactWay("qq", entity.getQq(),entity.getId());
+		if (qqCount > 0) {
+
+			throw new BusinessException("QQ号【" + entity.getQq() + "】已存在");
+		}
+
+		int telCount = getCountByContactWay("tel", entity.getTel(),entity.getId());
+		if (telCount > 0) {
+
+			throw new BusinessException("座机号【" + entity.getTel() + "】已存在");
+		}
+	}
+
+	private int getCountByContactWay(String field, String value,Integer id) {
+
+		if (StringManager.isNullOrEmpty(value)) {
+
+			return 0;
+		}
+
+		QueryParameters qps = new QueryParameters();
+		qps.add("@field", value, Types.VARCHAR);
+		String filter = field + "=?";
+		if(id != null){
+			
+			filter+=" and id<>?";
+			qps.add("@id", id, Types.INTEGER);
+		}
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setFilter(filter);
+			oql.setParameters(qps);
+		}
+
+		return this.queryCount(oql);
 	}
 
 	@Override
@@ -212,9 +271,9 @@ public class FranchiseeService extends PersistableService<Franchisee> implements
 			updateBuilder.set("owner_id", ownerId);
 			updateBuilder.where("id in (" + ids + ")");
 		}
-		Boolean isAllot = this.pm.executeNonQuery(updateBuilder.toSQL(), null)>0;
+		Boolean isAllot = this.pm.executeNonQuery(updateBuilder.toSQL(), null) > 0;
 
-		//创建分配跟进
+		// 创建分配跟进
 		IFranchiseeTrackService trackService = ServiceFactory.create(IFranchiseeTrackService.class);
 		trackService.addAllotTrack(ss, departmentId, ownerId);
 		return isAllot;

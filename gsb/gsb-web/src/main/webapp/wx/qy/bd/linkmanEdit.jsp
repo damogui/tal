@@ -37,6 +37,20 @@
 		    </div>
 		  </div>
 		  
+		  <div class="weui-cell">
+		    <div class="weui-cell__hd"><label class="weui-label">QQ</label></div>
+		    <div class="weui-cell__bd">
+		      <input class="weui-input" id="qq" type="text" placeholder="请输入QQ">
+		    </div>
+		  </div>
+		  
+		  <div class="weui-cell">
+		    <div class="weui-cell__hd"><label class="weui-label">座机</label></div>
+		    <div class="weui-cell__bd">
+		      <input class="weui-input" id="tel" type="text" placeholder="请输入座机">
+		    </div>
+		  </div>
+		  
 	      <div class="weui-cell weui-cell_switch">
 	        <div class="weui-cell__bd">主联系人</div>
 	        <div class="weui-cell__ft">

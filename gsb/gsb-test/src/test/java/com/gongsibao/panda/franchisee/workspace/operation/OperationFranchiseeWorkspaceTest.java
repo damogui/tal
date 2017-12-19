@@ -27,7 +27,7 @@ public class OperationFranchiseeWorkspaceTest  extends MyFranchiseeWorkspaceTest
 		
 		super.setup();
 		urlList = "/bd/operation/franchisee/list";
-		urlForm = "/bd/franchisee/my/form";
+		urlForm = "/bd/operation/franchisee/form";
 		entity = Franchisee.class;
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = "客户信息";
@@ -40,6 +40,7 @@ public class OperationFranchiseeWorkspaceTest  extends MyFranchiseeWorkspaceTest
 	@Test
 	public void run() {
 		createListWorkspace();
+		createFormWorkspace();
 	}
 	
 	@Test
@@ -92,11 +93,13 @@ public class OperationFranchiseeWorkspaceTest  extends MyFranchiseeWorkspaceTest
 	protected PQueryProject createQueryProject(ResourceNode node) {
 		
 		PQueryProject queryProject = super.createQueryProject(node);
+		queryProject.setColumnCount(4);
 		addQueryItem(queryProject, "lastTracker.name", "最后跟进人", ControlTypes.TEXT_BOX);
 		PQueryItem queryItem = addRefrenceQueryItem(queryProject, "department.name", "所属部门", "BD-Organization-Department-Filter");{
 			queryItem.setRefFilter("organizationType="+OrganizationType.DEPARTMENT.getValue());
 		}
 		addQueryItem(queryProject, "allotStatus", "状态", ControlTypes.ENUM_BOX);
+		addQueryItem(queryProject, "id", "客户Id", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "creator", "创建人", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "createTime", "创建时间", ControlTypes.DATE_BOX);
 		return queryProject;

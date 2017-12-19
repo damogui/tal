@@ -22,6 +22,8 @@ org.netsharp.we.core.linkmanFormCtrl = org.netsharp.we.core.formCtrl.Extends({
     		$('#mobile').val(entity.mobile);
     		$('#weixin').val(entity.weixin);
     		$('#post').val(entity.post);
+    		$('#qq').val(entity.qq);
+    		$('#tel').val(entity.tel);
     		$('#main').prop('checked',entity.main);
     	}
     },
@@ -45,6 +47,8 @@ org.netsharp.we.core.linkmanFormCtrl = org.netsharp.we.core.formCtrl.Extends({
     	entity.mobile = $('#mobile').val();
     	entity.weixin = $('#weixin').val();
     	entity.post = $('#post').val();
+    	entity.qq = $('#qq').val();
+    	entity.tel = $('#tel').val();
     	entity.main = $('#main').prop('checked');
     	return entity;
     },

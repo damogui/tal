@@ -94,6 +94,18 @@
 		      <input class="weui-input" id="weixin" type="text" placeholder="请输入微信号">
 		    </div>
 		  </div>
+		  <div class="weui-cell">
+		    <div class="weui-cell__hd"><label class="weui-label">QQ</label></div>
+		    <div class="weui-cell__bd">
+		      <input class="weui-input" id="qq" type="text" placeholder="请输入QQ">
+		    </div>
+		  </div>
+		  <div class="weui-cell">
+		    <div class="weui-cell__hd"><label class="weui-label">座机</label></div>
+		    <div class="weui-cell__bd">
+		      <input class="weui-input" id="tel" type="text" placeholder="请输入座机">
+		    </div>
+		  </div>
 
     <div class="weui-btn-area">
       <a class="weui-btn weui-btn_primary" href="javascript:ctrl.save();">提交</a>

@@ -72,7 +72,12 @@ public class Franchisee extends BizEntity{
     
     @Column(name="weixin",header="微信")
     private String weixin;
+ 
+    @Column(name="qq",header="qq")
+    private String qq;
     
+    @Column(name="tel",header="座机")
+    private String tel;
     
     //跟进信息
     @Reference(foreignKey="departmentId")
@@ -383,5 +388,21 @@ public class Franchisee extends BizEntity{
 
 	public void setAllotStatus(FranchiseeAllotStatus allotStatus) {
 		this.allotStatus = allotStatus;
+	}
+
+	public String getQq() {
+		return qq;
+	}
+
+	public void setQq(String qq) {
+		this.qq = qq;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 }

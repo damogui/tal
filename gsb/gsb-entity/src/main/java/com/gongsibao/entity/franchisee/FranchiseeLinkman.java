@@ -33,6 +33,12 @@ public class FranchiseeLinkman extends Entity{
     @Column(name="weixin",header="微信")
     private String weixin;
     
+    @Column(name="qq",header="qq")
+    private String qq;
+    
+    @Column(name="tel",header="座机")
+    private String tel;
+    
     @Column(name="main",header="主联系人")
     private Boolean main = false;
 
@@ -91,4 +97,21 @@ public class FranchiseeLinkman extends Entity{
 	public void setMain(Boolean main) {
 		this.main = main;
 	}
+
+	public String getQq() {
+		return qq;
+	}
+
+	public void setQq(String qq) {
+		this.qq = qq;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+	
 }
