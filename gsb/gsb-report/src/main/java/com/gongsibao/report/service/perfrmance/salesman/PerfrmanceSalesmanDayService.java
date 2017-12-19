@@ -15,15 +15,15 @@ public class PerfrmanceSalesmanDayService extends AbstractPerfrmanceSalesmanServ
 
 	@Override
 	public void doExecute() {
-
-		/*Date date = context.getDate();
-		List<UserOrganizationMap> mapList = context.getMapList();
+		/*List<UserOrganizationMap> mapList = context.getMapList();
 		for (UserOrganizationMap map : mapList) {
 
 			this.create(date, map.getUserId(), map.getOrganizationId());
 		}*/
-
-		// 要根据sql统计重新计算值
+		
+		Date date = context.getDate();
+		String strDate = DateUtils.formatDate(date);
+		// 根据sql统计值
 		StringBuilder sqlBuilder = new StringBuilder();
 		sqlBuilder.append("SELECT four.*,IFNULL(org.organization_id,0) as orgId from (");
 		sqlBuilder.append("SELECT userMap.user_id as 'userId',");
@@ -53,7 +53,7 @@ public class PerfrmanceSalesmanDayService extends AbstractPerfrmanceSalesmanServ
 		sqlBuilder.append(" from so_order o");
 		sqlBuilder.append(" LEFT JOIN so_refund r on o.pkid=r.order_id");
 		sqlBuilder.append(" LEFT JOIN so_order_pay_map m on o.pkid=m.order_id");
-		sqlBuilder.append(" GROUP BY o.pkid HAVING o.pay_time LIKE CONCAT('%',DATE_FORMAT(now(), '%Y-%m-%d'),'%')");
+		sqlBuilder.append(" GROUP BY o.pkid HAVING o.pay_time LIKE CONCAT('%','"+strDate+"','%')");
 		sqlBuilder.append(") as one");
 		sqlBuilder.append(" LEFT JOIN so_order_prod as pr ON one.orderId = pr.order_id");
 		sqlBuilder.append(") as two");
