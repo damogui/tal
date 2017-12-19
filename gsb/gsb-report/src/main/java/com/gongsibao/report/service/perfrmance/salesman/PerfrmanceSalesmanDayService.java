@@ -1,6 +1,7 @@
 package com.gongsibao.report.service.perfrmance.salesman;
 
 import java.util.Date;
+import java.util.List;
 
 import org.netsharp.core.DataTable;
 import org.netsharp.core.IRow;
@@ -8,6 +9,7 @@ import org.netsharp.core.IRow;
 import com.gongsibao.entity.report.PerformanceStatistics;
 import com.gongsibao.entity.report.dic.ReportDateType;
 import com.gongsibao.entity.report.dic.ReportOrganizationType;
+import com.gongsibao.entity.uc.UserOrganizationMap;
 import com.gongsibao.report.service.perfrmance.AbstractPerfrmanceService;
 import com.gongsibao.report.utils.DateUtils;
 
@@ -15,14 +17,10 @@ public class PerfrmanceSalesmanDayService extends AbstractPerfrmanceSalesmanServ
 
 	@Override
 	public void doExecute() {
-		/*List<UserOrganizationMap> mapList = context.getMapList();
-		for (UserOrganizationMap map : mapList) {
 
-			this.create(date, map.getUserId(), map.getOrganizationId());
-		}*/
-		
 		Date date = context.getDate();
 		String strDate = DateUtils.formatDate(date);
+		
 		// 根据sql统计值
 		StringBuilder sqlBuilder = new StringBuilder();
 		sqlBuilder.append("SELECT four.*,IFNULL(org.organization_id,0) as orgId from (");
@@ -64,35 +62,47 @@ public class PerfrmanceSalesmanDayService extends AbstractPerfrmanceSalesmanServ
 		sqlBuilder.append(") as four");
 		sqlBuilder.append(" LEFT JOIN uc_user_organization_map as org");
 		sqlBuilder.append(" on org.user_id=four.userId");
+		
 		DataTable dataTable = this.pm.executeTable(sqlBuilder.toString(), null);
-		for (IRow row : dataTable) {
-			Integer userId = Integer.parseInt(row.getString("userId"));
-			Integer orgId = Integer.parseInt(row.getString("orgId"));
-			String payTime = row.getString("payTime");
-			Integer payablePrice = Integer.parseInt(row.getString("payablePrice"));
-			Integer getAmout = Integer.parseInt(row.getString("getAmout"));
-			Integer refundAmount = Integer.parseInt(row.getString("refundAmount"));
-			Integer salesCount = Integer.parseInt(row.getString("salesCount"));
-			Integer orderCount = Integer.parseInt(row.getString("orderCount"));
-			Integer netPayablePrice = Integer.parseInt(row.getString("netPayablePrice"));
-			Integer netGetAmout = Integer.parseInt(row.getString("netGetAmout"));
-			
-			PerformanceStatistics entity = new PerformanceStatistics();	
-			entity.setReceivableAmount(payablePrice);
-			entity.setPaidAmount(getAmout);
-			entity.setRefundAmount(refundAmount);
-			entity.setNetReceivables(netPayablePrice);
-			entity.setNetPaidAmount(netGetAmout);
-			entity.setProductCount(salesCount);
-			entity.setOrderCount(orderCount);
-			create(DateUtils.parseDate(payTime),userId,orgId,entity);
+
+		List<UserOrganizationMap> mapList = context.getMapList();
+		for (UserOrganizationMap map : mapList) {
+
+			Integer salesmanId = map.getUserId();
+			Integer organizationId = map.getOrganizationId();
+			PerformanceStatistics entity = create(context.getDate(),salesmanId,organizationId);
+			for (IRow row : dataTable) {
+				
+				Integer userId = Integer.parseInt(row.getString("userId"));
+				if(salesmanId.equals(userId)){
+					
+					Integer payablePrice = Integer.parseInt(row.getString("payablePrice"));
+					Integer getAmout = Integer.parseInt(row.getString("getAmout"));
+					Integer refundAmount = Integer.parseInt(row.getString("refundAmount"));
+					Integer salesCount = Integer.parseInt(row.getString("salesCount"));
+					Integer orderCount = Integer.parseInt(row.getString("orderCount"));
+					Integer netPayablePrice = Integer.parseInt(row.getString("netPayablePrice"));
+					Integer netGetAmout = Integer.parseInt(row.getString("netGetAmout"));
+					
+					entity.setReceivableAmount(payablePrice);
+					entity.setPaidAmount(getAmout);
+					entity.setRefundAmount(refundAmount);
+					entity.setNetReceivables(netPayablePrice);
+					entity.setNetPaidAmount(netGetAmout);
+					entity.setProductCount(salesCount);
+					entity.setOrderCount(orderCount);
+				}
+			}
+			this.getStatisticsService().save(entity);
 		}
+		
 		System.out.println("ok......");
 	}
 	
 
-	private PerformanceStatistics create(Date date, Integer salesmanId, Integer departmentId,PerformanceStatistics entity) {
+	private PerformanceStatistics create(Date date, Integer salesmanId, Integer departmentId) {
 		
+		PerformanceStatistics entity = new PerformanceStatistics();
 		entity.toNew();
 		entity.setDepartmentId(departmentId);
 		entity.setSalesmanId(salesmanId);
@@ -105,7 +115,6 @@ public class PerfrmanceSalesmanDayService extends AbstractPerfrmanceSalesmanServ
 		entity.setDay(this.context.getDay());
 		entity.setDate(this.context.getDate());
 		
-		entity = this.getStatisticsService().save(entity);
 		return entity;
 	}
 
