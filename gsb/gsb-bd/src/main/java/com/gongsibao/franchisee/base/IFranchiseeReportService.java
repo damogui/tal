@@ -1,5 +1,6 @@
 package com.gongsibao.franchisee.base;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,17 @@ import com.gongsibao.entity.franchisee.dic.FranchiseeReportType;
 
 public interface IFranchiseeReportService  extends IPersistableService<FranchiseeReport>{
 
+	
+	/**   
+	 * @Title: execute   
+	 * @Description: TODO(生成报表)   
+	 * @param: @param date
+	 * @param: @return      
+	 * @return: Boolean      
+	 * @throws   
+	 */
+	Boolean execute(Date date);
+	
 	/**
 	 * 生成员工日报
 	 * @param employeeId 员工id

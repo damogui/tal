@@ -15,6 +15,7 @@ import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.franchisee.FranchiseeReport;
+import com.gongsibao.franchisee.web.FranchiseeReportController;
 
 public class DepartmentYearReportWorkspaceTest  extends WorkspaceCreationBase{
 
@@ -32,6 +33,11 @@ public class DepartmentYearReportWorkspaceTest  extends WorkspaceCreationBase{
 		listFilter="type=1 AND (FranchiseeReport.organization_id IN ({departments}) or organization_id in (SELECT parent_id from sys_permission_organization where id in ({departments})))";
 
 		// 扩展
+		listToolbarPath="/bd/crm/report/toolbar";
+		
+		listPartServiceController = FranchiseeReportController.class.getName();
+		listPartJsController = FranchiseeReportController.class.getName();
+		listPartImportJs = "/gsb/bd/js/operation/report.part.js";
 		listToolbarPath="/bd/crm/report/toolbar";
 	}
 

@@ -22,9 +22,9 @@ public class HanWeiTest {
 		
 		//int[] departmentIdIds = { 4, 5 };// 汉唐信通，供应商
 		int[] departmentIdIds = { 4};// 汉唐信通，供应商
-		for (int i = 1; i <= 1; i++) {
+		for (int i = 1; i <= 10; i++) {
 
-			Date date =DateManage.parse("2017-11-"+i);
+			Date date =DateManage.parse("2017-05-"+i);
 			//Date date = DateManage.toDate(new Date());
 			service.generate(date, departmentIdIds);
 		}

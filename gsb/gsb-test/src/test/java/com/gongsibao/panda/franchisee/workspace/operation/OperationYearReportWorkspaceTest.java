@@ -15,6 +15,7 @@ import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.franchisee.FranchiseeReport;
+import com.gongsibao.franchisee.web.FranchiseeReportController;
 
 public class OperationYearReportWorkspaceTest  extends WorkspaceCreationBase{
 
@@ -31,6 +32,10 @@ public class OperationYearReportWorkspaceTest  extends WorkspaceCreationBase{
 		formOpenMode = OpenMode.WINDOW;
 		listFilter="type=1";
 		// 扩展
+		listToolbarPath="/bd/crm/report/toolbar";
+		listPartServiceController = FranchiseeReportController.class.getName();
+		listPartJsController = FranchiseeReportController.class.getName();
+		listPartImportJs = "/gsb/bd/js/operation/report.part.js";
 		listToolbarPath="/bd/crm/report/toolbar";
 	}
 
