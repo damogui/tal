@@ -18,19 +18,20 @@ import com.gongsibao.u8.base.IManualVoucherOrderDTOService;
 
 @Service
 public class ManualVoucherOrderDTOService extends PersistableService<ManualVoucherOrderDTO> implements IManualVoucherOrderDTOService {
-	
-    public ManualVoucherOrderDTOService(){
-        super();
-        this.type=ManualVoucherOrderDTO.class;
-    }
 
+	public ManualVoucherOrderDTOService() {
+		super();
+		this.type = ManualVoucherOrderDTO.class;
+	}
+
+	//
 	@Override
 	public List<ManualVoucherOrderDTO> queryList(Oql oql) {
 
-	    String filterString =	oql.getFilter();
+		String filterString = oql.getFilter();
 		Paging paging = oql.getPaging();
-		int startIndex = (paging.getPageNo()-1)*paging.getPageSize();
-		StringBuffer sqlBuffer =new StringBuffer();
+		int startIndex = (paging.getPageNo() - 1) * paging.getPageSize();
+		StringBuffer sqlBuffer = new StringBuffer();
 		sqlBuffer.append("SELECT * FROM ( ");
 		sqlBuffer.append("SELECT (SELECT uc_user.`real_name` FROM so_order  ");
 		sqlBuffer.append("JOIN (SELECT MIN(so_order_prod.pkid) 'pkid', so_order_prod.order_id FROM so_order_prod GROUP BY order_id) so_order_prod1 ON so_order.`pkid`= so_order_prod1.`order_id`  ");
@@ -47,56 +48,52 @@ public class ManualVoucherOrderDTOService extends PersistableService<ManualVouch
 		sqlBuffer.append("JOIN uc_account a ON a.pkid = oi.account_id  ");
 		sqlBuffer.append("LEFT JOIN crm_customer c ON c.account_id = oi.account_id AND c.is_invalid = 0  ");
 		sqlBuffer.append("LEFT JOIN (SELECT MIN(pkid) 'pkid',customer_id,company_id FROM crm_customer_company_map GROUP BY customer_id) ccm ON ccm.customer_id = c.pkid ");
-		sqlBuffer.append("LEFT JOIN crm_company_intention cri ON cri.pkid = ccm.company_id ");		
+		sqlBuffer.append("LEFT JOIN crm_company_intention cri ON cri.pkid = ccm.company_id ");
 		sqlBuffer.append("LEFT JOIN crm_company_intention cri1 ON oi.`company_id` = cri1.`pkid` ");
-		sqlBuffer.append("WHERE oi.is_manual_voucher!=0 AND oi.paid_price>0 ");	
-		sqlBuffer.append("ORDER BY oi.pkid DESC ");
-		sqlBuffer.append("LIMIT "+startIndex+", "+paging.getPageSize()+" )t ");
-		sqlBuffer.append(filterString==null?"":" WHERE "+filterString);//拼接sql语句的where条件
-		
-		
-		
-		paging.setTotalCount(getqueryListCount());
+		sqlBuffer.append("WHERE oi.is_manual_voucher!=0 AND oi.paid_price>0 ");
+		sqlBuffer.append("ORDER BY oi.pkid DESC )t ");
+		sqlBuffer.append(filterString == null ? "" : " WHERE " + filterString);// 拼接sql语句的where条件
+		paging.setTotalCount(getqueryListCount(sqlBuffer.toString()));
+		sqlBuffer.append("LIMIT " + startIndex + ", " + paging.getPageSize() + " ");
 		oql.setPaging(paging);
-		
 		DataTable dataTable = this.pm.executeTable(sqlBuffer.toString(), null);
 		List<ManualVoucherOrderDTO> reslis = new ArrayList<>();
 		for (IRow row : dataTable) {
-			ManualVoucherOrderDTO dto = new ManualVoucherOrderDTO();	
-			
+			ManualVoucherOrderDTO dto = new ManualVoucherOrderDTO();
+
 			Integer payablePrice = row.getInteger("payablePrice");// 订单应付价
-			Integer paidPrice = row.getInteger("paidPrice");// 订单已付价	
+			Integer paidPrice = row.getInteger("paidPrice");// 订单已付价
 			dto.setId(row.getInteger("id"));
-			dto.setOrderNo(row.getString("orderNo"));			
+			dto.setOrderNo(row.getString("orderNo"));
 			dto.setCustName(row.getString("custName"));
 			dto.setIsManualVoucher(OrderIsManualVoucherType.values()[row.getInteger("isManualVoucher")]);
-			dto.setManualVoucherStatus(OrderManualVoucherStatus.values()[row.getInteger("manualVoucherStatus")] );
+			dto.setManualVoucherStatus(OrderManualVoucherStatus.values()[row.getInteger("manualVoucherStatus")]);
 			dto.setOperator(row.getString("operator"));
-			dto.setPaidPrice(paidPrice==null?0:getDivRes(paidPrice,100));
-			dto.setPayablePrice(payablePrice==null?0:getDivRes(payablePrice,100));
-     		dto.setAddTime(row.getDate("addTime"));
+			dto.setPaidPrice(paidPrice == null ? 0 : getDivRes(paidPrice, 100));
+			dto.setPayablePrice(payablePrice == null ? 0 : getDivRes(payablePrice, 100));
+			dto.setAddTime(row.getDate("addTime"));
 			dto.setReturnTime(row.getDate("returnTime"));
-			
+
 			reslis.add(dto);
 		}
-		
+
 		return reslis;
 	}
-	
-	//获取查询的总条数
-	private int getqueryListCount(){
-		int count=0;
-		StringBuffer sqlBuffer =new StringBuffer();
-		sqlBuffer.append("SELECT  COUNT(*) 'rcount' FROM so_order oi WHERE oi.is_manual_voucher!=0 AND oi.paid_price>0 ");
-		Object	rcount = this.pm.executeScalar(sqlBuffer.toString(), null);	
+
+	// 获取查询的总条数
+	private int getqueryListCount(String sql) {
+		int count = 0;
+		StringBuffer sqlBuffer = new StringBuffer();
+		sqlBuffer.append("SELECT COUNT(*) rcount FROM( ");
+		sqlBuffer.append(sql);
+		sqlBuffer.append(" )tt ");
+		Object rcount = this.pm.executeScalar(sqlBuffer.toString(), null);
 		count = Integer.parseInt(rcount.toString());
 		return count;
 	}
-	
-	
-	
-	private double getDivRes(int a,int b){
-		DecimalFormat df=new DecimalFormat("0.00");		
-		return Double.parseDouble(df.format((float)a/b));
+
+	private double getDivRes(int a, int b) {
+		DecimalFormat df = new DecimalFormat("0.00");
+		return Double.parseDouble(df.format((float) a / b));
 	}
 }
