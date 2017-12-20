@@ -15,7 +15,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.u8.SetOfBooks;
 
-public class SetOfBooksWorkspace extends WorkspaceCreationBase  {
+public class SetOfBooksWorkspaceTest extends WorkspaceCreationBase  {
 	
 	@Before
 	public void setup() {

@@ -6,11 +6,15 @@ import org.netsharp.meta.base.ResourceCreationBase;
 import org.netsharp.resourcenode.IResourceNodeService;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
+import com.gongsibao.entity.trade.dto.ManualVoucherOrderDTO;
 import com.gongsibao.entity.trade.dto.PayReceiptCheckDTO;
+import com.gongsibao.entity.trade.dto.ReceivablesAuditDTO;
 import com.gongsibao.entity.u8.SetOfBooks;
 import com.gongsibao.entity.u8.U8Bank;
 import com.gongsibao.entity.u8.VoucherLog;
+import com.gongsibao.u8.base.IManualVoucherOrderDTOService;
 import com.gongsibao.u8.base.IPayReceiptCheckDTOService;
+import com.gongsibao.u8.base.IReceivablesAuditDTOService;
 import com.gongsibao.u8.base.ISetOfBooksService;
 import com.gongsibao.u8.base.IU8BankService;
 import com.gongsibao.u8.base.IVoucherLogService;
@@ -43,6 +47,8 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(U8Bank.class.getName(), "科目银行", node1.getCode() + "_" + U8Bank.class.getSimpleName(), IU8BankService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(VoucherLog.class.getName(), "凭证日志", node1.getCode() + "_" + VoucherLog.class.getSimpleName(), IVoucherLogService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(PayReceiptCheckDTO.class.getName(), "回单核对", node1.getCode() + "_" + PayReceiptCheckDTO.class.getSimpleName(), IPayReceiptCheckDTOService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(ManualVoucherOrderDTO.class.getName(), "手动凭证", node1.getCode() + "_" + ManualVoucherOrderDTO.class.getSimpleName(), IManualVoucherOrderDTOService.class.getName(), node1.getId());
+			//this.createResourceNodeVoucher(ReceivablesAuditDTO.class.getName(), "收款审核列表", node1.getCode() + "_" + ReceivablesAuditDTO.class.getSimpleName(), IReceivablesAuditDTOService.class.getName(), node1.getId());
 		}
 	}
 }

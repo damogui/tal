@@ -41,6 +41,15 @@ public class NavigationTest  extends NavigationBase{
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Season", "季统计", "/report/perfrmance/salesman/season", 4);
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Year", "年统计", "/report/perfrmance/salesman/year", 5);
 		}
+		
+		parentNodeCode = ResourceTest.resourcePrefix + "_Customer_Grow";
+		createPTreeNode(tree, null, "fa fa-bar-chart-o fa-fw", parentNodeCode, "客户增长量统计", "", 3);
+		{
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Day", "日增长量统计", "/report/grow/customer/day", 1);
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Week", "周增长量统计", "/report/grow/customer/week", 2);
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Month", "月增长量统计", "/report/grow/customer/month", 3);
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Year", "年增长量统计", "/report/grow/customer/year", 4);
+		}
 	}
 }
 
