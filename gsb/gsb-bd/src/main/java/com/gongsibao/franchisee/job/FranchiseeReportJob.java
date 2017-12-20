@@ -22,6 +22,6 @@ public class FranchiseeReportJob implements IJob {
 
 		IFranchiseeReportService service = ServiceFactory.create(IFranchiseeReportService.class);
 		Date date = new Date();
-		service.execute(date);
+		service.generate(date);
 	}
 }

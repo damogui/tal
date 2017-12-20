@@ -13,6 +13,6 @@ public class FranchiseeReportController extends TreegridPart{
 		
 		IFranchiseeReportService service = ServiceFactory.create(IFranchiseeReportService.class);
 		Date date = new Date();
-		service.execute(date);
+		service.generate(date);
 	}
 }

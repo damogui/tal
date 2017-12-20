@@ -1,31 +1,37 @@
 package com.gongsibao.panda;
 
-import java.util.List;
+import java.util.Date;
 
 import org.junit.Test;
 import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.Oql;
+import org.netsharp.util.DateManage;
 
-import com.gongsibao.entity.report.PerformanceStatistics;
-import com.gongsibao.franchisee.job.FranchiseeReportJob;
-import com.gongsibao.report.base.IPerformanceStatisticsService;
-import com.gongsibao.uc.base.IOrganizationService;
+import com.gongsibao.franchisee.base.IFranchiseeReportService;
 
 public class MyTest {
 	@Test
 	public void run() {
-		FranchiseeReportJob myJob =new FranchiseeReportJob();
-		myJob.execute(null);
-		System.out.println("ok......");
-		
-		/*IPerformanceStatisticsService service =ServiceFactory.create(IPerformanceStatisticsService.class);
-		Oql oql = new Oql();{
-			
-			oql.setType(PerformanceStatistics.class);
-			oql.setSelects("PerformanceStatistics.*,department.shortName");
+		// FranchiseeReportJob myJob =new FranchiseeReportJob();
+		// myJob.execute(null);
+		// System.out.println("ok......");
+
+		/*
+		 * IPerformanceStatisticsService service
+		 * =ServiceFactory.create(IPerformanceStatisticsService.class); Oql oql
+		 * = new Oql();{
+		 * 
+		 * oql.setType(PerformanceStatistics.class);
+		 * oql.setSelects("PerformanceStatistics.*,department.shortName"); }
+		 * 
+		 * List<PerformanceStatistics> list = service.queryList(oql);
+		 */
+
+		IFranchiseeReportService frService = ServiceFactory.create(IFranchiseeReportService.class);
+
+		for (int i = 10; i <= 10; i++) {
+
+			Date date = DateManage.parse("2017-12-" + i);
+			frService.generate(date);
 		}
-		
-		List<PerformanceStatistics> list = service.queryList(oql);*/
-		
 	}
 }
