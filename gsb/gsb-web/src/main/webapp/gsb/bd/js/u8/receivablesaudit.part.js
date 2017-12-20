@@ -1,10 +1,10 @@
 System.Declare("com.gongsibao.u8.web");
-com.gongsibao.u8.web.PayReceiptCheckDTOController = org.netsharp.panda.commerce.ListPart.Extends({
+com.gongsibao.u8.web.ReceivablesAuditDTOController = org.netsharp.panda.commerce.ListPart.Extends({
 
 			ctor : function() {
 				this.base();
 			},
-			bindReceiptWeb : function() {
+			receivablesauditWeb : function() {
 				var me = this;
 				var row = this.getSelectedItem();
 				if (row == null) {
@@ -24,8 +24,7 @@ com.gongsibao.u8.web.PayReceiptCheckDTOController = org.netsharp.panda.commerce.
 						+ '<p style="padding-left:50px;">&nbsp;回单号：<input id="txtReceiptNo" type="text" class="easyui-validatebox nsInput" value="'
 						+ receiptNo
 						+ '" required="true" style="width:180px;"></input></p>';
-				
-				// window.top.layer.open({
+
 				layer.open({
 					type : 1,
 					title : '绑定回单编号',
@@ -56,25 +55,5 @@ com.gongsibao.u8.web.PayReceiptCheckDTOController = org.netsharp.panda.commerce.
 							layer.closeAll();
 							return;
 						});
-			},
-			changeReceiptStatusFormatter:function(value,row,index){				
-				var checked = value=='已完成'?true:false;
-				return '<input class="easyui-switchbutton" data-options="'
-				+'checked:'+checked
-				+',onText:\'已完成\',offText:\'未完成\','
-				+'onChange:function(checked){ controllerpayReceiptCheckDTOList.changeReceiptStatus(\''+row.id+'\',checked);}">';
-			},
-			changeReceiptStatus(payId,value){
-				
-				var state = value==true?1:0;
-				var me = this;
-				this.invokeService("changeReceiptStatus", [payId,state], function(data) {
-
-					me.reload();
-					IMessageBox.toast("操作成功！");
-				});
-			},
-			onLoadSuccess:function(data){				
-				$('.easyui-switchbutton').switchbutton();
 			}
 });
