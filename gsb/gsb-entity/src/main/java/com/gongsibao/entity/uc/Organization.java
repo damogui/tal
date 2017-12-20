@@ -20,7 +20,6 @@ public class Organization extends BaseCatEntity {
 	@Column(name = "organization_type", header = "组织类型")
 	private OrganizationType organizationType;
 
-
 	@Column(name = "leader_id", header = "主管人")
 	private Integer leaderId = 0;
 	
@@ -95,5 +94,4 @@ public class Organization extends BaseCatEntity {
 		this.remark = remark;
 	}
 
-	
 }
