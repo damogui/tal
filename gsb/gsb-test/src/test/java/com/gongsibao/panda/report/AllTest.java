@@ -39,11 +39,11 @@ import org.junit.runners.Suite.SuiteClasses;
 //	 
 //	 
 //	 //客户按部门统计
-//	 com.gongsibao.panda.report.workspace.customer.department.DayWorkspaceTest.class,
-//	 com.gongsibao.panda.report.workspace.customer.department.MonthWorkspaceTest.class,
+	 com.gongsibao.panda.report.workspace.customer.department.DayWorkspaceTest.class,
+	 com.gongsibao.panda.report.workspace.customer.department.MonthWorkspaceTest.class,
 //	 com.gongsibao.panda.report.workspace.customer.department.SeasonWorkspaceTest.class,
-//	 com.gongsibao.panda.report.workspace.customer.department.WeekWorkspaceTest.class,
-//	 com.gongsibao.panda.report.workspace.customer.department.YearWorkspaceTest.class,
+	 com.gongsibao.panda.report.workspace.customer.department.WeekWorkspaceTest.class,
+	 com.gongsibao.panda.report.workspace.customer.department.YearWorkspaceTest.class,
 //	 
 //	 //客户按地区统计
 //	 com.gongsibao.panda.report.workspace.customer.district.DayWorkspaceTest.class,
