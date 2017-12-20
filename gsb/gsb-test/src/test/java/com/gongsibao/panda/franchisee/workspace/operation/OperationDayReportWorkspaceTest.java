@@ -51,7 +51,7 @@ public class OperationDayReportWorkspaceTest extends WorkspaceCreationBase {
 			toolbar.setName("统计工具栏");
 			toolbar.setResourceNode(node);
 		}
-		addToolbarItem(toolbar, "disabled", "生成报表", "fa-stop-circle-o", "generaReports()", null, 5);
+		addToolbarItem(toolbar, "disabled", "生成当天", "fa-check-circle-o", "generaReports()", null, 5);
 		toolbarService.save(toolbar);
 	}
 
