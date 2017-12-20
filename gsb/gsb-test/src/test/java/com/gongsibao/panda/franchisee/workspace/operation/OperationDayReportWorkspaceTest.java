@@ -64,6 +64,7 @@ public class OperationDayReportWorkspaceTest extends WorkspaceCreationBase {
 
 		column = addColumn(datagrid, "department.name", "部门", ControlTypes.TEXT_BOX, 180, true);
 		{
+			column.setFormatter("if(row.owner_name){return row.owner_name;}return value;");
 		}
 		column = addColumn(datagrid, "date", "日期", ControlTypes.DATE_BOX, 100, true);
 		{
@@ -71,6 +72,8 @@ public class OperationDayReportWorkspaceTest extends WorkspaceCreationBase {
 		}
 		column = addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 100, true);
 		{
+			column.setVisible(false);
+			column.setSystem(true);
 			column.setAlign(DatagridAlign.CENTER);
 		}
 		column = addColumn(datagrid, "totalCount", "总客户数", ControlTypes.TEXT_BOX, 90, true);

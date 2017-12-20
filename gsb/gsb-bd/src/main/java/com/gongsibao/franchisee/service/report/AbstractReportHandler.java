@@ -27,7 +27,7 @@ public abstract class AbstractReportHandler {
 	protected IPersister<FranchiseeReport> pm = PersisterFactory.create();
 
 	protected IFranchiseeReportService reportService = ServiceFactory.create(IFranchiseeReportService.class);
-	
+
 	protected ReportContext context;
 
 	/**
@@ -40,7 +40,7 @@ public abstract class AbstractReportHandler {
 	protected abstract ReportDateType getReportDateType();
 
 	protected abstract ReportOrganizationType getReportOrganizationType();
-	
+
 	/**
 	 * @Title: getNextHandler
 	 * @Description: TODO(获取下一个处理者)
@@ -79,8 +79,8 @@ public abstract class AbstractReportHandler {
 	 * @return: void
 	 * @throws
 	 */
-	public void before(){
-		
+	public void before() {
+
 	}
 
 	public abstract void doExecute();
@@ -109,36 +109,36 @@ public abstract class AbstractReportHandler {
 
 			filterList.add("month=?");
 			filterList.add("day=?");
-			
+
 			qps.add("month", this.getContext().getMonth(), Types.INTEGER);
 			qps.add("day", this.context.getDay(), Types.DATE);
-			
+
 		} else if (this.getReportDateType() == ReportDateType.WEEK) {
 
 			filterList.add("week=?");
 			qps.add("week", this.getContext().getWeek(), Types.INTEGER);
-			
+
 		} else if (this.getReportDateType() == ReportDateType.MONTH) {
 
 			filterList.add("month=?");
 			qps.add("month", this.getContext().getMonth(), Types.INTEGER);
-			
+
 		} else if (this.getReportDateType() == ReportDateType.SEASON) {
-			
+
 			filterList.add("season=?");
 			qps.add("season", this.getContext().getSeason(), Types.INTEGER);
-			
+
 		} else if (this.getReportDateType() == ReportDateType.YEAR) {
 
 		}
 
-		String whereSql = StringManager.join(" and ",filterList);
+		String whereSql = StringManager.join(" and ", filterList);
 		DeleteBuilder deleteBuilder = DeleteBuilder.getInstance();
 		{
 			deleteBuilder.deleteFrom(MtableManager.getMtable(FranchiseeReport.class).getTableName());
 			deleteBuilder.where(whereSql);
 		}
-		
+
 		String cmdText = deleteBuilder.toSQL();
 		this.pm.executeNonQuery(cmdText, qps);
 	}
@@ -286,6 +286,45 @@ public abstract class AbstractReportHandler {
 		return dataTable;
 	}
 
+	/**
+	 * @Title: getParentDepartmentId
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @param: @param departmentId
+	 * @param: @return
+	 * @return: Integer
+	 * @throws
+	 */
+	public Integer getParentDepartmentId(Integer departmentId) {
+
+		StringBuilder builder = new StringBuilder();
+		{
+			builder.append("SELECT");
+			builder.append(" id");
+			builder.append(" FROM");
+			builder.append("	sys_permission_organization organization");
+			builder.append(" LEFT JOIN sys_permission_organization_function f ON organization.organization_function_id = f.id");
+			builder.append(" WHERE");
+			builder.append("	organization.id IN (");
+			builder.append("		SELECT");
+			builder.append("			parent_id");
+			builder.append("		FROM");
+			builder.append("			sys_permission_organization");
+			builder.append("		WHERE");
+			builder.append("			id = " + departmentId);
+			builder.append("	)");
+			builder.append(" AND (f.`code` <> 'Channel' or f.`code` is null);	");
+		}
+
+		String cmdText = builder.toString();
+		DataTable dataTable = this.pm.executeTable(cmdText, null);
+		Integer parentDepartmentId = null;
+		for (IRow row : dataTable) {
+			
+			parentDepartmentId = row.getInteger("id");
+		}
+		return parentDepartmentId;
+	}
+
 	public ReportContext getContext() {
 		return context;
 	}
@@ -293,17 +332,17 @@ public abstract class AbstractReportHandler {
 	public void setContext(ReportContext context) {
 		this.context = context;
 	}
-	
-	/**   
-	 * @Title: completionEntity   
-	 * @Description: TODO(补全)   
+
+	/**
+	 * @Title: completionEntity
+	 * @Description: TODO(补全)
 	 * @param: @param entity
-	 * @param: @param dRow      
-	 * @return: void      
-	 * @throws   
+	 * @param: @param dRow
+	 * @return: void
+	 * @throws
 	 */
-	protected void completionEntity(FranchiseeReport entity,IRow dRow){
-		
+	protected void completionEntity(FranchiseeReport entity, IRow dRow) {
+
 		Integer totalCount = Integer.parseInt(dRow.getString("totalCount"));
 		Integer trackCount = Integer.parseInt(dRow.getString("trackCount"));
 		Integer unTrackCount = Integer.parseInt(dRow.getString("unTrackCount"));
@@ -312,11 +351,11 @@ public abstract class AbstractReportHandler {
 		Integer expectedSign3Count = Integer.parseInt(dRow.getString("expectedSign3Count"));
 		Integer expectedSign4Count = Integer.parseInt(dRow.getString("expectedSign4Count"));
 		Integer expectedSign5Count = Integer.parseInt(dRow.getString("expectedSign5Count"));
-		
+
 		Integer intentionDegree1Count = Integer.parseInt(dRow.getString("intentionDegree1Count"));
 		Integer intentionDegree2Count = Integer.parseInt(dRow.getString("intentionDegree2Count"));
 		Integer intentionDegree3Count = Integer.parseInt(dRow.getString("intentionDegree3Count"));
-		
+
 		Integer trackProgress1Count = Integer.parseInt(dRow.getString("trackProgress1Count"));
 		Integer trackProgress2Count = Integer.parseInt(dRow.getString("trackProgress2Count"));
 		Integer trackProgress3Count = Integer.parseInt(dRow.getString("trackProgress3Count"));
@@ -324,7 +363,7 @@ public abstract class AbstractReportHandler {
 		Integer trackProgress5Count = Integer.parseInt(dRow.getString("trackProgress5Count"));
 		Integer trackProgress6Count = Integer.parseInt(dRow.getString("trackProgress6Count"));
 		Integer trackProgress7Count = Integer.parseInt(dRow.getString("trackProgress7Count"));
-		
+
 		entity.setTotalCount(totalCount);
 		entity.setTrackCount(trackCount);
 		entity.setUnTrackCount(unTrackCount);
@@ -333,11 +372,11 @@ public abstract class AbstractReportHandler {
 		entity.setExpectedSign3Count(expectedSign3Count);
 		entity.setExpectedSign4Count(expectedSign4Count);
 		entity.setExpectedSign5Count(expectedSign5Count);
-		
+
 		entity.setIntentionDegree1Count(intentionDegree1Count);
 		entity.setIntentionDegree2Count(intentionDegree2Count);
 		entity.setIntentionDegree3Count(intentionDegree3Count);
-		
+
 		entity.setTrackProgress1Count(trackProgress1Count);
 		entity.setTrackProgress2Count(trackProgress2Count);
 		entity.setTrackProgress3Count(trackProgress3Count);
