@@ -171,6 +171,33 @@ public abstract class AbstractReportHandler {
 		return idList;
 	}
 
+	/**   
+	 * @Title: getChildDepartmentIdList   
+	 * @Description: TODO(根据部门Id获取子部门Id集合)   
+	 * @param: @param parentId
+	 * @param: @return      
+	 * @return: List<Integer>      
+	 * @throws   
+	 */
+	protected List<Integer> getChildDepartmentIdList(Integer parentId) {
+
+		SelectBuilder selectBuilder = SelectBuilder.getInstance();
+		{
+			selectBuilder.select("id");
+			selectBuilder.from("sys_permission_organization");
+			selectBuilder.where("parent_id =" + parentId, "organization_type = 3 ");
+		}
+		String cmdText = selectBuilder.toSQL();
+		DataTable dataTable = this.pm.executeTable(cmdText, null);
+		List<Integer> idList = new ArrayList<Integer>();
+		for (IRow row : dataTable) {
+
+			Integer id = row.getInteger("id");
+			idList.add(id);
+		}
+		return idList;
+	}
+
 	/**
 	 * @Title: getOrganizationEmployeeList
 	 * @Description: TODO(获取一个部门下的所有组员对应与岗位对应关系)
@@ -294,12 +321,12 @@ public abstract class AbstractReportHandler {
 	 * @return: Integer
 	 * @throws
 	 */
-	public Integer getParentDepartmentId(Integer departmentId) {
+	public Organization getParentDepartment(Integer departmentId) {
 
 		StringBuilder builder = new StringBuilder();
 		{
 			builder.append("SELECT");
-			builder.append(" id");
+			builder.append(" id,name,path_code");
 			builder.append(" FROM");
 			builder.append("	sys_permission_organization organization");
 			builder.append(" LEFT JOIN sys_permission_organization_function f ON organization.organization_function_id = f.id");
@@ -317,12 +344,36 @@ public abstract class AbstractReportHandler {
 
 		String cmdText = builder.toString();
 		DataTable dataTable = this.pm.executeTable(cmdText, null);
-		Integer parentDepartmentId = null;
+		Organization department = null;
 		for (IRow row : dataTable) {
-			
-			parentDepartmentId = row.getInteger("id");
+
+			department = new Organization();
+			department.setId(row.getInteger("id"));
+			department.setName(row.getString("name"));
+			department.setPathCode(row.getString("path_code"));
 		}
-		return parentDepartmentId;
+		return department;
+	}
+
+	public List<Integer> getParentDepartmentIdList(List<Integer> departmentIdList) {
+
+		String childIds = StringManager.join(",", departmentIdList);
+		SelectBuilder builder = SelectBuilder.getInstance();
+		{
+			builder.select("parent_id");
+			builder.from(MtableManager.getMtable(Organization.class).getTableName());
+			builder.where("id in (" + childIds + ")");
+			builder.groupBy("parent_id");
+		}
+
+		List<Integer> parentIdList = new ArrayList<Integer>();
+		DataTable dataTable = this.pm.executeTable(builder.toSQL(), null);
+		for (IRow row : dataTable) {
+
+			Integer pid = row.getInteger("parent_id");
+			parentIdList.add(pid);
+		}
+		return parentIdList;
 	}
 
 	public ReportContext getContext() {
