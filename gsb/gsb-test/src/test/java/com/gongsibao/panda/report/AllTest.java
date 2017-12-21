@@ -4,6 +4,15 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import com.gongsibao.panda.report.workspace.customer.DayReportWorkspaceTest;
+import com.gongsibao.panda.report.workspace.customer.DistrictReportWorkspaceTest;
+import com.gongsibao.panda.report.workspace.customer.MonthReportWorkspaceTest;
+import com.gongsibao.panda.report.workspace.customer.ProductReportWorkspaceTest;
+import com.gongsibao.panda.report.workspace.customer.SourceReportWorkspaceTest;
+import com.gongsibao.panda.report.workspace.customer.StatusReportWorkspaceTest;
+import com.gongsibao.panda.report.workspace.customer.WeekReportWorkspaceTest;
+import com.gongsibao.panda.report.workspace.customer.YearReportWorkspaceTest;
+
 @RunWith(Suite.class)
 @SuiteClasses({
 
@@ -39,11 +48,11 @@ import org.junit.runners.Suite.SuiteClasses;
 //	 
 //	 
 //	 //客户按部门统计
-	 com.gongsibao.panda.report.workspace.customer.department.DayWorkspaceTest.class,
-	 com.gongsibao.panda.report.workspace.customer.department.MonthWorkspaceTest.class,
+//	 com.gongsibao.panda.report.workspace.customer.department.DayWorkspaceTest.class,
+//	 com.gongsibao.panda.report.workspace.customer.department.MonthWorkspaceTest.class,
 //	 com.gongsibao.panda.report.workspace.customer.department.SeasonWorkspaceTest.class,
-	 com.gongsibao.panda.report.workspace.customer.department.WeekWorkspaceTest.class,
-	 com.gongsibao.panda.report.workspace.customer.department.YearWorkspaceTest.class,
+//	 com.gongsibao.panda.report.workspace.customer.department.WeekWorkspaceTest.class,
+//	 com.gongsibao.panda.report.workspace.customer.department.YearWorkspaceTest.class,
 //	 
 //	 //客户按地区统计
 //	 com.gongsibao.panda.report.workspace.customer.district.DayWorkspaceTest.class,
@@ -59,7 +68,16 @@ import org.junit.runners.Suite.SuiteClasses;
 //	 com.gongsibao.panda.report.workspace.customer.salesman.WeekWorkspaceTest.class,
 //	 com.gongsibao.panda.report.workspace.customer.salesman.YearWorkspaceTest.class,
 	 
-	NavigationTest.class
+	 DayReportWorkspaceTest.class,
+	 MonthReportWorkspaceTest.class,
+	 WeekReportWorkspaceTest.class,
+	 YearReportWorkspaceTest.class,
+	 
+//	 DistrictReportWorkspaceTest.class,
+//	 ProductReportWorkspaceTest.class,
+//	 SourceReportWorkspaceTest.class,
+//	 StatusReportWorkspaceTest.class,
+	 NavigationTest.class
 	
 })
 
