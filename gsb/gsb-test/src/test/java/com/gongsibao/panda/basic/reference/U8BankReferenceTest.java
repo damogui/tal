@@ -18,7 +18,7 @@ public class U8BankReferenceTest extends ReferenceCreationBase{
 		datagridName = referenceName = "预付科目参照";
 		referenceCode = U8Bank.class.getSimpleName();
 		intelligentMode = IntelligentMode.LIKE;
-		intelligentFields = "name";
+		intelligentFields = "name,abbreviation";
 		//filter = "type='0'";
 	}
 
@@ -26,6 +26,7 @@ public class U8BankReferenceTest extends ReferenceCreationBase{
 
 		PDatagrid datagrid = super.createDatagrid(node);
 		addColumn( datagrid,"name", "名称", ControlTypes.TEXT_BOX,150,null,false);
+		addColumn( datagrid,"abbreviation", "简称", ControlTypes.TEXT_BOX,100,null,false);
 		return datagrid;
 	}
 }
