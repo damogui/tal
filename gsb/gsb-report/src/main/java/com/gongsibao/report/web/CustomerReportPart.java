@@ -3,6 +3,7 @@ package com.gongsibao.report.web;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.DataTable;
 import org.netsharp.core.Oql;
+import org.netsharp.core.QueryParameters;
 import org.netsharp.panda.commerce.TreegridPart;
 import org.netsharp.util.StringManager;
 
@@ -22,7 +24,7 @@ public class CustomerReportPart extends TreegridPart {
 	IOrganizationService organizationService = ServiceFactory.create(IOrganizationService.class);
 
 	HashMap<String, String> map;
-	
+
 	@Override
 	public Object query() throws IOException {
 
@@ -41,7 +43,7 @@ public class CustomerReportPart extends TreegridPart {
 		if (!StringManager.isNullOrEmpty(extraFilter)) {
 			ss.add(extraFilter);
 		}
-		
+
 		String filter = StringManager.join(" and ", ss);
 		Oql oql = new Oql();
 		{
@@ -49,6 +51,8 @@ public class CustomerReportPart extends TreegridPart {
 			oql.setType(Organization.class);
 			oql.setFilter(filter);
 		}
+
+		DataTable dataTable = getDataTable(map);
 
 		List<Organization> list = organizationService.queryList(oql);
 		List<BaseCustomerReportEntity> rows = new ArrayList<BaseCustomerReportEntity>();
@@ -61,23 +65,40 @@ public class CustomerReportPart extends TreegridPart {
 				entity.setOrgName(o.getShortName());
 				entity.setIsLeaf(o.getIsLeaf());
 			}
-			replenishEntity(entity);
+			replenishEntity(entity, dataTable);
 			rows.add(entity);
 		}
+
 		Object json = this.serialize(rows, oql);
 		return json;
 	}
-	
-	protected DataTable getDataTable(String startDate,String endDate,List<Integer> departmentIdList){
-		
+
+	protected DataTable getDataTable(HashMap<String, String> filterMap) {
+
+		List<String> dataList = this.getDate(filterMap);
+
+		String startDate = dataList.get(0);
+		String endDate = dataList.get(1);
+
+		String cmdText = "";
+		QueryParameters qps = new QueryParameters();
+		{
+			qps.add("@startDate", startDate, Types.VARCHAR);
+			qps.add("@endDate", startDate, Types.VARCHAR);
+		}
+		organizationService.executeTable(cmdText, qps);
 		return null;
 	}
-	
-	protected BaseCustomerReportEntity replenishEntity(BaseCustomerReportEntity entity){
-		
+
+	protected List<String> getDate(HashMap<String, String> filterMap) {
+
+		return null;
+	}
+
+	protected BaseCustomerReportEntity replenishEntity(BaseCustomerReportEntity entity, DataTable dataTable) {
+
 		return entity;
 	}
-	
 
 	protected HashMap<String, String> getMapFilters() throws UnsupportedEncodingException {
 

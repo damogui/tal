@@ -40,7 +40,7 @@ public class YearReportWorkspaceTest extends WorkspaceCreationBase{
 		datagrid.setTreeField("orgName");
 		PDatagridColumn column = null;
 
-		column = addColumn(datagrid, "orgName", "部门", ControlTypes.TEXT_BOX, 250, true);
+		column = addColumn(datagrid, "orgName", "部门", ControlTypes.TEXT_BOX, 300, true);
 		column = addColumn(datagrid, "year", "年份", ControlTypes.TEXT_BOX, 80);{
 			
 			column.setAlign(DatagridAlign.CENTER);

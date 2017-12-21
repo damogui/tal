@@ -39,7 +39,7 @@ public class DayReportWorkspaceTest extends WorkspaceCreationBase{
 		datagrid.setTreeField("orgName");
 		PDatagridColumn column = null;
 
-		column = addColumn(datagrid, "orgName", "部门", ControlTypes.TEXT_BOX, 250, true);
+		column = addColumn(datagrid, "orgName", "部门", ControlTypes.TEXT_BOX, 300, true);
 		column = addColumn(datagrid, "date", "日期", ControlTypes.TEXT_BOX, 170);{
 			
 			column.setAlign(DatagridAlign.CENTER);
