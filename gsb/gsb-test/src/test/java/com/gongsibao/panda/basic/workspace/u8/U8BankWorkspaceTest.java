@@ -15,6 +15,7 @@ import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.controls.DictComboBox;
+import com.gongsibao.entity.u8.SetOfBooks;
 import com.gongsibao.entity.u8.U8Bank;
 
 public class U8BankWorkspaceTest extends WorkspaceCreationBase {
@@ -90,10 +91,10 @@ public class U8BankWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "no", "卡号", ControlTypes.TEXT_BOX,  false, false);
 		addFormField(form, "code", "科目编号", ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "abbreviation", "简称", ControlTypes.TEXT_BOX,  false, false);
-		//addFormFieldRefrence(form, "setOfBooks.name", "账套名称",null,  SetOfBooks.class.getSimpleName(), false, false);DictReference
+		//addFormFieldRefrence(form, "setOfBooks.name", "账套名称",null,  SetOfBooks.class.getSimpleName(), false, false);
 		addFormField(form, "type", "类型", ControlTypes.ENUM_BOX, true, false);		
 		addFormField(form, "supplierId", "u8供应商id", ControlTypes.TEXT_BOX,  false, false);	
-		addFormFieldRefrence(form, "prepaySubject.name", "预付科目",null, U8Bank.class.getSimpleName(), false, false);
+		//addFormFieldRefrence(form, "prepaySubject.name", "预付科目",null, U8Bank.class.getSimpleName(), false, false);
 		addFormField(form, "personnelId", "u8人员id", ControlTypes.TEXT_BOX,  false, false);
 		field = addFormField(form, "offlineWayType.name", "原线下付款方式", null, ControlTypes.CUSTOMER, false, false);
 		{
@@ -119,6 +120,6 @@ public class U8BankWorkspaceTest extends WorkspaceCreationBase {
 		operationService.addOperation(node,OperationTypes.view);
 		operationService.addOperation(node,OperationTypes.add);
 		operationService.addOperation(node,OperationTypes.update);
-		operationService.addOperation(node,OperationTypes.delete);
+		//operationService.addOperation(node,OperationTypes.delete);
 	}
 }

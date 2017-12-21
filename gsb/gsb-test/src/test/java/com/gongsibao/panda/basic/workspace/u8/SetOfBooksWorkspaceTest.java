@@ -29,6 +29,8 @@ public class SetOfBooksWorkspaceTest extends WorkspaceCreationBase  {
 		resourceNodeCode = "GSB_Basic_U8_"+SetOfBooks.class.getSimpleName();//菜单节点码（名称）
 		
 		formOpenMode = OpenMode.WINDOW;//编辑框打开的形式
+		openWindowWidth = 800;
+		openWindowHeight = 450;
 	}
 
 	//默认的grid信息的配置
@@ -64,7 +66,7 @@ public class SetOfBooksWorkspaceTest extends WorkspaceCreationBase  {
 	protected PForm createForm(ResourceNode node) {
 
 		PForm form = super.createForm(node);
-		form.setColumnCount(1);
+		form.setColumnCount(2);
 		addFormField(form, "name", "名称", null, ControlTypes.TEXT_BOX, true, false);		
 		addFormField(form, "senderNo", "外部系统编号", null, ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "type", "类型", null, ControlTypes.TEXT_BOX, true, false);
