@@ -1,35 +1,46 @@
 package com.gongsibao.report.web;
 
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 import org.netsharp.core.DataTable;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.report.customer.BaseCustomerReportEntity;
+import com.gongsibao.utils.DateUtils;
 
-public class CustomerMonthReportPart extends CustomerReportPart{
+public class CustomerMonthReportPart extends CustomerReportPart {
 
 	@Override
-	protected List<String> getDate(HashMap<String, String> filterMap) {
+	protected HashMap<String, String>  getDate(HashMap<String, String> filterMap) {
 
-		return null;
-	}
-	
-	@Override
-	protected BaseCustomerReportEntity replenishEntity(BaseCustomerReportEntity entity,DataTable dataTable){
+		HashMap<String, String> map= new HashMap<String, String>();
+		String year = this.map.get("year");
+		String month = this.map.get("month");
+		String startDate = year + "-" + month + "-" + "01 00:00:00";
 		
+		String endDate = year + "-" + month + "-" + "01 59:59:59";//这里天要取每个月的最后 天
+		Date date = DateUtils.getLastDateOfMonth(DateUtils.parseDate(endDate));
+		endDate = DateUtils.formatDate(date, "yyyy-MM-dd HH:mm:ss");
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		return map;
+	}
+
+	@Override
+	protected BaseCustomerReportEntity replenishEntity(BaseCustomerReportEntity entity, DataTable dataTable) {
+
 		if (this.map.size() > 0) {
-			
+
 			String year = this.map.get("year");
 			String month = this.map.get("month");
-			if(!StringManager.isNullOrEmpty(year)){
-				
+			if (!StringManager.isNullOrEmpty(year)) {
+
 				entity.setYear(Integer.parseInt(year));
 			}
 
-			if(!StringManager.isNullOrEmpty(month)){
-				
+			if (!StringManager.isNullOrEmpty(month)) {
+
 				entity.setMonth(Integer.parseInt(month));
 			}
 		}

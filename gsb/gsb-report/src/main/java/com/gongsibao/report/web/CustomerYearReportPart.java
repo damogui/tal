@@ -1,7 +1,6 @@
 package com.gongsibao.report.web;
 
 import java.util.HashMap;
-import java.util.List;
 
 import org.netsharp.core.DataTable;
 import org.netsharp.util.StringManager;
@@ -11,9 +10,15 @@ import com.gongsibao.entity.report.customer.BaseCustomerReportEntity;
 public class CustomerYearReportPart extends CustomerReportPart{
 
 	@Override
-	protected List<String> getDate(HashMap<String, String> filterMap) {
+	protected HashMap<String, String> getDate(HashMap<String, String> filterMap) {
 
-		return null;
+		HashMap<String, String> map= new HashMap<String, String>();
+		String year = this.map.get("year");
+		String startDate = year + "-01-" + "01 00:00:00";
+		String endDate = year + "-12-" + "31 59:59:59";
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		return map;
 	}
 	
 	@Override

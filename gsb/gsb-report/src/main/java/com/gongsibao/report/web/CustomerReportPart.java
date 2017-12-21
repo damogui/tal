@@ -75,22 +75,22 @@ public class CustomerReportPart extends TreegridPart {
 
 	protected DataTable getDataTable(HashMap<String, String> filterMap) {
 
-		List<String> dataList = this.getDate(filterMap);
+		HashMap<String, String>  dataMap = this.getDate(filterMap);
 
-		String startDate = dataList.get(0);
-		String endDate = dataList.get(1);
+		String startDate = dataMap.get("startDate");
+		String endDate = dataMap.get("endDate");
 
 		String cmdText = "";
 		QueryParameters qps = new QueryParameters();
 		{
 			qps.add("@startDate", startDate, Types.VARCHAR);
-			qps.add("@endDate", startDate, Types.VARCHAR);
+			qps.add("@endDate", endDate, Types.VARCHAR);
 		}
 		organizationService.executeTable(cmdText, qps);
 		return null;
 	}
 
-	protected List<String> getDate(HashMap<String, String> filterMap) {
+	protected HashMap<String, String>  getDate(HashMap<String, String> filterMap) {
 
 		return null;
 	}
