@@ -88,7 +88,18 @@
 		      <p id="weixin"></p>
 		    </div>
 		  </div>
-		  
+		  <div class="weui-cell">
+		    <div class="weui-cell__hd"><label class="weui-label">QQ</label></div>
+		    <div class="weui-cell__bd">
+		      <p id="qq"></p>
+		    </div>
+		  </div>
+		  <div class="weui-cell">
+		    <div class="weui-cell__hd"><label class="weui-label">座机</label></div>
+		    <div class="weui-cell__bd">
+		      <p id="tel"></p>
+		    </div>
+		  </div>
 	    <div class="weui-cells__title">最后跟进信息</div>
 		  <div class="weui-cell">
 		    <div class="weui-cell__hd"><label class="weui-label">意向度</label></div>

@@ -20,9 +20,6 @@ public class Organization extends BaseCatEntity {
 	@Column(name = "organization_type", header = "组织类型")
 	private OrganizationType organizationType;
 
-	@Column(name = "short_name", header = "注：组织名称")
-	private String shortName;
-
 	@Column(name = "leader_id", header = "主管人")
 	private Integer leaderId = 0;
 	
@@ -47,14 +44,6 @@ public class Organization extends BaseCatEntity {
 
 	public void setOrganizationType(OrganizationType organizationType) {
 		this.organizationType = organizationType;
-	}
-	
-	public String getShortName() {
-		return shortName;
-	}
-
-	public void setShortName(String shortName) {
-		this.shortName = shortName;
 	}
 
 	public Integer getLeaderId() {
@@ -105,5 +94,4 @@ public class Organization extends BaseCatEntity {
 		this.remark = remark;
 	}
 
-	
 }

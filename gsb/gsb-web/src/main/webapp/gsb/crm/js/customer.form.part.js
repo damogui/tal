@@ -160,6 +160,9 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
 		if(swtCustomerId && this.viewModel.currentItem.entityState == EntityState.New){
 			//从商务通客户端打开
 			var contactWay = $(el).val();
+			if(System.isnull(contactWay)){
+				return;
+			}
 			var type = $(el).attr('id');
 	        this.invokeService("byContactWay", [contactWay,type], function (jmessage) {
 	        	

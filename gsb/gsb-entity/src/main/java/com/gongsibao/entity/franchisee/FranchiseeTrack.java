@@ -9,6 +9,7 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
 import com.gongsibao.entity.franchisee.dic.ExpectedSign;
+import com.gongsibao.entity.franchisee.dic.FranchiseeTrackType;
 import com.gongsibao.entity.franchisee.dic.IntentionDegree;
 import com.gongsibao.entity.franchisee.dic.TrackProgress;
 
@@ -41,6 +42,9 @@ public class FranchiseeTrack extends Entity{
     
     @Column(name="next_track_date",header="下次跟进日期")
     private Date nextTrackDate;
+    
+    @Column(name="track_type",header="跟进类型")
+    private FranchiseeTrackType trackType = FranchiseeTrackType.MANUAL;
     
 	public ExpectedSign getExpectedSign() {
 		return expectedSign;
@@ -96,5 +100,13 @@ public class FranchiseeTrack extends Entity{
 
 	public void setNextTrackDate(Date nextTrackDate) {
 		this.nextTrackDate = nextTrackDate;
+	}
+
+	public FranchiseeTrackType getTrackType() {
+		return trackType;
+	}
+
+	public void setTrackType(FranchiseeTrackType trackType) {
+		this.trackType = trackType;
 	}
 }

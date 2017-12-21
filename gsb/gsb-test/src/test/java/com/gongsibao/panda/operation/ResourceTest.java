@@ -15,17 +15,21 @@ import com.gongsibao.entity.taurus.User;
 import com.gongsibao.entity.taurus.UserCollectCompany;
 import com.gongsibao.entity.taurus.UserConsStatisticView;
 import com.gongsibao.entity.taurus.UserDingtalkKeyword;
+import com.gongsibao.entity.taurus.UserInfo;
 import com.gongsibao.entity.taurus.UserRenewalStatisticView;
 import com.gongsibao.entity.taurus.UserWalletLog;
+import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.taurus.base.IActiveUserViewService;
 import com.gongsibao.taurus.base.IDayStatisticViewService;
 import com.gongsibao.taurus.base.INewUserPerDayViewService;
 import com.gongsibao.taurus.base.IUserCollectCompanyService;
 import com.gongsibao.taurus.base.IUserConsStatisticViewService;
 import com.gongsibao.taurus.base.IUserDingtalkKeywordService;
+import com.gongsibao.taurus.base.IUserInfoService;
 import com.gongsibao.taurus.base.IUserRenewalStatisticViewService;
 import com.gongsibao.taurus.base.IUserService;
 import com.gongsibao.taurus.base.IUserWalletLogService;
+import com.gongsibao.trade.base.IOrderService;
 
 public class ResourceTest extends ResourceCreationBase {
 
@@ -47,7 +51,8 @@ public class ResourceTest extends ResourceCreationBase {
 		ResourceNode node1 = null;
 		node1 = this.createResourceNodeCategory("金牛座", "GSB_TAURUS", node.getId());
 		{
-			this.createResourceNodeVoucher(User.class.getName(), "全部客户", "GSB_TAURUS_" + User.class.getSimpleName(), IUserService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(User.class.getName(), "帐号信息", "GSB_TAURUS_" + User.class.getSimpleName(), IUserService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(UserInfo.class.getName(), "用户信息", "GSB_TAURUS_" + UserInfo.class.getSimpleName(), IUserInfoService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(UserWalletLog.class.getName(), "钱包记录", "GSB_TAURUS_" + UserWalletLog.class.getSimpleName(), IUserWalletLogService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(UserCollectCompany.class.getName(), "关注企业", "GSB_TAURUS_" + UserCollectCompany.class.getSimpleName(), IUserCollectCompanyService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(UserDingtalkKeyword.class.getName(), "舆情关键字", "GSB_TAURUS_" + UserDingtalkKeyword.class.getSimpleName(), IUserDingtalkKeywordService.class.getName(), node1.getId());
@@ -60,7 +65,8 @@ public class ResourceTest extends ResourceCreationBase {
 		}
 		node1 = this.createResourceNodeCategory("万达项目", "GSB_WANDA", node.getId());
 		{
-			this.createResourceNodeVoucher(ProductView.class.getName(), "服务列表", "GSB_WANDA" + ProductView.class.getSimpleName(),IProductViewService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(ProductView.class.getName(), "服务列表", "GSB_WANDA_" + ProductView.class.getSimpleName(),IProductViewService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(SoOrder.class.getName(), "订单列表", "GSB_WANDA_" + SoOrder.class.getSimpleName(),IOrderService.class.getName(), node1.getId());
 		}
 
 //		node1 = this.createResourceNodeCategory("ICompany", "GSB_WANDA", node.getId());

@@ -52,7 +52,7 @@ public class UserWorkspaceTest extends WorkspaceCreationBase {
 		formJsImport = "/gsb/taurus/js/user.form.part.js";
 		formOpenMode = OpenMode.WINDOW;
 		openWindowWidth = 800;
-		openWindowHeight =650;
+		openWindowHeight = 650;
 	}
 
 	/**
@@ -98,15 +98,22 @@ public class UserWorkspaceTest extends WorkspaceCreationBase {
 
 		PDatagrid datagrid = super.createDatagrid(node);
 		datagrid.setToolbar("panda/datagrid/row/edit");
+
+		PDatagridColumn column = null;
 		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-		addColumn(datagrid, "mobile", "手机号", ControlTypes.TEXT_BOX, 100, true);
-		PDatagridColumn column = addColumn(datagrid, "amount", "余额", ControlTypes.DECIMAL_FEN_BOX, 100);{
-			
+		column = addColumn(datagrid, "mobile", "手机", ControlTypes.TEXT_BOX, 100);
+		{
+			column.setFormatter("if(value&&value.length==11){return value.substr(0,3)+'****'+value.substr(7);}");
+		}
+		column = addColumn(datagrid, "amount", "余额", ControlTypes.DECIMAL_FEN_BOX, 100);
+		{
 			column.setOrderbyMode(OrderbyMode.DESC);
 		}
+
 		addColumn(datagrid, "remark", "备注", ControlTypes.TEXT_BOX, 300);
-		column = addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);{
-			
+		column = addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
+		{
+
 			column.setOrderbyMode(OrderbyMode.DESC);
 		}
 		addColumn(datagrid, "updateTime", "修改时间", ControlTypes.DATETIME_BOX, 130);
@@ -162,25 +169,26 @@ public class UserWorkspaceTest extends WorkspaceCreationBase {
 			}
 			addColumn(datagrid, "price", "金额", ControlTypes.DECIMAL_FEN_BOX, 80);
 			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
-			column = addColumn(datagrid, "id", "操作", ControlTypes.TEXT_BOX, 60);{
-				
+			column = addColumn(datagrid, "id", "操作", ControlTypes.TEXT_BOX, 60);
+			{
+
 				String formatter = "return controllerwalletLogs.operationFormatter(value,row);";
 				column.setFormatter(formatter);
 				column.setAlign(DatagridAlign.CENTER);
 			}
 		}
-		
+
 		PForm form = new PForm();
 		{
 			form.toNew();
 			form.setResourceNode(node);
 			form.setColumnCount(1);
 			form.setName("充值");
-			
-			addFormField(form, "paymentType", "支付类型",ControlTypes.ENUM_BOX, true, false);
-			addFormField(form, "price", "充值金额",ControlTypes.DECIMAL_BOX, true, false);
-			addFormField(form, "discountAmount", "赠送金额",ControlTypes.DECIMAL_BOX, false, false);
-			addFormField(form, "remark", "备注",ControlTypes.TEXTAREA, false, false);
+
+			addFormField(form, "paymentType", "支付类型", ControlTypes.ENUM_BOX, true, false);
+			addFormField(form, "price", "充值金额", ControlTypes.DECIMAL_BOX, true, false);
+			addFormField(form, "discountAmount", "赠送金额", ControlTypes.DECIMAL_BOX, false, false);
+			addFormField(form, "remark", "备注", ControlTypes.TEXTAREA, false, false);
 		}
 
 		PPart part = new PPart();
@@ -219,7 +227,7 @@ public class UserWorkspaceTest extends WorkspaceCreationBase {
 			addColumn(datagrid, "status", "关注", ControlTypes.BOOLCOMBO_BOX, 80);
 			addColumn(datagrid, "companyName", "企业名称", ControlTypes.TEXT_BOX, 300);
 			addColumn(datagrid, "remark", "说明", ControlTypes.TEXT_BOX, 300);
-			
+
 		}
 
 		PPart part = new PPart();

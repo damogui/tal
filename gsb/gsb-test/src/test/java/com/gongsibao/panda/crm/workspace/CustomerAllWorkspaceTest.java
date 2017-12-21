@@ -116,12 +116,14 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 		datagrid.setToolbar("panda/datagrid/row/edit");
 		PDatagridColumn column = null;
 		column = addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-		addColumn(datagrid, "allocationOrg.name", "分配部门", ControlTypes.TEXT_BOX, 100, true);
+		addColumn(datagrid, "allocationOrg.shortName", "分配部门", ControlTypes.TEXT_BOX, 100, true);
 		addColumn(datagrid, "email", "email", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "accountId", "是否会员", ControlTypes.BOOLCOMBO_BOX, 100);
 		addColumn(datagrid, "realName", "客户名称", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "city.name", "所在地区", ControlTypes.TEXTAREA, 130);
-		addColumn(datagrid, "mobile", "手机", ControlTypes.DECIMAL_BOX, 100);
+		column = addColumn(datagrid, "mobile", "手机", ControlTypes.TEXT_BOX, 100);{
+			column.setFormatter("if(value&&value.length==11){return value.substr(0,3)+'****'+value.substr(7);}");
+		}
 		addColumn(datagrid, "qq", "QQ", ControlTypes.DECIMAL_BOX, 100);
 		addColumn(datagrid, "customerSource.name", "客户来源", ControlTypes.ENUM_BOX, 80);
 		addColumn(datagrid, "important", "客户等级", ControlTypes.ENUM_BOX, 80);
@@ -369,7 +371,6 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 			PFormField formField = null;
 			formField = addFormFieldRefrence(form, "company.companyName", "公司名称", null, CompanyIntention.class.getSimpleName(), true, false);
 			{
-
 				formField.setWidth(300);
 			}
 		}

@@ -6,7 +6,7 @@ org.netsharp.we.core.unTrackFranchiseeListCtrl = org.netsharp.we.core.franchisee
     	
     	var me = this;
     	var employeeId = this.queryString('employeeId');
-    	var searchKeyWord = this.queryString('searchKeyWord');
+    	var searchKeyWord = $("#searchKeyWord").val().trim();
     	var pars = [employeeId,searchKeyWord,this.paging.pageIndex,this.paging.pageSize];
     	this.invokeService('queryAwaitTrack', pars, function(result){
     		
@@ -16,6 +16,23 @@ org.netsharp.we.core.unTrackFranchiseeListCtrl = org.netsharp.we.core.franchisee
     		$(me.listId).append(html);
             me.queryAfter();
     	});
+    },
+    filter:function(){
+    	
+    	var searchKeyWord = $("#searchKeyWord").val().trim();
+    	if(System.isnull(searchKeyWord)){
+    		
+    		return;
+    	}
+    	
+    	$(this.listId).html('');
+    	this.query();
+    },
+    cancel:function(){
+    	
+    	$("#searchKeyWord").val("");
+    	$(this.listId).html('');
+    	this.query();
     }
 });
 

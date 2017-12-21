@@ -1,7 +1,5 @@
 package com.gongsibao.entity.taurus;
 
-import java.util.Date;
-
 import org.netsharp.core.annotations.Auto;
 import org.netsharp.core.annotations.Id;
 import org.netsharp.core.annotations.Table;

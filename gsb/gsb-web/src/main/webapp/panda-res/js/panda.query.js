@@ -135,7 +135,7 @@ org.netsharp.controls.EncryptionBoxQueryItem=org.netsharp.controls.Control.Exten
 	}
 });
 
-org.netsharp.controls.BoolComboBoxItem=org.netsharp.controls.Control.Extends({
+org.netsharp.controls.BoolComboBoxQueryItem=org.netsharp.controls.Control.Extends({
     get : function () {
 
         var propertyValue = $('#' + this.propertyName).combobox('getValues');

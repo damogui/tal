@@ -8,7 +8,7 @@ org.netsharp.we.core.franchiseeListCtrl = org.netsharp.we.core.listCtrl.Extends(
     	
     	var me = this;
     	var employeeId = this.queryString('employeeId');
-    	var searchKeyWord = this.queryString('searchKeyWord');
+    	var searchKeyWord = $("#searchKeyWord").val().trim();
     	console.log("当前页："+this.paging.pageIndex);
     	//查询
     	var pars = [employeeId,searchKeyWord,this.paging.pageIndex,this.paging.pageSize];
@@ -31,5 +31,22 @@ org.netsharp.we.core.franchiseeListCtrl = org.netsharp.we.core.listCtrl.Extends(
     		html += me.template.format(item.id,item.name,item.trackProgress);
     	});
     	return html;
+    },
+    filter:function(){
+    	
+    	var searchKeyWord = $("#searchKeyWord").val().trim();
+    	if(System.isnull(searchKeyWord)){
+    		
+    		return;
+    	}
+    	
+    	$(this.listId).html('');
+    	this.query();
+    },
+    cancel:function(){
+    	
+    	$("#searchKeyWord").val("");
+    	$(this.listId).html('');
+    	this.query();
     }
 });

@@ -23,7 +23,7 @@ public class AuthService extends PersistableService<Auth> implements IAuthServic
 		EntityState entityState = entity.getEntityState();
 		if(entityState != EntityState.Deleted){
 			
-			entity.setPid(entity.getParentId());
+			//entity.setPid(entity.getParentId());
 		}
 		entity = super.save(entity);
 		
@@ -41,7 +41,7 @@ public class AuthService extends PersistableService<Auth> implements IAuthServic
 			updateBuilder.update(MtableManager.getMtable(this.type).getTableName());
 			updateBuilder.set("id", entity.getId());
 			//updateBuilder.set("pid", entity.getParentId());
-			updateBuilder.where("pkid =" +entity.getPkid());
+			//updateBuilder.where("pkid =" +entity.getPkid());
 		}
 		return this.pm.executeNonQuery(updateBuilder.toSQL(), null) > 0;
 	}

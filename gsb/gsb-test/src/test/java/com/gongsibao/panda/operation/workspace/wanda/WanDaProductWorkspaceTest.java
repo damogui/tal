@@ -19,11 +19,11 @@ public class WanDaProductWorkspaceTest extends WorkspaceCreationBase{
 	public void setup() {
 
 		entity = ProductView.class;
-		urlList = "/wanda/product/list";
+		urlList = "/operation/wanda/product/list";
 		listPartName = formPartName = "服务列表";		
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_WANDA"+ProductView.class.getSimpleName();
+		resourceNodeCode = "GSB_WANDA_"+ProductView.class.getSimpleName();
 		
 		formOpenMode = OpenMode.WINDOW;
 	}

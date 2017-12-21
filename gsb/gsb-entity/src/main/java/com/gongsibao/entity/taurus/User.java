@@ -3,10 +3,12 @@ package com.gongsibao.entity.taurus;
 import java.util.List;
 
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.bd.Dict;
 
 @Table(name="jnz_user",header="用户信息")
 public class User extends BaseEntity{
@@ -30,7 +32,7 @@ public class User extends BaseEntity{
 	
 	@Column(name = "remark",size=200, header = "说明")
 	private String remark;
-	
+
 	@Subs(foreignKey="userId",header="钱包记录",subType=UserWalletLog.class)
 	private List<UserWalletLog> walletLogs;
 	
@@ -39,6 +41,50 @@ public class User extends BaseEntity{
 	
 	@Subs(foreignKey="accountId",header="舆情关键字",subType=UserDingtalkKeyword.class)
 	private List<UserDingtalkKeyword> dingtalkKeywords;
+	
+	@Exclusive
+	private String name;
+	
+	@Exclusive
+	private String companyName;
+	
+	@Exclusive
+    private Dict province;
+
+	@Exclusive
+    private Dict city;
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+	public Dict getProvince() {
+		return province;
+	}
+
+	public void setProvince(Dict province) {
+		this.province = province;
+	}
+
+	public Dict getCity() {
+		return city;
+	}
+
+	public void setCity(Dict city) {
+		this.city = city;
+	}
 
 	public String getMobile() {
 		return mobile;
@@ -47,14 +93,6 @@ public class User extends BaseEntity{
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
-	
-//	public String getName() {
-//		return name;
-//	}
-//
-//	public void setName(String name) {
-//		this.name = name;
-//	}
 
 	public String getTicket() {
 		return ticket;

@@ -87,7 +87,8 @@ org.netsharp.we.core.franchiseeFormCtrl = org.netsharp.we.core.formCtrl.Extends(
         	$('#mobile').val(entity.mobile);
         	$('#post').val(entity.post);
         	$('#weixin').val(entity.weixin);
-        	
+        	$('#qq').val(entity.qq);
+        	$('#tel').val(entity.tel);
         	
         	if(entity.owner != null){
 
@@ -129,6 +130,8 @@ org.netsharp.we.core.franchiseeFormCtrl = org.netsharp.we.core.formCtrl.Extends(
     	entity.mobile = $('#mobile').val();
     	entity.post = $('#post').val();
     	entity.weixin = $('#weixin').val();
+    	entity.qq = $('#qq').val();
+    	entity.tel = $('#tel').val();
     	return entity;
     },
     validate:function(){

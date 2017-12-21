@@ -39,6 +39,14 @@
 			      <span class="weui-form-preview__value">{$T.record.weixin}</span>
 			    </div>
 			    <div class="weui-form-preview__item">
+			      <label class="weui-form-preview__label">QQ</label>
+			      <span class="weui-form-preview__value">{$T.record.qq}</span>
+			    </div>
+			    <div class="weui-form-preview__item">
+			      <label class="weui-form-preview__label">座机</label>
+			      <span class="weui-form-preview__value">{$T.record.tel}</span>
+			    </div>
+			    <div class="weui-form-preview__item">
 			      <label class="weui-form-preview__label">主联系人</label>
 			      <span class="weui-form-preview__value">
 			      	{#if $T.record.main==true} 是 {#else} 否 {#/if}

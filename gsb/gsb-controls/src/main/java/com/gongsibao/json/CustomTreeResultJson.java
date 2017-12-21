@@ -34,7 +34,7 @@ public class CustomTreeResultJson {
 
 		TreeNode node = new TreeNode();
 		node.id = cat.getId().toString();
-		node.text = cat.getName();
+		node.text = cat.getShortName();
 
 		if (cat.getIsLeaf()) {
 			node.state = TreeNodeState.open;

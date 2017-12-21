@@ -249,7 +249,7 @@ public class FranchiseeController {
 		if(isAwait){
 		
 			//7天之内需要跟进的
-			ss.add("(next_track_date != null and TO_DAYS(next_track_date) - TO_DAYS(NOW())>=7)");
+			ss.add("(next_track_date != null and TO_DAYS(next_track_date) - TO_DAYS(NOW())<=7)");
 		}
 
 		String filter = StringManager.join(" and ", ss);

@@ -48,6 +48,8 @@ org.netsharp.we.core.franchiseeDetailCtrl = org.netsharp.we.core.detailCtrl.Exte
     	$('#mobile').text(entity.mobile);
     	$('#post').text(entity.post);
     	$('#weixin').text(entity.weixin);
+    	$('#qq').text(entity.qq);
+    	$('#tel').text(entity.tel);
     	
     	if(entity.nextTrackDate){
 

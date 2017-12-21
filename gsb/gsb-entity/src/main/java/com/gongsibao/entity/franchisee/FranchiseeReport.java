@@ -7,11 +7,12 @@ import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.CatEntity;
 import org.netsharp.organization.entity.Employee;
+import org.netsharp.organization.entity.Organization;
 
-import com.gongsibao.entity.franchisee.dic.FranchiseeReportType;
-import com.gongsibao.entity.uc.Organization;
+import com.gongsibao.entity.report.dic.ReportDateType;
+import com.gongsibao.entity.report.dic.ReportOrganizationType;
 
-@Table(name="bd_franchisee_report",header="供应商报表")
+@Table(name="report_bd_franchisee",header="供应商报表")
 public class FranchiseeReport extends CatEntity{
 
 	/**   
@@ -19,11 +20,11 @@ public class FranchiseeReport extends CatEntity{
 	 */   
 	private static final long serialVersionUID = -8758613644594941085L;
 
-	@Column(name = "organizationId", header = "部门")
-	private Organization organization;
+	@Reference(foreignKey = "departmentId", header = "部门")
+	private Organization department;
 
-	@Column(name = "organization_id", header = "部门Id")
-	private Integer organizationId;
+	@Column(name = "department_id", header = "部门Id")
+	private Integer departmentId;
 	
     @Column(name="owner_id",header="业务员Id")
     private Integer ownerId;
@@ -31,8 +32,11 @@ public class FranchiseeReport extends CatEntity{
     @Reference(foreignKey="ownerId")
     private Employee owner;
     
-	@Column(name = "type", header = "统计类型")
-	private FranchiseeReportType type;
+	@Column(name = "date_type", header = "统计时间类型")
+	private ReportDateType dateType;
+	
+	@Column(name = "organization_type", header = "统计组织类型")
+	private ReportOrganizationType organizationType;
     
     @Column(name="year",header="年")
     private int year;
@@ -42,6 +46,9 @@ public class FranchiseeReport extends CatEntity{
     
     @Column(name="week",header="周")
     private int week;
+    
+    @Column(name="day",header="天")
+    private int day;
     
     @Column(name="date",header="日期")
     private Date date;
@@ -71,6 +78,7 @@ public class FranchiseeReport extends CatEntity{
     @Column(name="expected_sign_5_count",header="预计签单：三月以上")
     private int expectedSign5Count = 0;
 
+    
     @Column(name="intIntention_degree1_count",header="意向度：高")
     private int intentionDegree1Count = 0;
     
@@ -102,21 +110,37 @@ public class FranchiseeReport extends CatEntity{
     
     @Column(name="track_progress7_count",header="进度：已合作中止")
     private int trackProgress7Count = 0;
-
-	public Organization getOrganization() {
-		return organization;
+    
+	public ReportDateType getDateType() {
+		return dateType;
 	}
 
-	public void setOrganization(Organization organization) {
-		this.organization = organization;
+	public void setDateType(ReportDateType dateType) {
+		this.dateType = dateType;
 	}
 
-	public Integer getOrganizationId() {
-		return organizationId;
+	public ReportOrganizationType getOrganizationType() {
+		return organizationType;
 	}
 
-	public void setOrganizationId(Integer organizationId) {
-		this.organizationId = organizationId;
+	public void setOrganizationType(ReportOrganizationType organizationType) {
+		this.organizationType = organizationType;
+	}
+
+	public Organization getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Organization department) {
+		this.department = department;
+	}
+
+	public Integer getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(Integer departmentId) {
+		this.departmentId = departmentId;
 	}
 
 	public Integer getOwnerId() {
@@ -135,14 +159,6 @@ public class FranchiseeReport extends CatEntity{
 		this.owner = owner;
 	}
 
-	public FranchiseeReportType getType() {
-		return type;
-	}
-
-	public void setType(FranchiseeReportType type) {
-		this.type = type;
-	}
-
 	public int getYear() {
 		return year;
 	}
@@ -157,6 +173,14 @@ public class FranchiseeReport extends CatEntity{
 
 	public void setMonth(int month) {
 		this.month = month;
+	}
+	
+	public int getDay() {
+		return day;
+	}
+
+	public void setDay(int day) {
+		this.day = day;
 	}
 
 	public Date getDate() {
@@ -318,4 +342,6 @@ public class FranchiseeReport extends CatEntity{
 	public void setWeek(int week) {
 		this.week = week;
 	}
+
+	
 }

@@ -93,7 +93,7 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 		}
 	},
 	onLoadSuccess:function(data){
-		
+
 	},
 	onSelect : function(rowIndex, rowData) {
 
@@ -192,7 +192,22 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 		}
 		var url = System.Url.join(formUrl, "id=" + id);
 		url = System.Url.getUrl(url);
-		window.open(url);
+		if(this.context.openMode == OpenType.window){
+
+			var me = this;
+			url = System.Url.join(url, "openType="+OpenType.window);
+			IMessageBox.open("详情", url, this.context.windowWidth, this.context.windowHeight, function() {
+
+				me.reload();
+			});
+			
+		} else if(this.context.openMode == OpenType.redirect){
+			url = System.Url.join(url, "openType="+OpenType.redirect);
+			window.location.href = url;
+		} else {
+			url = System.Url.join(url, "openType="+OpenType.open);
+			window.open(url);
+		}
 	},
 	
 	// -----------------------

@@ -21,38 +21,38 @@ import com.gongsibao.uc.base.IUserService;
 @Service
 public class UserService extends PersistableService<User> implements IUserService {
 
-    public UserService(){
-        super();
-        this.type=User.class;
-    }
-    
+	public UserService() {
+		super();
+		this.type = User.class;
+	}
 
 	@Override
 	public User save(User entity) {
-		
+
 		EntityState entityState = entity.getEntityState();
-		
-		if(StringManager.isNullOrEmpty(entity.getPasswd())){
-			
-			String password = EncrypUtil.md5(Application.getContext().getDefaultPassword() + "user!@#123").substring(8,24);;
+
+		if (StringManager.isNullOrEmpty(entity.getPasswd())) {
+
+			String password = EncrypUtil.md5(Application.getContext().getDefaultPassword() + "user!@#123").substring(8, 24);
+			;
 			entity.setPasswd(password);
 		}
-		
-		entity = super.save(entity);
-		if(entityState == EntityState.New){
 
-			//同步NetSharp组织机构
+		entity = super.save(entity);
+		if (entityState == EntityState.New) {
+
+			// 同步NetSharp组织机构
 			this.createEmployee(entity);
 		}
 		return entity;
 	}
-	
-	/**   
-	 * @Title: createEmployee   
-	 * @Description: TODO(同步NetSharp组织机构)   
-	 * @param: @param user      
-	 * @return: void      
-	 * @throws   
+
+	/**
+	 * @Title: createEmployee
+	 * @Description: TODO(同步NetSharp组织机构)
+	 * @param: @param user
+	 * @return: void
+	 * @throws
 	 */
 	private void createEmployee(User user) {
 
@@ -65,9 +65,9 @@ public class UserService extends PersistableService<User> implements IUserServic
 			employee.toNew();
 			employee.setLoginName(user.getMobilePhone());
 			employee.setMobile(user.getMobilePhone());
-			
+
 			String name = user.getName();
-			if(StringManager.isNullOrEmpty(name)){
+			if (StringManager.isNullOrEmpty(name)) {
 				name = user.getMobilePhone();
 			}
 			employee.setName(name);
@@ -77,14 +77,14 @@ public class UserService extends PersistableService<User> implements IUserServic
 		IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
 		employeeService.save(employee);
 	}
-	
-	/**   
-	 * @Title: isHas   
-	 * @Description: TODO(判断是否已存在)   
+
+	/**
+	 * @Title: isHas
+	 * @Description: TODO(判断是否已存在)
 	 * @param: @param mobile
-	 * @param: @return      
-	 * @return: boolean      
-	 * @throws   
+	 * @param: @return
+	 * @return: boolean
+	 * @throws
 	 */
 	private boolean isHas(String mobile) {
 
@@ -95,7 +95,6 @@ public class UserService extends PersistableService<User> implements IUserServic
 		return count > 0;
 	}
 
-    
 	@Override
 	public User byMobilePhone(String mobilePhone) {
 
@@ -106,14 +105,14 @@ public class UserService extends PersistableService<User> implements IUserServic
 			oql.setFilter(" mobilePhone=? ");
 			oql.getParameters().add("mobilePhone", mobilePhone, Types.VARCHAR);
 		}
-		
+
 		User entity = this.pm.queryFirst(oql);
 		return entity;
 	}
 
 	@Override
 	public Boolean hasMobile(Integer id, String mobile) {
-		
+
 		Oql oql = new Oql();
 		{
 			oql.setType(this.type);
@@ -130,6 +129,6 @@ public class UserService extends PersistableService<User> implements IUserServic
 		String filter = StringManager.join(" AND ", ss);
 		oql.setFilter(filter);
 
-		return this.queryCount(oql)>0;
+		return this.queryCount(oql) > 0;
 	}
 }

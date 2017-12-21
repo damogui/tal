@@ -15,6 +15,7 @@ import org.netsharp.pcc.entity.ProvinceCityCounty;
 
 import com.gongsibao.entity.franchisee.dic.CooperativeMode;
 import com.gongsibao.entity.franchisee.dic.ExpectedSign;
+import com.gongsibao.entity.franchisee.dic.FranchiseeAllotStatus;
 import com.gongsibao.entity.franchisee.dic.IntentionDegree;
 import com.gongsibao.entity.franchisee.dic.TrackProgress;
 
@@ -71,7 +72,12 @@ public class Franchisee extends BizEntity{
     
     @Column(name="weixin",header="微信")
     private String weixin;
+ 
+    @Column(name="qq",header="qq")
+    private String qq;
     
+    @Column(name="tel",header="座机")
+    private String tel;
     
     //跟进信息
     @Reference(foreignKey="departmentId")
@@ -121,6 +127,9 @@ public class Franchisee extends BizEntity{
 	
 	@Subs(foreignKey="franchiseeId",header="跟进信息",subType=FranchiseeTrack.class)
 	private List<FranchiseeTrack> tracks;
+	
+    @Column(name="allot_status",header="分配状态")
+    private FranchiseeAllotStatus allotStatus = FranchiseeAllotStatus.UNABSORBED;
 	
 
 	public Date getLastTrackTime() {
@@ -371,5 +380,29 @@ public class Franchisee extends BizEntity{
 
 	public void setLastTracker(Employee lastTracker) {
 		this.lastTracker = lastTracker;
+	}
+
+	public FranchiseeAllotStatus getAllotStatus() {
+		return allotStatus;
+	}
+
+	public void setAllotStatus(FranchiseeAllotStatus allotStatus) {
+		this.allotStatus = allotStatus;
+	}
+
+	public String getQq() {
+		return qq;
+	}
+
+	public void setQq(String qq) {
+		this.qq = qq;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 }

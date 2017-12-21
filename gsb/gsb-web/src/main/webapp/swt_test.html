@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>商务通测试页</title>
+
+
+</head>
+<body>
+<script language="javascript" src="http://swt.gongsibao.com/LR/servkind.aspx?id=MGF22027130&lng=cn"></script>
+<script language=javascript>
+<!--
+//请修改以下参数
+var LiveReceptionCode_ToRight=1;
+//说明：浮动图标的水平方向对齐方式，1为右对齐，0为左对齐；
+var LiveReceptionCode_helpimgleft=0;
+//说明：浮动图标的水平方向的边距；
+var LiveReceptionCode_ToBottom=0;
+//说明：浮动图标的垂直方向对齐方式，1为底部对齐，0为顶部对齐；
+var LiveReceptionCode_helpimgtop=50;
+//说明：浮动图标的垂直方向的边距；
+var LR_List_w=140;  //列表框的宽度，需要和三张图片的宽度一致[像素]
+var LR_List_left=10;  //列表框中部里面文字距离左边的距离[像素]
+var LR_List_lineheight=19;  //列表框中部里面文字的行高[像素]
+var LR_List_upimg='http://swt.gongsibao.com/LR/olistimg/up.gif';//列表框顶部的图片网址
+var LR_List_downimg='http://swt.gongsibao.com/LR/olistimg/down.gif';//列表框底部的图片网址
+var LR_List_bgimg='http://swt.gongsibao.com/LR/olistimg/middle.gif';//列表框中部的平铺背景图片
+
+//请修改下面的代码里的文本内容，如 "在线" "繁忙"  等
+function outputServKindlist(name,id,state)
+{
+	if(state>=3)
+	{
+		return '<tr><td height="'+LR_List_lineheight+'"></td><td>'+unescape(name.replace(/\+/g,'%20'))+' [<a href="javascript:openZoosWindow_olist(\'chatwin\',\'&skid='+id+'&sk='+name+'&e='+name+'\')" target="_self"><font style="FONT-SIZE: 12px;COLOR: red;">在线</font></a>]</td></tr>';
+	}
+	else if(state==2)
+	{
+		return '<tr><td height="'+LR_List_lineheight+'"></td><td>'+unescape(name.replace(/\+/g,'%20'))+' [<a href="javascript:void(0)"  onclick="return false;" target="_self"><font style="FONT-SIZE: 12px;COLOR: purple;" onclick=openZoosWindow_olist(\'sendnote\',\'&skid=' + id + '&sk=' + name + '&e=' + name + '\')>繁忙</font></a>]</td></tr>';
+	}
+	else if(state==1)
+	{
+		return '<tr><td height="'+LR_List_lineheight+'"></td><td>'+unescape(name.replace(/\+/g,'%20'))+' [<a href="javascript:void(0)"  onclick="return false;" target="_self"><font style="FONT-SIZE: 12px;COLOR: blue;" onclick=openZoosWindow_olist(\'sendnote\',\'&skid=' + id + '&sk=' + name + '&e=' + name + '\')>离开</font></a>]</td></tr>';
+	}
+	else if(state==0)
+	{
+		return '<tr><td height="'+LR_List_lineheight+'"></td><td>'+unescape(name.replace(/\+/g,'%20'))+' [<a href="javascript:void(0)"  onclick="return false;" target="_self"><font style="FONT-SIZE: 12px;COLOR: gray;" onclick=openZoosWindow_olist(\'sendnote\',\'&skid=' + id + '&sk=' + name + '&e=' + name + '\')>离线</font></a>]</td></tr>';
+	}
+}
+
+
+var LiveReceptionCode_need_help_html='<table width="'+LR_List_w+'" border="0" cellpadding="0" cellspacing="0"><tr><td><img src="'+LR_List_upimg+'" width="'+LR_List_w+'" id="LiveReceptionCode_need_help" name="LiveReceptionCode_need_help"/></td></tr><tr><td style="background:url('+LR_List_bgimg+')"><table width="140" border="0" cellspacing="0" cellpadding="0"><tr><td width="'+LR_List_left+'" height="0"></td><td></td></tr>';
+
+
+//请开始修改 部门名称
+var lr_key;
+//如果部门"市场部"存在，则输出其HTML
+lr_key=escape("代理商服务").toUpperCase();
+if(typeof(ServerKindlist[lr_key]) != 'undefined')
+	LiveReceptionCode_need_help_html+=outputServKindlist(ServerKindlist[lr_key].name,ServerKindlist[lr_key].id,ServerKindlist[lr_key].state);
+//如果服务项目"意见和投诉"存在，则输出其HTML
+lr_key=escape("意见和投诉").toUpperCase();
+if(typeof(ServerKindlist[lr_key]) != 'undefined')
+	LiveReceptionCode_need_help_html+=outputServKindlist(ServerKindlist[lr_key].name,ServerKindlist[lr_key].id,ServerKindlist[lr_key].state);
+//还可以增加多个自定义部门...
+	
+
+LiveReceptionCode_need_help_html+='</table></td></tr><tr><td><img src="'+LR_List_downimg+'"  width="'+LR_List_w+'" /></td></tr></table>';
+
+//-->
+</script>
+
+<script language=""javascript"">function LR_showminiDiv2(){};var LR_showminiDiv_no=1;</script>  
+<script language="javascript" src="http://swt.gongsibao.com/JS/LsJS.aspx?siteid=MGF22027130&lng=cn"></script>
+</body>
+</html>

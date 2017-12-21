@@ -65,11 +65,29 @@ org.netsharp.panda.commerce.TreegridPart = org.netsharp.panda.commerce.ListPart.
 					this.edit(row.id);
 				}
 			},
+			onLoadSuccess:function(row, data){
+				
+				var roots = $("#" + this.context.id).treegrid('getRoots');
+				if(roots.length>0){
+					
+					var me = this;
+					$(roots).each(function(i,root){
+						
+						$("#" + me.context.id).treegrid('expandAll',root.id);
+					});
+				}
+			},
+			onSelect : function(row) {
+
+				$("#" + this.context.id).treegrid('toggle',row.id);
+			},
 			setStyle : function() {
 
 				var height = $('body').height() - 150 - $('#queryFrom').height();
 				$("#" + this.context.id).treegrid('resize', {
 					height:height,
 				});
+				
+				
 			}
 		});
