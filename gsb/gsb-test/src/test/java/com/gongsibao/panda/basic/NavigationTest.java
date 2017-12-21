@@ -18,7 +18,7 @@ public class NavigationTest extends NavigationBase {
 	public void setup() {
 		this.treeName = "基础配置";
 		this.treePath = "panda/gsb/u8";
-		this.resourceNode = "GSB_Basic";
+		this.resourceNode = "GSB_Basic";//资源节点node名称
 	}
 
 	public void createAccodions() {

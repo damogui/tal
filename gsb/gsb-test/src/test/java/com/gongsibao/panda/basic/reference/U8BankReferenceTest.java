@@ -14,12 +14,12 @@ public class U8BankReferenceTest extends ReferenceCreationBase{
 	@Before
 	public void setup() {
 		
-		resourceNodeCode =  "U8_" + U8Bank.class.getSimpleName();
+		resourceNodeCode =  "GSB_Basic_U8_" + U8Bank.class.getSimpleName();
 		datagridName = referenceName = "预付科目参照";
 		referenceCode = U8Bank.class.getSimpleName();
 		intelligentMode = IntelligentMode.LIKE;
 		intelligentFields = "name";
-		filter = "type='1'";
+		//filter = "type='0'";
 	}
 
 	public PDatagrid createDatagrid(ResourceNode node) {

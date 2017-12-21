@@ -41,7 +41,7 @@ public class ResourceTest extends ResourceCreationBase {
 
 		String prefix = ResourceTest.resourcePrefix;
 		ResourceNode node1 = null;
-		node1 = this.createResourceNodeCategory("U8配置", prefix + "_U8", node.getId());
+		node1 = this.createResourceNodeCategory("U8配置", prefix + "_U8", node.getId());//【prefix + "_U8"】这个才是资源节点
 		{
 			this.createResourceNodeVoucher(SetOfBooks.class.getName(), "账套列表", node1.getCode() + "_" + SetOfBooks.class.getSimpleName(), ISetOfBooksService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(U8Bank.class.getName(), "科目银行", node1.getCode() + "_" + U8Bank.class.getSimpleName(), IU8BankService.class.getName(), node1.getId());

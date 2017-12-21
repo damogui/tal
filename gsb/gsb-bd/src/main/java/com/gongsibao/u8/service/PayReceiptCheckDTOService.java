@@ -33,7 +33,7 @@ public class PayReceiptCheckDTOService extends PersistableService<PayReceiptChec
 		StringBuffer sqlBuffer = new StringBuffer();
 		sqlBuffer.append("SELECT * FROM ( ");
 		sqlBuffer.append("SELECT p.`pkid` as id, oi.`pkid` orderId, oi.`no` orderNo,oi.`payable_price` 'payablePrice',oi.`paid_price` 'paidPrice', p.`receipt_no` 'receiptNo',p.`receipt_status` 'receiptStatus',p.`amount`, ");
-		sqlBuffer.append("book.`name` 'bookName',ub.`abbreviation` 'bankName',oi.`add_time` 'addTime', ");
+		sqlBuffer.append("book.`name` 'bookName',book.`id` 'bookId',ub.`abbreviation` 'bankName',ub.`id` 'bankId',oi.`add_time` 'addTime', ");
 		sqlBuffer.append("p.confirm_time 'returnTime' ");
 		sqlBuffer.append("FROM so_pay p ");
 		sqlBuffer.append("JOIN so_order_pay_map opm ON p.`pkid`=opm.`pay_id` ");
