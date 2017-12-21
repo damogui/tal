@@ -8,7 +8,6 @@ import org.netsharp.communication.ServiceFactory;
 import org.netsharp.util.DateManage;
 
 import com.gongsibao.entity.uc.UserOrganizationMap;
-import com.gongsibao.report.base.IPerformanceStatisticsService;
 import com.gongsibao.uc.base.IUserOrganizationMapService;
 
 public class HanWeiTest {

@@ -9,11 +9,6 @@ import com.gongsibao.entity.report.customer.CustomerDayGrowView;
 import com.gongsibao.entity.report.customer.CustomerMonthGrowView;
 import com.gongsibao.entity.report.customer.CustomerWeekGrowView;
 import com.gongsibao.entity.report.customer.CustomerYearGrowView;
-import com.gongsibao.report.base.IPerformanceStatisticsService;
-import com.gongsibao.report.base.customer.ICustomerDayGrowViewService;
-import com.gongsibao.report.base.customer.ICustomerMonthGrowViewService;
-import com.gongsibao.report.base.customer.ICustomerWeekGrowViewService;
-import com.gongsibao.report.base.customer.ICustomerYearGrowViewService;
 
 public class ResourceTest extends ResourceCreationBase{
 
