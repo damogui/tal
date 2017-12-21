@@ -7,10 +7,6 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.report.PerformanceStatistics;
 import com.gongsibao.entity.report.customer.BaseCustomerReportEntity;
-import com.gongsibao.entity.report.customer.CustomerDistrictReport;
-import com.gongsibao.entity.report.customer.CustomerProductReport;
-import com.gongsibao.entity.report.customer.CustomerSourceReport;
-import com.gongsibao.entity.report.customer.CustomerStatusReport;
 import com.gongsibao.report.base.IPerformanceStatisticsService;
 
 public class ResourceTest extends ResourceCreationBase{
@@ -57,14 +53,6 @@ public class ResourceTest extends ResourceCreationBase{
 		node1 = this.createResourceNodeCategory("客户统计", prefix + "_Customer", node.getId());
 		{
 
-//			this.createResourceNodeVoucher(CustomerDayGrowView.class.getName(), "日增长量统计", node1.getCode() + "_Day", ICustomerDayGrowViewService.class.getName(), node1.getId());
-//			this.createResourceNodeVoucher(CustomerWeekGrowView.class.getName(), "周增长量统计", node1.getCode() + "_Week", ICustomerWeekGrowViewService.class.getName(), node1.getId());
-//			this.createResourceNodeVoucher(CustomerMonthGrowView.class.getName(), "月增长量统计", node1.getCode() + "_Month", ICustomerMonthGrowViewService.class.getName(), node1.getId());
-//			/*this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "季增长", node1.getCode() + "_Season", IPerformanceStatisticsService.class.getName(), node1.getId());
-//			this.createResourceNodeVoucher(PerformanceStatistics.class.getName(), "半年增长", node1.getCode() + "_HalfYear", IPerformanceStatisticsService.class.getName(), node1.getId());*/			
-//			this.createResourceNodeVoucher(CustomerYearGrowView.class.getName(), "年增长量统计", node1.getCode() + "_Year", ICustomerYearGrowViewService.class.getName(), node1.getId());
-			
-			
 			this.createResourceNodeVoucher(BaseCustomerReportEntity.class.getName(), "年统计", node1.getCode() + "_Year", IPersistableService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(BaseCustomerReportEntity.class.getName(), "月统计", node1.getCode() + "_Moth", IPersistableService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(BaseCustomerReportEntity.class.getName(), "周统计", node1.getCode() + "_Week", IPersistableService.class.getName(), node1.getId());
