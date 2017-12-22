@@ -1,4 +1,4 @@
-package com.gongsibao.report.web;
+package com.gongsibao.report.web.dataReport;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -132,13 +132,7 @@ public class CustomerReportPart extends TreegridPart {
 		return null;
 	}
 
-	protected BaseCustomerReportEntity replenishEntity(BaseCustomerReportEntity entity, DataTable dataTable) {
-		for (IRow row : dataTable) {
-			Integer newCount = row.getInteger("newCount");
-			Integer newShareCount = row.getInteger("newShareCount");
-			entity.setNewCount(newCount);
-			entity.setNewShareCount(newShareCount);
-		}
+	protected BaseCustomerReportEntity replenishEntity(BaseCustomerReportEntity entity, DataTable dataTable) {		
 		
 		return entity;
 	}

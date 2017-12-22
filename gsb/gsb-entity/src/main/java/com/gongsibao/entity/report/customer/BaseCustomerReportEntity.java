@@ -81,6 +81,19 @@ public class BaseCustomerReportEntity extends Persistable{
 	 */   
 	private Integer newShareCount = 0;
 
+	/**   
+     * @Fields date : TODO(客户状态名称)   
+     */   
+    private String statusName;
+    
+	public String getStatusName() {
+		return statusName;
+	}
+
+	public void setStatusName(String statusName) {
+		this.statusName = statusName;
+	}
+
 	public Integer getId() {
 		return id;
 	}
