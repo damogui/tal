@@ -217,23 +217,23 @@ org.netsharp.controls.DateBoxQueryItem = org.netsharp.controls.Control.Extends({
 //            qp.Filter = this.propertyName + ">=@" + this.propertyName;
 //            qp.Filter = this.propertyName + ">='" + qp.Value+"'";
         	
-        	if(interval === 'true'){
-        		
-        		var operation = $("#shortcut_"+this.propertyName).combobox("getValue");
-        		
-        		if(operation == "="){
-
-            		qp.Filter =  "DATE_FORMAT('"+this.propertyName+"','%Y-%m-%d')='"+qp.Value+"' "
-//        			
-        		}else{
-
-            		qp.Filter = this.propertyName + operation +"'" + qp.Value + " 00:00:00' ";
-        		}
-        		
-        	}else{
+//        	if(interval === 'true'){
+//        		
+//        		var operation = $("#shortcut_"+this.propertyName).datebox("getValue");
+//        		
+//        		if(operation == "="){
+//
+//            		qp.Filter =  "DATE_FORMAT('"+this.propertyName+"','%Y-%m-%d')='"+qp.Value+"' "
+////        			
+//        		}else{
+//
+//            		qp.Filter = this.propertyName + operation +"'" + qp.Value + " 00:00:00' ";
+//        		}
+//        		
+//        	}else{
 
                 qp.Filter = this.propertyName + ">='" + qp.Value + " 00:00:00' ";
-        	}
+//        	}
         }
         else {
 //            qp.Filter = this.propertyName + "<@" + this.propertyName;
@@ -478,7 +478,7 @@ org.netsharp.controls.MonthBoxQueryItem = org.netsharp.controls.EnumBoxQueryItem
         qp.DbType = "String";
         qp.Value = propertyValue[0];
 
-        qp.Filter = this.propertyName.replace("_",".") + " ='" + propertyValue + "'";
+        qp.Filter = this.propertyName.replace("_",".") + " =" + propertyValue;
         return qp;
     }
 });

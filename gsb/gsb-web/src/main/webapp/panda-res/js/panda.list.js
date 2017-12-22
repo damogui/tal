@@ -450,6 +450,16 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 
 	doQuery : function(filter) {
 
+		var urls = this.getFilters(filter);
+		var url = urls.join("&");
+		url = System.Url.getUrl(url);
+		url = encodeURI(url);
+		this.resetUrl(url);
+		// this.reload();
+	},
+	
+	getFilters:function(filter){
+		
 		var filters = [];
 		if (!System.isnull(this.context.defaultFilter)) {
 			filters.push(this.context.defaultFilter);
@@ -470,11 +480,7 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 			urls.push("filter=" + where.replace(/=/g, "|"));
 		}
 		this.addExtraParams(urls);//添加额外的查询参数,如果客户端重写这个参数，那么控制器里需要重写一个方法
-		var url = urls.join("&");
-		url = System.Url.getUrl(url);
-		url = encodeURI(url);
-		this.resetUrl(url);
-		// this.reload();
+		return urls;
 	},
 	
 	logQuery : function (filter) {
