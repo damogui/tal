@@ -1,4 +1,4 @@
-package com.gongsibao.report.web.statusReport;
+package com.gongsibao.report.web.DistrictReport;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -17,7 +17,7 @@ import org.netsharp.util.StringManager;
 import com.gongsibao.entity.report.customer.BaseCustomerReportEntity;
 import com.gongsibao.uc.base.IOrganizationService;
 
-public class CustomerAbstrStatusReportPart extends TreegridPart{
+public class CustomerAbstrDistrReportPart extends TreegridPart{
 
 	IOrganizationService organizationService = ServiceFactory.create(IOrganizationService.class);
 
@@ -48,29 +48,8 @@ public class CustomerAbstrStatusReportPart extends TreegridPart{
 		String endDate = dataMap.get("endDate").replace("'", "");
 		//获取客户新增数量
 		StringBuilder cmdNewCountSql=new StringBuilder();
-		cmdNewCountSql.append("SELECT three.newCustomer,three.newShareCustomer,three.days,dic.name from(");
-		cmdNewCountSql.append("SELECT one.follow_status as followStatus,one.pkid,one.days,sum(one.newCustomer) newCustomer,");
-		cmdNewCountSql.append("sum(IFNULL(two.newShareCustomer,0)) newShareCustomer");
-		cmdNewCountSql.append(" from(SELECT c.pkid,c.follow_status,");
-		cmdNewCountSql.append("DATE_FORMAT(c.add_time,'%Y-%m-%d') as days,");
-		cmdNewCountSql.append("count(distinct c.pkid) newCustomer");
-		cmdNewCountSql.append(" from crm_customer c");
-		cmdNewCountSql.append(" where c.add_time <='"+endDate+"' and c.add_time >= '"+startDate+"'");
-		cmdNewCountSql.append(" group by days");
-		cmdNewCountSql.append(" ORDER BY days desc) as one");
-		cmdNewCountSql.append(" LEFT JOIN(SELECT");
-		cmdNewCountSql.append(" DATE_FORMAT(s.share_time,'%Y-%m-%d') days,");
-		cmdNewCountSql.append("count(distinct s.customer_id) as newShareCustomer");
-		cmdNewCountSql.append(" from crm_customer c");
-		cmdNewCountSql.append(" LEFT JOIN crm_customer_share s");
-		cmdNewCountSql.append(" on c.pkid=s.customer_id");
-		cmdNewCountSql.append(" where s.share_time <='"+endDate+"' and s.share_time >= '"+startDate+"'");
-		cmdNewCountSql.append(" group by days");
-		cmdNewCountSql.append(" ORDER BY days desc) as two");
-		cmdNewCountSql.append(" on one.days=two.days");
-		cmdNewCountSql.append(" group by one.follow_status) as three");
-		cmdNewCountSql.append(" LEFT JOIN bd_dict as dic");
-		cmdNewCountSql.append(" on three.followStatus = dic.pkid");
+		cmdNewCountSql.append("");
+		
 		DataTable dtNewCount = organizationService.executeTable(cmdNewCountSql.toString(), null);
 		return dtNewCount;
 	}

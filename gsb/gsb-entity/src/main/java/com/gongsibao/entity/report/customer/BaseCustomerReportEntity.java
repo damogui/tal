@@ -85,7 +85,32 @@ public class BaseCustomerReportEntity extends Persistable{
      * @Fields date : TODO(客户状态名称)   
      */   
     private String statusName;
+    /**   
+     * @Fields date : TODO(客户来源名称)   
+     */   
+    private String sourceName;
+    /**   
+     * @Fields date : TODO(客户来源线上、线下)   
+     */   
+    private String lineName;
     
+    
+	public String getLineName() {
+		return lineName;
+	}
+
+	public void setLineName(String lineName) {
+		this.lineName = lineName;
+	}
+
+	public String getSourceName() {
+		return sourceName;
+	}
+
+	public void setSourceName(String sourceName) {
+		this.sourceName = sourceName;
+	}
+
 	public String getStatusName() {
 		return statusName;
 	}
