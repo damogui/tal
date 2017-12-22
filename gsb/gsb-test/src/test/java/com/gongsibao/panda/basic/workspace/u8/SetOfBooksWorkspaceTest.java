@@ -46,7 +46,7 @@ public class SetOfBooksWorkspaceTest extends WorkspaceCreationBase  {
 		PDatagridColumn column = null;
 		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "senderNo", "外部系统编号", ControlTypes.TEXT_BOX, 80);
-		column = addColumn(datagrid, "type", "类型", ControlTypes.TEXT_BOX, 100);{
+		column = addColumn(datagrid, "type", "类型", ControlTypes.ENUM_BOX, 100);{
 			column.setAlign(DatagridAlign.CENTER);
 		}
 		addColumn(datagrid, "taxRate", "税率", ControlTypes.DECIMAL_BOX, 100);	
@@ -69,7 +69,7 @@ public class SetOfBooksWorkspaceTest extends WorkspaceCreationBase  {
 		form.setColumnCount(2);
 		addFormField(form, "name", "名称", null, ControlTypes.TEXT_BOX, true, false);		
 		addFormField(form, "senderNo", "外部系统编号", null, ControlTypes.TEXT_BOX, true, false);
-		addFormField(form, "type", "类型", null, ControlTypes.TEXT_BOX, true, false);
+		addFormField(form, "type", "类型", null, ControlTypes.ENUM_BOX, true, false);
 		PFormField field = addFormField(form, "taxRate", "税率", null, ControlTypes.DECIMAL_BOX, true, false);		{
 			field.setPrecision(3);
 		}

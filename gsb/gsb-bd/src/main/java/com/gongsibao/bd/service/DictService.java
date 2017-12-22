@@ -13,14 +13,14 @@ import com.gongsibao.entity.bd.Dict;
 @Service
 public class DictService extends PersistableService<Dict> implements IDictService {
 
-    public DictService(){
-        super();
-        this.type=Dict.class;
-    }
+	public DictService() {
+		super();
+		this.type = Dict.class;
+	}
 
 	@Override
 	public List<Dict> byType(Integer type) {
-		
+
 		Oql oql = new Oql();
 		{
 			oql.setType(this.type);
@@ -33,7 +33,7 @@ public class DictService extends PersistableService<Dict> implements IDictServic
 
 	@Override
 	public List<Dict> byParentId(Integer parentId) {
-		
+
 		Oql oql = new Oql();
 		{
 			oql.setType(this.type);

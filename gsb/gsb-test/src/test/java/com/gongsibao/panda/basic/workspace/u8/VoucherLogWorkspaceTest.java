@@ -94,37 +94,14 @@ public class VoucherLogWorkspaceTest extends WorkspaceCreationBase {
 
 		field = addFormField(form, "xmlParam", "传入的参数", ControlTypes.TEXTAREA, true, false);
 		{
-			// field.setWidth(300);
+			field.setWidth(600);
 			field.setHeight(350);
 		}
 		field = addFormField(form, "xmlReturn", "返回值", ControlTypes.TEXTAREA, false, false);
 		{
-			// field.setWidth(300);
+			field.setWidth(600);
 			field.setHeight(350);
 		}
-		// addFormField(form, "code", "科目编号", ControlTypes.TEXT_BOX, true,
-		// false);
-		// addFormField(form, "abbreviation", "简称", ControlTypes.TEXT_BOX,
-		// false, false);
-		// //addFormFieldRefrence(form, "setOfBooks.name", "账套名称",null,
-		// SetOfBooks.class.getSimpleName(), false, false);
-		// addFormField(form, "type", "类型", ControlTypes.ENUM_BOX, true, false);
-		// addFormField(form, "supplierId", "u8供应商id", ControlTypes.TEXT_BOX,
-		// false, false);
-		// addFormFieldRefrence(form, "prepaySubject.name", "预付科目",null,
-		// U8Bank.class.getSimpleName(), false, false);
-		// addFormField(form, "personnelId", "u8人员id", ControlTypes.TEXT_BOX,
-		// false, false);
-		// addFormField(form, "deptId", "u8部门id", ControlTypes.TEXT_BOX, false,
-		// false);
-		// PFormField field = addFormField(form, "taxRate", "税率", null,
-		// ControlTypes.DECIMAL_BOX, true, false); {
-		// field.setPrecision(3);
-		// }
-		// addFormField(form, "sort", "排序编号", ControlTypes.NUMBER_BOX, false,
-		// false);
-		// addFormField(form, "enabled", "是否可用", ControlTypes.SWITCH_BUTTON,
-		// false, false);
 
 		return form;
 	}
