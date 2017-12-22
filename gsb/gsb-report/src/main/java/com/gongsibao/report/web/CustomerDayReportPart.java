@@ -12,18 +12,17 @@ public class CustomerDayReportPart extends CustomerReportPart {
 	@Override
 	protected HashMap<String, String> getDate(HashMap<String, String> filterMap) {
 
-		HashMap<String, String> map= new HashMap<String, String>();
-		String year = this.map.get("year");
-		String month = this.map.get("month");
-		String startDate = year + "-" + month + "-" + "01 00:00:00";
-		String endDate = year + "-" + month + "-" + "31 59:59:59";//这里天要取每个月的最后 天，还没处理
+		HashMap<String, String> map = new HashMap<String, String>();
+		String startDate = filterMap.get("date>");
+		String endDate = filterMap.get("date<");
 		map.put("startDate", startDate);
 		map.put("endDate", endDate);
 		return map;
 	}
-	
+
 	@Override
-	protected BaseCustomerReportEntity replenishEntity(BaseCustomerReportEntity entity,DataTable dataTable) {
+	protected BaseCustomerReportEntity replenishEntity(
+			BaseCustomerReportEntity entity, DataTable dataTable) {
 
 		if (this.map.size() > 0) {
 
@@ -35,9 +34,11 @@ public class CustomerDayReportPart extends CustomerReportPart {
 				entity.setYear(Integer.parseInt(year));
 			}
 
-			if (!StringManager.isNullOrEmpty(startDate) && !StringManager.isNullOrEmpty(endDate)) {
+			if (!StringManager.isNullOrEmpty(startDate)
+					&& !StringManager.isNullOrEmpty(endDate)) {
 
-				String day = startDate.substring(1, 11) + " 至 " + endDate.substring(1, 11);
+				String day = startDate.substring(1, 11) + " 至 "
+						+ endDate.substring(1, 11);
 				entity.setDate(day);
 			}
 		}
