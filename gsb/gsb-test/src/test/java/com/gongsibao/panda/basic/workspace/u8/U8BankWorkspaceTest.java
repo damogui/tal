@@ -76,6 +76,8 @@ public class U8BankWorkspaceTest extends WorkspaceCreationBase {
 		queryProject.toNew();
 		addQueryItem(queryProject, "name", "名称", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "type", "类型", ControlTypes.ENUM_BOX);
+		// 参照
+		addRefrenceQueryItem(queryProject, "setOfBooks.name", "账套", SetOfBooks.class.getSimpleName());
 		return queryProject;
 	}
 	
