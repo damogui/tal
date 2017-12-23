@@ -41,7 +41,7 @@ public class CustomerStatusReportPart extends CustomerReportPart{
 		
 		
 		
-		String cmdText = "";
+		String cmdText = "    ";
 		
 		DataTable dataTable = organizationService.executeTable(cmdText, qps);
 		return dataTable;
