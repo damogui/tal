@@ -14,7 +14,7 @@ import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.report.customer.BaseCustomerReportEntity;
-import com.gongsibao.report.web.CustomerMonthReportPart;
+import com.gongsibao.report.web.dataReport.CustomerMonthReportPart;
 
 public class MonthReportWorkspaceTest extends WorkspaceCreationBase{
 
