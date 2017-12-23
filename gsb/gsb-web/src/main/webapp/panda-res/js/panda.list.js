@@ -438,11 +438,14 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 		this.queryModel.collectControl();
 		var qpc = this.queryModel.getQueryParameters();
 		var filters = [];
+		if(qpc == false){
+
+			return;
+		}
 		for ( var i = 0; i < qpc.length; i++) {
 
 			filters.push(qpc[i].Filter);
 		}
-
 		var filter = filters.join(" AND ");
 		this.doQuery(filter);
 		this.logQuery(filter);

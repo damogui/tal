@@ -12,22 +12,22 @@ import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.entity.report.customer.BaseCustomerReportEntity;
-import com.gongsibao.report.web.CustomerDayReportPart;
+import com.gongsibao.entity.report.customer.CustomerDistrictReport;
+import com.gongsibao.report.web.CustomerDistrictReportPart;
 
 public class DistrictReportWorkspaceTest extends WorkspaceCreationBase{
 
 	@Override
 	@Before
 	public void setup() {
-		entity = BaseCustomerReportEntity.class;
-		urlList = "/report/customer/year";
+		entity = CustomerDistrictReport.class;
+		urlList = "/report/customer/district";
 		listPartName = formPartName = "年统计";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_Report_Customer_Day";
+		resourceNodeCode = "GSB_Report_Customer_District";
 		listPartType = PartType.TREEGRID_PART.getId();
-		listPartServiceController = CustomerDayReportPart.class.getName();
+		listPartServiceController = CustomerDistrictReportPart.class.getName();
 	}
 
 	@Override
@@ -35,10 +35,10 @@ public class DistrictReportWorkspaceTest extends WorkspaceCreationBase{
 
 		PDatagrid datagrid = super.createDatagrid(node);
 		datagrid.setAutoQuery(false);
-		datagrid.setTreeField("orgName");
+		datagrid.setTreeField("districtName");
 		PDatagridColumn column = null;
 
-		column = addColumn(datagrid, "orgName", "部门", ControlTypes.TEXT_BOX, 250, true);
+		column = addColumn(datagrid, "districtName", "地区", ControlTypes.TEXT_BOX, 250, true);
 		column = addColumn(datagrid, "date", "日期", ControlTypes.TEXT_BOX, 200);
 		column = addColumn(datagrid, "newCount", "新增数量", ControlTypes.NUMBER_BOX, 100);
 		column = addColumn(datagrid, "newShareCount", "分享数量", ControlTypes.NUMBER_BOX, 90);
@@ -61,13 +61,10 @@ public class DistrictReportWorkspaceTest extends WorkspaceCreationBase{
 		
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
-		PQueryItem item = null;
-		addRefrenceQueryItem(queryProject, "department.shortName", "部门", "Gsb_Organization");
-		item = addQueryItem(queryProject, "date", "日期", ControlTypes.DATE_BOX);
-		{
-			item.setInterzone(true);
-			item.setShortcut(true);
+		PQueryItem item = addQueryItem(queryProject, "date", "日期", ControlTypes.DATE_BOX);{
+			item.setRequired(true);
 		}
+		addRefrenceQueryItem(queryProject, "department.shortName", "部门", "Gsb_Organization");
 		return queryProject;
 	}
 

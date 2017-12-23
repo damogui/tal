@@ -26,7 +26,7 @@ org.netsharp.panda.QueryController = System.Object.Extends({
         var isValidate = $("#queryFrom").form('validate');
         if(!isValidate){
         	
-        	return null;
+        	return false;
         }
 
         this.collectControl();

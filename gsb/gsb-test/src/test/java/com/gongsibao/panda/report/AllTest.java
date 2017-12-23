@@ -5,7 +5,11 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import com.gongsibao.panda.report.workspace.customer.DayReportWorkspaceTest;
+import com.gongsibao.panda.report.workspace.customer.DistrictReportWorkspaceTest;
 import com.gongsibao.panda.report.workspace.customer.MonthReportWorkspaceTest;
+import com.gongsibao.panda.report.workspace.customer.ProductReportWorkspaceTest;
+import com.gongsibao.panda.report.workspace.customer.SourceReportWorkspaceTest;
+import com.gongsibao.panda.report.workspace.customer.StatusReportWorkspaceTest;
 import com.gongsibao.panda.report.workspace.customer.WeekReportWorkspaceTest;
 import com.gongsibao.panda.report.workspace.customer.YearReportWorkspaceTest;
 
@@ -48,10 +52,10 @@ import com.gongsibao.panda.report.workspace.customer.YearReportWorkspaceTest;
 	 WeekReportWorkspaceTest.class,
 	 YearReportWorkspaceTest.class,
 	 
-//	 DistrictReportWorkspaceTest.class,
-//	 ProductReportWorkspaceTest.class,
-//	 SourceReportWorkspaceTest.class,
-//	 StatusReportWorkspaceTest.class,
+	 DistrictReportWorkspaceTest.class,
+	 ProductReportWorkspaceTest.class,
+	 SourceReportWorkspaceTest.class,
+	 StatusReportWorkspaceTest.class,
 	 NavigationTest.class
 	
 })

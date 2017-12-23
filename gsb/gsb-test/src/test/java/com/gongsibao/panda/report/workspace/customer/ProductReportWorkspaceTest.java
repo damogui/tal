@@ -12,7 +12,8 @@ import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.entity.report.PerformanceStatistics;
+import com.gongsibao.entity.report.customer.CustomerProductReport;
+import com.gongsibao.report.web.CustomerProductReportPart;
 
 public class ProductReportWorkspaceTest extends WorkspaceCreationBase{
 
@@ -20,34 +21,36 @@ public class ProductReportWorkspaceTest extends WorkspaceCreationBase{
 	@Override
 	@Before
 	public void setup() {
-		entity = PerformanceStatistics.class;
-		urlList = "/report/perfrmance/department/day";
+		entity = CustomerProductReport.class;
+		urlList = "/report/customer/product";
 		listPartName = formPartName = "部门日统计";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_Report_Department_Perfrmance_Day";
-		listFilter = "dateType=5 and organizationType=2";
+		resourceNodeCode = "GSB_Report_Customer_Product";
 		listPartType = PartType.TREEGRID_PART.getId();
+		listPartServiceController =CustomerProductReportPart.class.getName();
 	}
 
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
 
+
 		PDatagrid datagrid = super.createDatagrid(node);
 		datagrid.setAutoQuery(false);
-		datagrid.setTreeField("department_shortName");
+		datagrid.setTreeField("districtName");
 		PDatagridColumn column = null;
 
-		column = addColumn(datagrid, "department.shortName", "部门", ControlTypes.TEXT_BOX, 250, true);
-		column = addColumn(datagrid, "date", "日期", ControlTypes.DATE_BOX, 100, true);
-		column = addColumn(datagrid, "receivableAmount", "应收金额", ControlTypes.DECIMAL_FEN_BOX, 90);
-		column = addColumn(datagrid, "paidAmount", "实收金额", ControlTypes.DECIMAL_FEN_BOX, 90);
-		column = addColumn(datagrid, "refundAmount", "退款金额", ControlTypes.DECIMAL_FEN_BOX, 90);
-		column = addColumn(datagrid, "netReceivables", "净应收", ControlTypes.DECIMAL_FEN_BOX, 90);
-		column = addColumn(datagrid, "netPaidAmount", "净实收", ControlTypes.DECIMAL_FEN_BOX, 90);
-		column = addColumn(datagrid, "productCount", "销售量", ControlTypes.NUMBER_BOX, 80);
-		column = addColumn(datagrid, "orderCount", "订单量", ControlTypes.NUMBER_BOX, 80);
+		column = addColumn(datagrid, "districtName", "地区", ControlTypes.TEXT_BOX, 250, true);
+		column = addColumn(datagrid, "date", "日期", ControlTypes.TEXT_BOX, 200);
+		column = addColumn(datagrid, "newCount", "新增数量", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "newShareCount", "分享数量", ControlTypes.NUMBER_BOX, 90);
 		column = addColumn(datagrid, "parentId", "parentId", ControlTypes.TEXT_BOX, 100);
+		{
+			column.setVisible(false);
+			column.setSystem(true);
+		}
+		
+		column = addColumn(datagrid, "isLeaf", "isLeaf", ControlTypes.TEXT_BOX, 100);
 		{
 			column.setVisible(false);
 			column.setSystem(true);
@@ -61,12 +64,10 @@ public class ProductReportWorkspaceTest extends WorkspaceCreationBase{
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
 		PQueryItem item = null;
-		addRefrenceQueryItem(queryProject, "department.shortName", "部门", "Gsb_Organization");
-		item = addQueryItem(queryProject, "date", "日期", ControlTypes.DATE_BOX);
-		{
-			item.setInterzone(true);
-			item.setShortcut(true);
+		item = addQueryItem(queryProject, "date", "日期", ControlTypes.DATE_BOX);{
+			item.setRequired(true);
 		}
+		addRefrenceQueryItem(queryProject, "department.shortName", "部门", "Gsb_Organization");
 		return queryProject;
 	}
 

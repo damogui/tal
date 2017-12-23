@@ -114,7 +114,7 @@ public class CustomerReportPart extends TreegridPart {
 				for (String s : ss) {
 
 					String[] a = s.split("=");
-					map.put(a[0].trim(), a[1].trim());
+					map.put(a[0].trim(), a[1].trim().replaceAll("'", ""));
 				}
 				return map;
 			}
