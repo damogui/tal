@@ -41,6 +41,7 @@ public class PerfrmanceDepartmentSeasonService extends AbstractPerfrmanceDepartm
 		for (IRow row : dataTable) {
 
 			PerformanceStatistics entity = this.create(row);
+			entity = this.getStatisticsService().save(entity);
 			list.add(entity);
 		}
 

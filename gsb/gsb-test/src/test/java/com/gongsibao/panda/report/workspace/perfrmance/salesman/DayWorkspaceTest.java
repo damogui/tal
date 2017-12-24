@@ -31,11 +31,11 @@ public class DayWorkspaceTest extends WorkspaceCreationBase {
 	protected PDatagrid createDatagrid(ResourceNode node) {
 
 		PDatagrid datagrid = super.createDatagrid(node);
-		datagrid.setTreeField("salesman_name");
+		datagrid.setAutoQuery(false);
 		PDatagridColumn column = null;
 
-		column = addColumn(datagrid, "salesman.name", "业务员", ControlTypes.TEXT_BOX, 100, true);
-		column = addColumn(datagrid, "date", "日期", ControlTypes.DATE_BOX, 100, true);
+		column = addColumn(datagrid, "salesman.name", "业务员", ControlTypes.TEXT_BOX, 100);
+		column = addColumn(datagrid, "date", "日期", ControlTypes.DATE_BOX, 100);
 		column = addColumn(datagrid, "receivableAmount", "应收金额", ControlTypes.DECIMAL_FEN_BOX, 90);
 		column = addColumn(datagrid, "paidAmount", "实收金额", ControlTypes.DECIMAL_FEN_BOX, 90);
 		column = addColumn(datagrid, "refundAmount", "退款金额", ControlTypes.DECIMAL_FEN_BOX, 90);
@@ -56,11 +56,13 @@ public class DayWorkspaceTest extends WorkspaceCreationBase {
 		
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
-		PQueryItem item = addQueryItem(queryProject, "department.shortName", "部门", ControlTypes.TEXT_BOX);
+		PQueryItem item = null;
 		item = addQueryItem(queryProject, "date", "日期", ControlTypes.DATE_BOX);
 		{
-			item.setInterzone(true);
-			item.setShortcut(true);
+			item.setRequired(true);
+		}
+		item = addRefrenceQueryItem(queryProject, "department.shortName", "部门", "Gsb_Organization");{
+			item.setRequired(true);
 		}
 		return queryProject;
 	}

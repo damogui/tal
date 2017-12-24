@@ -53,7 +53,6 @@ public class OrganizationService extends PersistableService<Organization> implem
 		Oql oql = new Oql();
 		{
 			oql.setType(this.type);
-			oql.setSelects("*");
 			oql.setFilter("pid=?");
 			oql.getParameters().add("pid", departmentId, Types.INTEGER);
 		}
@@ -85,5 +84,62 @@ public class OrganizationService extends PersistableService<Organization> implem
 		Integer parentDepartementId = getParentDepartementId(departmentId);
 		List<Integer> idList = getChildDepartmentIdList(parentDepartementId);
 		return idList;
+	}
+
+	@Override
+	public List<Integer> getLeafIdList(Integer departmentId) {
+
+		List<Integer> idList = new ArrayList<Integer>();
+		SelectBuilder builder = SelectBuilder.getInstance();
+		{
+			builder.select("pkid,is_leaf");
+			builder.from(MtableManager.getMtable(this.type).getTableName());
+			builder.where("pid=?");
+		}
+
+		QueryParameters qps = new QueryParameters();
+		qps.add("pid", departmentId, Types.INTEGER);
+
+		DataTable dataTable = this.pm.executeTable(builder.toSQL(), qps);
+		for (IRow row : dataTable) {
+
+			Integer id = row.getInteger("pkid");
+			Boolean isLeaf = row.getBoolean("is_leaf");
+			if (isLeaf) {
+
+				idList.add(id);
+			} else {
+
+				List<Integer> leafIdList = getLeafIdList(id);
+				idList.addAll(leafIdList);
+			}
+		}
+		return idList;
+	}
+
+	@Override
+	public List<Organization> getChildList(Integer departmentId) {
+
+		List<Organization> childList = new ArrayList<Organization>();
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects("*");
+			oql.setFilter("pid=?");
+			oql.getParameters().add("pid", departmentId, Types.INTEGER);
+		}
+
+		List<Organization> list = this.queryList(oql);
+		for (Organization o : list) {
+
+			List<Organization> items = getChildList(o.getId());
+			if(items.size() > 0){
+				
+				o.setItems(items);
+			}
+
+			childList.add(o);
+		}
+		return childList;
 	}
 }

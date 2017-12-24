@@ -32,14 +32,14 @@ public class MonthWorkspaceTest extends WorkspaceCreationBase{
 	protected PDatagrid createDatagrid(ResourceNode node) {
 
 		PDatagrid datagrid = super.createDatagrid(node);
-		datagrid.setTreeField("salesman_name");
+		datagrid.setAutoQuery(false);
 		PDatagridColumn column = null;
 
-		column = addColumn(datagrid, "salesman.name", "业务员", ControlTypes.TEXT_BOX, 100, true);
-		column = addColumn(datagrid, "year", "年份", ControlTypes.TEXT_BOX, 100, true);{
+		column = addColumn(datagrid, "salesman.name", "业务员", ControlTypes.TEXT_BOX, 100);
+		column = addColumn(datagrid, "year", "年份", ControlTypes.TEXT_BOX, 100);{
 			column.setAlign(DatagridAlign.CENTER);
 		}
-		column = addColumn(datagrid, "month", "月份", ControlTypes.TEXT_BOX, 100, true);{
+		column = addColumn(datagrid, "month", "月份", ControlTypes.TEXT_BOX, 100);{
 			column.setAlign(DatagridAlign.CENTER);
 		}
 		column = addColumn(datagrid, "receivableAmount", "应收金额", ControlTypes.DECIMAL_FEN_BOX, 90);
@@ -63,16 +63,15 @@ public class MonthWorkspaceTest extends WorkspaceCreationBase{
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
 		
-		PQueryItem item = addQueryItem(queryProject, "department.shortName", "部门", ControlTypes.TEXT_BOX);
-	    item = addQueryItem(queryProject, "year", "年", ControlTypes.YEAR_BOX);
-		{
-			item.setInterzone(true);
-			item.setShortcut(true);
+		PQueryItem item = null;
+		item = addQueryItem(queryProject, "year", "年", ControlTypes.YEAR_BOX);{
+	    	item.setRequired(true);
+	    }
+		item = addQueryItem(queryProject, "month", "月份", ControlTypes.MONTH_BOX);{
+			item.setRequired(true);
 		}
-		item = addQueryItem(queryProject, "month", "日期", ControlTypes.MONTH_BOX);
-		{
-			item.setInterzone(true);
-			item.setShortcut(true);
+		item = addRefrenceQueryItem(queryProject, "department.shortName", "部门", "Gsb_Organization");{
+			item.setRequired(true);
 		}
 		return queryProject;
 	}

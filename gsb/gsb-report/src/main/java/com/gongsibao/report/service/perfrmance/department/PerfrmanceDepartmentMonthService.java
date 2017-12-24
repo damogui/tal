@@ -31,17 +31,20 @@ public class PerfrmanceDepartmentMonthService extends AbstractPerfrmanceDepartme
 			builder.groupBy("department_id");
 		}
 
-		QueryParameters qps = new QueryParameters();
-		qps.add("year", this.context.getYear(), Types.INTEGER);
-		qps.add("month", this.context.getMonth(), Types.INTEGER);
-		qps.add("dateType", ReportDateType.DAY.getValue(), Types.INTEGER);
-		qps.add("organizationType", ReportOrganizationType.DEPARTMENT.getValue(), Types.INTEGER);
+		QueryParameters qps = new QueryParameters();{
+
+			qps.add("year", this.context.getYear(), Types.INTEGER);
+			qps.add("month", this.context.getMonth(), Types.INTEGER);
+			qps.add("dateType", ReportDateType.DAY.getValue(), Types.INTEGER);
+			qps.add("organizationType", ReportOrganizationType.DEPARTMENT.getValue(), Types.INTEGER);
+		}
 		DataTable dataTable = this.pm.executeTable(builder.toSQL(), qps);
 
 		List<PerformanceStatistics> list = new ArrayList<PerformanceStatistics>();
 		for (IRow row : dataTable) {
 
 			PerformanceStatistics entity = this.create(row);
+			entity = this.getStatisticsService().save(entity);
 			list.add(entity);
 		}
 		

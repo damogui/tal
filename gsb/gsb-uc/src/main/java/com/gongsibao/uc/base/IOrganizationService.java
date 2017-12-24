@@ -49,4 +49,25 @@ public interface IOrganizationService extends IPersistableService<Organization> 
 	 * @throws   
 	 */
 	List<Integer> getLateralDepartementIdList(Integer departmentId);
+	
+	/**   
+	 * @Title: getLeafIdList   
+	 * @Description: TODO(获取所有子部门集合，递归)   
+	 * @param: @param departmentId
+	 * @param: @return      
+	 * @return: List<Integer>      
+	 * @throws   
+	 */
+	List<Organization> getChildList(Integer departmentId);
+	
+	
+	/**   
+	 * @Title: getLeafIdList   
+	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @param: @param departmentId
+	 * @param: @return      
+	 * @return: List<Integer>      
+	 * @throws   
+	 */
+	List<Integer> getLeafIdList(Integer departmentId);
 }

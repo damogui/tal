@@ -17,12 +17,10 @@ org.netsharp.panda.commerce.TreegridPart = org.netsharp.panda.commerce.ListPart
 				if (count > 1) {
 
 					IMessageBox.info("只能选择一条记录!");
-
 					return;
 				} else if (count == 0) {
 
 					IMessageBox.info("选择记录后才能新增子节点!");
-
 					return;
 				}
 
@@ -43,7 +41,7 @@ org.netsharp.panda.commerce.TreegridPart = org.netsharp.panda.commerce.ListPart
 			},
 			onBeforeExpand : function(row) {
 
-				if (row) {
+				if (this.context.lazy && row) {
 					
 					this.queryModel.collectControl();
 					var qpc = this.queryModel.getQueryParameters();
@@ -62,8 +60,10 @@ org.netsharp.panda.commerce.TreegridPart = org.netsharp.panda.commerce.ListPart
 			},
 			onLoadSuccess : function(row, data) {
 
-				var vid = this.context.vid;
-				$("#" + this.context.id).treegrid("options").url = '/panda/rest/service?vid='+ vid + '&method=query';
+				if(this.context.lazy){
+
+					$("#" + this.context.id).treegrid("options").url = '/panda/rest/service?vid='+ this.context.vid + '&method=query';
+				}
 			},
 			resetUrl : function(url) {
 

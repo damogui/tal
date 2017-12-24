@@ -217,23 +217,14 @@ org.netsharp.controls.DateBoxQueryItem = org.netsharp.controls.Control.Extends({
 //            qp.Filter = this.propertyName + ">=@" + this.propertyName;
 //            qp.Filter = this.propertyName + ">='" + qp.Value+"'";
         	
-//        	if(interval === 'true'){
-//        		
-//        		var operation = $("#shortcut_"+this.propertyName).datebox("getValue");
-//        		
-//        		if(operation == "="){
-//
-//            		qp.Filter =  "DATE_FORMAT('"+this.propertyName+"','%Y-%m-%d')='"+qp.Value+"' "
-////        			
-//        		}else{
-//
-//            		qp.Filter = this.propertyName + operation +"'" + qp.Value + " 00:00:00' ";
-//        		}
-//        		
-//        	}else{
+        	if(interval === 'true'){
+        		
+        		 qp.Filter = this.propertyName + ">='" + qp.Value + " 00:00:00' ";
+        		
+        	}else{
 
-                qp.Filter = this.propertyName + ">='" + qp.Value + " 00:00:00' ";
-//        	}
+                qp.Filter = this.propertyName + ">='" + qp.Value + " 00:00:00' and "+this.propertyName + "<='" + qp.Value + " 23:59:59' ";
+        	}
         }
         else {
 //            qp.Filter = this.propertyName + "<@" + this.propertyName;

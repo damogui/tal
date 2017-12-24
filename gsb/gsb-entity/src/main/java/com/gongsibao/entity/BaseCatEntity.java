@@ -27,6 +27,8 @@ public abstract class BaseCatEntity extends BaseEntity{
 	@Column(name = "short_name", header = "注：组织名称")
 	private String shortName;
 	
+
+	
 	public String getShortName() {
 		return shortName;
 	}
@@ -74,4 +76,5 @@ public abstract class BaseCatEntity extends BaseEntity{
 	public void setName(String name) {
 		this.name = name;
 	}
+
 }
