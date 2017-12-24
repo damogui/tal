@@ -85,24 +85,24 @@ public class PerfrmanceSalesmanDayService extends AbstractPerfrmanceSalesmanServ
 					Integer netPayablePrice = Integer.parseInt(row.getString("netPayablePrice"));
 					Integer netGetAmout = Integer.parseInt(row.getString("netGetAmout"));
 
-					// entity.setReceivableAmount(payablePrice);
-					// entity.setPaidAmount(getAmout);
-					// entity.setRefundAmount(refundAmount);
-					// entity.setNetReceivables(netPayablePrice);
-					// entity.setNetPaidAmount(netGetAmout);
-					// entity.setProductCount(salesCount);
-					// entity.setOrderCount(orderCount);
+					 entity.setReceivableAmount(payablePrice);
+					 entity.setPaidAmount(getAmout);
+					 entity.setRefundAmount(refundAmount);
+					 entity.setNetReceivables(netPayablePrice);
+					 entity.setNetPaidAmount(netGetAmout);
+					 entity.setProductCount(salesCount);
+					 entity.setOrderCount(orderCount);
 				}
 			}
-			int a = 1000;
-			entity.setReceivableAmount(a);
-			entity.setPaidAmount(a);
-			entity.setRefundAmount(a);
-			entity.setNetReceivables(a);
-			entity.setNetPaidAmount(a);
-			entity.setProductCount(a);
-			entity.setOrderCount(a);
-			this.getStatisticsService().save(entity);
+//			int a = 1000;
+//			entity.setReceivableAmount(a);
+//			entity.setPaidAmount(a);
+//			entity.setRefundAmount(a);
+//			entity.setNetReceivables(a);
+//			entity.setNetPaidAmount(a);
+//			entity.setProductCount(a);
+//			entity.setOrderCount(a);
+//			this.getStatisticsService().save(entity);
 		}
 
 		System.out.println("ok......");
