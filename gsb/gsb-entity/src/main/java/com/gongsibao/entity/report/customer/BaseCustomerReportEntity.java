@@ -82,19 +82,59 @@ public class BaseCustomerReportEntity extends Persistable{
 	private Integer newShareCount = 0;
 
 	/**   
-     * @Fields date : TODO(客户状态名称)   
+     * @Fields date : TODO(客户状态===名称)   
      */   
     private String statusName;
     /**   
-     * @Fields date : TODO(客户来源名称)   
+     * @Fields date : TODO(客户来源===名称)   
      */   
     private String sourceName;
     /**   
-     * @Fields date : TODO(客户来源线上、线下)   
+     * @Fields date : TODO(客户来源===线上、线下)   
      */   
     private String lineName;
+    /**   
+     * @Fields date : TODO(意向地区===区)   
+     */   
+    private String zone;
+    /**   
+     * @Fields date : TODO(意向地区===市)   
+     */   
+    private String city;
+    /**   
+     * @Fields date : TODO(意向地区===省)   
+     */   
+    private String province;
     
     
+    
+    
+    
+	
+    public String getZone() {
+		return zone;
+	}
+
+	public void setZone(String zone) {
+		this.zone = zone;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
 	public String getLineName() {
 		return lineName;
 	}

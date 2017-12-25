@@ -37,6 +37,7 @@ public class DayReportWorkspaceTest extends WorkspaceCreationBase{
 		PDatagrid datagrid = super.createDatagrid(node);
 		datagrid.setAutoQuery(false);
 		datagrid.setTreeField("orgName");
+		datagrid.setLazy(true);
 		PDatagridColumn column = null;
 
 		column = addColumn(datagrid, "orgName", "部门", ControlTypes.TEXT_BOX, 300, true);

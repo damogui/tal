@@ -5,28 +5,30 @@ import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
-import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.entity.report.customer.CustomerStatusReport;
-import com.gongsibao.report.web.CustomerStatusReportPart;
+import com.gongsibao.entity.report.customer.BaseCustomerReportEntity;
+import com.gongsibao.report.web.statusReport.CustomerStatusReportPart;
+
+
 
 public class StatusReportWorkspaceTest extends WorkspaceCreationBase{
 
 	@Override
 	@Before
 	public void setup() {
-		entity = CustomerStatusReport.class;
+		entity = BaseCustomerReportEntity.class;
 		urlList = "/report/customer/status";
-		listPartName = formPartName = "状态统计";
+		listPartName = formPartName = "客户状态统计";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_Report_Customer_Status";
-		listPartType = PartType.TREEGRID_PART.getId();
+		//不是树形列表不需要添加
+		//listPartType = PartType.TREEGRID_PART.getId();
 		listPartServiceController =CustomerStatusReportPart.class.getName();
 	}
 
@@ -35,22 +37,11 @@ public class StatusReportWorkspaceTest extends WorkspaceCreationBase{
 
 		PDatagrid datagrid = super.createDatagrid(node);
 		datagrid.setAutoQuery(false);
+		datagrid.setLazy(true);
 		PDatagridColumn column = null;
-		column = addColumn(datagrid, "orgName", "状态", ControlTypes.TEXT_BOX, 250, true);
-		column = addColumn(datagrid, "date", "日期", ControlTypes.TEXT_BOX, 200);
+		column = addColumn(datagrid, "statusName", "客户状态", ControlTypes.TEXT_BOX, 150, true);
 		column = addColumn(datagrid, "newCount", "新增数量", ControlTypes.NUMBER_BOX, 100);
 		column = addColumn(datagrid, "newShareCount", "分享数量", ControlTypes.NUMBER_BOX, 90);
-		column = addColumn(datagrid, "parentId", "parentId", ControlTypes.TEXT_BOX, 100);
-		{
-			column.setVisible(false);
-			column.setSystem(true);
-		}
-		
-		column = addColumn(datagrid, "isLeaf", "isLeaf", ControlTypes.TEXT_BOX, 100);
-		{
-			column.setVisible(false);
-			column.setSystem(true);
-		}
 		return datagrid;
 	}
 

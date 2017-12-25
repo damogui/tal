@@ -38,6 +38,7 @@ public class ProductReportWorkspaceTest extends WorkspaceCreationBase{
 		PDatagrid datagrid = super.createDatagrid(node);
 		datagrid.setAutoQuery(false);
 		datagrid.setTreeField("districtName");
+		datagrid.setLazy(true);
 		PDatagridColumn column = null;
 
 		column = addColumn(datagrid, "districtName", "地区", ControlTypes.TEXT_BOX, 250, true);
