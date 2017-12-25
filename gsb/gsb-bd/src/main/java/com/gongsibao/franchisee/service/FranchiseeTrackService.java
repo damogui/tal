@@ -1,8 +1,10 @@
 package com.gongsibao.franchisee.service;
 
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.netsharp.authorization.UserPermissionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
@@ -13,6 +15,8 @@ import org.netsharp.organization.entity.Employee;
 import org.netsharp.organization.entity.Organization;
 import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.service.PersistableService;
+import org.netsharp.util.StringManager;
+import org.netsharp.wx.ea.base.IEaMessageService;
 
 import com.gongsibao.entity.franchisee.Franchisee;
 import com.gongsibao.entity.franchisee.FranchiseeTrack;
@@ -99,7 +103,7 @@ public class FranchiseeTrackService extends PersistableService<FranchiseeTrack> 
 
 			content += "的【" + employee.getName() + "】";
 		}
-		
+
 		for (String franchiseeId : ss) {
 
 			FranchiseeTrack track = this.newInstance();
@@ -109,6 +113,30 @@ public class FranchiseeTrackService extends PersistableService<FranchiseeTrack> 
 				track.setTrackType(FranchiseeTrackType.SYSTEM);
 			}
 			this.save(track);
+		}
+		
+		sendWxMessage(ss,ownerId);
+	}
+
+	private void sendWxMessage(String[] ids, Integer ownerId) {
+
+		IEaMessageService eMessageService = ServiceFactory.create(IEaMessageService.class);
+		String executor = UserPermissionManager.getUserPermission().getEmployee().getName();
+
+		IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
+		Employee owner = employeeService.byId(ownerId);
+
+		for (String franchiseeId : ids) {
+
+			List<String> ss = new ArrayList<String>();
+			ss.add("【分配提醒】" + executor + "分配了1个客户给" + owner.getName());
+			ss.add("请及时跟进");
+			ss.add("<a href=\"http://netsharp.gongsibao.com/nav/wx/qy/bd/franchiseeDetail?id=" + franchiseeId + "\">查看详情</a>");
+			String content = StringManager.join("，", ss);
+			List<String> ls = new ArrayList<String>();
+			ls.add(UserPermissionManager.getUserPermission().getEmployee().getMobile());
+			ls.add(owner.getMobile());
+			eMessageService.send("BD", content, StringManager.join("|", ls));
 		}
 	}
 
