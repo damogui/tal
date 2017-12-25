@@ -15,6 +15,7 @@ import org.netsharp.panda.commerce.ListPart;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.report.customer.BaseCustomerReportEntity;
+import com.gongsibao.entity.report.customer.CustomerProductReport;
 import com.gongsibao.uc.base.IOrganizationService;
 
 public class CustomerAbstrProductReportPart extends ListPart{
@@ -50,7 +51,7 @@ public class CustomerAbstrProductReportPart extends ListPart{
 		List<BaseCustomerReportEntity> resultList = new ArrayList<>();
 		DataTable getDt = getDataTable(map,orgaId);
 		for (IRow row : getDt) {
-			BaseCustomerReportEntity entity = new BaseCustomerReportEntity();
+			CustomerProductReport entity = new CustomerProductReport();
 			Integer newCustomer = Integer.parseInt(row.getString("newCustomer"));
 			Integer newShareCustomer = Integer.parseInt(row.getString("newShareCustomer"));
 			String prodName = row.getString("prodName");

@@ -81,119 +81,8 @@ public class BaseCustomerReportEntity extends Persistable{
 	 */   
 	private Integer newShareCount = 0;
 
-	/**   
-     * @Fields date : TODO(客户状态===名称)   
-     */   
-    private String statusName;
-    /**   
-     * @Fields date : TODO(客户来源===名称)   
-     */   
-    private String sourceName;
-    /**   
-     * @Fields date : TODO(客户来源===线上、线下)   
-     */   
-    private String lineName;
-    /**   
-     * @Fields date : TODO(意向地区===区)   
-     */   
-    private String zone;
-    /**   
-     * @Fields date : TODO(意向地区===市)   
-     */   
-    private String city;
-    /**   
-     * @Fields date : TODO(意向地区===省)   
-     */   
-    private String province;
-    /**   
-     * @Fields date : TODO(意向产品===产品名称)   
-     */   
-    private String prodName;
-    /**   
-     * @Fields date : TODO(意向产品===产品子类别)   
-     */   
-    private String prodSubClass;
-    /**   
-     * @Fields date : TODO(意向产品===产品类别)   
-     */   
-    private String prodCategory;
-    
-    
-    
-    
 	
-    public String getProdName() {
-		return prodName;
-	}
-
-	public void setProdName(String prodName) {
-		this.prodName = prodName;
-	}
-
-	public String getProdSubClass() {
-		return prodSubClass;
-	}
-
-	public void setProdSubClass(String prodSubClass) {
-		this.prodSubClass = prodSubClass;
-	}
-
-	public String getProdCategory() {
-		return prodCategory;
-	}
-
-	public void setProdCategory(String prodCategory) {
-		this.prodCategory = prodCategory;
-	}
-
-	public String getZone() {
-		return zone;
-	}
-
-	public void setZone(String zone) {
-		this.zone = zone;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getProvince() {
-		return province;
-	}
-
-	public void setProvince(String province) {
-		this.province = province;
-	}
-
-	public String getLineName() {
-		return lineName;
-	}
-
-	public void setLineName(String lineName) {
-		this.lineName = lineName;
-	}
-
-	public String getSourceName() {
-		return sourceName;
-	}
-
-	public void setSourceName(String sourceName) {
-		this.sourceName = sourceName;
-	}
-
-	public String getStatusName() {
-		return statusName;
-	}
-
-	public void setStatusName(String statusName) {
-		this.statusName = statusName;
-	}
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -305,6 +194,4 @@ public class BaseCustomerReportEntity extends Persistable{
 	public void setDate(String date) {
 		this.date = date;
 	}
-	
-	
 }

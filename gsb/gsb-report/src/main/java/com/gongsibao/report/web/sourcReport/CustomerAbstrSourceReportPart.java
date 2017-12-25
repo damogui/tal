@@ -15,6 +15,7 @@ import org.netsharp.panda.commerce.ListPart;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.report.customer.BaseCustomerReportEntity;
+import com.gongsibao.entity.report.customer.CustomerSourceReport;
 import com.gongsibao.uc.base.IOrganizationService;
 
 public class CustomerAbstrSourceReportPart extends ListPart{
@@ -55,7 +56,7 @@ public class CustomerAbstrSourceReportPart extends ListPart{
 		int offLineSharCustomerCount=0;
 		for (IRow row : getDt) {
 			if(row.getString("pkid")!=null){
-				BaseCustomerReportEntity entity = new BaseCustomerReportEntity();
+				CustomerSourceReport entity = new CustomerSourceReport();
 				Integer pkid = Integer.parseInt(row.getString("pkid"));
 				Integer newCustomer = Integer.parseInt(row.getString("newCustomer"));
 				Integer newShareCustomer = Integer.parseInt(row.getString("newShareCustomer"));
@@ -77,7 +78,7 @@ public class CustomerAbstrSourceReportPart extends ListPart{
 		}
 		//填充2行统计
 		for (int i=0;i<=1;i++) {
-			BaseCustomerReportEntity entity = new BaseCustomerReportEntity();
+			CustomerSourceReport entity = new CustomerSourceReport();
 			switch (i) {
 			case 0:
 				entity.setLineName("线上");

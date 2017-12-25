@@ -3,12 +3,11 @@ package com.gongsibao.entity.report.customer;
 import org.netsharp.core.annotations.Id;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
-import org.netsharp.entity.Persistable;
 
 import com.gongsibao.entity.bd.Dict;
 
 @Table(isView=true, name = "")
-public class CustomerDistrictReport extends Persistable{
+public class CustomerDistrictReport extends BaseCustomerReportEntity{
 
 	/**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
@@ -26,80 +25,68 @@ public class CustomerDistrictReport extends Persistable{
 	 */   
 	private Integer parentId;
 	
-	/**   
-	 * @Fields orgName : TODO(地区名称)   
-	 */   
-	private String districtName;
-	
     @Reference(foreignKey="districtId")
 	private Dict district;
 
 	private Integer districtId;
 	
-	
 	/**   
-	 * @Fields newCount : TODO(新增用户数)   
-	 */   
-	private Integer count = 0;
-	
-	/**   
-	 * @Fields newShareCount : TODO(新增分享数)   
-	 */   
-	private Integer shareCount = 0;
-
+     * @Fields date : TODO(区)   
+     */   
+    private String zone;
+    /**   
+     * @Fields date : TODO(市)   
+     */   
+    private String city;
+    /**   
+     * @Fields date : TODO(省)   
+     */   
+    private String province;
+    
+    
+    
+    
+    
 	public Integer getId() {
 		return id;
 	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 	public Integer getParentId() {
 		return parentId;
 	}
-
 	public void setParentId(Integer parentId) {
 		this.parentId = parentId;
 	}
-
-	public String getDistrictName() {
-		return districtName;
-	}
-
-	public void setDistrictName(String districtName) {
-		this.districtName = districtName;
-	}
-
 	public Dict getDistrict() {
 		return district;
 	}
-
 	public void setDistrict(Dict district) {
 		this.district = district;
 	}
-
 	public Integer getDistrictId() {
 		return districtId;
 	}
-
 	public void setDistrictId(Integer districtId) {
 		this.districtId = districtId;
 	}
-
-	public Integer getCount() {
-		return count;
+	public String getZone() {
+		return zone;
 	}
-
-	public void setCount(Integer count) {
-		this.count = count;
+	public void setZone(String zone) {
+		this.zone = zone;
 	}
-
-	public Integer getShareCount() {
-		return shareCount;
+	public String getCity() {
+		return city;
 	}
-
-	public void setShareCount(Integer shareCount) {
-		this.shareCount = shareCount;
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getProvince() {
+		return province;
+	}
+	public void setProvince(String province) {
+		this.province = province;
 	}
 }
