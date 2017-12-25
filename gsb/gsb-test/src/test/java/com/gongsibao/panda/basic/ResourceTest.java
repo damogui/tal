@@ -6,15 +6,15 @@ import org.netsharp.meta.base.ResourceCreationBase;
 import org.netsharp.resourcenode.IResourceNodeService;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
+import com.gongsibao.bd.base.IDictService;
+import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.trade.dto.ManualVoucherOrderDTO;
 import com.gongsibao.entity.trade.dto.PayReceiptCheckDTO;
-import com.gongsibao.entity.trade.dto.ReceivablesAuditDTO;
 import com.gongsibao.entity.u8.SetOfBooks;
 import com.gongsibao.entity.u8.U8Bank;
 import com.gongsibao.entity.u8.VoucherLog;
 import com.gongsibao.u8.base.IManualVoucherOrderDTOService;
 import com.gongsibao.u8.base.IPayReceiptCheckDTOService;
-import com.gongsibao.u8.base.IReceivablesAuditDTOService;
 import com.gongsibao.u8.base.ISetOfBooksService;
 import com.gongsibao.u8.base.IU8BankService;
 import com.gongsibao.u8.base.IVoucherLogService;
@@ -41,6 +41,12 @@ public class ResourceTest extends ResourceCreationBase {
 
 		String prefix = ResourceTest.resourcePrefix;
 		ResourceNode node1 = null;
+		
+		node1 = this.createResourceNodeCategory("字典管理", prefix + "_Dict", node.getId());
+		{
+			this.createResourceNodeVoucher(Dict.class.getName(), "字典管理", node1.getCode() + "_" + Dict.class.getSimpleName(), IDictService.class.getName(), node1.getId());
+		}
+		
 		node1 = this.createResourceNodeCategory("U8配置", prefix + "_U8", node.getId());
 		{
 			this.createResourceNodeVoucher(SetOfBooks.class.getName(), "账套列表", node1.getCode() + "_" + SetOfBooks.class.getSimpleName(), ISetOfBooksService.class.getName(), node1.getId());

@@ -15,7 +15,7 @@ public class SetOfBooksReferenceTest extends ReferenceCreationBase{
 	@Before
 	public void setup() {
 		
-		resourceNodeCode =  "U8_" + SetOfBooks.class.getSimpleName();
+		resourceNodeCode =  "GSB_Basic_U8_" + SetOfBooks.class.getSimpleName();//资源节点
 		datagridName = referenceName = "账套参照";
 		referenceCode = SetOfBooks.class.getSimpleName();
 		intelligentMode = IntelligentMode.LIKE;
