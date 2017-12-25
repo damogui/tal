@@ -27,7 +27,7 @@ import org.junit.runners.Suite.SuiteClasses;
 //	com.gongsibao.panda.crm.AllTest.class,
 	
     //3.招商CRM
-	com.gongsibao.panda.franchisee.AllTest.class,
+//	com.gongsibao.panda.franchisee.AllTest.class,
 	
     //4.股转中心
 //	com.gongsibao.panda.ma.AllTest.class,
@@ -36,7 +36,7 @@ import org.junit.runners.Suite.SuiteClasses;
 //	com.gongsibao.panda.operation.AllTest.class,
 	
     //6.商品管理
-	//com.gongsibao.panda.product.AllTest.class,
+	com.gongsibao.panda.product.AllTest.class,
 
 	
     //8.交易中心
