@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.netsharp.meta.base.NavigationBase;
 import org.netsharp.panda.plugin.entity.PNavigation;
 
+import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.trade.dto.ManualVoucherOrderDTO;
 import com.gongsibao.entity.trade.dto.PayReceiptCheckDTO;
 import com.gongsibao.entity.trade.dto.ReceivablesAuditDTO;
@@ -30,6 +31,11 @@ public class NavigationTest extends NavigationBase {
 	@Override
 	protected void doCreateTree(PNavigation tree) {
 
+		createPTreeNode(tree, null, "fa fa-file-o fa-fw", "GSB_Basic_Config", "基础信息", "", 1);//一级菜单
+		{
+			createPTreeNode(tree, "GSB_Basic_Config", null, "GSB_Basic_Config_" + Dict.class.getSimpleName(), "数据字典", "/basic/config/dict/list", 1);//二级菜单
+		}
+		
 		createPTreeNode(tree, null, "fa fa-file-o fa-fw", "GSB_Basic_U8", "U8配置", "", 1);//一级菜单
 		{
 			createPTreeNode(tree, "GSB_Basic_U8", null, "GSB_Basic_U8_" + SetOfBooks.class.getSimpleName(), "账套列表", "/basic/u8/setofBbooks/list", 1);//二级菜单

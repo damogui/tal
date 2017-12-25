@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import com.gongsibao.panda.basic.workspace.config.DictWorkspaceTest;
 import com.gongsibao.panda.basic.workspace.u8.ManualVoucherOrderDTOWorkspaceTest;
 import com.gongsibao.panda.basic.workspace.u8.PayReceiptCheckDTOWorkspaceTest;
 import com.gongsibao.panda.basic.workspace.u8.ReceivablesAuditDTOWorkspaceTest;
@@ -17,6 +18,8 @@ import com.gongsibao.panda.basic.workspace.u8.VoucherLogWorkspaceTest;
 
 	ResourceTest.class, 
 
+	DictWorkspaceTest.class,
+	
 	//U8配置
 	SetOfBooksWorkspaceTest.class,
 	U8BankWorkspaceTest.class,
