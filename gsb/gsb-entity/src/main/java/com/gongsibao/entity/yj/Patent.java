@@ -2,7 +2,9 @@ package com.gongsibao.entity.yj;
 
 import java.sql.Timestamp;
 
+import org.netsharp.core.annotations.Auto;
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Id;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Persistable;
 
@@ -13,7 +15,10 @@ public class Patent extends Persistable {
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 5396904991653098977L;
-	
+	@Id
+	@Auto
+	@Column(name="pkid",header="id")
+	private Integer id;
 	@Column(name="company_id",header="CompanyId")
     private Integer companyId;
     @Column(name="yj_company_id",header="YjCompanyId")

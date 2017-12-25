@@ -1,6 +1,8 @@
 package com.gongsibao.entity.yj;
 
+import org.netsharp.core.annotations.Auto;
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Id;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Persistable;
 
@@ -10,6 +12,11 @@ public class CompanyInvestmentMap extends Persistable {
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 1942000154181691847L;
+	
+	@Id
+	@Auto
+	@Column(name="pkid",header="id")
+	private Integer id;
 	@Column(header="type")
     private Integer type;
     @Column(name="yj_company_id",header="YjCompanyId")
