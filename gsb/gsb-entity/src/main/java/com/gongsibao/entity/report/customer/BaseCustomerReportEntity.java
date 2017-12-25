@@ -105,13 +105,48 @@ public class BaseCustomerReportEntity extends Persistable{
      * @Fields date : TODO(意向地区===省)   
      */   
     private String province;
-    
+    /**   
+     * @Fields date : TODO(意向产品===产品名称)   
+     */   
+    private String prodName;
+    /**   
+     * @Fields date : TODO(意向产品===产品子类别)   
+     */   
+    private String prodSubClass;
+    /**   
+     * @Fields date : TODO(意向产品===产品类别)   
+     */   
+    private String prodCategory;
     
     
     
     
 	
-    public String getZone() {
+    public String getProdName() {
+		return prodName;
+	}
+
+	public void setProdName(String prodName) {
+		this.prodName = prodName;
+	}
+
+	public String getProdSubClass() {
+		return prodSubClass;
+	}
+
+	public void setProdSubClass(String prodSubClass) {
+		this.prodSubClass = prodSubClass;
+	}
+
+	public String getProdCategory() {
+		return prodCategory;
+	}
+
+	public void setProdCategory(String prodCategory) {
+		this.prodCategory = prodCategory;
+	}
+
+	public String getZone() {
 		return zone;
 	}
 

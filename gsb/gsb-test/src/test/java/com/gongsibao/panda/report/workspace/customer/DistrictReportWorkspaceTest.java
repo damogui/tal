@@ -30,7 +30,6 @@ public class DistrictReportWorkspaceTest extends WorkspaceCreationBase{
 
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
-
 		PDatagrid datagrid = super.createDatagrid(node);
 		datagrid.setAutoQuery(false);
 		datagrid.setLazy(true);
@@ -45,7 +44,6 @@ public class DistrictReportWorkspaceTest extends WorkspaceCreationBase{
 
 	@Override
 	protected PQueryProject createQueryProject(ResourceNode node) {
-		
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
 		PQueryItem item = addQueryItem(queryProject, "date", "日期", ControlTypes.DATE_BOX);{
