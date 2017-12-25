@@ -3,12 +3,12 @@ package com.gongsibao.u8.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.netsharp.communication.Service;
 import org.netsharp.core.DataTable;
 import org.netsharp.core.IRow;
 import org.netsharp.service.PersistableService;
+import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.entity.trade.SoOrder;
@@ -41,11 +41,7 @@ public class SoOrderService extends PersistableService<SoOrder> implements ISoOr
 	public Map<Integer, String> getCustNameByOrderIdList(List<Integer> orderIdList) {
 
 		Map<Integer, String> map = new HashMap();
-
-		String orderIds = orderIdList.stream().map(x -> {
-			return x.toString();
-		}).collect(Collectors.joining(","));
-
+		String orderIds = StringManager.join(",",orderIdList);
 		StringBuffer sqlBuffer = new StringBuffer();
 		sqlBuffer.append("SELECT oi.pkid 'orderId', ");
 		sqlBuffer.append("(CASE WHEN (cri1.`pkid` IS NOT NULL AND cri1.`company_name`!='' ) THEN cri1.`company_name`   ");
