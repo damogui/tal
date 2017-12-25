@@ -3,8 +3,6 @@ package com.gongsibao.entity.bd.dic;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
-import com.gongsibao.entity.u8.dic.SetOfBooksType;
-
 public enum DictType implements IEnum  {
 
 	Diqu(101, "地区"), 
