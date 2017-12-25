@@ -1,4 +1,4 @@
-package com.gongsibao.panda.basic.workspace.config;
+package com.gongsibao.panda.basic.workspace;
 
 import org.junit.Before;
 import org.netsharp.core.MtableManager;
