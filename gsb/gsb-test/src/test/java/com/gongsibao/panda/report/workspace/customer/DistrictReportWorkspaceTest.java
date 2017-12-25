@@ -11,7 +11,7 @@ import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.entity.report.customer.BaseCustomerReportEntity;
+import com.gongsibao.entity.report.customer.CustomerDistrictReport;
 import com.gongsibao.report.web.DistrictReport.CustomerDistrReportPart;
 
 public class DistrictReportWorkspaceTest extends WorkspaceCreationBase{
@@ -19,7 +19,7 @@ public class DistrictReportWorkspaceTest extends WorkspaceCreationBase{
 	@Override
 	@Before
 	public void setup() {
-		entity = BaseCustomerReportEntity.class;
+		entity = CustomerDistrictReport.class;
 		urlList = "/report/customer/district";
 		listPartName = formPartName = "意向地区统计";
 		meta = MtableManager.getMtable(entity);
@@ -30,7 +30,6 @@ public class DistrictReportWorkspaceTest extends WorkspaceCreationBase{
 
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
-
 		PDatagrid datagrid = super.createDatagrid(node);
 		datagrid.setAutoQuery(false);
 		datagrid.setLazy(true);
@@ -45,7 +44,6 @@ public class DistrictReportWorkspaceTest extends WorkspaceCreationBase{
 
 	@Override
 	protected PQueryProject createQueryProject(ResourceNode node) {
-		
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
 		PQueryItem item = addQueryItem(queryProject, "date", "日期", ControlTypes.DATE_BOX);{

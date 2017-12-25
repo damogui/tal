@@ -56,7 +56,6 @@ public class ResourceTest extends ResourceCreationBase{
 		
 		node1 = this.createResourceNodeCategory("客户统计", prefix + "_Customer", node.getId());
 		{
-
 			this.createResourceNodeVoucher(BaseCustomerReportEntity.class.getName(), "年统计", node1.getCode() + "_Year", IPersistableService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(BaseCustomerReportEntity.class.getName(), "月统计", node1.getCode() + "_Moth", IPersistableService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(BaseCustomerReportEntity.class.getName(), "周统计", node1.getCode() + "_Week", IPersistableService.class.getName(), node1.getId());

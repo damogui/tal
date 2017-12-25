@@ -11,7 +11,7 @@ import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.entity.report.customer.BaseCustomerReportEntity;
+import com.gongsibao.entity.report.customer.CustomerSourceReport;
 import com.gongsibao.report.web.sourcReport.CustomerSourceReportPart;
 
 public class SourceReportWorkspaceTest extends WorkspaceCreationBase{
@@ -20,7 +20,7 @@ public class SourceReportWorkspaceTest extends WorkspaceCreationBase{
 	@Override
 	@Before
 	public void setup() {
-		entity = BaseCustomerReportEntity.class;
+		entity = CustomerSourceReport.class;
 		urlList = "/report/customer/source";
 		listPartName = formPartName = "客户来源统计";
 		meta = MtableManager.getMtable(entity);

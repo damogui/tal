@@ -12,11 +12,10 @@ import org.netsharp.core.DataTable;
 import org.netsharp.core.IRow;
 import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.ListPart;
-import org.netsharp.panda.commerce.TreegridPart;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.report.customer.BaseCustomerReportEntity;
-import com.gongsibao.entity.uc.Organization;
+import com.gongsibao.entity.report.customer.CustomerStatusReport;
 import com.gongsibao.uc.base.IOrganizationService;
 
 public class CustomerAbstrStatusReportPart extends ListPart{
@@ -52,7 +51,8 @@ public class CustomerAbstrStatusReportPart extends ListPart{
 		List<BaseCustomerReportEntity> resultList = new ArrayList<>();
 		DataTable getDt = getDataTable(map,orgaId);
 		for (IRow row : getDt) {
-			BaseCustomerReportEntity entity = new BaseCustomerReportEntity();
+			CustomerStatusReport entity = new CustomerStatusReport();
+			
 			Integer newCustomer = Integer.parseInt(row.getString("newCustomer"));
 			Integer newShareCustomer = Integer.parseInt(row.getString("newShareCustomer"));
 			String name = row.getString("name");
