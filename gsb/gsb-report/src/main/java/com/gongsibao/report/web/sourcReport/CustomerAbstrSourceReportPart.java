@@ -20,40 +20,64 @@ import com.gongsibao.uc.base.IOrganizationService;
 public class CustomerAbstrSourceReportPart extends ListPart{
 
 	IOrganizationService organizationService = ServiceFactory.create(IOrganizationService.class);
-
 	HashMap<String, String> map;
-	
 	@Override
 	public Object query() throws IOException {
+		this.pdatagrid = this.context.getDatagrid();
+		Integer getOragId=null;
 		Oql oql = new Oql();
+		Object json = null;
+		this.map = getMapFilters();
+		if (this.map.size() > 0) {
+			String departmentId = map.get("departmentId");
+			if (!StringManager.isNullOrEmpty(departmentId)) {
+				getOragId = Integer.parseInt(departmentId.replace("'", "").trim());
+			}
+			List<BaseCustomerReportEntity> rows = getOrganList(getOragId);
+			json = this.serialize(rows, oql);
+		}
+		return json;
+	}
+
+	/**
+	 * 根据组织机构的集合获取 客户报表的实体
+	 * @param 组织机构Id
+	 * @return
+	 */
+	protected List<BaseCustomerReportEntity> getOrganList(Integer orgaId){
+		List<BaseCustomerReportEntity> resultList = new ArrayList<>();
+		DataTable getDt = getDataTable(map,orgaId);
 		List<Integer> getOnLine = OnOffLine.getOnLine();
-		List<Integer> getOffLine = OnOffLine.getOnLine();
-		List<BaseCustomerReportEntity> rows = new ArrayList<BaseCustomerReportEntity>();
-		BaseCustomerReportEntity entity = new BaseCustomerReportEntity();
-		DataTable getDt = getDataTable(map);
+		List<Integer> getOffLine = OnOffLine.getOffLine();
 		int onLineCustomerCount=0;
 		int onLineSharCustomerCount=0;
 		int offLineCustomerCount=0;
 		int offLineSharCustomerCount=0;
 		for (IRow row : getDt) {
-			Integer pkid = Integer.parseInt(row.getString("pkid"));
-			Integer newCustomer = Integer.parseInt(row.getString("newCustomer"));
-			Integer newShareCustomer = Integer.parseInt(row.getString("newShareCustomer"));
-			String name = row.getString("name");
-			entity.setNewCount(newCustomer);
-			entity.setNewShareCount(newShareCustomer);
-			entity.setSourceName(name);
-			if (getOnLine.equals(pkid)) {
-				onLineCustomerCount = newCustomer + onLineCustomerCount;
-				onLineSharCustomerCount = newShareCustomer + onLineSharCustomerCount;
-			}else if(getOffLine.equals(pkid)){
-				offLineCustomerCount = newCustomer + offLineCustomerCount;
-				offLineSharCustomerCount = newShareCustomer + offLineSharCustomerCount;
+			if(row.getString("pkid")!=null){
+				BaseCustomerReportEntity entity = new BaseCustomerReportEntity();
+				Integer pkid = Integer.parseInt(row.getString("pkid"));
+				Integer newCustomer = Integer.parseInt(row.getString("newCustomer"));
+				Integer newShareCustomer = Integer.parseInt(row.getString("newShareCustomer"));
+				String name = row.getString("name");
+				entity.setNewCount(newCustomer);
+				entity.setNewShareCount(newShareCustomer);
+				entity.setSourceName(name);
+				if (getOnLine.contains(pkid)) {
+					entity.setLineName("线上");
+					onLineCustomerCount = newCustomer + onLineCustomerCount;
+					onLineSharCustomerCount = newShareCustomer + onLineSharCustomerCount;
+				}else if(getOffLine.contains(pkid)){
+					entity.setLineName("线下");
+					offLineCustomerCount = newCustomer + offLineCustomerCount;
+					offLineSharCustomerCount = newShareCustomer + offLineSharCustomerCount;
+				}
+				resultList.add(entity);
 			}
-			rows.add(entity);
 		}
 		//填充2行统计
 		for (int i=0;i<=1;i++) {
+			BaseCustomerReportEntity entity = new BaseCustomerReportEntity();
 			switch (i) {
 			case 0:
 				entity.setLineName("线上");
@@ -61,7 +85,6 @@ public class CustomerAbstrSourceReportPart extends ListPart{
 				entity.setNewCount(onLineCustomerCount);
 				entity.setNewShareCount(onLineSharCustomerCount);
 				break;
-
 			default:
 				entity.setLineName("线下");
 				entity.setSourceName("总计");
@@ -69,44 +92,58 @@ public class CustomerAbstrSourceReportPart extends ListPart{
 				entity.setNewShareCount(offLineSharCustomerCount);
 				break;
 			}
-			rows.add(entity);
-		}
-		Object json = this.serialize(rows, oql);
-		return json;
+			resultList.add(entity);
+		}		
+		return resultList;
 	}
-
-	protected DataTable getDataTable(HashMap<String, String> filterMap) {
+	
+	/**
+	 * 根据添加返回客户统计的 状态报表
+	 * @param filterMap 时间段
+	 * @param orgaId 组织机构id。null查询所有的
+	 * @return
+	 */
+	protected DataTable getDataTable(HashMap<String, String> filterMap,Integer orgaId) {
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
 		String endDate = dataMap.get("endDate").replace("'", "");
 		//获取客户新增数量
-		StringBuilder cmdStr=new StringBuilder();
-		cmdStr.append("SELECT three.newCustomer,three.newShareCustomer,dic.`name`,dic.pkid ");
-		cmdStr.append(" from (");
-		cmdStr.append("SELECT one.customer_source as customerSource,one.pkid,one.days,sum(one.newCustomer) newCustomer,");
-		cmdStr.append("sum(IFNULL(two.newShareCustomer,0)) newShareCustomer");
-		cmdStr.append(" from(SELECT c.pkid,c.customer_source,");
-		cmdStr.append("DATE_FORMAT(c.add_time,'%Y-%m-%d') as days,");
-		cmdStr.append("count(distinct c.pkid) newCustomer");
-		cmdStr.append(" from crm_customer c");
-		cmdStr.append(" where c.add_time <='"+endDate+"' and c.add_time >= '"+startDate+"'");
-		cmdStr.append(" group by days");
-		cmdStr.append(" ORDER BY days desc) as one");
-		cmdStr.append(" LEFT JOIN(SELECT");
-		cmdStr.append(" DATE_FORMAT(s.share_time,'%Y-%m-%d') days,");
-		cmdStr.append("count(distinct s.customer_id) as newShareCustomer");
-		cmdStr.append(" from crm_customer c ");
-		cmdStr.append(" LEFT JOIN crm_customer_share s");
-		cmdStr.append(" on c.pkid=s.customer_id");
-		cmdStr.append(" where s.share_time <='"+endDate+"' and s.share_time >= '"+startDate+"'");
-		cmdStr.append(" group by days");
-		cmdStr.append(" ORDER BY days desc) as two");
-		cmdStr.append(" on one.days=two.days");
-		cmdStr.append(" group by one.customer_source) as three");
-		cmdStr.append(" LEFT JOIN bd_dict as dic");
-		cmdStr.append("on three.customerSource=dic.pkid");
-		
-		DataTable dtNewCount = organizationService.executeTable(cmdStr.toString(), null);
+		StringBuilder cmdNewCountSql=new StringBuilder();
+		cmdNewCountSql.append("SELECT dic.pkid,dic.name,three.newCustomer,three.newShareCustomer");
+		cmdNewCountSql.append(" FROM(SELECT one.customer_source as customerSource,");
+		cmdNewCountSql.append("one.newCustomer,IFNULL(two.newShareCustomer,0) AS newShareCustomer");
+		cmdNewCountSql.append(" from (SELECT c.customer_source,");
+		cmdNewCountSql.append("count(distinct c.pkid) newCustomer");
+		cmdNewCountSql.append(" from crm_customer c ");
+		cmdNewCountSql.append("LEFT JOIN uc_user_organization_map m ");
+		cmdNewCountSql.append("ON c.follow_user_id = m.user_id ");
+		cmdNewCountSql.append("LEFT JOIN uc_organization o ");
+		cmdNewCountSql.append("ON m.organization_id = o.pkid ");
+		cmdNewCountSql.append("WHERE c.add_time <='"+endDate+"'");
+		cmdNewCountSql.append(" and c.add_time >= '"+startDate+"'");
+		if(orgaId!=null){
+			cmdNewCountSql.append(" and o.pkid = "+orgaId);
+		}
+		cmdNewCountSql.append(" GROUP BY c.customer_source)as one");
+		cmdNewCountSql.append(" LEFT JOIN(SELECT c.customer_source,");
+		cmdNewCountSql.append("count(distinct s.customer_id) as newShareCustomer ");
+		cmdNewCountSql.append("from crm_customer c ");
+		cmdNewCountSql.append("LEFT JOIN crm_customer_share s ");
+		cmdNewCountSql.append("on c.pkid=s.customer_id ");
+		cmdNewCountSql.append("LEFT JOIN uc_user_organization_map m ");
+		cmdNewCountSql.append("ON s.share_user_id = m.user_id ");
+		cmdNewCountSql.append("LEFT JOIN uc_organization o ");
+		cmdNewCountSql.append("ON m.organization_id = o.pkid ");
+		cmdNewCountSql.append(" where s.share_time <='"+endDate+"'");
+		cmdNewCountSql.append(" and s.share_time >= '"+startDate+"'");
+		if(orgaId!=null){
+			cmdNewCountSql.append(" and o.pkid = "+orgaId);
+		}
+		cmdNewCountSql.append(" GROUP BY c.customer_source)as two");
+		cmdNewCountSql.append(" on one.customer_source=two.customer_source) as three");
+		cmdNewCountSql.append(" LEFT JOIN bd_dict as dic");
+		cmdNewCountSql.append(" on three.customerSource = dic.pkid");
+		DataTable dtNewCount = organizationService.executeTable(cmdNewCountSql.toString(), null);
 		return dtNewCount;
 	}
 

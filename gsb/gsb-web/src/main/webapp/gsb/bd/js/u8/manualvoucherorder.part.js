@@ -72,7 +72,7 @@ com.gongsibao.u8.web.ManualVoucherOrderDTOController = org.netsharp.panda.commer
 						fixed : false,
 						maxmin : false,
 						shadeClose : false,
-						area : [ '600px', '300px' ],
+						area : [ '800px', '350px' ],
 						content : content
 					});
 				});	
@@ -87,7 +87,7 @@ com.gongsibao.u8.web.ManualVoucherOrderDTOController = org.netsharp.panda.commer
 					+'border-color: #666666;'
 					+'border-collapse: collapse;'
 					+'margin-left: 5px;'
-					+'width:550px;'
+					+'width:750px;'
 					+'}'
 					+'table.gridtable th {'
 					+'border-width: 1px;'

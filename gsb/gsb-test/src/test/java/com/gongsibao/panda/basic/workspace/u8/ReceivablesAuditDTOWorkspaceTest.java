@@ -15,6 +15,8 @@ import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.trade.dto.ReceivablesAuditDTO;
+import com.gongsibao.entity.u8.SetOfBooks;
+import com.gongsibao.entity.u8.U8Bank;
 import com.gongsibao.u8.web.ReceivablesAuditDTOController;
 
 public class ReceivablesAuditDTOWorkspaceTest extends WorkspaceCreationBase {
