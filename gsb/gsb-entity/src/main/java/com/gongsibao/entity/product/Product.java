@@ -3,10 +3,12 @@ package com.gongsibao.entity.product;
 import java.util.List;
 
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.bd.Dict;
 
 @Table(name = "prod_product", header = "产品")
 public class Product extends BaseEntity {
@@ -17,10 +19,16 @@ public class Product extends BaseEntity {
 
 	@Column(name = "type_id", header = "产品分类序号，字典表type=201")
 	private Integer typeId;
-
+	
+	@Reference(foreignKey="typeId")
+    private Dict type;
+    
 	@Column(name = "dealer_type_id", header = "销售方类型序号，字典表type=8")
 	private Integer dealerTypeId;
 
+	@Reference(foreignKey="dealerTypeId")
+    private Dict dealerType;
+	
 	@Column(name = "name", header = "产品名称")
 	private String name;
 
@@ -78,7 +86,7 @@ public class Product extends BaseEntity {
 	@Subs(subType = ProductBusiness.class, foreignKey = "productId", header = "归属事业部")
 	private List<ProductBusiness> business;
 	
-	@Subs(subType = ProductService.class, foreignKey = "productId", header = "归属事业部")
+	@Subs(subType = ProductService.class, foreignKey = "productId", header = "产品服务")
 	private List<ProductService> services;
 
 	public Integer getTypeId() {

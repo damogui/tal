@@ -1,7 +1,10 @@
 package com.gongsibao.entity.product;
 
+import java.util.List;
+
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Exclusive;
+import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
@@ -14,15 +17,21 @@ public class ProductPackage extends BaseEntity {
 	@Column(name="name",header="名称")
 	private String name;
 	
-	@Exclusive//这个字段可能是mysql关键字，查询就会报错
-	@Column(name="desc",header="标题（显示名称）")
+	@Exclusive
+	@Column(name="content",header="套餐内容")
+    private String content;
+	
+	@Column(name="desc",header="描述")
     private String desc;
 	
-	@Column(name="sort",header="拍下")
+	@Column(name="sort",header="排序")
     private Integer sort;
     
     @Column(name="is_enabled",header="是否启用")
     private Boolean enabled = true;
+    
+	@Subs(foreignKey="packageId",header="套餐产品明细",subType=PackageProductMap.class)
+	private List<PackageProductMap> maps;
 
     public String getName() {
         return name;
@@ -48,6 +57,16 @@ public class ProductPackage extends BaseEntity {
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
 	}
-
-    
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public List<PackageProductMap> getMaps() {
+		return maps;
+	}
+	public void setMaps(List<PackageProductMap> maps) {
+		this.maps = maps;
+	}
 }

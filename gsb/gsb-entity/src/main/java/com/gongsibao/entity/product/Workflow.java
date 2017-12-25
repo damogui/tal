@@ -1,6 +1,7 @@
 package com.gongsibao.entity.product;
 
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
@@ -12,8 +13,10 @@ public class Workflow extends BaseEntity {
 	 */   
 	private static final long serialVersionUID = 8250604719323841556L;
 
-	  
-	@Column(name="product_id",header="产品序号")
+	@Reference(foreignKey="productId")
+    private Product product;
+	
+	@Column(name="product_id",header="产品")
     private Integer productId;
 	
     @Column(name="form_name",header="表单名称")
@@ -55,6 +58,14 @@ public class Workflow extends BaseEntity {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
     
