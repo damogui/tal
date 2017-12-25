@@ -17,7 +17,7 @@ com.gongsibao.product.web.PackageListPart = org.netsharp.panda.commerce.ListPart
 		this.invokeService("updateEnabled", [id,value], function(data) {
 
 			me.reload();
-			IMessageBox.toast("操作成功！");
+			IMessageBox.toast("操作成功！   ");
 		});
     },
 	onLoadSuccess:function(data){
