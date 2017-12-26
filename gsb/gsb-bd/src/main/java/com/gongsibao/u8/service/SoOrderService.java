@@ -9,6 +9,7 @@ import org.netsharp.communication.Service;
 import org.netsharp.core.DataTable;
 import org.netsharp.core.IRow;
 import org.netsharp.service.PersistableService;
+import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.entity.trade.SoOrder;
@@ -42,9 +43,12 @@ public class SoOrderService extends PersistableService<SoOrder> implements ISoOr
 
 		Map<Integer, String> map = new HashMap();
 
-		String orderIds = orderIdList.stream().map(x -> {
-			return x.toString();
-		}).collect(Collectors.joining(","));
+		/*
+		 * String orderIds = orderIdList.stream().map(x -> { return
+		 * x.toString(); }).collect(Collectors.joining(","));
+		 */
+
+		String orderIds = StringManager.join(",", orderIdList);
 
 		StringBuffer sqlBuffer = new StringBuffer();
 		sqlBuffer.append("SELECT oi.pkid 'orderId', ");
