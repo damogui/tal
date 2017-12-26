@@ -32,9 +32,10 @@ public class SourceReportWorkspaceTest extends WorkspaceCreationBase{
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
 
-		PDatagrid datagrid = super.createDatagrid(node);
-		datagrid.setAutoQuery(false);
-		datagrid.setLazy(true);
+		PDatagrid datagrid = super.createDatagrid(node);{
+			datagrid.setAutoQuery(false);
+			datagrid.setLazy(true);
+		}
 		PDatagridColumn column = null;
 		column = addColumn(datagrid, "lineName", "线上线下", ControlTypes.TEXT_BOX, 150, true);
 		column = addColumn(datagrid, "sourceName", "客户来源", ControlTypes.TEXT_BOX, 150, true);

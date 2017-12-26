@@ -34,8 +34,8 @@ public class CustomerAbstrSourceReportPart extends ListPart{
 			if (!StringManager.isNullOrEmpty(departmentId)) {
 				getOragId = Integer.parseInt(departmentId.replace("'", "").trim());
 			}
-			List<BaseCustomerReportEntity> rows = getOrganList(getOragId);
-			json = this.serialize(rows, oql);
+			List<BaseCustomerReportEntity> rowsList = getOrganList(getOragId);
+			json = this.serialize(rowsList, oql);
 		}
 		return json;
 	}
