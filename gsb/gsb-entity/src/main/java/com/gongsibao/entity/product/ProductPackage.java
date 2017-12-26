@@ -21,6 +21,7 @@ public class ProductPackage extends BaseEntity {
 	@Column(name="content",header="套餐内容")
     private String content;
 	
+	@Exclusive
 	@Column(name="desc",header="描述")
     private String desc;
 	
