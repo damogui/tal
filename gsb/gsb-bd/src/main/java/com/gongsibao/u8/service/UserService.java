@@ -11,6 +11,7 @@ import org.netsharp.core.DataTable;
 import org.netsharp.core.IRow;
 import org.netsharp.panda.controls.other.I;
 import org.netsharp.service.PersistableService;
+import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.uc.User;
 import com.gongsibao.u8.base.IUserService;
@@ -29,9 +30,12 @@ public class UserService extends PersistableService<User> implements IUserServic
 
 		Map<Integer, String> resMap = new HashMap();
 
-		String orderIdsStr = orderIdList.stream().map(x -> {
-			return x.toString();
-		}).collect(Collectors.joining(","));
+		/*
+		 * String orderIdsStr = orderIdList.stream().map(x -> { return
+		 * x.toString(); }).collect(Collectors.joining(","));
+		 */
+
+		String orderIdsStr = StringManager.join(",", orderIdList);
 
 		StringBuffer sqlString = new StringBuffer();
 		sqlString.append("SELECT so_order.pkid 'orderId', uc_user.`real_name` 'operatorName' FROM so_order ");
