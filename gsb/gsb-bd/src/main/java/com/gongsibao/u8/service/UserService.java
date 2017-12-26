@@ -29,8 +29,7 @@ public class UserService extends PersistableService<User> implements IUserServic
 	public Map<Integer, String> getOperatorByOrderIds(List<Integer> orderIdList) {
 
 		Map<Integer, String> resMap = new HashMap();
-
-		String orderIdsStr = StringManager.join(",",orderIdList);
+		String orderIdsStr = StringManager.join(",", orderIdList);
 
 		StringBuffer sqlString = new StringBuffer();
 		sqlString.append("SELECT so_order.pkid 'orderId', uc_user.`real_name` 'operatorName' FROM so_order ");
