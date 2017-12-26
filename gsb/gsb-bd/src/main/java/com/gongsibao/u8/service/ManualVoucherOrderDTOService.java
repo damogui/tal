@@ -1,7 +1,10 @@
 package com.gongsibao.u8.service;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +15,7 @@ import org.netsharp.core.IRow;
 import org.netsharp.core.Oql;
 import org.netsharp.core.Paging;
 import org.netsharp.service.PersistableService;
+import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.trade.dic.OrderIsManualVoucherType;
 import com.gongsibao.entity.trade.dic.OrderManualVoucherStatus;
@@ -33,6 +37,16 @@ public class ManualVoucherOrderDTOService extends PersistableService<ManualVouch
 	public List<ManualVoucherOrderDTO> queryList(Oql oql) {
 
 		String filterString = oql.getFilter();
+		// filterString = StringManager.isNullOrEmpty(filterString) ? "" :
+		// filterString.replace("%", "");
+		HashMap<String, String> mapFilters = new HashMap();
+		try {
+			mapFilters = getMapFilters(filterString);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		Paging paging = oql.getPaging();
 		int startIndex = (paging.getPageNo() - 1) * paging.getPageSize();
 		StringBuffer sqlBuffer = new StringBuffer();
@@ -63,8 +77,28 @@ public class ManualVoucherOrderDTOService extends PersistableService<ManualVouch
 		sqlBuffer.append("oi.add_time 'addTime'  ");
 		sqlBuffer.append("FROM so_order oi  ");
 		sqlBuffer.append("WHERE oi.is_manual_voucher!=0 AND oi.paid_price>0  ");
+		// 订单号
+		if (!StringManager.isNullOrEmpty(mapFilters.get("orderNo"))) {
+			sqlBuffer.append("AND oi.no LIKE " + mapFilters.get("orderNo") + " ");
+		}
+		// 手动原因
+		if (!StringManager.isNullOrEmpty(mapFilters.get("isManualVoucher"))) {
+			sqlBuffer.append("AND oi.is_manual_voucher in " + mapFilters.get("isManualVoucher") + " ");
+		}
+		// 凭证状态
+		if (!StringManager.isNullOrEmpty(mapFilters.get("manualVoucherStatus"))) {
+			sqlBuffer.append("AND oi.manual_voucher_status in " + mapFilters.get("manualVoucherStatus") + " ");
+		}
+		// 订单创建开始时间
+		if (!StringManager.isNullOrEmpty(mapFilters.get("startAddTime"))) {
+			sqlBuffer.append("AND oi.add_time >= " + mapFilters.get("startAddTime") + " ");
+		}
+		// 订单创建结束时间
+		if (!StringManager.isNullOrEmpty(mapFilters.get("endAddTime"))) {
+			sqlBuffer.append("AND oi.add_time <= " + mapFilters.get("endAddTime") + " ");
+		}
 		sqlBuffer.append("ORDER BY oi.pkid DESC )t ");
-		sqlBuffer.append(filterString == null ? "" : " WHERE " + filterString);// 拼接sql语句的where条件
+		sqlBuffer.append(StringManager.isNullOrEmpty(filterString) ? "" : " WHERE " + filterString);// 拼接sql语句的where条件
 		paging.setTotalCount(getqueryListCount(sqlBuffer.toString()));
 		sqlBuffer.append("LIMIT " + startIndex + ", " + paging.getPageSize() + " ");
 		oql.setPaging(paging);
@@ -91,19 +125,6 @@ public class ManualVoucherOrderDTOService extends PersistableService<ManualVouch
 			reslis.add(dto);
 		}
 
-		/*IUserService userService = ServiceFactory.create(IUserService.class);
-		// 根据订单id集合获取订单操作员
-		Map<Integer, String> operatorByOrderIdMap = userService.getOperatorByOrderIds(orderIdList);
-
-		ISoOrderService soOrderService = ServiceFactory.create(ISoOrderService.class);
-		// 根据订单id集合获取订单客户名称
-		Map<Integer, String> custNameByOrderIdList = soOrderService.getCustNameByOrderIdList(orderIdList);
-
-		for (ManualVoucherOrderDTO dto : reslis) {
-			dto.setOperator(operatorByOrderIdMap.get(dto.getId()));
-			dto.setCustName(custNameByOrderIdList.get(dto.getId()));
-		}*/
-
 		return reslis;
 	}
 
@@ -123,4 +144,48 @@ public class ManualVoucherOrderDTOService extends PersistableService<ManualVouch
 		DecimalFormat df = new DecimalFormat("0.00");
 		return Double.parseDouble(df.format((float) a / b));
 	}
+
+	protected HashMap<String, String> getMapFilters(String filter) throws UnsupportedEncodingException {
+
+		HashMap<String, String> map = new HashMap<String, String>();
+
+		if (!StringManager.isNullOrEmpty(filter)) {
+
+			filter = filter.replace("%", "|");
+			filter = URLDecoder.decode(filter, "UTF-8");
+			filter = filter.replace("|", "%");
+			String[] ss = filter.split(" AND ");
+			if (ss.length > 0) {
+
+				for (String s : ss) {
+					String splitString = "=";
+					if (s.contains("LIKE")) {
+						splitString = "LIKE";
+					}
+					if (s.contains("in")) {
+						splitString = "in";
+					}
+					if (s.contains(">=")) {
+						splitString = ">=";
+					}
+					if (s.contains("<=")) {
+						splitString = "<=";
+					}
+					String[] a = s.split(splitString);
+					String mapKeyString = a[0].trim();
+					String mapValString = a[1].trim();
+					if (mapKeyString.equals("addTime") && splitString.equals(">=")) {
+						mapKeyString = "startAddTime";
+					}
+					if (mapKeyString.equals("addTime") && splitString.equals("<=")) {
+						mapKeyString = "endAddTime";
+					}
+					map.put(mapKeyString, mapValString);
+				}
+				return map;
+			}
+		}
+		return map;
+	}
+
 }
