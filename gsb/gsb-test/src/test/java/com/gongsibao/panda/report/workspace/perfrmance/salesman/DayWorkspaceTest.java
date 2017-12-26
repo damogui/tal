@@ -1,6 +1,7 @@
 package com.gongsibao.panda.report.workspace.perfrmance.salesman;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
@@ -9,9 +10,11 @@ import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
+import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.report.PerformanceStatistics;
+import com.gongsibao.report.web.PerformanceStatisticsController;
 
 public class DayWorkspaceTest extends WorkspaceCreationBase {
 
@@ -25,8 +28,28 @@ public class DayWorkspaceTest extends WorkspaceCreationBase {
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_Report_Salesman_Perfrmance_Day";
 		listFilter = "dateType=5 and organizationType=1";
+		//工具条添加任务
+		listPartServiceController = PerformanceStatisticsController.class.getName();
+		listPartJsController = PerformanceStatisticsController.class.getName();
+		listPartImportJs = "/gsb/performance/js/report.part.js";
+		listToolbarPath = "/bd/crm/performance/report/toolbar";
 	}
 
+	@Test
+	public void createToolbar() {
+		ResourceNode node = this.getResourceNode();
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			toolbar.setBasePath("panda/datagrid/edit");
+			toolbar.setPath(listToolbarPath);
+			toolbar.setName("业绩统计工具栏");
+			toolbar.setResourceNode(node);
+		}
+		addToolbarItem(toolbar, "disabled", "生成业绩", "fa-check-circle-o", "generaResultsReports()", null, 5);
+		toolbarService.save(toolbar);
+	}
+	
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
 

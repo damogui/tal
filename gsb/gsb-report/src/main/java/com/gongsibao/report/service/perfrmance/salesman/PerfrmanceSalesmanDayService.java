@@ -92,6 +92,7 @@ public class PerfrmanceSalesmanDayService extends AbstractPerfrmanceSalesmanServ
 					 entity.setNetPaidAmount(netGetAmout);
 					 entity.setProductCount(salesCount);
 					 entity.setOrderCount(orderCount);
+					 this.getStatisticsService().save(entity);
 				}
 			}
 //			int a = 1000;
