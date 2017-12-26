@@ -45,7 +45,7 @@ org.netsharp.we.core.franchiseeDetailCtrl = org.netsharp.we.core.detailCtrl.Exte
     	$('#businessScope').text(businessScope);
     	
     	$('#linkmanName').text(entity.linkmanName);
-    	$('#mobile').text(entity.mobile);
+    	$('#mobile').text(entity.mobile).attr("href","tel:"+entity.mobile);
     	$('#post').text(entity.post);
     	$('#weixin').text(entity.weixin);
     	$('#qq').text(entity.qq);

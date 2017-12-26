@@ -18,7 +18,7 @@ public class OperationUnTrackWorkspaceTest  extends MyFranchiseeWorkspaceTest{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = "供应商信息";
 		resourceNodeCode = "GSB_BD_OPERATION_UnTrack";
-		listFilter = "owner_id<>last_tracker_id";
+		listFilter = "owner_id<>last_tracker_id or (last_tracker_id is null and owner_id is not null)";
 	}
 	
 	@Test

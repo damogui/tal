@@ -73,7 +73,7 @@
 		  <div class="weui-cell">
 		    <div class="weui-cell__hd"><label class="weui-label">手机号</label></div>
 		    <div class="weui-cell__bd">
-		     <p id="mobile"></p>
+		     <a id="mobile"></a>
 		    </div>
 		  </div>
 		  <div class="weui-cell">

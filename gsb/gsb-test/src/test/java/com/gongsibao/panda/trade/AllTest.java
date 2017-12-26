@@ -35,7 +35,7 @@ import com.gongsibao.panda.trade.workspace.settle.SettleListWorkspaceTest;
 	ResourceTest.class, 
 
 	//订单管理:全部订单,我的订单,我的订单明细,订单池
-	AllOrderWorkspaceTest.class,
+	/*AllOrderWorkspaceTest.class,
 	MyOrderWorkspaceTest.class,
 	MyOrderDetailWorkspaceTest.class,
 	OrderPoolWorkspaceTest.class,
@@ -68,7 +68,7 @@ import com.gongsibao.panda.trade.workspace.settle.SettleListWorkspaceTest;
 	//结算中心:分成管理,结算列表,打款列表
 	CommissionManagerWorkspaceTest.class,
 	SettleListWorkspaceTest.class,
-	RemittanceListWorkspaceTest.class,
+	RemittanceListWorkspaceTest.class,*/
 
 	
 	NavigationTest.class
