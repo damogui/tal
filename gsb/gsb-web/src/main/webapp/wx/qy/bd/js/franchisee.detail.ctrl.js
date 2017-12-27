@@ -22,7 +22,11 @@ org.netsharp.we.core.franchiseeDetailCtrl = org.netsharp.we.core.detailCtrl.Exte
     	$('#name').text(entity.name);
     	$('#legalPerson').text(entity.legalPerson);
     	$('#employeeCount').text(entity.employeeCount);
-    	$('#annualIncome').text(entity.annualIncome+'万');
+    	
+    	if(entity.annualIncome){
+
+        	$('#annualIncome').text(entity.annualIncome+'万');
+    	}
     	var district = entity.province.name + ' / ' +  entity.city.name + ' / ' + entity.county.name;
     	$('#district').text(district);
     	$('#registerAddress').text(entity.registerAddress);

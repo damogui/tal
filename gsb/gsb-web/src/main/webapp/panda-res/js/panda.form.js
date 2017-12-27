@@ -32,7 +32,7 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
             entity.parentId = this.viewModel.parentId;
         }
 
-        if (!this.onSaving()) {
+        if (!this.onSaving(entity)) {
             return;
         }
 

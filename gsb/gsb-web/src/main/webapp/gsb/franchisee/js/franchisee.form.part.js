@@ -14,7 +14,19 @@ com.gongsibao.franchisee.web.FranchiseeFormPart = org.netsharp.panda.commerce.Fo
     	
     	//跟进
     	controllertracks.add();
+    },
+    
+    onSaving: function (entity) {
+
+    	if (System.isnull(entity.mobile) && System.isnull(entity.weixin)
+    			&& System.isnull(entity.qq) && System.isnull(entity.tel)) {
+
+    		IMessageBox.info('联系方式最少填写一项');
+			return false;
+		}
+        return true;
     }
+
 });
 
 com.gongsibao.franchisee.web.TrackDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
