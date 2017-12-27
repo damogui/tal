@@ -431,7 +431,7 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 	},
 
 	// -----------------------
-	// 查询
+	// 查询 
 	// -----------------------
 	query : function() {
 
