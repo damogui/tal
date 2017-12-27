@@ -438,7 +438,7 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 		this.queryModel.collectControl();
 		var qpc = this.queryModel.getQueryParameters();
 		var filters = [];
-		if(qpc == false){
+		if(qpc === false){
 
 			return;
 		}
