@@ -71,24 +71,24 @@ public class DepartmentMonthHandler extends AbstractReportHandler{
 		{
 			selectBuilder.select(
 			"department_id as departmentId",
-			"total_count as totalCount",
-			"track_count as trackCount",
-			"un_track_count as unTrackCount",
-			"expected_sign_1_count as expectedSign1Count",
-			"expected_sign_2_count as expectedSign2Count",
-			"expected_sign_3_count as expectedSign3Count",
-			"expected_sign_4_count as expectedSign4Count",
-			"expected_sign_5_count as expectedSign5Count",
-			"intIntention_degree1_count as intentionDegree1Count",
-			"intIntention_degree2_count as intentionDegree2Count",
-			"intIntention_degree3_count as intentionDegree3Count",
-			"track_progress1_count as trackProgress1Count",
-			"track_progress2_count as trackProgress2Count",
-			"track_progress3_count as trackProgress3Count",
-			"track_progress4_count as trackProgress4Count",
-			"track_progress5_count as trackProgress5Count",
-			"track_progress6_count as trackProgress6Count",
-			"track_progress7_count as trackProgress7Count");
+			"SUM(total_count) as totalCount",
+			"SUM(track_count) as trackCount",
+			"SUM(un_track_count) as unTrackCount",
+			"SUM(expected_sign_1_count) as expectedSign1Count",
+			"SUM(expected_sign_2_count) as expectedSign2Count",
+			"SUM(expected_sign_3_count) as expectedSign3Count",
+			"SUM(expected_sign_4_count) as expectedSign4Count",
+			"SUM(expected_sign_5_count) as expectedSign5Count",
+			"SUM(intIntention_degree1_count) as intentionDegree1Count",
+			"SUM(intIntention_degree2_count) as intentionDegree2Count",
+			"SUM(intIntention_degree3_count) as intentionDegree3Count",
+			"SUM(track_progress1_count) as trackProgress1Count",
+			"SUM(track_progress2_count) as trackProgress2Count",
+			"SUM(track_progress3_count) as trackProgress3Count",
+			"SUM(track_progress4_count) as trackProgress4Count",
+			"SUM(track_progress5_count) as trackProgress5Count",
+			"SUM(track_progress6_count) as trackProgress6Count",
+			"SUM(track_progress7_count) as trackProgress7Count");
 			selectBuilder.from(MtableManager.getMtable(FranchiseeReport.class).getTableName());
 			selectBuilder.where("year=?", "month=?", "date_type=?","organization_type=?");
 			selectBuilder.groupBy("department_id");
