@@ -3,13 +3,17 @@ package com.gongsibao.entity.trade.dto;
 import java.util.Date;
 
 import org.netsharp.core.annotations.Auto;
+import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Id;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Persistable;
 
 import com.gongsibao.entity.trade.dic.PayReceiptStatus;
+import com.gongsibao.entity.u8.SetOfBooks;
+import com.gongsibao.entity.u8.U8Bank;
 
-@Table(name = "pay_receipt_check_view", isView = true)
+@Table(name = "pay_receipt_check_dto", isView = true)
 public class PayReceiptCheckDTO extends Persistable {
 
 	/**
@@ -54,6 +58,16 @@ public class PayReceiptCheckDTO extends Persistable {
 
 	// 回款日期
 	private Date returnTime;
+	
+	private Integer bookId;
+
+	@Reference(foreignKey = "bookId")
+	private SetOfBooks book;
+	
+	private Integer bankId;
+
+	@Reference(foreignKey = "bankId")
+	private U8Bank bank;
 
 	public Integer getId() {
 		return id;
@@ -151,4 +165,35 @@ public class PayReceiptCheckDTO extends Persistable {
 		this.returnTime = returnTime;
 	}
 
+	public Integer getBookId() {
+		return bookId;
+	}
+
+	public void setBookId(Integer bookId) {
+		this.bookId = bookId;
+	}
+
+	public SetOfBooks getBook() {
+		return book;
+	}
+
+	public void setBook(SetOfBooks book) {
+		this.book = book;
+	}
+
+	public Integer getBankId() {
+		return bankId;
+	}
+
+	public void setBankId(Integer bankId) {
+		this.bankId = bankId;
+	}
+
+	public U8Bank getBank() {
+		return bank;
+	}
+
+	public void setBank(U8Bank bank) {
+		this.bank = bank;
+	}
 }

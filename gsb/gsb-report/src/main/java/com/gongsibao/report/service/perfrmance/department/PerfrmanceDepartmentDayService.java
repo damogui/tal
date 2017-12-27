@@ -9,6 +9,7 @@ import org.netsharp.core.IRow;
 import org.netsharp.core.MtableManager;
 import org.netsharp.core.QueryParameters;
 import org.netsharp.util.StringManager;
+import org.netsharp.util.sqlbuilder.DeleteBuilder;
 import org.netsharp.util.sqlbuilder.SelectBuilder;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
@@ -32,9 +33,12 @@ public class PerfrmanceDepartmentDayService extends AbstractPerfrmanceDepartment
 		}
 
 		QueryParameters qps = new QueryParameters();
-		qps.add("date", this.context.getDate(), Types.DATE);
-		qps.add("dateType", ReportDateType.DAY.getValue(), Types.INTEGER);
-		qps.add("organizationType", ReportOrganizationType.SALESMAN.getValue(), Types.INTEGER);
+		{
+
+			qps.add("date", this.context.getDate(), Types.DATE);
+			qps.add("dateType", ReportDateType.DAY.getValue(), Types.INTEGER);
+			qps.add("organizationType", ReportOrganizationType.SALESMAN.getValue(), Types.INTEGER);
+		}
 		DataTable dataTable = this.pm.executeTable(builder.toSQL(), qps);
 
 		List<Integer> departmentIdList = new ArrayList<Integer>();
@@ -42,7 +46,8 @@ public class PerfrmanceDepartmentDayService extends AbstractPerfrmanceDepartment
 
 			Integer departmentId = row.getInteger("departmentId");
 			departmentIdList.add(departmentId);
-			this.create(row);
+			PerformanceStatistics entity = this.create(row);
+			entity = this.getStatisticsService().save(entity);
 		}
 
 		createParentDepartment(departmentIdList);
@@ -69,7 +74,7 @@ public class PerfrmanceDepartmentDayService extends AbstractPerfrmanceDepartment
 			String childIds = StringManager.join(",", childDepartmentIdList);
 			SelectBuilder builder = SelectBuilder.getInstance();
 			{
-				builder.select("'" + parentId + "' as departmentId", "year", "month", "season", "week","day", "date", "SUM(receivable_amount) as receivableAmount", "SUM(paid_amount) as paidAmount",
+				builder.select("'" + parentId + "' as departmentId", "year", "month", "season", "week", "day", "date", "SUM(receivable_amount) as receivableAmount", "SUM(paid_amount) as paidAmount",
 						"SUM(refund_amount) as refundAmount", "SUM(net_receivables) as netReceivables", "SUM(net_paid_amount) as netPaidAmount", "SUM(product_count) as productCount",
 						"SUM(order_count) as orderCount");
 				builder.from(MtableManager.getMtable(PerformanceStatistics.class).getTableName());
@@ -78,19 +83,45 @@ public class PerfrmanceDepartmentDayService extends AbstractPerfrmanceDepartment
 			}
 
 			QueryParameters qps = new QueryParameters();
-			qps.add("date", this.context.getDate(), Types.DATE);
-			qps.add("dateType", ReportDateType.DAY.getValue(), Types.INTEGER);
-			qps.add("organizationType", ReportOrganizationType.DEPARTMENT.getValue(), Types.INTEGER);
+			{
+				qps.add("date", this.context.getDate(), Types.DATE);
+				qps.add("dateType", ReportDateType.DAY.getValue(), Types.INTEGER);
+				qps.add("organizationType", ReportOrganizationType.DEPARTMENT.getValue(), Types.INTEGER);
+			}
 			DataTable dataTable = this.pm.executeTable(builder.toSQL(), qps);
 			for (IRow row : dataTable) {
 
+				Integer departmentId = Integer.parseInt(row.getString("departmentId"));
+				System.out.println(departmentId);
+				deleteParentDepartment(departmentId);
 				PerformanceStatistics entity = this.create(row);
+				entity = this.getStatisticsService().save(entity);
 				this.updateParentId(entity.getId(), childIds);
 			}
 		}
 
 		// 递归创建上级部门Id
 		createParentDepartment(parentIdList);
+	}
+	
+	private void deleteParentDepartment(Integer departmentId){
+		
+		QueryParameters qps = new QueryParameters();
+		{
+			qps.add("departmentId", departmentId, Types.INTEGER);
+			qps.add("date", this.context.getDate(), Types.DATE);
+			qps.add("dateType", ReportDateType.DAY.getValue(), Types.INTEGER);
+			qps.add("organizationType", ReportOrganizationType.DEPARTMENT.getValue(), Types.INTEGER);
+		}
+		
+		DeleteBuilder deleteBuilder = DeleteBuilder.getInstance();
+		{
+			deleteBuilder.deleteFrom(MtableManager.getMtable(PerformanceStatistics.class).getTableName());
+			deleteBuilder.where("department_id=?","date=?","date_type=?","organization_type=?");
+		}
+		
+		String cmdText = deleteBuilder.toSQL();
+		this.pm.executeNonQuery(cmdText, qps);
 	}
 
 	public void updateParentId(Integer parentId, String childDepartmentIds) {
@@ -103,9 +134,12 @@ public class PerfrmanceDepartmentDayService extends AbstractPerfrmanceDepartment
 		}
 
 		QueryParameters qps = new QueryParameters();
-		qps.add("date", this.getContext().getDate(), Types.DATE);
-		qps.add("dateType", ReportDateType.DAY.getValue(), Types.INTEGER);
-		qps.add("organizationType", ReportOrganizationType.DEPARTMENT.getValue(), Types.INTEGER);
+		{
+
+			qps.add("date", this.getContext().getDate(), Types.DATE);
+			qps.add("dateType", ReportDateType.DAY.getValue(), Types.INTEGER);
+			qps.add("organizationType", ReportOrganizationType.DEPARTMENT.getValue(), Types.INTEGER);
+		}
 		this.pm.executeNonQuery(updateBuilder.toSQL(), qps);
 	}
 

@@ -26,7 +26,7 @@ org.netsharp.panda.QueryController = System.Object.Extends({
         var isValidate = $("#queryFrom").form('validate');
         if(!isValidate){
         	
-        	return null;
+        	return false;
         }
 
         this.collectControl();
@@ -135,7 +135,7 @@ org.netsharp.controls.EncryptionBoxQueryItem=org.netsharp.controls.Control.Exten
 	}
 });
 
-org.netsharp.controls.BoolComboBoxItem=org.netsharp.controls.Control.Extends({
+org.netsharp.controls.BoolComboBoxQueryItem=org.netsharp.controls.Control.Extends({
     get : function () {
 
         var propertyValue = $('#' + this.propertyName).combobox('getValues');
@@ -219,20 +219,11 @@ org.netsharp.controls.DateBoxQueryItem = org.netsharp.controls.Control.Extends({
         	
         	if(interval === 'true'){
         		
-        		var operation = $("#shortcut_"+this.propertyName).combobox("getValue");
-        		
-        		if(operation == "="){
-
-            		qp.Filter =  "DATE_FORMAT('"+this.propertyName+"','%Y-%m-%d')='"+qp.Value+"' "
-//        			
-        		}else{
-
-            		qp.Filter = this.propertyName + operation +"'" + qp.Value + " 00:00:00' ";
-        		}
+        		 qp.Filter = this.propertyName + ">='" + qp.Value + " 00:00:00' ";
         		
         	}else{
 
-                qp.Filter = this.propertyName + ">='" + qp.Value + " 00:00:00' ";
+                qp.Filter = this.propertyName + ">='" + qp.Value + " 00:00:00' and "+this.propertyName + "<='" + qp.Value + " 23:59:59' ";
         	}
         }
         else {
@@ -478,7 +469,7 @@ org.netsharp.controls.MonthBoxQueryItem = org.netsharp.controls.EnumBoxQueryItem
         qp.DbType = "String";
         qp.Value = propertyValue[0];
 
-        qp.Filter = this.propertyName.replace("_",".") + " ='" + propertyValue + "'";
+        qp.Filter = this.propertyName.replace("_",".") + " =" + propertyValue;
         return qp;
     }
 });

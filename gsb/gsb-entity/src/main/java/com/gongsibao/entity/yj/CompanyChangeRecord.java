@@ -2,7 +2,9 @@ package com.gongsibao.entity.yj;
 
 import java.sql.Timestamp;
 
+import org.netsharp.core.annotations.Auto;
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Id;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Persistable;
 
@@ -12,6 +14,11 @@ public class CompanyChangeRecord extends Persistable {
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = -1977512923224870878L;
+	
+	@Id
+	@Auto
+	@Column(name="pkid",header="id")
+	private Integer id;
 	@Column(name="yj_company_id",header="YjCompanyId")
     private Integer yjCompanyId;
     @Column(name="project_name",header="ProjectName")

@@ -52,8 +52,9 @@ public class PerfrmanceSalesmanWeekService extends AbstractPerfrmanceSalesmanSer
 		qps.add("organizationType", ReportOrganizationType.SALESMAN.getValue(), Types.INTEGER);
 		DataTable dataTable = this.pm.executeTable(builder.toSQL(), qps);
 		for (IRow row : dataTable) {
-
-			this.create(row);
+			
+			PerformanceStatistics entity =this.create(row);
+			this.getStatisticsService().save(entity);
 		}
 
 	}

@@ -33,7 +33,7 @@ public class PerfrmanceSalesmanMonthService extends AbstractPerfrmanceSalesmanSe
 					"SUM(refund_amount) as refundAmount", "SUM(net_receivables) as netReceivables", "SUM(net_paid_amount) as netPaidAmount", "SUM(product_count) as productCount",
 					"SUM(order_count) as orderCount");
 			builder.from(MtableManager.getMtable(PerformanceStatistics.class).getTableName());
-			builder.where("year=?", "month=?", "date_type=?","salesman_id is not null");
+			builder.where("year=?", "month=?", "date_type=?", "salesman_id is not null");
 			builder.groupBy("salesman_id");
 		}
 
@@ -44,7 +44,8 @@ public class PerfrmanceSalesmanMonthService extends AbstractPerfrmanceSalesmanSe
 		DataTable dataTable = this.pm.executeTable(builder.toSQL(), qps);
 		for (IRow row : dataTable) {
 
-			this.create(row);
+			PerformanceStatistics entity = this.create(row);
+			this.getStatisticsService().save(entity);
 		}
 
 	}

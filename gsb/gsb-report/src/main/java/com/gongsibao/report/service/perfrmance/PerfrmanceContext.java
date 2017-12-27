@@ -38,6 +38,8 @@ public class PerfrmanceContext {
 
 
 	private List<UserOrganizationMap> mapList;
+	
+	private int[] departmentIds;
 
 	public Integer getSalesmanId() {
 		return salesmanId;
@@ -108,6 +110,14 @@ public class PerfrmanceContext {
 
 	public Integer getDay() {
 		return DateUtils.getPassDayOfMonth(date);
+	}
+
+	public int[] getDepartmentIds() {
+		return departmentIds;
+	}
+
+	public void setDepartmentIds(int[] departmentIds) {
+		this.departmentIds = departmentIds;
 	}
 
 }

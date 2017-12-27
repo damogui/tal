@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebListener;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.netsharp.cache.service.CacheStartup;
+import org.netsharp.job.core.JobStartup;
 import org.netsharp.log.LogStartup;
 import org.netsharp.startup.IStartup;
 import org.netsharp.util.StopWatch;
@@ -83,7 +84,7 @@ public class StartupLisenter implements ServletContextListener {
 				startups.add(new StartupUser());
 //				startups.add(new StartupWeixin());
 				startups.add(new CacheStartup());
-//				startups.add(new JobStartup());
+				startups.add(new JobStartup());
 //				startups.add(new RmiStartup());
 //				startups.add(new StartupRest());
 			}

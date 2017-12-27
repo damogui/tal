@@ -44,7 +44,8 @@ public class PerfrmanceSalesmanSeasonService extends AbstractPerfrmanceSalesmanS
 		DataTable dataTable = this.pm.executeTable(builder.toSQL(), qps);
 		for (IRow row : dataTable) {
 
-			this.create(row);
+			PerformanceStatistics entity =this.create(row);
+			this.getStatisticsService().save(entity);
 		}
 	}
 

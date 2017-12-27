@@ -17,11 +17,11 @@ import org.junit.runners.Suite.SuiteClasses;
 //    org.netsharp.scrum.meta.AllTests.class,
     
 	//1.基础信息
-//	com.gongsibao.panda.basic.AllTest.class,
+	com.gongsibao.panda.basic.AllTest.class,
 	
 	
     //2.用户中心
-//	com.gongsibao.panda.user.AllTest.class,
+	com.gongsibao.panda.user.AllTest.class,
 	
     //2.客户管理
 //	com.gongsibao.panda.crm.AllTest.class,
@@ -33,17 +33,17 @@ import org.junit.runners.Suite.SuiteClasses;
 //	com.gongsibao.panda.ma.AllTest.class,
 	
     //5.运营管理
-//	com.gongsibao.panda.operation.AllTest.class,
+	com.gongsibao.panda.operation.AllTest.class,
 	
     //6.商品管理
-	//com.gongsibao.panda.product.AllTest.class,
+	com.gongsibao.panda.product.AllTest.class,
 
 	
     //8.交易中心
-//	com.gongsibao.panda.trade.AllTest.class,
+	//com.gongsibao.panda.trade.AllTest.class,
 	
     //9.报表中心
-//	com.gongsibao.panda.report.AllTest.class,
+	com.gongsibao.panda.report.AllTest.class,
 
 	//处理资源Id
 	org.netsharp.meta.end.AllTests.class,

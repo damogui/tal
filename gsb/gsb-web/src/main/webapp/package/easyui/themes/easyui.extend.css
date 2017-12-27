@@ -225,6 +225,7 @@ html,body{
 .datagrid-empty{
 	height: 100%;
     line-height: 300px;
+    /*background-color: #e4eaec;*/
 }
 
 

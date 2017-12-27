@@ -155,6 +155,10 @@ public class FranchiseeService extends PersistableService<Franchisee> implements
 		// 创建分配跟进
 		IFranchiseeTrackService trackService = ServiceFactory.create(IFranchiseeTrackService.class);
 		trackService.addAllotTrack(ss, departmentId, ownerId);
+		
+		//企业微信通知
+		
+		
 		return isAllot;
 	}
 

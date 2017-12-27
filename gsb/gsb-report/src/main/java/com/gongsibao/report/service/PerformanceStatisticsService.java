@@ -27,14 +27,14 @@ public class PerformanceStatisticsService extends PersistableService<Performance
 	}
 
 	@Override
-	public Boolean generate(Date date,int[] departmentIdIds) {
+	public Boolean generate(Date date,int[] departmentIds) {
 
 		List<UserOrganizationMap> allMapList =  new ArrayList<UserOrganizationMap>();
 		IUserOrganizationMapService mapService = ServiceFactory.create(IUserOrganizationMapService.class);
 		
-		for (int i = 0; i < departmentIdIds.length; i++) {
+		for (int i = 0; i < departmentIds.length; i++) {
 
-			int departmentId = departmentIdIds[i];
+			int departmentId = departmentIds[i];
 			List<UserOrganizationMap> mapList = mapService.getMapList(departmentId);
 			allMapList.addAll(mapList);
 		}
@@ -42,6 +42,7 @@ public class PerformanceStatisticsService extends PersistableService<Performance
 		PerfrmanceContext context  = new PerfrmanceContext();{
 			context.setDate(date);
 			context.setMapList(allMapList);
+			context.setDepartmentIds(departmentIds);
 		}
 		PerfrmanceSalesmanDayService generateService = new PerfrmanceSalesmanDayService();
 		generateService.setContext(context);

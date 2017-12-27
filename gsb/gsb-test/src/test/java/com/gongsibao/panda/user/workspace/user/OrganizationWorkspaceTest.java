@@ -124,11 +124,10 @@ public class OrganizationWorkspaceTest  extends WorkspaceCreationBase{
 		column = addColumn(datagrid, "city.name", "地区", ControlTypes.TEXT_BOX, 100);{
 			column.setAlign(DatagridAlign.CENTER);
 		}
-		addColumn(datagrid, "name", "公司名称", ControlTypes.TEXT_BOX, 150);
-		addColumn(datagrid, "shortName", "组织名称", ControlTypes.TEXT_BOX, 150);
-		addColumn(datagrid, "pathName", "路径", ControlTypes.TEXT_BOX, 300);
+		addColumn(datagrid, "name", "公司名称", ControlTypes.TEXT_BOX, 200);
+		addColumn(datagrid, "shortName", "组织名称", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "enabled", "启用", ControlTypes.BOOLCOMBO_BOX, 80);
-		addColumn(datagrid, "remark", "备注", ControlTypes.TEXT_BOX, 200);
+		addColumn(datagrid, "remark", "备注", ControlTypes.TEXT_BOX, 300);
 
 		return datagrid;
 	}

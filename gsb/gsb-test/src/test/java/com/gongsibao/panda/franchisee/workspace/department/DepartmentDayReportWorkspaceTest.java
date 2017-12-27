@@ -37,6 +37,8 @@ public class DepartmentDayReportWorkspaceTest extends WorkspaceCreationBase {
 		listPartJsController = FranchiseeReportController.class.getName();
 		listPartImportJs = "/gsb/franchisee/js/report.part.js";
 		listToolbarPath = "/bd/crm/report/toolbar";
+		
+//		/
 	}
 
 	@Override
@@ -48,6 +50,7 @@ public class DepartmentDayReportWorkspaceTest extends WorkspaceCreationBase {
 
 		column = addColumn(datagrid, "department.name", "部门", ControlTypes.TEXT_BOX, 180, true);
 		{
+			column.setFormatter("if(row.owner_name){return row.owner_name;}return value;");
 		}
 		column = addColumn(datagrid, "date", "日期", ControlTypes.DATE_BOX, 100, true);
 		{
@@ -56,40 +59,49 @@ public class DepartmentDayReportWorkspaceTest extends WorkspaceCreationBase {
 		column = addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 100, true);
 		{
 			column.setAlign(DatagridAlign.CENTER);
+			column.setVisible(false);
+			column.setSystem(true);
 		}
 
-		column = addColumn(datagrid, "totalCount", "总客户数", ControlTypes.TEXT_BOX, 90, true);
+		column = addColumn(datagrid, "totalCount", "总客户数", ControlTypes.NUMBER_BOX, 90, true);
 		{
+			column.setAlign(DatagridAlign.CENTER);
 		}
-		column = addColumn(datagrid, "trackCount", "已跟进数", ControlTypes.TEXT_BOX, 90, true);
+		column = addColumn(datagrid, "trackCount", "已跟进数", ControlTypes.NUMBER_BOX, 90, true);
 		{
+			column.setAlign(DatagridAlign.CENTER);
 		}
-		column = addColumn(datagrid, "unTrackCount", "未跟进数", ControlTypes.TEXT_BOX, 90, true);
+		column = addColumn(datagrid, "unTrackCount", "未跟进数", ControlTypes.NUMBER_BOX, 90, true);
 		{
-			// column.setGroupName(groupName);
+			column.setAlign(DatagridAlign.CENTER);
 		}
 		String groupName = "意向度";
 		column = addColumn(datagrid, "intentionDegree1Count", "高", ControlTypes.NUMBER_BOX, 80);
 		{
 			column.setGroupName(groupName);
+			column.setAlign(DatagridAlign.CENTER);
 		}
 		column = addColumn(datagrid, "intentionDegree2Count", "中", ControlTypes.NUMBER_BOX, 80);
 		{
 			column.setGroupName(groupName);
+			column.setAlign(DatagridAlign.CENTER);
 		}
 		column = addColumn(datagrid, "intentionDegree3Count", "低", ControlTypes.NUMBER_BOX, 80);
 		{
 			column.setGroupName(groupName);
+			column.setAlign(DatagridAlign.CENTER);
 		}
 
 		groupName = "进度";
 		column = addColumn(datagrid, "trackProgress1Count", "未拜访", ControlTypes.NUMBER_BOX, 80);
 		{
 			column.setGroupName(groupName);
+			column.setAlign(DatagridAlign.CENTER);
 		}
 		column = addColumn(datagrid, "trackProgress2Count", "电话拜访", ControlTypes.NUMBER_BOX, 100);
 		{
 			column.setGroupName(groupName);
+			column.setAlign(DatagridAlign.CENTER);
 		}
 		column = addColumn(datagrid, "trackProgress3Count", "陌拜", ControlTypes.NUMBER_BOX, 80);
 		{
@@ -99,10 +111,12 @@ public class DepartmentDayReportWorkspaceTest extends WorkspaceCreationBase {
 		column = addColumn(datagrid, "trackProgress4Count", "洽谈中", ControlTypes.NUMBER_BOX, 80);
 		{
 			column.setGroupName(groupName);
+			column.setAlign(DatagridAlign.CENTER);
 		}
 		column = addColumn(datagrid, "trackProgress5Count", "已合作", ControlTypes.NUMBER_BOX, 100);
 		{
 			column.setGroupName(groupName);
+			column.setAlign(DatagridAlign.CENTER);
 		}
 		column = addColumn(datagrid, "trackProgress6Count", "已中止", ControlTypes.NUMBER_BOX, 80);
 		{
@@ -112,24 +126,29 @@ public class DepartmentDayReportWorkspaceTest extends WorkspaceCreationBase {
 		column = addColumn(datagrid, "trackProgress7Count", "已合作中止", ControlTypes.NUMBER_BOX, 80);
 		{
 			column.setGroupName(groupName);
+			column.setAlign(DatagridAlign.CENTER);
 		}
 
 		groupName = "预计签单";
 		column = addColumn(datagrid, "expectedSign1Count", "两天内", ControlTypes.NUMBER_BOX, 80);
 		{
 			column.setGroupName(groupName);
+			column.setAlign(DatagridAlign.CENTER);
 		}
 		column = addColumn(datagrid, "expectedSign2Count", "一周内", ControlTypes.NUMBER_BOX, 80);
 		{
 			column.setGroupName(groupName);
+			column.setAlign(DatagridAlign.CENTER);
 		}
 		column = addColumn(datagrid, "expectedSign3Count", "一月内", ControlTypes.NUMBER_BOX, 80);
 		{
 			column.setGroupName(groupName);
+			column.setAlign(DatagridAlign.CENTER);
 		}
 		column = addColumn(datagrid, "expectedSign4Count", "三月内", ControlTypes.NUMBER_BOX, 100);
 		{
 			column.setGroupName(groupName);
+			column.setAlign(DatagridAlign.CENTER);
 		}
 		column = addColumn(datagrid, "expectedSign5Count", "三月以上", ControlTypes.NUMBER_BOX, 100);
 		{

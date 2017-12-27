@@ -1,6 +1,11 @@
 package com.gongsibao.entity.uc;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.organization.dic.OrganizationType;
@@ -20,7 +25,6 @@ public class Organization extends BaseCatEntity {
 	@Column(name = "organization_type", header = "组织类型")
 	private OrganizationType organizationType;
 
-
 	@Column(name = "leader_id", header = "主管人")
 	private Integer leaderId = 0;
 	
@@ -38,6 +42,14 @@ public class Organization extends BaseCatEntity {
 
 	@Column(name = "remark", header = "备注")
 	private String remark;
+	
+	@Exclusive
+	@JsonIgnore
+	private List<Organization> items = new ArrayList<>();
+
+	@Exclusive
+	@JsonIgnore
+	private Organization parent = null;
 
 	public OrganizationType getOrganizationType() {
 		return organizationType;
@@ -95,5 +107,19 @@ public class Organization extends BaseCatEntity {
 		this.remark = remark;
 	}
 
-	
+	public List<Organization> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Organization> items) {
+		this.items = items;
+	}
+
+	public Organization getParent() {
+		return parent;
+	}
+
+	public void setParent(Organization parent) {
+		this.parent = parent;
+	}
 }

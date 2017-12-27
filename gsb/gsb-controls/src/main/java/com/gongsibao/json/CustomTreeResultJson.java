@@ -36,11 +36,11 @@ public class CustomTreeResultJson {
 		node.id = cat.getId().toString();
 		node.text = cat.getShortName();
 
-//		if (cat.getIsLeaf()) {
-//			node.state = TreeNodeState.open;
-//		} else {
-//			node.state = TreeNodeState.closed;
-//		}
+		if (cat.getIsLeaf()) {
+			node.state = TreeNodeState.open;
+		} else {
+			node.state = TreeNodeState.closed;
+		}
 
 		return node;
 	}

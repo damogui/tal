@@ -1,5 +1,5 @@
-
-org.netsharp.panda.commerce.TreegridPart = org.netsharp.panda.commerce.ListPart.Extends({
+org.netsharp.panda.commerce.TreegridPart = org.netsharp.panda.commerce.ListPart
+		.Extends({
 
 			ctor : function() {
 				this.base();
@@ -17,12 +17,10 @@ org.netsharp.panda.commerce.TreegridPart = org.netsharp.panda.commerce.ListPart.
 				if (count > 1) {
 
 					IMessageBox.info("只能选择一条记录!");
-
 					return;
 				} else if (count == 0) {
 
 					IMessageBox.info("选择记录后才能新增子节点!");
-
 					return;
 				}
 
@@ -41,12 +39,37 @@ org.netsharp.panda.commerce.TreegridPart = org.netsharp.panda.commerce.ListPart.
 				fks.push("parentId:" + id);
 				this.doAdd("fk=" + fks.join(";"));
 			},
+			onBeforeExpand : function(row) {
 
+				if (this.context.lazy && row) {
+					
+					this.queryModel.collectControl();
+					var qpc = this.queryModel.getQueryParameters();
+					var filters = [];
+					for ( var i = 0; i < qpc.length; i++) {
+
+						filters.push(qpc[i].Filter);
+					}
+
+					var filter = filters.join(" AND ");
+					var urls = this.getFilters(filter);
+					urls.push("id="+row.id);
+					var url = urls.join("&");
+					$("#" + this.context.id).treegrid('options').url = url;
+				}
+			},
+			onLoadSuccess : function(row, data) {
+
+				if(this.context.lazy){
+
+					$("#" + this.context.id).treegrid("options").url = '/panda/rest/service?vid='+ this.context.vid + '&method=query';
+				}
+			},
 			resetUrl : function(url) {
 
-				$("#" + this.context.id).treegrid({
-					url : url
-				});
+				var options = $("#" + this.context.id).treegrid('options');
+				options.url = url;
+				$("#" + this.context.id).treegrid(options);
 			},
 
 			reload : function() {
@@ -54,40 +77,29 @@ org.netsharp.panda.commerce.TreegridPart = org.netsharp.panda.commerce.ListPart.
 				$("#" + this.context.id).treegrid('reload');
 			},
 
-			onClickCell:function(index, field){
-				
+			onClickCell : function(index, field) {
+
 			},
 			doubleClickRow : function(row) {
 
 				var editLength = $("a[code='edit']").length;
-				if(editLength>0){
-					
+				if (editLength > 0) {
+
 					this.edit(row.id);
 				}
 			},
-			onLoadSuccess:function(row, data){
-				
-				var roots = $("#" + this.context.id).treegrid('getRoots');
-				if(roots.length>0){
-					
-					var me = this;
-					$(roots).each(function(i,root){
-						
-						$("#" + me.context.id).treegrid('expandAll',root.id);
-					});
-				}
-			},
+
 			onSelect : function(row) {
 
-				$("#" + this.context.id).treegrid('toggle',row.id);
+				$("#" + this.context.id).treegrid('toggle', row.id);
 			},
 			setStyle : function() {
 
-				var height = $('body').height() - 150 - $('#queryFrom').height();
+				var height = $('body').height() - 150
+						- $('#queryFrom').height();
 				$("#" + this.context.id).treegrid('resize', {
-					height:height,
+					height : height,
 				});
-				
-				
+
 			}
 		});

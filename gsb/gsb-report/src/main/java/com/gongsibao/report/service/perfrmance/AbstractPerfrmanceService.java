@@ -168,7 +168,6 @@ public abstract class AbstractPerfrmanceService {
 			entity.setProductCount(productCount);
 			entity.setOrderCount(orderCount);
 		}
-		entity = this.getStatisticsService().save(entity);
 		return entity;
 	}
 

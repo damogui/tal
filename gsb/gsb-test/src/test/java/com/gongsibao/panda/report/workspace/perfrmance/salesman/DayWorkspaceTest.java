@@ -1,6 +1,7 @@
 package com.gongsibao.panda.report.workspace.perfrmance.salesman;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
@@ -9,9 +10,11 @@ import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
+import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.report.PerformanceStatistics;
+import com.gongsibao.report.web.PerformanceStatisticsController;
 
 public class DayWorkspaceTest extends WorkspaceCreationBase {
 
@@ -25,17 +28,37 @@ public class DayWorkspaceTest extends WorkspaceCreationBase {
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_Report_Salesman_Perfrmance_Day";
 		listFilter = "dateType=5 and organizationType=1";
+		//工具条添加任务
+		listPartServiceController = PerformanceStatisticsController.class.getName();
+		listPartJsController = PerformanceStatisticsController.class.getName();
+		listPartImportJs = "/gsb/performance/js/report.part.js";
+		listToolbarPath = "/bd/crm/performance/report/toolbar";
 	}
 
+	@Test
+	public void createToolbar() {
+		ResourceNode node = this.getResourceNode();
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			toolbar.setBasePath("panda/datagrid/edit");
+			toolbar.setPath(listToolbarPath);
+			toolbar.setName("业绩统计工具栏");
+			toolbar.setResourceNode(node);
+		}
+		addToolbarItem(toolbar, "disabled", "生成业绩", "fa-check-circle-o", "generaResultsReports()", null, 5);
+		toolbarService.save(toolbar);
+	}
+	
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
 
 		PDatagrid datagrid = super.createDatagrid(node);
-		datagrid.setTreeField("salesman_name");
+		datagrid.setAutoQuery(false);
 		PDatagridColumn column = null;
 
-		column = addColumn(datagrid, "salesman.name", "业务员", ControlTypes.TEXT_BOX, 100, true);
-		column = addColumn(datagrid, "date", "日期", ControlTypes.DATE_BOX, 100, true);
+		column = addColumn(datagrid, "salesman.name", "业务员", ControlTypes.TEXT_BOX, 100);
+		column = addColumn(datagrid, "date", "日期", ControlTypes.DATE_BOX, 100);
 		column = addColumn(datagrid, "receivableAmount", "应收金额", ControlTypes.DECIMAL_FEN_BOX, 90);
 		column = addColumn(datagrid, "paidAmount", "实收金额", ControlTypes.DECIMAL_FEN_BOX, 90);
 		column = addColumn(datagrid, "refundAmount", "退款金额", ControlTypes.DECIMAL_FEN_BOX, 90);
@@ -56,11 +79,13 @@ public class DayWorkspaceTest extends WorkspaceCreationBase {
 		
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
-		PQueryItem item = addQueryItem(queryProject, "department.shortName", "部门", ControlTypes.TEXT_BOX);
+		PQueryItem item = null;
 		item = addQueryItem(queryProject, "date", "日期", ControlTypes.DATE_BOX);
 		{
-			item.setInterzone(true);
-			item.setShortcut(true);
+			item.setRequired(true);
+		}
+		item = addRefrenceQueryItem(queryProject, "department.shortName", "部门", "Gsb_Organization");{
+			item.setRequired(true);
 		}
 		return queryProject;
 	}
