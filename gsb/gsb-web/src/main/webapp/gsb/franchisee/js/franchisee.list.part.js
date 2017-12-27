@@ -46,18 +46,14 @@ com.gongsibao.franchisee.web.FranchiseeListPart = org.netsharp.panda.commerce.Li
 
 				var builder = new System.StringBuilder();
 				builder.append('<div style="margin:10px;">');
-				builder
-						.append('	<table cellpadding="5" cellspacing="10" class="query-panel">');
-				builder
-						.append(' 		<tr><td class="title">部门</td><td><input id="allot_department_name"/></td></tr>');
-				builder
-						.append(' 		<tr><td class="title">业务员</td><td><input id="allot_employee_name"/></td></tr>');
+				builder.append('	<table cellpadding="5" cellspacing="10" class="query-panel">');
+				builder.append(' 		<tr><td class="title">部门</td><td><input id="allot_department_name"/></td></tr>');
+				builder.append(' 		<tr><td class="title">业务员</td><td><input id="allot_employee_name"/></td></tr>');
 				builder.append('	</table>');
 				builder.append('</div>');
 
 				var me = this;
-				layer
-						.open({
+				layer.open({
 							type : 1,
 							title : '分配客户',
 							fixed : false,
