@@ -57,7 +57,7 @@ public class NavigationTest extends NavigationBase {
 		parentNodeCode = ResourceTest.resourcePrefix + "_Cost";
 		createPTreeNode(tree, null, "fa fa-rmb fa-fw", parentNodeCode, "成本管理", "", 4);
 		{
-			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_operation", "成本管理", "/trade/cost/operation/list", 1);
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Manage", "成本管理", "/trade/cost/manage/list", 1);
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Payee", "收款方管理", "/trade/cost/payee/list", 2);
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_CashOut", "请款审核", "/trade/cost/cashout/list", 3);
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Invoice", "供应商发票审核", "/trade/cost/invoice/list", 4);
@@ -66,7 +66,7 @@ public class NavigationTest extends NavigationBase {
 		parentNodeCode = ResourceTest.resourcePrefix + "_Payment";
 		createPTreeNode(tree, null, "fa fa-credit-card fa-fw", parentNodeCode, "支付记录", "", 5);
 		{
-			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Payment_Log", "账套列表", "/trade/payment/log/list", 1);
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Payment_Log", "支付记录", "/trade/payment/log/list", 1);
 		}
 
 		parentNodeCode = ResourceTest.resourcePrefix + "_Settle";

@@ -70,7 +70,8 @@ import com.gongsibao.panda.trade.workspace.settle.SettleListWorkspaceTest;
 	SettleListWorkspaceTest.class,
 	RemittanceListWorkspaceTest.class,*/
 
-	
+
+	PaymentLogWorkspaceTest.class,
 	NavigationTest.class
 })
 

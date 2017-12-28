@@ -4,7 +4,9 @@ import org.junit.Before;
 import org.netsharp.meta.base.ResourceCreationBase;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
+import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.trade.base.IOrderPayMapService;
 import com.gongsibao.trade.base.IOrderService;
 
 public class ResourceTest extends ResourceCreationBase {
@@ -63,7 +65,7 @@ public class ResourceTest extends ResourceCreationBase {
 
 		node1 = this.createResourceNodeCategory("支付记录", prefix + "_Payment", node.getId());
 		{
-			this.createResourceNodeVoucher(SoOrder.class.getName(), "支付记录", node1.getCode() + "_Payment_Log", IOrderService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(OrderPayMap.class.getName(), "支付记录", node1.getCode() + "_Payment_Log", IOrderPayMapService.class.getName(), node1.getId());
 		}
 
 		node1 = this.createResourceNodeCategory("结算中心", prefix + "_Settle", node.getId());

@@ -39,7 +39,7 @@ public class Pay extends BaseEntity {
     @Column(name="offline_payer_name",header="线下支付名称")
     private String offlinePayerName;
     
-    @Column(name="offline_bank_no",header="线下银行卡好")
+    @Column(name="offline_bank_no",header="线下银行卡号")
     private String offlineBankNo;
     
     @Column(name="offline_remark",header="线下备注")
@@ -48,7 +48,7 @@ public class Pay extends BaseEntity {
     @Column(name="offline_audit_status_id",header="审核状态")
     private Integer offlineAuditStatusId;
     
-    @Column(name="offline_add_user_id",header="神恶化人")
+    @Column(name="offline_add_user_id",header="线下创建人")
     private Integer offlineAddUserId;
     
     @Column(name="online_bank_code_id",header="在线银行卡")

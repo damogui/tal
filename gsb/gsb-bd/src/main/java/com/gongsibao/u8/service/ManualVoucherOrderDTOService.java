@@ -114,8 +114,8 @@ public class ManualVoucherOrderDTOService extends PersistableService<ManualVouch
 			dto.setId(row.getInteger("id"));
 			dto.setOrderNo(row.getString("orderNo"));
 			dto.setCustName(row.getString("custName"));
-			dto.setIsManualVoucher(OrderIsManualVoucherType.values()[row.getInteger("isManualVoucher")]);
-			dto.setManualVoucherStatus(OrderManualVoucherStatus.values()[row.getInteger("manualVoucherStatus")]);
+			dto.setIsManualVoucher(OrderIsManualVoucherType.getItem(row.getInteger("isManualVoucher")));
+			dto.setManualVoucherStatus(OrderManualVoucherStatus.getItem(row.getInteger("manualVoucherStatus")));
 			dto.setOperator(row.getString("operator"));
 			dto.setPaidPrice(paidPrice == null ? 0 : getDivRes(paidPrice, 100));
 			dto.setPayablePrice(payablePrice == null ? 0 : getDivRes(payablePrice, 100));
