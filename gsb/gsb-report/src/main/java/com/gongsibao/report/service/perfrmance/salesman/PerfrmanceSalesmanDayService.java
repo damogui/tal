@@ -63,8 +63,8 @@ public class PerfrmanceSalesmanDayService extends AbstractPerfrmanceSalesmanServ
 			sqlBuilder.append(") as four");
 			sqlBuilder.append(" LEFT JOIN uc_user_organization_map as org");
 			sqlBuilder.append(" on org.user_id=four.userId");
-		};
-
+		}
+		
 		DataTable dataTable = this.pm.executeTable(sqlBuilder.toString(), null);
 		List<UserOrganizationMap> mapList = context.getMapList();
 		for (UserOrganizationMap map : mapList) {
@@ -85,25 +85,17 @@ public class PerfrmanceSalesmanDayService extends AbstractPerfrmanceSalesmanServ
 					Integer netPayablePrice = Integer.parseInt(row.getString("netPayablePrice"));
 					Integer netGetAmout = Integer.parseInt(row.getString("netGetAmout"));
 
-					 entity.setReceivableAmount(payablePrice);
-					 entity.setPaidAmount(getAmout);
-					 entity.setRefundAmount(refundAmount);
-					 entity.setNetReceivables(netPayablePrice);
-					 entity.setNetPaidAmount(netGetAmout);
-					 entity.setProductCount(salesCount);
-					 entity.setOrderCount(orderCount);
-					 this.getStatisticsService().save(entity);
+					entity.setReceivableAmount(payablePrice);
+					entity.setPaidAmount(getAmout);
+					entity.setRefundAmount(refundAmount);
+					entity.setNetReceivables(netPayablePrice);
+					entity.setNetPaidAmount(netGetAmout);
+					entity.setProductCount(salesCount);
+					entity.setOrderCount(orderCount);
 				}
 			}
-//			int a = 1000;
-//			entity.setReceivableAmount(a);
-//			entity.setPaidAmount(a);
-//			entity.setRefundAmount(a);
-//			entity.setNetReceivables(a);
-//			entity.setNetPaidAmount(a);
-//			entity.setProductCount(a);
-//			entity.setOrderCount(a);
-//			this.getStatisticsService().save(entity);
+			
+			this.getStatisticsService().save(entity);
 		}
 
 		System.out.println("ok......");
