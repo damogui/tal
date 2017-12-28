@@ -38,6 +38,7 @@ public class StatusReportWorkspaceTest extends WorkspaceCreationBase{
 		PDatagrid datagrid = super.createDatagrid(node);
 		datagrid.setAutoQuery(false);
 		datagrid.setLazy(true);
+		datagrid.setPagination(false);
 		PDatagridColumn column = null;
 		column = addColumn(datagrid, "statusName", "客户状态", ControlTypes.TEXT_BOX, 150, true);
 		column = addColumn(datagrid, "newCount", "新增数量", ControlTypes.NUMBER_BOX, 100);

@@ -33,6 +33,7 @@ public class DistrictReportWorkspaceTest extends WorkspaceCreationBase{
 		PDatagrid datagrid = super.createDatagrid(node);
 		datagrid.setAutoQuery(false);
 		datagrid.setLazy(true);
+		datagrid.setPagination(false);
 		PDatagridColumn column = null;
 		column = addColumn(datagrid, "province", "省", ControlTypes.TEXT_BOX, 100, true);
 		column = addColumn(datagrid, "city", "市", ControlTypes.TEXT_BOX, 100, true);

@@ -36,6 +36,7 @@ public class ProductReportWorkspaceTest extends WorkspaceCreationBase{
 		PDatagrid datagrid = super.createDatagrid(node);
 		datagrid.setAutoQuery(false);
 		datagrid.setLazy(true);
+		datagrid.setPagination(false);
 		PDatagridColumn column = null;
 		column = addColumn(datagrid, "prodCategory", "产品类别", ControlTypes.TEXT_BOX, 150, true);
 		column = addColumn(datagrid, "prodSubClass", "产品子类别", ControlTypes.TEXT_BOX, 150, true);
