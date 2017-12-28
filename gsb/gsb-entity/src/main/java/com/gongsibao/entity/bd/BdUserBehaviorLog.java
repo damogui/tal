@@ -11,7 +11,7 @@ import org.netsharp.core.annotations.Id;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Persistable;
 
-@Table(name = "bd_user_behavior_log ", header = "用户行为日志表")
+@Table(name = "bd_user_behavior_log", header = "用户行为日志表")
 public class BdUserBehaviorLog extends Persistable {
 
 	/**
