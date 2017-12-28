@@ -79,6 +79,7 @@ public class VoucherLogWorkspaceTest extends WorkspaceCreationBase {
 		addQueryItem(queryProject, "payId", "支付编号", ControlTypes.NUMBER_BOX);
 		addQueryItem(queryProject, "refundId", "退单退款编号", ControlTypes.NUMBER_BOX);
 		addQueryItem(queryProject, "type", "类型", ControlTypes.ENUM_BOX);
+		addQueryItem(queryProject, "dsc", "u8返回信息说明", ControlTypes.TEXT_BOX);
 		// 参照
 		addRefrenceQueryItem(queryProject, "setOfBooks.name", "账套", SetOfBooks.class.getSimpleName());
 		return queryProject;
