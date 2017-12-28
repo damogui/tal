@@ -231,7 +231,7 @@ public class UserWorkspaceTest  extends WorkspaceCreationBase{
 
 		PDatagridColumn column = null;
 
-		addColumn(datagrid, "organization.name", "岗位", ControlTypes.REFERENCE_BOX, 300);		
+		addColumn(datagrid, "organization.shortName", "部门", ControlTypes.REFERENCE_BOX, 300);		
 		column = addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 100, false, null, null, null);
 		{
 			column.setAlign(DatagridAlign.CENTER);
@@ -267,7 +267,7 @@ public class UserWorkspaceTest  extends WorkspaceCreationBase{
 		form.toNew();
 		form.setColumnCount(1);
 		form.setName("所属组织");
-		PFormField field = addFormField(form, "organization.name", "所属组织", null, ControlTypes.REFERENCE_BOX, true, false);
+		PFormField field = addFormField(form, "organization.shortName", "所属组织", null, ControlTypes.REFERENCE_BOX, true, false);
 		{
 			PReference reference = referenceService.byCode("Gsb_Organization");
 			field.setReference(reference);
