@@ -8,11 +8,11 @@ import org.netsharp.panda.commerce.ListPart;
 import com.gongsibao.entity.trade.OrderProdTrace;
 import com.gongsibao.trade.base.IOrderProdTraceService;
 
-
-public class SoOrderListPart extends ListPart{
+public class SoOrderListPart extends ListPart {
 	IOrderProdTraceService prodTraceService = ServiceFactory.create(IOrderProdTraceService.class);
-	public List<OrderProdTrace> querySoOrderTraceList(Integer soOrderId){
-		List<OrderProdTrace> orderTraceList= prodTraceService.querySoOrderTraceList(soOrderId);
+
+	public List<OrderProdTrace> querySoOrderTraceList(Integer soOrderId) {
+		List<OrderProdTrace> orderTraceList = prodTraceService.querySoOrderTraceList(soOrderId);
 		return orderTraceList;
 	}
 }

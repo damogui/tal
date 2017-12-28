@@ -4,8 +4,8 @@ import org.junit.Before;
 import org.netsharp.meta.base.ResourceCreationBase;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.trade.base.IOrderService;
+import com.gongsibao.entity.trade.dto.SoOrderDTO;
+import com.gongsibao.trade.base.ISoOrderDTOService;
 
 public class ResourceTest extends ResourceCreationBase {
 
@@ -28,13 +28,15 @@ public class ResourceTest extends ResourceCreationBase {
 		ResourceNode node1 = null;
 		node1 = this.createResourceNodeCategory("订单管理", prefix + "_Manage", node.getId());
 		{
-			this.createResourceNodeVoucher(SoOrder.class.getName(), "全部订单", node1.getCode() + "_All_Order", IOrderService.class.getName(), node1.getId());
+			/*this.createResourceNodeVoucher(SoOrder.class.getName(), "全部订单", node1.getCode() + "_All_Order", IOrderService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(SoOrder.class.getName(), "我的订单", node1.getCode() + "_My_Order", IOrderService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(SoOrder.class.getName(), "我的订单明细", node1.getCode() + "_My_Order_Detail", IOrderService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(SoOrder.class.getName(), "订单池", node1.getCode() + "_Order_Pool", IOrderService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(SoOrder.class.getName(), "订单池", node1.getCode() + "_Order_Pool", IOrderService.class.getName(), node1.getId());*/
+			
+			this.createResourceNodeVoucher(SoOrderDTO.class.getName(), "订单操作", node1.getCode() + "_Order_Operation", ISoOrderDTOService.class.getName(), node1.getId());
 		}
 		
-		node1 = this.createResourceNodeCategory("订单操作", prefix + "_Operation", node.getId());
+		/*node1 = this.createResourceNodeCategory("订单操作", prefix + "_Operation", node.getId());
 		{
 			this.createResourceNodeVoucher(SoOrder.class.getName(), "操作订单池", node1.getCode() + "_Operation_Order", IOrderService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(SoOrder.class.getName(), "我负责的订单", node1.getCode() + "_Responsible_Order", IOrderService.class.getName(), node1.getId());
@@ -71,6 +73,6 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(SoOrder.class.getName(), "分成管理", node1.getCode() + "_Commission", IOrderService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(SoOrder.class.getName(), "结算列表", node1.getCode() + "_Settle", IOrderService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(SoOrder.class.getName(), "打款列表", node1.getCode() + "_Remittance", IOrderService.class.getName(), node1.getId());
-		}
+		}*/
 	}
 }
