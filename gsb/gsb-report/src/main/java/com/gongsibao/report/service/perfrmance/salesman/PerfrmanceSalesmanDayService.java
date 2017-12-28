@@ -98,7 +98,7 @@ public class PerfrmanceSalesmanDayService extends AbstractPerfrmanceSalesmanServ
 			this.getStatisticsService().save(entity);
 		}
 
-		System.out.println("ok......");
+		System.out.println("ok...... ");
 	}
 
 	private PerformanceStatistics create(Date date, Integer salesmanId, Integer departmentId) {
