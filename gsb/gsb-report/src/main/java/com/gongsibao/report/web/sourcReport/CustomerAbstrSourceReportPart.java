@@ -6,6 +6,7 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.DataTable;
@@ -34,7 +35,14 @@ public class CustomerAbstrSourceReportPart extends ListPart{
 			if (!StringManager.isNullOrEmpty(departmentId)) {
 				getOragId = Integer.parseInt(departmentId.replace("'", "").trim());
 			}
-			List<BaseCustomerReportEntity> rowsList = getOrganList(getOragId);
+			List<BaseCustomerReportEntity> rowsList=new ArrayList<>();
+			Map<String, List<BaseCustomerReportEntity>> mapList = getOrganList(getOragId);
+			for (String item : mapList.keySet()) {
+				System.out.println(item);
+			}
+			for (List<BaseCustomerReportEntity> item : mapList.values()) {
+				rowsList.addAll(item);
+			}
 			json = this.serialize(rowsList, oql);
 		}
 		return json;
@@ -45,8 +53,14 @@ public class CustomerAbstrSourceReportPart extends ListPart{
 	 * @param 组织机构Id
 	 * @return
 	 */
-	protected List<BaseCustomerReportEntity> getOrganList(Integer orgaId){
-		List<BaseCustomerReportEntity> resultList = new ArrayList<>();
+	protected Map<String, List<BaseCustomerReportEntity>> getOrganList(Integer orgaId){
+		//返回的集合
+		Map<String, List<BaseCustomerReportEntity>> resultMap=new HashMap<>();
+				
+		List<BaseCustomerReportEntity> onLineList = new ArrayList<>();
+		List<BaseCustomerReportEntity> offLineList = new ArrayList<>();
+		List<BaseCustomerReportEntity> otherList = new ArrayList<>();
+		
 		DataTable getDt = getDataTable(map,orgaId);
 		List<Integer> getOnLine = OnOffLine.getOnLine();
 		List<Integer> getOffLine = OnOffLine.getOffLine();
@@ -54,6 +68,8 @@ public class CustomerAbstrSourceReportPart extends ListPart{
 		int onLineSharCustomerCount=0;
 		int offLineCustomerCount=0;
 		int offLineSharCustomerCount=0;
+		int otherCustomerCount=0;
+		int otherSharCustomerCount=0;
 		for (IRow row : getDt) {
 			if(row.getString("pkid")!=null){
 				CustomerSourceReport entity = new CustomerSourceReport();
@@ -65,37 +81,55 @@ public class CustomerAbstrSourceReportPart extends ListPart{
 				entity.setNewShareCount(newShareCustomer);
 				entity.setSourceName(name);
 				if (getOnLine.contains(pkid)) {
-					entity.setLineName("线上");
+					entity.setLineName("");
 					onLineCustomerCount = newCustomer + onLineCustomerCount;
 					onLineSharCustomerCount = newShareCustomer + onLineSharCustomerCount;
+					onLineList.add(entity);
 				}else if(getOffLine.contains(pkid)){
-					entity.setLineName("线下");
+					entity.setLineName("");
 					offLineCustomerCount = newCustomer + offLineCustomerCount;
 					offLineSharCustomerCount = newShareCustomer + offLineSharCustomerCount;
+					offLineList.add(entity);
+				}else{
+					entity.setLineName("");
+					otherCustomerCount = newCustomer + otherCustomerCount;
+					otherSharCustomerCount = newShareCustomer + otherSharCustomerCount;
+					otherList.add(entity);
 				}
-				resultList.add(entity);
 			}
 		}
-		//填充2行统计
-		for (int i=0;i<=1;i++) {
+		//填充3行统计（线上、线下、其他的统计）
+		for (int i=0;i<=2;i++) {
 			CustomerSourceReport entity = new CustomerSourceReport();
 			switch (i) {
 			case 0:
-				entity.setLineName("线上");
+				entity.setLineName("其他");
 				entity.setSourceName("总计");
-				entity.setNewCount(onLineCustomerCount);
-				entity.setNewShareCount(onLineSharCustomerCount);
+				entity.setNewCount(otherCustomerCount);
+				entity.setNewShareCount(otherSharCustomerCount);
+				otherList.add(0,entity);
 				break;
-			default:
+			case 1:
 				entity.setLineName("线下");
 				entity.setSourceName("总计");
 				entity.setNewCount(offLineCustomerCount);
 				entity.setNewShareCount(offLineSharCustomerCount);
+				offLineList.add(0,entity);
+				break;
+			default:
+				entity.setLineName("线上");
+				entity.setSourceName("总计");
+				entity.setNewCount(onLineCustomerCount);
+				entity.setNewShareCount(onLineSharCustomerCount);
+				onLineList.add(0,entity);
 				break;
 			}
-			resultList.add(entity);
-		}		
-		return resultList;
+			
+		}
+		resultMap.put("offLine", offLineList);
+		resultMap.put("onLine", onLineList);
+		resultMap.put("other", otherList);
+		return resultMap;
 	}
 	
 	/**
