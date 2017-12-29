@@ -75,13 +75,14 @@ public class OrderOperationWorkspaceTest extends WorkspaceCreationBase  {
         addColumn(datagrid, "orderStatus", "订单状态", ControlTypes.ENUM_BOX, 80);
 		addColumn(datagrid, "companyName", "关联企业", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "refundStatusId", "退单状态", ControlTypes.ENUM_BOX, 200);
-		addColumn(datagrid, "isManualVoucher", "手动原因", ControlTypes.ENUM_BOX, 300);
-		column = addColumn(datagrid, "manualVoucherStatus", "凭证状态", ControlTypes.ENUM_BOX, 100);
-		{
-			column.setFormatter("return controllermanualVoucherOrderDTOList.changeManualVoucherStatusFormatter(value,row,index);");
-		}
+		addColumn(datagrid, "totalPrice", "原价金额", ControlTypes.DECIMAL_BOX, 80);
+		addColumn(datagrid, "payablePrice", "应付金额", ControlTypes.DECIMAL_BOX, 80);
+		addColumn(datagrid, "paidPrice", "已付金额", ControlTypes.DECIMAL_BOX, 80);
+		addColumn(datagrid, "isInstallment", "是否分期", ControlTypes.BOOLCOMBO_BOX, 80);
+	    addColumn(datagrid, "operator", "业务员", ControlTypes.TEXT_BOX, 100);
+	    addColumn(datagrid, "customerName", "下单人", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "platformSource", "订单来源", ControlTypes.ENUM_BOX, 80);
 		addColumn(datagrid, "addTime", "订单创建日期", ControlTypes.DATETIME_BOX, 100);
-		addColumn(datagrid, "returnTime", "首款回款日期", ControlTypes.DATETIME_BOX, 100);
 		return datagrid;
 	}
 
@@ -91,12 +92,17 @@ public class OrderOperationWorkspaceTest extends WorkspaceCreationBase  {
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
 		addQueryItem(queryProject, "orderNo", "订单号", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "operator", "业务员", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "custName", "客户名称", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "isManualVoucher", "手动原因", ControlTypes.ENUM_BOX);
-		addQueryItem(queryProject, "manualVoucherStatus", "凭证状态", ControlTypes.ENUM_BOX);
+		addQueryItem(queryProject, "customerName", "下单人", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "accountMobile", "下单人手机号", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "orderStatus", "订单状态", ControlTypes.ENUM_BOX);
+		addQueryItem(queryProject, "productName", "产品名称", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "companyName", "关联企业", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "platformSource", "订单来源", ControlTypes.ENUM_BOX);
+		addQueryItem(queryProject, "isInstallment", "是否分期", ControlTypes.BOOLCOMBO_BOX);
 		addQueryItem(queryProject, "addTime", "订单创建日期", ControlTypes.DATE_BOX);
-		addQueryItem(queryProject, "returnTime", "首款回款日期", ControlTypes.DATE_BOX);
+		addQueryItem(queryProject, "payTime", "回款日期", ControlTypes.DATE_BOX);
 		return queryProject;
 	}
 

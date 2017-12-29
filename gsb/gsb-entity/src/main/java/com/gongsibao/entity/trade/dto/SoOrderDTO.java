@@ -48,10 +48,19 @@ public class SoOrderDTO extends Persistable {
 	private boolean isInstallment;
 	//业务员
 	private String operator;
-	//下单人
+	//下单人名称
 	private String accountName;
+	//客户名称
+	private String customerName;
+	//下单人手机号
+	private String accountMobile;
+	//下单人id
+	private Integer accountId;
 	//订单来源
 	private OrderPlatformSourceType platformSource = OrderPlatformSourceType.Gsb;
+	//下单时间
+	private Date addTime;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -118,6 +127,7 @@ public class SoOrderDTO extends Persistable {
 	public void setPaidPrice(double paidPrice) {
 		this.paidPrice = paidPrice;
 	}
+
 	public boolean isInstallment() {
 		return isInstallment;
 	}
@@ -141,5 +151,32 @@ public class SoOrderDTO extends Persistable {
 	}
 	public void setPlatformSource(OrderPlatformSourceType platformSource) {
 		this.platformSource = platformSource;
+	}
+	public String getCustomerName() {
+		return customerName;
+	}
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+	public String getAccountMobile() {
+		return accountMobile;
+	}
+	public void setAccountMobile(String accountMobile) {
+		this.accountMobile = accountMobile;
+	}
+	public Integer getAccountId() {
+		return accountId;
+	}
+	public void setAccountId(Integer accountId) {
+		this.accountId = accountId;
+	}
+	public Date getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(Date addTime) {
+		this.addTime = addTime;
 	}	
+
+	
+	
 }

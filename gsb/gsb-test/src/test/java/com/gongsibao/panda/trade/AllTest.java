@@ -4,29 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import com.gongsibao.panda.trade.workspace.audit.ChangePriceAuditWorkspaceTest;
-import com.gongsibao.panda.trade.workspace.audit.ContractAuditWorkspaceTest;
-import com.gongsibao.panda.trade.workspace.audit.InstallmentWorkspaceTest;
-import com.gongsibao.panda.trade.workspace.audit.InvoiceAuditWorkspaceTest;
-import com.gongsibao.panda.trade.workspace.audit.ReceiptAuditWorkspaceTest;
-import com.gongsibao.panda.trade.workspace.audit.RechargeWorkspaceTest;
-import com.gongsibao.panda.trade.workspace.audit.RefundAuditWorkspaceTest;
-import com.gongsibao.panda.trade.workspace.cost.CashOutAuditWorkspaceTest;
-import com.gongsibao.panda.trade.workspace.cost.CostManageWorkspaceTest;
-import com.gongsibao.panda.trade.workspace.cost.PayeeManageWorkspaceTest;
-import com.gongsibao.panda.trade.workspace.cost.SupplierInvoiceAuditWorkspaceTest;
-import com.gongsibao.panda.trade.workspace.operation.MyResponsibleOrderWorkspaceTest;
-import com.gongsibao.panda.trade.workspace.operation.OperationOrderPoolWorkspaceTest;
-import com.gongsibao.panda.trade.workspace.operation.OrderAuditWorkspaceTest;
-import com.gongsibao.panda.trade.workspace.operation.OrderMonitoringWorkspaceTest;
-import com.gongsibao.panda.trade.workspace.order.AllOrderWorkspaceTest;
-import com.gongsibao.panda.trade.workspace.order.MyOrderDetailWorkspaceTest;
-import com.gongsibao.panda.trade.workspace.order.MyOrderWorkspaceTest;
-import com.gongsibao.panda.trade.workspace.order.OrderPoolWorkspaceTest;
-import com.gongsibao.panda.trade.workspace.payment.PaymentLogWorkspaceTest;
-import com.gongsibao.panda.trade.workspace.settle.CommissionManagerWorkspaceTest;
-import com.gongsibao.panda.trade.workspace.settle.RemittanceListWorkspaceTest;
-import com.gongsibao.panda.trade.workspace.settle.SettleListWorkspaceTest;
+import com.gongsibao.panda.trade.workspace.order.OrderOperationWorkspaceTest;
 
 
 @RunWith(Suite.class)
@@ -34,6 +12,8 @@ import com.gongsibao.panda.trade.workspace.settle.SettleListWorkspaceTest;
 
 	ResourceTest.class, 
 
+	OrderOperationWorkspaceTest.class,
+	
 	//订单管理:全部订单,我的订单,我的订单明细,订单池
 	/*AllOrderWorkspaceTest.class,
 	MyOrderWorkspaceTest.class,
