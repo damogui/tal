@@ -57,7 +57,15 @@ org.netsharp.panda.QueryController = System.Object.Extends({
 
             var controlType = $(item).attr("controlType");
             var control = null;
-            var expression = 'control=new org.netsharp.controls.'+controlType;
+            var expression = '';
+            if(controlType == 'Custom'){
+
+            	var customControlType = $(item).attr("customControlType");
+                expression = 'control=new '+customControlType;
+            }else{
+
+                expression = 'control=new org.netsharp.controls.'+controlType;
+            }
             eval(expression);
             control.uiElement = item;
             control.propertyName = item.id;

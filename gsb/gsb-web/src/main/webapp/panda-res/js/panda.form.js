@@ -810,7 +810,7 @@ org.netsharp.panda.commerce.FormPartModel = System.Object.Extends({
         for(var i=0;i<items.length;i++){
         	
         	var item = items[i];
-            var controlType = $(item).attr("customerControlType") || ('org.netsharp.controls.'+$(item).attr("controlType"));
+            var controlType = $(item).attr("customControlType") || ('org.netsharp.controls.'+$(item).attr("controlType"));
             var control = null;
             var expression = 'control= new '+controlType;
             eval(expression);
@@ -825,18 +825,3 @@ org.netsharp.panda.commerce.FormPartModel = System.Object.Extends({
         }
     }
 });
-
-//else if (controlType == "Customer") {
-//
-//    var controlType = $(item).attr("customerControlType");
-//    var editor = null;
-//
-//    var expression = "editor = new " + controlType + ";";
-//    eval(expression);
-//
-//    editor.uiElement = item;
-//    editor.propertyName = item.id;
-//
-//    viewmodel.controls.push(editor);
-//}
-

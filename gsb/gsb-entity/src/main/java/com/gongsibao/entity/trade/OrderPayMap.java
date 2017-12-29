@@ -14,13 +14,13 @@ public class OrderPayMap extends BaseEntity {
 	@Column(name="order_id",header="订单序号")
     private Integer orderId;
 	
-    @Reference(header="订单",foreignKey="orderId")
+    @Reference(header="订单",foreignKey="orderId",primaryKey="pkid")
     private SoOrder soOrder;
 	
     @Column(name="pay_id",header="支付序号")
     private Integer payId;
     
-    @Reference(header="支付",foreignKey="payId")
+    @Reference(header="支付",foreignKey="payId",primaryKey="pkid")
     private Pay pay;
 
     public Integer getOrderId() {

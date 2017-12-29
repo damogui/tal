@@ -35,8 +35,8 @@ public class CityComboBox implements IPropertyControl{
 	        control.setId(formField.getPropertyName().replaceAll("\\.", "_"));
 			control.setName(formField.getPropertyName().replaceAll("\\.", "_"));
 	        control.required = formField.isRequired();
-	        control.controlType = ControlTypes.CUSTOMER.getName();
-	        control.customerControlType = this.getClass().getName();
+	        control.controlType = ControlTypes.CUSTOM.getName();
+	        control.customControlType = this.getClass().getName();
 	        control.defaultValue = formField.getDefaultValue();
 	        control.valueField = "id";
 	        control.textField = "name";

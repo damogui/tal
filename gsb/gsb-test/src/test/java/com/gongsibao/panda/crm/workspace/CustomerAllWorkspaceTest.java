@@ -179,9 +179,9 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 			formField.setTroikaTrigger("controllercustomer.allocationTypeChange(newValue, oldValue);");
 		}
 
-		formField = addFormField(form, "customerSource.name", "客户来源", groupName, ControlTypes.CUSTOMER, true, false);
+		formField = addFormField(form, "customerSource.name", "客户来源", groupName, ControlTypes.CUSTOM, true, false);
 		{
-			formField.setCustomerControlType(DictComboBox.class.getName());
+			formField.setCustomControlType(DictComboBox.class.getName());
 			formField.setRefFilter("type=411");
 		}
 
@@ -191,10 +191,10 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 			formField.setTroikaTrigger("controllercustomer.consultWayChange(newValue, oldValue);");
 		}
 
-		formField = addFormField(form, "allocationOrgId", "分配部门", groupName, ControlTypes.CUSTOMER, true, true);
+		formField = addFormField(form, "allocationOrgId", "分配部门", groupName, ControlTypes.CUSTOM, true, true);
 		{
 
-			formField.setCustomerControlType(OrganizationComboBox.class.getName());
+			formField.setCustomControlType(OrganizationComboBox.class.getName());
 		}
 
 		formField = addFormField(form, "customerSourceOther", "其它客户来源", groupName, ControlTypes.TEXT_BOX, false, true);
@@ -207,24 +207,24 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 
 		}
 
-		formField = addFormField(form, "fProvince.name", "所在省份", groupName, ControlTypes.CUSTOMER, false, false);
+		formField = addFormField(form, "fProvince.name", "所在省份", groupName, ControlTypes.CUSTOM, false, false);
 		{
 
-			formField.setCustomerControlType(CityComboBox.class.getName());
+			formField.setCustomControlType(CityComboBox.class.getName());
 			formField.setDataOptions("level:1,changeCtrlId:'fCity_name'");
 		}
 
-		formField = addFormField(form, "fCity.name", "所在城市", groupName, ControlTypes.CUSTOMER, false, false);
+		formField = addFormField(form, "fCity.name", "所在城市", groupName, ControlTypes.CUSTOM, false, false);
 		{
 
-			formField.setCustomerControlType(CityComboBox.class.getName());
+			formField.setCustomControlType(CityComboBox.class.getName());
 			formField.setDataOptions("level:2,changeCtrlId:'fCounty_name'");
 		}
 
-		formField = addFormField(form, "fCounty.name", "所在区/县", groupName, ControlTypes.CUSTOMER, false, false);
+		formField = addFormField(form, "fCounty.name", "所在区/县", groupName, ControlTypes.CUSTOM, false, false);
 		{
 
-			formField.setCustomerControlType(CityComboBox.class.getName());
+			formField.setCustomControlType(CityComboBox.class.getName());
 			formField.setDataOptions("level:3");
 		}
 
@@ -299,21 +299,21 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 				formField.setTroikaTrigger("controllerprodDetails.productChange(newValue,oldValue);");
 				formField.setWidth(300);
 			}
-			formField = addFormField(form, "dProvince.name", "省份", ControlTypes.CUSTOMER, false, false);
+			formField = addFormField(form, "dProvince.name", "省份", ControlTypes.CUSTOM, false, false);
 			{
-				formField.setCustomerControlType(CityComboBox.class.getName());
+				formField.setCustomControlType(CityComboBox.class.getName());
 				formField.setDataOptions("level:1,changeCtrlId:'dCity_name'");
 				formField.setWidth(300);
 			}
-			formField = addFormField(form, "dCity.name", "城市", ControlTypes.CUSTOMER, false, false);
+			formField = addFormField(form, "dCity.name", "城市", ControlTypes.CUSTOM, false, false);
 			{
-				formField.setCustomerControlType(CityComboBox.class.getName());
+				formField.setCustomControlType(CityComboBox.class.getName());
 				formField.setDataOptions("level:2,changeCtrlId:'dCounty_name'");
 				formField.setWidth(300);
 			}
-			formField = addFormField(form, "dCounty.name", "区/县", ControlTypes.CUSTOMER, false, false);
+			formField = addFormField(form, "dCounty.name", "区/县", ControlTypes.CUSTOM, false, false);
 			{
-				formField.setCustomerControlType(CityComboBox.class.getName());
+				formField.setCustomControlType(CityComboBox.class.getName());
 				formField.setDataOptions("level:3");
 				formField.setWidth(300);
 			}

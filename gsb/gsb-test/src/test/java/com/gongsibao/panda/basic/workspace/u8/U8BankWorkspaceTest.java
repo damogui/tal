@@ -98,9 +98,9 @@ public class U8BankWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "supplierId", "u8供应商id", ControlTypes.TEXT_BOX,  false, false);	
 		//addFormFieldRefrence(form, "prepaySubject.name", "预付科目",null, U8Bank.class.getSimpleName(), false, false);
 		addFormField(form, "personnelId", "u8人员id", ControlTypes.TEXT_BOX,  false, false);
-		field = addFormField(form, "offlineWayType.name", "原线下付款方式", null, ControlTypes.CUSTOMER, false, false);
+		field = addFormField(form, "offlineWayType.name", "原线下付款方式", null, ControlTypes.CUSTOM, false, false);
 		{
-			field.setCustomerControlType(DictComboBox.class.getName());
+			field.setCustomControlType(DictComboBox.class.getName());
 			field.setRefFilter("type=311");
 		}
 		addFormField(form, "deptId", "u8部门id", ControlTypes.TEXT_BOX, false, false);				
