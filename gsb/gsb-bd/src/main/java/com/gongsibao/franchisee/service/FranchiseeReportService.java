@@ -167,19 +167,10 @@ public class FranchiseeReportService extends PersistableService<FranchiseeReport
 			Integer getTrackProgress7 = Integer.parseInt(row.getString("progress7")==null?"0":row.getString("progress7"));//进度：已合作中止
 			FranchiseeReport entity=new FranchiseeReport();
 			entity.setType(reportType);
-			//判断统计类型 ：1-年、2-月、3-周、4-日
-			switch (reportType.getValue()) {
-			case 4:
-				entity.setDate(cal.getTime());
-				break;
-			case 2:
-				entity.setYear(year);
-				entity.setMonth(month);
-				break;
-			case 1:
-				entity.setYear(year);
-				break;
-			}
+			
+			entity.setYear(year);
+			entity.setMonth(month);
+			entity.setDate(cal.getTime());
 			
 			entity.setOrganizationId(departmentId);
 			entity.setTotalCount(getTotalCout);
@@ -218,6 +209,7 @@ public class FranchiseeReportService extends PersistableService<FranchiseeReport
 		Calendar cal = Calendar.getInstance();// 使用日历类
 		int year = cal.get(Calendar.YEAR);// 得到年
 		int month = cal.get(Calendar.MONTH) + 1;// 得到月，因为从0开始的，所以要加1
+		
 		String getDate = year + "-" + FormatData(month);
 		
 		// 报表接口
@@ -287,7 +279,6 @@ public class FranchiseeReportService extends PersistableService<FranchiseeReport
 					switch (reportType.getValue()) {
 					case 2:
 						entity.setType(FranchiseeReportType.month);
-						entity.setMonth(month);
 						break;
 					case 1:
 						entity.setType(FranchiseeReportType.year);
@@ -295,6 +286,8 @@ public class FranchiseeReportService extends PersistableService<FranchiseeReport
 					}
 					
 					entity.setYear(year);
+					entity.setMonth(month);
+					entity.setDate(cal.getTime());
 					entity.setOrganizationId(getDepartId);
 					entity.setOwnerId(item);
 					entity.setTotalCount(getTotalCout);

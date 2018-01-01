@@ -32,11 +32,11 @@ public class OperationDayReportWorkspaceTest extends WorkspaceCreationBase {
 		resourceNodeCode = "GSB_BD_OPERATION_Day_Report";
 		listPartType = PartType.TREEGRID_PART.getId();
 		formOpenMode = OpenMode.WINDOW;
+		listFilter="type=4";
 		// 扩展
 		listPartServiceController = FranchiseeDayReportController.class.getName();
 		listPartJsController = FranchiseeDayReportController.class.getName();
 		listPartImportJs = "/gsb/bd/js/day.report.part.js";
-		
 		listToolbarPath="/bd/crm/report/toolbar";
 	}
 
