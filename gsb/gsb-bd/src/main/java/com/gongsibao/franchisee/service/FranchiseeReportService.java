@@ -1,5 +1,6 @@
 package com.gongsibao.franchisee.service;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.DataTable;
 import org.netsharp.core.IRow;
+import org.netsharp.organization.entity.Organization;
 import org.netsharp.service.PersistableService;
 
 import com.gongsibao.entity.franchisee.FranchiseeReport;
@@ -324,5 +326,29 @@ public class FranchiseeReportService extends PersistableService<FranchiseeReport
 			
 		}
 
+	}
+
+	@Override
+	public List<Organization> getOListByParentId(Integer parentId) {
+		List<Organization> returnList =new ArrayList<Organization>();
+		StringBuilder sqlSelBuilder = new StringBuilder();
+		sqlSelBuilder.append("SELECT parent_id,path_name,name,id,is_leaf ");
+		sqlSelBuilder.append("from sys_permission_organization where parent_id="+parentId);
+		DataTable dataTable = this.pm.executeTable(sqlSelBuilder.toString(), null);
+		for (IRow row : dataTable) {					
+			Integer getParentId = Integer.parseInt(row.getString("parent_id"));
+			String getPathName = row.getString("path_name");
+			String getName = row.getString("name");
+			Integer getId = Integer.parseInt(row.getString("id"));
+			int getIsLeaf = Integer.parseInt(row.getString("is_leaf"));
+			Organization orgaEntity =new Organization();
+			orgaEntity.setParentId(getParentId);
+			orgaEntity.setPathName(getPathName);
+			orgaEntity.setName(getName);
+			orgaEntity.setId(getId);
+			orgaEntity.setIsLeaf(getIsLeaf==1?true:false);
+			returnList.add(orgaEntity);
+		}
+		return returnList;
 	}
 }
