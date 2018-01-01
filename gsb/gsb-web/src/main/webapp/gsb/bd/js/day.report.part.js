@@ -4,9 +4,9 @@ com.gongsibao.franchisee.web.FranchiseeDayReportController = org.netsharp.panda.
     ctor: function () {
         this.base();
     },
-    generateReports : function() {
+    operDayReports : function() {
 		this.invokeService("execute", [], function() {
-			window.alert("生成成功");
+			window.alert("生成运营日报成功");
 			return;
 		});
 	}

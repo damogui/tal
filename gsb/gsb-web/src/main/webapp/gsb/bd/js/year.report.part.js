@@ -4,9 +4,9 @@ com.gongsibao.franchisee.web.FranchiseeYearReportController = org.netsharp.panda
     ctor: function () {
         this.base();
     },
-    generateReports : function() {
+    operYearReports : function() {
 		this.invokeService("execute", [], function() {
-			window.alert("生成年报成功");
+			window.alert("生成运营年报成功");
 			return;
 		});
 	}

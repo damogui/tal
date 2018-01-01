@@ -4,9 +4,9 @@ com.gongsibao.franchisee.web.FranchiseeMonthReportController = org.netsharp.pand
     ctor: function () {
         this.base();
     },
-    generateReports : function() {
+    operMonthReports : function() {
 		this.invokeService("execute", [], function() {
-			window.alert("生成月报成功");
+			window.alert("生成运营月报成功");
 			return;
 		});
 	}
