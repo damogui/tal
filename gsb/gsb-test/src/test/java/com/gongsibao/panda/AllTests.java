@@ -16,9 +16,14 @@ import org.junit.runners.Suite.SuiteClasses;
 //    org.netsharp.scrum.meta.AllTests.class,
     
     com.gongsibao.ma.AllTest.class,
-    //com.gongsibao.crm.AllTest.class,
-    //com.gongsibao.cms.AllTest.class,
-    //com.gongsibao.trade.AllTest.class,
+
+//    com.gongsibao.er.AllTest.class,
+//      com.gongsibao.crm.AllTest.class,
+//      com.gongsibao.cms.AllTest.class,
+//      com.gongsibao.trade.AllTest.class,
+    com.gongsibao.crm.AllTest.class,
+   // com.gongsibao.trade.AllTest.class,
+
       
       //com.gongsibao.u8.AllTest.class,
       

@@ -47,7 +47,7 @@ public class U8BankWorkspace extends WorkspaceCreationBase {
 		
 		PDatagridColumn column = null;
 		addColumn(datagrid, "name", "银行/科目名称", ControlTypes.TEXT_BOX, 200);
-		addColumn(datagrid, "no", "卡号", ControlTypes.TEXT_BOX, 200);
+		//addColumn(datagrid, "no", "卡号", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "code", "科目编号", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "abbreviation", "简称", ControlTypes.TEXT_BOX, 150);
 		addColumn(datagrid, "setOfBooks.name", "账套名称", ControlTypes.TEXT_BOX, 200);		
