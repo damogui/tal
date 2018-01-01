@@ -97,13 +97,13 @@ public class FranchiseeReportService extends PersistableService<FranchiseeReport
 				}
 			}
 			//2.生成部门的日报
-			createDepartDayReport(getDepartId,FranchiseeReportType.date);
+			createDepartReport(getDepartId,FranchiseeReportType.date);
 		}
 
 	}
 
 	@Override
-	public void createDepartDayReport(Integer departmentId,FranchiseeReportType reportType) {
+	public void createDepartReport(Integer departmentId,FranchiseeReportType reportType) {
 		// 报表接口
 		IFranchiseeReportService reportService = ServiceFactory.create(IFranchiseeReportService.class);
 		// 获取当前时间
@@ -112,7 +112,7 @@ public class FranchiseeReportService extends PersistableService<FranchiseeReport
 		int month = cal.get(Calendar.MONTH) + 1;// 得到月，因为从0开始的，所以要加1
 		int day = cal.get(Calendar.DAY_OF_MONTH);// 得到天
 		String getCurrentTime = year + "-" + FormatData(month) + "-" + FormatData(day);
-		String getCurrentMonth = FormatData(month);
+		
 		//1.删除已经存在的部门日报、月报、年报等
 		StringBuilder sqlDelBuilder = new StringBuilder();
 		sqlDelBuilder.append("DELETE from bd_franchisee_report WHERE organization_id="+ departmentId +" and type=" + reportType.getValue() + " and owner_id is null");
@@ -130,9 +130,10 @@ public class FranchiseeReportService extends PersistableService<FranchiseeReport
 			sqlSelectBuilder.append("(SELECT * from bd_franchisee_report WHERE organization_id="+ departmentId+" and type="+reportType.getValue()+" and owner_id <> '' and date like '%"+getCurrentTime+"%' GROUP BY owner_id) as report");			
 			break;
 		case 2:
-			sqlSelectBuilder.append("(SELECT * from bd_franchisee_report WHERE organization_id="+ departmentId+" and type="+reportType.getValue()+" and owner_id <> '' and `month` like '%"+getCurrentMonth+"%' GROUP BY owner_id) as report");						
+			sqlSelectBuilder.append("(SELECT * from bd_franchisee_report WHERE organization_id="+ departmentId+" and type="+reportType.getValue()+" and owner_id <> '' and `year`="+year+" and `month` ="+month+" GROUP BY owner_id) as report");						
 			break;
-		default:
+		case 1:
+			sqlSelectBuilder.append("(SELECT * from bd_franchisee_report WHERE organization_id="+ departmentId+" and type="+reportType.getValue()+" and owner_id <> '' and `year`="+year+" GROUP BY owner_id) as report");
 			break;
 		}
 		
@@ -175,7 +176,8 @@ public class FranchiseeReportService extends PersistableService<FranchiseeReport
 				entity.setYear(year);
 				entity.setMonth(month);
 				break;
-			default:
+			case 1:
+				entity.setYear(year);
 				break;
 			}
 			
@@ -211,7 +213,7 @@ public class FranchiseeReportService extends PersistableService<FranchiseeReport
 	}
 
 	@Override
-	public void createMonthReport(Map<Integer, List<Integer>> departmentMap) {
+	public void createYearMonthReport(Map<Integer, List<Integer>> departmentMap,FranchiseeReportType reportType) {
 		// 获取当前时间
 		Calendar cal = Calendar.getInstance();// 使用日历类
 		int year = cal.get(Calendar.YEAR);// 得到年
@@ -228,20 +230,35 @@ public class FranchiseeReportService extends PersistableService<FranchiseeReport
 			//1.生成员工的月报
 			for (Integer item : getEmployeeId) {
 				
-				//删除当月已经存在的数据
+				//删除当年、月已经存在的数据
 				StringBuilder sqlDelBuilder = new StringBuilder();
 				sqlDelBuilder.append("DELETE from bd_franchisee_report where ");
-				sqlDelBuilder.append("owner_id =" + item +" and type ="+FranchiseeReportType.month.getValue()+ " and `month`="+ month);
+				//判断统计类型 ：1-年、2-月、3-周、4-日
+				switch (reportType.getValue()) {
+				case 2:
+					sqlDelBuilder.append("owner_id =" + item +" and type ="+reportType.getValue()+ " and `month`="+ month);
+					break;
+				case 1:
+					sqlDelBuilder.append("owner_id =" + item +" and type ="+reportType.getValue()+ " and `year`="+ year);
+					break;
+				}
 				this.pm.executeNonQuery(sqlDelBuilder.toString(), null);
-				//查询当月报表数据
+				//查询当年、月报表数据
 				StringBuilder sqlSelectBuilder = new StringBuilder();
 				sqlSelectBuilder.append("SELECT total_count,track_count,un_track_count,expected_sign_1_count,expected_sign_2_count,expected_sign_3_count,");
 				sqlSelectBuilder.append("expected_sign_4_count,expected_sign_5_count,intIntention_degree1_count,intIntention_degree2_count,intIntention_degree3_count,");
 				sqlSelectBuilder.append("track_progress1_count,track_progress2_count,track_progress3_count,track_progress4_count,track_progress5_count,");
 				sqlSelectBuilder.append("track_progress6_count,track_progress7_count");
 				sqlSelectBuilder.append(" from bd_franchisee_report");
-				sqlSelectBuilder.append(" where organization_id="+getDepartId+" AND owner_id ="+item+" AND date like '%"+getDate+"%' ORDER BY date desc LIMIT 0,1");
-				
+				//判断统计类型 ：1-年、2-月、3-周、4-日
+				switch (reportType.getValue()) {
+				case 2:
+					sqlSelectBuilder.append(" where organization_id="+getDepartId+" AND owner_id ="+item+" AND date like '%"+getDate+"%' ORDER BY date desc LIMIT 0,1");
+					break;
+				case 1:
+					sqlSelectBuilder.append(" where organization_id="+getDepartId+" AND owner_id ="+item+" AND date like '%"+getDate+"%' ORDER BY date desc LIMIT 0,1");
+					break;
+				}
 				DataTable dataTable = this.pm.executeTable(sqlSelectBuilder.toString(), null);
 				for (IRow row : dataTable) {					
 					Integer getTotalCout = Integer.parseInt(row.getString("total_count"));// 总客户数量
@@ -266,10 +283,18 @@ public class FranchiseeReportService extends PersistableService<FranchiseeReport
 					Integer getTrackProgress6 = Integer.parseInt(row.getString("track_progress6_count"));//进度：已中止
 					Integer getTrackProgress7 = Integer.parseInt(row.getString("track_progress7_count"));//进度：已合作中止
 					FranchiseeReport entity=new FranchiseeReport();
-					entity.setType(FranchiseeReportType.month);
+					//判断统计类型 ：1-年、2-月、3-周、4-日
+					switch (reportType.getValue()) {
+					case 2:
+						entity.setType(FranchiseeReportType.month);
+						entity.setMonth(month);
+						break;
+					case 1:
+						entity.setType(FranchiseeReportType.year);
+						break;
+					}
 					
 					entity.setYear(year);
-					entity.setMonth(month);
 					entity.setOrganizationId(getDepartId);
 					entity.setOwnerId(item);
 					entity.setTotalCount(getTotalCout);
@@ -295,8 +320,17 @@ public class FranchiseeReportService extends PersistableService<FranchiseeReport
 					reportService.save(entity);
 				}
 			}
-			//2.生成部门的月报
-			createDepartDayReport(getDepartId,FranchiseeReportType.month);
+			//2.生成部门的年、月报
+			//判断统计类型 ：1-年、2-月、3-周、4-日
+			switch (reportType.getValue()) {
+			case 2:
+				createDepartReport(getDepartId,FranchiseeReportType.month);
+				break;
+			case 1:
+				createDepartReport(getDepartId,FranchiseeReportType.year);
+				break;
+			}
+			
 		}
 
 	}
