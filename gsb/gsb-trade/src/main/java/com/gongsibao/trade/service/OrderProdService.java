@@ -45,21 +45,22 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
 			Integer orderId = row.getInteger("orderId");
 
 			List<Map<String, Object>> tempList = valueMapList.stream().filter(x -> x.get("orderId").equals(orderId)).collect(Collectors.toList());
-
+			String prodNames = "";
 			if (resMap.get(orderId) == null) {
-				String prodNames = "";
 				for (Map<String, Object> tempMap : tempList) {
 					String prodName = String.valueOf(tempMap.get("productName") == null ? "" : tempMap.get("productName"));
 					String cityName = String.valueOf(tempMap.get("cityName") == null ? "" : tempMap.get("cityName"));
 					if (StringManager.isNullOrEmpty(prodName) || StringManager.isNullOrEmpty(cityName))
 						continue;
 					// 已经放入的产品名称
-					String pName = resMap.get(orderId) == null ? "" : resMap.get(orderId);
-					if (pName.indexOf(prodName) > -1)
+					String productName = resMap.get(orderId) == null ? "" : resMap.get(orderId);
+					if (productName.indexOf(prodName) > -1)
 						continue;
 					long count = tempList.stream().filter(x -> x.get("productName").equals(prodName) && x.get("cityName").equals(cityName)).count();
-					resMap.put(orderId, prodName + "*" + count + "|" + cityName);
+					prodNames += prodName + "*" + count + "|" + cityName + ",";
+					resMap.put(orderId, prodNames.substring(0, prodNames.length() - 1));
 				}
+				resMap.put(orderId, prodNames.substring(0, prodNames.length() - 1));
 			}
 		}
 

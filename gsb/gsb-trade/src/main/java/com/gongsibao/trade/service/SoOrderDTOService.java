@@ -211,7 +211,7 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 
 		// 是否分期
 		if (!StringManager.isNullOrEmpty(mapFilters.get("isInstallment"))) {
-			sql.append("AND oi.is_installment in " + mapFilters.get("isInstallment") + " ");
+			sql.append("AND oi.is_installment = " + mapFilters.get("isInstallment") + " ");
 		}
 
 		// 开始订单创建日期
