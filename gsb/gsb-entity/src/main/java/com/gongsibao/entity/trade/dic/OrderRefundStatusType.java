@@ -3,25 +3,25 @@ package com.gongsibao.entity.trade.dic;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
-//订单状态
-public enum OrderStatusName implements IEnum  {	
-	Ddfk(1, "等待付款"), 
-	Yfqk(2, "已付全款"),
-	Yfbfk(3, "已付部分款"),
-	Blwc(4, "办理完成"),
-	Sxdd(5, "失效订单");
+//退单状态
+public enum OrderRefundStatusType implements IEnum  {
+	
+	Dsh(3031, "待审核"), 
+	Tkz(3032, "退款中"),
+	Tkwc(3033, "退款完成"),
+	Bhtk(3034, "驳回退款");
 	private int value;
 	private String text;
 
-	OrderStatusName(int value, String text) {
+	OrderRefundStatusType(int value, String text) {
 		this.value = value;
 		this.text = text;
 	}
 
 	@JsonCreator
-	public static OrderStatusName getItem(int value) {
+	public static OrderRefundStatusType getItem(int value) {
 
-		for (OrderStatusName item : values()) {
+		for (OrderRefundStatusType item : values()) {
 
 			if (item.getValue() == value) {
 				return item;

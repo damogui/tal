@@ -71,7 +71,7 @@ public class OrderOperationWorkspaceTest extends WorkspaceCreationBase  {
 		addColumn(datagrid, "orderNo", "订单编号", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "payTime", "回款日期", ControlTypes.DATETIME_BOX, 100);
-	    addColumn(datagrid, "productName", "产品名称", ControlTypes.TEXT_BOX, 150);
+	    addColumn(datagrid, "productName", "产品名称", ControlTypes.TEXT_BOX, 250);
         addColumn(datagrid, "orderStatus", "订单状态", ControlTypes.ENUM_BOX, 80);
 		addColumn(datagrid, "companyName", "关联企业", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "refundStatusId", "退单状态", ControlTypes.ENUM_BOX, 200);

@@ -1,16 +1,68 @@
 package com.gongsibao.trade.service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.netsharp.communication.Service;
+import org.netsharp.core.DataTable;
+import org.netsharp.core.IRow;
 import org.netsharp.service.PersistableService;
+import org.netsharp.util.NumUtil;
+import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.trade.base.IOrderProdService;
 
+import edu.emory.mathcs.backport.java.util.Collections;
+
 @Service
 public class OrderProdService extends PersistableService<OrderProd> implements IOrderProdService {
 
-    public OrderProdService(){
-        super();
-        this.type=OrderProd.class;
-    }
+	public OrderProdService() {
+		super();
+		this.type = OrderProd.class;
+	}
+
+	@Override
+	public Map<Integer, String> getProductCityNameByOrderIds(List<Integer> orderIdList) {
+		Map<Integer, String> resMap = new HashMap<Integer, String>();
+		String orderIds = StringManager.join(",", orderIdList);
+		if (StringManager.isNullOrEmpty(orderIds)) {
+			return resMap;
+		}
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT `getbddictfullname`(od.`city_id`) 'cityName',od.product_name 'productName',od.order_id 'orderId' FROM so_order_prod od ");
+		sql.append("JOIN  so_order oi ON od.order_id = oi.pkid ");
+		sql.append("WHERE od.order_id IN (" + orderIds + ") ");
+
+		DataTable executeTable = this.pm.executeTable(sql.toString(), null);
+
+		List<Map<String, Object>> valueMapList = executeTable.getValueMapList();
+
+		for (IRow row : executeTable) {
+			Integer orderId = row.getInteger("orderId");
+
+			List<Map<String, Object>> tempList = valueMapList.stream().filter(x -> x.get("orderId").equals(orderId)).collect(Collectors.toList());
+
+			if (resMap.get(orderId) == null) {
+				String prodNames = "";
+				for (Map<String, Object> tempMap : tempList) {
+					String prodName = String.valueOf(tempMap.get("productName") == null ? "" : tempMap.get("productName"));
+					String cityName = String.valueOf(tempMap.get("cityName") == null ? "" : tempMap.get("cityName"));
+					if (StringManager.isNullOrEmpty(prodName) || StringManager.isNullOrEmpty(cityName))
+						continue;
+					// 已经放入的产品名称
+					String pName = resMap.get(orderId) == null ? "" : resMap.get(orderId);
+					if (pName.indexOf(prodName) > -1)
+						continue;
+					long count = tempList.stream().filter(x -> x.get("productName").equals(prodName) && x.get("cityName").equals(cityName)).count();
+					resMap.put(orderId, prodName + "*" + count + "|" + cityName);
+				}
+			}
+		}
+
+		return resMap;
+	}
 }

@@ -10,6 +10,7 @@ public enum OrderPlatformSourceType implements IEnum  {
 	Txzckj(32102, "腾讯众创空间"),
 	Aly(32103, "阿里云"),
 	Xhhl(32104, "星河互联"),
+	Gys(32105, "供应商"),
 	Wxsc(32106, "微信商城"),
 	Yyy(32107, "用友云"),
 	Dd(32108, "钉钉"),

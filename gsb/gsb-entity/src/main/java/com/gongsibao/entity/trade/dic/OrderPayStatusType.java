@@ -4,7 +4,7 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
 //订单支付成功记录
-public enum OrderPayStatusName implements IEnum  {
+public enum OrderPayStatusType implements IEnum  {
 	
 	Dhk(3011, "待付款"), 
 	Yfbfk(3012, "已付部分款"),
@@ -12,15 +12,15 @@ public enum OrderPayStatusName implements IEnum  {
 	private int value;
 	private String text;
 
-	OrderPayStatusName(int value, String text) {
+	OrderPayStatusType(int value, String text) {
 		this.value = value;
 		this.text = text;
 	}
 
 	@JsonCreator
-	public static OrderPayStatusName getItem(int value) {
+	public static OrderPayStatusType getItem(int value) {
 
-		for (OrderPayStatusName item : values()) {
+		for (OrderPayStatusType item : values()) {
 
 			if (item.getValue() == value) {
 				return item;

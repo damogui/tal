@@ -8,8 +8,9 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Persistable;
 
 import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
-import com.gongsibao.entity.trade.dic.OrderRefundStatusName;
-import com.gongsibao.entity.trade.dic.OrderStatusName;
+import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
+import com.gongsibao.entity.trade.dic.OrderRefundStatusType;
+import com.gongsibao.entity.trade.dic.OrderStatusType;
 
 @Table(name = "", isView = true)
 public class SoOrderDTO extends Persistable {
@@ -33,11 +34,11 @@ public class SoOrderDTO extends Persistable {
 	//产品名称
 	private String productName;
 	//订单状态
-	private OrderStatusName orderStatus = OrderStatusName.Ddfk;
+	private OrderStatusType orderStatus = OrderStatusType.Ddfk;
 	//关联企业
 	private String companyName ;
 	//退单状态
-	private OrderRefundStatusName RefundStatus = OrderRefundStatusName.Dsh;
+	private OrderRefundStatusType RefundStatus = OrderRefundStatusType.Dsh;
 	//原价金额
 	private double totalPrice ;
 	//应付金额
@@ -58,6 +59,9 @@ public class SoOrderDTO extends Persistable {
 	private Integer accountId;
 	//订单来源
 	private OrderPlatformSourceType platformSource = OrderPlatformSourceType.Gsb;
+	//订单处理状态
+	private OrderProcessStatusType processStatusId = OrderProcessStatusType.Dbl;
+	
 	//下单时间
 	private Date addTime;
 	
@@ -91,10 +95,10 @@ public class SoOrderDTO extends Persistable {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
-	public OrderStatusName getOrderStatus() {
+	public OrderStatusType getOrderStatus() {
 		return orderStatus;
 	}
-	public void setOrderStatus(OrderStatusName orderStatus) {
+	public void setOrderStatus(OrderStatusType orderStatus) {
 		this.orderStatus = orderStatus;
 	}
 	public String getCompanyName() {
@@ -103,10 +107,10 @@ public class SoOrderDTO extends Persistable {
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
-	public OrderRefundStatusName getRefundStatus() {
+	public OrderRefundStatusType getRefundStatus() {
 		return RefundStatus;
 	}
-	public void setRefundStatus(OrderRefundStatusName refundStatus) {
+	public void setRefundStatus(OrderRefundStatusType refundStatus) {
 		RefundStatus = refundStatus;
 	}
 	public double getTotalPrice() {
@@ -175,8 +179,15 @@ public class SoOrderDTO extends Persistable {
 	}
 	public void setAddTime(Date addTime) {
 		this.addTime = addTime;
+	}
+	public OrderProcessStatusType getProcessStatusId() {
+		return processStatusId;
+	}
+	public void setProcessStatusId(OrderProcessStatusType processStatusId) {
+		this.processStatusId = processStatusId;
 	}	
 
+	
 	
 	
 }

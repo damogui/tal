@@ -4,25 +4,36 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.netsharp.communication.Service;
+import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.DataTable;
 import org.netsharp.core.IRow;
 import org.netsharp.core.Oql;
 import org.netsharp.core.Paging;
 import org.netsharp.service.PersistableService;
+import org.netsharp.util.NumUtil;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
-import com.gongsibao.entity.trade.dic.OrderRefundStatusName;
+import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
+import com.gongsibao.entity.trade.dic.OrderRefundStatusType;
+import com.gongsibao.entity.trade.dic.OrderStatusType;
 import com.gongsibao.entity.trade.dto.SoOrderDTO;
+import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.ISoOrderDTOService;
+import com.gongsibao.trade.service.constant.OrderConstant;
 
 @Service
 public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements ISoOrderDTOService {
+
+	IOrderProdService orderProdService = ServiceFactory.create(IOrderProdService.class);
 
 	@Override
 	public List<SoOrderDTO> queryList(Oql oql) {
@@ -59,12 +70,13 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 			int totalPrice = row.getInteger("totalPrice");// 订单原价
 			int payablePrice = row.getInteger("payablePrice");// 订单应付价
 			int paidPrice = row.getInteger("paidPrice");// 订单已付价
+			int id = row.getInteger("id");
 
-			dto.setId(row.getInteger("id"));
+			dto.setId(id);
 			dto.setOrderNo(row.getString("orderNo"));
 			dto.setChannelOrderNo(row.getString("channelOrderNo"));
 			dto.setCompanyName(row.getString("companyName"));
-			dto.setRefundStatus(OrderRefundStatusName.getItem(row.getInteger("refundStatusId")));
+			dto.setRefundStatus(OrderRefundStatusType.getItem(row.getInteger("refundStatusId")));
 			dto.setInstallment(row.getBoolean("isInstallment"));
 			dto.setOperator(row.getString("operator"));
 			dto.setAccountId(row.getInteger("accountId"));
@@ -72,13 +84,38 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 			dto.setAccountMobile(row.getString("accountMobile"));
 			dto.setCustomerName(row.getString("customerName"));
 			dto.setPlatformSource(OrderPlatformSourceType.getItem(row.getInteger("platformSource")));
+			dto.setProcessStatusId(OrderProcessStatusType.getItem(row.getInteger("processStatusId")));
 			dto.setTotalPrice(getDivRes(totalPrice, 100));
 			dto.setPaidPrice(getDivRes(paidPrice, 100));
 			dto.setPayablePrice(getDivRes(payablePrice, 100));
 			dto.setAddTime(row.getDate("addTime"));
 			dto.setPayTime(row.getDate("payTime"));
-			orderIdList.add(dto.getId());
+			orderIdList.add(id);
 			reslis.add(dto);
+		}
+
+		//根据订单id 获取产品名称
+		Map<Integer, String> productNameMap = orderProdService.getProductCityNameByOrderIds(orderIdList);
+
+		for (SoOrderDTO o : reslis) {
+			//产品名称
+			o.setProductName(productNameMap.get(o.getId()));
+			//订单状态
+			if (o.getPaidPrice() == 0 && getDistinceDay(o.getAddTime(), new Date()) < OrderConstant.ORDER_UNVALID_DAY) {
+				o.setOrderStatus(OrderStatusType.getItem(1));
+			}
+			if (Objects.equals(o.getPaidPrice(), o.getPayablePrice())) {
+				o.setOrderStatus(OrderStatusType.getItem(2));
+			}
+			if (!Objects.equals(o.getPaidPrice(), o.getPayablePrice()) && o.getPaidPrice() > 0) {
+				o.setOrderStatus(OrderStatusType.getItem(3));
+			}
+			if (o.getProcessStatusId() == OrderProcessStatusType.Ywc) {
+				o.setOrderStatus(OrderStatusType.getItem(4));
+			}
+			if (o.getPaidPrice() == 0 && getDistinceDay(o.getAddTime(), new Date()) >= OrderConstant.ORDER_UNVALID_DAY) {
+				o.setOrderStatus(OrderStatusType.getItem(5));
+			}
 		}
 
 		return reslis;
@@ -137,16 +174,20 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 
 		// 订单状态
 		if (!StringManager.isNullOrEmpty(mapFilters.get("orderStatus"))) {
-			/*
-			 * if(){//参考蜂巢逻辑
-			 * 
-			 * }
-			 */
-		}
-
-		// 下单人手机号
-		if (!StringManager.isNullOrEmpty(mapFilters.get("accountMobile"))) {
-			sql.append("AND oi.account_mobile LIKE " + mapFilters.get("accountMobile") + " ");
+			String state = mapFilters.get("orderStatus");
+			// 订单状态 1等待付款、2已付全款、3已付部分款、4办理完成、5失效订单
+			//if (state == OrderStatusType.Ddfk) {
+			if(state.indexOf("'1'")>-1){
+				sql.append(" AND oi.paid_price = 0 AND TIMESTAMPDIFF(HOUR, oi.add_time, NOW()) < " + OrderConstant.ORDER_UNVALID_HOUR + " ");
+			} else if (state.indexOf("'2'")>-1) {
+				sql.append(" AND oi.paid_price = oi.payable_price ");
+			} else if (state.indexOf("'3'")>-1) {
+				sql.append(" AND oi.paid_price != oi.payable_price AND oi.paid_price > 0 ");
+			} else if (state.indexOf("'4'")>-1) {
+				sql.append(" AND oi.process_status_id = 3024 ");
+			} else if (state.indexOf("'5'")>-1) {
+				sql.append(" AND oi.paid_price = 0 AND TIMESTAMPDIFF(HOUR, oi.add_time, NOW()) >= " + OrderConstant.ORDER_UNVALID_HOUR + " ");
+			}
 		}
 
 		// 产品名称
@@ -156,14 +197,39 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 
 		// 关联企业
 		if (!StringManager.isNullOrEmpty(mapFilters.get("companyName"))) {
-			sql.append("AND (cri.account_mobile LIKE " + mapFilters.get("companyName") + ") ");
+			sql.append("AND (cri.company_name LIKE " + mapFilters.get("companyName") + " OR cri.full_name LIKE " + mapFilters.get("companyName") + " OR cri.name LIKE " + mapFilters.get("companyName") + " OR cri1.company_name LIKE " + mapFilters.get("companyName") + " OR cri1.full_name LIKE " + mapFilters.get("companyName") + " OR cri1.name LIKE " + mapFilters.get("companyName") + " ) ");
 		}
 
 		// 订单来源
-		if (!StringManager.isNullOrEmpty(mapFilters.get("accountMobile"))) {
-			sql.append("AND oi.account_mobile LIKE " + mapFilters.get("accountMobile") + " ");
+		if (!StringManager.isNullOrEmpty(mapFilters.get("platformSource"))) {
+			sql.append("AND oi.platform_source in " + mapFilters.get("platformSource") + " ");
 		}
 
+		// 是否分期
+		if (!StringManager.isNullOrEmpty(mapFilters.get("isInstallment"))) {
+			sql.append("AND oi.is_installment in " + mapFilters.get("isInstallment") + " ");
+		}
+
+		// 开始订单创建日期
+		if (!StringManager.isNullOrEmpty(mapFilters.get("startAddTime"))) {
+			sql.append("AND oi.add_time >= " + mapFilters.get("startAddTime") + " ");
+		}
+
+		// 结束订单创建日期
+		if (!StringManager.isNullOrEmpty(mapFilters.get("endAddTime"))) {
+			sql.append("AND oi.add_time <= " + mapFilters.get("endAddTime") + " ");
+		}
+
+		// 开始回款日期
+		if (!StringManager.isNullOrEmpty(mapFilters.get("startPayTime"))) {
+			sql.append("AND oi.pay_time >= " + mapFilters.get("startPayTime") + " ");
+		}
+
+		// 结束回款日期
+		if (!StringManager.isNullOrEmpty(mapFilters.get("endPayTime"))) {
+			sql.append("AND oi.pay_time <= " + mapFilters.get("endPayTime") + " ");
+		}
+		// 分页时，不用排序分组
 		if (type == 0) {
 			sql.append("GROUP BY oi.`pkid` ");
 			sql.append("ORDER BY oi.add_time DESC ");
@@ -216,11 +282,19 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 					String[] a = s.split(splitString);
 					String mapKeyString = a[0].trim();
 					String mapValString = a[1].trim();
+					// 下单时间
 					if (mapKeyString.equals("addTime") && splitString.equals(">=")) {
 						mapKeyString = "startAddTime";
 					}
 					if (mapKeyString.equals("addTime") && splitString.equals("<=")) {
 						mapKeyString = "endAddTime";
+					}
+					// 订单回款时间
+					if (mapKeyString.equals("payTime") && splitString.equals(">=")) {
+						mapKeyString = "startPayTime";
+					}
+					if (mapKeyString.equals("payTime") && splitString.equals("<=")) {
+						mapKeyString = "endPayTime";
 					}
 					map.put(mapKeyString, mapValString);
 				}
@@ -230,4 +304,16 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 		return map;
 	}
 
+	/**
+	 * 计算两个日期相差的天数
+	 *
+	 * @param beforeDate
+	 * @param afterDate
+	 * @return
+	 */
+	private long getDistinceDay(Date beforeDate, Date afterDate) {
+		long dayCount = 0;
+		dayCount = (afterDate.getTime() - beforeDate.getTime()) / (24 * 60 * 60 * 1000);
+		return dayCount;
+	}
 }
