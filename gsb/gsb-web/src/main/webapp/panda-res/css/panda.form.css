@@ -34,9 +34,9 @@
 	border-radius:0px !important;
 }
 .tabs li.tabs-selected a.tabs-inner {
-    background-color: #fafafa;
+    background-color: #ffffff;
     font-weight: normal;
-    border-bottom: 1px solid #fafafa;
+    border-bottom: 1px solid #ffffff;
 }
 .tabs-title{
 	

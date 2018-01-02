@@ -431,15 +431,15 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 	},
 
 	// -----------------------
-	// 查询 
+	// 查询
 	// -----------------------
 	query : function() {
 
 		this.queryModel.collectControl();
 		var qpc = this.queryModel.getQueryParameters();
 		var filters = [];
-		if(qpc === false){
-
+		
+		if(this.context.lazy&&qpc == false){
 			return;
 		}
 		for ( var i = 0; i < qpc.length; i++) {
@@ -594,7 +594,20 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 	},
 	setStyle : function() {
 
-		var height = $('body').height() - 150 - $('#queryFrom').height();
+		var toolbarHeight = 0;
+		var queryFromHeight=0;
+		var toolbar = $('#datagrid').find('.toolbar');
+		var queryFrom = $('#queryFrom');
+		if(toolbar.length>0){
+
+			toolbarHeight = toolbar.height()+10;
+		}
+		if(queryFrom.length>0){
+
+			queryFromHeight = queryFrom.height()+15;
+		}
+
+		var height = $('body').height() - 90 - toolbarHeight - queryFromHeight;
 		$("#" + this.context.id).datagrid('resize', {
 			height:height,
 		});
@@ -606,7 +619,6 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 		var me = this;
 		var height = 450;
 		var width = 850;
-		
 		var url = "/panda/advanced/query?id="+queryId+"&datagridId="+datagridId;
     	if($("#pandaWindow").length ==0){
 

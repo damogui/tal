@@ -17,7 +17,7 @@ public class NavigationTest extends NavigationBase {
 
 	public void createAccodions() {
 
-		this.doCreateAccodions(ResourceTest.resourcePrefix, "交易中心", "fa fa-recycle fa-fw", 1);// 顶部和右侧顶部（配置菜单名称和图标、个数等）
+		this.doCreateAccodions(ResourceTest.resourcePrefix, "交易中心", "fa fa-recycle fa-fw", 1);
 	}
 
 	// 创建菜单树节点
