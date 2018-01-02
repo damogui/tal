@@ -14,7 +14,7 @@ import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.trade.dto.SoOrderDTO;
-import com.gongsibao.trade.web.SoOrderDTOController;
+import com.gongsibao.trade.web.OrderOperationController;
 
 public class OrderOperationWorkspaceTest extends WorkspaceCreationBase  {
 
@@ -33,8 +33,8 @@ public class OrderOperationWorkspaceTest extends WorkspaceCreationBase  {
 		openWindowHeight=400;
 		openWindowWidth=800;
 		
-		listPartServiceController =SoOrderDTOController.class.getName();
-		listPartJsController = SoOrderDTOController.class.getName();
+		listPartServiceController =OrderOperationController.class.getName();
+		listPartJsController = OrderOperationController.class.getName();
 		listPartImportJs = "/gsb/trade/js/orderoperation.list.part.js";
 		listToolbarPath="/trade/manage/order/operation/toolbar";
 	}
@@ -71,10 +71,10 @@ public class OrderOperationWorkspaceTest extends WorkspaceCreationBase  {
 		addColumn(datagrid, "orderNo", "订单编号", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "payTime", "回款日期", ControlTypes.DATETIME_BOX, 100);
-	    addColumn(datagrid, "productName", "产品名称", ControlTypes.TEXT_BOX, 250);
+	    addColumn(datagrid, "productName", "产品名称", ControlTypes.TEXT_BOX, 300);
         addColumn(datagrid, "orderStatus", "订单状态", ControlTypes.ENUM_BOX, 80);
-		addColumn(datagrid, "companyName", "关联企业", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "refundStatusId", "退单状态", ControlTypes.ENUM_BOX, 200);
+		addColumn(datagrid, "companyName", "关联企业", ControlTypes.TEXT_BOX, 200);
+		addColumn(datagrid, "refundStatusId", "退单状态", ControlTypes.ENUM_BOX, 80);
 		addColumn(datagrid, "totalPrice", "原价金额", ControlTypes.DECIMAL_BOX, 80);
 		addColumn(datagrid, "payablePrice", "应付金额", ControlTypes.DECIMAL_BOX, 80);
 		addColumn(datagrid, "paidPrice", "已付金额", ControlTypes.DECIMAL_BOX, 80);

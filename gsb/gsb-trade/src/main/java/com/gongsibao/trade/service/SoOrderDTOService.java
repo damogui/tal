@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import org.apache.commons.lang.time.DateUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.DataTable;
@@ -18,9 +17,9 @@ import org.netsharp.core.IRow;
 import org.netsharp.core.Oql;
 import org.netsharp.core.Paging;
 import org.netsharp.service.PersistableService;
-import org.netsharp.util.NumUtil;
 import org.netsharp.util.StringManager;
 
+import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
 import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
 import com.gongsibao.entity.trade.dic.OrderRefundStatusType;
@@ -34,6 +33,11 @@ import com.gongsibao.trade.service.constant.OrderConstant;
 public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements ISoOrderDTOService {
 
 	IOrderProdService orderProdService = ServiceFactory.create(IOrderProdService.class);
+	
+    public SoOrderDTOService(){
+        super();
+        this.type=SoOrderDTO.class;
+    }
 
 	@Override
 	public List<SoOrderDTO> queryList(Oql oql) {
@@ -122,7 +126,7 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 	}
 
 	// type：0查询sql 1获取页码sql
-	private StringBuffer getsql(int type, Map<String, String> mapFilters, int startIndex, int pageSize) {
+	protected StringBuffer getsql(int type, Map<String, String> mapFilters, int startIndex, int pageSize) {
 		StringBuffer sql = new StringBuffer();
 
 		if (type == 0) {
@@ -240,19 +244,21 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 	}
 
 	// 获取查询的总条数
-	private int getqueryListCount(String sql) {
+	protected int getqueryListCount(String sql) {
 		int count = 0;
 		Object rcount = this.pm.executeScalar(sql.toString(), null);
 		count = Integer.parseInt(rcount.toString());
 		return count;
 	}
 
-	private double getDivRes(int a, int b) {
+	//两个数相除
+	protected double getDivRes(int a, int b) {
 
 		DecimalFormat df = new DecimalFormat("0.00");
 		return Double.parseDouble(df.format((float) a / b));
 	}
 
+	//根据前段传过来的参数，得到Map
 	protected HashMap<String, String> getMapFilters(String filter) throws UnsupportedEncodingException {
 
 		HashMap<String, String> map = new HashMap<String, String>();
@@ -311,7 +317,7 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 	 * @param afterDate
 	 * @return
 	 */
-	private long getDistinceDay(Date beforeDate, Date afterDate) {
+	protected long getDistinceDay(Date beforeDate, Date afterDate) {
 		long dayCount = 0;
 		dayCount = (afterDate.getTime() - beforeDate.getTime()) / (24 * 60 * 60 * 1000);
 		return dayCount;

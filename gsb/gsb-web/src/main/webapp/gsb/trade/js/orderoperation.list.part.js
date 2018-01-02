@@ -1,5 +1,5 @@
 System.Declare("com.gongsibao.trade.web");
-com.gongsibao.trade.web.SoOrderDTOController = org.netsharp.panda.commerce.ListPart.Extends( {
+com.gongsibao.trade.web.OrderOperationController = org.netsharp.panda.commerce.ListPart.Extends( {
 
     ctor: function () {
         this.base();
