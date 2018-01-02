@@ -318,7 +318,9 @@ public class UserWorkspaceTest  extends WorkspaceCreationBase{
 			field.setFullColumn(true);
 	    }
 	    
-	    addFormField(form, "pubKey", "Ukey公钥", groupName, ControlTypes.TEXTAREA, false, false);
+		field = addFormField(form, "pubKey", "Ukey公钥", groupName, ControlTypes.TEXTAREA, false, false);{
+			field.setHeight(100);
+		}
 		return form;
 	}
 

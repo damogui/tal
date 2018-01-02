@@ -45,7 +45,7 @@ public class Organization extends BaseCatEntity {
 	
 	@Exclusive
 	@JsonIgnore
-	private List<Organization> items = new ArrayList<>();
+	private List<Organization> items = new ArrayList<Organization>();
 
 	@Exclusive
 	@JsonIgnore

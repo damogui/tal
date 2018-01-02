@@ -26,7 +26,7 @@ public class PaymentLogWorkspaceTest extends WorkspaceCreationBase {
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = ResourceTest.resourcePrefix + "_Payment_Payment_Log";
-		listPartImportJs = "/gsb/gsb.customer.controls.js";
+		listPartImportJs = "/gsb/gsb.custom.query.controls.js";
 	}
 
 	@Override
