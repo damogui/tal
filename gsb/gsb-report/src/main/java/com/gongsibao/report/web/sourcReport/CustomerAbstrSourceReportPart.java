@@ -17,12 +17,16 @@ import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.report.customer.BaseCustomerReportEntity;
 import com.gongsibao.entity.report.customer.CustomerSourceReport;
+import com.gongsibao.report.web.RecursiveOrgaUtils;
 import com.gongsibao.uc.base.IOrganizationService;
 
 public class CustomerAbstrSourceReportPart extends ListPart{
 
 	IOrganizationService organizationService = ServiceFactory.create(IOrganizationService.class);
 	HashMap<String, String> map;
+	//临时存储前台传来的组织机构Id以及下属Id
+	RecursiveOrgaUtils orgaUtils = new RecursiveOrgaUtils();
+	String tempOrgaIds="";
 	@Override
 	public Object query() throws IOException {
 		this.pdatagrid = this.context.getDatagrid();
@@ -34,9 +38,10 @@ public class CustomerAbstrSourceReportPart extends ListPart{
 			String departmentId = map.get("departmentId");
 			if (!StringManager.isNullOrEmpty(departmentId)) {
 				getOragId = Integer.parseInt(departmentId.replace("'", "").trim());
+				tempOrgaIds = orgaUtils.getChildOragId(getOragId);
 			}
 			List<BaseCustomerReportEntity> rowsList=new ArrayList<>();
-			Map<String, List<BaseCustomerReportEntity>> mapList = getOrganList(getOragId);
+			Map<String, List<BaseCustomerReportEntity>> mapList = getOrganList(tempOrgaIds.substring(0,tempOrgaIds.length()-1));
 			for (String item : mapList.keySet()) {
 				System.out.println(item);
 			}
@@ -47,13 +52,13 @@ public class CustomerAbstrSourceReportPart extends ListPart{
 		}
 		return json;
 	}
-
+	
 	/**
 	 * 根据组织机构的集合获取 客户报表的实体
 	 * @param 组织机构Id
 	 * @return
 	 */
-	protected Map<String, List<BaseCustomerReportEntity>> getOrganList(Integer orgaId){
+	protected Map<String, List<BaseCustomerReportEntity>> getOrganList(String orgaId){
 		//返回的集合
 		Map<String, List<BaseCustomerReportEntity>> resultMap=new HashMap<>();
 				
@@ -138,7 +143,7 @@ public class CustomerAbstrSourceReportPart extends ListPart{
 	 * @param orgaId 组织机构id。null查询所有的
 	 * @return
 	 */
-	protected DataTable getDataTable(HashMap<String, String> filterMap,Integer orgaId) {
+	protected DataTable getDataTable(HashMap<String, String> filterMap,String orgaId) {
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
 		String endDate = dataMap.get("endDate").replace("'", "");
@@ -157,7 +162,7 @@ public class CustomerAbstrSourceReportPart extends ListPart{
 		cmdNewCountSql.append("WHERE c.add_time <='"+endDate+"'");
 		cmdNewCountSql.append(" and c.add_time >= '"+startDate+"'");
 		if(orgaId!=null){
-			cmdNewCountSql.append(" and o.pkid = "+orgaId);
+			cmdNewCountSql.append(" and o.pkid in("+orgaId+")");
 		}
 		cmdNewCountSql.append(" GROUP BY c.customer_source)as one");
 		cmdNewCountSql.append(" LEFT JOIN(SELECT c.customer_source,");
@@ -172,7 +177,7 @@ public class CustomerAbstrSourceReportPart extends ListPart{
 		cmdNewCountSql.append(" where s.share_time <='"+endDate+"'");
 		cmdNewCountSql.append(" and s.share_time >= '"+startDate+"'");
 		if(orgaId!=null){
-			cmdNewCountSql.append(" and o.pkid = "+orgaId);
+			cmdNewCountSql.append(" and o.pkid in("+orgaId+")");
 		}
 		cmdNewCountSql.append(" GROUP BY c.customer_source)as two");
 		cmdNewCountSql.append(" on one.customer_source=two.customer_source) as three");

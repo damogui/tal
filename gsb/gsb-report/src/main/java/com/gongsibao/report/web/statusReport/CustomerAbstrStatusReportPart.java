@@ -16,6 +16,7 @@ import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.report.customer.BaseCustomerReportEntity;
 import com.gongsibao.entity.report.customer.CustomerStatusReport;
+import com.gongsibao.report.web.RecursiveOrgaUtils;
 import com.gongsibao.uc.base.IOrganizationService;
 
 public class CustomerAbstrStatusReportPart extends ListPart{
@@ -23,7 +24,10 @@ public class CustomerAbstrStatusReportPart extends ListPart{
 	IOrganizationService organizationService = ServiceFactory.create(IOrganizationService.class);
 
 	HashMap<String, String> map;
-
+	//临时存储前台传来的组织机构Id以及下属Id
+	RecursiveOrgaUtils orgaUtils = new RecursiveOrgaUtils();
+	String tempOrgaIds="";
+	
 	@Override
 	public Object query() throws IOException {
 		this.pdatagrid = this.context.getDatagrid();
@@ -35,8 +39,9 @@ public class CustomerAbstrStatusReportPart extends ListPart{
 			String departmentId = map.get("departmentId");
 			if (!StringManager.isNullOrEmpty(departmentId)) {
 				getOragId = Integer.parseInt(departmentId.replace("'", "").trim());
+				tempOrgaIds = orgaUtils.getChildOragId(getOragId);
 			}
-			List<BaseCustomerReportEntity> rows = getOrganList(getOragId);
+			List<BaseCustomerReportEntity> rows = getOrganList(tempOrgaIds.substring(0,tempOrgaIds.length()-1));
 			json = this.serialize(rows, oql);
 		}
 		return json;
@@ -47,7 +52,7 @@ public class CustomerAbstrStatusReportPart extends ListPart{
 	 * @param 组织机构Id
 	 * @return
 	 */
-	protected List<BaseCustomerReportEntity> getOrganList(Integer orgaId){
+	protected List<BaseCustomerReportEntity> getOrganList(String orgaId){
 		List<BaseCustomerReportEntity> resultList = new ArrayList<>();
 		DataTable getDt = getDataTable(map,orgaId);
 		for (IRow row : getDt) {
@@ -69,7 +74,7 @@ public class CustomerAbstrStatusReportPart extends ListPart{
 	 * @param orgaId 组织机构id。null查询所有的
 	 * @return
 	 */
-	protected DataTable getDataTable(HashMap<String, String> filterMap,Integer orgaId) {
+	protected DataTable getDataTable(HashMap<String, String> filterMap,String orgaId) {
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
 		String endDate = dataMap.get("endDate").replace("'", "");
@@ -91,7 +96,7 @@ public class CustomerAbstrStatusReportPart extends ListPart{
 		cmdNewCountSql.append(" WHERE c.add_time <='"+endDate+"'");
 		cmdNewCountSql.append(" and c.add_time >= '"+startDate+"'");
 		if(orgaId!=null){
-			cmdNewCountSql.append(" and o.pkid = "+orgaId);
+			cmdNewCountSql.append(" and o.pkid in("+orgaId+")");
 		}
 		cmdNewCountSql.append(" GROUP BY c.follow_status)as one");
 		cmdNewCountSql.append(" LEFT JOIN(");
@@ -107,7 +112,7 @@ public class CustomerAbstrStatusReportPart extends ListPart{
 		cmdNewCountSql.append(" where s.share_time <='"+endDate+"'");
 		cmdNewCountSql.append(" and s.share_time >= '"+startDate+"'");
 		if(orgaId!=null){
-			cmdNewCountSql.append(" and o.pkid = "+orgaId);
+			cmdNewCountSql.append(" and o.pkid in("+orgaId+")");
 		}
 		cmdNewCountSql.append(" GROUP BY c.follow_status)as two");
 		cmdNewCountSql.append(" on one.follow_status=two.follow_status) as three");
