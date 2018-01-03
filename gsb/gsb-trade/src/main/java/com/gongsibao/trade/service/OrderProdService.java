@@ -12,6 +12,7 @@ import org.netsharp.core.DataTable;
 import org.netsharp.core.IRow;
 import org.netsharp.core.Row;
 import org.netsharp.service.PersistableService;
+import org.netsharp.util.NumUtil;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
@@ -45,7 +46,16 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
 		for (IRow row : executeTable) {
 			Integer orderId = row.getInteger("orderId");
 
-			List<Map<String, Object>> tempList = valueMapList.stream().filter(x -> x.get("orderId").equals(orderId)).collect(Collectors.toList());
+			
+			List<Map<String, Object>> tempList = new ArrayList<Map<String, Object>>();
+
+			for (Map<String, Object> map : valueMapList) {
+				Integer oid = NumUtil.parseInteger(map.get("orderId") == null ? "0" : map.get("orderId").toString());
+				if (orderId.equals(oid)) {
+					tempList.add(map);
+				}
+			}
+
 			String prodNames = "";
 			if (resMap.get(orderId) == null) {
 				for (Map<String, Object> tempMap : tempList) {
@@ -54,10 +64,17 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
 					if (StringManager.isNullOrEmpty(prodName) || StringManager.isNullOrEmpty(cityName))
 						continue;
 					// 已经放入的产品名称
-					String productName = resMap.get(orderId) == null ? "" : resMap.get(orderId);
-					if (productName.indexOf(prodName) > -1)
+					if (prodNames.indexOf(prodName) > -1)
 						continue;
-					long count = tempList.stream().filter(x -> x.get("productName").equals(prodName) && x.get("cityName").equals(cityName)).count();
+					int count = 0;
+					for (Map<String, Object> map : tempList) {
+						String tempProdName = String.valueOf(map.get("productName") == null ? "" : map.get("productName"));
+						String tempCityName = String.valueOf(map.get("cityName") == null ? "" : map.get("cityName"));
+						if (tempProdName.equals(prodName) && tempCityName.equals(tempCityName)) {
+							count = count + 1;
+						}
+					}
+
 					prodNames += prodName + "*" + count + "|" + cityName + ",";
 					resMap.put(orderId, prodNames.substring(0, prodNames.length() - 1));
 				}
