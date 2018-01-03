@@ -17,7 +17,11 @@ $.extend($.fn.validatebox.defaults.rules, {
     	
         validator: function(value,param){
 
-        	var isValidator = false;
+        	var isValidator = /^0?(13[0-9]|15[012356789]|18[0123456789]|14[57]|17[0135678])[0-9]{8}$/.test(value);
+        	if(!isValidator){
+        		
+        		return false;
+        	}
         	var me = this;
         	var serviceLocator = new org.netsharp.core.JServiceLocator();
     		var id = null;
@@ -32,6 +36,6 @@ $.extend($.fn.validatebox.defaults.rules, {
         	
         	return isValidator;
         },    
-        message: '手机号已存在'   
+        message: '手机号已存在或格式错误'   
     }
 });
