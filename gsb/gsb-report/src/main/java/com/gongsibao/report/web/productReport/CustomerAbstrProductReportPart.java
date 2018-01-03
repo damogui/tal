@@ -40,7 +40,8 @@ public class CustomerAbstrProductReportPart extends ListPart{
 				getOragId = Integer.parseInt(departmentId.replace("'", "").trim());
 				tempOrgaIds = orgaUtils.getChildOragId(getOragId);
 			}
-			List<BaseCustomerReportEntity> rows = getOrganList(tempOrgaIds.substring(0,tempOrgaIds.length()-1));
+			tempOrgaIds =StringManager.isNullOrEmpty(tempOrgaIds) ? null : tempOrgaIds.substring(0,tempOrgaIds.length()-1);
+			List<BaseCustomerReportEntity> rows = getOrganList(tempOrgaIds);
 			json = this.serialize(rows, oql);
 		}
 		return json;

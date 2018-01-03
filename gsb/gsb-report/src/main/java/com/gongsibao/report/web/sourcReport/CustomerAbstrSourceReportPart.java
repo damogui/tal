@@ -39,9 +39,10 @@ public class CustomerAbstrSourceReportPart extends ListPart{
 			if (!StringManager.isNullOrEmpty(departmentId)) {
 				getOragId = Integer.parseInt(departmentId.replace("'", "").trim());
 				tempOrgaIds = orgaUtils.getChildOragId(getOragId);
-			}
+			}			
 			List<BaseCustomerReportEntity> rowsList=new ArrayList<>();
-			Map<String, List<BaseCustomerReportEntity>> mapList = getOrganList(tempOrgaIds.substring(0,tempOrgaIds.length()-1));
+			tempOrgaIds =StringManager.isNullOrEmpty(tempOrgaIds) ? null : tempOrgaIds.substring(0,tempOrgaIds.length()-1);
+			Map<String, List<BaseCustomerReportEntity>> mapList = getOrganList(tempOrgaIds);
 			for (String item : mapList.keySet()) {
 				System.out.println(item);
 			}
