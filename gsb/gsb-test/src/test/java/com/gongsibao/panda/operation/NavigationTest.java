@@ -7,6 +7,7 @@ import org.netsharp.panda.plugin.entity.PNavigation;
 import com.gongsibao.entity.cms.ProductView;
 import com.gongsibao.entity.taurus.ActiveUserView;
 import com.gongsibao.entity.taurus.DayStatisticView;
+import com.gongsibao.entity.taurus.JnzUserBehaviorStatistics;
 import com.gongsibao.entity.taurus.NewUserPerDayView;
 import com.gongsibao.entity.taurus.User;
 import com.gongsibao.entity.taurus.UserConsStatisticView;
@@ -39,6 +40,7 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, "GSB_TAURUS", null, "GSB_TAURUS_" + UserRenewalStatisticView.class.getSimpleName(), "续费统计", "/taurus/user/renewalStatistic/list", 1);
 			createPTreeNode(tree, "GSB_TAURUS", null, "GSB_TAURUS_" + ActiveUserView.class.getSimpleName(), "活跃度", "/taurus/user/active/list", 1);
 			createPTreeNode(tree, "GSB_TAURUS", null, "GSB_TAURUS_" + DayStatisticView.class.getSimpleName(), "日统计数据", "/taurus/user/dayStatistic/list", 1);
+			createPTreeNode(tree, "GSB_TAURUS", null, "GSB_TAURUS_" + JnzUserBehaviorStatistics.class.getSimpleName(), "统计数据", "/taurus/user/statistic/list", 1);
 		}
 		
 		createPTreeNode(tree, null, "fa fa-file-o fa-fw", "GSB_WANDA", "万达项目", "", 1);
