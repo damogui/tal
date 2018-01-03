@@ -151,9 +151,9 @@ public class UserWorkspaceTest  extends WorkspaceCreationBase{
 				form.toNew();
 				form.setColumnCount(1);
 				form.setName("归属事业部");
-				PFormField field = addFormField(form, "business.name", "名称", null, ControlTypes.CUSTOMER, true, false);
+				PFormField field = addFormField(form, "business.name", "名称", null, ControlTypes.CUSTOM, true, false);
 				{
-			    	field.setCustomerControlType(DictComboBox.class.getName());
+			    	field.setCustomControlType(DictComboBox.class.getName());
 			    	field.setRefFilter("type=108");
 				}
 				
@@ -286,20 +286,18 @@ public class UserWorkspaceTest  extends WorkspaceCreationBase{
 		{
 			field.setTroikaValidation("validationMobile");
 		}
-		addFormField(form, "isInner", "内部员工", groupName, ControlTypes.SWITCH_BUTTON, false, false);
-		
 		addFormField(form, "loginValid", "登录验证", groupName, ControlTypes.ENUM_BOX, false, false);
 
 	    
-	    field = addFormField(form, "abbility.name", "服务能力", groupName, ControlTypes.CUSTOMER, false, false);{
+	    field = addFormField(form, "abbility.name", "服务能力", groupName, ControlTypes.CUSTOM, false, false);{
 	    	
-	    	field.setCustomerControlType(DictComboBox.class.getName());
+	    	field.setCustomControlType(DictComboBox.class.getName());
 	    	field.setRefFilter("type=107");
 	    }
 	    
-	    field = addFormField(form, "priority.name", "分配优先级", groupName, ControlTypes.CUSTOMER, false, false);{
+	    field = addFormField(form, "priority.name", "分配优先级", groupName, ControlTypes.CUSTOM, false, false);{
 	    	
-	    	field.setCustomerControlType(DictComboBox.class.getName());
+	    	field.setCustomControlType(DictComboBox.class.getName());
 	    	field.setRefFilter("type=109");
 	    }
 	    
@@ -312,13 +310,17 @@ public class UserWorkspaceTest  extends WorkspaceCreationBase{
 		addFormField(form, "qq", "QQ", groupName, ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "weixin", "微信", groupName, ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "sex", "性别", groupName, ControlTypes.ENUM_BOX, true, false);
+
+		addFormField(form, "isInner", "内部员工", groupName, ControlTypes.SWITCH_BUTTON, false, false);
 		
 		field = addFormField(form, "ukeyPid", "Ukey序列号", groupName, ControlTypes.TEXT_BOX, false, false);{
 			
 			field.setFullColumn(true);
 	    }
 	    
-	    addFormField(form, "pubKey", "Ukey公钥", groupName, ControlTypes.TEXTAREA, false, false);
+		field = addFormField(form, "pubKey", "Ukey公钥", groupName, ControlTypes.TEXTAREA, false, false);{
+			field.setHeight(100);
+		}
 		return form;
 	}
 

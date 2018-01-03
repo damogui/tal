@@ -59,7 +59,7 @@ html,body{
 	margin: 0 2px -1px 0;
 }
 .tabs li a.tabs-inner {
-  background: #fff;
+  background: #fafafa;
   color: #444;
   filter: none;
   border-radius: 0;
@@ -225,7 +225,6 @@ html,body{
 .datagrid-empty{
 	height: 100%;
     line-height: 300px;
-    /*background-color: #e4eaec;*/
 }
 
 
@@ -403,6 +402,10 @@ div.h10{
 	border-width:0px;
 	border-radius:0px;
 }
+.combobox-item-selected {
+    background-color: #428bca;
+    color: #fff;
+}
 .switchbutton-on {
     background: #1f7bb6;
     border-radius: 2px;
@@ -410,6 +413,10 @@ div.h10{
 
 .textbox{
 	border: 1px solid #e4eaec;
+}
+.textbox-invalid {
+    border-color: #ffa8a8;
+    background-color: #fff;
 }
 .switchbutton{
 	background: #e4eaec;
@@ -436,7 +443,7 @@ div.h10{
 
 .form-panel textarea{
 
-	border: 1px #ddd solid;
+	border: 1px #e4eaec solid;
     line-height: 18px;
     padding: 5px 5px;
     -moz-border-radius: 2px 2px 2px 2px;
@@ -488,9 +495,14 @@ div.h10{
 
 /*tree*/
 .tree-node-selected {
-	background: #e7eaec;
-	color: #575765;
+	background: #428bca;
+	color: #fff !important;
 }
+
+.tree-node-selected .tree-title {
+    color: #fff !important;
+}
+
 .tree-node {
 	white-space: nowrap;
 	cursor: pointer;
@@ -964,4 +976,10 @@ div.h10{
 .grid-btn:hover{
 	color: red;
 	text-decoration: underline;
+}
+
+.layui-layer-btn .layui-layer-btn0 {
+    border-color: #1d79b1;
+    background-color: #1E7CB5;
+    color: #fff;
 }

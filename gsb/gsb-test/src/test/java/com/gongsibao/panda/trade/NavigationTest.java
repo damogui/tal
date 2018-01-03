@@ -17,7 +17,7 @@ public class NavigationTest extends NavigationBase {
 
 	public void createAccodions() {
 
-		this.doCreateAccodions(ResourceTest.resourcePrefix, "交易中心", "fa fa-recycle fa-fw", 1);// 顶部和右侧顶部（配置菜单名称和图标、个数等）
+		this.doCreateAccodions(ResourceTest.resourcePrefix, "交易中心", "fa fa-recycle fa-fw", 1);
 	}
 
 	// 创建菜单树节点
@@ -27,13 +27,14 @@ public class NavigationTest extends NavigationBase {
 		String parentNodeCode = ResourceTest.resourcePrefix + "_Manage";
 		createPTreeNode(tree, null, "fa fa-file-text-o fa-fw", parentNodeCode, "订单管理", "", 1);
 		{
-			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_All_Order", "全部订单", "/trade/manage/order/all/list", 1);
+			/*createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_All_Order", "全部订单", "/trade/manage/order/all/list", 1);
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_My_Order", "我的订单", "/trade/manage/order/my/list", 2);
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_My_Order_Detail", "我的订单明细", "/trade/manage/orderdetail/my/list", 3);
-			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Order_Pool", "订单池", "/trade/manage/order/pool/list", 4);
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Order_Pool", "订单池", "/trade/manage/order/pool/list", 4);*/
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Order_Operation", "订单操作", "/trade/manage/order/operation/list", 5);
 		}
 
-		parentNodeCode = ResourceTest.resourcePrefix + "_Operation";
+		/*parentNodeCode = ResourceTest.resourcePrefix + "_Operation";
 		createPTreeNode(tree, null, "fa fa-file-o fa-fw", parentNodeCode, "订单操作", "", 2);
 		{
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Operation_Order", "操作订单池", "/trade/operation/order/list", 1);
@@ -75,7 +76,7 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Commission", "分成管理", "/trade/settle/commission/list", 1);
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Settle", "结算列表", "/trade/settle/settle/list", 2);
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Remittance", "打款列表", "/trade/settle/remittance/list", 3);
-		}
+		}*/
 
 	}
 }

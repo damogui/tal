@@ -405,7 +405,9 @@ org.netsharp.panda.commerce.DetailPart = org.netsharp.panda.core.View.Extends({
 			var title = me.context.title;
 			
 	        var formName = me.context.formName;
-	        $('#'+formName).css('display','block'); 
+//	        $('#'+formName).show();
+//	        $('#'+formName).css('display','block'); 
+	        $('#'+formName).attr("style","");
 	    	layer.open({
 			  type:1,
 			  zIndex:100000,
@@ -423,7 +425,8 @@ org.netsharp.panda.commerce.DetailPart = org.netsharp.panda.core.View.Extends({
 			  },
 			  end:function(){
 				  
-				  $('#'+formName).css('display','none');
+				 // $('#'+formName).hide();
+				  $('#'+formName).attr("style","display:none");
 			  }
 			});
 		});
@@ -444,6 +447,7 @@ org.netsharp.panda.commerce.DetailPart = org.netsharp.panda.core.View.Extends({
 		var height = this.context.height;
 		var title = this.context.title;
         var formName = me.context.formName;
+        $('#'+formName).attr("style","");
     	layer.open({
 		  type:1,
 		  zIndex:100000,
@@ -461,7 +465,8 @@ org.netsharp.panda.commerce.DetailPart = org.netsharp.panda.core.View.Extends({
 		  },
 		  end:function(){
 			  
-			  $('#'+formName).css('display','none');
+//			  $('#'+formName).css('display','none');
+			  $('#'+formName).attr("style","display:none");
 		  }
 		});
 	},

@@ -137,7 +137,7 @@ public class OrganizationWorkspaceTest  extends WorkspaceCreationBase{
 
 		PForm form = new PForm(node, this.formPartName);
 		{
-			form.setColumnCount(1);
+			form.setColumnCount(2);
 		}
 		
 		PFormField field = null;

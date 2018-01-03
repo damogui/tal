@@ -2,6 +2,7 @@ package com.gongsibao.entity.uc;
 
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
@@ -58,6 +59,7 @@ public class User extends BaseEntity {
 	@Column(name = "office_id", header = "分公司id")
 	private Integer officeId;
 
+	@JsonIgnore
 	@Reference(foreignKey = "officeId")
 	private Organization office;
 

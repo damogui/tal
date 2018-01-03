@@ -36,3 +36,4 @@ com.gongsibao.controls.DictComboBox = org.netsharp.controls.ReferenceBox.Extends
 		$(this.uiElement).combobox("enable");
 	}
 });
+

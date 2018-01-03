@@ -26,6 +26,7 @@ public class SetOrganizationTest {
 			Integer getPkid = Integer.parseInt(row.getString("pkid"));
 			setOrfanization(getPkid);
 		}
+		System.out.println("ok......");
 	}
 
 	private void setOrfanization(Integer pid) {
@@ -33,6 +34,8 @@ public class SetOrganizationTest {
 		DataTable getDt = organizationService.executeTable(getParentId.toString(), null);
 		if (getDt.size() > 0) {
 			for (IRow row : getDt) {
+				String updateSql = "UPDATE uc_organization set is_leaf=0 where pkid=" + pid;
+				int i = pm.executeNonQuery(updateSql.toString(), null);
 				setOrfanization(Integer.parseInt(row.getString("pkid")));
 			}
 		} else {
