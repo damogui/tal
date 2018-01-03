@@ -9,7 +9,6 @@ import com.gongsibao.panda.basic.reference.U8BankReferenceTest;
 import com.gongsibao.panda.basic.workspace.config.DictWorkspaceTest;
 import com.gongsibao.panda.basic.workspace.u8.ManualVoucherOrderDTOWorkspaceTest;
 import com.gongsibao.panda.basic.workspace.u8.PayReceiptCheckDTOWorkspaceTest;
-import com.gongsibao.panda.basic.workspace.u8.ReceivablesAuditDTOWorkspaceTest;
 import com.gongsibao.panda.basic.workspace.u8.SetOfBooksWorkspaceTest;
 import com.gongsibao.panda.basic.workspace.u8.U8BankWorkspaceTest;
 import com.gongsibao.panda.basic.workspace.u8.VoucherLogWorkspaceTest;
@@ -19,9 +18,11 @@ import com.gongsibao.panda.basic.workspace.u8.VoucherLogWorkspaceTest;
 @SuiteClasses({
 
 	ResourceTest.class, 
-	U8BankReferenceTest.class,
+
+	//参照
 	SetOfBooksReferenceTest.class,
-	
+	U8BankReferenceTest.class,
+
 	DictWorkspaceTest.class,
 	
 	//U8配置

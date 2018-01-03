@@ -24,6 +24,7 @@ public class UserReferenceTest  extends ReferenceCreationBase{
 	public PDatagrid createDatagrid(ResourceNode node) {
 
 		PDatagrid datagrid = super.createDatagrid(node);
+		datagrid.setFilter("enabled=1");
 		addColumn( datagrid,"name", "名称", ControlTypes.TEXT_BOX,200,null,false);
 		return datagrid;
 	}

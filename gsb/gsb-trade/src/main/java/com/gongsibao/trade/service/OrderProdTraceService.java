@@ -7,6 +7,7 @@ import org.netsharp.communication.Service;
 import org.netsharp.core.DataTable;
 import org.netsharp.core.IRow;
 import org.netsharp.service.PersistableService;
+import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.entity.trade.OrderProdTrace;
 import com.gongsibao.trade.base.IOrderProdTraceService;
@@ -44,4 +45,5 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace>
 		}
 		return getList;
 	}
+
 }
