@@ -61,7 +61,10 @@ public class U8BankWorkspaceTest extends WorkspaceCreationBase {
 		//addColumn(datagrid, "prepaySubject.name", "预付科目", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "personnelId", "u8人员id", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "deptId", "u8部门id", ControlTypes.TEXT_BOX, 100);		
-		addColumn(datagrid, "taxRate", "税率", ControlTypes.DECIMAL_BOX, 100);			
+		column =addColumn(datagrid, "taxRate", "税率", ControlTypes.DECIMAL_BOX, 100);			
+		{
+			column.setPrecision(4);
+		}
 		addColumn(datagrid, "sort", "排序编号", ControlTypes.NUMBER_BOX, 100);
 
 		addColumn(datagrid, "enabled", "是否可用", ControlTypes.BOOLCOMBO_BOX, 50);
