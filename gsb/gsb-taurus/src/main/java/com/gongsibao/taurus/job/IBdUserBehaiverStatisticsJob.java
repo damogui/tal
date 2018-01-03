@@ -14,6 +14,4 @@ public class IBdUserBehaiverStatisticsJob implements IJob{
 		IBdUserBehaviorStatistics service = ServiceFactory.create(IBdUserBehaviorStatistics.class);
 		service.saveJnzUserBehaviorStatistics();
 	}
-	
-
 }
