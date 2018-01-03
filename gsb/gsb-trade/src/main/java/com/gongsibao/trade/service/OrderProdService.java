@@ -1,21 +1,24 @@
 package com.gongsibao.trade.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.core.DataTable;
 import org.netsharp.core.IRow;
+import org.netsharp.core.Row;
 import org.netsharp.service.PersistableService;
-import org.netsharp.util.NumUtil;
 import org.netsharp.util.StringManager;
+import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.entity.trade.OrderProd;
+import com.gongsibao.entity.trade.dic.OrderProdUserMapStatusType;
+import com.gongsibao.entity.trade.dic.OrderProdUserMapType;
 import com.gongsibao.trade.base.IOrderProdService;
-
-import edu.emory.mathcs.backport.java.util.Collections;
 
 @Service
 public class OrderProdService extends PersistableService<OrderProd> implements IOrderProdService {
@@ -65,5 +68,36 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
 		}
 
 		return resMap;
+	}
+
+	@Override
+	public List<Integer> getIdsByOrderIds(List<Integer> orderIdList) {
+		List<Integer> idList = new ArrayList<Integer>();
+		String orderIds = StringManager.join(",", orderIdList);
+		StringBuffer sql = new StringBuffer("SELECT pkid from so_order_prod where order_id in (" + orderIds + ")");
+		DataTable executeTable = this.pm.executeTable(sql.toString(), null);
+		for (Row row : executeTable) {
+			idList.add(row.getInteger("pkid"));
+		}
+		return idList;
+	}
+
+	@Override
+	public int updateAssignByIds(Integer isAssign, List<Integer> pkidList) {
+
+		if (CollectionUtils.isEmpty(pkidList)) {
+			return 0;
+		}
+
+		String idsString = StringManager.join(",", pkidList);
+
+		UpdateBuilder updateBuilder = UpdateBuilder.getInstance();
+		{
+			updateBuilder.update("so_order_prod");
+			updateBuilder.set("is_assign", isAssign);
+			updateBuilder.where("pkid in(" + idsString + ")");
+		}
+		String sql = updateBuilder.toSQL();
+		return this.pm.executeNonQuery(sql, null);
 	}
 }

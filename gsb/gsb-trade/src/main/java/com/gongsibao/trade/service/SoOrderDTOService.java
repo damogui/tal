@@ -19,13 +19,14 @@ import org.netsharp.core.Paging;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.StringManager;
 
-import com.gongsibao.entity.trade.Refund;
+import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
 import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
 import com.gongsibao.entity.trade.dic.OrderRefundStatusType;
 import com.gongsibao.entity.trade.dic.OrderStatusType;
 import com.gongsibao.entity.trade.dto.SoOrderDTO;
 import com.gongsibao.trade.base.IOrderProdService;
+import com.gongsibao.trade.base.IOrderService;
 import com.gongsibao.trade.base.ISoOrderDTOService;
 import com.gongsibao.trade.service.constant.OrderConstant;
 
@@ -33,11 +34,13 @@ import com.gongsibao.trade.service.constant.OrderConstant;
 public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements ISoOrderDTOService {
 
 	IOrderProdService orderProdService = ServiceFactory.create(IOrderProdService.class);
-	
-    public SoOrderDTOService(){
-        super();
-        this.type=SoOrderDTO.class;
-    }
+
+	IOrderService orderService = ServiceFactory.create(IOrderService.class);
+
+	public SoOrderDTOService() {
+		super();
+		this.type = SoOrderDTO.class;
+	}
 
 	@Override
 	public List<SoOrderDTO> queryList(Oql oql) {
@@ -98,13 +101,13 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 			reslis.add(dto);
 		}
 
-		//根据订单id 获取产品名称
+		// 根据订单id 获取产品名称
 		Map<Integer, String> productNameMap = orderProdService.getProductCityNameByOrderIds(orderIdList);
 
 		for (SoOrderDTO o : reslis) {
-			//产品名称
+			// 产品名称
 			o.setProductName(productNameMap.get(o.getId()));
-			//订单状态
+			// 订单状态
 			if (o.getPaidPrice() == 0 && getDistinceDay(o.getAddTime(), new Date()) < OrderConstant.ORDER_UNVALID_DAY) {
 				o.setOrderStatus(OrderStatusType.getItem(1));
 			}
@@ -113,16 +116,24 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 			}
 			if (!Objects.equals(o.getPaidPrice(), o.getPayablePrice()) && o.getPaidPrice() > 0) {
 				o.setOrderStatus(OrderStatusType.getItem(3));
+			}			
+			if (o.getPaidPrice() == 0 && getDistinceDay(o.getAddTime(), new Date()) >= OrderConstant.ORDER_UNVALID_DAY) {
+				o.setOrderStatus(OrderStatusType.getItem(5));
 			}
 			if (o.getProcessStatusId() == OrderProcessStatusType.Ywc) {
 				o.setOrderStatus(OrderStatusType.getItem(4));
 			}
-			if (o.getPaidPrice() == 0 && getDistinceDay(o.getAddTime(), new Date()) >= OrderConstant.ORDER_UNVALID_DAY) {
-				o.setOrderStatus(OrderStatusType.getItem(5));
-			}
 		}
 
 		return reslis;
+	}
+
+	@Override
+	public SoOrderDTO byId(Object id) {
+		SoOrderDTO orderdto = new SoOrderDTO();
+		SoOrder order = orderService.byId(id);
+		orderdto.setOrderNo(order.getNo());
+		return orderdto;
 	}
 
 	// type：0查询sql 1获取页码sql
@@ -180,16 +191,16 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 		if (!StringManager.isNullOrEmpty(mapFilters.get("orderStatus"))) {
 			String state = mapFilters.get("orderStatus");
 			// 订单状态 1等待付款、2已付全款、3已付部分款、4办理完成、5失效订单
-			//if (state == OrderStatusType.Ddfk) {
-			if(state.indexOf("'1'")>-1){
+			// if (state == OrderStatusType.Ddfk) {
+			if (state.indexOf("'1'") > -1) {
 				sql.append(" AND oi.paid_price = 0 AND TIMESTAMPDIFF(HOUR, oi.add_time, NOW()) < " + OrderConstant.ORDER_UNVALID_HOUR + " ");
-			} else if (state.indexOf("'2'")>-1) {
+			} else if (state.indexOf("'2'") > -1) {
 				sql.append(" AND oi.paid_price = oi.payable_price ");
-			} else if (state.indexOf("'3'")>-1) {
+			} else if (state.indexOf("'3'") > -1) {
 				sql.append(" AND oi.paid_price != oi.payable_price AND oi.paid_price > 0 ");
-			} else if (state.indexOf("'4'")>-1) {
-				sql.append(" AND oi.process_status_id = 3024 ");
-			} else if (state.indexOf("'5'")>-1) {
+			} else if (state.indexOf("'4'") > -1) {
+				sql.append(" AND oi.process_status_id = " + OrderProcessStatusType.Ywc.getValue() + " ");
+			} else if (state.indexOf("'5'") > -1) {
 				sql.append(" AND oi.paid_price = 0 AND TIMESTAMPDIFF(HOUR, oi.add_time, NOW()) >= " + OrderConstant.ORDER_UNVALID_HOUR + " ");
 			}
 		}
@@ -251,14 +262,14 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 		return count;
 	}
 
-	//两个数相除
+	// 两个数相除
 	protected double getDivRes(int a, int b) {
 
 		DecimalFormat df = new DecimalFormat("0.00");
 		return Double.parseDouble(df.format((float) a / b));
 	}
 
-	//根据前段传过来的参数，得到Map
+	// 根据前段传过来的参数，得到Map
 	protected HashMap<String, String> getMapFilters(String filter) throws UnsupportedEncodingException {
 
 		HashMap<String, String> map = new HashMap<String, String>();
