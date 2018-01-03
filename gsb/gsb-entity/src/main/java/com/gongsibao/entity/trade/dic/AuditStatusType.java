@@ -3,26 +3,25 @@ package com.gongsibao.entity.trade.dic;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
-//退单状态
-public enum OrderRefundStatusType implements IEnum  {
+public enum AuditStatusType implements IEnum  {
 	
 	wu(0, "无"), 
-	Dsh(3031, "待审核"), 
-	Tkz(3032, "退款中"),
-	Tkwc(3033, "退款完成"),
-	Bhtk(3034, "驳回退款");
+	Dsh(1051, "待审核"), 
+	Tkz(1052, "审核中"),
+	Tkwc(1053, "驳回审核"),
+	Bhtk(1054, "审核通过");
 	private int value;
 	private String text;
 
-	OrderRefundStatusType(int value, String text) {
+	AuditStatusType(int value, String text) {
 		this.value = value;
 		this.text = text;
 	}
 
 	@JsonCreator
-	public static OrderRefundStatusType getItem(int value) {
+	public static AuditStatusType getItem(int value) {
 
-		for (OrderRefundStatusType item : values()) {
+		for (AuditStatusType item : values()) {
 
 			if (item.getValue() == value) {
 				return item;
