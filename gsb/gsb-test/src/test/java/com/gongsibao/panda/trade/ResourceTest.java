@@ -47,7 +47,7 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(SoOrder.class.getName(), "操作订单池", node1.getCode() + "_Operation_Order", IOrderService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(SoOrder.class.getName(), "我负责的订单", node1.getCode() + "_Responsible_Order", IOrderService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(SoOrder.class.getName(), "订单审核", node1.getCode() + "_Order_Audit", IOrderService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(SoOrder.class.getName(), "订单流量监控", node1.getCode() + "_Monitoring_Pool", IOrderService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(SoOrder.class.getName(), "订单流量监控 ", node1.getCode() + "_Monitoring_Pool", IOrderService.class.getName(), node1.getId());
 		}*/
 
 		/*node1 = this.createResourceNodeCategory("审核中心", prefix + "_Audit", node.getId());
