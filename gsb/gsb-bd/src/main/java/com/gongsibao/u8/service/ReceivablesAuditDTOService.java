@@ -126,7 +126,7 @@ public class ReceivablesAuditDTOService extends PersistableService<ReceivablesAu
 		DataTable dataTable = this.pm.executeTable(sqlBuffer.toString(), null);
 		List<Map<String, Object>> orderInfoList = new ArrayList<>();
 		for (IRow row : dataTable) {
-			Map<String, Object> orderInfoMap = new HashMap();
+			Map<String, Object> orderInfoMap = new HashMap<String, Object>();
 			Integer orderPrice = row.getInteger("orderPrice");
 			Integer payablePrice = row.getInteger("payablePrice");
 			Integer paidPrice = row.getInteger("paidPrice");
