@@ -51,6 +51,12 @@ public class SoOrder extends BaseEntity {
     @Column(name="pay_time",header="支付时间")
     private Date payTime;
     
+    @Column(name="add_time",header="创建时间")
+    private Date addTime;
+    
+    @Column(name="channel_order_no",header="渠道订单号")
+    private String channelOrderNo;
+    
     @Column(name="process_status_id",header="执行进度")
     private Integer processStatusId;
     
@@ -522,6 +528,18 @@ public class SoOrder extends BaseEntity {
 	}
 	public void setManualVoucherStatus(OrderManualVoucherStatus manualVoucherStatus) {
 		this.manualVoucherStatus = manualVoucherStatus;
+	}
+	public Date getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(Date addTime) {
+		this.addTime = addTime;
+	}
+	public String getChannelOrderNo() {
+		return channelOrderNo;
+	}
+	public void setChannelOrderNo(String channelOrderNo) {
+		this.channelOrderNo = channelOrderNo;
 	}
 	
 	
