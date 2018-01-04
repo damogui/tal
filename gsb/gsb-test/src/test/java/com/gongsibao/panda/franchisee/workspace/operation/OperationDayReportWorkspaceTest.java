@@ -17,7 +17,7 @@ import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.franchisee.FranchiseeReport;
-import com.gongsibao.franchisee.web.FranchiseeDayReportController;
+import com.gongsibao.franchisee.web.FranchiseeReportController;
 
 public class OperationDayReportWorkspaceTest  extends WorkspaceCreationBase{
 
@@ -34,9 +34,9 @@ public class OperationDayReportWorkspaceTest  extends WorkspaceCreationBase{
 		formOpenMode = OpenMode.WINDOW;
 		listFilter="type=4";
 		// 扩展
-		listPartServiceController = FranchiseeDayReportController.class.getName();
-		listPartJsController = FranchiseeDayReportController.class.getName();
-		listPartImportJs = "/gsb/bd/js/operation/day.report.part.js";
+		listPartServiceController = FranchiseeReportController.class.getName();
+		listPartJsController = FranchiseeReportController.class.getName();
+		listPartImportJs = "/gsb/bd/js/operation/report.part.js";
 		listToolbarPath="/bd/crm/report/toolbar";
 	}
 
@@ -48,11 +48,11 @@ public class OperationDayReportWorkspaceTest  extends WorkspaceCreationBase{
 			toolbar.toNew();
 			toolbar.setBasePath("panda/datagrid/edit");
 			toolbar.setPath(listToolbarPath);
-			toolbar.setName("运营日统计工具栏");
+			toolbar.setName("统计工具栏");
 			toolbar.setResourceNode(node);
 		}
-		addToolbarItem(toolbar, "disabled", "生成日报", "fa-stop-circle-o",
-				"operDayReports()", null, 5);
+		addToolbarItem(toolbar, "disabled", "生成报表", "fa-stop-circle-o",
+				"generaReports()", null, 5);
 		toolbarService.save(toolbar);
 	}
 
@@ -64,7 +64,7 @@ public class OperationDayReportWorkspaceTest  extends WorkspaceCreationBase{
 		PDatagridColumn column = null;
 		
 		column = addColumn(datagrid, "showOrganName", "部门", ControlTypes.TEXT_BOX,
-				300, true);
+				180, true);
 		{
 		}
 		column = addColumn(datagrid, "date", "日期", ControlTypes.DATE_BOX,

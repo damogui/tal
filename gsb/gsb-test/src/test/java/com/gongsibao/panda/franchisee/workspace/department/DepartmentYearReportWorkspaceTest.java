@@ -1,7 +1,6 @@
 package com.gongsibao.panda.franchisee.workspace.department;
 
 import org.junit.Before;
-import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
@@ -13,11 +12,9 @@ import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
-import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.franchisee.FranchiseeReport;
-import com.gongsibao.franchisee.web.DepartmentYearReportController;
 
 public class DepartmentYearReportWorkspaceTest  extends WorkspaceCreationBase{
 
@@ -34,26 +31,7 @@ public class DepartmentYearReportWorkspaceTest  extends WorkspaceCreationBase{
 		formOpenMode = OpenMode.WINDOW;
 		listFilter="type=1";
 		// 扩展
-		listPartServiceController = DepartmentYearReportController.class.getName();
-		listPartJsController = DepartmentYearReportController.class.getName();
-		listPartImportJs = "/gsb/bd/js/departReport/year.report.part.js";
 		listToolbarPath="/bd/crm/report/toolbar";
-	}
-
-	@Test
-	public void createToolbar() {
-		ResourceNode node = this.getResourceNode();
-		PToolbar toolbar = new PToolbar();
-		{
-			toolbar.toNew();
-			toolbar.setBasePath("panda/datagrid/edit");
-			toolbar.setPath(listToolbarPath);
-			toolbar.setName("部门年统计工具栏");
-			toolbar.setResourceNode(node);
-		}
-		addToolbarItem(toolbar, "disabled", "生成年报", "fa-stop-circle-o",
-				"departYearReports()", null, 5);
-		toolbarService.save(toolbar);
 	}
 
 	@Override
@@ -64,7 +42,7 @@ public class DepartmentYearReportWorkspaceTest  extends WorkspaceCreationBase{
 		PDatagridColumn column = null;
 		
 		column = addColumn(datagrid, "showOrganName", "部门", ControlTypes.TEXT_BOX,
-				100, true);
+				180, true);
 		{
 		}
 
