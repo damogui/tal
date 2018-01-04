@@ -161,9 +161,10 @@ public class PerfrmanceSalesmanDayService extends AbstractPerfrmanceSalesmanServ
 			Integer payablePrice = Integer.parseInt(row.getString("payablePrice"));
 			
 			//0:全款、1：分期
-			Integer isInstallMent = Integer.parseInt(row.getString("isInstallMent"));
+			String isInstallMent = row.getString("isInstallMent");
 			String installMentMode = row.getString("installMentMode");
-			if(isInstallMent.equals(0)){
+			
+			if(isInstallMent.equals("0")||isInstallMent.equals("false")){
 				if(paidPrice.intValue()>=payablePrice.intValue()){
 					orderCount+=1;
 					payablePriceCount = payablePriceCount.intValue() + payablePrice.intValue();
