@@ -1,10 +1,10 @@
 System.Declare("com.gongsibao.franchisee.web");
-com.gongsibao.franchisee.web.FranchiseeDayReportController = org.netsharp.panda.commerce.TreegridPart.Extends( {
+com.gongsibao.franchisee.web.FranchiseeYearReportController = org.netsharp.panda.commerce.TreegridPart.Extends( {
 
     ctor: function () {
         this.base();
     },
-    operDayReports : function() {
+    operYearReports : function() {
 		this.invokeService("execute", [], function() {
 			window.alert("生成运营年报成功");
 			return;

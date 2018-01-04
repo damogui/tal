@@ -11,6 +11,8 @@ import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
+import org.netsharp.panda.entity.PQueryItem;
+import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
@@ -58,10 +60,10 @@ public class DepartmentYearReportWorkspaceTest  extends WorkspaceCreationBase{
 	protected PDatagrid createDatagrid(ResourceNode node) {
 
 		PDatagrid datagrid = super.createDatagrid(node);
-		datagrid.setTreeField("organizationId");
+		datagrid.setTreeField("showOrganName");
 		PDatagridColumn column = null;
 		
-		column = addColumn(datagrid, "organizationId", "部门", ControlTypes.TEXT_BOX,
+		column = addColumn(datagrid, "showOrganName", "部门", ControlTypes.TEXT_BOX,
 				100, true);
 		{
 		}
@@ -177,16 +179,16 @@ public class DepartmentYearReportWorkspaceTest  extends WorkspaceCreationBase{
 	}
 
 	
-	/*  @Override 
+	  @Override 
 	  protected PQueryProject createQueryProject(ResourceNode node) {
 		  PQueryProject queryProject = super.createQueryProject(node);
 		  queryProject.toNew(); 
-		  PQueryItem item = addQueryItem(queryProject, "date", "日期",ControlTypes.MONTH_BOX);{
+		  PQueryItem item = addQueryItem(queryProject, "year", "年份",ControlTypes.YEAR_BOX);{
 			  item.setInterzone(true);
 			  item.setShortcut(true);
 		  }
 		  return queryProject; 
-	  }*/
+	  }
 	 
 
 	public void doOperation() {

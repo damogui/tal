@@ -26,7 +26,7 @@ public class OperationYearReportWorkspaceTest  extends WorkspaceCreationBase{
 	public void setup() {
 		entity = FranchiseeReport.class;
 		urlList = "/bd/operation/year/report";
-		listPartName = formPartName = "年统计";
+		listPartName = formPartName = "运营年统计";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_BD_OPERATION_Year_Report";
@@ -60,11 +60,11 @@ public class OperationYearReportWorkspaceTest  extends WorkspaceCreationBase{
 	protected PDatagrid createDatagrid(ResourceNode node) {
 
 		PDatagrid datagrid = super.createDatagrid(node);
-		datagrid.setTreeField("organizationId");
+		datagrid.setTreeField("showOrganName");
 		PDatagridColumn column = null;
 		
-		column = addColumn(datagrid, "organizationId", "部门", ControlTypes.TEXT_BOX,
-				100, true);
+		column = addColumn(datagrid, "showOrganName", "部门", ControlTypes.TEXT_BOX,
+				300, true);
 		{
 		}
 
@@ -183,7 +183,7 @@ public class OperationYearReportWorkspaceTest  extends WorkspaceCreationBase{
 	  protected PQueryProject createQueryProject(ResourceNode node) {
 		  PQueryProject queryProject = super.createQueryProject(node);
 		  queryProject.toNew(); 
-		  PQueryItem item = addQueryItem(queryProject, "date", "日期",ControlTypes.YEAR_BOX);{
+		  PQueryItem item = addQueryItem(queryProject, "year", "年份",ControlTypes.YEAR_BOX);{
 			  item.setInterzone(true);
 			  item.setShortcut(true);
 		  }

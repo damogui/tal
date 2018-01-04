@@ -2,6 +2,7 @@ package com.gongsibao.franchisee.service;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +37,7 @@ public class FranchiseeReportService extends PersistableService<FranchiseeReport
 	}
 
 	@Override
-	public void createStaffDayReport(Integer employeeId, Integer parentId,Integer OrgaId) {
+	public void createStaffDayReport(Integer employeeId,String employeeName, Integer parentId,Integer OrgaId) {
 		// 获取当前时间
 		Calendar cal = Calendar.getInstance();// 使用日历类
 		int year = cal.get(Calendar.YEAR);// 得到年
@@ -71,6 +72,7 @@ public class FranchiseeReportService extends PersistableService<FranchiseeReport
 			entity.setTotalCount(0);
 			entity.setTrackCount(0);
 			entity.setUnTrackCount(0);
+			entity.setShowOrganName(employeeName);
 			entity.toNew();
 			reportService.save(entity);
 		}else{
@@ -86,6 +88,7 @@ public class FranchiseeReportService extends PersistableService<FranchiseeReport
 				entity.setParentId(parentId);
 				entity.setTotalCount(getTotalCount);
 				entity.setUnTrackCount(getTotalCount.intValue()- entity.getTrackCount());
+				entity.setShowOrganName(employeeName);
 				entity.toNew();
 				reportService.save(entity);
 			}
@@ -93,7 +96,7 @@ public class FranchiseeReportService extends PersistableService<FranchiseeReport
 	}
 	
 	@Override
-	public void createStaffYearMonthReport(Integer employeeId, Integer parentId,Integer OrgaId,FranchiseeReportType reportType) {
+	public void createStaffYearMonthReport(Integer employeeId,String employeeName, Integer parentId,Integer OrgaId,FranchiseeReportType reportType) {
 		// 获取当前时间
 		Calendar cal = Calendar.getInstance();// 使用日历类
 		int year = cal.get(Calendar.YEAR);// 得到年
@@ -191,25 +194,10 @@ public class FranchiseeReportService extends PersistableService<FranchiseeReport
 			entity.setTrackProgress5Count(getTrackProgress5);
 			entity.setTrackProgress6Count(getTrackProgress6);
 			entity.setTrackProgress7Count(getTrackProgress7);
+			entity.setShowOrganName(employeeName);
 			entity.toNew();
 			reportService.save(entity);
 		}
-			
-				
-			
-			// 2.生成部门的年、月报
-			// 判断统计类型 ：1-年、2-月、3-周、4-日
-			/*switch (reportType.getValue()) {
-			case 2:
-				createDepartReport(getDepartId, FranchiseeReportType.month);
-				break;
-			case 1:
-				createDepartReport(getDepartId, FranchiseeReportType.year);
-				break;
-			}*/
-
-		
-
 	}
 
 	@Override
@@ -251,16 +239,23 @@ public class FranchiseeReportService extends PersistableService<FranchiseeReport
 					// 是否是叶子节点 true-是、false-否
 					if (organization.getIsLeaf()) {
 						// 根据是叶子节点的组织机构Id,获取员工Id
-						Integer getEmployId = getEmployeeIdByOrganId(organization.getId());
+						Map<Integer, String> employMap = getEmployeeIdByOrganId(organization.getId());
+						Integer getEmployId = null; 
+						String getEmployName = null;
+						for(Integer key : employMap.keySet()){ 
+							getEmployId = key;
+							getEmployName = employMap.get(key);
+					     }  
 						//创建员工的日报、月报、年报
-						createStaffDayReport(getEmployId, dayReportId,organization.getParentId());
-						createStaffYearMonthReport(getEmployId, monthReportId,organization.getParentId(),FranchiseeReportType.month);
-						createStaffYearMonthReport(getEmployId, yearReportId,organization.getParentId(),FranchiseeReportType.year);
+						createStaffDayReport(getEmployId,getEmployName, dayReportId,organization.getParentId());
+						createStaffYearMonthReport(getEmployId,getEmployName, monthReportId,organization.getParentId(),FranchiseeReportType.month);
+						createStaffYearMonthReport(getEmployId,getEmployName, yearReportId,organization.getParentId(),FranchiseeReportType.year);
 						
-						System.out.println("员工:" + organization.getName()+ "---" + organization.getId() + "---"+ organization.getParentId());
+						System.out.println("员工:" + getEmployName+ "---" + organization.getId() + "---"+ organization.getParentId());
 					} else {
 						FranchiseeReport reportEntity = new FranchiseeReport();
 						reportEntity.setOrganizationId(organization.getId());
+						reportEntity.setShowOrganName(organization.getName());
 						//创建组织机构的日报、月报、年报
 						createDirectoryReport(dayReportId,reportEntity,FranchiseeReportType.date);
 						createDirectoryReport(monthReportId,reportEntity,FranchiseeReportType.month);
@@ -292,17 +287,19 @@ public class FranchiseeReportService extends PersistableService<FranchiseeReport
 	}
 
 	@Override
-	public Integer getEmployeeIdByOrganId(Integer OrgaId) {
-		Integer returnId = null;
+	public Map<Integer, String> getEmployeeIdByOrganId(Integer OrgaId) {
+		Map<Integer, String> returnMap =new HashMap<Integer, String>();
 		StringBuilder sqlSelBuilder = new StringBuilder();
-		sqlSelBuilder.append("SELECT spe.id as id from sys_permission_organization_employee spoe");
+		sqlSelBuilder.append("SELECT spe.id as id,spe.`name` as name from sys_permission_organization_employee spoe");
 		sqlSelBuilder.append(" LEFT JOIN sys_permission_employee spe ON spoe.employee_id=spe.id");
 		sqlSelBuilder.append(" where spoe.organization_id=" + OrgaId);
 		DataTable dataTable = this.pm.executeTable(sqlSelBuilder.toString(),null);
 		for (IRow row : dataTable) {
-			returnId = Integer.parseInt(row.getString("id"));
+			Integer returnId = Integer.parseInt(row.getString("id"));
+			String returnName = row.getString("name");
+			returnMap.put(returnId, returnName);
 		}
-		return returnId;
+		return returnMap;
 	}
 
 	@Override

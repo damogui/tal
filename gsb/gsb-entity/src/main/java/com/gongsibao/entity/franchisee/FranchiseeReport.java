@@ -19,7 +19,7 @@ public class FranchiseeReport extends CatEntity{
 	 */   
 	private static final long serialVersionUID = -8758613644594941085L;
 
-	@Column(name = "organizationId", header = "部门")
+	@Reference(foreignKey = "organizationId", header = "部门")
 	private Organization organization;
 
 	@Column(name = "organization_id", header = "部门Id")
@@ -27,6 +27,9 @@ public class FranchiseeReport extends CatEntity{
 	
     @Column(name="owner_id",header="业务员Id")
     private Integer ownerId;
+    
+    @Column(name="show_organ_name",header="扩展显示组织结构名称")
+    private String showOrganName;
     
     @Reference(foreignKey="ownerId")
     private Employee owner;
@@ -318,4 +321,13 @@ public class FranchiseeReport extends CatEntity{
 	public void setWeek(int week) {
 		this.week = week;
 	}
+
+	public String getShowOrganName() {
+		return showOrganName;
+	}
+
+	public void setShowOrganName(String showOrganName) {
+		this.showOrganName = showOrganName;
+	}
+	
 }

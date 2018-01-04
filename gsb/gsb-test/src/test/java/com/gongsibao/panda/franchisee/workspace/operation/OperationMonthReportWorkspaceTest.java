@@ -18,6 +18,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.franchisee.FranchiseeReport;
 import com.gongsibao.franchisee.web.FranchiseeDayReportController;
+import com.gongsibao.franchisee.web.FranchiseeMonthReportController;
 
 public class OperationMonthReportWorkspaceTest  extends WorkspaceCreationBase{
 
@@ -26,7 +27,7 @@ public class OperationMonthReportWorkspaceTest  extends WorkspaceCreationBase{
 	public void setup() {
 		entity = FranchiseeReport.class;
 		urlList = "/bd/operation/month/report";
-		listPartName = formPartName = "月统计";
+		listPartName = formPartName = "运营月统计";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_BD_OPERATION_Month_Report";
@@ -34,8 +35,8 @@ public class OperationMonthReportWorkspaceTest  extends WorkspaceCreationBase{
 		formOpenMode = OpenMode.WINDOW;
 		listFilter="type=2";
 		// 扩展
-		listPartServiceController = FranchiseeDayReportController.class.getName();
-		listPartJsController = FranchiseeDayReportController.class.getName();
+		listPartServiceController = FranchiseeMonthReportController.class.getName();
+		listPartJsController = FranchiseeMonthReportController.class.getName();
 		listPartImportJs = "/gsb/bd/js/operation/month.report.part.js";
 		listToolbarPath="/bd/crm/report/toolbar";
 	}
@@ -52,7 +53,7 @@ public class OperationMonthReportWorkspaceTest  extends WorkspaceCreationBase{
 			toolbar.setResourceNode(node);
 		}
 		addToolbarItem(toolbar, "disabled", "生成月报", "fa-stop-circle-o",
-				"operDayReports()", null, 5);
+				"operMonthReports()", null, 5);
 		toolbarService.save(toolbar);
 	}
 
@@ -60,14 +61,14 @@ public class OperationMonthReportWorkspaceTest  extends WorkspaceCreationBase{
 	protected PDatagrid createDatagrid(ResourceNode node) {
 
 		PDatagrid datagrid = super.createDatagrid(node);
-		datagrid.setTreeField("organizationId");
+		datagrid.setTreeField("showOrganName");
 		PDatagridColumn column = null;
 		
-		column = addColumn(datagrid, "organizationId", "部门", ControlTypes.TEXT_BOX,
-				100, true);
+		column = addColumn(datagrid, "showOrganName", "部门", ControlTypes.TEXT_BOX,
+				300, true);
 		{
 		}
-		column = addColumn(datagrid, "date", "日期", ControlTypes.DATE_BOX,
+		column = addColumn(datagrid, "month", "月份", ControlTypes.NUMBER_BOX,
 				100, true);
 		{
 		}
@@ -182,7 +183,7 @@ public class OperationMonthReportWorkspaceTest  extends WorkspaceCreationBase{
 	  protected PQueryProject createQueryProject(ResourceNode node) {
 		  PQueryProject queryProject = super.createQueryProject(node);
 		  queryProject.toNew(); 
-		  PQueryItem item = addQueryItem(queryProject, "date", "日期",ControlTypes.DATE_BOX);{
+		  PQueryItem item = addQueryItem(queryProject, "month", "月份",ControlTypes.MONTH_BOX);{
 			  item.setInterzone(true);
 			  item.setShortcut(true);
 		  }

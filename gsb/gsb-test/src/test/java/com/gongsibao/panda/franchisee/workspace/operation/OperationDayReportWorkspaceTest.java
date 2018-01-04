@@ -26,7 +26,7 @@ public class OperationDayReportWorkspaceTest  extends WorkspaceCreationBase{
 	public void setup() {
 		entity = FranchiseeReport.class;
 		urlList = "/bd/operation/day/report";
-		listPartName = formPartName = "日统计";
+		listPartName = formPartName = "运营日统计";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_BD_OPERATION_Day_Report";
@@ -60,11 +60,11 @@ public class OperationDayReportWorkspaceTest  extends WorkspaceCreationBase{
 	protected PDatagrid createDatagrid(ResourceNode node) {
 
 		PDatagrid datagrid = super.createDatagrid(node);
-		datagrid.setTreeField("organizationId");
+		datagrid.setTreeField("showOrganName");
 		PDatagridColumn column = null;
 		
-		column = addColumn(datagrid, "organizationId", "部门", ControlTypes.TEXT_BOX,
-				100, true);
+		column = addColumn(datagrid, "showOrganName", "部门", ControlTypes.TEXT_BOX,
+				300, true);
 		{
 		}
 		column = addColumn(datagrid, "date", "日期", ControlTypes.DATE_BOX,
