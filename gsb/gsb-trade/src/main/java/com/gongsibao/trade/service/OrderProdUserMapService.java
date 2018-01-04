@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.core.DataTable;
 import org.netsharp.core.Row;
@@ -36,7 +37,6 @@ public class OrderProdUserMapService extends PersistableService<OrderProdUserMap
 		String sql = updateBuilder.toSQL();
 		return this.pm.executeNonQuery(sql, null);
 	}
-	
 
 	@Override
 	public Map<Integer, String> getOrderUserByIds(List<Integer> pkidList, int typeId, int statusId) {
@@ -53,4 +53,30 @@ public class OrderProdUserMapService extends PersistableService<OrderProdUserMap
 		}
 		return resMap;
 	}
+
+	@Override
+	public Map<Integer, String> getLastOperatorByOrderIdsStatusType(List<Integer> orderIdList, Integer typeId, Integer statusId) {
+		StringBuffer sql = new StringBuffer();
+		Map<Integer, String> resMap = new HashMap<Integer, String>();
+
+		if (CollectionUtils.isEmpty(orderIdList)) {
+			return resMap;
+		}
+
+		String orderIds = StringManager.join(",", orderIdList);
+
+		sql.append("SELECT od.order_id,u.`real_name` FROM uc_user u ");
+		sql.append("JOIN (SELECT * FROM so_order_prod_user_map WHERE pkid IN(SELECT MAX(pkid) FROM so_order_prod_user_map WHERE status_id=" + statusId + " AND type_id = " + typeId + " GROUP BY order_prod_id)) odum ON u.`pkid`=odum.user_id ");
+		sql.append("JOIN so_order_prod od ON od.`pkid`=odum.`order_prod_id` ");
+		sql.append("WHERE od.order_id IN(" + orderIds + ") ");
+		sql.append("GROUP BY od.order_id ");
+
+		DataTable executeTable = this.pm.executeTable(sql.toString(), null);
+		for (Row row : executeTable) {
+			resMap.put(row.getInteger("order_id"), row.getString("real_name"));
+		}
+
+		return resMap;
+	}
+
 }

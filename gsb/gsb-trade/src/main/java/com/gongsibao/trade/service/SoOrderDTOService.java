@@ -22,10 +22,18 @@ import org.netsharp.util.StringManager;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
 import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
+import com.gongsibao.entity.trade.dic.OrderProdTraceOperatorType;
+import com.gongsibao.entity.trade.dic.OrderProdTraceType;
+import com.gongsibao.entity.trade.dic.OrderProdUserMapStatusType;
+import com.gongsibao.entity.trade.dic.OrderProdUserMapType;
 import com.gongsibao.entity.trade.dic.OrderRefundStatusType;
 import com.gongsibao.entity.trade.dic.OrderStatusType;
 import com.gongsibao.entity.trade.dto.SoOrderDTO;
+import com.gongsibao.trade.base.ICompanyIntentionService;
+import com.gongsibao.trade.base.ICustomerService;
 import com.gongsibao.trade.base.IOrderProdService;
+import com.gongsibao.trade.base.IOrderProdTraceService;
+import com.gongsibao.trade.base.IOrderProdUserMapService;
 import com.gongsibao.trade.base.IOrderService;
 import com.gongsibao.trade.base.ISoOrderDTOService;
 import com.gongsibao.trade.service.constant.OrderConstant;
@@ -36,6 +44,14 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 	IOrderProdService orderProdService = ServiceFactory.create(IOrderProdService.class);
 
 	IOrderService orderService = ServiceFactory.create(IOrderService.class);
+
+	IOrderProdTraceService orderProdTraceService = ServiceFactory.create(IOrderProdTraceService.class);
+
+	IOrderProdUserMapService orderProdUserMapService = ServiceFactory.create(IOrderProdUserMapService.class);
+
+	ICompanyIntentionService companyIntentionService = ServiceFactory.create(ICompanyIntentionService.class);
+
+	ICustomerService customerService = ServiceFactory.create(ICustomerService.class);
 
 	public SoOrderDTOService() {
 		super();
@@ -82,14 +98,14 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 			dto.setId(id);
 			dto.setOrderNo(row.getString("orderNo"));
 			dto.setChannelOrderNo(row.getString("channelOrderNo"));
-			dto.setCompanyName(row.getString("companyName"));
+			//dto.setCompanyName(row.getString("companyName"));
 			dto.setRefundStatus(OrderRefundStatusType.getItem(row.getInteger("refundStatusId")));
 			dto.setInstallment(row.getBoolean("isInstallment"));
-			dto.setOperator(row.getString("operator"));
+			//dto.setOperator(row.getString("operator"));
 			dto.setAccountId(row.getInteger("accountId"));
 			dto.setAccountName(row.getString("accountName"));
 			dto.setAccountMobile(row.getString("accountMobile"));
-			dto.setCustomerName(row.getString("customerName"));
+			//dto.setCustomerName(row.getString("customerName"));
 			dto.setPlatformSource(OrderPlatformSourceType.getItem(row.getInteger("platformSource")));
 			dto.setProcessStatusId(OrderProcessStatusType.getItem(row.getInteger("processStatusId")));
 			dto.setTotalPrice(getDivRes(totalPrice, 100));
@@ -103,10 +119,30 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 
 		// 根据订单id 获取产品名称
 		Map<Integer, String> productNameMap = orderProdService.getProductCityNameByOrderIds(orderIdList);
+		// 批量转移客户的最后一条跟进记录
+		Map<Integer, String> lastInfoMap = orderProdTraceService.getLastInfoByOrderIdType(orderIdList, OrderProdTraceType.Ghywy.getValue());
+		// 获取最后的【曾经跟进】的业务员
+		Map<Integer, String> lastOperatorMap = orderProdUserMapService.getLastOperatorByOrderIdsStatusType(orderIdList, OrderProdUserMapType.Ywy.getValue(), OrderProdUserMapStatusType.Cjfz.getValue());
+		// 获取最后的【正在跟进】的业务员
+		Map<Integer, String> operatorMap = orderProdUserMapService.getLastOperatorByOrderIdsStatusType(orderIdList, OrderProdUserMapType.Ywy.getValue(), OrderProdUserMapStatusType.Zzfz.getValue());
+		// 根据订单id获取该订单对应的公司名称
+		Map<Integer, String> companyByOrderIdListMap = companyIntentionService.getCompanyByOrderIdList(orderIdList);
+		// 根据订单id获取该订单对应的客户名称
+		Map<Integer, String> customerNameByOrderIdListMap = customerService.getCustomerNameByOrderIdList(orderIdList);
 
 		for (SoOrderDTO o : reslis) {
 			// 产品名称
 			o.setProductName(productNameMap.get(o.getId()));
+			// 最后一天【批量跟进的跟进记录】
+			o.setOperationTraceInfo(lastInfoMap.get(o.getId()));
+			// 获取最后的【曾经跟进】的业务员
+			o.setOldOperator(lastOperatorMap.get(o.getId()));
+			// 获取最后的【正在跟进】的业务员
+			o.setOperator(operatorMap.get(o.getId()));
+			// 获取公司名称
+			o.setCompanyName(companyByOrderIdListMap.get(o.getId()));
+			// 获取客户名称
+			o.setCustomerName(customerNameByOrderIdListMap.get(o.getId()));
 			// 订单状态
 			if (o.getPaidPrice() == 0 && getDistinceDay(o.getAddTime(), new Date()) < OrderConstant.ORDER_UNVALID_DAY) {
 				o.setOrderStatus(OrderStatusType.getItem(1));
@@ -116,7 +152,7 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 			}
 			if (!Objects.equals(o.getPaidPrice(), o.getPayablePrice()) && o.getPaidPrice() > 0) {
 				o.setOrderStatus(OrderStatusType.getItem(3));
-			}			
+			}
 			if (o.getPaidPrice() == 0 && getDistinceDay(o.getAddTime(), new Date()) >= OrderConstant.ORDER_UNVALID_DAY) {
 				o.setOrderStatus(OrderStatusType.getItem(5));
 			}
@@ -143,10 +179,12 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 		if (type == 0) {
 			sql.append("SELECT DISTINCT oi.`pkid` 'id',oi.`no` 'orderNo',oi.channel_order_no 'channelOrderNo',oi.`pay_time` 'payTime', ");
 			sql.append("oi.pay_status_id 'payStatusId',oi.process_status_id 'processStatusId', ");
-			sql.append("(CASE WHEN cri.company_name!='' THEN cri.company_name WHEN cri.`full_name`!='' THEN cri.`full_name` WHEN cri.`name`!='' THEN cri.`name`  ");
-			sql.append("ELSE GROUP_CONCAT(DISTINCT(CASE WHEN cri1.company_name!='' THEN cri1.company_name WHEN cri1.`full_name`!='' THEN cri1.`full_name` ELSE cri.`name` END) SEPARATOR ',') END) 'companyName', ");
+			// sql.append("(CASE WHEN cri.company_name!='' THEN cri.company_name WHEN cri.`full_name`!='' THEN cri.`full_name` WHEN cri.`name`!='' THEN cri.`name`  ");
+			// sql.append("ELSE GROUP_CONCAT(DISTINCT(CASE WHEN cri1.company_name!='' THEN cri1.company_name WHEN cri1.`full_name`!='' THEN cri1.`full_name` ELSE cri.`name` END) SEPARATOR ',') END) 'companyName', ");
 			sql.append("oi.refund_status_id 'refundStatusId',oi.total_price 'totalPrice',oi.payable_price 'payablePrice',oi.paid_price 'paidPrice',oi.is_installment 'isInstallment', ");
-			sql.append("GROUP_CONCAT(DISTINCT u.real_name SEPARATOR ',') 'operator',oi.account_id 'accountId',oi.account_name 'accountName',oi.account_mobile 'accountMobile',c.real_name 'customerName', ");
+			// sql.append("GROUP_CONCAT(DISTINCT u.real_name SEPARATOR ',') 'operator',oi.account_id 'accountId',oi.account_name 'accountName',oi.account_mobile 'accountMobile',c.real_name 'customerName', ");
+			// sql.append("oi.account_id 'accountId',oi.account_name 'accountName',oi.account_mobile 'accountMobile',c.real_name 'customerName', ");
+			sql.append("oi.account_id 'accountId',oi.account_name 'accountName',oi.account_mobile 'accountMobile', ");
 			sql.append("oi.platform_source 'platformSource',oi.add_time 'addTime' ");
 		} else {
 			sql.append("SELECT COUNT(DISTINCT oi.`pkid`) 'rount' ");
@@ -154,17 +192,51 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 
 		sql.append("FROM so_order oi ");
 		sql.append("JOIN so_order_prod od ON oi.`pkid`=od.`order_id` ");
-		sql.append("JOIN uc_account a ON a.`pkid` = oi.`account_id` ");
-		sql.append("LEFT JOIN crm_customer c ON c.account_id = a.`pkid`");
-		sql.append("LEFT JOIN crm_company_intention cri ON cri.pkid = oi.`company_id` ");
-		sql.append("LEFT JOIN crm_company_intention cri1 ON cri1.pkid = od.`company_id` ");
-		sql.append("LEFT JOIN so_order_prod_user_map odum ON odum.`order_prod_id` = od.`pkid` AND type_id = 3061 AND status_id = 3141 ");
-		sql.append("LEFT JOIN uc_user u ON u.`pkid`=odum.`user_id`");
+		//当查询的条件没有牵连到子表时，则不用join表，这样可以提高查询效率
+		// 下单人
+		if (!StringManager.isNullOrEmpty(mapFilters.get("customerName"))) {
+			sql.append("JOIN uc_account a ON a.`pkid` = oi.`account_id` ");
+			sql.append("LEFT JOIN crm_customer c ON c.account_id = a.`pkid`");
+		}
+
+		// 企业名称
+		if (!StringManager.isNullOrEmpty(mapFilters.get("companyName"))) {
+			sql.append("LEFT JOIN crm_company_intention cri ON cri.pkid = oi.`company_id` ");
+			sql.append("LEFT JOIN crm_company_intention cri1 ON cri1.pkid = od.`company_id` ");
+		}
+
+		// 业务员
+		if (!StringManager.isNullOrEmpty(mapFilters.get("operator"))) {
+			sql.append("LEFT JOIN so_order_prod_user_map odum ON odum.`order_prod_id` = od.`pkid` AND odum.type_id = " + OrderProdUserMapType.Ywy.getValue() + "  AND odum.status_id = " + OrderProdUserMapStatusType.Zzfz.getValue() + "  ");
+			sql.append("LEFT JOIN uc_user u ON u.`pkid`=odum.`user_id`");
+		}
+
+		// 原业务员
+		if (!StringManager.isNullOrEmpty(mapFilters.get("oldOperator"))) {
+			sql.append("LEFT JOIN (SELECT * FROM so_order_prod_user_map WHERE pkid IN(SELECT MAX(pkid) FROM so_order_prod_user_map WHERE status_id=" + OrderProdUserMapStatusType.Cjfz.getValue() + " AND type_id = " + OrderProdUserMapType.Ywy.getValue() + " GROUP BY order_prod_id)) odum1 ON odum1.`order_prod_id` = od.`pkid` ");
+			sql.append("LEFT JOIN uc_user u1 ON u1.`pkid`=odum1.`user_id` ");
+		}
+
+		// 批量转移业务员操作记录
+		if (!StringManager.isNullOrEmpty(mapFilters.get("operationTraceInfo"))) {
+			sql.append("LEFT JOIN (SELECT * FROM so_order_prod_trace WHERE pkid IN(SELECT MAX(pkid) FROM so_order_prod_trace GROUP BY order_prod_id)) odt ON odt.order_prod_id = od.pkid AND odt.`type_id`= " + OrderProdTraceType.Ghywy.getValue() + " ");
+		}
+
 		sql.append("WHERE 1=1 ");
 
 		// 订单号
 		if (!StringManager.isNullOrEmpty(mapFilters.get("orderNo"))) {
 			sql.append("AND oi.no LIKE " + mapFilters.get("orderNo") + " ");
+		}
+
+		// 原业务员
+		if (!StringManager.isNullOrEmpty(mapFilters.get("oldOperator"))) {
+			sql.append("AND u1.real_name LIKE " + mapFilters.get("oldOperator") + " ");
+		}
+
+		// 批量转移业务员操作记录
+		if (!StringManager.isNullOrEmpty(mapFilters.get("operationTraceInfo"))) {
+			sql.append("AND odt.`info` LIKE " + mapFilters.get("operationTraceInfo") + "  ");
 		}
 
 		// 渠道订单编号
@@ -333,4 +405,5 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 		dayCount = (afterDate.getTime() - beforeDate.getTime()) / (24 * 60 * 60 * 1000);
 		return dayCount;
 	}
+
 }
