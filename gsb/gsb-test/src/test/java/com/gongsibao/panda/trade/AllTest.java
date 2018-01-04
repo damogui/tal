@@ -4,7 +4,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import com.gongsibao.panda.trade.workspace.order.AllOrderWorkspaceTest;
+import com.gongsibao.panda.trade.workspace.order.MyOrderDetailWorkspaceTest;
+import com.gongsibao.panda.trade.workspace.order.MyOrderWorkspaceTest;
 import com.gongsibao.panda.trade.workspace.order.OrderOperationWorkspaceTest;
+import com.gongsibao.panda.trade.workspace.order.OrderPoolWorkspaceTest;
 import com.gongsibao.panda.trade.workspace.payment.PaymentLogWorkspaceTest;
 
 
@@ -16,8 +20,8 @@ import com.gongsibao.panda.trade.workspace.payment.PaymentLogWorkspaceTest;
 	OrderOperationWorkspaceTest.class,
 	
 	//订单管理:全部订单,我的订单,我的订单明细,订单池
-	/*AllOrderWorkspaceTest.class,
-	MyOrderWorkspaceTest.class,
+	AllOrderWorkspaceTest.class,
+	/*MyOrderWorkspaceTest.class,
 	MyOrderDetailWorkspaceTest.class,
 	OrderPoolWorkspaceTest.class,
 	
