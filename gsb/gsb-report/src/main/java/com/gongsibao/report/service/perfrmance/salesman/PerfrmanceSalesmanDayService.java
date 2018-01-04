@@ -160,6 +160,7 @@ public class PerfrmanceSalesmanDayService extends AbstractPerfrmanceSalesmanServ
 			}
 			Integer payablePrice = Integer.parseInt(row.getString("payablePrice"));
 			
+			
 			//0:全款、1：分期
 			String isInstallMent = row.getString("isInstallMent");
 			String installMentMode = row.getString("installMentMode");
