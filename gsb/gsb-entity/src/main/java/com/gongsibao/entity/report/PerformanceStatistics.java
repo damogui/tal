@@ -28,7 +28,7 @@ public class PerformanceStatistics extends BasePerformanceEntity{
     @Column(name="salesman_id",header="业务员Id")
     private Integer salesmanId;
     
-    @Reference(foreignKey="salesmanId")
+    @Reference(foreignKey="salesmanId",primaryKey="pkid")
     private User salesman;
 
 	public ReportOrganizationType getOrganizationType() {
