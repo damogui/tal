@@ -98,14 +98,14 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 			dto.setId(id);
 			dto.setOrderNo(row.getString("orderNo"));
 			dto.setChannelOrderNo(row.getString("channelOrderNo"));
-			//dto.setCompanyName(row.getString("companyName"));
+			// dto.setCompanyName(row.getString("companyName"));
 			dto.setRefundStatus(OrderRefundStatusType.getItem(row.getInteger("refundStatusId")));
 			dto.setInstallment(row.getBoolean("isInstallment"));
-			//dto.setOperator(row.getString("operator"));
+			// dto.setOperator(row.getString("operator"));
 			dto.setAccountId(row.getInteger("accountId"));
 			dto.setAccountName(row.getString("accountName"));
 			dto.setAccountMobile(row.getString("accountMobile"));
-			//dto.setCustomerName(row.getString("customerName"));
+			// dto.setCustomerName(row.getString("customerName"));
 			dto.setPlatformSource(OrderPlatformSourceType.getItem(row.getInteger("platformSource")));
 			dto.setProcessStatusId(OrderProcessStatusType.getItem(row.getInteger("processStatusId")));
 			dto.setTotalPrice(getDivRes(totalPrice, 100));
@@ -192,7 +192,7 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 
 		sql.append("FROM so_order oi ");
 		sql.append("JOIN so_order_prod od ON oi.`pkid`=od.`order_id` ");
-		//当查询的条件没有牵连到子表时，则不用join表，这样可以提高查询效率
+		// 当查询的条件没有牵连到子表时，则不用join表，这样可以提高查询效率
 		// 下单人
 		if (!StringManager.isNullOrEmpty(mapFilters.get("customerName"))) {
 			sql.append("JOIN uc_account a ON a.`pkid` = oi.`account_id` ");
