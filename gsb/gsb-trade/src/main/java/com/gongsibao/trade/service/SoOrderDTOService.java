@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.DataTable;
@@ -261,20 +262,39 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 
 		// 订单状态
 		if (!StringManager.isNullOrEmpty(mapFilters.get("orderStatus"))) {
+			List<String> statusWhereList = new ArrayList<String>();
 			String state = mapFilters.get("orderStatus");
 			// 订单状态 1等待付款、2已付全款、3已付部分款、4办理完成、5失效订单
 			// if (state == OrderStatusType.Ddfk) {
 			if (state.indexOf("'1'") > -1) {
-				sql.append(" AND oi.paid_price = 0 AND TIMESTAMPDIFF(HOUR, oi.add_time, NOW()) < " + OrderConstant.ORDER_UNVALID_HOUR + " ");
-			} else if (state.indexOf("'2'") > -1) {
-				sql.append(" AND oi.paid_price = oi.payable_price ");
-			} else if (state.indexOf("'3'") > -1) {
-				sql.append(" AND oi.paid_price != oi.payable_price AND oi.paid_price > 0 ");
-			} else if (state.indexOf("'4'") > -1) {
-				sql.append(" AND oi.process_status_id = " + OrderProcessStatusType.Ywc.getValue() + " ");
-			} else if (state.indexOf("'5'") > -1) {
-				sql.append(" AND oi.paid_price = 0 AND TIMESTAMPDIFF(HOUR, oi.add_time, NOW()) >= " + OrderConstant.ORDER_UNVALID_HOUR + " ");
+				// sql.append(" AND oi.paid_price = 0 AND TIMESTAMPDIFF(HOUR, oi.add_time, NOW()) < "
+				// + OrderConstant.ORDER_UNVALID_HOUR + " ");
+				statusWhereList.add(" (oi.paid_price = 0 AND TIMESTAMPDIFF(HOUR, oi.add_time, NOW()) < " + OrderConstant.ORDER_UNVALID_HOUR + ") ");
 			}
+			if (state.indexOf("'2'") > -1) {
+				// sql.append(" AND oi.paid_price = oi.payable_price ");
+				statusWhereList.add(" (oi.paid_price = oi.payable_price) ");
+			}
+			if (state.indexOf("'3'") > -1) {
+				// sql.append(" AND oi.paid_price != oi.payable_price AND oi.paid_price > 0 ");
+				statusWhereList.add(" (oi.paid_price != oi.payable_price AND oi.paid_price > 0) ");
+			}
+			if (state.indexOf("'4'") > -1) {
+				// sql.append(" AND oi.process_status_id = " +
+				// OrderProcessStatusType.Ywc.getValue() + " ");
+				statusWhereList.add(" (oi.process_status_id = " + OrderProcessStatusType.Ywc.getValue() + ") ");
+			}
+			if (state.indexOf("'5'") > -1) {
+				// sql.append(" AND oi.paid_price = 0 AND TIMESTAMPDIFF(HOUR, oi.add_time, NOW()) >= "
+				// + OrderConstant.ORDER_UNVALID_HOUR + " ");
+				statusWhereList.add(" (oi.paid_price = 0 AND TIMESTAMPDIFF(HOUR, oi.add_time, NOW()) >= " + OrderConstant.ORDER_UNVALID_HOUR + ") ");
+			}
+
+			if (CollectionUtils.isNotEmpty(statusWhereList)) {
+				String statusWhere = StringManager.join(" OR ", statusWhereList);
+				sql.append(" AND (" + statusWhere + ") ");
+			}
+
 		}
 
 		// 产品名称
