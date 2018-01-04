@@ -212,13 +212,13 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 			sql.append("LEFT JOIN uc_user u ON u.`pkid`=odum.`user_id`");
 		}
 
-		// 原业务员
+		// 原业务员(最近的条【曾经跟进】的跟进人)
 		if (!StringManager.isNullOrEmpty(mapFilters.get("oldOperator"))) {
 			sql.append("LEFT JOIN (SELECT * FROM so_order_prod_user_map WHERE pkid IN(SELECT MAX(pkid) FROM so_order_prod_user_map WHERE status_id=" + OrderProdUserMapStatusType.Cjfz.getValue() + " AND type_id = " + OrderProdUserMapType.Ywy.getValue() + " GROUP BY order_prod_id)) odum1 ON odum1.`order_prod_id` = od.`pkid` ");
 			sql.append("LEFT JOIN uc_user u1 ON u1.`pkid`=odum1.`user_id` ");
 		}
 
-		// 批量转移业务员操作记录
+		// 批量转移业务员操作记录(最近的条【跟换业务员】的跟进记录)
 		if (!StringManager.isNullOrEmpty(mapFilters.get("operationTraceInfo"))) {
 			sql.append("LEFT JOIN (SELECT * FROM so_order_prod_trace WHERE pkid IN(SELECT MAX(pkid) FROM so_order_prod_trace GROUP BY order_prod_id)) odt ON odt.order_prod_id = od.pkid AND odt.`type_id`= " + OrderProdTraceType.Ghywy.getValue() + " ");
 		}
