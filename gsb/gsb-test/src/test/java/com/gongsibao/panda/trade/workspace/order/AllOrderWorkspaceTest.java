@@ -1,5 +1,7 @@
 package com.gongsibao.panda.trade.workspace.order;
 
+import jdk.internal.org.objectweb.asm.tree.analysis.Value;
+
 import org.junit.Before;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
@@ -45,7 +47,9 @@ public class AllOrderWorkspaceTest extends WorkspaceCreationBase{
 		column = addColumn(datagrid, "totalPrice", "总金额", ControlTypes.NUMBER_BOX, 90);
 		column = addColumn(datagrid, "payablePrice", "未支付金额", ControlTypes.NUMBER_BOX, 90);
 		column = addColumn(datagrid, "paidPrice", "已支付金额", ControlTypes.NUMBER_BOX, 90);
-		column = addColumn(datagrid, "isInstallment", "分期付款", ControlTypes.NUMBER_BOX, 90);
+		column = addColumn(datagrid, "isInstallment", "分期付款", ControlTypes.NUMBER_BOX, 90);{
+			column.setFormatter("return value==0?'否':'是'");
+		}
 		addColumn(datagrid, "accountName", "客户名称", ControlTypes.TEXT_BOX, 100);
 		column = addColumn(datagrid, "accountMobile", "手机号", ControlTypes.TEXT_BOX, 90);
 		column = addColumn(datagrid, "platformSourceDict.name", "订单来源", ControlTypes.NUMBER_BOX, 90);
