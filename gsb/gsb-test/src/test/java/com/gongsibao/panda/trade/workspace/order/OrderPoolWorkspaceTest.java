@@ -49,15 +49,18 @@ public class OrderPoolWorkspaceTest  extends WorkspaceCreationBase{
 		column = addColumn(datagrid, "soOrder.companyIntention.name", "明细订单公司", ControlTypes.NUMBER_BOX, 90);
 		column = addColumn(datagrid, "companyIntention.name", "订单关联公司", ControlTypes.NUMBER_BOX, 90);
 		column = addColumn(datagrid, "soOrder.platformSourceDict.name", "订单来源", ControlTypes.NUMBER_BOX, 90);		
-		column = addColumn(datagrid, "soOrder.addUserId", "下单人", ControlTypes.NUMBER_BOX, 90);
+		column = addColumn(datagrid, "soOrder.addUser.name", "下单人", ControlTypes.NUMBER_BOX, 90);
 		column = addColumn(datagrid, "soOrder.accountMobile", "下单人电话", ControlTypes.NUMBER_BOX, 90);
 		column = addColumn(datagrid, "soOrder.prodName", "服务名称", ControlTypes.TEXT_BOX, 100);
 		{
 			column.setFormatter("return '<span title='+value+'>'+value+'</span>'");
 		}
+		column = addColumn(datagrid, "isRefund", "是否退单", ControlTypes.NUMBER_BOX, 90);{
+			column.setFormatter("return value==0?'否':'是'");
+		}
 		column = addColumn(datagrid, "soOrder.createTime", "下单时间", ControlTypes.DATE_BOX, 90);
-		//通过left多个表关联
-		column = addColumn(datagrid, "", "业务员", ControlTypes.NUMBER_BOX, 90);
+		//通过left多个表关联,目前随便添加的
+		column = addColumn(datagrid, "soOrder.accountName", "业务员", ControlTypes.NUMBER_BOX, 90);
 		return datagrid;
 	}
 
