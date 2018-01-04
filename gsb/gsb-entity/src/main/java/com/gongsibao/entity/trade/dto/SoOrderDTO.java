@@ -49,6 +49,8 @@ public class SoOrderDTO extends Persistable {
 	private boolean isInstallment;
 	//业务员
 	private String operator;
+	//原业务员（最近的上一个）
+	private String oldOperator;
 	//下单人名称
 	private String accountName;
 	//客户名称
@@ -61,6 +63,8 @@ public class SoOrderDTO extends Persistable {
 	private OrderPlatformSourceType platformSource = OrderPlatformSourceType.Gsb;
 	//订单处理状态
 	private OrderProcessStatusType processStatusId = OrderProcessStatusType.Dbl;
+	//批量转移客户的跟进记录（显示最后一条）
+	private String operationTraceInfo;
 	
 	//下单时间
 	private Date addTime;
@@ -185,9 +189,19 @@ public class SoOrderDTO extends Persistable {
 	}
 	public void setProcessStatusId(OrderProcessStatusType processStatusId) {
 		this.processStatusId = processStatusId;
-	}	
-
-	
+	}
+	public String getOperationTraceInfo() {
+		return operationTraceInfo;
+	}
+	public void setOperationTraceInfo(String operationTraceInfo) {
+		this.operationTraceInfo = operationTraceInfo;
+	}
+	public String getOldOperator() {
+		return oldOperator;
+	}
+	public void setOldOperator(String oldOperator) {
+		this.oldOperator = oldOperator;
+	}
 	
 	
 }

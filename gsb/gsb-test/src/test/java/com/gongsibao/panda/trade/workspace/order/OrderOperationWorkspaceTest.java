@@ -85,7 +85,9 @@ public class OrderOperationWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "payablePrice", "应付金额", ControlTypes.DECIMAL_BOX, 80);
 		addColumn(datagrid, "paidPrice", "已付金额", ControlTypes.DECIMAL_BOX, 80);
 		addColumn(datagrid, "isInstallment", "是否分期", ControlTypes.BOOLCOMBO_BOX, 80);
+		addColumn(datagrid, "operationTraceInfo", "批量转移记录", ControlTypes.TEXT_BOX, 300);
 		addColumn(datagrid, "operator", "业务员", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "oldOperator", "原业务员", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "customerName", "下单人", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "platformSource", "订单来源", ControlTypes.ENUM_BOX, 80);
 		addColumn(datagrid, "addTime", "订单创建日期", ControlTypes.DATETIME_BOX, 100);
@@ -99,11 +101,13 @@ public class OrderOperationWorkspaceTest extends WorkspaceCreationBase {
 		addQueryItem(queryProject, "orderNo", "订单号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "operator", "业务员", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "oldOperator", "原业务员", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "customerName", "下单人", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "accountMobile", "下单人手机号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "orderStatus", "订单状态", ControlTypes.ENUM_BOX);
 		addQueryItem(queryProject, "productName", "产品名称", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "companyName", "关联企业", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "operationTraceInfo", "批量转移记录", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "platformSource", "订单来源", ControlTypes.ENUM_BOX);
 		addQueryItem(queryProject, "isInstallment", "是否分期", ControlTypes.BOOLCOMBO_BOX);
 		addQueryItem(queryProject, "addTime", "订单创建日期", ControlTypes.DATE_BOX);
