@@ -64,6 +64,8 @@ public class AllOrderWorkspaceTest extends WorkspaceCreationBase{
 		{
 			column.setAlign(DatagridAlign.CENTER);
 		}
+		//通过left多个表关联
+		column = addColumn(datagrid, "", "业务员", ControlTypes.NUMBER_BOX, 90);
 		return datagrid;
 	}
 

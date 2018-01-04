@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.gongsibao.entity.bd.Dict;
+import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.product.Product;
+
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
@@ -32,8 +35,14 @@ public class OrderProd extends BaseEntity {
     @Column(name="city_id",header="城市")
     private Integer cityId;
     
+    @Reference(foreignKey="cityId",header="产品地区")
+   	private Dict cityIdDict;
+    
     @Column(name="company_id",header="公司")
     private Integer companyId;
+    
+    @Reference(foreignKey = "companyId",header="公司")
+    private CompanyIntention companyIntention;
     
     @Column(name="process_status_id",header="进度")
     private Integer processStatusId;
@@ -300,4 +309,17 @@ public class OrderProd extends BaseEntity {
 	public void setCosts(List<OrderProdCost> costs) {
 		this.costs = costs;
 	}
+	public CompanyIntention getCompanyIntention() {
+		return companyIntention;
+	}
+	public void setCompanyIntention(CompanyIntention companyIntention) {
+		this.companyIntention = companyIntention;
+	}
+	public Dict getCityIdDict() {
+		return cityIdDict;
+	}
+	public void setCityIdDict(Dict cityIdDict) {
+		this.cityIdDict = cityIdDict;
+	}
+	
 }
