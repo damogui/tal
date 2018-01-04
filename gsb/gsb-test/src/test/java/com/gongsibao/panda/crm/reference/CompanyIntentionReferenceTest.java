@@ -14,11 +14,16 @@ public class CompanyIntentionReferenceTest  extends ReferenceCreationBase{
 	@Before
 	public void setup() {
 
-		resourceNodeCode = CompanyIntention.class.getSimpleName();
+		resourceNodeCode = "CRM_"+CompanyIntention.class.getSimpleName();
 		datagridName = referenceName = "公司参照";
 		referenceCode = CompanyIntention.class.getSimpleName();
 		intelligentMode = IntelligentMode.LIKE;
 		intelligentFields = "companyName";
+		
+		canNew= true;
+		popupUrl = "/panda/crm/company/form";
+		width = 1000;
+		height = 600;
 	}
 
 	public PDatagrid createDatagrid(ResourceNode node) {

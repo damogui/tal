@@ -8,6 +8,7 @@ import com.gongsibao.panda.crm.reference.CityReferenceTest;
 import com.gongsibao.panda.crm.reference.CompanyIntentionReferenceTest;
 import com.gongsibao.panda.crm.reference.CustomerRefereneTest;
 import com.gongsibao.panda.crm.reference.ProductReferenceTest;
+import com.gongsibao.panda.crm.workspace.CompanyIntentionWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.CustomerAllWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.CustomerOrderWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.CustomerServiceConfigWorkspaceTest;
@@ -22,6 +23,8 @@ import com.gongsibao.panda.crm.workspace.CustomerServiceConfigWorkspaceTest;
 		
 		
 		CustomerAllWorkspaceTest.class,
+		CompanyIntentionWorkspaceTest.class,
+		
 //		CustomerMyWorkspaceTest.class,
 //		EnterpriseWorkspaceTest.class,
 //		CustomerPoolWorkspaceTest.class,

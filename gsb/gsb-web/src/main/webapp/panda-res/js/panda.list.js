@@ -51,13 +51,12 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 		var items = this.getSelections();
 
 		if (items.length == 0) {
+			
 			IMessageBox.info("您没有选择记录!");
-
 			return null;
 		} else if (items.length > 1) {
 
 			IMessageBox.info("只能选择一条记录!");
-
 			return null;
 		} else {
 			return items[0];
@@ -73,14 +72,6 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 			var filter = this.context.relationRole + "='" + relationId + "'";// OR	
 			this.doQuery(filter);
 		}
-
-		// id='"
-		// +
-		// relationId
-		// +
-		// "'";//xfb
-		// 是否带''
-
 	},
 
 	doubleClickRow : function(index, row) {
@@ -438,10 +429,15 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 		this.queryModel.collectControl();
 		var qpc = this.queryModel.getQueryParameters();
 		var filters = [];
-		
-		if(this.context.lazy&&qpc == false){
+
+		if(qpc == false){
 			return;
 		}
+		
+//		if(this.context.lazy&&qpc == false){
+//			return;
+//		}
+		
 		for ( var i = 0; i < qpc.length; i++) {
 
 			filters.push(qpc[i].Filter);

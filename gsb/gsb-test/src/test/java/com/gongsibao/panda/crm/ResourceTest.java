@@ -50,7 +50,7 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(CustomerProdMap.class.getName(), "意向产品", CustomerProdMap.class.getSimpleName(), ICustomerProdMapService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(Product.class.getName(), "产品", "CRM_"+Product.class.getSimpleName(), IPersistableService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(CustomerServiceConfig.class.getName(), "客服配置", "CRM_"+CustomerServiceConfig.class.getSimpleName(), ICustomerServiceConfigService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(CompanyIntention.class.getName(), "企业信息", CompanyIntention.class.getSimpleName(), ICompanyIntentionService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(CompanyIntention.class.getName(), "企业信息", "CRM_" + CompanyIntention.class.getSimpleName(), ICompanyIntentionService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(CustomerCompanyMap.class.getName(), "关联企业", CustomerCompanyMap.class.getSimpleName(), ICustomerCompanyMapService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(CustomerFollow.class.getName(), "沟通日志", CustomerFollow.class.getSimpleName(), ICustomerFollowService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(SoOrder.class.getName(), "订单记录", SoOrder.class.getSimpleName(), IPersistableService.class.getName(), node1.getId());
