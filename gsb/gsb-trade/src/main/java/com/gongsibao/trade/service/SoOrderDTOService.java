@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.DataTable;
@@ -211,13 +212,13 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 			sql.append("LEFT JOIN uc_user u ON u.`pkid`=odum.`user_id`");
 		}
 
-		// 原业务员
+		// 原业务员(最近的条【曾经跟进】的跟进人)
 		if (!StringManager.isNullOrEmpty(mapFilters.get("oldOperator"))) {
 			sql.append("LEFT JOIN (SELECT * FROM so_order_prod_user_map WHERE pkid IN(SELECT MAX(pkid) FROM so_order_prod_user_map WHERE status_id=" + OrderProdUserMapStatusType.Cjfz.getValue() + " AND type_id = " + OrderProdUserMapType.Ywy.getValue() + " GROUP BY order_prod_id)) odum1 ON odum1.`order_prod_id` = od.`pkid` ");
 			sql.append("LEFT JOIN uc_user u1 ON u1.`pkid`=odum1.`user_id` ");
 		}
 
-		// 批量转移业务员操作记录
+		// 批量转移业务员操作记录(最近的条【跟换业务员】的跟进记录)
 		if (!StringManager.isNullOrEmpty(mapFilters.get("operationTraceInfo"))) {
 			sql.append("LEFT JOIN (SELECT * FROM so_order_prod_trace WHERE pkid IN(SELECT MAX(pkid) FROM so_order_prod_trace GROUP BY order_prod_id)) odt ON odt.order_prod_id = od.pkid AND odt.`type_id`= " + OrderProdTraceType.Ghywy.getValue() + " ");
 		}
@@ -261,20 +262,39 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 
 		// 订单状态
 		if (!StringManager.isNullOrEmpty(mapFilters.get("orderStatus"))) {
+			List<String> statusWhereList = new ArrayList<String>();
 			String state = mapFilters.get("orderStatus");
 			// 订单状态 1等待付款、2已付全款、3已付部分款、4办理完成、5失效订单
 			// if (state == OrderStatusType.Ddfk) {
 			if (state.indexOf("'1'") > -1) {
-				sql.append(" AND oi.paid_price = 0 AND TIMESTAMPDIFF(HOUR, oi.add_time, NOW()) < " + OrderConstant.ORDER_UNVALID_HOUR + " ");
-			} else if (state.indexOf("'2'") > -1) {
-				sql.append(" AND oi.paid_price = oi.payable_price ");
-			} else if (state.indexOf("'3'") > -1) {
-				sql.append(" AND oi.paid_price != oi.payable_price AND oi.paid_price > 0 ");
-			} else if (state.indexOf("'4'") > -1) {
-				sql.append(" AND oi.process_status_id = " + OrderProcessStatusType.Ywc.getValue() + " ");
-			} else if (state.indexOf("'5'") > -1) {
-				sql.append(" AND oi.paid_price = 0 AND TIMESTAMPDIFF(HOUR, oi.add_time, NOW()) >= " + OrderConstant.ORDER_UNVALID_HOUR + " ");
+				// sql.append(" AND oi.paid_price = 0 AND TIMESTAMPDIFF(HOUR, oi.add_time, NOW()) < "
+				// + OrderConstant.ORDER_UNVALID_HOUR + " ");
+				statusWhereList.add(" (oi.paid_price = 0 AND TIMESTAMPDIFF(HOUR, oi.add_time, NOW()) < " + OrderConstant.ORDER_UNVALID_HOUR + ") ");
 			}
+			if (state.indexOf("'2'") > -1) {
+				// sql.append(" AND oi.paid_price = oi.payable_price ");
+				statusWhereList.add(" (oi.paid_price = oi.payable_price) ");
+			}
+			if (state.indexOf("'3'") > -1) {
+				// sql.append(" AND oi.paid_price != oi.payable_price AND oi.paid_price > 0 ");
+				statusWhereList.add(" (oi.paid_price != oi.payable_price AND oi.paid_price > 0) ");
+			}
+			if (state.indexOf("'4'") > -1) {
+				// sql.append(" AND oi.process_status_id = " +
+				// OrderProcessStatusType.Ywc.getValue() + " ");
+				statusWhereList.add(" (oi.process_status_id = " + OrderProcessStatusType.Ywc.getValue() + ") ");
+			}
+			if (state.indexOf("'5'") > -1) {
+				// sql.append(" AND oi.paid_price = 0 AND TIMESTAMPDIFF(HOUR, oi.add_time, NOW()) >= "
+				// + OrderConstant.ORDER_UNVALID_HOUR + " ");
+				statusWhereList.add(" (oi.paid_price = 0 AND TIMESTAMPDIFF(HOUR, oi.add_time, NOW()) >= " + OrderConstant.ORDER_UNVALID_HOUR + ") ");
+			}
+
+			if (CollectionUtils.isNotEmpty(statusWhereList)) {
+				String statusWhere = StringManager.join(" OR ", statusWhereList);
+				sql.append(" AND (" + statusWhere + ") ");
+			}
+
 		}
 
 		// 产品名称
