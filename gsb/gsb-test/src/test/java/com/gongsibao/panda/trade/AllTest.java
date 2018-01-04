@@ -21,8 +21,8 @@ import com.gongsibao.panda.trade.workspace.payment.PaymentLogWorkspaceTest;
 	
 	//订单管理:全部订单,我的订单,我的订单明细,订单池
 	AllOrderWorkspaceTest.class,
-	/*MyOrderWorkspaceTest.class,
-	MyOrderDetailWorkspaceTest.class,
+	MyOrderWorkspaceTest.class,
+	/*MyOrderDetailWorkspaceTest.class,
 	OrderPoolWorkspaceTest.class,
 	
 	//订单操作:操作订单池,我负责的订单,订单审核,订单流量监控
