@@ -12,7 +12,9 @@ import org.netsharp.core.annotations.Table;
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.CompanyIntention;
+import com.gongsibao.entity.trade.dic.OrderAccountType;
 import com.gongsibao.entity.trade.dic.OrderManualVoucherStatus;
+import com.gongsibao.entity.trade.dic.OrderType;
 import com.gongsibao.entity.uc.Account;
 import com.gongsibao.entity.uc.User;
 
@@ -25,10 +27,10 @@ public class SoOrder extends BaseEntity {
     private String no;
     
 	@Column(name="type",header="订单类型")
-    private Integer type;
+    private OrderType type=OrderType.Dd;
 	
-	@Reference(foreignKey="type",header="订单类型")
-	private Dict typeDict;
+	/*@Reference(foreignKey="type",header="订单类型")
+	private Dict typeDict;*/
     
     @Column(name="account_id",header="客户")
     private Integer accountId;
@@ -168,10 +170,10 @@ public class SoOrder extends BaseEntity {
     private String deliverAddr;
     
     @Column(name="account_type",header="账户类型")//1新2老
-    private Integer accountType;
+    private OrderAccountType accountType=OrderAccountType.wu;
     
-    @Reference(foreignKey="accountType",header="账户类型")
-   	private Dict accountTypeDict;
+    /*@Reference(foreignKey="accountType",header="账户类型")
+   	private Dict accountTypeDict;*/
     
     @Column(name="is_expire_sms",header="过期短信提醒")
     private Integer isExpireSms;
@@ -187,15 +189,15 @@ public class SoOrder extends BaseEntity {
     
     @Subs(subType=OrderDiscount.class,foreignKey="orderId",header="优惠明细")
     private List<OrderDiscount> discounts = new ArrayList<OrderDiscount>();
-    
 
-    public Integer getType() {
-        return type;
-    }
-    public void setType(Integer type) {
-        this.type = type;
-    }
-    public String getNo() {
+
+    public OrderType getType() {
+		return type;
+	}
+	public void setType(OrderType type) {
+		this.type = type;
+	}
+	public String getNo() {
         return no;
     }
     public void setNo(String no) {
@@ -382,13 +384,14 @@ public class SoOrder extends BaseEntity {
     public void setDeliverAddr(String deliverAddr) {
         this.deliverAddr = deliverAddr;
     }
-    public Integer getAccountType() {
-        return accountType;
-    }
-    public void setAccountType(Integer accountType) {
-        this.accountType = accountType;
-    }
-    public Integer getIsExpireSms() {
+
+    public OrderAccountType getAccountType() {
+		return accountType;
+	}
+	public void setAccountType(OrderAccountType accountType) {
+		this.accountType = accountType;
+	}
+	public Integer getIsExpireSms() {
         return isExpireSms;
     }
     public void setIsExpireSms(Integer isExpireSms) {
@@ -412,23 +415,12 @@ public class SoOrder extends BaseEntity {
 	public void setProducts(List<OrderProd> products) {
 		this.products = products;
 	}
-	public Dict getTypeDict() {
-		return typeDict;
-	}
-	public void setTypeDict(Dict typeDict) {
-		this.typeDict = typeDict;
-	}
+
 	public Dict getPayStatus() {
 		return payStatus;
 	}
 	public void setPayStatus(Dict payStatus) {
 		this.payStatus = payStatus;
-	}
-	public Dict getAccountTypeDict() {
-		return accountTypeDict;
-	}
-	public void setAccountTypeDict(Dict accountTypeDict) {
-		this.accountTypeDict = accountTypeDict;
 	}
 	public Dict getProcessStatus() {
 		return processStatus;
