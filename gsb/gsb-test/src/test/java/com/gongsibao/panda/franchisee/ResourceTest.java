@@ -51,9 +51,9 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(FranchiseeTrack.class.getName(), "跟进列表", "BD_DEPARTMENT_Franchisee_Track" , IFranchiseeTrackService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(Franchisee.class.getName(), "未跟进供应商", "BD_DEPARTMENT_Franchisee_UnTrack", IFranchiseeService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(FranchiseeTrack.class.getName(), "跟进统计", "BD_DEPARTMENT_Franchisee_Track_Report", IFranchiseeTrackService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(FranchiseeReport.class.getName(), "日统计", "BD_DEPARTMENT_Day_Report" , IFranchiseeReportService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(FranchiseeReport.class.getName(), "周统计", "BD_DEPARTMENT_Week_Report", IFranchiseeReportService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(FranchiseeReport.class.getName(), "日统计", "BD_DEPARTMENT_Day_Report" , IFranchiseeReportService.class.getName(), node1.getId());			
 			this.createResourceNodeVoucher(FranchiseeReport.class.getName(), "月统计", "BD_DEPARTMENT_Month_Report", IFranchiseeReportService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(FranchiseeReport.class.getName(), "年统计", "BD_DEPARTMENT_Year_Report", IFranchiseeReportService.class.getName(), node1.getId());
 		}
 		
 		node1 = this.createResourceNodeCategory("运营统计", "GSB_BD_OPERATION", node.getId());
@@ -62,9 +62,9 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(FranchiseeTrack.class.getName(), "跟进列表", "GSB_BD_OPERATION_Track", IFranchiseeTrackService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(Franchisee.class.getName(), "未跟进供应商", "GSB_BD_OPERATION_UnTrack", IFranchiseeService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(FranchiseeTrack.class.getName(), "跟进统计", "GSB_BD_OPERATION_Track_Report", IFranchiseeTrackService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(FranchiseeReport.class.getName(), "日统计", "GSB_BD_OPERATION_Day_Report", FranchiseeReport.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(FranchiseeReport.class.getName(), "周统计", "GSB_BD_OPERATION_Week_Report", FranchiseeReport.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(FranchiseeReport.class.getName(), "月统计", "GSB_BD_OPERATION_Month_Report", FranchiseeReport.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(FranchiseeReport.class.getName(), "日统计", "GSB_BD_OPERATION_Day_Report", IFranchiseeReportService.class.getName(), node1.getId());			
+			this.createResourceNodeVoucher(FranchiseeReport.class.getName(), "月统计", "GSB_BD_OPERATION_Month_Report", IFranchiseeReportService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(FranchiseeReport.class.getName(), "年统计", "GSB_BD_OPERATION_Year_Report", IFranchiseeReportService.class.getName(), node1.getId());
 		}
 	}
 }

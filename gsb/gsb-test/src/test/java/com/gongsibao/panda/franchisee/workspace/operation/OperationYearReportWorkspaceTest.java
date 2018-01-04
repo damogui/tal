@@ -36,7 +36,7 @@ public class OperationYearReportWorkspaceTest  extends WorkspaceCreationBase{
 		// 扩展
 		listPartServiceController = FranchiseeYearReportController.class.getName();
 		listPartJsController = FranchiseeYearReportController.class.getName();
-		listPartImportJs = "/gsb/bd/js/year.report.part.js";
+		listPartImportJs = "/gsb/bd/js/operation/year.report.part.js";
 		listToolbarPath="/bd/crm/report/toolbar";
 	}
 
@@ -183,7 +183,7 @@ public class OperationYearReportWorkspaceTest  extends WorkspaceCreationBase{
 	  protected PQueryProject createQueryProject(ResourceNode node) {
 		  PQueryProject queryProject = super.createQueryProject(node);
 		  queryProject.toNew(); 
-		  PQueryItem item = addQueryItem(queryProject, "date", "日期",ControlTypes.MONTH_BOX);{
+		  PQueryItem item = addQueryItem(queryProject, "date", "日期",ControlTypes.YEAR_BOX);{
 			  item.setInterzone(true);
 			  item.setShortcut(true);
 		  }
