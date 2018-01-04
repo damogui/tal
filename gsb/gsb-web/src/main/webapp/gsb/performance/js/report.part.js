@@ -19,7 +19,7 @@ com.gongsibao.report.web.PerformanceStatisticsController = org.netsharp.panda.co
 			fixed : false,
 			maxmin : false,
 			shadeClose : false,
-			zIndex : 100000,
+			zIndex : 100000, 
 			area : [ '350px', '200px' ],
 			content : builder.toString(),
 			btn : [ '生成', '取消' ],
