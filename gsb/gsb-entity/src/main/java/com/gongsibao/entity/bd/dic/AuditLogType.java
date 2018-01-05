@@ -5,6 +5,7 @@ import org.netsharp.base.IEnum;
 
 public enum AuditLogType implements IEnum  {		
 	
+	wu(0, "无"),
 	Cpdj(1041, "产品定价申请审核"),
 	Ddgj(1042, "订单改价申请审核"), 
 	Htsq(1043, "合同申请审核"),

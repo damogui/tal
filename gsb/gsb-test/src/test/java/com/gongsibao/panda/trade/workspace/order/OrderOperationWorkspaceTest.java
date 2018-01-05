@@ -83,7 +83,7 @@ public class OrderOperationWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "totalPrice", "原价金额", ControlTypes.DECIMAL_BOX, 80);
 		addColumn(datagrid, "payablePrice", "应付金额", ControlTypes.DECIMAL_BOX, 80);
 		addColumn(datagrid, "paidPrice", "已付金额", ControlTypes.DECIMAL_BOX, 80);
-		addColumn(datagrid, "isInstallment", "是否分期", ControlTypes.BOOLCOMBO_BOX, 80);
+		addColumn(datagrid, "isInstallment", "是否分期", ControlTypes.BOOLCOMBO_BOX, 100);
 		addColumn(datagrid, "operationTraceInfo", "批量转移记录", ControlTypes.TEXT_BOX, 300);
 		addColumn(datagrid, "operator", "业务员", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "oldOperator", "原业务员", ControlTypes.TEXT_BOX, 100);

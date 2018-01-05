@@ -39,6 +39,7 @@ public class ChangePriceAuditWorkspaceTest extends WorkspaceCreationBase {
 		formOpenMode = OpenMode.WINDOW;// 编辑框打开的形式
 		openWindowHeight = 400;
 		openWindowWidth = 800;
+		listFilter = "type_id=1042 AND add_user_id='{userId}' ";
 
 		/*listPartServiceController = OrderOperationController.class.getName();
 		listPartJsController = OrderOperationController.class.getName();
@@ -74,27 +75,28 @@ public class ChangePriceAuditWorkspaceTest extends WorkspaceCreationBase {
 		}
 
 		PDatagridColumn column = null;
-		column = addColumn(datagrid, "id", "订单id", ControlTypes.TEXT_BOX, 100);
+		column = addColumn(datagrid, "id", "审核id", ControlTypes.TEXT_BOX, 100);
 		{
 			column.setVisible(false);
 		}
-		addColumn(datagrid, "orderNo", "订单编号", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 80);
-		addColumn(datagrid, "payTime", "回款日期", ControlTypes.DATETIME_BOX, 100);
-		addColumn(datagrid, "productName", "产品名称", ControlTypes.TEXT_BOX, 300);
-		addColumn(datagrid, "orderStatus", "订单状态", ControlTypes.ENUM_BOX, 80);
-		addColumn(datagrid, "companyName", "关联企业", ControlTypes.TEXT_BOX, 200);
-		addColumn(datagrid, "refundStatusId", "退单状态", ControlTypes.ENUM_BOX, 80);
-		addColumn(datagrid, "totalPrice", "原价金额", ControlTypes.DECIMAL_BOX, 80);
-		addColumn(datagrid, "payablePrice", "应付金额", ControlTypes.DECIMAL_BOX, 80);
-		addColumn(datagrid, "paidPrice", "已付金额", ControlTypes.DECIMAL_BOX, 80);
-		addColumn(datagrid, "isInstallment", "是否分期", ControlTypes.BOOLCOMBO_BOX, 80);
-		addColumn(datagrid, "operationTraceInfo", "批量转移记录", ControlTypes.TEXT_BOX, 300);
-		addColumn(datagrid, "operator", "业务员", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "oldOperator", "原业务员", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "customerName", "下单人", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "platformSource", "订单来源", ControlTypes.ENUM_BOX, 80);
-		addColumn(datagrid, "addTime", "订单创建日期", ControlTypes.DATETIME_BOX, 100);
+		//注释掉的列暂时出不来
+		addColumn(datagrid, "soOrder.no", "订单编号", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 80);
+		addColumn(datagrid, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX, 300);
+		addColumn(datagrid, "soOrder.totalPrice", "原价金额", ControlTypes.DECIMAL_BOX, 80);
+		addColumn(datagrid, "soOrder.payablePrice", "订单金额", ControlTypes.DECIMAL_BOX, 80);
+		addColumn(datagrid, "soOrder.paidPrice", "付款金额", ControlTypes.DECIMAL_BOX, 80);		
+		/*addColumn(datagrid, "", "业务员", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "", "申请人", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "", "申请时间", ControlTypes.DATETIME_BOX, 100);*/		
+		addColumn(datagrid, "soOrder.accountName", "下单人", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "soOrder.accountMobile", "下单人电话", ControlTypes.TEXT_BOX, 100);
+		//addColumn(datagrid, "", "关联企业", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "soOrder.addTime", "下单时间", ControlTypes.DATETIME_BOX, 100);
+		addColumn(datagrid, "soOrder.sourceType.name", "下单方式", ControlTypes.TEXT_BOX, 100);		
+		addColumn(datagrid, "statusId", "审核状态", ControlTypes.ENUM_BOX, 80);
+		addColumn(datagrid, "soOrder.accountType", "新老客户签单", ControlTypes.ENUM_BOX, 80);
+
 		return datagrid;
 	}
 
@@ -102,34 +104,23 @@ public class ChangePriceAuditWorkspaceTest extends WorkspaceCreationBase {
 	protected PQueryProject createQueryProject(ResourceNode node) {
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
-		addQueryItem(queryProject, "orderNo", "订单号", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "soOrder.no", "订单编号", ControlTypes.TEXT_BOX);
+		/*addQueryItem(queryProject, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "operator", "业务员", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "oldOperator", "原业务员", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "customerName", "下单人", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "accountMobile", "下单人手机号", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "orderStatus", "订单状态", ControlTypes.ENUM_BOX);
-		addQueryItem(queryProject, "productName", "产品名称", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "companyName", "关联企业", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "operationTraceInfo", "批量转移记录", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "platformSource", "订单来源", ControlTypes.ENUM_BOX);
-		addQueryItem(queryProject, "isInstallment", "是否分期", ControlTypes.BOOLCOMBO_BOX);
-		addQueryItem(queryProject, "addTime", "订单创建日期", ControlTypes.DATE_BOX);
-		addQueryItem(queryProject, "payTime", "回款日期", ControlTypes.DATE_BOX);
+		addQueryItem(queryProject, "accountMobile", "下单人手机号", ControlTypes.TEXT_BOX);*/
 		return queryProject;
 	}
 
 	// 默认的表单配置信息
-	protected PForm createForm(ResourceNode node) {
+	/*protected PForm createForm(ResourceNode node) {
 		PForm form = super.createForm(node);
 		form.setColumnCount(3);
 		PFormField field = null;
-
 		addFormField(form, "orderNo", "订单号", ControlTypes.TEXT_BOX, true, false);
-		// addFormField(form, "no", "卡号", ControlTypes.TEXT_BOX, false, false);
-
 		return form;
-	}
+	}*/
 
 	// 默认的表单操作
 	@Override
