@@ -87,7 +87,7 @@ public class SoOrder extends BaseEntity {
   	private Dict sourceType;
     
     @Column(name="is_installment",header="多次支付")
-    private Integer isInstallment;
+    private Boolean isInstallment;
     
     @Column(name="installment_mode",header="多次支付方式")
     private String installmentMode;
@@ -175,7 +175,7 @@ public class SoOrder extends BaseEntity {
     @Column(name="deliver_addr",header="邮寄地址")
     private String deliverAddr;
     
-    @Column(name="account_type",header="账户类型")//1新2老
+    @Column(name="account_type",header="客户类型 0 默认 1新客户签单 2老客户签单")//1新2老
     private OrderAccountType accountType=OrderAccountType.wu;
     
     /*@Reference(foreignKey="accountType",header="账户类型")
@@ -275,10 +275,10 @@ public class SoOrder extends BaseEntity {
     public void setSourceTypeId(Integer sourceTypeId) {
         this.sourceTypeId = sourceTypeId;
     }
-    public Integer getIsInstallment() {
+    public Boolean getIsInstallment() {
         return isInstallment;
     }
-    public void setIsInstallment(Integer isInstallment) {
+    public void setIsInstallment(Boolean isInstallment) {
         this.isInstallment = isInstallment;
     }
     public String getInstallmentMode() {

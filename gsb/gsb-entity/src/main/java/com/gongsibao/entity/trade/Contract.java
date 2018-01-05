@@ -4,6 +4,8 @@ package com.gongsibao.entity.trade;
 import java.util.Date;
 
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Exclusive;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
@@ -14,6 +16,10 @@ public class Contract extends BaseEntity {
 	private static final long serialVersionUID = -802740307282932651L;
 	@Column(name="order_id",header="订单序号")
     private Integer orderId;
+	
+	// 订单
+	@Reference(foreignKey = "orderId")
+	private SoOrder soOrder;
 	
     @Column(name="sgining_time",header="签约日期")
     private Date sginingTime;
@@ -86,6 +92,9 @@ public class Contract extends BaseEntity {
     
     @Column(name="is_electronics",header="是否电子合同0：纸质；1：电子")
     private Integer isElectronics;
+    //合同业绩总额（不生成数据库字段）
+    @Exclusive
+    private double contractPrice;
 
     public Integer getOrderId() {
         return orderId;
@@ -239,4 +248,19 @@ public class Contract extends BaseEntity {
     public void setIsElectronics(Integer isElectronics) {
         this.isElectronics = isElectronics;
     }
+	public SoOrder getSoOrder() {
+		return soOrder;
+	}
+	public void setSoOrder(SoOrder soOrder) {
+		this.soOrder = soOrder;
+	}
+	public double getContractPrice() {
+		return contractPrice;
+	}
+	public void setContractPrice(double contractPrice) {
+		this.contractPrice = contractPrice;
+	}
+	
+	
+    
 }
