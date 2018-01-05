@@ -9,10 +9,7 @@ import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dto.SoOrderDTO;
-<<<<<<< HEAD
-=======
 import com.gongsibao.trade.base.IOrderOperationService;
->>>>>>> master
 import com.gongsibao.trade.base.IOrderPayMapService;
 import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IOrderService;
