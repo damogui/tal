@@ -31,6 +31,7 @@ public class MyOrderWorkspaceTest  extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_Trade_Manage_My_Order";
+		//当前登录人的userId=3590;
 		listFilter = "accountId='{userId}'";
 	}
 
@@ -74,7 +75,7 @@ public class MyOrderWorkspaceTest  extends WorkspaceCreationBase{
 		queryProject.toNew();
 		addQueryItem(queryProject, "accountName", "客户名称", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "prodName", "服务名称", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "payTime", "订单时间", ControlTypes.DATE_BOX);
+		addQueryItem(queryProject, "payTime", "订单支付时间", ControlTypes.DATE_BOX);
 		return queryProject;
 	}
 

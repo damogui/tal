@@ -75,7 +75,7 @@ public class AllOrderWorkspaceTest extends WorkspaceCreationBase{
 		queryProject.toNew();
 		addQueryItem(queryProject, "accountName", "客户名称", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "prodName", "服务名称", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "payTime", "订单时间", ControlTypes.DATE_BOX);
+		addQueryItem(queryProject, "payTime", "订单支付时间", ControlTypes.DATE_BOX);
 		return queryProject;
 	}
 
