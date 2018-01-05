@@ -48,7 +48,7 @@ public class MyOrderWorkspaceTest  extends WorkspaceCreationBase{
 		column = addColumn(datagrid, "payablePrice", "未支付金额", ControlTypes.NUMBER_BOX, 90);
 		column = addColumn(datagrid, "paidPrice", "已支付金额", ControlTypes.NUMBER_BOX, 90);
 		column = addColumn(datagrid, "isInstallment", "分期付款", ControlTypes.NUMBER_BOX, 90);{
-			column.setFormatter("return value==0?'否':'是'");
+			column.setFormatter("return value?'是':'否'");
 		}
 		addColumn(datagrid, "accountName", "客户名称", ControlTypes.TEXT_BOX, 100);
 		column = addColumn(datagrid, "accountMobile", "手机号", ControlTypes.TEXT_BOX, 90);
@@ -75,6 +75,9 @@ public class MyOrderWorkspaceTest  extends WorkspaceCreationBase{
 		queryProject.toNew();
 		addQueryItem(queryProject, "accountName", "客户名称", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "prodName", "服务名称", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "isInstallment", "分期申请订单", ControlTypes.BOOLCOMBO_BOX);
+		addQueryItem(queryProject, "isInvoice", "发票申请订单", ControlTypes.BOOLCOMBO_BOX);
+		addQueryItem(queryProject, "type", "订单类型", ControlTypes.ENUM_BOX);
 		addQueryItem(queryProject, "payTime", "订单支付时间", ControlTypes.DATE_BOX);
 		return queryProject;
 	}

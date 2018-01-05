@@ -122,7 +122,7 @@ public class SoOrder extends BaseEntity {
   	private Dict changePriceAuditStatus;
     
     @Column(name="is_invoice",header="开票")
-    private Integer isInvoice;
+    private Boolean isInvoice;
     
     @Column(name="description",header="description")
     private String description;
@@ -311,13 +311,14 @@ public class SoOrder extends BaseEntity {
     public void setChangePriceAuditStatusId(Integer changePriceAuditStatusId) {
         this.changePriceAuditStatusId = changePriceAuditStatusId;
     }
-    public Integer getIsInvoice() {
-        return isInvoice;
-    }
-    public void setIsInvoice(Integer isInvoice) {
-        this.isInvoice = isInvoice;
-    }
-    public String getDescription() {
+    
+    public Boolean getIsInvoice() {
+		return isInvoice;
+	}
+	public void setIsInvoice(Boolean isInvoice) {
+		this.isInvoice = isInvoice;
+	}
+	public String getDescription() {
         return description;
     }
     public void setDescription(String description) {
