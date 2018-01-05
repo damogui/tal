@@ -336,28 +336,28 @@ public class DateUtils {
 			c.set(Calendar.MONTH, Calendar.FEBRUARY);
 			season[1] = c.getTime();
 			c.set(Calendar.MONTH, Calendar.MARCH);
-			season[2] = (Date)c.getTime();
+			season[2] = c.getTime();
 		} else if (nSeason == 2) {// 第二季度
 			c.set(Calendar.MONTH, Calendar.APRIL);
-			season[0] = (Date)c.getTime();
+			season[0] = c.getTime();
 			c.set(Calendar.MONTH, Calendar.MAY);
-			season[1] = (Date)c.getTime();
+			season[1] = c.getTime();
 			c.set(Calendar.MONTH, Calendar.JUNE);
-			season[2] = (Date)c.getTime();
+			season[2] = c.getTime();
 		} else if (nSeason == 3) {// 第三季度
 			c.set(Calendar.MONTH, Calendar.JULY);
-			season[0] = (Date)c.getTime();
+			season[0] = c.getTime();
 			c.set(Calendar.MONTH, Calendar.AUGUST);
-			season[1] = (Date)c.getTime();
+			season[1] = c.getTime();
 			c.set(Calendar.MONTH, Calendar.SEPTEMBER);
-			season[2] = (Date)c.getTime();
+			season[2] = c.getTime();
 		} else if (nSeason == 4) {// 第四季度
 			c.set(Calendar.MONTH, Calendar.OCTOBER);
-			season[0] = (Date)c.getTime();
+			season[0] = c.getTime();
 			c.set(Calendar.MONTH, Calendar.NOVEMBER);
-			season[1] = (Date)c.getTime();
+			season[1] = c.getTime();
 			c.set(Calendar.MONTH, Calendar.DECEMBER);
-			season[2] = (Date)c.getTime();
+			season[2] = c.getTime();
 		}
 		return season;
 	}

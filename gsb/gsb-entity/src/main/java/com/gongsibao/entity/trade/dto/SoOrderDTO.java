@@ -38,7 +38,7 @@ public class SoOrderDTO extends Persistable {
 	//关联企业
 	private String companyName ;
 	//退单状态
-	private OrderRefundStatusType RefundStatus = OrderRefundStatusType.Dsh;
+	private OrderRefundStatusType refundStatusId = OrderRefundStatusType.Dsh;
 	//原价金额
 	private double totalPrice ;
 	//应付金额
@@ -111,11 +111,11 @@ public class SoOrderDTO extends Persistable {
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
-	public OrderRefundStatusType getRefundStatus() {
-		return RefundStatus;
+	public OrderRefundStatusType getRefundStatusId() {
+		return refundStatusId;
 	}
-	public void setRefundStatus(OrderRefundStatusType refundStatus) {
-		RefundStatus = refundStatus;
+	public void setRefundStatusId(OrderRefundStatusType refundStatusId) {
+		this.refundStatusId = refundStatusId;
 	}
 	public double getTotalPrice() {
 		return totalPrice;

@@ -1,15 +1,12 @@
 package com.gongsibao.u8.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.netsharp.communication.Service;
 import org.netsharp.core.DataTable;
 import org.netsharp.core.IRow;
-import org.netsharp.panda.controls.other.I;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.StringManager;
 
@@ -28,7 +25,7 @@ public class UserService extends PersistableService<User> implements IUserServic
 	@Override
 	public Map<Integer, String> getOperatorByOrderIds(List<Integer> orderIdList) {
 
-		Map<Integer, String> resMap = new HashMap();
+		Map<Integer, String> resMap = new HashMap<Integer, String>();
 		String orderIdsStr = StringManager.join(",", orderIdList);
 
 		StringBuffer sqlString = new StringBuffer();

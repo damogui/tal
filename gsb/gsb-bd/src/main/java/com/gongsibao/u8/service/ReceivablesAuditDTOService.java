@@ -121,12 +121,12 @@ public class ReceivablesAuditDTOService extends PersistableService<ReceivablesAu
 		sqlBuffer.append("LEFT JOIN crm_customer c ON c.`account_id`= oi.`account_id` ");
 		sqlBuffer.append("LEFT JOIN crm_customer_company_map ccm ON ccm.`customer_id`=c.`pkid` ");
 		sqlBuffer.append("LEFT JOIN crm_company_intention cri1 ON cri1.`pkid`=ccm.`company_id` ");
-		sqlBuffer.append("WHERE opm.`pay_id`=" + payId);
+		sqlBuffer.append(" WHERE opm.`pay_id`=" + payId);
 
 		DataTable dataTable = this.pm.executeTable(sqlBuffer.toString(), null);
 		List<Map<String, Object>> orderInfoList = new ArrayList<>();
 		for (IRow row : dataTable) {
-			Map<String, Object> orderInfoMap = new HashMap();
+			Map<String, Object> orderInfoMap = new HashMap<String, Object>();
 			Integer orderPrice = row.getInteger("orderPrice");
 			Integer payablePrice = row.getInteger("payablePrice");
 			Integer paidPrice = row.getInteger("paidPrice");

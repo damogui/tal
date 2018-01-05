@@ -40,7 +40,7 @@ public class HanWeiTest {
 		int[] departmentIdIds = { 4,5};// 汉唐信通，供应商
 		for (int i = 1; i <= 1; i++) {
 
-			Date date =DateManage.parse("2018-01-04");
+			Date date =DateManage.parse("2017-12-26");
 			//Date date = DateManage.toDate(new Date());
 			service.generate(date, departmentIdIds);
 		}

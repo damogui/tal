@@ -37,35 +37,30 @@ public class OrderPoolWorkspaceTest  extends WorkspaceCreationBase{
 	protected PDatagrid createDatagrid(ResourceNode node) {
 		PDatagrid datagrid = super.createDatagrid(node);
 		PDatagridColumn column = null;
-		column = addColumn(datagrid, "no", "订单编号", ControlTypes.TEXT_BOX, 100,true);
+		column = addColumn(datagrid, "soOrder.no", "订单编号", ControlTypes.TEXT_BOX, 100,true);
+		column = addColumn(datagrid, "soOrder.account.name", "客户创建人", ControlTypes.TEXT_BOX, 100,true);
+		column = addColumn(datagrid, "id", "明细编号", ControlTypes.TEXT_BOX, 100,true);
 		column = addColumn(datagrid, "productName", "产品名称", ControlTypes.TEXT_BOX, 100,true);
 		column = addColumn(datagrid, "soOrder.processStatus.name", "订单状态", ControlTypes.TEXT_BOX, 80);
 		{
 			column.setAlign(DatagridAlign.CENTER);
 		}
-		/*column = addColumn(datagrid, "channelOrderNo", "渠道订单号", ControlTypes.TEXT_BOX, 100,true);
-		column = addColumn(datagrid, "payStatus.name", "支付状态", ControlTypes.NUMBER_BOX, 90);
-		column = addColumn(datagrid, "processStatus.name", "执行进度", ControlTypes.NUMBER_BOX, 90);
-		column = addColumn(datagrid, "refundStatus.name", "退款状态", ControlTypes.NUMBER_BOX, 90);		
-		column = addColumn(datagrid, "totalPrice", "总金额", ControlTypes.NUMBER_BOX, 90);
-		column = addColumn(datagrid, "payablePrice", "未支付金额", ControlTypes.NUMBER_BOX, 90);
-		column = addColumn(datagrid, "paidPrice", "已支付金额", ControlTypes.NUMBER_BOX, 90);
-		column = addColumn(datagrid, "isInstallment", "分期付款", ControlTypes.NUMBER_BOX, 90);{
-			column.setFormatter("return value==0?'否':'是'");
-		}
-		addColumn(datagrid, "accountName", "客户名称", ControlTypes.TEXT_BOX, 100);
-		column = addColumn(datagrid, "accountMobile", "手机号", ControlTypes.TEXT_BOX, 90);
-		column = addColumn(datagrid, "platformSourceDict.name", "订单来源", ControlTypes.NUMBER_BOX, 90);
-		addColumn(datagrid, "payTime", "支付时间", ControlTypes.DATE_BOX, 130);
-		addColumn(datagrid, "addTime", "创建时间", ControlTypes.DATE_BOX, 130);
-		column = addColumn(datagrid, "type", "订单类型", ControlTypes.TEXT_BOX, 100, true);
-		column = addColumn(datagrid, "prodName", "服务名称", ControlTypes.TEXT_BOX, 100);
+		column = addColumn(datagrid, "cityIdDict.name", "产品地区", ControlTypes.NUMBER_BOX, 90);
+		column = addColumn(datagrid, "soOrder.companyIntention.name", "明细订单公司", ControlTypes.NUMBER_BOX, 90);
+		column = addColumn(datagrid, "companyIntention.name", "订单关联公司", ControlTypes.NUMBER_BOX, 90);
+		column = addColumn(datagrid, "soOrder.platformSourceDict.name", "订单来源", ControlTypes.NUMBER_BOX, 90);		
+		column = addColumn(datagrid, "soOrder.addUser.name", "下单人", ControlTypes.NUMBER_BOX, 90);
+		column = addColumn(datagrid, "soOrder.accountMobile", "下单人电话", ControlTypes.NUMBER_BOX, 90);
+		column = addColumn(datagrid, "soOrder.prodName", "服务名称", ControlTypes.TEXT_BOX, 100);
 		{
 			column.setFormatter("return '<span title='+value+'>'+value+'</span>'");
 		}
-		column = addColumn(datagrid, "sourceType.name", "来源类型", ControlTypes.NUMBER_BOX, 90);
-		//订单状态目前是取字典，但实际情况是通过几个字典计算出来暂时不处理。
-		*/
+		column = addColumn(datagrid, "isRefund", "是否退单", ControlTypes.NUMBER_BOX, 90);{
+			column.setFormatter("return value==0?'否':'是'");
+		}
+		column = addColumn(datagrid, "soOrder.createTime", "下单时间", ControlTypes.DATE_BOX, 90);
+		//通过left多个表关联,目前随便添加的
+		column = addColumn(datagrid, "soOrder.accountName", "业务员", ControlTypes.NUMBER_BOX, 90);
 		return datagrid;
 	}
 

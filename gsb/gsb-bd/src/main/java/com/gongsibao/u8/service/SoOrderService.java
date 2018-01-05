@@ -3,7 +3,6 @@ package com.gongsibao.u8.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.netsharp.communication.Service;
 import org.netsharp.core.DataTable;
@@ -41,7 +40,7 @@ public class SoOrderService extends PersistableService<SoOrder> implements ISoOr
 	@Override
 	public Map<Integer, String> getCustNameByOrderIdList(List<Integer> orderIdList) {
 
-		Map<Integer, String> map = new HashMap();
+		Map<Integer, String> map = new HashMap<Integer, String>();
 		String orderIds = StringManager.join(",", orderIdList);
 
 		StringBuffer sqlBuffer = new StringBuffer();

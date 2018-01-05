@@ -23,7 +23,6 @@ import org.netsharp.util.StringManager;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
 import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
-import com.gongsibao.entity.trade.dic.OrderProdTraceOperatorType;
 import com.gongsibao.entity.trade.dic.OrderProdTraceType;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapStatusType;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapType;
@@ -63,7 +62,7 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 	public List<SoOrderDTO> queryList(Oql oql) {
 
 		String filterString = oql.getFilter();
-		HashMap<String, String> mapFilters = new HashMap();
+		HashMap<String, String> mapFilters = new HashMap<String, String>();
 		try {
 			mapFilters = getMapFilters(filterString);
 		} catch (UnsupportedEncodingException e) {
@@ -83,7 +82,7 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 		oql.setPaging(paging);
 
 		// 订单id集合
-		List<Integer> orderIdList = new ArrayList();
+		List<Integer> orderIdList = new ArrayList<Integer>();
 
 		DataTable dataTable = this.pm.executeTable(sql.toString(), null);
 		List<SoOrderDTO> reslis = new ArrayList<>();
@@ -100,7 +99,7 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 			dto.setOrderNo(row.getString("orderNo"));
 			dto.setChannelOrderNo(row.getString("channelOrderNo"));
 			// dto.setCompanyName(row.getString("companyName"));
-			dto.setRefundStatus(OrderRefundStatusType.getItem(row.getInteger("refundStatusId")));
+			dto.setRefundStatusId(OrderRefundStatusType.getItem(row.getInteger("refundStatusId")));
 			dto.setInstallment(row.getBoolean("isInstallment"));
 			// dto.setOperator(row.getString("operator"));
 			dto.setAccountId(row.getInteger("accountId"));

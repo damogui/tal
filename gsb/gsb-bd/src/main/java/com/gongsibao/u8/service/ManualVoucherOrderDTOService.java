@@ -6,10 +6,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.netsharp.communication.Service;
-import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.DataTable;
 import org.netsharp.core.IRow;
 import org.netsharp.core.Oql;
@@ -21,8 +19,6 @@ import com.gongsibao.entity.trade.dic.OrderIsManualVoucherType;
 import com.gongsibao.entity.trade.dic.OrderManualVoucherStatus;
 import com.gongsibao.entity.trade.dto.ManualVoucherOrderDTO;
 import com.gongsibao.u8.base.IManualVoucherOrderDTOService;
-import com.gongsibao.u8.base.ISoOrderService;
-import com.gongsibao.u8.base.IUserService;
 
 @Service
 public class ManualVoucherOrderDTOService extends PersistableService<ManualVoucherOrderDTO> implements IManualVoucherOrderDTOService {
@@ -39,7 +35,7 @@ public class ManualVoucherOrderDTOService extends PersistableService<ManualVouch
 		String filterString = oql.getFilter();
 		// filterString = StringManager.isNullOrEmpty(filterString) ? "" :
 		// filterString.replace("%", "");
-		HashMap<String, String> mapFilters = new HashMap();
+		HashMap<String, String> mapFilters = new HashMap<String, String>();
 		try {
 			mapFilters = getMapFilters(filterString);
 		} catch (UnsupportedEncodingException e) {
@@ -105,7 +101,7 @@ public class ManualVoucherOrderDTOService extends PersistableService<ManualVouch
 		DataTable dataTable = this.pm.executeTable(sqlBuffer.toString(), null);
 		List<ManualVoucherOrderDTO> reslis = new ArrayList<>();
 
-		List<Integer> orderIdList = new ArrayList();
+		List<Integer> orderIdList = new ArrayList<Integer>();
 
 		for (IRow row : dataTable) {
 			ManualVoucherOrderDTO dto = new ManualVoucherOrderDTO();

@@ -9,6 +9,10 @@ import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dto.SoOrderDTO;
+<<<<<<< HEAD
+=======
+import com.gongsibao.trade.base.IOrderOperationService;
+>>>>>>> master
 import com.gongsibao.trade.base.IOrderPayMapService;
 import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IOrderService;
@@ -38,8 +42,7 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(SoOrder.class.getName(), "我的订单", node1.getCode() + "_My_Order", IOrderService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(SoOrder.class.getName(), "我的订单明细", node1.getCode() + "_My_Order_Detail", IOrderService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(OrderProd.class.getName(), "订单池", node1.getCode() + "_Order_Pool", IOrderProdService.class.getName(), node1.getId());
-			
-			this.createResourceNodeVoucher(SoOrderDTO.class.getName(), "订单操作", node1.getCode() + "_Order_Operation", IOrderService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(SoOrderDTO.class.getName(), "订单操作", node1.getCode() + "_Order_Operation", IOrderOperationService.class.getName(), node1.getId());
 		}
 		
 		/*node1 = this.createResourceNodeCategory("订单操作", prefix + "_Operation", node.getId());
@@ -47,7 +50,7 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(SoOrder.class.getName(), "操作订单池", node1.getCode() + "_Operation_Order", IOrderService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(SoOrder.class.getName(), "我负责的订单", node1.getCode() + "_Responsible_Order", IOrderService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(SoOrder.class.getName(), "订单审核", node1.getCode() + "_Order_Audit", IOrderService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(SoOrder.class.getName(), "订单流量监控", node1.getCode() + "_Monitoring_Pool", IOrderService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(SoOrder.class.getName(), "订单流量监控 ", node1.getCode() + "_Monitoring_Pool", IOrderService.class.getName(), node1.getId());
 		}*/
 
 		node1 = this.createResourceNodeCategory("审核中心", prefix + "_Audit", node.getId());

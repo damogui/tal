@@ -15,7 +15,6 @@ import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.controls.DictComboBox;
 import com.gongsibao.entity.trade.dto.SoOrderDTO;
 import com.gongsibao.trade.web.OrderOperationController;
 
@@ -122,7 +121,6 @@ public class OrderOperationWorkspaceTest extends WorkspaceCreationBase {
 		PFormField field = null;
 
 		addFormField(form, "orderNo", "订单号", ControlTypes.TEXT_BOX, true, false);
-		// addFormField(form, "no", "卡号", ControlTypes.TEXT_BOX, false, false);
 
 		return form;
 	}
