@@ -59,7 +59,7 @@ public class AllOrderWorkspaceTest extends WorkspaceCreationBase{
 			column.setFormatter("return '<span title='+value+'>'+value+'</span>'");
 		}
 		column = addColumn(datagrid, "sourceType.name", "来源类型", ControlTypes.NUMBER_BOX, 90);
-		//订单状态目前是取字典，但实际情况是通过几个字典计算出来暂时不处理。
+		//订单状态目前是取字典，但实际情况是通过其他的几个字段计算出来（暂时不处理）
 		column = addColumn(datagrid, "processStatus.name", "订单状态", ControlTypes.TEXT_BOX, 80);
 		{
 			column.setAlign(DatagridAlign.CENTER);

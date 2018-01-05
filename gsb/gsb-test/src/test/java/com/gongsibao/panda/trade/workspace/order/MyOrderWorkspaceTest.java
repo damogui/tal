@@ -8,9 +8,11 @@ import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
+import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
+import com.gongsibao.controls.PropertyQueryDictComboBox;
 import com.gongsibao.entity.trade.SoOrder;
 
 /**   
@@ -31,6 +33,8 @@ public class MyOrderWorkspaceTest  extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_Trade_Manage_My_Order";
+		//查询用---自定义控件
+		listPartImportJs = "/gsb/gsb.custom.query.controls.js";
 		//当前登录人的userId=3590;
 		listFilter = "accountId='{userId}'";
 	}
@@ -78,6 +82,16 @@ public class MyOrderWorkspaceTest  extends WorkspaceCreationBase{
 		addQueryItem(queryProject, "isInstallment", "分期申请订单", ControlTypes.BOOLCOMBO_BOX);
 		addQueryItem(queryProject, "isInvoice", "发票申请订单", ControlTypes.BOOLCOMBO_BOX);
 		addQueryItem(queryProject, "type", "订单类型", ControlTypes.ENUM_BOX);
+		//自定义控件
+		PQueryItem item = addQueryItem(queryProject, "changePriceAuditStatus.name", "改价申请订单", ControlTypes.CUSTOM);{			
+			item.setCustomControlType(PropertyQueryDictComboBox.class.getName());
+			item.setRefFilter("type=105");
+		}
+		item = addQueryItem(queryProject, "refundStatus.name", "退单申请订单", ControlTypes.CUSTOM);{			
+			item.setCustomControlType(PropertyQueryDictComboBox.class.getName());
+			item.setRefFilter("type=303");
+		}
+		
 		addQueryItem(queryProject, "payTime", "订单支付时间", ControlTypes.DATE_BOX);
 		return queryProject;
 	}
