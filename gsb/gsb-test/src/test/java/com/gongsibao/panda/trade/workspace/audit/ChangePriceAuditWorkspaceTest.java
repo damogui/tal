@@ -70,8 +70,6 @@ public class ChangePriceAuditWorkspaceTest extends WorkspaceCreationBase {
 			datagrid.toNew();
 			datagrid.setResourceNode(node);
 			datagrid.setName("改价审核列表");
-			datagrid.setSingleSelect(false);
-			datagrid.setShowCheckbox(true);
 		}
 
 		PDatagridColumn column = null;

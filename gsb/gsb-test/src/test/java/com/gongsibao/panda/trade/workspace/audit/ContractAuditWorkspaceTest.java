@@ -65,8 +65,6 @@ public class ContractAuditWorkspaceTest extends WorkspaceCreationBase {
 			datagrid.toNew();
 			datagrid.setResourceNode(node);
 			datagrid.setName("合同审核列表");
-			datagrid.setSingleSelect(false);
-			datagrid.setShowCheckbox(true);
 		}
 
 		PDatagridColumn column = null;
@@ -82,8 +80,7 @@ public class ContractAuditWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "contract.soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX, 300);
 		addColumn(datagrid, "contract.contractPrice", "业绩总额", ControlTypes.DECIMAL_BOX, 80);
 		addColumn(datagrid, "contract.realAmount", "合同总额", ControlTypes.DECIMAL_BOX, 80);
-		// addColumn(datagrid, "contract.paidPrice", "材料撰写费",
-		// ControlTypes.DECIMAL_BOX, 80);
+		 addColumn(datagrid, "contract.dataFee", "材料撰写费",ControlTypes.DECIMAL_BOX, 80);
 		addColumn(datagrid, "contract.liquidatedDamages", "违约金", ControlTypes.DECIMAL_BOX, 80);
 		addColumn(datagrid, "contract.soOrder.isInstallment", "分期付款", ControlTypes.BOOLCOMBO_BOX, 80);
 		/*

@@ -68,8 +68,6 @@ public class InvoiceAuditWorkspaceTest extends WorkspaceCreationBase {
 			datagrid.toNew();
 			datagrid.setResourceNode(node);
 			datagrid.setName("发票审核列表");
-			datagrid.setSingleSelect(false);
-			datagrid.setShowCheckbox(true);
 		}
 
 		PDatagridColumn column = null;
@@ -78,22 +76,23 @@ public class InvoiceAuditWorkspaceTest extends WorkspaceCreationBase {
 			column.setVisible(false);
 		}
 		//注释掉的列暂时出不来
-		addColumn(datagrid, "contract.soOrder.no", "订单编号", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "contract.soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 80);
-		addColumn(datagrid, "contract.soOrder.accountType", "新老客户签单", ControlTypes.ENUM_BOX, 80);
-		addColumn(datagrid, "contract.soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX, 300);
-		addColumn(datagrid, "contract.contractPrice", "业绩总额", ControlTypes.DECIMAL_BOX, 80);
-		addColumn(datagrid, "contract.realAmount", "合同总额", ControlTypes.DECIMAL_BOX, 80);
+		addColumn(datagrid, "invoice.orderInvoiceMaps.soOrder.no", "订单编号", ControlTypes.TEXT_BOX, 100);
+		//addColumn(datagrid, "contract.soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 80);
+		addColumn(datagrid, "invoice.orderInvoiceMaps.soOrder.accountType", "新老客户签单", ControlTypes.ENUM_BOX, 80);
+		addColumn(datagrid, "invoice.orderInvoiceMaps.soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX, 300);
+		addColumn(datagrid, "invoice.orderInvoiceMaps.soOrder.payablePrice", "订单金额", ControlTypes.DECIMAL_BOX, 80);
+		addColumn(datagrid, "invoice.orderInvoiceMaps.soOrder.paidPrice", "付款金额", ControlTypes.DECIMAL_BOX, 80);		
+		addColumn(datagrid, "invoice.amount", "发票金额", ControlTypes.DECIMAL_BOX, 80);
 		//addColumn(datagrid, "contract.paidPrice", "材料撰写费", ControlTypes.DECIMAL_BOX, 80);		
-		addColumn(datagrid, "contract.liquidatedDamages", "违约金", ControlTypes.DECIMAL_BOX, 80);		
-		addColumn(datagrid, "contract.soOrder.isInstallment", "分期付款", ControlTypes.BOOLCOMBO_BOX, 80);
+		addColumn(datagrid, "invoice.typeId", "发票类型", ControlTypes.ENUM_BOX, 80);		
+		addColumn(datagrid, "invoice.companyId", "开票公司", ControlTypes.ENUM_BOX, 80);
 		/*addColumn(datagrid, "", "业务员", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "", "申请人", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "", "申请时间", ControlTypes.DATETIME_BOX, 100);*/		
-		addColumn(datagrid, "soOrder.accountName", "下单人", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "soOrder.accountMobile", "下单人电话", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "invoice.orderInvoiceMaps.soOrder.accountName", "下单人", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "invoice.orderInvoiceMaps.soOrder.accountMobile", "下单人电话", ControlTypes.TEXT_BOX, 100);
 		//addColumn(datagrid, "", "关联企业", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "soOrder.addTime", "下单时间", ControlTypes.DATETIME_BOX, 100);
+		addColumn(datagrid, "invoice.orderInvoiceMaps.soOrder.addTime", "下单时间", ControlTypes.DATETIME_BOX, 100);
 		addColumn(datagrid, "statusId", "审核状态", ControlTypes.ENUM_BOX, 80);
 		
 		return datagrid;
@@ -103,7 +102,7 @@ public class InvoiceAuditWorkspaceTest extends WorkspaceCreationBase {
 	protected PQueryProject createQueryProject(ResourceNode node) {
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
-		addQueryItem(queryProject, "contract.soOrder.no", "订单编号", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "invoice.orderInvoiceMaps.soOrder.no", "订单编号", ControlTypes.TEXT_BOX);
 		/*addQueryItem(queryProject, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "operator", "业务员", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "oldOperator", "原业务员", ControlTypes.TEXT_BOX);
