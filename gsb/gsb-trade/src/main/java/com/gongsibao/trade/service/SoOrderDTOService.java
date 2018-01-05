@@ -99,7 +99,7 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 			dto.setOrderNo(row.getString("orderNo"));
 			dto.setChannelOrderNo(row.getString("channelOrderNo"));
 			// dto.setCompanyName(row.getString("companyName"));
-			dto.setRefundStatus(OrderRefundStatusType.getItem(row.getInteger("refundStatusId")));
+			dto.setRefundStatusId(OrderRefundStatusType.getItem(row.getInteger("refundStatusId")));
 			dto.setInstallment(row.getBoolean("isInstallment"));
 			// dto.setOperator(row.getString("operator"));
 			dto.setAccountId(row.getInteger("accountId"));

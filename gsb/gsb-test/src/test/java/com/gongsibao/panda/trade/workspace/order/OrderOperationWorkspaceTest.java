@@ -122,7 +122,6 @@ public class OrderOperationWorkspaceTest extends WorkspaceCreationBase {
 		PFormField field = null;
 
 		addFormField(form, "orderNo", "订单号", ControlTypes.TEXT_BOX, true, false);
-		// addFormField(form, "no", "卡号", ControlTypes.TEXT_BOX, false, false);
 
 		return form;
 	}
