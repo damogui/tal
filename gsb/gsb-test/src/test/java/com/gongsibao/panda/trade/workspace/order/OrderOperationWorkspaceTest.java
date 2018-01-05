@@ -15,7 +15,6 @@ import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.controls.DictComboBox;
 import com.gongsibao.entity.trade.dto.SoOrderDTO;
 import com.gongsibao.trade.web.OrderOperationController;
 
