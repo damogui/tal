@@ -136,11 +136,11 @@ org.netsharp.controls.TextBoxQueryItem=org.netsharp.controls.Control.Extends({
             return null;
         }
         propertyValue = propertyValue.replace(/(^\s*)|(\s*$)/g,'');
-        var intelligentMode = this.uiElement.attributes['intelligentMode'];
+        var intelligentMode1 = this.uiElement.attributes['intelligentMode1'];
         var qp = new org.netsharp.core.FilterParameter();
         qp.key = this.propertyName;
         qp.value1 = propertyValue;
-        qp.intelligentMode = intelligentMode || org.netsharp.core.intelligentMode.LIKE;
+        qp.intelligentMode1 = intelligentMode1 || org.netsharp.core.intelligentMode.LIKE;
         return qp;
     },
 	clear: function() {
@@ -178,7 +178,7 @@ org.netsharp.controls.EncryptionBoxQueryItem=org.netsharp.controls.Control.Exten
         var qp = new org.netsharp.core.FilterParameter();
         qp.key = this.propertyName;
         qp.value1 = propertyValue;
-        qp.intelligentMode = org.netsharp.core.intelligentMode.EQUALS;
+        qp.intelligentMode1 = org.netsharp.core.intelligentMode.EQUALS;
         return qp;
     },
 	clear: function() {
@@ -275,10 +275,6 @@ org.netsharp.controls.DateBoxQueryItem = org.netsharp.controls.Control.Extends({
 
         if (!System.isDateTime(propertyValue)) {
 
-            //IMessageBox.warning("日期格式不合法!");
-
-            //window.alert("请进行日期格式校验");
-
             return null;
         }
 
@@ -329,16 +325,20 @@ org.netsharp.controls.DateBoxQueryItem = org.netsharp.controls.Control.Extends({
 	      	if(interval === 'true'){
 
 		       qp.value1 = propertyValue+ ' 00:00:00';
-	      	   qp.intelligentMode = org.netsharp.core.intelligentMode.GTE;
+	      	   qp.intelligentMode1 = org.netsharp.core.intelligentMode.GTE;
+	      	   
+	      	   var value2 =  $('#End_' + this.propertyName).datebox('getValue');
+	      	   if(System.isnull(value2)){
+	      		   
+	      		  qp.value2 = propertyValue+ ' 23:59:59';
+	      		  qp.intelligentMode2 = org.netsharp.core.intelligentMode.LE;
+	      	   }
+	      		   
 	      	}else{
 	
 		       qp.value1 = propertyValue+ ' 00:00:00';
 		       qp.value2 = propertyValue+ ' 23:59:59';
 	      	}
-      }else {
-
-	       qp.value1 = propertyValue+ ' 23:59:59';
-      	   qp.intelligentMode = org.netsharp.core.intelligentMode.LE;
       }
       return qp;
     },
@@ -391,10 +391,10 @@ org.netsharp.controls.MonthBoxQueryItem = org.netsharp.controls.Control.Extends(
         qp.key = this.propertyName;
         if (this.uiElement.id.indexOf("Start_") == 0) {
 	       qp.value1 = propertyValue+ '-01 00:00:00';
-      	   qp.intelligentMode = org.netsharp.core.intelligentMode.GTE;
+      	   qp.intelligentMode1 = org.netsharp.core.intelligentMode.GTE;
         }else {
  	       qp.value1 = propertyValue+ '-'+daycount+' 23:59:59';
-      	   qp.intelligentMode = org.netsharp.core.intelligentMode.LESS;
+      	   qp.intelligentMode1 = org.netsharp.core.intelligentMode.LESS;
         }
         return qp;
     },
@@ -440,7 +440,7 @@ org.netsharp.controls.EnumBoxQueryItem=org.netsharp.controls.Control.Extends({
         });
         
         qp.value1 =  filter.substring(0,filter.length-1);
-  	    qp.intelligentMode = org.netsharp.core.intelligentMode.IN;
+  	    qp.intelligentMode1 = org.netsharp.core.intelligentMode.IN;
         return qp;
     },
 	clear: function() {
@@ -699,7 +699,8 @@ org.netsharp.core.FilterParameter = System.Object.Extends({
         this.key = null;
         this.value1 = null;
         this.value2 = null;
-        this.intelligentMode = org.netsharp.core.intelligentMode.EQUALS;
+        this.intelligentMode1 = org.netsharp.core.intelligentMode.EQUALS;
+        this.intelligentMode2 = null;
     }
 });
 
