@@ -2,13 +2,17 @@ package com.gongsibao.entity.trade;
 
 
 import java.util.Date;
+import java.util.List;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
+import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.Dict;
+import com.gongsibao.entity.trade.dic.PayForOrderCountType;
+import com.gongsibao.entity.trade.dic.PayOfflineInstallmentType;
 import com.gongsibao.entity.trade.dic.PayReceiptStatus;
 import com.gongsibao.entity.uc.User;
 
@@ -46,7 +50,7 @@ public class Pay extends BaseEntity {
 	private Dict offlineWayType;
     
     @Column(name="offline_installment_type",header="线下结算类型,线下分期类型序号，type= 全款为0，首款为1，尾款为-1，二期为2，三期为3，以此类推")
-    private Integer offlineInstallmentTypeId;
+    private PayOfflineInstallmentType offlineInstallmentTypeId=PayOfflineInstallmentType.sk;
     
 	@Reference(foreignKey="offlineInstallmentTypeId",header="线下结算类型")
 	private Dict offlineInstallmentType;
@@ -83,6 +87,12 @@ public class Pay extends BaseEntity {
     
     @Column(name="receipt_status",header="回单处理状态（0：未完成 1已完成：）")
     private PayReceiptStatus receiptStatus=PayReceiptStatus.NotStarted;
+    
+    @Subs(foreignKey="accountId",header="下单记录",subType=OrderPayMap.class)
+    private List<OrderPayMap> orderPayMaps;
+    
+    @Column(name="pay_for_order_count",header="支付订单数量（0:一笔单单 1:一笔多单）")
+    private PayForOrderCountType payForOrderCount = PayForOrderCountType.Ybdd;
 
 	public String getNo() {
 		return no;
@@ -156,11 +166,12 @@ public class Pay extends BaseEntity {
 		this.offlineWayType = offlineWayType;
 	}
 
-	public Integer getOfflineInstallmentTypeId() {
+
+	public PayOfflineInstallmentType getOfflineInstallmentTypeId() {
 		return offlineInstallmentTypeId;
 	}
 
-	public void setOfflineInstallmentTypeId(Integer offlineInstallmentTypeId) {
+	public void setOfflineInstallmentTypeId(PayOfflineInstallmentType offlineInstallmentTypeId) {
 		this.offlineInstallmentTypeId = offlineInstallmentTypeId;
 	}
 
@@ -259,4 +270,21 @@ public class Pay extends BaseEntity {
 	public void setReceiptStatus(PayReceiptStatus receiptStatus) {
 		this.receiptStatus = receiptStatus;
 	}
+
+	public List<OrderPayMap> getOrderPayMaps() {
+		return orderPayMaps;
+	}
+
+	public void setOrderPayMaps(List<OrderPayMap> orderPayMaps) {
+		this.orderPayMaps = orderPayMaps;
+	}
+
+	public PayForOrderCountType getPayForOrderCount() {
+		return payForOrderCount;
+	}
+
+	public void setPayForOrderCount(PayForOrderCountType payForOrderCount) {
+		this.payForOrderCount = payForOrderCount;
+	}
+	
 }

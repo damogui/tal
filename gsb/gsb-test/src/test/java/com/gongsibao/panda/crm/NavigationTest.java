@@ -8,6 +8,7 @@ import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.crm.Customer;
 import com.gongsibao.entity.crm.CustomerOrder;
 import com.gongsibao.entity.crm.CustomerServiceConfig;
+import com.gongsibao.entity.crm.ServiceFile;
 
 public class NavigationTest extends NavigationBase {
 
@@ -35,6 +36,11 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_Operation_" + Customer.class.getSimpleName(), "客户操作", "/crm/customer/operation/list", 5);
 			createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_" + CustomerServiceConfig.class.getSimpleName(), "客服配置", "/crm/customer/service/config/list", 6);
 			createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_" + CustomerOrder.class.getSimpleName(), "订单列表", "/crm/customer/order/list", 7);
+		}
+		
+		createPTreeNode(tree, null, null, "GSB_Service_File", "服务商档案", "", 2);
+		{
+			createPTreeNode(tree, "GSB_Service_File", null, "Service_File_" + ServiceFile.class.getSimpleName(), "档案列表", "/crm/service/file/list", 1);
 		}
 	}
 }

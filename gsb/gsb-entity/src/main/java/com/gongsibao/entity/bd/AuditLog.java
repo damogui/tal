@@ -8,6 +8,9 @@ import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.dic.AuditLogStatusType;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.Contract;
+import com.gongsibao.entity.trade.Invoice;
+import com.gongsibao.entity.trade.Pay;
+import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
 
 @Table(name = "bd_audit_log")
@@ -36,6 +39,18 @@ public class AuditLog extends BaseEntity {
 	// 合同
 	@Reference(foreignKey = "formId")
 	private Contract contract;
+
+	// 发票
+	@Reference(foreignKey = "formId")
+	private Invoice invoice;
+
+	// 支付记录
+	@Reference(foreignKey = "formId")
+	private Pay pay;
+	
+	// 退单记录
+	@Reference(foreignKey = "formId")
+	private Refund fefund;
 
 	public AuditLogType getTypeId() {
 		return typeId;
@@ -100,6 +115,30 @@ public class AuditLog extends BaseEntity {
 	public void setContract(Contract contract) {
 		this.contract = contract;
 	}
+
+	public Invoice getInvoice() {
+		return invoice;
+	}
+
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
+	}
+
+	public Pay getPay() {
+		return pay;
+	}
+
+	public void setPay(Pay pay) {
+		this.pay = pay;
+	}
+
+	public Refund getFefund() {
+		return fefund;
+	}
+
+	public void setFefund(Refund fefund) {
+		this.fefund = fefund;
+	}
 	
-	
+
 }

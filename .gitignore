@@ -53,6 +53,6 @@
 /gsb/gsb-report/.project
 /gsb/*/out
 /gsb/gsb.iml
-/gsb/gsb-test/src/test/resources/dev/conf/database.properties
-/gsb/gsb-web/src/main/resources/dev/conf/database.properties
-
+/Servers
+/RemoteSystemsTempFiles
+/.metadata

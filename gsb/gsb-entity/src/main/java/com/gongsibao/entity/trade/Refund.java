@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 
@@ -16,6 +17,10 @@ public class Refund extends BaseEntity {
 	
 	@Column(name="order_id",header="订单")
     private Integer orderId;
+	
+	// 订单
+	@Reference(foreignKey = "orderId")
+	private SoOrder soOrder;
 	
     @Column(name="audit_status_id",header="审核")
     private Integer auditStatusId;
@@ -110,7 +115,6 @@ public class Refund extends BaseEntity {
     public void setRemark(String remark) {
         this.remark = remark;
     }
-
 	public List<RefundItem> getRefunds() {
 		return refunds;
 	}
@@ -123,6 +127,14 @@ public class Refund extends BaseEntity {
 	public void setPrices(List<RefundItemPrice> prices) {
 		this.prices = prices;
 	}
+	public SoOrder getSoOrder() {
+		return soOrder;
+	}
+	public void setSoOrder(SoOrder soOrder) {
+		this.soOrder = soOrder;
+	}
+	
+	
 	
 	
 }

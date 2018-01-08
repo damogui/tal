@@ -72,7 +72,7 @@ public class DepartmentDayHandler extends AbstractReportHandler{
 		SelectBuilder selectBuilder = SelectBuilder.getInstance();
 		{
 			selectBuilder.select(
-			"SUM(department_id as departmentId",
+			"department_id as departmentId",
 			"SUM(total_count) as totalCount",
 			"SUM(track_count) as trackCount",
 			"SUM(un_track_count) as unTrackCount",
