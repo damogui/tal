@@ -4,13 +4,11 @@
 
 org.netsharp.panda.QueryController = System.Object.Extends({
 	
-
     ctor: function () {
         this.qpc = null;
         this.iscollected = false;
         this.context = null;
         this.controls = [];
-
     },
 	reset:function(){
 		
@@ -34,6 +32,28 @@ org.netsharp.panda.QueryController = System.Object.Extends({
         for (var i = 0; i < this.controls.length; i++) {
             var control = this.controls[i];
             var qp = control.get();
+            if (qp != null) {
+
+                this.qpc.push(qp);
+            }
+        }
+
+        return this.qpc;
+    },
+    
+    getFilterParameters:function(){
+    	
+        var isValidate = $("#queryFrom").form('validate');
+        if(!isValidate){
+        	
+        	return false;
+        }
+
+        this.collectControl();
+        this.qpc = [];
+        for (var i = 0; i < this.controls.length; i++) {
+            var control = this.controls[i];
+            var qp = control.getFilter();
             if (qp != null) {
 
                 this.qpc.push(qp);
@@ -83,9 +103,7 @@ org.netsharp.controls.TextBoxQueryItem=org.netsharp.controls.Control.Extends({
     get : function () {
 
         var propertyValue = this.uiElement.value;
-
-        if (System.isnull(propertyValue))
-        {
+        if (System.isnull(propertyValue)){
             return null;
         }
         //去掉两端空格
@@ -111,6 +129,20 @@ org.netsharp.controls.TextBoxQueryItem=org.netsharp.controls.Control.Extends({
       //  qp.Filter = this.propertyName + "=@" + this.propertyName;
         return qp;
     },
+    getFilter:function(){
+    	
+        var propertyValue = this.uiElement.value;
+        if (System.isnull(propertyValue)){
+            return null;
+        }
+        propertyValue = propertyValue.replace(/(^\s*)|(\s*$)/g,'');
+        var intelligentMode1 = this.uiElement.attributes['intelligentMode1'];
+        var qp = new org.netsharp.core.FilterParameter();
+        qp.key = this.propertyName;
+        qp.value1 = propertyValue;
+        qp.intelligentMode1 = intelligentMode1 || org.netsharp.core.intelligentMode.LIKE;
+        return qp;
+    },
 	clear: function() {
 		
 		this.uiElement.value = "";
@@ -124,7 +156,6 @@ org.netsharp.controls.EncryptionBoxQueryItem=org.netsharp.controls.Control.Exten
     get : function () {
 
         var propertyValue = this.uiElement.value;
-
         if (System.isnull(propertyValue))
         {
             return null;
@@ -135,7 +166,19 @@ org.netsharp.controls.EncryptionBoxQueryItem=org.netsharp.controls.Control.Exten
         qp.DbType = "String";
         qp.Value = propertyValue;
         qp.Filter = this.propertyName + "= '{cryp" + qp.Value + "!cryp}'";
-
+        return qp;
+    },
+    getFilter:function(){
+    	
+        var propertyValue = this.uiElement.value;
+        if (System.isnull(propertyValue)){
+            return null;
+        }
+        propertyValue = '{cryp' + qp.Value + '!cryp}';
+        var qp = new org.netsharp.core.FilterParameter();
+        qp.key = this.propertyName;
+        qp.value1 = propertyValue;
+        qp.intelligentMode1 = org.netsharp.core.intelligentMode.EQUALS;
         return qp;
     },
 	clear: function() {
@@ -159,6 +202,17 @@ org.netsharp.controls.BoolComboBoxQueryItem=org.netsharp.controls.Control.Extend
 
         qp.Filter = this.propertyName + " ='" + propertyValue[0] + "'";
 
+        return qp;
+    },
+    getFilter:function(){
+    	
+        var propertyValue = $('#' + this.propertyName).combobox('getValues');
+        if (propertyValue == null || propertyValue == undefined || propertyValue == ""||propertyValue=="-1") {
+            return null;
+        }
+        var qp = new org.netsharp.core.FilterParameter();
+        qp.key = this.propertyName;
+        qp.value1 = propertyValue[0];
         return qp;
     },
 	clear: function() {
@@ -188,6 +242,17 @@ org.netsharp.controls.CheckBoxQueryItem=org.netsharp.controls.Control.Extends({
 
         return qp;
     },
+    getFilter:function(){
+    	
+    	var propertyValue = document.getElementById(this.uiElement.id).checked;
+    	 if(System.isnull(propertyValue)){
+            return null;
+        }
+        var qp = new org.netsharp.core.FilterParameter();
+        qp.key = this.propertyName;
+        qp.value1 = propertyValue;
+        return qp;
+    },
 	clear: function() {
 		
 	}
@@ -199,19 +264,16 @@ org.netsharp.controls.DateBoxQueryItem = org.netsharp.controls.Control.Extends({
         this.base();
     },
     get : function () {
+    	
         this.propertyName = $('#' + this.uiElement.id).attr('propertyName');
         var interval = $('#' + this.uiElement.id).attr('interval');
         var propertyValue = $('#' + this.uiElement.id).datebox('getValue');
         
-        if (propertyValue == null || propertyValue == undefined || propertyValue == "") {
+        if(System.isnull(propertyValue)){
             return null;
         }
 
         if (!System.isDateTime(propertyValue)) {
-
-            //IMessageBox.warning("日期格式不合法!");
-
-            //window.alert("请进行日期格式校验");
 
             return null;
         }
@@ -240,6 +302,45 @@ org.netsharp.controls.DateBoxQueryItem = org.netsharp.controls.Control.Extends({
             qp.Filter = this.propertyName + "<='" + qp.Value + " 23:59:59' ";
         }
         return qp;
+    },
+    getFilter:function(){
+    	
+        this.propertyName = $('#' + this.uiElement.id).attr('propertyName');
+        var interval = $('#' + this.uiElement.id).attr('interval');
+        var propertyValue = $('#' + this.uiElement.id).datebox('getValue');
+        
+        if(System.isnull(propertyValue)){
+            return null;
+        }
+
+        if (!System.isDateTime(propertyValue)) {
+            return null;
+        }
+
+        var qp = new org.netsharp.core.FilterParameter();
+        qp.key = this.propertyName;
+        
+        if (this.uiElement.id.indexOf("Start_") == 0) {
+
+	      	if(interval === 'true'){
+
+		       qp.value1 = propertyValue+ ' 00:00:00';
+	      	   qp.intelligentMode1 = org.netsharp.core.intelligentMode.GTE;
+	      	   
+	      	   var value2 =  $('#End_' + this.propertyName).datebox('getValue');
+	      	   if(System.isnull(value2)){
+	      		   
+	      		  qp.value2 = propertyValue+ ' 23:59:59';
+	      		  qp.intelligentMode2 = org.netsharp.core.intelligentMode.LE;
+	      	   }
+	      		   
+	      	}else{
+	
+		       qp.value1 = propertyValue+ ' 00:00:00';
+		       qp.value2 = propertyValue+ ' 23:59:59';
+	      	}
+      }
+      return qp;
     },
 	clear: function() {
 		$('#Start_' + this.propertyName).datebox('setValue','');
@@ -280,6 +381,23 @@ org.netsharp.controls.MonthBoxQueryItem = org.netsharp.controls.Control.Extends(
         }
         return qp;
     },
+    getFilter:function(){
+    	
+    	var propertyValue = $('#' + this.uiElement.id).datebox('getValue');
+    	 if(System.isnull(propertyValue)){
+            return null;
+        }
+        var qp = new org.netsharp.core.FilterParameter();
+        qp.key = this.propertyName;
+        if (this.uiElement.id.indexOf("Start_") == 0) {
+	       qp.value1 = propertyValue+ '-01 00:00:00';
+      	   qp.intelligentMode1 = org.netsharp.core.intelligentMode.GTE;
+        }else {
+ 	       qp.value1 = propertyValue+ '-'+daycount+' 23:59:59';
+      	   qp.intelligentMode1 = org.netsharp.core.intelligentMode.LESS;
+        }
+        return qp;
+    },
 	clear: function() {
 		
 		$('#' + this.propertyName).datebox('setValue','');
@@ -305,6 +423,24 @@ org.netsharp.controls.EnumBoxQueryItem=org.netsharp.controls.Control.Extends({
         	filter+="'"+item+"',";
         });
         qp.Filter = this.propertyName.replace("_",".") + " in (" + filter.substring(0,filter.length-1) + ")";
+        return qp;
+    },
+    getFilter:function(){
+    	
+    	var propertyValue = $('#' + this.uiElement.id).combobox('getValues');
+    	 if(System.isnull(propertyValue) || propertyValue == "-1"){
+            return null;
+        }
+        var qp = new org.netsharp.core.FilterParameter();
+        qp.key = this.propertyName;
+        
+        var filter = "";
+        $(propertyValue).each(function(i,item){
+        	filter+="'"+item+"',";
+        });
+        
+        qp.value1 =  filter.substring(0,filter.length-1);
+  	    qp.intelligentMode1 = org.netsharp.core.intelligentMode.IN;
         return qp;
     },
 	clear: function() {
@@ -359,6 +495,21 @@ org.netsharp.controls.ReferenceBoxQueryItem=org.netsharp.controls.Control.Extend
 
         return qp;
     },
+    
+    getFilter:function(){
+    	
+    	var propertyValue = $('#' + this.uiElement.id).combogrid('getValue');
+    	 if(System.isnull(propertyValue)){
+            return null;
+        }
+    	 
+    	var foreignkey = $(this.uiElement).attr("foreignkey");
+        var qp = new org.netsharp.core.FilterParameter();
+        qp.key = foreignkey;
+        qp.value1 =  propertyValue;
+        return qp;
+    },
+    
 	clear: function() {
 		$('#' + this.propertyName).combogrid('setValue','');
 	}
@@ -401,6 +552,20 @@ org.netsharp.controls.NumberBoxQueryItem = org.netsharp.controls.Control.Extends
 
         return qp;
     },
+    getFilter:function(){
+    	
+    	return null;
+//    	var propertyValue = $('#' + this.uiElement.id).combogrid('getValue');
+//    	 if(System.isnull(propertyValue)){
+//            return null;
+//        }
+//    	 
+//    	var foreignkey = $(this.uiElement).attr("foreignkey");
+//        var qp = new org.netsharp.core.FilterParameter();
+//        qp.key = foreignkey;
+//        qp.value1 =  propertyValue;
+//        return qp;
+    },
 	clear: function() {
 		$('#' + this.propertyName).numberbox('setValue','');
 	}
@@ -429,9 +594,7 @@ org.netsharp.controls.MonthDateBoxQueryItem = org.netsharp.controls.Control.Exte
     get : function () {
 
         this.propertyName = $('#' + this.uiElement.id).attr('propertyName');
-
         var propertyValue = $('#' + this.uiElement.id).datebox('getValue');
-
         if (propertyValue == null || propertyValue == undefined || propertyValue == "") {
             return null;
         }
@@ -454,6 +617,20 @@ org.netsharp.controls.MonthDateBoxQueryItem = org.netsharp.controls.Control.Exte
             qp.Filter = this.propertyName + "<'" + value+"'";
         }
         return qp;
+    },
+    getFilter:function(){
+    	
+    	return null;
+//    	var propertyValue = $('#' + this.uiElement.id).combogrid('getValue');
+//    	 if(System.isnull(propertyValue)){
+//            return null;
+//        }
+//    	 
+//    	var foreignkey = $(this.uiElement).attr("foreignkey");
+//        var qp = new org.netsharp.core.FilterParameter();
+//        qp.key = foreignkey;
+//        qp.value1 =  propertyValue;
+//        return qp;
     },
 	clear: function() {
 		
@@ -479,6 +656,23 @@ org.netsharp.controls.MonthBoxQueryItem = org.netsharp.controls.EnumBoxQueryItem
 
         qp.Filter = this.propertyName.replace("_",".") + " =" + propertyValue;
         return qp;
+    },
+    getFilter:function(){
+    	
+    	return null;
+//    	var propertyValue = $('#' + this.uiElement.id).combogrid('getValue');
+//    	 if(System.isnull(propertyValue)){
+//            return null;
+//        }
+//    	 
+//    	var foreignkey = $(this.uiElement).attr("foreignkey");
+//        var qp = new org.netsharp.core.FilterParameter();
+//        qp.key = foreignkey;
+//        qp.value1 =  propertyValue;
+//        return qp;
+    },
+    clear: function() {
+    	
     }
 });
 
@@ -497,3 +691,28 @@ org.netsharp.core.QueryParameter = System.Object.Extends({
         this.value = null;
     }
 });
+
+org.netsharp.core.FilterParameter = System.Object.Extends({
+	
+    ctor: function () {
+
+        this.key = null;
+        this.value1 = null;
+        this.value2 = null;
+        this.intelligentMode1 = org.netsharp.core.intelligentMode.EQUALS;
+        this.intelligentMode2 = null;
+    }
+});
+
+org.netsharp.core.intelligentMode = {
+		
+	EQUALS:0,//严格匹配
+	LEFT:1,//左匹配
+	RIGHT:2,//右匹配
+	LIKE:3,//模糊匹配
+	GTR:4,//大于
+	GTE:5,//大于等于
+	LESS:6,//小于
+	LE:7,//大于等于
+	IN:8//In
+};

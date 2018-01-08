@@ -67,10 +67,7 @@ public class YearWorkspaceTest extends WorkspaceCreationBase{
 		item = addRefrenceQueryItem(queryProject, "department.shortName", "部门", "Gsb_Organization");{
 			item.setRequired(true);
 		}
-		item = addQueryItem(queryProject, "salesman.name", "业务员", ControlTypes.TEXT_BOX);
-		{
-			item.setRequired(false);
-		}
+		addRefrenceQueryItem(queryProject, "salesman.name", "业务员", "Gsb_User");
 		return queryProject;
 	}
 

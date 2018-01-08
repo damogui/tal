@@ -428,6 +428,7 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 
 		this.queryModel.collectControl();
 		var qpc = this.queryModel.getQueryParameters();
+		var queryParams= this.queryModel.getFilterParameters();
 		var filters = [];
 		if(qpc === false){
 			return;
@@ -442,17 +443,17 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 			filters.push(qpc[i].Filter);
 		}
 		var filter = filters.join(" AND ");
-		this.doQuery(filter);
+		this.doQuery(filter,queryParams);
 		this.logQuery(filter);
 	},
 
-	doQuery : function(filter) {
+	doQuery : function(filter,queryParams) {
 
 		var urls = this.getFilters(filter);
 		var url = urls.join("&");
 		url = System.Url.getUrl(url);
 		url = encodeURI(url);
-		this.resetUrl(url);
+		this.resetUrl(url,queryParams);
 		// this.reload();
 	},
 	
@@ -480,7 +481,17 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 		this.addExtraParams(urls);//添加额外的查询参数,如果客户端重写这个参数，那么控制器里需要重写一个方法
 		return urls;
 	},
-	
+	resetUrl : function(url,queryParams) {
+		
+		var qps = JSON.stringify(queryParams);;
+		$("#" + this.context.id).datagrid({
+			url : url,
+			queryParams:{
+				qps:qps
+			}
+		});
+		this.setStyle();
+	},
 	logQuery : function (filter) {
 	    try {
 	        var controller;	        
@@ -496,14 +507,7 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 
 	    }
 	},
-	
-	resetUrl : function(url) {
-		
-		$("#" + this.context.id).datagrid({
-			url : url
-		});
-		this.setStyle();
-	},
+
 	addExtraParams:function(urls){//添加额外的查询参数
 		//return url;
 	},
