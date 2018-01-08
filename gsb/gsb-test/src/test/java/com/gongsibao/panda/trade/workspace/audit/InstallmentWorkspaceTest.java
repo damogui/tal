@@ -81,7 +81,8 @@ public class InstallmentWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX, 300);
 		addColumn(datagrid, "soOrder.payablePrice", "原价金额", ControlTypes.DECIMAL_BOX, 80);
 		addColumn(datagrid, "soOrder.paidPrice", "订单金额", ControlTypes.DECIMAL_BOX, 80);		
-		/*addColumn(datagrid, "", "业务员", ControlTypes.TEXT_BOX, 100);
+		/*addColumn(datagrid, "", "分期次数", ControlTypes.DECIMAL_BOX, 80);
+		addColumn(datagrid, "", "业务员", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "", "申请人", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "", "申请时间", ControlTypes.DATETIME_BOX, 100);*/		
 		addColumn(datagrid, "soOrder.accountName", "下单人", ControlTypes.TEXT_BOX, 100);

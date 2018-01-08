@@ -6,6 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 import com.gongsibao.panda.trade.workspace.audit.ChangePriceAuditWorkspaceTest;
 import com.gongsibao.panda.trade.workspace.audit.ContractAuditWorkspaceTest;
+import com.gongsibao.panda.trade.workspace.audit.InstallmentWorkspaceTest;
 import com.gongsibao.panda.trade.workspace.audit.InvoiceAuditWorkspaceTest;
 import com.gongsibao.panda.trade.workspace.audit.ReceiptAuditWorkspaceTest;
 import com.gongsibao.panda.trade.workspace.audit.RefundAuditWorkspaceTest;
@@ -41,8 +42,8 @@ import com.gongsibao.panda.trade.workspace.payment.PaymentLogWorkspaceTest;
 	InvoiceAuditWorkspaceTest.class,	
 	ReceiptAuditWorkspaceTest.class,
 	RefundAuditWorkspaceTest.class,
-    /*InstallmentWorkspaceTest.class,	
-	RechargeWorkspaceTest.class,*/
+    InstallmentWorkspaceTest.class,	
+	/*RechargeWorkspaceTest.class,*/
 	
 	
 	//成本管理:成本管理,收款方管理,请款审核,请款审核,供应商发票审核
