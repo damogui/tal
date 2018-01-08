@@ -12,6 +12,7 @@ import com.gongsibao.panda.crm.workspace.CompanyIntentionWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.CustomerAllWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.CustomerOrderWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.CustomerServiceConfigWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.ServiceFileWorkspaceTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
@@ -32,6 +33,7 @@ import com.gongsibao.panda.crm.workspace.CustomerServiceConfigWorkspaceTest;
 //		
 		CustomerServiceConfigWorkspaceTest.class,
 		CustomerOrderWorkspaceTest.class,
+		ServiceFileWorkspaceTest.class,
 		NavigationTest.class
 		})
 		
