@@ -51,3 +51,6 @@
 /gsb/gsb-report/build
 /gsb/gsb-report/.classpath
 /gsb/gsb-report/.project
+/Servers
+/RemoteSystemsTempFiles
+/.metadata
