@@ -61,7 +61,7 @@ public class SalesmanYearHandler extends AbstractReportHandler{
 			"track_progress6_count as trackProgress6Count",
 			"track_progress7_count as trackProgress7Count");
 			selectBuilder.from(MtableManager.getMtable(FranchiseeReport.class).getTableName());
-			selectBuilder.where("year =?", "month=?","date_type=?","organization_type=?","owner_id is not null");
+			selectBuilder.where("year=?", "month=?","date_type=?","organization_type=?","owner_id is not null");
 		}
 
 		QueryParameters qps = new QueryParameters();{
