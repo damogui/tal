@@ -27,8 +27,8 @@ public class RefundAuditWorkspaceTest extends WorkspaceCreationBase {
 	public void setup() {
 
 		entity = AuditLog.class;// 实体
-		urlList = "/trade/audit/contract/list";// 列表的url
-		urlForm = "/trade/audit/contract/form";// 弹出框的url
+		urlList = "/trade/audit/refund/list";// 列表的url
+		urlForm = "/trade/audit/refund/form";// 弹出框的url
 		listPartName = formPartName = "退单审核列表";
 		meta = MtableManager.getMtable(entity);// 获取实体元数据
 		formPartName = listPartName = meta.getName();
@@ -74,9 +74,15 @@ public class RefundAuditWorkspaceTest extends WorkspaceCreationBase {
 		}
 		// 注释掉的列暂时出不来
 		addColumn(datagrid, "fefund.soOrder.no", "订单编号", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "fefund.soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "fefund.soOrder.accountType", "新老客户签单", ControlTypes.ENUM_BOX, 80);
-		addColumn(datagrid, "fefund.soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX, 300);
+		addColumn(datagrid, "fefund.soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX, 300);		
+		addColumn(datagrid, "fefund.soOrder.payStatus.name", "订单支付状态", ControlTypes.TEXT_BOX, 80);
+		addColumn(datagrid, "fefund.soOrder.processStatus.name", "订单办理状态", ControlTypes.TEXT_BOX, 80);		
+		addColumn(datagrid, "fefund.soOrder.totalPrice", "原价金额", ControlTypes.DECIMAL_BOX, 80);
+		addColumn(datagrid, "fefund.soOrder.payablePrice", "订单金额", ControlTypes.DECIMAL_BOX, 80);
+		addColumn(datagrid, "fefund.soOrder.paidPrice", "付款金额", ControlTypes.DECIMAL_BOX, 80);		
+		addColumn(datagrid, "fefund.amount", "退款金额", ControlTypes.DECIMAL_BOX, 80);		
+		addColumn(datagrid, "fefund.soOrder.isInstallment", "是否分期", ControlTypes.BOOLCOMBO_BOX, 80);
 		/*
 		 * addColumn(datagrid, "", "业务员", ControlTypes.TEXT_BOX, 100);
 		 * addColumn(datagrid, "", "申请人", ControlTypes.TEXT_BOX, 100);

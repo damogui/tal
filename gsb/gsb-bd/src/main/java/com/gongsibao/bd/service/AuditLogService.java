@@ -24,7 +24,7 @@ public class AuditLogService extends PersistableService<AuditLog> implements IAu
 		this.type = AuditLog.class;
 	}
 
-	@Override
+	/*@Override
 	public List<AuditLog> queryList(Oql oql) {
 
 		StringBuilder selects = new StringBuilder();
@@ -36,10 +36,10 @@ public class AuditLogService extends PersistableService<AuditLog> implements IAu
 		selects.append("AuditLog.invoice.*,");
 		selects.append("AuditLog.invoice.orderInvoiceMaps.*,");
 		selects.append("AuditLog.invoice.orderInvoiceMaps.soOrder.*");		
-		/*selects.append("AuditLog.pay.*,");
-		selects.append("AuditLog.pay.orderPayMaps.*,");
-		selects.append("AuditLog.pay.orderPayMaps.soOrder.*");*/
-		oql.setSelects(selects.toString());
+//		selects.append("AuditLog.pay.*,");
+//		selects.append("AuditLog.pay.orderPayMaps.*,");
+//		selects.append("AuditLog.pay.orderPayMaps.soOrder.*");
+//		oql.setSelects(selects.toString());
 
 		List<AuditLog> resList = super.queryList(oql);
 
@@ -68,7 +68,7 @@ public class AuditLogService extends PersistableService<AuditLog> implements IAu
 
 		//return super.queryList(oql);
 		return resList;
-	}
+	}*/
 
 	@Override
 	public int updateStatus(Integer id, Integer status, Integer oldStatus, String remark) {

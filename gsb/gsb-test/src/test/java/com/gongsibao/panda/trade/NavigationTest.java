@@ -51,8 +51,8 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Invoice_Audit", "发票审核", "/trade/audit/invice/list", 3);
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Receipt_Audit", "收款审核", "/trade/audit/receipt/list", 4);
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Refund_Aduit", "退单审核", "/trade/audit/refund/list", 6);
-			/*createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Installment", "分期审核", "/trade/audit/installment/list", 5);			
-			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Recharge", "商城充值审核", "/trade/audit/recharge/list", 7);*/
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Installment", "分期审核", "/trade/audit/installment/list", 5);			
+			/*createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Recharge", "商城充值审核", "/trade/audit/recharge/list", 7);*/
 		}
 
 		/*parentNodeCode = ResourceTest.resourcePrefix + "_Cost";
