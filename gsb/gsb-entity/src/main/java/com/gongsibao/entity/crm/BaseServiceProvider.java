@@ -1,6 +1,9 @@
 package com.gongsibao.entity.crm;
 
+import java.util.List;
+
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
@@ -47,9 +50,18 @@ public class BaseServiceProvider extends BaseEntity{
 	private Integer departLevel;
 
 	
+	@Subs(foreignKey="serviceProviderId",header="服务商范围",subType=BaseServiceProviderConfiger.class)
+	private List<BaseServiceProviderConfiger> serviceScope;
 	
 	
-	
+	public List<BaseServiceProviderConfiger> getServiceScope() {
+		return serviceScope;
+	}
+
+	public void setServiceScope(List<BaseServiceProviderConfiger> serviceScope) {
+		this.serviceScope = serviceScope;
+	}
+
 	public String getServiceName() {
 		return serviceName;
 	}

@@ -14,12 +14,12 @@ public class BaseServiceProviderConfiger extends BaseEntity{
 	
 	private static final long serialVersionUID = 9143414453489406854L;
 	
-	@Column(name="service_file_id")
-    private Integer serviceFileId;
+	@Column(name="service_provider_id")
+    private Integer serviceProviderId;
 	
 	@JsonIgnore
-    @Reference(foreignKey="serviceFileId")
-    private BaseServiceProvider serviceFile;
+    @Reference(foreignKey="serviceProviderId")
+    private BaseServiceProvider serviceProvider;
     
     @Column(name="product_id")
     private Integer productId;
@@ -27,40 +27,42 @@ public class BaseServiceProviderConfiger extends BaseEntity{
     @Reference(foreignKey="productId",header="产品")
     private Product product;
     
-	@Column(name="province_id")
-	private Integer provinceId;
+    @Column(name="city_id")
+    private Integer cityId = 0;
+    
+	@Column(name="d_province_id")
+	private Integer dProvinceId;
 	
-	@Reference(foreignKey="provinceId",header="省份")
-	private Dict pDict;
+	@Reference(foreignKey="dProvinceId",header="省份")
+	private Dict dProvince;
 	
-	@Column(name="city_id")
-	private Integer cityId;
+	@Column(name="d_city_id")
+	private Integer dCityId;
 	
-	@Reference(foreignKey="cityId",header="城市")
-	private Dict cDict;
+	@Reference(foreignKey="dCityId",header="城市")
+	private Dict dCity;
 	
-	@Column(name="county_id")
-	private Integer countyId;
+	@Column(name="d_county_id")
+	private Integer dCountyId;
 	
-	@Reference(foreignKey="county_id",header="区/县")
-	private Dict countyDict;
+	@Reference(foreignKey="dCountyId",header="区/县")
+	private Dict dCounty;
 
 	
-	
-	public Integer getServiceFileId() {
-		return serviceFileId;
+	public Integer getServiceProviderId() {
+		return serviceProviderId;
 	}
 
-	public void setServiceFileId(Integer serviceFileId) {
-		this.serviceFileId = serviceFileId;
+	public void setServiceProviderId(Integer serviceProviderId) {
+		this.serviceProviderId = serviceProviderId;
 	}
 
-	public BaseServiceProvider getServiceFile() {
-		return serviceFile;
+	public BaseServiceProvider getServiceProvider() {
+		return serviceProvider;
 	}
 
-	public void setServiceFile(BaseServiceProvider serviceFile) {
-		this.serviceFile = serviceFile;
+	public void setServiceProvider(BaseServiceProvider serviceProvider) {
+		this.serviceProvider = serviceProvider;
 	}
 
 	public Integer getProductId() {
@@ -79,22 +81,6 @@ public class BaseServiceProviderConfiger extends BaseEntity{
 		this.product = product;
 	}
 
-	public Integer getProvinceId() {
-		return provinceId;
-	}
-
-	public void setProvinceId(Integer provinceId) {
-		this.provinceId = provinceId;
-	}
-
-	public Dict getpDict() {
-		return pDict;
-	}
-
-	public void setpDict(Dict pDict) {
-		this.pDict = pDict;
-	}
-
 	public Integer getCityId() {
 		return cityId;
 	}
@@ -103,27 +89,51 @@ public class BaseServiceProviderConfiger extends BaseEntity{
 		this.cityId = cityId;
 	}
 
-	public Dict getcDict() {
-		return cDict;
+	public Integer getdProvinceId() {
+		return dProvinceId;
 	}
 
-	public void setcDict(Dict cDict) {
-		this.cDict = cDict;
+	public void setdProvinceId(Integer dProvinceId) {
+		this.dProvinceId = dProvinceId;
 	}
 
-	public Integer getCountyId() {
-		return countyId;
+	public Dict getdProvince() {
+		return dProvince;
 	}
 
-	public void setCountyId(Integer countyId) {
-		this.countyId = countyId;
+	public void setdProvince(Dict dProvince) {
+		this.dProvince = dProvince;
 	}
 
-	public Dict getCountyDict() {
-		return countyDict;
+	public Integer getdCityId() {
+		return dCityId;
 	}
 
-	public void setCountyDict(Dict countyDict) {
-		this.countyDict = countyDict;
-	}	
+	public void setdCityId(Integer dCityId) {
+		this.dCityId = dCityId;
+	}
+
+	public Dict getdCity() {
+		return dCity;
+	}
+
+	public void setdCity(Dict dCity) {
+		this.dCity = dCity;
+	}
+
+	public Integer getdCountyId() {
+		return dCountyId;
+	}
+
+	public void setdCountyId(Integer dCountyId) {
+		this.dCountyId = dCountyId;
+	}
+
+	public Dict getdCounty() {
+		return dCounty;
+	}
+
+	public void setdCounty(Dict dCounty) {
+		this.dCounty = dCounty;
+	}
 }
