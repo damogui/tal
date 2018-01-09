@@ -366,7 +366,7 @@ public class SecurityUtils {
         System.out.println(rc4Encrypt(3048));
         System.out.println(rc4Decrypt("1HR-3A$$"));
 
-        List<String> ll = new ArrayList<>();
+        List<String> ll = new ArrayList<String>();
         for (Integer integer : Arrays.asList(1137, 1177, 1823, 1514, 1108, 1424, 1524, 1525, 1147, 1134, 1099, 1274)) {
             ll.add(rc4Encrypt(integer));
         }
