@@ -7,7 +7,7 @@ import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
-import com.gongsibao.entity.crm.CustomerProdMap;
+import com.gongsibao.entity.crm.CustomerCompanyMap;
 import com.gongsibao.entity.crm.dic.NotifiedType;
 
 @Table(name = "base_service_provider", header = "服务商档案")
@@ -51,9 +51,11 @@ public class ServiceProvider extends BaseEntity{
 	private Integer departLevel;
 
 	
-	@Subs(foreignKey="serviceProviderId",header="服务范围",subType=ServiceProvider.class)
+	@Subs(foreignKey="serviceProviderId",header="服务范围",subType=ServiceProviderScope.class)
 	private List<ServiceProviderScope> serviceScope;
 
+	
+	
 	public String getServiceName() {
 		return serviceName;
 	}
