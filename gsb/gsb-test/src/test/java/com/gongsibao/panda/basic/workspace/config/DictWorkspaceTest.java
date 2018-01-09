@@ -11,6 +11,7 @@ import org.netsharp.panda.entity.PForm;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
+import com.gongsibao.bd.web.DictController;
 import com.gongsibao.entity.bd.Dict;
 
 public class DictWorkspaceTest extends WorkspaceCreationBase {
@@ -25,6 +26,7 @@ public class DictWorkspaceTest extends WorkspaceCreationBase {
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_Basic_Config_" + Dict.class.getSimpleName();
+		listPartServiceController = DictController.class.getName();
 
 		formOpenMode = OpenMode.WINDOW;
 		openWindowHeight = 400;
