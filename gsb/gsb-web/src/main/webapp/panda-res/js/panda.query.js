@@ -126,7 +126,7 @@ org.netsharp.controls.TextBoxQueryItem=org.netsharp.controls.Control.Extends({
             qp.Filter = this.propertyName + " LIKE '%" + qp.Value + "%'";
         }
 
-        //qp.Filter = this.propertyName + "=@" + this.propertyName;
+        //qp.Filter = this.propertyName + "=@" + this.propertyName ;
         return qp;
     },
     getFilter:function(){
