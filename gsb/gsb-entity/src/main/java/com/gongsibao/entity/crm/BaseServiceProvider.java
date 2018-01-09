@@ -6,8 +6,8 @@ import org.netsharp.core.annotations.Table;
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.crm.dic.NotifiedType;
 
-@Table(name = "service_file", header = "服务商档案")
-public class ServiceFile extends BaseEntity{
+@Table(name = "base_service_provider", header = "服务商档案")
+public class BaseServiceProvider extends BaseEntity{
 
 	private static final long serialVersionUID = 6562120272245433851L;
 	@Column(name = "service_name", header = "服务商名称")
