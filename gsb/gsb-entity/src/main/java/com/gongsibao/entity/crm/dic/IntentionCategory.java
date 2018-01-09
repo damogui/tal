@@ -3,21 +3,24 @@ package com.gongsibao.entity.crm.dic;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
-public enum Important implements IEnum {
+public enum IntentionCategory implements IEnum {
 
-	COMMON(4021, "普通"), INTERMEDIATE(4022, "中级"), HIGHGRADE(4023, "高级"), VIP(4024, "VIP");
+	A(1, "A类"), 
+	B(2, "B类"), 
+	C(3, "C类"), 
+	D(4, "D类");
 	private int value;
 	private String text;
 
-	Important(int value, String text) {
+	IntentionCategory(int value, String text) {
 		this.value = value;
 		this.text = text;
 	}
 
 	@JsonCreator
-	public static Important getItem(int value) {
+	public static IntentionCategory getItem(int value) {
 
-		for (Important item : values()) {
+		for (IntentionCategory item : values()) {
 
 			if (item.getValue() == value) {
 				return item;

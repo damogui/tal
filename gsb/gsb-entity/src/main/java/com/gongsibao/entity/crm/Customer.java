@@ -125,7 +125,7 @@ public class Customer extends BaseEntity {
     private String consultWayOther;
     
     @Column(name="important",header="402 重要程度: 4021普通、 4022中级、 4023高级、 4024VIP")
-    private Important important = Important.IMPORTANT_1;
+    private Important important = Important.COMMON;
     
     @Column(name="is_introducer",header="是否客户介绍 0否 1是")
     private Integer introducer = 0;
@@ -150,7 +150,7 @@ public class Customer extends BaseEntity {
     
     @Exclusive
     @Column(name="allocation_type",header="分配方式")
-    private AllocationType allocationType = AllocationType.TYPE_1;
+    private AllocationType allocationType = AllocationType.NATURAL;
     
     @Column(name="sms_remark",header="短信备注")
     private String smsRemark;
@@ -472,7 +472,7 @@ public class Customer extends BaseEntity {
 		
 		if(this.allocationOrgId != null && this.allocationOrgId.compareTo(0)==1){
 			
-			return AllocationType.TYPE_2;
+			return AllocationType.ASSIGN;
 		}
 		return allocationType;
 	}
