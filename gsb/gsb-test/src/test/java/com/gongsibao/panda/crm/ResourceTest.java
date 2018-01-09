@@ -12,6 +12,7 @@ import com.gongsibao.crm.base.ICustomerOrderService;
 import com.gongsibao.crm.base.ICustomerProdMapService;
 import com.gongsibao.crm.base.ICustomerService;
 import com.gongsibao.crm.base.ICustomerServiceConfigService;
+import com.gongsibao.crm.base.IServiceFileConfigerService;
 import com.gongsibao.crm.base.IServiceFileService;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.CompanyIntention;
@@ -22,6 +23,7 @@ import com.gongsibao.entity.crm.CustomerOrder;
 import com.gongsibao.entity.crm.CustomerProdMap;
 import com.gongsibao.entity.crm.CustomerServiceConfig;
 import com.gongsibao.entity.crm.ServiceFile;
+import com.gongsibao.entity.crm.ServiceFileConfiger;
 import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.trade.SoOrder;
 
@@ -63,6 +65,7 @@ public class ResourceTest extends ResourceCreationBase {
 		node1 = this.createResourceNodeCategory("服务商档案", "GSB_Service_File", node.getId());
 		{
 			this.createResourceNodeVoucher(ServiceFile.class.getName(), "档案列表", "Service_File_" + ServiceFile.class.getSimpleName(), IServiceFileService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(ServiceFileConfiger.class.getName(), "服务能力配置", ServiceFileConfiger.class.getSimpleName(), IServiceFileConfigerService.class.getName(), node1.getId());
 		}
 	}
 }
