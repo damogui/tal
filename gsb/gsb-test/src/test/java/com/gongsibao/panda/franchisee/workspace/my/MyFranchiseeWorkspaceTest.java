@@ -48,7 +48,7 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 		urlForm = "/bd/franchisee/my/form";
 		entity = Franchisee.class;
 		meta = MtableManager.getMtable(entity);
-		formPartName = listPartName = "客户信息";
+		formPartName = listPartName = "客户信息 ";
 		resourceNodeCode = "BD_MY_MY";
 		listFilter = "ownerId='{userId}'";
 		formJsImport = "/gsb/franchisee/js/franchisee.form.part.js";
