@@ -9,6 +9,7 @@ import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.DockType;
+import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PForm;
@@ -18,10 +19,17 @@ import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.entity.PReference;
 import org.netsharp.panda.entity.PWorkspace;
 import org.netsharp.resourcenode.entity.ResourceNode;
+import org.netsharp.util.ReflectManager;
 
+import com.gongsibao.controls.CityComboBox;
 import com.gongsibao.controls.DictComboBox;
+import com.gongsibao.crm.service.ServiceFileConfigerService;
+import com.gongsibao.entity.crm.CustomerProdMap;
 import com.gongsibao.entity.crm.ServiceFile;
+import com.gongsibao.entity.crm.ServiceFileConfiger;
+import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.uc.UserOrganizationMap;
+import com.gongsibao.uc.web.UserFormPart;
 
 public class ServiceFileWorkspaceTest extends WorkspaceCreationBase{
 
@@ -35,6 +43,10 @@ public class ServiceFileWorkspaceTest extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "Service_File_"+ServiceFile.class.getSimpleName();
+		
+		formServiceController = UserFormPart.class.getName();
+		formJsController = UserFormPart.class.getName();
+		formJsImport = "/gsb/uc/js/user.form.part.js|/gsb/gsb.customer.controls.js";
 	}
 	
 	@Override
@@ -76,59 +88,83 @@ public class ServiceFileWorkspaceTest extends WorkspaceCreationBase{
 		return queryProject;
 	}
 	
-	@Override
+	
+	
 	protected void addDetailGridPart(PWorkspace workspace) {
-
 		addServiceCapacityPart(workspace);
-		
-		PPart part = workspace.getParts().get(0);
-		{
-			part.setCode("serviceFile");
-			part.setStyle("height:340px;");
-			part.setDockStyle(DockType.DOCUMENTHOST);
-		}
 	}
+	
 	private void addServiceCapacityPart(PWorkspace workspace) {
 
-		ResourceNode node = this.resourceService.byCode("Service_File_" +ServiceFile.class.getSimpleName());
-		PDatagrid datagrid = new PDatagrid(node, null);
-		datagrid.setShowTitle(true);
-		datagrid.setShowCheckbox(true);
-		datagrid.setSingleSelect(false);
-		datagrid.setReadOnly(true);
+		ResourceNode node = this.resourceService.byCode(ServiceFileConfiger.class.getSimpleName());
+		PDatagrid datagrid = new PDatagrid(node, "服务能力配置");
+		{
+			addColumn(datagrid, "product.name", "产品", ControlTypes.TEXT_BOX, 300);
+			addColumn(datagrid, "pDict.name", "省份", ControlTypes.TEXT_BOX, 150);
+			addColumn(datagrid, "cDict.name", "城市", ControlTypes.TEXT_BOX, 150);
+			addColumn(datagrid, "countyDict.name", "区/县", ControlTypes.TEXT_BOX, 150);
+		}
+		PForm form = new PForm();
+		{
+			form.toNew();
+			form.setResourceNode(node);
+			form.setColumnCount(1);
+			form.setName("服务能力配置");
 
-		PDatagridColumn column = null;
-		addColumn(datagrid, "serviceName", "服务商名称", ControlTypes.TEXT_BOX, 300);
-		addColumn(datagrid, "mobilePhone", "账号", ControlTypes.TEXT_BOX, 150, false, null, null, null);
+			PFormField formField = null;
+			formField = addFormFieldRefrence(form, "product.name", "服务能力配置", null, "CRM_" + Product.class.getSimpleName(), true, false);
+			{
+				formField.setTroikaTrigger("controllerprodDetails.productChange(newValue,oldValue);");
+				formField.setWidth(300);
+			}
+			formField = addFormField(form, "pDict.name", "省份", ControlTypes.CUSTOM, false, false);
+			{
+				formField.setCustomControlType(CityComboBox.class.getName());
+				formField.setDataOptions("level:1,changeCtrlId:'dCity_name'");
+				formField.setWidth(300);
+			}
+			formField = addFormField(form, "cDict.name", "城市", ControlTypes.CUSTOM, false, false);
+			{
+				formField.setCustomControlType(CityComboBox.class.getName());
+				formField.setDataOptions("level:2,changeCtrlId:'dCounty_name'");
+				formField.setWidth(300);
+			}
+			formField = addFormField(form, "countyDict.name", "区/县", ControlTypes.CUSTOM, false, false);
+			{
+				formField.setCustomControlType(CityComboBox.class.getName());
+				formField.setDataOptions("level:3");
+				formField.setWidth(300);
+			}
+		}
 
 		PPart part = new PPart();
 		{
 			part.toNew();
 			part.setName("服务能力配置");
-			part.setCode("organizations");
-			
+			part.setCode("prodDetails");
+			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
+			part.setRelationRole("prodDetails");
 			part.setResourceNode(node);
-			part.setPartTypeId(org.netsharp.panda.dic.PartType.DETAIL_PART.getId());
+			part.setPartTypeId(PartType.DETAIL_PART.getId());
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
-			//part.setToolbar("panda/datagrid/detail");
-			part.setWindowWidth(600);
-			part.setWindowHeight(400);
-
-			PForm form = this.createDetailGridForm(node);
+			/*part.setToolbar("panda/datagrid/detail");
+			part.setJsController("com.gongsibao.crm.web.ProdMapDetailPart");*/
+			part.setWindowWidth(550);
+			part.setWindowHeight(350);
 			part.setForm(form);
 		}
 		workspace.getParts().add(part);
-	}
-	protected PForm createDetailGridForm(ResourceNode node) {
 
-		PForm form = new PForm();
-		form.setResourceNode(node);
-		form.toNew();
-		form.setColumnCount(1);
-		form.setName("服务能力配置");
-		return form;
+		part = workspace.getParts().get(0);
+		{
+			part.setName("服务商档案");
+			part.setStyle("height:500px;");
+			part.setDockStyle(DockType.DOCUMENTHOST);
+		}
 	}
+	
+	
 	
 	@Override
 	protected PForm createForm(ResourceNode node) {

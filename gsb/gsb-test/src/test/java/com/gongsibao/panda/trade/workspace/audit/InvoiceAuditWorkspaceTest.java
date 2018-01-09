@@ -80,9 +80,9 @@ public class InvoiceAuditWorkspaceTest extends WorkspaceCreationBase {
 		//addColumn(datagrid, "contract.soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "invoice.orderInvoiceMaps.soOrder.accountType", "新老客户签单", ControlTypes.ENUM_BOX, 80);
 		addColumn(datagrid, "invoice.orderInvoiceMaps.soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX, 300);
-		addColumn(datagrid, "invoice.orderInvoiceMaps.soOrder.payablePrice", "订单金额", ControlTypes.DECIMAL_BOX, 80);
-		addColumn(datagrid, "invoice.orderInvoiceMaps.soOrder.paidPrice", "付款金额", ControlTypes.DECIMAL_BOX, 80);		
-		addColumn(datagrid, "invoice.amount", "发票金额", ControlTypes.DECIMAL_BOX, 80);
+		addColumn(datagrid, "invoice.orderInvoiceMaps.soOrder.payablePrice", "订单金额", ControlTypes.DECIMAL_FEN_BOX, 80);
+		addColumn(datagrid, "invoice.orderInvoiceMaps.soOrder.paidPrice", "付款金额", ControlTypes.DECIMAL_FEN_BOX, 80);		
+		addColumn(datagrid, "invoice.amount", "发票金额", ControlTypes.DECIMAL_FEN_BOX, 80);
 		//addColumn(datagrid, "contract.paidPrice", "材料撰写费", ControlTypes.DECIMAL_BOX, 80);		
 		addColumn(datagrid, "invoice.typeId", "发票类型", ControlTypes.ENUM_BOX, 80);		
 		addColumn(datagrid, "invoice.companyId", "开票公司", ControlTypes.ENUM_BOX, 80);
