@@ -11,7 +11,7 @@ import com.gongsibao.entity.BaseEntity;
  * @author: 韩伟
  * @date:   2018年1月9日 上午11:13:22   
  *     
- * @Copyright: 2018 www.yikuaxiu.com Inc. All rights reserved. 
+ * @Copyright: 2018 www.yikuaxiu.com Inc.  All rights reserved. 
  */
 @Table(name="crm_customer_contact_view",header="")
 public class CustomerContactView extends BaseEntity {
