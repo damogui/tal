@@ -77,7 +77,7 @@ public class SetOfBooksWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "type", "类型", null, ControlTypes.ENUM_BOX, true, false);
 		PFormField field = addFormField(form, "taxRate", "税率", null, ControlTypes.DECIMAL_BOX, true, false);
 		{
-			field.setPrecision(3);
+			field.setPrecision(4);
 		}
 		addFormField(form, "sort", "排序编号", null, ControlTypes.NUMBER_BOX, true, false);
 		addFormField(form, "accountCode", "科目编码", null, ControlTypes.TEXT_BOX, false, false);
