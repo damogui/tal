@@ -4,11 +4,11 @@ import org.junit.Before;
 import org.netsharp.meta.base.NavigationBase;
 import org.netsharp.panda.plugin.entity.PNavigation;
 
-import com.gongsibao.entity.crm.BaseServiceProvider;
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.crm.Customer;
 import com.gongsibao.entity.crm.CustomerOrder;
 import com.gongsibao.entity.crm.CustomerServiceConfig;
+import com.gongsibao.entity.crm.base.ServiceProvider;
 
 public class NavigationTest extends NavigationBase {
 
@@ -40,7 +40,7 @@ public class NavigationTest extends NavigationBase {
 		
 		createPTreeNode(tree, null, null, "GSB_Service_Provider", "服务商档案", "", 2);
 		{
-			createPTreeNode(tree, "GSB_Service_Provider", null, "Service_Provider_" + BaseServiceProvider.class.getSimpleName(), "档案列表", "/crm/service/provider/list", 1);
+			createPTreeNode(tree, "GSB_Service_Provider", null, "Service_Provider_" + ServiceProvider.class.getSimpleName(), "档案列表", "/crm/service/provider/list", 1);
 		}
 	}
 }

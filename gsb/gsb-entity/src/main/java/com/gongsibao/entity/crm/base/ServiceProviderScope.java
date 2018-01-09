@@ -1,4 +1,4 @@
-package com.gongsibao.entity.crm;
+package com.gongsibao.entity.crm.base;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
@@ -7,20 +7,29 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.Dict;
+import com.gongsibao.entity.crm.Customer;
 import com.gongsibao.entity.product.Product;
 
-@Table(name = "base_service_provider_configer", header = "服务商能力配置")
-public class BaseServiceProviderConfiger extends BaseEntity{
+@Table(name = "base_service_provider_scope", header = "服务范围")
+public class ServiceProviderScope extends BaseEntity{
 	
 	private static final long serialVersionUID = 9143414453489406854L;
 	
-	@Column(name="service_provider_id")
+	@Column(name="service_provider_id",header="服务商主键")
     private Integer serviceProviderId;
 	
 	@JsonIgnore
     @Reference(foreignKey="serviceProviderId")
-    private BaseServiceProvider serviceProvider;
+    private ServiceProvider serviceProvider;
     
+	@Column(name="customer_id")
+    private Integer customerId;
+	
+	@JsonIgnore
+    @Reference(foreignKey="customerId")
+    private Customer customer;
+	
+	
     @Column(name="product_id")
     private Integer productId;
     
@@ -48,7 +57,6 @@ public class BaseServiceProviderConfiger extends BaseEntity{
 	@Reference(foreignKey="dCountyId",header="区/县")
 	private Dict dCounty;
 
-	
 	public Integer getServiceProviderId() {
 		return serviceProviderId;
 	}
@@ -57,11 +65,11 @@ public class BaseServiceProviderConfiger extends BaseEntity{
 		this.serviceProviderId = serviceProviderId;
 	}
 
-	public BaseServiceProvider getServiceProvider() {
+	public ServiceProvider getServiceProvider() {
 		return serviceProvider;
 	}
 
-	public void setServiceProvider(BaseServiceProvider serviceProvider) {
+	public void setServiceProvider(ServiceProvider serviceProvider) {
 		this.serviceProvider = serviceProvider;
 	}
 

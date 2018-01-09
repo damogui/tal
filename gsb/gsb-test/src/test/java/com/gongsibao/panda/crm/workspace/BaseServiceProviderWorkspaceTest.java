@@ -21,9 +21,8 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.controls.CityComboBox;
-import com.gongsibao.crm.web.CustomerFormPart;
-import com.gongsibao.entity.crm.BaseServiceProvider;
-import com.gongsibao.entity.crm.BaseServiceProviderConfiger;
+import com.gongsibao.entity.crm.base.ServiceProvider;
+import com.gongsibao.entity.crm.base.ServiceProviderScope;
 import com.gongsibao.entity.product.Product;
 
 public class BaseServiceProviderWorkspaceTest extends WorkspaceCreationBase{
@@ -31,7 +30,7 @@ public class BaseServiceProviderWorkspaceTest extends WorkspaceCreationBase{
 	@Override
 	@Before
 	public void setup() {
-		entity = BaseServiceProvider.class;
+		entity = ServiceProvider.class;
 		//配置资源路径
 		urlList = "/crm/service/provider/list";
 		//配置表单路径
@@ -39,7 +38,7 @@ public class BaseServiceProviderWorkspaceTest extends WorkspaceCreationBase{
 		listPartName = formPartName = "服务商档案";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "Service_Provider_"+BaseServiceProvider.class.getSimpleName();
+		resourceNodeCode = "Service_Provider_"+ServiceProvider.class.getSimpleName();
 		
 		//选项卡页面的js
 		formJsImport = "/gsb/crm/js/service.provider.form.part.js|/gsb/gsb.customer.controls.js";
@@ -92,7 +91,7 @@ public class BaseServiceProviderWorkspaceTest extends WorkspaceCreationBase{
 	}
 	//选项卡加载项
 	private void addServiceCapacityPart(PWorkspace workspace) {
-		ResourceNode node = this.resourceService.byCode(BaseServiceProviderConfiger.class.getSimpleName());
+		ResourceNode node = this.resourceService.byCode(ServiceProviderScope.class.getSimpleName());
 		PDatagrid datagrid = new PDatagrid(node, "服务范围");
 		{
 			addColumn(datagrid, "product.name", "产品", ControlTypes.TEXT_BOX, 300);

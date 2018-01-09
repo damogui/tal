@@ -4,12 +4,12 @@ import org.netsharp.communication.Service;
 import org.netsharp.service.PersistableService;
 
 import com.gongsibao.crm.base.IBaseServiceProviderService;
-import com.gongsibao.entity.crm.BaseServiceProvider;
+import com.gongsibao.entity.crm.base.ServiceProvider;
 
 @Service
-public class BaseServiceProviderService extends PersistableService<BaseServiceProvider> implements IBaseServiceProviderService{
+public class BaseServiceProviderService extends PersistableService<ServiceProvider> implements IBaseServiceProviderService{
 	public BaseServiceProviderService() {
 		super();
-		this.type = BaseServiceProvider.class;
+		this.type = ServiceProvider.class;
 	}
 }
