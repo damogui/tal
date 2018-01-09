@@ -2,12 +2,14 @@ package com.gongsibao.entity.u8;
 
 import java.math.BigDecimal;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
 import com.gongsibao.entity.bd.Dict;
+import com.gongsibao.entity.json.JsonTaxRateBigDecimalSerializer;
 import com.gongsibao.entity.u8.dic.U8BankType;
 
 @Table(name = "u8_bank")
@@ -61,6 +63,7 @@ public class U8Bank extends Entity {
 	@Column(name = "dept_id", header = "u8部门id")
 	private String deptId;
 
+	@JsonSerialize(using = JsonTaxRateBigDecimalSerializer.class)
 	@Column(name = "tax_rate", header = "供应商税率")
 	private BigDecimal taxRate;
 
@@ -151,7 +154,7 @@ public class U8Bank extends Entity {
 	}
 
 	public Integer getPrepaySubjectId() {
-		return prepaySubjectId;
+		return prepaySubjectId == null ? 0 : prepaySubjectId;
 	}
 
 	public void setPrepaySubjectId(Integer prepaySubjectId) {

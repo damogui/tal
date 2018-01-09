@@ -48,6 +48,7 @@ public class U8BankWorkspaceTest extends WorkspaceCreationBase {
 		}
 		
 		PDatagridColumn column = null;
+		addColumn(datagrid, "id", "主键", ControlTypes.DECIMAL_BOX, 50);
 		addColumn(datagrid, "name", "银行/科目名称", ControlTypes.TEXT_BOX, 200);
 		//addColumn(datagrid, "no", "卡号", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "code", "科目编号", ControlTypes.TEXT_BOX, 100);
@@ -57,7 +58,8 @@ public class U8BankWorkspaceTest extends WorkspaceCreationBase {
 			column.setAlign(DatagridAlign.CENTER);
 		}
 		addColumn(datagrid, "offlineWayType.name", "原付款方式", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "supplierId", "u8供应商id", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "supplierId", "u8供应商id", ControlTypes.DECIMAL_BOX, 100);
+		addColumn(datagrid, "prepaySubjectId", "预付或手续费id", ControlTypes.NUMBER_BOX, 100);
 		//addColumn(datagrid, "prepaySubject.name", "预付科目", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "personnelId", "u8人员id", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "deptId", "u8部门id", ControlTypes.TEXT_BOX, 100);		
@@ -66,7 +68,6 @@ public class U8BankWorkspaceTest extends WorkspaceCreationBase {
 			column.setPrecision(4);
 		}
 		addColumn(datagrid, "sort", "排序编号", ControlTypes.NUMBER_BOX, 100);
-
 		addColumn(datagrid, "enabled", "是否可用", ControlTypes.BOOLCOMBO_BOX, 50);
 		addColumn(datagrid, "creator", "添加人", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "createTime", "添加时间", ControlTypes.DATETIME_BOX, 100);
@@ -78,6 +79,7 @@ public class U8BankWorkspaceTest extends WorkspaceCreationBase {
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
 		addQueryItem(queryProject, "name", "名称", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "code", "科目编号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "type", "类型", ControlTypes.ENUM_BOX);
 		// 参照
 		addRefrenceQueryItem(queryProject, "setOfBooks.name", "账套", SetOfBooks.class.getSimpleName());
@@ -99,6 +101,7 @@ public class U8BankWorkspaceTest extends WorkspaceCreationBase {
 		//addFormFieldRefrence(form, "setOfBooks.name", "账套名称",null,  SetOfBooks.class.getSimpleName(), false, false);
 		addFormField(form, "type", "类型", ControlTypes.ENUM_BOX, true, false);		
 		addFormField(form, "supplierId", "u8供应商id", ControlTypes.TEXT_BOX,  false, false);	
+		addFormField(form, "prepaySubjectId", "预付或手续费id", ControlTypes.NUMBER_BOX,  false, false);
 		//addFormFieldRefrence(form, "prepaySubject.name", "预付科目",null, U8Bank.class.getSimpleName(), false, false);
 		addFormField(form, "personnelId", "u8人员id", ControlTypes.TEXT_BOX,  false, false);
 		field = addFormField(form, "offlineWayType.name", "原线下付款方式", null, ControlTypes.CUSTOM, false, false);
@@ -108,7 +111,7 @@ public class U8BankWorkspaceTest extends WorkspaceCreationBase {
 		}
 		addFormField(form, "deptId", "u8部门id", ControlTypes.TEXT_BOX, false, false);				
 		field = addFormField(form, "taxRate", "税率", null, ControlTypes.DECIMAL_BOX, false, false);		{
-			field.setPrecision(3);
+			field.setPrecision(4);
 		}
 		addFormField(form, "sort", "排序编号", ControlTypes.NUMBER_BOX,  false, false);
 		addFormField(form, "enabled", "是否可用", ControlTypes.SWITCH_BUTTON, false, false);
