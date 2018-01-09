@@ -45,6 +45,15 @@ public class NCustomerTask extends Entity {
 	@Reference(foreignKey = "departmentId", header = "分配服务商部门")
 	private SupplierDepartment department;
 	
+	@Column(name = "last_allocation_time", header = "最后分配时间")
+	private Date lastAllocationTime;
+	
+	@Column(name = "last_allocation_user_id", header = "最后分配人Id")
+	private Integer lastAllocationUserId = 0;
+	
+	@Reference(foreignKey = "lastAllocationUserId", header = "最后分配人")
+	private Employee lastAllocationUser;
+	
 	@Column(name = "foolow_status", header = "跟进状态")
 	private CustomerFollowStatus foolowStatus;
 
@@ -253,5 +262,29 @@ public class NCustomerTask extends Entity {
 
 	public void setNextFoolowTime(Date nextFoolowTime) {
 		this.nextFoolowTime = nextFoolowTime;
+	}
+
+	public Date getLastAllocationTime() {
+		return lastAllocationTime;
+	}
+
+	public void setLastAllocationTime(Date lastAllocationTime) {
+		this.lastAllocationTime = lastAllocationTime;
+	}
+
+	public Integer getLastAllocationUserId() {
+		return lastAllocationUserId;
+	}
+
+	public void setLastAllocationUserId(Integer lastAllocationUserId) {
+		this.lastAllocationUserId = lastAllocationUserId;
+	}
+
+	public Employee getLastAllocationUser() {
+		return lastAllocationUser;
+	}
+
+	public void setLastAllocationUser(Employee lastAllocationUser) {
+		this.lastAllocationUser = lastAllocationUser;
 	}
 }
