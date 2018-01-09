@@ -50,6 +50,7 @@ public class DictWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "alias", "别名", ControlTypes.TEXT_BOX, 50);
 		addColumn(datagrid, "code", "编码", ControlTypes.TEXT_BOX, 50);
 		addColumn(datagrid, "enabled", "是否启用", ControlTypes.BOOLCOMBO_BOX, 50);
+		addColumn(datagrid, "createTime", "添加时间", ControlTypes.DATETIME_BOX, 50);
 		return datagrid;
 	}
 

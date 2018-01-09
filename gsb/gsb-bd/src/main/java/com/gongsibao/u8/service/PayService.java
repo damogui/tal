@@ -1,6 +1,9 @@
 package com.gongsibao.u8.service;
 
+import java.sql.Types;
+
 import org.netsharp.communication.Service;
+import org.netsharp.core.Oql;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
@@ -40,6 +43,18 @@ public class PayService extends PersistableService<Pay> implements IPayService {
 		}
 		String cmdText = updateSql.toSQL();
 		return this.pm.executeNonQuery(cmdText, null);
+	}
+
+	@Override
+	public Pay getById(int payId) {
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects("*");
+			oql.setFilter("id=?");
+			oql.getParameters().add("id", payId, Types.INTEGER);
+		}
+		return this.pm.queryFirst(oql);
 	}
 
 }
