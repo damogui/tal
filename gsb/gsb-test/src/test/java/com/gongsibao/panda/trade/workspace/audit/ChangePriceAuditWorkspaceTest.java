@@ -81,9 +81,9 @@ public class ChangePriceAuditWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "soOrder.no", "订单编号", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX, 300);
-		addColumn(datagrid, "soOrder.totalPrice", "原价金额", ControlTypes.DECIMAL_BOX, 80);
-		addColumn(datagrid, "soOrder.payablePrice", "订单金额", ControlTypes.DECIMAL_BOX, 80);
-		addColumn(datagrid, "soOrder.paidPrice", "付款金额", ControlTypes.DECIMAL_BOX, 80);		
+		addColumn(datagrid, "soOrder.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 80);
+		addColumn(datagrid, "soOrder.payablePrice", "订单金额", ControlTypes.DECIMAL_FEN_BOX, 80);
+		addColumn(datagrid, "soOrder.paidPrice", "付款金额", ControlTypes.DECIMAL_FEN_BOX, 80);		
 		/*addColumn(datagrid, "", "业务员", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "", "申请人", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "", "申请时间", ControlTypes.DATETIME_BOX, 100);*/		

@@ -4,9 +4,10 @@ import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.crm.dic.NotifiedType;
 
-@Table(name = "service_file", header = "服务商档案")
-public class ServiceFile extends BaseEntity{
+@Table(name = "base_service_provider", header = "服务商档案")
+public class BaseServiceProvider extends BaseEntity{
 
 	private static final long serialVersionUID = 6562120272245433851L;
 	@Column(name = "service_name", header = "服务商名称")
@@ -28,7 +29,7 @@ public class ServiceFile extends BaseEntity{
 	private Boolean isPushReport = true;
 	
 	@Column(name = "message_notified_type", header = "消息通知类型 ")
-	private Integer messageNotifiedType;
+	private NotifiedType messageNotifiedType=NotifiedType.Wx;
 	
 	@Column(name = "is_auto_assign", header = "是否推自动分配  0否, 1是")
 	private Boolean isAutoAssign = true;
@@ -97,11 +98,12 @@ public class ServiceFile extends BaseEntity{
 		this.isPushReport = isPushReport;
 	}
 
-	public Integer getMessageNotifiedType() {
+	
+	public NotifiedType getMessageNotifiedType() {
 		return messageNotifiedType;
 	}
 
-	public void setMessageNotifiedType(Integer messageNotifiedType) {
+	public void setMessageNotifiedType(NotifiedType messageNotifiedType) {
 		this.messageNotifiedType = messageNotifiedType;
 	}
 

@@ -1,7 +1,8 @@
 rootProject.name = 'gsb'
 
-include 'gsb-api'
 include 'gsb-entity'
+include 'gsb-sms'
+include 'gsb-api'
 include 'gsb-ma'
 include 'gsb-er'
 include 'gsb-bd'

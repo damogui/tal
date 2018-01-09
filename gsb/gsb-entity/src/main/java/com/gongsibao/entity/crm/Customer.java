@@ -19,7 +19,7 @@ import com.gongsibao.entity.crm.dic.Sex;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.uc.Organization;
 
-@Table(name="crm_customer")
+@Table(name="crm_customer",header="客户信息")
 public class Customer extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   

@@ -24,7 +24,7 @@ public class JsonUtils {
 
     private static final String DEFAULT_DATA = "yyyy-MM-dd HH:mm:ss";
 
-    private static final ThreadLocal<ObjectMapper> mapper = new ThreadLocal<>();
+    private static final ThreadLocal<ObjectMapper> mapper = new ThreadLocal<ObjectMapper>();
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat(DEFAULT_DATA);
 
     /**
@@ -131,7 +131,7 @@ public class JsonUtils {
     }
 
     public static void main(String[] args) {
-        Map<String, String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<String, String>();
 
         map.put("a", "aa");
         map.put("ab", "ab");

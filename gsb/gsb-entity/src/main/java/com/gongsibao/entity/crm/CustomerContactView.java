@@ -5,6 +5,14 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
+/**   
+ * @ClassName:  CustomerContactView   
+ * @Description:TODO 这是干什么用的？
+ * @author: 韩伟
+ * @date:   2018年1月9日 上午11:13:22   
+ *     
+ * @Copyright: 2018 www.yikuaxiu.com Inc.  All rights reserved. 
+ */
 @Table(name="crm_customer_contact_view",header="")
 public class CustomerContactView extends BaseEntity {
     /**   
