@@ -78,10 +78,10 @@ public class RefundAuditWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "fefund.soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX, 300);		
 		addColumn(datagrid, "fefund.soOrder.payStatus.name", "订单支付状态", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "fefund.soOrder.processStatus.name", "订单办理状态", ControlTypes.TEXT_BOX, 80);		
-		addColumn(datagrid, "fefund.soOrder.totalPrice", "原价金额", ControlTypes.DECIMAL_BOX, 80);
-		addColumn(datagrid, "fefund.soOrder.payablePrice", "订单金额", ControlTypes.DECIMAL_BOX, 80);
-		addColumn(datagrid, "fefund.soOrder.paidPrice", "付款金额", ControlTypes.DECIMAL_BOX, 80);		
-		addColumn(datagrid, "fefund.amount", "退款金额", ControlTypes.DECIMAL_BOX, 80);		
+		addColumn(datagrid, "fefund.soOrder.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 80);
+		addColumn(datagrid, "fefund.soOrder.payablePrice", "订单金额", ControlTypes.DECIMAL_FEN_BOX, 80);
+		addColumn(datagrid, "fefund.soOrder.paidPrice", "付款金额", ControlTypes.DECIMAL_FEN_BOX, 80);		
+		addColumn(datagrid, "fefund.amount", "退款金额", ControlTypes.DECIMAL_FEN_BOX, 80);		
 		addColumn(datagrid, "fefund.soOrder.isInstallment", "是否分期", ControlTypes.BOOLCOMBO_BOX, 80);
 		/*
 		 * addColumn(datagrid, "", "业务员", ControlTypes.TEXT_BOX, 100);

@@ -84,8 +84,8 @@ public class ReceiptAuditWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "pay.orderPayMaps.soOrder.type", "订单类型", ControlTypes.ENUM_BOX, 80);
 		addColumn(datagrid, "pay.orderPayMaps.soOrder.payStatus.name", "订单支付状态", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "pay.orderPayMaps.soOrder.processStatus.name", "订单办理状态", ControlTypes.TEXT_BOX, 80);
-		addColumn(datagrid, "pay.orderPayMaps.soOrder.payablePrice", "订单金额", ControlTypes.DECIMAL_BOX, 80);		
-		addColumn(datagrid, "pay.orderPayMaps.soOrder.paidPrice", "已付款金额", ControlTypes.DECIMAL_BOX, 80);
+		addColumn(datagrid, "pay.orderPayMaps.soOrder.payablePrice", "订单金额", ControlTypes.DECIMAL_FEN_BOX, 80);		
+		addColumn(datagrid, "pay.orderPayMaps.soOrder.paidPrice", "已付款金额", ControlTypes.DECIMAL_FEN_BOX, 80);
 		//addColumn(datagrid, "pay.orderPayMaps.soOrder.payablePrice", 待付款金额", ControlTypes.DECIMAL_BOX, 80);
 		addColumn(datagrid, "pay.offlineInstallmentTypeId", "付款类别", ControlTypes.DECIMAL_BOX, 80);
 		/*addColumn(datagrid, "", "业务员", ControlTypes.TEXT_BOX, 100);

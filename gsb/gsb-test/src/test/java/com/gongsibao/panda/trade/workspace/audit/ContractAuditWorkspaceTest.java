@@ -78,10 +78,10 @@ public class ContractAuditWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "contract.soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "contract.soOrder.accountType", "新老客户签单", ControlTypes.ENUM_BOX, 80);
 		addColumn(datagrid, "contract.soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX, 300);
-		addColumn(datagrid, "contract.contractPrice", "业绩总额", ControlTypes.DECIMAL_BOX, 80);
-		addColumn(datagrid, "contract.realAmount", "合同总额", ControlTypes.DECIMAL_BOX, 80);
-		 addColumn(datagrid, "contract.dataFee", "材料撰写费",ControlTypes.DECIMAL_BOX, 80);
-		addColumn(datagrid, "contract.liquidatedDamages", "违约金", ControlTypes.DECIMAL_BOX, 80);
+		addColumn(datagrid, "contract.contractPrice", "业绩总额", ControlTypes.DECIMAL_FEN_BOX, 80);
+		addColumn(datagrid, "contract.realAmount", "合同总额", ControlTypes.DECIMAL_FEN_BOX, 80);
+		 addColumn(datagrid, "contract.dataFee", "材料撰写费",ControlTypes.DECIMAL_FEN_BOX, 80);
+		addColumn(datagrid, "contract.liquidatedDamages", "违约金", ControlTypes.DECIMAL_FEN_BOX, 80);
 		addColumn(datagrid, "contract.soOrder.isInstallment", "分期付款", ControlTypes.BOOLCOMBO_BOX, 80);
 		/*
 		 * addColumn(datagrid, "", "业务员", ControlTypes.TEXT_BOX, 100);
