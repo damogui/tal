@@ -41,6 +41,7 @@ public class DictWorkspaceTest extends WorkspaceCreationBase {
 			datagrid.setName("字典信息列表");
 		}
 
+		addColumn(datagrid, "id", "主键id", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "type", "类型", ControlTypes.ENUM_BOX, 100);
 		addColumn(datagrid, "pid", "父id", ControlTypes.NUMBER_BOX, 150);
@@ -64,6 +65,7 @@ public class DictWorkspaceTest extends WorkspaceCreationBase {
 
 		PForm form = super.createForm(node);
 		form.setColumnCount(2);
+		addFormField(form, "id", "主键id", null, ControlTypes.NUMBER_BOX, true, false);
 		addFormField(form, "name", "名称", null, ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "type", "类型", null, ControlTypes.ENUM_BOX, true, false);
 		addFormField(form, "alias", "别名", null, ControlTypes.TEXT_BOX, false, false);

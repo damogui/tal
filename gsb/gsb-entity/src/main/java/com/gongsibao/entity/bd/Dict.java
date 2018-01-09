@@ -1,16 +1,42 @@
 package com.gongsibao.entity.bd;
 
+import java.util.Date;
+
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Id;
 import org.netsharp.core.annotations.Table;
+import org.netsharp.entity.IEntity;
+import org.netsharp.entity.Persistable;
 import org.netsharp.util.StringManager;
 
-import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.dic.DictType;
 
 @Table(name = "bd_dict")
-public class Dict extends BaseEntity {
+public class Dict extends Persistable {
 	private static final long serialVersionUID = -1666319042067350999L;
+	
+	@Id
+	@Column(name="pkid",header="id")
+	private Integer id;
+	
+    @Column(name="add_user_id",header="添加人")
+    private Integer creatorId = 0;
+    
+	@Column(name="add_time",header="创建时间")
+    private Date createTime;
+    
+    @Column(name="upd_user_id",header="修改人")
+    private Integer updatorId = 0;
+    
+    @Column(name="upd_time",header="修改时间")
+    private Date updateTime;
+    
+	@Column(name = "creator", header = "创建人名称")
+	private String creator;
 
+	@Column(name = "updator", header = "更新人名称")
+	private String updator;
+	
 	@Column(name = "pid", header = "父子关系")
 	private Integer parentId;
 
@@ -98,4 +124,63 @@ public class Dict extends BaseEntity {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getCreatorId() {
+		return creatorId;
+	}
+
+	public void setCreatorId(Integer creatorId) {
+		this.creatorId = creatorId;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public Integer getUpdatorId() {
+		return updatorId;
+	}
+
+	public void setUpdatorId(Integer updatorId) {
+		this.updatorId = updatorId;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+
+	public String getCreator() {
+		return creator;
+	}
+
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
+
+	public String getUpdator() {
+		return updator;
+	}
+
+	public void setUpdator(String updator) {
+		this.updator = updator;
+	}
+	
+	
+	
 }
