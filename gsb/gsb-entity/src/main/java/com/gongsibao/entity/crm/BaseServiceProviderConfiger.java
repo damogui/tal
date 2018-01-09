@@ -9,11 +9,9 @@ import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.product.Product;
 
-@Table(name = "service_file_configer", header = "服务商能力配置")
-public class ServiceFileConfiger extends BaseEntity{
-	/**   
-	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
-	 */   
+@Table(name = "base_service_provider_configer", header = "服务商能力配置")
+public class BaseServiceProviderConfiger extends BaseEntity{
+	
 	private static final long serialVersionUID = 9143414453489406854L;
 	
 	@Column(name="service_file_id")
@@ -21,7 +19,7 @@ public class ServiceFileConfiger extends BaseEntity{
 	
 	@JsonIgnore
     @Reference(foreignKey="serviceFileId")
-    private ServiceFile serviceFile;
+    private BaseServiceProvider serviceFile;
     
     @Column(name="product_id")
     private Integer productId;
@@ -57,11 +55,11 @@ public class ServiceFileConfiger extends BaseEntity{
 		this.serviceFileId = serviceFileId;
 	}
 
-	public ServiceFile getServiceFile() {
+	public BaseServiceProvider getServiceFile() {
 		return serviceFile;
 	}
 
-	public void setServiceFile(ServiceFile serviceFile) {
+	public void setServiceFile(BaseServiceProvider serviceFile) {
 		this.serviceFile = serviceFile;
 	}
 

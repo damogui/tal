@@ -16,37 +16,31 @@ import org.netsharp.panda.entity.PForm;
 import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PPart;
 import org.netsharp.panda.entity.PQueryProject;
-import org.netsharp.panda.entity.PReference;
 import org.netsharp.panda.entity.PWorkspace;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.controls.CityComboBox;
-import com.gongsibao.controls.DictComboBox;
-import com.gongsibao.crm.service.ServiceFileConfigerService;
-import com.gongsibao.entity.crm.CustomerProdMap;
-import com.gongsibao.entity.crm.ServiceFile;
-import com.gongsibao.entity.crm.ServiceFileConfiger;
+import com.gongsibao.entity.crm.BaseServiceProvider;
+import com.gongsibao.entity.crm.BaseServiceProviderConfiger;
 import com.gongsibao.entity.product.Product;
-import com.gongsibao.entity.uc.UserOrganizationMap;
-import com.gongsibao.uc.web.UserFormPart;
 
-public class ServiceFileWorkspaceTest extends WorkspaceCreationBase{
+public class BaseServiceProviderWorkspaceTest extends WorkspaceCreationBase{
 
 	@Override
 	@Before
 	public void setup() {
-		entity = ServiceFile.class;
-		urlList = "/crm/service/file/list";
-		urlForm = "/crm/service/file/from";
+		entity = BaseServiceProvider.class;
+		urlList = "/crm/service/provider/list";
+		urlForm = "/crm/service/provider/from";
 		listPartName = formPartName = "服务商档案";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "Service_File_"+ServiceFile.class.getSimpleName();
+		resourceNodeCode = "Service_Provider_"+BaseServiceProvider.class.getSimpleName();
 		
-		formServiceController = UserFormPart.class.getName();
+		/*formServiceController = UserFormPart.class.getName();
 		formJsController = UserFormPart.class.getName();
-		formJsImport = "/gsb/uc/js/user.form.part.js|/gsb/gsb.customer.controls.js";
+		formJsImport = "/gsb/uc/js/user.form.part.js|/gsb/gsb.customer.controls.js";*/
 	}
 	
 	@Override
@@ -89,14 +83,14 @@ public class ServiceFileWorkspaceTest extends WorkspaceCreationBase{
 	}
 	
 	
-	
+	/*@Override
 	protected void addDetailGridPart(PWorkspace workspace) {
 		addServiceCapacityPart(workspace);
-	}
+	}*/
 	
 	private void addServiceCapacityPart(PWorkspace workspace) {
 
-		ResourceNode node = this.resourceService.byCode(ServiceFileConfiger.class.getSimpleName());
+		ResourceNode node = this.resourceService.byCode(BaseServiceProviderConfiger.class.getSimpleName());
 		PDatagrid datagrid = new PDatagrid(node, "服务能力配置");
 		{
 			addColumn(datagrid, "product.name", "产品", ControlTypes.TEXT_BOX, 300);
