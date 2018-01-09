@@ -5,7 +5,15 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="crm_company_buy_industry_map" ,header="")
+/**   
+ * @ClassName:  CompanyBuyIndustryMap   
+ * @Description:TODO 没有数据
+ * @author: 韩伟
+ * @date:   2018年1月9日 上午11:10:40   
+ *     
+ * @Copyright: 2018 www.yikuaxiu.com Inc. All rights reserved. 
+ */
+@Table(name="crm_company_buy_industry_map" ,header="我要收购公司--行业特点关联表")
 public class CompanyBuyIndustryMap extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   

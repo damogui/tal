@@ -5,8 +5,17 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="crm_company_buy",header="")
+/**   
+ * @ClassName:  CompanyBuy   
+ * @Description:TODO 数据很少
+ * @author: 韩伟
+ * @date:   2018年1月9日 上午11:10:20   
+ *     
+ * @Copyright: 2018 www.yikuaxiu.com Inc. All rights reserved. 
+ */
+@Table(name="crm_company_buy",header="我要收购公司表")
 public class CompanyBuy extends BaseEntity {
+	
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   

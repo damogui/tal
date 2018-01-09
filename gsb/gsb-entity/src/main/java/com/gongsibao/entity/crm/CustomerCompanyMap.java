@@ -7,7 +7,7 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="crm_customer_company_map",header="")
+@Table(name="crm_customer_company_map",header="客户与企业信息关联表")
 public class CustomerCompanyMap extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
