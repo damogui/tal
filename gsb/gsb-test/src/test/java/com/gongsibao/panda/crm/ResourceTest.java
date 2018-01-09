@@ -5,7 +5,7 @@ import org.netsharp.base.IPersistableService;
 import org.netsharp.meta.base.ResourceCreationBase;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.crm.base.IBaseServiceProviderConfigerService;
+import com.gongsibao.crm.base.IBaseServiceProviderScopeService;
 import com.gongsibao.crm.base.IBaseServiceProviderService;
 import com.gongsibao.crm.base.ICompanyIntentionService;
 import com.gongsibao.crm.base.ICustomerCompanyMapService;
@@ -15,8 +15,6 @@ import com.gongsibao.crm.base.ICustomerProdMapService;
 import com.gongsibao.crm.base.ICustomerService;
 import com.gongsibao.crm.base.ICustomerServiceConfigService;
 import com.gongsibao.entity.bd.Dict;
-import com.gongsibao.entity.crm.BaseServiceProvider;
-import com.gongsibao.entity.crm.BaseServiceProviderConfiger;
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.crm.Customer;
 import com.gongsibao.entity.crm.CustomerCompanyMap;
@@ -24,6 +22,8 @@ import com.gongsibao.entity.crm.CustomerFollow;
 import com.gongsibao.entity.crm.CustomerOrder;
 import com.gongsibao.entity.crm.CustomerProdMap;
 import com.gongsibao.entity.crm.CustomerServiceConfig;
+import com.gongsibao.entity.crm.base.ServiceProvider;
+import com.gongsibao.entity.crm.base.ServiceProviderScope;
 import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.trade.SoOrder;
 
@@ -64,8 +64,8 @@ public class ResourceTest extends ResourceCreationBase {
 		
 		node1 = this.createResourceNodeCategory("服务商档案", "GSB_Service_Provider", node.getId());
 		{
-			this.createResourceNodeVoucher(BaseServiceProvider.class.getName(), "档案列表", "Service_Provider_" + BaseServiceProvider.class.getSimpleName(), IBaseServiceProviderService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(BaseServiceProviderConfiger.class.getName(), "服务能力配置", BaseServiceProviderConfiger.class.getSimpleName(), IBaseServiceProviderConfigerService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(ServiceProvider.class.getName(), "档案列表", "Service_Provider_" + ServiceProvider.class.getSimpleName(), IBaseServiceProviderService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(ServiceProviderScope.class.getName(), "服务范围", ServiceProviderScope.class.getSimpleName(), IBaseServiceProviderScopeService.class.getName(), node1.getId());
 		}
 	}
 }
