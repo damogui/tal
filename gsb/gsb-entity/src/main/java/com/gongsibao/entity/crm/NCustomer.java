@@ -17,6 +17,7 @@ import com.gongsibao.entity.crm.dic.CustomerIntention;
 import com.gongsibao.entity.crm.dic.Important;
 import com.gongsibao.entity.crm.dic.IntentionCategory;
 import com.gongsibao.entity.crm.dic.Sex;
+import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
 @Table(name = "n_crm_customer", header = "客户信息")
@@ -115,7 +116,7 @@ public class NCustomer extends Entity {
 	private Integer supplierId;
 
 	@Reference(foreignKey = "allocationOrgId", header = "分配服务商")
-	private SupplierDepartment supplier;
+	private Supplier supplier;
 	
 	@Column(name = "department_id", header = "分配服务商部门Id")
 	private Integer departmentId;
@@ -418,11 +419,11 @@ public class NCustomer extends Entity {
 		this.supplierId = supplierId;
 	}
 
-	public SupplierDepartment getSupplier() {
+	public Supplier getSupplier() {
 		return supplier;
 	}
 
-	public void setSupplier(SupplierDepartment supplier) {
+	public void setSupplier(Supplier supplier) {
 		this.supplier = supplier;
 	}
 
