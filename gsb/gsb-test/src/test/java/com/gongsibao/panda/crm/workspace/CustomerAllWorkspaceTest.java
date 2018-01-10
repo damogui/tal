@@ -265,7 +265,7 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 
 		createCustomerProdMapDetailDetailPart(workspace);
 		createCompanysDetailPart(workspace);
-		createOrderDetailPart(workspace);
+		//createOrderDetailPart(workspace);
 		createFlowDetailPart(workspace);
 	}
 

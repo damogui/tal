@@ -38,9 +38,9 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_" + CustomerOrder.class.getSimpleName(), "订单列表", "/crm/customer/order/list", 7);
 		}
 		
-		createPTreeNode(tree, null, null, "GSB_Service_Provider", "服务商档案", "", 2);
-		{
-			createPTreeNode(tree, "GSB_Service_Provider", null, "Service_Provider_" + ServiceProvider.class.getSimpleName(), "档案列表", "/crm/service/provider/list", 1);
-		}
+//		createPTreeNode(tree, null, null, "GSB_Service_Provider", "服务商档案", "", 2);
+//		{
+//			createPTreeNode(tree, "GSB_Service_Provider", null, "Service_Provider_" + ServiceProvider.class.getSimpleName(), "档案列表", "/crm/service/provider/list", 1);
+//		}
 	}
 }

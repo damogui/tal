@@ -190,11 +190,11 @@ public class CustomerService extends GsbPersistableService<Customer> implements 
 		}
 
 		Customer entity = this.queryFirst(oql);
-		if (entity.getAccountId() != null && entity.getAccountId() != 0) {
-
-			List<SoOrder> orders = getOrderList(entity.getAccountId());
-			entity.setOrders(orders);
-		}
+//		if (entity.getAccountId() != null && entity.getAccountId() != 0) {
+//
+//			List<SoOrder> orders = getOrderList(entity.getAccountId());
+//			entity.setOrders(orders);
+//		}
 		return entity;
 	}
 
@@ -212,11 +212,11 @@ public class CustomerService extends GsbPersistableService<Customer> implements 
 
 		Customer entity = this.queryFirst(oql);
 
-		if (entity != null && entity.getAccountId() != null && entity.getAccountId() != 0) {
-
-			List<SoOrder> orders = getOrderList(entity.getAccountId());
-			entity.setOrders(orders);
-		}
+//		if (entity != null && entity.getAccountId() != null && entity.getAccountId() != 0) {
+//
+//			List<SoOrder> orders = getOrderList(entity.getAccountId());
+//			entity.setOrders(orders);
+//		}
 		return entity;
 	}
 
@@ -248,11 +248,11 @@ public class CustomerService extends GsbPersistableService<Customer> implements 
 
 		Customer entity = this.queryFirst(oql);
 
-		if (entity != null && entity.getAccountId() != null && entity.getAccountId() != 0) {
-
-			List<SoOrder> orders = getOrderList(entity.getAccountId());
-			entity.setOrders(orders);
-		}
+//		if (entity != null && entity.getAccountId() != null && entity.getAccountId() != 0) {
+//
+//			List<SoOrder> orders = getOrderList(entity.getAccountId());
+//			entity.setOrders(orders);
+//		}
 		return entity;
 	}
 

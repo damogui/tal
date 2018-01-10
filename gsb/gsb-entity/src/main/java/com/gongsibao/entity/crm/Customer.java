@@ -16,7 +16,6 @@ import com.gongsibao.entity.crm.dic.ConsultWay;
 import com.gongsibao.entity.crm.dic.FollowStatus;
 import com.gongsibao.entity.crm.dic.Important;
 import com.gongsibao.entity.crm.dic.Sex;
-import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.uc.Organization;
 
 @Table(name="crm_customer",header="客户信息")
@@ -173,8 +172,8 @@ public class Customer extends BaseEntity {
 //	private List<CustomerProdMap> prodDetails;
 	
     
-	@Subs(foreignKey="accountId",header="下单记录",subType=SoOrder.class)
-	private List<SoOrder> orders;
+//	@Subs(foreignKey="accountId",header="下单记录",subType=SoOrder.class)
+//	private List<SoOrder> orders;
 	
     
 	@Subs(foreignKey="customerId",header="沟通日志",subType=CustomerFollow.class)
@@ -561,11 +560,11 @@ public class Customer extends BaseEntity {
 		this.prodDetails = prodDetails;
 	}
 
-	public List<SoOrder> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(List<SoOrder> orders) {
-		this.orders = orders;
-	}
+//	public List<SoOrder> getOrders() {
+//		return orders;
+//	}
+//
+//	public void setOrders(List<SoOrder> orders) {
+//		this.orders = orders;
+//	}
 }
