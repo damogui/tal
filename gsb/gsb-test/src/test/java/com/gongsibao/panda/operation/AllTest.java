@@ -47,9 +47,9 @@ import com.gongsibao.panda.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
 //	CPAuditWorkspaceTest.class,
 //	SPAuditWorkspaceTest.class,
 	
-//	FunctionModuleWorkspaceTest.class,
-//	SupplierWorkspaceTest.class,
-//	SupplierCategoryWorkspaceTest.class,
+	FunctionModuleWorkspaceTest.class,
+	SupplierWorkspaceTest.class,
+	SupplierCategoryWorkspaceTest.class,
 	
 	NavigationTest.class
 	

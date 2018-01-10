@@ -1,5 +1,6 @@
 package com.gongsibao.entity.supplier;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
@@ -17,6 +18,7 @@ public class FunctionModuleRole extends Entity{
 	@Column(name="function_module_id")
 	private Integer functionModuleId;
 	
+	@JsonIgnore
 	@Reference(foreignKey="functionModuleId",header="功能模块")
 	private FunctionModule functionModule;
 	

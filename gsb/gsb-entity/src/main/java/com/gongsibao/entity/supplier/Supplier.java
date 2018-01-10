@@ -7,69 +7,77 @@ import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
+import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.crm.dic.NotifiedType;
 import com.gongsibao.entity.supplier.dict.SupplierStatus;
+import com.gongsibao.entity.supplier.dict.SupplierType;
 
-@Table(name="sp_supplier",header="服务商")
-public class Supplier extends Entity{
+@Table(name = "sp_supplier", header = "服务商")
+public class Supplier extends Entity {
 
-	/**   
-	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
-	 */   
+	/**
+	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
+	 */
 	private static final long serialVersionUID = 9055417222309634407L;
 
 	@Column(name = "status", header = "状态")
-	private SupplierStatus status;
-	
-	@Column(name = "service_name", header = "服务商名称")
-	private String serviceName;
+	private SupplierStatus status = SupplierStatus.NOTOPEN;
+
+	@Column(name = "name", header = "服务商名称")
+	private String name;
 
 	@Column(name = "address", header = "地址")
 	private String address;
 
-	@Column(name = "mobile_phone", header = "手机号（账号）")
+	@Column(name = "mobile_phone", header = "手机号（开户时要校验手机号是否存在）")
 	private String mobilePhone;
+	
+	@Column(name = "admin_id", header = "管理员帐号Id")
+	private Integer adminId = 0;
 
-	@Column(name = "is_proprietary", header = "是否自营  0否, 1是")
-	private Boolean isProprietary = true;
+	@Reference(foreignKey = "adminId", header = "管理员帐号")
+	private Employee admin;
 
-	@Column(name = "customer_pool_number", header = "客户池数量")
-	private Integer customerPoolNumber;
+	@Column(name = "type", header = "类型：1自营，2平台")
+	private SupplierType type;
+
+	@Column(name = "customer_max_count", header = "客户池数量")
+	private Integer customerMaxCount;
 
 	@Column(name = "is_push_report", header = "是否推送报表  0否, 1是")
-	private Boolean isPushReport = true;
-	
+	private Boolean pushReport = true;
+
 	@Column(name = "message_notified_type", header = "消息通知类型 ")
-	private NotifiedType messageNotifiedType=NotifiedType.Wx;
-	
+	private NotifiedType messageNotifiedType = NotifiedType.Wx;
+
 	@Column(name = "is_auto_assign", header = "是否推自动分配  0否, 1是")
-	private Boolean isAutoAssign = true;
-	
+	private Boolean autoAssign = true;
+
 	@Column(name = "is_auto_release", header = "是否推自动释放  0否, 1是")
-	private Boolean isAutoRelease = true;
-	
+	private Boolean autoRelease = true;
+
 	@Column(name = "no_follow_days", header = "未跟进天数释放")
 	private Integer noFollowDays;
-	
+
 	@Column(name = "is_enable_depart", header = "是否启用部门  0否, 1是")
-	private Boolean isEnableDepart = true;
+	private Boolean enableDepart = true;
 
 	@Column(name = "depart_level", header = "部门级次")
 	private Integer departLevel;
-	
-	@Column(name="category_id")
+
+	@Column(name = "category_id")
 	private Integer categoryId;
-	
-	@Reference(foreignKey="categoryId",header="服务商分类")
+
+	@Reference(foreignKey = "categoryId", header = "服务商分类")
 	private SupplierCategory category;
 
-	@Subs(foreignKey="supplierId",header="服务范围",subType=SupplierServiceScope.class)
+	@Subs(foreignKey = "supplierId", header = "服务范围", subType = SupplierServiceScope.class)
 	private List<SupplierServiceScope> serviceScopes;
-	
-	@Subs(foreignKey="supplierId",header="开通模块",subType=SupplierFunctionModule.class)
+
+	@Subs(foreignKey = "supplierId", header = "开通模块", subType = SupplierFunctionModule.class)
 	private List<SupplierFunctionModule> modules;
-	
+
 	public SupplierStatus getStatus() {
 		return status;
 	}
@@ -94,14 +102,6 @@ public class Supplier extends Entity{
 		this.category = category;
 	}
 
-	public String getServiceName() {
-		return serviceName;
-	}
-
-	public void setServiceName(String serviceName) {
-		this.serviceName = serviceName;
-	}
-
 	public String getAddress() {
 		return address;
 	}
@@ -118,28 +118,36 @@ public class Supplier extends Entity{
 		this.mobilePhone = mobilePhone;
 	}
 
-	public Boolean getIsProprietary() {
-		return isProprietary;
+	public String getName() {
+		return name;
 	}
 
-	public void setIsProprietary(Boolean isProprietary) {
-		this.isProprietary = isProprietary;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Integer getCustomerPoolNumber() {
-		return customerPoolNumber;
+	public SupplierType getType() {
+		return type;
 	}
 
-	public void setCustomerPoolNumber(Integer customerPoolNumber) {
-		this.customerPoolNumber = customerPoolNumber;
+	public void setType(SupplierType type) {
+		this.type = type;
 	}
 
-	public Boolean getIsPushReport() {
-		return isPushReport;
+	public Integer getCustomerMaxCount() {
+		return customerMaxCount;
 	}
 
-	public void setIsPushReport(Boolean isPushReport) {
-		this.isPushReport = isPushReport;
+	public void setCustomerMaxCount(Integer customerMaxCount) {
+		this.customerMaxCount = customerMaxCount;
+	}
+
+	public Boolean getPushReport() {
+		return pushReport;
+	}
+
+	public void setPushReport(Boolean pushReport) {
+		this.pushReport = pushReport;
 	}
 
 	public NotifiedType getMessageNotifiedType() {
@@ -150,20 +158,20 @@ public class Supplier extends Entity{
 		this.messageNotifiedType = messageNotifiedType;
 	}
 
-	public Boolean getIsAutoAssign() {
-		return isAutoAssign;
+	public Boolean getAutoAssign() {
+		return autoAssign;
 	}
 
-	public void setIsAutoAssign(Boolean isAutoAssign) {
-		this.isAutoAssign = isAutoAssign;
+	public void setAutoAssign(Boolean autoAssign) {
+		this.autoAssign = autoAssign;
 	}
 
-	public Boolean getIsAutoRelease() {
-		return isAutoRelease;
+	public Boolean getAutoRelease() {
+		return autoRelease;
 	}
 
-	public void setIsAutoRelease(Boolean isAutoRelease) {
-		this.isAutoRelease = isAutoRelease;
+	public void setAutoRelease(Boolean autoRelease) {
+		this.autoRelease = autoRelease;
 	}
 
 	public Integer getNoFollowDays() {
@@ -174,12 +182,12 @@ public class Supplier extends Entity{
 		this.noFollowDays = noFollowDays;
 	}
 
-	public Boolean getIsEnableDepart() {
-		return isEnableDepart;
+	public Boolean getEnableDepart() {
+		return enableDepart;
 	}
 
-	public void setIsEnableDepart(Boolean isEnableDepart) {
-		this.isEnableDepart = isEnableDepart;
+	public void setEnableDepart(Boolean enableDepart) {
+		this.enableDepart = enableDepart;
 	}
 
 	public Integer getDepartLevel() {

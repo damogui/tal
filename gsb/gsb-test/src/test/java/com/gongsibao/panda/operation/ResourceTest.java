@@ -90,7 +90,7 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(Supplier.class.getName(), "服务商列表", "GSB_Operation_Supplier" ,ISupplierService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(SupplierFunctionModule.class.getName(), "服务商开通模块", "GSB_Operation_Supplier_Function_Module" ,ISupplierFunctionModuleService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(SupplierServiceScope.class.getName(), "服务商服务范围", "GSB_Operation_Supplier_Service_Scope" ,ISupplierServiceScopeService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(FunctionModule.class.getName(), "功能模块", "GSB_Operation_Supplier_Function_Module" ,IFunctionModuleService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(FunctionModule.class.getName(), "功能模块", "GSB_Operation_Function_Module" ,IFunctionModuleService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(FunctionModuleRole.class.getName(), "功能模块角色", "GSB_Operation_Supplier_Function_Module_Role" ,IFunctionModuleRoleService.class.getName(), node1.getId());
 			
 		}
