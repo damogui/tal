@@ -213,4 +213,20 @@ public class Supplier extends Entity {
 	public void setModules(List<SupplierFunctionModule> modules) {
 		this.modules = modules;
 	}
+	
+	public Integer getAdminId() {
+		return adminId;
+	}
+
+	public void setAdminId(Integer adminId) {
+		this.adminId = adminId;
+	}
+
+	public Employee getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(Employee admin) {
+		this.admin = admin;
+	}
 }
