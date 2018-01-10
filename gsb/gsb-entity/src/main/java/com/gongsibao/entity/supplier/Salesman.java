@@ -25,6 +25,9 @@ public class Salesman extends Entity{
 	
 	@Reference(foreignKey = "departmentId", header = "部门")
 	private SupplierDepartment department;
+	
+	//配置
+	
 
 	public Integer getEmployeeId() {
 		return employeeId;
