@@ -3,11 +3,13 @@ package com.gongsibao.entity.supplier;
 import java.util.List;
 
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
 import com.gongsibao.entity.crm.dic.NotifiedType;
+import com.gongsibao.entity.supplier.dict.SupplierStatus;
 
 @Table(name="sp_supplier",header="服务商")
 public class Supplier extends Entity{
@@ -17,6 +19,9 @@ public class Supplier extends Entity{
 	 */   
 	private static final long serialVersionUID = 9055417222309634407L;
 
+	@Column(name = "status", header = "状态")
+	private SupplierStatus status;
+	
 	@Column(name = "service_name", header = "服务商名称")
 	private String serviceName;
 
@@ -52,12 +57,42 @@ public class Supplier extends Entity{
 
 	@Column(name = "depart_level", header = "部门级次")
 	private Integer departLevel;
+	
+	@Column(name="category_id")
+	private Integer categoryId;
+	
+	@Reference(foreignKey="categoryId",header="服务商分类")
+	private SupplierCategory category;
 
 	@Subs(foreignKey="supplierId",header="服务范围",subType=SupplierServiceScope.class)
 	private List<SupplierServiceScope> serviceScopes;
 	
 	@Subs(foreignKey="supplierId",header="开通模块",subType=SupplierFunctionModule.class)
 	private List<SupplierFunctionModule> modules;
+	
+	public SupplierStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(SupplierStatus status) {
+		this.status = status;
+	}
+
+	public Integer getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(Integer categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public SupplierCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(SupplierCategory category) {
+		this.category = category;
+	}
 
 	public String getServiceName() {
 		return serviceName;

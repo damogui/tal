@@ -4,6 +4,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import com.gongsibao.panda.operation.workspace.supplier.FunctionModuleWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.supplier.SupplierCategoryWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.supplier.SupplierWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.taurus.ActiveUserWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.taurus.DayStatisticWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.taurus.JnzUserBalanceWorkSpaceTest;
@@ -44,6 +47,9 @@ import com.gongsibao.panda.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
 //	CPAuditWorkspaceTest.class,
 //	SPAuditWorkspaceTest.class,
 	
+//	FunctionModuleWorkspaceTest.class,
+//	SupplierWorkspaceTest.class,
+//	SupplierCategoryWorkspaceTest.class,
 	
 	NavigationTest.class
 	

@@ -43,10 +43,17 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, "GSB_TAURUS", null, "GSB_TAURUS_" + JnzUserBehaviorStatistics.class.getSimpleName(), "统计数据", "/taurus/user/statistic/list", 1);
 		}
 		
-		createPTreeNode(tree, null, "fa fa-file-o fa-fw", "GSB_WANDA", "万达项目", "", 1);
+		createPTreeNode(tree, null, "fa fa-file-o fa-fw", "GSB_WANDA", "万达项目", "", 2);
 		{
 			createPTreeNode(tree, "GSB_WANDA", null, "GSB_WANDA_" + ProductView.class.getSimpleName(), "服务列表", "/operation/wanda/product/list", 1);
 			createPTreeNode(tree, "GSB_WANDA", null, "GSB_WANDA_" + SoOrder.class.getSimpleName(), "订单列表", "/operation/wanda/order/list", 1);
+		}
+		
+		createPTreeNode(tree, null, "fa fa-file-o fa-fw", "GSB_Supplier", "服务商管理", "", 3);
+		{
+			createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Supplier_Function_Module", "功能模块", "/operation/supplier/module/list", 1);
+			createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Supplier_Category", "服务商分类", "/operation/supplier/category/list", 2);
+			createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Supplier", "服务商管理", "/operation/supplier/list", 3);
 		}
 	}
 }

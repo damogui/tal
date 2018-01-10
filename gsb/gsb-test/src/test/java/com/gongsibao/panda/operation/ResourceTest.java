@@ -8,6 +8,12 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.cms.base.IProductViewService;
 import com.gongsibao.entity.cms.ProductView;
+import com.gongsibao.entity.supplier.FunctionModule;
+import com.gongsibao.entity.supplier.FunctionModuleRole;
+import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.entity.supplier.SupplierCategory;
+import com.gongsibao.entity.supplier.SupplierFunctionModule;
+import com.gongsibao.entity.supplier.SupplierServiceScope;
 import com.gongsibao.entity.taurus.ActiveUserView;
 import com.gongsibao.entity.taurus.DayStatisticView;
 import com.gongsibao.entity.taurus.JnzUserBehaviorStatistics;
@@ -20,6 +26,12 @@ import com.gongsibao.entity.taurus.UserInfo;
 import com.gongsibao.entity.taurus.UserRenewalStatisticView;
 import com.gongsibao.entity.taurus.UserWalletLog;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.supplier.base.IFunctionModuleRoleService;
+import com.gongsibao.supplier.base.IFunctionModuleService;
+import com.gongsibao.supplier.base.ISupplierCategoryService;
+import com.gongsibao.supplier.base.ISupplierFunctionModuleService;
+import com.gongsibao.supplier.base.ISupplierService;
+import com.gongsibao.supplier.base.ISupplierServiceScopeService;
 import com.gongsibao.taurus.base.IActiveUserViewService;
 import com.gongsibao.taurus.base.IBdUserBehaviorStatistics;
 import com.gongsibao.taurus.base.IDayStatisticViewService;
@@ -72,11 +84,18 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(SoOrder.class.getName(), "订单列表", "GSB_WANDA_" + SoOrder.class.getSimpleName(),IOrderService.class.getName(), node1.getId());
 		}
 
-//		node1 = this.createResourceNodeCategory("ICompany", "GSB_WANDA", node.getId());
-//		{
-//			this.createResourceNodeVoucher(ProductView.class.getName(), "服务列表", "GSB_WANDA" + ProductView.class.getSimpleName(),IProductViewService.class.getName(), node1.getId());
-//		}
-//		
+		node1 = this.createResourceNodeCategory("服务商管理", "GSB_Supplier", node.getId());
+		{
+			this.createResourceNodeVoucher(SupplierCategory.class.getName(), "服务商分类", "GSB_Operation_Supplier_Category" ,ISupplierCategoryService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(Supplier.class.getName(), "服务商列表", "GSB_Operation_Supplier" ,ISupplierService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(SupplierFunctionModule.class.getName(), "服务商开通模块", "GSB_Operation_Supplier_Function_Module" ,ISupplierFunctionModuleService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(SupplierServiceScope.class.getName(), "服务商服务范围", "GSB_Operation_Supplier_Service_Scope" ,ISupplierServiceScopeService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(FunctionModule.class.getName(), "功能模块", "GSB_Operation_Supplier_Function_Module" ,IFunctionModuleService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(FunctionModuleRole.class.getName(), "功能模块角色", "GSB_Operation_Supplier_Function_Module_Role" ,IFunctionModuleRoleService.class.getName(), node1.getId());
+			
+		}
+//		SupplierFunctionModule
+//		SupplierServiceScope
 //		node1 = this.createResourceNodeCategory("供应商管理", "GSB_WANDA", node.getId());
 //		{
 //			this.createResourceNodeVoucher(ProductView.class.getName(), "服务列表", "GSB_WANDA" + ProductView.class.getSimpleName(),IProductViewService.class.getName(), node1.getId());

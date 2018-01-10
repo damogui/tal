@@ -6,7 +6,7 @@ import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
-@Table(name="sp_function_module",header="服务商开通功能模块")
+@Table(name="sp_supplier_function_module",header="服务商开通功能模块")
 public class SupplierFunctionModule extends Entity{
 
 	/**   
