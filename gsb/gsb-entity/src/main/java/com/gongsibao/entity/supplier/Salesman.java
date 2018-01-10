@@ -20,5 +20,41 @@ public class Salesman extends Entity{
 	@Reference(foreignKey = "employeeId", header = "员工")
 	private Employee employee;
 	
+	@Column(name = "department_id", header = "部门Id")
+	private Integer departmentId = 0;
 	
+	@Reference(foreignKey = "departmentId", header = "部门")
+	private SupplierDepartment department;
+
+	public Integer getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(Integer employeeId) {
+		this.employeeId = employeeId;
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
+	public Integer getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(Integer departmentId) {
+		this.departmentId = departmentId;
+	}
+
+	public SupplierDepartment getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(SupplierDepartment department) {
+		this.department = department;
+	}
 }
