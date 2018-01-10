@@ -18,6 +18,6 @@ public class MyFranchiseeFormPart extends FranchiseeFormPart {
 		Integer departmentId = up.getEmployee().getDepartmentId();
 		entity.setDepartmentId(departmentId);
 		entity.setAllotStatus(FranchiseeAllotStatus.ALLOCATED);
-		return entity;
+		return entity; 
 	}
 }
