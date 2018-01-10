@@ -5,6 +5,7 @@ import org.netsharp.authorization.UserPermissionManager;
 import org.netsharp.entity.IPersistable;
 
 import com.gongsibao.entity.franchisee.Franchisee;
+import com.gongsibao.entity.franchisee.dic.FranchiseeAllotStatus;
 
 public class MyFranchiseeFormPart extends FranchiseeFormPart {
 
@@ -16,6 +17,7 @@ public class MyFranchiseeFormPart extends FranchiseeFormPart {
 		UserPermission up = UserPermissionManager.getUserPermission();
 		Integer departmentId = up.getEmployee().getDepartmentId();
 		entity.setDepartmentId(departmentId);
+		entity.setAllotStatus(FranchiseeAllotStatus.ALLOCATED);
 		return entity;
 	}
 }
