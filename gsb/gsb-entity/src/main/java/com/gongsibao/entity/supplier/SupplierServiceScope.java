@@ -17,7 +17,6 @@ public class SupplierServiceScope extends Entity{
 	 */   
 	private static final long serialVersionUID = -6865133330856235904L;
 
-
 	@Column(name="supplier_id",header="服务商主键")
     private Integer supplierId;
 	
