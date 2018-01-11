@@ -20,7 +20,7 @@ public class IPerfrmanceJob implements IJob {
 		calendar.setTime(date);
 		calendar.add(Calendar.DAY_OF_MONTH, -1);
 		date = calendar.getTime();
-		int[] departmentIds = { 337, 4, 5 };// 股转中心，汉唐信通，供应商
+		int[] departmentIds = { 337, 4, 5 };// 股转中心，汉唐信通，供应商 
 		service.generate(date, departmentIds);
 	}
 
