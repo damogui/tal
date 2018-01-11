@@ -83,6 +83,9 @@ public class User extends BaseEntity {
 
 	@Column(name = "remark", header = "备注")
 	private String remark = "";
+	
+	@Column(name = "u8_dept_id", header = "u8部门id")
+	private String u8DeptId = "";
 
 	@Column(name = "supply_status", header = "供应商审核状态 1、初次申请 2 等待审核 3审核驳回 4 审核通过 5审核通过后修改-等待审核, 6信息修改审核驳回")
 	private SupplyStatus supplyStatus;
@@ -350,4 +353,13 @@ public class User extends BaseEntity {
 	public void setOrganizations(List<UserOrganizationMap> organizations) {
 		this.organizations = organizations;
 	}
+
+	public String getU8DeptId() {
+		return u8DeptId;
+	}
+
+	public void setU8DeptId(String u8DeptId) {
+		this.u8DeptId = u8DeptId;
+	}
+	
 }

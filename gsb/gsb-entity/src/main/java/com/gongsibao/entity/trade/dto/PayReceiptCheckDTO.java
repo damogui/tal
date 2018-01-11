@@ -50,6 +50,9 @@ public class PayReceiptCheckDTO extends Persistable {
 
 	// 支付回单号
 	private String receiptNo;
+	
+	//u8凭证id
+	private String u8VoucherId;
 
 	// 支付回单状态
 	private PayReceiptStatus receiptStatus = PayReceiptStatus.NotStarted;
@@ -252,6 +255,16 @@ public class PayReceiptCheckDTO extends Persistable {
 	public void setAddTimeStr(String addTimeStr) {
 		this.addTimeStr = addTimeStr;
 	}
+
+	public String getU8VoucherId() {
+		return u8VoucherId;
+	}
+
+	public void setU8VoucherId(String u8VoucherId) {
+		this.u8VoucherId = u8VoucherId;
+	}
+	
+	
 	
 	
 

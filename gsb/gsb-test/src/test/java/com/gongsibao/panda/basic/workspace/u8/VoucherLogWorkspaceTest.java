@@ -43,15 +43,16 @@ public class VoucherLogWorkspaceTest extends WorkspaceCreationBase {
 		{
 			datagrid.toNew();
 			datagrid.setResourceNode(node);
+			datagrid.setToolbar("panda/datagrid/row/edit");
 			datagrid.setName("凭证日志记录");
 		}
 
 		PDatagridColumn column = null;
+		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 80);
 		column = addColumn(datagrid, "sender", "eai配置系统注册码", ControlTypes.TEXT_BOX, 80);
 		{
 			column.setVisible(false);
-		}
-		;
+		};
 		addColumn(datagrid, "orderNo", "订单编号", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "payId", "支付编号", ControlTypes.NUMBER_BOX, 80);
 		addColumn(datagrid, "refundId", "退单退款编号", ControlTypes.NUMBER_BOX, 80);
@@ -66,8 +67,6 @@ public class VoucherLogWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "refundItemId", "退产品单退款编号", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "setOfBooks.name", "账套名称", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "createTime", "添加时间", ControlTypes.DATETIME_BOX, 100);
-		// addColumn(datagrid, "xmlParam", "传入的参数", ControlTypes.TEXT_BOX, 100);
-		// addColumn(datagrid, "xmlReturn", "返回值", ControlTypes.TEXT_BOX, 100);
 		return datagrid;
 	}
 
