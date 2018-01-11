@@ -124,12 +124,12 @@ public class PayReceiptCheckDTOService extends PersistableService<PayReceiptChec
 
 		// 回单编号
 		if (!StringManager.isNullOrEmpty(mapFilters.get("receiptNo"))) {
-			sql.append("AND p.real_name LIKE " + mapFilters.get("receiptNo") + " ");
+			sql.append("AND p.receipt_no LIKE " + mapFilters.get("receiptNo") + " ");
 		}
 
 		// 支付编号
 		if (!StringManager.isNullOrEmpty(mapFilters.get("id"))) {
-			sql.append("AND p.`pkid` LIKE " + mapFilters.get("id") + "  ");
+			sql.append("AND p.`pkid` LIKE '%" + mapFilters.get("id") + "%'  ");
 		}
 
 		// 回单处理状态（0：未完成 1已完成：）payForOrderCount
@@ -145,6 +145,11 @@ public class PayReceiptCheckDTOService extends PersistableService<PayReceiptChec
 		// 账套id
 		if (!StringManager.isNullOrEmpty(mapFilters.get("bookId"))) {
 			sql.append("AND book.id = " + mapFilters.get("bookId") + " ");
+		}
+
+		// 收款方式id
+		if (!StringManager.isNullOrEmpty(mapFilters.get("bankId"))) {
+			sql.append("AND ub.id = " + mapFilters.get("bankId") + " ");
 		}
 
 		// 开始订单创建日期
