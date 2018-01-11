@@ -5,7 +5,7 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 
-@Table(name="crm_company_position",header="")
+@Table(name="crm_company_position",header="职位信息")
 public class CompanyPosition extends BaseEntity {
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   

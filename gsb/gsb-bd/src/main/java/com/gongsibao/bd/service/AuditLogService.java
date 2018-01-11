@@ -32,8 +32,14 @@ public class AuditLogService extends PersistableService<AuditLog> implements IAu
 		selects.append("AuditLog.soOrder.*,");
 		selects.append("AuditLog.contract.*,");
 		selects.append("AuditLog.contract.soOrder.*,");
-		selects.append("AuditLog.contract.soOrder.products.*");
-		oql.setSelects(selects.toString());
+		selects.append("AuditLog.contract.soOrder.products.*,");		
+		selects.append("AuditLog.invoice.*,");
+		selects.append("AuditLog.invoice.orderInvoiceMaps.*,");
+		selects.append("AuditLog.invoice.orderInvoiceMaps.soOrder.*");		
+//		selects.append("AuditLog.pay.*,");
+//		selects.append("AuditLog.pay.orderPayMaps.*,");
+//		selects.append("AuditLog.pay.orderPayMaps.soOrder.*");
+//		oql.setSelects(selects.toString());
 
 		List<AuditLog> resList = super.queryList(oql);
 
@@ -43,20 +49,24 @@ public class AuditLogService extends PersistableService<AuditLog> implements IAu
 			if (auditLog.getTypeId().equals(AuditLogType.Htsq)) {
 				for (AuditLog auditItem : resList) {
 					SoOrder order = auditItem.getSoOrder();
-					double contractPrice = 0;
+					Integer contractPrice = 0;
 					if (order != null) {
 						List<OrderProd> orderProducts = auditItem.getSoOrder().getProducts();
 						if (CollectionUtils.isNotEmpty(orderProducts)) {
 							for (OrderProd orderProd : orderProducts) {
 								contractPrice = contractPrice + orderProd.getPrice();
 							}
-							auditItem.getContract().setContractPrice(contractPrice / 100);
+							Contract contract = auditItem.getContract();
+							if (contract != null) {
+								contract.setContractPrice(contractPrice);
+							}
 						}
 					}
 				}
 			}
 		}
 
+		//return super.queryList(oql);
 		return resList;
 	}
 

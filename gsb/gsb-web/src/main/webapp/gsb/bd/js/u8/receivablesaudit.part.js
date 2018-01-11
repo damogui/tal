@@ -1,5 +1,6 @@
 System.Declare("com.gongsibao.u8.web");
-com.gongsibao.u8.web.ReceivablesAuditDTOController = org.netsharp.panda.commerce.ListPart.Extends({
+com.gongsibao.u8.web.ReceivablesAuditDTOController = org.netsharp.panda.commerce.ListPart
+		.Extends({
 
 			ctor : function() {
 				this.base();
@@ -11,13 +12,13 @@ com.gongsibao.u8.web.ReceivablesAuditDTOController = org.netsharp.panda.commerce
 					IMessageBox.info('请选择记录');
 					return;
 				}
-				//支付id
+				// 支付id
 				var payId = row.id;
-				//订单编号
+				// 订单编号
 				var orderNo = row.orderNo;
-				//回单编号
+				// 回单编号
 				var receiptNo = row.receiptNo;
-				
+
 				var content = '<br/><p style="padding-left:50px;">&nbsp;订单编号：<input  type="text" disabled="disabled"  class="easyui-validatebox nsInput"  value="'
 						+ orderNo
 						+ '" style="width:180px;"></input></p>'
@@ -56,4 +57,4 @@ com.gongsibao.u8.web.ReceivablesAuditDTOController = org.netsharp.panda.commerce
 							return;
 						});
 			}
-});
+		});

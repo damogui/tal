@@ -11,6 +11,7 @@ import org.netsharp.panda.entity.PForm;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
+import com.gongsibao.bd.web.DictController;
 import com.gongsibao.entity.bd.Dict;
 
 public class DictWorkspaceTest extends WorkspaceCreationBase {
@@ -25,6 +26,7 @@ public class DictWorkspaceTest extends WorkspaceCreationBase {
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_Basic_Config_" + Dict.class.getSimpleName();
+		listPartServiceController = DictController.class.getName();
 
 		formOpenMode = OpenMode.WINDOW;
 		openWindowHeight = 400;
@@ -41,12 +43,14 @@ public class DictWorkspaceTest extends WorkspaceCreationBase {
 			datagrid.setName("字典信息列表");
 		}
 
+		addColumn(datagrid, "id", "主键id", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "type", "类型", ControlTypes.ENUM_BOX, 100);
 		addColumn(datagrid, "pid", "父id", ControlTypes.NUMBER_BOX, 150);
 		addColumn(datagrid, "alias", "别名", ControlTypes.TEXT_BOX, 50);
 		addColumn(datagrid, "code", "编码", ControlTypes.TEXT_BOX, 50);
 		addColumn(datagrid, "enabled", "是否启用", ControlTypes.BOOLCOMBO_BOX, 50);
+		addColumn(datagrid, "createTime", "添加时间", ControlTypes.DATETIME_BOX, 50);
 		return datagrid;
 	}
 
@@ -64,6 +68,7 @@ public class DictWorkspaceTest extends WorkspaceCreationBase {
 
 		PForm form = super.createForm(node);
 		form.setColumnCount(2);
+		addFormField(form, "id", "主键id", null, ControlTypes.NUMBER_BOX, true, false);
 		addFormField(form, "name", "名称", null, ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "type", "类型", null, ControlTypes.ENUM_BOX, true, false);
 		addFormField(form, "alias", "别名", null, ControlTypes.TEXT_BOX, false, false);

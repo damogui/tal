@@ -51,3 +51,16 @@
 /gsb/gsb-report/build
 /gsb/gsb-report/.classpath
 /gsb/gsb-report/.project
+/gsb/*/out
+/gsb/gsb.iml
+/Servers
+/RemoteSystemsTempFiles
+/.metadata
+/gsb/gsb-igirl/.project
+/gsb/gsb-igirl/.settings
+/gsb/gsb-igirl/bin
+/gsb/gsb-igirl/build
+/gsb/gsb-igirl/.classpath
+/gsb/gsb-sms/.settings
+/gsb/gsb-sms/.project
+/gsb/gsb-sms/.classpath

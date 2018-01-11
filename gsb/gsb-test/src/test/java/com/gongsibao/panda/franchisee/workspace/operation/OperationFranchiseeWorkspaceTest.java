@@ -17,6 +17,7 @@ import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.franchisee.Franchisee;
+import com.gongsibao.franchisee.web.FranchiseeFormPart;
 import com.gongsibao.panda.franchisee.workspace.my.MyFranchiseeWorkspaceTest;
 
 public class OperationFranchiseeWorkspaceTest  extends MyFranchiseeWorkspaceTest{
@@ -34,6 +35,7 @@ public class OperationFranchiseeWorkspaceTest  extends MyFranchiseeWorkspaceTest
 		resourceNodeCode = "GSB_BD_OPERATION_Franchisee";
 		listFilter = null;
 		listToolbarPath = "/bd/operation/franchisee/edit";
+		formServiceController =FranchiseeFormPart.class.getName();
 	}
 	
 	

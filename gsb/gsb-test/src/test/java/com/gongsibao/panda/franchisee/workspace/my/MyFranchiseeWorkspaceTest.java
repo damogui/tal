@@ -34,6 +34,7 @@ import com.gongsibao.entity.franchisee.dic.IntentionDegree;
 import com.gongsibao.entity.franchisee.dic.TrackProgress;
 import com.gongsibao.franchisee.web.FranchiseeFormPart;
 import com.gongsibao.franchisee.web.FranchiseeListPart;
+import com.gongsibao.franchisee.web.MyFranchiseeFormPart;
 import com.gongsibao.franchisee.web.TrackDetailPart;
 
 public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
@@ -47,11 +48,11 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 		urlForm = "/bd/franchisee/my/form";
 		entity = Franchisee.class;
 		meta = MtableManager.getMtable(entity);
-		formPartName = listPartName = "客户信息";
+		formPartName = listPartName = "客户信息 ";
 		resourceNodeCode = "BD_MY_MY";
 		listFilter = "ownerId='{userId}'";
 		formJsImport = "/gsb/franchisee/js/franchisee.form.part.js";
-		formServiceController = FranchiseeFormPart.class.getName();
+		formServiceController = MyFranchiseeFormPart.class.getName();
 		formJsController = FranchiseeFormPart.class.getName();
 		this.formToolbarPath = "bd/franchisee/form";
 		

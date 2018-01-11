@@ -7,6 +7,14 @@ import org.netsharp.entity.Entity;
 
 import com.gongsibao.entity.crm.dic.OrderStatus;
 
+/**   
+ * @ClassName:  CustomerOrder   
+ * @Description:TODO 没有数据
+ * @author: 韩伟
+ * @date:   2018年1月9日 上午11:13:44   
+ *     
+ * @Copyright: 2018 www.yikuaxiu.com Inc. All rights reserved. 
+ */
 @Table(name="crm_customer_order",header="客户订单")
 public class CustomerOrder extends Entity{
 

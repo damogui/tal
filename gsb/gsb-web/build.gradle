@@ -15,6 +15,7 @@ dependencies {
     compile project(':gsb-bd')
     compile project(':gsb-cms')
     compile project(':gsb-crm')
+    compile project(':gsb-igirl')
     compile project(':gsb-product')
     compile project(':gsb-trade')
     compile project(':gsb-uc')
@@ -28,7 +29,7 @@ dependencies {
 }
 
 
-task deployPanda(dependsOn: war) << {
+task deployPanda(dependsOn: war)  {
     println("deploy $projectName to $tomcat_webapps")
     copy {
         from "build/libs/gsb-web-1.0-SNAPSHOT.war"

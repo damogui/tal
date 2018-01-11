@@ -1,5 +1,7 @@
 package com.gongsibao.panda.crm.workspace;
 
+import com.gongsibao.crm.web.CustomerFormPart;
+import com.gongsibao.crm.web.FlowDetailPart;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
@@ -25,8 +27,6 @@ import org.netsharp.util.ReflectManager;
 import com.gongsibao.controls.CityComboBox;
 import com.gongsibao.controls.DictComboBox;
 import com.gongsibao.controls.OrganizationComboBox;
-import com.gongsibao.crm.web.CustomerFormPart;
-import com.gongsibao.crm.web.FlowDetailPart;
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.crm.Customer;
 import com.gongsibao.entity.crm.CustomerCompanyMap;
@@ -265,7 +265,7 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 
 		createCustomerProdMapDetailDetailPart(workspace);
 		createCompanysDetailPart(workspace);
-		createOrderDetailPart(workspace);
+		//createOrderDetailPart(workspace);
 		createFlowDetailPart(workspace);
 	}
 

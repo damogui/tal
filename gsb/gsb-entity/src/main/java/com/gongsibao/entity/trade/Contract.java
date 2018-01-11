@@ -40,7 +40,11 @@ public class Contract extends BaseEntity {
     private Integer realAmount;
     
     @Column(name="has_data_fee",header="是否有材料撰写情况")
-    private Integer hasDataFee;
+    private Boolean hasDataFee;
+    
+    //材料撰写费
+    @Exclusive
+    private double dataFee;
 
     @Column(name="data_fee_count_type_id",header="材料撰写次数类型序号，type=317，3171无、3172首期一次、3173末期一次、3174首期一次末期一次")
     private Integer dataFeeCountTypeId;
@@ -52,10 +56,10 @@ public class Contract extends BaseEntity {
     private Integer finalPayment;
     
     @Column(name="has_liquidated_damages",header="是否有违约金")
-    private Integer hasLiquidatedDamages;
+    private Boolean hasLiquidatedDamages;
     
     @Column(name="has_breach",header="是否有违约责任事项")
-    private Integer hasBreach;
+    private Boolean hasBreach;
     
     @Column(name="liquidated_damages",header="违约金额")
     private Integer liquidatedDamages;
@@ -94,7 +98,7 @@ public class Contract extends BaseEntity {
     private Integer isElectronics;
     //合同业绩总额（不生成数据库字段）
     @Exclusive
-    private double contractPrice;
+    private Integer contractPrice;
 
     public Integer getOrderId() {
         return orderId;
@@ -119,8 +123,21 @@ public class Contract extends BaseEntity {
     }
     public void setIsUrgeney(Integer isUrgeney) {
         this.isUrgeney = isUrgeney;
-    }
-    public Integer getSginingUserId() {
+    }    
+    public double getDataFee() {    	
+    	if (!getHasDataFee() || null == getRealAmount()) {
+            return 0;
+        }
+        dataFee = getRealAmount() - getContractPrice();
+        if (dataFee < 0) {
+            return 0;
+        }
+        return dataFee;
+	}
+	public void setDataFee(double dataFee) {
+		this.dataFee = dataFee;
+	}
+	public Integer getSginingUserId() {
         return sginingUserId;
     }
     public void setSginingUserId(Integer sginingUserId) {
@@ -137,12 +154,6 @@ public class Contract extends BaseEntity {
     }
     public void setRealAmount(Integer realAmount) {
         this.realAmount = realAmount;
-    }
-    public Integer getHasDataFee() {
-        return hasDataFee;
-    }
-    public void setHasDataFee(Integer hasDataFee) {
-        this.hasDataFee = hasDataFee;
     }
     public Integer getDataFeeCountTypeId() {
         return dataFeeCountTypeId;
@@ -162,19 +173,25 @@ public class Contract extends BaseEntity {
     public void setFinalPayment(Integer finalPayment) {
         this.finalPayment = finalPayment;
     }
-    public Integer getHasLiquidatedDamages() {
-        return hasLiquidatedDamages;
-    }
-    public void setHasLiquidatedDamages(Integer hasLiquidatedDamages) {
-        this.hasLiquidatedDamages = hasLiquidatedDamages;
-    }
-    public Integer getHasBreach() {
-        return hasBreach;
-    }
-    public void setHasBreach(Integer hasBreach) {
-        this.hasBreach = hasBreach;
-    }
-    public Integer getLiquidatedDamages() {
+    public Boolean getHasDataFee() {
+		return hasDataFee;
+	}
+	public void setHasDataFee(Boolean hasDataFee) {
+		this.hasDataFee = hasDataFee;
+	}
+	public Boolean getHasLiquidatedDamages() {
+		return hasLiquidatedDamages;
+	}
+	public void setHasLiquidatedDamages(Boolean hasLiquidatedDamages) {
+		this.hasLiquidatedDamages = hasLiquidatedDamages;
+	}
+	public Boolean getHasBreach() {
+		return hasBreach;
+	}
+	public void setHasBreach(Boolean hasBreach) {
+		this.hasBreach = hasBreach;
+	}
+	public Integer getLiquidatedDamages() {
         return liquidatedDamages;
     }
     public void setLiquidatedDamages(Integer liquidatedDamages) {
@@ -254,10 +271,10 @@ public class Contract extends BaseEntity {
 	public void setSoOrder(SoOrder soOrder) {
 		this.soOrder = soOrder;
 	}
-	public double getContractPrice() {
+	public Integer getContractPrice() {
 		return contractPrice;
 	}
-	public void setContractPrice(double contractPrice) {
+	public void setContractPrice(Integer contractPrice) {
 		this.contractPrice = contractPrice;
 	}
 	

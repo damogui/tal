@@ -58,10 +58,10 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(AuditLog.class.getName(), "改价审核", node1.getCode() + "_Price_Change", IAuditLogService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(AuditLog.class.getName(), "合同审核", node1.getCode() + "_Contract_Audit", IAuditLogService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(AuditLog.class.getName(), "发票审核", node1.getCode() + "_Invoice_Audit", IAuditLogService.class.getName(), node1.getId());
-			/*this.createResourceNodeVoucher(AuditLog.class.getName(), "收款审核", node1.getCode() + "_Receipt_Audit", IAuditLogService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(AuditLog.class.getName(), "分期审核", node1.getCode() + "_Installment", IAuditLogService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(AuditLog.class.getName(), "收款审核", node1.getCode() + "_Receipt_Audit", IAuditLogService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(AuditLog.class.getName(), "退单审核", node1.getCode() + "_Refund_Aduit", IAuditLogService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(AuditLog.class.getName(), "商城充值审核", node1.getCode() + "_Recharge", IAuditLogService.class.getName(), node1.getId());*/
+			this.createResourceNodeVoucher(AuditLog.class.getName(), "分期审核", node1.getCode() + "_Installment", IAuditLogService.class.getName(), node1.getId());
+			/*this.createResourceNodeVoucher(AuditLog.class.getName(), "商城充值审核", node1.getCode() + "_Recharge", IAuditLogService.class.getName(), node1.getId());*/
 		}
 
 		/*node1 = this.createResourceNodeCategory("成本管理", prefix + "_Cost", node.getId());

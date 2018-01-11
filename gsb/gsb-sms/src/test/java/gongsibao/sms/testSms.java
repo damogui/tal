@@ -22,7 +22,7 @@ public class testSms {
         System.out.println(response.getIsSuccessful());
 
         //测试获取模板信息
-        Map<String, String> paras = new HashMap<>();
+        Map<String, String> paras = new HashMap<String, String>();
         paras.put("Test", "Test Tempalte from java");
         SmsTemplateResponse t = sms.getTemplateBy(1, paras);
         System.out.println(t.getTemplate());
