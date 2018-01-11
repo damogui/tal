@@ -1,5 +1,6 @@
 package com.gongsibao.entity.supplier;
 
+import java.util.Date;
 import java.util.List;
 
 import org.netsharp.core.annotations.Column;
@@ -32,7 +33,7 @@ public class Supplier extends Entity {
 
 	@Column(name = "mobile_phone", header = "手机号（开户时要校验手机号是否存在）")
 	private String mobilePhone;
-	
+
 	@Column(name = "admin_id", header = "管理员帐号Id")
 	private Integer adminId = 0;
 
@@ -71,6 +72,15 @@ public class Supplier extends Entity {
 
 	@Reference(foreignKey = "categoryId", header = "服务商分类")
 	private SupplierCategory category;
+
+	@Column(name = "open_time")
+	private Date openTime;
+
+	@Column(name = "department_count", header = "部门数量")
+	private Integer departmentCount = 0;
+
+	@Column(name = "salesman_count", header = "员工数量")
+	private Integer salesmanCount = 0;
 
 	@Subs(foreignKey = "supplierId", header = "服务范围", subType = SupplierServiceScope.class)
 	private List<SupplierServiceScope> serviceScopes;
@@ -213,7 +223,7 @@ public class Supplier extends Entity {
 	public void setModules(List<SupplierFunctionModule> modules) {
 		this.modules = modules;
 	}
-	
+
 	public Integer getAdminId() {
 		return adminId;
 	}
@@ -228,5 +238,29 @@ public class Supplier extends Entity {
 
 	public void setAdmin(Employee admin) {
 		this.admin = admin;
+	}
+
+	public Date getOpenTime() {
+		return openTime;
+	}
+
+	public void setOpenTime(Date openTime) {
+		this.openTime = openTime;
+	}
+
+	public Integer getDepartmentCount() {
+		return departmentCount;
+	}
+
+	public void setDepartmentCount(Integer departmentCount) {
+		this.departmentCount = departmentCount;
+	}
+
+	public Integer getSalesmanCount() {
+		return salesmanCount;
+	}
+
+	public void setSalesmanCount(Integer salesmanCount) {
+		this.salesmanCount = salesmanCount;
 	}
 }

@@ -220,11 +220,15 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 		var parentId = this.queryString("parentId");
 		if (parentId != null && parentId != "") {
 			fks.push("parentId:" + parentId);
+		}
+		
+		if(fks.length>0){
+
 			this.doAdd("fk=" + fks.join(";"));
 		}else{
-			
 			this.doAdd();
 		}
+
 	},
 
 	doAdd : function(queryString) {
