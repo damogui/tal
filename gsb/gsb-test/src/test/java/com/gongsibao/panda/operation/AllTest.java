@@ -12,6 +12,7 @@ import com.gongsibao.panda.operation.workspace.taurus.DayStatisticWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.taurus.JnzUserBalanceWorkSpaceTest;
 import com.gongsibao.panda.operation.workspace.taurus.NewUserPerDayWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.taurus.UserConsStatisticWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.taurus.UserConsumptionWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.taurus.UserRenewalStatisticWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.taurus.UserWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.wanda.WanDaProductWorkspaceTest;
@@ -27,11 +28,12 @@ import com.gongsibao.panda.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
 	UserWorkspaceTest.class,
 	//UserInfoWorkspaceTest.class,
 	NewUserPerDayWorkspaceTest.class,
-	UserConsStatisticWorkspaceTest.class,
-	UserRenewalStatisticWorkspaceTest.class,
+//	UserConsStatisticWorkspaceTest.class,
+//	UserRenewalStatisticWorkspaceTest.class,
 	ActiveUserWorkspaceTest.class,
 	DayStatisticWorkspaceTest.class,
 	JnzUserBalanceWorkSpaceTest.class,
+	UserConsumptionWorkspaceTest.class,
 	
 	//万达
 	WanDaProductWorkspaceTest.class,

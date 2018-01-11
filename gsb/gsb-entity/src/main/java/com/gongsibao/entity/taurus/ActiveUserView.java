@@ -1,5 +1,7 @@
 package com.gongsibao.entity.taurus;
 
+import java.util.Date;
+
 import org.netsharp.core.annotations.Auto;
 import org.netsharp.core.annotations.Id;
 import org.netsharp.core.annotations.Table;
@@ -17,10 +19,18 @@ public class ActiveUserView extends Persistable{
 	@Id
 	@Auto
 	private Integer id;
+	private Date addTime;
 	private Long days;
 	private Long count;
 	
 	
+	
+	public Date getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(Date addTime) {
+		this.addTime = addTime;
+	}
 	public Integer getId() {
 		return id;
 	}

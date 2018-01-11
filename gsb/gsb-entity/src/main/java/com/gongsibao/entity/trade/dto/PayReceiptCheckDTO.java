@@ -9,6 +9,7 @@ import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Persistable;
 
+import com.gongsibao.entity.trade.dic.PayForOrderCountType;
 import com.gongsibao.entity.trade.dic.PayReceiptStatus;
 import com.gongsibao.entity.u8.SetOfBooks;
 import com.gongsibao.entity.u8.U8Bank;
@@ -28,15 +29,24 @@ public class PayReceiptCheckDTO extends Persistable {
 
 	// 订单id
 	private Integer orderId;
+	
+	// orderId字符串
+	private String orderIdStr;
 
 	// 订单编号
 	private String orderNo;
 
 	// 订单应付金额
 	private double payablePrice;
+	
+	// 订单应付金额字符串
+	private String payablePriceStr;
 
 	// 订单已付金额
 	private double paidPrice;
+
+	// 订单已付金额字符串
+	private String paidPriceStr;
 
 	// 支付回单号
 	private String receiptNo;
@@ -55,15 +65,21 @@ public class PayReceiptCheckDTO extends Persistable {
 
 	// 订单创建日期
 	private Date addTime;
+	
+	// 订单创建日期字符串
+	private String addTimeStr;
 
 	// 回款日期
 	private Date returnTime;
-	
+	// 账套id
 	private Integer bookId;
+
+	// 支付订单数量（0:一笔单单 1:一笔多单）
+	private PayForOrderCountType payForOrderCount = PayForOrderCountType.Ybdd;
 
 	@Reference(foreignKey = "bookId")
 	private SetOfBooks book;
-	
+
 	private Integer bankId;
 
 	@Reference(foreignKey = "bankId")
@@ -102,7 +118,7 @@ public class PayReceiptCheckDTO extends Persistable {
 	}
 
 	public double getPaidPrice() {
-		return paidPrice; 
+		return paidPrice;
 	}
 
 	public void setPaidPrice(double paidPrice) {
@@ -196,4 +212,47 @@ public class PayReceiptCheckDTO extends Persistable {
 	public void setBank(U8Bank bank) {
 		this.bank = bank;
 	}
+
+	public PayForOrderCountType getPayForOrderCount() {
+		return payForOrderCount;
+	}
+
+	public void setPayForOrderCount(PayForOrderCountType payForOrderCount) {
+		this.payForOrderCount = payForOrderCount;
+	}
+
+	public String getOrderIdStr() {
+		return orderIdStr;
+	}
+
+	public void setOrderIdStr(String orderIdStr) {
+		this.orderIdStr = orderIdStr;
+	}
+
+	public String getPayablePriceStr() {
+		return payablePriceStr;
+	}
+
+	public void setPayablePriceStr(String payablePriceStr) {
+		this.payablePriceStr = payablePriceStr;
+	}
+
+	public String getPaidPriceStr() {
+		return paidPriceStr;
+	}
+
+	public void setPaidPriceStr(String paidPriceStr) {
+		this.paidPriceStr = paidPriceStr;
+	}
+
+	public String getAddTimeStr() {
+		return addTimeStr;
+	}
+
+	public void setAddTimeStr(String addTimeStr) {
+		this.addTimeStr = addTimeStr;
+	}
+	
+	
+
 }
