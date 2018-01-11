@@ -35,33 +35,6 @@ public class PayReceiptCheckDTOService extends PersistableService<PayReceiptChec
 	@Override
 	public List<PayReceiptCheckDTO> queryList(Oql oql) {
 
-		/*
-		 * String filterString = oql.getFilter(); Paging paging =
-		 * oql.getPaging(); int startIndex = (paging.getPageNo() - 1) *
-		 * paging.getPageSize(); StringBuffer sql = new StringBuffer();
-		 * sql.append("SELECT * FROM ( "); sql.append(
-		 * "SELECT p.`pkid` as id, oi.`pkid` orderId, oi.`no` orderNo,oi.`payable_price` 'payablePrice',oi.`paid_price` 'paidPrice', p.`receipt_no` 'receiptNo',p.`receipt_status` 'receiptStatus',p.`amount`, "
-		 * ); sql.append(
-		 * "book.`name` 'bookName',book.`id` 'bookId',ub.`name` 'bankName',ub.`id` 'bankId',oi.`add_time` 'addTime', "
-		 * ); sql.append("p.confirm_time 'returnTime' ");
-		 * sql.append("FROM so_pay p ");
-		 * sql.append("JOIN so_order_pay_map opm ON p.`pkid`=opm.`pay_id` ");
-		 * sql.append("JOIN so_order oi ON oi.`pkid`=opm.`order_id` ");
-		 * sql.append(
-		 * "JOIN u8_bank_so_pay_map uopm ON uopm.`pay_id`=p.`pkid` AND uopm.`type`=0 "
-		 * ); sql.append("JOIN u8_bank ub ON ub.id=uopm.`u8_bank_id` ");
-		 * sql.append
-		 * ("JOIN u8_set_of_books book ON book.`id`=ub.`set_of_books_id` ");
-		 * sql.append(
-		 * "WHERE p.`success_status_id`=3123 AND offline_audit_status_id=1054 "
-		 * ); sql.append("ORDER BY p.`pkid`  DESC )t  ");
-		 * sql.append(filterString == null ? "" : "WHERE " + filterString);//
-		 * 拼接sql语句的where条件
-		 * paging.setTotalCount(getqueryListCount1(sql.toString()));
-		 * sql.append("LIMIT " + startIndex + ", " + paging.getPageSize() +
-		 * " "); oql.setPaging(paging);
-		 */
-
 		String filterString = oql.getFilter();
 		HashMap<String, String> mapFilters = new HashMap<String, String>();
 		try {
@@ -261,21 +234,6 @@ public class PayReceiptCheckDTOService extends PersistableService<PayReceiptChec
 			}
 		}
 		return map;
-	}
-
-	// 获取查询的总条数
-
-	private int getqueryListCount1(String sql) {
-		int count = 0;
-		StringBuffer sqlBuffer = new StringBuffer();
-
-		sqlBuffer.append("SELECT COUNT(*) rcount FROM( ");
-		sqlBuffer.append(sql);
-		sqlBuffer.append(" )tt ");
-
-		Object rcount = this.pm.executeScalar(sqlBuffer.toString(), null);
-		count = Integer.parseInt(rcount.toString());
-		return count;
 	}
 
 	private double getDivRes(int a, int b) {
