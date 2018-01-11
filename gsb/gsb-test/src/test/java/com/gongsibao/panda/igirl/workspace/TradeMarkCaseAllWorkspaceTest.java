@@ -1,27 +1,31 @@
 package com.gongsibao.panda.igirl.workspace;
 import com.gongsibao.entity.igirl.TradeMarkCase;
+import com.gongsibao.igirl.web.TradeMarkCasePart;
 import org.junit.Before;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
+import org.netsharp.panda.controls.ControlTypes;
+import org.netsharp.panda.entity.PDatagrid;
+import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.resourcenode.entity.ResourceNode;
 public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 
-//	@Override
-//	@Before
-//	public void setup() {
-//
-//		formToolbarPath = "igirl/trademarkcase/form";
-//		urlList = "/crm/trademarkcase/all/list";
-//		urlForm = "/crm/trademarkcase/all/form";
-//		entity = TradeMarkCase.class;
-//		meta = MtableManager.getMtable(entity);
-//		formPartName = listPartName = "商标方案";
-//		resourceNodeCode = "IGIRL_All_" + TradeMarkCase.class.getSimpleName();
-//		formServiceController = CustomerFormPart.class.getName();
-//		formJsController = CustomerFormPart.class.getName();
-//		formJsImport = "/gsb/crm/js/customer.form.part.js|/gsb/gsb.customer.controls.js";
-//	}
+	@Override
+	@Before
+	public void setup() {
+
+		formToolbarPath = "igirl/trademarkcase/form";
+		urlList = "/igirl/trademarkcase/all/list";
+		urlForm = "/igirl/trademarkcase/all/form";
+		entity = TradeMarkCase.class;
+		meta = MtableManager.getMtable(entity);
+		formPartName = listPartName = "商标方案";
+		resourceNodeCode = "IGIRL_All_TradeMarkCase";
+		formServiceController = TradeMarkCasePart.class.getName();
+		formJsController = TradeMarkCasePart.class.getName();
+		formJsImport = "/gsb/igirl/js/markcase.form.part.js";
+	}
 //
 //	@Test
 //	public void fromToolbar() {
@@ -79,29 +83,20 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 //		toolbarService.save(toolbar);
 //	}
 //
-//	@Override
-//	protected PDatagrid createDatagrid(ResourceNode node) {
-//
-//		PDatagrid datagrid = super.createDatagrid(node);
-//		datagrid.setToolbar("panda/datagrid/row/edit");
-//		PDatagridColumn column = null;
-//		column = addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-//		addColumn(datagrid, "allocationOrg.shortName", "分配部门", ControlTypes.TEXT_BOX, 100, true);
-//		addColumn(datagrid, "email", "email", ControlTypes.TEXT_BOX, 80);
-//		addColumn(datagrid, "accountId", "是否会员", ControlTypes.BOOLCOMBO_BOX, 100);
-//		addColumn(datagrid, "realName", "客户名称", ControlTypes.TEXT_BOX, 80);
-//		addColumn(datagrid, "city.name", "所在地区", ControlTypes.TEXTAREA, 130);
-//		column = addColumn(datagrid, "mobile", "手机", ControlTypes.TEXT_BOX, 100);{
-//			column.setFormatter("if(value&&value.length==11){return value.substr(0,3)+'****'+value.substr(7);}");
-//		}
-//		addColumn(datagrid, "qq", "QQ", ControlTypes.DECIMAL_BOX, 100);
-//		addColumn(datagrid, "customerSource.name", "客户来源", ControlTypes.ENUM_BOX, 80);
-//		addColumn(datagrid, "important", "客户等级", ControlTypes.ENUM_BOX, 80);
-//		addColumn(datagrid, "followStatus", "沟通状态", ControlTypes.ENUM_BOX, 80);
-//		// addColumn(datagrid, "hasEntrust", "意向产品", ControlTypes.TEXT_BOX, 80);
-//		addColumn(datagrid, "lastFollowTime", "未跟进天数", ControlTypes.TEXT_BOX, 80);
-//		return datagrid;
-//	}
+	@Override
+	protected PDatagrid createDatagrid(ResourceNode node) {
+
+		PDatagrid datagrid = super.createDatagrid(node);
+		datagrid.setToolbar("panda/datagrid/row/edit");
+		PDatagridColumn column = null;
+
+		addColumn(datagrid, "code", "编码", ControlTypes.TEXT_BOX, 100, true);
+		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 80);
+		addColumn(datagrid, "accountId", "是否会员", ControlTypes.BOOLCOMBO_BOX, 100);
+
+		column = addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+		return datagrid;
+	}
 //
 //	@Override
 //	protected PForm createForm(ResourceNode node) {
