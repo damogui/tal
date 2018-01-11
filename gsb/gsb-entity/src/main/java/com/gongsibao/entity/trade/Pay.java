@@ -79,6 +79,9 @@ public class Pay extends BaseEntity {
     @Column(name="online_bank_code_id",header="在线银行卡")
     private String onlineBankCodeId;
     
+    @Column(name="u8_voucher_id",header="u8凭证id")
+    private String u8VoucherId;
+    
     @Column(name="online_trade_no",header="在线交易号")
     private String onlineTradeNo;
     
@@ -278,5 +281,15 @@ public class Pay extends BaseEntity {
 	public void setPayForOrderCount(PayForOrderCountType payForOrderCount) {
 		this.payForOrderCount = payForOrderCount;
 	}
+
+	public String getU8VoucherId() {
+		return u8VoucherId;
+	}
+
+	public void setU8VoucherId(String u8VoucherId) {
+		this.u8VoucherId = u8VoucherId;
+	}
+	
+	
 	
 }
