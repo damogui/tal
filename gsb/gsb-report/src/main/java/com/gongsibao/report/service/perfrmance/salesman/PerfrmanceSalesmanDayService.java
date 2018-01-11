@@ -16,13 +16,18 @@ import com.gongsibao.report.service.perfrmance.AbstractPerfrmanceService;
 import com.gongsibao.report.utils.DateUtils;
 
 public class PerfrmanceSalesmanDayService extends AbstractPerfrmanceSalesmanService {
-
+	//单例模式-防止多次实例化
+	private PerfrmanceSalesmanDayService (){}    
+	private static class LazyHolder {    
+	       private static final PerfrmanceSalesmanDayService salesManDay = new PerfrmanceSalesmanDayService();    
+	    } 
+	    public static final PerfrmanceSalesmanDayService getInstance() {    
+	       return LazyHolder.salesManDay;    
+	}
 	@Override
 	public void doExecute() {
-
 		Date date = context.getDate();
 		String strDate = DateUtils.formatDate(date);
-
 		List<UserOrganizationMap> mapList = context.getMapList();
 		int i = 0;
 		for (UserOrganizationMap map : mapList) {
@@ -30,7 +35,6 @@ public class PerfrmanceSalesmanDayService extends AbstractPerfrmanceSalesmanServ
 			Integer organizationId = map.getOrganizationId();
 			PerformanceStatistics entity = create(context.getDate(), salesmanId, organizationId);
 			Map<String, Integer> getOrderMap = orderRelated(strDate, salesmanId);
-
 			entity.setReceivableAmount(getOrderMap.get("payablePriceCount"));
 			entity.setPaidAmount(getOrderMap.get("payCount"));
 			entity.setRefundAmount(getOrderMap.get("refundCount"));
