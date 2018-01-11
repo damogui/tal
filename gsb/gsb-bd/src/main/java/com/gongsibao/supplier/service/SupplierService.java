@@ -22,7 +22,7 @@ public class SupplierService extends PersistableService<Supplier> implements ISu
 	 * Title: 开户
 	 * </p>
 	 * <p>
-	 * Description: 1.校验是否已开户 2.创建Employee,创建Salesman,并关联Employee，设置管理员角色
+	 * Description: 1.校验是否已开户 ，是否设置功能模块2.创建Employee,创建Salesman,并关联Employee，设置管理员角色
 	 * </p>
 	 * 
 	 * @param supplierId
