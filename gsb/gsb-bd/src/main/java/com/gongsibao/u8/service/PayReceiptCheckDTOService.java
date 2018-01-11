@@ -69,10 +69,12 @@ public class PayReceiptCheckDTOService extends PersistableService<PayReceiptChec
 			Integer amount = row.getInteger("amount");// 支付金额
 			String bookName = row.getString("bookName");// 账套名称
 			String bankName = row.getString("bankName");// 支付方式
+			String u8VoucherId = row.getString("u8VoucherId");// u8凭证id
 			Integer payForOrderCount = row.getInteger("payForOrderCount");// 支付金额
 			dto.setId(id);
 			dto.setOrderNo(orderNo);
 			dto.setOrderIdStr(orderId);
+			dto.setU8VoucherId(u8VoucherId);
 			dto.setPaidPriceStr(paidPriceStr);
 			dto.setPayablePriceStr(payablePriceStr);
 			dto.setReceiptNo(receiptNo);
@@ -96,7 +98,7 @@ public class PayReceiptCheckDTOService extends PersistableService<PayReceiptChec
 		StringBuffer sql = new StringBuffer();
 
 		if (type == 0) {
-			sql.append("SELECT p.`pkid` 'id',  ");
+			sql.append("SELECT p.`pkid` 'id',p.`u8_voucher_id` 'u8VoucherId',  ");
 			sql.append("(CASE WHEN p.pay_for_order_count=0 THEN oi.`pkid` ELSE GROUP_CONCAT(oi.`pkid` SEPARATOR ',') END) 'orderId',  ");
 			sql.append("(CASE WHEN p.pay_for_order_count=0 THEN oi.`no` ELSE GROUP_CONCAT(oi.`no` SEPARATOR ',') END) 'orderNo', ");
 			sql.append("(CASE WHEN p.pay_for_order_count=0 THEN TRUNCATE(oi.`payable_price`/100,2) ELSE GROUP_CONCAT(CONCAT(oi.no,':',TRUNCATE(oi.`payable_price`/100,2)) SEPARATOR ',') END) 'payablePrice', ");
@@ -120,6 +122,11 @@ public class PayReceiptCheckDTOService extends PersistableService<PayReceiptChec
 		// 订单号
 		if (!StringManager.isNullOrEmpty(mapFilters.get("orderNo"))) {
 			sql.append("AND oi.no LIKE " + mapFilters.get("orderNo") + " ");
+		}
+
+		// u8凭证id
+		if (!StringManager.isNullOrEmpty(mapFilters.get("u8VoucherId"))) {
+			sql.append("AND p.u8_voucher_id LIKE " + mapFilters.get("u8VoucherId") + " ");
 		}
 
 		// 回单编号
