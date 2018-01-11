@@ -6,6 +6,8 @@ import java.util.List;
 import org.netsharp.communication.Service;
 import org.netsharp.core.Oql;
 import org.netsharp.service.PersistableService;
+import org.netsharp.util.StringManager;
+import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.bd.base.IDictService;
 import com.gongsibao.entity.bd.Dict;
@@ -43,4 +45,13 @@ public class DictService extends PersistableService<Dict> implements IDictServic
 		}
 		return this.queryList(oql);
 	}
+
+	@Override
+	public boolean delete(String ids) {
+		String[] idsarr = ids.split("_");
+		String isList = StringManager.join(",", idsarr);
+		String sql = "delete from bd_dict where pkid in (" + isList + ")";
+		return this.pm.executeNonQuery(sql, null) > 0;
+	}
+
 }

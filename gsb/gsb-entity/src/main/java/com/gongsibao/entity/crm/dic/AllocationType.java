@@ -5,8 +5,8 @@ import org.netsharp.base.IEnum;
 
 public enum AllocationType implements IEnum{
 
-	TYPE_1(1, "自然分配"), 
-	TYPE_2(2, "指定部门");
+	NATURAL(1, "自然分配"), 
+	ASSIGN(2, "指定部门");
 	private int value;
 	private String text;
 

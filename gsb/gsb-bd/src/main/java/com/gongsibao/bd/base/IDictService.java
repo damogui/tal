@@ -7,24 +7,27 @@ import org.netsharp.base.IPersistableService;
 import com.gongsibao.entity.bd.Dict;
 
 public interface IDictService extends IPersistableService<Dict> {
-	
-	/**   
-	 * @Title: byType   
-	 * @Description: TODO(根据类型查询)   
+
+	/**
+	 * @Title: byType
+	 * @Description: TODO(根据类型查询)
 	 * @param: @param type
-	 * @param: @return      
-	 * @return: List<Dict>      
-	 * @throws   
+	 * @param: @return
+	 * @return: List<Dict>
+	 * @throws
 	 */
 	List<Dict> byType(Integer type);
-	
-	/**   
-	 * @Title: byParentId   
-	 * @Description: TODO(根据上级查询)   
+
+	/**
+	 * @Title: byParentId
+	 * @Description: TODO(根据上级查询)
 	 * @param: @param parentId
-	 * @param: @return      
-	 * @return: List<Dict>      
-	 * @throws   
+	 * @param: @return
+	 * @return: List<Dict>
+	 * @throws
 	 */
 	List<Dict> byParentId(Integer parentId);
+
+	boolean delete(String ids);
+
 }

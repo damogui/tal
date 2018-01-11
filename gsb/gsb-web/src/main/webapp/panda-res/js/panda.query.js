@@ -120,13 +120,13 @@ org.netsharp.controls.TextBoxQueryItem=org.netsharp.controls.Control.Extends({
             if(operation == "Equal"){
 
                 qp.Filter = this.propertyName + "= '" + qp.Value + "'";
-            }else{
-
-                qp.Filter = this.propertyName + " LIKE '%" + qp.Value + "%'";
             }
+        }else{
+
+            qp.Filter = this.propertyName + " LIKE '%" + qp.Value + "%'";
         }
 
-      //  qp.Filter = this.propertyName + "=@" + this.propertyName;
+        //qp.Filter = this.propertyName + "=@" + this.propertyName ;
         return qp;
     },
     getFilter:function(){

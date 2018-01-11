@@ -144,7 +144,7 @@ configure(subprojects.findAll { it.name != 'dao' }) {
     }
 
     //
-    clean << {
+    clean  {
         if (file('bin').exists()) {
             file('bin').deleteDir()
         }
@@ -184,7 +184,7 @@ configure(subprojects.findAll { it.name != 'dao' }) {
 //    }
 }
 
-clean << {
+clean  {
     if (file('out').exists()) {
         file('out').deleteDir()
     }

@@ -11,11 +11,11 @@ com.gongsibao.u8.web.PayReceiptCheckDTOController = org.netsharp.panda.commerce.
 					IMessageBox.info('请选择记录');
 					return;
 				}
-				//支付id
+				// 支付id
 				var payId = row.id;
-				//订单编号
+				// 订单编号
 				var orderNo = row.orderNo;
-				//回单编号
+				// 回单编号
 				var receiptNo = row.receiptNo;
 				
 				var content = '<br/><p style="padding-left:50px;">&nbsp;订单编号：<input  type="text" disabled="disabled"  class="easyui-validatebox nsInput"  value="'
@@ -79,7 +79,7 @@ com.gongsibao.u8.web.PayReceiptCheckDTOController = org.netsharp.panda.commerce.
 			}
 });
 
-//进入页面就执行
+// 进入页面就执行
 $(function(){
 	
 	var options = $('#book_name').combogrid('options');
@@ -93,7 +93,7 @@ $(function(){
 		var grid = $('#bank_name').combogrid('grid');
 		var options = $(grid).datagrid('options');
 
-		var filter = ' setOfBooksId ____ ----'+ newValue + '----';//和后台约定了“____”就是“=”，“----”就是“'”(单引号)
+		var filter = ' setOfBooksId ____ ----'+ newValue + '----';// 和后台约定了“____”就是“=”，“----”就是“'”(单引号)
 
 		options.url = '\/panda\/rest\/reference?code=U8Bank&filter='+ filter;
 		$(grid).datagrid(options);

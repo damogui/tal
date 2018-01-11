@@ -88,8 +88,8 @@ public class Pay extends BaseEntity {
     @Column(name="receipt_status",header="回单处理状态（0：未完成 1已完成：）")
     private PayReceiptStatus receiptStatus=PayReceiptStatus.NotStarted;
     
-    @Subs(foreignKey="accountId",header="下单记录",subType=OrderPayMap.class)
-    private List<OrderPayMap> orderPayMaps;
+/*    @Subs(foreignKey="accountId",header="下单记录",subType=OrderPayMap.class)
+    private List<OrderPayMap> orderPayMaps;*/
     
     @Column(name="pay_for_order_count",header="支付订单数量（0:一笔单单 1:一笔多单）")
     private PayForOrderCountType payForOrderCount = PayForOrderCountType.Ybdd;
@@ -269,14 +269,6 @@ public class Pay extends BaseEntity {
 
 	public void setReceiptStatus(PayReceiptStatus receiptStatus) {
 		this.receiptStatus = receiptStatus;
-	}
-
-	public List<OrderPayMap> getOrderPayMaps() {
-		return orderPayMaps;
-	}
-
-	public void setOrderPayMaps(List<OrderPayMap> orderPayMaps) {
-		this.orderPayMaps = orderPayMaps;
 	}
 
 	public PayForOrderCountType getPayForOrderCount() {

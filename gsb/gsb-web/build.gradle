@@ -29,7 +29,7 @@ dependencies {
 }
 
 
-task deployPanda(dependsOn: war) << {
+task deployPanda(dependsOn: war)  {
     println("deploy $projectName to $tomcat_webapps")
     copy {
         from "build/libs/gsb-web-1.0-SNAPSHOT.war"

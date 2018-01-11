@@ -21,8 +21,8 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.controls.CityComboBox;
-import com.gongsibao.entity.crm.BaseServiceProvider;
-import com.gongsibao.entity.crm.BaseServiceProviderConfiger;
+import com.gongsibao.entity.crm.base.ServiceProvider;
+import com.gongsibao.entity.crm.base.ServiceProviderScope;
 import com.gongsibao.entity.product.Product;
 
 public class BaseServiceProviderWorkspaceTest extends WorkspaceCreationBase{
@@ -30,17 +30,18 @@ public class BaseServiceProviderWorkspaceTest extends WorkspaceCreationBase{
 	@Override
 	@Before
 	public void setup() {
-		entity = BaseServiceProvider.class;
+		entity = ServiceProvider.class;
+		//配置资源路径
 		urlList = "/crm/service/provider/list";
+		//配置表单路径
 		urlForm = "/crm/service/provider/from";
 		listPartName = formPartName = "服务商档案";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "Service_Provider_"+BaseServiceProvider.class.getSimpleName();
+		resourceNodeCode = "Service_Provider_"+ServiceProvider.class.getSimpleName();
 		
-		/*formServiceController = UserFormPart.class.getName();
-		formJsController = UserFormPart.class.getName();
-		formJsImport = "/gsb/uc/js/user.form.part.js|/gsb/gsb.customer.controls.js";*/
+		//选项卡页面的js
+		formJsImport = "/gsb/crm/js/service.provider.form.part.js|/gsb/gsb.customer.controls.js";
 	}
 	
 	@Override
@@ -72,6 +73,7 @@ public class BaseServiceProviderWorkspaceTest extends WorkspaceCreationBase{
 		return datagrid;
 	}
 	
+	//配置查询条件
 	@Override
 	protected PQueryProject createQueryProject(ResourceNode node) {
 
@@ -82,48 +84,48 @@ public class BaseServiceProviderWorkspaceTest extends WorkspaceCreationBase{
 		return queryProject;
 	}
 	
-	
-	/*@Override
+	//创建选项卡
+	@Override
 	protected void addDetailGridPart(PWorkspace workspace) {
 		addServiceCapacityPart(workspace);
-	}*/
-	
+	}
+	//选项卡加载项
 	private void addServiceCapacityPart(PWorkspace workspace) {
-
-		ResourceNode node = this.resourceService.byCode(BaseServiceProviderConfiger.class.getSimpleName());
-		PDatagrid datagrid = new PDatagrid(node, "服务能力配置");
+		ResourceNode node = this.resourceService.byCode(ServiceProviderScope.class.getSimpleName());
+		PDatagrid datagrid = new PDatagrid(node, "服务范围");
 		{
 			addColumn(datagrid, "product.name", "产品", ControlTypes.TEXT_BOX, 300);
-			addColumn(datagrid, "pDict.name", "省份", ControlTypes.TEXT_BOX, 150);
-			addColumn(datagrid, "cDict.name", "城市", ControlTypes.TEXT_BOX, 150);
-			addColumn(datagrid, "countyDict.name", "区/县", ControlTypes.TEXT_BOX, 150);
+			addColumn(datagrid, "dProvince.name", "省份", ControlTypes.TEXT_BOX, 150);
+			addColumn(datagrid, "dCity.name", "城市", ControlTypes.TEXT_BOX, 150);
+			addColumn(datagrid, "dCounty.name", "区/县", ControlTypes.TEXT_BOX, 150);
 		}
 		PForm form = new PForm();
 		{
 			form.toNew();
 			form.setResourceNode(node);
 			form.setColumnCount(1);
-			form.setName("服务能力配置");
-
+			form.setName("服务范围");
 			PFormField formField = null;
 			formField = addFormFieldRefrence(form, "product.name", "服务能力配置", null, "CRM_" + Product.class.getSimpleName(), true, false);
 			{
-				formField.setTroikaTrigger("controllerprodDetails.productChange(newValue,oldValue);");
+				//参数controllerserviceScope-页面源码中的、productChange-自定义的js中
+				formField.setTroikaTrigger("controllerserviceScope.productChange(newValue,oldValue);");
 				formField.setWidth(300);
 			}
-			formField = addFormField(form, "pDict.name", "省份", ControlTypes.CUSTOM, false, false);
+			
+			formField = addFormField(form, "dProvince.name", "省份", ControlTypes.CUSTOM, false, false);
 			{
 				formField.setCustomControlType(CityComboBox.class.getName());
 				formField.setDataOptions("level:1,changeCtrlId:'dCity_name'");
 				formField.setWidth(300);
 			}
-			formField = addFormField(form, "cDict.name", "城市", ControlTypes.CUSTOM, false, false);
+			formField = addFormField(form, "dCity.name", "城市", ControlTypes.CUSTOM, false, false);
 			{
 				formField.setCustomControlType(CityComboBox.class.getName());
 				formField.setDataOptions("level:2,changeCtrlId:'dCounty_name'");
 				formField.setWidth(300);
 			}
-			formField = addFormField(form, "countyDict.name", "区/县", ControlTypes.CUSTOM, false, false);
+			formField = addFormField(form, "dCounty.name", "区/县", ControlTypes.CUSTOM, false, false);
 			{
 				formField.setCustomControlType(CityComboBox.class.getName());
 				formField.setDataOptions("level:3");
@@ -134,16 +136,16 @@ public class BaseServiceProviderWorkspaceTest extends WorkspaceCreationBase{
 		PPart part = new PPart();
 		{
 			part.toNew();
-			part.setName("服务能力配置");
-			part.setCode("prodDetails");
+			part.setName("服务范围");
+			part.setCode("serviceScope");
 			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
-			part.setRelationRole("prodDetails");
+			part.setRelationRole("serviceScope");
 			part.setResourceNode(node);
 			part.setPartTypeId(PartType.DETAIL_PART.getId());
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
-			/*part.setToolbar("panda/datagrid/detail");
-			part.setJsController("com.gongsibao.crm.web.ProdMapDetailPart");*/
+			part.setToolbar("panda/datagrid/detail");
+			part.setJsController("com.gongsibao.crm.web.ProdMapDetailPart");
 			part.setWindowWidth(550);
 			part.setWindowHeight(350);
 			part.setForm(form);
@@ -159,7 +161,7 @@ public class BaseServiceProviderWorkspaceTest extends WorkspaceCreationBase{
 	}
 	
 	
-	
+	//创建表单。须配置urlForm路径
 	@Override
 	protected PForm createForm(ResourceNode node) {
 		PForm form = super.createForm(node);

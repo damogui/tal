@@ -33,7 +33,7 @@ import com.gongsibao.panda.crm.workspace.CustomerServiceConfigWorkspaceTest;
 //		
 		CustomerServiceConfigWorkspaceTest.class,
 		CustomerOrderWorkspaceTest.class,
-		BaseServiceProviderWorkspaceTest.class,
+//		BaseServiceProviderWorkspaceTest.class,
 		NavigationTest.class
 		})
 		

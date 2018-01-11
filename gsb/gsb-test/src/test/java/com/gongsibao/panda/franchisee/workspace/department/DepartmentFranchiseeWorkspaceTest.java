@@ -12,6 +12,7 @@ import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.franchisee.Franchisee;
+import com.gongsibao.franchisee.web.FranchiseeFormPart;
 import com.gongsibao.panda.franchisee.workspace.my.MyFranchiseeWorkspaceTest;
 
 public class DepartmentFranchiseeWorkspaceTest  extends MyFranchiseeWorkspaceTest{
@@ -29,6 +30,7 @@ public class DepartmentFranchiseeWorkspaceTest  extends MyFranchiseeWorkspaceTes
 		resourceNodeCode = "BD_DEPARTMENT_Franchisee";
 		listFilter = "department_id in ({departments})";
 		listToolbarPath = "/bd/operation/franchisee/edit";
+		formServiceController =FranchiseeFormPart.class.getName();
 	}
 	
 	@Test
