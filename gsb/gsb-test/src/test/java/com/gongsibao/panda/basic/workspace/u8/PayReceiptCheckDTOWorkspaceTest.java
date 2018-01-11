@@ -69,7 +69,9 @@ public class PayReceiptCheckDTOWorkspaceTest extends WorkspaceCreationBase {
 
 		PDatagridColumn column = null;
 		addColumn(datagrid, "id", "支付编号", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "u8VoucherId", "u8凭证号", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "payForOrderCount", "支付订单数量", ControlTypes.ENUM_BOX, 80);
+		addColumn(datagrid, "u8VoucherId", "u8凭证号", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "receiptNo", "回单编号", ControlTypes.TEXT_BOX, 100);
 		column = addColumn(datagrid, "orderIdStr", "订单id", ControlTypes.TEXT_BOX, 100);
 		{
@@ -95,6 +97,7 @@ public class PayReceiptCheckDTOWorkspaceTest extends WorkspaceCreationBase {
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
 		addQueryItem(queryProject, "orderNo", "订单号", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "u8VoucherId", "u8凭证id", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "receiptNo", "回单编号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "id", "支付编号", ControlTypes.NUMBER_BOX);
 		addQueryItem(queryProject, "payForOrderCount", "支付订单数量", ControlTypes.ENUM_BOX);
