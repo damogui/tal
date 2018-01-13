@@ -62,6 +62,7 @@ public class SellingDemandChannelWorkspaceTest extends SellingDemandWorkspaceTes
 		addColumn(datagrid, "province.name", "注册省份", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "city.name", "注册城市", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "county.name", "注册区/县", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "valuationPrice", "售价", ControlTypes.TEXT_BOX, 100);
 //		addColumn(datagrid, "name", "出售人", ControlTypes.TEXT_BOX, 80);
 //		addColumn(datagrid, "mobile", "出售电话", ControlTypes.TEXT_BOX, 100);
 		column = addColumn(datagrid, "createTime", "登记时间", ControlTypes.TEXTAREA, 130);
@@ -112,7 +113,8 @@ public class SellingDemandChannelWorkspaceTest extends SellingDemandWorkspaceTes
 		addFormField(form, "companyType", "公司类型", groupName, ControlTypes.ENUM_BOX, false, false);
 		addFormField(form, "companyNature", "公司性质", groupName, ControlTypes.ENUM_BOX, false, false);
 		addFormField(form, "businessLicense", "公司证件", groupName, ControlTypes.PICTURE_FILE_BOX, false, false);
-		addFormField(form, "registDate", "成立年限", groupName, ControlTypes.TEXT_BOX, false, false);
+		addFormField(form, "registDate", "成立年限(开始)",groupName,ControlTypes.DATE_BOX, false, false);
+		addFormField(form, "registDateEnd", "成立年限(结束)",groupName,ControlTypes.DATE_BOX, false, false);
 		addFormField(form, "companyFeature", "行业特点", groupName, ControlTypes.ENUM_BOX, false, false);
 		addFormField(form, "addressMode", "地址", groupName, ControlTypes.ENUM_BOX, false, false);
 
