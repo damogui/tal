@@ -13,9 +13,8 @@ import org.netsharp.organization.entity.Employee;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.dic.AllocationType;
 import com.gongsibao.entity.crm.dic.ConsultWay;
-import com.gongsibao.entity.crm.dic.CustomerIntention;
 import com.gongsibao.entity.crm.dic.Important;
-import com.gongsibao.entity.crm.dic.IntentionCategory;
+import com.gongsibao.entity.crm.dic.QualityCategory;
 import com.gongsibao.entity.crm.dic.Sex;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
@@ -134,11 +133,11 @@ public class NCustomer extends Entity {
 	private String swtServiceId;
 
 
-	@Column(name = "intention_category", header = "意向分类")
-	private IntentionCategory intentionCategory;
+	@Column(name = "intention_category", header = "质量分类")
+	private QualityCategory intentionCategory;
 	
-	@Column(name = "intention", header = "意向")
-	private CustomerIntention intention;
+	@Column(name = "quality", header = "质量")
+	private NCustomerTaskQuality quality;
 	
 	@Column(name = "last_follow_time", header = "最近跟进时间")
 	private Date lastFollowTime;
@@ -555,20 +554,20 @@ public class NCustomer extends Entity {
 		this.changes = changes;
 	}
 
-	public IntentionCategory getIntentionCategory() {
+	public QualityCategory getIntentionCategory() {
 		return intentionCategory;
 	}
 
-	public void setIntentionCategory(IntentionCategory intentionCategory) {
+	public void setIntentionCategory(QualityCategory intentionCategory) {
 		this.intentionCategory = intentionCategory;
 	}
 
-	public CustomerIntention getIntention() {
-		return intention;
+	public NCustomerTaskQuality getQuality() {
+		return quality;
 	}
 
-	public void setIntention(CustomerIntention intention) {
-		this.intention = intention;
+	public void setQuality(NCustomerTaskQuality quality) {
+		this.quality = quality;
 	}
 
 	public Integer getLastFoolowUserId() {
