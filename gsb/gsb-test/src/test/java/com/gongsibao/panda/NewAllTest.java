@@ -20,13 +20,13 @@ import org.junit.runners.Suite.SuiteClasses;
 	com.gongsibao.panda.basic.AllTest.class,
 
     //2.用户中心
-	com.gongsibao.panda.user.AllTest.class,
+	//com.gongsibao.panda.user.AllTest.class,
 	
     //2.客户管理
-	com.gongsibao.panda.crm.AllTest.class,
+	  com.gongsibao.panda.crm.AllTest.class,
 	
     //3.招商CRM
-	com.gongsibao.panda.franchisee.AllTest.class,
+	//com.gongsibao.panda.franchisee.AllTest.class,
 	
     //4.股转中心
 //	com.gongsibao.panda.ma.AllTest.class,
@@ -39,13 +39,14 @@ import org.junit.runners.Suite.SuiteClasses;
 
 	
     //8.交易中心
-	com.gongsibao.panda.trade.AllTest.class,
+	//com.gongsibao.panda.trade.AllTest.class,
 	
     //9.报表中心
 //	com.gongsibao.panda.report.AllTest.class,
 
     //10.igri
 	//com.gongsibao.panda.igirl.AllTest.class,
+	
 	//处理资源Id
 	org.netsharp.meta.end.AllTests.class,
 	})

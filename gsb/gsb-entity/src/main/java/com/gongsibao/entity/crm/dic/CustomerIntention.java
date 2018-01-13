@@ -1,6 +1,7 @@
 package com.gongsibao.entity.crm.dic;
 
 import org.codehaus.jackson.annotate.JsonCreator;
+import org.netsharp.base.IEnum;
 
 /**   
  * @ClassName:  CustomerIntention   
@@ -10,7 +11,7 @@ import org.codehaus.jackson.annotate.JsonCreator;
  *     
  * @Copyright: 2018 www.yikuaxiu.com Inc. All rights reserved. 
  */
-public enum CustomerIntention {
+public enum CustomerIntention implements IEnum{
 
 	A_1(1,IntentionCategory.A, "未跟进"), 
 	A_2(2,IntentionCategory.A,  "初步跟进"), 

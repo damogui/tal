@@ -37,16 +37,16 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_" + CustomerOrder.class.getSimpleName(), "订单列表", "/crm/customer/order/list", 7);
 		}
 
-//		createPTreeNode(tree, null, null, "GSB_CRM_MY", "我的任务", "", 2);
-//		{
-//			createPTreeNode(tree, "GSB_CRM_MY", null, "GSB_CRM_MY_TASK_ALL", "全部任务", "/crm/my/task/all/list", 1);
-//			createPTreeNode(tree, "GSB_CRM_MY", null, "GSB_CRM_MY_TASK_START", "未启动", "/crm/my/task/start/list", 2);
-//			createPTreeNode(tree, "GSB_CRM_MY", null, "GSB_CRM_MY_TASK_UNFOOLOW", "未跟进", "/crm/my/task/unfoolow/list", 3);
-//			createPTreeNode(tree, "GSB_CRM_MY", null, "GSB_CRM_MY_TASK_FOLLOWING", "跟进中", "/crm/my/task/following/list", 4);
-//			createPTreeNode(tree, "GSB_CRM_MY", null, "GSB_CRM_MY_TASK_SIGNED", "已签单", "/crm/my/task/signed/list", 5);
-//			createPTreeNode(tree, "GSB_CRM_MY", null, "GSB_CRM_MY_TASK_DEFEATED", "无法签单", "/crm/my/task/defeated/list", 6);
-//			createPTreeNode(tree, "GSB_CRM_MY", null, "GSB_CRM_MY_REPORT", "跟进统计", "/crm/my/task/report/list", 7);
-//		}
+		createPTreeNode(tree, null, null, "GSB_CRM_MY", "我的任务", "", 2);
+		{
+			createPTreeNode(tree, "GSB_CRM_MY", null, "GSB_CRM_MY_TASK_ALL", "全部任务", "/crm/my/task/all/list", 1);
+			createPTreeNode(tree, "GSB_CRM_MY", null, "GSB_CRM_MY_TASK_START", "未启动", "/crm/my/task/start/list", 2);
+			createPTreeNode(tree, "GSB_CRM_MY", null, "GSB_CRM_MY_TASK_UNFOOLOW", "未跟进", "/crm/my/task/unfoolow/list", 3);
+			createPTreeNode(tree, "GSB_CRM_MY", null, "GSB_CRM_MY_TASK_FOLLOWING", "跟进中", "/crm/my/task/following/list", 4);
+			createPTreeNode(tree, "GSB_CRM_MY", null, "GSB_CRM_MY_TASK_SIGNED", "已签单", "/crm/my/task/signed/list", 5);
+			createPTreeNode(tree, "GSB_CRM_MY", null, "GSB_CRM_MY_TASK_DEFEATED", "无法签单", "/crm/my/task/defeated/list", 6);
+			createPTreeNode(tree, "GSB_CRM_MY", null, "GSB_CRM_MY_REPORT", "跟进统计", "/crm/my/task/report/list", 7);
+		}
 //
 //		createPTreeNode(tree, null, null, "GSB_CRM_DEPARTMENT", "部门管理", "", 3);
 //		{
