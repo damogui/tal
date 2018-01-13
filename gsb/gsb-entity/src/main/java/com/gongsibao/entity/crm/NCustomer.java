@@ -114,7 +114,7 @@ public class NCustomer extends Entity {
 	@Column(name = "supplier_id", header = "分配服务商Id")
 	private Integer supplierId;
 
-	@Reference(foreignKey = "allocationOrgId", header = "分配服务商")
+	@Reference(foreignKey = "supplierId", header = "分配服务商")
 	private Supplier supplier;
 	
 	@Column(name = "department_id", header = "分配服务商部门Id")
