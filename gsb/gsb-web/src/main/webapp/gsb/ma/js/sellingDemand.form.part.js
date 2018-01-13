@@ -34,7 +34,7 @@ com.gongsibao.ma.web.SellingDemandFormPart = org.netsharp.panda.commerce.FormPar
 		}else{
 			$('#tabcenter').tabs('disableTab', '子公司');
 			
-			//清空子公司明细 controllersubdiaryieCompanyDetails
+			//清空子公司明细  controllersubdiaryieCompanyDetails
 		}
 	},
     databindafter:function(){
