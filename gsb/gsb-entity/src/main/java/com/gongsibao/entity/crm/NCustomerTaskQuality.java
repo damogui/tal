@@ -6,7 +6,7 @@ import org.netsharp.entity.BizEntity;
 
 import com.gongsibao.entity.crm.dic.QualityCategory;
 
-@Table(name="n_crm_task_quality",header="客户意向")
+@Table(name="n_crm_task_quality",header="客户质量")
 public class NCustomerTaskQuality extends BizEntity{
 
 	/**   
@@ -15,7 +15,7 @@ public class NCustomerTaskQuality extends BizEntity{
 	private static final long serialVersionUID = -2257727131244260461L;
 
 	
-	@Column(name = "intention_category", header = "意向分类")
+	@Column(name = "intention_category", header = "质量分类")
 	private QualityCategory intentionCategory;
 	
 	@Column(name = "next_foolow_date_required", header = "下次跟进时间必填")
