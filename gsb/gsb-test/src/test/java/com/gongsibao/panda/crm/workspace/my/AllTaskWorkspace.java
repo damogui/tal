@@ -19,6 +19,9 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.controls.CityComboBox;
+import com.gongsibao.controls.CustomerComboBox;
+import com.gongsibao.controls.SupplierComboBox;
+import com.gongsibao.controls.SupplierDepaComboBox;
 import com.gongsibao.entity.crm.NCustomerChange;
 import com.gongsibao.entity.crm.NCustomerProduct;
 import com.gongsibao.entity.crm.NCustomerTask;
@@ -48,13 +51,10 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
 		PDatagrid datagrid = super.createDatagrid(node);
-		datagrid.setAutoQuery(false);
-		datagrid.setLazy(true);
-		datagrid.setPagination(false);
 		PDatagridColumn column = null;
 		column = addColumn(datagrid, "customer.realName", "客户", ControlTypes.TEXT_BOX, 100, true);
 		column = addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 100, true);
-		column = addColumn(datagrid, "supplier.name", "分配服务商", ControlTypes.TEXT_BOX, 100, false);
+		//column = addColumn(datagrid, "supplier.name", "分配服务商", ControlTypes.TEXT_BOX, 100, false);
 		//column = addColumn(datagrid, "department.name", "分配服务商部门", ControlTypes.TEXT_BOX, 100, false);
 		column = addColumn(datagrid, "lastAllocationTime", "最后分配时间", ControlTypes.DATE_BOX, 100, false);
 		column = addColumn(datagrid, "lastAllocationUser.loginName", "最后分配人", ControlTypes.TEXT_BOX, 100, false);
@@ -67,7 +67,6 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		column = addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 100, false);
 		column = addColumn(datagrid, "old", "是否老客户", ControlTypes.TEXT_BOX, 100, false);
 		column = addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 100, false);
-		
 		return datagrid;
 	}
 	
@@ -314,13 +313,24 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		field = addFormField(form, "foolowStatus", "跟进状态", groupName, ControlTypes.ENUM_BOX, false, false);
 		addFormField(form, "intentionCategory", "意向分类", groupName, ControlTypes.ENUM_BOX, false, false);
 		
+		field = addFormField(form, "departmentId", "分配服务商部门", groupName, ControlTypes.CUSTOM, true, false);{
+			field.setCustomControlType(SupplierDepaComboBox.class.getName());
+		}
 		addFormField(form, "old", "是否老客户", groupName, ControlTypes.SWITCH_BUTTON, false, false);
 		addFormField(form, "intention", "意向", groupName, ControlTypes.ENUM_BOX, false, false);
 		
 		
+		field = addFormField(form, "supplierId", "分配服务商", groupName, ControlTypes.CUSTOM, true, false);{
+			field.setCustomControlType(SupplierComboBox.class.getName());
+		}
+		field = addFormField(form, "customerId", "客户", groupName, ControlTypes.CUSTOM, true, false);{
+			field.setCustomControlType(CustomerComboBox.class.getName());
+		}
+		
 		field = addFormField(form, "lastContent", "最后跟进内容", groupName, ControlTypes.TEXT_BOX, false, false);{			
 			field.setFullColumn(true);
 	    }
+		
 		field = addFormField(form, "memoto", "备注", groupName, ControlTypes.TEXT_BOX, false, false);{			
 			field.setFullColumn(true);
 	    }
