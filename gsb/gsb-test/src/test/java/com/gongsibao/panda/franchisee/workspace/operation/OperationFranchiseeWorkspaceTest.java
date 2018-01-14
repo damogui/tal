@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.dic.OrganizationType;
+import org.netsharp.organization.entity.Employee;
 import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.entity.PDatagrid;
@@ -20,12 +21,12 @@ import com.gongsibao.entity.franchisee.Franchisee;
 import com.gongsibao.franchisee.web.FranchiseeFormPart;
 import com.gongsibao.panda.franchisee.workspace.my.MyFranchiseeWorkspaceTest;
 
-public class OperationFranchiseeWorkspaceTest  extends MyFranchiseeWorkspaceTest{
+public class OperationFranchiseeWorkspaceTest extends MyFranchiseeWorkspaceTest {
 
 	@Override
 	@Before
 	public void setup() {
-		
+
 		super.setup();
 		urlList = "/bd/operation/franchisee/list";
 		urlForm = "/bd/operation/franchisee/form";
@@ -35,16 +36,15 @@ public class OperationFranchiseeWorkspaceTest  extends MyFranchiseeWorkspaceTest
 		resourceNodeCode = "GSB_BD_OPERATION_Franchisee";
 		listFilter = null;
 		listToolbarPath = "/bd/operation/franchisee/edit";
-		formServiceController =FranchiseeFormPart.class.getName();
+		formServiceController = FranchiseeFormPart.class.getName();
 	}
-	
-	
+
 	@Test
 	public void run() {
 		createListWorkspace();
 		createFormWorkspace();
 	}
-	
+
 	@Test
 	public void listPartToolbar() {
 
@@ -76,16 +76,17 @@ public class OperationFranchiseeWorkspaceTest  extends MyFranchiseeWorkspaceTest
 
 		toolbarService.save(toolbar);
 	}
-	
+
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
-		
+
 		PDatagrid datagrid = super.createDatagrid(node);
 		datagrid.setSingleSelect(false);
 		datagrid.setShowCheckbox(true);
-		
-		PDatagridColumn column = addColumn(datagrid, "allotStatus", "状态", ControlTypes.ENUM_BOX, 60, true);{
-			
+
+		PDatagridColumn column = addColumn(datagrid, "allotStatus", "状态", ControlTypes.ENUM_BOX, 60, true);
+		{
+
 			column.setStyler("return row.allotStatus=='已分配'?'color:blue;':'color:red;';");
 		}
 		return datagrid;
@@ -93,13 +94,15 @@ public class OperationFranchiseeWorkspaceTest  extends MyFranchiseeWorkspaceTest
 
 	@Override
 	protected PQueryProject createQueryProject(ResourceNode node) {
-		
+
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.setColumnCount(4);
 		addQueryItem(queryProject, "lastTracker.name", "最后跟进人", ControlTypes.TEXT_BOX);
-		PQueryItem queryItem = addRefrenceQueryItem(queryProject, "department.name", "所属部门", "BD-Organization-Department-Filter");{
-			queryItem.setRefFilter("organizationType="+OrganizationType.DEPARTMENT.getValue());
+		PQueryItem queryItem = addRefrenceQueryItem(queryProject, "department.name", "所属部门", "BD-Organization-Department-Filter");
+		{
+			queryItem.setRefFilter("organizationType=" + OrganizationType.DEPARTMENT.getValue());
 		}
+		queryItem = addRefrenceQueryItem(queryProject, "owner.name", "业务员", Employee.class.getSimpleName());
 		addQueryItem(queryProject, "allotStatus", "状态", ControlTypes.ENUM_BOX);
 		addQueryItem(queryProject, "id", "客户Id", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "creator", "创建人", ControlTypes.TEXT_BOX);

@@ -134,7 +134,7 @@ public class FranchiseeTrackService extends PersistableService<FranchiseeTrack> 
 			ss.add("<a href=\"http://netsharp.gongsibao.com/nav/wx/qy/bd/franchiseeDetail?id=" + franchiseeId + "\">查看详情</a>");
 			String content = StringManager.join("，", ss);
 			List<String> ls = new ArrayList<String>();
-			ls.add(UserPermissionManager.getUserPermission().getEmployee().getMobile());
+			//ls.add(UserPermissionManager.getUserPermission().getEmployee().getMobile());
 			ls.add(owner.getMobile());
 			eMessageService.send("BD", content, StringManager.join("|", ls));
 		}
