@@ -72,9 +72,9 @@ public class SellingDemandWorkspaceTest extends WorkspaceCreationBase{
 		String groupName="基本信息";
 		addFormField(form, "code", "编号",groupName,ControlTypes.TEXT_BOX, false, true);
 		addFormField(form, "createTime", "登记时间",groupName, ControlTypes.TEXT_BOX, false, true);
-		addFormField(form, "creator", "  登记人员",groupName, ControlTypes.TEXT_BOX, false, true);
+		addFormField(form, "creator", "登记人员",groupName, ControlTypes.TEXT_BOX, false, true);
 		addFormField(form, "companyName", "企业名称",groupName,ControlTypes.TEXT_BOX, true, false);
-		addFormField(form, "fullName", "企业具体名称", null, ControlTypes.TEXT_BOX, false, false);
+		addFormField(form, "fullName", "企业具体名称", groupName, ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "name", "出售人",groupName,ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "mobile", "出售人电话",groupName,ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "weixin", "出售人微信号",groupName,ControlTypes.TEXT_BOX, false, false);
@@ -84,7 +84,7 @@ public class SellingDemandWorkspaceTest extends WorkspaceCreationBase{
 		groupName="尽调信息";
 		addFormField(form, "companyType", "公司类型",groupName,ControlTypes.ENUM_BOX, true, false);
 		addFormField(form, "companyNature", "公司性质",groupName,ControlTypes.ENUM_BOX, true, false);
-		addFormField(form, "businessLicense", "公司证件",groupName,ControlTypes.PICTURE_FILE_BOX, true, false);
+		addFormField(form, "businessLicense", "公司证件",groupName,ControlTypes.OSS_UPLOAD, true, false);
 		formField = addFormField(form, "registDate", "成立日期(开始)",groupName,ControlTypes.DATE_BOX, true, false);{
 			
 			formField.setTroikaTrigger("controllersellingDemand.registDateBeginChange(date);");
