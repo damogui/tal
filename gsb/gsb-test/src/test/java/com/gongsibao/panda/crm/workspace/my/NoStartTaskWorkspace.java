@@ -9,8 +9,6 @@ import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
-import org.netsharp.panda.entity.PForm;
-import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
@@ -35,7 +33,7 @@ public class NoStartTaskWorkspace extends WorkspaceCreationBase{
 	protected PDatagrid createDatagrid(ResourceNode node) {
 		PDatagrid datagrid = super.createDatagrid(node);
 		PDatagridColumn column = null;
-		column = addColumn(datagrid, "customer.realName", "客户", ControlTypes.TEXT_BOX, 100, true);
+		//column = addColumn(datagrid, "customer.realName", "客户", ControlTypes.TEXT_BOX, 100, true);
 		column = addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 100, true);
 		//column = addColumn(datagrid, "supplier.name", "分配服务商", ControlTypes.TEXT_BOX, 100, false);
 		//column = addColumn(datagrid, "department.name", "分配服务商部门", ControlTypes.TEXT_BOX, 100, false);
@@ -60,28 +58,7 @@ public class NoStartTaskWorkspace extends WorkspaceCreationBase{
 		addQueryItem(queryProject, "name", "名称", ControlTypes.TEXT_BOX);
 		return queryProject;
 	}
-	//创建表单。须配置urlForm路径
-	@Override
-	protected PForm createForm(ResourceNode node) {
-		PForm form = super.createForm(node);
-		String groupName = null;
-		PFormField field = null;
-		addFormField(form, "name", "名称", groupName, ControlTypes.TEXT_BOX, true, false);
-		field = addFormField(form, "foolowStatus", "跟进状态", groupName, ControlTypes.ENUM_BOX, false, false);
-		addFormField(form, "intentionCategory", "意向分类", groupName, ControlTypes.ENUM_BOX, false, false);
-		
-		addFormField(form, "old", "是否老客户", groupName, ControlTypes.SWITCH_BUTTON, false, false);
-		addFormField(form, "intention", "意向", groupName, ControlTypes.ENUM_BOX, false, false);
-		
-		
-		field = addFormField(form, "lastContent", "最后跟进内容", groupName, ControlTypes.TEXT_BOX, false, false);{			
-			field.setFullColumn(true);
-	    }
-		field = addFormField(form, "memoto", "备注", groupName, ControlTypes.TEXT_BOX, false, false);{			
-			field.setFullColumn(true);
-	    }
-		return form;
-	}		
+	
 	public void operation() {
 		ResourceNode node = resourceService.byCode(resourceNodeCode);
 		IOperationService service = ServiceFactory.create(IOperationService.class);

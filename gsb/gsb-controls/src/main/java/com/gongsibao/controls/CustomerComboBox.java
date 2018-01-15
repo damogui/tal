@@ -39,7 +39,7 @@ public class CustomerComboBox implements IPropertyControl{
 			enumbox.collected = true;
 			enumbox.id = formField.getPropertyName();
 			enumbox.required = formField.isRequired();
-			enumbox.controlType = "NCustomerListComboBox";
+			enumbox.controlType = "CustomerComboBox";
 			enumbox.editable = true;
 		}
 		List<NCustomer> list = getNCustomerList();
