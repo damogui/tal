@@ -19,10 +19,6 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.controls.CityComboBox;
-import com.gongsibao.controls.CustomerComboBox;
-import com.gongsibao.controls.SupplierComboBox;
-import com.gongsibao.controls.SupplierDepaComboBox;
-import com.gongsibao.entity.crm.CustomerProdMap;
 import com.gongsibao.entity.crm.NCustomerChange;
 import com.gongsibao.entity.crm.NCustomerProduct;
 import com.gongsibao.entity.crm.NCustomerTask;
@@ -118,15 +114,16 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 			formField = addFormField(form, "province.name", "省份", ControlTypes.CUSTOM, false, false);
 			{
 				formField.setCustomControlType(CityComboBox.class.getName());
-				formField.setDataOptions("level:1,changeCtrlId:'city.name'");
+				formField.setDataOptions("level:1,changeCtrlId:'city_name'");
 				formField.setWidth(300);
 			}
 			formField = addFormField(form, "city.name", "城市", ControlTypes.CUSTOM, false, false);
 			{
 				formField.setCustomControlType(CityComboBox.class.getName());
-				formField.setDataOptions("level:2,changeCtrlId:'county.name'");
+				formField.setDataOptions("level:2,changeCtrlId:'county_name'");
 				formField.setWidth(300);
 			}
+			//自定义控件(公用的，里面有一些逻辑)
 			formField = addFormField(form, "county.name", "区/县", ControlTypes.CUSTOM, false, false);
 			{
 				formField.setCustomControlType(CityComboBox.class.getName());
@@ -316,23 +313,17 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		String groupName = null;
 		
 		addFormField(form, "name", "名称", groupName, ControlTypes.TEXT_BOX, true, false);
-		/*formField = addFormField(form, "supplierId", "分配服务商", groupName, ControlTypes.CUSTOM, true, false);{
-			formField.setCustomControlType(SupplierComboBox.class.getName());
-		}
-		formField = addFormField(form, "departmentId", "分配服务商部门", groupName, ControlTypes.CUSTOM, true, false);{
-			formField.setCustomControlType(SupplierDepaComboBox.class.getName());
-		}*/
-		
+		addFormFieldRefrence(form, "supplier.name", "分配服务商", groupName, "CRM_Supplier", false, false);
+		addFormFieldRefrence(form, "department.name", "分配服务商部门", groupName, "CRM_Supplier_Depart", false, false);
 		
 		formField = addFormField(form, "foolowStatus", "跟进状态", groupName, ControlTypes.ENUM_BOX, false, false);
 		addFormField(form, "intentionCategory", "质量分类", groupName, ControlTypes.ENUM_BOX, false, false);
 		addFormField(form, "old", "是否老客户", groupName, ControlTypes.SWITCH_BUTTON, false, false);
 		
 		
-		formField = addFormField(form, "customerId", "客户", groupName, ControlTypes.CUSTOM, true, false);{
-			formField.setCustomControlType(CustomerComboBox.class.getName());
-		}
-		
+		addFormFieldRefrence(form, "customer.name", "客户", groupName, "CRM_NCustomer", false, false);
+		addFormFieldRefrence(form, "lastAllocationUser.name", "最后分配人", groupName, "CRM_Employee", false, false);
+		addFormFieldRefrence(form, "lastFoolowUser.name", "最后跟进人", groupName, "CRM_Employee", false, false);
 		
 		formField = addFormField(form, "lastContent", "最后跟进内容", groupName, ControlTypes.TEXT_BOX, false, false);{			
 			formField.setFullColumn(true);
