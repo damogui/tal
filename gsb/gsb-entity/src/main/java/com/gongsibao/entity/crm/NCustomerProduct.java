@@ -1,5 +1,6 @@
 package com.gongsibao.entity.crm;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
@@ -16,12 +17,14 @@ public class NCustomerProduct extends Entity{
 	 */   
 	private static final long serialVersionUID = 4684375504055933956L;
 
+	@JsonIgnore
 	@Reference(foreignKey = "customerId", header = "客户")
 	private NCustomer customer;
 
 	@Column(name = "customer_id", header = "客户")
 	private Integer customerId = 0;
 	
+	@JsonIgnore
 	@Reference(foreignKey = "taskId", header = "客户任务")
 	private NCustomerTask task;
 
@@ -31,24 +34,28 @@ public class NCustomerProduct extends Entity{
     @Column(name="product_id")
     private Integer productId;
     
+    @JsonIgnore
     @Reference(foreignKey="productId",header="产品")
     private Product product;
     
 	@Column(name = "province_id")
 	private Integer provinceId;
 
+	@JsonIgnore
 	@Reference(foreignKey = "provinceId", header = "省份")
 	private Dict province;
 
 	@Column(name = "city_id")
 	private Integer cityId;
 
+	@JsonIgnore
 	@Reference(foreignKey = "cityId", header = "城市")
 	private Dict city;
 
 	@Column(name = "county_id")
 	private Integer countyId;
 
+	@JsonIgnore
 	@Reference(foreignKey = "countyId", header = "区/县")
 	private Dict county;
 

@@ -2,6 +2,7 @@ package com.gongsibao.entity.crm;
 
 import java.util.Date;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
@@ -18,12 +19,14 @@ public class NCustomerTaskFoolow extends Entity {
 	 */
 	private static final long serialVersionUID = 4684375504055933956L;
 
+	@JsonIgnore
 	@Reference(foreignKey = "customerId", header = "客户Id")
 	private NCustomer customer;
 
 	@Column(name = "customer_id", header = "客户")
 	private Integer customerId = 0;
 
+	@JsonIgnore
 	@Reference(foreignKey = "taskId", header = "任务Id")
 	private NCustomerTask task;
 

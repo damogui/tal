@@ -3,6 +3,7 @@ package com.gongsibao.entity.crm;
 import java.util.Date;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
@@ -23,6 +24,7 @@ public class NCustomerTask extends Entity {
 	 */
 	private static final long serialVersionUID = 4684375504055933956L;
 
+	@JsonIgnore
 	@Reference(foreignKey = "customerId", header = "客户")
 	private NCustomer customer;
 
@@ -35,12 +37,14 @@ public class NCustomerTask extends Entity {
 	@Column(name = "supplier_id", header = "分配服务商Id")
 	private Integer supplierId;
 
+	@JsonIgnore
 	@Reference(foreignKey = "supplierId", header = "分配服务商")
 	private Supplier supplier;
 	
 	@Column(name = "department_id", header = "分配服务商部门Id")
 	private Integer departmentId;
 
+	@JsonIgnore
 	@Reference(foreignKey = "departmentId", header = "分配服务商部门")
 	private SupplierDepartment department;
 	
@@ -50,6 +54,7 @@ public class NCustomerTask extends Entity {
 	@Column(name = "last_allocation_user_id", header = "最后分配人Id")
 	private Integer lastAllocationUserId = 0;
 	
+	@JsonIgnore
 	@Reference(foreignKey = "lastAllocationUserId", header = "最后分配人")
 	private Employee lastAllocationUser;
 	
@@ -68,6 +73,7 @@ public class NCustomerTask extends Entity {
 	@Column(name = "last_foolow_user_id", header = "最后跟进人Id")
 	private Integer lastFoolowUserId = 0;
 	
+	@JsonIgnore
 	@Reference(foreignKey = "lastFoolowUserId", header = "最后跟进人")
 	private Employee lastFoolowUser;
 	

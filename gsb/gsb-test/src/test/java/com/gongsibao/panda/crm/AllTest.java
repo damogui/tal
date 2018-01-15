@@ -17,7 +17,8 @@ import com.gongsibao.panda.crm.workspace.CustomerAllWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.CustomerOrderWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.CustomerServiceConfigWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.my.AllTaskWorkspace;
-import com.gongsibao.panda.crm.workspace.my.NoStartTaskWorkspace;
+import com.gongsibao.panda.crm.workspace.my.UnFoolowWorkspace;
+import com.gongsibao.panda.crm.workspace.my.UnStartWorkspace;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
@@ -45,7 +46,8 @@ import com.gongsibao.panda.crm.workspace.my.NoStartTaskWorkspace;
 //		BaseServiceProviderWorkspaceTest.class,
 				
 		AllTaskWorkspace.class,
-		NoStartTaskWorkspace.class,
+		UnStartWorkspace.class,
+		UnFoolowWorkspace.class,
 		NavigationTest.class
 		})
 		
