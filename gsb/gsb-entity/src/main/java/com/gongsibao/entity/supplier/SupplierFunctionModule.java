@@ -17,7 +17,6 @@ public class SupplierFunctionModule extends Entity{
 	@Column(name="function_module_id",header="功能主键")
     private Integer functionModuleId;
 	
-	@JsonIgnore
 	@Reference(foreignKey="functionModuleId")
     private FunctionModule functionModule;
 

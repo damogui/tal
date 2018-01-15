@@ -21,7 +21,7 @@ com.gongsibao.supplier.web.SupplierListPart = org.netsharp.panda.commerce.ListPa
     	}
     	return true;
     },
-    openAccount:function(){
+    openAccount:function(){//开户
     	
 		var count = this.getSelectionCount();
 		if (count <= 0) {
@@ -43,7 +43,7 @@ com.gongsibao.supplier.web.SupplierListPart = org.netsharp.panda.commerce.ListPa
 			}
 		});
     },
-    closeAccount:function(){
+    closeAccount:function(){//销户
     	
 		var count = this.getSelectionCount();
 		if (count <= 0) {
@@ -65,7 +65,7 @@ com.gongsibao.supplier.web.SupplierListPart = org.netsharp.panda.commerce.ListPa
 			}
 		});
     },
-    setDepartment:function(){
+    setDepartment:function(){//部门设置
     	
     	var row = this.getSelectedItem();
     	if(row == null){
@@ -85,7 +85,7 @@ com.gongsibao.supplier.web.SupplierListPart = org.netsharp.panda.commerce.ListPa
     	}
     	window.open('/panda/crm/sys/department/list');
     },
-    setSalesman:function(){
+    setSalesman:function(){//员工设置
 
     	var row = this.getSelectedItem();
     	if(row == null){

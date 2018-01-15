@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import com.gongsibao.panda.operation.reference.FunctionModuleReferenceTest;
 import com.gongsibao.panda.operation.workspace.supplier.FunctionModuleWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.supplier.SupplierCategoryWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.supplier.SupplierWorkspaceTest;
@@ -11,9 +12,7 @@ import com.gongsibao.panda.operation.workspace.taurus.ActiveUserWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.taurus.DayStatisticWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.taurus.JnzUserBalanceWorkSpaceTest;
 import com.gongsibao.panda.operation.workspace.taurus.NewUserPerDayWorkspaceTest;
-import com.gongsibao.panda.operation.workspace.taurus.UserConsStatisticWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.taurus.UserConsumptionWorkspaceTest;
-import com.gongsibao.panda.operation.workspace.taurus.UserRenewalStatisticWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.taurus.UserWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.wanda.WanDaProductWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
@@ -23,6 +22,10 @@ import com.gongsibao.panda.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
 @SuiteClasses({
 
 	ResourceTest.class, 
+	
+	//参照
+	//功能模块
+	FunctionModuleReferenceTest.class,
 
 	//金牛座
 	UserWorkspaceTest.class,
