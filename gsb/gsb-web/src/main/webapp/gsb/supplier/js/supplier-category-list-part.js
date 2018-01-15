@@ -2,6 +2,20 @@ System.Declare("com.gongsibao.supplier.web");
 
 com.gongsibao.supplier.web.SupplierCategoryTreegridPart = org.netsharp.panda.commerce.TreegridPart.Extends({
 
+	onAdding:function(){
+
+		var totalCount = $("#" + this.context.id).treegrid('getData').length;
+		if(totalCount > 0){
+			
+			var selectCount = this.getSelectionCount();
+			if(selectCount == 0){
+
+				IMessageBox.info("请选择上级!");
+				return false;
+			}
+		}
+		return true;
+	},
 	add : function() {
 
 		if (!this.onAdding()) {
