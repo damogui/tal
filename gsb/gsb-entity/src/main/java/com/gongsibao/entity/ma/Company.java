@@ -10,6 +10,7 @@ public abstract class Company extends BizEntity {
 	@Column(name="selling_demand_id",header="销售需求")
 	private Integer sellingDemandId;
 
+
 	public Integer getSellingDemandId() {
 		return sellingDemandId;
 	}
@@ -17,4 +18,5 @@ public abstract class Company extends BizEntity {
 	public void setSellingDemandId(Integer sellingDemandId) {
 		this.sellingDemandId = sellingDemandId;
 	}
+
 }

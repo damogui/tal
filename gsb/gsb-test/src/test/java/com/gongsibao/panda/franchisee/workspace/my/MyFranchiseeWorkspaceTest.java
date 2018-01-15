@@ -457,7 +457,7 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 			{
 				formField.setWidth(400);
 			}
-			formField = addFormField(form, "nextTrackDate", "下次跟进时间", ControlTypes.DATE_BOX, true, false);
+			formField = addFormField(form, "nextTrackDate", "下次跟进时间", ControlTypes.DATE_BOX, false, false);
 			{
 				formField.setWidth(400);
 			}

@@ -74,6 +74,7 @@ public class SellingDemandWorkspaceTest extends WorkspaceCreationBase{
 		addFormField(form, "createTime", "登记时间",groupName, ControlTypes.TEXT_BOX, false, true);
 		addFormField(form, "creator", "  登记人员",groupName, ControlTypes.TEXT_BOX, false, true);
 		addFormField(form, "companyName", "企业名称",groupName,ControlTypes.TEXT_BOX, true, false);
+		addFormField(form, "fullName", "企业具体名称", null, ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "name", "出售人",groupName,ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "mobile", "出售人电话",groupName,ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "weixin", "出售人微信号",groupName,ControlTypes.TEXT_BOX, false, false);
@@ -81,24 +82,32 @@ public class SellingDemandWorkspaceTest extends WorkspaceCreationBase{
 		addFormField(form, "email", "出售人邮箱",groupName,ControlTypes.TEXT_BOX, false, false);
 
 		groupName="尽调信息";
-		addFormField(form, "companyType", "公司类型",groupName,ControlTypes.ENUM_BOX, false, false);
-		addFormField(form, "companyNature", "公司性质",groupName,ControlTypes.ENUM_BOX, false, false);
-		addFormField(form, "businessLicense", "公司证件",groupName,ControlTypes.PICTURE_FILE_BOX, false, false);
-		addFormField(form, "registDate", "成立年限",groupName,ControlTypes.DATE_BOX, false, false);
-		addFormField(form, "companyFeature", "行业特点",groupName,ControlTypes.ENUM_BOX, false, false);
-		addFormField(form, "addressMode", "地址",groupName,ControlTypes.ENUM_BOX, false, false);
+		addFormField(form, "companyType", "公司类型",groupName,ControlTypes.ENUM_BOX, true, false);
+		addFormField(form, "companyNature", "公司性质",groupName,ControlTypes.ENUM_BOX, true, false);
+		addFormField(form, "businessLicense", "公司证件",groupName,ControlTypes.PICTURE_FILE_BOX, true, false);
+		formField = addFormField(form, "registDate", "成立日期(开始)",groupName,ControlTypes.DATE_BOX, true, false);{
+			
+			formField.setTroikaTrigger("controllersellingDemand.registDateBeginChange(date);");
+		}
+		formField = addFormField(form, "registDateEnd", "成立日期(结束)",groupName,ControlTypes.DATE_BOX, true, false);{
+			
+			formField.setTroikaTrigger("controllersellingDemand.registDateEndChange(date);");
+		}
+		addFormField(form, "registYear", "成立年限",groupName,ControlTypes.NUMBER_BOX, true, true);
+		addFormField(form, "companyFeature", "行业特点",groupName,ControlTypes.ENUM_BOX, true, false);
+		addFormField(form, "addressMode", "地址",groupName,ControlTypes.ENUM_BOX, true, false);
 		
-		formField = addFormField(form, "province.name", "注册省份",groupName,ControlTypes.PCC_BOX, false, false);{
+		formField = addFormField(form, "province.name", "注册省份",groupName,ControlTypes.PCC_BOX, true, false);{
 			formField.setDataOptions("level:1,changeCtrlId:'city_name'");
 		}
-		formField = addFormField(form, "city.name", "注册城市",groupName,ControlTypes.PCC_BOX, false, false);{
+		formField = addFormField(form, "city.name", "注册城市",groupName,ControlTypes.PCC_BOX, true, false);{
 			formField.setDataOptions("level:2,changeCtrlId:'county_name'");
 		}
-		formField = addFormField(form, "county.name", "注册区/县",groupName,ControlTypes.PCC_BOX, false, false);{
+		formField = addFormField(form, "county.name", "注册区/县",groupName,ControlTypes.PCC_BOX, true, false);{
 			formField.setDataOptions("level:3");
 		}
-		addFormField(form, "taxMode", "纳税人",groupName,ControlTypes.ENUM_BOX, false, false);
-		addFormField(form, "shareholderCount", "股东人数",groupName,ControlTypes.NUMBER_BOX, false, false);
+		addFormField(form, "taxMode", "纳税人",groupName,ControlTypes.ENUM_BOX, true, false);
+		addFormField(form, "shareholderCount", "股东人数",groupName,ControlTypes.NUMBER_BOX, true, false);
 		
 		formField = addFormField(form, "hasBranchCompany", "分公司",groupName,ControlTypes.SWITCH_BUTTON, false, false);{
 			formField.setDataOptions("有|无");
@@ -141,8 +150,11 @@ public class SellingDemandWorkspaceTest extends WorkspaceCreationBase{
 		formField = addFormField(form, "otherInfo", "其它",groupName,ControlTypes.TEXT_BOX, false, false);{
 			formField.setFullColumn(true);
 		}
-
-
+		formField = addFormField(form, "licenseAdvantage", "执照优势",groupName, ControlTypes.TEXTAREA, false, false);
+		{
+			formField.setHeight(50);
+			formField.setFullColumn(true);
+		}
 		formField = addFormField(form, "memoto", "备注",groupName, ControlTypes.TEXTAREA, false, false);
 		{
 			formField.setHeight(50);
@@ -150,8 +162,8 @@ public class SellingDemandWorkspaceTest extends WorkspaceCreationBase{
 		}
 		
 		groupName="交易信息";
-		addFormField(form, "expectedPrice", "期望价格(元)",groupName,ControlTypes.CURRENCY_BOX, false, false);
-		addFormField(form, "valuationPrice", "评估价格(元)",groupName,ControlTypes.CURRENCY_BOX, false, false);
+		addFormField(form, "expectedPrice", "成本价格(元)",groupName,ControlTypes.CURRENCY_BOX, false, false);
+		addFormField(form, "valuationPrice", "售价(元)",groupName,ControlTypes.CURRENCY_BOX, false, false);
 		addFormField(form, "hasEntrust", "委托出售协议",groupName,ControlTypes.SWITCH_BUTTON, false, false);
 		formField = addFormField(form, "hasDeposit", "出售订金",groupName,ControlTypes.SWITCH_BUTTON, false, false);{
 			formField.setTroikaTrigger("controllersellingDemand.hasDepositChange(checked);");
@@ -176,6 +188,8 @@ public class SellingDemandWorkspaceTest extends WorkspaceCreationBase{
 		addColumn(datagrid, "county.name", "注册区/县", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "name", "出售人", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "mobile", "出售电话", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "valuationPrice", "售价", ControlTypes.TEXT_BOX, 100);
+		
 		column = addColumn(datagrid, "soldOutState", "上/下架状态", ControlTypes.ENUM_BOX, 100);
 		{
 			column.setFormatter("return controllersellingDemandList.soldOutStateFormatter(value,row,index);");
@@ -195,12 +209,20 @@ public class SellingDemandWorkspaceTest extends WorkspaceCreationBase{
 
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
+		addQueryItem(queryProject, "code", "编号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "companyName", "企业名称", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "companyName", "注册地区", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "name", "出售人", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "mobile", "出售电话", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "selingStatus", "出售状态", ControlTypes.ENUM_BOX);
 		addQueryItem(queryProject, "state", "审核状态", ControlTypes.ENUM_BOX);
+		
+		addQueryItem(queryProject, "province.name", "注册省份", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "city.name", "注册城市", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "county.name", "注册区/县", ControlTypes.TEXT_BOX);
+		
+		
+		addQueryItem(queryProject, "priceInterval", "售价", ControlTypes.ENUM_BOX);
+		
 		return queryProject;
 	}
 	
@@ -251,7 +273,7 @@ public class SellingDemandWorkspaceTest extends WorkspaceCreationBase{
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("panda/datagrid/detail");
 			part.setWindowWidth(500);
-			part.setWindowHeight(350);
+			part.setWindowHeight(380);
 			part.setForm(form);
 		}
 		workspace.getParts().add(part);
@@ -296,7 +318,7 @@ public class SellingDemandWorkspaceTest extends WorkspaceCreationBase{
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("panda/datagrid/detail");
 			part.setWindowWidth(500);
-			part.setWindowHeight(350);
+			part.setWindowHeight(380);
 			part.setForm(form);
 		}
 		workspace.getParts().add(part);

@@ -1,9 +1,11 @@
 package com.gongsibao.ma.service;
 
+import java.math.BigDecimal;
 import java.sql.Types;
 import java.util.List;
 
 import org.netsharp.communication.Service;
+import org.netsharp.core.EntityState;
 import org.netsharp.core.MtableManager;
 import org.netsharp.core.Oql;
 import org.netsharp.service.PersistableService;
@@ -11,6 +13,7 @@ import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.entity.ma.SellingDemand;
 import com.gongsibao.entity.ma.dic.DemandSoldOutState;
+import com.gongsibao.entity.ma.dic.PriceInterval;
 import com.gongsibao.entity.ma.dic.SelingStatus;
 import com.gongsibao.ma.base.ISellingDemandService;
 
@@ -20,6 +23,20 @@ public class SellingDemandService extends PersistableService<SellingDemand> impl
 	public SellingDemandService() {
 		super();
 		this.type = SellingDemand.class;
+	}
+	
+	@Override
+	public SellingDemand save(SellingDemand entity) {
+		
+		if(entity.getEntityState() != EntityState.Deleted){
+			
+			BigDecimal price = entity.getValuationPrice();
+			PriceInterval priceInterval = PriceInterval.getByPrice(price);
+			entity.setPriceInterval(priceInterval);
+		}
+		
+		entity = super.save(entity);
+		return entity;
 	}
 
 	@Override
