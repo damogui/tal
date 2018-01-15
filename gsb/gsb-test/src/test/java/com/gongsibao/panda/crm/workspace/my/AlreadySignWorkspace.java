@@ -27,20 +27,20 @@ import com.gongsibao.entity.crm.dic.ChangeType;
 import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.NotifyType;
 
-public class UnFoolowWorkspace extends WorkspaceCreationBase{
+public class AlreadySignWorkspace extends WorkspaceCreationBase{
 
 	@Override
 	@Before
 	public void setup() {
 		entity = NCustomerTask.class;
 		//配置资源路径
-		urlList = "/crm/my/task/unfoolow/list";
+		urlList = "/crm/my/task/signed/list";
 		//配置表单路径
-		urlForm = "/crm/my/task/unfoolow/from";		
-		listPartName = formPartName = "未跟进";
+		urlForm = "/crm/my/task/signed/from";		
+		listPartName = formPartName = "已经签单";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_MY_TASK_UNFOOLOW";
+		resourceNodeCode = "GSB_CRM_MY_TASK_SIGNED";
 	}
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
