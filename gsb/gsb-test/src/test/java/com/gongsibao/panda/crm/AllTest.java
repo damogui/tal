@@ -18,6 +18,7 @@ import com.gongsibao.panda.crm.workspace.CustomerOrderWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.CustomerServiceConfigWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.my.AllTaskWorkspace;
 import com.gongsibao.panda.crm.workspace.my.AlreadySignWorkspace;
+import com.gongsibao.panda.crm.workspace.my.DefeatedWorkspace;
 import com.gongsibao.panda.crm.workspace.my.FollowIngWorkspace;
 import com.gongsibao.panda.crm.workspace.my.UnFoolowWorkspace;
 import com.gongsibao.panda.crm.workspace.my.UnStartWorkspace;
@@ -52,6 +53,7 @@ import com.gongsibao.panda.crm.workspace.my.UnStartWorkspace;
 		UnFoolowWorkspace.class,
 		FollowIngWorkspace.class,
 		AlreadySignWorkspace.class,
+		DefeatedWorkspace.class,
 		
 		NavigationTest.class
 		})
