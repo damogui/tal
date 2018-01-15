@@ -4,6 +4,10 @@ org.netsharp.organization.controller.RoleListPart = org.netsharp.panda.commerce.
 
 	accredit : function () {
 
-	  window.open('/');
+		var row=this.getSelectedItem();
+		if (row != null) {
+			var url = "/panda/role/permission/form?id=" + row.id;
+			IMessageBox.open("角色授权", url,1000,550, function(){});
+		}
     }
 });
