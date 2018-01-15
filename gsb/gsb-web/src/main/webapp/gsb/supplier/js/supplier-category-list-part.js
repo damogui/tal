@@ -27,12 +27,20 @@ com.gongsibao.supplier.web.SupplierCategoryTreegridPart = org.netsharp.panda.com
 			fks.push(this.context.relationRole + ":" + this.relationItem.id);
 		}
 
-		var parentId =  this.getSelectedItem().id;
-		if (parentId != null && parentId != "") {
-			fks.push("parentId:" + parentId);
-		}
+	    var selectedRow = this.getSelectedItem();
+	    if(selectedRow==null){
+	    	
+	    	this.doAdd();
+	    	
+	    }else{
 
-		this.doAdd("fk=" + fks.join(";"));
+			var parentId =  this.getSelectedItem().id;
+			if (parentId != null && parentId != "") {
+				fks.push("parentId:" + parentId);
+			}
+
+			this.doAdd("fk=" + fks.join(";"));
+	    }
 	},
 
 	// -----------------------
