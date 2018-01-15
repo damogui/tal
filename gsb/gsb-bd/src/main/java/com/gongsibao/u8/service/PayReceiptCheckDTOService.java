@@ -102,7 +102,7 @@ public class PayReceiptCheckDTOService extends PersistableService<PayReceiptChec
 			sql.append("(CASE WHEN p.pay_for_order_count=0 THEN oi.`pkid` ELSE GROUP_CONCAT(oi.`pkid` SEPARATOR ',') END) 'orderId',  ");
 			sql.append("(CASE WHEN p.pay_for_order_count=0 THEN oi.`no` ELSE GROUP_CONCAT(oi.`no` SEPARATOR ',') END) 'orderNo', ");
 			sql.append("(CASE WHEN p.pay_for_order_count=0 THEN TRUNCATE(oi.`payable_price`/100,2) ELSE GROUP_CONCAT(CONCAT(oi.no,':',TRUNCATE(oi.`payable_price`/100,2)) SEPARATOR ',') END) 'payablePrice', ");
-			sql.append("(CASE WHEN p.pay_for_order_count=0 THEN TRUNCATE(oi.`paid_price`/100,2) ELSE GROUP_CONCAT(CONCAT(oi.no,':',TRUNCATE(oi.`paid_price`/100,2)) SEPARATOR ',') END) 'payablePrice', ");
+			sql.append("(CASE WHEN p.pay_for_order_count=0 THEN TRUNCATE(oi.`paid_price`/100,2) ELSE GROUP_CONCAT(CONCAT(oi.no,':',TRUNCATE(oi.`paid_price`/100,2)) SEPARATOR ',') END) 'paidPrice', ");
 			sql.append("p.`pay_for_order_count` 'payForOrderCount', ");
 			sql.append("p.`receipt_no` 'receiptNo',p.`receipt_status` 'receiptStatus',p.`amount`, ");
 			sql.append("book.`name` 'bookName',book.`id` 'bookId',ub.`name` 'bankName',ub.`id` 'bankId', ");
