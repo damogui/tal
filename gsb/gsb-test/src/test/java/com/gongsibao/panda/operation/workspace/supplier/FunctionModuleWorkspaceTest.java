@@ -14,6 +14,7 @@ import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PForm;
 import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PPart;
+import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.entity.PWorkspace;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
@@ -140,6 +141,15 @@ public class FunctionModuleWorkspaceTest extends WorkspaceCreationBase {
 			
 		}
 		return form;
+	}
+	
+	@Override
+	protected PQueryProject createQueryProject(ResourceNode node) {
+
+		PQueryProject queryProject = super.createQueryProject(node);
+		queryProject.toNew();
+		addQueryItem(queryProject, "name", "名称", ControlTypes.TEXT_BOX);
+		return queryProject;
 	}
 
 	@Override
