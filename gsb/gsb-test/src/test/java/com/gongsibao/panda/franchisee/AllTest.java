@@ -23,7 +23,6 @@ import com.gongsibao.panda.franchisee.workspace.operation.OperationNotTrackWorks
 import com.gongsibao.panda.franchisee.workspace.operation.OperationTrackWorkspaceTest;
 import com.gongsibao.panda.franchisee.workspace.operation.OperationUnTrackWorkspaceTest;
 import com.gongsibao.panda.franchisee.workspace.operation.OperationYearReportWorkspaceTest;
-import com.gongsibao.panda.franchisee.workspace.operation.SwtTestWorkspaceTest;
 
 
 @RunWith(Suite.class)
@@ -54,8 +53,6 @@ import com.gongsibao.panda.franchisee.workspace.operation.SwtTestWorkspaceTest;
 	OperationDayReportWorkspaceTest.class,
 	OperationMonthReportWorkspaceTest.class,
 	OperationYearReportWorkspaceTest.class,
-	
-	SwtTestWorkspaceTest.class,
 	
 	NavigationTest.class
 })
