@@ -41,6 +41,7 @@ public class AlreadySignWorkspace extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_MY_TASK_SIGNED";
+		listFilter = "foolowStatus=5";
 	}
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {

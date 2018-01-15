@@ -41,6 +41,7 @@ public class FollowIngWorkspace extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_MY_TASK_FOLLOWING";
+		listFilter = "foolowStatus=3";
 	}
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {

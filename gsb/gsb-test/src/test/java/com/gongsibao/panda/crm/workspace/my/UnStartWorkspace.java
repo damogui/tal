@@ -41,7 +41,8 @@ public class UnStartWorkspace extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_MY_TASK_START";
-		
+		//没有质量分类，哪怕有跟进也不算做启动
+		listFilter = "foolow_status is NULL and intention_category is NULL";
 		//选项卡页面的js
 		formJsImport = "/gsb/crm/js/crm.all.task.part.js|/gsb/gsb.customer.controls.js";
 	}
