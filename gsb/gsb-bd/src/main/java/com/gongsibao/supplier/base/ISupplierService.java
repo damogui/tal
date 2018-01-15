@@ -1,6 +1,7 @@
 package com.gongsibao.supplier.base;
 
 import org.netsharp.base.IPersistableService;
+import org.netsharp.core.annotations.Transaction;
 
 import com.gongsibao.entity.supplier.Supplier;
 
@@ -14,6 +15,7 @@ public interface ISupplierService  extends IPersistableService<Supplier>{
 	 * @return: Boolean      
 	 * @throws   
 	 */
+	@Transaction
 	Boolean openAccount(Integer supplierId);
 	
 	/**   
@@ -24,6 +26,7 @@ public interface ISupplierService  extends IPersistableService<Supplier>{
 	 * @return: Boolean      
 	 * @throws   
 	 */
+	@Transaction
 	Boolean closeAccount(Integer supplierId);
 	
 	/**   

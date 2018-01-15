@@ -30,7 +30,10 @@ public class Supplier extends Entity {
 
 	@Column(name = "address", header = "地址")
 	private String address;
-
+	
+	@Column(name = "contact", header = "联系人")
+	private String contact;
+	
 	@Column(name = "mobile_phone", header = "手机号（开户时要校验手机号是否存在）")
 	private String mobilePhone;
 
@@ -87,6 +90,14 @@ public class Supplier extends Entity {
 
 	@Subs(foreignKey = "supplierId", header = "开通模块", subType = SupplierFunctionModule.class)
 	private List<SupplierFunctionModule> modules;
+	
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
 
 	public SupplierStatus getStatus() {
 		return status;

@@ -1,9 +1,14 @@
 package com.gongsibao.supplier.web;
 
+import org.netsharp.communication.ServiceFactory;
 import org.netsharp.panda.commerce.ListPart;
+
+import com.gongsibao.supplier.base.ISupplierService;
 
 public class SupplierListPart extends ListPart{
 
+	ISupplierService supplierService = ServiceFactory.create(ISupplierService.class);
+	
 	/**   
 	 * @Title: open   
 	 * @Description: TODO(开户)   
@@ -14,7 +19,7 @@ public class SupplierListPart extends ListPart{
 	 */
 	public Boolean openAccount(Integer supplierId){
 		
-		return true;
+		return supplierService.openAccount(supplierId);
 	}
 	
 	/**   
@@ -27,6 +32,6 @@ public class SupplierListPart extends ListPart{
 	 */
 	public Boolean closeAccount(Integer supplierId){
 		
-		return true;
+		return supplierService.closeAccount(supplierId);
 	}
 }

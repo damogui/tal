@@ -60,7 +60,7 @@ com.gongsibao.supplier.web.SupplierListPart = org.netsharp.panda.commerce.ListPa
 				me.invokeService("closeAccount", [ids], function(data) {
 
 					me.reload();
-					IMessageBox.toast("关闭成功！");
+					IMessageBox.toast("销户成功！");
 				});
 			}
 		});

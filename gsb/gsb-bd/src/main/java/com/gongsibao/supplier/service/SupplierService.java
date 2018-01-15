@@ -2,6 +2,8 @@ package com.gongsibao.supplier.service;
 
 import java.sql.Types;
 
+import org.netsharp.action.ActionContext;
+import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.core.Oql;
 import org.netsharp.service.PersistableService;
@@ -32,6 +34,16 @@ public class SupplierService extends PersistableService<Supplier> implements ISu
 	@Override
 	public Boolean openAccount(Integer supplierId) {
 
+		Supplier entity = this.byId(supplierId);
+		ActionContext ctx = new ActionContext();
+		{
+			ctx.setPath("gsb/operation/supplier/account/open");
+			ctx.setItem(entity);
+			ctx.setState(entity.getEntityState());
+		}
+
+		ActionManager action = new ActionManager();
+		action.execute(ctx);
 		return true;
 	}
 
@@ -50,6 +62,16 @@ public class SupplierService extends PersistableService<Supplier> implements ISu
 	@Override
 	public Boolean closeAccount(Integer supplierId) {
 
+		Supplier entity = this.byId(supplierId);
+		ActionContext ctx = new ActionContext();
+		{
+			ctx.setPath("gsb/operation/supplier/account/close");
+			ctx.setItem(entity);
+			ctx.setState(entity.getEntityState());
+		}
+
+		ActionManager action = new ActionManager();
+		action.execute(ctx);
 		return true;
 	}
 

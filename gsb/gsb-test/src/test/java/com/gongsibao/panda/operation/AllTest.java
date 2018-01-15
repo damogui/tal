@@ -6,6 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 import com.gongsibao.panda.operation.reference.FunctionModuleReferenceTest;
 import com.gongsibao.panda.operation.workspace.supplier.FunctionModuleWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.supplier.SupplierActionTest;
 import com.gongsibao.panda.operation.workspace.supplier.SupplierCategoryWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.supplier.SupplierWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.taurus.ActiveUserWorkspaceTest;
@@ -56,6 +57,7 @@ import com.gongsibao.panda.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
 	SupplierWorkspaceTest.class,
 	SupplierCategoryWorkspaceTest.class,
 	
+	SupplierActionTest.class,
 	NavigationTest.class
 	
 })
