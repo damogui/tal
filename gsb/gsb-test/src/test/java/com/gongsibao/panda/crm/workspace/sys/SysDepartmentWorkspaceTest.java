@@ -9,6 +9,7 @@ import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
+import org.netsharp.panda.entity.PForm;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
@@ -19,6 +20,7 @@ public class SysDepartmentWorkspaceTest   extends WorkspaceCreationBase{
 	public void setup() {
 		super.setup();
 		urlList = "/crm/sys/department/list";
+		urlForm = "/crm/sys/department/form";
 		entity = SupplierDepartment.class;
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
@@ -66,6 +68,27 @@ column = addColumn(datagrid, "disabled", "停用", ControlTypes.BOOLCOMBO_BOX, 8
 		addQueryItem(queryProject, "disabled", "是否停用", ControlTypes.BOOLCOMBO_BOX);
 		addQueryItem(queryProject, "creator", "创建人", ControlTypes.TEXT_BOX);
 		return queryProject;
+	}
+
+ //表单填充字段
+	protected PForm createForm(ResourceNode node) {
+
+		PForm form = super.createForm(node);
+		form.setColumnCount(1);
+		//addFormFieldRefrence类中类字段
+		addFormField(form, "name", "部门名称", null, ControlTypes.TEXT_BOX, false);
+		addFormField(form, "disabled", "是否停用", null, ControlTypes.SWITCH_BUTTON, true);
+
+		return form;
+	}
+
+	@Override
+	protected void doOperation() {
+		ResourceNode node = this.getResourceNode();
+		operationService.addOperation(node,OperationTypes.view);
+		operationService.addOperation(node,OperationTypes.add);
+		operationService.addOperation(node,OperationTypes.update);
+		operationService.addOperation(node,OperationTypes.delete);
 	}
 
 
