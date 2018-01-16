@@ -1,13 +1,19 @@
 System.Declare("com.gongsibao.crm.web");
 
-com.gongsibao.crm.web.ProdMapDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {	
-	productChange:function(newValue,oldValue){
-		//为空时，重置查询条件：q
-		if(System.isnull(newValue)){
-			var options = $('#product_name').combogrid('options');
-			var qp = options.queryParams;
-		}
-	}
+com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.DetailPart.Extends( {	
+	ctor: function() {
+		this.base();
+	},
+	save : function(){
+		var id = this.queryString("id");
+		this.invokeService("updateNcustomerTask",[id],function(data){
+			alert(data);
+		});
+	},
+	onload: function () {
+        var id = this.queryString("id");
+        alert(id);
+    }
 });
 
 System.Declare("com.gongsibao.controls");
