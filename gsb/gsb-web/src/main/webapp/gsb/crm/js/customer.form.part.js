@@ -309,7 +309,7 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
     	//切换到【沟通日志】
     	$("#tabcenter").tabs('select',3);
     	
-    	//将【内容】设置为可写
+    	//将【内容】设置为可写 
     	$('#content').prop('disabled',false);
     	
     	//跟进
