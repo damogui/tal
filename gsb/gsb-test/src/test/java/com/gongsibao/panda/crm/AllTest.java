@@ -29,6 +29,7 @@ import com.gongsibao.panda.crm.workspace.my.FollowIngWorkspace;
 import com.gongsibao.panda.crm.workspace.my.UnFoolowWorkspace;
 import com.gongsibao.panda.crm.workspace.my.UnStartWorkspace;
 import com.gongsibao.panda.crm.workspace.sys.SysDepartmentWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.sys.SysSalesmanWorkspaceTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
