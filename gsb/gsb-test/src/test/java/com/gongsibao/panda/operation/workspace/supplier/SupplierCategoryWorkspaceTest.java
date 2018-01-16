@@ -1,6 +1,7 @@
 package com.gongsibao.panda.operation.workspace.supplier;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
@@ -12,9 +13,11 @@ import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PForm;
 import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PQueryProject;
+import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.supplier.SupplierCategory;
+import com.gongsibao.supplier.web.SupplierCategoryTreegridPart;
 
 public class SupplierCategoryWorkspaceTest extends WorkspaceCreationBase{
 
@@ -31,9 +34,27 @@ public class SupplierCategoryWorkspaceTest extends WorkspaceCreationBase{
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_Operation_Supplier_Category";
 		listPartType = PartType.TREEGRID_PART.getId();
-
+		listPartImportJs="/gsb/supplier/js/supplier-category-list-part.js";
+		listPartJsController = SupplierCategoryTreegridPart.class.getName();
+		listPartServiceController = SupplierCategoryTreegridPart.class.getName();
+		listToolbarPath = "/operation/supplier/category/toolbar";
 	}
 	
+	@Test
+	public void createToolbar() {
+		ResourceNode node = this.getResourceNode();
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			toolbar.setBasePath("panda/datagrid/edit");
+			toolbar.setPath(listToolbarPath);
+			toolbar.setName("同步路径");
+			toolbar.setResourceNode(node);
+		}
+		addToolbarItem(toolbar, "pathCode", "同步路径", "fa-recycle", "pathCode()", null, 5);
+		toolbarService.save(toolbar);
+	}
+
 
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
@@ -46,7 +67,8 @@ public class SupplierCategoryWorkspaceTest extends WorkspaceCreationBase{
 		column = addColumn(datagrid, "id", "id", ControlTypes.TEXT_BOX, 120);{
 			column.setAlign(DatagridAlign.CENTER);
 		}
-
+		
+		addColumn(datagrid, "pathName", "路径", ControlTypes.TEXT_BOX, 400);
 		addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 300);
 		column = addColumn(datagrid, "parentId", "parentId", ControlTypes.TEXT_BOX, 100);
 		{
@@ -85,7 +107,7 @@ public class SupplierCategoryWorkspaceTest extends WorkspaceCreationBase{
 		addFormField(form, "name", "名称", ControlTypes.TEXT_BOX, true, false);
 		formField = addFormField(form, "memoto", "备注", ControlTypes.TEXTAREA, false, false);{
 			
-			formField.setHeight(250);
+			formField.setHeight(100);
 			formField.setFullColumn(true);
 		}
 		return form;

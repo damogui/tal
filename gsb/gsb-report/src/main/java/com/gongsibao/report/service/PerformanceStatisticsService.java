@@ -44,9 +44,12 @@ public class PerformanceStatisticsService extends PersistableService<Performance
 			context.setMapList(allMapList);
 			context.setDepartmentIds(departmentIds);
 		}
-		PerfrmanceSalesmanDayService generateService = new PerfrmanceSalesmanDayService();
+		
+		PerfrmanceSalesmanDayService.getInstance().setContext(context);
+		PerfrmanceSalesmanDayService.getInstance().execute();
+		/*PerfrmanceSalesmanDayService generateService = new PerfrmanceSalesmanDayService();
 		generateService.setContext(context);
-		generateService.execute();
+		generateService.execute();*/
 		return true;
 	}
 	

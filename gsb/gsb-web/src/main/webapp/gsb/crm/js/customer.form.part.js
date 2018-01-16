@@ -12,6 +12,13 @@ com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Ex
     		return UiElementState.Hide;
     	}
     },
+    geteditState:function(){
+    	
+    	if(this.currentItem!=null &&this.currentItem.entityState == EntityState.New){
+    		
+    		return UiElementState.Hide;
+    	}
+    },
     onload: function () {
 
         var id = this.queryString("id");

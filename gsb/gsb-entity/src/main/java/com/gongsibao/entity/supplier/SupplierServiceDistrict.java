@@ -7,15 +7,13 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
 import com.gongsibao.entity.bd.Dict;
-import com.gongsibao.entity.product.Product;
-
-@Table(name="sp_service_scope",header="服务商服务能力")
-public class SupplierServiceScope extends Entity{
+@Table(name="sp_service_district",header="服务商服务地区")
+public class SupplierServiceDistrict extends Entity{
 
 	/**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
-	private static final long serialVersionUID = -6865133330856235904L;
+	private static final long serialVersionUID = -216970464681678823L;
 
 	@Column(name="supplier_id",header="服务商主键")
     private Integer supplierId;
@@ -24,12 +22,6 @@ public class SupplierServiceScope extends Entity{
     @Reference(foreignKey="supplierId")
     private Supplier supplier;
 	
-    @Column(name="product_id")
-    private Integer productId;
-    
-    @Reference(foreignKey="productId",header="产品")
-    private Product product;
-    
 	@Column(name="province_id")
 	private Integer provinceId;
 	
@@ -62,22 +54,6 @@ public class SupplierServiceScope extends Entity{
 
 	public void setSupplier(Supplier supplier) {
 		this.supplier = supplier;
-	}
-
-	public Integer getProductId() {
-		return productId;
-	}
-
-	public void setProductId(Integer productId) {
-		this.productId = productId;
-	}
-
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
 	}
 
 	public Integer getProvinceId() {

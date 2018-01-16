@@ -25,6 +25,12 @@ public class Salesman extends Entity {
 
 	@Reference(foreignKey = "departmentId", header = "部门")
 	private SupplierDepartment department;
+	
+	@Column(name = "supplier_id", header = "服务商Id")
+	private Integer supplierId = 0;
+
+	@Reference(foreignKey = "supplierId", header = "服务商")
+	private Supplier supplier;
 
 	// 配置
 
@@ -59,4 +65,21 @@ public class Salesman extends Entity {
 	public void setDepartment(SupplierDepartment department) {
 		this.department = department;
 	}
+
+	public Integer getSupplierId() {
+		return supplierId;
+	}
+
+	public void setSupplierId(Integer supplierId) {
+		this.supplierId = supplierId;
+	}
+
+	public Supplier getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
+	}
+	
 }

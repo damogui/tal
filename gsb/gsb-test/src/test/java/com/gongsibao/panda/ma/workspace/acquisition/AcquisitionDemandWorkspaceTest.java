@@ -114,21 +114,27 @@ public class AcquisitionDemandWorkspaceTest extends WorkspaceCreationBase{
 
 		groupName="意向信息";
 		
-		addFormField(form, "companyType", "公司类型",groupName,ControlTypes.ENUM_BOX, false, false);
-		addFormField(form, "companyNature", "公司性质",groupName,ControlTypes.ENUM_BOX, false, false);
-		addFormField(form, "turnoverGrade", "流水",groupName,ControlTypes.ENUM_BOX, false, false);
-		formField = addFormField(form, "industryFeatureDetails", "意向行业特点",groupName, ControlTypes.CHECK_BOX_GROUP, false, false);{
+		addFormField(form, "companyType", "公司类型",groupName,ControlTypes.ENUM_BOX, true, false);
+		addFormField(form, "companyNature", "公司性质",groupName,ControlTypes.ENUM_BOX, true, false);
+		addFormField(form, "turnoverGrade", "流水",groupName,ControlTypes.ENUM_BOX, true, false);
+		formField = addFormField(form, "registDateBegin", "成立日期(开始)",groupName,ControlTypes.DATE_BOX, true, false);{
+			
+			formField.setTroikaTrigger("controlleracquisitionDemand.registDateBeginChange(date);");
+		}
+		formField = addFormField(form, "registDateEnd", "成立日期(结束)",groupName,ControlTypes.DATE_BOX, true, false);{
+			
+			formField.setTroikaTrigger("controlleracquisitionDemand.registDateEndChange(date);");
+		}
+		addFormField(form, "registYear", "成立年限",groupName,ControlTypes.NUMBER_BOX, true, true);
+		formField = addFormField(form, "industryFeatureDetails", "意向行业特点",groupName, ControlTypes.CHECK_BOX_GROUP, true, false);{
 			
 			formField.setConvertor("industryFeature");
 			formField.setDataOptions("rowCount:6,itemMinWidth:90");
 			formField.setFullColumn(true);
 		}
 		
-		addFormField(form, "registDateBegin", "成立年限(开始)",groupName,ControlTypes.DATE_BOX, false, false);
-		addFormField(form, "registDateEnd", "成立年限(结束)",groupName,ControlTypes.DATE_BOX, false, false);
-		
-		addFormField(form, "taxMode", "纳税人",groupName,ControlTypes.ENUM_BOX, false, false);
-		addFormField(form, "profitType", "企业盈利",groupName,ControlTypes.ENUM_BOX, false, false);
+		addFormField(form, "taxMode", "纳税人",groupName,ControlTypes.ENUM_BOX, true, false);
+		addFormField(form, "profitType", "企业盈利",groupName,ControlTypes.ENUM_BOX, true, false);
 		formField = addFormField(form, "qualificationDetails", "企业资质",groupName, ControlTypes.CHECK_BOX_GROUP, false, false);{
 			
 			formField.setConvertor("enterpriseQualification");

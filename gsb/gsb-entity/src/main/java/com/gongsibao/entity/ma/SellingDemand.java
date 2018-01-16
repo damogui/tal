@@ -13,6 +13,7 @@ import org.netsharp.pcc.entity.ProvinceCityCounty;
 import com.gongsibao.entity.ma.dic.AddressMode;
 import com.gongsibao.entity.ma.dic.DemandState;
 import com.gongsibao.entity.ma.dic.IndustryFeature;
+import com.gongsibao.entity.ma.dic.PriceInterval;
 import com.gongsibao.entity.ma.dic.SelingStatus;
 import com.gongsibao.entity.ma.dic.SellingDemandTaxMode;
 @BizCode(bizType="SD")
@@ -33,8 +34,11 @@ public class SellingDemand extends Demand {
 	@Column(name="business_license",size=500,header="营业执照")
 	private String  businessLicense;
 
-	@Column(name="regist_date",header="成立日期")
+	@Column(name="regist_date",header="成立日期(开始)")
 	private Date registDate;
+	
+	@Column(name="regist_date_end",header="成立日期(结束)")
+	private Date registDateEnd;
 	
 	@Column(name="has_branch_company",header="有分公司")
 	private Boolean hasBranchCompany = false;
@@ -92,10 +96,50 @@ public class SellingDemand extends Demand {
 	// 交易信息
 	//--------------------
 	
+	
+	@Column(name="full_name",header="企业具体名称")
+	private String fullName;
+	
+	@Column(name="license_advantage",header="执照优势")
+	private String licenseAdvantage;
+	
     @Column(name = "seling_status",header="状态")
     private SelingStatus selingStatus = SelingStatus.UNSOLD;
 
-    
+	@Column(name="price_interval",header="售价区间")
+	private PriceInterval priceInterval;
+	
+	
+	public String getFullName() {
+		return fullName;
+	}
+
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+
+	public String getLicenseAdvantage() {
+		return licenseAdvantage;
+	}
+
+
+	public void setLicenseAdvantage(String licenseAdvantage) {
+		this.licenseAdvantage = licenseAdvantage;
+	}
+
+
+	public PriceInterval getPriceInterval() {
+		return priceInterval;
+	}
+
+
+	public void setPriceInterval(PriceInterval priceInterval) {
+		this.priceInterval = priceInterval;
+	}
+
+
 	public DemandState getState() {
 		return state;
 	}
@@ -316,4 +360,16 @@ public class SellingDemand extends Demand {
 	public void setTaxMode(SellingDemandTaxMode taxMode) {
 		this.taxMode = taxMode;
 	}
+
+
+	public Date getRegistDateEnd() {
+		return registDateEnd;
+	}
+
+
+	public void setRegistDateEnd(Date registDateEnd) {
+		this.registDateEnd = registDateEnd;
+	}
+	
+	
 }

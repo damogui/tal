@@ -7,7 +7,7 @@ public enum SupplierStatus implements IEnum{
 
 	NOTOPEN(1, "未开户"), 
 	OPEND(2, "已开户"),
-	CLOSED(3, "已关闭");//关闭时名下所有帐号都停用
+	CLOSED(3, "已注销");//关闭时名下所有帐号都停用
 	private int value;
 	private String text;
 	SupplierStatus(int value, String text) {

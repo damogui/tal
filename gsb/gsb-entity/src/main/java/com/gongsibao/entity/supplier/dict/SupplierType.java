@@ -1,5 +1,6 @@
 package com.gongsibao.entity.supplier.dict;
 
+import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
 public enum SupplierType implements IEnum {
@@ -12,7 +13,8 @@ public enum SupplierType implements IEnum {
 		this.value = value;
 		this.text = text;
 	}
-
+	
+	@JsonCreator
 	public static SupplierType getItem(int value) {
 
 		for (SupplierType item : values()) {

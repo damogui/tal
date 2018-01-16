@@ -15,7 +15,6 @@ public class DateUtils {
 	public static final String YYYYMMDD_ZH = "yyyy年MM月dd日";
 
 	public static final int FIRST_DAY_OF_WEEK = Calendar.MONDAY; // 中国周一是一周的第一天
-
 	/**
 	 * 
 	 * @param strDate

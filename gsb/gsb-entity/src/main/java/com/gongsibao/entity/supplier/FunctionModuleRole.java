@@ -1,11 +1,11 @@
 package com.gongsibao.entity.supplier;
 
-import com.gongsibao.entity.uc.Role;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
+import org.netsharp.organization.entity.Role;
 
 
 @Table(name="sp_function_module_role",header="功能模块")

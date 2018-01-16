@@ -52,6 +52,9 @@ public abstract class Demand  extends Entity{
 	
 	@Column(name="tax_status",header="报税状态（正常/非正常）")
 	private Boolean taxStatus = false;
+
+	@Column(name="regist_year",header="成立年限")
+	private Integer registYear;
 	
 	//国地税报道
 	@Column(name="tax_register",header="国地税报到")
@@ -95,6 +98,13 @@ public abstract class Demand  extends Entity{
 	@Column(name="sold_out_state",header="上下架状态")
 	private DemandSoldOutState  soldOutState = DemandSoldOutState.SOLDOUT;
 	
+	public Integer getRegistYear() {
+		return registYear;
+	}
+
+	public void setRegistYear(Integer registYear) {
+		this.registYear = registYear;
+	}
 
 	public DemandSoldOutState getSoldOutState() {
 		return soldOutState;

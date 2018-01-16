@@ -27,6 +27,7 @@ public class AcquisitionDemand extends Demand {
 	@Column(name="regist_date_end",header="成立日期结束")
 	private Date registDateEnd;
 	
+	
 	@Column(name="turnover_grade",header="流水")
 	private TurnoverGrade turnoverGrade = TurnoverGrade.UNLIMITED;
 
@@ -45,6 +46,7 @@ public class AcquisitionDemand extends Demand {
 	@Subs(foreignKey="acquisitionDemandId",header="匹配明细",subType=AcquisitionDemandMatchingDetail.class)
 	private List<AcquisitionDemandMatchingDetail> matchingDetails;
 	
+
 	public Date getRegistDateBegin() {
 		return registDateBegin;
 	}

@@ -1,5 +1,7 @@
 package com.gongsibao.entity.supplier;
 
+import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.CatEntity;
 
@@ -11,4 +13,27 @@ public class SupplierDepartment extends CatEntity{
 	 */   
 	private static final long serialVersionUID = 6566344416046564027L;
 
+	@Column(name = "supplier_id", header = "服务商Id")
+	private Integer supplierId = 0;
+
+	@Reference(foreignKey = "supplierId", header = "服务商")
+	private Supplier supplier;
+
+	public Integer getSupplierId() {
+		return supplierId;
+	}
+
+	public void setSupplierId(Integer supplierId) {
+		this.supplierId = supplierId;
+	}
+
+	public Supplier getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
+	}
+	
+	
 }

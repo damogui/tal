@@ -131,6 +131,7 @@ com.gongsibao.franchisee.web.FranchiseeListPart = org.netsharp.panda.commerce.Li
 										layer.close(index);
 										IMessageBox.toast("分配成功！");
 										me.reload();
+										$("#" + me.context.id).datagrid('unselectAll');
 									}
 								});
 							}

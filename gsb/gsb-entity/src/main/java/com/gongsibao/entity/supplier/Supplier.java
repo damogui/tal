@@ -1,5 +1,6 @@
 package com.gongsibao.entity.supplier;
 
+import java.util.Date;
 import java.util.List;
 
 import org.netsharp.core.annotations.Column;
@@ -29,10 +30,13 @@ public class Supplier extends Entity {
 
 	@Column(name = "address", header = "地址")
 	private String address;
-
+	
+	@Column(name = "contact", header = "联系人")
+	private String contact;
+	
 	@Column(name = "mobile_phone", header = "手机号（开户时要校验手机号是否存在）")
 	private String mobilePhone;
-	
+
 	@Column(name = "admin_id", header = "管理员帐号Id")
 	private Integer adminId = 0;
 
@@ -72,11 +76,31 @@ public class Supplier extends Entity {
 	@Reference(foreignKey = "categoryId", header = "服务商分类")
 	private SupplierCategory category;
 
-	@Subs(foreignKey = "supplierId", header = "服务范围", subType = SupplierServiceScope.class)
-	private List<SupplierServiceScope> serviceScopes;
+	@Column(name = "open_time")
+	private Date openTime;
 
+	@Column(name = "department_count", header = "部门数量")
+	private Integer departmentCount = 0;
+
+	@Column(name = "salesman_count", header = "员工数量")
+	private Integer salesmanCount = 0;
+
+	@Subs(foreignKey = "supplierId", header = "服务产品", subType = SupplierServiceProduct.class)
+	private List<SupplierServiceProduct> serviceProducts;
+	
+	@Subs(foreignKey = "supplierId", header = "服务地区", subType = SupplierServiceDistrict.class)
+	private List<SupplierServiceDistrict> serviceDistricts;
+	
 	@Subs(foreignKey = "supplierId", header = "开通模块", subType = SupplierFunctionModule.class)
 	private List<SupplierFunctionModule> modules;
+	
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
 
 	public SupplierStatus getStatus() {
 		return status;
@@ -198,22 +222,6 @@ public class Supplier extends Entity {
 		this.departLevel = departLevel;
 	}
 
-	public List<SupplierServiceScope> getServiceScopes() {
-		return serviceScopes;
-	}
-
-	public void setServiceScopes(List<SupplierServiceScope> serviceScopes) {
-		this.serviceScopes = serviceScopes;
-	}
-
-	public List<SupplierFunctionModule> getModules() {
-		return modules;
-	}
-
-	public void setModules(List<SupplierFunctionModule> modules) {
-		this.modules = modules;
-	}
-	
 	public Integer getAdminId() {
 		return adminId;
 	}
@@ -228,5 +236,53 @@ public class Supplier extends Entity {
 
 	public void setAdmin(Employee admin) {
 		this.admin = admin;
+	}
+
+	public Date getOpenTime() {
+		return openTime;
+	}
+
+	public void setOpenTime(Date openTime) {
+		this.openTime = openTime;
+	}
+
+	public Integer getDepartmentCount() {
+		return departmentCount;
+	}
+
+	public void setDepartmentCount(Integer departmentCount) {
+		this.departmentCount = departmentCount;
+	}
+
+	public Integer getSalesmanCount() {
+		return salesmanCount;
+	}
+
+	public void setSalesmanCount(Integer salesmanCount) {
+		this.salesmanCount = salesmanCount;
+	}
+
+	public List<SupplierServiceProduct> getServiceProducts() {
+		return serviceProducts;
+	}
+
+	public void setServiceProducts(List<SupplierServiceProduct> serviceProducts) {
+		this.serviceProducts = serviceProducts;
+	}
+
+	public List<SupplierServiceDistrict> getServiceDistricts() {
+		return serviceDistricts;
+	}
+
+	public void setServiceDistricts(List<SupplierServiceDistrict> serviceDistricts) {
+		this.serviceDistricts = serviceDistricts;
+	}
+
+	public List<SupplierFunctionModule> getModules() {
+		return modules;
+	}
+
+	public void setModules(List<SupplierFunctionModule> modules) {
+		this.modules = modules;
 	}
 }

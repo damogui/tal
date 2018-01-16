@@ -1,5 +1,4 @@
 package com.gongsibao.panda.igirl;
-import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
 import com.gongsibao.panda.igirl.reference.NCLOneReferenceTest;
 import com.gongsibao.panda.igirl.reference.NCLTwoReferenceTest;
 import com.gongsibao.panda.igirl.workspace.NclOneWorkspaceTest;

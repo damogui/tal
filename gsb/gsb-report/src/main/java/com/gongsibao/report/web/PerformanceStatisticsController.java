@@ -11,7 +11,7 @@ public class PerformanceStatisticsController extends TreegridPart{
 	public void execute(Date date){
 		
 		IPerformanceStatisticsService service = ServiceFactory.create(IPerformanceStatisticsService.class);
-		int[] departmentIdIds = { 337,4, 5 };//汉唐信通，供应商
-		service.generate(date,departmentIdIds);
+		int[] departmentIds = { 337,4, 5 };// 股转中心，汉唐信通，供应商
+		service.generate(date,departmentIds);
 	}
 }

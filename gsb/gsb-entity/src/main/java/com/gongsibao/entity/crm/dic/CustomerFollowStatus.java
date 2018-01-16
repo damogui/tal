@@ -6,7 +6,7 @@ import org.netsharp.base.IEnum;
 public enum CustomerFollowStatus implements IEnum {
 	
 	UNALLOCATION(1, "未分配"), 
-	UNFollow(2, "未跟进"), 
+	UNFollow(2, "待跟进"), 
 	FOLLOWING(3, "跟进中"), 
 	DEFEATED(4, "无法签单"), 
 	SIGNED(5, "已签单");

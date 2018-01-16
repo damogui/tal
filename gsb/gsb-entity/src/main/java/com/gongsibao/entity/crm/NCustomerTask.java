@@ -3,6 +3,7 @@ package com.gongsibao.entity.crm;
 import java.util.Date;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
@@ -11,8 +12,7 @@ import org.netsharp.entity.Entity;
 import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
-import com.gongsibao.entity.crm.dic.CustomerIntention;
-import com.gongsibao.entity.crm.dic.IntentionCategory;
+import com.gongsibao.entity.crm.dic.QualityCategory;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
@@ -24,6 +24,7 @@ public class NCustomerTask extends Entity {
 	 */
 	private static final long serialVersionUID = 4684375504055933956L;
 
+	@JsonIgnore
 	@Reference(foreignKey = "customerId", header = "客户")
 	private NCustomer customer;
 
@@ -36,12 +37,14 @@ public class NCustomerTask extends Entity {
 	@Column(name = "supplier_id", header = "分配服务商Id")
 	private Integer supplierId;
 
-	@Reference(foreignKey = "allocationOrgId", header = "分配服务商")
+	@JsonIgnore
+	@Reference(foreignKey = "supplierId", header = "分配服务商")
 	private Supplier supplier;
 	
 	@Column(name = "department_id", header = "分配服务商部门Id")
 	private Integer departmentId;
 
+	@JsonIgnore
 	@Reference(foreignKey = "departmentId", header = "分配服务商部门")
 	private SupplierDepartment department;
 	
@@ -51,17 +54,18 @@ public class NCustomerTask extends Entity {
 	@Column(name = "last_allocation_user_id", header = "最后分配人Id")
 	private Integer lastAllocationUserId = 0;
 	
+	@JsonIgnore
 	@Reference(foreignKey = "lastAllocationUserId", header = "最后分配人")
 	private Employee lastAllocationUser;
 	
 	@Column(name = "foolow_status", header = "跟进状态")
 	private CustomerFollowStatus foolowStatus;
 
-	@Column(name = "intention_category", header = "意向分类")
-	private IntentionCategory intentionCategory;
+	@Column(name = "intention_category", header = "质量分类")
+	private QualityCategory intentionCategory;
 	
-	@Column(name = "intention", header = "意向")
-	private CustomerIntention intention;
+	@Column(name = "quality", header = "质量")
+	private NCustomerTaskQuality quality;
 	
 	@Column(name = "last_follow_time", header = "最近跟进时间")
 	private Date lastFollowTime;
@@ -69,6 +73,7 @@ public class NCustomerTask extends Entity {
 	@Column(name = "last_foolow_user_id", header = "最后跟进人Id")
 	private Integer lastFoolowUserId = 0;
 	
+	@JsonIgnore
 	@Reference(foreignKey = "lastFoolowUserId", header = "最后跟进人")
 	private Employee lastFoolowUser;
 	
@@ -152,20 +157,20 @@ public class NCustomerTask extends Entity {
 		this.department = department;
 	}
 
-	public IntentionCategory getIntentionCategory() {
+	public QualityCategory getIntentionCategory() {
 		return intentionCategory;
 	}
 
-	public void setIntentionCategory(IntentionCategory intentionCategory) {
+	public void setIntentionCategory(QualityCategory intentionCategory) {
 		this.intentionCategory = intentionCategory;
 	}
 
-	public CustomerIntention getIntention() {
-		return intention;
+	public NCustomerTaskQuality getQuality() {
+		return quality;
 	}
 
-	public void setIntention(CustomerIntention intention) {
-		this.intention = intention;
+	public void setQuality(NCustomerTaskQuality quality) {
+		this.quality = quality;
 	}
 
 	public Boolean getOld() {
