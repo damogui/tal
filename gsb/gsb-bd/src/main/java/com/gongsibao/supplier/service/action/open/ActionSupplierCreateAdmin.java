@@ -33,29 +33,44 @@ public class ActionSupplierCreateAdmin implements IAction {
 	public void execute(ActionContext ctx) {
 
 		Supplier entity = (Supplier) ctx.getItem();
-
-		// 1.创建服务商部门：SupplierDepartment
-		SupplierDepartment department = this.createDepartment(entity);
-
-		// 2.创建平台帐号
-		Employee employee = this.createEmployee(entity);
-
-		// 3.创建Salesman，并关联部门
-		this.createSalesman(department, employee);
 		
-		// 4.设置服务商的AdminId
-		entity = persist(entity, employee);
+		//如果已经开过户，直接设置状态
+		if(entity.getAdminId() != null){
+			
+			entity.setStatus(SupplierStatus.OPEND);
+			entity = getService().save(entity);
+			
+		}else{
+			
+			// 1.创建服务商部门：SupplierDepartment
+			SupplierDepartment department = this.createDepartment(entity);
+
+			// 2.创建平台帐号
+			Employee employee = this.createEmployee(entity);
+
+			// 3.创建Salesman，并关联部门
+			this.createSalesman(department, employee);
+			
+			// 4.设置服务商的AdminId
+			entity = persist(entity, employee);
+		}
+
 		ctx.setItem(entity);
+	}
+	
+	private IPersistableService<Supplier> getService(){
+
+		Class<?> superType = SupplierService.class.getSuperclass();
+		@SuppressWarnings("unchecked")
+		IPersistableService<Supplier> service = (IPersistableService<Supplier>) ReflectManager.newInstance(superType);
+		return service;
 	}
 	
 	private Supplier persist(Supplier entity,Employee employee) {
 		
 		entity.setStatus(SupplierStatus.OPEND);
 		entity.setAdminId(employee.getId());
-		Class<?> superType = SupplierService.class.getSuperclass();
-		@SuppressWarnings("unchecked")
-		IPersistableService<Supplier> service = (IPersistableService<Supplier>) ReflectManager.newInstance(superType);
-		entity = service.save(entity);
+		entity = getService().save(entity);
 		return entity;
 	}
 
