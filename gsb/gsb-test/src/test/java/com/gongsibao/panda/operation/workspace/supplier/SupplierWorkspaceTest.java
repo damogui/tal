@@ -22,8 +22,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.controls.CityComboBox;
-import com.gongsibao.entity.crm.NCustomerProduct;
-import com.gongsibao.entity.franchisee.FranchiseeLinkman;
+import com.gongsibao.controls.DictComboBox;
 import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.supplier.FunctionModule;
 import com.gongsibao.entity.supplier.Supplier;
@@ -181,17 +180,22 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 	}
 
 	protected void addDetailGridPart(PWorkspace workspace) {
+		
 		// 功能明细
 		createFunctionModulePart(workspace);
-		// 服务范围
-		addIntenProductPart(workspace);
+		
+		// 服务产品
+		createIntenProductPart(workspace);
+		
+		//服务地区
+		createIntenDistrictPart(workspace);
 	}
 
 	// 功能明细
 	private void createFunctionModulePart(PWorkspace workspace) {
 
 		ResourceNode node = this.resourceService.byCode("GSB_Operation_Supplier_Function_Module");
-		PDatagrid datagrid = new PDatagrid(node, "功能模块信息");
+		PDatagrid datagrid = new PDatagrid(node, "开通功能");
 		{
 			addColumn(datagrid, "functionModule.name", "名称", ControlTypes.TEXT_BOX, 100);
 			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
@@ -201,7 +205,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 			form.toNew();
 			form.setResourceNode(node);
 			form.setColumnCount(1);
-			form.setName("功能模块信息");
+			form.setName("开通功能");
 
 			PFormField formField = null;
 			addFormFieldRefrence(form, "functionModule.name", "功能", null, FunctionModule.class.getSimpleName(), false, false);
@@ -210,7 +214,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		PPart part = new PPart();
 		{
 			part.toNew();
-			part.setName("功能模块信息");
+			part.setName("开通功能");
 			part.setCode("modules");
 			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
 			part.setRelationRole("modules");
@@ -227,18 +231,60 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 
 		part = workspace.getParts().get(0);
 		{
-			part.setName("功能模块信息");
+			part.setName("基本信息");
 			part.setDockStyle(DockType.TOP);
 		}
 	}
 
 	// 服务范围
-	private void addIntenProductPart(PWorkspace workspace) {
+	private void createIntenProductPart(PWorkspace workspace) {
 		// 需要配置NCustomerProduct资源
-		ResourceNode node = this.resourceService.byCode("GSB_Operation_Supplier_Service_Scope");
-		PDatagrid datagrid = new PDatagrid(node, "意向产品");
+		ResourceNode node = this.resourceService.byCode("GSB_Operation_Supplier_Service_Product");
+		PDatagrid datagrid = new PDatagrid(node, "服务产品");
 		{
 			addColumn(datagrid, "product.name", "产品", ControlTypes.TEXT_BOX, 300);
+		}
+		PForm form = new PForm();
+		{
+			form.toNew();
+			form.setResourceNode(node);
+			form.setColumnCount(1);
+			form.setName("服务产品");
+
+			PFormField formField = null;
+			formField = addFormField(form, "product.name", "服务产品", null, ControlTypes.CUSTOM, true, false);
+			{
+				formField.setCustomControlType(DictComboBox.class.getName());
+				formField.setRefFilter("type=201");
+			}
+		}
+
+		PPart part = new PPart();
+		{
+			part.toNew();
+			part.setName("服务产品");
+			part.setCode("serviceProducts");
+			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
+			part.setRelationRole("serviceProducts");
+			part.setResourceNode(node);
+			part.setPartTypeId(PartType.DETAIL_PART.getId());
+			part.setDatagrid(datagrid);
+			part.setDockStyle(DockType.DOCUMENTHOST);
+			part.setToolbar("panda/datagrid/detail");
+			part.setWindowWidth(550);
+			part.setWindowHeight(350);
+			part.setForm(form);
+		}
+		workspace.getParts().add(part);
+
+	}
+	
+	private void createIntenDistrictPart(PWorkspace workspace) {
+	
+		// 需要配置NCustomerProduct资源
+		ResourceNode node = this.resourceService.byCode("GSB_Operation_Supplier_Service_District");
+		PDatagrid datagrid = new PDatagrid(node, "服务地区");
+		{
 			addColumn(datagrid, "province.name", "省份", ControlTypes.TEXT_BOX, 150);
 			addColumn(datagrid, "city.name", "城市", ControlTypes.TEXT_BOX, 150);
 			addColumn(datagrid, "county.name", "区/县", ControlTypes.TEXT_BOX, 150);
@@ -248,15 +294,10 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 			form.toNew();
 			form.setResourceNode(node);
 			form.setColumnCount(1);
-			form.setName("意向产品");
+			form.setName("服务地区");
 
 			PFormField formField = null;
-			formField = addFormFieldRefrence(form, "product.name", "意向产品", null, "CRM_" + Product.class.getSimpleName(), true, false);
-			/*{
-				formField.setTroikaTrigger("controllerproducts.productChange(newValue,oldValue);");
-				formField.setWidth(300);
-			}*/
-			formField = addFormField(form, "province.name", "省份", ControlTypes.CUSTOM, false, false);
+			formField = addFormField(form, "province.name", "省份", ControlTypes.CUSTOM, true, false);
 			{
 				formField.setCustomControlType(CityComboBox.class.getName());
 				formField.setDataOptions("level:1,changeCtrlId:'city_name'");
@@ -280,30 +321,24 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		PPart part = new PPart();
 		{
 			part.toNew();
-			part.setName("意向产品");
-			part.setCode("serviceScopes");
+			part.setName("服务地区");
+			part.setCode("serviceDistricts");
 			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
-			part.setRelationRole("serviceScopes");
+			part.setRelationRole("serviceDistricts");
 			part.setResourceNode(node);
 			part.setPartTypeId(PartType.DETAIL_PART.getId());
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("panda/datagrid/detail");
-			//part.setJsController("com.gongsibao.crm.web.ProdMapDetailPart");
 			part.setWindowWidth(550);
 			part.setWindowHeight(350);
 			part.setForm(form);
 		}
 		workspace.getParts().add(part);
 
-		part = workspace.getParts().get(0);
-		{
-			part.setName("基本信息");
-			part.setStyle("height:500px;");
-			part.setDockStyle(DockType.TOP);
-		}
 	}
-
+	
+	
 	@Override
 	protected void doOperation() {
 

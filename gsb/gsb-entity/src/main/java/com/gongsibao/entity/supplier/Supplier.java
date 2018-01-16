@@ -85,9 +85,12 @@ public class Supplier extends Entity {
 	@Column(name = "salesman_count", header = "员工数量")
 	private Integer salesmanCount = 0;
 
-	@Subs(foreignKey = "supplierId", header = "服务范围", subType = SupplierServiceScope.class)
-	private List<SupplierServiceScope> serviceScopes;
-
+	@Subs(foreignKey = "supplierId", header = "服务产品", subType = SupplierServiceProduct.class)
+	private List<SupplierServiceProduct> serviceProducts;
+	
+	@Subs(foreignKey = "supplierId", header = "服务地区", subType = SupplierServiceDistrict.class)
+	private List<SupplierServiceDistrict> serviceDistricts;
+	
 	@Subs(foreignKey = "supplierId", header = "开通模块", subType = SupplierFunctionModule.class)
 	private List<SupplierFunctionModule> modules;
 	
@@ -219,22 +222,6 @@ public class Supplier extends Entity {
 		this.departLevel = departLevel;
 	}
 
-	public List<SupplierServiceScope> getServiceScopes() {
-		return serviceScopes;
-	}
-
-	public void setServiceScopes(List<SupplierServiceScope> serviceScopes) {
-		this.serviceScopes = serviceScopes;
-	}
-
-	public List<SupplierFunctionModule> getModules() {
-		return modules;
-	}
-
-	public void setModules(List<SupplierFunctionModule> modules) {
-		this.modules = modules;
-	}
-
 	public Integer getAdminId() {
 		return adminId;
 	}
@@ -273,5 +260,29 @@ public class Supplier extends Entity {
 
 	public void setSalesmanCount(Integer salesmanCount) {
 		this.salesmanCount = salesmanCount;
+	}
+
+	public List<SupplierServiceProduct> getServiceProducts() {
+		return serviceProducts;
+	}
+
+	public void setServiceProducts(List<SupplierServiceProduct> serviceProducts) {
+		this.serviceProducts = serviceProducts;
+	}
+
+	public List<SupplierServiceDistrict> getServiceDistricts() {
+		return serviceDistricts;
+	}
+
+	public void setServiceDistricts(List<SupplierServiceDistrict> serviceDistricts) {
+		this.serviceDistricts = serviceDistricts;
+	}
+
+	public List<SupplierFunctionModule> getModules() {
+		return modules;
+	}
+
+	public void setModules(List<SupplierFunctionModule> modules) {
+		this.modules = modules;
 	}
 }
