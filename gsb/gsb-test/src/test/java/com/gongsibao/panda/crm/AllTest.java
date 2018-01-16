@@ -47,7 +47,7 @@ import com.gongsibao.panda.crm.workspace.sys.SysDepartmentWorkspaceTest;
 		CompanyIntentionWorkspaceTest.class,
 		//系统设置
 		SysDepartmentWorkspaceTest.class,
-		//SysSalesmanWorkspaceTest.class,
+		SysSalesmanWorkspaceTest.class,
 		
 		
 //		CustomerMyWorkspaceTest.class,
