@@ -119,7 +119,7 @@ public class ResourceTest extends ResourceCreationBase {
 //
 		node1 = this.createResourceNodeCategory("系统设置", "GSB_CRM_SYS", node.getId());
 		{
-			this.createResourceNodeVoucher(SupplierDepartment.class.getName(), "部门管理", "GSB_CRM_SYS_DEPARTMENT", ISupplierDepartmentService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(SupplierDepartment.class.getName(), "部门列表", "GSB_CRM_SYS_DEPARTMENT", ISupplierDepartmentService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(Salesman.class.getName(), "员工列表", "GSB_CRM_SYS_SALESMAN", ISalesmanService.class.getName(), node1.getId());
 		}
 	}

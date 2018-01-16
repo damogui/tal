@@ -8,6 +8,8 @@ import org.netsharp.entity.Entity;
 
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.product.Product;
+import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.entity.supplier.SupplierDepartment;
 
 @Table(name="n_crm_customer_product_map",header="客户意向产品")
 public class NCustomerProduct extends Entity{
@@ -58,6 +60,18 @@ public class NCustomerProduct extends Entity{
 	@JsonIgnore
 	@Reference(foreignKey = "countyId", header = "区/县")
 	private Dict county;
+	
+	@Column(name = "supplier_id", header = "分配服务商Id")
+	private Integer supplierId;
+
+	@Reference(foreignKey = "supplierId", header = "分配服务商")
+	private Supplier supplier;
+	
+	@Column(name = "department_id", header = "分配服务商部门Id")
+	private Integer departmentId;
+
+	@Reference(foreignKey = "departmentId", header = "分配服务商部门")
+	private SupplierDepartment department;
 
 	public NCustomer getCustomer() {
 		return customer;
@@ -153,5 +167,37 @@ public class NCustomerProduct extends Entity{
 
 	public void setCounty(Dict county) {
 		this.county = county;
+	}
+
+	public Integer getSupplierId() {
+		return supplierId;
+	}
+
+	public void setSupplierId(Integer supplierId) {
+		this.supplierId = supplierId;
+	}
+
+	public Supplier getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
+	}
+
+	public Integer getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(Integer departmentId) {
+		this.departmentId = departmentId;
+	}
+
+	public SupplierDepartment getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(SupplierDepartment department) {
+		this.department = department;
 	}
 }

@@ -10,6 +10,8 @@ import org.netsharp.entity.Entity;
 
 import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.QualityCategory;
+import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.entity.supplier.SupplierDepartment;
 
 @Table(name = "n_crm_task_foolow", header = "任务跟进")
 public class NCustomerTaskFoolow extends Entity {
@@ -50,6 +52,52 @@ public class NCustomerTaskFoolow extends Entity {
 	
 	@Column(name = "estimate_amount", header = "估计签单金额")
 	private Integer estimateAmount = 0;
+	
+	@Column(name = "supplier_id", header = "分配服务商Id")
+	private Integer supplierId;
+
+	@Reference(foreignKey = "supplierId", header = "分配服务商")
+	private Supplier supplier;
+	
+	@Column(name = "department_id", header = "分配服务商部门Id")
+	private Integer departmentId;
+
+	@Reference(foreignKey = "departmentId", header = "分配服务商部门")
+	private SupplierDepartment department;
+	
+	
+
+	public Integer getSupplierId() {
+		return supplierId;
+	}
+
+	public void setSupplierId(Integer supplierId) {
+		this.supplierId = supplierId;
+	}
+
+	public Supplier getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
+	}
+
+	public Integer getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(Integer departmentId) {
+		this.departmentId = departmentId;
+	}
+
+	public SupplierDepartment getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(SupplierDepartment department) {
+		this.department = department;
+	}
 
 	public NCustomer getCustomer() {
 		return customer;

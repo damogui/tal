@@ -1,10 +1,13 @@
 package com.gongsibao.entity.crm;
 
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.BizEntity;
 
 import com.gongsibao.entity.crm.dic.QualityCategory;
+import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.entity.supplier.SupplierDepartment;
 
 @Table(name="n_crm_task_quality",header="客户质量")
 public class NCustomerTaskQuality extends BizEntity{
@@ -26,6 +29,52 @@ public class NCustomerTaskQuality extends BizEntity{
     
     @Column(name = "next_foolow_type",header="下次跟进方式", size = 200)
     private String nextFoolowType;
+    
+	@Column(name = "supplier_id", header = "分配服务商Id")
+	private Integer supplierId;
+
+	@Reference(foreignKey = "supplierId", header = "分配服务商")
+	private Supplier supplier;
+	
+	@Column(name = "department_id", header = "分配服务商部门Id")
+	private Integer departmentId;
+
+	@Reference(foreignKey = "departmentId", header = "分配服务商部门")
+	private SupplierDepartment department;
+	
+	
+
+	public Integer getSupplierId() {
+		return supplierId;
+	}
+
+	public void setSupplierId(Integer supplierId) {
+		this.supplierId = supplierId;
+	}
+
+	public Supplier getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
+	}
+
+	public Integer getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(Integer departmentId) {
+		this.departmentId = departmentId;
+	}
+
+	public SupplierDepartment getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(SupplierDepartment department) {
+		this.department = department;
+	}
 
 	public QualityCategory getIntentionCategory() {
 		return intentionCategory;

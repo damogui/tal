@@ -25,12 +25,15 @@ public class Salesman extends Entity {
 
 	@Reference(foreignKey = "departmentId", header = "部门")
 	private SupplierDepartment department;
-	
+
 	@Column(name = "supplier_id", header = "服务商Id")
 	private Integer supplierId = 0;
 
 	@Reference(foreignKey = "supplierId", header = "服务商")
 	private Supplier supplier;
+
+	@Column(name = "disabled", header = "停用")
+	private Boolean disabled = false;
 
 	// 配置
 
@@ -81,5 +84,12 @@ public class Salesman extends Entity {
 	public void setSupplier(Supplier supplier) {
 		this.supplier = supplier;
 	}
-	
+
+	public Boolean getDisabled() {
+		return disabled;
+	}
+
+	public void setDisabled(Boolean disabled) {
+		this.disabled = disabled;
+	}
 }

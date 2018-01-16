@@ -67,7 +67,7 @@ public class NavigationTest extends NavigationBase {
 //
 		createPTreeNode(tree, null, null, "GSB_CRM_SYS", "系统设置", "", 5);
 		{
-			createPTreeNode(tree, "GSB_CRM_SYS", null, "GSB_CRM_SYS_DEPARTMENT", "部门管理", "/crm/sys/department/list", 1);
+			createPTreeNode(tree, "GSB_CRM_SYS", null, "GSB_CRM_SYS_DEPARTMENT", "部门列表", "/crm/sys/department/list", 1);
 			createPTreeNode(tree, "GSB_CRM_SYS", null, "GSB_CRM_SYS_SALESMAN", "员工列表", "/crm/sys/salesman/list", 2);
 		}
 	}
