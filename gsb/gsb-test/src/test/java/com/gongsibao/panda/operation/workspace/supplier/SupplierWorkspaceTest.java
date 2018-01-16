@@ -181,10 +181,10 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 	}
 
 	protected void addDetailGridPart(PWorkspace workspace) {
-//		// 功能明细
-//		createFunctionModulePart(workspace);
-//		// 服务范围
-//		addIntenProductPart(workspace);
+		// 功能明细
+		createFunctionModulePart(workspace);
+		// 服务范围
+		addIntenProductPart(workspace);
 	}
 
 	// 功能明细
