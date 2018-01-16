@@ -56,7 +56,7 @@ public class ActionSupplierCreateAdmin implements IAction {
 			// 3.创建Salesman，并关联部门
 			this.createSalesman(department, employee);
 			
-			// 4.设置服务商的AdminId
+			// 4.设置服务商的AdminId 
 			entity = persist(entity, employee);
 		}
 
