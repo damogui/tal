@@ -37,7 +37,7 @@ public class UnFoolowWorkspace extends WorkspaceCreationBase{
 		urlList = "/crm/my/task/unfoolow/list";
 		//配置表单路径
 		urlForm = "/crm/my/task/unfoolow/from";		
-		listPartName = formPartName = "未跟进";
+		listPartName = formPartName = "待跟进";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_MY_TASK_UNFOOLOW";

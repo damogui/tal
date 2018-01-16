@@ -37,7 +37,7 @@ public class DepartUnFoolowWorkspace extends WorkspaceCreationBase{
 		urlList = "/crm/department/4/list";
 		//配置表单路径
 		urlForm = "/crm/department/4/from";		
-		listPartName = formPartName = "未跟进";
+		listPartName = formPartName = "待跟进";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_DEPARTMENT_UNFOOLOW";

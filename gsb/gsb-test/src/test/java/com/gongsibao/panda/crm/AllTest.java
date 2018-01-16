@@ -20,6 +20,7 @@ import com.gongsibao.panda.crm.workspace.department.DepartAllTaskWorkspace;
 import com.gongsibao.panda.crm.workspace.department.DepartAlreadySignWorkspace;
 import com.gongsibao.panda.crm.workspace.department.DepartDefeatedWorkspace;
 import com.gongsibao.panda.crm.workspace.department.DepartFollowIngWorkspace;
+import com.gongsibao.panda.crm.workspace.department.DepartHighSeasWorkspace;
 import com.gongsibao.panda.crm.workspace.department.DepartUnFoolowWorkspace;
 import com.gongsibao.panda.crm.workspace.department.DepartUnStartWorkspace;
 import com.gongsibao.panda.crm.workspace.my.AllTaskWorkspace;
@@ -73,6 +74,7 @@ import com.gongsibao.panda.crm.workspace.sys.SysSalesmanWorkspaceTest;
 		DepartFollowIngWorkspace.class,
 		DepartUnFoolowWorkspace.class,
 		DepartUnStartWorkspace.class,
+		DepartHighSeasWorkspace.class,
 		
 		NavigationTest.class
 		})

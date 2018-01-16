@@ -93,7 +93,7 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(Supplier.class.getName(), "分配服务商", "GSB_CRM_MY_REFERENE_SUPPLIER", ISupplierService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(SupplierDepartment.class.getName(), "分配服务商部门", "GSB_CRM_MY_REFERENE_SUPPLIER_DEPART", ISupplierDepartmentService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(Employee.class.getName(), "员工信息", "GSB_CRM_MY_REFERENE_EMPLOYEE", IEmployeeService.class.getName(), node1.getId());
-			//选项卡加载项
+			//======选项卡加载项
 			this.createResourceNodeVoucher(NCustomerProduct.class.getName(), "意向产品", NCustomerProduct.class.getSimpleName(), INCustomerProductService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTaskFoolow.class.getName(), "沟通日志", NCustomerTaskFoolow.class.getSimpleName(),INCustomerTaskFoolowService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTaskNotify.class.getName(), "通知日志", NCustomerTaskNotify.class.getSimpleName(),INCustomerTaskNotifyService.class.getName(), node1.getId());
@@ -108,6 +108,7 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "跟进中任务", "GSB_CRM_DEPARTMENT_FOLLOWING", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "已签单任务", "GSB_CRM_DEPARTMENT_SIGNED", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "无法签单任务", "GSB_CRM_DEPARTMENT_DEFEATED", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "公海", "GSB_CRM_DEPARTMENT_HIGHSEAS", INCustomerTaskService.class.getName(), node1.getId());
 		}
 //
 //		node1 = this.createResourceNodeCategory("分析统计", "GSB_CRM_REPORT", node.getId());
