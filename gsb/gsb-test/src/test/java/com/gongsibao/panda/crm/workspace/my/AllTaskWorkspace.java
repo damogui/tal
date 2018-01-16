@@ -26,6 +26,7 @@ import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.crm.dic.ChangeType;
 import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.NotifyType;
+import com.gongsibao.entity.crm.dic.QualityCategory;
 
 public class AllTaskWorkspace extends WorkspaceCreationBase{
 
@@ -89,11 +90,15 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		ResourceNode node = this.resourceService.byCode(NCustomerTaskFoolow.class.getSimpleName());
 		PDatagrid datagrid = new PDatagrid(node, "沟通日志");
 		{
-			PDatagridColumn column = addColumn(datagrid, "foolowStatus", "跟进状态", ControlTypes.ENUM_BOX, 300);{
+			PDatagridColumn column = addColumn(datagrid, "foolowStatus", "跟进状态", ControlTypes.ENUM_BOX, 180);{
 				String formatter = EnumUtil.getColumnFormatter(CustomerFollowStatus.class);
 				column.setFormatter(formatter);
 			}
-			addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 150);
+			column = addColumn(datagrid, "qualityCategory", "质量分类", ControlTypes.ENUM_BOX, 180);{
+				String formatter = EnumUtil.getColumnFormatter(QualityCategory.class);
+				column.setFormatter(formatter);
+			}
+			addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 200);
 			addColumn(datagrid, "estimateAmount", "估计签单金额", ControlTypes.DECIMAL_FEN_BOX, 150);
 			addColumn(datagrid, "content", "跟进内容", ControlTypes.TEXT_BOX, 150);
 		}
@@ -101,15 +106,16 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		{
 			form.toNew();
 			form.setResourceNode(node);
-			form.setColumnCount(1);
+			form.setColumnCount(2);
 			form.setName("沟通日志");
 			PFormField formField = null;
 			String groupName = null;
 			
 			formField = addFormField(form, "foolowStatus", "跟进状态", groupName, ControlTypes.ENUM_BOX, false, false);
 			addFormField(form, "nextFoolowTime", "下次跟进时间", groupName, ControlTypes.DATE_BOX, false, false);
+			addFormField(form, "qualityCategory", "质量分类", groupName, ControlTypes.ENUM_BOX, false, false);
 			addFormField(form, "estimateAmount", "估计签单金额", groupName, ControlTypes.DECIMAL_FEN_BOX, false, false);
-			formField = addFormField(form, "content", "跟进内容", groupName, ControlTypes.TEXT_BOX, false, false);{			
+			formField = addFormField(form, "content", "跟进内容", groupName, ControlTypes.TEXTAREA, false, false);{			
 				formField.setFullColumn(true);
 		    }
 		}
@@ -126,8 +132,8 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("panda/datagrid/detail");
 			//part.setJsController("com.gongsibao.crm.web.ProdMapDetailPart");
-			part.setWindowWidth(550);
-			part.setWindowHeight(350);
+			part.setWindowWidth(700);
+			part.setWindowHeight(400);
 			part.setForm(form);
 		}
 		workspace.getParts().add(part);
