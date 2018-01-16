@@ -32,7 +32,7 @@ public class SysSalesmanWorkspaceTest  extends WorkspaceCreationBase{
 		PDatagridColumn column = null;
 		column = addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
 		addColumn(datagrid, "employee_id", "部门编码", ControlTypes.TEXT_BOX, 100, true);
-		addColumn(datagrid, "department_id", "部门id", ControlTypes.TEXT_BOX, 80);
+		addColumn(datagrid, "department.name", "部门id", ControlTypes.TEXT_BOX, 80);
 	
 		addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "create_time", "创建时间", ControlTypes.TEXT_BOX, 100);
