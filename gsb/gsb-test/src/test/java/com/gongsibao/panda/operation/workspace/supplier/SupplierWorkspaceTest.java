@@ -164,18 +164,18 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "name", "名称", null, ControlTypes.TEXT_BOX, true);
 		addFormField(form, "status", "状态", null, ControlTypes.ENUM_BOX, true, true);
 		addFormField(form, "type", "类型", null, ControlTypes.ENUM_BOX, true, false);
-		addFormField(form, "address", "地址", null, ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "mobilePhone", "手机号", null, ControlTypes.TEXT_BOX, true, false);
+		addFormField(form, "address", "地址", null, ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "customerMaxCount", "客户池数量", null, ControlTypes.NUMBER_BOX, false, false);
-		addFormField(form, "pushReport", "是否推送报表", null, ControlTypes.SWITCH_BUTTON, false, false);
 		addFormField(form, "messageNotifiedType", "消息通知类型 ", null, ControlTypes.ENUM_BOX, false, false);
+		addFormField(form, "noFollowDays", "未跟进天数", null, ControlTypes.NUMBER_BOX, false, false);
+		addFormField(form, "departLevel", "部门级次", null, ControlTypes.NUMBER_BOX, false, true);
+		addFormField(form, "departmentCount", "部门数量", null, ControlTypes.NUMBER_BOX, false, true);
+		addFormField(form, "salesmanCount", "员工数量", null, ControlTypes.NUMBER_BOX, false, true);
+		addFormField(form, "pushReport", "是否推送报表", null, ControlTypes.SWITCH_BUTTON, false, false);
 		addFormField(form, "autoAssign", "是否推自动分配", null, ControlTypes.SWITCH_BUTTON, false, false);
 		addFormField(form, "autoRelease", "是否推自动释放", null, ControlTypes.SWITCH_BUTTON, false, false);
-		addFormField(form, "noFollowDays", "未跟进天数", null, ControlTypes.NUMBER_BOX, false, false);
 		addFormField(form, "enableDepart", "是否启用部门", null, ControlTypes.SWITCH_BUTTON, false, false);
-		addFormField(form, "departLevel", "部门级次", null, ControlTypes.NUMBER_BOX, false, false);
-		addFormField(form, "departmentCount", "部门数量", null, ControlTypes.NUMBER_BOX, false, false);
-		addFormField(form, "salesmanCount", "员工数量", null, ControlTypes.NUMBER_BOX, false, false);
 		return form;
 	}
 
