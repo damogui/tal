@@ -71,7 +71,6 @@ public class PayReceiptCheckDTOWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "id", "支付编号", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "u8VoucherId", "u8凭证号", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "payForOrderCount", "支付订单数量", ControlTypes.ENUM_BOX, 80);
-		addColumn(datagrid, "u8VoucherId", "u8凭证号", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "receiptNo", "回单编号", ControlTypes.TEXT_BOX, 100);
 		column = addColumn(datagrid, "orderIdStr", "订单id", ControlTypes.TEXT_BOX, 100);
 		{
