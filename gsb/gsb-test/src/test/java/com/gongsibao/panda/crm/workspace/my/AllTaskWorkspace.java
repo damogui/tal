@@ -19,6 +19,7 @@ import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
+import com.gongsibao.crm.web.NCustomerFormPart;
 import com.gongsibao.entity.crm.NCustomerChange;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
@@ -43,6 +44,9 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_MY_TASK_ALL";
 		listFilter = "creator_id = '{userId}'";
+		
+		formServiceController = NCustomerFormPart.class.getName();
+		formJsController = NCustomerFormPart.class.getName();
 		//选项卡页面的js
 		formJsImport = "/gsb/crm/js/crm.all.task.part.js|/gsb/gsb.customer.controls.js";
 	}

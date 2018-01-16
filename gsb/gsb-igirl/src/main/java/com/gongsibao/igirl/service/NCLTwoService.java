@@ -5,6 +5,10 @@ import com.gongsibao.entity.igirl.baseinfo.NCLOne;
 import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
 import com.gongsibao.igirl.base.INCLTwoService;
 import org.netsharp.communication.Service;
+import org.netsharp.core.Oql;
+
+import java.sql.Types;
+import java.util.List;
 
 @Service
 public class NCLTwoService extends GsbPersistableService<NCLTwo> implements INCLTwoService {
@@ -12,6 +16,18 @@ public class NCLTwoService extends GsbPersistableService<NCLTwo> implements INCL
 	public NCLTwoService() {
 		super();
 		this.type = NCLTwo.class;
+	}
+
+	@Override
+	public List<NCLTwo> findSubsByNclOneId(int ncloneid) {
+		Oql oql=new Oql();
+		{
+			oql.setType(NCLTwo.class);
+			oql.setSelects("NCLTwo.{id,code,thirdCode,name}");
+			oql.setFilter(" nclOneId=? ");
+			oql.getParameters().add("nclOneId", ncloneid, Types.INTEGER);
+		}
+		return this.queryList(oql);
 	}
 
 //	@Override

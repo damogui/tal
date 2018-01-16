@@ -1,25 +1,23 @@
 package com.gongsibao.entity.igirl.dict;
+
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
-/**
- * 书式类型
- */
-public enum WriteType implements IEnum {
+public enum TradeMarkType implements IEnum {
 
-	DALU(0, "中国大陆"), AOMEN(1, "中国澳门"), HONGKONG(2, "中国香港"),TAIWAN(3, "中国台湾"),FOREIGN(4, "国外");
+	GENERAL(0, "一般"), SHARE(1, "集体"),PROOF(2,"证明");
 	private int value;
 	private String text;
 
-	WriteType(int value, String text) {
+	TradeMarkType(int value, String text) {
 		this.value = value;
 		this.text = text;
 	}
 
 	@JsonCreator
-	public static WriteType getItem(int value) {
+	public static TradeMarkType getItem(int value) {
 
-		for (WriteType item : values()) {
+		for (TradeMarkType item : values()) {
 
 			if (item.getValue() == value) {
 				return item;

@@ -34,7 +34,7 @@ public class SysDepartmentWorkspaceTest   extends WorkspaceCreationBase{
 
 		PDatagrid datagrid = super.createDatagrid(node);
 		{
-//			datagrid.setToolbar("panda/datagrid/row/edit");
+//			datagrid.setToolbar("panda/datagrid/row/edit");//这个东西
 			datagrid.setName("部门管理");
 		}
 		PDatagridColumn column = null;

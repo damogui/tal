@@ -1,5 +1,6 @@
 package com.gongsibao.entity.igirl;
 import com.gongsibao.entity.igirl.baseinfo.NCLOne;
+import com.gongsibao.entity.igirl.dict.TradeMarkType;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
@@ -25,6 +26,39 @@ public class TradeMark extends Entity {
 
     @Column(name="selected_ncltow_str",header="商标小类")
     private String selectedTwoStr;
+
+    @Column(name="trade_mark_type",header="商标类型")
+    private TradeMarkType tradeMarkType=TradeMarkType.GENERAL;
+
+    @Column(name="whether_third_space",header="是否三维图标")
+    private Boolean  whetherThirdSpace=false;
+
+    @Column(name="whether_color_group",header="是否颜色组合")
+    private Boolean  whetherColorGroup=false;
+
+    @Column(name="whether_sound",header="是否声音商标")
+    private Boolean  whetherSound=false;
+
+    @Column(name="whether_person_photo",header="是否以肖像作为商标申请注册")
+    private Boolean  whetherPersonPhoto=false;
+
+
+    @Column(name="momo",header="商标说明")
+    private String memo;
+
+
+
+    @Column(name="mark_img_attachmentid",header="商标图样")
+    private Integer markImgAttachmentId = -1;
+    @Reference(foreignKey="markImgAttachmentId",header="商标图样")
+    private Attachment markImgAttachment;
+
+
+    @Column(name="memo_desc_attachment_id",header="有关说明文件")
+    private Integer memoDescAttachmentId = -1;
+    @Reference(foreignKey="memoDescAttachmentId",header="有关说明文件")
+    private Attachment memoDescAttachment;
+
 
 
     public String getCode() {
@@ -73,5 +107,85 @@ public class TradeMark extends Entity {
 
     public void setSelectedTwoStr(String selectedTwoStr) {
         this.selectedTwoStr = selectedTwoStr;
+    }
+
+    public TradeMarkType getTradeMarkType() {
+        return tradeMarkType;
+    }
+
+    public void setTradeMarkType(TradeMarkType tradeMarkType) {
+        this.tradeMarkType = tradeMarkType;
+    }
+
+    public Boolean getWhetherThirdSpace() {
+        return whetherThirdSpace;
+    }
+
+    public void setWhetherThirdSpace(Boolean whetherThirdSpace) {
+        this.whetherThirdSpace = whetherThirdSpace;
+    }
+
+    public Boolean getWhetherColorGroup() {
+        return whetherColorGroup;
+    }
+
+    public void setWhetherColorGroup(Boolean whetherColorGroup) {
+        this.whetherColorGroup = whetherColorGroup;
+    }
+
+    public Boolean getWhetherSound() {
+        return whetherSound;
+    }
+
+    public void setWhetherSound(Boolean whetherSound) {
+        this.whetherSound = whetherSound;
+    }
+
+    public Boolean getWhetherPersonPhoto() {
+        return whetherPersonPhoto;
+    }
+
+    public void setWhetherPersonPhoto(Boolean whetherPersonPhoto) {
+        this.whetherPersonPhoto = whetherPersonPhoto;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
+    public Integer getMarkImgAttachmentId() {
+        return markImgAttachmentId;
+    }
+
+    public void setMarkImgAttachmentId(Integer markImgAttachmentId) {
+        this.markImgAttachmentId = markImgAttachmentId;
+    }
+
+    public Attachment getMarkImgAttachment() {
+        return markImgAttachment;
+    }
+
+    public void setMarkImgAttachment(Attachment markImgAttachment) {
+        this.markImgAttachment = markImgAttachment;
+    }
+
+    public Integer getMemoDescAttachmentId() {
+        return memoDescAttachmentId;
+    }
+
+    public void setMemoDescAttachmentId(Integer memoDescAttachmentId) {
+        this.memoDescAttachmentId = memoDescAttachmentId;
+    }
+
+    public Attachment getMemoDescAttachment() {
+        return memoDescAttachment;
+    }
+
+    public void setMemoDescAttachment(Attachment memoDescAttachment) {
+        this.memoDescAttachment = memoDescAttachment;
     }
 }
