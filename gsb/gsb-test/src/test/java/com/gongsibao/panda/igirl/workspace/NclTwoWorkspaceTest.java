@@ -110,7 +110,8 @@ public class NclTwoWorkspaceTest extends WorkspaceCreationBase{
 		
 		PDatagridColumn column = null;
 		addColumn(datagrid, "nclOne.name", "所属大类", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "code", "编码", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "code", "二级编码", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "thirdCode", "小类编码", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "name", "内容", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100);
 		return datagrid;
@@ -132,7 +133,8 @@ public class NclTwoWorkspaceTest extends WorkspaceCreationBase{
 		{
 			field.setWidth(100);
 		}
-		addFormField(form, "code", "小类编码", null, ControlTypes.TEXT_BOX, false,false);
+		addFormField(form, "code", "二级编码", null, ControlTypes.TEXT_BOX, true,false);
+		addFormField(form, "thirdCode", "小类编码", null, ControlTypes.TEXT_BOX, false,false);
 		addFormField(form, "name", "内容", null, ControlTypes.TEXTAREA, true,false);
 		return form;
 	}
@@ -141,6 +143,7 @@ public class NclTwoWorkspaceTest extends WorkspaceCreationBase{
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
 		addRefrenceQueryItem(queryProject,"nclOne.name","商标大类","NCLOne");
+		addQueryItem(queryProject, "code", "二级编码", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "name", "内容", ControlTypes.TEXT_BOX);
 		return queryProject;
 	}

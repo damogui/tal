@@ -24,11 +24,14 @@ public class TradeMarkCase extends Entity {
     @Column(name="contact_name",header="联系人姓名")
     private String  contactName;
 
+    @Column(name="owned_marks",header="已有商标")
+    private String  ownedMarks;
+
     @Column(name="momo",header="交流记录")
     private String  momo;
 
     @Column(name="applier_type",header="申请人类型")
-    private ApplierType applierType;
+    private ApplierType applierType=ApplierType.PUBLIC;
 
     @Column(name="applier",header="申请人")
     private String  applier;
@@ -52,7 +55,7 @@ public class TradeMarkCase extends Entity {
     private String  mailCode;
 
     @Column(name="write_type",header="书式类型")
-    private WriteType writeType;
+    private WriteType writeType=WriteType.DALU;
 
 
     @Column(name="token",header="分享方案表识")
@@ -88,10 +91,14 @@ public class TradeMarkCase extends Entity {
     private List<TradeMark> tradeMarks;
 
     @Subs(foreignKey="tradeMarkCaseId",header="上传附件",subType=Attachment.class)
-    private List<Attachment> uploadAttaments;
+    private List<Attachment> uploadAttachments;
 
     @Subs(foreignKey="tradeMarkCaseId",header="下载附件",subType=Attachment.class)
     private List<Attachment> downLoadAttaments;
+
+    //期望时间
+    @Column(name="urgency",header="紧急程度")
+    private int urgency=72;
 
 
     public String getCode() {
@@ -188,5 +195,125 @@ public class TradeMarkCase extends Entity {
 
     public void setProxyCompanyName(String proxyCompanyName) {
         this.proxyCompanyName = proxyCompanyName;
+    }
+
+    public String getOwnedMarks() {
+        return ownedMarks;
+    }
+
+    public void setOwnedMarks(String ownedMarks) {
+        this.ownedMarks = ownedMarks;
+    }
+
+    public int getUrgency() {
+        return urgency;
+    }
+
+    public void setUrgency(int urgency) {
+        this.urgency = urgency;
+    }
+
+    public Boolean getHasColor() {
+        return hasColor;
+    }
+
+    public void setHasColor(Boolean hasColor) {
+        this.hasColor = hasColor;
+    }
+
+    public List<Attachment> getUploadAttachments() {
+        return uploadAttachments;
+    }
+
+    public void setUploadAttachments(List<Attachment> uploadAttachments) {
+        this.uploadAttachments = uploadAttachments;
+    }
+
+    public String getIdentityCode() {
+        return identityCode;
+    }
+
+    public void setIdentityCode(String identityCode) {
+        this.identityCode = identityCode;
+    }
+
+    public String getMailCode() {
+        return mailCode;
+    }
+
+    public void setMailCode(String mailCode) {
+        this.mailCode = mailCode;
+    }
+
+    public WriteType getWriteType() {
+        return writeType;
+    }
+
+    public void setWriteType(WriteType writeType) {
+        this.writeType = writeType;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getTokenImgUrl() {
+        return tokenImgUrl;
+    }
+
+    public void setTokenImgUrl(String tokenImgUrl) {
+        this.tokenImgUrl = tokenImgUrl;
+    }
+
+    public BigDecimal getCaseAmount() {
+        return caseAmount;
+    }
+
+    public void setCaseAmount(BigDecimal caseAmount) {
+        this.caseAmount = caseAmount;
+    }
+
+    public String getTradeOptions() {
+        return tradeOptions;
+    }
+
+    public void setTradeOptions(String tradeOptions) {
+        this.tradeOptions = tradeOptions;
+    }
+
+    public String getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(String bankAccount) {
+        this.bankAccount = bankAccount;
+    }
+
+    public String getAccountNo() {
+        return accountNo;
+    }
+
+    public void setAccountNo(String accountNo) {
+        this.accountNo = accountNo;
+    }
+
+    public List<TradeMark> getTradeMarks() {
+        return tradeMarks;
+    }
+
+    public void setTradeMarks(List<TradeMark> tradeMarks) {
+        this.tradeMarks = tradeMarks;
+    }
+
+    public List<Attachment> getDownLoadAttaments() {
+        return downLoadAttaments;
+    }
+
+    public void setDownLoadAttaments(List<Attachment> downLoadAttaments) {
+        this.downLoadAttaments = downLoadAttaments;
     }
 }

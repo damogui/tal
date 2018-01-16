@@ -11,7 +11,7 @@ import org.netsharp.entity.Entity;
 @Table(name="ig_attachment",header="附件")
 public class Attachment extends Entity {
 
-	@Column(name="code",header="名称")
+	@Column(name="name",header="名称")
     private String name;
 
     @Column(name="attachment_cat",header="附件类别")
@@ -19,6 +19,9 @@ public class Attachment extends Entity {
 
     @Column(name="file_type",header="文件类型")
     private FileType fileType;
+
+    @Column(name="to_file_type",header="目标文件类型")
+    private FileType toFileType;
 
     @Column(name="file_url",header="文件url")
     private String fileUrl;

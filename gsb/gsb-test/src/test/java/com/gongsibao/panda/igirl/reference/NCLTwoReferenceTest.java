@@ -1,5 +1,7 @@
 package com.gongsibao.panda.igirl.reference;
+
 import com.gongsibao.entity.igirl.baseinfo.NCLOne;
+import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
 import org.junit.Before;
 import org.netsharp.meta.base.ReferenceCreationBase;
 import org.netsharp.panda.controls.ControlTypes;
@@ -7,14 +9,14 @@ import org.netsharp.panda.dic.IntelligentMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-public class NCLOneReferenceTest extends ReferenceCreationBase{
+public class NCLTwoReferenceTest extends ReferenceCreationBase{
 
 	@Before
 	public void setup() {
 
-		resourceNodeCode = "IGRIL_BASE_" + NCLOne.class.getSimpleName();
-		datagridName = referenceName = "商标大类参照";
-		referenceCode = NCLOne.class.getSimpleName();
+		resourceNodeCode = "IGRIL_BASE_" + NCLTwo.class.getSimpleName();
+		datagridName = referenceName = "商标小类参照";
+		referenceCode = NCLTwo.class.getSimpleName();
 		intelligentMode = IntelligentMode.LIKE;
 		intelligentFields = "name";
 		
