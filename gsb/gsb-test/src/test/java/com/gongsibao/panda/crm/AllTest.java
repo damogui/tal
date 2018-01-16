@@ -16,6 +16,12 @@ import com.gongsibao.panda.crm.workspace.CompanyIntentionWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.CustomerAllWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.CustomerOrderWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.CustomerServiceConfigWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.department.DepartAllTaskWorkspace;
+import com.gongsibao.panda.crm.workspace.department.DepartAlreadySignWorkspace;
+import com.gongsibao.panda.crm.workspace.department.DepartDefeatedWorkspace;
+import com.gongsibao.panda.crm.workspace.department.DepartFollowIngWorkspace;
+import com.gongsibao.panda.crm.workspace.department.DepartUnFoolowWorkspace;
+import com.gongsibao.panda.crm.workspace.department.DepartUnStartWorkspace;
 import com.gongsibao.panda.crm.workspace.my.AllTaskWorkspace;
 import com.gongsibao.panda.crm.workspace.my.AlreadySignWorkspace;
 import com.gongsibao.panda.crm.workspace.my.DefeatedWorkspace;
@@ -23,7 +29,6 @@ import com.gongsibao.panda.crm.workspace.my.FollowIngWorkspace;
 import com.gongsibao.panda.crm.workspace.my.UnFoolowWorkspace;
 import com.gongsibao.panda.crm.workspace.my.UnStartWorkspace;
 import com.gongsibao.panda.crm.workspace.sys.SysDepartmentWorkspaceTest;
-import com.gongsibao.panda.crm.workspace.sys.SysSalesmanWorkspaceTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
@@ -60,6 +65,13 @@ import com.gongsibao.panda.crm.workspace.sys.SysSalesmanWorkspaceTest;
 		FollowIngWorkspace.class,
 		AlreadySignWorkspace.class,
 		DefeatedWorkspace.class,
+		
+		DepartAllTaskWorkspace.class,
+		DepartAlreadySignWorkspace.class,
+		DepartDefeatedWorkspace.class,
+		DepartFollowIngWorkspace.class,
+		DepartUnFoolowWorkspace.class,
+		DepartUnStartWorkspace.class,
 		
 		NavigationTest.class
 		})
