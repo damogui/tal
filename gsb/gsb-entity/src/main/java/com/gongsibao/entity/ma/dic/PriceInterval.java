@@ -7,7 +7,7 @@ import org.netsharp.base.IEnum;
 
 public enum PriceInterval implements IEnum {
 
-	OneUnder(1, "1万-3万"), OneToThree(2, "1万-3万"),ThreeToFive(3, "3万-5万"), FiveToTen(4, "5万-10万"), TenAbove(5, "10万以上");
+	OneUnder(1, "1万以下"), OneToThree(2, "1万-3万"),ThreeToFive(3, "3万-5万"), FiveToTen(4, "5万-10万"), TenAbove(5, "10万以上");
 	private int value;
 	private String text;
 
