@@ -41,7 +41,7 @@ public class DefeatedWorkspace extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_MY_TASK_DEFEATED";
-		listFilter = "foolowStatus=4";
+		listFilter = "foolowStatus = 4 and creator_id = '{userId}'";
 	}
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
