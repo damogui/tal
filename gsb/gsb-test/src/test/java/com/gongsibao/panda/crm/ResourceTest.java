@@ -35,9 +35,11 @@ import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
 import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.product.Product;
+import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.supplier.base.ISalesmanService;
 import com.gongsibao.supplier.base.ISupplierDepartmentService;
 import com.gongsibao.supplier.base.ISupplierService;
 
@@ -114,10 +116,10 @@ public class ResourceTest extends ResourceCreationBase {
 //			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "报表2", "GSB_CRM_REPORT_2", INCustomerTaskService.class.getName(), node1.getId());
 //		}
 //
-//		node1 = this.createResourceNodeCategory("系统设置", "GSB_CRM_SYS", node.getId());
-//		{
-//			this.createResourceNodeVoucher(SupplierDepartment.class.getName(), "部门管理", "GSB_CRM_SYS_DEPARTMENT", ISupplierDepartmentService.class.getName(), node1.getId());
-//			this.createResourceNodeVoucher(Salesman.class.getName(), "员工列表", "GSB_CRM_SYS_SALESMAN", ISalesmanService.class.getName(), node1.getId());
-//		}
+		node1 = this.createResourceNodeCategory("系统设置", "GSB_CRM_SYS", node.getId());
+		{
+			this.createResourceNodeVoucher(SupplierDepartment.class.getName(), "部门管理", "GSB_CRM_SYS_DEPARTMENT", ISupplierDepartmentService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(Salesman.class.getName(), "员工列表", "GSB_CRM_SYS_SALESMAN", ISalesmanService.class.getName(), node1.getId());
+		}
 	}
 }
