@@ -22,6 +22,8 @@ import com.gongsibao.panda.crm.workspace.my.DefeatedWorkspace;
 import com.gongsibao.panda.crm.workspace.my.FollowIngWorkspace;
 import com.gongsibao.panda.crm.workspace.my.UnFoolowWorkspace;
 import com.gongsibao.panda.crm.workspace.my.UnStartWorkspace;
+import com.gongsibao.panda.crm.workspace.sys.SysDepartmentWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.sys.SysSalesmanWorkspaceTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
@@ -38,6 +40,10 @@ import com.gongsibao.panda.crm.workspace.my.UnStartWorkspace;
 		
 		CustomerAllWorkspaceTest.class,
 		CompanyIntentionWorkspaceTest.class,
+		//系统设置
+		SysDepartmentWorkspaceTest.class,
+		//SysSalesmanWorkspaceTest.class,
+		
 		
 //		CustomerMyWorkspaceTest.class,
 //		EnterpriseWorkspaceTest.class,

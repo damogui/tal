@@ -41,7 +41,7 @@ public class UnFoolowWorkspace extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_MY_TASK_UNFOOLOW";
-		listFilter = "foolowStatus=2";
+		listFilter = "foolowStatus = 2 and creator_id = '{userId}'";
 	}
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
