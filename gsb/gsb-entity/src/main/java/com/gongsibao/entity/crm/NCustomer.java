@@ -18,6 +18,7 @@ import com.gongsibao.entity.crm.dic.QualityCategory;
 import com.gongsibao.entity.crm.dic.Sex;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
+import com.gongsibao.entity.uc.Account;
 
 @Table(name = "n_crm_customer", header = "客户信息")
 public class NCustomer extends Entity {
@@ -29,6 +30,9 @@ public class NCustomer extends Entity {
 
 	@Column(name = "account_id", header = "帐号Id")
 	private Integer accountId = 0;
+	
+	@Reference(foreignKey = "accountId")
+	private Account account;
 
 	@Column(name = "real_name", header = "姓名")
 	private String realName;
@@ -601,4 +605,13 @@ public class NCustomer extends Entity {
 	public void setNextFoolowTime(Date nextFoolowTime) {
 		this.nextFoolowTime = nextFoolowTime;
 	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}	
+	
 }
