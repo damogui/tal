@@ -14,7 +14,11 @@ import org.netsharp.organization.base.IRoleService;
 import org.netsharp.organization.entity.Employee;
 import org.netsharp.organization.entity.Role;
 import org.netsharp.organization.entity.RoleEmployee;
+import org.netsharp.persistence.IPersister;
+import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.util.ReflectManager;
+import org.netsharp.util.StringManager;
+import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.supplier.Supplier;
@@ -34,9 +38,10 @@ public class ActionSupplierCreateAdmin implements IAction {
 
 		Supplier entity = (Supplier) ctx.getItem();
 		
-		//如果已经开过户，直接设置状态
+		//如果已经开过户，直接设置状态,只启用管理员帐号
 		if(entity.getAdminId() != null){
 			
+			 this.enableEmployee(entity.getAdminId());
 			entity.setStatus(SupplierStatus.OPEND);
 			entity = getService().save(entity);
 			
@@ -51,11 +56,25 @@ public class ActionSupplierCreateAdmin implements IAction {
 			// 3.创建Salesman，并关联部门
 			this.createSalesman(department, employee);
 			
-			// 4.设置服务商的AdminId
+			// 4.设置服务商的AdminId 
 			entity = persist(entity, employee);
 		}
 
 		ctx.setItem(entity);
+	}
+	
+	private void enableEmployee(Integer employeeId) {
+
+		UpdateBuilder updateSql = UpdateBuilder.getInstance();
+		{
+			updateSql.update("sys_permission_employee");
+			updateSql.set("disabled", false);
+			updateSql.where("id =" + employeeId);
+		}
+		String cmdText = updateSql.toSQL();
+		
+		IPersister<Salesman> pm = PersisterFactory.create();
+		pm.executeNonQuery(cmdText, null);
 	}
 	
 	private IPersistableService<Supplier> getService(){
