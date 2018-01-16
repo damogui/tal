@@ -247,8 +247,7 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		
 		formField = addFormField(form, "foolowStatus", "跟进状态", groupName, ControlTypes.ENUM_BOX, false, true);
 		addFormField(form, "intentionCategory", "质量分类", groupName, ControlTypes.ENUM_BOX, false, true);
-		addFormField(form, "old", "是否老客户", groupName, ControlTypes.SWITCH_BUTTON, false, true);
-		
+		addFormField(form, "old", "是否老客户", groupName, ControlTypes.SWITCH_BUTTON, false, true);		
 		
 		addFormFieldRefrence(form, "customer.realName", "客户", groupName, "CRM_NCustomer", false, true);
 		addFormFieldRefrence(form, "lastAllocationUser.name", "最后分配人", groupName, "CRM_Employee", false, true);

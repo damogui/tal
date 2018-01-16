@@ -57,5 +57,12 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Supplier_Category", "服务商分类", "/operation/supplier/category/list", 2);
 			createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Supplier", "服务商管理", "/operation/supplier/list", 3);
 		}
+		
+		createPTreeNode(tree, null, "fa fa-file-o fa-fw", "GSB_CRM_Customer_Manager", "客户管理", "", 4);
+		{
+			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_ALL", "全部客户", "/operation/customer/all/list", 1);
+			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Allocated", "已分配客户", "/operation/customer/allocated/list", 2);
+			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Undistributed", "未分配客户", "/operation/customer/undistributed/list", 3);
+		}
 	}
 }
