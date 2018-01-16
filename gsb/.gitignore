@@ -23,3 +23,4 @@
 /gsb-web/src/main/resources/dev/conf/configuration.properties
 classes/
 !/.gitignore
+!/gsb-web/src/main/resources/dev/conf/configuration.properties
