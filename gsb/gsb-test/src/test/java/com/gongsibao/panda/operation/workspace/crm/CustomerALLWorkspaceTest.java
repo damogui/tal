@@ -2,6 +2,7 @@ package com.gongsibao.panda.operation.workspace.crm;
 
 import org.junit.Before;
 import org.netsharp.core.MtableManager;
+import org.netsharp.core.annotations.Column;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
@@ -27,8 +28,6 @@ import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.crm.dic.ChangeType;
 import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.NotifyType;
-import com.gongsibao.entity.product.Product;
-import com.gongsibao.entity.supplier.FunctionModule;
 
 public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 
@@ -60,7 +59,7 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "realName", "名称", ControlTypes.TEXT_BOX, 120);
 		addColumn(datagrid, "sex", "性别", ControlTypes.ENUM_BOX, 80);
 		addColumn(datagrid, "mobile", "手机号码", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "email", "邮箱", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "telephone", "座机", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "qq", "QQ", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "weixin", "微信", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "province.name", "省份", ControlTypes.TEXT_BOX, 100);
@@ -83,89 +82,112 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 	protected PForm createForm(ResourceNode node) {
 
 		PForm form = super.createForm(node);
-		form.setColumnCount(2);
+		form.setColumnCount(3);
 		PFormField formField = null;
-		addFormField(form, "realName", "名称", null, ControlTypes.TEXT_BOX, true, false);
-		addFormField(form, "sex", "性别", null, ControlTypes.ENUM_BOX, false, false);
-		addFormField(form, "mobile", "手机号码", null, ControlTypes.TEXT_BOX, false, false);
-		addFormField(form, "email", "邮箱", null, ControlTypes.TEXT_BOX, false, false);
-		addFormField(form, "qq", "QQ", null, ControlTypes.TEXT_BOX, false, false);
-		addFormField(form, "weixin", "微信", null, ControlTypes.TEXT_BOX, false, false);
-
-		formField = addFormField(form, "province.name", "省份", ControlTypes.CUSTOM, false, false);
+		
+		String groupName = "基本信息";
+		addFormField(form, "realName", "姓名", groupName, ControlTypes.TEXT_BOX, true, false);
+		addFormField(form, "sex", "性别", groupName, ControlTypes.ENUM_BOX, false, false);
+		addFormField(form, "mobile", "手机", groupName, ControlTypes.TEXT_BOX, true, false);
+		addFormField(form, "telephone", "座机", groupName, ControlTypes.TEXT_BOX, true, false);
+		addFormField(form, "qq", "QQ", groupName, ControlTypes.TEXT_BOX, true, false);
+		addFormField(form, "weixin", "微信", groupName, ControlTypes.TEXT_BOX, true, false);
+		addFormField(form, "email", "邮箱", groupName, ControlTypes.TEXT_BOX, false, false);
+		addFormField(form, "birdthday", "生日", groupName, ControlTypes.DATE_BOX, false, false);
+		addFormField(form, "important", "重要程度", groupName, ControlTypes.ENUM_BOX, false, false);
+		formField = addFormField(form, "province.name", "省份",groupName, ControlTypes.CUSTOM, false, false);
 		{
 			formField.setCustomControlType(CityComboBox.class.getName());
 			formField.setDataOptions("level:1,changeCtrlId:'city_name'");
-			formField.setWidth(300);
 		}
-		formField = addFormField(form, "city.name", "城市", ControlTypes.CUSTOM, false, false);
+		formField = addFormField(form, "city.name", "城市", groupName,ControlTypes.CUSTOM, false, false);
 		{
 			formField.setCustomControlType(CityComboBox.class.getName());
 			formField.setDataOptions("level:2,changeCtrlId:'county_name'");
-			formField.setWidth(300);
 		}
 		// 自定义控件(公用的，里面有一些逻辑)
-		formField = addFormField(form, "county.name", "区/县", ControlTypes.CUSTOM, false, false);
+		formField = addFormField(form, "county.name", "区/县", groupName,ControlTypes.CUSTOM, false, false);
 		{
 			formField.setCustomControlType(CityComboBox.class.getName());
 			formField.setDataOptions("level:3");
-			formField.setWidth(300);
 		}
-
-		addFormField(form, "consultWay", "CRM咨询途径", null, ControlTypes.ENUM_BOX, false, false);
-		addFormField(form, "important", "重要程度", null, ControlTypes.ENUM_BOX, false, false);
-		// addFormField(form, "SupplierDepartment", "分配服务商部门", null,
-		// ControlTypes.TEXT_BOX, true, false);
-		addFormField(form, "intentionCategory", "质量分类", null, ControlTypes.TEXT_BOX, false, false);
-		addFormField(form, "lastFollowTime", "最近跟进时间", null, ControlTypes.TEXT_BOX, false, false);
-		addFormField(form, "lastFoolowUser.name", "最后跟进人", null, ControlTypes.TEXT_BOX, false, false);
-		addFormField(form, "qq", "QQ", null, ControlTypes.TEXT_BOX, false, false);
-		addFormField(form, "lastContent", "最后跟进内容", null, ControlTypes.TEXT_BOX, false, true);
-		addFormField(form, "nextFoolowTime", "下次跟进时间", null, ControlTypes.DATETIME_BOX, false, true);
-		addFormField(form, "backNum", "退回次数", null, ControlTypes.NUMBER_BOX, false, true);
-		formField = addFormField(form, "customerSource.name", "客户来源", null, ControlTypes.CUSTOM, false, false);
+		formField = addFormField(form, "customerSource.name", "客户来源", groupName, ControlTypes.CUSTOM, true, false);
 		{
 			formField.setCustomControlType(DictComboBox.class.getName());
 			formField.setRefFilter("type=411");
+		}
+		addFormField(form, "customerSourceOther", "其它客户来源", groupName, ControlTypes.TEXT_BOX, false, true);
+		addFormField(form, "swtCustomerId", "商务通客Id", groupName, ControlTypes.TEXT_BOX, false, true);
+		
+		addFormField(form, "consultWay", "咨询途径", groupName, ControlTypes.ENUM_BOX, true, false);
+		addFormField(form, "consultWayOther", "其它咨询途径", groupName, ControlTypes.TEXT_BOX, false, true);
+		addFormField(form, "id", "客户Id", groupName, ControlTypes.TEXT_BOX, false, true);
+		
+		formField = addFormField(form, "remark", "售前备注", groupName, ControlTypes.TEXTAREA, true, false);{
+			
+			formField.setHeight(50);
+			formField.setFullColumn(true);
+		}
+		formField = addFormField(form, "smsRemark", "短信备注", groupName, ControlTypes.TEXTAREA, false, false);{
+
+			formField.setHeight(50);
+			formField.setFullColumn(true);
+		}
+		
+		
+		groupName = "跟进信息";
+		addFormField(form, "intentionCategory", "质量分类", groupName, ControlTypes.ENUM_BOX, false, true);
+		//addFormFieldRefrence(form, "intention", "质量", groupName, "", false, true);
+		addFormField(form, "lastFoolowUser.name", "最后跟进人", groupName, ControlTypes.TEXT_BOX, false, true);
+		addFormField(form, "lastFollowTime", "最近跟进时间", groupName, ControlTypes.DATETIME_BOX, false, true);
+		addFormField(form, "nextFoolowTime", "下次跟进时间", groupName, ControlTypes.DATETIME_BOX, false, true);
+		PFormField field = addFormField(form, "lastContent", "最后跟进内容", groupName, ControlTypes.TEXTAREA, false, true);{
+			
+			field.setHeight(100);
 		}
 		return form;
 	}
 
 	protected void addDetailGridPart(PWorkspace workspace) {
+
 		// 客户任务
 		createTasksPart(workspace);
+		
 		// 意向产品
 		addIntenProductPart(workspace);
 		// 日志信息
 		addCommunicatLogsPart(workspace);
+		
 		addNotificationLogPart(workspace);
+		
 		addFlowLogPart(workspace);
-
 	}
 
 	// 客户任务
 	private void createTasksPart(PWorkspace workspace) {
 
 		ResourceNode node = this.resourceService.byCode("GSB_CRM_MY_TASK_ALL");
-		PDatagrid datagrid = new PDatagrid(node, "客户任务信息");
+		PDatagrid datagrid = new PDatagrid(node, "任务信息");
 		{
 			addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 100, true);
-			addColumn(datagrid, "supplier.name", "分配服务商", ControlTypes.TEXT_BOX, 100, false);
-			addColumn(datagrid, "department.name", "分配服务商部门", ControlTypes.TEXT_BOX, 100, false);
-			addColumn(datagrid, "lastFollowTime", "最近跟进时间", ControlTypes.DATETIME_BOX, 100, false);
+			addColumn(datagrid, "supplier.name", "服务商", ControlTypes.TEXT_BOX, 100, false);
+			addColumn(datagrid, "department.name", "部门", ControlTypes.TEXT_BOX, 100, false);
+			addColumn(datagrid, "salesman.name", "业务员", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "foolowStatus", "跟进状态", ControlTypes.ENUM_BOX, 100, false);
 			addColumn(datagrid, "intentionCategory", "质量分类", ControlTypes.ENUM_BOX, 100, false);
-			addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 100, false);
+			addColumn(datagrid, "intention", "质量", ControlTypes.REFERENCE_BOX, 100, false);
+			addColumn(datagrid, "lastFollowTime", "最后跟进时间", ControlTypes.DATETIME_BOX, 100, false);
 			addColumn(datagrid, "lastFoolowUser.name", "最后跟进人", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "lastContent", "最后跟进内容", ControlTypes.TEXT_BOX, 100, false);
-			addColumn(datagrid, "old", "是否老客户", ControlTypes.BOOLCOMBO_BOX, 100, false);
-			addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 100, false);
+			addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 100, false);
+			addColumn(datagrid, "old", "老客户", ControlTypes.BOOLCOMBO_BOX, 100, false);
+			addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 300, false);
 		}
 
 		PPart part = new PPart();
 		{
 			part.toNew();
-			part.setName("客户任务信息");
+			part.setName("任务信息");
 			part.setCode("tasks");
 			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
 			part.setRelationRole("tasks");
@@ -173,15 +195,10 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 			part.setPartTypeId(PartType.DETAIL_PART.getId());
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
-			// part.setToolbar("panda/datagrid/detail");
+			part.setToolbar("panda/datagrid/detail");
 		}
 		workspace.getParts().add(part);
 
-		part = workspace.getParts().get(0);
-		{
-			part.setName("客户任务信息");
-			part.setDockStyle(DockType.TOP);
-		}
 	}
 
 	// 意向产品
@@ -195,26 +212,6 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 			addColumn(datagrid, "city.name", "城市", ControlTypes.TEXT_BOX, 150);
 			addColumn(datagrid, "county.name", "区/县", ControlTypes.TEXT_BOX, 150);
 		}
-		/*
-		 * PForm form = new PForm(); { form.toNew(); form.setResourceNode(node);
-		 * form.setColumnCount(1); form.setName("意向产品");
-		 * 
-		 * PFormField formField = null; formField = addFormFieldRefrence(form,
-		 * "product.name", "意向产品", null, "CRM_" + Product.class.getSimpleName(),
-		 * true, false); formField = addFormField(form, "province.name", "省份",
-		 * ControlTypes.CUSTOM, false, false); {
-		 * formField.setCustomControlType(CityComboBox.class.getName());
-		 * formField.setDataOptions("level:1,changeCtrlId:'city_name'");
-		 * formField.setWidth(300); } formField = addFormField(form,
-		 * "city.name", "城市", ControlTypes.CUSTOM, false, false); {
-		 * formField.setCustomControlType(CityComboBox.class.getName());
-		 * formField.setDataOptions("level:2,changeCtrlId:'county_name'");
-		 * formField.setWidth(300); } // 自定义控件(公用的，里面有一些逻辑) formField =
-		 * addFormField(form, "county.name", "区/县", ControlTypes.CUSTOM, false,
-		 * false); {
-		 * formField.setCustomControlType(CityComboBox.class.getName());
-		 * formField.setDataOptions("level:3"); formField.setWidth(300); } }
-		 */
 
 		PPart part = new PPart();
 		{
@@ -227,20 +224,9 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 			part.setPartTypeId(PartType.DETAIL_PART.getId());
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
-			//part.setToolbar("panda/datagrid/detail");
-			// part.setJsController("com.gongsibao.crm.web.ProdMapDetailPart");
-			// part.setWindowWidth(550);
-			// part.setWindowHeight(350);
-			// part.setForm(form);
 		}
 		workspace.getParts().add(part);
 
-		part = workspace.getParts().get(0);
-		{
-			part.setName("基本信息");
-			part.setStyle("height:500px;");
-			part.setDockStyle(DockType.TOP);
-		}
 	}
 
 	// 选项卡加载项
@@ -258,20 +244,6 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 			addColumn(datagrid, "estimateAmount", "估计签单金额", ControlTypes.DECIMAL_FEN_BOX, 150);
 			addColumn(datagrid, "content", "跟进内容", ControlTypes.TEXT_BOX, 150);
 		}
-		/*
-		 * PForm form = new PForm(); { form.toNew(); form.setResourceNode(node);
-		 * form.setColumnCount(1); form.setName("沟通日志"); PFormField formField =
-		 * null; String groupName = null;
-		 * 
-		 * formField = addFormField(form, "foolowStatus", "跟进状态", groupName,
-		 * ControlTypes.ENUM_BOX, false, false); addFormField(form,
-		 * "nextFoolowTime", "下次跟进时间", groupName, ControlTypes.DATE_BOX, false,
-		 * false); addFormField(form, "estimateAmount", "估计签单金额", groupName,
-		 * ControlTypes.DECIMAL_FEN_BOX, false, false); formField =
-		 * addFormField(form, "content", "跟进内容", groupName,
-		 * ControlTypes.TEXT_BOX, false, false); {
-		 * formField.setFullColumn(true); } }
-		 */
 		PPart part = new PPart();
 		{
 			part.toNew();
@@ -283,22 +255,12 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 			part.setPartTypeId(PartType.DETAIL_PART.getId());
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
-			//part.setToolbar("panda/datagrid/detail");
-			// part.setJsController("com.gongsibao.crm.web.ProdMapDetailPart");
-			// part.setWindowWidth(550);
-			// part.setWindowHeight(350);
-			// part.setForm(form);
 		}
 		workspace.getParts().add(part);
-		part = workspace.getParts().get(0);
-		{
-			part.setName("基本信息");
-			part.setStyle("height:500px;");
-			part.setDockStyle(DockType.TOP);
-		}
 	}
 
 	private void addNotificationLogPart(PWorkspace workspace) {
+		
 		ResourceNode node = this.resourceService.byCode(NCustomerTaskNotify.class.getSimpleName());
 		PDatagrid datagrid = new PDatagrid(node, "通知日志");
 		{
@@ -309,16 +271,6 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 			}
 			addColumn(datagrid, "content", "跟进内容", ControlTypes.TEXT_BOX, 150);
 		}
-		/*
-		 * PForm form = new PForm(); { form.toNew(); form.setResourceNode(node);
-		 * form.setColumnCount(1); form.setName("通知日志"); PFormField formField =
-		 * null; String groupName = null;
-		 * 
-		 * formField = addFormField(form, "type", "通知类型", groupName,
-		 * ControlTypes.ENUM_BOX, false, false); formField = addFormField(form,
-		 * "content", "跟进内容", groupName, ControlTypes.TEXT_BOX, false, false); {
-		 * formField.setFullColumn(true); } }
-		 */
 		PPart part = new PPart();
 		{
 			part.toNew();
@@ -330,19 +282,8 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 			part.setPartTypeId(PartType.DETAIL_PART.getId());
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
-			//part.setToolbar("panda/datagrid/detail");
-			// part.setJsController("com.gongsibao.crm.web.ProdMapDetailPart");
-			// part.setWindowWidth(550);
-			// part.setWindowHeight(350);
-			// part.setForm(form);
 		}
 		workspace.getParts().add(part);
-		part = workspace.getParts().get(0);
-		{
-			part.setName("通知日志");
-			part.setStyle("height:500px;");
-			part.setDockStyle(DockType.TOP);
-		}
 	}
 
 	private void addFlowLogPart(PWorkspace workspace) {
@@ -360,18 +301,6 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 			addColumn(datagrid, "toUser.name", "去向", ControlTypes.NUMBER_BOX, 150);
 			addColumn(datagrid, "content", "内容", ControlTypes.TEXT_BOX, 150);
 		}
-		/*
-		 * PForm form = new PForm(); { form.toNew(); form.setResourceNode(node);
-		 * form.setColumnCount(1); form.setName("流转日志"); PFormField formField =
-		 * null; String groupName = null; formField = addFormField(form,
-		 * "changeType", "流转类型", groupName, ControlTypes.ENUM_BOX, false,
-		 * false); formField = addFormFieldRefrence(form, "formUser.name",
-		 * "最后分配人", groupName, "CRM_Employee", false, false); formField =
-		 * addFormFieldRefrence(form, "toUser.name", "最后分配人", groupName,
-		 * "CRM_Employee", false, false); formField = addFormField(form,
-		 * "content", "内容", groupName, ControlTypes.TEXT_BOX, false, false); {
-		 * formField.setFullColumn(true); } }
-		 */
 		PPart part = new PPart();
 		{
 			part.toNew();
@@ -383,16 +312,12 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 			part.setPartTypeId(PartType.DETAIL_PART.getId());
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
-			// part.setWindowWidth(550);
-			// part.setWindowHeight(350);
-			// part.setForm(form);
 		}
 		workspace.getParts().add(part);
 		part = workspace.getParts().get(0);
 		{
-			part.setName("流转日志");
-			part.setStyle("height:500px;");
-			part.setDockStyle(DockType.TOP);
+			part.setName("客户信息");
+			part.setDockStyle(DockType.DOCUMENTHOST);
 		}
 	}
 
