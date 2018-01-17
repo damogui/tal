@@ -1,14 +1,12 @@
-System.Declare("com.gongsibao.crm.web");
-com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Extends( {});
-
-com.gongsibao.crm.web.NCustomerFollowStatusPart = org.netsharp.panda.commerce.DetailPart.Extends( {	
+System.Declare("com.gongsibao.crm.web"); 
+com.gongsibao.crm.web.NCustomerFollowPart = org.netsharp.panda.commerce.DetailPart.Extends( {
 	saveAfter:function(entity){
+		var id = this.queryString("id");
 		entity.id=null;
+		entity.customerId=id;
 		var me = this;
 		this.invokeService("save", [entity], function(data) {
-			alert(123);
-			//me.parent.byId(entity.customerId);
+			me.parent.byId(entity.customerId);
 		});
-		
 	}
 });
