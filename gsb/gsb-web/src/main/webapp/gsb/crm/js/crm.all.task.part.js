@@ -1,25 +1,14 @@
 System.Declare("com.gongsibao.crm.web");
+com.gongsibao.crm.web.CustomerFormPart = org.netsharp.panda.commerce.FormPart.Extends( {});
 
-com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.DetailPart.Extends( {	
-	ctor: function() {
-		this.base();
-	},
-	save : function(){
-		var id = this.queryString("id");
-		this.invokeService("updateNcustomerTask",[id],function(data){
-			alert(data);
+com.gongsibao.crm.web.NCustomerFollowStatusPart = org.netsharp.panda.commerce.DetailPart.Extends( {	
+	saveAfter:function(entity){
+		entity.id=null;
+		var me = this;
+		this.invokeService("save", [entity], function(data) {
+			alert(123);
+			//me.parent.byId(entity.customerId);
 		});
-	},
-	onload: function () {
-        var id = this.queryString("id");
-        alert(id);
-    }
-});
-
-System.Declare("com.gongsibao.controls");
-com.gongsibao.controls.CityComboBox = org.netsharp.controls.PccBox.Extends({
-	ctor: function() {
-		this.base();
-		this.service = 'com.gongsibao.controls.CityComboBoxController';
+		
 	}
 });
