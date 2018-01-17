@@ -1,16 +1,19 @@
 package com.gongsibao.panda.crm.workspace.sys;
 
+import org.junit.Test;
+import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
+import org.netsharp.organization.base.IOperationTypeService;
 import org.netsharp.organization.dic.OperationTypes;
+import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
+import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.OpenMode;
-import org.netsharp.panda.entity.PDatagrid;
-import org.netsharp.panda.entity.PDatagridColumn;
-import org.netsharp.panda.entity.PForm;
-import org.netsharp.panda.entity.PQueryProject;
+import org.netsharp.panda.entity.*;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import com.gongsibao.entity.supplier.Salesman;
+
 //员工管理
 public class SysSalesmanWorkspaceTest  extends WorkspaceCreationBase{
 	public void setup() {
@@ -24,8 +27,10 @@ public class SysSalesmanWorkspaceTest  extends WorkspaceCreationBase{
 		formOpenMode = OpenMode.WINDOW;
 	
 	}
-	
-	@Override
+
+
+
+    @Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
 
 		PDatagrid datagrid = super.createDatagrid(node);
@@ -75,4 +80,64 @@ public class SysSalesmanWorkspaceTest  extends WorkspaceCreationBase{
 		operationService.addOperation(node,OperationTypes.update);
 		operationService.addOperation(node,OperationTypes.delete);
 	}
+
+
+    @Test
+    @Override
+    public void run() {
+        this.createTreeWorkspace();
+//        this.createFormWorkspace();
+    }
+//配置树状结构
+    public void createTreeWorkspace() {
+
+        ResourceNode node = resourceService.byCode("GSB_CRM_SYS_DEPARTMENT");//树状的节点
+        IOperationTypeService operationTypeService = ServiceFactory.create(IOperationTypeService.class);
+        OperationType operationType = operationTypeService.byCode(OperationTypes.view);
+
+        PWorkspace workspace = new PWorkspace();
+        {
+            workspace.toNew();
+            workspace.setResourceNode(node);
+            workspace.setOperationType(operationType);
+            workspace.setOperationTypeId(operationType.getId());
+            workspace.setName("部门管理");
+            workspace.setUrl(urlList);
+        }
+
+        PPart part = new PPart();//创建部分
+        {
+            part.toNew();
+            part.setCode("GsbCrmSysDepartmentTree");//树名
+            part.setPartTypeId(org.netsharp.panda.dic.PartType.TREE_PART.getId());
+            part.setDockStyle(DockType.LEFT);
+            part.setStyle("width:250px;");
+            part.setResourceNode(node);
+        }
+        workspace.getParts().add(part);
+
+        ResourceNode node2 = resourceService.byCode(resourceNodeCode);
+        PDatagrid datagrid = this.createDatagrid(node2);
+        part = new PPart();
+        {
+            part.toNew();
+            part.setCode("departments");
+            part.setParentCode("GsbCrmSysDepartmentTree");// 点击父之后，刷新自己
+            part.setPartTypeId(org.netsharp.panda.dic.PartType.DATAGRID_PART.getId());
+            part.setDatagrid(datagrid);
+            part.setDockStyle(DockType.DOCUMENTHOST);
+            part.setRelationRole("departmentId");// 点击父之后，刷新自己所传的参数
+            part.setResourceNode(node2);
+            part.setUrl(urlForm);
+            part.setToolbar(listToolbarPath);
+            part.setJsController(listPartJsController);
+            part.setServiceController(listPartServiceController);
+            part.setImports(listPartImportJs);
+        }
+
+        workspace.getParts().add(part);
+
+        workspaceService.save(workspace);
+    }
+
 }

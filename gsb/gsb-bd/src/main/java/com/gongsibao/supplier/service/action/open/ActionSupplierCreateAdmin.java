@@ -38,7 +38,7 @@ public class ActionSupplierCreateAdmin implements IAction {
 		Supplier entity = (Supplier) ctx.getItem();
 
 		// 如果已经开过户，直接设置状态,只启用管理员帐号
-		if (entity.getAdminId() != null) {
+		if (entity.getAdminId() != null && entity.getAdminId() != 0) {
 
 			this.enableEmployee(entity.getAdminId());
 			entity.setStatus(SupplierStatus.OPEND);

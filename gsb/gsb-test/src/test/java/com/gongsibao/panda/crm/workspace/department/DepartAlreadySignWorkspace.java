@@ -19,6 +19,7 @@ import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
+import com.gongsibao.crm.web.NCustomerFollowPart;
 import com.gongsibao.entity.crm.NCustomerChange;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
@@ -43,6 +44,8 @@ public class DepartAlreadySignWorkspace extends WorkspaceCreationBase{
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_DEPARTMENT_SIGNED";
 		listFilter = "foolowStatus=5 and creator_id = '{userId}'";
+		
+		formJsImport = "/gsb/crm/js/crm.all.task.part.js";
 	}
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
@@ -58,8 +61,14 @@ public class DepartAlreadySignWorkspace extends WorkspaceCreationBase{
 		column = addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 100, false);
 		column = addColumn(datagrid, "lastFoolowUser.name", "最后跟进人", ControlTypes.TEXT_BOX, 100, false);
 		column = addColumn(datagrid, "lastContent", "最后跟进内容", ControlTypes.TEXT_BOX, 100, false);
+		{
+			column.setFormatter("return '<span title='+value+'>'+value+'</span>'");
+		}
 		column = addColumn(datagrid, "old", "是否老客户", ControlTypes.TEXT_BOX, 100, false);
 		column = addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 100, false);
+		{
+			column.setFormatter("return '<span title='+value+'>'+value+'</span>'");
+		}
 		return datagrid;
 	}
 	//配置查询条件
@@ -126,7 +135,9 @@ public class DepartAlreadySignWorkspace extends WorkspaceCreationBase{
 			part.setPartTypeId(PartType.DETAIL_PART.getId());
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
-			part.setToolbar("panda/datagrid/detail");
+			part.setToolbar("crm/task/communicat/detail");
+			part.setJsController(NCustomerFollowPart.class.getName());
+			part.setServiceController(NCustomerFollowPart.class.getName());
 			part.setWindowWidth(700);
 			part.setWindowHeight(400);
 			part.setForm(form);
