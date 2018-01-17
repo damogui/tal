@@ -24,7 +24,8 @@ import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
-import com.gongsibao.crm.web.NCustomerFollowStatusPart;
+import com.gongsibao.crm.web.NCustomerFollowPart;
+import com.gongsibao.crm.web.NCustomerFormPart;
 import com.gongsibao.entity.crm.NCustomerChange;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
@@ -51,7 +52,9 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		resourceNodeCode = "GSB_CRM_MY_TASK_ALL";
 		listFilter = "creator_id = '{userId}'";
 		//选项卡页面的js
-		formJsImport = "/gsb/crm/js/crm.all.task.part.js|/gsb/gsb.customer.controls.js";
+		/*formServiceController = NCustomerFormPart.class.getName();
+		formJsController = NCustomerFormPart.class.getName();*/
+		formJsImport = "/gsb/crm/js/crm.all.task.part.js";
 	}
 
 	@Test
@@ -165,9 +168,8 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("crm/task/communicat/detail");
-			//部件
-			part.setJsController(NCustomerFollowStatusPart.class.getName());
-			part.setServiceController(NCustomerFollowStatusPart.class.getName());
+			part.setJsController(NCustomerFollowPart.class.getName());
+			part.setServiceController(NCustomerFollowPart.class.getName());
 			part.setWindowWidth(700);
 			part.setWindowHeight(400);
 			part.setForm(form);

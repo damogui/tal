@@ -145,7 +145,9 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 80, true);
 		addColumn(datagrid, "status", "状态", ControlTypes.ENUM_BOX, 80, false);
 		addColumn(datagrid, "type", "类型", ControlTypes.ENUM_BOX, 80, false);
-		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 200, false);
+		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 80, false);
+		addColumn(datagrid, "contact", "联系人", ControlTypes.TEXT_BOX, 200, false);
+		addColumn(datagrid, "mobilePhone", "手机号", ControlTypes.TEXT_BOX, 200, false);
 		addColumn(datagrid, "address", "地址", ControlTypes.TEXT_BOX, 200, false);
 		addColumn(datagrid, "openTime", "开户时间", ControlTypes.DATETIME_BOX, 130, false);
 		addColumn(datagrid, "departmentCount", "部门数量", ControlTypes.DECIMAL_BOX, 80, false);
@@ -164,6 +166,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "name", "名称", null, ControlTypes.TEXT_BOX, true);
 		addFormField(form, "status", "状态", null, ControlTypes.ENUM_BOX, true, true);
 		addFormField(form, "type", "类型", null, ControlTypes.ENUM_BOX, true, false);
+		addFormField(form, "contact", "联系人", null, ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "mobilePhone", "手机号", null, ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "address", "地址", null, ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "customerMaxCount", "客户池数量", null, ControlTypes.NUMBER_BOX, false, false);

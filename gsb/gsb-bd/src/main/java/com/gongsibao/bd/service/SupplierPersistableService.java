@@ -2,12 +2,10 @@ package com.gongsibao.bd.service;
 
 import org.netsharp.base.IPersistableService;
 import org.netsharp.communication.Service;
-import org.netsharp.communication.ServiceFactory;
 import org.netsharp.entity.IPersistable;
-import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.service.PersistableService;
 
-import com.gongsibao.supplier.base.ISalesmanService;
+import com.gongsibao.utils.SupplierSessionManager;
 
 @Service
 public class SupplierPersistableService<T extends IPersistable> extends PersistableService<T> implements IPersistableService<T> {
@@ -15,14 +13,8 @@ public class SupplierPersistableService<T extends IPersistable> extends Persista
 	public T newInstance() {
 		
 		T t = super.newInstance();
-		
-		Integer employeeId = SessionManager.getUserId();
-		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
-		Integer supplierId = salesmanService.getSupplierId(employeeId);
-		Integer departmentId = salesmanService.getDepartmentId(employeeId);
-		
-		t.set("supplierId", supplierId);
-		t.set("departmentId", departmentId);
+		t.set("supplierId", SupplierSessionManager.getSupplierId());
+		t.set("departmentId", SupplierSessionManager.getDepartmentId());
 		return t;
 	}
 }
