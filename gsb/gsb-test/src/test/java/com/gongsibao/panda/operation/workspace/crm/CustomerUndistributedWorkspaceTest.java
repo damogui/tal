@@ -84,9 +84,7 @@ public class CustomerUndistributedWorkspaceTest extends WorkspaceCreationBase {
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
 		PQueryItem item = null;
-		item = addQueryItem(queryProject, "realName", "名称", ControlTypes.TEXT_BOX);{
-			item.setRequired(true);
-		}
+		addQueryItem(queryProject, "realName", "名称", ControlTypes.TEXT_BOX);
 		return queryProject;
 	}
 	

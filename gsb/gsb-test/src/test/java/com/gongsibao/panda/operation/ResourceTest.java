@@ -119,8 +119,8 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "全部任务", "GSB_CRM_Customer_Manager_Task_ALL", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "已分配任务", "GSB_CRM_Customer_Manager_Task_Allocated", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "未分配任务", "GSB_CRM_Customer_Manager_Task_Undistributed", INCustomerTaskService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(SupplierFunctionModule.class.getName(), "丢单管理", "GSB_CRM_Customer_Manager_Lost_Order", ISupplierFunctionModuleService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(SupplierFunctionModule.class.getName(), "抽查异常", "GSB_CRM_Customer_Manager_Anomaly_Detection", ISupplierFunctionModuleService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "丢单管理", "GSB_CRM_Customer_Manager_Task_Lost_Order", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "抽查异常", "GSB_CRM_Customer_Manager_Task_Anomaly_Detection", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTaskQuality.class.getName(), "客户质量", "GSB_CRM_Customer_Manager_Quality", INCustomerTaskQualityService.class.getName(), node1.getId());
 
 			this.createResourceNodeVoucher(NCustomerProduct.class.getName(), "客户意向产品", "GSB_CRM_Customer_Manager_Products", INCustomerProductService.class.getName(), node1.getId());
