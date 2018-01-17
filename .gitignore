@@ -64,3 +64,5 @@
 /gsb/gsb-sms/.settings
 /gsb/gsb-sms/.project
 /gsb/gsb-sms/.classpath
+/.gradle/
+/.recommenders/

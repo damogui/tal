@@ -6,7 +6,7 @@ import org.netsharp.entity.Entity;
 import java.math.BigDecimal;
 import java.util.List;
 
-@BizCode(bizType = "TradeMarkCase")
+//@BizCode(bizType = "TradeMarkCase")
 @Table(name="ig_trade_mark_case",header="商标方案")
 public class TradeMarkCase extends Entity {
     private static final long serialVersionUID = 55983222524461776L;
@@ -65,7 +65,7 @@ public class TradeMarkCase extends Entity {
     private String  tokenImgUrl;
 
     @Column(name="case_amount",header="金额")
-    private BigDecimal caseAmount;
+    private BigDecimal caseAmount=BigDecimal.ZERO;
 
 
     //显示大类的选择

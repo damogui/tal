@@ -395,7 +395,7 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
 
         if($("#ncltwogrid").length<=0){
             var $t=$("[name='nclOne_name']")
-            $("<input id='filterinput' style='display: inline' width='60px'/>").insertAfter($t.parent());
+            $("<input id='filterinput' width='30px'/>").insertAfter($t.parent());
             $("<table id='ncltwogrid'></table>").insertBefore("#selectedTwoStr")
         }
         var selectedItems=[];

@@ -3,8 +3,9 @@ package com.gongsibao.igirl.service;
 import com.gongsibao.bd.service.GsbPersistableService;
 import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.igirl.base.ITradeMarkCaseService;
+import org.joda.time.DateTime;
 import org.netsharp.communication.Service;
-
+import org.netsharp.core.EntityState;
 @Service
 public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> implements ITradeMarkCaseService {
 
@@ -13,83 +14,28 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		this.type = TradeMarkCase.class;
 	}
 
-//	@Override
-//	public Customer save(Customer entity) {
-//
-//		// 获取当前跟进人对应UC体系的Id
-//		Employee employee = this.getEmployee();
-//		IUserService userService = ServiceFactory.create(IUserService.class);
-//		User user = userService.byMobilePhone(employee.getLoginName());
-//		if (user == null) {
-//
-//			throw new BusinessException("帐号体系不一致，请联系技术部处理");
-//		}
-//
-//		if (entity.getEntityState() != EntityState.Deleted) {
-//
-//			if (entity.getEntityState() == EntityState.New) {
-//
-//				// 校验是否已存在
-//				Boolean isHas = this.hasMobile(entity.getMobile().trim());
-//				if (isHas) {
-//
-//					throw new BusinessException("手机号已存在");
-//				}
-//
-//				entity.setCreatorId(user.getId());
-//
-//				ICustomerServiceConfigService configService = ServiceFactory.create(ICustomerServiceConfigService.class);
-//				ServiceType type = configService.getTypeByEmployeeId(employee.getId());
-//				if (type == ServiceType.AFTER_SALES) {
-//
-//					entity.setFollowUserId(user.getId());
-//				}
-//
-//				// 更新最后一次使用时间
-//				configService.updateLastUseDate(employee.getId(), new Date());
-//			}
-//
-//			if (entity.getfProvinceId() != null) {
-//
-//				entity.setCityId(entity.getfProvinceId());
-//			}
-//
-//			if (entity.getfCityId() != null) {
-//
-//				entity.setCityId(entity.getfCityId());
-//			}
-//
-//			if (entity.getfCountyId() != null) {
-//
-//				entity.setCityId(entity.getfCountyId());
-//			}
-//
-//			if (entity.getProdDetails() != null) {
-//
-//				for (CustomerProdMap prod : entity.getProdDetails()) {
-//
-//					if (prod.getdProvinceId() != null) {
-//
-//						prod.setCityId(prod.getdProvinceId());
-//					}
-//
-//					if (prod.getdCityId() != null) {
-//
-//						prod.setCityId(prod.getdCityId());
-//					}
-//
-//					if (prod.getdCountyId() != null) {
-//
-//						prod.setCityId(prod.getdCountyId());
-//					}
-//				}
-//			}
-//
-//		}
-//
-//		entity = super.save(entity);
-//		return entity;
-//	}
+	@Override
+	public TradeMarkCase save(TradeMarkCase entity) {
+
+		//设置编码样式	和所在的代理公司
+		if(entity.getEntityState()==EntityState.New) {
+			entity.setCode(DateTime.now().toString("yyyyMMddHHmmss"));
+			//IUserService userService=ServiceFactory.create(IUser)
+			
+			
+		}
+			
+		
+		entity = super.save(entity);
+		return entity;
+	}
+	
+	
+	@Override
+	public TradeMarkCase newInstance() {
+		// TODO Auto-generated method stub
+		return super.newInstance();
+	}
 //
 //	/**
 //	 * @Title: hasMobile
