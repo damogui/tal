@@ -29,8 +29,8 @@ public class CustomerQualityWorkspaceTest extends WorkspaceCreationBase {
 		resourceNodeCode = "GSB_CRM_Customer_Manager_Quality";
 
 		formOpenMode = OpenMode.WINDOW;// 编辑框打开的形式
-		openWindowWidth = 900;
-		openWindowHeight = 750;
+		openWindowWidth = 800;
+		openWindowHeight = 550;
 		// formJsImport = "/gsb/gsb.customer.controls.js";
 	}
 
