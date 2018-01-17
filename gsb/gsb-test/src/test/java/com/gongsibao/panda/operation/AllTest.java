@@ -7,6 +7,12 @@ import org.junit.runners.Suite.SuiteClasses;
 import com.gongsibao.panda.operation.reference.FunctionModuleReferenceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerALLWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerAllocatedWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.crm.CustomerAnomalyDetectionWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.crm.CustomerLostOrderWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.crm.CustomerQualityWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.crm.CustomerTaskALLWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.crm.CustomerTaskAllocatedWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.crm.CustomerTaskUndistributedWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerUndistributedWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.supplier.FunctionModuleWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.supplier.SupplierActionTest;
@@ -63,6 +69,15 @@ import com.gongsibao.panda.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
 	CustomerALLWorkspaceTest.class,
 	CustomerAllocatedWorkspaceTest.class,
 	CustomerUndistributedWorkspaceTest.class,
+	
+	CustomerTaskAllocatedWorkspaceTest.class,
+	CustomerTaskALLWorkspaceTest.class,
+	CustomerTaskUndistributedWorkspaceTest.class,
+	
+	CustomerLostOrderWorkspaceTest.class,
+	CustomerAnomalyDetectionWorkspaceTest.class,
+	CustomerQualityWorkspaceTest.class,
+	
 	SupplierActionTest.class,
 	NavigationTest.class
 	

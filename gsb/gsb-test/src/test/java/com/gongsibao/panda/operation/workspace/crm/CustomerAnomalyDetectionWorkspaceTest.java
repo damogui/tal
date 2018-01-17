@@ -1,4 +1,4 @@
-package com.gongsibao.panda.crm.workspace.my;
+package com.gongsibao.panda.operation.workspace.crm;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -34,26 +34,52 @@ import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.NotifyType;
 import com.gongsibao.entity.crm.dic.QualityCategory;
 
-public class UnFoolowWorkspace extends WorkspaceCreationBase{
+public class CustomerAnomalyDetectionWorkspaceTest extends WorkspaceCreationBase{
 
 	@Override
 	@Before
 	public void setup() {
+			
 		entity = NCustomerTask.class;
 		//配置资源路径
-		urlList = "/crm/my/task/unfoolow/list";
+		urlList = "/operation/customer/task/anomalydetection/list";
 		//配置表单路径
-		urlForm = "/crm/my/task/unfoolow/from";		
-		listPartName = formPartName = "待跟进";
+		urlForm = "/operation/customer/task/anomalydetection/from";
+		listPartName = formPartName = "抽查异常";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_MY_TASK_UNFOOLOW";
-		listFilter = "foolowStatus = 2 and creator_id = '{userId}'";
-		
-		formJsImport = "/gsb/crm/js/crm.all.task.part.js";
+		resourceNodeCode = "GSB_CRM_Customer_Manager_Task_Anomaly_Detection";
+		//选项卡页面的js
+		formJsImport = "/gsb/gsb.customer.controls.js";
+		listFilter="inspection_state = 3";
 	}
-	
-	
+
+	@Test
+	public void detailPart() {
+		ResourceNode node = this.resourceService.byCode(NCustomerTaskFoolow.class.getSimpleName());
+		OperationType ot1 = operationTypeService.byCode(OperationTypes.add);
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			toolbar.setPath("crm/task/communicat/detail");
+			toolbar.setName("子表");
+			toolbar.setResourceNode(node);
+			toolbar.setToolbarType(ToolbarType.BASE);
+		}
+		PToolbarItem item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("add");
+			item.setIcon("fa fa-mail-reply-all");
+			item.setName("跟进");
+			item.setCommand(null);
+			item.setOperationType(ot1);
+			item.setSeq(1);
+			item.setCommand("{controller}.add();");
+			toolbar.getItems().add(item);
+		}
+		toolbarService.save(toolbar);
+	}
 	
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
@@ -69,37 +95,30 @@ public class UnFoolowWorkspace extends WorkspaceCreationBase{
 		column = addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 100, false);
 		column = addColumn(datagrid, "lastFoolowUser.name", "最后跟进人", ControlTypes.TEXT_BOX, 100, false);
 		column = addColumn(datagrid, "lastContent", "最后跟进内容", ControlTypes.TEXT_BOX, 100, false);
-		{
-			column.setFormatter("return '<span title='+value+'>'+value+'</span>'");
-		}
-		column = addColumn(datagrid, "old", "是否老客户", ControlTypes.TEXT_BOX, 100, false);
+		column = addColumn(datagrid, "old", "是否老客户", ControlTypes.BOOLCOMBO_BOX, 100, false);
 		column = addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 100, false);
-		{
-			column.setFormatter("return '<span title='+value+'>'+value+'</span>'");
-		}
 		return datagrid;
 	}
+	
 	//配置查询条件
 	@Override
 	protected PQueryProject createQueryProject(ResourceNode node) {
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
 		PQueryItem item = null;
-		item = addQueryItem(queryProject, "customer.realName", "客户", ControlTypes.TEXT_BOX);{
-			item.setRequired(true);
-		}
+		addQueryItem(queryProject, "realName", "名称", ControlTypes.TEXT_BOX);
 		return queryProject;
 	}
-	
 	//创建选项卡
 	@Override
 	protected void addDetailGridPart(PWorkspace workspace) {
 		addCommunicatLogsPart(workspace);
 		addNotificationLogPart(workspace);
 		addFlowLogPart(workspace);
-	}	
+	}
+	//选项卡加载项
 	private void addCommunicatLogsPart(PWorkspace workspace) {
-		//需要配置NCustomerTaskFoolow资源
+		//需要配置NCustomerProduct资源
 		ResourceNode node = this.resourceService.byCode(NCustomerTaskFoolow.class.getSimpleName());
 		PDatagrid datagrid = new PDatagrid(node, "沟通日志");
 		{
@@ -144,6 +163,7 @@ public class UnFoolowWorkspace extends WorkspaceCreationBase{
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("crm/task/communicat/detail");
+			//部件
 			part.setJsController(NCustomerFollowPart.class.getName());
 			part.setServiceController(NCustomerFollowPart.class.getName());
 			part.setWindowWidth(700);
@@ -157,10 +177,9 @@ public class UnFoolowWorkspace extends WorkspaceCreationBase{
 			part.setStyle("height:500px;");
 			part.setDockStyle(DockType.DOCUMENTHOST);
 		}
-	}	
+	}
 	private void addNotificationLogPart(PWorkspace workspace) {
 		ResourceNode node = this.resourceService.byCode(NCustomerTaskNotify.class.getSimpleName());
-		
 		PDatagrid datagrid = new PDatagrid(node, "通知日志");
 		{
 			PDatagridColumn column = addColumn(datagrid, "type", "通知类型", ControlTypes.ENUM_BOX, 300);{
@@ -194,13 +213,12 @@ public class UnFoolowWorkspace extends WorkspaceCreationBase{
 			part.setPartTypeId(PartType.DETAIL_PART.getId());
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
-			//part.setToolbar("panda/datagrid/detail");
 			part.setWindowWidth(550);
 			part.setWindowHeight(350);
 			part.setForm(form);
 		}
 		workspace.getParts().add(part);
-	}	
+	}
 	private void addFlowLogPart(PWorkspace workspace) {
 		ResourceNode node = this.resourceService.byCode(NCustomerChange.class.getSimpleName());
 		
@@ -211,8 +229,8 @@ public class UnFoolowWorkspace extends WorkspaceCreationBase{
 				String formatter = EnumUtil.getColumnFormatter(ChangeType.class);
 				column.setFormatter(formatter);
 			}
-			addColumn(datagrid, "formUser.name", "来自", ControlTypes.TEXT_BOX, 150);
-			addColumn(datagrid, "toUser.name", "去向", ControlTypes.TEXT_BOX, 150);
+			addColumn(datagrid, "formUser.name", "来自", ControlTypes.ENUM_BOX, 150);
+			addColumn(datagrid, "toUser.name", "去向", ControlTypes.NUMBER_BOX, 150);
 			addColumn(datagrid, "content", "内容", ControlTypes.TEXT_BOX, 150);
 		}
 		PForm form = new PForm();
@@ -246,7 +264,8 @@ public class UnFoolowWorkspace extends WorkspaceCreationBase{
 			part.setForm(form);
 		}
 		workspace.getParts().add(part);
-	}	
+	}
+	
 	//创建表单。须配置urlForm路径
 	@Override
 	protected PForm createForm(ResourceNode node) {
@@ -260,7 +279,7 @@ public class UnFoolowWorkspace extends WorkspaceCreationBase{
 		PFormField formField = null;
 		String groupName = null;
 		
-		addFormField(form, "name", "名称", groupName, ControlTypes.TEXT_BOX, false, true);
+		addFormField(form, "name", "名称", groupName, ControlTypes.TEXT_BOX, true, true);
 		addFormFieldRefrence(form, "supplier.name", "分配服务商", groupName, "CRM_Supplier", false, true);
 		addFormFieldRefrence(form, "department.name", "分配服务商部门", groupName, "CRM_Supplier_Depart", false, true);
 		
@@ -288,5 +307,5 @@ public class UnFoolowWorkspace extends WorkspaceCreationBase{
 	public void doOperation() {
 		ResourceNode node = resourceService.byCode(resourceNodeCode);
 		operationService.addOperation(node, OperationTypes.view);
-	}		
+	}
 }

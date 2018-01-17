@@ -25,7 +25,6 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.crm.web.NCustomerFollowPart;
-import com.gongsibao.crm.web.NCustomerFormPart;
 import com.gongsibao.entity.crm.NCustomerChange;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
@@ -51,9 +50,7 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_MY_TASK_ALL";
 		listFilter = "creator_id = '{userId}'";
-		//选项卡页面的js
-		/*formServiceController = NCustomerFormPart.class.getName();
-		formJsController = NCustomerFormPart.class.getName();*/
+		
 		formJsImport = "/gsb/crm/js/crm.all.task.part.js";
 	}
 
@@ -98,8 +95,14 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		column = addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 100, false);
 		column = addColumn(datagrid, "lastFoolowUser.name", "最后跟进人", ControlTypes.TEXT_BOX, 100, false);
 		column = addColumn(datagrid, "lastContent", "最后跟进内容", ControlTypes.TEXT_BOX, 100, false);
+		{
+			column.setFormatter("return '<span title='+value+'>'+value+'</span>'");
+		}
 		column = addColumn(datagrid, "old", "是否老客户", ControlTypes.TEXT_BOX, 100, false);
 		column = addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 100, false);
+		{
+			column.setFormatter("return '<span title='+value+'>'+value+'</span>'");
+		}
 		return datagrid;
 	}
 	
@@ -123,7 +126,7 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 	}
 	//选项卡加载项
 	private void addCommunicatLogsPart(PWorkspace workspace) {
-		//需要配置NCustomerProduct资源
+		//需要配置NCustomerTaskFoolow资源
 		ResourceNode node = this.resourceService.byCode(NCustomerTaskFoolow.class.getSimpleName());
 		PDatagrid datagrid = new PDatagrid(node, "沟通日志");
 		{

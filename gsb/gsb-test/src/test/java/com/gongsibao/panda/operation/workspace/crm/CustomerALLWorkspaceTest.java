@@ -14,6 +14,8 @@ import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PForm;
 import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PPart;
+import org.netsharp.panda.entity.PQueryItem;
+import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.entity.PWorkspace;
 import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
@@ -78,6 +80,15 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 		return datagrid;
 	}
 
+	@Override
+	protected PQueryProject createQueryProject(ResourceNode node) {
+		PQueryProject queryProject = super.createQueryProject(node);
+		queryProject.toNew();
+		PQueryItem item = null;
+		addQueryItem(queryProject, "realName", "名称", ControlTypes.TEXT_BOX);
+		return queryProject;
+	}
+	
 	// 默认的表单配置信息
 	protected PForm createForm(ResourceNode node) {
 

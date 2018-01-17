@@ -65,7 +65,10 @@ public class NCustomerTask extends Entity {
 	@Column(name = "intention_category", header = "质量分类")
 	private QualityCategory intentionCategory;
 	
-	@Column(name = "quality", header = "质量")
+	@Column(name = "quality_Id", header = "客户质量id")
+	private Integer qualityId = 0;
+	
+	@Reference(foreignKey = "qualityId", header = "质量")
 	private NCustomerTaskQuality quality;
 	
 	@Column(name = "last_follow_time", header = "最近跟进时间")
