@@ -44,7 +44,7 @@ public class CheckAbnormalWorkspace extends WorkspaceCreationBase{
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_MY_CHECK_ABNORMAL";
 		//无法签单并且抽查状态等于正常
-		listFilter = "inspectionState = 2 and foolowStatus=4 and creator_id = '{userId}'";
+		listFilter = "inspection_state = 2 and foolowStatus=4 and creator_id = '{userId}'";
 		formJsImport = "/gsb/crm/js/crm.all.task.part.js";
 	}
 	
