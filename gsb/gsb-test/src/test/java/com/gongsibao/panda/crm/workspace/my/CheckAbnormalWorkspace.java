@@ -29,22 +29,22 @@ import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.NotifyType;
 import com.gongsibao.entity.crm.dic.QualityCategory;
 
-public class AlreadySignWorkspace extends WorkspaceCreationBase{
+public class CheckAbnormalWorkspace extends WorkspaceCreationBase{
 
 	@Override
 	@Before
 	public void setup() {
 		entity = NCustomerTask.class;
 		//配置资源路径
-		urlList = "/crm/my/task/signed/list";
+		urlList = "/crm/my/check/abnormal/list";
 		//配置表单路径
-		urlForm = "/crm/my/task/signed/from";		
-		listPartName = formPartName = "已经签单";
+		urlForm = "/crm/my/check/abnormal/from";		
+		listPartName = formPartName = "抽查异常";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_MY_TASK_SIGNED";
-		listFilter = "foolowStatus=5 and creator_id = '{userId}'";
-		
+		resourceNodeCode = "GSB_CRM_MY_CHECK_ABNORMAL";
+		//无法签单并且抽查状态等于正常
+		listFilter = "inspectionState = 2 and foolowStatus=4 and creator_id = '{userId}'";
 		formJsImport = "/gsb/crm/js/crm.all.task.part.js";
 	}
 	
