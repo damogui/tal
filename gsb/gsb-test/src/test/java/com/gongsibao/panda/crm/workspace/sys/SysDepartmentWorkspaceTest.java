@@ -19,6 +19,7 @@ import com.gongsibao.entity.supplier.SupplierDepartment;
 
 //部门管理工作空间
 public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
+	
 	public void setup() {
 		super.setup();
 		urlList = "/crm/sys/department/list";
@@ -39,18 +40,14 @@ public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
 
 		PDatagrid datagrid = super.createDatagrid(node);
 		{
-			// datagrid.setToolbar("panda/datagrid/row/edit");
 			datagrid.setName("部门管理");
 		}
 		PDatagridColumn column = null;
 
 		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 200);
-		column = addColumn(datagrid, "id", "id", ControlTypes.TEXT_BOX, 120);{
-			column.setAlign(DatagridAlign.CENTER);
-		}
-		
-		addColumn(datagrid, "pathName", "路径", ControlTypes.TEXT_BOX, 400);
 		addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 300);
+		addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 80);
+		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
 		column = addColumn(datagrid, "parentId", "parentId", ControlTypes.TEXT_BOX, 100);
 		{
 			column.setSystem(true);
@@ -70,7 +67,6 @@ public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
 		addQueryItem(queryProject, "name", "部门名称", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "disabled", "是否停用", ControlTypes.BOOLCOMBO_BOX);
 		return queryProject;
 	}
 
@@ -79,9 +75,7 @@ public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
 
 		PForm form = super.createForm(node);
 		form.setColumnCount(1);
-		// addFormFieldRefrence类中类字段
 		addFormField(form, "name", "部门名称", null, ControlTypes.TEXT_BOX, false);
-		addFormField(form, "disabled", "是否停用", null, ControlTypes.SWITCH_BUTTON, true);
 		PFormField formField = addFormField(form, "memoto", "备注", ControlTypes.TEXTAREA, false, false);{
 			
 			formField.setHeight(100);

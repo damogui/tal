@@ -21,7 +21,7 @@ public class SupplierSessionManager {
 	 * @param: @return      
 	 * @return: Integer      
 	 * @throws   
-	 */
+	 */ 
 	public static Integer getSupplierId(){
 		
 		Integer employeeId = SessionManager.getUserId();
