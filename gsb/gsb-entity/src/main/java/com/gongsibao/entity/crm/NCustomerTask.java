@@ -13,6 +13,7 @@ import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.QualityCategory;
+import com.gongsibao.entity.crm.dic.TaskInspectionState;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
@@ -86,6 +87,9 @@ public class NCustomerTask extends Entity {
 	@Column(name = "old", header = "是否老客户")
 	private Boolean old = false;
 	
+	@Column(name = "inspection_state", header = "抽查异常状态")
+	private TaskInspectionState inspectionState = TaskInspectionState.UNINSPECTION;
+	
     @Column(name = "memoto",header="备注", size = 1000)
     private String memoto;
 	
@@ -100,6 +104,14 @@ public class NCustomerTask extends Entity {
 
 	@Subs(foreignKey = "customerId", header = "流转日志", subType = NCustomerChange.class)
 	private List<NCustomerChange> changes;
+
+	public TaskInspectionState getInspectionState() {
+		return inspectionState;
+	}
+
+	public void setInspectionState(TaskInspectionState inspectionState) {
+		this.inspectionState = inspectionState;
+	}
 
 	public NCustomer getCustomer() {
 		return customer;
