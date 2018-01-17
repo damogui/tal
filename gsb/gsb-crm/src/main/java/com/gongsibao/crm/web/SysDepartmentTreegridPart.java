@@ -10,6 +10,5 @@ public class SysDepartmentTreegridPart extends TreegridPart{
 		
 		ICatEntityService service = ServiceFactory.create(ICatEntityService.class);
 		service.generatePathCode(this.context.getEntityId());
-		
 	}
 }
