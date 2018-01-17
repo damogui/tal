@@ -7,7 +7,7 @@ import com.gongsibao.supplier.base.ISalesmanService;
 
 /**   
  * @ClassName:  EmployeeSupplierSessionManager   
- * @Description:TODO 处理与服务商相关
+ * @Description:TODO 处理与服务商相关（后面处理成将supplierId和departmentId放到Session中，不要每次都查询数据库）
  * @author: 韩伟
  * @date:   2018年1月17日 下午12:12:44   
  *     
