@@ -1,6 +1,7 @@
 package com.gongsibao.panda.operation.workspace.supplier;
 
 import com.gongsibao.entity.uc.Role;
+
 import org.junit.Before;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
@@ -17,6 +18,7 @@ import org.netsharp.panda.entity.PPart;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.entity.PWorkspace;
 import org.netsharp.resourcenode.entity.ResourceNode;
+import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.entity.supplier.FunctionModule;
 
@@ -74,45 +76,52 @@ public class FunctionModuleWorkspaceTest extends WorkspaceCreationBase {
 	
 	@Override
 	protected void addDetailGridPart(PWorkspace workspace) {
-
 		addRolesDetailPart(workspace);
-		
-		PPart part = workspace.getParts().get(0);
-		{
-			part.setCode("module");
-			part.setStyle("height:250px;");
-			part.setDockStyle(DockType.TOP);
-		}
 	}
 	
 	private void addRolesDetailPart(PWorkspace workspace) {
 		
 		ResourceNode node = this.resourceService.byCode("GSB_Operation_Supplier_Function_Module_Role");
 		PDatagrid datagrid = new PDatagrid(node, "角色信息");
-		datagrid.setShowCheckbox(true);
-		datagrid.setSingleSelect(false);
-		datagrid.setReadOnly(true);
-
-		PDatagridColumn column = null;
-
-		addColumn(datagrid, "role.name", "角色", ControlTypes.TEXT_BOX, 100);
-		column = addColumn(datagrid, "updator", "最后修改人", ControlTypes.TEXT_BOX, 100, false, null, null, null);
 		{
-			column.setAlign(DatagridAlign.CENTER);
-		}
-		addColumn(datagrid, "updateTime", "最后修改时间", ControlTypes.DATETIME_BOX, 150, false, null, null, null);
-		column = addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 100, false, null, null, null);
+			datagrid.setShowCheckbox(true);
+			datagrid.setSingleSelect(false);
+			datagrid.setReadOnly(true);
+
+			PDatagridColumn column = null;
+
+			addColumn(datagrid, "role.name", "角色", ControlTypes.TEXT_BOX, 100);
+			column = addColumn(datagrid, "updator", "最后修改人", ControlTypes.TEXT_BOX, 100, false, null, null, null);
+			{
+				column.setAlign(DatagridAlign.CENTER);
+			}
+			addColumn(datagrid, "updateTime", "最后修改时间", ControlTypes.DATETIME_BOX, 150, false, null, null, null);
+			column = addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 100, false, null, null, null);
+			{
+				column.setAlign(DatagridAlign.CENTER);
+			}
+			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 150, false, null, null, null);
+		}	
+		
+		
+		PForm form = new PForm();
 		{
-			column.setAlign(DatagridAlign.CENTER);
+			form.setResourceNode(node);
+			form.toNew();
+			form.setColumnCount(1);
+			form.setName("角色");
+			PFormField field = null;
+			field = addFormFieldRefrence(form, "role.name", "角色", null, Role.class.getSimpleName(), true, false);
 		}
-		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 150, false, null, null, null);
+		
 
 		PPart part = new PPart();
 		{
 			part.toNew();
 			part.setName("角色信息");
 			part.setCode("roles");
-			part.setParentCode("module");
+			//part.setParentCode("module");
+			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
 			part.setRelationRole("roles");
 			part.setResourceNode(node);
 			part.setPartTypeId(org.netsharp.panda.dic.PartType.DETAIL_PART.getId());
@@ -121,28 +130,20 @@ public class FunctionModuleWorkspaceTest extends WorkspaceCreationBase {
 			part.setToolbar("panda/datagrid/detail");
 			part.setWindowWidth(600);
 			part.setWindowHeight(450);
-
-			PForm form = this.createRoleDetailGridForm(node);
 			part.setForm(form);
 		}
 		workspace.getParts().add(part);
-	}
-	
-	protected PForm createRoleDetailGridForm(ResourceNode node) {
-
-		PForm form = new PForm();
-		form.setResourceNode(node);
-		form.toNew();
-		form.setColumnCount(1);
-		form.setName("角色");
-
-		PFormField field = null;
-		field = addFormFieldRefrence(form, "role.name", "角色", null, Role.class.getSimpleName(), true, false);{
-			
+		
+		part = workspace.getParts().get(0);
+		{
+			/*part.setCode("module");
+			part.setStyle("height:250px;");
+			part.setDockStyle(DockType.TOP);*/
+			part.setName("基本信息");
+			part.setDockStyle(DockType.TOP);
 		}
-		return form;
 	}
-	
+
 	@Override
 	protected PQueryProject createQueryProject(ResourceNode node) {
 
