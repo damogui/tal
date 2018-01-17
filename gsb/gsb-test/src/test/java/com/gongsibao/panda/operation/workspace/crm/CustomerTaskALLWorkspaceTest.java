@@ -24,7 +24,7 @@ import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
-import com.gongsibao.crm.web.NCustomerFollowStatusPart;
+import com.gongsibao.crm.web.NCustomerFollowPart;
 import com.gongsibao.entity.crm.NCustomerChange;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
@@ -165,8 +165,8 @@ public class CustomerTaskALLWorkspaceTest extends WorkspaceCreationBase{
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("crm/task/communicat/detail");
 			//部件
-			part.setJsController(NCustomerFollowStatusPart.class.getName());
-			part.setServiceController(NCustomerFollowStatusPart.class.getName());
+			part.setJsController(NCustomerFollowPart.class.getName());
+			part.setServiceController(NCustomerFollowPart.class.getName());
 			part.setWindowWidth(700);
 			part.setWindowHeight(400);
 			part.setForm(form);
