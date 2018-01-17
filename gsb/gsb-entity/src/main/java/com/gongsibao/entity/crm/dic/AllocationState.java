@@ -5,8 +5,8 @@ import org.netsharp.base.IEnum;
 
 public enum AllocationState implements IEnum{
 
-	NATURAL(1, "自然分配"), 
-	ASSIGN(2, "指定部门");
+	ALLOCATED(1, "已分配"), 
+	WAIT(2, "待分配");
 	private int value;
 	private String text;
 

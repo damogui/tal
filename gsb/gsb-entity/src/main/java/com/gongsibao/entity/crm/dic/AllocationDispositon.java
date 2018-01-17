@@ -4,9 +4,9 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
 public enum AllocationDispositon implements IEnum{
-
-	NATURAL(1, "自然分配"), 
-	ASSIGN(2, "指定部门");
+	
+	DIRECT(1, "自营"), 
+	PLATFORM(2, "平台");
 	private int value;
 	private String text;
 

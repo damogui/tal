@@ -5,8 +5,8 @@ import org.netsharp.base.IEnum;
 
 public enum TaskCustomerType implements IEnum{
 
-	NATURAL(1, "自然分配"), 
-	ASSIGN(2, "指定部门");
+	NEW(1, "新客户"), 
+	OLD(2, "老客户");
 	private int value;
 	private String text;
 

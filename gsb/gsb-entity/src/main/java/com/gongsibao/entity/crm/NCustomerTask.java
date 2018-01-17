@@ -109,14 +109,14 @@ public class NCustomerTask extends Entity {
 	@Reference(foreignKey = "costSupplierId", header = "费用服务商")
 	private Supplier costSupplier;
 	
-//    @Column(name = "allocation_type",header="分配方式")
-//    private NAllocationType allocationType = NAllocationType.AUTO;
-//	
-//    @Column(name = "allocation_statee",header="分配状态")
-//    private AllocationState allocationState = AllocationState.WAIT;
-//    
-//    @Column(name = "allocation_dispositon",header="自营/平台")
-//    private AllocationDispositon allocationDispositon = AllocationDispositon.DIRECT;
+    @Column(name = "allocation_type",header="分配方式")
+    private NAllocationType allocationType = NAllocationType.AUTO;
+	
+    @Column(name = "allocation_statee",header="分配状态")
+    private AllocationState allocationState = AllocationState.WAIT;
+    
+    @Column(name = "allocation_dispositon",header="自营/平台")
+    private AllocationDispositon allocationDispositon = AllocationDispositon.DIRECT;
     
 	@Reference(foreignKey = "customerSourceId", header = "客户来源")
 	private Dict customerSource;
@@ -124,8 +124,8 @@ public class NCustomerTask extends Entity {
 	@Column(name = "customer_source_id", header = "客户来源")
 	private Integer customerSourceId = 0;
 	
-//    @Column(name = "task_type",header="任务类型")
-//    private TaskCustomerType taskCustomerType = TaskCustomerType.NEW;
+    @Column(name = "task_type",header="任务类型")
+    private TaskCustomerType taskCustomerType = TaskCustomerType.NEW;
 
 	@Subs(foreignKey = "taskId", header = "意向产品", subType = NCustomerProduct.class)
 	private List<NCustomerProduct> products;
@@ -155,29 +155,29 @@ public class NCustomerTask extends Entity {
 		this.costSupplier = costSupplier;
 	}
 
-//	public NAllocationType getAllocationType() {
-//		return allocationType;
-//	}
-//
-//	public void setAllocationType(NAllocationType allocationType) {
-//		this.allocationType = allocationType;
-//	}
-//
-//	public AllocationState getAllocationState() {
-//		return allocationState;
-//	}
-//
-//	public void setAllocationState(AllocationState allocationState) {
-//		this.allocationState = allocationState;
-//	}
-//
-//	public AllocationDispositon getAllocationDispositon() {
-//		return allocationDispositon;
-//	}
-//
-//	public void setAllocationDispositon(AllocationDispositon allocationDispositon) {
-//		this.allocationDispositon = allocationDispositon;
-//	}
+	public NAllocationType getAllocationType() {
+		return allocationType;
+	}
+
+	public void setAllocationType(NAllocationType allocationType) {
+		this.allocationType = allocationType;
+	}
+
+	public AllocationState getAllocationState() {
+		return allocationState;
+	}
+
+	public void setAllocationState(AllocationState allocationState) {
+		this.allocationState = allocationState;
+	}
+
+	public AllocationDispositon getAllocationDispositon() {
+		return allocationDispositon;
+	}
+
+	public void setAllocationDispositon(AllocationDispositon allocationDispositon) {
+		this.allocationDispositon = allocationDispositon;
+	}
 
 	public Dict getCustomerSource() {
 		return customerSource;
@@ -195,13 +195,13 @@ public class NCustomerTask extends Entity {
 		this.customerSourceId = customerSourceId;
 	}
 
-//	public TaskCustomerType getTaskCustomerType() {
-//		return taskCustomerType;
-//	}
-//
-//	public void setTaskCustomerType(TaskCustomerType taskCustomerType) {
-//		this.taskCustomerType = taskCustomerType;
-//	}
+	public TaskCustomerType getTaskCustomerType() {
+		return taskCustomerType;
+	}
+
+	public void setTaskCustomerType(TaskCustomerType taskCustomerType) {
+		this.taskCustomerType = taskCustomerType;
+	}
 
 	public Integer getSalesmanId() {
 		return salesmanId;
