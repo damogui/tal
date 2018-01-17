@@ -17,7 +17,6 @@ import org.netsharp.organization.entity.RoleEmployee;
 import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.util.ReflectManager;
-import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.entity.supplier.Salesman;
