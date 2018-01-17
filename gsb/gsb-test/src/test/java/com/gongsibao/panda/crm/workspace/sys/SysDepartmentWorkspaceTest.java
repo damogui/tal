@@ -14,7 +14,7 @@ import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.crm.web.SysDepartmentTreegridPart;
+import com.gongsibao.crm.web.SysDepartmentTreeGridPart;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
 //部门管理工作空间
@@ -31,8 +31,8 @@ public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
 		resourceNodeCode = "GSB_CRM_SYS_DEPARTMENT";
 		formOpenMode = OpenMode.WINDOW;
 		listPartImportJs="/gsb/crm/sys/js/sys-department-list-part.js";
-		listPartJsController = SysDepartmentTreegridPart.class.getName();
-		listPartServiceController = SysDepartmentTreegridPart.class.getName();
+		listPartJsController = SysDepartmentTreeGridPart.class.getName();
+		listPartServiceController = SysDepartmentTreeGridPart.class.getName();
 	}
 
 	@Override

@@ -44,7 +44,7 @@ public class CustomTreePart extends TreePart{
 			filters.add(filter);
 		}
 
-		String defaultFilter = this.getDefaultFilter();
+		String defaultFilter = this.getExtraFilter();
 		if (!StringManager.isNullOrEmpty(defaultFilter)) {
 			filters.add(defaultFilter);
 		}

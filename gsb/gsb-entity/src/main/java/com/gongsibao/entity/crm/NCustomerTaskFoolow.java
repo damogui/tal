@@ -65,8 +65,6 @@ public class NCustomerTaskFoolow extends Entity {
 	@Reference(foreignKey = "departmentId", header = "分配服务商部门")
 	private SupplierDepartment department;
 	
-	
-
 	public Integer getSupplierId() {
 		return supplierId;
 	}

@@ -11,9 +11,15 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 import org.netsharp.organization.entity.Employee;
 
+import com.gongsibao.entity.bd.Dict;
+import com.gongsibao.entity.crm.dic.AllocationDispositon;
+import com.gongsibao.entity.crm.dic.AllocationState;
 import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
+import com.gongsibao.entity.crm.dic.NAllocationType;
 import com.gongsibao.entity.crm.dic.QualityCategory;
+import com.gongsibao.entity.crm.dic.TaskCustomerType;
 import com.gongsibao.entity.crm.dic.TaskInspectionState;
+import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
@@ -38,16 +44,20 @@ public class NCustomerTask extends Entity {
 	@Column(name = "supplier_id", header = "分配服务商Id")
 	private Integer supplierId;
 
-	@JsonIgnore
 	@Reference(foreignKey = "supplierId", header = "分配服务商")
 	private Supplier supplier;
 	
 	@Column(name = "department_id", header = "分配服务商部门Id")
 	private Integer departmentId;
 
-	@JsonIgnore
 	@Reference(foreignKey = "departmentId", header = "分配服务商部门")
 	private SupplierDepartment department;
+	
+	@Column(name = "salesman_id", header = "业务员Id")
+	private Integer salesmanId;
+
+	@Reference(foreignKey = "salesmanId", header = "业务员")
+	private Salesman salesman;
 	
 	@Column(name = "last_allocation_time", header = "最后分配时间")
 	private Date lastAllocationTime;
@@ -65,10 +75,7 @@ public class NCustomerTask extends Entity {
 	@Column(name = "intention_category", header = "质量分类")
 	private QualityCategory intentionCategory;
 	
-	@Column(name = "quality_Id", header = "客户质量id")
-	private Integer qualityId = 0;
-	
-	@Reference(foreignKey = "qualityId", header = "质量")
+	@Column(name = "quality", header = "质量")
 	private NCustomerTaskQuality quality;
 	
 	@Column(name = "last_follow_time", header = "最近跟进时间")
@@ -95,7 +102,31 @@ public class NCustomerTask extends Entity {
 	
     @Column(name = "memoto",header="备注", size = 1000)
     private String memoto;
+    
+	@Column(name = "cost_supplier_id", header = "费用服务商Id")
+	private Integer costSupplierId;
+
+	@Reference(foreignKey = "costSupplierId", header = "费用服务商")
+	private Supplier costSupplier;
 	
+//    @Column(name = "allocation_type",header="分配方式")
+//    private NAllocationType allocationType = NAllocationType.AUTO;
+//	
+//    @Column(name = "allocation_statee",header="分配状态")
+//    private AllocationState allocationState = AllocationState.WAIT;
+//    
+//    @Column(name = "allocation_dispositon",header="自营/平台")
+//    private AllocationDispositon allocationDispositon = AllocationDispositon.DIRECT;
+    
+	@Reference(foreignKey = "customerSourceId", header = "客户来源")
+	private Dict customerSource;
+
+	@Column(name = "customer_source_id", header = "客户来源")
+	private Integer customerSourceId = 0;
+	
+//    @Column(name = "task_type",header="任务类型")
+//    private TaskCustomerType taskCustomerType = TaskCustomerType.NEW;
+
 	@Subs(foreignKey = "taskId", header = "意向产品", subType = NCustomerProduct.class)
 	private List<NCustomerProduct> products;
 
@@ -107,6 +138,86 @@ public class NCustomerTask extends Entity {
 
 	@Subs(foreignKey = "customerId", header = "流转日志", subType = NCustomerChange.class)
 	private List<NCustomerChange> changes;
+	
+	public Integer getCostSupplierId() {
+		return costSupplierId;
+	}
+
+	public void setCostSupplierId(Integer costSupplierId) {
+		this.costSupplierId = costSupplierId;
+	}
+
+	public Supplier getCostSupplier() {
+		return costSupplier;
+	}
+
+	public void setCostSupplier(Supplier costSupplier) {
+		this.costSupplier = costSupplier;
+	}
+
+//	public NAllocationType getAllocationType() {
+//		return allocationType;
+//	}
+//
+//	public void setAllocationType(NAllocationType allocationType) {
+//		this.allocationType = allocationType;
+//	}
+//
+//	public AllocationState getAllocationState() {
+//		return allocationState;
+//	}
+//
+//	public void setAllocationState(AllocationState allocationState) {
+//		this.allocationState = allocationState;
+//	}
+//
+//	public AllocationDispositon getAllocationDispositon() {
+//		return allocationDispositon;
+//	}
+//
+//	public void setAllocationDispositon(AllocationDispositon allocationDispositon) {
+//		this.allocationDispositon = allocationDispositon;
+//	}
+
+	public Dict getCustomerSource() {
+		return customerSource;
+	}
+
+	public void setCustomerSource(Dict customerSource) {
+		this.customerSource = customerSource;
+	}
+
+	public Integer getCustomerSourceId() {
+		return customerSourceId;
+	}
+
+	public void setCustomerSourceId(Integer customerSourceId) {
+		this.customerSourceId = customerSourceId;
+	}
+
+//	public TaskCustomerType getTaskCustomerType() {
+//		return taskCustomerType;
+//	}
+//
+//	public void setTaskCustomerType(TaskCustomerType taskCustomerType) {
+//		this.taskCustomerType = taskCustomerType;
+//	}
+
+	public Integer getSalesmanId() {
+		return salesmanId;
+	}
+
+	public void setSalesmanId(Integer salesmanId) {
+		this.salesmanId = salesmanId;
+	}
+
+	public Salesman getSalesman() {
+		return salesman;
+	}
+
+	public void setSalesman(Salesman salesman) {
+		this.salesman = salesman;
+	}
 
 	public TaskInspectionState getInspectionState() {
 		return inspectionState;

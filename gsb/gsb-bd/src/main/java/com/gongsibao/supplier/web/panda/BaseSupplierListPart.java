@@ -1,22 +1,22 @@
-package com.gongsibao.crm.web;
+package com.gongsibao.supplier.web.panda;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.netsharp.base.ICatEntityService;
-import org.netsharp.communication.ServiceFactory;
-import org.netsharp.panda.commerce.TreegridPart;
+import org.netsharp.panda.commerce.ListPart;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.utils.SupplierSessionManager;
 
-public class SysDepartmentTreegridPart extends TreegridPart {
-
-	public void pathCode() {
-
-		ICatEntityService service = ServiceFactory.create(ICatEntityService.class);
-		service.generatePathCode(this.context.getEntityId());
-	}
+/**   
+ * @ClassName:  BaseSupplierListPart   
+ * @Description:TODO 所有涉及到服务商列表ListPart都继承此类
+ * @author: 韩伟
+ * @date:   2018年1月17日 下午2:11:07   
+ *     
+ * @Copyright: 2018 www.yikuaxiu.com Inc. All rights reserved. 
+ */
+public class BaseSupplierListPart extends ListPart{
 
 	@Override
 	protected String getExtraFilter() {
