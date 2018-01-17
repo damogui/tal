@@ -17,7 +17,6 @@ import org.netsharp.organization.entity.RoleEmployee;
 import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.util.ReflectManager;
-import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.entity.supplier.Salesman;
@@ -37,16 +36,16 @@ public class ActionSupplierCreateAdmin implements IAction {
 	public void execute(ActionContext ctx) {
 
 		Supplier entity = (Supplier) ctx.getItem();
-		
-		//如果已经开过户，直接设置状态,只启用管理员帐号
-		if(entity.getAdminId() != null){
-			
-			 this.enableEmployee(entity.getAdminId());
+
+		// 如果已经开过户，直接设置状态,只启用管理员帐号
+		if (entity.getAdminId() != null && entity.getAdminId() != 0) {
+
+			this.enableEmployee(entity.getAdminId());
 			entity.setStatus(SupplierStatus.OPEND);
 			entity = getService().save(entity);
-			
-		}else{
-			
+
+		} else {
+
 			// 1.创建服务商部门：SupplierDepartment
 			SupplierDepartment department = this.createDepartment(entity);
 
@@ -55,14 +54,14 @@ public class ActionSupplierCreateAdmin implements IAction {
 
 			// 3.创建Salesman，并关联部门
 			this.createSalesman(department, employee);
-			
-			// 4.设置服务商的AdminId 
+
+			// 4.设置服务商的AdminId
 			entity = persist(entity, employee);
 		}
 
 		ctx.setItem(entity);
 	}
-	
+
 	private void enableEmployee(Integer employeeId) {
 
 		UpdateBuilder updateSql = UpdateBuilder.getInstance();
@@ -72,21 +71,21 @@ public class ActionSupplierCreateAdmin implements IAction {
 			updateSql.where("id =" + employeeId);
 		}
 		String cmdText = updateSql.toSQL();
-		
+
 		IPersister<Salesman> pm = PersisterFactory.create();
 		pm.executeNonQuery(cmdText, null);
 	}
-	
-	private IPersistableService<Supplier> getService(){
+
+	private IPersistableService<Supplier> getService() {
 
 		Class<?> superType = SupplierService.class.getSuperclass();
 		@SuppressWarnings("unchecked")
 		IPersistableService<Supplier> service = (IPersistableService<Supplier>) ReflectManager.newInstance(superType);
 		return service;
 	}
-	
-	private Supplier persist(Supplier entity,Employee employee) {
-		
+
+	private Supplier persist(Supplier entity, Employee employee) {
+
 		entity.setStatus(SupplierStatus.OPEND);
 		entity.setAdminId(employee.getId());
 		entity = getService().save(entity);

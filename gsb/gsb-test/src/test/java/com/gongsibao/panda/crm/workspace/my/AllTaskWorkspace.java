@@ -1,9 +1,11 @@
 package com.gongsibao.panda.crm.workspace.my;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
+import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.PartType;
@@ -15,10 +17,14 @@ import org.netsharp.panda.entity.PPart;
 import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.entity.PWorkspace;
+import org.netsharp.panda.plugin.dic.ToolbarType;
+import org.netsharp.panda.plugin.entity.PToolbar;
+import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
+import com.gongsibao.crm.web.NCustomerFollowPart;
 import com.gongsibao.entity.crm.NCustomerChange;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
@@ -33,6 +39,7 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 	@Override
 	@Before
 	public void setup() {
+			
 		entity = NCustomerTask.class;
 		//配置资源路径
 		urlList = "/crm/my/task/all/list";
@@ -43,10 +50,37 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_MY_TASK_ALL";
 		listFilter = "creator_id = '{userId}'";
-		//选项卡页面的js
-		formJsImport = "/gsb/crm/js/crm.all.task.part.js|/gsb/gsb.customer.controls.js";
+		
+		formJsImport = "/gsb/crm/js/crm.all.task.part.js";
 	}
 
+	@Test
+	public void detailPart() {
+		ResourceNode node = this.resourceService.byCode(NCustomerTaskFoolow.class.getSimpleName());
+		OperationType ot1 = operationTypeService.byCode(OperationTypes.add);
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			toolbar.setPath("crm/task/communicat/detail");
+			toolbar.setName("子表");
+			toolbar.setResourceNode(node);
+			toolbar.setToolbarType(ToolbarType.BASE);
+		}
+		PToolbarItem item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("add");
+			item.setIcon("fa fa-mail-reply-all");
+			item.setName("跟进");
+			item.setCommand(null);
+			item.setOperationType(ot1);
+			item.setSeq(1);
+			item.setCommand("{controller}.add();");
+			toolbar.getItems().add(item);
+		}
+		toolbarService.save(toolbar);
+	}
+	
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
 		PDatagrid datagrid = super.createDatagrid(node);
@@ -61,8 +95,14 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		column = addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 100, false);
 		column = addColumn(datagrid, "lastFoolowUser.name", "最后跟进人", ControlTypes.TEXT_BOX, 100, false);
 		column = addColumn(datagrid, "lastContent", "最后跟进内容", ControlTypes.TEXT_BOX, 100, false);
+		{
+			column.setFormatter("return '<span title='+value+'>'+value+'</span>'");
+		}
 		column = addColumn(datagrid, "old", "是否老客户", ControlTypes.TEXT_BOX, 100, false);
 		column = addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 100, false);
+		{
+			column.setFormatter("return '<span title='+value+'>'+value+'</span>'");
+		}
 		return datagrid;
 	}
 	
@@ -86,7 +126,7 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 	}
 	//选项卡加载项
 	private void addCommunicatLogsPart(PWorkspace workspace) {
-		//需要配置NCustomerProduct资源
+		//需要配置NCustomerTaskFoolow资源
 		ResourceNode node = this.resourceService.byCode(NCustomerTaskFoolow.class.getSimpleName());
 		PDatagrid datagrid = new PDatagrid(node, "沟通日志");
 		{
@@ -130,8 +170,9 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 			part.setPartTypeId(PartType.DETAIL_PART.getId());
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
-			part.setToolbar("panda/datagrid/detail");
-			//part.setJsController("com.gongsibao.crm.web.ProdMapDetailPart");
+			part.setToolbar("crm/task/communicat/detail");
+			part.setJsController(NCustomerFollowPart.class.getName());
+			part.setServiceController(NCustomerFollowPart.class.getName());
 			part.setWindowWidth(700);
 			part.setWindowHeight(400);
 			part.setForm(form);
@@ -179,8 +220,6 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 			part.setPartTypeId(PartType.DETAIL_PART.getId());
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
-			part.setToolbar("panda/datagrid/detail");
-			//part.setJsController("com.gongsibao.crm.web.ProdMapDetailPart");
 			part.setWindowWidth(550);
 			part.setWindowHeight(350);
 			part.setForm(form);

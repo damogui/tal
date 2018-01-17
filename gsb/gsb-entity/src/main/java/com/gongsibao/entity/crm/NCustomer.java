@@ -18,6 +18,7 @@ import com.gongsibao.entity.crm.dic.QualityCategory;
 import com.gongsibao.entity.crm.dic.Sex;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
+import com.gongsibao.entity.uc.Account;
 
 @Table(name = "n_crm_customer", header = "客户信息")
 public class NCustomer extends Entity {
@@ -29,6 +30,9 @@ public class NCustomer extends Entity {
 
 	@Column(name = "account_id", header = "帐号Id")
 	private Integer accountId = 0;
+	
+	@Reference(foreignKey = "accountId")
+	private Account account;
 
 	@Column(name = "real_name", header = "姓名")
 	private String realName;
@@ -105,9 +109,6 @@ public class NCustomer extends Entity {
 	@Column(name = "remark", header = "备注信息")
 	private String remark;
 
-	@Column(name = "is_bbk", header = "是否是八百客的数据")
-	private Boolean bbk = false;
-
 	@Column(name = "allocation_type", header = "分配方式")
 	private AllocationType allocationType = AllocationType.NATURAL;
 
@@ -132,7 +133,6 @@ public class NCustomer extends Entity {
 	@Column(name = "swt_service_id", header = "商务通客服Id")
 	private String swtServiceId;
 
-
 	@Column(name = "intention_category", header = "质量分类")
 	private QualityCategory intentionCategory;
 	
@@ -153,14 +153,6 @@ public class NCustomer extends Entity {
 	
 	@Column(name = "next_foolow_time", header = "下次跟进时间")
 	private Date nextFoolowTime;
-	
-	
-
-	@Column(name = "back_num", header = "退回次数")
-	private Integer backNum = 0;
-
-	@Column(name = "back_user_id", header = "上一次退回人")
-	private Integer backUserId = 0;
 
 	@Reference(foreignKey = "customerSourceId", header = "客户来源")
 	private Dict customerSource;
@@ -394,14 +386,6 @@ public class NCustomer extends Entity {
 		this.remark = remark;
 	}
 
-	public Boolean getBbk() {
-		return bbk;
-	}
-
-	public void setBbk(Boolean bbk) {
-		this.bbk = bbk;
-	}
-
 	public AllocationType getAllocationType() {
 		return allocationType;
 	}
@@ -472,22 +456,6 @@ public class NCustomer extends Entity {
 
 	public void setLastFollowTime(Date lastFollowTime) {
 		this.lastFollowTime = lastFollowTime;
-	}
-
-	public Integer getBackNum() {
-		return backNum;
-	}
-
-	public void setBackNum(Integer backNum) {
-		this.backNum = backNum;
-	}
-
-	public Integer getBackUserId() {
-		return backUserId;
-	}
-
-	public void setBackUserId(Integer backUserId) {
-		this.backUserId = backUserId;
 	}
 
 	public Dict getCustomerSource() {
@@ -601,4 +569,13 @@ public class NCustomer extends Entity {
 	public void setNextFoolowTime(Date nextFoolowTime) {
 		this.nextFoolowTime = nextFoolowTime;
 	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}	
+	
 }

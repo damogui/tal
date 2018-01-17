@@ -93,7 +93,8 @@ public class Supplier extends Entity {
 	
 	@Subs(foreignKey = "supplierId", header = "开通模块", subType = SupplierFunctionModule.class)
 	private List<SupplierFunctionModule> modules;
-	
+
+
 	public String getContact() {
 		return contact;
 	}

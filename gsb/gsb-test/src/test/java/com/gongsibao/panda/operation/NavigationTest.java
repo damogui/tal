@@ -57,5 +57,22 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Supplier_Category", "服务商分类", "/operation/supplier/category/list", 2);
 			createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Supplier", "服务商管理", "/operation/supplier/list", 3);
 		}
+		
+		createPTreeNode(tree, null, "fa fa-file-o fa-fw", "GSB_CRM_Customer_Manager", "客户管理", "", 4);
+		{
+			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_ALL", "全部客户", "/operation/customer/all/list", 1);
+			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Allocated", "已分配客户", "/operation/customer/allocated/list", 2);
+			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Undistributed", "未分配客户", "/operation/customer/undistributed/list", 3);
+			
+			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Task_ALL", "全部任务", "/operation/customer/task/all/list", 4);
+			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Task_Allocated", "已分配任务", "/operation/customer/task/allocated/list", 5);
+			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Task_Undistributed", "未分配任务", "/operation/customer/task/undistributed/list", 6);
+			
+			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Task_Lost_Order", "丢单管理", "/operation/customer/task/lostorder/list", 7);
+			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Task_Anomaly_Detection", "抽查异常", "/operation/customer/task/anomalydetection/list", 8);
+			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Quality", "客户质量", "/operation/customer/quality/list", 9);
+			
+			
+		}
 	}
 }

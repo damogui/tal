@@ -1,13 +1,13 @@
 package com.gongsibao.crm.service;
 
 import org.netsharp.communication.Service;
-import org.netsharp.service.PersistableService;
 
+import com.gongsibao.bd.service.SupplierPersistableService;
 import com.gongsibao.crm.base.INCustomerTaskNotifyService;
 import com.gongsibao.entity.crm.NCustomerTaskNotify;
 
 @Service
-public class NCustomerTaskNotifyService extends PersistableService<NCustomerTaskNotify> implements INCustomerTaskNotifyService {
+public class NCustomerTaskNotifyService extends SupplierPersistableService<NCustomerTaskNotify> implements INCustomerTaskNotifyService {
 
 	public NCustomerTaskNotifyService() {
 		super();

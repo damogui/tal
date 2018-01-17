@@ -7,6 +7,8 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
 import com.gongsibao.entity.crm.dic.NotifyType;
+import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.entity.supplier.SupplierDepartment;
 
 @Table(name="n_crm_task_notify",header="任务通知")
 public class NCustomerTaskNotify extends Entity{
@@ -35,6 +37,52 @@ public class NCustomerTaskNotify extends Entity{
 	
 	@Column(name = "content", size = 200, header = "跟进内容")
 	private String content;
+	
+	@Column(name = "supplier_id", header = "分配服务商Id")
+	private Integer supplierId;
+
+	@Reference(foreignKey = "supplierId", header = "分配服务商")
+	private Supplier supplier;
+	
+	@Column(name = "department_id", header = "分配服务商部门Id")
+	private Integer departmentId;
+
+	@Reference(foreignKey = "departmentId", header = "分配服务商部门")
+	private SupplierDepartment department;
+	
+	
+
+	public Integer getSupplierId() {
+		return supplierId;
+	}
+
+	public void setSupplierId(Integer supplierId) {
+		this.supplierId = supplierId;
+	}
+
+	public Supplier getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
+	}
+
+	public Integer getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(Integer departmentId) {
+		this.departmentId = departmentId;
+	}
+
+	public SupplierDepartment getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(SupplierDepartment department) {
+		this.department = department;
+	}
 
 	public NCustomer getCustomer() {
 		return customer;
