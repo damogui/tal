@@ -9,15 +9,18 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import com.gongsibao.cms.base.IProductViewService;
 import com.gongsibao.crm.base.INCustomerProductService;
 import com.gongsibao.crm.base.INCustomerService;
+import com.gongsibao.crm.base.INCustomerTaskQualityService;
 import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.entity.cms.ProductView;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.crm.NCustomerProduct;
 import com.gongsibao.entity.crm.NCustomerTask;
+import com.gongsibao.entity.crm.NCustomerTaskQuality;
 import com.gongsibao.entity.supplier.FunctionModule;
 import com.gongsibao.entity.supplier.FunctionModuleRole;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierCategory;
+import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.supplier.SupplierFunctionModule;
 import com.gongsibao.entity.supplier.SupplierServiceDistrict;
 import com.gongsibao.entity.supplier.SupplierServiceProduct;
@@ -37,6 +40,7 @@ import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.supplier.base.IFunctionModuleRoleService;
 import com.gongsibao.supplier.base.IFunctionModuleService;
 import com.gongsibao.supplier.base.ISupplierCategoryService;
+import com.gongsibao.supplier.base.ISupplierDepartmentService;
 import com.gongsibao.supplier.base.ISupplierFunctionModuleService;
 import com.gongsibao.supplier.base.ISupplierService;
 import com.gongsibao.supplier.base.ISupplierServiceDistrictService;
@@ -103,6 +107,7 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(SupplierServiceDistrict.class.getName(), "服务商服务地区", "GSB_Operation_Supplier_Service_District", ISupplierServiceDistrictService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(FunctionModule.class.getName(), "功能模块", "GSB_Operation_Function_Module", IFunctionModuleService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(FunctionModuleRole.class.getName(), "功能模块角色", "GSB_Operation_Supplier_Function_Module_Role", IFunctionModuleRoleService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(SupplierDepartment.class.getName(), "服务商部门", "GSB_Operation_Supplier_Department", ISupplierDepartmentService.class.getName(), node1.getId());
 
 		}
 
@@ -116,7 +121,7 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "未分配任务", "GSB_CRM_Customer_Manager_Task_Undistributed", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(SupplierFunctionModule.class.getName(), "丢单管理", "GSB_CRM_Customer_Manager_Lost_Order", ISupplierFunctionModuleService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(SupplierFunctionModule.class.getName(), "抽查异常", "GSB_CRM_Customer_Manager_Anomaly_Detection", ISupplierFunctionModuleService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(SupplierFunctionModule.class.getName(), "客户质量", "GSB_CRM_Customer_Manager_Quality", ISupplierFunctionModuleService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTaskQuality.class.getName(), "客户质量", "GSB_CRM_Customer_Manager_Quality", INCustomerTaskQualityService.class.getName(), node1.getId());
 
 			this.createResourceNodeVoucher(NCustomerProduct.class.getName(), "客户意向产品", "GSB_CRM_Customer_Manager_Products", INCustomerProductService.class.getName(), node1.getId());
 		}

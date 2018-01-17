@@ -68,9 +68,9 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Task_Allocated", "已分配任务", "/operation/customer/task/allocated/list", 5);
 			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Task_Undistributed", "未分配任务", "/operation/customer/task/undistributed/list", 6);
 			
-			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Task_Lost_Order", "丢单管理", "/operation/customer/task/lostorder/list", 7);
-			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Task_Anomaly_Detection", "抽查异常", "/operation/customer/task/anomalydetection/list", 8);
-			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Task_Quality", "客户质量", "/operation/customer/task/quality/list", 9);
+			//createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Task_Lost_Order", "丢单管理", "/operation/customer/task/lostorder/list", 7);
+			//createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Task_Anomaly_Detection", "抽查异常", "/operation/customer/task/anomalydetection/list", 8);
+			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Quality", "客户质量", "/operation/customer/quality/list", 9);
 			
 			
 		}
