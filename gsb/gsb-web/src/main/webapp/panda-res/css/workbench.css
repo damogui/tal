@@ -44,11 +44,11 @@
 
 
 .accordion .accordion-header-selected {
-	background-color: rgba(53,131,202,.05) !important;
+	background-color: #f1f4f5 !important;
 }
 
 .accordion .accordion-header-selected .panel-title,.accordion .accordion-header-selected .panel-icon {
-	color: #62a8ea;
+	color: #76838f;
 }
 
 #center1 {
@@ -235,7 +235,7 @@ ul,li{
 .accordion_item_nav li a {
     padding: 0 20px;
     display: block;
-    color: rgba(118,131,143,.9);
+    color: #76838f;
     white-space: nowrap;
     cursor: pointer;
     outline: 0;
@@ -257,12 +257,12 @@ ul,li{
 }
 
 .accordion_item_nav li:hover,.accordion_item_nav li.selected {
-	color: #62a8ea;
-    background: rgba(53,131,202,.03);
+	color: #76838f;
+    background: #f1f4f5;
 }
 .accordion_item_nav a:hover,.accordion_item_nav li.selected a{
 	
-	color: #62a8ea;
+	color: #76838f;
 }
 
 .panel-icon:before{
