@@ -18,15 +18,28 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 	}
 
 	@Override
-	public Integer getSupplierId(Integer employeeId) {
-		
-		Salesman entity = byEmployeeId(employeeId);
-		if(entity != null){
-			
-			return entity.getSupplierId();
-		}
-		return null;
-	}
+    public Integer getSupplierId(Integer employeeId) {
+
+        Salesman entity = byEmployeeId(employeeId);
+        if(entity != null){
+
+            return entity.getSupplierId();
+        }
+        return null;
+    }
+
+
+    @Override
+    public Salesman save(Salesman enity) {
+
+
+//        Salesman entity = byEmployeeId(employeeId);
+//        if(entity != null){
+//
+//            return entity.getSupplierId();
+//        }
+        return null;
+    }
 
 	@Override
 	public Integer getDepartmentId(Integer employeeId) {
