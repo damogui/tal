@@ -22,3 +22,4 @@
 
 /gradle.properties
 /gsb-web/src/main/resources/dev/conf/configuration.properties
+gradle.properties
