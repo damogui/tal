@@ -12,6 +12,8 @@ import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.*;
 import org.netsharp.resourcenode.entity.ResourceNode;
+
+import com.gongsibao.crm.web.SysSalesmanListPart;
 import com.gongsibao.entity.supplier.Salesman;
 
 //员工管理
@@ -25,6 +27,9 @@ public class SysSalesmanWorkspaceTest  extends WorkspaceCreationBase{
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_SYS_SALESMAN";
 		formOpenMode = OpenMode.WINDOW;
+		listPartImportJs = "/gsb/crm/sys/js/sys-salesman-list-part.js";
+		listPartJsController = SysSalesmanListPart.class.getName();
+		listPartServiceController = SysSalesmanListPart.class.getName();
 	
 	}
 
@@ -86,7 +91,7 @@ public class SysSalesmanWorkspaceTest  extends WorkspaceCreationBase{
     @Override
     public void run() {
         this.createTreeWorkspace();
-//        this.createFormWorkspace();
+        this.createFormWorkspace();
     }
 //配置树状结构
     public void createTreeWorkspace() {
