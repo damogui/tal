@@ -94,15 +94,16 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		PDatagrid datagrid = super.createDatagrid(node);
 		datagrid.setToolbar("panda/datagrid/row/edit");
 		PDatagridColumn column = null;
-		addColumn(datagrid, "code", "编号", ControlTypes.TEXT_BOX, 100, true);
-		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 80);
-		addColumn(datagrid, "proxyCompanyName", "代理商", ControlTypes.TEXT_BOX, 200);
-        addColumn(datagrid, "creator", "业务员", ControlTypes.TEXT_BOX, 200);
-        column = addColumn(datagrid, "tokenImgUrl", "二维码", ControlTypes.TEXT_BOX, 200);{
+		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+		addColumn(datagrid, "code", "编号", ControlTypes.TEXT_BOX, 150, true);
+		addColumn(datagrid, "urgency", "紧急程度(小时)", ControlTypes.TEXT_BOX, 100);
+      addColumn(datagrid, "creator", "业务员", ControlTypes.TEXT_BOX, 200);
+      column = addColumn(datagrid, "tokenImgUrl", "二维码", ControlTypes.TEXT_BOX, 200);
+        {
             //column.setFormatter("<a href='javascript:;'>aaaa</a>");
         }
-        addColumn(datagrid, "caseAmount", "金额", ControlTypes.DECIMAL_FEN_BOX, 100);
-		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+      addColumn(datagrid, "caseAmount", "金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+		
 		return datagrid;
 	}
 //
@@ -147,12 +148,12 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
         addFormField(form, "mailCode", "邮编", groupName, ControlTypes.TEXT_BOX, false, false);
         addFormField(form, "fax", "传真", groupName, ControlTypes.TEXT_BOX, false, false);
         addFormField(form, "token", "token", groupName, ControlTypes.TEXT_BOX, false, true);
-        addFormField(form, "token_img_url", "二维码", groupName, ControlTypes.IMAGE, true, true);
+        addFormField(form, "token_img_url", "二维码", groupName, ControlTypes.TEXT_BOX, false, true);
 
         addFormField(form, "caseAmount", "方案金额", groupName, ControlTypes.DECIMAL_FEN_BOX, true, false);
         addFormField(form, "tradeOptions", "商标选项", groupName, ControlTypes.TEXT_BOX, false, true);
         addFormField(form, "hasColor", "是否指定颜色", groupName, ControlTypes.SWITCH_BUTTON, true, false);
-		addFormField(form, "code", "方案编号", groupName, ControlTypes.TEXT_BOX, true, true);
+	   	addFormField(form, "code", "方案编号", groupName, ControlTypes.TEXT_BOX, false, true);
 		return form;
 	}
 //

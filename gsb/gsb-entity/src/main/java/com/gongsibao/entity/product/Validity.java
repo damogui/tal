@@ -4,7 +4,7 @@ import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Persistable;
 
-@Table(name="prod_validity",header="")
+//@Table(name="prod_validity",header="")
 public class Validity extends Persistable {
 	
 	/**   

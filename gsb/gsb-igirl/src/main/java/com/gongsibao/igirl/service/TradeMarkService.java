@@ -12,6 +12,12 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		super();
 		this.type = TradeMark.class;
 	}
+	
+	@Override
+	public TradeMark newInstance() {
+		// TODO Auto-generated method stub
+		return super.newInstance();
+	}
 
 //	@Override
 //	public Customer save(Customer entity) {
