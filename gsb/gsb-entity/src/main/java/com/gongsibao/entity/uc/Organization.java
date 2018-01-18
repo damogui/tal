@@ -28,6 +28,7 @@ public class Organization extends BaseCatEntity {
 	@Column(name = "leader_id", header = "主管人")
 	private Integer leaderId = 0;
 	
+	@JsonIgnore
     @Reference(foreignKey="leaderId")
     private User leader;
 
