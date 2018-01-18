@@ -61,7 +61,7 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		PToolbar toolbar = new PToolbar();
 		{
 			toolbar.toNew();
-			toolbar.setPath("crm/task/communicat/detail");
+			toolbar.setPath("crm/task/communicatLog/follow");
 			toolbar.setName("子表");
 			toolbar.setResourceNode(node);
 			toolbar.setToolbarType(ToolbarType.BASE);
@@ -71,7 +71,7 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 			item.toNew();
 			item.setCode("add");
 			item.setIcon("fa fa-mail-reply-all");
-			item.setName("跟进");
+			item.setName("跟进操作");
 			item.setCommand(null);
 			item.setOperationType(ot1);
 			item.setSeq(1);
@@ -170,7 +170,7 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 			part.setPartTypeId(PartType.DETAIL_PART.getId());
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
-			part.setToolbar("crm/task/communicat/detail");
+			part.setToolbar("crm/task/communicatLog/follow");
 			part.setJsController(NCustomerFollowPart.class.getName());
 			part.setServiceController(NCustomerFollowPart.class.getName());
 			part.setWindowWidth(700);

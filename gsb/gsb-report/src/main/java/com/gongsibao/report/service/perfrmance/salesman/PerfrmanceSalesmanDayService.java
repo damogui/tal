@@ -34,6 +34,7 @@ public class PerfrmanceSalesmanDayService extends AbstractPerfrmanceSalesmanServ
 			Integer salesmanId = map.getUserId();
 			Integer organizationId = map.getOrganizationId();
 			PerformanceStatistics entity = create(context.getDate(), salesmanId, organizationId);
+			
 			Map<String, Integer> getOrderMap = orderRelated(strDate, salesmanId);
 			entity.setReceivableAmount(getOrderMap.get("payablePriceCount"));
 			entity.setPaidAmount(getOrderMap.get("payCount"));
@@ -51,11 +52,20 @@ public class PerfrmanceSalesmanDayService extends AbstractPerfrmanceSalesmanServ
 
 	/**
 	 * 返回订单相关（应收金额、退款额、销售量、订单量、）
-	 * 
-	 * @param date
-	 *            当天时间
-	 * @param userId
-	 *            用户Id
+	 * 一、应收金额：
+	 * 1.线下时   取得时间是 bd_audit_log（审核表）的add_time
+	 * 2.线上时   取得时间是  so_pay的confirm_time
+	 * 3.全款时   直接获取金额
+	 * 4.分期时   实收金额超过首期款，算应收的
+	 * 5.累积的退款额总计 - 累积的应收金额 >=0 。应收金额此时为0
+	 * 二、实收金额
+	 * 1.线下时   取得时间是 bd_audit_log（审核表）的add_time
+	 * 2.线上时   取得时间是  so_pay的confirm_time
+	 * 3.金额直接取支付表中的金额即可
+	 * 三、退款额
+	 * 1.根据订单Id获取退款额的累积
+	 * @param date 当天时间
+	 * @param userId 用户Id
 	 * @return 应收金额、退款额、销售量、订单量
 	 */
 	private Map<String, Integer> orderRelated(String date, Integer userId) {
@@ -66,7 +76,6 @@ public class PerfrmanceSalesmanDayService extends AbstractPerfrmanceSalesmanServ
 		Integer refundAmount = new Integer(0);
 		// 实收金额
 		Integer payAmount = new Integer(0);
-
 		// 销售量
 		int salesCount = 0;
 		// 订单量
@@ -100,17 +109,23 @@ public class PerfrmanceSalesmanDayService extends AbstractPerfrmanceSalesmanServ
 		DataTable onLineDt = this.pm.executeTable(onLinePay.toString(), null);
 		for (IRow row : onLineDt) {
 			Integer orderId = Integer.parseInt(row.getString("orderId"));
+			Integer payablePrice = Integer.parseInt(row.getString("payablePrice"));
 			Integer paidPrice = Integer.parseInt(row.getString("paidPrice"));
+			//实收金额--累积支付表中的金额即可
+			payAmount = payAmount.intValue() + paidPrice.intValue();
+			//退款金额 
 			Integer getRefundAmout = refundAmount(orderId);
-			// 如果退款金额大于支付金额改支付不计在内
-			if (getRefundAmout.intValue() >= paidPrice.intValue()) {
+			refundAmount = refundAmount.intValue() + getRefundAmout.intValue();
+			
+			// 如果退款金额的累积大于应收金额，那么应收金额不计算在内
+			if (getRefundAmout.intValue() >= payablePrice.intValue()) {
 				continue;
 			}
-			Integer payablePrice = Integer.parseInt(row.getString("payablePrice"));
-			// 0:全款、1：分期
+			//0:全款、1：分期 
 			String isInstallMent = row.getString("isInstallMent");
 			String installMentMode = row.getString("installMentMode");
 			if (isInstallMent.equals("0") || isInstallMent.equals("false")) {
+				//全款时，实收金额大于等于应收金额，算成交
 				if (paidPrice.intValue() >= payablePrice.intValue()) {
 					orderCount += 1;
 					payablePriceCount = payablePriceCount.intValue() + payablePrice.intValue();
@@ -118,13 +133,13 @@ public class PerfrmanceSalesmanDayService extends AbstractPerfrmanceSalesmanServ
 				}
 			} else {
 				String[] getStr = installMentMode.split("\\|");
+				//分期时，实收金额超过首期款，算应收的
 				if (paidPrice.intValue() >= Integer.parseInt(getStr[0])) {
 					orderCount += 1;
 					payablePriceCount = payablePriceCount.intValue() + payablePrice.intValue();
 					orderList += orderId + ",";
 				}
 			}
-			refundAmount = refundAmount.intValue() + getRefundAmout.intValue();
 		}
 		// 线下支付
 		StringBuilder offLinePay = new StringBuilder();
@@ -159,19 +174,24 @@ public class PerfrmanceSalesmanDayService extends AbstractPerfrmanceSalesmanServ
 		DataTable offLineDt = this.pm.executeTable(offLinePay.toString(), null);
 		for (IRow row : offLineDt) {
 			Integer orderId = Integer.parseInt(row.getString("orderId"));
+			Integer payablePrice = Integer.parseInt(row.getString("payablePrice"));
 			Integer paidPrice = Integer.parseInt(row.getString("paidPrice"));
+			//实收金额--累积支付表中的金额即可
+			payAmount = payAmount.intValue() + paidPrice.intValue();
+			//退款金额 
 			Integer getRefundAmout = refundAmount(orderId);
-			// 如果退款金额大于支付金额改支付不计在内
-			if (getRefundAmout.intValue() >= paidPrice.intValue()) {
+			refundAmount = refundAmount.intValue() + getRefundAmout.intValue();
+			
+			// 如果退款金额的累积大于应收金额，那么应收金额不计算在内
+			if (getRefundAmout.intValue() >= payablePrice.intValue()) {
 				continue;
 			}
-			Integer payablePrice = Integer.parseInt(row.getString("payablePrice"));
-
 			// 0:全款、1：分期
 			String isInstallMent = row.getString("isInstallMent");
 			String installMentMode = row.getString("installMentMode");
 
 			if (isInstallMent.equals("0") || isInstallMent.equals("false")) {
+				//全款时，实收金额大于等于应收金额，算成交
 				if (paidPrice.intValue() >= payablePrice.intValue()) {
 					orderCount += 1;
 					payablePriceCount = payablePriceCount.intValue() + payablePrice.intValue();
@@ -179,19 +199,18 @@ public class PerfrmanceSalesmanDayService extends AbstractPerfrmanceSalesmanServ
 				}
 			} else {
 				String[] getStr = installMentMode.split("\\|");
+				//分期时，实收金额超过首期款，算应收的
 				if (paidPrice.intValue() >= Integer.parseInt(getStr[0])) {
 					orderCount += 1;
 					payablePriceCount = payablePriceCount.intValue() + payablePrice.intValue();
 					orderList += orderId + ",";
 				}
 			}
-			refundAmount = refundAmount.intValue() + getRefundAmout.intValue();
+			
 		}
 		if (!"".equals(orderList)) {
 			// 销售量
 			salesCount = salesAmount(orderList);
-			// 实收金额
-			payAmount = payAmount(orderList);
 		}
 		resultMap.put("payablePriceCount", payablePriceCount);
 		resultMap.put("payCount", payAmount);
@@ -213,7 +232,7 @@ public class PerfrmanceSalesmanDayService extends AbstractPerfrmanceSalesmanServ
 	private Integer refundAmount(Integer orderId) {
 		Integer getRefund = new Integer(0);
 		StringBuilder strSql = new StringBuilder();
-		strSql.append("SELECT COUNT(amount) as 'amout'");
+		strSql.append("SELECT SUM(amount) as 'amout'");
 		strSql.append(" from so_refund");
 		strSql.append(" where order_id =" + orderId);
 		strSql.append(" GROUP BY order_id");
@@ -245,27 +264,6 @@ public class PerfrmanceSalesmanDayService extends AbstractPerfrmanceSalesmanServ
 		return getSales;
 	}
 
-	/***
-	 * 根据订单Id的集合，获取实收金额
-	 * 
-	 * @param orderList
-	 *            订单Id集合
-	 * @return
-	 */
-	private Integer payAmount(String orderList) {
-		Integer getPay = new Integer(0);
-		StringBuilder strSql = new StringBuilder();
-		strSql.append("SELECT SUM(amount) as 'amout' from so_order_pay_map map");
-		strSql.append(" LEFT JOIN so_pay p");
-		strSql.append(" on map.pay_id = p.pkid");
-		strSql.append(" where map.order_id in(" + orderList.substring(0, orderList.length() - 1) + ")");
-		DataTable refundDt = this.pm.executeTable(strSql.toString(), null);
-		for (IRow row : refundDt) {
-			getPay = Integer.parseInt(row.getString("amout"));
-		}
-		return getPay;
-	}
-
 	private PerformanceStatistics create(Date date, Integer salesmanId, Integer departmentId) {
 		PerformanceStatistics entity = new PerformanceStatistics();
 		entity.toNew();
@@ -279,7 +277,6 @@ public class PerfrmanceSalesmanDayService extends AbstractPerfrmanceSalesmanServ
 		entity.setYear(this.context.getYear());
 		entity.setDay(this.context.getDay());
 		entity.setDate(this.context.getDate());
-
 		return entity;
 	}
 

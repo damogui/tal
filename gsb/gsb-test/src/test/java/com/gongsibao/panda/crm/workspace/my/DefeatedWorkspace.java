@@ -49,11 +49,24 @@ public class DefeatedWorkspace extends WorkspaceCreationBase{
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_MY_TASK_DEFEATED";
 		listFilter = "foolowStatus = 4 and creator_id = '{userId}'";
-		
+		listToolbarPath = "crm/task/unFoolow/checkAbmormal/toolbar";
 		formJsImport = "/gsb/crm/js/crm.all.task.part.js";
 	}
 	
-	
+	@Test
+	public void createToolbar() {
+		ResourceNode node = this.getResourceNode();
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			toolbar.setBasePath("panda/datagrid/edit");
+			toolbar.setPath(listToolbarPath);
+			toolbar.setName("抽查异样核对工具栏");
+			toolbar.setResourceNode(node);
+		}
+		addToolbarItem(toolbar, "disabled", "抽查异样", "fa fa-edit", "checkAbmormal();", null, 5);
+		toolbarService.save(toolbar);
+	}
 	
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
@@ -143,7 +156,7 @@ public class DefeatedWorkspace extends WorkspaceCreationBase{
 			part.setPartTypeId(PartType.DETAIL_PART.getId());
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
-			part.setToolbar("crm/task/communicat/detail");
+			part.setToolbar("crm/task/communicatLog/follow");
 			part.setJsController(NCustomerFollowPart.class.getName());
 			part.setServiceController(NCustomerFollowPart.class.getName());
 			part.setWindowWidth(700);

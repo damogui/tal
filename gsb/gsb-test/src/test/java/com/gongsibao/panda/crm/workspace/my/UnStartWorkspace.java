@@ -145,7 +145,7 @@ public class UnStartWorkspace extends WorkspaceCreationBase{
 				part.setPartTypeId(PartType.DETAIL_PART.getId());
 				part.setDatagrid(datagrid);
 				part.setDockStyle(DockType.DOCUMENTHOST);
-				part.setToolbar("crm/task/communicat/detail");
+				part.setToolbar("crm/task/communicatLog/follow");
 				part.setJsController(NCustomerFollowPart.class.getName());
 				part.setServiceController(NCustomerFollowPart.class.getName());
 				part.setWindowWidth(700);
