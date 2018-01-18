@@ -41,11 +41,13 @@ public class SysSalesmanWorkspaceTest  extends WorkspaceCreationBase{
 		PDatagrid datagrid = super.createDatagrid(node);
 		{
 			datagrid.setName("员工管理");
-            datagrid.setToolbar("panda/datagrid/row/edit");
+            datagrid.setToolbar("panda/datagrid/row/edit");//列表出现操作必须填写
 		}
 		PDatagridColumn column = null;
 		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-		addColumn(datagrid, "employee_id", "部门编码", ControlTypes.TEXT_BOX, 100, true);
+        addColumn(datagrid, "employee.name", "部门名称", ControlTypes.TEXT_BOX, 80);
+        addColumn(datagrid, "employee.login_name", "登录名", ControlTypes.TEXT_BOX, 100, true);//login_name
+        addColumn(datagrid, "employee.login_num", "登录次数", ControlTypes.TEXT_BOX, 100, true);
 		addColumn(datagrid, "department.name", "部门名称", ControlTypes.TEXT_BOX, 80);
 	
 		addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 80);
@@ -70,9 +72,10 @@ public class SysSalesmanWorkspaceTest  extends WorkspaceCreationBase{
 	protected PForm createForm(ResourceNode node) {
 
 		PForm form = super.createForm(node);
-		form.setColumnCount(1);
+		form.setColumnCount(2);
 		//addFormFieldRefrence类中类字段
-		addFormField(form, "creator", "创建人", null, ControlTypes.TEXT_BOX, false);
+		addFormField(form, "employee.login_name", "登录名", null, ControlTypes.TEXT_BOX, false);
+        addFormField(form, "employee.qq", "员工qq号", null, ControlTypes.TEXT_BOX, false);
 		addFormField(form, "create_time", "创建时间", null, ControlTypes.DATETIME_BOX, true);
 
 		return form;
