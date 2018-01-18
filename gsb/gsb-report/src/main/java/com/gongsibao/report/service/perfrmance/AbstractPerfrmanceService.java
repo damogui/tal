@@ -1,6 +1,7 @@
 package com.gongsibao.report.service.perfrmance;
 
 import java.sql.Types;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -96,7 +97,8 @@ public abstract class AbstractPerfrmanceService {
 			filterList.add("date=?");
 			
 			qps.add("month", this.getContext().getMonth(), Types.INTEGER);
-			qps.add("date", this.context.getDate(), Types.DATE);
+			SimpleDateFormat formatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
+			qps.add("date", formatter.format(this.context.getDate()), Types.DATE);
 			
 		} else if (this.getReportDateType() == ReportDateType.WEEK) {
 
