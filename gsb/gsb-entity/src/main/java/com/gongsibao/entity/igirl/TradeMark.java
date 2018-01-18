@@ -1,5 +1,6 @@
 package com.gongsibao.entity.igirl;
 import com.gongsibao.entity.igirl.baseinfo.NCLOne;
+import com.gongsibao.entity.igirl.dict.MarkState;
 import com.gongsibao.entity.igirl.dict.TradeMarkType;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
@@ -46,9 +47,12 @@ public class TradeMark extends Entity {
     @Column(name="momo",header="商标说明")
     private String memo;
 
+    @Column(name="mark_state",header="商标状态")
+     private MarkState markState;
 
+   
 
-    @Column(name="mark_img_attachmentid",header="商标图样")
+	@Column(name="mark_img_attachmentid",header="商标图样")
     private Integer markImgAttachmentId = -1;
     @Reference(foreignKey="markImgAttachmentId",header="商标图样")
     private Attachment markImgAttachment;
@@ -188,4 +192,11 @@ public class TradeMark extends Entity {
     public void setMemoDescAttachment(Attachment memoDescAttachment) {
         this.memoDescAttachment = memoDescAttachment;
     }
+    public MarkState getMarkState() {
+		return markState;
+	}
+
+	public void setMarkState(MarkState markState) {
+		this.markState = markState;
+	}
 }
