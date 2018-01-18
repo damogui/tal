@@ -41,9 +41,10 @@ public class SysSalesmanWorkspaceTest  extends WorkspaceCreationBase{
 		PDatagrid datagrid = super.createDatagrid(node);
 		{
 			datagrid.setName("员工管理");
+            datagrid.setToolbar("panda/datagrid/row/edit");
 		}
 		PDatagridColumn column = null;
-		column = addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
 		addColumn(datagrid, "employee_id", "部门编码", ControlTypes.TEXT_BOX, 100, true);
 		addColumn(datagrid, "department.name", "部门名称", ControlTypes.TEXT_BOX, 80);
 	
