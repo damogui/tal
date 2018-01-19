@@ -85,6 +85,7 @@ public class VoucherLogWorkspaceTest extends WorkspaceCreationBase {
 		addQueryItem(queryProject, "dsc", "u8返回信息说明", ControlTypes.TEXT_BOX);
 		// 参照
 		addRefrenceQueryItem(queryProject, "setOfBooks.name", "账套", SetOfBooks.class.getSimpleName());
+		addQueryItem(queryProject, "createTime", "添加时间", ControlTypes.DATE_BOX);
 		return queryProject;
 	}
 
