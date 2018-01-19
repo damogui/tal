@@ -1,6 +1,8 @@
 package com.gongsibao.panda.igirl.workspace;
 
 import com.gongsibao.entity.igirl.TradeMarkCase;
+import com.gongsibao.entity.igirl.dict.AttachmentCat;
+import com.gongsibao.entity.igirl.dict.FileType;
 import com.gongsibao.igirl.web.TradeMarkCasePart;
 import com.gongsibao.igirl.web.TradeMarkDetailPart;
 import com.gongsibao.igirl.web.UploadAttachmentDetailPart;
@@ -8,10 +10,12 @@ import org.junit.Before;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
+import org.netsharp.organization.dic.PostType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.*;
+import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
@@ -248,7 +252,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 
 	private void createUploadAttamentDetailPart(PWorkspace workspace) {
 
-		ResourceNode node = this.resourceService.byCode("IGIRL_UPLOAD_Attachment");
+		ResourceNode node = this.resourceService.byCode("IGIRL_UPLOAD_UploadAttachment");
 		PDatagridColumn column = null;
 		PDatagrid datagrid = new PDatagrid(node, "上传盖章附件");
 		{
@@ -258,9 +262,24 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 				// column.setFormatter("return '<a
 				// href=\"url\">name</a>'.replace('name',row.name).replace('url',row.fileUrl)");
 			}
-			addColumn(datagrid, "attachmentCat", "附件类别", ControlTypes.ENUM_BOX, 100);
-			addColumn(datagrid, "fileType", "文件类型", ControlTypes.TEXTAREA, 150);
-			addColumn(datagrid, "toFileType", "目标文件类型", ControlTypes.TEXTAREA, 150);
+			column = addColumn(datagrid, "attachmentCat", "附件类别", ControlTypes.TEXT_BOX, 100);{
+				String formatter=EnumUtil.getColumnFormatter(AttachmentCat.class);
+				column.setFormatter(formatter);
+			}
+			column=addColumn(datagrid, "fileType", "文件类型", ControlTypes.TEXT_BOX, 150);
+			{
+				String formatter=EnumUtil.getColumnFormatter(FileType.class);
+				column.setFormatter(formatter);
+			}
+			column=addColumn(datagrid, "toFileType", "目标文件类型", ControlTypes.TEXT_BOX, 150);
+			{
+				String formatter=EnumUtil.getColumnFormatter(FileType.class);
+				column.setFormatter(formatter);
+			}
+			addColumn(datagrid, "minPx", "最小像素数", ControlTypes.TEXT_BOX, 100);
+			addColumn(datagrid, "maxPx", "最大像素数", ControlTypes.TEXT_BOX, 100);
+			addColumn(datagrid, "minBytes", "最小文件大小（KB）", ControlTypes.TEXT_BOX, 150);
+			addColumn(datagrid, "maxBytes", "最大文件大小（KB）", ControlTypes.TEXT_BOX, 150);
 
 		}
 		PForm form = new PForm();
@@ -304,7 +323,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 
 	private void createDownloadAttamentDetailPart(PWorkspace workspace) {
 
-		ResourceNode node = this.resourceService.byCode("IGIRL_DOWNLOAD_Attachment");
+		ResourceNode node = this.resourceService.byCode("IGIRL_DOWNLOAD_DownloadAttachment");
 		PDatagridColumn column = null;
 		PDatagrid datagrid = new PDatagrid(node, "下载待盖章附件");
 		{

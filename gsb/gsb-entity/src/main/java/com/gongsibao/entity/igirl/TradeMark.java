@@ -55,13 +55,13 @@ public class TradeMark extends Entity {
 	@Column(name="mark_img_attachmentid",header="商标图样")
     private Integer markImgAttachmentId = -1;
     @Reference(foreignKey="markImgAttachmentId",header="商标图样")
-    private Attachment markImgAttachment;
+    private UploadAttachment markImgAttachment;
 
 
     @Column(name="memo_desc_attachment_id",header="有关说明文件")
     private Integer memoDescAttachmentId = -1;
     @Reference(foreignKey="memoDescAttachmentId",header="有关说明文件")
-    private Attachment memoDescAttachment;
+    private UploadAttachment memoDescAttachment;
 
 
 
@@ -169,11 +169,11 @@ public class TradeMark extends Entity {
         this.markImgAttachmentId = markImgAttachmentId;
     }
 
-    public Attachment getMarkImgAttachment() {
+    public UploadAttachment getMarkImgAttachment() {
         return markImgAttachment;
     }
 
-    public void setMarkImgAttachment(Attachment markImgAttachment) {
+    public void setMarkImgAttachment(UploadAttachment markImgAttachment) {
         this.markImgAttachment = markImgAttachment;
     }
 
@@ -185,11 +185,11 @@ public class TradeMark extends Entity {
         this.memoDescAttachmentId = memoDescAttachmentId;
     }
 
-    public Attachment getMemoDescAttachment() {
+    public UploadAttachment getMemoDescAttachment() {
         return memoDescAttachment;
     }
 
-    public void setMemoDescAttachment(Attachment memoDescAttachment) {
+    public void setMemoDescAttachment(UploadAttachment memoDescAttachment) {
         this.memoDescAttachment = memoDescAttachment;
     }
     public MarkState getMarkState() {

@@ -95,11 +95,11 @@ public class TradeMarkCase extends Entity {
     @Subs(foreignKey="tradeMarkCaseId",header="商标明细",subType=TradeMark.class)
     private List<TradeMark> tradeMarks;
 
-    @Subs(foreignKey="tradeMarkCaseId",header="上传附件",subType=Attachment.class)
-    private List<Attachment> uploadAttachments;
+    @Subs(foreignKey="tradeMarkCaseId",header="上传附件",subType=UploadAttachment.class)
+    private List<UploadAttachment> uploadAttachments;
 
-    @Subs(foreignKey="tradeMarkCaseId",header="下载附件",subType=Attachment.class)
-    private List<Attachment> downLoadAttaments;
+    @Subs(foreignKey="tradeMarkCaseId",header="下载附件",subType=DownloadAttachment.class)
+    private List<DownloadAttachment> downLoadAttaments;
 
     //期望时间
     @Column(name="urgency",header="紧急程度")
@@ -226,11 +226,11 @@ public class TradeMarkCase extends Entity {
         this.hasColor = hasColor;
     }
 
-    public List<Attachment> getUploadAttachments() {
+    public List<UploadAttachment> getUploadAttachments() {
         return uploadAttachments;
     }
 
-    public void setUploadAttachments(List<Attachment> uploadAttachments) {
+    public void setUploadAttachments(List<UploadAttachment> uploadAttachments) {
         this.uploadAttachments = uploadAttachments;
     }
 
@@ -314,11 +314,11 @@ public class TradeMarkCase extends Entity {
         this.tradeMarks = tradeMarks;
     }
 
-    public List<Attachment> getDownLoadAttaments() {
+    public List<DownloadAttachment> getDownLoadAttaments() {
         return downLoadAttaments;
     }
 
-    public void setDownLoadAttaments(List<Attachment> downLoadAttaments) {
+    public void setDownLoadAttaments(List<DownloadAttachment> downLoadAttaments) {
         this.downLoadAttaments = downLoadAttaments;
     }
     public String getAdvice() {

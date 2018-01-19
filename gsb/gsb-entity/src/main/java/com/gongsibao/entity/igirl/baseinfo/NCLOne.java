@@ -20,6 +20,10 @@ public class NCLOne extends Entity {
     @Column(name="memo",header="说明")
     private String memo;
 
+  
+
+	@Column(name="period",header="期间")
+    private String period;
 
     @Exclusive
     @JsonIgnore
@@ -57,4 +61,11 @@ public class NCLOne extends Entity {
     public void setNclTwos(List<NCLTwo> nclTwos) {
         this.nclTwos = nclTwos;
     }
+    public String getPeriod() {
+  		return period;
+  	}
+
+  	public void setPeriod(String period) {
+  		this.period = period;
+  	}
 }

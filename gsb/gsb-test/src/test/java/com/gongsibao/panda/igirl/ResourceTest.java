@@ -1,8 +1,8 @@
 package com.gongsibao.panda.igirl;
-
-import com.gongsibao.entity.igirl.Attachment;
+import com.gongsibao.entity.igirl.DownloadAttachment;
 import com.gongsibao.entity.igirl.TradeMark;
 import com.gongsibao.entity.igirl.TradeMarkCase;
+import com.gongsibao.entity.igirl.UploadAttachment;
 import com.gongsibao.entity.igirl.baseinfo.NCLOne;
 import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
 import com.gongsibao.igirl.base.*;
@@ -29,8 +29,8 @@ public class ResourceTest extends ResourceCreationBase {
 		node1 = this.createResourceNodeCategory("商标", "GSB_IGIRL_TM", node.getId());
 		{
 			this.createResourceNodeVoucher(TradeMarkCase.class.getName(), "方案生成", "IGIRL_All_" + TradeMarkCase.class.getSimpleName(), ITradeMarkCaseService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(Attachment.class.getName(), "上传附件", "IGIRL_UPLOAD_" + Attachment.class.getSimpleName(), IAttachmentService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(Attachment.class.getName(), "下载附件", "IGIRL_DOWNLOAD_" + Attachment.class.getSimpleName(), IAttachmentService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(UploadAttachment.class.getName(), "上传附件", "IGIRL_UPLOAD_" + UploadAttachment.class.getSimpleName(), IUploadAttachmentService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(DownloadAttachment.class.getName(), "下载附件", "IGIRL_DOWNLOAD_" + DownloadAttachment.class.getSimpleName(), IDownloadAttachmentService.class.getName(), node1.getId());
 
 			this.createResourceNodeVoucher(TradeMarkCase.class.getName(), "我的方案", "IGIRL_My_" + TradeMarkCase.class.getSimpleName(), ITradeMarkCaseService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(TradeMark.class.getName(), "进度跟进", "IGIRL_All_"+TradeMark.class.getSimpleName(), ITradeMarkService.class.getName(), node1.getId());
