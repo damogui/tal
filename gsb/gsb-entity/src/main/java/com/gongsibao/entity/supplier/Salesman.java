@@ -4,6 +4,7 @@ import org.joda.time.DateTime;
 import org.netsharp.core.annotations.*;
 import org.netsharp.entity.Entity;
 import org.netsharp.organization.entity.Employee;
+import org.netsharp.organization.entity.Role;
 import org.netsharp.organization.entity.RoleEmployee;
 
 import java.util.Date;
@@ -34,13 +35,13 @@ public class Salesman extends Entity {
 
 	@Reference(foreignKey = "supplierId", header = "服务商")
 	private Supplier supplier;
-
+    @Exclusive
 	@Column(name = "disabled", header = "停用")
 	private Boolean disabled = false;
 
     @Exclusive
-    @Subs(subType=RoleSalesman.class,foreignKey="employeeId",header="角色用户")
-    private List<RoleSalesman> roles;//忽略建表字段
+    @Subs(subType=RoleSalesman.class,foreignKey="employeeId",header="用户角色")
+    private List<RoleSalesman> roles;//忽略建表字段  RoleSalesman
    //扩展字段beg
    @Exclusive
     @Column(name = "name", header = "姓名")

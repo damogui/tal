@@ -175,7 +175,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
     protected void addDetailGridPart(PWorkspace workspace) {
 
         // 添加角色
-        addRolesDetailPart(workspace);
+      addRolesDetailPart(workspace);
 
 
     }
@@ -191,7 +191,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
             datagrid.setSingleSelect(false);
             datagrid.setReadOnly(true);
             PDatagridColumn column = null;
-            addColumn(datagrid, "role.name", "角色", ControlTypes.TEXT_BOX, 100);
+            /*addColumn(datagrid, "role.name", "角色", ControlTypes.TEXT_BOX, 100);
             column = addColumn(datagrid, "updator", "最后修改人", ControlTypes.TEXT_BOX, 100, false, null, null, null);
             {
                 column.setAlign(DatagridAlign.CENTER);
@@ -200,7 +200,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
             column = addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 100, false, null, null, null);
             {
                 column.setAlign(DatagridAlign.CENTER);
-            }
+            }*/
             addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 150, false, null, null, null);
         }
 
@@ -211,7 +211,8 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
             form.setColumnCount(1);
             form.setName("角色");
             PFormField field = null;
-            field = addFormFieldRefrence(form, "role.name", "角色", null, Role.class.getSimpleName(), true, false);
+            //field = addFormFieldRefrence(form, "role.name", "角色", null, Role.class.getSimpleName(), true, false);
+            field = addFormFieldRefrence(form, "createTime", "创建时间", null, Role.class.getSimpleName(), true, false);
         }
 
         PPart part = new PPart();
