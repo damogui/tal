@@ -17,78 +17,82 @@ import com.gongsibao.crm.web.SysSalesmanListPart;
 import com.gongsibao.entity.supplier.Salesman;
 
 //员工管理
-public class SysSalesmanWorkspaceTest  extends WorkspaceCreationBase{
-	public void setup() {
-		super.setup();
-		urlList = "/crm/sys/salesman/list";
+public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
+    public void setup() {
+        super.setup();
+        urlList = "/crm/sys/salesman/list";
         urlForm = "/crm/sys/salesman/form";
-		entity = Salesman.class;
-		meta = MtableManager.getMtable(entity);
-		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_SYS_SALESMAN";
-		formOpenMode = OpenMode.WINDOW;
-		listPartImportJs = "/gsb/crm/sys/js/sys-salesman-list-part.js";
-		listPartJsController = SysSalesmanListPart.class.getName();
-		listPartServiceController = SysSalesmanListPart.class.getName();
-	
-	}
+        entity = Salesman.class;
+        meta = MtableManager.getMtable(entity);
+        formPartName = listPartName = meta.getName();
+        resourceNodeCode = "GSB_CRM_SYS_SALESMAN";
+        formOpenMode = OpenMode.WINDOW;
+        listPartImportJs = "/gsb/crm/sys/js/sys-salesman-list-part.js";
+        listPartJsController = SysSalesmanListPart.class.getName();
+        listPartServiceController = SysSalesmanListPart.class.getName();
 
+    }
 
 
     @Override
-	protected PDatagrid createDatagrid(ResourceNode node) {
+    protected PDatagrid createDatagrid(ResourceNode node) {
 
-		PDatagrid datagrid = super.createDatagrid(node);
-		{
-			datagrid.setName("员工管理");
+        PDatagrid datagrid = super.createDatagrid(node);
+        {
+            datagrid.setName("员工管理");
             datagrid.setToolbar("panda/datagrid/row/edit");//列表出现操作必须填写
-		}
-		PDatagridColumn column = null;
-		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-        addColumn(datagrid, "employee.name", "部门名称", ControlTypes.TEXT_BOX, 80);
+        }
+        PDatagridColumn column = null;
+        addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+        addColumn(datagrid, "employee.name", "姓名", ControlTypes.TEXT_BOX, 80);
         addColumn(datagrid, "employee.login_name", "登录名", ControlTypes.TEXT_BOX, 100, true);//login_name
         addColumn(datagrid, "employee.login_num", "登录次数", ControlTypes.TEXT_BOX, 100, true);
-		addColumn(datagrid, "department.name", "部门名称", ControlTypes.TEXT_BOX, 80);
-	
-		addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 80);
-		addColumn(datagrid, "create_time", "创建时间", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "updator", "最后修改人", ControlTypes.TEXT_BOX, 80);
-		addColumn(datagrid, "update_time", "修改时间", ControlTypes.TEXT_BOX, 100);
-		
-		return datagrid;
-	}
-	@Override
-	protected PQueryProject createQueryProject(ResourceNode node) {
+        addColumn(datagrid, "department.name", "部门名称", ControlTypes.TEXT_BOX, 80);
+        addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 80);
+        addColumn(datagrid, "create_time", "创建时间", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "updator", "最后修改人", ControlTypes.TEXT_BOX, 80);
+        addColumn(datagrid, "update_time", "修改时间", ControlTypes.TEXT_BOX, 100);
 
-		PQueryProject queryProject = super.createQueryProject(node);
-		queryProject.toNew();
+        return datagrid;
+    }
+
+    @Override
+    protected PQueryProject createQueryProject(ResourceNode node) {
+
+        PQueryProject queryProject = super.createQueryProject(node);
+        queryProject.toNew();
 //		addQueryItem(queryProject, "name", "部门名称", ControlTypes.TEXT_BOX);
 //		addQueryItem(queryProject, "disabled", "是否停用", ControlTypes.BOOLCOMBO_BOX);
-		addQueryItem(queryProject, "creator", "创建人", ControlTypes.TEXT_BOX);
-		return queryProject;
-	}
+        addQueryItem(queryProject, "creator", "创建人", ControlTypes.TEXT_BOX);
+        return queryProject;
+    }
 
-	//表单填充字段
-	protected PForm createForm(ResourceNode node) {
+    //表单填充字段
+    protected PForm createForm(ResourceNode node) {
 
-		PForm form = super.createForm(node);
-		form.setColumnCount(2);
-		//addFormFieldRefrence类中类字段
-		addFormField(form, "employee.login_name", "登录名", null, ControlTypes.TEXT_BOX, false);
-        addFormField(form, "employee.qq", "员工qq号", null, ControlTypes.TEXT_BOX, false);
-		addFormField(form, "create_time", "创建时间", null, ControlTypes.DATETIME_BOX, true);
+        PForm form = super.createForm(node);
+        form.setColumnCount(2);
+        //addFormFieldRefrence类中类字段
+        addFormField(form, "name", "姓名", null, ControlTypes.TEXT_BOX, true);
+        addFormField(form, "mobile", "手机号", null, ControlTypes.TEXT_BOX, true);
+       // addFormField(form, "employeeId", "登录名", null, ControlTypes.D, false);
+        addFormField(form, "bankNo", "工资卡号", null, ControlTypes.TEXT_BOX, false);
+        addFormField(form, "entryDate", "入职日期", null, ControlTypes.DATETIME_BOX, false);
+        addFormField(form, "quitDate", "离职日期", null, ControlTypes.DATETIME_BOX, false);
+        addFormField(form, "disabled", "停用", null, ControlTypes.SWITCH_BUTTON, false);
 
-		return form;
-	}
 
-	@Override
-	protected void doOperation() {
-		ResourceNode node = this.getResourceNode();
-		operationService.addOperation(node, OperationTypes.view);
-		operationService.addOperation(node,OperationTypes.add);
-		operationService.addOperation(node,OperationTypes.update);
-		operationService.addOperation(node,OperationTypes.delete);
-	}
+        return form;
+    }
+
+    @Override
+    protected void doOperation() {
+        ResourceNode node = this.getResourceNode();
+        operationService.addOperation(node, OperationTypes.view);
+        operationService.addOperation(node, OperationTypes.add);
+//		operationService.addOperation(node,OperationTypes.update);
+//		operationService.addOperation(node,OperationTypes.delete);
+    }
 
 
     @Test
@@ -97,7 +101,8 @@ public class SysSalesmanWorkspaceTest  extends WorkspaceCreationBase{
         this.createTreeWorkspace();
         this.createFormWorkspace();
     }
-//配置树状结构
+
+    //配置树状结构
     public void createTreeWorkspace() {
 
         ResourceNode node = resourceService.byCode("GSB_CRM_SYS_DEPARTMENT");//树状的节点
