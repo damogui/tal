@@ -52,7 +52,8 @@ public class VoucherLogWorkspaceTest extends WorkspaceCreationBase {
 		column = addColumn(datagrid, "sender", "eai配置系统注册码", ControlTypes.TEXT_BOX, 80);
 		{
 			column.setVisible(false);
-		};
+		}
+		;
 		addColumn(datagrid, "orderNo", "订单编号", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "payId", "支付编号", ControlTypes.NUMBER_BOX, 80);
 		addColumn(datagrid, "refundId", "退单退款编号", ControlTypes.NUMBER_BOX, 80);
@@ -94,13 +95,15 @@ public class VoucherLogWorkspaceTest extends WorkspaceCreationBase {
 
 		field = addFormField(form, "xmlParam", "传入的参数", ControlTypes.TEXTAREA, true, false);
 		{
-			field.setWidth(600);
-			field.setHeight(350);
+
+			field.setHeight(100);
+			field.setFullColumn(true);
 		}
 		field = addFormField(form, "xmlReturn", "返回值", ControlTypes.TEXTAREA, false, false);
 		{
-			field.setWidth(600);
-			field.setHeight(350);
+
+			field.setHeight(50);
+			field.setFullColumn(true);
 		}
 
 		return form;

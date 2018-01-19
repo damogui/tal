@@ -68,26 +68,62 @@ public class PayReceiptCheckDTOWorkspaceTest extends WorkspaceCreationBase {
 		}
 
 		PDatagridColumn column = null;
-		addColumn(datagrid, "id", "支付编号", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "u8VoucherId", "u8凭证号", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "payForOrderCount", "支付订单数量", ControlTypes.ENUM_BOX, 80);
-		addColumn(datagrid, "receiptNo", "回单编号", ControlTypes.TEXT_BOX, 100);
+		column = addColumn(datagrid, "id", "支付编号", ControlTypes.TEXT_BOX, 100);
+		{
+			column.setImported(true);
+		}
+		column = addColumn(datagrid, "u8VoucherId", "u8凭证号", ControlTypes.TEXT_BOX, 100);
+		{
+			column.setImported(true);
+		}
+		column = addColumn(datagrid, "payForOrderCount", "支付订单数量", ControlTypes.ENUM_BOX, 80);
+		{
+			column.setImported(true);
+		}
+		column = addColumn(datagrid, "receiptNo", "回单编号", ControlTypes.TEXT_BOX, 100);
+		{
+			column.setImported(true);
+		}
 		column = addColumn(datagrid, "orderIdStr", "订单id", ControlTypes.TEXT_BOX, 100);
 		{
 			column.setVisible(false);
 		}
-		addColumn(datagrid, "orderNo", "订单号", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "payablePriceStr", "订单金额", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "paidPriceStr", "订单已支付金额", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "amount", "支付金额", ControlTypes.DECIMAL_BOX, 100);
-		addColumn(datagrid, "bookName", "付款账套", ControlTypes.TEXT_BOX, 200);
-		addColumn(datagrid, "bankName", "支付方式", ControlTypes.TEXT_BOX, 150);
+		column = addColumn(datagrid, "orderNo", "订单号", ControlTypes.TEXT_BOX, 100);
+		{
+			column.setImported(true);
+		}
+		column = addColumn(datagrid, "payablePriceStr", "订单金额", ControlTypes.TEXT_BOX, 100);
+		{
+			column.setImported(true);
+		}
+		column = addColumn(datagrid, "paidPriceStr", "订单已支付金额", ControlTypes.TEXT_BOX, 100);
+		{
+			column.setImported(true);
+		}
+		column = addColumn(datagrid, "amount", "支付金额", ControlTypes.DECIMAL_BOX, 100);
+		{
+			column.setImported(true);
+		}
+		column = addColumn(datagrid, "bookName", "付款账套", ControlTypes.TEXT_BOX, 200);
+		{
+			column.setImported(true);
+		}
+		column = addColumn(datagrid, "bankName", "支付方式", ControlTypes.TEXT_BOX, 150);
+		{
+			column.setImported(true);
+		}
 		column = addColumn(datagrid, "receiptStatus", "回单处理状态", ControlTypes.ENUM_BOX, 100);
 		{
 			column.setFormatter("return controllerpayReceiptCheckDTOList.changeReceiptStatusFormatter(value,row,index);");
 		}
-		addColumn(datagrid, "addTimeStr", "订单创建日期", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "returnTime", "回款日期", ControlTypes.DATETIME_BOX, 100);
+		column = addColumn(datagrid, "addTimeStr", "订单创建日期", ControlTypes.TEXT_BOX, 100);
+		{
+			column.setImported(true);
+		}
+		column = addColumn(datagrid, "returnTime", "回款日期", ControlTypes.DATETIME_BOX, 100);
+		{
+			column.setImported(true);
+		}
 		return datagrid;
 	}
 
@@ -118,6 +154,7 @@ public class PayReceiptCheckDTOWorkspaceTest extends WorkspaceCreationBase {
 
 		ResourceNode node = this.getResourceNode();
 		operationService.addOperation(node, OperationTypes.view);
+		operationService.addOperation(node, OperationTypes.exportExcel);
 		/*
 		 * operationService.addOperation(node,OperationTypes.add);
 		 * operationService.addOperation(node,OperationTypes.update);
