@@ -43,6 +43,9 @@ public class NCustomer extends Entity {
 	@Column(name = "mobile", header = "手机号码")
 	private String mobile;
 
+	@Column(name = "is_member", header = "是否是会员：0-否；1-是")
+	private Boolean isMember = false;
+	
 	@Column(name = "telephone", header = "座机")
 	private String telephone;
 
@@ -576,6 +579,14 @@ public class NCustomer extends Entity {
 
 	public void setAccount(Account account) {
 		this.account = account;
+	}
+
+	public Boolean getIsMember() {
+		return isMember;
+	}
+
+	public void setIsMember(Boolean isMember) {
+		this.isMember = isMember;
 	}	
 	
 }
