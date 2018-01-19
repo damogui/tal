@@ -9,6 +9,7 @@ import com.gongsibao.panda.crm.reference.CompanyIntentionReferenceTest;
 import com.gongsibao.panda.crm.reference.CustomerRefereneTest;
 import com.gongsibao.panda.crm.reference.EmployeeRefereneTest;
 import com.gongsibao.panda.crm.reference.NCustomerRefereneTest;
+import com.gongsibao.panda.crm.reference.NProductReferenceTest;
 import com.gongsibao.panda.crm.reference.ProductReferenceTest;
 import com.gongsibao.panda.crm.reference.SupplierDepartmentRefereneTest;
 import com.gongsibao.panda.crm.reference.SupplierRefereneTest;
@@ -44,6 +45,7 @@ import com.gongsibao.panda.crm.workspace.sys.SysSalesmanWorkspaceTest;
 		SupplierRefereneTest.class,
 		SupplierDepartmentRefereneTest.class,
 		EmployeeRefereneTest.class,
+		NProductReferenceTest.class,
 		
 		
 		CustomerAllWorkspaceTest.class,
