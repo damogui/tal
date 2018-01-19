@@ -12,6 +12,8 @@ import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.*;
 import org.netsharp.resourcenode.entity.ResourceNode;
+
+import com.gongsibao.crm.web.SysSalesmanListPart;
 import com.gongsibao.entity.supplier.Salesman;
 
 //员工管理
@@ -25,6 +27,9 @@ public class SysSalesmanWorkspaceTest  extends WorkspaceCreationBase{
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_SYS_SALESMAN";
 		formOpenMode = OpenMode.WINDOW;
+		listPartImportJs = "/gsb/crm/sys/js/sys-salesman-list-part.js";
+		listPartJsController = SysSalesmanListPart.class.getName();
+		listPartServiceController = SysSalesmanListPart.class.getName();
 	
 	}
 
@@ -36,10 +41,13 @@ public class SysSalesmanWorkspaceTest  extends WorkspaceCreationBase{
 		PDatagrid datagrid = super.createDatagrid(node);
 		{
 			datagrid.setName("员工管理");
+            datagrid.setToolbar("panda/datagrid/row/edit");//列表出现操作必须填写
 		}
 		PDatagridColumn column = null;
-		column = addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-		addColumn(datagrid, "employee_id", "部门编码", ControlTypes.TEXT_BOX, 100, true);
+		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+        addColumn(datagrid, "employee.name", "部门名称", ControlTypes.TEXT_BOX, 80);
+        addColumn(datagrid, "employee.login_name", "登录名", ControlTypes.TEXT_BOX, 100, true);//login_name
+        addColumn(datagrid, "employee.login_num", "登录次数", ControlTypes.TEXT_BOX, 100, true);
 		addColumn(datagrid, "department.name", "部门名称", ControlTypes.TEXT_BOX, 80);
 	
 		addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 80);
@@ -64,9 +72,10 @@ public class SysSalesmanWorkspaceTest  extends WorkspaceCreationBase{
 	protected PForm createForm(ResourceNode node) {
 
 		PForm form = super.createForm(node);
-		form.setColumnCount(1);
+		form.setColumnCount(2);
 		//addFormFieldRefrence类中类字段
-		addFormField(form, "creator", "创建人", null, ControlTypes.TEXT_BOX, false);
+		addFormField(form, "employee.login_name", "登录名", null, ControlTypes.TEXT_BOX, false);
+        addFormField(form, "employee.qq", "员工qq号", null, ControlTypes.TEXT_BOX, false);
 		addFormField(form, "create_time", "创建时间", null, ControlTypes.DATETIME_BOX, true);
 
 		return form;
@@ -86,7 +95,7 @@ public class SysSalesmanWorkspaceTest  extends WorkspaceCreationBase{
     @Override
     public void run() {
         this.createTreeWorkspace();
-//        this.createFormWorkspace();
+        this.createFormWorkspace();
     }
 //配置树状结构
     public void createTreeWorkspace() {

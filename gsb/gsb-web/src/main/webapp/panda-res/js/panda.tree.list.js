@@ -95,7 +95,7 @@ org.netsharp.panda.commerce.TreegridPart = org.netsharp.panda.commerce.ListPart
 			},
 			setStyle : function() {
 
-				var height = $('body').height() - 150
+				var height = $('body').height() - 120
 						- $('#queryFrom').height();
 				$("#" + this.context.id).treegrid('resize', {
 					height : height,

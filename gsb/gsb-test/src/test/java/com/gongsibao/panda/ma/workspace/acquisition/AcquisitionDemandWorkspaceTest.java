@@ -327,7 +327,9 @@ public class AcquisitionDemandWorkspaceTest extends WorkspaceCreationBase{
 		
 		addColumn(datagrid, "code", "编号", ControlTypes.TEXT_BOX, 100, true);
 		addColumn(datagrid, "name", "收购人", ControlTypes.TEXT_BOX, 80);
-		addColumn(datagrid, "mobile", "收购电话", ControlTypes.TEXT_BOX, 100);
+		column = addColumn(datagrid, "mobile", "收购电话", ControlTypes.TEXT_BOX, 100);{
+			column.setFormatter("if(value&&value.length==11){return value.substr(0,3)+'****'+value.substr(7);}");
+		}
 		column = addColumn(datagrid, "createTime", "登记时间", ControlTypes.TEXTAREA, 130);
 		{
 			column.setOrderbyMode(OrderbyMode.DESC);

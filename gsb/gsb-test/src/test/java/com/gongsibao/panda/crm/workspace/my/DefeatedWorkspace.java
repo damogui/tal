@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
-import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.PartType;
@@ -17,13 +16,12 @@ import org.netsharp.panda.entity.PPart;
 import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.entity.PWorkspace;
-import org.netsharp.panda.plugin.dic.ToolbarType;
 import org.netsharp.panda.plugin.entity.PToolbar;
-import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
+import com.gongsibao.crm.web.CheckAbmormalPart;
 import com.gongsibao.crm.web.NCustomerFollowPart;
 import com.gongsibao.entity.crm.NCustomerChange;
 import com.gongsibao.entity.crm.NCustomerTask;
@@ -50,10 +48,29 @@ public class DefeatedWorkspace extends WorkspaceCreationBase{
 		resourceNodeCode = "GSB_CRM_MY_TASK_DEFEATED";
 		listFilter = "foolowStatus = 4 and creator_id = '{userId}'";
 		
+		listToolbarPath = "crm/task/unFoolow/checkAbmormal/toolbar";
+		//引用js、js操作方法、js操作后台方法
+		listPartImportJs ="/gsb/crm/js/crm.check.abmormal.list.js";
+		listPartJsController = CheckAbmormalPart.class.getName();
+		listPartServiceController = CheckAbmormalPart.class.getName();
+		//子页面引用的js
 		formJsImport = "/gsb/crm/js/crm.all.task.part.js";
 	}
 	
-	
+	@Test
+	public void createToolbar() {
+		ResourceNode node = this.getResourceNode();
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			toolbar.setBasePath("panda/datagrid/edit");
+			toolbar.setPath(listToolbarPath);
+			toolbar.setName("抽查异样核对工具栏");
+			toolbar.setResourceNode(node);
+		}
+		addToolbarItem(toolbar, "checkAbmormal", "抽查标记", "fa fa-edit", "checkAbmormal()", null, 5);
+		toolbarService.save(toolbar);
+	}
 	
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {

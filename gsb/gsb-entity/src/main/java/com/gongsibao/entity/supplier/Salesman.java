@@ -1,10 +1,11 @@
 package com.gongsibao.entity.supplier;
 
-import org.netsharp.core.annotations.Column;
-import org.netsharp.core.annotations.Reference;
-import org.netsharp.core.annotations.Table;
+import org.netsharp.core.annotations.*;
 import org.netsharp.entity.Entity;
 import org.netsharp.organization.entity.Employee;
+import org.netsharp.organization.entity.RoleEmployee;
+
+import java.util.List;
 
 @Table(name = "sp_salesman", header = "服务商业务员")
 public class Salesman extends Entity {
@@ -34,6 +35,10 @@ public class Salesman extends Entity {
 
 	@Column(name = "disabled", header = "停用")
 	private Boolean disabled = false;
+
+    @Exclusive
+    @Subs(subType=RoleSalesman.class,foreignKey="salesmanId",header="角色用户")
+    private List<RoleSalesman> roles;
 
 	// 配置
 

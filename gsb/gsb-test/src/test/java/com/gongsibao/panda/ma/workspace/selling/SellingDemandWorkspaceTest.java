@@ -187,7 +187,9 @@ public class SellingDemandWorkspaceTest extends WorkspaceCreationBase{
 		addColumn(datagrid, "city.name", "注册城市", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "county.name", "注册区/县", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "name", "出售人", ControlTypes.TEXT_BOX, 80);
-		addColumn(datagrid, "mobile", "出售电话", ControlTypes.TEXT_BOX, 100);
+		column = addColumn(datagrid, "mobile", "出售电话", ControlTypes.TEXT_BOX, 100);{
+			column.setFormatter("if(value&&value.length==11){return value.substr(0,3)+'****'+value.substr(7);}");
+		}
 		addColumn(datagrid, "valuationPrice", "售价", ControlTypes.TEXT_BOX, 100);
 		
 		column = addColumn(datagrid, "soldOutState", "上/下架状态", ControlTypes.ENUM_BOX, 100);

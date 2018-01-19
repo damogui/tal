@@ -14,7 +14,7 @@ body {
 	color:#76838f;
 }
 a {
-    color: #62a8ea;
+    color: #1f7bb6;
     text-decoration: none;
 }
 
@@ -24,9 +24,9 @@ a {
     width: 100%;
 }
 .btn-primary {
-    color: #000;
-    background-color: #f4d10b;
-    border-color: #f4d10b;
+    color: #fff;
+    background-color: #16191f;
+    border-color: #16191f;
 }
 .btn {
     display: inline-block;
@@ -258,8 +258,8 @@ button, input, select, textarea {
 }
 
 .checkbox-primary input[type=checkbox]:checked+label::before, .checkbox-primary input[type=radio]:checked+label::before {
-    background-color: #1f7bb6;
-    border-color: #1f7bb6;
+    background-color: #16191f;
+    border-color: #16191f;
 }
 
 .checkbox-primary input[type=checkbox]:checked+label::after, .checkbox-primary input[type=radio]:checked+label::after {
