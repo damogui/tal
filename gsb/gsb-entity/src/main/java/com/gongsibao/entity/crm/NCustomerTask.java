@@ -118,11 +118,11 @@ public class NCustomerTask extends Entity {
     @Column(name = "allocation_dispositon",header="自营/平台")
     private AllocationDispositon allocationDispositon = AllocationDispositon.DIRECT;
     
-	@Reference(foreignKey = "customerSourceId", header = "任务来源")
-	private Dict customerSource;
+	@Reference(foreignKey = "taskSourceId", header = "任务来源")
+	private Dict taskSource;
 
-	@Column(name = "customer_source_id", header = "任务来源")
-	private Integer customerSourceId = 0;
+	@Column(name = "task_source_id", header = "任务来源")
+	private Integer taskSourceId = 0;
 	
     @Column(name = "task_type",header="任务类型")
     private TaskCustomerType taskCustomerType = TaskCustomerType.NEW;
@@ -179,20 +179,20 @@ public class NCustomerTask extends Entity {
 		this.allocationDispositon = allocationDispositon;
 	}
 
-	public Dict getCustomerSource() {
-		return customerSource;
+	public Dict getTaskSource() {
+		return taskSource;
 	}
 
-	public void setCustomerSource(Dict customerSource) {
-		this.customerSource = customerSource;
+	public void setTaskSource(Dict taskSource) {
+		this.taskSource = taskSource;
 	}
 
-	public Integer getCustomerSourceId() {
-		return customerSourceId;
+	public Integer getTaskSourceId() {
+		return taskSourceId;
 	}
 
-	public void setCustomerSourceId(Integer customerSourceId) {
-		this.customerSourceId = customerSourceId;
+	public void setTaskSourceId(Integer taskSourceId) {
+		this.taskSourceId = taskSourceId;
 	}
 
 	public TaskCustomerType getTaskCustomerType() {
