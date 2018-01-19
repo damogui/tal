@@ -712,7 +712,7 @@ org.netsharp.core.intelligentMode = {
 	EQUALS:0,//严格匹配
 	LEFT:1,//左匹配
 	RIGHT:2,//右匹配
-	LIKE:3,//模糊匹配
+	LIKE:3,//模糊匹配 
 	GTR:4,//大于
 	GTE:5,//大于等于
 	LESS:6,//小于
