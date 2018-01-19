@@ -6,26 +6,26 @@ import org.netsharp.base.IEnum;
 /**
  * 附件类别
  */
-public enum FileType implements IEnum {
+public enum TMCState implements IEnum {
 
-    JPGB(0, "jpg黑"),//business_liense
-    JPGC(1, "jpg彩"),//business_liense
-    PNGB(2, "png黑"),// trademark picture
-    PNGC(3, "png彩"),// trademark picture
+    WAIT_CONFIRM(0, "待确认"),//business_liense
+    ADVICE(1, "异议"),//business_liense
+    CONFIRMED(2, "已确认"),// trademark picture
+    PAYED(3, "已付款"),// trademark picture
     //delegate proof
-    PDF(4, "pdf");
+    OVER(4, "已完结");
     private int value;
     private String text;
 
-    FileType(int value, String text) {
+    TMCState(int value, String text) {
         this.value = value;
         this.text = text;
     }
 
     @JsonCreator
-    public static FileType getItem(int value) {
+    public static TMCState getItem(int value) {
 
-        for (FileType item : values()) {
+        for (TMCState item : values()) {
 
             if (item.getValue() == value) {
                 return item;

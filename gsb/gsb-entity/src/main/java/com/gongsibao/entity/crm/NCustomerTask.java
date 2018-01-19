@@ -75,7 +75,10 @@ public class NCustomerTask extends Entity {
 	@Column(name = "intention_category", header = "质量分类")
 	private QualityCategory intentionCategory;
 	
-	@Column(name = "quality", header = "质量")
+	@Column(name = "quality_id", header = "客户质量id")
+	private Integer qualityId;
+	
+	@Reference(foreignKey = "qualityId", header = "客户质量")
 	private NCustomerTaskQuality quality;
 	
 	@Column(name = "last_follow_time", header = "最近跟进时间")
@@ -93,9 +96,6 @@ public class NCustomerTask extends Entity {
 	
 	@Column(name = "next_foolow_time", header = "下次跟进时间")
 	private Date nextFoolowTime;
-	
-	@Column(name = "old", header = "是否老客户")
-	private Boolean old = false;
 	
 	@Column(name = "inspection_state", header = "抽查异常状态")
 	private TaskInspectionState inspectionState = TaskInspectionState.UNINSPECTION;
@@ -118,10 +118,10 @@ public class NCustomerTask extends Entity {
     @Column(name = "allocation_dispositon",header="自营/平台")
     private AllocationDispositon allocationDispositon = AllocationDispositon.DIRECT;
     
-	@Reference(foreignKey = "customerSourceId", header = "客户来源")
+	@Reference(foreignKey = "customerSourceId", header = "任务来源")
 	private Dict customerSource;
 
-	@Column(name = "customer_source_id", header = "客户来源")
+	@Column(name = "customer_source_id", header = "任务来源")
 	private Integer customerSourceId = 0;
 	
     @Column(name = "task_type",header="任务类型")
@@ -299,14 +299,6 @@ public class NCustomerTask extends Entity {
 		this.quality = quality;
 	}
 
-	public Boolean getOld() {
-		return old;
-	}
-
-	public void setOld(Boolean old) {
-		this.old = old;
-	}
-
 	public String getMemoto() {
 		return memoto;
 	}
@@ -418,4 +410,14 @@ public class NCustomerTask extends Entity {
 	public void setLastAllocationUser(Employee lastAllocationUser) {
 		this.lastAllocationUser = lastAllocationUser;
 	}
+
+	public Integer getQualityId() {
+		return qualityId;
+	}
+
+	public void setQualityId(Integer qualityId) {
+		this.qualityId = qualityId;
+	}
+	
+	
 }

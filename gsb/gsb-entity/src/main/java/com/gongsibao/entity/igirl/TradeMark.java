@@ -1,5 +1,6 @@
 package com.gongsibao.entity.igirl;
 import com.gongsibao.entity.igirl.baseinfo.NCLOne;
+import com.gongsibao.entity.igirl.dict.MarkState;
 import com.gongsibao.entity.igirl.dict.TradeMarkType;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
@@ -46,18 +47,21 @@ public class TradeMark extends Entity {
     @Column(name="momo",header="商标说明")
     private String memo;
 
+    @Column(name="mark_state",header="商标状态")
+     private MarkState markState;
 
+   
 
-    @Column(name="mark_img_attachmentid",header="商标图样")
+	@Column(name="mark_img_attachmentid",header="商标图样")
     private Integer markImgAttachmentId = -1;
     @Reference(foreignKey="markImgAttachmentId",header="商标图样")
-    private Attachment markImgAttachment;
+    private UploadAttachment markImgAttachment;
 
 
     @Column(name="memo_desc_attachment_id",header="有关说明文件")
     private Integer memoDescAttachmentId = -1;
     @Reference(foreignKey="memoDescAttachmentId",header="有关说明文件")
-    private Attachment memoDescAttachment;
+    private UploadAttachment memoDescAttachment;
 
 
 
@@ -165,11 +169,11 @@ public class TradeMark extends Entity {
         this.markImgAttachmentId = markImgAttachmentId;
     }
 
-    public Attachment getMarkImgAttachment() {
+    public UploadAttachment getMarkImgAttachment() {
         return markImgAttachment;
     }
 
-    public void setMarkImgAttachment(Attachment markImgAttachment) {
+    public void setMarkImgAttachment(UploadAttachment markImgAttachment) {
         this.markImgAttachment = markImgAttachment;
     }
 
@@ -181,11 +185,18 @@ public class TradeMark extends Entity {
         this.memoDescAttachmentId = memoDescAttachmentId;
     }
 
-    public Attachment getMemoDescAttachment() {
+    public UploadAttachment getMemoDescAttachment() {
         return memoDescAttachment;
     }
 
-    public void setMemoDescAttachment(Attachment memoDescAttachment) {
+    public void setMemoDescAttachment(UploadAttachment memoDescAttachment) {
         this.memoDescAttachment = memoDescAttachment;
     }
+    public MarkState getMarkState() {
+		return markState;
+	}
+
+	public void setMarkState(MarkState markState) {
+		this.markState = markState;
+	}
 }

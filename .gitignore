@@ -69,6 +69,7 @@
 /gsb/gsb-sms/.classpath
 /gsb/gradle.properties
 /gsb/gsb-web/src/main/resources/dev/conf/configuration.properties
+/gsb/.idea
 /gsb/gsb-gardian/.project
 /gsb/gsb-gardian/.settings
 /gsb/gsb-gardian/bin
