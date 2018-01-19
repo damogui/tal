@@ -56,6 +56,9 @@ public class VoucherLog extends Entity {
 
 	@Column(name = "xml_return", header = "返回值")
 	private String xmlReturn;
+
+	@Column(name = "orderno_custname", header = "订单编号和客户名称")
+	private String ordernoCustname;
 	
 	@Column(name = "type", header = "0:收款 1:确认收入 2:退款")
 	private VoucherLogType type = VoucherLogType.Shoukuan;
@@ -170,6 +173,14 @@ public class VoucherLog extends Entity {
 
 	public void setType(VoucherLogType type) {
 		this.type = type;
+	}
+
+	public String getOrdernoCustname() {
+		return ordernoCustname;
+	}
+
+	public void setOrdernoCustname(String ordernoCustname) {
+		this.ordernoCustname = ordernoCustname;
 	}
 	
 	
