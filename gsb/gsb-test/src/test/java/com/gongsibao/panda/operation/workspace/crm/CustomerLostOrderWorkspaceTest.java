@@ -94,7 +94,6 @@ public class CustomerLostOrderWorkspaceTest extends WorkspaceCreationBase{
 		column = addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 100, false);
 		column = addColumn(datagrid, "lastFoolowUser.name", "最后跟进人", ControlTypes.TEXT_BOX, 100, false);
 		column = addColumn(datagrid, "lastContent", "最后跟进内容", ControlTypes.TEXT_BOX, 100, false);
-		column = addColumn(datagrid, "old", "是否老客户", ControlTypes.BOOLCOMBO_BOX, 100, false);
 		column = addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 100, false);
 		return datagrid;
 	}

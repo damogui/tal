@@ -44,16 +44,18 @@ public class PayReceiptCheckDTOService extends PersistableService<PayReceiptChec
 		}
 
 		Paging paging = oql.getPaging();
-		int startIndex = (paging.getPageNo() - 1) * paging.getPageSize();
-
+		int startIndex = paging == null ? 0 : (paging.getPageNo() - 1) * paging.getPageSize();
+		int pageSize = paging == null ? 0 : paging.getPageSize();
 		// 查询sql
-		StringBuffer sql = getsql(0, mapFilters, startIndex, paging.getPageSize());
-		// 获取总条数sql
-		StringBuffer rcountsql = getsql(1, mapFilters, startIndex, paging.getPageSize());
+		StringBuffer sql = getsql(0, mapFilters, startIndex, pageSize);
 
-		// 获取总条数
-		paging.setTotalCount(getqueryListCount(rcountsql.toString()));
-		oql.setPaging(paging);
+		if (pageSize > 0) {
+			// 获取总条数sql
+			StringBuffer rcountsql = getsql(1, mapFilters, startIndex, pageSize);
+			// 获取总条数
+			paging.setTotalCount(getqueryListCount(rcountsql.toString()));
+			oql.setPaging(paging);
+		}
 
 		DataTable dataTable = this.pm.executeTable(sql.toString(), null);
 		List<PayReceiptCheckDTO> reslis = new ArrayList<>();
@@ -182,7 +184,8 @@ public class PayReceiptCheckDTOService extends PersistableService<PayReceiptChec
 		if (type == 0) {
 			sql.append("GROUP BY p.`pkid` ");
 			sql.append("ORDER BY p.`pkid` DESC ");
-			sql.append("LIMIT " + startIndex + ", " + pageSize + " ");
+			if (pageSize > 0)
+				sql.append("LIMIT " + startIndex + ", " + pageSize + " ");
 		}
 
 		return sql;
