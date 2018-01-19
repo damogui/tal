@@ -8,7 +8,7 @@ import org.netsharp.base.IEnum;
  */
 public enum FileType implements IEnum {
 
-    JPGB(0, "JPG黑"),//business_liense
+    JPGB(0, "jpg黑"),//business_liense
     JPGC(1, "jpg彩"),//business_liense
     PNGB(2, "png黑"),// trademark picture
     PNGC(3, "png彩"),// trademark picture

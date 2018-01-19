@@ -1,18 +1,42 @@
 package com.gongsibao.igirl.service;
-
 import com.gongsibao.bd.service.GsbPersistableService;
 import com.gongsibao.entity.igirl.TradeMarkCase;
+import com.gongsibao.entity.igirl.UploadAttachment;
+import com.gongsibao.entity.igirl.dict.AttachmentCat;
+import com.gongsibao.entity.igirl.dict.FileType;
 import com.gongsibao.igirl.base.ITradeMarkCaseService;
+
 import org.joda.time.DateTime;
 import org.netsharp.communication.Service;
+import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
+import org.netsharp.core.Oql;
 @Service
 public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> implements ITradeMarkCaseService {
-
+	
+	//IAttachmentService attachementService=ServiceFactory.create(IAttachmentService.class);
 	public TradeMarkCaseService() {
 		super();
 		this.type = TradeMarkCase.class;
 	}
+	
+	private UploadAttachment buildUploadAttachment(String name,AttachmentCat ac,Integer tmcid,FileType fileType,FileType tofileType) {
+		UploadAttachment attachment=new UploadAttachment();
+		attachment.toNew();
+		attachment.setName(name);	
+		attachment.setAttachmentCat(ac);
+		attachment.setTradeMarkCaseId(tmcid);
+		//上传时，修改文件类型
+		attachment.setFileType(fileType);
+		attachment.setToFileType(tofileType);
+		
+		attachment.setMinPx(500);
+		attachment.setMaxPx(2000);
+		attachment.setMinBytes(100);
+		attachment.setMaxBytes(500);
+		return attachment;
+	}
+	
 
 	@Override
 	public TradeMarkCase save(TradeMarkCase entity) {
@@ -21,11 +45,59 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		if(entity.getEntityState()==EntityState.New) {
 			entity.setCode(DateTime.now().toString("yyyyMMddHHmmss"));
 			//IUserService userService=ServiceFactory.create(IUser)
+
+			//判断是否选中多，生成上传附件列表，如果选择
+			UploadAttachment attachment0=(UploadAttachment)this.buildUploadAttachment("黑色商标图样", AttachmentCat.TRADEMARK_PICT, entity.getId(), FileType.JPGB,FileType.JPGB);
+			entity.getUploadAttachments().add(attachment0);
+			if(entity.getHasColor()) {		
+				//彩色商标图样
+				UploadAttachment attachment1 =(UploadAttachment)this.buildUploadAttachment("彩色商标图样", AttachmentCat.TRADEMARK_PICT, entity.getId(), FileType.JPGC,FileType.JPGC);
+				entity.getUploadAttachments().add(attachment1);			
+			}
+			UploadAttachment attachment2=(UploadAttachment)this.buildUploadAttachment("营业执照",AttachmentCat.BUSINESS_LIEN, entity.getId(), FileType.JPGC,FileType.PDF);
+			entity.getUploadAttachments().add(attachment2);
 			
+			UploadAttachment attachment3=(UploadAttachment)this.buildUploadAttachment("委托书",AttachmentCat.DELEGATE_PROOF, entity.getId(), FileType.JPGC,FileType.JPGC);
+			entity.getUploadAttachments().add(attachment3);
+			
+			UploadAttachment attachment4=(UploadAttachment)this.buildUploadAttachment("确认函",AttachmentCat.CONFIRM_PROOF, entity.getId(), FileType.JPGC,FileType.JPGC);
+			entity.getUploadAttachments().add(attachment4);
+			
+			UploadAttachment attachment5=(UploadAttachment)this.buildUploadAttachment("补充证明（可不传）",AttachmentCat.MEMO_DESC, entity.getId(), FileType.JPGC,FileType.JPGC);
+			entity.getUploadAttachments().add(attachment5);
 			
 		}
-			
 		
+//		//附件商标图样因为色彩而变化
+//		if(entity.getEntityState()==EntityState.Persist) {
+//			
+//			if(!entity.getHasColor()) {		
+//				//查询出彩色附件，并删除
+////				Oql oql=new Oql();{
+////					oql.setType(Attachment.class);
+////					oql.setSelects("attachment.{id}");
+////					oql.setFilter("fileType=? and tradeMarkCaseId=?");
+////					oql.getParameters().add("fileType",1,Types.INTEGER);
+////					oql.getParameters().add("tradeMarkCaseId",entity.getId(),Types.INTEGER);
+////				}
+//				
+////				String cmdstr="delete from ig_attachment where file_type=? and tradeMarkCaseId"
+//				//attachementService.executeTable("", qps)
+////				oql.setType(Employee.class);
+////				oql.setSelects("employee.{id,loginName}");
+////				oql.setFilter(" id=? ");
+////				oql.getParameters().add("id", SessionManager.getUserId(), Types.INTEGER);
+//			
+//			}else {
+//				
+//				
+//			}
+//			
+//		}
+		//默认设置为联系人电话
+		entity.setToken(entity.getMobile());
+		
+		//设置tokenImageUrl
 		entity = super.save(entity);
 		return entity;
 	}

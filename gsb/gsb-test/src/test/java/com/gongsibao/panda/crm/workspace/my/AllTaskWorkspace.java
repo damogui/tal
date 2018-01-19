@@ -24,6 +24,7 @@ import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
+import com.gongsibao.crm.web.MyAllTaskListPart;
 import com.gongsibao.crm.web.NCustomerFollowPart;
 import com.gongsibao.entity.crm.NCustomerChange;
 import com.gongsibao.entity.crm.NCustomerTask;
@@ -50,10 +51,30 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_MY_TASK_ALL";
 		listFilter = "creator_id = '{userId}'";
-		
-		formJsImport = "/gsb/crm/js/crm.all.task.part.js";
+		//扩展子页面操作
+		formJsImport = "/gsb/crm/js/crm-allTask-part.js";
+		//扩展列表操作
+		listToolbarPath = "crm/my/task/all/toolbar";
+		listPartImportJs ="/gsb/crm/js/crm-allTask-list.js";
+		listPartJsController = MyAllTaskListPart.class.getName();
+		listPartServiceController = MyAllTaskListPart.class.getName();
 	}
 
+	@Test
+	public void createToolbar() {
+		ResourceNode node = this.getResourceNode();
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			toolbar.setBasePath("panda/datagrid/edit");
+			toolbar.setPath(listToolbarPath);
+			toolbar.setName("开通会员工具栏操作");
+			toolbar.setResourceNode(node);
+		}
+		addToolbarItem(toolbar, "checkAbmormal", "开通会员", "fa fa-edit", "openMemberPopup()", null, 5);
+		toolbarService.save(toolbar);
+	}
+	
 	@Test
 	public void detailPart() {
 		ResourceNode node = this.resourceService.byCode(NCustomerTaskFoolow.class.getSimpleName());
@@ -62,7 +83,7 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		{
 			toolbar.toNew();
 			toolbar.setPath("crm/task/communicatLog/follow");
-			toolbar.setName("子表");
+			toolbar.setName("子页面中的工具栏操作");
 			toolbar.setResourceNode(node);
 			toolbar.setToolbarType(ToolbarType.BASE);
 		}
@@ -85,24 +106,27 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 	protected PDatagrid createDatagrid(ResourceNode node) {
 		PDatagrid datagrid = super.createDatagrid(node);
 		PDatagridColumn column = null;
-		column = addColumn(datagrid, "customer.realName", "客户", ControlTypes.TEXT_BOX, 100, true);
-		column = addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 100, true);
-		column = addColumn(datagrid, "supplier.name", "分配服务商", ControlTypes.TEXT_BOX, 100, false);
-		column = addColumn(datagrid, "department.name", "分配服务商部门", ControlTypes.TEXT_BOX, 100, false);
-		column = addColumn(datagrid, "lastFollowTime", "最近跟进时间", ControlTypes.DATE_BOX, 100, false);
-		column = addColumn(datagrid, "foolowStatus", "跟进状态", ControlTypes.ENUM_BOX, 100, false);
-		column = addColumn(datagrid, "intentionCategory", "质量分类", ControlTypes.ENUM_BOX, 100, false);
-		column = addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 100, false);
-		column = addColumn(datagrid, "lastFoolowUser.name", "最后跟进人", ControlTypes.TEXT_BOX, 100, false);
-		column = addColumn(datagrid, "lastContent", "最后跟进内容", ControlTypes.TEXT_BOX, 100, false);
-		{
-			column.setFormatter("return '<span title='+value+'>'+value+'</span>'");
+		datagrid.setToolbar("panda/datagrid/row/edit");
+		column = addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+		addColumn(datagrid, "department.name", "分配服务商部门", ControlTypes.TEXT_BOX, 100, false);
+		//addColumn(datagrid, "id", "任务ID", ControlTypes.NUMBER_BOX, 100, false);
+		addColumn(datagrid, "name", "任务名称", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "customer.id", "客户ID", ControlTypes.NUMBER_BOX, 100, false);
+		addColumn(datagrid, "customer.isMember", "是否会员", ControlTypes.BOOLCOMBO_BOX, 100, false);
+		addColumn(datagrid, "customer.realName", "联系人", ControlTypes.TEXT_BOX, 100, false);
+		column = addColumn(datagrid, "customer.mobile", "手机号", ControlTypes.TEXT_BOX, 100, false);{
+			column.setFormatter("if(value&&value.length==11){return value.substr(0,3)+'****'+value.substr(7);}");
 		}
-		column = addColumn(datagrid, "old", "是否老客户", ControlTypes.TEXT_BOX, 100, false);
-		column = addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 100, false);
-		{
-			column.setFormatter("return '<span title='+value+'>'+value+'</span>'");
-		}
+		addColumn(datagrid, "customer.telephone", "手机号", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "customer.qq", "QQ", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "customer.weixin", "微信", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "quality.name", "客户质量", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "customerSource.name", "任务来源", ControlTypes.ENUM_BOX, 100, false);
+		addColumn(datagrid, "lastFollowTime", "最近跟进时间", ControlTypes.DATE_BOX, 100, false);
+		addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 100, false);
+		addColumn(datagrid, "salesman.employee.name", "业务员", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATE_BOX, 100, false);
 		return datagrid;
 	}
 	
@@ -312,7 +336,10 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		return form;
 	}	
 	public void doOperation() {
+		
 		ResourceNode node = resourceService.byCode(resourceNodeCode);
 		operationService.addOperation(node, OperationTypes.view);
+		operationService.addOperation(node, OperationTypes.add);
+		operationService.addOperation(node, OperationTypes.update);
 	}
 }

@@ -1,15 +1,15 @@
 package com.gongsibao.igirl.service;
-
 import com.gongsibao.bd.service.GsbPersistableService;
-import com.gongsibao.entity.igirl.Attachment;
-import com.gongsibao.igirl.base.IAttachmentService;
+import com.gongsibao.entity.igirl.UploadAttachment;
+import com.gongsibao.igirl.base.IUploadAttachmentService;
+
 import org.netsharp.communication.Service;
 @Service
-public class AttachmentService extends GsbPersistableService<Attachment> implements IAttachmentService {
+public class UploadAttachmentService extends GsbPersistableService<UploadAttachment> implements IUploadAttachmentService {
 
-	public AttachmentService() {
+	public UploadAttachmentService() {
 		super();
-		this.type = Attachment.class;
+		this.type = UploadAttachment.class;
 	}
 
 //	@Override

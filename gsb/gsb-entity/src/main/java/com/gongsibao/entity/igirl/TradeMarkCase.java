@@ -1,5 +1,6 @@
 package com.gongsibao.entity.igirl;
 import com.gongsibao.entity.igirl.dict.ApplierType;
+import com.gongsibao.entity.igirl.dict.TMCState;
 import com.gongsibao.entity.igirl.dict.WriteType;
 import org.netsharp.core.annotations.*;
 import org.netsharp.entity.Entity;
@@ -29,6 +30,12 @@ public class TradeMarkCase extends Entity {
 
     @Column(name="momo",header="交流记录")
     private String  momo;
+    
+    @Column(name="advice",header="客户意见")
+    private String  advice;
+    
+	@Column(name="tmc_state",header="方案状态")
+    private TMCState tmcState=TMCState.WAIT_CONFIRM;
 
     @Column(name="applier_type",header="申请人类型")
     private ApplierType applierType=ApplierType.PUBLIC;
@@ -61,8 +68,8 @@ public class TradeMarkCase extends Entity {
     @Column(name="token",header="分享方案表识")
     private String  token;
 
-    @Column(name="token_img_url",header="二纬码")
-    private String  tokenImgUrl;
+    @Column(name="token_img_url",size=256,header="二纬码")
+    private String  tokenImgUrl="http://a1.att.hudong.com/88/53/01300001309585136263538015274.jpg";
 
     @Column(name="case_amount",header="金额")
     private BigDecimal caseAmount=BigDecimal.ZERO;
@@ -76,8 +83,6 @@ public class TradeMarkCase extends Entity {
     @Column(name="trade_options",header="商标选项")
     private String  tradeOptions;
 
-
-
     @Column(name="proxy_company_name",header="代理商名称")
     private String proxyCompanyName;
 
@@ -90,11 +95,11 @@ public class TradeMarkCase extends Entity {
     @Subs(foreignKey="tradeMarkCaseId",header="商标明细",subType=TradeMark.class)
     private List<TradeMark> tradeMarks;
 
-    @Subs(foreignKey="tradeMarkCaseId",header="上传附件",subType=Attachment.class)
-    private List<Attachment> uploadAttachments;
+    @Subs(foreignKey="tradeMarkCaseId",header="上传附件",subType=UploadAttachment.class)
+    private List<UploadAttachment> uploadAttachments;
 
-    @Subs(foreignKey="tradeMarkCaseId",header="下载附件",subType=Attachment.class)
-    private List<Attachment> downLoadAttaments;
+    @Subs(foreignKey="tradeMarkCaseId",header="下载附件",subType=DownloadAttachment.class)
+    private List<DownloadAttachment> downLoadAttaments;
 
     //期望时间
     @Column(name="urgency",header="紧急程度")
@@ -221,11 +226,11 @@ public class TradeMarkCase extends Entity {
         this.hasColor = hasColor;
     }
 
-    public List<Attachment> getUploadAttachments() {
+    public List<UploadAttachment> getUploadAttachments() {
         return uploadAttachments;
     }
 
-    public void setUploadAttachments(List<Attachment> uploadAttachments) {
+    public void setUploadAttachments(List<UploadAttachment> uploadAttachments) {
         this.uploadAttachments = uploadAttachments;
     }
 
@@ -309,11 +314,26 @@ public class TradeMarkCase extends Entity {
         this.tradeMarks = tradeMarks;
     }
 
-    public List<Attachment> getDownLoadAttaments() {
+    public List<DownloadAttachment> getDownLoadAttaments() {
         return downLoadAttaments;
     }
 
-    public void setDownLoadAttaments(List<Attachment> downLoadAttaments) {
+    public void setDownLoadAttaments(List<DownloadAttachment> downLoadAttaments) {
         this.downLoadAttaments = downLoadAttaments;
     }
+    public String getAdvice() {
+		return advice;
+	}
+
+	public void setAdvice(String advice) {
+		this.advice = advice;
+	}
+
+	public TMCState getTmcState() {
+		return tmcState;
+	}
+
+	public void setTmcState(TMCState tmcState) {
+		this.tmcState = tmcState;
+	}
 }
