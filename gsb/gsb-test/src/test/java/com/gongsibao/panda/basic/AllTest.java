@@ -33,7 +33,7 @@ import com.gongsibao.panda.basic.workspace.u8.VoucherLogWorkspaceTest;
 	//回单核对
 	PayReceiptCheckDTOWorkspaceTest.class,
 	//手动凭证订单列表
-	ManualVoucherOrderDTOWorkspaceTest.class,	
+	ManualVoucherOrderDTOWorkspaceTest.class,
 	
 	//收款审核
 	//ReceivablesAuditDTOWorkspaceTest.class,	
