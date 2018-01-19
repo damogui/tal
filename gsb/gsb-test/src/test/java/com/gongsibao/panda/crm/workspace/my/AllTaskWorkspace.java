@@ -24,6 +24,7 @@ import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
+import com.gongsibao.controls.DictComboBox;
 import com.gongsibao.crm.web.MyAllTaskListPart;
 import com.gongsibao.crm.web.NCustomerFollowPart;
 import com.gongsibao.entity.crm.NCustomerChange;
@@ -109,7 +110,6 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		datagrid.setToolbar("panda/datagrid/row/edit");
 		column = addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
 		addColumn(datagrid, "department.name", "分配服务商部门", ControlTypes.TEXT_BOX, 100, false);
-		//addColumn(datagrid, "id", "任务ID", ControlTypes.NUMBER_BOX, 100, false);
 		addColumn(datagrid, "name", "任务名称", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "customer.id", "客户ID", ControlTypes.NUMBER_BOX, 100, false);
 		addColumn(datagrid, "customer.isMember", "是否会员", ControlTypes.BOOLCOMBO_BOX, 100, false);
@@ -121,7 +121,7 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		addColumn(datagrid, "customer.qq", "QQ", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "customer.weixin", "微信", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "quality.name", "客户质量", ControlTypes.TEXT_BOX, 100, false);
-		addColumn(datagrid, "customerSource.name", "任务来源", ControlTypes.ENUM_BOX, 100, false);
+		addColumn(datagrid, "taskSource.name", "任务来源", ControlTypes.ENUM_BOX, 100, false);
 		addColumn(datagrid, "lastFollowTime", "最近跟进时间", ControlTypes.DATE_BOX, 100, false);
 		addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 100, false);
 		addColumn(datagrid, "salesman.employee.name", "业务员", ControlTypes.TEXT_BOX, 100, false);
@@ -144,9 +144,9 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 	//创建选项卡
 	@Override
 	protected void addDetailGridPart(PWorkspace workspace) {
-		addCommunicatLogsPart(workspace);
+		/*addCommunicatLogsPart(workspace);
 		addNotificationLogPart(workspace);
-		addFlowLogPart(workspace);
+		addFlowLogPart(workspace);*/
 	}
 	//选项卡加载项
 	private void addCommunicatLogsPart(PWorkspace workspace) {
@@ -308,29 +308,35 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 			form.setColumnCount(3);
 		}
 		PFormField formField = null;
-		String groupName = null;
-		
-		addFormField(form, "name", "名称", groupName, ControlTypes.TEXT_BOX, true, true);
+		String groupName = "任务信息";	
+		addFormField(form, "id", "任务ID", groupName, ControlTypes.NUMBER_BOX, true, true);
+		addFormField(form, "name", "任务名称", groupName, ControlTypes.TEXT_BOX, true, false);
 		addFormFieldRefrence(form, "supplier.name", "分配服务商", groupName, "CRM_Supplier", false, true);
 		addFormFieldRefrence(form, "department.name", "分配服务商部门", groupName, "CRM_Supplier_Depart", false, true);
-		
 		formField = addFormField(form, "foolowStatus", "跟进状态", groupName, ControlTypes.ENUM_BOX, false, true);
 		addFormField(form, "intentionCategory", "质量分类", groupName, ControlTypes.ENUM_BOX, false, true);
-		addFormField(form, "old", "是否老客户", groupName, ControlTypes.SWITCH_BUTTON, false, true);
-		
-		
 		addFormFieldRefrence(form, "customer.realName", "客户", groupName, "CRM_NCustomer", false, true);
-		addFormFieldRefrence(form, "lastAllocationUser.name", "最后分配人", groupName, "CRM_Employee", false, true);
-		addFormFieldRefrence(form, "lastFoolowUser.name", "最后跟进人", groupName, "CRM_Employee", false, true);
-		
-		addFormField(form, "lastFollowTime", "最近跟进时间", groupName, ControlTypes.DATE_BOX, false, true);
-		addFormField(form, "nextFoolowTime", "下次跟进时间", groupName, ControlTypes.DATE_BOX, false, true);
-		
-		formField = addFormField(form, "lastContent", "最后跟进内容", groupName, ControlTypes.TEXT_BOX, false, true);{			
+		formField = addFormField(form, "memoto", "备注", groupName, ControlTypes.TEXT_BOX, false, true);{			
 			formField.setFullColumn(true);
 	    }
+	   groupName = "分配属性";
+		addFormField(form, "allocationType", "分配方式", groupName, ControlTypes.ENUM_BOX, false, true);
+		addFormField(form, "allocationState", "分配状态", groupName, ControlTypes.ENUM_BOX, false, true);
+		addFormField(form, "allocationDispositon", "自营/平台", groupName, ControlTypes.ENUM_BOX, false, true);
+		formField = addFormField(form, "taskSource.name", "任务来源", groupName, ControlTypes.CUSTOM, true, false);
+		{
+			formField.setCustomControlType(DictComboBox.class.getName());
+			formField.setRefFilter("type=411");
+		}
+		addFormField(form, "taskCustomerType", "任务类型", groupName, ControlTypes.ENUM_BOX, false, true);
 		
-		formField = addFormField(form, "memoto", "备注", groupName, ControlTypes.TEXT_BOX, false, true);{			
+		groupName = "最近跟进信息";
+		addFormFieldRefrence(form, "lastAllocationUser.name", "最后分配人", groupName, "CRM_Employee", false, true);
+		addFormFieldRefrence(form, "lastFoolowUser.name", "最后跟进人", groupName, "CRM_Employee", false, true);
+		addFormField(form, "foolowStatus", "跟进状态", groupName, ControlTypes.ENUM_BOX, false, true);
+		addFormField(form, "lastFollowTime", "最近跟进时间", groupName, ControlTypes.DATE_BOX, false, true);
+		addFormField(form, "nextFoolowTime", "下次跟进时间", groupName, ControlTypes.DATE_BOX, false, true);
+		formField = addFormField(form, "lastContent", "最后跟进内容", groupName, ControlTypes.TEXT_BOX, false, true);{			
 			formField.setFullColumn(true);
 	    }
 		return form;
