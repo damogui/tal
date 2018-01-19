@@ -610,7 +610,7 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 			queryFromHeight = queryFrom.height()+15;
 		}
 
-		var height = $('body').height() - 90 - toolbarHeight - queryFromHeight;
+		var height = $('body').height() - 60 - toolbarHeight - queryFromHeight;
 		$("#" + this.context.id).datagrid('resize', {
 			height:height,
 		});

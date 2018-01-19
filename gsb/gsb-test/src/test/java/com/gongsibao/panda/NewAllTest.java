@@ -20,7 +20,7 @@ import org.junit.runners.Suite.SuiteClasses;
 	com.gongsibao.panda.basic.AllTest.class,
 
     //2.用户中心
-	//com.gongsibao.panda.user.AllTest.class,
+	com.gongsibao.panda.user.AllTest.class,
 	
     //2.客户管理
 	  com.gongsibao.panda.crm.AllTest.class,
@@ -29,7 +29,7 @@ import org.junit.runners.Suite.SuiteClasses;
 	//com.gongsibao.panda.franchisee.AllTest.class,
 	
     //4.股转中心
-//	com.gongsibao.panda.ma.AllTest.class,
+	com.gongsibao.panda.ma.AllTest.class,
 	
     //5.运营管理
 	com.gongsibao.panda.operation.AllTest.class,

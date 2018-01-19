@@ -45,7 +45,9 @@ public class SellingDemandUnauditWorkspaceTest extends SellingDemandWorkspaceTes
 		addColumn(datagrid, "city.name", "注册城市", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "county.name", "注册区/县", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "name", "出售人", ControlTypes.TEXT_BOX, 80);
-		addColumn(datagrid, "mobile", "出售电话", ControlTypes.TEXT_BOX, 100);
+		column = addColumn(datagrid, "mobile", "出售电话", ControlTypes.TEXT_BOX, 100);{
+			column.setFormatter("if(value&&value.length==11){return value.substr(0,3)+'****'+value.substr(7);}");
+		}
 		column = addColumn(datagrid, "createTime", "登记时间", ControlTypes.TEXTAREA, 130);
 		{
 			column.setOrderbyMode(OrderbyMode.DESC);
