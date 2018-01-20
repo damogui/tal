@@ -30,7 +30,7 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_All_Order", "全部订单", "/trade/manage/order/all/list", 1);
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_My_Order", "我的订单", "/trade/manage/order/my/list", 2);
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_My_Order_Detail", "我的订单明细", "/trade/manage/orderdetail/my/list", 3);
-			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Order_Pool", "订单池", "/trade/manage/order/pool/list", 4);
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Order_Pool", "订单明细", "/trade/manage/order/pool/list", 4);
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Order_Operation", "订单操作", "/trade/manage/order/operation/list", 5);
 		}
 
