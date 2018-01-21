@@ -8,6 +8,7 @@ import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.product.Product;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
@@ -104,6 +105,7 @@ public class OrderProd extends BaseEntity {
     @Column(name="settle_time",header="结算时间")
     private Date settleTime;
     
+    @JsonIgnore
     @Reference(foreignKey = "orderId",header="销售订单")
     private SoOrder soOrder;
 
