@@ -20,7 +20,7 @@ public class OrderProd extends BaseEntity {
 	
 	private static final long serialVersionUID = -1666193798755838616L;
 	
-	@Column(header="编号")
+	@Column(header="编 号")
     private String no;
 	
     @Column(name="order_id",header="订单")
