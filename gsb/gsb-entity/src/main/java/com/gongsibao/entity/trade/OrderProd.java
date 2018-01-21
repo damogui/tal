@@ -36,7 +36,7 @@ public class OrderProd extends BaseEntity {
     private Integer cityId;
     
     @Reference(foreignKey="cityId",header="产品地区")
-   	private Dict cityIdDict;
+   	private Dict city;
     
     @Column(name="company_id",header="公司")
     private Integer companyId;
@@ -315,11 +315,11 @@ public class OrderProd extends BaseEntity {
 	public void setCompanyIntention(CompanyIntention companyIntention) {
 		this.companyIntention = companyIntention;
 	}
-	public Dict getCityIdDict() {
-		return cityIdDict;
+	public Dict getCity() {
+		return city;
 	}
-	public void setCityIdDict(Dict cityIdDict) {
-		this.cityIdDict = cityIdDict;
+	public void setCity(Dict city) {
+		this.city = city;
 	}
 	
 }
