@@ -2,6 +2,9 @@ package com.gongsibao.entity.igirl;
 import com.gongsibao.entity.igirl.baseinfo.NCLOne;
 import com.gongsibao.entity.igirl.dict.MarkState;
 import com.gongsibao.entity.igirl.dict.TradeMarkType;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.joda.time.DateTime;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
@@ -12,10 +15,16 @@ public class TradeMark extends Entity {
 
 	@Column(name="code",header="商标号")
     private String code;
+	
+	@Column(name="proxy_code",header="代理号")
+    private String proxyCode=DateTime.now().toString("yyyyMMddHHmmssSSS");
 
-    @Column(name="trade_mark_caseid",header="商标方案Id")
+   
+
+	@Column(name="trade_mark_caseid",header="商标方案Id")
     private Integer tradeMarkCaseId = -1;
 
+    @JsonIgnore
     @Reference(foreignKey="tradeMarkCaseId",header="商标方案")
     private TradeMarkCase tradeMarkCase;
 
@@ -48,7 +57,7 @@ public class TradeMark extends Entity {
     private String memo;
 
     @Column(name="mark_state",header="商标状态")
-     private MarkState markState;
+     private MarkState markState=MarkState.READY;
 
    
 
@@ -198,5 +207,12 @@ public class TradeMark extends Entity {
 
 	public void setMarkState(MarkState markState) {
 		this.markState = markState;
+	}
+	 public String getProxyCode() {
+			return proxyCode;
+	}
+
+	public void setProxyCode(String proxyCode) {
+			this.proxyCode = proxyCode;
 	}
 }

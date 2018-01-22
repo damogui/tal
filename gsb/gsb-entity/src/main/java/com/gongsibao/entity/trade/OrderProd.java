@@ -8,6 +8,7 @@ import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.product.Product;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
@@ -20,7 +21,7 @@ public class OrderProd extends BaseEntity {
 	
 	private static final long serialVersionUID = -1666193798755838616L;
 	
-	@Column(header="编号")
+	@Column(header="编 号")
     private String no;
 	
     @Column(name="order_id",header="订单")
@@ -36,7 +37,7 @@ public class OrderProd extends BaseEntity {
     private Integer cityId;
     
     @Reference(foreignKey="cityId",header="产品地区")
-   	private Dict cityIdDict;
+   	private Dict city;
     
     @Column(name="company_id",header="公司")
     private Integer companyId;
@@ -104,6 +105,7 @@ public class OrderProd extends BaseEntity {
     @Column(name="settle_time",header="结算时间")
     private Date settleTime;
     
+    @JsonIgnore
     @Reference(foreignKey = "orderId",header="销售订单")
     private SoOrder soOrder;
 
@@ -315,11 +317,11 @@ public class OrderProd extends BaseEntity {
 	public void setCompanyIntention(CompanyIntention companyIntention) {
 		this.companyIntention = companyIntention;
 	}
-	public Dict getCityIdDict() {
-		return cityIdDict;
+	public Dict getCity() {
+		return city;
 	}
-	public void setCityIdDict(Dict cityIdDict) {
-		this.cityIdDict = cityIdDict;
+	public void setCity(Dict city) {
+		this.city = city;
 	}
 	
 }

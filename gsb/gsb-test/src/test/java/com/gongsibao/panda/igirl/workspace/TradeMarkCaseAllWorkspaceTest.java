@@ -105,12 +105,10 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "code", "编号", ControlTypes.TEXT_BOX, 150, true);
 		addColumn(datagrid, "urgency", "紧急程度(小时)", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "creator", "业务员", ControlTypes.TEXT_BOX, 50);
-		column = addColumn(datagrid, "tokenImgUrl", "二维码", ControlTypes.TEXT_BOX, 250);
-		{
-			// column.setFormatter("return row.code;");
-		}
+	
 		addColumn(datagrid, "caseAmount", "金额", ControlTypes.DECIMAL_FEN_BOX, 100);
 		addColumn(datagrid, "tmcState", "状态", ControlTypes.ENUM_BOX, 100);
+	
 		return datagrid;
 	}
 
@@ -142,9 +140,13 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "creditCode", "统一社会信用代码", groupName, ControlTypes.TEXT_BOX, false, false);
 
 		addFormField(form, "contactName", "联系人", groupName, ControlTypes.TEXT_BOX, true, false);
-		addFormField(form, "mobile", "联系人电话", groupName, ControlTypes.TEXT_BOX, true, false);
+		formField =addFormField(form, "mobile", "联系人电话", groupName, ControlTypes.TEXT_BOX, true, false);
+		{
+			formField.setTroikaTrigger("controllertradeMarkCase.mobileChange(this);");
+		}
+		
 		addFormField(form, "urgency", "紧急程度(小时)", groupName, ControlTypes.NUMBER_BOX, false, false);
-		addFormField(form, "ownedMarks", "已有商标", groupName, ControlTypes.TEXT_BOX, false, false);
+		//addFormField(form, "ownedMarks", "已有商标", groupName, ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "momo", "交流记录", groupName, ControlTypes.TEXTAREA, false, false);
 		addFormField(form, "advice", "客户异议", groupName, ControlTypes.TEXTAREA, false, true);
 		formField = addFormField(form, "applier", "申请人", groupName, ControlTypes.TEXT_BOX, false, false);
@@ -188,8 +190,8 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		ResourceNode node = this.resourceService.byCode("IGIRL_All_TradeMark");
 		PDatagrid datagrid = new PDatagrid(node, "商标选项");
 		{
-			addColumn(datagrid, "code", "编码", ControlTypes.TEXT_BOX, 100);
-			addColumn(datagrid, "name", "商标大类", ControlTypes.TEXT_BOX, 150);
+			addColumn(datagrid, "nclOne.code", "编码", ControlTypes.TEXT_BOX, 100);
+			addColumn(datagrid, "nclOne.name", "商标大类", ControlTypes.TEXT_BOX, 150);
 			addColumn(datagrid, "selectedTwoStr", "商标小类", ControlTypes.TEXTAREA, 150);
 			addColumn(datagrid, "markState", "申请状态", ControlTypes.ENUM_BOX, 150);
 
@@ -200,14 +202,15 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 			form.setResourceNode(node);
 			form.setColumnCount(3);
 			form.setName("商标选项");
+			form.setColumnCount(2);
 			String groupName = null;
 			PFormField formField = null;
 			addFormField(form, "tradeMarkType", "商标类型", groupName, ControlTypes.ENUM_BOX, false, false);
-			addFormField(form, "whetherThirdSpace", "是否三维商标", groupName, ControlTypes.SWITCH_BUTTON, true, false);
-			addFormField(form, "whetherColorGroup", "是否颜色组合", groupName, ControlTypes.SWITCH_BUTTON, true, false);
-			addFormField(form, "whetherSound", "是否声音商标", groupName, ControlTypes.SWITCH_BUTTON, true, false);
-			addFormField(form, "whetherPersonPhoto", "是否以肖像注册", groupName, ControlTypes.SWITCH_BUTTON, true, false);
-			addFormField(form, "memo", "商标说明", groupName, ControlTypes.SWITCH_BUTTON, true, false);
+			addFormField(form, "whetherThirdSpace", "三维商标", groupName, ControlTypes.SWITCH_BUTTON, true, false);
+			addFormField(form, "whetherColorGroup", "颜色组合", groupName, ControlTypes.SWITCH_BUTTON, true, false);
+			addFormField(form, "whetherSound", "声音商标", groupName, ControlTypes.SWITCH_BUTTON, true, false);
+			addFormField(form, "whetherPersonPhoto", "以肖像注册", groupName, ControlTypes.SWITCH_BUTTON, true, false);
+			addFormField(form, "memo", "商标说明", groupName, ControlTypes.TEXT_BOX, true, false);
 			formField = addFormFieldRefrence(form, "nclOne.name", "商标大类", null, "NCLOne", true, false);
 			{
 				formField.setTroikaTrigger("controllertradeMarks.nclOneChange(newValue,oldValue);");
@@ -235,7 +238,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 			part.setToolbar("panda/datagrid/detail");
 			part.setJsController("com.gongsibao.igirl.web.TradeMarkDetailPart");
 			part.setServiceController(TradeMarkDetailPart.class.getName());
-			part.setWindowWidth(800);
+			part.setWindowWidth(1024);
 			part.setWindowHeight(600);
 			part.setForm(form);
 
@@ -280,6 +283,10 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 			addColumn(datagrid, "maxPx", "最大像素数", ControlTypes.TEXT_BOX, 100);
 			addColumn(datagrid, "minBytes", "最小文件大小（KB）", ControlTypes.TEXT_BOX, 150);
 			addColumn(datagrid, "maxBytes", "最大文件大小（KB）", ControlTypes.TEXT_BOX, 150);
+			column=addColumn(datagrid, "fileUrl", "状态", ControlTypes.TEXT_BOX, 150);
+			{
+				column.setFormatter("if( row.fileUrl=='' || row.fileUrl==null ){ return '待上传' } else{ return '已上传' }");
+			}
 
 		}
 		PForm form = new PForm();
@@ -333,9 +340,28 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 				// column.setFormatter("return '<a
 				// href=\"url\">name</a>'.replace('name',row.name).replace('url',row.fileUrl)");
 			}
-			addColumn(datagrid, "attachmentCat", "附件类别", ControlTypes.ENUM_BOX, 100);
-			addColumn(datagrid, "fileType", "文件类型", ControlTypes.TEXTAREA, 150);
-			addColumn(datagrid, "toFileType", "目标文件类型", ControlTypes.TEXTAREA, 150);
+			column = addColumn(datagrid, "attachmentCat", "附件类别", ControlTypes.TEXT_BOX, 100);{
+				String formatter=EnumUtil.getColumnFormatter(AttachmentCat.class);
+				column.setFormatter(formatter);
+			}
+			column=addColumn(datagrid, "fileType", "文件类型", ControlTypes.TEXT_BOX, 150);
+			{
+				String formatter=EnumUtil.getColumnFormatter(FileType.class);
+				column.setFormatter(formatter);
+			}
+			column=addColumn(datagrid, "toFileType", "目标文件类型", ControlTypes.TEXT_BOX, 150);
+			{
+				String formatter=EnumUtil.getColumnFormatter(FileType.class);
+				column.setFormatter(formatter);
+			}
+			addColumn(datagrid, "minPx", "最小像素数", ControlTypes.TEXT_BOX, 100);
+			addColumn(datagrid, "maxPx", "最大像素数", ControlTypes.TEXT_BOX, 100);
+			addColumn(datagrid, "minBytes", "最小文件大小（KB）", ControlTypes.TEXT_BOX, 150);
+			addColumn(datagrid, "maxBytes", "最大文件大小（KB）", ControlTypes.TEXT_BOX, 150);
+			column=addColumn(datagrid, "fileUrl", "状态", ControlTypes.TEXT_BOX, 150);
+			{
+				column.setFormatter("if(row.fileUrl=='' || row.fileUrl==null ){return '待生成' } else{ return '可下载' }");
+			}
 
 		}
 		PForm form = new PForm();
