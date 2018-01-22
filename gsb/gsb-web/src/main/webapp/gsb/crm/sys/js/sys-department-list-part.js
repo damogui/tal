@@ -55,6 +55,14 @@ com.gongsibao.crm.web.SysDepartmentTreeGridPart = org.netsharp.panda.commerce.Tr
 			this.doAdd("fk=" + fks.join(";"));
 		}
 	},
+	addExtraParams:function(urls){
+
+		var supplierId = controllersupplierDepartmentList.queryString('supplierId');
+		if(supplierId){
+
+			urls.push("supplierId=" + supplierId);
+		}
+	},
 	// -----------------------
 	// 整理路径
 	// -----------------------
@@ -84,12 +92,5 @@ com.gongsibao.crm.web.SysDepartmentTreeGridPart = org.netsharp.panda.commerce.Tr
 
 $(function() {
 
-	var url = controllersupplierDepartmentList.context.queryUrl;
-	var supplierId = controllersupplierDepartmentList.queryString('supplierId');
-	if(supplierId){
-		url+='&supplierId='+supplierId;
-	}
-	var options = $(controllersupplierDepartmentList.datagrid).treegrid('options');
-	options.url = url;
-	$(controllersupplierDepartmentList.datagrid).treegrid(options);
+	controllersupplierDepartmentList.query();
 });
