@@ -1,5 +1,6 @@
 package com.gongsibao.panda.crm.workspace.sys;
 
+import com.gongsibao.crm.web.SysDepartmentTreeGridPart;
 import org.junit.Test;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.MtableManager;
@@ -50,6 +51,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
         {
             datagrid.setName("员工管理");
             datagrid.setToolbar("panda/datagrid/row/edit");//列表出现操作必须填写
+            datagrid.setAutoQuery(false);//进来的时候列表不自动查询数据
         }
         PDatagridColumn column = null;
         addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
@@ -135,7 +137,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
             workspace.setResourceNode(node);
             workspace.setOperationType(operationType);
             workspace.setOperationTypeId(operationType.getId());
-            workspace.setName("部门管理");
+            workspace.setName("员工管理");
             workspace.setUrl(urlList);
         }
 
@@ -147,6 +149,11 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
             part.setDockStyle(DockType.LEFT);
             part.setStyle("width:250px;");
             part.setResourceNode(node);
+            //进行扩展
+//            part.setToolbar(listToolbarPath);
+//            part.setJsController(SysDepartmentTreeGridPart.class.getName());
+//            part.setServiceController(SysDepartmentTreeGridPart.class.getName());
+//            part.setImports("/gsb/crm/sys/js/sys-department-list-part.js");
         }
         workspace.getParts().add(part);
 
