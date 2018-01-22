@@ -41,6 +41,7 @@ public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
 		PDatagrid datagrid = super.createDatagrid(node);
 		{
 			datagrid.setName("部门管理");
+			datagrid.setAutoQuery(false);
 		}
 		PDatagridColumn column = null;
 

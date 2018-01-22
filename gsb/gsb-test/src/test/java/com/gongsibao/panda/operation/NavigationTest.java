@@ -55,7 +55,7 @@ public class NavigationTest extends NavigationBase {
 		{
 			createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Function_Module", "功能模块", "/operation/supplier/module/list", 1);
 			createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Supplier_Category", "服务商分类", "/operation/supplier/category/list", 2);
-			createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Supplier", "服务商管理", "/operation/supplier/list", 3);
+			createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Supplier", "服务商列表", "/operation/supplier/list", 3);
 		}
 		
 		createPTreeNode(tree, null, "fa fa-file-o fa-fw", "GSB_CRM_Customer_Manager", "客户管理", "", 4);
