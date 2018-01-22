@@ -21,20 +21,13 @@ public class RoleSalesman extends Entity {
     private Integer roleId;
 
     @JsonIgnore
-    @Reference(foreignKey="salesmanId")
+    @Reference(foreignKey="employeeId")
     private Salesman salesman;
 
-    @Column(name="salesman_id",header="员工Id")
-    private Integer salesmanId;
+    @Column(name="employee_id",header="员工Id")
+    private Integer employeeId;
 
 
-    public Integer getSalesmanId() {
-        return salesmanId;
-    }
-
-    public void setSalesmanId(Integer salesmanId) {
-        this.salesmanId = salesmanId;
-    }
 
     public Salesman getSalesman() {
         return salesman;
@@ -58,5 +51,13 @@ public class RoleSalesman extends Entity {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Integer getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(Integer employeeId) {
+        this.employeeId = employeeId;
     }
 }
