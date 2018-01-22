@@ -9,16 +9,16 @@ import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.entity.crm.NCustomerProduct;
+import com.gongsibao.entity.cms.Product;
 
 public class NProductReferenceTest extends ReferenceCreationBase {
 
 	@Before
 	public void setup() {
 
-		resourceNodeCode = "CRM_" + NCustomerProduct.class.getSimpleName();
+		resourceNodeCode = "CRM_N" + Product.class.getSimpleName();
 		datagridName = referenceName = "产品参照";
-		referenceCode = "CRM_" + NCustomerProduct.class.getSimpleName();
+		referenceCode = "CRM_N" + Product.class.getSimpleName();
 		intelligentMode = IntelligentMode.LIKE;
 		intelligentFields = "name";
 	}

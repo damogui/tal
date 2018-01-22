@@ -16,7 +16,6 @@ com.gongsibao.crm.web.NProdMapDetailPart = org.netsharp.panda.commerce.DetailPar
 	productChange:function(newValue,oldValue){
 		//为空时，重置查询条件：q
 		if(System.isnull(newValue)){
-			
 			var options = $('#product_name').combogrid('options');
 			var qp = options.queryParams;
 		}

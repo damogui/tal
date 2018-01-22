@@ -172,7 +172,7 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 			form.setName("意向产品");
 
 			PFormField formField = null;
-			formField = addFormFieldRefrence(form, "product.name", "意向产品", null, "CRM_" + NCustomerProduct.class.getSimpleName(), true, false);
+			formField = addFormFieldRefrence(form, "product.name", "意向产品", null, "CRM_N" + Product.class.getSimpleName(), true, false);
 			{
 				formField.setTroikaTrigger("controllerproducts.productChange(newValue,oldValue);");
 				formField.setWidth(300);
