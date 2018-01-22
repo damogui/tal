@@ -92,7 +92,7 @@ public class ActionSupplierCreateAdmin implements IAction {
 		return entity;
 	}
 
-	private Salesman createSalesman(SupplierDepartment department, Employee employee) {
+	private void createSalesman(SupplierDepartment department, Employee employee) {
 
 		Salesman salesman = new Salesman();
 		{
@@ -101,9 +101,9 @@ public class ActionSupplierCreateAdmin implements IAction {
 			salesman.setSupplierId(department.getSupplierId());
 			salesman.setEmployeeId(employee.getId());
 		}
-		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
-		salesmanService.save(salesman);
-		return salesman;
+
+        IPersister<Salesman> pm = PersisterFactory.create();//因为重写了，所以调用父类
+        pm.save(salesman);
 	}
 
 	private Employee createEmployee(Supplier supplier) {
