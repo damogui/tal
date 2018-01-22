@@ -265,7 +265,7 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 		formField = addFormField(form, "province.name", "省份",groupName,ControlTypes.PCC_BOX, true, false);{
 			formField.setDataOptions("level:1,changeCtrlId:'city_name'");
 		}
-		formField = addFormField(form, "city.name", "城市",groupName,ControlTypes.PCC_BOX, true, false);{
+		formField = addFormField(form, "city.name", "城市",groupName,ControlTypes.PCC_BOX, false, false);{
 			formField.setDataOptions("level:2,changeCtrlId:'county_name'");
 		}
 		formField = addFormField(form, "county.name", "区/县",groupName,ControlTypes.PCC_BOX, false, false);{

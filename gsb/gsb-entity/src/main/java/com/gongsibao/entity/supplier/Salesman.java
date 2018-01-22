@@ -1,10 +1,13 @@
 package com.gongsibao.entity.supplier;
 
+import org.joda.time.DateTime;
 import org.netsharp.core.annotations.*;
 import org.netsharp.entity.Entity;
 import org.netsharp.organization.entity.Employee;
+import org.netsharp.organization.entity.Role;
 import org.netsharp.organization.entity.RoleEmployee;
 
+import java.util.Date;
 import java.util.List;
 
 @Table(name = "sp_salesman", header = "服务商业务员")
@@ -15,11 +18,11 @@ public class Salesman extends Entity {
 	 */
 	private static final long serialVersionUID = 2235508906235938620L;
 
-	@Column(name = "employee_id", header = "员工Id")
-	private Integer employeeId = 0;
+    @Column(name = "employee_id", header = "员工Id")
+    private Integer employeeId = 0;
 
-	@Reference(foreignKey = "employeeId", header = "员工")
-	private Employee employee;
+    @Reference(foreignKey = "employeeId", header = "员工")
+    private Employee employee;
 
 	@Column(name = "department_id", header = "部门Id")
 	private Integer departmentId = 0;
@@ -32,16 +35,35 @@ public class Salesman extends Entity {
 
 	@Reference(foreignKey = "supplierId", header = "服务商")
 	private Supplier supplier;
-
+    @Exclusive
 	@Column(name = "disabled", header = "停用")
 	private Boolean disabled = false;
 
     @Exclusive
-    @Subs(subType=RoleSalesman.class,foreignKey="salesmanId",header="角色用户")
-    private List<RoleSalesman> roles;
+    @Subs(subType=RoleSalesman.class,foreignKey="employeeId",header="用户角色")
+    private List<RoleSalesman> roles;//忽略建表字段  RoleSalesman
+   //扩展字段beg
+   @Exclusive
+    @Column(name = "name", header = "姓名")
+    private String name ;
+    @Exclusive
+    @Column(name = "mobile", header = "手机号")
+    private String mobile ;
+    @Exclusive
+    @Column(name = "bank_no", header = "工资卡号")
+    private String bankNo ;
+    @Exclusive
+    @Column(name = "entry_date", header = "入职日期")
+    private Date entryDate ;
 
-	// 配置
+    @Exclusive
+    @Column(name = "quit_date", header = "离职日期")
+    private Date quitDate ;
+    //扩展字段end
 
+
+
+    // 配置
 	public Integer getEmployeeId() {
 		return employeeId;
 	}
@@ -97,4 +119,44 @@ public class Salesman extends Entity {
 	public void setDisabled(Boolean disabled) {
 		this.disabled = disabled;
 	}
+
+    public Date getQuitDate() {
+        return quitDate;
+    }
+
+    public void setQuitDate(Date quitDate) {
+        this.quitDate = quitDate;
+    }
+
+    public Date getEntryDate() {
+        return entryDate;
+    }
+
+    public void setEntryDate(Date entryDate) {
+        this.entryDate = entryDate;
+    }
+
+    public String getBankNo() {
+        return bankNo;
+    }
+
+    public void setBankNo(String bankNo) {
+        this.bankNo = bankNo;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

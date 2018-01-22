@@ -74,7 +74,6 @@ public class CustomerAllocatedWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "lastFollowTime", "最近跟进时间", ControlTypes.DATETIME_BOX, 20);
 		addColumn(datagrid, "lastFoolowUser.name", "最后跟进人", ControlTypes.DATETIME_BOX, 100);
 		addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATETIME_BOX, 20);
-		addColumn(datagrid, "backNum", "退回次数", ControlTypes.NUMBER_BOX, 100);
 		addColumn(datagrid, "customerSource.name", "客户来源", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "creator", "添加人", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "createTime", "添加时间", ControlTypes.DATETIME_BOX, 20);
@@ -134,7 +133,6 @@ public class CustomerAllocatedWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "qq", "QQ", null, ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "lastContent", "最后跟进内容", null, ControlTypes.TEXT_BOX, false, true);
 		addFormField(form, "nextFoolowTime", "下次跟进时间", null, ControlTypes.DATETIME_BOX, false, true);
-		addFormField(form, "backNum", "退回次数", null, ControlTypes.NUMBER_BOX, false, true);
 		formField = addFormField(form, "customerSource.name", "客户来源", null, ControlTypes.CUSTOM, false, false);
 		{
 			formField.setCustomControlType(DictComboBox.class.getName());

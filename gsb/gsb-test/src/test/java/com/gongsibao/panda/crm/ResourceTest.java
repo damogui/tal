@@ -1,10 +1,13 @@
 package com.gongsibao.panda.crm;
 
+import com.gongsibao.entity.supplier.RoleSalesman;
 import org.junit.Before;
 import org.netsharp.base.IPersistableService;
 import org.netsharp.meta.base.ResourceCreationBase;
 import org.netsharp.organization.base.IEmployeeService;
+import org.netsharp.organization.base.IRoleService;
 import org.netsharp.organization.entity.Employee;
+import org.netsharp.organization.entity.Role;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.crm.base.ICompanyIntentionService;
@@ -123,6 +126,7 @@ public class ResourceTest extends ResourceCreationBase {
 		{
 			this.createResourceNodeVoucher(SupplierDepartment.class.getName(), "部门列表", "GSB_CRM_SYS_DEPARTMENT", ISupplierDepartmentService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(Salesman.class.getName(), "员工列表", "GSB_CRM_SYS_SALESMAN", ISalesmanService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(Role.class.getName(), "添加角色", "GSB_CRM_SYS_SALESMAN_ADDROLE", IRoleService.class.getName(), node1.getId());
 		}
 	}
 }

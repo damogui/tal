@@ -52,8 +52,12 @@ public class VoucherLogWorkspaceTest extends WorkspaceCreationBase {
 		column = addColumn(datagrid, "sender", "eai配置系统注册码", ControlTypes.TEXT_BOX, 80);
 		{
 			column.setVisible(false);
-		};
-		addColumn(datagrid, "orderNo", "订单编号", ControlTypes.TEXT_BOX, 100);
+		}
+		column =addColumn(datagrid, "orderNo", "订单编号", ControlTypes.TEXT_BOX, 100);
+		{
+			column.setVisible(false);
+		}
+		addColumn(datagrid, "ordernoCustname", "订单编号和客户名称", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "payId", "支付编号", ControlTypes.NUMBER_BOX, 80);
 		addColumn(datagrid, "refundId", "退单退款编号", ControlTypes.NUMBER_BOX, 80);
 		addColumn(datagrid, "inVoucherLogId", "确认收入凭证源记录Id", ControlTypes.TEXT_BOX, 180);
@@ -74,13 +78,14 @@ public class VoucherLogWorkspaceTest extends WorkspaceCreationBase {
 	protected PQueryProject createQueryProject(ResourceNode node) {
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
-		addQueryItem(queryProject, "orderNo", "订单编号", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "ordernoCustname", "订单编号和客户名称", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "payId", "支付编号", ControlTypes.NUMBER_BOX);
 		addQueryItem(queryProject, "refundId", "退单退款编号", ControlTypes.NUMBER_BOX);
 		addQueryItem(queryProject, "type", "类型", ControlTypes.ENUM_BOX);
 		addQueryItem(queryProject, "dsc", "u8返回信息说明", ControlTypes.TEXT_BOX);
 		// 参照
 		addRefrenceQueryItem(queryProject, "setOfBooks.name", "账套", SetOfBooks.class.getSimpleName());
+		addQueryItem(queryProject, "createTime", "添加时间", ControlTypes.DATE_BOX);
 		return queryProject;
 	}
 
@@ -94,13 +99,15 @@ public class VoucherLogWorkspaceTest extends WorkspaceCreationBase {
 
 		field = addFormField(form, "xmlParam", "传入的参数", ControlTypes.TEXTAREA, true, false);
 		{
-			field.setWidth(600);
-			field.setHeight(350);
+
+			field.setHeight(100);
+			field.setFullColumn(true);
 		}
 		field = addFormField(form, "xmlReturn", "返回值", ControlTypes.TEXTAREA, false, false);
 		{
-			field.setWidth(600);
-			field.setHeight(350);
+
+			field.setHeight(50);
+			field.setFullColumn(true);
 		}
 
 		return form;
