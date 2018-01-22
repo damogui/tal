@@ -3,7 +3,7 @@ System.Declare("com.gongsibao.crm.web");
 com.gongsibao.crm.web.MyAllTaskListPart = org.netsharp.panda.commerce.ListPart.Extends({
 	ctor : function() {
 		this.base();
-	},
+	},//listToolBar-开通会员
 	openMemberPopup : function() {
 		var me = this;
 		var row = this.getSelectedItem();
@@ -20,7 +20,8 @@ com.gongsibao.crm.web.MyAllTaskListPart = org.netsharp.panda.commerce.ListPart.E
 				me.openMemberLayer(customerId);
 			}
 		});
-	},openMemberLayer : function(customerId) {
+	},
+	openMemberLayer : function(customerId) {
 		var me = this;
 		this.invokeService("openMember", [customerId],function(data) {
 			if(data===1){
@@ -32,5 +33,20 @@ com.gongsibao.crm.web.MyAllTaskListPart = org.netsharp.panda.commerce.ListPart.E
 			}
 			return;
 		});
+	},//rowToolBar-行跟进
+	followUpPopup : function() {
+		var me = this;
+		var row = this.getSelectedItem();
+		var taskId = row.id;
+		var url = "/panda/crm/my/task/followUp/from?fk=taskId:"+taskId;
+		IMessageBox.open("跟进任务", url, 700, 400, function() {
+			me.reload();
+		});
+	},//rowToolBar-行退回
+	backTaskPopup : function() {
+		var me = this;
+		var row = this.getSelectedItem();
+		var taskId = row.id;
+		alert("稍后处理========"+taskId);
 	}
 });

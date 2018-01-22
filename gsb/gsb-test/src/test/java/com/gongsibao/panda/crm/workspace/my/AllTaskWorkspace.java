@@ -42,6 +42,8 @@ import com.gongsibao.entity.crm.dic.QualityCategory;
 
 public class AllTaskWorkspace extends WorkspaceCreationBase{
 
+	//行的toolbar
+	String listRowToolbarPath=null;
 	@Override
 	@Before
 	public void setup() {
@@ -59,6 +61,9 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		//扩展子页面操作
 		formJsImport = "/gsb/crm/js/crm-allTask-part.js|/gsb/gsb.customer.controls.js";
 		
+		//行的toolbar
+		listRowToolbarPath = "crm/my/task/all/row/toolbar";
+		
 		//扩展列表操作
 		listToolbarPath = "crm/my/task/all/toolbar";
 		listPartImportJs ="/gsb/crm/js/crm-allTask-list.js";
@@ -66,8 +71,9 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		listPartServiceController = MyAllTaskListPart.class.getName();
 	}
 
+	//列表Toolbar
 	@Test
-	public void createToolbar() {
+	public void createListToolbar() {
 		ResourceNode node = this.getResourceNode();
 		PToolbar toolbar = new PToolbar();
 		{
@@ -77,7 +83,22 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 			toolbar.setName("开通会员工具栏操作");
 			toolbar.setResourceNode(node);
 		}
-		addToolbarItem(toolbar, "checkAbmormal", "开通会员", "fa fa-edit", "openMemberPopup()", null, 5);
+		addToolbarItem(toolbar, "openMemberPopup", "开通会员", "fa fa-edit", "openMemberPopup()", null, 5);
+		toolbarService.save(toolbar);
+	}
+	@Test
+	public void createRowToolbar() {
+		ResourceNode node = this.getResourceNode();
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			toolbar.setBasePath("panda/datagrid/row/edit");
+			toolbar.setPath(listRowToolbarPath);
+			toolbar.setName("跟进行工具栏操作");
+			toolbar.setResourceNode(node);
+		}
+		addToolbarItem(toolbar, "followUpPopup", "跟进", "fa fa-edit", "followUpPopup()", null, 6);
+		addToolbarItem(toolbar, "backTaskPopup", "退回", "fa fa-edit", "backTaskPopup()", null, 7);
 		toolbarService.save(toolbar);
 	}
 	
@@ -112,7 +133,8 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 	protected PDatagrid createDatagrid(ResourceNode node) {
 		PDatagrid datagrid = super.createDatagrid(node);
 		PDatagridColumn column = null;
-		datagrid.setToolbar("panda/datagrid/row/edit");
+		//添加行的toolbar
+		datagrid.setToolbar(listRowToolbarPath);
 		column = addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
 		addColumn(datagrid, "department.name", "分配服务商部门", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "name", "任务名称", ControlTypes.TEXT_BOX, 100, false);
@@ -414,7 +436,6 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		return form;
 	}	
 	public void doOperation() {
-		
 		ResourceNode node = resourceService.byCode(resourceNodeCode);
 		operationService.addOperation(node, OperationTypes.view);
 		operationService.addOperation(node, OperationTypes.add);
