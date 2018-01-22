@@ -57,7 +57,7 @@ com.gongsibao.crm.web.SysDepartmentTreeGridPart = org.netsharp.panda.commerce.Tr
 	},
 	addExtraParams:function(urls){
 
-		var supplierId = controllersupplierDepartmentList.queryString('supplierId');
+		var supplierId = this.queryString('supplierId');
 		if(supplierId){
 
 			urls.push("supplierId=" + supplierId);
