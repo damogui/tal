@@ -36,7 +36,10 @@ public class NCustomerTask extends Entity {
 	private NCustomer customer;
 
 	@Column(name = "customer_id", header = "客户")
-	private Integer customerId = 0;
+	private Integer customerId = 0;	
+	
+    @Column(name = "task_type",header="任务类型")
+    private TaskCustomerType taskCustomerType = TaskCustomerType.NEW;
 
 	@Column(name = "name", size = 200, header = "名称")
 	private String name;
@@ -123,9 +126,6 @@ public class NCustomerTask extends Entity {
 
 	@Column(name = "task_source_id", header = "任务来源")
 	private Integer taskSourceId = 0;
-	
-    @Column(name = "task_type",header="任务类型")
-    private TaskCustomerType taskCustomerType = TaskCustomerType.NEW;
 
 	@Subs(foreignKey = "taskId", header = "意向产品", subType = NCustomerProduct.class)
 	private List<NCustomerProduct> products;

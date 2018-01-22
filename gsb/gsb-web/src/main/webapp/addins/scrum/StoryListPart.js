@@ -3,6 +3,7 @@ System.Declare("org.netsharp.scrum.web");
 org.netsharp.scrum.web.StoryListPart = org.netsharp.panda.commerce.ListPart.Extends({
 	
 	traces : function(){
+		
 		var item = this.getSelectedItem();
 		if(item == null ){
 			return;
