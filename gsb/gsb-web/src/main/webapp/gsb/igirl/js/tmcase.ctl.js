@@ -1,6 +1,6 @@
 app.controller('TmCaseCtrl',function ($scope,ajax,UrlParameter) {
 	$scope.model = null;
-	$scope.service = 'com.gongsibao.igirl.web.TradeMarkCasePart';
+	$scope.service = 'com.gongsibao.igirl.web.TradeMarkCaseController';
 	//联系人电话
 	var mobile = UrlParameter.get("mobile");
 	console.log(mobile);
