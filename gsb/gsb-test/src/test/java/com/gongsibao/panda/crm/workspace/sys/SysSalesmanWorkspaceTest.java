@@ -226,7 +226,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
             form.setColumnCount(2);
             form.setName("添加角色");
             PFormField field = null;
-            field = addFormFieldRefrence(form, "role.name", "角色", null, Role.class.getSimpleName(), true, false);
+           // field = addFormFieldRefrence(form, "role.name", "角色", null, Role.class.getSimpleName(), true, false);
 
         }
 

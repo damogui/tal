@@ -30,7 +30,44 @@ com.gongsibao.crm.web.SysSalesmanListPart = org.netsharp.panda.commerce.ListPart
             return false;
         }
         return true;
-    },addExtraParams:function(urls){//进行扩展
+    },
+    add: function() {
+
+        if (!this.onAdding()) {
+            return;
+        }
+        var fks = [];
+
+        if (this.context.relationRole != null && this.relationItem != null) {
+
+            fks.push(this.context.relationRole + ":"+ this.relationItem.id);
+        }
+
+        var selectedRow = this.getSelectedItem();
+        if (selectedRow == null) {
+
+            var supplierId = this.queryString('supplierId');
+            if(supplierId){
+                fks.push("supplierId:" + supplierId);
+            }
+            this.doAdd("fk=" + fks.join(";"));
+
+        } else {
+
+            var parentId = this.getSelectedItem().id;
+            if (parentId != null && parentId != "") {
+                fks.push("parentId:" + parentId);
+            }
+
+            var supplierId = this.queryString('supplierId');
+            if(supplierId){
+                fks.push("supplierId:" + supplierId);
+            }
+
+            this.doAdd("fk=" + fks.join(";"));
+        }
+    },
+    addExtraParams:function(urls){//进行扩展
 
         var supplierId = this.queryString('supplierId');
         if(supplierId){
