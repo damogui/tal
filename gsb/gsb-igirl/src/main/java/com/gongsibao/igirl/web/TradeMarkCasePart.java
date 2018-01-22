@@ -3,13 +3,12 @@ import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.igirl.base.ITradeMarkCaseService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.entity.IPersistable;
+import org.netsharp.panda.anno.Authorization;
 import org.netsharp.panda.commerce.FormPart;
 
 public class TradeMarkCasePart extends FormPart {
      ITradeMarkCaseService tradeMarkCaseService = ServiceFactory.create(ITradeMarkCaseService.class); 
-    public TradeMarkCase getTradeMarkCaseModelByMobile(String mobile) {  	 
-    	 return tradeMarkCaseService.getTradeMarkCaseModelByMobile(mobile);  	 
-     }
+   
 	@Override
 	public IPersistable save(IPersistable entity) {
 		// TODO Auto-generated method stub
