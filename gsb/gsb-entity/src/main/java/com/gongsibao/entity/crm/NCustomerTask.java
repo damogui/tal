@@ -121,11 +121,23 @@ public class NCustomerTask extends Entity {
     @Column(name = "allocation_dispositon",header="自营/平台")
     private AllocationDispositon allocationDispositon = AllocationDispositon.DIRECT;
     
-	@Reference(foreignKey = "taskSourceId", header = "任务来源")
-	private Dict taskSource;
+	@Reference(foreignKey = "sourceId", header = "任务来源")
+	private Dict source;
 
-	@Column(name = "task_source_id", header = "任务来源")
-	private Integer taskSourceId = 0;
+	@Column(name = "source_id", header = "任务来源")
+	private Integer sourceId = 0;
+	
+	@Column(name = "source_other", header = "客户来源选择其他时填写的详情")
+	private String sourceOther;
+	
+	@Column(name = "consult_way_id", header = "咨询途径")
+	private Integer consultWayId = 0;
+	
+	@Reference(foreignKey = "consultWayId", header = "咨询途径,421 CRM咨询途径: 4211 400电话、 4212 在线客服、 4213企业QQ、 4214 PC官网、 4215 H5官网、 4216 手机APP")
+	private Dict consultWay;
+
+	@Column(name = "consult_way_other", header = "咨询途径选择其他时填写的详情")
+	private String consultWayOther;
 
 	@Subs(foreignKey = "taskId", header = "意向产品", subType = NCustomerProduct.class)
 	private List<NCustomerProduct> products;
@@ -139,6 +151,32 @@ public class NCustomerTask extends Entity {
 	@Subs(foreignKey = "customerId", header = "流转日志", subType = NCustomerChange.class)
 	private List<NCustomerChange> changes;
 	
+	
+
+	public Integer getConsultWayId() {
+		return consultWayId;
+	}
+
+	public void setConsultWayId(Integer consultWayId) {
+		this.consultWayId = consultWayId;
+	}
+
+	public Dict getConsultWay() {
+		return consultWay;
+	}
+
+	public void setConsultWay(Dict consultWay) {
+		this.consultWay = consultWay;
+	}
+
+	public String getConsultWayOther() {
+		return consultWayOther;
+	}
+
+	public void setConsultWayOther(String consultWayOther) {
+		this.consultWayOther = consultWayOther;
+	}
+
 	public Integer getCostSupplierId() {
 		return costSupplierId;
 	}
@@ -179,20 +217,30 @@ public class NCustomerTask extends Entity {
 		this.allocationDispositon = allocationDispositon;
 	}
 
-	public Dict getTaskSource() {
-		return taskSource;
+	
+
+	public Dict getSource() {
+		return source;
 	}
 
-	public void setTaskSource(Dict taskSource) {
-		this.taskSource = taskSource;
+	public void setSource(Dict source) {
+		this.source = source;
 	}
 
-	public Integer getTaskSourceId() {
-		return taskSourceId;
+	public Integer getSourceId() {
+		return sourceId;
 	}
 
-	public void setTaskSourceId(Integer taskSourceId) {
-		this.taskSourceId = taskSourceId;
+	public void setSourceId(Integer sourceId) {
+		this.sourceId = sourceId;
+	}
+
+	public String getSourceOther() {
+		return sourceOther;
+	}
+
+	public void setSourceOther(String sourceOther) {
+		this.sourceOther = sourceOther;
 	}
 
 	public TaskCustomerType getTaskCustomerType() {

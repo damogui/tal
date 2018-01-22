@@ -17,11 +17,10 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.controls.CityComboBox;
-import com.gongsibao.controls.DictComboBox;
 import com.gongsibao.crm.web.NCustomerAddFormPart;
 import com.gongsibao.entity.crm.NCustomer;
 
-public class CustomerAddWorkspaceTest  extends WorkspaceCreationBase {
+public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 
 
 	@Before
@@ -78,17 +77,12 @@ public class CustomerAddWorkspaceTest  extends WorkspaceCreationBase {
 			formField.setCustomControlType(CityComboBox.class.getName());
 			formField.setDataOptions("level:3");
 		}
-		formField = addFormField(form, "customerSource.name", "首次客户来源", groupName, ControlTypes.CUSTOM, false, true);
-		{
-			formField.setCustomControlType(DictComboBox.class.getName());
-			formField.setRefFilter("type=411");
+
+		formField = addFormField(form, "remark", "备注", groupName, ControlTypes.TEXTAREA, false, false);{
+			formField.setFullColumn(true);
+			formField.setHeight(100);
 		}
-		addFormField(form, "customerSourceOther", "其它客户来源", groupName, ControlTypes.TEXT_BOX, false, true);
-		addFormField(form, "swtCustomerId", "商务通客Id", groupName, ControlTypes.TEXT_BOX, false, true);
 		
-		addFormField(form, "consultWay", "首次咨询途径", groupName, ControlTypes.ENUM_BOX, false, true);
-		addFormField(form, "consultWayOther", "其它咨询途径", groupName, ControlTypes.TEXT_BOX, false, true);
-		addFormField(form, "id", "客户Id", groupName, ControlTypes.TEXT_BOX, false, true);
 		return form;
 	}
 
@@ -107,18 +101,12 @@ public class CustomerAddWorkspaceTest  extends WorkspaceCreationBase {
 			datagrid.setShowCheckbox(false);
 			datagrid.setSingleSelect(true);
 			datagrid.setReadOnly(true);
-			addColumn(datagrid, "taskCustomerType", "类型", ControlTypes.BOOLCOMBO_BOX, 100, false);
-			addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 100, true);
+			addColumn(datagrid, "taskCustomerType", "类型", ControlTypes.ENUM_BOX, 100, false);
+			addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 200, false);
 			addColumn(datagrid, "supplier.name", "分配服务商", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "department.name", "分配部门", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "salesman.name", "分配业务员", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "foolowStatus", "跟进状态", ControlTypes.ENUM_BOX, 100, false);
-//			addColumn(datagrid, "intentionCategory", "质量分类", ControlTypes.ENUM_BOX, 100, false);
-//			addColumn(datagrid, "intention", "质量", ControlTypes.REFERENCE_BOX, 100, false);
-//			addColumn(datagrid, "lastFollowTime", "最后跟进时间", ControlTypes.DATETIME_BOX, 100, false);
-//			addColumn(datagrid, "lastFoolowUser.name", "最后跟进人", ControlTypes.TEXT_BOX, 100, false);
-//			addColumn(datagrid, "lastContent", "最后跟进内容", ControlTypes.TEXT_BOX, 100, false);
-//			addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 100, false);
 			addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 300, false);
 		}
 
@@ -134,6 +122,7 @@ public class CustomerAddWorkspaceTest  extends WorkspaceCreationBase {
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("panda/datagrid/detail");
+			part.setJsController("com.gongsibao.crm.web.NCustomerTaskDetailPart");
 		}
 		workspace.getParts().add(part);
 		
@@ -144,7 +133,6 @@ public class CustomerAddWorkspaceTest  extends WorkspaceCreationBase {
 			part.setHeight(500);
 		}
 	}
-
 
 	// 默认的表单操作
 	@Override

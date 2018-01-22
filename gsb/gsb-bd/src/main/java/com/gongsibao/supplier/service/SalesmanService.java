@@ -42,7 +42,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
         Employee employee = new Employee();
         employee.setName(entity.getName());
         employee.setMobile(entity.getMobile());
-        employee.setBankNo(entity.getBankNo());
+        //employee.setBankNo(entity.getBankNo());
         employee.setEntryDate(entity.getEntryDate());
         employee.setQuitDate(entity.getQuitDate());
         employee.setDisabled(entity.getDisabled());//禁用的传递
@@ -77,7 +77,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
             qps.add("name",entity.getName(),Types.VARCHAR);
             qps.add("login_name",entity.getMobile(),Types.VARCHAR);
             qps.add("mobile",entity.getMobile(),Types.VARCHAR);
-            qps.add("bank_no",entity.getBankNo(),Types.VARCHAR);
+            //qps.add("bank_no",entity.getBankNo(),Types.VARCHAR);
             qps.add("entry_date",entity.getEntryDate(),Types.DATE);
             qps.add("quit_date",entity.getQuitDate(),Types.DATE);
             qps.add("disabled",entity.getDisabled(),Types.BOOLEAN);//是否禁用
@@ -110,7 +110,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
             if (employee != null) {
                 salesman.setName(employee.getName());
                 salesman.setMobile(employee.getMobile());
-                salesman.setBankNo(employee.getBankNo());
+                //salesman.setBankNo(employee.getBankNo());
                 salesman.setEntryDate(employee.getEntryDate());
                 salesman.setQuitDate(employee.getQuitDate());
                 //停用的话两张表必须保持一致
@@ -129,7 +129,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
         if (employee != null) {
             salesman.setName(employee.getName());
             salesman.setMobile(employee.getMobile());
-            salesman.setBankNo(employee.getBankNo());
+            //salesman.setBankNo(employee.getBankNo());
             salesman.setEntryDate(employee.getEntryDate());
             salesman.setQuitDate(employee.getQuitDate());
             salesman.setDisabled(employee.getDisabled());

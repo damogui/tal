@@ -327,60 +327,31 @@ com.gongsibao.crm.web.NCustomerAddFormPart = org.netsharp.panda.commerce.FormPar
     	});
     }
     
-
-  //['mobile','validationContactWay['mobile','手机']']
 });
 
 
-com.gongsibao.crm.web.OrderDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
-
-	edit:function(rowData){
-		
-		IMessageBox.info("暂不支持查看");
-		return;
-	}
-});
-
-com.gongsibao.crm.web.ProdMapDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
-	
-	productChange:function(newValue,oldValue){
-		
-		//为空时，重置查询条件：q
-		if(System.isnull(newValue)){
-			
-			var options = $('#product_name').combogrid('options');
-			var qp = options.queryParams;
-		}
-	}
-});
-
-
-com.gongsibao.crm.web.FlowDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
-
-	
-	addBefore:function(){
-		
-    	//将【内容】设置为禁用
-    	$('#content').prop('disabled',false);
+com.gongsibao.crm.web.NCustomerTaskDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
+    ctor: function () {
+        this.base();
+    },
+    add: function() {
     	
-	},	
-	editBefore:function(){
+    	window.top.layer.open({
+  		  type: 2,
+  		  title: '新增任务',
+  		  fixed: false,
+  		  maxmin: true,
+  		  shadeClose:true,
+  		  area: ['100%','100%'],
+  		  content: '/panda/operation/task/add',
+  		  cancel: function(){ 
 
-    	//将【内容】设置为禁用
-    	$('#content').prop('disabled',true);
-    	
-	},
-	saveAfter:function(entity){
-		
-		entity.id=null;
-		var me = this;
-		this.invokeService("save", [entity], function(data) {
-
-			me.parent.byId(entity.customerId);
-		});
-		
-	}
+		  }
+  	});
+    }
 });
+
+
 
 
 /**

@@ -12,9 +12,13 @@ import com.gongsibao.panda.operation.workspace.crm.CustomerAnomalyDetectionWorks
 import com.gongsibao.panda.operation.workspace.crm.CustomerLostOrderWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerQualityWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerTaskALLWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.crm.CustomerTaskAddWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerTaskAllocatedWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerTaskUndistributedWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerUndistributedWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.reference.SupplierDepartmentReferenceTest;
+import com.gongsibao.panda.operation.workspace.reference.SupplierReferenceTest;
+import com.gongsibao.panda.operation.workspace.reference.SupplierSalesmanReferenceTest;
 import com.gongsibao.panda.operation.workspace.supplier.FunctionModuleWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.supplier.SupplierActionTest;
 import com.gongsibao.panda.operation.workspace.supplier.SupplierCategoryWorkspaceTest;
@@ -37,7 +41,11 @@ import com.gongsibao.panda.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
 	//参照
 	//功能模块
 	FunctionModuleReferenceTest.class,
-
+	SupplierReferenceTest.class,
+	SupplierDepartmentReferenceTest.class,
+	SupplierSalesmanReferenceTest.class,
+	
+	
 	//金牛座
 	UserWorkspaceTest.class,
 	//UserInfoWorkspaceTest.class,
@@ -68,6 +76,7 @@ import com.gongsibao.panda.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
 	SupplierCategoryWorkspaceTest.class,
 	
 	CustomerAddWorkspaceTest.class,
+	CustomerTaskAddWorkspaceTest.class,
 	
 	CustomerALLWorkspaceTest.class,
 	CustomerAllocatedWorkspaceTest.class,
