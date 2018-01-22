@@ -22,8 +22,4 @@ com.gongsibao.crm.web.SysSalesmanListPart = org.netsharp.panda.commerce.ListPart
         }
         return true;
     }
-
-
-
-
 });

@@ -1,7 +1,5 @@
 package com.gongsibao.panda.crm.workspace.sys;
 
-import com.gongsibao.entity.supplier.FunctionModule;
-import com.gongsibao.entity.supplier.RoleSalesman;
 import org.junit.Test;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.MtableManager;
@@ -11,16 +9,21 @@ import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.OperationType;
 import org.netsharp.organization.entity.Role;
 import org.netsharp.panda.controls.ControlTypes;
-import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.dic.PartType;
-import org.netsharp.panda.entity.*;
+import org.netsharp.panda.entity.PDatagrid;
+import org.netsharp.panda.entity.PDatagridColumn;
+import org.netsharp.panda.entity.PForm;
+import org.netsharp.panda.entity.PFormField;
+import org.netsharp.panda.entity.PPart;
+import org.netsharp.panda.entity.PQueryProject;
+import org.netsharp.panda.entity.PWorkspace;
 import org.netsharp.resourcenode.entity.ResourceNode;
+import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.crm.web.SysSalesmanListPart;
 import com.gongsibao.entity.supplier.Salesman;
-import org.netsharp.util.ReflectManager;
 
 //员工管理
 public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {

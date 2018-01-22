@@ -4,7 +4,6 @@ import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
-import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.PDatagrid;
@@ -76,7 +75,7 @@ public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
 
 		PForm form = super.createForm(node);
 		form.setColumnCount(1);
-		addFormField(form, "name", "部门名称", null, ControlTypes.TEXT_BOX, false);
+		addFormField(form, "name", "名称", null, ControlTypes.TEXT_BOX, true);
 		PFormField formField = addFormField(form, "memoto", "备注", ControlTypes.TEXTAREA, false, false);{
 			
 			formField.setHeight(100);
