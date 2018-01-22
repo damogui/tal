@@ -1,6 +1,7 @@
 package com.gongsibao.panda.crm.workspace.sys;
 
 import com.gongsibao.crm.web.SysDepartmentTreeGridPart;
+import com.gongsibao.crm.web.SysSalesmanTreePart;
 import org.junit.Test;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.MtableManager;
@@ -150,10 +151,11 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
             part.setStyle("width:250px;");
             part.setResourceNode(node);
             //进行扩展
-//            part.setToolbar(listToolbarPath);
-//            part.setJsController(SysDepartmentTreeGridPart.class.getName());
-//            part.setServiceController(SysDepartmentTreeGridPart.class.getName());
-//            part.setImports("/gsb/crm/sys/js/sys-department-list-part.js");
+           // part.setToolbar(listToolbarPath);
+
+            part.setJsController(SysSalesmanTreePart.class.getName());
+            part.setServiceController(SysSalesmanTreePart.class.getName());
+            part.setImports("/gsb/crm/sys/js/sys-salesman-tree-part.js");
         }
         workspace.getParts().add(part);
 

@@ -6,7 +6,7 @@ com.gongsibao.crm.web.SysSalesmanListPart = org.netsharp.panda.commerce.ListPart
         this.base();
     },
     doQuery : function(filter,queryParams) {
-        debugger;
+        
 
         var urls = this.getFilters(filter);
         var url = urls.join("&");
@@ -30,30 +30,19 @@ com.gongsibao.crm.web.SysSalesmanListPart = org.netsharp.panda.commerce.ListPart
             return false;
         }
         return true;
+    },addExtraParams:function(urls){//进行扩展
+
+        var supplierId = this.queryString('supplierId');
+        if(supplierId){
+
+            urls.push("supplierId=" + supplierId);
+        }
     }
 });
 
-//进行拼接服务商id
+
+//重新调用查询
 $(function() {
-  debugger;
-    var url = controllerdepartments.context.queryUrl;
-    var url2 = controllerdepartments.context.queryUrl;
-    var supplierId = controllerdepartments.queryString('supplierId');
-    if(supplierId){
-        url+='&supplierId='+supplierId;
-        url2+='&supplier_Id='+supplierId;
-    }
 
-    //controllerGsbCrmSysDepartmentTree
-    //树结构加上查询条件
-    var optionTree = $('#'+controllerGsbCrmSysDepartmentTree.context.id).tree('options');
-    optionTree.url = url2;
-    $('#'+controllerGsbCrmSysDepartmentTree.context.id).tree(optionTree);
-
-    //列表
-    var options = $(controllerdepartments.datagrid).datagrid('options');
-    options.url = url;
-    $(controllerdepartments.datagrid).datagrid(options);
-    //第三种 treegrid
-
+    controllerdepartments.query();
 });
