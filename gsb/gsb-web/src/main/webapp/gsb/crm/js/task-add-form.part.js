@@ -21,7 +21,7 @@ com.gongsibao.crm.web.NCustomerTaskProductDetailPart = org.netsharp.panda.commer
     },
     productCategory1Select:function(record){
     	
-    	//alert(record.id);
+    	//alert(record.id );
     	
     	//加载二级分类
         this.invokeService("queryByProducCategoryId1", [record.id], function (data) {
