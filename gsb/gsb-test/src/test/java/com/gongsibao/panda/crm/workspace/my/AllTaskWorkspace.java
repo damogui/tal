@@ -26,6 +26,7 @@ import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.controls.CityComboBox;
 import com.gongsibao.controls.DictComboBox;
+import com.gongsibao.controls.OrganizationComboBox;
 import com.gongsibao.crm.web.MyAllTaskListPart;
 import com.gongsibao.crm.web.NCustomerFollowPart;
 import com.gongsibao.entity.cms.Product;
@@ -148,12 +149,16 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 	//创建选项卡
 	@Override
 	protected void addDetailGridPart(PWorkspace workspace) {
+		addCustomerInfoPart(workspace);
 		addIntenProductPart(workspace);
 		addCommunicatLogsPart(workspace);
 		addNotificationLogPart(workspace);
 		addFlowLogPart(workspace);
 	}
 	//选项卡加载项
+	private void addCustomerInfoPart(PWorkspace workspace) {
+			
+	}
 	private void addIntenProductPart(PWorkspace workspace) {
 		//需要配置NCustomerProduct资源
 		ResourceNode node = this.resourceService.byCode(NCustomerProduct.class.getSimpleName());
