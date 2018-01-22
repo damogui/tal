@@ -6,9 +6,13 @@ import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.UploadAttachment;
 import com.gongsibao.entity.igirl.dict.AttachmentCat;
 import com.gongsibao.entity.igirl.dict.FileType;
+import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.igirl.base.IDownloadAttachmentService;
 import com.gongsibao.igirl.base.ITradeMarkCaseService;
 import com.gongsibao.igirl.base.IUploadAttachmentService;
+import com.gongsibao.supplier.base.ISupplierService;
+import com.gongsibao.utils.SupplierSessionManager;
+
 import java.sql.Types;
 import java.util.List;
 
@@ -21,7 +25,7 @@ import org.netsharp.core.Oql;
 
 @Service
 public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> implements ITradeMarkCaseService {
-
+	ISupplierService supplierServcie=ServiceFactory.create(ISupplierService.class);
 	IUploadAttachmentService upattachementService = ServiceFactory.create(IUploadAttachmentService.class);
 	IDownloadAttachmentService downattachementService = ServiceFactory.create(IDownloadAttachmentService.class);
 
@@ -65,7 +69,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		attachment.setMaxBytes(500);
 		return attachment;
 	}
-
+   
 	@Override
 	public TradeMarkCase save(TradeMarkCase entity) {
 
@@ -73,6 +77,10 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		if (entity.getEntityState() == EntityState.New) {
 			entity.setCode(DateTime.now().toString("yyyyMMddHHmmss"));
 			// IUserService userService=ServiceFactory.create(IUser)
+//			int id=SupplierSessionManager.getSupplierId();
+//			Supplier sl=supplierServcie.byId(id);
+//			entity.setProxyCompanyName(sl.getName());
+//			entity.setAccountNo(accountNo);
 
 			// 判断是否选中多，生成上传附件列表，如果选择
 			UploadAttachment attachment0 = (UploadAttachment) this.buildUploadAttachment("黑色商标图样",
