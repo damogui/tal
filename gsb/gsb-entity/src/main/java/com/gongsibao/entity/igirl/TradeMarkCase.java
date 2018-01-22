@@ -69,7 +69,7 @@ public class TradeMarkCase extends Entity {
     private String  token;
 
     @Column(name="token_img_url",size=256,header="二纬码")
-    private String  tokenImgUrl="http://a1.att.hudong.com/88/53/01300001309585136263538015274.jpg";
+    private String  tokenImgUrl;
 
     @Column(name="case_amount",header="金额")
     private BigDecimal caseAmount=BigDecimal.ZERO;
