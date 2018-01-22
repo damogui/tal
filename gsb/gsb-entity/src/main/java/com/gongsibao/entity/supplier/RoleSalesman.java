@@ -21,19 +21,19 @@ public class RoleSalesman extends Entity {
     private Integer roleId;
 
     @JsonIgnore
-    @Reference(foreignKey="employeeId")
+    @Reference(foreignKey="salesmanId")
     private Salesman salesman;
 
-    @Column(name="employee_id",header="员工Id")
-    private Integer employeeId;
+    @Column(name="salesman_id",header="员工Id")
+    private Integer salesmanId;
 
 
     public Integer getSalesmanId() {
-        return employeeId;
+        return salesmanId;
     }
 
     public void setSalesmanId(Integer salesmanId) {
-        this.employeeId = salesmanId;
+        this.salesmanId = salesmanId;
     }
 
     public Salesman getSalesman() {

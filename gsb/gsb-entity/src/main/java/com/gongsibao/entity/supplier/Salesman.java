@@ -40,7 +40,7 @@ public class Salesman extends Entity {
 	private Boolean disabled = false;
 
     @Exclusive
-    @Subs(subType=RoleSalesman.class,foreignKey="employeeId",header="用户角色")
+    @Subs(subType=RoleSalesman.class,foreignKey="salesmanId",header="用户角色")
     private List<RoleSalesman> roles;//忽略建表字段  RoleSalesman
    //扩展字段beg
    @Exclusive

@@ -1,7 +1,7 @@
 package com.gongsibao.panda.crm.workspace.sys;
 
 import com.gongsibao.entity.supplier.FunctionModule;
-import com.gongsibao.entity.uc.Role;
+import com.gongsibao.entity.supplier.RoleSalesman;
 import org.junit.Test;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.MtableManager;
@@ -9,6 +9,7 @@ import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.base.IOperationTypeService;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.OperationType;
+import org.netsharp.organization.entity.Role;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.DockType;
@@ -106,8 +107,8 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
         ResourceNode node = this.getResourceNode(resourceNodeCode);
         operationService.addOperation(node, OperationTypes.view);
         operationService.addOperation(node, OperationTypes.add);
-//		operationService.addOperation(node,OperationTypes.update);
-//		operationService.addOperation(node,OperationTypes.delete);
+		operationService.addOperation(node,OperationTypes.update);
+		operationService.addOperation(node,OperationTypes.delete);
     }
 
 
@@ -178,18 +179,19 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
       addRolesDetailPart(workspace);
 
 
+
     }
 
     // 添加角色
     private void addRolesDetailPart(PWorkspace workspace) {
 
         ResourceNode node = this.resourceService.byCode("GSB_CRM_SYS_SALESMAN_ADDROLE");
-
-        PDatagrid datagrid = new PDatagrid(node, "角色信息");
+        PDatagrid datagrid = new PDatagrid(node, "添加角色");//列表展示
         {
-            datagrid.setShowCheckbox(true);
-            datagrid.setSingleSelect(false);
-            datagrid.setReadOnly(true);
+//            datagrid.setShowCheckbox(true);
+//            datagrid.setSingleSelect(false);
+//            datagrid.setReadOnly(true);
+//            datagrid.setName("添加角色");
             PDatagridColumn column = null;
             /*addColumn(datagrid, "role.name", "角色", ControlTypes.TEXT_BOX, 100);
             column = addColumn(datagrid, "updator", "最后修改人", ControlTypes.TEXT_BOX, 100, false, null, null, null);
@@ -201,24 +203,26 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
             {
                 column.setAlign(DatagridAlign.CENTER);
             }*/
-            addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 150, false, null, null, null);
+            addColumn(datagrid, "role.name", "角色", ControlTypes.TEXT_BOX, 150, false, null, null, null);
+
         }
 
-        PForm form = new PForm();
+        PForm form = new PForm();//添加表单
         {
             form.setResourceNode(node);
             form.toNew();
-            form.setColumnCount(1);
-            form.setName("角色");
+            form.setColumnCount(2);
+            form.setName("添加角色");
             PFormField field = null;
-            //field = addFormFieldRefrence(form, "role.name", "角色", null, Role.class.getSimpleName(), true, false);
-            field = addFormFieldRefrence(form, "createTime", "创建时间", null, Role.class.getSimpleName(), true, false);
+
+            field = addFormFieldRefrence(form, "role.name", "角色", null, Role.class.getSimpleName(), true, false);
+
         }
 
         PPart part = new PPart();
         {
             part.toNew();
-            part.setName("角色信息");
+            part.setName("添加角色");
             part.setCode("roles");
             part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
             part.setRelationRole("roles");
@@ -241,7 +245,6 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 
 
     }
-
 
 
 }
