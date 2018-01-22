@@ -1,7 +1,9 @@
 System.Declare("com.gongsibao.crm.web");
 
-com.gongsibao.crm.web.SysDepartmentTreegridPart = org.netsharp.panda.commerce.TreegridPart.Extends({
-
+com.gongsibao.crm.web.SysDepartmentTreeGridPart = org.netsharp.panda.commerce.TreegridPart.Extends({
+	ctor : function() {
+		this.base();
+	},
 	onAdding:function(){
 
 		var totalCount = $("#" + this.context.id).treegrid('getData').length;
