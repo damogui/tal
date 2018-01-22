@@ -32,7 +32,7 @@ import org.junit.runners.Suite.SuiteClasses;
 	//com.gongsibao.panda.ma.AllTest.class,
 	
     //5.运营管理
-	//com.gongsibao.panda.operation.AllTest.class,
+	com.gongsibao.panda.operation.AllTest.class,
 	
     //6.商品管理
 //	com.gongsibao.panda.product.AllTest.class,
