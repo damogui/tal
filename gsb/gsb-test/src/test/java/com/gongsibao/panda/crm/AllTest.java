@@ -28,6 +28,7 @@ import com.gongsibao.panda.crm.workspace.department.DepartUnStartWorkspace;
 import com.gongsibao.panda.crm.workspace.my.AllTaskWorkspace;
 import com.gongsibao.panda.crm.workspace.my.AlreadySignWorkspace;
 import com.gongsibao.panda.crm.workspace.my.CheckAbnormalWorkspace;
+import com.gongsibao.panda.crm.workspace.my.CustomerWorkspace;
 import com.gongsibao.panda.crm.workspace.my.DefeatedWorkspace;
 import com.gongsibao.panda.crm.workspace.my.FollowIngWorkspace;
 import com.gongsibao.panda.crm.workspace.my.UnFoolowWorkspace;
@@ -73,6 +74,8 @@ import com.gongsibao.panda.crm.workspace.sys.SysSalesmanWorkspaceTest;
 		DefeatedWorkspace.class,
 		CheckAbnormalWorkspace.class,
 		TaskFollowUpWorkspaceTest.class,
+		CustomerWorkspace.class,
+		
 		
 		DepartAllTaskWorkspace.class,
 		DepartAlreadySignWorkspace.class,
