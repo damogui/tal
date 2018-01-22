@@ -2,6 +2,7 @@ package com.gongsibao.igirl.service;
 
 import com.gongsibao.bd.service.GsbPersistableService;
 import com.gongsibao.entity.igirl.DownloadAttachment;
+import com.gongsibao.entity.igirl.TradeMark;
 import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.UploadAttachment;
 import com.gongsibao.entity.igirl.dict.AttachmentCat;
@@ -156,7 +157,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			 Oql oql = new Oql();
 			 {
 			 oql.setType(this.type);
-			 oql.setSelects("TradeMarkCase.id,TradeMarkCase.uploadAttachments.*,TradeMarkCase.downLoadAttaments.*");
+			 oql.setSelects("TradeMarkCase.id,TradeMarkCase.uploadAttachments.*,TradeMarkCase.downLoadAttaments.*,TradeMarkCase.tradeMarks.*");
 			 oql.setFilter(" id=? ");
 			 oql.getParameters().add("id", entity.getId(), Types.INTEGER);
 			 }
@@ -173,6 +174,12 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			 for(int i=0;i<ds.size();i++) {
 				 DownloadAttachment downloadAttachment= ds.get(i);
 				 downloadAttachment.setEntityState(EntityState.Deleted);
+				 
+			 }
+			 List<TradeMark> tms=entity.getTradeMarks();
+			 for(int i=0;i<tms.size();i++) {
+				 TradeMark tm= tms.get(i);
+				 tm.setEntityState(EntityState.Deleted);
 				 
 			 }
 			 
@@ -198,7 +205,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		// TODO Auto-generated method stub
 		Oql oql=new Oql();{
    		 oql.setType(TradeMarkCase.class);
-   		 oql.setSelects("TradeMarkCase.id,TradeMarkCase.proxyCode,TradeMarkCase.tradeMarks.*");
+   		 oql.setSelects("TradeMarkCase.id,TradeMarkCase.code,TradeMarkCase.caseAmount,TradeMarkCase.tradeMarks.*");
    		 oql.setFilter("mobile=?");
    		 oql.getParameters().add("mobile",mobile,Types.VARCHAR);
    	    }

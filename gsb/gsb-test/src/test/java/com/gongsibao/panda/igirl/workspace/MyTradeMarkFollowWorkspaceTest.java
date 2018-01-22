@@ -21,23 +21,24 @@ import org.netsharp.resourcenode.entity.ResourceNode;
  * @date:   20181.1.10
  *
  */
-public class TradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
+public class MyTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 
 	@Before
 	public void setup() {
 
 		super.setup();
-		urlList = "/igirl/all/progress/list";
+		urlList = "/igirl/my/progress/list";
 		//urlForm = "/igirl/nclone/form";
 
 		entity = TradeMark.class;
 		meta = MtableManager.getMtable(entity);
-		resourceNodeCode = "IGIRL_All_TradeMark";
+		resourceNodeCode = "IGIRL_My_TradeMark";
 		formPartName = listPartName = meta.getName();
 		formOpenMode = OpenMode.WINDOW;
 		openWindowWidth = 800;
 		openWindowHeight = 600;
-		listToolbarPath="/igirl/tradeMark/list";
+		listToolbarPath="/igirl/my/tradeMark/list";
+		listFilter = "creator_id = '{userId}'";
 	}
 	
 	 @Test

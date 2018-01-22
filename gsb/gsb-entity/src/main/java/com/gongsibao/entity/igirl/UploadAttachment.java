@@ -27,7 +27,7 @@ public class UploadAttachment extends Entity {
 	@Column(name="to_file_type",header="目标文件类型")
     private FileType toFileType;
 
-    @Column(name="file_url",header="文件url")
+    @Column(name="file_url",size=256,header="文件url")
     private String fileUrl;
     
     

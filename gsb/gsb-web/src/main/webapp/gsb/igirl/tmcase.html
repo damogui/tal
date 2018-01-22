@@ -1,18 +1,46 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<title>方案确认</title>
-	<link href='/package/easyui/themes/material/easyui.css' rel='stylesheet' type='text/css' />
-	<link href='/package/easyui/themes/easyui.extend.css' rel='stylesheet' type='text/css' />
+	 <!-- Bootstrap -->
+    <link href='/package/bootstrap/css/bootstrap.min.css' rel='stylesheet' type='text/css' />
+	 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+     <style>
+         body{
+              
+            }
+     </style>
 </head>
 <body ng-app="app" ng-controller="TmCaseCtrl">
-	<div>{{model.proxyCode}}</div>
+  <div class="jumbotron" style="padding:15px">
+           <img src="/panda-res/images/logo.png" style="margin-left:-65px;width:200px;" alt="公司宝">
+			  <h3>张先生</h3>
+			  <h5>&nbsp;&nbsp;&nbsp;&nbsp;请您确认下面的方案,方案金额为1090元</h5>
+			  <p class="text-right"><a class="btn" href="#" role="button">异议</a></p>
+			  <p class="text-right"><a class="btn" href="#" role="button">确认</a></p>
+ </div>
+  <div class="container">
+		<div class="panel">
+		  <div class="panel-body">
+		    <div class="container-fluid">
+				  <div class="row">
+					  <div class="col-xs-4">方案编号</div>
+					  <div class="col-xs-8">xxxx</div>
+			    </div>
+		    </div>
+		  </div>
+		</div>
+   </div>
 	<script src="/package/easyui/jquery.min.js"></script>
-	<script src='/package/layer/layer.js'></script>
-	<script src="/package/angular/angular.min.js"></script>
-	<script src='/panda-res/js/system.js'></script>
-	<script src="/package/angular/app.js"></script>
+	<script src="/package/bootstrap/js/bootstrap.min.js"></script>
 	<script src="js/tmcase.ctl.js"></script>
 </body>
 </html>
+

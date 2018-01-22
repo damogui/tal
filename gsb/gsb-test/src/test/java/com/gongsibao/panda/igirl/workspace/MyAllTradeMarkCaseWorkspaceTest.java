@@ -23,23 +23,22 @@ import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
-public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
+public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 
 	@Override
 	@Before
 	public void setup() {
-
-		// formToolbarPath = "igirl/trademarkcase/form";
-		urlList = "/igirl/trademarkcase/all/list";
-		urlForm = "/igirl/trademarkcase/all/form";
+		urlList = "/igirl/my/case/list";
+		urlForm = "/igirl/my/case/form";
 		entity = TradeMarkCase.class;
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = "商标方案";
-		resourceNodeCode = "IGIRL_All_TradeMarkCase";
+		resourceNodeCode = "IGIRL_My_TradeMarkCase";
 		formServiceController = TradeMarkCasePart.class.getName();
 		formJsController = TradeMarkCasePart.class.getName();
 		formJsImport = "/gsb/igirl/js/markcase.form.part.js";
-		listToolbarPath = "/igirl/list/toolbar";
+		listToolbarPath = "/igirl/my/list/toolbar";
+		listFilter = "creator_id = '{userId}'";
 	}
 
 	
