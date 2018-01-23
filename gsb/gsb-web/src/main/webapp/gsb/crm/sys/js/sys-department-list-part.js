@@ -39,7 +39,7 @@ com.gongsibao.crm.web.SysDepartmentTreeGridPart = org.netsharp.panda.commerce.Tr
 				fks.push("supplierId:" + supplierId);
 			}
 			this.doAdd("fk=" + fks.join(";"));
-	
+			
 		} else {
 	
 			var parentId = this.getSelectedItem().id;
@@ -71,24 +71,24 @@ com.gongsibao.crm.web.SysDepartmentTreeGridPart = org.netsharp.panda.commerce.Tr
 		var $tree = $("#" + this.context.id);
 		this.invokeService("pathCode", [], function(jMessage) {
 	
-			if (node == null) {
-	
-				$tree.treegrid('reload');
+		if (node == null) {
+
+			$tree.treegrid('reload');
+		} else {
+
+			var selectedNode = $tree.tree('getSelected');
+			if (selectedNode) {
+
+				$tree.treegrid('reload', selectedNode.target);
 			} else {
-	
-				var selectedNode = $tree.tree('getSelected');
-				if (selectedNode) {
-	
-					$tree.treegrid('reload', selectedNode.target);
-				} else {
-	
-					$tree.treegrid('reload');
-					}
+
+				$tree.treegrid('reload');
 				}
-	
-			});
-		}
-	});
+			}
+
+		});
+	}
+});
 
 $(function() {
 

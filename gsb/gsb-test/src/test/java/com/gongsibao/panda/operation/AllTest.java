@@ -6,14 +6,19 @@ import org.junit.runners.Suite.SuiteClasses;
 
 import com.gongsibao.panda.operation.reference.FunctionModuleReferenceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerALLWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.crm.CustomerAddWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerAllocatedWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerAnomalyDetectionWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerLostOrderWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerQualityWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerTaskALLWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.crm.CustomerTaskAddWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerTaskAllocatedWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerTaskUndistributedWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerUndistributedWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.reference.SupplierDepartmentReferenceTest;
+import com.gongsibao.panda.operation.workspace.reference.SupplierReferenceTest;
+import com.gongsibao.panda.operation.workspace.reference.SupplierSalesmanReferenceTest;
 import com.gongsibao.panda.operation.workspace.supplier.FunctionModuleWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.supplier.SupplierActionTest;
 import com.gongsibao.panda.operation.workspace.supplier.SupplierCategoryWorkspaceTest;
@@ -36,7 +41,11 @@ import com.gongsibao.panda.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
 	//参照
 	//功能模块
 	FunctionModuleReferenceTest.class,
-
+	SupplierReferenceTest.class,
+	SupplierDepartmentReferenceTest.class,
+	SupplierSalesmanReferenceTest.class,
+	
+	
 	//金牛座
 	UserWorkspaceTest.class,
 	//UserInfoWorkspaceTest.class,
@@ -65,6 +74,9 @@ import com.gongsibao.panda.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
 	FunctionModuleWorkspaceTest.class,
 	SupplierWorkspaceTest.class,
 	SupplierCategoryWorkspaceTest.class,
+	
+	CustomerAddWorkspaceTest.class,
+	CustomerTaskAddWorkspaceTest.class,
 	
 	CustomerALLWorkspaceTest.class,
 	CustomerAllocatedWorkspaceTest.class,

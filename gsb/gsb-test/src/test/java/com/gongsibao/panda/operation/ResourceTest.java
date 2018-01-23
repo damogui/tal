@@ -18,6 +18,7 @@ import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskQuality;
 import com.gongsibao.entity.supplier.FunctionModule;
 import com.gongsibao.entity.supplier.FunctionModuleRole;
+import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierCategory;
 import com.gongsibao.entity.supplier.SupplierDepartment;
@@ -39,6 +40,7 @@ import com.gongsibao.entity.taurus.UserWalletLog;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.supplier.base.IFunctionModuleRoleService;
 import com.gongsibao.supplier.base.IFunctionModuleService;
+import com.gongsibao.supplier.base.ISalesmanService;
 import com.gongsibao.supplier.base.ISupplierCategoryService;
 import com.gongsibao.supplier.base.ISupplierDepartmentService;
 import com.gongsibao.supplier.base.ISupplierFunctionModuleService;
@@ -108,11 +110,13 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(FunctionModule.class.getName(), "功能模块", "GSB_Operation_Function_Module", IFunctionModuleService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(FunctionModuleRole.class.getName(), "功能模块角色", "GSB_Operation_Supplier_Function_Module_Role", IFunctionModuleRoleService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(SupplierDepartment.class.getName(), "服务商部门", "GSB_Operation_Supplier_Department", ISupplierDepartmentService.class.getName(), node1.getId());
-
+			this.createResourceNodeVoucher(Salesman.class.getName(), "服务商业务员", "GSB_Operation_Supplier_Salesman", ISalesmanService.class.getName(), node1.getId());
 		}
 
 		node1 = this.createResourceNodeCategory("客户管理", "GSB_CRM_Customer_Manager", node.getId());
 		{
+			this.createResourceNodeVoucher(NCustomer.class.getName(), "新增客户", "GSB_CRM_Customer_Manager_Add", INCustomerService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "新增任务", "GSB_CRM_Task_Manager_Add", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomer.class.getName(), "全部客户", "GSB_CRM_Customer_Manager_ALL", INCustomerService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomer.class.getName(), "已分配客户", "GSB_CRM_Customer_Manager_Allocated", INCustomerService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomer.class.getName(), "未分配客户", "GSB_CRM_Customer_Manager_Undistributed", INCustomerService.class.getName(), node1.getId());

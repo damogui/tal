@@ -85,7 +85,7 @@ public class DayWorkspaceTest extends WorkspaceCreationBase {
 			item.setRequired(true);
 		}
 		item = addRefrenceQueryItem(queryProject, "department.shortName", "部门", "Gsb_Organization");{
-			item.setRequired(true);
+			item.setRequired(false);
 		}
 		addRefrenceQueryItem(queryProject, "salesman.name", "业务员", "Gsb_User");
 		return queryProject;

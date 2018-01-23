@@ -305,5 +305,6 @@ public class CustomerTaskALLWorkspaceTest extends WorkspaceCreationBase{
 	public void doOperation() {
 		ResourceNode node = resourceService.byCode(resourceNodeCode);
 		operationService.addOperation(node, OperationTypes.view);
+		operationService.addOperation(node, OperationTypes.add);
 	}
 }

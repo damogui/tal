@@ -239,15 +239,17 @@ org.netsharp.panda.Workbench = System.Object.Extends({
     },
     
     getNavItemsHtml:function(items){
-    	
+
     	var builder = new System.StringBuilder();
     	builder.appendLine('<ul class="accordion_item_nav">');
     	$(items).each(function(index,item){
 
-    		var li = '<li><a href="javascript:void(0);" onclick=\'workbench.accordionNavClick(this,"{0}","{1}","{2}",true,"{3}","{4}",{5},{6});\'><span><i class="fa fa-file-text-o"></i>{0}</span></a></li>'.format(
+        	var icon = item.iconCls || 'fa fa-file-text-o';
+        	var liStr = '<li><a href="javascript:void(0);" onclick=\'workbench.accordionNavClick(this,"{0}","{1}","{2}",true,"{3}","{4}",{5},{6});\'><span><i class="'+icon+'"></i>{0}</span></a></li>';
+    		var li = liStr.format(
 					item.text,
     				item.attributes.url,
-					'',
+    				icon,
 					true,
 					item.id,
 					item.attributes.openMode,

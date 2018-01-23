@@ -7,14 +7,18 @@ import com.gongsibao.igirl.web.TradeMarkCasePart;
 import com.gongsibao.igirl.web.TradeMarkDetailPart;
 import com.gongsibao.igirl.web.UploadAttachmentDetailPart;
 import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.dic.PostType;
+import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.*;
+import org.netsharp.panda.plugin.entity.PToolbar;
+import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
@@ -35,66 +39,68 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		formServiceController = TradeMarkCasePart.class.getName();
 		formJsController = TradeMarkCasePart.class.getName();
 		formJsImport = "/gsb/igirl/js/markcase.form.part.js";
+		listToolbarPath = "/igirl/list/toolbar";
 	}
 
-	//
-	// @Test
-	// public void fromToolbar() {
-	//
-	// ResourceNode node =
-	// this.resourceService.byCode(CustomerFollow.class.getSimpleName());
-	// OperationType ot1 = operationTypeService.byCode(OperationTypes.add);
-	//
-	// PToolbar toolbar = new PToolbar();
-	// {
-	// toolbar.toNew();
-	// toolbar.setBasePath("panda/form/edit");
-	// toolbar.setPath("crm/customer/form");
-	// toolbar.setName("客户表单");
-	// toolbar.setResourceNode(node);
-	// toolbar.setToolbarType(ToolbarType.BASE);
-	// }
-	//
-	// PToolbarItem item = new PToolbarItem();
-	// {
-	// item.toNew();
-	// item.setCode("edit");
-	// item.setIcon("fa fa-edit");
-	// item.setName("编辑");
-	// item.setCommand(null);
-	// item.setOperationType(ot1);
-	// item.setSeq(3000);
-	// item.setCommand("{controller}.edit();");
-	// toolbar.getItems().add(item);
-	// }
-	// item = new PToolbarItem();
-	// {
-	// item.toNew();
-	// item.setCode("matching");
-	// item.setIcon("fa fa-drivers-license");
-	// item.setName("客户ID");
-	// item.setCommand(null);
-	// item.setOperationType(ot1);
-	// item.setSeq(4000);
-	// item.setCommand("{controller}.matching();");
-	// toolbar.getItems().add(item);
-	// }
-	// item = new PToolbarItem();
-	// {
-	// item.toNew();
-	// item.setCode("follow");
-	// item.setIcon("fa fa-mail-reply-all");
-	// item.setName("跟进");
-	// item.setCommand(null);
-	// item.setOperationType(ot1);
-	// item.setSeq(5000);
-	// item.setCommand("{controller}.follow();");
-	// toolbar.getItems().add(item);
-	// }
-	//
-	// toolbarService.save(toolbar);
-	// }
-	//
+	
+	 @Test
+	 public void fromToolbar() {
+	
+	 ResourceNode node =	 this.resourceService.byCode(resourceNodeCode);
+	 OperationType ot1 = operationTypeService.byCode(OperationTypes.add);
+	
+	 PToolbar toolbar = new PToolbar();
+	 {
+		 toolbar.toNew();
+		 //toolbar.setBasePath("panda/datagrid/edit");
+		 toolbar.setPath(listToolbarPath);
+		 toolbar.setName("案件工具栏");
+		 toolbar.setResourceNode(node);
+	
+	 }
+	 
+	 PToolbarItem item = new PToolbarItem();
+	 {
+	 item.toNew();
+	 item.setCode("add");
+	 item.setIcon("fa fa-plus");
+	 item.setName("新增");
+	 item.setCommand(null);
+	 item.setOperationType(ot1);
+	 item.setSeq(3000);
+	 item.setCommand("{controller}.add();");
+	 toolbar.getItems().add(item);
+	 }
+	
+	 item = new PToolbarItem();
+	 {
+	 item.toNew();
+	 item.setCode("edit");
+	 item.setIcon("fa fa-edit");
+	 item.setName("编辑");
+	 item.setCommand(null);
+	 item.setOperationType(ot1);
+	 item.setSeq(3000);
+	 item.setCommand("{controller}.edit();");
+	 toolbar.getItems().add(item);
+	 }
+	 item = new PToolbarItem();
+	 {
+	 item.toNew();
+	 item.setCode("remove");
+	 item.setIcon("fa fa-trash-o");
+	 item.setName("删除");
+	 item.setCommand(null);
+	 item.setOperationType(ot1);
+	 item.setSeq(4000);
+	 item.setCommand("{controller}.remove();");
+	 toolbar.getItems().add(item);
+	 }
+	
+	
+	 toolbarService.save(toolbar);
+	 }
+	
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
 
@@ -301,7 +307,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 			addFormField(form, "fileType", "文件类型", groupName, ControlTypes.ENUM_BOX, true, false);
 			addFormField(form, "toFileType", "目标文件类型", groupName, ControlTypes.ENUM_BOX, true, false);
 			addFormField(form, "name", "附件名称", groupName, ControlTypes.TEXT_BOX, true, false);
-			addFormField(form, "fileUrl", "上传", groupName, ControlTypes.PICTURE_FILE_BOX, true, false);
+			addFormField(form, "fileUrl", "上传", groupName, ControlTypes.OSS_UPLOAD, true, false);
 
 		}
 
@@ -362,6 +368,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 			{
 				column.setFormatter("if(row.fileUrl=='' || row.fileUrl==null ){return '待生成' } else{ return '可下载' }");
 			}
+			
 
 		}
 		PForm form = new PForm();
@@ -376,6 +383,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 			addFormField(form, "fileType", "文件类型", groupName, ControlTypes.ENUM_BOX, true, false);
 			addFormField(form, "toFileType", "目标文件类型", groupName, ControlTypes.ENUM_BOX, true, false);
 			addFormField(form, "name", "附件名称", groupName, ControlTypes.TEXT_BOX, true, false);
+			addFormField(form, "fileUrl", "上传", groupName, ControlTypes.OSS_UPLOAD, true, false);
 
 		}
 
@@ -401,200 +409,23 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		workspace.getParts().add(part);
 
 	}
-	//
-	// /**
-	// * @Title: createSubdiaryieCompanyDetailPart
-	// * @Description: TODO(创建匹配明细)
-	// * @param: @param workspace
-	// * @return: void
-	// * @throws
-	// */
-	// private void createCompanysDetailPart(PWorkspace workspace) {
-	//
-	// ResourceNode node =
-	// this.resourceService.byCode(CustomerCompanyMap.class.getSimpleName());
-	// PDatagrid datagrid = new PDatagrid(node, "关联企业");
-	// {
-	// addColumn(datagrid, "company.companyName", "公司名称", ControlTypes.TEXT_BOX,
-	// 300);
-	// }
-	//
-	// PForm form = new PForm();
-	// {
-	// form.toNew();
-	// form.setResourceNode(node);
-	// form.setColumnCount(1);
-	// form.setName("关联企业");
-	//
-	// PFormField formField = null;
-	// formField = addFormFieldRefrence(form, "company.companyName", "公司名称", null,
-	// CompanyIntention.class.getSimpleName(), true, false);
-	// {
-	// formField.setWidth(300);
-	// }
-	// }
-	//
-	// PPart part = new PPart();
-	// {
-	// part.toNew();
-	// part.setName("关联企业");
-	// part.setCode("companys");
-	// part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
-	// part.setRelationRole("companys");
-	// part.setResourceNode(node);
-	// part.setPartTypeId(PartType.DETAIL_PART.getId());
-	// part.setDatagrid(datagrid);
-	// part.setDockStyle(DockType.DOCUMENTHOST);
-	// part.setToolbar("panda/datagrid/detail");
-	// part.setWindowWidth(550);
-	// part.setWindowHeight(350);
-	// part.setForm(form);
-	// }
-	//
-	// workspace.getParts().add(part);
-	// }
-	//
-	// private void createOrderDetailPart(PWorkspace workspace) {
-	//
-	// ResourceNode node =
-	// this.resourceService.byCode(SoOrder.class.getSimpleName());
-	// PDatagrid datagrid = new PDatagrid(node, "订单历史");
-	// {
-	// addColumn(datagrid, "no", "订单号", ControlTypes.TEXT_BOX, 100);
-	// addColumn(datagrid, "createTime", "下单时间", ControlTypes.DATETIME_BOX, 130);
-	// addColumn(datagrid, "totalPrice", "订单金额", ControlTypes.DECIMAL_BOX, 100);
-	// addColumn(datagrid, "paidPrice", "已付金额", ControlTypes.DECIMAL_BOX, 150);
-	// // addColumn(datagrid, "no", "订单号", ControlTypes.TEXT_BOX, 150);
-	// }
-	//
-	// // PForm form = new PForm();
-	// // {
-	// // form.toNew();
-	// // form.setResourceNode(node);
-	// // form.setColumnCount(1);
-	// // form.setName("订单历史");
-	// //
-	// // PFormField formField = null;
-	// // formField = addFormFieldRefrence(form, "no", "公司名称",null,
-	// // CompanyIntention.class.getSimpleName(), true, false);{
-	// //
-	// // formField.setWidth(300);
-	// // }
-	// // }
-	//
-	// PPart part = new PPart();
-	// {
-	// part.toNew();
-	// part.setName("订单历史");
-	// part.setCode("orders");
-	// part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
-	// part.setRelationRole("orders");
-	// part.setResourceNode(node);
-	// part.setPartTypeId(PartType.DETAIL_PART.getId());
-	// part.setDatagrid(datagrid);
-	// part.setDockStyle(DockType.DOCUMENTHOST);
-	// part.setJsController("com.gongsibao.crm.web.OrderDetailPart");
-	// // part.setToolbar("panda/datagrid/detail");
-	// // part.setWindowWidth(550);
-	// // part.setWindowHeight(350);
-	// // part.setForm(form);
-	// }
-	//
-	// workspace.getParts().add(part);
-	// }
-	//
-	// @Test
-	// public void detailPart() {
-	//
-	// ResourceNode node =
-	// this.resourceService.byCode(CustomerFollow.class.getSimpleName());
-	// OperationType ot1 = operationTypeService.byCode(OperationTypes.add);
-	//
-	// PToolbar toolbar = new PToolbar();
-	// {
-	// toolbar.toNew();
-	// toolbar.setPath("crm/customer/flow/detail");
-	// toolbar.setName("子表");
-	// toolbar.setResourceNode(node);
-	// toolbar.setToolbarType(ToolbarType.BASE);
-	// }
-	//
-	// PToolbarItem item = new PToolbarItem();
-	// {
-	// item.toNew();
-	// item.setCode("add");
-	// item.setIcon("fa fa-mail-reply-all");
-	// item.setName("跟进");
-	// item.setCommand(null);
-	// item.setOperationType(ot1);
-	// item.setSeq(1);
-	// item.setCommand("{controller}.add();");
-	// toolbar.getItems().add(item);
-	// }
-	//
-	// toolbarService.save(toolbar);
-	// }
-	//
-	// private void createFlowDetailPart(PWorkspace workspace) {
-	//
-	// ResourceNode node =
-	// this.resourceService.byCode(CustomerFollow.class.getSimpleName());
-	// PDatagrid datagrid = new PDatagrid(node, "沟通日志");
-	// {
-	// addColumn(datagrid, "content", "内容", ControlTypes.TEXT_BOX, 500);
-	// addColumn(datagrid, "creator", "沟通人", ControlTypes.DATETIME_BOX, 130);
-	// addColumn(datagrid, "createTime", "沟通时间", ControlTypes.DATETIME_BOX, 130);
-	// }
-	//
-	// PForm form = new PForm();
-	// {
-	// form.toNew();
-	// form.setResourceNode(node);
-	// form.setColumnCount(1);
-	// form.setName("沟通日志");
-	//
-	// PFormField formField = null;
-	// formField = addFormField(form, "content", "内容", ControlTypes.TEXTAREA, true,
-	// false);
-	// {
-	// formField.setReadonly(true);
-	// formField.setWidth(400);
-	// formField.setHeight(200);
-	// formField.setFullColumn(false);
-	// }
-	// }
-	//
-	// PPart part = new PPart();
-	// {
-	// part.toNew();
-	// part.setName("沟通日志");
-	// part.setCode("follows");
-	// part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
-	// part.setRelationRole("follows");
-	// part.setResourceNode(node);
-	// part.setPartTypeId(PartType.DETAIL_PART.getId());
-	// part.setDatagrid(datagrid);
-	// part.setDockStyle(DockType.DOCUMENTHOST);
-	// part.setToolbar("crm/customer/flow/detail");
-	// part.setJsController(FlowDetailPart.class.getName());
-	// part.setServiceController(FlowDetailPart.class.getName());
-	// part.setWindowWidth(550);
-	// part.setWindowHeight(400);
-	// part.setForm(form);
-	// }
-	//
-	// workspace.getParts().add(part);
-	// }
-	//
-	// @Override
-	// protected PQueryProject createQueryProject(ResourceNode node) {
-	//
-	// PQueryProject queryProject = super.createQueryProject(node);
-	// queryProject.toNew();
-	// addQueryItem(queryProject, "realName", "客户名称", ControlTypes.TEXT_BOX);
-	// addQueryItem(queryProject, "mobile", "手机", ControlTypes.TEXT_BOX);
-	// return queryProject;
-	// }
+	@Override
+	protected PQueryProject createQueryProject(ResourceNode node) {
+
+		PQueryProject queryProject = super.createQueryProject(node);
+		queryProject.toNew();
+		addQueryItem(queryProject, "code", "案件编号", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "companyName", "公司名称", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "applier", "申请人", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "TMCState", "状态", ControlTypes.ENUM_BOX);
+//		PQueryItem item =addQueryItem(queryProject, "mobilePhone", "销售方式", ControlTypes.CUSTOMER);{
+//			
+//			item.setCustomerControlType(DictComboBox.class.getName());
+//			item.setRefFilter("type=8");
+//		}
+		//addQueryItem(queryProject, "enabled", "启用/禁用", ControlTypes.BOOLCOMBO_BOX);
+		return queryProject;
+	}
 
 	public void doOperation() {
 

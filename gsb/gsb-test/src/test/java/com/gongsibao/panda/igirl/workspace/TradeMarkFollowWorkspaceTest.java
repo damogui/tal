@@ -2,12 +2,16 @@ package com.gongsibao.panda.igirl.workspace;
 
 import com.gongsibao.entity.igirl.TradeMark;
 import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
+import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.*;
+import org.netsharp.panda.plugin.entity.PToolbar;
+import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 /**   
@@ -33,7 +37,38 @@ public class TradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		formOpenMode = OpenMode.WINDOW;
 		openWindowWidth = 800;
 		openWindowHeight = 600;
+		listToolbarPath="/igirl/tradeMark/list";
 	}
+	
+	 @Test
+	 public void fromToolbar() {
+	
+	 ResourceNode node =	 this.resourceService.byCode(resourceNodeCode);
+	 OperationType ot1 = operationTypeService.byCode(OperationTypes.add);
+	
+	 PToolbar toolbar = new PToolbar();
+	 {
+		 toolbar.toNew();
+		 //toolbar.setBasePath("panda/datagrid/edit");
+		 toolbar.setPath(listToolbarPath);
+		 toolbar.setName("进度跟进工具栏");
+		 toolbar.setResourceNode(node);
+	
+	 }
+	 PToolbarItem item = new PToolbarItem();
+	 {
+	 item.toNew();
+	 item.setCode("attachment");
+	 item.setIcon("fa fa-link");
+	 item.setName("进度更新");
+	 item.setCommand(null);
+	 item.setOperationType(ot1);
+	 item.setSeq(3000);
+	 item.setCommand("{controller}.attachment();");
+	 toolbar.getItems().add(item);
+	 }
+	 toolbarService.save(toolbar);
+	 }
 
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
@@ -44,7 +79,7 @@ public class TradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 			datagrid.setName("商标大类");
 		}
 		PDatagridColumn column = null;
-		addColumn(datagrid, "proxyCode", "代理号", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "proxyCode", "代理号", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "tradeMarkCase.companyName", "公司名称", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "tradeMarkCase.applier", "申请人", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "memo", "商标说明", ControlTypes.TEXT_BOX, 200);

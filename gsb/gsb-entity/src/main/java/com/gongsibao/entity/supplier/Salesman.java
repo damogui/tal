@@ -1,14 +1,15 @@
 package com.gongsibao.entity.supplier;
 
-import org.joda.time.DateTime;
-import org.netsharp.core.annotations.*;
-import org.netsharp.entity.Entity;
-import org.netsharp.organization.entity.Employee;
-import org.netsharp.organization.entity.Role;
-import org.netsharp.organization.entity.RoleEmployee;
-
 import java.util.Date;
 import java.util.List;
+
+import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Exclusive;
+import org.netsharp.core.annotations.Reference;
+import org.netsharp.core.annotations.Subs;
+import org.netsharp.core.annotations.Table;
+import org.netsharp.entity.Entity;
+import org.netsharp.organization.entity.Employee;
 
 @Table(name = "sp_salesman", header = "服务商业务员")
 public class Salesman extends Entity {
@@ -35,6 +36,7 @@ public class Salesman extends Entity {
 
 	@Reference(foreignKey = "supplierId", header = "服务商")
 	private Supplier supplier;
+
     @Exclusive
 	@Column(name = "disabled", header = "停用")
 	private Boolean disabled = false;
@@ -42,26 +44,18 @@ public class Salesman extends Entity {
     @Exclusive
     @Subs(subType=RoleSalesman.class,foreignKey="employeeId",header="用户角色")
     private List<RoleSalesman> roles;//忽略建表字段  RoleSalesman
-   //扩展字段beg
-   @Exclusive
+
     @Column(name = "name", header = "姓名")
     private String name ;
-    @Exclusive
+
     @Column(name = "mobile", header = "手机号")
     private String mobile ;
-    @Exclusive
-    @Column(name = "bank_no", header = "工资卡号")
-    private String bankNo ;
-    @Exclusive
+
     @Column(name = "entry_date", header = "入职日期")
     private Date entryDate ;
 
-    @Exclusive
     @Column(name = "quit_date", header = "离职日期")
     private Date quitDate ;
-    //扩展字段end
-
-
 
     // 配置
 	public Integer getEmployeeId() {
@@ -136,15 +130,15 @@ public class Salesman extends Entity {
         this.entryDate = entryDate;
     }
 
-    public String getBankNo() {
-        return bankNo;
-    }
+    public List<RoleSalesman> getRoles() {
+		return roles;
+	}
 
-    public void setBankNo(String bankNo) {
-        this.bankNo = bankNo;
-    }
+	public void setRoles(List<RoleSalesman> roles) {
+		this.roles = roles;
+	}
 
-    public String getMobile() {
+	public String getMobile() {
         return mobile;
     }
 
