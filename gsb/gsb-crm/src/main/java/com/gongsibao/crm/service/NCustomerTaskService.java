@@ -32,8 +32,8 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	}
 
 	@Override
-	public int updateLastFoolowUser(Integer taskId) {
-		String cmdText = "UPDATE n_crm_customer_task SET last_foolow_user_id = NULL where id="+taskId;
+	public int insertHighSeas(Integer taskId) {
+		String cmdText = "UPDATE n_crm_customer_task SET salesman_id = NULL where id="+taskId;
 		return this.pm.executeNonQuery(cmdText, null);
 	}
 	
@@ -71,4 +71,6 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		
 		return builder.toString();
 	}
+
+	
 }

@@ -151,7 +151,7 @@ public class NCustomerTask extends Entity {
 	@Subs(foreignKey = "customerId", header = "通知日志", subType = NCustomerTaskNotify.class)
 	private List<NCustomerTaskNotify> notifys;
 
-	@Subs(foreignKey = "customerId", header = "流转日志", subType = NCustomerChange.class)
+	@Subs(foreignKey = "taskId", header = "流转日志", subType = NCustomerChange.class)
 	private List<NCustomerChange> changes;
 
 	public Boolean getCosted() {
