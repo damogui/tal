@@ -19,7 +19,6 @@ import com.gongsibao.entity.crm.dic.NAllocationType;
 import com.gongsibao.entity.crm.dic.QualityCategory;
 import com.gongsibao.entity.crm.dic.TaskCustomerType;
 import com.gongsibao.entity.crm.dic.TaskInspectionState;
-import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
@@ -56,11 +55,11 @@ public class NCustomerTask extends Entity {
 	@Reference(foreignKey = "departmentId", header = "分配服务商部门")
 	private SupplierDepartment department;
 
-	@Column(name = "salesman_id", header = "业务员Id")
-	private Integer salesmanId;
+	@Column(name = "owner_id", header = "业务员Id")
+	private Integer ownerId;
 
-	@Reference(foreignKey = "salesmanId", header = "业务员")
-	private Salesman salesman;
+	@Reference(foreignKey = "ownerId", header = "业务员")
+	private Employee owner;
 
 	@Column(name = "last_allocation_time", header = "最后分配时间")
 	private Date lastAllocationTime;
@@ -258,20 +257,20 @@ public class NCustomerTask extends Entity {
 		this.taskType = taskType;
 	}
 
-	public Integer getSalesmanId() {
-		return salesmanId;
+	public Integer getOwnerId() {
+		return ownerId;
 	}
 
-	public void setSalesmanId(Integer salesmanId) {
-		this.salesmanId = salesmanId;
+	public void setOwnerId(Integer ownerId) {
+		this.ownerId = ownerId;
 	}
 
-	public Salesman getSalesman() {
-		return salesman;
+	public Employee getOwner() {
+		return owner;
 	}
 
-	public void setSalesman(Salesman salesman) {
-		this.salesman = salesman;
+	public void setOwner(Employee owner) {
+		this.owner = owner;
 	}
 
 	public TaskInspectionState getInspectionState() {

@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
+import org.netsharp.organization.entity.Employee;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.PartType;
@@ -101,10 +102,10 @@ public class CustomerTaskAddWorkspaceTest extends WorkspaceCreationBase {
 			formField.setTroikaTrigger("controllernCustomerTask.departmentChange(newValue,oldValue);");
 		}
 		
-		formField = addFormFieldRefrence(form, "salesman.name", "分配业务员", null, Salesman.class.getSimpleName(), false, true);
+		formField = addFormFieldRefrence(form, "owner.name", "分配业务员", null, Employee.class.getSimpleName(), false, true);
 		addFormField(form, "allocationState", "分配状态", groupName, ControlTypes.ENUM_BOX, true, false);
 
-		formField = addFormField(form, "memoto", "售前备注", groupName, ControlTypes.TEXTAREA, false, false);{
+		formField = addFormField(form, "remark", "售前备注", groupName, ControlTypes.TEXTAREA, false, false);{
 			formField.setHeight(50);
 			formField.setFullColumn(false);
 		}
@@ -129,6 +130,8 @@ public class CustomerTaskAddWorkspaceTest extends WorkspaceCreationBase {
 			datagrid.setShowCheckbox(false);
 			datagrid.setSingleSelect(true);
 			datagrid.setReadOnly(true);
+			datagrid.setShowTitle(true);
+			datagrid.setName("意向产品");
 			addColumn(datagrid, "productCategory1.name", "一级分类", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "productCategory2.name", "二级分类", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "product.name", "产品", ControlTypes.TEXT_BOX, 200, false);

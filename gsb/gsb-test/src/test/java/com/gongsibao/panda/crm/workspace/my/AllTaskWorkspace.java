@@ -26,7 +26,6 @@ import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.controls.CityComboBox;
 import com.gongsibao.controls.DictComboBox;
-import com.gongsibao.controls.OrganizationComboBox;
 import com.gongsibao.crm.web.MyAllTaskListPart;
 import com.gongsibao.crm.web.NCustomerFollowPart;
 import com.gongsibao.entity.cms.Product;
@@ -151,8 +150,8 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		addColumn(datagrid, "source.name", "任务来源", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "lastFollowTime", "最近跟进时间", ControlTypes.DATE_BOX, 100, false);
 		addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 100, false);
-		addColumn(datagrid, "salesman.employee.name", "业务员", ControlTypes.TEXT_BOX, 100, false);
-		column = addColumn(datagrid, "salesmanId", "业务员Id", ControlTypes.TEXT_BOX, 100, false);{
+		addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 100, false);
+		column = addColumn(datagrid, "ownerId", "业务员Id", ControlTypes.TEXT_BOX, 100, false);{
 			column.setSystem(true);
 			column.setVisible(false);
 		}

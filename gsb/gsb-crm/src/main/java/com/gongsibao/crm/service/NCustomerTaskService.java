@@ -36,7 +36,15 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		String cmdText = "UPDATE n_crm_customer_task SET salesman_id = NULL where id="+taskId;
 		return this.pm.executeNonQuery(cmdText, null);
 	}
-	
+	@Override
+	public NCustomerTask save(NCustomerTask entity){
+		
+		entity = super.save(entity);
+		
+		//这里可能2次查询，需要优化
+		entity = this.byId(entity.getId());
+		return entity;
+	}
 
 	@Override
 	public NCustomerTask byId(Object id){

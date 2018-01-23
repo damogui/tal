@@ -64,17 +64,17 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 		}
 		formField = addFormField(form, "telephone", "座机", groupName, ControlTypes.TEXT_BOX, true, false);{
 			
-			formField.setTroikaTrigger("controllercustomer.contactWayChange(this);");
+			formField.setTroikaTrigger("controllernCustomer.contactWayChange(this);");
 			formField.setTroikaValidation("validationContactWay['telephone','座机']");
 		}
 		formField = addFormField(form, "qq", "QQ", groupName, ControlTypes.TEXT_BOX, true, false);{
 			
-			formField.setTroikaTrigger("controllercustomer.contactWayChange(this);");
+			formField.setTroikaTrigger("controllernCustomer.contactWayChange(this);");
 			formField.setTroikaValidation("validationContactWay['weixin','微信']");
 		}
 		formField = addFormField(form, "weixin", "微信", groupName, ControlTypes.TEXT_BOX, true, false);{
 			
-			formField.setTroikaTrigger("controllercustomer.contactWayChange(this);");
+			formField.setTroikaTrigger("controllernCustomer.contactWayChange(this);");
 			formField.setTroikaValidation("validationContactWay['qq','QQ']");
 		}
 		addFormField(form, "email", "邮箱", groupName, ControlTypes.TEXT_BOX, false, false);
@@ -130,9 +130,10 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 			addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 200, false);
 			addColumn(datagrid, "supplier.name", "分配服务商", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "department.name", "分配部门", ControlTypes.TEXT_BOX, 100, false);
-			addColumn(datagrid, "salesman.name", "分配业务员", ControlTypes.TEXT_BOX, 100, false);
+			addColumn(datagrid, "owner.name", "分配业务员", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "foolowStatus", "跟进状态", ControlTypes.ENUM_BOX, 100, false);
-			addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 300, false);
+			addColumn(datagrid, "remark", "售前备注", ControlTypes.TEXT_BOX, 300, false);
+			addColumn(datagrid, "smsRemark", "短信备注", ControlTypes.TEXT_BOX, 300, false);
 		}
 
 		PPart part = new PPart();

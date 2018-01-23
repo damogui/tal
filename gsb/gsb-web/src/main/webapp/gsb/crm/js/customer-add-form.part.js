@@ -123,11 +123,17 @@ com.gongsibao.crm.web.NCustomerAddFormPart = org.netsharp.panda.commerce.FormPar
     	}
     },
     onSaved: function (jmessage) {
+    	
         this.currentItem = jmessage;
         if(this.currentItem!=null){
-
-        	IMessageBox.toast("保存成功！",1,function(){
+        	
+            this.currentItem.entityState = EntityState.Persist;
+            this.viewModel.currentItem = this.currentItem;
+            this.databind();
+            var me = this;
+        	layer.msg("保存成功！", {time: 500, icon:1},function(){
         		
+        		window.location.href = '/panda/operation/customer/add?id='+me.currentItem.id;
 //            	var top = window.top;
 //            	var parent = window.parent;
 //            	if(top){
@@ -139,6 +145,7 @@ com.gongsibao.crm.web.NCustomerAddFormPart = org.netsharp.panda.commerce.FormPar
 //            		parent.layer.close(index);
 //            	}
         	});
+        	
         }else{
         	
         	IMessageBox.error("保存失败！");
@@ -173,7 +180,7 @@ com.gongsibao.crm.web.NCustomerTaskDetailPart = org.netsharp.panda.commerce.Deta
     	
     	if(this.parent.viewModel.currentItem.entityState == EntityState.New){
     		
-    		IMessageBox.info('请先保存！');
+    		IMessageBox.info('请先保存客户信息！');
     		return;
     	}
     	
@@ -199,7 +206,23 @@ com.gongsibao.crm.web.NCustomerTaskDetailPart = org.netsharp.panda.commerce.Deta
 
 		  }
   	    });
-    }
+    },
+	doubleClickRow : function(rowIndex, rowData) {
+		
+    	var url='/panda/operation/task/add?id='+rowData.id;
+    	layer.open({
+  		  type: 2,
+  		  title: '任务信息',
+  		  fixed: false,
+  		  maxmin: true,
+  		  shadeClose:true,
+  		  area: ['90%','90%'],
+  		  content: url,
+  		  cancel: function(){ 
+
+		  }
+  	    });
+	}
 });
 
 

@@ -2,7 +2,6 @@ package com.gongsibao.panda.operation.workspace.crm;
 
 import org.junit.Before;
 import org.netsharp.core.MtableManager;
-import org.netsharp.core.annotations.Column;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
@@ -182,7 +181,7 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 			addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 100, true);
 			addColumn(datagrid, "supplier.name", "服务商", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "department.name", "部门", ControlTypes.TEXT_BOX, 100, false);
-			addColumn(datagrid, "salesman.name", "业务员", ControlTypes.TEXT_BOX, 100, false);
+			addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "foolowStatus", "跟进状态", ControlTypes.ENUM_BOX, 100, false);
 			addColumn(datagrid, "intentionCategory", "质量分类", ControlTypes.ENUM_BOX, 100, false);
 			addColumn(datagrid, "intention", "质量", ControlTypes.REFERENCE_BOX, 100, false);

@@ -31,11 +31,28 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
     allocationTypeChange:function(newValue,oldValue){
     	
     	console.log(newValue);
+    },
+    onSaved: function (jmessage) {
+    	
+        this.currentItem = jmessage;
+        if(this.currentItem!=null){
+        	
+            this.currentItem.entityState = EntityState.Persist;
+            this.viewModel.currentItem = this.currentItem;
+            this.databind();
+        	layer.msg("保存成功！", {time: 500, icon:1},function(){
+        		
+        		window.parent.location.reload();
+        	});
+        	
+        }else{
+        	
+        	IMessageBox.error("保存失败！");
+        }
     }
 });
 
 //initValue 此方法不会触发改变事件，
-
 
 com.gongsibao.crm.web.NCustomerTaskProductDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
     ctor: function () {

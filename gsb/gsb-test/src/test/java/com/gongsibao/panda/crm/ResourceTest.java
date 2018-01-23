@@ -1,6 +1,5 @@
 package com.gongsibao.panda.crm;
 
-import com.gongsibao.entity.supplier.RoleSalesman;
 import org.junit.Before;
 import org.netsharp.base.IPersistableService;
 import org.netsharp.meta.base.ResourceCreationBase;
