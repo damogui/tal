@@ -188,7 +188,8 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
     protected void addDetailGridPart(PWorkspace workspace) {
 
         // 添加角色
-      addRolesDetailPart(workspace);
+        addRolesDetailPart(workspace);
+
 
 
 
@@ -256,6 +257,8 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 
 
     }
+
+
 
 
 }
