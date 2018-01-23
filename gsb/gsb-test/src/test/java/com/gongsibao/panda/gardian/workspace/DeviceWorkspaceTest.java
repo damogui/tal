@@ -48,7 +48,12 @@ public class DeviceWorkspaceTest extends WorkspaceCreationBase{
 		addColumn(datagrid, "code", "编码", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "deviceType", "设备类型", ControlTypes.ENUM_BOX, 200);
+		addColumn(datagrid, "deviceStatus", "设备状态", ControlTypes.ENUM_BOX, 200);
 		addColumn(datagrid, "buydate", "设备购入日期", ControlTypes.DATETIME_BOX, 200);
+		addColumn(datagrid, "alertdays", "设备预警天数", ControlTypes.NUMBER_BOX, 200);
+		addColumn(datagrid, "lifemonths", "设备寿命", ControlTypes.NUMBER_BOX, 200);
+		addColumn(datagrid, "cost", "设备购置金额", ControlTypes.NUMBER_BOX, 200);
+
 		addColumn(datagrid, "hdddate", "硬盘装机日期", ControlTypes.DATETIME_BOX, 200);
 		addColumn(datagrid, "memory", "内存", ControlTypes.NUMBER_BOX, 200);
 		addColumn(datagrid, "core", "CPU", ControlTypes.NUMBER_BOX, 200);
@@ -75,7 +80,11 @@ public class DeviceWorkspaceTest extends WorkspaceCreationBase{
 		addFormField(form, "code", "编码", null, ControlTypes.TEXT_BOX, true,false).setWidth(200);
 		addFormField(form, "name", "名称", null, ControlTypes.TEXT_BOX, true,false).setWidth(200);
 		addFormField(form, "deviceType", "设备类型", null, ControlTypes.ENUM_BOX, true,false).setWidth(200);
+		addFormField(form, "deviceStatus", "设备状态", null, ControlTypes.ENUM_BOX, true,false).setWidth(200);
 		addFormField(form, "buydate", "设备购入日期", null, ControlTypes.DATETIME_BOX, true,false).setWidth(200);
+		addFormField(form, "lifemonths", "设备寿命", null, ControlTypes.NUMBER_BOX, false,false).setWidth(200);
+		addFormField(form, "alertdays", "设备预警天数", null, ControlTypes.NUMBER_BOX, false,false).setWidth(200);
+		addFormField(form, "cost", "设备购置金额", null, ControlTypes.NUMBER_BOX, false,false).setWidth(200);
 		addFormField(form, "hdddate", "硬盘装机日期", null, ControlTypes.DATETIME_BOX, true,false).setWidth(200);
 
 		addFormField(form, "memory", "内存", null, ControlTypes.NUMBER_BOX, false,false).setWidth(200);
@@ -83,7 +92,6 @@ public class DeviceWorkspaceTest extends WorkspaceCreationBase{
 		addFormField(form, "hdd", "硬盘", null, ControlTypes.NUMBER_BOX, false,false).setWidth(200);
 		addFormField(form, "cloudhdd", "云盘", null, ControlTypes.NUMBER_BOX, false,false).setWidth(200);
 		addFormField(form, "privateip", "内网ip", null, ControlTypes.TEXT_BOX, false,false).setWidth(200);
-		addFormField(form, "publicip", "公网IP", null, ControlTypes.TEXT_BOX, false,false).setWidth(200);
 		addFormField(form, "publicip", "公网IP", null, ControlTypes.TEXT_BOX, false,false).setWidth(200);
 		addFormField(form, "purpose", "用途", null, ControlTypes.TEXTAREA, false,false).setWidth(200);
 		addFormField(form, "memo", "备注", null, ControlTypes.TEXTAREA, false,false).setWidth(200);

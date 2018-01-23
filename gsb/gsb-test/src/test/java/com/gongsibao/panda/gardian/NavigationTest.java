@@ -1,5 +1,6 @@
 package com.gongsibao.panda.gardian;
 import com.gongsibao.entity.gardian.baseinfo.Device;
+import com.gongsibao.entity.gardian.baseinfo.Provides;
 import com.gongsibao.entity.igirl.TradeMark;
 import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
@@ -29,6 +30,7 @@ public class NavigationTest extends NavigationBase {
 		createPTreeNode(tree, null, null, "GSB_GARDIAN_BASE", "基础信息", "", 2);
 		{
 			createPTreeNode(tree, "GSB_GARDIAN_BASE", null, "GARDIAN_BASE_" + Device.class.getSimpleName(), "设备列表", "/gardian/device/list", 1);
+			createPTreeNode(tree, "GSB_GARDIAN_BASE", null, "GARDIAN_BASE_" + Provides.class.getSimpleName(), "服务列表", "/gardian/provides/list", 1);
 			//createPTreeNode(tree, "GSB_IGIRL_BASE", null, "IGRIL_BASE_" + NCLTwo.class.getSimpleName(), "商标小类", "/igirl/ncltwo/all/list", 2);
 
 		}
