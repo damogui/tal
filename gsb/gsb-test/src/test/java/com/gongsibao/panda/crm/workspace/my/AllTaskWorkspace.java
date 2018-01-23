@@ -147,11 +147,15 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		addColumn(datagrid, "customer.telephone", "座机", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "customer.qq", "QQ", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "customer.weixin", "微信", ControlTypes.TEXT_BOX, 100, false);
-		addColumn(datagrid, "quality.name", "客户质量", ControlTypes.TEXT_BOX, 100, false);
-		addColumn(datagrid, "taskSource.name", "任务来源", ControlTypes.ENUM_BOX, 100, false);
+		addColumn(datagrid, "intentionCategory", "客户质量分类", ControlTypes.ENUM_BOX, 100, false);
+		addColumn(datagrid, "source.name", "任务来源", ControlTypes.ENUM_BOX, 100, false);
 		addColumn(datagrid, "lastFollowTime", "最近跟进时间", ControlTypes.DATE_BOX, 100, false);
 		addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 100, false);
 		addColumn(datagrid, "salesman.employee.name", "业务员", ControlTypes.TEXT_BOX, 100, false);
+		column = addColumn(datagrid, "salesmanId", "业务员Id", ControlTypes.TEXT_BOX, 100, false);{
+			column.setSystem(true);
+			column.setVisible(false);
+		}
 		addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATE_BOX, 100, false);
 		return datagrid;
