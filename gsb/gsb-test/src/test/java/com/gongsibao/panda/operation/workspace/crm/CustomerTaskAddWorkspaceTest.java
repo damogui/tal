@@ -57,28 +57,39 @@ public class CustomerTaskAddWorkspaceTest extends WorkspaceCreationBase {
 		PFormField formField = null;
 		
 		String groupName = null;
-		addFormField(form, "taskCustomerType", "新/老客户", groupName, ControlTypes.ENUM_BOX, true, false);
 		addFormField(form, "name", "名称", groupName, ControlTypes.TEXT_BOX, true, false);
+		addFormField(form, "taskType", "新/老客户", groupName, ControlTypes.ENUM_BOX, true, false);
 		
 		formField = addFormField(form, "source.name", "来源", null, ControlTypes.CUSTOM, true, false);
 		{
 			formField.setCustomControlType(DictComboBox.class.getName());
+			formField.setTroikaTrigger("controllernCustomerTask.sourceSelect(record);");
 			formField.setRefFilter("type=411");
 		}
 		formField = addFormField(form, "consultWay.name", "咨询途径", null, ControlTypes.CUSTOM, true, false);
 		{
 			formField.setCustomControlType(DictComboBox.class.getName());
+			formField.setTroikaTrigger("controllernCustomerTask.consultWaySelect(record);");
 			formField.setRefFilter("type=411");
 		}
 		addFormField(form, "consultWayOther", "其它咨询途径", groupName, ControlTypes.TEXT_BOX, false, true);
 
 		addFormField(form, "sourceOther", "其它来源", groupName, ControlTypes.TEXT_BOX, false, true);
 		
-		addFormFieldRefrence(form, "costSupplier.name", "费用服务商", null, Supplier.class.getSimpleName(), false, false);
+		formField = addFormField(form, "costed", "费用服务商",groupName,ControlTypes.SWITCH_BUTTON, false, false);{
+			formField.setDataOptions("有|无");
+			formField.setTroikaTrigger("controllernCustomerTask.costedChange(checked);");
+		}
 		
-		addFormField(form, "allocationDispositon", "自营/平台", groupName, ControlTypes.ENUM_BOX, true, false);
+		formField = addFormField(form, "allocationDispositon", "自营/平台", groupName, ControlTypes.ENUM_BOX, true, false);{
+			
+			formField.setTroikaTrigger("controllernCustomerTask.allocationDispositonChange(newValue,oldValue);");
+		}
 		
-		addFormField(form, "allocationType", "分配方式", groupName, ControlTypes.ENUM_BOX, true, false);
+		formField = addFormField(form, "allocationType", "分配方式", groupName, ControlTypes.ENUM_BOX, true, false);{
+			
+			formField.setTroikaTrigger("controllernCustomerTask.allocationTypeChange(newValue,oldValue);");
+		}
 
 		formField = addFormFieldRefrence(form, "supplier.name", "分配服务商", null, Supplier.class.getSimpleName(), false, true);
 		{
@@ -91,14 +102,15 @@ public class CustomerTaskAddWorkspaceTest extends WorkspaceCreationBase {
 		}
 		
 		formField = addFormFieldRefrence(form, "salesman.name", "分配业务员", null, Salesman.class.getSimpleName(), false, true);
+		addFormField(form, "allocationState", "分配状态", groupName, ControlTypes.ENUM_BOX, true, false);
 
 		formField = addFormField(form, "memoto", "售前备注", groupName, ControlTypes.TEXTAREA, false, false);{
-			formField.setFullColumn(true);
 			formField.setHeight(50);
+			formField.setFullColumn(false);
 		}
 		formField = addFormField(form, "smsRemark", "短信备注", groupName, ControlTypes.TEXTAREA, false, false);{
-			formField.setFullColumn(true);
 			formField.setHeight(50);
+			formField.setFullColumn(false);
 		}
 		return form;
 	}
@@ -129,46 +141,46 @@ public class CustomerTaskAddWorkspaceTest extends WorkspaceCreationBase {
 		{
 			form.toNew();
 			form.setResourceNode(node);
-			form.setColumnCount(3);
+			form.setColumnCount(1);
 			form.setName("意向产品");
 
 			PFormField formField = null;
-			formField = addFormField(form, "productCategory1.name", "一级分类", null, ControlTypes.CUSTOM, false, false);
+			formField = addFormField(form, "productCategory1.name", "一级分类", null, ControlTypes.CUSTOM, true, false);
 			{
-				formField.setWidth(120);
+				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
 				formField.setTroikaTrigger("controllerproducts.productCategory1Select(record);");
 				formField.setRefFilter("type=201 and pid=0");
 			}
 
-			formField = addFormField(form, "productCategory2.name", "二级分类", null, ControlTypes.CUSTOM, false, false);
+			formField = addFormField(form, "productCategory2.name", "二级分类", null, ControlTypes.CUSTOM, true, false);
 			{
-				formField.setWidth(120);
+				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
 				formField.setTroikaTrigger("controllerproducts.productCategory2Select(record);");
 				formField.setRefFilter("type=201 and pid<>0");
 			}
 
 			formField = addFormFieldRefrence(form, "product.name", "产品", null, "CRM_" + Product.class.getSimpleName(), true, false);{
-				formField.setWidth(120);
+				formField.setWidth(200);
 				formField.setRefFilter("enabled=1");
 				formField.setTroikaTrigger("controllerproducts.productChange(newValue,oldValue);");
 			}
 			formField = addFormField(form, "province.name", "省份", ControlTypes.CUSTOM, false, false);
 			{
-				formField.setWidth(120);
+				formField.setWidth(200);
 				formField.setCustomControlType(CityComboBox.class.getName());
 				formField.setDataOptions("level:1,changeCtrlId:'city_name'");
 			}
 			formField = addFormField(form, "city.name", "城市", ControlTypes.CUSTOM, false, false);
 			{
-				formField.setWidth(120);
+				formField.setWidth(200);
 				formField.setCustomControlType(CityComboBox.class.getName());
 				formField.setDataOptions("level:2,changeCtrlId:'county_name'");
 			}
 			formField = addFormField(form, "county.name", "区/县", ControlTypes.CUSTOM, false, false);
 			{
-				formField.setWidth(120);
+				formField.setWidth(200);
 				formField.setCustomControlType(CityComboBox.class.getName());
 				formField.setDataOptions("level:3");
 			}
@@ -190,8 +202,8 @@ public class CustomerTaskAddWorkspaceTest extends WorkspaceCreationBase {
 			part.setToolbar("panda/datagrid/detail");
 			part.setJsController(NCustomerTaskProductDetailPart.class.getName());
 			part.setServiceController(NCustomerTaskProductDetailPart.class.getName());
-			part.setWindowWidth(700);
-			part.setWindowHeight(250);
+			part.setWindowWidth(400);
+			part.setWindowHeight(450);
 			part.setForm(form);
 		}
 		

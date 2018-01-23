@@ -16,7 +16,7 @@ public class NCustomerTaskProductDetailPart extends DetailPart{
 	 * @return: List<Dict>      
 	 * @throws   
 	 */
-	public Map<Integer, String> queryByProducCategoryId1(Integer productCategoryId1){
+	public Map<Integer, String> queryByProductCategoryId1(Integer productCategoryId1){
 		
 		Map<Integer, String> map = new HashMap<Integer, String>();
 		
@@ -32,7 +32,7 @@ public class NCustomerTaskProductDetailPart extends DetailPart{
 	 * @return: List<Dict>      
 	 * @throws   
 	 */
-	public Map<Integer, String> queryByProducCategoryId2(Integer productCategoryId1){
+	public Map<Integer, String> queryByProductCategoryId2(Integer productCategoryId1){
 		
 		Map<Integer, String> map = new HashMap<Integer, String>();
 		
@@ -49,7 +49,7 @@ public class NCustomerTaskProductDetailPart extends DetailPart{
 	 * @return: Map<Integer,String>      
 	 * @throws   
 	 */
-	public Map<Integer, String> queryByProducId(Integer productId){
+	public Map<Integer, String> queryByProductId(Integer productId){
 		
 		Map<Integer, String> map = new HashMap<Integer, String>();
 		

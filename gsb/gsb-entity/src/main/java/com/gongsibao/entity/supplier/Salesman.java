@@ -37,7 +37,6 @@ public class Salesman extends Entity {
 	@Reference(foreignKey = "supplierId", header = "服务商")
 	private Supplier supplier;
 
-    @Exclusive
 	@Column(name = "disabled", header = "停用")
 	private Boolean disabled = false;
 
@@ -56,6 +55,9 @@ public class Salesman extends Entity {
 
     @Column(name = "quit_date", header = "离职日期")
     private Date quitDate ;
+    
+	@Column(name = "receiving", header = "是否接单")
+	private Boolean receiving = false;
 
     // 配置
 	public Integer getEmployeeId() {
@@ -153,4 +155,12 @@ public class Salesman extends Entity {
     public void setName(String name) {
         this.name = name;
     }
+
+	public Boolean getReceiving() {
+		return receiving;
+	}
+
+	public void setReceiving(Boolean receiving) {
+		this.receiving = receiving;
+	}
 }

@@ -6,13 +6,35 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
     },
     supplierChange:function(newValue,oldValue){
     	
-    	//alert(newValue);
+    	console.log(newValue);
     },
     departmentChange:function(newValue,oldValue){
     	
-    	//alert(newValue);
+    	console.log(newValue);
+    },
+    costedChange:function(checked){
+    	
+    	console.log(checked);
+    },
+    sourceSelect:function(record){
+    	
+    	console.log(record.id);
+    },
+    consultWaySelect:function(record){
+    	
+    	console.log(record.id);
+    },
+    allocationDispositonChange:function(newValue,oldValue){
+    	
+    	console.log(newValue);
+    },
+    allocationTypeChange:function(newValue,oldValue){
+    	
+    	console.log(newValue);
     }
 });
+
+//initValue 此方法不会触发改变事件，
 
 
 com.gongsibao.crm.web.NCustomerTaskProductDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
@@ -21,10 +43,9 @@ com.gongsibao.crm.web.NCustomerTaskProductDetailPart = org.netsharp.panda.commer
     },
     productCategory1Select:function(record){
     	
-    	//alert(record.id );
-    	
+    	//alert(record.id );	
     	//加载二级分类
-        this.invokeService("queryByProducCategoryId1", [record.id], function (data) {
+        this.invokeService("queryByProductCategoryId1", [record.id], function (data) {
         	
 
         });
@@ -32,7 +53,7 @@ com.gongsibao.crm.web.NCustomerTaskProductDetailPart = org.netsharp.panda.commer
     productCategory2Select:function(record){
     	
     	//反写一级分类，加载产品
-        this.invokeService("queryByProducCategoryId2", [record.id], function (data) {
+        this.invokeService("queryByProductCategoryId2", [record.id], function (data) {
         	
 
         });
@@ -41,10 +62,9 @@ com.gongsibao.crm.web.NCustomerTaskProductDetailPart = org.netsharp.panda.commer
     	
     	//判断一级分类，二级分类是否为空，如果为空，则
     	//反写一级分类、二级分类
-        this.invokeService("queryByProducId", [newValue], function (data) {
+        this.invokeService("queryByProductId", [newValue], function (data) {
         	
 
         });
     }
 });
-

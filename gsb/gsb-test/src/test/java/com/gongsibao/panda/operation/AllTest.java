@@ -16,6 +16,7 @@ import com.gongsibao.panda.operation.workspace.crm.CustomerTaskAddWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerTaskAllocatedWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerTaskUndistributedWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerUndistributedWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.crm.CustomerVerifyWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.reference.SupplierDepartmentReferenceTest;
 import com.gongsibao.panda.operation.workspace.reference.SupplierReferenceTest;
 import com.gongsibao.panda.operation.workspace.reference.SupplierSalesmanReferenceTest;
@@ -75,6 +76,7 @@ import com.gongsibao.panda.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
 	SupplierWorkspaceTest.class,
 	SupplierCategoryWorkspaceTest.class,
 	
+	CustomerVerifyWorkspaceTest.class,
 	CustomerAddWorkspaceTest.class,
 	CustomerTaskAddWorkspaceTest.class,
 	

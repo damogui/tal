@@ -36,103 +36,106 @@ public class NCustomerTask extends Entity {
 	private NCustomer customer;
 
 	@Column(name = "customer_id", header = "客户")
-	private Integer customerId = 0;	
-	
-    @Column(name = "task_type",header="任务类型")
-    private TaskCustomerType taskCustomerType = TaskCustomerType.NEW;
+	private Integer customerId = 0;
+
+	@Column(name = "task_type", header = "任务类型")
+	private TaskCustomerType taskType = TaskCustomerType.NEW;
 
 	@Column(name = "name", size = 200, header = "名称")
 	private String name;
-	
+
 	@Column(name = "supplier_id", header = "分配服务商Id")
 	private Integer supplierId;
 
 	@Reference(foreignKey = "supplierId", header = "分配服务商")
 	private Supplier supplier;
-	
+
 	@Column(name = "department_id", header = "分配服务商部门Id")
 	private Integer departmentId;
 
 	@Reference(foreignKey = "departmentId", header = "分配服务商部门")
 	private SupplierDepartment department;
-	
+
 	@Column(name = "salesman_id", header = "业务员Id")
 	private Integer salesmanId;
 
 	@Reference(foreignKey = "salesmanId", header = "业务员")
 	private Salesman salesman;
-	
+
 	@Column(name = "last_allocation_time", header = "最后分配时间")
 	private Date lastAllocationTime;
-	
+
 	@Column(name = "last_allocation_user_id", header = "最后分配人Id")
 	private Integer lastAllocationUserId = 0;
-	
+
 	@JsonIgnore
 	@Reference(foreignKey = "lastAllocationUserId", header = "最后分配人")
 	private Employee lastAllocationUser;
-	
+
 	@Column(name = "foolow_status", header = "跟进状态")
 	private CustomerFollowStatus foolowStatus;
 
 	@Column(name = "intention_category", header = "质量分类")
 	private QualityCategory intentionCategory;
-	
+
 	@Column(name = "quality_id", header = "客户质量id")
 	private Integer qualityId;
-	
+
 	@Reference(foreignKey = "qualityId", header = "客户质量")
 	private NCustomerTaskQuality quality;
-	
+
 	@Column(name = "last_follow_time", header = "最近跟进时间")
 	private Date lastFollowTime;
-	
+
 	@Column(name = "last_foolow_user_id", header = "最后跟进人Id")
 	private Integer lastFoolowUserId = 0;
-	
+
 	@JsonIgnore
 	@Reference(foreignKey = "lastFoolowUserId", header = "最后跟进人")
 	private Employee lastFoolowUser;
-	
+
 	@Column(name = "last_content", size = 1000, header = "最后跟进内容")
 	private String lastContent;
-	
+
 	@Column(name = "next_foolow_time", header = "下次跟进时间")
 	private Date nextFoolowTime;
-	
+
 	@Column(name = "inspection_state", header = "抽查异常状态")
 	private TaskInspectionState inspectionState = TaskInspectionState.UNINSPECTION;
-	
-    @Column(name = "memoto",header="备注", size = 1000)
-    private String memoto;
-    
+
+	@Column(name = "memoto", header = "备注", size = 1000)
+	private String memoto;
+
 	@Column(name = "cost_supplier_id", header = "费用服务商Id")
 	private Integer costSupplierId;
 
 	@Reference(foreignKey = "costSupplierId", header = "费用服务商")
 	private Supplier costSupplier;
-	
-    @Column(name = "allocation_type",header="分配方式")
-    private NAllocationType allocationType = NAllocationType.AUTO;
-	
-    @Column(name = "allocation_statee",header="分配状态")
-    private AllocationState allocationState = AllocationState.WAIT;
-    
-    @Column(name = "allocation_dispositon",header="自营/平台")
-    private AllocationDispositon allocationDispositon = AllocationDispositon.DIRECT;
-    
+
+	@Column(name = "costed", header = "是否有费用服务商")
+	private Boolean costed = false;
+
+	@Column(name = "allocation_type", header = "分配方式")
+	private NAllocationType allocationType = NAllocationType.AUTO;
+
+	@Column(name = "allocation_statee", header = "分配状态")
+	private AllocationState allocationState = AllocationState.WAIT;
+
+	@Column(name = "allocation_dispositon", header = "自营/平台")
+	private AllocationDispositon allocationDispositon = AllocationDispositon.UNLIMITED;
+
 	@Reference(foreignKey = "sourceId", header = "任务来源")
 	private Dict source;
 
 	@Column(name = "source_id", header = "任务来源")
 	private Integer sourceId = 0;
-	
+
 	@Column(name = "source_other", header = "客户来源选择其他时填写的详情")
 	private String sourceOther;
-	
+
 	@Column(name = "consult_way_id", header = "咨询途径")
 	private Integer consultWayId = 0;
-	
+
 	@Reference(foreignKey = "consultWayId", header = "咨询途径,421 CRM咨询途径: 4211 400电话、 4212 在线客服、 4213企业QQ、 4214 PC官网、 4215 H5官网、 4216 手机APP")
 	private Dict consultWay;
 
@@ -150,8 +153,14 @@ public class NCustomerTask extends Entity {
 
 	@Subs(foreignKey = "customerId", header = "流转日志", subType = NCustomerChange.class)
 	private List<NCustomerChange> changes;
-	
-	
+
+	public Boolean getCosted() {
+		return costed;
+	}
+
+	public void setCosted(Boolean costed) {
+		this.costed = costed;
+	}
 
 	public Integer getConsultWayId() {
 		return consultWayId;
@@ -217,8 +226,6 @@ public class NCustomerTask extends Entity {
 		this.allocationDispositon = allocationDispositon;
 	}
 
-	
-
 	public Dict getSource() {
 		return source;
 	}
@@ -242,13 +249,13 @@ public class NCustomerTask extends Entity {
 	public void setSourceOther(String sourceOther) {
 		this.sourceOther = sourceOther;
 	}
-
-	public TaskCustomerType getTaskCustomerType() {
-		return taskCustomerType;
+	
+	public TaskCustomerType getTaskType() {
+		return taskType;
 	}
 
-	public void setTaskCustomerType(TaskCustomerType taskCustomerType) {
-		this.taskCustomerType = taskCustomerType;
+	public void setTaskType(TaskCustomerType taskType) {
+		this.taskType = taskType;
 	}
 
 	public Integer getSalesmanId() {
@@ -466,6 +473,5 @@ public class NCustomerTask extends Entity {
 	public void setQualityId(Integer qualityId) {
 		this.qualityId = qualityId;
 	}
-	
-	
+
 }

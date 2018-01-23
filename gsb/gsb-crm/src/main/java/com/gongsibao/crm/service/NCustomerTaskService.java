@@ -1,6 +1,9 @@
 package com.gongsibao.crm.service;
 
+import java.sql.Types;
+
 import org.netsharp.communication.Service;
+import org.netsharp.core.Oql;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.bd.service.SupplierPersistableService;
@@ -32,5 +35,40 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	public int updateLastFoolowUser(Integer taskId) {
 		String cmdText = "UPDATE n_crm_customer_task SET last_foolow_user_id = NULL where id="+taskId;
 		return this.pm.executeNonQuery(cmdText, null);
+	}
+	
+
+	@Override
+	public NCustomerTask byId(Object id){
+		
+		String selectFields = getSelectFullFields();
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects(selectFields);
+			oql.setFilter("id=?");
+			oql.getParameters().add("id", id, Types.INTEGER);
+		}
+
+		NCustomerTask entity = this.queryFirst(oql);
+		return entity;
+	}
+	
+	private String getSelectFullFields() {
+
+		StringBuilder builder = new StringBuilder();
+		builder.append("NCustomerTask.*,");
+		builder.append("NCustomerTask.products.*,");
+		builder.append("NCustomerTask.products.productCategory1.{id,name},");
+		builder.append("NCustomerTask.products.productCategory2.{id,name},");
+		builder.append("NCustomerTask.products.product.{id,name},");
+		builder.append("NCustomerTask.products.province.{id,name},");
+		builder.append("NCustomerTask.products.city.{id,name},");
+		builder.append("NCustomerTask.products.county.{id,name},");
+		builder.append("NCustomerTask.follows.*,");
+		builder.append("NCustomerTask.notifys.*,");
+		builder.append("NCustomerTask.changes.*,"); 
+		
+		return builder.toString();
 	}
 }
