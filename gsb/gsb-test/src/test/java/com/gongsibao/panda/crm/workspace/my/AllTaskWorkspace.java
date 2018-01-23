@@ -57,7 +57,7 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_MY_TASK_ALL";
-		listFilter = "creator_id = '{userId}'";
+		listFilter = "salesman_id = '{userId}'";
 		//扩展子页面操作
 		formJsImport = "/gsb/crm/js/crm-allTask-part.js|/gsb/gsb.customer.controls.js";
 		
@@ -98,7 +98,7 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 			toolbar.setResourceNode(node);
 		}
 		addToolbarItem(toolbar, "followUpPopup", "跟进", "fa fa-edit", "followUpPopup()", null, 6);
-		addToolbarItem(toolbar, "backTaskPopup", "退回", "fa fa-edit", "backTaskPopup()", null, 7);
+		addToolbarItem(toolbar, "backTaskPopup", "释放", "fa fa-edit", "backTaskPopup()", null, 7);
 		toolbarService.save(toolbar);
 	}
 	
@@ -148,7 +148,7 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		addColumn(datagrid, "customer.qq", "QQ", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "customer.weixin", "微信", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "intentionCategory", "客户质量分类", ControlTypes.ENUM_BOX, 100, false);
-		addColumn(datagrid, "source.name", "任务来源", ControlTypes.ENUM_BOX, 100, false);
+		addColumn(datagrid, "source.name", "任务来源", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "lastFollowTime", "最近跟进时间", ControlTypes.DATE_BOX, 100, false);
 		addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 100, false);
 		addColumn(datagrid, "salesman.employee.name", "业务员", ControlTypes.TEXT_BOX, 100, false);
@@ -421,7 +421,7 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		addFormField(form, "allocationType", "分配方式", groupName, ControlTypes.ENUM_BOX, false, false);
 		addFormField(form, "allocationState", "分配状态", groupName, ControlTypes.ENUM_BOX, false, false);
 		addFormField(form, "allocationDispositon", "自营/平台", groupName, ControlTypes.ENUM_BOX, false, false);
-		formField = addFormField(form, "taskSource.name", "任务来源", groupName, ControlTypes.CUSTOM, true, false);
+		formField = addFormField(form, "source.name", "任务来源", groupName, ControlTypes.CUSTOM, true, false);
 		{
 			formField.setCustomControlType(DictComboBox.class.getName());
 			formField.setRefFilter("type=411");

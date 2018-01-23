@@ -15,9 +15,9 @@ public interface INCustomerTaskService  extends IPersistableService<NCustomerTas
 	 */
 	public int updateInspectionState(Integer taskId,Integer selectValue,String getNote);
 	/**
-	 * 修改最后跟进人状态 为空进入公海中
+	 * 修改业务员为空---进入公海中
 	 * @param taskId 任务Id
 	 * @return
 	 */
-	public int updateLastFoolowUser(Integer taskId);
+	public int insertHighSeas(Integer taskId);
 }
