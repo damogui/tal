@@ -9,7 +9,6 @@ import com.gongsibao.entity.crm.NCustomerTask;
 
 @Service
 public class NCustomerTaskService extends SupplierPersistableService<NCustomerTask> implements INCustomerTaskService {
-
 	public NCustomerTaskService() {
 		super();
 		this.type = NCustomerTask.class;
@@ -26,6 +25,12 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 			updateSql.where("id=" + taskId);
 		}
 		String cmdText = updateSql.toSQL();
+		return this.pm.executeNonQuery(cmdText, null);
+	}
+
+	@Override
+	public int updateLastFoolowUser(Integer taskId) {
+		String cmdText = "UPDATE n_crm_customer_task SET last_foolow_user_id = NULL where id="+taskId;
 		return this.pm.executeNonQuery(cmdText, null);
 	}
 }
