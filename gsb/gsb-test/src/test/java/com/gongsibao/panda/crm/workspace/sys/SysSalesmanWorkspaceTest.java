@@ -1,7 +1,5 @@
 package com.gongsibao.panda.crm.workspace.sys;
 
-import com.gongsibao.crm.web.SysDepartmentTreeGridPart;
-import com.gongsibao.crm.web.SysSalesmanTreePart;
 import org.junit.Test;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.MtableManager;
@@ -9,7 +7,6 @@ import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.base.IOperationTypeService;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.OperationType;
-import org.netsharp.organization.entity.Role;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.OpenMode;
@@ -25,6 +22,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.crm.web.SysSalesmanListPart;
+import com.gongsibao.crm.web.SysSalesmanTreePart;
 import com.gongsibao.entity.supplier.Salesman;
 
 //员工管理
@@ -57,11 +55,9 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
         PDatagridColumn column = null;
         addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
         addColumn(datagrid, "employee.name", "姓名", ControlTypes.TEXT_BOX, 80);
-        addColumn(datagrid, "employee.login_name", "登录名", ControlTypes.TEXT_BOX, 100, true);//login_name
-//        addColumn(datagrid, "employee.disabled", "状态2", ControlTypes.TEXT_BOX, 100, true);
+        addColumn(datagrid, "employee.login_name", "登录名", ControlTypes.TEXT_BOX, 100, true);
         column = addColumn(datagrid, "employee.disabled", "状态", ControlTypes.BOOLCOMBO_BOX, 100, true);
         {
-//            column.setStyler("color:red;");
             column.setStyler(" return value==true?'color:red;':'color:#5FB878;';");
             column.setFormatter(" return value==false?'启用':'停用';");
         }
@@ -104,17 +100,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
         addFormField(form, "quitDate", "离职日期", null, ControlTypes.DATETIME_BOX, false);
         addFormField(form, "disabled", "停用", null, ControlTypes.SWITCH_BUTTON, false);
 
-
         return form;
-    }
-
-    @Override
-    protected void doOperation() {
-        ResourceNode node = this.getResourceNode(resourceNodeCode);
-        operationService.addOperation(node, OperationTypes.view);
-        operationService.addOperation(node, OperationTypes.add);
-		operationService.addOperation(node,OperationTypes.update);
-		operationService.addOperation(node,OperationTypes.delete);
     }
 
 
@@ -191,8 +177,6 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
         addRolesDetailPart(workspace);
 
 
-
-
     }
 
     // 添加角色
@@ -254,11 +238,14 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
             part.setName("基本信息");
            part.setDockStyle(DockType.TOP);
       }
-
-
     }
-
-
-
-
+    
+	@Override
+	protected void doOperation() {
+		ResourceNode node = this.getResourceNode();
+		operationService.addOperation(node, OperationTypes.view);
+		operationService.addOperation(node, OperationTypes.add);
+		operationService.addOperation(node, OperationTypes.update);
+		operationService.addOperation(node, OperationTypes.delete);
+	}
 }

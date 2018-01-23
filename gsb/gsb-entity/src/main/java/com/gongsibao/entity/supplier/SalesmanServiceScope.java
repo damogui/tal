@@ -18,12 +18,12 @@ public class SalesmanServiceScope extends Entity{
 	private static final long serialVersionUID = -3380988485501492065L;
 
 
-	@Column(name="supplier_id",header="服务商主键")
-    private Integer supplierId;
+	@Column(name="salesman_id",header="服务商主键")
+    private Integer salesmanId;
 	
 	@JsonIgnore
-    @Reference(foreignKey="supplierId")
-    private Supplier supplier;
+    @Reference(foreignKey="salesmanId")
+    private Salesman salesman;
 	
     @Column(name="product_id")
     private Integer productId;
@@ -48,4 +48,84 @@ public class SalesmanServiceScope extends Entity{
 	
 	@Reference(foreignKey="countyId",header="区/县")
 	private Dict county;
+
+	public Integer getSalesmanId() {
+		return salesmanId;
+	}
+
+	public void setSalesmanId(Integer salesmanId) {
+		this.salesmanId = salesmanId;
+	}
+
+	public Salesman getSalesman() {
+		return salesman;
+	}
+
+	public void setSalesman(Salesman salesman) {
+		this.salesman = salesman;
+	}
+
+	public Integer getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Integer productId) {
+		this.productId = productId;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	public Integer getProvinceId() {
+		return provinceId;
+	}
+
+	public void setProvinceId(Integer provinceId) {
+		this.provinceId = provinceId;
+	}
+
+	public Dict getProvince() {
+		return province;
+	}
+
+	public void setProvince(Dict province) {
+		this.province = province;
+	}
+
+	public Integer getCityId() {
+		return cityId;
+	}
+
+	public void setCityId(Integer cityId) {
+		this.cityId = cityId;
+	}
+
+	public Dict getCity() {
+		return city;
+	}
+
+	public void setCity(Dict city) {
+		this.city = city;
+	}
+
+	public Integer getCountyId() {
+		return countyId;
+	}
+
+	public void setCountyId(Integer countyId) {
+		this.countyId = countyId;
+	}
+
+	public Dict getCounty() {
+		return county;
+	}
+
+	public void setCounty(Dict county) {
+		this.county = county;
+	}
 }
