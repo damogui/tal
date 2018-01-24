@@ -11,6 +11,7 @@ import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
+import com.gongsibao.crm.web.TaskAllListPart;
 import com.gongsibao.entity.crm.NCustomerTask;
 
 public class TaskALLWorkspaceTest extends WorkspaceCreationBase{
@@ -27,8 +28,10 @@ public class TaskALLWorkspaceTest extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_Customer_Manager_Task_ALL";
-		//选项卡页面的js
-		formJsImport = "/gsb/gsb.customer.controls.js";
+
+		listPartJsController = TaskAllListPart.class.getName();
+		listPartServiceController = TaskAllListPart.class.getName();
+		listPartImportJs = "task-base-list.part.js|task-all-list.part.js";
 	}
 	
 	@Override

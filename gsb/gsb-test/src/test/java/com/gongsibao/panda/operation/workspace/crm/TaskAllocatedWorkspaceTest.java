@@ -11,6 +11,8 @@ import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
+import com.gongsibao.crm.web.NCustomerAllListPart;
+import com.gongsibao.crm.web.TaskAllocatedListPart;
 import com.gongsibao.entity.crm.NCustomerTask;
 
 public class TaskAllocatedWorkspaceTest extends WorkspaceCreationBase{
@@ -30,7 +32,9 @@ public class TaskAllocatedWorkspaceTest extends WorkspaceCreationBase{
 
 		listFilter="foolow_status in(2,3,4,5)";
 		
-		//listPartImportJs = "customer-base-list.part.js|customer-allocated-list.part.js";
+		listPartJsController = TaskAllocatedListPart.class.getName();
+		listPartServiceController = TaskAllocatedListPart.class.getName();
+		listPartImportJs = "task-base-list.part.js|task-allocated-list.part.js";
 	}
 
 	@Override

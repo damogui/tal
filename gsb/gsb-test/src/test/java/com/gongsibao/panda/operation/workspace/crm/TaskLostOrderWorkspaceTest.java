@@ -19,6 +19,7 @@ import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
+import com.gongsibao.crm.web.TaskLostOrderListPart;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.crm.dic.NotifyType;
@@ -37,8 +38,10 @@ public class TaskLostOrderWorkspaceTest extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_Customer_Manager_Task_Lost_Order";
-		//选项卡页面的js
-		formJsImport = "/gsb/gsb.customer.controls.js";
+		
+		listPartJsController = TaskLostOrderListPart.class.getName();
+		listPartServiceController = TaskLostOrderListPart.class.getName();
+		listPartImportJs = "task-base-list.part.js|task-lostorder-list.part.js";
 	}
 
 	@Override

@@ -11,6 +11,7 @@ import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
+import com.gongsibao.crm.web.TaskUndistributedListPart;
 import com.gongsibao.entity.crm.NCustomerTask;
 
 public class TaskUndistributedWorkspaceTest extends WorkspaceCreationBase {
@@ -28,9 +29,11 @@ public class TaskUndistributedWorkspaceTest extends WorkspaceCreationBase {
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_Customer_Manager_Task_Undistributed";
-		// 选项卡页面的js
-		formJsImport = "/gsb/gsb.customer.controls.js";
 		listFilter = "foolow_status in(1)";
+		
+		listPartJsController = TaskUndistributedListPart.class.getName();
+		listPartServiceController = TaskUndistributedListPart.class.getName();
+		listPartImportJs = "task-base-list.part.js|task-undistributed-list.part.js";
 	}
 
 	@Override

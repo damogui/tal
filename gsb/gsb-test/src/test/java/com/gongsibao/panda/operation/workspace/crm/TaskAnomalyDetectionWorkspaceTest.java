@@ -10,6 +10,7 @@ import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
+import com.gongsibao.crm.web.TaskAnomalyDetectionListPart;
 import com.gongsibao.entity.crm.NCustomerTask;
 
 public class TaskAnomalyDetectionWorkspaceTest extends WorkspaceCreationBase{
@@ -27,9 +28,12 @@ public class TaskAnomalyDetectionWorkspaceTest extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_Customer_Manager_Task_Anomaly_Detection";
-		//选项卡页面的js
-		formJsImport = "/gsb/gsb.customer.controls.js";
+
 		listFilter="inspection_state = 3";
+		
+		listPartJsController = TaskAnomalyDetectionListPart.class.getName();
+		listPartServiceController = TaskAnomalyDetectionListPart.class.getName();
+		listPartImportJs = "task-base-list.part.js|task-anomalydetection-list.part.js";
 	}
 
 	
