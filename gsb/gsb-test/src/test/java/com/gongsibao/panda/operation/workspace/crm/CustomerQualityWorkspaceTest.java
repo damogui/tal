@@ -5,6 +5,7 @@ import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
+import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
@@ -45,11 +46,14 @@ public class CustomerQualityWorkspaceTest extends WorkspaceCreationBase {
 		}
 
 		PDatagridColumn column = null;
-		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "code", "编码", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "intentionCategory", "质量分类", ControlTypes.ENUM_BOX, 100);
+		addColumn(datagrid, "intentionCategory", "大类", ControlTypes.ENUM_BOX, 100);
+		column = addColumn(datagrid, "code", "编码", ControlTypes.TEXT_BOX, 80);{
+			
+			column.setAlign(DatagridAlign.CENTER);
+		}
+		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "nextFoolowDateRequired", "下次跟进时间必填", ControlTypes.BOOLCOMBO_BOX, 80);
-		addColumn(datagrid, "requiredInfo", "必填信息", ControlTypes.TEXT_BOX, 200);
+		addColumn(datagrid, "requiredInfo", "必填信息", ControlTypes.TEXT_BOX, 300);
 		addColumn(datagrid, "nextFoolowType", "下次跟进方式", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 100);
