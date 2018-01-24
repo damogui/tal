@@ -149,6 +149,8 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 80, false);
 		addColumn(datagrid, "contact", "联系人", ControlTypes.TEXT_BOX, 200, false);
 		addColumn(datagrid, "mobilePhone", "手机号", ControlTypes.TEXT_BOX, 200, false);
+        addColumn(datagrid, "bankName", "银行名", ControlTypes.TEXT_BOX, 100, false);
+        addColumn(datagrid, "bankNum", "银行卡号", ControlTypes.TEXT_BOX, 150, false);
 		addColumn(datagrid, "address", "地址", ControlTypes.TEXT_BOX, 200, false);
 		addColumn(datagrid, "openTime", "开户时间", ControlTypes.DATETIME_BOX, 130, false);
 		addColumn(datagrid, "departmentCount", "部门数量", ControlTypes.DECIMAL_BOX, 80, false);
@@ -169,7 +171,10 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "type", "类型", null, ControlTypes.ENUM_BOX, true, false);
 		addFormField(form, "contact", "联系人", null, ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "mobilePhone", "手机号", null, ControlTypes.TEXT_BOX, true, false);
-		addFormField(form, "address", "地址", null, ControlTypes.TEXT_BOX, false, false);
+        addFormField(form, "bankName", "开户银行", null, ControlTypes.TEXT_BOX, false, false);
+        addFormField(form, "bankNum", "银行卡号", null, ControlTypes.TEXT_BOX, false, false);
+
+        addFormField(form, "address", "地址", null, ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "customerMaxCount", "客户池数量", null, ControlTypes.NUMBER_BOX, false, false);
 		addFormField(form, "messageNotifiedType", "消息通知类型 ", null, ControlTypes.ENUM_BOX, false, false);
 		addFormField(form, "noFollowDays", "未跟进天数(释放)", null, ControlTypes.NUMBER_BOX, false, false);
