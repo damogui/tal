@@ -26,7 +26,6 @@ import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.controls.CityComboBox;
 import com.gongsibao.controls.DictComboBox;
-import com.gongsibao.controls.OrganizationComboBox;
 import com.gongsibao.crm.web.MyAllTaskListPart;
 import com.gongsibao.crm.web.NCustomerFollowPart;
 import com.gongsibao.entity.cms.Product;
@@ -57,7 +56,7 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_MY_TASK_ALL";
-		listFilter = "creator_id = '{userId}'";
+		listFilter = "ownerId = '{userId}'";
 		//扩展子页面操作
 		formJsImport = "/gsb/crm/js/crm-allTask-part.js|/gsb/gsb.customer.controls.js";
 		
@@ -98,7 +97,7 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 			toolbar.setResourceNode(node);
 		}
 		addToolbarItem(toolbar, "followUpPopup", "跟进", "fa fa-edit", "followUpPopup()", null, 6);
-		addToolbarItem(toolbar, "backTaskPopup", "退回", "fa fa-edit", "backTaskPopup()", null, 7);
+		addToolbarItem(toolbar, "backTaskPopup", "释放", "fa fa-edit", "backTaskPopup()", null, 7);
 		toolbarService.save(toolbar);
 	}
 	
@@ -147,11 +146,15 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		addColumn(datagrid, "customer.telephone", "座机", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "customer.qq", "QQ", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "customer.weixin", "微信", ControlTypes.TEXT_BOX, 100, false);
-		addColumn(datagrid, "quality.name", "客户质量", ControlTypes.TEXT_BOX, 100, false);
-		addColumn(datagrid, "taskSource.name", "任务来源", ControlTypes.ENUM_BOX, 100, false);
+		addColumn(datagrid, "intentionCategory", "客户质量分类", ControlTypes.ENUM_BOX, 100, false);
+		addColumn(datagrid, "source.name", "任务来源", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "lastFollowTime", "最近跟进时间", ControlTypes.DATE_BOX, 100, false);
 		addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 100, false);
-		addColumn(datagrid, "salesman.employee.name", "业务员", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 100, false);
+		column = addColumn(datagrid, "ownerId", "业务员Id", ControlTypes.TEXT_BOX, 100, false);{
+			column.setSystem(true);
+			column.setVisible(false);
+		}
 		addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATE_BOX, 100, false);
 		return datagrid;
@@ -413,16 +416,16 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		formField = addFormField(form, "memoto", "备注", groupName, ControlTypes.TEXTAREA, false, false);{			
 			formField.setFullColumn(true);
 	    }
-	   groupName = "分配属性";
+		groupName = "分配属性";
 		addFormField(form, "allocationType", "分配方式", groupName, ControlTypes.ENUM_BOX, false, false);
 		addFormField(form, "allocationState", "分配状态", groupName, ControlTypes.ENUM_BOX, false, false);
 		addFormField(form, "allocationDispositon", "自营/平台", groupName, ControlTypes.ENUM_BOX, false, false);
-		formField = addFormField(form, "taskSource.name", "任务来源", groupName, ControlTypes.CUSTOM, true, false);
+		formField = addFormField(form, "source.name", "任务来源", groupName, ControlTypes.CUSTOM, true, false);
 		{
 			formField.setCustomControlType(DictComboBox.class.getName());
 			formField.setRefFilter("type=411");
 		}
-		addFormField(form, "taskCustomerType", "任务类型", groupName, ControlTypes.ENUM_BOX, false, false);
+		//addFormField(form, "taskCustomerType", "任务类型", groupName, ControlTypes.ENUM_BOX, false, false);
 		
 		groupName = "最近跟进信息";
 		addFormFieldRefrence(form, "lastAllocationUser.name", "最后分配人", groupName, "CRM_Employee", false, true);

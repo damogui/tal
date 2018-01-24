@@ -8,7 +8,8 @@ public enum QualityCategory implements IEnum {
 	A(1, "A类"), 
 	B(2, "B类"), 
 	C(3, "C类"), 
-	D(4, "D类");
+	D(4, "D类"),
+	X(5, "X类");
 	private int value;
 	private String text;
 

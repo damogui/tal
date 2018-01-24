@@ -5,8 +5,9 @@ import org.netsharp.base.IEnum;
 
 public enum AllocationDispositon implements IEnum{
 	
-	DIRECT(1, "自营"), 
-	PLATFORM(2, "平台");
+	UNLIMITED(1, "不限"), 
+	DIRECT(2, "自营"), 
+	PLATFORM(3, "平台");
 	private int value;
 	private String text;
 

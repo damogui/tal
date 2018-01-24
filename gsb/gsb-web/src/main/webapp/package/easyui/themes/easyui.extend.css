@@ -372,7 +372,7 @@ div.h10{
 /*表单 开始*/
 .formContent{
 	
-	padding:20px;
+	padding:20px 0;
 }
 
 .form-panel td {
@@ -981,7 +981,7 @@ div.h10{
 }
 
 .layui-layer-btn .layui-layer-btn0 {
-    border-color: #1d79b1;
-    background-color: #1E7CB5;
+    border-color: #1d79b1 !important;
+    background-color: #1E7CB5 !important;
     color: #fff;
 }

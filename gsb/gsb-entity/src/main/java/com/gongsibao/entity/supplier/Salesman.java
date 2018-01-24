@@ -19,11 +19,11 @@ public class Salesman extends Entity {
 	 */
 	private static final long serialVersionUID = 2235508906235938620L;
 
-    @Column(name = "employee_id", header = "员工Id")
-    private Integer employeeId = 0;
+	@Column(name = "employee_id", header = "员工Id")
+	private Integer employeeId = 0;
 
-    @Reference(foreignKey = "employeeId", header = "员工")
-    private Employee employee;
+	@Reference(foreignKey = "employeeId", header = "员工")
+	private Employee employee;
 
 	@Column(name = "department_id", header = "部门Id")
 	private Integer departmentId = 0;
@@ -37,27 +37,36 @@ public class Salesman extends Entity {
 	@Reference(foreignKey = "supplierId", header = "服务商")
 	private Supplier supplier;
 
-    @Exclusive
+	@Exclusive
 	@Column(name = "disabled", header = "停用")
 	private Boolean disabled = false;
 
-    @Exclusive
-    @Subs(subType=RoleSalesman.class,foreignKey="employeeId",header="用户角色")
-    private List<RoleSalesman> roles;//忽略建表字段  RoleSalesman
+	@Exclusive
+	@Column(name = "name", header = "姓名")
+	private String name;
 
-    @Column(name = "name", header = "姓名")
-    private String name ;
+	@Exclusive
+	@Column(name = "mobile", header = "手机号")
+	private String mobile;
 
-    @Column(name = "mobile", header = "手机号")
-    private String mobile ;
+	@Exclusive
+	@Column(name = "entry_date", header = "入职日期")
+	private Date entryDate;
 
-    @Column(name = "entry_date", header = "入职日期")
-    private Date entryDate ;
+	@Exclusive
+	@Column(name = "quit_date", header = "离职日期")
+	private Date quitDate;
 
-    @Column(name = "quit_date", header = "离职日期")
-    private Date quitDate ;
+	@Column(name = "receiving", header = "是否接单")
+	private Boolean receiving = false;
 
-    // 配置
+	@Exclusive
+	@Subs(subType = RoleSalesman.class, foreignKey = "salesmanId", header = "用户角色")
+	private List<RoleSalesman> roles;
+	
+	@Subs(subType = SalesmanProduct.class, foreignKey = "salesmanId", header = "服务范围")
+	private List<SalesmanProduct> scopes;
+
 	public Integer getEmployeeId() {
 		return employeeId;
 	}
@@ -114,23 +123,23 @@ public class Salesman extends Entity {
 		this.disabled = disabled;
 	}
 
-    public Date getQuitDate() {
-        return quitDate;
-    }
+	public Date getQuitDate() {
+		return quitDate;
+	}
 
-    public void setQuitDate(Date quitDate) {
-        this.quitDate = quitDate;
-    }
+	public void setQuitDate(Date quitDate) {
+		this.quitDate = quitDate;
+	}
 
-    public Date getEntryDate() {
-        return entryDate;
-    }
+	public Date getEntryDate() {
+		return entryDate;
+	}
 
-    public void setEntryDate(Date entryDate) {
-        this.entryDate = entryDate;
-    }
+	public void setEntryDate(Date entryDate) {
+		this.entryDate = entryDate;
+	}
 
-    public List<RoleSalesman> getRoles() {
+	public List<RoleSalesman> getRoles() {
 		return roles;
 	}
 
@@ -139,18 +148,34 @@ public class Salesman extends Entity {
 	}
 
 	public String getMobile() {
-        return mobile;
-    }
+		return mobile;
+	}
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Boolean getReceiving() {
+		return receiving;
+	}
+
+	public void setReceiving(Boolean receiving) {
+		this.receiving = receiving;
+	}
+
+	public List<SalesmanProduct> getScopes() {
+		return scopes;
+	}
+
+	public void setScopes(List<SalesmanProduct> scopes) {
+		this.scopes = scopes;
+	}
 }

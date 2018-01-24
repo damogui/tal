@@ -7,21 +7,23 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
 import com.gongsibao.entity.bd.Dict;
+import com.gongsibao.entity.product.Product;
 
-@Table(name="sp_service_product",header="服务商服务商品")
-public class SupplierServiceProduct extends Entity{
+@Table(name="sp_salesman_service_scope",header="服务商业务员服务范围")
+public class SalesmanProduct extends Entity{
 
 	/**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
-	private static final long serialVersionUID = -6865133330856235904L;
+	private static final long serialVersionUID = -3380988485501492065L;
 
-	@Column(name="supplier_id",header="服务商主键")
-    private Integer supplierId;
+
+	@Column(name="salesman_id",header="服务商主键")
+    private Integer salesmanId;
 	
 	@JsonIgnore
-    @Reference(foreignKey="supplierId")
-    private Supplier supplier;
+    @Reference(foreignKey="salesmanId")
+    private Salesman salesman;
 	
 	@Column(name = "product_category_id_1")
 	private Integer productCategoryId1;
@@ -39,27 +41,26 @@ public class SupplierServiceProduct extends Entity{
     private Integer productId;
     
     @Reference(foreignKey="productId",header="产品")
-    private Dict product;
+    private Product product;
     
-	@Column(name = "province_id")
+	@Column(name="province_id")
 	private Integer provinceId;
-
-	@Reference(foreignKey = "provinceId", header = "省份")
+	
+	@Reference(foreignKey="provinceId",header="省份")
 	private Dict province;
-
-	@Column(name = "city_id")
+	
+	@Column(name="city_id")
 	private Integer cityId;
-
-	@Reference(foreignKey = "cityId", header = "城市")
+	
+	@Reference(foreignKey="cityId",header="城市")
 	private Dict city;
-
-	@Column(name = "county_id")
+	
+	@Column(name="county_id")
 	private Integer countyId;
-
-	@Reference(foreignKey = "countyId",header = "区/县")
+	
+	@Reference(foreignKey="countyId",header="区/县")
 	private Dict county;
-
-
+	
 	public Integer getProductCategoryId1() {
 		return productCategoryId1;
 	}
@@ -90,6 +91,38 @@ public class SupplierServiceProduct extends Entity{
 
 	public void setProductCategory2(Dict productCategory2) {
 		this.productCategory2 = productCategory2;
+	}
+
+	public Integer getSalesmanId() {
+		return salesmanId;
+	}
+
+	public void setSalesmanId(Integer salesmanId) {
+		this.salesmanId = salesmanId;
+	}
+
+	public Salesman getSalesman() {
+		return salesman;
+	}
+
+	public void setSalesman(Salesman salesman) {
+		this.salesman = salesman;
+	}
+
+	public Integer getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Integer productId) {
+		this.productId = productId;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 	public Integer getProvinceId() {
@@ -138,37 +171,5 @@ public class SupplierServiceProduct extends Entity{
 
 	public void setCounty(Dict county) {
 		this.county = county;
-	}
-
-	public Integer getSupplierId() {
-		return supplierId;
-	}
-
-	public void setSupplierId(Integer supplierId) {
-		this.supplierId = supplierId;
-	}
-
-	public Supplier getSupplier() {
-		return supplier;
-	}
-
-	public void setSupplier(Supplier supplier) {
-		this.supplier = supplier;
-	}
-
-	public Integer getProductId() {
-		return productId;
-	}
-
-	public void setProductId(Integer productId) {
-		this.productId = productId;
-	}
-
-	public Dict getProduct() {
-		return product;
-	}
-
-	public void setProduct(Dict product) {
-		this.product = product;
 	}
 }

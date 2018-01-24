@@ -4,16 +4,15 @@ import java.sql.Types;
 import java.util.List;
 
 import org.netsharp.communication.Service;
-import org.netsharp.core.*;
+import org.netsharp.core.EntityState;
+import org.netsharp.core.Oql;
+import org.netsharp.core.QueryParameters;
+import org.netsharp.organization.entity.Employee;
+import org.netsharp.organization.service.EmployeeService;
 
 import com.gongsibao.bd.service.SupplierPersistableService;
 import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.supplier.base.ISalesmanService;
-import org.netsharp.core.convertor.ITypeConvertor;
-import org.netsharp.core.convertor.TypeConvertorFactory;
-import org.netsharp.organization.entity.Employee;
-import org.netsharp.organization.service.EmployeeService;
-import org.netsharp.util.StringManager;
 
 @Service
 public class SalesmanService extends SupplierPersistableService<Salesman> implements ISalesmanService {
@@ -121,9 +120,9 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
         return list;
     }
 
-    //进行重写赋值
     @Override
     public Salesman byId(Object id) {
+    	
         Salesman salesman = super.byId(id);
         Employee employee = salesman.getEmployee();
         if (employee != null) {
@@ -133,7 +132,6 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
             salesman.setEntryDate(employee.getEntryDate());
             salesman.setQuitDate(employee.getQuitDate());
             salesman.setDisabled(employee.getDisabled());
-
         }
 
         return salesman;

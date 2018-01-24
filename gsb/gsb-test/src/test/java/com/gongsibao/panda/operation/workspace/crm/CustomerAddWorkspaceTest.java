@@ -9,16 +9,19 @@ import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.PDatagrid;
+import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PForm;
 import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PPart;
 import org.netsharp.panda.entity.PWorkspace;
+import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.controls.CityComboBox;
 import com.gongsibao.crm.web.NCustomerAddFormPart;
 import com.gongsibao.entity.crm.NCustomer;
+import com.gongsibao.entity.crm.dic.TaskCustomerType;
 
 public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 
@@ -54,10 +57,26 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 		String groupName = null;
 		addFormField(form, "realName", "姓名", groupName, ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "sex", "性别", groupName, ControlTypes.ENUM_BOX, false, false);
-		addFormField(form, "mobile", "手机", groupName, ControlTypes.TEXT_BOX, true, false);
-		addFormField(form, "telephone", "座机", groupName, ControlTypes.TEXT_BOX, true, false);
-		addFormField(form, "qq", "QQ", groupName, ControlTypes.TEXT_BOX, true, false);
-		addFormField(form, "weixin", "微信", groupName, ControlTypes.TEXT_BOX, true, false);
+		formField = addFormField(form, "mobile", "手机", groupName, ControlTypes.TEXT_BOX, true, false);{
+			
+			formField.setTroikaTrigger("controllernCustomer.contactWayChange(this);");
+			formField.setTroikaValidation("validationContactWay['mobile','手机']");
+		}
+		formField = addFormField(form, "telephone", "座机", groupName, ControlTypes.TEXT_BOX, true, false);{
+			
+			formField.setTroikaTrigger("controllernCustomer.contactWayChange(this);");
+			formField.setTroikaValidation("validationContactWay['telephone','座机']");
+		}
+		formField = addFormField(form, "qq", "QQ", groupName, ControlTypes.TEXT_BOX, true, false);{
+			
+			formField.setTroikaTrigger("controllernCustomer.contactWayChange(this);");
+			formField.setTroikaValidation("validationContactWay['weixin','微信']");
+		}
+		formField = addFormField(form, "weixin", "微信", groupName, ControlTypes.TEXT_BOX, true, false);{
+			
+			formField.setTroikaTrigger("controllernCustomer.contactWayChange(this);");
+			formField.setTroikaValidation("validationContactWay['qq','QQ']");
+		}
 		addFormField(form, "email", "邮箱", groupName, ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "birdthday", "生日", groupName, ControlTypes.DATE_BOX, false, false);
 		addFormField(form, "important", "重要程度", groupName, ControlTypes.ENUM_BOX, false, false);
@@ -71,7 +90,7 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 			formField.setCustomControlType(CityComboBox.class.getName());
 			formField.setDataOptions("level:2,changeCtrlId:'county_name'");
 		}
-		// 自定义控件(公用的，里面有一些逻辑)
+
 		formField = addFormField(form, "county.name", "区/县", groupName,ControlTypes.CUSTOM, false, false);
 		{
 			formField.setCustomControlType(CityComboBox.class.getName());
@@ -101,13 +120,20 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 			datagrid.setShowCheckbox(false);
 			datagrid.setSingleSelect(true);
 			datagrid.setReadOnly(true);
-			addColumn(datagrid, "taskCustomerType", "类型", ControlTypes.ENUM_BOX, 100, false);
+			datagrid.setShowTitle(true);
+			datagrid.setName("任务信息");
+			PDatagridColumn column = addColumn(datagrid, "taskType", "类型", ControlTypes.ENUM_BOX, 100, false);{
+				
+				String formatter = EnumUtil.getColumnFormatter(TaskCustomerType.class);
+				column.setFormatter(formatter);
+			}
 			addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 200, false);
 			addColumn(datagrid, "supplier.name", "分配服务商", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "department.name", "分配部门", ControlTypes.TEXT_BOX, 100, false);
-			addColumn(datagrid, "salesman.name", "分配业务员", ControlTypes.TEXT_BOX, 100, false);
+			addColumn(datagrid, "owner.name", "分配业务员", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "foolowStatus", "跟进状态", ControlTypes.ENUM_BOX, 100, false);
-			addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 300, false);
+			addColumn(datagrid, "remark", "售前备注", ControlTypes.TEXT_BOX, 300, false);
+			addColumn(datagrid, "smsRemark", "短信备注", ControlTypes.TEXT_BOX, 300, false);
 		}
 
 		PPart part = new PPart();
@@ -141,6 +167,5 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 		ResourceNode node = this.getResourceNode();
 		operationService.addOperation(node, OperationTypes.view);
 		operationService.addOperation(node, OperationTypes.add);
-		operationService.addOperation(node, OperationTypes.update);
 	}
 }
