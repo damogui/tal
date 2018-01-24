@@ -65,7 +65,7 @@ public class Salesman extends Entity {
 	private List<RoleSalesman> roles;
 	
 	@Subs(subType = SalesmanProduct.class, foreignKey = "salesmanId", header = "服务范围")
-	private List<SalesmanProduct> scopes;
+	private List<SalesmanProduct> products;
 
 	public Integer getEmployeeId() {
 		return employeeId;
@@ -171,11 +171,13 @@ public class Salesman extends Entity {
 		this.receiving = receiving;
 	}
 
-	public List<SalesmanProduct> getScopes() {
-		return scopes;
+	public List<SalesmanProduct> getProducts() {
+		return products;
 	}
 
-	public void setScopes(List<SalesmanProduct> scopes) {
-		this.scopes = scopes;
+	public void setProducts(List<SalesmanProduct> products) {
+		this.products = products;
 	}
+
+	
 }

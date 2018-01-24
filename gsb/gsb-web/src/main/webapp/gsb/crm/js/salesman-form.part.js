@@ -1,13 +1,5 @@
-System.Declare("com.gongsibao.supplier.web");
-com.gongsibao.supplier.web.SupplierFormPart = org.netsharp.panda.commerce.FormPart.Extends( {
-
-    ctor: function () {
-        this.base();
-    }
-});
-
 System.Declare("com.gongsibao.crm.web");
-com.gongsibao.crm.web.SupplierProductDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
+com.gongsibao.crm.web.SalesmaProductDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
     ctor: function () {
         this.base();
     },

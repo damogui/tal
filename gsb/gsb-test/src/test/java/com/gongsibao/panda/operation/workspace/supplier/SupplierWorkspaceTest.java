@@ -23,6 +23,7 @@ import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.controls.CityComboBox;
 import com.gongsibao.controls.DictComboBox;
+import com.gongsibao.crm.web.SupplierProductDetailPart;
 import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.supplier.FunctionModule;
 import com.gongsibao.entity.supplier.Supplier;
@@ -264,7 +265,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
-				formField.setTroikaTrigger("controllerproducts.productCategory1Select(record);");
+				formField.setTroikaTrigger("controllerserviceProducts.productCategory1Select(record);");
 				formField.setRefFilter("type=201 and pid=0");
 			}
 
@@ -272,14 +273,14 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
-				formField.setTroikaTrigger("controllerproducts.productCategory2Select(record);");
+				formField.setTroikaTrigger("controllerserviceProducts.productCategory2Select(record);");
 				formField.setRefFilter("type=201 and pid<>0");
 			}
 
 			formField = addFormFieldRefrence(form, "product.name", "产品", null, "CRM_" + Product.class.getSimpleName(), true, false);{
 				formField.setWidth(200);
 				formField.setRefFilter("enabled=1");
-				formField.setTroikaTrigger("controllerproducts.productChange(newValue,oldValue);");
+				formField.setTroikaTrigger("controllerserviceProducts.productChange(newValue,oldValue);");
 			}
 			formField = addFormField(form, "province.name", "省份", ControlTypes.CUSTOM, false, false);
 			{
@@ -313,8 +314,10 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("panda/datagrid/detail");
-			part.setWindowWidth(550);
-			part.setWindowHeight(350);
+			part.setJsController(SupplierProductDetailPart.class.getName());
+			part.setServiceController(SupplierProductDetailPart.class.getName());
+			part.setWindowWidth(400);
+			part.setWindowHeight(450);
 			part.setForm(form);
 		}
 		workspace.getParts().add(part);
