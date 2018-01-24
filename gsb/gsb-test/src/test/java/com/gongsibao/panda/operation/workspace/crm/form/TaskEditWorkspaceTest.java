@@ -3,8 +3,6 @@ package com.gongsibao.panda.operation.workspace.crm.form;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
-import org.netsharp.organization.dic.OperationTypes;
-import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.PartType;
@@ -55,7 +53,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 		{
 			toolbar.toNew();
 			toolbar.setPath("crm/task/communicat/detail");
-			toolbar.setName("子页面中的工具栏操作");
+			toolbar.setName("跟进操作");
 			toolbar.setResourceNode(node);
 			toolbar.setToolbarType(ToolbarType.BASE);
 		}
