@@ -33,7 +33,7 @@ public class TaskUndistributedWorkspaceTest extends WorkspaceCreationBase {
 		
 		listPartJsController = TaskUndistributedListPart.class.getName();
 		listPartServiceController = TaskUndistributedListPart.class.getName();
-		listPartImportJs = "task-base-list.part.js|task-undistributed-list.part.js";
+		listPartImportJs = "/gsb/crm/js/task-base-list.part.js|/gsb/crm/js/task-undistributed-list.part.js";
 	}
 
 	@Override

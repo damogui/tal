@@ -33,7 +33,7 @@ public class TaskAnomalyDetectionWorkspaceTest extends WorkspaceCreationBase{
 		
 		listPartJsController = TaskAnomalyDetectionListPart.class.getName();
 		listPartServiceController = TaskAnomalyDetectionListPart.class.getName();
-		listPartImportJs = "task-base-list.part.js|task-anomalydetection-list.part.js";
+		listPartImportJs = "/gsb/crm/js/task-base-list.part.js|/gsb/crm/js/task-anomalydetection-list.part.js";
 	}
 
 	

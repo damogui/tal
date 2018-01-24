@@ -191,6 +191,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 				formField.setFullColumn(true);
 			}
 		}
+		
 		PPart part = new PPart();
 		{
 			part.toNew();
@@ -208,5 +209,4 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 		}
 		workspace.getParts().add(part);
 	}
-
 }

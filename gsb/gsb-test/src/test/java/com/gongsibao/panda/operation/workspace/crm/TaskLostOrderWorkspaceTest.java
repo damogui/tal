@@ -41,7 +41,7 @@ public class TaskLostOrderWorkspaceTest extends WorkspaceCreationBase{
 		
 		listPartJsController = TaskLostOrderListPart.class.getName();
 		listPartServiceController = TaskLostOrderListPart.class.getName();
-		listPartImportJs = "task-base-list.part.js|task-lostorder-list.part.js";
+		listPartImportJs = "/gsb/crm/js/task-base-list.part.js|/gsb/crm/js/task-lostorder-list.part.js";
 	}
 
 	@Override

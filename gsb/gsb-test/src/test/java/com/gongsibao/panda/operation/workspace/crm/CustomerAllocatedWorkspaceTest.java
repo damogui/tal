@@ -23,7 +23,7 @@ public class CustomerAllocatedWorkspaceTest extends WorkspaceCreationBase {
 		meta = MtableManager.getMtable(entity);// 获取实体元数据
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_Customer_Manager_Allocated";
-		listPartImportJs = "customer-base-list.part.js|customer-allocated-list.part.js";
+		listPartImportJs = "/gsb/crm/js/customer-base-list.part.js|/gsb/crm/js/customer-allocated-list.part.js";
 		listFilter="";//未分配客户
 		listPartJsController = NCustomerAllocatedListPart.class.getName();
 		listPartServiceController = NCustomerAllocatedListPart.class.getName();

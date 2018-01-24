@@ -1,4 +1,4 @@
-com.gongsibao.crm.web.TaskAllocatedListPart = org.netsharp.panda.commerce.BaseTaskListPart.Extends({
+com.gongsibao.crm.web.TaskAllocatedListPart = com.gongsibao.crm.web.BaseTaskListPart.Extends({
 	ctor : function() {
 		this.base();
 	}

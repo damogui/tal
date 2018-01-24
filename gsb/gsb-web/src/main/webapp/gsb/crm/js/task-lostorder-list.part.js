@@ -1,4 +1,4 @@
-com.gongsibao.crm.web.TaskLostOrderListPart = org.netsharp.panda.commerce.BaseTaskListPart.Extends({
+com.gongsibao.crm.web.TaskLostOrderListPart = com.gongsibao.crm.web.BaseTaskListPart.Extends({
 	ctor : function() {
 		this.base();
 	}
