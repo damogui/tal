@@ -29,8 +29,15 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
     	console.log(newValue);
     },
     allocationTypeChange:function(newValue,oldValue){
-    	
     	console.log(newValue);
+    	//TYPE_1(1, "自动分配"), 
+    	//TYPE_2(2, "指定分配");
+		if(newValue==1){
+			$("#owner_name").combobox('disable').combobox('disableValidation').combobox('setValue','-1');
+		}else{
+
+			$("#owner_name").combobox('enable').combobox('enableValidation');
+		}
     },
     onSaved: function (jmessage) {
     	

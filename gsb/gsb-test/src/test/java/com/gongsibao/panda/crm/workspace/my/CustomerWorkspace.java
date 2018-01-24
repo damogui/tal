@@ -25,7 +25,7 @@ public class CustomerWorkspace extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_MY_CUSTOMER";
-		listFilter = "salesman_id = '{userId}'";
+		listFilter = "ownerId = '{userId}'";
 	}
 	
 	@Override
