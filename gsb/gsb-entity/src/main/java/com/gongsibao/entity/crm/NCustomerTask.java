@@ -75,7 +75,7 @@ public class NCustomerTask extends Entity {
 	private CustomerFollowStatus foolowStatus;
 
 	@Column(name = "intention_category", header = "质量分类")
-	private QualityCategory intentionCategory = QualityCategory.X;
+	private QualityCategory intentionCategory = QualityCategory.X; 
 
 	@Column(name = "quality_id", header = "客户质量id")
 	private Integer qualityId;
