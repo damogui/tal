@@ -52,7 +52,7 @@ public class QualityWorkspaceTest extends WorkspaceCreationBase {
 			column.setAlign(DatagridAlign.CENTER);
 		}
 		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 200);
-		addColumn(datagrid, "nextFoolowDateRequired", "下次跟进时间必填", ControlTypes.BOOLCOMBO_BOX, 80);
+		addColumn(datagrid, "nextFoolowDateRequired", "下次跟进时间必填", ControlTypes.BOOLCOMBO_BOX, 120);
 		addColumn(datagrid, "requiredInfo", "必填信息", ControlTypes.TEXT_BOX, 300);
 		addColumn(datagrid, "nextFoolowType", "下次跟进方式", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 100);
