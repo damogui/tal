@@ -63,6 +63,7 @@ public class CustomerUndistributedWorkspaceTest extends WorkspaceCreationBase {
 
 	@Override
 	protected PQueryProject createQueryProject(ResourceNode node) {
+		
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
 		PQueryItem item = null;
