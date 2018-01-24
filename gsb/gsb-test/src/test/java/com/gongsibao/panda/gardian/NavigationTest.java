@@ -19,7 +19,7 @@ public class NavigationTest extends NavigationBase {
 
 	public void createAccodions() {
 
-		this.doCreateAccodions("GSB_GARDIAN", "GARDIAN", "fa fa-users fa-fw", 3);
+		this.doCreateAccodions("GSB_GARDIAN", "GARDIAN", "fa fa-heart fa-fw", 3);
 	}
 
 	@Override

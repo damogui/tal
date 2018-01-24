@@ -4,14 +4,18 @@ import com.gongsibao.entity.gardian.baseinfo.Device;
 import com.gongsibao.entity.gardian.baseinfo.Provides;
 import com.gongsibao.igirl.web.TradeMarkDetailPart;
 import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
+import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.*;
+import org.netsharp.panda.plugin.entity.PToolbar;
+import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
@@ -39,6 +43,7 @@ public class ProvidesWorkspaceTest extends WorkspaceCreationBase{
 		formOpenMode = OpenMode.WINDOW;
 		openWindowWidth = 800;
 		openWindowHeight = 600;
+		listToolbarPath = "/gardian/list/toolbar";
 	}
 
 	@Override
@@ -74,9 +79,9 @@ public class ProvidesWorkspaceTest extends WorkspaceCreationBase{
 
 		PFormField field = null;
 		addFormField(form, "name", "名称", null, ControlTypes.TEXT_BOX, true,false).setWidth(200);
-		addFormField(form, "useage", "用途", null, ControlTypes.TEXTAREA, true,false).setWidth(200);
 		addFormField(form, "occurrences", "预计并发数", null, ControlTypes.NUMBER_BOX, false,false).setWidth(200);
 		addFormField(form, "domainname", "使用域名", null, ControlTypes.TEXT_BOX, false,false).setWidth(200);
+		addFormField(form, "useage", "用途", null, ControlTypes.TEXTAREA, true,false).setWidth(200);
 		return form;
 	}
 	
