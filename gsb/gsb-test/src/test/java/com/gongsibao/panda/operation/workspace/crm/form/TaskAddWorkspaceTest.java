@@ -23,7 +23,6 @@ import com.gongsibao.crm.web.NCustomerTaskAddFormPart;
 import com.gongsibao.crm.web.NCustomerTaskProductDetailPart;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.product.Product;
-import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 

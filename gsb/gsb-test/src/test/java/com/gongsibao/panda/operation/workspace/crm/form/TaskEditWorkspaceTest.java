@@ -1,10 +1,7 @@
 package com.gongsibao.panda.operation.workspace.crm.form;
 
 import org.junit.Before;
-import org.junit.Test;
 import org.netsharp.core.MtableManager;
-import org.netsharp.organization.dic.OperationTypes;
-import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.PartType;
@@ -14,14 +11,10 @@ import org.netsharp.panda.entity.PForm;
 import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PPart;
 import org.netsharp.panda.entity.PWorkspace;
-import org.netsharp.panda.plugin.dic.ToolbarType;
-import org.netsharp.panda.plugin.entity.PToolbar;
-import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
-import com.gongsibao.crm.web.NCustomerFollowPart;
 import com.gongsibao.crm.web.NCustomerTaskEditFormPart;
 import com.gongsibao.entity.crm.NCustomerChange;
 import com.gongsibao.entity.crm.NCustomerTask;
