@@ -54,7 +54,7 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 		form.setColumnCount(3);
 		PFormField formField = null;
 		
-		String groupName = null;
+		String groupName = "基本信息";
 		addFormField(form, "realName", "姓名", groupName, ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "sex", "性别", groupName, ControlTypes.ENUM_BOX, false, false);
 		formField = addFormField(form, "mobile", "手机", groupName, ControlTypes.TEXT_BOX, true, false);{
@@ -112,7 +112,7 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 	}
 
 	// 客户任务
-	private void createTasksPart(PWorkspace workspace) {
+	public void createTasksPart(PWorkspace workspace) {
 
 		ResourceNode node = this.resourceService.byCode("GSB_CRM_Customer_Manager_Task_ALL");
 		PDatagrid datagrid = new PDatagrid(node, "任务信息");

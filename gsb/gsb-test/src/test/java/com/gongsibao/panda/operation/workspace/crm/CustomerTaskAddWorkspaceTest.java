@@ -122,7 +122,7 @@ public class CustomerTaskAddWorkspaceTest extends WorkspaceCreationBase {
 	}
 
 	// 意向产品
-	private void createProductsPart(PWorkspace workspace) {
+	public void createProductsPart(PWorkspace workspace) {
 
 		ResourceNode node = this.resourceService.byCode("GSB_CRM_Customer_Manager_Products");
 		PDatagrid datagrid = new PDatagrid(node, "意向产品");

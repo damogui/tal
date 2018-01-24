@@ -52,33 +52,6 @@ public class CustomerTaskALLWorkspaceTest extends WorkspaceCreationBase{
 		//选项卡页面的js
 		formJsImport = "/gsb/gsb.customer.controls.js";
 	}
-
-	@Test
-	public void detailPart() {
-		ResourceNode node = this.resourceService.byCode(NCustomerTaskFoolow.class.getSimpleName());
-		OperationType ot1 = operationTypeService.byCode(OperationTypes.add);
-		PToolbar toolbar = new PToolbar();
-		{
-			toolbar.toNew();
-			toolbar.setPath("crm/task/communicat/detail");
-			toolbar.setName("子表");
-			toolbar.setResourceNode(node);
-			toolbar.setToolbarType(ToolbarType.BASE);
-		}
-		PToolbarItem item = new PToolbarItem();
-		{
-			item.toNew();
-			item.setCode("add");
-			item.setIcon("fa fa-mail-reply-all");
-			item.setName("跟进");
-			item.setCommand(null);
-			item.setOperationType(ot1);
-			item.setSeq(1);
-			item.setCommand("{controller}.add();");
-			toolbar.getItems().add(item);
-		}
-		toolbarService.save(toolbar);
-	}
 	
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
@@ -172,7 +145,7 @@ public class CustomerTaskALLWorkspaceTest extends WorkspaceCreationBase{
 		part = workspace.getParts().get(0);
 		{
 			part.setName("基本信息");
-			part.setStyle("height:500px;");
+			part.setStyle("height:350px;");
 			part.setDockStyle(DockType.DOCUMENTHOST);
 		}
 	}

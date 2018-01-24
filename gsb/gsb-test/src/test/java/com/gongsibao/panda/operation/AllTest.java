@@ -11,11 +11,13 @@ import com.gongsibao.panda.operation.workspace.crm.CustomerALLWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerAddWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerAllocatedWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerAnomalyDetectionWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.crm.CustomerEditWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerLostOrderWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerQualityWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerTaskALLWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerTaskAddWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerTaskAllocatedWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.crm.CustomerTaskEditWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerTaskUndistributedWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerUndistributedWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerVerifyWorkspaceTest;
@@ -86,7 +88,9 @@ import com.gongsibao.panda.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
 	
 	CustomerVerifyWorkspaceTest.class,
 	CustomerAddWorkspaceTest.class,
+	CustomerEditWorkspaceTest.class,
 	CustomerTaskAddWorkspaceTest.class,
+	CustomerTaskEditWorkspaceTest.class,
 	
 	CustomerALLWorkspaceTest.class,
 	CustomerAllocatedWorkspaceTest.class,

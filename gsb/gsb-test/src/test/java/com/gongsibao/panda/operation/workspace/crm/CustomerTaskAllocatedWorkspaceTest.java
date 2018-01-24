@@ -54,33 +54,6 @@ public class CustomerTaskAllocatedWorkspaceTest extends WorkspaceCreationBase{
 		listFilter="foolow_status in(2,3,4,5)";
 	}
 
-	@Test
-	public void detailPart() {
-		ResourceNode node = this.resourceService.byCode(NCustomerTaskFoolow.class.getSimpleName());
-		OperationType ot1 = operationTypeService.byCode(OperationTypes.add);
-		PToolbar toolbar = new PToolbar();
-		{
-			toolbar.toNew();
-			toolbar.setPath("crm/task/communicat/detail");
-			toolbar.setName("子表");
-			toolbar.setResourceNode(node);
-			toolbar.setToolbarType(ToolbarType.BASE);
-		}
-		PToolbarItem item = new PToolbarItem();
-		{
-			item.toNew();
-			item.setCode("add");
-			item.setIcon("fa fa-mail-reply-all");
-			item.setName("跟进");
-			item.setCommand(null);
-			item.setOperationType(ot1);
-			item.setSeq(1);
-			item.setCommand("{controller}.add();");
-			toolbar.getItems().add(item);
-		}
-		toolbarService.save(toolbar);
-	}
-	
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
 		PDatagrid datagrid = super.createDatagrid(node);
