@@ -38,7 +38,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_Customer_Manager_Edit";
-		formJsImport = "/gsb/crm/platform/js/customer-add-form.part.js|/gsb/crm/js/customer-edit-form.part.js|/gsb/gsb.customer.controls.js";
+		formJsImport = "/gsb/crm/platform/js/customer-add-form.part.js|/gsb/crm/platform/js/customer-edit-form.part.js|/gsb/gsb.customer.controls.js";
 		formJsController = NCustomerEditFormPart.class.getName();
 		formServiceController = NCustomerEditFormPart.class.getName();
 	}

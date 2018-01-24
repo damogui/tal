@@ -121,13 +121,14 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "修改任务", "GSB_CRM_Task_Manager_Edit", INCustomerTaskService.class.getName(), node1.getId());
 						
 			
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "公海", "GSB_CRM_Customer_Manager_OpenSea", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomer.class.getName(), "全部客户", "GSB_CRM_Customer_Manager_ALL", INCustomerService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomer.class.getName(), "已分配客户", "GSB_CRM_Customer_Manager_Allocated", INCustomerService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomer.class.getName(), "未分配客户", "GSB_CRM_Customer_Manager_Undistributed", INCustomerService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "全部任务", "GSB_CRM_Customer_Manager_Task_ALL", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "已分配任务", "GSB_CRM_Customer_Manager_Task_Allocated", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "未分配任务", "GSB_CRM_Customer_Manager_Task_Undistributed", INCustomerTaskService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "丢单管理", "GSB_CRM_Customer_Manager_Task_Lost_Order", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "无法签单", "GSB_CRM_Customer_Manager_Task_Lost_Order", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "抽查异常", "GSB_CRM_Customer_Manager_Task_Anomaly_Detection", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTaskQuality.class.getName(), "客户质量", "GSB_CRM_Customer_Manager_Quality", INCustomerTaskQualityService.class.getName(), node1.getId());
 

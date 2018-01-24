@@ -14,6 +14,7 @@ import com.gongsibao.panda.operation.workspace.crm.TaskLostOrderWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.QualityWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.TaskALLWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.TaskAllocatedWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.crm.TaskOpenSeaWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.TaskUndistributedWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerUndistributedWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerVerifyWorkspaceTest;
@@ -92,6 +93,7 @@ import com.gongsibao.panda.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
 	TaskAddWorkspaceTest.class,
 	TaskEditWorkspaceTest.class,
 	
+	TaskOpenSeaWorkspaceTest.class,
 	CustomerALLWorkspaceTest.class,
 	CustomerAllocatedWorkspaceTest.class,
 	CustomerUndistributedWorkspaceTest.class,
