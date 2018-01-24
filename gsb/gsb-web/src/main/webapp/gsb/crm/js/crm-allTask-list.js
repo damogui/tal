@@ -48,7 +48,7 @@ com.gongsibao.crm.web.MyAllTaskListPart = org.netsharp.panda.commerce.ListPart.E
 		var row = this.getSelectedItem();
 		var taskId = row.id;
 		var intenCategory = row.intentionCategory;
-		var salesmanId = row.salesmanId;
+		var ownerId = row.ownerId;
 		var customerId = row.customer_id;
 		var content = '<p style="padding-left:150px;">任务将会退回至【公海】，进行【二次分配】</p>'
 			    + '<p style="padding-left:50px;">&nbsp;退回原因：</p>'
@@ -77,14 +77,14 @@ com.gongsibao.crm.web.MyAllTaskListPart = org.netsharp.panda.commerce.ListPart.E
 					IMessageBox.info('请输入退回原因');
 					return false;
 				}
-				me.operatBackTaskPopup(taskId,customerId,salesmanId,getNote);
+				me.operatBackTaskPopup(taskId,customerId,ownerId,getNote);
 			},
 			btn2 : function(index, layero) {
 			}
 		});
-	},operatBackTaskPopup : function(taskId,customerId,salesmanId,getNote) {
+	},operatBackTaskPopup : function(taskId,customerId,ownerId,getNote) {
 		var me = this;
-		this.invokeService("operatBackTask", [taskId,customerId,salesmanId,getNote],function(data) {
+		this.invokeService("operatBackTask", [taskId,customerId,ownerId,getNote],function(data) {
 			alert(123);
 			me.reload();
 			IMessageBox.toast('操作成功');

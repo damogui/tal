@@ -29,11 +29,11 @@ public class MyAllTaskListPart extends ListPart{
 	 * 退回任务
 	 * @param taskId 任务Id
 	 * @param customerId 客户Id
-	 * @param salesmanId 来自那个业务员
+	 * @param ownerId 来自那个业务员
 	 * @param content  退回原因
 	 * @return
 	 */
-	public int operatBackTask(Integer taskId,Integer customerId,Integer salesmanId,String content ){
+	public int operatBackTask(Integer taskId,Integer customerId,Integer ownerId,String content ){
 		//1.修改业务员Id为空null，此时该任务进入公海
 		INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
 		int getResult = taskService.insertHighSeas(taskId);
@@ -41,7 +41,7 @@ public class MyAllTaskListPart extends ListPart{
 		INCustomerChangeService changeService = ServiceFactory.create(INCustomerChangeService.class);
 		NCustomerChange changeEntity = new NCustomerChange();
 		changeEntity.toNew();//标示下类型，有多种
-		changeEntity.setFormUserId(salesmanId);
+		changeEntity.setFormUserId(ownerId);
 		changeEntity.setContent(content);
 		changeEntity.setChangeType(ChangeType.RELEASE);
 		changeEntity.setTaskId(taskId);

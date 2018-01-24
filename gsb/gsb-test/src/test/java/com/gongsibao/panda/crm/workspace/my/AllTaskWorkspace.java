@@ -56,7 +56,7 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_MY_TASK_ALL";
-		listFilter = "salesman_id = '{userId}'";
+		listFilter = "ownerId = '{userId}'";
 		//扩展子页面操作
 		formJsImport = "/gsb/crm/js/crm-allTask-part.js|/gsb/gsb.customer.controls.js";
 		
