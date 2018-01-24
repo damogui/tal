@@ -5,30 +5,14 @@ import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
-import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.OpenMode;
-import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
-import org.netsharp.panda.entity.PForm;
-import org.netsharp.panda.entity.PFormField;
-import org.netsharp.panda.entity.PPart;
 import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
-import org.netsharp.panda.entity.PWorkspace;
-import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
-import org.netsharp.util.ReflectManager;
 
-import com.gongsibao.controls.CityComboBox;
-import com.gongsibao.controls.DictComboBox;
 import com.gongsibao.entity.crm.NCustomer;
-import com.gongsibao.entity.crm.NCustomerChange;
-import com.gongsibao.entity.crm.NCustomerTaskFoolow;
-import com.gongsibao.entity.crm.NCustomerTaskNotify;
-import com.gongsibao.entity.crm.dic.ChangeType;
-import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
-import com.gongsibao.entity.crm.dic.NotifyType;
 
 public class CustomerUndistributedWorkspaceTest extends WorkspaceCreationBase {
 
