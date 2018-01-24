@@ -5,11 +5,11 @@ import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
-import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
+import com.gongsibao.crm.web.NCustomerAllocatedListPart;
 import com.gongsibao.entity.crm.NCustomer;
 
 public class CustomerAllocatedWorkspaceTest extends WorkspaceCreationBase {
@@ -23,10 +23,10 @@ public class CustomerAllocatedWorkspaceTest extends WorkspaceCreationBase {
 		meta = MtableManager.getMtable(entity);// 获取实体元数据
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_Customer_Manager_Allocated";
-		formJsImport = "/gsb/gsb.customer.controls.js";
-		formOpenMode = OpenMode.OPEN;// 编辑框打开的形式
-		
+		listPartImportJs = "customer-base-list.part.js|customer-allocated-list.part.js";
 		listFilter="";//未分配客户
+		listPartJsController = NCustomerAllocatedListPart.class.getName();
+		listPartServiceController = NCustomerAllocatedListPart.class.getName();
 	}
 
 	// 默认的grid信息的配置

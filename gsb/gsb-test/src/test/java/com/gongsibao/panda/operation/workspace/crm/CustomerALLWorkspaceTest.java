@@ -5,11 +5,11 @@ import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
-import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
+import com.gongsibao.crm.web.NCustomerAllListPart;
 import com.gongsibao.entity.crm.NCustomer;
 
 public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
@@ -23,8 +23,11 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 		meta = MtableManager.getMtable(entity);// 获取实体元数据
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_Customer_Manager_ALL";
-		formJsImport = "/gsb/gsb.customer.controls.js";
-		formOpenMode = OpenMode.OPEN;// 编辑框打开的形式
+		listPartImportJs = "customer-base-list.part.js|customer-all-list.part.js";
+
+		listPartJsController = NCustomerAllListPart.class.getName();
+		listPartServiceController = NCustomerAllListPart.class.getName();
+		
 	}
 
 	// 默认的grid信息的配置

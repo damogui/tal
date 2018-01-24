@@ -16,7 +16,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.crm.NCustomerTaskQuality;
 
-public class CustomerQualityWorkspaceTest extends WorkspaceCreationBase {
+public class QualityWorkspaceTest extends WorkspaceCreationBase {
 
 	@Before
 	public void setup() {

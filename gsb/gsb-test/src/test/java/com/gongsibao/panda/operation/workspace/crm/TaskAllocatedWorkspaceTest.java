@@ -27,9 +27,10 @@ public class TaskAllocatedWorkspaceTest extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_Customer_Manager_Task_Allocated";
-		//选项卡页面的js
-		formJsImport = "/gsb/gsb.customer.controls.js";
+
 		listFilter="foolow_status in(2,3,4,5)";
+		
+		//listPartImportJs = "customer-base-list.part.js|customer-allocated-list.part.js";
 	}
 
 	@Override

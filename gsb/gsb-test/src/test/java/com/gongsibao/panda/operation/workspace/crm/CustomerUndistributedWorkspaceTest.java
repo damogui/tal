@@ -5,17 +5,17 @@ import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
-import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
+import com.gongsibao.crm.web.NCustomerUndistributedListPart;
 import com.gongsibao.entity.crm.NCustomer;
 
 public class CustomerUndistributedWorkspaceTest extends WorkspaceCreationBase {
-
+	
 	@Before
 	public void setup() {
 
@@ -25,8 +25,10 @@ public class CustomerUndistributedWorkspaceTest extends WorkspaceCreationBase {
 		meta = MtableManager.getMtable(entity);// 获取实体元数据
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_Customer_Manager_Undistributed";
-		formJsImport = "/gsb/gsb.customer.controls.js";
-		formOpenMode = OpenMode.OPEN;// 编辑框打开的形式
+		listPartImportJs = "customer-base-list.part.js|customer-undistributed-list.part.js";
+		
+		listPartJsController = NCustomerUndistributedListPart.class.getName();
+		listPartServiceController = NCustomerUndistributedListPart.class.getName();
 	}
 
 	// 默认的grid信息的配置
