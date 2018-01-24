@@ -40,7 +40,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_Task_Manager_Edit";
-		formJsImport = "/gsb/crm/js/task-add-form.part.js|/gsb/crm/js/task-edit-form.part.js|/gsb/gsb.customer.controls.js";
+		formJsImport = "/gsb/crm/platform/js/task-add-form.part.js|/gsb/crm/js/task-edit-form.part.js|/gsb/gsb.customer.controls.js";
 		formJsController = NCustomerTaskEditFormPart.class.getName();
 		formServiceController = NCustomerTaskEditFormPart.class.getName();
 	}

@@ -25,7 +25,7 @@ public class CustomerUndistributedWorkspaceTest extends WorkspaceCreationBase {
 		meta = MtableManager.getMtable(entity);// 获取实体元数据
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_Customer_Manager_Undistributed";
-		listPartImportJs = "/gsb/crm/base/js/customer-base-list.part.js|/gsb/crm/js/customer-undistributed-list.part.js";
+		listPartImportJs = "/gsb/crm/base/js/customer-base-list.part.js|/gsb/crm/platform/js/customer-undistributed-list.part.js";
 		
 		listPartJsController = NCustomerUndistributedListPart.class.getName();
 		listPartServiceController = NCustomerUndistributedListPart.class.getName();

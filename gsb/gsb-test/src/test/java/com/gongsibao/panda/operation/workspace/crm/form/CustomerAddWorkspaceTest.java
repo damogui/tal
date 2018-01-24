@@ -35,7 +35,7 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_Customer_Manager_Add";
-		formJsImport = "/gsb/crm/js/customer-add-form.part.js|/gsb/gsb.customer.controls.js";
+		formJsImport = "/gsb/crm/platform/js/customer-add-form.part.js|/gsb/gsb.customer.controls.js";
 		formJsController = NCustomerAddFormPart.class.getName();
 		formServiceController = NCustomerAddFormPart.class.getName();
 	}

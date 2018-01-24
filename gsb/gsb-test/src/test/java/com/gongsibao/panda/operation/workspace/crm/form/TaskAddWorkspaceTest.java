@@ -37,7 +37,7 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_Task_Manager_Add";
-		formJsImport = "/gsb/crm/js/task-add-form.part.js|/gsb/gsb.customer.controls.js";
+		formJsImport = "/gsb/crm/platform/js/task-add-form.part.js|/gsb/gsb.customer.controls.js";
 		formJsController = NCustomerTaskAddFormPart.class.getName();
 		formServiceController = NCustomerTaskAddFormPart.class.getName();
 	}
