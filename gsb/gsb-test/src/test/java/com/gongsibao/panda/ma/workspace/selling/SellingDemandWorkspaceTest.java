@@ -31,7 +31,7 @@ import com.gongsibao.ma.web.SellingDemandFormPart;
 import com.gongsibao.ma.web.SellingDemandListPart;
 
 /**
- * @author hw
+ * @author  hw
  * 出售需求
  */
 public class SellingDemandWorkspaceTest extends WorkspaceCreationBase{
