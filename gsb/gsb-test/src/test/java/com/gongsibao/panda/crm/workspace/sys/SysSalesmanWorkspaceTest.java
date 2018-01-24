@@ -107,20 +107,25 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		PForm form = super.createForm(node);
 		form.setColumnCount(3);
 
-		addFormField(form, "name", "姓名", null, ControlTypes.TEXT_BOX, true);
-		addFormField(form, "mobile", "手机号", null, ControlTypes.TEXT_BOX, true);
+		String groupName = "基本信息";
+		addFormField(form, "name", "姓名", groupName, ControlTypes.TEXT_BOX, true);
+		addFormField(form, "mobile", "手机号", groupName, ControlTypes.TEXT_BOX, true);
 		PFormField formField = addFormField(form, "loginName", "帐号", null, ControlTypes.TEXT_BOX, false);
 		{
 
 			formField.setReadonly(true);
 			formField.setTooltip("自动生成");
 		}
-		addFormField(form, "email", "邮箱", null, ControlTypes.TEXT_BOX, false);
-		addFormField(form, "entryDate", "入职日期", null, ControlTypes.DATE_BOX, false);
-		addFormField(form, "quitDate", "离职日期", null, ControlTypes.DATE_BOX, false);
-		addFormField(form, "receiving", "接单", null, ControlTypes.SWITCH_BUTTON, false,true);
-		addFormField(form, "disabled", "停用", null, ControlTypes.SWITCH_BUTTON, false,true);
+		addFormField(form, "email", "邮箱", groupName, ControlTypes.TEXT_BOX, false);
+		addFormField(form, "entryDate", "入职日期", groupName, ControlTypes.DATE_BOX, false);
+		addFormField(form, "quitDate", "离职日期", groupName, ControlTypes.DATE_BOX, false);
+		addFormField(form, "disabled", "停用", groupName, ControlTypes.SWITCH_BUTTON, false,true);
 
+		groupName = "属性设置";
+		addFormField(form, "receiving", "接单", groupName, ControlTypes.SWITCH_BUTTON, false,true);
+		
+		//这里还有很多属性，
+		
 		return form;
 	}
 

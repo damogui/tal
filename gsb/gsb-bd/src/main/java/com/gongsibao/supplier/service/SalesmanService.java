@@ -111,7 +111,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 	@Override
 	public boolean setDisabled(Integer salesmanId, boolean state) {
 
-		// 停用的同时要停用Employee
+		//停用的同时要停用Employee
 		boolean isUpdate = false;
 		UpdateBuilder updateBuilder = new UpdateBuilder();
 		{
