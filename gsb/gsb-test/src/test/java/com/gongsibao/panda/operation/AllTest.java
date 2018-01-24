@@ -1,6 +1,7 @@
 package com.gongsibao.panda.operation;
 
 import com.gongsibao.panda.operation.workspace.supplier.*;
+
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -27,6 +28,7 @@ import com.gongsibao.panda.operation.workspace.supplier.SupplierCategoryWorkspac
 import com.gongsibao.panda.operation.workspace.supplier.SupplierDepartmentWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.supplier.SupplierSalesmanWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.supplier.SupplierWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.supplier.data.ImportTaskQualityDataTest;
 import com.gongsibao.panda.operation.workspace.taurus.ActiveUserWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.taurus.DayStatisticWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.taurus.JnzUserBalanceWorkSpaceTest;

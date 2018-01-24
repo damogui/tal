@@ -1,4 +1,4 @@
-package com.gongsibao.panda.operation.workspace.supplier;
+package com.gongsibao.panda.operation.workspace.supplier.old;
 
 import org.netsharp.meta.base.WorkspaceCreationBase;
 

@@ -1,4 +1,4 @@
-package com.gongsibao.panda.operation.workspace.supplier;
+package com.gongsibao.panda.operation.workspace.supplier.data;
 
 import java.sql.Types;
 import java.util.ArrayList;
