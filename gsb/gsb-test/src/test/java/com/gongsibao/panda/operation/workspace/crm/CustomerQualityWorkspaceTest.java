@@ -49,12 +49,10 @@ public class CustomerQualityWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "code", "编码", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "intentionCategory", "质量分类", ControlTypes.ENUM_BOX, 100);
 		addColumn(datagrid, "nextFoolowDateRequired", "下次跟进时间必填", ControlTypes.BOOLCOMBO_BOX, 80);
-		addColumn(datagrid, "requiredInfo", "必填信息", ControlTypes.TEXT_BOX, 150);
-		addColumn(datagrid, "nextFoolowType", "下次跟进方式", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "supplier.name", "服务商名称", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "department.name", "服务商部门名称", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "creator", "添加人", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "createTime", "添加时间", ControlTypes.DATETIME_BOX, 100);
+		addColumn(datagrid, "requiredInfo", "必填信息", ControlTypes.TEXT_BOX, 200);
+		addColumn(datagrid, "nextFoolowType", "下次跟进方式", ControlTypes.TEXT_BOX, 200);
+		addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 100);
 		return datagrid;
 	}
 
@@ -81,11 +79,9 @@ public class CustomerQualityWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "name", "名称", ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "code", "编号", ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "intentionCategory", "质量分类", ControlTypes.ENUM_BOX, true, false);
-		addFormFieldRefrence(form, "supplier.name", "服务商名称", null, "CRM_Supplier", true, false);
 		addFormField(form, "nextFoolowDateRequired", "下次跟进时间必填", ControlTypes.SWITCH_BUTTON, false, false);
 		addFormField(form, "requiredInfo", "必填信息", ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "nextFoolowType", "下次跟进方式", ControlTypes.TEXT_BOX, false, false);
-		addFormFieldRefrence(form, "department.name", "服务商部门名称", null, "CRM_Supplier_Depart", true, false);
 		addFormField(form, "memoto", "备注", ControlTypes.TEXT_BOX, false, false);
 
 		return form;
@@ -99,6 +95,5 @@ public class CustomerQualityWorkspaceTest extends WorkspaceCreationBase {
 		operationService.addOperation(node, OperationTypes.view);
 		operationService.addOperation(node, OperationTypes.add);
 		operationService.addOperation(node, OperationTypes.update);
-		operationService.addOperation(node, OperationTypes.delete);
 	}
 }
