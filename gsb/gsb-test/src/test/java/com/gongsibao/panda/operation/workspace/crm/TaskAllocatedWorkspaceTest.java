@@ -34,7 +34,7 @@ public class TaskAllocatedWorkspaceTest extends WorkspaceCreationBase{
 		
 		listPartJsController = TaskAllocatedListPart.class.getName();
 		listPartServiceController = TaskAllocatedListPart.class.getName();
-		listPartImportJs = "/gsb/crm/js/task-base-list.part.js|/gsb/crm/js/task-allocated-list.part.js";
+		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/js/task-allocated-list.part.js";
 	}
 
 	@Override

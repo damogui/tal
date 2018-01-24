@@ -31,7 +31,7 @@ public class TaskALLWorkspaceTest extends WorkspaceCreationBase{
 
 		listPartJsController = TaskAllListPart.class.getName();
 		listPartServiceController = TaskAllListPart.class.getName();
-		listPartImportJs = "/gsb/crm/js/task-base-list.part.js|/gsb/crm/js/task-all-list.part.js";
+		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/js/task-all-list.part.js";
 	}
 	
 	@Override
