@@ -26,6 +26,22 @@ com.gongsibao.crm.web.MyAllTaskListPart = org.netsharp.panda.commerce.ListPart.E
 			  }
 	  	    });
 	},
+	detail : function(id){
+
+		var url='/panda/operation/task/edit?id='+id;
+		layer.open({
+	  		  type: 2,
+	  		  title: '添加任务',
+	  		  fixed: false,
+	  		  maxmin: true,
+	  		  shadeClose:true,
+	  		  area: ['90%','90%'],
+	  		  content: url,
+	  		  cancel: function(){ 
+
+			  }
+	  	    });
+	},
 	//listToolBar-开通会员
 	openMemberPopup : function() {
 		var me = this;
