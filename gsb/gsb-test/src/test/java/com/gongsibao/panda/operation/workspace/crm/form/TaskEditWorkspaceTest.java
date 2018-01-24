@@ -1,7 +1,10 @@
 package com.gongsibao.panda.operation.workspace.crm.form;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.core.MtableManager;
+import org.netsharp.organization.dic.OperationTypes;
+import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.PartType;
@@ -11,6 +14,9 @@ import org.netsharp.panda.entity.PForm;
 import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PPart;
 import org.netsharp.panda.entity.PWorkspace;
+import org.netsharp.panda.plugin.dic.ToolbarType;
+import org.netsharp.panda.plugin.entity.PToolbar;
+import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
@@ -39,6 +45,33 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 		formJsImport = "/gsb/crm/js/task-add-form.part.js|/gsb/crm/js/task-edit-form.part.js|/gsb/gsb.customer.controls.js";
 		formJsController = NCustomerTaskEditFormPart.class.getName();
 		formServiceController = NCustomerTaskEditFormPart.class.getName();
+	}
+	
+	@Test
+	public void detailPart() {
+		ResourceNode node = this.resourceService.byCode(NCustomerTaskFoolow.class.getSimpleName());
+		//OperationType ot1 = operationTypeService.byCode(OperationTypes.add);
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			toolbar.setPath("crm/task/communicat/detail");
+			toolbar.setName("子页面中的工具栏操作");
+			toolbar.setResourceNode(node);
+			toolbar.setToolbarType(ToolbarType.BASE);
+		}
+		PToolbarItem item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("add");
+			item.setIcon("fa fa-mail-reply-all");
+			item.setName("跟进");
+			item.setCommand(null);
+			//item.setOperationType(ot1);
+			item.setSeq(1);
+			item.setCommand("{controller}.add();");
+			toolbar.getItems().add(item);
+		}
+		toolbarService.save(toolbar);
 	}
 
 	// 创建选项卡
