@@ -17,7 +17,7 @@ public class NCLOne extends Entity {
     @Column(name="name",header="标题")
     private String name;
     
-    @Column(name="memo",header="说明")
+    @Column(name="memo",header="说明",size = 255)
     private String memo;
 
   
