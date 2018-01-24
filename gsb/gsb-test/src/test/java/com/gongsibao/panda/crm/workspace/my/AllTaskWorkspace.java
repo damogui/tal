@@ -416,7 +416,7 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 		formField = addFormField(form, "memoto", "备注", groupName, ControlTypes.TEXTAREA, false, false);{			
 			formField.setFullColumn(true);
 	    }
-	   groupName = "分配属性";
+		groupName = "分配属性";
 		addFormField(form, "allocationType", "分配方式", groupName, ControlTypes.ENUM_BOX, false, false);
 		addFormField(form, "allocationState", "分配状态", groupName, ControlTypes.ENUM_BOX, false, false);
 		addFormField(form, "allocationDispositon", "自营/平台", groupName, ControlTypes.ENUM_BOX, false, false);
@@ -425,7 +425,7 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 			formField.setCustomControlType(DictComboBox.class.getName());
 			formField.setRefFilter("type=411");
 		}
-		addFormField(form, "taskCustomerType", "任务类型", groupName, ControlTypes.ENUM_BOX, false, false);
+		//addFormField(form, "taskCustomerType", "任务类型", groupName, ControlTypes.ENUM_BOX, false, false);
 		
 		groupName = "最近跟进信息";
 		addFormFieldRefrence(form, "lastAllocationUser.name", "最后分配人", groupName, "CRM_Employee", false, true);

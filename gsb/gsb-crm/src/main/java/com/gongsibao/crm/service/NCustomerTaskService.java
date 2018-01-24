@@ -33,7 +33,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
 	@Override
 	public int insertHighSeas(Integer taskId) {
-		String cmdText = "UPDATE n_crm_customer_task SET salesman_id = NULL where id="+taskId;
+		String cmdText = "UPDATE n_crm_customer_task SET owner_id = NULL where id="+taskId;
 		return this.pm.executeNonQuery(cmdText, null);
 	}
 	@Override
