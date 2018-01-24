@@ -1,4 +1,4 @@
-package com.gongsibao.panda.operation.workspace.crm;
+package com.gongsibao.panda.operation.workspace.crm.form;
 
 import org.junit.Before;
 import org.junit.Test;

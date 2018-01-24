@@ -37,7 +37,6 @@ public class CustomerUndistributedWorkspaceTest extends WorkspaceCreationBase {
 
 		entity = NCustomer.class;// 实体
 		urlList = "/operation/customer/undistributed/list";// 列表的url
-		urlForm = "/operation/customer/undistributed/form";// 弹出框的url
 		listPartName = formPartName = "未分配客户";
 		meta = MtableManager.getMtable(entity);// 获取实体元数据
 		formPartName = listPartName = meta.getName();
@@ -72,7 +71,6 @@ public class CustomerUndistributedWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "lastFollowTime", "最近跟进时间", ControlTypes.DATETIME_BOX, 20);
 		addColumn(datagrid, "lastFoolowUser.name", "最后跟进人", ControlTypes.DATETIME_BOX, 100);
 		addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATETIME_BOX, 20);
-		addColumn(datagrid, "backNum", "退回次数", ControlTypes.NUMBER_BOX, 100);
 		addColumn(datagrid, "customerSource.name", "客户来源", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "creator", "添加人", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "createTime", "添加时间", ControlTypes.DATETIME_BOX, 20);

@@ -34,7 +34,7 @@ import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.NotifyType;
 import com.gongsibao.entity.crm.dic.QualityCategory;
 
-public class CustomerTaskAllocatedWorkspaceTest extends WorkspaceCreationBase{
+public class TaskAllocatedWorkspaceTest extends WorkspaceCreationBase{
 
 	@Override
 	@Before

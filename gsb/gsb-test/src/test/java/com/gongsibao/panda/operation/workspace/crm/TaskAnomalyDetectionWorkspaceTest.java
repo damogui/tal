@@ -12,7 +12,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.crm.NCustomerTask;
 
-public class CustomerAnomalyDetectionWorkspaceTest extends WorkspaceCreationBase{
+public class TaskAnomalyDetectionWorkspaceTest extends WorkspaceCreationBase{
 
 	@Override
 	@Before

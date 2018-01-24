@@ -1,4 +1,4 @@
-package com.gongsibao.panda.operation.workspace.crm;
+package com.gongsibao.panda.operation.workspace.crm.form;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +27,7 @@ import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
-public class CustomerTaskAddWorkspaceTest extends WorkspaceCreationBase {
+public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 
 	@Before
 	public void setup() {

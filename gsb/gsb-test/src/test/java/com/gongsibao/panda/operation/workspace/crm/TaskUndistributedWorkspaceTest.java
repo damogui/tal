@@ -34,7 +34,7 @@ import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.NotifyType;
 import com.gongsibao.entity.crm.dic.QualityCategory;
 
-public class CustomerTaskALLWorkspaceTest extends WorkspaceCreationBase{
+public class TaskUndistributedWorkspaceTest extends WorkspaceCreationBase{
 
 	@Override
 	@Before
@@ -42,15 +42,17 @@ public class CustomerTaskALLWorkspaceTest extends WorkspaceCreationBase{
 			
 		entity = NCustomerTask.class;
 		//配置资源路径
-		urlList = "/operation/customer/task/all/list";
+		urlList = "/operation/customer/task/undistributed/list";
 
-		listPartName = formPartName = "全部任务";
+		listPartName = formPartName = "未分配任务";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_Customer_Manager_Task_ALL";
+		resourceNodeCode = "GSB_CRM_Customer_Manager_Task_Undistributed";
 		//选项卡页面的js
 		formJsImport = "/gsb/gsb.customer.controls.js";
+		listFilter="foolow_status in(1)";
 	}
+
 	
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
@@ -83,6 +85,5 @@ public class CustomerTaskALLWorkspaceTest extends WorkspaceCreationBase{
 	public void doOperation() {
 		ResourceNode node = resourceService.byCode(resourceNodeCode);
 		operationService.addOperation(node, OperationTypes.view);
-		operationService.addOperation(node, OperationTypes.add);
 	}
 }

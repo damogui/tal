@@ -23,7 +23,7 @@ import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.crm.dic.NotifyType;
 
-public class CustomerLostOrderWorkspaceTest extends WorkspaceCreationBase{
+public class TaskLostOrderWorkspaceTest extends WorkspaceCreationBase{
 
 	@Override
 	@Before

@@ -1,4 +1,4 @@
-package com.gongsibao.panda.operation.workspace.crm;
+package com.gongsibao.panda.operation.workspace.crm.form;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +32,7 @@ import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.NotifyType;
 import com.gongsibao.entity.crm.dic.QualityCategory;
 
-public class CustomerTaskEditWorkspaceTest extends CustomerTaskAddWorkspaceTest {
+public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 
 	@Before
 	public void setup() {
