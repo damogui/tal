@@ -22,7 +22,7 @@ public class TaskUndistributedWorkspaceTest extends WorkspaceCreationBase {
 
 		entity = NCustomerTask.class;
 
-		// 配置资源路径
+		//  配置资源路径
 		urlList = "/operation/customer/task/undistributed/list";
 
 		listPartName = formPartName = "未分配任务";
