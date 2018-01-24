@@ -3,7 +3,30 @@ System.Declare("com.gongsibao.crm.web");
 com.gongsibao.crm.web.MyAllTaskListPart = org.netsharp.panda.commerce.ListPart.Extends({
 	ctor : function() {
 		this.base();
-	},//listToolBar-开通会员
+	},
+	add : function(){
+		var row = this.getSelectedItem();
+		if (row == null) {
+			IMessageBox.info('请选择记录');
+			return;
+		}
+		// 任务id
+		var customerId = row.customer_id;
+		var url='/panda/operation/task/add?fk=customerId:'+customerId;
+		layer.open({
+	  		  type: 2,
+	  		  title: '添加任务',
+	  		  fixed: false,
+	  		  maxmin: true,
+	  		  shadeClose:true,
+	  		  area: ['90%','90%'],
+	  		  content: url,
+	  		  cancel: function(){ 
+
+			  }
+	  	    });
+	},
+	//listToolBar-开通会员
 	openMemberPopup : function() {
 		var me = this;
 		var row = this.getSelectedItem();
@@ -58,7 +81,7 @@ com.gongsibao.crm.web.MyAllTaskListPart = org.netsharp.panda.commerce.ListPart.E
 				+ '</textarea></p>';
 				
 		//判断客户质量AB需要提示
-		if(intenCategory.indexOf("A") > -1 || intenCategory.indexOf("B") > -1){
+		if(intenCategory.indexOf("A") > -1 || intenCategory.indexOf("B") > -1 || intenCategory.indexOf("X") > -1){
 			content += '<p id="prompt" style="padding-left:30px;color:red;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提示：请慎用！执行退回后该任务将不会再分配给你，'
 				+ '如果只是需要将<br/>任务转给同事或者下属，请使用【任务转移】功能！</p>';
 		};

@@ -10,7 +10,7 @@ import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.product.Product;
 
 @Table(name="sp_salesman_service_scope",header="服务商业务员服务范围")
-public class SalesmanServiceScope extends Entity{
+public class SalesmanProduct extends Entity{
 
 	/**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
@@ -24,6 +24,18 @@ public class SalesmanServiceScope extends Entity{
 	@JsonIgnore
     @Reference(foreignKey="salesmanId")
     private Salesman salesman;
+	
+	@Column(name = "product_category_id_1")
+	private Integer productCategoryId1;
+
+	@Reference(foreignKey = "productCategoryId1",  header = "产品一级分类")
+	private Dict productCategory1;
+
+	@Column(name = "product_category_id_2")
+	private Integer productCategoryId2;
+
+	@Reference(foreignKey = "productCategoryId2", header = "产品二级分类")
+	private Dict productCategory2;
 	
     @Column(name="product_id")
     private Integer productId;
@@ -48,6 +60,38 @@ public class SalesmanServiceScope extends Entity{
 	
 	@Reference(foreignKey="countyId",header="区/县")
 	private Dict county;
+	
+	public Integer getProductCategoryId1() {
+		return productCategoryId1;
+	}
+
+	public void setProductCategoryId1(Integer productCategoryId1) {
+		this.productCategoryId1 = productCategoryId1;
+	}
+
+	public Dict getProductCategory1() {
+		return productCategory1;
+	}
+
+	public void setProductCategory1(Dict productCategory1) {
+		this.productCategory1 = productCategory1;
+	}
+
+	public Integer getProductCategoryId2() {
+		return productCategoryId2;
+	}
+
+	public void setProductCategoryId2(Integer productCategoryId2) {
+		this.productCategoryId2 = productCategoryId2;
+	}
+
+	public Dict getProductCategory2() {
+		return productCategory2;
+	}
+
+	public void setProductCategory2(Dict productCategory2) {
+		this.productCategory2 = productCategory2;
+	}
 
 	public Integer getSalesmanId() {
 		return salesmanId;
