@@ -1,18 +1,18 @@
 package com.gongsibao.panda.operation.workspace.supplier;
 
-import com.gongsibao.crm.base.INCustomerTaskQualityService;
-import com.gongsibao.entity.crm.NCustomerTaskQuality;
-import com.gongsibao.entity.crm.dic.QualityCategory;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.QueryParameter;
 import org.netsharp.core.QueryParameters;
 import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
 
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.List;
+import com.gongsibao.crm.base.INCustomerTaskQualityService;
+import com.gongsibao.entity.crm.NCustomerTaskQuality;
+import com.gongsibao.entity.crm.dic.QualityCategory;
 
 /**
  * Created by win on 2018/1/24.

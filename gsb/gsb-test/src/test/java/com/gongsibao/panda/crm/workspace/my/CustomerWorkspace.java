@@ -11,6 +11,7 @@ import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
+import com.gongsibao.crm.web.MyCustomerListPart;
 import com.gongsibao.entity.crm.NCustomerTask;
 
 public class CustomerWorkspace extends WorkspaceCreationBase{
@@ -25,7 +26,11 @@ public class CustomerWorkspace extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_MY_CUSTOMER";
-		listFilter = "ownerId = '{userId}'";
+		listFilter = "ownerId = '{userId}' and id in (select min(id) from n_crm_customer_task group by customer_id)";
+		
+		listPartImportJs = "/gsb/crm/js/crm-myCustomer-list.js";
+		listPartJsController = MyCustomerListPart.class.getName();
+
 	}
 	
 	@Override

@@ -28,6 +28,7 @@ import com.gongsibao.controls.CityComboBox;
 import com.gongsibao.controls.DictComboBox;
 import com.gongsibao.crm.web.MyAllTaskListPart;
 import com.gongsibao.crm.web.NCustomerFollowPart;
+import com.gongsibao.crm.web.NCustomerTaskProductDetailPart;
 import com.gongsibao.entity.cms.Product;
 import com.gongsibao.entity.crm.NCustomerChange;
 import com.gongsibao.entity.crm.NCustomerProduct;

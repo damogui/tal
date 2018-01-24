@@ -10,8 +10,8 @@ import org.netsharp.organization.entity.Role;
 /**
  * Created by win on 2018/1/18.
  */
-@Table(name="sp_role_salesman",header="员工角色")
-public class RoleSalesman extends Entity {
+@Table(name="sp_salesman_role",header="员工角色")
+public class SalesmanRole extends Entity {
 
     /**
 	 *
