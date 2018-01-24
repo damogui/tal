@@ -84,6 +84,7 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 			toolbar.setResourceNode(node);
 		}
 		addToolbarItem(toolbar, "openMemberPopup", "开通会员", "fa fa-edit", "openMemberPopup()", null, 5);
+		addToolbarItem(toolbar, "taskTransferPopup", "任务转移", "fa fa-edit", "taskTransferPopup()", null, 6);
 		toolbarService.save(toolbar);
 	}
 	@Test
@@ -133,6 +134,7 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 	protected PDatagrid createDatagrid(ResourceNode node) {
 		PDatagrid datagrid = super.createDatagrid(node);
 		PDatagridColumn column = null;
+		datagrid.setShowCheckbox(true);
 		//添加行的toolbar
 		datagrid.setToolbar(listRowToolbarPath);
 		column = addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
