@@ -11,7 +11,6 @@ com.gongsibao.crm.web.NCustomerFollowPart = org.netsharp.panda.commerce.DetailPa
 		});
 	}
 });
-
 com.gongsibao.crm.web.NProdMapDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
 	productChange:function(newValue,oldValue){
 		//为空时，重置查询条件：q

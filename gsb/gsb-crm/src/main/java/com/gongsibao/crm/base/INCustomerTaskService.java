@@ -15,9 +15,18 @@ public interface INCustomerTaskService  extends IPersistableService<NCustomerTas
 	 */
 	public int updateInspectionState(Integer taskId,Integer selectValue,String getNote);
 	/**
-	 * 修改业务员为空---进入公海中
+	 * （我的任务释放操作）修改业务员为空---进入公海中
 	 * @param taskId 任务Id
 	 * @return
 	 */
-	public int insertHighSeas(Integer taskId);
+	public int taskRelease(Integer taskId);
+	/**
+	 * 我的任务任务转移）修改服务商、部门、业务员
+	 * @param taskId
+	 * @param supplierId
+	 * @param departmentId
+	 * @param toUserId 去向的业务员Id
+	 * @return
+	 */
+	public int taskTransfer(Integer taskId,Integer supplierId,Integer departmentId,Integer toUserId);
 }

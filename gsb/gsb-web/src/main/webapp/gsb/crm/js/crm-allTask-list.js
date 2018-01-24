@@ -36,7 +36,11 @@ com.gongsibao.crm.web.MyAllTaskListPart = org.netsharp.panda.commerce.ListPart.E
 		}
 		// 任务id
 		var customerId = row.customer_id;
-		var content = new System.StringBuilder();
+		var isMember = row.customer_isMember;
+		if(isMember){
+			IMessageBox.info('您已开通会员');
+			return;
+		}
 		IMessageBox.confirm("您确定为该条记录开通会员吗？",function(r){
 			//严格语法
 			if(r===true){
@@ -56,7 +60,110 @@ com.gongsibao.crm.web.MyAllTaskListPart = org.netsharp.panda.commerce.ListPart.E
 			}
 			return;
 		});
-	},//rowToolBar-行跟进
+	},
+	//listToolBar-任务转移
+	taskTransferPopup : function() {
+		var me = this;
+		var row = this.getSelectedItem();
+		if (row == null) {
+			IMessageBox.info('请选择记录');
+			return;
+		}
+		var formUserId = row.ownerId;
+		var customerId = row.customer_id;
+		//弹框中的下拉操作
+		me.doAllot(formUserId,customerId);
+	},
+	doAllot : function(formUserId,customerId) {
+		var builder = new System.StringBuilder();
+		builder.append('<div style="margin:10px;">');
+		builder.append('	<table cellpadding="5" cellspacing="10" class="query-panel">');
+		builder.append(' 		<tr><td class="title">服务商</td><td><input id="supplier_name"/></td></tr>');
+		builder.append(' 		<tr><td class="title">部门</td><td><input id="department_name"/></td></tr>');
+		builder.append(' 		<tr><td class="title">业务员</td><td><input id="employee_name"/></td></tr>');
+		builder.append('	</table>');
+		builder.append('</div>');
+
+		var me = this;
+		layer.open({
+					type : 1,
+					title : '任务转移',
+					fixed : false,
+					maxmin : false,
+					shadeClose : false,
+					zIndex : 100000,
+					area : [ '450px', '300px' ],
+					content : builder.toString(),
+					btn : [ '提交', '取消' ],
+					success : function(layero, index) {
+						var options = {
+							columns : [ [ {
+								field : 'name',
+								title : '名称',
+								width : 100
+							}] ],
+							url : '\/panda\/rest\/reference?code=CRM_Supplier_Depart&filter=',
+							idField : 'id',
+							textField : 'name',
+							width : 300,
+							fitColumns : true,
+							panelWidth : 450,
+							panelHeight : 310,
+							pagination : true,
+							pageSize : 10,
+							mode : 'remote',
+							multiple : false,
+							onChange : function(newValue, oldValue) {
+								
+							}
+						};
+						$('#department_name').combogrid(options);
+						// 服务商下拉参照配置
+						options.columns = [ [ {
+							field : 'name',
+							title : '名称',
+							width : 150
+						} ] ];
+						options.url = '\/panda\/rest\/reference?code=CRM_Supplier&filter=';
+						options.textField = 'name';
+						options.onChange = function(newValue, oldValue) {
+						};
+						$('#supplier_name').combogrid(options);
+						// 业务员下拉参照配置
+						options.columns = [ [ {
+							field : 'name',
+							title : '姓名',
+							width : 150
+						} ] ];
+						options.url = '\/panda\/rest\/reference?code=Employee&filter=';
+						options.textField = 'name';
+						options.onChange = function(newValue, oldValue) {
+						};
+						$('#employee_name').combogrid(options);
+					},
+					btn1 : function(index, layero) {
+						var supplierId = $('#supplier_name').combogrid('getValue');
+						var departmentId = $('#department_name').combogrid('getValue');
+						var toUserId = $('#employee_name').combogrid('getValue');
+						if (System.isnull(supplierId) && System.isnull(departmentId) && System.isnull(toUserId)) {
+							IMessageBox.info('请选择');
+							return;
+						}
+						var taskId = me.getSelectionIds();  formUserId,customerId
+						me.operatTaskTransfer(taskId,customerId,supplierId,departmentId,formUserId,toUserId);
+					}
+				});
+	},
+	operatTaskTransfer : function(taskId,customerId,supplierId,departmentId,formUserId,toUserId) {
+		var me = this;
+		this.invokeService("operatTaskTransfer", [taskId,customerId,supplierId,departmentId,formUserId,toUserId],function(data) {
+			me.reload();
+			IMessageBox.toast('转移成功');
+			layer.closeAll();
+			return;
+		});
+	},
+	//rowToolBar-行跟进
 	followUpPopup : function() {
 		var me = this;
 		var row = this.getSelectedItem();
@@ -100,15 +207,14 @@ com.gongsibao.crm.web.MyAllTaskListPart = org.netsharp.panda.commerce.ListPart.E
 					IMessageBox.info('请输入退回原因');
 					return false;
 				}
-				me.operatBackTaskPopup(taskId,customerId,ownerId,getNote);
+				me.operatTaskReleasePopup(taskId,customerId,ownerId,getNote);
 			},
 			btn2 : function(index, layero) {
 			}
 		});
-	},operatBackTaskPopup : function(taskId,customerId,ownerId,getNote) {
+	},operatTaskReleasePopup : function(taskId,customerId,ownerId,getNote) {
 		var me = this;
-		this.invokeService("operatBackTask", [taskId,customerId,ownerId,getNote],function(data) {
-			alert(123);
+		this.invokeService("operatTaskRelease", [taskId,customerId,ownerId,getNote],function(data) {
 			me.reload();
 			IMessageBox.toast('操作成功');
 			layer.closeAll();
