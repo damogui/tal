@@ -27,6 +27,8 @@ import com.gongsibao.entity.supplier.Salesman;
 
 //员工管理
 public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
+	
+	protected String treeResourceNodeCode = "GSB_CRM_SYS_DEPARTMENT";
     public void setup() {
         super.setup();
         urlList = "/crm/sys/salesman/list";
@@ -40,6 +42,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
         listPartJsController = SysSalesmanListPart.class.getName();
         listPartServiceController = SysSalesmanListPart.class.getName();
 
+        
     }
 
 
@@ -114,7 +117,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
     //配置树状结构
     public void createTreeWorkspace() {
 
-        ResourceNode node = resourceService.byCode("GSB_CRM_SYS_DEPARTMENT");//树状的节点
+        ResourceNode node = resourceService.byCode(treeResourceNodeCode);//树状的节点
         IOperationTypeService operationTypeService = ServiceFactory.create(IOperationTypeService.class);
         OperationType operationType = operationTypeService.byCode(OperationTypes.view);
 
