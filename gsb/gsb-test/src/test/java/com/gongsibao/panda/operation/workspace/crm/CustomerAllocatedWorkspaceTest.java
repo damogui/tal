@@ -5,22 +5,12 @@ import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
-import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.OpenMode;
-import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.PDatagrid;
-import org.netsharp.panda.entity.PDatagridColumn;
-import org.netsharp.panda.entity.PPart;
-import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
-import org.netsharp.panda.entity.PWorkspace;
-import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
-import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.entity.crm.NCustomer;
-import com.gongsibao.entity.crm.NCustomerTaskNotify;
-import com.gongsibao.entity.crm.dic.NotifyType;
 
 public class CustomerAllocatedWorkspaceTest extends WorkspaceCreationBase {
 
@@ -49,7 +39,7 @@ public class CustomerAllocatedWorkspaceTest extends WorkspaceCreationBase {
 			datagrid.setName("未分配客户列表");
 		}
 
-		PDatagridColumn column = null;
+//		PDatagridColumn column = null;
 		addColumn(datagrid, "realName", "名称", ControlTypes.TEXT_BOX, 120);
 		addColumn(datagrid, "sex", "性别", ControlTypes.ENUM_BOX, 80);
 		addColumn(datagrid, "mobile", "手机号码", ControlTypes.TEXT_BOX, 100);
@@ -75,84 +65,12 @@ public class CustomerAllocatedWorkspaceTest extends WorkspaceCreationBase {
 	protected PQueryProject createQueryProject(ResourceNode node) {
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
-		PQueryItem item = null;
+//		PQueryItem item = null;
 		addQueryItem(queryProject, "realName", "名称", ControlTypes.TEXT_BOX);
 //		item = addQueryItem(queryProject, "realName", "名称", ControlTypes.TEXT_BOX);{
 //			item.setRequired(true);
 //		}
 		return queryProject;
-	}
-
-	private void createTasksPart(PWorkspace workspace) {
-
-		ResourceNode node = this.resourceService.byCode("GSB_CRM_MY_TASK_ALL");
-		PDatagrid datagrid = new PDatagrid(node, "客户任务信息");
-		{
-			addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 100, true);
-			addColumn(datagrid, "supplier.name", "分配服务商", ControlTypes.TEXT_BOX, 100, false);
-			addColumn(datagrid, "department.name", "分配服务商部门", ControlTypes.TEXT_BOX, 100, false);
-			addColumn(datagrid, "lastFollowTime", "最近跟进时间", ControlTypes.DATETIME_BOX, 100, false);
-			addColumn(datagrid, "foolowStatus", "跟进状态", ControlTypes.ENUM_BOX, 100, false);
-			addColumn(datagrid, "intentionCategory", "质量分类", ControlTypes.ENUM_BOX, 100, false);
-			addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 100, false);
-			addColumn(datagrid, "lastFoolowUser.name", "最后跟进人", ControlTypes.TEXT_BOX, 100, false);
-			addColumn(datagrid, "lastContent", "最后跟进内容", ControlTypes.TEXT_BOX, 100, false);
-			addColumn(datagrid, "old", "是否老客户", ControlTypes.BOOLCOMBO_BOX, 100, false);
-			addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 100, false);
-		}
-
-		PPart part = new PPart();
-		{
-			part.toNew();
-			part.setName("客户任务信息");
-			part.setCode("tasks");
-			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
-			part.setRelationRole("tasks");
-			part.setResourceNode(node);
-			part.setPartTypeId(PartType.DETAIL_PART.getId());
-			part.setDatagrid(datagrid);
-			part.setDockStyle(DockType.DOCUMENTHOST);
-			// part.setToolbar("panda/datagrid/detail");
-		}
-		workspace.getParts().add(part);
-
-		part = workspace.getParts().get(0);
-		{
-			part.setName("客户任务信息");
-			part.setDockStyle(DockType.TOP);
-		}
-	}
-
-	private void addNotificationLogPart(PWorkspace workspace) {
-		ResourceNode node = this.resourceService.byCode(NCustomerTaskNotify.class.getSimpleName());
-		PDatagrid datagrid = new PDatagrid(node, "通知日志");
-		{
-			PDatagridColumn column = addColumn(datagrid, "type", "通知类型", ControlTypes.ENUM_BOX, 300);
-			{
-				String formatter = EnumUtil.getColumnFormatter(NotifyType.class);
-				column.setFormatter(formatter);
-			}
-			addColumn(datagrid, "content", "跟进内容", ControlTypes.TEXT_BOX, 150);
-		}
-		PPart part = new PPart();
-		{
-			part.toNew();
-			part.setName("通知日志");
-			part.setCode("notifys");
-			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
-			part.setRelationRole("notifys");
-			part.setResourceNode(node);
-			part.setPartTypeId(PartType.DETAIL_PART.getId());
-			part.setDatagrid(datagrid);
-			part.setDockStyle(DockType.DOCUMENTHOST);
-		}
-		workspace.getParts().add(part);
-		part = workspace.getParts().get(0);
-		{
-			part.setName("通知日志");
-			part.setStyle("height:500px;");
-			part.setDockStyle(DockType.TOP);
-		}
 	}
 
 	// 默认的表单操作

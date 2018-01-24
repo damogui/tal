@@ -7,7 +7,6 @@ import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
-import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
@@ -56,7 +55,7 @@ public class CustomerAnomalyDetectionWorkspaceTest extends WorkspaceCreationBase
 	protected PQueryProject createQueryProject(ResourceNode node) {
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
-		PQueryItem item = null;
+//		PQueryItem item = null;
 		addQueryItem(queryProject, "realName", "名称", ControlTypes.TEXT_BOX);
 		return queryProject;
 	}
