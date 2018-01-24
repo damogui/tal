@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.netsharp.communication.Service;
 import org.netsharp.core.EntityState;
+import org.netsharp.core.MtableManager;
 import org.netsharp.core.Oql;
 import org.netsharp.core.QueryParameters;
 import org.netsharp.organization.entity.Employee;
 import org.netsharp.organization.service.EmployeeService;
+import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.bd.service.SupplierPersistableService;
 import com.gongsibao.entity.supplier.Salesman;
@@ -17,148 +19,207 @@ import com.gongsibao.supplier.base.ISalesmanService;
 @Service
 public class SalesmanService extends SupplierPersistableService<Salesman> implements ISalesmanService {
 
-    public SalesmanService() {
-        super();
-        this.type = Salesman.class;
-    }
+	public SalesmanService() {
+		super();
+		this.type = Salesman.class;
+	}
 
-    @Override
-    public Integer getSupplierId(Integer employeeId) {
+	@Override
+	public Integer getSupplierId(Integer employeeId) {
 
-        Salesman entity = byEmployeeId(employeeId);
-        if (entity != null) {
+		Salesman entity = byEmployeeId(employeeId);
+		if (entity != null) {
 
-            return entity.getSupplierId();
-        }
-        return null;
-    }
+			return entity.getSupplierId();
+		}
+		return null;
+	}
 
-    //处理增删改的逻辑
-    @Override
-    public Salesman save(Salesman entity) {
+	@Override
+	public Integer getDepartmentId(Integer employeeId) {
 
-        EmployeeService employeeService = new EmployeeService();//用户表实体
-        Employee employee = new Employee();
-        employee.setName(entity.getName());
-        employee.setMobile(entity.getMobile());
-        //employee.setBankNo(entity.getBankNo());
-        employee.setEntryDate(entity.getEntryDate());
-        employee.setQuitDate(entity.getQuitDate());
-        employee.setDisabled(entity.getDisabled());//禁用的传递
-        Employee saveEmploy;
-        EntityState state = entity.getEntityState();
+		Salesman entity = byEmployeeId(employeeId);
+		if (entity != null) {
 
-        if (state == EntityState.Deleted) {
+			return entity.getDepartmentId();
+		}
+		return null;
+	}
 
-            //删除删两个
-            return super.save(entity);//继承父类的保存
+	@Override
+	public Integer getEmployeeId(Integer salesmanId) {
 
-        } else if (state.equals(EntityState.New)) {//新增
-            employee.toNew();
-            //更新登录用户表
-            saveEmploy = employeeService.save(employee);//会处理异常直接弹窗
-            entity.setEmployeeId(saveEmploy.getId());
-            if (saveEmploy.getId() > 0) {
-                return super.save(entity);//继承父类的保存
-            } else {
-                return entity;
-            }
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects("id,employeeId");
+			oql.setFilter("id=?");
+			oql.getParameters().add("@id", salesmanId, Types.INTEGER);
+		}
+		
+		Salesman entity = this.queryFirst(oql);
+		if(entity != null){
+			
+			return entity.getEmployeeId();
+		}
+		return null;
+	}
 
+	// 处理增删改的逻辑
+	@Override
+	public Salesman save(Salesman entity) {
 
-        } else {//修改
+		EmployeeService employeeService = new EmployeeService();// 用户表实体
+		Employee employee = new Employee();
+		employee.setName(entity.getName());
+		employee.setMobile(entity.getMobile());
+		// employee.setBankNo(entity.getBankNo());
+		employee.setEntryDate(entity.getEntryDate());
+		employee.setQuitDate(entity.getQuitDate());
+		employee.setDisabled(entity.getDisabled());// 禁用的传递
+		Employee saveEmploy;
+		EntityState state = entity.getEntityState();
 
-            employee.toPersist();//修改
-            employee.setId(entity.getEmployeeId());//传递用户id
-            //更新登录用户表
+		if (state == EntityState.Deleted) {
 
-            String sqlUpdate="UPDATE  sys_permission_employee  SET `name` =?, `login_name` =?, `mobile` =?,`bank_no` =?, `entry_date` =?,  `quit_date` =?,disabled=?  WHERE `id` =?;";
-            QueryParameters qps = new QueryParameters();
-            qps.add("name",entity.getName(),Types.VARCHAR);
-            qps.add("login_name",entity.getMobile(),Types.VARCHAR);
-            qps.add("mobile",entity.getMobile(),Types.VARCHAR);
-            //qps.add("bank_no",entity.getBankNo(),Types.VARCHAR);
-            qps.add("entry_date",entity.getEntryDate(),Types.DATE);
-            qps.add("quit_date",entity.getQuitDate(),Types.DATE);
-            qps.add("disabled",entity.getDisabled(),Types.BOOLEAN);//是否禁用
-            qps.add("id",entity.getEmployeeId(),Types.INTEGER);
-           int num=this.pm.executeNonQuery(sqlUpdate,qps);
-            if (num>0){
+			// 删除删两个
+			return super.save(entity);// 继承父类的保存
 
-                return super.save(entity);//继承父类的保存
-            }else   {
+		} else if (state.equals(EntityState.New)) {// 新增
+			employee.toNew();
+			// 更新登录用户表
+			saveEmploy = employeeService.save(employee);// 会处理异常直接弹窗
+			entity.setEmployeeId(saveEmploy.getId());
+			if (saveEmploy.getId() > 0) {
+				return super.save(entity);// 继承父类的保存
+			} else {
+				return entity;
+			}
 
-                return entity;//更新失败
-            }
+		} else {// 修改
 
+			employee.toPersist();// 修改
+			employee.setId(entity.getEmployeeId());// 传递用户id
+			// 更新登录用户表
 
+			String sqlUpdate = "UPDATE  sys_permission_employee  SET `name` =?, `login_name` =?, `mobile` =?,`bank_no` =?, `entry_date` =?,  `quit_date` =?,disabled=?  WHERE `id` =?;";
+			QueryParameters qps = new QueryParameters();
+			qps.add("name", entity.getName(), Types.VARCHAR);
+			qps.add("login_name", entity.getMobile(), Types.VARCHAR);
+			qps.add("mobile", entity.getMobile(), Types.VARCHAR);
+			// qps.add("bank_no",entity.getBankNo(),Types.VARCHAR);
+			qps.add("entry_date", entity.getEntryDate(), Types.DATE);
+			qps.add("quit_date", entity.getQuitDate(), Types.DATE);
+			qps.add("disabled", entity.getDisabled(), Types.BOOLEAN);// 是否禁用
+			qps.add("id", entity.getEmployeeId(), Types.INTEGER);
+			int num = this.pm.executeNonQuery(sqlUpdate, qps);
+			if (num > 0) {
 
+				return super.save(entity);// 继承父类的保存
+			} else {
 
-        }
+				return entity;// 更新失败
+			}
+		}
 
-    }
+	}
 
+	// 重写进行复制
+	@Override
+	public List<Salesman> queryList(Oql oql) {
+		List<Salesman> list = super.queryList(oql);
 
-    //重写进行复制
-    @Override
-    public List<Salesman> queryList(Oql oql) {
-        List<Salesman> list = super.queryList(oql);
+		for (Salesman salesman : list) {
+			Employee employee = salesman.getEmployee();
+			if (employee != null) {
+				salesman.setName(employee.getName());
+				salesman.setMobile(employee.getMobile());
+				// salesman.setBankNo(employee.getBankNo());
+				salesman.setEntryDate(employee.getEntryDate());
+				salesman.setQuitDate(employee.getQuitDate());
+				// 停用的话两张表必须保持一致
+			}
+		}
 
-        for (Salesman salesman : list
-                ) {
-            Employee employee = salesman.getEmployee();
-            if (employee != null) {
-                salesman.setName(employee.getName());
-                salesman.setMobile(employee.getMobile());
-                //salesman.setBankNo(employee.getBankNo());
-                salesman.setEntryDate(employee.getEntryDate());
-                salesman.setQuitDate(employee.getQuitDate());
-                //停用的话两张表必须保持一致
-            }
-        }
+		return list;
+	}
 
+	@Override
+	public Salesman byId(Object id) {
 
-        return list;
-    }
+		Salesman salesman = super.byId(id);
+		Employee employee = salesman.getEmployee();
+		if (employee != null) {
+			salesman.setName(employee.getName());
+			salesman.setMobile(employee.getMobile());
+			salesman.setLoginName(employee.getLoginName());
+			salesman.setEntryDate(employee.getEntryDate());
+			salesman.setQuitDate(employee.getQuitDate());
+			salesman.setDisabled(employee.getDisabled());
+		}
 
-    @Override
-    public Salesman byId(Object id) {
-    	
-        Salesman salesman = super.byId(id);
-        Employee employee = salesman.getEmployee();
-        if (employee != null) {
-            salesman.setName(employee.getName());
-            salesman.setMobile(employee.getMobile());
-            //salesman.setBankNo(employee.getBankNo());
-            salesman.setEntryDate(employee.getEntryDate());
-            salesman.setQuitDate(employee.getQuitDate());
-            salesman.setDisabled(employee.getDisabled());
-        }
+		return salesman;
+	}
 
-        return salesman;
-    }
+	@Override
+	public Salesman byEmployeeId(Integer employeeId) {
 
-    @Override
-    public Integer getDepartmentId(Integer employeeId) {
+		Oql oql = new Oql();
+		{
+			oql.setType(type);
+			oql.setSelects("*");
+			oql.setFilter("employeeId=?");
+			oql.getParameters().add("@employeeId", employeeId, Types.INTEGER);
+		}
+		Salesman entity = this.queryFirst(oql);
+		return entity;
+	}
 
-        Salesman entity = byEmployeeId(employeeId);
-        if (entity != null) {
+	@Override
+	public boolean setDisabled(Integer salesmanId, boolean state) {
 
-            return entity.getDepartmentId();
-        }
-        return null;
-    }
+		// 停用的同时要停用Employee
+		boolean isUpdate = false;
+		UpdateBuilder updateBuilder = new UpdateBuilder();
+		{
+			updateBuilder.update(MtableManager.getMtable(this.type).getTableName());
+			updateBuilder.set("disabled", state);
+			updateBuilder.where("id=?");
+		}
 
-    @Override
-    public Salesman byEmployeeId(Integer employeeId) {
+		QueryParameters qps = new QueryParameters();
+		qps.add("salesmanId", salesmanId, Types.INTEGER);
+		isUpdate = this.pm.executeNonQuery(updateBuilder.toSQL(), qps) > 0;
 
-        Oql oql = new Oql();
-        {
-            oql.setType(type);
-            oql.setSelects("*");
-            oql.setFilter("employeeId=?");
-            oql.getParameters().add("@employeeId", employeeId, Types.INTEGER);
-        }
-        Salesman entity = this.queryFirst(oql);
-        return entity;
-    }
+		// 停用Employee
+		Integer employeeId = this.getEmployeeId(salesmanId);
+		updateBuilder = new UpdateBuilder();
+		{
+			updateBuilder.update(MtableManager.getMtable(Employee.class).getTableName());
+			updateBuilder.set("disabled", state);
+			updateBuilder.where("id=?");
+		}
+
+		qps = new QueryParameters();
+		qps.add("employeeId", employeeId, Types.INTEGER);
+		isUpdate = this.pm.executeNonQuery(updateBuilder.toSQL(), qps) > 0;
+
+		return isUpdate;
+	}
+
+	@Override
+	public boolean setReceiving(Integer salesmanId, boolean state) {
+
+		UpdateBuilder updateBuilder = new UpdateBuilder();
+		{
+			updateBuilder.update(MtableManager.getMtable(this.type).getTableName());
+			updateBuilder.set("receiving", state);
+			updateBuilder.where("id=?");
+		}
+
+		QueryParameters qps = new QueryParameters();
+		qps.add("salesmanId", salesmanId, Types.INTEGER);
+		return this.pm.executeNonQuery(updateBuilder.toSQL(), qps) > 0;
+	}
+
 }

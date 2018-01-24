@@ -1,6 +1,7 @@
 package com.gongsibao.supplier.base;
 
 import org.netsharp.base.IPersistableService;
+import org.netsharp.core.annotations.Transaction;
 
 import com.gongsibao.entity.supplier.Salesman;
 
@@ -35,4 +36,38 @@ public interface ISalesmanService  extends IPersistableService<Salesman>{
 	 * @throws   
 	 */
 	Salesman byEmployeeId(Integer employeeId);
+	
+	/**   
+	 * @Title: getEmployeeId   
+	 * @Description: TODO(根据salesmanId获取employeeId)   
+	 * @param: @param salesmanId
+	 * @param: @return      
+	 * @return: Integer      
+	 * @throws   
+	 */
+	Integer getEmployeeId(Integer salesmanId);
+	
+	/**   
+	 * @Title: setDisabled   
+	 * @Description: TODO(设置停用/启用状态)   
+	 * @param: @param salesmanId
+	 * @param: @param state
+	 * @param: @return      
+	 * @return: boolean      
+	 * @throws   
+	 */
+	@Transaction
+	boolean setDisabled(Integer salesmanId, boolean state);
+	
+	/**   
+	 * @Title: setReceiving   
+	 * @Description: TODO(设置接单状态)   
+	 * @param: @param salesmanId
+	 * @param: @param state
+	 * @param: @return      
+	 * @return: boolean      
+	 * @throws   
+	 */
+	@Transaction
+	boolean setReceiving(Integer salesmanId, boolean state);
 }

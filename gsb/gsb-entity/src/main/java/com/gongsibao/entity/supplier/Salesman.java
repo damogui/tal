@@ -11,7 +11,7 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 import org.netsharp.organization.entity.Employee;
 
-@Table(name = "sp_salesman", header = "服务商业务员")
+@Table(name = "sp_salesman", header = "员工")
 public class Salesman extends Entity {
 
 	/**
@@ -37,14 +37,24 @@ public class Salesman extends Entity {
 	@Reference(foreignKey = "supplierId", header = "服务商")
 	private Supplier supplier;
 
-	@Exclusive
+	@Column(name = "receiving", header = "是否接单")
+	private Boolean receiving = true;
+
 	@Column(name = "disabled", header = "停用")
 	private Boolean disabled = false;
+	
+	@Exclusive
+	@Column(name="login_name",header="帐号")
+	private String loginName;
 
 	@Exclusive
 	@Column(name = "name", header = "姓名")
 	private String name;
 
+	@Exclusive
+	@Column(name="email",header="电子邮件")
+    private String email;
+	
 	@Exclusive
 	@Column(name = "mobile", header = "手机号")
 	private String mobile;
@@ -57,15 +67,28 @@ public class Salesman extends Entity {
 	@Column(name = "quit_date", header = "离职日期")
 	private Date quitDate;
 
-	@Column(name = "receiving", header = "是否接单")
-	private Boolean receiving = false;
-
 	@Exclusive
 	@Subs(subType = RoleSalesman.class, foreignKey = "salesmanId", header = "用户角色")
 	private List<RoleSalesman> roles;
 	
 	@Subs(subType = SalesmanProduct.class, foreignKey = "salesmanId", header = "服务范围")
 	private List<SalesmanProduct> products;
+	
+	public String getLoginName() {
+		return loginName;
+	}
+
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public Integer getEmployeeId() {
 		return employeeId;
