@@ -20,6 +20,7 @@ public class TaskUndistributedWorkspaceTest extends WorkspaceCreationBase{
 	public void setup() {
 			
 		entity = NCustomerTask.class;
+		
 		//配置资源路径
 		urlList = "/operation/customer/task/undistributed/list";
 
@@ -35,6 +36,7 @@ public class TaskUndistributedWorkspaceTest extends WorkspaceCreationBase{
 	
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
+		
 		PDatagrid datagrid = super.createDatagrid(node);
 		PDatagridColumn column = null;
 		column = addColumn(datagrid, "customer.realName", "客户", ControlTypes.TEXT_BOX, 100, true);
@@ -54,6 +56,7 @@ public class TaskUndistributedWorkspaceTest extends WorkspaceCreationBase{
 	//配置查询条件
 	@Override
 	protected PQueryProject createQueryProject(ResourceNode node) {
+		
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
 		PQueryItem item = null;
