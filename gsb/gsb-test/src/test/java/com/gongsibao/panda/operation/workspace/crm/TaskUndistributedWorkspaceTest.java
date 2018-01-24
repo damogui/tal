@@ -13,30 +13,29 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.crm.NCustomerTask;
 
-public class TaskUndistributedWorkspaceTest extends WorkspaceCreationBase{
+public class TaskUndistributedWorkspaceTest extends WorkspaceCreationBase {
 
 	@Override
 	@Before
 	public void setup() {
-			
+
 		entity = NCustomerTask.class;
-		
-		//配置资源路径
+
+		// 配置资源路径
 		urlList = "/operation/customer/task/undistributed/list";
 
 		listPartName = formPartName = "未分配任务";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_Customer_Manager_Task_Undistributed";
-		//选项卡页面的js
+		// 选项卡页面的js
 		formJsImport = "/gsb/gsb.customer.controls.js";
-		listFilter="foolow_status in(1)";
+		listFilter = "foolow_status in(1)";
 	}
 
-	
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
-		
+
 		PDatagrid datagrid = super.createDatagrid(node);
 		PDatagridColumn column = null;
 		column = addColumn(datagrid, "customer.realName", "客户", ControlTypes.TEXT_BOX, 100, true);
@@ -52,18 +51,18 @@ public class TaskUndistributedWorkspaceTest extends WorkspaceCreationBase{
 		column = addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 100, false);
 		return datagrid;
 	}
-	
-	//配置查询条件
+
+	// 配置查询条件
 	@Override
 	protected PQueryProject createQueryProject(ResourceNode node) {
-		
+
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
 		PQueryItem item = null;
 		addQueryItem(queryProject, "realName", "名称", ControlTypes.TEXT_BOX);
 		return queryProject;
 	}
-	
+
 	public void doOperation() {
 		ResourceNode node = resourceService.byCode(resourceNodeCode);
 		operationService.addOperation(node, OperationTypes.view);
