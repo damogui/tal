@@ -68,8 +68,8 @@ public class Salesman extends Entity {
 	private Date quitDate;
 
 	@Exclusive
-	@Subs(subType = RoleSalesman.class, foreignKey = "salesmanId", header = "用户角色")
-	private List<RoleSalesman> roles;
+	@Subs(subType = SalesmanRole.class, foreignKey = "salesmanId", header = "用户角色")
+	private List<SalesmanRole> roles;
 	
 	@Subs(subType = SalesmanProduct.class, foreignKey = "salesmanId", header = "服务范围")
 	private List<SalesmanProduct> products;
@@ -162,11 +162,11 @@ public class Salesman extends Entity {
 		this.entryDate = entryDate;
 	}
 
-	public List<RoleSalesman> getRoles() {
+	public List<SalesmanRole> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<RoleSalesman> roles) {
+	public void setRoles(List<SalesmanRole> roles) {
 		this.roles = roles;
 	}
 
