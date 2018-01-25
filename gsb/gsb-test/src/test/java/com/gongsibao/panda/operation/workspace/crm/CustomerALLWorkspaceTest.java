@@ -1,12 +1,17 @@
 package com.gongsibao.panda.operation.workspace.crm;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.entity.PDatagrid;
+import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
+import org.netsharp.panda.plugin.dic.ToolbarType;
+import org.netsharp.panda.plugin.entity.PToolbar;
+import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.crm.web.NCustomerAllListPart;
@@ -27,37 +32,80 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 
 		listPartJsController = NCustomerAllListPart.class.getName();
 		listPartServiceController = NCustomerAllListPart.class.getName();
+		
+		listToolbarPath = "crm/operation/customer/edit";
+	}
+	
+	@Test
+	public void createListToolbar() {
+		
+		ResourceNode node = this.resourceService.byCode(resourceNodeCode);
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			toolbar.setPath(listToolbarPath);
+			toolbar.setName("客户列表");
+			toolbar.setResourceNode(node);
+			toolbar.setToolbarType(ToolbarType.BASE);
+		}
+		PToolbarItem item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("add");
+			item.setIcon("fa fa-plus");
+			item.setName("新增客户");
+			item.setCommand(null);
+			item.setSeq(1);
+			item.setCommand("{controller}.add();");
+			toolbar.getItems().add(item);
+		}
+		
+		item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("addTask");
+			item.setIcon("fa fa-plus");
+			item.setName("新增任务");
+			item.setCommand(null);
+			item.setSeq(2);
+			item.setCommand("{controller}.addTask();");
+			toolbar.getItems().add(item);
+		}
+		toolbarService.save(toolbar);
 	}
 
-	// 默认的grid信息的配置
 	protected PDatagrid createDatagrid(ResourceNode node) {
 
 		PDatagrid datagrid = super.createDatagrid(node);
 		{
 			datagrid.toNew();
 			datagrid.setResourceNode(node);
-			datagrid.setName("全部客户列表");
+			datagrid.setName("客户列表");
+			datagrid.setToolbar("panda/datagrid/row/edit");
 		}
 
-//		PDatagridColumn column = null;
-		addColumn(datagrid, "realName", "名称", ControlTypes.TEXT_BOX, 120);
-		addColumn(datagrid, "sex", "性别", ControlTypes.ENUM_BOX, 80);
-		addColumn(datagrid, "mobile", "手机号码", ControlTypes.TEXT_BOX, 100);
+		//PDatagridColumn null;
+		addColumn(datagrid, "updatorId", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+		addColumn(datagrid, "id", "客户ID", ControlTypes.TEXT_BOX, 80);
+		addColumn(datagrid, "realName", "客户名称", ControlTypes.TEXT_BOX, 120);
+		
+		//公司名称
+		addColumn(datagrid, "isMember", "是否会员", ControlTypes.BOOLCOMBO_BOX, 80);
+		addColumn(datagrid, "mobile", "手机号", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "telephone", "座机", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "qq", "QQ", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "weixin", "微信", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "province.name", "省份", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "city.name", "城市", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "county.name", "区/县", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "consultWay", "CRM咨询途径", ControlTypes.ENUM_BOX, 100);
-		addColumn(datagrid, "important", "重要程度", ControlTypes.ENUM_BOX, 100);
-		addColumn(datagrid, "intentionCategory", "质量分类", ControlTypes.ENUM_BOX, 100);
-		addColumn(datagrid, "lastFollowTime", "最近跟进时间", ControlTypes.DATETIME_BOX, 20);
-		addColumn(datagrid, "lastFoolowUser.name", "最后跟进人", ControlTypes.DATETIME_BOX, 100);
-		addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATETIME_BOX, 20);
-		addColumn(datagrid, "customerSource.name", "客户来源", ControlTypes.TEXT_BOX, 80);
-		addColumn(datagrid, "creator", "添加人", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "createTime", "添加时间", ControlTypes.DATETIME_BOX, 20);
+		
+		//其他联系方式
+
+		addColumn(datagrid, "important", "客户等级", ControlTypes.ENUM_BOX, 100);
+		
+//		最近任务来源
+//		最近任务跟进人
+//		最近任务费用部门
+		addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 20);
+
 		return datagrid;
 	}
 	
@@ -65,8 +113,12 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 	protected PQueryProject createQueryProject(ResourceNode node) {
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
-//		PQueryItem item = null;
-		addQueryItem(queryProject, "realName", "名称", ControlTypes.TEXT_BOX);
+		PQueryItem item = null;
+		item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);{
+			item.setTooltip("输入客户ID、客户名称、联系方式等");
+			item.setWidth(350);
+		}
+		addQueryItem(queryProject, "createTime", "创建时间", ControlTypes.DATE_BOX);
 		return queryProject;
 	}
 

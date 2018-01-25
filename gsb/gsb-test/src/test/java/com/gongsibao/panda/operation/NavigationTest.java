@@ -66,6 +66,7 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_ALL", "全部客户", "/operation/customer/all/list", 2);
 			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Allocated", "已分配客户", "/operation/customer/allocated/list", 3);
 			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Undistributed", "未分配客户", "/operation/customer/undistributed/list", 4);
+			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_NotTask", "无任务客户", "/operation/customer/nottask/list", 4);
 			
 			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Task_ALL", "全部任务", "/operation/customer/task/all/list", 5);
 			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Task_Allocated", "已分配任务", "/operation/customer/task/allocated/list", 6);

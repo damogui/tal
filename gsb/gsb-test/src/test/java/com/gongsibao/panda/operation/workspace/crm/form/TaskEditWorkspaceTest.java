@@ -32,6 +32,13 @@ import com.gongsibao.entity.crm.dic.QualityCategory;
 
 public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 
+	
+	String foolowDetailResourceNodeCode = NCustomerTaskFoolow.class.getSimpleName();
+			
+	String notifyDetailResourceNodeCode = NCustomerTaskNotify.class.getSimpleName();
+	
+	String changeDetailResourceNodeCode = NCustomerChange.class.getSimpleName();
+	
 	@Before
 	public void setup() {
 		super.setup();
@@ -48,6 +55,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 	
 	@Test
 	public void detailPart() {
+		
 		ResourceNode node = this.resourceService.byCode(NCustomerTaskFoolow.class.getSimpleName());
 		//OperationType ot1 = operationTypeService.byCode(OperationTypes.add);
 		PToolbar toolbar = new PToolbar();
@@ -85,8 +93,9 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 
 	// 选项卡加载项
 	public void addCommunicatLogsPart(PWorkspace workspace) {
+		
 		// 需要配置NCustomerProduct资源
-		ResourceNode node = this.resourceService.byCode(NCustomerTaskFoolow.class.getSimpleName());
+		ResourceNode node = this.resourceService.byCode(foolowDetailResourceNodeCode);
 		PDatagrid datagrid = new PDatagrid(node, "沟通日志");
 		{
 			PDatagridColumn column = addColumn(datagrid, "foolowStatus", "状态", ControlTypes.ENUM_BOX, 180);
@@ -128,6 +137,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 	}
 
 	public void addNotificationLogPart(PWorkspace workspace) {
+		
 		ResourceNode node = this.resourceService.byCode(NCustomerTaskNotify.class.getSimpleName());
 		PDatagrid datagrid = new PDatagrid(node, "通知日志");
 		{
@@ -172,7 +182,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 	}
 
 	public void addFlowLogPart(PWorkspace workspace) {
-		ResourceNode node = this.resourceService.byCode(NCustomerChange.class.getSimpleName());
+		ResourceNode node = this.resourceService.byCode(changeDetailResourceNodeCode);
 
 		PDatagrid datagrid = new PDatagrid(node, "流转日志");
 		{

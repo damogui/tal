@@ -6,9 +6,23 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 	},
 	add:function(){
 		
-
+		window.open("/panda/operation/customer/add");
+	},
+	detail:function(id){
+		
+		this.edit(id);
 	},
 	edit : function(id) {
-
+		
+		var url = "/panda/operation/task/edit?id="+id;
+		window.open(url);
+	},
+	allocation:function(id){
+		
+		alert("未实现");
+	},
+	batchAllocation:function(){
+		
+		alert("未实现");
 	}
 });

@@ -8,7 +8,6 @@ import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.entity.PDatagrid;
-import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.plugin.dic.ToolbarType;
@@ -104,7 +103,7 @@ public class CustomerVerifyWorkspaceTest extends WorkspaceCreationBase{
 			datagrid.setToolbar(rowToolbar);
 		}
 
-		PDatagridColumn column = null;
+		//PDatagridColumn column = null;
 		addColumn(datagrid, "creator", "操作", ControlTypes.OPERATION_COLUMN, 100);
 		addColumn(datagrid, "id", "客户Id", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "realName", "名称", ControlTypes.TEXT_BOX, 120);
