@@ -2,6 +2,8 @@ package com.gongsibao.crm.service;
 
 import java.sql.Types;
 
+import org.netsharp.action.ActionContext;
+import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.core.Oql;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
@@ -9,6 +11,7 @@ import org.netsharp.util.sqlbuilder.UpdateBuilder;
 import com.gongsibao.bd.service.SupplierPersistableService;
 import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.entity.crm.NCustomerTask;
+import com.gongsibao.entity.crm.NCustomerTaskFoolow;
 
 @Service
 public class NCustomerTaskService extends SupplierPersistableService<NCustomerTask> implements INCustomerTaskService {
@@ -94,5 +97,123 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		return this.pm.executeNonQuery(cmdText, null);
 	}
 
-	
+	@Override
+	public Boolean transfer(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId) {
+		
+		//任务转移
+		NCustomerTask entity = this.byId(taskId);
+		ActionContext ctx = new ActionContext();
+		{
+			ctx.setPath("gsb/crm/task/transfer");
+			ctx.setItem(entity);
+			ctx.setState(entity.getEntityState());
+		}
+
+		ActionManager action = new ActionManager();
+		action.execute(ctx);
+		return true;
+		
+	}
+
+	@Override
+	public Boolean abnormal(Integer taskId) {
+
+		//抽查异常
+		NCustomerTask entity = this.byId(taskId);
+		ActionContext ctx = new ActionContext();
+		{
+			ctx.setPath("gsb/crm/task/abnormal");
+			ctx.setItem(entity);
+			ctx.setState(entity.getEntityState());
+		}
+
+		ActionManager action = new ActionManager();
+		action.execute(ctx);
+		return true;
+	}
+
+	@Override
+	public Boolean allocation(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId) {
+
+		//任务分配
+		NCustomerTask entity = this.byId(taskId);
+		ActionContext ctx = new ActionContext();
+		{
+			ctx.setPath("gsb/crm/task/allocation");
+			ctx.setItem(entity);
+			ctx.setState(entity.getEntityState());
+		}
+
+		ActionManager action = new ActionManager();
+		action.execute(ctx);
+		return true;
+	}
+
+	@Override
+	public Boolean follow(NCustomerTaskFoolow taskFoolow) {
+		
+		//任务跟进
+		NCustomerTask entity = this.byId(taskFoolow.getTaskId());
+		ActionContext ctx = new ActionContext();
+		{
+			ctx.setPath("gsb/crm/task/allocation");
+			ctx.setItem(entity);
+			ctx.setState(entity.getEntityState());
+		}
+
+		ActionManager action = new ActionManager();
+		action.execute(ctx);
+		return true;
+	}
+
+	@Override
+	public Boolean regain(Integer taskId) {
+
+		//任务收回
+		NCustomerTask entity = this.byId(taskId);
+		ActionContext ctx = new ActionContext();
+		{
+			ctx.setPath("gsb/crm/task/regain");
+			ctx.setItem(entity);
+			ctx.setState(entity.getEntityState());
+		}
+
+		ActionManager action = new ActionManager();
+		action.execute(ctx);
+		return true;
+	}
+
+	@Override
+	public Boolean release(Integer taskId) {
+
+		//任务释放
+		NCustomerTask entity = this.byId(taskId);
+		ActionContext ctx = new ActionContext();
+		{
+			ctx.setPath("gsb/crm/task/release");
+			ctx.setItem(entity);
+			ctx.setState(entity.getEntityState());
+		}
+
+		ActionManager action = new ActionManager();
+		action.execute(ctx);
+		return true;
+	}
+
+	@Override
+	public Boolean rollback(Integer taskId) {
+		
+		//任务回退
+		NCustomerTask entity = this.byId(taskId);
+		ActionContext ctx = new ActionContext();
+		{
+			ctx.setPath("gsb/crm/task/rollback");
+			ctx.setItem(entity);
+			ctx.setState(entity.getEntityState());
+		}
+
+		ActionManager action = new ActionManager();
+		action.execute(ctx);
+		return true;
+	}
 }
