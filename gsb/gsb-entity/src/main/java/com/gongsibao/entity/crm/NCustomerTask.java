@@ -517,6 +517,5 @@ public class NCustomerTask extends Entity {
 	public void setInspections(List<NCustomerTaskInspection> inspections) {
 		this.inspections = inspections;
 	}
-
 	
 }
