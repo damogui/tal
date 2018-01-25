@@ -2,25 +2,37 @@ package com.gongsibao.panda.crm.workspace.my;
 
 import org.junit.Before;
 import org.netsharp.core.MtableManager;
-import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
+import org.netsharp.panda.dic.DockType;
+import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
+import org.netsharp.panda.entity.PForm;
+import org.netsharp.panda.entity.PFormField;
+import org.netsharp.panda.entity.PPart;
 import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
+import org.netsharp.panda.entity.PWorkspace;
+import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
+import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.crm.web.MyAllTaskListPart;
 import com.gongsibao.entity.crm.NCustomerTask;
+import com.gongsibao.entity.crm.NCustomerTaskInspection;
+import com.gongsibao.entity.crm.dic.TaskInspectionType;
+import com.gongsibao.panda.operation.workspace.crm.form.TaskEditWorkspaceTest;
 
-public class DefeatedWorkspace extends WorkspaceCreationBase{
+public class DefeatedWorkspace extends TaskEditWorkspaceTest{
 
 	@Override
 	@Before
 	public void setup() {
 		entity = NCustomerTask.class;
+		//配置表单路径
+		urlForm = "/crm/my/task/defeated/from";	
 		//配置资源路径
 		urlList = "/crm/my/task/defeated/list";
 		listPartName = formPartName = "无法签单";
@@ -30,8 +42,8 @@ public class DefeatedWorkspace extends WorkspaceCreationBase{
 		listFilter = "foolowStatus = 4 and ownerId = '{userId}'";
 		
 		//扩展列表操作
-		listToolbarPath = "crm/my/task/all/toolbar";
-		listPartImportJs ="/gsb/crm/js/crm-allTask-list.js";
+		//listToolbarPath = "crm/my/task/all/toolbar";
+		listPartImportJs ="/gsb/crm/js/crm-inspectionTask-list.js";
 		listPartJsController = MyAllTaskListPart.class.getName();
 		listPartServiceController = MyAllTaskListPart.class.getName();		
 	}
@@ -89,11 +101,69 @@ public class DefeatedWorkspace extends WorkspaceCreationBase{
 		}
 		return queryProject;
 	}
+	
+	// 创建选项卡
+	@Override
+	protected void addDetailGridPart(PWorkspace workspace) {
+		addCommunicatLogsPart(workspace);
+		createProductsPart(workspace);
+		addNotificationLogPart(workspace);
+		addFlowLogPart(workspace);
+		addInspectionLogPart(workspace);
+	}	
+	public void addInspectionLogPart(PWorkspace workspace) {
+		ResourceNode node = this.resourceService.byCode(NCustomerTaskInspection.class.getSimpleName());
+		PDatagrid datagrid = new PDatagrid(node, "抽查日志");
+		{
+			// 子页面枚举显示需要格式化一下
+			PDatagridColumn column = addColumn(datagrid, "inspectionType", "类型", ControlTypes.ENUM_BOX, 300);
+			{
+				String formatter = EnumUtil.getColumnFormatter(TaskInspectionType.class);
+				column.setFormatter(formatter);
+			}
+			addColumn(datagrid, "creator", "操作人", ControlTypes.ENUM_BOX, 150);
+			addColumn(datagrid, "createTime", "操作时间", ControlTypes.DATE_BOX, 150);
+			addColumn(datagrid, "content", "记录内容", ControlTypes.TEXT_BOX, 150);
+		}
+		PForm form = new PForm();
+		{
+			form.toNew();
+			form.setResourceNode(node);
+			form.setColumnCount(1);
+			form.setName("抽查日志");
+			PFormField formField = null;
+			String groupName = null;
+			formField = addFormField(form, "inspectionType", "类型", groupName, ControlTypes.ENUM_BOX, false, true);
+			formField = addFormFieldRefrence(form, "creator", "操作人", groupName, "CRM_Employee", false, true);
+			formField = addFormField(form, "createTime", "最后分配人", groupName, ControlTypes.DATE_BOX, false, true);
+			formField = addFormField(form, "content", "内容", groupName, ControlTypes.TEXT_BOX, false, true);
+			{
+				formField.setFullColumn(true);
+			}
+		}
 		
+		PPart part = new PPart();
+		{
+			part.toNew();
+			part.setName("抽查日志");
+			part.setCode("inspections");
+			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
+			part.setRelationRole("inspections");
+			part.setResourceNode(node);
+			part.setPartTypeId(PartType.DETAIL_PART.getId());
+			part.setDatagrid(datagrid);
+			part.setDockStyle(DockType.DOCUMENTHOST);
+			part.setWindowWidth(550);
+			part.setWindowHeight(350);
+			part.setForm(form);
+		}
+		workspace.getParts().add(part);
+	}
+	
 	public void doOperation() {
 		ResourceNode node = resourceService.byCode(resourceNodeCode);
 		operationService.addOperation(node, OperationTypes.view);
-		operationService.addOperation(node, OperationTypes.add);
+		//operationService.addOperation(node, OperationTypes.add);
 		operationService.addOperation(node, OperationTypes.update);
 	}		
 }

@@ -84,7 +84,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 	}
 
 	// 选项卡加载项
-	private void addCommunicatLogsPart(PWorkspace workspace) {
+	public void addCommunicatLogsPart(PWorkspace workspace) {
 		// 需要配置NCustomerProduct资源
 		ResourceNode node = this.resourceService.byCode(NCustomerTaskFoolow.class.getSimpleName());
 		PDatagrid datagrid = new PDatagrid(node, "沟通日志");
@@ -127,7 +127,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 		}
 	}
 
-	private void addNotificationLogPart(PWorkspace workspace) {
+	public void addNotificationLogPart(PWorkspace workspace) {
 		ResourceNode node = this.resourceService.byCode(NCustomerTaskNotify.class.getSimpleName());
 		PDatagrid datagrid = new PDatagrid(node, "通知日志");
 		{
@@ -171,7 +171,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 		workspace.getParts().add(part);
 	}
 
-	private void addFlowLogPart(PWorkspace workspace) {
+	public void addFlowLogPart(PWorkspace workspace) {
 		ResourceNode node = this.resourceService.byCode(NCustomerChange.class.getSimpleName());
 
 		PDatagrid datagrid = new PDatagrid(node, "流转日志");
