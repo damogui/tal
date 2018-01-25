@@ -5,7 +5,7 @@ import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.UploadAttachment;
 import com.gongsibao.entity.igirl.baseinfo.NCLOne;
 import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
-import com.gongsibao.entity.ncl.NclBatch;
+import com.gongsibao.entity.igirl.baseinfo.NclBatch;
 import com.gongsibao.igirl.base.*;
 import org.junit.Before;
 import org.netsharp.meta.base.ResourceCreationBase;

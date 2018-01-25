@@ -1,6 +1,6 @@
 package com.gongsibao.panda.igirl.workspace;
 
-import com.gongsibao.entity.ncl.NclBatch;
+import com.gongsibao.entity.igirl.baseinfo.NclBatch;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;

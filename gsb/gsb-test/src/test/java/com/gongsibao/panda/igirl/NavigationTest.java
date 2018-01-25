@@ -1,9 +1,8 @@
 package com.gongsibao.panda.igirl;
 import com.gongsibao.entity.igirl.TradeMark;
 import com.gongsibao.entity.igirl.TradeMarkCase;
-import com.gongsibao.entity.igirl.baseinfo.NCLOne;
 import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
-import com.gongsibao.entity.ncl.NclBatch;
+import com.gongsibao.entity.igirl.baseinfo.NclBatch;
 import org.junit.Before;
 import org.netsharp.meta.base.NavigationBase;
 import org.netsharp.panda.plugin.entity.PNavigation;
