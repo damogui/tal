@@ -18,5 +18,36 @@ com.gongsibao.crm.web.MyCustomerListPart = org.netsharp.panda.commerce.ListPart.
 
 			  }
 	  	    });
+	},
+	detail : function(id){ 
+		var url='/operation/customer/edit?id='+id;
+		layer.open({
+	  		  type: 2,
+	  		  title: '查看',
+	  		  fixed: false,
+	  		  maxmin: true,
+	  		  shadeClose:true,
+	  		  area: ['90%','90%'],
+	  		  content: url,
+	  		  cancel: function(){ 
+
+			  }
+	  	    });
+	},
+	edit : function(id){
+		alert(id);
+		var url='/operation/customer/edit?id='+id;
+		layer.open({
+	  		  type: 2,
+	  		  title: '查看',
+	  		  fixed: false,
+	  		  maxmin: true,
+	  		  shadeClose:true,
+	  		  area: ['90%','90%'],
+	  		  content: url,
+	  		  cancel: function(){ 
+
+			  }
+	  	    });
 	}
 });

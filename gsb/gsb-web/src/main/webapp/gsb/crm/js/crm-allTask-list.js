@@ -27,11 +27,25 @@ com.gongsibao.crm.web.MyAllTaskListPart = org.netsharp.panda.commerce.ListPart.E
 	  	    });
 	},
 	detail : function(id){
-
 		var url='/panda/operation/task/edit?id='+id;
 		layer.open({
 	  		  type: 2,
-	  		  title: '添加任务',
+	  		  title: '查看',
+	  		  fixed: false,
+	  		  maxmin: true,
+	  		  shadeClose:true,
+	  		  area: ['90%','90%'],
+	  		  content: url,
+	  		  cancel: function(){ 
+
+			  }
+	  	    });
+	},
+	edit : function(id){
+		var url='/panda/operation/task/edit?id='+id;
+		layer.open({
+	  		  type: 2,
+	  		  title: '修改',
 	  		  fixed: false,
 	  		  maxmin: true,
 	  		  shadeClose:true,
