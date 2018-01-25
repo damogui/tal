@@ -9,12 +9,14 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import com.gongsibao.cms.base.IProductViewService;
 import com.gongsibao.crm.base.INCustomerProductService;
 import com.gongsibao.crm.base.INCustomerService;
+import com.gongsibao.crm.base.INCustomerTaskFoolowService;
 import com.gongsibao.crm.base.INCustomerTaskQualityService;
 import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.entity.cms.ProductView;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.crm.NCustomerProduct;
 import com.gongsibao.entity.crm.NCustomerTask;
+import com.gongsibao.entity.crm.NCustomerTaskFoolow;
 import com.gongsibao.entity.crm.NCustomerTaskQuality;
 import com.gongsibao.entity.supplier.FunctionModule;
 import com.gongsibao.entity.supplier.FunctionModuleRole;
@@ -119,7 +121,8 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "新增任务", "GSB_CRM_Task_Manager_Add", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomer.class.getName(), "修改客户", "GSB_CRM_Customer_Manager_Edit", INCustomerService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "修改任务", "GSB_CRM_Task_Manager_Edit", INCustomerTaskService.class.getName(), node1.getId());
-						
+			this.createResourceNodeVoucher(NCustomerTaskFoolow.class.getName(), "跟进", "GSB_CRM_Foolow_Manager_Edit", INCustomerTaskFoolowService.class.getName(), node1.getId());
+			
 			
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "公海", "GSB_CRM_Customer_Manager_OpenSea", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomer.class.getName(), "全部客户", "GSB_CRM_Customer_Manager_ALL", INCustomerService.class.getName(), node1.getId());
