@@ -1,6 +1,6 @@
 package com.gongsibao.igirl.dto.TradeMark;
 
-import com.gongsibao.taurus.util.StringManager;
+import org.netsharp.util.StringManager;
 
 //商标声明
 public class Step3 {

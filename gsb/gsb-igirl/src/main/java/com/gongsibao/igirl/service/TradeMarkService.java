@@ -6,6 +6,7 @@ import com.gongsibao.entity.igirl.TradeMark;
 import com.gongsibao.entity.igirl.UploadAttachment;
 import com.gongsibao.entity.igirl.dict.AttachmentCat;
 import com.gongsibao.entity.igirl.dict.FileType;
+import com.gongsibao.entity.igirl.dict.MarkState;
 import com.gongsibao.entity.igirl.dict.ShareGroup;
 import com.gongsibao.igirl.base.IDownloadAttachmentService;
 import com.gongsibao.igirl.base.ITradeMarkService;
@@ -15,6 +16,8 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gongsibao.igirl.dto.TradeMark.Step1;
+import com.gongsibao.igirl.dto.TradeMark.TradeMarkApplyInfo;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
@@ -23,6 +26,7 @@ import org.netsharp.core.Oql;
 public class TradeMarkService extends GsbPersistableService<TradeMark> implements ITradeMarkService {
 	IUploadAttachmentService upattachementService = ServiceFactory.create(IUploadAttachmentService.class);
 	IDownloadAttachmentService downattachementService = ServiceFactory.create(IDownloadAttachmentService.class);
+
 
 	public TradeMarkService() {
 		super();
@@ -222,6 +226,29 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			
 		}
 
+	}
+
+	@Override
+	public List<TradeMarkApplyInfo> tmsForRobot(Integer innerHour) {
+		List<TradeMarkApplyInfo> tminfos = new ArrayList<>();
+		TradeMarkApplyInfo tminfo;
+		Step1 step1;
+		Oql oql = new Oql();
+		oql.setType(TradeMark.class);
+		oql.setSelects("TradeMark.*,TradeMark.tradeMarkCase.*");
+		oql.setFilter("markState=?");
+		oql.getParameters().add("markState", MarkState.WAITCOMMIT, Types.INTEGER);
+		List<TradeMark> tms = this.queryList(oql);
+		for (TradeMark tm:tms){
+			tminfo = new TradeMarkApplyInfo();
+			step1 = new Step1();
+			tminfo.setCorpTrademarkId(tm.getProxyCode());
+			step1.setAppGjdq(tm.getTradeMarkCase().getWriteType().getText());
+			step1.setAppTypeId(tm.getTradeMarkCase().getApplierType().getText());
+			tminfo.setStep1(step1);
+			tminfos.add(tminfo);
+		}
+		return tminfos;
 	}
 
 }

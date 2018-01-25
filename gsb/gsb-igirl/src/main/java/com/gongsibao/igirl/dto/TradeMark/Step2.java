@@ -1,7 +1,7 @@
 package com.gongsibao.igirl.dto.TradeMark;
 
 
-import com.gongsibao.taurus.util.StringManager;
+import org.netsharp.util.StringManager;
 
 //申请人信息
 public class Step2 {
