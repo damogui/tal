@@ -5,10 +5,12 @@ com.gongsibao.gardian.web.DeviceFormPart = org.netsharp.panda.commerce.FormPart.
         this.base();
     },
     deviceTypeChange:function (newValue, oldValue) {
-        if(newValue==1||newValue==2){
-            $("#memory").style("display","block");
+
+        if(newValue==1||newValue==0){
+            $("fieldset:first").next().show();
         }else{
-            $("#memory").style("display","none");
+            $("fieldset:first").next().hide();
         }
     }
+
 });
