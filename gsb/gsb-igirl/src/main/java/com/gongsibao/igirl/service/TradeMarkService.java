@@ -3,6 +3,7 @@ package com.gongsibao.igirl.service;
 import com.gongsibao.bd.service.GsbPersistableService;
 import com.gongsibao.entity.igirl.DownloadAttachment;
 import com.gongsibao.entity.igirl.TradeMark;
+import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.UploadAttachment;
 import com.gongsibao.entity.igirl.dict.AttachmentCat;
 import com.gongsibao.entity.igirl.dict.FileType;
@@ -14,10 +15,12 @@ import com.gongsibao.igirl.base.IUploadAttachmentService;
 
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.gongsibao.igirl.dto.TradeMark.*;
-import com.sun.xml.internal.bind.v2.TODO;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
@@ -223,7 +226,7 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 					AttachmentCat.DELEGATE_PROOF, tm.getTradeMarkCaseId(), FileType.JPGC, FileType.JPGC,
 					tm.getId());
 			downattachementService.save(attachment2);
-			
+
 		}
 
 	}
@@ -239,6 +242,8 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		Step5 step5;
 		Step6 step6;
 		Step7 step7;
+		List<Goods> goodsList;
+		Goods goods;
 		Oql oql = new Oql();
 		oql.setType(TradeMark.class);
 		oql.setSelects("TradeMark.*,TradeMark.tradeMarkCase.*,TradeMark.tradeMarkCase.uploadAttachments.*");
@@ -246,30 +251,113 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		oql.getParameters().add("markState", MarkState.WAITCOMMIT, Types.INTEGER);
 		List<TradeMark> tms = this.queryList(oql);
 		for (TradeMark tm:tms){
+			TradeMarkCase tmc = tm.getTradeMarkCase();
 			tminfo = new TradeMarkApplyInfo();
 			step1 = new Step1();
 			tminfo.setCorpTrademarkId(tm.getProxyCode());
-			step1.setAppGjdq(tm.getTradeMarkCase().getWriteType().getText());
-			step1.setAppTypeId(tm.getTradeMarkCase().getApplierType().getText());
+			step1.setAppGjdq(tmc.getWriteType().getText());
+			step1.setAppTypeId(tmc.getApplierType().getText());
 			tminfo.setStep1(step1);
 			step2 = new Step2();
 			step2.setAgentFilenum(tm.getProxyCode());
-			step2.setAgentPerson(tm.getTradeMarkCase().getCreator());
-			List<UploadAttachment> uas = tm.getTradeMarkCase().getUploadAttachments();
+			step2.setAgentPerson(tmc.getCreator());
+			List<UploadAttachment> uas = tmc.getUploadAttachments();
+			step7 = new Step7();
 			for (UploadAttachment ua:uas){
-			    if (ua.getTradeMarkId()==tm.getId()&&ua.getAttachmentCat()==AttachmentCat.DELEGATE_PROOF){
-                    step2.setAgentBookPath(ua.getFileUrl());
-                }
-                //TODO(回头来看)
-            }
+				//TODO(?)
+				String url = ua.getFileUrl();
+				int index = url.lastIndexOf("/");
+				String filename = url.substring(index+1);
+				if (ua.getTradeMarkId()==tm.getId()&&ua.getAttachmentCat()==AttachmentCat.DELEGATE_PROOF){
+					step2.setAgentBookPath(url);
+					step2.setAgentBookName(filename);
+				}else if(ua.getTradeMarkId()==tm.getId()&&ua.getAttachmentCat()==AttachmentCat.BUSINESS_LIEN) {
+					step2.setCertFilePath(url);
+					step2.setCertFileName(filename);
+				}else if(ua.getTradeMarkId()==tm.getId()&&ua.getAttachmentCat()==AttachmentCat.TRADEMARK_PICT) {
+					step7.setPicPath(url);
+					step7.setPicName(filename);
+				}else if(ua.getTradeMarkId()==tm.getId()&&ua.getAttachmentCat()==AttachmentCat.MEMO_DESC) {
+					step7.setCommentPath(url);
+					step7.setCommentName(filename);
+				}
 
-
-
-
+			}
+			step2.setCertCode(tmc.getCreditCode());
+			step2.setAppCnName(tmc.getApplier());
+			step2.setAppCnAddr(tmc.getApplierAddress());
+			step2.setAppContactPerson(tmc.getCreator());
+			step2.setAppContactPerson(tmc.getYwPhone());
+			step2.setAppContactFax(tmc.getFax());
+			step2.setAppContactZip(tmc.getMailCode());
 			tminfo.setStep2(step2);
+			step3 = new Step3();
+			step3.setTmType(tm.getTradeMarkType().getText());
+			//TODO(?)
+			step3.setIfSolidTm(tm.getWhetherThirdSpace().toString());
+			//TODO(?)
+			step3.setColourSign(tm.getWhetherColorGroup().toString());
+			//TODO(?)
+			step3.setTmFormType(tm.getWhetherSound().toString());
+			step3.setTmFormTypeFilePath("");
+			step3.setTmFormTypeFileName("");
+			step3.setTmDesignDeclare(tm.getMemo());
+			tminfo.setStep3(step3);
+
+			step4 = new Step4();
+			//TODO(?)
+			step4.setIfShareTm("ifShareTm1");
+			tminfo.setStep4(step4);
+
+			step5 = new Step5();
+			//TODO(?)
+			step5.setPriorityType("priorityType1");
+			tminfo.setStep5(step5);
+
+			step6 = new Step6();
+			String str = tm.getSelectedTwoStr();
+			step6.setGoods(goodSl(str,tm.getNclOne().getCode()));
+			tminfo.setStep6(step6);
+			
+			step7.setIsBlack("true");
+			step7.setBlackPath("");
+			step7.setBlackName("");
+			step7.setIsPersonPhoto("false");
+			step7.setPersonPhotoPath("");
+			step7.setPersonPhotoName("");
+			tminfo.setStep7(step7);
+			
 			tminfos.add(tminfo);
 		}
 		return tminfos;
+	}
+
+	public List<Goods> goodSl(String str,String code){
+		List<Goods> goodsList = new ArrayList<>();
+		Goods goods;
+		String[] lines = str.split("\n");
+		Map<String,List<String>> map = new HashMap<String,List<String>>();
+		List<String> stss;
+		for(String s:lines) {
+			String[] sts =  s.split(":");
+			if(map.containsKey(sts[2])) {
+				stss = map.get(sts[2]);
+				stss.add(sts[1]);
+			}else {
+				stss = new ArrayList<>();
+				stss.add(sts[1]);
+				map.put(sts[2], stss);
+			}
+		}
+		Set<String> set = map.keySet();
+		for(String st:set) {
+			goods = new Goods();
+			goods.setClasses(code);
+			goods.setGroup(st);
+			goods.setNameList(map.get(st));
+			goodsList.add(goods);
+		}
+		return goodsList;
 	}
 
 }

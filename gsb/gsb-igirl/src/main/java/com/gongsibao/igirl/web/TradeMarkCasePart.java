@@ -7,9 +7,6 @@ import org.netsharp.communication.ServiceFactory;
 import org.netsharp.entity.IPersistable;
 import org.netsharp.panda.anno.Authorization;
 import org.netsharp.panda.commerce.FormPart;
-
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 public class TradeMarkCasePart extends FormPart {
