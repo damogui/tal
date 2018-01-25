@@ -23,6 +23,7 @@ import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.controls.CityComboBox;
 import com.gongsibao.controls.DictComboBox;
+import com.gongsibao.crm.web.SupplierProductDetailPart;
 import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.supplier.FunctionModule;
 import com.gongsibao.entity.supplier.Supplier;
@@ -148,6 +149,8 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 80, false);
 		addColumn(datagrid, "contact", "联系人", ControlTypes.TEXT_BOX, 200, false);
 		addColumn(datagrid, "mobilePhone", "手机号", ControlTypes.TEXT_BOX, 200, false);
+        addColumn(datagrid, "bankName", "银行名", ControlTypes.TEXT_BOX, 100, false);
+        addColumn(datagrid, "bankNum", "银行卡号", ControlTypes.TEXT_BOX, 150, false);
 		addColumn(datagrid, "address", "地址", ControlTypes.TEXT_BOX, 200, false);
 		addColumn(datagrid, "openTime", "开户时间", ControlTypes.DATETIME_BOX, 130, false);
 		addColumn(datagrid, "departmentCount", "部门数量", ControlTypes.DECIMAL_BOX, 80, false);
@@ -168,7 +171,10 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "type", "类型", null, ControlTypes.ENUM_BOX, true, false);
 		addFormField(form, "contact", "联系人", null, ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "mobilePhone", "手机号", null, ControlTypes.TEXT_BOX, true, false);
-		addFormField(form, "address", "地址", null, ControlTypes.TEXT_BOX, false, false);
+        addFormField(form, "bankName", "开户银行", null, ControlTypes.TEXT_BOX, false, false);
+        addFormField(form, "bankNum", "银行卡号", null, ControlTypes.TEXT_BOX, false, false);
+
+        addFormField(form, "address", "地址", null, ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "customerMaxCount", "客户池数量", null, ControlTypes.NUMBER_BOX, false, false);
 		addFormField(form, "messageNotifiedType", "消息通知类型 ", null, ControlTypes.ENUM_BOX, false, false);
 		addFormField(form, "noFollowDays", "未跟进天数(释放)", null, ControlTypes.NUMBER_BOX, false, false);
@@ -264,7 +270,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
-				formField.setTroikaTrigger("controllerproducts.productCategory1Select(record);");
+				formField.setTroikaTrigger("controllerserviceProducts.productCategory1Select(record);");
 				formField.setRefFilter("type=201 and pid=0");
 			}
 
@@ -272,14 +278,14 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
-				formField.setTroikaTrigger("controllerproducts.productCategory2Select(record);");
+				formField.setTroikaTrigger("controllerserviceProducts.productCategory2Select(record);");
 				formField.setRefFilter("type=201 and pid<>0");
 			}
 
 			formField = addFormFieldRefrence(form, "product.name", "产品", null, "CRM_" + Product.class.getSimpleName(), true, false);{
 				formField.setWidth(200);
 				formField.setRefFilter("enabled=1");
-				formField.setTroikaTrigger("controllerproducts.productChange(newValue,oldValue);");
+				formField.setTroikaTrigger("controllerserviceProducts.productChange(newValue,oldValue);");
 			}
 			formField = addFormField(form, "province.name", "省份", ControlTypes.CUSTOM, false, false);
 			{
@@ -313,8 +319,10 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("panda/datagrid/detail");
-			part.setWindowWidth(550);
-			part.setWindowHeight(350);
+			part.setJsController(SupplierProductDetailPart.class.getName());
+			part.setServiceController(SupplierProductDetailPart.class.getName());
+			part.setWindowWidth(400);
+			part.setWindowHeight(450);
 			part.setForm(form);
 		}
 		workspace.getParts().add(part);

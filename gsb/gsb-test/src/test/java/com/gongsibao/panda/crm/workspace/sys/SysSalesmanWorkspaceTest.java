@@ -7,7 +7,9 @@ import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.base.IOperationTypeService;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.OperationType;
+import org.netsharp.organization.entity.Role;
 import org.netsharp.panda.controls.ControlTypes;
+import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.dic.PartType;
@@ -23,6 +25,7 @@ import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.controls.CityComboBox;
 import com.gongsibao.controls.DictComboBox;
+import com.gongsibao.crm.web.SalesmaProductDetailPart;
 import com.gongsibao.crm.web.SysSalesmanListPart;
 import com.gongsibao.crm.web.SysSalesmanTreePart;
 import com.gongsibao.entity.product.Product;
@@ -46,6 +49,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		listPartJsController = SysSalesmanListPart.class.getName();
 		listPartServiceController = SysSalesmanListPart.class.getName();
 
+		formJsImport = "/gsb/crm/js/salesman-form.part.js|/gsb/gsb.customer.controls.js";
 	}
 
 	@Override
@@ -54,26 +58,31 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		PDatagrid datagrid = super.createDatagrid(node);
 		{
 			datagrid.setName("员工管理");
-			datagrid.setToolbar("panda/datagrid/row/edit");// 列表出现操作必须填写
-			datagrid.setAutoQuery(false);// 进来的时候列表不自动查询数据
+			datagrid.setToolbar("panda/datagrid/row/edit");
+			datagrid.setAutoQuery(false);
 		}
 		PDatagridColumn column = null;
 		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
 		addColumn(datagrid, "employee.name", "姓名", ControlTypes.TEXT_BOX, 80);
-		addColumn(datagrid, "employee.login_name", "登录名", ControlTypes.TEXT_BOX, 100, true);
-		column = addColumn(datagrid, "employee.disabled", "状态", ControlTypes.BOOLCOMBO_BOX, 100, true);
+		addColumn(datagrid, "employee.loginName", "帐号", ControlTypes.TEXT_BOX, 100);
+		column = addColumn(datagrid, "disabled", "状态", ControlTypes.TEXT_BOX, 80);
 		{
-			column.setStyler(" return value==true?'color:red;':'color:#5FB878;';");
-			column.setFormatter(" return value==false?'启用':'停用';");
+			column.setAlign(DatagridAlign.CENTER);
+			column.setFormatter("return controllerdepartments.disabledFormatter(value,row,index);");
 		}
-		addColumn(datagrid, "receiving", "是否接单", ControlTypes.BOOLCOMBO_BOX, 100, true);
-
-		addColumn(datagrid, "department.name", "部门名称", ControlTypes.TEXT_BOX, 80);
+		column = addColumn(datagrid, "receiving", "接单", ControlTypes.TEXT_BOX, 80);{
+			column.setAlign(DatagridAlign.CENTER);
+			column.setFormatter("return controllerdepartments.receivingFormatter(value,row,index);");
+		}
+		addColumn(datagrid, "department.name", "部门", ControlTypes.TEXT_BOX, 120);
+		column = addColumn(datagrid, "employee.loginNum", "登录次数", ControlTypes.TEXT_BOX, 100);
+		{
+			column.setAlign(DatagridAlign.CENTER);
+		}
 		addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 80);
-		addColumn(datagrid, "create_time", "创建时间", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
 		addColumn(datagrid, "updator", "最后修改人", ControlTypes.TEXT_BOX, 80);
-		addColumn(datagrid, "update_time", "修改时间", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "employee.login_num", "登录次数", ControlTypes.TEXT_BOX, 100, true);
+		addColumn(datagrid, "updateTime", "修改时间", ControlTypes.DATETIME_BOX, 130);
 
 		return datagrid;
 	}
@@ -83,11 +92,10 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
-		// addQueryItem(queryProject, "name", "部门名称", ControlTypes.TEXT_BOX);
-		// addQueryItem(queryProject, "disabled", "是否停用",
-		// ControlTypes.BOOLCOMBO_BOX);
+
 		addQueryItem(queryProject, "employee.name", "姓名", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "employee.mobile", "手机号", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "employee.loginName", "帐号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "creator", "创建人", ControlTypes.TEXT_BOX);
 
 		return queryProject;
@@ -97,22 +105,34 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 	protected PForm createForm(ResourceNode node) {
 
 		PForm form = super.createForm(node);
-		form.setColumnCount(2);
-		// addFormFieldRefrence类中类字段
-		addFormField(form, "name", "姓名", null, ControlTypes.TEXT_BOX, true);
-		addFormField(form, "mobile", "手机号", null, ControlTypes.TEXT_BOX, true);
-		addFormField(form, "receiving", "接单", null, ControlTypes.SWITCH_BUTTON, false);
-		addFormField(form, "bankNo", "工资卡号", null, ControlTypes.TEXT_BOX, false);
-		addFormField(form, "entryDate", "入职日期", null, ControlTypes.DATE_BOX, false);
-		addFormField(form, "quitDate", "离职日期", null, ControlTypes.DATE_BOX, false);
-		addFormField(form, "disabled", "停用", null, ControlTypes.SWITCH_BUTTON, false);
+		form.setColumnCount(3);
 
+		String groupName = "基本信息";
+		addFormField(form, "name", "姓名", groupName, ControlTypes.TEXT_BOX, true);
+		addFormField(form, "mobile", "手机号", groupName, ControlTypes.TEXT_BOX, true);
+		PFormField formField = addFormField(form, "loginName", "帐号", null, ControlTypes.TEXT_BOX, false);
+		{
+
+			formField.setReadonly(true);
+			formField.setTooltip("自动生成");
+		}
+		addFormField(form, "email", "邮箱", groupName, ControlTypes.TEXT_BOX, false);
+		addFormField(form, "entryDate", "入职日期", groupName, ControlTypes.DATE_BOX, false);
+		addFormField(form, "quitDate", "离职日期", groupName, ControlTypes.DATE_BOX, false);
+		addFormField(form, "disabled", "停用", groupName, ControlTypes.SWITCH_BUTTON, false,true);
+
+		groupName = "属性设置";
+		addFormField(form, "receiving", "接单", groupName, ControlTypes.SWITCH_BUTTON, false,true);
+		
+		//这里还有很多属性，
+		
 		return form;
 	}
 
 	@Test
 	@Override
 	public void run() {
+
 		this.createTreeWorkspace();
 		this.createFormWorkspace();
 	}
@@ -190,43 +210,43 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 	private void addRolesDetailPart(PWorkspace workspace) {
 
 		ResourceNode node = this.resourceService.byCode("GSB_CRM_SYS_SALESMAN_ADDROLE");
-		PDatagrid datagrid = new PDatagrid(node, "添加角色");// 列表展示
-		{
-			// datagrid.setShowCheckbox(true);
-			// datagrid.setSingleSelect(false);
-			// datagrid.setReadOnly(true);
-			// datagrid.setName("添加角色");
-			PDatagridColumn column = null;
-			/*
-			 * addColumn(datagrid, "role.name", "角色", ControlTypes.TEXT_BOX,
-			 * 100); column = addColumn(datagrid, "updator", "最后修改人",
-			 * ControlTypes.TEXT_BOX, 100, false, null, null, null); {
-			 * column.setAlign(DatagridAlign.CENTER); } addColumn(datagrid,
-			 * "updateTime", "最后修改时间", ControlTypes.DATETIME_BOX, 150, false,
-			 * null, null, null); column = addColumn(datagrid, "creator", "创建人",
-			 * ControlTypes.TEXT_BOX, 100, false, null, null, null); {
-			 * column.setAlign(DatagridAlign.CENTER); }
-			 */
-			addColumn(datagrid, "role.name", "角色", ControlTypes.TEXT_BOX, 150, false, null, null, null);
+		PDatagrid datagrid = new PDatagrid(node, "角色信息");
+		datagrid.setShowCheckbox(true);
+		datagrid.setSingleSelect(false);
+		datagrid.setReadOnly(true);
 
+		PDatagridColumn column = null;
+
+		addColumn(datagrid, "role.name", "角色", ControlTypes.TEXT_BOX, 100);
+		column = addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 100, false, null, null, null);
+		{
+			column.setAlign(DatagridAlign.CENTER);
 		}
+		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130, false, null, null, null);
+		column = addColumn(datagrid, "updator", "最后修改人", ControlTypes.TEXT_BOX, 100, false, null, null, null);
+		{
+			column.setAlign(DatagridAlign.CENTER);
+		}
+		addColumn(datagrid, "updateTime", "修改时间", ControlTypes.DATETIME_BOX, 130, false, null, null, null);
 
 		PForm form = new PForm();// 添加表单
 		{
 			form.setResourceNode(node);
 			form.toNew();
 			form.setColumnCount(2);
-			form.setName("添加角色");
-			PFormField field = null;
-			// field = addFormFieldRefrence(form, "role.name", "角色", null,
-			// Role.class.getSimpleName(), true, false);
+			form.setName("角色信息");
 
+			PFormField field = null;
+			field = addFormFieldRefrence(form, "role.name", "角色", null, Role.class.getSimpleName(), true, false);
+			{
+
+			}
 		}
 
 		PPart part = new PPart();
 		{
 			part.toNew();
-			part.setName("添加角色");
+			part.setName("角色信息");
 			part.setCode("roles");
 			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
 			part.setRelationRole("roles");
@@ -235,7 +255,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("panda/datagrid/detail");
-			part.setWindowWidth(550);
+			part.setWindowWidth(400);
 			part.setWindowHeight(200);
 			part.setForm(form);
 		}
@@ -267,9 +287,9 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		{
 			form.setResourceNode(node);
 			form.toNew();
-			form.setColumnCount(2);
+			form.setColumnCount(1);
 			form.setName("添加服务范围");
-			
+
 			PFormField formField = null;
 			formField = addFormField(form, "productCategory1.name", "一级分类", null, ControlTypes.CUSTOM, true, false);
 			{
@@ -287,7 +307,8 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 				formField.setRefFilter("type=201 and pid<>0");
 			}
 
-			formField = addFormFieldRefrence(form, "product.name", "产品", null, "CRM_" + Product.class.getSimpleName(), true, false);{
+			formField = addFormFieldRefrence(form, "product.name", "产品", null, "CRM_" + Product.class.getSimpleName(), true, false);
+			{
 				formField.setWidth(200);
 				formField.setRefFilter("enabled=1");
 				formField.setTroikaTrigger("controllerproducts.productChange(newValue,oldValue);");
@@ -317,16 +338,18 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		{
 			part.toNew();
 			part.setName("服务范围");
-			part.setCode("scopes");
+			part.setCode("products");
 			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
-			part.setRelationRole("scopes");
+			part.setRelationRole("products");
 			part.setResourceNode(node);
 			part.setPartTypeId(PartType.DETAIL_PART.getId());
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("panda/datagrid/detail");
-			part.setWindowWidth(550);
-			part.setWindowHeight(200);
+			part.setJsController(SalesmaProductDetailPart.class.getName());
+			part.setServiceController(SalesmaProductDetailPart.class.getName());
+			part.setWindowWidth(400);
+			part.setWindowHeight(450);
 			part.setForm(form);
 		}
 		workspace.getParts().add(part);

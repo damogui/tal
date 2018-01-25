@@ -5,7 +5,7 @@ import org.netsharp.base.IEnum;
 
 public enum DeviceType implements IEnum {
 
-	CLOUDSERVER(0, "云端服务器"), PYSERVER(1, "物理服务器"),ROUTER(2,"路由器"),SWITCH(3,"交换机"),AP(4,"AP");
+	CLOUDSERVER(0, "云端服务器"), PYSERVER(1, "物理服务器"),ROUTER(2,"路由器"),SWITCH(3,"交换机"),AP(4,"AP"),HDD(5,"硬盘");
 	private int value;
 	private String text;
 

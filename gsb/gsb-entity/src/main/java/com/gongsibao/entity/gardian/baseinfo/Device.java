@@ -201,12 +201,13 @@ public class Device extends Entity {
         this.alertdays = alertdays;
     }
 
-    public int getLifemonth() {
+
+    public int getLifemonths() {
         return lifemonths;
     }
 
-    public void setLifemonth(int lifemonth) {
-        this.lifemonths = lifemonth;
+    public void setLifemonths(int lifemonths) {
+        this.lifemonths = lifemonths;
     }
 }
 
