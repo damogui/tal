@@ -20,6 +20,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.crm.web.NCustomerTaskEditFormPart;
+import com.gongsibao.crm.web.TaskFollowDetailPart;
 import com.gongsibao.entity.crm.NCustomerChange;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
@@ -88,7 +89,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 		ResourceNode node = this.resourceService.byCode(NCustomerTaskFoolow.class.getSimpleName());
 		PDatagrid datagrid = new PDatagrid(node, "沟通日志");
 		{
-			PDatagridColumn column = addColumn(datagrid, "foolowStatus", "跟进状态", ControlTypes.ENUM_BOX, 180);
+			PDatagridColumn column = addColumn(datagrid, "foolowStatus", "状态", ControlTypes.ENUM_BOX, 180);
 			{
 				String formatter = EnumUtil.getColumnFormatter(CustomerFollowStatus.class);
 				column.setFormatter(formatter);
@@ -102,24 +103,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 			addColumn(datagrid, "estimateAmount", "估计签单金额", ControlTypes.DECIMAL_FEN_BOX, 150);
 			addColumn(datagrid, "content", "跟进内容", ControlTypes.TEXT_BOX, 150);
 		}
-		PForm form = new PForm();
-		{
-			form.toNew();
-			form.setResourceNode(node);
-			form.setColumnCount(2);
-			form.setName("沟通日志");
-			PFormField formField = null;
-			String groupName = null;
 
-			formField = addFormField(form, "foolowStatus", "跟进状态", groupName, ControlTypes.ENUM_BOX, false, false);
-			addFormField(form, "nextFoolowTime", "下次跟进时间", groupName, ControlTypes.DATE_BOX, false, false);
-			addFormField(form, "qualityCategory", "质量分类", groupName, ControlTypes.ENUM_BOX, false, false);
-			addFormField(form, "estimateAmount", "估计签单金额", groupName, ControlTypes.DECIMAL_FEN_BOX, false, false);
-			formField = addFormField(form, "content", "跟进内容", groupName, ControlTypes.TEXTAREA, false, false);
-			{
-				formField.setFullColumn(true);
-			}
-		}
 		PPart part = new PPart();
 		{
 			part.toNew();
@@ -132,12 +116,8 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("crm/task/communicat/detail");
-			// 部件
-//			part.setJsController(NCustomerFollowPart.class.getName());
-//			part.setServiceController(NCustomerFollowPart.class.getName());
-			part.setWindowWidth(700);
-			part.setWindowHeight(400);
-			part.setForm(form);
+			part.setJsController(TaskFollowDetailPart.class.getName());
+			part.setServiceController(TaskFollowDetailPart.class.getName());
 		}
 		workspace.getParts().add(part);
 		part = workspace.getParts().get(0);
@@ -167,8 +147,8 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 			PFormField formField = null;
 			String groupName = null;
 
-			formField = addFormField(form, "type", "通知类型", groupName, ControlTypes.ENUM_BOX, false, false);
-			formField = addFormField(form, "content", "跟进内容", groupName, ControlTypes.TEXT_BOX, false, false);
+			formField = addFormField(form, "type", "通知类型", groupName, ControlTypes.ENUM_BOX, false, true);
+			formField = addFormField(form, "content", "跟进内容", groupName, ControlTypes.TEXT_BOX, false, true);
 			{
 				formField.setFullColumn(true);
 			}
@@ -214,10 +194,10 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 			form.setName("流转日志");
 			PFormField formField = null;
 			String groupName = null;
-			formField = addFormField(form, "changeType", "流转类型", groupName, ControlTypes.ENUM_BOX, false, false);
-			formField = addFormFieldRefrence(form, "formUser.name", "最后分配人", groupName, "CRM_Employee", false, false);
-			formField = addFormFieldRefrence(form, "toUser.name", "最后分配人", groupName, "CRM_Employee", false, false);
-			formField = addFormField(form, "content", "内容", groupName, ControlTypes.TEXT_BOX, false, false);
+			formField = addFormField(form, "changeType", "流转类型", groupName, ControlTypes.ENUM_BOX, false, true);
+			formField = addFormFieldRefrence(form, "formUser.name", "最后分配人", groupName, "CRM_Employee", false, true);
+			formField = addFormFieldRefrence(form, "toUser.name", "最后分配人", groupName, "CRM_Employee", false, true);
+			formField = addFormField(form, "content", "内容", groupName, ControlTypes.TEXT_BOX, false, true);
 			{
 				formField.setFullColumn(true);
 			}

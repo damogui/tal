@@ -33,7 +33,7 @@ public class NCustomerTaskFoolowService extends
 			NCustomerTask customer = customerService.byId(entity.getCustomerId());
 			// 回写最新的跟进状态和下次跟进时间等内容
 			if (customer!=null) {
-				customer.setFoolowStatus(entity.getFoolowStatus());
+				//customer.setFoolowStatus(entity.getFoolowStatus());
 				customer.setIntentionCategory(entity.getQualityCategory());
 				customer.setLastContent(entity.getContent());
 				customer.setNextFoolowTime(entity.getNextFoolowTime());
