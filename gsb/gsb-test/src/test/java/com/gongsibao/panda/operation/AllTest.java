@@ -7,6 +7,7 @@ import org.junit.runners.Suite.SuiteClasses;
 import com.gongsibao.panda.operation.reference.FunctionModuleReferenceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerALLWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerAllocatedWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.crm.CustomerNotTaskWorksapceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerUndistributedWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerVerifyWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.QualityWorkspaceTest;
@@ -98,6 +99,7 @@ import com.gongsibao.panda.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
 	CustomerALLWorkspaceTest.class,
 	CustomerAllocatedWorkspaceTest.class,
 	CustomerUndistributedWorkspaceTest.class,
+	CustomerNotTaskWorksapceTest.class,
 	
 	TaskAllocatedWorkspaceTest.class,
 	TaskALLWorkspaceTest.class,
