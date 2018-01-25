@@ -94,6 +94,11 @@ public class Supplier extends Entity {
 	@Subs(foreignKey = "supplierId", header = "开通模块", subType = SupplierFunctionModule.class)
 	private List<SupplierFunctionModule> modules;
 
+    @Column(name = "bank_name", header = "开户行")
+    private String bankName ;
+    @Column(name = "bank_num", header = "开户行号")
+    private String bankNum;
+
 
 	public String getContact() {
 		return contact;
@@ -286,4 +291,21 @@ public class Supplier extends Entity {
 	public void setModules(List<SupplierFunctionModule> modules) {
 		this.modules = modules;
 	}
+
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
+    public String getBankNum() {
+        return bankNum;
+    }
+
+    public void setBankNum(String bankNum) {
+        this.bankNum = bankNum;
+    }
 }

@@ -61,6 +61,8 @@ public class NavigationTest extends NavigationBase {
 		createPTreeNode(tree, null, "fa fa-file-o fa-fw", "GSB_CRM_Customer_Manager", "客户管理", "", 4);
 		{
 			createPTreeNode(tree, "GSB_CRM_Customer_Manager", "fa fa-user-plus fa-fw", "GSB_CRM_Customer_Manager_Add", "新增客户", "/operation/customer/add", 1);
+			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_OpenSea", "公海", "/operation/task/opensea/list", 1);
+			
 			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_ALL", "全部客户", "/operation/customer/all/list", 2);
 			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Allocated", "已分配客户", "/operation/customer/allocated/list", 3);
 			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Undistributed", "未分配客户", "/operation/customer/undistributed/list", 4);
@@ -69,7 +71,7 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Task_Allocated", "已分配任务", "/operation/customer/task/allocated/list", 6);
 			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Task_Undistributed", "未分配任务", "/operation/customer/task/undistributed/list", 7);
 			
-			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Task_Lost_Order", "丢单管理", "/operation/customer/task/lostorder/list", 8);
+			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Task_Lost_Order", "无法签单", "/operation/customer/task/lostorder/list", 8);
 			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Task_Anomaly_Detection", "抽查异常", "/operation/customer/task/anomalydetection/list", 9);
 			createPTreeNode(tree, "GSB_CRM_Customer_Manager", null, "GSB_CRM_Customer_Manager_Quality", "客户质量", "/operation/customer/quality/list", 10);
 			

@@ -1,4 +1,4 @@
-package com.gongsibao.panda.operation.workspace.crm;
+package com.gongsibao.panda.operation.workspace.crm.form;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +35,7 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_Customer_Manager_Add";
-		formJsImport = "/gsb/crm/js/customer-add-form.part.js|/gsb/gsb.customer.controls.js";
+		formJsImport = "/gsb/crm/platform/js/customer-add-form.part.js|/gsb/gsb.customer.controls.js";
 		formJsController = NCustomerAddFormPart.class.getName();
 		formServiceController = NCustomerAddFormPart.class.getName();
 	}
@@ -54,7 +54,7 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 		form.setColumnCount(3);
 		PFormField formField = null;
 		
-		String groupName = null;
+		String groupName = "基本信息";
 		addFormField(form, "realName", "姓名", groupName, ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "sex", "性别", groupName, ControlTypes.ENUM_BOX, false, false);
 		formField = addFormField(form, "mobile", "手机", groupName, ControlTypes.TEXT_BOX, true, false);{
@@ -112,7 +112,7 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 	}
 
 	// 客户任务
-	private void createTasksPart(PWorkspace workspace) {
+	public void createTasksPart(PWorkspace workspace) {
 
 		ResourceNode node = this.resourceService.byCode("GSB_CRM_Customer_Manager_Task_ALL");
 		PDatagrid datagrid = new PDatagrid(node, "任务信息");

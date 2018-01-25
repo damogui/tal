@@ -83,7 +83,7 @@ com.gongsibao.supplier.web.SupplierListPart = org.netsharp.panda.commerce.ListPa
     		IMessageBox.warning("服务商已注销！");
     		return;
     	}
-    	window.open('/panda/crm/sys/department/list?supplierId='+row.id);
+    	window.open('/panda/operation/supplier/department/list?supplierId='+row.id);
     },
     setSalesman:function(){//员工设置
 
@@ -103,6 +103,6 @@ com.gongsibao.supplier.web.SupplierListPart = org.netsharp.panda.commerce.ListPa
     		IMessageBox.warning("服务商已注销！");
     		return;
     	}
-    	window.open('/panda/crm/sys/salesman/list?supplierId='+row.id);
+    	window.open('/panda/operation/supplier/salesman/list?supplierId='+row.id);
     }
 });

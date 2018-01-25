@@ -3,7 +3,7 @@ package com.gongsibao.supplier.web.panda;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.netsharp.panda.commerce.ListPart;
+import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.utils.SupplierSessionManager;
@@ -16,7 +16,7 @@ import com.gongsibao.utils.SupplierSessionManager;
  *     
  * @Copyright: 2018 www.yikuaxiu.com Inc. All rights reserved. 
  */
-public class BaseSupplierListPart extends ListPart{
+public class BaseSupplierListPart extends AdvancedListPart{
 
 	@Override
 	protected String getExtraFilter() {

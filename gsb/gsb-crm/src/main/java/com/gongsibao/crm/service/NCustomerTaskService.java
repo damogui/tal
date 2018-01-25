@@ -32,8 +32,8 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	}
 
 	@Override
-	public int insertHighSeas(Integer taskId) {
-		String cmdText = "UPDATE n_crm_customer_task SET salesman_id = NULL where id="+taskId;
+	public int taskRelease(Integer taskId) {
+		String cmdText = "UPDATE n_crm_customer_task SET owner_id = NULL where id="+taskId;
 		return this.pm.executeNonQuery(cmdText, null);
 	}
 	@Override
@@ -78,6 +78,20 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		builder.append("NCustomerTask.changes.*,"); 
 		
 		return builder.toString();
+	}
+	
+	@Override
+	public int taskTransfer(Integer taskId,Integer supplierId,Integer departmentId,Integer toUserId) {
+		UpdateBuilder updateSql = UpdateBuilder.getInstance();
+		{
+			updateSql.update("n_crm_customer_task");
+			updateSql.set("supplier_id", supplierId);
+			updateSql.set("department_id", departmentId);
+			updateSql.set("owner_id", toUserId);
+			updateSql.where("id=" + taskId);
+		}
+		String cmdText = updateSql.toSQL();
+		return this.pm.executeNonQuery(cmdText, null);
 	}
 
 	

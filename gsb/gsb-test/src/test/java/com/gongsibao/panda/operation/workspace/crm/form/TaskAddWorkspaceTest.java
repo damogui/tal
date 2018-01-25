@@ -1,4 +1,4 @@
-package com.gongsibao.panda.operation.workspace.crm;
+package com.gongsibao.panda.operation.workspace.crm.form;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,11 +23,10 @@ import com.gongsibao.crm.web.NCustomerTaskAddFormPart;
 import com.gongsibao.crm.web.NCustomerTaskProductDetailPart;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.product.Product;
-import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
-public class CustomerTaskAddWorkspaceTest extends WorkspaceCreationBase {
+public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 
 	@Before
 	public void setup() {
@@ -38,7 +37,7 @@ public class CustomerTaskAddWorkspaceTest extends WorkspaceCreationBase {
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_Task_Manager_Add";
-		formJsImport = "/gsb/crm/js/task-add-form.part.js|/gsb/gsb.customer.controls.js";
+		formJsImport = "/gsb/crm/platform/js/task-add-form.part.js|/gsb/gsb.customer.controls.js";
 		formJsController = NCustomerTaskAddFormPart.class.getName();
 		formServiceController = NCustomerTaskAddFormPart.class.getName();
 	}
@@ -122,7 +121,7 @@ public class CustomerTaskAddWorkspaceTest extends WorkspaceCreationBase {
 	}
 
 	// 意向产品
-	private void createProductsPart(PWorkspace workspace) {
+	public void createProductsPart(PWorkspace workspace) {
 
 		ResourceNode node = this.resourceService.byCode("GSB_CRM_Customer_Manager_Products");
 		PDatagrid datagrid = new PDatagrid(node, "意向产品");

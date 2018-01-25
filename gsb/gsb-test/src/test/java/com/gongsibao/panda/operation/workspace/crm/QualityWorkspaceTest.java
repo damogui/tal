@@ -5,6 +5,7 @@ import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
+import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
@@ -15,7 +16,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.crm.NCustomerTaskQuality;
 
-public class CustomerQualityWorkspaceTest extends WorkspaceCreationBase {
+public class QualityWorkspaceTest extends WorkspaceCreationBase {
 
 	@Before
 	public void setup() {
@@ -45,16 +46,17 @@ public class CustomerQualityWorkspaceTest extends WorkspaceCreationBase {
 		}
 
 		PDatagridColumn column = null;
-		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "code", "编码", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "intentionCategory", "质量分类", ControlTypes.ENUM_BOX, 100);
-		addColumn(datagrid, "nextFoolowDateRequired", "下次跟进时间必填", ControlTypes.BOOLCOMBO_BOX, 80);
-		addColumn(datagrid, "requiredInfo", "必填信息", ControlTypes.TEXT_BOX, 150);
-		addColumn(datagrid, "nextFoolowType", "下次跟进方式", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "supplier.name", "服务商名称", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "department.name", "服务商部门名称", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "creator", "添加人", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "createTime", "添加时间", ControlTypes.DATETIME_BOX, 100);
+		addColumn(datagrid, "intentionCategory", "大类", ControlTypes.ENUM_BOX, 100);
+		column = addColumn(datagrid, "code", "编码", ControlTypes.TEXT_BOX, 80);{
+			
+			column.setAlign(DatagridAlign.CENTER);
+		}
+		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 200);
+		addColumn(datagrid, "nextFoolowDateRequired", "下次跟进时间必填", ControlTypes.BOOLCOMBO_BOX, 120);
+		addColumn(datagrid, "requiredInfo", "必填信息", ControlTypes.TEXT_BOX, 300);
+		addColumn(datagrid, "nextFoolowType", "下次跟进方式", ControlTypes.TEXT_BOX, 200);
+		addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 100);
 		return datagrid;
 	}
 
@@ -81,11 +83,9 @@ public class CustomerQualityWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "name", "名称", ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "code", "编号", ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "intentionCategory", "质量分类", ControlTypes.ENUM_BOX, true, false);
-		addFormFieldRefrence(form, "supplier.name", "服务商名称", null, "CRM_Supplier", true, false);
 		addFormField(form, "nextFoolowDateRequired", "下次跟进时间必填", ControlTypes.SWITCH_BUTTON, false, false);
 		addFormField(form, "requiredInfo", "必填信息", ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "nextFoolowType", "下次跟进方式", ControlTypes.TEXT_BOX, false, false);
-		addFormFieldRefrence(form, "department.name", "服务商部门名称", null, "CRM_Supplier_Depart", true, false);
 		addFormField(form, "memoto", "备注", ControlTypes.TEXT_BOX, false, false);
 
 		return form;
@@ -99,6 +99,5 @@ public class CustomerQualityWorkspaceTest extends WorkspaceCreationBase {
 		operationService.addOperation(node, OperationTypes.view);
 		operationService.addOperation(node, OperationTypes.add);
 		operationService.addOperation(node, OperationTypes.update);
-		operationService.addOperation(node, OperationTypes.delete);
 	}
 }

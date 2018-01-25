@@ -73,6 +73,8 @@ public class NCustomerProduct extends Entity {
 
 	@Reference(foreignKey = "countyId",header = "区/县")
 	private Dict county;
+	
+	
 
 	public Integer getSupplierId() {
 		return supplierId;

@@ -7,7 +7,6 @@ import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
-import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
@@ -34,7 +33,7 @@ public class CustomerVerifyWorkspaceTest extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_Customer_Manager_Add";
-		listPartImportJs = "/gsb/crm/js/customer-verify-list.part.js";
+		listPartImportJs = "/gsb/crm/platform/js/customer-verify-list.part.js";
 		listPartJsController = CustomerVerifyListPart.class.getName();
 		listPartServiceController = CustomerVerifyListPart.class.getName();
 	}

@@ -5,14 +5,13 @@ import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
-import org.netsharp.organization.entity.Employee;
 import org.netsharp.organization.entity.Role;
 
 /**
  * Created by win on 2018/1/18.
  */
-@Table(name="sys_permission_role_employee",isView = true,header="员工角色")
-public class RoleSalesman extends Entity {
+@Table(name="sp_salesman_role",header="员工角色")
+public class SalesmanRole extends Entity {
 
     /**
 	 *
