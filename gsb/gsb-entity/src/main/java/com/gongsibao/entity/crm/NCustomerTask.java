@@ -101,15 +101,18 @@ public class NCustomerTask extends Entity {
 
 	@Column(name = "inspection_state", header = "抽查异常状态")
 	private TaskInspectionState inspectionState = TaskInspectionState.UNINSPECTION;
-
+	
+	@Column(name = "last_inspection_user_id", header = "最后抽查人Id")
+	private Integer lastInspectionUserId = 0;
+	
 	@JsonIgnore
 	@Reference(foreignKey = "lastInspectionUserId", header = "最后抽查人")
 	private Employee lastInspectionUser;
 	
-	@Column(name = "last_follow_time", header = "最近抽查时间")
+	@Column(name = "last_inspection_time", header = "最近抽查时间")
 	private Date lastInspectionTime;
 	
-	@Column(name = "last_content", size = 1000, header = "最后抽查内容")
+	@Column(name = "last_inspection_content", size = 1000, header = "最后抽查内容")
 	private String lastInspectionContent;
 	
 	@Column(name = "memoto", header = "备注", size = 1000)
@@ -516,6 +519,14 @@ public class NCustomerTask extends Entity {
 
 	public void setInspections(List<NCustomerTaskInspection> inspections) {
 		this.inspections = inspections;
+	}
+
+	public Integer getLastInspectionUserId() {
+		return lastInspectionUserId;
+	}
+
+	public void setLastInspectionUserId(Integer lastInspectionUserId) {
+		this.lastInspectionUserId = lastInspectionUserId;
 	}
 	
 }
