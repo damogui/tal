@@ -7,6 +7,7 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
 import com.gongsibao.entity.crm.dic.TaskInspectionState;
+import com.gongsibao.entity.crm.dic.TaskInspectionType;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
@@ -31,6 +32,9 @@ public class NCustomerTaskInspection extends Entity{
 
 	@Column(name = "task_id", header = "任务")
 	private Integer taskId = 0;
+	
+	@Column(name = "inspection_type", header = "抽查类型")
+	private TaskInspectionType inspectionType;
 	
 	@Column(name = "inspection_state", header = "抽查异常状态")
 	private TaskInspectionState inspectionState;
