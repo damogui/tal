@@ -75,7 +75,7 @@ public class AnnoTest {
 		File file = new File(filepath);
 		String[] files = file.list();
 		for (int i = 0; i < files.length; i++) {
-			File json = new File(filepath + "\\" + files[i]);
+			File json = new File(filepath + File.separator + files[i]);
 			try {
 				String str = FileUtils.readFileToString(json);
 				JSONArray array = JSONObject.fromObject(str).getJSONArray("data");
