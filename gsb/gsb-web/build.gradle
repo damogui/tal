@@ -22,7 +22,6 @@ dependencies {
     compile project(':gsb-controls')
     compile project(':gsb-taurus')
     compile project(':gsb-report')
-    compile project(':gsb-ncl')
     compile project(':gsb-gardian')
     providedCompile group: 'org.apache.tomcat', name: 'tomcat-websocket', version: '8.0.21'
     providedCompile group: 'org.apache.tomcat', name: 'tomcat-coyote', version: '8.0.21'

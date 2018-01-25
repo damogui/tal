@@ -47,7 +47,6 @@ import org.junit.runners.Suite.SuiteClasses;
     //10.igri
 	com.gongsibao.panda.igirl.AllTest.class,
 
-	com.gongsibao.panda.ncl.AllTest.class,
 	//处理资源Id
 	org.netsharp.meta.end.AllTests.class,
 	})

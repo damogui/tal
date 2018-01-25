@@ -5,6 +5,7 @@ import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.UploadAttachment;
 import com.gongsibao.entity.igirl.baseinfo.NCLOne;
 import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
+import com.gongsibao.entity.ncl.NclBatch;
 import com.gongsibao.igirl.base.*;
 import org.junit.Before;
 import org.netsharp.meta.base.ResourceCreationBase;
@@ -41,6 +42,10 @@ public class ResourceTest extends ResourceCreationBase {
 		{
 			this.createResourceNodeVoucher(NCLOne.class.getName(), "商标大类", "IGRIL_BASE_" + NCLOne.class.getSimpleName(), INCLOneService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCLTwo.class.getName(), "商标小类", "IGRIL_BASE_" +NCLTwo.class.getSimpleName(), INCLTwoService.class.getName(), node1.getId());
+		}
+		node1 = this.createResourceNodeCategory("数据批次", "GSB_NCL_TM", node.getId());
+		{
+			this.createResourceNodeVoucher(NclBatch.class.getName(), "尼斯数据", "NCL_All_" + NclBatch.class.getSimpleName(), INclBatchService.class.getName(), node1.getId());
 		}
 	}
 }

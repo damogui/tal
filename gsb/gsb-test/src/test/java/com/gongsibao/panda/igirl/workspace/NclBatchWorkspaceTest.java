@@ -1,4 +1,4 @@
-package com.gongsibao.panda.ncl.workspace;
+package com.gongsibao.panda.igirl.workspace;
 
 import com.gongsibao.entity.ncl.NclBatch;
 import org.netsharp.core.MtableManager;
@@ -35,6 +35,8 @@ public class NclBatchWorkspaceTest extends WorkspaceCreationBase {
         PDatagridColumn column = null;
         addColumn(pid, "code", "编号", ControlTypes.TEXT_BOX, 100);
         addColumn(pid, "context", "说明", ControlTypes.TEXT_BOX, 200);
+        column = addColumn(pid,"currentStatus","是否为当前版本",ControlTypes.TEXT_BOX,100);
+        column.setFormatter("if( row.currentStatus==1){ return '是' } else{ return '否' }");
         return pid;
     }
 
@@ -45,8 +47,9 @@ public class NclBatchWorkspaceTest extends WorkspaceCreationBase {
         form.setName(this.meta.getName() + "表单");
         form.setColumnCount(2);//每行列数
         PFormField field = null;
-        addFormField(form, "code", "编号", null, ControlTypes.TEXT_BOX, true,false).setWidth(200);
+        addFormField(form, "code", "编号", null, ControlTypes.TEXT_BOX, true,true).setWidth(200);
         addFormField(form, "context", "说明", null, ControlTypes.TEXTAREA, true,false).setWidth(200);
+        addFormField(form,"currentStatus","是否为当前版本",null, ControlTypes.SWITCH_BUTTON,true,false).setWidth(100);
         return form;
     }
 
@@ -69,7 +72,7 @@ public class NclBatchWorkspaceTest extends WorkspaceCreationBase {
             form.setName("尼斯分类");
             String groupName = null;
             PFormField formField = null;
-            addFormField(form, "code", "编号", groupName, ControlTypes.TEXT_BOX, true, false);
+            addFormField(form, "code", "编号", groupName, ControlTypes.TEXT_BOX, true, true);
             addFormField(form, "context", "说明", groupName, ControlTypes.TEXT_BOX, true, false);
         }
 
@@ -104,6 +107,7 @@ public class NclBatchWorkspaceTest extends WorkspaceCreationBase {
         queryProject.toNew();
         addQueryItem(queryProject, "code", "编号", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "context", "说明", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "currentStatus", "是否为当前版本", ControlTypes.TEXT_BOX);
         return queryProject;
     }
 

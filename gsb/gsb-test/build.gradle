@@ -14,7 +14,6 @@ dependencies {
     compile project(':gsb-taurus')
     compile project(':gsb-report')
     compile project(':gsb-gardian')
-    compile project(':gsb-ncl')
 }
 
 apply plugin: 'java'
