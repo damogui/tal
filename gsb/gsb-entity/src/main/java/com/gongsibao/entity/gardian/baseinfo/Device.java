@@ -40,16 +40,16 @@ public class Device extends Entity {
     private Date hdddate;
 
     @Column(name = "memory", header = "内存")
-    private Integer memory = 1;
+    private Integer memory;
 
     @Column(name = "core", header = "CPU")
-    private Integer core = 1;
+    private Integer core;
 
     @Column(name = "hdd", header = "硬盘")
-    private Integer hdd = 10;
+    private Integer hdd;
 
     @Column(name = "cloud_hdd", header = "云盘")
-    private Integer cloudhdd = 10;
+    private Integer cloudhdd;
 
     @Column(name = "private_ip", header = "内网ip")
     private String privateip;

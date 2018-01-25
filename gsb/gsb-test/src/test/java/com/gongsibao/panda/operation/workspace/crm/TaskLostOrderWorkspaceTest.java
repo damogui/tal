@@ -65,7 +65,7 @@ public class TaskLostOrderWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 		item = new PToolbarItem();
 		{
 			item.toNew();
-			item.setCode("remark");
+			item.setCode("submitRemark");
 			item.setName("备注");
 			item.setSeq(3000);
 			item.setCommand("{controller}.submitRemark();");

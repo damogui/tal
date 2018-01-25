@@ -28,7 +28,7 @@ import com.gongsibao.entity.supplier.SupplierDepartment;
 
 public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 
-	String productsDetailResourceNodeCode = "GSB_CRM_Customer_Manager_Products";
+	protected String productsDetailResourceNodeCode = "GSB_CRM_Customer_Manager_Products";
 	
 	@Before
 	public void setup() {
