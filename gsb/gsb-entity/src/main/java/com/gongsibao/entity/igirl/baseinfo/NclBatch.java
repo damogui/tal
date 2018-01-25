@@ -1,4 +1,4 @@
-package com.gongsibao.entity.ncl;
+package com.gongsibao.entity.igirl.baseinfo;
 
 import org.joda.time.DateTime;
 import org.netsharp.core.annotations.Column;
@@ -7,7 +7,7 @@ import org.netsharp.entity.Entity;
 
 import java.util.Date;
 
-@Table(name = "ncl_batch",header = "尼斯数据批次")
+@Table(name = "ig_base_ncl_batch",header = "尼斯数据批次")
 public class NclBatch extends Entity{
     @Column(name = "code",header = "编号")
 

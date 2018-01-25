@@ -1,7 +1,7 @@
 package com.gongsibao.igirl.service;
 
 import com.gongsibao.bd.service.GsbPersistableService;
-import com.gongsibao.entity.ncl.NclBatch;
+import com.gongsibao.entity.igirl.baseinfo.NclBatch;
 import com.gongsibao.igirl.base.INclBatchService;
 import org.netsharp.communication.Service;
 import org.netsharp.core.Oql;
@@ -25,8 +25,10 @@ public class NclBatchService extends GsbPersistableService<NclBatch> implements 
                 oql.getParameters().add("currentStatus",true, Types.BOOLEAN);
             }
             NclBatch nb = this.queryFirst(oql);
-            nb.setCurrentStatus(false);
-            super.save(nb);
+            if (nb!=null){
+                nb.setCurrentStatus(false);
+                super.save(nb);
+            }
         }
         return super.save(entity);
     }
