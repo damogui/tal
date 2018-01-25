@@ -16,8 +16,8 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gongsibao.igirl.dto.TradeMark.Step1;
-import com.gongsibao.igirl.dto.TradeMark.TradeMarkApplyInfo;
+import com.gongsibao.igirl.dto.TradeMark.*;
+import com.sun.xml.internal.bind.v2.TODO;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
@@ -233,9 +233,15 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		List<TradeMarkApplyInfo> tminfos = new ArrayList<>();
 		TradeMarkApplyInfo tminfo;
 		Step1 step1;
+		Step2 step2;
+		Step3 step3;
+		Step4 step4;
+		Step5 step5;
+		Step6 step6;
+		Step7 step7;
 		Oql oql = new Oql();
 		oql.setType(TradeMark.class);
-		oql.setSelects("TradeMark.*,TradeMark.tradeMarkCase.*");
+		oql.setSelects("TradeMark.*,TradeMark.tradeMarkCase.*,TradeMark.tradeMarkCase.uploadAttachments.*");
 		oql.setFilter("markState=?");
 		oql.getParameters().add("markState", MarkState.WAITCOMMIT, Types.INTEGER);
 		List<TradeMark> tms = this.queryList(oql);
@@ -246,6 +252,21 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			step1.setAppGjdq(tm.getTradeMarkCase().getWriteType().getText());
 			step1.setAppTypeId(tm.getTradeMarkCase().getApplierType().getText());
 			tminfo.setStep1(step1);
+			step2 = new Step2();
+			step2.setAgentFilenum(tm.getProxyCode());
+			step2.setAgentPerson(tm.getTradeMarkCase().getCreator());
+			List<UploadAttachment> uas = tm.getTradeMarkCase().getUploadAttachments();
+			for (UploadAttachment ua:uas){
+			    if (ua.getTradeMarkId()==tm.getId()&&ua.getAttachmentCat()==AttachmentCat.DELEGATE_PROOF){
+                    step2.setAgentBookPath(ua.getFileUrl());
+                }
+                //TODO(回头来看)
+            }
+
+
+
+
+			tminfo.setStep2(step2);
 			tminfos.add(tminfo);
 		}
 		return tminfos;
