@@ -76,8 +76,6 @@ public class TradeMarkCase extends Entity {
 
 
     //显示大类的选择
-    @Column(name="has_color",header="是否指定颜色")
-    private Boolean  hasColor=false;
 
     //显示大类的选择
     @Column(name="trade_options",header="商标选项")
@@ -216,14 +214,6 @@ public class TradeMarkCase extends Entity {
 
     public void setUrgency(int urgency) {
         this.urgency = urgency;
-    }
-
-    public Boolean getHasColor() {
-        return hasColor;
-    }
-
-    public void setHasColor(Boolean hasColor) {
-        this.hasColor = hasColor;
     }
 
     public List<UploadAttachment> getUploadAttachments() {
