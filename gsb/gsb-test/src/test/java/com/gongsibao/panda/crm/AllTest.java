@@ -74,7 +74,7 @@ import com.gongsibao.panda.crm.workspace.sys.SysSalesmanWorkspaceTest;
 		UnFoolowWorkspace.class,
 		FollowIngWorkspace.class,
 		AlreadySignWorkspace.class,
-		DefeatedWorkspace.class,
+		//DefeatedWorkspace.class,
 		CheckAbnormalWorkspace.class,
 		TaskFollowUpWorkspaceTest.class,
 		CustomerWorkspace.class,

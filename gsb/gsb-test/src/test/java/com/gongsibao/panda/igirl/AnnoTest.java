@@ -3,6 +3,7 @@ package com.gongsibao.panda.igirl;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.net.HttpURLConnection;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +17,18 @@ import com.gongsibao.igirl.base.INclBatchService;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.commons.io.FileUtils;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.junit.Test;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.panda.annotation.Authorization;
 import org.netsharp.util.ReflectManager;
 import com.gongsibao.igirl.web.TradeMarkCaseController;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 
 public class AnnoTest {
 	@Test
@@ -36,6 +43,7 @@ public class AnnoTest {
 		INCLOneService nos = ServiceFactory.create(INCLOneService.class);
 		INCLTwoService nts = ServiceFactory.create(INCLTwoService.class);
 		INclBatchService nbs = ServiceFactory.create(INclBatchService.class);
+		List<NCLTwo> nclts;
 		Oql oql = new Oql();
 		oql.setType(NclBatch.class);
 		oql.setSelects("NclBatch.*");
@@ -44,6 +52,7 @@ public class AnnoTest {
 		NclBatch nb = nbs.queryFirst(oql);
 		List<JSONArray> arrays = readfile("D:/json");
 		for (JSONArray array:arrays){
+			nclts = new ArrayList<>();
 			NCLOne one = new NCLOne();
 			one.toNew();
 			for (int i=0;i<array.size();i++){
@@ -63,8 +72,9 @@ public class AnnoTest {
 					two.setThirdCode(json.getString("code"));
 					two.setNclOneId(one.getId());
 					two.setNclOne(one);
-					nts.save(two);
+					nclts.add(two);
 				}
+				nts.saves(nclts);
 			}
 		}
 		System.out.println("注入完成");
@@ -85,5 +95,13 @@ public class AnnoTest {
 			}
 		}
 		return arrays;
+	}
+
+	@Test
+
+	public void test(){
+		HttpClient httpClient = new DefaultHttpClient();
+		HttpPost post = new HttpPost("http://localhost/panda/rest/service");
+
 	}
 }

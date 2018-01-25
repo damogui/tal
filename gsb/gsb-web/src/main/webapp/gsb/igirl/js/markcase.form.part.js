@@ -105,6 +105,10 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
 	   var newValue=$(ctl).val();
     	var qcurl="http://192.168.4.1:3000/qc?detailLink=http://192.168.28.41:8080/gsb/igirl/tmcase.html?mobile="+newValue;
     	$("#tokenImgUrl").attr("src",qcurl)
+
+       this.invokeService("tmsForRobot",[72],function (msg) {
+           alert(JSON.stringify(m));
+       })
        
     }
 });
