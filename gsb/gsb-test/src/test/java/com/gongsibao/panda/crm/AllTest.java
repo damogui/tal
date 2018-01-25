@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import com.gongsibao.panda.crm.action.ActionAllTest;
 import com.gongsibao.panda.crm.reference.CityReferenceTest;
 import com.gongsibao.panda.crm.reference.CompanyIntentionReferenceTest;
 import com.gongsibao.panda.crm.reference.CustomerRefereneTest;
@@ -85,6 +86,7 @@ import com.gongsibao.panda.crm.workspace.sys.SysSalesmanWorkspaceTest;
 		DepartUnStartWorkspace.class,
 		DepartHighSeasWorkspace.class,
 		
+		ActionAllTest.class,
 		NavigationTest.class
 		})
 		

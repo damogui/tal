@@ -1,5 +1,14 @@
 package com.gongsibao.igirl.service;
 
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import org.netsharp.communication.Service;
+import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.Oql;
+
 import com.gongsibao.bd.service.GsbPersistableService;
 import com.gongsibao.entity.igirl.DownloadAttachment;
 import com.gongsibao.entity.igirl.TradeMark;
@@ -8,22 +17,21 @@ import com.gongsibao.entity.igirl.UploadAttachment;
 import com.gongsibao.entity.igirl.dict.AttachmentCat;
 import com.gongsibao.entity.igirl.dict.FileType;
 import com.gongsibao.entity.igirl.dict.MarkState;
-import com.gongsibao.entity.igirl.dict.ShareGroup;
 import com.gongsibao.igirl.base.IDownloadAttachmentService;
 import com.gongsibao.igirl.base.ITradeMarkService;
 import com.gongsibao.igirl.base.IUploadAttachmentService;
-
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import com.gongsibao.igirl.dto.TradeMark.*;
-import org.netsharp.communication.Service;
-import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.Oql;
+import com.gongsibao.igirl.dto.TradeMark.Step1;
+import com.gongsibao.igirl.dto.TradeMark.Step2;
+import com.gongsibao.igirl.dto.TradeMark.Step3;
+import com.gongsibao.igirl.dto.TradeMark.Step4;
+import com.gongsibao.igirl.dto.TradeMark.Step5;
+import com.gongsibao.igirl.dto.TradeMark.Step6;
+import com.gongsibao.igirl.dto.TradeMark.Step7;
+import com.gongsibao.igirl.dto.TradeMark.TradeMarkApplyInfo;
+
 
 @Service
 public class TradeMarkService extends GsbPersistableService<TradeMark> implements ITradeMarkService {

@@ -1,14 +1,14 @@
 package com.gongsibao.igirl.web;
-import com.gongsibao.entity.igirl.TradeMarkCase;
-import com.gongsibao.igirl.base.ITradeMarkCaseService;
-import com.gongsibao.igirl.base.ITradeMarkService;
-import com.gongsibao.igirl.dto.TradeMark.TradeMarkApplyInfo;
+import java.util.List;
+
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.entity.IPersistable;
 import org.netsharp.panda.anno.Authorization;
 import org.netsharp.panda.commerce.FormPart;
-import java.util.List;
-
+import com.gongsibao.entity.igirl.TradeMarkCase;
+import com.gongsibao.igirl.base.ITradeMarkCaseService;
+import com.gongsibao.igirl.base.ITradeMarkService;
+import com.gongsibao.igirl.dto.TradeMark.TradeMarkApplyInfo;
 public class TradeMarkCasePart extends FormPart {
      ITradeMarkCaseService tradeMarkCaseService = ServiceFactory.create(ITradeMarkCaseService.class);
 	ITradeMarkService tradeMarkService = ServiceFactory.create(ITradeMarkService.class);
