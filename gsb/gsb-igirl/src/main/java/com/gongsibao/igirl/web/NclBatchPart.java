@@ -1,4 +1,4 @@
-package com.gongsibao.ncl.web;
+package com.gongsibao.igirl.web;
 
 import org.netsharp.panda.commerce.FormPart;
 
