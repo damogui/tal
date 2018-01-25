@@ -99,8 +99,11 @@ public class NCustomerTask extends Entity {
 	@Column(name = "next_foolow_time", header = "下次跟进时间")
 	private Date nextFoolowTime;
 
-	@Column(name = "inspection_state", header = "抽查异常状态")
+	@Column(name = "inspection_state", header = "抽查状态")
 	private TaskInspectionState inspectionState = TaskInspectionState.UNINSPECTION;
+	
+	//临时用，返回的就是‘抽查状态’
+	private Integer processingState;
 	
 	@Column(name = "last_inspection_user_id", header = "最后抽查人Id")
 	private Integer lastInspectionUserId = 0;
@@ -297,6 +300,11 @@ public class NCustomerTask extends Entity {
 		this.inspectionState = inspectionState;
 	}
 
+	//临时用，返回的就是‘抽查状态’
+	public Integer getProcessingState() {
+		return inspectionState.getValue();
+	}
+	
 	public NCustomer getCustomer() {
 		return customer;
 	}
@@ -528,5 +536,4 @@ public class NCustomerTask extends Entity {
 	public void setLastInspectionUserId(Integer lastInspectionUserId) {
 		this.lastInspectionUserId = lastInspectionUserId;
 	}
-	
 }

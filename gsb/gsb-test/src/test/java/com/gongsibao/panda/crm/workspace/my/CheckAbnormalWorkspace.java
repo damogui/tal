@@ -5,6 +5,7 @@ import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
+import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.PDatagrid;
@@ -19,6 +20,7 @@ import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
+import com.gongsibao.crm.web.MyAllTaskListPart;
 import com.gongsibao.crm.web.NCustomerFollowPart;
 import com.gongsibao.entity.crm.NCustomerChange;
 import com.gongsibao.entity.crm.NCustomerTask;
@@ -37,38 +39,60 @@ public class CheckAbnormalWorkspace extends WorkspaceCreationBase{
 		entity = NCustomerTask.class;
 		//配置资源路径
 		urlList = "/crm/my/check/abnormal/list";
-		//配置表单路径
-		urlForm = "/crm/my/check/abnormal/from";		
+			
 		listPartName = formPartName = "抽查异常";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_MY_CHECK_ABNORMAL";
 		//无法签单并且抽查状态等于正常
-		listFilter = "inspection_state = 2 and foolowStatus=4 and creator_id = '{userId}'";
-		formJsImport = "/gsb/crm/js/crm.all.task.part.js";
+		listFilter = "inspection_state = 2 and foolowStatus=4 and ownerId = '{userId}'";
+		
+		//扩展列表操作
+		listToolbarPath = "crm/my/task/all/toolbar";
+		listPartImportJs ="/gsb/crm/js/crm-allTask-list.js";
+		listPartJsController = MyAllTaskListPart.class.getName();
+		listPartServiceController = MyAllTaskListPart.class.getName();		
 	}
 	
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
 		PDatagrid datagrid = super.createDatagrid(node);
 		PDatagridColumn column = null;
-		column = addColumn(datagrid, "customer.realName", "客户", ControlTypes.TEXT_BOX, 100, true);
-		column = addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 100, true);
-		column = addColumn(datagrid, "supplier.name", "分配服务商", ControlTypes.TEXT_BOX, 100, false);
-		column = addColumn(datagrid, "department.name", "分配服务商部门", ControlTypes.TEXT_BOX, 100, false);
-		column = addColumn(datagrid, "lastFollowTime", "最近跟进时间", ControlTypes.DATE_BOX, 100, false);
-		column = addColumn(datagrid, "foolowStatus", "跟进状态", ControlTypes.ENUM_BOX, 100, false);
-		column = addColumn(datagrid, "intentionCategory", "质量分类", ControlTypes.ENUM_BOX, 100, false);
-		column = addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 100, false);
-		column = addColumn(datagrid, "lastFoolowUser.name", "最后跟进人", ControlTypes.TEXT_BOX, 100, false);
-		column = addColumn(datagrid, "lastContent", "最后跟进内容", ControlTypes.TEXT_BOX, 100, false);
-		{
-			column.setFormatter("return '<span title='+value+'>'+value+'</span>'");
+		datagrid.setShowCheckbox(true);
+		//添加行的toolbar
+		datagrid.setToolbar("crm/my/task/all/row/toolbar");
+		column = addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+		addColumn(datagrid, "department.name", "分配服务商部门", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "name", "任务名称", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "customer.id", "客户ID", ControlTypes.NUMBER_BOX, 100, false);
+		addColumn(datagrid, "customer.isMember", "是否会员", ControlTypes.BOOLCOMBO_BOX, 100, false);
+		addColumn(datagrid, "customer.realName", "联系人", ControlTypes.TEXT_BOX, 100, false);
+		column = addColumn(datagrid, "customer.mobile", "手机号", ControlTypes.TEXT_BOX, 100, false);{
+			column.setFormatter("if(value&&value.length==11){return value.substr(0,3)+'****'+value.substr(7);}");
 		}
-		column = addColumn(datagrid, "old", "是否老客户", ControlTypes.TEXT_BOX, 100, false);
-		column = addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "customer.telephone", "座机", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "customer.qq", "QQ", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "customer.weixin", "微信", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "intentionCategory", "客户质量分类", ControlTypes.ENUM_BOX, 100, false);
+		addColumn(datagrid, "source.name", "任务来源", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "lastFollowTime", "最近跟进时间", ControlTypes.DATE_BOX, 100, false);
+		addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 100, false);
+		addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 100, false);
+		column = addColumn(datagrid, "ownerId", "业务员Id", ControlTypes.TEXT_BOX, 100, false);{
+			column.setSystem(true);
+			column.setVisible(false);
+		}
+		addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATE_BOX, 100, false);
+		//任务抽查状态为3、4 抽查状态都为抽查异常；1、2对应枚举状态
+		addColumn(datagrid, "inspectionState", "抽查状态", ControlTypes.ENUM_BOX, 100, false);
+		addColumn(datagrid, "lastInspectionUser.name", "最后抽查人", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "lastInspectionTime", "最后抽查时间", ControlTypes.DATE_BOX, 100, false);
+		//任务抽查状态为1、2、3 处理状态都为未处理；4是已处理
+		column = addColumn(datagrid, "processingState", "处理状态", ControlTypes.NUMBER_BOX, 100, false);
 		{
-			column.setFormatter("return '<span title='+value+'>'+value+'</span>'");
+			column.setAlign(DatagridAlign.CENTER);
+			column.setFormatter("if(value == 1 || value == 2 || value == 3){ return '未处理' } else{ return '已处理' }");
 		}
 		return datagrid;
 	}
@@ -83,202 +107,11 @@ public class CheckAbnormalWorkspace extends WorkspaceCreationBase{
 		}
 		return queryProject;
 	}
-	
-	//创建选项卡
-	@Override
-	protected void addDetailGridPart(PWorkspace workspace) {
-		addCommunicatLogsPart(workspace);
-		addNotificationLogPart(workspace);
-		addFlowLogPart(workspace);
-	}	
-	private void addCommunicatLogsPart(PWorkspace workspace) {
-		//需要配置NCustomerTaskFoolow资源
-		ResourceNode node = this.resourceService.byCode(NCustomerTaskFoolow.class.getSimpleName());
-		PDatagrid datagrid = new PDatagrid(node, "沟通日志");
-		{
-			PDatagridColumn column = addColumn(datagrid, "foolowStatus", "跟进状态", ControlTypes.ENUM_BOX, 180);{
-				String formatter = EnumUtil.getColumnFormatter(CustomerFollowStatus.class);
-				column.setFormatter(formatter);
-			}
-			column = addColumn(datagrid, "qualityCategory", "质量分类", ControlTypes.ENUM_BOX, 180);{
-				String formatter = EnumUtil.getColumnFormatter(QualityCategory.class);
-				column.setFormatter(formatter);
-			}
-			addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 200);
-			addColumn(datagrid, "estimateAmount", "估计签单金额", ControlTypes.DECIMAL_FEN_BOX, 150);
-			addColumn(datagrid, "content", "跟进内容", ControlTypes.TEXT_BOX, 150);
-		}
-		PForm form = new PForm();
-		{
-			form.toNew();
-			form.setResourceNode(node);
-			form.setColumnCount(2);
-			form.setName("沟通日志");
-			PFormField formField = null;
-			String groupName = null;
-			
-			formField = addFormField(form, "foolowStatus", "跟进状态", groupName, ControlTypes.ENUM_BOX, false, false);
-			addFormField(form, "nextFoolowTime", "下次跟进时间", groupName, ControlTypes.DATE_BOX, false, false);
-			addFormField(form, "qualityCategory", "质量分类", groupName, ControlTypes.ENUM_BOX, false, false);
-			addFormField(form, "estimateAmount", "估计签单金额", groupName, ControlTypes.DECIMAL_FEN_BOX, false, false);
-			formField = addFormField(form, "content", "跟进内容", groupName, ControlTypes.TEXTAREA, false, false);{			
-				formField.setFullColumn(true);
-		    }
-		}
-		PPart part = new PPart();
-		{
-			part.toNew();
-			part.setName("沟通日志");
-			part.setCode("follows");
-			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
-			part.setRelationRole("follows");
-			part.setResourceNode(node);
-			part.setPartTypeId(PartType.DETAIL_PART.getId());
-			part.setDatagrid(datagrid);
-			part.setDockStyle(DockType.DOCUMENTHOST);
-			part.setToolbar("crm/task/communicatLog/follow");
-			part.setJsController(NCustomerFollowPart.class.getName());
-			part.setServiceController(NCustomerFollowPart.class.getName());
-			part.setWindowWidth(700);
-			part.setWindowHeight(400);
-			part.setForm(form);
-		}
-		workspace.getParts().add(part);
-		part = workspace.getParts().get(0);
-		{
-			part.setName("基本信息");
-			part.setStyle("height:500px;");
-			part.setDockStyle(DockType.DOCUMENTHOST);
-		}
-	}	
-	private void addNotificationLogPart(PWorkspace workspace) {
-		ResourceNode node = this.resourceService.byCode(NCustomerTaskNotify.class.getSimpleName());
 		
-		PDatagrid datagrid = new PDatagrid(node, "通知日志");
-		{
-			PDatagridColumn column = addColumn(datagrid, "type", "通知类型", ControlTypes.ENUM_BOX, 300);{
-				String formatter = EnumUtil.getColumnFormatter(NotifyType.class);
-				column.setFormatter(formatter);
-			}
-			addColumn(datagrid, "content", "跟进内容", ControlTypes.TEXT_BOX, 150);
-		}
-		PForm form = new PForm();
-		{
-			form.toNew();
-			form.setResourceNode(node);
-			form.setColumnCount(1);
-			form.setName("通知日志");
-			PFormField formField = null;
-			String groupName = null;
-			
-			formField = addFormField(form, "type", "通知类型", groupName, ControlTypes.ENUM_BOX, false, false);
-			formField = addFormField(form, "content", "跟进内容", groupName, ControlTypes.TEXT_BOX, false, false);{			
-				formField.setFullColumn(true);
-		    }
-		}
-		PPart part = new PPart();
-		{
-			part.toNew();
-			part.setName("通知日志");
-			part.setCode("notifys");
-			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
-			part.setRelationRole("notifys");
-			part.setResourceNode(node);
-			part.setPartTypeId(PartType.DETAIL_PART.getId());
-			part.setDatagrid(datagrid);
-			part.setDockStyle(DockType.DOCUMENTHOST);
-			part.setWindowWidth(550);
-			part.setWindowHeight(350);
-			part.setForm(form);
-		}
-		workspace.getParts().add(part);
-	}	
-	private void addFlowLogPart(PWorkspace workspace) {
-		ResourceNode node = this.resourceService.byCode(NCustomerChange.class.getSimpleName());
-		
-		PDatagrid datagrid = new PDatagrid(node, "流转日志");
-		{
-			//子页面枚举显示需要格式化一下
-			PDatagridColumn column = addColumn(datagrid, "changeType", "流转类型", ControlTypes.ENUM_BOX, 300);{
-				String formatter = EnumUtil.getColumnFormatter(ChangeType.class);
-				column.setFormatter(formatter);
-			}
-			addColumn(datagrid, "formUser.name", "来自", ControlTypes.TEXT_BOX, 150);
-			addColumn(datagrid, "toUser.name", "去向", ControlTypes.TEXT_BOX, 150);
-			addColumn(datagrid, "content", "内容", ControlTypes.TEXT_BOX, 150);
-		}
-		PForm form = new PForm();
-		{
-			form.toNew();
-			form.setResourceNode(node);
-			form.setColumnCount(1);
-			form.setName("流转日志");
-			PFormField formField = null;
-			String groupName = null;
-			formField = addFormField(form, "changeType", "流转类型", groupName, ControlTypes.ENUM_BOX, false, false);
-			formField = addFormFieldRefrence(form, "formUser.name", "最后分配人", groupName, "CRM_Employee", false, false);
-			formField = addFormFieldRefrence(form, "toUser.name", "最后分配人", groupName, "CRM_Employee", false, false);
-			formField = addFormField(form, "content", "内容", groupName, ControlTypes.TEXT_BOX, false, false);{			
-				formField.setFullColumn(true);
-		    }
-		}
-		PPart part = new PPart();
-		{
-			part.toNew();
-			part.setName("流转日志");
-			part.setCode("changes");
-			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
-			part.setRelationRole("changes");
-			part.setResourceNode(node);
-			part.setPartTypeId(PartType.DETAIL_PART.getId());
-			part.setDatagrid(datagrid);
-			part.setDockStyle(DockType.DOCUMENTHOST);
-			part.setWindowWidth(550);
-			part.setWindowHeight(350);
-			part.setForm(form);
-		}
-		workspace.getParts().add(part);
-	}	
-	//创建表单。须配置urlForm路径
-	@Override
-	protected PForm createForm(ResourceNode node) {
-		PForm form = new PForm();
-		{
-			form.toNew();
-			form.setResourceNode(node);
-			form.setName(this.meta.getName() + "表单");
-			form.setColumnCount(3);
-		}
-		PFormField formField = null;
-		String groupName = null;
-		
-		addFormField(form, "name", "名称", groupName, ControlTypes.TEXT_BOX, false, true);
-		addFormFieldRefrence(form, "supplier.name", "分配服务商", groupName, "CRM_Supplier", false, true);
-		addFormFieldRefrence(form, "department.name", "分配服务商部门", groupName, "CRM_Supplier_Depart", false, true);
-		
-		formField = addFormField(form, "foolowStatus", "跟进状态", groupName, ControlTypes.ENUM_BOX, false, true);
-		addFormField(form, "intentionCategory", "质量分类", groupName, ControlTypes.ENUM_BOX, false, true);
-		addFormField(form, "old", "是否老客户", groupName, ControlTypes.SWITCH_BUTTON, false, true);
-		
-		
-		addFormFieldRefrence(form, "customer.realName", "客户", groupName, "CRM_NCustomer", false, true);
-		addFormFieldRefrence(form, "lastAllocationUser.name", "最后分配人", groupName, "CRM_Employee", false, true);
-		addFormFieldRefrence(form, "lastFoolowUser.name", "最后跟进人", groupName, "CRM_Employee", false, true);
-		
-		addFormField(form, "lastFollowTime", "最近跟进时间", groupName, ControlTypes.DATE_BOX, false, true);
-		addFormField(form, "nextFoolowTime", "下次跟进时间", groupName, ControlTypes.DATE_BOX, false, true);
-		
-		formField = addFormField(form, "lastContent", "最后跟进内容", groupName, ControlTypes.TEXT_BOX, false, true);{			
-			formField.setFullColumn(true);
-	    }
-		
-		formField = addFormField(form, "memoto", "备注", groupName, ControlTypes.TEXT_BOX, false, true);{			
-			formField.setFullColumn(true);
-	    }
-		return form;
-	}	
 	public void doOperation() {
 		ResourceNode node = resourceService.byCode(resourceNodeCode);
 		operationService.addOperation(node, OperationTypes.view);
+		operationService.addOperation(node, OperationTypes.add);
+		operationService.addOperation(node, OperationTypes.update);
 	}		
 }
