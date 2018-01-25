@@ -1,5 +1,6 @@
 package com.gongsibao.entity.igirl.baseinfo;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.joda.time.DateTime;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Table;
@@ -23,7 +24,7 @@ public class NCLOne extends Entity {
   
 
 	@Column(name="period",header="期间")
-    private String period;
+    private String period=DateTime.now().toString("yyyyMM");
 
     @Exclusive
     @JsonIgnore
