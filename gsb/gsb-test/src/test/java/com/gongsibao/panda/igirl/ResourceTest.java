@@ -42,10 +42,8 @@ public class ResourceTest extends ResourceCreationBase {
 		{
 			this.createResourceNodeVoucher(NCLOne.class.getName(), "商标大类", "IGRIL_BASE_" + NCLOne.class.getSimpleName(), INCLOneService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCLTwo.class.getName(), "商标小类", "IGRIL_BASE_" +NCLTwo.class.getSimpleName(), INCLTwoService.class.getName(), node1.getId());
-		}
-		node1 = this.createResourceNodeCategory("数据批次", "GSB_NCL_TM", node.getId());
-		{
-			this.createResourceNodeVoucher(NclBatch.class.getName(), "尼斯数据", "NCL_All_" + NclBatch.class.getSimpleName(), INclBatchService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NclBatch.class.getName(), "尼斯期间", "NCL_All_" + NclBatch.class.getSimpleName(), INclBatchService.class.getName(), node1.getId());
+
 		}
 	}
 }

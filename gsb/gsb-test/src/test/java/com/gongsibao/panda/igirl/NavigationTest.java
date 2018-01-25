@@ -38,11 +38,9 @@ public class NavigationTest extends NavigationBase {
 		{
 			createPTreeNode(tree, "GSB_IGIRL_BASE", null, "IGRIL_BASE_" + NCLTwo.class.getSimpleName(), "商标大类", "/igirl/nclone/all/list", 1);
 			createPTreeNode(tree, "GSB_IGIRL_BASE", null, "IGRIL_BASE_" + NCLTwo.class.getSimpleName(), "商标小类", "/igirl/ncltwo/all/list", 2);
+			createPTreeNode(tree, "GSB_IGIRL_BASE", null, "NCL_All_" + NclBatch.class.getSimpleName(), "尼斯期间", "/ncl/batch/list", 3);
 
-		}
-		createPTreeNode(tree, null, null, "GSB_NCL_TM", "分类", "", 1);
-		{
-			createPTreeNode(tree, "GSB_NCL_TM", null, "NCL_All_" + NclBatch.class.getSimpleName(), "分类列表", "/ncl/batch/list", 1);
+
 		}
 	}
 }

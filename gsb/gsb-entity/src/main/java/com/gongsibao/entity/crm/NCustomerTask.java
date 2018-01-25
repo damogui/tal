@@ -101,7 +101,20 @@ public class NCustomerTask extends Entity {
 
 	@Column(name = "inspection_state", header = "抽查异常状态")
 	private TaskInspectionState inspectionState = TaskInspectionState.UNINSPECTION;
-
+	
+	@Column(name = "last_inspection_user_id", header = "最后抽查人Id")
+	private Integer lastInspectionUserId = 0;
+	
+	@JsonIgnore
+	@Reference(foreignKey = "lastInspectionUserId", header = "最后抽查人")
+	private Employee lastInspectionUser;
+	
+	@Column(name = "last_inspection_time", header = "最近抽查时间")
+	private Date lastInspectionTime;
+	
+	@Column(name = "last_inspection_content", size = 1000, header = "最后抽查内容")
+	private String lastInspectionContent;
+	
 	@Column(name = "memoto", header = "备注", size = 1000)
 	private String memoto;
 
@@ -152,6 +165,9 @@ public class NCustomerTask extends Entity {
 
 	@Subs(foreignKey = "taskId", header = "流转日志", subType = NCustomerChange.class)
 	private List<NCustomerChange> changes;
+	
+	@Subs(foreignKey = "taskId", header = "抽查日志", subType = NCustomerTaskInspection.class)
+	private List<NCustomerTaskInspection> inspections;
 
 	public Boolean getCosted() {
 		return costed;
@@ -473,4 +489,44 @@ public class NCustomerTask extends Entity {
 		this.qualityId = qualityId;
 	}
 
+	public Employee getLastInspectionUser() {
+		return lastInspectionUser;
+	}
+
+	public void setLastInspectionUser(Employee lastInspectionUser) {
+		this.lastInspectionUser = lastInspectionUser;
+	}
+
+	public Date getLastInspectionTime() {
+		return lastInspectionTime;
+	}
+
+	public void setLastInspectionTime(Date lastInspectionTime) {
+		this.lastInspectionTime = lastInspectionTime;
+	}
+
+	public String getLastInspectionContent() {
+		return lastInspectionContent;
+	}
+
+	public void setLastInspectionContent(String lastInspectionContent) {
+		this.lastInspectionContent = lastInspectionContent;
+	}
+
+	public List<NCustomerTaskInspection> getInspections() {
+		return inspections;
+	}
+
+	public void setInspections(List<NCustomerTaskInspection> inspections) {
+		this.inspections = inspections;
+	}
+
+	public Integer getLastInspectionUserId() {
+		return lastInspectionUserId;
+	}
+
+	public void setLastInspectionUserId(Integer lastInspectionUserId) {
+		this.lastInspectionUserId = lastInspectionUserId;
+	}
+	
 }
