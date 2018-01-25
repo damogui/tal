@@ -1,7 +1,5 @@
 package com.gongsibao.panda.operation;
 
-import com.gongsibao.panda.operation.workspace.supplier.*;
-
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -9,19 +7,21 @@ import org.junit.runners.Suite.SuiteClasses;
 import com.gongsibao.panda.operation.reference.FunctionModuleReferenceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerALLWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerAllocatedWorkspaceTest;
-import com.gongsibao.panda.operation.workspace.crm.TaskAnomalyDetectionWorkspaceTest;
-import com.gongsibao.panda.operation.workspace.crm.TaskLostOrderWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.crm.CustomerUndistributedWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.crm.CustomerVerifyWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.QualityWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.TaskALLWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.TaskAllocatedWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.crm.TaskAnomalyDetectionWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.crm.TaskLostOrderWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.TaskOpenSeaWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.TaskUndistributedWorkspaceTest;
-import com.gongsibao.panda.operation.workspace.crm.CustomerUndistributedWorkspaceTest;
-import com.gongsibao.panda.operation.workspace.crm.CustomerVerifyWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.form.CustomerAddWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.form.CustomerEditWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.form.TaskAddWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.form.TaskEditWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.crm.form.TaskFollowFormWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.reference.QualityRefeerenceTest;
 import com.gongsibao.panda.operation.workspace.reference.SupplierDepartmentReferenceTest;
 import com.gongsibao.panda.operation.workspace.reference.SupplierReferenceTest;
 import com.gongsibao.panda.operation.workspace.reference.SupplierSalesmanReferenceTest;
@@ -53,7 +53,7 @@ import com.gongsibao.panda.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
 	SupplierReferenceTest.class,
 	SupplierDepartmentReferenceTest.class,
 	SupplierSalesmanReferenceTest.class,
-	
+	QualityRefeerenceTest.class,
 	
 	//金牛座
 	UserWorkspaceTest.class,
@@ -92,6 +92,7 @@ import com.gongsibao.panda.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
 	CustomerEditWorkspaceTest.class,
 	TaskAddWorkspaceTest.class,
 	TaskEditWorkspaceTest.class,
+	TaskFollowFormWorkspaceTest.class,
 	
 	TaskOpenSeaWorkspaceTest.class,
 	CustomerALLWorkspaceTest.class,
