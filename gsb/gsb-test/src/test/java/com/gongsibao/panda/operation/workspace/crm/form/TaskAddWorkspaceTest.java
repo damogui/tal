@@ -28,6 +28,8 @@ import com.gongsibao.entity.supplier.SupplierDepartment;
 
 public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 
+	String productsDetailResourceNodeCode = "GSB_CRM_Customer_Manager_Products";
+	
 	@Before
 	public void setup() {
 		super.setup();
@@ -40,6 +42,7 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 		formJsImport = "/gsb/crm/platform/js/task-add-form.part.js|/gsb/gsb.customer.controls.js";
 		formJsController = NCustomerTaskAddFormPart.class.getName();
 		formServiceController = NCustomerTaskAddFormPart.class.getName();
+		
 	}
 	
 
@@ -123,7 +126,7 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 	// 意向产品
 	public void createProductsPart(PWorkspace workspace) {
 
-		ResourceNode node = this.resourceService.byCode("GSB_CRM_Customer_Manager_Products");
+		ResourceNode node = this.resourceService.byCode(productsDetailResourceNodeCode);
 		PDatagrid datagrid = new PDatagrid(node, "意向产品");
 		{
 			datagrid.setShowCheckbox(false);
