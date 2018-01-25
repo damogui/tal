@@ -33,11 +33,11 @@ import com.gongsibao.entity.crm.dic.QualityCategory;
 public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 
 	
-	String foolowDetailResourceNodeCode = NCustomerTaskFoolow.class.getSimpleName();
+	protected String foolowDetailResourceNodeCode = NCustomerTaskFoolow.class.getSimpleName();
 			
-	String notifyDetailResourceNodeCode = NCustomerTaskNotify.class.getSimpleName();
+	protected String notifyDetailResourceNodeCode = NCustomerTaskNotify.class.getSimpleName();
 	
-	String changeDetailResourceNodeCode = NCustomerChange.class.getSimpleName();
+	protected String changeDetailResourceNodeCode = NCustomerChange.class.getSimpleName();
 	
 	@Before
 	public void setup() {

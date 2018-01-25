@@ -12,6 +12,10 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		
 		this.edit(id);
 	},
+	doubleClickRow : function(index, row) {
+
+		this.edit(row.id);
+	},
 	edit : function(id) {
 		
 		var url = "/panda/operation/task/edit?id="+id;

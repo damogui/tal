@@ -103,8 +103,10 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(SupplierDepartment.class.getName(), "分配服务商部门", "GSB_CRM_MY_REFERENE_SUPPLIER_DEPART", ISupplierDepartmentService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(Employee.class.getName(), "员工信息", "GSB_CRM_MY_REFERENE_EMPLOYEE", IEmployeeService.class.getName(), node1.getId());
 			//======选项卡加载项
-			this.createResourceNodeVoucher(NCustomerProduct.class.getName(), "意向产品", NCustomerProduct.class.getSimpleName(), INCustomerProductService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(Product.class.getName(), "产品", "CRM_N" + Product.class.getSimpleName(), IPersistableService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerProduct.class.getName(), "客户意向产品", "GSB_CRM_My_Manager_Products", INCustomerProductService.class.getName(), node1.getId());
+			
+			//this.createResourceNodeVoucher(NCustomerProduct.class.getName(), "意向产品", NCustomerProduct.class.getSimpleName(), INCustomerProductService.class.getName(), node1.getId());
+			//this.createResourceNodeVoucher(Product.class.getName(), "产品", "CRM_N" + Product.class.getSimpleName(), IPersistableService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTaskFoolow.class.getName(), "沟通日志", NCustomerTaskFoolow.class.getSimpleName(),INCustomerTaskFoolowService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTaskNotify.class.getName(), "通知日志", NCustomerTaskNotify.class.getSimpleName(),INCustomerTaskNotifyService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerChange.class.getName(), "流转日志", NCustomerChange.class.getSimpleName(),INCustomerChangeService.class.getName(), node1.getId());
