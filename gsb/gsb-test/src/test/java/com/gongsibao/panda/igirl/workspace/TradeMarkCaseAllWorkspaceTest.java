@@ -147,8 +147,8 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		}
 		addFormField(form, "creditCode", "统一社会信用代码", groupName, ControlTypes.TEXT_BOX, false, false);
 
-		addFormField(form, "contactName", "联系人", groupName, ControlTypes.TEXT_BOX, true, false);
-		formField =addFormField(form, "mobile", "联系人电话", groupName, ControlTypes.TEXT_BOX, true, false);
+		addFormField(form, "contactName", "客户姓名", groupName, ControlTypes.TEXT_BOX, true, false);
+		formField =addFormField(form, "mobile", "客户电话", groupName, ControlTypes.TEXT_BOX, true, false);
 		{
 			formField.setTroikaTrigger("controllertradeMarkCase.mobileChange(this);");
 		}
@@ -171,6 +171,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "caseAmount", "方案金额", groupName, ControlTypes.DECIMAL_FEN_BOX, true, false);
 		addFormField(form, "tradeOptions", "商标选项", groupName, ControlTypes.TEXT_BOX, false, true);
 		addFormField(form, "code", "方案编号", groupName, ControlTypes.TEXT_BOX, false, true);
+		addFormField(form, "ywPhone", "代理电话", groupName, ControlTypes.TEXT_BOX, false, true);
 		return form;
 	}
 

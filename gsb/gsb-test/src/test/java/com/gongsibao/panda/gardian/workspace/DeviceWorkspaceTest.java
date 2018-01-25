@@ -35,7 +35,7 @@ public class DeviceWorkspaceTest extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		resourceNodeCode = "GARDIAN_BASE_Device";
 		formPartName = listPartName = meta.getName();
-		formOpenMode = OpenMode.WINDOW;
+		//formOpenMode = OpenMode.WINDOW;
 
 		formServiceController = DeviceFormPart.class.getName();
 		formJsController = DeviceFormPart.class.getName();

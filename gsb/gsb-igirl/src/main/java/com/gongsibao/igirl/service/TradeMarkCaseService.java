@@ -87,8 +87,9 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		if (entity.getEntityState() == EntityState.New) {
 			entity.setCode(DateTime.now().toString("yyyyMMddHHmmss"));
 			// IUserService userService=ServiceFactory.create(IUser)
-			// int id=SupplierSessionManager.getSupplierId();
-			// Supplier sl=supplierServcie.byId(id);
+			 int id=SupplierSessionManager.getSupplierId();
+			 Supplier sl=supplierServcie.byId(id);
+			 
 			// entity.setProxyCompanyName(sl.getName());
 			// entity.setAccountNo(accountNo);
 
