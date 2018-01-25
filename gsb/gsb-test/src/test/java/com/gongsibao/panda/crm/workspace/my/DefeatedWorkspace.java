@@ -1,6 +1,7 @@
 package com.gongsibao.panda.crm.workspace.my;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
@@ -20,8 +21,11 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.crm.web.MyAllTaskListPart;
+import com.gongsibao.entity.crm.NCustomerChange;
 import com.gongsibao.entity.crm.NCustomerTask;
+import com.gongsibao.entity.crm.NCustomerTaskFoolow;
 import com.gongsibao.entity.crm.NCustomerTaskInspection;
+import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.crm.dic.TaskInspectionType;
 import com.gongsibao.panda.operation.workspace.crm.form.TaskEditWorkspaceTest;
 
@@ -45,7 +49,19 @@ public class DefeatedWorkspace extends TaskEditWorkspaceTest{
 		//listToolbarPath = "crm/my/task/all/toolbar";
 		listPartImportJs ="/gsb/crm/js/crm-inspectionTask-list.js";
 		listPartJsController = MyAllTaskListPart.class.getName();
-		listPartServiceController = MyAllTaskListPart.class.getName();		
+		listPartServiceController = MyAllTaskListPart.class.getName();
+		
+		//重写加载项code
+		productsDetailResourceNodeCode = "GSB_CRM_My_Manager_Products";
+		foolowDetailResourceNodeCode = NCustomerTaskFoolow.class.getSimpleName();
+		notifyDetailResourceNodeCode = NCustomerTaskNotify.class.getSimpleName();
+		changeDetailResourceNodeCode = NCustomerChange.class.getSimpleName();
+	}
+	
+	@Test
+	public void run() {
+		createListWorkspace();
+		createFormWorkspace();
 	}
 	
 	@Override
