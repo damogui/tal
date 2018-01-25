@@ -1,6 +1,7 @@
 package com.gongsibao.panda.gardian.workspace;
 
 import com.gongsibao.entity.gardian.baseinfo.Device;
+import com.gongsibao.gardian.web.DeviceFormPart;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
@@ -35,6 +36,11 @@ public class DeviceWorkspaceTest extends WorkspaceCreationBase{
 		resourceNodeCode = "GARDIAN_BASE_Device";
 		formPartName = listPartName = meta.getName();
 		formOpenMode = OpenMode.WINDOW;
+
+		formServiceController = DeviceFormPart.class.getName();
+		formJsController = DeviceFormPart.class.getName();
+		formJsImport = "/gsb/gardian/js/device.form.part.js";
+
 		openWindowWidth = 800;
 		openWindowHeight = 600;
 		listToolbarPath = "/gardian/list/toolbar";
@@ -51,7 +57,7 @@ public class DeviceWorkspaceTest extends WorkspaceCreationBase{
 			toolbar.toNew();
 			//toolbar.setBasePath("panda/datagrid/edit");
 			toolbar.setPath(listToolbarPath);
-			toolbar.setName("设备工具栏");
+			toolbar.setName("工具栏");
 			toolbar.setResourceNode(node);
 
 		}
@@ -139,10 +145,14 @@ public class DeviceWorkspaceTest extends WorkspaceCreationBase{
 			form.setColumnCount(2);
 		}
 
-		PFormField field = null;
+		PFormField formField = null;
 		addFormField(form, "code", "编码", null, ControlTypes.TEXT_BOX, true,false).setWidth(200);
 		addFormField(form, "name", "名称", null, ControlTypes.TEXT_BOX, true,false).setWidth(200);
-		addFormField(form, "deviceType", "设备类型", "设备基础信息", ControlTypes.ENUM_BOX, true,false).setWidth(200);
+		formField = addFormField(form, "deviceType", "设备类型", "设备基础信息", ControlTypes.ENUM_BOX, true,false);
+		{
+			formField.setTroikaTrigger("controllerdeviceFormPart.deviceTypeChange(newValue, oldValue);");
+			formField.setWidth(200);
+		}
 		addFormField(form, "buydate", "设备购入日期", "设备基础信息", ControlTypes.DATETIME_BOX, true,false).setWidth(200);
 		addFormField(form, "deviceStatus", "设备状态", "设备基础信息", ControlTypes.ENUM_BOX, true,false).setWidth(200);
 		addFormField(form, "cost", "购置金额（元）", "设备基础信息", ControlTypes.NUMBER_BOX, false,false).setWidth(200);
