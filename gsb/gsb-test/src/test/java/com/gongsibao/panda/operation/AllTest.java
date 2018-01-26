@@ -40,68 +40,69 @@ import com.gongsibao.panda.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
 @RunWith(Suite.class)
 @SuiteClasses({
 
-	ResourceTest.class, 
-	
-	//参照
-	//功能模块
-	FunctionModuleReferenceTest.class,
-	SupplierReferenceTest.class,
-	SupplierDepartmentReferenceTest.class,
-	SupplierSalesmanReferenceTest.class,
-	
-	
-	//金牛座
-	UserWorkspaceTest.class,
-	//UserInfoWorkspaceTest.class,
-	NewUserPerDayWorkspaceTest.class,
+        ResourceTest.class,
+
+        //参照
+        //功能模块
+        FunctionModuleReferenceTest.class,
+        SupplierReferenceTest.class,
+        SupplierDepartmentReferenceTest.class,
+        SupplierSalesmanReferenceTest.class,
+
+
+        //金牛座
+        UserWorkspaceTest.class,
+        //UserInfoWorkspaceTest.class,
+        NewUserPerDayWorkspaceTest.class,
 //	UserConsStatisticWorkspaceTest.class,
 //	UserRenewalStatisticWorkspaceTest.class,
-	ActiveUserWorkspaceTest.class,
-	DayStatisticWorkspaceTest.class,
-	JnzUserBalanceWorkSpaceTest.class,
-	UserConsumptionWorkspaceTest.class,
-	
-	//万达
-	WanDaProductWorkspaceTest.class,
-	WanDaSoOrderWorkspaceTest.class,
-	
-	//CMS
+        ActiveUserWorkspaceTest.class,
+        DayStatisticWorkspaceTest.class,
+        JnzUserBalanceWorkSpaceTest.class,
+        UserConsumptionWorkspaceTest.class,
+
+        //万达
+        WanDaProductWorkspaceTest.class,
+        WanDaSoOrderWorkspaceTest.class,
+
+        //CMS
 //	ProductPackageWorkspaceTest.class,
 //	ProductWorkspaceTest.class,
-	
-	//钉钉
-	
-	//供应商
+
+        //钉钉
+
+        //供应商
 //	CPAuditWorkspaceTest.class,
 //	SPAuditWorkspaceTest.class,
-	
-	FunctionModuleWorkspaceTest.class,
-	SupplierWorkspaceTest.class,
-	SupplierCategoryWorkspaceTest.class,
-	SupplierSalesmanWorkspaceTest.class,
-	SupplierDepartmentWorkspaceTest.class,
-	
-	
-	CustomerVerifyWorkspaceTest.class,
-	CustomerAddWorkspaceTest.class,
-	CustomerTaskAddWorkspaceTest.class,
-	
-	CustomerALLWorkspaceTest.class,
-	CustomerAllocatedWorkspaceTest.class,
-	CustomerUndistributedWorkspaceTest.class,
-	
-	CustomerTaskAllocatedWorkspaceTest.class,
-	CustomerTaskALLWorkspaceTest.class,
-	CustomerTaskUndistributedWorkspaceTest.class,
-	
-	CustomerLostOrderWorkspaceTest.class,
-	CustomerAnomalyDetectionWorkspaceTest.class,
-	CustomerQualityWorkspaceTest.class,
 
-    ImportTaskQualityDataTest.class,
-	SupplierActionTest.class,
-	NavigationTest.class
-	
+        FunctionModuleWorkspaceTest.class,
+        SupplierWorkspaceTest.class,
+        SupplierCategoryWorkspaceTest.class,
+        SupplierSalesmanWorkspaceTest.class,
+        SupplierDepartmentWorkspaceTest.class,
+
+
+        CustomerVerifyWorkspaceTest.class,
+        CustomerAddWorkspaceTest.class,
+        CustomerTaskAddWorkspaceTest.class,
+
+        CustomerALLWorkspaceTest.class,
+        CustomerAllocatedWorkspaceTest.class,
+        CustomerUndistributedWorkspaceTest.class,
+
+        CustomerTaskAllocatedWorkspaceTest.class,
+        CustomerTaskALLWorkspaceTest.class,
+        CustomerTaskUndistributedWorkspaceTest.class,
+
+        CustomerLostOrderWorkspaceTest.class,
+        CustomerAnomalyDetectionWorkspaceTest.class,
+        CustomerQualityWorkspaceTest.class,
+
+        ImportTaskQualityDataTest.class,
+        ImportTaskRoleAndFunctionTest.class,
+        SupplierActionTest.class,
+        NavigationTest.class
+
 })
 
 public class AllTest {
