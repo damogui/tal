@@ -96,6 +96,25 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		String cmdText = updateSql.toSQL();
 		return this.pm.executeNonQuery(cmdText, null);
 	}
+	
+	/* 任务分配
+	 * (non-Javadoc)
+	 * @see com.gongsibao.crm.base.INCustomerTaskService#allot(java.lang.Integer)
+	 */
+	@Override
+	public int allot(Integer taskId) {
+		NCustomerTask entity = this.byId(taskId);
+		ActionContext ctx = new ActionContext();
+		{
+			ctx.setPath("gsb/crm/customer/task/allot");
+			ctx.setItem(entity);
+			ctx.setState(entity.getEntityState());
+		}
+
+		ActionManager action = new ActionManager();
+		action.execute(ctx);
+		return 0;
+	}
 
 	@Override
 	public Boolean transfer(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId) {

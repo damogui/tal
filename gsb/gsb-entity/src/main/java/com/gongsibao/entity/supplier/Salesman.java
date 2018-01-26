@@ -46,6 +46,15 @@ public class Salesman extends Entity {
 	@Exclusive
 	@Column(name="login_name",header="帐号")
 	private String loginName;
+	
+	@Column(name = "follow_up_task_count", header = "跟进中任务数量")
+	private Integer FollowUpTaskCount = 0;
+	
+	@Column(name = "follow_up_task_day_count", header = "当天分配的任务数量")
+	private Integer FollowUpTaskDayCount = 0;
+	
+	@Column(name = "follow_up_task_week_count", header = "当天分配的任务数量")
+	private Integer FollowUpTaskWeekCount = 0;
 
 	@Exclusive
 	@Column(name = "name", header = "姓名")
@@ -217,7 +226,6 @@ public class Salesman extends Entity {
 		this.products = products;
 	}
 
-
     public Boolean getIsoldclient() {
         return isoldclient;
     }
@@ -257,4 +265,29 @@ public class Salesman extends Entity {
     public void setXabmax(Integer xabmax) {
         this.xabmax = xabmax;
     }
+
+	public Integer getFollowUpTaskCount() {
+		return FollowUpTaskCount;
+	}
+
+	public void setFollowUpTaskCount(Integer followUpTaskCount) {
+		FollowUpTaskCount = followUpTaskCount;
+	}
+
+	public Integer getFollowUpTaskDayCount() {
+		return FollowUpTaskDayCount;
+	}
+
+	public void setFollowUpTaskDayCount(Integer followUpTaskDayCount) {
+		FollowUpTaskDayCount = followUpTaskDayCount;
+	}
+
+	public Integer getFollowUpTaskWeekCount() {
+		return FollowUpTaskWeekCount;
+	}
+
+	public void setFollowUpTaskWeekCount(Integer followUpTaskWeekCount) {
+		FollowUpTaskWeekCount = followUpTaskWeekCount;
+	}
+
 }
