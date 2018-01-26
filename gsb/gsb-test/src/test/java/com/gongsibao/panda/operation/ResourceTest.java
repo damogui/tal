@@ -7,16 +7,22 @@ import org.netsharp.resourcenode.IResourceNodeService;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.cms.base.IProductViewService;
+import com.gongsibao.crm.base.INCustomerChangeService;
 import com.gongsibao.crm.base.INCustomerProductService;
 import com.gongsibao.crm.base.INCustomerService;
 import com.gongsibao.crm.base.INCustomerTaskFoolowService;
+import com.gongsibao.crm.base.INCustomerTaskInspectionService;
+import com.gongsibao.crm.base.INCustomerTaskNotifyService;
 import com.gongsibao.crm.base.INCustomerTaskQualityService;
 import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.entity.cms.ProductView;
 import com.gongsibao.entity.crm.NCustomer;
+import com.gongsibao.entity.crm.NCustomerChange;
 import com.gongsibao.entity.crm.NCustomerProduct;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
+import com.gongsibao.entity.crm.NCustomerTaskInspection;
+import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.crm.NCustomerTaskQuality;
 import com.gongsibao.entity.supplier.FunctionModule;
 import com.gongsibao.entity.supplier.FunctionModuleRole;
@@ -138,6 +144,10 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(NCustomerTaskQuality.class.getName(), "客户质量", "GSB_CRM_Customer_Manager_Quality", INCustomerTaskQualityService.class.getName(), node1.getId());
 
 			this.createResourceNodeVoucher(NCustomerProduct.class.getName(), "客户意向产品", "GSB_CRM_Customer_Manager_Products", INCustomerProductService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTaskFoolow.class.getName(), "沟通日志", "GSB_CRM_Customer_Manager_Foolow",INCustomerTaskFoolowService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTaskNotify.class.getName(), "通知日志", "GSB_CRM_Customer_Manager_Notify",INCustomerTaskNotifyService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerChange.class.getName(), "流转日志", "GSB_CRM_Customer_Manager_Change",INCustomerChangeService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTaskInspection.class.getName(), "抽查日志", "GSB_CRM_Customer_Manager_Inspection",INCustomerTaskInspectionService.class.getName(), node1.getId());
 		}
 
 	}

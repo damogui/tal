@@ -87,14 +87,14 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		if (entity.getEntityState() == EntityState.New) {
 			entity.setCode(DateTime.now().toString("yyyyMMddHHmmss"));
 			// IUserService userService=ServiceFactory.create(IUser)
-			 int id=SupplierSessionManager.getSupplierId();
-			 Supplier sl=supplierServcie.byId(id);
+			 //int id=SupplierSessionManager.getSupplierId();
+			// Supplier sl=supplierServcie.byId(id);
 			 
 			// entity.setProxyCompanyName(sl.getName());
 			// entity.setAccountNo(accountNo);
 
 			UploadAttachment attachment2 = (UploadAttachment) this.buildUploadAttachment("营业执照",
-					AttachmentCat.BUSINESS_LIEN, entity.getId(), FileType.JPGC, FileType.PDF, null);
+					AttachmentCat.BUSINESS_LIEN, entity.getId(), FileType.JPGC, FileType.PDF, -1);
 			entity.getUploadAttachments().add(attachment2);
 		}
 
@@ -201,7 +201,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 				Row row = rows.next();
 				Integer newid = row.getInteger("trade_mark_id");
 				if (newid != null)
-					dicTmp.put(newid, 1);
+					dicTmp.put(newid, newid);
 			}
 			List<UploadAttachment> upas = new ArrayList<UploadAttachment>();
 			List<DownloadAttachment> downs = new ArrayList<DownloadAttachment>();
@@ -245,7 +245,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 
 					} else {
 						if (!dic.containsKey(tmk.getShareGroup())) {
-							// 添加要被共享的附件
+							// 如果不存在相同的共享组，添加要被共享的附件
 							if (tmk.getHasColor()) {
 								attachment1 = (UploadAttachment) this.buildUploadAttachment(tmk.getMemo() + "_彩色商标图样",
 										AttachmentCat.TRADEMARK_PICT, entity.getId(), FileType.JPGC, FileType.JPGC,
@@ -279,6 +279,9 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 
 							dic.put(tmk.getShareGroup(), 1);
 
+						}else {
+							//如果新增的包含
+							
 						}
 
 					}

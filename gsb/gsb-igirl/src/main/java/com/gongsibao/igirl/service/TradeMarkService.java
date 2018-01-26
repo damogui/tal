@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
+import org.netsharp.util.StringManager;
 
 import com.gongsibao.bd.service.GsbPersistableService;
 import com.gongsibao.entity.igirl.DownloadAttachment;
@@ -32,13 +33,10 @@ import com.gongsibao.igirl.dto.TradeMark.Step5;
 import com.gongsibao.igirl.dto.TradeMark.Step6;
 import com.gongsibao.igirl.dto.TradeMark.Step7;
 import com.gongsibao.igirl.dto.TradeMark.TradeMarkApplyInfo;
-
-
 @Service
 public class TradeMarkService extends GsbPersistableService<TradeMark> implements ITradeMarkService {
 	IUploadAttachmentService upattachementService = ServiceFactory.create(IUploadAttachmentService.class);
 	IDownloadAttachmentService downattachementService = ServiceFactory.create(IDownloadAttachmentService.class);
-
 
 	public TradeMarkService() {
 		super();
@@ -205,12 +203,13 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		this.pm.executeNonQuery(cmdstr, oql.getParameters());
 
 		// 删除彩色委托书
+		Oql oql2 = new Oql();
 		cmdstr = "delete from ig_down_attachment where attachment_cat=? and ( file_type=? or file_type=? ) and trade_mark_id=?";
-		oql.getParameters().add("attachment_cat", AttachmentCat.DELEGATE_PROOF.getValue(), Types.INTEGER);
-		oql.getParameters().add("file_type", FileType.JPGC.getValue(), Types.INTEGER);
-		oql.getParameters().add("file_type", FileType.PNGC.getValue(), Types.INTEGER);
-		oql.getParameters().add("trade_mark_id", tm.getId(), Types.INTEGER);
-		this.pm.executeNonQuery(cmdstr, oql.getParameters());
+		oql2.getParameters().add("attachment_cat", AttachmentCat.DELEGATE_PROOF.getValue(), Types.INTEGER);
+		oql2.getParameters().add("file_type", FileType.JPGC.getValue(), Types.INTEGER);
+		oql2.getParameters().add("file_type", FileType.PNGC.getValue(), Types.INTEGER);
+		oql2.getParameters().add("trade_mark_id", tm.getId(), Types.INTEGER);
+		this.pm.executeNonQuery(cmdstr, oql2.getParameters());
 
 	}
 
@@ -224,20 +223,139 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		oql.getParameters().add("file_type", FileType.JPGC.getValue(), Types.INTEGER);
 		oql.getParameters().add("file_type", FileType.PNGC.getValue(), Types.INTEGER);
 		oql.getParameters().add("trade_mark_id", tm.getId(), Types.INTEGER);
-		Long c=(Long)this.pm.executeScalar(cmdstr, oql.getParameters());
-		if(c==0) {//创建上传彩色图样和下载委托书
+		Long c = (Long) this.pm.executeScalar(cmdstr, oql.getParameters());
+		if (c == 0) {// 创建上传彩色图样和下载委托书
 			UploadAttachment attachment1 = (UploadAttachment) this.buildUploadAttachment(tm.getMemo() + "_彩色商标图样",
-					AttachmentCat.TRADEMARK_PICT, tm.getTradeMarkCaseId(), FileType.JPGC, FileType.JPGC,
-					tm.getId());
+					AttachmentCat.TRADEMARK_PICT, tm.getTradeMarkCaseId(), FileType.JPGC, FileType.JPGC, tm.getId());
 			upattachementService.save(attachment1);
 
 			DownloadAttachment attachment2 = this.buildDownloadAttachment(tm.getMemo() + "_彩色委托书",
-					AttachmentCat.DELEGATE_PROOF, tm.getTradeMarkCaseId(), FileType.JPGC, FileType.JPGC,
-					tm.getId());
+					AttachmentCat.DELEGATE_PROOF, tm.getTradeMarkCaseId(), FileType.JPGC, FileType.JPGC, tm.getId());
 			downattachementService.save(attachment2);
 
 		}
 
+	}
+
+	// 查询上传附件列表，构造MAP
+	// key:caseid_shareroup_fileCat,value:fileurl_filename
+	private Map<String, String> buildCaseShareGroupToAttachFileMap() {
+		Map<String, String> shareGroupToTradeMarkMap = new HashMap<String, String>();
+		Oql oql = new Oql();
+		{
+			oql.setType(UploadAttachment.class);
+			oql.setSelects("UploadAttachment.*");
+			oql.setFilter("tradeMark.markState=?");
+			oql.getParameters().add("tradeMark.markState", MarkState.READY.getValue(), Types.INTEGER);
+		}
+		List<UploadAttachment> ups = upattachementService.queryList(oql);
+		for (UploadAttachment ua : ups) {
+			String fileurl = ua.getFileUrl();
+			if(!StringManager.isNullOrEmpty(fileurl)) {
+				int index = fileurl.lastIndexOf("/");
+				String filename = fileurl.substring(index + 1);
+				String key = "";
+				TradeMark tm = ua.getTradeMark();
+				if (ua.getTradeMarkCaseId() == -1) {// 营业执照
+					key = ua.getTradeMarkCaseId() + "_" + "zz_" + "zz";
+				} else {
+					key = ua.getTradeMarkCaseId() + "_" + tm.getShareGroup().getValue() + "_"
+							+ ua.getAttachmentCat().getValue();
+					// 如果指定颜色，那么设置key的后缀为文件类型
+					if (tm.getHasColor()) {
+						key = key + "_" + ua.getFileType().getValue();
+					}
+
+				}
+				if (!shareGroupToTradeMarkMap.containsKey(key)) {
+					shareGroupToTradeMarkMap.put(key, fileurl + "_" + filename);
+				}
+			}
+		}
+		// 查询附件
+		return shareGroupToTradeMarkMap;
+	}
+
+	// 构造营业执照搜索附件的key
+	private Map<String, String> getBusinessLienceAttachment(TradeMark tm, Map<String, String> attachmentsMap) {
+		Map<String, String> rtnMap = new HashMap<String, String>();
+		String step2key = tm.getTradeMarkCaseId() + "_" + "zz" + "_zz";
+		if(attachmentsMap.containsKey(step2key)) {
+			String fileinfo = attachmentsMap.get(step2key);
+			String fileUrl = fileinfo.split("_")[0];
+			String fileName = fileinfo.split("_")[1];
+			rtnMap.put("fileUrl", fileUrl);
+			rtnMap.put("fileName", fileName);
+		}
+		return rtnMap;
+	}
+
+	// 构造获取委托书的key
+	private Map<String, String> getDeleProofAttachment(TradeMark tm, Map<String, String> attachmentsMap) {
+		Map<String, String> rtnMap = new HashMap<String, String>();
+		String step2key = tm.getTradeMarkCaseId() + "_" + tm.getShareGroup().getValue() + "_"
+				+ AttachmentCat.DELEGATE_PROOF.getValue();
+		String step3key = tm.getTradeMarkCaseId() + "_" + tm.getShareGroup().getValue() + "_"
+				+ AttachmentCat.DELEGATE_PROOF.getValue();
+		if (tm.getHasColor()) {
+			step2key += "_" + FileType.JPGC.getValue();
+			step3key += "_" + FileType.PNGC.getValue();
+		}
+		String fileinfo = attachmentsMap.get(step2key);
+		String fileinfo2 = attachmentsMap.get(step3key);
+		if (!StringManager.isNullOrEmpty(fileinfo)) {
+			String fileUrl = fileinfo.split("_")[0];
+			String fileName = fileinfo.split("_")[1];
+			rtnMap.put("fileUrl", fileUrl);
+			rtnMap.put("fileName", fileName);
+		} else {
+			String fileUrl = fileinfo2.split("_")[0];
+			String fileName = fileinfo2.split("_")[1];
+			rtnMap.put("fileUrl", fileUrl);
+			rtnMap.put("fileName", fileName);
+		}
+		return rtnMap;
+	}
+
+	// 构造获取图样的key
+	private Map<String, String> getTradePictAttachment(TradeMark tm, Map<String, String> attachmentsMap) {
+		Map<String, String> rtnMap = new HashMap<String, String>();
+		String step7key = tm.getTradeMarkCaseId() + "_" + tm.getShareGroup().getValue() + "_"
+				+ AttachmentCat.TRADEMARK_PICT.getValue();
+		String step8key = tm.getTradeMarkCaseId() + "_" + tm.getShareGroup().getValue() + "_"
+				+ AttachmentCat.TRADEMARK_PICT.getValue();
+		if (tm.getHasColor()) {
+			step7key += "_" + FileType.JPGC.getValue();
+			step8key += "_" + FileType.PNGC.getValue();
+		}
+		String fileinfo = attachmentsMap.get(step7key);
+		String fileinfo2 = attachmentsMap.get(step8key);
+		if (!StringManager.isNullOrEmpty(fileinfo)) {
+			String fileUrl = fileinfo.split("_")[0];
+			String fileName = fileinfo.split("_")[1];
+			rtnMap.put("fileUrl", fileUrl);
+			rtnMap.put("fileName", fileName);
+		} else {
+			String fileUrl = fileinfo2.split("_")[0];
+			String fileName = fileinfo2.split("_")[1];
+			rtnMap.put("fileUrl", fileUrl);
+			rtnMap.put("fileName", fileName);
+		}
+		return rtnMap;
+	}
+
+	// 构造获取其它证明的key
+	private Map<String, String> getCommentAttachment(TradeMark tm, Map<String, String> attachmentsMap) {
+		Map<String, String> rtnMap = new HashMap<String, String>();
+		String step2key = tm.getTradeMarkCaseId() + "_" + tm.getShareGroup().getValue() + "_"+ AttachmentCat.MEMO_DESC.getValue();
+		if(attachmentsMap.containsKey(step2key)) {
+			String fileinfo = attachmentsMap.get(step2key);
+			String fileUrl = fileinfo.split("_")[0];
+			String fileName = fileinfo.split("_")[1];
+			rtnMap.put("fileUrl", fileUrl);
+			rtnMap.put("fileName", fileName);
+		}
+		return rtnMap;
 	}
 
 	@Override
@@ -257,7 +375,10 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		oql.setFilter("markState=?");
 		oql.getParameters().add("markState", MarkState.WAITCOMMIT, Types.INTEGER);
 		List<TradeMark> tms = this.queryList(oql);
-		for (TradeMark tm:tms){
+		// 查询出上传附件列表，然后构造一个案件共享组附件映射
+		Map<String, String> shareGroupToTradeMarkMap = this.buildCaseShareGroupToAttachFileMap();
+
+		for (TradeMark tm : tms) {
 			TradeMarkCase tmc = tm.getTradeMarkCase();
 			tminfo = new TradeMarkApplyInfo();
 			step1 = new Step1();
@@ -268,28 +389,17 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			step2 = new Step2();
 			step2.setAgentFilenum(tm.getProxyCode());
 			step2.setAgentPerson(tmc.getCreator());
-			List<UploadAttachment> uas = tmc.getUploadAttachments();
-			step7 = new Step7();
-			for (UploadAttachment ua:uas){
-				//TODO(?)
-				String url = ua.getFileUrl();
-				int index = url.lastIndexOf("/");
-				String filename = url.substring(index+1);
-				if (ua.getTradeMarkId()==tm.getId()&&ua.getAttachmentCat()==AttachmentCat.DELEGATE_PROOF){
-					step2.setAgentBookPath(url);
-					step2.setAgentBookName(filename);
-				}else if(ua.getTradeMarkId()==tm.getId()&&ua.getAttachmentCat()==AttachmentCat.BUSINESS_LIEN) {
-					step2.setCertFilePath(url);
-					step2.setCertFileName(filename);
-				}else if(ua.getTradeMarkId()==tm.getId()&&ua.getAttachmentCat()==AttachmentCat.TRADEMARK_PICT) {
-					step7.setPicPath(url);
-					step7.setPicName(filename);
-				}else if(ua.getTradeMarkId()==tm.getId()&&ua.getAttachmentCat()==AttachmentCat.MEMO_DESC) {
-					step7.setCommentPath(url);
-					step7.setCommentName(filename);
-				}
 
-			}
+			step2.setAgentBookPath(this.getDeleProofAttachment(tm, shareGroupToTradeMarkMap).get("fileUrl"));
+			step2.setAgentBookName(this.getDeleProofAttachment(tm, shareGroupToTradeMarkMap).get("fileName"));
+
+			step2.setCertFilePath(this.getBusinessLienceAttachment(tm, shareGroupToTradeMarkMap).get("fileUrl"));
+			step2.setCertFileName(this.getBusinessLienceAttachment(tm, shareGroupToTradeMarkMap).get("fileName"));
+
+			List<UploadAttachment> uas = tmc.getUploadAttachments();
+	
+
+		
 			step2.setCertCode(tmc.getCreditCode());
 			step2.setAppCnName(tmc.getApplier());
 			step2.setAppCnAddr(tmc.getApplierAddress());
@@ -300,11 +410,11 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			tminfo.setStep2(step2);
 			step3 = new Step3();
 			step3.setTmType(tm.getTradeMarkType().getText());
-			//TODO(?)
+			// TODO(?)
 			step3.setIfSolidTm(tm.getWhetherThirdSpace().toString());
-			//TODO(?)
+			// TODO(?)
 			step3.setColourSign(tm.getWhetherColorGroup().toString());
-			//TODO(?)
+			// TODO(?)
 			step3.setTmFormType(tm.getWhetherSound().toString());
 			step3.setTmFormTypeFilePath("");
 			step3.setTmFormTypeFileName("");
@@ -312,51 +422,60 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			tminfo.setStep3(step3);
 
 			step4 = new Step4();
-			//TODO(?)
+			// TODO(?)
 			step4.setIfShareTm("ifShareTm1");
 			tminfo.setStep4(step4);
 
 			step5 = new Step5();
-			//TODO(?)
+			// TODO(?)
 			step5.setPriorityType("priorityType1");
 			tminfo.setStep5(step5);
 
 			step6 = new Step6();
 			String str = tm.getSelectedTwoStr();
-			step6.setGoods(goodSl(str,tm.getNclOne().getCode()));
+			step6.setGoods(goodSl(str, tm.getNclOne().getCode()));
 			tminfo.setStep6(step6);
 			
+			
+			step7 = new Step7();
 			step7.setIsBlack("true");
 			step7.setBlackPath("");
 			step7.setBlackName("");
 			step7.setIsPersonPhoto("false");
 			step7.setPersonPhotoPath("");
 			step7.setPersonPhotoName("");
+
+			step7.setPicPath(this.getTradePictAttachment(tm, shareGroupToTradeMarkMap).get("fileUrl"));
+			step7.setPicName(this.getTradePictAttachment(tm, shareGroupToTradeMarkMap).get("fileName"));
+
+			step7.setCommentPath(this.getCommentAttachment(tm, shareGroupToTradeMarkMap).get("fileUrl"));
+			step7.setCommentName(this.getCommentAttachment(tm, shareGroupToTradeMarkMap).get("fileName"));
+
 			tminfo.setStep7(step7);
-			
 			tminfos.add(tminfo);
 		}
 		return tminfos;
 	}
 
-	public List<Goods> goodSl(String str,String code){
+	public List<Goods> goodSl(String str, String code) {
 		List<Goods> goodsList = new ArrayList<>();
 		Goods goods;
 		String[] lines = str.split("\\n");
 		Map<String,List<String>> map = new HashMap<>();
 		List<String> stss;
-		for(String s:lines) {
-			String[] sts =  s.split(":");
-			if(map.containsKey(sts[2])) {
+		for (String s : lines) {
+			String[] sts = s.split(":");
+			if (map.containsKey(sts[2])) {
 				stss = map.get(sts[2]);
-			}else {
+				stss.add(sts[1]);
+			} else {
 				stss = new ArrayList<>();
 			}
 			stss.add(sts[1]);
 			map.put(sts[2], stss);
 		}
 		Set<String> set = map.keySet();
-		for(String st:set) {
+		for (String st : set) {
 			goods = new Goods();
 			goods.setClasses(code);
 			goods.setGroup(st);
@@ -367,13 +486,37 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 	}
 	public String updateMarkState(String ids,String type){
 		Oql oql = new Oql();
-		String sql = "update ig_trade_mark set mark_state = ? where id in (?)";
-		if (type.equals("1")){
-			oql.getParameters().add("mark_state",MarkState.WAITCOMMIT.getValue(),Types.INTEGER);
-		}else{
-			oql.getParameters().add("mark_state",MarkState.READY.getValue(),Types.INTEGER);
-		}
+		oql.setSelects("TradeMark.*");
+		oql.setType(TradeMark.class);
 		oql.getParameters().add("id",ids,Types.INTEGER);
-		return String.valueOf(this.pm.executeNonQuery(sql,oql.getParameters()));
+		List<TradeMark> tms = this.queryList(oql);
+		List<TradeMark> list = new ArrayList<>();
+		StringBuffer str = new StringBuffer();
+		for (TradeMark tm:tms){
+			TradeMarkCase tmc = tm.getTradeMarkCase();
+			List<UploadAttachment> uas = tmc.getUploadAttachments();
+			boolean boo = true;
+			for(UploadAttachment ua:uas){
+				if (ua.getNeeded()&&ua.getFileUrl().equals("")){
+					boo = false;
+					str.append(tm.getCode()).append(",");
+					break;
+				}else{
+					boo = true;
+				}
+			}
+			if (boo){
+				if (type.equals("1")){
+					tm.setMarkState(MarkState.WAITCOMMIT);
+				}else{
+					tm.setMarkState(MarkState.READY);
+				}
+				list.add(tm);
+			}
+		}
+		if (!list.isEmpty()){
+			this.saves(list);
+		}
+		return str.substring(0,str.lastIndexOf(","));
 	}
 }

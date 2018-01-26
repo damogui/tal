@@ -2,9 +2,11 @@ package com.gongsibao.crm.web;
 
 import java.util.ArrayList;
 
+import org.netsharp.communication.ServiceFactory;
 import org.netsharp.panda.commerce.FilterParameter;
 import org.netsharp.util.StringManager;
 
+import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.supplier.web.panda.BaseSupplierListPart;
 
 public class TaskBaseListPart extends BaseSupplierListPart{
@@ -32,5 +34,18 @@ public class TaskBaseListPart extends BaseSupplierListPart{
 		filter = StringManager.join(" or ", filters);
 		System.out.println("query filter:" + filter);
 		return filter;
+	}
+	
+	/**
+	 * 任务分配
+	 * @param taskId
+	 * @param supplierId
+	 * @param departmentId
+	 * @param toUserId
+	 * @return
+	 */
+	public boolean allocation(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId,Integer allocationType){
+		INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
+		return taskService.allocation(taskId, supplierId, departmentId, toUserId,allocationType);
 	}
 }
