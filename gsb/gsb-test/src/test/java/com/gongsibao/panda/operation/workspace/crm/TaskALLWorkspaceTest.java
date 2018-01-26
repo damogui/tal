@@ -87,7 +87,7 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest{
 		addColumn(datagrid, "customer.qq", "QQ", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "customer.weixin", "微信", ControlTypes.TEXT_BOX, 100, false);
 		
-		//addColumn(datagrid, "customer.realName", "其他联系方式", ControlTypes.TEXT_BOX, 100, true);
+		// addColumn(datagrid, "customer.realName", "其他联系方式", ControlTypes.TEXT_BOX, 100, true);
 
 		addColumn(datagrid, "intentionCategory", "质量分类", ControlTypes.ENUM_BOX, 100, false);
 		addColumn(datagrid, "quality.name", "客户质量", ControlTypes.TEXT_BOX, 100, false);
