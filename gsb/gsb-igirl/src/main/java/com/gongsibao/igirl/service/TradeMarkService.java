@@ -33,8 +33,6 @@ import com.gongsibao.igirl.dto.TradeMark.Step5;
 import com.gongsibao.igirl.dto.TradeMark.Step6;
 import com.gongsibao.igirl.dto.TradeMark.Step7;
 import com.gongsibao.igirl.dto.TradeMark.TradeMarkApplyInfo;
-import com.mysql.jdbc.StringManager;
-
 @Service
 public class TradeMarkService extends GsbPersistableService<TradeMark> implements ITradeMarkService {
 	IUploadAttachmentService upattachementService = ServiceFactory.create(IUploadAttachmentService.class);
