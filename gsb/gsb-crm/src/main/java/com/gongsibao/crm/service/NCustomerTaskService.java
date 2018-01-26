@@ -2,6 +2,8 @@ package com.gongsibao.crm.service;
 
 import java.sql.Types;
 
+import org.netsharp.action.ActionContext;
+import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.core.Oql;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
@@ -9,6 +11,7 @@ import org.netsharp.util.sqlbuilder.UpdateBuilder;
 import com.gongsibao.bd.service.SupplierPersistableService;
 import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.entity.crm.NCustomerTask;
+import com.gongsibao.entity.supplier.Supplier;
 
 @Service
 public class NCustomerTaskService extends SupplierPersistableService<NCustomerTask> implements INCustomerTaskService {
@@ -92,6 +95,25 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		}
 		String cmdText = updateSql.toSQL();
 		return this.pm.executeNonQuery(cmdText, null);
+	}
+	
+	/* 任务分配
+	 * (non-Javadoc)
+	 * @see com.gongsibao.crm.base.INCustomerTaskService#allot(java.lang.Integer)
+	 */
+	@Override
+	public int allot(Integer taskId) {
+		NCustomerTask entity = this.byId(taskId);
+		ActionContext ctx = new ActionContext();
+		{
+			ctx.setPath("gsb/crm/customer/task/allot");
+			ctx.setItem(entity);
+			ctx.setState(entity.getEntityState());
+		}
+
+		ActionManager action = new ActionManager();
+		action.execute(ctx);
+		return 0;
 	}
 
 	

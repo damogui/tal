@@ -1,6 +1,7 @@
 package com.gongsibao.crm.base;
 
 import org.netsharp.base.IPersistableService;
+import org.netsharp.core.annotations.Transaction;
 
 import com.gongsibao.entity.crm.NCustomerTask;
 
@@ -28,5 +29,11 @@ public interface INCustomerTaskService  extends IPersistableService<NCustomerTas
 	 * @param toUserId 去向的业务员Id
 	 * @return
 	 */
-	public int taskTransfer(Integer taskId,Integer supplierId,Integer departmentId,Integer toUserId);
+	public int taskTransfer(Integer taskId,Integer supplierId,Integer departmentId,Integer toUserId);	
+	/**
+	 * @param taskId 任务id
+	 * @return
+	 */
+	@Transaction
+	int allot(Integer taskId);
 }
