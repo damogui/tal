@@ -17,7 +17,7 @@ public class DepartmentServiceProduct  extends Entity {
      */
     private static final long serialVersionUID = -6865133330856235904L;
 
-    @Column(name="department_id",header="服务商主键")
+    @Column(name="department_id",header="部门主键")
     private Integer departmentId;
 
     @JsonIgnore

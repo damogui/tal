@@ -1,4 +1,4 @@
-package com.gongsibao.panda.crm.workspace.my.form;
+package com.gongsibao.panda.crm.workspace.salesman.form;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ public class MyAddCustomerWorkspaceTest extends CustomerAddWorkspaceTest{
 		
 		super.setup();
 		urlForm = "/crm/salesman/customer/add";
-		resourceNodeCode = "GSB_CRM_MY_CUSTOMER_ADD";
+		resourceNodeCode = "CRM_SALESMAN_CUSTOMER_ADD";
 		
 		List<String> ss = new ArrayList<String>();
 		ss.add("/gsb/crm/platform/js/customer-add-form.part.js");
@@ -24,7 +24,7 @@ public class MyAddCustomerWorkspaceTest extends CustomerAddWorkspaceTest{
 		formJsImport = StringManager.join("|", ss);
 		
 		formJsController = "com.gongsibao.crm.web.MyNCustomerAddFormPart";
-		taskDetailResourceNodeCode = "GSB_CRM_MY_TASK_ALL";
+		taskDetailResourceNodeCode = "CRM_SALESMAN_TASK_ALL";
 		
 		taskDetailJsController = "com.gongsibao.crm.web.MyNCustomerTaskDetailPart";
 	}

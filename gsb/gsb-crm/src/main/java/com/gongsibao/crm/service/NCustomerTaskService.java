@@ -12,6 +12,7 @@ import com.gongsibao.bd.service.SupplierPersistableService;
 import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
+import com.gongsibao.entity.crm.dic.NAllocationType;
 
 @Service
 public class NCustomerTaskService extends SupplierPersistableService<NCustomerTask> implements INCustomerTaskService {
@@ -133,10 +134,14 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	}
 
 	@Override
-	public Boolean allocation(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId) {
+	public Boolean allocation(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId,Integer allocationType) {
 
 		//任务分配
 		NCustomerTask entity = this.byId(taskId);
+		entity.setSupplierId(supplierId);
+		entity.setDepartmentId(departmentId);
+		entity.setOwnerId(toUserId);
+		entity.setAllocationType(allocationType.equals(2) ? NAllocationType.MANUAL:NAllocationType.AUTO);
 		ActionContext ctx = new ActionContext();
 		{
 			ctx.setPath("gsb/crm/task/allocation");
@@ -202,7 +207,6 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
 	@Override
 	public Boolean rollback(Integer taskId) {
-		
 		//任务回退
 		NCustomerTask entity = this.byId(taskId);
 		ActionContext ctx = new ActionContext();
