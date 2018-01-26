@@ -87,8 +87,13 @@ public class ResourceTest extends ResourceCreationBase {
 
 		node1 = this.createResourceNodeCategory("我的任务", "GSB_CRM_MY", node.getId());
 		{
-			this.createResourceNodeVoucher(NCustomer.class.getName(), "新增客户", "GSB_CRM_MY_CUSTOMER_ADD", INCustomerTaskService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomer.class.getName(), "我的客户", "GSB_CRM_MY_CUSTOMER", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomer.class.getName(), "新增客户", "GSB_CRM_MY_CUSTOMER_ADD", INCustomerService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomer.class.getName(), "修改客户", "GSB_CRM_MY_CUSTOMER_Edit", INCustomerService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomer.class.getName(), "新增任务", "GSB_CRM_MY_TASK_ADD", INCustomerService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomer.class.getName(), "修改任务", "GSB_CRM_MY_TASK_EDIT", INCustomerService.class.getName(), node1.getId());
+			
+			
+			this.createResourceNodeVoucher(NCustomer.class.getName(), "我的客户", "GSB_CRM_MY_CUSTOMER", INCustomerService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "全部任务", "GSB_CRM_MY_TASK_ALL", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "未启动任务", "GSB_CRM_MY_TASK_START", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "未跟进任务", "GSB_CRM_MY_TASK_UNFOOLOW", INCustomerTaskService.class.getName(), node1.getId());
@@ -108,16 +113,16 @@ public class ResourceTest extends ResourceCreationBase {
 			
 			//this.createResourceNodeVoucher(NCustomerProduct.class.getName(), "意向产品", NCustomerProduct.class.getSimpleName(), INCustomerProductService.class.getName(), node1.getId());
 			//this.createResourceNodeVoucher(Product.class.getName(), "产品", "CRM_N" + Product.class.getSimpleName(), IPersistableService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTaskFoolow.class.getName(), "沟通日志", NCustomerTaskFoolow.class.getSimpleName(),INCustomerTaskFoolowService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTaskNotify.class.getName(), "通知日志", NCustomerTaskNotify.class.getSimpleName(),INCustomerTaskNotifyService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerChange.class.getName(), "流转日志", NCustomerChange.class.getSimpleName(),INCustomerChangeService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTaskInspection.class.getName(), "抽查日志", NCustomerTaskInspection.class.getSimpleName(),INCustomerTaskInspectionService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTaskFoolow.class.getName(), "沟通日志", "GSB_CRM_My_Manager_Foolow",INCustomerTaskFoolowService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTaskNotify.class.getName(), "通知日志", "GSB_CRM_My_Manager_Notify",INCustomerTaskNotifyService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerChange.class.getName(), "流转日志", "GSB_CRM_My_Manager_Change",INCustomerChangeService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTaskInspection.class.getName(), "抽查日志", "GSB_CRM_My_Manager_Inspection",INCustomerTaskInspectionService.class.getName(), node1.getId());
 			
 		}
 
 		node1 = this.createResourceNodeCategory("部门管理", "GSB_CRM_DEPARTMENT", node.getId());
 		{
-			this.createResourceNodeVoucher(NCustomer.class.getName(), "新增客户", "GSB_CRM_DEPARTMENT_ADD", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomer.class.getName(), "新增客户", "GSB_CRM_DEPARTMENT_ADD", INCustomerService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "全部任务", "GSB_CRM_DEPARTMENT_ALL", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "未启动任务", "GSB_CRM_DEPARTMENT_START", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "未跟进任务", "GSB_CRM_DEPARTMENT_UNFOOLOW", INCustomerTaskService.class.getName(), node1.getId());

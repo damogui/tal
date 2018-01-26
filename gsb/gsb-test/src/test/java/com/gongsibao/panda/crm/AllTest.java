@@ -18,7 +18,6 @@ import com.gongsibao.panda.crm.workspace.CompanyIntentionWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.CustomerAllWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.CustomerOrderWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.CustomerServiceConfigWorkspaceTest;
-import com.gongsibao.panda.crm.workspace.TaskFollowUpWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.department.AddDepartmentCustomerWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.department.DepartAllTaskWorkspace;
 import com.gongsibao.panda.crm.workspace.department.DepartAlreadySignWorkspace;
@@ -27,15 +26,18 @@ import com.gongsibao.panda.crm.workspace.department.DepartFollowIngWorkspace;
 import com.gongsibao.panda.crm.workspace.department.DepartHighSeasWorkspace;
 import com.gongsibao.panda.crm.workspace.department.DepartUnFoolowWorkspace;
 import com.gongsibao.panda.crm.workspace.department.DepartUnStartWorkspace;
-import com.gongsibao.panda.crm.workspace.my.AddMyCustomerWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.my.AllTaskWorkspace;
 import com.gongsibao.panda.crm.workspace.my.AlreadySignWorkspace;
 import com.gongsibao.panda.crm.workspace.my.CheckAbnormalWorkspace;
 import com.gongsibao.panda.crm.workspace.my.CustomerWorkspace;
-import com.gongsibao.panda.crm.workspace.my.DefeatedWorkspace;
 import com.gongsibao.panda.crm.workspace.my.FollowIngWorkspace;
+import com.gongsibao.panda.crm.workspace.my.MyCustomerVerifyWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.my.UnFoolowWorkspace;
 import com.gongsibao.panda.crm.workspace.my.UnStartWorkspace;
+import com.gongsibao.panda.crm.workspace.my.form.MyAddCustomerWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.my.form.MyCustomerEditWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.my.form.MyTaskAddWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.my.form.MyTaskEditWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.sys.SysDepartmentWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.sys.SysSalesmanWorkspaceTest;
 
@@ -68,19 +70,25 @@ import com.gongsibao.panda.crm.workspace.sys.SysSalesmanWorkspaceTest;
 		CustomerServiceConfigWorkspaceTest.class,
 		CustomerOrderWorkspaceTest.class,
 //		BaseServiceProviderWorkspaceTest.class,
-				
-		AddMyCustomerWorkspaceTest.class,
+
+		
+		MyAddCustomerWorkspaceTest.class,
+		MyCustomerEditWorkspaceTest.class,
+		MyTaskAddWorkspaceTest.class,
+		MyTaskEditWorkspaceTest.class,
+		
+		
 		AllTaskWorkspace.class,
 		UnStartWorkspace.class,
 		UnFoolowWorkspace.class,
 		FollowIngWorkspace.class,
 		AlreadySignWorkspace.class,
-		DefeatedWorkspace.class,
+		//DefeatedWorkspace.class,
 		CheckAbnormalWorkspace.class,
-		TaskFollowUpWorkspaceTest.class,
 		CustomerWorkspace.class,
 		
 		AddDepartmentCustomerWorkspaceTest.class,
+		MyCustomerVerifyWorkspaceTest.class,
 		DepartAllTaskWorkspace.class,
 		DepartAlreadySignWorkspace.class,
 		DepartDefeatedWorkspace.class,
