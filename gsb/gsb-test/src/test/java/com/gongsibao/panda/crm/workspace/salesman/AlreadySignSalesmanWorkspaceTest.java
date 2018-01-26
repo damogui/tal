@@ -14,7 +14,6 @@ public class AlreadySignSalesmanWorkspaceTest extends AllSalesmanTaskWorkspaceTe
 //		listFilter = "foolowStatus=5 and ownerId = '{userId}'";
 	}
 	
-	
 	@Override
 	public PToolbar createListToolbar() {
 		
