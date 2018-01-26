@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
+import org.netsharp.util.StringManager;
 
 import com.gongsibao.bd.service.GsbPersistableService;
 import com.gongsibao.entity.igirl.DownloadAttachment;
@@ -32,6 +33,7 @@ import com.gongsibao.igirl.dto.TradeMark.Step5;
 import com.gongsibao.igirl.dto.TradeMark.Step6;
 import com.gongsibao.igirl.dto.TradeMark.Step7;
 import com.gongsibao.igirl.dto.TradeMark.TradeMarkApplyInfo;
+import com.mysql.jdbc.StringManager;
 
 @Service
 public class TradeMarkService extends GsbPersistableService<TradeMark> implements ITradeMarkService {
@@ -251,7 +253,7 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		List<UploadAttachment> ups = upattachementService.queryList(oql);
 		for (UploadAttachment ua : ups) {
 			String fileurl = ua.getFileUrl();
-			if(!StringUtils.isNullOrEmpty(fileurl)) {
+			if(!StringManager.isNullOrEmpty(fileurl)) {
 				int index = fileurl.lastIndexOf("/");
 				String filename = fileurl.substring(index + 1);
 				String key = "";
@@ -303,7 +305,7 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		}
 		String fileinfo = attachmentsMap.get(step2key);
 		String fileinfo2 = attachmentsMap.get(step3key);
-		if (!StringUtils.isNullOrEmpty(fileinfo)) {
+		if (!StringManager.isNullOrEmpty(fileinfo)) {
 			String fileUrl = fileinfo.split("_")[0];
 			String fileName = fileinfo.split("_")[1];
 			rtnMap.put("fileUrl", fileUrl);
@@ -330,7 +332,7 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		}
 		String fileinfo = attachmentsMap.get(step7key);
 		String fileinfo2 = attachmentsMap.get(step8key);
-		if (!StringUtils.isNullOrEmpty(fileinfo)) {
+		if (!StringManager.isNullOrEmpty(fileinfo)) {
 			String fileUrl = fileinfo.split("_")[0];
 			String fileName = fileinfo.split("_")[1];
 			rtnMap.put("fileUrl", fileUrl);
