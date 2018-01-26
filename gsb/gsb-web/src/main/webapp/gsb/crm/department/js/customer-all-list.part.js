@@ -4,7 +4,7 @@ com.gongsibao.crm.web.NCustomerAllListPart = com.gongsibao.crm.web.BaseCustomerL
 	},
 	add:function(){
 		
-		window.open("/panda/crm/salesman/customer/add");
+		window.open("/panda/crm/department/customer/add");
 	},
 	detail:function(id){
 		
@@ -12,7 +12,7 @@ com.gongsibao.crm.web.NCustomerAllListPart = com.gongsibao.crm.web.BaseCustomerL
 	},
 	edit : function(id) {
 
-		window.open("/panda/crm/salesman/customer/edit?id="+id);
+		window.open("/panda/crm/department/customer/edit?id="+id);
 	},
 	addTask:function(){
 
@@ -21,7 +21,7 @@ com.gongsibao.crm.web.NCustomerAllListPart = com.gongsibao.crm.web.BaseCustomerL
 			return;
 		}
 		var customerId = row.id;
-    	var url='/panda/crm/salesman/task/add?fk=customerId:'+customerId;
+    	var url='/panda/crm/department/task/add?fk=customerId:'+customerId;
     	layer.open({
   		  type: 2,
   		  title: '新增任务',

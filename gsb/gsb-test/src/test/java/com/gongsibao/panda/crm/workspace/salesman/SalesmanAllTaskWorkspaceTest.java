@@ -28,7 +28,7 @@ public class SalesmanAllTaskWorkspaceTest extends TaskALLWorkspaceTest {
 		
 		List<String> ss = new ArrayList<String>();
 		ss.add("/gsb/crm/base/js/task-base-list.part.js");
-		ss.add("/gsb/crm/platform/js/task-all-list.part.js");
+		ss.add("/gsb/crm/salesman/js/task-all-list.part.js");
 		listPartImportJs = StringManager.join("|", ss);
 
 		listFilter = "owner_id = '{userId}'";
@@ -51,7 +51,7 @@ public class SalesmanAllTaskWorkspaceTest extends TaskALLWorkspaceTest {
 
 		addToolbarItem(toolbar, "add", "新增任务", "fa fa-plus", "openMemberPopup()", null, 5);
 		addToolbarItem(toolbar, "openMemberPopup", "开通会员", "fa fa-check", "openMemberPopup()", null, 6);
-		addToolbarItem(toolbar, "taskTransferPopup", "任务转移", "fa fa-edit", "taskTransferPopup()", null, 7);
+		addToolbarItem(toolbar, "taskTransferPopup", "任务转移", "fa fa-share-square-o", "taskTransferPopup()", null, 7);
 		return toolbar;
 	}
 

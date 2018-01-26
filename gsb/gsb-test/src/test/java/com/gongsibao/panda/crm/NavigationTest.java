@@ -39,7 +39,7 @@ public class NavigationTest extends NavigationBase {
 
 		createPTreeNode(tree, null, null, "CRM_SALESMAN", "我的任务", "", 2);
 		{
-			createPTreeNode(tree, "CRM_SALESMAN", null, "CRM_SALESMAN_CUSTOMER_ADD", "新增客户", "/crm/salesman/customer/add", 1);
+			createPTreeNode(tree, "CRM_SALESMAN", "fa fa-user-plus", "CRM_SALESMAN_CUSTOMER_ADD", "新增客户", "/crm/salesman/customer/add", 1);
 			createPTreeNode(tree, "CRM_SALESMAN", null, "CRM_SALESMAN_CUSTOMER", "全部客户", "/crm/salesman/customer/list", 2);
 			createPTreeNode(tree, "CRM_SALESMAN", null, "CRM_SALESMAN_TASK_ALL", "全部任务", "/crm/salesman/task/all/list", 3);
 			createPTreeNode(tree, "CRM_SALESMAN", null, "CRM_SALESMAN_TASK_START", "未启动任务", "/crm/salesman/task/unstart/list", 4);
@@ -53,7 +53,7 @@ public class NavigationTest extends NavigationBase {
 
 		createPTreeNode(tree, null, null, "CRM_DEPARTMENT", "部门管理", "", 3);
 		{
-			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_CUSTOMER_ADD", "新增客户", "/crm/department/customer/add", 1);
+			createPTreeNode(tree, "CRM_DEPARTMENT", "fa fa-user-plus", "CRM_DEPARTMENT_CUSTOMER_ADD", "新增客户", "/crm/department/customer/add", 1);
 			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_CUSTOMER_ALL", "全部客户", "/crm/department/customer/list", 2);
 			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_ALL", "全部任务", "/crm/department/task/all/list", 3);
 			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_START", "未启动任务", "/crm/department/unstart/list", 4);

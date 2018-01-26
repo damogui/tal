@@ -2,10 +2,9 @@ package com.gongsibao.panda.crm.workspace.department;
 
 import org.junit.Before;
 import org.netsharp.panda.plugin.entity.PToolbar;
+import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.panda.crm.workspace.salesman.SalesmanAllTaskWorkspaceTest;
-
-public class DepartmentDefeatedWorkspaceTest extends SalesmanAllTaskWorkspaceTest{
+public class DepartmentDefeatedWorkspaceTest extends DepartmentAllTaskWorkspaceTest{
 
 	@Override
 	@Before
@@ -15,17 +14,40 @@ public class DepartmentDefeatedWorkspaceTest extends SalesmanAllTaskWorkspaceTes
 		urlList = "/crm/department/defeated/list";
 		resourceNodeCode = "CRM_DEPARTMENT_TASK_DEFEATED";
 //		listFilter = "foolowStatus = 4 and creator_id = '{userId}'";
+		listToolbarPath = "department/task/defeated";
+		rowToolbaPath = "department/task/defeated/row";
 	}
 	
 	@Override
 	public PToolbar createListToolbar() {
-		
-		return null;
+
+		ResourceNode node = this.getResourceNode();
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			toolbar.setPath(listToolbarPath);
+			toolbar.setName("无法签单工具栏");
+			toolbar.setResourceNode(node);
+		}
+
+		addToolbarItem(toolbar, "regain", "收回", "fa fa-mail-reply", "regain()", null, 6);
+		return toolbar;
 	}
 	
 	@Override
 	public PToolbar createRowToolbar() {
-		
-		return null;
+
+		ResourceNode node = this.getResourceNode();
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			toolbar.setPath(rowToolbaPath);
+			toolbar.setName("抽查工具栏");
+			toolbar.setResourceNode(node);
+		}
+		addToolbarItem(toolbar, "verified", "属实", "fa fa-edit", "verified()", null, 6);
+		addToolbarItem(toolbar, "untrue", "不属实", "fa fa-edit", "untrue()", null, 7);
+		addToolbarItem(toolbar, "remark", "备注", "fa fa-edit", "submitRemark()", null, 8);
+		return toolbar;
 	}
 }

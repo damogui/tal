@@ -52,7 +52,7 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 		{
 			item.toNew();
 			item.setCode("add");
-			item.setIcon("fa fa-plus");
+			item.setIcon("fa fa-user-plus");
 			item.setName("新增客户");
 			item.setCommand(null);
 			item.setSeq(1);

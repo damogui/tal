@@ -3,9 +3,7 @@ package com.gongsibao.panda.crm.workspace.department;
 import org.junit.Before;
 import org.netsharp.panda.plugin.entity.PToolbar;
 
-import com.gongsibao.panda.crm.workspace.salesman.SalesmanAllTaskWorkspaceTest;
-
-public class DepartmentSignWorkspaceTest extends SalesmanAllTaskWorkspaceTest{
+public class DepartmentSignWorkspaceTest extends DepartmentAllTaskWorkspaceTest{
 
 	@Override
 	@Before

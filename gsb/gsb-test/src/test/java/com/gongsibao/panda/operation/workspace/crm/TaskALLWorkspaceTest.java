@@ -35,7 +35,7 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest{
 		{
 			item.toNew();
 			item.setCode("takeBack");
-			item.setIcon("fa fa-mail-reply-all");
+			item.setIcon("fa fa-mail-reply");
 			item.setName("收回");
 			item.setSeq(1);
 			item.setCommand("{controller}.takeBack();");
