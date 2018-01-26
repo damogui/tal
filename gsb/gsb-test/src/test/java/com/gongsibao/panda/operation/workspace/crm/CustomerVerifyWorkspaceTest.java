@@ -7,9 +7,7 @@ import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
-import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
-import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.plugin.dic.ToolbarType;
@@ -30,11 +28,11 @@ public class CustomerVerifyWorkspaceTest extends WorkspaceCreationBase{
 		entity = NCustomer.class;
 		urlList = "/operation/customer/verify";
 		listToolbarPath = "operation/customer/verify/edit";
-		listPartName = formPartName = "全部客户";
+		listPartName = formPartName = "校验客户";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_Customer_Manager_Add";
-		listPartImportJs = "/gsb/crm/js/customer-verify-list.part.js";
+		listPartImportJs = "/gsb/crm/platform/js/customer-verify-list.part.js";
 		listPartJsController = CustomerVerifyListPart.class.getName();
 		listPartServiceController = CustomerVerifyListPart.class.getName();
 	}
@@ -105,7 +103,7 @@ public class CustomerVerifyWorkspaceTest extends WorkspaceCreationBase{
 			datagrid.setToolbar(rowToolbar);
 		}
 
-		PDatagridColumn column = null;
+		//PDatagridColumn column = null;
 		addColumn(datagrid, "creator", "操作", ControlTypes.OPERATION_COLUMN, 100);
 		addColumn(datagrid, "id", "客户Id", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "realName", "名称", ControlTypes.TEXT_BOX, 120);

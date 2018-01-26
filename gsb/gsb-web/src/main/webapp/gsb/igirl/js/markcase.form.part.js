@@ -105,6 +105,10 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
 	   var newValue=$(ctl).val();
     	var qcurl="http://192.168.4.1:3000/qc?detailLink=http://192.168.28.41:8080/gsb/igirl/tmcase.html?mobile="+newValue;
     	$("#tokenImgUrl").attr("src",qcurl)
+
+       this.invokeService("tmsForRobot",[72],function (msg) {
+           alert(JSON.stringify(m));
+       })
        
     }
 });
@@ -148,7 +152,7 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
             var tmpArray=[];
             var i=1;
             selectedItems.forEach(function (row) {
-                tmpArray.push(i+"."+row.name+":"+row.code+":"+row.id);
+                tmpArray.push(i+":"+row.name+":"+row.code+":"+row.id);
                 i++;
             })
             var rtnStr=tmpArray.join("\n")
@@ -198,7 +202,19 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
         //首次加载需要按照大类id获取所有的小类列表数据，按照selectedTwoStr去初始化selectedItems
         //去选择grid,调用selectRecord --idValue
         var me = this;
+        
+      
+   
         if(newValue!=-1){
+//        	     var g = $('#nclOne_name').combogrid('grid');	// get datagrid object
+//              var r = g.datagrid('getSelected');	// get the selected row
+//             
+//              var en=this.viewModel.getEntity();
+//              if(en && en.nclOne){
+//           	   en.nclOne.code=r.code;
+//	           	console.log(en.nclOne.name)
+//	            console.log(r.code)
+//                  }
             this.invokeService("findSubsByNclOneId", [newValue], function(data) {
                 //me.reload();
                 //IMessageBox.toast(JSON.stringify(data));
@@ -260,11 +276,14 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
         $("#filterinput").on("input",function (e) {
             tmpDatas.length=0;
             var currentVal=$(e.currentTarget).val();
-            rtnData.forEach(function (obj, index) {
-                if(obj.code.indexOf(currentVal)>=0 || obj.name.indexOf(currentVal)>=0 || obj.thirdCode.indexOf(currentVal)>=0){
-                    tmpDatas.push(obj);
+            if(rtnData){
+            	rtnData.forEach(function (obj, index) {
+                    if(obj.code.indexOf(currentVal)>=0 || obj.name.indexOf(currentVal)>=0 || obj.thirdCode.indexOf(currentVal)>=0){
+                        tmpDatas.push(obj);
+                    }
+                  })
                 }
-            })
+            
             setTimeout(function () {
                 $('#ncltwogrid').datagrid({
                     data:tmpDatas

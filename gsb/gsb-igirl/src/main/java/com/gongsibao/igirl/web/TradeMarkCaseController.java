@@ -11,5 +11,7 @@ public class TradeMarkCaseController {
      public TradeMarkCase getTradeMarkCaseModelByMobile(String mobile) {  
     	 TradeMarkCase tmc=tradeMarkCaseService.getTradeMarkCaseModelByMobile(mobile);  
     	 return 	tmc; 
+    	 
+       
      }
 }

@@ -1,8 +1,8 @@
 package com.gongsibao.panda.igirl;
 import com.gongsibao.entity.igirl.TradeMark;
 import com.gongsibao.entity.igirl.TradeMarkCase;
-import com.gongsibao.entity.igirl.baseinfo.NCLOne;
 import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
+import com.gongsibao.entity.igirl.baseinfo.NclBatch;
 import org.junit.Before;
 import org.netsharp.meta.base.NavigationBase;
 import org.netsharp.panda.plugin.entity.PNavigation;
@@ -37,6 +37,8 @@ public class NavigationTest extends NavigationBase {
 		{
 			createPTreeNode(tree, "GSB_IGIRL_BASE", null, "IGRIL_BASE_" + NCLTwo.class.getSimpleName(), "商标大类", "/igirl/nclone/all/list", 1);
 			createPTreeNode(tree, "GSB_IGIRL_BASE", null, "IGRIL_BASE_" + NCLTwo.class.getSimpleName(), "商标小类", "/igirl/ncltwo/all/list", 2);
+			createPTreeNode(tree, "GSB_IGIRL_BASE", null, "NCL_All_" + NclBatch.class.getSimpleName(), "尼斯期间", "/ncl/batch/list", 3);
+
 
 		}
 	}

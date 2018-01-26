@@ -1,6 +1,8 @@
 package com.gongsibao.panda.igirl.workspace;
 
 import com.gongsibao.entity.igirl.TradeMark;
+import com.gongsibao.igirl.web.TradeMarkListPart;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
@@ -34,10 +36,13 @@ public class TradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		resourceNodeCode = "IGIRL_All_TradeMark";
 		formPartName = listPartName = meta.getName();
-		formOpenMode = OpenMode.WINDOW;
-		openWindowWidth = 800;
-		openWindowHeight = 600;
+		//formOpenMode = OpenMode.WINDOW;
+		//openWindowWidth = 800;
+	  //openWindowHeight = 600;
 		listToolbarPath="/igirl/tradeMark/list";
+		listPartJsController=TradeMarkListPart.class.getName();
+		listPartImportJs="/gsb/igirl/js/trademark.listpart.js";
+		
 	}
 	
 	 @Test
@@ -58,13 +63,13 @@ public class TradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 	 PToolbarItem item = new PToolbarItem();
 	 {
 	 item.toNew();
-	 item.setCode("attachment");
+	 item.setCode("autoSubmit");
 	 item.setIcon("fa fa-link");
-	 item.setName("进度更新");
+	 item.setName("就绪");
 	 item.setCommand(null);
 	 item.setOperationType(ot1);
 	 item.setSeq(3000);
-	 item.setCommand("{controller}.attachment();");
+	 item.setCommand("{controller}.autoSubmit();");
 	 toolbar.getItems().add(item);
 	 }
 	 toolbarService.save(toolbar);
@@ -77,6 +82,8 @@ public class TradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		{
 			datagrid.setToolbar("panda/datagrid/row/edit");
 			datagrid.setName("商标大类");
+			datagrid.setShowCheckbox(true);
+			datagrid.setSingleSelect(false);
 		}
 		PDatagridColumn column = null;
 		addColumn(datagrid, "proxyCode", "代理号", ControlTypes.TEXT_BOX, 200);

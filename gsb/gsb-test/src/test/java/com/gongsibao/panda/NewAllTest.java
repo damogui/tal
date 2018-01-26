@@ -45,8 +45,11 @@ import org.junit.runners.Suite.SuiteClasses;
 //	 com.gongsibao.panda.report.AllTest.class,
 
     //10.igri
-	//com.gongsibao.panda.igirl.AllTest.class,
-	
+	com.gongsibao.panda.igirl.AllTest.class,
+
+
+    //11.gardian
+    //	com.gongsibao.panda.gardian.AllTest.class,
 	//处理资源Id
 	org.netsharp.meta.end.AllTests.class,
 	})

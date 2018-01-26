@@ -91,7 +91,7 @@ legend{
 }
 
 .datagrid-btable tr{height: 31px;}
-
+.combo-panel .datagrid-btable tr{height: 25px !important;}
 .layui-layer-content form{
 	
 	padding-top:0 !important;

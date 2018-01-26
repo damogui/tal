@@ -65,7 +65,7 @@ public class DepartUnStartWorkspace extends WorkspaceCreationBase{
 		{
 			column.setFormatter("return '<span title='+value+'>'+value+'</span>'");
 		}
-		column = addColumn(datagrid, "old", "是否老客户", ControlTypes.TEXT_BOX, 100, false);
+//		column = addColumn(datagrid, "old", "是否老客户", ControlTypes.TEXT_BOX, 100, false);
 		column = addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 100, false);
 		{
 			column.setFormatter("return '<span title='+value+'>'+value+'</span>'");

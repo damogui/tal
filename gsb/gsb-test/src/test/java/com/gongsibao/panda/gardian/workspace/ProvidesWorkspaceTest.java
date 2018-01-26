@@ -86,21 +86,21 @@ public class ProvidesWorkspaceTest extends WorkspaceCreationBase{
 	}
 	
 	
-//	@Override
-//	protected PQueryProject createQueryProject(ResourceNode node) {
+	@Override
+	protected PQueryProject createQueryProject(ResourceNode node) {
+
+		PQueryProject queryProject = super.createQueryProject(node);
+		queryProject.toNew();
+		addQueryItem(queryProject, "name", "名称", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "useage", "用途", ControlTypes.TEXT_BOX);
+//		PQueryItem item =addQueryItem(queryProject, "mobilePhone", "销售方式", ControlTypes.CUSTOMER);{
 //
-//		PQueryProject queryProject = super.createQueryProject(node);
-//		queryProject.toNew();
-//		addQueryItem(queryProject, "name", "名称", ControlTypes.TEXT_BOX);
-//		addQueryItem(queryProject, "useage", "用途", ControlTypes.TEXT_BOX);
-////		PQueryItem item =addQueryItem(queryProject, "mobilePhone", "销售方式", ControlTypes.CUSTOMER);{
-////
-////			item.setCustomerControlType(DictComboBox.class.getName());
-////			item.setRefFilter("type=8");
-////		}
-//		//addQueryItem(queryProject, "enabled", "启用/禁用", ControlTypes.BOOLCOMBO_BOX);
-//		return queryProject;
-//	}
+//			item.setCustomerControlType(DictComboBox.class.getName());
+//			item.setRefFilter("type=8");
+//		}
+		//addQueryItem(queryProject, "enabled", "启用/禁用", ControlTypes.BOOLCOMBO_BOX);
+		return queryProject;
+	}
 	private void createProvidesEnvPart(PWorkspace workspace) {
 
 		ResourceNode node = this.resourceService.byCode("GARDIAN_BASE_ProvidesEnv");
@@ -119,15 +119,15 @@ public class ProvidesWorkspaceTest extends WorkspaceCreationBase{
 		{
 			form.toNew();
 			form.setResourceNode(node);
-			form.setColumnCount(1);
+			form.setColumnCount(2);
 			form.setName("服务环境");
 			String groupName = null;
 			PFormField formField = null;
 			addFormField(form, "name", "名称", groupName, ControlTypes.TEXT_BOX, true, false);
-			addFormField(form, "privateip", "内网IP", groupName, ControlTypes.TEXT_BOX, true, false);
-			addFormField(form, "privateport", "内网端口", groupName, ControlTypes.NUMBER_BOX, true, false);
-			addFormField(form, "publicip", "外网ip", groupName, ControlTypes.TEXT_BOX, true, false);
-			addFormField(form, "publicport", "外网端口", groupName, ControlTypes.NUMBER_BOX, true, false);
+			addFormField(form, "privateip", "内网IP", "网络环境", ControlTypes.TEXT_BOX, true, false);
+			addFormField(form, "privateport", "内网端口", "网络环境", ControlTypes.NUMBER_BOX, true, false);
+			addFormField(form, "publicip", "外网ip", "网络环境", ControlTypes.TEXT_BOX, true, false);
+			addFormField(form, "publicport", "外网端口", "网络环境", ControlTypes.NUMBER_BOX, true, false);
 		}
 
 		PPart part = new PPart();

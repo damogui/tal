@@ -3,6 +3,8 @@ package com.gongsibao.panda.igirl.workspace;
 import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.dict.AttachmentCat;
 import com.gongsibao.entity.igirl.dict.FileType;
+import com.gongsibao.entity.igirl.dict.MarkState;
+import com.gongsibao.entity.igirl.dict.ShareGroup;
 import com.gongsibao.igirl.web.TradeMarkCasePart;
 import com.gongsibao.igirl.web.TradeMarkDetailPart;
 import com.gongsibao.igirl.web.UploadAttachmentDetailPart;
@@ -145,8 +147,8 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		}
 		addFormField(form, "creditCode", "统一社会信用代码", groupName, ControlTypes.TEXT_BOX, false, false);
 
-		addFormField(form, "contactName", "联系人", groupName, ControlTypes.TEXT_BOX, true, false);
-		formField =addFormField(form, "mobile", "联系人电话", groupName, ControlTypes.TEXT_BOX, true, false);
+		addFormField(form, "contactName", "客户姓名", groupName, ControlTypes.TEXT_BOX, true, false);
+		formField =addFormField(form, "mobile", "客户电话", groupName, ControlTypes.TEXT_BOX, true, false);
 		{
 			formField.setTroikaTrigger("controllertradeMarkCase.mobileChange(this);");
 		}
@@ -168,8 +170,8 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "tmcState", "方案状态", groupName, ControlTypes.ENUM_BOX, true, false);
 		addFormField(form, "caseAmount", "方案金额", groupName, ControlTypes.DECIMAL_FEN_BOX, true, false);
 		addFormField(form, "tradeOptions", "商标选项", groupName, ControlTypes.TEXT_BOX, false, true);
-		addFormField(form, "hasColor", "是否指定颜色", groupName, ControlTypes.SWITCH_BUTTON, true, false);
 		addFormField(form, "code", "方案编号", groupName, ControlTypes.TEXT_BOX, false, true);
+		addFormField(form, "ywPhone", "代理电话", groupName, ControlTypes.TEXT_BOX, false, true);
 		return form;
 	}
 
@@ -194,12 +196,22 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 	private void createTradeMarkDetailPart(PWorkspace workspace) {
 
 		ResourceNode node = this.resourceService.byCode("IGIRL_All_TradeMark");
+		PDatagridColumn column = null;
 		PDatagrid datagrid = new PDatagrid(node, "商标选项");
 		{
 			addColumn(datagrid, "nclOne.code", "编码", ControlTypes.TEXT_BOX, 100);
 			addColumn(datagrid, "nclOne.name", "商标大类", ControlTypes.TEXT_BOX, 150);
 			addColumn(datagrid, "selectedTwoStr", "商标小类", ControlTypes.TEXTAREA, 150);
-			addColumn(datagrid, "markState", "申请状态", ControlTypes.ENUM_BOX, 150);
+			column=addColumn(datagrid, "markState", "申请状态", ControlTypes.ENUM_BOX, 150);
+			{
+				String formatter=EnumUtil.getColumnFormatter(MarkState.class);
+				column.setFormatter(formatter);
+			}
+			column=addColumn(datagrid, "shareGroup", "附件共享", ControlTypes.ENUM_BOX, 150);
+			{
+				String formatter=EnumUtil.getColumnFormatter(ShareGroup.class);
+				column.setFormatter(formatter);
+			}
 
 		}
 		PForm form = new PForm();
@@ -214,9 +226,11 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 			addFormField(form, "tradeMarkType", "商标类型", groupName, ControlTypes.ENUM_BOX, false, false);
 			addFormField(form, "whetherThirdSpace", "三维商标", groupName, ControlTypes.SWITCH_BUTTON, true, false);
 			addFormField(form, "whetherColorGroup", "颜色组合", groupName, ControlTypes.SWITCH_BUTTON, true, false);
+			addFormField(form, "hasColor", "指定颜色", groupName, ControlTypes.SWITCH_BUTTON, true, false);
 			addFormField(form, "whetherSound", "声音商标", groupName, ControlTypes.SWITCH_BUTTON, true, false);
 			addFormField(form, "whetherPersonPhoto", "以肖像注册", groupName, ControlTypes.SWITCH_BUTTON, true, false);
 			addFormField(form, "memo", "商标说明", groupName, ControlTypes.TEXT_BOX, true, false);
+			addFormField(form, "shareGroup", "附件共享", groupName, ControlTypes.ENUM_BOX, true, false);
 			formField = addFormFieldRefrence(form, "nclOne.name", "商标大类", null, "NCLOne", true, false);
 			{
 				formField.setTroikaTrigger("controllertradeMarks.nclOneChange(newValue,oldValue);");
@@ -270,6 +284,9 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 			{
 				// column.setFormatter("return '<a
 				// href=\"url\">name</a>'.replace('name',row.name).replace('url',row.fileUrl)");
+			}
+			column=addColumn(datagrid, "needed", "是否需要上传", ControlTypes.TEXT_BOX, 150);{
+				column.setFormatter("if( row.needed==1  ){ return '需要上传' } else{ return '无需上传' }");
 			}
 			column = addColumn(datagrid, "attachmentCat", "附件类别", ControlTypes.TEXT_BOX, 100);{
 				String formatter=EnumUtil.getColumnFormatter(AttachmentCat.class);
@@ -433,5 +450,6 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		operationService.addOperation(node, OperationTypes.view);
 		operationService.addOperation(node, OperationTypes.add);
 		operationService.addOperation(node, OperationTypes.update);
+		operationService.addOperation(node, OperationTypes.delete);
 	}
 }

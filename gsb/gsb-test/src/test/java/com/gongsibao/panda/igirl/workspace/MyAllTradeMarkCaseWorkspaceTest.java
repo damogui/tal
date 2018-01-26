@@ -169,6 +169,7 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "tradeOptions", "商标选项", groupName, ControlTypes.TEXT_BOX, false, true);
 		addFormField(form, "hasColor", "是否指定颜色", groupName, ControlTypes.SWITCH_BUTTON, true, false);
 		addFormField(form, "code", "方案编号", groupName, ControlTypes.TEXT_BOX, false, true);
+		addFormField(form, "ywPhone", "代理电话", groupName, ControlTypes.TEXT_BOX, true, true);
 		return form;
 	}
 

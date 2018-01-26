@@ -8,7 +8,6 @@ import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
-import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.QualityCategory;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
@@ -26,22 +25,22 @@ public class NCustomerTaskFoolow extends Entity {
 	private NCustomer customer;
 
 	@Column(name = "customer_id", header = "客户")
-	private Integer customerId = 0;
+	private Integer customerId;
 
 	@JsonIgnore
 	@Reference(foreignKey = "taskId", header = "任务Id")
 	private NCustomerTask task;
 
 	@Column(name = "task_id", header = "任务")
-	private Integer taskId = 0;
-
-	@Column(name = "foolow_status", header = "跟进状态")
-	private CustomerFollowStatus foolowStatus;
+	private Integer taskId;
 	
 	@Column(name = "quality_category", header = "质量分类")
 	private QualityCategory qualityCategory;
 	
-	@Column(name = "quality", header = "质量")
+	@Column(name = "quality", header = "质量Id")
+	private Integer qualityId;
+	
+	@Reference(foreignKey = "qualityId", header = "质量")
 	private NCustomerTaskQuality quality;
 	
 	@Column(name = "next_foolow_time", header = "下次跟进时间")
@@ -51,7 +50,7 @@ public class NCustomerTaskFoolow extends Entity {
 	private String content;
 	
 	@Column(name = "estimate_amount", header = "估计签单金额")
-	private Integer estimateAmount = 0;
+	private Integer estimateAmount;
 	
 	@Column(name = "supplier_id", header = "分配服务商Id")
 	private Integer supplierId;
@@ -65,6 +64,14 @@ public class NCustomerTaskFoolow extends Entity {
 	@Reference(foreignKey = "departmentId", header = "分配服务商部门")
 	private SupplierDepartment department;
 	
+	public Integer getQualityId() {
+		return qualityId;
+	}
+
+	public void setQualityId(Integer qualityId) {
+		this.qualityId = qualityId;
+	}
+
 	public Integer getSupplierId() {
 		return supplierId;
 	}
@@ -127,14 +134,6 @@ public class NCustomerTaskFoolow extends Entity {
 
 	public void setTaskId(Integer taskId) {
 		this.taskId = taskId;
-	}
-
-	public CustomerFollowStatus getFoolowStatus() {
-		return foolowStatus;
-	}
-
-	public void setFoolowStatus(CustomerFollowStatus foolowStatus) {
-		this.foolowStatus = foolowStatus;
 	}
 
 	public QualityCategory getQualityCategory() {

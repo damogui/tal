@@ -9,12 +9,14 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import com.gongsibao.cms.base.IProductViewService;
 import com.gongsibao.crm.base.INCustomerProductService;
 import com.gongsibao.crm.base.INCustomerService;
+import com.gongsibao.crm.base.INCustomerTaskFoolowService;
 import com.gongsibao.crm.base.INCustomerTaskQualityService;
 import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.entity.cms.ProductView;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.crm.NCustomerProduct;
 import com.gongsibao.entity.crm.NCustomerTask;
+import com.gongsibao.entity.crm.NCustomerTaskFoolow;
 import com.gongsibao.entity.crm.NCustomerTaskQuality;
 import com.gongsibao.entity.supplier.FunctionModule;
 import com.gongsibao.entity.supplier.FunctionModuleRole;
@@ -117,13 +119,21 @@ public class ResourceTest extends ResourceCreationBase {
 		{
 			this.createResourceNodeVoucher(NCustomer.class.getName(), "新增客户", "GSB_CRM_Customer_Manager_Add", INCustomerService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "新增任务", "GSB_CRM_Task_Manager_Add", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomer.class.getName(), "修改客户", "GSB_CRM_Customer_Manager_Edit", INCustomerService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "修改任务", "GSB_CRM_Task_Manager_Edit", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTaskFoolow.class.getName(), "跟进", "GSB_CRM_Foolow_Manager_Edit", INCustomerTaskFoolowService.class.getName(), node1.getId());
+			
+			
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "公海", "GSB_CRM_Customer_Manager_OpenSea", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomer.class.getName(), "全部客户", "GSB_CRM_Customer_Manager_ALL", INCustomerService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomer.class.getName(), "已分配客户", "GSB_CRM_Customer_Manager_Allocated", INCustomerService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomer.class.getName(), "未分配客户", "GSB_CRM_Customer_Manager_Undistributed", INCustomerService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomer.class.getName(), "无任务客户", "GSB_CRM_Customer_Manager_NotTask", INCustomerService.class.getName(), node1.getId());
+			
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "全部任务", "GSB_CRM_Customer_Manager_Task_ALL", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "已分配任务", "GSB_CRM_Customer_Manager_Task_Allocated", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "未分配任务", "GSB_CRM_Customer_Manager_Task_Undistributed", INCustomerTaskService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "丢单管理", "GSB_CRM_Customer_Manager_Task_Lost_Order", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "无法签单", "GSB_CRM_Customer_Manager_Task_Lost_Order", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "抽查异常", "GSB_CRM_Customer_Manager_Task_Anomaly_Detection", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTaskQuality.class.getName(), "客户质量", "GSB_CRM_Customer_Manager_Quality", INCustomerTaskQualityService.class.getName(), node1.getId());
 
