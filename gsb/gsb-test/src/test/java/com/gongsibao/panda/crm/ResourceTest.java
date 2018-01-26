@@ -1,5 +1,7 @@
 package com.gongsibao.panda.crm;
 
+import com.gongsibao.entity.supplier.*;
+import com.gongsibao.supplier.base.*;
 import org.junit.Before;
 import org.netsharp.base.IPersistableService;
 import org.netsharp.meta.base.ResourceCreationBase;
@@ -37,17 +39,7 @@ import com.gongsibao.entity.crm.NCustomerTaskFoolow;
 import com.gongsibao.entity.crm.NCustomerTaskInspection;
 import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.product.Product;
-import com.gongsibao.entity.supplier.Salesman;
-import com.gongsibao.entity.supplier.SalesmanProduct;
-import com.gongsibao.entity.supplier.SalesmanRole;
-import com.gongsibao.entity.supplier.Supplier;
-import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.supplier.base.ISalesmanProductService;
-import com.gongsibao.supplier.base.ISalesmanRoleService;
-import com.gongsibao.supplier.base.ISalesmanService;
-import com.gongsibao.supplier.base.ISupplierDepartmentService;
-import com.gongsibao.supplier.base.ISupplierService;
 
 public class ResourceTest extends ResourceCreationBase {
 
@@ -139,6 +131,8 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(Salesman.class.getName(), "员工列表", "GSB_CRM_SYS_SALESMAN", ISalesmanService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(SalesmanRole.class.getName(), "添加角色", "GSB_CRM_SYS_SALESMAN_ADDROLE", ISalesmanRoleService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(SalesmanProduct.class.getName(), "服务范围", "GSB_CRM_SYS_SALESMAN_Product", ISalesmanProductService.class.getName(), node1.getId());
+
+            this.createResourceNodeVoucher(DepartmentServiceProduct.class.getName(), "部门服务范围", "GSB_CRM_SYS_Department_Product", IDepartmentProductService.class.getName(), node1.getId());
 		}
 	}
 }
