@@ -26,7 +26,7 @@ public class TradeMarkCase extends Entity {
 	@Column(name = "contact_name", header = "客户姓名")
 	private String contactName;
 
-	@Column(name = "mobile", header = "代理电话")
+	@Column(name = "yw_phone", header = "代理电话")
 	private String ywPhone;
 
 	@Column(name = "owned_marks", header = "已有商标")

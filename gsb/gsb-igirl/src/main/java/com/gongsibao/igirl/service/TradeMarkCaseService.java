@@ -5,6 +5,7 @@ import com.gongsibao.entity.igirl.DownloadAttachment;
 import com.gongsibao.entity.igirl.TradeMark;
 import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.UploadAttachment;
+import com.gongsibao.entity.igirl.dict.ApplierType;
 import com.gongsibao.entity.igirl.dict.AttachmentCat;
 import com.gongsibao.entity.igirl.dict.FileType;
 import com.gongsibao.entity.igirl.dict.ShareGroup;
@@ -93,6 +94,9 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			// entity.setProxyCompanyName(sl.getName());
 			// entity.setAccountNo(accountNo);
 
+			if(entity.getApplierType()== ApplierType.PUBLIC){
+				entity.setApplier(entity.getCompanyName());
+			}
 			UploadAttachment attachment2 = (UploadAttachment) this.buildUploadAttachment("营业执照",
 					AttachmentCat.BUSINESS_LIEN, entity.getId(), FileType.JPGC, FileType.PDF, -1);
 			entity.getUploadAttachments().add(attachment2);

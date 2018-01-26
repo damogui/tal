@@ -5,17 +5,20 @@ import org.netsharp.base.IEnum;
 
 public enum TradeMarkType implements IEnum {
 
-	GENERAL(0, "一般"), SHARE(1, "集体"),PROOF(2,"证明");
-	private int value;
+	GENERAL(0,"tmType1", "一般"), SHARE(1,"tmType2", "集体"),PROOF(2,"tmType3","证明");
+	//TODO(?)
+	private Integer value;
 	private String text;
+	private String content;
 
-	TradeMarkType(int value, String text) {
+	TradeMarkType(Integer value,String content, String text) {
 		this.value = value;
+		this.content = content;
 		this.text = text;
 	}
 
 	@JsonCreator
-	public static TradeMarkType getItem(int value) {
+	public static TradeMarkType getItem(Integer value) {
 
 		for (TradeMarkType item : values()) {
 
@@ -32,7 +35,10 @@ public enum TradeMarkType implements IEnum {
 
 	@Override
 	public Integer getValue() {
+		return value;
+	}
 
-		return this.value;
+	public String getContent() {
+		return content;
 	}
 }
