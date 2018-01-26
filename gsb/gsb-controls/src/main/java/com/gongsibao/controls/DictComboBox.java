@@ -57,7 +57,11 @@ public class DictComboBox implements IPropertyControl{
 	        control.innerValues.put("foreignId", relation.getForeignProperty());
 	        control.innerValues.put("foreignName", formField.getPropertyName());
 	        control.innerValues.put("foreignkey", relation.getForeignProperty());
-			
+	        
+			if(!StringManager.isNullOrEmpty(formField.getTroikaTrigger())){
+				
+				control.onSelect = "function(record){"+formField.getTroikaTrigger()+"}";
+			}
 	        if (formField.isFullColumn())
 	        {
 	        	control.setStyle("width:100%;");

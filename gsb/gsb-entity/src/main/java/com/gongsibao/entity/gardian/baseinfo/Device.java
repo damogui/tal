@@ -1,4 +1,5 @@
 package com.gongsibao.entity.gardian.baseinfo;
+import com.gongsibao.entity.gardian.dict.DeviceStatus;
 import com.gongsibao.entity.gardian.dict.DeviceType;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
@@ -19,25 +20,36 @@ public class Device extends Entity {
     @Column(name = "device_type", header = "设备类型")
     private DeviceType deviceType;
 
+    @Column(name = "device_status", header = "设备状态")
+    private DeviceStatus deviceStatus;
 
     @Column(name = "buy_date", header = "设备购入日期")
     private Date buydate;
+
+    @Column(name = "life_months", header = "设备寿命")
+    private int lifemonths=36;
+
+    @Column(name = "alert_days", header = "设备预警天数")
+    private int alertdays=30;
+
+    @Column(name = "cost", header = "设备购置金额")
+    private double cost;
 
 
     @Column(name = "hdd_date", header = "硬盘装机日期")
     private Date hdddate;
 
     @Column(name = "memory", header = "内存")
-    private Integer memory = 1;
+    private Integer memory;
 
     @Column(name = "core", header = "CPU")
-    private Integer core = 1;
+    private Integer core;
 
     @Column(name = "hdd", header = "硬盘")
-    private Integer hdd = 10;
+    private Integer hdd;
 
     @Column(name = "cloud_hdd", header = "云盘")
-    private Integer cloudhdd = 10;
+    private Integer cloudhdd;
 
     @Column(name = "private_ip", header = "内网ip")
     private String privateip;
@@ -161,6 +173,41 @@ public class Device extends Entity {
 
     public void setHdddate(Date hdddate) {
         this.hdddate = hdddate;
+    }
+
+    public DeviceStatus getDeviceStatus() {
+        return deviceStatus;
+    }
+
+    public void setDeviceStatus(DeviceStatus deviceStatus) {
+        this.deviceStatus = deviceStatus;
+    }
+
+
+
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
+
+    public int getAlertdays() {
+        return alertdays;
+    }
+
+    public void setAlertdays(int alertdays) {
+        this.alertdays = alertdays;
+    }
+
+
+    public int getLifemonths() {
+        return lifemonths;
+    }
+
+    public void setLifemonths(int lifemonths) {
+        this.lifemonths = lifemonths;
     }
 }
 

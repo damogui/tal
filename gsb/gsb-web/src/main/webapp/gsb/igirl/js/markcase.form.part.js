@@ -100,237 +100,17 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
         }else{
             $("#companyName").validatebox('enable').validatebox('enableValidation');
         }
+    },
+   mobileChange:function (ctl) {
+	   var newValue=$(ctl).val();
+    	var qcurl="http://192.168.4.1:3000/qc?detailLink=http://192.168.28.41:8080/gsb/igirl/tmcase.html?mobile="+newValue;
+    	$("#tokenImgUrl").attr("src",qcurl)
+
+       this.invokeService("tmsForRobot",[72],function (msg) {
+           alert(JSON.stringify(m));
+       })
+       
     }
-
-
-    // validate: function () {
-    //
-    //     var isValidate = $("#" + this.context.formName).form('validate');
-    //
-    //     if(isValidate){
-    //
-    //     	var ctrlsIds = ['mobile','telephone','weixin','qq'];
-    //     	var mobile = $("#mobile").val();
-    //     	var telephone = $("#telephone").val();
-    //     	var weixin = $("#weixin").val();
-    //     	var qq = $("#qq").val();
-    //     	if(System.isnull(mobile) && System.isnull(telephone) && System.isnull(weixin) && System.isnull(qq)){
-    //
-    //     		IMessageBox.error("【手机】、【座机】、【微信】、【QQ】 最少填写一项");
-    //     		return false;
-    //     	}
-    //
-    //     	//if(!System.isnull(mobile)&&!/^0?(13[0-9]|15[012356789]|18[0123456789]|14[57]|17[0135678])[0-9]{8}$/.test(mobile)){
-    //     	if(!System.isnull(mobile)&&!/^(1[0-9])\d{9}$/.test(mobile)){
-    //
-    //     		IMessageBox.error("【手机】格式错误");
-    //     		return false;
-    //     	}
-    //     }
-    //
-    //     var consultWay = $('#consultWay').combobox('getValue');
-    //     if(System.isnull(consultWay)){
-    //
-    //     	IMessageBox.error("请填写【咨询路径】");
-    //     	return false;
-    //     }
-    //
-    //     var remark = $('#remark').val();
-    //     if(System.isnull(remark)){
-    //
-    //     	IMessageBox.error("请填写【售前备注】");
-    //     	return false;
-    //     }
-    //
-    //     return true;
-    // },
-    // contactWayChange:function(el){
-		//
-		// var ctrlsIds = [{code:'mobile',text:'手机号'},
-		//                 {code:'telephone',text:'座机'},
-		//                 {code:'weixin',text:'微信'},
-		//                 {code:'qq',text:'QQ'}];
-		// var ctrlId = el.id;
-		// var currentItem = null;
-		// $(ctrlsIds).each(function(i,item){
-		//
-		// 	if(ctrlId != item.code){
-		//
-		// 		$("#"+item.code).validatebox('disableValidation');
-		// 	}else{
-		//
-		// 		currentItem = item;
-		// 		$("#"+item.code).validatebox('enableValidation');
-		// 	}
-		// });
-    //
-		// var me = this;
-		// var swtCustomerId = this.queryString("swtCustomerId");
-		// if(swtCustomerId && this.viewModel.currentItem.entityState == EntityState.New){
-		// 	//从商务通客户端打开
-		// 	var contactWay = $(el).val();
-		// 	if(System.isnull(contactWay)){
-		// 		return;
-		// 	}
-		// 	var type = $(el).attr('id');
-	 //        this.invokeService("byContactWay", [contactWay,type], function (jmessage) {
-	 //
-	 //        	var nav = jmessage;
-	 //        	if(nav.Entity){
-    //
-	 //        		var msg = currentItem.text+'【'+contactWay+'】已存在，是否绑定至已有客户信息？';
-	 //        		IMessageBox.confirm(msg,function(isOk){
-	 //
-	 //        			if(isOk){
-	 //
-	 //        				me.bindSwtCustomerId(swtCustomerId,nav.Entity.id);
-	 //        			}
-	 //        		});
-	 //        	}
-	 //
-	 //        });
-		// }
-    // },
-    // bindSwtCustomerId:function(swtCustomerId,customerId){
-		//
-		// var me = this;
-		// this.invokeService("bindSwtCustomerId", [swtCustomerId,customerId], function (jmessage) {
-		//
-	 //       	 var nav = jmessage;
-	 //         me.viewModel.currentItem = nav.Entity;
-	 //         if(me.viewModel.currentItem.entityState != EntityState.New){
-    //
-	 //        	 me.viewModel.currentItem.entityState = EntityState.Persist;
-	 //         }
-	 //         me.paging = nav.Paging;
-	 //         me.databind();
-		// });
-    // },
-    // validationContactWay:function(contactWay,type,callback){
-		//
-		// var id = null;
-		// if (this.viewModel.currentItem != null) {
-		//
-		// 	id = this.viewModel.currentItem.id;
-		// }
-    //     this.invokeService("validationContactWay", [id,contactWay,type], function (data) {
-    //
-    //     	if(data){
-    //
-    //     		callback(data);
-    //     	}
-    //
-    //     });
-    // },
-    // addExtraProp:function(entity){
-    //
-    // 	if(entity.fProvinceId){
-    //
-    // 		entity.cityId = entity.fProvinceId;
-    // 	}
-    //
-    // 	if(entity.fCityId){
-    //
-    // 		entity.cityId = entity.fCityId;
-    // 	}
-    //
-    // 	if(entity.fCountyId){
-    //
-    // 		entity.cityId = entity.fCountyId;
-    // 	}
-    //
-    // 	var swtCustomerId = this.queryString("swtCustomerId");
-    // 	if(swtCustomerId){
-    //
-    // 		entity.swtCustomerId = swtCustomerId;
-    // 	}
-    //
-    // 	var swtServiceId = this.queryString("swtServiceId");
-    // 	if(swtServiceId){
-    //
-    // 		entity.swtServiceId = swtServiceId;
-    // 	}
-    //
-    // 	if(entity.allocationOrgId == null){
-    //
-    // 		entity.allocationOrgId = 0;
-    // 	}
-    //
-    // 	var ts = this.queryString("ts");
-    // },
-    // customerSourceChange:function(newValue, oldValue){
-    //
-    // 	if(newValue === '4177'){
-    //
-    // 		$("#customerSourceOther").prop("disabled", false);
-    // 	}else{
-    // 		$("#customerSourceOther").prop("disabled", true);
-    // 	}
-    // },
-    // consultWayChange:function(newValue, oldValue){
-    //
-    // 	if(newValue === '4219'){
-    //
-    // 		$("#consultWayOther").prop("disabled", false);
-    // 	}else{
-    // 		$("#consultWayOther").prop("disabled", true);
-    // 	}
-    // },
-    // followStatusChange:function(newValue, oldValue){
-    //
-    // 	//无效客户
-    // 	if(newValue === '4015'){
-    //
-    // 		$("#unvalidRemark").prop("disabled", false);
-    // 	}else{
-    // 		$("#unvalidRemark").prop("disabled", true);
-    // 	}
-    //
-    // 	//潜在客户
-    // 	if(newValue === '4020'){
-    //
-    // 		$("#maybeRemark").prop("disabled", false);
-    // 	}else{
-    // 		$("#maybeRemark").prop("disabled", true);
-    // 	}
-    //
-    // },
-    // edit:function(){
-    //
-    // 	//编辑
-    // 	this.enable();
-    //
-    // 	var mobile = $('#mobile').val();
-    // 	if(!System.isnull(mobile)){
-    //
-    // 		$('#mobile').prop('disabled',true);
-    // 	}
-    // },
-    // follow:function(){
-    //
-    // 	//切换到【沟通日志】
-    // 	$("#tabcenter").tabs('select',4);
-    //
-    // 	//将【内容】设置为可写
-    // 	$('#content').prop('disabled',false);
-    //
-    // 	//跟进
-    // 	controllerfollows.add();
-    // },
-    // matching:function(){
-    //
-    // 	IMessageBox.prompt("客户Id匹配","请输入客户Id",function(pass,index){
-    //
-    // 	    if(!/^[0-9]*$/.test(pass)){
-    // 	        IMessageBox.error("请输入数字!");
-    // 	        return;
-    // 	    }
-    // 	    window.location.href='/panda/crm/customer/all/form?id='+pass;
-    // 	});
-    // }
-    
-
-  //['mobile','validationContactWay['mobile','手机']']
 });
 
 com.gongsibao.igirl.web.DownloadAttachmentDetailPart=org.netsharp.panda.commerce.DetailPart.Extends( {
@@ -372,11 +152,12 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
             var tmpArray=[];
             var i=1;
             selectedItems.forEach(function (row) {
-                tmpArray.push(i+"."+row.name+":"+row.code+":"+row.id);
+                tmpArray.push(i+":"+row.name+":"+row.code+":"+row.id);
                 i++;
             })
             var rtnStr=tmpArray.join("\n")
             $("#selectedTwoStr").val(rtnStr)
+            
 
         }
         function push(arr,obj) {
@@ -392,20 +173,49 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
             }
 
         }
-
-        if($("#ncltwogrid").length<=0){
-            var $t=$("[name='nclOne_name']")
-            $("<input id='filterinput' width='30px'/>").insertAfter($t.parent());
-            $("<table id='ncltwogrid'></table>").insertBefore("#selectedTwoStr")
+        function backSelect(){
+        	  var selectStr=$("#selectedTwoStr").val();
+        	  if(selectStr){
+        		  selectStrs=selectStr.split('\n');
+        		  selectStrs.forEach(function(str){
+                      	var index=str.lastIndexOf(":");
+                      	var id=str.substring(index+1);
+                      	console.log(id)
+                      	$("#ncltwogrid").datagrid('getRows').forEach(function(row,i){
+                      		        if(row.id==id){
+                      		        	  $("#ncltwogrid").datagrid('checkRow',i)
+                      		                   }
+               
+                            	});
+                           });   
+        	  }
+        	
         }
+
+      if($("#ncltwogrid").length<=0){
+             var $t=$("[name='nclOne_name']")
+             $("<input id='filterinput' width='30px'/>").insertAfter($t.parent());
+            $("<table id='ncltwogrid'></table>").insertBefore("#selectedTwoStr")
+         }
         var selectedItems=[];
         var rtnData=null;
         //首次加载需要按照大类id获取所有的小类列表数据，按照selectedTwoStr去初始化selectedItems
         //去选择grid,调用selectRecord --idValue
         var me = this;
+        
+      
+   
         if(newValue!=-1){
+//        	     var g = $('#nclOne_name').combogrid('grid');	// get datagrid object
+//              var r = g.datagrid('getSelected');	// get the selected row
+//             
+//              var en=this.viewModel.getEntity();
+//              if(en && en.nclOne){
+//           	   en.nclOne.code=r.code;
+//	           	console.log(en.nclOne.name)
+//	            console.log(r.code)
+//                  }
             this.invokeService("findSubsByNclOneId", [newValue], function(data) {
-
                 //me.reload();
                 //IMessageBox.toast(JSON.stringify(data));
                 rtnData=data;
@@ -449,9 +259,14 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
                                     return false
                             })
                         })
-                        updateSelectTxtVal();
+                 updateSelectTxtVal();
                     }
                 });
+                
+                //根据文本框内的值反选择grid
+            backSelect();
+            
+            
             });
 
         }
@@ -461,15 +276,20 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
         $("#filterinput").on("input",function (e) {
             tmpDatas.length=0;
             var currentVal=$(e.currentTarget).val();
-            rtnData.forEach(function (obj, index) {
-                if(obj.code.indexOf(currentVal)>=0 || obj.name.indexOf(currentVal)>=0 || obj.thirdCode.indexOf(currentVal)>=0){
-                    tmpDatas.push(obj);
+            if(rtnData){
+            	rtnData.forEach(function (obj, index) {
+                    if(obj.code.indexOf(currentVal)>=0 || obj.name.indexOf(currentVal)>=0 || obj.thirdCode.indexOf(currentVal)>=0){
+                        tmpDatas.push(obj);
+                    }
+                  })
                 }
-            })
+            
             setTimeout(function () {
                 $('#ncltwogrid').datagrid({
                     data:tmpDatas
                 });
+              //根据文本框内的值反选择grid
+                backSelect();
             },1000)
         });
 

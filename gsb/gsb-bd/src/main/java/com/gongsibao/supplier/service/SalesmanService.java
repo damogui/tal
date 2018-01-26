@@ -1,148 +1,249 @@
 package com.gongsibao.supplier.service;
 
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.netsharp.communication.Service;
+import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
-import org.netsharp.core.Mtable;
 import org.netsharp.core.MtableManager;
 import org.netsharp.core.Oql;
+import org.netsharp.core.QueryParameters;
+import org.netsharp.organization.base.IEmployeeService;
+import org.netsharp.organization.entity.Employee;
+import org.netsharp.organization.entity.RoleEmployee;
+import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.bd.service.SupplierPersistableService;
+import com.gongsibao.entity.supplier.SalesmanRole;
 import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.supplier.base.ISalesmanService;
-import org.netsharp.core.convertor.ITypeConvertor;
-import org.netsharp.core.convertor.TypeConvertorFactory;
-import org.netsharp.organization.entity.Employee;
-import org.netsharp.organization.service.EmployeeService;
-import org.netsharp.util.StringManager;
 
 @Service
 public class SalesmanService extends SupplierPersistableService<Salesman> implements ISalesmanService {
 
-    public SalesmanService() {
-        super();
-        this.type = Salesman.class;
-    }
+	public SalesmanService() {
+		super();
+		this.type = Salesman.class;
+	}
 
-    @Override
-    public Integer getSupplierId(Integer employeeId) {
+	@Override
+	public Integer getSupplierId(Integer employeeId) {
 
-        Salesman entity = byEmployeeId(employeeId);
-        if (entity != null) {
+		Salesman entity = byEmployeeId(employeeId);
+		if (entity != null) {
 
-            return entity.getSupplierId();
-        }
-        return null;
-    }
+			return entity.getSupplierId();
+		}
+		return null;
+	}
 
-    //处理增删改的逻辑
-    @Override
-    public Salesman save(Salesman entity) {
+	@Override
+	public Integer getDepartmentId(Integer employeeId) {
 
-        EmployeeService employeeService = new EmployeeService();//用户表实体
-        Employee employee = new Employee();
-        employee.setName(entity.getName());
-        employee.setMobile(entity.getMobile());
-        employee.setBankNo(entity.getBankNo());
-        employee.setEntryDate(entity.getEntryDate());
-        employee.setQuitDate(entity.getQuitDate());
-        Employee saveEmploy;
-        EntityState state = entity.getEntityState();
+		Salesman entity = byEmployeeId(employeeId);
+		if (entity != null) {
 
-        if (state == EntityState.Deleted) {
+			return entity.getDepartmentId();
+		}
+		return null;
+	}
 
-            //删除删两个
-            return super.save(entity);//继承父类的保存
+	@Override
+	public Integer getEmployeeId(Integer salesmanId) {
 
-        } else if (state.equals(EntityState.New)) {//新增
-            employee.toNew();
-            //更新登录用户表
-            saveEmploy = employeeService.save(employee);//会处理异常直接弹窗
-            entity.setEmployeeId(saveEmploy.getId());
-            if (saveEmploy.getId() > 0) {
-                return super.save(entity);//继承父类的保存
-            } else {
-                return entity;
-            }
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects("id,employeeId");
+			oql.setFilter("id=?");
+			oql.getParameters().add("@id", salesmanId, Types.INTEGER);
+		}
 
+		Salesman entity = this.queryFirst(oql);
+		if (entity != null) {
 
-        } else {//修改
+			return entity.getEmployeeId();
+		}
+		return null;
+	}
 
-            employee.toPersist();//修改
-            employee.setId(entity.getEmployeeId());//传递用户id
-            //更新登录用户表
-            saveEmploy = employeeService.save(employee);//会处理异常直接弹窗
-            entity.setEmployeeId(saveEmploy.getId());
-            return super.save(entity);//继承父类的保存
+	@Override
+	public Salesman byId(Object id) {
 
+		Salesman salesman = super.byId(id);
+		Employee employee = salesman.getEmployee();
+		if (employee != null) {
+			salesman.setName(employee.getName());
+			salesman.setMobile(employee.getMobile());
+			salesman.setEmail(employee.getEmail());
+			salesman.setLoginName(employee.getLoginName());
+			salesman.setEntryDate(employee.getEntryDate());
+			salesman.setQuitDate(employee.getQuitDate());
+			salesman.setDisabled(employee.getDisabled());
+		}
 
-        }
+		return salesman;
+	}
+	
+	@Override
+	public Salesman byId(Salesman entity) {
 
-    }
+		entity = this.byId(entity.getId());
+		return entity;
+	}
 
+	@Override
+	public Salesman byEmployeeId(Integer employeeId) {
 
-    //重写进行复制
-    @Override
-    public List<Salesman> queryList(Oql oql) {
-        List<Salesman> list = super.queryList(oql);
+		Oql oql = new Oql();
+		{
+			oql.setType(type);
+			oql.setSelects("*");
+			oql.setFilter("employeeId=?");
+			oql.getParameters().add("@employeeId", employeeId, Types.INTEGER);
+		}
+		Salesman entity = this.queryFirst(oql);
+		return entity;
+	}
 
-        for (Salesman salesman : list
-                ) {
-            Employee employee = salesman.getEmployee();
-            if (employee != null) {
-                salesman.setName(employee.getName());
-                salesman.setMobile(employee.getMobile());
-                salesman.setBankNo(employee.getBankNo());
-                salesman.setEntryDate(employee.getEntryDate());
-                salesman.setQuitDate(employee.getQuitDate());
-                //停用的话两张表必须保持一致
-            }
-        }
+	@Override
+	public boolean setDisabled(Integer salesmanId, boolean state) {
 
+		//停用的同时要停用Employee
+		boolean isUpdate = false;
+		UpdateBuilder updateBuilder = new UpdateBuilder();
+		{
+			updateBuilder.update(MtableManager.getMtable(this.type).getTableName());
+			updateBuilder.set("disabled", state);
+			updateBuilder.where("id=?");
+		}
 
-        return list;
-    }
+		QueryParameters qps = new QueryParameters();
+		qps.add("salesmanId", salesmanId, Types.INTEGER);
+		isUpdate = this.pm.executeNonQuery(updateBuilder.toSQL(), qps) > 0;
 
-    //进行重写赋值
-    @Override
-    public Salesman byId(Object id) {
-        Salesman salesman = super.byId(id);
-        Employee employee = salesman.getEmployee();
-        if (employee != null) {
-            salesman.setName(employee.getName());
-            salesman.setMobile(employee.getMobile());
-            salesman.setBankNo(employee.getBankNo());
-            salesman.setEntryDate(employee.getEntryDate());
-            salesman.setQuitDate(employee.getQuitDate());
-        }
+		// 停用Employee
+		Integer employeeId = this.getEmployeeId(salesmanId);
+		updateBuilder = new UpdateBuilder();
+		{
+			updateBuilder.update(MtableManager.getMtable(Employee.class).getTableName());
+			updateBuilder.set("disabled", state);
+			updateBuilder.where("id=?");
+		}
 
-        return salesman;
-    }
+		qps = new QueryParameters();
+		qps.add("employeeId", employeeId, Types.INTEGER);
+		isUpdate = this.pm.executeNonQuery(updateBuilder.toSQL(), qps) > 0;
 
-    @Override
-    public Integer getDepartmentId(Integer employeeId) {
+		return isUpdate;
+	}
 
-        Salesman entity = byEmployeeId(employeeId);
-        if (entity != null) {
+	@Override
+	public boolean setReceiving(Integer salesmanId, boolean state) {
 
-            return entity.getDepartmentId();
-        }
-        return null;
-    }
+		UpdateBuilder updateBuilder = new UpdateBuilder();
+		{
+			updateBuilder.update(MtableManager.getMtable(this.type).getTableName());
+			updateBuilder.set("receiving", state);
+			updateBuilder.where("id=?");
+		}
 
-    @Override
-    public Salesman byEmployeeId(Integer employeeId) {
+		QueryParameters qps = new QueryParameters();
+		qps.add("salesmanId", salesmanId, Types.INTEGER);
+		return this.pm.executeNonQuery(updateBuilder.toSQL(), qps) > 0;
+	}
 
-        Oql oql = new Oql();
-        {
-            oql.setType(type);
-            oql.setSelects("*");
-            oql.setFilter("employeeId=?");
-            oql.getParameters().add("@employeeId", employeeId, Types.INTEGER);
-        }
-        Salesman entity = this.queryFirst(oql);
-        return entity;
-    }
+	@Override
+	public Salesman save(Salesman entity) {
+
+		EntityState state = entity.getEntityState();
+
+		if (state == EntityState.New) {
+
+			this.createEmployee(entity);
+		} else if (state == EntityState.Persist) {
+
+			this.updateEmployee(entity);
+		}
+        entity = super.save(entity);
+		return entity;
+	}
+
+	/**
+	 * @Title: createEmployee
+	 * @Description: TODO(创建Employee)
+	 * @param: @param entity
+	 * @return: void
+	 * @throws
+	 */
+	private void createEmployee(Salesman entity) {
+
+		IEmployeeService service = ServiceFactory.create(IEmployeeService.class);
+		Employee employee = new Employee();
+		employee.toNew();
+		employee.setName(entity.getName());
+		employee.setMobile(entity.getMobile());
+		employee.setLoginName(entity.getLoginName());
+		employee.setEmail(entity.getEmail());
+		employee.setEntryDate(entity.getEntryDate());
+		employee.setQuitDate(entity.getQuitDate());
+		employee.setDisabled(entity.getDisabled());
+
+		RoleEmployee roleEmployee = null;
+		List<RoleEmployee> reList = new ArrayList<RoleEmployee>();
+		List<SalesmanRole> salesmanRoleList = entity.getRoles();
+		for (SalesmanRole salesmanRole : salesmanRoleList) {
+
+			roleEmployee = new RoleEmployee();
+			roleEmployee.toNew();
+			roleEmployee.setRoleId(salesmanRole.getRoleId());
+			reList.add(roleEmployee);
+		}
+
+		employee.setRoles(reList);
+		service.save(employee);
+
+        entity.setEmployeeId(employee.getId());
+	}
+
+	/**
+	 * @Title: updateEmployee
+	 * @Description: TODO(更新Employee)
+	 * @param: @param entity
+	 * @return: void
+	 * @throws
+	 */
+	private void updateEmployee(Salesman entity) {
+
+		IEmployeeService service = ServiceFactory.create(IEmployeeService.class);
+		Employee employee = service.byId(entity.getEmployeeId());
+		employee.setName(entity.getName());
+		employee.setMobile(entity.getMobile());
+		employee.setLoginName(entity.getLoginName());
+		employee.setEmail(entity.getEmail());
+		employee.setEntryDate(entity.getEntryDate());
+		employee.setQuitDate(entity.getQuitDate());
+		employee.setDisabled(entity.getDisabled());
+
+		List<RoleEmployee> roleEmployeeList = employee.getRoles();
+		for (RoleEmployee roleEmployee : roleEmployeeList) {
+			roleEmployee.toDeleted();
+		}
+		
+		RoleEmployee roleEmployee = null;
+		List<SalesmanRole> salesmanRoleList = entity.getRoles();
+		for (SalesmanRole salesmanRole : salesmanRoleList) {
+
+			roleEmployee = new RoleEmployee();
+			roleEmployee.toNew();
+			roleEmployee.setEmployeeId(employee.getId());
+			roleEmployee.setRoleId(salesmanRole.getRoleId());
+			roleEmployeeList.add(roleEmployee);
+		}
+		
+		employee.setRoles(roleEmployeeList);
+		service.save(employee);
+	}
 }

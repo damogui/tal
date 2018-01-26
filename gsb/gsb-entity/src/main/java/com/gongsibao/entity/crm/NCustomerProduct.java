@@ -9,15 +9,20 @@ import org.netsharp.entity.Entity;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.supplier.Supplier;
-import com.gongsibao.entity.supplier.SupplierDepartment;
 
-@Table(name="n_crm_customer_product_map",header="客户意向产品")
-public class NCustomerProduct extends Entity{
+@Table(name = "n_crm_customer_product_map", header = "客户意向产品")
+public class NCustomerProduct extends Entity {
 
-	/**   
-	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
-	 */   
+	/**
+	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
+	 */
 	private static final long serialVersionUID = 4684375504055933956L;
+
+	@Column(name = "supplier_id", header = "分配服务商Id")
+	private Integer supplierId;
+
+	@Reference(foreignKey = "supplierId", header = "分配服务商")
+	private Supplier supplier;
 
 	@JsonIgnore
 	@Reference(foreignKey = "customerId", header = "客户")
@@ -25,53 +30,67 @@ public class NCustomerProduct extends Entity{
 
 	@Column(name = "customer_id", header = "客户")
 	private Integer customerId = 0;
-	
+
 	@JsonIgnore
 	@Reference(foreignKey = "taskId", header = "客户任务")
 	private NCustomerTask task;
 
 	@Column(name = "task_id", header = "客户任务Id")
 	private Integer taskId = 0;
-	
-    @Column(name="product_id")
-    private Integer productId;
-    
-    @JsonIgnore
-    @Reference(foreignKey="productId",header="产品")
-    private Product product;
-    
+
+	@Column(name = "product_category_id_1")
+	private Integer productCategoryId1;
+
+	@Reference(foreignKey = "productCategoryId1",  header = "产品一级分类")
+	private Dict productCategory1;
+
+	@Column(name = "product_category_id_2")
+	private Integer productCategoryId2;
+
+	@Reference(foreignKey = "productCategoryId2", header = "产品二级分类")
+	private Dict productCategory2;
+
+	@Column(name = "product_id")
+	private Integer productId;
+
+	@Reference(foreignKey = "productId", header = "产品")
+	private Product product;
+
 	@Column(name = "province_id")
 	private Integer provinceId;
 
-	@JsonIgnore
 	@Reference(foreignKey = "provinceId", header = "省份")
 	private Dict province;
 
 	@Column(name = "city_id")
 	private Integer cityId;
 
-	@JsonIgnore
 	@Reference(foreignKey = "cityId", header = "城市")
 	private Dict city;
 
 	@Column(name = "county_id")
 	private Integer countyId;
 
-	@JsonIgnore
-	@Reference(foreignKey = "countyId", header = "区/县")
+	@Reference(foreignKey = "countyId",header = "区/县")
 	private Dict county;
 	
-	@Column(name = "supplier_id", header = "分配服务商Id")
-	private Integer supplierId;
-
-	@Reference(foreignKey = "supplierId", header = "分配服务商")
-	private Supplier supplier;
 	
-	@Column(name = "department_id", header = "分配服务商部门Id")
-	private Integer departmentId;
 
-	@Reference(foreignKey = "departmentId", header = "分配服务商部门")
-	private SupplierDepartment department;
+	public Integer getSupplierId() {
+		return supplierId;
+	}
+
+	public void setSupplierId(Integer supplierId) {
+		this.supplierId = supplierId;
+	}
+
+	public Supplier getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
+	}
 
 	public NCustomer getCustomer() {
 		return customer;
@@ -103,6 +122,38 @@ public class NCustomerProduct extends Entity{
 
 	public void setTaskId(Integer taskId) {
 		this.taskId = taskId;
+	}
+
+	public Integer getProductCategoryId1() {
+		return productCategoryId1;
+	}
+
+	public void setProductCategoryId1(Integer productCategoryId1) {
+		this.productCategoryId1 = productCategoryId1;
+	}
+
+	public Dict getProductCategory1() {
+		return productCategory1;
+	}
+
+	public void setProductCategory1(Dict productCategory1) {
+		this.productCategory1 = productCategory1;
+	}
+
+	public Integer getProductCategoryId2() {
+		return productCategoryId2;
+	}
+
+	public void setProductCategoryId2(Integer productCategoryId2) {
+		this.productCategoryId2 = productCategoryId2;
+	}
+
+	public Dict getProductCategory2() {
+		return productCategory2;
+	}
+
+	public void setProductCategory2(Dict productCategory2) {
+		this.productCategory2 = productCategory2;
 	}
 
 	public Integer getProductId() {
@@ -167,37 +218,5 @@ public class NCustomerProduct extends Entity{
 
 	public void setCounty(Dict county) {
 		this.county = county;
-	}
-
-	public Integer getSupplierId() {
-		return supplierId;
-	}
-
-	public void setSupplierId(Integer supplierId) {
-		this.supplierId = supplierId;
-	}
-
-	public Supplier getSupplier() {
-		return supplier;
-	}
-
-	public void setSupplier(Supplier supplier) {
-		this.supplier = supplier;
-	}
-
-	public Integer getDepartmentId() {
-		return departmentId;
-	}
-
-	public void setDepartmentId(Integer departmentId) {
-		this.departmentId = departmentId;
-	}
-
-	public SupplierDepartment getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(SupplierDepartment department) {
-		this.department = department;
 	}
 }

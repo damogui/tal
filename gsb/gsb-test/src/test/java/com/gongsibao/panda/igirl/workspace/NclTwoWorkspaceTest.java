@@ -13,6 +13,7 @@ import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.OpenMode;
+import org.netsharp.panda.dic.OrderbyMode;
 import org.netsharp.panda.entity.*;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
@@ -42,62 +43,6 @@ public class NclTwoWorkspaceTest extends WorkspaceCreationBase{
 		openWindowHeight = 600;
 	}
 	
-//	@Test
-//	@Override
-//	public void run() {
-//
-//		this.createTreeWorkspace();
-//		this.createFormWorkspace();
-//	}
-//
-//	public void createTreeWorkspace() {
-//
-//		ResourceNode node = resourceService.byCode("IGRIL_BASE_NCLOne");
-//		ResourceNode node2 = resourceService.byCode(resourceNodeCode);
-//		PWorkspace workspace = new PWorkspace();
-//		{
-//			workspace.toNew();
-//			workspace.setResourceNode(node2);
-//			workspace.setName("商品大类工作区");
-//			workspace.setUrl(urlList);
-//		}
-//
-//		PPart part = new PPart();
-//		{
-//			part.toNew();
-//			part.setCode("IGRIL_BASE_NCLOne");
-//			part.setPartTypeId(org.netsharp.panda.dic.PartType.TREE_PART.getId());
-//			part.setDockStyle(DockType.LEFT);
-//			part.setStyle("width:280px;");
-//			part.setResourceNode(node);
-//			part.setToolbar("panda/tree");
-//			part.setUrl("/igirl/nclone/form");
-//			part.setServiceController(NclOneTreePart.class.getName());
-//		}
-//		workspace.getParts().add(part);
-//
-//		PDatagrid datagrid = this.createDatagrid(node2);
-//		part = new PPart();
-//		{
-//			part.toNew();
-//			part.setCode("nclTwos");
-//			part.setParentCode("IGRIL_BASE_NCLOne");
-//			part.setPartTypeId(org.netsharp.panda.dic.PartType.DATAGRID_PART.getId());
-//			part.setDatagrid(datagrid);
-//			part.setDockStyle(DockType.DOCUMENTHOST);
-//			part.setRelationRole("nclOneId");
-//			part.setToolbar(this.listToolbarPath);
-//			part.setUrl(this.urlForm);
-//			part.setOpenMode(formOpenMode);
-//			part.setWindowWidth(openWindowWidth);
-//			part.setWindowHeight(openWindowHeight);
-//			part.setImports(listPartImportJs);
-//			part.setResourceNode(node2);
-//		}
-//
-//		workspace.getParts().add(part);
-//		workspaceService.save(workspace);
-//	}
 
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
@@ -106,11 +51,13 @@ public class NclTwoWorkspaceTest extends WorkspaceCreationBase{
 		{
 			datagrid.setToolbar("panda/datagrid/row/edit");
 			datagrid.setName("小类列表");
+			datagrid.setOrderby("code");
 		}
 		
 		PDatagridColumn column = null;
-		addColumn(datagrid, "nclOne.name", "所属大类", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "code", "二级编码", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "nclOne.code", "大类编码", ControlTypes.TEXT_BOX, 100);
+		column=addColumn(datagrid, "code", "二级编码", ControlTypes.TEXT_BOX, 100);
+		column.setOrderbyMode(OrderbyMode.ASC);
 		addColumn(datagrid, "thirdCode", "小类编码", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "name", "内容", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100);
@@ -129,7 +76,7 @@ public class NclTwoWorkspaceTest extends WorkspaceCreationBase{
 		PFormField field = null;
 
 		//addFormField(form, "nclOne.name", "商标大类", null, ControlTypes.re,false);
-		field = addFormFieldRefrence(form, "nclOne.name", "商标大类", null,"NCLOne", true, false);
+		field = addFormFieldRefrence(form, "nclOne.code", "大类编码", null,"NCLOne", true, false);
 		{
 			field.setWidth(100);
 		}

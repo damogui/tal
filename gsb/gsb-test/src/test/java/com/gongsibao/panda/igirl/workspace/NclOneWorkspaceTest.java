@@ -11,6 +11,7 @@ import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.OpenMode;
+import org.netsharp.panda.dic.OrderbyMode;
 import org.netsharp.panda.entity.*;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
@@ -48,7 +49,8 @@ public class NclOneWorkspaceTest extends WorkspaceCreationBase{
 			datagrid.setName("商标大类");
 		}
 		PDatagridColumn column = null;
-		addColumn(datagrid, "code", "编码", ControlTypes.TEXT_BOX, 100);
+		column=addColumn(datagrid, "code", "编码", ControlTypes.TEXT_BOX, 100);
+		column.setOrderbyMode(OrderbyMode.ASC);
 		addColumn(datagrid, "name", "内容", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "memo", "说明", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "id",   "操作", ControlTypes.OPERATION_COLUMN, 100);

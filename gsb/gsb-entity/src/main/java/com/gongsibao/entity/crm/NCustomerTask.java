@@ -19,7 +19,6 @@ import com.gongsibao.entity.crm.dic.NAllocationType;
 import com.gongsibao.entity.crm.dic.QualityCategory;
 import com.gongsibao.entity.crm.dic.TaskCustomerType;
 import com.gongsibao.entity.crm.dic.TaskInspectionState;
-import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
@@ -38,94 +37,125 @@ public class NCustomerTask extends Entity {
 	@Column(name = "customer_id", header = "客户")
 	private Integer customerId = 0;
 
+	@Column(name = "task_type", header = "任务类型")
+	private TaskCustomerType taskType = TaskCustomerType.NEW;
+
 	@Column(name = "name", size = 200, header = "名称")
 	private String name;
-	
+
 	@Column(name = "supplier_id", header = "分配服务商Id")
 	private Integer supplierId;
 
 	@Reference(foreignKey = "supplierId", header = "分配服务商")
 	private Supplier supplier;
-	
+
 	@Column(name = "department_id", header = "分配服务商部门Id")
 	private Integer departmentId;
 
 	@Reference(foreignKey = "departmentId", header = "分配服务商部门")
 	private SupplierDepartment department;
-	
-	@Column(name = "salesman_id", header = "业务员Id")
-	private Integer salesmanId;
 
-	@Reference(foreignKey = "salesmanId", header = "业务员")
-	private Salesman salesman;
-	
+	@Column(name = "owner_id", header = "业务员Id")
+	private Integer ownerId;
+
+	@Reference(foreignKey = "ownerId", header = "业务员")
+	private Employee owner;
+
 	@Column(name = "last_allocation_time", header = "最后分配时间")
 	private Date lastAllocationTime;
-	
+
 	@Column(name = "last_allocation_user_id", header = "最后分配人Id")
 	private Integer lastAllocationUserId = 0;
-	
+
 	@JsonIgnore
 	@Reference(foreignKey = "lastAllocationUserId", header = "最后分配人")
 	private Employee lastAllocationUser;
-	
+
 	@Column(name = "foolow_status", header = "跟进状态")
 	private CustomerFollowStatus foolowStatus;
 
 	@Column(name = "intention_category", header = "质量分类")
-	private QualityCategory intentionCategory;
-	
+	private QualityCategory intentionCategory = QualityCategory.X; 
+
 	@Column(name = "quality_id", header = "客户质量id")
 	private Integer qualityId;
-	
+
 	@Reference(foreignKey = "qualityId", header = "客户质量")
 	private NCustomerTaskQuality quality;
-	
+
 	@Column(name = "last_follow_time", header = "最近跟进时间")
 	private Date lastFollowTime;
-	
+
 	@Column(name = "last_foolow_user_id", header = "最后跟进人Id")
 	private Integer lastFoolowUserId = 0;
-	
+
 	@JsonIgnore
 	@Reference(foreignKey = "lastFoolowUserId", header = "最后跟进人")
 	private Employee lastFoolowUser;
-	
+
 	@Column(name = "last_content", size = 1000, header = "最后跟进内容")
 	private String lastContent;
-	
+
 	@Column(name = "next_foolow_time", header = "下次跟进时间")
 	private Date nextFoolowTime;
-	
-	@Column(name = "inspection_state", header = "抽查异常状态")
+
+	@Column(name = "inspection_state", header = "抽查状态")
 	private TaskInspectionState inspectionState = TaskInspectionState.UNINSPECTION;
 	
-    @Column(name = "memoto",header="备注", size = 1000)
-    private String memoto;
-    
+	//临时用，返回的就是‘抽查状态’
+	private Integer processingState;
+	
+	@Column(name = "last_inspection_user_id", header = "最后抽查人Id")
+	private Integer lastInspectionUserId = 0;
+	
+	@JsonIgnore
+	@Reference(foreignKey = "lastInspectionUserId", header = "最后抽查人")
+	private Employee lastInspectionUser;
+	
+	@Column(name = "last_inspection_time", header = "最近抽查时间")
+	private Date lastInspectionTime;
+	
+	@Column(name = "last_inspection_content", size = 1000, header = "最后抽查内容")
+	private String lastInspectionContent;
+	
+	@Column(name = "memoto", header = "备注", size = 1000)
+	private String memoto;
+
 	@Column(name = "cost_supplier_id", header = "费用服务商Id")
 	private Integer costSupplierId;
 
 	@Reference(foreignKey = "costSupplierId", header = "费用服务商")
 	private Supplier costSupplier;
-	
-    @Column(name = "allocation_type",header="分配方式")
-    private NAllocationType allocationType = NAllocationType.AUTO;
-	
-    @Column(name = "allocation_statee",header="分配状态")
-    private AllocationState allocationState = AllocationState.WAIT;
-    
-    @Column(name = "allocation_dispositon",header="自营/平台")
-    private AllocationDispositon allocationDispositon = AllocationDispositon.DIRECT;
-    
-	@Reference(foreignKey = "taskSourceId", header = "任务来源")
-	private Dict taskSource;
 
-	@Column(name = "task_source_id", header = "任务来源")
-	private Integer taskSourceId = 0;
-	
-    @Column(name = "task_type",header="任务类型")
-    private TaskCustomerType taskCustomerType = TaskCustomerType.NEW;
+	@Column(name = "costed", header = "是否有费用服务商")
+	private Boolean costed = false;
+
+	@Column(name = "allocation_type", header = "分配方式")
+	private NAllocationType allocationType = NAllocationType.AUTO;
+
+	@Column(name = "allocation_statee", header = "分配状态")
+	private AllocationState allocationState = AllocationState.WAIT;
+
+	@Column(name = "allocation_dispositon", header = "自营/平台")
+	private AllocationDispositon allocationDispositon = AllocationDispositon.UNLIMITED;
+
+	@Reference(foreignKey = "sourceId", header = "任务来源")
+	private Dict source;
+
+	@Column(name = "source_id", header = "任务来源")
+	private Integer sourceId = 0;
+
+	@Column(name = "source_other", header = "客户来源选择其他时填写的详情")
+	private String sourceOther;
+
+	@Column(name = "consult_way_id", header = "咨询途径")
+	private Integer consultWayId = 0;
+
+	@Reference(foreignKey = "consultWayId", header = "咨询途径,421 CRM咨询途径: 4211 400电话、 4212 在线客服、 4213企业QQ、 4214 PC官网、 4215 H5官网、 4216 手机APP")
+	private Dict consultWay;
+
+	@Column(name = "consult_way_other", header = "咨询途径选择其他时填写的详情")
+	private String consultWayOther;
 
 	@Subs(foreignKey = "taskId", header = "意向产品", subType = NCustomerProduct.class)
 	private List<NCustomerProduct> products;
@@ -136,9 +166,44 @@ public class NCustomerTask extends Entity {
 	@Subs(foreignKey = "customerId", header = "通知日志", subType = NCustomerTaskNotify.class)
 	private List<NCustomerTaskNotify> notifys;
 
-	@Subs(foreignKey = "customerId", header = "流转日志", subType = NCustomerChange.class)
+	@Subs(foreignKey = "taskId", header = "流转日志", subType = NCustomerChange.class)
 	private List<NCustomerChange> changes;
 	
+	@Subs(foreignKey = "taskId", header = "抽查日志", subType = NCustomerTaskInspection.class)
+	private List<NCustomerTaskInspection> inspections;
+
+	public Boolean getCosted() {
+		return costed;
+	}
+
+	public void setCosted(Boolean costed) {
+		this.costed = costed;
+	}
+
+	public Integer getConsultWayId() {
+		return consultWayId;
+	}
+
+	public void setConsultWayId(Integer consultWayId) {
+		this.consultWayId = consultWayId;
+	}
+
+	public Dict getConsultWay() {
+		return consultWay;
+	}
+
+	public void setConsultWay(Dict consultWay) {
+		this.consultWay = consultWay;
+	}
+
+	public String getConsultWayOther() {
+		return consultWayOther;
+	}
+
+	public void setConsultWayOther(String consultWayOther) {
+		this.consultWayOther = consultWayOther;
+	}
+
 	public Integer getCostSupplierId() {
 		return costSupplierId;
 	}
@@ -179,44 +244,52 @@ public class NCustomerTask extends Entity {
 		this.allocationDispositon = allocationDispositon;
 	}
 
-	public Dict getTaskSource() {
-		return taskSource;
+	public Dict getSource() {
+		return source;
 	}
 
-	public void setTaskSource(Dict taskSource) {
-		this.taskSource = taskSource;
+	public void setSource(Dict source) {
+		this.source = source;
 	}
 
-	public Integer getTaskSourceId() {
-		return taskSourceId;
+	public Integer getSourceId() {
+		return sourceId;
 	}
 
-	public void setTaskSourceId(Integer taskSourceId) {
-		this.taskSourceId = taskSourceId;
+	public void setSourceId(Integer sourceId) {
+		this.sourceId = sourceId;
 	}
 
-	public TaskCustomerType getTaskCustomerType() {
-		return taskCustomerType;
+	public String getSourceOther() {
+		return sourceOther;
 	}
 
-	public void setTaskCustomerType(TaskCustomerType taskCustomerType) {
-		this.taskCustomerType = taskCustomerType;
+	public void setSourceOther(String sourceOther) {
+		this.sourceOther = sourceOther;
+	}
+	
+	public TaskCustomerType getTaskType() {
+		return taskType;
 	}
 
-	public Integer getSalesmanId() {
-		return salesmanId;
+	public void setTaskType(TaskCustomerType taskType) {
+		this.taskType = taskType;
 	}
 
-	public void setSalesmanId(Integer salesmanId) {
-		this.salesmanId = salesmanId;
+	public Integer getOwnerId() {
+		return ownerId;
 	}
 
-	public Salesman getSalesman() {
-		return salesman;
+	public void setOwnerId(Integer ownerId) {
+		this.ownerId = ownerId;
 	}
 
-	public void setSalesman(Salesman salesman) {
-		this.salesman = salesman;
+	public Employee getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Employee owner) {
+		this.owner = owner;
 	}
 
 	public TaskInspectionState getInspectionState() {
@@ -227,6 +300,11 @@ public class NCustomerTask extends Entity {
 		this.inspectionState = inspectionState;
 	}
 
+	//临时用，返回的就是‘抽查状态’
+	public Integer getProcessingState() {
+		return inspectionState.getValue();
+	}
+	
 	public NCustomer getCustomer() {
 		return customer;
 	}
@@ -418,6 +496,44 @@ public class NCustomerTask extends Entity {
 	public void setQualityId(Integer qualityId) {
 		this.qualityId = qualityId;
 	}
-	
-	
+
+	public Employee getLastInspectionUser() {
+		return lastInspectionUser;
+	}
+
+	public void setLastInspectionUser(Employee lastInspectionUser) {
+		this.lastInspectionUser = lastInspectionUser;
+	}
+
+	public Date getLastInspectionTime() {
+		return lastInspectionTime;
+	}
+
+	public void setLastInspectionTime(Date lastInspectionTime) {
+		this.lastInspectionTime = lastInspectionTime;
+	}
+
+	public String getLastInspectionContent() {
+		return lastInspectionContent;
+	}
+
+	public void setLastInspectionContent(String lastInspectionContent) {
+		this.lastInspectionContent = lastInspectionContent;
+	}
+
+	public List<NCustomerTaskInspection> getInspections() {
+		return inspections;
+	}
+
+	public void setInspections(List<NCustomerTaskInspection> inspections) {
+		this.inspections = inspections;
+	}
+
+	public Integer getLastInspectionUserId() {
+		return lastInspectionUserId;
+	}
+
+	public void setLastInspectionUserId(Integer lastInspectionUserId) {
+		this.lastInspectionUserId = lastInspectionUserId;
+	}
 }

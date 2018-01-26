@@ -213,10 +213,16 @@ var IMessageBox =
             	callback(false);
             });
         },
-        toast:function(message,icon){
-        	
+        toast:function(message,icon,callback){
+
         	var _icon = icon || 1;
-        	window.top.layer.msg(message, {time: 3000, icon:_icon});
+        	window.top.layer.msg(message, {time: 3000, icon:_icon},function(){
+        		
+        		if(callback){
+        			
+        			callback();
+        		}
+        	});
         },
         loading:{
         	

@@ -5,8 +5,9 @@ import org.netsharp.base.IEnum;
 
 public enum AllocationState implements IEnum{
 
-	ALLOCATED(1, "已分配"), 
-	WAIT(2, "待分配");
+	WAIT(1, "待分配"),
+	ALLOCATED(2, "已分配"),
+	NOALLOCATED(3, "不分配");
 	private int value;
 	private String text;
 

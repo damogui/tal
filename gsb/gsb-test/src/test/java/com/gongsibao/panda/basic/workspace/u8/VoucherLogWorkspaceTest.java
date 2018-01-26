@@ -57,21 +57,55 @@ public class VoucherLogWorkspaceTest extends WorkspaceCreationBase {
 		{
 			column.setVisible(false);
 		}
-		addColumn(datagrid, "ordernoCustname", "订单编号和客户名称", ControlTypes.TEXT_BOX, 200);
-		addColumn(datagrid, "abstractInfo", "摘要", ControlTypes.TEXT_BOX, 150);
-		addColumn(datagrid, "payId", "支付编号", ControlTypes.NUMBER_BOX, 80);
-		addColumn(datagrid, "refundId", "退单退款编号", ControlTypes.NUMBER_BOX, 80);
-		//addColumn(datagrid, "inVoucherLogId", "确认收入凭证源记录Id", ControlTypes.TEXT_BOX, 180);
-		addColumn(datagrid, "type", "类型", ControlTypes.ENUM_BOX, 100);
-		addColumn(datagrid, "voucherId", "u8生成的凭证号", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "dsc", "u8返回信息说明", ControlTypes.TEXT_BOX, 100);
+		column = addColumn(datagrid, "ordernoCustname", "订单编号和客户名称", ControlTypes.TEXT_BOX, 200);
+		{
+			column.setImported(true);
+		}
+		column = addColumn(datagrid, "abstractInfo", "摘要", ControlTypes.TEXT_BOX, 150);
+		{
+			column.setImported(true);
+		}
+		column = addColumn(datagrid, "payId", "支付编号", ControlTypes.NUMBER_BOX, 80);
+		{
+			column.setImported(true);
+		}
+		column = addColumn(datagrid, "refundId", "退单退款编号", ControlTypes.NUMBER_BOX, 80);
+		{
+			column.setImported(true);
+		}
+		column = addColumn(datagrid, "inVoucherLogId", "确认收入凭证源记录Id", ControlTypes.TEXT_BOX, 180);
+		{
+			column.setImported(true);
+		}
+		column = addColumn(datagrid, "type", "类型", ControlTypes.ENUM_BOX, 100);
+		{
+			column.setImported(true);
+		}
+		column = addColumn(datagrid, "voucherId", "u8生成的凭证号", ControlTypes.TEXT_BOX, 100);
+		{
+			column.setImported(true);
+		}
+		column = addColumn(datagrid, "dsc", "u8返回信息说明", ControlTypes.TEXT_BOX, 100);
+		{
+			column.setImported(true);
+		}
 		column = addColumn(datagrid, "succeed", "成功标识", ControlTypes.TEXT_BOX, 80);
 		{
 			column.setFormatter("return value=='0'?'成功':'失败'; ");
+			column.setImported(true);
 		}
-		addColumn(datagrid, "refundItemId", "退产品单退款编号", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "setOfBooks.name", "账套名称", ControlTypes.TEXT_BOX, 200);
-		addColumn(datagrid, "createTime", "添加时间", ControlTypes.DATETIME_BOX, 100);
+		column = addColumn(datagrid, "refundItemId", "退产品单退款编号", ControlTypes.TEXT_BOX, 100);
+		{
+			column.setImported(true);
+		}
+		column = addColumn(datagrid, "setOfBooks.name", "账套名称", ControlTypes.TEXT_BOX, 200);
+		{
+			column.setImported(true);
+		}
+		column = addColumn(datagrid, "createTime", "添加时间", ControlTypes.DATETIME_BOX, 100);
+		{
+			column.setImported(true);
+		}
 		return datagrid;
 	}
 
@@ -120,6 +154,7 @@ public class VoucherLogWorkspaceTest extends WorkspaceCreationBase {
 
 		ResourceNode node = this.getResourceNode();
 		operationService.addOperation(node, OperationTypes.view);
+		operationService.addOperation(node, OperationTypes.exportExcel);
 	}
 
 }

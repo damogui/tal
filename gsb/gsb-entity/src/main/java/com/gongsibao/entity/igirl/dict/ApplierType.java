@@ -5,7 +5,7 @@ import org.netsharp.base.IEnum;
 
 public enum ApplierType implements IEnum {
 
-	PUBLIC(0, "法人"), PRIVATE(1, "自然人");
+	PUBLIC(0, "法人或其它组织"), PRIVATE(1, "自然人");
 	private int value;
 	private String text;
 

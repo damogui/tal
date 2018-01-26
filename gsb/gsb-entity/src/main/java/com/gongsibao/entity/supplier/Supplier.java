@@ -90,9 +90,20 @@ public class Supplier extends Entity {
 	
 	@Subs(foreignKey = "supplierId", header = "服务地区", subType = SupplierServiceDistrict.class)
 	private List<SupplierServiceDistrict> serviceDistricts;
-	
+
 	@Subs(foreignKey = "supplierId", header = "开通模块", subType = SupplierFunctionModule.class)
 	private List<SupplierFunctionModule> modules;
+
+    @Column(name = "bank_name", header = "开户行")
+    private String bankName ;
+    @Column(name = "bank_num", header = "开户行号")
+    private String bankNum;
+
+
+    @Column(name = "is_old_client", header = "是否新客户")
+    private Boolean isoldclient;
+
+
 
 
 	public String getContact() {
@@ -286,4 +297,29 @@ public class Supplier extends Entity {
 	public void setModules(List<SupplierFunctionModule> modules) {
 		this.modules = modules;
 	}
+
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
+    public String getBankNum() {
+        return bankNum;
+    }
+
+    public void setBankNum(String bankNum) {
+        this.bankNum = bankNum;
+    }
+
+    public Boolean getIsoldclient() {
+        return isoldclient;
+    }
+
+    public void setIsoldclient(Boolean isoldclient) {
+        this.isoldclient = isoldclient;
+    }
 }

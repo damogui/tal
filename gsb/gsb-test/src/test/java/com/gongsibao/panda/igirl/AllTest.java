@@ -1,9 +1,8 @@
 package com.gongsibao.panda.igirl;
 import com.gongsibao.panda.igirl.reference.NCLOneReferenceTest;
 import com.gongsibao.panda.igirl.reference.NCLTwoReferenceTest;
-import com.gongsibao.panda.igirl.workspace.NclOneWorkspaceTest;
-import com.gongsibao.panda.igirl.workspace.NclTwoWorkspaceTest;
-import com.gongsibao.panda.igirl.workspace.TradeMarkCaseAllWorkspaceTest;
+import com.gongsibao.panda.igirl.workspace.*;
+
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -14,7 +13,11 @@ import org.junit.runners.Suite.SuiteClasses;
 		NCLTwoReferenceTest.class,
 		NclOneWorkspaceTest.class,
 		NclTwoWorkspaceTest.class,
+		NclBatchWorkspaceTest.class,
 		TradeMarkCaseAllWorkspaceTest.class,
+		MyAllTradeMarkCaseWorkspaceTest.class,
+		TradeMarkFollowWorkspaceTest.class,
+		MyTradeMarkFollowWorkspaceTest.class,
 		NavigationTest.class
 		})
 		
