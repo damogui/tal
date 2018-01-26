@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.junit.Test;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
@@ -250,8 +251,6 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		Step5 step5;
 		Step6 step6;
 		Step7 step7;
-		List<Goods> goodsList;
-		Goods goods;
 		Oql oql = new Oql();
 		oql.setType(TradeMark.class);
 		oql.setSelects("TradeMark.*,TradeMark.tradeMarkCase.*,TradeMark.tradeMarkCase.uploadAttachments.*");
@@ -343,19 +342,18 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 	public List<Goods> goodSl(String str,String code){
 		List<Goods> goodsList = new ArrayList<>();
 		Goods goods;
-		String[] lines = str.split("\n");
-		Map<String,List<String>> map = new HashMap<String,List<String>>();
+		String[] lines = str.split("\\n");
+		Map<String,List<String>> map = new HashMap<>();
 		List<String> stss;
 		for(String s:lines) {
 			String[] sts =  s.split(":");
 			if(map.containsKey(sts[2])) {
 				stss = map.get(sts[2]);
-				stss.add(sts[1]);
 			}else {
 				stss = new ArrayList<>();
-				stss.add(sts[1]);
-				map.put(sts[2], stss);
 			}
+			stss.add(sts[1]);
+			map.put(sts[2], stss);
 		}
 		Set<String> set = map.keySet();
 		for(String st:set) {
@@ -367,5 +365,15 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		}
 		return goodsList;
 	}
-
+	public String updateMarkState(String ids,String type){
+		Oql oql = new Oql();
+		String sql = "update ig_trade_mark set mark_state = ? where id in (?)";
+		if (type.equals("1")){
+			oql.getParameters().add("mark_state",MarkState.WAITCOMMIT.getValue(),Types.INTEGER);
+		}else{
+			oql.getParameters().add("mark_state",MarkState.READY.getValue(),Types.INTEGER);
+		}
+		oql.getParameters().add("id",ids,Types.INTEGER);
+		return String.valueOf(this.pm.executeNonQuery(sql,oql.getParameters()));
+	}
 }

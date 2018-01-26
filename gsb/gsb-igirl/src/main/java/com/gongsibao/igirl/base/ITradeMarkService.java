@@ -14,5 +14,7 @@ public interface ITradeMarkService extends IPersistableService<TradeMark> {
       void deleteColorfulTradeMarkPict(TradeMark tm);
       void addColorfulTradeMarkPict(TradeMark tm);
 
-      public List<TradeMarkApplyInfo> tmsForRobot(Integer innerHour);
+      List<TradeMarkApplyInfo> tmsForRobot(Integer innerHour);
+
+      String updateMarkState(String ids,String type);
 }
