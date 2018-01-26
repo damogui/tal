@@ -42,9 +42,6 @@ public class NCustomerTaskInspection extends Entity{
 	@Column(name = "content", size = 100, header = "抽查内容")
 	private String content;
 	
-	@Column(name = "process_state", size = 100, header = "处理状态")
-	private TaskInspectionState processState;
-	
 	@Column(name = "supplier_id", header = "分配服务商Id")
 	private Integer supplierId;
 
@@ -105,14 +102,6 @@ public class NCustomerTaskInspection extends Entity{
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	public TaskInspectionState getProcessState() {
-		return processState;
-	}
-
-	public void setProcessState(TaskInspectionState processState) {
-		this.processState = processState;
 	}
 
 	public Integer getSupplierId() {

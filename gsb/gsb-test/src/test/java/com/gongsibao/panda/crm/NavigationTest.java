@@ -39,6 +39,7 @@ public class NavigationTest extends NavigationBase {
 
 		createPTreeNode(tree, null, null, "GSB_CRM_MY", "我的任务", "", 2);
 		{
+			createPTreeNode(tree, "GSB_CRM_MY", null, "GSB_CRM_MY_CUSTOMER_ADD", "新增客户", "/crm/my/customer/add", 1);
 			createPTreeNode(tree, "GSB_CRM_MY", null, "GSB_CRM_MY_CUSTOMER", "我的客户", "/crm/my/customer/list", 1);
 			createPTreeNode(tree, "GSB_CRM_MY", null, "GSB_CRM_MY_TASK_ALL", "全部任务", "/crm/my/task/all/list", 2);
 			createPTreeNode(tree, "GSB_CRM_MY", null, "GSB_CRM_MY_TASK_START", "未启动", "/crm/my/task/start/list", 3);
@@ -52,6 +53,7 @@ public class NavigationTest extends NavigationBase {
 
 		createPTreeNode(tree, null, null, "GSB_CRM_DEPARTMENT", "部门管理", "", 3);
 		{
+			createPTreeNode(tree, "GSB_CRM_DEPARTMENT", null, "GSB_CRM_DEPARTMENT_ADD", "新增客户", "/crm/department/customer/add", 1);
 			createPTreeNode(tree, "GSB_CRM_DEPARTMENT", null, "GSB_CRM_DEPARTMENT_ALL", "全部任务", "/crm/department/2/list", 1);
 			createPTreeNode(tree, "GSB_CRM_DEPARTMENT", null, "GSB_CRM_DEPARTMENT_START", "未启动", "/crm/department/3/list", 2);
 			createPTreeNode(tree, "GSB_CRM_DEPARTMENT", null, "GSB_CRM_DEPARTMENT_UNFOOLOW", "待跟进", "/crm/department/4/list", 3);

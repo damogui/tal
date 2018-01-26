@@ -73,6 +73,21 @@ public class Salesman extends Entity {
 	
 	@Subs(subType = SalesmanProduct.class, foreignKey = "salesmanId", header = "服务范围")
 	private List<SalesmanProduct> products;
+
+
+    @Column(name = "is_old_client", header = "是否新客户")
+    private Boolean isoldclient;
+
+    @Column(name = "is_accpet_auto", header = "是否接受自动分配")
+    private Boolean isaccpetauto;
+    @Column(name = "day_max", header = "日分配上线")
+    private Integer daymax;
+    @Column(name = "week_max", header = "周分配上线")
+    private Integer weekmax;
+    @Column(name = "xab_max", header = "XAB类任务上限")
+    private Integer xabmax;
+
+
 	
 	public String getLoginName() {
 		return loginName;
@@ -202,5 +217,44 @@ public class Salesman extends Entity {
 		this.products = products;
 	}
 
-	
+
+    public Boolean getIsoldclient() {
+        return isoldclient;
+    }
+
+    public void setIsoldclient(Boolean isoldclient) {
+        this.isoldclient = isoldclient;
+    }
+
+    public Boolean getIsaccpetauto() {
+        return isaccpetauto;
+    }
+
+    public void setIsaccpetauto(Boolean isaccpetauto) {
+        this.isaccpetauto = isaccpetauto;
+    }
+
+    public Integer getDaymax() {
+        return daymax;
+    }
+
+    public void setDaymax(Integer daymax) {
+        this.daymax = daymax;
+    }
+
+    public Integer getWeekmax() {
+        return weekmax;
+    }
+
+    public void setWeekmax(Integer weekmax) {
+        this.weekmax = weekmax;
+    }
+
+    public Integer getXabmax() {
+        return xabmax;
+    }
+
+    public void setXabmax(Integer xabmax) {
+        this.xabmax = xabmax;
+    }
 }
