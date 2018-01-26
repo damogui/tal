@@ -1,4 +1,4 @@
-package com.gongsibao.panda.crm.workspace.my;
+package com.gongsibao.panda.crm.workspace.salesman;
 
 import org.junit.Before;
 import org.netsharp.core.MtableManager;
@@ -14,21 +14,20 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import com.gongsibao.crm.web.MyAllTaskListPart;
 import com.gongsibao.entity.crm.NCustomerTask;
 
-public class UnStartWorkspace extends WorkspaceCreationBase{
+public class FollowIngWorkspace extends WorkspaceCreationBase{
 
 	@Override
 	@Before
 	public void setup() {
 		entity = NCustomerTask.class;
 		//配置资源路径
-		urlList = "/crm/my/task/start/list";
-				
-		listPartName = formPartName = "未启动";
+		urlList = "/crm/salesman/task/following/list";
+			
+		listPartName = formPartName = "跟进中";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_MY_TASK_START";
-		//没有质量分类，哪怕有跟进也不算做启动
-		listFilter = "ownerId = '{userId}' and foolow_status is NULL and intention_category is NULL";
+		resourceNodeCode = "CRM_SALESMAN_TASK_FOLLOWING";
+		listFilter = "foolowStatus = 3 and ownerId = '{userId}'";
 		
 		//扩展列表操作
 		listToolbarPath = "crm/my/task/all/toolbar";
@@ -36,6 +35,8 @@ public class UnStartWorkspace extends WorkspaceCreationBase{
 		listPartJsController = MyAllTaskListPart.class.getName();
 		listPartServiceController = MyAllTaskListPart.class.getName();		
 	}
+	
+	
 	
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
@@ -80,11 +81,11 @@ public class UnStartWorkspace extends WorkspaceCreationBase{
 		}
 		return queryProject;
 	}
-	
+		
 	public void doOperation() {
 		ResourceNode node = resourceService.byCode(resourceNodeCode);
 		operationService.addOperation(node, OperationTypes.view);
 		operationService.addOperation(node, OperationTypes.add);
 		operationService.addOperation(node, OperationTypes.update);
-	}	
+	}		
 }

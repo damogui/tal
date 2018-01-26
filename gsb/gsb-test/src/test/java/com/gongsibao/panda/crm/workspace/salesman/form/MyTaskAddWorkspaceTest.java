@@ -1,4 +1,4 @@
-package com.gongsibao.panda.crm.workspace.my.form;
+package com.gongsibao.panda.crm.workspace.salesman.form;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ public class MyTaskAddWorkspaceTest extends TaskAddWorkspaceTest{
 		listPartName = formPartName = "新增任务";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_MY_TASK_ADD";
+		resourceNodeCode = "CRM_SALESMAN_TASK_ADD";
 		List<String> ss = new ArrayList<String>();
 		
 		ss.add("/gsb/crm/platform/js/task-add-form.part.js");
@@ -32,6 +32,6 @@ public class MyTaskAddWorkspaceTest extends TaskAddWorkspaceTest{
 		formJsController = NCustomerTaskAddFormPart.class.getName();
 		formServiceController = NCustomerTaskAddFormPart.class.getName();
 		
-		productsDetailResourceNodeCode = "GSB_CRM_My_Manager_Products";
+		productsDetailResourceNodeCode = "CRM_SALESMAN_Manager_Products";
 	}
 }

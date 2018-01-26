@@ -1,4 +1,4 @@
-package com.gongsibao.panda.crm.workspace.my;
+package com.gongsibao.panda.crm.workspace.salesman;
 
 import org.junit.Before;
 import org.netsharp.core.MtableManager;
@@ -14,20 +14,21 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import com.gongsibao.crm.web.MyAllTaskListPart;
 import com.gongsibao.entity.crm.NCustomerTask;
 
-public class FollowIngWorkspace extends WorkspaceCreationBase{
+public class AlreadySignWorkspace extends WorkspaceCreationBase{
 
+	
 	@Override
 	@Before
 	public void setup() {
 		entity = NCustomerTask.class;
 		//配置资源路径
-		urlList = "/crm/my/task/following/list";
-			
-		listPartName = formPartName = "跟进中";
+		urlList = "/crm/salesman/task/signed/list";
+				
+		listPartName = formPartName = "已经签单";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_MY_TASK_FOLLOWING";
-		listFilter = "foolowStatus = 3 and ownerId = '{userId}'";
+		resourceNodeCode = "CRM_SALESMAN_TASK_SIGNED";
+		listFilter = "foolowStatus=5 and ownerId = '{userId}'";
 		
 		//扩展列表操作
 		listToolbarPath = "crm/my/task/all/toolbar";
@@ -81,7 +82,8 @@ public class FollowIngWorkspace extends WorkspaceCreationBase{
 		}
 		return queryProject;
 	}
-		
+	
+	
 	public void doOperation() {
 		ResourceNode node = resourceService.byCode(resourceNodeCode);
 		operationService.addOperation(node, OperationTypes.view);

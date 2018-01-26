@@ -1,4 +1,4 @@
-package com.gongsibao.panda.crm.workspace.my;
+package com.gongsibao.panda.crm.workspace.salesman;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -36,13 +36,13 @@ public class DefeatedWorkspace extends TaskEditWorkspaceTest{
 	public void setup() {
 		entity = NCustomerTask.class;
 		//配置表单路径
-		urlForm = "/crm/my/task/defeated/from";	
+		urlForm = "/crm/salesman/task/defeated/from";	
 		//配置资源路径
 		urlList = "/crm/my/task/defeated/list";
 		listPartName = formPartName = "无法签单";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_MY_TASK_DEFEATED";
+		resourceNodeCode = "CRM_SALESMAN_TASK_DEFEATED";
 		listFilter = "foolowStatus = 4 and ownerId = '{userId}'";
 		
 		//扩展列表操作
@@ -52,7 +52,7 @@ public class DefeatedWorkspace extends TaskEditWorkspaceTest{
 		listPartServiceController = MyAllTaskListPart.class.getName();
 		
 		//重写加载项code
-		productsDetailResourceNodeCode = "GSB_CRM_My_Manager_Products";
+		productsDetailResourceNodeCode = "CRM_My_Manager_Products";
 		foolowDetailResourceNodeCode = NCustomerTaskFoolow.class.getSimpleName();
 		notifyDetailResourceNodeCode = NCustomerTaskNotify.class.getSimpleName();
 		changeDetailResourceNodeCode = NCustomerChange.class.getSimpleName();

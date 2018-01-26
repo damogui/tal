@@ -1,4 +1,4 @@
-package com.gongsibao.panda.crm.workspace.my;
+package com.gongsibao.panda.crm.workspace.salesman;
 
 import org.junit.Before;
 import org.netsharp.core.MtableManager;
@@ -21,11 +21,11 @@ public class CustomerWorkspace extends WorkspaceCreationBase{
 	public void setup() {
 		entity = NCustomerTask.class;
 		//配置资源路径
-		urlList = "/crm/my/customer/list";
+		urlList = "/crm/salesman/customer/list";
 		listPartName = formPartName = "我的客户";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_MY_CUSTOMER";
+		resourceNodeCode = "CRM_SALESMAN_CUSTOMER";
 		//listFilter = "ownerId = '{userId}' and id in (select min(id) from n_crm_customer_task group by customer_id)";
 		
 		listPartImportJs = "/gsb/crm/js/crm-myCustomer-list.js";
