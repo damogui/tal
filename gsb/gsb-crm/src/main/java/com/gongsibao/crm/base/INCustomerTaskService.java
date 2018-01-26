@@ -1,7 +1,6 @@
 package com.gongsibao.crm.base;
 
 import org.netsharp.base.IPersistableService;
-import org.netsharp.core.annotations.Transaction;
 
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
@@ -46,7 +45,7 @@ public interface INCustomerTaskService  extends IPersistableService<NCustomerTas
 	/**
 	 * 任务分配
 	 */
-	public Boolean allocation(Integer taskId,Integer supplierId,Integer departmentId,Integer toUserId);
+	public Boolean allocation(Integer taskId,Integer supplierId,Integer departmentId,Integer toUserId,Integer allocationType);
 	
 	/**
 	 * 任务跟进
@@ -54,7 +53,7 @@ public interface INCustomerTaskService  extends IPersistableService<NCustomerTas
 	public Boolean follow(NCustomerTaskFoolow taskFoolow);
 	
 	/**
-	 * 任务收回
+	 * 任务收回(主管等操作)
 	 */
 	public Boolean regain(Integer taskId);
 	
@@ -64,13 +63,7 @@ public interface INCustomerTaskService  extends IPersistableService<NCustomerTas
 	public Boolean release(Integer taskId);
 	
 	/**
-	 * 任务回退
+	 * 任务回退(业务员主动操作)
 	 */
 	public Boolean rollback(Integer taskId);
-	/**
-	 * @param taskId 任务id
-	 * @return
-	 */
-	@Transaction
-	int allot(Integer taskId);
 }
