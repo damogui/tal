@@ -5,7 +5,9 @@ com.gongsibao.igirl.web.TradeMarkListPart = org.netsharp.panda.commerce.ListPart
 		this.base();
 	},
 	autoSubmit:function(){
-		this.datagrid.datatrid('select')
+		alert("hello");
+		var rows=this.datagrid.datagrid('getSelections');
+		alert(rows)
 	}
 
 });

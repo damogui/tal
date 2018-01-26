@@ -3,19 +3,13 @@ package com.gongsibao.panda.igirl;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.net.HttpURLConnection;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gongsibao.entity.igirl.baseinfo.NCLOne;
-import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
-import com.gongsibao.entity.igirl.baseinfo.NclBatch;
-import com.gongsibao.igirl.base.INCLOneService;
-import com.gongsibao.igirl.base.INCLTwoService;
-import com.gongsibao.igirl.base.INclBatchService;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -25,10 +19,14 @@ import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.panda.annotation.Authorization;
 import org.netsharp.util.ReflectManager;
-import com.gongsibao.igirl.web.TradeMarkCaseController;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import com.gongsibao.entity.igirl.baseinfo.NCLOne;
+import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
+import com.gongsibao.entity.igirl.baseinfo.NclBatch;
+import com.gongsibao.igirl.base.INCLOneService;
+import com.gongsibao.igirl.base.INCLTwoService;
+import com.gongsibao.igirl.base.INclBatchService;
+import com.gongsibao.igirl.web.TradeMarkCaseController;
 
 public class AnnoTest {
 	@Test

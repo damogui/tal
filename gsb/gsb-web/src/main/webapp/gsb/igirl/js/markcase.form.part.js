@@ -152,7 +152,7 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
             var tmpArray=[];
             var i=1;
             selectedItems.forEach(function (row) {
-                tmpArray.push(i+"."+row.name+":"+row.code+":"+row.id);
+                tmpArray.push(i+":"+row.name+":"+row.code+":"+row.id);
                 i++;
             })
             var rtnStr=tmpArray.join("\n")
