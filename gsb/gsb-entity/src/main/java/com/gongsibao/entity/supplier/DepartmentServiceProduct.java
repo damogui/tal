@@ -10,7 +10,7 @@ import org.netsharp.entity.Entity;
 /**
  * Created by win on 2018/1/26.
  */
-@Table(name="sp_service_product",header="服务商部门的服务地区")
+@Table(name="Depart_service_product",header="服务商部门的服务地区")
 public class DepartmentServiceProduct  extends Entity {
     /**
      * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)

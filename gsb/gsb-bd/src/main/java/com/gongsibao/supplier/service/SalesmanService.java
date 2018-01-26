@@ -159,7 +159,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 	public Salesman save(Salesman entity) {
 
 		EntityState state = entity.getEntityState();
-		entity = super.save(entity);
+
 		if (state == EntityState.New) {
 
 			this.createEmployee(entity);
@@ -167,7 +167,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 
 			this.updateEmployee(entity);
 		}
-
+        entity = super.save(entity);
 		return entity;
 	}
 
@@ -204,6 +204,8 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 
 		employee.setRoles(reList);
 		service.save(employee);
+
+        entity.setEmployeeId(employee.getId());
 	}
 
 	/**
