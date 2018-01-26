@@ -28,7 +28,7 @@ public class ActionAllocationSaveLog implements IAction{
 		INCustomerChangeService changeService = ServiceFactory.create(INCustomerChangeService.class);
 		NCustomerChange changeEntity = new NCustomerChange();
 		changeEntity.toNew();//标示下类型，有多种
-		//changeEntity.setFormUserId(); 来自哪个
+		changeEntity.setFormUserId((Integer)ctx.getStatus().get("formUserId")); 
 		changeEntity.setToUserId(getEntity.getOwnerId());
 		changeEntity.setChangeType(ChangeType.ALLOCATION);
 		changeEntity.setTaskId(getEntity.getId());

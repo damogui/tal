@@ -16,18 +16,6 @@ public class ActionAllocationSave implements IAction{
 
 	@Override
 	public void execute(ActionContext ctx) {
-		IPersister<NCustomerTask> pm = PersisterFactory.create();
-		NCustomerTask getEntity = (NCustomerTask)ctx.getItem(); 
-		UpdateBuilder updateSql = UpdateBuilder.getInstance();
-		{
-			updateSql.update("n_crm_customer_task");
-			updateSql.set("supplier_id", getEntity.getSupplierId());
-			updateSql.set("department_id", getEntity.getDepartmentId());
-			updateSql.set("owner_id", getEntity.getOwnerId());
-			updateSql.set("allocation_statee", 2);
-			updateSql.where("id=" + getEntity.getId());
-		}
-		String cmdText = updateSql.toSQL();
-		pm.executeNonQuery(cmdText, null);
+		
 	}
 }
