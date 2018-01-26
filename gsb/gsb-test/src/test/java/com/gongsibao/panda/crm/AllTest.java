@@ -32,8 +32,9 @@ import com.gongsibao.panda.crm.workspace.salesman.AlreadySignSalesmanWorkspaceTe
 import com.gongsibao.panda.crm.workspace.salesman.CheckAbnormalSalesmanWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.salesman.DefeatedSalesmanWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.salesman.FollowIngSalesmanWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.salesman.TimeOutSalesmanWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.salesman.UnFoolowSalesmanWorkspaceTest;
-import com.gongsibao.panda.crm.workspace.salesman.UnStartSalesmanWorkspace;
+import com.gongsibao.panda.crm.workspace.salesman.UnStartSalesmanWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.salesman.VerifySalesmanCustomerWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.salesman.form.MyAddCustomerWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.salesman.form.MyCustomerEditWorkspaceTest;
@@ -73,22 +74,22 @@ import com.gongsibao.panda.crm.workspace.sys.SysSalesmanWorkspaceTest;
 //		BaseServiceProviderWorkspaceTest.class,
 
 		
+		//业务员
 		MyAddCustomerWorkspaceTest.class,
 		MyCustomerEditWorkspaceTest.class,
 		MyTaskAddWorkspaceTest.class,
 		MyTaskEditWorkspaceTest.class,
-		
-
 		AllSalesmanCustomerWorkspaceTest.class,
 		AllSalesmanTaskWorkspaceTest.class,
-		
-		UnStartSalesmanWorkspace.class,
+		UnStartSalesmanWorkspaceTest.class,
 		UnFoolowSalesmanWorkspaceTest.class,
 		FollowIngSalesmanWorkspaceTest.class,
 		AlreadySignSalesmanWorkspaceTest.class,
 		DefeatedSalesmanWorkspaceTest.class,
 		CheckAbnormalSalesmanWorkspaceTest.class,
+		TimeOutSalesmanWorkspaceTest.class,
 		
+		//部门
 		AddDepartmentCustomerWorkspaceTest.class,
 		VerifySalesmanCustomerWorkspaceTest.class,
 		DepartAllTaskWorkspace.class,
@@ -99,7 +100,9 @@ import com.gongsibao.panda.crm.workspace.sys.SysSalesmanWorkspaceTest;
 		DepartUnStartWorkspace.class,
 		DepartHighSeasWorkspace.class,
 		
+		//Action
 		ActionAllTest.class,
+		
 		NavigationTest.class
 		})
 		

@@ -3,7 +3,7 @@ package com.gongsibao.panda.crm.workspace.salesman;
 import org.junit.Before;
 import org.netsharp.panda.plugin.entity.PToolbar;
 
-public class UnStartSalesmanWorkspace extends AllSalesmanTaskWorkspaceTest{
+public class UnStartSalesmanWorkspaceTest extends AllSalesmanTaskWorkspaceTest{
 
 	@Override
 	@Before
