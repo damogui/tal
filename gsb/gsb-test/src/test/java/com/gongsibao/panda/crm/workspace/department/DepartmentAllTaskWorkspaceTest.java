@@ -24,7 +24,7 @@ public class DepartmentAllTaskWorkspaceTest extends TaskALLWorkspaceTest{
 
 		super.setup();
 		urlList = "/crm/department/task/all/list";
-		resourceNodeCode = "CRM_SALESMAN_TASK_ALL";
+		resourceNodeCode = "CRM_DEPARTMENT_TASK_ALL";
 		
 		List<String> ss = new ArrayList<String>();
 		ss.add("/gsb/crm/base/js/task-base-list.part.js");

@@ -18,6 +18,7 @@ import com.gongsibao.panda.crm.workspace.CompanyIntentionWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.CustomerAllWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.CustomerOrderWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.CustomerServiceConfigWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.department.DepartmentAllCustomerWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.department.DepartmentAllTaskWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.department.DepartmentCheckAbnormalWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.department.DepartmentSignWorkspaceTest;
@@ -102,6 +103,7 @@ import com.gongsibao.panda.crm.workspace.sys.SysSalesmanWorkspaceTest;
 		DepartmentTaskAddWorkspaceTest.class,
 		DepartmentTaskEditWorkspaceTest.class,
 		
+		DepartmentAllCustomerWorkspaceTest.class,
 		DepartmentAllTaskWorkspaceTest.class,
 		DepartmentCheckAbnormalWorkspaceTest.class,
 		DepartmentDefeatedWorkspaceTest.class,
