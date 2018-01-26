@@ -207,7 +207,6 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
 	@Override
 	public Boolean rollback(Integer taskId) {
-		
 		//任务回退
 		NCustomerTask entity = this.byId(taskId);
 		ActionContext ctx = new ActionContext();
