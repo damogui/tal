@@ -16,21 +16,31 @@ public class TaskBaseListPart extends BaseSupplierListPart{
 
 		ArrayList<String> filters = new ArrayList<String>();
 		
-		FilterParameter fp = filterMap.get("keyword");
-		if(fp != null){
+		if (filterMap.size() > 0) {
 
-			//这里全匹配
-			String keyword = fp.getValue1().toString();
-			filters.add("id='"+keyword+"'");
-			filters.add("name='"+keyword+"'");
-			filters.add("customer.id='"+keyword+"'");
-			filters.add("customer.realName='"+keyword+"'");
-			filters.add("customer.mobile='"+keyword+"'");
-			filters.add("customer.telephone='"+keyword+"'");
-			filters.add("customer.qq='"+keyword+"'");
-			filters.add("customer.weixin='"+keyword+"'");
+			for (String key : filterMap.keySet()) {
+
+				FilterParameter fp = filterMap.get(key);
+				if(key == "keyword"){
+					
+					//这里全匹配
+					String keyword = fp.getValue1().toString();
+					filters.add("id='"+keyword+"'");
+					filters.add("name='"+keyword+"'");
+					filters.add("customer.id='"+keyword+"'");
+					filters.add("customer.realName='"+keyword+"'");
+					filters.add("customer.mobile='"+keyword+"'");
+					filters.add("customer.telephone='"+keyword+"'");
+					filters.add("customer.qq='"+keyword+"'");
+					filters.add("customer.weixin='"+keyword+"'");
+				}else{
+
+					String fString = fp.getFilter();
+					filters.add(fString);
+				}
+			}
 		}
-		
+
 		//以上要在基类里扩展出一个方法
 
 
