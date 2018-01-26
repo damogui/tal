@@ -17,7 +17,6 @@ com.gongsibao.crm.web.TaskLostOrderListPart = com.gongsibao.crm.web.BaseTaskList
 		var me = this;
 		me.doAbnormalPopup(id,0,1);
 	},doAbnormalPopup : function(id,state,type) {
-		alert(11);
 		var me = this;
 		var content = '<p style="padding-left:50px;">&nbsp;抽查记录：</p>'
 				+ '<p style="padding-left:50px;">'
