@@ -25,10 +25,14 @@ public class ActionAbnormalSave implements IAction{
 		INCustomerTaskInspectionService inspectionService = ServiceFactory.create(INCustomerTaskInspectionService.class);
 		NCustomerTaskInspection inspectionEntity = new NCustomerTaskInspection();
 		
+		Integer getState = (Integer)ctx.getStatus().get("state");
 		inspectionEntity.toNew();//标示下类型，有多种
-		TaskInspectionState getState = getEntity.getInspectionState();
+		//备注操作0  state
+		if(!getState.equals(0)){
+			inspectionEntity.setInspectionState(TaskInspectionState.getItem(getState));
+		}
 		inspectionEntity.setContent(getEntity.getLastInspectionContent());
-		//inspectionEntity.setInspectionState(inspectionState);
+		
 		inspectionEntity.setInspectionType(TaskInspectionType.getItem((Integer)ctx.getStatus().get("type")) );
 		
 		inspectionEntity.setTaskId(getEntity.getId());

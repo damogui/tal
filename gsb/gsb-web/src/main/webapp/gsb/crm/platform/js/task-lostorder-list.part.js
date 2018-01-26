@@ -9,10 +9,13 @@ com.gongsibao.crm.web.TaskLostOrderListPart = com.gongsibao.crm.web.BaseTaskList
 		me.doAbnormalPopup(id,2,1);
 	},
 	untrue:function(id){
+		var me = this;
 		me.doAbnormalPopup(id,3,1);
 	},
 	submitRemark:function(id){
-		alert('备注');
+		//state:0  ；只更新内容
+		var me = this;
+		me.doAbnormalPopup(id,0,1);
 	},doAbnormalPopup : function(id,state,type) {
 		alert(11);
 		var me = this;

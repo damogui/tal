@@ -11,6 +11,7 @@ import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.entity.crm.NCustomerTask;
+import com.gongsibao.entity.crm.dic.TaskInspectionState;
 
 /**
  * @author hw
@@ -24,11 +25,17 @@ public class ActionAbnormalWriteBack implements IAction{
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
 		IPersister<NCustomerTask> pm = PersisterFactory.create();
-		NCustomerTask getEntity = (NCustomerTask)ctx.getItem(); 
+		NCustomerTask getEntity = (NCustomerTask)ctx.getItem();
+		
+		Integer getState = (Integer)ctx.getStatus().get("state");
 		UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("n_crm_customer_task");
-			updateSql.set("inspection_state", ctx.getStatus().get("type"));
+			//备注操作0
+			if(!getState.equals(0)){
+				updateSql.set("inspection_state", getState);
+			}
+			
 			updateSql.set("last_inspection_user_id", SessionManager.getUserId());
 			updateSql.set("last_inspection_content", getEntity.getLastInspectionContent());
 			updateSql.set("last_inspection_time", df.format(day));

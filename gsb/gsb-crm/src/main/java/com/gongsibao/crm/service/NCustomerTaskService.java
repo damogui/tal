@@ -124,9 +124,9 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
 		//抽查异常
 		NCustomerTask entity = this.byId(taskId);
-		entity.setInspectionState(TaskInspectionState.getItem(state));
 		entity.setLastInspectionContent(content);
 		Map<String,Object> setMap = new HashMap<String,Object>();
+		setMap.put("state", state);
 		setMap.put("type", type);
 		ActionContext ctx = new ActionContext();
 		{
