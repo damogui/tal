@@ -1,4 +1,4 @@
-package com.gongsibao.panda.crm.workspace.my;
+package com.gongsibao.panda.crm.workspace.salesman;
 
 import org.junit.Before;
 import org.junit.Test;

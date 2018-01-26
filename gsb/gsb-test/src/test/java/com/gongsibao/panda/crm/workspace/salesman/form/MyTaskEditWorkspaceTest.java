@@ -1,4 +1,4 @@
-package com.gongsibao.panda.crm.workspace.my.form;
+package com.gongsibao.panda.crm.workspace.salesman.form;
 
 import java.util.ArrayList;
 import java.util.List;
