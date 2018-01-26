@@ -12,6 +12,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.controls.PropertyQueryDictComboBox;
+import com.gongsibao.crm.web.department.DepartmentAllTaskListPart;
 import com.gongsibao.entity.crm.NCustomerTaskQuality;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.panda.operation.workspace.crm.TaskALLWorkspaceTest;
@@ -32,6 +33,9 @@ public class DepartmentAllTaskWorkspaceTest extends TaskALLWorkspaceTest{
 		listPartImportJs = StringManager.join("|", ss);
 
 		//当前登录人所在部门的子部门,需要扩展
+		
+		listPartJsController = DepartmentAllTaskListPart.class.getName();
+		listPartServiceController = DepartmentAllTaskListPart.class.getName();
 		
 		listToolbarPath = "department/task/all";
 		rowToolbaPath = "department/task/all/row";

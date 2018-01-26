@@ -1,4 +1,5 @@
-com.gongsibao.crm.web.TaskAllListPart = com.gongsibao.crm.web.BaseTaskListPart.Extends({
+System.Declare("com.gongsibao.crm.web.department");
+com.gongsibao.crm.web.department.DepartmentAllTaskListPart = com.gongsibao.crm.web.BaseTaskListPart.Extends({
 	ctor : function() {
 		this.base();
 	},

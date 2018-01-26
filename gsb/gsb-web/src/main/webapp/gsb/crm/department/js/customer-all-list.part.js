@@ -1,4 +1,5 @@
-com.gongsibao.crm.web.NCustomerAllListPart = com.gongsibao.crm.web.BaseCustomerListPart.Extends({
+System.Declare("com.gongsibao.crm.web.department");
+com.gongsibao.crm.web.department.DepartmentAllCustomerListPart = com.gongsibao.crm.web.BaseCustomerListPart.Extends({
 	ctor : function() {
 		this.base();
 	},

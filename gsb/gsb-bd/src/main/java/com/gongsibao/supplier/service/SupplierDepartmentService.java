@@ -1,7 +1,12 @@
 package com.gongsibao.supplier.service;
 
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.netsharp.communication.Service;
 import org.netsharp.core.EntityState;
+import org.netsharp.core.Oql;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.bd.service.SupplierPersistableService;
@@ -66,5 +71,30 @@ public class SupplierDepartmentService extends SupplierPersistableService<Suppli
 			String cmdText = updateSql.toSQL();
 			pm.executeNonQuery(cmdText, null);
 		}
+	}
+
+	@Override
+	public List<Integer> getSubDepartmentIdList(Integer departmentId) {
+
+		List<Integer> idList = new ArrayList<Integer>();
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects("id");
+			oql.setFilter("parentId=?");
+			oql.getParameters().add("@parentId", departmentId, Types.INTEGER);
+		}
+		
+		List<SupplierDepartment> list = this.queryList(oql);
+		for(SupplierDepartment entity :list){
+			
+			idList.add(entity.getId());
+			List<Integer> subIdList = getSubDepartmentIdList(entity.getId());
+			if(idList.size()>0){
+				idList.addAll(subIdList);
+			}
+		}
+		
+		return idList;
 	}
 }

@@ -11,7 +11,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.controls.PropertyQueryDictComboBox;
-import com.gongsibao.crm.web.NCustomerAllListPart;
+import com.gongsibao.crm.web.department.DepartmentAllCustomerListPart;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.panda.operation.workspace.crm.CustomerALLWorkspaceTest;
 
@@ -31,8 +31,8 @@ public class DepartmentAllCustomerWorkspaceTest extends CustomerALLWorkspaceTest
 		ss.add("/gsb/crm/department/js/customer-all-list.part.js");
 		listPartImportJs = StringManager.join("|", ss);
 
-		listPartJsController = NCustomerAllListPart.class.getName();
-		listPartServiceController = NCustomerAllListPart.class.getName();
+		listPartJsController = DepartmentAllCustomerListPart.class.getName();
+		listPartServiceController = DepartmentAllCustomerListPart.class.getName();
 
 		//当前登录人所在部门的子部门,需要扩展
 	}
