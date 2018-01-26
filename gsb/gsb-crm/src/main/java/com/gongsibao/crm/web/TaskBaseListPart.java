@@ -48,4 +48,15 @@ public class TaskBaseListPart extends BaseSupplierListPart{
 		INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
 		return taskService.allocation(taskId, supplierId, departmentId, toUserId,allocationType);
 	}
+	/**
+	 * 任务退回
+	 * @param taskId
+	 * @param getNote
+	 * @return
+	 */
+	public boolean rollback(Integer taskId, String getNote){
+		INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
+		return taskService.rollback(taskId, getNote);
+	}
+	
 }
