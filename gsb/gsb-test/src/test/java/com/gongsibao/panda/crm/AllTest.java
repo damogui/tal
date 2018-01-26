@@ -26,14 +26,15 @@ import com.gongsibao.panda.crm.workspace.department.DepartFollowIngWorkspace;
 import com.gongsibao.panda.crm.workspace.department.DepartHighSeasWorkspace;
 import com.gongsibao.panda.crm.workspace.department.DepartUnFoolowWorkspace;
 import com.gongsibao.panda.crm.workspace.department.DepartUnStartWorkspace;
-import com.gongsibao.panda.crm.workspace.salesman.AllTaskWorkspace;
-import com.gongsibao.panda.crm.workspace.salesman.AlreadySignWorkspace;
-import com.gongsibao.panda.crm.workspace.salesman.CheckAbnormalWorkspace;
-import com.gongsibao.panda.crm.workspace.salesman.CustomerWorkspace;
-import com.gongsibao.panda.crm.workspace.salesman.FollowIngWorkspace;
-import com.gongsibao.panda.crm.workspace.salesman.MyCustomerVerifyWorkspaceTest;
-import com.gongsibao.panda.crm.workspace.salesman.UnFoolowWorkspace;
-import com.gongsibao.panda.crm.workspace.salesman.UnStartWorkspace;
+import com.gongsibao.panda.crm.workspace.salesman.AllSalesmanCustomerWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.salesman.AllSalesmanTaskWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.salesman.AlreadySignSalesmanWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.salesman.CheckAbnormalSalesmanWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.salesman.DefeatedSalesmanWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.salesman.FollowIngSalesmanWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.salesman.UnFoolowSalesmanWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.salesman.UnStartSalesmanWorkspace;
+import com.gongsibao.panda.crm.workspace.salesman.VerifySalesmanCustomerWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.salesman.form.MyAddCustomerWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.salesman.form.MyCustomerEditWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.salesman.form.MyTaskAddWorkspaceTest;
@@ -77,18 +78,19 @@ import com.gongsibao.panda.crm.workspace.sys.SysSalesmanWorkspaceTest;
 		MyTaskAddWorkspaceTest.class,
 		MyTaskEditWorkspaceTest.class,
 		
+
+		AllSalesmanCustomerWorkspaceTest.class,
+		AllSalesmanTaskWorkspaceTest.class,
 		
-		AllTaskWorkspace.class,
-		UnStartWorkspace.class,
-		UnFoolowWorkspace.class,
-		FollowIngWorkspace.class,
-		AlreadySignWorkspace.class,
-		//DefeatedWorkspace.class,
-		CheckAbnormalWorkspace.class,
-		CustomerWorkspace.class,
+		UnStartSalesmanWorkspace.class,
+		UnFoolowSalesmanWorkspaceTest.class,
+		FollowIngSalesmanWorkspaceTest.class,
+		AlreadySignSalesmanWorkspaceTest.class,
+		DefeatedSalesmanWorkspaceTest.class,
+		CheckAbnormalSalesmanWorkspaceTest.class,
 		
 		AddDepartmentCustomerWorkspaceTest.class,
-		MyCustomerVerifyWorkspaceTest.class,
+		VerifySalesmanCustomerWorkspaceTest.class,
 		DepartAllTaskWorkspace.class,
 		DepartAlreadySignWorkspace.class,
 		DepartDefeatedWorkspace.class,

@@ -5,9 +5,9 @@ import org.netsharp.core.MtableManager;
 
 import com.gongsibao.crm.web.CustomerVerifyListPart;
 import com.gongsibao.entity.crm.NCustomer;
-import com.gongsibao.panda.crm.workspace.salesman.MyCustomerVerifyWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.salesman.VerifySalesmanCustomerWorkspaceTest;
 
-public class DepartmentCustomerVerifyWorkspaceTest extends MyCustomerVerifyWorkspaceTest{
+public class DepartmentCustomerVerifyWorkspaceTest extends VerifySalesmanCustomerWorkspaceTest{
 
 	@Before
 	public void setup() {

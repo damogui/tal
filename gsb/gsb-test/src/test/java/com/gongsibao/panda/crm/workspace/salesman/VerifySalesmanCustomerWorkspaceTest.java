@@ -7,7 +7,7 @@ import com.gongsibao.crm.web.CustomerVerifyListPart;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.panda.operation.workspace.crm.CustomerVerifyWorkspaceTest;
 
-public class MyCustomerVerifyWorkspaceTest extends CustomerVerifyWorkspaceTest{
+public class VerifySalesmanCustomerWorkspaceTest extends CustomerVerifyWorkspaceTest{
 
 	@Before
 	public void setup() {
