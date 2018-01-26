@@ -58,9 +58,10 @@ public class VoucherLogWorkspaceTest extends WorkspaceCreationBase {
 			column.setVisible(false);
 		}
 		addColumn(datagrid, "ordernoCustname", "订单编号和客户名称", ControlTypes.TEXT_BOX, 200);
+		addColumn(datagrid, "abstractInfo", "摘要", ControlTypes.TEXT_BOX, 150);
 		addColumn(datagrid, "payId", "支付编号", ControlTypes.NUMBER_BOX, 80);
 		addColumn(datagrid, "refundId", "退单退款编号", ControlTypes.NUMBER_BOX, 80);
-		addColumn(datagrid, "inVoucherLogId", "确认收入凭证源记录Id", ControlTypes.TEXT_BOX, 180);
+		//addColumn(datagrid, "inVoucherLogId", "确认收入凭证源记录Id", ControlTypes.TEXT_BOX, 180);
 		addColumn(datagrid, "type", "类型", ControlTypes.ENUM_BOX, 100);
 		addColumn(datagrid, "voucherId", "u8生成的凭证号", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "dsc", "u8返回信息说明", ControlTypes.TEXT_BOX, 100);
