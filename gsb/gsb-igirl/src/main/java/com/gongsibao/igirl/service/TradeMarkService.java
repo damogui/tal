@@ -367,13 +367,37 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 	}
 	public String updateMarkState(String ids,String type){
 		Oql oql = new Oql();
-		String sql = "update ig_trade_mark set mark_state = ? where id in (?)";
-		if (type.equals("1")){
-			oql.getParameters().add("mark_state",MarkState.WAITCOMMIT.getValue(),Types.INTEGER);
-		}else{
-			oql.getParameters().add("mark_state",MarkState.READY.getValue(),Types.INTEGER);
-		}
+		oql.setSelects("TradeMark.*");
+		oql.setType(TradeMark.class);
 		oql.getParameters().add("id",ids,Types.INTEGER);
-		return String.valueOf(this.pm.executeNonQuery(sql,oql.getParameters()));
+		List<TradeMark> tms = this.queryList(oql);
+		List<TradeMark> list = new ArrayList<>();
+		StringBuffer str = new StringBuffer();
+		for (TradeMark tm:tms){
+			TradeMarkCase tmc = tm.getTradeMarkCase();
+			List<UploadAttachment> uas = tmc.getUploadAttachments();
+			boolean boo = true;
+			for(UploadAttachment ua:uas){
+				if (ua.getNeeded()&&ua.getFileUrl().equals("")){
+					boo = false;
+					str.append(tm.getCode()).append(",");
+					break;
+				}else{
+					boo = true;
+				}
+			}
+			if (boo){
+				if (type.equals("1")){
+					tm.setMarkState(MarkState.WAITCOMMIT);
+				}else{
+					tm.setMarkState(MarkState.READY);
+				}
+				list.add(tm);
+			}
+		}
+		if (!list.isEmpty()){
+			this.saves(list);
+		}
+		return str.substring(0,str.lastIndexOf(","));
 	}
 }

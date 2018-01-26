@@ -94,12 +94,4 @@ public class AnnoTest {
 		}
 		return arrays;
 	}
-
-	@Test
-
-	public void test(){
-		HttpClient httpClient = new DefaultHttpClient();
-		HttpPost post = new HttpPost("http://localhost/panda/rest/service");
-
-	}
 }
