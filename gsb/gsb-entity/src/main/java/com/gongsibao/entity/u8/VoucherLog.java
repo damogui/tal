@@ -60,6 +60,9 @@ public class VoucherLog extends Entity {
 	@Column(name = "orderno_custname", header = "订单编号和客户名称")
 	private String ordernoCustname;
 	
+	@Column(name = "abstract_info", header = "摘要信息")
+	private String abstractInfo;
+	
 	@Column(name = "type", header = "0:收款 1:确认收入 2:退款")
 	private VoucherLogType type = VoucherLogType.Shoukuan;
 
@@ -181,6 +184,14 @@ public class VoucherLog extends Entity {
 
 	public void setOrdernoCustname(String ordernoCustname) {
 		this.ordernoCustname = ordernoCustname;
+	}
+
+	public String getAbstractInfo() {
+		return abstractInfo;
+	}
+
+	public void setAbstractInfo(String abstractInfo) {
+		this.abstractInfo = abstractInfo;
 	}
 	
 	

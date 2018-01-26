@@ -61,6 +61,10 @@ public class VoucherLogWorkspaceTest extends WorkspaceCreationBase {
 		{
 			column.setImported(true);
 		}
+		column = addColumn(datagrid, "abstractInfo", "摘要", ControlTypes.TEXT_BOX, 150);
+		{
+			column.setImported(true);
+		}
 		column = addColumn(datagrid, "payId", "支付编号", ControlTypes.NUMBER_BOX, 80);
 		{
 			column.setImported(true);
