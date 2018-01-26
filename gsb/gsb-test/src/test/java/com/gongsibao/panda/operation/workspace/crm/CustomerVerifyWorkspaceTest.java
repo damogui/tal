@@ -28,7 +28,7 @@ public class CustomerVerifyWorkspaceTest extends WorkspaceCreationBase{
 		entity = NCustomer.class;
 		urlList = "/operation/customer/verify";
 		listToolbarPath = "operation/customer/verify/edit";
-		listPartName = formPartName = "全部客户";
+		listPartName = formPartName = "校验客户";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_Customer_Manager_Add";
