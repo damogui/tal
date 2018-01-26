@@ -31,7 +31,7 @@ public class DepartmentAllTaskWorkspaceTest extends TaskALLWorkspaceTest{
 		ss.add("/gsb/crm/department/js/task-all-list.part.js");
 		listPartImportJs = StringManager.join("|", ss);
 
-		listFilter = "owner_id = '{userId}'";
+		//当前登录人所在部门的子部门,需要扩展
 		
 		listToolbarPath = "department/task/all";
 		rowToolbaPath = "department/task/all/row";

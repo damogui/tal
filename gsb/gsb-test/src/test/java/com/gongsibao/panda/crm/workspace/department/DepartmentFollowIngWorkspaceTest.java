@@ -12,7 +12,9 @@ public class DepartmentFollowIngWorkspaceTest extends DepartmentAllTaskWorkspace
 		super.setup();
 		urlList = "/crm/department/following/list";
 		resourceNodeCode = "CRM_DEPARTMENT_TASK_FOLLOWING";
-//		listFilter = "foolowStatus = 3 and creator_id = '{userId}'";
+		
+		//当前登录人所在部门的子部门,需要扩展
+		listFilter = "foolowStatus = 3 and ownerId = '{userId}'";
 	}
 	
 	@Override

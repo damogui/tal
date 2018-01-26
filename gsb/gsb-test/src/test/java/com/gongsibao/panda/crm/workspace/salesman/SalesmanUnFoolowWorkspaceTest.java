@@ -8,10 +8,15 @@ public class SalesmanUnFoolowWorkspaceTest extends SalesmanAllTaskWorkspaceTest{
 	@Override
 	@Before
 	public void setup() {
+		
 		super.setup();
+		
+		listPartName = "待跟进任务";
 		urlList = "/crm/salesman/task/unfoolow/list";
 		resourceNodeCode = "CRM_SALESMAN_TASK_UNFOOLOW";
-		listFilter = "foolowStatus = 2 and ownerId = '{userId}'";
+		
+		//如：有下次跟进时间，并且是当天的
+		listFilter = "nextFoolowTime is not null and nextFoolowTime = CURDATE() and ownerId = '{userId}'";
 	}
 	
 	

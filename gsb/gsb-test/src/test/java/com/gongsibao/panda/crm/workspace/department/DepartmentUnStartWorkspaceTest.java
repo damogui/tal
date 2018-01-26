@@ -13,8 +13,10 @@ public class DepartmentUnStartWorkspaceTest extends DepartmentAllTaskWorkspaceTe
 		super.setup();
 		urlList = "/crm/department/unstart/list";
 		resourceNodeCode = "CRM_DEPARTMENT_TASK_START";
-		listFilter = "creator_id = '{userId}' and foolow_status is NULL and intention_category is NULL";
 		listToolbarPath = "department/task/unstart";
+		
+		//当前登录人所在部门的子部门,需要扩展
+		listFilter = "foolowStatus = 2 and ownerId = '{userId}'";
 	}
 
 	@Override

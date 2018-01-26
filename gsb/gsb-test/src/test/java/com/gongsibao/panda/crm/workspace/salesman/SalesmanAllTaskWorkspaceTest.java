@@ -23,6 +23,8 @@ public class SalesmanAllTaskWorkspaceTest extends TaskALLWorkspaceTest {
 	public void setup() {
 
 		super.setup();
+		
+		listPartName = "全部任务";
 		urlList = "/crm/salesman/task/all/list";
 		resourceNodeCode = "CRM_SALESMAN_TASK_ALL";
 		
@@ -32,7 +34,6 @@ public class SalesmanAllTaskWorkspaceTest extends TaskALLWorkspaceTest {
 		listPartImportJs = StringManager.join("|", ss);
 
 		listFilter = "owner_id = '{userId}'";
-		
 		listToolbarPath = "salesman/task/all";
 		rowToolbaPath = "salesman/task/all/row";
 	}

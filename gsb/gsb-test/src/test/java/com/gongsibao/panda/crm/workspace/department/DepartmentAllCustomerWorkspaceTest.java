@@ -34,7 +34,7 @@ public class DepartmentAllCustomerWorkspaceTest extends CustomerALLWorkspaceTest
 		listPartJsController = NCustomerAllListPart.class.getName();
 		listPartServiceController = NCustomerAllListPart.class.getName();
 
-		listFilter = "id in (select min(id) from n_crm_customer_task where owner_id = '{userId}' group by customer_id)";
+		//当前登录人所在部门的子部门,需要扩展
 	}
 	
 

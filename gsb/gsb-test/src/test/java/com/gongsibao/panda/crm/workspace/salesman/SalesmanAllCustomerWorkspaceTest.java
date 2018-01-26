@@ -22,6 +22,8 @@ public class SalesmanAllCustomerWorkspaceTest extends CustomerALLWorkspaceTest{
 	public void setup() {
 		
 		super.setup();
+		
+		listPartName = "全部客户";
 		urlList = "/crm/salesman/customer/list";
 		listToolbarPath = "crm/salesman/customer/edit";
 		resourceNodeCode = "CRM_SALESMAN_CUSTOMER";

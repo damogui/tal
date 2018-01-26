@@ -12,8 +12,10 @@ public class DepartmentUnFoolowWorkspaceTest extends DepartmentAllTaskWorkspaceT
 		super.setup();
 		urlList = "/crm/department/unfoolow/list";
 		resourceNodeCode = "CRM_DEPARTMENT_TASK_UNFOOLOW";
-		listFilter = "foolowStatus = 2 and creator_id = '{userId}'";
 		listToolbarPath = "department/task/unfoolow";
+		
+		//当前登录人所在部门的子部门,需要扩展
+		listFilter = "nextFoolowTime is not null and nextFoolowTime = CURDATE() and ownerId = '{userId}'";
 	}
 	
 

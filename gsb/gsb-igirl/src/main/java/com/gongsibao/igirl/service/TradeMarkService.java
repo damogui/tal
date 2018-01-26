@@ -4,8 +4,9 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import org.junit.Test;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
@@ -22,9 +23,7 @@ import com.gongsibao.entity.igirl.dict.MarkState;
 import com.gongsibao.igirl.base.IDownloadAttachmentService;
 import com.gongsibao.igirl.base.ITradeMarkService;
 import com.gongsibao.igirl.base.IUploadAttachmentService;
-import java.util.Map;
-import java.util.Set;
-import com.gongsibao.igirl.dto.TradeMark.*;
+import com.gongsibao.igirl.dto.TradeMark.Goods;
 import com.gongsibao.igirl.dto.TradeMark.Step1;
 import com.gongsibao.igirl.dto.TradeMark.Step2;
 import com.gongsibao.igirl.dto.TradeMark.Step3;
@@ -445,7 +444,7 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 
 			step5 = new Step5();
 			// TODO(?)
-			step5.setPriorityType(tm.getPriorityType().getContent());
+			//step5.setPriorityType(tm.getPriorityType().getContent());
 			tminfo.setStep5(step5);
 
 			step6 = new Step6();

@@ -13,7 +13,9 @@ public class DepartmentCheckAbnormalWorkspaceTest extends DepartmentAllTaskWorks
 		super.setup();
 		urlList = "/crm/department/check/abnormal/list";
 		resourceNodeCode = "CRM_DEPARTMENT_TASK_CHECK_ABNORMAL";
-//		listFilter = "foolowStatus=5 and ownerId = '{userId}'";
+		
+		//当前登录人所在部门的子部门,需要扩展
+		listFilter = "inspectionState = 2 and foolowStatus= 4";
 		
 		listToolbarPath = "department/task/abnormal";
 		rowToolbaPath = "department/task/abnormal/row";

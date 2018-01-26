@@ -8,10 +8,13 @@ public class SalesmanTimeOutWorkspaceTest extends SalesmanAllTaskWorkspaceTest{
 	@Override
 	@Before
 	public void setup() {
+		
 		super.setup();
+		
+		listPartName = "超时提醒";
 		urlList = "/crm/salesman/task/timeout/list";
 		resourceNodeCode = "CRM_SALESMAN_TIMEOUT";
-		listFilter = "foolowStatus = 2 and ownerId = '{userId}'";
+		listFilter = "foolowStatus = 3 and ownerId = '{userId}' and nextFoolowTime>NOW()";
 	}
 	
 	

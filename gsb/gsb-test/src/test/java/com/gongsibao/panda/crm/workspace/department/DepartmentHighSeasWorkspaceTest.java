@@ -13,9 +13,10 @@ public class DepartmentHighSeasWorkspaceTest extends DepartmentAllTaskWorkspaceT
 		super.setup();
 		urlList = "/crm/department/highseas/list";
 		resourceNodeCode = "CRM_DEPARTMENT_TASK_HIGHSEAS";
-//		listFilter = "foolowStatus = 2 and creator_id = '{userId}'";
-		
 		listToolbarPath = "department/task/highseas";
+		
+		//当前登录人所在部门的子部门,需要扩展,有所属部门，但没有业务员
+		listFilter = "(owner_id is null or owner_id=0)";
 	}
 	
 	@Override

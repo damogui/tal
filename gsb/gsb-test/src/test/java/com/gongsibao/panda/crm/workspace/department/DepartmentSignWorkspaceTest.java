@@ -12,7 +12,9 @@ public class DepartmentSignWorkspaceTest extends DepartmentAllTaskWorkspaceTest{
 		super.setup();
 		urlList = "/crm/department/signed/list";
 		resourceNodeCode = "CRM_DEPARTMENT_TASK_SIGNED";
-//		listFilter = "foolowStatus=5 and ownerId = '{userId}'";
+
+		//当前登录人所在部门的子部门,需要扩展
+		listFilter = "foolowStatus=5 and ownerId = '{userId}'";
 	}
 	
 	@Override

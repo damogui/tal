@@ -3,7 +3,7 @@ package com.gongsibao.panda.crm.workspace.salesman;
 import org.junit.Before;
 import org.netsharp.panda.plugin.entity.PToolbar;
 
-public class SalesmanDefeatedWorkspaceTest extends SalesmanAllTaskWorkspaceTest{
+public class SalesmanSignWorkspaceTest extends SalesmanAllTaskWorkspaceTest{
 
 	@Override
 	@Before
@@ -11,12 +11,11 @@ public class SalesmanDefeatedWorkspaceTest extends SalesmanAllTaskWorkspaceTest{
 		
 		super.setup();
 		
-		listPartName = "无法签单任务";
-		urlList = "/crm/salesman/task/defeated/list";
-		resourceNodeCode = "CRM_SALESMAN_TASK_DEFEATED";
-		listFilter = "foolowStatus = 4 and ownerId = '{userId}'";
+		listPartName = "已签单任务";
+		urlList = "/crm/salesman/task/signed/list";
+		resourceNodeCode = "CRM_SALESMAN_TASK_SIGNED";
+		listFilter = "foolowStatus=5 and ownerId = '{userId}'";
 	}
-	
 	
 	@Override
 	public PToolbar createListToolbar() {
