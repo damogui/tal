@@ -31,15 +31,7 @@ public class ActionCustomerTaskUpdateSalesmanInfo implements IAction {
 		
 		//(根据employeeId获取)   
 		Salesman salesman = salesmanService.byEmployeeId(entity.getOwnerId());
-		
-		
 
-		// 更新【跟进中任务数量】
-		salesman.setFollowUpTaskCount((salesman.getFollowUpTaskCount() == null ? 0 : salesman.getFollowUpTaskCount()) + 1);
-		// 更新当天分配的任务数量】
-		salesman.setFollowUpTaskDayCount(0);
-		// 更新【当天分配的任务数量】
-		salesman.setFollowUpTaskWeekCount(0);
 
 		salesmanService.save(salesman);
 	}

@@ -6,7 +6,8 @@ import org.netsharp.base.IEnum;
 public enum NAllocationType implements IEnum{
 
 	AUTO(1, "自动分配"), 
-	MANUAL(2, "手动分配");
+	MANUAL(2, "手动分配"),
+	SemiAutomatic(3, "半自动分配");
 	private int value;
 	private String text;
 

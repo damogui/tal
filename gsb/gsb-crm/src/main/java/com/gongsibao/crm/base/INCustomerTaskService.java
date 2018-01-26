@@ -66,4 +66,10 @@ public interface INCustomerTaskService  extends IPersistableService<NCustomerTas
 	 * 任务回退(业务员主动操作)
 	 */
 	public Boolean rollback(Integer taskId);
+	
+	/**自动分配
+	 * @param taskId
+	 * @return
+	 */
+	public int allot(Integer taskId);
 }
