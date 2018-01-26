@@ -71,19 +71,19 @@ public class TradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 			item.setCommand(null);
 			item.setOperationType(ot1);
 			item.setSeq(3000);
-			item.setCommand("{controller}.autoSubmit();");
+			item.setCommand("{controller}.autoSubmit(1);");
 			toolbar.getItems().add(item);
 		}
 		item = new PToolbarItem();
 		{
 			item.toNew();
-			item.setCode("autoReturn");
+			item.setCode("autoSubmit");
 			item.setIcon("fa fa-link");
 			item.setName("返回");
 			item.setCommand(null);
 			item.setOperationType(ot1);
 			item.setSeq(3000);
-			item.setCommand("{controller}.autoReturn();");
+			item.setCommand("{controller}.autoSubmit(2);");
 			toolbar.getItems().add(item);
 		}
 		toolbarService.save(toolbar);
