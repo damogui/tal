@@ -26,7 +26,7 @@ public class CustomerWorkspace extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_MY_CUSTOMER";
-		listFilter = "ownerId = '{userId}' and id in (select min(id) from n_crm_customer_task group by customer_id)";
+		//listFilter = "ownerId = '{userId}' and id in (select min(id) from n_crm_customer_task group by customer_id)";
 		
 		listPartImportJs = "/gsb/crm/js/crm-myCustomer-list.js";
 		listPartJsController = MyCustomerListPart.class.getName();
@@ -38,21 +38,21 @@ public class CustomerWorkspace extends WorkspaceCreationBase{
 		PDatagrid datagrid = super.createDatagrid(node);
 		PDatagridColumn column = null;
 		datagrid.setToolbar("panda/datagrid/row/edit");
-		column = addColumn(datagrid, "customer.id", "操作", ControlTypes.OPERATION_COLUMN, 100, false);
-		addColumn(datagrid, "customer.real_name", "客户名称", ControlTypes.TEXT_BOX, 100, false);
-		addColumn(datagrid, "customer.isMember", "是否会员", ControlTypes.BOOLCOMBO_BOX, 100, false);
-		column = addColumn(datagrid, "customer.mobile", "手机号", ControlTypes.TEXT_BOX, 100, false);{
+		column = addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, false);
+		addColumn(datagrid, "realName", "客户名称", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "isMember", "是否会员", ControlTypes.BOOLCOMBO_BOX, 100, false);
+		column = addColumn(datagrid, "mobile", "手机号", ControlTypes.TEXT_BOX, 100, false);{
 			column.setFormatter("if(value&&value.length==11){return value.substr(0,3)+'****'+value.substr(7);}");
 		}
-		addColumn(datagrid, "customer.telephone", "座机", ControlTypes.TEXT_BOX, 100, false);
-		addColumn(datagrid, "customer.qq", "QQ", ControlTypes.TEXT_BOX, 100, false);
-		addColumn(datagrid, "customer.weixin", "微信", ControlTypes.TEXT_BOX, 100, false);
-		addColumn(datagrid, "customer.important", "客户等级", ControlTypes.ENUM_BOX, 80);
-		addColumn(datagrid, "customer.city.name", "所在地区", ControlTypes.TEXTAREA, 130);
-		addColumn(datagrid, "customer.customerSource.name", "客户来源", ControlTypes.ENUM_BOX, 80);
-		addColumn(datagrid, "customer.department.name", "分配部门", ControlTypes.TEXT_BOX, 100, false);
-		addColumn(datagrid, "customer.creator", "客户创建人", ControlTypes.TEXT_BOX, 100, false);
-		addColumn(datagrid, "customer.create_time", "客户创建时间", ControlTypes.DATE_BOX, 100, false);
+		addColumn(datagrid, "telephone", "座机", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "qq", "QQ", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "weixin", "微信", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "important", "客户等级", ControlTypes.ENUM_BOX, 80);
+		addColumn(datagrid, "city.name", "所在地区", ControlTypes.TEXTAREA, 130);
+		//addColumn(datagrid, "customerSource.name", "客户来源", ControlTypes.ENUM_BOX, 80);
+		addColumn(datagrid, "department.name", "分配部门", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "creator", "客户创建人", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "createTime", "客户创建时间", ControlTypes.DATE_BOX, 100, false);
 		return datagrid;
 	}
 	
@@ -62,7 +62,7 @@ public class CustomerWorkspace extends WorkspaceCreationBase{
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
 		PQueryItem item = null;
-		item = addQueryItem(queryProject, "customer.realName", "客户", ControlTypes.TEXT_BOX);{
+		item = addQueryItem(queryProject, "realName", "客户", ControlTypes.TEXT_BOX);{
 			item.setRequired(true);
 		}
 		return queryProject;

@@ -21,10 +21,7 @@ import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.crm.web.NCustomerTaskEditFormPart;
 import com.gongsibao.crm.web.TaskFollowDetailPart;
-import com.gongsibao.entity.crm.NCustomerChange;
 import com.gongsibao.entity.crm.NCustomerTask;
-import com.gongsibao.entity.crm.NCustomerTaskFoolow;
-import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.crm.dic.ChangeType;
 import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.NotifyType;
@@ -33,11 +30,9 @@ import com.gongsibao.entity.crm.dic.QualityCategory;
 public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 
 	
-	protected String foolowDetailResourceNodeCode = NCustomerTaskFoolow.class.getSimpleName();
-			
-	protected String notifyDetailResourceNodeCode = NCustomerTaskNotify.class.getSimpleName();
-	
-	protected String changeDetailResourceNodeCode = NCustomerChange.class.getSimpleName();
+	protected String foolowDetailResourceNodeCode = "GSB_CRM_Customer_Manager_Foolow";
+	protected String notifyDetailResourceNodeCode = "GSB_CRM_Customer_Manager_Notify";
+	protected String changeDetailResourceNodeCode = "GSB_CRM_Customer_Manager_Change";
 	
 	@Before
 	public void setup() {
@@ -56,7 +51,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 	@Test
 	public void detailPart() {
 		
-		ResourceNode node = this.resourceService.byCode(NCustomerTaskFoolow.class.getSimpleName());
+		ResourceNode node = this.resourceService.byCode(foolowDetailResourceNodeCode);
 		//OperationType ot1 = operationTypeService.byCode(OperationTypes.add);
 		PToolbar toolbar = new PToolbar();
 		{
@@ -138,7 +133,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 
 	public void addNotificationLogPart(PWorkspace workspace) {
 		
-		ResourceNode node = this.resourceService.byCode(NCustomerTaskNotify.class.getSimpleName());
+		ResourceNode node = this.resourceService.byCode(notifyDetailResourceNodeCode);
 		PDatagrid datagrid = new PDatagrid(node, "通知日志");
 		{
 			PDatagridColumn column = addColumn(datagrid, "type", "通知类型", ControlTypes.ENUM_BOX, 300);

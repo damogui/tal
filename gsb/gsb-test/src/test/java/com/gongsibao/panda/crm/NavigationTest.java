@@ -39,7 +39,7 @@ public class NavigationTest extends NavigationBase {
 
 		createPTreeNode(tree, null, null, "GSB_CRM_MY", "我的任务", "", 2);
 		{
-			createPTreeNode(tree, "GSB_CRM_MY", null, "GSB_CRM_MY_CUSTOMER_ADD", "新增客户", "/crm/my/customer/add", 1);
+			createPTreeNode(tree, "GSB_CRM_MY", null, "GSB_CRM_MY_CUSTOMER_ADD", "新增客户", "/crm/salesman/customer/add", 1);
 			createPTreeNode(tree, "GSB_CRM_MY", null, "GSB_CRM_MY_CUSTOMER", "我的客户", "/crm/my/customer/list", 1);
 			createPTreeNode(tree, "GSB_CRM_MY", null, "GSB_CRM_MY_TASK_ALL", "全部任务", "/crm/my/task/all/list", 2);
 			createPTreeNode(tree, "GSB_CRM_MY", null, "GSB_CRM_MY_TASK_START", "未启动", "/crm/my/task/start/list", 3);
