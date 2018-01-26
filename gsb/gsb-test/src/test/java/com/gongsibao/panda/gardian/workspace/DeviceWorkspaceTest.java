@@ -150,7 +150,7 @@ public class DeviceWorkspaceTest extends WorkspaceCreationBase{
 		addFormField(form, "name", "名称", null, ControlTypes.TEXT_BOX, true,false).setWidth(200);
 		formField = addFormField(form, "deviceType", "设备类型", "设备基础信息", ControlTypes.ENUM_BOX, true,false);
 		{
-			formField.setTroikaTrigger("controllerdeviceFormPart.deviceTypeChange(newValue, oldValue);");
+			formField.setTroikaTrigger("controllerdevice.deviceTypeChange(newValue, oldValue);");
 			formField.setWidth(200);
 		}
 		addFormField(form, "buydate", "设备购入日期", "设备基础信息", ControlTypes.DATETIME_BOX, true,false).setWidth(200);
