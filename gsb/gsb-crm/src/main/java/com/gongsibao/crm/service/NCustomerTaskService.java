@@ -156,7 +156,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		NCustomerTask entity = this.byId(taskFoolow.getTaskId());
 		ActionContext ctx = new ActionContext();
 		{
-			ctx.setPath("gsb/crm/task/allocation");
+			ctx.setPath("gsb/crm/task/follow");
 			ctx.setItem(entity);
 			ctx.setState(entity.getEntityState());
 		}

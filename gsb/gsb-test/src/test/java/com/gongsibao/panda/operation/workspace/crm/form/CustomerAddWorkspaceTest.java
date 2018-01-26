@@ -25,7 +25,9 @@ import com.gongsibao.entity.crm.dic.TaskCustomerType;
 
 public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 
-
+	protected String taskDetailResourceNodeCode = "GSB_CRM_Customer_Manager_Task_ALL";
+	protected String taskDetailJsController = "com.gongsibao.crm.web.NCustomerTaskDetailPart";
+	
 	@Before
 	public void setup() {
 		super.setup();
@@ -114,7 +116,7 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 	// 客户任务
 	public void createTasksPart(PWorkspace workspace) {
 
-		ResourceNode node = this.resourceService.byCode("GSB_CRM_Customer_Manager_Task_ALL");
+		ResourceNode node = this.resourceService.byCode(taskDetailResourceNodeCode);
 		PDatagrid datagrid = new PDatagrid(node, "任务信息");
 		{
 			datagrid.setShowCheckbox(false);
@@ -148,7 +150,7 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("panda/datagrid/detail");
-			part.setJsController("com.gongsibao.crm.web.NCustomerTaskDetailPart");
+			part.setJsController(taskDetailJsController);
 		}
 		workspace.getParts().add(part);
 		

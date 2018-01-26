@@ -4,10 +4,23 @@ com.gongsibao.igirl.web.TradeMarkListPart = org.netsharp.panda.commerce.ListPart
 	ctor : function() {
 		this.base();
 	},
-	autoSubmit:function(){
-		alert("hello");
-		var rows=this.datagrid.datagrid('getSelections');
-		alert(rows)
+	autoSubmit:function(type){
+		var rows=this.getSelections();
+        if (rows.length <= 0) {
+            IMessageBox.info('请先选择需要修改的行');
+            return false;
+        }
+
+        var ids = new Array(rows.length);
+        for(var i=0;i<rows.length;i++){
+            ids[i] = rows[i].id;
+        }
+        var that = this;
+        this.invokeService("updateMarkState",[ids,type],function (message) {
+            if(message!==0){
+                that.reload();
+            }
+        })
 	}
 
 });

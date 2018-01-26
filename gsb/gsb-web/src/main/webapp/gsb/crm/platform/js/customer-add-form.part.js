@@ -175,6 +175,7 @@ com.gongsibao.crm.web.NCustomerAddFormPart = org.netsharp.panda.commerce.FormPar
 com.gongsibao.crm.web.NCustomerTaskDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
     ctor: function () {
         this.base();
+        this.addUrl = "/panda/operation/task/add";
     },
     add: function() {
     	
@@ -193,7 +194,7 @@ com.gongsibao.crm.web.NCustomerTaskDetailPart = org.netsharp.panda.commerce.Deta
 //    	}
     	
     	var customerId = this.parent.viewModel.currentItem.id;
-    	var url='/panda/operation/task/add?fk=customerId:'+customerId;
+    	var url=this.addUrl+'?fk=customerId:'+customerId;
     	layer.open({
   		  type: 2,
   		  title: '新增任务',
@@ -209,7 +210,7 @@ com.gongsibao.crm.web.NCustomerTaskDetailPart = org.netsharp.panda.commerce.Deta
     },
 	doubleClickRow : function(rowIndex, rowData) {
 		
-    	var url='/panda/operation/task/add?id='+rowData.id;
+		var url='/panda/operation/task/add?id='+rowData.id;
     	layer.open({
   		  type: 2,
   		  title: '任务信息',

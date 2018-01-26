@@ -18,7 +18,7 @@ public class SalesmanProduct extends Entity{
 	private static final long serialVersionUID = -3380988485501492065L;
 
 
-	@Column(name="salesman_id",header="服务商主键")
+	@Column(name="salesman_id",header="业务员主键")
     private Integer salesmanId;
 	
 	@JsonIgnore

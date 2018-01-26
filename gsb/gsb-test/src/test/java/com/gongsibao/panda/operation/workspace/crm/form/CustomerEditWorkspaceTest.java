@@ -19,16 +19,16 @@ import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.crm.web.NCustomerEditFormPart;
 import com.gongsibao.entity.crm.NCustomer;
-import com.gongsibao.entity.crm.NCustomerChange;
-import com.gongsibao.entity.crm.NCustomerTaskFoolow;
-import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.crm.dic.ChangeType;
 import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.NotifyType;
 
 public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest{
 
-
+	protected String  productsDetailResourceNodeCode = "GSB_CRM_Customer_Manager_Products";
+	protected String  foolowDetailResourceNodeCode = "GSB_CRM_Customer_Manager_Foolow";
+	protected String  notifyDetailResourceNodeCode = "GSB_CRM_Customer_Manager_Notify";
+	protected String  changeDetailResourceNodeCode = "GSB_CRM_Customer_Manager_Change";
 	@Before
 	public void setup() {
 		super.setup();
@@ -89,7 +89,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest{
 	// 意向产品
 	private void addIntenProductPart(PWorkspace workspace) {
 		// 需要配置NCustomerProduct资源
-		ResourceNode node = this.resourceService.byCode("GSB_CRM_Customer_Manager_Products");
+		ResourceNode node = this.resourceService.byCode(productsDetailResourceNodeCode);
 		PDatagrid datagrid = new PDatagrid(node, "意向产品");
 		{
 			addColumn(datagrid, "product.name", "产品", ControlTypes.TEXT_BOX, 300);
@@ -117,7 +117,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest{
 	// 选项卡加载项
 	private void addCommunicatLogsPart(PWorkspace workspace) {
 		// 需要配置NCustomerProduct资源
-		ResourceNode node = this.resourceService.byCode(NCustomerTaskFoolow.class.getSimpleName());
+		ResourceNode node = this.resourceService.byCode(foolowDetailResourceNodeCode);
 		PDatagrid datagrid = new PDatagrid(node, "沟通日志");
 		{
 			PDatagridColumn column = addColumn(datagrid, "foolowStatus", "跟进状态", ControlTypes.ENUM_BOX, 300);
@@ -146,7 +146,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest{
 	
 	private void addNotificationLogPart(PWorkspace workspace) {
 		
-		ResourceNode node = this.resourceService.byCode(NCustomerTaskNotify.class.getSimpleName());
+		ResourceNode node = this.resourceService.byCode(notifyDetailResourceNodeCode);
 		PDatagrid datagrid = new PDatagrid(node, "通知日志");
 		{
 			PDatagridColumn column = addColumn(datagrid, "type", "通知类型", ControlTypes.ENUM_BOX, 300);
@@ -172,7 +172,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest{
 	}
 	
 	private void addFlowLogPart(PWorkspace workspace) {
-		ResourceNode node = this.resourceService.byCode(NCustomerChange.class.getSimpleName());
+		ResourceNode node = this.resourceService.byCode(changeDetailResourceNodeCode);
 
 		PDatagrid datagrid = new PDatagrid(node, "流转日志");
 		{
