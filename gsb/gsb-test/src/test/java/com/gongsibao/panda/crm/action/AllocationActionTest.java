@@ -15,7 +15,7 @@ public class AllocationActionTest extends BaseActionTest{
 	@Before
 	public void setup() {
 
-		resourceNodeCode = "GSB_CRM_MY_CUSTOMER";
+		resourceNodeCode = "CRM_SALESMAN_CUSTOMER";
 		super.setup();
 	}
 
