@@ -102,39 +102,42 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(Employee.class.getName(), "员工信息", "CRM_SALESMAN_REFERENE_EMPLOYEE", IEmployeeService.class.getName(), node1.getId());
 			
 			//======选项卡加载项
-			this.createResourceNodeVoucher(NCustomerProduct.class.getName(), "客户意向产品", "CRM_SALESMAN_Manager_Products", INCustomerProductService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTaskFoolow.class.getName(), "沟通日志", "CRM_SALESMAN_Manager_Foolow",INCustomerTaskFoolowService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTaskNotify.class.getName(), "通知日志", "CRM_SALESMAN_Manager_Notify",INCustomerTaskNotifyService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerChange.class.getName(), "流转日志", "CRM_SALESMAN_Manager_Change",INCustomerChangeService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTaskInspection.class.getName(), "抽查日志", "CRM_SALESMAN_Manager_Inspection",INCustomerTaskInspectionService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerProduct.class.getName(), "客户意向产品", "CRM_SALESMAN_Products", INCustomerProductService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTaskFoolow.class.getName(), "沟通日志", "CRM_SALESMAN_Foolow",INCustomerTaskFoolowService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTaskNotify.class.getName(), "通知日志", "CRM_SALESMAN_Notify",INCustomerTaskNotifyService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerChange.class.getName(), "流转日志", "CRM_SALESMAN_Change",INCustomerChangeService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTaskInspection.class.getName(), "抽查日志", "CRM_SALESMAN_Inspection",INCustomerTaskInspectionService.class.getName(), node1.getId());
 			
 		}
 
 		node1 = this.createResourceNodeCategory("部门管理", "GSB_CRM_DEPARTMENT", node.getId());
 		{
-			this.createResourceNodeVoucher(NCustomer.class.getName(), "新增客户", "GSB_CRM_DEPARTMENT_ADD", INCustomerService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "全部任务", "GSB_CRM_DEPARTMENT_ALL", INCustomerTaskService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "未启动任务", "GSB_CRM_DEPARTMENT_START", INCustomerTaskService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "未跟进任务", "GSB_CRM_DEPARTMENT_UNFOOLOW", INCustomerTaskService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "跟进中任务", "GSB_CRM_DEPARTMENT_FOLLOWING", INCustomerTaskService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "已签单任务", "GSB_CRM_DEPARTMENT_SIGNED", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomer.class.getName(), "新增客户", "CRM_DEPARTMENT_CUSTOMER_ADD", INCustomerService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomer.class.getName(), "全部客户", "CRM_DEPARTMENT_CUSTOMER_ALL", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "全部任务", "CRM_DEPARTMENT_TASK_ALL", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "未启动任务", "CRM_DEPARTMENT_TASK_START", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "跟进中任务", "CRM_DEPARTMENT_TASK_FOLLOWING", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "已签单任务", "CRM_DEPARTMENT_TASK_SIGNED", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "待跟进任务", "CRM_DEPARTMENT_TASK_UNFOOLOW", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "超时提醒", "CRM_DEPARTMENT_TIMEOUT", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "无法签单任务", "GSB_CRM_DEPARTMENT_DEFEATED", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "抽查异常", "CRM_DEPARTMENT_CHECK_ABNORMAL", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "公海", "GSB_CRM_DEPARTMENT_HIGHSEAS", INCustomerTaskService.class.getName(), node1.getId());
+			
+			//======选项卡加载项
+			this.createResourceNodeVoucher(NCustomerProduct.class.getName(), "意向产品", "CRM_DEPARTMENT_Products", INCustomerProductService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTaskFoolow.class.getName(), "沟通日志", "CRM_DEPARTMENT_Foolow",INCustomerTaskFoolowService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTaskNotify.class.getName(), "通知日志", "CRM_DEPARTMENT_Notify",INCustomerTaskNotifyService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerChange.class.getName(), "流转日志", "CRM_DEPARTMENT_Change",INCustomerChangeService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTaskInspection.class.getName(), "抽查日志", "CRM_DEPARTMENT_Inspection",INCustomerTaskInspectionService.class.getName(), node1.getId());
 		}
-//
-//		node1 = this.createResourceNodeCategory("分析统计", "GSB_CRM_REPORT", node.getId());
-//		{
-//			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "报表1", "GSB_CRM_REPORT_1", INCustomerTaskService.class.getName(), node1.getId());
-//			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "报表2", "GSB_CRM_REPORT_2", INCustomerTaskService.class.getName(), node1.getId());
-//		}
-//
+
 		node1 = this.createResourceNodeCategory("系统设置", "GSB_CRM_SYS", node.getId());
 		{
 			this.createResourceNodeVoucher(SupplierDepartment.class.getName(), "部门列表", "GSB_CRM_SYS_DEPARTMENT", ISupplierDepartmentService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(Salesman.class.getName(), "员工列表", "GSB_CRM_SYS_SALESMAN", ISalesmanService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(SalesmanRole.class.getName(), "添加角色", "GSB_CRM_SYS_SALESMAN_ADDROLE", ISalesmanRoleService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(SalesmanProduct.class.getName(), "服务范围", "GSB_CRM_SYS_SALESMAN_Product", ISalesmanProductService.class.getName(), node1.getId());
-
             this.createResourceNodeVoucher(DepartmentServiceProduct.class.getName(), "部门服务范围", "GSB_CRM_SYS_Department_Product", IDepartmentProductService.class.getName(), node1.getId());
 		}
 	}

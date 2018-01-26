@@ -16,7 +16,7 @@ import com.gongsibao.entity.crm.NCustomerTaskQuality;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.panda.operation.workspace.crm.TaskALLWorkspaceTest;
 
-public class AllSalesmanTaskWorkspaceTest extends TaskALLWorkspaceTest {
+public class SalesmanAllTaskWorkspaceTest extends TaskALLWorkspaceTest {
 
 	@Override
 	@Before

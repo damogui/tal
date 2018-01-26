@@ -1,4 +1,4 @@
-package com.gongsibao.panda.crm.workspace.salesman.form;
+package com.gongsibao.panda.crm.workspace.department.form;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,18 +11,17 @@ import com.gongsibao.crm.web.NCustomerEditFormPart;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.panda.operation.workspace.crm.form.CustomerEditWorkspaceTest;
 
-public class MyCustomerEditWorkspaceTest extends CustomerEditWorkspaceTest{
-
+public class DepartmentCustomerEditWorkspaceTest  extends CustomerEditWorkspaceTest{
 	@Before
 	public void setup() {
 		
 		super.setup();
 		entity = NCustomer.class;
-		urlForm = "/crm/salesman/customer/edit";
+		urlForm = "/crm/department/customer/edit";
 		listPartName = formPartName = "客户信息";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "CRM_SALESMAN_CUSTOMER_Edit";
+		resourceNodeCode = "CRM_DEPARTMENT_CUSTOMER_Edit";
 		
 		List<String> ss = new ArrayList<String>();
 		ss.add("/gsb/crm/platform/js/customer-add-form.part.js");
@@ -33,11 +32,11 @@ public class MyCustomerEditWorkspaceTest extends CustomerEditWorkspaceTest{
 		formJsController = NCustomerEditFormPart.class.getName();
 		formServiceController = NCustomerEditFormPart.class.getName();
 		
-		taskDetailResourceNodeCode = "CRM_SALESMAN_TASK_ALL";
+		taskDetailResourceNodeCode = "CRM_DEPARTMENT_TASK_ALL";
 		
-		productsDetailResourceNodeCode = "CRM_SALESMAN_Manager_Products";
-		foolowDetailResourceNodeCode = "CRM_SALESMAN_Manager_Foolow";
-		notifyDetailResourceNodeCode = "CRM_SALESMAN_Manager_Notify";
-		changeDetailResourceNodeCode = "CRM_SALESMAN_Manager_Change";
+		productsDetailResourceNodeCode = "CRM_DEPARTMENT_Products";
+		foolowDetailResourceNodeCode = "CRM_DEPARTMENT_Foolow";
+		notifyDetailResourceNodeCode = "CRM_DEPARTMENT_Notify";
+		changeDetailResourceNodeCode = "CRM_DEPARTMENT_Change";
 	}
 }

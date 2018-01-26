@@ -13,24 +13,23 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.crm.NCustomerTask;
 
-public class DepartAllTaskWorkspace extends WorkspaceCreationBase{
+public class DepartmentDefeatedWorkspace extends WorkspaceCreationBase{
 
 	@Override
 	@Before
 	public void setup() {
 		entity = NCustomerTask.class;
-		//配置资源路径
-		urlList = "/crm/department/2/list";
 
-		listPartName = formPartName = "全部任务";
+		urlList = "/crm/department/defeated/list";
+
+		listPartName = formPartName = "无法签单";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_DEPARTMENT_ALL";
-		listFilter = "creator_id = '{userId}'";
-		//选项卡页面的js
+		resourceNodeCode = "GSB_CRM_DEPARTMENT_DEFEATED";
+		listFilter = "foolowStatus = 4 and creator_id = '{userId}'";
+		
 		formJsImport = "/gsb/crm/js/crm.all.task.part.js";
 	}
-	
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
 		PDatagrid datagrid = super.createDatagrid(node);
@@ -55,7 +54,6 @@ public class DepartAllTaskWorkspace extends WorkspaceCreationBase{
 		}
 		return datagrid;
 	}
-	
 	//配置查询条件
 	@Override
 	protected PQueryProject createQueryProject(ResourceNode node) {
@@ -68,9 +66,8 @@ public class DepartAllTaskWorkspace extends WorkspaceCreationBase{
 		return queryProject;
 	}
 	
-
 	public void doOperation() {
 		ResourceNode node = resourceService.byCode(resourceNodeCode);
 		operationService.addOperation(node, OperationTypes.view);
-	}
+	}		
 }

@@ -13,23 +13,19 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.crm.NCustomerTask;
 
-public class DepartUnStartWorkspace extends WorkspaceCreationBase{
+public class DepartmentHighSeasWorkspace extends WorkspaceCreationBase{
 
 	@Override
 	@Before
 	public void setup() {
 		entity = NCustomerTask.class;
 		//配置资源路径
-		urlList = "/crm/department/3/list";
-
-		listPartName = formPartName = "未启动";
+		urlList = "/crm/department/highseas/list";
+		listPartName = formPartName = "公海";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_DEPARTMENT_START";
-		//没有质量分类，哪怕有跟进也不算做启动
-		listFilter = "creator_id = '{userId}' and foolow_status is NULL and intention_category is NULL";
-		//选项卡页面的js
-		formJsImport = "/gsb/crm/js/crm.all.task.part.js";
+		resourceNodeCode = "GSB_CRM_DEPARTMENT_HIGHSEAS";
+		listFilter = "foolowStatus = 2 and creator_id = '{userId}'";
 	}
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
@@ -45,14 +41,8 @@ public class DepartUnStartWorkspace extends WorkspaceCreationBase{
 		column = addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 100, false);
 		column = addColumn(datagrid, "lastFoolowUser.name", "最后跟进人", ControlTypes.TEXT_BOX, 100, false);
 		column = addColumn(datagrid, "lastContent", "最后跟进内容", ControlTypes.TEXT_BOX, 100, false);
-		{
-			column.setFormatter("return '<span title='+value+'>'+value+'</span>'");
-		}
 //		column = addColumn(datagrid, "old", "是否老客户", ControlTypes.TEXT_BOX, 100, false);
 		column = addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 100, false);
-		{
-			column.setFormatter("return '<span title='+value+'>'+value+'</span>'");
-		}
 		return datagrid;
 	}
 	//配置查询条件
@@ -66,9 +56,9 @@ public class DepartUnStartWorkspace extends WorkspaceCreationBase{
 		}
 		return queryProject;
 	}
-	
-		public void doOperation() {
-			ResourceNode node = resourceService.byCode(resourceNodeCode);
-			operationService.addOperation(node, OperationTypes.view);
-		}
+		
+	public void doOperation() {
+		ResourceNode node = resourceService.byCode(resourceNodeCode);
+		operationService.addOperation(node, OperationTypes.view);
+	}		
 }

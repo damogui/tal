@@ -11,7 +11,7 @@ import com.gongsibao.crm.web.NCustomerTaskEditFormPart;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.panda.operation.workspace.crm.form.TaskEditWorkspaceTest;
 
-public class MyTaskEditWorkspaceTest extends TaskEditWorkspaceTest{
+public class SalesmanTaskEditWorkspaceTest extends TaskEditWorkspaceTest{
 
 	@Before
 	public void setup() {
@@ -34,9 +34,9 @@ public class MyTaskEditWorkspaceTest extends TaskEditWorkspaceTest{
 		formJsController = NCustomerTaskEditFormPart.class.getName();
 		formServiceController = NCustomerTaskEditFormPart.class.getName();
 		
-		productsDetailResourceNodeCode = "CRM_SALESMAN_Manager_Products";
-		foolowDetailResourceNodeCode = "CRM_SALESMAN_Manager_Foolow";
-		notifyDetailResourceNodeCode = "CRM_SALESMAN_Manager_Notify";
-		changeDetailResourceNodeCode = "CRM_SALESMAN_Manager_Change";
+		productsDetailResourceNodeCode = "CRM_SALESMAN_Products";
+		foolowDetailResourceNodeCode = "CRM_SALESMAN_Foolow";
+		notifyDetailResourceNodeCode = "CRM_SALESMAN_Notify";
+		changeDetailResourceNodeCode = "CRM_SALESMAN_Change";
 	}
 }

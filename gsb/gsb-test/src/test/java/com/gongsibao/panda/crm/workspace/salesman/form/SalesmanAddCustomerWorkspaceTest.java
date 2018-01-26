@@ -8,7 +8,7 @@ import org.netsharp.util.StringManager;
 
 import com.gongsibao.panda.operation.workspace.crm.form.CustomerAddWorkspaceTest;
 
-public class MyAddCustomerWorkspaceTest extends CustomerAddWorkspaceTest{
+public class SalesmanAddCustomerWorkspaceTest extends CustomerAddWorkspaceTest{
 
 	@Before
 	public void setup() {
@@ -16,16 +16,16 @@ public class MyAddCustomerWorkspaceTest extends CustomerAddWorkspaceTest{
 		super.setup();
 		urlForm = "/crm/salesman/customer/add";
 		resourceNodeCode = "CRM_SALESMAN_CUSTOMER_ADD";
-		
+
 		List<String> ss = new ArrayList<String>();
 		ss.add("/gsb/crm/platform/js/customer-add-form.part.js");
 		ss.add("/gsb/crm/salesman/js/customer-add-form.part.js");
 		ss.add("/gsb/gsb.customer.controls.js");
 		formJsImport = StringManager.join("|", ss);
 		
-		formJsController = "com.gongsibao.crm.web.MyNCustomerAddFormPart";
+		formJsController = "com.gongsibao.crm.web.SalesmanNCustomerAddFormPart";
 		taskDetailResourceNodeCode = "CRM_SALESMAN_TASK_ALL";
 		
-		taskDetailJsController = "com.gongsibao.crm.web.MyNCustomerTaskDetailPart";
+		taskDetailJsController = "com.gongsibao.crm.web.SalesmanNCustomerTaskDetailPart";
 	}
 }

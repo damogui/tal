@@ -15,7 +15,7 @@ import com.gongsibao.crm.web.NCustomerAllListPart;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.panda.operation.workspace.crm.CustomerALLWorkspaceTest;
 
-public class AllSalesmanCustomerWorkspaceTest extends CustomerALLWorkspaceTest{
+public class SalesmanAllCustomerWorkspaceTest extends CustomerALLWorkspaceTest{
 	
 	@Override
 	@Before

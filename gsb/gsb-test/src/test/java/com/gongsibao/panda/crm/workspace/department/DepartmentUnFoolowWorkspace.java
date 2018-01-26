@@ -13,19 +13,20 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.crm.NCustomerTask;
 
-public class DepartFollowIngWorkspace extends WorkspaceCreationBase{
+public class DepartmentUnFoolowWorkspace extends WorkspaceCreationBase{
 
 	@Override
 	@Before
 	public void setup() {
 		entity = NCustomerTask.class;
-		urlList = "/crm/department/5/list";
-
-		listPartName = formPartName = "跟进中";
+		//配置资源路径
+		urlList = "/crm/department/unfoolow/list";
+	
+		listPartName = formPartName = "待跟进";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_DEPARTMENT_FOLLOWING";
-		listFilter = "foolowStatus = 3 and creator_id = '{userId}'";
+		resourceNodeCode = "GSB_CRM_DEPARTMENT_UNFOOLOW";
+		listFilter = "foolowStatus = 2 and creator_id = '{userId}'";
 		
 		formJsImport = "/gsb/crm/js/crm.all.task.part.js";
 	}

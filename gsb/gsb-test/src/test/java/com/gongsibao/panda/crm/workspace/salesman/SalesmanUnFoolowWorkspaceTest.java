@@ -3,15 +3,15 @@ package com.gongsibao.panda.crm.workspace.salesman;
 import org.junit.Before;
 import org.netsharp.panda.plugin.entity.PToolbar;
 
-public class DefeatedSalesmanWorkspaceTest extends AllSalesmanTaskWorkspaceTest{
+public class SalesmanUnFoolowWorkspaceTest extends SalesmanAllTaskWorkspaceTest{
 
 	@Override
 	@Before
 	public void setup() {
 		super.setup();
-		urlList = "/crm/salesman/task/defeated/list";
-		resourceNodeCode = "CRM_SALESMAN_TASK_DEFEATED";
-		listFilter = "foolowStatus = 4 and ownerId = '{userId}'";
+		urlList = "/crm/salesman/task/unfoolow/list";
+		resourceNodeCode = "CRM_SALESMAN_TASK_UNFOOLOW";
+		listFilter = "foolowStatus = 2 and ownerId = '{userId}'";
 	}
 	
 	

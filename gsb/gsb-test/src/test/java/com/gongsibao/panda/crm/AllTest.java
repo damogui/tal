@@ -18,28 +18,31 @@ import com.gongsibao.panda.crm.workspace.CompanyIntentionWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.CustomerAllWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.CustomerOrderWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.CustomerServiceConfigWorkspaceTest;
-import com.gongsibao.panda.crm.workspace.department.AddDepartmentCustomerWorkspaceTest;
-import com.gongsibao.panda.crm.workspace.department.DepartAllTaskWorkspace;
-import com.gongsibao.panda.crm.workspace.department.DepartAlreadySignWorkspace;
-import com.gongsibao.panda.crm.workspace.department.DepartDefeatedWorkspace;
-import com.gongsibao.panda.crm.workspace.department.DepartFollowIngWorkspace;
-import com.gongsibao.panda.crm.workspace.department.DepartHighSeasWorkspace;
-import com.gongsibao.panda.crm.workspace.department.DepartUnFoolowWorkspace;
-import com.gongsibao.panda.crm.workspace.department.DepartUnStartWorkspace;
-import com.gongsibao.panda.crm.workspace.salesman.AllSalesmanCustomerWorkspaceTest;
-import com.gongsibao.panda.crm.workspace.salesman.AllSalesmanTaskWorkspaceTest;
-import com.gongsibao.panda.crm.workspace.salesman.AlreadySignSalesmanWorkspaceTest;
-import com.gongsibao.panda.crm.workspace.salesman.CheckAbnormalSalesmanWorkspaceTest;
-import com.gongsibao.panda.crm.workspace.salesman.DefeatedSalesmanWorkspaceTest;
-import com.gongsibao.panda.crm.workspace.salesman.FollowIngSalesmanWorkspaceTest;
-import com.gongsibao.panda.crm.workspace.salesman.TimeOutSalesmanWorkspaceTest;
-import com.gongsibao.panda.crm.workspace.salesman.UnFoolowSalesmanWorkspaceTest;
-import com.gongsibao.panda.crm.workspace.salesman.UnStartSalesmanWorkspaceTest;
-import com.gongsibao.panda.crm.workspace.salesman.VerifySalesmanCustomerWorkspaceTest;
-import com.gongsibao.panda.crm.workspace.salesman.form.MyAddCustomerWorkspaceTest;
-import com.gongsibao.panda.crm.workspace.salesman.form.MyCustomerEditWorkspaceTest;
-import com.gongsibao.panda.crm.workspace.salesman.form.MyTaskAddWorkspaceTest;
-import com.gongsibao.panda.crm.workspace.salesman.form.MyTaskEditWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.department.DepartmentAllTaskWorkspace;
+import com.gongsibao.panda.crm.workspace.department.DepartmentAlreadySignWorkspace;
+import com.gongsibao.panda.crm.workspace.department.DepartmentDefeatedWorkspace;
+import com.gongsibao.panda.crm.workspace.department.DepartmentFollowIngWorkspace;
+import com.gongsibao.panda.crm.workspace.department.DepartmentHighSeasWorkspace;
+import com.gongsibao.panda.crm.workspace.department.DepartmentUnFoolowWorkspace;
+import com.gongsibao.panda.crm.workspace.department.DepartmentUnStartWorkspace;
+import com.gongsibao.panda.crm.workspace.department.form.DepartmentAddCustomerWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.department.form.DepartmentCustomerEditWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.department.form.DepartmentTaskAddWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.department.form.DepartmentTaskEditWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.salesman.SalesmanAllCustomerWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.salesman.SalesmanAllTaskWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.salesman.SalesmanAlreadySignWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.salesman.SalesmanCheckAbnormalWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.salesman.SalesmanDefeatedWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.salesman.SalesmanFollowIngWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.salesman.SalesmanTimeOutWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.salesman.SalesmanUnFoolowWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.salesman.SalesmanUnStartWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.salesman.SalesmanVerifyCustomerWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.salesman.form.SalesmanAddCustomerWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.salesman.form.SalesmanCustomerEditWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.salesman.form.SalesmanTaskAddWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.salesman.form.SalesmanTaskEditWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.sys.SysDepartmentWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.sys.SysSalesmanWorkspaceTest;
 
@@ -75,30 +78,34 @@ import com.gongsibao.panda.crm.workspace.sys.SysSalesmanWorkspaceTest;
 
 		
 		//业务员
-		MyAddCustomerWorkspaceTest.class,
-		MyCustomerEditWorkspaceTest.class,
-		MyTaskAddWorkspaceTest.class,
-		MyTaskEditWorkspaceTest.class,
-		AllSalesmanCustomerWorkspaceTest.class,
-		AllSalesmanTaskWorkspaceTest.class,
-		UnStartSalesmanWorkspaceTest.class,
-		UnFoolowSalesmanWorkspaceTest.class,
-		FollowIngSalesmanWorkspaceTest.class,
-		AlreadySignSalesmanWorkspaceTest.class,
-		DefeatedSalesmanWorkspaceTest.class,
-		CheckAbnormalSalesmanWorkspaceTest.class,
-		TimeOutSalesmanWorkspaceTest.class,
+		SalesmanAddCustomerWorkspaceTest.class,
+		SalesmanCustomerEditWorkspaceTest.class,
+		SalesmanTaskAddWorkspaceTest.class,
+		SalesmanTaskEditWorkspaceTest.class,
+		SalesmanAllCustomerWorkspaceTest.class,
+		SalesmanAllTaskWorkspaceTest.class,
+		SalesmanUnStartWorkspaceTest.class,
+		SalesmanUnFoolowWorkspaceTest.class,
+		SalesmanFollowIngWorkspaceTest.class,
+		SalesmanAlreadySignWorkspaceTest.class,
+		SalesmanDefeatedWorkspaceTest.class,
+		SalesmanCheckAbnormalWorkspaceTest.class,
+		SalesmanTimeOutWorkspaceTest.class,
 		
 		//部门
-		AddDepartmentCustomerWorkspaceTest.class,
-		VerifySalesmanCustomerWorkspaceTest.class,
-		DepartAllTaskWorkspace.class,
-		DepartAlreadySignWorkspace.class,
-		DepartDefeatedWorkspace.class,
-		DepartFollowIngWorkspace.class,
-		DepartUnFoolowWorkspace.class,
-		DepartUnStartWorkspace.class,
-		DepartHighSeasWorkspace.class,
+		DepartmentAddCustomerWorkspaceTest.class,
+		DepartmentCustomerEditWorkspaceTest.class,
+		DepartmentTaskAddWorkspaceTest.class,
+		DepartmentTaskEditWorkspaceTest.class,
+		
+		SalesmanVerifyCustomerWorkspaceTest.class,
+		DepartmentAllTaskWorkspace.class,
+		DepartmentAlreadySignWorkspace.class,
+		DepartmentDefeatedWorkspace.class,
+		DepartmentFollowIngWorkspace.class,
+		DepartmentUnFoolowWorkspace.class,
+		DepartmentUnStartWorkspace.class,
+		DepartmentHighSeasWorkspace.class,
 		
 		//Action
 		ActionAllTest.class,

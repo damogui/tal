@@ -1,4 +1,4 @@
-package com.gongsibao.panda.crm.workspace.salesman.form;
+package com.gongsibao.panda.crm.workspace.department.form;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,18 +11,18 @@ import com.gongsibao.crm.web.NCustomerTaskAddFormPart;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.panda.operation.workspace.crm.form.TaskAddWorkspaceTest;
 
-public class MyTaskAddWorkspaceTest extends TaskAddWorkspaceTest{
-
+public class DepartmentTaskAddWorkspaceTest extends TaskAddWorkspaceTest{
+	
 	@Before
 	public void setup() {
 		
 		super.setup();
 		entity = NCustomerTask.class;
-		urlForm = "/crm/salesman/task/add";
+		urlForm = "/crm/department/task/add";
 		listPartName = formPartName = "新增任务";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "CRM_SALESMAN_TASK_ADD";
+		resourceNodeCode = "CRM_DEPARTMEN_TASK_ADD";
 		List<String> ss = new ArrayList<String>();
 		
 		ss.add("/gsb/crm/platform/js/task-add-form.part.js");
@@ -32,6 +32,6 @@ public class MyTaskAddWorkspaceTest extends TaskAddWorkspaceTest{
 		formJsController = NCustomerTaskAddFormPart.class.getName();
 		formServiceController = NCustomerTaskAddFormPart.class.getName();
 		
-		productsDetailResourceNodeCode = "CRM_SALESMAN_Manager_Products";
+		productsDetailResourceNodeCode = "CRM_DEPARTMEN_Products";
 	}
 }
