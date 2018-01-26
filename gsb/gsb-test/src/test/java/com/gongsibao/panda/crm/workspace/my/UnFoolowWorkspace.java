@@ -21,12 +21,12 @@ public class UnFoolowWorkspace extends WorkspaceCreationBase{
 	public void setup() {
 		entity = NCustomerTask.class;
 		//配置资源路径
-		urlList = "/crm/my/task/unfoolow/list";
+		urlList = "/crm/salesman/task/unfoolow/list";
 			
 		listPartName = formPartName = "待跟进";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_MY_TASK_UNFOOLOW";
+		resourceNodeCode = "CRM_SALESMAN_TASK_UNFOOLOW";
 		listFilter = "foolowStatus = 2 and ownerId = '{userId}'";
 		
 		//扩展列表操作

@@ -38,12 +38,12 @@ public class CheckAbnormalWorkspace extends WorkspaceCreationBase{
 	public void setup() {
 		entity = NCustomerTask.class;
 		//配置资源路径
-		urlList = "/crm/my/check/abnormal/list";
+		urlList = "/crm/salesman/check/abnormal/list";
 			
 		listPartName = formPartName = "抽查异常";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_MY_CHECK_ABNORMAL";
+		resourceNodeCode = "CRM_SALESMAN_CHECK_ABNORMAL";
 		//无法签单并且抽查状态等于正常
 		listFilter = "inspection_state = 2 and foolowStatus=4 and ownerId = '{userId}'";
 		

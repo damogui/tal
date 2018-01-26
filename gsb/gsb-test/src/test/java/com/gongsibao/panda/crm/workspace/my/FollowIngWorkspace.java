@@ -21,12 +21,12 @@ public class FollowIngWorkspace extends WorkspaceCreationBase{
 	public void setup() {
 		entity = NCustomerTask.class;
 		//配置资源路径
-		urlList = "/crm/my/task/following/list";
+		urlList = "/crm/salesman/task/following/list";
 			
 		listPartName = formPartName = "跟进中";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_MY_TASK_FOLLOWING";
+		resourceNodeCode = "CRM_SALESMAN_TASK_FOLLOWING";
 		listFilter = "foolowStatus = 3 and ownerId = '{userId}'";
 		
 		//扩展列表操作

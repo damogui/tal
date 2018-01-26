@@ -22,7 +22,7 @@ public class MyCustomerEditWorkspaceTest extends CustomerEditWorkspaceTest{
 		listPartName = formPartName = "客户信息";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_MY_CUSTOMER_Edit";
+		resourceNodeCode = "CRM_SALESMAN_CUSTOMER_Edit";
 		
 		List<String> ss = new ArrayList<String>();
 		ss.add("/gsb/crm/platform/js/customer-add-form.part.js");
@@ -33,11 +33,11 @@ public class MyCustomerEditWorkspaceTest extends CustomerEditWorkspaceTest{
 		formJsController = NCustomerEditFormPart.class.getName();
 		formServiceController = NCustomerEditFormPart.class.getName();
 		
-		taskDetailResourceNodeCode = "GSB_CRM_MY_TASK_ALL";
+		taskDetailResourceNodeCode = "CRM_SALESMAN_TASK_ALL";
 		
-		productsDetailResourceNodeCode = "GSB_CRM_My_Manager_Products";
-		foolowDetailResourceNodeCode = "GSB_CRM_My_Manager_Foolow";
-		notifyDetailResourceNodeCode = "GSB_CRM_My_Manager_Notify";
-		changeDetailResourceNodeCode = "GSB_CRM_My_Manager_Change";
+		productsDetailResourceNodeCode = "CRM_SALESMAN_Manager_Products";
+		foolowDetailResourceNodeCode = "CRM_SALESMAN_Manager_Foolow";
+		notifyDetailResourceNodeCode = "CRM_SALESMAN_Manager_Notify";
+		changeDetailResourceNodeCode = "CRM_SALESMAN_Manager_Change";
 	}
 }

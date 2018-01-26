@@ -50,12 +50,12 @@ public class AllTaskWorkspace extends WorkspaceCreationBase{
 			
 		entity = NCustomerTask.class;
 		//配置资源路径
-		urlList = "/crm/my/task/all/list";
+		urlList = "/crm/salesman/task/all/list";
 		
 		listPartName = formPartName = "全部任务";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_MY_TASK_ALL";
+		resourceNodeCode = "CRM_SALESMAN_TASK_ALL";
 		listFilter = "ownerId = '{userId}'";
 		
 		//行的toolbar

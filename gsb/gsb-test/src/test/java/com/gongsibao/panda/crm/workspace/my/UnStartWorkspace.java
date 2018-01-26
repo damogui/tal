@@ -21,12 +21,12 @@ public class UnStartWorkspace extends WorkspaceCreationBase{
 	public void setup() {
 		entity = NCustomerTask.class;
 		//配置资源路径
-		urlList = "/crm/my/task/start/list";
+		urlList = "/crm/salesman/task/start/list";
 				
 		listPartName = formPartName = "未启动";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_MY_TASK_START";
+		resourceNodeCode = "CRM_SALESMAN_TASK_START";
 		//没有质量分类，哪怕有跟进也不算做启动
 		listFilter = "ownerId = '{userId}' and foolow_status is NULL and intention_category is NULL";
 		

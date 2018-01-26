@@ -22,12 +22,12 @@ public class AlreadySignWorkspace extends WorkspaceCreationBase{
 	public void setup() {
 		entity = NCustomerTask.class;
 		//配置资源路径
-		urlList = "/crm/my/task/signed/list";
+		urlList = "/crm/salesman/task/signed/list";
 				
 		listPartName = formPartName = "已经签单";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_MY_TASK_SIGNED";
+		resourceNodeCode = "CRM_SALESMAN_TASK_SIGNED";
 		listFilter = "foolowStatus=5 and ownerId = '{userId}'";
 		
 		//扩展列表操作
