@@ -24,7 +24,7 @@ public class DepartmentAddCustomerWorkspaceTest extends CustomerAddWorkspaceTest
 		formJsImport = StringManager.join("|", ss);
 		
 		formJsController = "com.gongsibao.crm.web.DepartmentNCustomerAddFormPart";
-		taskDetailResourceNodeCode = "CRM_SALESMAN_TASK_ALL";
+		taskDetailResourceNodeCode = "CRM_DEPARTMENT_TASK_ALL";
 		taskDetailJsController = "com.gongsibao.crm.web.DepartmentNCustomerTaskDetailPart";
 	}
 }

@@ -18,7 +18,7 @@ public class DepartmentVerifyCustomerWorkspaceTest extends SalesmanVerifyCustome
 		listPartName = formPartName = "校验客户";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_DEPARTMENT_ADD";
+		resourceNodeCode = "CRM_DEPARTMENT_TASK_ADD";
 		listPartImportJs = "/gsb/crm/platform/js/customer-verify-list.part.js";
 		listPartJsController = CustomerVerifyListPart.class.getName();
 		listPartServiceController = CustomerVerifyListPart.class.getName();

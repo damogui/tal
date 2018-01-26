@@ -22,7 +22,7 @@ public class DepartmentTaskAddWorkspaceTest extends TaskAddWorkspaceTest{
 		listPartName = formPartName = "新增任务";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "CRM_DEPARTMEN_TASK_ADD";
+		resourceNodeCode = "CRM_DEPARTMENT_TASK_ADD";
 		List<String> ss = new ArrayList<String>();
 		
 		ss.add("/gsb/crm/platform/js/task-add-form.part.js");
@@ -32,6 +32,6 @@ public class DepartmentTaskAddWorkspaceTest extends TaskAddWorkspaceTest{
 		formJsController = NCustomerTaskAddFormPart.class.getName();
 		formServiceController = NCustomerTaskAddFormPart.class.getName();
 		
-		productsDetailResourceNodeCode = "CRM_DEPARTMEN_Products";
+		productsDetailResourceNodeCode = "CRM_DEPARTMENT_Products";
 	}
 }

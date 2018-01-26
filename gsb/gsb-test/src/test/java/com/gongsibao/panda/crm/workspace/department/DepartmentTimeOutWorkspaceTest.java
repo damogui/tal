@@ -12,7 +12,7 @@ public class DepartmentTimeOutWorkspaceTest extends SalesmanAllTaskWorkspaceTest
 	public void setup() {
 		super.setup();
 		urlList = "/crm/department/task/timeout/list";
-		resourceNodeCode = "CRM_DEPARTMENT_TIMEOUT";
+		resourceNodeCode = "CRM_DEPARTMENT_TASK_TIMEOUT";
 		listFilter = "foolowStatus = 2 and ownerId = '{userId}'";
 	}
 	

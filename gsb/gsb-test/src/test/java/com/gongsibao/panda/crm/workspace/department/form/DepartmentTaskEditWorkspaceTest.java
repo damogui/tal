@@ -22,7 +22,7 @@ public class DepartmentTaskEditWorkspaceTest extends TaskEditWorkspaceTest{
 		listPartName = formPartName = "任务信息";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "CRM_SALESMAN_TASK_EDIT";
+		resourceNodeCode = "CRM_DEPARTMENT_TASK_EDIT";
 		
 		List<String> ss = new ArrayList<String>();
 		ss.add("/gsb/crm/platform/js/task-add-form.part.js");
@@ -34,9 +34,9 @@ public class DepartmentTaskEditWorkspaceTest extends TaskEditWorkspaceTest{
 		formJsController = NCustomerTaskEditFormPart.class.getName();
 		formServiceController = NCustomerTaskEditFormPart.class.getName();
 		
-		productsDetailResourceNodeCode = "CRM_DEPARTMEN_Products";
-		foolowDetailResourceNodeCode = "CRM_DEPARTMEN_Foolow";
-		notifyDetailResourceNodeCode = "CRM_DEPARTMEN_Notify";
-		changeDetailResourceNodeCode = "CRM_DEPARTMEN_Change";
+		productsDetailResourceNodeCode = "CRM_DEPARTMENT_Products";
+		foolowDetailResourceNodeCode = "CRM_DEPARTMENT_Foolow";
+		notifyDetailResourceNodeCode = "CRM_DEPARTMENT_Notify";
+		changeDetailResourceNodeCode = "CRM_DEPARTMENT_Change";
 	}
 }

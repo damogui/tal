@@ -55,14 +55,14 @@ public class NavigationTest extends NavigationBase {
 		{
 			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_CUSTOMER_ADD", "新增客户", "/crm/department/customer/add", 1);
 			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_CUSTOMER_ALL", "全部客户", "/crm/department/customer/list", 2);
-			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_ALL", "全部任务", "/crm/department/task/list", 3);
+			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_ALL", "全部任务", "/crm/department/task/all/list", 3);
 			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_START", "未启动任务", "/crm/department/unstart/list", 4);
 			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_FOLLOWING", "跟进中任务", "/crm/department/following/list", 5);
 			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_SIGNED", "已签单任务", "/crm/department/signed/list", 6);
 			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_UNFOOLOW", "待跟进任务", "/crm/department/unfoolow/list", 7);
-			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TIMEOUT", "超时提醒", "/crm/department/task/timeout/list", 8);
+			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_TIMEOUT", "超时提醒", "/crm/department/task/timeout/list", 8);
 			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_DEFEATED", "无法签单任务", "/crm/department/defeated/list", 9);
-			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_CHECK_ABNORMAL", "抽查异常", "/crm/department/check/abnormal/list", 10);
+			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_CHECK_ABNORMAL", "抽查异常", "/crm/department/check/abnormal/list", 10);
 			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_HIGHSEAS", "公海", "/crm/department/highseas/list", 11);
 		}
 
