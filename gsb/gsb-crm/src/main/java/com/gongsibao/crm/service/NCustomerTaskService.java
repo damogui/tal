@@ -22,8 +22,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	}
 
 	@Override
-	public int updateInspectionState(Integer taskId, Integer selectValue,
-			String getNote) {
+	public int updateInspectionState(Integer taskId, Integer selectValue, String getNote) {
 		UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("n_crm_customer_task");
@@ -37,22 +36,23 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
 	@Override
 	public int taskRelease(Integer taskId) {
-		String cmdText = "UPDATE n_crm_customer_task SET owner_id = NULL where id="+taskId;
+		String cmdText = "UPDATE n_crm_customer_task SET owner_id = NULL where id=" + taskId;
 		return this.pm.executeNonQuery(cmdText, null);
 	}
+
 	@Override
-	public NCustomerTask save(NCustomerTask entity){
-		
+	public NCustomerTask save(NCustomerTask entity) {
+
 		entity = super.save(entity);
-		
-		//这里可能2次查询，需要优化
+
+		// 这里可能2次查询，需要优化
 		entity = this.byId(entity.getId());
 		return entity;
 	}
 
 	@Override
-	public NCustomerTask byId(Object id){
-		
+	public NCustomerTask byId(Object id) {
+
 		String selectFields = getSelectFullFields();
 		Oql oql = new Oql();
 		{
@@ -65,7 +65,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		NCustomerTask entity = this.queryFirst(oql);
 		return entity;
 	}
-	
+
 	private String getSelectFullFields() {
 
 		StringBuilder builder = new StringBuilder();
@@ -79,13 +79,13 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		builder.append("NCustomerTask.products.county.{id,name},");
 		builder.append("NCustomerTask.follows.*,");
 		builder.append("NCustomerTask.notifys.*,");
-		builder.append("NCustomerTask.changes.*,"); 
-		
+		builder.append("NCustomerTask.changes.*,");
+
 		return builder.toString();
 	}
-	
+
 	@Override
-	public int taskTransfer(Integer taskId,Integer supplierId,Integer departmentId,Integer toUserId) {
+	public int taskTransfer(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId) {
 		UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("n_crm_customer_task");
@@ -100,8 +100,8 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
 	@Override
 	public Boolean transfer(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId) {
-		
-		//任务转移
+
+		// 任务转移
 		NCustomerTask entity = this.byId(taskId);
 		ActionContext ctx = new ActionContext();
 		{
@@ -113,13 +113,13 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		ActionManager action = new ActionManager();
 		action.execute(ctx);
 		return true;
-		
+
 	}
 
 	@Override
 	public Boolean abnormal(Integer taskId) {
 
-		//抽查异常
+		// 抽查异常
 		NCustomerTask entity = this.byId(taskId);
 		ActionContext ctx = new ActionContext();
 		{
@@ -134,14 +134,14 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	}
 
 	@Override
-	public Boolean allocation(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId,Integer allocationType) {
+	public Boolean allocation(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId, Integer allocationType) {
 
-		//任务分配
+		// 任务分配
 		NCustomerTask entity = this.byId(taskId);
 		entity.setSupplierId(supplierId);
 		entity.setDepartmentId(departmentId);
 		entity.setOwnerId(toUserId);
-		entity.setAllocationType(allocationType.equals(2) ? NAllocationType.MANUAL:NAllocationType.AUTO);
+		entity.setAllocationType(allocationType.equals(2) ? NAllocationType.MANUAL : NAllocationType.AUTO);
 		ActionContext ctx = new ActionContext();
 		{
 			ctx.setPath("gsb/crm/task/allocation");
@@ -156,8 +156,8 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
 	@Override
 	public Boolean follow(NCustomerTaskFoolow taskFoolow) {
-		
-		//任务跟进
+
+		// 任务跟进
 		NCustomerTask entity = this.byId(taskFoolow.getTaskId());
 		ActionContext ctx = new ActionContext();
 		{
@@ -174,7 +174,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	@Override
 	public Boolean regain(Integer taskId) {
 
-		//任务收回
+		// 任务收回
 		NCustomerTask entity = this.byId(taskId);
 		ActionContext ctx = new ActionContext();
 		{
@@ -191,7 +191,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	@Override
 	public Boolean release(Integer taskId) {
 
-		//任务释放
+		// 任务释放
 		NCustomerTask entity = this.byId(taskId);
 		ActionContext ctx = new ActionContext();
 		{
@@ -207,7 +207,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
 	@Override
 	public Boolean rollback(Integer taskId) {
-		//任务回退
+		// 任务回退
 		NCustomerTask entity = this.byId(taskId);
 		ActionContext ctx = new ActionContext();
 		{
@@ -220,4 +220,26 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		action.execute(ctx);
 		return true;
 	}
+
+	/*
+	 * 自动分配 (non-Javadoc)
+	 * 
+	 * @see
+	 * com.gongsibao.crm.base.INCustomerTaskService#allot(java.lang.Integer)
+	 */
+	@Override
+	public int allot(Integer taskId) {
+		NCustomerTask entity = this.byId(taskId);
+		ActionContext ctx = new ActionContext();
+		{
+			ctx.setPath("gsb/crm/customer/task/allot");
+			ctx.setItem(entity);
+			ctx.setState(entity.getEntityState());
+		}
+
+		ActionManager action = new ActionManager();
+		action.execute(ctx);
+		return 0;
+	}
+
 }

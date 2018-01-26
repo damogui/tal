@@ -9,11 +9,10 @@ import org.netsharp.plugin.bean.IBeanPathService;
 import org.netsharp.resourcenode.IResourceNodeService;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.crm.service.allot.ActionCustomerTaskAddFollowRecord;
+import com.gongsibao.crm.service.action.allocation.ActionAllocationSaveLog;
 import com.gongsibao.crm.service.allot.ActionCustomerTaskAllot;
-import com.gongsibao.crm.service.allot.ActionCustomerTaskSendMessageToLeader;
-import com.gongsibao.crm.service.allot.ActionCustomerTaskSendMessageToSalesman;
-import com.gongsibao.crm.service.allot.ActionCustomerTaskUpdateSalesmanInfo;
+import com.gongsibao.crm.service.allot.ActionCustomerTaskSendMessage;
+import com.gongsibao.crm.service.allot.ActionCustomerTaskUpdateTaskStatus;
 import com.gongsibao.crm.service.allot.ActionCustomerTaskVerifyStatus;
 
 public class NCustomerTaskActionTest {
@@ -59,8 +58,18 @@ public class NCustomerTaskActionTest {
 			bean.setSeq(200);
 			
 			beanPath.getItems().add(bean);
-		}				
+		}	
 		bean = new Bean();
+		{
+			bean.toNew();
+			bean.setName("任务的分配状态的回写");
+			bean.setType(ActionCustomerTaskUpdateTaskStatus.class.getName());
+			bean.setResourceNode(resourceNode);
+			bean.setSeq(400);
+			
+			beanPath.getItems().add(bean);
+		}
+		/*bean = new Bean();
 		{
 			bean.toNew();
 			bean.setName("业务员配置信息的回写");
@@ -70,43 +79,24 @@ public class NCustomerTaskActionTest {
 			
 			beanPath.getItems().add(bean);
 		}
-		/*bean = new Bean();
-		{
-			bean.toNew();
-			bean.setName("任务的分配状态的回写");
-			bean.setType(ActionCustomerTaskUpdateTaskStatus.class.getName());
-			bean.setResourceNode(resourceNode);
-			bean.setSeq(400);
-			
-			beanPath.getItems().add(bean);
-		}*/
+		*/
 		bean = new Bean();
 		{
 			bean.toNew();
 			bean.setName("写入跟进记录");
-			bean.setType(ActionCustomerTaskAddFollowRecord.class.getName());
+			bean.setType(ActionAllocationSaveLog.class.getName());
 			bean.setResourceNode(resourceNode);
-			bean.setSeq(500);
+			bean.setSeq(300);
 			
 			beanPath.getItems().add(bean);
-		}				
+		}
 		bean = new Bean();
 		{
 			bean.toNew();
-			bean.setName("发送业务员通知");
-			bean.setType(ActionCustomerTaskSendMessageToSalesman.class.getName());
+			bean.setName("发送通知消息");
+			bean.setType(ActionCustomerTaskSendMessage.class.getName());
 			bean.setResourceNode(resourceNode);
-			bean.setSeq(600);
-			
-			beanPath.getItems().add(bean);
-		}		
-		bean = new Bean();
-		{
-			bean.toNew();
-			bean.setName("发送业务员部门负责人通知");
-			bean.setType(ActionCustomerTaskSendMessageToLeader.class.getName());
-			bean.setResourceNode(resourceNode);
-			bean.setSeq(700);
+			bean.setSeq(400);
 			
 			beanPath.getItems().add(bean);
 		}
