@@ -150,8 +150,13 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		me.doRollBack(id,1,null);
 	},
 	rollback : function(id){
+		
 		//任务退回
 		var me = this;
+		
+		//这里先要取消所有行，再选中1行
+		$("#" + this.context.id).datagrid('unselectAll');
+		$("#" + this.context.id).datagrid('selectRecord',id);
 		var row = this.getSelectedItem();
 		var intenCategory = row.intentionCategory;
 		me.doRollBack(id,2,intenCategory);
