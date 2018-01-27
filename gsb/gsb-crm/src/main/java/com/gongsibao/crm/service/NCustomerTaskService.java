@@ -14,8 +14,6 @@ import com.gongsibao.bd.service.SupplierPersistableService;
 import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
-import com.gongsibao.entity.crm.dic.NAllocationType;
-import com.gongsibao.entity.crm.dic.TaskInspectionState;
 
 @Service
 public class NCustomerTaskService extends SupplierPersistableService<NCustomerTask> implements INCustomerTaskService {
