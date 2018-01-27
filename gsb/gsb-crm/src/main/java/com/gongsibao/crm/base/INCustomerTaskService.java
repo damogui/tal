@@ -44,8 +44,14 @@ public interface INCustomerTaskService  extends IPersistableService<NCustomerTas
 	
 	/**
 	 * 任务分配
+	 * @param taskIds 任务Ids
+	 * @param supplierId 服务商
+	 * @param departmentId 部门id
+	 * @param toUserId 要分配的业务员Id
+	 * @param allocationType 分配类型：1-"自动分配"、2-"手动分配"、3, "半自动分配"
+	 * @return
 	 */
-	public Boolean allocation(Integer taskId,Integer supplierId,Integer departmentId,Integer toUserId,Integer allocationType);
+	public Boolean allocation(String taskIds,Integer supplierId,Integer departmentId,Integer toUserId,Integer allocationType);
 	
 	/**
 	 * 任务跟进

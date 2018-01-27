@@ -86,7 +86,7 @@ public class TaskBaseListPart extends BaseSupplierListPart{
 	 * @param toUserId
 	 * @return
 	 */
-	public boolean allocation(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId,Integer allocationType){
+	public boolean allocation(String taskId, Integer supplierId, Integer departmentId, Integer toUserId,Integer allocationType){
 		INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
 		return taskService.allocation(taskId, supplierId, departmentId, toUserId,allocationType);
 	}
