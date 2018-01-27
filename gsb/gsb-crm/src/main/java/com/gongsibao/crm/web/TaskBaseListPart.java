@@ -3,14 +3,14 @@ package com.gongsibao.crm.web;
 import java.util.ArrayList;
 
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.crm.base.INCustomerService;
 import com.gongsibao.crm.base.INCustomerTaskService;
-import com.gongsibao.supplier.web.panda.BaseSupplierListPart;
 
-public class TaskBaseListPart extends BaseSupplierListPart{
+public class TaskBaseListPart extends AdvancedListPart{
 
 	@Override
 	public String getFilters(){
@@ -118,7 +118,7 @@ public class TaskBaseListPart extends BaseSupplierListPart{
 	 * @param toUserId
 	 * @return
 	 */
-	public boolean transfer(String taskId, Integer supplierId, Integer departmentId, Integer toUserId,Integer allocationType){
+	public boolean transfer(String taskId, Integer supplierId, Integer departmentId, Integer toUserId){
 		INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
 		return taskService.transfer(taskId, supplierId, departmentId, toUserId);
 	}

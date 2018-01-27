@@ -26,6 +26,13 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		var me = this;
 		me.doAllot(id);
 	},
+	follow : function(id) {
+		//任务跟进 
+		var url = "/crm/salesman/task/followUp/from?fk=taskId:"+id;
+		IMessageBox.open("跟进任务", url, 700, 400, function() {
+			me.reload();
+		});
+	},
 	doAllot : function(id) {
 		var builder = new System.StringBuilder();
 		builder.append('<div style="margin:10px;">');
@@ -108,7 +115,6 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 				});
 	},
 	doAllotService : function(taskId,supplierId,departmentId,toUserId,allocationType) {
-		alert(11);
 		var me = this;
 		this.invokeService("allocation", [taskId,supplierId,departmentId,toUserId,allocationType],function(data) {
 			me.reload();
@@ -135,20 +141,18 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 			IMessageBox.info('请选择记录');
 			return;
 	    }
-		me.doRollBack(id,1);
+		me.doRollBack(id,1,null);
 	},
 	rollback : function(id){
 		//任务退回
 		var me = this;
-		me.doRollBack(id,2);
+		var row = this.getSelectedItem();
+		var intenCategory = row.intentionCategory;
+		me.doRollBack(id,2,intenCategory);
 	},
-	doRollBack : function(id,type) {
+	doRollBack : function(id,type,intenCategory) {
 		//收回和退回公用一个方法 type:1-收回、2-退回
 		var me = this;
-		var row = this.getSelectedItem();
-		var taskId = id;
-		var intenCategory = row.intentionCategory;
-		
 		var setTitle ='';
 		if(type==1){
 			setTitle = "收回";
@@ -186,19 +190,19 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 					IMessageBox.info('请输入原因');
 					return false;
 				}
-				me.doRollBackService(taskId,getNote,type);
+				me.doRollBackService(id,getNote,type);
 			},
 			btn2 : function(index, layero,type) {
 			}
 		});
 	},
-	doRollBackService : function(taskId,getNote,type) {
+	doRollBackService : function(id,getNote,type) {
 		var me = this;
 		var functionName = "rollback"
 		if(type == 1){
 			functionName = "regain";
 		}
-		this.invokeService(functionName, [taskId,getNote],function(data) {
+		this.invokeService(functionName, [id,getNote],function(data) {
 			me.reload();
 			IMessageBox.toast('操作成功');
 			layer.closeAll();
@@ -300,7 +304,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 							return;
 						}
 						var taskId = id;
-						me.operatTaskTransfer(taskId,supplierId,departmentId,toUserId);
+						me.doTransferService(taskId,supplierId,departmentId,toUserId);
 					}
 				});
 	},
