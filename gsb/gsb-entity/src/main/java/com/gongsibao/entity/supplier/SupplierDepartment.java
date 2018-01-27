@@ -22,8 +22,8 @@ public class SupplierDepartment extends CatEntity{
 	@Reference(foreignKey = "supplierId", header = "服务商")
 	private Supplier supplier;
 
-//    @Subs(foreignKey = "departmentId", header = "部门服务地区范围", subType = DepartmentServiceProduct.class)
-//    private List<DepartmentServiceProduct> serviceProducts;
+    @Subs(foreignKey = "departmentId", header = "部门服务地区范围", subType = DepartmentServiceProduct.class)
+    private List<DepartmentServiceProduct> serviceProducts;
 
     @Column(name = "is_old_client", header = "是否新客户")
     private Boolean isoldclient;
@@ -47,14 +47,14 @@ public class SupplierDepartment extends CatEntity{
 
 
 
-//
-//    public List<DepartmentServiceProduct> getServiceProducts() {
-//        return serviceProducts;
-//    }
-//
-//    public void setServiceProducts(List<DepartmentServiceProduct> serviceProducts) {
-//        this.serviceProducts = serviceProducts;
-//    }
+
+    public List<DepartmentServiceProduct> getServiceProducts() {
+        return serviceProducts;
+    }
+
+    public void setServiceProducts(List<DepartmentServiceProduct> serviceProducts) {
+        this.serviceProducts = serviceProducts;
+    }
 
     public Boolean getIsoldclient() {
         return isoldclient;
