@@ -3,10 +3,13 @@ System.Declare("com.gongsibao.crm.web");
 com.gongsibao.crm.web.BaseCustomerListPart = org.netsharp.panda.commerce.ListPart.Extends({
 	ctor : function() {
 		this.base();
+		this.addUrl = null;
+		this.editUrl = null;
+		this.addTaskUrl=null;
 	},
 	add:function(){
 		
-		window.open("/panda/operation/customer/add");
+		window.open(this.addUrl);
 	},
 	detail:function(id){
 		
@@ -14,7 +17,7 @@ com.gongsibao.crm.web.BaseCustomerListPart = org.netsharp.panda.commerce.ListPar
 	},
 	edit : function(id) {
 
-		window.open("/panda/operation/customer/edit?id="+id);
+		window.open(this.editUrl+"?id="+id);
 	},
 	addTask:function(){
 
@@ -23,7 +26,7 @@ com.gongsibao.crm.web.BaseCustomerListPart = org.netsharp.panda.commerce.ListPar
 			return;
 		}
 		var customerId = row.id;
-    	var url='/panda/operation/task/add?fk=customerId:'+customerId;
+    	var url=this.addTaskUrl+'?fk=customerId:'+customerId;
     	layer.open({
   		  type: 2,
   		  title: '新增任务',

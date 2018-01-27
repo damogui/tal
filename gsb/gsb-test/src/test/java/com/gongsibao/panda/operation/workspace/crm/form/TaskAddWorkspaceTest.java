@@ -34,7 +34,7 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 	public void setup() {
 		super.setup();
 		entity = NCustomerTask.class;
-		urlForm = "/operation/task/add";
+		urlForm = "/crm/platform/task/add";
 		listPartName = formPartName = "新增任务";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();

@@ -32,7 +32,7 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 	public void setup() {
 		super.setup();
 		entity = NCustomer.class;
-		urlForm = "/operation/customer/add";
+		urlForm = "/crm/platform/customer/add";
 		listPartName = formPartName = "新增客户";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();

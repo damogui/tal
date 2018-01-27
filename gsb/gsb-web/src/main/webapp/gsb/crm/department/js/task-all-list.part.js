@@ -3,15 +3,9 @@ com.gongsibao.crm.web.department.DepartmentAllTaskListPart = com.gongsibao.crm.w
 	ctor : function() {
 		
 		this.base();
+		this.addUrl = "/panda/crm/department/task/add";
+		this.editUrl = "/panda/crm/department/task/edit";
 		this.followUrl = '/panda/crm/department/task/followUp/from';
-	},
-	add:function(){
-		
-		window.open("/panda/crm/department/task/add");
-	},
-	edit : function(id) {
-		
-		var url = "/panda/crm/department/task/edit?id="+id;
-		window.open(url);
+		this.addCustomerUrl = null;
 	}
 });

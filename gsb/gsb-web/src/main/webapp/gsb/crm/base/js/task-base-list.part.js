@@ -3,11 +3,14 @@ System.Declare("com.gongsibao.crm.web");
 com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Extends({
 	ctor : function() {
 		this.base();
+		this.addUrl = null;
+		this.editUrl = null;
 		this.followUrl = null;
+		this.addCustomerUrl = null;
 	},
 	add:function(){
 		
-		window.open("/panda/operation/customer/add");
+		window.open("/panda/crm/platform/customer/add");
 	},
 	detail:function(id){
 		
@@ -19,7 +22,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 	},
 	edit : function(id) {
 		
-		var url = "/panda/operation/task/edit?id="+id;
+		var url = "/panda/crm/platform/task/edit?id="+id;
 		window.open(url);
 	},
 	allocation:function(id){

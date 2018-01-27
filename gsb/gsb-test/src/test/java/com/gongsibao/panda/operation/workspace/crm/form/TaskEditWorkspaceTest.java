@@ -38,7 +38,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 	public void setup() {
 		super.setup();
 		entity = NCustomerTask.class;
-		urlForm = "/operation/task/edit";
+		urlForm = "/crm/platform/task/edit";
 		listPartName = formPartName = "任务信息";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();

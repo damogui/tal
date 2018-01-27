@@ -33,7 +33,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest{
 	public void setup() {
 		super.setup();
 		entity = NCustomer.class;
-		urlForm = "/operation/customer/edit";
+		urlForm = "/crm/platform/customer/edit";
 		listPartName = formPartName = "客户信息";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
