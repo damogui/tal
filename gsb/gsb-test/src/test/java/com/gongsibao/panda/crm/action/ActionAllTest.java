@@ -12,7 +12,10 @@ import org.junit.runners.Suite.SuiteClasses;
 	RegainActionTest.class, 
 	ReleaseActionTest.class, 
 	RollbackActionTest.class, 
-	TransferActionTest.class
+	TransferActionTest.class,
+	
+	AddActionTest.class,
+	UpdateActionTest.class
 })
 		
 public class ActionAllTest {
