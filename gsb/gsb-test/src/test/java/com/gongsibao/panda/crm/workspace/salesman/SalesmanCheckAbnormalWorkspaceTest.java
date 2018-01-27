@@ -15,7 +15,7 @@ public class SalesmanCheckAbnormalWorkspaceTest extends SalesmanAllTaskWorkspace
 		listPartName = "抽查异常任务";
 		urlList = "/crm/salesman/check/abnormal/list";
 		resourceNodeCode = "CRM_SALESMAN_CHECK_ABNORMAL";
-		listFilter = "inspectionState = 2 and foolowStatus=4 and ownerId = '{userId}'";
+		listFilter = "inspectionState = 3 and foolowStatus=4 and ownerId = '{userId}'";
 	}
 	
 	

@@ -13,7 +13,7 @@ public class DepartmentTimeOutWorkspaceTest extends DepartmentAllTaskWorkspaceTe
 		resourceNodeCode = "CRM_DEPARTMENT_TASK_TIMEOUT";
 
 		//当前登录人所在部门的子部门,需要扩展
-		listFilter = "foolowStatus = 3 and ownerId = '{userId}' and nextFoolowTime>NOW()";
+		listFilter = "foolowStatus = 3 and ownerId = '{userId}' and NOW()>nextFoolowTime";
 	}
 	
 	
