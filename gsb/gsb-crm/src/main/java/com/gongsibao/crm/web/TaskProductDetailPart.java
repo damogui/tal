@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.netsharp.panda.commerce.DetailPart;
 
-public class NCustomerTaskProductDetailPart extends DetailPart{
+public class TaskProductDetailPart extends DetailPart{
 
 	/**   
 	 * @Title: queryByProducCategoryId1   

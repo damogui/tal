@@ -1,5 +1,5 @@
 System.Declare("com.gongsibao.crm.web");
-com.gongsibao.crm.web.DepartmentNCustomerAddFormPart = com.gongsibao.crm.web.NCustomerAddFormPart.Extends( {
+com.gongsibao.crm.web.DepartmentNCustomerAddFormPart = com.gongsibao.crm.web.NCustomerFormPart.Extends( {
 
     ctor: function () {
         this.base();

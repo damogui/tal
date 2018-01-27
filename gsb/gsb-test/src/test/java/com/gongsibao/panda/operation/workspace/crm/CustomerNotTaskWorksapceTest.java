@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
 
-import com.gongsibao.crm.web.NCustomerNotTaskListPart;
+import com.gongsibao.crm.web.NCustomerAllListPart;
 import com.gongsibao.entity.crm.NCustomer;
 
 public class CustomerNotTaskWorksapceTest extends CustomerALLWorkspaceTest{
@@ -21,12 +21,12 @@ public class CustomerNotTaskWorksapceTest extends CustomerALLWorkspaceTest{
 		meta = MtableManager.getMtable(entity);// 获取实体元数据
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "Operation_CRM_Customer_NotTask";
-		listPartImportJs = "/gsb/crm/base/js/customer-base-list.part.js|/gsb/crm/platform/js/customer-nottask-list.part.js";
+		listPartImportJs = "/gsb/crm/base/js/customer-base-list.part.js|/gsb/crm/platform/js/customer-all-list.part.js";
 		
 		listFilter = "id not in (SELECT customer_id from n_crm_customer_task)";
 		
-		listPartJsController = NCustomerNotTaskListPart.class.getName();
-		listPartServiceController = NCustomerNotTaskListPart.class.getName();
+		listPartJsController = NCustomerAllListPart.class.getName();
+		listPartServiceController = NCustomerAllListPart.class.getName();
 	}
 	
 	@Test

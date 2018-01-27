@@ -15,7 +15,7 @@ import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.crm.web.TaskOpenSeaListPart;
+import com.gongsibao.crm.web.TaskAllListPart;
 import com.gongsibao.entity.crm.NCustomerTask;
 
 public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
@@ -36,9 +36,9 @@ public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
 
 		listFilter = "(owner_id is null or owner_id =0)";
 		listToolbarPath = "task/batch/allocation";
-		listPartJsController = TaskOpenSeaListPart.class.getName();
-		listPartServiceController = TaskOpenSeaListPart.class.getName();
-		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-opensea-list.part.js";
+		listPartJsController = TaskAllListPart.class.getName();
+		listPartServiceController = TaskAllListPart.class.getName();
+		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-all-list.part.js";
 	}
 
 	public PToolbar createListToolbar() {

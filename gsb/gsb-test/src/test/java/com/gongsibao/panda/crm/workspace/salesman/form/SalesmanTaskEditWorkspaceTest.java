@@ -26,12 +26,14 @@ public class SalesmanTaskEditWorkspaceTest extends TaskEditWorkspaceTest{
 		resourceNodeCode = "CRM_SALESMAN_TASK_EDIT";
 		
 		List<String> ss = new ArrayList<String>();
+		
+		
 		ss.add("/gsb/crm/platform/js/task-add-form.part.js");
-		ss.add("/gsb/crm/platform/js/task-edit-form.part.js");
+		ss.add("/gsb/crm/base/js/task-base-edit-form.part.js");
 		ss.add("/gsb/crm/salesman/js/task-edit-form.part.js");
 		ss.add("/gsb/gsb.customer.controls.js");
 		formJsImport = StringManager.join("|", ss);
-		
+
 		
 		formJsController = NCustomerTaskEditFormPart.class.getName();
 		formServiceController = NCustomerTaskEditFormPart.class.getName();
@@ -40,6 +42,8 @@ public class SalesmanTaskEditWorkspaceTest extends TaskEditWorkspaceTest{
 		foolowDetailResourceNodeCode = "CRM_SALESMAN_Foolow";
 		notifyDetailResourceNodeCode = "CRM_SALESMAN_Notify";
 		changeDetailResourceNodeCode = "CRM_SALESMAN_Change";
+		
+		taskFollowDetailPart = "com.gongsibao.crm.web.SalesmanTaskFollowDetailPart";
 	}
 	
 	@Test

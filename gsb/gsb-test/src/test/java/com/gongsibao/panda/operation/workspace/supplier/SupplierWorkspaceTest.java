@@ -23,7 +23,7 @@ import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.controls.CityComboBox;
 import com.gongsibao.controls.DictComboBox;
-import com.gongsibao.crm.web.SupplierProductDetailPart;
+import com.gongsibao.crm.web.TaskProductDetailPart;
 import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.supplier.FunctionModule;
 import com.gongsibao.entity.supplier.Supplier;
@@ -319,8 +319,8 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("panda/datagrid/detail");
-			part.setJsController(SupplierProductDetailPart.class.getName());
-			part.setServiceController(SupplierProductDetailPart.class.getName());
+			part.setJsController("com.gongsibao.crm.web.SupplierProductDetailPart");
+			part.setServiceController(TaskProductDetailPart.class.getName());
 			part.setWindowWidth(400);
 			part.setWindowHeight(450);
 			part.setForm(form);

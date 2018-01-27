@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
 
-import com.gongsibao.crm.web.NCustomerUndistributedListPart;
+import com.gongsibao.crm.web.NCustomerAllListPart;
 import com.gongsibao.entity.crm.NCustomer;
 
 public class CustomerUndistributedWorkspaceTest extends CustomerALLWorkspaceTest {
@@ -20,12 +20,12 @@ public class CustomerUndistributedWorkspaceTest extends CustomerALLWorkspaceTest
 		meta = MtableManager.getMtable(entity);// 获取实体元数据
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "Operation_CRM_Customer_Undistributed";
-		listPartImportJs = "/gsb/crm/base/js/customer-base-list.part.js|/gsb/crm/platform/js/customer-undistributed-list.part.js";
+		listPartImportJs = "/gsb/crm/base/js/customer-base-list.part.js|/gsb/crm/platform/js/customer-all-list.part.js";
 		
 		listFilter = "id in (SELECT customer_id from n_crm_customer_task where owner_id is null or owner_id=0)";
 		
-		listPartJsController = NCustomerUndistributedListPart.class.getName();
-		listPartServiceController = NCustomerUndistributedListPart.class.getName();
+		listPartJsController = NCustomerAllListPart.class.getName();
+		listPartServiceController = NCustomerAllListPart.class.getName();
 	}
 	
 	@Test

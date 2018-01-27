@@ -1,5 +1,5 @@
 System.Declare("com.gongsibao.crm.web");
-com.gongsibao.crm.web.NCustomerPlatformAddFormPart =com.gongsibao.crm.web.NCustomerFormPart.Extends( {
+com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.Extends( {
 
     ctor: function () {
         this.base();

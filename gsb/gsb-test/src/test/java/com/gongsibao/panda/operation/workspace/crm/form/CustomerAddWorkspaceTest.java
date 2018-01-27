@@ -1,5 +1,8 @@
 package com.gongsibao.panda.operation.workspace.crm.form;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
@@ -17,9 +20,10 @@ import org.netsharp.panda.entity.PWorkspace;
 import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
+import org.netsharp.util.StringManager;
 
 import com.gongsibao.controls.CityComboBox;
-import com.gongsibao.crm.web.NCustomerAddFormPart;
+import com.gongsibao.crm.web.NCustomerFormPart;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.crm.dic.TaskCustomerType;
 
@@ -37,9 +41,14 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "Operation_CRM_Customer_Add";
-		formJsImport = "/gsb/crm/platform/js/customer-add-form.part.js|/gsb/gsb.customer.controls.js";
-		formJsController = NCustomerAddFormPart.class.getName();
-		formServiceController = NCustomerAddFormPart.class.getName();
+		
+		List<String> ss = new ArrayList<String>();
+		ss.add("/gsb/crm/base/js/customer-base-add-form.part.js");
+		ss.add("/gsb/crm/platform/js/customer-add-form.part.js");
+		ss.add("/gsb/gsb.customer.controls.js");
+		formJsImport = StringManager.join("|", ss);
+		formJsController = "com.gongsibao.crm.web.NCustomerPlatformAddFormPart";
+		formServiceController = NCustomerFormPart.class.getName();
 	}
 	
 

@@ -61,7 +61,7 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
 
 //initValue 此方法不会触发改变事件，
 
-com.gongsibao.crm.web.NCustomerTaskProductDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
+com.gongsibao.crm.web.TaskProductDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
     ctor: function () {
         this.base();
     },

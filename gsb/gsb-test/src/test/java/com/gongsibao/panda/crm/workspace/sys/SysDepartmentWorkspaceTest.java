@@ -1,12 +1,5 @@
 package com.gongsibao.panda.crm.workspace.sys;
 
-import com.gongsibao.controls.CityComboBox;
-import com.gongsibao.controls.DictComboBox;
-import com.gongsibao.crm.web.DepartmentProductDetailPart;
-import com.gongsibao.crm.web.SalesmaProductDetailPart;
-import com.gongsibao.crm.web.SysSalesmanListPart;
-import com.gongsibao.entity.product.Product;
-import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
@@ -14,12 +7,22 @@ import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.dic.PartType;
-import org.netsharp.panda.entity.*;
+import org.netsharp.panda.entity.PDatagrid;
+import org.netsharp.panda.entity.PDatagridColumn;
+import org.netsharp.panda.entity.PForm;
+import org.netsharp.panda.entity.PFormField;
+import org.netsharp.panda.entity.PPart;
+import org.netsharp.panda.entity.PQueryProject;
+import org.netsharp.panda.entity.PWorkspace;
 import org.netsharp.resourcenode.entity.ResourceNode;
-
-import com.gongsibao.crm.web.SysDepartmentTreeGridPart;
-import com.gongsibao.entity.supplier.SupplierDepartment;
 import org.netsharp.util.ReflectManager;
+
+import com.gongsibao.controls.CityComboBox;
+import com.gongsibao.controls.DictComboBox;
+import com.gongsibao.crm.web.TaskProductDetailPart;
+import com.gongsibao.crm.web.SysDepartmentTreeGridPart;
+import com.gongsibao.entity.product.Product;
+import com.gongsibao.entity.supplier.SupplierDepartment;
 
 //部门管理工作空间
 public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
@@ -184,8 +187,8 @@ public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
             part.setDatagrid(datagrid);
             part.setDockStyle(DockType.DOCUMENTHOST);
             part.setToolbar("panda/datagrid/detail");
-            part.setJsController(DepartmentProductDetailPart.class.getName());
-            part.setServiceController(DepartmentProductDetailPart.class.getName());
+            part.setJsController(TaskProductDetailPart.class.getName());
+            part.setServiceController(TaskProductDetailPart.class.getName());
             part.setWindowWidth(400);
             part.setWindowHeight(450);
             part.setForm(form);

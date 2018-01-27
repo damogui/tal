@@ -2,7 +2,7 @@
  * Created by win on 2018/1/26.
  */
 System.Declare("com.gongsibao.crm.web");
-com.gongsibao.crm.web.DepartmentProductDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
+com.gongsibao.crm.web.TaskProductDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
     ctor: function () {
         this.base();
     },

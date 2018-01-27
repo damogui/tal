@@ -1,7 +1,7 @@
 package com.gongsibao.panda.crm.workspace;
 
 import com.gongsibao.crm.web.CustomerFormPart;
-import com.gongsibao.crm.web.FlowDetailPart;
+import com.gongsibao.crm.web.FollowDetailPart;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
@@ -514,8 +514,8 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("crm/customer/flow/detail");
-			part.setJsController(FlowDetailPart.class.getName());
-			part.setServiceController(FlowDetailPart.class.getName());
+			part.setJsController(FollowDetailPart.class.getName());
+			part.setServiceController(FollowDetailPart.class.getName());
 			part.setWindowWidth(550);
 			part.setWindowHeight(400);
 			part.setForm(form);

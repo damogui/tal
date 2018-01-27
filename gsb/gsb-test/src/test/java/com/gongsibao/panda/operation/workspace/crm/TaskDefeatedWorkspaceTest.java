@@ -6,7 +6,7 @@ import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.crm.web.TaskLostOrderListPart;
+import com.gongsibao.crm.web.TaskAllListPart;
 
 public class TaskDefeatedWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 
@@ -18,9 +18,9 @@ public class TaskDefeatedWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 		urlList = "/operation/customer/task/defeated/list";
 		listPartName = formPartName = "无法签单";
 		resourceNodeCode = "Operation_CRM_Task_Defeated";
-		listPartJsController = TaskLostOrderListPart.class.getName();
-		listPartServiceController = TaskLostOrderListPart.class.getName();
-		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-lostorder-list.part.js";
+		listPartJsController = TaskAllListPart.class.getName();
+		listPartServiceController = TaskAllListPart.class.getName();
+		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-all-list.part.js";
 		listToolbarPath = null;
 		rowToolbaPath = "/operation/task/lostOrder/toolbar";
 		listFilter = "foolowStatus = 4";

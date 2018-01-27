@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
 
-import com.gongsibao.crm.web.NCustomerAllocatedListPart;
+import com.gongsibao.crm.web.NCustomerAllListPart;
 import com.gongsibao.entity.crm.NCustomer;
 
 public class CustomerAllocatedWorkspaceTest extends CustomerALLWorkspaceTest {
@@ -20,10 +20,10 @@ public class CustomerAllocatedWorkspaceTest extends CustomerALLWorkspaceTest {
 		meta = MtableManager.getMtable(entity);// 获取实体元数据
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "Operation_CRM_Customer_Allocated";
-		listPartImportJs = "/gsb/crm/base/js/customer-base-list.part.js|/gsb/crm/platform/js/customer-allocated-list.part.js";
+		listPartImportJs = "/gsb/crm/base/js/customer-base-list.part.js|/gsb/crm/platform/js/customer-all-list.part.js";
 		listFilter = "id in (SELECT customer_id from n_crm_customer_task where owner_id is not null and owner_id>0)";//已分配客户
-		listPartJsController = NCustomerAllocatedListPart.class.getName();
-		listPartServiceController = NCustomerAllocatedListPart.class.getName();
+		listPartJsController = NCustomerAllListPart.class.getName();
+		listPartServiceController = NCustomerAllListPart.class.getName();
 	}
 	
 	@Test

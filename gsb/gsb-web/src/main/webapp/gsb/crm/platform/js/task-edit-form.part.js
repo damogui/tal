@@ -4,22 +4,10 @@ com.gongsibao.crm.web.NCustomerTaskEditFormPart = com.gongsibao.crm.web.NCustome
         this.base();
     }
 });
-com.gongsibao.crm.web.TaskFollowDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
+com.gongsibao.crm.web.PlatformTaskFollowDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
     ctor: function () {
         this.base();
-    },
-    add:function(){
-    	
-    	var url = '/panda/crm/salesman/task/followUp/from';
-    	IMessageBox.open("任务跟进",url,700,450,function(){
-    		
-    	});
-    },
-	doubleClickRow : function(rowIndex, rowData) {
-		
-    	var url = '/panda/crm/salesman/task/followUp/from?id='+rowData.id;
-    	IMessageBox.open("任务跟进",url,700,450,function(){
-    		
-    	});
-	},
+        this.addTaskUrl = '/panda/crm/platform/task/followUp/from';
+        this.addFollowUrl = '/panda/crm/platform/task/followUp/from';
+    }
 });
