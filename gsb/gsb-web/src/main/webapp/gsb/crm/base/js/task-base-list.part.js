@@ -136,7 +136,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 			return;
 	    }
 		me.doRollBack(id,1);
-	}
+	},
 	rollback : function(id){
 		//任务退回
 		var me = this;
