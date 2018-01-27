@@ -1,6 +1,7 @@
 package com.gongsibao.panda.crm.workspace.department;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.core.MtableManager;
 
 import com.gongsibao.crm.web.CustomerVerifyListPart;
@@ -22,5 +23,10 @@ public class DepartmentVerifyCustomerWorkspaceTest extends SalesmanVerifyCustome
 		listPartImportJs = "/gsb/crm/platform/js/customer-verify-list.part.js";
 		listPartJsController = CustomerVerifyListPart.class.getName();
 		listPartServiceController = CustomerVerifyListPart.class.getName();
+	}
+	
+	@Test
+	public void createRowToolbar() {
+		
 	}
 }
