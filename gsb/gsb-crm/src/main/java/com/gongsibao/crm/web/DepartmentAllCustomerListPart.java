@@ -1,4 +1,4 @@
-package com.gongsibao.crm.web.department;
+package com.gongsibao.crm.web;
 
 import java.util.ArrayList;
 import java.util.List;

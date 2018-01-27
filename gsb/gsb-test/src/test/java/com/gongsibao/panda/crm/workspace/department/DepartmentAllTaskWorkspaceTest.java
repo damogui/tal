@@ -12,7 +12,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.controls.PropertyQueryDictComboBox;
-import com.gongsibao.crm.web.department.DepartmentAllTaskListPart;
+import com.gongsibao.crm.web.DepartmentAllTaskListPart;
 import com.gongsibao.entity.crm.NCustomerTaskQuality;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.panda.operation.workspace.crm.TaskALLWorkspaceTest;

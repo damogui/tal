@@ -11,7 +11,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.controls.PropertyQueryDictComboBox;
-import com.gongsibao.crm.web.department.DepartmentAllCustomerListPart;
+import com.gongsibao.crm.web.DepartmentAllCustomerListPart;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.panda.operation.workspace.crm.CustomerALLWorkspaceTest;
 

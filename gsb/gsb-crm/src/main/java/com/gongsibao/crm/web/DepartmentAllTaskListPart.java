@@ -1,11 +1,10 @@
-package com.gongsibao.crm.web.department;
+package com.gongsibao.crm.web;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.netsharp.util.StringManager;
 
-import com.gongsibao.crm.web.TaskBaseListPart;
 import com.gongsibao.utils.SupplierSessionManager;
 
 public class DepartmentAllTaskListPart extends TaskBaseListPart{
