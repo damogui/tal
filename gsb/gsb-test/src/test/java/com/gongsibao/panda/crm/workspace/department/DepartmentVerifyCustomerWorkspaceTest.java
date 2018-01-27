@@ -16,7 +16,7 @@ public class DepartmentVerifyCustomerWorkspaceTest extends SalesmanVerifyCustome
 		entity = NCustomer.class;
 		urlList = "/crm/department/customer/verify";
 		listToolbarPath = "/crm/department/customer/verify/edit";
-		listPartName = formPartName = "校验客户";
+		listPartName = formPartName = "校验客户 ";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "CRM_DEPARTMENT_CUSTOMER_ADD";
