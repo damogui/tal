@@ -40,8 +40,12 @@ import org.junit.runners.Suite.SuiteClasses;
     //8.交易中心
 	com.gongsibao.panda.trade.AllTest.class,
 	
+	
     //9.报表中心
 	com.gongsibao.panda.report.AllTest.class,
+	
+	//10.gardian
+	com.gongsibao.panda.gardian.AllTest.class,
 
 	//处理资源Id
 	org.netsharp.meta.end.AllTests.class,
