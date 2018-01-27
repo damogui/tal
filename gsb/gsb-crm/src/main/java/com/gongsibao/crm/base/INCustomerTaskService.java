@@ -35,7 +35,7 @@ public interface INCustomerTaskService  extends IPersistableService<NCustomerTas
 	/**
 	 * 任务转移
 	 */
-	public Boolean transfer(Integer taskId,Integer supplierId,Integer departmentId,Integer toUserId);
+	public Boolean transfer(String taskId,Integer supplierId,Integer departmentId,Integer toUserId);
 	
 	/**
 	 * 抽查异常
@@ -61,7 +61,7 @@ public interface INCustomerTaskService  extends IPersistableService<NCustomerTas
 	/**
 	 * 任务收回(主管等操作)
 	 */
-	public Boolean regain(Integer taskId);
+	public Boolean regain(String taskIds,String content);
 	
 	/**
 	 * 任务释放
