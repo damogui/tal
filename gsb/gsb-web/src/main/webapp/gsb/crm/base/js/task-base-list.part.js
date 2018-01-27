@@ -205,6 +205,16 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 			return;
 		});
 	},
+	batchTransfer : function(){
+		//任务批量转移
+		var me = this;
+		var id = this.getSelectionIds();
+		if(id == "" || id == null ){
+			IMessageBox.info('请选择记录');
+			return;
+	    }
+		me.doTransfer(id);
+	},
 	transfer : function(id){
 		//任务转移
 		var me = this;
