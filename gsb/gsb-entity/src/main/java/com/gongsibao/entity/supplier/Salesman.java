@@ -11,6 +11,9 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 import org.netsharp.organization.entity.Employee;
 
+import com.gongsibao.entity.crm.dic.AllocationDispositon;
+import com.gongsibao.entity.crm.dic.TaskCustomerType;
+
 @Table(name = "sp_salesman", header = "员工")
 public class Salesman extends Entity {
 
@@ -74,9 +77,11 @@ public class Salesman extends Entity {
 	@Subs(subType = SalesmanProduct.class, foreignKey = "salesmanId", header = "服务范围")
 	private List<SalesmanProduct> products;
 
-
-    @Column(name = "is_old_client", header = "是否新客户")
-    private Boolean isoldclient;
+    @Column(name = "customer_type", header = "所属分组类别（1：新客户  2：老客户）")
+    private TaskCustomerType customerType;
+    
+    @Column(name = "allocation_dispositon", header = "自营/平台")
+	private AllocationDispositon allocationDispositon = AllocationDispositon.UNLIMITED;
 
     @Column(name = "is_accpet_auto", header = "是否接受自动分配")
     private Boolean isaccpetauto;
@@ -217,15 +222,16 @@ public class Salesman extends Entity {
 		this.products = products;
 	}
 
-    public Boolean getIsoldclient() {
-        return isoldclient;
-    }
 
-    public void setIsoldclient(Boolean isoldclient) {
-        this.isoldclient = isoldclient;
-    }
+    public TaskCustomerType getCustomerType() {
+		return customerType;
+	}
 
-    public Boolean getIsaccpetauto() {
+	public void setCustomerType(TaskCustomerType customerType) {
+		this.customerType = customerType;
+	}
+
+	public Boolean getIsaccpetauto() {
         return isaccpetauto;
     }
 
@@ -256,5 +262,14 @@ public class Salesman extends Entity {
     public void setXabmax(Integer xabmax) {
         this.xabmax = xabmax;
     }
+
+	public AllocationDispositon getAllocationDispositon() {
+		return allocationDispositon;
+	}
+
+	public void setAllocationDispositon(AllocationDispositon allocationDispositon) {
+		this.allocationDispositon = allocationDispositon;
+	}
+    
 
 }

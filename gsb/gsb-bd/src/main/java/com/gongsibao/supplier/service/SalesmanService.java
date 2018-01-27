@@ -53,12 +53,12 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 
 	@Override
 	public List<Integer> getDepartmentIdList(Integer employeeId) {
-		
+
 		List<Integer> idList = new ArrayList<Integer>();
 		Integer currentDepartmentId = this.getDepartmentId(employeeId);
-		if(currentDepartmentId != null){
-			
-			//包含当前部门Id
+		if (currentDepartmentId != null) {
+
+			// 包含当前部门Id
 			idList.add(currentDepartmentId);
 			ISupplierDepartmentService departmentService = ServiceFactory.create(ISupplierDepartmentService.class);
 			idList = departmentService.getSubDepartmentIdList(currentDepartmentId);
@@ -102,7 +102,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 
 		return salesman;
 	}
-	
+
 	@Override
 	public Salesman byId(Salesman entity) {
 
@@ -127,7 +127,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 	@Override
 	public boolean setDisabled(Integer salesmanId, boolean state) {
 
-		//停用的同时要停用Employee
+		// 停用的同时要停用Employee
 		boolean isUpdate = false;
 		UpdateBuilder updateBuilder = new UpdateBuilder();
 		{
@@ -183,8 +183,28 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 
 			this.updateEmployee(entity);
 		}
-        entity = super.save(entity);
+		entity = super.save(entity);
 		return entity;
+	}
+
+	/*
+	 * (non-Javadoc)根据服务商id获取员工集合
+	 * 
+	 * @see
+	 * com.gongsibao.supplier.base.ISalesmanService#getBySupplierId(java.lang
+	 * .Integer)
+	 */
+	@Override
+	public List<Salesman> getBySupplierId(Integer supplierId) {
+		Oql oql = new Oql();
+		{
+			oql.setType(type);
+			oql.setSelects("*");
+			oql.setFilter("supplierId=? and disabled=0");//没有停用的
+			oql.getParameters().add("@supplierId", supplierId, Types.INTEGER);
+		}
+		List<Salesman> salesmanList = this.pm.queryList(oql);
+		return salesmanList;
 	}
 
 	/**
@@ -221,7 +241,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 		employee.setRoles(reList);
 		service.save(employee);
 
-        entity.setEmployeeId(employee.getId());
+		entity.setEmployeeId(employee.getId());
 	}
 
 	/**
@@ -247,7 +267,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 		for (RoleEmployee roleEmployee : roleEmployeeList) {
 			roleEmployee.toDeleted();
 		}
-		
+
 		RoleEmployee roleEmployee = null;
 		List<SalesmanRole> salesmanRoleList = entity.getRoles();
 		for (SalesmanRole salesmanRole : salesmanRoleList) {
@@ -258,7 +278,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 			roleEmployee.setRoleId(salesmanRole.getRoleId());
 			roleEmployeeList.add(roleEmployee);
 		}
-		
+
 		employee.setRoles(roleEmployeeList);
 		service.save(employee);
 	}

@@ -65,28 +65,17 @@ public class AutoAllotActionTest {
 			bean.setName("任务的分配状态的回写");
 			bean.setType(ActionCustomerTaskUpdateTaskStatus.class.getName());
 			bean.setResourceNode(resourceNode);
-			bean.setSeq(400);
-			
-			beanPath.getItems().add(bean);
-		}
-		/*bean = new Bean();
-		{
-			bean.toNew();
-			bean.setName("业务员配置信息的回写");
-			bean.setType(ActionCustomerTaskUpdateSalesmanInfo.class.getName());
-			bean.setResourceNode(resourceNode);
 			bean.setSeq(300);
 			
 			beanPath.getItems().add(bean);
 		}
-		*/
 		bean = new Bean();
 		{
 			bean.toNew();
 			bean.setName("写入跟进记录");
 			bean.setType(ActionAllocationSaveLog.class.getName());
 			bean.setResourceNode(resourceNode);
-			bean.setSeq(300);
+			bean.setSeq(400);
 			
 			beanPath.getItems().add(bean);
 		}
@@ -96,7 +85,7 @@ public class AutoAllotActionTest {
 			bean.setName("发送通知消息");
 			bean.setType(ActionCustomerTaskSendMessage.class.getName());
 			bean.setResourceNode(resourceNode);
-			bean.setSeq(400);
+			bean.setSeq(500);
 			
 			beanPath.getItems().add(bean);
 		}
