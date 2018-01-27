@@ -73,7 +73,7 @@ public class DepartmentAllTaskWorkspaceTest extends TaskALLWorkspaceTest{
 			toolbar.setName("跟进行工具栏操作");
 			toolbar.setResourceNode(node);
 		}
-		addToolbarItem(toolbar, "followUpPopup", "跟进", "fa fa-edit", "followUpPopup()", null, 6);
+		addToolbarItem(toolbar, "follow", "跟进", "fa fa-edit", "follow()", null, 6);
 		return toolbar;
 	}
 

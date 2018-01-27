@@ -1,6 +1,7 @@
 com.gongsibao.crm.web.TaskAllListPart = com.gongsibao.crm.web.BaseTaskListPart.Extends({
 	ctor : function() {
 		this.base();
+		this.followUrl = '/panda/crm/salesman/task/followUp/from';
 	},
 	add:function(){
 		

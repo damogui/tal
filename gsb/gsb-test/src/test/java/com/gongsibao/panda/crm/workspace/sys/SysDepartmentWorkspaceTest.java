@@ -37,7 +37,7 @@ public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
 		listPartImportJs="/gsb/crm/sys/js/sys-department-list-part.js";
 		listPartJsController = SysDepartmentTreeGridPart.class.getName();
 		listPartServiceController = SysDepartmentTreeGridPart.class.getName();
-        formJsImport = "/gsb/crm/js/department-form.part.js|/gsb/gsb.customer.controls.js";
+        formJsImport = "/gsb/crm/sys/js/department-form.part.js|/gsb/gsb.customer.controls.js";
 	}
 
 	@Override

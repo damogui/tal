@@ -49,7 +49,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		listPartJsController = SysSalesmanListPart.class.getName();
 		listPartServiceController = SysSalesmanListPart.class.getName();
 
-		formJsImport = "/gsb/crm/js/salesman-form.part.js|/gsb/gsb.customer.controls.js";
+		formJsImport = "/gsb/crm/sys/js/salesman-form.part.js|/gsb/gsb.customer.controls.js";
 	}
 
 	@Override

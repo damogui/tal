@@ -4,7 +4,7 @@ com.gongsibao.crm.web.MyAllTaskListPart = org.netsharp.panda.commerce.ListPart.E
 		this.base();
 	},
 	//rowToolBar-行跟进
-	followUpPopup : function() {
+	follow : function() {
 		var me = this;
 		var row = this.getSelectedItem();
 		var taskId = row.id;

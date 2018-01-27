@@ -3,6 +3,7 @@ System.Declare("com.gongsibao.crm.web");
 com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Extends({
 	ctor : function() {
 		this.base();
+		this.followUrl = null;
 	},
 	add:function(){
 		
@@ -27,9 +28,11 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		me.doAllot(id);
 	},
 	follow : function(id) {
+		
 		//任务跟进 
-		var url = "/crm/salesman/task/followUp/from?fk=taskId:"+id;
-		IMessageBox.open("跟进任务", url, 700, 400, function() {
+		var me = this;
+		var url = this.followUrl +"?fk=taskId:"+id;
+		IMessageBox.open("任务跟进", url, 700, 450, function() {
 			me.reload();
 		});
 	},
