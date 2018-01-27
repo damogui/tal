@@ -106,11 +106,17 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		
 		//任务转移
 		NCustomerTask entity = this.byId(taskId);
+		entity.setSupplierId(supplierId);
+		entity.setDepartmentId(departmentId);
+		Map<String,Object> setMap = new HashMap<String,Object>();
+		setMap.put("formUserId", entity.getOwnerId());
+		setMap.put("toUserId", toUserId);
 		ActionContext ctx = new ActionContext();
 		{
 			ctx.setPath("gsb/crm/task/transfer");
 			ctx.setItem(entity);
 			ctx.setState(entity.getEntityState());
+			ctx.setStatus(setMap);
 		}
 
 		ActionManager action = new ActionManager();

@@ -37,6 +37,8 @@ public class DepartmentAllTaskWorkspaceTest extends TaskALLWorkspaceTest{
 		listPartJsController = DepartmentAllTaskListPart.class.getName();
 		listPartServiceController = DepartmentAllTaskListPart.class.getName();
 		
+		listFilter = null;
+		
 		listToolbarPath = "department/task/all";
 		rowToolbaPath = "department/task/all/row";
 	}

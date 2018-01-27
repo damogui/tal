@@ -11,7 +11,7 @@ public class NCustomerRefereneTest extends ReferenceCreationBase{
 
 	@Before
 	public void setup() {
-		resourceNodeCode = "GSB_CRM_MY_REFERENE_NCUSTOMER";
+		resourceNodeCode = "CRM_SALESMAN_REFERENE_NCUSTOMER";
 		datagridName = referenceName = "客户参照";
 		referenceCode = "CRM_NCustomer";
 		intelligentMode = IntelligentMode.LIKE;

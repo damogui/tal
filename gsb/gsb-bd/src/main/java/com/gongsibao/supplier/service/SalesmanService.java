@@ -58,10 +58,10 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 		Integer currentDepartmentId = this.getDepartmentId(employeeId);
 		if(currentDepartmentId != null){
 			
-			//包含当前部门Id
-			idList.add(currentDepartmentId);
 			ISupplierDepartmentService departmentService = ServiceFactory.create(ISupplierDepartmentService.class);
 			idList = departmentService.getSubDepartmentIdList(currentDepartmentId);
+			//包含当前部门Id
+			idList.add(currentDepartmentId);
 		}
 		return idList;
 	}

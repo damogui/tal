@@ -14,7 +14,7 @@ public class SalesmanTimeOutWorkspaceTest extends SalesmanAllTaskWorkspaceTest{
 		listPartName = "超时提醒";
 		urlList = "/crm/salesman/task/timeout/list";
 		resourceNodeCode = "CRM_SALESMAN_TIMEOUT";
-		listFilter = "foolowStatus = 3 and ownerId = '{userId}' and nextFoolowTime>NOW()";
+		listFilter = "foolowStatus = 3 and ownerId = '{userId}' and NOW()>nextFoolowTime";
 	}
 	
 	

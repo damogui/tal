@@ -11,7 +11,7 @@ public class SupplierDepartmentRefereneTest extends ReferenceCreationBase{
 
 	@Before
 	public void setup() {
-		resourceNodeCode = "GSB_CRM_MY_REFERENE_SUPPLIER_DEPART";
+		resourceNodeCode = "CRM_SALESMAN_REFERENE_SUPPLIER_DEPART";
 		datagridName = referenceName = "分配服务商部门参照";
 		referenceCode = "CRM_Supplier_Depart";
 		intelligentMode = IntelligentMode.LIKE;

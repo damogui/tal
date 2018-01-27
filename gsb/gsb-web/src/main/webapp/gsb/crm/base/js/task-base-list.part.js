@@ -22,6 +22,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		window.open(url);
 	},
 	allocation:function(id){
+		//任务分配
 		var me = this;
 		me.doAllot(id);
 	},
@@ -116,10 +117,12 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		});
 	},
 	batchAllocation:function(){
+		//任务批量分配
 		var row = this.getSelectedItem();
 		alert(row);
 	},
 	rollback : function(id){
+		//任务退回
 		var me = this;
 		me.doRollBack(id);
 	},
@@ -160,7 +163,8 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 			btn2 : function(index, layero) {
 			}
 		});
-	},doRollBackService : function(taskId,getNote) {
+	},
+	doRollBackService : function(taskId,getNote) {
 		var me = this;
 		this.invokeService("rollback", [taskId,getNote],function(data) {
 			me.reload();
@@ -168,5 +172,138 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 			layer.closeAll();
 			return;
 		});
-	}
+	},
+	transfer : function(id){
+		//任务转移
+		var me = this;
+		var row = this.getSelectedItem();
+		if (row == null) {
+			IMessageBox.info('请选择记录');
+			return;
+		}
+		me.doTransfer(id);
+	},
+	doTransfer : function(id) {
+		var builder = new System.StringBuilder();
+		builder.append('<div style="margin:10px;">');
+		builder.append('	<table cellpadding="5" cellspacing="10" class="query-panel">');
+		builder.append(' 		<tr><td class="title">服务商</td><td><input id="supplier_name"/></td></tr>');
+		builder.append(' 		<tr><td class="title">部门</td><td><input id="department_name"/></td></tr>');
+		builder.append(' 		<tr><td class="title">业务员</td><td><input id="employee_name"/></td></tr>');
+		builder.append('	</table>');
+		builder.append('</div>');
+		var me = this;
+		layer.open({
+					type : 1,
+					title : '任务转移',
+					fixed : false,
+					maxmin : false,
+					shadeClose : false,
+					zIndex : 100000,
+					area : [ '450px', '300px' ],
+					content : builder.toString(),
+					btn : [ '提交', '取消' ],
+					success : function(layero, index) {
+						var options = {
+							columns : [ [ {
+								field : 'name',
+								title : '名称',
+								width : 100
+							}] ],
+							url : '\/panda\/rest\/reference?code=CRM_Supplier_Depart&filter=',
+							idField : 'id',
+							textField : 'name',
+							width : 300,
+							fitColumns : true,
+							panelWidth : 450,
+							panelHeight : 310,
+							pagination : true,
+							pageSize : 10,
+							mode : 'remote',
+							multiple : false,
+							onChange : function(newValue, oldValue) {
+								
+							}
+						};
+						$('#department_name').combogrid(options);
+						// 服务商下拉参照配置
+						options.columns = [ [ {
+							field : 'name',
+							title : '名称',
+							width : 150
+						} ] ];
+						options.url = '\/panda\/rest\/reference?code=CRM_Supplier&filter=';
+						options.textField = 'name';
+						options.onChange = function(newValue, oldValue) {
+						};
+						$('#supplier_name').combogrid(options);
+						// 业务员下拉参照配置
+						options.columns = [ [ {
+							field : 'name',
+							title : '姓名',
+							width : 150
+						} ] ];
+						options.url = '\/panda\/rest\/reference?code=Employee&filter=';
+						options.textField = 'name';
+						options.onChange = function(newValue, oldValue) {
+						};
+						$('#employee_name').combogrid(options);
+					},
+					btn1 : function(index, layero) {
+						var supplierId = $('#supplier_name').combogrid('getValue');
+						var departmentId = $('#department_name').combogrid('getValue');
+						var toUserId = $('#employee_name').combogrid('getValue');
+						if (System.isnull(supplierId) && System.isnull(departmentId) && System.isnull(toUserId)) {
+							IMessageBox.info('请选择');
+							return;
+						}
+						var taskId = id;
+						me.operatTaskTransfer(taskId,supplierId,departmentId,toUserId);
+					}
+				});
+	},
+	doTransferService : function(taskId,supplierId,departmentId,toUserId) {
+		var me = this;
+		this.invokeService("transfer", [taskId,supplierId,departmentId,toUserId],function(data) {
+			me.reload();
+			IMessageBox.toast('转移成功');
+			layer.closeAll();
+			return;
+		});
+	},
+	openMember : function(){
+		//开通会员
+		var me = this;
+		var row = this.getSelectedItem();
+		if (row == null) {
+			IMessageBox.info('请选择记录');
+			return;
+		}
+		// 任务id
+		var customerId = row.customer_id;
+		var isMember = row.customer_isMember;
+		if(isMember){
+			IMessageBox.info('您已开通会员');
+			return;
+		}
+		IMessageBox.confirm("您确定为该条记录开通会员吗？",function(r){
+			//严格语法
+			if(r===true){
+				me.doOpenMember(customerId);
+			}
+		});
+	},
+	doOpenMember : function(customerId) {
+		var me = this;
+		this.invokeService("openMember", [customerId],function(data) {
+			if(data===1){
+				me.reload();
+				IMessageBox.toast('开通成功');
+				layer.closeAll();
+			}else{
+				IMessageBox.toast('开通失败,稍后再试');
+			}
+			return;
+		});
+	},
 });
