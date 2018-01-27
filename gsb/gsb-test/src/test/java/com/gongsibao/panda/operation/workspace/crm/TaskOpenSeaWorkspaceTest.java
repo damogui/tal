@@ -32,7 +32,7 @@ public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
 		listPartName = formPartName = "公海";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_Customer_Manager_OpenSea";
+		resourceNodeCode = "Operation_CRM_Customer_OpenSea";
 
 		listFilter = "(owner_id is null or owner_id =0)";
 		listToolbarPath = "task/batch/allocation";

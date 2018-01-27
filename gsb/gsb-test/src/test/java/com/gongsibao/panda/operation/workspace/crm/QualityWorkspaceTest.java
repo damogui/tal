@@ -26,7 +26,7 @@ public class QualityWorkspaceTest extends WorkspaceCreationBase {
 		listPartName = formPartName = "客户质量信息";
 		meta = MtableManager.getMtable(entity);// 获取实体元数据
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_Customer_Manager_Quality";
+		resourceNodeCode = "Operation_CRM_Customer_Quality";
 
 		formOpenMode = OpenMode.WINDOW;// 编辑框打开的形式
 		openWindowWidth = 800;

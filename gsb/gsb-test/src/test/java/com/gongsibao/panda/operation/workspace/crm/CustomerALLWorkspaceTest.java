@@ -27,7 +27,7 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 		listPartName = formPartName = "全部客户";
 		meta = MtableManager.getMtable(entity);// 获取实体元数据
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_Customer_Manager_ALL";
+		resourceNodeCode = "Operation_CRM_Customer_ALL";
 		listPartImportJs = "/gsb/crm/base/js/customer-base-list.part.js|/gsb/crm/platform/js/customer-all-list.part.js";
 
 		listPartJsController = NCustomerAllListPart.class.getName();

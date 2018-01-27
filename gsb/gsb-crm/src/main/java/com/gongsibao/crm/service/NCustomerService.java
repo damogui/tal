@@ -13,7 +13,6 @@ import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.bd.service.SupplierPersistableService;
 import com.gongsibao.crm.base.INCustomerService;
-import com.gongsibao.entity.crm.Customer;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.crm.NCustomerChange;
 import com.gongsibao.entity.crm.NCustomerCompany;
@@ -32,6 +31,7 @@ public class NCustomerService extends SupplierPersistableService<NCustomer> impl
 
 	@Override
 	public int updateIsMember(Integer customerId) {
+		
 		UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("n_crm_customer");
@@ -109,6 +109,7 @@ public class NCustomerService extends SupplierPersistableService<NCustomer> impl
 		NCustomer customer = byId(customerId);
 		return customer;
 	}
+	
 	@Subs(foreignKey = "customerId", header = "客户任务", subType = NCustomerTask.class)
 	private List<NCustomerTask> tasks;
 

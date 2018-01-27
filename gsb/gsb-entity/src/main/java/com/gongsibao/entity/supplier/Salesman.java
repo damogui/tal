@@ -3,6 +3,7 @@ package com.gongsibao.entity.supplier;
 import java.util.Date;
 import java.util.List;
 
+import com.gongsibao.entity.supplier.dict.SupplierType;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Reference;
@@ -10,6 +11,9 @@ import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 import org.netsharp.organization.entity.Employee;
+
+import com.gongsibao.entity.crm.dic.AllocationDispositon;
+import com.gongsibao.entity.crm.dic.TaskCustomerType;
 
 @Table(name = "sp_salesman", header = "员工")
 public class Salesman extends Entity {
@@ -74,9 +78,11 @@ public class Salesman extends Entity {
 	@Subs(subType = SalesmanProduct.class, foreignKey = "salesmanId", header = "服务范围")
 	private List<SalesmanProduct> products;
 
-
-    @Column(name = "is_old_client", header = "是否新客户")
-    private Boolean isoldclient;
+    @Column(name = "customer_type", header = "所属分组类别（1：新客户  2：老客户）")
+    private TaskCustomerType customerType;
+    
+    @Column(name = "type", header = "类型：1自营，2平台;3不限")
+	private SupplierType type = SupplierType.UNLIMITED;
 
     @Column(name = "is_accpet_auto", header = "是否接受自动分配")
     private Boolean isaccpetauto;
@@ -217,15 +223,16 @@ public class Salesman extends Entity {
 		this.products = products;
 	}
 
-    public Boolean getIsoldclient() {
-        return isoldclient;
-    }
 
-    public void setIsoldclient(Boolean isoldclient) {
-        this.isoldclient = isoldclient;
-    }
+    public TaskCustomerType getCustomerType() {
+		return customerType;
+	}
 
-    public Boolean getIsaccpetauto() {
+	public void setCustomerType(TaskCustomerType customerType) {
+		this.customerType = customerType;
+	}
+
+	public Boolean getIsaccpetauto() {
         return isaccpetauto;
     }
 
@@ -257,4 +264,12 @@ public class Salesman extends Entity {
         this.xabmax = xabmax;
     }
 
+
+    public SupplierType getType() {
+        return type;
+    }
+
+    public void setType(SupplierType type) {
+        this.type = type;
+    }
 }

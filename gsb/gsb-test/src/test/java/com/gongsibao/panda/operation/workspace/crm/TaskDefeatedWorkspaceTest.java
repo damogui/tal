@@ -8,21 +8,22 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.crm.web.TaskLostOrderListPart;
 
-public class TaskLostOrderWorkspaceTest extends TaskOpenSeaWorkspaceTest {
+public class TaskDefeatedWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 
 	@Override
 	@Before
 	public void setup() {
 
 		super.setup();
-		urlList = "/operation/customer/task/lostorder/list";
+		urlList = "/operation/customer/task/defeated/list";
 		listPartName = formPartName = "无法签单";
-		resourceNodeCode = "GSB_CRM_Customer_Manager_Task_Lost_Order";
+		resourceNodeCode = "Operation_CRM_Task_Defeated";
 		listPartJsController = TaskLostOrderListPart.class.getName();
 		listPartServiceController = TaskLostOrderListPart.class.getName();
 		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-lostorder-list.part.js";
 		listToolbarPath = null;
 		rowToolbaPath = "/operation/task/lostOrder/toolbar";
+		listFilter = "foolowStatus = 4";
 	}
 
 	public PToolbar createListToolbar() {

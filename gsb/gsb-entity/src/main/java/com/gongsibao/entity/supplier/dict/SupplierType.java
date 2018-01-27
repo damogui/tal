@@ -5,7 +5,9 @@ import org.netsharp.base.IEnum;
 
 public enum SupplierType implements IEnum {
 
-	SELFSUPPORT(1, "自营"), PLATFORM(2, "平台");
+	SELFSUPPORT(1, "自营"),
+    PLATFORM(2, "平台"),
+    UNLIMITED(3, "不限");
 	private int value;
 	private String text;
 

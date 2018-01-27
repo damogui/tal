@@ -2,6 +2,8 @@ package com.gongsibao.entity.supplier;
 
 import java.util.List;
 
+import com.gongsibao.entity.crm.dic.AllocationDispositon;
+import com.gongsibao.entity.supplier.dict.SupplierType;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
@@ -22,14 +24,16 @@ public class SupplierDepartment extends CatEntity{
 	@Reference(foreignKey = "supplierId", header = "服务商")
 	private Supplier supplier;
 
-//    @Subs(foreignKey = "departmentId", header = "部门服务地区范围", subType = DepartmentServiceProduct.class)
-//    private List<DepartmentServiceProduct> serviceProducts;
+    @Subs(foreignKey = "departmentId", header = "部门服务地区范围", subType = DepartmentServiceProduct.class)
+    private List<DepartmentServiceProduct> serviceProducts;
 
     @Column(name = "is_old_client", header = "是否新客户")
     private Boolean isoldclient;
 
+    @Column(name = "type", header = "类型：1自营，2平台;3不限")
+    private SupplierType type = SupplierType.UNLIMITED;
 
-	public Integer getSupplierId() {
+    public Integer getSupplierId() {
 		return supplierId;
 	}
 
@@ -47,14 +51,14 @@ public class SupplierDepartment extends CatEntity{
 
 
 
-//
-//    public List<DepartmentServiceProduct> getServiceProducts() {
-//        return serviceProducts;
-//    }
-//
-//    public void setServiceProducts(List<DepartmentServiceProduct> serviceProducts) {
-//        this.serviceProducts = serviceProducts;
-//    }
+
+    public List<DepartmentServiceProduct> getServiceProducts() {
+        return serviceProducts;
+    }
+
+    public void setServiceProducts(List<DepartmentServiceProduct> serviceProducts) {
+        this.serviceProducts = serviceProducts;
+    }
 
     public Boolean getIsoldclient() {
         return isoldclient;
@@ -62,5 +66,14 @@ public class SupplierDepartment extends CatEntity{
 
     public void setIsoldclient(Boolean isoldclient) {
         this.isoldclient = isoldclient;
+    }
+
+
+    public SupplierType getType() {
+        return type;
+    }
+
+    public void setType(SupplierType type) {
+        this.type = type;
     }
 }

@@ -5,9 +5,12 @@ import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
 
 import com.gongsibao.crm.base.INCustomerChangeService;
+import com.gongsibao.crm.base.INCustomerTaskNotifyService;
 import com.gongsibao.entity.crm.NCustomerChange;
 import com.gongsibao.entity.crm.NCustomerTask;
+import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.crm.dic.ChangeType;
+import com.gongsibao.entity.crm.dic.NotifyType;
 
 /**
  * @author hw
@@ -31,6 +34,16 @@ public class ActionRollbackSaveLog  implements IAction{
 		changeEntity.setDepartmentId(getEntity.getDepartmentId());
 		changeEntity.setCustomerId(getEntity.getCustomerId());
 		changeService.save(changeEntity);
+		//2.保存通知日志
+		INCustomerTaskNotifyService notifyService = ServiceFactory.create(INCustomerTaskNotifyService.class);
+		NCustomerTaskNotify notifyEntity = new NCustomerTaskNotify();
+		notifyEntity.toNew();
+		notifyEntity.setCustomerId(getEntity.getCustomerId());
+		notifyEntity.setTaskId(getEntity.getId());
+		notifyEntity.setType(NotifyType.SYSTEM);
+		notifyEntity.setSupplierId(getEntity.getSupplierId());
+		notifyEntity.setDepartmentId(getEntity.getDepartmentId());
+		notifyService.save(notifyEntity);
 	}
 
 }

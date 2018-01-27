@@ -1,5 +1,8 @@
 package com.gongsibao.crm.base;
 
+import java.util.List;
+import java.util.Map;
+
 import org.netsharp.base.IPersistableService;
 
 import com.gongsibao.entity.crm.NCustomerTask;
@@ -35,7 +38,7 @@ public interface INCustomerTaskService  extends IPersistableService<NCustomerTas
 	/**
 	 * 任务转移
 	 */
-	public Boolean transfer(Integer taskId,Integer supplierId,Integer departmentId,Integer toUserId);
+	public Boolean transfer(String taskId,Integer supplierId,Integer departmentId,Integer toUserId);
 	
 	/**
 	 * 抽查异常
@@ -44,8 +47,14 @@ public interface INCustomerTaskService  extends IPersistableService<NCustomerTas
 	
 	/**
 	 * 任务分配
+	 * @param taskIds 任务Ids
+	 * @param supplierId 服务商
+	 * @param departmentId 部门id
+	 * @param toUserId 要分配的业务员Id
+	 * @param allocationType 分配类型：1-"自动分配"、2-"手动分配"、3, "半自动分配"
+	 * @return
 	 */
-	public Boolean allocation(Integer taskId,Integer supplierId,Integer departmentId,Integer toUserId,Integer allocationType);
+	public Boolean allocation(String taskIds,Integer supplierId,Integer departmentId,Integer toUserId,Integer allocationType);
 	
 	/**
 	 * 任务跟进
@@ -55,7 +64,7 @@ public interface INCustomerTaskService  extends IPersistableService<NCustomerTas
 	/**
 	 * 任务收回(主管等操作)
 	 */
-	public Boolean regain(Integer taskId);
+	public Boolean regain(String taskIds,String content);
 	
 	/**
 	 * 任务释放
@@ -66,4 +75,17 @@ public interface INCustomerTaskService  extends IPersistableService<NCustomerTas
 	 * 任务回退(业务员主动操作)
 	 */
 	public Boolean rollback(Integer taskId,String content);
+	
+	/**自动分配
+	 * @param taskId
+	 * @return
+	 */
+	public int autoAllot(Integer taskId);
+	
+	/**根据平台业务员id集合，获取该业务员的分配的任务个数
+	 * @param employeeIdList
+	 * @param type（0：当日已分配数 1：当周已分配数 2：XAB类客户任务数）
+	 * @return
+	 */
+	public Map<Integer, Integer> getTaskCountByEmployeeIdList(List<Integer> employeeIdList, Integer type);
 }

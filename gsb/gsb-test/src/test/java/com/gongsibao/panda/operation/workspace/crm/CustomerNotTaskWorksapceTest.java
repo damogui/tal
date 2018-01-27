@@ -20,8 +20,10 @@ public class CustomerNotTaskWorksapceTest extends CustomerALLWorkspaceTest{
 		listPartName = formPartName = "无任务客户";
 		meta = MtableManager.getMtable(entity);// 获取实体元数据
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_Customer_Manager_NotTask";
+		resourceNodeCode = "Operation_CRM_Customer_NotTask";
 		listPartImportJs = "/gsb/crm/base/js/customer-base-list.part.js|/gsb/crm/platform/js/customer-nottask-list.part.js";
+		
+		listFilter = "id not in (SELECT customer_id from n_crm_customer_task)";
 		
 		listPartJsController = NCustomerNotTaskListPart.class.getName();
 		listPartServiceController = NCustomerNotTaskListPart.class.getName();

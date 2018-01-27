@@ -4,9 +4,10 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
 public enum TaskCustomerType implements IEnum{
-
+	
 	NEW(1, "新客户"), 
-	OLD(2, "老客户");
+	OLD(2, "老客户"),
+	All(3, "全部");
 	private int value;
 	private String text;
 

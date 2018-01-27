@@ -3,14 +3,14 @@ package com.gongsibao.crm.web;
 import java.util.ArrayList;
 
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.crm.base.INCustomerService;
 import com.gongsibao.crm.base.INCustomerTaskService;
-import com.gongsibao.supplier.web.panda.BaseSupplierListPart;
 
-public class TaskBaseListPart extends BaseSupplierListPart{
+public class TaskBaseListPart extends AdvancedListPart{
 
 	@Override
 	public String getFilters(){
@@ -86,9 +86,19 @@ public class TaskBaseListPart extends BaseSupplierListPart{
 	 * @param toUserId
 	 * @return
 	 */
-	public boolean allocation(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId,Integer allocationType){
+	public boolean allocation(String taskId, Integer supplierId, Integer departmentId, Integer toUserId,Integer allocationType){
 		INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
 		return taskService.allocation(taskId, supplierId, departmentId, toUserId,allocationType);
+	}
+	/**
+	 * 任务收回
+	 * @param taskId
+	 * @param getNote
+	 * @return
+	 */
+	public boolean regain(String taskIds, String getNote){
+		INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
+		return taskService.regain(taskIds, getNote);
 	}
 	/**
 	 * 任务退回
@@ -108,7 +118,7 @@ public class TaskBaseListPart extends BaseSupplierListPart{
 	 * @param toUserId
 	 * @return
 	 */
-	public boolean transfer(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId,Integer allocationType){
+	public boolean transfer(String taskId, Integer supplierId, Integer departmentId, Integer toUserId){
 		INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
 		return taskService.transfer(taskId, supplierId, departmentId, toUserId);
 	}

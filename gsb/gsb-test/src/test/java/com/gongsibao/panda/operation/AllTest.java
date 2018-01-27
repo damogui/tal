@@ -15,7 +15,7 @@ import com.gongsibao.panda.operation.workspace.crm.QualityWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.TaskALLWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.TaskAllocatedWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.TaskAnomalyDetectionWorkspaceTest;
-import com.gongsibao.panda.operation.workspace.crm.TaskLostOrderWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.crm.TaskDefeatedWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.TaskOpenSeaWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.TaskUndistributedWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.form.CustomerAddWorkspaceTest;
@@ -100,7 +100,7 @@ import com.gongsibao.panda.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
         TaskALLWorkspaceTest.class,
         TaskUndistributedWorkspaceTest.class,
 
-        TaskLostOrderWorkspaceTest.class,
+        TaskDefeatedWorkspaceTest.class,
         TaskAnomalyDetectionWorkspaceTest.class,
         QualityWorkspaceTest.class,
 

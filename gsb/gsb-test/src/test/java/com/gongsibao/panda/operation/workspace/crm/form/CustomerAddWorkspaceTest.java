@@ -25,7 +25,7 @@ import com.gongsibao.entity.crm.dic.TaskCustomerType;
 
 public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 
-	protected String taskDetailResourceNodeCode = "GSB_CRM_Customer_Manager_Task_ALL";
+	protected String taskDetailResourceNodeCode = "Operation_CRM_Task_ALL";
 	protected String taskDetailJsController = "com.gongsibao.crm.web.NCustomerTaskDetailPart";
 	
 	@Before
@@ -36,7 +36,7 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 		listPartName = formPartName = "新增客户";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_Customer_Manager_Add";
+		resourceNodeCode = "Operation_CRM_Customer_Add";
 		formJsImport = "/gsb/crm/platform/js/customer-add-form.part.js|/gsb/gsb.customer.controls.js";
 		formJsController = NCustomerAddFormPart.class.getName();
 		formServiceController = NCustomerAddFormPart.class.getName();

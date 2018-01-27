@@ -5,6 +5,7 @@ com.gongsibao.crm.web.NCustomerAddFormPart = org.netsharp.panda.commerce.FormPar
         this.base();
         this.verifyUrl = '/panda/operation/customer/verify';
         this.addUrl='/panda/operation/customer/add';
+        this.editUrl='/panda/operation/customer/edit';
     },
     onload: function () {
 
@@ -168,6 +169,12 @@ com.gongsibao.crm.web.NCustomerAddFormPart = org.netsharp.panda.commerce.FormPar
 
 		  }
   	    });
+    },
+    bindCustomer:function(customerId){
+    	
+    	window.location.href=this.editUrl+'?id='+customerId;
+    	
+    	//改变页签的标题
     }
     
 });

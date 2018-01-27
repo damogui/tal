@@ -25,7 +25,7 @@ public class TaskFollowFormWorkspaceTest extends WorkspaceCreationBase {
 		listPartName = formPartName = "跟进";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_Foolow_Manager_Edit";
+		resourceNodeCode = "Operation_CRM_Foolow_Edit";
 
 		formJsImport = "/gsb/crm/platform/js/follow-form.part.js|/gsb/gsb.customer.controls.js";
 		formJsController = NCustomerFollowFormPart.class.getName();

@@ -3,19 +3,12 @@ package com.gongsibao.crm.service;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
-import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.bd.service.SupplierPersistableService;
-import com.gongsibao.crm.base.ICustomerService;
 import com.gongsibao.crm.base.INCustomerTaskFoolowService;
 import com.gongsibao.crm.base.INCustomerTaskService;
-import com.gongsibao.entity.crm.Customer;
-import com.gongsibao.entity.crm.CustomerFollow;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
-import com.gongsibao.entity.crm.dic.FollowStatus;
-import com.gongsibao.entity.uc.User;
-import com.gongsibao.uc.base.IUserService;
 
 @Service
 public class NCustomerTaskFoolowService extends
