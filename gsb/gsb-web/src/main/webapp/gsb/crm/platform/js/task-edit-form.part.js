@@ -10,14 +10,14 @@ com.gongsibao.crm.web.TaskFollowDetailPart = org.netsharp.panda.commerce.DetailP
     },
     add:function(){
     	
-    	var url = '/panda/crm/task/followUp/from';
+    	var url = '/panda/crm/salesman/task/followUp/from';
     	IMessageBox.open("任务跟进",url,700,450,function(){
     		
     	});
     },
 	doubleClickRow : function(rowIndex, rowData) {
 		
-    	var url = '/panda/crm/task/followUp/from?id='+rowData.id;
+    	var url = '/panda/crm/salesman/task/followUp/from?id='+rowData.id;
     	IMessageBox.open("任务跟进",url,700,450,function(){
     		
     	});
