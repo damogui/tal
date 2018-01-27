@@ -332,10 +332,10 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 			return;
 		}
 		// 任务id
-		var customerId = row.customer_id;
+		var customerId = row.customerId;
 		var isMember = row.customer_isMember;
 		if(isMember){
-			IMessageBox.info('您已开通会员');
+			IMessageBox.info('此客户已经是会员，不能重复开通');
 			return;
 		}
 		IMessageBox.confirm("您确定为该条记录开通会员吗？",function(r){
@@ -346,11 +346,12 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		});
 	},
 	doOpenMember : function(customerId) {
+		
 		var me = this;
 		this.invokeService("openMember", [customerId],function(data) {
-			if(data===1){
-				me.reload();
+			if(data){
 				IMessageBox.toast('开通成功');
+				me.reload();
 				layer.closeAll();
 			}else{
 				IMessageBox.toast('开通失败,稍后再试');

@@ -12,6 +12,8 @@ import com.gongsibao.crm.base.INCustomerTaskService;
 
 public class TaskBaseListPart extends AdvancedListPart{
 
+	INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
+	
 	@Override
 	public String getFilters(){
 
@@ -87,7 +89,7 @@ public class TaskBaseListPart extends AdvancedListPart{
 	 * @return
 	 */
 	public boolean allocation(String taskId, Integer supplierId, Integer departmentId, Integer toUserId,Integer allocationType){
-		INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
+		
 		return taskService.allocation(taskId, supplierId, departmentId, toUserId,allocationType);
 	}
 	/**
@@ -97,7 +99,7 @@ public class TaskBaseListPart extends AdvancedListPart{
 	 * @return
 	 */
 	public boolean regain(String taskIds, String getNote){
-		INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
+		
 		return taskService.regain(taskIds, getNote);
 	}
 	/**
@@ -107,7 +109,7 @@ public class TaskBaseListPart extends AdvancedListPart{
 	 * @return
 	 */
 	public boolean rollback(Integer taskId, String getNote){
-		INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
+
 		return taskService.rollback(taskId, getNote);
 	}
 	/**
@@ -119,7 +121,7 @@ public class TaskBaseListPart extends AdvancedListPart{
 	 * @return
 	 */
 	public boolean transfer(String taskId, Integer supplierId, Integer departmentId, Integer toUserId){
-		INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
+
 		return taskService.transfer(taskId, supplierId, departmentId, toUserId);
 	}
 	/**
@@ -127,8 +129,9 @@ public class TaskBaseListPart extends AdvancedListPart{
 	 * @param customerId
 	 * @return
 	 */
-	public void openMember(Integer customerId){
+	public boolean openMember(Integer customerId){
+		
 		INCustomerService customerService = ServiceFactory.create(INCustomerService.class);
-		customerService.updateIsMember(customerId);
+		return customerService.updateIsMember(customerId);
 	}
 }

@@ -30,7 +30,7 @@ public class NCustomerService extends SupplierPersistableService<NCustomer> impl
 	}
 
 	@Override
-	public int updateIsMember(Integer customerId) {
+	public boolean updateIsMember(Integer customerId) {
 		
 		UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
@@ -39,7 +39,9 @@ public class NCustomerService extends SupplierPersistableService<NCustomer> impl
 			updateSql.where("id=" + customerId);
 		}
 		String cmdText = updateSql.toSQL();
-		return this.pm.executeNonQuery(cmdText, null);
+		
+		//这里要生成Account bug
+		return this.pm.executeNonQuery(cmdText, null)>0;
 	}
 
 	@Override
