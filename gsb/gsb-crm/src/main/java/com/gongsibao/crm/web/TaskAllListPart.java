@@ -1,5 +1,7 @@
 package com.gongsibao.crm.web;
 
-public class TaskAllListPart extends TaskBaseListPart{
+import org.netsharp.panda.commerce.AdvancedListPart;
+
+public class TaskAllListPart extends AdvancedListPart{
 
 }

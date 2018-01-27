@@ -4,7 +4,7 @@ import org.netsharp.communication.ServiceFactory;
 
 import com.gongsibao.crm.base.INCustomerTaskService;
 
-public class TaskLostOrderListPart extends TaskBaseListPart {
+public class TaskLostOrderListPart extends TaskAllListPart {
 
 	/**
 	 * 任务抽查

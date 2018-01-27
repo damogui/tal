@@ -25,6 +25,7 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest{
 		listPartServiceController = TaskAllListPart.class.getName();
 		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-all-list.part.js";
 		listToolbarPath = "task/all/list";
+		listFilter = null;
 	}
 	
 

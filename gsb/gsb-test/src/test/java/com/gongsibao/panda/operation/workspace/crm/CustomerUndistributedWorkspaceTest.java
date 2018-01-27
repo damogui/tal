@@ -22,6 +22,8 @@ public class CustomerUndistributedWorkspaceTest extends CustomerALLWorkspaceTest
 		resourceNodeCode = "GSB_CRM_Customer_Manager_Undistributed";
 		listPartImportJs = "/gsb/crm/base/js/customer-base-list.part.js|/gsb/crm/platform/js/customer-undistributed-list.part.js";
 		
+		listFilter = "id in (SELECT customer_id from n_crm_customer_task where owner_id is null or owner_id=0)";
+		
 		listPartJsController = NCustomerUndistributedListPart.class.getName();
 		listPartServiceController = NCustomerUndistributedListPart.class.getName();
 	}

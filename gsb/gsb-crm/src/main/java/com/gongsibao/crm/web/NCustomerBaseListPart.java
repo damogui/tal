@@ -1,7 +1,7 @@
 package com.gongsibao.crm.web;
 
-import com.gongsibao.supplier.web.panda.BaseDepartmentListPart;
+import org.netsharp.panda.commerce.AdvancedListPart;
 
-public class NCustomerBaseListPart  extends BaseDepartmentListPart{
+public class NCustomerBaseListPart  extends AdvancedListPart{
 
 }

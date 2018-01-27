@@ -23,6 +23,8 @@ public class CustomerNotTaskWorksapceTest extends CustomerALLWorkspaceTest{
 		resourceNodeCode = "GSB_CRM_Customer_Manager_NotTask";
 		listPartImportJs = "/gsb/crm/base/js/customer-base-list.part.js|/gsb/crm/platform/js/customer-nottask-list.part.js";
 		
+		listFilter = "id not in (SELECT customer_id from n_crm_customer_task)";
+		
 		listPartJsController = NCustomerNotTaskListPart.class.getName();
 		listPartServiceController = NCustomerNotTaskListPart.class.getName();
 	}

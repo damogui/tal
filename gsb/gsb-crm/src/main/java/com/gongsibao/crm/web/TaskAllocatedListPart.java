@@ -1,5 +1,5 @@
 package com.gongsibao.crm.web;
 
-public class TaskAllocatedListPart extends TaskBaseListPart{
+public class TaskAllocatedListPart extends TaskAllListPart{
 
 }

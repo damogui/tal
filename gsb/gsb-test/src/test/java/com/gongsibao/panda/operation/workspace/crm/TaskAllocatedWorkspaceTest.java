@@ -15,11 +15,10 @@ public class TaskAllocatedWorkspaceTest extends TaskALLWorkspaceTest{
 		urlList = "/operation/customer/task/allocated/list";
 		listPartName = formPartName = "已分配任务";
 		resourceNodeCode = "GSB_CRM_Customer_Manager_Task_Allocated";
-		listFilter="foolow_status in(2,3,4,5)";
 		listPartJsController = TaskAllocatedListPart.class.getName();
 		listPartServiceController = TaskAllocatedListPart.class.getName();
 		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-allocated-list.part.js";
-		
+		listFilter = "(owner_id is not null and owner_id >0)";
 		listToolbarPath = "task/allocated/list";
 	}
 	

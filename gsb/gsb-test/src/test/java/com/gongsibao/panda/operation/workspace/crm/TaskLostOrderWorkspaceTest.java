@@ -23,6 +23,7 @@ public class TaskLostOrderWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-lostorder-list.part.js";
 		listToolbarPath = null;
 		rowToolbaPath = "/operation/task/lostOrder/toolbar";
+		listFilter = "foolowStatus = 4";
 	}
 
 	public PToolbar createListToolbar() {
