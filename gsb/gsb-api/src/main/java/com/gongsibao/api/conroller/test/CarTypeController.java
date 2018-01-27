@@ -20,6 +20,9 @@ public class CarTypeController {
 	public List<OrderDTO> list(@PathParam("userId") Long userId) {
 
 		List<OrderDTO> orderDTOs = new ArrayList<OrderDTO>();
+		OrderDTO dto = new OrderDTO();
+		dto.setId(100L);
+		orderDTOs.add(dto);
 		return orderDTOs;
 	}
 }

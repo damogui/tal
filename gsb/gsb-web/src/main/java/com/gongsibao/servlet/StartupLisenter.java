@@ -83,7 +83,7 @@ public class StartupLisenter implements ServletContextListener {
 				startups.add(new LogStartup());
 				startups.add(new StartupUser());
 //				startups.add(new StartupWeixin());
-				startups.add(new CacheStartup());
+//				startups.add(new CacheStartup());
 				startups.add(new JobStartup());
 //				startups.add(new RmiStartup());
 //				startups.add(new StartupRest());
