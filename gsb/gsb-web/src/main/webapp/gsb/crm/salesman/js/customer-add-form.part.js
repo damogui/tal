@@ -5,6 +5,7 @@ com.gongsibao.crm.web.SalesmanNCustomerAddFormPart = com.gongsibao.crm.web.NCust
         this.base();
         this.verifyUrl = '/panda/crm/salesman/customer/verify';
         this.addUrl='/panda/crm/salesman/customer/add';
+        this.editUrl='/panda/crm/salesman/customer/edit';
     }
 });
 

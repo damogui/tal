@@ -91,6 +91,16 @@ public class TaskBaseListPart extends BaseSupplierListPart{
 		return taskService.allocation(taskId, supplierId, departmentId, toUserId,allocationType);
 	}
 	/**
+	 * 任务收回
+	 * @param taskId
+	 * @param getNote
+	 * @return
+	 */
+	public boolean regain(String taskIds, String getNote){
+		INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
+		return taskService.regain(taskIds, getNote);
+	}
+	/**
 	 * 任务退回
 	 * @param taskId
 	 * @param getNote
@@ -108,7 +118,7 @@ public class TaskBaseListPart extends BaseSupplierListPart{
 	 * @param toUserId
 	 * @return
 	 */
-	public boolean transfer(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId,Integer allocationType){
+	public boolean transfer(String taskId, Integer supplierId, Integer departmentId, Integer toUserId,Integer allocationType){
 		INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
 		return taskService.transfer(taskId, supplierId, departmentId, toUserId);
 	}

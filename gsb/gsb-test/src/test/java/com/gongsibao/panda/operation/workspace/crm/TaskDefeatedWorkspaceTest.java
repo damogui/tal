@@ -15,7 +15,7 @@ public class TaskDefeatedWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 	public void setup() {
 
 		super.setup();
-		urlList = "/operation/customer/task/lostorder/list";
+		urlList = "/operation/customer/task/defeated/list";
 		listPartName = formPartName = "无法签单";
 		resourceNodeCode = "Operation_CRM_Task_Defeated";
 		listPartJsController = TaskLostOrderListPart.class.getName();

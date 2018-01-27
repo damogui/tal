@@ -108,6 +108,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 				});
 	},
 	doAllotService : function(taskId,supplierId,departmentId,toUserId,allocationType) {
+		alert(11);
 		var me = this;
 		this.invokeService("allocation", [taskId,supplierId,departmentId,toUserId,allocationType],function(data) {
 			me.reload();
@@ -126,57 +127,93 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 	    }
 		me.doAllot(id);
 	},
+	regain : function(){
+		//任务收回
+		var me = this;
+		var id = this.getSelectionIds();
+		if(id == "" || id == null ){
+			IMessageBox.info('请选择记录');
+			return;
+	    }
+		me.doRollBack(id,1);
+	},
 	rollback : function(id){
 		//任务退回
 		var me = this;
-		me.doRollBack(id);
+		me.doRollBack(id,2);
 	},
-	doRollBack : function(id) {
+	doRollBack : function(id,type) {
+		//收回和退回公用一个方法 type:1-收回、2-退回
 		var me = this;
 		var row = this.getSelectedItem();
 		var taskId = id;
 		var intenCategory = row.intentionCategory;
-		var content = '<p style="padding-left:150px;">任务将会退回至【公海】，进行【二次分配】</p>'
-			    + '<p style="padding-left:50px;">&nbsp;退回原因：</p>'
-				+ '<p style="padding-left:50px;">'
-				+ '<textarea collected="true" controltype="TextArea" id="txtNote" style="width:445px;height:100px;" '
-				+ ' class="easyui-validatebox validatebox-text" data-options="validateOnCreate:false,validateOnBlur:true">'
-				+ '</textarea></p>';
-				
+		
+		var setTitle ='';
+		if(type==1){
+			setTitle = "收回";
+		}else{
+			setTitle = "退回";
+		}
+		var content = new System.StringBuilder();
+		content.append('<p style="padding-left:150px;">任务将会退回至【公海】，进行【二次分配】</p>');
+		content.append('<p style="padding-left:50px;">&nbsp;'+ setTitle +'原因：</p>');
+		content.append('<p style="padding-left:50px;">');
+		content.append(' 	<textarea collected="true" controltype="TextArea" id="txtNote" style="width:445px;height:100px;"');
+		content.append(' 		  class="easyui-validatebox validatebox-text" data-options="validateOnCreate:false,validateOnBlur:true">');
+		content.append('	</textarea>');
+		content.append('</p>');
+		
 		//判断客户质量AB需要提示
-		if(intenCategory.indexOf("A") > -1 || intenCategory.indexOf("B") > -1 || intenCategory.indexOf("X") > -1){
-			content += '<p id="prompt" style="padding-left:30px;color:red;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提示：请慎用！执行退回后该任务将不会再分配给你，'
-				+ '如果只是需要将<br/>任务转给同事或者下属，请使用【任务转移】功能！</p>';
-		};
+		if(type == 2){
+			if(intenCategory.indexOf("A") > -1 || intenCategory.indexOf("B") > -1 || intenCategory.indexOf("X") > -1){
+				content.append('<p id="prompt" style="padding-left:30px;color:red;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提示：请慎用！执行退回后该任务将不会再分配给你，');
+				content.append('如果只是需要将<br/>任务转给同事或者下属，请使用【任务转移】功能！</p>');
+			}
+		}
 		layer.open({
 			type : 1,
-			title : '释放任务',
+			title : setTitle +'任务',
 			fixed : false,
 			maxmin : false,
 			shadeClose : false,
 			area : [ '600px', '360px'],
-			content : content,
+			content : content.toString(),
 			btn : [ '确定', '取消' ],// 可以无限个按钮
 			btn1 : function(index, layero) {
 				var getNote = $("#txtNote").val();
 				if (System.isnull(getNote)) {
-					IMessageBox.info('请输入退回原因');
+					IMessageBox.info('请输入原因');
 					return false;
 				}
-				me.doRollBackService(taskId,getNote);
+				me.doRollBackService(taskId,getNote,type);
 			},
-			btn2 : function(index, layero) {
+			btn2 : function(index, layero,type) {
 			}
 		});
 	},
-	doRollBackService : function(taskId,getNote) {
+	doRollBackService : function(taskId,getNote,type) {
 		var me = this;
-		this.invokeService("rollback", [taskId,getNote],function(data) {
+		var functionName = "rollback"
+		if(type == 1){
+			functionName = "regain";
+		}
+		this.invokeService(functionName, [taskId,getNote],function(data) {
 			me.reload();
 			IMessageBox.toast('操作成功');
 			layer.closeAll();
 			return;
 		});
+	},
+	batchTransfer : function(){
+		//任务批量转移
+		var me = this;
+		var id = this.getSelectionIds();
+		if(id == "" || id == null ){
+			IMessageBox.info('请选择记录');
+			return;
+	    }
+		me.doTransfer(id);
 	},
 	transfer : function(id){
 		//任务转移
@@ -310,5 +347,5 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 			}
 			return;
 		});
-	},
+	}
 });

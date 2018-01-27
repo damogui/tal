@@ -102,27 +102,27 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	}
 
 	@Override
-	public Boolean transfer(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId) {
-		
+	public Boolean transfer(String taskIds, Integer supplierId, Integer departmentId, Integer toUserId) {
 		//任务转移
-		NCustomerTask entity = this.byId(taskId);
-		entity.setSupplierId(supplierId);
-		entity.setDepartmentId(departmentId);
+		String [] getTaskIdStrings = taskIds.split("_");
 		Map<String,Object> setMap = new HashMap<String,Object>();
-		setMap.put("formUserId", entity.getOwnerId());
+		setMap.put("supplierId", supplierId);
+		setMap.put("departmentId", departmentId);
 		setMap.put("toUserId", toUserId);
+		setMap.put("taskIds", taskIds);
+		for (String item : getTaskIdStrings) {
+			NCustomerTask entity = this.byId(Integer.valueOf(item));
+			setMap.put("formUserId"+item, entity.getOwnerId());
+			setMap.put("customerId"+item, entity.getCustomerId());
+		}
 		ActionContext ctx = new ActionContext();
 		{
 			ctx.setPath("gsb/crm/task/transfer");
-			ctx.setItem(entity);
-			ctx.setState(entity.getEntityState());
 			ctx.setStatus(setMap);
 		}
-
 		ActionManager action = new ActionManager();
 		action.execute(ctx);
 		return true;
-		
 	}
 
 	@Override
@@ -193,15 +193,21 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	}
 
 	@Override
-	public Boolean regain(Integer taskId) {
-
+	public Boolean regain(String taskIds,String content) {
 		//任务收回
-		NCustomerTask entity = this.byId(taskId);
+		String [] getTaskIds = taskIds.split("_");
+		Map<String,Object> setMap = new HashMap<String,Object>();
+		setMap.put("content", content);
+		setMap.put("taskIds", taskIds);
+		
+		for (String item : getTaskIds) {
+			NCustomerTask entity = this.byId(Integer.valueOf(item));
+			setMap.put(item, entity);
+		}
 		ActionContext ctx = new ActionContext();
 		{
 			ctx.setPath("gsb/crm/task/regain");
-			ctx.setItem(entity);
-			ctx.setState(entity.getEntityState());
+			ctx.setStatus(setMap);
 		}
 
 		ActionManager action = new ActionManager();
@@ -244,5 +250,20 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		ActionManager action = new ActionManager();
 		action.execute(ctx);
 		return true;
+	}
+	@Override
+	public int autoAllot(Integer taskId) {
+		// 自动分配
+		NCustomerTask entity = this.byId(taskId);
+		ActionContext ctx = new ActionContext();
+		{
+			ctx.setPath("gsb/crm/customer/task/autoAllot");
+			ctx.setItem(entity);
+			ctx.setState(entity.getEntityState());
+		}
+
+		ActionManager action = new ActionManager();
+		action.execute(ctx);
+		return 0;
 	}
 }
