@@ -24,7 +24,7 @@ public class DepartmentCustomerEditWorkspaceTest  extends CustomerEditWorkspaceT
 		resourceNodeCode = "CRM_DEPARTMENT_CUSTOMER_Edit";
 		
 		List<String> ss = new ArrayList<String>();
-		ss.add("/gsb/crm/base/js/customer-base-add-form.part.js");
+		ss.add("/gsb/crm/base/js/customer-base-form.part.js");
 		ss.add("/gsb/crm/department/js/customer-edit-form.part.js");
 		ss.add("/gsb/gsb.customer.controls.js");
 		formJsImport = StringManager.join("|", ss);

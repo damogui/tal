@@ -87,9 +87,6 @@ public class Supplier extends Entity {
 
 	@Subs(foreignKey = "supplierId", header = "服务产品", subType = SupplierServiceProduct.class)
 	private List<SupplierServiceProduct> serviceProducts;
-	
-	@Subs(foreignKey = "supplierId", header = "服务地区", subType = SupplierServiceDistrict.class)
-	private List<SupplierServiceDistrict> serviceDistricts;
 
 	@Subs(foreignKey = "supplierId", header = "开通模块", subType = SupplierFunctionModule.class)
 	private List<SupplierFunctionModule> modules;
@@ -280,14 +277,6 @@ public class Supplier extends Entity {
 
 	public void setServiceProducts(List<SupplierServiceProduct> serviceProducts) {
 		this.serviceProducts = serviceProducts;
-	}
-
-	public List<SupplierServiceDistrict> getServiceDistricts() {
-		return serviceDistricts;
-	}
-
-	public void setServiceDistricts(List<SupplierServiceDistrict> serviceDistricts) {
-		this.serviceDistricts = serviceDistricts;
 	}
 
 	public List<SupplierFunctionModule> getModules() {

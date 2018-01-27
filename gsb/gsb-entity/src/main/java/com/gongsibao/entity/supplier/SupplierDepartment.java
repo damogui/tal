@@ -2,13 +2,13 @@ package com.gongsibao.entity.supplier;
 
 import java.util.List;
 
-import com.gongsibao.entity.crm.dic.AllocationDispositon;
-import com.gongsibao.entity.supplier.dict.SupplierType;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.CatEntity;
+
+import com.gongsibao.entity.supplier.dict.SupplierType;
 
 @Table(name="sp_department",header="服务商部门")
 public class SupplierDepartment extends CatEntity{

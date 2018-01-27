@@ -230,6 +230,5 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 		ResourceNode node = this.getResourceNode();
 		operationService.addOperation(node, OperationTypes.view);
 		operationService.addOperation(node, OperationTypes.add);
-		operationService.addOperation(node, OperationTypes.update);
 	}
 }
