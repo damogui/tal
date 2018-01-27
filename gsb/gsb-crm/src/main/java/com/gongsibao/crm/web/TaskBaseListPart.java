@@ -6,6 +6,7 @@ import org.netsharp.communication.ServiceFactory;
 import org.netsharp.panda.commerce.FilterParameter;
 import org.netsharp.util.StringManager;
 
+import com.gongsibao.crm.base.INCustomerService;
 import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.supplier.web.panda.BaseSupplierListPart;
 
@@ -99,5 +100,25 @@ public class TaskBaseListPart extends BaseSupplierListPart{
 		INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
 		return taskService.rollback(taskId, getNote);
 	}
-	
+	/**
+	 * 任务转移
+	 * @param taskId
+	 * @param supplierId
+	 * @param departmentId
+	 * @param toUserId
+	 * @return
+	 */
+	public boolean transfer(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId,Integer allocationType){
+		INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
+		return taskService.transfer(taskId, supplierId, departmentId, toUserId);
+	}
+	/**
+	 * 开通会员功能
+	 * @param customerId
+	 * @return
+	 */
+	public void openMember(Integer customerId){
+		INCustomerService customerService = ServiceFactory.create(INCustomerService.class);
+		customerService.updateIsMember(customerId);
+	}
 }
