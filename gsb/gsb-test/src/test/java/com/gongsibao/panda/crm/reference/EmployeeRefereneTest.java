@@ -11,7 +11,7 @@ public class EmployeeRefereneTest extends ReferenceCreationBase{
 
 	@Before
 	public void setup() {
-		resourceNodeCode = "GSB_CRM_MY_REFERENE_EMPLOYEE";
+		resourceNodeCode = "CRM_SALESMAN_REFERENE_EMPLOYEE";
 		datagridName = referenceName = "员工信息参照";
 		referenceCode = "CRM_Employee";
 		intelligentMode = IntelligentMode.LIKE;
