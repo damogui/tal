@@ -17,8 +17,10 @@ com.gongsibao.igirl.web.TradeMarkListPart = org.netsharp.panda.commerce.ListPart
         }
         var that = this;
         this.invokeService("updateMarkState",[ids,type],function (message) {
-            if(message!==0){
+            if(message.length===0){
                 that.reload();
+            }else{
+                IMessageBox.info(message);
             }
         })
 	}

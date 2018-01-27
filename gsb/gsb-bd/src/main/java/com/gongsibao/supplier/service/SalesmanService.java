@@ -19,6 +19,7 @@ import com.gongsibao.bd.service.SupplierPersistableService;
 import com.gongsibao.entity.supplier.SalesmanRole;
 import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.supplier.base.ISalesmanService;
+import com.gongsibao.supplier.base.ISupplierDepartmentService;
 
 @Service
 public class SalesmanService extends SupplierPersistableService<Salesman> implements ISalesmanService {
@@ -48,6 +49,21 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 			return entity.getDepartmentId();
 		}
 		return null;
+	}
+
+	@Override
+	public List<Integer> getDepartmentIdList(Integer employeeId) {
+		
+		List<Integer> idList = new ArrayList<Integer>();
+		Integer currentDepartmentId = this.getDepartmentId(employeeId);
+		if(currentDepartmentId != null){
+			
+			//包含当前部门Id
+			idList.add(currentDepartmentId);
+			ISupplierDepartmentService departmentService = ServiceFactory.create(ISupplierDepartmentService.class);
+			idList = departmentService.getSubDepartmentIdList(currentDepartmentId);
+		}
+		return idList;
 	}
 
 	@Override

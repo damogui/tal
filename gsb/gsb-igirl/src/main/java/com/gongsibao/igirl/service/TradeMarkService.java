@@ -4,8 +4,9 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import org.junit.Test;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
@@ -22,9 +23,7 @@ import com.gongsibao.entity.igirl.dict.MarkState;
 import com.gongsibao.igirl.base.IDownloadAttachmentService;
 import com.gongsibao.igirl.base.ITradeMarkService;
 import com.gongsibao.igirl.base.IUploadAttachmentService;
-import java.util.Map;
-import java.util.Set;
-import com.gongsibao.igirl.dto.TradeMark.*;
+import com.gongsibao.igirl.dto.TradeMark.Goods;
 import com.gongsibao.igirl.dto.TradeMark.Step1;
 import com.gongsibao.igirl.dto.TradeMark.Step2;
 import com.gongsibao.igirl.dto.TradeMark.Step3;
@@ -35,6 +34,8 @@ import com.gongsibao.igirl.dto.TradeMark.Step7;
 import com.gongsibao.igirl.dto.TradeMark.TradeMarkApplyInfo;
 @Service
 public class TradeMarkService extends GsbPersistableService<TradeMark> implements ITradeMarkService {
+	private final static String contantSeprate = "弌";
+
 	IUploadAttachmentService upattachementService = ServiceFactory.create(IUploadAttachmentService.class);
 	IDownloadAttachmentService downattachementService = ServiceFactory.create(IDownloadAttachmentService.class);
 
@@ -244,9 +245,11 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		Oql oql = new Oql();
 		{
 			oql.setType(UploadAttachment.class);
-			oql.setSelects("UploadAttachment.*");
-			oql.setFilter("tradeMark.markState=?");
-			oql.getParameters().add("tradeMark.markState", MarkState.READY.getValue(), Types.INTEGER);
+			oql.setSelects("UploadAttachment.*,UploadAttachment.tradeMark.*,UploadAttachment.tradeMarkCase.*");
+			oql.setFilter("tradeMark.markState=? or tradeMarkId=?");
+			oql.getParameters().add("tradeMark.markState", MarkState.WAITCOMMIT.getValue(), Types.INTEGER);
+			oql.getParameters().add("tradeMarkId", -1, Types.INTEGER);
+
 		}
 		List<UploadAttachment> ups = upattachementService.queryList(oql);
 		for (UploadAttachment ua : ups) {
@@ -256,19 +259,19 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 				String filename = fileurl.substring(index + 1);
 				String key = "";
 				TradeMark tm = ua.getTradeMark();
-				if (ua.getTradeMarkCaseId() == -1) {// 营业执照
-					key = ua.getTradeMarkCaseId() + "_" + "zz_" + "zz";
+				if (ua.getTradeMarkId() == -1) {// 营业执照
+					key = ua.getTradeMarkCaseId() + contantSeprate + "zz"+ contantSeprate + "zz";
 				} else {
-					key = ua.getTradeMarkCaseId() + "_" + tm.getShareGroup().getValue() + "_"
+					key = ua.getTradeMarkCaseId() + contantSeprate + tm.getShareGroup().getValue() + contantSeprate
 							+ ua.getAttachmentCat().getValue();
 					// 如果指定颜色，那么设置key的后缀为文件类型
 					if (tm.getHasColor()) {
-						key = key + "_" + ua.getFileType().getValue();
+						key = key + contantSeprate + ua.getFileType().getValue();
 					}
 
 				}
 				if (!shareGroupToTradeMarkMap.containsKey(key)) {
-					shareGroupToTradeMarkMap.put(key, fileurl + "_" + filename);
+					shareGroupToTradeMarkMap.put(key, fileurl + contantSeprate + filename);
 				}
 			}
 		}
@@ -279,11 +282,11 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 	// 构造营业执照搜索附件的key
 	private Map<String, String> getBusinessLienceAttachment(TradeMark tm, Map<String, String> attachmentsMap) {
 		Map<String, String> rtnMap = new HashMap<String, String>();
-		String step2key = tm.getTradeMarkCaseId() + "_" + "zz" + "_zz";
+		String step2key = tm.getTradeMarkCaseId() + contantSeprate + "zz" + contantSeprate +"zz";
 		if(attachmentsMap.containsKey(step2key)) {
 			String fileinfo = attachmentsMap.get(step2key);
-			String fileUrl = fileinfo.split("_")[0];
-			String fileName = fileinfo.split("_")[1];
+			String fileUrl = fileinfo.split(contantSeprate)[0];
+			String fileName = fileinfo.split(contantSeprate)[1];
 			rtnMap.put("fileUrl", fileUrl);
 			rtnMap.put("fileName", fileName);
 		}
@@ -293,24 +296,24 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 	// 构造获取委托书的key
 	private Map<String, String> getDeleProofAttachment(TradeMark tm, Map<String, String> attachmentsMap) {
 		Map<String, String> rtnMap = new HashMap<String, String>();
-		String step2key = tm.getTradeMarkCaseId() + "_" + tm.getShareGroup().getValue() + "_"
+		String step2key = tm.getTradeMarkCaseId() + contantSeprate + tm.getShareGroup().getValue() + contantSeprate
 				+ AttachmentCat.DELEGATE_PROOF.getValue();
-		String step3key = tm.getTradeMarkCaseId() + "_" + tm.getShareGroup().getValue() + "_"
+		String step3key = tm.getTradeMarkCaseId() + contantSeprate + tm.getShareGroup().getValue() + contantSeprate
 				+ AttachmentCat.DELEGATE_PROOF.getValue();
 		if (tm.getHasColor()) {
-			step2key += "_" + FileType.JPGC.getValue();
-			step3key += "_" + FileType.PNGC.getValue();
+			step2key += contantSeprate + FileType.JPGC.getValue();
+			step3key += contantSeprate + FileType.PNGC.getValue();
 		}
 		String fileinfo = attachmentsMap.get(step2key);
 		String fileinfo2 = attachmentsMap.get(step3key);
 		if (!StringManager.isNullOrEmpty(fileinfo)) {
-			String fileUrl = fileinfo.split("_")[0];
-			String fileName = fileinfo.split("_")[1];
+			String fileUrl = fileinfo.split(contantSeprate)[0];
+			String fileName = fileinfo.split(contantSeprate)[1];
 			rtnMap.put("fileUrl", fileUrl);
 			rtnMap.put("fileName", fileName);
 		} else {
-			String fileUrl = fileinfo2.split("_")[0];
-			String fileName = fileinfo2.split("_")[1];
+			String fileUrl = fileinfo2.split(contantSeprate)[0];
+			String fileName = fileinfo2.split(contantSeprate)[1];
 			rtnMap.put("fileUrl", fileUrl);
 			rtnMap.put("fileName", fileName);
 		}
@@ -320,24 +323,24 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 	// 构造获取图样的key
 	private Map<String, String> getTradePictAttachment(TradeMark tm, Map<String, String> attachmentsMap) {
 		Map<String, String> rtnMap = new HashMap<String, String>();
-		String step7key = tm.getTradeMarkCaseId() + "_" + tm.getShareGroup().getValue() + "_"
+		String step7key = tm.getTradeMarkCaseId() + contantSeprate + tm.getShareGroup().getValue() + contantSeprate
 				+ AttachmentCat.TRADEMARK_PICT.getValue();
-		String step8key = tm.getTradeMarkCaseId() + "_" + tm.getShareGroup().getValue() + "_"
+		String step8key = tm.getTradeMarkCaseId() + contantSeprate + tm.getShareGroup().getValue() + contantSeprate
 				+ AttachmentCat.TRADEMARK_PICT.getValue();
 		if (tm.getHasColor()) {
-			step7key += "_" + FileType.JPGC.getValue();
-			step8key += "_" + FileType.PNGC.getValue();
+			step7key += contantSeprate + FileType.JPGC.getValue();
+			step8key += contantSeprate + FileType.PNGC.getValue();
 		}
 		String fileinfo = attachmentsMap.get(step7key);
 		String fileinfo2 = attachmentsMap.get(step8key);
 		if (!StringManager.isNullOrEmpty(fileinfo)) {
-			String fileUrl = fileinfo.split("_")[0];
-			String fileName = fileinfo.split("_")[1];
+			String fileUrl = fileinfo.split(contantSeprate)[0];
+			String fileName = fileinfo.split(contantSeprate)[1];
 			rtnMap.put("fileUrl", fileUrl);
 			rtnMap.put("fileName", fileName);
 		} else {
-			String fileUrl = fileinfo2.split("_")[0];
-			String fileName = fileinfo2.split("_")[1];
+			String fileUrl = fileinfo2.split(contantSeprate)[0];
+			String fileName = fileinfo2.split(contantSeprate)[1];
 			rtnMap.put("fileUrl", fileUrl);
 			rtnMap.put("fileName", fileName);
 		}
@@ -347,11 +350,11 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 	// 构造获取其它证明的key
 	private Map<String, String> getCommentAttachment(TradeMark tm, Map<String, String> attachmentsMap) {
 		Map<String, String> rtnMap = new HashMap<String, String>();
-		String step2key = tm.getTradeMarkCaseId() + "_" + tm.getShareGroup().getValue() + "_"+ AttachmentCat.MEMO_DESC.getValue();
+		String step2key = tm.getTradeMarkCaseId() + contantSeprate + tm.getShareGroup().getValue() + contantSeprate+ AttachmentCat.MEMO_DESC.getValue();
 		if(attachmentsMap.containsKey(step2key)) {
 			String fileinfo = attachmentsMap.get(step2key);
-			String fileUrl = fileinfo.split("_")[0];
-			String fileName = fileinfo.split("_")[1];
+			String fileUrl = fileinfo.split(contantSeprate)[0];
+			String fileName = fileinfo.split(contantSeprate)[1];
 			rtnMap.put("fileUrl", fileUrl);
 			rtnMap.put("fileName", fileName);
 		}
@@ -371,9 +374,9 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		Step7 step7;
 		Oql oql = new Oql();
 		oql.setType(TradeMark.class);
-		oql.setSelects("TradeMark.*,TradeMark.tradeMarkCase.*,TradeMark.tradeMarkCase.uploadAttachments.*");
+		oql.setSelects("TradeMark.*,TradeMark.nclOne.*,TradeMark.tradeMarkCase.*,TradeMark.tradeMarkCase.uploadAttachments.*");
 		oql.setFilter("markState=?");
-		oql.getParameters().add("markState", MarkState.WAITCOMMIT, Types.INTEGER);
+		oql.getParameters().add("markState", MarkState.WAITCOMMIT.getValue(), Types.INTEGER);
 		List<TradeMark> tms = this.queryList(oql);
 		// 查询出上传附件列表，然后构造一个案件共享组附件映射
 		Map<String, String> shareGroupToTradeMarkMap = this.buildCaseShareGroupToAttachFileMap();
@@ -389,7 +392,6 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			step2 = new Step2();
 			step2.setAgentFilenum(tm.getProxyCode());
 			step2.setAgentPerson(tmc.getCreator());
-
 			step2.setAgentBookPath(this.getDeleProofAttachment(tm, shareGroupToTradeMarkMap).get("fileUrl"));
 			step2.setAgentBookName(this.getDeleProofAttachment(tm, shareGroupToTradeMarkMap).get("fileName"));
 
@@ -404,31 +406,45 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			step2.setAppCnName(tmc.getApplier());
 			step2.setAppCnAddr(tmc.getApplierAddress());
 			step2.setAppContactPerson(tmc.getCreator());
-			step2.setAppContactPerson(tmc.getYwPhone());
+			step2.setAppContactTel(tmc.getYwPhone());
 			step2.setAppContactFax(tmc.getFax());
 			step2.setAppContactZip(tmc.getMailCode());
 			tminfo.setStep2(step2);
 			step3 = new Step3();
-			step3.setTmType(tm.getTradeMarkType().getText());
+			step3.setTmType(tm.getTradeMarkType().getContent());
+
 			// TODO(?)
-			step3.setIfSolidTm(tm.getWhetherThirdSpace().toString());
+			if (tm.getWhetherThirdSpace()){
+				step3.setIfSolidTm("ifSolidTm2");
+			}else{
+				step3.setIfSolidTm("ifSolidTm1");
+			}
+
 			// TODO(?)
-			step3.setColourSign(tm.getWhetherColorGroup().toString());
-			// TODO(?)
+			if (tm.getWhetherColorGroup()){
+				step3.setColourSign("colourSign2");
+			}else{
+				step3.setColourSign("colourSign1");
+			}
 			step3.setTmFormType(tm.getWhetherSound().toString());
 			step3.setTmFormTypeFilePath("");
 			step3.setTmFormTypeFileName("");
 			step3.setTmDesignDeclare(tm.getMemo());
 			tminfo.setStep3(step3);
 
+
 			step4 = new Step4();
 			// TODO(?)
-			step4.setIfShareTm("ifShareTm1");
+			if(tm.getWhetherShare()){
+				step4.setIfShareTm("ifShareTm2");
+			}else {
+				step4.setIfShareTm("ifShareTm1");
+			}
 			tminfo.setStep4(step4);
 
 			step5 = new Step5();
 			// TODO(?)
-			step5.setPriorityType("priorityType1");
+			//step5.setPriorityType(tm.getPriorityType().getContent());
 			tminfo.setStep5(step5);
 
 			step6 = new Step6();
@@ -438,19 +454,19 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			
 			
 			step7 = new Step7();
-			step7.setIsBlack("true");
-			step7.setBlackPath("");
-			step7.setBlackName("");
-			step7.setIsPersonPhoto("false");
-			step7.setPersonPhotoPath("");
-			step7.setPersonPhotoName("");
-
 			step7.setPicPath(this.getTradePictAttachment(tm, shareGroupToTradeMarkMap).get("fileUrl"));
 			step7.setPicName(this.getTradePictAttachment(tm, shareGroupToTradeMarkMap).get("fileName"));
-
+			if(tm.getHasColor()){
+				step7.setIsBlack("false");
+				step7.setBlackPath(this.getTradePictAttachment(tm,shareGroupToTradeMarkMap).get("fileUrl"));
+				step7.setBlackName(this.getTradePictAttachment(tm,shareGroupToTradeMarkMap).get("fileName"));
+			}else{
+				step7.setIsBlack("true");
+				step7.setBlackPath("");
+				step7.setBlackName("");
+			}
 			step7.setCommentPath(this.getCommentAttachment(tm, shareGroupToTradeMarkMap).get("fileUrl"));
 			step7.setCommentName(this.getCommentAttachment(tm, shareGroupToTradeMarkMap).get("fileName"));
-
 			tminfo.setStep7(step7);
 			tminfos.add(tminfo);
 		}
@@ -467,7 +483,6 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			String[] sts = s.split(":");
 			if (map.containsKey(sts[2])) {
 				stss = map.get(sts[2]);
-				stss.add(sts[1]);
 			} else {
 				stss = new ArrayList<>();
 			}
@@ -486,20 +501,21 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 	}
 	public String updateMarkState(String ids,String type){
 		Oql oql = new Oql();
-		oql.setSelects("TradeMark.*");
+		oql.setSelects("TradeMark.*,TradeMark.tradeMarkCase.*,TradeMark.tradeMarkCase.uploadAttachments.*");
 		oql.setType(TradeMark.class);
+		oql.setFilter("id in (?)");
 		oql.getParameters().add("id",ids,Types.INTEGER);
 		List<TradeMark> tms = this.queryList(oql);
 		List<TradeMark> list = new ArrayList<>();
-		StringBuffer str = new StringBuffer();
+		StringBuffer str = new StringBuffer("");
 		for (TradeMark tm:tms){
 			TradeMarkCase tmc = tm.getTradeMarkCase();
 			List<UploadAttachment> uas = tmc.getUploadAttachments();
 			boolean boo = true;
 			for(UploadAttachment ua:uas){
-				if (ua.getNeeded()&&ua.getFileUrl().equals("")){
+				if (ua.getNeeded()&&StringManager.isNullOrEmpty(ua.getFileUrl())){
 					boo = false;
-					str.append(tm.getCode()).append(",");
+					str.append(tm.getProxyCode()).append(",");
 					break;
 				}else{
 					boo = true;
@@ -517,6 +533,10 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		if (!list.isEmpty()){
 			this.saves(list);
 		}
-		return str.substring(0,str.lastIndexOf(","));
+		if (str.length()>0){
+			return str.substring(0,str.lastIndexOf(",")+1);
+		}else{
+			return "";
+		}
 	}
 }

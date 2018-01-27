@@ -39,8 +39,8 @@ public class NavigationTest extends NavigationBase {
 
 		createPTreeNode(tree, null, null, "CRM_SALESMAN", "我的任务", "", 2);
 		{
-			createPTreeNode(tree, "CRM_SALESMAN", null, "CRM_SALESMAN_CUSTOMER_ADD", "新增客户", "/crm/salesman/customer/add", 1);
-			createPTreeNode(tree, "CRM_SALESMAN", null, "CRM_SALESMAN_CUSTOMER", "我的客户", "/crm/salesman/customer/list", 2);
+			createPTreeNode(tree, "CRM_SALESMAN", "fa fa-user-plus", "CRM_SALESMAN_CUSTOMER_ADD", "新增客户", "/crm/salesman/customer/add", 1);
+			createPTreeNode(tree, "CRM_SALESMAN", null, "CRM_SALESMAN_CUSTOMER", "全部客户", "/crm/salesman/customer/list", 2);
 			createPTreeNode(tree, "CRM_SALESMAN", null, "CRM_SALESMAN_TASK_ALL", "全部任务", "/crm/salesman/task/all/list", 3);
 			createPTreeNode(tree, "CRM_SALESMAN", null, "CRM_SALESMAN_TASK_START", "未启动任务", "/crm/salesman/task/unstart/list", 4);
 			createPTreeNode(tree, "CRM_SALESMAN", null, "CRM_SALESMAN_TASK_FOLLOWING", "跟进中任务", "/crm/salesman/task/following/list", 5);
@@ -51,26 +51,21 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, "CRM_SALESMAN", null, "CRM_SALESMAN_TIMEOUT", "超时提醒", "/crm/salesman/task/timeout/list", 10);
 		}
 
-		createPTreeNode(tree, null, null, "GSB_CRM_DEPARTMENT", "部门管理", "", 3);
+		createPTreeNode(tree, null, null, "CRM_DEPARTMENT", "部门管理", "", 3);
 		{
-			createPTreeNode(tree, "GSB_CRM_DEPARTMENT", null, "GSB_CRM_DEPARTMENT_ADD", "新增客户", "/crm/department/customer/add", 1);
-			createPTreeNode(tree, "GSB_CRM_DEPARTMENT", null, "GSB_CRM_DEPARTMENT_ALL", "全部任务", "/crm/department/2/list", 1);
-			createPTreeNode(tree, "GSB_CRM_DEPARTMENT", null, "GSB_CRM_DEPARTMENT_START", "未启动", "/crm/department/3/list", 2);
-			createPTreeNode(tree, "GSB_CRM_DEPARTMENT", null, "GSB_CRM_DEPARTMENT_UNFOOLOW", "待跟进", "/crm/department/4/list", 3);
-			createPTreeNode(tree, "GSB_CRM_DEPARTMENT", null, "GSB_CRM_DEPARTMENT_FOLLOWING", "跟进中", "/crm/department/5/list", 4);
-			createPTreeNode(tree, "GSB_CRM_DEPARTMENT", null, "GSB_CRM_DEPARTMENT_SIGNED", "已签单", "/crm/department/6/list", 5);
-			createPTreeNode(tree, "GSB_CRM_DEPARTMENT", null, "GSB_CRM_DEPARTMENT_DEFEATED", "无法签单", "/crm/department/7/list", 6);
-			createPTreeNode(tree, "GSB_CRM_DEPARTMENT", null, "GSB_CRM_DEPARTMENT_HIGHSEAS", "公海", "/crm/department/8/list", 7);
+			createPTreeNode(tree, "CRM_DEPARTMENT", "fa fa-user-plus", "CRM_DEPARTMENT_CUSTOMER_ADD", "新增客户", "/crm/department/customer/add", 1);
+			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_CUSTOMER_ALL", "全部客户", "/crm/department/customer/list", 2);
+			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_ALL", "全部任务", "/crm/department/task/all/list", 3);
+			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_START", "未启动任务", "/crm/department/unstart/list", 4);
+			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_FOLLOWING", "跟进中任务", "/crm/department/following/list", 5);
+			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_SIGNED", "已签单任务", "/crm/department/signed/list", 6);
+			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_UNFOOLOW", "待跟进任务", "/crm/department/unfoolow/list", 7);
+			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_TIMEOUT", "超时提醒", "/crm/department/task/timeout/list", 8);
+			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_DEFEATED", "无法签单任务", "/crm/department/defeated/list", 9);
+			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_CHECK_ABNORMAL", "抽查异常", "/crm/department/check/abnormal/list", 10);
+			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_HIGHSEAS", "公海", "/crm/department/highseas/list", 11);
 		}
-		//
-		// createPTreeNode(tree, null, null, "GSB_CRM_REPORT", "分析统计", "", 4);
-		// {
-		// createPTreeNode(tree, "GSB_CRM_REPORT", null, "GSB_CRM_REPORT_1",
-		// "报表1", "/crm/report/1/list", 1);
-		// createPTreeNode(tree, "GSB_CRM_REPORT", null, "GSB_CRM_REPORT_2",
-		// "报表2", "/crm/report/2/list", 2);
-		// }
-		//
+
 		createPTreeNode(tree, null, null, "GSB_CRM_SYS", "系统设置", "", 5);
 		{
 			createPTreeNode(tree, "GSB_CRM_SYS", null, "GSB_CRM_SYS_DEPARTMENT", "部门列表", "/crm/sys/department/list", 1);

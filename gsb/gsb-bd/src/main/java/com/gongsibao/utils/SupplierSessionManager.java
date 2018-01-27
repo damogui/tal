@@ -1,7 +1,10 @@
 package com.gongsibao.utils;
 
+import java.util.List;
+
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.persistence.session.SessionManager;
+import org.netsharp.util.StringManager;
 
 import com.gongsibao.supplier.base.ISalesmanService;
 
@@ -43,5 +46,24 @@ public class SupplierSessionManager {
 		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
 		Integer departmentId = salesmanService.getDepartmentId(employeeId);
 		return departmentId;
+	}
+	
+	public static List<Integer> getDepartmentIdList() {
+		
+		Integer employeeId = SessionManager.getUserId();
+		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
+		List<Integer> list = salesmanService.getDepartmentIdList(employeeId);
+		return list;
+	}
+	
+	/**
+	 * 获取当前登录人所在部门的子部门
+	 * @return
+	 */
+	public static String getSubDepartmentIdsStr(){
+		
+		List<Integer> list = SupplierSessionManager.getDepartmentIdList();
+		String ids = StringManager.join(",", list);
+		return ids;
 	}
 }

@@ -1,5 +1,7 @@
 package com.gongsibao.supplier.base;
 
+import java.util.List;
+
 import org.netsharp.base.IPersistableService;
 import org.netsharp.core.annotations.Transaction;
 
@@ -26,6 +28,16 @@ public interface ISalesmanService  extends IPersistableService<Salesman>{
 	 * @throws   
 	 */
 	Integer getDepartmentId(Integer employeeId);
+	
+	/**   
+	 * @Title: getDepartmentId   
+	 * @Description: TODO(根据当前登录人获取对应部门Id和子部门Id集合)   
+	 * @param: @param employeeId
+	 * @param: @return      
+	 * @return: Integer      
+	 * @throws   
+	 */
+	List<Integer> getDepartmentIdList(Integer employeeId);
 	
 	/**   
 	 * @Title: byEmployeeId   

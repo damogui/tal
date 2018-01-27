@@ -1,16 +1,17 @@
 package com.gongsibao.entity.igirl;
 
-import com.gongsibao.entity.igirl.baseinfo.NCLOne;
-import com.gongsibao.entity.igirl.dict.MarkState;
-import com.gongsibao.entity.igirl.dict.ShareGroup;
-import com.gongsibao.entity.igirl.dict.TradeMarkType;
-
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.joda.time.DateTime;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
+
+import com.gongsibao.entity.igirl.baseinfo.NCLOne;
+import com.gongsibao.entity.igirl.dict.MarkState;
+import com.gongsibao.entity.igirl.dict.ShareGroup;
+import com.gongsibao.entity.igirl.dict.TradeMarkType;
+import com.gongsibao.entity.uc.dic.PriorityType;
 
 @Table(name = "ig_trade_mark", header = "商标")
 public class TradeMark extends Entity {
@@ -40,6 +41,9 @@ public class TradeMark extends Entity {
 	@Column(name = "trade_mark_type", header = "商标类型")
 	private TradeMarkType tradeMarkType = TradeMarkType.GENERAL;
 
+//	@Column(name = "priority_type", header = "优先权类型")
+//	private PriorityType priorityType = PriorityType.NONE;
+
 	@Column(name = "whether_third_space", header = "是否三维图标")
 	private Boolean whetherThirdSpace = false;
 
@@ -63,6 +67,9 @@ public class TradeMark extends Entity {
 
 	@Column(name = "share_group", header = "分组共享")
 	private ShareGroup shareGroup = ShareGroup.SG1;
+
+	@Column(name = "whether_share", header = "是否共同申请")
+	private Boolean whetherShare = false;
 	
 	
     public Boolean getHasColor() {
@@ -192,4 +199,20 @@ public class TradeMark extends Entity {
 	public void setShareGroup(ShareGroup shareGroup) {
 		this.shareGroup = shareGroup;
 	}
+
+	public Boolean getWhetherShare() {
+		return whetherShare;
+	}
+
+	public void setWhetherShare(Boolean whetherShare) {
+		this.whetherShare = whetherShare;
+	}
+
+//	public PriorityType getPriorityType() {
+//		return priorityType;
+//	}
+//
+//	public void setPriorityType(PriorityType priorityType) {
+//		this.priorityType = priorityType;
+//	}
 }

@@ -21,6 +21,8 @@ public class SupplierReferenceTest extends ReferenceCreationBase{
 		intelligentMode = IntelligentMode.LIKE;
 		intelligentFields = "name";
 		gridFilter="status="+SupplierStatus.OPEND.getValue();
+	    //panelWidth = 420;
+	    //panelHeight = 310;
 	}
 
 	public PDatagrid createDatagrid(ResourceNode node) {

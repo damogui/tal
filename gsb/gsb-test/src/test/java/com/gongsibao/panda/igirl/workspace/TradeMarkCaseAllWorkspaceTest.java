@@ -157,21 +157,21 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		//addFormField(form, "ownedMarks", "已有商标", groupName, ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "momo", "交流记录", groupName, ControlTypes.TEXTAREA, false, false);
 		addFormField(form, "advice", "客户异议", groupName, ControlTypes.TEXTAREA, false, true);
-		formField = addFormField(form, "applier", "申请人", groupName, ControlTypes.TEXT_BOX, false, false);
+		formField = addFormField(form, "applier", "申请人", groupName, ControlTypes.TEXT_BOX, true, false);
 		{
 			// formField.setWidth(350);
 		}
 		addFormField(form, "identityCode", "申请人身份证", groupName, ControlTypes.TEXT_BOX, false, false);
-		addFormField(form, "applier_address", "申请人地址", groupName, ControlTypes.TEXT_BOX, false, false);
-		addFormField(form, "mailCode", "邮编", groupName, ControlTypes.TEXT_BOX, false, false);
-		addFormField(form, "fax", "传真", groupName, ControlTypes.TEXT_BOX, false, false);
+		addFormField(form, "applierAddress", "申请人地址", groupName, ControlTypes.TEXT_BOX, true, false);
+		addFormField(form, "mailCode", "邮编", groupName, ControlTypes.TEXT_BOX, true, false);
+		addFormField(form, "fax", "传真", groupName, ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "token", "token", groupName, ControlTypes.TEXT_BOX, false, true);
  		addFormField(form, "tokenImgUrl", "二维码", groupName, ControlTypes.IMAGE, false, true);
 		addFormField(form, "tmcState", "方案状态", groupName, ControlTypes.ENUM_BOX, true, false);
 		addFormField(form, "caseAmount", "方案金额", groupName, ControlTypes.DECIMAL_FEN_BOX, true, false);
 		addFormField(form, "tradeOptions", "商标选项", groupName, ControlTypes.TEXT_BOX, false, true);
 		addFormField(form, "code", "方案编号", groupName, ControlTypes.TEXT_BOX, false, true);
-		addFormField(form, "ywPhone", "代理电话", groupName, ControlTypes.TEXT_BOX, false, true);
+		addFormField(form, "ywPhone", "代理电话", groupName, ControlTypes.TEXT_BOX, true, false);
 		return form;
 	}
 
@@ -231,6 +231,10 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 			addFormField(form, "whetherPersonPhoto", "以肖像注册", groupName, ControlTypes.SWITCH_BUTTON, true, false);
 			addFormField(form, "memo", "商标说明", groupName, ControlTypes.TEXT_BOX, true, false);
 			addFormField(form, "shareGroup", "附件共享", groupName, ControlTypes.ENUM_BOX, true, false);
+			formField = addFormField(form, "whetherShare", "是否共同申请", groupName, ControlTypes.SWITCH_BUTTON, false, false);
+			formField.setVisible(false);
+			formField = addFormField(form, "priorityType", "是否优先权", groupName, ControlTypes.ENUM_BOX, false, false);
+			formField.setVisible(false);
 			formField = addFormFieldRefrence(form, "nclOne.name", "商标大类", null, "NCLOne", true, false);
 			{
 				formField.setTroikaTrigger("controllertradeMarks.nclOneChange(newValue,oldValue);");

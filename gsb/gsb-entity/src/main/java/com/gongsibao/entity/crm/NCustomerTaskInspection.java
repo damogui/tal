@@ -135,4 +135,13 @@ public class NCustomerTaskInspection extends Entity{
 	public void setDepartment(SupplierDepartment department) {
 		this.department = department;
 	}
+
+	public TaskInspectionType getInspectionType() {
+		return inspectionType;
+	}
+
+	public void setInspectionType(TaskInspectionType inspectionType) {
+		this.inspectionType = inspectionType;
+	}
+	
 }

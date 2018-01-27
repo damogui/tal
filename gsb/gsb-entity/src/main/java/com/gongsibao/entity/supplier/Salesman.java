@@ -46,7 +46,7 @@ public class Salesman extends Entity {
 	@Exclusive
 	@Column(name="login_name",header="帐号")
 	private String loginName;
-
+	
 	@Exclusive
 	@Column(name = "name", header = "姓名")
 	private String name;
@@ -217,7 +217,6 @@ public class Salesman extends Entity {
 		this.products = products;
 	}
 
-
     public Boolean getIsoldclient() {
         return isoldclient;
     }
@@ -257,4 +256,5 @@ public class Salesman extends Entity {
     public void setXabmax(Integer xabmax) {
         this.xabmax = xabmax;
     }
+
 }

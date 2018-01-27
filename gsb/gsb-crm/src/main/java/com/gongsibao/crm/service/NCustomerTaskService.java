@@ -1,6 +1,8 @@
 package com.gongsibao.crm.service;
 
 import java.sql.Types;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
@@ -12,6 +14,8 @@ import com.gongsibao.bd.service.SupplierPersistableService;
 import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
+import com.gongsibao.entity.crm.dic.NAllocationType;
+import com.gongsibao.entity.crm.dic.TaskInspectionState;
 
 @Service
 public class NCustomerTaskService extends SupplierPersistableService<NCustomerTask> implements INCustomerTaskService {
@@ -116,15 +120,20 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	}
 
 	@Override
-	public Boolean abnormal(Integer taskId) {
+	public Boolean abnormal(Integer taskId,Integer state,String content,Integer type) {
 
 		//抽查异常
 		NCustomerTask entity = this.byId(taskId);
+		entity.setLastInspectionContent(content);
+		Map<String,Object> setMap = new HashMap<String,Object>();
+		setMap.put("state", state);
+		setMap.put("type", type);
 		ActionContext ctx = new ActionContext();
 		{
 			ctx.setPath("gsb/crm/task/abnormal");
 			ctx.setItem(entity);
 			ctx.setState(entity.getEntityState());
+			ctx.setStatus(setMap);
 		}
 
 		ActionManager action = new ActionManager();
@@ -133,15 +142,23 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	}
 
 	@Override
-	public Boolean allocation(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId) {
+	public Boolean allocation(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId,Integer allocationType) {
 
 		//任务分配
 		NCustomerTask entity = this.byId(taskId);
+		Map<String,Object> setMap = new HashMap<String,Object>();
+		
+		setMap.put("formUserId", entity.getOwnerId());
+		entity.setSupplierId(supplierId);
+		entity.setDepartmentId(departmentId);
+		entity.setOwnerId(toUserId);
+		entity.setAllocationType(allocationType.equals(2) ? NAllocationType.MANUAL:NAllocationType.AUTO);
 		ActionContext ctx = new ActionContext();
 		{
 			ctx.setPath("gsb/crm/task/allocation");
 			ctx.setItem(entity);
 			ctx.setState(entity.getEntityState());
+			ctx.setStatus(setMap);
 		}
 
 		ActionManager action = new ActionManager();
@@ -201,15 +218,18 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	}
 
 	@Override
-	public Boolean rollback(Integer taskId) {
-		
+	public Boolean rollback(Integer taskId,String content) {
 		//任务回退
 		NCustomerTask entity = this.byId(taskId);
+		Map<String,Object> setMap = new HashMap<String,Object>();
+		setMap.put("content", content);
+		
 		ActionContext ctx = new ActionContext();
 		{
 			ctx.setPath("gsb/crm/task/rollback");
 			ctx.setItem(entity);
 			ctx.setState(entity.getEntityState());
+			ctx.setStatus(setMap);
 		}
 
 		ActionManager action = new ActionManager();

@@ -3,6 +3,8 @@ com.gongsibao.crm.web.NCustomerAddFormPart = org.netsharp.panda.commerce.FormPar
 
     ctor: function () {
         this.base();
+        this.verifyUrl = '/panda/operation/customer/verify';
+        this.addUrl='/panda/operation/customer/add';
     },
     onload: function () {
 
@@ -133,7 +135,7 @@ com.gongsibao.crm.web.NCustomerAddFormPart = org.netsharp.panda.commerce.FormPar
             var me = this;
         	layer.msg("保存成功！", {time: 500, icon:1},function(){
         		
-        		window.location.href = '/panda/operation/customer/add?id='+me.currentItem.id;
+        		window.location.href = me.addUrl+'?id='+me.currentItem.id;
 //            	var top = window.top;
 //            	var parent = window.parent;
 //            	if(top){
@@ -153,7 +155,6 @@ com.gongsibao.crm.web.NCustomerAddFormPart = org.netsharp.panda.commerce.FormPar
     },
     matching:function(){
 
-    	var url='/panda/operation/customer/verify';
     	layer.open({
   		  type: 2,
   		  title: '客户校验',
@@ -162,7 +163,7 @@ com.gongsibao.crm.web.NCustomerAddFormPart = org.netsharp.panda.commerce.FormPar
   		  shadeClose:false,
   		  closeBtn:false,
   		  area: ['70%','70%'],
-  		  content: url,
+  		  content: this.verifyUrl,
   		  cancel: function(){ 
 
 		  }
@@ -210,7 +211,7 @@ com.gongsibao.crm.web.NCustomerTaskDetailPart = org.netsharp.panda.commerce.Deta
     },
 	doubleClickRow : function(rowIndex, rowData) {
 		
-		var url='/panda/operation/task/add?id='+rowData.id;
+		var url=this.addUrl+'?id='+rowData.id;
     	layer.open({
   		  type: 2,
   		  title: '任务信息',

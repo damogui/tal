@@ -107,7 +107,7 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
     	$("#tokenImgUrl").attr("src",qcurl)
 
        this.invokeService("tmsForRobot",[72],function (msg) {
-           alert(JSON.stringify(m));
+           alert(JSON.stringify(msg));
        })
        
     }

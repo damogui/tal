@@ -20,7 +20,7 @@ import com.gongsibao.entity.crm.NCustomerTask;
 
 public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
 
-	String rowToolbaPath = "/operation/task/row/toolbar";
+	protected String rowToolbaPath = "/operation/task/row/toolbar";
 
 	@Override
 	@Before
