@@ -43,7 +43,7 @@ public class Supplier extends Entity {
 	@Reference(foreignKey = "adminId", header = "管理员帐号")
 	private Employee admin;
 
-	@Column(name = "type", header = "类型：1自营，2平台")
+	@Column(name = "type", header = "类型：1自营，2平台;3不限")
 	private SupplierType type;
 
 	@Column(name = "customer_max_count", header = "客户池数量")

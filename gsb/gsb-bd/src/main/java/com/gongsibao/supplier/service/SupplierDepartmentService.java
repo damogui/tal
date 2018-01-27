@@ -4,7 +4,10 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.utils.SupplierSessionManager;
 import org.netsharp.communication.Service;
+import org.netsharp.core.BusinessException;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
@@ -28,7 +31,18 @@ public class SupplierDepartmentService extends SupplierPersistableService<Suppli
 		if (state == EntityState.Deleted) {
 
 			this.deleteVerify(entity);
-		}
+		}else{
+
+
+            SupplierService   supplierService=new SupplierService();
+            Supplier supplier=supplierService.byId(entity.getSupplierId());
+            if (supplier==null){
+                throw new BusinessException("服务商属性不正确");
+            }
+            entity.setType(supplier.getType());//设置平台属性
+        }
+
+
 		entity = super.save(entity);
 
 		if (state != EntityState.Deleted) {

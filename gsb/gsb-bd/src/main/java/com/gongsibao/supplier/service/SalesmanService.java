@@ -4,12 +4,10 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gongsibao.entity.supplier.Supplier;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.EntityState;
-import org.netsharp.core.MtableManager;
-import org.netsharp.core.Oql;
-import org.netsharp.core.QueryParameters;
+import org.netsharp.core.*;
 import org.netsharp.organization.base.IEmployeeService;
 import org.netsharp.organization.entity.Employee;
 import org.netsharp.organization.entity.RoleEmployee;
@@ -173,7 +171,21 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 	@Override
 	public Salesman save(Salesman entity) {
 
+
+
+
 		EntityState state = entity.getEntityState();
+
+        if (!state.equals(EntityState.Deleted)){//如果非删除的话取出来服务商的自营/平台属性赋值
+
+            SupplierService   supplierService=new SupplierService();
+            Supplier  supplier=supplierService.byId(entity.getSupplierId());
+            if (supplier==null){
+                throw new BusinessException("服务商属性不正确");
+            }
+            entity.setType(supplier.getType());//设置平台属性
+        }
+
 
 		if (state == EntityState.New) {
 

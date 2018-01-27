@@ -3,6 +3,7 @@ package com.gongsibao.entity.supplier;
 import java.util.Date;
 import java.util.List;
 
+import com.gongsibao.entity.supplier.dict.SupplierType;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Reference;
@@ -80,8 +81,8 @@ public class Salesman extends Entity {
     @Column(name = "customer_type", header = "所属分组类别（1：新客户  2：老客户）")
     private TaskCustomerType customerType;
     
-    @Column(name = "allocation_dispositon", header = "自营/平台")
-	private AllocationDispositon allocationDispositon = AllocationDispositon.UNLIMITED;
+    @Column(name = "type", header = "类型：1自营，2平台;3不限")
+	private SupplierType type = SupplierType.UNLIMITED;
 
     @Column(name = "is_accpet_auto", header = "是否接受自动分配")
     private Boolean isaccpetauto;
@@ -263,13 +264,12 @@ public class Salesman extends Entity {
         this.xabmax = xabmax;
     }
 
-	public AllocationDispositon getAllocationDispositon() {
-		return allocationDispositon;
-	}
 
-	public void setAllocationDispositon(AllocationDispositon allocationDispositon) {
-		this.allocationDispositon = allocationDispositon;
-	}
-    
+    public SupplierType getType() {
+        return type;
+    }
 
+    public void setType(SupplierType type) {
+        this.type = type;
+    }
 }
