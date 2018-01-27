@@ -1,15 +1,14 @@
-package com.gongsibao.crm.service.allot;
+package com.gongsibao.crm.service.action.autoAllot;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 
 /**
  * @author zhangchao
- *发送业务员通知
+ *任务的分配状态的回写
  */
-public class ActionCustomerTaskSendMessage implements IAction {
+public class ActionCustomerTaskUpdateTaskStatus implements IAction {
 
 	@Override
 	public void execute(ActionContext ctx) {}
-
 }

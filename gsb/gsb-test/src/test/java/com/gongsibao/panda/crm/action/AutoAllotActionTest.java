@@ -1,4 +1,4 @@
-package com.gongsibao.panda.crm.workspace;
+package com.gongsibao.panda.crm.action;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,12 +10,12 @@ import org.netsharp.resourcenode.IResourceNodeService;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.crm.service.action.allocation.ActionAllocationSaveLog;
-import com.gongsibao.crm.service.allot.ActionCustomerTaskAllot;
-import com.gongsibao.crm.service.allot.ActionCustomerTaskSendMessage;
-import com.gongsibao.crm.service.allot.ActionCustomerTaskUpdateTaskStatus;
-import com.gongsibao.crm.service.allot.ActionCustomerTaskVerifyStatus;
+import com.gongsibao.crm.service.action.autoAllot.ActionCustomerTaskAllot;
+import com.gongsibao.crm.service.action.autoAllot.ActionCustomerTaskSendMessage;
+import com.gongsibao.crm.service.action.autoAllot.ActionCustomerTaskUpdateTaskStatus;
+import com.gongsibao.crm.service.action.autoAllot.ActionCustomerTaskVerifyStatus;
 
-public class NCustomerTaskActionTest {
+public class AutoAllotActionTest {
 
 	private ResourceNode resourceNode = null;
 	private IBeanPathService beanPathService = ServiceFactory.create(IBeanPathService.class);
@@ -30,7 +30,7 @@ public class NCustomerTaskActionTest {
 	@Test
 	public void allotTask(){
 		
-		String pathName =  "gsb/crm/customer/task/allot";
+		String pathName =  "gsb/crm/customer/task/autoAllot";
 		
 		BeanPath beanPath = new BeanPath();
 		{
