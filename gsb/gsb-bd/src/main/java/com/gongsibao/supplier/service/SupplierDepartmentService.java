@@ -4,8 +4,6 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gongsibao.entity.supplier.Supplier;
-import com.gongsibao.utils.SupplierSessionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.core.BusinessException;
 import org.netsharp.core.EntityState;
@@ -13,6 +11,7 @@ import org.netsharp.core.Oql;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.bd.service.SupplierPersistableService;
+import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.supplier.base.ISupplierDepartmentService;
 
