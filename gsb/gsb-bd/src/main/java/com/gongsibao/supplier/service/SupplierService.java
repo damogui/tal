@@ -102,7 +102,7 @@ public class SupplierService extends PersistableService<Supplier> implements ISu
             if (!oldSupplier.getType().equals(entity.getType())) {//如果平台属性改变去修改部门和员工的平台属性
 
                 String sql1 = "UPDATE  sp_department  SET  type=?  WHERE   supplier_id=?;";
-                String sql2 = "UPDATE  sp_salesman  SET  type=?  WHERE   supplier_id=?;";
+                String sql2 = "UPDATE  sp_salesman  SET  type=?  WHERE   supplier_id=?;";//更新部门和员工平台属性
 
                 QueryParameters qps = new QueryParameters();
                 qps.add("@type", entity.getType().getValue(), Types.INTEGER);
