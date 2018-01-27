@@ -1,6 +1,6 @@
 //无法签单中的工具栏
 System.Declare("com.gongsibao.crm.web");
-com.gongsibao.crm.web.CustomerVerifyListPart = org.netsharp.panda.commerce.ListPart.Extends({
+com.gongsibao.crm.web.NCustomerVerifyListPart = org.netsharp.panda.commerce.ListPart.Extends({
 	ctor : function() {
 		this.base();
 	},

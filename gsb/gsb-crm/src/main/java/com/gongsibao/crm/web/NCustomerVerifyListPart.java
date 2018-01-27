@@ -4,9 +4,8 @@ import java.util.ArrayList;
 
 import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
-import org.netsharp.util.StringManager;
 
-public class NCustomerBaseListPart  extends AdvancedListPart{
+public class NCustomerVerifyListPart extends AdvancedListPart{
 
 	public String getFilterByParameter(FilterParameter parameter){
 		
@@ -21,7 +20,6 @@ public class NCustomerBaseListPart  extends AdvancedListPart{
 			filters.add("telephone='"+keyword+"'");
 			filters.add("qq='"+keyword+"'");
 			filters.add("weixin='"+keyword+"'");
-			return StringManager.join(" and ", filters);
 		}
 		return parameter.getFilter();
 	}
