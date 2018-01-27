@@ -14,7 +14,7 @@ public class TaskAllocatedWorkspaceTest extends TaskALLWorkspaceTest{
 		super.setup();
 		urlList = "/operation/customer/task/allocated/list";
 		listPartName = formPartName = "已分配任务";
-		resourceNodeCode = "GSB_CRM_Customer_Manager_Task_Allocated";
+		resourceNodeCode = "Operation_CRM_Task_Allocated";
 		listPartJsController = TaskAllocatedListPart.class.getName();
 		listPartServiceController = TaskAllocatedListPart.class.getName();
 		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-allocated-list.part.js";

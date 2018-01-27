@@ -14,7 +14,7 @@ public class TaskAnomalyDetectionWorkspaceTest extends TaskOpenSeaWorkspaceTest{
 		super.setup();
 		urlList = "/operation/customer/task/anomalydetection/list";
 		listPartName = formPartName = "抽查异常";
-		resourceNodeCode = "GSB_CRM_Customer_Manager_Task_Anomaly_Detection";
+		resourceNodeCode = "Operation_CRM_Task_Anomaly_Detection";
 		listFilter="inspection_state = 3";	
 		listPartJsController = TaskAnomalyDetectionListPart.class.getName();
 		listPartServiceController = TaskAnomalyDetectionListPart.class.getName();

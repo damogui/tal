@@ -30,9 +30,9 @@ import com.gongsibao.entity.crm.dic.QualityCategory;
 public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 
 	
-	protected String foolowDetailResourceNodeCode = "GSB_CRM_Customer_Manager_Foolow";
-	protected String notifyDetailResourceNodeCode = "GSB_CRM_Customer_Manager_Notify";
-	protected String changeDetailResourceNodeCode = "GSB_CRM_Customer_Manager_Change";
+	protected String foolowDetailResourceNodeCode = "Operation_CRM_Customer_Foolow";
+	protected String notifyDetailResourceNodeCode = "Operation_CRM_Customer_Notify";
+	protected String changeDetailResourceNodeCode = "Operation_CRM_Customer_Change";
 	
 	@Before
 	public void setup() {
@@ -42,7 +42,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 		listPartName = formPartName = "任务信息";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_CRM_Task_Manager_Edit";
+		resourceNodeCode = "Operation_CRM_Task_Edit";
 		formJsImport = "/gsb/crm/platform/js/task-add-form.part.js|/gsb/crm/platform/js/task-edit-form.part.js|/gsb/gsb.customer.controls.js";
 		formJsController = NCustomerTaskEditFormPart.class.getName();
 		formServiceController = NCustomerTaskEditFormPart.class.getName();

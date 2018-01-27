@@ -20,7 +20,7 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest{
 		super.setup();
 		urlList = "/operation/customer/task/all/list";
 		listPartName = formPartName = "全部任务";
-		resourceNodeCode = "GSB_CRM_Customer_Manager_Task_ALL";
+		resourceNodeCode = "Operation_CRM_Task_ALL";
 		listPartJsController = TaskAllListPart.class.getName();
 		listPartServiceController = TaskAllListPart.class.getName();
 		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-all-list.part.js";
