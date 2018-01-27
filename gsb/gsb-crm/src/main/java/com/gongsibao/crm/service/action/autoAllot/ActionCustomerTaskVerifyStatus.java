@@ -1,4 +1,4 @@
-package com.gongsibao.crm.service.allot;
+package com.gongsibao.crm.service.action.autoAllot;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
@@ -27,7 +27,12 @@ public class ActionCustomerTaskVerifyStatus implements IAction {
 		if (entity.getAllocationState() != AllocationState.WAIT) {
 			throw new BusinessException("该任务状态不是【待分配】，禁止分配!");
 		}
-
+		
+		//已经有业务员了
+		if(!entity.getOwnerId().equals(0)){
+			throw new BusinessException("该任务已经有业务员了，禁止分配!");
+		}
+		
 		//分配状态的判断
 		if (!entity.getAllocationType().equals(NAllocationType.AUTO) && !entity.getAllocationType().equals(NAllocationType.SemiAutomatic)) {
 			throw new BusinessException("该任务分配方式不是【自动分配】、【半自动分配】，禁止自动分配!");

@@ -1,4 +1,4 @@
-package com.gongsibao.panda.crm.workspace;
+package com.gongsibao.panda.crm.action;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,12 +10,12 @@ import org.netsharp.resourcenode.IResourceNodeService;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.crm.service.action.allocation.ActionAllocationSaveLog;
-import com.gongsibao.crm.service.allot.ActionCustomerTaskAllot;
-import com.gongsibao.crm.service.allot.ActionCustomerTaskSendMessage;
-import com.gongsibao.crm.service.allot.ActionCustomerTaskUpdateTaskStatus;
-import com.gongsibao.crm.service.allot.ActionCustomerTaskVerifyStatus;
+import com.gongsibao.crm.service.action.autoAllot.ActionCustomerTaskAllot;
+import com.gongsibao.crm.service.action.autoAllot.ActionCustomerTaskSendMessage;
+import com.gongsibao.crm.service.action.autoAllot.ActionCustomerTaskUpdateTaskStatus;
+import com.gongsibao.crm.service.action.autoAllot.ActionCustomerTaskVerifyStatus;
 
-public class NCustomerTaskActionTest {
+public class AutoAllotActionTest {
 
 	private ResourceNode resourceNode = null;
 	private IBeanPathService beanPathService = ServiceFactory.create(IBeanPathService.class);
@@ -30,7 +30,7 @@ public class NCustomerTaskActionTest {
 	@Test
 	public void allotTask(){
 		
-		String pathName =  "gsb/crm/customer/task/allot";
+		String pathName =  "gsb/crm/customer/task/autoAllot";
 		
 		BeanPath beanPath = new BeanPath();
 		{
@@ -65,28 +65,17 @@ public class NCustomerTaskActionTest {
 			bean.setName("任务的分配状态的回写");
 			bean.setType(ActionCustomerTaskUpdateTaskStatus.class.getName());
 			bean.setResourceNode(resourceNode);
-			bean.setSeq(400);
-			
-			beanPath.getItems().add(bean);
-		}
-		/*bean = new Bean();
-		{
-			bean.toNew();
-			bean.setName("业务员配置信息的回写");
-			bean.setType(ActionCustomerTaskUpdateSalesmanInfo.class.getName());
-			bean.setResourceNode(resourceNode);
 			bean.setSeq(300);
 			
 			beanPath.getItems().add(bean);
 		}
-		*/
 		bean = new Bean();
 		{
 			bean.toNew();
 			bean.setName("写入跟进记录");
 			bean.setType(ActionAllocationSaveLog.class.getName());
 			bean.setResourceNode(resourceNode);
-			bean.setSeq(300);
+			bean.setSeq(400);
 			
 			beanPath.getItems().add(bean);
 		}
@@ -96,7 +85,7 @@ public class NCustomerTaskActionTest {
 			bean.setName("发送通知消息");
 			bean.setType(ActionCustomerTaskSendMessage.class.getName());
 			bean.setResourceNode(resourceNode);
-			bean.setSeq(400);
+			bean.setSeq(500);
 			
 			beanPath.getItems().add(bean);
 		}

@@ -7,79 +7,85 @@ import org.netsharp.core.annotations.Transaction;
 
 import com.gongsibao.entity.supplier.Salesman;
 
-public interface ISalesmanService  extends IPersistableService<Salesman>{
+public interface ISalesmanService extends IPersistableService<Salesman> {
 
-	/**   
-	 * @Title: getSupplierId   
-	 * @Description: TODO(根据当前登录人获取服务商Id)   
+	/**
+	 * @Title: getSupplierId
+	 * @Description: TODO(根据当前登录人获取服务商Id)
 	 * @param: @param employeeId
-	 * @param: @return      
-	 * @return: Integer      
-	 * @throws   
+	 * @param: @return
+	 * @return: Integer
+	 * @throws
 	 */
 	Integer getSupplierId(Integer employeeId);
-	
-	/**   
-	 * @Title: getDepartmentId   
-	 * @Description: TODO(根据当前登录人获取服务商下对应部门Id)   
+
+	/**
+	 * @Title: getDepartmentId
+	 * @Description: TODO(根据当前登录人获取服务商下对应部门Id)
 	 * @param: @param employeeId
-	 * @param: @return      
-	 * @return: Integer      
-	 * @throws   
+	 * @param: @return
+	 * @return: Integer
+	 * @throws
 	 */
 	Integer getDepartmentId(Integer employeeId);
-	
-	/**   
-	 * @Title: getDepartmentId   
-	 * @Description: TODO(根据当前登录人获取对应部门Id和子部门Id集合)   
+
+	/**
+	 * @Title: getDepartmentId
+	 * @Description: TODO(根据当前登录人获取对应部门Id和子部门Id集合)
 	 * @param: @param employeeId
-	 * @param: @return      
-	 * @return: Integer      
-	 * @throws   
+	 * @param: @return
+	 * @return: Integer
+	 * @throws
 	 */
 	List<Integer> getDepartmentIdList(Integer employeeId);
-	
-	/**   
-	 * @Title: byEmployeeId   
-	 * @Description: TODO(根据employeeId获取)   
+
+	/**
+	 * @Title: byEmployeeId
+	 * @Description: TODO(根据employeeId获取)
 	 * @param: @param employeeId
-	 * @param: @return      
-	 * @return: Salesman      
-	 * @throws   
+	 * @param: @return
+	 * @return: Salesman
+	 * @throws
 	 */
 	Salesman byEmployeeId(Integer employeeId);
-	
-	/**   
-	 * @Title: getEmployeeId   
-	 * @Description: TODO(根据salesmanId获取employeeId)   
+
+	/**
+	 * @Title: getEmployeeId
+	 * @Description: TODO(根据salesmanId获取employeeId)
 	 * @param: @param salesmanId
-	 * @param: @return      
-	 * @return: Integer      
-	 * @throws   
+	 * @param: @return
+	 * @return: Integer
+	 * @throws
 	 */
 	Integer getEmployeeId(Integer salesmanId);
-	
-	/**   
-	 * @Title: setDisabled   
-	 * @Description: TODO(设置停用/启用状态)   
+
+	/**
+	 * @Title: setDisabled
+	 * @Description: TODO(设置停用/启用状态)
 	 * @param: @param salesmanId
 	 * @param: @param state
-	 * @param: @return      
-	 * @return: boolean      
-	 * @throws   
+	 * @param: @return
+	 * @return: boolean
+	 * @throws
 	 */
 	@Transaction
 	boolean setDisabled(Integer salesmanId, boolean state);
-	
-	/**   
-	 * @Title: setReceiving   
-	 * @Description: TODO(设置接单状态)   
+
+	/**
+	 * @Title: setReceiving
+	 * @Description: TODO(设置接单状态)
 	 * @param: @param salesmanId
 	 * @param: @param state
-	 * @param: @return      
-	 * @return: boolean      
-	 * @throws   
+	 * @param: @return
+	 * @return: boolean
+	 * @throws
 	 */
 	@Transaction
 	boolean setReceiving(Integer salesmanId, boolean state);
+
+	/**根据服务商id获取员工集合
+	 * @param supplierId
+	 * @return
+	 */
+	List<Salesman> getBySupplierId(Integer supplierId);
 }

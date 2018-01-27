@@ -251,4 +251,19 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		action.execute(ctx);
 		return true;
 	}
+	@Override
+	public int autoAllot(Integer taskId) {
+		// 自动分配
+		NCustomerTask entity = this.byId(taskId);
+		ActionContext ctx = new ActionContext();
+		{
+			ctx.setPath("gsb/crm/customer/task/autoAllot");
+			ctx.setItem(entity);
+			ctx.setState(entity.getEntityState());
+		}
+
+		ActionManager action = new ActionManager();
+		action.execute(ctx);
+		return 0;
+	}
 }

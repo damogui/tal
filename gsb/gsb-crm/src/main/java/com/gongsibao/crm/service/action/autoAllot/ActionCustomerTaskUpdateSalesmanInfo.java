@@ -1,4 +1,4 @@
-package com.gongsibao.crm.service.allot;
+package com.gongsibao.crm.service.action.autoAllot;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
