@@ -118,7 +118,7 @@ public class TaskBaseListPart extends BaseSupplierListPart{
 	 * @param toUserId
 	 * @return
 	 */
-	public boolean transfer(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId,Integer allocationType){
+	public boolean transfer(String taskId, Integer supplierId, Integer departmentId, Integer toUserId,Integer allocationType){
 		INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
 		return taskService.transfer(taskId, supplierId, departmentId, toUserId);
 	}
