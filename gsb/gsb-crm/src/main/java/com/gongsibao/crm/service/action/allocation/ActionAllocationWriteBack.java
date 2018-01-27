@@ -1,5 +1,7 @@
 package com.gongsibao.crm.service.action.allocation;
 
+import java.util.Map;
+
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.persistence.IPersister;
@@ -17,15 +19,18 @@ public class ActionAllocationWriteBack implements IAction{
 	@Override
 	public void execute(ActionContext ctx) {
 		IPersister<NCustomerTask> pm = PersisterFactory.create();
-		NCustomerTask getEntity = (NCustomerTask)ctx.getItem(); 
+		Map<String,Object> getMap = ctx.getStatus();
+		String  taskIds = getMap.get("taskIds").toString().replace("_", ",");
+		
 		UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("n_crm_customer_task");
-			updateSql.set("supplier_id", getEntity.getSupplierId());
-			updateSql.set("department_id", getEntity.getDepartmentId());
-			updateSql.set("owner_id", getEntity.getOwnerId());
+			updateSql.set("supplier_id", getMap.get("supplierId"));
+			updateSql.set("department_id", getMap.get("departmentId"));
+			updateSql.set("owner_id", getMap.get("toUserId"));
 			updateSql.set("allocation_statee", 2);
-			updateSql.where("id=" + getEntity.getId());
+			updateSql.set("allocation_type", getMap.get("allocationType"));
+			updateSql.where("id in(" + taskIds + ")");
 		}
 		String cmdText = updateSql.toSQL();
 		pm.executeNonQuery(cmdText, null);

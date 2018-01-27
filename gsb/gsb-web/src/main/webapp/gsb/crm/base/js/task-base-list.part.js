@@ -118,8 +118,13 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 	},
 	batchAllocation:function(){
 		//任务批量分配
-		var row = this.getSelectedItem();
-		alert(row);
+		var me = this;
+		var id = this.getSelectionIds();
+		if(id == "" || id == null ){
+			IMessageBox.info('请选择记录');
+			return;
+	    }
+		me.doAllot(id);
 	},
 	rollback : function(id){
 		//任务退回

@@ -148,22 +148,25 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	}
 
 	@Override
-	public Boolean allocation(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId,Integer allocationType) {
+	public Boolean allocation(String taskIds, Integer supplierId, Integer departmentId, Integer toUserId,Integer allocationType) {
 
-		//任务分配
-		NCustomerTask entity = this.byId(taskId);
+		String [] getTaskIdStrings = taskIds.split("_");
 		Map<String,Object> setMap = new HashMap<String,Object>();
+		setMap.put("supplierId", supplierId);
+		setMap.put("departmentId", departmentId);
+		setMap.put("toUserId", toUserId);
+		setMap.put("allocationType", allocationType);
+		setMap.put("taskIds", taskIds);
+		for (String item : getTaskIdStrings) {
+			//任务分配
+			NCustomerTask entity = this.byId(Integer.valueOf(item));
+			setMap.put("formUserId"+item, entity.getOwnerId());
+			setMap.put("customerId"+item, entity.getCustomerId());
+		}
 		
-		setMap.put("formUserId", entity.getOwnerId());
-		entity.setSupplierId(supplierId);
-		entity.setDepartmentId(departmentId);
-		entity.setOwnerId(toUserId);
-		entity.setAllocationType(allocationType.equals(2) ? NAllocationType.MANUAL:NAllocationType.AUTO);
 		ActionContext ctx = new ActionContext();
 		{
 			ctx.setPath("gsb/crm/task/allocation");
-			ctx.setItem(entity);
-			ctx.setState(entity.getEntityState());
 			ctx.setStatus(setMap);
 		}
 
