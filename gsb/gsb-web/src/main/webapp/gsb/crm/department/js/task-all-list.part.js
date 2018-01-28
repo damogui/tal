@@ -5,7 +5,7 @@ com.gongsibao.crm.web.DepartmentAllTaskListPart = com.gongsibao.crm.web.BaseTask
 		this.base();
 		this.addUrl = "/panda/crm/department/task/add";
 		this.editUrl = "/panda/crm/department/task/edit";
-		this.followUrl = '/panda/crm/department/task/followUp/from';
+		this.followUrl = '/panda/crm/department/task/follow';
 		this.addCustomerUrl = null;
 	}
 });

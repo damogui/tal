@@ -8,7 +8,7 @@ import org.netsharp.util.StringManager;
 
 import com.gongsibao.panda.operation.workspace.crm.form.CustomerAddWorkspaceTest;
 
-public class DepartmentAddCustomerWorkspaceTest extends CustomerAddWorkspaceTest{
+public class DepartmentCustomerAddWorkspaceTest extends CustomerAddWorkspaceTest{
 
 	@Before
 	public void setup() {

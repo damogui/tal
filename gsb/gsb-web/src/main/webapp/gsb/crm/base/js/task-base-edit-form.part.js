@@ -7,12 +7,11 @@ com.gongsibao.crm.web.NCustomerTaskEditFormPart = com.gongsibao.crm.web.NCustome
 com.gongsibao.crm.web.TaskFollowDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
     ctor: function () {
         this.base();
-        this.addTaskUrl = null;
         this.addFollowUrl = null;
     },
     add:function(){
-    	
-    	IMessageBox.open("任务跟进",this.addTaskUrl,700,450,function(){
+
+    	IMessageBox.open("任务跟进",this.addFollowUrl,700,450,function(){
     		
     	});
     },

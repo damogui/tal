@@ -51,6 +51,8 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest{
 		
 		formJsController = "com.gongsibao.crm.web.NCustomerPlatformEditFormPart";
 		formServiceController = NCustomerFormPart.class.getName();
+		
+		taskDetailJsController = "com.gongsibao.crm.web.PlatformTaskDetailPart";
 	}
 	
 

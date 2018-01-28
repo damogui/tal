@@ -29,7 +29,7 @@ import com.gongsibao.panda.crm.workspace.department.DepartmentTimeOutWorkspaceTe
 import com.gongsibao.panda.crm.workspace.department.DepartmentUnFoolowWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.department.DepartmentUnStartWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.department.DepartmentVerifyCustomerWorkspaceTest;
-import com.gongsibao.panda.crm.workspace.department.form.DepartmentAddCustomerWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.department.form.DepartmentCustomerAddWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.department.form.DepartmentCustomerEditWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.department.form.DepartmentTaskAddWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.department.form.DepartmentTaskEditWorkspaceTest;
@@ -44,7 +44,7 @@ import com.gongsibao.panda.crm.workspace.salesman.SalesmanTimeOutWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.salesman.SalesmanUnFoolowWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.salesman.SalesmanUnStartWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.salesman.SalesmanVerifyCustomerWorkspaceTest;
-import com.gongsibao.panda.crm.workspace.salesman.form.SalesmanAddCustomerWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.salesman.form.SalesmanCustomerAddWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.salesman.form.SalesmanCustomerEditWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.salesman.form.SalesmanTaskAddWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.salesman.form.SalesmanTaskEditWorkspaceTest;
@@ -84,7 +84,7 @@ import com.gongsibao.panda.crm.workspace.sys.SysSalesmanWorkspaceTest;
 
 		
 		//业务员
-		SalesmanAddCustomerWorkspaceTest.class,
+		SalesmanCustomerAddWorkspaceTest.class,
 		SalesmanCustomerEditWorkspaceTest.class,
 		SalesmanTaskAddWorkspaceTest.class,
 		SalesmanTaskEditWorkspaceTest.class,
@@ -102,7 +102,7 @@ import com.gongsibao.panda.crm.workspace.sys.SysSalesmanWorkspaceTest;
 		SalesmanVerifyCustomerWorkspaceTest.class,
 		
 		//部门
-		DepartmentAddCustomerWorkspaceTest.class,
+		DepartmentCustomerAddWorkspaceTest.class,
 		DepartmentCustomerEditWorkspaceTest.class,
 		DepartmentTaskAddWorkspaceTest.class,
 		DepartmentTaskEditWorkspaceTest.class,

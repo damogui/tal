@@ -10,7 +10,13 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 	},
 	add:function(){
 		
-		window.open(this.addUrl);
+		var row = this.getSelectedItem();
+		if(row){
+
+			var customerId = row.customerId;
+			var url = this.addUrl+"?fk=customerId:"+customerId;
+			window.open(url);
+		}
 	},
 	detail:function(id){
 		

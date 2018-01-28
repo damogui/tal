@@ -20,14 +20,14 @@ import com.gongsibao.entity.crm.NCustomer;
 
 public class CustomerVerifyWorkspaceTest extends WorkspaceCreationBase{
 
-	String rowToolbar = "operation/customer/verify";
+	String rowToolbar = "platform/customer/verify";
 	
 	@Before
 	public void setup() {
 
 		entity = NCustomer.class;
-		urlList = "/operation/customer/verify";
-		listToolbarPath = "operation/customer/verify/edit";
+		urlList = "/crm/platform/customer/verify";
+		listToolbarPath = "platform/customer/verify/edit";
 		listPartName = formPartName = "校验客户";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();

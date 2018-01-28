@@ -13,5 +13,6 @@ com.gongsibao.crm.web.SalesmanNCustomerTaskDetailPart = com.gongsibao.crm.web.NC
     ctor: function () {
         this.base();
         this.addUrl = "/panda/crm/salesman/task/add";
+        this.editUrl = "/panda/crm/salesman/task/edit";
     }
 });
