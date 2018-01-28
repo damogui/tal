@@ -4,9 +4,9 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.netsharp.action.ActionContext;
+import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
-import org.netsharp.core.BusinessException;
-import org.netsharp.core.EntityState;
 import org.netsharp.core.MtableManager;
 import org.netsharp.core.Oql;
 import org.netsharp.util.StringManager;
@@ -26,7 +26,7 @@ public class NCustomerService extends SupplierPersistableService<NCustomer> impl
 
 	@Override
 	public boolean updateIsMember(Integer customerId) {
-		
+
 		UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("n_crm_customer");
@@ -34,9 +34,9 @@ public class NCustomerService extends SupplierPersistableService<NCustomer> impl
 			updateSql.where("id=" + customerId);
 		}
 		String cmdText = updateSql.toSQL();
-		
-		//这里要生成Account bug
-		return this.pm.executeNonQuery(cmdText, null)>0;
+
+		// 这里要生成Account bug
+		return this.pm.executeNonQuery(cmdText, null) > 0;
 	}
 
 	@Override
@@ -60,10 +60,10 @@ public class NCustomerService extends SupplierPersistableService<NCustomer> impl
 
 		return this.queryFirst(oql);
 	}
-	
+
 	@Override
 	public NCustomer bySwtCustomerId(String swtCustomerId) {
-		
+
 		String selectFields = getSelectFullFields();
 		Oql oql = new Oql();
 		{
@@ -106,18 +106,19 @@ public class NCustomerService extends SupplierPersistableService<NCustomer> impl
 		NCustomer customer = byId(customerId);
 		return customer;
 	}
-	
 
 	@Override
 	public NCustomer save(NCustomer entity) {
-		
-		EntityState state = entity.getEntityState();
-		if (state == EntityState.Deleted) {
-			
-			throw new BusinessException("客户信息不允许删除！");
+
+		ActionContext ctx = new ActionContext();
+		{
+			ctx.setPath("gsb/crm/customer/save");
+			ctx.setItem(entity);
 		}
+		ActionManager action = new ActionManager();
+		action.execute(ctx);
 		
-		entity = super.save(entity);
+		entity = (NCustomer) ctx.getItem();
 		return entity;
 	}
 

@@ -1,4 +1,4 @@
-package com.gongsibao.panda.crm.action;
+package com.gongsibao.panda.crm.action.task;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +9,7 @@ import com.gongsibao.crm.service.action.task.add.ActionAddSaveLog;
 import com.gongsibao.crm.service.action.task.add.ActionAddSendMessage;
 import com.gongsibao.crm.service.action.task.add.ActionAddVerify;
 import com.gongsibao.crm.service.action.task.add.ActionAddWriteBack;
+import com.gongsibao.panda.crm.action.BaseActionTest;
 
 public class AddActionTest extends BaseActionTest {
 

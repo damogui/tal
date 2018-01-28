@@ -1,4 +1,4 @@
-package com.gongsibao.panda.crm.action;
+package com.gongsibao.panda.crm.action.task;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +9,7 @@ import com.gongsibao.crm.service.action.task.release.ActionReleaseSaveLog;
 import com.gongsibao.crm.service.action.task.release.ActionReleaseSendMessage;
 import com.gongsibao.crm.service.action.task.release.ActionReleaseVerify;
 import com.gongsibao.crm.service.action.task.release.ActionReleaseWriteBack;
+import com.gongsibao.panda.crm.action.BaseActionTest;
 
 public class ReleaseActionTest extends BaseActionTest{
 

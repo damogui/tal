@@ -1,4 +1,4 @@
-package com.gongsibao.panda.crm.action;
+package com.gongsibao.panda.crm.action.task;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +9,7 @@ import com.gongsibao.crm.service.action.task.abnormal.ActionAbnormalSaveLog;
 import com.gongsibao.crm.service.action.task.abnormal.ActionAbnormalSendMessage;
 import com.gongsibao.crm.service.action.task.abnormal.ActionAbnormalVerify;
 import com.gongsibao.crm.service.action.task.abnormal.ActionAbnormalWriteBack;
+import com.gongsibao.panda.crm.action.BaseActionTest;
 
 /**
  * @author hw

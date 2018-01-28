@@ -1,4 +1,4 @@
-package com.gongsibao.panda.crm.action;
+package com.gongsibao.panda.crm.action.task;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +9,7 @@ import com.gongsibao.crm.service.action.task.transfer.ActionTransferSaveLog;
 import com.gongsibao.crm.service.action.task.transfer.ActionTransferSendMessage;
 import com.gongsibao.crm.service.action.task.transfer.ActionTransferVerify;
 import com.gongsibao.crm.service.action.task.transfer.ActionTransferWriteBack;
+import com.gongsibao.panda.crm.action.BaseActionTest;
 
 public class TransferActionTest extends BaseActionTest{
 

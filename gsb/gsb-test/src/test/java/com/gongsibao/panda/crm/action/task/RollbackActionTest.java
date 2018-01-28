@@ -1,4 +1,4 @@
-package com.gongsibao.panda.crm.action;
+package com.gongsibao.panda.crm.action.task;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +9,7 @@ import com.gongsibao.crm.service.action.task.rollback.ActionRollbackSaveLog;
 import com.gongsibao.crm.service.action.task.rollback.ActionRollbackSendMessage;
 import com.gongsibao.crm.service.action.task.rollback.ActionRollbackVerify;
 import com.gongsibao.crm.service.action.task.rollback.ActionRollbackWriteBack;
+import com.gongsibao.panda.crm.action.BaseActionTest;
 
 public class RollbackActionTest extends BaseActionTest{
 

@@ -1,4 +1,4 @@
-package com.gongsibao.panda.crm.action;
+package com.gongsibao.panda.crm.action.task;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +9,7 @@ import com.gongsibao.crm.service.action.task.allocation.ActionAllocationSaveLog;
 import com.gongsibao.crm.service.action.task.allocation.ActionAllocationSendMessage;
 import com.gongsibao.crm.service.action.task.allocation.ActionAllocationVerify;
 import com.gongsibao.crm.service.action.task.allocation.ActionAllocationWriteBack;
+import com.gongsibao.panda.crm.action.BaseActionTest;
 
 public class AllocationActionTest extends BaseActionTest{
 
