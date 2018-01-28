@@ -25,14 +25,14 @@ public class ActionSaveTaskAllocation implements IAction {
 			return;
 		}
 
-		// 分配方式
 		NAllocationType allocationType = task.getAllocationType();
 		if (allocationType == NAllocationType.AUTO) {
-			// 自动分配，调用
+			
+			// 自动分配，立即分配时调用
 
 		} else if (allocationType == NAllocationType.SemiAutomatic) {
 
-			// 半自动分配
+			// 半自动分配，立即分配时调用
 		}
 	}
 }

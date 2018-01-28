@@ -44,7 +44,7 @@ public class ActionSaveTaskVerify implements IAction {
 		if (task.getSourceId() == null) {
 
 			throw new BusinessException("[来源]不能为空！");
-		} else if (StringManager.isNullOrEmpty(task.getSourceOther())) {
+		} else if (task.getSourceId() == 4177 && StringManager.isNullOrEmpty(task.getSourceOther())) {
 
 			throw new BusinessException("[其它来源]不能为空！");
 		}
@@ -52,7 +52,7 @@ public class ActionSaveTaskVerify implements IAction {
 		if (task.getConsultWayId() == null) {
 
 			throw new BusinessException("[咨询途径]不能为空！");
-		} else if (StringManager.isNullOrEmpty(task.getConsultWayOther())) {
+		} else if (task.getConsultWayId() == 4219 && StringManager.isNullOrEmpty(task.getConsultWayOther())) {
 
 			throw new BusinessException("[其它咨询途径]不能为空！");
 		}

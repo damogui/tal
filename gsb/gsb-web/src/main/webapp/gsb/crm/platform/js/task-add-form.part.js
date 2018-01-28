@@ -6,11 +6,33 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
     },
     supplierChange:function(newValue,oldValue){
     	
-    	console.log(newValue);
+    	//改变部门的查询条件
+    	$('#department_name').combogrid('clear');
+		var grid = $('#department_name').combogrid('grid');
+		var options = $(grid).datagrid('options');
+		var filter = ' supplier_id ____ ----'+ newValue + '----';
+		options.url = '\/panda\/rest\/reference?code=SupplierDepartment&filter='+ filter;
+		$(grid).datagrid(options);
+		
+    	//改变业务员的查询条件
+    	$('#owner_name').combogrid('clear');
+		var grid = $('#owner_name').combogrid('grid');
+		var options = $(grid).datagrid('options');
+		var filter = ' id IN ( SELECT employee_id FROM sp_salesman WHERE supplier_id ____ ----'+ newValue + '----)';
+		options.url = '\/panda\/rest\/reference?code=Employee&filter='+ filter;
+		$(grid).datagrid(options);
+		
+		
     },
     departmentChange:function(newValue,oldValue){
     	
-    	console.log(newValue);
+    	//改变业务员的查询条件
+    	$('#owner_name').combogrid('clear');
+		var grid = $('#owner_name').combogrid('grid');
+		var options = $(grid).datagrid('options');
+		var filter = ' id IN ( SELECT employee_id FROM sp_salesman WHERE department_id ____ ----'+ newValue + '----)';
+		options.url = '\/panda\/rest\/reference?code=Employee&filter='+ filter;
+		$(grid).datagrid(options);
     },
     costedChange:function(checked){
     	
@@ -18,25 +40,97 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
     },
     sourceSelect:function(record){
     	
-    	console.log(record.id);
+    	var $ctrl = $("#sourceOther");
+    	if(record.id === '4177'){
+
+    		$ctrl.prop("disabled",false);
+    		$ctrl.validatebox('enableValidation');
+    	}else{
+    		$ctrl.prop("disabled",true);
+    		//ctrl.validatebox('disableValidation');
+    	}
     },
     consultWaySelect:function(record){
     	
-    	console.log(record.id);
+    	var $ctrl = $("#consultWayOther");
+    	if(record.id === '4219'){
+
+    		$ctrl.prop("disabled",false);
+    		$ctrl.validatebox('enableValidation');
+    	}else{
+    		$ctrl.prop("disabled",true);
+    		//ctrl.validatebox('disableValidation');
+    	}
     },
     allocationDispositonChange:function(newValue,oldValue){
     	
     	console.log(newValue);
     },
     allocationTypeChange:function(newValue,oldValue){
-    	console.log(newValue);
-    	//TYPE_1(1, "自动分配"), 
-    	//TYPE_2(2, "指定分配");
+
+//    	AUTO(1, "自动分配"), 
+//    	MANUAL(2, "手动分配"),
+//    	SemiAutomatic(3, "半自动分配");
 		if(newValue==1){
-			$("#owner_name").combobox('disable').combobox('disableValidation').combobox('setValue','-1');
+			$("#supplier_name").combogrid('setValue','').combogrid('disable');
+//			var options1 = $("#supplier_name").combogrid('options');
+//			options1.required = false;
+//			$("#supplier_name").combogrid(options1);
+			
+			
+			$("#department_name").combogrid('setValue','').combogrid('disable');
+//			var options2 = $("#department_name").combogrid('options');
+//			options2.required = false;
+//			$("#department_name").combogrid(options2);
+			
+			
+			$("#owner_name").combogrid('setValue','').combogrid('disable');
+//			var options3 = $("#owner_name").combogrid('options');
+//			options3.required = false;
+//			$("#owner_name").combogrid(options3);
+			
+			$('#allocationState').combobox('enable');
+			
+		}else if(newValue==2){
+			
+			$("#supplier_name").combogrid('enable');
+//			var options = $("#supplier_name").combogrid('options');
+//			options.required = true;
+//			$("#supplier_name").combogrid(options);
+			
+			
+			$("#department_name").combogrid('enable');
+//			var options = $("#department_name").combogrid('options');
+//			options.required = true;
+//			$("#department_name").combogrid(options);
+			
+			
+			$("#owner_name").combogrid('enable');
+//			var options = $("#owner_name").combogrid('options');
+//			options.required = true;
+//			$("#owner_name").combogrid(options);
+			
+			$('#allocationState').combobox('disable').combobox('setValue',1);
 		}else{
 
-			$("#owner_name").combobox('enable').combobox('enableValidation');
+			$("#supplier_name").combogrid('enable');
+//			var options =$("#supplier_name").combogrid('options');
+//			options.required = true;
+//			$("#supplier_name").combogrid(options);
+			
+			
+			$("#department_name").combogrid('enable');
+//			var options =$("#department_name").combogrid('options');
+//			options.required = false;
+//			$("#department_name").combogrid(options);
+			
+			
+			$("#owner_name").combogrid('setValue','').combogrid('disable');
+//			var options =$("#owner_name").combogrid('options');
+//			options.required = false;
+//			$("#owner_name").combogrid(options);
+			
+			$('#allocationState').combobox('enable');
 		}
     },
     onSaved: function (jmessage) {
