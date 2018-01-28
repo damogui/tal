@@ -50,16 +50,16 @@ public class NavigationTest extends NavigationBase {
 		}
 		
 		createPTreeNode(tree, null, "fa fa-file-o fa-fw", "GSB_Supplier", "服务商管理", "", 3);
-		{
-			createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Function_Module", "功能模块", "/operation/supplier/module/list", 1);
-			createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Supplier_Category", "服务商分类", "/operation/supplier/category/list", 2);
-			createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Supplier", "服务商列表", "/operation/supplier/list", 3);
+		{			
+			createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Customer_Quality", "客户质量", "/operation/customer/quality/list", 1);
+			createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Function_Module", "功能模块", "/operation/supplier/module/list", 2);
+			createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Supplier_Category", "服务商分类", "/operation/supplier/category/list",3);
+			createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Supplier", "服务商列表", "/operation/supplier/list", 4);
 		}
 		
 		createPTreeNode(tree, null, "fa fa-file-o fa-fw", "Operation_CRM", "客户管理", "", 4);
 		{
 			createPTreeNode(tree, "Operation_CRM", "fa fa-user-plus fa-fw", "Operation_CRM_Customer_Add", "新增客户", "/operation/customer/add", 1);
-			createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_OpenSea", "公海", "/operation/task/opensea/list", 1);
 			
 			createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_ALL", "全部客户", "/operation/customer/all/list", 2);
 			createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_Allocated", "已分配客户", "/operation/customer/allocated/list", 3);
@@ -72,7 +72,8 @@ public class NavigationTest extends NavigationBase {
 			
 			createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Defeated", "无法签单", "/operation/customer/task/defeated/list", 8);
 			createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Anomaly_Detection", "抽查异常", "/operation/customer/task/anomalydetection/list", 9);
-			createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_Quality", "客户质量", "/operation/customer/quality/list", 10);
+
+			createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_OpenSea", "公海", "/operation/task/opensea/list", 10);
 		}
 	}
 }

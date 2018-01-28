@@ -20,7 +20,7 @@ public class CustomerUndistributedWorkspaceTest extends CustomerALLWorkspaceTest
 		meta = MtableManager.getMtable(entity);// 获取实体元数据
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "Operation_CRM_Customer_Undistributed";
-		listPartImportJs = "/gsb/crm/base/js/customer-base-list.part.js|/gsb/crm/platform/js/customer-all-list.part.js";
+		listPartImportJs = "/gsb/crm/base/js/customer-base-list.part.js|/gsb/crm/platform/js/customer-all-list.part.js|/gsb/gsb.custom.query.controls.js";
 		
 		listFilter = "id in (SELECT customer_id from n_crm_customer_task where owner_id is null or owner_id=0)";
 		

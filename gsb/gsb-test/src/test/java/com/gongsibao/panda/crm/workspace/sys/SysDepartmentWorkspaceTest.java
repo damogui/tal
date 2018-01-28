@@ -37,7 +37,7 @@ public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_SYS_DEPARTMENT";
 		formOpenMode = OpenMode.TABS;
-		listPartImportJs="/gsb/crm/sys/js/sys-department-list-part.js";
+		listPartImportJs="/gsb/crm/sys/js/sys-department-list-part.js|/gsb/gsb.custom.query.controls.js";
 		listPartJsController = SysDepartmentTreeGridPart.class.getName();
 		listPartServiceController = SysDepartmentTreeGridPart.class.getName();
         formJsImport = "/gsb/crm/sys/js/department-form.part.js|/gsb/gsb.customer.controls.js";

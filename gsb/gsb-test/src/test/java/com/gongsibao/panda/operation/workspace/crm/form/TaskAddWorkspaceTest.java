@@ -118,7 +118,7 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 			formField.setHeight(50);
 			formField.setFullColumn(false);
 		}
-		return form;
+		return form; 
 	}
 
 	protected void addDetailGridPart(PWorkspace workspace) {

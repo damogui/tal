@@ -49,7 +49,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		meta = MtableManager.getMtable(entity);
 		resourceNodeCode = "GSB_Operation_Supplier";
 		formPartName = listPartName = meta.getName();
-		listPartImportJs = "/gsb/supplier/js/supplier-list-part.js";
+		listPartImportJs = "/gsb/supplier/js/supplier-list-part.js|/gsb/gsb.custom.query.controls.js";
 		listPartJsController = SupplierListPart.class.getName();
 		listPartServiceController = SupplierListPart.class.getName();
 		formJsImport = "/gsb/supplier/js/supplier-form-part.js|/gsb/gsb.customer.controls.js";

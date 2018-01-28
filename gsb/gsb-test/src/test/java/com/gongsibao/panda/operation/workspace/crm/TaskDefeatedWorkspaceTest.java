@@ -20,7 +20,7 @@ public class TaskDefeatedWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 		resourceNodeCode = "Operation_CRM_Task_Defeated";
 		listPartJsController = TaskAllListPart.class.getName();
 		listPartServiceController = TaskAllListPart.class.getName();
-		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-all-list.part.js";
+		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-all-list.part.js|/gsb/gsb.custom.query.controls.js";
 		listToolbarPath = null;
 		rowToolbaPath = "/operation/task/lostOrder/toolbar";
 		listFilter = "foolowStatus = 4";

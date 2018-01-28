@@ -30,6 +30,7 @@ public class DepartmentAllTaskWorkspaceTest extends TaskALLWorkspaceTest{
 		List<String> ss = new ArrayList<String>();
 		ss.add("/gsb/crm/base/js/task-base-list.part.js");
 		ss.add("/gsb/crm/department/js/task-all-list.part.js");
+		ss.add("/gsb/gsb.custom.query.controls.js");
 		listPartImportJs = StringManager.join("|", ss);
 
 		//当前登录人所在部门的子部门,需要扩展

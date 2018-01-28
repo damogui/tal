@@ -31,6 +31,7 @@ public class SalesmanAllTaskWorkspaceTest extends TaskALLWorkspaceTest {
 		List<String> ss = new ArrayList<String>();
 		ss.add("/gsb/crm/base/js/task-base-list.part.js");
 		ss.add("/gsb/crm/salesman/js/task-all-list.part.js");
+		ss.add("/gsb/gsb.custom.query.controls.js");
 		listPartImportJs = StringManager.join("|", ss);
 
 		listFilter = "owner_id = '{userId}'";
@@ -91,7 +92,7 @@ public class SalesmanAllTaskWorkspaceTest extends TaskALLWorkspaceTest {
 			item.setCustomControlType(PropertyQueryDictComboBox.class.getName());
 			item.setRefFilter("type=411");
 		}
-		addRefrenceQueryItem(queryProject, "supplier.name", "费用部门", Supplier.class.getSimpleName());
+		addRefrenceQueryItem(queryProject, "supplier.name", "服务商", Supplier.class.getSimpleName());
 		addQueryItem(queryProject, "creator", "创建人", ControlTypes.TEXT_BOX);
 		
 		addRefrenceQueryItem(queryProject, "quality.name", "客户质量", NCustomerTaskQuality.class.getSimpleName());

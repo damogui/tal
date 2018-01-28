@@ -18,7 +18,7 @@ public class SupplierSalesmanWorkspaceTest  extends SysSalesmanWorkspaceTest {
         formPartName = listPartName = meta.getName();
         resourceNodeCode = "GSB_Operation_Supplier_Salesman";
         formOpenMode = OpenMode.WINDOW;
-        listPartImportJs = "/gsb/crm/sys/js/sys-salesman-list-part.js";
+        listPartImportJs = "/gsb/crm/sys/js/sys-salesman-list-part.js|/gsb/gsb.custom.query.controls.js";
         listPartJsController = SysSalesmanListPart.class.getName();
         listPartServiceController = SysSalesmanListPart.class.getName();
 

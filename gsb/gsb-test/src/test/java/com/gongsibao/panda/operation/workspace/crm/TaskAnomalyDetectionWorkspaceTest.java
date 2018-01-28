@@ -18,7 +18,7 @@ public class TaskAnomalyDetectionWorkspaceTest extends TaskOpenSeaWorkspaceTest{
 		listFilter="inspection_state = 3";	
 		listPartJsController = TaskAllListPart.class.getName();
 		listPartServiceController = TaskAllListPart.class.getName();
-		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-all-list.part.js";
+		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-all-list.part.js|/gsb/gsb.custom.query.controls.js";
 		listToolbarPath = "task/anomalydetection/list";
 		rowToolbaPath = "panda/datagrid/row/edit";
 	}

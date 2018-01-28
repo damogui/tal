@@ -23,7 +23,7 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest{
 		resourceNodeCode = "Operation_CRM_Task_ALL";
 		listPartJsController = TaskAllListPart.class.getName();
 		listPartServiceController = TaskAllListPart.class.getName();
-		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-all-list.part.js";
+		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-all-list.part.js|/gsb/gsb.custom.query.controls.js";
 		listToolbarPath = "task/all/list";
 		listFilter = null;
 	}
@@ -113,7 +113,7 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest{
 	protected PQueryProject createQueryProject(ResourceNode node) {
 		
 		PQueryProject queryProject = super.createQueryProject(node);
-		queryProject.setColumnCount(2);
+		queryProject.setColumnCount(3);
 		addQueryItem(queryProject, "lastFollowTime", "最后跟进时间", ControlTypes.DATE_BOX);
 		PQueryItem item = addQueryItem(queryProject, "unFollowDayCount", "未跟进天数", ControlTypes.NUMBER_BOX);{
 			item.setInterzone(true);
