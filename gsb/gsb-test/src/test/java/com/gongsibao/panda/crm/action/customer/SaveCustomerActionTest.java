@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.netsharp.plugin.bean.BeanPath;
 
 import com.gongsibao.crm.service.action.customer.save.ActionSaveCustomerLog;
-import com.gongsibao.crm.service.action.customer.save.ActionSaveCustomerSave;
+import com.gongsibao.crm.service.action.customer.save.ActionSaveCustomerPersist;
 import com.gongsibao.crm.service.action.customer.save.ActionSaveCustomerVerify;
 import com.gongsibao.panda.crm.action.BaseActionTest;
 
@@ -31,7 +31,7 @@ public class SaveCustomerActionTest extends BaseActionTest{
 		}
 
 		createBean(beanPath, "验证", ActionSaveCustomerVerify.class.getName(), resourceNode, 100);
-		createBean(beanPath, "保存", ActionSaveCustomerSave.class.getName(), resourceNode, 200);
+		createBean(beanPath, "保存", ActionSaveCustomerPersist.class.getName(), resourceNode, 200);
 		createBean(beanPath, "日志", ActionSaveCustomerLog.class.getName(), resourceNode, 300);
 		beanPathService.save(beanPath);
 	}

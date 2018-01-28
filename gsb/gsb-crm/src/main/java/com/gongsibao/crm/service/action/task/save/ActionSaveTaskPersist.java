@@ -1,18 +1,16 @@
-package com.gongsibao.crm.service.action.task.update;
+package com.gongsibao.crm.service.action.task.save;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 
 /**
  * @author hw
- * 新增任务校验
+ * 新增任务：保存
  */
-public class ActionUpdateVerify implements IAction{
+public class ActionSaveTaskPersist implements IAction{
 
 	@Override
 	public void execute(ActionContext ctx) {
-	
 		
 	}
-
 }

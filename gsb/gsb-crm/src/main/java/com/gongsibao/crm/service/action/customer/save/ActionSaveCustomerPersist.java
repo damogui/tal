@@ -12,7 +12,7 @@ import com.gongsibao.entity.crm.NCustomer;
  * @author hw
  * 客户保存：保存
  */
-public class ActionSaveCustomerSave  implements IAction{
+public class ActionSaveCustomerPersist  implements IAction{
 
 	@Override
 	public void execute(ActionContext ctx) {
