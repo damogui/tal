@@ -3,6 +3,7 @@ package com.gongsibao.crm.service.action.task.save;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.core.BusinessException;
+import org.netsharp.core.EntityState;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.crm.NCustomerTask;
@@ -18,6 +19,16 @@ public class ActionSaveTaskVerify implements IAction {
 	public void execute(ActionContext ctx) {
 
 		NCustomerTask task = (NCustomerTask) ctx.getItem();
+		EntityState state = task.getEntityState();
+		AllocationState allocationState = task.getAllocationState();
+		if(state == EntityState.Deleted){
+			
+			//校验是否已分配，是否已经有跟进信息。
+			if(allocationState == AllocationState.ALLOCATED){
+				
+				throw new BusinessException("任务已分配，不能删除！");
+			}
+		}
 
 		// 客户，名称，来源，其它来源，咨询途径，其它咨询途径
 		if (task.getCustomerId() == null) {
@@ -47,7 +58,6 @@ public class ActionSaveTaskVerify implements IAction {
 		}
 
 		NAllocationType allocationType = task.getAllocationType();
-		AllocationState allocationState = task.getAllocationState();
 		// 分配方式为【手动分配】、分配状态为【待分配】
 		if (allocationType == NAllocationType.MANUAL && allocationState == AllocationState.WAIT) {
 
