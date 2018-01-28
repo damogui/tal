@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.util.StringManager;
 
@@ -41,5 +42,10 @@ public class SalesmanCustomerEditWorkspaceTest extends CustomerEditWorkspaceTest
 		changeDetailResourceNodeCode = "CRM_SALESMAN_Change";
 		
 		taskDetailJsController = "com.gongsibao.crm.web.SalesmanTaskDetailPart";
+	}
+	
+	@Test
+	public void createFormToolbar() {
+		
 	}
 }

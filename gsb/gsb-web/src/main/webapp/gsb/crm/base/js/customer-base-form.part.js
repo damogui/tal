@@ -7,6 +7,34 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
         this.addUrl=null;
         this.editUrl=null;
     },
+    getsaveState:function(){
+    	
+    	var id = this.queryString("id");
+    	if(id){
+    	
+    		return UiElementState.Disable;
+    	}
+    },
+    edit:function(){
+
+    	this.enable();
+    	
+    	//启用【保存】
+    	$('#controllernCustomersave').linkbutton('enable');
+    	
+    	var mobile = $('#mobile').val();
+    	if(!System.isnull(mobile)){
+    		
+    		$('#mobile').prop('disabled',true);
+    	}
+    	
+    	$('#intentionCategory').combobox('disable');
+    	$('#quality_name').combogrid('disable');
+    	$('#lastFoolowUser_name').combogrid('disable');
+    	$('#lastFollowTime').datetimebox('disable');
+    	$('#nextFoolowTime').datetimebox('disable');
+    	$('#lastContent').prop('disabled',true);
+    },
     onload: function () {
 
         var id = this.queryString("id");
@@ -27,6 +55,7 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
     validate: function () {
 
         var isValidate = $("#" + this.context.formName).form('validate');
+       
         if(isValidate){
         	
         	var mobile = $("#mobile").val();
@@ -46,7 +75,7 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
         	}
         }
 
-        return true;
+        return isValidate;
     },
 	contactWayChange:function(el){
 		
@@ -55,15 +84,19 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
 		                {code:'weixin',text:'微信'},
 		                {code:'qq',text:'QQ'}];
 		var ctrlId = el.id;
+
 		var currentItem = null;
 		$(ctrlsIds).each(function(i,item){
 			
+			var requiredLabel = $("#"+item.code).parent().prev().find('label').first();
 			if(ctrlId != item.code){
 				
+				requiredLabel.hide();
 				$("#"+item.code).validatebox('disableValidation');
 			}else{
 				
 				currentItem = item;
+				requiredLabel.show();
 				$("#"+item.code).validatebox('enableValidation');
 			}
 		});
@@ -125,6 +158,18 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
     		entity.swtServiceId = swtServiceId;
     	}
     },
+    onSaving: function (entity) {
+
+    	//提高效率，将明细全部置空
+    	entity.tasks = [];
+    	entity.products = [];
+    	entity.companys = [];
+    	entity.follows = [];
+    	entity.notifys = [];
+    	entity.changes = [];
+    	
+        return true;
+    },
     onSaved: function (jmessage) {
     	
         this.currentItem = jmessage;
@@ -135,24 +180,27 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
             this.databind();
             var me = this;
         	layer.msg("保存成功！", {time: 500, icon:1},function(){
-        		
-        		window.location.href = me.addUrl+'?id='+me.currentItem.id;
-//            	var top = window.top;
-//            	var parent = window.parent;
-//            	if(top){
-//            		
-//            		top.workbench.closeSelectedTab();
-//            	}else if(parent){
-//            		
-//            		var index = parent.layer.getFrameIndex(window.name); 
-//            		parent.layer.close(index);
-//            	}
+
+        		me.toNewUrl();
         	});
         	
         }else{
         	
         	IMessageBox.error("保存失败！");
         }
+    },
+    toNewUrl:function(){
+    	
+//    	var top = window.top;
+//    	var parent = window.parent;
+//    	if(top){
+//    		
+//    		top.workbench.closeSelectedTab();
+//    	}else if(parent){
+//    		
+//    		var index = parent.layer.getFrameIndex(window.name); 
+//    		parent.layer.close(index);
+//    	}
     },
     matching:function(){
 

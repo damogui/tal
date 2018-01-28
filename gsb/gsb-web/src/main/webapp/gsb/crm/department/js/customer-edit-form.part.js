@@ -6,6 +6,10 @@ com.gongsibao.crm.web.NCustomerDepartmentEditFormPart = com.gongsibao.crm.web.NC
         this.verifyUrl = '/panda/crm/department/customer/verify';
         this.addUrl='/panda/crm/department/customer/edit';
         this.editUrl='/panda/crm/department/customer/edit';
+    },
+    toNewUrl:function(){
+    	
+		window.location.href = this.editUrl+'?id='+this.currentItem.id;
     }
 });
 

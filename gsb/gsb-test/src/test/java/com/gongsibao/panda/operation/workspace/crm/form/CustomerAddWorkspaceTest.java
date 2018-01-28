@@ -81,14 +81,17 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 		formField = addFormField(form, "qq", "QQ", groupName, ControlTypes.TEXT_BOX, true, false);{
 			
 			formField.setTroikaTrigger("controllernCustomer.contactWayChange(this);");
-			formField.setTroikaValidation("validationContactWay['weixin','微信']");
+			formField.setTroikaValidation("validationContactWay['qq','QQ']");
 		}
 		formField = addFormField(form, "weixin", "微信", groupName, ControlTypes.TEXT_BOX, true, false);{
 			
 			formField.setTroikaTrigger("controllernCustomer.contactWayChange(this);");
-			formField.setTroikaValidation("validationContactWay['qq','QQ']");
+			formField.setTroikaValidation("validationContactWay['weixin','微信']");
 		}
-		addFormField(form, "email", "邮箱", groupName, ControlTypes.TEXT_BOX, false, false);
+		formField = addFormField(form, "email", "邮箱", groupName, ControlTypes.TEXT_BOX, false, false);{
+			
+			formField.setTroikaValidation("email");
+		}
 		addFormField(form, "birdthday", "生日", groupName, ControlTypes.DATE_BOX, false, false);
 		addFormField(form, "important", "重要程度", groupName, ControlTypes.ENUM_BOX, false, false);
 		formField = addFormField(form, "province.name", "省份",groupName, ControlTypes.CUSTOM, false, false);

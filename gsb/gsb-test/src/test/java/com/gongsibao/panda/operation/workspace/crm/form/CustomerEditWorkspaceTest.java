@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.organization.dic.OperationTypes;
+import org.netsharp.organization.entity.Employee;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.PartType;
@@ -16,6 +17,9 @@ import org.netsharp.panda.entity.PForm;
 import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PPart;
 import org.netsharp.panda.entity.PWorkspace;
+import org.netsharp.panda.plugin.dic.ToolbarType;
+import org.netsharp.panda.plugin.entity.PToolbar;
+import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
@@ -23,6 +27,7 @@ import org.netsharp.util.StringManager;
 
 import com.gongsibao.crm.web.NCustomerFormPart;
 import com.gongsibao.entity.crm.NCustomer;
+import com.gongsibao.entity.crm.NCustomerTaskQuality;
 import com.gongsibao.entity.crm.dic.ChangeType;
 import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.NotifyType;
@@ -38,7 +43,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest{
 		super.setup();
 		entity = NCustomer.class;
 		urlForm = "/crm/platform/customer/edit";
-		listPartName = formPartName = "客户信息";
+		listPartName = formPartName = "编辑客户";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "Operation_CRM_Customer_Edit";
@@ -53,6 +58,8 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest{
 		formServiceController = NCustomerFormPart.class.getName();
 		
 		taskDetailJsController = "com.gongsibao.crm.web.PlatformTaskDetailPart";
+		
+		formToolbarPath = "/crm/customer/edit";
 	}
 	
 
@@ -61,15 +68,44 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest{
 
 		createFormWorkspace();
 	}
+	
+	
+	@Test
+	public void createFormToolbar() {
+		
+		ResourceNode node = this.resourceService.byCode(resourceNodeCode);
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			toolbar.setBasePath("panda/form/edit");
+			toolbar.setPath("/crm/customer/edit");
+			toolbar.setName("客户修改");
+			toolbar.setResourceNode(node);
+			toolbar.setToolbarType(ToolbarType.BASE);
+		}
+		PToolbarItem item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("edit");
+			item.setIcon("fa fa-edit");
+			item.setName("编辑");
+			item.setCommand(null);
+			item.setSeq(3000);
+			item.setCommand("{controller}.edit();");
+			toolbar.getItems().add(item);
+		}
+		toolbarService.save(toolbar);
+	}
 
 	// 默认的表单配置信息
 	protected PForm createForm(ResourceNode node) {
 
 		PForm form = super.createForm(node);
+		form.setReadOnly(true);
 		String groupName = "最近跟进";
 		addFormField(form, "intentionCategory", "质量分类", groupName, ControlTypes.ENUM_BOX, false, true);
-		//addFormFieldRefrence(form, "intention", "质量", groupName, "", false, true);
-		addFormField(form, "lastFoolowUser.name", "最近跟进人", groupName, ControlTypes.TEXT_BOX, false, true);
+		addFormFieldRefrence(form, "quality.name", "质量", groupName, NCustomerTaskQuality.class.getSimpleName(), false, true);
+		addFormFieldRefrence(form, "lastFoolowUser.name", "最近跟进人", groupName, Employee.class.getSimpleName(), false, true);
 		addFormField(form, "lastFollowTime", "最近跟进时间", groupName, ControlTypes.DATETIME_BOX, false, true);
 		addFormField(form, "nextFoolowTime", "下次跟进时间", groupName, ControlTypes.DATETIME_BOX, false, true);
 		PFormField field = addFormField(form, "lastContent", "最近跟进内容", groupName, ControlTypes.TEXTAREA, false, true);{

@@ -7,6 +7,10 @@ com.gongsibao.crm.web.NCustomerPlatformEditFormPart = com.gongsibao.crm.web.NCus
         this.addUrl='/panda/crm/platform/customer/edit';
         this.editUrl='/panda/crm/platform/customer/edit';
     },
+    toNewUrl:function(){
+    	
+		window.location.href = this.editUrl+'?id='+this.currentItem.id;
+    }
 });
 
 
