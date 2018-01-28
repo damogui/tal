@@ -69,12 +69,14 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 			formField.setTroikaTrigger("controllernCustomerTask.sourceSelect(record);");
 			formField.setRefFilter("type=411");
 		}
+		
 		formField = addFormField(form, "consultWay.name", "咨询途径", null, ControlTypes.CUSTOM, true, false);
 		{
 			formField.setCustomControlType(DictComboBox.class.getName());
 			formField.setTroikaTrigger("controllernCustomerTask.consultWaySelect(record);");
 			formField.setRefFilter("type=421");
 		}
+		
 		addFormField(form, "consultWayOther", "其它咨询途径", groupName, ControlTypes.TEXT_BOX, false, true);
 
 		addFormField(form, "sourceOther", "其它来源", groupName, ControlTypes.TEXT_BOX, false, true);
@@ -89,7 +91,6 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 			formField.setTroikaTrigger("controllernCustomerTask.allocationDispositonChange(newValue,oldValue);");
 		}
 
-		
 		formField = addFormField(form, "costed", "市场投放费用",groupName,ControlTypes.SWITCH_BUTTON, false, false);{
 			formField.setDataOptions("有|无");
 			formField.setTroikaTrigger("controllernCustomerTask.costedChange(checked);");
@@ -106,6 +107,7 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 		}
 		
 		formField = addFormFieldRefrence(form, "owner.name", "分配业务员", null, Employee.class.getSimpleName(), false, true);
+		
 		addFormField(form, "allocationState", "分配状态", groupName, ControlTypes.ENUM_BOX, true, true);
 
 		formField = addFormField(form, "remark", "售前备注", groupName, ControlTypes.TEXTAREA, true, false);{
