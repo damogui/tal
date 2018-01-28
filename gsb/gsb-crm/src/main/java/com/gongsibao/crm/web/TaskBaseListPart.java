@@ -27,7 +27,7 @@ public class TaskBaseListPart extends AdvancedListPart {
 			
 		}else if(parameter.getKey().equals("unFollowDayCount")){
 			
-			//未跟进天数：当前时间-上次跟进时间 datediff(now(),last_follow_time)
+			//未跟进天数：当前时间-上次跟进时间
 			return String.format("(datediff(now(),last_follow_time)>%s and (datediff(now(),last_follow_time) )<%s)", parameter.getValue1(),parameter.getValue2());
 		}
 		return parameter.getFilter();
