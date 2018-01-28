@@ -4,10 +4,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.plugin.bean.BeanPath;
 
-import com.gongsibao.crm.service.action.follow.ActionFollowSave;
-import com.gongsibao.crm.service.action.follow.ActionFollowSendMessage;
-import com.gongsibao.crm.service.action.follow.ActionFollowVerify;
-import com.gongsibao.crm.service.action.follow.ActionFollowWriteBack;
+import com.gongsibao.crm.service.action.task.follow.ActionFollowSave;
+import com.gongsibao.crm.service.action.task.follow.ActionFollowSendMessage;
+import com.gongsibao.crm.service.action.task.follow.ActionFollowVerify;
+import com.gongsibao.crm.service.action.task.follow.ActionFollowWriteBack;
 
 public class FollowActionTest extends BaseActionTest{
 

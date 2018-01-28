@@ -4,11 +4,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.plugin.bean.BeanPath;
 
-import com.gongsibao.crm.service.action.release.ActionReleaseSave;
-import com.gongsibao.crm.service.action.release.ActionReleaseSaveLog;
-import com.gongsibao.crm.service.action.release.ActionReleaseSendMessage;
-import com.gongsibao.crm.service.action.release.ActionReleaseVerify;
-import com.gongsibao.crm.service.action.release.ActionReleaseWriteBack;
+import com.gongsibao.crm.service.action.task.release.ActionReleaseSave;
+import com.gongsibao.crm.service.action.task.release.ActionReleaseSaveLog;
+import com.gongsibao.crm.service.action.task.release.ActionReleaseSendMessage;
+import com.gongsibao.crm.service.action.task.release.ActionReleaseVerify;
+import com.gongsibao.crm.service.action.task.release.ActionReleaseWriteBack;
 
 public class ReleaseActionTest extends BaseActionTest{
 

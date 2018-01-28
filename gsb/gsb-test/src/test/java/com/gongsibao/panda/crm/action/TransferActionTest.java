@@ -4,11 +4,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.plugin.bean.BeanPath;
 
-import com.gongsibao.crm.service.action.transfer.ActionTransferSave;
-import com.gongsibao.crm.service.action.transfer.ActionTransferSaveLog;
-import com.gongsibao.crm.service.action.transfer.ActionTransferSendMessage;
-import com.gongsibao.crm.service.action.transfer.ActionTransferVerify;
-import com.gongsibao.crm.service.action.transfer.ActionTransferWriteBack;
+import com.gongsibao.crm.service.action.task.transfer.ActionTransferSave;
+import com.gongsibao.crm.service.action.task.transfer.ActionTransferSaveLog;
+import com.gongsibao.crm.service.action.task.transfer.ActionTransferSendMessage;
+import com.gongsibao.crm.service.action.task.transfer.ActionTransferVerify;
+import com.gongsibao.crm.service.action.task.transfer.ActionTransferWriteBack;
 
 public class TransferActionTest extends BaseActionTest{
 

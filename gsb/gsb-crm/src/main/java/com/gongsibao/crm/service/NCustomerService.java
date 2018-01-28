@@ -5,21 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.netsharp.communication.Service;
+import org.netsharp.core.BusinessException;
+import org.netsharp.core.EntityState;
 import org.netsharp.core.MtableManager;
 import org.netsharp.core.Oql;
-import org.netsharp.core.annotations.Subs;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.bd.service.SupplierPersistableService;
 import com.gongsibao.crm.base.INCustomerService;
 import com.gongsibao.entity.crm.NCustomer;
-import com.gongsibao.entity.crm.NCustomerChange;
-import com.gongsibao.entity.crm.NCustomerCompany;
-import com.gongsibao.entity.crm.NCustomerProduct;
-import com.gongsibao.entity.crm.NCustomerTask;
-import com.gongsibao.entity.crm.NCustomerTaskFoolow;
-import com.gongsibao.entity.crm.NCustomerTaskNotify;
 
 @Service
 public class NCustomerService extends SupplierPersistableService<NCustomer> implements INCustomerService {
@@ -112,23 +107,19 @@ public class NCustomerService extends SupplierPersistableService<NCustomer> impl
 		return customer;
 	}
 	
-	@Subs(foreignKey = "customerId", header = "客户任务", subType = NCustomerTask.class)
-	private List<NCustomerTask> tasks;
 
-	@Subs(foreignKey = "customerId", header = "意向产品", subType = NCustomerProduct.class)
-	private List<NCustomerProduct> products;
-
-	@Subs(foreignKey = "customerId", header = "关联企业", subType = NCustomerCompany.class)
-	private List<NCustomerCompany> companys;
-
-	@Subs(foreignKey = "customerId", header = "沟通日志", subType = NCustomerTaskFoolow.class)
-	private List<NCustomerTaskFoolow> follows;
-
-	@Subs(foreignKey = "customerId", header = "通知日志", subType = NCustomerTaskNotify.class)
-	private List<NCustomerTaskNotify> notifys;
-
-	@Subs(foreignKey = "customerId", header = "流转日志", subType = NCustomerChange.class)
-	private List<NCustomerChange> changes;
+	@Override
+	public NCustomer save(NCustomer entity) {
+		
+		EntityState state = entity.getEntityState();
+		if (state == EntityState.Deleted) {
+			
+			throw new BusinessException("客户信息不允许删除！");
+		}
+		
+		entity = super.save(entity);
+		return entity;
+	}
 
 	private String getSelectFullFields() {
 

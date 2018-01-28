@@ -4,11 +4,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.plugin.bean.BeanPath;
 
-import com.gongsibao.crm.service.action.regain.ActionRegainSave;
-import com.gongsibao.crm.service.action.regain.ActionRegainSaveLog;
-import com.gongsibao.crm.service.action.regain.ActionRegainSendMessage;
-import com.gongsibao.crm.service.action.regain.ActionRegainVerify;
-import com.gongsibao.crm.service.action.regain.ActionRegainWriteBack;
+import com.gongsibao.crm.service.action.task.regain.ActionRegainSave;
+import com.gongsibao.crm.service.action.task.regain.ActionRegainSaveLog;
+import com.gongsibao.crm.service.action.task.regain.ActionRegainSendMessage;
+import com.gongsibao.crm.service.action.task.regain.ActionRegainVerify;
+import com.gongsibao.crm.service.action.task.regain.ActionRegainWriteBack;
 
 public class RegainActionTest extends BaseActionTest{
 

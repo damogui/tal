@@ -4,11 +4,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.plugin.bean.BeanPath;
 
-import com.gongsibao.crm.service.action.allocation.ActionAllocationSave;
-import com.gongsibao.crm.service.action.allocation.ActionAllocationSaveLog;
-import com.gongsibao.crm.service.action.allocation.ActionAllocationSendMessage;
-import com.gongsibao.crm.service.action.allocation.ActionAllocationVerify;
-import com.gongsibao.crm.service.action.allocation.ActionAllocationWriteBack;
+import com.gongsibao.crm.service.action.task.allocation.ActionAllocationSave;
+import com.gongsibao.crm.service.action.task.allocation.ActionAllocationSaveLog;
+import com.gongsibao.crm.service.action.task.allocation.ActionAllocationSendMessage;
+import com.gongsibao.crm.service.action.task.allocation.ActionAllocationVerify;
+import com.gongsibao.crm.service.action.task.allocation.ActionAllocationWriteBack;
 
 public class AllocationActionTest extends BaseActionTest{
 

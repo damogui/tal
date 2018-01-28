@@ -4,11 +4,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.plugin.bean.BeanPath;
 
-import com.gongsibao.crm.service.action.rollback.ActionRollbackSave;
-import com.gongsibao.crm.service.action.rollback.ActionRollbackSaveLog;
-import com.gongsibao.crm.service.action.rollback.ActionRollbackSendMessage;
-import com.gongsibao.crm.service.action.rollback.ActionRollbackVerify;
-import com.gongsibao.crm.service.action.rollback.ActionRollbackWriteBack;
+import com.gongsibao.crm.service.action.task.rollback.ActionRollbackSave;
+import com.gongsibao.crm.service.action.task.rollback.ActionRollbackSaveLog;
+import com.gongsibao.crm.service.action.task.rollback.ActionRollbackSendMessage;
+import com.gongsibao.crm.service.action.task.rollback.ActionRollbackVerify;
+import com.gongsibao.crm.service.action.task.rollback.ActionRollbackWriteBack;
 
 public class RollbackActionTest extends BaseActionTest{
 

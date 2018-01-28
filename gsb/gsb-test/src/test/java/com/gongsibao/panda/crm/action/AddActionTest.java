@@ -4,11 +4,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.plugin.bean.BeanPath;
 
-import com.gongsibao.crm.service.action.add.ActionAddSave;
-import com.gongsibao.crm.service.action.add.ActionAddSaveLog;
-import com.gongsibao.crm.service.action.add.ActionAddSendMessage;
-import com.gongsibao.crm.service.action.add.ActionAddVerify;
-import com.gongsibao.crm.service.action.add.ActionAddWriteBack;
+import com.gongsibao.crm.service.action.task.add.ActionAddSave;
+import com.gongsibao.crm.service.action.task.add.ActionAddSaveLog;
+import com.gongsibao.crm.service.action.task.add.ActionAddSendMessage;
+import com.gongsibao.crm.service.action.task.add.ActionAddVerify;
+import com.gongsibao.crm.service.action.task.add.ActionAddWriteBack;
 
 public class AddActionTest extends BaseActionTest {
 

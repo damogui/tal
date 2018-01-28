@@ -9,11 +9,11 @@ import org.netsharp.plugin.bean.IBeanPathService;
 import org.netsharp.resourcenode.IResourceNodeService;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.crm.service.action.allocation.ActionAllocationSaveLog;
-import com.gongsibao.crm.service.action.autoAllot.ActionCustomerTaskAllot;
-import com.gongsibao.crm.service.action.autoAllot.ActionCustomerTaskSendMessage;
-import com.gongsibao.crm.service.action.autoAllot.ActionCustomerTaskUpdateTaskStatus;
-import com.gongsibao.crm.service.action.autoAllot.ActionCustomerTaskVerifyStatus;
+import com.gongsibao.crm.service.action.task.allocation.ActionAllocationSaveLog;
+import com.gongsibao.crm.service.action.task.autoAllot.ActionCustomerTaskAllot;
+import com.gongsibao.crm.service.action.task.autoAllot.ActionCustomerTaskSendMessage;
+import com.gongsibao.crm.service.action.task.autoAllot.ActionCustomerTaskUpdateTaskStatus;
+import com.gongsibao.crm.service.action.task.autoAllot.ActionCustomerTaskVerifyStatus;
 
 public class AutoAllotActionTest {
 

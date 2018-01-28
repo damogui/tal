@@ -4,11 +4,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.plugin.bean.BeanPath;
 
-import com.gongsibao.crm.service.action.update.ActionUpdateSave;
-import com.gongsibao.crm.service.action.update.ActionUpdateSaveLog;
-import com.gongsibao.crm.service.action.update.ActionUpdateSendMessage;
-import com.gongsibao.crm.service.action.update.ActionUpdateVerify;
-import com.gongsibao.crm.service.action.update.ActionUpdateWriteBack;
+import com.gongsibao.crm.service.action.task.update.ActionUpdateSave;
+import com.gongsibao.crm.service.action.task.update.ActionUpdateSaveLog;
+import com.gongsibao.crm.service.action.task.update.ActionUpdateSendMessage;
+import com.gongsibao.crm.service.action.task.update.ActionUpdateVerify;
+import com.gongsibao.crm.service.action.task.update.ActionUpdateWriteBack;
 
 public class UpdateActionTest extends BaseActionTest {
 	
