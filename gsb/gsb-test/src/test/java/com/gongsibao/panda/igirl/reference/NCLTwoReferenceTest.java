@@ -30,7 +30,7 @@ public class NCLTwoReferenceTest extends ReferenceCreationBase{
 
 		PDatagrid datagrid = super.createDatagrid(node);
 		addColumn(datagrid, "code", "编码", ControlTypes.TEXT_BOX, 150, null, false);
-		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 150, null, false);
+		addColumn(datagrid, "code", "编码", ControlTypes.TEXT_BOX, 150, null, false);
 		return datagrid;
 	}
 }

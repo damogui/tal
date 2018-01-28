@@ -3,6 +3,9 @@ package com.gongsibao.entity.igirl;
 import com.gongsibao.entity.igirl.dict.ApplierType;
 import com.gongsibao.entity.igirl.dict.TMCState;
 import com.gongsibao.entity.igirl.dict.WriteType;
+import com.gongsibao.entity.supplier.Supplier;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.*;
 import org.netsharp.entity.Entity;
 import java.math.BigDecimal;
@@ -15,6 +18,9 @@ public class TradeMarkCase extends Entity {
 
 	@Column(name = "code", header = "方案编号")
 	private String code;
+	
+	
+	
 
 	// 商标说明
 	@Column(name = "name", header = "方案名称")
@@ -92,6 +98,12 @@ public class TradeMarkCase extends Entity {
 	@Column(name = "account_no", header = "账号")
 	private String accountNo;
 
+	@Column(name = "supplier_id", header = "服务商Id")
+	private Integer supplierId = -1;
+	@JsonIgnore
+	@Reference(foreignKey = "supplierId", header = "服务商")
+	private Supplier supplier;
+	
 	@Subs(foreignKey = "tradeMarkCaseId", header = "商标明细", subType = TradeMark.class)
 	private List<TradeMark> tradeMarks;
 
@@ -336,4 +348,21 @@ public class TradeMarkCase extends Entity {
 	public void setYwPhone(String ywPhone) {
 		this.ywPhone = ywPhone;
 	}
+
+	public Integer getSupplierId() {
+		return supplierId;
+	}
+
+	public void setSupplierId(Integer supplierId) {
+		this.supplierId = supplierId;
+	}
+
+	public Supplier getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
+	}
+	
 }

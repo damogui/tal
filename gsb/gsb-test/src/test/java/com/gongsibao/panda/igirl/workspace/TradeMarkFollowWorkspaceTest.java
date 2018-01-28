@@ -80,10 +80,20 @@ public class TradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 			item.setCode("autoSubmit");
 			item.setIcon("fa fa-link");
 			item.setName("返回");
-			item.setCommand(null);
 			item.setOperationType(ot1);
 			item.setSeq(3000);
 			item.setCommand("{controller}.autoSubmit(2);");
+			toolbar.getItems().add(item);
+		}
+		item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("totmcase");
+			item.setIcon("fa fa-link");
+			item.setName("案件");
+			item.setOperationType(ot1);
+			item.setSeq(3000);
+			item.setCommand("{controller}.totmcase();");
 			toolbar.getItems().add(item);
 		}
 		toolbarService.save(toolbar);
@@ -105,6 +115,7 @@ public class TradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		addColumn(datagrid, "tradeMarkCase.applier", "申请人", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "memo", "商标说明", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "markState", "状态", ControlTypes.ENUM_BOX, 200);
+		addColumn(datagrid, "tradeMarkCaseId", "案件id", ControlTypes.TEXT_BOX, 200).setVisible(false);
 		column = addColumn(datagrid, "tradeMarkCase.urgency", "紧急程度", ControlTypes.TEXT_BOX, 200);
 		column.setOrderbyMode(OrderbyMode.ASC);
 		return datagrid;
@@ -118,6 +129,7 @@ public class TradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		queryProject.toNew();
 		addQueryItem(queryProject, "proxyCode", "代理号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "tradeMarkCase.companyName", "公司名称", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "tradeMarkCase.applier", "申请人", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "markState", "状态", ControlTypes.ENUM_BOX);
 //		PQueryItem item =addQueryItem(queryProject, "mobilePhone", "销售方式", ControlTypes.CUSTOMER);{
 //			

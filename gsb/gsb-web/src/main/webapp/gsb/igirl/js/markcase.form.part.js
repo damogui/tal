@@ -4,95 +4,10 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
     ctor: function () {
         this.base();
     },
-    // getaddState:function(){
-    //
-    // 	var swtCustomerId = this.queryString("swtCustomerId");
-    // 	if(swtCustomerId){
-    //
-    // 		return UiElementState.Hide;
-    // 	}
-    // },
-    // onload: function () {
-    //
-    //     var id = this.queryString("id");
-    //     if (System.isnull(id)) {
-    //
-    //     	var swtCustomerId = this.queryString("swtCustomerId");
-    //     	var swtServiceId = this.queryString("swtServiceId");
-    //     	if(swtCustomerId){
-    //
-    //     		this.bySwtCustomerId(swtCustomerId);
-    //     	}else{
-    //
-    //             this.add();
-    //     	}
-    //     }else {
-    //
-    //         this.byId(id);
-    //     }
-    //
-		// var ctrlsIds = ['mobile','telephone','weixin','qq'];
-		// $(ctrlsIds).each(function(i,item){
-		// 	$("#"+item).validatebox('disableValidation');
-		// });
-		//
-    // },
-    // added: function (currentItem) {
-    //
-    // 	var swtCustomerId = this.queryString("swtCustomerId");
-    // 	if(!System.isnull(swtCustomerId)){
-    //
-    // 		//设置默认值
-    // 		currentItem.customerSourceId = 4181;
-    // 		currentItem.consultWay = 42143;
-    // 	}
-    // },
-    // databindafter:function(){
-    //
-    // 	if(this.viewModel.currentItem.entityState == EntityState.Persist){
-    //
-    // 		var mobile = $("#mobile").val();
-    // 		if(!System.isnull(mobile)){
-    //
-    //     		$("#mobile").prop("disabled", true);
-    // 		}
-    // 		//修改状态：禁用全表单
-    // 		this.viewModel.disable();
-    // 	}
-    //
-    //     $('.easyui-combobox,.easyui-combogrid').combobox("initClearBtn");
-    //     $('.easyui-filebox').filebox("initClearBtn");
-    // },
-    // bySwtCustomerId: function (swtCustomerId) {
-    //
-    //     var vm = this.viewModel;
-    //     var me = this;
-    //     this.invokeService("bySwtCustomerId", [swtCustomerId], function (jmessage) {
-    //
-    //     	 var nav = jmessage;
-    //          vm.currentItem = nav.Entity;
-    //          if(vm.currentItem.entityState != EntityState.New){
-    //
-    //              vm.currentItem.entityState = EntityState.Persist;
-    //          }else{
-    //         	 vm.currentItem.customerSourceId = 4181;
-    //         	 vm.currentItem.consultWay = 42143;
-    //          }
-    //          me.paging = nav.Paging;
-    //          me.databind();
-    //     });
-    // },
-    companyNameChange:function(newValue, oldValue){
-        alert(newValue);
+  companyNameChange:function(newValue, oldValue){
+        //alert(newValue);
 
-    	//TYPE_1(1, "自然分配"),
-    	//TYPE_2(2, "指定部门");
-        // if(newValue==1){
-			// $("#allocationOrgId").combobox('disable').combobox('disableValidation').combobox('setValue','-1');
-        // }else{
-        //
-			// $("#allocationOrgId").combobox('enable').combobox('enableValidation');
-        // }
+    
     },
     applierTypeChange:function (newValue, oldValue) {
         if(newValue==1){
@@ -107,10 +22,25 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
     	$("#tokenImgUrl").attr("src",qcurl)
 
        this.invokeService("tmsForRobot",[72],function (msg) {
-           alert(JSON.stringify(msg));
+           //alert(JSON.stringify(msg));
        })
        
-    }
+    },
+  validate: function () {
+
+        var isValidate = $("#" + this.context.formName).form('validate');
+        if(isValidate){
+        	//var mobile = $("#mobile").val(); 	
+        	var ywPhone = $("#ywPhone").val(); 	
+        	
+        	if(!System.isnull(ywPhone)&&!/^(1[0-9])\d{9}$/.test(ywPhone)){
+     		
+        		IMessageBox.error("【代理电话】格式错误");
+        		return false;
+        	       }
+        }
+        return true;
+  }
 });
 
 com.gongsibao.igirl.web.DownloadAttachmentDetailPart=org.netsharp.panda.commerce.DetailPart.Extends( {
@@ -126,11 +56,16 @@ com.gongsibao.igirl.web.UploadAttachmentDetailPart=org.netsharp.panda.commerce.D
 });
 com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
 
-	// edit:function(rowData){
-    //
-	// 	IMessageBox.info("暂不支持查看");
-	// 	return;
-	// }
+	  ctor: function () {
+	        this.base();
+	        
+	    },
+	  saveBefore:function(entity){
+		  var g = $('#nclOne_name').combogrid('grid');	// get datagrid object
+      var r = g.datagrid('getSelected');	// get the selected row  
+      entity.nclOne.code=r.code;
+		},
+	    
     nclOneChange:function (newValue, oldValue) {
         function DeleteFromArrayByFilter(attrs,field,fieldvalue,filter){
             var index=-1;
@@ -203,18 +138,9 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
         //去选择grid,调用selectRecord --idValue
         var me = this;
         
-      
-   
         if(newValue!=-1){
-//        	     var g = $('#nclOne_name').combogrid('grid');	// get datagrid object
-//              var r = g.datagrid('getSelected');	// get the selected row
-//             
-//              var en=this.viewModel.getEntity();
-//              if(en && en.nclOne){
-//           	   en.nclOne.code=r.code;
-//	           	console.log(en.nclOne.name)
-//	            console.log(r.code)
-//                  }
+          	 
+                
             this.invokeService("findSubsByNclOneId", [newValue], function(data) {
                 //me.reload();
                 //IMessageBox.toast(JSON.stringify(data));

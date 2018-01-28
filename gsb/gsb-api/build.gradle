@@ -19,6 +19,7 @@ dependencies {
 
     compile project(':gsb-entity')
     compile project(':gsb-taurus')
+    compile project(':gsb-igirl')
     compile project(':gsb-taurus-sdk')
     compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-grizzly2-servlet', version: '2.13'
     compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet-core', version: '2.13'//javax.ws.rs
