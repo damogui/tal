@@ -2,6 +2,11 @@ package com.gongsibao.crm.service.action.customer.save;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
+import org.netsharp.base.IPersistableService;
+import org.netsharp.util.ReflectManager;
+
+import com.gongsibao.crm.service.NCustomerService;
+import com.gongsibao.entity.crm.NCustomer;
 
 /**
  * @author hw
@@ -11,8 +16,14 @@ public class ActionSaveCustomerSave  implements IAction{
 
 	@Override
 	public void execute(ActionContext ctx) {
-		// TODO Auto-generated method stub
 		
+		NCustomer customer = (NCustomer) ctx.getItem();
+		Class<?> superType = NCustomerService.class.getSuperclass();
+		@SuppressWarnings("unchecked")
+		IPersistableService<NCustomer> service = (IPersistableService<NCustomer>) ReflectManager.newInstance(superType);
+
+		customer = service.save(customer);
+		ctx.setItem(customer);
 	}
 
 }

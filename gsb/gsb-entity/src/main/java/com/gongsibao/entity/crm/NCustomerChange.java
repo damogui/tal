@@ -43,13 +43,13 @@ public class NCustomerChange extends Entity {
 	@Column(name = "form_user_id", header = "来自")
 	private Integer formUserId = 0;
 	
-	@Reference(foreignKey = "formUserId", header = "客户")
+	@Reference(foreignKey = "formUserId", header = "去向")
 	private Employee formUser;
 	
-	@Column(name = "to_user_id", header = "去向")
+	@Column(name = "to_user_id", header = "来自")
 	private Integer toUserId = 0;
 	
-	@Reference(foreignKey = "toUserId", header = "客户")
+	@Reference(foreignKey = "toUserId", header = "去向")
 	private Employee toUser;
 	
 	@Column(name = "content", size = 200, header = "内容")

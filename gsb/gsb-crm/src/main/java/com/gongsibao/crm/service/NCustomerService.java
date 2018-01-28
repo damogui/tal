@@ -114,6 +114,7 @@ public class NCustomerService extends SupplierPersistableService<NCustomer> impl
 		{
 			ctx.setPath("gsb/crm/customer/save");
 			ctx.setItem(entity);
+			ctx.setState(entity.getEntityState());
 		}
 		ActionManager action = new ActionManager();
 		action.execute(ctx);
