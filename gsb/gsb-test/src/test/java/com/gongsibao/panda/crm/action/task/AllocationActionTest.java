@@ -4,8 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.plugin.bean.BeanPath;
 
-import com.gongsibao.crm.service.action.task.allocation.ActionAllocationSave;
-import com.gongsibao.crm.service.action.task.allocation.ActionAllocationSaveLog;
+import com.gongsibao.crm.service.action.task.allocation.ActionAllocationPersist;
+import com.gongsibao.crm.service.action.task.allocation.ActionAllocationRecordLog;
 import com.gongsibao.crm.service.action.task.allocation.ActionAllocationSendMessage;
 import com.gongsibao.crm.service.action.task.allocation.ActionAllocationVerify;
 import com.gongsibao.crm.service.action.task.allocation.ActionAllocationWriteBack;
@@ -33,9 +33,9 @@ public class AllocationActionTest extends BaseActionTest{
 		}
 
 		createBean(beanPath, "验证", ActionAllocationVerify.class.getName(), resourceNode, 100);
-		createBean(beanPath, "保存", ActionAllocationSave.class.getName(), resourceNode, 200);
+		createBean(beanPath, "保存", ActionAllocationPersist.class.getName(), resourceNode, 200);
 		createBean(beanPath, "回写", ActionAllocationWriteBack.class.getName(), resourceNode, 300);
-		createBean(beanPath, "日志", ActionAllocationSaveLog.class.getName(), resourceNode, 400);
+		createBean(beanPath, "日志", ActionAllocationRecordLog.class.getName(), resourceNode, 400);
 		createBean(beanPath, "通知", ActionAllocationSendMessage.class.getName(), resourceNode, 500);
 		beanPathService.save(beanPath);
 	}

@@ -9,7 +9,7 @@ import org.netsharp.plugin.bean.IBeanPathService;
 import org.netsharp.resourcenode.IResourceNodeService;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.crm.service.action.task.allocation.ActionAllocationSaveLog;
+import com.gongsibao.crm.service.action.task.allocation.ActionAllocationRecordLog;
 import com.gongsibao.crm.service.action.task.autoAllot.ActionCustomerTaskAllot;
 import com.gongsibao.crm.service.action.task.autoAllot.ActionCustomerTaskSendMessage;
 import com.gongsibao.crm.service.action.task.autoAllot.ActionCustomerTaskUpdateTaskStatus;
@@ -73,7 +73,7 @@ public class AutoAllotActionTest {
 		{
 			bean.toNew();
 			bean.setName("写入跟进记录");
-			bean.setType(ActionAllocationSaveLog.class.getName());
+			bean.setType(ActionAllocationRecordLog.class.getName());
 			bean.setResourceNode(resourceNode);
 			bean.setSeq(400);
 			

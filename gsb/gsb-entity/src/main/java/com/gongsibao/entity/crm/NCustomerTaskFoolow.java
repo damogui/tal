@@ -37,7 +37,7 @@ public class NCustomerTaskFoolow extends Entity {
 	@Column(name = "quality_category", header = "质量分类")
 	private QualityCategory qualityCategory;
 	
-	@Column(name = "quality", header = "质量Id")
+	@Column(name = "quality_id", header = "质量Id")
 	private Integer qualityId;
 	
 	@Reference(foreignKey = "qualityId", header = "质量")
@@ -46,7 +46,7 @@ public class NCustomerTaskFoolow extends Entity {
 	@Column(name = "next_foolow_time", header = "下次跟进时间")
 	private Date nextFoolowTime;
 	
-	@Column(name = "content", size = 100, header = "跟进内容")
+	@Column(name = "content", size = 1000, header = "跟进内容")
 	private String content;
 	
 	@Column(name = "estimate_amount", header = "估计签单金额")

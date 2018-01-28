@@ -4,8 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.plugin.bean.BeanPath;
 
-import com.gongsibao.crm.service.action.task.release.ActionReleaseSave;
-import com.gongsibao.crm.service.action.task.release.ActionReleaseSaveLog;
+import com.gongsibao.crm.service.action.task.release.ActionReleasePersist;
+import com.gongsibao.crm.service.action.task.release.ActionReleaseRecordLog;
 import com.gongsibao.crm.service.action.task.release.ActionReleaseSendMessage;
 import com.gongsibao.crm.service.action.task.release.ActionReleaseVerify;
 import com.gongsibao.crm.service.action.task.release.ActionReleaseWriteBack;
@@ -33,9 +33,9 @@ public class ReleaseActionTest extends BaseActionTest{
 		}
 
 		createBean(beanPath, "验证", ActionReleaseVerify.class.getName(), resourceNode, 100);
-		createBean(beanPath, "保存", ActionReleaseSave.class.getName(), resourceNode, 200);
+		createBean(beanPath, "保存", ActionReleasePersist.class.getName(), resourceNode, 200);
 		createBean(beanPath, "回写", ActionReleaseWriteBack.class.getName(), resourceNode, 300);
-		createBean(beanPath, "日志", ActionReleaseSaveLog.class.getName(), resourceNode, 400);
+		createBean(beanPath, "日志", ActionReleaseRecordLog.class.getName(), resourceNode, 400);
 		createBean(beanPath, "通知", ActionReleaseSendMessage.class.getName(), resourceNode, 500);
 		beanPathService.save(beanPath);
 	}

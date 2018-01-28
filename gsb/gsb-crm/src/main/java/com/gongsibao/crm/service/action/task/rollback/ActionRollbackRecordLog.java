@@ -16,7 +16,7 @@ import com.gongsibao.entity.crm.dic.NotifyType;
  * @author hw
  * 回退：记录日志
  */
-public class ActionRollbackSaveLog  implements IAction{
+public class ActionRollbackRecordLog  implements IAction{
 
 	@Override
 	public void execute(ActionContext ctx) {

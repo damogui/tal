@@ -182,7 +182,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		content.append('<p style="padding-left:50px;">');
 		content.append(' 	<textarea collected="true" controltype="TextArea" id="txtNote" style="width:445px;height:100px;"');
 		content.append(' 		  class="easyui-validatebox validatebox-text" data-options="validateOnCreate:false,validateOnBlur:true">');
-		content.append('	</textarea>');
+		content.append('</textarea>');
 		content.append('</p>');
 		
 		//判断客户质量AB需要提示

@@ -14,7 +14,7 @@ import com.gongsibao.entity.crm.dic.TaskInspectionType;
  * @author hw
  * 抽查异常：保存
  */
-public class ActionAbnormalSave implements IAction{
+public class ActionAbnormalPersist implements IAction{
 
 	@Override
 	public void execute(ActionContext ctx) {

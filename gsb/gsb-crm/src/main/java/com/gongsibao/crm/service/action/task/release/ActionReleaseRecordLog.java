@@ -7,7 +7,7 @@ import org.netsharp.action.IAction;
  * @author hw
  * 释放：记录日志
  */
-public class ActionReleaseSaveLog  implements IAction{
+public class ActionReleaseRecordLog  implements IAction{
 
 	@Override
 	public void execute(ActionContext ctx) {

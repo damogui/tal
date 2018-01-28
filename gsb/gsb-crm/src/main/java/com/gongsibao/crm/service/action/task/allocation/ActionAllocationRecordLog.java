@@ -1,4 +1,4 @@
-package com.gongsibao.crm.service.action.task.regain;
+package com.gongsibao.crm.service.action.task.allocation;
 
 import java.util.Map;
 
@@ -9,48 +9,44 @@ import org.netsharp.communication.ServiceFactory;
 import com.gongsibao.crm.base.INCustomerChangeService;
 import com.gongsibao.crm.base.INCustomerTaskNotifyService;
 import com.gongsibao.entity.crm.NCustomerChange;
-import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.crm.dic.ChangeType;
 import com.gongsibao.entity.crm.dic.NotifyType;
 
 /**
  * @author hw
- * 收回：记录日志
+ * 分配：保存日志
  */
-public class ActionRegainSaveLog  implements IAction{
+public class ActionAllocationRecordLog implements IAction{
 
 	@Override
 	public void execute(ActionContext ctx) {
 		Map<String,Object> getMap = ctx.getStatus();
 		String [] taskIds = getMap.get("taskIds").toString().split("_");
-		String content = ctx.getStatus().get("content").toString();
 		for (String item : taskIds) {
-			NCustomerTask getEntity  = (NCustomerTask)ctx.getStatus().get(item);
 			//1.保存流转日志
 			INCustomerChangeService changeService = ServiceFactory.create(INCustomerChangeService.class);
 			NCustomerChange changeEntity = new NCustomerChange();
 			changeEntity.toNew();//标示下类型，有多种
-			changeEntity.setFormUserId(getEntity.getOwnerId()); 
-			changeEntity.setContent(content);
-			changeEntity.setChangeType(ChangeType.RECYCLE);
-			changeEntity.setTaskId(getEntity.getId());
-			changeEntity.setSupplierId(getEntity.getSupplierId());
-			changeEntity.setDepartmentId(getEntity.getDepartmentId());
-			changeEntity.setCustomerId(getEntity.getCustomerId());
+			changeEntity.setFormUserId((Integer)getMap.get("formUserId"+item)); 
+			changeEntity.setToUserId((Integer)getMap.get("toUserId"));
+			changeEntity.setChangeType(ChangeType.ALLOCATION);
+			changeEntity.setTaskId(Integer.valueOf(item));
+			changeEntity.setSupplierId((Integer)getMap.get("supplierId"));
+			changeEntity.setDepartmentId((Integer)getMap.get("departmentId"));  
+			changeEntity.setCustomerId((Integer)getMap.get("customerId"+item));
 			changeService.save(changeEntity);
 			//2.保存通知日志
 			INCustomerTaskNotifyService notifyService = ServiceFactory.create(INCustomerTaskNotifyService.class);
 			NCustomerTaskNotify notifyEntity = new NCustomerTaskNotify();
 			notifyEntity.toNew();
-			notifyEntity.setCustomerId(getEntity.getCustomerId());
-			notifyEntity.setTaskId(getEntity.getId());
+			notifyEntity.setCustomerId((Integer)getMap.get("customerId"+item));
+			notifyEntity.setTaskId(Integer.valueOf(item));
 			notifyEntity.setType(NotifyType.SYSTEM);
-			notifyEntity.setSupplierId(getEntity.getSupplierId());
-			notifyEntity.setDepartmentId(getEntity.getDepartmentId());
+			notifyEntity.setSupplierId((Integer)getMap.get("supplierId"));
+			notifyEntity.setDepartmentId((Integer)getMap.get("departmentId"));
 			notifyService.save(notifyEntity);
 		}
-		
 	}
 
 }
