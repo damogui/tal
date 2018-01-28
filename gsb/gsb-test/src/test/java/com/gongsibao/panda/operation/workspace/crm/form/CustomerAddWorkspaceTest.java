@@ -17,6 +17,9 @@ import org.netsharp.panda.entity.PForm;
 import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PPart;
 import org.netsharp.panda.entity.PWorkspace;
+import org.netsharp.panda.plugin.dic.ToolbarType;
+import org.netsharp.panda.plugin.entity.PToolbar;
+import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
@@ -49,6 +52,8 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 		formJsImport = StringManager.join("|", ss);
 		formJsController = "com.gongsibao.crm.web.NCustomerPlatformAddFormPart";
 		formServiceController = NCustomerFormPart.class.getName();
+		
+		formToolbarPath = "/crm/customer/add";
 	}
 	
 
@@ -56,6 +61,33 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 	public void run() {
 
 		createFormWorkspace();
+	}
+	
+	@Test
+	public void createFormToolbar() {
+		
+		ResourceNode node = this.resourceService.byCode(resourceNodeCode);
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			toolbar.setBasePath("panda/form/edit");
+			toolbar.setPath("/crm/customer/add");
+			toolbar.setName("新增客户");
+			toolbar.setResourceNode(node);
+			toolbar.setToolbarType(ToolbarType.BASE);
+		}
+		PToolbarItem item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("verify");
+			item.setIcon("fa fa-check-square-o");
+			item.setName("校验");
+			item.setCommand(null);
+			item.setSeq(3000);
+			item.setCommand("{controller}.verify();");
+			toolbar.getItems().add(item);
+		}
+		toolbarService.save(toolbar);
 	}
 
 	// 默认的表单配置信息
@@ -81,14 +113,17 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 		formField = addFormField(form, "qq", "QQ", groupName, ControlTypes.TEXT_BOX, true, false);{
 			
 			formField.setTroikaTrigger("controllernCustomer.contactWayChange(this);");
-			formField.setTroikaValidation("validationContactWay['weixin','微信']");
+			formField.setTroikaValidation("validationContactWay['qq','QQ']");
 		}
 		formField = addFormField(form, "weixin", "微信", groupName, ControlTypes.TEXT_BOX, true, false);{
 			
 			formField.setTroikaTrigger("controllernCustomer.contactWayChange(this);");
-			formField.setTroikaValidation("validationContactWay['qq','QQ']");
+			formField.setTroikaValidation("validationContactWay['weixin','微信']");
 		}
-		addFormField(form, "email", "邮箱", groupName, ControlTypes.TEXT_BOX, false, false);
+		formField = addFormField(form, "email", "邮箱", groupName, ControlTypes.TEXT_BOX, false, false);{
+			
+			formField.setTroikaValidation("email");
+		}
 		addFormField(form, "birdthday", "生日", groupName, ControlTypes.DATE_BOX, false, false);
 		addFormField(form, "important", "重要程度", groupName, ControlTypes.ENUM_BOX, false, false);
 		formField = addFormField(form, "province.name", "省份",groupName, ControlTypes.CUSTOM, false, false);

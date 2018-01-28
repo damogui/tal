@@ -10,10 +10,10 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 public class BaseActionTest {
 
-	String resourceNodeCode = null;
-	ResourceNode resourceNode = null;
-	IBeanPathService beanPathService = ServiceFactory.create(IBeanPathService.class);
-	IResourceNodeService resourceNodeService = ServiceFactory.create(IResourceNodeService.class);
+	protected String resourceNodeCode = null;
+	protected ResourceNode resourceNode = null;
+	protected IBeanPathService beanPathService = ServiceFactory.create(IBeanPathService.class);
+	protected IResourceNodeService resourceNodeService = ServiceFactory.create(IResourceNodeService.class);
 
 	@Before
 	public void setup() {

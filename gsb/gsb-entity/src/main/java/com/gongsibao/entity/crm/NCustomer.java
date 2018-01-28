@@ -139,7 +139,10 @@ public class NCustomer extends Entity {
 	@Column(name = "intention_category", header = "质量分类")
 	private QualityCategory intentionCategory;
 	
-	@Column(name = "quality", header = "质量")
+	@Column(name = "quality_id", header = "质量Id")
+	private Integer qualityId;
+	
+	@Reference(foreignKey = "qualityId", header = "质量")
 	private NCustomerTaskQuality quality;
 	
 	@Column(name = "last_follow_time", header = "最近跟进时间")
@@ -180,6 +183,14 @@ public class NCustomer extends Entity {
 
 	@Subs(foreignKey = "customerId", header = "流转日志", subType = NCustomerChange.class)
 	private List<NCustomerChange> changes;
+	
+	public Integer getQualityId() {
+		return qualityId;
+	}
+
+	public void setQualityId(Integer qualityId) {
+		this.qualityId = qualityId;
+	}
 
 	public Integer getAccountId() {
 		return accountId;
