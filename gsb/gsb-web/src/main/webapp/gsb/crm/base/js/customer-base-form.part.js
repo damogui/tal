@@ -79,12 +79,17 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
     },
 	contactWayChange:function(el){
 		
+		var ctrlId = el.id;
+		var value = $('#'+ctrlId).val();
+//		if(System.isnull(value)){
+//			
+//			return;
+//		}
+
 		var ctrlsIds = [{code:'mobile',text:'手机号'},
 		                {code:'telephone',text:'座机'},
 		                {code:'weixin',text:'微信'},
 		                {code:'qq',text:'QQ'}];
-		var ctrlId = el.id;
-
 		var currentItem = null;
 		$(ctrlsIds).each(function(i,item){
 			

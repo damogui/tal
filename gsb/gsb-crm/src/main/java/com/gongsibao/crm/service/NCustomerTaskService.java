@@ -16,6 +16,7 @@ import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.bd.service.SupplierPersistableService;
 import com.gongsibao.crm.base.INCustomerTaskService;
+import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
 import com.gongsibao.utils.DateUtils;
@@ -49,10 +50,16 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	@Override
 	public NCustomerTask save(NCustomerTask entity) {
 
-		entity = super.save(entity);
-
-		// 这里可能2次查询，需要优化
-		entity = this.byId(entity.getId());
+		ActionContext ctx = new ActionContext();
+		{
+			ctx.setPath("gsb/crm/task/save");
+			ctx.setItem(entity);
+			ctx.setState(entity.getEntityState());
+		}
+		ActionManager action = new ActionManager();
+		action.execute(ctx);
+		
+		entity = (NCustomerTask) ctx.getItem();
 		return entity;
 	}
 
