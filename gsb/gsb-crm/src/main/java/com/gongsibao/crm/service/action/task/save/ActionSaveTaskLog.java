@@ -54,6 +54,7 @@ public class ActionSaveTaskLog implements IAction{
 		//记录分配日志
 		NAllocationType allocationType = task.getAllocationType();
 		AllocationState allocationState = task.getAllocationState();
+		
 		// 分配方式为【手动分配】、分配状态为【待分配】
 		if (allocationType == NAllocationType.MANUAL && allocationState == AllocationState.WAIT) {
 		

@@ -21,7 +21,6 @@ public class ActionSaveTaskPersist implements IAction{
 		Class<?> superType = NCustomerService.class.getSuperclass();
 		@SuppressWarnings("unchecked")
 		IPersistableService<NCustomerTask> service = (IPersistableService<NCustomerTask>) ReflectManager.newInstance(superType);
-
 		task = service.save(task);
 		ctx.setItem(task);
 	}
