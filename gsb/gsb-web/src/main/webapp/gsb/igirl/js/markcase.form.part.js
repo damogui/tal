@@ -206,15 +206,19 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
       
    
         if(newValue!=-1){
-//        	     var g = $('#nclOne_name').combogrid('grid');	// get datagrid object
-//              var r = g.datagrid('getSelected');	// get the selected row
-//             
-//              var en=this.viewModel.getEntity();
-//              if(en && en.nclOne){
-//           	   en.nclOne.code=r.code;
-//	           	console.log(en.nclOne.name)
-//	            console.log(r.code)
-//                  }
+//          	     var g = $('#nclOne_name').combogrid('grid');	// get datagrid object
+//                 var r = g.datagrid('getSelected');	// get the selected row  
+//                 var en=this.viewModel.getEntity();
+//                 if(en && !en.nclOne){
+//                	 en.nclOne={};
+//                	 en.nclOne.code=r.code;
+//                 }else
+//                                 {
+//                     if(en.nclOne){
+//                    	 en.nclOne.code=r.code;
+//                                	      }
+//                                 }
+
             this.invokeService("findSubsByNclOneId", [newValue], function(data) {
                 //me.reload();
                 //IMessageBox.toast(JSON.stringify(data));

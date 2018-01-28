@@ -20,7 +20,7 @@ com.gongsibao.igirl.web.TradeMarkListPart = org.netsharp.panda.commerce.ListPart
             if(message.length===0){
                 that.reload();
             }else{
-                IMessageBox.info(message);
+                IMessageBox.info("案件："+message+"材料不齐，请联系客户.");
             }
         })
 	}

@@ -11,10 +11,18 @@ import com.gongsibao.entity.igirl.baseinfo.NCLOne;
 import com.gongsibao.entity.igirl.dict.MarkState;
 import com.gongsibao.entity.igirl.dict.ShareGroup;
 import com.gongsibao.entity.igirl.dict.TradeMarkType;
+import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.uc.dic.PriorityType;
 
 @Table(name = "ig_trade_mark", header = "商标")
 public class TradeMark extends Entity {
+	
+	@Column(name = "supplier_id", header = "服务商Id")
+	private Integer supplierId = -1;
+	@JsonIgnore
+	@Reference(foreignKey = "supplierId", header = "服务商")
+	private Supplier supplier;
+	
 
 	@Column(name = "code", header = "商标号")
 	private String code;
@@ -208,6 +216,22 @@ public class TradeMark extends Entity {
 		this.whetherShare = whetherShare;
 	}
 
+	public Integer getSupplierId() {
+		return supplierId;
+	}
+
+	public void setSupplierId(Integer supplierId) {
+		this.supplierId = supplierId;
+	}
+
+	public Supplier getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
+	}
+
 //	public PriorityType getPriorityType() {
 //		return priorityType;
 //	}
@@ -215,4 +239,5 @@ public class TradeMark extends Entity {
 //	public void setPriorityType(PriorityType priorityType) {
 //		this.priorityType = priorityType;
 //	}
+	
 }

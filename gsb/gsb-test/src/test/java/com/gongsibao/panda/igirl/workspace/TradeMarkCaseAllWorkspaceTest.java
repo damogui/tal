@@ -200,8 +200,8 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		PDatagrid datagrid = new PDatagrid(node, "商标选项");
 		{
 			addColumn(datagrid, "nclOne.code", "编码", ControlTypes.TEXT_BOX, 100);
-			addColumn(datagrid, "nclOne.name", "商标大类", ControlTypes.TEXT_BOX, 150);
-			addColumn(datagrid, "selectedTwoStr", "商标小类", ControlTypes.TEXTAREA, 150);
+			//addColumn(datagrid, "nclOne.name", "商标大类", ControlTypes.TEXT_BOX, 150);
+			addColumn(datagrid, "selectedTwoStr", "商标小类", ControlTypes.TEXTAREA, 400);
 			column=addColumn(datagrid, "markState", "申请状态", ControlTypes.ENUM_BOX, 150);
 			{
 				String formatter=EnumUtil.getColumnFormatter(MarkState.class);
