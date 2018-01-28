@@ -1,12 +1,24 @@
 System.Declare("com.gongsibao.crm.web");
-com.gongsibao.crm.web.NCustomerPlatformAddFormPart =com.gongsibao.crm.web.NCustomerFormPart.Extends( {
+com.gongsibao.crm.web.NCustomerPlatformAddFormPart =com.gongsibao.crm.web.NCustomerAddFormPart.Extends( {
 
     ctor: function () {
         this.base();
         this.verifyUrl = '/panda/crm/platform/customer/verify';
         this.addUrl='/panda/crm/platform/customer/add';
         this.editUrl='/panda/crm/platform/customer/edit';
-    }    
+    },
+    getsaveState:function(){
+    	
+    	return UiElementState.Enable;
+    },
+    getverifyState:function(){
+    	
+    	var id = this.queryString("id");
+    	if(id){
+    	
+    		return UiElementState.Hide;
+    	}
+    }
 });
 
 

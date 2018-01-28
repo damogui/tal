@@ -40,7 +40,7 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
         var id = this.queryString("id");
         if (System.isnull(id)) {
 
-    		this.matching();
+    		this.verify();
             this.add();
         }else {
             this.byId(id);
@@ -202,29 +202,38 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
 //    		parent.layer.close(index);
 //    	}
     },
-    matching:function(){
-
+    verify:function(){
+    	
     	layer.open({
-  		  type: 2,
-  		  title: '客户校验',
-  		  fixed: false,
-  		  maxmin: false,
-  		  shadeClose:false,
-  		  closeBtn:false,
-  		  area: ['70%','70%'],
-  		  content: this.verifyUrl,
-  		  cancel: function(){ 
+    		  type: 2,
+    		  title: '客户校验',
+    		  fixed: false,
+    		  maxmin: false,
+    		  shadeClose:false,
+    		  //closeBtn:false,
+    		  area: ['70%','70%'],
+    		  content: this.verifyUrl,
+    		  cancel: function(){ 
 
-		  }
-  	    });
+  		  }
+    	    });	
     },
     bindCustomer:function(customerId){
-    	
-    	window.location.href=this.editUrl+'?id='+customerId;
-    	
-    	//改变页签的标题
+
+    	var swtCustomerId = this.queryString("swtCustomerId");
+    	if(swtCustomerId){
+    		
+    		//商务通过来的
+    		window.location.href=this.editUrl+'?id='+customerId;
+    	}else{
+    		
+        	var url = this.addUrl +'?id='+customerId;
+        	window.top.workbench.openWorkspace("绑定客户",url,'fa fa-edit',true);
+
+    		//关闭当前页签
+        	window.top.$('#tabs').tabs('close','新增客户');
+    	}
     }
-    
 });
 
 
@@ -309,5 +318,23 @@ $.extend($.fn.validatebox.defaults.rules, {
         	return isValidator;
         },    
         message: '{1}已存在'   
+    }
+});
+
+com.gongsibao.crm.web.NCustomerAddFormPart = com.gongsibao.crm.web.NCustomerFormPart.Extends( {
+    ctor: function () {
+        this.base();
+    },
+    getsaveState:function(){
+    	
+    	return UiElementState.Enable;
+    },
+    getverifyState:function(){
+    	
+    	var id = this.queryString("id");
+    	if(id){
+    	
+    		return UiElementState.Hide;
+    	}
     }
 });

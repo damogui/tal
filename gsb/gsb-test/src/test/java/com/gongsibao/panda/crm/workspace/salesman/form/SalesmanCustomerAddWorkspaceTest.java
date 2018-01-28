@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.panda.operation.workspace.crm.form.CustomerAddWorkspaceTest;
@@ -27,5 +28,10 @@ public class SalesmanCustomerAddWorkspaceTest extends CustomerAddWorkspaceTest{
 		taskDetailResourceNodeCode = "CRM_SALESMAN_TASK_ALL";
 		
 		taskDetailJsController = "com.gongsibao.crm.web.SalesmanNCustomerTaskDetailPart";
+	}
+	
+	@Test
+	public void createFormToolbar() {
+		
 	}
 }
