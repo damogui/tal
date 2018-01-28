@@ -3,7 +3,10 @@ com.gongsibao.crm.web.NCustomerDepartmentEditFormPart = com.gongsibao.crm.web.NC
 
     ctor: function () {
         this.base();
-    },
+        this.verifyUrl = '/panda/crm/department/customer/verify';
+        this.addUrl='/panda/crm/department/customer/edit';
+        this.editUrl='/panda/crm/department/customer/edit';
+    }
 });
 
 com.gongsibao.crm.web.DepartmentTaskDetailPart = com.gongsibao.crm.web.NCustomerTaskDetailPart.Extends( {

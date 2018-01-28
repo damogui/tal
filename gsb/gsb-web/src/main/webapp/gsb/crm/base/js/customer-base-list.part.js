@@ -19,6 +19,10 @@ com.gongsibao.crm.web.BaseCustomerListPart = org.netsharp.panda.commerce.ListPar
 
 		window.open(this.editUrl+"?id="+id);
 	},
+	doubleClickRow : function(index, row) {
+
+		this.edit(row.id);
+	},
 	addTask:function(){
 
 		var row = this.getSelectedItem();
