@@ -158,7 +158,6 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 		formField = addFormField(form, "telephone", "座机", groupName, ControlTypes.TEXT_BOX, true, false);
 		{
 			formField.setTroikaTrigger("controllercustomer.contactWayChange(this);");
-			formField.setTroikaValidation("validationContactWay['telephone','座机']");
 		}
 		formField = addFormField(form, "weixin", "微信", groupName, ControlTypes.TEXT_BOX, true, false);
 		{

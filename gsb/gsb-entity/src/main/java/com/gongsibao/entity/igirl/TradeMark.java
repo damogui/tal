@@ -43,7 +43,7 @@ public class TradeMark extends Entity {
 	@Reference(foreignKey = "nclOneId", header = "商标大类")
 	private NCLOne nclOne;
 
-	@Column(name = "selected_ncltow_str",size=8192, header = "商标小类")
+	@Column(name = "selected_ncltow_str",size = 8192,header = "商标小类")
 	private String selectedTwoStr;
 
 	@Column(name = "trade_mark_type", header = "商标类型")

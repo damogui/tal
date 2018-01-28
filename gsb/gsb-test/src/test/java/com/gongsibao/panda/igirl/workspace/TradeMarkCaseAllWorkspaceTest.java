@@ -148,9 +148,10 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "creditCode", "统一社会信用代码", groupName, ControlTypes.TEXT_BOX, false, false);
 
 		addFormField(form, "contactName", "客户姓名", groupName, ControlTypes.TEXT_BOX, true, false);
-		formField =addFormField(form, "mobile", "客户电话", groupName, ControlTypes.TEXT_BOX, true, false);
+		formField =addFormField(form, "mobile", "客户电话", groupName, ControlTypes.NUMBER_BOX, true, false);
 		{
 			formField.setTroikaTrigger("controllertradeMarkCase.mobileChange(this);");
+			formField.setDataOptions("validType:['length[11,20]']");
 		}
 		
 		addFormField(form, "urgency", "紧急程度(小时)", groupName, ControlTypes.NUMBER_BOX, false, false);
@@ -163,7 +164,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		}
 		addFormField(form, "identityCode", "申请人身份证", groupName, ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "applierAddress", "申请人地址", groupName, ControlTypes.TEXT_BOX, true, false);
-		addFormField(form, "mailCode", "邮编", groupName, ControlTypes.TEXT_BOX, true, false);
+		addFormField(form, "mailCode", "邮编", groupName, ControlTypes.NUMBER_BOX, true, false);
 		addFormField(form, "fax", "传真", groupName, ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "token", "token", groupName, ControlTypes.TEXT_BOX, false, true);
  		addFormField(form, "tokenImgUrl", "二维码", groupName, ControlTypes.IMAGE, false, true);
@@ -171,7 +172,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "caseAmount", "方案金额", groupName, ControlTypes.DECIMAL_FEN_BOX, true, false);
 		addFormField(form, "tradeOptions", "商标选项", groupName, ControlTypes.TEXT_BOX, false, true);
 		addFormField(form, "code", "方案编号", groupName, ControlTypes.TEXT_BOX, false, true);
-		addFormField(form, "ywPhone", "代理电话", groupName, ControlTypes.TEXT_BOX, true, false);
+		addFormField(form, "ywPhone", "代理电话", groupName, ControlTypes.NUMBER_BOX, true, false);
 		return form;
 	}
 

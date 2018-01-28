@@ -197,22 +197,28 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 
 		// 查询出id不在上传附件列表中的商标,当首次保存或者更新新增商标时，需要添加新的附件
 		if (!deleted) {
-			String cmdstr = "select trade_mark_id from  ig_up_attachment where trade_mark_caseid=?";
 			Oql oql = new Oql();
-			oql.getParameters().add("trade_mark_caseid", entity.getId(), Types.INTEGER);
-			DataTable dt = tradeMarkService.executeTable(cmdstr, oql.getParameters());
-			Iterator<Row> rows = dt.iterator();
+			oql.setType(UploadAttachment.class);
+			oql.setSelects("UploadAttachment.tradeMark.{id,shareGroup}");
+			oql.setFilter("tradeMarkCaseId=?");
+			oql.getParameters().add("tradeMarkCaseId",entity.getId(), Types.INTEGER);
+			List<UploadAttachment> uls = upattachementService.queryList(oql);
 			Map<Integer, Integer> dicTmp = new HashMap<Integer, Integer>();
-			while (rows.hasNext()) {
-				Row row = rows.next();
-				Integer newid = row.getInteger("trade_mark_id");
-				if (newid != null)
-					dicTmp.put(newid, newid);
+			//缓存已有共享组
+			Map<ShareGroup, Integer> dic = new HashMap<ShareGroup, Integer>();
+			for(UploadAttachment ua :uls) {
+				TradeMark tm=ua.getTradeMark();
+				if(tm!=null) {
+					dicTmp.put(tm.getId(), tm.getId());
+					if(tm.getShareGroup()!=ShareGroup.NOSHARRE) {
+						dic.put(tm.getShareGroup(), 1);//缓存所有当前案件已经持久化的共享资源组
+					}
+				}	
 			}
 			List<UploadAttachment> upas = new ArrayList<UploadAttachment>();
 			List<DownloadAttachment> downs = new ArrayList<DownloadAttachment>();
 			List<TradeMark> tmks = entity.getTradeMarks();
-			Map<ShareGroup, Integer> dic = new HashMap<ShareGroup, Integer>();
+			
 			UploadAttachment attachment1 = null;
 			DownloadAttachment attachment2 = null;
 			for (int i = 0; i < tmks.size(); i++) {
@@ -288,16 +294,11 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 
 							dic.put(tmk.getShareGroup(), 1);
 
-						} else {
-							// 如果新增的包含
-
-						}
+						} 
 
 					}
 
-				} else {
-					dic.put(tmk.getShareGroup(), 1);
-				}
+				} 
 			}
 			upattachementService.saves(upas);
 			downattachementService.saves(downs);
