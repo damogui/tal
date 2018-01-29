@@ -14,7 +14,7 @@ public class QualityRefeerenceTest extends ReferenceCreationBase{
 	@Before
 	public void setup() {
 		
-		resourceNodeCode =  "Operation_CRM_Customer_Quality";
+		resourceNodeCode =  "GSB_Operation_Customer_Quality";
 		datagridName = referenceName = "任务质量参照";
 		referenceCode = NCustomerTaskQuality.class.getSimpleName();
 		intelligentMode = IntelligentMode.LIKE;

@@ -12,6 +12,6 @@ public class SalesmanTaskFollowFormWorkspaceTest extends TaskFollowFormWorkspace
 
 		super.setup();
 		urlForm = "/crm/salesman/task/follow";
-		resourceNodeCode = "CRM_SALESMAN_TASK_EDIT";
+		resourceNodeCode = "CRM_SALESMAN_TASK_Foolow";
 	}
 }

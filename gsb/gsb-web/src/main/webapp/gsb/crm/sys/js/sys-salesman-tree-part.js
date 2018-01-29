@@ -7,29 +7,30 @@ com.gongsibao.crm.web.SysSalesmanTreePart =org.netsharp.panda.commerce.TreePart.
 
     ctor: function () {
         this.base();
-    },
-   // addExtraParams:function(urls){//进行扩展
-   //
-   //      var supplierId = this.queryString('supplierId');
-   //      if(supplierId){
-   //
-   //          urls.push("supplierId=" + supplierId);
-   //      }
-   //  }
+    }
 });
 
 
 //重新调用查询
 $(function() {
+    // debugger;
+    // var supplierId = controllerGsbCrmSysDepartmentTree.queryString('supplierId');
+    // var params = {
+    //     supplierId: supplierId
+    //
+    // };
+    // $('#treeGsbCrmSysDepartmentTree').tree("options").queryParams = params;
+    // $('#treeGsbCrmSysDepartmentTree').tree('reload');
 
+ 
     var supplierId = controllerGsbCrmSysDepartmentTree.queryString('supplierId');
-    var url = '/panda/rest/service?vid='+controllerGsbCrmSysDepartmentTree.context.vid+'&method=query&filter=';
+    var url = controllerGsbCrmSysDepartmentTree.context.url;
+    var options = $('#treeGsbCrmSysDepartmentTree').tree('options');
     if(supplierId){
         url+='&supplierId='+supplierId;
     }
+    options.url =url;
     //列表
-    var options = $('#treeGsbCrmSysDepartmentTree').tree('options');
-    options.url = url;
-    $('#treeGsbCrmSysDepartmentTree').tree(options);
+    $('#treeGsbCrmSysDepartmentTree').tree(options);//进行重新加载
 
 });

@@ -72,6 +72,7 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
 //    	MANUAL(2, "手动分配"),
 //    	SemiAutomatic(3, "半自动分配");
 		if(newValue==1){
+			
 			$("#supplier_name").combogrid('setValue','').combogrid('disable');
 //			var options1 = $("#supplier_name").combogrid('options');
 //			options1.required = false;
@@ -111,6 +112,7 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
 //			$("#owner_name").combogrid(options);
 			
 			$('#allocationState').combobox('disable').combobox('setValue',1);
+			
 		}else{
 
 			$("#supplier_name").combogrid('enable');
@@ -133,6 +135,29 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
 			$('#allocationState').combobox('enable');
 		}
     },
+    doSave:function(entity){
+
+        var me = this;
+    	var isPlatform = this.queryString("isPlatform");
+    	if(isPlatform ==='1'){
+    		
+    		//平台售前新增：直接保存
+            this.invokeService("save", [entity], function (jmessage) {
+            	
+             	  me.onSaved(jmessage);
+            });	
+    	}else{
+    		
+    		//服务商新增：返回父页面
+    		var parentCtrl = this.queryString("ctrl");
+    		eval("window.parent."+parentCtrl+".save(entity);");
+    		
+    		//关闭当前窗口
+    		window.parent.layer.closeAll();
+    		debugger;
+    	}
+
+    },
     onSaved: function (jmessage) {
     	
         this.currentItem = jmessage;
@@ -150,6 +175,20 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
         	
         	IMessageBox.error("保存失败！");
         }
+    },
+    setEntity:function(entity){
+    	
+    	this.currentItem = entity;
+    	this.viewModel.currentItem = this.currentItem;
+    	this.currentItem.entityState = EntityState.New;
+    	this.added(this.currentItem);
+        if (this.currentItem == null) {
+
+        	this.viewModel.clear();
+        }else {
+        	
+        	this.databind();
+        }
     }
 });
 
@@ -160,29 +199,26 @@ com.gongsibao.crm.web.TaskProductDetailPart = org.netsharp.panda.commerce.Detail
         this.base();
     },
     productCategory1Select:function(record){
-    	
-    	//alert(record.id );	
+
     	//加载二级分类
         this.invokeService("queryByProductCategoryId1", [record.id], function (data) {
         	
-
+        	$('#productCategory2_name').combobox('clear').combobox('loadData',data);
         });
     },
     productCategory2Select:function(record){
     	
-    	//反写一级分类，加载产品
-        this.invokeService("queryByProductCategoryId2", [record.id], function (data) {
-        	
-
-        });
-    },
-    productChange:function(newValue,oldValue){
-    	
-    	//判断一级分类，二级分类是否为空，如果为空，则
-    	//反写一级分类、二级分类
-        this.invokeService("queryByProductId", [newValue], function (data) {
-        	
-
-        });
+    	try{
+    		
+        	$('#product_name').combogrid('clear');
+    		var grid = $('#product_name').combogrid('grid');
+    		var options = $(grid).datagrid('options');
+    		var filter = ' enabled____1 and type_id____'+record.id;
+    		options.url = '\/panda\/rest\/reference?code=CRM_Product&filter='+ filter;
+    		$(grid).datagrid(options);	
+    		
+    	}catch(ex){
+    		
+    	}
     }
 });

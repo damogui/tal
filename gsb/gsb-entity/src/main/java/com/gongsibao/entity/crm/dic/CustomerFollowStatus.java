@@ -9,7 +9,8 @@ public enum CustomerFollowStatus implements IEnum {
 	UNFollow(2, "待跟进"), 
 	FOLLOWING(3, "跟进中"), 
 	DEFEATED(4, "无法签单"), 
-	SIGNED(5, "已签单");
+	SIGNED(5, "已签单"),
+	UNSTART(6, "未启动");
 	private int value;
 	private String text;
 

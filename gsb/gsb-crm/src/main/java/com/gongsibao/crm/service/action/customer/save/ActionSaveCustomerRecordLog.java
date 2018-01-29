@@ -15,7 +15,7 @@ import com.gongsibao.entity.crm.dic.OperationType;
 /**
  * @author hw 客户保存：记录日志 NCustomerChange
  */
-public class ActionSaveCustomerLog implements IAction {
+public class ActionSaveCustomerRecordLog implements IAction {
 
 	@Override
 	public void execute(ActionContext ctx) {

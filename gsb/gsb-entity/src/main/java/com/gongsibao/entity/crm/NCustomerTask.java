@@ -12,7 +12,6 @@ import org.netsharp.entity.Entity;
 import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.bd.Dict;
-import com.gongsibao.entity.crm.dic.AllocationDispositon;
 import com.gongsibao.entity.crm.dic.AllocationState;
 import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.NAllocationType;
@@ -21,6 +20,7 @@ import com.gongsibao.entity.crm.dic.TaskCustomerType;
 import com.gongsibao.entity.crm.dic.TaskInspectionState;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
+import com.gongsibao.entity.supplier.dict.SupplierType;
 
 @Table(name = "n_crm_customer_task", header = "客户任务")
 public class NCustomerTask extends Entity {
@@ -127,7 +127,7 @@ public class NCustomerTask extends Entity {
 	@Reference(foreignKey = "costSupplierId", header = "费用服务商")
 	private Supplier costSupplier;
 
-	@Column(name = "costed", header = "是否有费用服务商")
+	@Column(name = "costed", header = "是否市场费用投放")
 	private Boolean costed = false;
 
 	@Column(name = "allocation_type", header = "分配方式")
@@ -137,7 +137,7 @@ public class NCustomerTask extends Entity {
 	private AllocationState allocationState = AllocationState.WAIT;
 
 	@Column(name = "allocation_dispositon", header = "自营/平台")
-	private AllocationDispositon allocationDispositon = AllocationDispositon.UNLIMITED;
+	private SupplierType allocationDispositon = SupplierType.UNLIMITED;
 
 	@Reference(foreignKey = "sourceId", header = "任务来源")
 	private Dict source;
@@ -236,11 +236,12 @@ public class NCustomerTask extends Entity {
 		this.allocationState = allocationState;
 	}
 
-	public AllocationDispositon getAllocationDispositon() {
+
+	public SupplierType getAllocationDispositon() {
 		return allocationDispositon;
 	}
 
-	public void setAllocationDispositon(AllocationDispositon allocationDispositon) {
+	public void setAllocationDispositon(SupplierType allocationDispositon) {
 		this.allocationDispositon = allocationDispositon;
 	}
 

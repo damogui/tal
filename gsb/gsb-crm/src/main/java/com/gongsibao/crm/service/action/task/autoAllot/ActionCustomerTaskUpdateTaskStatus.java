@@ -1,5 +1,7 @@
 package com.gongsibao.crm.service.action.task.autoAllot;
 
+import java.util.Date;
+
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
@@ -32,6 +34,8 @@ public class ActionCustomerTaskUpdateTaskStatus implements IAction {
 		entity.setAllocationState(AllocationState.ALLOCATED);
 		//跟进状态改为【待跟进】
 		entity.setFoolowStatus(CustomerFollowStatus.UNFollow);
+		//跟新最后分配时间
+		entity.setLastAllocationTime(new Date());
 		
 		nCustomerTaskService.save(entity);
 		

@@ -49,7 +49,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		meta = MtableManager.getMtable(entity);
 		resourceNodeCode = "GSB_Operation_Supplier";
 		formPartName = listPartName = meta.getName();
-		listPartImportJs = "/gsb/supplier/js/supplier-list-part.js";
+		listPartImportJs = "/gsb/supplier/js/supplier-list-part.js|/gsb/gsb.custom.query.controls.js";
 		listPartJsController = SupplierListPart.class.getName();
 		listPartServiceController = SupplierListPart.class.getName();
 		formJsImport = "/gsb/supplier/js/supplier-form-part.js|/gsb/gsb.customer.controls.js";
@@ -282,7 +282,6 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 			formField = addFormFieldRefrence(form, "product.name", "产品", null, "CRM_" + Product.class.getSimpleName(), true, false);{
 				formField.setWidth(200);
 				formField.setRefFilter("enabled=1");
-				formField.setTroikaTrigger("controllerserviceProducts.productChange(newValue,oldValue);");
 			}
 			formField = addFormField(form, "province.name", "省份", ControlTypes.CUSTOM, false, false);
 			{

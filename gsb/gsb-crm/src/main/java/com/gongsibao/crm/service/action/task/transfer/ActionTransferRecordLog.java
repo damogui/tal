@@ -17,7 +17,7 @@ import com.gongsibao.entity.crm.dic.NotifyType;
  * @author hw
  * 转移：记录日志
  */
-public class ActionTransferSaveLog  implements IAction{
+public class ActionTransferRecordLog  implements IAction{
 
 	@Override
 	public void execute(ActionContext ctx) {

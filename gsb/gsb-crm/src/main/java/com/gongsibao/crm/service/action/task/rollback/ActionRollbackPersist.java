@@ -1,13 +1,13 @@
-package com.gongsibao.crm.service.action.task.regain;
+package com.gongsibao.crm.service.action.task.rollback;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 
 /**
  * @author hw
- * 收回：保存
+ * 回退：保存
  */
-public class ActionRegainSave implements IAction{
+public class ActionRollbackPersist implements IAction{
 
 	@Override
 	public void execute(ActionContext ctx) {

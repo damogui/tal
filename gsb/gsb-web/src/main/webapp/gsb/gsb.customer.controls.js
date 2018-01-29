@@ -30,7 +30,7 @@ com.gongsibao.controls.DictComboBox = org.netsharp.controls.ReferenceBox.Extends
 	},
 	enable: function() {
 		var _disabled = $(this.uiElement).attr("_disabled");
-		if (_disabled) {
+		if (_disabled &&_disabled == 'true') {
 			return;
 		}
 		$(this.uiElement).combobox("enable");

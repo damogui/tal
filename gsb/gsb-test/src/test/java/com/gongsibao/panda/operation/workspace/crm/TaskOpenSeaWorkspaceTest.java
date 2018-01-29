@@ -15,8 +15,11 @@ import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
+import com.gongsibao.controls.PropertyQueryDictComboBox;
 import com.gongsibao.crm.web.TaskAllListPart;
 import com.gongsibao.entity.crm.NCustomerTask;
+import com.gongsibao.entity.crm.NCustomerTaskQuality;
+import com.gongsibao.entity.supplier.Supplier;
 
 public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
 
@@ -38,7 +41,7 @@ public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
 		listToolbarPath = "task/batch/allocation";
 		listPartJsController = TaskAllListPart.class.getName();
 		listPartServiceController = TaskAllListPart.class.getName();
-		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-all-list.part.js";
+		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-all-list.part.js|/gsb/gsb.custom.query.controls.js";
 	}
 
 	public PToolbar createListToolbar() {
@@ -177,9 +180,24 @@ public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
 		item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
 		{
 			item.setTooltip("输入任务ID、客户ID、任务名称、客户名称、联系方式等");
-			item.setWidth(350);
+			//item.setWidth(300);
 		}
+		item = addQueryItem(queryProject, "source.name", "任务来源", ControlTypes.CUSTOM);{
+			
+			item.setCustomControlType(PropertyQueryDictComboBox.class.getName());
+			item.setRefFilter("type=411");
+		}
+		
+		addQueryItem(queryProject, "costed", "市场费用投放", ControlTypes.BOOLCOMBO_BOX);
+		
+		addRefrenceQueryItem(queryProject, "supplier.name", "服务商", Supplier.class.getSimpleName());
+		addQueryItem(queryProject, "creator", "创建人", ControlTypes.TEXT_BOX);
+		
 		addQueryItem(queryProject, "createTime", "创建时间", ControlTypes.DATE_BOX);
+		addRefrenceQueryItem(queryProject, "quality.name", "客户质量", NCustomerTaskQuality.class.getSimpleName());
+
+		//意向产品
+		addQueryItem(queryProject, "foolowStatus", "任务状态", ControlTypes.ENUM_BOX);
 		return queryProject;
 	}
 

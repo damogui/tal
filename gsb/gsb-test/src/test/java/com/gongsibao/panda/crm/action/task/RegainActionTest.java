@@ -4,8 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.plugin.bean.BeanPath;
 
-import com.gongsibao.crm.service.action.task.regain.ActionRegainSave;
-import com.gongsibao.crm.service.action.task.regain.ActionRegainSaveLog;
+import com.gongsibao.crm.service.action.task.regain.ActionRegainPersist;
+import com.gongsibao.crm.service.action.task.regain.ActionRegainRecordLog;
 import com.gongsibao.crm.service.action.task.regain.ActionRegainSendMessage;
 import com.gongsibao.crm.service.action.task.regain.ActionRegainVerify;
 import com.gongsibao.crm.service.action.task.regain.ActionRegainWriteBack;
@@ -33,9 +33,9 @@ public class RegainActionTest extends BaseActionTest{
 		}
 
 		createBean(beanPath, "验证", ActionRegainVerify.class.getName(), resourceNode, 100);
-		createBean(beanPath, "保存", ActionRegainSave.class.getName(), resourceNode, 200);
+		createBean(beanPath, "保存", ActionRegainPersist.class.getName(), resourceNode, 200);
 		createBean(beanPath, "回写", ActionRegainWriteBack.class.getName(), resourceNode, 300);
-		createBean(beanPath, "日志", ActionRegainSaveLog.class.getName(), resourceNode, 400);
+		createBean(beanPath, "日志", ActionRegainRecordLog.class.getName(), resourceNode, 400);
 		createBean(beanPath, "通知", ActionRegainSendMessage.class.getName(), resourceNode, 500);
 		beanPathService.save(beanPath);
 	}

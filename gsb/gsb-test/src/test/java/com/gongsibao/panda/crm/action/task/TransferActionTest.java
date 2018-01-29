@@ -4,8 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.plugin.bean.BeanPath;
 
-import com.gongsibao.crm.service.action.task.transfer.ActionTransferSave;
-import com.gongsibao.crm.service.action.task.transfer.ActionTransferSaveLog;
+import com.gongsibao.crm.service.action.task.transfer.ActionTransferPersist;
+import com.gongsibao.crm.service.action.task.transfer.ActionTransferRecordLog;
 import com.gongsibao.crm.service.action.task.transfer.ActionTransferSendMessage;
 import com.gongsibao.crm.service.action.task.transfer.ActionTransferVerify;
 import com.gongsibao.crm.service.action.task.transfer.ActionTransferWriteBack;
@@ -33,9 +33,9 @@ public class TransferActionTest extends BaseActionTest{
 		}
 
 		createBean(beanPath, "验证", ActionTransferVerify.class.getName(), resourceNode, 100);
-		createBean(beanPath, "保存", ActionTransferSave.class.getName(), resourceNode, 200);
+		createBean(beanPath, "保存", ActionTransferPersist.class.getName(), resourceNode, 200);
 		createBean(beanPath, "回写", ActionTransferWriteBack.class.getName(), resourceNode, 300);
-		createBean(beanPath, "日志", ActionTransferSaveLog.class.getName(), resourceNode, 400);
+		createBean(beanPath, "日志", ActionTransferRecordLog.class.getName(), resourceNode, 400);
 		createBean(beanPath, "通知", ActionTransferSendMessage.class.getName(), resourceNode, 500);
 		beanPathService.save(beanPath);
 	}

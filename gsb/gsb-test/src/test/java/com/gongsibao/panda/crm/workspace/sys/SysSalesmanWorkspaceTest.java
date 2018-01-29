@@ -45,7 +45,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_SYS_SALESMAN";
 		formOpenMode = OpenMode.WINDOW;
-		listPartImportJs = "/gsb/crm/sys/js/sys-salesman-list-part.js";
+		listPartImportJs = "/gsb/crm/sys/js/sys-salesman-list-part.js|/gsb/gsb.custom.query.controls.js";
 		listPartJsController = SysSalesmanListPart.class.getName();
 		listPartServiceController = SysSalesmanListPart.class.getName();
 
@@ -168,6 +168,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 			part.setJsController(SysSalesmanTreePart.class.getName());
 			part.setServiceController(SysSalesmanTreePart.class.getName());
 			part.setImports("/gsb/crm/sys/js/sys-salesman-tree-part.js");
+            part.setAutoQuery(false);
 		}
 		workspace.getParts().add(part);
 
@@ -311,7 +312,6 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 			{
 				formField.setWidth(200);
 				formField.setRefFilter("enabled=1");
-				formField.setTroikaTrigger("controllerproducts.productChange(newValue,oldValue);");
 			}
 			formField = addFormField(form, "province.name", "省份", ControlTypes.CUSTOM, false, false);
 			{
@@ -346,7 +346,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("panda/datagrid/detail");
-			part.setJsController(TaskProductDetailPart.class.getName());
+			part.setJsController("com.gongsibao.crm.web.SalesmaProductDetailPart");
 			part.setServiceController(TaskProductDetailPart.class.getName());
 			part.setWindowWidth(400);
 			part.setWindowHeight(450);

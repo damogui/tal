@@ -4,8 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.plugin.bean.BeanPath;
 
-import com.gongsibao.crm.service.action.task.abnormal.ActionAbnormalSave;
-import com.gongsibao.crm.service.action.task.abnormal.ActionAbnormalSaveLog;
+import com.gongsibao.crm.service.action.task.abnormal.ActionAbnormalPersist;
+import com.gongsibao.crm.service.action.task.abnormal.ActionAbnormalRecordLog;
 import com.gongsibao.crm.service.action.task.abnormal.ActionAbnormalSendMessage;
 import com.gongsibao.crm.service.action.task.abnormal.ActionAbnormalVerify;
 import com.gongsibao.crm.service.action.task.abnormal.ActionAbnormalWriteBack;
@@ -37,9 +37,9 @@ public class AbnormalActionTest extends BaseActionTest {
 		}
 
 		createBean(beanPath, "验证", ActionAbnormalVerify.class.getName(), resourceNode, 100);
-		createBean(beanPath, "保存", ActionAbnormalSave.class.getName(), resourceNode, 200);
+		createBean(beanPath, "保存", ActionAbnormalPersist.class.getName(), resourceNode, 200);
 		createBean(beanPath, "回写", ActionAbnormalWriteBack.class.getName(), resourceNode, 300);
-		createBean(beanPath, "日志", ActionAbnormalSaveLog.class.getName(), resourceNode, 400);
+		createBean(beanPath, "日志", ActionAbnormalRecordLog.class.getName(), resourceNode, 400);
 		createBean(beanPath, "通知", ActionAbnormalSendMessage.class.getName(), resourceNode, 500);
 		beanPathService.save(beanPath);
 	}

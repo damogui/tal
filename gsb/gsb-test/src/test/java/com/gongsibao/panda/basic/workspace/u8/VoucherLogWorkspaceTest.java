@@ -73,10 +73,10 @@ public class VoucherLogWorkspaceTest extends WorkspaceCreationBase {
 		{
 			column.setImported(true);
 		}
-		column = addColumn(datagrid, "inVoucherLogId", "确认收入凭证源记录Id", ControlTypes.TEXT_BOX, 180);
+		/*column = addColumn(datagrid, "inVoucherLogId", "确认收入凭证源记录Id", ControlTypes.TEXT_BOX, 180);
 		{
 			column.setImported(true);
-		}
+		}*/
 		column = addColumn(datagrid, "type", "类型", ControlTypes.ENUM_BOX, 100);
 		{
 			column.setImported(true);

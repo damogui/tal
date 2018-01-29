@@ -3,6 +3,7 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
 
     ctor: function () {
         this.base();
+        this.isPlatform = 1;
         this.verifyUrl = null;
         this.addUrl=null;
         this.editUrl=null;
@@ -166,7 +167,14 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
     onSaving: function (entity) {
 
     	//提高效率，将明细全部置空
-    	entity.tasks = [];
+    	if(this.isPlatform == 1){
+
+        	entity.tasks = [];
+    	}else if(entity.tasks == null || entity.tasks.length == 0){
+    		
+    		IMessageBox.error("任务信息不能为空！");
+    		return false;
+    	}
     	entity.products = [];
     	entity.companys = [];
     	entity.follows = [];
@@ -186,7 +194,7 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
             var me = this;
         	layer.msg("保存成功！", {time: 500, icon:1},function(){
 
-        		me.toNewUrl();
+        		me.toNewUrl(jmessage);
         	});
         	
         }else{
@@ -194,18 +202,24 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
         	IMessageBox.error("保存失败！");
         }
     },
-    toNewUrl:function(){
+    toNewUrl:function(entity){
     	
 //    	var top = window.top;
 //    	var parent = window.parent;
-//    	if(top){
+//    	var index = parent.layer.getFrameIndex(window.name); 
+//    	if(top&&top.workbench){
 //    		
 //    		top.workbench.closeSelectedTab();
-//    	}else if(parent){
+//    	}else if(parent && index){
 //    		
-//    		var index = parent.layer.getFrameIndex(window.name); 
+//    		
 //    		parent.layer.close(index);
+//    	}else{
+//    		
+//    		window.location.href=this.addUrl+'?id='+entity.id;
 //    	}
+    	
+    	window.location.href=this.addUrl+'?id='+entity.id;
     },
     verify:function(){
     	
@@ -244,17 +258,32 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
 
 com.gongsibao.crm.web.NCustomerTaskDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
     ctor: function () {
+    	
         this.base();
+        
+        //判断是否平台售前添加
+        this.isPlatform = 1;
         this.addUrl = null;
         this.editUrl = null;
     },
     add: function() {
     	
-    	if(this.parent.viewModel.currentItem.entityState == EntityState.New){
+    	var url='';
+    	if(this.isPlatform==1){
     		
-    		IMessageBox.info('请先保存客户信息！');
-    		return;
+        	if(this.parent.viewModel.currentItem.entityState == EntityState.New){
+        		
+        		IMessageBox.info('请先保存客户信息！');
+        		return;
+        	}
+        	
+        	var customerId = this.parent.viewModel.currentItem.id;
+        	url=this.addUrl+'?fk=customerId:'+customerId;
+    	}else{
+    		
+        	url=this.addUrl+'?isPlatform=0&ctrl='+this.context.instanceName;
     	}
+
     	
 //    	var swtCustomerId = this.queryString("swtCustomerId");
 //    	if(!System.isnull(swtCustomerId)){
@@ -263,9 +292,7 @@ com.gongsibao.crm.web.NCustomerTaskDetailPart = org.netsharp.panda.commerce.Deta
 //    		currentItem.customerSourceId = 4181;
 //    		currentItem.consultWay = 42143;
 //    	}
-    	
-    	var customerId = this.parent.viewModel.currentItem.id;
-    	var url=this.addUrl+'?fk=customerId:'+customerId;
+
     	layer.open({
   		  type: 2,
   		  title: '新增任务',
@@ -281,7 +308,15 @@ com.gongsibao.crm.web.NCustomerTaskDetailPart = org.netsharp.panda.commerce.Deta
     },
 	doubleClickRow : function(rowIndex, rowData) {
 		
-		var url=this.editUrl+'?id='+rowData.id;
+		var url='';
+    	if(this.isPlatform==1){
+    		
+        	url = this.editUrl+'?id='+rowData.id;
+    	}else{
+    		
+        	url = this.editUrl+'?isPlatform=0&ctrl='+this.context.instanceName;
+    	}
+    	
     	layer.open({
   		  type: 2,
   		  title: '任务信息',
@@ -290,10 +325,57 @@ com.gongsibao.crm.web.NCustomerTaskDetailPart = org.netsharp.panda.commerce.Deta
   		  shadeClose:true,
   		  area: ['90%','90%'],
   		  content: url,
+          success: function(layero, index){
+        	  
+              var body = layer.getChildFrame('body',index);
+              var iframeWin = window[layero.find('iframe')[0]['name']];
+              var subMainCtrl = iframeWin.workspace.parts.byIndex(0).value;//得到子页面的主控制器对象
+              subMainCtrl.setEntity(rowData);
+          },
   		  cancel: function(){ 
 
 		  }
   	    });
+	},
+	save:function(entity){
+		
+		var isValidated = $("#" + this.context.formName).form('validate');
+        if (!isValidated) {
+            return;
+        }
+        layer.closeAll();
+        this.viewModel.context = this.context;
+
+        this.saveBefore(entity);
+        this.viewModel.clear();
+        
+        //特殊处理引用字段
+        this.referenceField(entity);
+        
+        //这里主要解决int自增Id的BUG,在提交保存时要删除状态为new的明细实体Id
+        entity.id = entity.id || System.GUID.newGUID();
+        
+        var $grid = this.getGrid();
+        
+        $grid.datagrid('unselectAll');
+        
+        //选中一行
+        $grid.datagrid('selectRecord', entity.id);
+        
+        var selectedRow = $grid.datagrid('getSelected');
+        if(selectedRow == null){
+        	
+        	//BUG：在修改新增数据时有问题
+        	$grid.datagrid('appendRow', entity);
+            
+        }else{
+        	
+        	var rowIndex = $grid.datagrid('getRowIndex', entity);
+        	$grid.datagrid('updateRow',{index: rowIndex,row: entity});
+        	$grid.datagrid('refreshRow', rowIndex);
+        }
+        
+		this.saveAfter(entity);
 	}
 });
 

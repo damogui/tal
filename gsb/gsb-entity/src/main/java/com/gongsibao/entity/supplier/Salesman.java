@@ -91,8 +91,10 @@ public class Salesman extends Entity {
     private Integer weekmax;
     @Column(name = "xab_max", header = "XAB类任务上限")
     private Integer xabmax;
-
-
+    
+    //当日已分配的任务数
+    @Exclusive
+    private Integer dayAllocatedCount;
 	
 	public String getLoginName() {
 		return loginName;
@@ -271,4 +273,13 @@ public class Salesman extends Entity {
     public void setType(SupplierType type) {
         this.type = type;
     }
+
+	public Integer getDayAllocatedCount() {
+		return dayAllocatedCount;
+	}
+
+	public void setDayAllocatedCount(Integer dayAllocatedCount) {
+		this.dayAllocatedCount = dayAllocatedCount;
+	}
+    
 }

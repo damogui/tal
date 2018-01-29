@@ -22,7 +22,7 @@ public class TaskAllocatedWorkspaceTest extends TaskALLWorkspaceTest{
 		resourceNodeCode = "Operation_CRM_Task_Allocated";
 		listPartJsController = TaskAllListPart.class.getName();
 		listPartServiceController = TaskAllListPart.class.getName();
-		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-all-list.part.js";
+		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-all-list.part.js|/gsb/gsb.custom.query.controls.js";
 		listFilter = "(owner_id is not null and owner_id >0)";
 		listToolbarPath = "task/allocated/list";
 		

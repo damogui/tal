@@ -17,7 +17,7 @@ public class TaskUndistributedWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 		resourceNodeCode = "Operation_CRM_Task_Undistributed";
 		listPartJsController = TaskAllListPart.class.getName();
 		listPartServiceController = TaskAllListPart.class.getName();
-		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-all-list.part.js";
+		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-all-list.part.js|/gsb/gsb.custom.query.controls.js";
 		listToolbarPath = "task/undistributed/list";
 		listFilter = "(owner_id is null or owner_id =0)";
 	}

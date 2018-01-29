@@ -18,7 +18,7 @@ import com.gongsibao.entity.crm.dic.OperationType;
  * @author hw
  * 新增任务：保存日志
  */
-public class ActionSaveTaskLog implements IAction{
+public class ActionSaveRecordLog implements IAction{
 
 	INCustomerChangeService service = ServiceFactory.create(INCustomerChangeService.class);
 	

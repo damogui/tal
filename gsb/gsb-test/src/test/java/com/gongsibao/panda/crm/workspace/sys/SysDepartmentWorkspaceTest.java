@@ -37,7 +37,7 @@ public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_SYS_DEPARTMENT";
 		formOpenMode = OpenMode.TABS;
-		listPartImportJs="/gsb/crm/sys/js/sys-department-list-part.js";
+		listPartImportJs="/gsb/crm/sys/js/sys-department-list-part.js|/gsb/gsb.custom.query.controls.js";
 		listPartJsController = SysDepartmentTreeGridPart.class.getName();
 		listPartServiceController = SysDepartmentTreeGridPart.class.getName();
         formJsImport = "/gsb/crm/sys/js/department-form.part.js|/gsb/gsb.customer.controls.js";
@@ -152,7 +152,6 @@ public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
             {
                 formField.setWidth(200);
                 formField.setRefFilter("enabled=1");
-                formField.setTroikaTrigger("controllerserviceProducts.productChange(newValue,oldValue);");
             }
             formField = addFormField(form, "province.name", "省份", ControlTypes.CUSTOM, false, false);
             {

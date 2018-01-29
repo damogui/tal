@@ -118,7 +118,7 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 			formField.setHeight(50);
 			formField.setFullColumn(false);
 		}
-		return form;
+		return form; 
 	}
 
 	protected void addDetailGridPart(PWorkspace workspace) {
@@ -172,7 +172,6 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 			formField = addFormFieldRefrence(form, "product.name", "产品", null, "CRM_" + Product.class.getSimpleName(), true, false);{
 				formField.setWidth(200);
 				formField.setRefFilter("enabled=1");
-				formField.setTroikaTrigger("controllerproducts.productChange(newValue,oldValue);");
 			}
 			formField = addFormField(form, "province.name", "省份", ControlTypes.CUSTOM, false, false);
 			{
