@@ -79,7 +79,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 			item.toNew();
 			item.setCode("add");
 			item.setIcon("fa fa-mail-reply-all");
-			item.setName("跟进111111");
+			item.setName("跟进");
 			item.setCommand(null);
 			//item.setOperationType(ot1);
 			item.setSeq(1);
@@ -106,12 +106,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 		ResourceNode node = this.resourceService.byCode(foolowDetailResourceNodeCode);
 		PDatagrid datagrid = new PDatagrid(node, "沟通日志");
 		{
-			PDatagridColumn column = addColumn(datagrid, "foolowStatus", "状态", ControlTypes.ENUM_BOX, 180);
-			{
-				String formatter = EnumUtil.getColumnFormatter(CustomerFollowStatus.class);
-				column.setFormatter(formatter);
-			}
-			column = addColumn(datagrid, "qualityCategory", "质量分类", ControlTypes.ENUM_BOX, 180);
+			PDatagridColumn column = addColumn(datagrid, "qualityCategory", "质量分类", ControlTypes.ENUM_BOX, 180);
 			{
 				String formatter = EnumUtil.getColumnFormatter(QualityCategory.class);
 				column.setFormatter(formatter);
