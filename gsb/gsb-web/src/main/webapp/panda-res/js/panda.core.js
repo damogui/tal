@@ -350,5 +350,8 @@ PandaHelper.ShowLogin = function () {
 
 }
 
+PandaHelper.buildFormHtml = function(){
+	
+}
 //-------------------------------------------------------------------------------------------------------------------------------
 var LODOP;//用于Lodop打印控件
