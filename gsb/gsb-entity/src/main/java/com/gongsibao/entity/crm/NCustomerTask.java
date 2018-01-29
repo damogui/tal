@@ -133,7 +133,7 @@ public class NCustomerTask extends Entity {
 	@Column(name = "allocation_type", header = "分配方式")
 	private NAllocationType allocationType = NAllocationType.AUTO;
 
-	@Column(name = "allocation_statee", header = "分配状态")
+	@Column(name = "allocation_state", header = "分配状态")
 	private AllocationState allocationState = AllocationState.WAIT;
 
 	@Column(name = "allocation_dispositon", header = "自营/平台")

@@ -28,7 +28,7 @@ public class ActionAllocationWriteBack implements IAction{
 			updateSql.set("supplier_id", getMap.get("supplierId"));
 			updateSql.set("department_id", getMap.get("departmentId"));
 			updateSql.set("owner_id", getMap.get("toUserId"));
-			updateSql.set("allocation_statee", 2);
+			updateSql.set("allocation_state", 2);
 			updateSql.set("allocation_type", getMap.get("allocationType"));
 			updateSql.where("id in(" + taskIds + ")");
 		}
