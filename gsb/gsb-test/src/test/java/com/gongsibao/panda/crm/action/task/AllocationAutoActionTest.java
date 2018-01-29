@@ -15,7 +15,7 @@ import com.gongsibao.crm.service.action.task.allocation.auto.ActionAutoAllocatio
 import com.gongsibao.crm.service.action.task.allocation.auto.ActionAutoAllocationVerify;
 import com.gongsibao.crm.service.action.task.allocation.manual.ActionManualAllocationRecordLog;
 
-public class AutoAllotActionTest {
+public class AllocationAutoActionTest {
 
 	private ResourceNode resourceNode = null;
 	private IBeanPathService beanPathService = ServiceFactory.create(IBeanPathService.class);

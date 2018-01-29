@@ -11,7 +11,7 @@ import com.gongsibao.crm.service.action.task.allocation.manual.ActionManualAlloc
 import com.gongsibao.crm.service.action.task.allocation.manual.ActionManualAllocationWriteBack;
 import com.gongsibao.panda.crm.action.BaseActionTest;
 
-public class AllocationActionTest extends BaseActionTest{
+public class AllocationManualActionTest extends BaseActionTest{
 
 	@Before
 	public void setup() {

@@ -6,7 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 import com.gongsibao.panda.crm.action.customer.SaveCustomerActionTest;
 import com.gongsibao.panda.crm.action.task.AbnormalActionTest;
-import com.gongsibao.panda.crm.action.task.AllocationActionTest;
+import com.gongsibao.panda.crm.action.task.AllocationManualActionTest;
 import com.gongsibao.panda.crm.action.task.FollowActionTest;
 import com.gongsibao.panda.crm.action.task.RegainActionTest;
 import com.gongsibao.panda.crm.action.task.ReleaseActionTest;
@@ -16,7 +16,7 @@ import com.gongsibao.panda.crm.action.task.TransferActionTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
-	AllocationActionTest.class, 
+	AllocationManualActionTest.class, 
 	AbnormalActionTest.class, 
 	FollowActionTest.class, 
 	RegainActionTest.class, 
