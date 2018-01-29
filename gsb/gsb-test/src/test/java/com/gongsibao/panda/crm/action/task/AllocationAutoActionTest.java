@@ -37,7 +37,7 @@ public class AllocationAutoActionTest {
 			beanPath.toNew();
 			beanPath.setPath(pathName);
 			beanPath.setResourceNode(resourceNode);
-			beanPath.setName("任务分配");
+			beanPath.setName("任务自动分配");
 		}
 		Bean bean = new Bean();
 		{
