@@ -350,8 +350,82 @@ PandaHelper.ShowLogin = function () {
 
 }
 
-PandaHelper.buildFormHtml = function(){
+//弹出支柱表单窗口
+PandaHelper.openDynamicForm = function(option){
 	
+//	option = {
+//		title:'',
+//		width:400,
+//		height:300,
+//		items :[{
+//			id:null,
+//			title:null,
+//			type:null,
+//          className:'',
+//			option:null
+//		}],
+//		callback:function(){
+//			
+//		}
+//	};
+
+	var items = option.items;
+	if(items==null || items.length==0){
+		
+		IMessageBox.error('items不能为空');
+		return;
+	}
+	var formId = System.GUID.newGUID();
+	var builder = new System.StringBuilder();
+	
+	builder.append('<form id="formsalesman">');
+	builder.append('<div style="margin:10px;">');
+	builder.append('<table cellpadding="5" cellspacing="10" class="query-panel">');
+	$(items).each(function(i,item){
+
+		if(item.type == 'textarea'){
+
+			builder.append('<tr><td class="title">'+item.title+'</td><td><textarea id="'+item.id+'" style="width:'+item.width+'px;height:'+item.height+'px;" className="'+(item.className||'')+'" ></textarea></td></tr>');
+		}else{
+
+			builder.append('<tr><td class="title">'+item.title+'</td><td><input id="'+item.id+'"/></td></tr>');
+		}
+	});
+	builder.append('	</table>');
+	builder.append('</div>');
+	builder.append('</form>');
+
+	layer.open({
+		type : 1,
+		title : option.title,
+		fixed : false,
+		maxmin : false,
+		shadeClose : false,
+		zIndex : 100000,
+		area : [ option.width+'px', option.height+'px' ],
+		content : builder.toString(),
+		btn : [ '提交', '取消' ],
+		success : function(layero, index) {
+			
+			$(items).each(function(i,item){
+
+				if(item.type != 'textarea'){
+					
+					var expression = '$("#'+item.id+'").'+item.type+'(item.option);';
+					eval(expression);
+					//alert(expression);
+				}
+			});
+		},
+		btn1 : function(index, layero) {
+			
+			if(option.callback){
+				
+				var obj = {};//获取表单上的值（暂时不实现）
+				option.callback(index, layero);
+			}
+		}
+	});
 }
 //-------------------------------------------------------------------------------------------------------------------------------
 var LODOP;//用于Lodop打印控件

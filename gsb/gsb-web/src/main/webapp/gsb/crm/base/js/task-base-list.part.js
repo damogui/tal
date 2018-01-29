@@ -22,8 +22,96 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		this.edit(id);
 	},
 	doubleClickRow : function(index, row) {
-
-		this.edit(row.id);
+		
+		var supplierOption = {columns : [ [ {
+				field : 'name',
+				title : '名称',
+				width : 100
+			}] ],
+			url : '\/panda\/rest\/reference?code=CRM_Supplier&filter=',
+			idField : 'id',
+			textField : 'name',
+			width : 300,
+			fitColumns : true,
+			panelWidth : 450,
+			panelHeight : 310,
+			pagination : true,
+			pageSize : 10,
+			mode : 'remote',
+			multiple : false,
+			onChange : function(newValue, oldValue) {
+				
+			}};
+		
+		var departmentOption = {columns : [ [ {
+				field : 'name',
+				title : '名称',
+				width : 100
+			}] ],
+			url : '\/panda\/rest\/reference?code=CRM_Supplier_Depart&filter=',
+			idField : 'id',
+			textField : 'name',
+			width : 300,
+			fitColumns : true,
+			panelWidth : 450,
+			panelHeight : 310,
+			pagination : true,
+			pageSize : 10,
+			mode : 'remote',
+			multiple : false,
+			onChange : function(newValue, oldValue) {
+				
+			}};
+		
+		var employeeOption = {columns : [ [ {
+			field : 'name',
+			title : '名称',
+			width : 100
+		}] ],
+		url : '\/panda\/rest\/reference?code=Employee&filter=',
+		idField : 'id',
+		textField : 'name',
+		width : 300,
+		fitColumns : true,
+		panelWidth : 450,
+		panelHeight : 310,
+		pagination : true,
+		pageSize : 10,
+		mode : 'remote',
+		multiple : false,
+		onChange : function(newValue, oldValue) {
+			
+		}};
+		
+		PandaHelper.openDynamicForm({
+			title:'任务分配',
+			width:450,
+			height:300,
+			items:[{id:'allot_supplier_name',
+				title:'服务商',
+				type:'combogrid',
+	            className:'',
+				option:supplierOption},
+				
+				{id:'allot_department_name',
+					title:'部门',
+					type:'combogrid',
+		            className:'',
+					option:departmentOption},
+					
+				{id:'allot_employee_name',
+					title:'业务员',
+					type:'combogrid',
+		            className:'',
+					option:departmentOption}
+			],
+			callback:function(index, layero){
+				
+				alert(index);
+			}
+		});
+		
+		//this.edit(row.id);
 	},
 	edit : function(id) {
 		
@@ -44,6 +132,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		});
 	},
 	doAllot : function(id) {
+		
 		var builder = new System.StringBuilder();
 		builder.append('<div style="margin:10px;">');
 		builder.append('	<table cellpadding="5" cellspacing="10" class="query-panel">');
@@ -383,6 +472,25 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		var me = this;
 		me.doAbnormalPopup(id,0,1);
 	},doAbnormalPopup : function(id,state,type) {
+		
+		PandaHelper.openDynamicForm({
+			title:'抽查',
+			width:450,
+			height:300,
+			items:[{id:'txtNote',
+				title:'内容',
+				type:'textarea',
+				height:130,
+				width:300,
+	            className:''}
+			],
+			callback:function(index, layero){
+				
+				alert(index);
+			}
+		});
+		
+		return;
 		var me = this;
 		var content = '<p style="padding-left:50px;">&nbsp;抽查记录：</p>'
 				+ '<p style="padding-left:50px;">'
