@@ -136,7 +136,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest{
 
 	// 意向产品
 	private void addIntenProductPart(PWorkspace workspace) {
-		// 需要配置NCustomerProduct资源
+		// 需要配置NCustomerProduct资 源
 		ResourceNode node = this.resourceService.byCode(productsDetailResourceNodeCode);
 		PDatagrid datagrid = new PDatagrid(node, "意向产品");
 		{
