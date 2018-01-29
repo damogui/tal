@@ -49,13 +49,16 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
             }
         }
 
-        var me = this;
-        
         this.addExtraProp(entity);
+        this.doSave(entity);
+    },
+    doSave:function(entity){
+
+        var me = this;
         this.invokeService("save", [entity], function (jmessage) {
         	
-        	 me.onSaved(jmessage);
-        });
+       	  me.onSaved(jmessage);
+       });
     },
     addExtraProp:function(entity){
     	

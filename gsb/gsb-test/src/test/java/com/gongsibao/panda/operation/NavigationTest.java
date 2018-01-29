@@ -59,7 +59,7 @@ public class NavigationTest extends NavigationBase {
 		
 		createPTreeNode(tree, null, "fa fa-file-o fa-fw", "Operation_CRM", "客户管理", "", 4);
 		{
-			createPTreeNode(tree, "Operation_CRM", "fa fa-user-plus fa-fw", "Operation_CRM_Customer_Add", "新增客户", "/operation/customer/add", 1);
+			createPTreeNode(tree, "Operation_CRM", "fa fa-user-plus fa-fw", "Operation_CRM_Customer_Add", "新增客户", "/crm/platform/customer/add", 1);
 			
 			createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_ALL", "全部客户", "/operation/customer/all/list", 2);
 			createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_Allocated", "已分配客户", "/operation/customer/allocated/list", 3);
