@@ -31,6 +31,31 @@ com.gongsibao.crm.web.SysSalesmanListPart = org.netsharp.panda.commerce.ListPart
         }
         return true;
     },
+    getSelectedItem : function(obj) {
+        if(obj==1){//obj 1代表新增,其他的不处理
+
+          //新增不做选择校验
+        }else {
+
+            var items = this.getSelections();
+
+            if (items.length == 0) {
+
+                IMessageBox.info("您没有选择记录!");
+                return null;
+            } else if (items.length > 1) {
+
+                IMessageBox.info("只能选择一条记录!");
+                return null;
+            } else {
+                return items[0];
+            }
+        }
+
+
+
+
+    },
     add: function() {
 
         if (!this.onAdding()) {
@@ -43,7 +68,7 @@ com.gongsibao.crm.web.SysSalesmanListPart = org.netsharp.panda.commerce.ListPart
             fks.push(this.context.relationRole + ":"+ this.relationItem.id);
         }
 
-        var selectedRow = this.getSelectedItem();
+        var selectedRow = this.getSelectedItem(1);
         if (selectedRow == null) {
 
             var supplierId = this.queryString('supplierId');
