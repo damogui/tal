@@ -13,12 +13,24 @@ com.gongsibao.crm.web.SysSalesmanTreePart =org.netsharp.panda.commerce.TreePart.
 
 //重新调用查询
 $(function() {
-    var supplierId = controllerGsbCrmSysDepartmentTree.queryString('supplierId');
-    var params = {
-        supplierId: supplierId
+    // debugger;
+    // var supplierId = controllerGsbCrmSysDepartmentTree.queryString('supplierId');
+    // var params = {
+    //     supplierId: supplierId
+    //
+    // };
+    // $('#treeGsbCrmSysDepartmentTree').tree("options").queryParams = params;
+    // $('#treeGsbCrmSysDepartmentTree').tree('reload');
 
-    };
-    $('#treeGsbCrmSysDepartmentTree').tree("options").queryParams = params;
-    $('#treeGsbCrmSysDepartmentTree').tree('reload');
+ 
+    var supplierId = controllerGsbCrmSysDepartmentTree.queryString('supplierId');
+    var url = controllerGsbCrmSysDepartmentTree.context.url;
+    var options = $('#treeGsbCrmSysDepartmentTree').tree('options');
+    if(supplierId){
+        url+='&supplierId='+supplierId;
+    }
+    options.url =url;
+    //列表
+    $('#treeGsbCrmSysDepartmentTree').tree(options);//进行重新加载
 
 });
