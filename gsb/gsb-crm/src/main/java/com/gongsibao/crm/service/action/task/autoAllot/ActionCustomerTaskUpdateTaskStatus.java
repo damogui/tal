@@ -34,8 +34,8 @@ public class ActionCustomerTaskUpdateTaskStatus implements IAction {
 		entity.setAllocationState(AllocationState.ALLOCATED);
 		//跟进状态改为【待跟进】
 		entity.setFoolowStatus(CustomerFollowStatus.UNFollow);
-		//跟新最后跟进时间
-		//entity.setLastAllocationTime(new Date());
+		//跟新最后分配时间
+		entity.setLastAllocationTime(new Date());
 		
 		nCustomerTaskService.save(entity);
 		
