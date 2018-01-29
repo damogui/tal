@@ -363,7 +363,7 @@ PandaHelper.openDynamicForm = function(option){
 //			type:null,
 //          className:'',
 //			option:null
-//		}],
+//		}], 
 //		callback:function(){
 //			
 //		}
