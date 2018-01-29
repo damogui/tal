@@ -391,7 +391,8 @@ PandaHelper.openDynamicForm = function(option){
 
 		if(item.type == 'textarea'){
 
-			builder.append('<tr><td class="title">'+item.title+'</td><td><textarea id="'+item.id+'" style="width:'+item.width+'px;height:'+item.height+'px;" className="'+(item.className||'')+'" ></textarea></td></tr>');
+			builder.append('<tr><td class="title">'+item.title+'</td><td><textarea id="'+item.id+'" style="width:'
+					+item.width+'px;height:'+item.height+'px;" className="'+(item.className||'')+'" ></textarea></td></tr>');
 		}else{
 
 			builder.append('<tr><td class="title">'+item.title+'</td><td><input id="'+item.id+'"/></td></tr>');
