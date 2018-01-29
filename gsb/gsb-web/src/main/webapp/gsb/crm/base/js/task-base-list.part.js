@@ -71,7 +71,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 								title : '名称',
 								width : 100
 							}] ],
-							url : '\/panda\/rest\/reference?code=CRM_Supplier_Depart&filter=',
+							url : '\/panda\/rest\/reference?code=SupplierDepartment&filter=',
 							idField : 'id',
 							textField : 'name',
 							width : 300,
@@ -93,7 +93,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 							title : '名称',
 							width : 150
 						} ] ];
-						options.url = '\/panda\/rest\/reference?code=CRM_Supplier&filter=';
+						options.url = '\/panda\/rest\/reference?code=Supplier&filter=';
 						options.textField = 'name';
 						options.onChange = function(newValue, oldValue) {
 						};

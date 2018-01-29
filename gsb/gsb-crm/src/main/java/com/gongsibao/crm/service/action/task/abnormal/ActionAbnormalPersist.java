@@ -25,7 +25,7 @@ public class ActionAbnormalPersist implements IAction{
 		
 		Integer getState = (Integer)ctx.getStatus().get("state");
 		inspectionEntity.toNew();//标示下类型，有多种
-		//备注操作0  state
+		//state==0 只添加备注操作
 		if(!getState.equals(0)){
 			inspectionEntity.setInspectionState(TaskInspectionState.getItem(getState));
 		}

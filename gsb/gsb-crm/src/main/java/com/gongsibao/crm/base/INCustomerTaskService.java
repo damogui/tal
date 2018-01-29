@@ -41,7 +41,12 @@ public interface INCustomerTaskService  extends IPersistableService<NCustomerTas
 	public Boolean transfer(String taskId,Integer supplierId,Integer departmentId,Integer toUserId);
 	
 	/**
-	 * 抽查异常
+	 * 抽查异常 
+	 * @param taskId 任务Id
+	 * @param state 1-"未抽查",2-"抽查正常",3-"抽查异常",4-"异常已处理"
+	 * @param content
+	 * @param type 1-"抽查",2-"处理"
+	 * @return
 	 */
 	public Boolean abnormal(Integer taskId,Integer state,String content,Integer type);
 	
