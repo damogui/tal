@@ -165,6 +165,9 @@ public class NCustomer extends Entity {
 
 	@Column(name = "customer_source_id", header = "客户来源")
 	private Integer customerSourceId = 0;
+	
+	@Column(name = "task_count", header = "任务数量：创建任务，删除任务时更新此值")
+	private Integer taskCount = 0;
 
 	@Subs(foreignKey = "customerId", header = "客户任务", subType = NCustomerTask.class)
 	private List<NCustomerTask> tasks;
@@ -184,6 +187,14 @@ public class NCustomer extends Entity {
 	@Subs(foreignKey = "customerId", header = "流转日志", subType = NCustomerChange.class)
 	private List<NCustomerChange> changes;
 	
+	public Integer getTaskCount() {
+		return taskCount;
+	}
+
+	public void setTaskCount(Integer taskCount) {
+		this.taskCount = taskCount;
+	}
+
 	public Integer getQualityId() {
 		return qualityId;
 	}
