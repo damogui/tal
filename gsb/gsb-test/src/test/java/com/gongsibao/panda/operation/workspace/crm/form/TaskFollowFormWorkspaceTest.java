@@ -21,7 +21,7 @@ public class TaskFollowFormWorkspaceTest extends WorkspaceCreationBase {
 	public void setup() {
 		entity = NCustomerTaskFoolow.class;
 		// 配置表单路径
-		urlForm = "/crm/task/followUp/from";
+		urlForm = "/crm/platform/task/follow";
 		listPartName = formPartName = "跟进";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();

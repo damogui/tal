@@ -87,14 +87,18 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		// 设置编码样式 和所在的代理公司
 		if (entity.getEntityState() == EntityState.New) {
 			entity.setCode(DateTime.now().toString("yyyyMMddHHmmss"));
-			// IUserService userService=ServiceFactory.create(IUser)
-			 //int id=SupplierSessionManager.getSupplierId();
-			// Supplier sl=supplierServcie.byId(id);
-			 
-			// entity.setProxyCompanyName(sl.getName());
-			// entity.setAccountNo(accountNo);
-
-			if(entity.getApplierType()== ApplierType.PUBLIC){
+			Integer id=SupplierSessionManager.getSupplierId();
+			entity.setSupplierId(id);
+			for(TradeMark tm :entity.getTradeMarks()) {
+				tm.setSupplierId(id);
+			}
+			//设置加盟商信息
+			Integer sid=SupplierSessionManager.getSupplierId();
+			Supplier sl=supplierServcie.byId(sid);
+		  entity.setProxyCompanyName(sl.getName());
+			entity.setAccountNo(sl.getBankNum());
+			
+			if (entity.getApplierType() == ApplierType.PUBLIC) {
 				entity.setApplier(entity.getCompanyName());
 			}
 			UploadAttachment attachment2 = (UploadAttachment) this.buildUploadAttachment("营业执照",
@@ -135,25 +139,25 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 
 						}
 					}
-					
-					//颜色检查
-					if(!tmk.getHasColor()) {
-						//如果没有颜色
+
+					// 颜色检查
+					if (!tmk.getHasColor()) {
+						// 如果没有颜色
 						tradeMarkService.deleteColorfulTradeMarkPict(tmk);
-					}else {//检查颜色是否改变
-						//检查是否存在彩色图样，不存在就添加
+					} else {// 检查颜色是否改变
+							// 检查是否存在彩色图样，不存在就添加
 						tradeMarkService.addColorfulTradeMarkPict(tmk);
 					}
-					
+
 				}
 
 			}
 
 		}
-		Boolean deleted=false;
+		Boolean deleted = false;
 		// 删除附件明细
 		if (entity.getEntityState() == EntityState.Deleted) {
-			deleted=true;
+			deleted = true;
 			Oql oql = new Oql();
 			{
 				oql.setType(this.type);
@@ -190,27 +194,31 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		entity.setToken(entity.getMobile());
 		// 设置tokenImageUrl
 		entity = super.save(entity);
-		
-		
 
 		// 查询出id不在上传附件列表中的商标,当首次保存或者更新新增商标时，需要添加新的附件
-		if(!deleted) {
-			String cmdstr = "select trade_mark_id from  ig_up_attachment where trade_mark_caseid=?";
+		if (!deleted) {
 			Oql oql = new Oql();
-			oql.getParameters().add("trade_mark_caseid", entity.getId(), Types.INTEGER);
-			DataTable dt = tradeMarkService.executeTable(cmdstr, oql.getParameters());
-			Iterator<Row> rows = dt.iterator();
+			oql.setType(UploadAttachment.class);
+			oql.setSelects("UploadAttachment.tradeMark.{id,shareGroup}");
+			oql.setFilter("tradeMarkCaseId=?");
+			oql.getParameters().add("tradeMarkCaseId",entity.getId(), Types.INTEGER);
+			List<UploadAttachment> uls = upattachementService.queryList(oql);
 			Map<Integer, Integer> dicTmp = new HashMap<Integer, Integer>();
-			while (rows.hasNext()) {
-				Row row = rows.next();
-				Integer newid = row.getInteger("trade_mark_id");
-				if (newid != null)
-					dicTmp.put(newid, newid);
+			//缓存已有共享组
+			Map<ShareGroup, Integer> dic = new HashMap<ShareGroup, Integer>();
+			for(UploadAttachment ua :uls) {
+				TradeMark tm=ua.getTradeMark();
+				if(tm!=null) {
+					dicTmp.put(tm.getId(), tm.getId());
+					if(tm.getShareGroup()!=ShareGroup.NOSHARRE) {
+						dic.put(tm.getShareGroup(), 1);//缓存所有当前案件已经持久化的共享资源组
+					}
+				}	
 			}
 			List<UploadAttachment> upas = new ArrayList<UploadAttachment>();
 			List<DownloadAttachment> downs = new ArrayList<DownloadAttachment>();
 			List<TradeMark> tmks = entity.getTradeMarks();
-			Map<ShareGroup, Integer> dic = new HashMap<ShareGroup, Integer>();
+			
 			UploadAttachment attachment1 = null;
 			DownloadAttachment attachment2 = null;
 			for (int i = 0; i < tmks.size(); i++) {
@@ -232,19 +240,22 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 
 						}
 						attachment1 = (UploadAttachment) this.buildUploadAttachment(tmk.getMemo() + "_黑色商标图样",
-								AttachmentCat.TRADEMARK_PICT, entity.getId(), FileType.JPGB, FileType.JPGB, tmk.getId());
+								AttachmentCat.TRADEMARK_PICT, entity.getId(), FileType.JPGB, FileType.JPGB,
+								tmk.getId());
 						upas.add(attachment1);
 
 						attachment1 = (UploadAttachment) this.buildUploadAttachment(tmk.getMemo() + "_委托书",
-								AttachmentCat.DELEGATE_PROOF, entity.getId(), FileType.JPGB, FileType.JPGB, tmk.getId());
+								AttachmentCat.DELEGATE_PROOF, entity.getId(), FileType.JPGB, FileType.JPGB,
+								tmk.getId());
 						upas.add(attachment1);
 
 						attachment1 = (UploadAttachment) this.buildUploadAttachment(tmk.getMemo() + "_补充证明",
 								AttachmentCat.MEMO_DESC, entity.getId(), FileType.JPGC, FileType.JPGC, tmk.getId());
 						upas.add(attachment1);
 
-						attachment2 = this.buildDownloadAttachment(tmk.getMemo() + "_黑色委托书", AttachmentCat.DELEGATE_PROOF,
-								entity.getId(), FileType.JPGC, FileType.JPGC, tmk.getId());
+						attachment2 = this.buildDownloadAttachment(tmk.getMemo() + "_黑色委托书",
+								AttachmentCat.DELEGATE_PROOF, entity.getId(), FileType.JPGC, FileType.JPGC,
+								tmk.getId());
 						downs.add(attachment2);
 
 					} else {
@@ -283,20 +294,15 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 
 							dic.put(tmk.getShareGroup(), 1);
 
-						}else {
-							//如果新增的包含
-							
-						}
+						} 
 
 					}
 
-				} else {
-					dic.put(tmk.getShareGroup(), 1);
-				}
+				} 
 			}
 			upattachementService.saves(upas);
 			downattachementService.saves(downs);
-			
+
 		}
 		return entity;
 	}

@@ -1,12 +1,12 @@
 package com.gongsibao.crm.web;
 
-import com.gongsibao.supplier.web.panda.BaseSupplierTreePart;
-import com.gongsibao.utils.SupplierSessionManager;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.netsharp.panda.commerce.TreePart;
 import org.netsharp.util.StringManager;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.gongsibao.utils.SupplierSessionManager;
 
 /**
  * Created by win on 2018/1/22.

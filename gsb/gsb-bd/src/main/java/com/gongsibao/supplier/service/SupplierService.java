@@ -2,11 +2,9 @@ package com.gongsibao.supplier.service;
 
 import java.sql.Types;
 
-import com.gongsibao.entity.supplier.Salesman;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
-import org.netsharp.core.BusinessException;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
 import org.netsharp.core.QueryParameters;
@@ -93,8 +91,8 @@ public class SupplierService extends PersistableService<Supplier> implements ISu
 
     @Override
     public Supplier save(Supplier entity) {
+    	
         EntityState state = entity.getEntityState();
-
         if (state.equals(EntityState.Persist)) {
 
             Supplier oldSupplier = super.byId(entity.getId());
@@ -108,17 +106,10 @@ public class SupplierService extends PersistableService<Supplier> implements ISu
                 qps.add("@type", entity.getType().getValue(), Types.INTEGER);
                 qps.add("@supplier_id", entity.getId(), Types.INTEGER);
 
-
-                int exNum = this.pm.executeNonQuery(sql1, qps);
-                int exNum2 = this.pm.executeNonQuery(sql2, qps);
-
-
-
+                this.pm.executeNonQuery(sql1, qps);
+                this.pm.executeNonQuery(sql2, qps);
             }
-
-
         }
-
 
         entity = super.save(entity);
         return entity;

@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
 
-import com.gongsibao.crm.web.CustomerVerifyListPart;
+import com.gongsibao.crm.web.NCustomerVerifyListPart;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.panda.operation.workspace.crm.CustomerVerifyWorkspaceTest;
 
@@ -20,9 +20,9 @@ public class SalesmanVerifyCustomerWorkspaceTest extends CustomerVerifyWorkspace
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "CRM_SALESMAN_CUSTOMER_ADD";
-		listPartImportJs = "/gsb/crm/platform/js/customer-verify-list.part.js";
-		listPartJsController = CustomerVerifyListPart.class.getName();
-		listPartServiceController = CustomerVerifyListPart.class.getName();
+		listPartImportJs = "/gsb/crm/platform/js/customer-verify-list.part.js|/gsb/gsb.custom.query.controls.js";
+		listPartJsController = NCustomerVerifyListPart.class.getName();
+		listPartServiceController = NCustomerVerifyListPart.class.getName();
 	}
 	
 	@Test

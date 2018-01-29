@@ -25,7 +25,7 @@ import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.controls.CityComboBox;
 import com.gongsibao.controls.DictComboBox;
-import com.gongsibao.crm.web.SalesmaProductDetailPart;
+import com.gongsibao.crm.web.TaskProductDetailPart;
 import com.gongsibao.crm.web.SysSalesmanListPart;
 import com.gongsibao.crm.web.SysSalesmanTreePart;
 import com.gongsibao.entity.product.Product;
@@ -45,11 +45,11 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_CRM_SYS_SALESMAN";
 		formOpenMode = OpenMode.WINDOW;
-		listPartImportJs = "/gsb/crm/sys/js/sys-salesman-list-part.js";
+		listPartImportJs = "/gsb/crm/sys/js/sys-salesman-list-part.js|/gsb/gsb.custom.query.controls.js";
 		listPartJsController = SysSalesmanListPart.class.getName();
 		listPartServiceController = SysSalesmanListPart.class.getName();
 
-		formJsImport = "/gsb/crm/js/salesman-form.part.js|/gsb/gsb.customer.controls.js";
+		formJsImport = "/gsb/crm/sys/js/salesman-form.part.js|/gsb/gsb.customer.controls.js";
 	}
 
 	@Override
@@ -346,8 +346,8 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("panda/datagrid/detail");
-			part.setJsController(SalesmaProductDetailPart.class.getName());
-			part.setServiceController(SalesmaProductDetailPart.class.getName());
+			part.setJsController(TaskProductDetailPart.class.getName());
+			part.setServiceController(TaskProductDetailPart.class.getName());
 			part.setWindowWidth(400);
 			part.setWindowHeight(450);
 			part.setForm(form);

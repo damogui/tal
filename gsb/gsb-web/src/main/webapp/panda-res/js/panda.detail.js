@@ -352,6 +352,7 @@ org.netsharp.panda.commerce.DetailPart = org.netsharp.panda.core.View.Extends({
         layer.closeAll();
         this.viewModel.context = this.context;
         var entity = this.viewModel.getEntity();
+        this.saveBefore(entity);
         this.viewModel.clear();
         
         //特殊处理引用字段
@@ -477,6 +478,9 @@ org.netsharp.panda.commerce.DetailPart = org.netsharp.panda.core.View.Extends({
 		
 	},
 	saveAfter:function(){
+		
+	},
+	saveBefore:function(){
 		
 	},
 

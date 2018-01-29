@@ -1,6 +1,7 @@
 package com.gongsibao.panda.operation;
 
 import com.gongsibao.panda.operation.workspace.supplier.*;
+
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -11,7 +12,6 @@ import com.gongsibao.panda.operation.workspace.crm.CustomerAllocatedWorkspaceTes
 import com.gongsibao.panda.operation.workspace.crm.CustomerNotTaskWorksapceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerUndistributedWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.CustomerVerifyWorkspaceTest;
-import com.gongsibao.panda.operation.workspace.crm.QualityWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.TaskALLWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.TaskAllocatedWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.TaskAnomalyDetectionWorkspaceTest;
@@ -28,6 +28,7 @@ import com.gongsibao.panda.operation.workspace.reference.SupplierDepartmentRefer
 import com.gongsibao.panda.operation.workspace.reference.SupplierReferenceTest;
 import com.gongsibao.panda.operation.workspace.reference.SupplierSalesmanReferenceTest;
 import com.gongsibao.panda.operation.workspace.supplier.data.ImportTaskQualityDataTest;
+import com.gongsibao.panda.operation.workspace.supplier.data.ImportTaskRoleAndFunctionTest;
 import com.gongsibao.panda.operation.workspace.taurus.ActiveUserWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.taurus.DayStatisticWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.taurus.JnzUserBalanceWorkSpaceTest;

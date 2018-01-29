@@ -12,7 +12,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.controls.PropertyQueryDictComboBox;
-import com.gongsibao.crm.web.department.DepartmentAllTaskListPart;
+import com.gongsibao.crm.web.DepartmentAllTaskListPart;
 import com.gongsibao.entity.crm.NCustomerTaskQuality;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.panda.operation.workspace.crm.TaskALLWorkspaceTest;
@@ -30,6 +30,7 @@ public class DepartmentAllTaskWorkspaceTest extends TaskALLWorkspaceTest{
 		List<String> ss = new ArrayList<String>();
 		ss.add("/gsb/crm/base/js/task-base-list.part.js");
 		ss.add("/gsb/crm/department/js/task-all-list.part.js");
+		ss.add("/gsb/gsb.custom.query.controls.js");
 		listPartImportJs = StringManager.join("|", ss);
 
 		//当前登录人所在部门的子部门,需要扩展
@@ -73,7 +74,7 @@ public class DepartmentAllTaskWorkspaceTest extends TaskALLWorkspaceTest{
 			toolbar.setName("跟进行工具栏操作");
 			toolbar.setResourceNode(node);
 		}
-		addToolbarItem(toolbar, "followUpPopup", "跟进", "fa fa-edit", "followUpPopup()", null, 6);
+		addToolbarItem(toolbar, "follow", "跟进", "fa fa-edit", "follow()", null, 6);
 		return toolbar;
 	}
 

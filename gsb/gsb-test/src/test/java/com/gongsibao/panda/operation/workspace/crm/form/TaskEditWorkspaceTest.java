@@ -1,5 +1,8 @@
 package com.gongsibao.panda.operation.workspace.crm.form;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
@@ -18,9 +21,9 @@ import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
+import org.netsharp.util.StringManager;
 
 import com.gongsibao.crm.web.NCustomerTaskEditFormPart;
-import com.gongsibao.crm.web.TaskFollowDetailPart;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.dic.ChangeType;
 import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
@@ -34,18 +37,28 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 	protected String notifyDetailResourceNodeCode = "Operation_CRM_Customer_Notify";
 	protected String changeDetailResourceNodeCode = "Operation_CRM_Customer_Change";
 	
+	protected String taskFollowDetailPart = "com.gongsibao.crm.web.PlatformTaskFollowDetailPart";
 	@Before
 	public void setup() {
 		super.setup();
 		entity = NCustomerTask.class;
-		urlForm = "/operation/task/edit";
+		urlForm = "/crm/platform/task/edit";
 		listPartName = formPartName = "任务信息";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "Operation_CRM_Task_Edit";
-		formJsImport = "/gsb/crm/platform/js/task-add-form.part.js|/gsb/crm/platform/js/task-edit-form.part.js|/gsb/gsb.customer.controls.js";
+		
+		List<String> ss = new ArrayList<String>();
+		ss.add("/gsb/crm/platform/js/task-add-form.part.js");
+		ss.add("/gsb/crm/base/js/task-base-edit-form.part.js");
+		ss.add("/gsb/crm/platform/js/task-edit-form.part.js");
+		ss.add("/gsb/gsb.customer.controls.js");
+		formJsImport = StringManager.join("|", ss);
+		
 		formJsController = NCustomerTaskEditFormPart.class.getName();
 		formServiceController = NCustomerTaskEditFormPart.class.getName();
+		
+		//task-base-edit-form.part.js
 	}
 	
 	@Test
@@ -120,8 +133,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("crm/task/communicat/detail");
-			part.setJsController(TaskFollowDetailPart.class.getName());
-			part.setServiceController(TaskFollowDetailPart.class.getName());
+			part.setJsController(taskFollowDetailPart);
 		}
 		workspace.getParts().add(part);
 		part = workspace.getParts().get(0);

@@ -1,7 +1,23 @@
 
-com.gongsibao.crm.web.NCustomerEditFormPart = com.gongsibao.crm.web.NCustomerAddFormPart.Extends( {
+com.gongsibao.crm.web.NCustomerPlatformEditFormPart = com.gongsibao.crm.web.NCustomerFormPart.Extends( {
 
     ctor: function () {
         this.base();
+        this.verifyUrl = '/panda/crm/platform/customer/verify';
+        this.addUrl='/panda/crm/platform/customer/edit';
+        this.editUrl='/panda/crm/platform/customer/edit';
     },
+    toNewUrl:function(){
+    	
+		window.location.href = this.editUrl+'?id='+this.currentItem.id;
+    }
+});
+
+
+com.gongsibao.crm.web.PlatformTaskDetailPart = com.gongsibao.crm.web.NCustomerTaskDetailPart.Extends( {
+    ctor: function () {
+        this.base();
+        this.addUrl = '/panda/crm/platform/task/add';
+        this.editUrl = '/panda/crm/platform/task/edit';
+    }
 });

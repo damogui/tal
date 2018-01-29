@@ -264,8 +264,8 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 				} else {
 					key = ua.getTradeMarkCaseId() + contantSeprate + tm.getShareGroup().getValue() + contantSeprate
 							+ ua.getAttachmentCat().getValue();
-					// 如果指定颜色，那么设置key的后缀为文件类型
-					if (tm.getHasColor()) {
+					// 如果指定颜色，并且是图样，那么设置key的后缀为文件类型
+					if (tm.getHasColor() && ua.getAttachmentCat()==AttachmentCat.TRADEMARK_PICT) {
 						key = key + contantSeprate + ua.getFileType().getValue();
 					}
 
@@ -298,51 +298,64 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		Map<String, String> rtnMap = new HashMap<String, String>();
 		String step2key = tm.getTradeMarkCaseId() + contantSeprate + tm.getShareGroup().getValue() + contantSeprate
 				+ AttachmentCat.DELEGATE_PROOF.getValue();
-		String step3key = tm.getTradeMarkCaseId() + contantSeprate + tm.getShareGroup().getValue() + contantSeprate
-				+ AttachmentCat.DELEGATE_PROOF.getValue();
-		if (tm.getHasColor()) {
-			step2key += contantSeprate + FileType.JPGC.getValue();
-			step3key += contantSeprate + FileType.PNGC.getValue();
-		}
+//		if (tm.getHasColor()) {
+//			step2key += contantSeprate + FileType.JPGC.getValue();
+//			step3key += contantSeprate + FileType.PNGC.getValue();
+//		}
 		String fileinfo = attachmentsMap.get(step2key);
-		String fileinfo2 = attachmentsMap.get(step3key);
 		if (!StringManager.isNullOrEmpty(fileinfo)) {
 			String fileUrl = fileinfo.split(contantSeprate)[0];
 			String fileName = fileinfo.split(contantSeprate)[1];
 			rtnMap.put("fileUrl", fileUrl);
 			rtnMap.put("fileName", fileName);
-		} else {
-			String fileUrl = fileinfo2.split(contantSeprate)[0];
-			String fileName = fileinfo2.split(contantSeprate)[1];
-			rtnMap.put("fileUrl", fileUrl);
-			rtnMap.put("fileName", fileName);
-		}
+		} 
 		return rtnMap;
 	}
 
 	// 构造获取图样的key
 	private Map<String, String> getTradePictAttachment(TradeMark tm, Map<String, String> attachmentsMap) {
 		Map<String, String> rtnMap = new HashMap<String, String>();
-		String step7key = tm.getTradeMarkCaseId() + contantSeprate + tm.getShareGroup().getValue() + contantSeprate
+		String stepbasekey = tm.getTradeMarkCaseId() + contantSeprate + tm.getShareGroup().getValue() + contantSeprate
 				+ AttachmentCat.TRADEMARK_PICT.getValue();
-		String step8key = tm.getTradeMarkCaseId() + contantSeprate + tm.getShareGroup().getValue() + contantSeprate
-				+ AttachmentCat.TRADEMARK_PICT.getValue();
+//		String step8key = tm.getTradeMarkCaseId() + contantSeprate + tm.getShareGroup().getValue() + contantSeprate
+//				+ AttachmentCat.TRADEMARK_PICT.getValue();
+		String stepcolorkeyjpg=null;
+		String stepcolorkeypng=null;
+
 		if (tm.getHasColor()) {
-			step7key += contantSeprate + FileType.JPGC.getValue();
-			step8key += contantSeprate + FileType.PNGC.getValue();
+			stepcolorkeyjpg = stepbasekey+contantSeprate + FileType.JPGC.getValue();
+			stepcolorkeypng = stepbasekey+contantSeprate + FileType.PNGC.getValue();
 		}
-		String fileinfo = attachmentsMap.get(step7key);
-		String fileinfo2 = attachmentsMap.get(step8key);
-		if (!StringManager.isNullOrEmpty(fileinfo)) {
-			String fileUrl = fileinfo.split(contantSeprate)[0];
-			String fileName = fileinfo.split(contantSeprate)[1];
-			rtnMap.put("fileUrl", fileUrl);
-			rtnMap.put("fileName", fileName);
+		String fileinfocolorjpg = attachmentsMap.get(stepcolorkeyjpg);
+		String fileinfo2colorpng = attachmentsMap.get(stepcolorkeypng);
+		if (!StringManager.isNullOrEmpty(fileinfocolorjpg)) {
+			String fileUrl = fileinfocolorjpg.split(contantSeprate)[0];
+			String fileName = fileinfocolorjpg.split(contantSeprate)[1];
+			rtnMap.put("fileUrl_color", fileUrl);
+			rtnMap.put("fileName_color", fileName);
 		} else {
-			String fileUrl = fileinfo2.split(contantSeprate)[0];
-			String fileName = fileinfo2.split(contantSeprate)[1];
-			rtnMap.put("fileUrl", fileUrl);
-			rtnMap.put("fileName", fileName);
+			String fileUrl = fileinfo2colorpng.split(contantSeprate)[0];
+			String fileName = fileinfo2colorpng.split(contantSeprate)[1];
+			rtnMap.put("fileUrl_color", fileUrl);
+			rtnMap.put("fileName_color", fileName);
+		}
+		//黑色
+		String stepblackkeyjpg=null;
+		String stepblackkeypng=null;
+		stepblackkeyjpg = stepbasekey+contantSeprate + FileType.JPGB.getValue();
+		stepblackkeypng = stepbasekey+contantSeprate + FileType.PNGB.getValue();
+		String fileinfoblackjpg = attachmentsMap.get(stepblackkeyjpg);
+		String fileinfo2blackpng = attachmentsMap.get(stepblackkeypng);
+		if (!StringManager.isNullOrEmpty(fileinfoblackjpg)) {
+			String fileUrl = fileinfoblackjpg.split(contantSeprate)[0];
+			String fileName = fileinfoblackjpg.split(contantSeprate)[1];
+			rtnMap.put("fileUrl_black", fileUrl);
+			rtnMap.put("fileName_black", fileName);
+		} else {
+			String fileUrl = fileinfo2blackpng.split(contantSeprate)[0];
+			String fileName = fileinfo2blackpng.split(contantSeprate)[1];
+			rtnMap.put("fileUrl_black", fileUrl);
+			rtnMap.put("fileName_black", fileName);
 		}
 		return rtnMap;
 	}
@@ -392,6 +405,7 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			step2 = new Step2();
 			step2.setAgentFilenum(tm.getProxyCode());
 			step2.setAgentPerson(tmc.getCreator());
+			//设置委托书
 			step2.setAgentBookPath(this.getDeleProofAttachment(tm, shareGroupToTradeMarkMap).get("fileUrl"));
 			step2.setAgentBookName(this.getDeleProofAttachment(tm, shareGroupToTradeMarkMap).get("fileName"));
 
@@ -454,17 +468,16 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			
 			
 			step7 = new Step7();
-			step7.setPicPath(this.getTradePictAttachment(tm, shareGroupToTradeMarkMap).get("fileUrl"));
-			step7.setPicName(this.getTradePictAttachment(tm, shareGroupToTradeMarkMap).get("fileName"));
+	
+			
 			if(tm.getHasColor()){
-				step7.setIsBlack("false");
-				step7.setBlackPath(this.getTradePictAttachment(tm,shareGroupToTradeMarkMap).get("fileUrl"));
-				step7.setBlackName(this.getTradePictAttachment(tm,shareGroupToTradeMarkMap).get("fileName"));
-			}else{
-				step7.setIsBlack("true");
-				step7.setBlackPath("");
-				step7.setBlackName("");
+				step7.setPicPath(this.getTradePictAttachment(tm, shareGroupToTradeMarkMap).get("fileUrl_color"));
+				step7.setPicName(this.getTradePictAttachment(tm, shareGroupToTradeMarkMap).get("fileName_color"));
 			}
+			step7.setIsBlack("true");
+			step7.setBlackPath(this.getTradePictAttachment(tm,shareGroupToTradeMarkMap).get("fileUrl_black"));
+			step7.setBlackName(this.getTradePictAttachment(tm,shareGroupToTradeMarkMap).get("fileName_black"));
+			
 			step7.setCommentPath(this.getCommentAttachment(tm, shareGroupToTradeMarkMap).get("fileUrl"));
 			step7.setCommentName(this.getCommentAttachment(tm, shareGroupToTradeMarkMap).get("fileName"));
 			tminfo.setStep7(step7);

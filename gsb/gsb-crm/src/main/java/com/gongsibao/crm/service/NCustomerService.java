@@ -4,22 +4,17 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.netsharp.action.ActionContext;
+import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.core.MtableManager;
 import org.netsharp.core.Oql;
-import org.netsharp.core.annotations.Subs;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.bd.service.SupplierPersistableService;
 import com.gongsibao.crm.base.INCustomerService;
 import com.gongsibao.entity.crm.NCustomer;
-import com.gongsibao.entity.crm.NCustomerChange;
-import com.gongsibao.entity.crm.NCustomerCompany;
-import com.gongsibao.entity.crm.NCustomerProduct;
-import com.gongsibao.entity.crm.NCustomerTask;
-import com.gongsibao.entity.crm.NCustomerTaskFoolow;
-import com.gongsibao.entity.crm.NCustomerTaskNotify;
 
 @Service
 public class NCustomerService extends SupplierPersistableService<NCustomer> implements INCustomerService {
@@ -30,8 +25,8 @@ public class NCustomerService extends SupplierPersistableService<NCustomer> impl
 	}
 
 	@Override
-	public int updateIsMember(Integer customerId) {
-		
+	public boolean updateIsMember(Integer customerId) {
+
 		UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("n_crm_customer");
@@ -39,7 +34,9 @@ public class NCustomerService extends SupplierPersistableService<NCustomer> impl
 			updateSql.where("id=" + customerId);
 		}
 		String cmdText = updateSql.toSQL();
-		return this.pm.executeNonQuery(cmdText, null);
+
+		// 这里要生成Account bug
+		return this.pm.executeNonQuery(cmdText, null) > 0;
 	}
 
 	@Override
@@ -63,10 +60,10 @@ public class NCustomerService extends SupplierPersistableService<NCustomer> impl
 
 		return this.queryFirst(oql);
 	}
-	
+
 	@Override
 	public NCustomer bySwtCustomerId(String swtCustomerId) {
-		
+
 		String selectFields = getSelectFullFields();
 		Oql oql = new Oql();
 		{
@@ -109,24 +106,22 @@ public class NCustomerService extends SupplierPersistableService<NCustomer> impl
 		NCustomer customer = byId(customerId);
 		return customer;
 	}
-	
-	@Subs(foreignKey = "customerId", header = "客户任务", subType = NCustomerTask.class)
-	private List<NCustomerTask> tasks;
 
-	@Subs(foreignKey = "customerId", header = "意向产品", subType = NCustomerProduct.class)
-	private List<NCustomerProduct> products;
+	@Override
+	public NCustomer save(NCustomer entity) {
 
-	@Subs(foreignKey = "customerId", header = "关联企业", subType = NCustomerCompany.class)
-	private List<NCustomerCompany> companys;
-
-	@Subs(foreignKey = "customerId", header = "沟通日志", subType = NCustomerTaskFoolow.class)
-	private List<NCustomerTaskFoolow> follows;
-
-	@Subs(foreignKey = "customerId", header = "通知日志", subType = NCustomerTaskNotify.class)
-	private List<NCustomerTaskNotify> notifys;
-
-	@Subs(foreignKey = "customerId", header = "流转日志", subType = NCustomerChange.class)
-	private List<NCustomerChange> changes;
+		ActionContext ctx = new ActionContext();
+		{
+			ctx.setPath("gsb/crm/customer/save");
+			ctx.setItem(entity);
+			ctx.setState(entity.getEntityState());
+		}
+		ActionManager action = new ActionManager();
+		action.execute(ctx);
+		
+		entity = (NCustomer) ctx.getItem();
+		return entity;
+	}
 
 	private String getSelectFullFields() {
 

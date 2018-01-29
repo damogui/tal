@@ -3,10 +3,20 @@ System.Declare("com.gongsibao.crm.web");
 com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Extends({
 	ctor : function() {
 		this.base();
+		this.addUrl = null;
+		this.editUrl = null;
+		this.followUrl = null;
+		this.addCustomerUrl = null;
 	},
 	add:function(){
 		
-		window.open("/panda/operation/customer/add");
+		var row = this.getSelectedItem();
+		if(row){
+
+			var customerId = row.customerId;
+			var url = this.addUrl+"?fk=customerId:"+customerId;
+			window.open(url);
+		}
 	},
 	detail:function(id){
 		
@@ -18,7 +28,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 	},
 	edit : function(id) {
 		
-		var url = "/panda/operation/task/edit?id="+id;
+		var url = this.editUrl+"?id="+id;
 		window.open(url);
 	},
 	allocation:function(id){
@@ -27,9 +37,11 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		me.doAllot(id);
 	},
 	follow : function(id) {
+		
 		//任务跟进 
-		var url = "/crm/salesman/task/followUp/from?fk=taskId:"+id;
-		IMessageBox.open("跟进任务", url, 700, 400, function() {
+		var me = this;
+		var url = this.followUrl +"?fk=taskId:"+id;
+		IMessageBox.open("任务跟进", url, 700, 450, function() {
 			me.reload();
 		});
 	},
@@ -144,8 +156,13 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		me.doRollBack(id,1,null);
 	},
 	rollback : function(id){
+		
 		//任务退回
 		var me = this;
+		
+		//这里先要取消所有行，再选中1行
+		$("#" + this.context.id).datagrid('unselectAll');
+		$("#" + this.context.id).datagrid('selectRecord',id);
 		var row = this.getSelectedItem();
 		var intenCategory = row.intentionCategory;
 		me.doRollBack(id,2,intenCategory);
@@ -165,7 +182,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		content.append('<p style="padding-left:50px;">');
 		content.append(' 	<textarea collected="true" controltype="TextArea" id="txtNote" style="width:445px;height:100px;"');
 		content.append(' 		  class="easyui-validatebox validatebox-text" data-options="validateOnCreate:false,validateOnBlur:true">');
-		content.append('	</textarea>');
+		content.append('</textarea>');
 		content.append('</p>');
 		
 		//判断客户质量AB需要提示
@@ -326,10 +343,10 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 			return;
 		}
 		// 任务id
-		var customerId = row.customer_id;
+		var customerId = row.customerId;
 		var isMember = row.customer_isMember;
 		if(isMember){
-			IMessageBox.info('您已开通会员');
+			IMessageBox.info('此客户已经是会员，不能重复开通');
 			return;
 		}
 		IMessageBox.confirm("您确定为该条记录开通会员吗？",function(r){
@@ -340,15 +357,66 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		});
 	},
 	doOpenMember : function(customerId) {
+		
 		var me = this;
 		this.invokeService("openMember", [customerId],function(data) {
-			if(data===1){
-				me.reload();
+			if(data){
 				IMessageBox.toast('开通成功');
+				me.reload();
 				layer.closeAll();
 			}else{
 				IMessageBox.toast('开通失败,稍后再试');
 			}
+			return;
+		});
+	},
+	verified:function(id){
+		//state :1-"未抽查",2-"抽查正常",3-"抽查异常",4-"异常已处理"
+		//type :1-"抽查",2-"处理"
+		var me = this;
+		me.doAbnormalPopup(id,2,1);
+	},
+	untrue:function(id){
+		var me = this;
+		me.doAbnormalPopup(id,3,1);
+	},
+	submitRemark:function(id){
+		//state:0  ；只更新内容
+		var me = this;
+		me.doAbnormalPopup(id,0,1);
+	},doAbnormalPopup : function(id,state,type) {
+		var me = this;
+		var content = '<p style="padding-left:50px;">&nbsp;抽查记录：</p>'
+				+ '<p style="padding-left:50px;">'
+				+ '<textarea collected="true" controltype="TextArea" id="txtNote" style="width:445px;height:100px;" '
+				+ ' class="easyui-validatebox validatebox-text" data-options="validateOnCreate:false,validateOnBlur:true">'
+				+ '</textarea></p>';
+		layer.open({
+			type : 1,
+			title : '抽查记录内容',
+			fixed : false,
+			maxmin : false,
+			shadeClose : false,
+			area : [ '600px', '360px'],
+			content : content,
+			btn : [ '确定', '取消' ],// 可以无限个按钮
+			btn1 : function(index, layero) {
+				var getNote = $("#txtNote").val();
+				if (System.isnull(getNote)) {
+					IMessageBox.info('请输入抽查记录');
+					return false;
+				}
+				me.doAbnormal(id,state,getNote,type);
+			},
+			btn2 : function(index, layero) {
+			}
+		});
+	},doAbnormal : function(id,state,getNote,type) {
+		var me = this;
+		this.invokeService("abnormal", [id,state,getNote,type],function(data) {
+			me.reload();
+			IMessageBox.toast('操作成功');
+			layer.closeAll();
 			return;
 		});
 	}

@@ -13,5 +13,6 @@ com.gongsibao.crm.web.DepartmentNCustomerTaskDetailPart = com.gongsibao.crm.web.
     ctor: function () {
         this.base();
         this.addUrl = "/panda/crm/department/task/add";
+        this.editUrl = "/panda/crm/department/task/edit";
     }
 });

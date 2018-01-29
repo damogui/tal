@@ -20,9 +20,54 @@ com.gongsibao.igirl.web.TradeMarkListPart = org.netsharp.panda.commerce.ListPart
             if(message.length===0){
                 that.reload();
             }else{
-                IMessageBox.info(message);
+                IMessageBox.info("案件："+message+"材料不齐，请联系客户.");
             }
         })
-	}
+	},
+	totmcase:function(row){
+			var formUrl = "/igirl/trademarkcase/all/form";
+			if (System.isnull(formUrl)) {
+				return;
+			}
+			var rows = this.getSelections();
+			if(System.isnull(row)){
+				if (rows.length > 1) {
+					IMessageBox.warning("只能选择一条记录！");
+					return;
+				}
+				if (rows.length ==0) {
+					IMessageBox.warning("请选择一条记录！");
+					return;
+				}		
+				
+			}
+			if(row){
+				id = row.tradeMarkCaseId;
+			}else{
+				id = rows[0].tradeMarkCaseId;
+			}
+			
+			var url = System.Url.join(formUrl, "id=" + id);
+			url = System.Url.getUrl(url);
+			if(this.context.openMode == OpenType.window){
+
+				var me = this;
+				url = System.Url.join(url, "openType="+OpenType.window);
+				IMessageBox.open("方案详情", url, this.context.windowWidth, this.context.windowHeight, function() {
+
+					me.reload();
+				});
+				
+			} else if(this.context.openMode == OpenType.redirect){
+				url = System.Url.join(url, "openType="+OpenType.redirect);
+				window.location.href = url;
+			} else {
+				url = System.Url.join(url, "openType="+OpenType.open);
+				window.open(url);
+			}
+		},
+		doubleClickRow : function(index, row) {
+			this.totmcase(row);
+		},
 
 });
