@@ -12,7 +12,6 @@ import org.netsharp.entity.Entity;
 import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.bd.Dict;
-import com.gongsibao.entity.crm.dic.AllocationDispositon;
 import com.gongsibao.entity.crm.dic.AllocationState;
 import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.NAllocationType;
