@@ -92,7 +92,7 @@ org.netsharp.controls.TextBox = org.netsharp.controls.Control.Extends({
 	},
 	enable: function() {
 		var _disabled = $(this.uiElement).attr("_disabled");
-		if (_disabled != 'true') {
+		if (_disabled &&_disabled == 'true') {
 			return;
 		}
 		$(this.uiElement).prop("disabled", false);
@@ -423,7 +423,7 @@ org.netsharp.controls.NumberBox = org.netsharp.controls.Control.Extends({
 	},
 	enable: function() {
 		var _disabled = $(this.uiElement).attr("_disabled");
-		if (_disabled != 'true') {
+		if (_disabled &&_disabled == 'true') {
 			return;
 		}
 		$(this.uiElement).numberbox("enable");
@@ -581,7 +581,7 @@ org.netsharp.controls.FileBox = org.netsharp.controls.TextBox.Extends({
 	},
 	enable: function() {
 		var _disabled = $(this.uiElement).attr("_disabled");
-		if (_disabled != 'true') {
+		if (_disabled &&_disabled == 'true') {
 			return;
 		}
 		$(this.uiElement).filebox("enable");
@@ -675,7 +675,7 @@ org.netsharp.controls.TextArea = org.netsharp.controls.Control.Extends({
 	},
 	enable: function() {
 		var _disabled = $(this.uiElement).attr("_disabled");
-		if (_disabled != 'true') {
+		if (_disabled &&_disabled == 'true') {
 			return;
 		}
 		$(this.uiElement).prop("disabled", false);
@@ -779,7 +779,7 @@ org.netsharp.controls.CheckBox = org.netsharp.controls.Control.Extends({
 	},
 	enable: function() {
 		var _disabled = $(this.uiElement).attr("_disabled");
-		if (_disabled != 'true') {
+		if (_disabled &&_disabled == 'true') {
 			return;
 		}
 		$(this.uiElement).prop("disabled", false);
@@ -820,7 +820,7 @@ org.netsharp.controls.DateBox = org.netsharp.controls.Control.Extends({
 	},
 	enable: function() {
 		var _disabled = $(this.uiElement).attr("_disabled");
-		if (_disabled != 'true') {
+		if (_disabled &&_disabled == 'true') {
 			return;
 		}
 		$(this.uiElement).datebox("enable");
@@ -865,7 +865,7 @@ org.netsharp.controls.DateTimeBox = org.netsharp.controls.Control.Extends({
 	},
 	enable: function() {
 		var _disabled = $(this.uiElement).attr("_disabled");
-		if (_disabled != 'true') {
+		if (_disabled &&_disabled == 'true') {
 			return;
 		}
 		$(this.uiElement).datebox("enable");
@@ -904,7 +904,7 @@ org.netsharp.controls.EnumBox = org.netsharp.controls.Control.Extends({
 	},
 	enable: function() {
 		var _disabled = $(this.uiElement).attr("_disabled");
-		if (_disabled != 'true') {
+		if (_disabled &&_disabled == 'true') {
 			return;
 		}
 		$(this.uiElement).combobox("enable");
@@ -997,7 +997,7 @@ org.netsharp.controls.ReferenceBox = org.netsharp.controls.Control.Extends({
 	},
 	enable: function() {
 		var _disabled = $(this.uiElement).attr("_disabled");
-		if (_disabled != 'true') {
+		if (_disabled &&_disabled == 'true') {
 			return;
 		}
 		$(this.uiElement).combogrid("enable");
@@ -1023,7 +1023,7 @@ org.netsharp.controls.ComboTreeBox = org.netsharp.controls.ReferenceBox.Extends(
 	},
 	enable: function() {
 		var _disabled = $(this.uiElement).attr("_disabled");
-		if (_disabled != 'true') {
+		if (_disabled &&_disabled == 'true') {
 			return;
 		}
 		$(this.uiElement).combotree("enable");
@@ -1069,7 +1069,7 @@ org.netsharp.controls.JavaEnumBox = org.netsharp.controls.Control.Extends({
 	},
 	enable: function() {
 		var _disabled = $(this.uiElement).attr("_disabled");
-		if (_disabled != 'true') {
+		if (_disabled &&_disabled == 'true') {
 			return;
 		}
 		$(this.uiElement).combobox("enable");
@@ -1176,7 +1176,7 @@ org.netsharp.controls.PccBox = org.netsharp.controls.Control.Extends({
 	enable: function() {
 		
 		var _disabled = $(this.uiElement).attr("_disabled");
-		if (_disabled != 'true') {
+		if (_disabled &&_disabled == 'true') {
 			return;
 		}
 		$(this.uiElement).combobox("enable");
@@ -1364,7 +1364,7 @@ org.netsharp.controls.OrganizationComboBox = org.netsharp.controls.Control.Exten
 	},
 	enable: function() {
 		var _disabled = $(this.uiElement).attr("_disabled");
-		if (_disabled != 'true') {
+		if (_disabled &&_disabled == 'true') {
 			return;
 		}
 		$(this.uiElement).combobox("enable");
