@@ -79,7 +79,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 			item.toNew();
 			item.setCode("add");
 			item.setIcon("fa fa-mail-reply-all");
-			item.setName("跟进");
+			item.setName("跟进111111");
 			item.setCommand(null);
 			//item.setOperationType(ot1);
 			item.setSeq(1);
