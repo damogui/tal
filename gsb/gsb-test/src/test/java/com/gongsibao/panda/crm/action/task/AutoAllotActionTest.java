@@ -9,11 +9,11 @@ import org.netsharp.plugin.bean.IBeanPathService;
 import org.netsharp.resourcenode.IResourceNodeService;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.crm.service.action.task.allocation.ActionAllocationRecordLog;
-import com.gongsibao.crm.service.action.task.autoAllot.ActionCustomerTaskAllot;
-import com.gongsibao.crm.service.action.task.autoAllot.ActionCustomerTaskSendMessage;
-import com.gongsibao.crm.service.action.task.autoAllot.ActionCustomerTaskUpdateTaskStatus;
-import com.gongsibao.crm.service.action.task.autoAllot.ActionCustomerTaskVerifyStatus;
+import com.gongsibao.crm.service.action.task.allocation.auto.ActionAutoAllocationPersist;
+import com.gongsibao.crm.service.action.task.allocation.auto.ActionAutoAllocationSendMessage;
+import com.gongsibao.crm.service.action.task.allocation.auto.ActionAutoAllocationUpdateTaskStatus;
+import com.gongsibao.crm.service.action.task.allocation.auto.ActionAutoAllocationVerify;
+import com.gongsibao.crm.service.action.task.allocation.manual.ActionManualAllocationRecordLog;
 
 public class AutoAllotActionTest {
 
@@ -43,7 +43,7 @@ public class AutoAllotActionTest {
 		{
 			bean.toNew();
 			bean.setName("状态验证");
-			bean.setType(ActionCustomerTaskVerifyStatus.class.getName());
+			bean.setType(ActionAutoAllocationVerify.class.getName());
 			bean.setResourceNode(resourceNode);
 			bean.setSeq(100);
 			
@@ -53,7 +53,7 @@ public class AutoAllotActionTest {
 		{
 			bean.toNew();
 			bean.setName("分配逻辑");
-			bean.setType(ActionCustomerTaskAllot.class.getName());
+			bean.setType(ActionAutoAllocationPersist.class.getName());
 			bean.setResourceNode(resourceNode);
 			bean.setSeq(200);
 			
@@ -63,7 +63,7 @@ public class AutoAllotActionTest {
 		{
 			bean.toNew();
 			bean.setName("任务的分配状态的回写");
-			bean.setType(ActionCustomerTaskUpdateTaskStatus.class.getName());
+			bean.setType(ActionAutoAllocationUpdateTaskStatus.class.getName());
 			bean.setResourceNode(resourceNode);
 			bean.setSeq(300);
 			
@@ -73,7 +73,7 @@ public class AutoAllotActionTest {
 		{
 			bean.toNew();
 			bean.setName("写入跟进记录");
-			bean.setType(ActionAllocationRecordLog.class.getName());
+			bean.setType(ActionManualAllocationRecordLog.class.getName());
 			bean.setResourceNode(resourceNode);
 			bean.setSeq(400);
 			
@@ -83,7 +83,7 @@ public class AutoAllotActionTest {
 		{
 			bean.toNew();
 			bean.setName("发送通知消息");
-			bean.setType(ActionCustomerTaskSendMessage.class.getName());
+			bean.setType(ActionAutoAllocationSendMessage.class.getName());
 			bean.setResourceNode(resourceNode);
 			bean.setSeq(500);
 			

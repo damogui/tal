@@ -1,4 +1,4 @@
-package com.gongsibao.crm.service.action.task.autoAllot;
+package com.gongsibao.crm.service.action.task.allocation.auto;
 
 import java.sql.Types;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ import com.gongsibao.supplier.base.ISalesmanService;
 /**
  * @author zhangchao 分配逻辑
  */
-public class ActionCustomerTaskAllot implements IAction {
+public class ActionAutoAllocationPersist implements IAction {
 
 	// 任务服务对象
 	INCustomerTaskService nCustomerTaskService = ServiceFactory.create(INCustomerTaskService.class);

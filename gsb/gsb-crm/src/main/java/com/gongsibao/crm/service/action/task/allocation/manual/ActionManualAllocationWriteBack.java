@@ -1,4 +1,4 @@
-package com.gongsibao.crm.service.action.task.allocation;
+package com.gongsibao.crm.service.action.task.allocation.manual;
 
 import java.util.Map;
 
@@ -14,7 +14,7 @@ import com.gongsibao.entity.crm.NCustomerTask;
  * @author hw
  * 分配回写
  */
-public class ActionAllocationWriteBack implements IAction{
+public class ActionManualAllocationWriteBack implements IAction{
 
 	@Override
 	public void execute(ActionContext ctx) {

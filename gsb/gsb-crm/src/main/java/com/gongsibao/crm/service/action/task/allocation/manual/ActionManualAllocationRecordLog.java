@@ -1,4 +1,4 @@
-package com.gongsibao.crm.service.action.task.allocation;
+package com.gongsibao.crm.service.action.task.allocation.manual;
 
 import java.util.Map;
 
@@ -17,7 +17,7 @@ import com.gongsibao.entity.crm.dic.NotifyType;
  * @author hw
  * 分配：保存日志
  */
-public class ActionAllocationRecordLog implements IAction{
+public class ActionManualAllocationRecordLog implements IAction{
 
 	@Override
 	public void execute(ActionContext ctx) {

@@ -1,4 +1,4 @@
-package com.gongsibao.crm.service.action.task.autoAllot;
+package com.gongsibao.crm.service.action.task.allocation.auto;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
@@ -13,7 +13,7 @@ import com.gongsibao.supplier.base.ISalesmanService;
 /**
  * @author zhangchao 业务员配置信息的回写
  */
-public class ActionCustomerTaskUpdateSalesmanInfo implements IAction {
+public class ActionAutoAllocationUpdateSalesman implements IAction {
 
 	INCustomerTaskService nCustomerTaskService = ServiceFactory.create(INCustomerTaskService.class);
 	ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);

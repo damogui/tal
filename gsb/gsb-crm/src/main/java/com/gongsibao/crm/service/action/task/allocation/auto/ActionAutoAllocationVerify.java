@@ -1,4 +1,4 @@
-package com.gongsibao.crm.service.action.task.autoAllot;
+package com.gongsibao.crm.service.action.task.allocation.auto;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
@@ -11,7 +11,7 @@ import com.gongsibao.entity.crm.dic.NAllocationType;
 /**
  * @author zhangchao 状态验证
  */
-public class ActionCustomerTaskVerifyStatus implements IAction {
+public class ActionAutoAllocationVerify implements IAction {
 
 	@Override
 	public void execute(ActionContext ctx) {

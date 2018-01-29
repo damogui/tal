@@ -1,4 +1,4 @@
-package com.gongsibao.crm.service.action.task.autoAllot;
+package com.gongsibao.crm.service.action.task.allocation.auto;
 
 import java.util.Date;
 
@@ -16,7 +16,7 @@ import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
  * @author zhangchao
  *任务的分配状态的回写
  */
-public class ActionCustomerTaskUpdateTaskStatus implements IAction {
+public class ActionAutoAllocationUpdateTaskStatus implements IAction {
 
 	INCustomerTaskService nCustomerTaskService = ServiceFactory.create(INCustomerTaskService.class);
 	
