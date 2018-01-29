@@ -140,6 +140,8 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest{
 		ResourceNode node = this.resourceService.byCode(productsDetailResourceNodeCode);
 		PDatagrid datagrid = new PDatagrid(node, "意向产品");
 		{
+			addColumn(datagrid, "productCategory1.name", "一级分类", ControlTypes.TEXT_BOX, 100, false);
+			addColumn(datagrid, "productCategory2.name", "二级分类", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "product.name", "产品", ControlTypes.TEXT_BOX, 300);
 			addColumn(datagrid, "province.name", "省份", ControlTypes.TEXT_BOX, 150);
 			addColumn(datagrid, "city.name", "城市", ControlTypes.TEXT_BOX, 150);
