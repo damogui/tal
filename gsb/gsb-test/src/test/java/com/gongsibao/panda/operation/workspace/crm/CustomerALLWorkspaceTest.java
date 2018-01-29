@@ -7,6 +7,7 @@ import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.entity.PDatagrid;
+import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.plugin.dic.ToolbarType;
@@ -84,14 +85,30 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 			datagrid.setToolbar("panda/datagrid/row/edit");
 		}
 
-		//PDatagridColumn null;
+		PDatagridColumn column = null;
 		addColumn(datagrid, "updatorId", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
 		addColumn(datagrid, "id", "客户ID", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "realName", "客户名称", ControlTypes.TEXT_BOX, 120);
 		
 		//公司名称
-		addColumn(datagrid, "isMember", "是否会员", ControlTypes.BOOLCOMBO_BOX, 80);
-		addColumn(datagrid, "mobile", "手机号", ControlTypes.TEXT_BOX, 100);
+		column = addColumn(datagrid, "isMember", "是否会员", ControlTypes.TEXT_BOX, 60);{
+
+			StringBuilder builder = new StringBuilder();
+			builder.append("if(value===true){return '是   ';}");
+			builder.append("else{");
+			builder.append("if(row.mobile){");
+			builder.append("var ctrl = workspace.parts.byIndex(0).key;");
+			builder.append("return '否<a title=\\'开通会员\\' class=\\'grid-btn\\' href=javascript:'+ctrl+'.openMember('+row.id+');>");
+			builder.append("<i style=\\'font-size: 12px;\\' class=\\'fa fa-user-plus\\'></i>");
+			builder.append("<a>';");
+			builder.append("}else{return '否';}");
+			builder.append("}");
+			column.setFormatter(builder.toString());
+			//column.setAlign(DatagridAlign.CENTER);
+		}
+		column = addColumn(datagrid, "mobile", "手机号", ControlTypes.TEXT_BOX, 100);{
+			column.setFormatter("if(value&&value.length==11){return value.substr(0,3)+'****'+value.substr(7);}");
+		}
 		addColumn(datagrid, "telephone", "座机", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "qq", "QQ", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "weixin", "微信", ControlTypes.TEXT_BOX, 100);

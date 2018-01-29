@@ -58,7 +58,7 @@ public class DepartmentAllCustomerWorkspaceTest extends CustomerALLWorkspaceTest
 			item.setRefFilter("type=411");
 		}
 		addQueryItem(queryProject, "important", "客户等级", ControlTypes.NUMBER_BOX);
-		addRefrenceQueryItem(queryProject, "supplier.name", "最近任务费用部门", Supplier.class.getSimpleName());
+		addRefrenceQueryItem(queryProject, "supplier.name", "服务商", Supplier.class.getSimpleName());
 		addQueryItem(queryProject, "createTime", "创建时间", ControlTypes.DATE_BOX);
 		addQueryItem(queryProject, "creator", "创建人", ControlTypes.TEXT_BOX);
 		return queryProject;

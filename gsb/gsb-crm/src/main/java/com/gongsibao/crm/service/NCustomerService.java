@@ -7,7 +7,6 @@ import java.util.List;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
-import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.MtableManager;
 import org.netsharp.core.Oql;
 import org.netsharp.util.StringManager;
@@ -16,8 +15,6 @@ import org.netsharp.util.sqlbuilder.UpdateBuilder;
 import com.gongsibao.bd.service.SupplierPersistableService;
 import com.gongsibao.crm.base.INCustomerService;
 import com.gongsibao.entity.crm.NCustomer;
-import com.gongsibao.entity.uc.Account;
-import com.gongsibao.uc.base.IAccountService;
 
 @Service
 public class NCustomerService extends SupplierPersistableService<NCustomer> implements INCustomerService {
@@ -128,55 +125,17 @@ public class NCustomerService extends SupplierPersistableService<NCustomer> impl
 	}
 
 	@Override
-	public boolean openMember(String customerIdsStr) {
-
-		String[] ids = customerIdsStr.split("_");
-		for (String id : ids) {
-
-			Integer customerId = Integer.parseInt(id);
-			NCustomer customer = this.byId(id);
-			if(customer.getIsMember() || StringManager.isNullOrEmpty(customer.getMobile())){
-				
-				continue;
-			}
-			this.updateIsMember(customerId);
-			this.createAccount(customer);
+	public boolean openMember(Integer customerId) {
+		
+		NCustomer customer = this.byId(customerId);
+		ActionContext ctx = new ActionContext();
+		{
+			ctx.setPath("gsb/crm/customer/member");
+			ctx.setItem(customer);
+			ctx.setState(customer.getEntityState());
 		}
+		ActionManager action = new ActionManager();
+		action.execute(ctx);
 		return true;
 	}
-
-	private boolean createAccount(NCustomer customer) {
-
-		Account account = new Account();
-		{
-			account.toNew();
-			account.setName(customer.getRealName());
-			account.setRealName(customer.getRealName());
-			account.setEmail(customer.getEmail());
-			account.setMobilePhone(customer.getMobile());
-			account.setTelephone(customer.getTelephone());
-			account.setHeadThumbFileId(0);
-			account.setSourceClientId(0);
-			
-			// 密码算法？
-			account.setPasswd("");
-			account.setTicket("");
-			// 这里要发短信通知吗？
-			IAccountService accountService = ServiceFactory.create(IAccountService.class);
-			accountService.save(account);
-		}
-		return true;
-	}
-
-	private boolean updateIsMember(Integer customerId) {
-
-		UpdateBuilder updateSql = UpdateBuilder.getInstance();
-		{
-			updateSql.update("n_crm_customer");
-			updateSql.set("is_member", 1);
-			updateSql.where("id=" + customerId);
-		}
-		return this.pm.executeNonQuery(updateSql.toSQL(), null) > 0;
-	}
-
 }

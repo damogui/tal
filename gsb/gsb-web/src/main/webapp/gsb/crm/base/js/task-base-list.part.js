@@ -368,29 +368,14 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 			return;
 		});
 	},
-	openMember : function(){
+	openMember : function(customerId){
 
-		//开通会员
-		var rows = this.getSelections();
-		if(rows==null||rows.length==0){
-			
-			IMessageBox.info('请选择记录');
-			return;
-		}
-
-		var customerIdArray = [];
-		for ( var i = 0; i < rows.length; i++) {
-			var row = rows[i];
-			customerIdArray.push(row.customerId);
-		}
-
-		var customerIdsStr = customerIdArray.join('_');
 		var me = this;
-		IMessageBox.confirm("您确定为该条记录开通会员吗？",function(r){
+		IMessageBox.confirm("您确定要开通会员吗？",function(r){
 			
 			if(r===true){
 
-				me.invokeService("openMember", [customerIdsStr],function(data) {
+				me.invokeService("openMember", [customerId],function(data) {
 					if(data){
 						IMessageBox.toast('开通成功');
 						me.reload();

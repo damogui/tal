@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import com.gongsibao.panda.crm.action.customer.OpenMemberCustomerActionTest;
 import com.gongsibao.panda.crm.action.customer.SaveCustomerActionTest;
 import com.gongsibao.panda.crm.action.task.AbnormalActionTest;
 import com.gongsibao.panda.crm.action.task.AllocationManualActionTest;
@@ -26,6 +27,7 @@ import com.gongsibao.panda.crm.action.task.TransferActionTest;
 	
 	SaveActionTest.class,
 	SaveCustomerActionTest.class,
+	OpenMemberCustomerActionTest.class
 })
 		
 public class ActionAllTest {

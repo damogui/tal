@@ -8,6 +8,7 @@ import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.entity.PDatagrid;
+import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.plugin.dic.ToolbarType;
@@ -136,7 +137,7 @@ public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
 		datagrid.setSingleSelect(false);
 		datagrid.setToolbar(rowToolbaPath);
 
-		//PDatagridColumn null;
+		PDatagridColumn column = null;
 
 		addColumn(datagrid, "ownerId", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
 		addColumn(datagrid, "id", "任务ID", ControlTypes.TEXT_BOX, 60, false);
@@ -146,8 +147,25 @@ public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
 
 		// addColumn(datagrid, "customer.realName", "公司名称",
 		// ControlTypes.TEXT_BOX, 100, true);
-		addColumn(datagrid, "customer.isMember", "是否会员", ControlTypes.BOOLCOMBO_BOX, 100, false);
-		addColumn(datagrid, "customer.mobile", "手机号", ControlTypes.TEXT_BOX, 100, false);
+		column = addColumn(datagrid, "customer.isMember", "是否会员", ControlTypes.TEXT_BOX, 06, false);{
+			
+			StringBuilder builder = new StringBuilder();
+			builder.append("if(value===true){return '是   ';}");
+			builder.append("else{");
+			builder.append("if(row.customer_mobile){");
+			builder.append("var ctrl = workspace.parts.byIndex(0).key;");
+			builder.append("return '否<a title=\\'开通会员\\' class=\\'grid-btn\\' href=javascript:'+ctrl+'.openMember('+row.customerId+');>");
+			builder.append("<i style=\\'font-size: 12px;\\' class=\\'fa fa-user-plus\\'></i>");
+			builder.append("<a>';");
+			builder.append("}else{return '否';}");
+			builder.append("}");
+			column.setFormatter(builder.toString());
+			//column.setAlign(DatagridAlign.CENTER);
+		}
+		column = addColumn(datagrid, "customer.mobile", "手机号", ControlTypes.TEXT_BOX, 100, false);{
+			
+			column.setFormatter("if(value&&value.length==11){return value.substr(0,3)+'****'+value.substr(7);}");
+		}
 		addColumn(datagrid, "customer.telephone", "座机", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "customer.qq", "QQ", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "customer.weixin", "微信", ControlTypes.TEXT_BOX, 100, false);

@@ -13,7 +13,7 @@ public interface INCustomerService  extends IPersistableService<NCustomer> {
 	 * @return
 	 */
 	@Transaction
-	public boolean openMember(String customerIdsStr);
+	public boolean openMember(Integer customerId);
 	
 	/**   
 	 * @Title: validationContactWay   

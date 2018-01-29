@@ -43,5 +43,24 @@ com.gongsibao.crm.web.BaseCustomerListPart = org.netsharp.panda.commerce.ListPar
 
 		  }
   	    });
+	},
+	openMember : function(customerId){
+
+		var me = this;
+		IMessageBox.confirm("您确定要开通会员吗？",function(r){
+			
+			if(r===true){
+
+				me.invokeService("openMember", [customerId],function(data) {
+					if(data){
+						IMessageBox.toast('开通成功');
+						me.reload();
+						layer.closeAll();
+					}else{
+						IMessageBox.toast('开通失败,稍后再试');
+					}
+				});
+			}
+		});
 	}
 });
