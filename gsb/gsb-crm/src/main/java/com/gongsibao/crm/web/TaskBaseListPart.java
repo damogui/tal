@@ -89,10 +89,10 @@ public class TaskBaseListPart extends AdvancedListPart {
 	 * @param customerId
 	 * @return
 	 */
-	public boolean openMember(Integer customerId){
+	public boolean openMember(String customerIdsStr){
 		
 		INCustomerService customerService = ServiceFactory.create(INCustomerService.class);
-		return customerService.updateIsMember(customerId);
+		return customerService.openMember(customerIdsStr);
 	}
 	/**
 	 * 抽查异常处理

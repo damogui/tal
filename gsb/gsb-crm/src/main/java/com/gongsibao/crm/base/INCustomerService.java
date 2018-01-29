@@ -1,17 +1,19 @@
 package com.gongsibao.crm.base;
 
 import org.netsharp.base.IPersistableService;
+import org.netsharp.core.annotations.Transaction;
 
 import com.gongsibao.entity.crm.NCustomer;
 
 public interface INCustomerService  extends IPersistableService<NCustomer> {
 
 	/**
-	 * 修改是否是会员
+	 * 开通会员
 	 * @param customerId
 	 * @return
 	 */
-	public boolean updateIsMember(Integer customerId);
+	@Transaction
+	public boolean openMember(String customerIdsStr);
 	
 	/**   
 	 * @Title: validationContactWay   

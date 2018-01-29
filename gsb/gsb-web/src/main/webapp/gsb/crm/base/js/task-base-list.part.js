@@ -42,14 +42,15 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 			me.reload();
 		});
 	},
-	doAllot : function(id) {
+	doAllot : function(taskId) {
+		
 		var me = this;
 		var supplierOption = {columns : [ [ {
 			field : 'name',
 			title : '名称',
 			width : 100
 		}] ],
-		url : '\/panda\/rest\/reference?code=CRM_Supplier&filter=',
+		url : '\/panda\/rest\/reference?code=Supplier&filter=',
 		idField : 'id',
 		textField : 'name',
 		width : 300,
@@ -63,12 +64,35 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		onChange : function(newValue, oldValue) {
 			
 		}};
-	var departmentOption = {columns : [ [ {
+		
+		var departmentOption = {columns : [ [ {
+				field : 'name',
+				title : '名称',
+				width : 100
+			}] ],
+			url : '\/panda\/rest\/reference?code=SupplierDepartment&filter=',
+			idField : 'id',
+			textField : 'name',
+			width : 300,
+			fitColumns : true,
+			panelWidth : 450,
+			panelHeight : 310,
+			pagination : true,
+			pageSize : 10,
+			mode : 'remote',
+			multiple : false,
+			onChange : function(newValue, oldValue) {
+				
+			}};
+		
+	
+		var employeeOption = {columns : [ [ {
 			field : 'name',
 			title : '名称',
 			width : 100
 		}] ],
-		url : '\/panda\/rest\/reference?code=CRM_Supplier_Depart&filter=',
+		//Salesman
+		url : '\/panda\/rest\/reference?code=Employee&filter=',
 		idField : 'id',
 		textField : 'name',
 		width : 300,
@@ -83,72 +107,52 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 			
 		}};
 	
-	var employeeOption = {columns : [ [ {
-		field : 'name',
-		title : '名称',
-		width : 100
-	}] ],
-	url : '\/panda\/rest\/reference?code=Employee&filter=',
-	idField : 'id',
-	textField : 'name',
-	width : 300,
-	fitColumns : true,
-	panelWidth : 450,
-	panelHeight : 310,
-	pagination : true,
-	pageSize : 10,
-	mode : 'remote',
-	multiple : false,
-	onChange : function(newValue, oldValue) {
-		
-	}};
-	
-	PandaHelper.openDynamicForm({
-		title:'任务分配',
-		width:450,
-		height:300,
-		items:[{id:'allot_supplier_name',
-			title:'服务商',
-			type:'combogrid',
-            className:'',
-			option:supplierOption},
-			
-			{id:'allot_department_name',
-				title:'部门',
+		PandaHelper.openDynamicForm({
+			title:'任务分配',
+			width:450,
+			height:300,
+			items:[{id:'allot_supplier_name',
+				title:'服务商',
 				type:'combogrid',
 	            className:'',
-				option:departmentOption},
+				option:supplierOption},
 				
-			{id:'allot_employee_name',
-				title:'业务员',
-				type:'combogrid',
-	            className:'',
-				option:employeeOption}
-		],
-		callback:function(index, layero){
-			var supplierId = $('#allot_supplier_name').combogrid('getValue');
-			var departmentId = $('#allot_department_name').combogrid('getValue');
-			var toUserId = $('#allot_employee_name').combogrid('getValue');
-			if (System.isnull(supplierId) && System.isnull(departmentId) && System.isnull(toUserId)) {
-				IMessageBox.info('请选择');
-				return;
+				{id:'allot_department_name',
+					title:'部门',
+					type:'combogrid',
+		            className:'',
+					option:departmentOption},
+					
+				{id:'allot_employee_name',
+					title:'业务员',
+					type:'combogrid',
+		            className:'',
+					option:employeeOption}
+			],
+			callback:function(index, layero){
+				
+				var supplierId = $('#allot_supplier_name').combogrid('getValue');
+				var departmentId = $('#allot_department_name').combogrid('getValue');
+				var toUserId = $('#allot_employee_name').combogrid('getValue');
+				
+				if (System.isnull(supplierId) && System.isnull(departmentId) && System.isnull(toUserId)) {
+					
+					IMessageBox.info('请选择');
+					return;
+				}
+				var allocationType = 2;//手动分配
+				me.invokeService("allocation", [taskId,supplierId,departmentId,toUserId,allocationType],function(data) {
+					me.reload();
+					IMessageBox.toast('分配成功');
+					layer.closeAll();
+					return;
+				});
 			}
-			var allocationType = 2;//手动分配
-			var taskId = id;
-			me.doAllotService(taskId,supplierId,departmentId,toUserId,allocationType);
-		}
-	});
-	},
-	doAllotService : function(taskId,supplierId,departmentId,toUserId,allocationType) {
-		var me = this;
-		this.invokeService("allocation", [taskId,supplierId,departmentId,toUserId,allocationType],function(data) {
-			me.reload();
-			IMessageBox.toast('分配成功');
-			layer.closeAll();
-			return;
 		});
 	},
+
 	batchAllocation:function(){
+		
 		//任务批量分配
 		var me = this;
 		var id = this.getSelectionIds();
@@ -159,6 +163,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		me.doAllot(id);
 	},
 	regain : function(){
+		
 		//任务收回
 		var me = this;
 		var id = this.getSelectionIds();
@@ -172,7 +177,6 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		
 		//任务退回
 		var me = this;
-		
 		//这里先要取消所有行，再选中1行
 		$("#" + this.context.id).datagrid('unselectAll');
 		$("#" + this.context.id).datagrid('selectRecord',id);
@@ -365,40 +369,40 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		});
 	},
 	openMember : function(){
+
 		//开通会员
-		var me = this;
-		var row = this.getSelectedItem();
-		if (row == null) {
+		var rows = this.getSelections();
+		if(rows==null||rows.length==0){
+			
 			IMessageBox.info('请选择记录');
 			return;
 		}
-		// 任务id
-		var customerId = row.customerId;
-		var isMember = row.customer_isMember;
-		if(isMember){
-			IMessageBox.info('此客户已经是会员，不能重复开通');
-			return;
+
+		var customerIdArray = [];
+		for ( var i = 0; i < rows.length; i++) {
+			var row = rows[i];
+			customerIdArray.push(row.customerId);
 		}
-		IMessageBox.confirm("您确定为该条记录开通会员吗？",function(r){
-			//严格语法
-			if(r===true){
-				me.doOpenMember(customerId);
-			}
-		});
-	},
-	doOpenMember : function(customerId) {
+
+		var customerIdsStr = customerIdArray.join('_');
 		var me = this;
-		this.invokeService("openMember", [customerId],function(data) {
-			if(data){
-				IMessageBox.toast('开通成功');
-				me.reload();
-				layer.closeAll();
-			}else{
-				IMessageBox.toast('开通失败,稍后再试');
+		IMessageBox.confirm("您确定为该条记录开通会员吗？",function(r){
+			
+			if(r===true){
+
+				me.invokeService("openMember", [customerIdsStr],function(data) {
+					if(data){
+						IMessageBox.toast('开通成功');
+						me.reload();
+						layer.closeAll();
+					}else{
+						IMessageBox.toast('开通失败,稍后再试');
+					}
+				});
 			}
-			return;
 		});
 	},
+
 	verified:function(id){
 		//state :1-"未抽查",2-"抽查正常",3-"抽查异常",4-"异常已处理"
 		//type :1-"抽查",2-"处理"
@@ -413,7 +417,8 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		//state:0  ；只更新内容
 		var me = this;
 		me.doAbnormalPopup(id,0,1);
-	},doAbnormalPopup : function(id,state,type) {
+	},
+	doAbnormalPopup : function(id,state,type) {
 		var me = this;
 		PandaHelper.openDynamicForm({
 			title:'抽查',
@@ -435,7 +440,8 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 				me.doAbnormal(id,state,getNote,type);
 			}
 		});
-	},doAbnormal : function(id,state,getNote,type) {
+	},
+	doAbnormal : function(id,state,getNote,type) {
 		var me = this;
 		this.invokeService("abnormal", [id,state,getNote,type],function(data) {
 			me.reload();
@@ -445,3 +451,6 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		});
 	}
 });
+
+
+
