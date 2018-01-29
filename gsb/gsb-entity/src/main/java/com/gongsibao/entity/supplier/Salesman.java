@@ -69,7 +69,10 @@ public class Salesman extends Entity {
 	@Exclusive
 	@Column(name = "quit_date", header = "离职日期")
 	private Date quitDate;
-
+	
+	@Column(name = "is_leader", header = "是否主管")
+	private Boolean isLeader;
+	
 	@Exclusive
 	@Subs(subType = SalesmanRole.class, foreignKey = "salesmanId", header = "用户角色")
 	private List<SalesmanRole> roles;
@@ -82,17 +85,25 @@ public class Salesman extends Entity {
     
     @Column(name = "type", header = "类型：1自营，2平台;3不限")
 	private SupplierType type = SupplierType.UNLIMITED;
-
-    @Column(name = "is_accpet_auto", header = "是否接受自动分配")
-    private Boolean isaccpetauto;
-    @Column(name = "day_max", header = "日分配上线")
-    private Integer daymax;
-    @Column(name = "week_max", header = "周分配上线")
-    private Integer weekmax;
-    @Column(name = "xab_max", header = "XAB类任务上限")
-    private Integer xabmax;
     
-    //当日已分配的任务数
+    @Column(name = "day_max", header = "日分配上限")
+    private Integer dayMax;
+    
+    @Column(name = "week_max", header = "周分配上限")
+    private Integer weekMax;
+    
+    @Column(name = "xab_max", header = "XAB类上限")
+    private Integer xabMax;
+    
+    public Boolean getIsLeader() {
+		return isLeader;
+	}
+
+	public void setIsLeader(Boolean isLeader) {
+		this.isLeader = isLeader;
+	}
+
+	//当日已分配的任务数
     @Exclusive
     private Integer dayAllocatedCount;
 	
@@ -233,40 +244,31 @@ public class Salesman extends Entity {
 		this.customerType = customerType;
 	}
 
-	public Boolean getIsaccpetauto() {
-        return isaccpetauto;
-    }
+	public Integer getDayMax() {
+		return dayMax;
+	}
 
-    public void setIsaccpetauto(Boolean isaccpetauto) {
-        this.isaccpetauto = isaccpetauto;
-    }
+	public void setDayMax(Integer dayMax) {
+		this.dayMax = dayMax;
+	}
 
-    public Integer getDaymax() {
-        return daymax;
-    }
+	public Integer getWeekMax() {
+		return weekMax;
+	}
 
-    public void setDaymax(Integer daymax) {
-        this.daymax = daymax;
-    }
+	public void setWeekMax(Integer weekMax) {
+		this.weekMax = weekMax;
+	}
 
-    public Integer getWeekmax() {
-        return weekmax;
-    }
+	public Integer getXabMax() {
+		return xabMax;
+	}
 
-    public void setWeekmax(Integer weekmax) {
-        this.weekmax = weekmax;
-    }
+	public void setXabMax(Integer xabMax) {
+		this.xabMax = xabMax;
+	}
 
-    public Integer getXabmax() {
-        return xabmax;
-    }
-
-    public void setXabmax(Integer xabmax) {
-        this.xabmax = xabmax;
-    }
-
-
-    public SupplierType getType() {
+	public SupplierType getType() {
         return type;
     }
 

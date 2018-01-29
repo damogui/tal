@@ -3,7 +3,6 @@ package com.gongsibao.crm.service.action.task.autoAllot;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -152,24 +151,23 @@ public class ActionCustomerTaskAllot implements IAction {
 
 			for (Salesman salesman : taskSalesmanProducts) {
 				// 是否接受自动分配
-				if (!salesman.getIsaccpetauto())
+				if (!salesman.getReceiving())
 					continue;
 				int dayCount = dayMap.get(salesman.getEmployeeId());
 				int weekCount = weekMap.get(salesman.getEmployeeId());
 				int abxCount = abxMap.get(salesman.getEmployeeId());
 				// 日分配上线
-				if (salesman.getDaymax() < dayCount)
+				if (salesman.getDayMax() < dayCount)
 					continue;
 				// 周分配上线
-				if (salesman.getWeekmax() < weekCount)
+				if (salesman.getWeekMax() < weekCount)
 					continue;
 				// XAB类任务上限
-				if (salesman.getXabmax() < abxCount)
+				if (salesman.getXabMax() < abxCount)
 					continue;
 				salesman.setDayAllocatedCount(dayCount);
 				// 取一个后跳出循环（需求说：选取随机一人进行分配）
 				resSalesmanList.add(salesman);
-
 			}
 			// 当有符合条件【业务员】时，才更新
 			if (CollectionUtils.isNotEmpty(resSalesmanList)) {

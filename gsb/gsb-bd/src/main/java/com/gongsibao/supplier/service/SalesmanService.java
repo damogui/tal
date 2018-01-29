@@ -4,18 +4,22 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gongsibao.entity.supplier.Supplier;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.*;
+import org.netsharp.core.BusinessException;
+import org.netsharp.core.EntityState;
+import org.netsharp.core.MtableManager;
+import org.netsharp.core.Oql;
+import org.netsharp.core.QueryParameters;
 import org.netsharp.organization.base.IEmployeeService;
 import org.netsharp.organization.entity.Employee;
 import org.netsharp.organization.entity.RoleEmployee;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.bd.service.SupplierPersistableService;
-import com.gongsibao.entity.supplier.SalesmanRole;
 import com.gongsibao.entity.supplier.Salesman;
+import com.gongsibao.entity.supplier.SalesmanRole;
+import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.supplier.base.ISalesmanService;
 import com.gongsibao.supplier.base.ISupplierDepartmentService;
 
@@ -57,7 +61,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 		if (currentDepartmentId != null) {
 			ISupplierDepartmentService departmentService = ServiceFactory.create(ISupplierDepartmentService.class);
 			idList = departmentService.getSubDepartmentIdList(currentDepartmentId);
-			//包含当前部门Id
+			// 包含当前部门Id
 			idList.add(currentDepartmentId);
 		}
 		return idList;
@@ -171,19 +175,19 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 	@Override
 	public Salesman save(Salesman entity) {
 
-
-
-
 		EntityState state = entity.getEntityState();
 
         if (!state.equals(EntityState.Deleted)){//如果非删除的话取出来服务商的自营/平台属性赋值
 
-            SupplierService   supplierService=new SupplierService();
-            Supplier  supplier=supplierService.byId(entity.getSupplierId());
-            if (supplier==null){
-                throw new BusinessException("服务商属性不正确");
+        	//直接取部门的
+            SupplierDepartmentService  departmentService = new SupplierDepartmentService();
+        	SupplierDepartment department = departmentService.byId(entity.getSupplierId());
+        	
+            if (department==null){
+                throw new BusinessException("部门属性不正确");
             }
-            entity.setType(supplier.getType());//设置平台属性
+            entity.setType(department.getType());//设置平台属性
+            entity.setCustomerType(department.getCustomerType());//设置分组属性
         }
 
 
@@ -211,7 +215,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 		{
 			oql.setType(type);
 			oql.setSelects("*");
-			oql.setFilter("supplierId=? and disabled=0");//没有停用的
+			oql.setFilter("supplierId=? and disabled=0");// 没有停用的
 			oql.getParameters().add("@supplierId", supplierId, Types.INTEGER);
 		}
 		List<Salesman> salesmanList = this.pm.queryList(oql);

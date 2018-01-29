@@ -32,7 +32,6 @@ public class SupplierDepartmentService extends SupplierPersistableService<Suppli
 			this.deleteVerify(entity);
 		}else{
 
-
             SupplierService   supplierService=new SupplierService();
             Supplier supplier=supplierService.byId(entity.getSupplierId());
             if (supplier==null){

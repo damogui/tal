@@ -8,6 +8,7 @@ import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.CatEntity;
 
+import com.gongsibao.entity.crm.dic.TaskCustomerType;
 import com.gongsibao.entity.supplier.dict.SupplierType;
 
 @Table(name="sp_department",header="服务商部门")
@@ -27,8 +28,8 @@ public class SupplierDepartment extends CatEntity{
     @Subs(foreignKey = "departmentId", header = "部门服务地区范围", subType = DepartmentServiceProduct.class)
     private List<DepartmentServiceProduct> serviceProducts;
 
-    @Column(name = "is_old_client", header = "是否新客户")
-    private Boolean isoldclient;
+    @Column(name = "customer_type", header = "所属分组类别（1：新客户  2：老客户）")
+    private TaskCustomerType customerType;
 
     @Column(name = "type", header = "类型：1自营，2平台;3不限")
     private SupplierType type = SupplierType.UNLIMITED;
@@ -49,9 +50,6 @@ public class SupplierDepartment extends CatEntity{
 		this.supplier = supplier;
 	}
 
-
-
-
     public List<DepartmentServiceProduct> getServiceProducts() {
         return serviceProducts;
     }
@@ -60,16 +58,15 @@ public class SupplierDepartment extends CatEntity{
         this.serviceProducts = serviceProducts;
     }
 
-    public Boolean getIsoldclient() {
-        return isoldclient;
-    }
+    public TaskCustomerType getCustomerType() {
+		return customerType;
+	}
 
-    public void setIsoldclient(Boolean isoldclient) {
-        this.isoldclient = isoldclient;
-    }
+	public void setCustomerType(TaskCustomerType customerType) {
+		this.customerType = customerType;
+	}
 
-
-    public SupplierType getType() {
+	public SupplierType getType() {
         return type;
     }
 

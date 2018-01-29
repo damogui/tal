@@ -25,9 +25,9 @@ import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.controls.CityComboBox;
 import com.gongsibao.controls.DictComboBox;
-import com.gongsibao.crm.web.TaskProductDetailPart;
 import com.gongsibao.crm.web.SysSalesmanListPart;
 import com.gongsibao.crm.web.SysSalesmanTreePart;
+import com.gongsibao.crm.web.TaskProductDetailPart;
 import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.supplier.Salesman;
 
@@ -79,6 +79,12 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		{
 			column.setAlign(DatagridAlign.CENTER);
 		}
+		
+		addColumn(datagrid, "receiving", "自动接受任务", ControlTypes.TEXT_BOX, 80);
+		addColumn(datagrid, "isLeader", "主管", ControlTypes.TEXT_BOX, 80);
+		addColumn(datagrid, "dayMax", "日分配上限", ControlTypes.TEXT_BOX, 80);
+		addColumn(datagrid, "weekMax", "周分配上限", ControlTypes.TEXT_BOX, 80);
+		addColumn(datagrid, "xabMax", "XAB类上限", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
 		addColumn(datagrid, "updator", "最后修改人", ControlTypes.TEXT_BOX, 80);
@@ -122,8 +128,14 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "disabled", "停用", groupName, ControlTypes.SWITCH_BUTTON, false,true);
 
 		groupName = "属性设置";
-		addFormField(form, "receiving", "接单", groupName, ControlTypes.SWITCH_BUTTON, false,true);
+		addFormField(form, "receiving", "自动接受任务", groupName, ControlTypes.SWITCH_BUTTON, false,false);
+		addFormField(form, "isLeader", "主管", groupName, ControlTypes.SWITCH_BUTTON, false,true);
+		addFormField(form, "dayMax", "日分配上限", groupName, ControlTypes.NUMBER_BOX, false,false);
 		
+		addFormField(form, "weekMax", "周分配上限", groupName, ControlTypes.NUMBER_BOX, false,false);
+		
+		addFormField(form, "xabMax", "XAB类上限", groupName, ControlTypes.NUMBER_BOX, false,false);
+
 		//这里还有很多属性，
 		
 		return form;

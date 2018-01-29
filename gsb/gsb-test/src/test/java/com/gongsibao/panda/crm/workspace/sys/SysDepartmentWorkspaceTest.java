@@ -85,6 +85,8 @@ public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
 		PForm form = super.createForm(node);
 		form.setColumnCount(1);
 		addFormField(form, "name", "名称", null, ControlTypes.TEXT_BOX, true);
+		addFormField(form, "customerType", "分组类别", null, ControlTypes.ENUM_BOX, true);
+		
 		PFormField formField = addFormField(form, "memoto", "备注", ControlTypes.TEXTAREA, false, false);{
 			
 			formField.setHeight(100);
