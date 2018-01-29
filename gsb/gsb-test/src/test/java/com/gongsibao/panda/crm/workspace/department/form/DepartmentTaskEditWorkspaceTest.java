@@ -27,7 +27,7 @@ public class DepartmentTaskEditWorkspaceTest extends TaskEditWorkspaceTest{
 		
 		List<String> ss = new ArrayList<String>();
 		ss.add("/gsb/crm/platform/js/task-add-form.part.js");
-		ss.add("/gsb/crm/platform/js/task-edit-form.part.js");
+		ss.add("/gsb/crm/base/js/task-base-edit-form.part.js");
 		ss.add("/gsb/crm/department/js/task-edit-form.part.js");
 		ss.add("/gsb/gsb.customer.controls.js");
 		formJsImport = StringManager.join("|", ss);
@@ -40,6 +40,8 @@ public class DepartmentTaskEditWorkspaceTest extends TaskEditWorkspaceTest{
 		foolowDetailResourceNodeCode = "CRM_DEPARTMENT_Foolow";
 		notifyDetailResourceNodeCode = "CRM_DEPARTMENT_Notify";
 		changeDetailResourceNodeCode = "CRM_DEPARTMENT_Change";
+		
+		taskFollowDetailPart = "com.gongsibao.crm.web.DepartmentTaskFollowDetailPart";
 	}
 	
 	@Test

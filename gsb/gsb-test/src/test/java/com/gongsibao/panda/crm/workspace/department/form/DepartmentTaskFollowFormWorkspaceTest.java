@@ -11,7 +11,7 @@ public class DepartmentTaskFollowFormWorkspaceTest extends TaskFollowFormWorkspa
 	public void setup() {
 		
 		super.setup();
-		urlForm = "/crm/department/task/followUp/from";
-		resourceNodeCode = "CRM_DEPARTMENT_TASK_EDIT";
+		urlForm = "/crm/department/task/follow";
+		resourceNodeCode = "CRM_DEPARTMENT_TASK_Foolow";
 	}
 }

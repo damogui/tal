@@ -127,7 +127,7 @@ public class NCustomerTask extends Entity {
 	@Reference(foreignKey = "costSupplierId", header = "费用服务商")
 	private Supplier costSupplier;
 
-	@Column(name = "costed", header = "是否有费用服务商")
+	@Column(name = "costed", header = "是否市场费用投放")
 	private Boolean costed = false;
 
 	@Column(name = "allocation_type", header = "分配方式")

@@ -1,5 +1,8 @@
 package com.gongsibao.crm.base;
 
+import java.util.List;
+import java.util.Map;
+
 import org.netsharp.base.IPersistableService;
 
 import com.gongsibao.entity.crm.NCustomerTask;
@@ -78,4 +81,11 @@ public interface INCustomerTaskService  extends IPersistableService<NCustomerTas
 	 * @return
 	 */
 	public int autoAllot(Integer taskId);
+	
+	/**根据平台业务员id集合，获取该业务员的分配的任务个数
+	 * @param employeeIdList
+	 * @param type（0：当日已分配数 1：当周已分配数 2：XAB类客户任务数）
+	 * @return
+	 */
+	public Map<Integer, Integer> getTaskCountByEmployeeIdList(List<Integer> employeeIdList, Integer type);
 }

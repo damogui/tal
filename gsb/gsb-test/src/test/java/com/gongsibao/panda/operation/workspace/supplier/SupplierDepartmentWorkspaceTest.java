@@ -20,7 +20,7 @@ public class SupplierDepartmentWorkspaceTest extends SysDepartmentWorkspaceTest{
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_Operation_Supplier_Department";
 		formOpenMode = OpenMode.WINDOW;
-		listPartImportJs="/gsb/crm/sys/js/sys-department-list-part.js";
+		listPartImportJs="/gsb/crm/sys/js/sys-department-list-part.js|/gsb/gsb.custom.query.controls.js";
 		listPartJsController = SysDepartmentTreeGridPart.class.getName();
 		listPartServiceController = SysDepartmentTreeGridPart.class.getName();
 	}

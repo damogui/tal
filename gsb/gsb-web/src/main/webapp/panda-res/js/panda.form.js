@@ -781,7 +781,7 @@ org.netsharp.panda.commerce.FormPartModel = System.Object.Extends({
 
     },
     enable:function(){
-    	
+
     	var controls = this.controls;
     	$(controls).each(function(i,item){
     		item.enable();

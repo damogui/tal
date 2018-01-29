@@ -3,8 +3,9 @@ import java.util.List;
 
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.entity.IPersistable;
-import org.netsharp.panda.anno.Authorization;
+import org.netsharp.panda.annotation.Authorization;
 import org.netsharp.panda.commerce.FormPart;
+
 import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.igirl.base.ITradeMarkCaseService;
 import com.gongsibao.igirl.base.ITradeMarkService;

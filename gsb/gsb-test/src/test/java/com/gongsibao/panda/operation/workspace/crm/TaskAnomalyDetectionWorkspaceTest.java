@@ -3,7 +3,7 @@ package com.gongsibao.panda.operation.workspace.crm;
 import org.junit.Before;
 import org.netsharp.panda.plugin.entity.PToolbar;
 
-import com.gongsibao.crm.web.TaskAnomalyDetectionListPart;
+import com.gongsibao.crm.web.TaskAllListPart;
 
 public class TaskAnomalyDetectionWorkspaceTest extends TaskOpenSeaWorkspaceTest{
 
@@ -16,9 +16,9 @@ public class TaskAnomalyDetectionWorkspaceTest extends TaskOpenSeaWorkspaceTest{
 		listPartName = formPartName = "抽查异常";
 		resourceNodeCode = "Operation_CRM_Task_Anomaly_Detection";
 		listFilter="inspection_state = 3";	
-		listPartJsController = TaskAnomalyDetectionListPart.class.getName();
-		listPartServiceController = TaskAnomalyDetectionListPart.class.getName();
-		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-anomalydetection-list.part.js";
+		listPartJsController = TaskAllListPart.class.getName();
+		listPartServiceController = TaskAllListPart.class.getName();
+		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-all-list.part.js|/gsb/gsb.custom.query.controls.js";
 		listToolbarPath = "task/anomalydetection/list";
 		rowToolbaPath = "panda/datagrid/row/edit";
 	}

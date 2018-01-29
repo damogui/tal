@@ -3,7 +3,6 @@ package com.gongsibao.entity.supplier;
 import java.util.Date;
 import java.util.List;
 
-import com.gongsibao.entity.supplier.dict.SupplierType;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Reference;
@@ -12,8 +11,8 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 import org.netsharp.organization.entity.Employee;
 
-import com.gongsibao.entity.crm.dic.AllocationDispositon;
 import com.gongsibao.entity.crm.dic.TaskCustomerType;
+import com.gongsibao.entity.supplier.dict.SupplierType;
 
 @Table(name = "sp_salesman", header = "员工")
 public class Salesman extends Entity {

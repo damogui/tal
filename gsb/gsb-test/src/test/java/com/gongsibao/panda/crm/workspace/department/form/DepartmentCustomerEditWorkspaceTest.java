@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.util.StringManager;
 
-import com.gongsibao.crm.web.NCustomerEditFormPart;
+import com.gongsibao.crm.web.NCustomerFormPart;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.panda.operation.workspace.crm.form.CustomerEditWorkspaceTest;
 
@@ -24,13 +25,14 @@ public class DepartmentCustomerEditWorkspaceTest  extends CustomerEditWorkspaceT
 		resourceNodeCode = "CRM_DEPARTMENT_CUSTOMER_Edit";
 		
 		List<String> ss = new ArrayList<String>();
-		ss.add("/gsb/crm/platform/js/customer-add-form.part.js");
-		ss.add("/gsb/crm/platform/js/customer-edit-form.part.js");
+		ss.add("/gsb/crm/base/js/customer-base-form.part.js");
+		ss.add("/gsb/crm/department/js/customer-edit-form.part.js");
 		ss.add("/gsb/gsb.customer.controls.js");
 		formJsImport = StringManager.join("|", ss);
 
-		formJsController = NCustomerEditFormPart.class.getName();
-		formServiceController = NCustomerEditFormPart.class.getName();
+		
+		formJsController = "com.gongsibao.crm.web.NCustomerDepartmentEditFormPart";
+		formServiceController = NCustomerFormPart.class.getName();
 		
 		taskDetailResourceNodeCode = "CRM_DEPARTMENT_TASK_ALL";
 		
@@ -38,5 +40,12 @@ public class DepartmentCustomerEditWorkspaceTest  extends CustomerEditWorkspaceT
 		foolowDetailResourceNodeCode = "CRM_DEPARTMENT_Foolow";
 		notifyDetailResourceNodeCode = "CRM_DEPARTMENT_Notify";
 		changeDetailResourceNodeCode = "CRM_DEPARTMENT_Change";
+		
+		taskDetailJsController = "com.gongsibao.crm.web.DepartmentTaskDetailPart";
+	}
+	
+	@Test
+	public void createFormToolbar() {
+		
 	}
 }

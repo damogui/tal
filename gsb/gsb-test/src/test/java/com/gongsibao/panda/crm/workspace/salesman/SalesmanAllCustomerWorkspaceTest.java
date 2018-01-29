@@ -31,6 +31,7 @@ public class SalesmanAllCustomerWorkspaceTest extends CustomerALLWorkspaceTest{
 		List<String> ss = new ArrayList<String>();
 		ss.add("/gsb/crm/base/js/customer-base-list.part.js");
 		ss.add("/gsb/crm/salesman/js/customer-all-list.part.js");
+		ss.add("/gsb/gsb.custom.query.controls.js");
 		listPartImportJs = StringManager.join("|", ss);
 
 		listPartJsController = NCustomerAllListPart.class.getName();
@@ -58,7 +59,7 @@ public class SalesmanAllCustomerWorkspaceTest extends CustomerALLWorkspaceTest{
 			item.setCustomControlType(PropertyQueryDictComboBox.class.getName());
 			item.setRefFilter("type=411");
 		}
-		addQueryItem(queryProject, "important", "客户等级", ControlTypes.NUMBER_BOX);
+		addQueryItem(queryProject, "important", "客户等级", ControlTypes.ENUM_BOX);
 		addRefrenceQueryItem(queryProject, "supplier.name", "最近任务费用部门", Supplier.class.getSimpleName());
 		addQueryItem(queryProject, "createTime", "创建时间", ControlTypes.DATE_BOX);
 		addQueryItem(queryProject, "creator", "创建人", ControlTypes.TEXT_BOX);

@@ -355,7 +355,7 @@ com.gongsibao.crm.web.ProdMapDetailPart = org.netsharp.panda.commerce.DetailPart
 });
 
 
-com.gongsibao.crm.web.FlowDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
+com.gongsibao.crm.web.FollowDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
 
 	
 	addBefore:function(){

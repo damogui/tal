@@ -20,7 +20,7 @@ import org.netsharp.util.ReflectManager;
 import com.gongsibao.controls.CityComboBox;
 import com.gongsibao.controls.DictComboBox;
 import com.gongsibao.crm.web.NCustomerTaskAddFormPart;
-import com.gongsibao.crm.web.NCustomerTaskProductDetailPart;
+import com.gongsibao.crm.web.TaskProductDetailPart;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.supplier.Supplier;
@@ -34,7 +34,7 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 	public void setup() {
 		super.setup();
 		entity = NCustomerTask.class;
-		urlForm = "/operation/task/add";
+		urlForm = "/crm/platform/task/add";
 		listPartName = formPartName = "新增任务";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
@@ -69,31 +69,33 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 			formField.setTroikaTrigger("controllernCustomerTask.sourceSelect(record);");
 			formField.setRefFilter("type=411");
 		}
+		
 		formField = addFormField(form, "consultWay.name", "咨询途径", null, ControlTypes.CUSTOM, true, false);
 		{
 			formField.setCustomControlType(DictComboBox.class.getName());
 			formField.setTroikaTrigger("controllernCustomerTask.consultWaySelect(record);");
-			formField.setRefFilter("type=411");
+			formField.setRefFilter("type=421");
 		}
+		
 		addFormField(form, "consultWayOther", "其它咨询途径", groupName, ControlTypes.TEXT_BOX, false, true);
 
 		addFormField(form, "sourceOther", "其它来源", groupName, ControlTypes.TEXT_BOX, false, true);
-		
-		formField = addFormField(form, "costed", "费用服务商",groupName,ControlTypes.SWITCH_BUTTON, false, false);{
-			formField.setDataOptions("有|无");
-			formField.setTroikaTrigger("controllernCustomerTask.costedChange(checked);");
-		}
-		
-		formField = addFormField(form, "allocationDispositon", "自营/平台", groupName, ControlTypes.ENUM_BOX, true, false);{
-			
-			formField.setTroikaTrigger("controllernCustomerTask.allocationDispositonChange(newValue,oldValue);");
-		}
 		
 		formField = addFormField(form, "allocationType", "分配方式", groupName, ControlTypes.ENUM_BOX, true, false);{
 			
 			formField.setTroikaTrigger("controllernCustomerTask.allocationTypeChange(newValue,oldValue);");
 		}
 
+		formField = addFormField(form, "allocationDispositon", "自营/平台", groupName, ControlTypes.ENUM_BOX, true, false);{
+			
+			formField.setTroikaTrigger("controllernCustomerTask.allocationDispositonChange(newValue,oldValue);");
+		}
+
+		formField = addFormField(form, "costed", "市场投放费用",groupName,ControlTypes.SWITCH_BUTTON, false, false);{
+			formField.setDataOptions("有|无");
+			formField.setTroikaTrigger("controllernCustomerTask.costedChange(checked);");
+		}
+		
 		formField = addFormFieldRefrence(form, "supplier.name", "分配服务商", null, Supplier.class.getSimpleName(), false, true);
 		{
 			formField.setTroikaTrigger("controllernCustomerTask.supplierChange(newValue,oldValue);");
@@ -105,9 +107,10 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 		}
 		
 		formField = addFormFieldRefrence(form, "owner.name", "分配业务员", null, Employee.class.getSimpleName(), false, true);
-		addFormField(form, "allocationState", "分配状态", groupName, ControlTypes.ENUM_BOX, true, false);
+		
+		addFormField(form, "allocationState", "分配状态", groupName, ControlTypes.ENUM_BOX, true, true);
 
-		formField = addFormField(form, "remark", "售前备注", groupName, ControlTypes.TEXTAREA, false, false);{
+		formField = addFormField(form, "remark", "售前备注", groupName, ControlTypes.TEXTAREA, true, false);{
 			formField.setHeight(50);
 			formField.setFullColumn(false);
 		}
@@ -115,7 +118,7 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 			formField.setHeight(50);
 			formField.setFullColumn(false);
 		}
-		return form;
+		return form; 
 	}
 
 	protected void addDetailGridPart(PWorkspace workspace) {
@@ -205,8 +208,8 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("panda/datagrid/detail");
-			part.setJsController(NCustomerTaskProductDetailPart.class.getName());
-			part.setServiceController(NCustomerTaskProductDetailPart.class.getName());
+			part.setJsController(TaskProductDetailPart.class.getName());
+			part.setServiceController(TaskProductDetailPart.class.getName());
 			part.setWindowWidth(400);
 			part.setWindowHeight(450);
 			part.setForm(form);
@@ -230,6 +233,5 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 		ResourceNode node = this.getResourceNode();
 		operationService.addOperation(node, OperationTypes.view);
 		operationService.addOperation(node, OperationTypes.add);
-		operationService.addOperation(node, OperationTypes.update);
 	}
 }

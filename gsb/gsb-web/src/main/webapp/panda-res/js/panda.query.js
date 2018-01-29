@@ -557,17 +557,32 @@ org.netsharp.controls.NumberBoxQueryItem = org.netsharp.controls.Control.Extends
     },
     getFilter:function(){
     	
-    	return null;
-//    	var propertyValue = $('#' + this.uiElement.id).combogrid('getValue');
-//    	 if(System.isnull(propertyValue)){
-//            return null;
-//        }
-//    	 
-//    	var foreignkey = $(this.uiElement).attr("foreignkey");
-//        var qp = new org.netsharp.core.FilterParameter();
-//        qp.key = foreignkey;
-//        qp.value1 =  propertyValue;
-//        return qp;
+        this.propertyName = $('#' + this.uiElement.id).attr('propertyName');
+        var interval = $('#' + this.uiElement.id).attr('interval');
+        var propertyValue = $('#' + this.uiElement.id).numberbox('getValue');
+        
+        if(System.isnull(propertyValue)){
+            return null;
+        }
+
+        var qp = new org.netsharp.core.FilterParameter();
+        qp.key = this.propertyName;
+        if (this.uiElement.id.indexOf("Start_") == 0) {
+
+	       qp.value1 = propertyValue;
+      	   qp.intelligentMode1 = org.netsharp.core.intelligentMode.GTE;
+      	   
+      	   var value2 =  $('#End_' + this.propertyName).numberbox('getValue');
+      	   if(!System.isnull(value2)){
+      		   
+      		  qp.value2 = value2;
+      		  qp.intelligentMode2 = org.netsharp.core.intelligentMode.LE;
+      	   }
+      }else{
+    	  
+    	  return null;
+      }
+      return qp;
     },
 	clear: function() {
 		$('#' + this.propertyName).numberbox('setValue','');

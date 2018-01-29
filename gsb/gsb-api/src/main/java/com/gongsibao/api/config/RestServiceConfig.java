@@ -4,13 +4,13 @@ import javax.ws.rs.ApplicationPath;
 
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.server.ResourceConfig;
+
+import com.gongsibao.api.auth.AuthorizationFilterFeature;
+import com.gongsibao.api.conroller.igirl.TmAutoSubmitController;
 import com.gongsibao.api.conroller.test.CarTypeController;
 import com.gongsibao.api.conroller.test.CouponController;
 import com.gongsibao.api.conroller.test.GoodsController;
-import com.gongsibao.api.conroller.test.OrderController;
 import com.gongsibao.api.conroller.test.UserController;
-
-import com.gongsibao.api.auth.AuthorizationFilterFeature;
 
 @ApplicationPath("/api/*")
 public class RestServiceConfig extends ResourceConfig {
@@ -22,7 +22,7 @@ public class RestServiceConfig extends ResourceConfig {
 		register(CarTypeController.class);
 		register(CouponController.class);
 		register(GoodsController.class);
-		register(OrderController.class);
+		register(TmAutoSubmitController.class);
 		
 		//注册数据转换器
 		register(MyJacksonJsonProvider.class);

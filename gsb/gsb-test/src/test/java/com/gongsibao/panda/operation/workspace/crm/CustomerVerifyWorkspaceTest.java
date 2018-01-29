@@ -15,26 +15,26 @@ import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.crm.web.CustomerVerifyListPart;
+import com.gongsibao.crm.web.NCustomerVerifyListPart;
 import com.gongsibao.entity.crm.NCustomer;
 
 public class CustomerVerifyWorkspaceTest extends WorkspaceCreationBase{
 
-	String rowToolbar = "operation/customer/verify";
+	String rowToolbar = "platform/customer/verify";
 	
 	@Before
 	public void setup() {
 
 		entity = NCustomer.class;
-		urlList = "/operation/customer/verify";
-		listToolbarPath = "operation/customer/verify/edit";
+		urlList = "/crm/platform/customer/verify";
+		listToolbarPath = "platform/customer/verify/edit";
 		listPartName = formPartName = "校验客户";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "Operation_CRM_Customer_Add";
-		listPartImportJs = "/gsb/crm/platform/js/customer-verify-list.part.js";
-		listPartJsController = CustomerVerifyListPart.class.getName();
-		listPartServiceController = CustomerVerifyListPart.class.getName();
+		listPartImportJs = "/gsb/crm/platform/js/customer-verify-list.part.js|/gsb/gsb.custom.query.controls.js";
+		listPartJsController = NCustomerVerifyListPart.class.getName();
+		listPartServiceController = NCustomerVerifyListPart.class.getName();
 	}
 	
 	@Test
@@ -119,7 +119,7 @@ public class CustomerVerifyWorkspaceTest extends WorkspaceCreationBase{
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
 		PQueryItem item = null;
-		item = addQueryItem(queryProject, "realName", "关键字", ControlTypes.TEXT_BOX);{
+		item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);{
 			item.setWidth(400);
 			item.setTooltip("客户Id / 客户名称 / 手机号 / 座机 / QQ / 微信");
 			item.setRequired(true);

@@ -1,8 +1,8 @@
 package com.gongsibao.supplier.base;
 
-import com.gongsibao.entity.supplier.DepartmentServiceProduct;
-import com.gongsibao.entity.supplier.SalesmanProduct;
 import org.netsharp.base.IPersistableService;
+
+import com.gongsibao.entity.supplier.DepartmentServiceProduct;
 
 /**
  * Created by win on 2018/1/26.

@@ -31,6 +31,7 @@ public class SalesmanAllTaskWorkspaceTest extends TaskALLWorkspaceTest {
 		List<String> ss = new ArrayList<String>();
 		ss.add("/gsb/crm/base/js/task-base-list.part.js");
 		ss.add("/gsb/crm/salesman/js/task-all-list.part.js");
+		ss.add("/gsb/gsb.custom.query.controls.js");
 		listPartImportJs = StringManager.join("|", ss);
 
 		listFilter = "owner_id = '{userId}'";
@@ -50,9 +51,9 @@ public class SalesmanAllTaskWorkspaceTest extends TaskALLWorkspaceTest {
 			toolbar.setResourceNode(node);
 		}
 
-		addToolbarItem(toolbar, "add", "新增任务", "fa fa-plus", "openMemberPopup()", null, 5);
-		addToolbarItem(toolbar, "openMemberPopup", "开通会员", "fa fa-check", "openMemberPopup()", null, 6);
-		addToolbarItem(toolbar, "taskTransferPopup", "任务转移", "fa fa-share-square-o", "taskTransferPopup()", null, 7);
+		addToolbarItem(toolbar, "add", "新增任务", "fa fa-plus", "add()", null, 5);
+		addToolbarItem(toolbar, "openMember", "开通会员", "fa fa-check", "openMember();", null, 6);
+		addToolbarItem(toolbar, "batchTransfer", "任务转移", "fa fa-share-square-o", "batchTransfer();", null, 7);
 		return toolbar;
 	}
 
@@ -68,8 +69,8 @@ public class SalesmanAllTaskWorkspaceTest extends TaskALLWorkspaceTest {
 			toolbar.setName("跟进行工具栏操作");
 			toolbar.setResourceNode(node);
 		}
-		addToolbarItem(toolbar, "followUpPopup", "跟进", "fa fa-edit", "followUpPopup()", null, 6);
-		addToolbarItem(toolbar, "backTaskPopup", "退回", "fa fa-edit", "backTaskPopup()", null, 7);
+		addToolbarItem(toolbar, "follow", "跟进", "fa fa-edit", "follow()", null, 6);
+		addToolbarItem(toolbar, "rollback", "退回", "fa fa-edit", "rollback()", null, 7);
 		return toolbar;
 	}
 
@@ -91,7 +92,7 @@ public class SalesmanAllTaskWorkspaceTest extends TaskALLWorkspaceTest {
 			item.setCustomControlType(PropertyQueryDictComboBox.class.getName());
 			item.setRefFilter("type=411");
 		}
-		addRefrenceQueryItem(queryProject, "supplier.name", "费用部门", Supplier.class.getSimpleName());
+		addRefrenceQueryItem(queryProject, "supplier.name", "服务商", Supplier.class.getSimpleName());
 		addQueryItem(queryProject, "creator", "创建人", ControlTypes.TEXT_BOX);
 		
 		addRefrenceQueryItem(queryProject, "quality.name", "客户质量", NCustomerTaskQuality.class.getSimpleName());

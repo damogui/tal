@@ -11,7 +11,7 @@ public interface INCustomerService  extends IPersistableService<NCustomer> {
 	 * @param customerId
 	 * @return
 	 */
-	public int updateIsMember(Integer customerId);
+	public boolean updateIsMember(Integer customerId);
 	
 	/**   
 	 * @Title: validationContactWay   

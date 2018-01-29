@@ -11,7 +11,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.controls.PropertyQueryDictComboBox;
-import com.gongsibao.crm.web.department.DepartmentAllCustomerListPart;
+import com.gongsibao.crm.web.DepartmentAllCustomerListPart;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.panda.operation.workspace.crm.CustomerALLWorkspaceTest;
 
@@ -29,6 +29,7 @@ public class DepartmentAllCustomerWorkspaceTest extends CustomerALLWorkspaceTest
 		List<String> ss = new ArrayList<String>();
 		ss.add("/gsb/crm/base/js/customer-base-list.part.js");
 		ss.add("/gsb/crm/department/js/customer-all-list.part.js");
+		ss.add("/gsb/gsb.custom.query.controls.js");
 		listPartImportJs = StringManager.join("|", ss);
 
 		listPartJsController = DepartmentAllCustomerListPart.class.getName();

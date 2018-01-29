@@ -6,19 +6,15 @@ import java.lang.reflect.Method;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
-
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-
 import org.apache.commons.io.FileUtils;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.junit.Test;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.panda.annotation.Authorization;
 import org.netsharp.util.ReflectManager;
+import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.igirl.baseinfo.NCLOne;
 import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
@@ -58,7 +54,11 @@ public class AnnoTest {
 				System.out.println(json.toString());
 				if (json.get("level").toString().equals("1")){
 					one.setCode(json.getString("code"));
-					one.setName(json.getString("name"));
+					if(StringManager.isNullOrEmpty(json.getString("name"))) {
+						one.setName(json.getString("code"));
+					}else {
+						one.setName(json.getString(json.getString("name")));
+					}		
 					one.setMemo(json.getString("description"));
 					one.setPeriod(nb.getCode());
 					one = nos.save(one);
