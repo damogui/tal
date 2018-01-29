@@ -146,6 +146,8 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
                 //IMessageBox.toast(JSON.stringify(data));
                 rtnData=data;
                 $('#ncltwogrid').datagrid({
+                	  width:450,
+                	  height:300,
                     singleSelect:false,
                     checkOnSelect:true,
                     selectOnCheck:true,

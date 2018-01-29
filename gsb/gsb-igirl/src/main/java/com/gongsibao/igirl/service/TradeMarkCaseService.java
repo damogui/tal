@@ -288,7 +288,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 							upas.add(attachment1);
 
 							attachment2 = this.buildDownloadAttachment(tmk.getMemo() + "_黑色委托书",
-									AttachmentCat.DELEGATE_PROOF, entity.getId(), FileType.JPGC, FileType.JPGC,
+									AttachmentCat.DELEGATE_PROOF, entity.getId(), FileType.JPGB, FileType.JPGB,
 									tmk.getId());
 							downs.add(attachment2);
 
