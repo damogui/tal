@@ -22,8 +22,8 @@ public class AllocationActionTest extends BaseActionTest{
 
 	@Test
 	public void save() {
-
-		String pathName = "gsb/crm/task/allocation";
+		
+		String pathName = "gsb/crm/task/allocation/manual";
 		BeanPath beanPath = new BeanPath();
 		{
 			beanPath.toNew();

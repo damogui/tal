@@ -30,7 +30,7 @@ public class AutoAllotActionTest {
 	@Test
 	public void allotTask(){
 		
-		String pathName =  "gsb/crm/customer/task/autoAllot";
+		String pathName =  "gsb/crm/task/allocation/auto";
 		
 		BeanPath beanPath = new BeanPath();
 		{

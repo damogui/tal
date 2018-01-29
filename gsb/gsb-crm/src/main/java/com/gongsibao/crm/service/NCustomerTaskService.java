@@ -183,7 +183,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
 		ActionContext ctx = new ActionContext();
 		{
-			ctx.setPath("gsb/crm/task/allocation");
+			ctx.setPath("gsb/crm/task/allocation/manual");
 			ctx.setStatus(setMap);
 		}
 
@@ -275,7 +275,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		NCustomerTask entity = this.byId(taskId);
 		ActionContext ctx = new ActionContext();
 		{
-			ctx.setPath("gsb/crm/customer/task/autoAllot");
+			ctx.setPath("gsb/crm/task/allocation/auto");
 			ctx.setItem(entity);
 			ctx.setState(entity.getEntityState());
 		}

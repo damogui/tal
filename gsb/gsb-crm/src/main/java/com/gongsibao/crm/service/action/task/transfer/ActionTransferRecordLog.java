@@ -25,6 +25,7 @@ public class ActionTransferRecordLog  implements IAction{
 		Map<String,Object> getMap = ctx.getStatus();
 		String [] taskIds = getMap.get("taskIds").toString().split("_");
 		for (String item : taskIds) {
+			
 			//1.保存流转日志
 			INCustomerChangeService changeService = ServiceFactory.create(INCustomerChangeService.class);
 			NCustomerChange changeEntity = new NCustomerChange();
@@ -37,6 +38,7 @@ public class ActionTransferRecordLog  implements IAction{
 			changeEntity.setDepartmentId((Integer)getMap.get("departmentId"));  
 			changeEntity.setCustomerId((Integer)getMap.get("customerId"+item));
 			changeService.save(changeEntity);
+			
 			//2.保存通知日志
 			INCustomerTaskNotifyService notifyService = ServiceFactory.create(INCustomerTaskNotifyService.class);
 			NCustomerTaskNotify notifyEntity = new NCustomerTaskNotify();

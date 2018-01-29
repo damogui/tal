@@ -18,7 +18,9 @@ public class ActionAbnormalPersist implements IAction{
 
 	@Override
 	public void execute(ActionContext ctx) {
+		
 		NCustomerTask getEntity = (NCustomerTask)ctx.getItem();
+		
 		//1.保存抽查记录
 		INCustomerTaskInspectionService inspectionService = ServiceFactory.create(INCustomerTaskInspectionService.class);
 		NCustomerTaskInspection inspectionEntity = new NCustomerTaskInspection();
