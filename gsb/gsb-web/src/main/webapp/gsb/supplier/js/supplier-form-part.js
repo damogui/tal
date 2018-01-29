@@ -33,14 +33,5 @@ com.gongsibao.crm.web.SupplierProductDetailPart = org.netsharp.panda.commerce.De
     	}catch(ex){
     		
     	}
-    },
-    productChange:function(newValue,oldValue){
-    	
-    	//判断一级分类，二级分类是否为空，如果为空，则
-    	//反写一级分类、二级分类
-//        this.invokeService("queryByProductId", [newValue], function (data) {
-//        	
-//
-//        });
     }
 });

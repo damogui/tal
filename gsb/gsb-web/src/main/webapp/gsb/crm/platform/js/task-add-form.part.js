@@ -181,20 +181,5 @@ com.gongsibao.crm.web.TaskProductDetailPart = org.netsharp.panda.commerce.Detail
     	}catch(ex){
     		
     	}
-
-    	//反写一级分类，加载产品
-//        this.invokeService("queryByProductCategoryId2", [record.id], function (data) {
-//        	
-//
-//        });
-    },
-    productChange:function(newValue,oldValue){
-    	
-    	//判断一级分类，二级分类是否为空，如果为空，则
-    	//反写一级分类、二级分类
-//        this.invokeService("queryByProductId", [newValue], function (data) {
-//        	
-//
-//        });
     }
 });
