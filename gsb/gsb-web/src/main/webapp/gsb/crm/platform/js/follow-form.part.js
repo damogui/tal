@@ -6,6 +6,6 @@ com.gongsibao.crm.web.NCustomerFollowFormPart = org.netsharp.panda.commerce.Form
     },
     qualityChange:function(newValue, oldValue){
     	
-    	alert(newValue);
+    	//alert(newValue);
     }
 });

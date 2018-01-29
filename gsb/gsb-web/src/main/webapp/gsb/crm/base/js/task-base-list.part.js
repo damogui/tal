@@ -36,7 +36,6 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		me.doAllot(id);
 	},
 	follow : function(id) {
-		alert('人物跟进。。。。。。。。。。。。');
 		//任务跟进 
 		var me = this;
 		var url = this.followUrl +"?fk=taskId:"+id;

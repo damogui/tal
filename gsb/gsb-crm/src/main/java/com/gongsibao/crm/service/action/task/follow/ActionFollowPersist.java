@@ -34,10 +34,9 @@ public class ActionFollowPersist implements IAction{
 		IPersistableService<NCustomerTaskFoolow> service = (IPersistableService<NCustomerTaskFoolow>) ReflectManager.newInstance(NCustomerTaskFoolowService.class.getSuperclass());
 		foolow = service.save(foolow);
 		ctx.setItem(foolow);
-	}
-
-	private Integer getCustomerId(Integer taskId){
 		
+	}
+	private Integer getCustomerId(Integer taskId){
 		Oql oql=new Oql();{
 			oql.setType(NCustomerTask.class);
 			oql.setSelects("id,customerId");
@@ -52,4 +51,5 @@ public class ActionFollowPersist implements IAction{
 		}
 		return task.getCustomerId();
 	}
+
 }
