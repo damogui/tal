@@ -168,6 +168,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 			part.setJsController(SysSalesmanTreePart.class.getName());
 			part.setServiceController(SysSalesmanTreePart.class.getName());
 			part.setImports("/gsb/crm/sys/js/sys-salesman-tree-part.js");
+            part.setAutoQuery(false);
 		}
 		workspace.getParts().add(part);
 

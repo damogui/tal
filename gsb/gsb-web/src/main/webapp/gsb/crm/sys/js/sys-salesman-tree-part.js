@@ -21,15 +21,15 @@ com.gongsibao.crm.web.SysSalesmanTreePart =org.netsharp.panda.commerce.TreePart.
 
 //重新调用查询
 $(function() {
-
+debugger;
     var supplierId = controllerGsbCrmSysDepartmentTree.queryString('supplierId');
     var url = '/panda/rest/service?vid='+controllerGsbCrmSysDepartmentTree.context.vid+'&method=query&filter=';
     if(supplierId){
         url+='&supplierId='+supplierId;
+        $('#treeGsbCrmSysDepartmentTree').tree('options').url=url;
     }
     //列表
-    var options = $('#treeGsbCrmSysDepartmentTree').tree('options');
-    options.url = url;
-    $('#treeGsbCrmSysDepartmentTree').tree(options);
+    $('#treeGsbCrmSysDepartmentTree').tree('reload');//进行重新加载
+
 
 });
