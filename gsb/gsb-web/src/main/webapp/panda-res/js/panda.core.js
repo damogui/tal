@@ -357,6 +357,8 @@ PandaHelper.openDynamicForm = function(option){
 //		title:'',
 //		width:400,
 //		height:300,
+//	    explain:null,
+//      notice:null,
 //		items :[{
 //			id:null,
 //			title:null,
@@ -381,6 +383,10 @@ PandaHelper.openDynamicForm = function(option){
 	builder.append('<form id="formsalesman">');
 	builder.append('<div style="margin:10px;">');
 	builder.append('<table cellpadding="5" cellspacing="10" class="query-panel">');
+	if(!System.isnull(option.explain)){
+		
+		builder.append('<tr><td class="title"></td><td>'+option.explain+'</td></tr>');
+	}
 	$(items).each(function(i,item){
 
 		if(item.type == 'textarea'){
@@ -391,6 +397,10 @@ PandaHelper.openDynamicForm = function(option){
 			builder.append('<tr><td class="title">'+item.title+'</td><td><input id="'+item.id+'"/></td></tr>');
 		}
 	});
+	if(!System.isnull(option.notice)){
+		
+		builder.append('<tr><td class="title"></td><td style="color:red;">'+option.notice+'</td></tr>');
+	}
 	builder.append('	</table>');
 	builder.append('</div>');
 	builder.append('</form>');
