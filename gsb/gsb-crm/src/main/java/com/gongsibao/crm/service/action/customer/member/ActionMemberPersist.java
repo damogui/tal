@@ -34,7 +34,10 @@ public class ActionMemberPersist implements IAction{
 			account.setTicket("");
 			
 			IAccountService accountService = ServiceFactory.create(IAccountService.class);
-			accountService.save(account);
+			account = accountService.save(account);
+			
+			//放到map中，回写时使用
+			ctx.getStatus().put("account", account);
 		}
 	}
 
