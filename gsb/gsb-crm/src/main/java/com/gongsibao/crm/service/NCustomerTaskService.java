@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
+import org.netsharp.authorization.UserPermissionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.core.Oql;
 import org.netsharp.util.StringManager;
@@ -18,6 +19,9 @@ import com.gongsibao.bd.service.SupplierPersistableService;
 import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
+import com.gongsibao.entity.crm.dic.NAllocationType;
+import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.utils.DateUtils;
 import com.gongsibao.utils.SupplierSessionManager;
 
@@ -96,7 +100,6 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
 		return builder.toString();
 	}
-	
 
 	@Override
 	public Boolean batchTransfer(String[] taskIdArray, Integer supplierId, Integer departmentId, Integer toUserId) {
@@ -106,7 +109,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 			this.transfer(Integer.valueOf(taskId), supplierId, departmentId, toUserId);
 		}
 		return true;
-		
+
 	}
 
 	@Override
@@ -239,7 +242,6 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		return true;
 	}
 
-
 	@Override
 	public Boolean rollback(Integer taskId, String content) {
 		// 任务回退
@@ -329,13 +331,31 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	public NCustomerTask newInstance() {
 
 		NCustomerTask entity = super.newInstance();
-		entity.set("supplierId", SupplierSessionManager.getSupplierId());
-		entity.set("departmentId", SupplierSessionManager.getDepartmentId());
+		
+		Supplier supplier = SupplierSessionManager.getSupplier();
+		if(supplier != null){
+
+			entity.setSupplierId(supplier.getId());
+			entity.setSupplier(supplier);
+		}
+		
+		SupplierDepartment department = SupplierSessionManager.getDepartment();
+		if(department != null){
+
+			entity.setDepartmentId(department.getId());
+			entity.setDepartment(department);
+		}
+		
 
 		// 业务员处理,只有是业务员的才有
-		entity.set("ownerId", SupplierSessionManager.getSalesmanEmployeeId());
+		Integer ownerId = SupplierSessionManager.getSalesmanEmployeeId();
+		if (ownerId != null) {
+
+			entity.setAllocationType(NAllocationType.MANUAL);
+			entity.setOwnerId(ownerId);
+			entity.setOwner(UserPermissionManager.getUserPermission().getEmployee());
+		}
 		return entity;
 	}
-
 
 }
