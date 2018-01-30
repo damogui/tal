@@ -5,7 +5,7 @@ import org.netsharp.action.IAction;
 
 /**
  * @author hw
- * 发送消息
+ * 跟进：发送消息
  */
 public class ActionFollowSendMessage implements IAction{
 
