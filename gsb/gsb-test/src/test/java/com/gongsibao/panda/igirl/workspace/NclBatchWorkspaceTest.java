@@ -1,14 +1,19 @@
 package com.gongsibao.panda.igirl.workspace;
 
 import com.gongsibao.entity.igirl.baseinfo.NclBatch;
+import com.gongsibao.igirl.web.NclBatchListPart;
+import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
+import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.*;
+import org.netsharp.panda.plugin.entity.PToolbar;
+import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
@@ -25,19 +30,97 @@ public class NclBatchWorkspaceTest extends WorkspaceCreationBase {
         openWindowWidth = 800;
         openWindowHeight = 600;
         resourceNodeCode = "NCL_All_NclBatch";
+        listToolbarPath="/igirl/nclbatch/list";
+        listPartServiceController = NclBatchListPart.class.getName();
+        listPartJsController=NclBatchListPart.class.getName();
+        listPartImportJs="/gsb/igirl/js/nclbatch.listpart.js";
     }
+
+
+    @Test
+    public void fromToolbar() {
+
+        ResourceNode node = this.resourceService.byCode(resourceNodeCode);
+        OperationType ot1 = operationTypeService.byCode(OperationTypes.add);
+
+        PToolbar toolbar = new PToolbar();
+        {
+            toolbar.toNew();
+            toolbar.setPath(listToolbarPath);
+            toolbar.setName("案件工具栏");
+            toolbar.setResourceNode(node);
+
+        }
+
+        PToolbarItem item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("add");
+            item.setIcon("fa fa-plus");
+            item.setName("新增");
+            item.setCommand(null);
+            item.setOperationType(ot1);
+            item.setSeq(3000);
+            item.setCommand("{controller}.add();");
+            toolbar.getItems().add(item);
+        }
+
+        item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("edit");
+            item.setIcon("fa fa-edit");
+            item.setName("编辑");
+            item.setCommand(null);
+            item.setOperationType(ot1);
+            item.setSeq(3000);
+            item.setCommand("{controller}.edit();");
+            toolbar.getItems().add(item);
+        }
+        item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("remove");
+            item.setIcon("fa fa-trash-o");
+            item.setName("删除");
+            item.setCommand(null);
+            item.setOperationType(ot1);
+            item.setSeq(4000);
+            item.setCommand("{controller}.remove();");
+            toolbar.getItems().add(item);
+        }
+        item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("nclBatch");
+            item.setIcon("fa fa-trash-o");
+            item.setName("数据源导入");
+            item.setCommand(null);
+            item.setOperationType(ot1);
+            item.setSeq(4000);
+            item.setCommand("{controller}.nclBatch();");
+            toolbar.getItems().add(item);
+        }
+        toolbarService.save(toolbar);
+    }
+
 
     @Override
     protected PDatagrid createDatagrid(ResourceNode node) {
-        PDatagrid pid = super.createDatagrid(node);
-        pid.setToolbar("panda/datagrid/row/edit"); //系统默认的工具栏
-        pid.setName("分类列表");
+        PDatagrid pDatagrid = super.createDatagrid(node);
+        pDatagrid.setShowCheckbox(true);
+        pDatagrid.setSingleSelect(true);
+        pDatagrid.setToolbar("panda/datagrid/row/edit"); //系统默认的工具栏
+        pDatagrid.setName("分类列表");
         PDatagridColumn column = null;
-        addColumn(pid, "code", "编号", ControlTypes.TEXT_BOX, 100);
-        addColumn(pid, "context", "说明", ControlTypes.TEXT_BOX, 200);
-        column = addColumn(pid,"currentStatus","是否为当前版本",ControlTypes.TEXT_BOX,100);
+        addColumn(pDatagrid, "code", "编号", ControlTypes.TEXT_BOX, 100);
+        addColumn(pDatagrid, "context", "说明", ControlTypes.TEXT_BOX, 200);
+        addColumn(pDatagrid,"url","数据源",ControlTypes.TEXT_BOX,100);
+        column = addColumn(pDatagrid, "isInsert", "是否导入", ControlTypes.TEXT_BOX, 200);
+        column.setFormatter("if (row.isInsert==1){return '已导入'} else{return '未导入'}");
+        column = addColumn(pDatagrid,"currentStatus","是否为当前版本",ControlTypes.TEXT_BOX,100);
         column.setFormatter("if( row.currentStatus==1){ return '是' } else{ return '否' }");
-        return pid;
+        return pDatagrid;
     }
 
     @Override
@@ -49,13 +132,10 @@ public class NclBatchWorkspaceTest extends WorkspaceCreationBase {
         PFormField field = null;
         addFormField(form, "code", "编号", null, ControlTypes.TEXT_BOX, true,true).setWidth(200);
         addFormField(form, "context", "说明", null, ControlTypes.TEXTAREA, true,false).setWidth(200);
+        addFormField(form, "url", "数据源", null, ControlTypes.OSS_UPLOAD, true,false).setWidth(200);
         addFormField(form,"currentStatus","是否为当前版本",null, ControlTypes.SWITCH_BUTTON,true,false).setWidth(100);
         return form;
     }
-
-    /*protected void addDetailGridPart(PWorkspace workspace) {
-        createNclBatchPart(workspace);
-    }*/
 
     private void createNclBatchPart(PWorkspace workspace) {
         ResourceNode node = this.resourceService.byCode("NCL_All_NclBatch");

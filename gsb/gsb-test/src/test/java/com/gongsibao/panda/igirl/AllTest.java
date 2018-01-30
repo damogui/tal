@@ -14,6 +14,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		NclOneWorkspaceTest.class,
 		NclTwoWorkspaceTest.class,
 		NclBatchWorkspaceTest.class,
+		ConfigWorkspaceTest.class,
 		TradeMarkCaseAllWorkspaceTest.class,
 		MyAllTradeMarkCaseWorkspaceTest.class,
 		TradeMarkFollowWorkspaceTest.class,

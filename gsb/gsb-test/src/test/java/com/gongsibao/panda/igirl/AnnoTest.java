@@ -6,6 +6,10 @@ import java.lang.reflect.Method;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.gongsibao.entity.igirl.baseinfo.IGirlConfig;
+import com.gongsibao.igirl.base.IGirlConfigService;
+import com.gongsibao.igirl.utils.JsonFormatTool;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.commons.io.FileUtils;
@@ -14,13 +18,7 @@ import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.panda.annotation.Authorization;
 import org.netsharp.util.ReflectManager;
-import org.netsharp.util.StringManager;
 
-import com.gongsibao.entity.igirl.baseinfo.NCLOne;
-import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
-import com.gongsibao.entity.igirl.baseinfo.NclBatch;
-import com.gongsibao.igirl.base.INCLOneService;
-import com.gongsibao.igirl.base.INCLTwoService;
 import com.gongsibao.igirl.base.INclBatchService;
 import com.gongsibao.igirl.web.TradeMarkCaseController;
 
@@ -31,54 +29,43 @@ public class AnnoTest {
 		Method method = ReflectManager.getMethods(TradeMarkCaseController.class,"TradeMarkCaseController");
 		method.getAnnotation(Authorization.class);
 	}
-
 	@Test
-	public void nclBatch() {
-		INCLOneService nos = ServiceFactory.create(INCLOneService.class);
-		INCLTwoService nts = ServiceFactory.create(INCLTwoService.class);
-		INclBatchService nbs = ServiceFactory.create(INclBatchService.class);
-		List<NCLTwo> nclts;
+	public void getNclBatchData() {
+		IGirlConfigService service = ServiceFactory.create(IGirlConfigService.class);
 		Oql oql = new Oql();
-		oql.setType(NclBatch.class);
-		oql.setSelects("NclBatch.*");
-		oql.setFilter("currentStatus=?");
-		oql.getParameters().add("currentStatus",true, Types.BOOLEAN);
-		NclBatch nb = nbs.queryFirst(oql);
-		List<JSONArray> arrays = readfile("D:/json");
+		oql.setType(IGirlConfig.class);
+		oql.setSelects("IGirlConfig.*");
+		oql.setFilter("code = ?");
+		oql.getParameters().add("code","IGIRL_JSON_IN", Types.VARCHAR);
+		IGirlConfig in = service.queryFirst(oql);
+
+		oql = new Oql();
+		oql.setType(IGirlConfig.class);
+		oql.setSelects("IGirlConfig.*");
+		oql.setFilter("code = ?");
+		oql.getParameters().add("code","IGIRL_JSON_OUT",Types.VARCHAR);
+		IGirlConfig out = service.queryFirst(oql);
+
+		oql = new Oql();
+		oql.setType(IGirlConfig.class);
+		oql.setSelects("IGirlConfig.*");
+		oql.setFilter("code = ?");
+		oql.getParameters().add("code","IGIRL_JSON_NAME",Types.VARCHAR);
+		IGirlConfig name = service.queryFirst(oql);
+
+		List<JSONArray> arrays = fileToJson(in.getValue());
+		JSONArray data = new JSONArray();
 		for (JSONArray array:arrays){
-			nclts = new ArrayList<>();
-			NCLOne one = new NCLOne();
-			one.toNew();
-			for (int i=0;i<array.size();i++){
-				JSONObject json = array.getJSONObject(i);
-				System.out.println(json.toString());
-				if (json.get("level").toString().equals("1")){
-					one.setCode(json.getString("code"));
-					if(StringManager.isNullOrEmpty(json.getString("name"))) {
-						one.setName(json.getString("code"));
-					}else {
-						one.setName(json.getString(json.getString("name")));
-					}		
-					one.setMemo(json.getString("description"));
-					one.setPeriod(nb.getCode());
-					one = nos.save(one);
-				}else if(json.get("level").toString().equals("3")){
-					NCLTwo two = new NCLTwo();
-					two.toNew();
-					two.setCode(json.getString("pid"));
-					two.setName(json.getString("name"));
-					two.setThirdCode(json.getString("code"));
-					two.setNclOneId(one.getId());
-					two.setNclOne(one);
-					nclts.add(two);
-				}
-				nts.saves(nclts);
-			}
+			data.addAll(array);
 		}
-		System.out.println("注入完成");
+		JSONObject json = new JSONObject();
+		json.put("code",200);
+		json.put("data",data);
+		JsonFormatTool.createJsonFile(json.toString(),out.getValue(),name.getValue());
+		System.out.println("获取数据源文件成功,路径："+out.getValue()+name.getValue());
 	}
 
-	public static List<JSONArray> readfile(String filepath){
+	public static List<JSONArray> fileToJson(String filepath){
 		List<JSONArray> arrays = new ArrayList<>();
 		File file = new File(filepath);
 		String[] files = file.list();

@@ -1,12 +1,23 @@
 package com.gongsibao.igirl.service;
 
 import com.gongsibao.bd.service.GsbPersistableService;
+import com.gongsibao.entity.igirl.baseinfo.IGirlConfig;
 import com.gongsibao.entity.igirl.baseinfo.NclBatch;
+import com.gongsibao.igirl.base.IGirlConfigService;
 import com.gongsibao.igirl.base.INclBatchService;
+import com.gongsibao.igirl.utils.JsonFormatTool;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import org.apache.commons.io.FileUtils;
 import org.netsharp.communication.Service;
+import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class NclBatchService extends GsbPersistableService<NclBatch> implements INclBatchService {
