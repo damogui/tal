@@ -100,6 +100,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
 		return builder.toString();
 	}
+	
 
 	@Override
 	public Boolean batchTransfer(String[] taskIdArray, Integer supplierId, Integer departmentId, Integer toUserId) {
@@ -109,23 +110,22 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 			this.transfer(Integer.valueOf(taskId), supplierId, departmentId, toUserId);
 		}
 		return true;
-
+		
 	}
 
 	@Override
 	public Boolean transfer(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId) {
-
+		Map<String, Object> setMap = new HashMap<String, Object>();
 		NCustomerTask entity = this.byId(taskId);
+		setMap.put("formUserId", entity.getOwnerId());
+		entity.setSupplierId(supplierId);
+		entity.setDepartmentId(departmentId);
+		entity.setOwnerId(toUserId);
 		ActionManager action = new ActionManager();
 		ActionContext ctx = new ActionContext();
 		{
 			ctx.setPath("gsb/crm/task/transfer");
 			ctx.setItem(entity);
-
-			Map<String, Object> setMap = new HashMap<String, Object>();
-			setMap.put("supplierId", supplierId);
-			setMap.put("departmentId", departmentId);
-			setMap.put("toUserId", toUserId);
 			ctx.setStatus(setMap);
 		}
 		action.execute(ctx);
@@ -135,18 +135,14 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	/**
 	 * 抽查异常
 	 * 
-	 * @param taskId
-	 *            任务Id
-	 * @param state
-	 *            1-"未抽查",2-"抽查正常",3-"抽查异常",4-"异常已处理"
+	 * @param taskId 	任务Id
+	 * @param state 1-"未抽查",2-"抽查正常",3-"抽查异常",4-"异常已处理"
 	 * @param content
-	 * @param type
-	 *            1-"抽查",2-"处理"
+	 * @param type	1-"抽查",2-"处理"
 	 * @return
 	 */
 	@Override
 	public Boolean abnormal(Integer taskId, Integer state, String content, Integer type) {
-
 		// 抽查异常
 		NCustomerTask entity = this.byId(taskId);
 		entity.setLastInspectionContent(content);
@@ -179,17 +175,17 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	@Override
 	public Boolean allocation(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId) {
 
+		Map<String, Object> setMap = new HashMap<String, Object>();
 		NCustomerTask entity = this.byId(taskId);
+		setMap.put("formUserId", entity.getOwnerId());
+		entity.setSupplierId(supplierId);
+		entity.setDepartmentId(departmentId);
+		entity.setOwnerId(toUserId);
 		ActionManager action = new ActionManager();
 		ActionContext ctx = new ActionContext();
 		{
 			ctx.setPath("gsb/crm/task/allocation/manual");
 			ctx.setItem(entity);
-
-			Map<String, Object> setMap = new HashMap<String, Object>();
-			setMap.put("supplierId", supplierId);
-			setMap.put("departmentId", departmentId);
-			setMap.put("toUserId", toUserId);
 			ctx.setStatus(setMap);
 		}
 		action.execute(ctx);
@@ -242,6 +238,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		return true;
 	}
 
+
 	@Override
 	public Boolean rollback(Integer taskId, String content) {
 		// 任务回退
@@ -280,11 +277,8 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
 	@Override
 	public Map<Integer, Integer> getTaskCountByEmployeeIdList(List<Integer> employeeIdList, Integer type) {
-
 		String employeeIdStr = StringManager.join(",", employeeIdList);
-
 		Map<Integer, Integer> resMap = new HashMap<Integer, Integer>();
-
 		List<String> whereList = new ArrayList<String>();
 		whereList.add(" owner_id in(" + employeeIdStr + ") ");
 		Date date = new Date();
@@ -306,7 +300,6 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		if (type.equals(2)) {// XAB类已分配客户数
 			whereList.add(" intention_category in(1,2,5) ");
 		}
-
 		Oql oql = new Oql();
 		{
 			oql.setType(NCustomerTask.class);
@@ -315,7 +308,6 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		}
 
 		List<NCustomerTask> reslist = this.pm.queryList(oql);
-
 		for (Integer employeeId : employeeIdList) {
 			int count = 0;
 			for (NCustomerTask nCustomerTask : reslist) {
@@ -329,33 +321,26 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	}
 
 	public NCustomerTask newInstance() {
-
-		NCustomerTask entity = super.newInstance();
-		
+		NCustomerTask entity = super.newInstance();		
 		Supplier supplier = SupplierSessionManager.getSupplier();
 		if(supplier != null){
-
 			entity.setSupplierId(supplier.getId());
 			entity.setSupplier(supplier);
 		}
 		
 		SupplierDepartment department = SupplierSessionManager.getDepartment();
 		if(department != null){
-
 			entity.setDepartmentId(department.getId());
 			entity.setDepartment(department);
-		}
-		
+		}		
 
 		// 业务员处理,只有是业务员的才有
 		Integer ownerId = SupplierSessionManager.getSalesmanEmployeeId();
 		if (ownerId != null) {
-
 			entity.setAllocationType(NAllocationType.MANUAL);
 			entity.setOwnerId(ownerId);
 			entity.setOwner(UserPermissionManager.getUserPermission().getEmployee());
 		}
 		return entity;
 	}
-
 }
