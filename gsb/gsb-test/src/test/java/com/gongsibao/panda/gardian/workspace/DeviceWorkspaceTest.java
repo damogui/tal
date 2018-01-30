@@ -161,7 +161,7 @@ public class DeviceWorkspaceTest extends WorkspaceCreationBase{
 		addFormField(form, "alertdays", "设备预警天数", "设备基础信息", ControlTypes.NUMBER_BOX, false,false).setWidth(200);
 
 		addFormField(form, "memory", "内存数量（G）", "主机配置", ControlTypes.NUMBER_BOX, false,false).setWidth(200);
-		addFormField(form, "core", "CPU个数（个）", "主机配置", ControlTypes.NUMBER_BOX, false,false).setWidth(200);
+		addFormField(form, "core", "CPU数（个）", "主机配置", ControlTypes.NUMBER_BOX, false,false).setWidth(200);
 		addFormField(form, "hdd", "硬盘容量（G）", "主机配置", ControlTypes.NUMBER_BOX, false,false).setWidth(200);
 		addFormField(form, "cloudhdd", "云盘容量（G）", "主机配置", ControlTypes.NUMBER_BOX, false,false).setWidth(200);
 
