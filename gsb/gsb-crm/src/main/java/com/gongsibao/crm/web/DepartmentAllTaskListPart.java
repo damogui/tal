@@ -32,6 +32,4 @@ public class DepartmentAllTaskListPart extends TaskBaseListPart{
 
 		return StringManager.join(" and ", ss);
 	}
-	
-	
 }
