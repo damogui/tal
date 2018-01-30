@@ -34,15 +34,54 @@ public class ActionAutoAllocationPersist implements IAction {
 
 	// 任务服务对象
 	INCustomerTaskService nCustomerTaskService = ServiceFactory.create(INCustomerTaskService.class);
+	//业务员服务
 	ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
+	//任务服务
 	IPersister<NCustomerTask> taskPm = PersisterFactory.create();
 
 	@Override
 	public void execute(ActionContext ctx) {
-		NCustomerTask entity = (NCustomerTask) ctx.getItem();
+		NCustomerTask entity = (NCustomerTask) ctx.getItem();		
+		// 查询出符合条件的业务员
+		List<Salesman> salesmanList = getListByCondition(entity);
+		// 符合服务范围的业务员
+		List<Salesman> taskSalesmanProducts = getTaskSalesmanProducts(salesmanList, entity.getProducts());
 
-		Integer ownerId = 0;
+		// 无符合意向产品/地区的组织机构
+		if (CollectionUtils.isEmpty(taskSalesmanProducts)) {
+			// 无市场投放
+			if (!entity.getCosted()) {
+				// 将分配方式选中【手动分配】
+				updateTaskAllocationType(entity.getId(), NAllocationType.MANUAL);
+				// TODO:提醒售前客服负责人进行手动分配，日志信息
+				return;
+			} else {
+				// 将分配方式选中【半自动分配】
+				updateTaskAllocationType(entity.getId(), NAllocationType.SemiAutomatic);
+				// 分配至目标部门的【公海】,此时的跟进服务商修改成【有市场投放的部门（服务商）】
+				updateTaskOwnerId(entity.getId(), 0, entity.getCostSupplierId());
+				// TODO:提醒部门负责人进行任务分配，日志信息
 
+				return;
+			}
+		}
+
+		// 分配方式:半自动分配时（分配到跟进服务商即可）
+		if (entity.getAllocationType().equals(NAllocationType.SemiAutomatic)) {
+			// 分配至目标服务商的【公海】,直接就是剩下业务员所在的服务商（如果有市场投放，则都是该有市场投放部门的人，如果没有市场投放则就在剩下业务员所在部门随便挑一个）
+			updateTaskOwnerId(entity.getId(), 0, taskSalesmanProducts.get(0).getSupplierId());
+			// TODO:提醒部门负责人进行任务分配，日志信息
+			return;
+		}
+
+		// 分配方式:自动分配时
+		allocation(entity,taskSalesmanProducts);
+	}
+
+	// 获取符合条件的【业务员】
+	private List<Salesman> getListByCondition(NCustomerTask entity) {
+		List<Salesman> resList = new ArrayList<Salesman>();
+		// 查询业务员的条件集合
 		List<String> salesmanSqlWhereList = new ArrayList<String>();
 		salesmanSqlWhereList.add(" disabled=0 ");// 没有停用的
 		salesmanSqlWhereList.add(" receiving=1 ");// 是否接单
@@ -83,14 +122,13 @@ public class ActionAutoAllocationPersist implements IAction {
 		}
 
 		// 查询出符合条件的业务员
-		List<Salesman> salesmanList = salesmanService.queryList(salesmanOql);
-		// 符合服务范围的业务员
-		List<Salesman> taskSalesmanProducts = new ArrayList<Salesman>();
-		// 最后的结果集合
-		List<Salesman> resSalesmanList = new ArrayList<Salesman>();
+		resList = salesmanService.queryList(salesmanOql);
+		return resList;
+	}
 
-		// 该任务的所有的服务范围
-		List<NCustomerProduct> taskProducts = entity.getProducts();
+	// 符合服务范围的业务员
+	private List<Salesman> getTaskSalesmanProducts(List<Salesman> salesmanList, List<NCustomerProduct> taskProducts) {
+		List<Salesman> resList = new ArrayList<Salesman>();
 		// 筛选出满足服务范围的业务员
 		for (Salesman s : salesmanList) {
 			for (NCustomerProduct nCustomerProduct : taskProducts) {
@@ -101,41 +139,20 @@ public class ActionAutoAllocationPersist implements IAction {
 							salesmanProduct.getCityId().equals(nCustomerProduct.getCityId()) && // 市
 							salesmanProduct.getCountyId().equals(nCustomerProduct.getCountyId())) {// 区
 						// 防止重复
-						if (!taskSalesmanProducts.contains(s)) {
-							taskSalesmanProducts.add(s);
+						if (!resList.contains(s)) {
+							resList.add(s);
 						}
 					}
 				}
 			}
 		}
+		return resList;
+	}
 
-		// 无符合意向产品/地区的组织机构
-		if (CollectionUtils.isEmpty(taskSalesmanProducts)) {
-			// 无市场投放
-			if (!entity.getCosted()) {
-				// 将分配方式选中【手动分配】
-				updateTaskAllocationType(entity.getId(), NAllocationType.MANUAL);
-				// TODO:提醒售前客服负责人进行手动分配，日志信息
-				return;
-			} else {
-				// 将分配方式选中【半自动分配】
-				updateTaskAllocationType(entity.getId(), NAllocationType.SemiAutomatic);
-				// 分配至目标部门的【公海】,此时的跟进服务商修改成【有市场投放的部门（服务商）】
-				updateTaskOwnerId(entity.getId(), 0, entity.getCostSupplierId());
-				// TODO:提醒部门负责人进行任务分配，日志信息
-
-				return;
-			}
-		}
-
-		// 分配方式:半自动分配时（分配到跟进服务商即可）
-		if (entity.getAllocationType().equals(NAllocationType.SemiAutomatic)) {
-			// 分配至目标服务商的【公海】,直接就是剩下业务员所在的服务商（如果有市场投放，则都是该有市场投放部门的人，如果没有市场投放则就在剩下业务员所在部门随便挑一个）
-			updateTaskOwnerId(entity.getId(), 0, taskSalesmanProducts.get(0).getSupplierId());
-			// TODO:提醒部门负责人进行任务分配，日志信息
-			return;
-		}
-
+	// 分配任务给业务员(自动分配)
+	private void allocation(NCustomerTask entity, List<Salesman> taskSalesmanProducts) {
+		// 最后的结果集合
+		List<Salesman> resSalesmanList = new ArrayList<Salesman>();
 		// 分配方式:自动分配时
 		if (entity.getAllocationType().equals(NAllocationType.AUTO)) {
 			List<Integer> employeeIdList = new ArrayList<Integer>();
@@ -179,14 +196,14 @@ public class ActionAutoAllocationPersist implements IAction {
 						return s1.getDayAllocatedCount().compareTo(s2.getDayAllocatedCount());
 					}
 				});
-				ownerId = resSalesmanList.get(0).getEmployeeId();
+				Integer ownerId = resSalesmanList.get(0).getEmployeeId();
 				// 跟新业务员
 				updateTaskOwnerId(entity.getId(), ownerId, entity.getSupplierId());
 			}
 		}
-
 	}
 
+	// 跟新业务员
 	private void updateTaskOwnerId(Integer taskId, Integer ownerId, Integer supplierId) {
 		// 跟新业务员
 		// IPersister<NCustomerTask> taskPm = PersisterFactory.create();

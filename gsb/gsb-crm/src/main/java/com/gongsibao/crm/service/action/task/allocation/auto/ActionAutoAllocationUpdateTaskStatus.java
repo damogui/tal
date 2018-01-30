@@ -36,6 +36,8 @@ public class ActionAutoAllocationUpdateTaskStatus implements IAction {
 		entity.setFoolowStatus(CustomerFollowStatus.UNFollow);
 		//跟新最后分配时间
 		entity.setLastAllocationTime(new Date());
+		//最后分配人Id（机器分配，默认写0）
+		entity.setLastAllocationUserId(0);
 		
 		nCustomerTaskService.save(entity);
 		
