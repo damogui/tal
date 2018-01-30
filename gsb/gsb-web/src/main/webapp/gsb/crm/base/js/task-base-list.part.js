@@ -126,6 +126,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		me.doRollBack(id,2,intenCategory);
 	},
 	doRollBack : function(id,type,intenCategory) {
+		
 		//收回和退回公用一个方法 type:1-收回、2-退回
 		var me = this;
 		var setTitle ='';
