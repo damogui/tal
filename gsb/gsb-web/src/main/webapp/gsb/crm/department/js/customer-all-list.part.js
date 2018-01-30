@@ -1,5 +1,4 @@
-System.Declare("com.gongsibao.crm.web.department");
-com.gongsibao.crm.web.department.DepartmentAllCustomerListPart = com.gongsibao.crm.web.BaseCustomerListPart.Extends({
+com.gongsibao.crm.web.DepartmentAllCustomerListPart = com.gongsibao.crm.web.BaseCustomerListPart.Extends({
 	ctor : function() {
 		this.base();
 		this.addUrl = "/panda/crm/department/customer/add";

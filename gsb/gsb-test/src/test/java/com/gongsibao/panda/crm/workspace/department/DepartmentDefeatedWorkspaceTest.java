@@ -49,7 +49,7 @@ public class DepartmentDefeatedWorkspaceTest extends DepartmentAllTaskWorkspaceT
 		}
 		addToolbarItem(toolbar, "verified", "属实", "fa fa-edit", "verified()", null, 6);
 		addToolbarItem(toolbar, "untrue", "不属实", "fa fa-edit", "untrue()", null, 7);
-		addToolbarItem(toolbar, "remark", "备注", "fa fa-edit", "submitRemark()", null, 8);
+		addToolbarItem(toolbar, "remark", "备注", "fa fa-edit", "remark()", null, 8);
 		return toolbar;
 	}
 }

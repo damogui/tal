@@ -45,68 +45,9 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 	doAllot : function(taskId) {
 		
 		var me = this;
-		var supplierOption = {columns : [ [ {
-			field : 'name',
-			title : '名称',
-			width : 100
-		}] ],
-		url : '\/panda\/rest\/reference?code=Supplier&filter=',
-		idField : 'id',
-		textField : 'name',
-		width : 300,
-		fitColumns : true,
-		panelWidth : 450,
-		panelHeight : 310,
-		pagination : true,
-		pageSize : 10,
-		mode : 'remote',
-		multiple : false,
-		onChange : function(newValue, oldValue) {
-			
-		}};
-		
-		var departmentOption = {columns : [ [ {
-				field : 'name',
-				title : '名称',
-				width : 100
-			}] ],
-			url : '\/panda\/rest\/reference?code=SupplierDepartment&filter=',
-			idField : 'id',
-			textField : 'name',
-			width : 300,
-			fitColumns : true,
-			panelWidth : 450,
-			panelHeight : 310,
-			pagination : true,
-			pageSize : 10,
-			mode : 'remote',
-			multiple : false,
-			onChange : function(newValue, oldValue) {
-				
-			}};
-		
-	
-		var employeeOption = {columns : [ [ {
-			field : 'name',
-			title : '名称',
-			width : 100
-		}] ],
-		//Salesman
-		url : '\/panda\/rest\/reference?code=Employee&filter=',
-		idField : 'id',
-		textField : 'name',
-		width : 300,
-		fitColumns : true,
-		panelWidth : 450,
-		panelHeight : 310,
-		pagination : true,
-		pageSize : 10,
-		mode : 'remote',
-		multiple : false,
-		onChange : function(newValue, oldValue) {
-			
-		}};
-	
+		var supplierOption = getSupplierOption();
+		var departmentOption = getDepartmentOption();
+		var employeeOption = getEmployeeOption();
 		PandaHelper.openDynamicForm({
 			title:'任务分配',
 			width:450,
@@ -263,101 +204,48 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		}
 		me.doTransfer(id);
 	},
-	doTransfer : function(id) {
-		var me = this;
-		var supplierOption = {columns : [ [ {
-			field : 'name',
-			title : '名称',
-			width : 100
-		}] ],
-		url : '\/panda\/rest\/reference?code=CRM_Supplier&filter=',
-		idField : 'id',
-		textField : 'name',
-		width : 300,
-		fitColumns : true,
-		panelWidth : 450,
-		panelHeight : 310,
-		pagination : true,
-		pageSize : 10,
-		mode : 'remote',
-		multiple : false,
-		onChange : function(newValue, oldValue) {
-			
-		}};
-	var departmentOption = {columns : [ [ {
-			field : 'name',
-			title : '名称',
-			width : 100
-		}] ],
-		url : '\/panda\/rest\/reference?code=CRM_Supplier_Depart&filter=',
-		idField : 'id',
-		textField : 'name',
-		width : 300,
-		fitColumns : true,
-		panelWidth : 450,
-		panelHeight : 310,
-		pagination : true,
-		pageSize : 10,
-		mode : 'remote',
-		multiple : false,
-		onChange : function(newValue, oldValue) {
-			
-		}};
-	
-	var employeeOption = {columns : [ [ {
-		field : 'name',
-		title : '名称',
-		width : 100
-	}] ],
-	url : '\/panda\/rest\/reference?code=Employee&filter=',
-	idField : 'id',
-	textField : 'name',
-	width : 300,
-	fitColumns : true,
-	panelWidth : 450,
-	panelHeight : 310,
-	pagination : true,
-	pageSize : 10,
-	mode : 'remote',
-	multiple : false,
-	onChange : function(newValue, oldValue) {
+	doTransfer : function(taskId) {
 		
-	}};
-	
-	PandaHelper.openDynamicForm({
-		title:'任务分配',
-		width:450,
-		height:300,
-		items:[{id:'allot_supplier_name',
-			title:'服务商',
-			type:'combogrid',
-            className:'',
-			option:supplierOption},
-			
-			{id:'allot_department_name',
-				title:'部门',
+		var me = this;
+		var supplierOption = getSupplierOption();
+		var departmentOption = getDepartmentOption();
+		var employeeOption = getEmployeeOption();
+		
+		PandaHelper.openDynamicForm({
+			title:'任务转移',
+			width:450,
+			height:300,
+			items:[{id:'allot_supplier_name',
+				title:'服务商',
 				type:'combogrid',
 	            className:'',
-				option:departmentOption},
+				option:supplierOption},
 				
-			{id:'allot_employee_name',
-				title:'业务员',
-				type:'combogrid',
-	            className:'',
-				option:employeeOption}
-		],
-		callback:function(index, layero){
-			var supplierId = $('#allot_supplier_name').combogrid('getValue');
-			var departmentId = $('#allot_department_name').combogrid('getValue');
-			var toUserId = $('#allot_employee_name').combogrid('getValue');
-			if (System.isnull(supplierId) && System.isnull(departmentId) && System.isnull(toUserId)) {
-				IMessageBox.info('请选择');
-				return;
+				{id:'allot_department_name',
+					title:'部门',
+					type:'combogrid',
+		            className:'',
+					option:departmentOption},
+					
+				{id:'allot_employee_name',
+					title:'业务员',
+					type:'combogrid',
+		            className:'',
+					option:employeeOption}
+			],
+			callback:function(index, layero){
+				
+				var supplierId = $('#allot_supplier_name').combogrid('getValue');
+				var departmentId = $('#allot_department_name').combogrid('getValue');
+				var toUserId = $('#allot_employee_name').combogrid('getValue');
+				if (System.isnull(supplierId) && System.isnull(departmentId) && System.isnull(toUserId)) {
+					
+					IMessageBox.info('请选择');
+					return;
+				}
+				me.doTransferService(taskId,supplierId,departmentId,toUserId);
 			}
-			var taskId = id;
-			me.doTransferService(taskId,supplierId,departmentId,toUserId);
-		}
-	});
+		});
 	},
 	doTransferService : function(taskId,supplierId,departmentId,toUserId) {
 		var me = this;
@@ -398,7 +286,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		var me = this;
 		me.doAbnormalPopup(id,3,1);
 	},
-	submitRemark:function(id){
+	remark:function(id){
 		//state:0  ；只更新内容
 		var me = this;
 		me.doAbnormalPopup(id,0,1);
@@ -436,6 +324,78 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		});
 	}
 });
+
+
+function getSupplierOption(){
+	
+	var supplierOption = {columns : [ [ {
+			field : 'name',
+			title : '名称',
+			width : 100
+		}] ],
+		url : '\/panda\/rest\/reference?code=CRM_Supplier&filter=',
+		idField : 'id',
+		textField : 'name',
+		width : 300,
+		fitColumns : true,
+		panelWidth : 450,
+		panelHeight : 310,
+		pagination : true,
+		pageSize : 10,
+		mode : 'remote',
+		multiple : false,
+		onChange : function(newValue, oldValue) {
+			
+		}};
+	
+	return supplierOption;
+}
+
+function getDepartmentOption(){
+	
+	var departmentOption = {columns : [ [ {
+			field : 'name',
+			title : '名称',
+			width : 100
+		}] ],
+		url : '\/panda\/rest\/reference?code=CRM_Supplier_Depart&filter=',
+		idField : 'id',
+		textField : 'name',
+		width : 300,
+		fitColumns : true,
+		panelWidth : 450,
+		panelHeight : 310,
+		pagination : true,
+		pageSize : 10,
+		mode : 'remote',
+		multiple : false,
+		onChange : function(newValue, oldValue) {
+			
+		}};
+	return departmentOption;
+}
+
+function getEmployeeOption(){
+	
+	var employeeOption = {columns : [ [ {
+			field : 'name',
+			title : '名称',
+			width : 100
+		}] ],
+		url : '\/panda\/rest\/reference?code=Employee&filter=',
+		idField : 'id',
+		textField : 'name',
+		width : 300,
+		fitColumns : true,
+		panelWidth : 450,
+		panelHeight : 310,
+		pagination : true,
+		pageSize : 10,
+		mode : 'remote',
+		multiple : false};
+	
+	return employeeOption;
+}
 
 
 
