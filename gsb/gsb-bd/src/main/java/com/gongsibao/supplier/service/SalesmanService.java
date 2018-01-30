@@ -297,4 +297,16 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 		employee.setRoles(roleEmployeeList);
 		service.save(employee);
 	}
+
+	@Override
+	public Boolean hasEmployeeId(Integer employeeId) {
+
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setFilter("employeeId=?");
+			oql.getParameters().add("@employeeId", employeeId, Types.INTEGER);
+		}
+		return this.queryCount(oql) > 0;
+	}
 }

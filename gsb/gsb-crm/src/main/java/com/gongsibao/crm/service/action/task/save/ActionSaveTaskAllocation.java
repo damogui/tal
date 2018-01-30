@@ -1,6 +1,7 @@
 package com.gongsibao.crm.service.action.task.save;
 
 import org.netsharp.action.ActionContext;
+import org.netsharp.action.ActionManager;
 import org.netsharp.action.IAction;
 
 import com.gongsibao.entity.crm.NCustomerTask;
@@ -26,13 +27,18 @@ public class ActionSaveTaskAllocation implements IAction {
 		}
 
 		NAllocationType allocationType = task.getAllocationType();
-		if (allocationType == NAllocationType.AUTO) {
+		if (allocationType == NAllocationType.AUTO || allocationType == NAllocationType.SemiAutomatic) {
 			
-			// 自动分配，立即分配时调用
+			// 自动分配，半自动分配，立即分配时调用
+			ActionContext autoCtx = new ActionContext();
+			{
+				ctx.setPath("gsb/crm/task/allocation/auto");
+				ctx.setItem(task);
+				ctx.setState(task.getEntityState());
+			}
 
-		} else if (allocationType == NAllocationType.SemiAutomatic) {
-
-			// 半自动分配，立即分配时调用
+			ActionManager action = new ActionManager();
+			action.execute(autoCtx);
 		}
 	}
 }

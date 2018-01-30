@@ -18,6 +18,7 @@ public class ActionMemberPersist implements IAction{
 	public void execute(ActionContext ctx) {
 		
 		NCustomer customer = (NCustomer) ctx.getItem();
+
 		Account account = new Account();
 		{
 			account.toNew();
@@ -32,9 +33,12 @@ public class ActionMemberPersist implements IAction{
 			// 密码算法？
 			account.setPasswd("");
 			account.setTicket("");
-			
+
 			IAccountService accountService = ServiceFactory.create(IAccountService.class);
-			accountService.save(account);
+			account = accountService.save(account);
+			
+			//放到map中，回写时使用
+			ctx.getStatus().put("account", account);
 		}
 	}
 

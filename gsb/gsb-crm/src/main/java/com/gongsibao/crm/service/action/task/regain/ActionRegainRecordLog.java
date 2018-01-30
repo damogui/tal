@@ -1,7 +1,5 @@
 package com.gongsibao.crm.service.action.task.regain;
 
-import java.util.Map;
-
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
@@ -15,42 +13,45 @@ import com.gongsibao.entity.crm.dic.ChangeType;
 import com.gongsibao.entity.crm.dic.NotifyType;
 
 /**
- * @author hw
- * 收回：记录日志
+ * @author hw 收回：记录日志
  */
-public class ActionRegainRecordLog  implements IAction{
+public class ActionRegainRecordLog implements IAction {
 
 	@Override
 	public void execute(ActionContext ctx) {
-		Map<String,Object> getMap = ctx.getStatus();
-		String [] taskIds = getMap.get("taskIds").toString().split("_");
-		String content = ctx.getStatus().get("content").toString();
-		for (String item : taskIds) {
-			NCustomerTask getEntity  = (NCustomerTask)ctx.getStatus().get(item);
-			//1.保存流转日志
-			INCustomerChangeService changeService = ServiceFactory.create(INCustomerChangeService.class);
-			NCustomerChange changeEntity = new NCustomerChange();
-			changeEntity.toNew();//标示下类型，有多种
-			changeEntity.setFormUserId(getEntity.getOwnerId()); 
-			changeEntity.setContent(content);
-			changeEntity.setChangeType(ChangeType.RECYCLE);
-			changeEntity.setTaskId(getEntity.getId());
-			changeEntity.setSupplierId(getEntity.getSupplierId());
-			changeEntity.setDepartmentId(getEntity.getDepartmentId());
-			changeEntity.setCustomerId(getEntity.getCustomerId());
-			changeService.save(changeEntity);
-			//2.保存通知日志
-			INCustomerTaskNotifyService notifyService = ServiceFactory.create(INCustomerTaskNotifyService.class);
-			NCustomerTaskNotify notifyEntity = new NCustomerTaskNotify();
-			notifyEntity.toNew();
-			notifyEntity.setCustomerId(getEntity.getCustomerId());
-			notifyEntity.setTaskId(getEntity.getId());
-			notifyEntity.setType(NotifyType.SYSTEM);
-			notifyEntity.setSupplierId(getEntity.getSupplierId());
-			notifyEntity.setDepartmentId(getEntity.getDepartmentId());
-			notifyService.save(notifyEntity);
-		}
-		
-	}
 
+		NCustomerTask task = (NCustomerTask) ctx.getItem();
+		
+		// 1.保存流转日志
+		String content = ctx.getStatus().get("content").toString();
+		INCustomerChangeService changeService = ServiceFactory.create(INCustomerChangeService.class);
+		NCustomerChange changeLog = new NCustomerChange();
+		{
+			changeLog.toNew();
+			changeLog.setFormUserId(task.getOwnerId());
+			changeLog.setContent(content);
+			changeLog.setChangeType(ChangeType.RECYCLE);
+			changeLog.setTaskId(task.getId());
+			changeLog.setSupplierId(task.getSupplierId());
+			changeLog.setDepartmentId(task.getDepartmentId());
+			changeLog.setCustomerId(task.getCustomerId());
+			changeService.save(changeLog);
+		}
+
+		// 2.保存通知日志
+		INCustomerTaskNotifyService notifyService = ServiceFactory.create(INCustomerTaskNotifyService.class);
+		NCustomerTaskNotify notify = new NCustomerTaskNotify();
+		{
+			content = String.format("任务ID：%s,被收回，请悉知。", task.getId());
+			notify.toNew();
+			notify.setTaskId(task.getId());
+			notify.setContent(content);
+			notify.setType(NotifyType.WEIXIN);
+			notify.setCustomerId(task.getCustomerId());
+			notify.setSupplierId(task.getSupplierId());
+			notify.setDepartmentId(task.getDepartmentId());
+			notify.setReceivedId(task.getOwnerId());
+			notifyService.save(notify);
+		}
+	}
 }

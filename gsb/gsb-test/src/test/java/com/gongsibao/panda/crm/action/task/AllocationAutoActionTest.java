@@ -10,10 +10,10 @@ import org.netsharp.resourcenode.IResourceNodeService;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.crm.service.action.task.allocation.auto.ActionAutoAllocationPersist;
+import com.gongsibao.crm.service.action.task.allocation.auto.ActionAutoAllocationRecordLog;
 import com.gongsibao.crm.service.action.task.allocation.auto.ActionAutoAllocationSendMessage;
 import com.gongsibao.crm.service.action.task.allocation.auto.ActionAutoAllocationUpdateTaskStatus;
 import com.gongsibao.crm.service.action.task.allocation.auto.ActionAutoAllocationVerify;
-import com.gongsibao.crm.service.action.task.allocation.manual.ActionManualAllocationRecordLog;
 
 public class AllocationAutoActionTest {
 
@@ -73,7 +73,7 @@ public class AllocationAutoActionTest {
 		{
 			bean.toNew();
 			bean.setName("写入跟进记录");
-			bean.setType(ActionManualAllocationRecordLog.class.getName());
+			bean.setType(ActionAutoAllocationRecordLog.class.getName());
 			bean.setResourceNode(resourceNode);
 			bean.setSeq(400);
 			

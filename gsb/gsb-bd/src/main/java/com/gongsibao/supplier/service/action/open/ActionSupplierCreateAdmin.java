@@ -96,6 +96,12 @@ public class ActionSupplierCreateAdmin implements IAction {
 		Salesman salesman = new Salesman();
 		{
 			salesman.toNew();
+			salesman.setName(employee.getName());
+			salesman.setMobile(employee.getMobile());
+			salesman.setEmail(employee.getEmail());
+			salesman.setLoginName(employee.getLoginName());
+			salesman.setEntryDate(employee.getEntryDate());
+			salesman.setQuitDate(employee.getQuitDate());
 			salesman.setDepartmentId(department.getId());
 			salesman.setSupplierId(department.getSupplierId());
 			salesman.setEmployeeId(employee.getId());

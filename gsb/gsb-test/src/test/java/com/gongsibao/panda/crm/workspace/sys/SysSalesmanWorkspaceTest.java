@@ -129,7 +129,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 
 		groupName = "属性设置";
 		addFormField(form, "receiving", "自动接受任务", groupName, ControlTypes.SWITCH_BUTTON, false,false);
-		addFormField(form, "isLeader", "主管", groupName, ControlTypes.SWITCH_BUTTON, false,true);
+		addFormField(form, "isLeader", "主管", groupName, ControlTypes.SWITCH_BUTTON, false,false);
 		addFormField(form, "dayMax", "日分配上限", groupName, ControlTypes.NUMBER_BOX, false,false);
 		
 		addFormField(form, "weekMax", "周分配上限", groupName, ControlTypes.NUMBER_BOX, false,false);

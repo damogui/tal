@@ -10,7 +10,7 @@ public class Step7 {
     //图样文件名
     private String picName;
 
-    //黑白稿，true则上传
+    //黑白稿，这个表示填报页面的黑白按钮是否启用
     private String isBlack;
 
     //黑白稿Url

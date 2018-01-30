@@ -104,6 +104,10 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			UploadAttachment attachment2 = (UploadAttachment) this.buildUploadAttachment("营业执照",
 					AttachmentCat.BUSINESS_LIEN, entity.getId(), FileType.JPGC, FileType.PDF, -1);
 			entity.getUploadAttachments().add(attachment2);
+			
+			attachment2 = (UploadAttachment) this.buildUploadAttachment("付款证明",
+					AttachmentCat.PAYMENT_PROOF, entity.getId(), FileType.JPGC, FileType.JPGC, -2);
+			entity.getUploadAttachments().add(attachment2);
 		}
 
 		// //附件商标图样因为色彩而变化
@@ -252,7 +256,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 						attachment1 = (UploadAttachment) this.buildUploadAttachment(tmk.getMemo() + "_补充证明",
 								AttachmentCat.MEMO_DESC, entity.getId(), FileType.JPGC, FileType.JPGC, tmk.getId());
 						upas.add(attachment1);
-
+						
 						attachment2 = this.buildDownloadAttachment(tmk.getMemo() + "_黑色委托书",
 								AttachmentCat.DELEGATE_PROOF, entity.getId(), FileType.JPGC, FileType.JPGC,
 								tmk.getId());
@@ -286,7 +290,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 							attachment1 = (UploadAttachment) this.buildUploadAttachment(tmk.getMemo() + "_补充证明",
 									AttachmentCat.MEMO_DESC, entity.getId(), FileType.JPGC, FileType.JPGC, tmk.getId());
 							upas.add(attachment1);
-
+							
 							attachment2 = this.buildDownloadAttachment(tmk.getMemo() + "_黑色委托书",
 									AttachmentCat.DELEGATE_PROOF, entity.getId(), FileType.JPGB, FileType.JPGB,
 									tmk.getId());
@@ -310,7 +314,13 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 	@Override
 	public TradeMarkCase newInstance() {
 		// TODO Auto-generated method stub
-		return super.newInstance();
+		Integer sid=SupplierSessionManager.getSupplierId();
+		Supplier sl=supplierServcie.byId(sid);
+		TradeMarkCase tc=super.newInstance();
+		tc.setYwPhone("010-84927588");
+		tc.setMailCode("100000");
+		tc.setFax("010-84927588");
+		return tc;
 	}
 
 	@Override

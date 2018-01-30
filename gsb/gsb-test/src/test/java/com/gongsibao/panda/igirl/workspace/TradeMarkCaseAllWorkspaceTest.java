@@ -157,51 +157,55 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 			form.toNew();
 			form.setResourceNode(node);
 			form.setName(this.meta.getName() + "表单");
-			form.setColumnCount(2);
+			form.setColumnCount(3);
 		}
 
 		PFormField formField = null;
 
 		String groupName = null;
-		formField = addFormField(form, "applierType", "申请人类型", groupName, ControlTypes.ENUM_BOX, false, false);
+		formField = addFormField(form, "applierType", "申请人类型", "类型信息", ControlTypes.ENUM_BOX, false, false);
 		{
 			formField.setTroikaTrigger("controllertradeMarkCase.applierTypeChange(newValue, oldValue);");
 		}
-		addFormField(form, "writeType", "书式类型", groupName, ControlTypes.ENUM_BOX, false, false);
+		addFormField(form, "writeType", "书式类型", "类型信息", ControlTypes.ENUM_BOX, false, false);
 
-		formField = addFormField(form, "companyName", "公司名称", groupName, ControlTypes.TEXT_BOX, true, false);
+		formField = addFormField(form, "companyName", "公司名称", "申请人基本信息", ControlTypes.TEXT_BOX, true, false);
 		{
 			formField.setTroikaTrigger("controllertradeMarkCase.companyNameChange(this);");
+			formField.setWidth(200);
 		}
-		addFormField(form, "creditCode", "统一社会信用代码", groupName, ControlTypes.TEXT_BOX, false, false);
-
-		addFormField(form, "contactName", "客户姓名", groupName, ControlTypes.TEXT_BOX, true, false);
-		formField = addFormField(form, "mobile", "客户电话", groupName, ControlTypes.NUMBER_BOX, true, false);
-		{
-			formField.setTroikaTrigger("controllertradeMarkCase.mobileChange(this);");
-			formField.setDataOptions("validType:['length[11,20]']");
-		}
-
-		addFormField(form, "urgency", "紧急程度(小时)", groupName, ControlTypes.NUMBER_BOX, false, false);
-		// addFormField(form, "ownedMarks", "已有商标", groupName, ControlTypes.TEXT_BOX,
-		// false, false);
-		addFormField(form, "momo", "交流记录", groupName, ControlTypes.TEXTAREA, false, false);
-		addFormField(form, "advice", "客户异议", groupName, ControlTypes.TEXTAREA, false, true);
-		formField = addFormField(form, "applier", "申请人", groupName, ControlTypes.TEXT_BOX, true, false);
+		addFormField(form, "creditCode", "信用代码", "申请人基本信息", ControlTypes.TEXT_BOX, false, false).setWidth(200);
+		formField = addFormField(form, "applier", "申请人", "申请人基本信息", ControlTypes.TEXT_BOX, true, false);
 		{
 			// formField.setWidth(350);
+			formField.setWidth(200);
 		}
-		addFormField(form, "identityCode", "申请人身份证", groupName, ControlTypes.TEXT_BOX, false, false);
-		addFormField(form, "applierAddress", "申请人地址", groupName, ControlTypes.TEXT_BOX, true, false);
-		addFormField(form, "mailCode", "邮编", groupName, ControlTypes.NUMBER_BOX, true, false);
-		addFormField(form, "fax", "传真", groupName, ControlTypes.TEXT_BOX, true, false);
-		addFormField(form, "token", "token", groupName, ControlTypes.TEXT_BOX, false, true);
-		addFormField(form, "tokenImgUrl", "二维码", groupName, ControlTypes.IMAGE, false, true);
-		addFormField(form, "tmcState", "方案状态", groupName, ControlTypes.ENUM_BOX, true, false);
-		addFormField(form, "caseAmount", "方案金额", groupName, ControlTypes.DECIMAL_FEN_BOX, true, false);
-		addFormField(form, "tradeOptions", "商标选项", groupName, ControlTypes.TEXT_BOX, false, true);
-		addFormField(form, "code", "方案编号", groupName, ControlTypes.TEXT_BOX, false, true);
-		addFormField(form, "ywPhone", "代理电话", groupName, ControlTypes.NUMBER_BOX, true, false);
+		addFormField(form, "identityCode", "身份证", "申请人基本信息", ControlTypes.TEXT_BOX, false, false).setWidth(200);
+		addFormField(form, "applierAddress", "地址", "申请人基本信息", ControlTypes.TEXT_BOX, true, false).setWidth(300);
+
+		addFormField(form, "contactName", "留言姓名", "客户留言", ControlTypes.TEXT_BOX, true, false);
+		formField = addFormField(form, "mobile", "留言电话", "客户留言", ControlTypes.NUMBER_BOX, true, false);
+		{
+			formField.setTroikaTrigger("controllertradeMarkCase.mobileChange(this);");
+		}
+		addFormField(form, "urgency", "紧急程度(小时)", "客户留言", ControlTypes.NUMBER_BOX, false, false);
+		// addFormField(form, "ownedMarks", "已有商标", groupName, ControlTypes.TEXT_BOX,
+		// false, false);
+		addFormField(form, "momo", "交流记录", "客户留言", ControlTypes.TEXTAREA, false, false).setFullColumn(true);
+		addFormField(form, "advice", "客户异议", "客户留言", ControlTypes.TEXTAREA, false, true).setFullColumn(true);
+	
+		addFormField(form, "ywPhone", "电话", "代理人信息", ControlTypes.TEXT_BOX, true, false);
+		addFormField(form, "mailCode", "邮编",  "代理人信息", ControlTypes.NUMBER_BOX, true, false);
+		addFormField(form, "fax", "传真",  "代理人信息", ControlTypes.TEXT_BOX, true, false);
+		
+		addFormField(form, "tokenImgUrl", "二维码", "案件信息", ControlTypes.IMAGE, false, true);
+		addFormField(form, "tmcState", "方案状态", "案件信息", ControlTypes.ENUM_BOX, true, false);
+		addFormField(form, "caseAmount", "方案金额", "案件信息", ControlTypes.DECIMAL_FEN_BOX, true, false);
+		
+		addFormField(form, "token", "token", "案件信息", ControlTypes.TEXT_BOX, false, true);
+		addFormField(form, "code", "方案编号", "案件信息", ControlTypes.TEXT_BOX, false, true);
+		addFormField(form, "tradeOptions", "商标选项", "案件信息", ControlTypes.TEXT_BOX, false, true);
+		
 		return form;
 	}
 
@@ -363,7 +367,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 			addFormField(form, "toFileType", "目标文件类型", groupName, ControlTypes.ENUM_BOX, true, false);
 			addFormField(form, "name", "附件名称", groupName, ControlTypes.TEXT_BOX, true, false);
 			addFormField(form, "needed", "是否需上传", groupName, ControlTypes.SWITCH_BUTTON, true, false);
-			addFormField(form, "fileUrl", "上传", groupName, ControlTypes.OSS_UPLOAD, true, false);
+			addFormField(form, "fileUrl", "上传", groupName, ControlTypes.OSS_UPLOAD, false, false);
 
 		}
 
@@ -441,7 +445,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 			addFormField(form, "fileType", "文件类型", groupName, ControlTypes.ENUM_BOX, true, false);
 			addFormField(form, "toFileType", "目标文件类型", groupName, ControlTypes.ENUM_BOX, true, false);
 			addFormField(form, "name", "附件名称", groupName, ControlTypes.TEXT_BOX, true, false);
-			addFormField(form, "fileUrl", "上传", groupName, ControlTypes.OSS_UPLOAD, true, false);
+			addFormField(form, "fileUrl", "上传", groupName, ControlTypes.OSS_UPLOAD, false, false);
 
 		}
 

@@ -48,9 +48,10 @@ public class TaskBaseListPart extends AdvancedListPart {
 	 * @param toUserId
 	 * @return
 	 */
-	public boolean allocation(String taskId, Integer supplierId, Integer departmentId, Integer toUserId,Integer allocationType){
+	public boolean allocation(String taskIds, Integer supplierId, Integer departmentId, Integer toUserId){
 		
-		return taskService.allocation(taskId, supplierId, departmentId, toUserId,allocationType);
+		String[] taskIdArray = taskIds.split("_");
+		return taskService.batchAllocation(taskIdArray, supplierId, departmentId, toUserId);
 	}
 	/**
 	 * 任务收回
@@ -60,7 +61,8 @@ public class TaskBaseListPart extends AdvancedListPart {
 	 */
 	public boolean regain(String taskIds, String getNote){
 		
-		return taskService.regain(taskIds, getNote);
+		String[] taskIdArray = taskIds.split("_");
+		return taskService.batchRegain(taskIdArray, getNote);
 	}
 	/**
 	 * 任务退回
@@ -80,9 +82,10 @@ public class TaskBaseListPart extends AdvancedListPart {
 	 * @param toUserId
 	 * @return
 	 */
-	public boolean transfer(String taskId, Integer supplierId, Integer departmentId, Integer toUserId){
+	public boolean transfer(String taskIds, Integer supplierId, Integer departmentId, Integer toUserId){
 
-		return taskService.transfer(taskId, supplierId, departmentId, toUserId);
+		String[] taskIdArray = taskIds.split("_");
+		return taskService.batchTransfer(taskIdArray, supplierId, departmentId, toUserId);
 	}
 	/**
 	 * 开通会员功能

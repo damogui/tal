@@ -19,6 +19,7 @@ import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
 import com.gongsibao.utils.DateUtils;
+import com.gongsibao.utils.SupplierSessionManager;
 
 @Service
 public class NCustomerTaskService extends SupplierPersistableService<NCustomerTask> implements INCustomerTaskService {
@@ -57,7 +58,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		}
 		ActionManager action = new ActionManager();
 		action.execute(ctx);
-		
+
 		entity = (NCustomerTask) ctx.getItem();
 		return entity;
 	}
@@ -95,51 +96,49 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
 		return builder.toString();
 	}
+	
 
 	@Override
-	public int taskTransfer(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId) {
-		UpdateBuilder updateSql = UpdateBuilder.getInstance();
-		{
-			updateSql.update("n_crm_customer_task");
-			updateSql.set("supplier_id", supplierId);
-			updateSql.set("department_id", departmentId);
-			updateSql.set("owner_id", toUserId);
-			updateSql.where("id=" + taskId);
+	public Boolean batchTransfer(String[] taskIdArray, Integer supplierId, Integer departmentId, Integer toUserId) {
+
+		for (String taskId : taskIdArray) {
+
+			this.transfer(Integer.valueOf(taskId), supplierId, departmentId, toUserId);
 		}
-		String cmdText = updateSql.toSQL();
-		return this.pm.executeNonQuery(cmdText, null);
+		return true;
+		
 	}
 
 	@Override
-	public Boolean transfer(String taskIds, Integer supplierId, Integer departmentId, Integer toUserId) {
-		// 任务转移
-		String[] getTaskIdStrings = taskIds.split("_");
-		Map<String, Object> setMap = new HashMap<String, Object>();
-		setMap.put("supplierId", supplierId);
-		setMap.put("departmentId", departmentId);
-		setMap.put("toUserId", toUserId);
-		setMap.put("taskIds", taskIds);
-		for (String item : getTaskIdStrings) {
-			NCustomerTask entity = this.byId(Integer.valueOf(item));
-			setMap.put("formUserId" + item, entity.getOwnerId());
-			setMap.put("customerId" + item, entity.getCustomerId());
-		}
+	public Boolean transfer(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId) {
+
+		NCustomerTask entity = this.byId(taskId);
+		ActionManager action = new ActionManager();
 		ActionContext ctx = new ActionContext();
 		{
 			ctx.setPath("gsb/crm/task/transfer");
+			ctx.setItem(entity);
+
+			Map<String, Object> setMap = new HashMap<String, Object>();
+			setMap.put("supplierId", supplierId);
+			setMap.put("departmentId", departmentId);
+			setMap.put("toUserId", toUserId);
 			ctx.setStatus(setMap);
 		}
-		ActionManager action = new ActionManager();
 		action.execute(ctx);
 		return true;
 	}
 
 	/**
-	 * 抽查异常 
-	 * @param taskId 任务Id
-	 * @param state 1-"未抽查",2-"抽查正常",3-"抽查异常",4-"异常已处理"
+	 * 抽查异常
+	 * 
+	 * @param taskId
+	 *            任务Id
+	 * @param state
+	 *            1-"未抽查",2-"抽查正常",3-"抽查异常",4-"异常已处理"
 	 * @param content
-	 * @param type 1-"抽查",2-"处理"
+	 * @param type
+	 *            1-"抽查",2-"处理"
 	 * @return
 	 */
 	@Override
@@ -165,29 +164,31 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	}
 
 	@Override
-	public Boolean allocation(String taskIds, Integer supplierId, Integer departmentId, Integer toUserId, Integer allocationType) {
+	public Boolean batchAllocation(String[] taskIdArray, Integer supplierId, Integer departmentId, Integer toUserId) {
 
-		String[] getTaskIdStrings = taskIds.split("_");
-		Map<String, Object> setMap = new HashMap<String, Object>();
-		setMap.put("supplierId", supplierId);
-		setMap.put("departmentId", departmentId);
-		setMap.put("toUserId", toUserId);
-		setMap.put("allocationType", allocationType);
-		setMap.put("taskIds", taskIds);
-		for (String item : getTaskIdStrings) {
-			// 任务分配
-			NCustomerTask entity = this.byId(Integer.valueOf(item));
-			setMap.put("formUserId" + item, entity.getOwnerId());
-			setMap.put("customerId" + item, entity.getCustomerId());
+		for (String taskId : taskIdArray) {
+
+			this.allocation(Integer.valueOf(taskId), supplierId, departmentId, toUserId);
 		}
+		return true;
+	}
 
+	@Override
+	public Boolean allocation(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId) {
+
+		NCustomerTask entity = this.byId(taskId);
+		ActionManager action = new ActionManager();
 		ActionContext ctx = new ActionContext();
 		{
-			ctx.setPath("gsb/crm/task/allocation/manual");
+			ctx.setPath("gsb/crm/task/manual");
+			ctx.setItem(entity);
+
+			Map<String, Object> setMap = new HashMap<String, Object>();
+			setMap.put("supplierId", supplierId);
+			setMap.put("departmentId", departmentId);
+			setMap.put("toUserId", toUserId);
 			ctx.setStatus(setMap);
 		}
-
-		ActionManager action = new ActionManager();
 		action.execute(ctx);
 		return true;
 	}
@@ -210,44 +211,34 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	}
 
 	@Override
-	public Boolean regain(String taskIds, String content) {
+	public Boolean batchRegain(String[] taskIdArray, String content) {
+
 		// 任务收回
-		String[] getTaskIds = taskIds.split("_");
-		Map<String, Object> setMap = new HashMap<String, Object>();
-		setMap.put("content", content);
-		setMap.put("taskIds", taskIds);
+		for (String taskId : taskIdArray) {
 
-		for (String item : getTaskIds) {
-			NCustomerTask entity = this.byId(Integer.valueOf(item));
-			setMap.put(item, entity);
+			this.regain(Integer.valueOf(taskId), content);
 		}
-		ActionContext ctx = new ActionContext();
-		{
-			ctx.setPath("gsb/crm/task/regain");
-			ctx.setStatus(setMap);
-		}
-
-		ActionManager action = new ActionManager();
-		action.execute(ctx);
 		return true;
 	}
 
 	@Override
-	public Boolean release(Integer taskId) {
+	public Boolean regain(Integer taskId, String content) {
 
-		// 任务释放
+		ActionManager action = new ActionManager();
+		Map<String, Object> setMap = new HashMap<String, Object>();
+		setMap.put("content", content);
+
 		NCustomerTask entity = this.byId(taskId);
 		ActionContext ctx = new ActionContext();
 		{
-			ctx.setPath("gsb/crm/task/release");
+			ctx.setPath("gsb/crm/task/regain");
 			ctx.setItem(entity);
-			ctx.setState(entity.getEntityState());
+			ctx.setStatus(setMap);
 		}
-
-		ActionManager action = new ActionManager();
 		action.execute(ctx);
 		return true;
 	}
+
 
 	@Override
 	public Boolean rollback(Integer taskId, String content) {
@@ -334,4 +325,17 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		}
 		return resMap;
 	}
+
+	public NCustomerTask newInstance() {
+
+		NCustomerTask entity = super.newInstance();
+		entity.set("supplierId", SupplierSessionManager.getSupplierId());
+		entity.set("departmentId", SupplierSessionManager.getDepartmentId());
+
+		// 业务员处理,只有是业务员的才有
+		entity.set("ownerId", SupplierSessionManager.getSalesmanEmployeeId());
+		return entity;
+	}
+
+
 }

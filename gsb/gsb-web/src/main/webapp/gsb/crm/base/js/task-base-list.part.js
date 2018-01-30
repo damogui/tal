@@ -22,7 +22,9 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		this.edit(id);
 	},
 	doubleClickRow : function(index, row) {
-		
+		//任务分配
+		var me = this;
+		me.doAllot(row.id);
 	},
 	edit : function(id) {
 		
@@ -45,68 +47,9 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 	doAllot : function(taskId) {
 		
 		var me = this;
-		var supplierOption = {columns : [ [ {
-			field : 'name',
-			title : '名称',
-			width : 100
-		}] ],
-		url : '\/panda\/rest\/reference?code=Supplier&filter=',
-		idField : 'id',
-		textField : 'name',
-		width : 300,
-		fitColumns : true,
-		panelWidth : 450,
-		panelHeight : 310,
-		pagination : true,
-		pageSize : 10,
-		mode : 'remote',
-		multiple : false,
-		onChange : function(newValue, oldValue) {
-			
-		}};
-		
-		var departmentOption = {columns : [ [ {
-				field : 'name',
-				title : '名称',
-				width : 100
-			}] ],
-			url : '\/panda\/rest\/reference?code=SupplierDepartment&filter=',
-			idField : 'id',
-			textField : 'name',
-			width : 300,
-			fitColumns : true,
-			panelWidth : 450,
-			panelHeight : 310,
-			pagination : true,
-			pageSize : 10,
-			mode : 'remote',
-			multiple : false,
-			onChange : function(newValue, oldValue) {
-				
-			}};
-		
-	
-		var employeeOption = {columns : [ [ {
-			field : 'name',
-			title : '名称',
-			width : 100
-		}] ],
-		//Salesman
-		url : '\/panda\/rest\/reference?code=Employee&filter=',
-		idField : 'id',
-		textField : 'name',
-		width : 300,
-		fitColumns : true,
-		panelWidth : 450,
-		panelHeight : 310,
-		pagination : true,
-		pageSize : 10,
-		mode : 'remote',
-		multiple : false,
-		onChange : function(newValue, oldValue) {
-			
-		}};
-	
+		var supplierOption = getSupplierOption();
+		var departmentOption = getDepartmentOption();
+		var employeeOption = getEmployeeOption();
 		PandaHelper.openDynamicForm({
 			title:'任务分配',
 			width:450,
@@ -140,6 +83,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 					IMessageBox.info('请选择');
 					return;
 				}
+				
 				var allocationType = 2;//手动分配
 				me.invokeService("allocation", [taskId,supplierId,departmentId,toUserId,allocationType],function(data) {
 					me.reload();
@@ -163,7 +107,6 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		me.doAllot(id);
 	},
 	regain : function(){
-		
 		//任务收回
 		var me = this;
 		var id = this.getSelectionIds();
@@ -171,10 +114,34 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 			IMessageBox.info('请选择记录');
 			return;
 	    }
-		me.doRollBack(id,1,null);
+		me.doRegain(id);
+	},
+	doRegain : function(id) {
+		var me = this;
+		PandaHelper.openDynamicForm({
+			title:'收回任务',
+			width:500,
+			height:400,
+			items:[{id:'txtNote',
+				title:'内容',
+				type:'textarea',
+				height:130,
+				width:300,
+	            className:''}
+			],
+			explain:'任务将会退回至【公海】，进行【二次分配】',
+			notice:'',
+			callback:function(index, layero){
+				var getNote = $("#txtNote").val();
+				if (System.isnull(getNote)) {
+					IMessageBox.info('请输入内容');
+					return false;
+				}
+				me.doRollBackService(id,getNote,'regain');
+			}
+		});
 	},
 	rollback : function(id){
-		
 		//任务退回
 		var me = this;
 		//这里先要取消所有行，再选中1行
@@ -182,60 +149,35 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		$("#" + this.context.id).datagrid('selectRecord',id);
 		var row = this.getSelectedItem();
 		var intenCategory = row.intentionCategory;
-		me.doRollBack(id,2,intenCategory);
+		me.doRollBack(id,intenCategory);
 	},
-	doRollBack : function(id,type,intenCategory) {
-		//收回和退回公用一个方法 type:1-收回、2-退回
+	doRollBack : function(id,intenCategory) {
 		var me = this;
-		var setTitle ='';
-		if(type==1){
-			setTitle = "收回";
-		}else{
-			setTitle = "退回";
-		}
-		var content = new System.StringBuilder();
-		content.append('<p style="padding-left:150px;">任务将会退回至【公海】，进行【二次分配】</p>');
-		content.append('<p style="padding-left:50px;">&nbsp;'+ setTitle +'原因：</p>');
-		content.append('<p style="padding-left:50px;">');
-		content.append(' 	<textarea collected="true" controltype="TextArea" id="txtNote" style="width:445px;height:100px;"');
-		content.append(' 		  class="easyui-validatebox validatebox-text" data-options="validateOnCreate:false,validateOnBlur:true">');
-		content.append('</textarea>');
-		content.append('</p>');
-		
-		//判断客户质量AB需要提示
-		if(type == 2){
-			if(intenCategory.indexOf("A") > -1 || intenCategory.indexOf("B") > -1 || intenCategory.indexOf("X") > -1){
-				content.append('<p id="prompt" style="padding-left:30px;color:red;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提示：请慎用！执行退回后该任务将不会再分配给你，');
-				content.append('如果只是需要将<br/>任务转给同事或者下属，请使用【任务转移】功能！</p>');
-			}
-		}
-		layer.open({
-			type : 1,
-			title : setTitle +'任务',
-			fixed : false,
-			maxmin : false,
-			shadeClose : false,
-			area : [ '600px', '360px'],
-			content : content.toString(),
-			btn : [ '确定', '取消' ],// 可以无限个按钮
-			btn1 : function(index, layero) {
+		PandaHelper.openDynamicForm({
+			title:'退回任务',
+			width:500,
+			height:400,
+			items:[{id:'txtNote',
+				title:'内容',
+				type:'textarea',
+				height:130,
+				width:300,
+	            className:''}
+			],
+			explain:'任务将会退回至【公海】，进行【二次分配】',
+			notice:customerQuality(intenCategory),
+			callback:function(index, layero){
 				var getNote = $("#txtNote").val();
 				if (System.isnull(getNote)) {
-					IMessageBox.info('请输入原因');
+					IMessageBox.info('请输入内容');
 					return false;
 				}
-				me.doRollBackService(id,getNote,type);
-			},
-			btn2 : function(index, layero,type) {
+				me.doRollBackService(id,getNote,'rollback');
 			}
 		});
 	},
-	doRollBackService : function(id,getNote,type) {
+	doRollBackService : function(id,getNote,functionName) {
 		var me = this;
-		var functionName = "rollback"
-		if(type == 1){
-			functionName = "regain";
-		}
 		this.invokeService(functionName, [id,getNote],function(data) {
 			me.reload();
 			IMessageBox.toast('操作成功');
@@ -263,101 +205,49 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		}
 		me.doTransfer(id);
 	},
-	doTransfer : function(id) {
-		var me = this;
-		var supplierOption = {columns : [ [ {
-			field : 'name',
-			title : '名称',
-			width : 100
-		}] ],
-		url : '\/panda\/rest\/reference?code=CRM_Supplier&filter=',
-		idField : 'id',
-		textField : 'name',
-		width : 300,
-		fitColumns : true,
-		panelWidth : 450,
-		panelHeight : 310,
-		pagination : true,
-		pageSize : 10,
-		mode : 'remote',
-		multiple : false,
-		onChange : function(newValue, oldValue) {
-			
-		}};
-	var departmentOption = {columns : [ [ {
-			field : 'name',
-			title : '名称',
-			width : 100
-		}] ],
-		url : '\/panda\/rest\/reference?code=CRM_Supplier_Depart&filter=',
-		idField : 'id',
-		textField : 'name',
-		width : 300,
-		fitColumns : true,
-		panelWidth : 450,
-		panelHeight : 310,
-		pagination : true,
-		pageSize : 10,
-		mode : 'remote',
-		multiple : false,
-		onChange : function(newValue, oldValue) {
-			
-		}};
-	
-	var employeeOption = {columns : [ [ {
-		field : 'name',
-		title : '名称',
-		width : 100
-	}] ],
-	url : '\/panda\/rest\/reference?code=Employee&filter=',
-	idField : 'id',
-	textField : 'name',
-	width : 300,
-	fitColumns : true,
-	panelWidth : 450,
-	panelHeight : 310,
-	pagination : true,
-	pageSize : 10,
-	mode : 'remote',
-	multiple : false,
-	onChange : function(newValue, oldValue) {
+	doTransfer : function(taskId) {
 		
-	}};
-	
-	PandaHelper.openDynamicForm({
-		title:'任务分配',
-		width:450,
-		height:300,
-		items:[{id:'allot_supplier_name',
-			title:'服务商',
-			type:'combogrid',
-            className:'',
-			option:supplierOption},
-			
-			{id:'allot_department_name',
-				title:'部门',
+		var me = this;
+		var supplierOption = getSupplierOption();
+		var departmentOption = getDepartmentOption();
+		var employeeOption = getEmployeeOption();
+		
+		PandaHelper.openDynamicForm({
+			title:'任务转移',
+			width:450,
+			height:300,
+			items:[{id:'allot_supplier_name',
+				title:'服务商',
 				type:'combogrid',
 	            className:'',
-				option:departmentOption},
+				option:supplierOption},
 				
-			{id:'allot_employee_name',
-				title:'业务员',
-				type:'combogrid',
-	            className:'',
-				option:employeeOption}
-		],
-		callback:function(index, layero){
-			var supplierId = $('#allot_supplier_name').combogrid('getValue');
-			var departmentId = $('#allot_department_name').combogrid('getValue');
-			var toUserId = $('#allot_employee_name').combogrid('getValue');
-			if (System.isnull(supplierId) && System.isnull(departmentId) && System.isnull(toUserId)) {
-				IMessageBox.info('请选择');
-				return;
+				{id:'allot_department_name',
+					title:'部门',
+					type:'combogrid',
+		            className:'',
+					option:departmentOption},
+					
+				{id:'allot_employee_name',
+					title:'业务员',
+					type:'combogrid',
+		            className:'',
+					option:employeeOption}
+			],
+			callback:function(index, layero){
+				
+				var supplierId = $('#allot_supplier_name').combogrid('getValue');
+				var departmentId = $('#allot_department_name').combogrid('getValue');
+				var toUserId = $('#allot_employee_name').combogrid('getValue');
+				if (System.isnull(supplierId) && System.isnull(departmentId) && System.isnull(toUserId)) {
+					
+					IMessageBox.info('请选择');
+					return;
+				}
+				
+				me.doTransferService(taskId,supplierId,departmentId,toUserId);
 			}
-			var taskId = id;
-			me.doTransferService(taskId,supplierId,departmentId,toUserId);
-		}
-	});
+		});
 	},
 	doTransferService : function(taskId,supplierId,departmentId,toUserId) {
 		var me = this;
@@ -398,7 +288,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		var me = this;
 		me.doAbnormalPopup(id,3,1);
 	},
-	submitRemark:function(id){
+	remark:function(id){
 		//state:0  ；只更新内容
 		var me = this;
 		me.doAbnormalPopup(id,0,1);
@@ -436,6 +326,109 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		});
 	}
 });
+
+
+function getSupplierOption(){
+	var supplierOption = {columns : [ [ {
+			field : 'name',
+			title : '名称',
+			width : 100
+		}] ],
+		url : '\/panda\/rest\/reference?code=CRM_Supplier&filter=',
+		idField : 'id',
+		textField : 'name',
+		width : 300,
+		fitColumns : true,
+		panelWidth : 450,
+		panelHeight : 310,
+		pagination : true,
+		pageSize : 10,
+		mode : 'remote',
+		multiple : false,
+		onChange : function(newValue, oldValue) {
+			//改变部门的查询条件
+			$('#allot_department_name').combogrid('clear');
+			var grid = $('#allot_department_name').combogrid('grid');
+			var options = $(grid).datagrid('options');
+			var filter = ' supplier_id ____ ----'+ newValue + '----';
+			options.url = '\/panda\/rest\/reference?code=CRM_Supplier_Depart&filter='+ filter;
+			$(grid).datagrid(options);
+			//改变业务员的查询条件
+	    	$('#allot_employee_name').combogrid('clear');
+			var grid = $('#allot_employee_name').combogrid('grid');
+			var options = $(grid).datagrid('options');
+			var filter = ' id IN ( SELECT employee_id FROM sp_salesman WHERE supplier_id ____ ----'+ newValue + '----)';
+			options.url = '\/panda\/rest\/reference?code=Employee&filter='+ filter;
+			$(grid).datagrid(options);
+			
+		}};
+	
+	return supplierOption;
+}
+
+function getDepartmentOption(){
+	var departmentOption = {columns : [ [ {
+			field : 'name',
+			title : '名称',
+			width : 100
+		}] ],
+		url : '\/panda\/rest\/reference?code=CRM_Supplier_Depart&filter=',
+		idField : 'id',
+		textField : 'name',
+		width : 300,
+		fitColumns : true,
+		panelWidth : 450,
+		panelHeight : 310,
+		pagination : true,
+		pageSize : 10,
+		mode : 'remote',
+		multiple : false,
+		onChange : function(newValue, oldValue) {
+			//改变业务员的查询条件
+	    	$('#allot_employee_name').combogrid('clear');
+			var grid = $('#allot_employee_name').combogrid('grid');
+			var options = $(grid).datagrid('options');
+			var filter = ' id IN ( SELECT employee_id FROM sp_salesman WHERE department_id ____ ----'+ newValue + '----)';
+			options.url = '\/panda\/rest\/reference?code=Employee&filter='+ filter;
+			$(grid).datagrid(options);
+		}};
+	return departmentOption;
+}
+
+function getEmployeeOption(){
+	var employeeOption = {columns : [ [ {
+			field : 'name',
+			title : '名称',
+			width : 100
+		}] ],
+		url : '\/panda\/rest\/reference?code=Employee&filter= id IN ( SELECT employee_id FROM sp_salesman)',
+		idField : 'id',
+		textField : 'name',
+		width : 300,
+		fitColumns : true,
+		panelWidth : 450,
+		panelHeight : 310,
+		pagination : true,
+		pageSize : 10,
+		mode : 'remote',
+		multiple : false,
+		onChange : function(newValue, oldValue) {
+			/*if(oldValue!="" && newValue != oldValue){
+			}*/
+		}};
+	
+	return employeeOption;
+}
+/**
+ * 判断客户质量ABX需要提示
+ * @param intenCategory
+ * @returns {String}
+ */
+function customerQuality(intenCategory){
+	if(intenCategory.indexOf("A") > -1 || intenCategory.indexOf("B") > -1 || intenCategory.indexOf("X") > -1){
+		return '提示：请慎用！执行退回后该任务将不会再分配给你，如果只是需要将任务转给同事或者下属，请使用【任务转移】功能！';
+	}
+}
 
 
 
