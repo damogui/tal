@@ -11,7 +11,7 @@ import com.gongsibao.entity.uc.Account;
 
 /**
  * @author hw
- * 开通会员更新Customer：is_member，account_id
+ * 开通会员更新Customer：is_member，account_id 
  */
 public class ActionMemberWriteBack implements IAction {
 
