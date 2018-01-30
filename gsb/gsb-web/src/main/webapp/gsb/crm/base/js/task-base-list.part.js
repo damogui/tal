@@ -85,7 +85,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 				}
 				
 				var allocationType = 2;//手动分配
-				me.invokeService("allocation", [taskId,supplierId,departmentId,toUserId,allocationType],function(data) {
+				me.invokeService("allocation", [taskId,supplierId,departmentId,toUserId],function(data) {
 					me.reload();
 					IMessageBox.toast('分配成功');
 					layer.closeAll();

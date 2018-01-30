@@ -30,7 +30,7 @@ public class ActionManualAllocationWriteBack implements IAction {
 			updateSql.set("owner_id", getMap.get("toUserId"));
 			updateSql.set("allocation_state", AllocationState.ALLOCATED.getValue());
 			updateSql.set("allocation_type", NAllocationType.MANUAL.getValue());
-			updateSql.where("id =" + task);
+			updateSql.where("id =" + task.getId());
 		}
 		String cmdText = updateSql.toSQL();
 		IPersister<NCustomerTask> pm = PersisterFactory.create();

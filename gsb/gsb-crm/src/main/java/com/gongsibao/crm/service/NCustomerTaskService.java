@@ -180,7 +180,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		ActionManager action = new ActionManager();
 		ActionContext ctx = new ActionContext();
 		{
-			ctx.setPath("gsb/crm/task/manual");
+			ctx.setPath("gsb/crm/task/allocation/manual");
 			ctx.setItem(entity);
 
 			Map<String, Object> setMap = new HashMap<String, Object>();
