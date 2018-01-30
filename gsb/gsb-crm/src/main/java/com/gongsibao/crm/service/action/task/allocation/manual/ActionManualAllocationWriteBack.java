@@ -1,7 +1,5 @@
 package com.gongsibao.crm.service.action.task.allocation.manual;
 
-import java.util.Map;
-
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.persistence.IPersister;
@@ -19,15 +17,14 @@ public class ActionManualAllocationWriteBack implements IAction {
 
 	@Override
 	public void execute(ActionContext ctx) {
-
 		NCustomerTask task = (NCustomerTask) ctx.getItem();
-		Map<String, Object> getMap = ctx.getStatus();
+		
 		UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("n_crm_customer_task");
-			updateSql.set("supplier_id", getMap.get("supplierId"));
-			updateSql.set("department_id", getMap.get("departmentId"));
-			updateSql.set("owner_id", getMap.get("toUserId"));
+			updateSql.set("supplier_id", task.getSupplierId());
+			updateSql.set("department_id", task.getDepartmentId());
+			updateSql.set("owner_id", task.getOwnerId());
 			updateSql.set("allocation_state", AllocationState.ALLOCATED.getValue());
 			updateSql.set("allocation_type", NAllocationType.MANUAL.getValue());
 			updateSql.where("id =" + task.getId());
