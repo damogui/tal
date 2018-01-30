@@ -314,7 +314,13 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 	@Override
 	public TradeMarkCase newInstance() {
 		// TODO Auto-generated method stub
-		return super.newInstance();
+		Integer sid=SupplierSessionManager.getSupplierId();
+		Supplier sl=supplierServcie.byId(sid);
+		TradeMarkCase tc=super.newInstance();
+		tc.setYwPhone("010-84927588");
+		tc.setMailCode("100000");
+		tc.setFax("010-84927588");
+		return tc;
 	}
 
 	@Override
