@@ -35,24 +35,25 @@ public interface INCustomerTaskService extends IPersistableService<NCustomerTask
 	@Transaction
 	public int taskRelease(Integer taskId);
 
-	/**
-	 * 我的任务任务转移）修改服务商、部门、业务员
-	 * 
-	 * @param taskId
-	 * @param supplierId
-	 * @param departmentId
-	 * @param toUserId
-	 *            去向的业务员Id
-	 * @return
+	/**   
+	 * @Title: batchTransfer   
+	 * @Description: TODO(批量转移)   
+	 * @param: @param taskIdArray
+	 * @param: @param supplierId
+	 * @param: @param departmentId
+	 * @param: @param toUserId
+	 * @param: @return      
+	 * @return: Boolean      
+	 * @throws   
 	 */
 	@Transaction
-	public int taskTransfer(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId);
-
+	public Boolean batchTransfer(String[] taskIdArray, Integer supplierId, Integer departmentId, Integer toUserId);
+	
 	/**
 	 * 任务转移
 	 */
 	@Transaction
-	public Boolean transfer(String taskId, Integer supplierId, Integer departmentId, Integer toUserId);
+	public Boolean transfer(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId);
 
 	/**
 	 * 抽查异常
@@ -124,12 +125,6 @@ public interface INCustomerTaskService extends IPersistableService<NCustomerTask
 	 */
 	@Transaction
 	public Boolean regain(Integer taskId, String content);
-
-	/**
-	 * 任务释放
-	 */
-	@Transaction
-	public Boolean release(Integer taskId);
 
 	/**
 	 * 任务回退(业务员主动操作)

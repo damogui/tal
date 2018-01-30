@@ -96,43 +96,35 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
 		return builder.toString();
 	}
+	
 
 	@Override
-	public int taskTransfer(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId) {
+	public Boolean batchTransfer(String[] taskIdArray, Integer supplierId, Integer departmentId, Integer toUserId) {
 
-		UpdateBuilder updateSql = UpdateBuilder.getInstance();
-		{
-			updateSql.update("n_crm_customer_task");
-			updateSql.set("supplier_id", supplierId);
-			updateSql.set("department_id", departmentId);
-			updateSql.set("owner_id", toUserId);
-			updateSql.where("id=" + taskId);
+		for (String taskId : taskIdArray) {
+
+			this.transfer(Integer.valueOf(taskId), supplierId, departmentId, toUserId);
 		}
-		String cmdText = updateSql.toSQL();
-		return this.pm.executeNonQuery(cmdText, null);
+		return true;
+		
 	}
 
 	@Override
-	public Boolean transfer(String taskIds, Integer supplierId, Integer departmentId, Integer toUserId) {
+	public Boolean transfer(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId) {
 
-		// 任务转移
-		String[] getTaskIdStrings = taskIds.split("_");
-		Map<String, Object> setMap = new HashMap<String, Object>();
-		setMap.put("supplierId", supplierId);
-		setMap.put("departmentId", departmentId);
-		setMap.put("toUserId", toUserId);
-		setMap.put("taskIds", taskIds);
-		for (String item : getTaskIdStrings) {
-			NCustomerTask entity = this.byId(Integer.valueOf(item));
-			setMap.put("formUserId" + item, entity.getOwnerId());
-			setMap.put("customerId" + item, entity.getCustomerId());
-		}
+		NCustomerTask entity = this.byId(taskId);
+		ActionManager action = new ActionManager();
 		ActionContext ctx = new ActionContext();
 		{
 			ctx.setPath("gsb/crm/task/transfer");
+			ctx.setItem(entity);
+
+			Map<String, Object> setMap = new HashMap<String, Object>();
+			setMap.put("supplierId", supplierId);
+			setMap.put("departmentId", departmentId);
+			setMap.put("toUserId", toUserId);
 			ctx.setStatus(setMap);
 		}
-		ActionManager action = new ActionManager();
 		action.execute(ctx);
 		return true;
 	}
@@ -247,22 +239,6 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		return true;
 	}
 
-	@Override
-	public Boolean release(Integer taskId) {
-
-		// 任务释放
-		NCustomerTask entity = this.byId(taskId);
-		ActionContext ctx = new ActionContext();
-		{
-			ctx.setPath("gsb/crm/task/release");
-			ctx.setItem(entity);
-			ctx.setState(entity.getEntityState());
-		}
-
-		ActionManager action = new ActionManager();
-		action.execute(ctx);
-		return true;
-	}
 
 	@Override
 	public Boolean rollback(Integer taskId, String content) {
@@ -360,5 +336,6 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		entity.set("ownerId", SupplierSessionManager.getSalesmanEmployeeId());
 		return entity;
 	}
+
 
 }

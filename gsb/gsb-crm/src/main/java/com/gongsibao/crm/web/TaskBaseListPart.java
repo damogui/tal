@@ -82,9 +82,10 @@ public class TaskBaseListPart extends AdvancedListPart {
 	 * @param toUserId
 	 * @return
 	 */
-	public boolean transfer(String taskId, Integer supplierId, Integer departmentId, Integer toUserId){
+	public boolean transfer(String taskIds, Integer supplierId, Integer departmentId, Integer toUserId){
 
-		return taskService.transfer(taskId, supplierId, departmentId, toUserId);
+		String[] taskIdArray = taskIds.split("_");
+		return taskService.batchTransfer(taskIdArray, supplierId, departmentId, toUserId);
 	}
 	/**
 	 * 开通会员功能
