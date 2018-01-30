@@ -57,7 +57,6 @@ public class NCustomerTaskNotify extends Entity{
 	@Reference(foreignKey = "receivedId", header = "接收人")
 	private Employee received;
 
-
 	public Integer getSupplierId() {
 		return supplierId;
 	}
@@ -137,7 +136,6 @@ public class NCustomerTaskNotify extends Entity{
 	public void setContent(String content) {
 		this.content = content;
 	}
-
 	public Integer getReceivedId() {
 		return receivedId;
 	}
