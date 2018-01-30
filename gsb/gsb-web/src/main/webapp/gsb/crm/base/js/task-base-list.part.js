@@ -22,7 +22,9 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		this.edit(id);
 	},
 	doubleClickRow : function(index, row) {
-		
+		//任务分配
+		var me = this;
+		me.doAllot(row.id);
 	},
 	edit : function(id) {
 		
