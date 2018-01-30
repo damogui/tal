@@ -7,10 +7,11 @@ import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.entity.crm.NCustomer;
+import com.gongsibao.entity.uc.Account;
 
 /**
  * @author hw
- * 开通会员更新Customer
+ * 开通会员更新Customer：is_member，account_id
  */
 public class ActionMemberWriteBack implements IAction {
 
@@ -18,10 +19,12 @@ public class ActionMemberWriteBack implements IAction {
 	public void execute(ActionContext ctx) {
 
 		NCustomer customer = (NCustomer) ctx.getItem();
+		Account account = (Account)ctx.getStatus().get("account");
 		UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("n_crm_customer");
 			updateSql.set("is_member", 1);
+			updateSql.set("account_id", account.getId());
 			updateSql.where("id=" + customer.getId());
 		}
 		
