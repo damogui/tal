@@ -60,7 +60,8 @@ public class TaskBaseListPart extends AdvancedListPart {
 	 */
 	public boolean regain(String taskIds, String getNote){
 		
-		return taskService.regain(taskIds, getNote);
+		String[] taskIdArray = taskIds.split("_");
+		return taskService.batchRegain(taskIdArray, getNote);
 	}
 	/**
 	 * 任务退回

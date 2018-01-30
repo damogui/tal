@@ -6,7 +6,6 @@ import org.netsharp.plugin.bean.BeanPath;
 
 import com.gongsibao.crm.service.action.task.rollback.ActionRollbackPersist;
 import com.gongsibao.crm.service.action.task.rollback.ActionRollbackRecordLog;
-import com.gongsibao.crm.service.action.task.rollback.ActionRollbackSendMessage;
 import com.gongsibao.crm.service.action.task.rollback.ActionRollbackVerify;
 import com.gongsibao.crm.service.action.task.rollback.ActionRollbackWriteBack;
 import com.gongsibao.panda.crm.action.BaseActionTest;
@@ -36,7 +35,6 @@ public class RollbackActionTest extends BaseActionTest{
 		createBean(beanPath, "保存", ActionRollbackPersist.class.getName(), resourceNode, 200);
 		createBean(beanPath, "回写", ActionRollbackWriteBack.class.getName(), resourceNode, 300);
 		createBean(beanPath, "日志", ActionRollbackRecordLog.class.getName(), resourceNode, 400);
-		createBean(beanPath, "通知", ActionRollbackSendMessage.class.getName(), resourceNode, 500);
 		beanPathService.save(beanPath);
 	}
 }

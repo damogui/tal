@@ -80,7 +80,19 @@ public interface INCustomerTaskService  extends IPersistableService<NCustomerTas
 	 * 任务收回(主管等操作)
 	 */
 	@Transaction
-	public Boolean regain(String taskIds,String content);
+	public Boolean batchRegain(String[] taskIdArray,String content);
+	
+	/**   
+	 * @Title: regain   
+	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @param: @param taskId
+	 * @param: @param content
+	 * @param: @return      
+	 * @return: Boolean      
+	 * @throws   
+	 */
+	@Transaction
+	public Boolean regain(Integer taskId,String content);
 	
 	/**
 	 * 任务释放

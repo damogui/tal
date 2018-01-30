@@ -11,7 +11,6 @@ import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.core.Oql;
-import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
@@ -212,24 +211,30 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	}
 
 	@Override
-	public Boolean regain(String taskIds, String content) {
+	public Boolean batchRegain(String[] taskIdArray, String content) {
+		
 		// 任务收回
-		String[] getTaskIds = taskIds.split("_");
+		for (String taskId : taskIdArray) {
+			
+			this.regain(Integer.valueOf(taskId),content);
+		}
+		return true;
+	}
+
+	@Override
+	public Boolean regain(Integer taskId, String content) {
+
+		ActionManager action = new ActionManager();
 		Map<String, Object> setMap = new HashMap<String, Object>();
 		setMap.put("content", content);
-		setMap.put("taskIds", taskIds);
-
-		for (String item : getTaskIds) {
-			NCustomerTask entity = this.byId(Integer.valueOf(item));
-			setMap.put(item, entity);
-		}
+		
+		NCustomerTask entity = this.byId(taskId);
 		ActionContext ctx = new ActionContext();
 		{
 			ctx.setPath("gsb/crm/task/regain");
+			ctx.setItem(entity);
 			ctx.setStatus(setMap);
 		}
-
-		ActionManager action = new ActionManager();
 		action.execute(ctx);
 		return true;
 	}

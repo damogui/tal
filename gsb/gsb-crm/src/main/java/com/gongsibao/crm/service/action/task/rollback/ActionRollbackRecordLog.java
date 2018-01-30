@@ -5,9 +5,12 @@ import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
 
 import com.gongsibao.crm.base.INCustomerChangeService;
+import com.gongsibao.crm.base.INCustomerTaskNotifyService;
 import com.gongsibao.entity.crm.NCustomerChange;
 import com.gongsibao.entity.crm.NCustomerTask;
+import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.crm.dic.ChangeType;
+import com.gongsibao.entity.crm.dic.NotifyType;
 
 /**
  * @author hw
@@ -18,7 +21,7 @@ public class ActionRollbackRecordLog  implements IAction{
 	@Override
 	public void execute(ActionContext ctx) {
 		
-		NCustomerTask getEntity = (NCustomerTask)ctx.getItem();
+		NCustomerTask task = (NCustomerTask)ctx.getItem();
 		String content = ctx.getStatus().get("content").toString();
 		
 		//保存流转日志
@@ -26,14 +29,27 @@ public class ActionRollbackRecordLog  implements IAction{
 		NCustomerChange changeLog = new NCustomerChange();{
 
 			changeLog.toNew();//标示下类型，有多种
-			changeLog.setFormUserId(getEntity.getOwnerId()); 
+			changeLog.setFormUserId(task.getOwnerId()); 
 			changeLog.setContent(content);
 			changeLog.setChangeType(ChangeType.RELEASE);
-			changeLog.setTaskId(getEntity.getId());
-			changeLog.setSupplierId(getEntity.getSupplierId());
-			changeLog.setDepartmentId(getEntity.getDepartmentId());
-			changeLog.setCustomerId(getEntity.getCustomerId());
+			changeLog.setTaskId(task.getId());
+			changeLog.setSupplierId(task.getSupplierId());
+			changeLog.setDepartmentId(task.getDepartmentId());
+			changeLog.setCustomerId(task.getCustomerId());
 		}
 		changeService.save(changeLog);
+		
+		//2.保存通知日志
+		INCustomerTaskNotifyService notifyService = ServiceFactory.create(INCustomerTaskNotifyService.class);
+		NCustomerTaskNotify notify = new NCustomerTaskNotify();{
+
+			notify.toNew();
+			notify.setCustomerId(task.getCustomerId());
+			notify.setTaskId(task.getId());
+			notify.setType(NotifyType.SYSTEM);
+			notify.setSupplierId(task.getSupplierId());
+			notify.setDepartmentId(task.getDepartmentId());
+		}
+		notifyService.save(notify);
 	}
 }

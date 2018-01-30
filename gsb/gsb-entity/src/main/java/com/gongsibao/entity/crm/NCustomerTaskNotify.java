@@ -5,6 +5,7 @@ import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
+import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.crm.dic.NotifyType;
 import com.gongsibao.entity.supplier.Supplier;
@@ -35,7 +36,7 @@ public class NCustomerTaskNotify extends Entity{
 	@Column(name = "type", header = "通知类型")
 	private NotifyType type;
 	
-	@Column(name = "content", size = 200, header = "内容")
+	@Column(name = "content", size = 500, header = "内容")
 	private String content;
 	
 	@Column(name = "supplier_id", header = "分配服务商Id")
@@ -50,7 +51,12 @@ public class NCustomerTaskNotify extends Entity{
 	@Reference(foreignKey = "departmentId", header = "分配服务商部门")
 	private SupplierDepartment department;
 	
-	
+	@Column(name = "received_id", header = "接收人Id")
+	private Integer receivedId = 0;
+
+	@Reference(foreignKey = "receivedId", header = "接收人")
+	private Employee received;
+
 
 	public Integer getSupplierId() {
 		return supplierId;
@@ -130,5 +136,21 @@ public class NCustomerTaskNotify extends Entity{
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public Integer getReceivedId() {
+		return receivedId;
+	}
+
+	public void setReceivedId(Integer receivedId) {
+		this.receivedId = receivedId;
+	}
+
+	public Employee getReceived() {
+		return received;
+	}
+
+	public void setReceived(Employee received) {
+		this.received = received;
 	}
 }

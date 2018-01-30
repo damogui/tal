@@ -28,7 +28,6 @@ public class ActionFollowWriteBack implements IAction {
 	private void updateTask(NCustomerTaskFoolow foolow) {
 
 		QualityCategory category = foolow.getQualityCategory();
-
 		UpdateBuilder updateBuilder = new UpdateBuilder();
 		{
 			updateBuilder.update(MtableManager.getMtable(NCustomerTask.class).getTableName());
