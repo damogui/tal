@@ -1,15 +1,10 @@
 package com.gongsibao.igirl.web;
-import java.util.List;
-
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.entity.IPersistable;
-import org.netsharp.panda.annotation.Authorization;
 import org.netsharp.panda.commerce.FormPart;
-
 import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.igirl.base.ITradeMarkCaseService;
 import com.gongsibao.igirl.base.ITradeMarkService;
-import com.gongsibao.igirl.dto.TradeMark.TradeMarkApplyInfo;
 public class TradeMarkCasePart extends FormPart {
      ITradeMarkCaseService tradeMarkCaseService = ServiceFactory.create(ITradeMarkCaseService.class);
 	ITradeMarkService tradeMarkService = ServiceFactory.create(ITradeMarkService.class);
@@ -24,14 +19,4 @@ public class TradeMarkCasePart extends FormPart {
 		entity1.setTokenImgUrl(qcurl);
 		return super.save(entity1);
 	}
-
-	@Authorization(is = false)
-	public List<TradeMarkApplyInfo> tmsForRobot(Integer innerHour){
-		return tradeMarkService.tmsForRobot(innerHour);
-	}
-     
-    
-     
-
-
 }

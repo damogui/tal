@@ -194,7 +194,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "momo", "交流记录", "客户留言", ControlTypes.TEXTAREA, false, false).setFullColumn(true);
 		addFormField(form, "advice", "客户异议", "客户留言", ControlTypes.TEXTAREA, false, true).setFullColumn(true);
 	
-		addFormField(form, "ywPhone", "电话", "代理人信息", ControlTypes.NUMBER_BOX, true, false);
+		addFormField(form, "ywPhone", "电话", "代理人信息", ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "mailCode", "邮编",  "代理人信息", ControlTypes.NUMBER_BOX, true, false);
 		addFormField(form, "fax", "传真",  "代理人信息", ControlTypes.TEXT_BOX, true, false);
 		
@@ -367,7 +367,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 			addFormField(form, "toFileType", "目标文件类型", groupName, ControlTypes.ENUM_BOX, true, false);
 			addFormField(form, "name", "附件名称", groupName, ControlTypes.TEXT_BOX, true, false);
 			addFormField(form, "needed", "是否需上传", groupName, ControlTypes.SWITCH_BUTTON, true, false);
-			addFormField(form, "fileUrl", "上传", groupName, ControlTypes.OSS_UPLOAD, true, false);
+			addFormField(form, "fileUrl", "上传", groupName, ControlTypes.OSS_UPLOAD, false, false);
 
 		}
 
@@ -445,7 +445,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 			addFormField(form, "fileType", "文件类型", groupName, ControlTypes.ENUM_BOX, true, false);
 			addFormField(form, "toFileType", "目标文件类型", groupName, ControlTypes.ENUM_BOX, true, false);
 			addFormField(form, "name", "附件名称", groupName, ControlTypes.TEXT_BOX, true, false);
-			addFormField(form, "fileUrl", "上传", groupName, ControlTypes.OSS_UPLOAD, true, false);
+			addFormField(form, "fileUrl", "上传", groupName, ControlTypes.OSS_UPLOAD, false, false);
 
 		}
 
