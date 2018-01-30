@@ -16,28 +16,29 @@ import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
 
 /**
- * @author hw
- * 跟进保存
+ * @author hw 跟进保存
  */
-public class ActionFollowPersist implements IAction{
+public class ActionFollowPersist implements IAction {
 
 	@Override
 	public void execute(ActionContext ctx) {
 
 		NCustomerTaskFoolow foolow = (NCustomerTaskFoolow) ctx.getItem();
-		
-		//补齐任务对应的客户Id
+		// 补齐任务对应的客户Id
 		Integer customerId = getCustomerId(foolow.getTaskId());
 		foolow.setCustomerId(customerId);
-		
+
 		@SuppressWarnings("unchecked")
 		IPersistableService<NCustomerTaskFoolow> service = (IPersistableService<NCustomerTaskFoolow>) ReflectManager.newInstance(NCustomerTaskFoolowService.class.getSuperclass());
 		foolow = service.save(foolow);
 		ctx.setItem(foolow);
-		
+
 	}
-	private Integer getCustomerId(Integer taskId){
-		Oql oql=new Oql();{
+
+	private Integer getCustomerId(Integer taskId) {
+		
+		Oql oql = new Oql();
+		{
 			oql.setType(NCustomerTask.class);
 			oql.setSelects("id,customerId");
 			oql.setFilter("id=?");
@@ -45,8 +46,8 @@ public class ActionFollowPersist implements IAction{
 		}
 		IPersister<NCustomerTask> pm = PersisterFactory.create();
 		NCustomerTask task = pm.queryFirst(oql);
-		if(task == null){
-			
+		if (task == null) {
+
 			throw new BusinessException("任务不存在或已删除，不能跟进！");
 		}
 		return task.getCustomerId();
