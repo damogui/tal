@@ -5,10 +5,9 @@ import java.util.List;
 
 import org.netsharp.util.StringManager;
 
-import com.gongsibao.supplier.web.panda.BaseSupplierListPart;
 import com.gongsibao.utils.SupplierSessionManager;
 
-public class DepartmentAllCustomerListPart extends BaseSupplierListPart{
+public class DepartmentAllCustomerListPart extends NCustomerAllListPart{
 
 	@Override
 	protected String getExtraFilter() {

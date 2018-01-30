@@ -61,7 +61,7 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_SIGNED", "已签单任务", "/crm/department/signed/list", 6);
 			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_UNFOOLOW", "待跟进任务", "/crm/department/unfoolow/list", 7);
 			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_TIMEOUT", "超时提醒", "/crm/department/task/timeout/list", 8);
-			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_DEFEATED", "无法签单任务", "/crm/department/defeated/list", 9);
+			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_DEFEATED", "无法签单", "/crm/department/defeated/list", 9);
 			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_CHECK_ABNORMAL", "抽查异常", "/crm/department/check/abnormal/list", 10);
 			createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_HIGHSEAS", "公海", "/crm/department/highseas/list", 11);
 		}
