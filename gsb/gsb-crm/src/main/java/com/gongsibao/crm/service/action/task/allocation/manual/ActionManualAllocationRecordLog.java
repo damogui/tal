@@ -9,43 +9,51 @@ import org.netsharp.communication.ServiceFactory;
 import com.gongsibao.crm.base.INCustomerChangeService;
 import com.gongsibao.crm.base.INCustomerTaskNotifyService;
 import com.gongsibao.entity.crm.NCustomerChange;
+import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.crm.dic.ChangeType;
 import com.gongsibao.entity.crm.dic.NotifyType;
 
 /**
- * @author hw
- * 分配：保存日志
+ * @author hw 分配：保存日志
  */
-public class ActionManualAllocationRecordLog implements IAction{
+public class ActionManualAllocationRecordLog implements IAction {
 
 	@Override
 	public void execute(ActionContext ctx) {
-		Map<String,Object> getMap = ctx.getStatus();
-		String [] taskIds = getMap.get("taskIds").toString().split("_");
-		for (String item : taskIds) {
-			//1.保存流转日志
-			INCustomerChangeService changeService = ServiceFactory.create(INCustomerChangeService.class);
-			NCustomerChange changeEntity = new NCustomerChange();
-			changeEntity.toNew();//标示下类型，有多种
-			changeEntity.setFormUserId((Integer)getMap.get("formUserId"+item)); 
-			changeEntity.setToUserId((Integer)getMap.get("toUserId"));
-			changeEntity.setChangeType(ChangeType.ALLOCATION);
-			changeEntity.setTaskId(Integer.valueOf(item));
-			changeEntity.setSupplierId((Integer)getMap.get("supplierId"));
-			changeEntity.setDepartmentId((Integer)getMap.get("departmentId"));  
-			changeEntity.setCustomerId((Integer)getMap.get("customerId"+item));
-			changeService.save(changeEntity);
-			//2.保存通知日志
-			INCustomerTaskNotifyService notifyService = ServiceFactory.create(INCustomerTaskNotifyService.class);
-			NCustomerTaskNotify notifyEntity = new NCustomerTaskNotify();
-			notifyEntity.toNew();
-			notifyEntity.setCustomerId((Integer)getMap.get("customerId"+item));
-			notifyEntity.setTaskId(Integer.valueOf(item));
-			notifyEntity.setType(NotifyType.SYSTEM);
-			notifyEntity.setSupplierId((Integer)getMap.get("supplierId"));
-			notifyEntity.setDepartmentId((Integer)getMap.get("departmentId"));
-			notifyService.save(notifyEntity);
+
+		NCustomerTask task = (NCustomerTask) ctx.getItem();
+		Map<String, Object> getMap = ctx.getStatus();
+
+		// 1.保存流转日志
+		INCustomerChangeService changeService = ServiceFactory.create(INCustomerChangeService.class);
+		NCustomerChange changeLog = new NCustomerChange();
+		{
+			changeLog.toNew();
+			changeLog.setTaskId(task.getId());
+			changeLog.setChangeType(ChangeType.ALLOCATION);
+			changeLog.setCustomerId(task.getCustomerId());
+			changeLog.setFormUserId((Integer) getMap.get("formUserId"));
+			changeLog.setToUserId((Integer) getMap.get("toUserId"));
+			changeLog.setSupplierId((Integer) getMap.get("supplierId"));
+			changeLog.setDepartmentId((Integer) getMap.get("departmentId"));
+			changeService.save(changeLog);
+		}
+
+		// 2.保存通知日志
+		INCustomerTaskNotifyService notifyService = ServiceFactory.create(INCustomerTaskNotifyService.class);
+		NCustomerTaskNotify notify = new NCustomerTaskNotify();
+		{
+			String content = String.format("一个新任务分配给您，请及时跟进。任务ID：%s", task.getId());
+			notify.toNew();
+			notify.setTaskId(task.getId());
+			notify.setType(NotifyType.WEIXIN);
+			notify.setCustomerId(task.getCustomerId());
+			notify.setSupplierId((Integer) getMap.get("supplierId"));
+			notify.setDepartmentId((Integer) getMap.get("departmentId"));
+			notify.setReceivedId((Integer) getMap.get("toUserId"));
+			notify.setContent(content);
+			notifyService.save(notify);
 		}
 	}
 

@@ -42,12 +42,15 @@ public class ActionRegainRecordLog implements IAction {
 		INCustomerTaskNotifyService notifyService = ServiceFactory.create(INCustomerTaskNotifyService.class);
 		NCustomerTaskNotify notify = new NCustomerTaskNotify();
 		{
+			content = String.format("任务ID：%s,被收回，请悉知。", task.getId());
 			notify.toNew();
-			notify.setCustomerId(task.getCustomerId());
 			notify.setTaskId(task.getId());
-			notify.setType(NotifyType.SYSTEM);
+			notify.setContent(content);
+			notify.setType(NotifyType.WEIXIN);
+			notify.setCustomerId(task.getCustomerId());
 			notify.setSupplierId(task.getSupplierId());
 			notify.setDepartmentId(task.getDepartmentId());
+			notify.setReceivedId(task.getOwnerId());
 			notifyService.save(notify);
 		}
 	}

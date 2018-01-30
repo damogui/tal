@@ -28,27 +28,43 @@ public class ActionTransferRecordLog  implements IAction{
 			
 			//1.保存流转日志
 			INCustomerChangeService changeService = ServiceFactory.create(INCustomerChangeService.class);
-			NCustomerChange changeEntity = new NCustomerChange();
-			changeEntity.toNew();//标示下类型，有多种
-			changeEntity.setFormUserId((Integer)getMap.get("formUserId"+item)); 
-			changeEntity.setToUserId((Integer)getMap.get("toUserId"));
-			changeEntity.setChangeType(ChangeType.TRANSFER);
-			changeEntity.setTaskId(Integer.valueOf(item));
-			changeEntity.setSupplierId((Integer)getMap.get("supplierId"));
-			changeEntity.setDepartmentId((Integer)getMap.get("departmentId"));  
-			changeEntity.setCustomerId((Integer)getMap.get("customerId"+item));
-			changeService.save(changeEntity);
+			NCustomerChange changeLog = new NCustomerChange();{
+
+				changeLog.toNew();//标示下类型，有多种
+				changeLog.setFormUserId((Integer)getMap.get("formUserId"+item)); 
+				changeLog.setToUserId((Integer)getMap.get("toUserId"));
+				changeLog.setChangeType(ChangeType.TRANSFER);
+				changeLog.setTaskId(Integer.valueOf(item));
+				changeLog.setSupplierId((Integer)getMap.get("supplierId"));
+				changeLog.setDepartmentId((Integer)getMap.get("departmentId"));  
+				changeLog.setCustomerId((Integer)getMap.get("customerId"+item));
+				changeService.save(changeLog);
+			}
 			
 			//2.保存通知日志
 			INCustomerTaskNotifyService notifyService = ServiceFactory.create(INCustomerTaskNotifyService.class);
-			NCustomerTaskNotify notifyEntity = new NCustomerTaskNotify();
-			notifyEntity.toNew();
-			notifyEntity.setCustomerId((Integer)getMap.get("customerId"+item));
-			notifyEntity.setTaskId(Integer.valueOf(item));
-			notifyEntity.setType(NotifyType.SYSTEM);
-			notifyEntity.setSupplierId((Integer)getMap.get("supplierId"));
-			notifyEntity.setDepartmentId((Integer)getMap.get("departmentId"));
-			notifyService.save(notifyEntity);
+			NCustomerTaskNotify notify = new NCustomerTaskNotify();{
+
+//				String content = String.format("任务ID：%s,被业务员回退，请悉知。", task.getId());
+//				notify.toNew();
+//				notify.setTaskId(task.getId());
+//				notify.setContent(content);
+//				notify.setType(NotifyType.WEIXIN);
+//				notify.setCustomerId(task.getCustomerId());
+//				notify.setSupplierId(task.getSupplierId());
+//				notify.setDepartmentId(task.getDepartmentId());
+//				notify.setReceivedId(task.getOwnerId());
+//				notifyService.save(notify);
+				
+				notify.setCustomerId((Integer)getMap.get("customerId"+item));
+				notify.setTaskId(Integer.valueOf(item));
+				notify.setType(NotifyType.SYSTEM);
+				notify.setSupplierId((Integer)getMap.get("supplierId"));
+				notify.setDepartmentId((Integer)getMap.get("departmentId"));
+				notifyService.save(notify);
+			}
+			
+			
 		}
 	}
 }

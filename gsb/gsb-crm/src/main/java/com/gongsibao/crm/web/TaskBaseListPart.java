@@ -48,9 +48,10 @@ public class TaskBaseListPart extends AdvancedListPart {
 	 * @param toUserId
 	 * @return
 	 */
-	public boolean allocation(String taskId, Integer supplierId, Integer departmentId, Integer toUserId,Integer allocationType){
+	public boolean allocation(String taskIds, Integer supplierId, Integer departmentId, Integer toUserId){
 		
-		return taskService.allocation(taskId, supplierId, departmentId, toUserId,allocationType);
+		String[] taskIdArray = taskIds.split("_");
+		return taskService.batchAllocation(taskIdArray, supplierId, departmentId, toUserId);
 	}
 	/**
 	 * 任务收回
