@@ -66,4 +66,23 @@ public class SupplierSessionManager {
 		String ids = StringManager.join(",", list);
 		return ids;
 	}
+	
+	/**   
+	 * @Title: getSalesmanEmployeeId   
+	 * @Description: TODO(获取业务员对应的EmployeeId,如果当前登录人是业务员，则返回EmployeeID,否则返回null)   
+	 * @param: @return      
+	 * @return: Integer      
+	 * @throws   
+	 */
+	public static Integer getSalesmanEmployeeId(){
+		
+		Integer employeeId = SessionManager.getUserId();
+		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
+		Boolean isSalesman = salesmanService.hasEmployeeId(employeeId);
+		if(isSalesman){
+			
+			return employeeId;
+		}
+		return null;
+	}
 }

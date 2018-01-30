@@ -11,6 +11,7 @@ import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.core.Oql;
+import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
@@ -19,6 +20,7 @@ import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
 import com.gongsibao.utils.DateUtils;
+import com.gongsibao.utils.SupplierSessionManager;
 
 @Service
 public class NCustomerTaskService extends SupplierPersistableService<NCustomerTask> implements INCustomerTaskService {
@@ -333,5 +335,16 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 			resMap.put(employeeId, count);
 		}
 		return resMap;
+	}
+
+	public NCustomerTask newInstance() {
+		
+		NCustomerTask entity = super.newInstance();
+		entity.set("supplierId", SupplierSessionManager.getSupplierId());
+		entity.set("departmentId", SupplierSessionManager.getDepartmentId());
+		
+		//业务员处理,只有是业务员的才有
+		entity.set("ownerId", SupplierSessionManager.getSalesmanEmployeeId());
+		return entity;
 	}
 }
