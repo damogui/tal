@@ -83,8 +83,6 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 					IMessageBox.info('请选择');
 					return;
 				}
-				
-				var allocationType = 2;//手动分配
 				me.invokeService("allocation", [taskId,supplierId,departmentId,toUserId],function(data) {
 					me.reload();
 					IMessageBox.toast('分配成功');
@@ -429,6 +427,3 @@ function customerQuality(intenCategory){
 		return '提示：请慎用！执行退回后该任务将不会再分配给你，如果只是需要将任务转给同事或者下属，请使用【任务转移】功能！';
 	}
 }
-
-
-
