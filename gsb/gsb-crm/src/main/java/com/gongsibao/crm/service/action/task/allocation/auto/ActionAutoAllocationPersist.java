@@ -54,12 +54,13 @@ public class ActionAutoAllocationPersist implements IAction {
 				// 将分配方式选中【手动分配】
 				updateTaskAllocationType(entity.getId(), NAllocationType.MANUAL);
 				// TODO:提醒售前客服负责人进行手动分配，日志信息
+				
 				return;
 			} else {
 				// 将分配方式选中【半自动分配】
 				updateTaskAllocationType(entity.getId(), NAllocationType.SemiAutomatic);
 				// 分配至目标部门的【公海】,此时的跟进服务商修改成【有市场投放的部门（服务商）】
-				updateTaskOwnerId(entity.getId(), 0, entity.getCostSupplierId());
+				updateTaskOwnerId(entity.getId(), 0, entity.getCostSupplierId(),0);
 				// TODO:提醒部门负责人进行任务分配，日志信息
 
 				return;
@@ -69,7 +70,7 @@ public class ActionAutoAllocationPersist implements IAction {
 		// 分配方式:半自动分配时（分配到跟进服务商即可）
 		if (entity.getAllocationType().equals(NAllocationType.SemiAutomatic)) {
 			// 分配至目标服务商的【公海】,直接就是剩下业务员所在的服务商（如果有市场投放，则都是该有市场投放部门的人，如果没有市场投放则就在剩下业务员所在部门随便挑一个）
-			updateTaskOwnerId(entity.getId(), 0, taskSalesmanProducts.get(0).getSupplierId());
+			updateTaskOwnerId(entity.getId(), 0, taskSalesmanProducts.get(0).getSupplierId(),taskSalesmanProducts.get(0).getDepartmentId());
 			// TODO:提醒部门负责人进行任务分配，日志信息
 			return;
 		}
@@ -196,15 +197,20 @@ public class ActionAutoAllocationPersist implements IAction {
 						return s1.getDayAllocatedCount().compareTo(s2.getDayAllocatedCount());
 					}
 				});
-				Integer ownerId = resSalesmanList.get(0).getEmployeeId();
+				Integer ownerId = resSalesmanList.get(0).getEmployeeId();				
+				Integer departmentId = resSalesmanList.get(0).getDepartmentId();
 				// 跟新业务员
-				updateTaskOwnerId(entity.getId(), ownerId, entity.getSupplierId());
+				updateTaskOwnerId(entity.getId(), ownerId, entity.getSupplierId(),departmentId);
+			}
+			else{//无可分配对象->分配至目标部门的【公海】->将分配方式选中【手动分配】->提醒部门负责人进行任务分配
+				// 将分配方式选中【手动分配】
+				updateTaskAllocationType(entity.getId(), NAllocationType.MANUAL);
 			}
 		}
 	}
 
 	// 跟新业务员
-	private void updateTaskOwnerId(Integer taskId, Integer ownerId, Integer supplierId) {
+	private void updateTaskOwnerId(Integer taskId, Integer ownerId, Integer supplierId, Integer departmentId) {
 		// 跟新业务员
 		// IPersister<NCustomerTask> taskPm = PersisterFactory.create();
 
@@ -213,6 +219,7 @@ public class ActionAutoAllocationPersist implements IAction {
 			updateSql.update("n_crm_customer_task");
 			updateSql.set("owner_id", ownerId);
 			updateSql.set("supplier_id", supplierId);
+			updateSql.set("department_id", departmentId);
 			updateSql.where("id=?");
 		}
 		String cmdText = updateSql.toSQL();
