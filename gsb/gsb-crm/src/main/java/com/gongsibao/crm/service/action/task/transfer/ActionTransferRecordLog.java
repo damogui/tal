@@ -33,10 +33,10 @@ public class ActionTransferRecordLog implements IAction {
 			changeLog.setTaskId(task.getId());
 			changeLog.setChangeType(ChangeType.TRANSFER);
 			changeLog.setCustomerId(task.getCustomerId());
-			changeLog.setFormUserId(task.getOwnerId());
-			changeLog.setToUserId((Integer) getMap.get("toUserId"));
-			changeLog.setSupplierId((Integer) getMap.get("supplierId"));
-			changeLog.setDepartmentId((Integer) getMap.get("departmentId"));
+			changeLog.setFormUserId((Integer) getMap.get("formUserId"));
+			changeLog.setToUserId(task.getOwnerId());
+			changeLog.setSupplierId(task.getSupplierId());
+			changeLog.setDepartmentId(task.getDepartmentId());
 			changeService.save(changeLog);
 		}
 
@@ -52,7 +52,7 @@ public class ActionTransferRecordLog implements IAction {
 			notify.setCustomerId(task.getCustomerId());
 			notify.setSupplierId(task.getSupplierId());
 			notify.setDepartmentId(task.getDepartmentId());
-			notify.setReceivedId((Integer) getMap.get("toUserId"));
+			notify.setReceivedId(task.getOwnerId());
 			notifyService.save(notify);
 		}
 	}

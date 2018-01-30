@@ -34,9 +34,9 @@ public class ActionManualAllocationRecordLog implements IAction {
 			changeLog.setChangeType(ChangeType.ALLOCATION);
 			changeLog.setCustomerId(task.getCustomerId());
 			changeLog.setFormUserId((Integer) getMap.get("formUserId"));
-			changeLog.setToUserId((Integer) getMap.get("toUserId"));
-			changeLog.setSupplierId((Integer) getMap.get("supplierId"));
-			changeLog.setDepartmentId((Integer) getMap.get("departmentId"));
+			changeLog.setToUserId(task.getOwnerId());
+			changeLog.setSupplierId(task.getSupplierId());
+			changeLog.setDepartmentId(task.getDepartmentId());
 			changeService.save(changeLog);
 		}
 
@@ -49,9 +49,9 @@ public class ActionManualAllocationRecordLog implements IAction {
 			notify.setTaskId(task.getId());
 			notify.setType(NotifyType.WEIXIN);
 			notify.setCustomerId(task.getCustomerId());
-			notify.setSupplierId((Integer) getMap.get("supplierId"));
-			notify.setDepartmentId((Integer) getMap.get("departmentId"));
-			notify.setReceivedId((Integer) getMap.get("toUserId"));
+			notify.setSupplierId(task.getSupplierId());
+			notify.setDepartmentId(task.getDepartmentId());
+			notify.setReceivedId(task.getOwnerId());
 			notify.setContent(content);
 			notifyService.save(notify);
 		}
