@@ -37,9 +37,12 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
      		
         		IMessageBox.error("【代理电话】格式错误");
         		return false;
-        	       }
+        	        }
+        	return true;
+        }else{
+        	return false
         }
-        return true;
+        
   }
 });
 
