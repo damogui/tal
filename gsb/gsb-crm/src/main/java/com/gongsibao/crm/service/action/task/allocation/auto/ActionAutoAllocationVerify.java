@@ -29,7 +29,7 @@ public class ActionAutoAllocationVerify implements IAction {
 		}
 
 		// 已经有业务员了
-		if (!entity.getOwnerId().equals(0)) {
+		if (entity.getOwnerId() == null) {
 			throw new BusinessException("该任务已经有业务员了，禁止分配!");
 		}
 
@@ -38,8 +38,8 @@ public class ActionAutoAllocationVerify implements IAction {
 			throw new BusinessException("该任务分配方式不是【自动分配】、【半自动分配】，禁止自动分配!");
 		}
 
-		//当是有市场投放时，则该任务必须要有市场投放的部门
-		if (entity.getCosted()&&(entity.getCostSupplierId()==null||entity.getCostSupplierId().equals(0))) {
+		// 当是有市场投放时，则该任务必须要有市场投放的部门
+		if (entity.getCosted() && (entity.getCostSupplierId() == null || entity.getCostSupplierId() == null)) {
 			throw new BusinessException("当有市场投放时，则该任务必须要有市场投放的部门!");
 		}
 	}

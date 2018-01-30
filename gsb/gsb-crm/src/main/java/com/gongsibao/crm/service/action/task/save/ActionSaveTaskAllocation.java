@@ -32,9 +32,9 @@ public class ActionSaveTaskAllocation implements IAction {
 			// 自动分配，半自动分配，立即分配时调用
 			ActionContext autoCtx = new ActionContext();
 			{
-				ctx.setPath("gsb/crm/task/allocation/auto");
-				ctx.setItem(task);
-				ctx.setState(task.getEntityState());
+				autoCtx.setPath("gsb/crm/task/allocation/auto");
+				autoCtx.setItem(task);
+				autoCtx.setState(task.getEntityState());
 			}
 
 			ActionManager action = new ActionManager();

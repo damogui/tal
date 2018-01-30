@@ -23,7 +23,7 @@ public class AllocationAutoActionTest {
 	@Before
 	public void setup(){
 		IResourceNodeService resourceNodeService = ServiceFactory.create(IResourceNodeService.class);
-		this.resourceNode = resourceNodeService.byCode("GSB_CRM_Customer_Manager_Task_ALL");
+		this.resourceNode = resourceNodeService.byCode("CRM_SALESMAN_CUSTOMER");
 	}
 
 	
