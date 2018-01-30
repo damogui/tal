@@ -51,6 +51,7 @@ public class ActionManualAllocationRecordLog implements IAction {
 			notify.setCustomerId(task.getCustomerId());
 			notify.setSupplierId(task.getSupplierId());
 			notify.setDepartmentId(task.getDepartmentId());
+			//*业务员为空，通知服务商管理员或部门主管
 			notify.setReceivedId(task.getOwnerId());
 			notify.setContent(content);
 			notifyService.save(notify);

@@ -1,7 +1,5 @@
 package com.gongsibao.crm.service.action.task.allocation.manual;
 
-import java.util.Map;
-
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
