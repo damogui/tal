@@ -35,7 +35,7 @@ public class NCustomerTaskNotify extends Entity{
 	@Column(name = "type", header = "通知类型")
 	private NotifyType type;
 	
-	@Column(name = "content", size = 200, header = "跟进内容")
+	@Column(name = "content", size = 200, header = "内容")
 	private String content;
 	
 	@Column(name = "supplier_id", header = "分配服务商Id")
