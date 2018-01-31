@@ -3,6 +3,7 @@ package com.gongsibao.controls;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.netsharp.base.IReferenceFilterBuilder;
 import org.netsharp.core.Mtable;
 import org.netsharp.core.MtableManager;
 import org.netsharp.core.Oql;
@@ -17,6 +18,7 @@ import org.netsharp.panda.entity.PForm;
 import org.netsharp.panda.entity.PFormField;
 import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
+import org.netsharp.util.ReflectManager;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.bd.Dict;
@@ -71,8 +73,22 @@ public class DictComboBox implements IPropertyControl{
 			}
 		}
 
+		List<String> filterList = new ArrayList<String>();
+		if(!StringManager.isNullOrEmpty(formField.getTroikaCodition())){
+
+			IReferenceFilterBuilder filterBuilder = (IReferenceFilterBuilder)ReflectManager.newInstance(formField.getTroikaCodition());
+			String builderFilter = filterBuilder.builderFilter();
+			if(!StringManager.isNullOrEmpty(builderFilter)){
+			
+				filterList.add(builderFilter);
+			}
+		}
+		
 		String refFilter = formField.getRefFilter();
-		List<Dict> dictList = queryDicList(refFilter);
+		filterList.add(refFilter);
+		
+		String filter = StringManager.join(" and ",filterList);
+		List<Dict> dictList = queryDicList(filter);
 		for (Dict dict : dictList) {
 
 			SelectOption option = new SelectOption();

@@ -26,9 +26,10 @@ import org.netsharp.util.StringManager;
 import com.gongsibao.crm.web.NCustomerTaskEditFormPart;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.dic.ChangeType;
-import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.NotifyType;
 import com.gongsibao.entity.crm.dic.QualityCategory;
+import com.gongsibao.entity.crm.dic.TaskInspectionState;
+import com.gongsibao.entity.crm.dic.TaskInspectionType;
 
 public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 
@@ -38,6 +39,8 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 	protected String changeDetailResourceNodeCode = "Operation_CRM_Customer_Change";
 	
 	protected String taskFollowDetailPart = "com.gongsibao.crm.web.PlatformTaskFollowDetailPart";
+	
+	protected String inspectionDetailResourceNodeCode = "Operation_CRM_Customer_Inspection";
 	@Before
 	public void setup() {
 		super.setup();
@@ -97,6 +100,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 		createProductsPart(workspace);
 		addNotificationLogPart(workspace);
 		addFlowLogPart(workspace);
+		addInspectionLogPart(workspace);
 	}
 
 	// 选项卡加载项
@@ -222,6 +226,58 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 			part.setCode("changes");
 			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
 			part.setRelationRole("changes");
+			part.setResourceNode(node);
+			part.setPartTypeId(PartType.DETAIL_PART.getId());
+			part.setDatagrid(datagrid);
+			part.setDockStyle(DockType.DOCUMENTHOST);
+			part.setWindowWidth(550);
+			part.setWindowHeight(350);
+			part.setForm(form);
+		}
+		workspace.getParts().add(part);
+	}
+	
+	public void addInspectionLogPart(PWorkspace workspace) {
+		ResourceNode node = this.resourceService.byCode(inspectionDetailResourceNodeCode);
+
+		PDatagrid datagrid = new PDatagrid(node, "抽查日志");
+		{
+			// 子页面枚举显示需要格式化一下
+			PDatagridColumn column = addColumn(datagrid, "inspectionType", "抽查类型", ControlTypes.ENUM_BOX, 300);
+			{
+				String formatter = EnumUtil.getColumnFormatter(TaskInspectionType.class);
+				column.setFormatter(formatter);
+			}
+			column = addColumn(datagrid, "inspectionState", "抽查异常状态", ControlTypes.ENUM_BOX, 150);
+			{
+				String formatter = EnumUtil.getColumnFormatter(TaskInspectionState.class);
+				column.setFormatter(formatter);
+			}
+			addColumn(datagrid, "content", "内容", ControlTypes.TEXT_BOX, 150);
+		}
+		PForm form = new PForm();
+		{
+			form.toNew();
+			form.setResourceNode(node);
+			form.setColumnCount(1);
+			form.setName("抽查日志");
+			PFormField formField = null;
+			String groupName = null;
+			formField = addFormField(form, "inspectionType", "抽查类型", groupName, ControlTypes.ENUM_BOX, false, true);
+			formField = addFormField(form, "inspectionState", "抽查异常状态", groupName, ControlTypes.ENUM_BOX, false, true);
+			formField = addFormField(form, "content", "内容", groupName, ControlTypes.TEXT_BOX, false, true);
+			{
+				formField.setFullColumn(true);
+			}
+		}
+		
+		PPart part = new PPart();
+		{
+			part.toNew();
+			part.setName("抽查日志");
+			part.setCode("inspections");
+			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
+			part.setRelationRole("inspections");
 			part.setResourceNode(node);
 			part.setPartTypeId(PartType.DETAIL_PART.getId());
 			part.setDatagrid(datagrid);

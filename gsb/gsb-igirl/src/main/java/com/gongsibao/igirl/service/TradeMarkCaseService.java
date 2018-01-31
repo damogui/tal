@@ -30,7 +30,9 @@ import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.DataTable;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
+import org.netsharp.core.Paging;
 import org.netsharp.core.Row;
+import org.netsharp.persistence.session.SessionManager;
 
 @Service
 public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> implements ITradeMarkCaseService {
@@ -87,26 +89,26 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		// 设置编码样式 和所在的代理公司
 		if (entity.getEntityState() == EntityState.New) {
 			entity.setCode(DateTime.now().toString("yyyyMMddHHmmss"));
-			Integer id=SupplierSessionManager.getSupplierId();
+			Integer id = SupplierSessionManager.getSupplierId();
 			entity.setSupplierId(id);
-			for(TradeMark tm :entity.getTradeMarks()) {
+			for (TradeMark tm : entity.getTradeMarks()) {
 				tm.setSupplierId(id);
 			}
-			//设置加盟商信息
-			Integer sid=SupplierSessionManager.getSupplierId();
-			Supplier sl=supplierServcie.byId(sid);
-		  entity.setProxyCompanyName(sl.getName());
+			// 设置加盟商信息
+			Integer sid = SupplierSessionManager.getSupplierId();
+			Supplier sl = supplierServcie.byId(sid);
+			entity.setProxyCompanyName(sl.getName());
 			entity.setAccountNo(sl.getBankNum());
-			
+
 			if (entity.getApplierType() == ApplierType.PUBLIC) {
 				entity.setApplier(entity.getCompanyName());
 			}
 			UploadAttachment attachment2 = (UploadAttachment) this.buildUploadAttachment("营业执照",
 					AttachmentCat.BUSINESS_LIEN, entity.getId(), FileType.JPGC, FileType.PDF, -1);
 			entity.getUploadAttachments().add(attachment2);
-			
-			attachment2 = (UploadAttachment) this.buildUploadAttachment("付款证明",
-					AttachmentCat.PAYMENT_PROOF, entity.getId(), FileType.JPGC, FileType.JPGC, -2);
+
+			attachment2 = (UploadAttachment) this.buildUploadAttachment("付款证明", AttachmentCat.PAYMENT_PROOF,
+					entity.getId(), FileType.JPGC, FileType.JPGC, -2);
 			entity.getUploadAttachments().add(attachment2);
 		}
 
@@ -205,24 +207,24 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			oql.setType(UploadAttachment.class);
 			oql.setSelects("UploadAttachment.tradeMark.{id,shareGroup}");
 			oql.setFilter("tradeMarkCaseId=?");
-			oql.getParameters().add("tradeMarkCaseId",entity.getId(), Types.INTEGER);
+			oql.getParameters().add("tradeMarkCaseId", entity.getId(), Types.INTEGER);
 			List<UploadAttachment> uls = upattachementService.queryList(oql);
 			Map<Integer, Integer> dicTmp = new HashMap<Integer, Integer>();
-			//缓存已有共享组
+			// 缓存已有共享组
 			Map<ShareGroup, Integer> dic = new HashMap<ShareGroup, Integer>();
-			for(UploadAttachment ua :uls) {
-				TradeMark tm=ua.getTradeMark();
-				if(tm!=null) {
+			for (UploadAttachment ua : uls) {
+				TradeMark tm = ua.getTradeMark();
+				if (tm != null) {
 					dicTmp.put(tm.getId(), tm.getId());
-					if(tm.getShareGroup()!=ShareGroup.NOSHARRE) {
-						dic.put(tm.getShareGroup(), 1);//缓存所有当前案件已经持久化的共享资源组
+					if (tm.getShareGroup() != ShareGroup.NOSHARRE) {
+						dic.put(tm.getShareGroup(), 1);// 缓存所有当前案件已经持久化的共享资源组
 					}
-				}	
+				}
 			}
 			List<UploadAttachment> upas = new ArrayList<UploadAttachment>();
 			List<DownloadAttachment> downs = new ArrayList<DownloadAttachment>();
 			List<TradeMark> tmks = entity.getTradeMarks();
-			
+
 			UploadAttachment attachment1 = null;
 			DownloadAttachment attachment2 = null;
 			for (int i = 0; i < tmks.size(); i++) {
@@ -256,7 +258,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 						attachment1 = (UploadAttachment) this.buildUploadAttachment(tmk.getMemo() + "_补充证明",
 								AttachmentCat.MEMO_DESC, entity.getId(), FileType.JPGC, FileType.JPGC, tmk.getId());
 						upas.add(attachment1);
-						
+
 						attachment2 = this.buildDownloadAttachment(tmk.getMemo() + "_黑色委托书",
 								AttachmentCat.DELEGATE_PROOF, entity.getId(), FileType.JPGC, FileType.JPGC,
 								tmk.getId());
@@ -290,7 +292,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 							attachment1 = (UploadAttachment) this.buildUploadAttachment(tmk.getMemo() + "_补充证明",
 									AttachmentCat.MEMO_DESC, entity.getId(), FileType.JPGC, FileType.JPGC, tmk.getId());
 							upas.add(attachment1);
-							
+
 							attachment2 = this.buildDownloadAttachment(tmk.getMemo() + "_黑色委托书",
 									AttachmentCat.DELEGATE_PROOF, entity.getId(), FileType.JPGB, FileType.JPGB,
 									tmk.getId());
@@ -298,11 +300,11 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 
 							dic.put(tmk.getShareGroup(), 1);
 
-						} 
+						}
 
 					}
 
-				} 
+				}
 			}
 			upattachementService.saves(upas);
 			downattachementService.saves(downs);
@@ -314,12 +316,29 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 	@Override
 	public TradeMarkCase newInstance() {
 		// TODO Auto-generated method stub
-		Integer sid=SupplierSessionManager.getSupplierId();
-		Supplier sl=supplierServcie.byId(sid);
-		TradeMarkCase tc=super.newInstance();
+		Integer sid = SupplierSessionManager.getSupplierId();
+		Supplier sl = supplierServcie.byId(sid);
+		TradeMarkCase tc = super.newInstance();
 		tc.setYwPhone("010-84927588");
 		tc.setMailCode("100000");
 		tc.setFax("010-84927588");
+		// 查出当前登陆人办的最后一个案子，取出案件联系人，然后赋予初值
+		Oql oql = new Oql();
+		{
+			oql.setType(TradeMarkCase.class);
+			oql.setSelects("TradeMarkCase.{creator,caseProxyContactPerson}");
+			oql.setFilter("creator=?");
+			oql.setOrderby("createTime desc");
+			oql.getParameters().add("creator", SessionManager.getUserName(), Types.VARCHAR);
+			Paging p = new Paging();
+			p.pageNo = 1;
+			p.pageSize = 10;
+			oql.setPaging(p);
+		}
+		TradeMarkCase tmc = this.queryFirst(oql);
+		if(tmc!=null) {
+			tc.setCaseProxyContactPerson(tmc.getCaseProxyContactPerson());
+		}
 		return tc;
 	}
 

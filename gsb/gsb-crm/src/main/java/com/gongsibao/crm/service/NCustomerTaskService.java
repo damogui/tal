@@ -97,7 +97,8 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		builder.append("NCustomerTask.follows.*,");
 		builder.append("NCustomerTask.notifys.*,");
 		builder.append("NCustomerTask.changes.*,");
-
+		builder.append("NCustomerTask.inspections.*,");
+		
 		return builder.toString();
 	}
 	

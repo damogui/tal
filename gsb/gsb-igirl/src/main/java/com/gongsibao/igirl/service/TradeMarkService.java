@@ -429,7 +429,7 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			tminfo.setStep1(step1);
 			step2 = new Step2();
 			step2.setAgentFilenum(tm.getProxyCode());
-			step2.setAgentPerson(tmc.getCreator());
+			step2.setAgentPerson(tmc.getCaseProxyContactPerson());
 			//设置委托书
 			step2.setAgentBookPath(this.getDeleProofAttachment(tm, shareGroupToTradeMarkMap).get("fileUrl"));
 			step2.setAgentBookName(this.getDeleProofAttachment(tm, shareGroupToTradeMarkMap).get("fileName"));
@@ -527,6 +527,9 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 	}
 
 	public List<Goods> goodSl(String str, String code) {
+		if(code.length()==1) {
+			code="0"+code;
+		}
 		List<Goods> goodsList = new ArrayList<>();
 		Goods goods;
 		String[] lines = str.split("\\n");

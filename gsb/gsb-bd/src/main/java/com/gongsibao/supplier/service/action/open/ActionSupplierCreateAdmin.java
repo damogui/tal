@@ -19,9 +19,11 @@ import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.util.ReflectManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
+import com.gongsibao.entity.supplier.DepartmentServiceProduct;
 import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
+import com.gongsibao.entity.supplier.SupplierServiceProduct;
 import com.gongsibao.entity.supplier.dict.SupplierStatus;
 import com.gongsibao.supplier.base.ISupplierDepartmentService;
 import com.gongsibao.supplier.service.SupplierService;
@@ -107,8 +109,8 @@ public class ActionSupplierCreateAdmin implements IAction {
 			salesman.setEmployeeId(employee.getId());
 		}
 
-        IPersister<Salesman> pm = PersisterFactory.create();//因为重写了，所以调用父类
-        pm.save(salesman);
+		IPersister<Salesman> pm = PersisterFactory.create();// 因为重写了，所以调用父类
+		pm.save(salesman);
 	}
 
 	private Employee createEmployee(Supplier supplier) {
@@ -151,6 +153,30 @@ public class ActionSupplierCreateAdmin implements IAction {
 			department.toNew();
 			department.setName(supplier.getName());
 			department.setSupplierId(supplier.getId());
+			department.setType(supplier.getType());
+
+			// 带入服务范围
+			DepartmentServiceProduct departmentProduct = null;
+
+			List<DepartmentServiceProduct> departmentProductList = new ArrayList<DepartmentServiceProduct>();
+			List<SupplierServiceProduct> supplierProductList = supplier.getServiceProducts();
+			for (SupplierServiceProduct supplierProduct : supplierProductList) {
+
+				departmentProduct = new DepartmentServiceProduct();{
+					
+					departmentProduct.toNew();
+					departmentProduct.setProductCategoryId1(supplierProduct.getProductCategoryId1());
+					departmentProduct.setProductCategoryId2(supplierProduct.getProductCategoryId2());
+					departmentProduct.setProductId(supplierProduct.getProductId());
+					departmentProduct.setProvinceId(supplierProduct.getProvinceId());
+					departmentProduct.setCityId(supplierProduct.getCityId());
+					departmentProduct.setCountyId(supplierProduct.getCountyId());
+					departmentProductList.add(departmentProduct);
+				}
+			}
+			
+			department.setServiceProducts(departmentProductList);
+
 		}
 		ISupplierDepartmentService departmentService = ServiceFactory.create(ISupplierDepartmentService.class);
 		department = departmentService.save(department);
