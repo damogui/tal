@@ -56,7 +56,7 @@ public class ProductReferenceTest extends ReferenceCreationBase {
 //1.过滤在线销售的商品
 
 //SELECT DISTINCT
-//(
+//( 
 //	prod_price_audit.product_id
 //)
 //FROM
