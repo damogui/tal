@@ -201,7 +201,7 @@ com.gongsibao.crm.web.TaskProductDetailPart = org.netsharp.panda.commerce.Detail
     productCategory1Select:function(record){
 
     	//加载二级分类
-        this.invokeService("queryByProductCategoryId1", [record.id], function (data) {
+        this.invokeService("queryByFirstProductCategoryId", [record.id], function (data) {
         	
         	$('#productCategory2_name').combobox('clear').combobox('loadData',data);
         });
