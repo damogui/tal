@@ -109,16 +109,17 @@ public class DepartmentProductDetailPart extends TaskProductDetailPart{
 		Oql oql = new Oql();
 		{
 			oql.setType(Dict.class);
+			oql.getParameters().add("parentId", provinceId, Types.INTEGER);
 			oql.setSelects("*");
 		}
 		
 		if(departmentId == null||departmentId.equals(0)){
 
-			oql.setFilter("type=101 and enabled=1 and id in (select city_id from sp_service_product where id=?)");
+			oql.setFilter("type=101 and enabled=1 and parentId=? and id in (select city_id from sp_service_product where id=?)");
 			oql.getParameters().add("supplierId", supplierId, Types.INTEGER);
 		}else{
 
-			oql.setFilter("type=101 and enabled=1 and id in (select city_id from sp_department_product where department_id=?)");
+			oql.setFilter("type=101 and enabled=1 and parentId=? and id in (select city_id from sp_department_product where department_id=?)");
 			oql.getParameters().add("departmentId", departmentId, Types.INTEGER);
 		}
 		
@@ -137,15 +138,16 @@ public class DepartmentProductDetailPart extends TaskProductDetailPart{
 		{
 			oql.setType(Dict.class);
 			oql.setSelects("*");
+			oql.getParameters().add("parentId", cityId, Types.INTEGER);
 		}
 		
 		if(departmentId == null||departmentId.equals(0)){
 
-			oql.setFilter("type=101 and enabled=1 and id in (select county_id from sp_service_product where id=?)");
+			oql.setFilter("type=101 and enabled=1 and parentId=? and id in (select county_id from sp_service_product where id=?)");
 			oql.getParameters().add("supplierId", supplierId, Types.INTEGER);
 		}else{
 
-			oql.setFilter("type=101 and enabled=1 and id in (select county_id from sp_department_product where department_id=?)");
+			oql.setFilter("type=101 and enabled=1 and parentId=? and id in (select county_id from sp_department_product where department_id=?)");
 			oql.getParameters().add("departmentId", departmentId, Types.INTEGER);
 		}
 		

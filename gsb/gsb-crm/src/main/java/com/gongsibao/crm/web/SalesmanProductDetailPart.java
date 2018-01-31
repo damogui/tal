@@ -78,7 +78,8 @@ public class SalesmanProductDetailPart extends TaskProductDetailPart{
 		{
 			oql.setType(Dict.class);
 			oql.setSelects("*");
-			oql.setFilter("type=101 and enabled=1 and id in (select city_id from sp_department_product where department_id=?)");
+			oql.setFilter("type=101 and enabled=1 and parentId=? and id in (select city_id from sp_department_product where department_id=?)");
+			oql.getParameters().add("parentId", provinceId, Types.INTEGER);
 			oql.getParameters().add("departmentId", departmentId, Types.INTEGER);
 		}
 		
@@ -97,7 +98,8 @@ public class SalesmanProductDetailPart extends TaskProductDetailPart{
 		{
 			oql.setType(Dict.class);
 			oql.setSelects("*");
-			oql.setFilter("type=101 and enabled=1 and id in (select county_id from sp_department_product where department_id=?)");
+			oql.setFilter("type=101 and enabled=1 and parentId=? and id in (select county_id from sp_department_product where department_id=?)");
+			oql.getParameters().add("parentId", cityId, Types.INTEGER);
 			oql.getParameters().add("departmentId", departmentId, Types.INTEGER);
 		}
 		
