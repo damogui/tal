@@ -31,8 +31,8 @@ public class SupplierDepartment extends CatEntity{
     @Column(name = "type", header = "类型：1自营，2平台;3不限")
     private SupplierType type = SupplierType.UNLIMITED;
 
-    @Subs(foreignKey = "departmentId", header = "部门服务地区范围", subType = DepartmentServiceProduct.class)
-    private List<DepartmentServiceProduct> serviceProducts;
+    @Subs(foreignKey = "departmentId", header = "部门服务地区范围", subType = DepartmentProduct.class)
+    private List<DepartmentProduct> serviceProducts;
 
 
     public Integer getSupplierId() {
@@ -51,11 +51,11 @@ public class SupplierDepartment extends CatEntity{
 		this.supplier = supplier;
 	}
 
-    public List<DepartmentServiceProduct> getServiceProducts() {
+    public List<DepartmentProduct> getServiceProducts() {
         return serviceProducts;
     }
 
-    public void setServiceProducts(List<DepartmentServiceProduct> serviceProducts) {
+    public void setServiceProducts(List<DepartmentProduct> serviceProducts) {
         this.serviceProducts = serviceProducts;
     }
 

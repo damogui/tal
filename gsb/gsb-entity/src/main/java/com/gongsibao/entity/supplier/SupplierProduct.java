@@ -9,8 +9,8 @@ import org.netsharp.entity.Entity;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.product.Product;
 
-@Table(name="sp_service_product",header="服务商服务商品")
-public class SupplierServiceProduct extends Entity{
+@Table(name="sp_supplier_product",header="服务商服务商品")
+public class SupplierProduct extends Entity{
 
 	/**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   

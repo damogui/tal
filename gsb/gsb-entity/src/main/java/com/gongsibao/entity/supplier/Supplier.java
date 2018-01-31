@@ -11,6 +11,7 @@ import org.netsharp.entity.Entity;
 import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.crm.dic.NotifiedType;
+import com.gongsibao.entity.crm.dic.TaskCustomerType;
 import com.gongsibao.entity.supplier.dict.SupplierStatus;
 import com.gongsibao.entity.supplier.dict.SupplierType;
 
@@ -85,24 +86,21 @@ public class Supplier extends Entity {
 	@Column(name = "salesman_count", header = "员工数量")
 	private Integer salesmanCount = 0;
 
-	@Subs(foreignKey = "supplierId", header = "服务产品", subType = SupplierServiceProduct.class)
-	private List<SupplierServiceProduct> serviceProducts;
+	@Subs(foreignKey = "supplierId", header = "服务产品", subType = SupplierProduct.class)
+	private List<SupplierProduct> serviceProducts;
 
 	@Subs(foreignKey = "supplierId", header = "开通模块", subType = SupplierFunctionModule.class)
 	private List<SupplierFunctionModule> modules;
 
     @Column(name = "bank_name", header = "开户行")
     private String bankName ;
+    
     @Column(name = "bank_num", header = "开户行号")
     private String bankNum;
 
-
-    @Column(name = "is_old_client", header = "是否新客户")
-    private Boolean isoldclient;
-
-
-
-
+    @Column(name = "customer_type", header = "所属分组类别（1：新客户  2：老客户）")
+    private TaskCustomerType customerType;
+    
 	public String getContact() {
 		return contact;
 	}
@@ -271,11 +269,11 @@ public class Supplier extends Entity {
 		this.salesmanCount = salesmanCount;
 	}
 
-	public List<SupplierServiceProduct> getServiceProducts() {
+	public List<SupplierProduct> getServiceProducts() {
 		return serviceProducts;
 	}
 
-	public void setServiceProducts(List<SupplierServiceProduct> serviceProducts) {
+	public void setServiceProducts(List<SupplierProduct> serviceProducts) {
 		this.serviceProducts = serviceProducts;
 	}
 
@@ -304,11 +302,4 @@ public class Supplier extends Entity {
         this.bankNum = bankNum;
     }
 
-    public Boolean getIsoldclient() {
-        return isoldclient;
-    }
-
-    public void setIsoldclient(Boolean isoldclient) {
-        this.isoldclient = isoldclient;
-    }
 }
