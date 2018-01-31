@@ -80,7 +80,6 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 			column.setAlign(DatagridAlign.CENTER);
 		}
 		
-		addColumn(datagrid, "receiving", "自动接受任务", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "isLeader", "主管", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "dayMax", "日分配上限", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "weekMax", "周分配上限", ControlTypes.TEXT_BOX, 80);
@@ -174,6 +173,8 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 			part.setDockStyle(DockType.LEFT);
 			part.setStyle("width:250px;");
 			part.setResourceNode(node);
+			part.setName("部门");
+			part.setHeaderVisible(true);
 			// 进行扩展
 			// part.setToolbar(listToolbarPath);
 
