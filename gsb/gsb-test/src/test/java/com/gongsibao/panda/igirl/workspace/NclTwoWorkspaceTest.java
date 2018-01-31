@@ -9,12 +9,15 @@ import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
+import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.dic.OrderbyMode;
 import org.netsharp.panda.entity.*;
+import org.netsharp.panda.plugin.entity.PToolbar;
+import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 /**   
@@ -41,6 +44,21 @@ public class NclTwoWorkspaceTest extends WorkspaceCreationBase{
 		formOpenMode = OpenMode.WINDOW;
 		openWindowWidth = 800;
 		openWindowHeight = 600;
+		listToolbarPath="/igirl/ncltwo/list";
+	}
+
+	@Test
+	public void fromToolbar() {
+
+		ResourceNode node = this.resourceService.byCode(resourceNodeCode);
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			toolbar.setPath(listToolbarPath);
+			toolbar.setName("案件工具栏");
+			toolbar.setResourceNode(node);
+		}
+		toolbarService.save(toolbar);
 	}
 	
 
@@ -49,7 +67,7 @@ public class NclTwoWorkspaceTest extends WorkspaceCreationBase{
 
 		PDatagrid datagrid = super.createDatagrid(node);
 		{
-			datagrid.setToolbar("panda/datagrid/row/edit");
+			datagrid.setToolbar(listToolbarPath);
 			datagrid.setName("小类列表");
 			datagrid.setOrderby("code");
 		}
