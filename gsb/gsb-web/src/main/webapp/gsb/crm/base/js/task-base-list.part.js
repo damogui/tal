@@ -40,7 +40,6 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		//任务跟进 
 		var me = this;
 		var url = this.followUrl +"?fk=taskId:"+id;
-		alert(url);
 		IMessageBox.open("任务跟进", url, 700, 450, function() {
 			me.reload();
 		});
