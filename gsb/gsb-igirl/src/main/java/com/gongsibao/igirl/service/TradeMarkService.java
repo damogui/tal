@@ -527,6 +527,9 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 	}
 
 	public List<Goods> goodSl(String str, String code) {
+		if(code.length()==1) {
+			code="0"+code;
+		}
 		List<Goods> goodsList = new ArrayList<>();
 		Goods goods;
 		String[] lines = str.split("\\n");
