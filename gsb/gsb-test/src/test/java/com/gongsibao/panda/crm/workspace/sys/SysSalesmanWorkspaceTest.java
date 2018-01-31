@@ -25,9 +25,9 @@ import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.controls.CityComboBox;
 import com.gongsibao.controls.DictComboBox;
+import com.gongsibao.crm.web.SalesmanProductDetailPart;
 import com.gongsibao.crm.web.SysSalesmanListPart;
 import com.gongsibao.crm.web.SysSalesmanTreePart;
-import com.gongsibao.crm.web.TaskProductDetailPart;
 import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.supplier.Salesman;
 
@@ -302,7 +302,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 			form.setResourceNode(node);
 			form.toNew();
 			form.setColumnCount(1);
-			form.setName("添加服务范围");
+			form.setName("服务范围");
 
 			PFormField formField = null;
 			formField = addFormField(form, "productCategory1.name", "一级分类", null, ControlTypes.CUSTOM, true, false);
@@ -310,7 +310,10 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
 				formField.setTroikaTrigger("controllerproducts.productCategory1Select(record);");
-				formField.setRefFilter("type=201 and pid=0");
+//				formField.setRefFilter("type=201 and pid=0");
+				
+                //这里先不查询，前端要根据上级部门进行过滤
+                formField.setRefFilter("1=2");
 			}
 
 			formField = addFormField(form, "productCategory2.name", "二级分类", null, ControlTypes.CUSTOM, true, false);
@@ -359,8 +362,8 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("panda/datagrid/detail");
-			part.setJsController("com.gongsibao.crm.web.SalesmaProductDetailPart");
-			part.setServiceController(TaskProductDetailPart.class.getName());
+			part.setJsController(SalesmanProductDetailPart.class.getName());
+			part.setServiceController(SalesmanProductDetailPart.class.getName());
 			part.setWindowWidth(400);
 			part.setWindowHeight(450);
 			part.setForm(form);
