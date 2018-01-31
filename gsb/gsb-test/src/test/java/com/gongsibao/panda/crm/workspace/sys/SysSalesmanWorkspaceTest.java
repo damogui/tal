@@ -309,7 +309,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
-				formField.setTroikaTrigger("controllerproducts.productCategory1Select(record);");
+				formField.setTroikaTrigger("controllerproducts.firstProductCategorySelect(record);");
 //				formField.setRefFilter("type=201 and pid=0");
 				
                 //这里先不查询，前端要根据上级部门进行过滤
@@ -320,8 +320,8 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
-				formField.setTroikaTrigger("controllerproducts.productCategory2Select(record);");
-				formField.setRefFilter("type=201 and pid<>0");
+				formField.setTroikaTrigger("controllerproducts.secondProductCategorySelect(record);");
+//				formField.setRefFilter("type=201 and pid<>0");
 			}
 
 			formField = addFormFieldRefrence(form, "product.name", "产品", null, "CRM_" + Product.class.getSimpleName(), true, false);
@@ -332,20 +332,22 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 			formField = addFormField(form, "province.name", "省份", ControlTypes.CUSTOM, false, false);
 			{
 				formField.setWidth(200);
-				formField.setCustomControlType(CityComboBox.class.getName());
-				formField.setDataOptions("level:1,changeCtrlId:'city_name'");
+				formField.setCustomControlType(DictComboBox.class.getName());
+				formField.setTroikaTrigger("controllerproducts.provinceSelect(record);");
+//				formField.setDataOptions("level:1,changeCtrlId:'city_name'");
 			}
 			formField = addFormField(form, "city.name", "城市", ControlTypes.CUSTOM, false, false);
 			{
 				formField.setWidth(200);
-				formField.setCustomControlType(CityComboBox.class.getName());
-				formField.setDataOptions("level:2,changeCtrlId:'county_name'");
+				formField.setCustomControlType(DictComboBox.class.getName());
+				formField.setTroikaTrigger("controllerproducts.citySelect(record);");
+//				formField.setDataOptions("level:2,changeCtrlId:'county_name'");
 			}
 			formField = addFormField(form, "county.name", "区/县", ControlTypes.CUSTOM, false, false);
 			{
 				formField.setWidth(200);
-				formField.setCustomControlType(CityComboBox.class.getName());
-				formField.setDataOptions("level:3");
+				formField.setCustomControlType(DictComboBox.class.getName());
+				//formField.setDataOptions("level:3");
 			}
 
 		}

@@ -32,7 +32,7 @@ com.gongsibao.crm.web.DepartmentProductDetailPart = org.netsharp.panda.commerce.
         		filter+=' and id in (select product_id from sp_service_product where id____'+supplierId+')';
         	}else{
         		
-        		filter+='and id in (select product_id from Depart_service_product where department_id='+parentDepartmentId+')';
+        		filter+=' and id in (select product_id from Depart_service_product where department_id____'+parentDepartmentId+')';
         	}
     		options.url = '\/panda\/rest\/reference?code=CRM_Product&filter='+ filter;
     		$(grid).datagrid(options);	

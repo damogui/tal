@@ -3,27 +3,63 @@ com.gongsibao.crm.web.SalesmanProductDetailPart = org.netsharp.panda.commerce.De
     ctor: function () {
         this.base();
     },
-    productCategory1Select:function(record){
+    firstProductCategorySelect:function(record){
 
+    	var departmentId = this.parent.viewModel.currentItem.departmentId;
     	//加载二级分类
-        this.invokeService("queryByFirstProductCategoryId", [record.id], function (data) {
+        this.invokeService("queryProductSecondCategory", [departmentId,record.id], function (data) {
         	
         	$('#productCategory2_name').combobox('clear').combobox('loadData',data);
         });
     },
-    productCategory2Select:function(record){
+    secondProductCategorySelect:function(record){
     	
     	try{
     		
         	$('#product_name').combogrid('clear');
     		var grid = $('#product_name').combogrid('grid');
     		var options = $(grid).datagrid('options');
-    		var filter = ' enabled____1 and type_id____'+record.id;
+    		
+    		var departmentId = this.parent.viewModel.currentItem.departmentId;
+    		var filter = ' enabled____1 and type_id____'+record.id +' and id in (select product_id from Depart_service_product where department_id____'+departmentId+')';
+    		
     		options.url = '\/panda\/rest\/reference?code=CRM_Product&filter='+ filter;
     		$(grid).datagrid(options);	
     		
     	}catch(ex){
     		
     	}
+    },
+    provinceSelect:function(record){
+    	
+    	var departmentId = this.parent.viewModel.currentItem.departmentId;
+    	this.invokeService("queryCity", [departmentId,record.id], function (data) {
+        	
+        	$('#city_name').combobox('clear').combobox('loadData',data);
+        });
+    },
+    citySelect:function(record){
+    	
+    	var departmentId = this.parent.viewModel.currentItem.departmentId;
+		this.invokeService("queryCounty", [departmentId,record.id], function (data) {
+	    	
+	    	$('#county_name').combobox('clear').combobox('loadData',data);
+	    });
+    },
+    addBefore:function(){
+    	
+    	var departmentId = this.parent.viewModel.currentItem.departmentId;
+        
+    	//处理一级分类
+    	this.invokeService("queryProductFirstCategory", [departmentId], function (data) {
+        	
+        	$('#productCategory1_name').combobox('clear').combobox('loadData',data);
+        });
+        
+        //处理省份
+    	this.invokeService("queryProvince", [departmentId], function (data) {
+        	
+        	$('#province_name').combobox('clear').combobox('loadData',data);
+        });
     }
 });
