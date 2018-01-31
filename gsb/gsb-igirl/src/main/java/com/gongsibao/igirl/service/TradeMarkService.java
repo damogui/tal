@@ -556,6 +556,20 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		}
 		return goodsList;
 	}
+
+	public TradeMark tmRobotUpdateMarkState(String proxyCode,Integer stateCode){
+		Oql oql = new Oql();
+		oql.setSelects("TradeMark.*");
+		oql.setType(TradeMark.class);
+		oql.setFilter("proxyCode = ?");
+		oql.getParameters().add("proxyCode",proxyCode,Types.INTEGER);
+		TradeMark tm = this.queryFirst(oql);
+		tm.setMarkState(MarkState.getItem(stateCode));
+		tm.toPersist();
+		tm = this.save(tm);
+		return tm;
+	}
+
 	public String updateMarkState(String ids,String type){
 		Oql oql = new Oql();
 		String cmdstr = "select id from ig_trade_mark where id in (?)".replace("?",ids);
