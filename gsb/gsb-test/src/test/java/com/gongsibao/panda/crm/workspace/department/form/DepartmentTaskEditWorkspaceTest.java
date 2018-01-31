@@ -40,7 +40,7 @@ public class DepartmentTaskEditWorkspaceTest extends TaskEditWorkspaceTest{
 		foolowDetailResourceNodeCode = "CRM_DEPARTMENT_Foolow";
 		notifyDetailResourceNodeCode = "CRM_DEPARTMENT_Notify";
 		changeDetailResourceNodeCode = "CRM_DEPARTMENT_Change";
-		
+		inspectionDetailResourceNodeCode = "CRM_DEPARTMENT_Inspection";
 		taskFollowDetailPart = "com.gongsibao.crm.web.DepartmentTaskFollowDetailPart";
 	}
 	
