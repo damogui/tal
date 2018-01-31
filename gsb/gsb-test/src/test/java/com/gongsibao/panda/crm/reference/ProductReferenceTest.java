@@ -21,6 +21,7 @@ public class ProductReferenceTest extends ReferenceCreationBase {
 		referenceCode = "CRM_" + Product.class.getSimpleName();
 		intelligentMode = IntelligentMode.LIKE;
 		intelligentFields = "name";
+		panelWidth = 440;
 	}
 
 	public PDatagrid createDatagrid(ResourceNode node) {
