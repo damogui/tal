@@ -40,7 +40,7 @@ public class SalesmanProductDetailPart extends TaskProductDetailPart{
 		{
 			oql.setType(Dict.class);
 			oql.setSelects("*");
-			oql.setFilter("parentId=? and type=201 and enabled=1 and id in (select product_category_id_2 from Depart_service_product where department_id=?)");
+			oql.setFilter("parentId=? and type=201 and enabled=1 and id in (select product_category_id_2 from sp_department_product where department_id=?)");
 			oql.getParameters().add("parentId", parentId, Types.INTEGER);
 			oql.getParameters().add("departmentId", departmentId, Types.INTEGER);
 		}

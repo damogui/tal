@@ -14,7 +14,7 @@ com.gongsibao.crm.web.DepartmentProductDetailPart = org.netsharp.panda.commerce.
         this.invokeService("queryProductSecondCategory", [parentDepartmentId,supplierId,record.id], function (data) {
         	
         	$('#productCategory2_name').combobox('clear').combobox('loadData',data);
-        });
+        },false);
     },
     secondProductCategorySelect:function(record){
     	
@@ -48,7 +48,7 @@ com.gongsibao.crm.web.DepartmentProductDetailPart = org.netsharp.panda.commerce.
     	this.invokeService("queryCity", [parentDepartmentId,supplierId,record.id], function (data) {
         	
         	$('#city_name').combobox('clear').combobox('loadData',data);
-        });
+        },false);
     },
     citySelect:function(record){
     	
@@ -57,9 +57,17 @@ com.gongsibao.crm.web.DepartmentProductDetailPart = org.netsharp.panda.commerce.
 		this.invokeService("queryCounty", [parentDepartmentId,supplierId,record.id], function (data) {
 	    	
 	    	$('#county_name').combobox('clear').combobox('loadData',data);
-	    });
+	    },false);
     },
     addBefore:function(){
+    	
+    	this.initData();
+    },
+    editBefore:function(){
+    	
+    	this.initData();
+    },
+    initData:function(){
     	
     	var parentDepartmentId = this.parent.viewModel.currentItem.parentId;
     	var supplierId = this.parent.viewModel.currentItem.supplierId;
@@ -68,13 +76,13 @@ com.gongsibao.crm.web.DepartmentProductDetailPart = org.netsharp.panda.commerce.
     	this.invokeService("queryProductFirstCategory", [parentDepartmentId,supplierId], function (data) {
         	
         	$('#productCategory1_name').combobox('clear').combobox('loadData',data);
-        });
+        },false);
         
         //处理省份
     	this.invokeService("queryProvince", [parentDepartmentId,supplierId], function (data) {
         	
         	$('#province_name').combobox('clear').combobox('loadData',data);
-        });
+        },false);
     }
 });
 
