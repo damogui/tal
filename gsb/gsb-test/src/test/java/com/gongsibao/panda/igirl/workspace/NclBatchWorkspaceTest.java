@@ -115,11 +115,7 @@ public class NclBatchWorkspaceTest extends WorkspaceCreationBase {
         pDatagrid.setToolbar("panda/datagrid/row/edit"); //系统默认的工具栏
         pDatagrid.setName("分类列表");
         PDatagridColumn column = null;
-        column = addColumn(pDatagrid, "code", "编号", ControlTypes.ENUM_BOX, 100);
-        {
-            String formatter = EnumUtil.getColumnFormatter(ConfigType.class);
-            column.setFormatter(formatter);
-        }
+        addColumn(pDatagrid, "code", "编号", ControlTypes.TEXT_BOX, 100);
         addColumn(pDatagrid, "context", "说明", ControlTypes.TEXT_BOX, 200);
         addColumn(pDatagrid,"url","数据源",ControlTypes.TEXT_BOX,100);
         column = addColumn(pDatagrid, "isInsert", "是否导入", ControlTypes.TEXT_BOX, 200);
