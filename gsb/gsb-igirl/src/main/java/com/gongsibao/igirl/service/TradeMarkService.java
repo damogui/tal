@@ -9,6 +9,7 @@ import java.util.Set;
 
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.DataTable;
 import org.netsharp.core.Oql;
 import org.netsharp.util.StringManager;
 
@@ -557,14 +558,19 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 	}
 	public String updateMarkState(String ids,String type){
 		Oql oql = new Oql();
-		oql.setSelects("TradeMark.*,TradeMark.tradeMarkCase.*,TradeMark.tradeMarkCase.uploadAttachments.*");
-		oql.setType(TradeMark.class);
-		oql.setFilter("id in (?)");
-		oql.getParameters().add("id",ids,Types.INTEGER);
-		List<TradeMark> tms = this.queryList(oql);
+		String cmdstr = "select id from ig_trade_mark where id in (?)".replace("?",ids);
+		DataTable dataTable = this.pm.executeTable(cmdstr, oql.getParameters());
+		List<Map<String,Object>> maps = dataTable.getValueMapList();
 		List<TradeMark> list = new ArrayList<>();
 		StringBuffer str = new StringBuffer("");
-		for (TradeMark tm:tms){
+		for (Map map:maps){
+			int id  = (int) map.get("id");
+			oql = new Oql();
+			oql.setSelects("TradeMark.*,TradeMark.tradeMarkCase.*,TradeMark.tradeMarkCase.uploadAttachments.*");
+			oql.setType(TradeMark.class);
+			oql.setFilter("id = ?");
+			oql.getParameters().add("id",id,Types.INTEGER);
+			TradeMark tm = this.queryFirst(oql);
 			TradeMarkCase tmc = tm.getTradeMarkCase();
 			List<UploadAttachment> uas = tmc.getUploadAttachments();
 			boolean boo = true;
