@@ -31,7 +31,7 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
         		IMessageBox.error("【身份证】格式错误");
         		return false;
         	        }
-        	var x=/["省"|"上海市"|"天津市"|"重庆市"|"内蒙古"|"广西"|"宁夏"|"新疆"|"西藏"|"内蒙古自治区"|"新疆维吾尔自治区"|" 广西壮族自治区"|"宁夏回族自治区"|"西藏自治区"]/g.test(applierAddress);
+        	var x=/["省"|"北京市"|"上海市"|"天津市"|"重庆市"|"内蒙古"|"广西"|"宁夏"|"新疆"|"西藏"|"内蒙古自治区"|"新疆维吾尔自治区"|" 广西壮族自治区"|"宁夏回族自治区"|"西藏自治区"]/g.test(applierAddress);
         	if(!x){
         		IMessageBox.error("请检查申请人地址，必须出现省市县（区）三级！");
         		return false;

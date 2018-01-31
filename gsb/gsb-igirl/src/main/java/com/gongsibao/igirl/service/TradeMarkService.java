@@ -500,13 +500,14 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 				step7.setPicPath(this.getTradePictAttachment(tm, shareGroupToTradeMarkMap).get("fileUrl_color"));
 				step7.setPicName(this.getTradePictAttachment(tm, shareGroupToTradeMarkMap).get("fileName_color"));
 				//是否用下方的黑白按钮
-				step7.setIsBlack("true");
+				//Yuxi：这里必须逆向处理一下，和之前的机器人兼容
+				step7.setIsBlack("false");
 				step7.setBlackPath(this.getTradePictAttachment(tm,shareGroupToTradeMarkMap).get("fileUrl_black"));
 				step7.setBlackName(this.getTradePictAttachment(tm,shareGroupToTradeMarkMap).get("fileName_black"));
 			}else {
 				step7.setPicPath(this.getTradePictAttachment(tm, shareGroupToTradeMarkMap).get("fileUrl_black"));
 				step7.setPicName(this.getTradePictAttachment(tm, shareGroupToTradeMarkMap).get("fileName_black"));
-				step7.setIsBlack("false");
+				step7.setIsBlack("true");
 				step7.setBlackPath("");
 				step7.setBlackName("");
 			}

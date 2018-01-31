@@ -1,10 +1,9 @@
 package com.gongsibao.entity.igirl.baseinfo;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.joda.time.DateTime;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Exclusive;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
-import org.netsharp.entity.CatEntity;
 import org.netsharp.entity.Entity;
 
 import java.util.ArrayList;
@@ -21,10 +20,12 @@ public class NCLOne extends Entity {
     @Column(name="memo",header="说明",size = 255)
     private String memo;
 
-  
 
-	@Column(name="period",header="期间")
-    private String period=DateTime.now().toString("yyyyMM");
+    @Column(name="ncl_batch_id",header="期间ID")
+    private Integer nclBatchId = -1;
+
+    @Reference(foreignKey="nclBatchId",header="期间")
+    private NclBatch nclBatch;
 
     @Exclusive
     @JsonIgnore
@@ -62,11 +63,20 @@ public class NCLOne extends Entity {
     public void setNclTwos(List<NCLTwo> nclTwos) {
         this.nclTwos = nclTwos;
     }
-    public String getPeriod() {
-  		return period;
-  	}
 
-  	public void setPeriod(String period) {
-  		this.period = period;
-  	}
+    public Integer getNclBatchId() {
+        return nclBatchId;
+    }
+
+    public void setNclBatchId(Integer nclBatchId) {
+        this.nclBatchId = nclBatchId;
+    }
+
+    public NclBatch getNclBatch() {
+        return nclBatch;
+    }
+
+    public void setNclBatch(NclBatch nclBatch) {
+        this.nclBatch = nclBatch;
+    }
 }

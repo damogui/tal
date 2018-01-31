@@ -24,7 +24,7 @@ com.gongsibao.gardian.web.DeviceFormPart = org.netsharp.panda.commerce.FormPart.
             if(IsVain(memory)||IsVain(core)||IsVain(hdd)||IsVain(cloudhdd)){
                 if($("#deviceType").val()=="0"||$("#deviceType").val()=="1")
                 {
-                    alert("内存、CPU、硬盘、云盘参数必须填写。");
+                    IMessageBox.error("内存、CPU、硬盘、云盘参数必须填写。");
                     return false;
                 }
                 else

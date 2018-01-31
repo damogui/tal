@@ -24,15 +24,16 @@ public class SupplierDepartment extends CatEntity{
 
 	@Reference(foreignKey = "supplierId", header = "服务商")
 	private Supplier supplier;
-
-    @Subs(foreignKey = "departmentId", header = "部门服务地区范围", subType = DepartmentServiceProduct.class)
-    private List<DepartmentServiceProduct> serviceProducts;
-
+	
     @Column(name = "customer_type", header = "所属分组类别（1：新客户  2：老客户）")
     private TaskCustomerType customerType;
 
     @Column(name = "type", header = "类型：1自营，2平台;3不限")
     private SupplierType type = SupplierType.UNLIMITED;
+
+    @Subs(foreignKey = "departmentId", header = "部门服务地区范围", subType = DepartmentServiceProduct.class)
+    private List<DepartmentServiceProduct> serviceProducts;
+
 
     public Integer getSupplierId() {
 		return supplierId;
