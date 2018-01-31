@@ -11,6 +11,7 @@ import com.gongsibao.panda.crm.workspace.sys.SysDepartmentWorkspaceTest;
 public class SupplierDepartmentWorkspaceTest extends SysDepartmentWorkspaceTest{
 
 	public void setup() {
+		
 		super.setup();
 		urlList = "/operation/supplier/department/list";
 		urlForm = "/operation/supplier/department/form";
@@ -20,6 +21,8 @@ public class SupplierDepartmentWorkspaceTest extends SysDepartmentWorkspaceTest{
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_Operation_Supplier_Department";
 		formOpenMode = OpenMode.WINDOW;
+		openWindowWidth = 1000;
+		openWindowHeight = 600;
 		listPartImportJs="/gsb/crm/sys/js/sys-department-list-part.js|/gsb/gsb.custom.query.controls.js";
 		listPartJsController = SysDepartmentTreeGridPart.class.getName();
 		listPartServiceController = SysDepartmentTreeGridPart.class.getName();

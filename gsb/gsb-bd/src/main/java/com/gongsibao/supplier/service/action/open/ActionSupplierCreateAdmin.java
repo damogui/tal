@@ -19,11 +19,11 @@ import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.util.ReflectManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
-import com.gongsibao.entity.supplier.DepartmentServiceProduct;
+import com.gongsibao.entity.supplier.DepartmentProduct;
 import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
-import com.gongsibao.entity.supplier.SupplierServiceProduct;
+import com.gongsibao.entity.supplier.SupplierProduct;
 import com.gongsibao.entity.supplier.dict.SupplierStatus;
 import com.gongsibao.supplier.base.ISupplierDepartmentService;
 import com.gongsibao.supplier.service.SupplierService;
@@ -156,13 +156,13 @@ public class ActionSupplierCreateAdmin implements IAction {
 			department.setType(supplier.getType());
 
 			// 带入服务范围
-			DepartmentServiceProduct departmentProduct = null;
+			DepartmentProduct departmentProduct = null;
 
-			List<DepartmentServiceProduct> departmentProductList = new ArrayList<DepartmentServiceProduct>();
-			List<SupplierServiceProduct> supplierProductList = supplier.getServiceProducts();
-			for (SupplierServiceProduct supplierProduct : supplierProductList) {
+			List<DepartmentProduct> departmentProductList = new ArrayList<DepartmentProduct>();
+			List<SupplierProduct> supplierProductList = supplier.getServiceProducts();
+			for (SupplierProduct supplierProduct : supplierProductList) {
 
-				departmentProduct = new DepartmentServiceProduct();{
+				departmentProduct = new DepartmentProduct();{
 					
 					departmentProduct.toNew();
 					departmentProduct.setProductCategoryId1(supplierProduct.getProductCategoryId1());

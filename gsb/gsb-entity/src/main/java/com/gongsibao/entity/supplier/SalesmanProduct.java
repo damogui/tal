@@ -9,7 +9,7 @@ import org.netsharp.entity.Entity;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.product.Product;
 
-@Table(name="sp_salesman_service_scope",header="服务商业务员服务范围")
+@Table(name="sp_salesman_product",header="服务商业务员服务范围")
 public class SalesmanProduct extends Entity{
 
 	/**   

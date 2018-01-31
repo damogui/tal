@@ -21,7 +21,7 @@ com.gongsibao.crm.web.SalesmanProductDetailPart = org.netsharp.panda.commerce.De
     		var options = $(grid).datagrid('options');
     		
     		var departmentId = this.parent.viewModel.currentItem.departmentId;
-    		var filter = ' enabled____1 and type_id____'+record.id +' and id in (select product_id from Depart_service_product where department_id____'+departmentId+')';
+    		var filter = ' enabled____1 and type_id____'+record.id +' and id in (select product_id from sp_department_product where department_id____'+departmentId+')';
     		
     		options.url = '\/panda\/rest\/reference?code=CRM_Product&filter='+ filter;
     		$(grid).datagrid(options);	
