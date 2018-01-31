@@ -242,7 +242,7 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
     	var swtCustomerId = this.queryString("swtCustomerId");
     	if(swtCustomerId){
     		
-    		//商务通过来的
+    		// 商务通过来的
     		window.location.href=this.editUrl+'?id='+customerId;
     	}else{
     		
