@@ -37,7 +37,7 @@ public class SalesmanAllCustomerWorkspaceTest extends CustomerALLWorkspaceTest{
 		listPartJsController = NCustomerAllListPart.class.getName();
 		listPartServiceController = NCustomerAllListPart.class.getName();
 
-		listFilter = "id in (select min(id) from n_crm_customer_task where owner_id = '{userId}' group by customer_id)";
+		listFilter = "id in (select min(customer_id) from n_crm_customer_task where owner_id = '{userId}' group by customer_id)";
 	}
 	
 
