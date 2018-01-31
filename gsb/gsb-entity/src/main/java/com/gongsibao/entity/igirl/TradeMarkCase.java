@@ -91,6 +91,9 @@ public class TradeMarkCase extends Entity {
 
 	@Column(name = "proxy_company_name", header = "代理商名称")
 	private String proxyCompanyName;
+	
+	@Column(name = "case_proxy_contact_person", header = "代理联系人")
+	private String caseProxyContactPerson;
 
 	@Column(name = "bank_account", header = "开户行")
 	private String bankAccount;
@@ -364,5 +367,14 @@ public class TradeMarkCase extends Entity {
 	public void setSupplier(Supplier supplier) {
 		this.supplier = supplier;
 	}
+
+	public String getCaseProxyContactPerson() {
+		return caseProxyContactPerson;
+	}
+
+	public void setCaseProxyContactPerson(String caseProxyContactPerson) {
+		this.caseProxyContactPerson = caseProxyContactPerson;
+	}
+	
 	
 }

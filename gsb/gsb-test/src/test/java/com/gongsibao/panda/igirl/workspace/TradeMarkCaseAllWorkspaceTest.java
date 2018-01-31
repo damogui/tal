@@ -194,6 +194,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "momo", "交流记录", "客户留言", ControlTypes.TEXTAREA, false, false).setFullColumn(true);
 		addFormField(form, "advice", "客户异议", "客户留言", ControlTypes.TEXTAREA, false, true).setFullColumn(true);
 	
+		addFormField(form, "caseProxyContactPerson", "联系人", "代理人信息", ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "ywPhone", "电话", "代理人信息", ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "mailCode", "邮编",  "代理人信息", ControlTypes.NUMBER_BOX, true, false);
 		addFormField(form, "fax", "传真",  "代理人信息", ControlTypes.TEXT_BOX, true, false);
