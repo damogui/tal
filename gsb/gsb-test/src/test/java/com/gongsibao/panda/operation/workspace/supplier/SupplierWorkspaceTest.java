@@ -108,6 +108,8 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 			part.setDockStyle(DockType.LEFT);
 			part.setStyle("width:250px;");
 			part.setResourceNode(node);
+			part.setName("服务商分类");
+			part.setHeaderVisible(true);
 		}
 		workspace.getParts().add(part);
 
