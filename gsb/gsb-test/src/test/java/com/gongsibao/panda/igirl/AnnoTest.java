@@ -100,8 +100,6 @@ public class AnnoTest {
 		oql.setFilter("currentStatus=?");
 		oql.getParameters().add("currentStatus",true, Types.BOOLEAN);
 		NclBatch nb = iNclBatchService.queryFirst(oql);
-		List<NCLTwo> nclts = new ArrayList<>();
-
 		File file = new File("D:/igirl.json");
 		String str = FileUtils.readFileToString(file);
 		str = str.replaceAll("\n","").replaceAll("\\s*","");
@@ -109,9 +107,12 @@ public class AnnoTest {
 		JSONArray array = jsons.getJSONArray("data");
         NCLOne one = new NCLOne();
         one.toNew();
+		List<NCLTwo> nclTwos = new ArrayList<>();
         for (int i=0;i<array.size();i++){
             JSONObject json = array.getJSONObject(i);
             if (json.get("level").toString().equals("1")){
+				one = new NCLOne();
+				one.toNew();
                 one.setCode(json.getString("code"));
                 if(StringManager.isNullOrEmpty(json.getString("name"))) {
                     one.setName(json.getString("code"));
@@ -130,10 +131,17 @@ public class AnnoTest {
                 two.setThirdCode(json.getString("code"));
                 two.setNclOneId(one.getId());
                 two.setNclOne(one);
+				nclTwos.add(two);
 				System.out.println(two.getName());
-                nclts.add(two);
+				if (nclTwos.size()==1000){
+					inclTwoService.saves(nclTwos);
+					nclTwos = new ArrayList<>();
+				}
+				if (i==array.size()-1){
+					inclTwoService.saves(nclTwos);
+				}
             }
-            inclTwoService.saves(nclts);
         }
+		System.out.println("完成所有源数据导入");
 	}
 }

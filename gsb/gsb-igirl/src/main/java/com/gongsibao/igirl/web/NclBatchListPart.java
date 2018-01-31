@@ -38,7 +38,6 @@ public class NclBatchListPart extends ListPart{
         oql.setFilter("currentStatus=?");
         oql.getParameters().add("currentStatus",true, Types.BOOLEAN);
         NclBatch nb = iNclBatchService.queryFirst(oql);
-        List<NCLTwo> nclts = new ArrayList<>();
         URL url = new URL(str);
         BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(),"UTF-8"));
         String s;
@@ -48,40 +47,46 @@ public class NclBatchListPart extends ListPart{
         }
         reader.close();
         String text = json.toString();
-        JSONObject.fromObject(text);
-        JSONArray array = JSONObject.fromObject(str).getJSONArray("data");
+        text = text.replaceAll("\\s*","");
+        JSONArray array = JSONObject.fromObject(text).getJSONArray("data");
+        NCLOne one = new NCLOne();
+        one.toNew();
+        List<NCLTwo> nclTwos = new ArrayList<>();
         for (int i=0;i<array.size();i++){
             JSONObject js = array.getJSONObject(i);
-            System.out.println(js.toString());
-        }
-
-
-        /*NCLOne one = new NCLOne();
-        one.toNew();
-        for (int i=0;i<array.size();i++){
-            JSONObject json = array.getJSONObject(i);
-            if (json.get("level").toString().equals("1")){
-                one.setCode(json.getString("code"));
-                if(StringManager.isNullOrEmpty(json.getString("name"))) {
-                    one.setName(json.getString("code"));
+            if (js.get("level").toString().equals("1")){
+                one = new NCLOne();
+                one.toNew();
+                one.setCode(js.getString("code"));
+                if(StringManager.isNullOrEmpty(js.getString("name"))) {
+                    one.setName(js.getString("code"));
                 }else {
-                    one.setName(json.getString(json.getString("name")));
+                    one.setName(js.getString(js.getString("name")));
                 }
-                one.setMemo(json.getString("description"));
-                one.setPeriod(nb.getCode());
+                one.setMemo(js.getString("description"));
+                one.setNclBatchId(nb.getId());
                 one = inclOneService.save(one);
-            }else if(json.get("level").toString().equals("3")){
+            }else if(js.get("level").toString().equals("3")){
                 NCLTwo two = new NCLTwo();
                 two.toNew();
-                two.setCode(json.getString("pid"));
-                two.setName(json.getString("name"));
-                two.setThirdCode(json.getString("code"));
+                two.setCode(js.getString("pid"));
+                two.setName(js.getString("name"));
+                two.setThirdCode(js.getString("code"));
                 two.setNclOneId(one.getId());
                 two.setNclOne(one);
-                nclts.add(two);
+                nclTwos.add(two);
+                if (nclTwos.size()==1000){
+                    inclTwoService.saves(nclTwos);
+                    nclTwos = new ArrayList<>();
+                }
+                if (i==array.size()-1){
+                    inclTwoService.saves(nclTwos);
+                }
             }
-            inclTwoService.saves(nclts);
-        }*/
-        return "";
+        }
+        nb.setInsert(true);
+        nb.toPersist();
+        iNclBatchService.save(nb);
+        return "完成尼斯数据导入";
     }
 }
