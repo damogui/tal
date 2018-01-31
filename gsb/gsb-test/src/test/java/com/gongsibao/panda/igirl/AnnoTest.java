@@ -8,7 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.gongsibao.entity.igirl.baseinfo.IGirlConfig;
+import com.gongsibao.entity.igirl.baseinfo.NCLOne;
+import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
+import com.gongsibao.entity.igirl.baseinfo.NclBatch;
 import com.gongsibao.igirl.base.IGirlConfigService;
+import com.gongsibao.igirl.base.INCLOneService;
+import com.gongsibao.igirl.base.INCLTwoService;
 import com.gongsibao.igirl.utils.JsonFormatTool;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -21,6 +26,7 @@ import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.igirl.base.INclBatchService;
 import com.gongsibao.igirl.web.TradeMarkCaseController;
+import org.netsharp.util.StringManager;
 
 public class AnnoTest {
 	@Test
@@ -80,5 +86,53 @@ public class AnnoTest {
 			}
 		}
 		return arrays;
+	}
+
+	@Test
+	public void nclBatchToData() throws IOException {
+		INCLOneService inclOneService = ServiceFactory.create(INCLOneService.class);
+		INCLTwoService inclTwoService = ServiceFactory.create(INCLTwoService.class);
+		INclBatchService iNclBatchService = ServiceFactory.create(INclBatchService.class);
+		Oql oql = new Oql();
+		oql.setType(NclBatch.class);
+		oql.setSelects("NclBatch.*");
+		oql.setFilter("currentStatus=?");
+		oql.getParameters().add("currentStatus",true, Types.BOOLEAN);
+		NclBatch nb = iNclBatchService.queryFirst(oql);
+		List<NCLTwo> nclts = new ArrayList<>();
+
+		File file = new File("D:/igirl.json");
+		String str = FileUtils.readFileToString(file);
+		str = str.replaceAll("\n","").replaceAll("\\s*","");
+		JSONObject jsons = JSONObject.fromObject(str);
+		JSONArray array = jsons.getJSONArray("data");
+        NCLOne one = new NCLOne();
+        one.toNew();
+        for (int i=0;i<array.size();i++){
+            JSONObject json = array.getJSONObject(i);
+            if (json.get("level").toString().equals("1")){
+                one.setCode(json.getString("code"));
+                if(StringManager.isNullOrEmpty(json.getString("name"))) {
+                    one.setName(json.getString("code"));
+                }else {
+                    one.setName(json.getString(json.getString("name")));
+                }
+                one.setMemo(json.getString("description"));
+                one.setNclBatchId(nb.getId());
+                one = inclOneService.save(one);
+				System.out.println(one.getName());
+            }else if(json.get("level").toString().equals("3")){
+                NCLTwo two = new NCLTwo();
+                two.toNew();
+                two.setCode(json.getString("pid"));
+                two.setName(json.getString("name"));
+                two.setThirdCode(json.getString("code"));
+                two.setNclOneId(one.getId());
+                two.setNclOne(one);
+				System.out.println(two.getName());
+                nclts.add(two);
+            }
+            inclTwoService.saves(nclts);
+        }
 	}
 }
