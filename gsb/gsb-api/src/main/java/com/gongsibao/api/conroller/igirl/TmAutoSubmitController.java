@@ -30,4 +30,17 @@ public class TmAutoSubmitController {
 		return "error";
 	}
 
+    @GET
+    @Path("/tm/updateTradeMarkCode/{proxyCode}/{code}/{stateCode}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String updateTradeMarkCode(@PathParam("proxyCode") String proxyCode,
+                                      @PathParam("code") String code,
+                                      @PathParam("stateCode") Integer stateCode){
+	    TradeMark tm = tmService.tmRobotUpdateMarkCode(proxyCode,code,stateCode);
+	    if (tm!=null){
+	        return "success";
+        }
+	    return "error";
+    }
+
 }
