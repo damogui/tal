@@ -11,6 +11,7 @@ import com.gongsibao.entity.igirl.baseinfo.IGirlConfig;
 import com.gongsibao.entity.igirl.baseinfo.NCLOne;
 import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
 import com.gongsibao.entity.igirl.baseinfo.NclBatch;
+import com.gongsibao.entity.igirl.dict.ConfigType;
 import com.gongsibao.igirl.base.IGirlConfigService;
 import com.gongsibao.igirl.base.INCLOneService;
 import com.gongsibao.igirl.base.INCLTwoService;
@@ -37,27 +38,27 @@ public class AnnoTest {
 	}
 	@Test
 	public void getNclBatchData() {
-		IGirlConfigService service = ServiceFactory.create(IGirlConfigService.class);
+		IGirlConfigService iGirlConfigService = ServiceFactory.create(IGirlConfigService.class);
 		Oql oql = new Oql();
 		oql.setType(IGirlConfig.class);
 		oql.setSelects("IGirlConfig.*");
 		oql.setFilter("code = ?");
-		oql.getParameters().add("code","IGIRL_JSON_IN", Types.VARCHAR);
-		IGirlConfig in = service.queryFirst(oql);
+		oql.getParameters().add("code", ConfigType.IGIRL_JSON_IN.getText(), Types.VARCHAR);
+		IGirlConfig in = iGirlConfigService.queryFirst(oql);
 
 		oql = new Oql();
 		oql.setType(IGirlConfig.class);
 		oql.setSelects("IGirlConfig.*");
 		oql.setFilter("code = ?");
-		oql.getParameters().add("code","IGIRL_JSON_OUT",Types.VARCHAR);
-		IGirlConfig out = service.queryFirst(oql);
+		oql.getParameters().add("code",ConfigType.IGIRL_JSON_OUT.getText(),Types.VARCHAR);
+		IGirlConfig out = iGirlConfigService.queryFirst(oql);
 
 		oql = new Oql();
 		oql.setType(IGirlConfig.class);
 		oql.setSelects("IGirlConfig.*");
 		oql.setFilter("code = ?");
-		oql.getParameters().add("code","IGIRL_JSON_NAME",Types.VARCHAR);
-		IGirlConfig name = service.queryFirst(oql);
+		oql.getParameters().add("code",ConfigType.IGIRL_JSON_NAME.getText(),Types.VARCHAR);
+		IGirlConfig name = iGirlConfigService.queryFirst(oql);
 
 		List<JSONArray> arrays = fileToJson(in.getValue());
 		JSONArray data = new JSONArray();
@@ -71,7 +72,7 @@ public class AnnoTest {
 		System.out.println("获取数据源文件成功,路径："+out.getValue()+name.getValue());
 	}
 
-	public static List<JSONArray> fileToJson(String filepath){
+	public List<JSONArray> fileToJson(String filepath){
 		List<JSONArray> arrays = new ArrayList<>();
 		File file = new File(filepath);
 		String[] files = file.list();
