@@ -2,7 +2,7 @@ System.Declare("org.netsharp.scrum.web");
 
 org.netsharp.scrum.web.StoryTraceFormPart = org.netsharp.panda.commerce.FormPart.Extends({
     //-----------------------
-    // add
+    // add 
     //----------------------
     add: function () {
 
