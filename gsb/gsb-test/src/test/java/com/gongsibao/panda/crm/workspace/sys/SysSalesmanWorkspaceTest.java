@@ -285,7 +285,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 	private void addScopesDetailPart(PWorkspace workspace) {
 
 		ResourceNode node = this.resourceService.byCode("GSB_CRM_SYS_SALESMAN_Product");
-		PDatagrid datagrid = new PDatagrid(node, "添加服务范围");
+		PDatagrid datagrid = new PDatagrid(node, "服务范围");
 		{
 			PDatagridColumn column = null;
 			addColumn(datagrid, "productCategory1.name", "一级分类", ControlTypes.TEXT_BOX, 100, false);

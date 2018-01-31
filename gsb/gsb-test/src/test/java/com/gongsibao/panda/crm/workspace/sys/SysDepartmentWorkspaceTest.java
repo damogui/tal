@@ -83,7 +83,7 @@ public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
 	protected PForm createForm(ResourceNode node) {
 
 		PForm form = super.createForm(node);
-		form.setColumnCount(1);
+		form.setColumnCount(2);
 		addFormField(form, "name", "名称", null, ControlTypes.TEXT_BOX, true);
 		addFormField(form, "customerType", "分组类别", null, ControlTypes.ENUM_BOX, true);
 		
@@ -114,8 +114,9 @@ public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
     private void addScopesDetailPart(PWorkspace workspace) {
 
         ResourceNode node = this.resourceService.byCode("GSB_CRM_SYS_Department_Product");
-        PDatagrid datagrid = new PDatagrid(node, "添加服务范围");
+        PDatagrid datagrid = new PDatagrid(node, "服务范围");
         {
+        	datagrid.setShowTitle(true);
             PDatagridColumn column = null;
             addColumn(datagrid, "productCategory1.name", "一级分类", ControlTypes.TEXT_BOX, 100, false);
             addColumn(datagrid, "productCategory2.name", "二级分类", ControlTypes.TEXT_BOX, 100, false);

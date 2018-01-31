@@ -3,7 +3,7 @@ package com.gongsibao.supplier.service;
 import org.netsharp.communication.Service;
 import org.netsharp.service.PersistableService;
 
-import com.gongsibao.entity.supplier.DepartmentServiceProduct;
+import com.gongsibao.entity.supplier.DepartmentProduct;
 import com.gongsibao.supplier.base.IDepartmentProductService;
 
 /**
@@ -11,10 +11,10 @@ import com.gongsibao.supplier.base.IDepartmentProductService;
  */
 
 @Service
-public class DepartmentProductService  extends PersistableService<DepartmentServiceProduct> implements IDepartmentProductService {
+public class DepartmentProductService  extends PersistableService<DepartmentProduct> implements IDepartmentProductService {
 
     public DepartmentProductService() {
         super();
-        this.type = DepartmentServiceProduct.class;
+        this.type = DepartmentProduct.class;
     }
 }

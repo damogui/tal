@@ -181,10 +181,12 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "departLevel", "部门级次", null, ControlTypes.NUMBER_BOX, false, true);
 		addFormField(form, "departmentCount", "部门数量", null, ControlTypes.NUMBER_BOX, false, true);
 		addFormField(form, "salesmanCount", "员工数量", null, ControlTypes.NUMBER_BOX, false, true);
+		addFormField(form, "customerType", "客户类别 ", null, ControlTypes.ENUM_BOX, false, false);
 		addFormField(form, "pushReport", "是否推送报表", null, ControlTypes.SWITCH_BUTTON, false, false);
 		addFormField(form, "autoAssign", "是否推自动分配", null, ControlTypes.SWITCH_BUTTON, false, false);
 		addFormField(form, "autoRelease", "是否推自动释放", null, ControlTypes.SWITCH_BUTTON, false, false);
 		addFormField(form, "enableDepart", "是否启用部门", null, ControlTypes.SWITCH_BUTTON, false, false);
+		
 		return form;
 	}
 
@@ -246,7 +248,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 	private void createIntenProductPart(PWorkspace workspace) {
 		// 需要配置NCustomerProduct资源
 		ResourceNode node = this.resourceService.byCode("GSB_Operation_Supplier_Service_Product");
-		PDatagrid datagrid = new PDatagrid(node, "服务产品");
+		PDatagrid datagrid = new PDatagrid(node, "服务范围");
 		{
 			addColumn(datagrid, "productCategory1.name", "一级分类", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "productCategory2.name", "二级分类", ControlTypes.TEXT_BOX, 100, false);
@@ -260,7 +262,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 			form.toNew();
 			form.setResourceNode(node);
 			form.setColumnCount(1);
-			form.setName("服务产品");
+			form.setName("服务范围");
 
 			PFormField formField = null;
 			formField = addFormField(form, "productCategory1.name", "一级分类", null, ControlTypes.CUSTOM, true, false);
@@ -306,7 +308,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		PPart part = new PPart();
 		{
 			part.toNew();
-			part.setName("服务产品");
+			part.setName("服务范围");
 			part.setCode("serviceProducts");
 			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
 			part.setRelationRole("serviceProducts");
