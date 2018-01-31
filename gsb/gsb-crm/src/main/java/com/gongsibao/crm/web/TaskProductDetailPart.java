@@ -20,10 +20,10 @@ public class TaskProductDetailPart extends DetailPart {
 	 * @return: List<Dict>
 	 * @throws
 	 */
-	public List<Dict> queryByProductCategoryId1(Integer productCategoryId1) {
+	public List<Dict> queryByFirstProductCategoryId(Integer parentId) {
 
 		IDictService service = ServiceFactory.create(IDictService.class);
-		List<Dict> list = service.byParentId(productCategoryId1);
+		List<Dict> list = service.byParentId(parentId);
 		return list;
 	}
 

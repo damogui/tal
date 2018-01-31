@@ -12,11 +12,6 @@ public class TradeMarkListPart extends ListPart{
     ITradeMarkService service = ServiceFactory.create(ITradeMarkService.class);
 
     public String updateMarkState(String[] ids,String type){
-        StringBuffer s = new StringBuffer("");
-        for (int i=0;i<ids.length-1;i++){
-            s.append(id).append(",");
-        }
-        s.append(ids[ids.length-1]);
-        return service.updateMarkState(s.toString(),type);
+        return service.updateMarkState(String.join(",", ids),type);
     }
 }

@@ -6,14 +6,16 @@ com.gongsibao.igirl.web.NclBatchListPart = org.netsharp.panda.commerce.ListPart.
 	},
     nclBatch:function(){
         var rows=this.getSelections();
-        for(var i=0;i<rows.length;i++){
-            var url = rows[i].url;
+        var url = rows[0].url;
+        var isInsert = rows[0].isInsert;
+        if(isInsert==true){
+            IMessageBox.info("当前数据源已经被导入");
+        }else{
+            var that = this;
             this.invokeService("nclBatchToData",[url],function (message) {
-                alert(message);
+                IMessageBox.info(message);
+                that.reload();
             })
         }
-        /*this.invokeService("getNclBatchData",[],function (message) {
-            alert(message);
-        })*/
 	}
 });

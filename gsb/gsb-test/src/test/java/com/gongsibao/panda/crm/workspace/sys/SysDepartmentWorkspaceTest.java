@@ -19,7 +19,7 @@ import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.controls.CityComboBox;
 import com.gongsibao.controls.DictComboBox;
-import com.gongsibao.crm.web.TaskProductDetailPart;
+import com.gongsibao.crm.web.DepartmentProductDetailPart;
 import com.gongsibao.crm.web.SysDepartmentTreeGridPart;
 import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.supplier.SupplierDepartment;
@@ -131,22 +131,25 @@ public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
             form.setResourceNode(node);
             form.toNew();
             form.setColumnCount(1);
-            form.setName("添加服务范围");
+            form.setName("服务范围");
 
             PFormField formField = null;
             formField = addFormField(form, "productCategory1.name", "一级分类", null, ControlTypes.CUSTOM, true, false);
             {
                 formField.setWidth(200);
                 formField.setCustomControlType(DictComboBox.class.getName());
-                formField.setTroikaTrigger("controllerserviceProducts.productCategory1Select(record);");
-                formField.setRefFilter("type=201 and pid=0");
+                formField.setTroikaTrigger("controllerserviceProducts.firstProductCategorySelect(record);");
+//                formField.setRefFilter("type=201 and pid=0");
+                
+                //这里先不查询，前端要根据上级部门进行过滤
+                formField.setRefFilter("1=2");
             }
 
             formField = addFormField(form, "productCategory2.name", "二级分类", null, ControlTypes.CUSTOM, true, false);
             {
                 formField.setWidth(200);
                 formField.setCustomControlType(DictComboBox.class.getName());
-                formField.setTroikaTrigger("controllerserviceProducts.productCategory2Select(record);");
+                formField.setTroikaTrigger("controllerserviceProducts.secondProductCategorySelect(record);");
                 formField.setRefFilter("type=201 and pid<>0");
             }
 
@@ -158,20 +161,22 @@ public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
             formField = addFormField(form, "province.name", "省份", ControlTypes.CUSTOM, false, false);
             {
                 formField.setWidth(200);
-                formField.setCustomControlType(CityComboBox.class.getName());
-                formField.setDataOptions("level:1,changeCtrlId:'city_name'");
+                formField.setCustomControlType(DictComboBox.class.getName());
+                formField.setTroikaTrigger("controllerserviceProducts.provinceSelect(record);");
+                //formField.setDataOptions("level:1,changeCtrlId:'city_name'");
             }
             formField = addFormField(form, "city.name", "城市", ControlTypes.CUSTOM, false, false);
             {
                 formField.setWidth(200);
-                formField.setCustomControlType(CityComboBox.class.getName());
-                formField.setDataOptions("level:2,changeCtrlId:'county_name'");
+                formField.setCustomControlType(DictComboBox.class.getName());
+                formField.setTroikaTrigger("controllerserviceProducts.citySelect(record);");
+                //formField.setDataOptions("level:2,changeCtrlId:'county_name'");
             }
             formField = addFormField(form, "county.name", "区/县", ControlTypes.CUSTOM, false, false);
             {
                 formField.setWidth(200);
-                formField.setCustomControlType(CityComboBox.class.getName());
-                formField.setDataOptions("level:3");
+                formField.setCustomControlType(DictComboBox.class.getName());
+                //formField.setDataOptions("level:3");
             }
 
         }
@@ -188,8 +193,8 @@ public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
             part.setDatagrid(datagrid);
             part.setDockStyle(DockType.DOCUMENTHOST);
             part.setToolbar("panda/datagrid/detail");
-            part.setJsController(TaskProductDetailPart.class.getName());
-            part.setServiceController(TaskProductDetailPart.class.getName());
+            part.setJsController(DepartmentProductDetailPart.class.getName());
+            part.setServiceController(DepartmentProductDetailPart.class.getName());
             part.setWindowWidth(400);
             part.setWindowHeight(450);
             part.setForm(form);

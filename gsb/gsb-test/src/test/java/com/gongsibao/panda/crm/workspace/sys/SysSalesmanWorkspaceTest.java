@@ -25,9 +25,9 @@ import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.controls.CityComboBox;
 import com.gongsibao.controls.DictComboBox;
+import com.gongsibao.crm.web.SalesmanProductDetailPart;
 import com.gongsibao.crm.web.SysSalesmanListPart;
 import com.gongsibao.crm.web.SysSalesmanTreePart;
-import com.gongsibao.crm.web.TaskProductDetailPart;
 import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.supplier.Salesman;
 
@@ -302,23 +302,26 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 			form.setResourceNode(node);
 			form.toNew();
 			form.setColumnCount(1);
-			form.setName("添加服务范围");
+			form.setName("服务范围");
 
 			PFormField formField = null;
 			formField = addFormField(form, "productCategory1.name", "一级分类", null, ControlTypes.CUSTOM, true, false);
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
-				formField.setTroikaTrigger("controllerproducts.productCategory1Select(record);");
-				formField.setRefFilter("type=201 and pid=0");
+				formField.setTroikaTrigger("controllerproducts.firstProductCategorySelect(record);");
+//				formField.setRefFilter("type=201 and pid=0");
+				
+                //这里先不查询，前端要根据上级部门进行过滤
+                formField.setRefFilter("1=2");
 			}
 
 			formField = addFormField(form, "productCategory2.name", "二级分类", null, ControlTypes.CUSTOM, true, false);
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
-				formField.setTroikaTrigger("controllerproducts.productCategory2Select(record);");
-				formField.setRefFilter("type=201 and pid<>0");
+				formField.setTroikaTrigger("controllerproducts.secondProductCategorySelect(record);");
+//				formField.setRefFilter("type=201 and pid<>0");
 			}
 
 			formField = addFormFieldRefrence(form, "product.name", "产品", null, "CRM_" + Product.class.getSimpleName(), true, false);
@@ -329,20 +332,22 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 			formField = addFormField(form, "province.name", "省份", ControlTypes.CUSTOM, false, false);
 			{
 				formField.setWidth(200);
-				formField.setCustomControlType(CityComboBox.class.getName());
-				formField.setDataOptions("level:1,changeCtrlId:'city_name'");
+				formField.setCustomControlType(DictComboBox.class.getName());
+				formField.setTroikaTrigger("controllerproducts.provinceSelect(record);");
+//				formField.setDataOptions("level:1,changeCtrlId:'city_name'");
 			}
 			formField = addFormField(form, "city.name", "城市", ControlTypes.CUSTOM, false, false);
 			{
 				formField.setWidth(200);
-				formField.setCustomControlType(CityComboBox.class.getName());
-				formField.setDataOptions("level:2,changeCtrlId:'county_name'");
+				formField.setCustomControlType(DictComboBox.class.getName());
+				formField.setTroikaTrigger("controllerproducts.citySelect(record);");
+//				formField.setDataOptions("level:2,changeCtrlId:'county_name'");
 			}
 			formField = addFormField(form, "county.name", "区/县", ControlTypes.CUSTOM, false, false);
 			{
 				formField.setWidth(200);
-				formField.setCustomControlType(CityComboBox.class.getName());
-				formField.setDataOptions("level:3");
+				formField.setCustomControlType(DictComboBox.class.getName());
+				//formField.setDataOptions("level:3");
 			}
 
 		}
@@ -359,8 +364,8 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("panda/datagrid/detail");
-			part.setJsController("com.gongsibao.crm.web.SalesmaProductDetailPart");
-			part.setServiceController(TaskProductDetailPart.class.getName());
+			part.setJsController(SalesmanProductDetailPart.class.getName());
+			part.setServiceController(SalesmanProductDetailPart.class.getName());
 			part.setWindowWidth(400);
 			part.setWindowHeight(450);
 			part.setForm(form);
