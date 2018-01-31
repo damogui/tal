@@ -7,6 +7,7 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
 import com.gongsibao.entity.bd.Dict;
+import com.gongsibao.entity.product.Product;
 
 @Table(name="sp_service_product",header="服务商服务商品")
 public class SupplierServiceProduct extends Entity{
@@ -35,11 +36,11 @@ public class SupplierServiceProduct extends Entity{
 	@Reference(foreignKey = "productCategoryId2", header = "产品二级分类")
 	private Dict productCategory2;
 	
-    @Column(name="product_id")
-    private Integer productId;
-    
-    @Reference(foreignKey="productId",header="产品")
-    private Dict product;
+	@Column(name = "product_id")
+	private Integer productId;
+
+	@Reference(foreignKey = "productId", header = "产品")
+	private Product product;
     
 	@Column(name = "province_id")
 	private Integer provinceId;
@@ -164,11 +165,11 @@ public class SupplierServiceProduct extends Entity{
 		this.productId = productId;
 	}
 
-	public Dict getProduct() {
+	public Product getProduct() {
 		return product;
 	}
 
-	public void setProduct(Dict product) {
+	public void setProduct(Product product) {
 		this.product = product;
 	}
 }

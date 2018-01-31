@@ -1,6 +1,8 @@
 package com.gongsibao.entity.supplier;
 
 import com.gongsibao.entity.bd.Dict;
+import com.gongsibao.entity.product.Product;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
@@ -36,11 +38,11 @@ public class DepartmentServiceProduct  extends Entity {
     @Reference(foreignKey = "productCategoryId2", header = "产品二级分类")
     private Dict productCategory2;
 
-    @Column(name="product_id")
-    private Integer productId;
+	@Column(name = "product_id")
+	private Integer productId;
 
-    @Reference(foreignKey="productId",header="产品")
-    private Dict product;
+	@Reference(foreignKey = "productId", header = "产品")
+	private Product product;
 
     @Column(name = "province_id")
     private Integer provinceId;
@@ -151,11 +153,11 @@ public class DepartmentServiceProduct  extends Entity {
         this.productId = productId;
     }
 
-    public Dict getProduct() {
+    public Product getProduct() {
         return product;
     }
 
-    public void setProduct(Dict product) {
+    public void setProduct(Product product) {
         this.product = product;
     }
 

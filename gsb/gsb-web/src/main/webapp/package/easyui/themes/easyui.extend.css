@@ -985,3 +985,11 @@ div.h10{
     background-color: #1E7CB5 !important;
     color: #fff;
 }
+
+.m-btn-active,
+.m-btn-plain-active,
+.s-btn-active,
+.s-btn-plain-active {
+  background: #1E7BB6;
+  color: #fff;
+}

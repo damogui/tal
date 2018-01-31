@@ -115,5 +115,35 @@ public class SupplierService extends PersistableService<Supplier> implements ISu
         return entity;
     }
 
+	@Override
+	public Supplier byId(Object id) {
 
+		String selectFields = getSelectFullFields();
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects(selectFields);
+			oql.setFilter("id=?");
+			oql.getParameters().add("id", id, Types.INTEGER);
+		}
+
+		Supplier entity = this.queryFirst(oql);
+		return entity;
+	}
+
+	private String getSelectFullFields() {
+
+		StringBuilder builder = new StringBuilder();
+		builder.append("Supplier.*,");
+		builder.append("Supplier.serviceProducts.*,");
+		builder.append("Supplier.serviceProducts.productCategory1.{id,name},");
+		builder.append("Supplier.serviceProducts.productCategory2.{id,name},");
+		builder.append("Supplier.serviceProducts.product.{id,name},");
+		builder.append("Supplier.serviceProducts.province.{id,name},");
+		builder.append("Supplier.serviceProducts.city.{id,name},");
+		builder.append("Supplier.serviceProducts.county.{id,name},");
+		builder.append("Supplier.modules.*,");
+		builder.append("Supplier.modules.functionModule.*");
+		return builder.toString();
+	}
 }
