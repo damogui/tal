@@ -46,6 +46,8 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		listPartName = "员工管理";
 		resourceNodeCode = "GSB_CRM_SYS_SALESMAN";
 		formOpenMode = OpenMode.WINDOW;
+		openWindowHeight = 700;
+		openWindowWidth = 900;
 		listPartImportJs = "/gsb/crm/sys/js/sys-salesman-list-part.js|/gsb/gsb.custom.query.controls.js";
 		listPartJsController = SysSalesmanListPart.class.getName();
 		listPartServiceController = SysSalesmanListPart.class.getName();
@@ -114,10 +116,11 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		PForm form = super.createForm(node);
 		form.setColumnCount(3);
 
-		String groupName = "基本信息";
+		String groupName = null;
+		//String groupName = "基本信息";
 		addFormField(form, "name", "姓名", groupName, ControlTypes.TEXT_BOX, true);
 		addFormField(form, "mobile", "手机号", groupName, ControlTypes.TEXT_BOX, true);
-		PFormField formField = addFormField(form, "loginName", "帐号", null, ControlTypes.TEXT_BOX, false);
+		PFormField formField = addFormField(form, "loginName", "帐号", groupName, ControlTypes.TEXT_BOX, false);
 		{
 
 			formField.setReadonly(true);
@@ -128,14 +131,16 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "quitDate", "离职日期", groupName, ControlTypes.DATE_BOX, false);
 		addFormField(form, "disabled", "停用", groupName, ControlTypes.SWITCH_BUTTON, false, true);
 
-		groupName = "属性设置";
-		addFormField(form, "receiving", "自动接受任务", groupName, ControlTypes.SWITCH_BUTTON, false, false);
-		addFormField(form, "isLeader", "主管", groupName, ControlTypes.SWITCH_BUTTON, false, false);
+		//groupName = "属性设置";
 		addFormField(form, "dayMax", "日分配上限", groupName, ControlTypes.NUMBER_BOX, false, false);
 
 		addFormField(form, "weekMax", "周分配上限", groupName, ControlTypes.NUMBER_BOX, false, false);
 
 		addFormField(form, "xabMax", "XAB类上限", groupName, ControlTypes.NUMBER_BOX, false, false);
+		
+		addFormField(form, "receiving", "自动接受任务", groupName, ControlTypes.SWITCH_BUTTON, false, false);
+		
+		addFormField(form, "isLeader", "主管", groupName, ControlTypes.SWITCH_BUTTON, false, false);
 
 		// 这里还有很多属性，
 
@@ -200,6 +205,9 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 			part.setRelationRole("departmentId");// 点击父之后，刷新自己所传的参数
 			part.setResourceNode(node2);
 			part.setUrl(urlForm);
+			part.setOpenMode(formOpenMode);
+			part.setWindowHeight(700);
+			part.setWindowWidth(1000);
 			part.setToolbar(listToolbarPath);
 			part.setJsController(listPartJsController);
 			part.setServiceController(listPartServiceController);
@@ -281,6 +289,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		{
 			part.setName("基本信息");
 			part.setDockStyle(DockType.TOP);
+			part.setHeight(350);
 		}
 	}
 

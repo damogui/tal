@@ -38,7 +38,9 @@ public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
 		formPartName = "部门信息";
 		listPartName = "部门管理";
 		resourceNodeCode = "GSB_CRM_SYS_DEPARTMENT";
-		formOpenMode = OpenMode.TABS;
+		formOpenMode = OpenMode.WINDOW;
+		openWindowHeight = 650;
+		openWindowWidth = 900;
 		listPartImportJs="/gsb/crm/sys/js/sys-department-list-part.js|/gsb/gsb.custom.query.controls.js";
 		listPartJsController = SysDepartmentTreeGridPart.class.getName();
 		listPartServiceController = SysDepartmentTreeGridPart.class.getName();
@@ -140,9 +142,9 @@ public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
             addColumn(datagrid, "productCategory1.name", "一级分类", ControlTypes.TEXT_BOX, 100, false);
             addColumn(datagrid, "productCategory2.name", "二级分类", ControlTypes.TEXT_BOX, 100, false);
             addColumn(datagrid, "product.name", "产品", ControlTypes.TEXT_BOX, 200, false);
-            addColumn(datagrid, "province.name", "省", ControlTypes.TEXT_BOX, 150, false);
-            addColumn(datagrid, "city.name", "市", ControlTypes.TEXT_BOX, 150, false);
-            addColumn(datagrid, "county.name", "区", ControlTypes.TEXT_BOX, 150, false);
+            addColumn(datagrid, "province.name", "省", ControlTypes.TEXT_BOX, 100, false);
+            addColumn(datagrid, "city.name", "市", ControlTypes.TEXT_BOX, 100, false);
+            addColumn(datagrid, "county.name", "区", ControlTypes.TEXT_BOX, 100, false);
 
         }
 
