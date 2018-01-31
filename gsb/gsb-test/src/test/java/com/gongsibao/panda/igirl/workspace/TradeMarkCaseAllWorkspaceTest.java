@@ -5,6 +5,7 @@ import com.gongsibao.entity.igirl.dict.AttachmentCat;
 import com.gongsibao.entity.igirl.dict.FileType;
 import com.gongsibao.entity.igirl.dict.MarkState;
 import com.gongsibao.entity.igirl.dict.ShareGroup;
+import com.gongsibao.igirl.web.TradeMarkCaseListPart;
 import com.gongsibao.igirl.web.TradeMarkCasePart;
 import com.gongsibao.igirl.web.TradeMarkDetailPart;
 import com.gongsibao.igirl.web.UploadAttachmentDetailPart;
@@ -38,6 +39,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = "商标方案";
 		resourceNodeCode = "IGIRL_All_TradeMarkCase";
+		listPartServiceController=TradeMarkCaseListPart.class.getName();
 		formServiceController = TradeMarkCasePart.class.getName();
 		formJsController = TradeMarkCasePart.class.getName();
 		formJsImport = "/gsb/igirl/js/markcase.form.part.js";

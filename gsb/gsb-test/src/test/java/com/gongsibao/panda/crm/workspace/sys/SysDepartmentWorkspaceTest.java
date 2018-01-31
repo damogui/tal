@@ -1,5 +1,6 @@
 package com.gongsibao.panda.crm.workspace.sys;
 
+import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
@@ -14,10 +15,10 @@ import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PPart;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.entity.PWorkspace;
+import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
-import com.gongsibao.controls.CityComboBox;
 import com.gongsibao.controls.DictComboBox;
 import com.gongsibao.crm.web.DepartmentProductDetailPart;
 import com.gongsibao.crm.web.SysDepartmentTreeGridPart;
@@ -34,13 +35,33 @@ public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
 		entity = SupplierDepartment.class;
 		meta = MtableManager.getMtable(entity);
 		listPartType = PartType.TREEGRID_PART.getId();
-		formPartName = listPartName = meta.getName();
+		formPartName = "部门信息";
+		listPartName = "部门管理";
 		resourceNodeCode = "GSB_CRM_SYS_DEPARTMENT";
-		formOpenMode = OpenMode.TABS;
+		formOpenMode = OpenMode.WINDOW;
+		openWindowHeight = 650;
+		openWindowWidth = 900;
 		listPartImportJs="/gsb/crm/sys/js/sys-department-list-part.js|/gsb/gsb.custom.query.controls.js";
 		listPartJsController = SysDepartmentTreeGridPart.class.getName();
 		listPartServiceController = SysDepartmentTreeGridPart.class.getName();
         formJsImport = "/gsb/crm/sys/js/department-form.part.js|/gsb/gsb.customer.controls.js";
+        
+        listToolbarPath = "/crm/sys/supplier/department/toolbar";
+	}
+	
+	@Test
+	public void createToolbar() {
+		ResourceNode node = this.getResourceNode();
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			toolbar.setBasePath("panda/datagrid/edit");
+			toolbar.setPath(listToolbarPath);
+			toolbar.setName("部门管理");
+			toolbar.setResourceNode(node);
+		}
+		addToolbarItem(toolbar, "reload", "刷新", "fa-refresh", "reload()", null, 5);
+		toolbarService.save(toolbar);
 	}
 
 	@Override
@@ -121,9 +142,9 @@ public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
             addColumn(datagrid, "productCategory1.name", "一级分类", ControlTypes.TEXT_BOX, 100, false);
             addColumn(datagrid, "productCategory2.name", "二级分类", ControlTypes.TEXT_BOX, 100, false);
             addColumn(datagrid, "product.name", "产品", ControlTypes.TEXT_BOX, 200, false);
-            addColumn(datagrid, "province.name", "省", ControlTypes.TEXT_BOX, 150, false);
-            addColumn(datagrid, "city.name", "市", ControlTypes.TEXT_BOX, 150, false);
-            addColumn(datagrid, "county.name", "区", ControlTypes.TEXT_BOX, 150, false);
+            addColumn(datagrid, "province.name", "省", ControlTypes.TEXT_BOX, 100, false);
+            addColumn(datagrid, "city.name", "市", ControlTypes.TEXT_BOX, 100, false);
+            addColumn(datagrid, "county.name", "区", ControlTypes.TEXT_BOX, 100, false);
 
         }
 

@@ -417,6 +417,7 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		oql.setSelects("TradeMark.*,TradeMark.nclOne.*,TradeMark.tradeMarkCase.*,TradeMark.tradeMarkCase.uploadAttachments.*");
 		oql.setFilter("markState=?");
 		oql.getParameters().add("markState", MarkState.WAITCOMMIT.getValue(), Types.INTEGER);
+		oql.setOrderby("tradeMarkCase.urgency asc");
 		List<TradeMark> tms = this.queryList(oql);
 		// 查询出上传附件列表，然后构造一个案件共享组附件映射
 		Map<String, String> shareGroupToTradeMarkMap = this.buildCaseShareGroupToAttachFileMap();
@@ -564,6 +565,21 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		oql.setFilter("proxyCode = ?");
 		oql.getParameters().add("proxyCode",proxyCode,Types.INTEGER);
 		TradeMark tm = this.queryFirst(oql);
+		tm.setMarkState(MarkState.getItem(stateCode));
+		tm.toPersist();
+		tm = this.save(tm);
+		return tm;
+	}
+
+	@Override
+	public TradeMark tmRobotUpdateMarkCode(String proxyCode, String code, Integer stateCode) {
+		Oql oql = new Oql();
+		oql.setSelects("TradeMark.*");
+		oql.setType(TradeMark.class);
+		oql.setFilter("proxyCode = ?");
+		oql.getParameters().add("proxyCode",proxyCode,Types.INTEGER);
+		TradeMark tm = this.queryFirst(oql);
+		tm.setCode(code);
 		tm.setMarkState(MarkState.getItem(stateCode));
 		tm.toPersist();
 		tm = this.save(tm);

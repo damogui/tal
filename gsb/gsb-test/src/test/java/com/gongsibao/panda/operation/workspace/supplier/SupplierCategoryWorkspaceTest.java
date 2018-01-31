@@ -52,6 +52,7 @@ public class SupplierCategoryWorkspaceTest extends WorkspaceCreationBase{
 			toolbar.setResourceNode(node);
 		}
 		addToolbarItem(toolbar, "pathCode", "同步路径", "fa-recycle", "pathCode()", null, 5);
+		addToolbarItem(toolbar, "reload", "刷新", "fa-refresh", "reload()", null, 5);
 		toolbarService.save(toolbar);
 	}
 
