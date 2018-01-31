@@ -1,5 +1,6 @@
 package com.gongsibao.panda.crm.workspace.sys;
 
+import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
@@ -14,10 +15,10 @@ import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PPart;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.entity.PWorkspace;
+import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
-import com.gongsibao.controls.CityComboBox;
 import com.gongsibao.controls.DictComboBox;
 import com.gongsibao.crm.web.DepartmentProductDetailPart;
 import com.gongsibao.crm.web.SysDepartmentTreeGridPart;
@@ -41,6 +42,23 @@ public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
 		listPartJsController = SysDepartmentTreeGridPart.class.getName();
 		listPartServiceController = SysDepartmentTreeGridPart.class.getName();
         formJsImport = "/gsb/crm/sys/js/department-form.part.js|/gsb/gsb.customer.controls.js";
+        
+        listToolbarPath = "/crm/sys/supplier/department/toolbar";
+	}
+	
+	@Test
+	public void createToolbar() {
+		ResourceNode node = this.getResourceNode();
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			toolbar.setBasePath("panda/datagrid/edit");
+			toolbar.setPath(listToolbarPath);
+			toolbar.setName("部门管理");
+			toolbar.setResourceNode(node);
+		}
+		addToolbarItem(toolbar, "reload", "刷新", "fa-refresh", "reload()", null, 5);
+		toolbarService.save(toolbar);
 	}
 
 	@Override

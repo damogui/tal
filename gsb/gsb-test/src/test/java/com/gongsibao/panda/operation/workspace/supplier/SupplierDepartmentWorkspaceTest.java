@@ -26,5 +26,7 @@ public class SupplierDepartmentWorkspaceTest extends SysDepartmentWorkspaceTest{
 		listPartImportJs="/gsb/crm/sys/js/sys-department-list-part.js|/gsb/gsb.custom.query.controls.js";
 		listPartJsController = SysDepartmentTreeGridPart.class.getName();
 		listPartServiceController = SysDepartmentTreeGridPart.class.getName();
+		
+		listToolbarPath = "/operation/supplier/department/toolbar";
 	}
 }
