@@ -42,25 +42,25 @@ public class AnnoTest {
 		Oql oql = new Oql();
 		oql.setType(IGirlConfig.class);
 		oql.setSelects("IGirlConfig.*");
-		oql.setFilter("code = ?");
-		oql.getParameters().add("code", ConfigType.IGIRL_JSON_IN.getText(), Types.VARCHAR);
+		oql.setFilter("configType = ?");
+		oql.getParameters().add("configType", ConfigType.IGIRL_JSON_IN.getValue(), Types.INTEGER);
 		IGirlConfig in = iGirlConfigService.queryFirst(oql);
 
-		oql = new Oql();
-		oql.setType(IGirlConfig.class);
-		oql.setSelects("IGirlConfig.*");
-		oql.setFilter("code = ?");
-		oql.getParameters().add("code",ConfigType.IGIRL_JSON_OUT.getText(),Types.VARCHAR);
-		IGirlConfig out = iGirlConfigService.queryFirst(oql);
+		Oql oql1 = new Oql();
+		oql1.setType(IGirlConfig.class);
+		oql1.setSelects("IGirlConfig.*");
+		oql1.setFilter("configType = ?");
+		oql1.getParameters().add("configType",ConfigType.IGIRL_JSON_OUT.getValue(),Types.INTEGER);
+		IGirlConfig out = iGirlConfigService.queryFirst(oql1);
 
-		oql = new Oql();
-		oql.setType(IGirlConfig.class);
-		oql.setSelects("IGirlConfig.*");
-		oql.setFilter("code = ?");
-		oql.getParameters().add("code",ConfigType.IGIRL_JSON_NAME.getText(),Types.VARCHAR);
-		IGirlConfig name = iGirlConfigService.queryFirst(oql);
+		Oql oql2 = new Oql();
+		oql2.setType(IGirlConfig.class);
+		oql2.setSelects("IGirlConfig.*");
+		oql2.setFilter("configType = ?");
+		oql2.getParameters().add("configType",ConfigType.IGIRL_JSON_NAME.getValue(),Types.INTEGER);
+		IGirlConfig name = iGirlConfigService.queryFirst(oql2);
 
-		List<JSONArray> arrays = fileToJson(in.getValue());
+		List<JSONArray> arrays = fileToJson(in.getConfigValue());
 		JSONArray data = new JSONArray();
 		for (JSONArray array:arrays){
 			data.addAll(array);
@@ -68,8 +68,8 @@ public class AnnoTest {
 		JSONObject json = new JSONObject();
 		json.put("code",200);
 		json.put("data",data);
-		JsonFormatTool.createJsonFile(json.toString(),out.getValue(),name.getValue());
-		System.out.println("获取数据源文件成功,路径："+out.getValue()+name.getValue());
+		JsonFormatTool.createJsonFile(json.toString(),out.getConfigValue(),name.getConfigValue());
+		System.out.println("获取数据源文件成功,路径："+out.getConfigValue()+name.getConfigValue());
 	}
 
 	public List<JSONArray> fileToJson(String filepath){

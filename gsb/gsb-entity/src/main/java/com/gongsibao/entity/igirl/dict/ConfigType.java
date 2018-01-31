@@ -4,9 +4,9 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
 public enum ConfigType  implements IEnum {
-    IGIRL_JSON_IN(0,"IGIRL_JSON_IN", "数据源输入路径"),
-    IGIRL_JSON_OUT(1,"IGIRL_JSON_OUT", "数据源输出路径"),
-    IGIRL_JSON_NAME(2,"IGIRL_JSON_NAME","数据源文件名称");
+    IGIRL_JSON_IN(0, "数据源输入路径","IGIRL_JSON_IN"),
+    IGIRL_JSON_OUT(1,"数据源输出路径","IGIRL_JSON_OUT"),
+    IGIRL_JSON_NAME(2,"数据源文件名称","IGIRL_JSON_NAME");
     private Integer value;
     private String text;
     private String content;

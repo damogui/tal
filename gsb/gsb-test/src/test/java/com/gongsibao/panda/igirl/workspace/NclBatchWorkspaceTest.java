@@ -1,6 +1,7 @@
 package com.gongsibao.panda.igirl.workspace;
 
 import com.gongsibao.entity.igirl.baseinfo.NclBatch;
+import com.gongsibao.entity.igirl.dict.ConfigType;
 import com.gongsibao.igirl.web.NclBatchListPart;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
@@ -14,6 +15,7 @@ import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.*;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
+import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
@@ -113,7 +115,11 @@ public class NclBatchWorkspaceTest extends WorkspaceCreationBase {
         pDatagrid.setToolbar("panda/datagrid/row/edit"); //系统默认的工具栏
         pDatagrid.setName("分类列表");
         PDatagridColumn column = null;
-        addColumn(pDatagrid, "code", "编号", ControlTypes.TEXT_BOX, 100);
+        column = addColumn(pDatagrid, "code", "编号", ControlTypes.ENUM_BOX, 100);
+        {
+            String formatter = EnumUtil.getColumnFormatter(ConfigType.class);
+            column.setFormatter(formatter);
+        }
         addColumn(pDatagrid, "context", "说明", ControlTypes.TEXT_BOX, 200);
         addColumn(pDatagrid,"url","数据源",ControlTypes.TEXT_BOX,100);
         column = addColumn(pDatagrid, "isInsert", "是否导入", ControlTypes.TEXT_BOX, 200);
