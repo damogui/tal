@@ -130,6 +130,7 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
 			$("#owner_name").combogrid('setValue','').combogrid('disable');
 //			var options =$("#owner_name").combogrid('options');
 //			options.required = false;
+			
 //			$("#owner_name").combogrid(options);
 			
 			$('#allocationState').combobox('enable');
