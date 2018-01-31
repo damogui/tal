@@ -20,10 +20,10 @@ public class TmAutoSubmitController {
 		return trf;
 	}
 	@GET
-	@Path("/tm/updatestate/{id}/{stateCode}")
+	@Path("/tm/updatestate/{proxyCode}/{stateCode}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String updateState(@PathParam("id") Integer id,@PathParam("stateCode") Integer stateCode){
-		TradeMark tm = tmService.tmRobotUpdateMarkState(id,stateCode);
+	public String updateState(@PathParam("proxyCode") String proxyCode,@PathParam("stateCode") Integer stateCode){
+		TradeMark tm = tmService.tmRobotUpdateMarkState(proxyCode,stateCode);
 		if (tm!=null){
 			return "success";
 		}
