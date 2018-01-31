@@ -35,7 +35,8 @@ public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
 		entity = SupplierDepartment.class;
 		meta = MtableManager.getMtable(entity);
 		listPartType = PartType.TREEGRID_PART.getId();
-		formPartName = listPartName = meta.getName();
+		formPartName = "部门信息";
+		listPartName = "部门管理";
 		resourceNodeCode = "GSB_CRM_SYS_DEPARTMENT";
 		formOpenMode = OpenMode.TABS;
 		listPartImportJs="/gsb/crm/sys/js/sys-department-list-part.js|/gsb/gsb.custom.query.controls.js";

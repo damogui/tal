@@ -42,7 +42,8 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		urlForm = "/crm/sys/salesman/form";
 		entity = Salesman.class;
 		meta = MtableManager.getMtable(entity);
-		formPartName = listPartName = meta.getName();
+		formPartName = "员工信息";
+		listPartName = "员工管理";
 		resourceNodeCode = "GSB_CRM_SYS_SALESMAN";
 		formOpenMode = OpenMode.WINDOW;
 		listPartImportJs = "/gsb/crm/sys/js/sys-salesman-list-part.js|/gsb/gsb.custom.query.controls.js";
@@ -70,7 +71,8 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 			column.setAlign(DatagridAlign.CENTER);
 			column.setFormatter("return controllerdepartments.disabledFormatter(value,row,index);");
 		}
-		column = addColumn(datagrid, "receiving", "接单", ControlTypes.TEXT_BOX, 80);{
+		column = addColumn(datagrid, "receiving", "接单", ControlTypes.TEXT_BOX, 80);
+		{
 			column.setAlign(DatagridAlign.CENTER);
 			column.setFormatter("return controllerdepartments.receivingFormatter(value,row,index);");
 		}
@@ -79,7 +81,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		{
 			column.setAlign(DatagridAlign.CENTER);
 		}
-		
+
 		addColumn(datagrid, "isLeader", "主管", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "dayMax", "日分配上限", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "weekMax", "周分配上限", ControlTypes.TEXT_BOX, 80);
@@ -124,19 +126,19 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "email", "邮箱", groupName, ControlTypes.TEXT_BOX, false);
 		addFormField(form, "entryDate", "入职日期", groupName, ControlTypes.DATE_BOX, false);
 		addFormField(form, "quitDate", "离职日期", groupName, ControlTypes.DATE_BOX, false);
-		addFormField(form, "disabled", "停用", groupName, ControlTypes.SWITCH_BUTTON, false,true);
+		addFormField(form, "disabled", "停用", groupName, ControlTypes.SWITCH_BUTTON, false, true);
 
 		groupName = "属性设置";
-		addFormField(form, "receiving", "自动接受任务", groupName, ControlTypes.SWITCH_BUTTON, false,false);
-		addFormField(form, "isLeader", "主管", groupName, ControlTypes.SWITCH_BUTTON, false,false);
-		addFormField(form, "dayMax", "日分配上限", groupName, ControlTypes.NUMBER_BOX, false,false);
-		
-		addFormField(form, "weekMax", "周分配上限", groupName, ControlTypes.NUMBER_BOX, false,false);
-		
-		addFormField(form, "xabMax", "XAB类上限", groupName, ControlTypes.NUMBER_BOX, false,false);
+		addFormField(form, "receiving", "自动接受任务", groupName, ControlTypes.SWITCH_BUTTON, false, false);
+		addFormField(form, "isLeader", "主管", groupName, ControlTypes.SWITCH_BUTTON, false, false);
+		addFormField(form, "dayMax", "日分配上限", groupName, ControlTypes.NUMBER_BOX, false, false);
 
-		//这里还有很多属性，
-		
+		addFormField(form, "weekMax", "周分配上限", groupName, ControlTypes.NUMBER_BOX, false, false);
+
+		addFormField(form, "xabMax", "XAB类上限", groupName, ControlTypes.NUMBER_BOX, false, false);
+
+		// 这里还有很多属性，
+
 		return form;
 	}
 
@@ -181,7 +183,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 			part.setJsController(SysSalesmanTreePart.class.getName());
 			part.setServiceController(SysSalesmanTreePart.class.getName());
 			part.setImports("/gsb/crm/sys/js/sys-salesman-tree-part.js");
-            part.setAutoQuery(false);
+			part.setAutoQuery(false);
 		}
 		workspace.getParts().add(part);
 
@@ -213,11 +215,11 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 	@Override
 	protected void addDetailGridPart(PWorkspace workspace) {
 
-		// 添加角色
-		addRolesDetailPart(workspace);
-
 		// 服务范围
 		addScopesDetailPart(workspace);
+
+		// 添加角色
+		addRolesDetailPart(workspace);
 	}
 
 	// 添加角色
@@ -310,10 +312,10 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
 				formField.setTroikaTrigger("controllerproducts.firstProductCategorySelect(record);");
-//				formField.setRefFilter("type=201 and pid=0");
-				
-                //这里先不查询，前端要根据上级部门进行过滤
-                formField.setRefFilter("1=2");
+				// formField.setRefFilter("type=201 and pid=0");
+
+				// 这里先不查询，前端要根据上级部门进行过滤
+				formField.setRefFilter("1=2");
 			}
 
 			formField = addFormField(form, "productCategory2.name", "二级分类", null, ControlTypes.CUSTOM, true, false);
@@ -321,7 +323,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
 				formField.setTroikaTrigger("controllerproducts.secondProductCategorySelect(record);");
-//				formField.setRefFilter("type=201 and pid<>0");
+				// formField.setRefFilter("type=201 and pid<>0");
 			}
 
 			formField = addFormFieldRefrence(form, "product.name", "产品", null, "CRM_" + Product.class.getSimpleName(), true, false);
@@ -334,20 +336,20 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
 				formField.setTroikaTrigger("controllerproducts.provinceSelect(record);");
-//				formField.setDataOptions("level:1,changeCtrlId:'city_name'");
+				// formField.setDataOptions("level:1,changeCtrlId:'city_name'");
 			}
 			formField = addFormField(form, "city.name", "城市", ControlTypes.CUSTOM, false, false);
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
 				formField.setTroikaTrigger("controllerproducts.citySelect(record);");
-//				formField.setDataOptions("level:2,changeCtrlId:'county_name'");
+				// formField.setDataOptions("level:2,changeCtrlId:'county_name'");
 			}
 			formField = addFormField(form, "county.name", "区/县", ControlTypes.CUSTOM, false, false);
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
-				//formField.setDataOptions("level:3");
+				// formField.setDataOptions("level:3");
 			}
 
 		}
