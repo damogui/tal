@@ -92,7 +92,7 @@ com.gongsibao.crm.web.SysSalesmanListPart = org.netsharp.panda.commerce.ListPart
             this.doAdd("fk=" + fks.join(";"));
         }
     },
-    addExtraParams:function(urls){//进行扩展
+    addExtraParams:function(urls){// 进行扩展
 
         var supplierId = this.queryString('supplierId');
         if(supplierId){
