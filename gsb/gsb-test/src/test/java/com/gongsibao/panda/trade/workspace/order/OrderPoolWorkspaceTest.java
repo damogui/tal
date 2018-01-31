@@ -63,7 +63,9 @@ public class OrderPoolWorkspaceTest  extends WorkspaceCreationBase{
 		column = addColumn(datagrid, "companyIntention.name", "订单关联公司", ControlTypes.NUMBER_BOX, 90);
 		column = addColumn(datagrid, "soOrder.platformSourceDict.name", "订单来源", ControlTypes.NUMBER_BOX, 90);		
 		column = addColumn(datagrid, "soOrder.addUser.name", "下单人", ControlTypes.NUMBER_BOX, 90);
-		column = addColumn(datagrid, "soOrder.accountMobile", "下单人电话", ControlTypes.NUMBER_BOX, 90);
+		column = addColumn(datagrid, "soOrder.accountMobile", "下单人电话", ControlTypes.NUMBER_BOX, 90);{
+			column.setFormatter("if(value&&value.length==11){return value.substr(0,3)+'****'+value.substr(7);}");
+		}
 		column = addColumn(datagrid, "soOrder.prodName", "服务名称", ControlTypes.TEXT_BOX, 100);
 		{
 			column.setFormatter("return '<span title='+value+'>'+value+'</span>'");

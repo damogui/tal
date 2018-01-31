@@ -52,6 +52,7 @@ public class ActionTransferRecordLog implements IAction {
 			notify.setCustomerId(task.getCustomerId());
 			notify.setSupplierId(task.getSupplierId());
 			notify.setDepartmentId(task.getDepartmentId());
+			//*业务员为空，通知服务商管理员或部门主管,暂无实现
 			notify.setReceivedId(task.getOwnerId());
 			notifyService.save(notify);
 		}
