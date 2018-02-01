@@ -193,7 +193,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 		PDatagrid datagrid = new PDatagrid(node, "流转日志");
 		{
 			// 子页面枚举显示需要格式化一下
-			PDatagridColumn column = addColumn(datagrid, "changeType", "流转类型", ControlTypes.ENUM_BOX, 300);
+			PDatagridColumn column = addColumn(datagrid, "changeType", "流转类型", ControlTypes.ENUM_BOX, 100);
 			{
 				String formatter = EnumUtil.getColumnFormatter(ChangeType.class);
 				column.setFormatter(formatter);
