@@ -245,13 +245,15 @@ org.netsharp.controls.QiNiuUpload = org.netsharp.controls.TextBox.Extends({
 		$("#" + this.propertyName).filebox("enable");
 	},
 	preview:function(path,file){
-		
-		if(System.isnull(path)){
-			return;
-		}
+
 	    var filebox = $(this.uiElement).next();
 	    var labelTd = filebox.parent().prev();
-	    var text =labelTd.text().trim();
+	    var text = labelTd.text().trim();
+		if(System.isnull(path)){
+			
+			labelTd.html(text);
+			return;
+		}
 	    labelTd.html('<a target="_blank" href="'+path+'" class="btn-preview">'+text+'</a>');
 	}
 });
@@ -271,7 +273,7 @@ org.netsharp.controls.OSSUpload = org.netsharp.controls.QiNiuUpload.Extends({
 		var uploader = new plupload.Uploader({
 			runtimes : 'html5,flash,silverlight,html4',
 			browse_button :buttonId, 
-			//container: document.getElementById('container'),
+			// container: document.getElementById('container'),
 			flash_swf_url : '/package/plupload/js/Moxie.swf',
 			silverlight_xap_url : '/package/plupload/js/Moxie.xap',
 		    url : 'http://oss.aliyuncs.com',

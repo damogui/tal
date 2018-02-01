@@ -60,7 +60,7 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 		PFormField formField = null;
 		
 		String groupName = null;
-		addFormField(form, "name", "名称", groupName, ControlTypes.TEXT_BOX, true, false);
+		addFormField(form, "name", "名称", groupName, ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "taskType", "新/老客户", groupName, ControlTypes.ENUM_BOX, true, false);
 		
 		formField = addFormField(form, "source.name", "来源", null, ControlTypes.CUSTOM, true, false);

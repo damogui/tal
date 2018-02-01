@@ -1,6 +1,9 @@
 package com.gongsibao.crm.service;
 
+import java.math.BigDecimal;
 import java.sql.Types;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -18,7 +21,6 @@ import org.netsharp.util.sqlbuilder.UpdateBuilder;
 import com.gongsibao.bd.service.SupplierPersistableService;
 import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.entity.crm.NCustomerTask;
-import com.gongsibao.entity.crm.NCustomerTaskFoolow;
 import com.gongsibao.entity.crm.dic.NAllocationType;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
@@ -194,22 +196,36 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	}
 
 	@Override
-	public Boolean follow(NCustomerTaskFoolow taskFoolow) {
-
+	public Boolean follow(Integer taskId, Integer qualityId,String nextTime,BigDecimal amount,String content) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Map<String, Object> setMap = new HashMap<String, Object>();
+		NCustomerTask entity = this.byId(taskId);
 		// 任务跟进
-		NCustomerTask entity = this.byId(taskFoolow.getTaskId());
+		try {
+			Date setFollowTimeDate = sdf.parse(nextTime);
+			entity.setQualityId(qualityId);
+			setMap.put("lastFollowTime", entity.getNextFoolowTime() == null ? new Date() : entity.getNextFoolowTime());	
+			entity.setNextFoolowTime(nextTime == null ? new Date() : setFollowTimeDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		entity.setLastContent(content);
+		
+		setMap.put("amount", amount == null ? 0 : amount);
 		ActionContext ctx = new ActionContext();
 		{
 			ctx.setPath("gsb/crm/task/follow");
 			ctx.setItem(entity);
 			ctx.setState(entity.getEntityState());
+			ctx.setStatus(setMap);
 		}
 
 		ActionManager action = new ActionManager();
 		action.execute(ctx);
 		return true;
 	}
-
+	
 	@Override
 	public Boolean batchRegain(String[] taskIdArray, String content) {
 
