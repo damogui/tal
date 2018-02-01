@@ -62,7 +62,6 @@ public class PayReceiptCheckDTOService extends PersistableService<PayReceiptChec
 		for (IRow row : dataTable) {
 			PayReceiptCheckDTO dto = new PayReceiptCheckDTO();
 			Integer id = row.getInteger("id");// 支付id
-			Integer payId = row.getInteger("id");// 支付id
 			String orderId = row.getString("orderId");// 订单id
 			String orderNo = row.getString("orderNo");// 订单编号
 			String payablePriceStr = row.getString("payablePrice");// 订单应付价
