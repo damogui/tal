@@ -1,11 +1,14 @@
 package com.gongsibao.api.service.ma;
 
+import com.gongsibao.api.dto.ma.ProvinceCityCountyDTO;
 import com.gongsibao.api.dto.ma.QuerySellingDemandDTO;
 import com.gongsibao.api.dto.ma.SellingDemandDTO;
 import com.gongsibao.entity.ma.SellingDemand;
 import com.gongsibao.ma.service.SellingDemandService;
 import org.netsharp.core.Oql;
 import org.netsharp.core.Paging;
+import org.netsharp.pcc.entity.ProvinceCityCounty;
+import org.netsharp.pcc.service.ProvinceCityCountyService;
 
 import java.sql.Types;
 import java.util.ArrayList;
@@ -16,6 +19,8 @@ import java.util.List;
  */
 public class SellingDemandDTOService {
     SellingDemandService sellingDemandService = new SellingDemandService();
+    ProvinceCityCountyService provin = new ProvinceCityCountyService();//省市县
+
 
     /*根据传递条件进行查询数据返回*/
     public List<SellingDemandDTO> queryList(QuerySellingDemandDTO queryModel) {
@@ -107,5 +112,28 @@ public class SellingDemandDTOService {
         sellingDemandDTO.setLicenseAdvantage(selling.getLicenseAdvantage());
         sellingDemandDTO.setSelingStatus(selling.getSelingStatus());
         return sellingDemandDTO;
+    }
+
+    /*获取省市县代码和名称*/
+    public List<ProvinceCityCountyDTO> getPcc(int parentId) {
+        List<ProvinceCityCounty> listP =new ArrayList<>();
+        List<ProvinceCityCountyDTO> listPDTO = new ArrayList<ProvinceCityCountyDTO>();
+
+        if (parentId == 0) {
+            listP= provin.queryProvince();
+        } else {
+            listP=provin.queryPcc(parentId);
+        }
+
+        for (ProvinceCityCounty item : listP
+                ) {
+            ProvinceCityCountyDTO proDTO = new ProvinceCityCountyDTO();
+            proDTO.setName(item.getName());
+            proDTO.setId(item.getId());
+            listPDTO.add(proDTO);
+        }
+
+        return listPDTO;
+
     }
 }
