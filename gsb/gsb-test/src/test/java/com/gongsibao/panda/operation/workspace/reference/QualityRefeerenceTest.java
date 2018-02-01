@@ -25,6 +25,7 @@ public class QualityRefeerenceTest extends ReferenceCreationBase{
 
 		PDatagrid datagrid = super.createDatagrid(node);
 		addColumn( datagrid,"intentionCategory", "分类", ControlTypes.TEXT_BOX,80,null,false);
+		addColumn( datagrid,"code", "编码", ControlTypes.TEXT_BOX,80,null,false);
 		addColumn( datagrid,"name", "名称", ControlTypes.TEXT_BOX,150,null,false);
 		return datagrid;
 	}
