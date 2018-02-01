@@ -117,7 +117,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 			}
 			addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 200);
 			addColumn(datagrid, "estimateAmount", "估计签单金额", ControlTypes.DECIMAL_FEN_BOX, 150);
-			addColumn(datagrid, "content", "跟进内容", ControlTypes.TEXT_BOX, 150);
+			addColumn(datagrid, "content", "跟进内容", ControlTypes.TEXT_BOX, 400);
 		}
 
 		PPart part = new PPart();
@@ -147,12 +147,12 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 		ResourceNode node = this.resourceService.byCode(notifyDetailResourceNodeCode);
 		PDatagrid datagrid = new PDatagrid(node, "通知日志");
 		{
-			PDatagridColumn column = addColumn(datagrid, "type", "通知类型", ControlTypes.ENUM_BOX, 300);
+			PDatagridColumn column = addColumn(datagrid, "type", "通知类型", ControlTypes.ENUM_BOX, 100);
 			{
 				String formatter = EnumUtil.getColumnFormatter(NotifyType.class);
 				column.setFormatter(formatter);
 			}
-			addColumn(datagrid, "content", "跟进内容", ControlTypes.TEXT_BOX, 150);
+			addColumn(datagrid, "content", "跟进内容", ControlTypes.TEXT_BOX, 400);
 		}
 		PForm form = new PForm();
 		{
@@ -200,7 +200,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 			}
 			addColumn(datagrid, "formUser.name", "来自", ControlTypes.ENUM_BOX, 150);
 			addColumn(datagrid, "toUser.name", "去向", ControlTypes.NUMBER_BOX, 150);
-			addColumn(datagrid, "content", "内容", ControlTypes.TEXT_BOX, 150);
+			addColumn(datagrid, "content", "内容", ControlTypes.TEXT_BOX, 400);
 		}
 		PForm form = new PForm();
 		{
@@ -243,7 +243,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 		PDatagrid datagrid = new PDatagrid(node, "抽查日志");
 		{
 			// 子页面枚举显示需要格式化一下
-			PDatagridColumn column = addColumn(datagrid, "inspectionType", "抽查类型", ControlTypes.ENUM_BOX, 300);
+			PDatagridColumn column = addColumn(datagrid, "inspectionType", "抽查类型", ControlTypes.ENUM_BOX, 100);
 			{
 				String formatter = EnumUtil.getColumnFormatter(TaskInspectionType.class);
 				column.setFormatter(formatter);
@@ -253,7 +253,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 				String formatter = EnumUtil.getColumnFormatter(TaskInspectionState.class);
 				column.setFormatter(formatter);
 			}
-			addColumn(datagrid, "content", "内容", ControlTypes.TEXT_BOX, 150);
+			addColumn(datagrid, "content", "内容", ControlTypes.TEXT_BOX, 400);
 		}
 		PForm form = new PForm();
 		{
