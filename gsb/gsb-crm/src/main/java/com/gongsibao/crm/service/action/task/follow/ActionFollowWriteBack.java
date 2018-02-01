@@ -1,7 +1,5 @@
 package com.gongsibao.crm.service.action.task.follow;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.netsharp.action.ActionContext;
@@ -13,6 +11,7 @@ import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.crm.NCustomerTask;
+import com.gongsibao.entity.crm.NCustomerTaskFoolow;
 import com.gongsibao.entity.crm.dic.QualityCategory;
 
 /**
@@ -22,24 +21,24 @@ public class ActionFollowWriteBack implements IAction {
 
 	@Override
 	public void execute(ActionContext ctx) {
-		Date getLastTime = (Date) ctx.getStatus().get("lastFollowTime");
-		NCustomerTask task = (NCustomerTask) ctx.getItem();
-		this.updateTask(task,getLastTime);
-		this.updateCustoemr(task,getLastTime);
+
+		NCustomerTaskFoolow taskFoolow = (NCustomerTaskFoolow) ctx.getItem();
+		this.updateTask(taskFoolow);
+		this.updateCustoemr(taskFoolow);
 	}
 
-	private void updateTask(NCustomerTask task,Date getTime) {
+	private void updateTask(NCustomerTaskFoolow taskFoolow) {
 
-		QualityCategory category = task.getIntentionCategory();
+		QualityCategory category = taskFoolow.getQualityCategory();
 		UpdateBuilder updateBuilder = new UpdateBuilder();
 		{
 			updateBuilder.update(MtableManager.getMtable(NCustomerTask.class).getTableName());
-			updateBuilder.set("intention_category", task.getIntentionCategory().getValue());
-			updateBuilder.set("quality_id", task.getQualityId());
-			updateBuilder.set("last_content", task.getLastContent());
-			updateBuilder.set("next_foolow_time", task.getNextFoolowTime());
-			updateBuilder.set("last_follow_time", getTime);
-			updateBuilder.set("last_foolow_user_id", task.getCreatorId());
+			updateBuilder.set("intention_category", taskFoolow.getQualityCategory().getValue());
+			updateBuilder.set("quality_id", taskFoolow.getQualityId());
+			updateBuilder.set("last_content", taskFoolow.getContent());
+			updateBuilder.set("next_foolow_time", taskFoolow.getNextFoolowTime());
+			updateBuilder.set("last_follow_time", new Date());
+			updateBuilder.set("last_foolow_user_id", taskFoolow.getCreatorId());
 
 			// 根据跟进质量表中的Code计算跟进状态；1-未分配、2-待跟进、3-跟进中、4-无法签单、5-已签单、6-未启动
 			if (category == QualityCategory.C || category == QualityCategory.D) {
@@ -58,25 +57,25 @@ public class ActionFollowWriteBack implements IAction {
 
 				updateBuilder.set("foolow_status", 3);
 			}
-			updateBuilder.where("id =" + task.getId());
+			updateBuilder.where("id =" + taskFoolow.getTaskId());
 		}
 
 		IPersister<NCustomerTask> pm = PersisterFactory.create();
 		pm.executeNonQuery(updateBuilder.toSQL(), null);
 	}
 
-	private void updateCustoemr(NCustomerTask task,Date getTime) {
+	private void updateCustoemr(NCustomerTaskFoolow taskFoolow) {
 
 		UpdateBuilder updateBuilder = new UpdateBuilder();
 		{
 			updateBuilder.update(MtableManager.getMtable(NCustomer.class).getTableName());
-			updateBuilder.set("intention_category", task.getIntentionCategory().getValue());
-			updateBuilder.set("quality_id", task.getQualityId());
-			updateBuilder.set("last_content", task.getLastContent());
-			updateBuilder.set("next_foolow_time", task.getNextFoolowTime());
-			updateBuilder.set("last_follow_time", getTime);
-			updateBuilder.set("last_foolow_user_id", task.getCreatorId());
-			updateBuilder.where("id =" + task.getCustomerId());
+			updateBuilder.set("intention_category", taskFoolow.getQualityCategory().getValue());
+			updateBuilder.set("quality_id", taskFoolow.getQualityId());
+			updateBuilder.set("last_content", taskFoolow.getContent());
+			updateBuilder.set("next_foolow_time", taskFoolow.getNextFoolowTime());
+			updateBuilder.set("last_follow_time", new Date());
+			updateBuilder.set("last_foolow_user_id", taskFoolow.getCreatorId());
+			updateBuilder.where("id =" + taskFoolow.getCustomerId());
 		}
 		IPersister<NCustomer> pm = PersisterFactory.create();
 		pm.executeNonQuery(updateBuilder.toSQL(), null);
