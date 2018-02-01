@@ -88,9 +88,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		    	var code = r.code;
 		    	var time = followTimeValida(code);
 		    	var amount = followAmountValida(code);
-		    	
-		    	var getqualityId = getQualityCategory(r.id);
-		    	
+		    	var getqualityId = r.id;
 		    	if(!time && System.isnull($("#followTime").val())){
 		    		IMessageBox.info('请输入下次跟进时间');
 					return false;
@@ -487,33 +485,7 @@ function followProductValida(code){
 	//alert(productResult);
 	return productResult;
 }
-/**
- * 根据大类获取相应质量值
- */
-function getQualityCategory(qualityCategory){
-	var getQuality = 1;
-	switch (qualityCategory) {
-	case "A类":
-		getQuality = 1;
-		break;
-	case "B类":
-		getQuality = 2;
-		break;
-	case "C类":
-		getQuality = 3;
-		break;
-	case "D类":
-		getQuality = 4;
-		break;
-	case "X类":
-		getQuality = 5;
-		break;	
-	default:
-		getQuality = 6;
-		break;
-	}
-	return getQuality;
-}
+
 
 function getSupplierOption(){
 	var supplierOption = {columns : [ [ {
