@@ -27,6 +27,7 @@ public class SalesmanTaskAddWorkspaceTest extends TaskAddWorkspaceTest{
 		List<String> ss = new ArrayList<String>();
 		ss.add("/gsb/crm/platform/js/task-add-form.part.js");
 		ss.add("/gsb/gsb.customer.controls.js");
+		ss.add("/gsb/crm/base/js/task-base.part.js");
 		formJsImport = StringManager.join("|", ss);
 		
 		formJsController = NCustomerTaskAddFormPart.class.getName();

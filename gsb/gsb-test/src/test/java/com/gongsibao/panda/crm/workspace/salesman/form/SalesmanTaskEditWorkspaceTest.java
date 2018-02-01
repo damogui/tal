@@ -31,6 +31,7 @@ public class SalesmanTaskEditWorkspaceTest extends TaskEditWorkspaceTest{
 		ss.add("/gsb/crm/platform/js/task-add-form.part.js");
 		ss.add("/gsb/crm/base/js/task-base-edit-form.part.js");
 		ss.add("/gsb/crm/salesman/js/task-edit-form.part.js");
+		ss.add("/gsb/crm/base/js/task-base.part.js");
 		ss.add("/gsb/gsb.customer.controls.js");
 		formJsImport = StringManager.join("|", ss);
 
