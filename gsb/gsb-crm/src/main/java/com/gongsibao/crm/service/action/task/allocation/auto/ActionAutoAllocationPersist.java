@@ -18,10 +18,13 @@ import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.crm.base.INCustomerTaskService;
+import com.gongsibao.entity.bd.Dict;
+import com.gongsibao.entity.bd.dic.DictType;
 import com.gongsibao.entity.crm.NCustomerProduct;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.dic.NAllocationType;
 import com.gongsibao.entity.crm.dic.TaskCustomerType;
+import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.supplier.SalesmanProduct;
 import com.gongsibao.entity.supplier.dict.SupplierType;
@@ -140,16 +143,18 @@ public class ActionAutoAllocationPersist implements IAction {
 				// 获取【产品一级】、【产品二级】
 				if (!taskProductId.equals(0)) {
 					if (taskProductCategoryId2.equals(0)) {
-
+						taskProductCategoryId2 = getProdType(taskProductId);
 					}
 					if (taskProductCategoryId1.equals(0)) {
-
+						taskProductCategoryId1 = getDictId(taskProductCategoryId2, DictType.Cpfl.getValue());
+						taskProductCategoryId1 = taskProductCategoryId1 == 0 ? taskProductCategoryId2 : taskProductCategoryId1;
 					}
 				}
 				// 获取【产品一级】
 				if (taskProductId.equals(0) && !taskProductCategoryId2.equals(0)) {
 					if (taskProductCategoryId1.equals(0)) {
-
+						taskProductCategoryId1 = getDictId(taskProductCategoryId2, DictType.Cpfl.getValue());
+						taskProductCategoryId1 = taskProductCategoryId1 == 0 ? taskProductCategoryId2 : taskProductCategoryId1;
 					}
 				}
 
@@ -163,16 +168,16 @@ public class ActionAutoAllocationPersist implements IAction {
 				// 获取【省】、【市】
 				if (!taskCountyId.equals(0)) {
 					if (taskCityId.equals(0)) {
-
+						taskCityId = getDictId(taskCountyId, DictType.Diqu.getValue());
 					}
 					if (taskProvinceId.equals(0)) {
-
+						taskProvinceId = getDictId(taskCityId, DictType.Diqu.getValue());
 					}
 				}
 				// 获取【省】
 				if (taskCountyId.equals(0) && !taskCityId.equals(0)) {
 					if (taskProvinceId.equals(0)) {
-
+						taskProvinceId = getDictId(taskCityId, DictType.Diqu.getValue());
 					}
 				}
 
@@ -190,16 +195,18 @@ public class ActionAutoAllocationPersist implements IAction {
 					// 获取【产品一级】、【产品二级】
 					if (!salesmanProductId.equals(0)) {
 						if (salesmanProductCategoryId2.equals(0)) {
-
+							salesmanProductCategoryId2 = getProdType(salesmanProductId);
 						}
 						if (salesmanProductCategoryId1.equals(0)) {
-
+							taskProductCategoryId1 = getDictId(taskProductCategoryId2, DictType.Cpfl.getValue());
+							taskProductCategoryId1 = taskProductCategoryId1 == 0 ? taskProductCategoryId2 : taskProductCategoryId1;
 						}
 					}
 					// 获取【产品一级】
 					if (salesmanProductId.equals(0) && !salesmanProductCategoryId2.equals(0)) {
 						if (salesmanProductCategoryId1.equals(0)) {
-
+							taskProductCategoryId1 = getDictId(taskProductCategoryId2, DictType.Cpfl.getValue());
+							taskProductCategoryId1 = taskProductCategoryId1 == 0 ? taskProductCategoryId2 : taskProductCategoryId1;
 						}
 					}
 
@@ -213,16 +220,16 @@ public class ActionAutoAllocationPersist implements IAction {
 					// 获取【省】、【市】
 					if (!salesmanCountyId.equals(0)) {
 						if (salesmanCityId.equals(0)) {
-
+							salesmanCityId = getDictId(salesmanCountyId, DictType.Diqu.getValue());
 						}
 						if (salesmanProvinceId.equals(0)) {
-
+							salesmanProvinceId = getDictId(salesmanCityId, DictType.Diqu.getValue());
 						}
 					}
 					// 获取【省】
 					if (salesmanCountyId.equals(0) && !salesmanCityId.equals(0)) {
 						if (salesmanProvinceId.equals(0)) {
-
+							salesmanProvinceId = getDictId(salesmanCityId, DictType.Diqu.getValue());
 						}
 					}
 					// 是否符合产品服务范围条件
@@ -231,33 +238,33 @@ public class ActionAutoAllocationPersist implements IAction {
 					Boolean isAddForCity = false;
 					// 该任务的该服务范围选了具体的产品时
 					if (!taskProductId.equals(0)) {
-						//当该业务员也选择了产品，则两者选择的产品也要相等
+						// 当该业务员也选择了产品，则两者选择的产品也要相等
 						if (!salesmanProductId.equals(0) && salesmanProductId.equals(taskProductId)) {
 							isAddForProduct = true;
 						}
-						//当业务员没有选择产品时，则业务员选项的产品二级分类要和任务的二级分类相等
+						// 当业务员没有选择产品时，则业务员选项的产品二级分类要和任务的二级分类相等
 						if (salesmanProductId.equals(0) && !salesmanProductCategoryId2.equals(0) && salesmanProductCategoryId2.equals(taskProductCategoryId2)) {
 							isAddForProduct = true;
 						}
-						//当业务员没有选择产品，也没有选择产品二级分类时，则两者的产品大类要相等
+						// 当业务员没有选择产品，也没有选择产品二级分类时，则两者的产品大类要相等
 						if (salesmanProductId.equals(0) && salesmanProductCategoryId2.equals(0) && salesmanProductCategoryId1.equals(taskProductCategoryId1)) {
 							isAddForProduct = true;
 						}
 					}
-					//当该任务没有选择具体的服务产品时
+					// 当该任务没有选择具体的服务产品时
 					if (taskProductId.equals(0)) {
-						//当该任务选择了产品二级分类时
+						// 当该任务选择了产品二级分类时
 						if (!taskProductCategoryId2.equals(0)) {
-							//当业务员没有选择了产品二级分类时，则只需要两者选择的产品一级分类相等就行了
+							// 当业务员没有选择了产品二级分类时，则只需要两者选择的产品一级分类相等就行了
 							if (salesmanProductCategoryId2.equals(0) && salesmanProductCategoryId1.equals(taskProductCategoryId1)) {
 								isAddForProduct = true;
 							}
-							//当业务员选择了产品二级分类时，则只需要两者选择的产品二级分类相等就行了
+							// 当业务员选择了产品二级分类时，则只需要两者选择的产品二级分类相等就行了
 							if (!salesmanProductCategoryId2.equals(0) && salesmanProductCategoryId2.equals(taskProductCategoryId2)) {
 								isAddForProduct = true;
 							}
 						}
-						//当该任务只选择了产品大类，则只需要两者的产品大类相等就行了
+						// 当该任务只选择了产品大类，则只需要两者的产品大类相等就行了
 						if (!taskProductCategoryId1.equals(0) && taskProductCategoryId2.equals(0)) {
 							if (salesmanProductCategoryId1.equals(taskProductCategoryId1)) {
 								isAddForProduct = true;
@@ -313,8 +320,40 @@ public class ActionAutoAllocationPersist implements IAction {
 		}
 		return resList;
 	}
-	
-	
+
+	public Integer getDictId(Integer cityId, Integer type) {
+		Integer resId = 0;
+		Oql oql = new Oql();
+		{
+			oql.setType(Dict.class);
+			oql.setSelects("*");
+			oql.setFilter("pkid=? AND type = ? ");
+			oql.getParameters().add("pkid", cityId, Types.INTEGER);
+			oql.getParameters().add("type", type, Types.INTEGER);
+		}
+
+		IPersister<Dict> dictPm = PersisterFactory.create();
+		Dict city = dictPm.queryFirst(oql);
+		resId = city == null ? 0 : city.getParentId();
+		return resId;
+	}
+
+	private Integer getProdType(Integer prodId) {
+		Integer resId = 0;
+		Oql oql = new Oql();
+		{
+			oql.setType(Product.class);
+			oql.setSelects("*");
+			oql.setFilter("pkid=? AND is_enabled = 1 ");
+			oql.getParameters().add("pkid", prodId, Types.INTEGER);
+		}
+
+		IPersister<Product> productPm = PersisterFactory.create();
+		Product product = productPm.queryFirst(oql);
+		resId = product == null ? 0 : product.getTypeId();
+		return resId;
+
+	}
 
 	// 分配任务给业务员(自动分配)
 	private void allocation(NCustomerTask entity, List<Salesman> taskSalesmanProducts) {
