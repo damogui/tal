@@ -245,13 +245,15 @@ org.netsharp.controls.QiNiuUpload = org.netsharp.controls.TextBox.Extends({
 		$("#" + this.propertyName).filebox("enable");
 	},
 	preview:function(path,file){
-		
-		if(System.isnull(path)){
-			return;
-		}
+
 	    var filebox = $(this.uiElement).next();
 	    var labelTd = filebox.parent().prev();
-	    var text =labelTd.text().trim();
+	    var text = labelTd.text().trim();
+		if(System.isnull(path)){
+			
+			labelTd.html(text);
+			return;
+		}
 	    labelTd.html('<a target="_blank" href="'+path+'" class="btn-preview">'+text+'</a>');
 	}
 });
