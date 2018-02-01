@@ -32,7 +32,7 @@ public class SalesmanAllTaskWorkspaceTest extends TaskALLWorkspaceTest {
 		ss.add("/gsb/crm/base/js/task-base-list.part.js");
 		ss.add("/gsb/crm/salesman/js/task-all-list.part.js");
 		ss.add("/gsb/gsb.custom.query.controls.js");
-		ss.add("/gsb/crm/base/js/task-base.part.js");
+		ss.add("/gsb/crm/base/js/task-follow-base.ctrl.js");
 		listPartImportJs = StringManager.join("|", ss);
 
 		listFilter = "owner_id = '{userId}'";

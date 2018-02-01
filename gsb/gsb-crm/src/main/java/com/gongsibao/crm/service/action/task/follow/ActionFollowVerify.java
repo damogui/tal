@@ -10,7 +10,6 @@ import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
 
 import com.gongsibao.entity.crm.NCustomerProduct;
-import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
 import com.gongsibao.entity.crm.NCustomerTaskQuality;
 import com.gongsibao.entity.crm.dic.QualityCategory;
@@ -26,47 +25,20 @@ public class ActionFollowVerify implements IAction {
 		// 这里要根据选择的不现客户质量，作不同的有效校验
 		// 具体规则参考需求文档
 		
-		NCustomerTask task = (NCustomerTask) ctx.getItem();
-		NCustomerTaskQuality quality = getNCustomerTaskQuality(task.getQualityId());
+		NCustomerTaskFoolow taskFoolow = (NCustomerTaskFoolow) ctx.getItem();
+		NCustomerTaskQuality quality = getNCustomerTaskQuality(taskFoolow.getQualityId());
 		QualityCategory category = quality.getIntentionCategory();
 		//意向产品必须存在，对应的客户质量code
 		String productRequired = "A0A1A2A3A4B1B3C1C2C3";
 		if (productRequired.contains(quality.getCode())) {
-			Boolean isHas = hasProduct(task.getId());
+			Boolean isHas = hasProduct(taskFoolow.getId());
 			if(!isHas){
 				throw new BusinessException("请先添加意向产品");
 			}
 		}
-		task.setIntentionCategory(category);
-		// 补齐任务对应的客户Id
-		Integer customerId = this.getCustomerId(task.getId());
-		if(customerId == null){
-			
-			throw new BusinessException("任务不存在或已删除，不能跟进！");
-		}
-		task.setCustomerId(customerId);
-
-		ctx.setItem(task);
+		taskFoolow.setQualityCategory(category);
 	}
-	
 
-	private Integer getCustomerId(Integer taskId) {
-		
-		Oql oql = new Oql();
-		{
-			oql.setType(NCustomerTask.class);
-			oql.setSelects("id,customerId");
-			oql.setFilter("id=?");
-			oql.getParameters().add("id", taskId, Types.INTEGER);
-		}
-		IPersister<NCustomerTask> pm = PersisterFactory.create();
-		NCustomerTask task = pm.queryFirst(oql);
-		if (task == null) {
-
-			return null;
-		}
-		return task.getCustomerId();
-	}
 
 	/**
 	 * 根据质量Id获取客户质量实体

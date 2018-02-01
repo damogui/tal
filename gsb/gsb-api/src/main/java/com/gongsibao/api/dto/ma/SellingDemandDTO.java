@@ -19,6 +19,9 @@ import java.util.List;
 /*出售需求对外接口实体类*/
 public class SellingDemandDTO {
 
+
+    @Column(name = "id", header = "主键")
+    private Integer id;
     @Column(name = "code", header = "编码")
     private String code;
     @Column(name = "company_name", size = 200, header = "公司名称")
@@ -242,5 +245,13 @@ public class SellingDemandDTO {
 
     public void setSelingStatus(SelingStatus selingStatus) {
         this.selingStatus = selingStatus;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

@@ -35,12 +35,19 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		me.doAllot(id);
 	},
 	follow : function(id) {
-		var getResult = FollowBox.info(id);
 		
+		var me = this;
+		var taskId = id;
+		$('#'+this.context.id).datagrid('selectRecord',id);
+		var selectedRow = $('#'+this.context.id).datagrid('getSelected');
+		var customerId = selectedRow.customerId;
+		var taskFollowCtrl = new com.gongsibao.crm.web.TaskFollowCtrl();
+		taskFollowCtrl.open(taskId,customerId,function(index, layero){
+			
+			me.reload();
+		});
 	},
-	onCallbackAfter : function(){
-		alert(123345);
-	},
+
 	doFollowService : function(id,getqualityId,time,amount,getNote) {
 		var me = this;
 		this.invokeService("follow", [id,getqualityId,time,amount,getNote],function(data) {
