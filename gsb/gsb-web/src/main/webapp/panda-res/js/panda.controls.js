@@ -325,7 +325,8 @@ org.netsharp.controls.OSSUpload = org.netsharp.controls.QiNiuUpload.Extends({
 		serviceLocator.invoke("org.netsharp.web.AliyunOssController", "getOssConfig", [],function(data) {
 
 			config = data;
-			var suffix= me.getSuffix(up.files[0].name);
+			var lastIndex = up.files.length -1;
+			var suffix= me.getSuffix(up.files[lastIndex].name);
 			var filename=  me.randomString() + suffix;
 	        var newMultipartParams = {
 	            'key' : config.dir + '_' + filename,

@@ -66,8 +66,9 @@ public abstract class AbstractApi<T extends ResponseMessage<?>> {
 		parameters.add("companyName=" + this.getCompanyName());
 		parameters.add("appKey=" + ConfigHelper.APP_KEY);
 		parameters.add("currentTime=" + nowTime);
-		
-		int pageIndex = this.getCurrentPage()>0?this.getCurrentPage()-1:this.getCurrentPage();
+
+//		int pageIndex = this.getCurrentPage() > 0 ? this.getCurrentPage() - 1 : this.getCurrentPage();
+		int pageIndex = this.getCurrentPage() > 0 ? this.getCurrentPage() : 1;
 		parameters.add("currentPage=" + pageIndex);
 		parameters.add("pageSize=" + this.getPageSize());
 
