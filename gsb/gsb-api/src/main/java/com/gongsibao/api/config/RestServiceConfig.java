@@ -2,6 +2,7 @@ package com.gongsibao.api.config;
 
 import javax.ws.rs.ApplicationPath;
 
+import com.gongsibao.api.conroller.ma.SellingController;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.server.ResourceConfig;
 
@@ -23,8 +24,10 @@ public class RestServiceConfig extends ResourceConfig {
 		register(CouponController.class);
 		register(GoodsController.class);
 		register(TmAutoSubmitController.class);
-		
-		//注册数据转换器
+        register(SellingController.class);
+
+
+        //注册数据转换器
 		register(MyJacksonJsonProvider.class);
 		
 		//注册日志
