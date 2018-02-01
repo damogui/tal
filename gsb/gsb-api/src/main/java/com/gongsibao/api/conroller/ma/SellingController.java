@@ -1,33 +1,19 @@
 package com.gongsibao.api.conroller.ma;
 
 import com.alibaba.fastjson.JSON;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.gongsibao.api.base.ICarService;
-import com.gongsibao.api.config.MyJacksonJsonProvider;
-import com.gongsibao.api.dto.OrderDTO;
 
 import com.gongsibao.api.dto.ma.QuerySellingDemandDTO;
 import com.gongsibao.api.dto.ma.SellingDemandDTO;
 import com.gongsibao.api.service.ma.SellingDemandDTOService;
-import com.gongsibao.entity.ma.SellingDemand;
-import com.gongsibao.ma.base.ISellingDemandService;
-import com.gongsibao.ma.service.SellingDemandService;
-import org.junit.runners.Parameterized;
-import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.Oql;
-import org.netsharp.core.annotations.Param;
-import org.netsharp.util.ResultCode;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import java.sql.Types;
-import java.util.ArrayList;
+
 import java.util.List;
 
-import static sun.plugin.javascript.navig.JSType.Form;
 
 /**
  * Created by win on 2018/2/1.
@@ -41,14 +27,61 @@ public class SellingController {
     private HttpServletRequest request;
     private QuerySellingDemandDTO para;
 
+
+  /*列表接口*/
     @GET
     @Path("/sellinglist")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<SellingDemandDTO> list(@Context HttpServletRequest request) {
+    public List<SellingDemandDTO> getSellingList(@Context HttpServletRequest request) {
         String para = request.getParameter("para");
         QuerySellingDemandDTO paraM = (QuerySellingDemandDTO) JSON.parseObject(para, QuerySellingDemandDTO.class);
         List<SellingDemandDTO> list = sellingDemandDTOService.queryList(paraM);
         return list;
     }
+
+    /*服务类型*/
+    @GET
+    @Path("/servicetype")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<SellingDemandDTO>  getServiceType(@Context HttpServletRequest request) {
+        String para = request.getParameter("para");
+        QuerySellingDemandDTO paraM = (QuerySellingDemandDTO) JSON.parseObject(para, QuerySellingDemandDTO.class);
+        List<SellingDemandDTO> list = sellingDemandDTOService.queryList(paraM);
+        return list;
+    }
+
+    /*全国地区*/
+    @GET
+    @Path("/pcc")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<SellingDemandDTO> getPcc(@Context HttpServletRequest request) {
+        String para = request.getParameter("para");
+        QuerySellingDemandDTO paraM = (QuerySellingDemandDTO) JSON.parseObject(para, QuerySellingDemandDTO.class);
+        List<SellingDemandDTO> list = sellingDemandDTOService.queryList(paraM);
+        return list;
+    }
+
+    /*筛选*/
+    @GET
+    @Path("/filters")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<SellingDemandDTO> getFilters(@Context HttpServletRequest request) {
+        String para = request.getParameter("para");
+        QuerySellingDemandDTO paraM = (QuerySellingDemandDTO) JSON.parseObject(para, QuerySellingDemandDTO.class);
+        List<SellingDemandDTO> list = sellingDemandDTOService.queryList(paraM);
+        return list;
+    }
+
+
+    /*详情*/
+    @GET
+    @Path("/details/{sellingId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public SellingDemandDTO getDetails(@PathParam("sellingId") int sellingId) {
+        SellingDemandDTO sellingDemandDTO = sellingDemandDTOService.getSellingDemandDTOById(sellingId);
+        return sellingDemandDTO;
+    }
+
+
 
 }
