@@ -28,6 +28,8 @@ public class ConfigHelper {
 			return "http://tele.gongsibao.cn" + url;
 		} else if (url.contains("/bigdata/")) {
 			return "http://api.gongsibao.com" + url;
+		} else if (url.contains("/dataapi/")) {
+			return "http://ged.gongsibao.com" + url;
 		}
 		
 		return ConfigHelper.DOMAIN + url;

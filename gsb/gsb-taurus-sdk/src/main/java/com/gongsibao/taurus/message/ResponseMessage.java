@@ -18,6 +18,8 @@ public class ResponseMessage<T extends IEntity> {
 	private String resultMsg;
 	
 	private List<T> list = new ArrayList<T>();
+
+	private T data;
 	
 	public int getResult() {
 		return result;
@@ -65,5 +67,13 @@ public class ResponseMessage<T extends IEntity> {
 
 	public void setResultMsg(String resultMsg) {
 		this.resultMsg = resultMsg;
+	}
+
+	public T getData() {
+		return data;
+	}
+
+	public void setData(T data) {
+		this.data = data;
 	}
 }
