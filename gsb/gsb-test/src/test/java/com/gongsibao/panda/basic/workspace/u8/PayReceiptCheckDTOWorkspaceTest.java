@@ -68,7 +68,7 @@ public class PayReceiptCheckDTOWorkspaceTest extends WorkspaceCreationBase {
 		}
 
 		PDatagridColumn column = null;
-		column = addColumn(datagrid, "id", "支付编号", ControlTypes.TEXT_BOX, 100);
+		column = addColumn(datagrid, "id", "支付编号", ControlTypes.NUMBER_BOX, 100);
 		{
 			column.setImported(true);
 		}

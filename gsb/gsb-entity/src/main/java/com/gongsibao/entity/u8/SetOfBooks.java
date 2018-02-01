@@ -47,6 +47,9 @@ public class SetOfBooks extends Entity {
 
 	@Column(name = "is_enabled", header = "是否可用（0：不可用 1：可用）")
 	private Boolean enabled = true;
+	
+	@Column(name = "is_create_voucher", header = "是否生成凭证")
+	private Boolean isCreateVoucher = true;
 
 
 	public String getName() {
@@ -119,6 +122,14 @@ public class SetOfBooks extends Entity {
 
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public Boolean getIsCreateVoucher() {
+		return isCreateVoucher;
+	}
+
+	public void setIsCreateVoucher(Boolean isCreateVoucher) {
+		this.isCreateVoucher = isCreateVoucher;
 	}
 
 }
