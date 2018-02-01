@@ -1,6 +1,8 @@
 package com.gongsibao.crm.web;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.panda.commerce.AdvancedListPart;
@@ -9,6 +11,7 @@ import org.netsharp.util.StringManager;
 
 import com.gongsibao.crm.base.INCustomerService;
 import com.gongsibao.crm.base.INCustomerTaskService;
+import com.gongsibao.crm.service.action.task.follow.ActionFollowVerify;
 
 public class TaskBaseListPart extends AdvancedListPart {
 
@@ -109,5 +112,25 @@ public class TaskBaseListPart extends AdvancedListPart {
 		INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
 		return taskService.abnormal(taskId, state, content, type);
 	}
-	
+	/**
+	 * 任务跟进
+	 * @param taskId
+	 * @param getNote
+	 * @return
+	 */
+	public boolean follow(String taskId, String qualityCategory,Date nextTime,BigDecimal amount,String content){
+		/*INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
+		return taskService.abnormal(taskId, state, content, type);*/
+		return true;
+	}
+	/**
+	 * 任务跟进，验证意向产品
+	 * @param taskId
+	 * @return
+	 */
+	public boolean hasProduct(String taskId){
+		ActionFollowVerify verify = new ActionFollowVerify();
+		Boolean isHas = verify.hasProduct(Integer.valueOf(taskId));
+		return isHas;
+	}
 }

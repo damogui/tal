@@ -100,7 +100,7 @@ public class ActionFollowVerify implements IAction {
 	 * @return: Boolean      
 	 * @throws   
 	 */
-	private Boolean hasProduct(Integer taskId) {
+	public Boolean hasProduct(Integer taskId) {
 
 		Oql oql = new Oql();
 		{
