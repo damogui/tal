@@ -12,6 +12,7 @@ import org.netsharp.util.ReflectManager;
 import com.gongsibao.crm.service.NCustomerService;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.dic.AllocationState;
+import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.NAllocationType;
 
 /**
@@ -35,6 +36,7 @@ public class ActionSaveTaskPersist implements IAction {
 				//新增状态：设置最后分配时间，最后分配人
 				task.setLastAllocationTime(new Date());
 				task.setLastAllocationUserId(SessionManager.getUserId());
+				task.setFoolowStatus(CustomerFollowStatus.UNSTART);
 			}
 		}
 

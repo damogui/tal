@@ -72,7 +72,7 @@ public class NCustomerTask extends Entity {
 	private Employee lastAllocationUser;
 
 	@Column(name = "foolow_status", header = "跟进状态")
-	private CustomerFollowStatus foolowStatus;
+	private CustomerFollowStatus foolowStatus = CustomerFollowStatus.UNALLOCATION;
 
 	@Column(name = "intention_category", header = "质量分类")
 	private QualityCategory intentionCategory = QualityCategory.X; 
