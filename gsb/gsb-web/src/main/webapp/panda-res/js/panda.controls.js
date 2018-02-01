@@ -273,7 +273,7 @@ org.netsharp.controls.OSSUpload = org.netsharp.controls.QiNiuUpload.Extends({
 		var uploader = new plupload.Uploader({
 			runtimes : 'html5,flash,silverlight,html4',
 			browse_button :buttonId, 
-			//container: document.getElementById('container'),
+			// container: document.getElementById('container'),
 			flash_swf_url : '/package/plupload/js/Moxie.swf',
 			silverlight_xap_url : '/package/plupload/js/Moxie.xap',
 		    url : 'http://oss.aliyuncs.com',
