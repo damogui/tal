@@ -265,7 +265,5 @@ public class PayReceiptCheckDTO extends Persistable {
 	}
 	
 	
-	
-	
 
 }

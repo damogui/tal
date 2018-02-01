@@ -61,6 +61,7 @@ public class SetOfBooksWorkspaceTest extends WorkspaceCreationBase {
 		{
 			column.setAlign(DatagridAlign.CENTER);
 		}
+		addColumn(datagrid, "isCreateVoucher", "是否生成凭证", ControlTypes.BOOLCOMBO_BOX, 80);
 		addColumn(datagrid, "enabled", "是否可用", ControlTypes.BOOLCOMBO_BOX, 50);
 		addColumn(datagrid, "creator", "添加人", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "createTime", "添加时间", ControlTypes.DATETIME_BOX, 20);
@@ -83,6 +84,7 @@ public class SetOfBooksWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "accountCode", "科目编码", null, ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "enterName", "默认的制单人", null, ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "abbreviation", "简称", null, ControlTypes.TEXT_BOX, true, false);
+		addFormField(form, "isCreateVoucher", "是否生成凭证", null, ControlTypes.SWITCH_BUTTON, true, false);
 		addFormField(form, "enabled", "是否可用", null, ControlTypes.SWITCH_BUTTON, true, false);
 		return form;
 	}
