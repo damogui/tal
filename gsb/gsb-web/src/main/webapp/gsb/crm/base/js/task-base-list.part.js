@@ -43,7 +43,10 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		});
 		return;*/
 		var me = this;
-		var intentionOption = getIntentionOption();
+		var intentionOption = getIntentionOption(id);
+		/*var array = intentionOption.split("-");
+		alert(array[0]);*/
+		
 		PandaHelper.openDynamicForm({
 			title:'任务跟进',
 			width:560,
@@ -82,6 +85,8 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		    	var time = followTimeValida(code);
 		    	var amount = followAmountValida(code);
 		    	
+		    	var getqualityId = getQualityCategory(r.id);
+		    	
 		    	if(!time && System.isnull($("#followTime").val())){
 		    		IMessageBox.info('请输入下次跟进时间');
 					return false;
@@ -95,8 +100,17 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 					IMessageBox.info('请输入内容');
 					return false;
 				};
-				//me.doRollBackService(id,getNote,'regain');
+				me.doFollowService(id,getqualityId,$("#followTime").val(),$("#amount").val(),getNote);
 			}
+		});
+	},
+	doFollowService : function(id,getqualityId,time,amount,getNote) {
+		var me = this;
+		this.invokeService("follow", [id,getqualityId,time,amount,getNote],function(data) {
+			me.reload();
+			IMessageBox.toast('操作成功');
+			layer.closeAll();
+			return;
 		});
 	},
 	doAllot : function(taskId) {
@@ -381,7 +395,8 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 });
 
 
-function getIntentionOption(){
+function getIntentionOption(id){
+	var result;
 	var intentionOption = {columns : [ [ {
 			field : 'intentionCategory',
 			title : '分类',
@@ -407,7 +422,20 @@ function getIntentionOption(){
 		mode : 'remote',
 		multiple : false,
 		onChange : function(newValue, oldValue) {
-			
+			var g = $('#allot_intention_name').combogrid('grid');
+	    	var r = g.datagrid('getSelected');	
+	    	var code = r.code;
+	    	
+	    	result = followProductValida(code);
+	    	/*if(!followProductValida(code)){
+	    		alert(11);
+	    		this.invokeService("hasProduct", [id],function(data) {
+	    			if(!data){
+	    				IMessageBox.toast('请先添加意向产品');
+	    			}
+	    			return;
+	    		});
+	    	}*/
 		}};
 	
 	return intentionOption;
@@ -441,7 +469,47 @@ function followAmountValida(code){
 	};
 	return amountResult;
 }
-
+/**
+ * 任务跟进，验证意向产品
+ * @returns
+ */
+function followProductValida(code){
+	var productResult = true;
+	var productRequired = "A0A1A2A3A4B1B3C1C2C3";
+	if(productRequired.indexOf(code)>-1){
+		//必填
+		productResult = false;
+	};
+	//alert(productResult);
+	return productResult;
+}
+/**
+ * 根据大类获取相应质量值
+ */
+function getQualityCategory(qualityCategory){
+	var getQuality = 1;
+	switch (qualityCategory) {
+	case "A类":
+		getQuality = 1;
+		break;
+	case "B类":
+		getQuality = 2;
+		break;
+	case "C类":
+		getQuality = 3;
+		break;
+	case "D类":
+		getQuality = 4;
+		break;
+	case "X类":
+		getQuality = 5;
+		break;	
+	default:
+		getQuality = 6;
+		break;
+	}
+	return getQuality;
+}
 
 function getSupplierOption(){
 	var supplierOption = {columns : [ [ {

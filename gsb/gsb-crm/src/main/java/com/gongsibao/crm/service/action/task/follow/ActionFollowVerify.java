@@ -26,30 +26,27 @@ public class ActionFollowVerify implements IAction {
 		// 这里要根据选择的不现客户质量，作不同的有效校验
 		// 具体规则参考需求文档
 		
-		NCustomerTaskFoolow foolow = (NCustomerTaskFoolow) ctx.getItem();
-		NCustomerTaskQuality quality = getNCustomerTaskQuality(foolow.getQualityId());
+		NCustomerTask task = (NCustomerTask) ctx.getItem();
+		NCustomerTaskQuality quality = getNCustomerTaskQuality(task.getQualityId());
 		QualityCategory category = quality.getIntentionCategory();
-		
-		if (category == QualityCategory.A) {
-			
-			Boolean isHas = hasProduct(foolow.getTaskId());
+		//意向产品必须存在，对应的客户质量code
+		String productRequired = "A0A1A2A3A4B1B3C1C2C3";
+		if (productRequired.contains(quality.getCode())) {
+			Boolean isHas = hasProduct(task.getId());
 			if(!isHas){
-				
 				throw new BusinessException("请先添加意向产品");
 			}
 		}
-		
-		foolow.setQualityCategory(category);
-		
+		task.setIntentionCategory(category);
 		// 补齐任务对应的客户Id
-		Integer customerId = this.getCustomerId(foolow.getTaskId());
+		Integer customerId = this.getCustomerId(task.getId());
 		if(customerId == null){
 			
 			throw new BusinessException("任务不存在或已删除，不能跟进！");
 		}
-		foolow.setCustomerId(customerId);
+		task.setCustomerId(customerId);
 
-		ctx.setItem(foolow);
+		ctx.setItem(task);
 	}
 	
 

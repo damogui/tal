@@ -1,5 +1,7 @@
 package com.gongsibao.crm.base;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -106,7 +108,7 @@ public interface INCustomerTaskService extends IPersistableService<NCustomerTask
 	 * 任务跟进
 	 */
 	@Transaction
-	public Boolean follow(NCustomerTaskFoolow taskFoolow);
+	public Boolean follow(Integer taskId, Integer qualityCategory,String nextTime,BigDecimal amount,String content);
 
 	/**
 	 * 任务收回(主管等操作)

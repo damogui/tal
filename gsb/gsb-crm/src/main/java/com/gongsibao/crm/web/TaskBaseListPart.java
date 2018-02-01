@@ -12,6 +12,7 @@ import org.netsharp.util.StringManager;
 import com.gongsibao.crm.base.INCustomerService;
 import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.crm.service.action.task.follow.ActionFollowVerify;
+import com.gongsibao.entity.crm.NCustomerProduct;
 
 public class TaskBaseListPart extends AdvancedListPart {
 
@@ -114,23 +115,25 @@ public class TaskBaseListPart extends AdvancedListPart {
 	}
 	/**
 	 * 任务跟进
-	 * @param taskId
-	 * @param getNote
+	 * @param taskId 任务Id
+	 * @param getqualityId 客户质量Id
+	 * @param nextTime 下次跟进时间
+	 * @param amount 预计金额
+	 * @param content 内容
 	 * @return
 	 */
-	public boolean follow(String taskId, String qualityCategory,Date nextTime,BigDecimal amount,String content){
-		/*INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
-		return taskService.abnormal(taskId, state, content, type);*/
-		return true;
+	public boolean follow(Integer taskId, Integer getqualityId,String nextTime,BigDecimal amount,String content){
+		INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
+		return taskService.follow(taskId, getqualityId, nextTime, amount,content);
 	}
 	/**
 	 * 任务跟进，验证意向产品
 	 * @param taskId
 	 * @return
 	 */
-	public boolean hasProduct(String taskId){
+	public boolean hasProduct(Integer taskId){
 		ActionFollowVerify verify = new ActionFollowVerify();
-		Boolean isHas = verify.hasProduct(Integer.valueOf(taskId));
+		Boolean isHas = verify.hasProduct(taskId);
 		return isHas;
 	}
 }
