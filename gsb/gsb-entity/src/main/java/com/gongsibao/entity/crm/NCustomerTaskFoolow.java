@@ -52,16 +52,16 @@ public class NCustomerTaskFoolow extends Entity {
 	@Column(name = "estimate_amount", header = "估计签单金额")
 	private Integer estimateAmount;
 	
-	@Column(name = "supplier_id", header = "分配服务商Id")
+	@Column(name = "supplier_id", header = "服务商Id")
 	private Integer supplierId;
 
-	@Reference(foreignKey = "supplierId", header = "分配服务商")
+	@Reference(foreignKey = "supplierId", header = "服务商")
 	private Supplier supplier;
 	
-	@Column(name = "department_id", header = "分配服务商部门Id")
+	@Column(name = "department_id", header = "服务商部门Id")
 	private Integer departmentId;
 
-	@Reference(foreignKey = "departmentId", header = "分配服务商部门")
+	@Reference(foreignKey = "departmentId", header = "服务商部门")
 	private SupplierDepartment department;
 	
 	public Integer getQualityId() {

@@ -4,6 +4,7 @@ com.gongsibao.crm.web.NCustomerTaskEditFormPart = com.gongsibao.crm.web.NCustome
         this.base();
     }
 });
+
 com.gongsibao.crm.web.TaskFollowDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
     ctor: function () {
         this.base();
@@ -11,11 +12,19 @@ com.gongsibao.crm.web.TaskFollowDetailPart = org.netsharp.panda.commerce.DetailP
     },
     add:function(){
     	
-    	var taskId = this.queryString("id");
-    	FollowBox.info(taskId);
-    	
+    	var me = this;
+    	var entity = this.parent.viewModel.currentItem;
+		var taskId = entity.id;
+		var customerId = entity.customerId;
+		var taskFollowCtrl = new com.gongsibao.crm.web.TaskFollowCtrl();
+		taskFollowCtrl.open(taskId,customerId,function(index, layero){
+			
+			debugger;
+			me.parent.byId(taskId);
+		});
     },
 	doubleClickRow : function(rowIndex, rowData) {
-		FollowBox.info(rowData.id);
+		
+		//FollowBox.info(rowData.id);
 	},
 });
