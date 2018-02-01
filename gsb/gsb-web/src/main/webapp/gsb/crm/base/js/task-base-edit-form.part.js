@@ -10,6 +10,7 @@ com.gongsibao.crm.web.TaskFollowDetailPart = org.netsharp.panda.commerce.DetailP
         this.addFollowUrl = null;
     },
     add:function(){
+    	
     	var taskId = this.queryString("id");
     	var url = this.addFollowUrl +"?fk=taskId:"+taskId;
     	IMessageBox.open("任务跟进",url,700,450,function(){

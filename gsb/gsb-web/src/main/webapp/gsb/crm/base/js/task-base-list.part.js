@@ -79,6 +79,10 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 			explain:'',
 			notice:'',
 			callback:function(index, layero){
+				if(System.isnull($('#allot_intention_name').combogrid('getValue'))){
+					IMessageBox.info('请输入任务质量');
+					return false;
+				}
 				var g = $('#allot_intention_name').combogrid('grid');
 		    	var r = g.datagrid('getSelected');	
 		    	var code = r.code;
