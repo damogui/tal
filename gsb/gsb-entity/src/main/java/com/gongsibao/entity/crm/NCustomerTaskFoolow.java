@@ -9,6 +9,7 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
 import com.gongsibao.entity.crm.dic.QualityCategory;
+import com.gongsibao.entity.crm.dic.TaskQualityProgress;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
@@ -43,6 +44,9 @@ public class NCustomerTaskFoolow extends Entity {
 	@Reference(foreignKey = "qualityId", header = "质量")
 	private NCustomerTaskQuality quality;
 	
+	@Column(name = "quality_progress", header = "质量进度")
+	private TaskQualityProgress qualityProgress;
+	
 	@Column(name = "next_foolow_time", header = "下次跟进时间")
 	private Date nextFoolowTime;
 	
@@ -64,6 +68,14 @@ public class NCustomerTaskFoolow extends Entity {
 	@Reference(foreignKey = "departmentId", header = "服务商部门")
 	private SupplierDepartment department;
 	
+	public TaskQualityProgress getQualityProgress() {
+		return qualityProgress;
+	}
+
+	public void setQualityProgress(TaskQualityProgress qualityProgress) {
+		this.qualityProgress = qualityProgress;
+	}
+
 	public Integer getQualityId() {
 		return qualityId;
 	}
