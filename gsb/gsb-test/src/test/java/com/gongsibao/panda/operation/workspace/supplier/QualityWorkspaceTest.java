@@ -54,6 +54,8 @@ public class QualityWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "nextFoolowDateRequired", "下次跟进时间必填", ControlTypes.BOOLCOMBO_BOX, 150);
 		addColumn(datagrid, "requiredInfo", "必填信息", ControlTypes.TEXT_BOX, 400);
 		addColumn(datagrid, "nextFoolowType", "下次跟进方式", ControlTypes.TEXT_BOX, 300);
+		addColumn(datagrid, "score", "分值", ControlTypes.TEXT_BOX, 80);
+		
 		return datagrid;
 	}
 
@@ -82,8 +84,9 @@ public class QualityWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "nextFoolowDateRequired", "下次跟进时间必填", ControlTypes.SWITCH_BUTTON, false, false);
 		addFormField(form, "requiredInfo", "必填信息", ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "nextFoolowType", "下次跟进方式", ControlTypes.TEXT_BOX, false, false);
+		addFormField(form, "score", "分值", ControlTypes.NUMBER_BOX, true, false);
 		addFormField(form, "memoto", "备注", ControlTypes.TEXT_BOX, false, false);
-
+		
 		return form;
 	}
 
