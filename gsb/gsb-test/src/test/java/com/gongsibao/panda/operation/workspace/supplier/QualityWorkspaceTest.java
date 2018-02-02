@@ -66,7 +66,7 @@ public class QualityWorkspaceTest extends WorkspaceCreationBase {
 		addQueryItem(queryProject, "name", "名称", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "code", "编码", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "intentionCategory", "质量分类", ControlTypes.ENUM_BOX);
-		// 参照
+		//  参照
 		addRefrenceQueryItem(queryProject, "supplier.name", "服务商名称", "CRM_Supplier");
 		return queryProject;
 	}
