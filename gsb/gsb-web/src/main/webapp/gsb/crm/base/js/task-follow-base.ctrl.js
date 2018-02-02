@@ -135,7 +135,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 		    		}
 		    	}
 		    	
-		    	//查询估计签单金额、估计回款金额 
+		    	//查询估计签单金额、 估计回款金额 
 		    	var serviceLocator = new org.netsharp.core.JServiceLocator();
 		 		me.invokeService('getSigningAmount',[taskId],function(data){
 					
