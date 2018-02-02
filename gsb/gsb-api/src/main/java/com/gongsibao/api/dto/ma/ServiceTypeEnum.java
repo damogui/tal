@@ -12,7 +12,13 @@ public enum ServiceTypeEnum  implements IEnum {
     p2(2, "企业包装"),
     p3(3, "上市壳公司"),
     p4(4, "类金融牌照"),
-    p5(5, "资质类公司");
+    p5(5, "资质类公司"),
+    p6(6, "精选-热销"),
+    p7(7, "公司类型"),
+    p8(8, "公司性质"),
+    p9(9, "成立年限") ;
+
+
 
     private int value;
     private String text;
