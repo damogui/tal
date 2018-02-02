@@ -43,7 +43,7 @@ public class ActionAutoAllocationPersist implements IAction {
 	IPersister<NCustomerTask> taskPm = PersisterFactory.create();
 
 	@Override
-	public void execute(ActionContext ctx) {
+	public void execute(ActionContext ctx) {		
 		NCustomerTask entity = (NCustomerTask) ctx.getItem();
 		// 查询出符合条件的业务员
 		List<Salesman> salesmanList = getListByCondition(entity);

@@ -79,7 +79,7 @@ public class AllocationAutoActionTest {
 			
 			beanPath.getItems().add(bean);
 		}
-		bean = new Bean();
+		/*bean = new Bean();
 		{
 			bean.toNew();
 			bean.setName("发送通知消息");
@@ -88,7 +88,7 @@ public class AllocationAutoActionTest {
 			bean.setSeq(500);
 			
 			beanPath.getItems().add(bean);
-		}
+		}*/
 		
 		beanPathService.save(beanPath);
 	}
