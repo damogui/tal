@@ -99,6 +99,8 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		builder.append("NCustomerTask.follows.*,");
 		builder.append("NCustomerTask.notifys.*,");
 		builder.append("NCustomerTask.changes.*,");
+		builder.append("NCustomerTask.changes.formUser.{id,name},");
+		builder.append("NCustomerTask.changes.toUser.{id,name},");
 		builder.append("NCustomerTask.inspections.*,");
 		
 		return builder.toString();
@@ -179,7 +181,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	public Boolean allocation(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId) {
 
 		Map<String, Object> setMap = new HashMap<String, Object>();
-		NCustomerTask entity = this.byId(taskId);
+		NCustomerTask entity = this.byId(taskId); 
 		setMap.put("formUserId", entity.getOwnerId());
 		entity.setSupplierId(supplierId);
 		entity.setDepartmentId(departmentId);

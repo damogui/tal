@@ -11,7 +11,7 @@ import com.gongsibao.entity.crm.dic.NotifyType;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
-@Table(name="n_crm_task_notify",header="任务通知")
+@Table(name="n_crm_task_notify",orderBy = " create_time DESC",header="任务通知")
 public class NCustomerTaskNotify extends Entity{
 
 	/**   

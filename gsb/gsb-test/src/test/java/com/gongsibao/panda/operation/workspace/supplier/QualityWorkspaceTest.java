@@ -47,21 +47,40 @@ public class QualityWorkspaceTest extends WorkspaceCreationBase {
 
 		PDatagridColumn column = null;
 		addColumn(datagrid, "intentionCategory", "大类", ControlTypes.ENUM_BOX, 100);
-		column = addColumn(datagrid, "code", "编码", ControlTypes.TEXT_BOX, 80);{
-			
+		column = addColumn(datagrid, "code", "编码", ControlTypes.TEXT_BOX, 80);
+		{
+
 			column.setAlign(DatagridAlign.CENTER);
 		}
 		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 200);
-		addColumn(datagrid, "nextFoolowDateRequired", "下次跟进时间必填", ControlTypes.BOOLCOMBO_BOX, 150);
-		addColumn(datagrid, "returnedAmountRequired", "估计回款额必填", ControlTypes.BOOLCOMBO_BOX, 150);
-		addColumn(datagrid, "signingAmountRequired", "估计签单额必填", ControlTypes.BOOLCOMBO_BOX, 150);
-		addColumn(datagrid, "contentRequired", "内容必填", ControlTypes.BOOLCOMBO_BOX, 150);
-		addColumn(datagrid, "productRequired", "意向产品必填写", ControlTypes.BOOLCOMBO_BOX, 150);
-		addColumn(datagrid, "districtRequired", "意向地区必填写", ControlTypes.BOOLCOMBO_BOX, 150);
+		column = addColumn(datagrid, "nextFoolowDateRequired", "下次跟进时间必填", ControlTypes.BOOLCOMBO_BOX, 150);
+		{
+			column.setWidth(150);
+		}
+		column = addColumn(datagrid, "returnedAmountRequired", "估计回款额必填", ControlTypes.BOOLCOMBO_BOX, 150);
+		{
+			column.setWidth(150);
+		}
+		column = addColumn(datagrid, "signingAmountRequired", "估计签单额必填", ControlTypes.BOOLCOMBO_BOX, 150);
+		{
+			column.setWidth(150);
+		}
+		column = addColumn(datagrid, "contentRequired", "内容必填", ControlTypes.BOOLCOMBO_BOX, 150);
+		{
+			column.setWidth(150);
+		}
+		column = addColumn(datagrid, "productRequired", "意向产品必填写", ControlTypes.BOOLCOMBO_BOX, 150);
+		{
+			column.setWidth(150);
+		}
+		column = addColumn(datagrid, "districtRequired", "意向地区必填写", ControlTypes.BOOLCOMBO_BOX, 150);
+		{
+			column.setWidth(150);
+		}
 		addColumn(datagrid, "requiredInfo", "必填信息", ControlTypes.TEXT_BOX, 400);
 		addColumn(datagrid, "nextFoolowType", "下次跟进方式", ControlTypes.TEXT_BOX, 300);
 		addColumn(datagrid, "score", "分值", ControlTypes.TEXT_BOX, 80);
-		
+
 		return datagrid;
 	}
 
@@ -72,7 +91,7 @@ public class QualityWorkspaceTest extends WorkspaceCreationBase {
 		addQueryItem(queryProject, "name", "名称", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "code", "编码", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "intentionCategory", "质量分类", ControlTypes.ENUM_BOX);
-		//  参照
+		// 参照
 		addRefrenceQueryItem(queryProject, "supplier.name", "服务商名称", "CRM_Supplier");
 		return queryProject;
 	}
@@ -83,7 +102,7 @@ public class QualityWorkspaceTest extends WorkspaceCreationBase {
 		PForm form = super.createForm(node);
 		form.setColumnCount(2);
 
-		//PFormField field = null;
+		// PFormField field = null;
 		addFormField(form, "name", "名称", ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "code", "编号", ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "intentionCategory", "质量分类", ControlTypes.ENUM_BOX, true, false);
@@ -93,12 +112,12 @@ public class QualityWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "contentRequired", "内容必填", ControlTypes.SWITCH_BUTTON, false, false);
 		addFormField(form, "productRequired", "意向产品必填写", ControlTypes.SWITCH_BUTTON, false, false);
 		addFormField(form, "districtRequired", "意向地区必填写", ControlTypes.SWITCH_BUTTON, false, false);
-		
+
 		addFormField(form, "requiredInfo", "必填信息", ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "nextFoolowType", "下次跟进方式", ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "score", "分值", ControlTypes.NUMBER_BOX, true, false);
 		addFormField(form, "memoto", "备注", ControlTypes.TEXT_BOX, false, false);
-		
+
 		return form;
 	}
 

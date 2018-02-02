@@ -71,7 +71,6 @@ public class ImportTaskQualityDataTest {
             entity3.setNextFoolowType("业务员主动联系");
             entity3.setScore(50);
             
-            entity3.setNextFoolowDateRequired(false);
             entity3.setContentRequired(false);
             entity3.setProductRequired(true);
             entity3.setDistrictRequired(true);
@@ -88,7 +87,6 @@ public class ImportTaskQualityDataTest {
             entity4.setNextFoolowDateRequired(true);
             entity4.setNextFoolowType("业务员主动联系");
             entity4.setScore(40);
-            entity4.setNextFoolowDateRequired(false);
             entity4.setContentRequired(false);
             entity4.setProductRequired(true);
             entity4.setDistrictRequired(true);
@@ -105,7 +103,6 @@ public class ImportTaskQualityDataTest {
             entity5.setNextFoolowDateRequired(true);
             entity5.setNextFoolowType("业务员主动联系");
             entity5.setScore(30);
-            entity5.setNextFoolowDateRequired(false);
             entity5.setContentRequired(false);
             entity5.setProductRequired(true);
             entity5.setDistrictRequired(true);
@@ -122,7 +119,6 @@ public class ImportTaskQualityDataTest {
             entity6.setNextFoolowDateRequired(true);
             entity6.setNextFoolowType("业务员主动联系");
             entity6.setScore(20);
-            entity6.setNextFoolowDateRequired(false);
             entity6.setContentRequired(false);
             entity6.setProductRequired(true);
             entity6.setDistrictRequired(true);
@@ -157,7 +153,6 @@ public class ImportTaskQualityDataTest {
             entity8.setNextFoolowType("业务员主动联系");
             entity8.setScore(0);
             
-            entity8.setNextFoolowDateRequired(false);
             entity8.setContentRequired(true);
             entity8.setProductRequired(true);
             entity8.setDistrictRequired(true);
@@ -174,7 +169,6 @@ public class ImportTaskQualityDataTest {
             entity9.setNextFoolowDateRequired(true);
             entity9.setNextFoolowType("业务员主动联系");
             entity9.setScore(0);
-            entity3.setNextFoolowDateRequired(false);
             entity3.setContentRequired(false);
             entity3.setProductRequired(false);
             entity3.setDistrictRequired(false);
@@ -191,7 +185,6 @@ public class ImportTaskQualityDataTest {
             entity10.setNextFoolowDateRequired(false);
             entity10.setNextFoolowType("1. 售前抽查核实2.机器挖掘分配");
             entity10.setScore(0);
-            entity10.setNextFoolowDateRequired(false);
             entity10.setContentRequired(true);
             entity10.setProductRequired(true);
             entity10.setDistrictRequired(true);
@@ -209,7 +202,6 @@ public class ImportTaskQualityDataTest {
             entity11.setNextFoolowType("1. 售前抽查核实2.机器挖掘分配");
             entity11.setScore(0);
             
-            entity11.setNextFoolowDateRequired(false);
             entity11.setContentRequired(true);
             entity11.setProductRequired(true);
             entity11.setDistrictRequired(true);
@@ -227,7 +219,6 @@ public class ImportTaskQualityDataTest {
             entity12.setNextFoolowType("1. 售前抽查核实2.机器挖掘分配");
             entity12.setScore(0);
             
-            entity12.setNextFoolowDateRequired(false);
             entity12.setContentRequired(true);
             entity12.setProductRequired(true);
             entity12.setDistrictRequired(true);
@@ -245,7 +236,6 @@ public class ImportTaskQualityDataTest {
             entity13.setNextFoolowType("1. 售前抽查核实2.机器挖掘分配");
             entity13.setScore(0);
             
-            entity13.setNextFoolowDateRequired(false);
             entity13.setContentRequired(true);
             entity13.setProductRequired(true);
             entity13.setDistrictRequired(true);
@@ -263,7 +253,6 @@ public class ImportTaskQualityDataTest {
             entity14.setNextFoolowType("1. 售前抽查核实2.机器挖掘分配");
             entity14.setScore(0);
             
-            entity14.setNextFoolowDateRequired(false);
             entity14.setContentRequired(true);
             entity14.setProductRequired(false);
             entity14.setDistrictRequired(false);
@@ -281,7 +270,6 @@ public class ImportTaskQualityDataTest {
             entity15.setNextFoolowType("1. 售前抽查核实2. 机器挖掘分配");
             entity15.setScore(0);
             
-            entity15.setNextFoolowDateRequired(false);
             entity15.setContentRequired(true);
             entity15.setProductRequired(false);
             entity15.setDistrictRequired(false);

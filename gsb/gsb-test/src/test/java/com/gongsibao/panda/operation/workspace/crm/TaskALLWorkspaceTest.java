@@ -78,12 +78,12 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 			StringBuilder builder = new StringBuilder();
 			builder.append("if(row.qualityProgress=='上升'){return value+'<i title=\\'意向度上升\\' style=\\'font-size: 12px;color:red;float:right;\\' class=\\'fa fa-level-up\\'></i>';}");
 			builder.append("else if(row.qualityProgress=='下降'){return value+'<i title=\\'意向度下降\\' style=\\'font-size: 12px;color:gray;float:right;\\' class=\\'fa fa-level-down\\'></i>';}");;
-			builder.append("else{return value;}");
+			builder.append("else{return value+'<i title=\\'意向度无变化\\' style=\\'font-size: 12px;color:gray;float:right;\\' class=\\'fa fa-fa-arrows-h\\'></i>';}");
 			column.setFormatter(builder.toString());
 		}
 		addColumn(datagrid, "allocationState", "分配状态", ControlTypes.ENUM_BOX, 80, false);
 
-		addColumn(datagrid, "name", "任务名称", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "name", "任务名称", ControlTypes.TEXT_BOX, 250, false);
 		addColumn(datagrid, "customerId", "客户ID", ControlTypes.TEXT_BOX, 60, false);
 		addColumn(datagrid, "customer.realName", "客户名称", ControlTypes.TEXT_BOX, 100, false);
 

@@ -164,7 +164,7 @@ public class NCustomerTask extends Entity {
 	@Subs(foreignKey = "taskId", header = "意向产品", subType = NCustomerProduct.class)
 	private List<NCustomerProduct> products;
 
-	@Subs(foreignKey = "taskId", header = "沟通日志", subType = NCustomerTaskFoolow.class)
+	@Subs(foreignKey = "taskId", header = "跟进日志", subType = NCustomerTaskFoolow.class)
 	private List<NCustomerTaskFoolow> follows;
 
 	@Subs(foreignKey = "taskId", header = "通知日志", subType = NCustomerTaskNotify.class)

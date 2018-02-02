@@ -36,6 +36,8 @@ public class ActionFollowVerify implements IAction {
 				throw new BusinessException("此类质量的任务必须添加意向产品");
 			}
 		}
+		
+		//hasDistrict
 		taskFoolow.setQualityCategory(category);
 	}
 
@@ -75,6 +77,26 @@ public class ActionFollowVerify implements IAction {
 		{
 			oql.setType(NCustomerProduct.class);
 			oql.setFilter("task_id=?");
+			oql.getParameters().add("task_id", taskId, Types.INTEGER);
+		}
+		IPersister<NCustomerProduct> pm = PersisterFactory.create();
+		return pm.queryCount(oql) > 0;
+	}
+	
+	/**   
+	 * @Title: hasDistrict   
+	 * @Description: TODO(判断任务的意向产品是否有意向地区)   
+	 * @param: @param taskId
+	 * @param: @return      
+	 * @return: Boolean      
+	 * @throws   
+	 */
+	public Boolean hasDistrict(Integer taskId) {
+
+		Oql oql = new Oql();
+		{
+			oql.setType(NCustomerProduct.class);
+			oql.setFilter("task_id=? and (province_id is not null or city_id is not null or county_id is not null)");
 			oql.getParameters().add("task_id", taskId, Types.INTEGER);
 		}
 		IPersister<NCustomerProduct> pm = PersisterFactory.create();
