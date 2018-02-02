@@ -26,7 +26,7 @@ public class DataApiTest {
 //        testGetCompanyByKey("腾中重工");
 //        testCompanyNameByKey("中重工有限");
 
-        testTmAssemble("四川腾中重工机械有限公司");
+//        testTmAssemble("四川腾中重工机械有限公司");
 //        testGetCompanyBusinessCount("四川腾中重工机械有限公司");
 //        testGetCompanyPotentialCount("四川腾中重工机械有限公司");
 //        testTmCategoryCount("四川腾中重工机械有限公司");

@@ -11,6 +11,8 @@ public class CompanyPotentialCount implements IEntity {
     private String name;
     /* 商标总数 */
     private int tmSum;
+    /* 聚合后商标推荐分类数量相加 */
+    private int recommendCount;
     /* 商标潜在变更数量 */
     private int tmChangeCount;
     /* 商标潜在续展数量 */
@@ -51,6 +53,14 @@ public class CompanyPotentialCount implements IEntity {
 
     public void setTmSum(int tmSum) {
         this.tmSum = tmSum;
+    }
+
+    public int getRecommendCount() {
+        return recommendCount;
+    }
+
+    public void setRecommendCount(int recommendCount) {
+        this.recommendCount = recommendCount;
     }
 
     public int getTmChangeCount() {

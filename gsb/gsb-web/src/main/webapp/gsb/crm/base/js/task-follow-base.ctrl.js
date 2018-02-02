@@ -79,6 +79,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 			idField : 'id',
 			textField : 'name',
 			width : 300,
+			required:true,
 			fitColumns : true,
 			panelWidth : 450,
 			panelHeight : 310,
@@ -87,6 +88,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 			mode : 'remote',
 			multiple : false,
 			onChange : function(newValue, oldValue) {
+				
 				var grid = $('#allot_intention_name').combogrid('grid');
 		    	var row = grid.datagrid('getSelected');	
 		    	var code = row.code;
@@ -105,36 +107,51 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 		
 		return intentionOption;
 	},
+	//nextFoolowDateRequired
+	//returnedAmountRequired
+	//signingAmountRequired
+	//contentRequired
+	//productRequired
+	//districtRequired
 	open:function(taskId,customerId,callback){
 		
 		var me = this;
     	var intentionOption = this.getIntentionOption(taskId);
     	PandaHelper.openDynamicForm({
 			title:'任务跟进',
-			width:560,
+			width:500,
 			height:480,
 			items:[{id:'allot_intention_name',
 				title:'任务质量',
 				type:'combogrid',
 				className:'',
-				option:intentionOption,
-				width:170},
+				option:intentionOption},
 					
 				{id:'nextFoolowTime',
 					title:'下次跟进时间',
 					type:'datebox',
 					className:'',
-					disabled:true},
-					 
-				{id:'amount',
+					option:{width:300}
+				},
+				
+				{id:'signingAmount',
 					title:'估计签单金额',
 					type:'numberbox',
-					className:''},	
+					className:'',
+					option:{width:300,disabled:true}
+				},	
+				
+				{id:'returnedAmount',
+					title:'估计回款金额',
+					type:'numberbox',
+					className:'',
+					option:{width:300,disabled:true}
+				},	
 					 
 				{id:'follow_content',
-					title:'内容',
+					title:'跟进内容',
 					type:'textarea',
-					height:130,
+					height:100,
 					width:300,
 					className:''}
 			],
@@ -160,9 +177,9 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 		    	};
 		    	
 
-		    	var estimateAmount = $("#amount").numberbox('getValue');
+		    	var returnedAmount = $("#returnedAmount").numberbox('getValue');
 		    	var amountRequired =  me.followAmountValida(code);
-		    	if(!amountRequired && System.isnull(estimateAmount)){
+		    	if(!amountRequired && System.isnull(returnedAmount)){
 		    		layer.msg('请添加估计签单金额');
 					return false;
 		    	};
@@ -182,7 +199,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 						customerId:customerId,
 						qualityId:qualityId,
 						nextFoolowTime:nextFoolowTime,
-						estimateAmount:estimateAmount,
+						returnedAmount:returnedAmount,
 						content:content
 				};
 				//封装的Ajax

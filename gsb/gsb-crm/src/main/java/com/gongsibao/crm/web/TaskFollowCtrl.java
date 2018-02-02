@@ -25,7 +25,8 @@ public class TaskFollowCtrl {
 		newTaskFoolow.setTaskId(entity.getTaskId());
 		newTaskFoolow.setQualityId(entity.getQualityId());
 		newTaskFoolow.setNextFoolowTime(entity.getNextFoolowTime());
-		newTaskFoolow.setEstimateAmount(entity.getEstimateAmount());
+		newTaskFoolow.setSigningAmount(entity.getSigningAmount());
+		newTaskFoolow.setReturnedAmount(entity.getReturnedAmount());
 		newTaskFoolow.setContent(entity.getContent());
 		INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
 		return taskService.follow(newTaskFoolow);
