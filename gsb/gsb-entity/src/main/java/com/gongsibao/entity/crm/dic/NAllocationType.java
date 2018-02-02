@@ -7,7 +7,7 @@ public enum NAllocationType implements IEnum{
 
 	AUTO(1, "自动分配"), 
 	MANUAL(2, "手动分配"),
-	SemiAutomatic(3, "半自动分配");
+	SemiAutomatic(3, "自动分配到服务商");
 	private int value;
 	private String text;
 
