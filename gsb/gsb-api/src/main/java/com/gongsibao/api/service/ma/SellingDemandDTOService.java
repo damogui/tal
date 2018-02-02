@@ -38,10 +38,6 @@ public class SellingDemandDTOService {
                 filterBuilder.append("company_name  like '%" + queryModel.getCompanyName() + "%'");
             }
             if (queryModel.getComQualType() != 0) {//资质类型  qualificationDetails
-                // String sqlFiter=String.format("company_name  like '%%s%' or ");
-                //Enterprise_qualification
-//                SellingDemand  osell=new SellingDemand();
-//                osell.getQualificationDetails().contains()
                 filterBuilder.append("qualificationDetails.enterpriseQualification=?");
                 qps.add("@enterpriseQualification", queryModel.getComQualType(), Types.INTEGER);
 
@@ -108,8 +104,8 @@ public class SellingDemandDTOService {
             oql.setOrderby("update_time  desc");
             oql.setPaging(new Paging(1, 10));
         }
-        String fiterStr=filterBuilder.toString();
-        if (!StringManager.isNullOrEmpty(fiterStr)){
+        String fiterStr = filterBuilder.toString();
+        if (!StringManager.isNullOrEmpty(fiterStr)) {
             oql.setFilter(fiterStr);
             oql.setParameters(qps);
         }
