@@ -32,13 +32,13 @@ import com.gongsibao.entity.crm.dic.ChangeType;
 import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.NotifyType;
 
-public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest{
+public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 
-	protected String  productsDetailResourceNodeCode = "Operation_CRM_Customer_Products";
-	protected String  foolowDetailResourceNodeCode = "Operation_CRM_Customer_Foolow";
-	protected String  notifyDetailResourceNodeCode = "Operation_CRM_Customer_Notify";
-	protected String  changeDetailResourceNodeCode = "Operation_CRM_Customer_Change";
-	
+	protected String productsDetailResourceNodeCode = "Operation_CRM_Customer_Products";
+	protected String foolowDetailResourceNodeCode = "Operation_CRM_Customer_Foolow";
+	protected String notifyDetailResourceNodeCode = "Operation_CRM_Customer_Notify";
+	protected String changeDetailResourceNodeCode = "Operation_CRM_Customer_Change";
+
 	@Before
 	public void setup() {
 		super.setup();
@@ -48,32 +48,30 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "Operation_CRM_Customer_Edit";
-		
+
 		List<String> ss = new ArrayList<String>();
 		ss.add("/gsb/crm/base/js/customer-base-form.part.js");
 		ss.add("/gsb/crm/platform/js/customer-edit-form.part.js");
 		ss.add("/gsb/gsb.customer.controls.js");
 		formJsImport = StringManager.join("|", ss);
-		
+
 		formJsController = "com.gongsibao.crm.web.NCustomerPlatformEditFormPart";
 		formServiceController = NCustomerFormPart.class.getName();
-		
+
 		taskDetailJsController = "com.gongsibao.crm.web.PlatformTaskDetailPart";
-		
+
 		formToolbarPath = "/crm/customer/edit";
 	}
-	
 
 	@Test
 	public void run() {
 
 		createFormWorkspace();
 	}
-	
-	
+
 	@Test
 	public void createFormToolbar() {
-		
+
 		ResourceNode node = this.resourceService.byCode(resourceNodeCode);
 		PToolbar toolbar = new PToolbar();
 		{
@@ -99,43 +97,54 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest{
 	}
 
 	// 默认的表单配置信息
-	protected PForm createForm(ResourceNode node) {
-
-		PForm form = super.createForm(node);
-		form.setReadOnly(true);
-		String groupName = "最近跟进";
-		addFormField(form, "intentionCategory", "质量分类", groupName, ControlTypes.ENUM_BOX, false, true);
-		addFormFieldRefrence(form, "quality.name", "质量", groupName, NCustomerTaskQuality.class.getSimpleName(), false, true);
-		addFormFieldRefrence(form, "lastFoolowUser.name", "最近跟进人", groupName, Employee.class.getSimpleName(), false, true);
-		addFormField(form, "lastFollowTime", "最近跟进时间", groupName, ControlTypes.DATETIME_BOX, false, true);
-		addFormField(form, "nextFoolowTime", "下次跟进时间", groupName, ControlTypes.DATETIME_BOX, false, true);
-		PFormField field = addFormField(form, "lastContent", "最近跟进内容", groupName, ControlTypes.TEXTAREA, false, true);{
-			
-			field.setHeight(100);
-		}
-		
-		return form;
-	}
+	// protected PForm createForm(ResourceNode node) {
+	//
+	// PForm form = super.createForm(node);
+	// form.setReadOnly(true);
+	// String groupName = "最近跟进";
+	// addFormField(form, "intentionCategory", "质量分类", groupName,
+	// ControlTypes.ENUM_BOX, false, true);
+	// addFormFieldRefrence(form, "quality.name", "质量", groupName,
+	// NCustomerTaskQuality.class.getSimpleName(), false, true);
+	// addFormFieldRefrence(form, "lastFoolowUser.name", "最近跟进人", groupName,
+	// Employee.class.getSimpleName(), false, true);
+	// addFormField(form, "lastFollowTime", "最近跟进时间", groupName,
+	// ControlTypes.DATETIME_BOX, false, true);
+	// addFormField(form, "nextFoolowTime", "下次跟进时间", groupName,
+	// ControlTypes.DATETIME_BOX, false, true);
+	// PFormField field = addFormField(form, "lastContent", "最近跟进内容", groupName,
+	// ControlTypes.TEXTAREA, false, true);{
+	//
+	// field.setHeight(100);
+	// }
+	//
+	// return form;
+	// }
 
 	protected void addDetailGridPart(PWorkspace workspace) {
 
+		addFlowLogPart(workspace);
+
 		// 客户任务
-		super.createTasksPart(workspace);
-		
-		// 意向产品
-		addIntenProductPart(workspace);
-		
-		createCompanysDetailPart(workspace);
-		
+		createTasksPart(workspace);
+
 		// 日志信息
 		addCommunicatLogsPart(workspace);
-		
+
+		// 意向产品
+		addIntenProductPart(workspace);
+
+		createCompanysDetailPart(workspace);
+
 		addNotificationLogPart(workspace);
-		
-		addFlowLogPart(workspace);
+
 	}
 
-	
+	public void createTasksPart(PWorkspace workspace) {
+
+		super.createTasksPart(workspace);
+
+	}
 
 	// 意向产品
 	private void addIntenProductPart(PWorkspace workspace) {
@@ -166,7 +175,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest{
 		workspace.getParts().add(part);
 
 	}
-	
+
 	// 选项卡加载项
 	private void addCommunicatLogsPart(PWorkspace workspace) {
 		// 需要配置NCustomerProduct资源
@@ -196,9 +205,9 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest{
 		}
 		workspace.getParts().add(part);
 	}
-	
+
 	private void addNotificationLogPart(PWorkspace workspace) {
-		
+
 		ResourceNode node = this.resourceService.byCode(notifyDetailResourceNodeCode);
 		PDatagrid datagrid = new PDatagrid(node, "通知日志");
 		{
@@ -223,7 +232,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest{
 		}
 		workspace.getParts().add(part);
 	}
-	
+
 	private void addFlowLogPart(PWorkspace workspace) {
 		ResourceNode node = this.resourceService.byCode(changeDetailResourceNodeCode);
 
@@ -235,9 +244,9 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest{
 				String formatter = EnumUtil.getColumnFormatter(ChangeType.class);
 				column.setFormatter(formatter);
 			}
-			addColumn(datagrid, "formUser.name", "来自", ControlTypes.ENUM_BOX, 150);
-			addColumn(datagrid, "toUser.name", "去向", ControlTypes.NUMBER_BOX, 150);
-			addColumn(datagrid, "content", "内容", ControlTypes.TEXT_BOX, 150);
+			addColumn(datagrid, "formUser.name", "来自", ControlTypes.ENUM_BOX, 100);
+			addColumn(datagrid, "toUser.name", "去向", ControlTypes.NUMBER_BOX, 100);
+			addColumn(datagrid, "content", "内容", ControlTypes.TEXT_BOX, 400);
 		}
 		PPart part = new PPart();
 		{
@@ -255,10 +264,10 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest{
 		part = workspace.getParts().get(0);
 		{
 			part.setName("客户信息");
-			part.setDockStyle(DockType.DOCUMENTHOST);
+			part.setDockStyle(DockType.TOP);
 		}
 	}
-	
+
 	// 默认的表单操作
 	@Override
 	protected void doOperation() {
