@@ -5,6 +5,7 @@ import com.gongsibao.entity.ma.SellingDemand;
 import com.gongsibao.entity.ma.dic.CompanyNature;
 import com.gongsibao.entity.ma.dic.CompanyType;
 import com.gongsibao.entity.ma.dic.EnterpriseQualification;
+import com.gongsibao.entity.ma.dic.IndustryFeature;
 import com.gongsibao.ma.service.SellingDemandService;
 import com.gongsibao.taurus.util.StringManager;
 import org.netsharp.core.Oql;
@@ -14,6 +15,7 @@ import org.netsharp.pcc.entity.ProvinceCityCounty;
 import org.netsharp.pcc.service.ProvinceCityCountyService;
 
 import java.sql.Types;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +31,19 @@ public class SellingDemandDTOService {
         Oql oql = new Oql();
         StringBuilder filterBuilder = new StringBuilder();
         oql.setType(SellingDemand.class);
-        oql.setSelects("SellingDemand.*");
+
+
+        StringBuilder selectStr = new StringBuilder();
+        selectStr.append("SellingDemand.*,");
+        selectStr.append("SellingDemand.province.{code,name},");
+        selectStr.append("SellingDemand.city.{code,name},");
+        selectStr.append("SellingDemand.county.{code,name}");
+//        selectStr.append("SellingDemand.*,");
+//        selectStr.append("SellingDemand.*,");
+
+
+        oql.setSelects(selectStr.toString());
+
         QueryParameters qps = new QueryParameters();
         if (queryModel != null) {//进行组装筛选条件数据
 
@@ -118,25 +132,48 @@ public class SellingDemandDTOService {
 
             SellingDemandDTO sellDto = new SellingDemandDTO();
             sellDto.setId(item.getId());
-//            sellDto.setCode(item.getCode());
             sellDto.setCompanyName(item.getCompanyName());//
-//            sellDto.setCompanyType(item.getCompanyType());
             sellDto.setCompanyNature(item.getCompanyNature());//公司性质
+            if (item.getCompanyNature() != null) {
+                sellDto.setCompanyNatureStr(item.getCompanyNature().getText());//公司性质
+            }
+
             sellDto.setCompanyFeature(item.getCompanyFeature());//公司特点
+            if (item.getCompanyFeature() != null) {
+                sellDto.setCompanyFeatureStr(item.getCompanyFeature().getText());//公司特点
+            }
+
+            sellDto.setProvince(item.getProvince());
+            if (item.getProvince() != null) {
+                sellDto.setProvinceStr(item.getProvince().getName());//省份名称
+
+            }
+            sellDto.setCity(item.getCity());
+            if (item.getCity() != null) {
+                sellDto.setCityStr(item.getCity().getName());
+
+            }
+
+            sellDto.setCounty(item.getCounty());
+            sellDto.setRegistDate(item.getRegistDate());
+
+            if (item.getRegistDate()!=null){
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+                sellDto.setRegistDateStr(sdf.format(item.getRegistDate()));
+            }
+            sellDto.setSelingStatus(item.getSelingStatus());//是否出售
+//            sellDto.setCode(item.getCode());
+//            sellDto.setCompanyType(item.getCompanyType());
 //            sellDto.setTaxMode(item.getTaxMode());
 //            sellDto.setAddressMode(item.getAddressMode());
-            sellDto.setRegistDate(item.getRegistDate());
 //            sellDto.setRegistDateEnd(item.getRegistDateEnd());
-            sellDto.setProvince(item.getProvince());
-            sellDto.setCity(item.getCity());
-            sellDto.setCounty(item.getCounty());
 //            sellDto.setHasBankAccount(item.getHasBankAccount());
 //            sellDto.setTaxRegister(item.getTaxRegister());
 //            sellDto.setQualificationDetails(item.getQualificationDetails());
 //            sellDto.setIntangibleAssetss(item.getIntangibleAssetss());
 //            sellDto.setFixedAssetss(item.getFixedAssetss());
 //            sellDto.setLicenseAdvantage(item.getLicenseAdvantage());
-            sellDto.setSelingStatus(item.getSelingStatus());//是否出售
+
             sellingDtoList.add(sellDto);
 
 

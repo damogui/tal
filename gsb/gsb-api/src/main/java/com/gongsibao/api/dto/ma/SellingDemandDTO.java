@@ -30,29 +30,49 @@ public class SellingDemandDTO {
     @Column(name = "company_type", header = "公司类型")
     private CompanyType companyType;
 
-    @Column(name = "company_nature", header = "公司性质")
-    private CompanyNature companyNature;
+
     @Column(name = "company_feature", header = "公司特点")
     private IndustryFeature companyFeature;
+    //公司特点字符串
+    private String companyFeatureStr;
+
+    @Column(name = "company_nature", header = "公司性质")
+    private CompanyNature companyNature;
+    //公司性质字符串
+    private String companyNatureStr;
+
+    @Reference(foreignKey = "provinceId", header = "省份")
+    private ProvinceCityCounty province;
+    //注册省份字符串
+    private String provinceStr;
+
+    @Reference(foreignKey = "cityId", header = "城市")
+    private ProvinceCityCounty city;
+
+    //注册城市字符串
+    private String cityStr;
+    @Column(name = "regist_date", header = "成立日期(开始)")
+    private Date registDate;
+
+    //成立日期年  2017
+    private String registDateStr;
+
+
     @Column(name = "tax_mode", header = "纳税人")
     private SellingDemandTaxMode taxMode;
     @Column(name = "address_mode", header = "地址")
     private AddressMode addressMode;
 
-    @Column(name = "regist_date", header = "成立日期(开始)")
-    private Date registDate;
+
 
     @Column(name = "regist_date_end", header = "成立日期(结束)")
     private Date registDateEnd;
 
-    @Reference(foreignKey = "provinceId", header = "省份")
-    private ProvinceCityCounty province;
 
     @Column(name = "city_id")
     private Integer cityId;
 
-    @Reference(foreignKey = "cityId", header = "城市")
-    private ProvinceCityCounty city;
+
 
     @Column(name = "county_id")
     private Integer countyId;
@@ -74,13 +94,8 @@ public class SellingDemandDTO {
     private String licenseAdvantage;
 
 
-
     @Column(name = "seling_status", header = "状态")
     private SelingStatus selingStatus = SelingStatus.UNSOLD;
-
-
-
-
 
 
     public String getCode() {
@@ -260,4 +275,43 @@ public class SellingDemandDTO {
     }
 
 
+    public String getCompanyFeatureStr() {
+        return companyFeatureStr;
+    }
+
+    public void setCompanyFeatureStr(String companyFeatureStr) {
+        this.companyFeatureStr = companyFeatureStr;
+    }
+
+    public String getCompanyNatureStr() {
+        return companyNatureStr;
+    }
+
+    public void setCompanyNatureStr(String companyNatureStr) {
+        this.companyNatureStr = companyNatureStr;
+    }
+
+    public String getProvinceStr() {
+        return provinceStr;
+    }
+
+    public void setProvinceStr(String provinceStr) {
+        this.provinceStr = provinceStr;
+    }
+
+    public String getRegistDateStr() {
+        return registDateStr;
+    }
+
+    public void setRegistDateStr(String registDateStr) {
+        this.registDateStr = registDateStr;
+    }
+
+    public String getCityStr() {
+        return cityStr;
+    }
+
+    public void setCityStr(String cityStr) {
+        this.cityStr = cityStr;
+    }
 }
