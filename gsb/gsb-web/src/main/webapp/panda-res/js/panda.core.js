@@ -382,7 +382,7 @@ PandaHelper.openDynamicForm = function(option){
 	
 	builder.append('<form id="formsalesman">');
 	builder.append('<div style="margin:10px;">');
-	builder.append('<table cellpadding="5" cellspacing="10" class="query-panel">');
+	builder.append('<table cellpadding="5" cellspacing="10" class="form-panel">');
 	if(!System.isnull(option.explain)){
 		
 		builder.append('<tr><td class="title"></td><td>'+option.explain+'</td></tr>');

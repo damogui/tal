@@ -111,25 +111,27 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
     	var intentionOption = this.getIntentionOption(taskId);
     	PandaHelper.openDynamicForm({
 			title:'任务跟进',
-			width:560,
-			height:480,
+			width:500,
+			height:450,
 			items:[{id:'allot_intention_name',
 				title:'任务质量',
 				type:'combogrid',
 				className:'',
-				option:intentionOption,
-				width:170},
+				option:intentionOption},
 					
 				{id:'nextFoolowTime',
 					title:'下次跟进时间',
 					type:'datebox',
 					className:'',
-					disabled:true},
+					option:{width:300,disabled:true}
+				},
 					 
 				{id:'amount',
 					title:'估计签单金额',
 					type:'numberbox',
-					className:''},	
+					className:'',
+					option:{width:300,disabled:true}
+				},	
 					 
 				{id:'follow_content',
 					title:'内容',
