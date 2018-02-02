@@ -2,6 +2,7 @@ System.Declare("com.gongsibao.crm.web");
 com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 	ctor : function() {
 		
+		this.type = 'list';
 	},
 	getIntentionOption:function (taskId){
 		
@@ -79,13 +80,25 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 		    		var isHasProduct = me.verifyHasProduct(taskId);
 		    		if(!isHasProduct){
 
-		    			layer.confirm('此类质量的任务必须添加意向产品,是否立即添加？', {
-		    				  btn: ['立即添加', '取消']
-		    				}, function(index, layero){
-		    				  
-		    					window.open('/panda/crm/salesman/task/edit?id='+taskId);
-		    					layer.close(index);
-		    				});
+		    			if(me.type == 'list'){
+
+			    			layer.confirm('此类质量的任务必须添加意向产品,是否立即添加？', {
+			    				  btn: ['立即添加', '取消']
+			    				}, function(index, layero){
+			    				  
+			    					window.open('/panda/crm/salesman/task/edit?id='+taskId);
+			    					layer.close(index);
+			    				});
+		    			}else{
+		    				
+			    			layer.confirm('此类质量的任务必须添加意向产品,是否立即添加？', {
+			    				  btn: ['立即添加', '取消']
+			    				}, function(index, layero){
+			    				  
+
+				    				layer.closeAll();
+			    			});
+		    			}
 		    			$('#allot_intention_name').combogrid('clear');
 			    		return false;
 		    		}
@@ -97,13 +110,25 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 		    		var ishasDistrict = me.verifyHasDistrict(taskId);
 		    		if(!ishasDistrict){
 
-		    			layer.confirm('此类质量的任务必须添加意向地区,是否立即添加？', {
-		    				  btn: ['立即添加', '取消']
-		    				}, function(index, layero){
-		    				  
-		    					window.open('/panda/crm/salesman/task/edit?id='+taskId);
-		    					layer.close(index);
-		    				});
+		    			if(me.type == 'list'){
+		    				
+			    			layer.confirm('此类质量的任务必须添加意向地区,是否立即添加？', {
+			    				  btn: ['立即添加', '取消']
+			    				}, function(index, layero){
+			    				  
+			    					window.open('/panda/crm/salesman/task/edit?id='+taskId);
+			    					layer.close(index);
+			    			});
+		    			}else{
+		    				
+			    			layer.confirm('此类质量的任务必须添加意向地区,是否立即添加？', {
+			    				  btn: ['立即添加', '取消']
+			    				}, function(index, layero){
+			    				  
+			    					layer.closeAll();
+			    			});
+		    			}
+
 		    			$('#allot_intention_name').combogrid('clear');
 			    		return false;
 		    		}
@@ -149,7 +174,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
         serviceLocator.invoke(service, method, pars, thisCallback, null, isAsyn, errorCallback);
     },
     
-	open:function(taskId,customerId,callback){
+	open:function(taskId,customerId,type,callback){
 		
 		var me = this;
     	var intentionOption = this.getIntentionOption(taskId);
