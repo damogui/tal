@@ -45,7 +45,7 @@ public class NCustomerTaskFoolow extends Entity {
 	private NCustomerTaskQuality quality;
 	
 	@Column(name = "quality_progress", header = "质量进度")
-	private TaskQualityProgress qualityProgress;
+	private TaskQualityProgress qualityProgress = TaskQualityProgress.INVARIABILITY;
 	
 	@Column(name = "next_foolow_time", header = "下次跟进时间")
 	private Date nextFoolowTime;

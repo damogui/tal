@@ -39,7 +39,7 @@ public class ActionFollowWriteBack implements IAction {
 			updateBuilder.set("next_foolow_time", taskFoolow.getNextFoolowTime());
 			updateBuilder.set("last_follow_time", new Date());
 			updateBuilder.set("last_foolow_user_id", taskFoolow.getCreatorId());
-
+			updateBuilder.set("quality_progress", taskFoolow.getQualityCategory().getValue());
 			// 根据跟进质量表中的Code计算跟进状态；1-未分配、2-待跟进、3-跟进中、4-无法签单、5-已签单、6-未启动
 			if (category == QualityCategory.C || category == QualityCategory.D) {
 

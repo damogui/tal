@@ -5,7 +5,7 @@ import org.netsharp.base.IEnum;
 
 public enum TaskQualityProgress implements IEnum {
 
-	GOUP(1, "上升"), DECLINE(2, "下降"), INVARIABILITY(3, "不变");
+	GOUP(1, "上升"), DECLINE(2, "下降"), INVARIABILITY(3, "无变化");
 	private int value;
 	private String text;
 
