@@ -1,6 +1,9 @@
 package com.gongsibao.api.service.ma;
 
 import com.gongsibao.api.dto.ma.*;
+import com.gongsibao.entity.ma.DemandFixedAssets;
+import com.gongsibao.entity.ma.DemandIntangibleAssets;
+import com.gongsibao.entity.ma.DemandQualificationDetail;
 import com.gongsibao.entity.ma.SellingDemand;
 import com.gongsibao.entity.ma.dic.CompanyNature;
 import com.gongsibao.entity.ma.dic.CompanyType;
@@ -191,19 +194,81 @@ public class SellingDemandDTOService {
         SellingDemandDTO sellingDemandDTO = new SellingDemandDTO();
         sellingDemandDTO.setId(selling.getId());
         sellingDemandDTO.setCompanyName(selling.getCompanyName());
-        sellingDemandDTO.setCompanyType(selling.getCompanyType());
-        sellingDemandDTO.setCompanyNature(selling.getCompanyNature());
-        sellingDemandDTO.setCompanyFeature(selling.getCompanyFeature());
-        sellingDemandDTO.setTaxMode(selling.getTaxMode());
-        sellingDemandDTO.setRegistDate(selling.getRegistDate());
-        sellingDemandDTO.setProvince(selling.getProvince());
-        sellingDemandDTO.setHasBankAccount(selling.getHasBankAccount());
-        sellingDemandDTO.setTaxRegister(selling.getTaxRegister());
-        sellingDemandDTO.setIntangibleAssetss(selling.getIntangibleAssetss());
-        sellingDemandDTO.setFixedAssetss(selling.getFixedAssetss());
-        sellingDemandDTO.setQualificationDetails(selling.getQualificationDetails());
-        sellingDemandDTO.setLicenseAdvantage(selling.getLicenseAdvantage());
         sellingDemandDTO.setSelingStatus(selling.getSelingStatus());
+        if (selling.getSelingStatus()!= null) {//是否出售
+            sellingDemandDTO.setSelingStatusStr(selling.getSelingStatus().getText());
+
+        }
+
+        sellingDemandDTO.setCompanyType(selling.getCompanyType());
+        if (selling.getCompanyType()!= null) {//公司类型
+            sellingDemandDTO.setCompanyTypeStr(selling.getCompanyType().getText());
+
+        }
+
+
+        sellingDemandDTO.setCompanyNature(selling.getCompanyNature());
+
+        if (selling.getCompanyNature()!= null) {//公司性质
+            sellingDemandDTO.setCompanyNatureStr(selling.getCompanyNature().getText());
+
+        }
+        sellingDemandDTO.setCompanyFeature(selling.getCompanyFeature());
+        if (selling.getCompanyFeature()!= null) {//行业特点
+            sellingDemandDTO.setCompanyFeatureStr(selling.getCompanyFeature().getText());
+
+        }
+        sellingDemandDTO.setTaxMode(selling.getTaxMode());
+        if (selling.getTaxMode()!= null) {//纳税人
+            sellingDemandDTO.setTaxModeStr(selling.getTaxMode().getText());
+
+        }
+        sellingDemandDTO.setRegistDate(selling.getRegistDate());
+        if (selling.getRegistDate()!=null){//成立时间
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+            sellingDemandDTO.setRegistDateStr(sdf.format(selling.getRegistDate()));
+        }
+        sellingDemandDTO.setProvince(selling.getProvince());
+        if (selling.getProvince()!= null) {//省市
+            sellingDemandDTO.setProvinceStr(selling.getProvince().getName());
+
+        }
+        sellingDemandDTO.setCity(selling.getCity());
+        if (selling.getCity()!= null) {//省市
+            sellingDemandDTO.setCityStr(selling.getCity().getName());
+
+        }
+        sellingDemandDTO.setAddressStr(sellingDemandDTO.getProvinceStr()+sellingDemandDTO.getCityStr());//地址
+        sellingDemandDTO.setHasBankAccount(selling.getHasBankAccount());//是否存在银行账户
+        sellingDemandDTO.setTaxRegister(selling.getTaxRegister());//国地税
+       //sellingDemandDTO.setIntangibleAssetss(selling.getIntangibleAssetss());//无形资产
+        List<DemandIntangibleAssets> listDemandIntangibleAssets=selling.getIntangibleAssetss();
+        List<String>listDemandIntangibleAssetsStr=new ArrayList<>();
+        for (DemandIntangibleAssets item:
+        listDemandIntangibleAssets) {
+            listDemandIntangibleAssetsStr.add(item.getIntangibleAssets().getText());
+        }
+        sellingDemandDTO.setIntangibleAssetssList(listDemandIntangibleAssetsStr);//无形资产
+        //sellingDemandDTO.setFixedAssetss(selling.getFixedAssetss());//固定资产
+        List<DemandFixedAssets> listDemandFixedAssets=selling.getFixedAssetss();
+        List<String>listDemandFixedAssetsStr=new ArrayList<>();
+        for (DemandFixedAssets item:
+                listDemandFixedAssets) {
+            listDemandFixedAssetsStr.add(item.getFixedAssets().getText());
+        }
+        sellingDemandDTO.setFixedAssetssList(listDemandFixedAssetsStr);//固定资产
+        //sellingDemandDTO.setQualificationDetails(selling.getQualificationDetails());//企业资质
+
+        List<DemandQualificationDetail> listDemandQualificationDetail=selling.getQualificationDetails();
+        List<String>listDemandQualificationDetailStr=new ArrayList<>();
+        for (DemandQualificationDetail item:
+                listDemandQualificationDetail) {
+            listDemandQualificationDetailStr.add(item.getEnterpriseQualification().getText());
+        }
+        sellingDemandDTO.setQualificationDetailsList(listDemandQualificationDetailStr);//企业资质
+
+        sellingDemandDTO.setLicenseAdvantage(selling.getLicenseAdvantage());//执照优势
+
         return sellingDemandDTO;
     }
 
