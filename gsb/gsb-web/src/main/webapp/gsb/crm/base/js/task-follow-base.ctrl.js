@@ -58,7 +58,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 		};
 		return productResult;
 	},
-	getIntentionOption:function (id){
+	getIntentionOption:function (taskId){
 		
 		var result;
 		var me = this;
@@ -87,20 +87,20 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 			mode : 'remote',
 			multiple : false,
 			onChange : function(newValue, oldValue) {
-				var g = $('#allot_intention_name').combogrid('grid');
-		    	var r = g.datagrid('getSelected');	
-		    	var code = r.code;
+				var grid = $('#allot_intention_name').combogrid('grid');
+		    	var row = grid.datagrid('getSelected');	
+		    	var code = row.code;
 		    	
-		    	result =  me.followProductValida(code);
-		    	/*if(!followProductValida(code)){
-		    		alert(11);
-		    		this.invokeService("hasProduct", [id],function(data) {
-		    			if(!data){
-		    				IMessageBox.toast('请先添加意向产品');
-		    			}
-		    			return;
-		    		});
-		    	}*/
+		    	var followProduct = me.followProductValida(code);
+		    	if(!followProduct){
+					var serviceLocator = new org.netsharp.core.JServiceLocator();
+					var service = "com.gongsibao.crm.web.TaskFollowCtrl";
+					serviceLocator.invoke(service, 'hasProduct', [taskId], function(data){
+						if(!data){
+							layer.msg('此类质量的任务必须添加意向产品');
+						}
+					}, null, true);
+		    	}
 			}};
 		
 		return intentionOption;
@@ -144,7 +144,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 				debugger;
 				var qualityId = $('#allot_intention_name').combogrid('getValue');
 				if(System.isnull(qualityId)){
-					$('#allot_intention_name').combogrid('enableValidation');
+					layer.msg('此类质量的任务必须添加意向产品');
 					return false;
 				}
 				var grid = $('#allot_intention_name').combogrid('grid');
@@ -155,8 +155,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 		    	var nextFoolowTime = $("#nextFoolowTime").datebox('getValue');
 		    	var timeRequired = me.followTimeValida(code);
 		    	if(!timeRequired && System.isnull(nextFoolowTime)){
-		    		
-		    		$("#nextFoolowTime").datebox('enableValidation');
+		    		layer.msg('请添加下次跟进时间');
 					return false;
 		    	};
 		    	
@@ -164,8 +163,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 		    	var estimateAmount = $("#amount").numberbox('getValue');
 		    	var amountRequired =  me.followAmountValida(code);
 		    	if(!amountRequired && System.isnull(estimateAmount)){
-		    		
-		    		$("#amount").numberbox('enableValidation');
+		    		layer.msg('请添加估计签单金额');
 					return false;
 		    	};
 		    	
@@ -173,7 +171,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 				var contentRequired =  me.followNoteValida(code);
 				var content = $("#follow_content").val();
 				if (!contentRequired && System.isnull(content)) {
-					$('#follow_content').validatebox('enableValidation');
+					layer.msg('请添加内容');
 					return false;
 				};
 				
@@ -186,13 +184,13 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 						estimateAmount:estimateAmount,
 						content:content
 				};
-	
+				//封装的Ajax
 				var serviceLocator = new org.netsharp.core.JServiceLocator();
 				var service = "com.gongsibao.crm.web.TaskFollowCtrl";
 				serviceLocator.invoke(service, 'follow', [taskFollowObj], function(data){
 					
 					//提示跟进成功，关闭当前窗口
-					IMessageBox.info('提交成功！');
+					layer.msg('提交成功！');
 					layer.close(index);
 					
 					if(callback){

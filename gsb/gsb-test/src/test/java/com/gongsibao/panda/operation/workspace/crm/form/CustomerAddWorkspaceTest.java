@@ -33,7 +33,7 @@ import com.gongsibao.entity.crm.dic.TaskCustomerType;
 public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 
 	protected String taskDetailResourceNodeCode = "Operation_CRM_Task_ALL";
-	protected String taskDetailJsController = "com.gongsibao.crm.web.NCustomerTaskDetailPart";
+	protected String taskDetailJsController = "com.gongsibao.crm.web.PlatformTaskDetailPart ";
 	
 	@Before
 	public void setup() {
