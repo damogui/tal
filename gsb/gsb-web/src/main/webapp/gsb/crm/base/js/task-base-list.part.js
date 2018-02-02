@@ -14,7 +14,15 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 
 			var customerId = row.customerId;
 			var url = this.addUrl+"?fk=customerId:"+customerId;
-			window.open(url);
+	    	layer.open({
+	    		  type: 2,
+	    		  title: '新增任务',
+	    		  fixed: false,
+	    		  maxmin: true,
+	    		  shadeClose:true,
+	    		  area: ['90%','90%'],
+	    		  content: url
+	    	});
 		}
 	},
 	detail:function(id){
@@ -27,7 +35,15 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 	edit : function(id) {
 		
 		var url = this.editUrl+"?id="+id;
-		window.open(url);
+    	layer.open({
+    		  type: 2,
+    		  title: '编辑任务',
+    		  fixed: false,
+    		  maxmin: true,
+    		  shadeClose:true,
+    		  area: ['90%','90%'],
+    		  content: url
+    	});
 	},
 	allocation:function(id){
 		//任务分配

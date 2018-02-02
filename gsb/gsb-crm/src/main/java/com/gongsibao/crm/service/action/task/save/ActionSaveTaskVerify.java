@@ -36,11 +36,6 @@ public class ActionSaveTaskVerify implements IAction {
 			throw new BusinessException("[客户]不能为空！");
 		}
 
-		if (StringManager.isNullOrEmpty(task.getName())) {
-
-			throw new BusinessException("[名称]不能为空！");
-		}
-
 		if (task.getSourceId() == null) {
 
 			throw new BusinessException("[来源]不能为空！");

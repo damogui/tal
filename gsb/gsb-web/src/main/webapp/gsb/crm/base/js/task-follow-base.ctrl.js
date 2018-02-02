@@ -5,7 +5,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 		this.type = 'list';
 	},
 	getIntentionOption:function (taskId){
-		
+
 		var result;
 		var me = this;
 		var intentionOption = {columns : [ [ {

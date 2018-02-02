@@ -411,7 +411,7 @@ PandaHelper.openDynamicForm = function(option){
 		title : option.title,
 		fixed : false,
 		maxmin : false,
-		shadeClose : false,
+		shadeClose : true,
 		zIndex : 100000,
 		area : [ option.width+'px', option.height+'px' ],
 		content : builder.toString(),
