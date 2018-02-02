@@ -159,7 +159,7 @@ public class NCustomerTask extends Entity {
 	private String consultWayOther;
 	
 	@Column(name = "quality_progress", header = "质量进度")
-	private TaskQualityProgress qualityProgress;
+	private TaskQualityProgress qualityProgress = TaskQualityProgress.INVARIABILITY;
 
 	@Subs(foreignKey = "taskId", header = "意向产品", subType = NCustomerProduct.class)
 	private List<NCustomerProduct> products;

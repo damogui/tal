@@ -141,7 +141,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 			explain:'',
 			notice:'',
 			callback:function(index, layero){
-				debugger;
+
 				var qualityId = $('#allot_intention_name').combogrid('getValue');
 				if(System.isnull(qualityId)){
 					layer.msg('此类质量的任务必须添加意向产品');
@@ -150,7 +150,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 				var grid = $('#allot_intention_name').combogrid('grid');
 		    	var row = grid.datagrid('getSelected');	
 		    	var code = row.code;
-		    	
+		    	var score = row.score;//当前质量的分值
 		    	
 		    	var nextFoolowTime = $("#nextFoolowTime").datebox('getValue');
 		    	var timeRequired = me.followTimeValida(code);
@@ -178,6 +178,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 				var taskFollowObj = {
 						
 						taskId:taskId,
+						score:score,
 						customerId:customerId,
 						qualityId:qualityId,
 						nextFoolowTime:nextFoolowTime,

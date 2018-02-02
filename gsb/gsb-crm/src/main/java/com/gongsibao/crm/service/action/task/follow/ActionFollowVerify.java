@@ -31,9 +31,9 @@ public class ActionFollowVerify implements IAction {
 		//意向产品必须存在，对应的客户质量code
 		String productRequired = "A0A1A2A3A4B1B3C1C2C3";
 		if (productRequired.contains(quality.getCode())) {
-			Boolean isHas = hasProduct(taskFoolow.getId());
+			Boolean isHas = hasProduct(taskFoolow.getTaskId());
 			if(!isHas){
-				throw new BusinessException("请先添加意向产品");
+				throw new BusinessException("此类质量的任务必须添加意向产品");
 			}
 		}
 		taskFoolow.setQualityCategory(category);
