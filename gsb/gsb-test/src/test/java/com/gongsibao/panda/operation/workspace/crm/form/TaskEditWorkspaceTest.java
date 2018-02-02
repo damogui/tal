@@ -109,22 +109,24 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 		
 		// 需要配置NCustomerProduct资源
 		ResourceNode node = this.resourceService.byCode(foolowDetailResourceNodeCode);
-		PDatagrid datagrid = new PDatagrid(node, "沟通日志");
+		PDatagrid datagrid = new PDatagrid(node, "跟进日志");
 		{
+			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
 			PDatagridColumn column = addColumn(datagrid, "qualityCategory", "质量分类", ControlTypes.ENUM_BOX, 180);
 			{
 				String formatter = EnumUtil.getColumnFormatter(QualityCategory.class);
 				column.setFormatter(formatter);
 			}
 			addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 200);
-			addColumn(datagrid, "estimateAmount", "估计签单金额", ControlTypes.DECIMAL_FEN_BOX, 150);
+			addColumn(datagrid, "signingAmount", "估计签单金额", ControlTypes.DECIMAL_FEN_BOX, 150);
+			addColumn(datagrid, "returnedAmount", "估计回款金额", ControlTypes.DECIMAL_FEN_BOX, 150);
 			addColumn(datagrid, "content", "跟进内容", ControlTypes.TEXT_BOX, 400);
 		}
 
 		PPart part = new PPart();
 		{
 			part.toNew();
-			part.setName("沟通日志");
+			part.setName("跟进日志");
 			part.setCode("follows");
 			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
 			part.setRelationRole("follows");
@@ -148,12 +150,13 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 		ResourceNode node = this.resourceService.byCode(notifyDetailResourceNodeCode);
 		PDatagrid datagrid = new PDatagrid(node, "通知日志");
 		{
+			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
 			PDatagridColumn column = addColumn(datagrid, "type", "通知类型", ControlTypes.ENUM_BOX, 100);
 			{
 				String formatter = EnumUtil.getColumnFormatter(NotifyType.class);
 				column.setFormatter(formatter);
 			}
-			addColumn(datagrid, "content", "跟进内容", ControlTypes.TEXT_BOX, 400);
+			addColumn(datagrid, "content", "内容", ControlTypes.TEXT_BOX, 400);
 		}
 		PForm form = new PForm();
 		{
@@ -193,6 +196,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 
 		PDatagrid datagrid = new PDatagrid(node, "流转日志");
 		{
+			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
 			// 子页面枚举显示需要格式化一下
 			PDatagridColumn column = addColumn(datagrid, "changeType", "流转类型", ControlTypes.ENUM_BOX, 100);
 			{
@@ -243,6 +247,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 
 		PDatagrid datagrid = new PDatagrid(node, "抽查日志");
 		{
+			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
 			// 子页面枚举显示需要格式化一下
 			PDatagridColumn column = addColumn(datagrid, "inspectionType", "抽查类型", ControlTypes.ENUM_BOX, 100);
 			{

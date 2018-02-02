@@ -125,18 +125,19 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 
 		addFlowLogPart(workspace);
 
+		// 日志信息
+		addCommunicatLogsPart(workspace);
+		
+		addNotificationLogPart(workspace);
+
 		// 客户任务
 		createTasksPart(workspace);
 
-		// 日志信息
-		addCommunicatLogsPart(workspace);
 
 		// 意向产品
 		addIntenProductPart(workspace);
 
 		createCompanysDetailPart(workspace);
-
-		addNotificationLogPart(workspace);
 
 	}
 
@@ -180,21 +181,24 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 	private void addCommunicatLogsPart(PWorkspace workspace) {
 		// 需要配置NCustomerProduct资源
 		ResourceNode node = this.resourceService.byCode(foolowDetailResourceNodeCode);
-		PDatagrid datagrid = new PDatagrid(node, "沟通日志");
+		PDatagrid datagrid = new PDatagrid(node, "跟进日志");
 		{
-			PDatagridColumn column = addColumn(datagrid, "foolowStatus", "跟进状态", ControlTypes.ENUM_BOX, 300);
+			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
+			PDatagridColumn column = addColumn(datagrid, "foolowStatus", "跟进状态", ControlTypes.ENUM_BOX, 100);
 			{
 				String formatter = EnumUtil.getColumnFormatter(CustomerFollowStatus.class);
 				column.setFormatter(formatter);
 			}
 			addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 150);
-			addColumn(datagrid, "estimateAmount", "估计签单金额", ControlTypes.DECIMAL_FEN_BOX, 150);
-			addColumn(datagrid, "content", "跟进内容", ControlTypes.TEXT_BOX, 150);
+			addColumn(datagrid, "signingAmount", "估计签单金额", ControlTypes.DECIMAL_FEN_BOX, 150);
+			addColumn(datagrid, "returnedAmount", "估计回款金额", ControlTypes.DECIMAL_FEN_BOX, 150);
+			
+			addColumn(datagrid, "content", "跟进内容", ControlTypes.TEXT_BOX, 400);
 		}
 		PPart part = new PPart();
 		{
 			part.toNew();
-			part.setName("沟通日志");
+			part.setName("跟进日志");
 			part.setCode("follows");
 			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
 			part.setRelationRole("follows");
@@ -211,12 +215,13 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 		ResourceNode node = this.resourceService.byCode(notifyDetailResourceNodeCode);
 		PDatagrid datagrid = new PDatagrid(node, "通知日志");
 		{
-			PDatagridColumn column = addColumn(datagrid, "type", "通知类型", ControlTypes.ENUM_BOX, 300);
+			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
+			PDatagridColumn column = addColumn(datagrid, "type", "通知类型", ControlTypes.ENUM_BOX, 100);
 			{
 				String formatter = EnumUtil.getColumnFormatter(NotifyType.class);
 				column.setFormatter(formatter);
 			}
-			addColumn(datagrid, "content", "跟进内容", ControlTypes.TEXT_BOX, 150);
+			addColumn(datagrid, "content", "内容", ControlTypes.TEXT_BOX, 400);
 		}
 		PPart part = new PPart();
 		{
@@ -239,6 +244,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 		PDatagrid datagrid = new PDatagrid(node, "流转日志");
 		{
 			// 子页面枚举显示需要格式化一下
+			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
 			PDatagridColumn column = addColumn(datagrid, "changeType", "流转类型", ControlTypes.ENUM_BOX, 100);
 			{
 				String formatter = EnumUtil.getColumnFormatter(ChangeType.class);

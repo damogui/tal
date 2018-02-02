@@ -13,7 +13,7 @@ import com.gongsibao.entity.crm.dic.TaskQualityProgress;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
-@Table(name = "n_crm_task_foolow", header = "任务跟进")
+@Table(name = "n_crm_task_foolow", orderBy = " create_time DESC",header = "任务跟进")
 public class NCustomerTaskFoolow extends Entity {
 
 	/**

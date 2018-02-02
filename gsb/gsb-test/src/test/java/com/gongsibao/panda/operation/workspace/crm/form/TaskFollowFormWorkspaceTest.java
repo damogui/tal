@@ -55,7 +55,8 @@ public class TaskFollowFormWorkspaceTest extends WorkspaceCreationBase {
 			formField.setTroikaTrigger("controllernCustomerTaskFoolow.qualityChange(newValue, oldValue);");
 		}
 		addFormField(form, "nextFoolowTime", "下次跟进时间", groupName, ControlTypes.DATE_BOX, false, true);
-		addFormField(form, "estimateAmount", "估计签单金额", groupName, ControlTypes.DECIMAL_FEN_BOX, false, true);
+		addFormField(form, "signingAmount", "估计签单金额", groupName, ControlTypes.DECIMAL_FEN_BOX, false, true);
+		addFormField(form, "returnedAmount", "估计回款金额", groupName, ControlTypes.DECIMAL_FEN_BOX, false, true);
 		formField = addFormField(form, "content", "跟进内容", groupName, ControlTypes.TEXTAREA, true, false);
 		{
 			formField.setFullColumn(false);
