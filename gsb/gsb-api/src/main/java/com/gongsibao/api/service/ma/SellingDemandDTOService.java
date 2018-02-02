@@ -6,8 +6,10 @@ import com.gongsibao.entity.ma.dic.CompanyNature;
 import com.gongsibao.entity.ma.dic.CompanyType;
 import com.gongsibao.entity.ma.dic.EnterpriseQualification;
 import com.gongsibao.ma.service.SellingDemandService;
+import com.gongsibao.taurus.util.StringManager;
 import org.netsharp.core.Oql;
 import org.netsharp.core.Paging;
+import org.netsharp.core.QueryParameters;
 import org.netsharp.pcc.entity.ProvinceCityCounty;
 import org.netsharp.pcc.service.ProvinceCityCountyService;
 
@@ -25,15 +27,71 @@ public class SellingDemandDTOService {
     /*根据传递条件进行查询数据返回*/
     public List<SellingDemandDTO> queryList(QuerySellingDemandDTO queryModel) {
         Oql oql = new Oql();
+        StringBuilder filterBuilder = new StringBuilder();
         oql.setType(SellingDemand.class);
         oql.setSelects("SellingDemand.*");
+        QueryParameters qps = new QueryParameters();
         if (queryModel != null) {//进行组装筛选条件数据
 
-            if (!queryModel.getCompanyName().equals("") && queryModel.getCompanyName() != null) {
+            if (!StringManager.isNullOrEmpty(queryModel.getCompanyName())) {
                 // String sqlFiter=String.format("company_name  like '%%s%' or ");
-                oql.setFilter("company_name  like '%" + queryModel.getCompanyName() + "%'");
+                filterBuilder.append("company_name  like '%" + queryModel.getCompanyName() + "%'");
+            }
+            if (queryModel.getComQualType() != 0) {//资质类型  qualificationDetails
+                filterBuilder.append("qualificationDetails.enterpriseQualification=?");
+                qps.add("@enterpriseQualification", queryModel.getComQualType(), Types.INTEGER);
+
+
+            }
+            if (queryModel.getProvinceId() != 0) {//地区省市县
+
+                filterBuilder.append("province_id`=?");
+                qps.add("@province_id`", queryModel.getProvinceId(), Types.INTEGER);
+            }
+            if (queryModel.getCityId() != 0) {
+
+                filterBuilder.append("city_id=?");
+                qps.add("@city_id", queryModel.getCityId(), Types.INTEGER);
+            }
+            if (queryModel.getCountyId() != 0) {
+
+                filterBuilder.append("county_id=?");
+                qps.add("@county_id", queryModel.getCountyId(), Types.INTEGER);
             }
 
+            if (queryModel.getCompanyType() != 0) {//公司类型
+
+                filterBuilder.append("company_type=?");
+                qps.add("@company_type", queryModel.getCompanyType(), Types.INTEGER);
+            }
+            if (queryModel.getCompanyNature() != 0) {//公司性质
+
+                filterBuilder.append("company_nature=?");
+                qps.add("@company_nature", queryModel.getCompanyNature(), Types.INTEGER);
+            }
+            if (queryModel.getYearType() != 0) {//公司年限   需要考虑截止时间吗
+
+                switch (queryModel.getYearType()) {
+                    case 1:
+                        filterBuilder.append("TIMESTAMPDIFF(YEAR,regist_date,NOW())<=1 ");
+                        break;
+                    case 2:
+                        filterBuilder.append("1<TIMESTAMPDIFF(YEAR,regist_date,NOW())   AND  TIMESTAMPDIFF(YEAR,regist_date,NOW())<=2 ");
+                        break;
+                    case 3:
+                        filterBuilder.append("2<TIMESTAMPDIFF(YEAR,regist_date,NOW())   AND  TIMESTAMPDIFF(YEAR,regist_date,NOW())<=3 ");
+                        break;
+                    case 4:
+                        filterBuilder.append("3<TIMESTAMPDIFF(YEAR,regist_date,NOW())");
+                        break;
+                    default:
+                        break;
+
+
+                }
+
+
+            }
 
             //默认页码和大小
             if (queryModel.getPageIndex() == 0) queryModel.setPageIndex(1);
@@ -46,6 +104,12 @@ public class SellingDemandDTOService {
             oql.setOrderby("update_time  desc");
             oql.setPaging(new Paging(1, 10));
         }
+        String fiterStr = filterBuilder.toString();
+        if (!StringManager.isNullOrEmpty(fiterStr)) {
+            oql.setFilter(fiterStr);
+            oql.setParameters(qps);
+        }
+
         List<SellingDemand> sellingList = sellingDemandService.queryList(oql);
         List<SellingDemandDTO> sellingDtoList = new ArrayList<SellingDemandDTO>();
 
@@ -152,45 +216,46 @@ public class SellingDemandDTOService {
 
 
     }
-/*筛选条件集合*/
-    public List<FilterTypeDTO> getFilters() {
-        List<FilterTypeDTO>  listFilter=new ArrayList<>();
 
-        FilterTypeDTO  filterType=new FilterTypeDTO();
+    /*筛选条件集合*/
+    public List<FilterTypeDTO> getFilters() {
+        List<FilterTypeDTO> listFilter = new ArrayList<>();
+
+        FilterTypeDTO filterType = new FilterTypeDTO();
         filterType.setFilterType(ServiceTypeEnum.p7.getValue());//公司类型
         filterType.setFilterName(ServiceTypeEnum.p7.getText());
-        ArrayList<ServiceDic>  typeList=new ArrayList<>();
-        for (CompanyType item: CompanyType.values()
+        ArrayList<ServiceDic> typeList = new ArrayList<>();
+        for (CompanyType item : CompanyType.values()
                 ) {
-            ServiceDic  servDic=new ServiceDic(item.getValue(),item.getText());
+            ServiceDic servDic = new ServiceDic(item.getValue(), item.getText());
             typeList.add(servDic);
         }
         filterType.setFilterList(typeList);
         listFilter.add(filterType);
 
-        FilterTypeDTO  filterNature=new FilterTypeDTO();
+        FilterTypeDTO filterNature = new FilterTypeDTO();
         filterNature.setFilterType(ServiceTypeEnum.p8.getValue());//公司性质
         filterNature.setFilterName(ServiceTypeEnum.p8.getText());
-        ArrayList<ServiceDic>  natureList=new ArrayList<>();
-        for (CompanyNature item:CompanyNature.values()
-             ) {
-            ServiceDic  servDic=new ServiceDic(item.getValue(),item.getText());
+        ArrayList<ServiceDic> natureList = new ArrayList<>();
+        for (CompanyNature item : CompanyNature.values()
+                ) {
+            ServiceDic servDic = new ServiceDic(item.getValue(), item.getText());
             natureList.add(servDic);
         }
         filterNature.setFilterList(natureList);
         listFilter.add(filterNature);
 
 
-        FilterTypeDTO  filterDate=new FilterTypeDTO();
+        FilterTypeDTO filterDate = new FilterTypeDTO();
         filterDate.setFilterType(ServiceTypeEnum.p9.getValue());//成立年限
         filterDate.setFilterName(ServiceTypeEnum.p9.getText());
-        ArrayList<ServiceDic>  yearList=new ArrayList<>();
-        yearList.add(new ServiceDic(1,"1年以内"));
-        yearList.add(new ServiceDic(2,"1-2年"));
-        yearList.add(new ServiceDic(3,"2-3年"));
-        yearList.add(new ServiceDic(4,"3年以上"));
+        ArrayList<ServiceDic> yearList = new ArrayList<>();
+        yearList.add(new ServiceDic(1, "1年以内"));
+        yearList.add(new ServiceDic(2, "1-2年"));
+        yearList.add(new ServiceDic(3, "2-3年"));
+        yearList.add(new ServiceDic(4, "3年以上"));
         filterDate.setFilterList(yearList);
         listFilter.add(filterDate);
-        return  listFilter;
+        return listFilter;
     }
 }
