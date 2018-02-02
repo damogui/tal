@@ -1,10 +1,7 @@
 package com.gongsibao.api.conroller.ma;
 
 
-import com.gongsibao.api.dto.ma.ProvinceCityCountyDTO;
-import com.gongsibao.api.dto.ma.QuerySellingDemandDTO;
-import com.gongsibao.api.dto.ma.SellingDemandDTO;
-import com.gongsibao.api.dto.ma.ServiceTypeDTO;
+import com.gongsibao.api.dto.ma.*;
 import com.gongsibao.api.service.ma.SellingDemandDTOService;
 import com.gongsibao.taurus.util.StringManager;
 
@@ -25,13 +22,7 @@ import java.util.List;
 /*公司出售需求控制器只提供查询接口*/
 @Path("/ma/selling")
 public class SellingController {
-
-    //ISellingDemandService sellingDemandServiceI = ServiceFactory.create(ISellingDemandService.class);
     SellingDemandDTOService sellingDemandDTOService = new SellingDemandDTOService();
-    private HttpServletRequest request;
-    private QuerySellingDemandDTO para;
-
-
     /*列表接口*/
     @GET
     @Path("/getsellinglist")
@@ -48,9 +39,6 @@ public class SellingController {
             listResult= sellingDemandDTOService.queryList(null);
 
         }
-        //QuerySellingDemandDTO paraM = (QuerySellingDemandDTO) JSON.parseObject(para, QuerySellingDemandDTO.class);
-
-
         return listResult;
     }
 
@@ -82,10 +70,8 @@ public class SellingController {
     @GET
     @Path("/getfilters")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<SellingDemandDTO> getFilters(@Context HttpServletRequest request) throws IOException {
-        String para = request.getParameter("para");
-        QuerySellingDemandDTO paraM = (QuerySellingDemandDTO) org.netsharp.util.JsonManage.deSerialize(QuerySellingDemandDTO.class, para);
-        List<SellingDemandDTO> list = sellingDemandDTOService.queryList(paraM);
+    public List<FilterTypeDTO> getFilters(@Context HttpServletRequest request) throws IOException {
+        List<FilterTypeDTO> list = sellingDemandDTOService.getFilters();
         return list;
     }
 

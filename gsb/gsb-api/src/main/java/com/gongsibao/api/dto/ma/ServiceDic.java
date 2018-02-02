@@ -11,6 +11,16 @@ public class ServiceDic {
 
     private String name;
 
+    public   ServiceDic(int id,String name){
+        this.id=id;
+        this.name=name;
+    }
+
+
+    public   ServiceDic(){
+
+    }
+
 
     public int getId() {
         return id;

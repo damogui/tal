@@ -2,6 +2,8 @@ package com.gongsibao.api.service.ma;
 
 import com.gongsibao.api.dto.ma.*;
 import com.gongsibao.entity.ma.SellingDemand;
+import com.gongsibao.entity.ma.dic.CompanyNature;
+import com.gongsibao.entity.ma.dic.CompanyType;
 import com.gongsibao.entity.ma.dic.EnterpriseQualification;
 import com.gongsibao.ma.service.SellingDemandService;
 import org.netsharp.core.Oql;
@@ -149,5 +151,46 @@ public class SellingDemandDTOService {
         return listServiceType;
 
 
+    }
+/*筛选条件集合*/
+    public List<FilterTypeDTO> getFilters() {
+        List<FilterTypeDTO>  listFilter=new ArrayList<>();
+
+        FilterTypeDTO  filterType=new FilterTypeDTO();
+        filterType.setFilterType(ServiceTypeEnum.p7.getValue());//公司类型
+        filterType.setFilterName(ServiceTypeEnum.p7.getText());
+        ArrayList<ServiceDic>  typeList=new ArrayList<>();
+        for (CompanyType item: CompanyType.values()
+                ) {
+            ServiceDic  servDic=new ServiceDic(item.getValue(),item.getText());
+            typeList.add(servDic);
+        }
+        filterType.setFilterList(typeList);
+        listFilter.add(filterType);
+
+        FilterTypeDTO  filterNature=new FilterTypeDTO();
+        filterNature.setFilterType(ServiceTypeEnum.p8.getValue());//公司性质
+        filterNature.setFilterName(ServiceTypeEnum.p8.getText());
+        ArrayList<ServiceDic>  natureList=new ArrayList<>();
+        for (CompanyNature item:CompanyNature.values()
+             ) {
+            ServiceDic  servDic=new ServiceDic(item.getValue(),item.getText());
+            natureList.add(servDic);
+        }
+        filterNature.setFilterList(natureList);
+        listFilter.add(filterNature);
+
+
+        FilterTypeDTO  filterDate=new FilterTypeDTO();
+        filterDate.setFilterType(ServiceTypeEnum.p9.getValue());//成立年限
+        filterDate.setFilterName(ServiceTypeEnum.p9.getText());
+        ArrayList<ServiceDic>  yearList=new ArrayList<>();
+        yearList.add(new ServiceDic(1,"1年以内"));
+        yearList.add(new ServiceDic(2,"1-2年"));
+        yearList.add(new ServiceDic(3,"2-3年"));
+        yearList.add(new ServiceDic(4,"3年以上"));
+        filterDate.setFilterList(yearList);
+        listFilter.add(filterDate);
+        return  listFilter;
     }
 }
