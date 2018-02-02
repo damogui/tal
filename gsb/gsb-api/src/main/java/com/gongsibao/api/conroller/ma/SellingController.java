@@ -1,6 +1,7 @@
 package com.gongsibao.api.conroller.ma;
 
 
+import com.gongsibao.api.auth.AuthAnnotation;
 import com.gongsibao.api.dto.ma.*;
 import com.gongsibao.api.service.ma.SellingDemandDTOService;
 import com.gongsibao.taurus.util.StringManager;
@@ -27,6 +28,7 @@ public class SellingController {
     @GET
     @Path("/getsellinglist")
     @Produces(MediaType.APPLICATION_JSON)
+    @AuthAnnotation
     public List<SellingDemandDTO> getSellingList(@Context HttpServletRequest request) throws IOException {
         String para = request.getParameter("para");
         QuerySellingDemandDTO paraM=new QuerySellingDemandDTO();
