@@ -74,6 +74,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 		    		$('#follow_content').val('');
 		    	}
 
+		    	//校验意向产品
 		    	var productRequired = row.productRequired;
 		    	if(productRequired ===true){
 		    		
@@ -95,7 +96,6 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 			    				  btn: ['立即添加', '取消']
 			    				}, function(index, layero){
 			    				  
-
 				    				layer.closeAll();
 			    			});
 		    			}
@@ -104,6 +104,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 		    		}
 		    	}
 		    	
+		    	//校验意向地区
 		    	var districtRequired = row.districtRequired;
 		    	if(districtRequired ===true){
 		    		
@@ -134,6 +135,17 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 		    		}
 		    	}
 		    	
+		    	//查询估计签单金额、估计回款金额 
+		    	var serviceLocator = new org.netsharp.core.JServiceLocator();
+		 		me.invokeService('getSigningAmount',[taskId],function(data){
+					
+					if(data){
+						
+						$('#signingAmount').numberbox('setValue',data);
+						$('#returnedAmount').numberbox('setValue',data);
+					}
+				});
+				
 		    	return true;
 			}};
 		
@@ -198,6 +210,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 				{id:'signingAmount',
 					title:'估计签单金额',
 					type:'numberbox',
+					style:'text-align:right;',
 					className:'',
 					option:{width:300,required:true,disabled:true}
 				},	
@@ -205,6 +218,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 				{id:'returnedAmount',
 					title:'估计回款金额',
 					type:'numberbox',
+					style:'text-align:right;',
 					className:'',
 					option:{width:300,required:true,disabled:true}
 				},	
