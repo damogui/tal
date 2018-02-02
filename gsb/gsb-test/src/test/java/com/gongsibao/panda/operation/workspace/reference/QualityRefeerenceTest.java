@@ -5,6 +5,7 @@ import org.netsharp.meta.base.ReferenceCreationBase;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.IntelligentMode;
 import org.netsharp.panda.entity.PDatagrid;
+import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.crm.NCustomerTaskQuality;
@@ -27,6 +28,10 @@ public class QualityRefeerenceTest extends ReferenceCreationBase{
 		addColumn( datagrid,"intentionCategory", "分类", ControlTypes.TEXT_BOX,80,null,false);
 		addColumn( datagrid,"code", "编码", ControlTypes.TEXT_BOX,80,null,false);
 		addColumn( datagrid,"name", "名称", ControlTypes.TEXT_BOX,150,null,false);
+		PDatagridColumn column = addColumn( datagrid,"score", "分值", ControlTypes.TEXT_BOX,50,null,false);{
+			column.setVisible(false);
+			column.setSystem(true);
+		}
 		return datagrid;
 	}
 }

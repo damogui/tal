@@ -27,6 +27,8 @@ public class DepartmentCustomerAddWorkspaceTest extends CustomerAddWorkspaceTest
 		formJsController = "com.gongsibao.crm.web.DepartmentNCustomerAddFormPart";
 		taskDetailResourceNodeCode = "CRM_DEPARTMENT_TASK_ALL";
 		taskDetailJsController = "com.gongsibao.crm.web.DepartmentNCustomerTaskDetailPart";
+		
+		companysResourceNodeCode = "CRM_DEPARTMENT_Companys";
 	}
 	
 	@Test

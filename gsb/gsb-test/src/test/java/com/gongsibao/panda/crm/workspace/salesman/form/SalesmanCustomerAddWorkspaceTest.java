@@ -28,6 +28,8 @@ public class SalesmanCustomerAddWorkspaceTest extends CustomerAddWorkspaceTest{
 		taskDetailResourceNodeCode = "CRM_SALESMAN_TASK_ALL";
 		
 		taskDetailJsController = "com.gongsibao.crm.web.SalesmanNCustomerTaskDetailPart";
+		
+		companysResourceNodeCode = "CRM_SALESMAN_Companys";
 	}
 	
 	@Test

@@ -40,6 +40,7 @@ public class SalesmanCustomerEditWorkspaceTest extends CustomerEditWorkspaceTest
 		foolowDetailResourceNodeCode = "CRM_SALESMAN_Foolow";
 		notifyDetailResourceNodeCode = "CRM_SALESMAN_Notify";
 		changeDetailResourceNodeCode = "CRM_SALESMAN_Change";
+		companysResourceNodeCode = "CRM_SALESMAN_Companys";
 		
 		taskDetailJsController = "com.gongsibao.crm.web.SalesmanTaskDetailPart";
 	}

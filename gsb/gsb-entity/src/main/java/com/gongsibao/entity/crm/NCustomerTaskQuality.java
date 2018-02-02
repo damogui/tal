@@ -42,7 +42,8 @@ public class NCustomerTaskQuality extends BizEntity{
 	@Reference(foreignKey = "departmentId", header = "分配服务商部门")
 	private SupplierDepartment department;
 	
-	
+	@Column(name = "score", header = "分值")
+	private Integer score = 0;
 
 	public Integer getSupplierId() {
 		return supplierId;
@@ -107,4 +108,14 @@ public class NCustomerTaskQuality extends BizEntity{
 	public void setNextFoolowType(String nextFoolowType) {
 		this.nextFoolowType = nextFoolowType;
 	}
+
+	public Integer getScore() {
+		return score;
+	}
+
+	public void setScore(Integer score) {
+		this.score = score;
+	}
+	
+	
 }

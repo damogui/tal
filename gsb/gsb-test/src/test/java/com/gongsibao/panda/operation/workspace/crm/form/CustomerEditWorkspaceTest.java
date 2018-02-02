@@ -38,6 +38,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest{
 	protected String  foolowDetailResourceNodeCode = "Operation_CRM_Customer_Foolow";
 	protected String  notifyDetailResourceNodeCode = "Operation_CRM_Customer_Notify";
 	protected String  changeDetailResourceNodeCode = "Operation_CRM_Customer_Change";
+	
 	@Before
 	public void setup() {
 		super.setup();
@@ -123,6 +124,8 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest{
 		
 		// 意向产品
 		addIntenProductPart(workspace);
+		
+		createCompanysDetailPart(workspace);
 		
 		// 日志信息
 		addCommunicatLogsPart(workspace);
