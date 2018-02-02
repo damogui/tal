@@ -34,7 +34,6 @@ public class ActionSaveTaskPersist implements IAction {
 
 			// 【手动分配】 时设置分配状态为【已经分配】
 			task.setAllocationState(AllocationState.ALLOCATED);
-
 			if (state == EntityState.New) {
 
 				// 新增状态：设置最后分配时间，最后分配人
@@ -45,7 +44,6 @@ public class ActionSaveTaskPersist implements IAction {
 				// 如果任务名称为空，则自动生成（默认取客户意向产品、意向地区，支持手动填写/修改）
 				if (StringManager.isNullOrEmpty(task.getName())) {
 
-					task.setName("无");
 					List<String> ss = new ArrayList<String>();
 					List<NCustomerProduct> productList = task.getProducts();
 					if (productList != null && productList.size() > 0) {
@@ -77,7 +75,6 @@ public class ActionSaveTaskPersist implements IAction {
 						String name = StringManager.join( " - ", ss);
 						task.setName(name);
 					}
-					
 				}
 			}
 		}
