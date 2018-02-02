@@ -96,6 +96,17 @@ public class MyTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 			item.setCommand("{controller}.totmcase();");
 			toolbar.getItems().add(item);
 		}
+		item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("attachment");
+			item.setIcon("fa fa-link");
+			item.setName("附件");
+			item.setOperationType(ot1);
+			item.setSeq(3000);
+			item.setCommand("{controller}.attachment();");
+			toolbar.getItems().add(item);
+		}
 		toolbarService.save(toolbar);
 	}
 

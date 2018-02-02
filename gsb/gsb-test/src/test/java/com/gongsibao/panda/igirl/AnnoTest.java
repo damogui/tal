@@ -8,13 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.gongsibao.entity.igirl.baseinfo.IGirlConfig;
-import com.gongsibao.entity.igirl.baseinfo.NCLOne;
-import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
-import com.gongsibao.entity.igirl.baseinfo.NclBatch;
 import com.gongsibao.entity.igirl.dict.ConfigType;
 import com.gongsibao.igirl.base.IGirlConfigService;
-import com.gongsibao.igirl.base.INCLOneService;
-import com.gongsibao.igirl.base.INCLTwoService;
 import com.gongsibao.igirl.utils.JsonFormatTool;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -22,20 +17,8 @@ import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
-import org.netsharp.panda.annotation.Authorization;
-import org.netsharp.util.ReflectManager;
-
-import com.gongsibao.igirl.base.INclBatchService;
-import com.gongsibao.igirl.web.TradeMarkCaseController;
-import org.netsharp.util.StringManager;
 
 public class AnnoTest {
-	@Test
-	public void anTest() {
-		TradeMarkCaseController tmc=new TradeMarkCaseController();
-		Method method = ReflectManager.getMethods(TradeMarkCaseController.class,"TradeMarkCaseController");
-		method.getAnnotation(Authorization.class);
-	}
 	@Test
 	public void getNclBatchData() {
 		IGirlConfigService iGirlConfigService = ServiceFactory.create(IGirlConfigService.class);
@@ -88,60 +71,59 @@ public class AnnoTest {
 		}
 		return arrays;
 	}
-
-	@Test
-	public void nclBatchToData() throws IOException {
-		INCLOneService inclOneService = ServiceFactory.create(INCLOneService.class);
-		INCLTwoService inclTwoService = ServiceFactory.create(INCLTwoService.class);
-		INclBatchService iNclBatchService = ServiceFactory.create(INclBatchService.class);
-		Oql oql = new Oql();
-		oql.setType(NclBatch.class);
-		oql.setSelects("NclBatch.*");
-		oql.setFilter("currentStatus=?");
-		oql.getParameters().add("currentStatus",true, Types.BOOLEAN);
-		NclBatch nb = iNclBatchService.queryFirst(oql);
-		File file = new File("D:/igirl.json");
-		String str = FileUtils.readFileToString(file);
-		str = str.replaceAll("\n","").replaceAll("\\s*","");
-		JSONObject jsons = JSONObject.fromObject(str);
-		JSONArray array = jsons.getJSONArray("data");
-        NCLOne one = new NCLOne();
-        one.toNew();
-		List<NCLTwo> nclTwos = new ArrayList<>();
-        for (int i=0;i<array.size();i++){
-            JSONObject json = array.getJSONObject(i);
-            if (json.get("level").toString().equals("1")){
-				one = new NCLOne();
-				one.toNew();
-                one.setCode(json.getString("code"));
-                if(StringManager.isNullOrEmpty(json.getString("name"))) {
-                    one.setName(json.getString("code"));
-                }else {
-                    one.setName(json.getString(json.getString("name")));
-                }
-                one.setMemo(json.getString("description"));
-                one.setNclBatchId(nb.getId());
-                one = inclOneService.save(one);
-				System.out.println(one.getName());
-            }else if(json.get("level").toString().equals("3")){
-                NCLTwo two = new NCLTwo();
-                two.toNew();
-                two.setCode(json.getString("pid"));
-                two.setName(json.getString("name"));
-                two.setThirdCode(json.getString("code"));
-                two.setNclOneId(one.getId());
-                two.setNclOne(one);
-				nclTwos.add(two);
-				System.out.println(two.getName());
-				if (nclTwos.size()==1000){
-					inclTwoService.saves(nclTwos);
-					nclTwos = new ArrayList<>();
-				}
-				if (i==array.size()-1){
-					inclTwoService.saves(nclTwos);
-				}
-            }
-        }
-		System.out.println("完成所有源数据导入");
-	}
+//
+//	public void nclBatchToData() throws IOException {
+//		INCLOneService inclOneService = ServiceFactory.create(INCLOneService.class);
+//		INCLTwoService inclTwoService = ServiceFactory.create(INCLTwoService.class);
+//		INclBatchService iNclBatchService = ServiceFactory.create(INclBatchService.class);
+//		Oql oql = new Oql();
+//		oql.setType(NclBatch.class);
+//		oql.setSelects("NclBatch.*");
+//		oql.setFilter("currentStatus=?");
+//		oql.getParameters().add("currentStatus",true, Types.BOOLEAN);
+//		NclBatch nb = iNclBatchService.queryFirst(oql);
+//		File file = new File("D:/igirl.json");
+//		String str = FileUtils.readFileToString(file);
+//		str = str.replaceAll("\n","").replaceAll("\\s*","");
+//		JSONObject jsons = JSONObject.fromObject(str);
+//		JSONArray array = jsons.getJSONArray("data");
+//        NCLOne one = new NCLOne();
+//        one.toNew();
+//		List<NCLTwo> nclTwos = new ArrayList<>();
+//        for (int i=0;i<array.size();i++){
+//            JSONObject json = array.getJSONObject(i);
+//            if (json.get("level").toString().equals("1")){
+//				one = new NCLOne();
+//				one.toNew();
+//                one.setCode(json.getString("code"));
+//                if(StringManager.isNullOrEmpty(json.getString("name"))) {
+//                    one.setName(json.getString("code"));
+//                }else {
+//                    one.setName(json.getString(json.getString("name")));
+//                }
+//                one.setMemo(json.getString("description"));
+//                one.setNclBatchId(nb.getId());
+//                one = inclOneService.save(one);
+//				System.out.println(one.getName());
+//            }else if(json.get("level").toString().equals("3")){
+//                NCLTwo two = new NCLTwo();
+//                two.toNew();
+//                two.setCode(json.getString("pid"));
+//                two.setName(json.getString("name"));
+//                two.setThirdCode(json.getString("code"));
+//                two.setNclOneId(one.getId());
+//                two.setNclOne(one);
+//				nclTwos.add(two);
+//				System.out.println(two.getName());
+//				if (nclTwos.size()==1000){
+//					inclTwoService.saves(nclTwos);
+//					nclTwos = new ArrayList<>();
+//				}
+//				if (i==array.size()-1){
+//					inclTwoService.saves(nclTwos);
+//				}
+//            }
+//        }
+//		System.out.println("完成所有源数据导入");
+//	}
 }

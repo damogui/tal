@@ -99,6 +99,12 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			Supplier sl = supplierServcie.byId(sid);
 			entity.setProxyCompanyName(sl.getName());
 			entity.setAccountNo(sl.getBankNum());
+			entity.setSupplierId(sid);
+			//设置商标的服务商id
+			for(TradeMark tm :entity.getTradeMarks()) {
+				tm.setSupplierId(sid);
+			}
+			
 
 			if (entity.getApplierType() == ApplierType.PUBLIC) {
 				entity.setApplier(entity.getCompanyName());
