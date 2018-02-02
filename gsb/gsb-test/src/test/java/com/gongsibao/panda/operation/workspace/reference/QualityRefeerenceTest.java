@@ -1,6 +1,7 @@
 package com.gongsibao.panda.operation.workspace.reference;
 
 import org.junit.Before;
+import org.netsharp.core.annotations.Column;
 import org.netsharp.meta.base.ReferenceCreationBase;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.IntelligentMode;
@@ -33,6 +34,43 @@ public class QualityRefeerenceTest extends ReferenceCreationBase {
 			column.setOrderbyMode(OrderbyMode.ASC);
 		}
 		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 150, null, false);
+		
+		column = addColumn(datagrid, "nextFoolowDateRequired", "下次跟进时间必填", ControlTypes.TEXT_BOX, 150, null, false);{
+			
+			column.setSystem(true);
+			column.setVisible(false);
+		}
+		
+		column = addColumn(datagrid, "returnedAmountRequired", "估计回款额必填", ControlTypes.TEXT_BOX, 150, null, false);{
+			
+			column.setSystem(true);
+			column.setVisible(false);
+		}
+		
+		column = addColumn(datagrid, "signingAmountRequired", "估计签单额必填", ControlTypes.TEXT_BOX, 150, null, false);{
+			
+			column.setSystem(true);
+			column.setVisible(false);
+		}
+		
+		column = addColumn(datagrid, "contentRequired", "内容必填", ControlTypes.TEXT_BOX, 150, null, false);{
+			
+			column.setSystem(true);
+			column.setVisible(false);
+		}
+		
+		column = addColumn(datagrid, "productRequired", "意向产品必填写", ControlTypes.TEXT_BOX, 150, null, false);{
+			
+			column.setSystem(true);
+			column.setVisible(false);
+		}
+		
+		column = addColumn(datagrid, "districtRequired", "意向地区必填写", ControlTypes.TEXT_BOX, 150, null, false);{
+			
+			column.setSystem(true);
+			column.setVisible(false);
+		}
+
 		return datagrid;
 	}
 }
