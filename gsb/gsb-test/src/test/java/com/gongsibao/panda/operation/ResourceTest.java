@@ -8,6 +8,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.cms.base.IProductViewService;
 import com.gongsibao.crm.base.INCustomerChangeService;
+import com.gongsibao.crm.base.INCustomerCompanyService;
 import com.gongsibao.crm.base.INCustomerProductService;
 import com.gongsibao.crm.base.INCustomerService;
 import com.gongsibao.crm.base.INCustomerTaskFoolowService;
@@ -18,6 +19,7 @@ import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.entity.cms.ProductView;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.crm.NCustomerChange;
+import com.gongsibao.entity.crm.NCustomerCompany;
 import com.gongsibao.entity.crm.NCustomerProduct;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
@@ -51,8 +53,8 @@ import com.gongsibao.supplier.base.ISalesmanService;
 import com.gongsibao.supplier.base.ISupplierCategoryService;
 import com.gongsibao.supplier.base.ISupplierDepartmentService;
 import com.gongsibao.supplier.base.ISupplierFunctionModuleService;
-import com.gongsibao.supplier.base.ISupplierService;
 import com.gongsibao.supplier.base.ISupplierProductService;
+import com.gongsibao.supplier.base.ISupplierService;
 import com.gongsibao.taurus.base.IActiveUserViewService;
 import com.gongsibao.taurus.base.IBdUserBehaviorStatistics;
 import com.gongsibao.taurus.base.IDayStatisticViewService;
@@ -141,6 +143,7 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "公海", "Operation_CRM_Customer_OpenSea", INCustomerTaskService.class.getName(), node1.getId());
 			
 			this.createResourceNodeVoucher(NCustomerProduct.class.getName(), "客户意向产品", "Operation_CRM_Customer_Products", INCustomerProductService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerCompany.class.getName(), "关联企业", "Operation_CRM_Customer_Companys", INCustomerCompanyService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTaskFoolow.class.getName(), "沟通日志", "Operation_CRM_Customer_Foolow",INCustomerTaskFoolowService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTaskNotify.class.getName(), "通知日志", "Operation_CRM_Customer_Notify",INCustomerTaskNotifyService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerChange.class.getName(), "流转日志", "Operation_CRM_Customer_Change",INCustomerChangeService.class.getName(), node1.getId());
