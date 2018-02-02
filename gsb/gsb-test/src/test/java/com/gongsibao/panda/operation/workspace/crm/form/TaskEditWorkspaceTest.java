@@ -30,6 +30,7 @@ import com.gongsibao.entity.crm.dic.NotifyType;
 import com.gongsibao.entity.crm.dic.QualityCategory;
 import com.gongsibao.entity.crm.dic.TaskInspectionState;
 import com.gongsibao.entity.crm.dic.TaskInspectionType;
+import com.gongsibao.entity.product.Product;
 
 public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 
@@ -198,9 +199,9 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 				String formatter = EnumUtil.getColumnFormatter(ChangeType.class);
 				column.setFormatter(formatter);
 			}
-			addColumn(datagrid, "formUser.name", "来自", ControlTypes.ENUM_BOX, 150);
-			addColumn(datagrid, "toUser.name", "去向", ControlTypes.NUMBER_BOX, 150);
-			addColumn(datagrid, "content", "内容", ControlTypes.TEXT_BOX, 400);
+			addColumn(datagrid, "formUser.name", "来自", ControlTypes.TEXT_BOX, 150, false);
+			addColumn(datagrid, "toUser.name", "去向", ControlTypes.TEXT_BOX, 150, false);
+			addColumn(datagrid, "content", "内容", ControlTypes.TEXT_BOX, 400, false);
 		}
 		PForm form = new PForm();
 		{
@@ -211,8 +212,8 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 			PFormField formField = null;
 			String groupName = null;
 			formField = addFormField(form, "changeType", "流转类型", groupName, ControlTypes.ENUM_BOX, false, true);
-			formField = addFormFieldRefrence(form, "formUser.name", "最后分配人", groupName, "CRM_Employee", false, true);
-			formField = addFormFieldRefrence(form, "toUser.name", "最后分配人", groupName, "CRM_Employee", false, true);
+			formField = addFormFieldRefrence(form, "formUser.name", "来自", groupName, "CRM_Employee", false, true);
+			formField = addFormFieldRefrence(form, "toUser.name", "去向", groupName, "CRM_Employee", false, true);
 			formField = addFormField(form, "content", "内容", groupName, ControlTypes.TEXT_BOX, false, true);
 			{
 				formField.setFullColumn(true);
