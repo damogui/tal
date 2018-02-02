@@ -42,4 +42,12 @@ public class TaskFollowCtrl {
 		Boolean isHas = verify.hasProduct(taskId);
 		return isHas;
 	}
+	
+	
+	public boolean hasDistrict(Integer taskId){
+		ActionFollowVerify verify = new ActionFollowVerify();
+		Boolean isHas = verify.hasDistrict(taskId);
+		return isHas;
+	}
+	
 }

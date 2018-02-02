@@ -36,6 +36,8 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 	},
 	follow : function(id) {
 		
+		$("#" + this.context.id).datagrid('unselectAll');
+		$("#" + this.context.id).datagrid('selectRecord',id);
 		var me = this;
 		var taskId = id;
 		$('#'+this.context.id).datagrid('selectRecord',id);

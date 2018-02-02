@@ -3,61 +3,6 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 	ctor : function() {
 		
 	},
-	/**
-	 * 任务跟进，验证跟进时间
-	 * @returns
-	 */
-	followTimeValida:function (code){
-		//跟进时间验证
-		var timeResult = true;
-		var timeRequired = "XA0A1A2A3A4B1B2";
-		if(timeRequired.indexOf(code)>-1){
-			//必填
-			timeResult = false;
-		};
-		return timeResult;
-	},
-	/**
-	 * 任务跟进，验证签单金额
-	 * @returns
-	 */
-	followAmountValida:function (code){
-		//签单金额验证
-		var amountResult = true;
-		var amountRequired = "A0A1A2A3A4B1";
-		if(amountRequired.indexOf(code)>-1){
-			//必填
-			amountResult = false;
-		};
-		return amountResult;
-	},
-	/**
-	 * 任务跟进，验证内容
-	 * @returns
-	 */
-	followNoteValida:function (code){
-		//内容验证
-		var noteResult = true;
-		var noteRequired = "B1B3C1C2C3D1D2";
-		if(noteRequired.indexOf(code)>-1){
-			//必填
-			noteResult = false;
-		};
-		return noteResult;
-	},
-	/**
-	 * 任务跟进，验证意向产品
-	 * @returns
-	 */
-	followProductValida:function (code){
-		var productResult = true;
-		var productRequired = "A0A1A2A3A4B1B3C1C2C3";
-		if(productRequired.indexOf(code)>-1){
-			//必填
-			productResult = false;
-		};
-		return productResult;
-	},
 	getIntentionOption:function (taskId){
 		
 		var result;
@@ -91,28 +36,119 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 				
 				var grid = $('#allot_intention_name').combogrid('grid');
 		    	var row = grid.datagrid('getSelected');	
-		    	var code = row.code;
 		    	
-		    	var followProduct = me.followProductValida(code);
-		    	if(!followProduct){
-					var serviceLocator = new org.netsharp.core.JServiceLocator();
-					var service = "com.gongsibao.crm.web.TaskFollowCtrl";
-					serviceLocator.invoke(service, 'hasProduct', [taskId], function(data){
-						if(!data){
-							layer.msg('此类质量的任务必须添加意向产品');
-						}
-					}, null, true);
+		    	var nextFoolowDateRequired = row.nextFoolowDateRequired;
+		    	var returnedAmountRequired = row.returnedAmountRequired;
+		    	var signingAmountRequired = row.signingAmountRequired;
+		    	var contentRequired = row.contentRequired;
+		    	var productRequired = row.productRequired;
+		    	var districtRequired = row.districtRequired;
+		    	
+		    	if(nextFoolowDateRequired === true){
+		    		
+		    		$('#nextFoolowTime').datebox('enableValidation');
+		    	}else{
+		    		$('#nextFoolowTime').datebox('disableValidation').datebox('clear');
 		    	}
+		    	
+		    	if(returnedAmountRequired === true){
+		    		
+		    		$('#returnedAmount').numberbox('enableValidation').numberbox('enable');
+		    	}else{
+		    		$('#returnedAmount').numberbox('disableValidation').numberbox('disable').numberbox('clear');
+		    	}
+		    	
+		    	if(signingAmountRequired === true){
+		    		
+		    		$('#signingAmount').numberbox('enableValidation').numberbox('enable');
+		    	}else{
+		    		$('#signingAmount').numberbox('disableValidation').numberbox('disable').numberbox('clear');
+		    	}
+		    	
+		    	if(contentRequired === true){
+		    		
+		    		$('#follow_content').validatebox('enableValidation');
+		    	}else{
+		    		$('#follow_content').validatebox('disableValidation');
+		    		$('#follow_content').val('');
+		    	}
+
+		    	var productRequired = row.productRequired;
+		    	if(productRequired ===true){
+		    		
+		    		var isHasProduct = me.verifyHasProduct(taskId);
+		    		if(!isHasProduct){
+
+		    			layer.confirm('此类质量的任务必须添加意向产品,是否立即添加？', {
+		    				  btn: ['立即添加', '取消']
+		    				}, function(index, layero){
+		    				  
+		    					window.open('/panda/crm/salesman/task/edit?id='+taskId);
+		    					layer.close(index);
+		    				});
+		    			$('#allot_intention_name').combogrid('clear');
+			    		return false;
+		    		}
+		    	}
+		    	
+		    	var districtRequired = row.districtRequired;
+		    	if(districtRequired ===true){
+		    		
+		    		var ishasDistrict = me.verifyHasDistrict(taskId);
+		    		if(!ishasDistrict){
+
+		    			layer.confirm('此类质量的任务必须添加意向地区,是否立即添加？', {
+		    				  btn: ['立即添加', '取消']
+		    				}, function(index, layero){
+		    				  
+		    					window.open('/panda/crm/salesman/task/edit?id='+taskId);
+		    					layer.close(index);
+		    				});
+		    			$('#allot_intention_name').combogrid('clear');
+			    		return false;
+		    		}
+		    	}
+		    	
+		    	return true;
 			}};
 		
 		return intentionOption;
 	},
-	//nextFoolowDateRequired
-	//returnedAmountRequired
-	//signingAmountRequired
-	//contentRequired
-	//productRequired
-	//districtRequired
+	verifyHasProduct:function(taskId){
+		
+		var isHasProduct = true;
+		this.invokeService('hasProduct',[taskId],function(data){
+			
+			isHasProduct = data;
+		},false);
+		
+		return isHasProduct;
+	},
+	
+	verifyHasDistrict:function(taskId){
+		
+		var ishasDistrict = true;
+		this.invokeService('hasDistrict',[taskId],function(data){
+			
+			ishasDistrict = data;
+		},false);
+		return ishasDistrict;
+	},
+    invokeService: function (method, pars, callback, isAsyn, errorCallback) {
+
+        var me = this;
+        var serviceLocator = new org.netsharp.core.JServiceLocator();
+        var thisCallback = function (data) {
+        	
+            if (!System.isnull(callback)) {
+            	
+                callback(data);
+            }
+        };
+        var service = "com.gongsibao.crm.web.TaskFollowCtrl";
+        serviceLocator.invoke(service, method, pars, thisCallback, null, isAsyn, errorCallback);
+    },
+    
 	open:function(taskId,customerId,callback){
 		
 		var me = this;
@@ -131,21 +167,21 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 					title:'下次跟进时间',
 					type:'datebox',
 					className:'',
-					option:{width:300}
+					option:{width:300,required:true,editable:false}
 				},
 				
 				{id:'signingAmount',
 					title:'估计签单金额',
 					type:'numberbox',
 					className:'',
-					option:{width:300,disabled:true}
+					option:{width:300,required:true,disabled:true}
 				},	
 				
 				{id:'returnedAmount',
 					title:'估计回款金额',
 					type:'numberbox',
 					className:'',
-					option:{width:300,disabled:true}
+					option:{width:300,required:true,disabled:true}
 				},	
 					 
 				{id:'follow_content',
@@ -153,44 +189,32 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 					type:'textarea',
 					height:100,
 					width:300,
-					className:''}
+					className:'easyui-validatebox',
+					option:{required:true}
+				}
 			],
-			explain:'',
-			notice:'',
 			callback:function(index, layero){
 
-				var qualityId = $('#allot_intention_name').combogrid('getValue');
-				if(System.isnull(qualityId)){
-					layer.msg('此类质量的任务必须添加意向产品');
-					return false;
+				var validate = $('#dynamicForm').form('validate');
+				if(!validate){
+					
+					return;
 				}
+				
+				
+				var qualityId = $('#allot_intention_name').combogrid('getValue');
+
 				var grid = $('#allot_intention_name').combogrid('grid');
-		    	var row = grid.datagrid('getSelected');	
-		    	var code = row.code;
+		    	var row = grid.datagrid('getSelected');
 		    	var score = row.score;//当前质量的分值
 		    	
 		    	var nextFoolowTime = $("#nextFoolowTime").datebox('getValue');
-		    	var timeRequired = me.followTimeValida(code);
-		    	if(!timeRequired && System.isnull(nextFoolowTime)){
-		    		layer.msg('请添加下次跟进时间');
-					return false;
-		    	};
 		    	
-
 		    	var returnedAmount = $("#returnedAmount").numberbox('getValue');
-		    	var amountRequired =  me.followAmountValida(code);
-		    	if(!amountRequired && System.isnull(returnedAmount)){
-		    		layer.msg('请添加估计签单金额');
-					return false;
-		    	};
 		    	
+		    	var signingAmount = $("#signingAmount").numberbox('getValue');
 		    	
-				var contentRequired =  me.followNoteValida(code);
 				var content = $("#follow_content").val();
-				if (!contentRequired && System.isnull(content)) {
-					layer.msg('请添加内容');
-					return false;
-				};
 				
 				var taskFollowObj = {
 						
@@ -199,10 +223,11 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 						customerId:customerId,
 						qualityId:qualityId,
 						nextFoolowTime:nextFoolowTime,
+						signingAmount:signingAmount,
 						returnedAmount:returnedAmount,
 						content:content
 				};
-				//封装的Ajax
+				
 				var serviceLocator = new org.netsharp.core.JServiceLocator();
 				var service = "com.gongsibao.crm.web.TaskFollowCtrl";
 				serviceLocator.invoke(service, 'follow', [taskFollowObj], function(data){
@@ -219,7 +244,6 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 				}, null, true);
 			}
 		});
-    
 	}
 });
 

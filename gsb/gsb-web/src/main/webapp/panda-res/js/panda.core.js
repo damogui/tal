@@ -380,7 +380,7 @@ PandaHelper.openDynamicForm = function(option){
 	var formId = System.GUID.newGUID();
 	var builder = new System.StringBuilder();
 	
-	builder.append('<form id="formsalesman">');
+	builder.append('<form id="dynamicForm">');
 	builder.append('<div style="margin:10px;">');
 	builder.append('<table cellpadding="5" cellspacing="10" class="form-panel">');
 	if(!System.isnull(option.explain)){
@@ -392,7 +392,7 @@ PandaHelper.openDynamicForm = function(option){
 		if(item.type == 'textarea'){
 
 			builder.append('<tr><td class="title">'+item.title+'</td><td><textarea id="'+item.id+'" style="width:'
-					+item.width+'px;height:'+item.height+'px;" className="'+(item.className||'')+'" ></textarea></td></tr>');
+					+item.width+'px;height:'+item.height+'px;" class="'+(item.className||'')+'" ></textarea></td></tr>');
 		}else{
 
 			builder.append('<tr><td class="title">'+item.title+'</td><td><input id="'+item.id+'"/></td></tr>');
@@ -424,7 +424,11 @@ PandaHelper.openDynamicForm = function(option){
 					
 					var expression = '$("#'+item.id+'").'+item.type+'(item.option);';
 					eval(expression);
-					//alert(expression);
+				}else{
+					
+					var expression = '$("#'+item.id+'").validatebox(item.option);';
+					eval(expression);
+					
 				}
 			});
 		},
