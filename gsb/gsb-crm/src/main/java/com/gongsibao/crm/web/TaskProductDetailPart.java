@@ -35,25 +35,11 @@ public class TaskProductDetailPart extends DetailPart {
 	 * @return: List<Dict>
 	 * @throws
 	 */
-	public Map<Integer, String> queryByProductCategoryId2(Integer productCategoryId1) {
+	public Map<Integer, String> queryByProductSecondCategoryId(Integer secondCategoryId) {
 
 		Map<Integer, String> map = new HashMap<Integer, String>();
 
 		return map;
 	}
-
-	/**
-	 * @Title: queryByProducId
-	 * @Description: TODO(根据产品获取一级分类Id,二级分类Id)
-	 * @param: @param productId
-	 * @param: @return
-	 * @return: Map<Integer,String>
-	 * @throws
-	 */
-	public Map<Integer, String> queryByProductId(Integer productId) {
-
-		Map<Integer, String> map = new HashMap<Integer, String>();
-
-		return map;
-	}
+	
 }
