@@ -1,0 +1,30 @@
+package com.gongsibao.api.dto.ma;
+
+/**
+ * Created by win on 2018/2/2.
+ */
+
+/*从枚举类型转换的键值对*/
+public class ServiceDic {
+
+    private int id;
+
+    private String name;
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}

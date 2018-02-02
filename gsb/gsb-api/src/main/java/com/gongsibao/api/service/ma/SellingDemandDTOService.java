@@ -1,9 +1,8 @@
 package com.gongsibao.api.service.ma;
 
-import com.gongsibao.api.dto.ma.ProvinceCityCountyDTO;
-import com.gongsibao.api.dto.ma.QuerySellingDemandDTO;
-import com.gongsibao.api.dto.ma.SellingDemandDTO;
+import com.gongsibao.api.dto.ma.*;
 import com.gongsibao.entity.ma.SellingDemand;
+import com.gongsibao.entity.ma.dic.EnterpriseQualification;
 import com.gongsibao.ma.service.SellingDemandService;
 import org.netsharp.core.Oql;
 import org.netsharp.core.Paging;
@@ -125,6 +124,30 @@ public class SellingDemandDTOService {
         }
 
         return listPDTO;
+
+    }
+
+    /*获取服务类型的枚举类型转换集合*/
+    public List<ServiceTypeDTO> getServiceTypeLsit() {
+        List<ServiceTypeDTO> listServiceType = new ArrayList<>();
+
+        ServiceTypeDTO serviceTypeDTO = new ServiceTypeDTO();
+        serviceTypeDTO.setServiceName(ServiceTypeEnum.p5.getText());
+        serviceTypeDTO.setServiceType(ServiceTypeEnum.p5.getValue());
+        ArrayList<ServiceDic> dicList = new ArrayList();
+          /*循环公司性质枚举返回*/
+        for (EnterpriseQualification item : EnterpriseQualification.values()
+                ) {
+            ServiceDic serviceDic = new ServiceDic();
+            serviceDic.setId(item.getValue());
+            serviceDic.setName(item.getText());
+            dicList.add(serviceDic);
+
+        }
+        serviceTypeDTO.setServiceList(dicList);
+        listServiceType.add(serviceTypeDTO);
+        return listServiceType;
+
 
     }
 }
