@@ -11,6 +11,7 @@ import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.dic.AllocationState;
 import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
+import com.gongsibao.entity.crm.dic.NAllocationType;
 
 /**
  * @author zhangchao
@@ -28,18 +29,19 @@ public class ActionAutoAllocationUpdateTaskStatus implements IAction {
 		if (entity == null) {
 			throw new BusinessException("该任务不存在！");
 		}
-		
 		entity = nCustomerTaskService.byId(entity.getId());
-		//状态改为【已分配】
-		entity.setAllocationState(AllocationState.ALLOCATED);
-		//跟进状态改为【待跟进】
-		entity.setFoolowStatus(CustomerFollowStatus.UNFollow);
-		//跟新最后分配时间
-		entity.setLastAllocationTime(new Date());
+		//状态改为【待分配】
+		entity.setAllocationState(AllocationState.WAIT);
 		//最后分配人Id（机器分配，默认写0）
 		entity.setLastAllocationUserId(0);
-		
+		if(!entity.getOwnerId().equals(0)&&entity.getAllocationType().equals(NAllocationType.AUTO)){			
+			//状态改为【已分配】
+			entity.setAllocationState(AllocationState.ALLOCATED);
+			//跟进状态改为【待跟进】
+			entity.setFoolowStatus(CustomerFollowStatus.UNFollow);
+			//跟新最后分配时间
+			entity.setLastAllocationTime(new Date());			
+		}
 		nCustomerTaskService.save(entity);
-		
 	}
 }
