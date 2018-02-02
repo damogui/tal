@@ -44,7 +44,7 @@ public class ImportTaskQualityDataTest {
             entity2.setRequiredInfo("");
             entity2.setNextFoolowDateRequired(false);
             entity2.setNextFoolowType("业务员主动联系");
-            entity1.setScore(60);
+            entity2.setScore(60);
         }
         NCustomerTaskQuality entity3 = new NCustomerTaskQuality();
         {
@@ -55,7 +55,7 @@ public class ImportTaskQualityDataTest {
             entity3.setRequiredInfo("客户意向产品、意向地区、预计签单额、预计回款额");
             entity3.setNextFoolowDateRequired(true);
             entity3.setNextFoolowType("业务员主动联系");
-            entity1.setScore(50);
+            entity3.setScore(50);
         }
         NCustomerTaskQuality entity4 = new NCustomerTaskQuality();
         {
@@ -66,7 +66,7 @@ public class ImportTaskQualityDataTest {
             entity4.setRequiredInfo("客户意向产品、意向地区、预计签单额、预计回款额");
             entity4.setNextFoolowDateRequired(true);
             entity4.setNextFoolowType("业务员主动联系");
-            entity1.setScore(40);
+            entity4.setScore(40);
         }
         NCustomerTaskQuality entity5 = new NCustomerTaskQuality();
         {
@@ -77,7 +77,7 @@ public class ImportTaskQualityDataTest {
             entity5.setRequiredInfo("客户意向产品、意向地区、预计签单额、预计回款额");
             entity5.setNextFoolowDateRequired(true);
             entity5.setNextFoolowType("业务员主动联系");
-            entity1.setScore(30);
+            entity5.setScore(30);
         }
         NCustomerTaskQuality entity6 = new NCustomerTaskQuality();
         {
@@ -88,7 +88,7 @@ public class ImportTaskQualityDataTest {
             entity6.setRequiredInfo("客户意向产品、意向地区、预计签单额、预计回款额");
             entity6.setNextFoolowDateRequired(true);
             entity6.setNextFoolowType("业务员主动联系");
-            entity1.setScore(20);
+            entity6.setScore(20);
         }
         NCustomerTaskQuality entity7 = new NCustomerTaskQuality();
         {
@@ -99,7 +99,7 @@ public class ImportTaskQualityDataTest {
             entity7.setRequiredInfo("客户意向产品、意向地区、预计签单额、预计回款额");
             entity7.setNextFoolowDateRequired(true);
             entity7.setNextFoolowType("业务员主动联系");
-            entity1.setScore(10);
+            entity7.setScore(10);
         }
         NCustomerTaskQuality entity8 = new NCustomerTaskQuality();
         {
@@ -110,7 +110,7 @@ public class ImportTaskQualityDataTest {
             entity8.setRequiredInfo("客户意向产品、意向地区、预计签单额、预计回款额、未满足原因说明");
             entity8.setNextFoolowDateRequired(true);
             entity8.setNextFoolowType("业务员主动联系");
-            entity1.setScore(0);
+            entity8.setScore(0);
         }
         NCustomerTaskQuality entity9 = new NCustomerTaskQuality();
         {
@@ -121,7 +121,7 @@ public class ImportTaskQualityDataTest {
             entity9.setRequiredInfo("");
             entity9.setNextFoolowDateRequired(true);
             entity9.setNextFoolowType("业务员主动联系");
-            entity1.setScore(0);
+            entity9.setScore(0);
         }
         NCustomerTaskQuality entity10 = new NCustomerTaskQuality();
         {
@@ -132,7 +132,7 @@ public class ImportTaskQualityDataTest {
             entity10.setRequiredInfo("客户意向产品、意向地区、原因选择、原因说明");
             entity10.setNextFoolowDateRequired(false);
             entity10.setNextFoolowType("1. 售前抽查核实2.机器挖掘分配");
-            entity1.setScore(0);
+            entity10.setScore(0);
         }
         NCustomerTaskQuality entity11 = new NCustomerTaskQuality();
         {
@@ -143,7 +143,7 @@ public class ImportTaskQualityDataTest {
             entity11.setRequiredInfo("客户意向产品、意向地区、其他渠道名称/自己办理、原因选择、原因说明");
             entity11.setNextFoolowDateRequired(false);
             entity11.setNextFoolowType("1. 售前抽查核实2.机器挖掘分配");
-            entity1.setScore(0);
+            entity11.setScore(0);
         }
         NCustomerTaskQuality entity12 = new NCustomerTaskQuality();
         {
@@ -154,7 +154,7 @@ public class ImportTaskQualityDataTest {
             entity12.setRequiredInfo("客户意向产品、意向地区、其他渠道名称/自己办理、原因选择、原因说明");
             entity12.setNextFoolowDateRequired(false);
             entity12.setNextFoolowType("1. 售前抽查核实2.机器挖掘分配");
-            entity1.setScore(0);
+            entity12.setScore(0);
         }
         NCustomerTaskQuality entity13 = new NCustomerTaskQuality();
         {
@@ -165,7 +165,7 @@ public class ImportTaskQualityDataTest {
             entity13.setRequiredInfo("客户意向产品、意向地区、原因选择、原因说明");
             entity13.setNextFoolowDateRequired(false);
             entity13.setNextFoolowType("1. 售前抽查核实2.机器挖掘分配");
-            entity1.setScore(0);
+            entity13.setScore(0);
         }
         NCustomerTaskQuality entity14 = new NCustomerTaskQuality();
         {
@@ -176,7 +176,7 @@ public class ImportTaskQualityDataTest {
             entity14.setRequiredInfo("原因选择、原因说明");
             entity14.setNextFoolowDateRequired(false);
             entity14.setNextFoolowType("1. 售前抽查核实2.机器挖掘分配");
-            entity1.setScore(0);
+            entity14.setScore(0);
         }
         NCustomerTaskQuality entity15 = new NCustomerTaskQuality();
         {
@@ -187,7 +187,7 @@ public class ImportTaskQualityDataTest {
             entity15.setRequiredInfo("原因选择、原因说明");
             entity15.setNextFoolowDateRequired(false);
             entity15.setNextFoolowType("1. 售前抽查核实2. 机器挖掘分配");
-            entity1.setScore(0);
+            entity15.setScore(0);
         }
 
 
