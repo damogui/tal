@@ -111,7 +111,9 @@ public class SellingDemandDTOService {
         String fiterStr=filterBuilder.toString();
         if (!StringManager.isNullOrEmpty(fiterStr)){
             oql.setFilter(fiterStr);
+            oql.setParameters(qps);
         }
+
         List<SellingDemand> sellingList = sellingDemandService.queryList(oql);
         List<SellingDemandDTO> sellingDtoList = new ArrayList<SellingDemandDTO>();
 
