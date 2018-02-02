@@ -219,7 +219,6 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 				}
 			],
 			callback:function(index, layero){
-
 				var validate = $('#dynamicForm').form('validate');
 				if(!validate){
 					
