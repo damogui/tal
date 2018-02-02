@@ -21,40 +21,31 @@ public class SellingDemandDTOService {
     SellingDemandService sellingDemandService = new SellingDemandService();
     ProvinceCityCountyService provin = new ProvinceCityCountyService();//省市县
 
-
     /*根据传递条件进行查询数据返回*/
     public List<SellingDemandDTO> queryList(QuerySellingDemandDTO queryModel) {
         Oql oql = new Oql();
         oql.setType(SellingDemand.class);
         oql.setSelects("SellingDemand.*");
-        if (queryModel != null) {
+        if (queryModel != null) {//进行组装筛选条件数据
 
             if (!queryModel.getCompanyName().equals("") && queryModel.getCompanyName() != null) {
-
-
                 // String sqlFiter=String.format("company_name  like '%%s%' or ");
                 oql.setFilter("company_name  like '%" + queryModel.getCompanyName() + "%'");
-
-
             }
+
+
+            //默认页码和大小
+            if (queryModel.getPageIndex() == 0) queryModel.setPageIndex(1);
+            if (queryModel.getPageSize() == 0) queryModel.setPageSize(10);
+            oql.setOrderby("update_time  desc");
+            oql.setPaging(new Paging(queryModel.getPageIndex(), queryModel.getPageSize()));
 
 
         } else {
-            Paging paging = new Paging();
-            {
-                paging.setPageNo(1);
-                paging.setPageSize(10);
-            }
             oql.setOrderby("update_time  desc");
-            oql.setPaging(paging);
-
-
+            oql.setPaging(new Paging(1, 10));
         }
-
-
         List<SellingDemand> sellingList = sellingDemandService.queryList(oql);
-
-
         List<SellingDemandDTO> sellingDtoList = new ArrayList<SellingDemandDTO>();
 
         for (SellingDemand item : sellingList
@@ -116,13 +107,13 @@ public class SellingDemandDTOService {
 
     /*获取省市县代码和名称*/
     public List<ProvinceCityCountyDTO> getPcc(int parentId) {
-        List<ProvinceCityCounty> listP =new ArrayList<>();
+        List<ProvinceCityCounty> listP = new ArrayList<>();
         List<ProvinceCityCountyDTO> listPDTO = new ArrayList<ProvinceCityCountyDTO>();
 
         if (parentId == 0) {
-            listP= provin.queryProvince();
+            listP = provin.queryProvince();
         } else {
-            listP=provin.queryPcc(parentId);
+            listP = provin.queryPcc(parentId);
         }
 
         for (ProvinceCityCounty item : listP

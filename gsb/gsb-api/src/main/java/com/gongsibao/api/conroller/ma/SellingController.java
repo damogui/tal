@@ -14,20 +14,21 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
 /**
  * Created by win on 2018/2/1.
  */
-
+/*公司出售需求控制器只提供查询接口*/
 @Path("/ma/selling")
 public class SellingController {
 
     //ISellingDemandService sellingDemandServiceI = ServiceFactory.create(ISellingDemandService.class);
     SellingDemandDTOService sellingDemandDTOService = new SellingDemandDTOService();
-//    private HttpServletRequest request;
-//    private QuerySellingDemandDTO para;
+    private HttpServletRequest request;
+    private QuerySellingDemandDTO para;
 
 
     /*列表接口*/
@@ -36,11 +37,20 @@ public class SellingController {
     @Produces(MediaType.APPLICATION_JSON)
     public List<SellingDemandDTO> getSellingList(@Context HttpServletRequest request) throws IOException {
         String para = request.getParameter("para");
-        QuerySellingDemandDTO paraM = (QuerySellingDemandDTO) org.netsharp.util.JsonManage.deSerialize(QuerySellingDemandDTO.class, para);
+        QuerySellingDemandDTO paraM=new QuerySellingDemandDTO();
+        List<SellingDemandDTO> listResult=new ArrayList<>();
+        if (!StringManager.isNullOrEmpty(para)){
+             paraM = (QuerySellingDemandDTO) org.netsharp.util.JsonManage.deSerialize(QuerySellingDemandDTO.class, para);
+
+            listResult= sellingDemandDTOService.queryList(paraM);
+        }else{
+            listResult= sellingDemandDTOService.queryList(null);
+
+        }
         //QuerySellingDemandDTO paraM = (QuerySellingDemandDTO) JSON.parseObject(para, QuerySellingDemandDTO.class);
 
-        List<SellingDemandDTO> list = sellingDemandDTOService.queryList(paraM);
-        return list;
+
+        return listResult;
     }
 
     /*服务类型*/

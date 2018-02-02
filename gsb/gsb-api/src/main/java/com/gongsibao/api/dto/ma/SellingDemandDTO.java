@@ -79,6 +79,10 @@ public class SellingDemandDTO {
     private SelingStatus selingStatus = SelingStatus.UNSOLD;
 
 
+
+
+
+
     public String getCode() {
         return code;
     }
@@ -254,4 +258,6 @@ public class SellingDemandDTO {
     public void setId(Integer id) {
         this.id = id;
     }
+
+
 }

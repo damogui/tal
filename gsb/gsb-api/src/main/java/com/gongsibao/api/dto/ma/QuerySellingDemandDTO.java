@@ -73,6 +73,11 @@ public class QuerySellingDemandDTO {
     @Column(name = "seling_status", header = "状态")
     private SelingStatus selingStatus = SelingStatus.UNSOLD;
 
+    //页码
+    private int pageIndex;
+    //页返回数据
+    private int pageSize;
+
 
     public String getCode() {
         return code;
@@ -240,5 +245,21 @@ public class QuerySellingDemandDTO {
 
     public void setSelingStatus(SelingStatus selingStatus) {
         this.selingStatus = selingStatus;
+    }
+
+    public int getPageIndex() {
+        return pageIndex;
+    }
+
+    public void setPageIndex(int pageIndex) {
+        this.pageIndex = pageIndex;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 }
