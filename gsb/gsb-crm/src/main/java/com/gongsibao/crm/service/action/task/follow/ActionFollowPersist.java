@@ -27,7 +27,7 @@ public class ActionFollowPersist implements IAction {
 
 		// 获取当前质量的分值
 		NCustomerTaskQuality taskQuality = taskFoolow.getQuality();
-		Integer currentScore = taskQuality.getScore();
+		Integer currentScore = taskQuality == null ? 0 : taskQuality.getScore();
 
 		// 获取上次的跟进分值
 		Integer lastScore = this.getLastScore(taskFoolow.getTaskId());
@@ -46,30 +46,30 @@ public class ActionFollowPersist implements IAction {
 		foolowService.save(taskFoolow);
 	}
 
-	/**   
-	 * @Title: getLastScore   
-	 * @Description: TODO(获取上次跟进的分值)   
+	/**
+	 * @Title: getLastScore
+	 * @Description: TODO(获取上次跟进的分值)
 	 * @param: @param taskId
-	 * @param: @return      
-	 * @return: Integer      
-	 * @throws   
+	 * @param: @return
+	 * @return: Integer
+	 * @throws
 	 */
 	private Integer getLastScore(Integer taskId) {
-		
+
 		Oql oql = new Oql();
 		{
 			oql.setType(NCustomerTask.class);
-			oql.setSelects("NCustomerTask.{id,name},NCustomerTask.quality{id,score}");
+			oql.setSelects("NCustomerTask.{id,name},NCustomerTask.quality.{id,score}");
 			oql.setFilter("id=?");
 			oql.getParameters().add("id", taskId, Types.INTEGER);
 		}
 		INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
 		NCustomerTask task = taskService.queryFirst(oql);
-		if(task != null){
-			
+		if (task != null) {
+
 			NCustomerTaskQuality quality = task.getQuality();
-			if(quality != null){
-				
+			if (quality != null) {
+
 				return quality.getScore();
 			}
 		}
