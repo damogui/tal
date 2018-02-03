@@ -29,7 +29,7 @@ public class ActionAutoAllocationVerify implements IAction {
 		}
 
 		// 已经有业务员了
-		if (!entity.getOwnerId().equals(0)) {
+		if (entity.getOwnerId() != null && !entity.getOwnerId().equals(0)) {
 			throw new BusinessException("该任务已经有业务员了，禁止分配!");
 		}
 

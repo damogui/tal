@@ -156,6 +156,15 @@ public class DateUtils {
 		Date sunday = getSundayOfWeek(date);
 		return formatDate(monday, pattern) + " - " + formatDate(sunday, pattern);
 	}
+	
+	/**获取格式为：2018-02-02 08:08:08
+	 * @param date
+	 * @return
+	 */
+	public static String getDateStr(Date date) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");		
+		return sdf.format(date);
+	}
 
 	/**
 	 * 根据日期取得对应周周一日期
@@ -282,6 +291,8 @@ public class DateUtils {
 		return day;
 	}
 
+	
+	
 	/**
 	 * 取得季度剩余天数
 	 * 
