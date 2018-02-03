@@ -16,6 +16,8 @@ com.gongsibao.crm.web.NCustomerTaskEditFormPart = com.gongsibao.crm.web.NCustome
         	this.disable();
         	$('#remark').prop('disabled',false);
         	$('#smsRemark').prop('disabled',false);
+        	
+        	$('#controllernCustomerTasksave').linkbutton('enable');
         }
     }
 });

@@ -16,6 +16,19 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
     		return UiElementState.Disable;
     	}
     },
+    databindafter:function(){
+    	
+        $('.easyui-combobox,.easyui-combogrid').combobox("initClearBtn");
+        $('.easyui-filebox').filebox("initClearBtn");
+        
+        var entity = this.viewModel.currentItem;
+        if(entity != null && entity.entityState != EntityState.New){
+
+        	this.disable();
+        	$('#controllernCustomeredit').linkbutton('enable');
+        }
+        
+    },
     edit:function(){
 
     	this.enable();
@@ -35,6 +48,8 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
     	$('#lastFollowTime').datetimebox('disable');
     	$('#nextFoolowTime').datetimebox('disable');
     	$('#lastContent').prop('disabled',true);
+    	
+        $('#controllernCustomeredit').linkbutton('disable');
     },
     onload: function () {
 
