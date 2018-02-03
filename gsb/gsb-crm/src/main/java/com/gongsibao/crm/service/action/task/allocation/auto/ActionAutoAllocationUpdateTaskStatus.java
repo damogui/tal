@@ -34,11 +34,21 @@ public class ActionAutoAllocationUpdateTaskStatus implements IAction {
 		if (entity == null) {
 			throw new BusinessException("该任务不存在！");
 		}
+		// 当没有分配到人，也没有分配到部门，则不改变状态
+		if (entity.getSupplierId().equals(0) && entity.getDepartmentId().equals(0) && entity.getOwnerId().equals(0)) {
+			return;
+		}
 
 		UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("n_crm_customer_task");
 			updateSql.set("allocation_state", AllocationState.WAIT.getValue());
+			// 跟进状态改为【待跟进】
+			updateSql.set("foolow_status", CustomerFollowStatus.UNFollow.getValue());
+			// 跟新最后分配时间
+			updateSql.set("last_allocation_time", DateUtils.getDateStr(new Date()));
+			// 最后分配人Id（机器分配，默认写0）
+			updateSql.set("last_allocation_user_id", 0);
 			updateSql.where("id=?");
 		}
 
@@ -46,13 +56,25 @@ public class ActionAutoAllocationUpdateTaskStatus implements IAction {
 		entity.setAllocationState(AllocationState.WAIT);
 		// 最后分配人Id（机器分配，默认写0）
 		entity.setLastAllocationUserId(0);
+		entity.setFoolowStatus(CustomerFollowStatus.UNFollow);
+		entity.setLastAllocationTime(new Date());
+
+		if (!entity.getSupplierId().equals(0) && entity.getDepartmentId().equals(0) && entity.getOwnerId().equals(0) && entity.getAllocationType().equals(NAllocationType.SemiAutomatic)) {
+			// 状态改为【已分配-服务商】
+			updateSql.set("allocation_state", AllocationState.ALLOCATED_Supplier.getValue());
+			entity.setAllocationState(AllocationState.ALLOCATED_Supplier);
+		}
+
+		if (!entity.getSupplierId().equals(0) && !entity.getDepartmentId().equals(0) && entity.getOwnerId().equals(0) && entity.getAllocationType().equals(NAllocationType.SemiAutomatic)) {
+			// 状态改为【已分配-部门】
+			updateSql.set("allocation_state", AllocationState.ALLOCATED_Department.getValue());
+			entity.setAllocationState(AllocationState.ALLOCATED_Department);
+		}
+
 		if (!entity.getOwnerId().equals(0) && entity.getAllocationType().equals(NAllocationType.AUTO)) {
-			// 状态改为【已分配】
+			// 状态改为【已分配-业务员】
 			updateSql.set("allocation_state", AllocationState.ALLOCATED.getValue());
-			// 跟进状态改为【待跟进】
-			updateSql.set("foolow_status", CustomerFollowStatus.UNFollow.getValue());
-			// 跟新最后分配时间
-			updateSql.set("last_allocation_time", DateUtils.getDateStr(new Date()));
+			entity.setAllocationState(AllocationState.ALLOCATED);
 		}
 		String cmdText = updateSql.toSQL();
 		QueryParameters qps = new QueryParameters();
