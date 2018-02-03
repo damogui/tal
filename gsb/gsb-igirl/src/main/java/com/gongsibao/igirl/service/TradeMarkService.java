@@ -37,7 +37,7 @@ import com.gongsibao.igirl.dto.TradeMark.TradeMarkApplyInfo;
 @Service
 public class TradeMarkService extends GsbPersistableService<TradeMark> implements ITradeMarkService {
 	private final static String contantSeprate = "弌";
-
+    
 	IUploadAttachmentService upattachementService = ServiceFactory.create(IUploadAttachmentService.class);
 	IDownloadAttachmentService downattachementService = ServiceFactory.create(IDownloadAttachmentService.class);
 
@@ -242,7 +242,7 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 
 	// 查询上传附件列表，构造MAP
 	// key:caseid_shareroup_fileCat,value:fileurl_filename
-	private Map<String, String> buildCaseShareGroupToAttachFileMap() {
+	public Map<String, String> buildCaseShareGroupToAttachFileMap() {
 		Map<String, String> shareGroupToTradeMarkMap = new HashMap<String, String>();
 		Oql oql = new Oql();
 		{
@@ -261,10 +261,10 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 				String filename = fileurl.substring(index + 1);
 				String key = "";
 				TradeMark tm = ua.getTradeMark();
-				if (ua.getTradeMarkId() == -1) {// 营业执照
+				if (ua.getTradeMarkId() == TradeMarkCaseService.TradeMarkBizLienseID) {// 营业执照
 					key = ua.getTradeMarkCaseId() + contantSeprate + "zz"+ contantSeprate + "zz";
 				} else {
-					if(ua.getTradeMarkId() == -2) {//表示付款证明
+					if(ua.getTradeMarkId() == TradeMarkCaseService.TradeMarkPayProofID) {//表示付款证明
 						continue;
 					}
 					key = ua.getTradeMarkCaseId() + contantSeprate + tm.getShareGroup().getValue() + contantSeprate

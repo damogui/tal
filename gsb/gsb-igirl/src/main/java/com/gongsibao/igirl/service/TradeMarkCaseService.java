@@ -40,6 +40,10 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 	IUploadAttachmentService upattachementService = ServiceFactory.create(IUploadAttachmentService.class);
 	IDownloadAttachmentService downattachementService = ServiceFactory.create(IDownloadAttachmentService.class);
 	ITradeMarkService tradeMarkService = ServiceFactory.create(ITradeMarkService.class);
+	//附件营业执照商标ID赋值为-1，因为多个商标共享
+	public final static Integer TradeMarkBizLienseID = -1;
+	//付款证明商标ID为赋予值为-2，因为多个商标共享
+	public final static Integer TradeMarkPayProofID = -2;
 
 	public TradeMarkCaseService() {
 		super();
@@ -86,6 +90,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 
 	@Override
 	public TradeMarkCase save(TradeMarkCase entity) {
+		Integer sid = SupplierSessionManager.getSupplierId();
 		// 设置编码样式 和所在的代理公司
 		if (entity.getEntityState() == EntityState.New) {
 			entity.setCode(DateTime.now().toString("yyyyMMddHHmmss"));
@@ -95,7 +100,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 				tm.setSupplierId(id);
 			}
 			// 设置加盟商信息
-			Integer sid = SupplierSessionManager.getSupplierId();
+		
 			Supplier sl = supplierServcie.byId(sid);
 			entity.setProxyCompanyName(sl.getName());
 			entity.setAccountNo(sl.getBankNum());
@@ -110,19 +115,21 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 				entity.setApplier(entity.getCompanyName());
 			}
 			UploadAttachment attachment2 = (UploadAttachment) this.buildUploadAttachment("营业执照",
-					AttachmentCat.BUSINESS_LIEN, entity.getId(), FileType.JPGC, FileType.PDF, -1);
+					AttachmentCat.BUSINESS_LIEN, entity.getId(), FileType.JPGC, FileType.PDF, TradeMarkBizLienseID);
 			entity.getUploadAttachments().add(attachment2);
 
 			attachment2 = (UploadAttachment) this.buildUploadAttachment("付款证明", AttachmentCat.PAYMENT_PROOF,
-					entity.getId(), FileType.JPGC, FileType.JPGC, -2);
+					entity.getId(), FileType.JPGC, FileType.JPGC, TradeMarkPayProofID);
 			entity.getUploadAttachments().add(attachment2);
 		}
 
 		// //附件商标图样因为色彩而变化
 		if (entity.getEntityState() == EntityState.Persist) {
 			List<TradeMark> tmks = entity.getTradeMarks();
+			
 			for (int i = 0; i < tmks.size(); i++) {
 				TradeMark tmk = tmks.get(i);
+				tmk.setSupplierId(sid);
 				if (tmk.getEntityState() == EntityState.Deleted) {// 如果是删除，那么需要删除相关的需要上传的附件和下载的附件
 					tradeMarkService.deleteAttachmentByTradeMarkId(tmk.getId());
 				}

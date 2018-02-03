@@ -36,9 +36,9 @@ public class MyTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		resourceNodeCode = "IGIRL_My_TradeMark";
 		formPartName = listPartName = meta.getName();
-//		formOpenMode = OpenMode.WINDOW;
-//		openWindowWidth = 800;
-//		openWindowHeight = 600;
+		formOpenMode = OpenMode.WINDOW;
+		openWindowWidth = 800;
+		openWindowHeight = 600;
 		listToolbarPath="/igirl/my/tradeMark/list";
 		listFilter = "creator_id = '{userId}'";
 		listPartServiceController = TradeMarkListPart.class.getName();
@@ -63,10 +63,22 @@ public class MyTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		}
 		PToolbarItem item = new PToolbarItem();
 		{
+//			item.toNew();
+//			item.setCode("edit");
+//			item.setIcon("fa fa-edit");
+//			item.setName("状态");
+//			item.setCommand(null);
+//			item.setOperationType(ot1);
+//			item.setSeq(3000);
+//			item.setCommand("{controller}.edit(1);");
+//			toolbar.getItems().add(item);
+		}
+		item = new PToolbarItem();
+		{
 			item.toNew();
 			item.setCode("autoSubmit");
 			item.setIcon("fa fa-link");
-			item.setName("就绪");
+			item.setName("审核");
 			item.setCommand(null);
 			item.setOperationType(ot1);
 			item.setSeq(3000);
@@ -79,7 +91,6 @@ public class MyTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 			item.setCode("autoSubmit");
 			item.setIcon("fa fa-link");
 			item.setName("返回");
-			item.setCommand(null);
 			item.setOperationType(ot1);
 			item.setSeq(3000);
 			item.setCommand("{controller}.autoSubmit(2);");
@@ -88,23 +99,23 @@ public class MyTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		item = new PToolbarItem();
 		{
 			item.toNew();
-			item.setCode("totmcase");
+			item.setCode("attachment");
 			item.setIcon("fa fa-link");
-			item.setName("案件");
+			item.setName("回执");
 			item.setOperationType(ot1);
 			item.setSeq(3000);
-			item.setCommand("{controller}.totmcase();");
+			item.setCommand("{controller}.attachment();");
 			toolbar.getItems().add(item);
 		}
 		item = new PToolbarItem();
 		{
 			item.toNew();
-			item.setCode("attachment");
-			item.setIcon("fa fa-link");
-			item.setName("附件");
+			item.setCode("edit");
+			item.setIcon("fa fa-edit");
+			item.setName("状态");
 			item.setOperationType(ot1);
 			item.setSeq(3000);
-			item.setCommand("{controller}.attachment();");
+			item.setCommand("{controller}.edit();");
 			toolbar.getItems().add(item);
 		}
 		toolbarService.save(toolbar);
@@ -129,6 +140,9 @@ public class MyTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		addColumn(datagrid, "tradeMarkCaseId", "案件id", ControlTypes.TEXT_BOX, 200).setVisible(false);
 		column = addColumn(datagrid, "tradeMarkCase.urgency", "紧急程度", ControlTypes.TEXT_BOX, 200);
 		column.setOrderbyMode(OrderbyMode.ASC);
+		column=addColumn(datagrid, "code","操作", ControlTypes.TEXT_BOX, 100);{
+			column.setFormatter("return controllertradeMarkList.markPic(value,row,index);");
+		}
 		return datagrid;
 	}
 

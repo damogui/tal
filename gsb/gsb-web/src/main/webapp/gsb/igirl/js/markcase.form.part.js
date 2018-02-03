@@ -17,9 +17,14 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
         }
     },
    mobileChange:function (ctl) {
-	   var newValue=$(ctl).val();
+	    var newValue=$(ctl).val().trim();
     	var qcurl="http://192.168.4.1:3000/qc?detailLink=http://192.168.28.41:8080/gsb/igirl/tmcase.html?mobile="+newValue;
-    	$("#tokenImgUrl").attr("src",qcurl);
+    	    //请求获取生成二位码的服务url
+    	if(newValue && newValue!=""){
+    	    	this.invokeService("fetchQrCodeUrl", [newValue], function(data) {
+    	    		$("#tokenImgUrl").attr("src",data);
+    	         	});
+    	    }
     },
   validate: function () {
         var isValidate = $("#" + this.context.formName).form('validate');
@@ -142,8 +147,6 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
         var me = this;
         
         if(newValue!=-1){
-          	 
-                
             this.invokeService("findSubsByNclOneId", [newValue], function(data) {
                 //me.reload();
                 //IMessageBox.toast(JSON.stringify(data));
@@ -201,8 +204,6 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
             });
 
         }
-
-
         var tmpDatas=[];
         $("#filterinput").on("input",function (e) {
             tmpDatas.length=0;
@@ -213,9 +214,8 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
                         tmpDatas.push(obj);
                     }
                   })
-                }
-            
-            setTimeout(function () {
+                }   
+        setTimeout(function () {
                 $('#ncltwogrid').datagrid({
                     data:tmpDatas
                 });
@@ -227,81 +227,3 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
 
     }
 });
-
-// com.gongsibao.crm.web.ProdMapDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
-//
-// 	productChange:function(newValue,oldValue){
-//
-// 		//为空时，重置查询条件：q
-// 		if(System.isnull(newValue)){
-//
-// 			var options = $('#product_name').combogrid('options');
-// 			var qp = options.queryParams;
-// 		}
-// 	}
-// });
-//
-//
-// com.gongsibao.crm.web.FlowDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
-//
-//
-// 	addBefore:function(){
-//
-//     	//将【内容】设置为禁用
-//     	$('#content').prop('disabled',false);
-//
-// 	},
-// 	editBefore:function(){
-//
-//     	//将【内容】设置为禁用
-//     	$('#content').prop('disabled',true);
-//
-// 	},
-// 	saveAfter:function(entity){
-//
-// 		entity.id=null;
-// 		var me = this;
-// 		this.invokeService("save", [entity], function(data) {
-//
-// 			me.parent.byId(entity.customerId);
-// 		});
-//
-// 	}
-// });
-//
-//
-// /**
-//  * 扩展联系方式验证
-//  */
-// $.extend($.fn.validatebox.defaults.rules, {
-//
-// 	validationContactWay: {
-//
-//         validator: function(value,param){
-//
-//         	var isValidator = false;
-//         	var me = this;
-//         	var serviceLocator = new org.netsharp.core.JServiceLocator();
-//     		var id = null;
-//     		if (controllercustomer.viewModel.currentItem != null) {
-//
-//     			id = controllercustomer.viewModel.currentItem.id;
-//     		}
-//         	serviceLocator.invoke(controllercustomer.context.service, 'validationContactWay', [id,value.trim(),param[0]], function(data){
-//
-//         		isValidator = data==null?true:false;
-//         	},null, false);
-//
-//         	return isValidator;
-//         },
-//         message: '{1}已存在'
-//     }
-// });
-//
-// System.Declare("com.gongsibao.controls");
-// com.gongsibao.controls.CityComboBox = org.netsharp.controls.PccBox.Extends({
-// 	ctor: function() {
-// 		this.base();
-// 		this.service = 'com.gongsibao.controls.CityComboBoxController';
-// 	}
-// });

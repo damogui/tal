@@ -16,7 +16,8 @@ public enum MarkState implements IEnum {
     PARTREJECT(5, "部分驳回"),
     ALLREJECT(6, "全部驳回"),
     FIRSTPUB(7, "商家异议"),
-    PASSED(8, "已通过");
+    PASSED(8, "已通过"),
+    DOCFINISH(9, "资料齐全");//business_liense;
     private int value;
     private String text;
 

@@ -4,6 +4,18 @@ com.gongsibao.igirl.web.TradeMarkListPart = org.netsharp.panda.commerce.ListPart
 	ctor : function() {
 		this.base();
 	},
+	markPic:function(value,row,index){
+		var html='<a href="#" onclick="controllertradeMarkList.openMarkPic('
+        +row.id+')">图样</a> &nbsp;'
+		         +'<a href="#" onclick="controllertradeMarkList.totmcase('
+		                  +row.tradeMarkCaseId+')">案件</a>'
+		return html;
+	},
+	openMarkPic:function(markid){
+		this.invokeService("getTradeMarkPicUrl",[markid],function (url) {
+			 window.open(url)
+		 });    
+	},
 	autoSubmit:function(type){
 		var rows=this.getSelections();
         if (rows.length <= 0) {
@@ -24,13 +36,13 @@ com.gongsibao.igirl.web.TradeMarkListPart = org.netsharp.panda.commerce.ListPart
             }
         })
 	},
-	totmcase:function(row){
+	totmcase:function(tradeMarkCaseId){
 			var formUrl = "/igirl/trademarkcase/all/form";
 			if (System.isnull(formUrl)) {
 				return;
 			}
 			var rows = this.getSelections();
-			if(System.isnull(row)){
+			if(System.isnull(tradeMarkCaseId)){
 				if (rows.length > 1) {
 					IMessageBox.warning("只能选择一条记录！");
 					return;
@@ -38,36 +50,37 @@ com.gongsibao.igirl.web.TradeMarkListPart = org.netsharp.panda.commerce.ListPart
 				if (rows.length ==0) {
 					IMessageBox.warning("请选择一条记录！");
 					return;
-				}		
-				
+				}			
 			}
-			if(row){
-				id = row.tradeMarkCaseId;
+			if(tradeMarkCaseId){
+				id = tradeMarkCaseId;
 			}else{
 				id = rows[0].tradeMarkCaseId;
 			}
 			
 			var url = System.Url.join(formUrl, "id=" + id);
 			url = System.Url.getUrl(url);
-			if(this.context.openMode == OpenType.window){
-
-				var me = this;
-				url = System.Url.join(url, "openType="+OpenType.window);
-				IMessageBox.open("方案详情", url, this.context.windowWidth, this.context.windowHeight, function() {
-
-					me.reload();
-				});
-				
-			} else if(this.context.openMode == OpenType.redirect){
-				url = System.Url.join(url, "openType="+OpenType.redirect);
-				window.location.href = url;
-			} else {
-				url = System.Url.join(url, "openType="+OpenType.open);
-				window.open(url);
-			}
+			url = System.Url.join(url, "openType="+OpenType.open);
+			window.open(url);
+//			if(this.context.openMode == OpenType.window){
+//
+//				var me = this;
+//				url = System.Url.join(url, "openType="+OpenType.window);
+//				IMessageBox.open("方案详情", url, this.context.windowWidth, this.context.windowHeight, function() {
+//
+//					me.reload();
+//				});
+//				
+//			} else if(this.context.openMode == OpenType.redirect){
+//				url = System.Url.join(url, "openType="+OpenType.redirect);
+//				window.location.href = url;
+//			} else {
+//				url = System.Url.join(url, "openType="+OpenType.open);
+//				window.open(url);
+//			}
 		},
 		doubleClickRow : function(index, row) {
-			this.totmcase(row);
+			this.totmcase(row.tradeMarkCaseId);
 		},
 
 });
