@@ -442,5 +442,19 @@ PandaHelper.openDynamicForm = function(option){
 		}
 	});
 }
+
+//模糊字符串：用*代替后面一半
+PandaHelper.dimString = function(str){
+	
+	var totalLength = str.length;//总长度
+	var halfLength = parseInt(totalLength/2);//一半长度
+	var surplusLength = totalLength-halfLength;//剩余长度
+	var asteriskStr ='';
+	for(var i=0;i<surplusLength;i++){
+		asteriskStr+='*';
+	}
+	var value = str.substring(0,halfLength-1)+asteriskStr;
+	return value;
+}
 //-------------------------------------------------------------------------------------------------------------------------------
 var LODOP;//用于Lodop打印控件

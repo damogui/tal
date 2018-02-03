@@ -105,13 +105,23 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 			column.setFormatter(builder.toString());
 			// column.setAlign(DatagridAlign.CENTER);
 		}
-		column = addColumn(datagrid, "customer.mobile", "手机号", ControlTypes.TEXT_BOX, 100, false);
-		{
-			column.setFormatter("if(value&&value.length==11){return value.substr(0,3)+'****'+value.substr(7);}");
+		column = addColumn(datagrid, "customer.mobile", "手机号", ControlTypes.TEXT_BOX, 100);{
+			
+			column.setFormatter(" var ctrl=workspace.parts.byIndex(0).key; return eval(ctrl+'.contactFormatter(value,row,index,\\'手机号\\')');");
 		}
-		addColumn(datagrid, "customer.telephone", "座机", ControlTypes.TEXT_BOX, 100, false);
-		addColumn(datagrid, "customer.qq", "QQ", ControlTypes.TEXT_BOX, 100, false);
-		addColumn(datagrid, "customer.weixin", "微信", ControlTypes.TEXT_BOX, 100, false);
+		column = addColumn(datagrid, "customer.telephone", "座机", ControlTypes.TEXT_BOX, 100);{
+			
+			column.setFormatter(" var ctrl=workspace.parts.byIndex(0).key; return eval(ctrl+'.contactFormatter(value,row,index,\\'座机号\\')');");
+		}
+		column = addColumn(datagrid, "customer.qq", "QQ", ControlTypes.TEXT_BOX, 100);{
+			
+			column.setFormatter(" var ctrl=workspace.parts.byIndex(0).key; return eval(ctrl+'.contactFormatter(value,row,index,\\'QQ号\\')');");
+		}
+		
+		column = addColumn(datagrid, "customer.weixin", "微信", ControlTypes.TEXT_BOX, 100);{
+			
+			column.setFormatter(" var ctrl=workspace.parts.byIndex(0).key; return eval(ctrl+'.contactFormatter(value,row,index,\\'微信号\\')');");
+		}
 
 		// addColumn(datagrid, "customer.realName", "其他联系方式",
 		// ControlTypes.TEXT_BOX, 100, true);
