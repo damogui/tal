@@ -3,6 +3,7 @@ package com.gongsibao.crm.service.action.task.allocation.auto;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,8 +44,12 @@ public class ActionAutoAllocationPersist implements IAction {
 	IPersister<NCustomerTask> taskPm = PersisterFactory.create();
 
 	@Override
-	public void execute(ActionContext ctx) {		
+	public void execute(ActionContext ctx) {
 		NCustomerTask entity = (NCustomerTask) ctx.getItem();
+
+		Map<String, Object> statusMap = new HashMap<String, Object>();
+		statusMap.put("formUserId", entity.getOwnerId());
+		ctx.setStatus(statusMap);
 		// 查询出符合条件的业务员
 		List<Salesman> salesmanList = getListByCondition(entity);
 		// 符合服务范围的业务员
@@ -56,6 +61,7 @@ public class ActionAutoAllocationPersist implements IAction {
 			if (!entity.getCosted()) {
 				// 将分配方式选中【手动分配】
 				updateTaskAllocationType(entity.getId(), NAllocationType.MANUAL);
+				entity.setAllocationType(NAllocationType.MANUAL);
 				// TODO:提醒售前客服负责人进行手动分配，日志信息
 				return;
 			} else {
@@ -63,6 +69,11 @@ public class ActionAutoAllocationPersist implements IAction {
 				updateTaskAllocationType(entity.getId(), NAllocationType.SemiAutomatic);
 				// 分配至目标部门的【公海】,此时的跟进服务商修改成【有市场投放的部门（服务商）】
 				updateTaskOwnerId(entity.getId(), 0, entity.getCostSupplierId(), 0);
+				// 跟新实体，防止后面的action用到实体时，不是最新的就要重新查一下，影响效率
+				entity.setAllocationType(NAllocationType.SemiAutomatic);
+				entity.setOwnerId(0);
+				entity.setSupplierId(entity.getCostSupplierId());
+				entity.setDepartmentId(0);
 				// TODO:提醒部门负责人进行任务分配，日志信息
 				return;
 			}
@@ -72,6 +83,9 @@ public class ActionAutoAllocationPersist implements IAction {
 		if (entity.getAllocationType().equals(NAllocationType.SemiAutomatic)) {
 			// 分配至目标服务商的【公海】,直接就是剩下业务员所在的服务商（如果有市场投放，则都是该有市场投放部门的人，如果没有市场投放则就在剩下业务员所在部门随便挑一个）
 			updateTaskOwnerId(entity.getId(), 0, taskSalesmanProducts.get(0).getSupplierId(), taskSalesmanProducts.get(0).getDepartmentId());
+			entity.setOwnerId(0);
+			entity.setSupplierId(taskSalesmanProducts.get(0).getSupplierId());
+			entity.setDepartmentId(taskSalesmanProducts.get(0).getDepartmentId());
 			// TODO:提醒部门负责人进行任务分配，日志信息
 			return;
 		}
@@ -406,9 +420,15 @@ public class ActionAutoAllocationPersist implements IAction {
 				Integer departmentId = resSalesmanList.get(0).getDepartmentId();
 				// 跟新业务员
 				updateTaskOwnerId(entity.getId(), ownerId, entity.getSupplierId(), departmentId);
+				// 跟新实体，防止后面的action用到实体时，不是最新的就要重新查一下，影响效率
+				entity.setOwnerId(ownerId);
+				entity.setSupplierId(entity.getSupplierId());
+				entity.setDepartmentId(departmentId);
 			} else {// 无可分配对象->分配至目标部门的【公海】->将分配方式选中【手动分配】->提醒部门负责人进行任务分配
 					// 将分配方式选中【手动分配】
 				updateTaskAllocationType(entity.getId(), NAllocationType.MANUAL);
+				// 跟新实体，防止后面的action用到实体时，不是最新的就要重新查一下，影响效率
+				entity.setAllocationType(NAllocationType.MANUAL);
 			}
 		}
 	}

@@ -3,7 +3,10 @@ package com.gongsibao.crm.service.action.task.save;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.action.IAction;
+import org.netsharp.communication.ServiceFactory;
 
+import com.gongsibao.crm.base.INCustomerService;
+import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.dic.AllocationState;
 import com.gongsibao.entity.crm.dic.NAllocationType;
@@ -13,6 +16,9 @@ import com.gongsibao.entity.crm.dic.NAllocationType;
  */
 public class ActionSaveTaskAllocation implements IAction {
 
+	//客户服务
+	INCustomerService nCustomerService = ServiceFactory.create(INCustomerService.class);
+	
 	@Override
 	public void execute(ActionContext ctx) {
 
@@ -28,7 +34,10 @@ public class ActionSaveTaskAllocation implements IAction {
 
 		NAllocationType allocationType = task.getAllocationType();
 		if (allocationType == NAllocationType.AUTO || allocationType == NAllocationType.SemiAutomatic) {
-			
+			if(!task.getCustomerId().equals(0)){
+				NCustomer customer = nCustomerService.getById(task.getCustomerId());				
+				task.setCustomer(customer);
+			}
 			// 自动分配，半自动分配，立即分配时调用
 			ActionContext autoCtx = new ActionContext();
 			{

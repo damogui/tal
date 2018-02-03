@@ -157,7 +157,7 @@ public class NCustomerTask extends Entity {
 
 	@Column(name = "consult_way_other", header = "咨询途径选择其他时填写的详情")
 	private String consultWayOther;
-	
+
 	@Column(name = "quality_progress", header = "质量进度")
 	private TaskQualityProgress qualityProgress = TaskQualityProgress.INVARIABILITY;
 
@@ -318,7 +318,7 @@ public class NCustomerTask extends Entity {
 	}
 
 	public Integer getCustomerId() {
-		return customerId;
+		return customerId == null ? 0 : customerId;
 	}
 
 	public void setCustomerId(Integer customerId) {

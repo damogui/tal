@@ -2,6 +2,7 @@ package com.gongsibao.crm.service.action.task.allocation.auto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.action.ActionContext;
@@ -42,9 +43,10 @@ public class ActionAutoAllocationRecordLog implements IAction {
 	@Override
 	public void execute(ActionContext ctx) {
 		NCustomerTask entity = (NCustomerTask) ctx.getItem();
-		Integer FormUserId = entity.getOwnerId() == null ? 0 : entity.getOwnerId();
+		Map<String, Object> statusMap = ctx.getStatus();
+		Integer FormUserId = (Integer) statusMap.get("formUserId");
 		// 获取最新的任务
-		entity = nCustomerTaskService.byId(entity.getId());
+		// entity = nCustomerTaskService.byId(entity.getId());
 		// 添加日志
 		addRecord(entity, FormUserId);
 	}
@@ -59,7 +61,7 @@ public class ActionAutoAllocationRecordLog implements IAction {
 
 		if (entity.getAllocationType().equals(NAllocationType.AUTO) && entity.getOwnerId() != null && !entity.getOwnerId().equals(0)) {
 			// 添加流转日志
-			addNCustomerChange(entity, FormUserId, getChangelog(1, entity,FormUserId));
+			addNCustomerChange(entity, FormUserId, getChangelog(1, entity, FormUserId));
 			// 添加通知日志
 			addNCustomerTaskNotify(entity, receiveUserId, getNotifyLog(1, entity, 0, 1));
 			// 领导id
@@ -93,7 +95,7 @@ public class ActionAutoAllocationRecordLog implements IAction {
 	private void addNCustomerChange(NCustomerTask entity, Integer FormUserId, String content) {
 		if (StringManager.isNullOrEmpty(content))
 			return;
-		if (!entity.getOwnerId().equals(0))
+		if (entity.getOwnerId().equals(0))
 			return;
 		// 1.保存流转日志
 		NCustomerChange changeEntity = new NCustomerChange();
