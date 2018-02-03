@@ -118,10 +118,13 @@ public class NCustomerTask extends Entity {
 
 	@Column(name = "last_inspection_content", size = 1000, header = "最后抽查内容")
 	private String lastInspectionContent;
-
-	@Column(name = "memoto", header = "备注", size = 1000)
-	private String memoto;
-
+	
+	@Column(name = "remark", header = "备注信息",size = 1000)
+	private String remark;
+	
+	@Column(name = "sms_remark", header = "短信备注",size = 1000)
+	private String smsRemark;
+	
 	@Column(name = "cost_supplier_id", header = "费用服务商Id")
 	private Integer costSupplierId;
 
@@ -209,7 +212,7 @@ public class NCustomerTask extends Entity {
 	}
 
 	public Integer getCostSupplierId() {
-		return costSupplierId == null ? 0 : costSupplierId;
+		return costSupplierId;
 	}
 
 	public void setCostSupplierId(Integer costSupplierId) {
@@ -381,12 +384,20 @@ public class NCustomerTask extends Entity {
 		this.quality = quality;
 	}
 
-	public String getMemoto() {
-		return memoto;
+	public String getRemark() {
+		return remark;
 	}
 
-	public void setMemoto(String memoto) {
-		this.memoto = memoto;
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public String getSmsRemark() {
+		return smsRemark;
+	}
+
+	public void setSmsRemark(String smsRemark) {
+		this.smsRemark = smsRemark;
 	}
 
 	public List<NCustomerProduct> getProducts() {
