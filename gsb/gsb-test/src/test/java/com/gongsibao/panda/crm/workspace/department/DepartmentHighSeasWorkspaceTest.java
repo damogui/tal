@@ -32,7 +32,8 @@ public class DepartmentHighSeasWorkspaceTest extends DepartmentAllTaskWorkspaceT
 		}
 
 		addToolbarItem(toolbar, "batchAllocation", "批量分配", "fa fa-check", "batchAllocation()", null, 5);
-		addToolbarItem(toolbar, "regain", "收回", "fa fa-mail-reply", "regain()", null, 6);
+		//任务收回
+		addToolbarItem(toolbar, "regain", "退回", "fa fa-mail-reply", "regain()", null, 6);
 		return toolbar;
 	}
 	

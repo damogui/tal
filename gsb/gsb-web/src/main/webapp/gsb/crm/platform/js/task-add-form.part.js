@@ -73,13 +73,13 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
 //    	SemiAutomatic(3, "半自动分配");
 		if(newValue==1){
 			
-			$("#supplier_name").combogrid('setValue','').combogrid('disable');
+			//$("#supplier_name").combogrid('setValue','').combogrid('disable');
 //			var options1 = $("#supplier_name").combogrid('options');
 //			options1.required = false;
 //			$("#supplier_name").combogrid(options1);
 			
 			
-			$("#department_name").combogrid('setValue','').combogrid('disable');
+			//$("#department_name").combogrid('setValue','').combogrid('disable');
 //			var options2 = $("#department_name").combogrid('options');
 //			options2.required = false;
 //			$("#department_name").combogrid(options2);
