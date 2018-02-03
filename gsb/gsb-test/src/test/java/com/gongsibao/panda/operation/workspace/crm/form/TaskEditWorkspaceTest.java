@@ -199,7 +199,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 		{
 			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
 			// 子页面枚举显示需要格式化一下
-			PDatagridColumn column = addColumn(datagrid, "changeType", "流转类型", ControlTypes.ENUM_BOX, 100);
+			PDatagridColumn column = addColumn(datagrid, "changeType", "操作类型", ControlTypes.ENUM_BOX, 100);
 			{
 				String formatter = EnumUtil.getColumnFormatter(ChangeType.class);
 				column.setFormatter(formatter);
@@ -216,7 +216,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 			form.setName("操作日志");
 			PFormField formField = null;
 			String groupName = null;
-			formField = addFormField(form, "changeType", "流转类型", groupName, ControlTypes.ENUM_BOX, false, true);
+			formField = addFormField(form, "changeType", "操作类型", groupName, ControlTypes.ENUM_BOX, false, true);
 			formField = addFormFieldRefrence(form, "formUser.name", "来自", groupName, "CRM_Employee", false, true);
 			formField = addFormFieldRefrence(form, "toUser.name", "去向", groupName, "CRM_Employee", false, true);
 			formField = addFormField(form, "content", "内容", groupName, ControlTypes.TEXT_BOX, false, true);
