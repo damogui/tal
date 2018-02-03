@@ -2,6 +2,21 @@ com.gongsibao.crm.web.NCustomerTaskEditFormPart = com.gongsibao.crm.web.NCustome
 
     ctor: function () {
         this.base();
+    },
+    databindafter:function(){
+    	
+        $('.easyui-combobox,.easyui-combogrid').combobox("initClearBtn");
+        $('.easyui-filebox').filebox("initClearBtn");
+        
+        var entity = this.viewModel.currentItem;
+        if(entity != null && entity.allocationState == 2){
+//        	WAIT(1, "待分配"),
+//        	ALLOCATED(2, "已分配"),
+//        	NOALLOCATED(3, "不分配");
+        	this.disable();
+        	$('#remark').prop('disabled',false);
+        	$('#smsRemark').prop('disabled',false);
+        }
     }
 });
 

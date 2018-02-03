@@ -194,7 +194,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 	public void addFlowLogPart(PWorkspace workspace) {
 		ResourceNode node = this.resourceService.byCode(changeDetailResourceNodeCode);
 
-		PDatagrid datagrid = new PDatagrid(node, "流转日志");
+		PDatagrid datagrid = new PDatagrid(node, "操作日志");
 		{
 			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
 			// 子页面枚举显示需要格式化一下
@@ -212,7 +212,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 			form.toNew();
 			form.setResourceNode(node);
 			form.setColumnCount(1);
-			form.setName("流转日志");
+			form.setName("操作日志");
 			PFormField formField = null;
 			String groupName = null;
 			formField = addFormField(form, "changeType", "流转类型", groupName, ControlTypes.ENUM_BOX, false, true);
@@ -227,7 +227,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 		PPart part = new PPart();
 		{
 			part.toNew();
-			part.setName("流转日志");
+			part.setName("操作日志");
 			part.setCode("changes");
 			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
 			part.setRelationRole("changes");

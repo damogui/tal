@@ -241,7 +241,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 	private void addFlowLogPart(PWorkspace workspace) {
 		ResourceNode node = this.resourceService.byCode(changeDetailResourceNodeCode);
 
-		PDatagrid datagrid = new PDatagrid(node, "流转日志");
+		PDatagrid datagrid = new PDatagrid(node, "操作日志");
 		{
 			// 子页面枚举显示需要格式化一下
 			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
@@ -257,7 +257,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 		PPart part = new PPart();
 		{
 			part.toNew();
-			part.setName("流转日志");
+			part.setName("操作日志");
 			part.setCode("changes");
 			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
 			part.setRelationRole("changes");

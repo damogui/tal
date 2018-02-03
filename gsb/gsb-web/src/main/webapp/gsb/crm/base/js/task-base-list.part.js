@@ -455,6 +455,7 @@ function getEmployeeOption(){
  * @returns {String}
  */
 function customerQuality(intenCategory){
+	
 	if(intenCategory.indexOf("A") > -1 || intenCategory.indexOf("B") > -1 || intenCategory.indexOf("X") > -1){
 		return '提示：请慎用！执行退回后该任务将不会再分配给你，如果只是需要将任务转给同事或者下属，请使用【任务转移】功能！';
 	}
