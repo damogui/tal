@@ -29,6 +29,7 @@ import com.gongsibao.controls.CityComboBox;
 import com.gongsibao.crm.web.NCustomerFormPart;
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.crm.NCustomer;
+import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.TaskCustomerType;
 
 public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
@@ -99,7 +100,7 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 		form.setColumnCount(3);
 		PFormField formField = null;
 		
-		String groupName = "基本信息";
+		String groupName = null;
 		addFormField(form, "realName", "姓名", groupName, ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "sex", "性别", groupName, ControlTypes.ENUM_BOX, false, false);
 		formField = addFormField(form, "mobile", "手机", groupName, ControlTypes.TEXT_BOX, true, false);{
@@ -180,7 +181,11 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 			addColumn(datagrid, "supplier.name", "分配服务商", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "department.name", "分配部门", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "owner.name", "分配业务员", ControlTypes.TEXT_BOX, 100, false);
-			addColumn(datagrid, "foolowStatus", "跟进状态", ControlTypes.ENUM_BOX, 100, false);
+			column = addColumn(datagrid, "foolowStatus", "跟进状态", ControlTypes.ENUM_BOX, 100, false);{
+				
+				String formatter = EnumUtil.getColumnFormatter(CustomerFollowStatus.class);
+				column.setFormatter(formatter);
+			}
 			addColumn(datagrid, "remark", "售前备注", ControlTypes.TEXT_BOX, 300, false);
 			addColumn(datagrid, "smsRemark", "短信备注", ControlTypes.TEXT_BOX, 300, false);
 		}

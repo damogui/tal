@@ -80,7 +80,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 		
 		PFormField formField = null;
 		
-		String groupName = "基本信息";
+		String groupName = null;
 		addFormField(form, "realName", "姓名", groupName, ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "sex", "性别", groupName, ControlTypes.ENUM_BOX, false, false);
 		formField = addFormField(form, "mobile", "手机", groupName, ControlTypes.ENCRYPTION_BOX, true, false);{
