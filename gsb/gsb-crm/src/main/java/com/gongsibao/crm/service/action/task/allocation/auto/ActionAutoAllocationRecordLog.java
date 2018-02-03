@@ -45,8 +45,6 @@ public class ActionAutoAllocationRecordLog implements IAction {
 		NCustomerTask entity = (NCustomerTask) ctx.getItem();
 		Map<String, Object> statusMap = ctx.getStatus();
 		Integer FormUserId = (Integer) statusMap.get("formUserId");
-		// 获取最新的任务
-		// entity = nCustomerTaskService.byId(entity.getId());
 		// 添加日志
 		addRecord(entity, FormUserId);
 	}
