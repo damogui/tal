@@ -26,6 +26,9 @@ public class DataApiTest {
 //        testGetCompanyByKey("腾中重工");
 //        testCompanyNameByKey("中重工有限");
 
+//        testGetCompanyTmList("四川腾中重工机械有限公司");
+//        testGetTmChangeList("四川腾中重工机械有限公司");
+        testGetTmRenewalList("四川腾中重工机械有限公司", "2022-12-20");
 //        testTmAssemble("四川腾中重工机械有限公司");
 //        testGetCompanyBusinessCount("四川腾中重工机械有限公司");
 //        testGetCompanyPotentialCount("四川腾中重工机械有限公司");
@@ -62,6 +65,45 @@ public class DataApiTest {
     public void testGetCompanyByKey(String key) {
         try {
             ResponseMessage<CompanyInfo> response = TaurusApiService.getCompanyListByKey(key, 1, 10);
+            System.err.println(response);
+            System.out.println(response.getResult() + "：" + response.getResultMsg());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 通过公司名称查询商标信息
+     */
+    public void testGetCompanyTmList(String key) {
+        try {
+            ResponseMessage<TmInfo> response = TaurusApiService.getCompanyTmList(key, 1, 1);
+            System.err.println(response);
+            System.out.println(response.getResult() + "：" + response.getResultMsg());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 通过公司名称查询商标信息
+     */
+    public void testGetTmChangeList(String key) {
+        try {
+            ResponseMessage<TmInfo> response = TaurusApiService.getTmChangeList(key, 1, 1);
+            System.err.println(response);
+            System.out.println(response.getResult() + "：" + response.getResultMsg());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 通过公司名称查询商标续展信息
+     */
+    public void testGetTmRenewalList(String key, String endDate) {
+        try {
+            ResponseMessage<TmInfo> response = TaurusApiService.getTmRenewalList(key, endDate, 1, 1);
             System.err.println(response);
             System.out.println(response.getResult() + "：" + response.getResultMsg());
         } catch (Exception e) {
