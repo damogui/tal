@@ -50,7 +50,7 @@ public class ActionRegainRecordLog implements IAction {
 			notify.setCustomerId(task.getCustomerId());
 			notify.setSupplierId(task.getSupplierId());
 			notify.setDepartmentId(task.getDepartmentId());
-			notify.setReceivedId(task.getOwnerId() == null ? 0 : task.getOwnerId());
+			notify.setReceivedId(task.getOwnerId());
 			notifyService.save(notify);
 		}
 	}
