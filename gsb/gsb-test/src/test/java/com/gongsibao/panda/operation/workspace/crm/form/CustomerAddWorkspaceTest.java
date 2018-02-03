@@ -213,7 +213,8 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 
 		ResourceNode node = this.resourceService.byCode(companysResourceNodeCode);
 		PDatagrid datagrid = new PDatagrid(node, "关联企业");
-		{
+		{	
+			addColumn(datagrid, "createTime", "关联时间", ControlTypes.DATETIME_BOX, 130);
 			addColumn(datagrid, "company.companyName", "公司名称", ControlTypes.TEXT_BOX, 300);
 		}
 
