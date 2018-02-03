@@ -21,7 +21,7 @@ public class Provides extends Entity {
     private int occurrences;
 
     @Column(name = "domain_name", header = "使用域名")
-    private int domainname;
+    private String domainname;
 
     @Subs(foreignKey="providesId",header="服务环境",subType=ProvidesEnv.class)
     private List<ProvidesEnv> providesEnv;
@@ -53,13 +53,7 @@ public class Provides extends Entity {
         this.occurrences = occurrences;
     }
 
-    public int getDomainname() {
-        return domainname;
-    }
 
-    public void setDomainname(int domainname) {
-        this.domainname = domainname;
-    }
 
     public List<ProvidesEnv> getProvidesEnv() {
         return providesEnv;
@@ -67,6 +61,14 @@ public class Provides extends Entity {
 
     public void setProvidesEnv(List<ProvidesEnv> providesEnv) {
         this.providesEnv = providesEnv;
+    }
+
+    public String getDomainname() {
+        return domainname;
+    }
+
+    public void setDomainname(String domainname) {
+        this.domainname = domainname;
     }
 
 
