@@ -127,7 +127,7 @@ public class ActionAutoAllocationRecordLog implements IAction {
 		notifyEntity.setReceivedId(receiveUserId);
 		notifyEntity.setContent(content);
 		notifyService.save(notifyEntity);
-	}
+	} 
 
 	// 获取领导id
 	private Integer getLeaderId(Integer supplierId, Integer departmentId) {
