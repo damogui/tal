@@ -11,7 +11,7 @@ public class ProvinceCityCountyDTO {
    /*名称*/
     private String name;
     /*代码*/
-    private  Integer id;
+    private  int id;
 
 
     public String getName() {
@@ -23,11 +23,11 @@ public class ProvinceCityCountyDTO {
     }
 
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 }

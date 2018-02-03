@@ -60,7 +60,6 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 		PFormField formField = null;
 		
 		String groupName = null;
-		addFormField(form, "name", "名称", groupName, ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "taskType", "新/老客户", groupName, ControlTypes.ENUM_BOX, true, false);
 		
 		formField = addFormField(form, "source.name", "来源", null, ControlTypes.CUSTOM, true, false);
@@ -76,21 +75,21 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 			formField.setTroikaTrigger("controllernCustomerTask.consultWaySelect(record);");
 			formField.setRefFilter("type=421");
 		}
-		
-		addFormField(form, "consultWayOther", "其它咨询途径", groupName, ControlTypes.TEXT_BOX, false, true);
-
-		addFormField(form, "sourceOther", "其它来源", groupName, ControlTypes.TEXT_BOX, false, true);
-		
-		formField = addFormField(form, "allocationType", "分配方式", groupName, ControlTypes.ENUM_BOX, true, false);{
-			
-			formField.setTroikaTrigger("controllernCustomerTask.allocationTypeChange(newValue,oldValue);");
-		}
-
 		formField = addFormField(form, "allocationDispositon", "自营/平台", groupName, ControlTypes.ENUM_BOX, true, false);{
 			
 			formField.setTroikaTrigger("controllernCustomerTask.allocationDispositonChange(newValue,oldValue);");
 		}
 
+		addFormField(form, "sourceOther", "其它来源", groupName, ControlTypes.TEXT_BOX, false, true);
+
+		addFormField(form, "consultWayOther", "其它咨询途径", groupName, ControlTypes.TEXT_BOX, false, true);
+
+		formField = addFormField(form, "allocationType", "分配方式", groupName, ControlTypes.ENUM_BOX, true, false);{
+			
+			formField.setTroikaTrigger("controllernCustomerTask.allocationTypeChange(newValue,oldValue);");
+		}
+
+		addFormField(form, "allocationState", "分配状态", groupName, ControlTypes.ENUM_BOX, true, true);
 		formField = addFormField(form, "costed", "市场投放费用",groupName,ControlTypes.SWITCH_BUTTON, false, false);{
 			formField.setDataOptions("有|无");
 			formField.setTroikaTrigger("controllernCustomerTask.costedChange(checked);");
@@ -107,8 +106,6 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 		}
 		
 		formField = addFormFieldRefrence(form, "owner.name", "分配业务员", null, Employee.class.getSimpleName(), false, true);
-		
-		addFormField(form, "allocationState", "分配状态", groupName, ControlTypes.ENUM_BOX, true, true);
 
 		formField = addFormField(form, "remark", "售前备注", groupName, ControlTypes.TEXTAREA, true, false);{
 			formField.setHeight(50);
@@ -153,7 +150,7 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 			form.setName("意向产品");
 
 			PFormField formField = null;
-			formField = addFormField(form, "productCategory1.name", "一级分类", null, ControlTypes.CUSTOM, true, false);
+			formField = addFormField(form, "productCategory1.name", "一级分类", null, ControlTypes.CUSTOM, false, false);
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
@@ -161,7 +158,7 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 				formField.setRefFilter("type=201 and pid=0");
 			}
 
-			formField = addFormField(form, "productCategory2.name", "二级分类", null, ControlTypes.CUSTOM, true, false);
+			formField = addFormField(form, "productCategory2.name", "二级分类", null, ControlTypes.CUSTOM, false, false);
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
@@ -172,6 +169,7 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 			formField = addFormFieldRefrence(form, "product.name", "产品", null, "CRM_" + Product.class.getSimpleName(), true, false);{
 				formField.setWidth(200);
 				formField.setRefFilter("enabled=1");
+				formField.setTroikaTrigger("controllerproducts.productChange(newValue,oldValue);");
 			}
 			formField = addFormField(form, "province.name", "省份", ControlTypes.CUSTOM, false, false);
 			{
@@ -189,7 +187,7 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(CityComboBox.class.getName());
-				formField.setDataOptions("level:3");
+				formField.setDataOptions("level:3,parentCtrlId:'city_name'");
 			}
 		}
 

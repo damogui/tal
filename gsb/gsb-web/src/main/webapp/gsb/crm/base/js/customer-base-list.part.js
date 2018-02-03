@@ -62,5 +62,18 @@ com.gongsibao.crm.web.BaseCustomerListPart = org.netsharp.panda.commerce.ListPar
 				});
 			}
 		});
+	},
+	contactFormatter:function(value,row,index,typeName){
+		
+		if(value){
+		  var ctrl = workspace.parts.byIndex(0).key;
+		  return '<sapn>'+PandaHelper.dimString(value)+'</span><i class="fa fa-eye" onclick="'+ctrl+'.showPlaintext(\''+row.id+'\',\''+value+'\',\''+typeName+'\',this);"></i>';
+		}
+	},
+	showPlaintext:function(customerId,value,typeName,obj){
+		
+		$(obj).parent().text(value);
+		var serviceLocator = new org.netsharp.core.JServiceLocator();
+		serviceLocator.invoke(this.context.service, "recordLookLog",[customerId,typeName]);
 	}
 });

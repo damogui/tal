@@ -24,6 +24,21 @@ public class NCustomerTaskQuality extends BizEntity{
 	@Column(name = "next_foolow_date_required", header = "下次跟进时间必填")
 	private Boolean nextFoolowDateRequired = false;
 	
+	@Column(name = "returned_amount_required", header = "估计回款额必填")
+	private Boolean returnedAmountRequired = false;
+	
+	@Column(name = "signing_amount_required", header = "估计签单额必填")
+	private Boolean signingAmountRequired = false;
+	
+	@Column(name = "content_required", header = "内容必填")
+	private Boolean contentRequired = false;
+	
+	@Column(name = "product_required", header = "意向产品必填写")
+	private Boolean productRequired = false;
+	
+	@Column(name = "district_required", header = "意向地区必填写")
+	private Boolean districtRequired = false;
+	
     @Column(name = "required_info",header="必填信息", size = 200)
     private String requiredInfo;
     
@@ -42,7 +57,8 @@ public class NCustomerTaskQuality extends BizEntity{
 	@Reference(foreignKey = "departmentId", header = "分配服务商部门")
 	private SupplierDepartment department;
 	
-	
+	@Column(name = "score", header = "分值")
+	private Integer score = 0;
 
 	public Integer getSupplierId() {
 		return supplierId;
@@ -107,4 +123,54 @@ public class NCustomerTaskQuality extends BizEntity{
 	public void setNextFoolowType(String nextFoolowType) {
 		this.nextFoolowType = nextFoolowType;
 	}
+
+	public Integer getScore() {
+		return score;
+	}
+
+	public void setScore(Integer score) {
+		this.score = score;
+	}
+
+	public Boolean getReturnedAmountRequired() {
+		return returnedAmountRequired;
+	}
+
+	public void setReturnedAmountRequired(Boolean returnedAmountRequired) {
+		this.returnedAmountRequired = returnedAmountRequired;
+	}
+
+	public Boolean getSigningAmountRequired() {
+		return signingAmountRequired;
+	}
+
+	public void setSigningAmountRequired(Boolean signingAmountRequired) {
+		this.signingAmountRequired = signingAmountRequired;
+	}
+
+	public Boolean getContentRequired() {
+		return contentRequired;
+	}
+
+	public void setContentRequired(Boolean contentRequired) {
+		this.contentRequired = contentRequired;
+	}
+
+	public Boolean getProductRequired() {
+		return productRequired;
+	}
+
+	public void setProductRequired(Boolean productRequired) {
+		this.productRequired = productRequired;
+	}
+
+	public Boolean getDistrictRequired() {
+		return districtRequired;
+	}
+
+	public void setDistrictRequired(Boolean districtRequired) {
+		this.districtRequired = districtRequired;
+	}
+	
+	
 }

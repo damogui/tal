@@ -16,8 +16,8 @@ public class DepartmentDefeatedWorkspaceTest extends DepartmentAllTaskWorkspaceT
 		listToolbarPath = "department/task/defeated";
 		rowToolbaPath = "department/task/defeated/row";
 		
-		//当前登录人所在部门的子部门,需要扩展
-		listFilter = "foolowStatus = 4";
+		//当前登录人所在部门的子部门,需要扩展 
+		listFilter = "foolowStatus = 4 and ownerId = '{userId}'";
 	}
 	
 	@Override

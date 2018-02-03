@@ -40,6 +40,7 @@ public class DepartmentCustomerEditWorkspaceTest  extends CustomerEditWorkspaceT
 		foolowDetailResourceNodeCode = "CRM_DEPARTMENT_Foolow";
 		notifyDetailResourceNodeCode = "CRM_DEPARTMENT_Notify";
 		changeDetailResourceNodeCode = "CRM_DEPARTMENT_Change";
+		companysResourceNodeCode = "CRM_DEPARTMENT_Companys";
 		
 		taskDetailJsController = "com.gongsibao.crm.web.DepartmentTaskDetailPart";
 	}

@@ -1,5 +1,6 @@
 package com.gongsibao.supplier.service.action.open;
 
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
 import org.netsharp.core.Oql;
 import org.netsharp.organization.base.IEmployeeService;
+import org.netsharp.organization.base.IRoleEmployeeService;
 import org.netsharp.organization.base.IRoleService;
 import org.netsharp.organization.entity.Employee;
 import org.netsharp.organization.entity.Role;
@@ -119,6 +121,15 @@ public class ActionSupplierCreateAdmin implements IAction {
 		IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
 		Employee employee = employeeService.byPhone(mobile);
 
+		Role role = getAdminRole();
+		List<RoleEmployee> roles = new ArrayList<RoleEmployee>();
+		RoleEmployee reEmployee = new RoleEmployee();
+		{
+			reEmployee.toNew();
+			reEmployee.setRoleId(role.getId());
+			roles.add(reEmployee);
+		}
+
 		if (employee == null) {
 
 			employee = new Employee();
@@ -128,22 +139,34 @@ public class ActionSupplierCreateAdmin implements IAction {
 				employee.setMobile(supplier.getMobilePhone());
 				employee.setLoginName(supplier.getMobilePhone());
 			}
+			employee.setRoles(roles);
 		} else {
 
 			employee.setDisabled(false);
+
+			// 如果没有管理员角色，则添加
+			boolean isHasAdminRole = this.hasAdminRole(employee.getId());
+			if (!isHasAdminRole) {
+
+				employee.setRoles(roles);
+				reEmployee.setEmployeeId(employee.getId());
+			}
 		}
 
-		Role role = getAdminRole();
-		List<RoleEmployee> roles = new ArrayList<RoleEmployee>();
-		RoleEmployee reEmployee = new RoleEmployee();
-		{
-			reEmployee.toNew();
-			reEmployee.setRoleId(role.getId());
-			roles.add(reEmployee);
-		}
-		employee.setRoles(roles);
 		employee = employeeService.save(employee);
 		return employee;
+	}
+
+	private boolean hasAdminRole(Integer employeeId) {
+
+		IRoleEmployeeService roleEmployeeService = ServiceFactory.create(IRoleEmployeeService.class);
+		Oql oql = new Oql();
+		{
+			oql.setType(RoleEmployee.class);
+			oql.setFilter("employeeId=? and role.code='Supplier_Admin'");
+			oql.getParameters().add("employeeId", employeeId, Types.INTEGER);
+		}
+		return roleEmployeeService.queryCount(oql) > 0;
 	}
 
 	private SupplierDepartment createDepartment(Supplier supplier) {
@@ -162,8 +185,8 @@ public class ActionSupplierCreateAdmin implements IAction {
 			List<SupplierProduct> supplierProductList = supplier.getServiceProducts();
 			for (SupplierProduct supplierProduct : supplierProductList) {
 
-				departmentProduct = new DepartmentProduct();{
-					
+				departmentProduct = new DepartmentProduct();
+				{
 					departmentProduct.toNew();
 					departmentProduct.setProductCategoryId1(supplierProduct.getProductCategoryId1());
 					departmentProduct.setProductCategoryId2(supplierProduct.getProductCategoryId2());
@@ -174,7 +197,7 @@ public class ActionSupplierCreateAdmin implements IAction {
 					departmentProductList.add(departmentProduct);
 				}
 			}
-			
+
 			department.setServiceProducts(departmentProductList);
 
 		}

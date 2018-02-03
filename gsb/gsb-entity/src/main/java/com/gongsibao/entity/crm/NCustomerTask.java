@@ -18,6 +18,7 @@ import com.gongsibao.entity.crm.dic.NAllocationType;
 import com.gongsibao.entity.crm.dic.QualityCategory;
 import com.gongsibao.entity.crm.dic.TaskCustomerType;
 import com.gongsibao.entity.crm.dic.TaskInspectionState;
+import com.gongsibao.entity.crm.dic.TaskQualityProgress;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.supplier.dict.SupplierType;
@@ -75,7 +76,7 @@ public class NCustomerTask extends Entity {
 	private CustomerFollowStatus foolowStatus = CustomerFollowStatus.UNALLOCATION;
 
 	@Column(name = "intention_category", header = "质量分类")
-	private QualityCategory intentionCategory = QualityCategory.X; 
+	private QualityCategory intentionCategory = QualityCategory.X;
 
 	@Column(name = "quality_id", header = "客户质量id")
 	private Integer qualityId;
@@ -101,26 +102,29 @@ public class NCustomerTask extends Entity {
 
 	@Column(name = "inspection_state", header = "抽查状态")
 	private TaskInspectionState inspectionState = TaskInspectionState.UNINSPECTION;
-	
-	//处理状态，其实返回的就是‘抽查状态’
+
+	// 处理状态，其实返回的就是‘抽查状态’
 	private Integer processingState;
-	
+
 	@Column(name = "last_inspection_user_id", header = "最后抽查人Id")
 	private Integer lastInspectionUserId = 0;
-	
+
 	@JsonIgnore
 	@Reference(foreignKey = "lastInspectionUserId", header = "最后抽查人")
 	private Employee lastInspectionUser;
-	
+
 	@Column(name = "last_inspection_time", header = "最近抽查时间")
 	private Date lastInspectionTime;
-	
+
 	@Column(name = "last_inspection_content", size = 1000, header = "最后抽查内容")
 	private String lastInspectionContent;
 	
-	@Column(name = "memoto", header = "备注", size = 1000)
-	private String memoto;
-
+	@Column(name = "remark", header = "备注信息",size = 1000)
+	private String remark;
+	
+	@Column(name = "sms_remark", header = "短信备注",size = 1000)
+	private String smsRemark;
+	
 	@Column(name = "cost_supplier_id", header = "费用服务商Id")
 	private Integer costSupplierId;
 
@@ -157,10 +161,13 @@ public class NCustomerTask extends Entity {
 	@Column(name = "consult_way_other", header = "咨询途径选择其他时填写的详情")
 	private String consultWayOther;
 
+	@Column(name = "quality_progress", header = "质量进度")
+	private TaskQualityProgress qualityProgress = TaskQualityProgress.INVARIABILITY;
+
 	@Subs(foreignKey = "taskId", header = "意向产品", subType = NCustomerProduct.class)
 	private List<NCustomerProduct> products;
 
-	@Subs(foreignKey = "taskId", header = "沟通日志", subType = NCustomerTaskFoolow.class)
+	@Subs(foreignKey = "taskId", header = "跟进日志", subType = NCustomerTaskFoolow.class)
 	private List<NCustomerTaskFoolow> follows;
 
 	@Subs(foreignKey = "taskId", header = "通知日志", subType = NCustomerTaskNotify.class)
@@ -168,7 +175,7 @@ public class NCustomerTask extends Entity {
 
 	@Subs(foreignKey = "taskId", header = "流转日志", subType = NCustomerChange.class)
 	private List<NCustomerChange> changes;
-	
+
 	@Subs(foreignKey = "taskId", header = "抽查日志", subType = NCustomerTaskInspection.class)
 	private List<NCustomerTaskInspection> inspections;
 
@@ -236,7 +243,6 @@ public class NCustomerTask extends Entity {
 		this.allocationState = allocationState;
 	}
 
-
 	public SupplierType getAllocationDispositon() {
 		return allocationDispositon;
 	}
@@ -268,7 +274,7 @@ public class NCustomerTask extends Entity {
 	public void setSourceOther(String sourceOther) {
 		this.sourceOther = sourceOther;
 	}
-	
+
 	public TaskCustomerType getTaskType() {
 		return taskType;
 	}
@@ -278,7 +284,7 @@ public class NCustomerTask extends Entity {
 	}
 
 	public Integer getOwnerId() {
-		return ownerId;
+		return ownerId == null ? 0 : ownerId;
 	}
 
 	public void setOwnerId(Integer ownerId) {
@@ -301,11 +307,11 @@ public class NCustomerTask extends Entity {
 		this.inspectionState = inspectionState;
 	}
 
-	//临时用，返回的就是‘抽查状态’
+	// 临时用，返回的就是‘抽查状态’
 	public Integer getProcessingState() {
 		return inspectionState.getValue();
 	}
-	
+
 	public NCustomer getCustomer() {
 		return customer;
 	}
@@ -315,7 +321,7 @@ public class NCustomerTask extends Entity {
 	}
 
 	public Integer getCustomerId() {
-		return customerId;
+		return customerId == null ? 0 : customerId;
 	}
 
 	public void setCustomerId(Integer customerId) {
@@ -323,7 +329,7 @@ public class NCustomerTask extends Entity {
 	}
 
 	public String getName() {
-		return name;
+		return name == null ? "" : name;
 	}
 
 	public void setName(String name) {
@@ -331,7 +337,7 @@ public class NCustomerTask extends Entity {
 	}
 
 	public Integer getSupplierId() {
-		return supplierId;
+		return supplierId == null ? 0 : supplierId;
 	}
 
 	public void setSupplierId(Integer supplierId) {
@@ -347,7 +353,7 @@ public class NCustomerTask extends Entity {
 	}
 
 	public Integer getDepartmentId() {
-		return departmentId;
+		return departmentId == null ? 0 : departmentId;
 	}
 
 	public void setDepartmentId(Integer departmentId) {
@@ -378,12 +384,20 @@ public class NCustomerTask extends Entity {
 		this.quality = quality;
 	}
 
-	public String getMemoto() {
-		return memoto;
+	public String getRemark() {
+		return remark;
 	}
 
-	public void setMemoto(String memoto) {
-		this.memoto = memoto;
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public String getSmsRemark() {
+		return smsRemark;
+	}
+
+	public void setSmsRemark(String smsRemark) {
+		this.smsRemark = smsRemark;
 	}
 
 	public List<NCustomerProduct> getProducts() {
@@ -536,5 +550,17 @@ public class NCustomerTask extends Entity {
 
 	public void setLastInspectionUserId(Integer lastInspectionUserId) {
 		this.lastInspectionUserId = lastInspectionUserId;
+	}
+
+	public TaskQualityProgress getQualityProgress() {
+		return qualityProgress;
+	}
+
+	public void setQualityProgress(TaskQualityProgress qualityProgress) {
+		this.qualityProgress = qualityProgress;
+	}
+
+	public void setProcessingState(Integer processingState) {
+		this.processingState = processingState;
 	}
 }

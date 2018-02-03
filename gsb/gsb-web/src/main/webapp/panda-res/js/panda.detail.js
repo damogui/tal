@@ -103,6 +103,7 @@ org.netsharp.panda.commerce.DetailPart = org.netsharp.panda.core.View.Extends({
 	 */
 	onRowContextMenu:function(e, index, row){
 
+		return;
 		if(this.disabled === true){
 			
 			return;

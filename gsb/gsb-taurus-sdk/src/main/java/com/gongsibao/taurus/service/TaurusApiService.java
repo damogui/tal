@@ -518,6 +518,52 @@ public class TaurusApiService {
     }
 
     /**
+     * 根据公司名称查询商标列表
+     * @param companyName
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    public static ResponseMessage<TmInfo> getCompanyTmList(String companyName, int currentPage, int pageSize) {
+        TmInfoListApi api = ApiFactory.create(TmInfoListApi.class);
+        api.setName(companyName);
+        api.setCurrentPage(currentPage);
+        api.setPageSize(pageSize);
+        return api.getResponse();
+    }
+
+    /**
+     * 根据公司名称查询商标变更列表
+     * @param companyName
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    public static ResponseMessage<TmInfo> getTmChangeList(String companyName, int currentPage, int pageSize) {
+        TmChangeListApi api = ApiFactory.create(TmChangeListApi.class);
+        api.setName(companyName);
+        api.setCurrentPage(currentPage);
+        api.setPageSize(pageSize);
+        return api.getResponse();
+    }
+
+    /**
+     * 根据公司名称查询商标续展列表
+     * @param companyName
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    public static ResponseMessage<TmInfo> getTmRenewalList(String companyName, String endDate, int currentPage, int pageSize) {
+        TmRenewalListApi api = ApiFactory.create(TmRenewalListApi.class);
+        api.setName(companyName);
+        api.setEndDate(endDate);
+        api.setCurrentPage(currentPage);
+        api.setPageSize(pageSize);
+        return api.getResponse();
+    }
+
+    /**
      * 查询多个公司商标聚合信息
      * @param names
      * @param currentPage

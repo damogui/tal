@@ -14,7 +14,15 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 
 			var customerId = row.customerId;
 			var url = this.addUrl+"?fk=customerId:"+customerId;
-			window.open(url);
+	    	layer.open({
+	    		  type: 2,
+	    		  title: '新增任务',
+	    		  fixed: false,
+	    		  maxmin: true,
+	    		  shadeClose:true,
+	    		  area: ['90%','90%'],
+	    		  content: url
+	    	});
 		}
 	},
 	detail:function(id){
@@ -27,7 +35,15 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 	edit : function(id) {
 		
 		var url = this.editUrl+"?id="+id;
-		window.open(url);
+    	layer.open({
+    		  type: 2,
+    		  title: '编辑任务',
+    		  fixed: false,
+    		  maxmin: true,
+    		  shadeClose:true,
+    		  area: ['90%','90%'],
+    		  content: url
+    	});
 	},
 	allocation:function(id){
 		//任务分配
@@ -36,6 +52,8 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 	},
 	follow : function(id) {
 		
+		$("#" + this.context.id).datagrid('unselectAll');
+		$("#" + this.context.id).datagrid('selectRecord',id);
 		var me = this;
 		var taskId = id;
 		$('#'+this.context.id).datagrid('selectRecord',id);
@@ -335,6 +353,19 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 			layer.closeAll();
 			return;
 		});
+	},
+	contactFormatter:function(value,row,index,typeName){
+		
+		if(value){
+		  var ctrl = workspace.parts.byIndex(0).key;
+		  return '<sapn>'+PandaHelper.dimString(value)+'</span><i class="fa fa-eye" onclick="'+ctrl+'.showPlaintext(\''+row.customerId+'\',\''+value+'\',\''+typeName+'\',this);"></i>';
+		}
+	},
+	showPlaintext:function(customerId,value,typeName,obj){
+		
+		$(obj).parent().text(value);
+		var serviceLocator = new org.netsharp.core.JServiceLocator();
+		serviceLocator.invoke(this.context.service, "recordLookLog",[customerId,typeName]);
 	}
 });
 
@@ -437,6 +468,7 @@ function getEmployeeOption(){
  * @returns {String}
  */
 function customerQuality(intenCategory){
+	
 	if(intenCategory.indexOf("A") > -1 || intenCategory.indexOf("B") > -1 || intenCategory.indexOf("X") > -1){
 		return '提示：请慎用！执行退回后该任务将不会再分配给你，如果只是需要将任务转给同事或者下属，请使用【任务转移】功能！';
 	}

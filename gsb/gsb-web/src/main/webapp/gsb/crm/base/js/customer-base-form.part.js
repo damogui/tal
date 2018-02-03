@@ -16,25 +16,50 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
     		return UiElementState.Disable;
     	}
     },
+    showContactWay:function(){
+    	
+    	$('.easyui-passwordbox').passwordbox('showPassword');
+    	$('#controllernCustomereye').hide();
+    	
+    	var customerId = this.queryString("id");
+		var serviceLocator = new org.netsharp.core.JServiceLocator();
+		serviceLocator.invoke(this.context.service, "recordLookLog",[customerId]);
+    },
+    databindafter:function(){
+    	
+        $('.easyui-combobox,.easyui-combogrid').combobox("initClearBtn");
+        $('.easyui-filebox').filebox("initClearBtn");
+        
+        var entity = this.viewModel.currentItem;
+        if(entity != null && entity.entityState != EntityState.New){
+
+        	this.disable();
+        	$('#controllernCustomeredit').linkbutton('enable');
+        	$('#controllernCustomereye').linkbutton('enable');
+        }
+        
+    },
     edit:function(){
 
     	this.enable();
     	
     	//启用【保存】
     	$('#controllernCustomersave').linkbutton('enable');
-    	
+    	$('.easyui-passwordbox').passwordbox('showPassword');
     	var mobile = $('#mobile').val();
     	if(!System.isnull(mobile)){
     		
-    		$('#mobile').prop('disabled',true);
+    		$('#mobile').passwordbox('disable');
     	}
-    	
     	$('#intentionCategory').combobox('disable');
     	$('#quality_name').combogrid('disable');
     	$('#lastFoolowUser_name').combogrid('disable');
     	$('#lastFollowTime').datetimebox('disable');
     	$('#nextFoolowTime').datetimebox('disable');
     	$('#lastContent').prop('disabled',true);
+    	
+        $('#controllernCustomeredit').linkbutton('disable');
+    	$('#controllernCustomereye').linkbutton('disable');
     },
     onload: function () {
 

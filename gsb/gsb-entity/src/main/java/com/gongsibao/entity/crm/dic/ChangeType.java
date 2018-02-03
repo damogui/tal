@@ -13,7 +13,7 @@ import org.netsharp.base.IEnum;
  */
 public enum ChangeType implements IEnum {
 
-	INPUT(1, "录入"), ALLOCATION(2, "分配"), SHARE(3, "分享"), RELEASE(4, "释放"), TRANSFER(5, "转移"), RECYCLE(6, "收回");
+	INPUT(1, "录入"), ALLOCATION(2, "分配"), SHARE(3, "分享"), RELEASE(4, "释放"), TRANSFER(5, "转移"), RECYCLE(6, "收回"), LOOK(7, "查看");
 
 	private int value;
 	private String text;

@@ -380,9 +380,9 @@ PandaHelper.openDynamicForm = function(option){
 	var formId = System.GUID.newGUID();
 	var builder = new System.StringBuilder();
 	
-	builder.append('<form id="formsalesman">');
+	builder.append('<form id="dynamicForm">');
 	builder.append('<div style="margin:10px;">');
-	builder.append('<table cellpadding="5" cellspacing="10" class="query-panel">');
+	builder.append('<table cellpadding="5" cellspacing="10" class="form-panel">');
 	if(!System.isnull(option.explain)){
 		
 		builder.append('<tr><td class="title"></td><td>'+option.explain+'</td></tr>');
@@ -392,10 +392,10 @@ PandaHelper.openDynamicForm = function(option){
 		if(item.type == 'textarea'){
 
 			builder.append('<tr><td class="title">'+item.title+'</td><td><textarea id="'+item.id+'" style="width:'
-					+item.width+'px;height:'+item.height+'px;" className="'+(item.className||'')+'" ></textarea></td></tr>');
+					+item.width+'px;height:'+item.height+'px;" class="'+(item.className||'')+'" ></textarea></td></tr>');
 		}else{
 
-			builder.append('<tr><td class="title">'+item.title+'</td><td><input id="'+item.id+'"/></td></tr>');
+			builder.append('<tr><td class="title">'+item.title+'</td><td><input id="'+item.id+'" style="'+item.style+'"/></td></tr>');
 		}
 	});
 	if(!System.isnull(option.notice)){
@@ -411,7 +411,7 @@ PandaHelper.openDynamicForm = function(option){
 		title : option.title,
 		fixed : false,
 		maxmin : false,
-		shadeClose : false,
+		shadeClose : true,
 		zIndex : 100000,
 		area : [ option.width+'px', option.height+'px' ],
 		content : builder.toString(),
@@ -424,7 +424,11 @@ PandaHelper.openDynamicForm = function(option){
 					
 					var expression = '$("#'+item.id+'").'+item.type+'(item.option);';
 					eval(expression);
-					//alert(expression);
+				}else{
+					
+					var expression = '$("#'+item.id+'").validatebox(item.option);';
+					eval(expression);
+					
 				}
 			});
 		},
@@ -437,6 +441,20 @@ PandaHelper.openDynamicForm = function(option){
 			}
 		}
 	});
+}
+
+//模糊字符串：用*代替后面一半
+PandaHelper.dimString = function(str){
+	
+	var totalLength = str.length;//总长度
+	var halfLength = parseInt(totalLength/2);//一半长度
+	var surplusLength = totalLength-halfLength;//剩余长度
+	var asteriskStr ='';
+	for(var i=0;i<surplusLength;i++){
+		asteriskStr+='*';
+	}
+	var value = str.substring(0,halfLength-1)+asteriskStr;
+	return value;
 }
 //-------------------------------------------------------------------------------------------------------------------------------
 var LODOP;//用于Lodop打印控件

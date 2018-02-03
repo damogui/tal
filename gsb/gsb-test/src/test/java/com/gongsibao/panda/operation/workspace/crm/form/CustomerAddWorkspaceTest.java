@@ -27,13 +27,16 @@ import org.netsharp.util.StringManager;
 
 import com.gongsibao.controls.CityComboBox;
 import com.gongsibao.crm.web.NCustomerFormPart;
+import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.crm.NCustomer;
+import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.TaskCustomerType;
 
 public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 
 	protected String taskDetailResourceNodeCode = "Operation_CRM_Task_ALL";
 	protected String taskDetailJsController = "com.gongsibao.crm.web.PlatformTaskDetailPart ";
+	protected String companysResourceNodeCode = "Operation_CRM_Customer_Companys";
 	
 	@Before
 	public void setup() {
@@ -97,7 +100,7 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 		form.setColumnCount(3);
 		PFormField formField = null;
 		
-		String groupName = "基本信息";
+		String groupName = null;
 		addFormField(form, "realName", "姓名", groupName, ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "sex", "性别", groupName, ControlTypes.ENUM_BOX, false, false);
 		formField = addFormField(form, "mobile", "手机", groupName, ControlTypes.TEXT_BOX, true, false);{
@@ -155,6 +158,7 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 
 		// 客户任务
 		createTasksPart(workspace);
+		createCompanysDetailPart(workspace);
 	}
 
 	// 客户任务
@@ -177,7 +181,11 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 			addColumn(datagrid, "supplier.name", "分配服务商", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "department.name", "分配部门", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "owner.name", "分配业务员", ControlTypes.TEXT_BOX, 100, false);
-			addColumn(datagrid, "foolowStatus", "跟进状态", ControlTypes.ENUM_BOX, 100, false);
+			column = addColumn(datagrid, "foolowStatus", "跟进状态", ControlTypes.ENUM_BOX, 100, false);{
+				
+				String formatter = EnumUtil.getColumnFormatter(CustomerFollowStatus.class);
+				column.setFormatter(formatter);
+			}
 			addColumn(datagrid, "remark", "售前备注", ControlTypes.TEXT_BOX, 300, false);
 			addColumn(datagrid, "smsRemark", "短信备注", ControlTypes.TEXT_BOX, 300, false);
 		}
@@ -204,6 +212,49 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 			part.setDockStyle(DockType.TOP);
 			part.setHeight(500);
 		}
+	}
+	
+	protected void createCompanysDetailPart(PWorkspace workspace) {
+
+		ResourceNode node = this.resourceService.byCode(companysResourceNodeCode);
+		PDatagrid datagrid = new PDatagrid(node, "关联企业");
+		{	
+			addColumn(datagrid, "createTime", "关联时间", ControlTypes.DATETIME_BOX, 130);
+			addColumn(datagrid, "company.companyName", "公司名称", ControlTypes.TEXT_BOX, 300);
+		}
+
+		PForm form = new PForm();
+		{
+			form.toNew();
+			form.setResourceNode(node);
+			form.setColumnCount(1);
+			form.setName("关联企业");
+
+			PFormField formField = null;
+			formField = addFormFieldRefrence(form, "company.companyName", "公司名称", null, CompanyIntention.class.getSimpleName(), true, false);
+			{
+				formField.setWidth(300);
+			}
+		}
+
+		PPart part = new PPart();
+		{
+			part.toNew();
+			part.setName("关联企业");
+			part.setCode("companys");
+			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
+			part.setRelationRole("companys");
+			part.setResourceNode(node);
+			part.setPartTypeId(PartType.DETAIL_PART.getId());
+			part.setDatagrid(datagrid);
+			part.setDockStyle(DockType.DOCUMENTHOST);
+			part.setToolbar("panda/datagrid/detail");
+			part.setWindowWidth(550);
+			part.setWindowHeight(350);
+			part.setForm(form);
+		}
+
+		workspace.getParts().add(part);
 	}
 
 	// 默认的表单操作

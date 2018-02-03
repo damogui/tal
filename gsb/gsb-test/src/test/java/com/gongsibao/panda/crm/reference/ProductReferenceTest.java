@@ -45,7 +45,21 @@ public class ProductReferenceTest extends ReferenceCreationBase {
 			
 			column.setOrderbyMode(OrderbyMode.ASC);
 			column.setVisible(false);
-			column.setSystem(false);
+			column.setSystem(true);
+		}
+		
+		column = addColumn(datagrid, "type.name", "二级分类名称", ControlTypes.TEXT_BOX, 150, null, false);{
+			column.setVisible(false);
+			column.setSystem(true);
+		}
+		column = addColumn(datagrid, "typeId", "二级分类Id", ControlTypes.TEXT_BOX, 150, null, false);{
+			column.setVisible(false);
+			column.setSystem(true);
+		}
+		
+		column = addColumn(datagrid, "type.parentId", "一级分类Id", ControlTypes.TEXT_BOX, 150, null, false);{
+			column.setVisible(false);
+			column.setSystem(true);
 		}
 		return datagrid;
 	}

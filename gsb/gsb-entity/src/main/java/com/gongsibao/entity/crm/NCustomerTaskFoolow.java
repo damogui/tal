@@ -9,10 +9,11 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
 import com.gongsibao.entity.crm.dic.QualityCategory;
+import com.gongsibao.entity.crm.dic.TaskQualityProgress;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
-@Table(name = "n_crm_task_foolow", header = "任务跟进")
+@Table(name = "n_crm_task_foolow", orderBy = " create_time DESC",header = "任务跟进")
 public class NCustomerTaskFoolow extends Entity {
 
 	/**
@@ -43,14 +44,20 @@ public class NCustomerTaskFoolow extends Entity {
 	@Reference(foreignKey = "qualityId", header = "质量")
 	private NCustomerTaskQuality quality;
 	
+	@Column(name = "quality_progress", header = "质量进度")
+	private TaskQualityProgress qualityProgress = TaskQualityProgress.INVARIABILITY;
+	
 	@Column(name = "next_foolow_time", header = "下次跟进时间")
 	private Date nextFoolowTime;
 	
 	@Column(name = "content", size = 1000, header = "跟进内容")
 	private String content;
 	
-	@Column(name = "estimate_amount", header = "估计签单金额")
-	private Integer estimateAmount;
+	@Column(name = "signing_amount", header = "估计签单金额")
+	private Integer signingAmount;
+	
+	@Column(name = "returned_amount", header = "估计回款金额")
+	private Integer returnedAmount;
 	
 	@Column(name = "supplier_id", header = "服务商Id")
 	private Integer supplierId;
@@ -64,6 +71,14 @@ public class NCustomerTaskFoolow extends Entity {
 	@Reference(foreignKey = "departmentId", header = "服务商部门")
 	private SupplierDepartment department;
 	
+	public TaskQualityProgress getQualityProgress() {
+		return qualityProgress;
+	}
+
+	public void setQualityProgress(TaskQualityProgress qualityProgress) {
+		this.qualityProgress = qualityProgress;
+	}
+
 	public Integer getQualityId() {
 		return qualityId;
 	}
@@ -168,11 +183,21 @@ public class NCustomerTaskFoolow extends Entity {
 		this.content = content;
 	}
 
-	public Integer getEstimateAmount() {
-		return estimateAmount;
+	public Integer getSigningAmount() {
+		return signingAmount;
 	}
 
-	public void setEstimateAmount(Integer estimateAmount) {
-		this.estimateAmount = estimateAmount;
+	public void setSigningAmount(Integer signingAmount) {
+		this.signingAmount = signingAmount;
 	}
+
+	public Integer getReturnedAmount() {
+		return returnedAmount;
+	}
+
+	public void setReturnedAmount(Integer returnedAmount) {
+		this.returnedAmount = returnedAmount;
+	}
+
+	
 }

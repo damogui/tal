@@ -372,12 +372,12 @@ div.h10{
 /*表单 开始*/
 .formContent{
 	
-	padding:20px 0;
+	padding:10px 0;
 }
 
 .form-panel td {
 
-	padding:5px;
+	padding:3px;
 }
 
 .form-panel td.label_td {
@@ -992,4 +992,18 @@ div.h10{
 .s-btn-plain-active {
   background: #1E7BB6;
   color: #fff;
+}
+
+.datagrid-cell i.fa{
+    cursor: pointer;
+    font-size: 12px;
+    margin-left:5px;
+    margin-top:3px;
+    color: #1E7BB6;
+    float:right;
+}
+
+.datagrid-cell i.fa:hover{
+
+	color: red;
 }

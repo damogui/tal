@@ -7,6 +7,8 @@ import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.ext.Provider;
 
+import com.gongsibao.api.auth.AuthAnnotation;
+import com.gongsibao.api.dto.ma.MaResponseCodeEnum;
 import com.gongsibao.api.util.ResponseResult;
 
 
@@ -15,6 +17,7 @@ import com.gongsibao.api.util.ResponseResult;
  * 回复过滤
  */
 @Provider
+@AuthAnnotation
 public class ResponseFilter implements ContainerResponseFilter {
 
 	public void filter(ContainerRequestContext containerRequestContext, ContainerResponseContext containerResponseContext) throws IOException {
@@ -63,8 +66,9 @@ public class ResponseFilter implements ContainerResponseFilter {
 		//这里做统一返回类型处理。
 		Object entity = containerResponseContext.getEntity();
 		ResponseResult result = new ResponseResult();{
-			
-			result.setData(entity);
+            result.setCode(MaResponseCodeEnum.code1.getText());
+            result.setMessage("ok");
+            result.setData(entity);
 		}
 		containerResponseContext.setEntity(result);
 		
