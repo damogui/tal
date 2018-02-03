@@ -205,13 +205,26 @@ com.gongsibao.crm.web.TaskProductDetailPart = org.netsharp.panda.commerce.Detail
         this.invokeService("queryByFirstProductCategoryId", [record.id], function (data) {
         	
         	$('#productCategory2_name').combobox('clear').combobox('loadData',data);
+        	
+    		var grid = $('#product_name').combogrid('grid');
+        	var row = $(grid).datagrid('getSelected');
+        	if(row){
+
+            	$('#productCategory2_name').combobox('setValue',row.typeId);
+            	$('#productCategory2_name').combobox('setText',row.type_name);
+        	}
         });
     },
     productCategory2Select:function(record){
     	
     	try{
     		
-        	$('#product_name').combogrid('clear');
+    		var grid = $('#product_name').combogrid('grid');
+        	var row = $(grid).datagrid('getSelected');
+        	if(row == null || row.typeId != record.id){
+
+            	$('#product_name').combogrid('clear');
+        	}
     		var grid = $('#product_name').combogrid('grid');
     		var options = $(grid).datagrid('options');
     		var filter = ' enabled____1 and type_id____'+record.id;
@@ -220,6 +233,15 @@ com.gongsibao.crm.web.TaskProductDetailPart = org.netsharp.panda.commerce.Detail
     		
     	}catch(ex){
     		
+    	}
+    },
+    productChange:function(newValue,oldValue){
+    	
+		var grid = $('#product_name').combogrid('grid');
+    	var row = $(grid).datagrid('getSelected');
+    	if(row){
+
+        	$('#productCategory1_name').combobox('select',row.type_parentId);
     	}
     }
 });

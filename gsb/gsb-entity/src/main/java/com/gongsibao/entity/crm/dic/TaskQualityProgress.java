@@ -3,23 +3,21 @@ package com.gongsibao.entity.crm.dic;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
-public enum NAllocationType implements IEnum{
+public enum TaskQualityProgress implements IEnum {
 
-	AUTO(1, "自动分配"), 
-	MANUAL(2, "手动分配"),
-	SemiAutomatic(3, "自动分配到服务商");
+	GOUP(1, "上升"), DECLINE(2, "下降"), INVARIABILITY(3, "无变化");
 	private int value;
 	private String text;
 
-	NAllocationType(int value, String text) {
+	TaskQualityProgress(int value, String text) {
 		this.value = value;
 		this.text = text;
 	}
 
 	@JsonCreator
-	public static NAllocationType getItem(int value) {
+	public static TaskQualityProgress getItem(int value) {
 
-		for (NAllocationType item : values()) {
+		for (TaskQualityProgress item : values()) {
 
 			if (item.getValue() == value) {
 				return item;

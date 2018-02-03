@@ -141,7 +141,7 @@ public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
 
 		addColumn(datagrid, "ownerId", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
 		addColumn(datagrid, "id", "任务ID", ControlTypes.TEXT_BOX, 60, false);
-		addColumn(datagrid, "name", "任务名称", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "name", "任务名称", ControlTypes.TEXT_BOX, 250, false);
 		addColumn(datagrid, "customerId", "客户ID", ControlTypes.TEXT_BOX, 60, false);
 		addColumn(datagrid, "customer.realName", "客户名称", ControlTypes.TEXT_BOX, 100, false);
 

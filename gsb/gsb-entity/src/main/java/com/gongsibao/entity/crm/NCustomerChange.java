@@ -12,7 +12,7 @@ import com.gongsibao.entity.crm.dic.OperationType;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
-@Table(name = "n_crm_task_change", header = "任务流转")
+@Table(name = "n_crm_task_change", orderBy = " create_time DESC", header = "任务流转")
 public class NCustomerChange extends Entity {
 
 	/**
@@ -42,25 +42,25 @@ public class NCustomerChange extends Entity {
 
 	@Column(name = "form_user_id", header = "来自")
 	private Integer formUserId = 0;
-	
+
 	@Reference(foreignKey = "formUserId", header = "去向")
 	private Employee formUser;
-	
+
 	@Column(name = "to_user_id", header = "来自")
 	private Integer toUserId = 0;
-	
+
 	@Reference(foreignKey = "toUserId", header = "去向")
 	private Employee toUser;
-	
+
 	@Column(name = "content", size = 200, header = "内容")
 	private String content;
-	
+
 	@Column(name = "supplier_id", header = "分配服务商Id")
 	private Integer supplierId;
 
 	@Reference(foreignKey = "supplierId", header = "分配服务商")
 	private Supplier supplier;
-	
+
 	@Column(name = "department_id", header = "分配服务商部门Id")
 	private Integer departmentId;
 
@@ -186,6 +186,5 @@ public class NCustomerChange extends Entity {
 	public void setDepartment(SupplierDepartment department) {
 		this.department = department;
 	}
-	
-	
+
 }

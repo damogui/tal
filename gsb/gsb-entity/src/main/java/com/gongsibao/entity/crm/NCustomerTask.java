@@ -18,6 +18,7 @@ import com.gongsibao.entity.crm.dic.NAllocationType;
 import com.gongsibao.entity.crm.dic.QualityCategory;
 import com.gongsibao.entity.crm.dic.TaskCustomerType;
 import com.gongsibao.entity.crm.dic.TaskInspectionState;
+import com.gongsibao.entity.crm.dic.TaskQualityProgress;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.supplier.dict.SupplierType;
@@ -156,11 +157,14 @@ public class NCustomerTask extends Entity {
 
 	@Column(name = "consult_way_other", header = "咨询途径选择其他时填写的详情")
 	private String consultWayOther;
+	
+	@Column(name = "quality_progress", header = "质量进度")
+	private TaskQualityProgress qualityProgress = TaskQualityProgress.INVARIABILITY;
 
 	@Subs(foreignKey = "taskId", header = "意向产品", subType = NCustomerProduct.class)
 	private List<NCustomerProduct> products;
 
-	@Subs(foreignKey = "taskId", header = "沟通日志", subType = NCustomerTaskFoolow.class)
+	@Subs(foreignKey = "taskId", header = "跟进日志", subType = NCustomerTaskFoolow.class)
 	private List<NCustomerTaskFoolow> follows;
 
 	@Subs(foreignKey = "taskId", header = "通知日志", subType = NCustomerTaskNotify.class)
@@ -535,5 +539,17 @@ public class NCustomerTask extends Entity {
 
 	public void setLastInspectionUserId(Integer lastInspectionUserId) {
 		this.lastInspectionUserId = lastInspectionUserId;
+	}
+
+	public TaskQualityProgress getQualityProgress() {
+		return qualityProgress;
+	}
+
+	public void setQualityProgress(TaskQualityProgress qualityProgress) {
+		this.qualityProgress = qualityProgress;
+	}
+
+	public void setProcessingState(Integer processingState) {
+		this.processingState = processingState;
 	}
 }

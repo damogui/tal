@@ -17,75 +17,34 @@ import java.util.List;
  */
 public class QuerySellingDemandDTO {
 
-    @Column(name = "code", header = "编码")
-    private String code;
-    @Column(name = "company_name", size = 200, header = "公司名称")
+
+    //公司名称
     private String companyName;
 
-    @Column(name = "company_type", header = "公司类型")
-    private CompanyType companyType;
+    //企业资质类型 EnterpriseQualification  enterpriseQualification
+    private int comQualType;
 
-    @Column(name = "company_nature", header = "公司性质")
-    private CompanyNature companyNature;
-    @Column(name = "company_feature", header = "公司特点")
-    private IndustryFeature companyFeature;
-    @Column(name = "tax_mode", header = "纳税人")
-    private SellingDemandTaxMode taxMode;
-    @Column(name = "address_mode", header = "地址")
-    private AddressMode addressMode;
-
-    @Column(name = "regist_date", header = "成立日期(开始)")
-    private Date registDate;
-
-    @Column(name = "regist_date_end", header = "成立日期(结束)")
-    private Date registDateEnd;
-
-    @Reference(foreignKey = "provinceId", header = "省份")
-    private ProvinceCityCounty province;
-
-    @Column(name = "city_id")
-    private Integer cityId;
-
-    @Reference(foreignKey = "cityId", header = "城市")
-    private ProvinceCityCounty city;
-
-    @Column(name = "county_id")
-    private Integer countyId;
-
-    @Reference(foreignKey = "countyId", header = "区/县")
-    private ProvinceCityCounty county;
-    @Column(name = "has_bank_account", header = "银行账户")
-    private Boolean hasBankAccount = false;
-    @Column(name = "tax_register", header = "国地税报到")
-    private Boolean taxRegister = false;
-
-    @Subs(foreignKey = "demandId", header = "企业资质", subType = DemandQualificationDetail.class)
-    private List<DemandQualificationDetail> qualificationDetails;
-    @Subs(foreignKey = "demandId", header = "无形资产", subType = DemandIntangibleAssets.class)
-    private List<DemandIntangibleAssets> intangibleAssetss;
-    @Subs(foreignKey = "demandId", header = "固定资产", subType = DemandFixedAssets.class)
-    private List<DemandFixedAssets> fixedAssetss;
-    @Column(name = "license_advantage", header = "执照优势")
-    private String licenseAdvantage;
-
-
-
-    @Column(name = "seling_status", header = "状态")
-    private SelingStatus selingStatus = SelingStatus.UNSOLD;
-
-    //页码
+    //省
+    private int provinceId;
+    //市
+    private int cityId;
+    //县
+    private int countyId;
+    //是否精选
+    private int isGood;
+    //是否热销
+    private int isHot;
+    //公司类型
+    private int companyType;
+    //公司性质
+    private int companyNature;
+    //年限类型
+    private int yearType;
+    //页索引
     private int pageIndex;
-    //页返回数据
+    //页大小
     private int pageSize;
 
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     public String getCompanyName() {
         return companyName;
@@ -95,156 +54,76 @@ public class QuerySellingDemandDTO {
         this.companyName = companyName;
     }
 
-    public CompanyType getCompanyType() {
-        return companyType;
+    public int getComQualType() {
+        return comQualType;
     }
 
-    public void setCompanyType(CompanyType companyType) {
-        this.companyType = companyType;
+    public void setComQualType(int comQualType) {
+        this.comQualType = comQualType;
     }
 
-    public CompanyNature getCompanyNature() {
-        return companyNature;
+    public int getProvinceId() {
+        return provinceId;
     }
 
-    public void setCompanyNature(CompanyNature companyNature) {
-        this.companyNature = companyNature;
+    public void setProvinceId(int provinceId) {
+        this.provinceId = provinceId;
     }
 
-    public IndustryFeature getCompanyFeature() {
-        return companyFeature;
-    }
-
-    public void setCompanyFeature(IndustryFeature companyFeature) {
-        this.companyFeature = companyFeature;
-    }
-
-    public SellingDemandTaxMode getTaxMode() {
-        return taxMode;
-    }
-
-    public void setTaxMode(SellingDemandTaxMode taxMode) {
-        this.taxMode = taxMode;
-    }
-
-    public AddressMode getAddressMode() {
-        return addressMode;
-    }
-
-    public void setAddressMode(AddressMode addressMode) {
-        this.addressMode = addressMode;
-    }
-
-    public Date getRegistDate() {
-        return registDate;
-    }
-
-    public void setRegistDate(Date registDate) {
-        this.registDate = registDate;
-    }
-
-    public Date getRegistDateEnd() {
-        return registDateEnd;
-    }
-
-    public void setRegistDateEnd(Date registDateEnd) {
-        this.registDateEnd = registDateEnd;
-    }
-
-    public ProvinceCityCounty getProvince() {
-        return province;
-    }
-
-    public void setProvince(ProvinceCityCounty province) {
-        this.province = province;
-    }
-
-    public Integer getCityId() {
+    public int getCityId() {
         return cityId;
     }
 
-    public void setCityId(Integer cityId) {
+    public void setCityId(int cityId) {
         this.cityId = cityId;
     }
 
-    public ProvinceCityCounty getCity() {
-        return city;
-    }
-
-    public void setCity(ProvinceCityCounty city) {
-        this.city = city;
-    }
-
-    public Integer getCountyId() {
+    public int getCountyId() {
         return countyId;
     }
 
-    public void setCountyId(Integer countyId) {
+    public void setCountyId(int countyId) {
         this.countyId = countyId;
     }
 
-    public ProvinceCityCounty getCounty() {
-        return county;
+    public int getIsGood() {
+        return isGood;
     }
 
-    public void setCounty(ProvinceCityCounty county) {
-        this.county = county;
+    public void setIsGood(int isGood) {
+        this.isGood = isGood;
     }
 
-    public Boolean getHasBankAccount() {
-        return hasBankAccount;
+    public int getIsHot() {
+        return isHot;
     }
 
-    public void setHasBankAccount(Boolean hasBankAccount) {
-        this.hasBankAccount = hasBankAccount;
+    public void setIsHot(int isHot) {
+        this.isHot = isHot;
     }
 
-    public Boolean getTaxRegister() {
-        return taxRegister;
+    public int getCompanyType() {
+        return companyType;
     }
 
-    public void setTaxRegister(Boolean taxRegister) {
-        this.taxRegister = taxRegister;
+    public void setCompanyType(int companyType) {
+        this.companyType = companyType;
     }
 
-    public List<DemandQualificationDetail> getQualificationDetails() {
-        return qualificationDetails;
+    public int getCompanyNature() {
+        return companyNature;
     }
 
-    public void setQualificationDetails(List<DemandQualificationDetail> qualificationDetails) {
-        this.qualificationDetails = qualificationDetails;
+    public void setCompanyNature(int companyNature) {
+        this.companyNature = companyNature;
     }
 
-    public List<DemandIntangibleAssets> getIntangibleAssetss() {
-        return intangibleAssetss;
+    public int getYearType() {
+        return yearType;
     }
 
-    public void setIntangibleAssetss(List<DemandIntangibleAssets> intangibleAssetss) {
-        this.intangibleAssetss = intangibleAssetss;
-    }
-
-    public List<DemandFixedAssets> getFixedAssetss() {
-        return fixedAssetss;
-    }
-
-    public void setFixedAssetss(List<DemandFixedAssets> fixedAssetss) {
-        this.fixedAssetss = fixedAssetss;
-    }
-
-    public String getLicenseAdvantage() {
-        return licenseAdvantage;
-    }
-
-    public void setLicenseAdvantage(String licenseAdvantage) {
-        this.licenseAdvantage = licenseAdvantage;
-    }
-
-    public SelingStatus getSelingStatus() {
-        return selingStatus;
-    }
-
-    public void setSelingStatus(SelingStatus selingStatus) {
-        this.selingStatus = selingStatus;
+    public void setYearType(int yearType) {
+        this.yearType = yearType;
     }
 
     public int getPageIndex() {

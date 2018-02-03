@@ -29,30 +29,55 @@ public class SellingDemandDTO {
 
     @Column(name = "company_type", header = "公司类型")
     private CompanyType companyType;
+    //公司类型名称
+    private String companyTypeStr;
+
+
+    @Column(name = "company_feature", header = "公司特点")
+    private IndustryFeature companyFeature;
+    //公司特点字符串
+    private String companyFeatureStr;
 
     @Column(name = "company_nature", header = "公司性质")
     private CompanyNature companyNature;
-    @Column(name = "company_feature", header = "公司特点")
-    private IndustryFeature companyFeature;
+    //公司性质字符串
+    private String companyNatureStr;
+
+    @Reference(foreignKey = "provinceId", header = "省份")
+    private ProvinceCityCounty province;
+    //注册省份字符串
+    private String provinceStr;
+
+    @Reference(foreignKey = "cityId", header = "城市")
+    private ProvinceCityCounty city;
+    //注册地址
+    private String addressStr;
+
+    //注册城市字符串
+    private String cityStr;
+    @Column(name = "regist_date", header = "成立日期(开始)")
+    private Date registDate;
+
+    //成立日期年  2017
+    private String registDateStr;
+
+
     @Column(name = "tax_mode", header = "纳税人")
     private SellingDemandTaxMode taxMode;
+    //纳税人
+    private String taxModeStr;
+
     @Column(name = "address_mode", header = "地址")
     private AddressMode addressMode;
 
-    @Column(name = "regist_date", header = "成立日期(开始)")
-    private Date registDate;
 
     @Column(name = "regist_date_end", header = "成立日期(结束)")
     private Date registDateEnd;
 
-    @Reference(foreignKey = "provinceId", header = "省份")
-    private ProvinceCityCounty province;
 
     @Column(name = "city_id")
     private Integer cityId;
 
-    @Reference(foreignKey = "cityId", header = "城市")
-    private ProvinceCityCounty city;
 
     @Column(name = "county_id")
     private Integer countyId;
@@ -66,21 +91,29 @@ public class SellingDemandDTO {
 
     @Subs(foreignKey = "demandId", header = "企业资质", subType = DemandQualificationDetail.class)
     private List<DemandQualificationDetail> qualificationDetails;
+   //企业资质列表
+    private  List<String> qualificationDetailsList;
+
+
     @Subs(foreignKey = "demandId", header = "无形资产", subType = DemandIntangibleAssets.class)
     private List<DemandIntangibleAssets> intangibleAssetss;
+    //无形资产名称列表
+    private  List<String> intangibleAssetssList;
+
     @Subs(foreignKey = "demandId", header = "固定资产", subType = DemandFixedAssets.class)
     private List<DemandFixedAssets> fixedAssetss;
+    //固定资产名称列表
+    private   List<String> fixedAssetssList;
+
+
     @Column(name = "license_advantage", header = "执照优势")
     private String licenseAdvantage;
 
 
-
     @Column(name = "seling_status", header = "状态")
     private SelingStatus selingStatus = SelingStatus.UNSOLD;
-
-
-
-
+    //是否出售
+    private String selingStatusStr;
 
 
     public String getCode() {
@@ -260,4 +293,100 @@ public class SellingDemandDTO {
     }
 
 
+    public String getCompanyFeatureStr() {
+        return companyFeatureStr;
+    }
+
+    public void setCompanyFeatureStr(String companyFeatureStr) {
+        this.companyFeatureStr = companyFeatureStr;
+    }
+
+    public String getCompanyNatureStr() {
+        return companyNatureStr;
+    }
+
+    public void setCompanyNatureStr(String companyNatureStr) {
+        this.companyNatureStr = companyNatureStr;
+    }
+
+    public String getProvinceStr() {
+        return provinceStr;
+    }
+
+    public void setProvinceStr(String provinceStr) {
+        this.provinceStr = provinceStr;
+    }
+
+    public String getRegistDateStr() {
+        return registDateStr;
+    }
+
+    public void setRegistDateStr(String registDateStr) {
+        this.registDateStr = registDateStr;
+    }
+
+    public String getCityStr() {
+        return cityStr;
+    }
+
+    public void setCityStr(String cityStr) {
+        this.cityStr = cityStr;
+    }
+
+    public String getTaxModeStr() {
+        return taxModeStr;
+    }
+
+    public void setTaxModeStr(String taxModeStr) {
+        this.taxModeStr = taxModeStr;
+    }
+
+    public String getCompanyTypeStr() {
+        return companyTypeStr;
+    }
+
+    public void setCompanyTypeStr(String companyTypeStr) {
+        this.companyTypeStr = companyTypeStr;
+    }
+
+    public String getSelingStatusStr() {
+        return selingStatusStr;
+    }
+
+    public void setSelingStatusStr(String selingStatusStr) {
+        this.selingStatusStr = selingStatusStr;
+    }
+
+    public String getAddressStr() {
+        return addressStr;
+    }
+
+    public void setAddressStr(String addressStr) {
+        this.addressStr = addressStr;
+    }
+
+
+    public List<String> getQualificationDetailsList() {
+        return qualificationDetailsList;
+    }
+
+    public void setQualificationDetailsList(List<String> qualificationDetailsList) {
+        this.qualificationDetailsList = qualificationDetailsList;
+    }
+
+    public List<String> getIntangibleAssetssList() {
+        return intangibleAssetssList;
+    }
+
+    public void setIntangibleAssetssList(List<String> intangibleAssetssList) {
+        this.intangibleAssetssList = intangibleAssetssList;
+    }
+
+    public List<String> getFixedAssetssList() {
+        return fixedAssetssList;
+    }
+
+    public void setFixedAssetssList(List<String> fixedAssetssList) {
+        this.fixedAssetssList = fixedAssetssList;
+    }
 }
