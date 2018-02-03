@@ -99,6 +99,74 @@ org.netsharp.controls.TextBox = org.netsharp.controls.Control.Extends({
 	}
 });
 
+org.netsharp.controls.EncryptionBox = org.netsharp.controls.TextBox.Extends({
+	ctor: function() {
+		this.base();
+	},
+	get: function(entity) {
+
+		var propertyValue = $(this.uiElement).passwordbox('getValue');
+		propertyValue = propertyValue.replace(new RegExp("\r\n|\n", "gim"), "");
+		var expression;
+		if (this.propertyName.indexOf('.') != -1) {
+			
+			var leftProperty = this.propertyName.split('.')[0];
+			if(entity[leftProperty] != null){
+				
+				entity[this.propertyName] = propertyValue;
+			}
+		} else {
+			
+			entity[this.propertyName] = propertyValue;
+		}
+
+	},
+
+	set: function(entity) {
+
+		var propertyValue = null;
+
+		var expression;
+		if (this.propertyName.indexOf('.') != -1) {
+			
+			var leftProperty = this.propertyName.split('.')[0];
+			if(entity[leftProperty] != null){
+				
+				propertyValue = entity[this.propertyName];
+			}
+		} else {
+			
+			propertyValue = entity[this.propertyName];
+		}
+
+		if (System.isnull(propertyValue)) {
+			propertyValue = "";
+		}
+
+		$(this.uiElement).passwordbox('setValue',propertyValue);
+		this.setAfter();
+	},
+
+	setAfter: function() {
+
+	},
+
+	clear: function() {
+		$(this.uiElement).passwordbox('clear');
+	},
+	disable: function() {
+		
+		$(this.uiElement).passwordbox('disable');
+	},
+	enable: function() {
+		var _disabled = $(this.uiElement).attr("_disabled");
+		if (_disabled &&_disabled == 'true') {
+			return;
+		}
+		$(this.uiElement).passwordbox('enable');
+	}
+});
+
 org.netsharp.controls.PasswordTextBox = org.netsharp.controls.TextBox.Extends({
 	ctor: function() {
 		this.base();

@@ -126,9 +126,7 @@ public class NCustomer extends Entity {
 
 	@Reference(foreignKey = "departmentId", header = "分配服务商部门")
 	private SupplierDepartment department;
-
-	@Column(name = "sms_remark", header = "短信备注")
-	private String smsRemark;
+	
 
 	@Column(name = "swt_customer_id", header = "商务通客Id")
 	private String swtCustomerId;
@@ -449,14 +447,6 @@ public class NCustomer extends Entity {
 
 	public void setDepartment(SupplierDepartment department) {
 		this.department = department;
-	}
-
-	public String getSmsRemark() {
-		return smsRemark;
-	}
-
-	public void setSmsRemark(String smsRemark) {
-		this.smsRemark = smsRemark;
 	}
 
 	public String getSwtCustomerId() {

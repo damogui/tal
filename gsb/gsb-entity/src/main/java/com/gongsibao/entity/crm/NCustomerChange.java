@@ -34,7 +34,7 @@ public class NCustomerChange extends Entity {
 	@Column(name = "task_id", header = "客户")
 	private Integer taskId = 0;
 
-	@Column(name = "change_type", header = "流转类型")
+	@Column(name = "change_type", header = "操作类型")
 	private ChangeType changeType;
 
 	@Column(name = "operation_type", header = "操作类型")
