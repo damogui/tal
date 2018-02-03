@@ -209,7 +209,7 @@ public class NCustomerTask extends Entity {
 	}
 
 	public Integer getCostSupplierId() {
-		return costSupplierId;
+		return costSupplierId == null ? 0 : costSupplierId;
 	}
 
 	public void setCostSupplierId(Integer costSupplierId) {

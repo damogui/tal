@@ -39,8 +39,8 @@ public class ActionAutoAllocationVerify implements IAction {
 		}
 
 		// 当是有市场投放时，则该任务必须要有市场投放的部门
-		if (entity.getCosted() && (entity.getCostSupplierId() == null || entity.getCostSupplierId() == null)) {
-			throw new BusinessException("当有市场投放时，则该任务必须要有市场投放的部门!");
+		if (entity.getCosted() && entity.getCostSupplierId().equals(0)) {
+			throw new BusinessException("当有市场投放时，则该任务必须要有市场投放的服务商!");
 		}
 	}
 }
