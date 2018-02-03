@@ -29,6 +29,13 @@ public class ActionSaveTaskPersist implements IAction {
 
 		NCustomerTask task = (NCustomerTask) ctx.getItem();
 		EntityState state = task.getEntityState();
+		
+		//新增状态下，如果是市场投放则自动代入费用部门
+		if(state == EntityState.New && task.getCosted()){
+			
+			task.setCostSupplierId(task.getSupplierId());
+		}
+		
 		NAllocationType allocationType = task.getAllocationType();
 		if (allocationType == NAllocationType.MANUAL) {
 
