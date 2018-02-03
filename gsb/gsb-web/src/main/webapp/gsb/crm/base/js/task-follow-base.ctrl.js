@@ -139,7 +139,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 		    	var serviceLocator = new org.netsharp.core.JServiceLocator();
 		 		me.invokeService('getSigningAmount',[taskId],function(data){
 					
-					if(data){
+					if(data && data>0){
 						
 						$('#signingAmount').numberbox('setValue',data);
 						$('#returnedAmount').numberbox('setValue',data);
@@ -284,4 +284,3 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 		});
 	}
 });
-
