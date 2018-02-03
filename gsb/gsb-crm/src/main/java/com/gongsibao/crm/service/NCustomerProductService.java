@@ -74,7 +74,7 @@ public class NCustomerProductService extends SupplierPersistableService<NCustome
 		// LEFT JOIN prod_product product on service.product_id = product.pkid
 		// where product_id = 2012 and (price.city_id = 101900101 or
 		// price.city_id in (101110000,101110100,101110102))
-		// 101900101:大陆地区
+		// 101900101:大陆地区 
 		StringBuilder selectBuilder = new StringBuilder();
 		{
 			selectBuilder.append(" SELECT  ifnull(SUM(price),0) as amount FROM prod_price price ");
