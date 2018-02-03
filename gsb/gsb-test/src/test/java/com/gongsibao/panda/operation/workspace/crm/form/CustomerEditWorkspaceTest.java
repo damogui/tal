@@ -25,6 +25,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 import org.netsharp.util.StringManager;
 
+import com.gongsibao.controls.CityComboBox;
 import com.gongsibao.crm.web.NCustomerFormPart;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.crm.NCustomerTaskQuality;
@@ -69,6 +70,70 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 		createFormWorkspace();
 	}
 
+	// 默认的表单配置信息
+	protected PForm createForm(ResourceNode node) {
+
+		PForm form = new PForm(node, node.getName());
+		form.toNew();
+		form.setColumnCount(3);
+		form.setName(formPartName);
+		
+		PFormField formField = null;
+		
+		String groupName = "基本信息";
+		addFormField(form, "realName", "姓名", groupName, ControlTypes.TEXT_BOX, true, false);
+		addFormField(form, "sex", "性别", groupName, ControlTypes.ENUM_BOX, false, false);
+		formField = addFormField(form, "mobile", "手机", groupName, ControlTypes.ENCRYPTION_BOX, true, false);{
+			
+			formField.setTroikaTrigger("controllernCustomer.contactWayChange(this);");
+			formField.setTroikaValidation("validationContactWay['mobile','手机']");
+		}
+		formField = addFormField(form, "telephone", "座机", groupName, ControlTypes.ENCRYPTION_BOX, true, false);{
+			
+			formField.setTroikaTrigger("controllernCustomer.contactWayChange(this);");
+			formField.setTroikaValidation("validationContactWay['telephone','座机']");
+		}
+		formField = addFormField(form, "qq", "QQ", groupName, ControlTypes.ENCRYPTION_BOX, true, false);{
+			
+			formField.setTroikaTrigger("controllernCustomer.contactWayChange(this);");
+			formField.setTroikaValidation("validationContactWay['qq','QQ']");
+		}
+		formField = addFormField(form, "weixin", "微信", groupName, ControlTypes.ENCRYPTION_BOX, true, false);{
+			
+			formField.setTroikaTrigger("controllernCustomer.contactWayChange(this);");
+			formField.setTroikaValidation("validationContactWay['weixin','微信']");
+		}
+		formField = addFormField(form, "email", "邮箱", groupName, ControlTypes.ENCRYPTION_BOX, false, false);{
+			
+			formField.setTroikaValidation("email");
+		}
+		addFormField(form, "birdthday", "生日", groupName, ControlTypes.DATE_BOX, false, false);
+		addFormField(form, "important", "重要程度", groupName, ControlTypes.ENUM_BOX, false, false);
+		formField = addFormField(form, "province.name", "省份",groupName, ControlTypes.CUSTOM, false, false);
+		{
+			formField.setCustomControlType(CityComboBox.class.getName());
+			formField.setDataOptions("level:1,changeCtrlId:'city_name'");
+		}
+		formField = addFormField(form, "city.name", "城市", groupName,ControlTypes.CUSTOM, false, false);
+		{
+			formField.setCustomControlType(CityComboBox.class.getName());
+			formField.setDataOptions("level:2,changeCtrlId:'county_name'");
+		}
+
+		formField = addFormField(form, "county.name", "区/县", groupName,ControlTypes.CUSTOM, false, false);
+		{
+			formField.setCustomControlType(CityComboBox.class.getName());
+			formField.setDataOptions("level:3");
+		}
+
+		formField = addFormField(form, "remark", "备注", groupName, ControlTypes.TEXTAREA, false, false);{
+			formField.setFullColumn(true);
+			formField.setHeight(100);
+		}
+		
+		return form;
+	}
+	
 	@Test
 	public void createFormToolbar() {
 
@@ -91,6 +156,18 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 			item.setCommand(null);
 			item.setSeq(3000);
 			item.setCommand("{controller}.edit();");
+			toolbar.getItems().add(item);
+		}
+		
+		item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("eye");
+			item.setIcon("fa fa-eye");
+			item.setName("查看联系方式");
+			item.setCommand(null);
+			item.setSeq(4000);
+			item.setCommand("{controller}.showContactWay();");
 			toolbar.getItems().add(item);
 		}
 		toolbarService.save(toolbar);
