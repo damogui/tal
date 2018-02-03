@@ -70,7 +70,11 @@ public class NCustomerTaskNotifyService extends SupplierPersistableService<NCust
 
 		Employee received = this.getEmployee(entity.getReceivedId());
 		IEaMessageService eMessageService = ServiceFactory.create(IEaMessageService.class);
-		eMessageService.send("CRM", entity.getContent(), received.getMobile());
+		if(received == null){
+			eMessageService.send("CRM", entity.getContent(), "");
+		}else{
+			eMessageService.send("CRM", entity.getContent(), received.getMobile());
+		}
 	}
 
 	private Employee getEmployee(Integer id) {

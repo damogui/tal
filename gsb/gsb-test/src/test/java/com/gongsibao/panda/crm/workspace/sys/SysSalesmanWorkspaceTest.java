@@ -327,7 +327,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 				formField.setRefFilter("1=2");
 			}
 
-			formField = addFormField(form, "productCategory2.name", "二级分类", null, ControlTypes.CUSTOM, true, false);
+			formField = addFormField(form, "productCategory2.name", "二级分类", null, ControlTypes.CUSTOM, false, false);
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
@@ -335,7 +335,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 				// formField.setRefFilter("type=201 and pid<>0");
 			}
 
-			formField = addFormFieldRefrence(form, "product.name", "产品", null, "CRM_" + Product.class.getSimpleName(), true, false);
+			formField = addFormFieldRefrence(form, "product.name", "产品", null, "CRM_" + Product.class.getSimpleName(), false, false);
 			{
 				formField.setWidth(200);
 				formField.setRefFilter("enabled=1");
