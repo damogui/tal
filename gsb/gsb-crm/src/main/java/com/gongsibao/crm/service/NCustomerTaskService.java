@@ -89,6 +89,9 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
 		StringBuilder builder = new StringBuilder();
 		builder.append("NCustomerTask.*,");
+		builder.append("NCustomerTask.supplier.*,");
+		builder.append("NCustomerTask.department.*,");
+		builder.append("NCustomerTask.owner.*,");
 		builder.append("NCustomerTask.products.*,");
 		builder.append("NCustomerTask.products.productCategory1.{id,name},");
 		builder.append("NCustomerTask.products.productCategory2.{id,name},");
