@@ -19,7 +19,7 @@ import org.netsharp.util.StringManager;
  * @author hw
  *         权限过滤
  */
-public class AuthorizationFilter implements ContainerRequestFilter {
+public class AuthorizationFilter implements ContainerRequestFilter  {
     @Context
     private HttpServletResponse servletResponse;
 

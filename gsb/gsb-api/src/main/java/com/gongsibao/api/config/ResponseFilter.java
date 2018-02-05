@@ -64,18 +64,14 @@ public class ResponseFilter implements ContainerResponseFilter {
             return;
         }
 
-        EntityTag tag = containerResponseContext.getEntityTag();
-        if (tag == null)//非null代表已经触发异常,由异常处理
-        {
-            Object entity = containerResponseContext.getEntity();
+        Object entity = containerResponseContext.getEntity();
+        if (!(entity instanceof ResponseResult)) {
             ResponseResult result = new ResponseResult();
             {
                 result.setData(entity);
                 containerResponseContext.setEntity(result);
             }
         }
-
-
         // 可以通过 throw new WebApplicationException(Status.UNAUTHORIZED); 来中断请求
     }
 }

@@ -12,19 +12,16 @@ import javax.ws.rs.ext.ExceptionMapper;
  * Created by win on 2018/2/5.
  */
 public class DeviceExceptionMapper implements ExceptionMapper<Exception> {
-
-
     @Override
     public Response toResponse(Exception e) {
         Response.ResponseBuilder ResponseBuilder = null;
-
         if (e instanceof DeviceException) {
 
             ResponseResult result = new ResponseResult();
             DeviceException de = (DeviceException) e;//根据类型处理不同的异常
             result.setCode(MaResponseCodeEnum.paraError.getText());
             result.setMessage(de.getMessage());
-            ResponseBuilder = Response.ok(result).tag("1").status(200).type(MediaType.APPLICATION_JSON);
+            ResponseBuilder = Response.ok(result).status(200).type(MediaType.APPLICATION_JSON);
             //throw new WebApplicationException(response);
 
         } else {
