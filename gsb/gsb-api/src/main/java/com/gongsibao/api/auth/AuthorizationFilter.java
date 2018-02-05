@@ -29,16 +29,13 @@ public class AuthorizationFilter implements ContainerRequestFilter  {
         if (!StringManager.isNullOrEmpty(token)) {
             if (!token.equals("47K41D5885D")) {
                 //Response response = Response.ok("token值不对").tag("101").status(200).type(MediaType.APPLICATION_JSON).build();
-
                 throw new DeviceException(MaResponseCodeEnum.paraError.getText(),"token值不对");
 
             }
 
             // TODO:拦截响应
         } else {
-            Response response = Response.ok("token值不能为空").tag("101").status(200).type(MediaType.APPLICATION_JSON).build();
-            throw new WebApplicationException(response);
-            //throw new IOException("token值不能为空");
+            throw new DeviceException(MaResponseCodeEnum.paraError.getText(),"token值不对");
         }
 
 //		// 到redis中获取用户信息
