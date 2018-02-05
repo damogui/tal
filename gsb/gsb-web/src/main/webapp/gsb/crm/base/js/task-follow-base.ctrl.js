@@ -30,13 +30,17 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 			panelWidth : 450,
 			panelHeight : 310,
 			pagination : true,
-			pageSize : 10,
+			pageSize : 20,
 			mode : 'remote',
 			multiple : false,
 			onChange : function(newValue, oldValue) {
 				
 				var grid = $('#allot_intention_name').combogrid('grid');
-		    	var row = grid.datagrid('getSelected');	
+		    	var row = grid.datagrid('getSelected');
+		    	if(row == null){
+		    		
+		    		return;
+		    	}
 		    	
 		    	var nextFoolowDateRequired = row.nextFoolowDateRequired;
 		    	var returnedAmountRequired = row.returnedAmountRequired;
@@ -136,15 +140,18 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 		    	}
 		    	
 		    	//查询估计签单金额、 估计回款金额 
-		    	var serviceLocator = new org.netsharp.core.JServiceLocator();
-		 		me.invokeService('getSigningAmount',[taskId],function(data){
-					
-					if(data && data>0){
+		    	if(returnedAmountRequired === true && signingAmountRequired === true){
+
+			    	var serviceLocator = new org.netsharp.core.JServiceLocator();
+			 		me.invokeService('getSigningAmount',[taskId],function(data){
 						
-						$('#signingAmount').numberbox('setValue',data);
-						$('#returnedAmount').numberbox('setValue',data);
-					}
-				});
+						if(data && data>0){
+							
+							$('#signingAmount').numberbox('setValue',data);
+							$('#returnedAmount').numberbox('setValue',data);
+						}
+					});
+		    	}
 				
 		    	return true;
 			}};

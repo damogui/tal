@@ -26,12 +26,14 @@ public class QualityRefeerenceTest extends ReferenceCreationBase {
 	}
 
 	public PDatagrid createDatagrid(ResourceNode node) {
+		
 		PDatagrid datagrid = super.createDatagrid(node);
+		datagrid.setPageSize(20);
 		PDatagridColumn column = null;
 		addColumn(datagrid, "intentionCategory", "分类", ControlTypes.TEXT_BOX, 80, null, false);
 		column = addColumn(datagrid, "code", "编码", ControlTypes.TEXT_BOX, 80, null, false);
 		{
-			column.setOrderbyMode(OrderbyMode.ASC);
+			//column.setOrderbyMode(OrderbyMode.ASC);
 		}
 		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 150, null, false);
 		
