@@ -30,6 +30,12 @@ public class ActionSaveTaskPersist implements IAction {
 		NCustomerTask task = (NCustomerTask) ctx.getItem();
 		EntityState state = task.getEntityState();
 		
+		// 如果任务名称为空，则自动生成（默认取客户意向产品、意向地区，支持手动填写/修改）
+		if (StringManager.isNullOrEmpty(task.getName())) {
+
+			createTaskName(task);
+		}
+		
 		//新增状态下，如果是市场投放则自动代入费用部门
 		if(state == EntityState.New && task.getCosted()){
 			
@@ -47,45 +53,6 @@ public class ActionSaveTaskPersist implements IAction {
 				task.setLastAllocationTime(new Date());
 				task.setLastAllocationUserId(SessionManager.getUserId());
 				task.setFoolowStatus(CustomerFollowStatus.UNSTART);
-				
-				// 如果任务名称为空，则自动生成（默认取客户意向产品、意向地区，支持手动填写/修改）
-				if (StringManager.isNullOrEmpty(task.getName())) {
-
-					List<String> ss = new ArrayList<String>();
-					List<NCustomerProduct> productList = task.getProducts();
-					if (productList != null && productList.size() > 0) {
-
-						NCustomerProduct nCustomerProduct = productList.get(0);
-						if (nCustomerProduct.getProduct() != null) {
-
-							ss.add(nCustomerProduct.getProduct().getName());
-						}
-
-						List<String> countyList = new ArrayList<String>();
-						if (nCustomerProduct.getProvince() != null) {
-
-							countyList.add(nCustomerProduct.getProvince().getName());
-						}
-
-						if (nCustomerProduct.getCity() != null) {
-
-							countyList.add(nCustomerProduct.getCity().getName());
-						}
-
-						if (nCustomerProduct.getCounty() != null) {
-
-							countyList.add(nCustomerProduct.getCounty().getName());
-						}
-						
-						if(countyList.size()>0){
-
-							String countyName = "("+StringManager.join( ",", countyList)+")";
-							ss.add(countyName);
-						}
-						String name = StringManager.join( " - ", ss);
-						task.setName(name);
-					}
-				}
 			}
 		}
 
@@ -93,5 +60,43 @@ public class ActionSaveTaskPersist implements IAction {
 		IPersistableService<NCustomerTask> service = (IPersistableService<NCustomerTask>) ReflectManager.newInstance(NCustomerService.class.getSuperclass());
 		task = service.save(task);
 		ctx.setItem(task);
+	}
+	
+	private void createTaskName(NCustomerTask task){
+		
+		List<String> ss = new ArrayList<String>();
+		List<NCustomerProduct> productList = task.getProducts();
+		if (productList != null && productList.size() > 0) {
+
+			NCustomerProduct nCustomerProduct = productList.get(0);
+			if (nCustomerProduct.getProduct() != null) {
+
+				ss.add(nCustomerProduct.getProduct().getName());
+			}
+
+			List<String> countyList = new ArrayList<String>();
+			if (nCustomerProduct.getProvince() != null) {
+
+				countyList.add(nCustomerProduct.getProvince().getName());
+			}
+
+			if (nCustomerProduct.getCity() != null) {
+
+				countyList.add(nCustomerProduct.getCity().getName());
+			}
+
+			if (nCustomerProduct.getCounty() != null) {
+
+				countyList.add(nCustomerProduct.getCounty().getName());
+			}
+			
+			if(countyList.size()>0){
+
+				String countyName = "("+StringManager.join( ",", countyList)+")";
+				ss.add(countyName);
+			}
+			String name = StringManager.join( " - ", ss);
+			task.setName(name);
+		}
 	}
 }

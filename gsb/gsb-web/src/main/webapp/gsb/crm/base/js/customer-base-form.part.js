@@ -200,7 +200,11 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
 //    		IMessageBox.error("任务信息不能为空！");
 //    		return false;
 //    	}
-    	entity.tasks = [];
+    	
+    	if(entity.entityState != EntityState.New){
+
+        	entity.tasks = [];
+    	}
     	entity.products = [];
     	entity.follows = [];
     	entity.notifys = [];
