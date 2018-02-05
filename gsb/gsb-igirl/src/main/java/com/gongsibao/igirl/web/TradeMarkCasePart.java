@@ -36,25 +36,30 @@ public class TradeMarkCasePart extends FormPart {
 	
 	public CompanyDto fetchCompanyByName(String name) {
 		ResponseMessage<com.gongsibao.taurus.entity.Company> cms=TaurusApiService.getEntList(name, 0, 10);
-		if(cms.getResult()==0) {
-			return null;
-		}else {
-			com.gongsibao.taurus.entity.Company cm=cms.getList().get(0);
-			String cmname=cm.getEntName();
-			if(!StringManager.isNullOrEmpty(cmname)) {
-				EntRegistry er=TaurusApiService.getEntRegistry(cmname);
-				CompanyDto cp=new CompanyDto();
-				cp.setAppCnName(er.getName());
-				cp.setAppCnAddr(er.getBusinessAddress());
-				cp.setCertCode(er.getOrganizationCode());
-				cp.setApplyer(er.getLegalRepresentative());
-				cp.setPostcode("");
-				cp.setFax("");
-				return cp;
-			}else {
+		if(cms!=null) {
+			if(cms.getResult()==0) {
 				return null;
+			}else {
+				com.gongsibao.taurus.entity.Company cm=cms.getList().get(0);
+				String cmname=cm.getEntName();
+				if(!StringManager.isNullOrEmpty(cmname)) {
+					EntRegistry er=TaurusApiService.getEntRegistry(cmname);
+					CompanyDto cp=new CompanyDto();
+					cp.setAppCnName(er.getName());
+					cp.setAppCnAddr(er.getBusinessAddress());
+					cp.setCertCode(er.getOrganizationCode());
+					cp.setApplyer(er.getLegalRepresentative());
+					cp.setPostcode("");
+					cp.setFax("");
+					return cp;
+				}else {
+					return null;
+				}
 			}
+		}else {
+			return null;
 		}
+		
 	}
 	
 	public String fetchQrCodeUrl(String mobile) {
