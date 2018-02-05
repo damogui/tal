@@ -96,9 +96,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			entity.setCode(DateTime.now().toString("yyyyMMddHHmmss"));
 			Integer id = SupplierSessionManager.getSupplierId();
 			entity.setSupplierId(id);
-			for (TradeMark tm : entity.getTradeMarks()) {
-				tm.setSupplierId(id);
-			}
+		
 			// 设置加盟商信息
 		
 			Supplier sl = supplierServcie.byId(sid);
@@ -121,6 +119,8 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 
 			attachment2 = (UploadAttachment) this.buildUploadAttachment("付款证明", AttachmentCat.PAYMENT_PROOF,
 					entity.getId(), FileType.JPGC, FileType.JPGC, TradeMarkPayProofID);
+			//默认设置为不需要传
+			attachment2.setNeeded(false);
 			entity.getUploadAttachments().add(attachment2);
 		}
 
@@ -217,16 +217,20 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 
 		// 查询出id不在上传附件列表中的商标,当首次保存或者更新新增商标时，需要添加新的附件
 		if (!deleted) {
+			//查询出当前案件所有端附件
 			Oql oql = new Oql();
 			oql.setType(UploadAttachment.class);
 			oql.setSelects("UploadAttachment.tradeMark.{id,shareGroup}");
 			oql.setFilter("tradeMarkCaseId=?");
 			oql.getParameters().add("tradeMarkCaseId", entity.getId(), Types.INTEGER);
 			List<UploadAttachment> uls = upattachementService.queryList(oql);
+			
+			
 			Map<Integer, Integer> dicTmp = new HashMap<Integer, Integer>();
 			// 缓存已有共享组
 			Map<ShareGroup, Integer> dic = new HashMap<ShareGroup, Integer>();
 			for (UploadAttachment ua : uls) {
+				//取的附件身上的商标
 				TradeMark tm = ua.getTradeMark();
 				if (tm != null) {
 					dicTmp.put(tm.getId(), tm.getId());
@@ -271,6 +275,8 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 
 						attachment1 = (UploadAttachment) this.buildUploadAttachment(tmk.getMemo() + "_补充证明",
 								AttachmentCat.MEMO_DESC, entity.getId(), FileType.JPGC, FileType.JPGC, tmk.getId());
+						//默认设置为不需要传
+						attachment1.setNeeded(false);
 						upas.add(attachment1);
 
 						attachment2 = this.buildDownloadAttachment(tmk.getMemo() + "_黑色委托书",
@@ -305,6 +311,8 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 
 							attachment1 = (UploadAttachment) this.buildUploadAttachment(tmk.getMemo() + "_补充证明",
 									AttachmentCat.MEMO_DESC, entity.getId(), FileType.JPGC, FileType.JPGC, tmk.getId());
+							//默认设置为不需要传
+							attachment1.setNeeded(false);
 							upas.add(attachment1);
 
 							attachment2 = this.buildDownloadAttachment(tmk.getMemo() + "_黑色委托书",
