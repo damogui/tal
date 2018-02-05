@@ -34,7 +34,10 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 	},
 	edit : function(id) {
 		
-		var url = this.editUrl+"?id="+id;
+		$('#'+this.context.id).datagrid('unselectAll');
+		$('#'+this.context.id).datagrid('selectRecord',id);
+		var selectRow = this.getSelectedItem();
+		var url = this.editUrl+"?taskId="+id+"&customerId="+selectRow.customerId;
     	layer.open({
     		  type: 2,
     		  title: '编辑任务',
