@@ -44,14 +44,25 @@ public class TaskAllocatedWorkspaceTest extends TaskALLWorkspaceTest{
 		PToolbarItem item = new PToolbarItem();
 		{
 			item.toNew();
-			item.setCode("add");
+			item.setCode("addCustomer");
 			item.setIcon("fa fa-user-plus fa-fw");
 			item.setName("新增客户");
 			item.setOperationType(ot1);
 			item.setSeq(1);
+			item.setCommand("{controller}.addCustomer();");
+			toolbar.getItems().add(item);
+		}
+
+		item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("add");
+			item.setIcon("fa fa-plus fa-fw");
+			item.setName("新增任务");
+			item.setOperationType(ot1);
+			item.setSeq(2);
 			item.setCommand("{controller}.add();");
 			toolbar.getItems().add(item);
-			
 		}
 		item = new PToolbarItem();
 		{

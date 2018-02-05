@@ -15,7 +15,7 @@ public class DepartmentCheckAbnormalWorkspaceTest extends DepartmentAllTaskWorks
 		resourceNodeCode = "CRM_DEPARTMENT_TASK_CHECK_ABNORMAL";
 		
 		//当前登录人所在部门的子部门,需要扩展
-		listFilter = "inspectionState = 4 and foolowStatus= 4";
+		listFilter = "inspectionState in (3,4) and foolowStatus= 4";
 		
 		listToolbarPath = "department/task/abnormal";
 		rowToolbaPath = "department/task/abnormal/row";

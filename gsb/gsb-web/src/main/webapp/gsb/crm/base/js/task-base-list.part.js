@@ -8,6 +8,10 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		this.followUrl = null;
 		this.addCustomerUrl = null;
 	},
+	addCustomer:function(){
+		
+		window.open(this.addCustomerUrl);
+	},
 	add:function(){
 		var row = this.getSelectedItem();
 		if(row){
@@ -102,6 +106,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 					IMessageBox.info('请选择');
 					return;
 				}
+				
 				me.invokeService("allocation", [taskId,supplierId,departmentId,toUserId],function(data) {
 					me.reload();
 					IMessageBox.toast('分配成功');
@@ -221,7 +226,6 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 			IMessageBox.info('请选择记录');
 			return;
 	    }
-		alert(id);
 		me.doTransfer(id);
 	},
 	transfer : function(id){
@@ -399,8 +403,9 @@ function getSupplierOption(){
 	    	$('#allot_employee_name').combogrid('clear');
 			var grid = $('#allot_employee_name').combogrid('grid');
 			var options = $(grid).datagrid('options');
-			var filter = ' id IN ( SELECT employee_id FROM sp_salesman WHERE supplier_id ____ ----'+ newValue + '----)';
-			options.url = '\/panda\/rest\/reference?code=Employee&filter='+ filter;
+			//var filter = ' id IN ( SELECT employee_id FROM sp_salesman WHERE supplier_id ____ ----'+ newValue + '----)';
+			var filter = ' supplier_id ____ ----'+ newValue + '----';
+			options.url = '\/panda\/rest\/reference?code=Salesman&filter='+ filter;
 			$(grid).datagrid(options);
 			
 		}};
@@ -430,8 +435,9 @@ function getDepartmentOption(){
 	    	$('#allot_employee_name').combogrid('clear');
 			var grid = $('#allot_employee_name').combogrid('grid');
 			var options = $(grid).datagrid('options');
-			var filter = ' id IN ( SELECT employee_id FROM sp_salesman WHERE department_id ____ ----'+ newValue + '----)';
-			options.url = '\/panda\/rest\/reference?code=Employee&filter='+ filter;
+			//var filter = ' id IN ( SELECT employee_id FROM sp_salesman WHERE department_id ____ ----'+ newValue + '----)';
+			var filter = ' department_id ____ ----'+ newValue + '----';
+			options.url = '\/panda\/rest\/reference?code=Salesman&filter='+ filter;
 			$(grid).datagrid(options);
 		}};
 	return departmentOption;
@@ -439,12 +445,26 @@ function getDepartmentOption(){
 
 function getEmployeeOption(){
 	var employeeOption = {columns : [ [ {
+			field : 'supplier_name',
+			title : '服务商',
+			width : 100
+		},{
+			field : 'department_name',
+			title : '部门',
+			width : 100
+		},{
 			field : 'name',
 			title : '名称',
 			width : 100
+		},{
+			field : 'receiving',
+			title : '自动接受任务',
+			width : 100,
+			formatter : function(value,row,index){return value===false?'否':'是';}
 		}] ],
-		url : '\/panda\/rest\/reference?code=Employee&filter= id IN ( SELECT employee_id FROM sp_salesman)',
-		idField : 'id',
+		rowStyler: function(index,row){if(row.receiving ===false) {return 'color:red;';  }},
+		url : '\/panda\/rest\/reference?code=Salesman&filter=',
+		idField : 'employeeId',
 		textField : 'name',
 		width : 300,
 		fitColumns : true,

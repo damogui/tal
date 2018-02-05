@@ -80,7 +80,7 @@ public class SellingController {
 
     /*详情*/
     @GET
-    @Path("/getdetails/")
+    @Path("/getdetails")
     @Produces(MediaType.APPLICATION_JSON)
     public SellingDemandDTO getDetails(@Context HttpServletRequest request) {
         String para = request.getParameter("para");

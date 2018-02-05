@@ -25,14 +25,14 @@ public class NCustomerOperationLog extends Entity {
 	private NCustomer customer;
 
 	@Column(name = "customer_id", header = "客户")
-	private Integer customerId = 0;
+	private Integer customerId;
 
 	@JsonIgnore
 	@Reference(foreignKey = "taskId", header = "客户")
 	private NCustomerTask task;
 
 	@Column(name = "task_id", header = "客户")
-	private Integer taskId = 0;
+	private Integer taskId;
 
 	@Column(name = "change_type", header = "操作类型")
 	private ChangeType changeType;
@@ -41,13 +41,13 @@ public class NCustomerOperationLog extends Entity {
 	private OperationType type;
 
 	@Column(name = "form_user_id", header = "来自")
-	private Integer formUserId = 0;
+	private Integer formUserId;
 
 	@Reference(foreignKey = "formUserId", header = "去向")
 	private Employee formUser;
 
 	@Column(name = "to_user_id", header = "来自")
-	private Integer toUserId = 0;
+	private Integer toUserId;
 
 	@Reference(foreignKey = "toUserId", header = "去向")
 	private Employee toUser;

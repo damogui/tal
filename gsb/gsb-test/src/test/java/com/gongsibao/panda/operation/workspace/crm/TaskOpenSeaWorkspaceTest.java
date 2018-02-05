@@ -38,7 +38,7 @@ public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "Operation_CRM_Customer_OpenSea";
 
-		listFilter = "(owner_id is null or owner_id =0)";
+		listFilter = "( owner_id is null or owner_id =0 and (department_id is null or department_id = 0) and (supplier_id is null or supplier_id = 0))";
 		listToolbarPath = "task/batch/allocation";
 		listPartJsController = TaskAllListPart.class.getName();
 		listPartServiceController = TaskAllListPart.class.getName();
@@ -57,14 +57,27 @@ public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
 			toolbar.setResourceNode(node);
 			toolbar.setToolbarType(ToolbarType.BASE);
 		}
+
 		PToolbarItem item = new PToolbarItem();
 		{
 			item.toNew();
-			item.setCode("add");
+			item.setCode("addCustomer");
 			item.setIcon("fa fa-user-plus fa-fw");
 			item.setName("新增客户");
 			item.setOperationType(ot1);
 			item.setSeq(1);
+			item.setCommand("{controller}.addCustomer();");
+			toolbar.getItems().add(item);
+		}
+
+		item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("add");
+			item.setIcon("fa fa-plus fa-fw");
+			item.setName("新增任务");
+			item.setOperationType(ot1);
+			item.setSeq(2);
 			item.setCommand("{controller}.add();");
 			toolbar.getItems().add(item);
 		}
@@ -75,7 +88,7 @@ public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
 			item.setCode("batchAllocation");
 			item.setIcon("fa fa-check");
 			item.setName("批量分配");
-			item.setSeq(1);
+			item.setSeq(3);
 			item.setCommand("{controller}.batchAllocation();");
 			toolbar.getItems().add(item);
 		}

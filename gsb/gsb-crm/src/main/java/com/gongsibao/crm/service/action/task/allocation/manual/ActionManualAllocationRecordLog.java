@@ -1,5 +1,6 @@
 package com.gongsibao.crm.service.action.task.allocation.manual;
 
+import java.util.List;
 import java.util.Map;
 
 import org.netsharp.action.ActionContext;
@@ -13,6 +14,8 @@ import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.crm.dic.ChangeType;
 import com.gongsibao.entity.crm.dic.NotifyType;
+import com.gongsibao.entity.supplier.Salesman;
+import com.gongsibao.supplier.base.ISalesmanService;
 
 /**
  * @author hw 分配：保存日志
@@ -41,19 +44,38 @@ public class ActionManualAllocationRecordLog implements IAction {
 		}
 
 		// 2.保存通知日志
+		//业务员为空，通知服务商管理员或部门主管
+		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
+		if(task.getOwnerId().equals(0)){
+			List<Salesman> manList = salesmanService.getLeaderIds(task.getSupplierId(), task.getDepartmentId());
+			if(manList.size()>0){
+				for (Salesman item : manList) {
+					notifySave(task,item.getEmployeeId());
+				}
+			}else{
+				notifySave(task,null);
+			}
+		}else{
+			notifySave(task,null);
+		}
+	}
+	/**
+	 * 添加通知
+	 * @param task
+	 */
+	private void notifySave(NCustomerTask task,Integer employeeId){
 		INCustomerTaskNotifyService notifyService = ServiceFactory.create(INCustomerTaskNotifyService.class);
 		NCustomerTaskNotify notify = new NCustomerTaskNotify();
 		{
 			String content = String.format("一个新任务分配给您，请及时跟进。任务ID：%s", task.getId());
 			notify.toNew();
 			notify.setTaskId(task.getId());
+			notify.setContent(content);
 			notify.setType(NotifyType.WEIXIN);
 			notify.setCustomerId(task.getCustomerId());
 			notify.setSupplierId(task.getSupplierId());
 			notify.setDepartmentId(task.getDepartmentId());
-			//*业务员为空，通知服务商管理员或部门主管,暂无实现
-			notify.setReceivedId(task.getOwnerId());
-			notify.setContent(content);
+			notify.setReceivedId(employeeId ==null ? task.getOwnerId() : employeeId);
 			notifyService.save(notify);
 		}
 	}
