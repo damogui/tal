@@ -22,7 +22,7 @@ public class DeviceExceptionMapper implements ExceptionMapper<Exception> {
             result.setCode(MaResponseCodeEnum.paraError.getText());
             result.setMessage(de.getMessage());
             ResponseBuilder = Response.ok(result).status(200).type(MediaType.APPLICATION_JSON);
-            //throw new WebApplicationException(response);
+            //throw new WebApplicationException(response);//处理在response
 
         } else {
 
