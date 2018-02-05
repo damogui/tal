@@ -178,7 +178,13 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 
         addFormField(form, "address", "地址", null, ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "customerMaxCount", "客户池数量", null, ControlTypes.NUMBER_BOX, false, false);
-		addFormField(form, "messageNotifiedType", "消息通知类型 ", null, ControlTypes.ENUM_BOX, false, false);
+        addFormField(form, "fixPhone", "座机", null, ControlTypes.TEXT_BOX, false, false);
+        addFormField(form, "postcode", "邮编", null, ControlTypes.NUMBER_BOX, false, false);
+        addFormField(form, "fax", "传真", null, ControlTypes.TEXT_BOX, false, false);
+
+
+
+        addFormField(form, "messageNotifiedType", "消息通知类型 ", null, ControlTypes.ENUM_BOX, false, false);
 		addFormField(form, "noFollowDays", "未跟进天数(释放)", null, ControlTypes.NUMBER_BOX, false, false);
 		addFormField(form, "departLevel", "部门级次", null, ControlTypes.NUMBER_BOX, false, true);
 		addFormField(form, "departmentCount", "部门数量", null, ControlTypes.NUMBER_BOX, false, true);
