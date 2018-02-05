@@ -593,7 +593,7 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		List<Map<String,Object>> maps = dataTable.getValueMapList();
 		List<TradeMark> list = new ArrayList<>();
 		StringBuffer str = new StringBuffer("");
-		for (Map map:maps){
+		for (Map<String,Object> map:maps){
 			int id  = (int) map.get("id");
 			oql = new Oql();
 			oql.setSelects("TradeMark.*,TradeMark.tradeMarkCase.*,TradeMark.tradeMarkCase.uploadAttachments.*");

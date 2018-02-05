@@ -7,7 +7,7 @@ import org.netsharp.resourcenode.IResourceNodeService;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.cms.base.IProductViewService;
-import com.gongsibao.crm.base.INCustomerChangeService;
+import com.gongsibao.crm.base.INCustomerOperationLogService;
 import com.gongsibao.crm.base.INCustomerCompanyService;
 import com.gongsibao.crm.base.INCustomerProductService;
 import com.gongsibao.crm.base.INCustomerService;
@@ -18,7 +18,7 @@ import com.gongsibao.crm.base.INCustomerTaskQualityService;
 import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.entity.cms.ProductView;
 import com.gongsibao.entity.crm.NCustomer;
-import com.gongsibao.entity.crm.NCustomerChange;
+import com.gongsibao.entity.crm.NCustomerOperationLog;
 import com.gongsibao.entity.crm.NCustomerCompany;
 import com.gongsibao.entity.crm.NCustomerProduct;
 import com.gongsibao.entity.crm.NCustomerTask;
@@ -146,7 +146,7 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(NCustomerCompany.class.getName(), "关联企业", "Operation_CRM_Customer_Companys", INCustomerCompanyService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTaskFoolow.class.getName(), "跟进日志", "Operation_CRM_Customer_Foolow",INCustomerTaskFoolowService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTaskNotify.class.getName(), "通知日志", "Operation_CRM_Customer_Notify",INCustomerTaskNotifyService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerChange.class.getName(), "操作日志", "Operation_CRM_Customer_Change",INCustomerChangeService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerOperationLog.class.getName(), "操作日志", "Operation_CRM_Customer_Change",INCustomerOperationLogService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTaskInspection.class.getName(), "抽查日志", "Operation_CRM_Customer_Inspection",INCustomerTaskInspectionService.class.getName(), node1.getId());
 		
 		

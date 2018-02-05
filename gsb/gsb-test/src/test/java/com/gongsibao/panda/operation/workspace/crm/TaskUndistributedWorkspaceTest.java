@@ -19,7 +19,8 @@ public class TaskUndistributedWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 		listPartServiceController = TaskAllListPart.class.getName();
 		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-all-list.part.js|/gsb/gsb.custom.query.controls.js";
 		listToolbarPath = "task/undistributed/list";
-		listFilter = "(owner_id is null or owner_id =0)";
+		//未分配条件
+		listFilter = "( owner_id is null or owner_id =0 and (department_id is null or department_id = 0) and (supplier_id is null or supplier_id = 0))";
 	}
 
 	public PToolbar createRowToolbar() {

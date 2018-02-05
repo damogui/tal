@@ -15,11 +15,11 @@ import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.util.StringManager;
 
-import com.gongsibao.crm.base.INCustomerChangeService;
+import com.gongsibao.crm.base.INCustomerOperationLogService;
 import com.gongsibao.crm.base.INCustomerTaskNotifyService;
 import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.entity.crm.NCustomer;
-import com.gongsibao.entity.crm.NCustomerChange;
+import com.gongsibao.entity.crm.NCustomerOperationLog;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.crm.dic.ChangeType;
@@ -34,7 +34,7 @@ public class ActionAutoAllocationRecordLog implements IAction {
 	// 任务
 	INCustomerTaskService nCustomerTaskService = ServiceFactory.create(INCustomerTaskService.class);
 	// 流转日志
-	INCustomerChangeService changeService = ServiceFactory.create(INCustomerChangeService.class);
+	INCustomerOperationLogService changeService = ServiceFactory.create(INCustomerOperationLogService.class);
 	// 通知日志
 	INCustomerTaskNotifyService notifyService = ServiceFactory.create(INCustomerTaskNotifyService.class);
 	// 登录人
@@ -96,7 +96,7 @@ public class ActionAutoAllocationRecordLog implements IAction {
 		if (entity.getOwnerId().equals(0))
 			return;
 		// 1.保存流转日志
-		NCustomerChange changeEntity = new NCustomerChange();
+		NCustomerOperationLog changeEntity = new NCustomerOperationLog();
 		changeEntity.toNew();// 标示下类型，有多种
 		changeEntity.setFormUserId(FormUserId);
 		changeEntity.setToUserId(entity.getOwnerId());

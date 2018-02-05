@@ -34,7 +34,10 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 	},
 	edit : function(id) {
 		
-		var url = this.editUrl+"?id="+id;
+		$('#'+this.context.id).datagrid('unselectAll');
+		$('#'+this.context.id).datagrid('selectRecord',id);
+		var selectRow = this.getSelectedItem();
+		var url = this.editUrl+"?taskId="+id+"&customerId="+selectRow.customerId;
     	layer.open({
     		  type: 2,
     		  title: '编辑任务',
@@ -45,38 +48,23 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
     		  content: url
     	});
 	},
+	batchAllocation:function(){
+		//任务批量分配
+		var me = this;
+		var row = this.getSelectedItem();
+		var id = this.getSelectionIds();
+		if(id == "" || id == null ){
+			IMessageBox.info('请选择记录');
+			return;
+	    }
+		me.doAllot(id);
+	},
 	allocation:function(id){
 		//任务分配
 		var me = this;
 		me.doAllot(id);
 	},
-	follow : function(id) {
-		
-		$("#" + this.context.id).datagrid('unselectAll');
-		$("#" + this.context.id).datagrid('selectRecord',id);
-		var me = this;
-		var taskId = id;
-		$('#'+this.context.id).datagrid('selectRecord',id);
-		var selectedRow = $('#'+this.context.id).datagrid('getSelected');
-		var customerId = selectedRow.customerId;
-		var taskFollowCtrl = new com.gongsibao.crm.web.TaskFollowCtrl();
-		taskFollowCtrl.open(taskId,customerId,function(index, layero){
-			
-			me.reload();
-		});
-	},
-
-	doFollowService : function(id,getqualityId,time,amount,getNote) {
-		var me = this;
-		this.invokeService("follow", [id,getqualityId,time,amount,getNote],function(data) {
-			me.reload();
-			IMessageBox.toast('操作成功');
-			layer.closeAll();
-			return;
-		});
-	},
 	doAllot : function(taskId) {
-		
 		var me = this;
 		var supplierOption = getSupplierOption();
 		var departmentOption = getDepartmentOption();
@@ -123,17 +111,28 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 			}
 		});
 	},
-
-	batchAllocation:function(){
-		
-		//任务批量分配
+	follow : function(id) {		
+		$("#" + this.context.id).datagrid('unselectAll');
+		$("#" + this.context.id).datagrid('selectRecord',id);
 		var me = this;
-		var id = this.getSelectionIds();
-		if(id == "" || id == null ){
-			IMessageBox.info('请选择记录');
+		var taskId = id;
+		$('#'+this.context.id).datagrid('selectRecord',id);
+		var selectedRow = $('#'+this.context.id).datagrid('getSelected');
+		var customerId = selectedRow.customerId;
+		var taskFollowCtrl = new com.gongsibao.crm.web.TaskFollowCtrl();
+		taskFollowCtrl.open(taskId,customerId,function(index, layero){
+			
+			me.reload();
+		});
+	},
+	doFollowService : function(id,getqualityId,time,amount,getNote) {
+		var me = this;
+		this.invokeService("follow", [id,getqualityId,time,amount,getNote],function(data) {
+			me.reload();
+			IMessageBox.toast('操作成功');
+			layer.closeAll();
 			return;
-	    }
-		me.doAllot(id);
+		});
 	},
 	regain : function(){
 		//任务收回
@@ -222,6 +221,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 			IMessageBox.info('请选择记录');
 			return;
 	    }
+		alert(id);
 		me.doTransfer(id);
 	},
 	transfer : function(id){
@@ -235,7 +235,6 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		me.doTransfer(id);
 	},
 	doTransfer : function(taskId) {
-		
 		var me = this;
 		var supplierOption = getSupplierOption();
 		var departmentOption = getDepartmentOption();

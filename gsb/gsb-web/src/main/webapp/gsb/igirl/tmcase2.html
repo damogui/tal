@@ -32,16 +32,23 @@ body {
 			<h5>&nbsp;&nbsp;&nbsp;&nbsp;您好，请您确认下面的方案,方案金额为1090元。</h5>
 			<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如有异议，请点下方异议按钮，填写建议。</h6>
 			<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如无异议，请点下方确认按钮，确认方案。</h6>
-			<p class="text-right">  
+			<p class="text-right">
 				<a class="btn" href="#" role="button">异议</a>
 			</p>
 			<p class="text-right">
 				<a class="btn" href="#" role="button">确认</a>
 			</p>
 		</div>
-		<router-link to="/home">home</router-link>
-		<router-link to="/test">test</router-link>
-		<router-view></router-view>
+	
+	   <Out :level="2">
+	          <template slot-scope="props"> {{ props.text }}</template>
+	   </Out>
+	   <component v-bind:is="currentView">
+				  <!-- 组件在 vm.currentview 变化时改变！ -->
+		 </component>
+		 <gsb-content :cview="currentView">
+		 
+		 </gsb-content>
 		<div class="panel">
 			<div class="panel-body">
 				<div class="container-fluid">

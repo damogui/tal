@@ -1,6 +1,6 @@
 package com.gongsibao.igirl.dto;
 
-public class Company {
+public class CompanyDto {
     //公司名称
     private String appCnName;
 

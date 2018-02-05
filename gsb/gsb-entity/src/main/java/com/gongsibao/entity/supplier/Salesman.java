@@ -46,34 +46,27 @@ public class Salesman extends Entity {
 	@Column(name = "disabled", header = "停用")
 	private Boolean disabled = false;
 	
-	@Exclusive
 	@Column(name="login_name",header="帐号")
 	private String loginName;
 	
-	@Exclusive
 	@Column(name = "name", header = "姓名")
 	private String name;
 
-	@Exclusive
 	@Column(name="email",header="电子邮件")
     private String email;
 	
-	@Exclusive
 	@Column(name = "mobile", header = "手机号")
 	private String mobile;
 
-	@Exclusive
 	@Column(name = "entry_date", header = "入职日期")
 	private Date entryDate;
 
-	@Exclusive
 	@Column(name = "quit_date", header = "离职日期")
 	private Date quitDate;
 	
 	@Column(name = "is_leader", header = "是否主管")
 	private Boolean isLeader;
 	
-	@Exclusive
 	@Subs(subType = SalesmanRole.class, foreignKey = "salesmanId", header = "用户角色")
 	private List<SalesmanRole> roles;
 	

@@ -173,8 +173,8 @@ public class NCustomerTask extends Entity {
 	@Subs(foreignKey = "taskId", header = "通知日志", subType = NCustomerTaskNotify.class)
 	private List<NCustomerTaskNotify> notifys;
 
-	@Subs(foreignKey = "taskId", header = "流转日志", subType = NCustomerChange.class)
-	private List<NCustomerChange> changes;
+	@Subs(foreignKey = "taskId", header = "流转日志", subType = NCustomerOperationLog.class)
+	private List<NCustomerOperationLog> changes;
 
 	@Subs(foreignKey = "taskId", header = "抽查日志", subType = NCustomerTaskInspection.class)
 	private List<NCustomerTaskInspection> inspections;
@@ -424,11 +424,11 @@ public class NCustomerTask extends Entity {
 		this.notifys = notifys;
 	}
 
-	public List<NCustomerChange> getChanges() {
+	public List<NCustomerOperationLog> getChanges() {
 		return changes;
 	}
 
-	public void setChanges(List<NCustomerChange> changes) {
+	public void setChanges(List<NCustomerOperationLog> changes) {
 		this.changes = changes;
 	}
 
