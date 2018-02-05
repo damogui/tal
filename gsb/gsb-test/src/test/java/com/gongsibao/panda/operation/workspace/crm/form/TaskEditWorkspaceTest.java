@@ -30,7 +30,6 @@ import com.gongsibao.entity.crm.dic.NotifyType;
 import com.gongsibao.entity.crm.dic.QualityCategory;
 import com.gongsibao.entity.crm.dic.TaskInspectionState;
 import com.gongsibao.entity.crm.dic.TaskInspectionType;
-import com.gongsibao.entity.product.Product;
 
 public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 
@@ -142,7 +141,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 		part = workspace.getParts().get(0);
 		{
 			part.setName("基本信息");
-			part.setStyle("height:350px;");
+			part.setStyle("height:300px;");
 		}
 	}
 
