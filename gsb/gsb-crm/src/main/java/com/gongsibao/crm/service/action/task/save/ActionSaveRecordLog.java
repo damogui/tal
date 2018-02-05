@@ -6,8 +6,8 @@ import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
 import org.netsharp.persistence.session.SessionManager;
 
-import com.gongsibao.crm.base.INCustomerChangeService;
-import com.gongsibao.entity.crm.NCustomerChange;
+import com.gongsibao.crm.base.INCustomerOperationLogService;
+import com.gongsibao.entity.crm.NCustomerOperationLog;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.dic.AllocationState;
 import com.gongsibao.entity.crm.dic.ChangeType;
@@ -20,7 +20,7 @@ import com.gongsibao.entity.crm.dic.OperationType;
  */
 public class ActionSaveRecordLog implements IAction{
 
-	INCustomerChangeService service = ServiceFactory.create(INCustomerChangeService.class);
+	INCustomerOperationLogService service = ServiceFactory.create(INCustomerOperationLogService.class);
 	
 	@Override
 	public void execute(ActionContext ctx) {
@@ -36,7 +36,7 @@ public class ActionSaveRecordLog implements IAction{
 			
 			content = String.format("[%s]编辑任务", creator); 
 		}
-		NCustomerChange changeLog = new NCustomerChange();
+		NCustomerOperationLog changeLog = new NCustomerOperationLog();
 		{
 			changeLog.toNew();
 			changeLog.setChangeType(ChangeType.INPUT);
@@ -60,7 +60,7 @@ public class ActionSaveRecordLog implements IAction{
 		
 			//task.getOwner()可能为空
 			content = String.format("[%s]分配任务给[%s]", creator,task.getOwner().getName()); 
-			changeLog = new NCustomerChange();
+			changeLog = new NCustomerOperationLog();
 			{
 				changeLog.toNew();
 				changeLog.setChangeType(ChangeType.INPUT);

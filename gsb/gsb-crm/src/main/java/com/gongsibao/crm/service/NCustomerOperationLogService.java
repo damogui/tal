@@ -3,22 +3,22 @@ package com.gongsibao.crm.service;
 import org.netsharp.communication.Service;
 
 import com.gongsibao.bd.service.SupplierPersistableService;
-import com.gongsibao.crm.base.INCustomerChangeService;
-import com.gongsibao.entity.crm.NCustomerChange;
+import com.gongsibao.crm.base.INCustomerOperationLogService;
+import com.gongsibao.entity.crm.NCustomerOperationLog;
 import com.gongsibao.entity.crm.dic.ChangeType;
 
 @Service
-public class NCustomerChangeService extends SupplierPersistableService<NCustomerChange> implements INCustomerChangeService {
+public class NCustomerOperationLogService extends SupplierPersistableService<NCustomerOperationLog> implements INCustomerOperationLogService {
 
-	public NCustomerChangeService() {
+	public NCustomerOperationLogService() {
 		super();
-		this.type = NCustomerChange.class;
+		this.type = NCustomerOperationLog.class;
 	}
 
 	@Override
 	public boolean recordLookLog(Integer customerId, String typeName) {
 
-		NCustomerChange entity = this.newInstance();
+		NCustomerOperationLog entity = this.newInstance();
 		{
 			entity.toNew();
 			entity.setCustomerId(customerId);

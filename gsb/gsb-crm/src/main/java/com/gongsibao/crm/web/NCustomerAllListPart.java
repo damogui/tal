@@ -2,7 +2,7 @@ package com.gongsibao.crm.web;
 
 import org.netsharp.communication.ServiceFactory;
 
-import com.gongsibao.crm.base.INCustomerChangeService;
+import com.gongsibao.crm.base.INCustomerOperationLogService;
 import com.gongsibao.crm.base.INCustomerService;
 
 public class NCustomerAllListPart extends NCustomerBaseListPart {
@@ -30,7 +30,7 @@ public class NCustomerAllListPart extends NCustomerBaseListPart {
 	 */
 	public boolean recordLookLog(Integer customerId, String typeName) {
 
-		INCustomerChangeService changeService = ServiceFactory.create(INCustomerChangeService.class);
+		INCustomerOperationLogService changeService = ServiceFactory.create(INCustomerOperationLogService.class);
 		return changeService.recordLookLog(customerId, typeName);
 	}
 }

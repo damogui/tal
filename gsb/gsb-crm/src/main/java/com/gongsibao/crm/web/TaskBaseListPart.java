@@ -7,7 +7,7 @@ import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
 import org.netsharp.util.StringManager;
 
-import com.gongsibao.crm.base.INCustomerChangeService;
+import com.gongsibao.crm.base.INCustomerOperationLogService;
 import com.gongsibao.crm.base.INCustomerService;
 import com.gongsibao.crm.base.INCustomerTaskService;
 
@@ -122,7 +122,7 @@ public class TaskBaseListPart extends AdvancedListPart {
 	 */
 	public boolean recordLookLog(Integer customerId, String typeName) {
 
-		INCustomerChangeService changeService = ServiceFactory.create(INCustomerChangeService.class);
+		INCustomerOperationLogService changeService = ServiceFactory.create(INCustomerOperationLogService.class);
 		return changeService.recordLookLog(customerId, typeName);
 	}
 }
