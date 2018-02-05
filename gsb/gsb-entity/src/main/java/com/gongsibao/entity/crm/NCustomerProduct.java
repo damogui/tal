@@ -29,14 +29,14 @@ public class NCustomerProduct extends Entity {
 	private NCustomer customer;
 
 	@Column(name = "customer_id", header = "客户")
-	private Integer customerId = 0;
+	private Integer customerId;
 
 	@JsonIgnore
 	@Reference(foreignKey = "taskId", header = "客户任务")
 	private NCustomerTask task;
 
 	@Column(name = "task_id", header = "客户任务Id")
-	private Integer taskId = 0;
+	private Integer taskId;
 
 	@Column(name = "product_category_id_1")
 	private Integer productCategoryId1;

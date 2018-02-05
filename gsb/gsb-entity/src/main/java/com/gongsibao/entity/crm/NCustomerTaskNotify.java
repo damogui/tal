@@ -24,14 +24,14 @@ public class NCustomerTaskNotify extends Entity{
 	private NCustomer customer;
 
 	@Column(name = "customer_id", header = "客户")
-	private Integer customerId = 0;
+	private Integer customerId;
 	
 	@JsonIgnore
 	@Reference(foreignKey = "taskId", header = "客户")
 	private NCustomerTask task;
 
 	@Column(name = "task_id", header = "客户")
-	private Integer taskId = 0;
+	private Integer taskId;
 	
 	@Column(name = "type", header = "通知类型")
 	private NotifyType type;
@@ -52,7 +52,7 @@ public class NCustomerTaskNotify extends Entity{
 	private SupplierDepartment department;
 	
 	@Column(name = "received_id", header = "接收人Id")
-	private Integer receivedId = 0;
+	private Integer receivedId;
 
 	@Reference(foreignKey = "receivedId", header = "接收人")
 	private Employee received;

@@ -36,7 +36,7 @@ public class NCustomerTask extends Entity {
 	private NCustomer customer;
 
 	@Column(name = "customer_id", header = "客户")
-	private Integer customerId = 0;
+	private Integer customerId;
 
 	@Column(name = "task_type", header = "任务类型")
 	private TaskCustomerType taskType = TaskCustomerType.NEW;
@@ -66,7 +66,7 @@ public class NCustomerTask extends Entity {
 	private Date lastAllocationTime;
 
 	@Column(name = "last_allocation_user_id", header = "最后分配人Id")
-	private Integer lastAllocationUserId = 0;
+	private Integer lastAllocationUserId;
 
 	@JsonIgnore
 	@Reference(foreignKey = "lastAllocationUserId", header = "最后分配人")
@@ -88,7 +88,7 @@ public class NCustomerTask extends Entity {
 	private Date lastFollowTime;
 
 	@Column(name = "last_foolow_user_id", header = "最后跟进人Id")
-	private Integer lastFoolowUserId = 0;
+	private Integer lastFoolowUserId;
 
 	@JsonIgnore
 	@Reference(foreignKey = "lastFoolowUserId", header = "最后跟进人")
@@ -107,7 +107,7 @@ public class NCustomerTask extends Entity {
 	private Integer processingState;
 
 	@Column(name = "last_inspection_user_id", header = "最后抽查人Id")
-	private Integer lastInspectionUserId = 0;
+	private Integer lastInspectionUserId;
 
 	@JsonIgnore
 	@Reference(foreignKey = "lastInspectionUserId", header = "最后抽查人")
@@ -150,13 +150,13 @@ public class NCustomerTask extends Entity {
 	private Dict source;
 
 	@Column(name = "source_id", header = "任务来源")
-	private Integer sourceId = 0;
+	private Integer sourceId;
 
 	@Column(name = "source_other", header = "客户来源选择其他时填写的详情")
 	private String sourceOther;
 
 	@Column(name = "consult_way_id", header = "咨询途径")
-	private Integer consultWayId = 0;
+	private Integer consultWayId;
 
 	@Reference(foreignKey = "consultWayId", header = "咨询途径,421 CRM咨询途径: 4211 400电话、 4212 在线客服、 4213企业QQ、 4214 PC官网、 4215 H5官网、 4216 手机APP")
 	private Dict consultWay;

@@ -24,14 +24,14 @@ public class NCustomerTaskInspection extends Entity{
 	private NCustomer customer;
 
 	@Column(name = "customer_id", header = "客户")
-	private Integer customerId = 0;
+	private Integer customerId;
 
 	@JsonIgnore
 	@Reference(foreignKey = "taskId", header = "任务Id")
 	private NCustomerTask task;
 
 	@Column(name = "task_id", header = "任务")
-	private Integer taskId = 0;
+	private Integer taskId;
 	
 	@Column(name = "inspection_type", header = "抽查类型")
 	private TaskInspectionType inspectionType;

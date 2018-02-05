@@ -22,7 +22,7 @@ public class NCustomerCompany extends Entity{
 	private NCustomer customer;
 
 	@Column(name = "customer_id", header = "客户")
-	private Integer customerId = 0;
+	private Integer customerId;
 	
     @Column(name="company_id",header="")
     private Integer companyId;

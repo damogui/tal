@@ -29,7 +29,7 @@ public class NCustomer extends Entity {
 	private static final long serialVersionUID = -1451778506769623188L;
 
 	@Column(name = "account_id", header = "帐号Id")
-	private Integer accountId = 0;
+	private Integer accountId;
 	
 	@Reference(foreignKey = "accountId")
 	private Account account;
@@ -92,7 +92,7 @@ public class NCustomer extends Entity {
 	private String customerSourceOther;
 
 	@Column(name = "introducer_user_id", header = "介绍人id(内部人员)")
-	private Integer introducerUserId = 0;
+	private Integer introducerUserId;
 
 	@Column(name = "consult_way", header = "421 CRM咨询途径: 4211 400电话、 4212 在线客服、 4213企业QQ、 4214 PC官网、 4215 H5官网、 4216 手机APP")
 	private ConsultWay consultWay;
@@ -107,7 +107,7 @@ public class NCustomer extends Entity {
 	private Integer invalid = 0;
 
 	@Column(name = "introducer_id", header = "介绍人id")
-	private Integer introducerId = 0;
+	private Integer introducerId;
 
 	@Column(name = "remark", header = "备注信息")
 	private String remark;
@@ -147,7 +147,7 @@ public class NCustomer extends Entity {
 	private Date lastFollowTime;
 	
 	@Column(name = "last_foolow_user_id", header = "最后跟进人Id")
-	private Integer lastFoolowUserId = 0;
+	private Integer lastFoolowUserId;
 	
 	@Reference(foreignKey = "lastFoolowUserId", header = "最后跟进人")
 	private Employee lastFoolowUser;
@@ -162,7 +162,7 @@ public class NCustomer extends Entity {
 	private Dict customerSource;
 
 	@Column(name = "customer_source_id", header = "客户来源")
-	private Integer customerSourceId = 0;
+	private Integer customerSourceId;
 	
 	@Column(name = "task_count", header = "任务数量：创建任务，删除任务时更新此值")
 	private Integer taskCount = 0;
