@@ -4,7 +4,6 @@
 <script>
 	$(function(){
 
-		var taskCtrl = new com.gongsibao.crm.web.DepartmentTaskCtrl();
-		taskCtrl.init();
+		new com.gongsibao.crm.web.DepartmentTaskCtrl().init();
 	});
 </script>
