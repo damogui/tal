@@ -77,8 +77,11 @@ public class ActionSaveTaskPersist implements IAction {
 							countyList.add(nCustomerProduct.getCounty().getName());
 						}
 						
-						String countyName = "("+StringManager.join( ",", countyList)+")";
-						ss.add(countyName);
+						if(countyList.size()>0){
+
+							String countyName = "("+StringManager.join( ",", countyList)+")";
+							ss.add(countyName);
+						}
 						String name = StringManager.join( " - ", ss);
 						task.setName(name);
 					}
