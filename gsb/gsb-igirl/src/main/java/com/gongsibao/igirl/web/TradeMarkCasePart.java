@@ -14,6 +14,11 @@ import com.gongsibao.entity.igirl.dict.ConfigType;
 import com.gongsibao.igirl.base.IGirlConfigService;
 import com.gongsibao.igirl.base.ITradeMarkCaseService;
 import com.gongsibao.igirl.base.ITradeMarkService;
+import com.gongsibao.igirl.dto.Company;
+import com.gongsibao.taurus.api.ApiFactory;
+import com.gongsibao.taurus.api.EntRegistryApi;
+import com.gongsibao.taurus.entity.EntRegistry;
+import com.gongsibao.taurus.message.ResponseMessage;
 public class TradeMarkCasePart extends FormPart {
      ITradeMarkCaseService tradeMarkCaseService = ServiceFactory.create(ITradeMarkCaseService.class);
 	ITradeMarkService tradeMarkService = ServiceFactory.create(ITradeMarkService.class);
@@ -26,6 +31,31 @@ public class TradeMarkCasePart extends FormPart {
 		TradeMarkCase entity1=(TradeMarkCase)entity;
 		return super.save(entity1);
 	}
+	
+	public Company fetchCompanyByName(String name) {
+		EntRegistryApi api = ApiFactory.create(EntRegistryApi.class);
+		api.setCompanyName(name);
+		ResponseMessage<EntRegistry> response = api.getResponse();
+		if(response == null){	
+			return null;
+		}else {
+			List<EntRegistry> ens=  response.getList();
+			if(ens.size()>0) {
+				EntRegistry er=ens.get(0);
+				Company cp=new Company();
+				cp.setAppCnName(er.getName());
+				cp.setAppCnAddr(er.getBusinessAddress());
+				cp.setCertCode(er.getOrganizationCode());
+				cp.setApplyer(er.getLegalRepresentative());
+				cp.setPostcode("");
+				cp.setFax("");
+				return cp;
+			}else {
+				return null;
+			}
+		}
+	}
+	
 	public String fetchQrCodeUrl(String mobile) {
 		IGirlConfigService girlConf=ServiceFactory.create(IGirlConfigService.class);
 		Oql oql=new Oql();{

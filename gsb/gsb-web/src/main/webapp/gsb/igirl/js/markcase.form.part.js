@@ -6,7 +6,11 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
     },
   companyNameChange:function(newValue, oldValue){
         //alert(newValue);
-
+		  this.invokeService("fetchCompanyByName", [newValue], function(data) {
+			       if(data){
+			    	   alert(JSON.stringify(data))
+			              }
+         	});
     
     },
     applierTypeChange:function (newValue, oldValue) {

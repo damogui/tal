@@ -1,12 +1,19 @@
-app.controller('TmCaseCtrl',function ($scope,ajax,UrlParameter) {
-	$scope.model = null;
-	$scope.service = 'com.gongsibao.igirl.web.TradeMarkCaseController';
-	//联系人电话
-	var mobile = UrlParameter.get("mobile");
-	console.log(mobile);
-	ajax.invoke($scope.service,'getTradeMarkCaseModelByMobile',[mobile],function(result){
-		
-		$scope.model = result;
-	});
-	
+
+var c1={template:'<div>hello</div>'}
+var c2={template:'<div>world</div>'}
+var routes=[
+	{path:'/home',component:c1},
+	{path:'/test',component:c2},
+]
+var router=new VueRouter({
+	routes:routes,
+//	mode:'history'
+});
+var app = new Vue({
+	  el: '#TmCase',
+	  router:router,
+	  data: {
+	    mobile: "13381139519",
+	    currentView:"gsb-text"
+	     }
 });
