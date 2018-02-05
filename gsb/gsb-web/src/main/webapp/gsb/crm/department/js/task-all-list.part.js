@@ -6,7 +6,7 @@ com.gongsibao.crm.web.DepartmentAllTaskListPart = com.gongsibao.crm.web.BaseTask
 		this.addUrl = "/panda/crm/department/task/add";
 		this.editUrl = "/nav/gsb/crm/department/task";
 		this.followUrl = '/panda/crm/department/task/follow';
-		this.addCustomerUrl = null;
+		this.addCustomerUrl = '/panda/crm/department/customer/add';
 	},
 	dispose : function(id){
 		var me = this;
