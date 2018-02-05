@@ -7,6 +7,7 @@ import org.netsharp.core.Oql;
 import org.netsharp.entity.IPersistable;
 import org.netsharp.panda.commerce.FormPart;
 import org.netsharp.panda.core.HttpContext;
+import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.baseinfo.IGirlConfig;
@@ -14,11 +15,12 @@ import com.gongsibao.entity.igirl.dict.ConfigType;
 import com.gongsibao.igirl.base.IGirlConfigService;
 import com.gongsibao.igirl.base.ITradeMarkCaseService;
 import com.gongsibao.igirl.base.ITradeMarkService;
-import com.gongsibao.igirl.dto.Company;
+import com.gongsibao.igirl.dto.CompanyDto;
 import com.gongsibao.taurus.api.ApiFactory;
 import com.gongsibao.taurus.api.EntRegistryApi;
 import com.gongsibao.taurus.entity.EntRegistry;
 import com.gongsibao.taurus.message.ResponseMessage;
+import com.gongsibao.taurus.service.TaurusApiService;
 public class TradeMarkCasePart extends FormPart {
      ITradeMarkCaseService tradeMarkCaseService = ServiceFactory.create(ITradeMarkCaseService.class);
 	ITradeMarkService tradeMarkService = ServiceFactory.create(ITradeMarkService.class);
@@ -32,17 +34,16 @@ public class TradeMarkCasePart extends FormPart {
 		return super.save(entity1);
 	}
 	
-	public Company fetchCompanyByName(String name) {
-		EntRegistryApi api = ApiFactory.create(EntRegistryApi.class);
-		api.setCompanyName(name);
-		ResponseMessage<EntRegistry> response = api.getResponse();
-		if(response == null){	
+	public CompanyDto fetchCompanyByName(String name) {
+		ResponseMessage<com.gongsibao.taurus.entity.Company> cms=TaurusApiService.getEntList(name, 0, 10);
+		if(cms.getResult()==0) {
 			return null;
 		}else {
-			List<EntRegistry> ens=  response.getList();
-			if(ens.size()>0) {
-				EntRegistry er=ens.get(0);
-				Company cp=new Company();
+			com.gongsibao.taurus.entity.Company cm=cms.getList().get(0);
+			String cmname=cm.getEntName();
+			if(!StringManager.isNullOrEmpty(cmname)) {
+				EntRegistry er=TaurusApiService.getEntRegistry(cmname);
+				CompanyDto cp=new CompanyDto();
 				cp.setAppCnName(er.getName());
 				cp.setAppCnAddr(er.getBusinessAddress());
 				cp.setCertCode(er.getOrganizationCode());
