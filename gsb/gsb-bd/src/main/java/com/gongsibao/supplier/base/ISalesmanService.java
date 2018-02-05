@@ -98,4 +98,24 @@ public interface ISalesmanService extends IPersistableService<Salesman> {
 	 * @throws   
 	 */
 	Boolean hasEmployeeId(Integer employeeId);
+	
+	/**   
+	 * @Title: getDirectLeader   
+	 * @Description: TODO(获取直属领导)   
+	 * @param: @param salesmanId
+	 * @param: @return      
+	 * @return: Salesman      
+	 * @throws   
+	 */
+	Salesman getDirectLeader(Integer salesmanId);
+	
+	/**   
+	 * @Title: getDirectLeader   
+	 * @Description: TODO(获取隔级领导)   
+	 * @param: @param salesmanId
+	 * @param: @return      
+	 * @return: Salesman      
+	 * @throws   
+	 */
+	Salesman getSuperiorLeader(Integer salesmanId);
 }
