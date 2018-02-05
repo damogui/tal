@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<meta name="description" content="">
+	<title>我的任务</title>
+	<link rel="stylesheet" href="//cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
+	<link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/1.1.1/css/jquery-weui.min.css">
+</head>
+<body>
+<div class="weui-tab">
+  <div class="weui-navbar">
+    <div class="weui-navbar__item weui-navbar__item--on" href="#tab1">
+      选项一
+    </div>
+    <div class="weui-navbar__item" href="#tab2">
+      选项二
+    </div>
+    <div class="weui-navbar__item" href="#tab3">
+      选项三
+    </div>
+  </div>
+  <div class="weui-tab__bd">
+    <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active weui-pull-to-refresh">
+      <div class="weui-pull-to-refresh__layer">
+        <div class='weui-pull-to-refresh__arrow'></div>
+        <div class='weui-pull-to-refresh__preloader'></div>
+        <div class="down">下拉刷新</div>
+        <div class="up">释放刷新</div>
+        <div class="refresh">正在刷新</div>
+      </div>
+      <h1 class="doc-head">页面一</h1>
+      <div class="content-padded">
+        ...
+      </div>
+    </div>
+    <div id="tab2" class="weui-tab__bd-item weui-pull-to-refresh">
+      <div class="weui-pull-to-refresh__layer">
+        <div class='weui-pull-to-refresh__arrow'></div>
+        <div class='weui-pull-to-refresh__preloader'></div>
+        <div class="down">下拉刷新</div>
+        <div class="up">释放刷新</div>
+        <div class="refresh">正在刷新</div>
+      </div>
+      <h1 class="doc-head">页面二</h1>
+      <div class="content-padded">
+        ...
+      </div>
+    </div>
+    <div id="tab3" class="weui-tab__bd-item weui-pull-to-refresh">
+      <div class="weui-pull-to-refresh__layer">
+        <div class='weui-pull-to-refresh__arrow'></div>
+        <div class='weui-pull-to-refresh__preloader'></div>
+        <div class="down">下拉刷新</div>
+        <div class="up">释放刷新</div>
+        <div class="refresh">正在刷新</div>
+      </div>
+      <div class="content-padded">
+        <h1 class="doc-head">页面三</h1>
+        ...
+      </div>
+    </div>
+  </div>
+
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/1.1.1/js/jquery-weui.min.js"></script>
+</body>
+</html>

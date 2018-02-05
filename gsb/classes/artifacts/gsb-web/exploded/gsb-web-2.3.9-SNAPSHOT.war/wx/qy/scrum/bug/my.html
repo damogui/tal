@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<meta name="description" content="">
+	<title>我的BUG</title>
+	<link rel="stylesheet" href="//cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
+	<link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/1.1.1/css/jquery-weui.min.css">
+	<link rel="stylesheet" href="/wx/css/style.css">
+</head>
+<body ontouchstart>
+
+
+    
+<div class="weui-tab">
+  <div class="weui-navbar">
+    <a class="weui-navbar__item weui-bar__item--on" href="#tab1"><span class="weui-badge" style="position: absolute;right: 1em;">8</span>未启动</a>
+    <a class="weui-navbar__item" href="#tab2">已完成</a>
+    <a class="weui-navbar__item" href="#tab3">全部</a>
+  </div>
+  <div class="weui-tab__bd">
+    <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active weui-pull-to-refresh infinite">
+		  <div class="weui-pull-to-refresh__layer">
+		    <div class='weui-pull-to-refresh__arrow'></div>
+		    <div class='weui-pull-to-refresh__preloader'></div>
+		    <div class="down">下拉刷新</div>
+		    <div class="up">释放刷新</div>
+		    <div class="refresh">正在刷新</div>
+		  </div>
+
+          <div class="weui-cells">
+            <div class="weui-panel">
+		        <div class="weui-panel__bd">
+		          <div class="weui-media-box weui-media-box_text">
+		            <h4 class="weui-media-box__title">舆情增加相同的关键字提示信息</h4>
+		            <p class="weui-media-box__desc">舆情增加相同的关键字未判断，相同提示关键字已存在，不让增加</p>
+		            <ul class="weui-media-box__info">
+		              <li class="weui-media-box__info__meta">金牛座</li>
+		              <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">张翠</li>
+		              <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">2017-11-20 12:46:50</li>
+		            </ul>
+		          </div>
+		        </div>
+		        <div class="weui-panel__ft">
+		          <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
+		            <div class="weui-cell__bd">查看详情</div>
+		            <span class="weui-cell__ft"></span>
+		          </a>    
+		        </div>
+	        </div>
+            <div class="weui-panel">
+		        <div class="weui-panel__bd">
+		          <div class="weui-media-box weui-media-box_text">
+		            <h4 class="weui-media-box__title">标题一</h4>
+		            <p class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+		            <ul class="weui-media-box__info">
+		              <li class="weui-media-box__info__meta">金牛座</li>
+		              <li class="weui-media-box__info__meta">时间</li>
+		              <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">其它信息</li>
+		            </ul>
+		          </div>
+		        </div>
+		        <div class="weui-panel__ft">
+		          <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
+		            <div class="weui-cell__bd">查看详情</div>
+		            <span class="weui-cell__ft"></span>
+		          </a>    
+		        </div>
+	        </div>
+	        
+            <div class="weui-panel">
+		        <div class="weui-panel__bd">
+		          <div class="weui-media-box weui-media-box_text">
+		            <h4 class="weui-media-box__title">标题一</h4>
+		            <p class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+		            <ul class="weui-media-box__info">
+		              <li class="weui-media-box__info__meta">文字来源</li>
+		              <li class="weui-media-box__info__meta">时间</li>
+		              <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">其它信息</li>
+		            </ul>
+		          </div>
+		        </div>
+		        <div class="weui-panel__ft">
+		          <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
+		            <div class="weui-cell__bd">查看详情</div>
+		            <span class="weui-cell__ft"></span>
+		          </a>    
+		        </div>
+	        </div>
+	        
+            <div class="weui-panel">
+		        <div class="weui-panel__bd">
+		          <div class="weui-media-box weui-media-box_text">
+		            <h4 class="weui-media-box__title">标题一</h4>
+		            <p class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+		            <ul class="weui-media-box__info">
+		              <li class="weui-media-box__info__meta">文字来源</li>
+		              <li class="weui-media-box__info__meta">时间</li>
+		              <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">其它信息</li>
+		            </ul>
+		          </div>
+		        </div>
+		        <div class="weui-panel__ft">
+		          <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
+		            <div class="weui-cell__bd">查看详情</div>
+		            <span class="weui-cell__ft"></span>
+		          </a>    
+		        </div>
+	        </div>
+	        
+            <div class="weui-panel">
+		        <div class="weui-panel__bd">
+		          <div class="weui-media-box weui-media-box_text">
+		            <h4 class="weui-media-box__title">标题一</h4>
+		            <p class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+		            <ul class="weui-media-box__info">
+		              <li class="weui-media-box__info__meta">文字来源</li>
+		              <li class="weui-media-box__info__meta">时间</li>
+		              <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">其它信息</li>
+		            </ul>
+		          </div>
+		        </div>
+		        <div class="weui-panel__ft">
+		          <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
+		            <div class="weui-cell__bd">查看详情</div>
+		            <span class="weui-cell__ft"></span>
+		          </a>    
+		        </div>
+	        </div>	        	        	        
+	     </div>
+	     
+          <div class="weui-loadmore">
+            <i class="weui-loading"></i>
+            <span class="weui-loadmore__tips">正在加载</span>
+          </div>
+    </div>
+    <div id="tab2" class="weui-tab__bd-item weui-pull-to-refresh infinite">
+    	  <div class="weui-pull-to-refresh__layer">
+		    <div class='weui-pull-to-refresh__arrow'></div>
+		    <div class='weui-pull-to-refresh__preloader'></div>
+		    <div class="down">下拉刷新</div>
+		    <div class="up">释放刷新</div>
+		    <div class="refresh">正在刷新</div>
+		  </div>
+          <div class="weui-cells">
+	       <a class="weui-cell weui-cell_access" href="detail.html">
+	         <div class="weui-cell__bd">
+	           <p>舆情增加相同的关键字提示信息</p>
+	         </div>
+	         <div class="weui-cell__ft">金牛座</div>
+	       </a>
+	       <a class="weui-cell weui-cell_access" href="detail.html">
+	         <div class="weui-cell__bd">
+	           <p>第一次登陆后，进入舆情关键字，点击编辑关键字就跳出到登录界面</p>
+	         </div>
+	         <div class="weui-cell__ft">金牛座</div>
+	       </a>
+	       <a class="weui-cell weui-cell_access" href="detail.html">
+	         <div class="weui-cell__bd">
+	           <p>舆情：查询关键字搜索时，提示“服务器繁忙，请稍后再试”</p>
+	         </div>
+	         <div class="weui-cell__ft">金牛座</div>
+	       </a>
+	       <a class="weui-cell weui-cell_access" href="detail.html">
+	         <div class="weui-cell__bd">
+	           <p>舆情查询企业名称查询的应该为本地购买过的企业</p>
+	         </div>
+	         <div class="weui-cell__ft">金牛座</div>
+	       </a>
+	       <a class="weui-cell weui-cell_access" href="detail.html">
+	         <div class="weui-cell__bd">
+	           <p>舆情数据重复</p>
+	         </div>
+	         <div class="weui-cell__ft">金牛座</div>
+	       </a>
+	       <a class="weui-cell weui-cell_access" href="detail.html">
+	         <div class="weui-cell__bd">
+	           <p>舆情查询：再输入框输入信息时每输入一个字节屏幕都会跳一下</p>
+	         </div>
+	         <div class="weui-cell__ft">金牛座</div>
+	       </a>
+	     </div>
+	     
+          <div class="weui-loadmore">
+            <i class="weui-loading"></i>
+            <span class="weui-loadmore__tips">正在加载</span>
+          </div>
+    </div>
+    <div id="tab3" class="weui-tab__bd-item weui-pull-to-refresh infinite">
+		  <div class="weui-pull-to-refresh__layer">
+		    <div class='weui-pull-to-refresh__arrow'></div>
+		    <div class='weui-pull-to-refresh__preloader'></div>
+		    <div class="down">下拉刷新</div>
+		    <div class="up">释放刷新</div>
+		    <div class="refresh">正在刷新</div>
+		  </div>
+          <div class="weui-cells">
+	       <a class="weui-cell weui-cell_access" href="detail.html">
+	         <div class="weui-cell__bd">
+	           <p>已完成</p>
+	         </div>
+	         <div class="weui-cell__ft">说明文字</div>
+	       </a>
+	       <a class="weui-cell weui-cell_access" href="detail.html">
+	         <div class="weui-cell__bd">
+	           <p>已完成</p>
+	         </div>
+	         <div class="weui-cell__ft">说明文字</div>
+	       </a>
+	       <a class="weui-cell weui-cell_access" href="detail.html">
+	         <div class="weui-cell__bd">
+	           <p>已完成</p>
+	         </div>
+	         <div class="weui-cell__ft">说明文字</div>
+	       </a>
+	       <a class="weui-cell weui-cell_access" href="detail.html">
+	         <div class="weui-cell__bd">
+	           <p>已完成</p>
+	         </div>
+	         <div class="weui-cell__ft">说明文字</div>
+	       </a>
+	       <a class="weui-cell weui-cell_access" href="detail.html">
+	         <div class="weui-cell__bd">
+	           <p>已完成</p>
+	         </div>
+	         <div class="weui-cell__ft">说明文字</div>
+	       </a>
+	       <a class="weui-cell weui-cell_access" href="detail.html">
+	         <div class="weui-cell__bd">
+	           <p>已完成</p>
+	         </div>
+	         <div class="weui-cell__ft">说明文字</div>
+	       </a>
+	     </div>
+	     
+          <div class="weui-loadmore">
+            <i class="weui-loading"></i>
+            <span class="weui-loadmore__tips">正在加载</span>
+          </div>
+    </div>
+  </div>
+
+</div>
+<script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="/wx/js/fastclick.js"></script>
+<script>
+  $(function() {
+    FastClick.attach(document.body);
+  });
+</script>
+<script src="//cdn.bootcss.com/jquery-weui/1.1.1/js/jquery-weui.min.js"></script>
+
+
+<script>
+  $('.weui-tab__bd-item').pullToRefresh();
+  $('.weui-tab__bd-item').on('pull-to-refresh', function (done) {
+    var self = this
+    setTimeout(function() {
+      $('.weui-tab__bd-item').pullToRefreshDone();
+    }, 2000);
+  });
+  
+  $(".infinite").infinite().on("infinite", function() {
+      var self = this;
+      if(self.loading) return;
+      console.log(self)
+      self.loading = true;
+      console.log(self);
+      setTimeout(function() {
+        $(self).find(".weui-cells").append('<a class="weui-cell weui-cell_access" href="detail.html"><div class="weui-cell__bd"><p>已完成</p></div><div class="weui-cell__ft">说明文字</div></a>');
+        self.loading = false;
+      }, 2000);   //模拟延迟
+    });
+</script>
+</body>
+</html>
