@@ -80,7 +80,7 @@ public class QualityWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "requiredInfo", "必填信息", ControlTypes.TEXT_BOX, 400);
 		addColumn(datagrid, "nextFoolowType", "下次跟进方式", ControlTypes.TEXT_BOX, 300);
 		addColumn(datagrid, "score", "分值", ControlTypes.TEXT_BOX, 80);
-
+		addColumn(datagrid, "seq", "显示顺序", ControlTypes.TEXT_BOX, 80);
 		return datagrid;
 	}
 
@@ -116,6 +116,7 @@ public class QualityWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "requiredInfo", "必填信息", ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "nextFoolowType", "下次跟进方式", ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "score", "分值", ControlTypes.NUMBER_BOX, true, false);
+		addFormField(form, "seq", "显示顺序", ControlTypes.NUMBER_BOX, true, false);
 		addFormField(form, "memoto", "备注", ControlTypes.TEXT_BOX, false, false);
 
 		return form;
