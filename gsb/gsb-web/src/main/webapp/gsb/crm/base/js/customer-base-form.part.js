@@ -192,16 +192,15 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
     onSaving: function (entity) {
 
     	//提高效率，将明细全部置空
-    	if(this.isPlatform == 1){
-
-        	entity.tasks = [];
-    	}else if(entity.tasks == null || entity.tasks.length == 0){
-    		
-    		IMessageBox.error("任务信息不能为空！");
-    		return false;
-    	}
+//    	if(this.isPlatform == 1){
+//
+//        	entity.tasks = [];
+//    	}else if(entity.tasks == null || entity.tasks.length == 0){
+//    		
+//    		IMessageBox.error("任务信息不能为空！");
+//    		return false;
+//    	}
     	entity.products = [];
-    	entity.companys = [];
     	entity.follows = [];
     	entity.notifys = [];
     	entity.changes = [];
@@ -298,22 +297,23 @@ com.gongsibao.crm.web.NCustomerTaskDetailPart = org.netsharp.panda.commerce.Deta
     },
     add: function() {
     	
-    	var url='';
-    	if(this.isPlatform==1){
-    		
-        	if(this.parent.viewModel.currentItem.entityState == EntityState.New){
-        		
-        		IMessageBox.info('请先保存客户信息！');
-        		return;
-        	}
-        	
-        	var customerId = this.parent.viewModel.currentItem.id;
-        	url=this.addUrl+'?fk=customerId:'+customerId;
-    	}else{
-    		
-        	url=this.addUrl+'?isPlatform=0&ctrl='+this.context.instanceName;
-    	}
+//    	var url='';
+//    	if(this.isPlatform==1){
+//    		
+//        	if(this.parent.viewModel.currentItem.entityState == EntityState.New){
+//        		
+//        		IMessageBox.info('请先保存客户信息！');
+//        		return;
+//        	}
+//        	
+//        	var customerId = this.parent.viewModel.currentItem.id;
+//        	url=this.addUrl+'?fk=customerId:'+customerId;
+//    	}else{
+//    		
+//        	url=this.addUrl+'?isPlatform=0&ctrl='+this.context.instanceName;
+//    	}
 
+    	var url=this.addUrl+'?isPlatform=0&ctrl='+this.context.instanceName;
     	
 //    	var swtCustomerId = this.queryString("swtCustomerId");
 //    	if(!System.isnull(swtCustomerId)){

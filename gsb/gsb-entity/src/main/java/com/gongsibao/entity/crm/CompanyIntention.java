@@ -113,7 +113,7 @@ public class CompanyIntention extends BaseEntity {
     private String policeStation;
     
     @Column(name="is_delete",header="是否删除")
-    private Integer isDelete;
+    private Boolean isDelete;
     
     @Column(name="area",header="地区")
     private String area;
@@ -443,11 +443,11 @@ public class CompanyIntention extends BaseEntity {
 		this.policeStation = policeStation;
 	}
 
-	public Integer getIsDelete() {
+	public Boolean getIsDelete() {
 		return isDelete;
 	}
 
-	public void setIsDelete(Integer isDelete) {
+	public void setIsDelete(Boolean isDelete) {
 		this.isDelete = isDelete;
 	}
 

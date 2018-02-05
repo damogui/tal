@@ -1,5 +1,6 @@
 package com.gongsibao.entity.crm;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
@@ -16,6 +17,7 @@ public class NCustomerCompany extends Entity{
 	 */   
 	private static final long serialVersionUID = 4684375504055933956L;
 
+	@JsonIgnore
 	@Reference(foreignKey = "customerId", header = "客户")
 	private NCustomer customer;
 
