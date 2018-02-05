@@ -33,9 +33,10 @@ public class TradeMarkCasePart extends FormPart {
 		TradeMarkCase entity1=(TradeMarkCase)entity;
 		return super.save(entity1);
 	}
-	
 	public CompanyDto fetchCompanyByName(String name) {
+		System.out.println(name);
 		ResponseMessage<com.gongsibao.taurus.entity.Company> cms=TaurusApiService.getEntList(name, 0, 10);
+		System.out.println(cms);
 		if(cms!=null) {
 			if(cms.getResult()==0) {
 				return null;
