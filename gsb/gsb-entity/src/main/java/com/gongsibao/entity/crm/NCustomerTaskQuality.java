@@ -9,56 +9,58 @@ import com.gongsibao.entity.crm.dic.QualityCategory;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
-@Table(name="n_crm_task_quality",header="客户质量")
-public class NCustomerTaskQuality extends BizEntity{
+@Table(name = "n_crm_task_quality", orderBy = "seq", header = "客户质量")
+public class NCustomerTaskQuality extends BizEntity {
 
-	/**   
-	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
-	 */   
+	/**
+	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
+	 */
 	private static final long serialVersionUID = -2257727131244260461L;
 
-	
 	@Column(name = "intention_category", header = "质量分类")
 	private QualityCategory intentionCategory;
-	
+
 	@Column(name = "next_foolow_date_required", header = "下次跟进时间必填")
 	private Boolean nextFoolowDateRequired = false;
-	
+
 	@Column(name = "returned_amount_required", header = "估计回款额必填")
 	private Boolean returnedAmountRequired = false;
-	
+
 	@Column(name = "signing_amount_required", header = "估计签单额必填")
 	private Boolean signingAmountRequired = false;
-	
+
 	@Column(name = "content_required", header = "内容必填")
 	private Boolean contentRequired = false;
-	
+
 	@Column(name = "product_required", header = "意向产品必填写")
 	private Boolean productRequired = false;
-	
+
 	@Column(name = "district_required", header = "意向地区必填写")
 	private Boolean districtRequired = false;
-	
-    @Column(name = "required_info",header="必填信息", size = 200)
-    private String requiredInfo;
-    
-    @Column(name = "next_foolow_type",header="下次跟进方式", size = 200)
-    private String nextFoolowType;
-    
+
+	@Column(name = "required_info", header = "必填信息", size = 200)
+	private String requiredInfo;
+
+	@Column(name = "next_foolow_type", header = "下次跟进方式", size = 200)
+	private String nextFoolowType;
+
 	@Column(name = "supplier_id", header = "分配服务商Id")
 	private Integer supplierId;
 
 	@Reference(foreignKey = "supplierId", header = "分配服务商")
 	private Supplier supplier;
-	
+
 	@Column(name = "department_id", header = "分配服务商部门Id")
 	private Integer departmentId;
 
 	@Reference(foreignKey = "departmentId", header = "分配服务商部门")
 	private SupplierDepartment department;
-	
+
 	@Column(name = "score", header = "分值")
 	private Integer score = 0;
+
+	@Column(name = "seq", header = "排序")
+	private Integer seq = 0;
 
 	public Integer getSupplierId() {
 		return supplierId;
@@ -171,6 +173,12 @@ public class NCustomerTaskQuality extends BizEntity{
 	public void setDistrictRequired(Boolean districtRequired) {
 		this.districtRequired = districtRequired;
 	}
-	
-	
+
+	public Integer getSeq() {
+		return seq;
+	}
+
+	public void setSeq(Integer seq) {
+		this.seq = seq;
+	}
 }
