@@ -9,6 +9,10 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
 		  this.invokeService("fetchCompanyByName", [newValue], function(data) {
 			       if(data){
 			    	   alert(JSON.stringify(data))
+			    	   $("#companyName").val(data.appCnName);
+			    	   $("#creditCode").val(data.certCode);
+			    	   $("#applier").val(data.appCnName);
+			    	   $("#applierAddress").val(data.appCnAddr);
 			              }
          	});
     
