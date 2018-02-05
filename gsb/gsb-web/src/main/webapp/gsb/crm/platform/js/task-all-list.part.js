@@ -4,6 +4,6 @@ com.gongsibao.crm.web.TaskAllListPart = com.gongsibao.crm.web.BaseTaskListPart.E
 		this.addUrl = "/panda/crm/platform/customer/add";
 		this.editUrl = "/nav/gsb/crm/platform/task";
 		this.followUrl = '/panda/crm/platform/task/follow/from';
-		this.addCustomerUrl = null;
+		this.addCustomerUrl = '/panda/crm/platform/customer/add';
 	}
 });
