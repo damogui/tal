@@ -37,7 +37,6 @@ com.gongsibao.crm.web.TaskFollowDetailPart = org.netsharp.panda.commerce.DetailP
 		taskFollowCtrl.type='form';
 		taskFollowCtrl.open(taskId,customerId,function(index, layero){
 			
-			debugger;
 			me.parent.byId(taskId);
 		});
     },

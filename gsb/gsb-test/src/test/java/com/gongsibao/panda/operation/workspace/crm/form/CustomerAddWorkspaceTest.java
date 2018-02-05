@@ -172,6 +172,8 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 			datagrid.setReadOnly(true);
 			datagrid.setShowTitle(true);
 			datagrid.setName("任务信息");
+			
+			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
 			PDatagridColumn column = addColumn(datagrid, "taskType", "类型", ControlTypes.ENUM_BOX, 100, false);{
 				
 				String formatter = EnumUtil.getColumnFormatter(TaskCustomerType.class);

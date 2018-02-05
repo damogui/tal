@@ -200,6 +200,7 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
 //    		IMessageBox.error("任务信息不能为空！");
 //    		return false;
 //    	}
+    	entity.tasks = [];
     	entity.products = [];
     	entity.follows = [];
     	entity.notifys = [];
@@ -313,7 +314,12 @@ com.gongsibao.crm.web.NCustomerTaskDetailPart = org.netsharp.panda.commerce.Deta
 //        	url=this.addUrl+'?isPlatform=0&ctrl='+this.context.instanceName;
 //    	}
 
-    	var url=this.addUrl+'?isPlatform=0&ctrl='+this.context.instanceName;
+    	var url = this.addUrl+'?isPlatform=0&ctrl='+this.context.instanceName;
+    	if(this.parent.viewModel.currentItem.entityState != EntityState.New){
+			
+    		var customerId = this.parent.viewModel.currentItem.id;
+    		url = this.addUrl+'?isPlatform=1&fk=customerId:'+customerId;
+		}
     	
 //    	var swtCustomerId = this.queryString("swtCustomerId");
 //    	if(!System.isnull(swtCustomerId)){
