@@ -22,13 +22,13 @@ import java.util.List;
  */
 /*公司出售需求控制器只提供查询接口*/
 @Path("/ma/selling")
+@AuthAnnotation
 public class SellingController {
     SellingDemandDTOService sellingDemandDTOService = new SellingDemandDTOService();
     /*列表接口*/
     @GET
     @Path("/getsellinglist")
     @Produces(MediaType.APPLICATION_JSON)
-    @AuthAnnotation
     public List<SellingDemandDTO> getSellingList(@Context HttpServletRequest request) throws IOException {
         String para = request.getParameter("para");
         QuerySellingDemandDTO paraM=new QuerySellingDemandDTO();

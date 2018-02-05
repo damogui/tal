@@ -44,5 +44,6 @@ public class RestServiceConfig extends ResourceConfig {
 		//register(GzipInterceptor.class);
 		//注册异常处理器
 		register(ExceptionMapperSupport.class);
+        register(DeviceExceptionMapper.class);//自定义
 	}
 }
