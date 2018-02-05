@@ -133,7 +133,10 @@ public class NCustomerTask extends Entity {
 
 	@Column(name = "costed", header = "是否市场费用投放")
 	private Boolean costed = false;
-
+	
+	@Column(name = "distribut", header = "是否被分配过(只修改一次，过滤未分配)")
+	private Boolean distribut = false;
+	
 	@Column(name = "allocation_type", header = "分配方式")
 	private NAllocationType allocationType = NAllocationType.AUTO;
 
@@ -225,6 +228,14 @@ public class NCustomerTask extends Entity {
 
 	public void setCostSupplier(Supplier costSupplier) {
 		this.costSupplier = costSupplier;
+	}
+	
+	public Boolean getDistribut() {
+		return distribut;
+	}
+
+	public void setDistribut(Boolean distribut) {
+		this.distribut = distribut;
 	}
 
 	public NAllocationType getAllocationType() {
