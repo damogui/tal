@@ -58,7 +58,7 @@ public class DepartmentAllTaskWorkspaceTest extends TaskALLWorkspaceTest{
 
 		addToolbarItem(toolbar, "add", "新增任务", "fa fa-plus", "add()", null, 5);
 		addToolbarItem(toolbar, "regain", "收回", "fa fa-mail-reply", "regain()", null, 6);
-		addToolbarItem(toolbar, "transfer", "任务转移", "fa fa-share-square-o", "transfer()", null, 7);
+		addToolbarItem(toolbar, "batchTransfer", "任务转移", "fa fa-share-square-o", "batchTransfer()", null, 7);
 		return toolbar;
 	}
 
