@@ -6,9 +6,9 @@ import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
 
-import com.gongsibao.crm.base.INCustomerChangeService;
+import com.gongsibao.crm.base.INCustomerOperationLogService;
 import com.gongsibao.crm.base.INCustomerTaskNotifyService;
-import com.gongsibao.entity.crm.NCustomerChange;
+import com.gongsibao.entity.crm.NCustomerOperationLog;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.crm.dic.ChangeType;
@@ -25,8 +25,8 @@ public class ActionTransferRecordLog implements IAction {
 		NCustomerTask task = (NCustomerTask) ctx.getItem();
 		Map<String, Object> getMap = ctx.getStatus();
 		// 1.保存流转日志
-		INCustomerChangeService changeService = ServiceFactory.create(INCustomerChangeService.class);
-		NCustomerChange changeLog = new NCustomerChange();
+		INCustomerOperationLogService changeService = ServiceFactory.create(INCustomerOperationLogService.class);
+		NCustomerOperationLog changeLog = new NCustomerOperationLog();
 		{
 
 			changeLog.toNew();// 标示下类型，有多种

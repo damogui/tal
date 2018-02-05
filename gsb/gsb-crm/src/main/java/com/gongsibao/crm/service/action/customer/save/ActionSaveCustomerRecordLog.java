@@ -6,9 +6,9 @@ import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
 import org.netsharp.persistence.session.SessionManager;
 
-import com.gongsibao.crm.base.INCustomerChangeService;
+import com.gongsibao.crm.base.INCustomerOperationLogService;
 import com.gongsibao.entity.crm.NCustomer;
-import com.gongsibao.entity.crm.NCustomerChange;
+import com.gongsibao.entity.crm.NCustomerOperationLog;
 import com.gongsibao.entity.crm.dic.ChangeType;
 import com.gongsibao.entity.crm.dic.OperationType;
 
@@ -31,7 +31,7 @@ public class ActionSaveCustomerRecordLog implements IAction {
 			
 			content = String.format("[%s]编辑客户", creator); 
 		}
-		NCustomerChange changeLog = new NCustomerChange();
+		NCustomerOperationLog changeLog = new NCustomerOperationLog();
 		{
 			changeLog.toNew();
 			changeLog.setChangeType(ChangeType.INPUT);
@@ -43,7 +43,7 @@ public class ActionSaveCustomerRecordLog implements IAction {
 			changeLog.setDepartmentId(customer.getDepartmentId());
 		}
 		
-		INCustomerChangeService service = ServiceFactory.create(INCustomerChangeService.class);
+		INCustomerOperationLogService service = ServiceFactory.create(INCustomerOperationLogService.class);
 		service.save(changeLog);
 	}
 }

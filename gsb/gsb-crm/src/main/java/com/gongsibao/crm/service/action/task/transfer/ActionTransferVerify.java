@@ -20,10 +20,10 @@ public class ActionTransferVerify implements IAction {
 		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
 		Salesman salesman = salesmanService.byEmployeeId(taskEntity.getOwnerId());
 		if (salesman != null) {
-			if (taskEntity.getSupplierId() == null) {
+			if (taskEntity.getSupplierId().equals(0)) {
 				taskEntity.setSupplierId(salesman.getSupplierId());
 			}
-			if (taskEntity.getDepartmentId() == null) {
+			if (taskEntity.getDepartmentId().equals(0)) {
 				taskEntity.setDepartmentId(salesman.getSupplierId());
 			}
 		}

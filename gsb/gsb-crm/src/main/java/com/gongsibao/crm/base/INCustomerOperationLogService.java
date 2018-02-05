@@ -2,9 +2,9 @@ package com.gongsibao.crm.base;
 
 import org.netsharp.base.IPersistableService;
 
-import com.gongsibao.entity.crm.NCustomerChange;
+import com.gongsibao.entity.crm.NCustomerOperationLog;
 
-public interface INCustomerChangeService  extends IPersistableService<NCustomerChange> {
+public interface INCustomerOperationLogService  extends IPersistableService<NCustomerOperationLog> {
 
 	/**   
 	 * @Title: recordLookLog   

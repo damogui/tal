@@ -3,7 +3,7 @@ package com.gongsibao.crm.web;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.panda.commerce.FormPart;
 
-import com.gongsibao.crm.base.INCustomerChangeService;
+import com.gongsibao.crm.base.INCustomerOperationLogService;
 import com.gongsibao.crm.base.INCustomerService;
 import com.gongsibao.entity.crm.NCustomer;
 
@@ -26,7 +26,7 @@ public class NCustomerFormPart extends FormPart{
 	 */
 	public boolean recordLookLog(Integer customerId) {
 
-		INCustomerChangeService changeService = ServiceFactory.create(INCustomerChangeService.class);
+		INCustomerOperationLogService changeService = ServiceFactory.create(INCustomerOperationLogService.class);
 		return changeService.recordLookLog(customerId, "手机号，座机号，QQ号，微信号，邮箱");
 	}
 }

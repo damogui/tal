@@ -12,8 +12,8 @@ import com.gongsibao.entity.crm.dic.OperationType;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
-@Table(name = "n_crm_task_change", orderBy = " create_time DESC", header = "任务流转")
-public class NCustomerChange extends Entity {
+@Table(name = "n_crm_customer_operation_log", orderBy = " create_time DESC", header = "任务流转")
+public class NCustomerOperationLog extends Entity {
 
 	/**
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
