@@ -11,8 +11,6 @@ public class PatentCount implements IEntity {
     /* 潜在注册数量 */
     private int newCount;
     /* 潜在变更数量 */
-    private String name;
-    /* 潜在续费数量 */
     private int changeCount;
     /* 专利信息列表 */
     private int renewalCount;
@@ -31,14 +29,6 @@ public class PatentCount implements IEntity {
 
     public void setNewCount(int newCount) {
         this.newCount = newCount;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getChangeCount() {

@@ -1,4 +1,4 @@
-package com.gongsibao.taurus.api;
+package com.gongsibao.taurus.entity;
 
 import com.gongsibao.taurus.entity.IEntity;
 
@@ -59,6 +59,10 @@ public class TmInfo implements IEntity {
     private String hqzdrq;
     /* 商标状态,1:有效；2:无效；3:待审；4:不定  5-未知状态 */
     private int status;
+
+    /* 最后一次法律状态 */
+    private String lastFlowCategoryName;
+
 
     public long getId() {
         return id;
@@ -258,5 +262,13 @@ public class TmInfo implements IEntity {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getLastFlowCategoryName() {
+        return lastFlowCategoryName;
+    }
+
+    public void setLastFlowCategoryName(String lastFlowCategoryName) {
+        this.lastFlowCategoryName = lastFlowCategoryName;
     }
 }

@@ -564,44 +564,30 @@ public class TaurusApiService {
     }
 
     /**
-     * 查询多个公司商标聚合信息
-     * @param names
+     * 查询公司已有商标信息
+     * @param companyName
      * @param currentPage
      * @param pageSize
      * @return
      */
-    public static ResponseMessage<TmAssemble> getTmAssemble(String names, int currentPage, int pageSize) {
-        TmAssembleApi api = ApiFactory.create(TmAssembleApi.class);
-        api.setNames(names);
+    public static ResponseMessage<TmAssemble> getRegTmAssembleList(String companyName, int currentPage, int pageSize) {
+        TmRegAssembleListApi api = ApiFactory.create(TmRegAssembleListApi.class);
+        api.setName(companyName);
         api.setCurrentPage(currentPage);
         api.setPageSize(pageSize);
         return api.getResponse();
     }
 
     /**
-     * 查询单个公司商标聚合信息
+     * 查询公司商标信息
      * @param companyName
-     * @return
-     */
-    public static ResponseMessage<TmAssemble> getTmAssemble(String companyName) {
-        ResponseMessage<TmAssemble> res = getTmAssemble(companyName, 1, 1);
-        if (null == res || null == res.getList() || res.getList().isEmpty()) {
-            return null;
-        }
-        res.setData(res.getList().get(0));
-        return res;
-    }
-
-    /**
-     * 查询多个公司业务项数量
-     * @param names
      * @param currentPage
      * @param pageSize
      * @return
      */
-    public static ResponseMessage<CompanyBusinessCount> getCompanyBusinessCount(String names, int currentPage, int pageSize) {
-        CompanyBusinessCountApi api = ApiFactory.create(CompanyBusinessCountApi.class);
-        api.setNames(names);
+    public static ResponseMessage<TmAssemble> getTmAssembleList(String companyName, int currentPage, int pageSize) {
+        TmAssembleApi api = ApiFactory.create(TmAssembleApi.class);
+        api.setName(companyName);
         api.setCurrentPage(currentPage);
         api.setPageSize(pageSize);
         return api.getResponse();
@@ -613,55 +599,27 @@ public class TaurusApiService {
      * @return
      */
     public static ResponseMessage<CompanyBusinessCount> getCompanyBusinessCount(String companyName) {
-        ResponseMessage<CompanyBusinessCount> res = getCompanyBusinessCount(companyName, 1, 1);
-        if (null == res || null == res.getList() || res.getList().isEmpty()) {
-            return null;
-        }
-        res.setData(res.getList().get(0));
-        return res;
-    }
-
-    /**
-     * 查询多个公司潜在机会数量查询
-     * @param names
-     * @param currentPage
-     * @param pageSize
-     * @return
-     */
-    public static ResponseMessage<CompanyPotentialCount> getCompanyPotentialCount(String names, int currentPage, int pageSize) {
-        CompanyPotentialCountApi api = ApiFactory.create(CompanyPotentialCountApi.class);
-        api.setNames(names);
-        api.setCurrentPage(currentPage);
-        api.setPageSize(pageSize);
+        CompanyBusinessCountApi api = ApiFactory.create(CompanyBusinessCountApi.class);
+        api.setName(companyName);
         return api.getResponse();
     }
 
+    public static ResponseMessage<TmInfo> getTmExceptionList(String companyName) {
+        TmExceptionListApi api = ApiFactory.create(TmExceptionListApi.class);
+        api.setName(companyName);
+        return api.getResponse();
+    }
+
+
+
     /**
-     * 查询单个公司潜在机会数量
+     * 查询公司潜在机会数量查询
      * @param companyName
      * @return
      */
     public static ResponseMessage<CompanyPotentialCount> getCompanyPotentialCount(String companyName) {
-        ResponseMessage<CompanyPotentialCount> res = getCompanyPotentialCount(companyName, 1, 1);
-        if (null == res || null == res.getList() || res.getList().isEmpty()) {
-            return null;
-        }
-        res.setData(res.getList().get(0));
-        return res;
-    }
-
-    /**
-     * 查询多个公司商标覆盖分类数量
-     * @param names
-     * @param currentPage
-     * @param pageSize
-     * @return
-     */
-    public static ResponseMessage<ItemCount> getTmCategoryCount(String names, int currentPage, int pageSize) {
-        TmCategoryCountApi api = ApiFactory.create(TmCategoryCountApi.class);
-        api.setNames(names);
-        api.setCurrentPage(currentPage);
-        api.setPageSize(pageSize);
+        CompanyPotentialCountApi api = ApiFactory.create(CompanyPotentialCountApi.class);
+        api.setName(companyName);
         return api.getResponse();
     }
 
@@ -670,27 +628,9 @@ public class TaurusApiService {
      * @param companyName
      * @return
      */
-    public static ResponseMessage<ItemCount> getTmCategoryCount(String companyName) {
-        ResponseMessage<ItemCount> res = getTmCategoryCount(companyName, 1, 1);
-        if (null == res || null == res.getList() || res.getList().isEmpty()) {
-            return null;
-        }
-        res.setData(res.getList().get(0));
-        return res;
-    }
-
-    /**
-     * 查询多个公司商标机会数量查询
-     * @param names
-     * @param currentPage
-     * @param pageSize
-     * @return
-     */
-    public static ResponseMessage<PatentCount> getPatentCount(String names, int currentPage, int pageSize) {
-        PatentCountApi api = ApiFactory.create(PatentCountApi.class);
-        api.setNames(names);
-        api.setCurrentPage(currentPage);
-        api.setPageSize(pageSize);
+    public static ResponseMessage<Count> getTmCategoryCount(String companyName) {
+        TmCategoryCountApi api = ApiFactory.create(TmCategoryCountApi.class);
+        api.setName(companyName);
         return api.getResponse();
     }
 
@@ -700,26 +640,8 @@ public class TaurusApiService {
      * @return
      */
     public static ResponseMessage<PatentCount> getPatentCount(String companyName) {
-        ResponseMessage<PatentCount> res = getPatentCount(companyName, 1, 1);
-        if (null == res || null == res.getList() || res.getList().isEmpty()) {
-            return null;
-        }
-        res.setData(res.getList().get(0));
-        return res;
-    }
-
-    /**
-     * 查询多个公司著作权机会数量
-     * @param names
-     * @param currentPage
-     * @param pageSize
-     * @return
-     */
-    public static ResponseMessage<CopyrightCount> getCopyrightCount(String names, int currentPage, int pageSize) {
-        CopyrightCountApi api = ApiFactory.create(CopyrightCountApi.class);
-        api.setNames(names);
-        api.setCurrentPage(currentPage);
-        api.setPageSize(pageSize);
+        PatentCountApi api = ApiFactory.create(PatentCountApi.class);
+        api.setName(companyName);
         return api.getResponse();
     }
 
@@ -729,55 +651,20 @@ public class TaurusApiService {
      * @return
      */
     public static ResponseMessage<CopyrightCount> getCopyrightCount(String companyName) {
-        ResponseMessage<CopyrightCount> res = getCopyrightCount(companyName, 1, 1);
-        if (null == res || null == res.getList() || res.getList().isEmpty()) {
-            return null;
-        }
-        res.setData(res.getList().get(0));
-        return res;
-    }
-
-    /**
-     * 查询多个公司年报数量
-     * @param names
-     * @param currentPage
-     * @param pageSize
-     * @return
-     */
-    public static ResponseMessage<ItemCount> getYearReportCount(String names, int currentPage, int pageSize) {
-        YearReportCountApi api = ApiFactory.create(YearReportCountApi.class);
-        api.setNames(names);
-        api.setCurrentPage(currentPage);
-        api.setPageSize(pageSize);
+        CopyrightCountApi api = ApiFactory.create(CopyrightCountApi.class);
+        api.setName(companyName);
         return api.getResponse();
     }
+
 
     /**
      * 查询单个公司年报数量
      * @param companyName
      * @return
      */
-    public static ResponseMessage<ItemCount> getYearReportCount(String companyName) {
-        ResponseMessage<ItemCount> res = getYearReportCount(companyName, 1, 1);
-        if (null == res || null == res.getList() || res.getList().isEmpty()) {
-            return null;
-        }
-        res.setData(res.getList().get(0));
-        return res;
-    }
-
-    /**
-     * 查询多个公司增值电信机会
-     * @param names
-     * @param currentPage
-     * @param pageSize
-     * @return
-     */
-    public static ResponseMessage<ItemCount> getDianXinCount(String names, int currentPage, int pageSize) {
-        DianXinCountApi api = ApiFactory.create(DianXinCountApi.class);
-        api.setNames(names);
-        api.setCurrentPage(currentPage);
-        api.setPageSize(pageSize);
+    public static ResponseMessage<Count> getYearReportCount(String companyName) {
+        YearReportCountApi api = ApiFactory.create(YearReportCountApi.class);
+        api.setName(companyName);
         return api.getResponse();
     }
 
@@ -786,115 +673,44 @@ public class TaurusApiService {
      * @param companyName
      * @return
      */
-    public static ResponseMessage<ItemCount> getDianXinCount(String companyName) {
-        ResponseMessage<ItemCount> res = getDianXinCount(companyName, 1, 1);
-        if (null == res || null == res.getList() || res.getList().isEmpty()) {
-            return null;
-        }
-        res.setData(res.getList().get(0));
-        return res;
-    }
-
-    /**
-     * 查询多个公司娱乐拍照机会
-     * @param names
-     * @param currentPage
-     * @param pageSize
-     * @return
-     */
-    public static ResponseMessage<ItemCount> getYuLeCount(String names, int currentPage, int pageSize) {
-        YuLeCountApi api = ApiFactory.create(YuLeCountApi.class);
-        api.setNames(names);
-        api.setCurrentPage(currentPage);
-        api.setPageSize(pageSize);
+    public static ResponseMessage<HasCount> getDianXinCount(String companyName) {
+        DianXinCountApi api = ApiFactory.create(DianXinCountApi.class);
+        api.setName(companyName);
         return api.getResponse();
     }
 
     /**
-     * 查询单个公司娱乐拍照机会
+     * 查询单个公司娱乐牌照机会
      * @param companyName
      * @return
      */
-    public static ResponseMessage<ItemCount> getYuLeCount(String companyName) {
-        ResponseMessage<ItemCount> res = getYuLeCount(companyName, 1, 1);
-        if (null == res || null == res.getList() || res.getList().isEmpty()) {
-            return null;
-        }
-        res.setData(res.getList().get(0));
-        return res;
-    }
-
-    /**
-     * 查询多个公司高新企业机会
-     * @param names
-     * @param currentPage
-     * @param pageSize
-     * @return
-     */
-    public static ResponseMessage<ItemCount> getGaoXinCount(String names, int currentPage, int pageSize) {
-        GaoXinApi api = ApiFactory.create(GaoXinApi.class);
-        api.setNames(names);
-        api.setCurrentPage(currentPage);
-        api.setPageSize(pageSize);
+    public static ResponseMessage<HasCount> getYuLeCount(String companyName) {
+        YuLeCountApi api = ApiFactory.create(YuLeCountApi.class);
+        api.setName(companyName);
         return api.getResponse();
     }
+
 
     /**
      * 查询单个公司高新企业机会
      * @param companyName
      * @return
      */
-    public static ResponseMessage<ItemCount> getGaoXinCount(String companyName) {
-        ResponseMessage<ItemCount> res = getGaoXinCount(companyName, 1, 1);
-        if (null == res || null == res.getList() || res.getList().isEmpty()) {
-            return null;
-        }
-        res.setData(res.getList().get(0));
-        return res;
-    }
-
-    /**
-     * 查询多个公司税收筹划机会
-     * @param names
-     * @param currentPage
-     * @param pageSize
-     * @return
-     */
-    public static ResponseMessage<ItemCount> getShuiShouCount(String names, int currentPage, int pageSize) {
-        ShuiShouApi api = ApiFactory.create(ShuiShouApi.class);
-        api.setNames(names);
-        api.setCurrentPage(currentPage);
-        api.setPageSize(pageSize);
+    public static ResponseMessage<Count> getGaoXinCount(String companyName) {
+        GaoXinApi api = ApiFactory.create(GaoXinApi.class);
+        api.setName(companyName);
         return api.getResponse();
     }
+
 
     /**
      * 查询单个公司税收筹划机会
      * @param companyName
      * @return
      */
-    public static ResponseMessage<ItemCount> getShuiShouCount(String companyName) {
-        ResponseMessage<ItemCount> res = getShuiShouCount(companyName, 1, 1);
-        if (null == res || null == res.getList() || res.getList().isEmpty()) {
-            return null;
-        }
-        res.setData(res.getList().get(0));
-        return res;
-    }
-
-
-    /**
-     * 查询多个公司影视审批机会
-     * @param names
-     * @param currentPage
-     * @param pageSize
-     * @return
-     */
-    public static ResponseMessage<ItemCount> getYingShiCount(String names, int currentPage, int pageSize) {
-        YingShiCountApi api = ApiFactory.create(YingShiCountApi.class);
-        api.setNames(names);
-        api.setCurrentPage(currentPage);
-        api.setPageSize(pageSize);
+    public static ResponseMessage<Count> getShuiShouCount(String companyName) {
+        ShuiShouApi api = ApiFactory.create(ShuiShouApi.class);
+        api.setName(companyName);
         return api.getResponse();
     }
 
@@ -903,28 +719,9 @@ public class TaurusApiService {
      * @param companyName
      * @return
      */
-    public static ResponseMessage<ItemCount> getYingShiCount(String companyName) {
-        ResponseMessage<ItemCount> res = getYingShiCount(companyName, 1, 1);
-        if (null == res || null == res.getList() || res.getList().isEmpty()) {
-            return null;
-        }
-        res.setData(res.getList().get(0));
-        return res;
-    }
-
-
-    /**
-     * 查询多个公司食品流通机会
-     * @param names
-     * @param currentPage
-     * @param pageSize
-     * @return
-     */
-    public static ResponseMessage<ItemCount> getShiPinCount(String names, int currentPage, int pageSize) {
-        ShiPinCountApi api = ApiFactory.create(ShiPinCountApi.class);
-        api.setNames(names);
-        api.setCurrentPage(currentPage);
-        api.setPageSize(pageSize);
+    public static ResponseMessage<Count> getYingShiCount(String companyName) {
+        YingShiCountApi api = ApiFactory.create(YingShiCountApi.class);
+        api.setName(companyName);
         return api.getResponse();
     }
 
@@ -933,13 +730,10 @@ public class TaurusApiService {
      * @param companyName
      * @return
      */
-    public static ResponseMessage<ItemCount> getShiPinCount(String companyName) {
-        ResponseMessage<ItemCount> res = getShiPinCount(companyName, 1, 1);
-        if (null == res || null == res.getList() || res.getList().isEmpty()) {
-            return null;
-        }
-        res.setData(res.getList().get(0));
-        return res;
+    public static ResponseMessage<Count> getShiPinCount(String companyName) {
+        ShiPinCountApi api = ApiFactory.create(ShiPinCountApi.class);
+        api.setName(companyName);
+        return api.getResponse();
     }
 
 

@@ -12,18 +12,19 @@ public class TmAssembleApi extends AbstractApi<TmAssembleResponseMessage> {
     /**
      * 公司名称
      */
-    private String names;
+    private String name;
 
     @Override
     protected void setExtendParameter(List<String> parameters) {
         if (null != parameters) {
-            parameters.add("names=" + this.getNames());
+            parameters.add("name=" + this.getName());
         }
     }
 
+    // TODO 接口地址错误，后续学强会给出
     @Override
     protected String getUrl() {
-        return "/dataapi/v3/ic/getTmListAndClass";
+        return "/dataapi/v3/ic/getTmNameListByCompanyName";
     }
 
     @Override
@@ -31,11 +32,11 @@ public class TmAssembleApi extends AbstractApi<TmAssembleResponseMessage> {
         return TmAssembleResponseMessage.class;
     }
 
-    public String getNames() {
-        return names;
+    public String getName() {
+        return name;
     }
 
-    public void setNames(String names) {
-        this.names = names;
+    public void setName(String name) {
+        this.name = name;
     }
 }

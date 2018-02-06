@@ -12,12 +12,12 @@ public class CompanyPotentialCountApi extends AbstractApi<CompanyPotentialCountR
     /**
      * 公司名称
      */
-    private String names;
+    private String name;
 
     @Override
     protected void setExtendParameter(List<String> parameters) {
         if (null != parameters) {
-            parameters.add("names=" + this.getNames());
+            parameters.add("name=" + this.getName());
         }
     }
 
@@ -31,11 +31,11 @@ public class CompanyPotentialCountApi extends AbstractApi<CompanyPotentialCountR
         return CompanyPotentialCountResponseMessage.class;
     }
 
-    public String getNames() {
-        return names;
+    public String getName() {
+        return name;
     }
 
-    public void setNames(String names) {
-        this.names = names;
+    public void setName(String name) {
+        this.name = name;
     }
 }

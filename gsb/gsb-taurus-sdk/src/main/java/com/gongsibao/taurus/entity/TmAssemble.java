@@ -25,6 +25,8 @@ public class TmAssemble implements IEntity{
     /* 已注册类别 */
     private List<Integer> regList;
 
+    private List<TmCls> clsList;
+
     public String getName() {
         return name;
     }
@@ -63,5 +65,13 @@ public class TmAssemble implements IEntity{
 
     public void setRegList(List<Integer> regList) {
         this.regList = regList;
+    }
+
+    public List<TmCls> getClsList() {
+        return clsList;
+    }
+
+    public void setClsList(List<TmCls> clsList) {
+        this.clsList = clsList;
     }
 }

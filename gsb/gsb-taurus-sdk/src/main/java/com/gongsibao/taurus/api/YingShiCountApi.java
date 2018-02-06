@@ -1,23 +1,23 @@
 package com.gongsibao.taurus.api;
 
-import com.gongsibao.taurus.message.response.ItemCountResponseMessage;
+import com.gongsibao.taurus.message.response.CountResponseMessage;
 
 import java.util.List;
 
 /**
  * 影视审批机会数量
  */
-public class YingShiCountApi extends AbstractApi<ItemCountResponseMessage> {
+public class YingShiCountApi extends AbstractApi<CountResponseMessage> {
 
     /**
      * 公司名称
      */
-    private String names;
+    private String name;
 
     @Override
     protected void setExtendParameter(List<String> parameters) {
         if (null != parameters) {
-            parameters.add("names=" + this.getNames());
+            parameters.add("name=" + this.getName());
         }
     }
 
@@ -28,14 +28,14 @@ public class YingShiCountApi extends AbstractApi<ItemCountResponseMessage> {
 
     @Override
     public Class<?> getResponseType() {
-        return ItemCountResponseMessage.class;
+        return CountResponseMessage.class;
     }
 
-    public String getNames() {
-        return names;
+    public String getName() {
+        return name;
     }
 
-    public void setNames(String names) {
-        this.names = names;
+    public void setName(String name) {
+        this.name = name;
     }
 }
