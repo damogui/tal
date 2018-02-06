@@ -11,13 +11,12 @@ import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.authorization.UserPermissionManager;
 import org.netsharp.communication.Service;
-import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.bd.service.SupplierPersistableService;
-import com.gongsibao.crm.base.INCustomerTaskFoolowService;
 import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
@@ -56,6 +55,14 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	@Override
 	public NCustomerTask save(NCustomerTask entity) {
 
+		//System.err.println("状态：" + entity.getEntityState());
+		//这里有个BUG,修改状态时，entityState为New
+		//暂时先强制设置，hw 2018-02-06
+		if(entity.getId() != null && !entity.equals(0)){
+			
+			entity.setEntityState(EntityState.Persist);
+		}
+		
 		ActionContext ctx = new ActionContext();
 		{
 			ctx.setPath("gsb/crm/task/save");
@@ -64,7 +71,6 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		}
 		ActionManager action = new ActionManager();
 		action.execute(ctx);
-
 		entity = (NCustomerTask) ctx.getItem();
 		return entity;
 	}
@@ -105,10 +111,9 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		builder.append("NCustomerTask.changes.formUser.{id,name},");
 		builder.append("NCustomerTask.changes.toUser.{id,name},");
 		builder.append("NCustomerTask.inspections.*,");
-		
+
 		return builder.toString();
 	}
-	
 
 	@Override
 	public Boolean batchTransfer(String[] taskIdArray, Integer supplierId, Integer departmentId, Integer toUserId) {
@@ -118,7 +123,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 			this.transfer(Integer.valueOf(taskId), supplierId, departmentId, toUserId);
 		}
 		return true;
-		
+
 	}
 
 	@Override
@@ -143,10 +148,13 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	/**
 	 * 抽查异常
 	 * 
-	 * @param taskId 	任务Id
-	 * @param state 1-"未抽查",2-"抽查正常",3-"抽查异常",4-"异常已处理"
+	 * @param taskId
+	 *            任务Id
+	 * @param state
+	 *            1-"未抽查",2-"抽查正常",3-"抽查异常",4-"异常已处理"
 	 * @param content
-	 * @param type	1-"抽查",2-"处理"
+	 * @param type
+	 *            1-"抽查",2-"处理"
 	 * @return
 	 */
 	@Override
@@ -184,7 +192,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	public Boolean allocation(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId) {
 
 		Map<String, Object> setMap = new HashMap<String, Object>();
-		NCustomerTask entity = this.byId(taskId); 
+		NCustomerTask entity = this.byId(taskId);
 		setMap.put("formUserId", entity.getOwnerId());
 		entity.setSupplierId(supplierId);
 		entity.setDepartmentId(departmentId);
@@ -214,7 +222,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		action.execute(ctx);
 		return true;
 	}
-	
+
 	@Override
 	public Boolean batchRegain(String[] taskIdArray, String content) {
 
@@ -243,7 +251,6 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		action.execute(ctx);
 		return true;
 	}
-
 
 	@Override
 	public Boolean rollback(Integer taskId, String content) {
@@ -327,18 +334,18 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	}
 
 	public NCustomerTask newInstance() {
-		NCustomerTask entity = super.newInstance();		
+		NCustomerTask entity = super.newInstance();
 		Supplier supplier = SupplierSessionManager.getSupplier();
-		if(supplier != null){
+		if (supplier != null) {
 			entity.setSupplierId(supplier.getId());
 			entity.setSupplier(supplier);
 		}
-		
+
 		SupplierDepartment department = SupplierSessionManager.getDepartment();
-		if(department != null){
+		if (department != null) {
 			entity.setDepartmentId(department.getId());
 			entity.setDepartment(department);
-		}		
+		}
 
 		// 业务员处理,只有是业务员的才有
 		Integer ownerId = SupplierSessionManager.getSalesmanEmployeeId();
