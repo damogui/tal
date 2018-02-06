@@ -417,13 +417,17 @@ public class ActionAutoAllocationPersist implements IAction {
                         return s1.getDayAllocatedCount().compareTo(s2.getDayAllocatedCount());
                     }
                 });
+                //业务员id
                 Integer ownerId = resSalesmanList.get(0).getEmployeeId();
+                //部门id
                 Integer departmentId = resSalesmanList.get(0).getDepartmentId();
+                //服务商id
+                Integer supplierId = resSalesmanList.get(0).getSupplierId();
                 // 跟新业务员
-                updateTaskOwnerId(entity.getId(), ownerId, entity.getSupplierId(), departmentId);
+                updateTaskOwnerId(entity.getId(), ownerId, supplierId, departmentId);
                 // 跟新实体，防止后面的action用到实体时，不是最新的就要重新查一下，影响效率
                 entity.setOwnerId(ownerId);
-                entity.setSupplierId(entity.getSupplierId());
+                entity.setSupplierId(supplierId);
                 entity.setDepartmentId(departmentId);
             } else {// 无可分配对象->分配至目标部门的【公海】->将分配方式选中【手动分配】->提醒部门负责人进行任务分配
                 // 将分配方式选中【手动分配】
