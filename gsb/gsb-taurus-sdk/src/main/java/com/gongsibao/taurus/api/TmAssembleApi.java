@@ -21,10 +21,9 @@ public class TmAssembleApi extends AbstractApi<TmAssembleResponseMessage> {
         }
     }
 
-    // TODO 接口地址错误，后续学强会给出
     @Override
     protected String getUrl() {
-        return "/dataapi/v3/ic/getTmNameListByCompanyName";
+        return "/dataapi/v3/ic/getTmCountByProtect";
     }
 
     @Override

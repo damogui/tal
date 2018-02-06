@@ -52,7 +52,7 @@ public class DataApiTest {
 
         //endregion
 
-//        testTmAssemble("四川腾中重工机械有限公司");
+        testTmAssemble("四川腾中重工机械有限公司");
 
 
         System.err.println("/**************************************************/");
