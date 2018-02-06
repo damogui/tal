@@ -51,7 +51,7 @@ public class NumberUtils {
             return defaultValue;
         } else {
             try {
-                return Integer.parseInt(StringUtils.trimToEmpty((String) str));
+                return Integer.parseInt(StringUtils.trimToEmpty(str.toString()));
             } catch (NumberFormatException var3) {
                 return defaultValue;
             }
@@ -67,7 +67,7 @@ public class NumberUtils {
             return defaultValue;
         }
         try {
-            return Long.parseLong(StringUtils.trimToEmpty((String) object));
+            return Long.parseLong(StringUtils.trimToEmpty(object.toString()));
         } catch (NumberFormatException var3) {
             return defaultValue;
         }

@@ -238,7 +238,7 @@ public class Salesman extends Entity {
 	}
 
 	public Integer getDayMax() {
-		return dayMax==null?0:dayMax;
+		return dayMax;
 	}
 
 	public void setDayMax(Integer dayMax) {
@@ -246,7 +246,7 @@ public class Salesman extends Entity {
 	}
 
 	public Integer getWeekMax() {
-		return weekMax==null?0:weekMax;
+		return weekMax;
 	}
 
 	public void setWeekMax(Integer weekMax) {
@@ -254,7 +254,7 @@ public class Salesman extends Entity {
 	}
 
 	public Integer getXabMax() {
-		return xabMax==null?0:xabMax;
+		return xabMax;
 	}
 
 	public void setXabMax(Integer xabMax) {

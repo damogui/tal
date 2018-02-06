@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
@@ -31,8 +32,7 @@ import com.gongsibao.entity.supplier.Salesman;
  * @author zhangchao 写入跟进记录
  */
 public class ActionAutoAllocationRecordLog implements IAction {
-    // 任务
-    INCustomerTaskService nCustomerTaskService = ServiceFactory.create(INCustomerTaskService.class);
+
     // 流转日志
     INCustomerOperationLogService changeService = ServiceFactory.create(INCustomerOperationLogService.class);
     // 通知日志
@@ -152,7 +152,7 @@ public class ActionAutoAllocationRecordLog implements IAction {
                     if (employee != null)
                         zyString = "从【" + employee.getName() + "】";
                 }
-                res = "【转移提醒】您好，【" + entity.getCreator() + "】" + zyString + "转移给您1个任务，任务名称【" + entity.getName() + "】，" + "客户名称【" + customerName + "】，" + "客户联系方式【" + contract + "】，请及时跟进";
+                res = "【转移提醒】您好，【" + entity.getCreator() + "】" + zyString + "转移给您1个任务，任务名称【" + StringUtils.trimToEmpty(entity.getName()) + "】，" + "客户名称【" + customerName + "】，" + "客户联系方式【" + contract + "】，请及时跟进";
                 break;
             default:
                 res = "";
@@ -191,33 +191,35 @@ public class ActionAutoAllocationRecordLog implements IAction {
         if (entity.getCustomer() == null)
             return "";
         String contract = getContractStr(entity);
+        String taskName = StringUtils.trimToEmpty(entity.getName());
+        String customeName = StringUtils.trimToEmpty(entity.getCustomer().getRealName());
         switch (type) {
             case 1: // 分配成功业务员通知
                 if (isLeader.equals(0) && allocationType.equals(0)) {
-                    res = "【分配提醒】您好，1个新任务分配给您，任务名称【" + entity.getName() + "】，" + "客户名称【" + entity.getCustomer().getRealName() + "】，" + "客户联系方式【" + contract + "】，请及时跟进";
+                    res = "【分配提醒】您好，1个新任务分配给您，任务名称【" + taskName + "】，" + "客户名称【" + customeName + "】，" + "客户联系方式【" + contract + "】，请及时跟进";
                 }
                 if (isLeader.equals(1) && allocationType.equals(0)) {
-                    res = "【分配提醒】您好，1个新任务分配给您，任务名称【" + entity.getName() + "】，" + "客户名称【" + entity.getCustomer().getRealName() + "】，" + "客户联系方式【" + contract + "】，请及时安排跟进";
+                    res = "【分配提醒】您好，1个新任务分配给您，任务名称【" + taskName + "】，" + "客户名称【" + customeName + "】，" + "客户联系方式【" + contract + "】，请及时安排跟进";
                 }
 
                 if (isLeader.equals(0) && allocationType.equals(1)) {
-                    res = "【分配提醒】您好，1个新任务分配给您，任务名称【" + entity.getName() + "】，" + "客户名称【" + entity.getCustomer().getRealName() + "】，" + "客户联系方式【" + contract + "】，请及时跟进";
+                    res = "【分配提醒】您好，1个新任务分配给您，任务名称【" + taskName + "】，" + "客户名称【" + customeName + "】，" + "客户联系方式【" + contract + "】，请及时跟进";
                 }
                 if (isLeader.equals(1) && allocationType.equals(1)) {
-                    res = "【分配提醒】您好，1个新任务分配给您，任务名称【" + entity.getName() + "】，" + "客户名称【" + entity.getCustomer().getRealName() + "】，" + "客户联系方式【" + contract + "】，请及时安排跟进";
+                    res = "【分配提醒】您好，1个新任务分配给您，任务名称【" + taskName + "】，" + "客户名称【" + customeName + "】，" + "客户联系方式【" + contract + "】，请及时安排跟进";
                 }
                 break;
             case 2: // 分配成功部门（公海）通知
                 if (isLeader.equals(1) && allocationType.equals(2)) {
-                    res = "【分配提醒】您好，1个新任务待您分配，" + "任务名称【" + entity.getName() + "】，" + "客户名称【" + entity.getCustomer().getRealName() + "】，" + "客户联系方式【" + contract + "】，请及时分配跟进";
+                    res = "【分配提醒】您好，1个新任务待您分配，" + "任务名称【" + taskName + "】，" + "客户名称【" + customeName + "】，" + "客户联系方式【" + contract + "】，请及时分配跟进";
                 }
                 break;
             case 3: // 分配失败提醒
                 if (isLeader.equals(0) && allocationType.equals(3)) {
-                    res = "【分配失败提醒】您好，您创建的1个新任务分配失败，任务名称【" + entity.getName() + "】，" + "客户名称【" + entity.getCustomer().getRealName() + "】，" + "客户联系方式【" + contract + "】，请及时处理";
+                    res = "【分配失败提醒】您好，您创建的1个新任务分配失败，任务名称【" + taskName + "】，" + "客户名称【" + customeName + "】，" + "客户联系方式【" + contract + "】，请及时处理";
                 }
                 if (isLeader.equals(1) && allocationType.equals(3)) {
-                    res = "【分配失败提醒】您好，" + "【" + entity.getCreator() + "】创建的1个新任务分配失败，" + "任务名称【" + entity.getName() + "】，" + "客户名称【" + entity.getCustomer().getRealName() + "】，" + "客户联系方式【" + contract + "】，请及时安排处理";
+                    res = "【分配失败提醒】您好，" + "【" + entity.getCreator() + "】创建的1个新任务分配失败，" + "任务名称【" + taskName + "】，" + "客户名称【" + customeName + "】，" + "客户联系方式【" + contract + "】，请及时安排处理";
                 }
                 break;
             default:

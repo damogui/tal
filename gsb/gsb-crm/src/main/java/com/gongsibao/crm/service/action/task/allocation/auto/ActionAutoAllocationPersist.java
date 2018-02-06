@@ -83,10 +83,10 @@ public class ActionAutoAllocationPersist implements IAction {
         // 分配方式:半自动分配时（分配到跟进服务商即可）
         if (entity.getAllocationType().equals(NAllocationType.SemiAutomatic)) {
             // 分配至目标服务商的【公海】,直接就是剩下业务员所在的服务商（如果有市场投放，则都是该有市场投放部门的人，如果没有市场投放则就在剩下业务员所在部门随便挑一个）
-            updateTaskOwnerId(entity.getId(), 0, taskSalesmanProducts.get(0).getSupplierId(), taskSalesmanProducts.get(0).getDepartmentId());
+            updateTaskOwnerId(entity.getId(), 0, NumberUtils.toInt(taskSalesmanProducts.get(0).getSupplierId()), NumberUtils.toInt(taskSalesmanProducts.get(0).getDepartmentId()));
             entity.setOwnerId(0);
-            entity.setSupplierId(taskSalesmanProducts.get(0).getSupplierId());
-            entity.setDepartmentId(taskSalesmanProducts.get(0).getDepartmentId());
+            entity.setSupplierId(NumberUtils.toInt(taskSalesmanProducts.get(0).getSupplierId()));
+            entity.setDepartmentId(NumberUtils.toInt(taskSalesmanProducts.get(0).getDepartmentId()));
             // TODO:提醒部门负责人进行任务分配，日志信息
             return;
         }
@@ -395,13 +395,13 @@ public class ActionAutoAllocationPersist implements IAction {
                 int weekCount = weekMap.get(salesman.getEmployeeId());
                 int abxCount = abxMap.get(salesman.getEmployeeId());
                 // 日分配上线
-                if (salesman.getDayMax() < dayCount)
+                if (NumberUtils.toInt(salesman.getDayMax()) < dayCount)
                     continue;
                 // 周分配上线
-                if (salesman.getWeekMax() < weekCount)
+                if (NumberUtils.toInt(salesman.getWeekMax()) < weekCount)
                     continue;
                 // XAB类任务上限
-                if (salesman.getXabMax() < abxCount)
+                if (NumberUtils.toInt(salesman.getXabMax()) < abxCount)
                     continue;
                 salesman.setDayAllocatedCount(dayCount);
                 // 取一个后跳出循环（需求说：选取随机一人进行分配）
@@ -417,13 +417,13 @@ public class ActionAutoAllocationPersist implements IAction {
                         return s1.getDayAllocatedCount().compareTo(s2.getDayAllocatedCount());
                     }
                 });
-                Integer ownerId = resSalesmanList.get(0).getEmployeeId();
-                Integer departmentId = resSalesmanList.get(0).getDepartmentId();
+                Integer ownerId = NumberUtils.toInt(resSalesmanList.get(0).getEmployeeId());
+                Integer departmentId = NumberUtils.toInt(resSalesmanList.get(0).getDepartmentId());
                 // 跟新业务员
-                updateTaskOwnerId(entity.getId(), ownerId, entity.getSupplierId(), departmentId);
+                updateTaskOwnerId(entity.getId(), ownerId,  NumberUtils.toInt(entity.getSupplierId()), departmentId);
                 // 跟新实体，防止后面的action用到实体时，不是最新的就要重新查一下，影响效率
                 entity.setOwnerId(ownerId);
-                entity.setSupplierId(entity.getSupplierId());
+                entity.setSupplierId(NumberUtils.toInt(entity.getSupplierId()));
                 entity.setDepartmentId(departmentId);
             } else {// 无可分配对象->分配至目标部门的【公海】->将分配方式选中【手动分配】->提醒部门负责人进行任务分配
                 // 将分配方式选中【手动分配】
