@@ -1,5 +1,9 @@
 package com.gongsibao.utils;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.helpers.Loader;
+import org.netsharp.util.StringManager;
+
 import java.text.DecimalFormat;
 import java.text.Format;
 
@@ -15,7 +19,7 @@ public class NumberUtils {
      * @param number
      * @return
      */
-    public static String numberFormat (Number number) {
+    public static String numberFormat(Number number) {
         return numberFormat(number, null);
     }
 
@@ -26,9 +30,9 @@ public class NumberUtils {
      * @param pattern (转化格式，默认#.##，其它的自己上网查)
      * @return
      */
-    public static String numberFormat (Number number, String pattern) {
+    public static String numberFormat(Number number, String pattern) {
         try {
-            if (StringUtils.isBlank(pattern)) {
+            if (StringManager.isNullOrEmpty(pattern)) {
                 return FORMAT.format(number);
             }
             return FORMAT.format(pattern);
@@ -38,36 +42,45 @@ public class NumberUtils {
         }
     }
 
-    public static int toInt (Object object) {
+    public static int toInt(Object object) {
         return toInt(object, 0);
     }
 
-    public static int toInt (Object object, int defaultValue) {
-        if (null == object) {
+    public static int toInt(Object str, int defaultValue) {
+        if (str == null) {
             return defaultValue;
+        } else {
+            try {
+                return Integer.parseInt(StringUtils.trimToEmpty((String) str));
+            } catch (NumberFormatException var3) {
+                return defaultValue;
+            }
         }
-        return toInt(StringUtils.trimToEmpty(object), defaultValue);
     }
 
-    public static long toLong (Object object) {
+    public static long toLong(Object object) {
         return toLong(object, 0);
     }
 
-    public static long toLong (Object object, long defaultValue) {
+    public static long toLong(Object object, long defaultValue) {
         if (null == object) {
             return defaultValue;
         }
-        return toLong(StringUtils.trimToEmpty(object), defaultValue);
+        try {
+            return Long.parseLong(StringUtils.trimToEmpty((String) object));
+        } catch (NumberFormatException var3) {
+            return defaultValue;
+        }
     }
 
-    public static int doubleRoundInt(double  d) {
+    public static int doubleRoundInt(double d) {
         if (d == 0) {
             return 0;
         }
         return (int) AmountUtils.round(d, 0);
     }
 
-    public static long doubleRoundLong(double  d) {
+    public static long doubleRoundLong(double d) {
         if (d == 0) {
             return 0;
         }
