@@ -25,7 +25,8 @@ public class ActionManualAllocationWriteBack implements IAction {
 			updateSql.set("supplier_id", task.getSupplierId());
 			updateSql.set("department_id", task.getDepartmentId());
 			updateSql.set("owner_id", task.getOwnerId());
-			updateSql.set("allocation_state", AllocationState.ALLOCATED.getValue());
+			//updateSql.set("allocation_state", task.getAllocationState()  AllocationState.ALLOCATED.getValue());
+			updateSql.set("allocation_state", task.getAllocationState());
 			updateSql.set("allocation_type", NAllocationType.MANUAL.getValue());
 			updateSql.set("distribut", true);
 			updateSql.where("id =" + task.getId());

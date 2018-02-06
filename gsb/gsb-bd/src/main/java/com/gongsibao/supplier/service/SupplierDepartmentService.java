@@ -124,4 +124,22 @@ public class SupplierDepartmentService extends SupplierPersistableService<Suppli
 
         return idList;
     }
+
+	@Override
+	public Integer getSupDepartmentId(Integer departmentId) {
+		Integer id = null;
+        Oql oql = new Oql();
+        {
+            oql.setType(this.type);
+            oql.setSelects("parent_id");
+            oql.setFilter("id=?");
+            oql.getParameters().add("@id", departmentId, Types.INTEGER);
+        }
+
+        List<SupplierDepartment> list = this.queryList(oql);
+        for (SupplierDepartment entity : list) {
+        	id = entity.getParentId();
+        }
+        return id;
+	}
 }

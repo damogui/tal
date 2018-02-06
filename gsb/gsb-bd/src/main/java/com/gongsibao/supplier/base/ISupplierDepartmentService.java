@@ -14,4 +14,10 @@ public interface ISupplierDepartmentService  extends IPersistableService<Supplie
 	 * @return
 	 */
 	List<Integer> getSubDepartmentIdList(Integer departmentId);
+	/**
+	 * 递归获取上级部门Id
+	 * @param departmentId
+	 * @return
+	 */
+	Integer getSupDepartmentId(Integer departmentId);
 }
