@@ -29,7 +29,7 @@ com.gongsibao.crm.web.DepartmentProductDetailPart = org.netsharp.panda.commerce.
         	var supplierId = this.parent.viewModel.currentItem.supplierId;
         	if(parentDepartmentId == null||parentDepartmentId==0){
         		
-        		filter+=' and id in (select product_id from sp_service_product where id____'+supplierId+')';
+        		filter+=' and id in (select product_id from sp_supplier_product where id____'+supplierId+')';
         	}else{
         		
         		filter+=' and id in (select product_id from sp_department_product where department_id____'+parentDepartmentId+')';

@@ -70,7 +70,7 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
 
 //    	AUTO(1, "自动分配"), 
 //    	MANUAL(2, "手动分配"),
-//    	SemiAutomatic(3, "半自动分配");
+//    	SemiAutomatic(3, "自动分配到服务商");
 		if(newValue==1){
 			
 			//$("#supplier_name").combogrid('setValue','').combogrid('disable');
@@ -90,8 +90,9 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
 //			options3.required = false;
 //			$("#owner_name").combogrid(options3);
 			
-			$('#allocationState').combobox('enable');
-			
+			$('#allocationState').combobox('disable').combobox('setValue','1');
+			$("#supplier_name").combogrid('disable').combogrid('clear');
+			$("#department_name").combogrid('disable').combogrid('clear');
 		}else if(newValue==2){
 			
 			$("#supplier_name").combogrid('enable');
@@ -111,7 +112,8 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
 //			options.required = true;
 //			$("#owner_name").combogrid(options);
 			
-			$('#allocationState').combobox('disable').combobox('setValue',1);
+			$('#allocationState').combobox('enable')
+			//.combobox('setValue',1);
 			
 		}else{
 
