@@ -38,14 +38,14 @@ public class Step2 {
     //邮政编码,输入框
     private String appContactZip;
 
-    //统一社会信用代码
+    //主体资格证明文件
     private String certFilePath;
 
     private String certFileName;
 
-    //主体资格证明文件
+    //证件名称
     private String appCertificateId;
-
+    //证件号码
     private String appCertificateNum;
 
     //身份证明文件
