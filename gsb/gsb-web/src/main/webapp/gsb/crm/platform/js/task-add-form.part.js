@@ -35,8 +35,18 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
 		$(grid).datagrid(options);
     },
     costedChange:function(checked){
-    	
-    	console.log(checked);
+
+//      1:自动分配
+//      2:手动分配
+//      3:自动分配到服务商
+
+    	var allocationType = $("#allocationType").combobox('getValue');
+    	if(checked && allocationType != '2'){
+    		
+    		$("#supplier_name").combogrid('enable');
+    	}else if(allocationType == '1'){
+    		$("#supplier_name").combogrid('disable');
+    	}
     },
     sourceSelect:function(record){
     	
@@ -71,70 +81,37 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
 //    	AUTO(1, "自动分配"), 
 //    	MANUAL(2, "手动分配"),
 //    	SemiAutomatic(3, "自动分配到服务商");
+    	//是否费用部门
+    	var costedChecked = $('#costed').switchbutton('options').checked;
 		if(newValue==1){
-			
-			//$("#supplier_name").combogrid('setValue','').combogrid('disable');
-//			var options1 = $("#supplier_name").combogrid('options');
-//			options1.required = false;
-//			$("#supplier_name").combogrid(options1);
-			
-			
-			//$("#department_name").combogrid('setValue','').combogrid('disable');
-//			var options2 = $("#department_name").combogrid('options');
-//			options2.required = false;
-//			$("#department_name").combogrid(options2);
-			
-			
+
 			$("#owner_name").combogrid('setValue','').combogrid('disable');
-//			var options3 = $("#owner_name").combogrid('options');
-//			options3.required = false;
-//			$("#owner_name").combogrid(options3);
-			
+
 			$('#allocationState').combobox('disable').combobox('setValue','1');
-			$("#supplier_name").combogrid('disable').combogrid('clear');
+			
+			if(!costedChecked){
+
+				$("#supplier_name").combogrid('disable').combogrid('clear');
+			}
+			
 			$("#department_name").combogrid('disable').combogrid('clear');
 		}else if(newValue==2){
 			
 			$("#supplier_name").combogrid('enable');
-//			var options = $("#supplier_name").combogrid('options');
-//			options.required = true;
-//			$("#supplier_name").combogrid(options);
-			
-			
+
 			$("#department_name").combogrid('enable');
-//			var options = $("#department_name").combogrid('options');
-//			options.required = true;
-//			$("#department_name").combogrid(options);
-			
-			
+
 			$("#owner_name").combogrid('enable');
-//			var options = $("#owner_name").combogrid('options');
-//			options.required = true;
-//			$("#owner_name").combogrid(options);
-			
+
 			$('#allocationState').combobox('enable')
-			//.combobox('setValue',1);
-			
 		}else{
 
 			$("#supplier_name").combogrid('enable');
-//			var options =$("#supplier_name").combogrid('options');
-//			options.required = true;
-//			$("#supplier_name").combogrid(options);
-			
 			
 			$("#department_name").combogrid('enable');
-//			var options =$("#department_name").combogrid('options');
-//			options.required = false;
-//			$("#department_name").combogrid(options);
-			
-			
+
 			$("#owner_name").combogrid('setValue','').combogrid('disable');
-//			var options =$("#owner_name").combogrid('options');
-//			options.required = false;
-			
-//			$("#owner_name").combogrid(options);
-			
+
 			$('#allocationState').combobox('enable');
 		}
     },
@@ -206,16 +183,18 @@ com.gongsibao.crm.web.TaskProductDetailPart = org.netsharp.panda.commerce.Detail
     	//加载二级分类
         this.invokeService("queryByFirstProductCategoryId", [record.id], function (data) {
         	
-        	$('#productCategory2_name').combobox('clear').combobox('loadData',data);
+        	//这句有问题
+//        	$('#productCategory2_name').combobox('clear').combobox('loadData',data);
         	
     		var grid = $('#product_name').combogrid('grid');
         	var row = $(grid).datagrid('getSelected');
+
         	if(row){
 
             	$('#productCategory2_name').combobox('setValue',row.typeId);
             	$('#productCategory2_name').combobox('setText',row.type_name);
         	}
-        });
+        },null,false);
     },
     productCategory2Select:function(record){
     	
@@ -227,7 +206,6 @@ com.gongsibao.crm.web.TaskProductDetailPart = org.netsharp.panda.commerce.Detail
 
             	$('#product_name').combogrid('clear');
         	}
-    		var grid = $('#product_name').combogrid('grid');
     		var options = $(grid).datagrid('options');
     		var filter = ' enabled____1 and type_id____'+record.id;
     		options.url = '\/panda\/rest\/reference?code=CRM_Product&filter='+ filter;

@@ -23,7 +23,7 @@ com.gongsibao.controls.DictComboBox = org.netsharp.controls.ReferenceBox.Extends
 
 	setText: function(text) {
 
-		//$(this.uiElement).combobox('setText', text);
+		$(this.uiElement).combobox('setText', text);
 	},
 	disable: function() {
 		$(this.uiElement).combobox("disable");
