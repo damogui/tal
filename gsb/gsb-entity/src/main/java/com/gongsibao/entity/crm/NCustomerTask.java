@@ -295,7 +295,7 @@ public class NCustomerTask extends Entity {
 	}
 
 	public Integer getOwnerId() {
-		return ownerId == null ? 0 : ownerId;
+		return ownerId;
 	}
 
 	public void setOwnerId(Integer ownerId) {
@@ -332,7 +332,7 @@ public class NCustomerTask extends Entity {
 	}
 
 	public Integer getCustomerId() {
-		return customerId == null ? 0 : customerId;
+		return customerId;
 	}
 
 	public void setCustomerId(Integer customerId) {
@@ -340,7 +340,7 @@ public class NCustomerTask extends Entity {
 	}
 
 	public String getName() {
-		return name == null ? "" : name;
+		return name;
 	}
 
 	public void setName(String name) {
@@ -348,7 +348,7 @@ public class NCustomerTask extends Entity {
 	}
 
 	public Integer getSupplierId() {
-		return supplierId == null ? 0 : supplierId;
+		return supplierId;
 	}
 
 	public void setSupplierId(Integer supplierId) {
@@ -364,7 +364,7 @@ public class NCustomerTask extends Entity {
 	}
 
 	public Integer getDepartmentId() {
-		return departmentId == null ? 0 : departmentId;
+		return departmentId;
 	}
 
 	public void setDepartmentId(Integer departmentId) {
