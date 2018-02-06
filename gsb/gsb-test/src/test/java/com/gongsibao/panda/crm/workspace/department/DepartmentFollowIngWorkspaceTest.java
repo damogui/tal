@@ -14,7 +14,7 @@ public class DepartmentFollowIngWorkspaceTest extends DepartmentAllTaskWorkspace
 		resourceNodeCode = "CRM_DEPARTMENT_TASK_FOLLOWING";
 		
 		//当前登录人所在部门的子部门,需要扩展
-		listFilter = "foolowStatus = 3 and ownerId = '{userId}'";
+		listFilter = "foolowStatus = 3";
 	}
 	
 	@Override

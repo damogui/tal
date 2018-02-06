@@ -14,7 +14,7 @@ public class DepartmentSignWorkspaceTest extends DepartmentAllTaskWorkspaceTest{
 		resourceNodeCode = "CRM_DEPARTMENT_TASK_SIGNED";
 
 		//当前登录人所在部门的子部门,需要扩展
-		listFilter = "foolowStatus=5 and ownerId = '{userId}'";
+		listFilter = "foolowStatus=5";
 	}
 	
 	@Override
