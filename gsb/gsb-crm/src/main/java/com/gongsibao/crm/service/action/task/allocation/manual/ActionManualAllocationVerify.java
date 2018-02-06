@@ -23,11 +23,11 @@ public class ActionManualAllocationVerify implements IAction{
 		Integer departId =  taskEntity.getDepartmentId();
 		Integer ownerId =  taskEntity.getOwnerId();
 		//1.根据选择的服务商、部门是否为空，判断分配状态
-		if(departId != null && supplierId == null && ownerId == null){
-			taskEntity.setAllocationState(AllocationState.ALLOCATED_Department);
-		}
-		if(supplierId != null && ownerId == null ){
+		if(supplierId != null && ownerId == null && departId == null){
 			taskEntity.setAllocationState(AllocationState.ALLOCATED_Supplier);
+		}
+		if(departId != null && ownerId == null){
+			taskEntity.setAllocationState(AllocationState.ALLOCATED_Department);
 		}
 		//2.服务商和部门如果不选择，此时根据业务员Id,获取相应的服务商和部门
 		if(ownerId != null){

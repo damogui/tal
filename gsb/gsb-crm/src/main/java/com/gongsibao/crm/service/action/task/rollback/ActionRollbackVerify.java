@@ -6,7 +6,6 @@ import org.netsharp.communication.ServiceFactory;
 import org.netsharp.persistence.session.SessionManager;
 
 import com.gongsibao.entity.crm.NCustomerTask;
-import com.gongsibao.supplier.base.ISalesmanService;
 import com.gongsibao.supplier.base.ISupplierDepartmentService;
 import com.gongsibao.utils.SalesmanOrganization;
 import com.gongsibao.utils.SupplierSessionManager;
