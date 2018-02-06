@@ -6,6 +6,8 @@ package com.gongsibao.taurus.entity;
  */
 public class Count implements IEntity {
 
+    private static final long serialVersionUID = -2587367406185722641L;
+
     private int count;
 
     public int getCount() {
