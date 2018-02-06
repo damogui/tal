@@ -400,7 +400,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 			{
 				oql.setType(this.type);
 				oql.setSelects("*");
-				oql.setFilter("is_leader = 1 and disabled =0 and supplier_id = ? and department_id = ? and ");
+				oql.setFilter("is_leader = 1 and disabled =0 and supplier_id = ? and department_id = ?");
 				oql.getParameters().add("@supplier_id", supplierId, Types.INTEGER);
 				oql.getParameters().add("@department_id", departmentId, Types.INTEGER);
 				leaderIds = this.pm.queryList(oql);
