@@ -69,7 +69,7 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
     		$ctrl.validatebox('enableValidation');
     	}else{
     		$ctrl.prop("disabled",true);
-    		//ctrl.validatebox('disableValidation');
+    		//ctrl.validatebox('disableValidation') ;
     	}
     },
     allocationDispositonChange:function(newValue,oldValue){
