@@ -36,6 +36,7 @@ public class DepartmentAllCustomerWorkspaceTest extends CustomerALLWorkspaceTest
 		listPartServiceController = DepartmentAllCustomerListPart.class.getName();
 
 		//当前登录人所在部门的子部门,需要扩展
+		
 	}
 	
 
