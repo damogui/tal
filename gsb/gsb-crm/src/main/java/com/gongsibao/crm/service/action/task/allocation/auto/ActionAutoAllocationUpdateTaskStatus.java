@@ -44,7 +44,7 @@ public class ActionAutoAllocationUpdateTaskStatus implements IAction {
 			updateSql.update("n_crm_customer_task");
 			updateSql.set("allocation_state", AllocationState.WAIT.getValue());
 			// 跟进状态改为【待跟进】
-			updateSql.set("foolow_status", CustomerFollowStatus.UNFollow.getValue());
+			updateSql.set("foolow_status", CustomerFollowStatus.UNSTART.getValue());
 			// 跟新最后分配时间
 			updateSql.set("last_allocation_time", DateUtils.getDateStr(new Date()));
 			// 最后分配人Id（机器分配，默认写0）
@@ -56,7 +56,7 @@ public class ActionAutoAllocationUpdateTaskStatus implements IAction {
 		entity.setAllocationState(AllocationState.WAIT);
 		// 最后分配人Id（机器分配，默认写0）
 		entity.setLastAllocationUserId(0);
-		entity.setFoolowStatus(CustomerFollowStatus.UNFollow);
+		entity.setFoolowStatus(CustomerFollowStatus.UNSTART);
 		entity.setLastAllocationTime(new Date());
 
 		if (!entity.getSupplierId().equals(0) && entity.getDepartmentId().equals(0) && entity.getOwnerId().equals(0) && entity.getAllocationType().equals(NAllocationType.SemiAutomatic)) {
