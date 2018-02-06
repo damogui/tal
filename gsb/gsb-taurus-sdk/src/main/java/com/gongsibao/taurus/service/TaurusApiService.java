@@ -604,9 +604,11 @@ public class TaurusApiService {
         return api.getResponse();
     }
 
-    public static ResponseMessage<TmInfo> getTmExceptionList(String companyName) {
+    public static ResponseMessage<TmInfo> getTmExceptionList(String companyName, int currentPage, int pageSize) {
         TmExceptionListApi api = ApiFactory.create(TmExceptionListApi.class);
         api.setName(companyName);
+        api.setCurrentPage(currentPage);
+        api.setPageSize(pageSize);
         return api.getResponse();
     }
 

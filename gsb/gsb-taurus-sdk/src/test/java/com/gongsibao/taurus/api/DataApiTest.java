@@ -176,7 +176,7 @@ public class DataApiTest {
     }
     public void testGetTmExceptionList(String companyName) {
         try {
-            ResponseMessage<TmInfo> response = TaurusApiService.getTmExceptionList(companyName);
+            ResponseMessage<TmInfo> response = TaurusApiService.getTmExceptionList(companyName, 1, 10);
             System.err.println(response);
             System.out.println(response.getResult() + "：" + response.getResultMsg());
         } catch (Exception e) {
