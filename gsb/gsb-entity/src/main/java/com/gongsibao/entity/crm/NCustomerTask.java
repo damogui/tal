@@ -295,7 +295,7 @@ public class NCustomerTask extends Entity {
 	}
 
 	public Integer getOwnerId() {
-		return ownerId == null ? 0 : ownerId;
+		return ownerId;
 	}
 
 	public void setOwnerId(Integer ownerId) {
