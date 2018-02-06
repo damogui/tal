@@ -15,7 +15,6 @@ import org.netsharp.util.StringManager;
 import com.gongsibao.crm.service.NCustomerService;
 import com.gongsibao.entity.crm.NCustomerProduct;
 import com.gongsibao.entity.crm.NCustomerTask;
-import com.gongsibao.entity.crm.dic.AllocationState;
 import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.NAllocationType;
 
@@ -46,7 +45,8 @@ public class ActionSaveTaskPersist implements IAction {
 		if (allocationType == NAllocationType.MANUAL) {
 
 			// 【手动分配】 时设置分配状态为【已经分配】
-			task.setAllocationState(AllocationState.ALLOCATED);
+			//task.setAllocationState(AllocationState.ALLOCATED);
+			
 			if (state == EntityState.New) {
 
 				// 新增状态：设置最后分配时间，最后分配人
@@ -75,17 +75,17 @@ public class ActionSaveTaskPersist implements IAction {
 			}
 
 			List<String> countyList = new ArrayList<String>();
-			if (nCustomerProduct.getProvince() != null) {
+			if (nCustomerProduct.getProvinceId() != null && nCustomerProduct.getProvince() != null) {
 
 				countyList.add(nCustomerProduct.getProvince().getName());
 			}
 
-			if (nCustomerProduct.getCity() != null) {
+			if (nCustomerProduct.getCityId() != null && nCustomerProduct.getCity() != null) {
 
 				countyList.add(nCustomerProduct.getCity().getName());
 			}
 
-			if (nCustomerProduct.getCounty() != null) {
+			if (nCustomerProduct.getCountyId() != null && nCustomerProduct.getCounty() != null) {
 
 				countyList.add(nCustomerProduct.getCounty().getName());
 			}
