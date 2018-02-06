@@ -440,12 +440,14 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			step2.setCertFileName(this.getBusinessLienceAttachment(tm, shareGroupToTradeMarkMap).get("fileName"));
 
 			List<UploadAttachment> uas = tmc.getUploadAttachments();
-			//以下4行测试自然人使用，开发后需要改写
-			step2.setAppCertificateNum("120103198007215812");  //证件号码
-			step2.setAppCertificateId("身份证");              //证件名称
-			step2.setAppCertFilePath(this.getBusinessLienceAttachment(tm, shareGroupToTradeMarkMap).get("fileUrl"));//身份证明原件
-			step2.setAppCertFileName(this.getBusinessLienceAttachment(tm, shareGroupToTradeMarkMap).get("fileName"));//身份证明原件
-			//以上4行测试自然人使用，开发后需要改写
+			//以下6行测试自然人使用，开发后需要改写
+            if(tmc.getApplierType().getText().equals("自然人")){
+                step2.setAppCertificateNum("120103198007215812");  //证件号码
+                step2.setAppCertificateId("身份证");              //证件名称
+                step2.setAppCertFilePath(this.getBusinessLienceAttachment(tm, shareGroupToTradeMarkMap).get("fileUrl"));//身份证明原件
+                step2.setAppCertFileName(this.getBusinessLienceAttachment(tm, shareGroupToTradeMarkMap).get("fileName"));//身份证明原件
+            }
+			//以上6行测试自然人使用，开发后需要改写
 
 			step2.setCertCode(tmc.getCreditCode());
 			step2.setAppCnName(tmc.getApplier());
