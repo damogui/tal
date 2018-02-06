@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.netsharp.action.ActionContext;
@@ -64,7 +65,7 @@ public class ActionAutoAllocationRecordLog implements IAction {
             addNCustomerTaskNotify(entity, receiveUserId, getNotifyLog(1, entity, 0, 1));
             // 领导id
             receiveleaderUserId = getLeaderId(entity.getSupplierId(), entity.getDepartmentId());
-            if (!receiveleaderUserId.equals(0)) {
+            if (receiveleaderUserId != 0) {
                 // 添加通知日志
                 addNCustomerTaskNotify(entity, receiveleaderUserId, getNotifyLog(1, entity, 1, 1));
             }
@@ -93,7 +94,7 @@ public class ActionAutoAllocationRecordLog implements IAction {
     private void addNCustomerChange(NCustomerTask entity, Integer FormUserId, String content) {
         if (StringManager.isNullOrEmpty(content))
             return;
-        if (entity.getOwnerId().equals(0))
+        if (NumberUtils.toInt(entity.getOwnerId()) == 0)
             return;
         // 1.保存流转日志
         NCustomerOperationLog changeEntity = new NCustomerOperationLog();
@@ -113,7 +114,7 @@ public class ActionAutoAllocationRecordLog implements IAction {
     private void addNCustomerTaskNotify(NCustomerTask entity, Integer receiveUserId, String content) {
         if (StringManager.isNullOrEmpty(content))
             return;
-        if (receiveUserId.equals(0))
+        if (NumberUtils.toInt(receiveUserId) == 0)
             return;
         NCustomerTaskNotify notifyEntity = new NCustomerTaskNotify();
         notifyEntity.toNew();
@@ -144,7 +145,7 @@ public class ActionAutoAllocationRecordLog implements IAction {
             case 1:
                 if (entity.getCustomer() == null)
                     return "";
-                String customerName = entity.getCustomer().getRealName();
+                String customerName = StringUtils.trimToEmpty(entity.getCustomer().getRealName());
                 String contract = getContractStr(entity);
                 String zyString = "";
                 if (!FormUserId.equals(0)) {
