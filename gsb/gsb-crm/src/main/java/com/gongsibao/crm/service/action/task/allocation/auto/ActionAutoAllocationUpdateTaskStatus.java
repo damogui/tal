@@ -3,6 +3,7 @@ package com.gongsibao.crm.service.action.task.allocation.auto;
 import java.sql.Types;
 import java.util.Date;
 
+import com.gongsibao.utils.NumberUtils;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
@@ -34,8 +35,15 @@ public class ActionAutoAllocationUpdateTaskStatus implements IAction {
         if (entity == null) {
             throw new BusinessException("该任务不存在！");
         }
+        //服务商id
+        Integer supplierId = NumberUtils.toInt(entity.getSupplierId());
+        //部门id
+        Integer departmentId = NumberUtils.toInt(entity.getDepartmentId());
+        //业务员id
+        Integer ownerId = NumberUtils.toInt(entity.getOwnerId());
+
         // 当没有分配到人，也没有分配到部门，则不改变状态
-        if (entity.getSupplierId().equals(0) && entity.getDepartmentId().equals(0) && entity.getOwnerId().equals(0)) {
+        if (supplierId.equals(0) && departmentId.equals(0) && ownerId.equals(0)) {
             return;
         }
 
@@ -59,7 +67,7 @@ public class ActionAutoAllocationUpdateTaskStatus implements IAction {
         entity.setFoolowStatus(CustomerFollowStatus.UNSTART);
         entity.setLastAllocationTime(new Date());
 
-        if (!entity.getSupplierId().equals(0) && entity.getDepartmentId().equals(0) && entity.getOwnerId().equals(0) && entity.getAllocationType().equals(NAllocationType.SemiAutomatic)) {
+        if (!supplierId.equals(0) && departmentId.equals(0) && ownerId.equals(0) && entity.getAllocationType().equals(NAllocationType.SemiAutomatic)) {
             // 状态改为【已分配-服务商】
             updateSql.set("allocation_state", AllocationState.ALLOCATED_Supplier.getValue());
             entity.setAllocationState(AllocationState.ALLOCATED_Supplier);
@@ -68,7 +76,7 @@ public class ActionAutoAllocationUpdateTaskStatus implements IAction {
             entity.setDistribut(true);
         }
 
-        if (!entity.getSupplierId().equals(0) && !entity.getDepartmentId().equals(0) && entity.getOwnerId().equals(0) && entity.getAllocationType().equals(NAllocationType.SemiAutomatic)) {
+        if (!supplierId.equals(0) && !departmentId.equals(0) && ownerId.equals(0) && entity.getAllocationType().equals(NAllocationType.SemiAutomatic)) {
             // 状态改为【已分配-部门】
             updateSql.set("allocation_state", AllocationState.ALLOCATED_Department.getValue());
             entity.setAllocationState(AllocationState.ALLOCATED_Department);
@@ -77,7 +85,7 @@ public class ActionAutoAllocationUpdateTaskStatus implements IAction {
             entity.setDistribut(true);
         }
 
-        if (!entity.getOwnerId().equals(0) && entity.getAllocationType().equals(NAllocationType.AUTO)) {
+        if (!ownerId.equals(0) && entity.getAllocationType().equals(NAllocationType.AUTO)) {
             // 状态改为【已分配-业务员】
             updateSql.set("allocation_state", AllocationState.ALLOCATED.getValue());
             entity.setAllocationState(AllocationState.ALLOCATED);
