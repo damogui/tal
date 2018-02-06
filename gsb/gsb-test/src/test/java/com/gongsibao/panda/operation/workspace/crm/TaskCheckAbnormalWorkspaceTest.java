@@ -5,7 +5,7 @@ import org.netsharp.panda.plugin.entity.PToolbar;
 
 import com.gongsibao.crm.web.TaskAllListPart;
 
-public class TaskAnomalyDetectionWorkspaceTest extends TaskOpenSeaWorkspaceTest{
+public class TaskCheckAbnormalWorkspaceTest extends TaskOpenSeaWorkspaceTest{
 
 	@Override
 	@Before
