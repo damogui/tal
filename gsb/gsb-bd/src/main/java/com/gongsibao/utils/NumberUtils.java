@@ -6,7 +6,7 @@ import java.text.Format;
 /**
  * Created by zhangchao on 2018/2/6.
  */
-public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
+public class NumberUtils {
     private static Format FORMAT = new DecimalFormat("#.##");
 
     /**
@@ -58,18 +58,6 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
             return defaultValue;
         }
         return toLong(StringUtils.trimToEmpty(object), defaultValue);
-    }
-
-    public static double getRealMoney(Integer money) {
-        double m = toDouble(String.valueOf(money));
-        if (m == 0) {
-            return m;
-        }
-        return m / 100d;
-    }
-
-    public static int doubleRoundInt(String str) {
-        return doubleRoundInt(toDouble(str));
     }
 
     public static int doubleRoundInt(double  d) {
