@@ -15,7 +15,7 @@ public class DepartmentUnFoolowWorkspaceTest extends DepartmentAllTaskWorkspaceT
 		listToolbarPath = "department/task/unfoolow";
 		
 		//当前登录人所在部门的子部门,需要扩展
-		listFilter = "nextFoolowTime is not null and nextFoolowTime = CURDATE() and ownerId = '{userId}'";
+		listFilter = "nextFoolowTime is not null and nextFoolowTime = CURDATE()";
 	}
 	
 

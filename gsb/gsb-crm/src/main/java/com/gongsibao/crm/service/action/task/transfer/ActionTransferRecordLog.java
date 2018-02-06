@@ -46,7 +46,7 @@ public class ActionTransferRecordLog implements IAction {
 		// 2.保存通知日志（通知接收人）
 		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
 		//业务员为空，通知服务商管理员或部门主管
-		if(task.getOwnerId().equals(0)){
+		if(task.getOwnerId() == null){
 			List<Salesman> manList = salesmanService.getLeaderIds(task.getSupplierId(), task.getDepartmentId());
 			if(manList.size()>0){
 				for (Salesman item : manList) {

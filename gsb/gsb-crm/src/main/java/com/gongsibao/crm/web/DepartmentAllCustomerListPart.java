@@ -25,7 +25,7 @@ public class DepartmentAllCustomerListPart extends NCustomerAllListPart{
 		String departmentIds = SupplierSessionManager.getSubDepartmentIdsStr();
 		if (!StringManager.isNullOrEmpty(departmentIds)) {
 
-			ss.add("departmentId in (" + departmentIds+")");
+			ss.add(" id in (select customer_id from n_crm_customer_task where department_id in (" + departmentIds+"))");
 		}else {
 			
 			//非服务商内部人员看不到数据

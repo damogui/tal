@@ -377,7 +377,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 	@Override
 	public List<Salesman> getLeaderIds(Integer supplierId, Integer departmentId) {
 		List<Salesman> leaderIds = new ArrayList<Salesman>();
-		if(!supplierId.equals(0) && departmentId.equals(0)){
+		if(supplierId != null && departmentId == null){
 			Oql oql = new Oql();
 			{
 				oql.setType(this.type);
@@ -386,7 +386,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 				oql.getParameters().add("@supplier_id", supplierId, Types.INTEGER);
 				leaderIds = this.pm.queryList(oql);
 			}
-		}else if(supplierId.equals(0) && !departmentId.equals(0)){
+		}else if(supplierId == null && departmentId != null){
 			Oql oql = new Oql();
 			{
 				oql.setType(this.type);
@@ -400,7 +400,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 			{
 				oql.setType(this.type);
 				oql.setSelects("*");
-				oql.setFilter("is_leader = 1 and disabled =0 and supplier_id = ? and department_id = ? and ");
+				oql.setFilter("is_leader = 1 and disabled =0 and supplier_id = ? and department_id = ?");
 				oql.getParameters().add("@supplier_id", supplierId, Types.INTEGER);
 				oql.getParameters().add("@department_id", departmentId, Types.INTEGER);
 				leaderIds = this.pm.queryList(oql);

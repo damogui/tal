@@ -17,13 +17,15 @@ public class TmAssemble implements IEntity{
     private String path;
 
     /* 推荐商标类别 */
-    private List<Integer> recommendList;
+    private List<TmCls> recommendClassList;
 
     /* 被占用类别 */
-    private List<Integer> occupiedList;
+    private List<TmCls> occupiedClassList;
 
     /* 已注册类别 */
-    private List<Integer> regList;
+    private List<TmCls> hasClassList;
+
+    private List<TmCls> clsList;
 
     public String getName() {
         return name;
@@ -41,27 +43,35 @@ public class TmAssemble implements IEntity{
         this.path = path;
     }
 
-    public List<Integer> getRecommendList() {
-        return recommendList;
+    public List<TmCls> getRecommendClassList() {
+        return recommendClassList;
     }
 
-    public void setRecommendList(List<Integer> recommendList) {
-        this.recommendList = recommendList;
+    public void setRecommendClassList(List<TmCls> recommendClassList) {
+        this.recommendClassList = recommendClassList;
     }
 
-    public List<Integer> getOccupiedList() {
-        return occupiedList;
+    public List<TmCls> getOccupiedClassList() {
+        return occupiedClassList;
     }
 
-    public void setOccupiedList(List<Integer> occupiedList) {
-        this.occupiedList = occupiedList;
+    public void setOccupiedClassList(List<TmCls> occupiedClassList) {
+        this.occupiedClassList = occupiedClassList;
     }
 
-    public List<Integer> getRegList() {
-        return regList;
+    public List<TmCls> getHasClassList() {
+        return hasClassList;
     }
 
-    public void setRegList(List<Integer> regList) {
-        this.regList = regList;
+    public void setHasClassList(List<TmCls> hasClassList) {
+        this.hasClassList = hasClassList;
+    }
+
+    public List<TmCls> getClsList() {
+        return clsList;
+    }
+
+    public void setClsList(List<TmCls> clsList) {
+        this.clsList = clsList;
     }
 }

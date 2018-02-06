@@ -3,13 +3,21 @@ package com.gongsibao.crm.web;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.netsharp.base.ICatEntityService;
+import org.netsharp.communication.ServiceFactory;
+import org.netsharp.panda.commerce.TreegridPart;
 import org.netsharp.util.StringManager;
 
-import com.gongsibao.supplier.web.panda.BaseSupplierTreeGridPart;
 import com.gongsibao.utils.SupplierSessionManager;
 
-public class SysDepartmentTreeGridPart extends BaseSupplierTreeGridPart {
+public class SysDepartmentTreeGridPart extends TreegridPart {
 
+	public void pathCode() {
+
+		ICatEntityService service = ServiceFactory.create(ICatEntityService.class);
+		service.generatePathCode(this.context.getEntityId());
+	}
+	
 	@Override
 	protected String getExtraFilter() {
 

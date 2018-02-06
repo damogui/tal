@@ -46,7 +46,7 @@ public class ActionManualAllocationRecordLog implements IAction {
 		// 2.保存通知日志
 		//业务员为空，通知服务商管理员或部门主管
 		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
-		if(task.getOwnerId().equals(0)){
+		if(task.getOwnerId() == null){
 			List<Salesman> manList = salesmanService.getLeaderIds(task.getSupplierId(), task.getDepartmentId());
 			if(manList.size()>0){
 				for (Salesman item : manList) {
@@ -75,7 +75,7 @@ public class ActionManualAllocationRecordLog implements IAction {
 			notify.setCustomerId(task.getCustomerId());
 			notify.setSupplierId(task.getSupplierId());
 			notify.setDepartmentId(task.getDepartmentId());
-			notify.setReceivedId(employeeId ==null ? task.getOwnerId() : employeeId);
+			notify.setReceivedId(employeeId == null ? task.getOwnerId() : employeeId);
 			notifyService.save(notify);
 		}
 	}

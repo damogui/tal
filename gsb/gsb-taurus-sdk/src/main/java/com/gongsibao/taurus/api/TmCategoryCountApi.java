@@ -1,42 +1,41 @@
 package com.gongsibao.taurus.api;
 
-import com.gongsibao.taurus.message.response.CompanyBusinessCountResponseMessage;
-import com.gongsibao.taurus.message.response.ItemCountResponseMessage;
+import com.gongsibao.taurus.message.response.CountResponseMessage;
 
 import java.util.List;
 
 /**
  * 查询公司详情api
  */
-public class TmCategoryCountApi extends AbstractApi<ItemCountResponseMessage> {
+public class TmCategoryCountApi extends AbstractApi<CountResponseMessage> {
 
     /**
      * 公司名称
      */
-    private String names;
+    private String name;
 
     @Override
     protected void setExtendParameter(List<String> parameters) {
         if (null != parameters) {
-            parameters.add("names=" + this.getNames());
+            parameters.add("name=" + this.getName());
         }
     }
 
     @Override
     protected String getUrl() {
-        return "/dataapi/v3/ic/getTmCountByClass";
+        return "/dataapi/v3/ic/getTmClassCountByCompanyName";
     }
 
     @Override
     public Class<?> getResponseType() {
-        return ItemCountResponseMessage.class;
+        return CountResponseMessage.class;
     }
 
-    public String getNames() {
-        return names;
+    public String getName() {
+        return name;
     }
 
-    public void setNames(String names) {
-        this.names = names;
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -1,13 +1,13 @@
 package com.gongsibao.taurus.api;
 
-import com.gongsibao.taurus.message.response.ItemCountResponseMessage;
+import com.gongsibao.taurus.message.response.TmInfoResponseMessage;
 
 import java.util.List;
 
 /**
- * 娱乐牌照机会数量
+ * Created by wk on 2018/2/2.
  */
-public class YuLeCountApi extends AbstractApi<ItemCountResponseMessage> {
+public class TmExceptionListApi extends AbstractApi<TmInfoResponseMessage> {
 
     /**
      * 公司名称
@@ -23,12 +23,12 @@ public class YuLeCountApi extends AbstractApi<ItemCountResponseMessage> {
 
     @Override
     protected String getUrl() {
-        return "/dataapi/v3/ic/getBusinessYuLe";
+        return "/dataapi/v3/ic/getTmErrListByCompanyName";
     }
 
     @Override
     public Class<?> getResponseType() {
-        return ItemCountResponseMessage.class;
+        return TmInfoResponseMessage.class;
     }
 
     public String getName() {

@@ -21,18 +21,23 @@ public class DataApiTest {
     @Test
     public void test() {
         System.out.println("商标：");
-//        testGetByName("四川腾中重工机械有限公司");
 
+        //region 可使用接口
+
+//        testGetByName("四川腾中重工机械有限公司");
 //        testGetCompanyByKey("腾中重工");
 //        testCompanyNameByKey("中重工有限");
-
 //        testGetCompanyTmList("四川腾中重工机械有限公司");
+
 //        testGetTmChangeList("四川腾中重工机械有限公司");
-        testGetTmRenewalList("四川腾中重工机械有限公司", "2022-12-20");
-//        testTmAssemble("四川腾中重工机械有限公司");
+//        testGetTmRenewalList("四川腾中重工机械有限公司", "2022-12-20");
+//        testTmRegAssembleList("四川腾中重工机械有限公司");
 //        testGetCompanyBusinessCount("四川腾中重工机械有限公司");
-//        testGetCompanyPotentialCount("四川腾中重工机械有限公司");
+
+//        testGetTmExceptionList("四川腾中重工机械有限公司");
+
 //        testTmCategoryCount("四川腾中重工机械有限公司");
+//        testGetCompanyPotentialCount("四川腾中重工机械有限公司");
 //        testPatentCount("四川腾中重工机械有限公司");
 //        testCopyrightCount("四川腾中重工机械有限公司");
 //        testYearReportCount("四川腾中重工机械有限公司");
@@ -43,6 +48,13 @@ public class DataApiTest {
 //        testShuiShou("四川腾中重工机械有限公司");
 //        testYingShi("四川腾中重工机械有限公司");
 //        testShiPin("四川腾中重工机械有限公司");
+
+
+        //endregion
+
+        testTmAssemble("四川腾中重工机械有限公司");
+
+
         System.err.println("/**************************************************/");
     }
 
@@ -77,7 +89,7 @@ public class DataApiTest {
      */
     public void testGetCompanyTmList(String key) {
         try {
-            ResponseMessage<TmInfo> response = TaurusApiService.getCompanyTmList(key, 1, 1);
+            ResponseMessage<TmInfo> response = TaurusApiService.getCompanyTmList(key, 1, 10);
             System.err.println(response);
             System.out.println(response.getResult() + "：" + response.getResultMsg());
         } catch (Exception e) {
@@ -90,7 +102,7 @@ public class DataApiTest {
      */
     public void testGetTmChangeList(String key) {
         try {
-            ResponseMessage<TmInfo> response = TaurusApiService.getTmChangeList(key, 1, 1);
+            ResponseMessage<TmInfo> response = TaurusApiService.getTmChangeList(key, 1, 10);
             System.err.println(response);
             System.out.println(response.getResult() + "：" + response.getResultMsg());
         } catch (Exception e) {
@@ -103,7 +115,7 @@ public class DataApiTest {
      */
     public void testGetTmRenewalList(String key, String endDate) {
         try {
-            ResponseMessage<TmInfo> response = TaurusApiService.getTmRenewalList(key, endDate, 1, 1);
+            ResponseMessage<TmInfo> response = TaurusApiService.getTmRenewalList(key, endDate, 1, 10);
             System.err.println(response);
             System.out.println(response.getResult() + "：" + response.getResultMsg());
         } catch (Exception e) {
@@ -125,11 +137,23 @@ public class DataApiTest {
     }
 
     /**
+     * 已注册商标信息查询（聚合）
+     */
+    public void testTmRegAssembleList(String companyName) {
+        try {
+            ResponseMessage<TmAssemble> response = TaurusApiService.getRegTmAssembleList(companyName, 1, 10);
+            System.err.println(response);
+            System.out.println(response.getResult() + "：" + response.getResultMsg());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    /**
      * 商标聚合查询
      */
     public void testTmAssemble(String companyName) {
         try {
-            ResponseMessage<TmAssemble> response = TaurusApiService.getTmAssemble(companyName);
+            ResponseMessage<TmAssemble> response = TaurusApiService.getTmAssembleList(companyName, 1, 10);
             System.err.println(response);
             System.out.println(response.getResult() + "：" + response.getResultMsg());
         } catch (Exception e) {
@@ -144,6 +168,15 @@ public class DataApiTest {
     public void testGetCompanyBusinessCount(String companyName) {
         try {
             ResponseMessage<CompanyBusinessCount> response = TaurusApiService.getCompanyBusinessCount(companyName);
+            System.err.println(response);
+            System.out.println(response.getResult() + "：" + response.getResultMsg());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void testGetTmExceptionList(String companyName) {
+        try {
+            ResponseMessage<TmInfo> response = TaurusApiService.getTmExceptionList(companyName, 1, 10);
             System.err.println(response);
             System.out.println(response.getResult() + "：" + response.getResultMsg());
         } catch (Exception e) {
@@ -169,7 +202,7 @@ public class DataApiTest {
      */
     public void testTmCategoryCount(String companyName) {
         try {
-            ResponseMessage<ItemCount> response = TaurusApiService.getTmCategoryCount(companyName);
+            ResponseMessage<Count> response = TaurusApiService.getTmCategoryCount(companyName);
             System.err.println(response);
             System.out.println(response.getResult() + "：" + response.getResultMsg());
         } catch (Exception e) {
@@ -208,7 +241,7 @@ public class DataApiTest {
      */
     public void testYearReportCount(String companyName) {
         try {
-            ResponseMessage<ItemCount> response = TaurusApiService.getYearReportCount(companyName);
+            ResponseMessage<Count> response = TaurusApiService.getYearReportCount(companyName);
             System.err.println(response);
             System.out.println(response.getResult() + "：" + response.getResultMsg());
         } catch (Exception e) {
@@ -221,7 +254,7 @@ public class DataApiTest {
      */
     public void testDianXin(String companyName) {
         try {
-            ResponseMessage<ItemCount> response = TaurusApiService.getDianXinCount(companyName);
+            ResponseMessage<HasCount> response = TaurusApiService.getDianXinCount(companyName);
             System.err.println(response);
             System.out.println(response.getResult() + "：" + response.getResultMsg());
         } catch (Exception e) {
@@ -234,7 +267,7 @@ public class DataApiTest {
      */
     public void testYuLe(String companyName) {
         try {
-            ResponseMessage<ItemCount> response = TaurusApiService.getYuLeCount(companyName);
+            ResponseMessage<HasCount> response = TaurusApiService.getYuLeCount(companyName);
             System.err.println(response);
             System.out.println(response.getResult() + "：" + response.getResultMsg());
         } catch (Exception e) {
@@ -243,11 +276,11 @@ public class DataApiTest {
     }
 
     /**
-     * 查询高新企业机会
+     * 查询高新企业商机
      */
     public void testGaoxin(String companyName) {
         try {
-            ResponseMessage<ItemCount> response = TaurusApiService.getGaoXinCount(companyName);
+            ResponseMessage<Count> response = TaurusApiService.getGaoXinCount(companyName);
             System.err.println(response);
             System.out.println(response.getResult() + "：" + response.getResultMsg());
         } catch (Exception e) {
@@ -260,7 +293,7 @@ public class DataApiTest {
      */
     public void testShuiShou(String companyName) {
         try {
-            ResponseMessage<ItemCount> response = TaurusApiService.getShuiShouCount(companyName);
+            ResponseMessage<Count> response = TaurusApiService.getShuiShouCount(companyName);
             System.err.println(response);
             System.out.println(response.getResult() + "：" + response.getResultMsg());
         } catch (Exception e) {
@@ -269,11 +302,11 @@ public class DataApiTest {
     }
 
     /**
-     * 查询年报数量
+     * 查询影视审批商机
      */
     public void testYingShi(String companyName) {
         try {
-            ResponseMessage<ItemCount> response = TaurusApiService.getYingShiCount(companyName);
+            ResponseMessage<Count> response = TaurusApiService.getYingShiCount(companyName);
             System.err.println(response);
             System.out.println(response.getResult() + "：" + response.getResultMsg());
         } catch (Exception e) {
@@ -282,11 +315,11 @@ public class DataApiTest {
     }
 
     /**
-     * 查询年报数量
+     * 食品流通商机查询
      */
     public void testShiPin(String companyName) {
         try {
-            ResponseMessage<ItemCount> response = TaurusApiService.getShiPinCount(companyName);
+            ResponseMessage<Count> response = TaurusApiService.getShiPinCount(companyName);
             System.err.println(response);
             System.out.println(response.getResult() + "：" + response.getResultMsg());
         } catch (Exception e) {
