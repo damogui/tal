@@ -8,7 +8,7 @@ import org.netsharp.base.IEnum;
  */
 public enum ShareGroup implements IEnum {
 
-    NOSHARRE(0, "不共享"),//business_liense
+    CASESHARRE(0, "案件共享"),//business_liense
     SG1(1, "共享分组1"),//business_liense
     SG2(2, "共享分组2"),// trademark picture
     SG3(3, "共享分组3"),// trademark picture

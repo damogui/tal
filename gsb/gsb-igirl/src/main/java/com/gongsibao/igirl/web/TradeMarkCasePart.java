@@ -31,6 +31,7 @@ public class TradeMarkCasePart extends FormPart {
 		//this.getContext().getWorkspace().ge
 		//获取当前的域名
 		TradeMarkCase entity1=(TradeMarkCase)entity;
+		entity1.setTokenImgUrl(this.fetchQrCodeUrl(entity1.getMobile()));
 		return super.save(entity1);
 	}
 	public CompanyDto fetchCompanyByName(String name) {

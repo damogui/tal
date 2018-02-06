@@ -8,6 +8,7 @@ import org.netsharp.entity.Entity;
 
 import com.gongsibao.entity.igirl.dict.AttachmentCat;
 import com.gongsibao.entity.igirl.dict.FileType;
+import com.gongsibao.entity.igirl.dict.ShareGroup;
 
 @Table(name = "ig_up_attachment", header = "下载附件")
 public class UploadAttachment extends Entity {
@@ -17,6 +18,11 @@ public class UploadAttachment extends Entity {
 	private static final long serialVersionUID = 1L;
 	@Column(name = "name", header = "名称")
 	private String name;
+	
+	@Column(name = "share_group", header = "共享组")
+	private ShareGroup shareGroup;
+
+
 
 	@Column(name = "attachment_cat", header = "附件类别")
 	private AttachmentCat attachmentCat;
@@ -169,4 +175,11 @@ public class UploadAttachment extends Entity {
 		this.needed = needed;
 	}
 
+	public ShareGroup getShareGroup() {
+		return shareGroup;
+	}
+
+	public void setShareGroup(ShareGroup shareGroup) {
+		this.shareGroup = shareGroup;
+	}
 }
