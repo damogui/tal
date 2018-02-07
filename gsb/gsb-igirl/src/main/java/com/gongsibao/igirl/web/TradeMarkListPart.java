@@ -30,7 +30,7 @@ public class TradeMarkListPart extends ListPart{
   private Map<Integer,String> buildShareGroupToTMAttachment(TradeMark tm) {
 	   Map<Integer,String> map=new HashMap<Integer,String>();
 	   for(UploadAttachment ua : tm.getTradeMarkCase().getUploadAttachments()) {
-		      if(ua.getAttachmentCat()==AttachmentCat.TRADEMARK_PICT) {
+		      if(ua.getAttachmentCat()==AttachmentCat.TRADEMARK_PICT && tm.getShareGroup()==ua.getShareGroup()) {
 		    	  Integer key=tm.getShareGroup().getValue();
 		    	  if(!map.containsKey(key)) {
 		    		    map.put(key, ua.getFileUrl());

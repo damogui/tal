@@ -27,6 +27,7 @@ public class NCLOneReferenceTest extends ReferenceCreationBase{
 	public PDatagrid createDatagrid(ResourceNode node) {
 
 		PDatagrid datagrid = super.createDatagrid(node);
+		datagrid.setOrderby("code asc");
 		addColumn(datagrid, "code", "编码", ControlTypes.TEXT_BOX, 150, null, false);
 		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 150, null, false);
 		return datagrid;

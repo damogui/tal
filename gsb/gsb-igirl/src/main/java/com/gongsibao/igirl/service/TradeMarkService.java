@@ -184,8 +184,8 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			// 黑色
 			String stepblackkeyjpg = null;
 			String stepblackkeypng = null;
-			stepblackkeyjpg = stepbasekey;
-			stepblackkeypng = stepbasekey;
+			stepblackkeyjpg = stepbasekey+ contantSeprate + FileType.JPGB.getValue();;
+			stepblackkeypng = stepbasekey+contantSeprate + FileType.PNGB.getValue();;
 			String fileinfoblackjpg = attachmentsMap.get(stepblackkeyjpg);
 			String fileinfo2blackpng = attachmentsMap.get(stepblackkeypng);
 			if (!StringManager.isNullOrEmpty(fileinfoblackjpg)) {
@@ -274,7 +274,7 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			step2.setCertCode(tmc.getCreditCode());
 			step2.setAppCnName(tmc.getApplier());
 			step2.setAppCnAddr(tmc.getApplierAddress());
-			step2.setAppContactPerson(tmc.getCreator());
+			step2.setAppContactPerson(tmc.getCaseProxyContactPerson());
 			step2.setAppContactTel(tmc.getYwPhone());
 			step2.setAppContactFax(tmc.getFax());
 			step2.setAppContactZip(tmc.getMailCode());
