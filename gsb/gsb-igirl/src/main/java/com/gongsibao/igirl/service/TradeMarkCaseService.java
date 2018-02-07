@@ -98,6 +98,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			// tradeMarkCaseAttamentBuiler.buildUploads(tm)；
 			List<UploadAttachment> caseUps = tradeMarkCaseAttachmentBuiler.buildCaseShareUploads(entity);
 			entity.getUploadAttachments().addAll(caseUps);
+			
 			List<UploadAttachment> markShareGroupUps = tradeMarkCaseAttachmentBuiler.buildMarkShareGroupUploads(entity);
 			entity.getUploadAttachments().addAll(markShareGroupUps);
 			List<DownloadAttachment> markShareGroupDowns = tradeMarkCaseAttachmentBuiler.buildDownloads(entity);
@@ -122,6 +123,11 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 						List<UploadAttachment> casenewUps = tradeMarkCaseAttachmentBuiler
 								.buildMarkShareGroupUploadsByTm(tm,entity);
 						entity.getUploadAttachments().addAll(casenewUps);
+						
+						List<DownloadAttachment> markShareGroupDowns = tradeMarkCaseAttachmentBuiler.buildDownloads(entity);
+						entity.getDownLoadAttaments().addAll(markShareGroupDowns);
+						
+						
 						shareGroupCountMap.put(tm.getShareGroup(), 1);
 //						if( entity.getTradeMarks().size()==1) {//如果当前商标项是1，那么就增加营业执照
 //							
