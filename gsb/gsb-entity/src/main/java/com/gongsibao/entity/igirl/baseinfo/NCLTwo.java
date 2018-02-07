@@ -9,7 +9,7 @@ import org.netsharp.entity.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
-@Table(name="ig_base_ncltwo",header="商标小类")
+@Table(name="ig_base_ncltwo",header="商标小类",orderBy="code asc,third_code asc")
 public class NCLTwo extends Entity {
 
     @Column(name="code",header="二级编码/分组")

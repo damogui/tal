@@ -6,7 +6,7 @@ import org.netsharp.base.IEnum;
 /**
  * 证件名称
  */
-public enum Certificate implements IEnum {
+public enum CertificateType implements IEnum {
 
     IDENTITY(0, "身份证"),
     PASSPORT(1, "护照"),
@@ -14,15 +14,15 @@ public enum Certificate implements IEnum {
     private int value;
     private String text;
 
-    Certificate(int value, String text) {
+    CertificateType(int value, String text) {
         this.value = value;
         this.text = text;
     }
 
     @JsonCreator
-    public static Certificate getItem(int value) {
+    public static CertificateType getItem(int value) {
 
-        for (Certificate item : values()) {
+        for (CertificateType item : values()) {
 
             if (item.getValue() == value) {
                 return item;

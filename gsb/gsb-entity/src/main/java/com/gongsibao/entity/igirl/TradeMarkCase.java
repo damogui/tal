@@ -1,6 +1,7 @@
 package com.gongsibao.entity.igirl;
 
 import com.gongsibao.entity.igirl.dict.ApplierType;
+import com.gongsibao.entity.igirl.dict.CertificateType;
 import com.gongsibao.entity.igirl.dict.TMCState;
 import com.gongsibao.entity.igirl.dict.WriteType;
 import com.gongsibao.entity.supplier.Supplier;
@@ -19,7 +20,8 @@ public class TradeMarkCase extends Entity {
 	@Column(name = "code", header = "方案编号")
 	private String code;
 	
-	
+	@Column(name = "certificate_type", header = "证件名称")
+	private CertificateType certificateType = null;
 	
 
 	// 商标说明
@@ -374,6 +376,14 @@ public class TradeMarkCase extends Entity {
 
 	public void setCaseProxyContactPerson(String caseProxyContactPerson) {
 		this.caseProxyContactPerson = caseProxyContactPerson;
+	}
+
+	public CertificateType getCertificateType() {
+		return certificateType;
+	}
+
+	public void setCertificateType(CertificateType certificateType) {
+		this.certificateType = certificateType;
 	}
 	
 	

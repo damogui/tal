@@ -9,7 +9,7 @@ import org.netsharp.entity.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
-@Table(name="ig_base_nclone",header="商标大类")
+@Table(name="ig_base_nclone",header="商标大类",orderBy="code asc")
 public class NCLOne extends Entity {
 	@Column(name="code",header="编码")
     private String code;
