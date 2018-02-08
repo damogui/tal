@@ -74,7 +74,7 @@ public class OrganizationWorkspaceTest  extends WorkspaceCreationBase{
 			item.setCode("pathCode");
 			item.setIcon("fa fa-refresh fa-fw");
 			item.setName("刷新");
-			item.setSeq(1000);
+			item.setSeq(10000);
 			item.setCommand("{controller}.pathCode();");
 			toolbar.getItems().add(item);
 		}
