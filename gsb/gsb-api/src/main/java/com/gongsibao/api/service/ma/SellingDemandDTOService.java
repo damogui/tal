@@ -32,6 +32,7 @@ public class SellingDemandDTOService {
     /*根据传递条件进行查询数据返回*/
     public List<SellingDemandDTO> queryList(QuerySellingDemandDTO queryModel) {
         Oql oql = new Oql();
+        int pageSize = 10;//默认为10条
         StringBuilder filterBuilder = new StringBuilder();
         oql.setType(SellingDemand.class);
 
@@ -116,10 +117,11 @@ public class SellingDemandDTOService {
             oql.setOrderby("update_time  desc");
             oql.setPaging(new Paging(queryModel.getPageIndex(), queryModel.getPageSize()));
 
-
+            pageSize = queryModel.getPageSize();//前端可以自定义页大小
         } else {
             oql.setOrderby("update_time  desc");
             oql.setPaging(new Paging(1, 10));
+
         }
         String fiterStr = filterBuilder.toString();
         if (!StringManager.isNullOrEmpty(fiterStr)) {
@@ -128,6 +130,7 @@ public class SellingDemandDTOService {
         }
 
         List<SellingDemand> sellingList = sellingDemandService.queryList(oql);
+        int totalPage = sellingDemandService.queryCount(oql)/pageSize+1;
         List<SellingDemandDTO> sellingDtoList = new ArrayList<SellingDemandDTO>();
 
         for (SellingDemand item : sellingList
@@ -160,7 +163,7 @@ public class SellingDemandDTOService {
             sellDto.setCounty(item.getCounty());
             sellDto.setRegistDate(item.getRegistDate());
 
-            if (item.getRegistDate()!=null){
+            if (item.getRegistDate() != null) {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
                 sellDto.setRegistDateStr(sdf.format(item.getRegistDate()));
             }
@@ -177,9 +180,9 @@ public class SellingDemandDTOService {
 //            sellDto.setFixedAssetss(item.getFixedAssetss());
 //            sellDto.setLicenseAdvantage(item.getLicenseAdvantage());
 
+
+            sellDto.setTotalPage(totalPage);//总页数
             sellingDtoList.add(sellDto);
-
-
         }
 
         return sellingDtoList;
@@ -195,13 +198,13 @@ public class SellingDemandDTOService {
         sellingDemandDTO.setId(selling.getId());
         sellingDemandDTO.setCompanyName(selling.getCompanyName());
         sellingDemandDTO.setSelingStatus(selling.getSelingStatus());
-        if (selling.getSelingStatus()!= null) {//是否出售
+        if (selling.getSelingStatus() != null) {//是否出售
             sellingDemandDTO.setSelingStatusStr(selling.getSelingStatus().getText());
 
         }
 
         sellingDemandDTO.setCompanyType(selling.getCompanyType());
-        if (selling.getCompanyType()!= null) {//公司类型
+        if (selling.getCompanyType() != null) {//公司类型
             sellingDemandDTO.setCompanyTypeStr(selling.getCompanyType().getText());
 
         }
@@ -209,59 +212,59 @@ public class SellingDemandDTOService {
 
         sellingDemandDTO.setCompanyNature(selling.getCompanyNature());
 
-        if (selling.getCompanyNature()!= null) {//公司性质
+        if (selling.getCompanyNature() != null) {//公司性质
             sellingDemandDTO.setCompanyNatureStr(selling.getCompanyNature().getText());
 
         }
         sellingDemandDTO.setCompanyFeature(selling.getCompanyFeature());
-        if (selling.getCompanyFeature()!= null) {//行业特点
+        if (selling.getCompanyFeature() != null) {//行业特点
             sellingDemandDTO.setCompanyFeatureStr(selling.getCompanyFeature().getText());
 
         }
         sellingDemandDTO.setTaxMode(selling.getTaxMode());
-        if (selling.getTaxMode()!= null) {//纳税人
+        if (selling.getTaxMode() != null) {//纳税人
             sellingDemandDTO.setTaxModeStr(selling.getTaxMode().getText());
 
         }
         sellingDemandDTO.setRegistDate(selling.getRegistDate());
-        if (selling.getRegistDate()!=null){//成立时间
+        if (selling.getRegistDate() != null) {//成立时间
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
             sellingDemandDTO.setRegistDateStr(sdf.format(selling.getRegistDate()));
         }
         sellingDemandDTO.setProvince(selling.getProvince());
-        if (selling.getProvince()!= null) {//省市
+        if (selling.getProvince() != null) {//省市
             sellingDemandDTO.setProvinceStr(selling.getProvince().getName());
 
         }
         sellingDemandDTO.setCity(selling.getCity());
-        if (selling.getCity()!= null) {//省市
+        if (selling.getCity() != null) {//省市
             sellingDemandDTO.setCityStr(selling.getCity().getName());
 
         }
-        sellingDemandDTO.setAddressStr(sellingDemandDTO.getProvinceStr()+sellingDemandDTO.getCityStr());//地址
+        sellingDemandDTO.setAddressStr(sellingDemandDTO.getProvinceStr() + sellingDemandDTO.getCityStr());//地址
         sellingDemandDTO.setHasBankAccount(selling.getHasBankAccount());//是否存在银行账户
         sellingDemandDTO.setTaxRegister(selling.getTaxRegister());//国地税
-       //sellingDemandDTO.setIntangibleAssetss(selling.getIntangibleAssetss());//无形资产
-        List<DemandIntangibleAssets> listDemandIntangibleAssets=selling.getIntangibleAssetss();
-        List<String>listDemandIntangibleAssetsStr=new ArrayList<>();
-        for (DemandIntangibleAssets item:
-        listDemandIntangibleAssets) {
+        //sellingDemandDTO.setIntangibleAssetss(selling.getIntangibleAssetss());//无形资产
+        List<DemandIntangibleAssets> listDemandIntangibleAssets = selling.getIntangibleAssetss();
+        List<String> listDemandIntangibleAssetsStr = new ArrayList<>();
+        for (DemandIntangibleAssets item :
+                listDemandIntangibleAssets) {
             listDemandIntangibleAssetsStr.add(item.getIntangibleAssets().getText());
         }
         sellingDemandDTO.setIntangibleAssetssList(listDemandIntangibleAssetsStr);//无形资产
         //sellingDemandDTO.setFixedAssetss(selling.getFixedAssetss());//固定资产
-        List<DemandFixedAssets> listDemandFixedAssets=selling.getFixedAssetss();
-        List<String>listDemandFixedAssetsStr=new ArrayList<>();
-        for (DemandFixedAssets item:
+        List<DemandFixedAssets> listDemandFixedAssets = selling.getFixedAssetss();
+        List<String> listDemandFixedAssetsStr = new ArrayList<>();
+        for (DemandFixedAssets item :
                 listDemandFixedAssets) {
             listDemandFixedAssetsStr.add(item.getFixedAssets().getText());
         }
         sellingDemandDTO.setFixedAssetssList(listDemandFixedAssetsStr);//固定资产
         //sellingDemandDTO.setQualificationDetails(selling.getQualificationDetails());//企业资质
 
-        List<DemandQualificationDetail> listDemandQualificationDetail=selling.getQualificationDetails();
-        List<String>listDemandQualificationDetailStr=new ArrayList<>();
-        for (DemandQualificationDetail item:
+        List<DemandQualificationDetail> listDemandQualificationDetail = selling.getQualificationDetails();
+        List<String> listDemandQualificationDetailStr = new ArrayList<>();
+        for (DemandQualificationDetail item :
                 listDemandQualificationDetail) {
             listDemandQualificationDetailStr.add(item.getEnterpriseQualification().getText());
         }
