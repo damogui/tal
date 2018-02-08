@@ -7,10 +7,11 @@ com.gongsibao.gardian.web.DeviceFormPart = org.netsharp.panda.commerce.FormPart.
     deviceTypeChange:function (newValue, oldValue) {
 
         if(newValue==1||newValue==0){
-            $("fieldset:first").next().show();
+            //$("fieldset:first").next().show();
+            $("#memory").parent().parent().parent().parent().parent().show()
         }else{
-            $("fieldset:first").next().hide();
-
+            //$("fieldset:first").next().hide();
+            $("#memory").parent().parent().parent().parent().parent().hide()
         }
     },
     validate:function () {
