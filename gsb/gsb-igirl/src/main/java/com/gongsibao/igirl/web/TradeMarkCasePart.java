@@ -3,6 +3,7 @@ import java.sql.Types;
 import java.util.List;
 
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.BusinessException;
 import org.netsharp.core.Oql;
 import org.netsharp.entity.IPersistable;
 import org.netsharp.panda.commerce.FormPart;
@@ -35,31 +36,35 @@ public class TradeMarkCasePart extends FormPart {
 		return super.save(entity1);
 	}
 	public CompanyDto fetchCompanyByName(String name) {
-		ResponseMessage<com.gongsibao.taurus.entity.Company> cms=TaurusApiService.getEntList(name, 0, 10);
-		if(cms!=null) {
-			if(cms.getResult()==0) {
-				return null;
-			}else {
-				com.gongsibao.taurus.entity.Company cm=cms.getList().get(0);
-				String cmname=cm.getEntName();
-				if(!StringManager.isNullOrEmpty(cmname)) {
-					EntRegistry er=TaurusApiService.getEntRegistry(cmname);
-					CompanyDto cp=new CompanyDto();
-					cp.setAppCnName(er.getName());
-					cp.setAppCnAddr(er.getBusinessAddress());
-					cp.setCertCode(er.getCreditCode());
-					cp.setApplyer(er.getLegalRepresentative());
-					cp.setPostcode("");
-					cp.setFax("");
-					return cp;
-				}else {
+		try {
+			ResponseMessage<com.gongsibao.taurus.entity.Company> cms=TaurusApiService.getEntList(name, 0, 10);
+			if(cms!=null) {
+				if(cms.getResult()==0) {
 					return null;
+				}else {
+					com.gongsibao.taurus.entity.Company cm=cms.getList().get(0);
+					String cmname=cm.getEntName();
+					if(!StringManager.isNullOrEmpty(cmname)) {
+						EntRegistry er=TaurusApiService.getEntRegistry(cmname);
+						CompanyDto cp=new CompanyDto();
+						cp.setAppCnName(er.getName());
+						cp.setAppCnAddr(er.getBusinessAddress());
+						cp.setCertCode(er.getCreditCode());
+						cp.setApplyer(er.getLegalRepresentative());
+						cp.setPostcode("");
+						cp.setFax("");
+						return cp;
+					}else {
+						return null;
+					}
 				}
+			}else {
+				return new CompanyDto();
 			}
-		}else {
-			return null;
+			
+		}catch(Exception e) {
+			return new CompanyDto();
 		}
-		
 	}
 	
 	public String fetchQrCodeUrl(String mobile) {

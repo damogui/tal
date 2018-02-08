@@ -10,10 +10,10 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
       if(name && name!=""){
     	  this.invokeService("fetchCompanyByName", [name], function(data) {
 		       if(data){
-		    	   $("#companyName").val(data.appCnName);
-		    	   $("#creditCode").val(data.certCode);
-		    	   $("#applier").val(data.appCnName);
-		    	   $("#applierAddress").val(data.appCnAddr);
+		    	   $("#companyName").val(data.appCnName?data.appCnName:"");
+		    	   $("#creditCode").val(data.certCode?data.certCode:"");
+		    	   $("#applier").val(data.appCnName?data.appCnName:"");
+		    	   $("#applierAddress").val(data.appCnAddr?data.appCnAddr:"");
 		              }
     	        });
             	
@@ -180,7 +180,7 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
     if($("#ncltwogrid").length<=0){
              var $t=$("[name='nclOne_name']")
              $("<input id='filterinput' width='30px'/>").insertAfter($t.parent());
-            $("<table id='ncltwogrid' style='margin-top:5px'></table>").insertBefore("#selectedTwoStr")
+            $("<table id='ncltwogrid' style='margin-top:5px;padding-top:3px'></table>").insertBefore("#selectedTwoStr")
          }
         var selectedItems=[];
         var rtnData=null;
