@@ -18,6 +18,9 @@ import org.netsharp.panda.entity.PForm;
 import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PPart;
 import org.netsharp.panda.entity.PWorkspace;
+import org.netsharp.panda.plugin.dic.ToolbarType;
+import org.netsharp.panda.plugin.entity.PToolbar;
+import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.uc.Organization;
@@ -25,6 +28,7 @@ import com.gongsibao.part.CustomTreePart;
 
 public class OrganizationWorkspaceTest  extends WorkspaceCreationBase{
 
+	String treeToolBarPath = "user/organization/tree";
 	@Before
 	public void setup() {
 
@@ -50,6 +54,32 @@ public class OrganizationWorkspaceTest  extends WorkspaceCreationBase{
 		this.createFormWorkspace();
 	}
 	
+	@Test
+	public void createTreeToolBarPath(){
+		
+		ResourceNode node = this.resourceService.byCode(resourceNodeCode);
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			toolbar.setBasePath("panda/tree");
+			toolbar.setPath(treeToolBarPath);
+			toolbar.setName("组织机构");
+			toolbar.setResourceNode(node);
+			toolbar.setToolbarType(ToolbarType.BASE);
+		}
+		
+		PToolbarItem item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("pathCode");
+			item.setIcon("fa fa-refresh fa-fw");
+			item.setName("刷新");
+			item.setSeq(1000);
+			item.setCommand("{controller}.pathCode();");
+			toolbar.getItems().add(item);
+		}
+		toolbarService.save(toolbar);
+	}
 	
 	public void createTreeWorkspace() {
 
@@ -75,7 +105,7 @@ public class OrganizationWorkspaceTest  extends WorkspaceCreationBase{
 			part.setDockStyle(DockType.LEFT);
 			part.setStyle("width:280px;");
 			part.setResourceNode(node);
-			part.setToolbar("panda/tree");
+			part.setToolbar(treeToolBarPath);
 			part.setUrl(this.urlForm);
 			part.setServiceController(CustomTreePart.class.getName());
 			//part.setJsController(CustomTreePart.class.getName());
