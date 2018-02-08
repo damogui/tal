@@ -1,6 +1,7 @@
 package com.gongsibao.panda.crm.workspace;
 
 import com.gongsibao.crm.web.CustomerFormPart;
+import com.gongsibao.crm.web.CustomerListPart;
 import com.gongsibao.crm.web.FollowDetailPart;
 import org.junit.Before;
 import org.junit.Test;
@@ -51,6 +52,8 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 		formServiceController = CustomerFormPart.class.getName();
 		formJsController = CustomerFormPart.class.getName();
 		formJsImport = "/gsb/crm/js/customer.form.part.js|/gsb/gsb.customer.controls.js";
+
+		listPartServiceController = CustomerListPart.class.getName();
 	}
 
 	@Test
@@ -530,6 +533,7 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 		queryProject.toNew();
 		addQueryItem(queryProject, "realName", "客户名称", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "mobile", "手机", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "addOrderDate", "下单时间", ControlTypes.DATE_BOX);
 		return queryProject;
 	}
 
