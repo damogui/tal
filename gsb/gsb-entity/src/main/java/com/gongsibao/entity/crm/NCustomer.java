@@ -163,7 +163,10 @@ public class NCustomer extends Entity {
 
 	@Column(name = "customer_source_id", header = "客户来源")
 	private Integer customerSourceId;
-	
+
+//    @Column(name = "crm_source_type", header = "是不是招商渠道来源")
+//    private Integer crmSourceType=0;//1是招商渠道  FollowStatus  区分 4017  渠道合作
+//
 	@Column(name = "task_count", header = "任务数量：创建任务，删除任务时更新此值")
 	private Integer taskCount = 0;
 
@@ -599,6 +602,7 @@ public class NCustomer extends Entity {
 
 	public void setIsMember(Boolean isMember) {
 		this.isMember = isMember;
-	}	
-	
+	}
+
+
 }
