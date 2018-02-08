@@ -108,7 +108,7 @@ import com.gongsibao.panda.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
 
         ImportTaskQualityDataTest.class,
         ImportTaskRoleAndFunctionTest.class,
-        ImportOldDataToNewData.class,
+       // ImportOldDataToNewData.class,
         SupplierActionTest.class,
         NavigationTest.class
 
