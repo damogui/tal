@@ -382,7 +382,7 @@ div.h10{
 
 .form-panel td.label_td {
 
-	width:120px;
+	/*width:120px;*/
 	text-align:right;
 	padding-right:5px;
     line-height: 40px;
@@ -1006,4 +1006,12 @@ div.h10{
 .datagrid-cell i.fa:hover{
 
 	color: red;
+}
+
+.textbox-disabled .textbox-addon{
+	background-color: #f3f7f9 !important;
+}
+
+.textbox-disabled .textbox-addon .combo-arrow{
+	background-color: #f3f7f9 !important;
 }
