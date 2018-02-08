@@ -3,7 +3,7 @@ package com.gongsibao.utils;
 /**   
  * @ClassName:  SalesmanPermission   
  * @Description:TODO 业务员组织机构上下文
- * 18.根据当前登录人获取部门负责人（增加一个实体：登录人Id,登录人姓名，部门Id,部门名称，服务商Id,服务商名称，直属领导Id，直属领导Name，隔级领导Id，隔级领导Name）
+ * 18.根据当前登录人获取部门负责人（增加一个实体：登录人Id,登录人姓名，部门Id,部门名称，服务商Id,服务商管理员Id,服务商名称，直属领导Id，直属领导Name，隔级领导Id，隔级领导Name）
  * @author: 韩伟
  * @date:   2018年2月5日 上午10:30:38   
  *     
@@ -55,6 +55,11 @@ public class SalesmanOrganization {
 	 * @Fields supplierId : TODO(业务员所在服务商Id)   
 	 */   
 	private Integer supplierId;
+	
+	/**   
+	 * @Fields supplierId : TODO(服务商管理员)   
+	 */   
+	private Integer adminId;
 	
 	/**   
 	 * @Fields supplierName : TODO(业务员所在服务商名称)   
@@ -161,6 +166,14 @@ public class SalesmanOrganization {
 
 	public void setSupplierId(Integer supplierId) {
 		this.supplierId = supplierId;
+	}
+	
+	public Integer getAdminId() {
+		return adminId;
+	}
+
+	public void setAdminId(Integer adminId) {
+		this.adminId = adminId;
 	}
 
 	public String getSupplierName() {
