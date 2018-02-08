@@ -12,6 +12,7 @@ import com.gongsibao.entity.taurus.NewUserPerDayView;
 import com.gongsibao.entity.taurus.User;
 import com.gongsibao.entity.taurus.UserConsumptionView;
 import com.gongsibao.entity.taurus.UserInfo;
+import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.SoOrder;
 
 public class NavigationTest extends NavigationBase {

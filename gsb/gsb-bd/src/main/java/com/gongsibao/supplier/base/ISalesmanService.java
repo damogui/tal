@@ -119,10 +119,10 @@ public interface ISalesmanService extends IPersistableService<Salesman> {
 	 */
 	Salesman getSuperiorLeader(Integer salesmanId);
 	/**
-	 * 部门Id不为空获取部门的领导Id,服务商Id不为空获取服务商下的领导的Ids
+	 * 获取服务商管理员或者部门领导
 	 * @param supplierId 服务商id
 	 * @param departmentId 部门id
-	 * @return 领导ids
+	 * @return 领导id
 	 */
-	List<Salesman> getLeaderIds(Integer supplierId,Integer departmentId);
+	Integer getLeaderId(Integer supplierId,Integer departmentId);
 }

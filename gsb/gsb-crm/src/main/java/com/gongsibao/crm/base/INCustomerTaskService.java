@@ -91,16 +91,18 @@ public interface INCustomerTaskService extends IPersistableService<NCustomerTask
 	/**   
 	 * @Title: allocation   
 	 * @Description: TODO(这里用一句话描述这个方法的作用)   
-	 * @param: @param taskId
-	 * @param: @param supplierId
-	 * @param: @param departmentId
-	 * @param: @param toUserId
+	 * @param taskId
+	 * @param supplierId
+	 * @param departmentId
+	 * @param toUserId
+	 * @param alloCount 分配的个数
+	 * @param isNotify 当时批量分配时，判断是否已经发送过通知
 	 * @param: @return      
 	 * @return: Boolean      
 	 * @throws   
 	 */
 	@Transaction
-	public Boolean allocation(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId);
+	public Boolean allocation(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId, int alloCount, boolean isNotify);
 
 	/**
 	 * 任务跟进

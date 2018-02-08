@@ -183,20 +183,25 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
 	@Override
 	public Boolean batchAllocation(String[] taskIdArray, Integer supplierId, Integer departmentId, Integer toUserId) {
-
+		int taskIdCount = taskIdArray.length;
+		boolean isNotify = false;
 		for (String taskId : taskIdArray) {
-
-			this.allocation(Integer.valueOf(taskId), supplierId, departmentId, toUserId);
+			this.allocation(Integer.valueOf(taskId), supplierId, departmentId, toUserId ,taskIdCount,isNotify);
+			isNotify = true;
 		}
 		return true;
 	}
 
 	@Override
-	public Boolean allocation(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId) {
+	public Boolean allocation(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId, int alloCount, boolean isNotify) {
 
 		Map<String, Object> setMap = new HashMap<String, Object>();
 		NCustomerTask entity = this.byId(taskId);
 		setMap.put("formUserId", entity.getOwnerId());
+		//区别批量分配
+		setMap.put("alloCount", alloCount);
+		//批量分配是否已经发送通知
+		setMap.put("isNotify", isNotify);
 		entity.setSupplierId(supplierId);
 		entity.setDepartmentId(departmentId);
 		entity.setOwnerId(toUserId);

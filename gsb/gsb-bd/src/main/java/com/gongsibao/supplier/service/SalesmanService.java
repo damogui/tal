@@ -375,38 +375,36 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 	}
 
 	@Override
-	public List<Salesman> getLeaderIds(Integer supplierId, Integer departmentId) {
-		List<Salesman> leaderIds = new ArrayList<Salesman>();
+	public Integer getLeaderId(Integer supplierId, Integer departmentId) {
+		Salesman manEntity = new Salesman();
+		Integer leaderId = null;
 		if(supplierId != null && departmentId == null){
+			//服务商管理员
 			Oql oql = new Oql();
 			{
 				oql.setType(this.type);
-				oql.setSelects("*");
-				oql.setFilter("is_leader = 1 and disabled =0 and supplier_id = ?");
+				oql.setSelects("*,supplier.*");
+				oql.setFilter(" disabled =0 and supplier_id = ?");
 				oql.getParameters().add("@supplier_id", supplierId, Types.INTEGER);
-				leaderIds = this.pm.queryList(oql);
+				manEntity = this.queryFirst(oql);
 			}
-		}else if(supplierId == null && departmentId != null){
+			if(manEntity != null){
+				leaderId = manEntity.getSupplier().getAdminId();
+			}
+		}else if(departmentId != null){
+			//部门领导
 			Oql oql = new Oql();
 			{
 				oql.setType(this.type);
 				oql.setSelects("*");
 				oql.setFilter("is_leader = 1 and disabled =0 and department_id = ?");
 				oql.getParameters().add("@department_id", departmentId, Types.INTEGER);
-				leaderIds = this.pm.queryList(oql);
+				manEntity = this.queryFirst(oql);
 			}
-		}else {
-			Oql oql = new Oql();
-			{
-				oql.setType(this.type);
-				oql.setSelects("*");
-				oql.setFilter("is_leader = 1 and disabled =0 and supplier_id = ? and department_id = ?");
-				oql.getParameters().add("@supplier_id", supplierId, Types.INTEGER);
-				oql.getParameters().add("@department_id", departmentId, Types.INTEGER);
-				leaderIds = this.pm.queryList(oql);
+			if(manEntity != null){
+				leaderId = manEntity.getEmployeeId();
 			}
 		}
-		
-		return leaderIds;
+		return leaderId;
 	}
 }

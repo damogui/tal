@@ -49,20 +49,21 @@ public class ActionRollbackRecordLog implements IAction {
 				organization.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact,content);
 		//通知直属领导
 		if(organization.getDirectLeaderId() != null){
-			notify(task,copyWriter,organization.getDirectLeaderId());
+			notify(task,organization,copyWriter,organization.getDirectLeaderId());
 		}
 		//通知服务商管理员
 		if(organization.getAdminId() != null){
-			notify(task,copyWriter,organization.getAdminId());
+			notify(task,organization,copyWriter,organization.getAdminId());
 		}
 	}
 	/**
 	 * 发送通知
 	 * @param task 任务实体
+	 * @param organization 业务员组织机构
 	 * @param copyWriter 通知文案
 	 * @param receivedId 接收人
 	 */
-	private void notify(NCustomerTask task,String copyWriter,Integer receivedId){
+	private void notify(NCustomerTask task,SalesmanOrganization organization,String copyWriter,Integer receivedId){
 		INCustomerTaskNotifyService notifyService = ServiceFactory.create(INCustomerTaskNotifyService.class);		
 		NCustomerTaskNotify notify = new NCustomerTaskNotify();
 		{
@@ -71,8 +72,8 @@ public class ActionRollbackRecordLog implements IAction {
 			notify.setContent(copyWriter);
 			notify.setType(NotifyType.WEIXIN);
 			notify.setCustomerId(task.getCustomerId());
-			notify.setSupplierId(task.getSupplierId());
-			notify.setDepartmentId(task.getDepartmentId());
+			notify.setSupplierId(organization.getSupplierId());
+			notify.setDepartmentId(organization.getDepartmentId());
 			notify.setReceivedId(receivedId);
 			notifyService.save(notify);
 		}

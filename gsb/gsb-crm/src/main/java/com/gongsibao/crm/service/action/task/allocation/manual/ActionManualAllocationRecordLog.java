@@ -6,6 +6,7 @@ import java.util.Map;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.persistence.session.SessionManager;
 
 import com.gongsibao.crm.base.INCustomerOperationLogService;
 import com.gongsibao.crm.base.INCustomerTaskNotifyService;
@@ -16,6 +17,9 @@ import com.gongsibao.entity.crm.dic.ChangeType;
 import com.gongsibao.entity.crm.dic.NotifyType;
 import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.supplier.base.ISalesmanService;
+import com.gongsibao.utils.NCustomerContact;
+import com.gongsibao.utils.SalesmanOrganization;
+import com.gongsibao.utils.SupplierSessionManager;
 
 /**
  * @author hw 分配：保存日志
@@ -43,41 +47,97 @@ public class ActionManualAllocationRecordLog implements IAction {
 			changeService.save(changeLog);
 		}
 
-		// 2.保存通知日志
-		//业务员为空，通知服务商管理员或部门主管
-		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
-		if(task.getOwnerId() == null){
-			List<Salesman> manList = salesmanService.getLeaderIds(task.getSupplierId(), task.getDepartmentId());
-			if(manList.size()>0){
-				for (Salesman item : manList) {
-					notifySave(task,item.getEmployeeId());
-				}
-			}else{
-				notifySave(task,null);
+		// 2.通知日志
+		int alloCount = Integer.valueOf(getMap.get("alloCount").toString());
+		if(alloCount >1){
+			if(!(boolean)getMap.get("isNotify")){
+				batchAllocation(task,alloCount);
 			}
 		}else{
-			notifySave(task,null);
+			
+			allocation(task);
 		}
 	}
 	/**
-	 * 添加通知
+	 * 单任务分配
 	 * @param task
 	 */
-	private void notifySave(NCustomerTask task,Integer employeeId){
-		INCustomerTaskNotifyService notifyService = ServiceFactory.create(INCustomerTaskNotifyService.class);
+	private void allocation(NCustomerTask task){
+		String getContact = NCustomerContact.handleContact(task.getCustomer());
+		String copyWriter = String.format("【分配提醒】您好，1个新任务分配给您，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请及时跟进",
+				task.getName(),task.getCustomer().getRealName(),getContact);
+		
+		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
+		//业务员为空，通知服务商管理员或部门主管
+		if(task.getOwnerId() == null){
+			
+			Integer leaderId = salesmanService.getLeaderId(task.getSupplierId(), task.getDepartmentId());
+			sendNotify(task,copyWriter,leaderId);
+		}else{
+			
+			//通知业务员文案
+			sendNotify(task,copyWriter,task.getOwnerId());
+			//通知业务员的一二级领导
+			SalesmanOrganization organization = SupplierSessionManager.getSalesmanOrganization(task.getOwnerId());
+			String leaderCopyWriter = String.format("【分配提醒】您好，1个新任务分配给【%s】，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请及时安排跟进",
+					organization.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
+			if(organization.getDirectLeaderId() !=null){
+				sendNotify(task,leaderCopyWriter,organization.getDirectLeaderId());
+			}
+			if(organization.getSuperiorLeaderId() !=null){
+				sendNotify(task,leaderCopyWriter,organization.getSuperiorLeaderId());
+			}
+		}
+	}
+	/**
+	 * 批量分配
+	 * @param task
+	 */
+	private void batchAllocation(NCustomerTask task , int alloCount){
+		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
+		//业务员为空，通知服务商管理员或部门主管
+		if(task.getOwnerId() == null){
+			String copyWriter = String.format("【批量分配提醒】您好，%s个新任务待您分配，请及时分配跟进",alloCount);
+			Integer leaderId = salesmanService.getLeaderId(task.getSupplierId(), task.getDepartmentId());
+			sendNotify(task,copyWriter,leaderId);
+		}else{
+			//通知业务员文案
+			String copyWriter = String.format("【批量分配提醒】您好，【%s】分配%s个任务给您，请及时跟进",
+					SessionManager.getUserName(),alloCount);
+			sendNotify(task,copyWriter,task.getOwnerId());
+			//通知业务员的一二级领导
+			SalesmanOrganization organization = SupplierSessionManager.getSalesmanOrganization(task.getOwnerId());
+			String leaderCopyWriter = String.format("【批量分配提醒】您好，【%s】分配%s个任务给【%s】，请及时安排跟进",
+					SessionManager.getUserName(),alloCount,organization.getEmployeeName());
+			if(organization.getDirectLeaderId() !=null){
+				sendNotify(task,leaderCopyWriter,organization.getDirectLeaderId());
+			}
+			if(organization.getSuperiorLeaderId() !=null){
+				sendNotify(task,leaderCopyWriter,organization.getSuperiorLeaderId());
+			}
+		}
+		
+		
+	}
+	/**
+	 * 发送通知
+	 * @param task 任务实体	 
+	 * @param copyWriter 通知文案
+	 * @param receivedId 接收人
+	 */
+	private void sendNotify(NCustomerTask task,String copyWriter,Integer receivedId){
+		INCustomerTaskNotifyService notifyService = ServiceFactory.create(INCustomerTaskNotifyService.class);		
 		NCustomerTaskNotify notify = new NCustomerTaskNotify();
 		{
-			String content = String.format("一个新任务分配给您，请及时跟进。任务ID：%s", task.getId());
 			notify.toNew();
 			notify.setTaskId(task.getId());
-			notify.setContent(content);
+			notify.setContent(copyWriter);
 			notify.setType(NotifyType.WEIXIN);
 			notify.setCustomerId(task.getCustomerId());
 			notify.setSupplierId(task.getSupplierId());
 			notify.setDepartmentId(task.getDepartmentId());
-			notify.setReceivedId(employeeId == null ? task.getOwnerId() : employeeId);
+			notify.setReceivedId(receivedId);
 			notifyService.save(notify);
 		}
 	}
-
 }

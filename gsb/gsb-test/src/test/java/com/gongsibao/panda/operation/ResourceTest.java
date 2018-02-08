@@ -46,6 +46,8 @@ import com.gongsibao.entity.taurus.UserDingtalkKeyword;
 import com.gongsibao.entity.taurus.UserInfo;
 import com.gongsibao.entity.taurus.UserRenewalStatisticView;
 import com.gongsibao.entity.taurus.UserWalletLog;
+import com.gongsibao.entity.trade.OrderProd;
+import com.gongsibao.entity.trade.OrderProdTrace;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.supplier.base.IFunctionModuleRoleService;
 import com.gongsibao.supplier.base.IFunctionModuleService;
@@ -67,6 +69,8 @@ import com.gongsibao.taurus.base.IUserInfoService;
 import com.gongsibao.taurus.base.IUserRenewalStatisticViewService;
 import com.gongsibao.taurus.base.IUserService;
 import com.gongsibao.taurus.base.IUserWalletLogService;
+import com.gongsibao.trade.base.IOrderProdService;
+import com.gongsibao.trade.base.IOrderProdTraceService;
 import com.gongsibao.trade.base.IOrderService;
 
 public class ResourceTest extends ResourceCreationBase {
@@ -106,6 +110,10 @@ public class ResourceTest extends ResourceCreationBase {
 		{
 			this.createResourceNodeVoucher(ProductView.class.getName(), "服务列表", "GSB_WANDA_" + ProductView.class.getSimpleName(), IProductViewService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(SoOrder.class.getName(), "订单列表", "GSB_WANDA_" + SoOrder.class.getSimpleName(), IOrderService.class.getName(), node1.getId());
+			//======选项卡加载项
+			this.createResourceNodeVoucher(OrderProd.class.getName(), "产品列表", "GSB_WANDA_" + OrderProd.class.getSimpleName(),IOrderProdService.class.getName(), node1.getId());
+			
+			this.createResourceNodeVoucher(OrderProdTrace.class.getName(), "跟进日志", "GSB_WANDA_" + OrderProdTrace.class.getSimpleName(),IOrderProdTraceService.class.getName(), node1.getId());
 		}
 
 		node1 = this.createResourceNodeCategory("服务商管理", "GSB_Supplier", node.getId());
