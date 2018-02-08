@@ -1283,7 +1283,7 @@ org.netsharp.controls.RadioboxGroup = org.netsharp.controls.Control.Extends({
 				propertyValue = defaultValue;
 			}
 		}
-		//如果值为空，则clear
+		//如果值为空，则clear 
 		$(this.uiElement).radiogroupbox('setValue', propertyValue);
 	},
 	get: function(entity) {
