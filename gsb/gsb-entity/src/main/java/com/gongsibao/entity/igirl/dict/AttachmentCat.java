@@ -14,7 +14,8 @@ public enum AttachmentCat implements IEnum {
     DELEGATE_PROOF(2, "委托书"),
     CONFIRM_PROOF(3, "确认函"),//delegate proof
     PAYMENT_PROOF(4, "付款证明"),//payment proof
-    MEMO_DESC(5, "有关说明");//payment proof
+    MEMO_DESC(5, "有关说明"),//payment proof
+	  PERSON_PROOF(6,"身份证");//payment proof
     private int value;
     private String text;
 

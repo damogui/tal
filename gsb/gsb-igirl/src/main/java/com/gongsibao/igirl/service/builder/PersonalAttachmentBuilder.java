@@ -1,12 +1,19 @@
 package com.gongsibao.igirl.service.builder;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.Oql;
+
 import com.gongsibao.entity.igirl.DownloadAttachment;
 import com.gongsibao.entity.igirl.TradeMark;
 import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.UploadAttachment;
+import com.gongsibao.entity.igirl.dict.ApplierType;
 import com.gongsibao.entity.igirl.dict.AttachmentCat;
 import com.gongsibao.entity.igirl.dict.FileType;
+import com.gongsibao.igirl.base.ITradeMarkCaseService;
 import com.gongsibao.igirl.service.builder.base.AbstractSwitchBuilder;
 import com.gongsibao.igirl.service.builder.base.AttachmentBuilderManager;
 import com.gongsibao.igirl.service.builder.base.ISwitch;
@@ -14,31 +21,25 @@ import com.gongsibao.igirl.service.builder.base.ISwitch;
  * 
  * @author jy
  * 
- * 颜色组合生成附件
- * -------------上传
- * 彩色商标图样
- *彩色委托书
- *--------------下载
- *彩色委托书
+ * 自然人身份证明
  */
-public class ColorfulAttachmentBuilder extends AbstractSwitchBuilder{
+public class PersonalAttachmentBuilder extends AbstractSwitchBuilder{
+	ITradeMarkCaseService ts=ServiceFactory.create(ITradeMarkCaseService.class);
 	@Override
 	public boolean isOpen(TradeMark tm,TradeMarkCase tmc) {
 		// TODO Auto-generated method stub
-		return tm.getHasColor();
+		boolean p=tmc.getApplierType()==ApplierType.PRIVATE;
+		return p;
 	}
 
 	@Override
 	public List<UploadAttachment> buildUps(TradeMark tm) {
 		// TODO Auto-generated method stub
 		List<UploadAttachment> ups=new ArrayList<UploadAttachment>();
-		UploadAttachment attachment1 = AttachmentBuilderManager.buildUploadAttachment(tm.getMemo() + "彩色_商标图样",
-				AttachmentCat.TRADEMARK_PICT, tm.getTradeMarkCaseId(), FileType.JPGC, FileType.JPGC, tm.getId(),tm.getShareGroup());
+		UploadAttachment attachment1 = AttachmentBuilderManager.buildUploadAttachment(tm.getMemo() + "_身份证明",
+				AttachmentCat.PERSON_PROOF, tm.getTradeMarkCaseId(), FileType.PDF, FileType.PDF, tm.getId(),tm.getShareGroup());
 		ups.add(attachment1);
 
-		attachment1 =  AttachmentBuilderManager.buildUploadAttachment(tm.getMemo() + "_彩色委托书",
-				AttachmentCat.DELEGATE_PROOF, tm.getTradeMarkCaseId(), FileType.JPGC, FileType.JPGC, tm.getId(),tm.getShareGroup());
-		ups.add(attachment1);
     return ups;
 	}
 
@@ -46,9 +47,6 @@ public class ColorfulAttachmentBuilder extends AbstractSwitchBuilder{
 	public List<DownloadAttachment> buildDowns(TradeMark tm) {
 		// TODO Auto-generated method stub
 		List<DownloadAttachment> ds=new ArrayList<DownloadAttachment>();
-		DownloadAttachment attachment1 =AttachmentBuilderManager.buildDownloadAttachment(tm.getMemo() + "_彩色委托书",
-				AttachmentCat.DELEGATE_PROOF, tm.getTradeMarkCaseId(), FileType.JPGC, FileType.JPGC, tm.getId(),tm.getShareGroup());
-		ds.add(attachment1);	
 		return ds;
 	}
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.gongsibao.entity.igirl.DownloadAttachment;
 import com.gongsibao.entity.igirl.TradeMark;
+import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.UploadAttachment;
 import com.gongsibao.entity.igirl.dict.AttachmentCat;
 import com.gongsibao.entity.igirl.dict.FileType;
@@ -16,24 +17,24 @@ public class AttachmentBuilderManager implements IAttachmentBuilder {
 	private List<IAttachmentBuilder> upbuilders = new ArrayList<IAttachmentBuilder>();
 	private List<IAttachmentBuilder> downbuilders = new ArrayList<IAttachmentBuilder>();
 	@Override
-	public List<UploadAttachment> buildUploads(TradeMark tm) {
+	public List<UploadAttachment> buildUploads(TradeMark tm,TradeMarkCase tmc) {
 		// TODO Auto-generated method stub
 		List<UploadAttachment> rtnUas=new ArrayList<UploadAttachment>();
 		// TODO Auto-generated method stub
 		for(IAttachmentBuilder builder : upbuilders) {
-			List<UploadAttachment> uas=builder.buildUploads(tm);
+			List<UploadAttachment> uas=builder.buildUploads(tm,tmc);
 			rtnUas.addAll(uas);
 		}
 		return rtnUas;
 	}
 
 	@Override
-	public List<DownloadAttachment> buildDownloads(TradeMark tm) {
+	public List<DownloadAttachment> buildDownloads(TradeMark tm,TradeMarkCase tmc) {
 		// TODO Auto-generated method stub
 		List<DownloadAttachment> rtnUas=new ArrayList<DownloadAttachment>();
 		// TODO Auto-generated method stub
 		for(IAttachmentBuilder builder : downbuilders) {
-			List<DownloadAttachment> uas=builder.buildDownloads(tm);
+			List<DownloadAttachment> uas=builder.buildDownloads(tm,tmc);
 			rtnUas.addAll(uas);
 		}
 		return rtnUas;

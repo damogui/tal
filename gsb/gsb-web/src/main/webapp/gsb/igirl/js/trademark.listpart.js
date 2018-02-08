@@ -13,7 +13,12 @@ com.gongsibao.igirl.web.TradeMarkListPart = org.netsharp.panda.commerce.ListPart
 	},
 	openMarkPic:function(markid){
 		this.invokeService("getTradeMarkPicUrl",[markid],function (url) {
-			 window.open(url)
+			 if(url && url!=""){
+				 window.open(url)
+			 }else{
+				 IMessageBox.warning("当前商标的图样还未上传！");
+			 }
+			   
 		 });    
 	},
 	autoSubmit:function(type){

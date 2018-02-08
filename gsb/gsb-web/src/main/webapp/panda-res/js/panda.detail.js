@@ -431,6 +431,8 @@ org.netsharp.panda.commerce.DetailPart = org.netsharp.panda.core.View.Extends({
 				  $('#'+formName).attr("style","display:none");
 			  }
 			});
+	    	me.addAfter();
+	    	
 		});
 	},
 
@@ -475,11 +477,14 @@ org.netsharp.panda.commerce.DetailPart = org.netsharp.panda.core.View.Extends({
 	addBefore:function(){
 		
 	},
+	addAfter:function(){
+		//表格明细弹出窗口后调用，等同于onload
+	},
 	editBefore:function(){
 		
 	},
 	saveAfter:function(){
-		
+		//表格明细弹出窗体后，点击确认时调用，可以修改实体
 	},
 	saveBefore:function(){
 		
