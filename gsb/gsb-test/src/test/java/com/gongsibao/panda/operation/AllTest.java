@@ -2,6 +2,7 @@ package com.gongsibao.panda.operation;
 
 import com.gongsibao.panda.operation.workspace.supplier.*;
 
+import com.gongsibao.panda.operation.workspace.supplier.data.ImportOldDataToNewData;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -107,6 +108,7 @@ import com.gongsibao.panda.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
 
         ImportTaskQualityDataTest.class,
         ImportTaskRoleAndFunctionTest.class,
+        ImportOldDataToNewData.class,
         SupplierActionTest.class,
         NavigationTest.class
 
