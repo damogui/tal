@@ -40,13 +40,13 @@ public class OperationTrackWorkspaceTest  extends DepartmentTrackWorkspaceTest{
 
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.setColumnCount(4);
+		PQueryItem queryItem = null;
 		addQueryItem(queryProject, "lastTracker.name", "最后跟进人", ControlTypes.TEXT_BOX);
-		PQueryItem queryItem = addRefrenceQueryItem(queryProject, "department.name", "所属部门", "BD-Organization-Department-Filter");
+		queryItem = addRefrenceQueryItem(queryProject, "franchisee.department.name", "所属部门", "BD-Organization-Department-Filter");
 		{
 			queryItem.setRefFilter("organizationType=" + OrganizationType.DEPARTMENT.getValue());
 		}
-		queryItem = addRefrenceQueryItem(queryProject, "owner.name", "业务员", Employee.class.getSimpleName());
-		addQueryItem(queryProject, "allotStatus", "状态", ControlTypes.ENUM_BOX);
+		queryItem = addRefrenceQueryItem(queryProject, "franchisee.owner.name", "业务员", Employee.class.getSimpleName());
 		addQueryItem(queryProject, "id", "客户Id", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "creator", "创建人", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "createTime", "创建时间", ControlTypes.DATE_BOX);

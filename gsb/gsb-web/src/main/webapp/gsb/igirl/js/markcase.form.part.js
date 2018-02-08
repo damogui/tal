@@ -21,11 +21,17 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
 		 
     
     },
+    onload:function(){
+    	      this.base();
+    	 $("#certificateType").parent().parent().parent().parent().parent().hide();
+    },
     applierTypeChange:function (newValue, oldValue) {
         if(newValue==1){
             $("#companyName").validatebox('disable').validatebox('disableValidation');
+            $("#certificateType").parent().parent().parent().parent().parent().show();
         }else{
             $("#companyName").validatebox('enable').validatebox('enableValidation');
+            $("#certificateType").parent().parent().parent().parent().parent().hide()
         }
     },
    mobileChange:function (ctl) {
@@ -81,6 +87,29 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
 	        this.base();
 	        
 	    },
+	  addAfter:function(){
+		  this.base();
+		  if(controllertradeMarks.viewModel.currentItem){
+			  if(!controllertradeMarks.viewModel.currentItem.id){
+				  var rows= controllertradeMarks.datagrid.datagrid('getRows');
+					if(rows && rows.length>0){
+						 var lastIndex=rows.length-1;
+						 var memo =rows[lastIndex].memo;
+						 $("#memo").val(memo);
+					 }
+			    }
+		    }
+	    },
+	  addBefore:function(){
+			//检查当前案件
+//		 var rows= controllertradeMarks.datagrid.datagrid('getRows');
+//		 if(rows && rows.length>0){
+//			 var lastIndex=rows.length-1;
+//			 var memo =rows[lastIndex].memo;
+//			 alert(memo)
+//			 $("#memo").val(memo)
+//		 }
+		},
 	  saveBefore:function(entity){
 		  var g = $('#nclOne_name').combogrid('grid');	// get datagrid object
       var r = g.datagrid('getSelected');	// get the selected row  

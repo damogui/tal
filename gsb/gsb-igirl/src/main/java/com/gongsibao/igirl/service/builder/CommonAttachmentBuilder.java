@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.gongsibao.entity.igirl.DownloadAttachment;
 import com.gongsibao.entity.igirl.TradeMark;
+import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.UploadAttachment;
 import com.gongsibao.entity.igirl.dict.AttachmentCat;
 import com.gongsibao.entity.igirl.dict.FileType;
@@ -24,7 +25,7 @@ import com.gongsibao.igirl.service.builder.base.IAttachmentBuilder;
  */
 public class CommonAttachmentBuilder implements IAttachmentBuilder {
 	@Override
-	public List<UploadAttachment> buildUploads(TradeMark tm) {
+	public List<UploadAttachment> buildUploads(TradeMark tm,TradeMarkCase tmc) {
 		// TODO Auto-generated method stub
 		List<UploadAttachment> ups=new ArrayList<UploadAttachment>();
 		UploadAttachment attachment1 = AttachmentBuilderManager.buildUploadAttachment(tm.getMemo() + "_黑色商标图样",
@@ -45,7 +46,7 @@ public class CommonAttachmentBuilder implements IAttachmentBuilder {
 	}
 
 	@Override
-	public List<DownloadAttachment> buildDownloads(TradeMark tm) {
+	public List<DownloadAttachment> buildDownloads(TradeMark tm,TradeMarkCase tmc) {
 		// TODO Auto-generated method stub
 		List<DownloadAttachment> ds=new ArrayList<DownloadAttachment>();
 		DownloadAttachment attachment1 =AttachmentBuilderManager.buildDownloadAttachment(tm.getMemo() + "_黑色委托书",

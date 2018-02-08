@@ -179,14 +179,19 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 			formField.setWidth(200);
 		}
 		addFormField(form, "creditCode", "信用代码", "申请人基本信息", ControlTypes.TEXT_BOX, false, false).setWidth(200);
+
 		formField = addFormField(form, "applier", "申请人", "申请人基本信息", ControlTypes.TEXT_BOX, true, false);
 		{
 			// formField.setWidth(350);
 			formField.setWidth(200);
 		}
-		addFormField(form, "identityCode", "身份证", "申请人基本信息", ControlTypes.TEXT_BOX, false, false).setWidth(200);
+	
 		addFormField(form, "applierAddress", "地址", "申请人基本信息", ControlTypes.TEXT_BOX, true, false).setWidth(300);
-
+		formField = addFormField(form, "certificateType", "证件名称", "自然人信息", ControlTypes.ENUM_BOX, false, false);
+		{
+			//formField.setTroikaTrigger("controllertradeMarkCase.applierTypeChange(newValue, oldValue);");
+		}
+		addFormField(form, "identityCode", "证件号码", "自然人信息", ControlTypes.TEXT_BOX, false, false).setWidth(200);
 		addFormField(form, "contactName", "留言姓名", "客户留言", ControlTypes.TEXT_BOX, true, false);
 		formField = addFormField(form, "mobile", "留言电话", "客户留言", ControlTypes.NUMBER_BOX, true, false);
 		{

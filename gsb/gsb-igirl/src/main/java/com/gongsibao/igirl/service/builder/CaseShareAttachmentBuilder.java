@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.gongsibao.entity.igirl.DownloadAttachment;
 import com.gongsibao.entity.igirl.TradeMark;
+import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.UploadAttachment;
 import com.gongsibao.entity.igirl.dict.AttachmentCat;
 import com.gongsibao.entity.igirl.dict.FileType;
@@ -27,7 +28,7 @@ public class CaseShareAttachmentBuilder implements IAttachmentBuilder {
 	//付款证明商标ID为赋予值为-2，因为多个商标共享
 	public final static Integer TradeMarkPayProofID = -2;
 	@Override
-	public List<UploadAttachment> buildUploads(TradeMark tm) {
+	public List<UploadAttachment> buildUploads(TradeMark tm,TradeMarkCase tmc) {
 		List<UploadAttachment> ups=new ArrayList<UploadAttachment>();
 		// TODO Auto-generated method stub
 		UploadAttachment attachment2 =  AttachmentBuilderManager.buildUploadAttachment("营业执照",
@@ -45,7 +46,7 @@ public class CaseShareAttachmentBuilder implements IAttachmentBuilder {
 	}
 
 	@Override
-	public List<DownloadAttachment> buildDownloads(TradeMark tm) {
+	public List<DownloadAttachment> buildDownloads(TradeMark tm,TradeMarkCase tmc) {
 		// TODO Auto-generated method stub
 		return null;
 	}

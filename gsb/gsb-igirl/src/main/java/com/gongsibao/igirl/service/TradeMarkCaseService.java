@@ -98,6 +98,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			// tradeMarkCaseAttamentBuiler.buildUploads(tm)；
 			List<UploadAttachment> caseUps = tradeMarkCaseAttachmentBuiler.buildCaseShareUploads(entity);
 			entity.getUploadAttachments().addAll(caseUps);
+			
 			List<UploadAttachment> markShareGroupUps = tradeMarkCaseAttachmentBuiler.buildMarkShareGroupUploads(entity);
 			entity.getUploadAttachments().addAll(markShareGroupUps);
 			List<DownloadAttachment> markShareGroupDowns = tradeMarkCaseAttachmentBuiler.buildDownloads(entity);
@@ -120,9 +121,17 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 					if (!shareGroupCountMap.containsKey(tm.getShareGroup())) {
 						// 如果是新增一个分组--tm
 						List<UploadAttachment> casenewUps = tradeMarkCaseAttachmentBuiler
-								.buildMarkShareGroupUploadsByTm(tm);
+								.buildMarkShareGroupUploadsByTm(tm,entity);
 						entity.getUploadAttachments().addAll(casenewUps);
+						
+						List<DownloadAttachment> markShareGroupDowns = tradeMarkCaseAttachmentBuiler.buildDownloads(entity);
+						entity.getDownLoadAttaments().addAll(markShareGroupDowns);
+						
+						
 						shareGroupCountMap.put(tm.getShareGroup(), 1);
+//						if( entity.getTradeMarks().size()==1) {//如果当前商标项是1，那么就增加营业执照
+//							
+//						}
 					} else {// 修改后目标分组在map中
 							// 如果改变到的目标分组存在已有分组，分组+1
 						shareGroupCountMap.put(tm.getShareGroup(), shareGroupCountMap.get(tm.getShareGroup()) + 1);
@@ -136,7 +145,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 						}
 						if (sg != tm.getShareGroup()) {
 							// 当前修改了分组，查看原先分组的计数，如果原先分组是1，那么修改后，应该删除原先分组对应的附件
-							if (shareGroupCountMap.get(sg) == 1) {
+							if (sg!=null && shareGroupCountMap.get(sg) == 1) {
 								// 删除原先分组及对应的附件
 								shareGroupCountMap.remove(sg);
 								List<UploadAttachment> ups = entity.getUploadAttachments();
