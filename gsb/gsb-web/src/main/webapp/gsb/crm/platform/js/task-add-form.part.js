@@ -22,7 +22,6 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
 		options.url = '\/panda\/rest\/reference?code=Employee&filter='+ filter;
 		$(grid).datagrid(options);
 		
-		
     },
     departmentChange:function(newValue,oldValue){
     	
@@ -48,10 +47,10 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
     		$("#supplier_name").combogrid('disable');
     	}
     },
-    sourceSelect:function(record){
+    sourceSelect:function(newValue,oldValue){
     	
     	var $ctrl = $("#sourceOther");
-    	if(record.id === '4177'){
+    	if(newValue === '4177'){
 
     		$ctrl.prop("disabled",false);
     		$ctrl.validatebox('enableValidation');
@@ -60,10 +59,10 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
     		//ctrl.validatebox('disableValidation');
     	}
     },
-    consultWaySelect:function(record){
+    consultWaySelect:function(newValue,oldValue){
     	
     	var $ctrl = $("#consultWayOther");
-    	if(record.id === '4219'){
+    	if(newValue === '4219'){
 
     		$ctrl.prop("disabled",false);
     		$ctrl.validatebox('enableValidation');
@@ -178,42 +177,51 @@ com.gongsibao.crm.web.TaskProductDetailPart = org.netsharp.panda.commerce.Detail
     ctor: function () {
         this.base();
     },
-    productCategory1Select:function(record){
+    productCategory1Select:function(newValue,oldValue){
 
+    	var id = parseInt(newValue);
+		if(System.isnull(newValue) || typeof id != 'number'){
+			
+			return;
+		}
+		
     	//加载二级分类
-        this.invokeService("queryByFirstProductCategoryId", [record.id], function (data) {
+        this.invokeService("queryByFirstProductCategoryId", [newValue], function (data) {
         	
         	//这句有问题
-//        	$('#productCategory2_name').combobox('clear').combobox('loadData',data);
-        	
+        	$('#productCategory2_name').combobox('setValues',[]);
+        	$('#productCategory2_name').combobox('loadData',data);
+        	$('#productCategory2_name').combobox('setValue','')
+        	$('#productCategory2_name').combobox('setText','')
+
     		var grid = $('#product_name').combogrid('grid');
         	var row = $(grid).datagrid('getSelected');
-
         	if(row){
 
             	$('#productCategory2_name').combobox('setValue',row.typeId);
             	$('#productCategory2_name').combobox('setText',row.type_name);
         	}
-        },null,false);
+        },false);
     },
-    productCategory2Select:function(record){
-    	
-    	try{
-    		
-    		var grid = $('#product_name').combogrid('grid');
-        	var row = $(grid).datagrid('getSelected');
-        	if(row == null || row.typeId != record.id){
+    productCategory2Select:function(newValue,oldValue){
 
-            	$('#product_name').combogrid('clear');
-        	}
-    		var options = $(grid).datagrid('options');
-    		var filter = ' enabled____1 and type_id____'+record.id;
-    		options.url = '\/panda\/rest\/reference?code=CRM_Product&filter='+ filter;
-    		$(grid).datagrid(options);	
-    		
-    	}catch(ex){
-    		
+    	var id = parseInt(newValue);
+		if(System.isnull(newValue) || typeof id != 'number'){
+			
+			return;
+		}
+
+		var grid = $('#product_name').combogrid('grid');
+    	var row = $(grid).datagrid('getSelected');
+    	if(row == null || row.typeId != newValue){
+
+        	$('#product_name').combogrid('clear');
     	}
+		var options = $(grid).datagrid('options');
+		var filter = ' enabled____1 and type_id____'+newValue;
+		options.url = '\/panda\/rest\/reference?code=CRM_Product&filter='+ filter;
+		$(grid).datagrid(options);	
+
     },
     productChange:function(newValue,oldValue){
     	

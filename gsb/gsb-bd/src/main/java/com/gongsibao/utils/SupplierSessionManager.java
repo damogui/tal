@@ -133,7 +133,7 @@ public class SupplierSessionManager {
         Oql oql = new Oql();
         {
             oql.setType(Salesman.class);
-            oql.setSelects("salesman.{id,name,loginName},salesman.employee.{id,name,loginName},salesman.department.{id,name},salesman.supplier.{id,name}");
+            oql.setSelects("salesman.{id,name,loginName},salesman.employee.{id,name,loginName},salesman.department.{id,name},salesman.supplier.{id,admin_id,name}");
             oql.setFilter("employeeId=?");
             oql.getParameters().add("@employeeId", employeeId, Types.INTEGER);
         }
@@ -153,6 +153,7 @@ public class SupplierSessionManager {
         	so.setDepartmentName(salesman.getDepartment().getName());
         	
         	so.setSupplierId(salesman.getSupplierId());
+        	so.setAdminId(salesman.getSupplier().getAdminId());
         	so.setSupplierName(salesman.getSupplier().getName());
         	
         	//直属领导

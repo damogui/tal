@@ -101,5 +101,31 @@ org.netsharp.panda.commerce.TreegridPart = org.netsharp.panda.commerce.ListPart
 					height : height,
 				});
 
+			},
+
+			// -----------------------
+			// 整理路径
+			// -----------------------
+			pathCode : function(node) {
+				var me = this;
+				var $tree = $("#" + this.context.id);
+				this.invokeService("pathCode", [], function(jMessage) {
+					
+					if(node==null){
+						
+						$tree.treegrid('reload');
+					}else{
+
+						var selectedNode = $tree.tree('getSelected');
+						if(selectedNode){
+							
+							$tree.treegrid('reload',selectedNode.target);
+						}else{
+							
+							$tree.treegrid('reload');
+						}
+					}
+
+				});
 			}
 		});

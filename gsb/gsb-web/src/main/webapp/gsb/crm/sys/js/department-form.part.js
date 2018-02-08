@@ -6,25 +6,42 @@ com.gongsibao.crm.web.DepartmentProductDetailPart = org.netsharp.panda.commerce.
     ctor: function () {
         this.base();
     },
-    firstProductCategorySelect:function(record){
+    firstProductCategorySelect:function(newValue,oldValue){
 
+		if(newValue != null){
+			
+	    	var newValue = parseInt(newValue);
+			if(System.isnull(newValue) || typeof newValue != 'number' || isNaN(newValue)){
+				
+				return;
+			}
+		}
+		
     	var parentDepartmentId = this.parent.viewModel.currentItem.parentId;
     	var supplierId = this.parent.viewModel.currentItem.supplierId;
     	//加载二级分类
-        this.invokeService("queryProductSecondCategory", [parentDepartmentId,supplierId,record.id], function (data) {
+        this.invokeService("queryProductSecondCategory", [parentDepartmentId,supplierId,newValue], function (data) {
         	
         	$('#productCategory2_name').combobox('clear').combobox('loadData',data);
         },false);
     },
-    secondProductCategorySelect:function(record){
+    secondProductCategorySelect:function(newValue,oldValue){
     	
     	try{
-    		
+
+    		if(newValue != null){
+    			
+    	    	var newValue = parseInt(newValue);
+    			if(System.isnull(newValue) || typeof newValue != 'number' || isNaN(newValue)){
+    				
+    				return;
+    			}
+    		}
         	$('#product_name').combogrid('clear');
     		var grid = $('#product_name').combogrid('grid');
     		var options = $(grid).datagrid('options');
     		
-    		var filter = ' enabled____1 and type_id____' + record.id;
+    		var filter = ' enabled____1 and type_id____' + newValue;
         	var parentDepartmentId = this.parent.viewModel.currentItem.parentId;
         	var supplierId = this.parent.viewModel.currentItem.supplierId;
         	if(parentDepartmentId == null||parentDepartmentId==0){
@@ -41,20 +58,36 @@ com.gongsibao.crm.web.DepartmentProductDetailPart = org.netsharp.panda.commerce.
     		
     	}
     },
-    provinceSelect:function(record){
-    	
+    provinceSelect:function(newValue,oldValue){
+
+		if(newValue != null){
+			
+	    	var newValue = parseInt(newValue);
+			if(System.isnull(newValue) || typeof newValue != 'number' || isNaN(newValue)){
+				
+				return;
+			}
+		}
     	var parentDepartmentId = this.parent.viewModel.currentItem.parentId;
     	var supplierId = this.parent.viewModel.currentItem.supplierId;
-    	this.invokeService("queryCity", [parentDepartmentId,supplierId,record.id], function (data) {
+    	this.invokeService("queryCity", [parentDepartmentId,supplierId,newValue], function (data) {
         	
         	$('#city_name').combobox('clear').combobox('loadData',data);
         },false);
     },
-    citySelect:function(record){
-    	
+    citySelect:function(newValue,oldValue){
+
+		if(newValue != null){
+			
+	    	var newValue = parseInt(newValue);
+			if(System.isnull(newValue) || typeof newValue != 'number' || isNaN(newValue)){
+				
+				return;
+			}
+		}
     	var parentDepartmentId = this.parent.viewModel.currentItem.parentId;
 		var supplierId = this.parent.viewModel.currentItem.supplierId;
-		this.invokeService("queryCounty", [parentDepartmentId,supplierId,record.id], function (data) {
+		this.invokeService("queryCounty", [parentDepartmentId,supplierId,newValue], function (data) {
 	    	
 	    	$('#county_name').combobox('clear').combobox('loadData',data);
 	    },false);
