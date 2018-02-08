@@ -4,9 +4,12 @@ import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
 
+import com.gongsibao.crm.base.INCustomerOperationLogService;
 import com.gongsibao.crm.base.INCustomerTaskNotifyService;
+import com.gongsibao.entity.crm.NCustomerOperationLog;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskNotify;
+import com.gongsibao.entity.crm.dic.ChangeType;
 import com.gongsibao.entity.crm.dic.NotifyType;
 import com.gongsibao.utils.NCustomerContact;
 import com.gongsibao.utils.SalesmanOrganization;
@@ -24,7 +27,23 @@ public class ActionRollbackRecordLog implements IAction {
 		String content = ctx.getStatus().get("content").toString();
 		Integer currentOwner = Integer.valueOf(ctx.getStatus().get("ownerId").toString());
 		SalesmanOrganization organization = SupplierSessionManager.getSalesmanOrganization(currentOwner);
-		//保存通知日志（通知部门领导和服务商管理员）
+		
+		// 1.保存流转日志
+		INCustomerOperationLogService changeService = ServiceFactory.create(INCustomerOperationLogService.class);
+		NCustomerOperationLog changeLog = new NCustomerOperationLog();
+		{
+			changeLog.toNew();// 标示下类型，有多种
+			changeLog.setFormUserId(currentOwner);
+			changeLog.setContent(content);
+			changeLog.setChangeType(ChangeType.RELEASE);
+			changeLog.setTaskId(task.getId());
+			changeLog.setSupplierId(organization.getSupplierId());
+			changeLog.setDepartmentId(organization.getDepartmentId());
+			changeLog.setCustomerId(task.getCustomerId());
+			changeService.save(changeLog);
+		}		
+		
+		//2.保存通知日志（通知部门领导和服务商管理员）
 		String getContact = NCustomerContact.handleContact(task.getCustomer());
 		String copyWriter = String.format("【退回提醒】您好，【%s】退回至公海1个任务，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，退回原因为【%s】，请及时处理",
 				organization.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact,content);

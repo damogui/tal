@@ -4,9 +4,12 @@ import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
 
+import com.gongsibao.crm.base.INCustomerOperationLogService;
 import com.gongsibao.crm.base.INCustomerTaskNotifyService;
+import com.gongsibao.entity.crm.NCustomerOperationLog;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskNotify;
+import com.gongsibao.entity.crm.dic.ChangeType;
 import com.gongsibao.entity.crm.dic.NotifyType;
 import com.gongsibao.utils.NCustomerContact;
 import com.gongsibao.utils.SalesmanOrganization;
@@ -25,7 +28,22 @@ public class ActionRegainRecordLog implements IAction {
 		Integer currentOwner = Integer.valueOf(ctx.getStatus().get("ownerId").toString());
 		SalesmanOrganization organization = SupplierSessionManager.getSalesmanOrganization(currentOwner);
 
-		//保存通知日志
+		// 1.保存流转日志
+		INCustomerOperationLogService changeService = ServiceFactory.create(INCustomerOperationLogService.class);
+		NCustomerOperationLog changeLog = new NCustomerOperationLog();
+		{
+			changeLog.toNew();
+			changeLog.setFormUserId(currentOwner);
+			changeLog.setContent(content);
+			changeLog.setChangeType(ChangeType.RECYCLE);
+			changeLog.setTaskId(task.getId());
+			changeLog.setSupplierId(organization.getSupplierId());
+			changeLog.setDepartmentId(organization.getDepartmentId());
+			changeLog.setCustomerId(task.getCustomerId());
+			changeService.save(changeLog);
+		}		
+		
+		//2.保存通知日志
 		String getContact = NCustomerContact.handleContact(task.getCustomer());
 		String copyWriter = String.format("【收回提醒】您好，【%s】收回【%s】1个任务，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，收回原因为【%s】，请知悉",
 				organization.getEmployeeName(),organization.getSalessmanName(),task.getName(),task.getCustomer().getRealName(),getContact,content);
