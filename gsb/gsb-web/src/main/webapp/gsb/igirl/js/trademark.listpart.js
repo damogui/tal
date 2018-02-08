@@ -42,7 +42,7 @@ com.gongsibao.igirl.web.TradeMarkListPart = org.netsharp.panda.commerce.ListPart
         })
 	},
 	totmcase:function(tradeMarkCaseId){
-			var formUrl = "/igirl/trademarkcase/all/form";
+			var formUrl = "/igirl/my/case/form";
 			if (System.isnull(formUrl)) {
 				return;
 			}
