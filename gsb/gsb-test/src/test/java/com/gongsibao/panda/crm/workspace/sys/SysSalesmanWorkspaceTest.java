@@ -320,7 +320,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
-				formField.setTroikaTrigger("controllerproducts.firstProductCategorySelect(record);");
+				formField.setTroikaTrigger("controllerproducts.firstProductCategorySelect(newValue,oldValue);");
 				// formField.setRefFilter("type=201 and pid=0");
 
 				// 这里先不查询，前端要根据上级部门进行过滤
@@ -331,7 +331,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
-				formField.setTroikaTrigger("controllerproducts.secondProductCategorySelect(record);");
+				formField.setTroikaTrigger("controllerproducts.secondProductCategorySelect(newValue,oldValue);");
 				// formField.setRefFilter("type=201 and pid<>0");
 			}
 
@@ -344,14 +344,14 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
-				formField.setTroikaTrigger("controllerproducts.provinceSelect(record);");
+				formField.setTroikaTrigger("controllerproducts.provinceSelect(newValue,oldValue);");
 				// formField.setDataOptions("level:1,changeCtrlId:'city_name'");
 			}
 			formField = addFormField(form, "city.name", "城市", ControlTypes.CUSTOM, false, false);
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
-				formField.setTroikaTrigger("controllerproducts.citySelect(record);");
+				formField.setTroikaTrigger("controllerproducts.citySelect(newValue,oldValue);");
 				// formField.setDataOptions("level:2,changeCtrlId:'county_name'");
 			}
 			formField = addFormField(form, "county.name", "区/县", ControlTypes.CUSTOM, false, false);
