@@ -115,6 +115,12 @@ public class SellingDemandDTO {
     //是否出售
     private String selingStatusStr;
 
+    //总页数
+    private int   totalPage;
+
+
+
+
 
     public String getCode() {
         return code;
@@ -388,5 +394,13 @@ public class SellingDemandDTO {
 
     public void setFixedAssetssList(List<String> fixedAssetssList) {
         this.fixedAssetssList = fixedAssetssList;
+    }
+
+    public int getTotalPage() {
+        return totalPage;
+    }
+
+    public void setTotalPage(int totalPage) {
+        this.totalPage = totalPage;
     }
 }
