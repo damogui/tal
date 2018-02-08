@@ -100,5 +100,25 @@ com.gongsibao.crm.web.SalesmanProductDetailPart = org.netsharp.panda.commerce.De
         	
         	$('#province_name').combobox('clear').combobox('loadData',data);
         },false);
+    },
+
+});
+
+com.gongsibao.crm.web.SalesmanFormPart = org.netsharp.panda.commerce.FormPart.Extends( {
+    ctor: function () {
+        this.base();
+    },
+    databindafter:function(){
+    	
+        $('.easyui-combobox,.easyui-combogrid').combobox("initClearBtn");
+        $('.easyui-filebox').filebox("initClearBtn");
+        
+    	var grid = $('#role_name').combogrid('grid');
+    	var options = $(grid).datagrid('options');
+    	
+    	var supplierId = this.viewModel.currentItem.supplierId;
+    	var filter = 'id in (SELECT role_id FROM sp_function_module_role WHERE function_module_id IN (SELECT function_module_id FROM sp_supplier_function_module WHERE supplier_id ____ '+supplierId+'))';
+    	options.url = '\/panda\/rest\/reference?code=Role&filter='+ filter;
+    	$(grid).datagrid(options);	
     }
 });

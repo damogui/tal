@@ -51,7 +51,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		listPartImportJs = "/gsb/crm/sys/js/sys-salesman-list-part.js|/gsb/gsb.custom.query.controls.js";
 		listPartJsController = SysSalesmanListPart.class.getName();
 		listPartServiceController = SysSalesmanListPart.class.getName();
-
+		formJsController = "com.gongsibao.crm.web.SalesmanFormPart";
 		formJsImport = "/gsb/crm/sys/js/salesman-form.part.js|/gsb/gsb.customer.controls.js";
 	}
 
@@ -117,7 +117,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		form.setColumnCount(3);
 
 		String groupName = null;
-		//String groupName = "基本信息";
+		// String groupName = "基本信息";
 		addFormField(form, "name", "姓名", groupName, ControlTypes.TEXT_BOX, true);
 		addFormField(form, "mobile", "手机号", groupName, ControlTypes.TEXT_BOX, true);
 		PFormField formField = addFormField(form, "loginName", "帐号", groupName, ControlTypes.TEXT_BOX, false);
@@ -131,15 +131,15 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "quitDate", "离职日期", groupName, ControlTypes.DATE_BOX, false);
 		addFormField(form, "disabled", "停用", groupName, ControlTypes.SWITCH_BUTTON, false, true);
 
-		//groupName = "属性设置";
+		// groupName = "属性设置";
 		addFormField(form, "dayMax", "日分配上限", groupName, ControlTypes.NUMBER_BOX, false, false);
 
 		addFormField(form, "weekMax", "周分配上限", groupName, ControlTypes.NUMBER_BOX, false, false);
 
 		addFormField(form, "xabMax", "XAB类上限", groupName, ControlTypes.NUMBER_BOX, false, false);
-		
+
 		addFormField(form, "receiving", "自动接受任务", groupName, ControlTypes.SWITCH_BUTTON, false, false);
-		
+
 		addFormField(form, "isLeader", "主管", groupName, ControlTypes.SWITCH_BUTTON, false, false);
 
 		// 这里还有很多属性，
