@@ -1185,9 +1185,21 @@ org.netsharp.controls.PccBox = org.netsharp.controls.Control.Extends({
 
 		function bindData(parentId,bindCtrlId){
 			
+			if(parentId != null){
+				
+		    	var parentId = parseInt(parentId);
+				if(System.isnull(parentId) || typeof parentId != 'number'){
+					
+					return;
+				}
+			}
+			
 			 var serviceLocator = new org.netsharp.core.JServiceLocator();
 			 serviceLocator.invoke(me.service,'queryPcc', [parentId], function(data){
 				 
+				 if(System.isnull(data) || data.length==0){
+					 return;
+				 }
 				 $('#' + bindCtrlId).combobox('setValue',null);
 				 $('#' + bindCtrlId).combobox('loadData',data);
 				 if(data.length == 1){
