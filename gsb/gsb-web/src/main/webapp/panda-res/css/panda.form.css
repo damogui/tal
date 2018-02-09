@@ -3,16 +3,21 @@
 	background:#ffffff;
 }
 
+/*
+.tabs,.tabs-inner{
+	border-bottom-color: #1E7BB6 !important;
+}
+*/
 .tabs-header{
 	border-left-width:0px;
 	border-right-width:0px;
+	border-bottom-width:0px;
 }
 
 .tabs-panels{
 	
 	border-left-width:0px;
 	border-right-width:0px;
-	border-bottom-width:0px;
 }
 .tabs-panels .panel{
 	overflow-y:auto;
@@ -29,25 +34,48 @@
 .tabs-panels .panel form{
 	padding-top: 30px;
 }
+
 .tabs li a.tabs-inner{
-	
+	background: #fff;
 	border-radius:0px !important;
 }
+
+
+
 .tabs li.tabs-selected a.tabs-inner {
-    background-color: #ffffff;
+    /*background-color: #1E7BB6;
     font-weight: normal;
-    border-bottom: 1px solid #ffffff;
+    border-bottom: 1px solid #1E7BB6;*/
+    
+    background-color: #fafafa;
 }
+/*
+.tabs li.tabs-selected a.tabs-inner .tabs-title{
+	color:#fff;
+}
+*/
 .tabs-title{
 	
 	color:#404040;
 }
+
+
 .toolbar {
 	padding-top: 2px;
 	padding-bottom: 2px;
 	border-bottom: 1px solid #ddd;
 	padding-left: 2px;
 	background: #fafafa;
+}
+
+.global-toolbar{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 10000;
+    border-top: 1px solid #ddd;
+    background-color: #fff;
 }
 
 input:disabled,textarea:disabled{

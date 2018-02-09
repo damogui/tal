@@ -3,23 +3,21 @@ package com.gongsibao.entity.supplier.dict;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
-public enum SupplierType implements IEnum {
+public enum BankAccountType implements IEnum{
 
-    UNLIMITED(3, "不限"),
-	SELFSUPPORT(1, "自营"),
-    PLATFORM(2, "平台");
+	ENTERPRISE(1, "单位帐户"), 
+	PERSON(2, "个人帐户");
 	private int value;
 	private String text;
-
-	SupplierType(int value, String text) {
+	BankAccountType(int value, String text) {
 		this.value = value;
 		this.text = text;
 	}
-	
-	@JsonCreator
-	public static SupplierType getItem(int value) {
 
-		for (SupplierType item : values()) {
+	@JsonCreator
+	public static BankAccountType getItem(int value) {
+
+		for (BankAccountType item : values()) {
 
 			if (item.getValue() == value) {
 				return item;
@@ -38,3 +36,4 @@ public enum SupplierType implements IEnum {
 		return this.value;
 	}
 }
+

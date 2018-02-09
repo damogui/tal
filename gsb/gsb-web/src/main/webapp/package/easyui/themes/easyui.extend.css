@@ -280,8 +280,8 @@ span.textbox{
 
 .tooltip.tooltip-bottom{
 
-	color:#fff;
-	background-color: #000;
+	color:#4d4d4d;
+	background-color: #fcf4d7;
 	border-width:0 !important;
 	border-radius: 2px;
 }
@@ -394,7 +394,10 @@ div.h10{
 	
 	text-align:left;
 }
+.form-panel td.label_td .fa {
 
+	color:gray;
+}
 .form-panel tr {
 	border: 1px solid #c9c9c9;
 }

@@ -146,17 +146,15 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		}
 		PDatagridColumn column = null;
 		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 80, true);
-		addColumn(datagrid, "status", "状态", ControlTypes.ENUM_BOX, 80, false);
 		addColumn(datagrid, "type", "类型", ControlTypes.ENUM_BOX, 80, false);
+		addColumn(datagrid, "status", "状态", ControlTypes.ENUM_BOX, 80, false);
+		addColumn(datagrid, "openTime", "开户时间", ControlTypes.DATETIME_BOX, 130, false);
 		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 80, false);
 		addColumn(datagrid, "contact", "联系人", ControlTypes.TEXT_BOX, 200, false);
 		addColumn(datagrid, "mobilePhone", "手机号", ControlTypes.TEXT_BOX, 200, false);
 		addColumn(datagrid, "bankName", "银行名", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "bankNum", "银行卡号", ControlTypes.TEXT_BOX, 150, false);
 		addColumn(datagrid, "address", "地址", ControlTypes.TEXT_BOX, 200, false);
-		addColumn(datagrid, "openTime", "开户时间", ControlTypes.DATETIME_BOX, 130, false);
-		addColumn(datagrid, "departmentCount", "部门数量", ControlTypes.DECIMAL_BOX, 80, false);
-		addColumn(datagrid, "salesmanCount", "员工数量", ControlTypes.DECIMAL_BOX, 80, false);
 		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130, false);
 		return datagrid;
 	}
@@ -165,108 +163,175 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 	protected PForm createForm(ResourceNode node) {
 		PForm form = new PForm(node, this.formPartName);
 		{
-			form.setColumnCount(1);
-			//form.setLabelWidth(150);
+			form.setColumnCount(2);
+			form.setLabelWidth(150);
 		}
 		PFormField field = null;
 
 		String groupName = "基本信息";
-		field = addFormField(form, "name", "名称", groupName, ControlTypes.TEXT_BOX, true);
+		field = addFormField(form, "name", "服务商名称", groupName, ControlTypes.TEXT_BOX, true);
 		{
-
 			field.setWidth(300);
 		}
-		field = addFormField(form, "status", "状态", groupName, ControlTypes.ENUM_BOX, true, true);
+		field = addFormField(form, "contact", "姓名", groupName, ControlTypes.TEXT_BOX, true, false);
 		{
-
-			field.setWidth(300);
-		}
-		field = addFormField(form, "type", "类型", groupName, ControlTypes.ENUM_BOX, true, false);
-		{
-
-			field.setWidth(300);
-		}
-		field = addFormField(form, "contact", "联系人", groupName, ControlTypes.TEXT_BOX, true, false);
-		{
-
 			field.setWidth(300);
 		}
 		field = addFormField(form, "mobilePhone", "手机号", groupName, ControlTypes.TEXT_BOX, true, false);
 		{
-
 			field.setTroikaValidation("mobile");
 			field.setWidth(300);
 		}
-		field = addFormField(form, "bankName", "开户银行", groupName, ControlTypes.TEXT_BOX, false, false);
+		field = addFormField(form, "sex", "性别", groupName, ControlTypes.RADIO_BOX_GROUP, true, false);
 		{
-
 			field.setWidth(300);
 		}
-		field = addFormField(form, "bankNum", "银行卡号", groupName, ControlTypes.TEXT_BOX, false, false);
-		{
-
-			field.setWidth(300);
-		}
-
 		field = addFormField(form, "address", "地址", groupName, ControlTypes.TEXT_BOX, false, false);
 		{
-
 			field.setWidth(300);
 		}
-
-		field = addFormField(form, "fixPhone", "座机", groupName, ControlTypes.TEXT_BOX, false, false);
+		field = addFormField(form, "telePhone", "座机", groupName, ControlTypes.TEXT_BOX, false, false);
 		{
-
 			field.setWidth(300);
 		}
-		field = addFormField(form, "postcode", "邮编", groupName, ControlTypes.NUMBER_BOX, false, false);
+		field = addFormField(form, "postCode", "邮编", groupName, ControlTypes.TEXT_BOX, false, false);
 		{
 			field.setTroikaValidation("ZIP");
 			field.setWidth(300);
 		}
 		field = addFormField(form, "fax", "传真", groupName, ControlTypes.TEXT_BOX, false, false);
 		{
-
+			field.setWidth(300);
+		}
+		field = addFormField(form, "qq", "QQ", groupName, ControlTypes.TEXT_BOX, false, false);
+		{
+			field.setWidth(300);
+			field.setTroikaValidation("qq");
+		}
+		field = addFormField(form, "weixin", "微信", groupName, ControlTypes.TEXT_BOX, false, false);
+		{
+			field.setWidth(300);
+		}
+		field = addFormField(form, "email", "邮箱", groupName, ControlTypes.TEXT_BOX, false, false);
+		{
+			field.setWidth(300);
+			field.setTroikaValidation("email");
+		}
+		field = addFormField(form, "headPortrait", "头像", groupName, ControlTypes.OSS_UPLOAD, false, false);
+		{
+			field.setWidth(300);
+		}
+		field = addFormField(form, "province.name", "所在省份", groupName, ControlTypes.CUSTOM, false, false);
+		{
+			field.setWidth(300);
+			field.setCustomControlType(CityComboBox.class.getName());
+			field.setDataOptions("level:1,changeCtrlId:'city_name'");
+		}
+		field = addFormField(form, "city.name", "所在城市", groupName, ControlTypes.CUSTOM, false, false);
+		{
+			field.setWidth(300);
+			field.setCustomControlType(CityComboBox.class.getName());
+			field.setDataOptions("level:2,changeCtrlId:'county_name'");
+		}
+		field = addFormField(form, "county.name", "所在区/县", groupName, ControlTypes.CUSTOM, false, false);
+		{
+			field.setWidth(300);
+			field.setCustomControlType(CityComboBox.class.getName());
+			field.setDataOptions("level:3");
+		}
+		field = addFormField(form, "address", "详细地址", groupName, ControlTypes.TEXT_BOX, false, false);
+		{
 			field.setWidth(300);
 		}
 
-		groupName = "业务设置";
+		groupName = "认证信息";
+		field = addFormField(form, "startBusiness", "从业开始时间", groupName, ControlTypes.DATE_BOX, false, false);
+		{
+			field.setWidth(300);
+		}
+		field = addFormField(form, "identityCard", "身份证号", groupName, ControlTypes.TEXT_BOX, false, false);
+		{
+			field.setTroikaValidation("idcard");
+			field.setWidth(300);
+		}
+		field = addFormField(form, "identityCardPhotoFont", "身份证照片正面", groupName, ControlTypes.OSS_UPLOAD, false, false);
+		{
+			field.setWidth(300);
+		}
+		field = addFormField(form, "identityCardPhotoReverse", "身份证照片反面", groupName, ControlTypes.OSS_UPLOAD, false, false);
+		{
+			field.setWidth(300);
+		}
+		field = addFormField(form, "startBusiness", "执业资质照片", groupName, ControlTypes.OSS_UPLOAD, false, false);
+		{
+			field.setWidth(300);
+		}
+
+		groupName = "服务信息";
+		field = addFormField(form, "responseTime", "响应时间", groupName, ControlTypes.ENUM_BOX, false, false);
+		{
+			field.setWidth(300);
+		}
+		field = addFormField(form, "serviceDeclaration", "服务宣言", groupName, ControlTypes.TEXT_BOX, false, false);
+		{
+			field.setWidth(300);
+		}
+		field = addFormField(form, "serviceIntro", "服务简介", groupName, ControlTypes.TEXTAREA, false, false);
+		{
+			field.setWidth(300);
+			field.setHeight(80);
+			field.setTooltip("参考内容：<br>1、个人介绍，如毕业院校、所在单位、从业经历等；<br>2、个人擅长领域；<br>3、做过的相关案例、项目经验等");
+		}
+		field = addFormField(form, "consigneeAddress", "收件地址", groupName, ControlTypes.TEXT_BOX, false, false);
+		{
+			field.setWidth(300);
+		}
+
+		groupName = "财务信息";
+		
+		field = addFormField(form, "bankAccountType", "帐户类型", groupName, ControlTypes.RADIO_BOX_GROUP, false, false);
+		{
+			field.setWidth(300);
+		}	
+		field = addFormField(form, "bankName", "开户银行", groupName, ControlTypes.TEXT_BOX, false, false);
+		{
+			field.setWidth(300);
+		}		
+		field = addFormField(form, "bankAccountName", "帐号名称", groupName, ControlTypes.TEXT_BOX, false, false);
+		{
+			field.setWidth(300);
+		}
+		field = addFormField(form, "bankNum", "银行卡号", groupName, ControlTypes.TEXT_BOX, false, false);
+		{
+			field.setWidth(300);
+			field.setTroikaValidation("bankNum");
+		}
+
+		groupName = "系统设置";
+		field = addFormField(form, "status", "状态", groupName, ControlTypes.ENUM_BOX, true, true);
+		{
+			field.setWidth(300);
+		}
+		field = addFormField(form, "type", "类型", groupName, ControlTypes.RADIO_BOX_GROUP, true, false);
+		{
+			field.setWidth(300);
+		}
+		field = addFormField(form, "notifiedType", "消息通知类型 ", groupName, ControlTypes.RADIO_BOX_GROUP, false, true);
+		{
+			field.setWidth(300);
+		}
+		field = addFormField(form, "customerType", "客户类别 ", groupName, ControlTypes.RADIO_BOX_GROUP, false, false);
+		{
+			field.setWidth(300);
+		}		
 		field = addFormField(form, "customerMaxCount", "客户池数量", groupName, ControlTypes.NUMBER_BOX, false, false);
 		{
-
 			field.setWidth(300);
-		}
-
-		field = addFormField(form, "messageNotifiedType", "消息通知类型 ", groupName, ControlTypes.ENUM_BOX, false, false);
-		{
-
-			field.setWidth(300);
-		}
+		}		
 		field = addFormField(form, "noFollowDays", "未跟进天数-释放", groupName, ControlTypes.NUMBER_BOX, false, false);
 		{
-
 			field.setWidth(300);
-		}
-		field = addFormField(form, "departLevel", "部门级次", groupName, ControlTypes.NUMBER_BOX, false, true);
-		{
-
-			field.setWidth(300);
-		}
-		field = addFormField(form, "departmentCount", "部门数量", groupName, ControlTypes.NUMBER_BOX, false, true);
-		{
-
-			field.setWidth(300);
-		}
-		field = addFormField(form, "salesmanCount", "员工数量", groupName, ControlTypes.NUMBER_BOX, false, true);
-		{
-
-			field.setWidth(300);
-		}
-		field = addFormField(form, "customerType", "客户类别 ", groupName, ControlTypes.ENUM_BOX, false, false);
-		{
-
-			field.setWidth(300);
-		}
+		}	
 		field = addFormField(form, "pushReport", "是否推送报表", groupName, ControlTypes.SWITCH_BUTTON, false, false);
 		{
 
@@ -283,7 +348,6 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		{
 
 		}
-
 		return form;
 	}
 
