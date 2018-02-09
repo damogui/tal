@@ -87,18 +87,18 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 	 item.setCommand("{controller}.edit();");
 	 toolbar.getItems().add(item);
 	 }
-	 item = new PToolbarItem();
-	 {
-	 item.toNew();
-	 item.setCode("remove");
-	 item.setIcon("fa fa-trash-o");
-	 item.setName("删除");
-	 item.setCommand(null);
-	 item.setOperationType(ot1);
-	 item.setSeq(4000);
-	 item.setCommand("{controller}.remove();");
-	 toolbar.getItems().add(item);
-	 }
+//	 item = new PToolbarItem();
+//	 {
+//	 item.toNew();
+//	 item.setCode("remove");
+//	 item.setIcon("fa fa-trash-o");
+//	 item.setName("删除");
+//	 item.setCommand(null);
+//	 item.setOperationType(ot1);
+//	 item.setSeq(4000);
+//	 item.setCommand("{controller}.remove();");
+//	 toolbar.getItems().add(item);
+//	 }
 	
 	
 	 toolbarService.save(toolbar);
@@ -119,6 +119,7 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 	
 		addColumn(datagrid, "caseAmount", "金额", ControlTypes.DECIMAL_FEN_BOX, 100);
 		addColumn(datagrid, "tmcState", "状态", ControlTypes.ENUM_BOX, 100);
+		addColumn(datagrid, "tradeOptions", "商标选项", ControlTypes.TEXT_BOX, 100);
 	
 		return datagrid;
 	}
