@@ -128,6 +128,10 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 
 		addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 80, false);
 		addColumn(datagrid, "intentionCategory", "质量分类", ControlTypes.ENUM_BOX, 100, false);
+		column = addColumn(datagrid, "qualityId", "客户质量id", ControlTypes.TEXT_BOX, 100, false);{
+			column.setSystem(true);
+			column.setVisible(false);
+		}
 		addColumn(datagrid, "quality.name", "客户质量", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 100, false);
 		addColumn(datagrid, "lastFoolowUser.name", "最后跟进人", ControlTypes.TEXT_BOX, 100, false);

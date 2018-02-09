@@ -166,7 +166,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		PForm form = new PForm(node, this.formPartName);
 		{
 			form.setColumnCount(1);
-			form.setLabelWidth(150);
+			//form.setLabelWidth(150);
 		}
 		PFormField field = null;
 
