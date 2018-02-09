@@ -106,9 +106,12 @@ public interface INCustomerTaskService extends IPersistableService<NCustomerTask
 
 	/**
 	 * 任务跟进
+	 * @param taskFoolow
+	 * @param originalQualityId 没更新前质量Id（用于判断是否改变，发送通知用）
+	 * @return
 	 */
 	@Transaction
-	public Boolean follow(NCustomerTaskFoolow taskFoolow);
+	public Boolean follow(NCustomerTaskFoolow taskFoolow,Integer originalQualityId);
 
 	/**
 	 * 任务收回(主管等操作)

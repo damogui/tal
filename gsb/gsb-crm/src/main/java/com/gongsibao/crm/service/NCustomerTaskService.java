@@ -183,6 +183,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
 	@Override
 	public Boolean batchAllocation(String[] taskIdArray, Integer supplierId, Integer departmentId, Integer toUserId) {
+		//任务批量分配
 		int taskIdCount = taskIdArray.length;
 		boolean isNotify = false;
 		for (String taskId : taskIdArray) {
@@ -194,7 +195,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
 	@Override
 	public Boolean allocation(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId, int alloCount, boolean isNotify) {
-
+		//任务分配
 		Map<String, Object> setMap = new HashMap<String, Object>();
 		NCustomerTask entity = this.byId(taskId);
 		setMap.put("formUserId", entity.getOwnerId());
@@ -217,12 +218,15 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	}
 
 	@Override
-	public Boolean follow(NCustomerTaskFoolow taskFoolow) {
-
+	public Boolean follow(NCustomerTaskFoolow taskFoolow,Integer originalQualityId) {
+		//任务跟进
+		Map<String, Object> setMap = new HashMap<String, Object>();
+		setMap.put("originalQualityId", originalQualityId);
 		ActionContext ctx = new ActionContext();
 		{
 			ctx.setPath("gsb/crm/task/follow");
 			ctx.setItem(taskFoolow);
+			ctx.setStatus(setMap);
 			ctx.setState(taskFoolow.getEntityState());
 		}
 
@@ -234,7 +238,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	@Override
 	public Boolean batchRegain(String[] taskIdArray, String content) {
 
-		// 任务收回
+		//任务批量收回
 		for (String taskId : taskIdArray) {
 
 			this.regain(Integer.valueOf(taskId), content);
@@ -244,7 +248,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
 	@Override
 	public Boolean regain(Integer taskId, String content) {
-
+		//任务收回
 		ActionManager action = new ActionManager();
 		Map<String, Object> setMap = new HashMap<String, Object>();
 		setMap.put("content", content);

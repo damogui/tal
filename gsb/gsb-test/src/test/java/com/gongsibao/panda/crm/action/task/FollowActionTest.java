@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.netsharp.plugin.bean.BeanPath;
 
 import com.gongsibao.crm.service.action.task.follow.ActionFollowPersist;
+import com.gongsibao.crm.service.action.task.follow.ActionFollowRecordLog;
 import com.gongsibao.crm.service.action.task.follow.ActionFollowVerify;
 import com.gongsibao.crm.service.action.task.follow.ActionFollowWriteBack;
 import com.gongsibao.panda.crm.action.BaseActionTest;
@@ -33,6 +34,7 @@ public class FollowActionTest extends BaseActionTest{
 		createBean(beanPath, "验证", ActionFollowVerify.class.getName(), resourceNode, 100);
 		createBean(beanPath, "保存", ActionFollowPersist.class.getName(), resourceNode, 200);
 		createBean(beanPath, "回写", ActionFollowWriteBack.class.getName(), resourceNode, 300);
+		createBean(beanPath, "日志", ActionFollowRecordLog.class.getName(), resourceNode, 400);
 		beanPathService.save(beanPath);
 	}
 }

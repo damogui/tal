@@ -18,8 +18,6 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
     	        });
             	
             }
-		 
-    
     },
     onload:function(){
     	      this.base();

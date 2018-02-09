@@ -1,5 +1,6 @@
 package com.gongsibao.panda.crm;
 
+import com.gongsibao.panda.crm.workspace.sys.CustomerMyOrderWorkspaceTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -64,6 +65,7 @@ import com.gongsibao.panda.crm.workspace.sys.SysSalesmanWorkspaceTest;
 		
 		
 		CustomerAllWorkspaceTest.class,
+		CustomerMyOrderWorkspaceTest.class,
 		CompanyIntentionWorkspaceTest.class,
 		//系统设置
 		SysDepartmentWorkspaceTest.class,

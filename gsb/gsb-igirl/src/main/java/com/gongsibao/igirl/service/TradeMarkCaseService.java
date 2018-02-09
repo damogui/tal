@@ -60,9 +60,9 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			entity.setProxyCompanyName(sl.getName());
 			entity.setAccountNo(sl.getBankNum());
 			entity.setSupplierId(sid);
-			// entity.setYwPhone(sl.getFixPhone());
-			// entity.setMailCode(sl.getPostcode());
-			// entity.setFax(sl.getFax());
+//		  entity.setYwPhone(sl.getFixPhone());
+//		  entity.setMailCode(sl.getPostcode());
+//			entity.setFax(sl.getFax());
 
 		}
 		// 设置商标的服务商id
@@ -116,7 +116,9 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			}
 			TradeMarkCase origin = this.queryFirst(oqlx);
 			Map<ShareGroup, Integer> shareGroupCountMap = this.buildShareGroupCountMap(origin);
+			Integer sid = SupplierSessionManager.getSupplierId();
 			for (TradeMark tm : entity.getTradeMarks()) {
+				tm.setSupplierId(sid);
 				if (tm.getEntityState() != EntityState.Deleted) {
 					if (!shareGroupCountMap.containsKey(tm.getShareGroup())) {
 						// 如果是新增一个分组--tm
@@ -269,7 +271,10 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		TradeMarkCase tc = super.newInstance();
 		tc.setYwPhone("010-84927588");
 		tc.setMailCode("100000");
-		tc.setFax("010-84927588");
+		tc.setFax("010-84927588");	
+		tc.setYwPhone(sl.getFixPhone());
+		tc.setMailCode(sl.getPostcode());
+		tc.setFax(sl.getFax());
 		// 查出当前登陆人办的最后一个案子，取出案件联系人，然后赋予初值
 		Oql oql = new Oql();
 		{

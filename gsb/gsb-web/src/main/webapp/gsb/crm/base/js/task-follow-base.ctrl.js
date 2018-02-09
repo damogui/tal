@@ -193,8 +193,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
         serviceLocator.invoke(service, method, pars, thisCallback, null, isAsyn, errorCallback);
     },
     
-	open:function(taskId,customerId,type,callback){
-		
+	open:function(taskId,customerId,originalQualityId,callback){
 		var me = this;
     	var intentionOption = this.getIntentionOption(taskId);
     	PandaHelper.openDynamicForm({
@@ -248,7 +247,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 				
 				
 				var qualityId = $('#allot_intention_name').combogrid('getValue');
-
+				
 				var grid = $('#allot_intention_name').combogrid('grid');
 		    	var row = grid.datagrid('getSelected');
 		    	var score = row.score;//当前质量的分值
@@ -275,7 +274,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 				
 				var serviceLocator = new org.netsharp.core.JServiceLocator();
 				var service = "com.gongsibao.crm.web.TaskFollowCtrl";
-				serviceLocator.invoke(service, 'follow', [taskFollowObj], function(data){
+				serviceLocator.invoke(service, 'follow', [taskFollowObj,originalQualityId], function(data){
 					
 					//提示跟进成功，关闭当前窗口
 					layer.msg('提交成功！');

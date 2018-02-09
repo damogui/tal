@@ -132,6 +132,7 @@ public class TradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 			datagrid.setSingleSelect(false);
 		}
 		PDatagridColumn column = null;
+		addColumn(datagrid, "code", "商标号", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "proxyCode", "代理号", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "tradeMarkCase.companyName", "公司名称", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "tradeMarkCase.applier", "申请人", ControlTypes.TEXT_BOX, 200);
@@ -140,7 +141,7 @@ public class TradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		addColumn(datagrid, "tradeMarkCaseId", "案件id", ControlTypes.TEXT_BOX, 200).setVisible(false);
 		column = addColumn(datagrid, "tradeMarkCase.urgency", "紧急程度", ControlTypes.TEXT_BOX, 200);
 		column.setOrderbyMode(OrderbyMode.ASC);
-		column=addColumn(datagrid, "code","操作", ControlTypes.TEXT_BOX, 100);{
+		column=addColumn(datagrid, "id","操作", ControlTypes.TEXT_BOX, 100);{
 			column.setFormatter("return controllertradeMarkList.markPic(value,row,index);");
 		}
 		
@@ -155,6 +156,7 @@ public class TradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 			form.setColumnCount(1);
 		}
 		PFormField field = null;
+		addFormField(form, "code", "商标号", null, ControlTypes.TEXT_BOX, false,false);
 		addFormField(form, "markState", "申请状态", null, ControlTypes.ENUM_BOX, true,false);
 		return form;
 	}
@@ -164,9 +166,11 @@ public class TradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
+		addQueryItem(queryProject, "code", "商标号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "proxyCode", "代理号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "tradeMarkCase.companyName", "公司名称", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "tradeMarkCase.applier", "申请人", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "creator", "业务员", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "markState", "状态", ControlTypes.ENUM_BOX);
 //		PQueryItem item =addQueryItem(queryProject, "mobilePhone", "销售方式", ControlTypes.CUSTOMER);{
 //			

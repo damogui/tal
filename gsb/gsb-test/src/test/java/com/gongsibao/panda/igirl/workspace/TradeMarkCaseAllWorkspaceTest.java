@@ -373,6 +373,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 			form.setName("上传盖章附件");
 			String groupName = null;
 			PFormField formField = null;
+			addFormField(form, "shareGroup", "共享组", groupName, ControlTypes.ENUM_BOX, true, false);
 			addFormField(form, "attachmentCat", "附件类别", groupName, ControlTypes.ENUM_BOX, true, false);
 			addFormField(form, "fileType", "文件类型", groupName, ControlTypes.ENUM_BOX, true, false);
 			addFormField(form, "toFileType", "目标文件类型", groupName, ControlTypes.ENUM_BOX, true, false);
@@ -491,6 +492,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		addQueryItem(queryProject, "code", "案件编号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "companyName", "公司名称", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "applier", "申请人", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "creator", "业务员", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "TMCState", "状态", ControlTypes.ENUM_BOX);
 		// PQueryItem item =addQueryItem(queryProject, "mobilePhone", "销售方式",
 		// ControlTypes.CUSTOMER);{

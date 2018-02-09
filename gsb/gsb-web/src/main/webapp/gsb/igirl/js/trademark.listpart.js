@@ -5,6 +5,7 @@ com.gongsibao.igirl.web.TradeMarkListPart = org.netsharp.panda.commerce.ListPart
 		this.base();
 	},
 	markPic:function(value,row,index){
+		alert();
 		var html='<a href="#" onclick="controllertradeMarkList.openMarkPic('
         +row.id+')">图样</a> &nbsp;'
 		         +'<a href="#" onclick="controllertradeMarkList.totmcase('
@@ -67,25 +68,35 @@ com.gongsibao.igirl.web.TradeMarkListPart = org.netsharp.panda.commerce.ListPart
 			url = System.Url.getUrl(url);
 			url = System.Url.join(url, "openType="+OpenType.open);
 			window.open(url);
-//			if(this.context.openMode == OpenType.window){
-//
-//				var me = this;
-//				url = System.Url.join(url, "openType="+OpenType.window);
-//				IMessageBox.open("方案详情", url, this.context.windowWidth, this.context.windowHeight, function() {
-//
-//					me.reload();
-//				});
-//				
-//			} else if(this.context.openMode == OpenType.redirect){
-//				url = System.Url.join(url, "openType="+OpenType.redirect);
-//				window.location.href = url;
-//			} else {
-//				url = System.Url.join(url, "openType="+OpenType.open);
-//				window.open(url);
-//			}
 		},
 		doubleClickRow : function(index, row) {
 			this.totmcase(row.tradeMarkCaseId);
 		},
+		attachment : function() {
+//			var count = this.getSelectionCount();
+//			if (count <= 0) {
+//				IMessageBox.info("请选择要查看附件的记录！");
+//				return;
+//			}
+//			if (count > 1) {
+//				IMessageBox.info("请选择一条记录查看附件！");
+//				return;
+//			}
+			var ids = this.getSelectionIds();
+			if(ids && ids!=""){
+				var url = '/gsb/igirl/attachment/attachment-list.jsp?foreignKey={0}&entityId={1}'.format(ids,this.context.entityId);
+				var me = this;
+				IMessageBox.open("附件", url, 1000, 600, function() {
+					me.reload();
+				}, true);
+			}else{
+				var url = '/gsb/igirl/attachment/attachment-list.jsp?foreignKey={0}&entityId={1}'.format("",this.context.entityId);
+				var me = this;
+				IMessageBox.open("附件", url, 1000, 100, function() {
+					me.reload();
+				}, true);
+			}
+
+		}
 
 });
