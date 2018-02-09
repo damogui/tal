@@ -9,7 +9,7 @@ com.gongsibao.ma.web.SellingDemandListPart = org.netsharp.panda.commerce.ListPar
 		+',onText:\'上架\',offText:\'下架\','
 		+'onChange:function(checked){controllersellingDemandList.changeSoldOutState(\''+row.id+'\',checked);}">';
 	},
-	changeSoldOutState(id,value){
+	changeSoldOutState:function(id,value){
 		
 		var state = value==true?1:2;
 		var me = this;

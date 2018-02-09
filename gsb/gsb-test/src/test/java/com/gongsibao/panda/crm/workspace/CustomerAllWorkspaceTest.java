@@ -1,6 +1,7 @@
 package com.gongsibao.panda.crm.workspace;
 
 import com.gongsibao.crm.web.CustomerFormPart;
+import com.gongsibao.crm.web.CustomerListPart;
 import com.gongsibao.crm.web.FollowDetailPart;
 import org.junit.Before;
 import org.junit.Test;
@@ -51,6 +52,10 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 		formServiceController = CustomerFormPart.class.getName();
 		formJsController = CustomerFormPart.class.getName();
 		formJsImport = "/gsb/crm/js/customer.form.part.js|/gsb/gsb.customer.controls.js";
+
+		listPartServiceController = CustomerListPart.class.getName();
+		listPartJsController = CustomerListPart.class.getName();
+		listPartImportJs = "/gsb/crm/js/customer.list.part.js";
 	}
 
 	@Test
@@ -109,13 +114,48 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 		toolbarService.save(toolbar);
 	}
 
+	public PToolbar createRowToolbar() {
+
+		ResourceNode node = this.resourceService.byCode(resourceNodeCode);
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			toolbar.setBasePath("panda/datagrid/row/edit");
+			toolbar.setPath("/crm/row/toolbar");
+			toolbar.setName("查看订单");
+			toolbar.setResourceNode(node);
+			toolbar.setToolbarType(ToolbarType.BASE);
+		}
+		PToolbarItem item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("vieworder");
+			item.setName("查看订单");
+			item.setSeq(1000);
+			item.setCommand("{controller}.vieworder();");
+			toolbar.getItems().add(item);
+		}
+
+		return toolbar;
+	}
+
+	@Test
+	public void saveRowToolbar() {
+
+		PToolbar toolbar = createRowToolbar();
+		if(toolbar != null){
+
+			toolbarService.save(toolbar);
+		}
+	}
+
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
 
 		PDatagrid datagrid = super.createDatagrid(node);
-		datagrid.setToolbar("panda/datagrid/row/edit");
+		datagrid.setToolbar("/crm/row/toolbar");
 		PDatagridColumn column = null;
-		column = addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+		column = addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 150, true);
 		addColumn(datagrid, "allocationOrg.shortName", "分配部门", ControlTypes.TEXT_BOX, 100, true);
 		addColumn(datagrid, "email", "email", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "accountId", "是否会员", ControlTypes.BOOLCOMBO_BOX, 100);
@@ -530,6 +570,7 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
 		queryProject.toNew();
 		addQueryItem(queryProject, "realName", "客户名称", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "mobile", "手机", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "addOrderDate", "下单时间", ControlTypes.DATE_BOX);
 		return queryProject;
 	}
 
