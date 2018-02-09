@@ -1,8 +1,11 @@
 package com.gongsibao.panda.operation.workspace.supplier.data;
 
+import com.gongsibao.bd.base.IDictService;
 import com.gongsibao.crm.base.*;
+import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.*;
 import com.gongsibao.entity.crm.dic.*;
+import com.gongsibao.taurus.util.StringManager;
 import com.gongsibao.utils.NumberUtils;
 import org.junit.Test;
 import org.netsharp.communication.ServiceFactory;
@@ -273,54 +276,6 @@ public class ImportOldDataToNewData {
         return CustomerFollowStatus.UNSTART;
     }
 
-    /*意向产品数据处理*/
-    private int handleCustomerProdMap() {
-        ICustomerProdMapService serviceCustomerProdMap = ServiceFactory.create(ICustomerProdMapService.class);
-        INCustomerProductService serviceNewCustomerProdMap = ServiceFactory.create(INCustomerProductService.class);//意向产品
-        int totalCountExce = 0;//插入条数
-        int pageSize = 100;//每100条进行处理一次
-        Oql oql1 = new Oql() {
-        };
-        oql1.setOrderby(" pkid ");
-        int totalCustomerPage = serviceCustomerProdMap.queryCount(oql1) / pageSize + 1;
-        for (int i = 1; i < totalCustomerPage + 1; i++) {
-            Oql oql2 = new Oql() {
-            };
-            oql2.setOrderby(" pkid ");
-            oql2.setPaging(new Paging(i, pageSize));
-            List<CustomerProdMap> customerProdMapList = serviceCustomerProdMap.queryList(oql2);
-
-            for (CustomerProdMap item : customerProdMapList
-                    ) {
-                NCustomerProduct nCustomerProduct = new NCustomerProduct();
-                nCustomerProduct.setId(item.getId());
-                //nCustomerProduct.setSupplierId(0);//回写
-                nCustomerProduct.setCustomerId(item.getCustomerId());
-                //nCustomerProduct.setTaskId();//任务
-                nCustomerProduct.setProductCategoryId1(1);//分类  产品表对应typeid 二级分类 一级分类从字典表取值
-                //nCustomerProduct.setProductCategory1(item.get());
-                nCustomerProduct.setProductCategoryId2(1);
-                //nCustomerProduct.setProductCategory2(item.get());
-                nCustomerProduct.setProductId(item.getProductId());
-                nCustomerProduct.setProvinceId(item.getdProvinceId());
-                nCustomerProduct.setCityId(item.getCityId());
-                nCustomerProduct.setCountyId(item.getdCountyId());
-                nCustomerProduct.setCreatorId(item.getCreatorId());
-                nCustomerProduct.setCreator(item.getCreator());
-                nCustomerProduct.setCreateTime(item.getCreateTime());
-                nCustomerProduct.setUpdatorId(item.getUpdatorId());
-                nCustomerProduct.setUpdator(item.getUpdator());
-                nCustomerProduct.setUpdateTime(item.getUpdateTime());
-
-                nCustomerProduct.toNew();//新增
-                serviceNewCustomerProdMap.save(nCustomerProduct);
-                totalCountExce += 1;
-            }
-
-
-        }
-        return totalCountExce;
-    }
 
     /*处理顾客表旧数据*/
     private int handleCustomerOld() {
@@ -331,15 +286,20 @@ public class ImportOldDataToNewData {
 
         int totalCountExce = 0;//插入条数
         int pageSize = 100;//每100条进行处理一次
+
+        StringBuilder filterBuilder = new StringBuilder();
+        filterBuilder.append(" follow_status <>4017");//过滤掉招商渠道的
         Oql oql1 = new Oql() {
         };
         oql1.setOrderby(" pkid ");
+        oql1.setFilter(filterBuilder.toString());
         int totalCustomerPage = serviceCustomer.queryCount(oql1) / pageSize + 1;
 
         for (int i = 1; i < totalCustomerPage + 1; i++) {
             Oql oql2 = new Oql() {
             };
             oql2.setOrderby(" pkid ");
+            oql1.setFilter(filterBuilder.toString());
             oql2.setPaging(new Paging(i, pageSize));
             List<Customer> customerList = serviceCustomer.queryList(oql2);
 
@@ -443,8 +403,21 @@ public class ImportOldDataToNewData {
         List<NCustomerTask> list = new ArrayList<>();
         NCustomerTask nCustomerTask = new NCustomerTask();
         nCustomerTask.setCustomerId(item.getId());
-        nCustomerTask.setTaskType(TaskCustomerType.OLD);//全部都是老客户  有订单的是老客户
-        nCustomerTask.setName("");//  根据意向产品拼出来  内资公司注册-北京市-北京市-朝阳区
+        nCustomerTask.setTaskType(item.getAccountId() > 0 ? TaskCustomerType.OLD : TaskCustomerType.NEW);//全部都是老客户  有订单的是老客户
+        String productName = "";//产品名称
+        if (item.getProdDetails() != null && item.getProdDetails().size() > 0) {
+            CustomerProdMap customerProdMap = item.getProdDetails().get(0);//都会有意向产品
+            productName = customerProdMap.getProduct().getName();
+        }
+        String areaName = getProvinceCityAndCountry(item.getCityId());
+
+        if (StringManager.isNullOrEmpty(productName)) {
+            productName = "无意向产品";
+        }
+        String taskName = String.format("%s-%s", productName, areaName);
+
+
+        nCustomerTask.setName(taskName);//  根据意向产品拼出来  内资公司注册-北京市-北京市-朝阳区
 
 
 //                nCustomerTask.setSupplierId(item.get());
@@ -493,9 +466,185 @@ public class ImportOldDataToNewData {
         nCustomerTask.setUpdator(item.getUpdator());
         nCustomerTask.setUpdateTime(item.getUpdateTime());
         nCustomerTask.toNew();//新增
+
+        nCustomerTask.setProducts(getProductsByTask(nCustomerTask));//设置意向产品集合
         list.add(nCustomerTask);
-        //serviceNCustomerTask.save(nCustomerTask);
-        return null;
+        return list;
+
+    }
+
+    /*根据任务获取意向产品赋值*/
+    private List<NCustomerProduct> getProductsByTask(NCustomerTask nCustomerTask) {
+        ICustomerProdMapService serviceCustomerProdMap = ServiceFactory.create(ICustomerProdMapService.class);
+        INCustomerProductService serviceNewCustomerProdMap = ServiceFactory.create(INCustomerProductService.class);//意向产品
+        List<NCustomerProduct> nCustomerProdMapList = new ArrayList<>();
+        int totalCountExce = 0;//插入条数
+        int pageSize = 100;//每100条进行处理一次
+        Oql oql1 = new Oql() {
+        };
+        oql1.setOrderby(" pkid ");
+        oql1.setFilter(" customer_id="+nCustomerTask.getCustomerId());//只弄一条
+        int totalCustomerPage = serviceCustomerProdMap.queryCount(oql1) / pageSize + 1;
+        for (int i = 1; i < totalCustomerPage + 1; i++) {
+            Oql oql2 = new Oql() {
+            };
+            oql2.setOrderby(" pkid ");
+            oql2.setFilter(" customer_id="+nCustomerTask.getCustomerId());//只弄一条
+            oql2.setPaging(new Paging(i, pageSize));
+            List<CustomerProdMap> customerProdMapList = serviceCustomerProdMap.queryList(oql2);
+
+            for (CustomerProdMap item : customerProdMapList
+                    ) {
+                NCustomerProduct nCustomerProduct = new NCustomerProduct();
+                nCustomerProduct.setId(item.getId());
+                //nCustomerProduct.setSupplierId(0);//回写
+                nCustomerProduct.setCustomerId(item.getCustomerId());
+                nCustomerProduct.setTaskId(nCustomerTask.getId());//任务
+                nCustomerProduct.setProductCategoryId1(1);//分类  产品表对应typeid 二级分类 一级分类从字典表取值
+                //nCustomerProduct.setProductCategory1(item.get());
+                nCustomerProduct.setProductCategoryId2(1);
+                //nCustomerProduct.setProductCategory2(item.get());
+                nCustomerProduct.setProductId(item.getProductId());
+                nCustomerProduct.setProvinceId(item.getdProvinceId());
+                nCustomerProduct.setCityId(item.getCityId());
+                nCustomerProduct.setCountyId(item.getdCountyId());
+                nCustomerProduct.setCreatorId(item.getCreatorId());
+                nCustomerProduct.setCreator(item.getCreator());
+                nCustomerProduct.setCreateTime(item.getCreateTime());
+                nCustomerProduct.setUpdatorId(item.getUpdatorId());
+                nCustomerProduct.setUpdator(item.getUpdator());
+                nCustomerProduct.setUpdateTime(item.getUpdateTime());
+                nCustomerProduct.toNew();//新增
+                nCustomerProdMapList.add(nCustomerProduct);
+            }
+
+
+        }
+
+        return nCustomerProdMapList;
+    }
+
+    /*意向产品数据处理  批量暂时不用*/
+    private int handleCustomerProdMap() {
+        ICustomerProdMapService serviceCustomerProdMap = ServiceFactory.create(ICustomerProdMapService.class);
+        INCustomerProductService serviceNewCustomerProdMap = ServiceFactory.create(INCustomerProductService.class);//意向产品
+        int totalCountExce = 0;//插入条数
+        int pageSize = 100;//每100条进行处理一次
+        Oql oql1 = new Oql() {
+        };
+        oql1.setOrderby(" pkid ");
+        int totalCustomerPage = serviceCustomerProdMap.queryCount(oql1) / pageSize + 1;
+        for (int i = 1; i < totalCustomerPage + 1; i++) {
+            Oql oql2 = new Oql() {
+            };
+            oql2.setOrderby(" pkid ");
+            oql2.setPaging(new Paging(i, pageSize));
+            List<CustomerProdMap> customerProdMapList = serviceCustomerProdMap.queryList(oql2);
+
+            for (CustomerProdMap item : customerProdMapList
+                    ) {
+                NCustomerProduct nCustomerProduct = new NCustomerProduct();
+                nCustomerProduct.setId(item.getId());
+                //nCustomerProduct.setSupplierId(0);//回写
+                nCustomerProduct.setCustomerId(item.getCustomerId());
+                //nCustomerProduct.setTaskId();//任务
+                nCustomerProduct.setProductCategoryId1(1);//分类  产品表对应typeid 二级分类 一级分类从字典表取值
+                //nCustomerProduct.setProductCategory1(item.get());
+                nCustomerProduct.setProductCategoryId2(1);
+                //nCustomerProduct.setProductCategory2(item.get());
+                nCustomerProduct.setProductId(item.getProductId());
+                nCustomerProduct.setProvinceId(item.getdProvinceId());
+                nCustomerProduct.setCityId(item.getCityId());
+                nCustomerProduct.setCountyId(item.getdCountyId());
+                nCustomerProduct.setCreatorId(item.getCreatorId());
+                nCustomerProduct.setCreator(item.getCreator());
+                nCustomerProduct.setCreateTime(item.getCreateTime());
+                nCustomerProduct.setUpdatorId(item.getUpdatorId());
+                nCustomerProduct.setUpdator(item.getUpdator());
+                nCustomerProduct.setUpdateTime(item.getUpdateTime());
+
+                nCustomerProduct.toNew();//新增
+                serviceNewCustomerProdMap.save(nCustomerProduct);
+                totalCountExce += 1;
+            }
+
+
+        }
+        return totalCountExce;
+    }
+
+
+    /*获取地区名称根据旧的cityId*/
+    private String getProvinceCityAndCountry(Integer cityId) {
+        String areaName = "";
+        String pName = "";//省
+        String cityName = "";//市
+        String countryName = "";//区县
+
+        if (cityId <= 0) {
+
+            return areaName;
+        }
+        IDictService serviceDict = ServiceFactory.create(IDictService.class);
+        Dict dict1 = serviceDict.byId(cityId);
+        Dict dict2 = new Dict();
+        Dict dict3 = new Dict();
+        if (dict1 == null) {
+            return areaName;
+
+        }
+        //分情况 有父级id  无父级Id
+        if (dict1.getParentId() > 0) {
+            //有父级id：区或者城市
+            List<Dict> list2 = serviceDict.byParentId(cityId);
+            if (list2 != null && list2.size() > 0) {//城市
+                dict2 = list2.get(0);
+                cityName = dict1.getName();
+                countryName = dict2.getName();//县
+                List<Dict> list3 = serviceDict.byParentId(dict1.getParentId());
+                if (list3 != null && list3.size() > 0) {
+                    dict3 = list3.get(0);
+                    pName = dict3.getName();//省
+                }
+
+            } else {//区县
+                countryName = dict1.getName();
+                dict2 = serviceDict.byId(dict1.getParentId());
+                if (dict2 != null) {
+                    cityName = dict2.getName();
+                    dict3 = serviceDict.byId(dict2.getParentId());
+                    if (dict3 != null) {
+                        pName = dict3.getName();
+                    }
+                }
+
+
+            }
+
+
+        } else {
+            pName = dict1.getName();
+            List<Dict> list2 = serviceDict.byParentId(cityId);
+            if (list2 != null && list2.size() > 0) {
+                dict2 = list2.get(0);
+            }
+
+            if (dict2 != null) {
+                cityName = dict2.getName();
+                List<Dict> list3 = serviceDict.byParentId(dict2.getId());
+                if (list3 != null && list3.size() > 0) {
+                    dict3 = list3.get(0);
+                    countryName = dict3.getName();
+                }
+
+
+            }
+
+
+        }
+
+        return String.format("%s-%s-%s", pName, cityName, countryName);
+
 
     }
 
@@ -528,8 +677,8 @@ public class ImportOldDataToNewData {
             case 4016:
                 smallCode = "C4";
 
-            case 4017:
-                smallCode = "A4";
+//            case 4017:
+//                smallCode = "A4";  //不需要管
 
             case 4020:
                 smallCode = "B1";
