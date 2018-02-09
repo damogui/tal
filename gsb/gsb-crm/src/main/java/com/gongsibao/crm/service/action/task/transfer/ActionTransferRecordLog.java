@@ -63,7 +63,7 @@ public class ActionTransferRecordLog implements IAction {
 			ActionContext ctx = new ActionContext();
 			//业务员转移还是公海转移
 			if(ctx.getStatus().get("formUserId") == null){
-				sameDepartmentHighSeas(task,11111111);
+				sameDepartmentHighSeas(task,11111111); 
 			}else{
 				sameDepartmentSalesman(task,(Integer)ctx.getStatus().get("formUserId"));
 			}
