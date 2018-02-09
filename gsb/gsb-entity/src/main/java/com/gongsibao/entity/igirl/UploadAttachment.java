@@ -10,7 +10,7 @@ import com.gongsibao.entity.igirl.dict.AttachmentCat;
 import com.gongsibao.entity.igirl.dict.FileType;
 import com.gongsibao.entity.igirl.dict.ShareGroup;
 
-@Table(name = "ig_up_attachment", header = "下载附件")
+@Table(name = "ig_up_attachment", header = "下载附件",orderBy="needed asc")
 public class UploadAttachment extends Entity {
 	/**
 	* 
@@ -21,7 +21,6 @@ public class UploadAttachment extends Entity {
 	
 	@Column(name = "share_group", header = "共享组")
 	private ShareGroup shareGroup;
-
 
 
 	@Column(name = "attachment_cat", header = "附件类别")

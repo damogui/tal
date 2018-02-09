@@ -5,6 +5,7 @@ import com.gongsibao.entity.igirl.UploadAttachment;
 import com.gongsibao.entity.igirl.baseinfo.IGirlConfig;
 import com.gongsibao.entity.igirl.dict.AttachmentCat;
 import com.gongsibao.entity.igirl.dict.ConfigType;
+import com.gongsibao.entity.igirl.dict.MarkState;
 import com.gongsibao.igirl.base.ITradeMarkService;
 import com.gongsibao.utils.SupplierSessionManager;
 
@@ -12,7 +13,10 @@ import java.sql.Types;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.netsharp.attachment.Attachment;
+import org.netsharp.attachment.IAttachmentService;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.ListPart;
 /**
@@ -22,6 +26,7 @@ import org.netsharp.panda.commerce.ListPart;
  */
 public class TradeMarkListPart extends ListPart{
     ITradeMarkService service = ServiceFactory.create(ITradeMarkService.class);
+    IAttachmentService attachmentService = ServiceFactory.create(IAttachmentService.class);
 
     public String updateMarkState(String[] ids,String type){
         return service.updateMarkState(String.join(",", ids),type);
@@ -53,6 +58,23 @@ public class TradeMarkListPart extends ListPart{
 	  url=map.get(tm.getShareGroup().getValue());
     return url;
     }
+  
+  public void updateMarkStateByUploadFiles(Attachment entity,String markcode,String state) {
+	  Oql oql=new Oql();{
+			oql.setType(TradeMark.class);
+			oql.setSelects("TradeMark.*");
+			oql.setFilter(" code=? ");
+			oql.getParameters().add("code",markcode,Types.VARCHAR);
+		}
+	  TradeMark tm=service.queryFirst(oql);
+	  MarkState ms=  MarkState.getItemByCode(state);
+	  tm.setEntityState(EntityState.Persist);
+	  tm.setMarkState(ms);
+	  entity.setForeignKey(tm.getId());
+	  attachmentService.save(entity);
+	  service.save(tm);
+    }
+  
    @Override
 	 protected String getExtraFilter() {
 			// TODO Auto-generated method stub

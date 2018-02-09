@@ -321,6 +321,7 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 			form.setName("上传盖章附件");
 			String groupName = null;
 			PFormField formField = null;
+			addFormField(form, "shareGroup", "共享组", groupName, ControlTypes.ENUM_BOX, true, false);
 			addFormField(form, "attachmentCat", "附件类别", groupName, ControlTypes.ENUM_BOX, true, false);
 			addFormField(form, "fileType", "文件类型", groupName, ControlTypes.ENUM_BOX, true, false);
 			addFormField(form, "toFileType", "目标文件类型", groupName, ControlTypes.ENUM_BOX, true, false);
