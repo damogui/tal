@@ -62,7 +62,7 @@ public class DictComboBox implements IPropertyControl{
 	        
 			if(!StringManager.isNullOrEmpty(formField.getTroikaTrigger())){
 				
-				control.onSelect = "function(record){"+formField.getTroikaTrigger()+"}";
+				control.onChange = "function(newValue,oldValue){"+formField.getTroikaTrigger()+"}";
 			}
 	        if (formField.isFullColumn())
 	        {

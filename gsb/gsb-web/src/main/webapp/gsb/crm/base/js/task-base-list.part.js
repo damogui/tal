@@ -124,8 +124,9 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		$('#'+this.context.id).datagrid('selectRecord',id);
 		var selectedRow = $('#'+this.context.id).datagrid('getSelected');
 		var customerId = selectedRow.customerId;
+		var originalQualityId = selectedRow.qualityId;
 		var taskFollowCtrl = new com.gongsibao.crm.web.TaskFollowCtrl();
-		taskFollowCtrl.open(taskId,customerId,function(index, layero){
+		taskFollowCtrl.open(taskId,customerId,originalQualityId,function(index, layero){
 			
 			me.reload();
 		});

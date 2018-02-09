@@ -24,7 +24,7 @@ public class ActionFollowWriteBack implements IAction {
 
 		NCustomerTaskFoolow taskFoolow = (NCustomerTaskFoolow) ctx.getItem();
 		this.updateTask(taskFoolow);
-		this.updateCustoemr(taskFoolow);
+		this.updateCustomer(taskFoolow);
 	}
 
 	private void updateTask(NCustomerTaskFoolow taskFoolow) {
@@ -64,7 +64,7 @@ public class ActionFollowWriteBack implements IAction {
 		pm.executeNonQuery(updateBuilder.toSQL(), null);
 	}
 
-	private void updateCustoemr(NCustomerTaskFoolow taskFoolow) {
+	private void updateCustomer(NCustomerTaskFoolow taskFoolow) {
 
 		UpdateBuilder updateBuilder = new UpdateBuilder();
 		{

@@ -47,14 +47,8 @@ public class ActionTransferRecordLog implements IAction {
 		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
 		//业务员为空，通知服务商管理员或部门主管
 		if(task.getOwnerId() == null){
-			List<Salesman> manList = salesmanService.getLeaderIds(task.getSupplierId(), task.getDepartmentId());
-			if(manList.size()>0){
-				for (Salesman item : manList) {
-					notifySave(task,item.getEmployeeId());
-				}
-			}else{
-				notifySave(task,null);
-			}
+			Integer leaderId = salesmanService.getLeaderId(task.getSupplierId(), task.getDepartmentId());
+			notifySave(task,leaderId);
 		}else{
 			notifySave(task,null);
 		}

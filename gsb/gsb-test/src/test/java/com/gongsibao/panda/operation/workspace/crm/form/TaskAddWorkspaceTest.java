@@ -65,14 +65,14 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 		formField = addFormField(form, "source.name", "来源", null, ControlTypes.CUSTOM, true, false);
 		{
 			formField.setCustomControlType(DictComboBox.class.getName());
-			formField.setTroikaTrigger("controllernCustomerTask.sourceSelect(record);");
+			formField.setTroikaTrigger("controllernCustomerTask.sourceSelect(newValue,oldValue);");
 			formField.setRefFilter("type=411");
 		}
 		
 		formField = addFormField(form, "consultWay.name", "咨询途径", null, ControlTypes.CUSTOM, true, false);
 		{
 			formField.setCustomControlType(DictComboBox.class.getName());
-			formField.setTroikaTrigger("controllernCustomerTask.consultWaySelect(record);");
+			formField.setTroikaTrigger("controllernCustomerTask.consultWaySelect(newValue,oldValue);");
 			formField.setRefFilter("type=421");
 		}
 		formField = addFormField(form, "allocationDispositon", "自营/平台", groupName, ControlTypes.ENUM_BOX, true, false);{
@@ -154,7 +154,7 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
-				formField.setTroikaTrigger("controllerproducts.productCategory1Select(record);");
+				formField.setTroikaTrigger("controllerproducts.productCategory1Select(newValue,oldValue);");
 				formField.setRefFilter("type=201 and pid=0");
 			}
 
@@ -162,7 +162,7 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
-				formField.setTroikaTrigger("controllerproducts.productCategory2Select(record);");
+				formField.setTroikaTrigger("controllerproducts.productCategory2Select(newValue,oldValue);");
 				formField.setRefFilter("type=201 and pid<>0");
 			}
 

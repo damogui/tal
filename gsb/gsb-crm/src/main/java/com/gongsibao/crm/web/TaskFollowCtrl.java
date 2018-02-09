@@ -16,14 +16,11 @@ public class TaskFollowCtrl {
 	
 	/**
 	 * 任务跟进
-	 * @param taskId 任务Id
-	 * @param getqualityId 客户质量Id
-	 * @param nextTime 下次跟进时间
-	 * @param amount 预计金额
-	 * @param content 内容
+	 * @param entity 
+	 * @param originalQualityId 没更新前质量Id（用于判断是否改变，发送通知用）
 	 * @return
 	 */
-	public boolean follow(NCustomerTaskFoolow entity){
+	public boolean follow(NCustomerTaskFoolow entity,Integer originalQualityId){
 		
 		INCustomerTaskFoolowService foolowService = ServiceFactory.create(INCustomerTaskFoolowService.class);
 		NCustomerTaskFoolow newTaskFoolow = foolowService.newInstance();
@@ -33,7 +30,7 @@ public class TaskFollowCtrl {
 		newTaskFoolow.setSigningAmount(entity.getSigningAmount());
 		newTaskFoolow.setReturnedAmount(entity.getReturnedAmount());
 		newTaskFoolow.setContent(entity.getContent());
-		return taskService.follow(newTaskFoolow);
+		return taskService.follow(newTaskFoolow, originalQualityId);
 	}
 	
 	/**
