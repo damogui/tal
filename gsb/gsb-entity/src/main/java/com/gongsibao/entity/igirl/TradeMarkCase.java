@@ -23,7 +23,6 @@ public class TradeMarkCase extends Entity {
 	@Column(name = "certificate_type", header = "证件名称")
 	private CertificateType certificateType = null;
 	
-
 	// 商标说明
 	@Column(name = "name", header = "方案名称")
 	private String name;
@@ -84,6 +83,9 @@ public class TradeMarkCase extends Entity {
 
 	@Column(name = "case_amount", header = "金额")
 	private BigDecimal caseAmount = BigDecimal.ZERO;
+	
+	@Column(name = "order_code", header = "订单号")
+	private String orderCode;
 
 	// 显示大类的选择
 
@@ -384,6 +386,14 @@ public class TradeMarkCase extends Entity {
 
 	public void setCertificateType(CertificateType certificateType) {
 		this.certificateType = certificateType;
+	}
+
+	public String getOrderCode() {
+		return orderCode;
+	}
+
+	public void setOrderCode(String orderCode) {
+		this.orderCode = orderCode;
 	}
 	
 	

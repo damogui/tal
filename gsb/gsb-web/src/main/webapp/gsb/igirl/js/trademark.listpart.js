@@ -5,7 +5,6 @@ com.gongsibao.igirl.web.TradeMarkListPart = org.netsharp.panda.commerce.ListPart
 		this.base();
 	},
 	markPic:function(value,row,index){
-		alert();
 		var html='<a href="#" onclick="controllertradeMarkList.openMarkPic('
         +row.id+')">图样</a> &nbsp;'
 		         +'<a href="#" onclick="controllertradeMarkList.totmcase('

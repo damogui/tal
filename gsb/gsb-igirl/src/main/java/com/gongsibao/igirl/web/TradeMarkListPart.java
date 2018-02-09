@@ -6,7 +6,9 @@ import com.gongsibao.entity.igirl.baseinfo.IGirlConfig;
 import com.gongsibao.entity.igirl.dict.AttachmentCat;
 import com.gongsibao.entity.igirl.dict.ConfigType;
 import com.gongsibao.entity.igirl.dict.MarkState;
+import com.gongsibao.entity.igirl.dict.ShareGroup;
 import com.gongsibao.igirl.base.ITradeMarkService;
+import com.gongsibao.igirl.base.IUploadAttachmentService;
 import com.gongsibao.utils.SupplierSessionManager;
 
 import java.sql.Types;
@@ -27,7 +29,7 @@ import org.netsharp.panda.commerce.ListPart;
 public class TradeMarkListPart extends ListPart{
     ITradeMarkService service = ServiceFactory.create(ITradeMarkService.class);
     IAttachmentService attachmentService = ServiceFactory.create(IAttachmentService.class);
-
+    IUploadAttachmentService us=ServiceFactory.create(IUploadAttachmentService.class);
     public String updateMarkState(String[] ids,String type){
         return service.updateMarkState(String.join(",", ids),type);
     }
@@ -54,8 +56,18 @@ public class TradeMarkListPart extends ListPart{
 			oql.getParameters().add("id",markId,Types.INTEGER);
 		}
 	  TradeMark tm=service.queryFirst(oql);
-	  Map<Integer,String> map=buildShareGroupToTMAttachment(tm);
-	  url=map.get(tm.getShareGroup().getValue());
+	  ShareGroup  sg= tm.getShareGroup();
+	  oql=new Oql();{
+			oql.setType(UploadAttachment.class);
+			oql.setSelects("UploadAttachment.*");
+			oql.setFilter(" shareGroup=? ").setFilter("attachmentCat=?").setFilter("fileUrl is not null");
+			oql.getParameters().add("shareGroup",sg.getValue(),Types.INTEGER);
+			oql.getParameters().add("attachmentCat",AttachmentCat.TRADEMARK_PICT.getValue(),Types.INTEGER);
+		}
+	  UploadAttachment up=us.queryFirst(oql);
+	  if(up.getFileUrl()!=null) {
+		  url=up.getFileUrl();
+	   }
     return url;
     }
   

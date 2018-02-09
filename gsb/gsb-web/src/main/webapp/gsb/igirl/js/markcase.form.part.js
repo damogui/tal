@@ -75,8 +75,14 @@ com.gongsibao.igirl.web.DownloadAttachmentDetailPart=org.netsharp.panda.commerce
 });
 
 com.gongsibao.igirl.web.UploadAttachmentDetailPart=org.netsharp.panda.commerce.DetailPart.Extends( {
-
-
+	ctor: function () {
+        this.base();
+        
+    },
+  saveP:function(){
+    	this.parent.save();
+    },
+ 
 
 });
 com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
@@ -84,6 +90,9 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
 	  ctor: function () {
 	        this.base();
 	        
+	    },
+	  saveP:function(){
+	    	this.parent.save();
 	    },
 	  addAfter:function(){
 		  this.base();
