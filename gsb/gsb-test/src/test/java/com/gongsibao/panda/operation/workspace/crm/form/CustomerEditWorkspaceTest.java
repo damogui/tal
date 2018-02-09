@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.organization.dic.OperationTypes;
-import org.netsharp.organization.entity.Employee;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.PartType;
@@ -28,7 +27,6 @@ import org.netsharp.util.StringManager;
 import com.gongsibao.controls.CityComboBox;
 import com.gongsibao.crm.web.NCustomerFormPart;
 import com.gongsibao.entity.crm.NCustomer;
-import com.gongsibao.entity.crm.NCustomerTaskQuality;
 import com.gongsibao.entity.crm.dic.ChangeType;
 import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.NotifyType;
@@ -128,7 +126,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 
 		formField = addFormField(form, "remark", "备注", groupName, ControlTypes.TEXTAREA, false, false);{
 			formField.setFullColumn(true);
-			formField.setHeight(100);
+			formField.setHeight(50);
 		}
 		
 		return form;
@@ -215,12 +213,6 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 		addIntenProductPart(workspace);
 
 		createCompanysDetailPart(workspace);
-
-	}
-
-	public void createTasksPart(PWorkspace workspace) {
-
-		super.createTasksPart(workspace);
 
 	}
 
