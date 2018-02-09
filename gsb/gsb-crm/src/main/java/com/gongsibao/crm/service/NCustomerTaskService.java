@@ -120,7 +120,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
 	@Override
 	public Boolean batchTransfer(String[] taskIdArray, Integer supplierId, Integer departmentId, Integer toUserId) {
-
+		//任务批量转移
 		for (String taskId : taskIdArray) {
 
 			this.transfer(Integer.valueOf(taskId), supplierId, departmentId, toUserId);
@@ -131,9 +131,16 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
 	@Override
 	public Boolean transfer(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId) {
+		//任务转移
 		Map<String, Object> setMap = new HashMap<String, Object>();
 		NCustomerTask entity = this.byId(taskId);
 		setMap.put("formUserId", entity.getOwnerId());
+		//1.判断部门内部转移还是部门与部门之间的转移
+		if(entity.getSupplierId().equals(supplierId) && entity.getDepartmentId().equals(departmentId)){
+			setMap.put("sameDepartment", true);
+		}else {
+			setMap.put("sameDepartment", false);
+		}
 		entity.setSupplierId(supplierId);
 		entity.setDepartmentId(departmentId);
 		entity.setOwnerId(toUserId);

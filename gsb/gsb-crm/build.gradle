@@ -21,6 +21,7 @@ dependencies {
     compile project(':gsb-uc')
     compile project(':gsb-controls')
     compile project(':gsb-product')
+    compile project(':gsb-trade')
 }
 
 test {

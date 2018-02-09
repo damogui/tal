@@ -3,6 +3,7 @@ package com.gongsibao.panda.crm;
 import com.gongsibao.entity.supplier.*;
 import com.gongsibao.supplier.base.*;
 
+import com.gongsibao.trade.base.IOrderService;
 import org.junit.Before;
 import org.netsharp.base.IPersistableService;
 import org.netsharp.meta.base.ResourceCreationBase;
@@ -63,6 +64,7 @@ public class ResourceTest extends ResourceCreationBase {
 		node1 = this.createResourceNodeCategory("客户管理", "GSB_CRM_Manager", node.getId());
 		{
 			this.createResourceNodeVoucher(Customer.class.getName(), "全部客户", "CRM_All_" + Customer.class.getSimpleName(), ICustomerService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(SoOrder.class.getName(), "客户订单", "CRM_My_All_"+SoOrder.class.getSimpleName(), IOrderService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(Customer.class.getName(), "我的客户", "CRM_My_" + Customer.class.getSimpleName(), ICustomerService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(Customer.class.getName(), "企业信息库", "CRM_Enterprise", ICustomerService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(Customer.class.getName(), "客户池", "CRM_Pool_" + Customer.class.getSimpleName(), ICustomerService.class.getName(), node1.getId());

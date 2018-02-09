@@ -148,7 +148,7 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 
 		formField = addFormField(form, "remark", "备注", groupName, ControlTypes.TEXTAREA, false, false);{
 			formField.setFullColumn(true);
-			formField.setHeight(100);
+			formField.setHeight(50);
 		}
 		
 		return form;
@@ -170,8 +170,7 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 			datagrid.setShowCheckbox(false);
 			datagrid.setSingleSelect(true);
 			datagrid.setReadOnly(true);
-			datagrid.setShowTitle(true);
-			datagrid.setName("任务信息");
+			
 			
 			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
 			PDatagridColumn column = addColumn(datagrid, "taskType", "类型", ControlTypes.ENUM_BOX, 100, false);{

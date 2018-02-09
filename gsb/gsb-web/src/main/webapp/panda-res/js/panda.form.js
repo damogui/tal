@@ -160,6 +160,21 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
         }else {
             this.byId(id);
         }
+        
+        //
+//        var formId = this.context.formName;
+//        var $toolbar = $('#'+formId).prev();
+//        if($toolbar){
+//        	
+//        	var toolbarId = $toolbar.attr('id');
+//        	var html = $toolbar.prop("outerHTML");
+//        	$toolbar.remove();
+//        	
+//        	var $panel = $('body.easyui-layout>.layout-panel:first');
+//        	$panel.append(html);
+//        	
+//        	$('#'+toolbarId).addClass('global-toolbar');
+//        }
     },
 
     //-----------------------

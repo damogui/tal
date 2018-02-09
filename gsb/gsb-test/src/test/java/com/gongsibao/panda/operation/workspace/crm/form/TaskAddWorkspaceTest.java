@@ -29,7 +29,7 @@ import com.gongsibao.entity.supplier.SupplierDepartment;
 public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 
 	protected String productsDetailResourceNodeCode = "Operation_CRM_Customer_Products";
-	
+	protected boolean showDataGridTitle = true;
 	@Before
 	public void setup() {
 		super.setup();
@@ -132,8 +132,12 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 			datagrid.setShowCheckbox(false);
 			datagrid.setSingleSelect(true);
 			datagrid.setReadOnly(true);
-			datagrid.setShowTitle(true);
-			datagrid.setName("意向产品");
+			
+			if(showDataGridTitle){
+
+				datagrid.setShowTitle(true);
+				datagrid.setName("意向产品");
+			}
 			addColumn(datagrid, "productCategory1.name", "一级分类", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "productCategory2.name", "二级分类", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "product.name", "产品", ControlTypes.TEXT_BOX, 200, false);

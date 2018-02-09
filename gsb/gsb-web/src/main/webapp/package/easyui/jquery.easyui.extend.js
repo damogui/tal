@@ -41,7 +41,7 @@ $.extend($.fn.validatebox.defaults.rules, {
         validator: function (value, param) {
             return /^[1-9]\d{5}$/.test(value);
         },
-        message: '邮政编码不存在'
+        message: '邮政编码不正确'
     },
     QQ: {
         validator: function (value, param) {
@@ -88,9 +88,33 @@ $.extend($.fn.validatebox.defaults.rules, {
         },
         message: '请输入数字'
     },
+    qq:{
+        validator: function (value, param) {
+        	
+            return /^\d{5,10}$/.test(value);
+        },
+        message: '请输入正确的QQ号码'
+    },
+    fax:{
+        validator: function (value, param) {
+        	
+            return /^(\d{3,4}-)?\d{7,8}$/.test(value);
+        },
+        message: '请输入正确的传真号码'
+    },
+    bankNum:{
+        validator: function (value, param) {
+        	
+            return /^([1-9]{1})(\d{14}|\d{18})$/.test(value);
+        },
+        message: '请输入正确的银行卡号'
+    },   
+    
     idcard: {
         validator: function (value, param) {
-            return idCard(value);
+        	
+        	var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+        	return reg.test(value);
         },
         message: '请输入正确的身份证号码'
     },
