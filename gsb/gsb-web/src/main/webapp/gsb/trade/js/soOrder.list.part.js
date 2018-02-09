@@ -23,7 +23,7 @@ com.gongsibao.trade.web.SoOrderListPart = org.netsharp.panda.commerce.ListPart.E
 		});
 	},
 	/*add ：function(){
-		alert(11);
+		alert(11); 
 	},*/
 	pj:function(data){
 		var pre = '<ul>';
