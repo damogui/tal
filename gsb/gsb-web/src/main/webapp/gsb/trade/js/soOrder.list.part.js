@@ -5,9 +5,9 @@ com.gongsibao.trade.web.SoOrderListPart = org.netsharp.panda.commerce.ListPart.E
         this.base();
     },
 	detail : function(id) {
-		this.edit(id);
+		/*this.edit(id);
 		alert(11);
-		return;
+		return;*/
 		var me = this;
 		this.invokeService("querySoOrderTraceList", [id], function(data) {
 			var html = me.pj(data);
