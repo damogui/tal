@@ -44,75 +44,8 @@ public class ImportOldDataToNewData {
 
     }
 
-    /*处理顾客关联企业  NCustomerCompanyService  顾客关联企业*/
-    private int handleCustomerCompany() {
-        ICustomerCompanyMapService serviceCustomerCompanyMap = ServiceFactory.create(ICustomerCompanyMapService.class);//旧顾客关联企业
-        INCustomerCompanyService serviceNCustomerCompany = ServiceFactory.create(INCustomerCompanyService.class);//新顾客关联企业
-
-        int totalCountExce = 0;//插入条数
-        int pageSize = 100;//每100条进行处理一次
-        Oql oql1 = new Oql() {
-        };
-        oql1.setOrderby(" pkid ");
-        int totalCustomerPage = serviceCustomerCompanyMap.queryCount(oql1) / pageSize + 1;
-        for (int i = 1; i < totalCustomerPage + 1; i++) {
-            Oql oql2 = new Oql() {
-            };
-            oql2.setOrderby(" pkid ");
-            oql2.setPaging(new Paging(i, pageSize));
-            List<CustomerCompanyMap> customerCompanyMapList = serviceCustomerCompanyMap.queryList(oql2);
-
-            for (CustomerCompanyMap item : customerCompanyMapList
-                    ) {
-                NCustomerCompany nCustomerCompany = new NCustomerCompany();
 
 
-                nCustomerCompany.toNew();//新增
-                serviceNCustomerCompany.save(nCustomerCompany);
-                totalCountExce += 1;
-            }
-
-
-        }
-
-
-        return 1;
-    }
-
-    /*处理日志表的导入 NCustomerTaskFoolowService  跟进日志*/
-    private int handleCustomerLog() {
-
-        ICustomerFollowService serviceCustomerShare = ServiceFactory.create(ICustomerFollowService.class);//旧的日志
-        INCustomerTaskFoolowService serviceCustomerTaskFoolow = ServiceFactory.create(INCustomerTaskFoolowService.class);//新的日志
-
-        int totalCountExce = 0;//插入条数
-        int pageSize = 100;//每100条进行处理一次
-        Oql oql1 = new Oql() {
-        };
-        oql1.setOrderby(" pkid ");
-        int totalCustomerPage = serviceCustomerShare.queryCount(oql1) / pageSize + 1;
-        for (int i = 1; i < totalCustomerPage + 1; i++) {
-            Oql oql2 = new Oql() {
-            };
-            oql2.setOrderby(" pkid ");
-            oql2.setPaging(new Paging(i, pageSize));
-            List<CustomerFollow> customerFollowList = serviceCustomerShare.queryList(oql2);
-
-            for (CustomerFollow item : customerFollowList
-                    ) {
-                NCustomerTaskFoolow nCustomerTaskFoolow = new NCustomerTaskFoolow();
-
-
-                nCustomerTaskFoolow.toNew();//新增
-                serviceCustomerTaskFoolow.save(nCustomerTaskFoolow);
-                totalCountExce += 1;
-            }
-
-
-        }
-
-        return 1;
-    }
 
     /*有分享记录生成任务  NCustomerTaskService  客户任务*/
     private int handleCustomerTaskShare() {
@@ -352,9 +285,9 @@ public class ImportOldDataToNewData {
                 nCustomer.setLastFollowTime(item.getLastFollowTime());
                 nCustomer.setLastFoolowUserId(item.getFollowUserId());
                 nCustomer.setLastContent("");
-                nCustomer.setNextFoolowTime(new Date());//下次跟进时间
+               // nCustomer.setNextFoolowTime(new Date());//下次跟进时间
                 nCustomer.setCustomerSourceId(item.getCustomerSourceId());
-                nCustomer.setTaskCount(0);//0任务数量回写
+
                 nCustomer.setCreatorId(item.getCreatorId());
                 nCustomer.setCreator(item.getCreator());
                 nCustomer.setCreateTime(item.getCreateTime());
@@ -362,12 +295,13 @@ public class ImportOldDataToNewData {
                 nCustomer.setUpdator(item.getUpdator());
                 nCustomer.setUpdateTime(item.getUpdateTime());
                 //任务
-                nCustomer.setTasks(getTasksByCustomerId(item));
-
+                List<NCustomerTask> listTask=getTasksByCustomerId(item);
+                nCustomer.setTasks(listTask);//任务里面进行意向产品
+                nCustomer.setTaskCount(listTask.size());//0任务数量回写
                 //意向产品
                 // nCustomer.setProducts(getProductsByCustomerId(item));
                 //日志
-                nCustomer.setFollows(getFollowsByCustomer(item));
+                nCustomer.setFollows(getFollowsByCustomer(nCustomer,item.getFollowStatus()));
                 //顾客关联企业
                 nCustomer.setCompanys(getCompanysByCustomer(item));
                 nCustomer.toNew();
@@ -382,20 +316,97 @@ public class ImportOldDataToNewData {
     }
 
     /*获取关联企业*/
-    private List<NCustomerCompany> getCompanysByCustomer(Customer item) {
-        return null;
+    private List<NCustomerCompany> getCompanysByCustomer(Customer customer) {
+        ICustomerCompanyMapService serviceCustomerCompanyMap = ServiceFactory.create(ICustomerCompanyMapService.class);//日志服务
+        List<NCustomerCompany> listNCustomerCompany=new ArrayList<>();
+
+        Oql oql=new Oql();
+        oql.setFilter(" customer_id="+customer.getId());
+        List<CustomerCompanyMap> listOld  =serviceCustomerCompanyMap.queryList(oql);
+        for (CustomerCompanyMap item:listOld
+             ) {
+            NCustomerCompany  ncus=new NCustomerCompany();
+
+            ncus.setId(item.getId());
+            ncus.setCustomerId(customer.getId());
+            ncus.setCompanyId(item.getCompanyId());
+            //ncus.setSupplierId(item.getS());
+           // ncus.setDepartmentId(item.getD());
+            ncus.setCreatorId(item.getCreatorId());
+            ncus.setCreator(item.getCreator());
+            ncus.setCreateTime(item.getCreateTime());
+            ncus.setUpdatorId(item.getUpdatorId());
+            ncus.setUpdator(item.getUpdator());
+            ncus.setUpdateTime(item.getUpdateTime());
+            ncus.toNew();
+            listNCustomerCompany.add(ncus);
+        }
+        return listNCustomerCompany;
     }
 
     /*获取跟进日志*/
-    private List<NCustomerTaskFoolow> getFollowsByCustomer(Customer item) {
-        return null;
+    private List<NCustomerTaskFoolow> getFollowsByCustomer(NCustomer customer,FollowStatus  oldFollowStatus) {
+        ICustomerFollowService serviceCustomerFollow = ServiceFactory.create(ICustomerFollowService.class);//日志服务
+        List<NCustomerTaskFoolow> list = new ArrayList<>();
+        int totalCountExce = 0;//插入条数
+        int pageSize = 100;//每100条进行处理一次
+
+        StringBuilder filterBuilder = new StringBuilder();
+        filterBuilder.append(" customer_id="+customer.getId());//过滤掉招商渠道的
+        Oql oql1 = new Oql() {
+        };
+        oql1.setOrderby(" pkid ");
+        oql1.setFilter(filterBuilder.toString());
+        int totalCustomerPage = serviceCustomerFollow.queryCount(oql1) / pageSize + 1;
+
+        for (int i = 1; i < totalCustomerPage + 1; i++) {
+            Oql oql2 = new Oql() {
+            };
+            oql2.setOrderby(" pkid ");
+            oql1.setFilter(filterBuilder.toString());
+            oql2.setPaging(new Paging(i, pageSize));
+            List<CustomerFollow> customerFollowList = serviceCustomerFollow.queryList(oql2);
+
+            for (CustomerFollow item : customerFollowList
+                    ) {
+                NCustomerTaskFoolow nCustomerTaskFoolow = new NCustomerTaskFoolow();
+
+//                nCustomerTaskFoolow.setId();
+//        nCustomerTaskFoolow.setCustomerId(item.getId());
+//        nCustomerTaskFoolow.setTaskType(item.getAccountId() > 0 ? TaskCustomerType.OLD : TaskCustomerType.NEW);//全部都是老客户  有订单的是老客户
+                nCustomerTaskFoolow.setId(item.getId());
+                nCustomerTaskFoolow.setCustomerId(customer.getId());
+                List<NCustomerTask> listTask=customer.getTasks();
+                if (listTask!=null&&listTask.size()>0){
+
+                    nCustomerTaskFoolow.setTaskId(listTask.get(0).getId());
+                }
+                QualityInfo qualityInfo = getQualityInfoByCode(oldFollowStatus);//通过旧的顾客的跟进状态获取质量
+                nCustomerTaskFoolow.setQualityCategory(qualityInfo.getBigCategory());
+                nCustomerTaskFoolow.setQualityId(qualityInfo.getSmallCategory());
+                nCustomerTaskFoolow.setQualityProgress(TaskQualityProgress.INVARIABILITY);
+                //nCustomerTaskFoolow.setNextFoolowTime(item.get());
+                nCustomerTaskFoolow.setContent(item.getContent());
+                //nCustomerTaskFoolow.setSigningAmount(item.get);
+                //nCustomerTaskFoolow.setReturnedAmount(item.get());
+                //nCustomerTaskFoolow.setSupplierId(item.get());
+                //nCustomerTaskFoolow.setDepartmentId(item.get());
+                nCustomerTaskFoolow.setCreatorId(item.getCreatorId());
+                nCustomerTaskFoolow.setCreator(item.getCreator());
+                nCustomerTaskFoolow.setCreateTime(item.getCreateTime());
+                nCustomerTaskFoolow.setUpdatorId(item.getUpdatorId());
+                nCustomerTaskFoolow.setUpdator(item.getUpdator());
+                nCustomerTaskFoolow.setUpdateTime(item.getUpdateTime());
+                nCustomerTaskFoolow.toNew();
+            }
+
+
+        }
+
+        return list;
     }
 
-    /*根据客户id获取相关意向产品*/
-    private List<NCustomerProduct> getProductsByCustomerId(Customer item) {
 
-        return null;
-    }
 
     /*根据客户id获取相关任务*/
     private List<NCustomerTask> getTasksByCustomerId(Customer item) {
