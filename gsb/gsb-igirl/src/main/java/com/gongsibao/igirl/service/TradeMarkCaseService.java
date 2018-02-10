@@ -28,6 +28,7 @@ import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
 import org.netsharp.core.Paging;
 import org.netsharp.persistence.session.SessionManager;
+import org.netsharp.wx.ea.base.IEaMessageService;
 
 @Service
 public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> implements ITradeMarkCaseService {

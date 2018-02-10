@@ -20,15 +20,17 @@ import org.netsharp.attachment.IAttachmentService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
+import org.netsharp.organization.base.IEmployeeService;
+import org.netsharp.organization.entity.Employee;
 import org.netsharp.panda.commerce.ListPart;
+import org.netsharp.wx.ea.base.IEaMessageService;
 /**
  * 我的任务列表操作功能集合
  * @author Administrator
  *
  */
 public class TradeMarkListPart extends ListPart{
-    ITradeMarkService service = ServiceFactory.create(ITradeMarkService.class);
-    IAttachmentService attachmentService = ServiceFactory.create(IAttachmentService.class);
+    ITradeMarkService service = ServiceFactory.create(ITradeMarkService.class);   
     IUploadAttachmentService us=ServiceFactory.create(IUploadAttachmentService.class);
     public String updateMarkState(String[] ids,String type){
         return service.updateMarkState(String.join(",", ids),type);
@@ -72,19 +74,7 @@ public class TradeMarkListPart extends ListPart{
     }
   
   public void updateMarkStateByUploadFiles(Attachment entity,String markcode,String state) {
-	  Oql oql=new Oql();{
-			oql.setType(TradeMark.class);
-			oql.setSelects("TradeMark.*");
-			oql.setFilter(" code=? ");
-			oql.getParameters().add("code",markcode,Types.VARCHAR);
-		}
-	  TradeMark tm=service.queryFirst(oql);
-	  MarkState ms=  MarkState.getItemByCode(state);
-	  tm.setEntityState(EntityState.Persist);
-	  tm.setMarkState(ms);
-	  entity.setForeignKey(tm.getId());
-	  attachmentService.save(entity);
-	  service.save(tm);
+	  service.updateMarkStateByUploadFiles(entity, markcode, state);
     }
   
    @Override
