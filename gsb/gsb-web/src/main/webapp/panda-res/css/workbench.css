@@ -148,21 +148,6 @@ ul,li{
 	letter-spacing: 1px;
 }
 
-.okayNav__nav--invisible li {
-	
-	display: block;
-	margin: 0;
-	padding: 0px 55px;
-	color: #ebebeb;
-	cursor: pointer;
-	font-size: 14px;
-	height: 48px;
-	line-height: 48px;
-	vertical-align: middle;
-	box-sizing: border-box;
-	letter-spacing: 1px;
-}
-
 .left-nav li:hover,.left-nav .selected,.okayNav__nav--invisible li:hover, .okayNav__nav--invisible selected{
 	/* background: #2b4254; */
 	color:#1E7CB5;
@@ -340,6 +325,21 @@ body.okayNav-loaded {
 	white-space: nowrap
 }
 
+.okayNav__nav--invisible li {
+	
+	display: block;
+	margin: 0;
+	padding: 0px 35px;
+	color: #b2b8c1;
+	cursor: pointer;
+	font-size: 13px;
+	height: 48px;
+	line-height: 48px;
+	vertical-align: middle;
+	box-sizing: border-box;
+	letter-spacing: 1px;
+}
+
 .okayNav__nav--visible li {
 	display: inline-block
 }
@@ -372,7 +372,7 @@ body.okayNav-loaded {
 	transform: translateX(100%);
 	/*overflow-y: scroll;*/
 	-webkit-overflow-scrolling: touch;
-    background-color: #1c2d39;
+    background-color: #333;
     margin-top: 48px;
     margin-bottom:0;
 }
@@ -380,7 +380,7 @@ body.okayNav-loaded {
 
 .okayNav__nav--invisible a {
 	background: #fff;
-	width: 240px;
+	width: 200px;
 	display: block;
 	padding: 15px
 }
@@ -389,7 +389,7 @@ body.okayNav-loaded {
 	-webkit-transform: translateX(0);
 	-ms-transform: translateX(0);
 	transform: translateX(0);
-	border-left: 2px #1E7CB5 solid;
+	width: 200px;
 }
 
 .okayNav__menu-toggle {
@@ -412,7 +412,7 @@ body.okayNav-loaded {
 	margin: auto;
 	height: 4px;
 	width: 4px;
-	background: #fff;
+	background: #555555;
 	border-radius: 50%;
 	left: 0;
 	right: 0;
