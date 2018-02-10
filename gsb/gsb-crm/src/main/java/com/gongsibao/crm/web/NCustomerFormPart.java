@@ -1,6 +1,8 @@
 package com.gongsibao.crm.web;
 
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.entity.IPersistable;
+import org.netsharp.panda.commerce.FormNavigation;
 import org.netsharp.panda.commerce.FormPart;
 
 import com.gongsibao.crm.base.INCustomerOperationLogService;
@@ -28,5 +30,20 @@ public class NCustomerFormPart extends FormPart{
 
 		INCustomerOperationLogService changeService = ServiceFactory.create(INCustomerOperationLogService.class);
 		return changeService.recordLookLog(customerId, "手机号，座机号，QQ号，微信号，邮箱");
+	}
+	
+	
+	public FormNavigation bySwtCustomerId(String swtCustomerId) {
+
+		FormNavigation navigation = this.createFormNavigation(id);
+		IPersistable obj = customerService.bySwtCustomerId(swtCustomerId);
+		if (obj == null) {
+			
+			navigation.Entity = this.newInstance(null);
+		} else {
+			navigation.Entity = obj;
+		}
+
+		return navigation;
 	}
 }
