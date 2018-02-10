@@ -121,26 +121,31 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	@Override
 	public Boolean batchTransfer(String[] taskIdArray, Integer supplierId, Integer departmentId, Integer toUserId) {
 		//任务批量转移
+		int taskIdCount = taskIdArray.length;
+		boolean isNotify = false;
 		for (String taskId : taskIdArray) {
 
-			this.transfer(Integer.valueOf(taskId), supplierId, departmentId, toUserId);
+			this.transfer(Integer.valueOf(taskId), supplierId, departmentId, toUserId,taskIdCount,isNotify);
+			isNotify = true;
 		}
 		return true;
 
 	}
 
 	@Override
-	public Boolean transfer(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId) {
+	public Boolean transfer(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId, int alloCount, boolean isNotify) {
 		//任务转移
 		Map<String, Object> setMap = new HashMap<String, Object>();
 		NCustomerTask entity = this.byId(taskId);
+		setMap.put("formSupplierId", entity.getSupplierId());
+		setMap.put("formDepartmentId", entity.getDepartmentId());
 		setMap.put("formUserId", entity.getOwnerId());
-		//1.判断部门内部转移还是部门与部门之间的转移
-		if(entity.getSupplierId().equals(supplierId) && entity.getDepartmentId().equals(departmentId)){
-			setMap.put("sameDepartment", true);
-		}else {
-			setMap.put("sameDepartment", false);
-		}
+		
+		//1.区别批量转移
+		setMap.put("alloCount", alloCount);
+		//2.批量转移是否已经发送通知
+		setMap.put("isNotify", isNotify);
+		
 		entity.setSupplierId(supplierId);
 		entity.setDepartmentId(departmentId);
 		entity.setOwnerId(toUserId);

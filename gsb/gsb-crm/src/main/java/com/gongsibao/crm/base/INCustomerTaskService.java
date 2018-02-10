@@ -53,7 +53,7 @@ public interface INCustomerTaskService extends IPersistableService<NCustomerTask
 	 * 任务转移
 	 */
 	@Transaction
-	public Boolean transfer(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId);
+	public Boolean transfer(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId, int alloCount, boolean isNotify);
 
 	/**
 	 * 抽查异常

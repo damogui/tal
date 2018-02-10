@@ -1,6 +1,5 @@
 package com.gongsibao.crm.service.action.task.allocation.manual;
 
-import java.util.List;
 import java.util.Map;
 
 import org.netsharp.action.ActionContext;
@@ -15,7 +14,6 @@ import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.crm.dic.ChangeType;
 import com.gongsibao.entity.crm.dic.NotifyType;
-import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.supplier.base.ISalesmanService;
 import com.gongsibao.utils.NCustomerContact;
 import com.gongsibao.utils.SalesmanOrganization;
