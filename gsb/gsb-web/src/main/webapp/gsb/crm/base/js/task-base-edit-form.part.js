@@ -37,9 +37,10 @@ com.gongsibao.crm.web.TaskFollowDetailPart = org.netsharp.panda.commerce.DetailP
     	var entity = this.parent.viewModel.currentItem;
 		var taskId = entity.id;
 		var customerId = entity.customerId;
+        var originalQualityId = entity.qualityId;
 		var taskFollowCtrl = new com.gongsibao.crm.web.TaskFollowCtrl();
 		taskFollowCtrl.type='form';
-		taskFollowCtrl.open(taskId,customerId,function(index, layero){
+		taskFollowCtrl.open(taskId,customerId,originalQualityId,function(index, layero){
 			
 			me.parent.byId(taskId);
 		});
