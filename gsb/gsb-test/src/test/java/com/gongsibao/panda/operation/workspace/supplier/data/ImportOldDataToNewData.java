@@ -41,11 +41,14 @@ public class ImportOldDataToNewData {
 
         int num1 = handleCustomerOld ();//Customer 里面赋值处理
 
+        String msg = String.format ("处理数据共%s条", num1);
+        System.out.println (msg);
+
 
     }
 
 
-    /*有分享记录生成任务  NCustomerTaskService  客户任务*/
+    /*有分享记录生成任务  NCustomerTaskService  客户任务  批量处理（废弃）*/
     private int handleCustomerTaskShare() {
         ICustomerShareService serviceCustomerShare = ServiceFactory.create (ICustomerShareService.class);//有分享
         INCustomerTaskService serviceNCustomerTask = ServiceFactory.create (INCustomerTaskService.class);//任务
@@ -79,7 +82,7 @@ public class ImportOldDataToNewData {
         return 1;
     }
 
-    /*客户任务 无分享记录 NCustomerTaskService  客户任务*/
+    /*客户任务 无分享记录 NCustomerTaskService  客户任务 批量处理（废弃）*/
     private int handleCustomerTaskNoShare() {
 
         ICustomerService serviceCustomer = ServiceFactory.create (ICustomerService.class);//客户
@@ -282,7 +285,7 @@ public class ImportOldDataToNewData {
                 nCustomer.setQualityId (qualityInfo.getSmallCategory ());//
                 nCustomer.setLastFollowTime (item.getLastFollowTime ());
                 nCustomer.setLastFoolowUserId (item.getFollowUserId ());
-                nCustomer.setLastContent ("");
+                nCustomer.setLastContent ("");//可以考虑回写
                 // nCustomer.setNextFoolowTime(new Date());//下次跟进时间
                 nCustomer.setCustomerSourceId (item.getCustomerSourceId ());
 
