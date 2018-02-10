@@ -3,6 +3,7 @@ package com.gongsibao.panda.igirl.workspace;
 import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.dict.AttachmentCat;
 import com.gongsibao.entity.igirl.dict.FileType;
+import com.gongsibao.entity.igirl.dict.MarkState;
 import com.gongsibao.igirl.web.TradeMarkCaseListPart;
 import com.gongsibao.igirl.web.TradeMarkCasePart;
 import com.gongsibao.igirl.web.TradeMarkDetailPart;
@@ -110,6 +111,7 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 		PDatagrid datagrid = super.createDatagrid(node);
 		datagrid.setToolbar("panda/datagrid/row/edit");
 		PDatagridColumn column = null;
+		addColumn(datagrid, "createTime", "日期", ControlTypes.DATETIME_BOX, 100, true);
 		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
 		addColumn(datagrid, "code", "编号", ControlTypes.TEXT_BOX, 120, true);
 		addColumn(datagrid, "companyName", "公司名称", ControlTypes.TEXT_BOX, 200);
@@ -182,7 +184,7 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 		
 		addFormField(form, "orderCode", "订单号", "案件信息", ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "caseAmount", "方案金额", "案件信息", ControlTypes.DECIMAL_FEN_BOX, true, false);
-		addFormField(form, "tokenImgUrl", "二维码", "案件信息", ControlTypes.IMAGE, false, true).setVisible(false);
+		addFormField(form, "tokenImgUrl", "二维码", "案件信息", ControlTypes.IMAGE, false, true);
 		addFormField(form, "tmcState", "方案状态", "案件信息", ControlTypes.ENUM_BOX, true, false).setVisible(false);
 		
 		
@@ -218,12 +220,17 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 	private void createTradeMarkDetailPart(PWorkspace workspace) {
 
 		ResourceNode node = this.resourceService.byCode("IGIRL_All_TradeMark");
+		PDatagridColumn column = null;
 		PDatagrid datagrid = new PDatagrid(node, "商标选项");
 		{
 			addColumn(datagrid, "nclOne.code", "编码", ControlTypes.TEXT_BOX, 100);
 			addColumn(datagrid, "nclOne.name", "商标大类", ControlTypes.TEXT_BOX, 150);
 			addColumn(datagrid, "selectedTwoStr", "商标小类", ControlTypes.TEXTAREA, 150);
-			addColumn(datagrid, "markState", "申请状态", ControlTypes.ENUM_BOX, 150);
+			column = addColumn(datagrid, "markState", "申请状态", ControlTypes.ENUM_BOX, 150);
+			{
+				String formatter = EnumUtil.getColumnFormatter(MarkState.class);
+				column.setFormatter(formatter);
+			}
 
 		}
 		PForm form = new PForm();
@@ -449,6 +456,7 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 		addQueryItem(queryProject, "companyName", "公司名称", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "applier", "申请人", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "TMCState", "状态", ControlTypes.ENUM_BOX);
+		addQueryItem(queryProject, "createTime", "时间", ControlTypes.DATE_BOX).setWidth(400);
 //		PQueryItem item =addQueryItem(queryProject, "mobilePhone", "销售方式", ControlTypes.CUSTOMER);{
 //			
 //			item.setCustomerControlType(DictComboBox.class.getName());
