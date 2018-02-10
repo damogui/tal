@@ -163,6 +163,12 @@ public class NCustomerTask extends Entity {
 
 	@Column(name = "consult_way_other", header = "咨询途径选择其他时填写的详情")
 	private String consultWayOther;
+	
+	@Column(name = "swt_customer_id", header = "商务通客Id")
+	private String swtCustomerId;
+
+	@Column(name = "swt_service_id", header = "商务通客服Id")
+	private String swtServiceId;
 
 	@Column(name = "quality_progress", header = "质量进度")
 	private TaskQualityProgress qualityProgress = TaskQualityProgress.INVARIABILITY;
@@ -573,5 +579,21 @@ public class NCustomerTask extends Entity {
 
 	public void setProcessingState(Integer processingState) {
 		this.processingState = processingState;
+	}
+
+	public String getSwtCustomerId() {
+		return swtCustomerId;
+	}
+
+	public void setSwtCustomerId(String swtCustomerId) {
+		this.swtCustomerId = swtCustomerId;
+	}
+
+	public String getSwtServiceId() {
+		return swtServiceId;
+	}
+
+	public void setSwtServiceId(String swtServiceId) {
+		this.swtServiceId = swtServiceId;
 	}
 }

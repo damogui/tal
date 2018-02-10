@@ -154,7 +154,7 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 			form.setName("意向产品");
 
 			PFormField formField = null;
-			formField = addFormField(form, "productCategory1.name", "一级分类", null, ControlTypes.CUSTOM, false, false);
+			formField = addFormField(form, "productCategory1.name", "一级分类", null, ControlTypes.CUSTOM, false, true);
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
@@ -162,7 +162,7 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 				formField.setRefFilter("type=201 and pid=0");
 			}
 
-			formField = addFormField(form, "productCategory2.name", "二级分类", null, ControlTypes.CUSTOM, false, false);
+			formField = addFormField(form, "productCategory2.name", "二级分类", null, ControlTypes.CUSTOM, false, true);
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
