@@ -184,15 +184,16 @@ com.gongsibao.crm.web.TaskProductDetailPart = org.netsharp.panda.commerce.Detail
 			
 			return;
 		}
+
+		$('#productCategory2_name').combobox('clear');
+		
+//    	$('#productCategory2_name').combobox('setValue',null);
+//    	$('#productCategory2_name').combobox('setText',null);
 		
     	//加载二级分类
         this.invokeService("queryByFirstProductCategoryId", [newValue], function (data) {
         	
-        	//这句有问题
-        	$('#productCategory2_name').combobox('setValues',[]);
         	$('#productCategory2_name').combobox('loadData',data);
-        	$('#productCategory2_name').combobox('setValue','')
-        	$('#productCategory2_name').combobox('setText','')
 
     		var grid = $('#product_name').combogrid('grid');
         	var row = $(grid).datagrid('getSelected');
