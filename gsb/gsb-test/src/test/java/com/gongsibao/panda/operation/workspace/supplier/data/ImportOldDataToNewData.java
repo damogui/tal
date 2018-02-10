@@ -233,8 +233,16 @@ public class ImportOldDataToNewData {
             Oql oql2 = new Oql () {
             };
             oql2.setOrderby (" pkid ");
-            oql1.setFilter (filterBuilder.toString ());
+            oql2.setFilter (filterBuilder.toString ());
             oql2.setPaging (new Paging (i, pageSize));
+            oql2.setType (Customer.class);
+            StringBuilder sb = new StringBuilder ();
+            sb.append ("Customer.*");
+//            sb.append ("Customer.prodDetails.");
+
+            oql2.setSelects (sb.toString ());//设置要查询的列
+
+
             List<Customer> customerList = serviceCustomer.queryList (oql2);
 
             for (Customer item : customerList
@@ -323,6 +331,8 @@ public class ImportOldDataToNewData {
 
         Oql oql = new Oql ();
         oql.setFilter (" customer_id=" + customer.getId ());
+        oql.setType (CustomerCompanyMap.class);
+        oql.setSelects ("CustomerCompanyMap.*");
         List<CustomerCompanyMap> listOld = serviceCustomerCompanyMap.queryList (oql);
         for (CustomerCompanyMap item : listOld
                 ) {
@@ -358,14 +368,17 @@ public class ImportOldDataToNewData {
         };
         oql1.setOrderby (" pkid ");
         oql1.setFilter (filterBuilder.toString ());
+
         int totalCustomerPage = serviceCustomerFollow.queryCount (oql1) / pageSize + 1;
 
         for (int i = 1; i < totalCustomerPage + 1; i++) {
             Oql oql2 = new Oql () {
             };
             oql2.setOrderby (" pkid ");
-            oql1.setFilter (filterBuilder.toString ());
+            oql2.setFilter (filterBuilder.toString ());
             oql2.setPaging (new Paging (i, pageSize));
+            oql2.setType (CustomerFollow.class);
+            oql2.setSelects ("CustomerFollow.*");
             List<CustomerFollow> customerFollowList = serviceCustomerFollow.queryList (oql2);
 
             for (CustomerFollow item : customerFollowList
@@ -423,9 +436,17 @@ public class ImportOldDataToNewData {
         String areaName = getProvinceCityAndCountry (item.getCityId ());
 
         if (StringManager.isNullOrEmpty (productName)) {
-            productName = "无意向产品";
+            productName = "";//无意向产品就是空
         }
-        String taskName = String.format ("%s-%s", productName, areaName);
+        String taskName = "";
+       if (StringManager.isNullOrEmpty (productName))
+       {
+           taskName = areaName;
+
+       }else{
+           taskName = String.format ("%s-%s", productName, areaName);
+       }
+
 
 
         nCustomerTask.setName (taskName);//  根据意向产品拼出来  内资公司注册-北京市-北京市-朝阳区
@@ -484,6 +505,8 @@ public class ImportOldDataToNewData {
         ICustomerShareService serviceCustomerShare = ServiceFactory.create (ICustomerShareService.class);
         Oql oql = new Oql ();
         oql.setFilter ("customer_id=" + item.getId ());
+        oql.setType (CustomerShare.class);
+        oql.setSelects ("CustomerShare.*");
         List<CustomerShare> listShare = serviceCustomerShare.queryList (oql);
 
         for (CustomerShare share : listShare
@@ -523,6 +546,8 @@ public class ImportOldDataToNewData {
             oql2.setOrderby (" pkid ");
             oql2.setFilter (" customer_id=" + nCustomerTask.getCustomerId ());//只弄一条
             oql2.setPaging (new Paging (i, pageSize));
+            oql2.setType (CustomerProdMap.class);
+            oql2.setSelects ("CustomerProdMap.*");
             List<CustomerProdMap> customerProdMapList = serviceCustomerProdMap.queryList (oql2);
 
             for (CustomerProdMap item : customerProdMapList
@@ -571,6 +596,8 @@ public class ImportOldDataToNewData {
             };
             oql2.setOrderby (" pkid ");
             oql2.setPaging (new Paging (i, pageSize));
+            oql2.setType (CustomerProdMap.class);
+            oql2.setSelects ("CustomerProdMap.*");
             List<CustomerProdMap> customerProdMapList = serviceCustomerProdMap.queryList (oql2);
 
             for (CustomerProdMap item : customerProdMapList
@@ -693,35 +720,38 @@ public class ImportOldDataToNewData {
         switch (followStatus.getValue ()) {
             case 4011:
                 smallCode = "X";
+                break;
 
             case 4012:
                 smallCode = "A4";
-
+                break;
             case 4013:
                 smallCode = "A2";
-
+                break;
             case 4014:
                 smallCode = "S";
-
+                break;
             case 4015:
                 smallCode = "D2";
-
+                break;
             case 4016:
                 smallCode = "C4";
-
+                break;
 //            case 4017:
 //                smallCode = "A4";  //不需要管
 
             case 4020:
                 smallCode = "B1";
-
+                break;
             default:
+                break;
 
 
         }
         qps.add ("@code", smallCode, Types.VARCHAR);
         oql.setParameters (qps);
-
+        oql.setSelects ("NCustomerTaskQuality.*");
+        oql.setType (NCustomerTaskQuality.class);
         NCustomerTaskQuality nQuality = serviceQuality.queryFirst (oql);
         if (nQuality != null) {
             quaInfo.setBigCategory (nQuality.getIntentionCategory ());
