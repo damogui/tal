@@ -235,7 +235,7 @@ ul,li{
 	border-bottom-color: #333 !important;
 	color: #b2b8c1;
 }
-.panel-header, .panel-body {
+#west .panel-header, #west .panel-body {
     border-color: #333;
     background-color: #333;
 }
