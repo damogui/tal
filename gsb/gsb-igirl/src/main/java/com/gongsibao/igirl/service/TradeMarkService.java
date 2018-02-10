@@ -481,6 +481,10 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 	@Override
 	public void updateMarkStateByUploadFiles(Attachment entity, String markcode, String state) {
 		// TODO Auto-generated method stub
+		if(entity.getForeignKey()!=null) {
+			attachmentService.save(entity);
+			return;
+		}
 		Oql oql = new Oql();
 		{
 			oql.setType(TradeMark.class);
