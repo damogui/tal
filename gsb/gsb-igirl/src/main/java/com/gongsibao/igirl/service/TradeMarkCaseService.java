@@ -66,9 +66,13 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 
 		}
 		// 设置商标的服务商id
+	  String tmp="";
 		for (TradeMark tm : entity.getTradeMarks()) {
 			tm.setSupplierId(sid);
+			//设置
+			tmp+=tm.getNclOne().getCode()+" ";
 		}
+		entity.setTradeOptions(tmp);
 		return entity;
 	}
 
@@ -117,9 +121,11 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			TradeMarkCase origin = this.queryFirst(oqlx);
 			Map<ShareGroup, Integer> shareGroupCountMap = this.buildShareGroupCountMap(origin);
 			Integer sid = SupplierSessionManager.getSupplierId();
+			String tmp="";
 			for (TradeMark tm : entity.getTradeMarks()) {
 				tm.setSupplierId(sid);
 				if (tm.getEntityState() != EntityState.Deleted) {
+					tmp+=tm.getNclOne().getCode()+" ";
 					if (!shareGroupCountMap.containsKey(tm.getShareGroup())) {
 						// 如果是新增一个分组--tm
 						List<UploadAttachment> casenewUps = tradeMarkCaseAttachmentBuiler
@@ -193,9 +199,9 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 						}
 					}
 				}
-
+               
 			}
-
+			entity.setTradeOptions(tmp);
 		}
 		// 获取原先的共享组集合
 

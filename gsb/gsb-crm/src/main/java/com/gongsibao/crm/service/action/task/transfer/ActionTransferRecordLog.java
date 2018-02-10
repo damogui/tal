@@ -1,11 +1,11 @@
 package com.gongsibao.crm.service.action.task.transfer;
 
-import java.util.List;
 import java.util.Map;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.persistence.session.SessionManager;
 
 import com.gongsibao.crm.base.INCustomerOperationLogService;
 import com.gongsibao.crm.base.INCustomerTaskNotifyService;
@@ -14,8 +14,9 @@ import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.crm.dic.ChangeType;
 import com.gongsibao.entity.crm.dic.NotifyType;
-import com.gongsibao.entity.supplier.Salesman;
-import com.gongsibao.supplier.base.ISalesmanService;
+import com.gongsibao.utils.NCustomerContact;
+import com.gongsibao.utils.SalesmanOrganization;
+import com.gongsibao.utils.SupplierSessionManager;
 
 /**
  * @author hw 转移：记录日志
@@ -44,33 +45,109 @@ public class ActionTransferRecordLog implements IAction {
 		}
 
 		// 2.保存通知日志（通知接收人）
-		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
-		//业务员为空，通知服务商管理员或部门主管
-		if(task.getOwnerId() == null){
-			Integer leaderId = salesmanService.getLeaderId(task.getSupplierId(), task.getDepartmentId());
-			notifySave(task,leaderId);
-		}else{
-			notifySave(task,null);
+		
+		if((boolean)ctx.getStatus().get("sameDepartment")){
+			sameDepartment(task);
+		}else {
+			
 		}
+	}
+	
+	/**
+	 * 部门内部转移
+	 * @param task
+	 */
+	private void sameDepartment(NCustomerTask task){
+		//转移的人员不能为空
+		if(task.getOwnerId() != null){
+			ActionContext ctx = new ActionContext();
+			//业务员转移还是公海转移
+			if(ctx.getStatus().get("formUserId") == null){
+				sameDepartmentHighSeas(task); 
+			}else{
+				sameDepartmentSalesman(task,(Integer)ctx.getStatus().get("formUserId"));
+			}
+		}
+	}
+	/**
+	 * 部门内部转移-业务员转移
+	 * @param task
+	 * @param formUserId
+	 */
+	private void sameDepartmentSalesman(NCustomerTask task,Integer formUserId){
+		//1.被转移业务员和接收业务员的组织机构
+		SalesmanOrganization orgaForm = SupplierSessionManager.getSalesmanOrganization(formUserId);
+		SalesmanOrganization orgaTo = SupplierSessionManager.getSalesmanOrganization(task.getOwnerId());
+		String getContact = NCustomerContact.handleContact(task.getCustomer());
+		String copyWriterForm = String.format("【转移提醒】您好，【%s】把您的1个任务转移给【%s】，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请知悉",
+				SessionManager.getUserId(),orgaTo.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
+		
+		String copyWriterTo = String.format("【转移提醒】您好，【%s】从【%s】转移给您1个任务，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请及时跟进",
+				SessionManager.getUserId(),orgaForm.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
+		
+		//2.业务员的一、二级领导
+		String leaderCopyWriter = String.format("【转移提醒】您好，【%s】从【%s】转移给【%s】1个任务，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请知悉",
+				SessionManager.getUserId(),orgaForm.getEmployeeName(),orgaTo.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
+		
+		//3.发送通知
+		sendNotify(task,copyWriterForm,formUserId);
+		sendNotify(task,copyWriterTo,task.getOwnerId());
+		
+		if(orgaForm.getDirectLeaderId() != null){
+			sendNotify(task,leaderCopyWriter,orgaForm.getDirectLeaderId());
+		}
+		if(orgaForm.getSuperiorLeaderId() != null){
+			sendNotify(task,leaderCopyWriter,orgaForm.getSuperiorLeaderId());
+		}	
+		if(orgaTo.getDirectLeaderId() != null){
+			sendNotify(task,leaderCopyWriter,orgaTo.getDirectLeaderId());
+		}
+		if(orgaTo.getSuperiorLeaderId() != null){
+			sendNotify(task,leaderCopyWriter,orgaTo.getSuperiorLeaderId());
+		}	
+	}
+	
+	/**
+	 * 部门内部转移-公海转移
+	 * @param task	 
+	 */
+	private void sameDepartmentHighSeas(NCustomerTask task){
+		//1.公海负责人和接收业务员的组织机构
+		SalesmanOrganization orgaHighSeas = SupplierSessionManager.getSalesmanOrganization(SessionManager.getUserId());
+		SalesmanOrganization orgaTo = SupplierSessionManager.getSalesmanOrganization(task.getOwnerId());
+		String getContact = NCustomerContact.handleContact(task.getCustomer());
+		String copyWriterHighSeas = String.format("【转移提醒】您好，【%s】把您部门公海的1个任务转移给【%s】，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请知悉",
+				orgaHighSeas.getEmployeeName(),orgaTo.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
+		//2.接受业务员的一、二级领导
+		String leaderCopyWriter = String.format("【转移提醒】您好，【%s】从【%s】公海转移给【%s】1个任务，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请知悉",
+				orgaHighSeas.getEmployeeName(),orgaHighSeas.getDepartmentName(),orgaTo.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
+		
+		//3.发送通知
+		sendNotify(task,copyWriterHighSeas,SessionManager.getUserId());
+		
+		if(orgaTo.getDirectLeaderId() != null){
+			sendNotify(task,leaderCopyWriter,orgaTo.getDirectLeaderId());
+		}
+		if(orgaTo.getSuperiorLeaderId() != null){
+			sendNotify(task,leaderCopyWriter,orgaTo.getSuperiorLeaderId());
+		}	
 	}
 	/**
 	 * 添加通知
 	 * @param task
 	 */
-	private void notifySave(NCustomerTask task,Integer employeeId){
+	private void sendNotify(NCustomerTask task,String copyWriter,Integer receivedId){
 		INCustomerTaskNotifyService notifyService = ServiceFactory.create(INCustomerTaskNotifyService.class);
 		NCustomerTaskNotify notify = new NCustomerTaskNotify();
-		{
-			String content = String.format("任务ID：%s,被转移给您，请悉知。", task.getId());
+		{			
 			notify.toNew();
 			notify.setTaskId(task.getId());
-			notify.setContent(content);
+			notify.setContent(copyWriter);
 			notify.setType(NotifyType.WEIXIN);
 			notify.setCustomerId(task.getCustomerId());
 			notify.setSupplierId(task.getSupplierId());
 			notify.setDepartmentId(task.getDepartmentId());
-			//*业务员为空，通知服务商管理员或部门主管,暂无实现
-			notify.setReceivedId(employeeId ==null ? task.getOwnerId() : employeeId);
+			notify.setReceivedId(receivedId);
 			notifyService.save(notify);
 		}
 	}

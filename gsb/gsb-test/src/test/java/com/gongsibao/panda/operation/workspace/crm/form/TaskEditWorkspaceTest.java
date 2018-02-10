@@ -41,6 +41,8 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 	protected String taskFollowDetailPart = "com.gongsibao.crm.web.PlatformTaskFollowDetailPart";
 	
 	protected String inspectionDetailResourceNodeCode = "Operation_CRM_Customer_Inspection";
+	
+	
 	@Before
 	public void setup() {
 		super.setup();
@@ -61,7 +63,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 		
 		formJsController = NCustomerTaskEditFormPart.class.getName();
 		formServiceController = NCustomerTaskEditFormPart.class.getName();
-		
+		showDataGridTitle = false;
 		//task-base-edit-form.part.js
 	}
 	

@@ -46,7 +46,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		listToolbarPath = "/igirl/list/toolbar";
 
 	}
-
+	public static final String trademarkToolbarPath = "/igirl/tm/toolbar";
 	public static final String uploadloadToolbarPath = "/igirl/upload/toolbar";
 	public static final String downloadToolbarPath = "/igirl/download/toolbar";
 
@@ -103,6 +103,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 			item.setCommand("{controller}.remove();");
 			toolbar.getItems().add(item);
 		}
+	
 
 		toolbarService.save(toolbar);
 
@@ -117,6 +118,18 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 			toolbar.setResourceNode(node);
 
 		}
+		item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("save");
+			item.setIcon("fa fa-save");
+			item.setName("保存");
+			item.setCommand(null);
+			item.setOperationType(ot1);
+			item.setSeq(4000);
+			item.setCommand("{controller}.saveP();");
+			toolbar.getItems().add(item);
+		}
 		toolbarService.save(toolbar);
 		
 		node = this.resourceService.byCode("IGIRL_DOWNLOAD_DownloadAttachment");
@@ -130,6 +143,56 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 			toolbar.setResourceNode(node);
 		}
 		toolbarService.save(toolbar);
+		
+		
+		node = this.resourceService.byCode("IGIRL_All_TradeMark");
+		ot1 = operationTypeService.byCode(OperationTypes.add);
+		toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			// toolbar.setBasePath("panda/datagrid/edit");
+			toolbar.setPath(trademarkToolbarPath);
+			toolbar.setName("商标选项工具栏");
+			toolbar.setResourceNode(node);
+		}
+		
+	  item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("add");
+			item.setIcon("fa fa-plus");
+			item.setName("新增");
+			item.setCommand(null);
+			item.setOperationType(ot1);
+			item.setSeq(3000);
+			item.setCommand("{controller}.add();");
+			toolbar.getItems().add(item);
+		}
+		item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("remove");
+			item.setIcon("fa fa-trash-o");
+			item.setName("删除");
+			item.setCommand(null);
+			item.setOperationType(ot1);
+			item.setSeq(4000);
+			item.setCommand("{controller}.remove();");
+			toolbar.getItems().add(item);
+		}
+		item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("save");
+			item.setIcon("fa fa-save");
+			item.setName("保存");
+			item.setCommand(null);
+			item.setOperationType(ot1);
+			item.setSeq(4000);
+			item.setCommand("{controller}.saveP();");
+			toolbar.getItems().add(item);
+		}
+		toolbarService.save(toolbar);
 
 	}
 
@@ -140,14 +203,15 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		datagrid.setToolbar("panda/datagrid/row/edit");
 		PDatagridColumn column = null;
 		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-		addColumn(datagrid, "code", "编号", ControlTypes.TEXT_BOX, 150, true);
+		addColumn(datagrid, "code", "编号", ControlTypes.TEXT_BOX, 120, true);
 		addColumn(datagrid, "companyName", "公司名称", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "applier", "申请人", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "urgency", "紧急程度(小时)", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "creator", "业务员", ControlTypes.TEXT_BOX, 50);
 
 		addColumn(datagrid, "caseAmount", "金额", ControlTypes.DECIMAL_FEN_BOX, 100);
-		addColumn(datagrid, "tmcState", "状态", ControlTypes.ENUM_BOX, 100);
+		addColumn(datagrid, "tmcState", "状态", ControlTypes.ENUM_BOX, 60);
+		addColumn(datagrid, "tradeOptions", "商标选项", ControlTypes.TEXT_BOX, 100);
 
 		return datagrid;
 	}
@@ -208,13 +272,15 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "mailCode", "邮编",  "代理人信息", ControlTypes.NUMBER_BOX, true, false);
 		addFormField(form, "fax", "传真",  "代理人信息", ControlTypes.TEXT_BOX, true, false);
 		
-		addFormField(form, "tokenImgUrl", "二维码", "案件信息", ControlTypes.IMAGE, false, true);
-		addFormField(form, "tmcState", "方案状态", "案件信息", ControlTypes.ENUM_BOX, true, false);
+		addFormField(form, "orderCode", "订单号", "案件信息", ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "caseAmount", "方案金额", "案件信息", ControlTypes.DECIMAL_FEN_BOX, true, false);
+		addFormField(form, "tokenImgUrl", "二维码", "案件信息", ControlTypes.IMAGE, false, true).setVisible(false);
+		addFormField(form, "tmcState", "方案状态", "案件信息", ControlTypes.ENUM_BOX, true, false).setVisible(false);
 		
-		addFormField(form, "token", "token", "案件信息", ControlTypes.TEXT_BOX, false, true);
-		addFormField(form, "code", "方案编号", "案件信息", ControlTypes.TEXT_BOX, false, true);
-		addFormField(form, "tradeOptions", "商标选项", "案件信息", ControlTypes.TEXT_BOX, false, true);
+		
+		addFormField(form, "token", "token", "案件信息", ControlTypes.TEXT_BOX, false, true).setVisible(false);
+		addFormField(form, "code", "方案编号", "案件信息", ControlTypes.TEXT_BOX, false, true).setVisible(false);
+		addFormField(form, "tradeOptions", "商标选项", "案件信息", ControlTypes.TEXT_BOX, false, true).setVisible(false);
 		
 		return form;
 	}
@@ -303,7 +369,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 			part.setPartTypeId(PartType.DETAIL_PART.getId());
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
-			part.setToolbar("panda/datagrid/detail");
+			part.setToolbar(trademarkToolbarPath);
 			part.setJsController("com.gongsibao.igirl.web.TradeMarkDetailPart");
 			part.setServiceController(TradeMarkDetailPart.class.getName());
 			part.setWindowWidth(1024);
