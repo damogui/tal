@@ -63,7 +63,7 @@ public class ActionTransferRecordLog implements IAction {
 			ActionContext ctx = new ActionContext();
 			//业务员转移还是公海转移
 			if(ctx.getStatus().get("formUserId") == null){
-				sameDepartmentHighSeas(task,11111111); 
+				sameDepartmentHighSeas(task); 
 			}else{
 				sameDepartmentSalesman(task,(Integer)ctx.getStatus().get("formUserId"));
 			}
@@ -75,7 +75,7 @@ public class ActionTransferRecordLog implements IAction {
 	 * @param formUserId
 	 */
 	private void sameDepartmentSalesman(NCustomerTask task,Integer formUserId){
-		//1.业务员的转移
+		//1.被转移业务员和接收业务员的组织机构
 		SalesmanOrganization orgaForm = SupplierSessionManager.getSalesmanOrganization(formUserId);
 		SalesmanOrganization orgaTo = SupplierSessionManager.getSalesmanOrganization(task.getOwnerId());
 		String getContact = NCustomerContact.handleContact(task.getCustomer());
@@ -84,11 +84,14 @@ public class ActionTransferRecordLog implements IAction {
 		
 		String copyWriterTo = String.format("【转移提醒】您好，【%s】从【%s】转移给您1个任务，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请及时跟进",
 				SessionManager.getUserId(),orgaForm.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
-		sendNotify(task,copyWriterForm,formUserId);
-		sendNotify(task,copyWriterTo,task.getOwnerId());
+		
 		//2.业务员的一、二级领导
 		String leaderCopyWriter = String.format("【转移提醒】您好，【%s】从【%s】转移给【%s】1个任务，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请知悉",
 				SessionManager.getUserId(),orgaForm.getEmployeeName(),orgaTo.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
+		
+		//3.发送通知
+		sendNotify(task,copyWriterForm,formUserId);
+		sendNotify(task,copyWriterTo,task.getOwnerId());
 		
 		if(orgaForm.getDirectLeaderId() != null){
 			sendNotify(task,leaderCopyWriter,orgaForm.getDirectLeaderId());
@@ -103,33 +106,25 @@ public class ActionTransferRecordLog implements IAction {
 			sendNotify(task,leaderCopyWriter,orgaTo.getSuperiorLeaderId());
 		}	
 	}
+	
 	/**
 	 * 部门内部转移-公海转移
-	 * @param task
-	 * @param formUserId
+	 * @param task	 
 	 */
-	private void sameDepartmentHighSeas(NCustomerTask task,Integer formUserId){
-		//1.业务员的转移
-		SalesmanOrganization orgaForm = SupplierSessionManager.getSalesmanOrganization(formUserId);
+	private void sameDepartmentHighSeas(NCustomerTask task){
+		//1.公海负责人和接收业务员的组织机构
+		SalesmanOrganization orgaHighSeas = SupplierSessionManager.getSalesmanOrganization(SessionManager.getUserId());
 		SalesmanOrganization orgaTo = SupplierSessionManager.getSalesmanOrganization(task.getOwnerId());
 		String getContact = NCustomerContact.handleContact(task.getCustomer());
-		String copyWriterForm = String.format("【转移提醒】您好，【%s】把您的1个任务转移给【%s】，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请知悉",
-				SessionManager.getUserId(),orgaTo.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
+		String copyWriterHighSeas = String.format("【转移提醒】您好，【%s】把您部门公海的1个任务转移给【%s】，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请知悉",
+				orgaHighSeas.getEmployeeName(),orgaTo.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
+		//2.接受业务员的一、二级领导
+		String leaderCopyWriter = String.format("【转移提醒】您好，【%s】从【%s】公海转移给【%s】1个任务，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请知悉",
+				orgaHighSeas.getEmployeeName(),orgaHighSeas.getDepartmentName(),orgaTo.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
 		
-		String copyWriterTo = String.format("【转移提醒】您好，【%s】从【%s】公海转移给您1个任务，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请及时跟进",
-				SessionManager.getUserId(),orgaForm.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
-		sendNotify(task,copyWriterForm,formUserId);
-		sendNotify(task,copyWriterTo,task.getOwnerId());
-		//2.业务员的一、二级领导
-		String leaderCopyWriter = String.format("【转移提醒】您好，【%s】从【%s】转移给【%s】1个任务，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请知悉",
-				SessionManager.getUserId(),orgaForm.getEmployeeName(),orgaTo.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
+		//3.发送通知
+		sendNotify(task,copyWriterHighSeas,SessionManager.getUserId());
 		
-		if(orgaForm.getDirectLeaderId() != null){
-			sendNotify(task,leaderCopyWriter,orgaForm.getDirectLeaderId());
-		}
-		if(orgaForm.getSuperiorLeaderId() != null){
-			sendNotify(task,leaderCopyWriter,orgaForm.getSuperiorLeaderId());
-		}	
 		if(orgaTo.getDirectLeaderId() != null){
 			sendNotify(task,leaderCopyWriter,orgaTo.getDirectLeaderId());
 		}
