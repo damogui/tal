@@ -15,6 +15,11 @@ import com.gongsibao.utils.NCustomerContact;
 import com.gongsibao.utils.SalesmanOrganization;
 import com.gongsibao.utils.SupplierSessionManager;
 
+/**
+ * 跟进：记录日志
+ * @author Administrator
+ *
+ */
 public class ActionFollowRecordLog implements IAction{
 
 	@Override

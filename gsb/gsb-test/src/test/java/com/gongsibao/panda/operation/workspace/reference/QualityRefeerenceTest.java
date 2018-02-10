@@ -42,6 +42,12 @@ public class QualityRefeerenceTest extends ReferenceCreationBase {
 			column.setSystem(true);
 			column.setVisible(false);
 		}
+
+		column = addColumn(datagrid, "score", "分值", ControlTypes.NUMBER_BOX, 150, null, false);{
+
+			column.setSystem(true);
+			column.setVisible(false);
+		}
 		
 		column = addColumn(datagrid, "returnedAmountRequired", "估计回款额必填", ControlTypes.TEXT_BOX, 150, null, false);{
 			

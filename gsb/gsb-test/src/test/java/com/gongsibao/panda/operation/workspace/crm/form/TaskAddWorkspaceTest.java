@@ -42,6 +42,7 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 		formJsImport = "/gsb/crm/platform/js/task-add-form.part.js|/gsb/gsb.customer.controls.js";
 		formJsController = NCustomerTaskAddFormPart.class.getName();
 		formServiceController = NCustomerTaskAddFormPart.class.getName();
+
 		
 	}
 	

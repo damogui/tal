@@ -68,9 +68,9 @@ html,body{
   color: rgba(118,131,143,.9);
 }
 .tabs li.tabs-selected a.tabs-inner {
-    background-color: #f1f4f5;
+    background-color: #f7f7f7;
     font-weight: normal;
-    border-bottom: 1px solid #f1f4f5;
+    border-bottom: 1px solid #f7f7f7;
     color: rgba(118,131,143,.9);
 }
 .tabs-icon{
@@ -228,6 +228,15 @@ html,body{
     line-height: 300px;
 }
 
+/* .toolbar .l-btn{
+	
+	color:#1E7BB6;
+} */
+
+.toolbar .l-btn:hover{
+	
+	color:#1E7BB6;
+}
 
 .query-panel .title {
     font-size: 14px;
@@ -294,7 +303,7 @@ span.textbox{
 
 #center {
 	border-width:0px;
-	background-color: #f1f4f5;
+	background-color: #f7f7f7;
 }
 
 .page-content{

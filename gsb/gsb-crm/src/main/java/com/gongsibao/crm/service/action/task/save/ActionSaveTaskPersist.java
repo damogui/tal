@@ -55,6 +55,10 @@ public class ActionSaveTaskPersist implements IAction {
 				task.setFoolowStatus(CustomerFollowStatus.UNSTART);
 			}
 		}
+		//当该任务有：【市场投放费用】时，则将该任务的市场投放服务商更新为跟进服务商
+		if(task.getCosted()){
+			task.setCostSupplierId(task.getSupplierId());
+		}
 
 		@SuppressWarnings("unchecked")
 		IPersistableService<NCustomerTask> service = (IPersistableService<NCustomerTask>) ReflectManager.newInstance(NCustomerService.class.getSuperclass());
