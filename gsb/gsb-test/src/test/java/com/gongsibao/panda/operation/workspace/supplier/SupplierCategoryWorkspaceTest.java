@@ -7,6 +7,7 @@ import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
+import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
@@ -38,6 +39,8 @@ public class SupplierCategoryWorkspaceTest extends WorkspaceCreationBase{
 		listPartJsController = SupplierCategoryTreegridPart.class.getName();
 		listPartServiceController = SupplierCategoryTreegridPart.class.getName();
 		listToolbarPath = "/operation/supplier/category/toolbar";
+		
+		formOpenMode = OpenMode.WINDOW;
 	}
 	
 	@Test

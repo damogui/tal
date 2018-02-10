@@ -66,8 +66,14 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
         var id = this.queryString("id");
         if (System.isnull(id)) {
 
-    		this.verify();
-            this.add();
+        	var swtCustomerId = this.queryString("swtCustomerId");
+        	if(swtCustomerId){
+            	
+        		this.bySwtCustomerId(swtCustomerId);
+        	}else{
+        		this.verify();
+                this.add();
+        	}
         }else {
             this.byId(id);
         }
@@ -77,6 +83,18 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
 			$("#"+item).validatebox('disableValidation');
 		});
 		
+    },
+    bySwtCustomerId: function (swtCustomerId) {
+
+        var me = this;
+        this.invokeService("bySwtCustomerId", [swtCustomerId], function (jmessage) {
+        	
+        	 if(jmessage.Entity){
+        		 
+        		 var swtServiceId = me.queryString("swtServiceId");
+        		 window.location.href = me.editUrl+'?id=' + jmessage.Entity.id+'&swtCustomerId='+swtCustomerId+'&swtServiceId='+swtServiceId;
+        	 }
+        });
     },
     validate: function () {
 
@@ -192,15 +210,6 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
     onSaving: function (entity) {
 
     	//提高效率，将明细全部置空
-//    	if(this.isPlatform == 1){
-//
-//        	entity.tasks = [];
-//    	}else if(entity.tasks == null || entity.tasks.length == 0){
-//    		
-//    		IMessageBox.error("任务信息不能为空！");
-//    		return false;
-//    	}
-    	
     	if(entity.entityState != EntityState.New){
 
         	entity.tasks = [];
@@ -233,21 +242,6 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
     },
     toNewUrl:function(entity){
     	
-//    	var top = window.top;
-//    	var parent = window.parent;
-//    	var index = parent.layer.getFrameIndex(window.name); 
-//    	if(top&&top.workbench){
-//    		
-//    		top.workbench.closeSelectedTab();
-//    	}else if(parent && index){
-//    		
-//    		
-//    		parent.layer.close(index);
-//    	}else{
-//    		
-//    		window.location.href=this.addUrl+'?id='+entity.id;
-//    	}
-    	
     	window.location.href=this.addUrl+'?id='+entity.id;
     },
     verify:function(){
@@ -261,9 +255,7 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
     		  //closeBtn:false,
     		  area: ['70%','70%'],
     		  content: this.verifyUrl,
-    		  cancel: function(){ 
-
-  		  }
+    		  cancel: function(){}
     	    });	
     },
     bindCustomer:function(customerId){
@@ -317,13 +309,25 @@ com.gongsibao.crm.web.NCustomerTaskDetailPart = org.netsharp.panda.commerce.Deta
 //    		
 //        	url=this.addUrl+'?isPlatform=0&ctrl='+this.context.instanceName;
 //    	}
-
+    	
     	var url = this.addUrl+'?isPlatform=0&ctrl='+this.context.instanceName;
     	if(this.parent.viewModel.currentItem.entityState != EntityState.New){
 			
     		var customerId = this.parent.viewModel.currentItem.id;
     		url = this.addUrl+'?isPlatform=1&fk=customerId:'+customerId;
 		}
+    	
+    	var swtCustomerId = this.queryString("swtCustomerId");
+    	var swtServiceId = this.queryString("swtServiceId");
+    	if(!System.isnull(swtCustomerId)){
+    		
+    		url = url+'&swtCustomerId='+swtCustomerId;
+    	}
+    	
+    	if(!System.isnull(swtServiceId)){
+    		
+    		url = url+'&swtServiceId='+swtServiceId;
+    	}
     	
 //    	var swtCustomerId = this.queryString("swtCustomerId");
 //    	if(!System.isnull(swtCustomerId)){

@@ -133,7 +133,6 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
     		eval("window.parent."+parentCtrl+".save(entity);");
     		//关闭当前窗口
     		window.parent.layer.closeAll();
-    		debugger;
     	}
 
     },
@@ -168,11 +167,29 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
         	
         	this.databind();
         }
+    },
+    added: function (currentItem) {
+
+    	var swtCustomerId = this.queryString("swtCustomerId");
+    	var swtServiceId = this.queryString("swtServiceId");
+    	
+    	if(swtCustomerId){
+
+        	currentItem.swtCustomerId = swtCustomerId;
+       	    currentItem.sourceId = 4181;
+       	    currentItem.source = {id:4181,name:'PC官网'};
+    	    currentItem.consultWayId = 42143;
+    	    currentItem.consultWay = {id:42143,name:'商务通'};
+    	}
+    	
+    	if(swtServiceId){
+
+        	currentItem.swtServiceId = swtServiceId;
+    	}
     }
 });
 
 //initValue  此方法不会触发改变事件，
-
 com.gongsibao.crm.web.TaskProductDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
     ctor: function () {
         this.base();
