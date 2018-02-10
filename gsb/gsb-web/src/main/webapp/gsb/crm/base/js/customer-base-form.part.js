@@ -85,15 +85,21 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
 		
     },
     bySwtCustomerId: function (swtCustomerId) {
-
+    	
+    	var vm = this.viewModel;
         var me = this;
         this.invokeService("bySwtCustomerId", [swtCustomerId], function (jmessage) {
-        	
-        	 if(jmessage.Entity){
-        		 
+
+        	 var nav = jmessage;
+        	 var entity = nav.Entity;
+             if(entity.entityState != EntityState.New){
+
         		 var swtServiceId = me.queryString("swtServiceId");
         		 window.location.href = me.editUrl+'?id=' + jmessage.Entity.id+'&swtCustomerId='+swtCustomerId+'&swtServiceId='+swtServiceId;
-        	 }
+             }
+             vm.currentItem = entity;
+             me.paging = nav.Paging;
+             me.databind();
         });
     },
     validate: function () {
