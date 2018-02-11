@@ -15,7 +15,6 @@ import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.crm.dic.ChangeType;
 import com.gongsibao.entity.crm.dic.NotifyType;
 import com.gongsibao.supplier.base.ISalesmanService;
-import com.gongsibao.utils.NCustomerContact;
 import com.gongsibao.utils.SalesmanOrganization;
 import com.gongsibao.utils.SupplierSessionManager;
 
@@ -33,7 +32,6 @@ public class ActionTransferRecordLog implements IAction {
 		INCustomerOperationLogService changeService = ServiceFactory.create(INCustomerOperationLogService.class);
 		NCustomerOperationLog changeLog = new NCustomerOperationLog();
 		{
-
 			changeLog.toNew();// 标示下类型，有多种
 			changeLog.setTaskId(task.getId());
 			changeLog.setChangeType(ChangeType.TRANSFER);
@@ -46,352 +44,215 @@ public class ActionTransferRecordLog implements IAction {
 		}
 
 		// 2.转移通知
-		Integer formSupplierId = (Integer) getMap.get("formSupplierId");
-		Integer formDepartmentId = (Integer) getMap.get("formDepartmentId");
-		Integer formUserId = (Integer) getMap.get("formUserId");
-		int alloCount = Integer.valueOf(ctx.getStatus().get("alloCount").toString());
-		boolean isNotify = (boolean)ctx.getStatus().get("isNotify");
-		ProcessNoticeEnum noticeType = ProcessNotice.noticeType(formSupplierId, formDepartmentId, formUserId, task.getSupplierId(), task.getDepartmentId(), task.getOwnerId());
-		//处理转移类型
-		switch (noticeType.getValue()) {
-		case 1:
-			sameDepartmentSalesmanToSalesman(task,formUserId,alloCount,isNotify);
-			break;
-		case 2:
-			sameDepartmentSeasToSalesman(task,alloCount,isNotify);
-			break;
-		case 3:
-			diffeDepartmentSalesmanToSalesman(task,formUserId,alloCount,isNotify);
-			break;
-		case 4:
-			diffeDepartmentSalesmanToSeas(task,formUserId,alloCount,isNotify);
-			break;
-		case 5:
-			diffeDepartmentSeasToSalesman(task,formDepartmentId,alloCount,isNotify);
-			break;
-		case 6:
-			diffeDepartmentSeasToSeas(task,formDepartmentId,alloCount,isNotify);
-			break;
-		}
+		boolean isNotify = (boolean) getMap.get("isNotify");
+		if(!isNotify){
+			Map<ProcessNoticeEnum,Map<Integer, Integer>> formSupplierId = (Map<ProcessNoticeEnum, Map<Integer, Integer>>) getMap.get("noticeMap");
+			for (Map.Entry entry : formSupplierId.entrySet()) {  
+				ProcessNoticeEnum noticeEnum = (ProcessNoticeEnum) entry.getKey();
+				Map<Integer, Integer> typeCountMap = (Map<Integer, Integer>) entry.getValue();
+				switch (noticeEnum.getValue()) {
+				case 1:
+					salesmanTosalesman(typeCountMap,task);
+					break;
+				case 2:
+					salesmanToseas(typeCountMap,task);
+					break;
+				case 3:
+					seasTosalesman(typeCountMap,task);
+					break;
+				case 4:
+					seasToseas(typeCountMap,task);
+					break;
+				}
+			}
+		}	   
 	}
 	/**
-	 * 部门A的业务员A任务转移给部门B的业务员B
-	 * @param task 任务实体
-	 * @param formUserId 被转移的业务员
-	 * @param alloCount 是否批量转移
-	 * @param isNotify 批量的是否已经已经发送通知
+	 * 业务员任务转移给业务员
+	 * @param typeCountMap
+	 * @param task
 	 */
-	private void diffeDepartmentSalesmanToSalesman(NCustomerTask task,Integer formUserId,int alloCount,boolean isNotify){
-		//1.被转移业务员和接收业务员的组织机构
-		SalesmanOrganization orgaForm = SupplierSessionManager.getSalesmanOrganization(formUserId);
+	private void salesmanTosalesman(Map<Integer, Integer> typeCountMap,NCustomerTask task){
 		SalesmanOrganization orgaTo = SupplierSessionManager.getSalesmanOrganization(task.getOwnerId());
-		String getContact = NCustomerContact.handleContact(task.getCustomer());
-		
-		//2.添加批量和单个的不同文案
-		String copyWriterForm = null;
-		String copyWriterTo = null;
-		String leaderCopyWriter = null;
-		if(alloCount >1){
-			if(!isNotify){
-				copyWriterForm = String.format("【批量转移提醒】您好，【%s】把您的%s个任务转移给【%s】的【%s】，请知悉",
-						SessionManager.getUserName(),alloCount,orgaTo.getDepartmentName(),orgaTo.getEmployeeName());
-				
-				 copyWriterTo = String.format("【批量转移提醒】您好，【%s】转移给您%s个任务，请及时跟进",
-						 SessionManager.getUserName(),alloCount);
-				 
-				 leaderCopyWriter = String.format("【批量转移提醒】您好，【%s】转移%s个任务给【%s】的【%s】，请知悉",
-						 SessionManager.getUserName(),alloCount,orgaTo.getDepartmentName(),orgaTo.getEmployeeName());
-			}
-		}else{
-			copyWriterForm = String.format("【转移提醒】您好，【%s】把您的1个任务转移给【%s】，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请知悉",
-					SessionManager.getUserName(),orgaTo.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
+		int countTo = 0;
+		//被转移业务员（N个）
+		for (Map.Entry entry : typeCountMap.entrySet()) { 
+			Integer formUserId =  (Integer) entry.getKey();
+			int alloCount = (Integer) entry.getValue();
+			countTo += alloCount;
+			SalesmanOrganization orgaForm = SupplierSessionManager.getSalesmanOrganization(formUserId);
 			
-			 copyWriterTo = String.format("【转移提醒】您好，【%s】从【%s】转移给您1个任务，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请及时跟进",
-					SessionManager.getUserName(),orgaForm.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
-			 
-			 leaderCopyWriter = String.format("【转移提醒】您好，【%s】从【%s】转移1个任务给【%s】，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请知悉",
-						SessionManager.getUserName(),orgaForm.getEmployeeName(),orgaTo.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
-		}
-		
-		//3.发送通知
-		if(copyWriterForm != null && copyWriterTo != null && leaderCopyWriter != null){
+			String copyWriterForm = String.format("【转移提醒】您好，【%s】把您的%s个任务转移给【%s】，请知悉",
+					SessionManager.getUserName(),alloCount,orgaTo.getEmployeeName());
+			String leaderCopyWriterForm = String.format("【转移提醒】您好，【%s】从【%s】转移给【%s】%s个任务，请知悉",
+					SessionManager.getUserName(),orgaForm.getEmployeeName(),orgaTo.getEmployeeName(),alloCount);
+			
 			sendNotify(task,copyWriterForm,formUserId);
-			sendNotify(task,copyWriterTo,task.getOwnerId());
-			
 			if(orgaForm.getDirectLeaderId() != null){
-				sendNotify(task,leaderCopyWriter,orgaForm.getDirectLeaderId());
+				sendNotify(task,leaderCopyWriterForm,orgaForm.getDirectLeaderId());
 			}
 			if(orgaForm.getSuperiorLeaderId() != null){
-				sendNotify(task,leaderCopyWriter,orgaForm.getSuperiorLeaderId());
-			}	
-			if(orgaTo.getDirectLeaderId() != null){
-				sendNotify(task,leaderCopyWriter,orgaTo.getDirectLeaderId());
+				sendNotify(task,leaderCopyWriterForm,orgaForm.getSuperiorLeaderId());
 			}
-			if(orgaTo.getSuperiorLeaderId() != null){
-				sendNotify(task,leaderCopyWriter,orgaTo.getSuperiorLeaderId());
-			}	
 		}
+		//接收业务员		
+		String copyWriterTo = String.format("【转移提醒】您好，【%s】转移给您%s个任务，请及时跟进",
+				SessionManager.getUserName(),countTo);
+		String leaderCopyWriterTo = String.format("【转移提醒】您好，【%s】转移给【%s】%s个任务，请知悉",
+				SessionManager.getUserName(),orgaTo.getEmployeeName(),countTo);
+		
+		sendNotify(task,copyWriterTo,task.getOwnerId());
+		
+		if(orgaTo.getDirectLeaderId() != null){
+			sendNotify(task,leaderCopyWriterTo,orgaTo.getDirectLeaderId());
+		}
+		if(orgaTo.getSuperiorLeaderId() != null){
+			sendNotify(task,leaderCopyWriterTo,orgaTo.getSuperiorLeaderId());
+		}			
 	}
 	/**
-	 * 部门A的业务员A任务转移给部门B的公海
-	 * @param task 任务实体
-	 * @param formUserId 被转移的业务员
-	 * @param alloCount 是否批量转移
-	 * @param isNotify 批量的是否已经已经发送通知
+	 * 公海任务转移给业务员
+	 * @param typeCountMap
+	 * @param task
 	 */
-	private void diffeDepartmentSalesmanToSeas(NCustomerTask task,Integer formUserId,int alloCount,boolean isNotify){
-		//1.被转移业务员和接收业务员的组织机构
-		SalesmanOrganization orgaForm = SupplierSessionManager.getSalesmanOrganization(formUserId);
-		
-		//获取接收部门的领导
+	private void seasTosalesman(Map<Integer, Integer> typeCountMap,NCustomerTask task){
+		SalesmanOrganization orgaTo = SupplierSessionManager.getSalesmanOrganization(task.getOwnerId());
+		int countTo = 0;
+		//被转移部门负责人（多个）
 		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
-		Integer leaderId = salesmanService.getLeaderId(null, task.getDepartmentId());
-		SalesmanOrganization orgaTo = SupplierSessionManager.getSalesmanOrganization(leaderId);
-		
-		String getContact = NCustomerContact.handleContact(task.getCustomer());		
-		//2.添加批量和单个的不同文案
-		String copyWriterForm = null;
-		String copyWriterTo = null;
-		String leaderCopyWriter = null;
-		if(alloCount >1){
-			if(!isNotify){
-				copyWriterForm = String.format("批量转移提醒】您好，【%s】把您的%s个任务转移给【%s】的公海，请知悉",
-						SessionManager.getUserName(),alloCount,orgaTo.getDepartmentName());
-				
-				 copyWriterTo = String.format("【批量转移提醒】您好，【%s】从【%s】的【%s】转移给您部门公海%s个任务，请及时分配跟进",
-						 SessionManager.getUserName(),orgaForm.getDepartmentName(),orgaForm.getEmployeeName(),alloCount);
-				 
-				 leaderCopyWriter = String.format("【批量转移提醒】您好，【%s】从【%s】的【%s】转移%s个任务给【%s】的公海，请知悉",
-						 SessionManager.getUserName(),orgaForm.getDepartmentName(),orgaForm.getEmployeeName(),alloCount,orgaTo.getDepartmentName());
-			}
-		}else{
-			copyWriterForm = String.format("【转移提醒】您好，【%s】把您的1个任务转移给【%s】的公海，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请知悉",
-					SessionManager.getUserName(),orgaTo.getDepartmentName(),task.getName(),task.getCustomer().getRealName(),getContact);
+		for (Map.Entry entry : typeCountMap.entrySet()) { 
+			Integer formDepartId =  (Integer) entry.getKey();
+			Integer leaderId = salesmanService.getLeaderId(null, formDepartId);
+			int alloCount = (Integer) entry.getValue();
+			countTo += alloCount;
 			
-			 copyWriterTo = String.format("【转移提醒】您好，【%s】从【%s】转移给您部门公海1个任务，待分配，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请及时分配跟进",
-					SessionManager.getUserName(),orgaForm.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
-			 
-			 leaderCopyWriter = String.format("【转移提醒】您好，【%s】从【%s】转移1个任务给【%s】的公海，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请知悉",
-						SessionManager.getUserName(),orgaForm.getEmployeeName(),orgaTo.getDepartmentName(),task.getName(),task.getCustomer().getRealName(),getContact);
-		}
-		
-		//3.发送通知
-		if(copyWriterForm != null && copyWriterTo != null && leaderCopyWriter != null){
-			sendNotify(task,copyWriterForm,formUserId);
-			sendNotify(task,copyWriterTo,leaderId);
+			SalesmanOrganization orgaForm = SupplierSessionManager.getSalesmanOrganization(leaderId);
+			String copyWriterForm = String.format("【转移提醒】您好，【%s】把您部门公海的%s个任务转移给【%s】，请知悉",
+					SessionManager.getUserName(),alloCount,orgaTo.getEmployeeName());
+			
+			String leaderCopyWriterForm = String.format("【转移提醒】您好，【%s】从【%s】的公海转移给【%s】的公海%s个任务，请知悉",
+					SessionManager.getUserName(),orgaForm.getDepartmentName(),orgaTo.getEmployeeName(),alloCount);
+			
+			sendNotify(task,copyWriterForm,leaderId);			
 			
 			if(orgaForm.getDirectLeaderId() != null){
-				sendNotify(task,leaderCopyWriter,orgaForm.getDirectLeaderId());
+				sendNotify(task,leaderCopyWriterForm,orgaForm.getDirectLeaderId());
 			}
 			if(orgaForm.getSuperiorLeaderId() != null){
-				sendNotify(task,leaderCopyWriter,orgaForm.getSuperiorLeaderId());
-			}
+				sendNotify(task,leaderCopyWriterForm,orgaForm.getSuperiorLeaderId());
+			}			
 		}
-	}
-	/**
-	 * 部门A的公海任务转移给部门B的业务员B
-	 * @param task 任务实体
-	 * @param formDepartmentId 被转移任务的部门
-	 * @param alloCount 是否批量转移
-	 * @param isNotify 批量的是否已经已经发送通知
-	 */
-	private void diffeDepartmentSeasToSalesman(NCustomerTask task,Integer formDepartmentId,int alloCount,boolean isNotify){
-		//1.被转移业务员和接收业务员的组织机构
-		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
-		Integer leaderId = salesmanService.getLeaderId(null, formDepartmentId);
-		SalesmanOrganization orgaForm = SupplierSessionManager.getSalesmanOrganization(leaderId);
-		SalesmanOrganization orgaTo = SupplierSessionManager.getSalesmanOrganization(task.getOwnerId());
+		//接收业务员		
+		String copyWriterTo = String.format("【转移提醒】您好，【%s】转移给您%s个任务，请及时跟进",
+				SessionManager.getUserName(),countTo);
+		String leaderCopyWriterTo = String.format("【转移提醒】您好，【%s】转移给【%s】%s个任务，请知悉",
+				 SessionManager.getUserName(),orgaTo.getEmployeeName(),countTo);
 		
-		String getContact = NCustomerContact.handleContact(task.getCustomer());		
-		//2.添加批量和单个的不同文案
-		String copyWriterForm = null;
-		String copyWriterTo = null;
-		String leaderCopyWriter = null;
-		if(alloCount >1){
-			if(!isNotify){
-				copyWriterForm = String.format("【批量转移提醒】您好，【%s】把您部门公海的%s个任务转移给【%s】的【%s】，请知悉",
-						SessionManager.getUserName(),alloCount,orgaTo.getDepartmentName(),orgaTo.getEmployeeName());
-				
-				 copyWriterTo = String.format("【批量转移提醒】您好，【%s】从【%s】的公海转移给您%s个任务，请及时跟进",
-						 SessionManager.getUserName(),orgaForm.getDepartmentName(),alloCount);
-				 
-				 leaderCopyWriter = String.format("【批量转移提醒】您好，【%s】从【%s】的公海转移给【%s】%s个任务，请及时安排跟进",
-						 SessionManager.getUserName(),orgaForm.getDepartmentName(),orgaTo.getEmployeeName(),alloCount);
-			}
-		}else{
-			copyWriterForm = String.format("【转移提醒】您好，【%s】把您部门公海的1个任务转移给【%s】的【%s】，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请知悉",
-					SessionManager.getUserName(),orgaTo.getDepartmentName(),orgaTo.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
-			
-			 copyWriterTo = String.format("【转移提醒】您好，【%s】从【%s】的公海转移给您1个任务，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请及时跟进",
-					SessionManager.getUserName(),orgaForm.getDepartmentName(),task.getName(),task.getCustomer().getRealName(),getContact);
-			 
-			 leaderCopyWriter = String.format("【转移提醒】您好，【%s】从【%s】的公海转移给【%s】1个任务，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请及时安排跟进",
-						SessionManager.getUserName(),orgaForm.getDepartmentName(),orgaTo.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
+		sendNotify(task,copyWriterTo,task.getOwnerId());
+		
+		if(orgaTo.getDirectLeaderId() != null){
+			sendNotify(task,leaderCopyWriterTo,orgaTo.getDirectLeaderId());
 		}
-		
-		//3.发送通知
-		if(copyWriterForm != null && copyWriterTo != null && leaderCopyWriter != null){
-			sendNotify(task,copyWriterForm,leaderId);
-			sendNotify(task,copyWriterTo,task.getOwnerId());
-			
-			if(orgaTo.getDirectLeaderId() != null){
-				sendNotify(task,leaderCopyWriter,orgaTo.getDirectLeaderId());
-			}
-			if(orgaTo.getSuperiorLeaderId() != null){
-				sendNotify(task,leaderCopyWriter,orgaTo.getSuperiorLeaderId());
-			}
-		}
-	}
-	/**
-	 * 部门A的公海任务转移给部门B的公海
-	 * @param task 任务实体
-	 * @param formDepartmentId 被转移任务的部门
-	 * @param alloCount 是否批量转移
-	 * @param isNotify 批量的是否已经已经发送通知
-	 */
-	private void diffeDepartmentSeasToSeas(NCustomerTask task,Integer formDepartmentId,int alloCount,boolean isNotify){
-		//1.被转移部门和接收部门的组织机构
-		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
-		Integer leaderIdForm = salesmanService.getLeaderId(null, formDepartmentId);
-		SalesmanOrganization orgaForm = SupplierSessionManager.getSalesmanOrganization(leaderIdForm);
-		
-		Integer leaderIdTo = salesmanService.getLeaderId(null, task.getDepartmentId());
-		SalesmanOrganization orgaTo = SupplierSessionManager.getSalesmanOrganization(leaderIdTo);
-		
-		String getContact = NCustomerContact.handleContact(task.getCustomer());		
-		//2.添加批量和单个的不同文案
-		String leaderCopyWriterTo = null;
-		String leaderCopyWriterForm = null;
-		if(alloCount >1){
-			if(!isNotify){
-				leaderCopyWriterTo = String.format("【批量转移提醒】您好，【%s】从【%s】的公海转移给您部门公海%s个任务，请及时分配跟进",
-						SessionManager.getUserName(),orgaForm.getDepartmentName(),getContact);
-				leaderCopyWriterForm = String.format("【批量转移提醒】您好，【%s】从您的部门转移%s个任务给【%s】的公海，请知悉",
-						SessionManager.getUserName(),getContact,orgaTo.getDepartmentName());
-			}
-		}else{
-			 leaderCopyWriterTo = String.format("【转移提醒】您好，【%s】从【%s】的公海转移给您部门公海1个任务，待分配任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请及时分配跟进",
-						SessionManager.getUserName(),orgaForm.getDepartmentName(),task.getName(),task.getCustomer().getRealName(),getContact);
-			 leaderCopyWriterForm = String.format("【转移提醒】您好，【%s】从您的部门转移1个任务给【%s】的公海，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请知悉",
-						SessionManager.getUserName(),orgaTo.getDepartmentName(),task.getName(),task.getCustomer().getRealName(),getContact);
-		}
-		
-		//3.发送通知
-		if(leaderCopyWriterTo != null && leaderCopyWriterForm != null){
-			sendNotify(task,leaderCopyWriterTo,leaderIdTo);
-			sendNotify(task,leaderCopyWriterForm,leaderIdForm);
-		}
-	}
-	/**
-	 * 部门内部-业务员A任务转移给业务员B
-	 * @param task 任务实体
-	 * @param formUserId 被转移的业务员
-	 * @param alloCount 是否批量转移
-	 * @param isNotify 批量的是否已经已经发送通知
-	 */
-	private void sameDepartmentSalesmanToSalesman(NCustomerTask task,Integer formUserId,int alloCount,boolean isNotify){
-		//1.被转移业务员和接收业务员的组织机构
-		SalesmanOrganization orgaForm = SupplierSessionManager.getSalesmanOrganization(formUserId);
-		SalesmanOrganization orgaTo = SupplierSessionManager.getSalesmanOrganization(task.getOwnerId());
-		String getContact = NCustomerContact.handleContact(task.getCustomer());
-		
-		//2.添加批量和单个的不同文案
-		String copyWriterForm = null;
-		String copyWriterTo = null;
-		String leaderCopyWriter = null;
-		if(alloCount >1){
-			if(!isNotify){
-				copyWriterForm = String.format("【批量转移提醒】您好，【%s】把您的%s个任务转移给【%s】，请知悉",
-						SessionManager.getUserName(),alloCount,orgaTo.getEmployeeName());
-				
-				 copyWriterTo = String.format("【批量转移提醒】您好，【%s】转移给您%s个任务，请及时跟进",
-						 SessionManager.getUserName(),alloCount);
-				 
-				 leaderCopyWriter = String.format("【批量转移提醒】您好，【%s】转移给【%s】%s个任务，请知悉",
-						 SessionManager.getUserName(),orgaTo.getEmployeeName(),alloCount);
-			}
-		}else{
-			copyWriterForm = String.format("【转移提醒】您好，【%s】把您的1个任务转移给【%s】，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请知悉",
-					SessionManager.getUserName(),orgaTo.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
-			
-			 copyWriterTo = String.format("【转移提醒】您好，【%s】从【%s】转移给您1个任务，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请及时跟进",
-					SessionManager.getUserName(),orgaForm.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
-			 
-			 leaderCopyWriter = String.format("【转移提醒】您好，【%s】从【%s】转移给【%s】1个任务，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请知悉",
-						SessionManager.getUserName(),orgaForm.getEmployeeName(),orgaTo.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
-		}
-		
-		//3.发送通知
-		if(copyWriterForm != null && copyWriterTo != null && leaderCopyWriter != null){
-			sendNotify(task,copyWriterForm,formUserId);
-			sendNotify(task,copyWriterTo,task.getOwnerId());
-			
-			if(orgaForm.getDirectLeaderId() != null){
-				sendNotify(task,leaderCopyWriter,orgaForm.getDirectLeaderId());
-			}
-			if(orgaForm.getSuperiorLeaderId() != null){
-				sendNotify(task,leaderCopyWriter,orgaForm.getSuperiorLeaderId());
-			}	
-			if(orgaTo.getDirectLeaderId() != null){
-				sendNotify(task,leaderCopyWriter,orgaTo.getDirectLeaderId());
-			}
-			if(orgaTo.getSuperiorLeaderId() != null){
-				sendNotify(task,leaderCopyWriter,orgaTo.getSuperiorLeaderId());
-			}	
-		}
+		if(orgaTo.getSuperiorLeaderId() != null){
+			sendNotify(task,leaderCopyWriterTo,orgaTo.getSuperiorLeaderId());
+		}	
 	}
 	
 	/**
-	 * 部门内部-公海任务转移给业务员B
+	 * 业务员任务转移给公海
+	 * @param typeCountMap
 	 * @param task
-	 * @param alloCount 是否批量转移
-	 * @param isNotify 批量的是否已经已经发送通知
 	 */
-	private void sameDepartmentSeasToSalesman(NCustomerTask task,int alloCount,boolean isNotify){
-		//1.公海负责人和接收业务员的组织机构
-		SalesmanOrganization orgaHighSeas = SupplierSessionManager.getSalesmanOrganization(SessionManager.getUserId());
-		SalesmanOrganization orgaTo = SupplierSessionManager.getSalesmanOrganization(task.getOwnerId());
-		String getContact = NCustomerContact.handleContact(task.getCustomer());
-		
-		//2.添加批量和单个的不同文案
-		String copyWriterHighSeas = null;
-		String copyWriterTo = null;
-		String leaderCopyWriter = null;
-		if(alloCount > 1){
-			if(!isNotify){
-				copyWriterHighSeas = String.format("【批量转移提醒】您好，【%s】把您部门公海的%s个任务转移给【%s】，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请知悉",
-						orgaHighSeas.getEmployeeName(),alloCount,orgaTo.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
-				
-				copyWriterTo = String.format("【批量转移提醒】您好，【%s】从【%s】公海转移给您%s个任务，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请及时跟进",
-						orgaHighSeas.getEmployeeName(),orgaHighSeas.getDepartmentName(),alloCount,task.getName(),task.getCustomer().getRealName(),getContact);
-				
-				 leaderCopyWriter = String.format("批量转移提醒】您好，【%s】从【%s】公海转移给【%s】%s个任务，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请知悉",
-						orgaHighSeas.getEmployeeName(),orgaHighSeas.getDepartmentName(),orgaTo.getEmployeeName(),alloCount,task.getName(),task.getCustomer().getRealName(),getContact);
-			}
-		}else {
-			 copyWriterHighSeas = String.format("【转移提醒】您好，【%s】把您部门公海的1个任务转移给【%s】，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请知悉",
-					orgaHighSeas.getEmployeeName(),orgaTo.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
-			 
-			 copyWriterTo = String.format("【转移提醒】您好，【%s】从【%s】公海转移给您1个任务，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请及时跟进",
-						orgaHighSeas.getEmployeeName(),orgaHighSeas.getDepartmentName(),task.getName(),task.getCustomer().getRealName(),getContact);
-			 
-			 leaderCopyWriter = String.format("【转移提醒】您好，【%s】从【%s】公海转移给【%s】1个任务，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请知悉",
-					orgaHighSeas.getEmployeeName(),orgaHighSeas.getDepartmentName(),orgaTo.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
-		}		
-		
-		//3.发送通知
-		if(copyWriterHighSeas != null && leaderCopyWriter != null){
-			sendNotify(task,copyWriterHighSeas,SessionManager.getUserId());
-			sendNotify(task,copyWriterTo,task.getOwnerId());
+	private void salesmanToseas(Map<Integer, Integer> typeCountMap,NCustomerTask task){
+		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
+		Integer leaderId = salesmanService.getLeaderId(task.getSupplierId(), task.getDepartmentId());
+		SalesmanOrganization orgaTo = SupplierSessionManager.getSalesmanOrganization(leaderId);
+		int countTo = 0;
+		//被转移业务员（N个）
+		for (Map.Entry entry : typeCountMap.entrySet()) { 
+			Integer formUserId =  (Integer) entry.getKey();
+			int alloCount = (Integer) entry.getValue();
+			countTo += alloCount;
+			SalesmanOrganization orgaForm = SupplierSessionManager.getSalesmanOrganization(formUserId);
 			
-			if(orgaTo.getDirectLeaderId() != null){
-				sendNotify(task,leaderCopyWriter,orgaTo.getDirectLeaderId());
+			String copyWriterForm = String.format("【转移提醒】您好，【%s】把您的%s个任务转移给【%s】的公海，请知悉",
+					SessionManager.getUserName(),alloCount,orgaTo.getDepartmentName());
+			String leaderCopyWriterForm = String.format("【转移提醒】您好，【%s】从【%s】转移给【%s】的公海%s个任务，请知悉",
+					SessionManager.getUserName(),orgaForm.getEmployeeName(),orgaTo.getDepartmentName(),alloCount);
+			
+			sendNotify(task,copyWriterForm,formUserId);
+			if(orgaForm.getDirectLeaderId() != null){
+				sendNotify(task,leaderCopyWriterForm,orgaForm.getDirectLeaderId());
 			}
-			if(orgaTo.getSuperiorLeaderId() != null){
-				sendNotify(task,leaderCopyWriter,orgaTo.getSuperiorLeaderId());
-			}	
+			if(orgaForm.getSuperiorLeaderId() != null){
+				sendNotify(task,leaderCopyWriterForm,orgaForm.getSuperiorLeaderId());
+			}
 		}
+		//接收部门负责人		
+		String copyWriterTo = String.format("【转移提醒】您好，【%s】转移给您部门公海%s个任务，请及时跟进",
+				SessionManager.getUserName(),countTo);
+		String leaderCopyWriterTo = String.format("【转移提醒】您好，【操作人】转移给【%s】的公海%s个任务，请知悉",
+				SessionManager.getUserName(),orgaTo.getDepartmentName(),countTo);
+		
+		sendNotify(task,copyWriterTo,leaderId);
+		
+		if(orgaTo.getDirectLeaderId() != null){
+			sendNotify(task,leaderCopyWriterTo,orgaTo.getDirectLeaderId());
+		}
+		if(orgaTo.getSuperiorLeaderId() != null){
+			sendNotify(task,leaderCopyWriterTo,orgaTo.getSuperiorLeaderId());
+		}			
 	}
+	/**
+	 * 公海任务转移给公海
+	 * @param typeCountMap
+	 * @param task
+	 */
+	private void seasToseas(Map<Integer, Integer> typeCountMap,NCustomerTask task){
+		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
+		Integer leaderIdTo = salesmanService.getLeaderId(task.getSupplierId(), task.getDepartmentId());
+		SalesmanOrganization orgaTo = SupplierSessionManager.getSalesmanOrganization(leaderIdTo);
+		int countTo = 0;
+		//被转移部门负责人（多个）
+		for (Map.Entry entry : typeCountMap.entrySet()) { 
+			Integer formDepartId =  (Integer) entry.getKey();
+			Integer leaderIdFrom = salesmanService.getLeaderId(null, formDepartId);
+			int alloCount = (Integer) entry.getValue();
+			countTo += alloCount;
+			
+			SalesmanOrganization orgaForm = SupplierSessionManager.getSalesmanOrganization(leaderIdFrom);
+			String copyWriterForm = String.format("【转移提醒】您好，【%s】把您部门公海的%s个任务转移给【%s】的公海，请知悉",
+					SessionManager.getUserName(),alloCount,orgaTo.getDepartmentName());
+			
+			String leaderCopyWriterForm = String.format("【转移提醒】您好，【%s】从【%s】的公海转移给【%s】的公海N个任务，请知悉",
+					SessionManager.getUserName(),orgaForm.getDepartmentName(),orgaTo.getDepartmentName(),alloCount);
+			
+			sendNotify(task,copyWriterForm,leaderIdFrom);			
+			
+			if(orgaForm.getDirectLeaderId() != null){
+				sendNotify(task,leaderCopyWriterForm,orgaForm.getDirectLeaderId());
+			}
+			if(orgaForm.getSuperiorLeaderId() != null){
+				sendNotify(task,leaderCopyWriterForm,orgaForm.getSuperiorLeaderId());
+			}			
+		}
+		//接收部门的负责人		
+		String copyWriterTo = String.format("【转移提醒】您好，【%s】转移给您部门公海%s个任务，请及时跟进",
+				SessionManager.getUserName(),countTo);
+		String leaderCopyWriterTo = String.format("【转移提醒】您好，【%s】转移给【%s】的公海%s个任务，请知悉",
+				 SessionManager.getUserName(),orgaTo.getDepartmentName(),countTo);
+		
+		sendNotify(task,copyWriterTo,leaderIdTo);
+		
+		if(orgaTo.getDirectLeaderId() != null){
+			sendNotify(task,leaderCopyWriterTo,orgaTo.getDirectLeaderId());
+		}
+		if(orgaTo.getSuperiorLeaderId() != null){
+			sendNotify(task,leaderCopyWriterTo,orgaTo.getSuperiorLeaderId());
+		}	
+	}
+
+	
 	/**
 	 * 添加通知
 	 * @param task

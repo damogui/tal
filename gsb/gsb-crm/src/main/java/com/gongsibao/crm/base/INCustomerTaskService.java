@@ -6,6 +6,7 @@ import java.util.Map;
 import org.netsharp.base.IPersistableService;
 import org.netsharp.core.annotations.Transaction;
 
+import com.gongsibao.crm.service.action.task.transfer.ProcessNoticeEnum;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
 
@@ -53,7 +54,7 @@ public interface INCustomerTaskService extends IPersistableService<NCustomerTask
 	 * 任务转移
 	 */
 	@Transaction
-	public Boolean transfer(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId, int alloCount, boolean isNotify);
+	public Boolean transfer(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId, Map<ProcessNoticeEnum,Map<Integer, Integer>> noticeMap, boolean isNotify);
 
 	/**
 	 * 抽查异常

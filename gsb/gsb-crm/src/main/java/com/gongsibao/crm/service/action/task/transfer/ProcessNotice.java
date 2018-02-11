@@ -1,5 +1,7 @@
 package com.gongsibao.crm.service.action.task.transfer;
 
+import com.gongsibao.entity.crm.NCustomerTask;
+
 /**
  * 处理转移的通知
  * @author Administrator
@@ -26,6 +28,19 @@ public class ProcessNotice {
 		}else if (formUserId == null && toUserId != null) {
 			resultEnum = ProcessNoticeEnum.seasTosalesman; 
 		}else if (formUserId == null && toUserId == null) {
+			resultEnum = ProcessNoticeEnum.seasToseas; 
+		}
+		return resultEnum;
+	}
+	public static ProcessNoticeEnum noticeType(NCustomerTask entity,Integer toSupplierId,Integer toDepartmentId,Integer toUserId){
+		ProcessNoticeEnum resultEnum = null;		
+		if(entity.getOwnerId() != null && toUserId != null){
+			resultEnum = ProcessNoticeEnum.salesmanTosalesman; 
+		}else if (entity.getOwnerId() != null && toUserId == null) {
+			resultEnum = ProcessNoticeEnum.salesmanToseas; 
+		}else if (entity.getOwnerId() == null && toUserId != null) {
+			resultEnum = ProcessNoticeEnum.seasTosalesman; 
+		}else if (entity.getOwnerId() == null && toUserId == null) {
 			resultEnum = ProcessNoticeEnum.seasToseas; 
 		}
 		return resultEnum;

@@ -18,6 +18,8 @@ import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.bd.service.SupplierPersistableService;
 import com.gongsibao.crm.base.INCustomerTaskService;
+import com.gongsibao.crm.service.action.task.transfer.ProcessNotice;
+import com.gongsibao.crm.service.action.task.transfer.ProcessNoticeEnum;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
 import com.gongsibao.entity.crm.dic.NAllocationType;
@@ -121,28 +123,23 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	@Override
 	public Boolean batchTransfer(String[] taskIdArray, Integer supplierId, Integer departmentId, Integer toUserId) {
 		//任务批量转移
-		int taskIdCount = taskIdArray.length;
+		Map<ProcessNoticeEnum,Map<Integer, Integer>> noticeMap = transgerNotice(taskIdArray,supplierId,departmentId,toUserId);
 		boolean isNotify = false;
 		for (String taskId : taskIdArray) {
 
-			this.transfer(Integer.valueOf(taskId), supplierId, departmentId, toUserId,taskIdCount,isNotify);
+			this.transfer(Integer.valueOf(taskId), supplierId, departmentId, toUserId,noticeMap,isNotify);
 			isNotify = true;
 		}
 		return true;
-
 	}
-
+	
 	@Override
-	public Boolean transfer(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId, int alloCount, boolean isNotify) {
+	public Boolean transfer(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId, Map<ProcessNoticeEnum,Map<Integer, Integer>> noticeMap, boolean isNotify) {
 		//任务转移
 		Map<String, Object> setMap = new HashMap<String, Object>();
 		NCustomerTask entity = this.byId(taskId);
-		setMap.put("formSupplierId", entity.getSupplierId());
-		setMap.put("formDepartmentId", entity.getDepartmentId());
-		setMap.put("formUserId", entity.getOwnerId());
 		
-		//1.区别批量转移
-		setMap.put("alloCount", alloCount);
+		setMap.put("noticeMap", noticeMap);
 		//2.批量转移是否已经发送通知
 		setMap.put("isNotify", isNotify);
 		
@@ -160,6 +157,49 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		return true;
 	}
 
+	/**
+	 * 生成转移类型，以及统计类型的Id和对应的数量
+	 * @param taskIdArray
+	 * @param supplierId
+	 * @param departmentId
+	 * @param toUserId
+	 * @return
+	 */
+	private Map<ProcessNoticeEnum,Map<Integer, Integer>>  transgerNotice(String[] taskIdArray, Integer supplierId, Integer departmentId, Integer toUserId){
+		Map<ProcessNoticeEnum,Map<Integer, Integer>> reusMap =new HashMap<>();
+		Map<Integer, Integer> ownerMap = new HashMap<>();
+		Map<Integer, Integer> seasMap = new HashMap<>();
+		for (String taskId : taskIdArray) {
+			NCustomerTask entity = this.byId(taskId);
+			//业务员
+			if(entity.getOwnerId() != null){
+				if(ownerMap.containsKey(entity.getOwnerId())){
+					ownerMap.put(entity.getOwnerId(), ownerMap.get(entity.getOwnerId()).intValue() + 1);
+	            }else{
+	            	ownerMap.put(entity.getOwnerId(), 1);
+	            }
+				if(toUserId != null){
+					reusMap.put(ProcessNoticeEnum.salesmanTosalesman, ownerMap);
+				}else if (toUserId == null && departmentId != null) {
+					reusMap.put(ProcessNoticeEnum.salesmanToseas, ownerMap);
+				}
+			}else if (entity.getOwnerId() == null && entity.getDepartmentId() != null) {
+				if(seasMap.containsKey(entity.getDepartmentId())){
+					seasMap.put(entity.getDepartmentId(), seasMap.get(entity.getDepartmentId()).intValue() + 1);
+	            }else{
+	            	seasMap.put(entity.getDepartmentId(), 1);
+	            }
+				if(toUserId != null){
+					reusMap.put(ProcessNoticeEnum.seasTosalesman, seasMap);
+				}else if (toUserId == null && departmentId != null) {
+					reusMap.put(ProcessNoticeEnum.seasToseas, seasMap);
+				}
+			}
+		}
+		return reusMap;
+	}
+	
+	
 	/**
 	 * 抽查异常
 	 * 
