@@ -5,14 +5,19 @@ import com.gongsibao.crm.base.*;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.*;
 import com.gongsibao.entity.crm.dic.*;
+import com.gongsibao.panda.operation.workspace.supplier.data.ImportData.Enity.ImNCustomer;
+import com.gongsibao.panda.operation.workspace.supplier.data.ImportData.IImportNCustomerService;
 import com.gongsibao.taurus.util.StringManager;
 import com.gongsibao.utils.NumberUtils;
+import jodd.typeconverter.Convert;
 import org.junit.Test;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.core.Paging;
 import org.netsharp.core.QueryParameters;
 import org.netsharp.organization.base.IRoleGroupService;
+import org.netsharp.persistence.IPersister;
+import org.netsharp.persistence.PersisterFactory;
 
 import java.sql.Types;
 import java.util.ArrayList;
@@ -216,13 +221,19 @@ public class ImportOldDataToNewData {
 
            /*客户表 crm_customer->n_crm_customer*/
         ICustomerService serviceCustomer = ServiceFactory.create (ICustomerService.class);
-        INCustomerService serviceNewCustomer = ServiceFactory.create (INCustomerService.class);//客户
+        IImportNCustomerService serviceNewCustomer = ServiceFactory.create (IImportNCustomerService.class);//新客户
 
         int totalCountExce = 0;//插入条数
         int pageSize = 100;//每100条进行处理一次
 
         StringBuilder filterBuilder = new StringBuilder ();
-        filterBuilder.append (" follow_status <>4017");//过滤掉招商渠道的
+        //读取最大的id，然后根据节点插入
+        String sql="SELECT  IFNULL(MAX(id),0) id  FROM n_crm_customer";
+        IPersister<ImNCustomer> pm = PersisterFactory.create();
+        int idMax = Convert.toInteger (pm.executeScalar(sql,null));
+
+
+        filterBuilder.append (" follow_status <>4017 and pkid>"+idMax);//过滤掉招商渠道的
         Oql oql1 = new Oql () {
         };
         oql1.setOrderby (" pkid ");
@@ -238,7 +249,8 @@ public class ImportOldDataToNewData {
             oql2.setType (Customer.class);
             StringBuilder sb = new StringBuilder ();
             sb.append ("Customer.*");
-//            sb.append ("Customer.prodDetails.");
+             //sb.append ("Customer.prodDetails.*");
+            sb.append ("Customer.prodDetails.product.*");
 
             oql2.setSelects (sb.toString ());//设置要查询的列
 
@@ -247,7 +259,7 @@ public class ImportOldDataToNewData {
 
             for (Customer item : customerList
                     ) {
-                NCustomer nCustomer = new NCustomer ();
+                ImNCustomer nCustomer = new ImNCustomer ();
                 nCustomer.setId (item.getId ());
                 nCustomer.setAccountId (item.getAccountId ());
                 nCustomer.setRealName (item.getRealName ());
@@ -356,7 +368,7 @@ public class ImportOldDataToNewData {
     }
 
     /*获取跟进日志*/
-    private List<NCustomerTaskFoolow> getFollowsByCustomer(NCustomer customer, FollowStatus oldFollowStatus) {
+    private List<NCustomerTaskFoolow> getFollowsByCustomer(ImNCustomer customer, FollowStatus oldFollowStatus) {
         ICustomerFollowService serviceCustomerFollow = ServiceFactory.create (ICustomerFollowService.class);//日志服务
         List<NCustomerTaskFoolow> list = new ArrayList<> ();
         int totalCountExce = 0;//插入条数
@@ -487,7 +499,10 @@ public class ImportOldDataToNewData {
         //nCustomerTask.setAllocationDispositon(item.get());//是否自营  回写
         nCustomerTask.setSourceId (item.getCustomerSourceId ());
         nCustomerTask.setSourceOther (item.getCustomerSourceOther ());
-        nCustomerTask.setConsultWayId (item.getConsultWay ().getValue ());//判空
+        if (item.getConsultWay ()!=null){
+            nCustomerTask.setConsultWayId (item.getConsultWay ().getValue ());//判空
+        }
+
         nCustomerTask.setConsultWayOther (item.getConsultWayOther ());
         nCustomerTask.setQualityProgress (TaskQualityProgress.INVARIABILITY);
         nCustomerTask.setCreatorId (item.getCreatorId ());
