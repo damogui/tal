@@ -7,8 +7,10 @@ public enum ConfigType  implements IEnum {
     IGIRL_JSON_IN(0, "数据源输入路径","IGIRL_JSON_IN"),
     IGIRL_JSON_OUT(1,"数据源输出路径","IGIRL_JSON_OUT"),
     IGIRL_JSON_NAME(2,"数据源文件名称","IGIRL_JSON_NAME"),
-	  IGIRL_QR_URL(3,"二纬码服务路径","IGIRL_QR_URL"),
-	  IGIRL_MOBILE_TESTURL(4,"移动端测试IP","IGIRL_MOBILE_TESTURL");
+    IGIRL_QR_URL(3,"二纬码服务路径","IGIRL_QR_URL"),
+    IGIRL_MOBILE_TESTURL(4,"移动端测试IP","IGIRL_MOBILE_TESTURL"),
+    IGIRL_TOKEN(5,"机器人token","IGIRL_TOKEN"),
+    IGIRL_TOKEN_ERR(6,"机器人异常token","IGIRL_TOKEN_ERR");
     private Integer value;
     private String text;
     private String content;

@@ -234,6 +234,7 @@ ul,li{
 	background-color: #333 !important;
 	border-bottom-color: #333 !important;
 	color: #b2b8c1;
+	border-left-width: 0px;
 }
 #west .panel-header, #west .panel-body {
     border-color: #333;
