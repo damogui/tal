@@ -229,7 +229,28 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		// List<DownloadAttachment> markShareGroupDowns =
 		// tradeMarkCaseAttachmentBuiler.buildDownloads(entity);
 		// entity.getDownLoadAttaments().addAll(markShareGroupDowns);
-
+    if(entity.getEntityState() == EntityState.Persist && entity.getTradeMarks().size()==0) {
+	    Oql oql = new Oql();
+			{
+				oql.setType(this.type);
+				oql.setSelects(
+						"TradeMarkCase.id,TradeMarkCase.uploadAttachments.*,TradeMarkCase.downLoadAttaments.*,TradeMarkCase.tradeMarks.*");
+				oql.setFilter(" id=? ");
+				oql.getParameters().add("id", entity.getId(), Types.INTEGER);
+			}
+			entity = this.queryFirst(oql);
+			List<UploadAttachment> ups = entity.getUploadAttachments();
+			for (int i = 0; i < ups.size(); i++) {
+				UploadAttachment uploadAttachment = ups.get(i);
+				uploadAttachment.setEntityState(EntityState.Deleted);
+			}
+			List<DownloadAttachment> ds = entity.getDownLoadAttaments();
+			for (int i = 0; i < ds.size(); i++) {
+				DownloadAttachment downloadAttachment = ds.get(i);
+				downloadAttachment.setEntityState(EntityState.Deleted);
+			}
+		
+        }
 		// 删除附件明细
 		if (entity.getEntityState() == EntityState.Deleted) {
 
