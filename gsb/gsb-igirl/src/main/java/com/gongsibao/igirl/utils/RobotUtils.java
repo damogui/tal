@@ -14,7 +14,6 @@ public class RobotUtils {
 //    private static String token="https://oapi.dingtalk.com/robot/send?access_token=70fcd1c17057ff2b9737d48ef167d9fee6736db7a2e9ae20de7ebc46cb15835e";
 //    private static String token_err="https://oapi.dingtalk.com/robot/send?access_token=70fcd1c17057ff2b9737d48ef167d9fee6736db7a2e9ae20de7ebc46cb15835e";
     public static void postToRobot(String msg,String token) {
-        token = "https://oapi.dingtalk.com/robot/send?access_token=34a67632e6ad189b8f5d7512b3c0e07826707c44a8e91fcc1e3d21389a36f7ff";
         HttpClient httpclient = HttpClients.createDefault();
         HttpPost httppost = new HttpPost(token);
         httppost.addHeader("Content-Type", "application/json; charset=utf-8");
