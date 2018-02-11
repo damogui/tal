@@ -65,6 +65,7 @@ public class TradeMarkListPart extends ListPart{
 			oql.setFilter(" shareGroup=? ").setFilter("attachmentCat=?").setFilter("fileUrl is not null");
 			oql.getParameters().add("shareGroup",sg.getValue(),Types.INTEGER);
 			oql.getParameters().add("attachmentCat",AttachmentCat.TRADEMARK_PICT.getValue(),Types.INTEGER);
+			oql.setOrderby("createTime desc");
 		}
 	  UploadAttachment up=us.queryFirst(oql);
 	  if(up.getFileUrl()!=null) {

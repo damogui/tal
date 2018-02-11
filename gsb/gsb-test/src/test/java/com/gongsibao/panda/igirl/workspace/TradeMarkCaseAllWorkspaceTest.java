@@ -1,5 +1,4 @@
 package com.gongsibao.panda.igirl.workspace;
-
 import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.dict.AttachmentCat;
 import com.gongsibao.entity.igirl.dict.FileType;
@@ -121,6 +120,18 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		item = new PToolbarItem();
 		{
 			item.toNew();
+			item.setCode("remove");
+			item.setIcon("fa fa-trash-o");
+			item.setName("删除");
+			item.setCommand(null);
+			item.setOperationType(ot1);
+			item.setSeq(4000);
+			item.setCommand("{controller}.remove();");
+			toolbar.getItems().add(item);
+		}
+		item = new PToolbarItem();
+		{
+			item.toNew();
 			item.setCode("save");
 			item.setIcon("fa fa-save");
 			item.setName("保存");
@@ -141,6 +152,30 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 			toolbar.setPath(downloadToolbarPath);
 			toolbar.setName("下载附件工具栏");
 			toolbar.setResourceNode(node);
+		}
+		item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("remove");
+			item.setIcon("fa fa-trash-o");
+			item.setName("删除");
+			item.setCommand(null);
+			item.setOperationType(ot1);
+			item.setSeq(4000);
+			item.setCommand("{controller}.remove();");
+			toolbar.getItems().add(item);
+		}
+		item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("save");
+			item.setIcon("fa fa-save");
+			item.setName("保存");
+			item.setCommand(null);
+			item.setOperationType(ot1);
+			item.setSeq(4000);
+			item.setCommand("{controller}.saveP();");
+			toolbar.getItems().add(item);
 		}
 		toolbarService.save(toolbar);
 		
@@ -183,6 +218,18 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		item = new PToolbarItem();
 		{
 			item.toNew();
+			item.setCode("copy");
+			item.setIcon("fa fa-copy");
+			item.setName("复制");
+			item.setCommand(null);
+			item.setOperationType(ot1);
+			item.setSeq(4000);
+			item.setCommand("{controller}.copy();");
+			toolbar.getItems().add(item);
+		}
+		item = new PToolbarItem();
+		{
+			item.toNew();
 			item.setCode("save");
 			item.setIcon("fa fa-save");
 			item.setName("保存");
@@ -202,8 +249,8 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		PDatagrid datagrid = super.createDatagrid(node);
 		datagrid.setToolbar("panda/datagrid/row/edit");
 		PDatagridColumn column = null;
-		addColumn(datagrid, "createTime", "日期", ControlTypes.DATETIME_BOX, 100, true);
 		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+		addColumn(datagrid, "createTime", "日期", ControlTypes.DATETIME_BOX, 100, true);
 		addColumn(datagrid, "code", "编号", ControlTypes.TEXT_BOX, 120, true);
 		addColumn(datagrid, "companyName", "公司名称", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "applier", "申请人", ControlTypes.TEXT_BOX, 200);
