@@ -33,7 +33,7 @@ public class CommonAttachmentBuilder implements IAttachmentBuilder {
 		ups.add(attachment1);
 
 		attachment1 =  AttachmentBuilderManager.buildUploadAttachment(tm.getMemo() + "_委托书",
-				AttachmentCat.DELEGATE_PROOF, tm.getTradeMarkCaseId(), FileType.JPGB, FileType.JPGB, tm.getId(),tm.getShareGroup());
+				AttachmentCat.DELEGATE_PROOF, tm.getTradeMarkCaseId(), FileType.JPGC, FileType.JPGC, tm.getId(),tm.getShareGroup());
 		ups.add(attachment1);
 
 		attachment1 = AttachmentBuilderManager.buildUploadAttachment(tm.getMemo() + "_补充证明", AttachmentCat.MEMO_DESC,
