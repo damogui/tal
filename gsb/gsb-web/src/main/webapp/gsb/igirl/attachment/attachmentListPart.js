@@ -97,25 +97,50 @@ org.netsharp.core.attachmentListController = System.Object.Extends({
   save: function (path,fileType,fileName) {
     	var me = this;
     	    //根据文件名称，获取商标号,按照商标号获取商标,构造
-    	lastIndex=fileName.lastIndexOf(".");
-    	var farray=fileName.substring(0,lastIndex).split("_");
-    	var state=farray[2];
-    	var markCode=farray[0];
-    	var entity = {
-								name:fileName,
-								fileExtend:fileType,
-								path:path,
-								viewCount:0,
-								downLoadCount:0,
-								foreignKey:me.foreignKey,
-								entityId:me.entityId,
-								entityState:EntityState.New
-							};
-    	    //按照markCode，state去更新商标状态并返回商标
-    	this.invoke2("updateMarkStateByUploadFiles",[entity,markCode,state],function(data){
-    	        	me.initDataGrid();
+    	if(me.foreignKey!=""){
+	    	        var entity = {
+									name:fileName,
+									fileExtend:fileType,
+									path:path,
+									viewCount:0,
+									downLoadCount:0,
+									foreignKey:me.foreignKey,
+									entityId:me.entityId,
+									entityState:EntityState.New
+								};
+	    	    //按照markCode，state去更新商标状态并返回商标
+	    	this.invoke2("updateMarkStateByUploadFiles",[entity,"",""],function(data){
+	    	        	me.initDataGrid();
+	    	
+	    	    });
+    	    }else{
+    	       lastIndex=fileName.lastIndexOf(".");
+				    	var farray=fileName.substring(0,lastIndex).split("_");
+				    	    if(farray.length==3){
+				    	    	var state=farray[2];
+							    	var markCode=farray[0];
+							    	var entity = {
+															name:fileName,
+															fileExtend:fileType,
+															path:path,
+															viewCount:0,
+															downLoadCount:0,
+															foreignKey:me.foreignKey,
+															entityId:me.entityId,
+															entityState:EntityState.New
+														};
+							    	    //按照markCode，state去更新商标状态并返回商标
+							    	this.invoke2("updateMarkStateByUploadFiles",[entity,markCode,state],function(data){
+							    	        	me.initDataGrid();
+							    	
+							    	    });
+				    	        
+				    	    }
+				    
+    	   
+    	    }
+    	    
     	
-    	    });
     },
     
     updateDownLoadCount:function(id){

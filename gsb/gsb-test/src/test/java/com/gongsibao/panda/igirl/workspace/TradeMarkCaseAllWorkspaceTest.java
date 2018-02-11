@@ -202,6 +202,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		PDatagrid datagrid = super.createDatagrid(node);
 		datagrid.setToolbar("panda/datagrid/row/edit");
 		PDatagridColumn column = null;
+		addColumn(datagrid, "createTime", "日期", ControlTypes.DATETIME_BOX, 100, true);
 		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
 		addColumn(datagrid, "code", "编号", ControlTypes.TEXT_BOX, 120, true);
 		addColumn(datagrid, "companyName", "公司名称", ControlTypes.TEXT_BOX, 200);
@@ -274,7 +275,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		
 		addFormField(form, "orderCode", "订单号", "案件信息", ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "caseAmount", "方案金额", "案件信息", ControlTypes.DECIMAL_FEN_BOX, true, false);
-		addFormField(form, "tokenImgUrl", "二维码", "案件信息", ControlTypes.IMAGE, false, true).setVisible(false);
+		addFormField(form, "tokenImgUrl", "二维码", "案件信息", ControlTypes.IMAGE, false, true);
 		addFormField(form, "tmcState", "方案状态", "案件信息", ControlTypes.ENUM_BOX, true, false).setVisible(false);
 		
 		
@@ -560,6 +561,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		addQueryItem(queryProject, "applier", "申请人", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "creator", "业务员", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "TMCState", "状态", ControlTypes.ENUM_BOX);
+		addQueryItem(queryProject, "createTime", "时间", ControlTypes.DATE_BOX).setWidth(400);
 		// PQueryItem item =addQueryItem(queryProject, "mobilePhone", "销售方式",
 		// ControlTypes.CUSTOMER);{
 		//

@@ -173,6 +173,7 @@ public class TradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		addQueryItem(queryProject, "tradeMarkCase.applier", "申请人", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "creator", "业务员", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "markState", "状态", ControlTypes.ENUM_BOX);
+		addQueryItem(queryProject, "createTime", "时间", ControlTypes.DATE_BOX).setWidth(400);
 //		PQueryItem item =addQueryItem(queryProject, "mobilePhone", "销售方式", ControlTypes.CUSTOMER);{
 //			
 //			item.setCustomerControlType(DictComboBox.class.getName());

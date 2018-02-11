@@ -7,11 +7,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.netsharp.attachment.Attachment;
+import org.netsharp.attachment.IAttachmentService;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.DataTable;
+import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
+import org.netsharp.organization.base.IEmployeeService;
+import org.netsharp.organization.entity.Employee;
 import org.netsharp.util.StringManager;
+import org.netsharp.wx.ea.base.IEaMessageService;
 
 import com.gongsibao.bd.service.GsbPersistableService;
 import com.gongsibao.entity.igirl.DownloadAttachment;
@@ -38,9 +44,10 @@ import com.gongsibao.igirl.dto.TradeMark.TradeMarkApplyInfo;
 @Service
 public class TradeMarkService extends GsbPersistableService<TradeMark> implements ITradeMarkService {
 	private final static String contantSeprate = "弌";
-
+	IAttachmentService attachmentService = ServiceFactory.create(IAttachmentService.class);
 	IUploadAttachmentService upattachementService = ServiceFactory.create(IUploadAttachmentService.class);
 	IDownloadAttachmentService downattachementService = ServiceFactory.create(IDownloadAttachmentService.class);
+	IEaMessageService eMessageService = ServiceFactory.create(IEaMessageService.class);
 
 	public TradeMarkService() {
 		super();
@@ -84,7 +91,6 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 							+ ua.getAttachmentCat().getValue();
 					// 如果指定颜色，并且是图样，那么设置key的后缀为文件类型
 					key = key + contantSeprate + ua.getFileType().getValue();
-				
 
 				}
 				if (!shareGroupToTradeMarkMap.containsKey(key)) {
@@ -116,8 +122,8 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		String step2key = tm.getTradeMarkCaseId() + contantSeprate + tm.getShareGroup().getValue() + contantSeprate
 				+ AttachmentCat.DELEGATE_PROOF.getValue();
 		// if (tm.getHasColor()) {
-		String step3key =step2key+contantSeprate + FileType.JPGB.getValue();
-		String step4key = step2key+contantSeprate + FileType.JPGC.getValue();
+		String step3key = step2key + contantSeprate + FileType.JPGB.getValue();
+		String step4key = step2key + contantSeprate + FileType.JPGC.getValue();
 		// }
 		String fileinfo = attachmentsMap.get(step3key);
 		if (!StringManager.isNullOrEmpty(fileinfo)) {
@@ -125,7 +131,7 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			String fileName = fileinfo.split(contantSeprate)[1];
 			rtnMap.put("fileUrl", fileUrl);
 			rtnMap.put("fileName", fileName);
-		}else {
+		} else {
 			String fileinfo2 = attachmentsMap.get(step4key);
 			String fileUrl = fileinfo2.split(contantSeprate)[0];
 			String fileName = fileinfo2.split(contantSeprate)[1];
@@ -184,8 +190,10 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			// 黑色
 			String stepblackkeyjpg = null;
 			String stepblackkeypng = null;
-			stepblackkeyjpg = stepbasekey+ contantSeprate + FileType.JPGB.getValue();;
-			stepblackkeypng = stepbasekey+contantSeprate + FileType.PNGB.getValue();;
+			stepblackkeyjpg = stepbasekey + contantSeprate + FileType.JPGB.getValue();
+			;
+			stepblackkeypng = stepbasekey + contantSeprate + FileType.PNGB.getValue();
+			;
 			String fileinfoblackjpg = attachmentsMap.get(stepblackkeyjpg);
 			String fileinfo2blackpng = attachmentsMap.get(stepblackkeypng);
 			if (!StringManager.isNullOrEmpty(fileinfoblackjpg)) {
@@ -209,7 +217,7 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		Map<String, String> rtnMap = new HashMap<String, String>();
 		String step2key = tm.getTradeMarkCaseId() + contantSeprate + tm.getShareGroup().getValue() + contantSeprate
 				+ AttachmentCat.MEMO_DESC.getValue();
-		step2key+=contantSeprate + FileType.JPGB.getValue();
+		step2key += contantSeprate + FileType.JPGB.getValue();
 		if (attachmentsMap.containsKey(step2key)) {
 			String fileinfo = attachmentsMap.get(step2key);
 			String fileUrl = fileinfo.split(contantSeprate)[0];
@@ -262,14 +270,15 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 
 			List<UploadAttachment> uas = tmc.getUploadAttachments();
 
-			//以下6行测试自然人使用，开发后需要改写
-      if(tmc.getApplierType().getText().equals("自然人")){
-          step2.setAppCertificateNum("120103198007215812");  //证件号码
-          step2.setAppCertificateId("身份证");              //证件名称
-          step2.setAppCertFilePath(this.getBusinessLienceAttachment(tm, shareGroupToTradeMarkMap).get("fileUrl"));//身份证明原件
-          step2.setAppCertFileName(this.getBusinessLienceAttachment(tm, shareGroupToTradeMarkMap).get("fileName"));//身份证明原件
-            }
-			//以上6行测试自然人使用，开发后需要改写
+			// 以下6行测试自然人使用，开发后需要改写
+			if (tmc.getApplierType().getText().equals("自然人")) {
+				step2.setAppCertificateNum("120103198007215812"); // 证件号码
+				step2.setAppCertificateId("身份证"); // 证件名称
+				step2.setAppCertFilePath(this.getBusinessLienceAttachment(tm, shareGroupToTradeMarkMap).get("fileUrl"));// 身份证明原件
+				step2.setAppCertFileName(
+						this.getBusinessLienceAttachment(tm, shareGroupToTradeMarkMap).get("fileName"));// 身份证明原件
+			}
+			// 以上6行测试自然人使用，开发后需要改写
 
 			step2.setCertCode(tmc.getCreditCode());
 			step2.setAppCnName(tmc.getApplier());
@@ -454,5 +463,49 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		} else {
 			return "";
 		}
+	}
+
+	private Employee getEmployee(Integer id) {
+
+		Oql oql = new Oql();
+		{
+			oql.setType(Employee.class);
+			oql.setSelects("id,loginName,mobile,email");
+			oql.setFilter("id=?");
+			oql.getParameters().add("id", id, Types.INTEGER);
+		}
+		IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
+		return employeeService.queryFirst(oql);
+	}
+
+	@Override
+	public void updateMarkStateByUploadFiles(Attachment entity, String markcode, String state) {
+		// TODO Auto-generated method stub
+		if(entity.getForeignKey()!=null) {
+			attachmentService.save(entity);
+			return;
+		}
+		Oql oql = new Oql();
+		{
+			oql.setType(TradeMark.class);
+			oql.setSelects("TradeMark.*,TradeMark.tradeMarkCase.*");
+			oql.setFilter(" code=? ");
+			oql.getParameters().add("code", markcode, Types.VARCHAR);
+		}
+		TradeMark tm = this.queryFirst(oql);
+		if (tm != null) {
+			MarkState ms = MarkState.getItemByCode(state);
+			tm.setEntityState(EntityState.Persist);
+			tm.setMarkState(ms);
+			entity.setForeignKey(tm.getId());
+			attachmentService.save(entity);
+			this.save(tm);
+			// tm.getCreatorId()
+			// 根据tm
+			Employee emp = this.getEmployee(tm.getCreatorId());
+			eMessageService.send("IGirl",
+					tm.getTradeMarkCase().getApplier() + "的商标申请:" + tm.getMemo() + "," + ms.getText()+",请及时跟进!", emp.getMobile());
+		}
+
 	}
 }
