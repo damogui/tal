@@ -15,6 +15,7 @@ import org.netsharp.core.id.IId;
 import org.netsharp.core.property.IProperty;
 import org.netsharp.entity.IEntity;
 import org.netsharp.entity.IPersistable;
+import org.netsharp.entity.Persistable;
 import org.netsharp.organization.entity.Employee;
 import org.netsharp.util.StringManager;
 
@@ -27,7 +28,7 @@ import java.util.List;
  * Created by win on 2018/2/10.
  */
 @Table(name = "n_crm_customer", header = "客户信息")
-public class ImNCustomer  implements IEntity {
+public class ImNCustomer extends Persistable implements IEntity {
     /**
      * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
      */
@@ -419,13 +420,13 @@ public class ImNCustomer  implements IEntity {
     private List<NCustomerTask> tasks;
 
     @Subs(foreignKey = "customerId", header = "意向产品", subType = NCustomerProduct.class)
-    private List<NCustomerProduct> products;
+    private List<ImNCustomerProduct> products;
 
     @Subs(foreignKey = "customerId", header = "关联企业", subType = NCustomerCompany.class)
-    private List<NCustomerCompany> companys;
+    private List<ImNCustomerCompany> companys;
 
     @Subs(foreignKey = "customerId", header = "跟进日志", subType = NCustomerTaskFoolow.class)
-    private List<NCustomerTaskFoolow> follows;
+    private List<ImNCustomerTaskFoolow> follows;
 
     @Subs(foreignKey = "customerId", header = "通知日志", subType = NCustomerTaskNotify.class)
     private List<NCustomerTaskNotify> notifys;
@@ -745,27 +746,27 @@ public class ImNCustomer  implements IEntity {
         this.tasks = tasks;
     }
 
-    public List<NCustomerProduct> getProducts() {
+    public List<ImNCustomerProduct> getProducts() {
         return products;
     }
 
-    public void setProducts(List<NCustomerProduct> products) {
+    public void setProducts(List<ImNCustomerProduct> products) {
         this.products = products;
     }
 
-    public List<NCustomerCompany> getCompanys() {
+    public List<ImNCustomerCompany> getCompanys() {
         return companys;
     }
 
-    public void setCompanys(List<NCustomerCompany> companys) {
+    public void setCompanys(List<ImNCustomerCompany> companys) {
         this.companys = companys;
     }
 
-    public List<NCustomerTaskFoolow> getFollows() {
+    public List<ImNCustomerTaskFoolow> getFollows() {
         return follows;
     }
 
-    public void setFollows(List<NCustomerTaskFoolow> follows) {
+    public void setFollows(List<ImNCustomerTaskFoolow> follows) {
         this.follows = follows;
     }
 

@@ -6,6 +6,8 @@ import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.*;
 import com.gongsibao.entity.crm.dic.*;
 import com.gongsibao.panda.operation.workspace.supplier.data.ImportData.Enity.ImNCustomer;
+import com.gongsibao.panda.operation.workspace.supplier.data.ImportData.Enity.ImNCustomerCompany;
+import com.gongsibao.panda.operation.workspace.supplier.data.ImportData.Enity.ImNCustomerTaskFoolow;
 import com.gongsibao.panda.operation.workspace.supplier.data.ImportData.IImportNCustomerService;
 import com.gongsibao.taurus.util.StringManager;
 import com.gongsibao.utils.NumberUtils;
@@ -321,7 +323,7 @@ public class ImportOldDataToNewData {
                 nCustomer.setTaskCount (listTask.size ());//0任务数量回写
                 //意向产品
                 // nCustomer.setProducts(getProductsByCustomerId(item));
-                //日志
+                //跟进日志，流转日志暂时不考虑
                 nCustomer.setFollows (getFollowsByCustomer (nCustomer, item.getFollowStatus ()));
                 //顾客关联企业
                 nCustomer.setCompanys (getCompanysByCustomer (item));
@@ -337,9 +339,9 @@ public class ImportOldDataToNewData {
     }
 
     /*获取关联企业*/
-    private List<NCustomerCompany> getCompanysByCustomer(Customer customer) {
+    private List<ImNCustomerCompany> getCompanysByCustomer(Customer customer) {
         ICustomerCompanyMapService serviceCustomerCompanyMap = ServiceFactory.create (ICustomerCompanyMapService.class);//日志服务
-        List<NCustomerCompany> listNCustomerCompany = new ArrayList<> ();
+        List<ImNCustomerCompany> listNCustomerCompany = new ArrayList<> ();
 
         Oql oql = new Oql ();
         oql.setFilter (" customer_id=" + customer.getId ());
@@ -348,7 +350,7 @@ public class ImportOldDataToNewData {
         List<CustomerCompanyMap> listOld = serviceCustomerCompanyMap.queryList (oql);
         for (CustomerCompanyMap item : listOld
                 ) {
-            NCustomerCompany ncus = new NCustomerCompany ();
+            ImNCustomerCompany ncus = new ImNCustomerCompany ();
 
             ncus.setId (item.getId ());
             ncus.setCustomerId (customer.getId ());
@@ -368,9 +370,9 @@ public class ImportOldDataToNewData {
     }
 
     /*获取跟进日志*/
-    private List<NCustomerTaskFoolow> getFollowsByCustomer(ImNCustomer customer, FollowStatus oldFollowStatus) {
+    private List<ImNCustomerTaskFoolow> getFollowsByCustomer(ImNCustomer customer, FollowStatus oldFollowStatus) {
         ICustomerFollowService serviceCustomerFollow = ServiceFactory.create (ICustomerFollowService.class);//日志服务
-        List<NCustomerTaskFoolow> list = new ArrayList<> ();
+        List<ImNCustomerTaskFoolow> list = new ArrayList<> ();
         int totalCountExce = 0;//插入条数
         int pageSize = 100;//每100条进行处理一次
 
