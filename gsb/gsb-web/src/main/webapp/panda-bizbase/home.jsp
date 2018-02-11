@@ -51,7 +51,7 @@
                 </h4>
                 <p>
                     <i class="icon icon-color wb-bell"></i> 这是您第 <%=employee.getLoginNum()%> 次登录，上次登录日期：<%=employee.getLastLoginTime()!=null?employee.getLastLoginTime():"" %>，详细信息请查看
-                    <a href="javascript:window.top.workbench.openWorkspace('登录日志','/panda/system/nlog/list','fa fa-list-ul', true,'1',null,null,null);">日志</a>，如果不是您本人登录，请及时  <a href="javascript:window.top.workbench.changePassword();">修改密码</a>。
+                    <a href="javascript:window.top.workbench.openWorkspace('登录日志','/panda/system/nlog/list?creatorId=<%=employee.getId()%>','fa fa-list-ul', true,'1',null,null,null);">日志</a>，如果不是您本人登录，请及时  <a href="javascript:window.top.workbench.changePassword();">修改密码</a>。
                 </p>
             </div>
         </div>
