@@ -101,7 +101,7 @@ public class ActionAutoAllocationPersist implements IAction {
         // 查询业务员的条件集合
         List<String> salesmanSqlWhereList = new ArrayList<String>();
         salesmanSqlWhereList.add(" disabled=0 ");// 没有停用的
-        salesmanSqlWhereList.add(" receiving=1 ");// 是否接单
+        salesmanSqlWhereList.add(" receiving=1 ");// 是否接单(是否接单)
         // 当有市场投放时，优先有市场投放的部门
         if (entity.getCosted()) {
             salesmanSqlWhereList.add(" supplier_id=" + entity.getCostSupplierId() + " ");
@@ -388,7 +388,7 @@ public class ActionAutoAllocationPersist implements IAction {
             Map<Integer, Integer> abxMap = nCustomerTaskService.getTaskCountByEmployeeIdList(employeeIdList, 2);
 
             for (Salesman salesman : taskSalesmanProducts) {
-                // 是否接受自动分配
+                // 是否接受自动分配(是否接单)
                 if (!salesman.getReceiving())
                     continue;
                 int dayCount = dayMap.get(salesman.getEmployeeId());
