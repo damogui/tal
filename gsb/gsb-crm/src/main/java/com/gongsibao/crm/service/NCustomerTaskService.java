@@ -18,7 +18,6 @@ import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.bd.service.SupplierPersistableService;
 import com.gongsibao.crm.base.INCustomerTaskService;
-import com.gongsibao.crm.service.action.task.transfer.ProcessNotice;
 import com.gongsibao.crm.service.action.task.transfer.ProcessNoticeEnum;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
