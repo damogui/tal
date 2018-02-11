@@ -10,6 +10,7 @@ import java.util.List;
 import com.gongsibao.entity.igirl.baseinfo.IGirlConfig;
 import com.gongsibao.entity.igirl.dict.ConfigType;
 import com.gongsibao.igirl.base.IGirlConfigService;
+import com.gongsibao.igirl.base.IGirlRobotService;
 import com.gongsibao.igirl.utils.JsonFormatTool;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -71,6 +72,16 @@ public class AnnoTest {
 		}
 		return arrays;
 	}
+
+	@Test
+	public void testRobot(){
+		IGirlRobotService robotService = ServiceFactory.create(IGirlRobotService.class);
+		String result = robotService.postToRobot("123123");
+		String resultErr =  robotService.postToRobotErrorMsg("1231231231");
+		System.out.println(result);
+		System.out.println(resultErr);
+	}
+
 //
 //	public void nclBatchToData() throws IOException {
 //		INCLOneService inclOneService = ServiceFactory.create(INCLOneService.class);
