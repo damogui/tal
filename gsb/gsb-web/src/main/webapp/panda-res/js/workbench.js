@@ -70,7 +70,7 @@ org.netsharp.panda.Workbench = System.Object.Extends({
                     content: iframe,
                     closable: closable,
                     selected: true,
-                    iconCls: icon
+                    //iconCls: icon
                 });
 
             } else {

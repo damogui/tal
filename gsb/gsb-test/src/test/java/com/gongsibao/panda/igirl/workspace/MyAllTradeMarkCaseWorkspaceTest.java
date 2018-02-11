@@ -4,6 +4,7 @@ import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.dict.AttachmentCat;
 import com.gongsibao.entity.igirl.dict.FileType;
 import com.gongsibao.entity.igirl.dict.MarkState;
+import com.gongsibao.entity.igirl.dict.ShareGroup;
 import com.gongsibao.igirl.web.TradeMarkCaseListPart;
 import com.gongsibao.igirl.web.TradeMarkCasePart;
 import com.gongsibao.igirl.web.TradeMarkDetailPart;
@@ -231,6 +232,11 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 				String formatter = EnumUtil.getColumnFormatter(MarkState.class);
 				column.setFormatter(formatter);
 			}
+			column = addColumn(datagrid, "shareGroup", "附件共享", ControlTypes.ENUM_BOX, 150);
+			{
+				String formatter = EnumUtil.getColumnFormatter(ShareGroup.class);
+				column.setFormatter(formatter);
+			}
 
 		}
 		PForm form = new PForm();
@@ -245,15 +251,22 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 			addFormField(form, "tradeMarkType", "商标类型", groupName, ControlTypes.ENUM_BOX, false, false);
 			addFormField(form, "whetherThirdSpace", "三维商标", groupName, ControlTypes.SWITCH_BUTTON, true, false);
 			addFormField(form, "whetherColorGroup", "颜色组合", groupName, ControlTypes.SWITCH_BUTTON, true, false);
+			addFormField(form, "hasColor", "指定颜色", groupName, ControlTypes.SWITCH_BUTTON, true, false);
 			addFormField(form, "whetherSound", "声音商标", groupName, ControlTypes.SWITCH_BUTTON, true, false);
 			addFormField(form, "whetherPersonPhoto", "以肖像注册", groupName, ControlTypes.SWITCH_BUTTON, true, false);
 			addFormField(form, "memo", "商标说明", groupName, ControlTypes.TEXT_BOX, true, false);
+			addFormField(form, "shareGroup", "附件共享", groupName, ControlTypes.ENUM_BOX, true, false);
+			formField = addFormField(form, "whetherShare", "是否共同申请", groupName, ControlTypes.SWITCH_BUTTON, false,
+					false);
+			formField.setVisible(false);
+			formField = addFormField(form, "priorityType", "是否优先权", groupName, ControlTypes.ENUM_BOX, false, false);
+			formField.setVisible(false);
 			formField = addFormFieldRefrence(form, "nclOne.name", "商标大类", null, "NCLOne", true, false);
 			{
 				formField.setTroikaTrigger("controllertradeMarks.nclOneChange(newValue,oldValue);");
 				formField.setWidth(150);
 			}
-			formField = addFormField(form, "selectedTwoStr", "商标小类", groupName, ControlTypes.TEXTAREA, false, true);
+			formField = addFormField(form, "selectedTwoStr", "所选小类", groupName, ControlTypes.TEXTAREA, false, true);
 			{
 				formField.setHeight(150);
 				formField.setFullColumn(true);

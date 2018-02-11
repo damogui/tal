@@ -10,7 +10,7 @@ public class IGirlConfig  extends Entity{
     @Column(name = "config_type", header = "申请人类型")
     private ConfigType configType;
 
-    @Column(name = "configValue",header = "类型值")
+    @Column(name = "configValue",header = "类型值",size = 255)
     private String configValue;
 
     public ConfigType getConfigType() {
