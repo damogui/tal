@@ -76,10 +76,11 @@ public class ActionTransferRecordLog implements IAction {
 		SalesmanOrganization orgaTo = SupplierSessionManager.getSalesmanOrganization(task.getOwnerId());
 		int countTo = 0;
 		//被转移业务员（N个）
-		for (Map.Entry entry : typeCountMap.entrySet()) { 
-			Integer formUserId =  (Integer) entry.getKey();
+		for (Map.Entry entry : typeCountMap.entrySet()) {
 			int alloCount = (Integer) entry.getValue();
 			countTo += alloCount;
+			
+			Integer formUserId =  (Integer) entry.getKey();
 			SalesmanOrganization orgaForm = SupplierSessionManager.getSalesmanOrganization(formUserId);
 			
 			String copyWriterForm = String.format("【转移提醒】您好，【%s】把您的%s个任务转移给【%s】，请知悉",
@@ -120,13 +121,14 @@ public class ActionTransferRecordLog implements IAction {
 		int countTo = 0;
 		//被转移部门负责人（多个）
 		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
-		for (Map.Entry entry : typeCountMap.entrySet()) { 
-			Integer formDepartId =  (Integer) entry.getKey();
-			Integer leaderId = salesmanService.getLeaderId(null, formDepartId);
+		for (Map.Entry entry : typeCountMap.entrySet()) {
 			int alloCount = (Integer) entry.getValue();
 			countTo += alloCount;
 			
+			Integer formDepartId =  (Integer) entry.getKey();
+			Integer leaderId = salesmanService.getLeaderId(null, formDepartId);
 			SalesmanOrganization orgaForm = SupplierSessionManager.getSalesmanOrganization(leaderId);
+			
 			String copyWriterForm = String.format("【转移提醒】您好，【%s】把您部门公海的%s个任务转移给【%s】，请知悉",
 					SessionManager.getUserName(),alloCount,orgaTo.getEmployeeName());
 			
@@ -169,10 +171,11 @@ public class ActionTransferRecordLog implements IAction {
 		SalesmanOrganization orgaTo = SupplierSessionManager.getSalesmanOrganization(leaderId);
 		int countTo = 0;
 		//被转移业务员（N个）
-		for (Map.Entry entry : typeCountMap.entrySet()) { 
-			Integer formUserId =  (Integer) entry.getKey();
+		for (Map.Entry entry : typeCountMap.entrySet()) {
 			int alloCount = (Integer) entry.getValue();
 			countTo += alloCount;
+			
+			Integer formUserId =  (Integer) entry.getKey();
 			SalesmanOrganization orgaForm = SupplierSessionManager.getSalesmanOrganization(formUserId);
 			
 			String copyWriterForm = String.format("【转移提醒】您好，【%s】把您的%s个任务转移给【%s】的公海，请知悉",
@@ -214,13 +217,14 @@ public class ActionTransferRecordLog implements IAction {
 		SalesmanOrganization orgaTo = SupplierSessionManager.getSalesmanOrganization(leaderIdTo);
 		int countTo = 0;
 		//被转移部门负责人（多个）
-		for (Map.Entry entry : typeCountMap.entrySet()) { 
-			Integer formDepartId =  (Integer) entry.getKey();
-			Integer leaderIdFrom = salesmanService.getLeaderId(null, formDepartId);
+		for (Map.Entry entry : typeCountMap.entrySet()) {
 			int alloCount = (Integer) entry.getValue();
 			countTo += alloCount;
 			
+			Integer formDepartId =  (Integer) entry.getKey();
+			Integer leaderIdFrom = salesmanService.getLeaderId(null, formDepartId);
 			SalesmanOrganization orgaForm = SupplierSessionManager.getSalesmanOrganization(leaderIdFrom);
+			
 			String copyWriterForm = String.format("【转移提醒】您好，【%s】把您部门公海的%s个任务转移给【%s】的公海，请知悉",
 					SessionManager.getUserName(),alloCount,orgaTo.getDepartmentName());
 			
