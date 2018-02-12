@@ -335,7 +335,13 @@ public class ImportOldDataToNewData {
                 //顾客关联企业
                 nCustomer.setCompanys (getCompanysByCustomer (item));
                 nCustomer.toNew ();
-                serviceNewCustomer.save (nCustomer);
+                try {
+                    serviceNewCustomer.save (nCustomer);
+                }
+                catch (Exception e){
+                    System.out.println (e.getMessage ());
+
+                }
                 totalCountExce += 1;
             }
 
