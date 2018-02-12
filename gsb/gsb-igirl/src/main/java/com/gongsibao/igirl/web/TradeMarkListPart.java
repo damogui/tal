@@ -48,7 +48,81 @@ public class TradeMarkListPart extends ListPart{
 	      }
 	   return map;
     }
-    
+	public String getBussinessPicUrl(Integer markId) {
+		String url="";
+		Oql oql=new Oql();{
+			oql.setType(TradeMark.class);
+			oql.setSelects("TradeMark.*,TradeMark.tradeMarkCase.*,TradeMark.tradeMarkCase.uploadAttachments.*");
+			oql.setFilter(" id=? ");
+			oql.getParameters().add("id",markId,Types.INTEGER);
+		}
+		TradeMark tm=service.queryFirst(oql);
+		ShareGroup  sg;
+		if(tm!=null){
+			sg= tm.getShareGroup();
+		}
+		else
+		{
+			return url;
+		}
+		oql=new Oql();{
+			oql.setType(UploadAttachment.class);
+			oql.setSelects("UploadAttachment.*");
+			oql.setFilter(" shareGroup=? and attachmentCat=? and tradeMarkCaseId=? and fileUrl is not null");
+			oql.getParameters().add("shareGroup",0,Types.INTEGER);
+			oql.getParameters().add("attachmentCat",AttachmentCat.BUSINESS_LIEN.getValue(),Types.INTEGER);
+			oql.getParameters().add("tradeMarkCaseId",tm.getTradeMarkCaseId(),Types.INTEGER);
+			oql.setOrderby("createTime desc");
+		}
+		UploadAttachment up=us.queryFirst(oql);
+		if(up!=null && up.getFileUrl()!=null) {
+			url=up.getFileUrl();
+		}
+		else
+		{
+			return url;
+		}
+		return url;
+	}
+
+	public String getProxyPicUrl(Integer markId) {
+		String url="";
+		Oql oql=new Oql();{
+			oql.setType(TradeMark.class);
+			oql.setSelects("TradeMark.*,TradeMark.tradeMarkCase.*,TradeMark.tradeMarkCase.uploadAttachments.*");
+			oql.setFilter(" id=? ");
+			oql.getParameters().add("id",markId,Types.INTEGER);
+		}
+		TradeMark tm=service.queryFirst(oql);
+		ShareGroup  sg;
+		if(tm!=null){
+			sg= tm.getShareGroup();
+		}
+		else
+		{
+			return url;
+		}
+		oql=new Oql();{
+			oql.setType(UploadAttachment.class);
+			oql.setSelects("UploadAttachment.*");
+			oql.setFilter(" shareGroup=? and attachmentCat=? and tradeMarkCaseId=? and fileUrl is not null");
+			oql.getParameters().add("shareGroup",sg.getValue(),Types.INTEGER);
+			oql.getParameters().add("attachmentCat",AttachmentCat.DELEGATE_PROOF.getValue(),Types.INTEGER);
+			oql.getParameters().add("tradeMarkCaseId",tm.getTradeMarkCaseId(),Types.INTEGER);
+			oql.setOrderby("createTime desc");
+		}
+		UploadAttachment up=us.queryFirst(oql);
+		if(up!=null && up.getFileUrl()!=null) {
+			url=up.getFileUrl();
+		}
+		else
+		{
+			return url;
+		}
+		return url;
+	}
+
+
   public String getTradeMarkPicUrl(Integer markId) {
 	  String url="";
 	  Oql oql=new Oql();{
@@ -58,7 +132,16 @@ public class TradeMarkListPart extends ListPart{
 			oql.getParameters().add("id",markId,Types.INTEGER);
 		}
 	  TradeMark tm=service.queryFirst(oql);
-	  ShareGroup  sg= tm.getShareGroup();
+	  ShareGroup  sg;
+	  if(tm!=null){
+	  	sg= tm.getShareGroup();
+	  }
+	  else
+	  {
+	  	return url;
+	  }
+
+
 	  oql=new Oql();{
 			oql.setType(UploadAttachment.class);
 			oql.setSelects("UploadAttachment.*");
@@ -69,9 +152,14 @@ public class TradeMarkListPart extends ListPart{
 			oql.setOrderby("createTime desc");
 		}
 	  UploadAttachment up=us.queryFirst(oql);
-	  if(up.getFileUrl()!=null) {
+
+	  if(up!=null && up.getFileUrl()!=null) {
 		  url=up.getFileUrl();
 	   }
+	   else
+	  {
+	  	return url;
+	  }
     return url;
     }
   

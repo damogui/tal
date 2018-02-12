@@ -135,7 +135,7 @@ public class DpTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		addColumn(datagrid, "tradeMarkCaseId", "案件id", ControlTypes.TEXT_BOX, 200).setVisible(false);
 		column = addColumn(datagrid, "tradeMarkCase.urgency", "紧急(小时)", ControlTypes.TEXT_BOX, 100);
 		column.setOrderbyMode(OrderbyMode.ASC);
-		column=addColumn(datagrid, "id","操作", ControlTypes.TEXT_BOX, 100);{
+		column=addColumn(datagrid, "id","操作", ControlTypes.TEXT_BOX, 200);{
 			column.setFormatter("return controllertradeMarkList.markPic(value,row,index);");
 		}
 		return datagrid;
