@@ -170,8 +170,8 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		Map<Integer, Integer> seasMap = new HashMap<>();
 		for (String taskId : taskIdArray) {
 			NCustomerTask entity = this.byId(taskId);
-			//业务员
 			if(entity.getOwnerId() != null){
+				//业务员转移
 				if(ownerMap.containsKey(entity.getOwnerId())){
 					ownerMap.put(entity.getOwnerId(), ownerMap.get(entity.getOwnerId()).intValue() + 1);
 	            }else{
@@ -181,8 +181,11 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 					reusMap.put(ProcessNoticeEnum.salesmanTosalesman, ownerMap);
 				}else if (toUserId == null && departmentId != null) {
 					reusMap.put(ProcessNoticeEnum.salesmanToseas, ownerMap);
+				}else if (toUserId == null && departmentId == null && supplierId != null) {
+					reusMap.put(ProcessNoticeEnum.salesmanToseas, ownerMap);
 				}
 			}else if (entity.getOwnerId() == null && entity.getDepartmentId() != null) {
+				//部门转移
 				if(seasMap.containsKey(entity.getDepartmentId())){
 					seasMap.put(entity.getDepartmentId(), seasMap.get(entity.getDepartmentId()).intValue() + 1);
 	            }else{
@@ -192,6 +195,8 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 					reusMap.put(ProcessNoticeEnum.seasTosalesman, seasMap);
 				}else if (toUserId == null && departmentId != null) {
 					reusMap.put(ProcessNoticeEnum.seasToseas, seasMap);
+				}else if (toUserId == null && departmentId == null && supplierId != null) {
+					reusMap.put(ProcessNoticeEnum.salesmanToseas, seasMap);
 				}
 			}
 		}

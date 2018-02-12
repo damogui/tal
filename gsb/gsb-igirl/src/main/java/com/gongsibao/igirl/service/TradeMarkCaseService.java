@@ -77,6 +77,25 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		return entity;
 	}
 
+	/**
+	 * 填充部门信息
+	 *
+	 * @param entity
+	 */
+	private TradeMarkCase fillDepartmentInfo(TradeMarkCase entity) {
+		Integer departmentId = SupplierSessionManager.getDepartmentId();
+		entity.setDepartmentId(departmentId);
+		// 设置商标的服务商id
+		String tmp="";
+		for (TradeMark tm : entity.getTradeMarks()) {
+			tm.setDepartmentId(departmentId);
+			//设置
+			tmp+=tm.getNclOne().getCode()+" ";
+		}
+		entity.setTradeOptions(tmp);
+		return entity;
+	}
+
 	private Map<ShareGroup, Integer> buildShareGroupCountMap(TradeMarkCase tmc) {
 		Map<ShareGroup, Integer> shareGroupCountMap = new HashMap<ShareGroup, Integer>();
 		for (TradeMark tm : tmc.getTradeMarks()) {
@@ -96,6 +115,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			entity.setCode(DateTime.now().toString("yyyyMMddHHmmss"));
 			// 填充加盟商信息
 			entity = fillSupplierInfo(entity);
+			entity = fillDepartmentInfo(entity);
 			if (entity.getApplierType() == ApplierType.PUBLIC) {
 				entity.setApplier(entity.getCompanyName());
 			}
@@ -122,9 +142,11 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			TradeMarkCase origin = this.queryFirst(oqlx);
 			Map<ShareGroup, Integer> shareGroupCountMap = this.buildShareGroupCountMap(origin);
 			Integer sid = SupplierSessionManager.getSupplierId();
+			Integer departmentId = SupplierSessionManager.getDepartmentId();
 			String tmp="";
 			for (TradeMark tm : entity.getTradeMarks()) {
 				tm.setSupplierId(sid);
+				tm.setDepartmentId(departmentId);
 				if (tm.getEntityState() != EntityState.Deleted) {
 					tmp+=tm.getNclOne().getCode()+" ";
 					if (!shareGroupCountMap.containsKey(tm.getShareGroup())) {

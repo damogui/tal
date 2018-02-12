@@ -31,6 +31,8 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_All_" + TradeMark.class.getSimpleName(),     "进度跟进", "/igirl/all/progress/list", 2);
 			createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_My_"  + TradeMarkCase.class.getSimpleName(), "我的方案", "/igirl/my/case/list", 3);
 			createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_My_"  +  TradeMark.class.getSimpleName(),    "我的跟进", "/igirl/my/progress/list", 4);
+			createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_Dp_"  + TradeMarkCase.class.getSimpleName(), "部门方案", "/igirl/dp/case/list", 5);
+			createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_Dp_"  + TradeMark.class.getSimpleName(),    "部门跟进", "/igirl/dp/progress/list", 6);
 
 		}
 		
