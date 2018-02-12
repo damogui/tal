@@ -25,7 +25,7 @@ public class DataApiTest {
         //region 可使用接口
 
 //        testGetByName("四川腾中重工机械有限公司");
-//        testGetCompanyByKey("腾中重工");
+        testGetCompanyByKey("腾中重工");
 //        testCompanyNameByKey("中重工有限");
 //        testGetCompanyTmList("四川腾中重工机械有限公司");
 
@@ -52,7 +52,7 @@ public class DataApiTest {
 
         //endregion
 
-        testTmAssemble("四川腾中重工机械有限公司");
+//        testTmAssemble("四川腾中重工机械有限公司");
 
 
         System.err.println("/**************************************************/");

@@ -16,7 +16,7 @@ public class CustomerAllocatedWorkspaceTest extends CustomerALLWorkspaceTest {
 		
 		entity = NCustomer.class;// 实体
 		urlList = "/operation/customer/allocated/list";// 列表的url
-		listPartName = formPartName = "未分配客户";
+		listPartName = formPartName = "已分配客户";
 		meta = MtableManager.getMtable(entity);// 获取实体元数据
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "Operation_CRM_Customer_Allocated";

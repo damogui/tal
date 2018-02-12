@@ -28,6 +28,7 @@ import com.gongsibao.entity.igirl.dict.AttachmentCat;
 import com.gongsibao.entity.igirl.dict.FileType;
 import com.gongsibao.entity.igirl.dict.MarkState;
 import com.gongsibao.igirl.base.IDownloadAttachmentService;
+import com.gongsibao.igirl.base.IGirlRobotService;
 import com.gongsibao.igirl.base.ITradeMarkService;
 import com.gongsibao.igirl.base.IUploadAttachmentService;
 import com.gongsibao.igirl.dto.TradeMark.Goods;
@@ -481,7 +482,7 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
 		return employeeService.queryFirst(oql);
 	}
-
+    IGirlRobotService rs=ServiceFactory.create(IGirlRobotService.class);
 	@Override
 	public void updateMarkStateByUploadFiles(Attachment entity, String markcode, String state) {
 		// TODO Auto-generated method stub
@@ -506,9 +507,12 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			this.save(tm);
 			// tm.getCreatorId()
 			// 根据tm
+			String msg=tm.getTradeMarkCase().getApplier() + "的商标申请:" + tm.getMemo() + "," + ms.getText()+",请及时跟进!";
 			Employee emp = this.getEmployee(tm.getCreatorId());
 			eMessageService.send("IGirl",
-					tm.getTradeMarkCase().getApplier() + "的商标申请:" + tm.getMemo() + "," + ms.getText()+",请及时跟进!", emp.getMobile());
+					msg, emp.getMobile());
+			rs.postToRobot(msg);
+			
 		}
 
 	}

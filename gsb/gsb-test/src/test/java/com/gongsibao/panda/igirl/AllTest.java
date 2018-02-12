@@ -19,6 +19,8 @@ import org.junit.runners.Suite.SuiteClasses;
 		MyAllTradeMarkCaseWorkspaceTest.class,
 		TradeMarkFollowWorkspaceTest.class,
 		MyTradeMarkFollowWorkspaceTest.class,
+		DpAllTradeMarkCaseWorkspaceTest.class,
+		DpTradeMarkFollowWorkspaceTest.class,
 		NavigationTest.class
 		})
 		

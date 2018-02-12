@@ -78,6 +78,9 @@ public class TradeMark extends Entity {
 
 	@Column(name = "whether_share", header = "是否共同申请")
 	private Boolean whetherShare = false;
+
+	@Column(name = "department_id",header = "所属部门id")
+	private Integer departmentId;
 	
 	
     public Boolean getHasColor() {
@@ -239,5 +242,13 @@ public class TradeMark extends Entity {
 //	public void setPriorityType(PriorityType priorityType) {
 //		this.priorityType = priorityType;
 //	}
-	
+
+
+	public Integer getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(Integer departmentId) {
+		this.departmentId = departmentId;
+	}
 }

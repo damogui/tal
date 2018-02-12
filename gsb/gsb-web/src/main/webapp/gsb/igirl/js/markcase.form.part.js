@@ -10,10 +10,27 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
       if(name && name!=""){
     	  this.invokeService("fetchCompanyByName", [name], function(data) {
 		       if(data){
-		    	   $("#companyName").val(data.appCnName?data.appCnName:"");
-		    	   $("#creditCode").val(data.certCode?data.certCode:"");
-		    	   $("#applier").val(data.appCnName?data.appCnName:"");
-		    	   $("#applierAddress").val(data.appCnAddr?data.appCnAddr:"");
+		    	   if(data.appCnName){
+		    		   if(data.appCnName.indexOf(name)!=-1){
+		    			   $("#companyName").val(data.appCnName);
+		    		           }
+		    	           }
+		    	    if(data.certCode){
+		    	    	 if(data.certCode.indexOf(name)!=-1){
+		    	    			$("#creditCode").val(data.certCode);
+			    		           }
+		    	           }
+		    	   if(data.appCnName){
+		    	   	 if(data.appCnName.indexOf(name)!=-1){
+		    	   		   $("#applier").val(data.appCnName);
+		    		           }
+			    	         }
+		    	    if(data.appCnAddr){
+		    	   	 if(data.appCnAddr.indexOf(name)!=-1){
+		    	   		$("#applierAddress").val(data.appCnAddr);
+		    		           }    	
+		    	           }
+		    	   
 		              }
     	        });
             	

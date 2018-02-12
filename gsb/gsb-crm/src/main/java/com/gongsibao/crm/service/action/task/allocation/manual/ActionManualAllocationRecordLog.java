@@ -62,23 +62,28 @@ public class ActionManualAllocationRecordLog implements IAction {
 	 */
 	private void allocation(NCustomerTask task){
 		String getContact = NCustomerContact.handleContact(task.getCustomer());
-		String copyWriter = String.format("【分配提醒】您好，1个新任务分配给您，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请及时跟进",
-				task.getName(),task.getCustomer().getRealName(),getContact);
+		String copyWriter = null;
 		
 		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
 		//业务员为空，通知服务商管理员或部门主管
 		if(task.getOwnerId() == null){
+			String.format("【分配提醒】您好，1个新任务待您分配，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请及时分配跟进",
+					task.getName(),task.getCustomer().getRealName(),getContact);
 			
 			Integer leaderId = salesmanService.getLeaderId(task.getSupplierId(), task.getDepartmentId());
 			sendNotify(task,copyWriter,leaderId);
 		}else{
 			
 			//通知业务员文案
+			copyWriter = String.format("【分配提醒】您好，1个新任务分配给您，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请及时跟进",
+					task.getName(),task.getCustomer().getRealName(),getContact);
 			sendNotify(task,copyWriter,task.getOwnerId());
+			
 			//通知业务员的一二级领导
 			SalesmanOrganization organization = SupplierSessionManager.getSalesmanOrganization(task.getOwnerId());
 			String leaderCopyWriter = String.format("【分配提醒】您好，1个新任务分配给【%s】，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请及时安排跟进",
 					organization.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
+			
 			if(organization.getDirectLeaderId() !=null){
 				sendNotify(task,leaderCopyWriter,organization.getDirectLeaderId());
 			}
@@ -99,14 +104,17 @@ public class ActionManualAllocationRecordLog implements IAction {
 			Integer leaderId = salesmanService.getLeaderId(task.getSupplierId(), task.getDepartmentId());
 			sendNotify(task,copyWriter,leaderId);
 		}else{
+			SalesmanOrganization organization = SupplierSessionManager.getSalesmanOrganization(task.getOwnerId());
+			
 			//通知业务员文案
 			String copyWriter = String.format("【批量分配提醒】您好，【%s】分配%s个任务给您，请及时跟进",
-					SessionManager.getUserName(),alloCount);
+					organization.getDirectLeaderName(),alloCount);
 			sendNotify(task,copyWriter,task.getOwnerId());
 			//通知业务员的一二级领导
-			SalesmanOrganization organization = SupplierSessionManager.getSalesmanOrganization(task.getOwnerId());
+			
 			String leaderCopyWriter = String.format("【批量分配提醒】您好，【%s】分配%s个任务给【%s】，请及时安排跟进",
-					SessionManager.getUserName(),alloCount,organization.getEmployeeName());
+					organization.getDirectLeaderName(),alloCount,organization.getEmployeeName());
+			
 			if(organization.getDirectLeaderId() !=null){
 				sendNotify(task,leaderCopyWriter,organization.getDirectLeaderId());
 			}

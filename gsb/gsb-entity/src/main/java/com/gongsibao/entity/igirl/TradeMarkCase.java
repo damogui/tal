@@ -124,6 +124,9 @@ public class TradeMarkCase extends Entity {
 	@Column(name = "urgency", header = "紧急程度")
 	private int urgency = 72;
 
+	@Column(name = "department_id",header = "所属部门id")
+	private Integer departmentId;
+
 	public String getCode() {
 		return code;
 	}
@@ -395,6 +398,12 @@ public class TradeMarkCase extends Entity {
 	public void setOrderCode(String orderCode) {
 		this.orderCode = orderCode;
 	}
-	
-	
+
+	public Integer getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(Integer departmentId) {
+		this.departmentId = departmentId;
+	}
 }

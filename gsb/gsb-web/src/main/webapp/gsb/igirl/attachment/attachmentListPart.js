@@ -115,7 +115,7 @@ org.netsharp.core.attachmentListController = System.Object.Extends({
 	    	    });
     	    }else{
     	       lastIndex=fileName.lastIndexOf(".");
-				    	var farray=fileName.substring(0,lastIndex).split("_");
+				    	var farray=fileName.substring(0,lastIndex).split("-");
 				    	    if(farray.length==3){
 				    	    	var state=farray[2];
 							    	var markCode=farray[0];
