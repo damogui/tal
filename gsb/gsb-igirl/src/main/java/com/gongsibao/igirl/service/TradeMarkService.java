@@ -398,9 +398,11 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		oql.setFilter("proxyCode = ?");
 		oql.getParameters().add("proxyCode", proxyCode, Types.INTEGER);
 		TradeMark tm = this.queryFirst(oql);
-		tm.setMarkState(MarkState.getItem(stateCode));
-		tm.toPersist();
-		tm = this.save(tm);
+		if (tm!=null){
+			tm.setMarkState(MarkState.getItem(stateCode));
+			tm.toPersist();
+			tm = this.save(tm);
+		}
 		return tm;
 	}
 
@@ -412,10 +414,12 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		oql.setFilter("proxyCode = ?");
 		oql.getParameters().add("proxyCode", proxyCode, Types.INTEGER);
 		TradeMark tm = this.queryFirst(oql);
-		tm.setCode(code);
-		tm.setMarkState(MarkState.getItem(stateCode));
-		tm.toPersist();
-		tm = this.save(tm);
+		if (tm!=null){
+			tm.setCode(code);
+			tm.setMarkState(MarkState.getItem(stateCode));
+			tm.toPersist();
+			tm = this.save(tm);
+		}
 		return tm;
 	}
 
