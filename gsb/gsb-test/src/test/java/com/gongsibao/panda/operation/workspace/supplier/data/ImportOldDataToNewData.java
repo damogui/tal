@@ -5,17 +5,20 @@ import com.gongsibao.crm.base.*;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.*;
 import com.gongsibao.entity.crm.dic.*;
+import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.panda.operation.workspace.supplier.data.ImportData.Enity.ImNCustomer;
 import com.gongsibao.panda.operation.workspace.supplier.data.ImportData.Enity.ImNCustomerCompany;
 import com.gongsibao.panda.operation.workspace.supplier.data.ImportData.Enity.ImNCustomerTaskFoolow;
 import com.gongsibao.panda.operation.workspace.supplier.data.ImportData.IImportNCustomerService;
 import com.gongsibao.taurus.util.StringManager;
+import com.gongsibao.u8.base.ISoOrderService;
 import com.gongsibao.utils.NumberUtils;
 import jodd.typeconverter.Convert;
 import org.junit.Test;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.core.Paging;
+import org.netsharp.core.QueryParameter;
 import org.netsharp.core.QueryParameters;
 import org.netsharp.organization.base.IRoleGroupService;
 import org.netsharp.persistence.IPersister;
@@ -52,127 +55,6 @@ public class ImportOldDataToNewData {
         System.out.println (msg);
 
 
-    }
-
-
-    /*有分享记录生成任务  NCustomerTaskService  客户任务  批量处理（废弃）*/
-    private int handleCustomerTaskShare() {
-        ICustomerShareService serviceCustomerShare = ServiceFactory.create (ICustomerShareService.class);//有分享
-        INCustomerTaskService serviceNCustomerTask = ServiceFactory.create (INCustomerTaskService.class);//任务
-
-        int totalCountExce = 0;//插入条数
-        int pageSize = 100;//每100条进行处理一次
-        Oql oql1 = new Oql () {
-        };
-        oql1.setOrderby (" pkid ");
-        int totalCustomerPage = serviceCustomerShare.queryCount (oql1) / pageSize + 1;
-        for (int i = 1; i < totalCustomerPage + 1; i++) {
-            Oql oql2 = new Oql () {
-            };
-            oql2.setOrderby (" pkid ");
-            oql2.setPaging (new Paging (i, pageSize));
-            List<CustomerShare> customerShareList = serviceCustomerShare.queryList (oql2);
-
-            for (CustomerShare item : customerShareList
-                    ) {
-                NCustomerTask nCustomerTask = new NCustomerTask ();
-
-
-                nCustomerTask.toNew ();//新增
-                serviceNCustomerTask.save (nCustomerTask);
-                totalCountExce += 1;
-            }
-
-
-        }
-
-        return 1;
-    }
-
-    /*客户任务 无分享记录 NCustomerTaskService  客户任务 批量处理（废弃）*/
-    private int handleCustomerTaskNoShare() {
-
-        ICustomerService serviceCustomer = ServiceFactory.create (ICustomerService.class);//客户
-        INCustomerTaskService serviceNCustomerTask = ServiceFactory.create (INCustomerTaskService.class);//任务
-
-        int totalCountExce = 0;//插入条数
-        int pageSize = 100;//每100条进行处理一次
-        Oql oql1 = new Oql () {
-        };
-        oql1.setOrderby (" pkid ");
-        int totalCustomerPage = serviceCustomer.queryCount (oql1) / pageSize + 1;
-        for (int i = 1; i < totalCustomerPage + 1; i++) {
-            Oql oql2 = new Oql () {
-            };
-            oql2.setOrderby (" pkid ");
-            oql2.setPaging (new Paging (i, pageSize));
-            List<Customer> customerList = serviceCustomer.queryList (oql2);
-
-            for (Customer item : customerList
-                    ) {
-                NCustomerTask nCustomerTask = new NCustomerTask ();
-                nCustomerTask.setCustomerId (item.getId ());
-                nCustomerTask.setTaskType (TaskCustomerType.OLD);//全部都是老客户  有订单的是老客户
-                nCustomerTask.setName ("");//  根据意向产品拼出来  内资公司注册-北京市-北京市-朝阳区
-
-
-//                nCustomerTask.setSupplierId(item.get());
-//                nCustomerTask.setDepartmentId(item.get());//回写
-                nCustomerTask.setOwnerId (item.getFollowUserId ());  //跟进人id  有分享记录的分享给给谁id
-                nCustomerTask.setLastAllocationTime (item.getLastFollowTime ());
-                nCustomerTask.setLastAllocationUserId (item.getFollowUserId ());
-
-                QualityInfo qualityInfo = getQualityInfoByCode (item.getFollowStatus ());//根据旧的跟进状态获取新的
-//                nCustomer.setIntentionCategory(qualityInfo.getBigCategory());//质量分类
-//                nCustomer.setQualityId(qualityInfo.getSmallCategory());/
-                nCustomerTask.setFoolowStatus (getNewFoolowStatusByOld (item.getFollowStatus ()));
-                if (item.getFollowUserId () == 0) {
-                    nCustomerTask.setFoolowStatus (CustomerFollowStatus.UNALLOCATION);//未分配
-
-                }
-                nCustomerTask.setIntentionCategory (qualityInfo.getBigCategory ());//大客户质量
-                nCustomerTask.setQualityId (qualityInfo.getSmallCategory ());//小客户质量
-                nCustomerTask.setLastFollowTime (item.getLastFollowTime ());
-                nCustomerTask.setLastFoolowUserId (item.getFollowUserId ());
-                //nCustomerTask.setLastContent(item.get());//空
-//                nCustomerTask.setNextFoolowTime();//
-//                nCustomerTask.setInspectionState(item.get());//
-//                nCustomerTask.setLastInspectionUserId(item.get());
-//                nCustomerTask.setLastInspectionTime(item.get());
-//                nCustomerTask.setLastInspectionContent(item.get());
-                nCustomerTask.setRemark (item.getRemark ());
-                nCustomerTask.setSmsRemark (item.getSmsRemark ());
-                //nCustomerTask.setCostSupplierId(item.get()); //回写
-//                nCustomerTask.setCosted(item.get());
-                nCustomerTask.setDistribut (item.getFollowUserId () > 0 ? true : false);//有ownerid是分配过
-
-                nCustomerTask.setAllocationType (NAllocationType.AUTO);
-                nCustomerTask.setAllocationState (item.getFollowUserId () > 0 ? AllocationState.ALLOCATED : AllocationState.WAIT);//有ownerid是分配过
-
-                //nCustomerTask.setAllocationDispositon(item.get());//是否自营  回写
-                nCustomerTask.setSourceId (item.getCustomerSourceId ());
-                nCustomerTask.setSourceOther (item.getCustomerSourceOther ());
-                nCustomerTask.setConsultWayId (item.getConsultWay ().getValue ());//判空
-                nCustomerTask.setConsultWayOther (item.getConsultWayOther ());
-                nCustomerTask.setQualityProgress (TaskQualityProgress.INVARIABILITY);
-                nCustomerTask.setCreatorId (item.getCreatorId ());
-                nCustomerTask.setCreator (item.getCreator ());
-                nCustomerTask.setCreateTime (item.getCreateTime ());
-                nCustomerTask.setUpdatorId (item.getUpdatorId ());
-                nCustomerTask.setUpdator (item.getUpdator ());
-                nCustomerTask.setUpdateTime (item.getUpdateTime ());
-
-
-                nCustomerTask.toNew ();//新增
-                serviceNCustomerTask.save (nCustomerTask);
-                totalCountExce += 1;
-            }
-
-
-        }
-
-
-        return 1;
     }
 
     /*旧跟进状态转成新的跟进状态*/
@@ -250,9 +132,12 @@ public class ImportOldDataToNewData {
             oql2.setPaging (new Paging (i, pageSize));
             oql2.setType (Customer.class);
             StringBuilder sb = new StringBuilder ();
-            sb.append ("Customer.*");
+            sb.append ("Customer.*,");
             //sb.append ("Customer.prodDetails.*");
+            sb.append ("Customer.prodDetails.*,");
             sb.append ("Customer.prodDetails.product.*");
+
+
 
             oql2.setSelects (sb.toString ());//设置要查询的列
 
@@ -475,7 +360,15 @@ public class ImportOldDataToNewData {
             taskName = "";//无意向产品没地区
 
         } else {
-            taskName = String.format ("%s-%s", productName, areaName);
+            if (provinceCityAndCountry.getProvinceId ()==0){
+                taskName =productName;
+            }else   {
+                taskName = String.format ("%s-%s", productName, areaName);
+
+            }
+
+
+
         }
 
 
@@ -495,6 +388,21 @@ public class ImportOldDataToNewData {
         if (item.getFollowUserId () == 0) {
             nCustomerTask.setFoolowStatus (CustomerFollowStatus.UNALLOCATION);//未分配
         }
+        //判断是否订单已经支付，支付的话  为已签单
+        //ISoOrderService  soOrderService = ServiceFactory.create (ISoOrderService.class);
+        IPersister<SoOrder> pm = PersisterFactory.create ();
+
+        String sql = "SELECT  IFNULL(MAX(paid_price),0)  FROM   so_order  WHERE  paid_price>0  AND  account_id=?";
+        QueryParameters  qps=new QueryParameters ();
+
+        qps.add ("@account_id",item.getAccountId (),Types.INTEGER);
+        int payNum = Convert.toInteger (pm.executeScalar (sql, qps));
+        if (payNum>0){
+
+            nCustomerTask.setFoolowStatus (CustomerFollowStatus.SIGNED);//已经签订订单
+        }
+
+
         nCustomerTask.setIntentionCategory (qualityInfo.getBigCategory ());//大客户质量
         nCustomerTask.setQualityId (qualityInfo.getSmallCategory ());//小客户质量
         nCustomerTask.setLastFollowTime (item.getLastFollowTime ());
@@ -552,6 +460,10 @@ public class ImportOldDataToNewData {
             nCustomerTask2.setCreator (share.getCreator ());
             nCustomerTask2.setUpdateTime (share.getUpdateTime ());
             nCustomerTask2.setCreateTime (share.getCreateTime ());
+            if (payNum>0){
+
+                nCustomerTask2.setFoolowStatus (CustomerFollowStatus.SIGNED);//已经签订订单
+            }
             nCustomerTask2.toNew ();
             list.add (nCustomerTask2);
         }
@@ -676,10 +588,6 @@ public class ImportOldDataToNewData {
     /*获取地区名称根据旧的cityId*/
     private ProvinceCityAndCountry getProvinceCityAndCountry(Integer cityId) {
         ProvinceCityAndCountry provinceCityAndCountry=new ProvinceCityAndCountry ();
-        String areaName = "";
-        String pName = "";//省
-        String cityName = "";//市
-        String countryName = "";//区县
 
         if (cityId <= 0) {
 
@@ -719,7 +627,7 @@ public class ImportOldDataToNewData {
                 //countryName = dict1.getName ();
                 dict2 = serviceDict.byId (dict1.getParentId ());
                 if (dict2 != null) {
-                    cityName = dict2.getName ();
+                    //cityName = dict2.getName ();
                     provinceCityAndCountry.setCityName (dict2.getName ());
                     provinceCityAndCountry.setCityId (dict2.getId ());
                     dict3 = serviceDict.byId (dict2.getParentId ());
@@ -762,7 +670,7 @@ public class ImportOldDataToNewData {
 
         }
 
-        provinceCityAndCountry.setAreaName (String.format ("%s-%s-%s", pName, cityName, countryName));
+        provinceCityAndCountry.setAreaName (String.format ("%s-%s-%s", provinceCityAndCountry.getProvinceName (), provinceCityAndCountry.getCityName (), provinceCityAndCountry.getCountryName ()));
 
         return provinceCityAndCountry;
 

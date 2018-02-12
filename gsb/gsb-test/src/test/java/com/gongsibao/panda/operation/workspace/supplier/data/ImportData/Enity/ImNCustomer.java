@@ -419,13 +419,13 @@ public class ImNCustomer extends Persistable implements IEntity {
     @Subs(foreignKey = "customerId", header = "客户任务", subType = NCustomerTask.class)
     private List<NCustomerTask> tasks;
 
-    @Subs(foreignKey = "customerId", header = "意向产品", subType = NCustomerProduct.class)
+    @Subs(foreignKey = "customerId", header = "意向产品", subType = ImNCustomerProduct.class)
     private List<ImNCustomerProduct> products;
 
-    @Subs(foreignKey = "customerId", header = "关联企业", subType = NCustomerCompany.class)
+    @Subs(foreignKey = "customerId", header = "关联企业", subType = ImNCustomerCompany.class)
     private List<ImNCustomerCompany> companys;
 
-    @Subs(foreignKey = "customerId", header = "跟进日志", subType = NCustomerTaskFoolow.class)
+    @Subs(foreignKey = "customerId", header = "跟进日志", subType = ImNCustomerTaskFoolow.class)
     private List<ImNCustomerTaskFoolow> follows;
 
     @Subs(foreignKey = "customerId", header = "通知日志", subType = NCustomerTaskNotify.class)
