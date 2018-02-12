@@ -156,4 +156,11 @@ public interface INCustomerTaskService extends IPersistableService<NCustomerTask
 	 * @return
 	 */
 	public Map<Integer, Integer> getTaskCountByEmployeeIdList(List<Integer> employeeIdList, Integer type);
+	
+	
+	/**
+	 * 获取公海中未分配任务的服务商/部门，以及对应的条数（Job用）
+	 * @return
+	 */
+	public Map<Integer, Integer> getAssignmentCountBySeas();
 }
