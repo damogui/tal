@@ -1,5 +1,6 @@
 package com.gongsibao.crm.base;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -159,8 +160,15 @@ public interface INCustomerTaskService extends IPersistableService<NCustomerTask
 	
 	
 	/**
-	 * 获取公海中未分配任务的服务商/部门，以及对应的条数（Job用）
+	 * 获取公海中未分配任务的服务商/部门，以及对应的条数（待分配通知-Job用）
 	 * @return
 	 */
 	public Map<Integer, Integer> getAssignmentCountBySeas();
+	
+	/**
+	 * 获取当前时间等于任务下次预约时间，的任务集合（待跟进提醒-Job用）。
+	 * @param time
+	 * @return
+	 */
+	public List<NCustomerTask> getUnFoolowList(Date time);
 }

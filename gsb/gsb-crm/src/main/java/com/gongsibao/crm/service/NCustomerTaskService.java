@@ -461,4 +461,17 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		}
 		return resMap;
 	}
+
+	@Override
+	public List<NCustomerTask> getUnFoolowList(Date time) {
+		Oql oql = new Oql();
+		{
+			oql.setType(NCustomerTask.class);
+			oql.setSelects("*");
+			oql.setFilter("next_foolow_time = ?");
+			oql.getParameters().add("@next_foolow_time", time, Types.DATE);
+		}
+		List<NCustomerTask> taskList = this.pm.queryList(oql);
+		return taskList;
+	}
 }
