@@ -32,7 +32,7 @@ public class CaseShareAttachmentBuilder implements IAttachmentBuilder {
 		List<UploadAttachment> ups=new ArrayList<UploadAttachment>();
 		// TODO Auto-generated method stub
 		UploadAttachment attachment2 =  AttachmentBuilderManager.buildUploadAttachment("营业执照",
-				AttachmentCat.BUSINESS_LIEN, tm.getTradeMarkCaseId(), FileType.JPGB, FileType.PDF, TradeMarkBizLienseID,ShareGroup.CASESHARRE);
+				AttachmentCat.BUSINESS_LIEN, tm.getTradeMarkCaseId(), FileType.PDF, FileType.PDF, TradeMarkBizLienseID,ShareGroup.CASESHARRE);
 		//attachment2.setTradeMarkCase(tm.getTradeMarkCase());
 		ups.add(attachment2);
 

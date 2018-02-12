@@ -139,6 +139,38 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 						
 						shareGroupCountMap.put(tm.getShareGroup(), 1);
 //						if( entity.getTradeMarks().size()==1) {//如果当前商标项是1，那么就增加营业执照
+						
+						// 查看当前tm原先的分组
+						ShareGroup sg = null;
+						for (TradeMark tm1 : origin.getTradeMarks()) {
+							if (tm1.getId() == tm.getId()) {
+								sg = tm1.getShareGroup();
+								break;
+							}
+						}
+						if (sg != tm.getShareGroup()) {
+							// 当前修改了分组，查看原先分组的计数，如果原先分组是1，那么修改后，应该删除原先分组对应的附件
+							if (sg!=null && shareGroupCountMap.get(sg) == 1) {
+								// 删除原先分组及对应的附件
+								shareGroupCountMap.remove(sg);
+								List<UploadAttachment> ups = entity.getUploadAttachments();
+								for (int i = 0; i < ups.size(); i++) {
+									UploadAttachment uploadAttachment = ups.get(i);
+									if (uploadAttachment.getShareGroup() == sg) {
+										uploadAttachment.setEntityState(EntityState.Deleted);
+									}
+								}
+								List<DownloadAttachment> ds = entity.getDownLoadAttaments();
+								for (int i = 0; i < ds.size(); i++) {
+									DownloadAttachment downloadAttachment = ds.get(i);
+									if (downloadAttachment.getShareGroup() == sg) {
+										downloadAttachment.setEntityState(EntityState.Deleted);
+									}
+
+								}
+							}
+
+						}
 //							
 //						}
 					} else {// 修改后目标分组在map中
@@ -276,11 +308,11 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		Integer sid = SupplierSessionManager.getSupplierId();
 		Supplier sl = supplierServcie.byId(sid);
 		TradeMarkCase tc = super.newInstance();
-		tc.setYwPhone("010-84927588");
+//		tc.setYwPhone("010-84927588");
 		tc.setMailCode("100000");
-		tc.setFax("010-84927588");	
+//		tc.setFax("010-84927588");	
 		tc.setYwPhone(sl.getFax());
-		tc.setMailCode(sl.getPostCode());
+		//tc.setMailCode(sl.getPostCode());
 		tc.setFax(sl.getFax());
 		// 查出当前登陆人办的最后一个案子，取出案件联系人，然后赋予初值
 		Oql oql = new Oql();

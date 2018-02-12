@@ -69,8 +69,13 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
 
 
 com.gongsibao.igirl.web.DownloadAttachmentDetailPart=org.netsharp.panda.commerce.DetailPart.Extends( {
-
-
+	ctor: function () {
+        this.base();
+        
+    },
+	 saveP:function(){
+	    	this.parent.save();
+	    },
 
 });
 
@@ -90,6 +95,15 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
 	  ctor: function () {
 	        this.base();
 	        
+	    },
+	  copy:function(){
+		  var row=controllertradeMarks.datagrid.datagrid('getSelected');
+		  if(row!=null){
+			  delete row.id;
+			  controllertradeMarks.datagrid.datagrid('appendRow',row);
+		    }else{
+		    IMessageBox.warn("请选择要复制的行！");
+		    }
 	    },
 	  saveP:function(){
 	    	this.parent.save();
