@@ -11,6 +11,7 @@ import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.authorization.UserPermissionManager;
 import org.netsharp.communication.Service;
+import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
 import org.netsharp.util.StringManager;
@@ -21,10 +22,13 @@ import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.crm.service.action.task.transfer.ProcessNoticeEnum;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
+import com.gongsibao.entity.crm.dic.AllocationState;
 import com.gongsibao.entity.crm.dic.NAllocationType;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
+import com.gongsibao.supplier.base.ISalesmanService;
 import com.gongsibao.utils.DateUtils;
+import com.gongsibao.utils.SalesmanOrganization;
 import com.gongsibao.utils.SupplierSessionManager;
 
 @Service
@@ -423,5 +427,51 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 			entity.setOwner(UserPermissionManager.getUserPermission().getEmployee());
 		}
 		return entity;
+	}
+
+	@Override
+	public Map<Integer, Integer> getAssignmentCountBySeas() {
+		Map<Integer, Integer> resMap = new HashMap<Integer, Integer>();
+		Oql oql = new Oql();
+		{
+			oql.setType(NCustomerTask.class);
+			oql.setSelects("*");
+			oql.setFilter("allocationState = ?");
+			oql.getParameters().add("@allocationState", AllocationState.WAIT.getValue(), Types.INTEGER);
+		}
+		List<NCustomerTask> reslist = this.pm.queryList(oql);
+		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
+		for (NCustomerTask item : reslist) {
+			Integer leaderId = salesmanService.getLeaderId(item.getSupplierId(), item.getDepartmentId());
+			SalesmanOrganization orgaForm = SupplierSessionManager.getSalesmanOrganization(leaderId);
+			
+			//统计部门，及部门下的待分配任务的数量
+			if(resMap.containsKey(leaderId)){
+				resMap.put(leaderId, resMap.get(leaderId).intValue() + 1);
+            }else{
+            	resMap.put(leaderId, 1);
+            }
+			
+			//统计服务商，及服务商下的待分配任务的数量
+			if(resMap.containsKey(orgaForm.getAdminId())){
+				resMap.put(orgaForm.getAdminId(), resMap.get(orgaForm.getAdminId()).intValue() + 1);
+            }else{
+            	resMap.put(orgaForm.getAdminId(), 1);
+            }			
+		}
+		return resMap;
+	}
+
+	@Override
+	public List<NCustomerTask> getUnFoolowList(Date time) {
+		Oql oql = new Oql();
+		{
+			oql.setType(NCustomerTask.class);
+			oql.setSelects("*");
+			oql.setFilter("next_foolow_time = ?");
+			oql.getParameters().add("@next_foolow_time", time, Types.DATE);
+		}
+		List<NCustomerTask> taskList = this.pm.queryList(oql);
+		return taskList;
 	}
 }
