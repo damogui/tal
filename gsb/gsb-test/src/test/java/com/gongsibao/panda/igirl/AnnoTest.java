@@ -12,6 +12,7 @@ import com.gongsibao.entity.igirl.dict.ConfigType;
 import com.gongsibao.igirl.base.IGirlConfigService;
 import com.gongsibao.igirl.base.IGirlRobotService;
 import com.gongsibao.igirl.utils.JsonFormatTool;
+import com.gongsibao.utils.SupplierSessionManager;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.commons.io.FileUtils;
@@ -80,6 +81,12 @@ public class AnnoTest {
 		String resultErr =  robotService.postToRobotErrorMsg("1231231231");
 		System.out.println(result);
 		System.out.println(resultErr);
+	}
+
+	@Test
+	public void testDepartment(){
+		String departmentIds = SupplierSessionManager.getSubDepartmentIdsStr();
+		System.out.println(departmentIds);
 	}
 
 //

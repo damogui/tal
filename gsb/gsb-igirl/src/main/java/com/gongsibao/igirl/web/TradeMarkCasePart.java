@@ -2,6 +2,7 @@ package com.gongsibao.igirl.web;
 import java.sql.Types;
 import java.util.List;
 
+import com.gongsibao.utils.SupplierSessionManager;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
 import org.netsharp.core.Oql;
@@ -32,6 +33,8 @@ public class TradeMarkCasePart extends FormPart {
 		//this.getContext().getWorkspace().ge
 		//获取当前的域名
 		TradeMarkCase entity1=(TradeMarkCase)entity;
+		Integer departmentId = SupplierSessionManager.getDepartmentId();
+		entity1.setDepartmentId(departmentId);
 		entity1.setTokenImgUrl(this.fetchQrCodeUrl(entity1.getMobile()));
 		return super.save(entity1);
 	}
