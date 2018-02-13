@@ -434,8 +434,8 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		Map<Integer, Integer> resMap = new HashMap<Integer, Integer>();
 		Oql oql = new Oql();
 		{
-			oql.setType(NCustomerTask.class);
-			oql.setSelects("*");
+			oql.setType(this.type);
+			oql.setSelects("NCustomerTask.*,NCustomerTask.customer.*,");
 			oql.setFilter("allocationState = ?");
 			oql.getParameters().add("@allocationState", AllocationState.WAIT.getValue(), Types.INTEGER);
 		}
@@ -446,32 +446,38 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 			SalesmanOrganization orgaForm = SupplierSessionManager.getSalesmanOrganization(leaderId);
 			
 			//统计部门，及部门下的待分配任务的数量
-			if(resMap.containsKey(leaderId)){
-				resMap.put(leaderId, resMap.get(leaderId).intValue() + 1);
-            }else{
-            	resMap.put(leaderId, 1);
-            }
+			if(orgaForm.getEmployeeId() != null){
+				if(resMap.containsKey(orgaForm.getEmployeeId())){
+					resMap.put(orgaForm.getEmployeeId(), resMap.get(leaderId).intValue() + 1);
+	            }else{
+	            	resMap.put(orgaForm.getEmployeeId(), 1);
+	            }
+			}
 			
 			//统计服务商，及服务商下的待分配任务的数量
-			if(resMap.containsKey(orgaForm.getAdminId())){
-				resMap.put(orgaForm.getAdminId(), resMap.get(orgaForm.getAdminId()).intValue() + 1);
-            }else{
-            	resMap.put(orgaForm.getAdminId(), 1);
-            }			
+			if(orgaForm.getAdminId() != null){
+				if(resMap.containsKey(orgaForm.getAdminId())){
+					resMap.put(orgaForm.getAdminId(), resMap.get(orgaForm.getAdminId()).intValue() + 1);
+	            }else{
+	            	resMap.put(orgaForm.getAdminId(), 1);
+	            }	
+			}		
 		}
 		return resMap;
 	}
 
 	@Override
 	public List<NCustomerTask> getUnFoolowList(Date time) {
+		String getTimeString = DateUtils.formatDate(time,"yyyy-MM-dd");
 		Oql oql = new Oql();
 		{
-			oql.setType(NCustomerTask.class);
-			oql.setSelects("*");
+			oql.setType(this.type);
+			oql.setSelects("NCustomerTask.*,NCustomerTask.customer.*,");
 			oql.setFilter("next_foolow_time = ?");
-			oql.getParameters().add("@next_foolow_time", time, Types.DATE);
+			oql.getParameters().add("@next_foolow_time", getTimeString, Types.DATE);
 		}
 		List<NCustomerTask> taskList = this.pm.queryList(oql);
 		return taskList;
 	}
+	
 }

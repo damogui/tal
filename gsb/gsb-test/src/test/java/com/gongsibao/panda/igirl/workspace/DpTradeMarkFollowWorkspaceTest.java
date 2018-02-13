@@ -12,9 +12,7 @@ import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.dic.OrderbyMode;
-import org.netsharp.panda.entity.PDatagrid;
-import org.netsharp.panda.entity.PDatagridColumn;
-import org.netsharp.panda.entity.PQueryProject;
+import org.netsharp.panda.entity.*;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
@@ -26,6 +24,7 @@ public class DpTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 
 		super.setup();
 		urlList = "/igirl/dp/progress/list";
+		urlForm = "/igirl/dp/progress/form";
 		entity = TradeMark.class;
 		meta = MtableManager.getMtable(entity);
 		resourceNodeCode = "IGIRL_Dp_TradeMark";
@@ -135,12 +134,24 @@ public class DpTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		addColumn(datagrid, "tradeMarkCaseId", "案件id", ControlTypes.TEXT_BOX, 200).setVisible(false);
 		column = addColumn(datagrid, "tradeMarkCase.urgency", "紧急(小时)", ControlTypes.TEXT_BOX, 100);
 		column.setOrderbyMode(OrderbyMode.ASC);
-		column=addColumn(datagrid, "id","操作", ControlTypes.TEXT_BOX, 100);{
+		column=addColumn(datagrid, "id","操作", ControlTypes.TEXT_BOX, 200);{
 			column.setFormatter("return controllertradeMarkList.markPic(value,row,index);");
 		}
 		return datagrid;
 	}
 
+	@Override
+	protected PForm createForm(ResourceNode node) {
+
+		PForm form = new PForm(node, this.formPartName);
+		{
+			form.setColumnCount(1);
+		}
+		PFormField field = null;
+		addFormField(form, "code", "商标号", null, ControlTypes.TEXT_BOX, false,false);
+		addFormField(form, "markState", "申请状态", null, ControlTypes.ENUM_BOX, true,false);
+		return form;
+	}
 
 	@Override
 	protected PQueryProject createQueryProject(ResourceNode node) {

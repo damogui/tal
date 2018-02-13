@@ -5,22 +5,47 @@ com.gongsibao.igirl.web.TradeMarkListPart = org.netsharp.panda.commerce.ListPart
 		this.base();
 	},
 	markPic:function(value,row,index){
-		var html='<a href="#" onclick="controllertradeMarkList.openMarkPic('
-        +row.id+')">图样</a> &nbsp;'
-		         +'<a href="#" onclick="controllertradeMarkList.totmcase('
-		                  +row.tradeMarkCaseId+')">案件</a>'
+		var html='<a href="#" onclick="controllertradeMarkList.openBussinessPic('+row.id+')">营业执照</a> &nbsp;'
+			+'<a href="#" onclick="controllertradeMarkList.openProxyPic('+row.id+')">委托书</a> &nbsp;'
+			+'<a href="#" onclick="controllertradeMarkList.openMarkPic('+row.id+')">图样</a> &nbsp;'
+		         +'<a href="#" onclick="controllertradeMarkList.totmcase('+row.tradeMarkCaseId+')">案件</a>';
 		return html;
 	},
+
+    openBussinessPic:function(markid){
+        this.invokeService("getBussinessPicUrl",[markid],function (url) {
+            if(url && url!=""){
+                window.open(url)
+            }else{
+                IMessageBox.warning("当前案子的营业执照还未上传！");
+            }
+
+        });
+    },
+
+
+    openProxyPic:function(markid){
+        this.invokeService("getProxyPicUrl",[markid],function (url) {
+            if(url && url!=""){
+                window.open(url)
+            }else{
+                IMessageBox.warning("当前案子的委托书还未上传！");
+            }
+
+        });
+    },
+
+
 	openMarkPic:function(markid){
-		this.invokeService("getTradeMarkPicUrl",[markid],function (url) {
-			 if(url && url!=""){
-				 window.open(url)
-			 }else{
-				 IMessageBox.warning("当前商标的图样还未上传！");
-			 }
-			   
-		 });    
-	},
+        this.invokeService("getTradeMarkPicUrl",[markid],function (url) {
+            if(url && url!=""){
+                window.open(url)
+            }else{
+                IMessageBox.warning("当前商标的图样还未上传！");
+            }
+
+        });
+    },
 	autoSubmit:function(type){
 		var rows=this.getSelections();
         if (rows.length <= 0) {

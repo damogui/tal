@@ -30,7 +30,7 @@ public class MyTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 
 		super.setup();
 		urlList = "/igirl/my/progress/list";
-		//urlForm = "/igirl/nclone/form";
+		urlForm = "/igirl/my/progress/form";
 
 		entity = TradeMark.class;
 		meta = MtableManager.getMtable(entity);
@@ -142,12 +142,24 @@ public class MyTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		addColumn(datagrid, "tradeMarkCaseId", "案件id", ControlTypes.TEXT_BOX, 200).setVisible(false);
 		column = addColumn(datagrid, "tradeMarkCase.urgency", "紧急(小时)", ControlTypes.TEXT_BOX, 100);
 		column.setOrderbyMode(OrderbyMode.ASC);
-		column=addColumn(datagrid, "id","操作", ControlTypes.TEXT_BOX, 100);{
+		column=addColumn(datagrid, "id","操作", ControlTypes.TEXT_BOX, 200);{
 			column.setFormatter("return controllertradeMarkList.markPic(value,row,index);");
 		}
 		return datagrid;
 	}
 
+	@Override
+	protected PForm createForm(ResourceNode node) {
+
+		PForm form = new PForm(node, this.formPartName);
+		{
+			form.setColumnCount(1);
+		}
+		PFormField field = null;
+		addFormField(form, "code", "商标号", null, ControlTypes.TEXT_BOX, false,false);
+		addFormField(form, "markState", "申请状态", null, ControlTypes.ENUM_BOX, true,false);
+		return form;
+	}
 
 	@Override
 	protected PQueryProject createQueryProject(ResourceNode node) {
