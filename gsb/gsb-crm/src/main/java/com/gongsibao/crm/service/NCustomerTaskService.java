@@ -468,13 +468,31 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
 	@Override
 	public List<NCustomerTask> getUnFoolowList(Date time) {
-		String getTimeString = DateUtils.formatDate(time,"yyyy-MM-dd");
+		String getTime = DateUtils.formatDate(time,"yyyy-MM-dd");
 		Oql oql = new Oql();
 		{
 			oql.setType(this.type);
 			oql.setSelects("NCustomerTask.*,NCustomerTask.customer.*,");
 			oql.setFilter("next_foolow_time = ?");
-			oql.getParameters().add("@next_foolow_time", getTimeString, Types.DATE);
+			oql.getParameters().add("@next_foolow_time", getTime, Types.DATE);
+		}
+		List<NCustomerTask> taskList = this.pm.queryList(oql);
+		return taskList;
+	}
+
+	@Override
+	public List<NCustomerTask> getNoStartList(Date time) {
+		String getTime = DateUtils.formatDate(time,"yyyy-MM-dd HH:mm:ss");
+		List<String> whereList = new ArrayList<String>();
+		whereList.add(" distribut =1");
+		whereList.add(" foolow_status = 6");
+		whereList.add(" owner_id is not NULL");
+		whereList.add(" last_allocation_time >= '" + getTime + "' ");
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects("NCustomerTask.*,NCustomerTask.customer.*,");
+			oql.setFilter(StringManager.join(" and ", whereList));
 		}
 		List<NCustomerTask> taskList = this.pm.queryList(oql);
 		return taskList;
