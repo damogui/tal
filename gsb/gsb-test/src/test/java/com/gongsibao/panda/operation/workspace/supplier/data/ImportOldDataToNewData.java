@@ -347,7 +347,11 @@ public class ImportOldDataToNewData {
             CustomerProdMap customerProdMap = item.getProdDetails ().get (0);//都会有意向产品
             productName = customerProdMap.getProduct ().getName ();
             provinceCityAndCountry = getProvinceCityAndCountry (customerProdMap.getCityId ());//从意向产品中读取
-            areaName=provinceCityAndCountry.getAreaName ();//从实体中读取拼接的地区的名称
+            if (provinceCityAndCountry!=null){
+
+                areaName=provinceCityAndCountry.getAreaName ();//从实体中读取拼接的地区的名称
+            }
+
         }
 
 
@@ -591,7 +595,7 @@ public class ImportOldDataToNewData {
 
         if (cityId <= 0) {
 
-            return provinceCityAndCountry;
+            return null;
         }
         IDictService serviceDict = ServiceFactory.create (IDictService.class);
         Dict dict1 = serviceDict.byId (cityId);
@@ -649,9 +653,6 @@ public class ImportOldDataToNewData {
             List<Dict> list2 = serviceDict.byParentId (cityId);
             if (list2 != null && list2.size () > 0) {
                 dict2 = list2.get (0);
-            }
-
-            if (dict2 != null) {
                 //cityName = dict2.getName ();
                 provinceCityAndCountry.setCityName (dict2.getName ());
                 provinceCityAndCountry.setCityId (dict2.getId ());
@@ -664,8 +665,9 @@ public class ImportOldDataToNewData {
                     provinceCityAndCountry.setCountryId (dict3.getId ());
                 }
 
-
             }
+
+
 
 
         }
