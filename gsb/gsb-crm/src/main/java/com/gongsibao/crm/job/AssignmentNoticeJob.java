@@ -4,16 +4,14 @@ import java.util.Map;
 
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.job.core.IJob;
-import org.netsharp.persistence.session.SessionManager;
 
 import com.gongsibao.crm.base.INCustomerTaskNotifyService;
 import com.gongsibao.crm.base.INCustomerTaskService;
-import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.crm.dic.NotifyType;
 
 /**
- * 待分配通知
+ * 待分配通知(调度时间没定？)
  * @author Administrator
  *
  */

@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.job.core.IJob;
-import org.netsharp.persistence.session.SessionManager;
 
 import com.gongsibao.crm.base.INCustomerTaskNotifyService;
 import com.gongsibao.crm.base.INCustomerTaskService;
@@ -17,7 +16,7 @@ import com.gongsibao.utils.SalesmanOrganization;
 import com.gongsibao.utils.SupplierSessionManager;
 
 /**
- * 待跟进提醒
+ * 待跟进提醒(调度时间没定？-每天8点)
  * @author Administrator
  *
  */
