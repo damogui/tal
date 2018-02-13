@@ -68,7 +68,7 @@ public enum MarkState implements IEnum {
         }
         return null;
     }
-    @JsonCreator
+  
     public static MarkState getItemByCode(String code) {
 
         for (MarkState item : values()) {
