@@ -127,6 +127,10 @@ public class SellingDemandDTO {
     }
 
     public void setCode(String code) {
+        if (code==null)
+        {
+            code="";
+        }
         this.code = code;
     }
 
@@ -135,6 +139,11 @@ public class SellingDemandDTO {
     }
 
     public void setCompanyName(String companyName) {
+        if (companyName==null)
+        {
+            companyName="";
+        }
+
         this.companyName = companyName;
     }
 
@@ -279,6 +288,10 @@ public class SellingDemandDTO {
     }
 
     public void setLicenseAdvantage(String licenseAdvantage) {
+        if (licenseAdvantage==null)
+        {
+            licenseAdvantage="";
+        }
         this.licenseAdvantage = licenseAdvantage;
     }
 
@@ -304,6 +317,10 @@ public class SellingDemandDTO {
     }
 
     public void setCompanyFeatureStr(String companyFeatureStr) {
+        if (companyFeatureStr==null)
+        {
+            companyFeatureStr="";
+        }
         this.companyFeatureStr = companyFeatureStr;
     }
 
@@ -312,6 +329,10 @@ public class SellingDemandDTO {
     }
 
     public void setCompanyNatureStr(String companyNatureStr) {
+        if (companyNatureStr==null)
+        {
+            companyNatureStr="";
+        }
         this.companyNatureStr = companyNatureStr;
     }
 
@@ -320,6 +341,10 @@ public class SellingDemandDTO {
     }
 
     public void setProvinceStr(String provinceStr) {
+        if (provinceStr==null)
+        {
+            provinceStr="";
+        }
         this.provinceStr = provinceStr;
     }
 
@@ -328,6 +353,10 @@ public class SellingDemandDTO {
     }
 
     public void setRegistDateStr(String registDateStr) {
+        if (registDateStr==null)
+        {
+            registDateStr="";
+        }
         this.registDateStr = registDateStr;
     }
 
@@ -336,6 +365,10 @@ public class SellingDemandDTO {
     }
 
     public void setCityStr(String cityStr) {
+        if (cityStr==null)
+        {
+            cityStr="";
+        }
         this.cityStr = cityStr;
     }
 
@@ -344,6 +377,10 @@ public class SellingDemandDTO {
     }
 
     public void setTaxModeStr(String taxModeStr) {
+        if (taxModeStr==null)
+        {
+            taxModeStr="";
+        }
         this.taxModeStr = taxModeStr;
     }
 
@@ -352,6 +389,10 @@ public class SellingDemandDTO {
     }
 
     public void setCompanyTypeStr(String companyTypeStr) {
+        if (companyTypeStr==null)
+        {
+            companyTypeStr="";
+        }
         this.companyTypeStr = companyTypeStr;
     }
 
@@ -360,6 +401,10 @@ public class SellingDemandDTO {
     }
 
     public void setSelingStatusStr(String selingStatusStr) {
+        if (selingStatusStr==null)
+        {
+            selingStatusStr="";
+        }
         this.selingStatusStr = selingStatusStr;
     }
 
@@ -368,6 +413,10 @@ public class SellingDemandDTO {
     }
 
     public void setAddressStr(String addressStr) {
+        if (addressStr==null)
+        {
+            addressStr="";
+        }
         this.addressStr = addressStr;
     }
 
@@ -385,6 +434,7 @@ public class SellingDemandDTO {
     }
 
     public void setIntangibleAssetssList(List<String> intangibleAssetssList) {
+
         this.intangibleAssetssList = intangibleAssetssList;
     }
 
