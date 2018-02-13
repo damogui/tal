@@ -171,4 +171,11 @@ public interface INCustomerTaskService extends IPersistableService<NCustomerTask
 	 * @return
 	 */
 	public List<NCustomerTask> getUnFoolowList(Date time);
+	
+	/**
+	 * 获取业务员在规定的时间内未跟进时，的任务集合（未启动提醒-Job用）。
+	 * @param time
+	 * @return
+	 */
+	public List<NCustomerTask> getNoStartList(Date time);
 }
