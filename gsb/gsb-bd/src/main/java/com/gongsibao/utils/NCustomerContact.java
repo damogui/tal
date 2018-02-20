@@ -18,14 +18,11 @@ public class NCustomerContact {
 		String getContact = "";
 		if(!customer.getMobile().isEmpty()){
 			getContact = customer.getMobile().substring(0,4) + "****" + customer.getMobile().substring(customer.getMobile().length()-3,customer.getMobile().length());
-		}
-		if(!customer.getTelephone().isEmpty()){
+		}else if(!customer.getTelephone().isEmpty()){
 			getContact = customer.getTelephone().substring(0,2) + "****" + customer.getTelephone().substring(customer.getTelephone().length()-2,customer.getTelephone().length());
-		}
-		if(!customer.getWeixin().isEmpty()){
+		}else if(!customer.getWeixin().isEmpty()){
 			getContact = customer.getWeixin().substring(0,2) + "****" + customer.getWeixin().substring(customer.getWeixin().length()-2,customer.getWeixin().length());
-		}
-		if(!customer.getQq().isEmpty()){
+		}else if(!customer.getQq().isEmpty()){
 			getContact = customer.getQq().substring(0,2) + "****" + customer.getQq().substring(customer.getQq().length()-2,customer.getQq().length());
 		}
 		return getContact;

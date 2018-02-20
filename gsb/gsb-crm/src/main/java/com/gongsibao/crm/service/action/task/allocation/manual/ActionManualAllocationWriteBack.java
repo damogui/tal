@@ -1,5 +1,7 @@
 package com.gongsibao.crm.service.action.task.allocation.manual;
 
+import java.util.Date;
+
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.persistence.IPersister;
@@ -26,6 +28,7 @@ public class ActionManualAllocationWriteBack implements IAction {
 			updateSql.set("owner_id", task.getOwnerId());
 			//updateSql.set("allocation_state", task.getAllocationState()  AllocationState.ALLOCATED.getValue());
 			updateSql.set("allocation_state", task.getAllocationState().getValue());
+			updateSql.set("last_allocation_time",new Date());
 			updateSql.set("allocation_type", NAllocationType.MANUAL.getValue());
 			updateSql.set("distribut", true);
 			updateSql.where("id =" + task.getId());
