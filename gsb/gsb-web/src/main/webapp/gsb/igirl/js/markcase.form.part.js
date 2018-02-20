@@ -55,7 +55,11 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
     	    //请求获取生成二位码的服务url
     	if(newValue && newValue!=""){
     	    	this.invokeService("fetchQrCodeUrl", [newValue], function(data) {
-    	    		$("#tokenImgUrl").attr("src",data);
+    	    		var qarray= data.split("|");
+    	    		var url=qarray[0];
+    	    		var q=encodeURIComponent(qarray[1])
+    	    		     //   alert(data)
+    	    		$("#tokenImgUrl").attr("src",url+q);
     	         	});
     	    }
     },

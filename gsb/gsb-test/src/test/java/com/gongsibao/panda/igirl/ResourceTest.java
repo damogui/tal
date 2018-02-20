@@ -7,6 +7,8 @@ import com.gongsibao.entity.igirl.baseinfo.IGirlConfig;
 import com.gongsibao.entity.igirl.baseinfo.NCLOne;
 import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
 import com.gongsibao.entity.igirl.baseinfo.NclBatch;
+import com.gongsibao.entity.igirl.baseinfo.SupplierNewInfo;
+import com.gongsibao.entity.igirl.baseinfo.SupplierSiteInfo;
 import com.gongsibao.igirl.base.*;
 import org.junit.Before;
 import org.netsharp.meta.base.ResourceCreationBase;
@@ -42,12 +44,19 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(TradeMark.class.getName(), "部门跟进", "IGIRL_Dp_"+TradeMark.class.getSimpleName(), ITradeMarkService.class.getName(), node1.getId());
 		}
 		
+		node1 = this.createResourceNodeCategory("微门户", "GSB_IGIRL_SITE", node.getId());
+		{
+			this.createResourceNodeVoucher(SupplierSiteInfo.class.getName(), "站点信息", "IGRIL_SITE_" + SupplierSiteInfo.class.getSimpleName(), ISupplierSiteInfoService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(SupplierNewInfo.class.getName(), "最新资讯", "IGRIL_SITE_" + SupplierNewInfo.class.getSimpleName(), ISupplierNewInfoService.class.getName(), node1.getId());
+		}
+		
 		node1 = this.createResourceNodeCategory("基础信息", "GSB_IGIRL_BASE", node.getId());
 		{
 			this.createResourceNodeVoucher(NCLOne.class.getName(), "商标大类", "IGRIL_BASE_" + NCLOne.class.getSimpleName(), INCLOneService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCLTwo.class.getName(), "商标小类", "IGRIL_BASE_" +NCLTwo.class.getSimpleName(), INCLTwoService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NclBatch.class.getName(), "尼斯期间", "NCL_All_" + NclBatch.class.getSimpleName(), INclBatchService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(IGirlConfig.class.getName(), "参数设置", "IGRIL_BASE_" + IGirlConfig.class.getSimpleName(), IGirlConfigService.class.getName(), node1.getId());
+			
 		}
 	}
 }

@@ -5,10 +5,13 @@ import com.gongsibao.entity.igirl.DownloadAttachment;
 import com.gongsibao.entity.igirl.TradeMark;
 import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.UploadAttachment;
+import com.gongsibao.entity.igirl.baseinfo.IGirlConfig;
 import com.gongsibao.entity.igirl.dict.ApplierType;
+import com.gongsibao.entity.igirl.dict.ConfigType;
 import com.gongsibao.entity.igirl.dict.ShareGroup;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.igirl.base.IDownloadAttachmentService;
+import com.gongsibao.igirl.base.IGirlConfigService;
 import com.gongsibao.igirl.base.ITradeMarkCaseService;
 import com.gongsibao.igirl.base.ITradeMarkService;
 import com.gongsibao.igirl.base.IUploadAttachmentService;
@@ -367,5 +370,31 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			oql.getParameters().add("mobile", mobile, Types.VARCHAR);
 		}
 		return this.queryFirst(oql);
+	}
+
+	@Override
+	public String fetchQrCodeUrl(String mobile,String url) {
+		// TODO Auto-generated method stub
+		IGirlConfigService girlConf=ServiceFactory.create(IGirlConfigService.class);
+		Oql oql=new Oql();{
+			oql.setType(IGirlConfig.class);
+			oql.setSelects("IGirlConfig.*");
+			oql.setFilter("configType=? or configType=?");
+			oql.getParameters().add("configType",ConfigType.IGIRL_QR_URL.getValue(),Types.INTEGER);
+			oql.getParameters().add("configType",ConfigType.IGIRL_MOBILE_TESTURL.getValue(),Types.INTEGER);
+		}
+		List<IGirlConfig> configs=girlConf.queryList(oql);
+		String qcurl="";
+		if(configs.size()==1) {
+			//qcurl="{qrServiceUrl}/qc?detailLink= {currentDomain}/gsb/igirl/tmcase.html?mobile="+mobile;
+			qcurl="{qrServiceUrl}/qc?detailLink=|{currentDomain}/gsb/igirl/mobile/main.html#/?spid="+SupplierSessionManager.getSupplierId()+"&mobile="+mobile+"&source=case";
+			qcurl=qcurl.replace("{qrServiceUrl}", configs.get(0).getConfigValue()).replace("{currentDomain}", url);
+			
+		}
+		if(configs.size()==2) {
+			qcurl="{qrServiceUrl}/qc?detailLink=|{currentDomain}/gsb/igirl/mobile/main.html#/?spid="+SupplierSessionManager.getSupplierId()+"&mobile="+mobile+"&source=case";
+			qcurl=qcurl.replace("{qrServiceUrl}", configs.get(0).getConfigValue()).replace("{currentDomain}", configs.get(1).getConfigValue());
+		}
+		return qcurl;
 	}
 }

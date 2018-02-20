@@ -36,9 +36,9 @@ public class TradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		resourceNodeCode = "IGIRL_All_TradeMark";
 		formPartName = listPartName = meta.getName();
-		formOpenMode = OpenMode.WINDOW;
-		openWindowWidth = 800;
-		openWindowHeight = 600;
+//		formOpenMode = OpenMode.WINDOW;
+//		openWindowWidth = 800;
+//		openWindowHeight = 600;
 		listToolbarPath="/igirl/tradeMark/list";
 		listPartServiceController = TradeMarkListPart.class.getName();
 		listPartJsController=TradeMarkListPart.class.getName();
