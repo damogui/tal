@@ -1,6 +1,6 @@
+var ip="http://192.168.10.109:3000";
 $(function(){
-	//
-	axios.get("http://192.168.43.207:3000/vue/comp/base").then(function(res){
+	axios.get(ip+"/vue/comp/base").then(function(res){
 	   console.log(res)
 	   res.data.forEach(function(comp){
 		      var obj=eval("("+comp+")");
@@ -8,23 +8,27 @@ $(function(){
 	      });
 	     
 	}).catch(function(reason){
-		console.log("ddd")
 		console.log(reason)
-	})
-})
+	});
+});
 
 var tms={
 		template:'<div>tm search</div>',
 		created:function(){		
 		}
 }
-var tm={
-		template:'<gsb-nav></gsb-nav>',
-		created:function(){
-				
+//var tm={
+//		template:'<div class="container-fluid"><gsb-nav>商标智能申请</gsb-nav></div>',
+//}
+var pt={template:'<gsb-accordion :items="tms"></gsb-accordion>',
+	data:function(){
+		return {
+			tms:[
+				{id:"1",name:"商标选项1",desc:"okokok"},{id:"2",name:"商标选项2",desc:"okokok"},
+			]
 		}
+	}
 }
-var pt={template:'<div>patent</div>'}
 var cr={template:'<div>copyright</div>'}
 var def={
 		template:'<div>defalut</div>',
@@ -33,31 +37,35 @@ var def={
 			
 		}
 }
-//var c3=()=>Promise.resolve(new Promise(function(resolve,reject){
-//	//异步加载组件
-//	axios.get("http://192.168.43.207:3000/vue/comp").then(function(res){
-//		console.log(res.data.template)
-//		resolve(res.data);
-//	}).catch(function(reason){
-//		console.log(reason)
-//	})
-//	
-//}))
-
-//Vue.component('async-example', function (resolve, reject) {
-//	  setTimeout(function () {
-//	    // 将组件定义传入 resolve 回调函数
-//	    resolve({
-//	      template: '<div>I am async!</div>'
-//	    })
-//	  }, 1000)
-//})
+var tm=()=>Promise.resolve(new Promise(function(resolve,reject){
+	//异步加载组件
+	axios.get(ip+"/vue/comp/tm").then(function(res){	
+		 var obj=eval("("+res.data+")");
+		 console.log(obj)
+		 resolve(obj);
+	}).catch(function(reason){
+		console.log(reason)
+	})
+	
+}))
+var tmc=()=>Promise.resolve(new Promise(function(resolve,reject){
+	//异步加载组件
+	axios.get(ip+"/vue/comp/tmconfirm").then(function(res){	
+		 var obj=eval("("+res.data+")");
+		 console.log(obj)
+		 resolve(obj);
+	}).catch(function(reason){
+		console.log(reason)
+	})
+	
+}))
 
 var routes=[
 	{path:'/',component:def},
 	{path:'/tms',component:tms},
 	{path:'/tm',component:tm},
-	{path:'/pt',component:pt},
+	{path:'/tmc',component:tmc},//案件确认
+	{path:'/pt',component:tmc},
 	{path:'/cr',component:cr},
 ]
 var router=new VueRouter({
@@ -85,25 +93,56 @@ var app = new Vue({
 		  return{
 			  logo:"",
 			  loopImgs:[],
-			  spid:""
+			  spid:"",
+			  source:"",
+			  mobile:""
 		  }
 	  },
 	  created:function(){
-		    console.log("root vue created...")
+		  console.log("root vue created...")
 		  me=this;
 		  $("#navDiv").height($(window).height());
 		  var spid=this.$router.history.current.query.spid;
+		    console.log(this.$router.history.current.query)
 		  me.spid=spid;
+		  if(this.$router.history.current.query.source){
+			     me.source=this.$router.history.current.query.source;
+		    }
+		  if(this.$router.history.current.query.mobile){
+			     me.mobile=this.$router.history.current.query.mobile;
+		    }
 		  //获取当前站点的信息
-  		siteCtl.invoke(ctlServiceStr,"fetchSiteInfo",[spid],function(d){
-  			    console.log(d)
-			      me.logo=d.logoUrl;
-  			    d.loopImgs.forEach(function(url){
-  			    	    console.log(url)
-  			    me.loopImgs.push(url);
-  			    });
-			      
-		   });
-		 	  
+//  		siteCtl.invoke(ctlServiceStr,"fetchSiteInfo",[spid],function(d){
+//  			    console.log(d)
+//			      me.logo=d.logoUrl;
+//  			    d.loopImgs.forEach(function(url){
+//  			    	    console.log(url)
+//  			          me.loopImgs.push(url);
+//  			           });
+//  			          //判断url来源，如果是案件，那么就跳转到案件商标页面
+//  			   if(me.source!=""){
+//  				         me.$router.push({path:"/tmc",query:{spid:me.spid,mobile:me.mobile,source:me.source}})
+//  			           }
+//			      
+//		   });
+		   this.fetchData();
+	  },
+	  methods:{
+		  fetchData:function(){
+			    me=this;
+		  		siteCtl.invoke(ctlServiceStr,"fetchSiteInfo",[me.spid],function(d){
+	  			    console.log(d)
+				      me.logo=d.logoUrl;
+	  			    d.loopImgs.forEach(function(url){
+	  			    	    console.log(url)
+	  			          me.loopImgs.push(url);
+	  			           });
+	  			          //判断url来源，如果是案件，那么就跳转到案件商标页面
+	  			   if(me.source!=""){
+	  				         me.$router.push({path:"/tmc",query:{spid:me.spid,mobile:me.mobile,source:me.source}})
+	  			           }
+				      
+			   });
+		  }
 	  }
 });

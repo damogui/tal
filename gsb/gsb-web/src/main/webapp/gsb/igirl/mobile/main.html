@@ -20,11 +20,9 @@
 		<script src="./res/fa/svg-with-js/js/fontawesome-all.min.js"></script>
 <style>
 body {
-	//font-size:62.5%
-	font-color:#eee
 }
 #kpMain{
-	  background-color:#fff
+	  background-color:#fff;
 }
 .flex-box {
    display:flex;
@@ -40,28 +38,41 @@ body {
     width:100%;
     font-size:1.2rem;
 }
-.flex-item:nth-child(2){
-    #flex-grow:1;
-   
+.flex-item:nth-child(3){
+     height:90px;
 }
-
-.menu-color{
+.menucolor{
     background: rgba(10,10,10,0.8);
     text-align:left;
-    font-size:1rem
+    font-size:1rem;
 }
-.nav-link{
-    color:white!important
- }
- .router-link-active{
-     color:orange
- }
+.menulink{
+   color:white;
+}
 .router-link-c{
-    color:black;
-    font-size:1rem
+   font-size:1rem;
+   color:#666;
 }
-a:focus{
-  color:orange
+.router-link-active{
+   color:orange;
+ }
+.container-fluid{
+  padding:0px;
+  margin:0px;
+}
+a,.btn-link{
+   color:#666;
+   font-size:1rem;
+}
+a:focus,.btn-link:focus{
+  text-decoration:none;
+  color:#666;
+}
+a:active,.btn-link:active{
+  text-decoration:none;
+  color:#666;
+}
+.btn-link{
 }
 </style>
 </head>
@@ -70,26 +81,25 @@ a:focus{
 	        <div id="content" class="flex-box">
 			         <router-view class="container-fluid"></router-view>
          </div> 
-            
 	        <div id="navDiv" class="flex-box">
 	            <div class="flex-item">
-					        <nav class="navbar navbar-expand-lg navbar-light" style="z-index:100;">
-	                  <a class="navbar-brand" href="#"><image class="img-thumbcontentnail" style="width:30px;height:30px;margin-left:-15px" :src="logo"/></a>
-									  <button class="navbar-toggler" style="margin-right:-13px" type="button" data-toggle="collapse" 
+					        <nav class="navbar navbar-expand-lg navbar-light" style="z-index:100;padding:0px">
+	                  <a class="navbar-brand" href="#"><image class="img-thumbcontentnail" style="width:30px;height:30px;margin-left:2px" :src="logo"/></a>
+									  <button class="navbar-toggler" style="margin-right:2px" type="button" data-toggle="collapse" 
 										  data-target="#navbarSupportedContent" 
 										  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 									    <span class="navbar-toggler-icon"></span>
 									  </button>
-										<div class="collapse navbar-collapse menu-color"   id="navbarSupportedContent">
+										<div class="collapse navbar-collapse menucolor" style="width:100%"   id="navbarSupportedContent">
 										    <ul class="navbar-nav mr-auto">
 										      <li class="nav-item">
-										        <router-link class="nav-link" to="/foo">小小贴士</router-link>
+										        <router-link class="menulink"  to="/foo">小小贴士</router-link>
 										      </li>
 										      <li class="nav-item">
-										        <router-link class="nav-link" to="/foo">最新资讯</router-link>
+										        <router-link class="menulink" to="/foo">最新资讯</router-link>
 										      </li>
 										     <li class="nav-item">
-										        <router-link class="nav-link" to="/foo">小贴士</router-link>
+										        <router-link class="menulink" to="/foo">小贴士</router-link>
 										      </li>
 										    </ul>  
 										</div>
@@ -99,7 +109,7 @@ a:focus{
 	              <div id="carouselExampleSlidesOnly" class="carousel slide"  data-ride="carousel">
 									  <div class="carousel-inner">
 									    <div v-for="(imgurl,index) in loopImgs" class="carousel-item"   :class="{active:index==1}">
-									      <image class="d-block w-100" style="height:300px"   v-bind:src="imgurl" alt="First slide">
+									      <image class="d-block w-100" style="height:200px"   v-bind:src="imgurl" alt="First slide">
 									    </div>
 									  </div>
                  </div>
@@ -115,7 +125,7 @@ a:focus{
                 </router-link>
 			        </div>
 			        <div class="flex-item">
-			            <router-link class="router-link-c"  to="/tm"><i class="fas fa-volleyball-ball"></i>&nbsp;&nbsp;商标</router-link>
+			            <router-link  class="router-link-c"  to="/tm"><i class="fas fa-volleyball-ball"></i>&nbsp;&nbsp;商标</router-link>
 			            <p></p>
 			        </div>
 			        <div class="flex-item">
@@ -129,7 +139,6 @@ a:focus{
          </div>
 	</div>
 </body>
-
 <script src="/package/easyui/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="./res/bs4/js/bootstrap.min.js"></script>
