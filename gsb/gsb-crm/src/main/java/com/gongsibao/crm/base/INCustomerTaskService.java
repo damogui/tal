@@ -173,6 +173,13 @@ public interface INCustomerTaskService extends IPersistableService<NCustomerTask
 	public List<NCustomerTask> getUnFoolowList(Date time);
 	
 	/**
+	 * 获取当前时间大于任务下次预约时间，的任务集合（超时通知提醒-Job用）。
+	 * @param time
+	 * @return
+	 */
+	public List<NCustomerTask> getTimeOutList(Date time);
+	
+	/**
 	 * 获取业务员在规定的时间内未跟进时，的任务集合（未启动提醒-Job用）。
 	 * @param time
 	 * @return

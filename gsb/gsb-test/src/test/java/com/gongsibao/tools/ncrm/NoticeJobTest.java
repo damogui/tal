@@ -1,7 +1,6 @@
 package com.gongsibao.tools.ncrm;
 
-import com.gongsibao.crm.job.NoStartNoticeJob;
-import com.gongsibao.crm.job.UnFoolowNoticeJob;
+import com.gongsibao.crm.job.TimeoutNoticeJob;
 
 public class NoticeJobTest {
 
@@ -15,13 +14,16 @@ public class NoticeJobTest {
 		notice.execute("");*/
 		
 		//2.待跟进通知
-		/*UnFoolowNoticeJob foolwNnotice = new UnFoolowNoticeJob();
-		foolwNnotice.execute("");	*/	
+		/*UnFoolowNoticeJob foolwNotice = new UnFoolowNoticeJob();
+		foolwNotice.execute("");*/		
 
 		//3.未启动通知
-		NoStartNoticeJob noStartNnotice = new NoStartNoticeJob();
-		noStartNnotice.execute("");
+		/*NoStartNoticeJob noStartNotice = new NoStartNoticeJob();
+		noStartNotice.execute("");*/
 		
+		//4.超时通知
+		TimeoutNoticeJob timeOutNotice = new TimeoutNoticeJob();
+		timeOutNotice.execute("");
 	}
 
 }

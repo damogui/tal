@@ -16,7 +16,7 @@ import com.gongsibao.utils.SalesmanOrganization;
 import com.gongsibao.utils.SupplierSessionManager;
 
 /**
- * 待跟进提醒(调度时间没定？-每天8点)
+ * 待跟进提醒(下次预约时间是当前的日期，推迟到9点半提醒)
  * @author Administrator
  *
  */
@@ -28,26 +28,27 @@ public class UnFoolowNoticeJob implements IJob{
 		
 		INCustomerTaskService service = ServiceFactory.create(INCustomerTaskService.class);
 		List<NCustomerTask> taskList = service.getUnFoolowList(date);
-		
-		for (NCustomerTask item : taskList) {
-			String getContact = NCustomerContact.handleContact(item.getCustomer());
-			
-			SalesmanOrganization organization = SupplierSessionManager.getSalesmanOrganization(item.getLastFoolowUserId());
-			String copyWriter = String.format("【待跟进提醒】您好，您有1个任务今天需要跟进，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请按时跟进",
-					item.getName(),item.getCustomer().getRealName(),getContact);
-			
-			String leaderCopyWriter = String.format("【待跟进提醒】您好，【%s】有1个任务今天需要跟进，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请安排按时跟进",
-					organization.getEmployeeName(),item.getName(),item.getCustomer().getRealName(),getContact);
-			
-			sendNotify(item,organization,copyWriter,item.getLastFoolowUserId());
-			
-			//通知一级领导
-			if(organization.getDirectLeaderId() != null){
-				sendNotify(item,organization,leaderCopyWriter,organization.getDirectLeaderId());
-			}
-			//通知二级领导
-			if(organization.getSuperiorLeaderId() != null){
-				sendNotify(item,organization,leaderCopyWriter,organization.getSuperiorLeaderId());
+		if(taskList != null && taskList.size()>0){
+			for (NCustomerTask item : taskList) {
+				String getContact = NCustomerContact.handleContact(item.getCustomer());
+				
+				SalesmanOrganization organization = SupplierSessionManager.getSalesmanOrganization(item.getLastFoolowUserId());
+				String copyWriter = String.format("【待跟进提醒】您好，您有1个任务今天需要跟进，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请按时跟进",
+						item.getName(),item.getCustomer().getRealName(),getContact);
+				
+				String leaderCopyWriter = String.format("【待跟进提醒】您好，【%s】有1个任务今天需要跟进，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请安排按时跟进",
+						organization.getEmployeeName(),item.getName(),item.getCustomer().getRealName(),getContact);
+				
+				sendNotify(item,organization,copyWriter,item.getLastFoolowUserId());
+				
+				//通知一级领导
+				if(organization.getDirectLeaderId() != null){
+					sendNotify(item,organization,leaderCopyWriter,organization.getDirectLeaderId());
+				}
+				//通知二级领导
+				if(organization.getSuperiorLeaderId() != null){
+					sendNotify(item,organization,leaderCopyWriter,organization.getSuperiorLeaderId());
+				}
 			}
 		}
 	}

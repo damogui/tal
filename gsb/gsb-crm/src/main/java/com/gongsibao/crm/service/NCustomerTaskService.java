@@ -481,6 +481,22 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	}
 
 	@Override
+	public List<NCustomerTask> getTimeOutList(Date time) {
+		String getTime = DateUtils.formatDate(time,"yyyy-MM-dd");
+		List<String> whereList = new ArrayList<String>();
+		whereList.add(" next_foolow_time < '"+ getTime +"'");
+		whereList.add(" foolowStatus = 3");
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects("NCustomerTask.*,NCustomerTask.customer.*,");
+			oql.setFilter(StringManager.join(" and ", whereList));
+		}
+		List<NCustomerTask> taskList = this.pm.queryList(oql);
+		return taskList;
+	}
+	
+	@Override
 	public List<NCustomerTask> getNoStartList(Date time) {
 		String getTime = DateUtils.formatDate(time,"yyyy-MM-dd HH:mm:ss");
 		List<String> whereList = new ArrayList<String>();
@@ -497,5 +513,4 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		List<NCustomerTask> taskList = this.pm.queryList(oql);
 		return taskList;
 	}
-	
 }
