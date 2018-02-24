@@ -16,13 +16,13 @@ public class CustomerUndistributedWorkspaceTest extends CustomerALLWorkspaceTest
 		
 		entity = NCustomer.class;// 实体
 		urlList = "/operation/customer/undistributed/list";// 列表的url
-		listPartName = formPartName = "无任务客户";
+		listPartName = formPartName = "未分配客户";
 		meta = MtableManager.getMtable(entity);// 获取实体元数据
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "Operation_CRM_Customer_Undistributed";
 		listPartImportJs = "/gsb/crm/base/js/customer-base-list.part.js|/gsb/crm/platform/js/customer-all-list.part.js|/gsb/gsb.custom.query.controls.js";
 		
-		listFilter = "id not in (SELECT customer_id from n_crm_customer_task)";
+		listFilter = "id in (SELECT customer_id from n_crm_customer_task where owner_id is NULL GROUP BY customer_id)";
 		
 		listPartJsController = NCustomerAllListPart.class.getName();
 		listPartServiceController = NCustomerAllListPart.class.getName();
