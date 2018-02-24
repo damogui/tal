@@ -7,13 +7,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.gongsibao.entity.crm.dic.AllocationType;
+import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
+import com.gongsibao.utils.NumberUtils;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
+import org.netsharp.authorization.UserPermission;
 import org.netsharp.authorization.UserPermissionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
+import org.netsharp.core.QueryParameters;
+import org.netsharp.persistence.IPersister;
+import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
@@ -33,6 +40,7 @@ import com.gongsibao.utils.SupplierSessionManager;
 
 @Service
 public class NCustomerTaskService extends SupplierPersistableService<NCustomerTask> implements INCustomerTaskService {
+    
 	public NCustomerTaskService() {
 		super();
 		this.type = NCustomerTask.class;
@@ -513,4 +521,72 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		List<NCustomerTask> taskList = this.pm.queryList(oql);
 		return taskList;
 	}
+
+    @Override
+    public int updateAllocationState(NCustomerTask task) {
+
+        if (NumberUtils.toInt(task.getId()) == 0) {
+            return 0;
+        }
+
+        //获取当前登录人信息
+        UserPermission permission = UserPermissionManager.getUserPermission();
+
+        UpdateBuilder updateSql = UpdateBuilder.getInstance();
+        {
+            updateSql.update("n_crm_customer_task");
+            updateSql.set("allocation_state", AllocationState.WAIT.getValue());
+            // 跟进状态改为【未启动】
+            if (task.getFoolowStatus() == null)
+                updateSql.set("foolow_status", CustomerFollowStatus.UNSTART.getValue());
+            // 跟新最后分配时间
+            updateSql.set("last_allocation_time", DateUtils.getDateStr(new Date()));
+            // 最后分配人Id（机器分配，默认写0）
+            updateSql.set("last_allocation_user_id", task.getAllocationType().equals(NAllocationType.MANUAL) ? permission.getEmployee().getId() : 0);
+            updateSql.where("id=?");
+        }
+
+        // 状态改为【待分配】
+        task.setAllocationState(AllocationState.WAIT);
+        // 修改人,自动分配时默认是0
+        task.setLastAllocationUserId(task.getAllocationType().equals(NAllocationType.MANUAL) ? permission.getEmployee().getId() : 0);
+
+        if (task.getFoolowStatus() == null) {
+            task.setFoolowStatus(CustomerFollowStatus.UNSTART);
+        }
+        task.setLastAllocationTime(new Date());
+
+        if (NumberUtils.toInt(task.getSupplierId()) != 0) {
+            // 状态改为【已分配-服务商】
+            updateSql.set("allocation_state", AllocationState.ALLOCATED_Supplier.getValue());
+            task.setAllocationState(AllocationState.ALLOCATED_Supplier);
+            //是否被分配过(只修改一次，过滤未分配)
+            updateSql.set("distribut", true);
+            task.setDistribut(true);
+        }
+
+        if (NumberUtils.toInt(task.getDepartmentId()) != 0) {
+            // 状态改为【已分配-部门】
+            updateSql.set("allocation_state", AllocationState.ALLOCATED_Department.getValue());
+            task.setAllocationState(AllocationState.ALLOCATED_Department);
+            //是否被分配过(只修改一次，过滤未分配)
+            updateSql.set("distribut", true);
+            task.setDistribut(true);
+        }
+
+        if (NumberUtils.toInt(task.getOwnerId()) != 0) {
+            // 状态改为【已分配-业务员】
+            updateSql.set("allocation_state", AllocationState.ALLOCATED.getValue());
+            task.setAllocationState(AllocationState.ALLOCATED);
+            //是否被分配过(只修改一次，过滤未分配)
+            updateSql.set("distribut", true);
+            task.setDistribut(true);
+        }
+
+        String cmdText = updateSql.toSQL();
+        QueryParameters qps = new QueryParameters();
+        qps.add("id", task.getId(), Types.INTEGER);
+        int res = this.pm.executeNonQuery(cmdText, qps);
+        return res;
+    }
 }

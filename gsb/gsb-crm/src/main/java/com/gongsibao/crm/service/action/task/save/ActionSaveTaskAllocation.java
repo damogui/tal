@@ -1,5 +1,7 @@
 package com.gongsibao.crm.service.action.task.save;
 
+import com.gongsibao.crm.base.INCustomerTaskService;
+import com.gongsibao.utils.NumberUtils;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.action.IAction;
@@ -16,38 +18,44 @@ import com.gongsibao.entity.crm.dic.NAllocationType;
  */
 public class ActionSaveTaskAllocation implements IAction {
 
-	//客户服务
-	INCustomerService nCustomerService = ServiceFactory.create(INCustomerService.class);
-	
-	@Override
-	public void execute(ActionContext ctx) {
+    //客户服务
+    INCustomerService nCustomerService = ServiceFactory.create(INCustomerService.class);
+    //任务服务
+    INCustomerTaskService nCustomerTaskService = ServiceFactory.create(INCustomerTaskService.class);
 
-		NCustomerTask task = (NCustomerTask) ctx.getItem();
+    @Override
+    public void execute(ActionContext ctx) {
 
-		// 分配状态
-		AllocationState allocationState = task.getAllocationState();
-		if (allocationState == AllocationState.ALLOCATED || allocationState == AllocationState.NOALLOCATED) {
+        NCustomerTask task = (NCustomerTask) ctx.getItem();
+        NAllocationType allocationType = task.getAllocationType();
+        //当为【手动分配】时，修改任务的分配状态
+        if(allocationType.equals(NAllocationType.MANUAL)){
+            nCustomerTaskService.updateAllocationState(task);
+        }
 
-			//分配状态为【不分配】、【已分配】时不执行分配
-			return;
-		}
+        // 分配状态
+        AllocationState allocationState = task.getAllocationState();
+        if (allocationState == AllocationState.ALLOCATED || allocationState == AllocationState.NOALLOCATED) {
 
-		NAllocationType allocationType = task.getAllocationType();
-		if (allocationType == NAllocationType.AUTO || allocationType == NAllocationType.SemiAutomatic) {
-			if(!task.getCustomerId().equals(0)){
-				NCustomer customer = nCustomerService.getById(task.getCustomerId());				
-				task.setCustomer(customer);
-			}
-			// 自动分配，半自动分配，立即分配时调用
-			ActionContext autoCtx = new ActionContext();
-			{
-				autoCtx.setPath("gsb/crm/task/allocation/auto");
-				autoCtx.setItem(task);
-				autoCtx.setState(task.getEntityState());
-			}
+            //分配状态为【不分配】、【已分配】时不执行分配
+            return;
+        }
 
-			ActionManager action = new ActionManager();
-			action.execute(autoCtx);
-		}
-	}
+        if (allocationType == NAllocationType.AUTO || allocationType == NAllocationType.SemiAutomatic) {
+            if (!task.getCustomerId().equals(0)) {
+                NCustomer customer = nCustomerService.getById(task.getCustomerId());
+                task.setCustomer(customer);
+            }
+            // 自动分配，半自动分配，立即分配时调用
+            ActionContext autoCtx = new ActionContext();
+            {
+                autoCtx.setPath("gsb/crm/task/allocation/auto");
+                autoCtx.setItem(task);
+                autoCtx.setState(task.getEntityState());
+            }
+
+            ActionManager action = new ActionManager();
+            action.execute(autoCtx);
+        }
+    }
 }
