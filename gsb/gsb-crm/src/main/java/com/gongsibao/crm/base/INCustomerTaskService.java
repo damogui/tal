@@ -178,4 +178,10 @@ public interface INCustomerTaskService extends IPersistableService<NCustomerTask
 	 * @return
 	 */
 	public List<NCustomerTask> getNoStartList(Date time);
+
+	/*
+	* 修改任务的分配状态
+	* */
+	@Transaction
+	public int updateAllocationState(NCustomerTask task);
 }

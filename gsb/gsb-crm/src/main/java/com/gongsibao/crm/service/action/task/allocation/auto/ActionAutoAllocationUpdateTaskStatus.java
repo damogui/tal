@@ -51,7 +51,7 @@ public class ActionAutoAllocationUpdateTaskStatus implements IAction {
         {
             updateSql.update("n_crm_customer_task");
             updateSql.set("allocation_state", AllocationState.WAIT.getValue());
-            // 跟进状态改为【待跟进】
+            // 跟进状态改为【未启动】
             updateSql.set("foolow_status", CustomerFollowStatus.UNSTART.getValue());
             // 跟新最后分配时间
             updateSql.set("last_allocation_time", DateUtils.getDateStr(new Date()));
