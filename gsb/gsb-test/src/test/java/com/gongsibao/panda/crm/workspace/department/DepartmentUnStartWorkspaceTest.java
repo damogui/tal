@@ -16,7 +16,7 @@ public class DepartmentUnStartWorkspaceTest extends DepartmentAllTaskWorkspaceTe
 		listToolbarPath = "department/task/unstart";
 		
 		//当前登录人所在部门的子部门,需要扩展
-		listFilter = "foolowStatus = 2";
+		listFilter = "foolowStatus = 6";
 	}
 
 	@Override
