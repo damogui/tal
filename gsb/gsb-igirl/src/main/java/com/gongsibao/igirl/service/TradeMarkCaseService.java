@@ -9,6 +9,7 @@ import com.gongsibao.entity.igirl.baseinfo.IGirlConfig;
 import com.gongsibao.entity.igirl.dict.ApplierType;
 import com.gongsibao.entity.igirl.dict.ConfigType;
 import com.gongsibao.entity.igirl.dict.ShareGroup;
+import com.gongsibao.entity.igirl.dict.TMCState;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.igirl.base.IDownloadAttachmentService;
 import com.gongsibao.igirl.base.IGirlConfigService;
@@ -19,14 +20,20 @@ import com.gongsibao.igirl.service.builder.TradeMarkCaseAttachmentBuiler;
 import com.gongsibao.supplier.base.ISupplierService;
 import com.gongsibao.utils.SupplierSessionManager;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.Types;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.joda.time.DateTime;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.BusinessException;
+import org.netsharp.core.DataTable;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
 import org.netsharp.core.Paging;
@@ -115,7 +122,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 	@Override
 	public TradeMarkCase save(TradeMarkCase entity) {
 		if (entity.getEntityState() == EntityState.New) {
-			entity.setCode(DateTime.now().toString("yyyyMMddHHmmss"));
+			//entity.setCode(DateTime.now().toString("yyyyMMddHHmmss"));
 			// 填充加盟商信息
 			entity = fillSupplierInfo(entity);
 			entity = fillDepartmentInfo(entity);
@@ -373,7 +380,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 	}
 
 	@Override
-	public String fetchQrCodeUrl(String mobile,String url) {
+	public String fetchQrCodeUrl(String url,String casecode) {
 		// TODO Auto-generated method stub
 		IGirlConfigService girlConf=ServiceFactory.create(IGirlConfigService.class);
 		Oql oql=new Oql();{
@@ -387,14 +394,68 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		String qcurl="";
 		if(configs.size()==1) {
 			//qcurl="{qrServiceUrl}/qc?detailLink= {currentDomain}/gsb/igirl/tmcase.html?mobile="+mobile;
-			qcurl="{qrServiceUrl}/qc?detailLink=|{currentDomain}/gsb/igirl/mobile/main.html#/?spid="+SupplierSessionManager.getSupplierId()+"&mobile="+mobile+"&source=case";
+			//URLEncoder.encode(s)
+			qcurl="{qrServiceUrl}/qc?detailLink=|{currentDomain}/gsb/igirl/mobile/main.html#/?spid="+SupplierSessionManager.getSupplierId()+"&casecode="+casecode+"&source=case";
 			qcurl=qcurl.replace("{qrServiceUrl}", configs.get(0).getConfigValue()).replace("{currentDomain}", url);
-			
+			try {
+				qcurl=qcurl.split("\\|")[0]+URLEncoder.encode(qcurl.split("\\|")[1],"UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		if(configs.size()==2) {
-			qcurl="{qrServiceUrl}/qc?detailLink=|{currentDomain}/gsb/igirl/mobile/main.html#/?spid="+SupplierSessionManager.getSupplierId()+"&mobile="+mobile+"&source=case";
+			qcurl="{qrServiceUrl}/qc?detailLink=|{currentDomain}/gsb/igirl/mobile/main.html#/?spid="+SupplierSessionManager.getSupplierId()+"&casecode="+casecode+"&source=case";
 			qcurl=qcurl.replace("{qrServiceUrl}", configs.get(0).getConfigValue()).replace("{currentDomain}", configs.get(1).getConfigValue());
+			try {
+				qcurl=qcurl.split("\\|")[0]+URLEncoder.encode(qcurl.split("\\|")[1],"UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return qcurl;
+	}
+
+	@Override
+	public int denyAdvice(String caseid, String advice) {
+		// TODO Auto-generated method stub
+		try {
+			Oql oql=new Oql();
+			{
+				oql.setType(TradeMarkCase.class);
+				oql.setSelects("TradeMarkCase.*");
+				oql.setFilter("id=?");
+				oql.getParameters().add("id",Integer.parseInt(caseid),Types.INTEGER);
+			}
+			TradeMarkCase tmc=this.queryFirst(oql);
+			tmc.setAdvice(advice);
+			tmc.setTmcState(TMCState.ADVICE);
+			tmc.toPersist();
+			this.save(tmc);
+			return 0;
+		}catch(BusinessException e) {
+			return -1;
+		}
+		
+	}
+
+	@Override
+	public int confirmCase(String caseid) {
+		// TODO Auto-generated method stub
+		try {
+			String cmdstr = "update ig_trade_mark_case set tmc_state=? where id=?";
+			Oql oql=new Oql();
+			{
+				oql.setFilter("tmc_state=?");
+				oql.setFilter("id=?");
+				oql.getParameters().add("tmc_state",TMCState.CONFIRMED.getValue(),Types.INTEGER);
+				oql.getParameters().add("id",Integer.parseInt(caseid),Types.INTEGER);	
+			}
+			this.pm.executeNonQuery(cmdstr, oql.getParameters());
+			return 0;
+		}catch(BusinessException e) {
+			return -1;
+		}
 	}
 }

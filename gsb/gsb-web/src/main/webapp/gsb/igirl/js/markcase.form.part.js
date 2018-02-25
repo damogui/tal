@@ -16,7 +16,7 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
 		    		           }
 		    	           }
 		    	    if(data.certCode){
-		    	    	 if(data.certCode.indexOf(name)!=-1){
+		    	    	 if(data.appCnName.indexOf(name)!=-1){
 		    	    			$("#creditCode").val(data.certCode);
 			    		           }
 		    	           }
@@ -26,7 +26,7 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
 		    		           }
 			    	         }
 		    	    if(data.appCnAddr){
-		    	   	 if(data.appCnAddr.indexOf(name)!=-1){
+		    	   	 if(data.appCnName.indexOf(name)!=-1){
 		    	   		$("#applierAddress").val(data.appCnAddr);
 		    		           }    	
 		    	           }
@@ -50,18 +50,24 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
         }
     },
    mobileChange:function (ctl) {
-	    var newValue=$(ctl).val().trim();
-    	var qcurl="http://192.168.4.1:3000/qc?detailLink=http://192.168.28.41:8080/gsb/igirl/tmcase.html?mobile="+newValue;
-    	    //请求获取生成二位码的服务url
-    	if(newValue && newValue!=""){
-    	    	this.invokeService("fetchQrCodeUrl", [newValue], function(data) {
-    	    		var qarray= data.split("|");
-    	    		var url=qarray[0];
-    	    		var q=encodeURIComponent(qarray[1])
-    	    		     //   alert(data)
-    	    		$("#tokenImgUrl").attr("src",url+q);
-    	         	});
-    	    }
+//	    var newValue=$(ctl).val().trim();
+//    	var qcurl="http://192.168.4.1:3000/qc?detailLink=http://192.168.28.41:8080/gsb/igirl/tmcase.html?mobile="+newValue;
+//    	    //请求获取生成二位码的服务url
+//    	if(newValue && newValue!=""){
+//    		  if(controllertradeMarkCase.viewModel.currentItem){
+//    			  var code=controllertradeMarkCase.viewModel.currentItem.code;
+//    			  if(code && code!=""){
+//    				  this.invokeService("fetchQrCodeUrl", [newValue,code], function(data) {
+//    	      	    		var qarray= data.split("|");
+//    	      	    		var url=qarray[0];
+//    	      	    		var q=encodeURIComponent(qarray[1])
+//    	      	    		$("#tokenImgUrl").attr("src",url+q);
+//    	      	         	  });
+//    			        }
+//    			
+//    		        }
+//    	    	
+//    	    }
     },
   validate: function () {
         var isValidate = $("#" + this.context.formName).form('validate');

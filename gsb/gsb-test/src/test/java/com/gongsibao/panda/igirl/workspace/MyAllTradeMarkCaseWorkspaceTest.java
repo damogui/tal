@@ -123,6 +123,7 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "caseAmount", "金额", ControlTypes.DECIMAL_FEN_BOX, 100);
 		addColumn(datagrid, "tmcState", "状态", ControlTypes.ENUM_BOX, 100);
 		addColumn(datagrid, "tradeOptions", "商标选项", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "orderCode", "订单号", ControlTypes.TEXT_BOX, 100);
 	
 		return datagrid;
 	}

@@ -3,10 +3,14 @@ import java.sql.Types;
 import java.util.List;
 
 import com.gongsibao.utils.SupplierSessionManager;
+
+import org.joda.time.DateTime;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
+import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
 import org.netsharp.entity.IPersistable;
+import org.netsharp.panda.annotation.Authorization;
 import org.netsharp.panda.commerce.FormPart;
 import org.netsharp.panda.core.HttpContext;
 import org.netsharp.util.StringManager;
@@ -18,6 +22,7 @@ import com.gongsibao.igirl.base.IGirlConfigService;
 import com.gongsibao.igirl.base.ITradeMarkCaseService;
 import com.gongsibao.igirl.base.ITradeMarkService;
 import com.gongsibao.igirl.dto.CompanyDto;
+import com.gongsibao.igirl.dto.ResultDto;
 import com.gongsibao.taurus.api.ApiFactory;
 import com.gongsibao.taurus.api.EntRegistryApi;
 import com.gongsibao.taurus.entity.EntRegistry;
@@ -34,8 +39,12 @@ public class TradeMarkCasePart extends FormPart {
 		//获取当前的域名
 		TradeMarkCase entity1=(TradeMarkCase)entity;
 		Integer departmentId = SupplierSessionManager.getDepartmentId();
-		entity1.setDepartmentId(departmentId);
-		entity1.setTokenImgUrl(this.fetchQrCodeUrl(entity1.getMobile()));
+		entity1.setDepartmentId(departmentId);	
+		if(entity1.getEntityState()==EntityState.New) {
+			entity1.setCode(DateTime.now().toString("yyyyMMddHHmmss"));
+			String urlstr=this.fetchQrCodeUrl(entity1.getCode());
+			entity1.setTokenImgUrl(urlstr);
+		}
 		return super.save(entity1);
 	}
 	public CompanyDto fetchCompanyByName(String name) {
@@ -70,9 +79,32 @@ public class TradeMarkCasePart extends FormPart {
 		}
 	}
 	
-	public String fetchQrCodeUrl(String mobile) {
+	public String fetchQrCodeUrl(String casecode) {
 		String url=HttpContext.getCurrent().getRequest().getRequestURL().replace("panda/rest/service", "");
-		return tradeMarkCaseService.fetchQrCodeUrl(mobile, url);
+		return tradeMarkCaseService.fetchQrCodeUrl(url,casecode);
 		
+	}
+	@Authorization(is=false)
+	public TradeMarkCase fetchUnconfirmedCaseInfoByCode(String code) {
+		Oql oql=new Oql();
+		{
+			oql.setType(TradeMarkCase.class);
+			oql.setSelects("TradeMarkCase.*,TradeMarkCase.tradeMarks.*");
+			oql.setFilter("code=?");
+			oql.getParameters().add("code",code,Types.VARCHAR);
+		}
+		TradeMarkCase tmc=tradeMarkCaseService.queryFirst(oql);
+		return tmc;
+	}
+	@Authorization(is=false)
+	public ResultDto denyAdvice(String caseid,String advice) {
+		int rtn=tradeMarkCaseService.denyAdvice(caseid, advice);
+		return ResultDto.getSimpleResultDto(rtn);
+	}
+	@Authorization(is=false)
+	public ResultDto confirmCase(String caseid) {
+		int rtn=tradeMarkCaseService.confirmCase(caseid);
+		return ResultDto.getSimpleResultDto(rtn);
+ 
 	}
 }
