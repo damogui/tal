@@ -21,6 +21,7 @@ import org.netsharp.pcc.service.ProvinceCityCountyService;
 import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -57,6 +58,10 @@ public class SellingDemandDTOService {
                 // String sqlFiter=String.format("company_name  like '%%s%' or ");
                 filterBuilder.append (" and company_name  like '%" + queryModel.getCompanyName () + "%'");
             }
+            if (!StringManager.isNullOrEmpty (queryModel.getBankType ())) {//类金融牌照
+                filterBuilder.append (" and company_name  like '%" + queryModel.getBankType () + "%'");
+            }
+
             if (queryModel.getComQualType () != 0) {//资质类型  qualificationDetails
                 filterBuilder.append (" and qualificationDetails.enterpriseQualification=?");
                 qps.add ("@enterpriseQualification", queryModel.getComQualType (), Types.INTEGER);
@@ -68,6 +73,13 @@ public class SellingDemandDTOService {
                 filterBuilder.append (" and qualificationDetails.enterpriseQualification>0");//精选
 
             }
+            //热销-类金融投资
+            if (queryModel.getIsHot ()>0){
+                filterBuilder.append (" and company_feature=?");
+                qps.add ("@company_feature`", IndustryFeature.IF04.getValue (), Types.INTEGER);
+
+            }
+
 
 
 
@@ -318,6 +330,20 @@ public class SellingDemandDTOService {
     /*获取服务类型的枚举类型转换集合*/
     public List<ServiceTypeDTO> getServiceTypeLsit() {
         List<ServiceTypeDTO> listServiceType = new ArrayList<> ();
+        ServiceTypeDTO serviceTypeBank = new ServiceTypeDTO ();//类金融
+        serviceTypeBank.setServiceType (ServiceTypeEnum.p4.getValue ());
+        serviceTypeBank.setServiceName (ServiceTypeEnum.p4.getText ());
+        ArrayList<ServiceDic> dicListBank = new ArrayList ();
+        HashMap<String,String> bankTypes=ServiceBank.getBankTypes ();//类金融牌照
+        for (String item:
+                bankTypes.keySet ()) {
+            ServiceDic  serviceDic=new ServiceDic ();
+            serviceDic.setId (item);
+            serviceDic.setName (bankTypes.get (item));
+            dicListBank.add (serviceDic);
+        }
+        serviceTypeBank.setServiceList (dicListBank);
+        listServiceType.add (serviceTypeBank);//类金融
 
         ServiceTypeDTO serviceTypeDTO = new ServiceTypeDTO ();
         serviceTypeDTO.setServiceName (ServiceTypeEnum.p5.getText ());
@@ -327,7 +353,7 @@ public class SellingDemandDTOService {
         for (EnterpriseQualification item : EnterpriseQualification.values ()
                 ) {
             ServiceDic serviceDic = new ServiceDic ();
-            serviceDic.setId (item.getValue ());
+            serviceDic.setId (item.getValue ().toString ());
             serviceDic.setName (item.getText ());
             dicList.add (serviceDic);
 
@@ -349,7 +375,7 @@ public class SellingDemandDTOService {
         ArrayList<ServiceDic> typeList = new ArrayList<> ();
         for (CompanyType item : CompanyType.values ()
                 ) {
-            ServiceDic servDic = new ServiceDic (item.getValue (), item.getText ());
+            ServiceDic servDic = new ServiceDic (item.getValue ().toString (), item.getText ());
             typeList.add (servDic);
         }
         filterType.setFilterList (typeList);
@@ -361,7 +387,7 @@ public class SellingDemandDTOService {
         ArrayList<ServiceDic> natureList = new ArrayList<> ();
         for (CompanyNature item : CompanyNature.values ()
                 ) {
-            ServiceDic servDic = new ServiceDic (item.getValue (), item.getText ());
+            ServiceDic servDic = new ServiceDic (item.getValue ().toString (), item.getText ());
             natureList.add (servDic);
         }
         filterNature.setFilterList (natureList);
@@ -372,10 +398,10 @@ public class SellingDemandDTOService {
         filterDate.setFilterType (ServiceTypeEnum.p9.getValue ());//成立年限
         filterDate.setFilterName (ServiceTypeEnum.p9.getText ());
         ArrayList<ServiceDic> yearList = new ArrayList<> ();
-        yearList.add (new ServiceDic (1, "1年以内"));
-        yearList.add (new ServiceDic (2, "1-2年"));
-        yearList.add (new ServiceDic (3, "2-3年"));
-        yearList.add (new ServiceDic (4, "3年以上"));
+        yearList.add (new ServiceDic ("1", "1年以内"));
+        yearList.add (new ServiceDic ("2", "1-2年"));
+        yearList.add (new ServiceDic ("3", "2-3年"));
+        yearList.add (new ServiceDic ("4", "3年以上"));
         filterDate.setFilterList (yearList);
         listFilter.add (filterDate);
         return listFilter;

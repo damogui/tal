@@ -7,11 +7,11 @@ package com.gongsibao.api.dto.ma;
 /*从枚举类型转换的键值对*/
 public class ServiceDic {
 
-    private int id;
+    private String id;
 
     private String name;
 
-    public   ServiceDic(int id,String name){
+    public   ServiceDic(String id,String name){
         this.id=id;
         this.name=name;
     }
@@ -22,11 +22,11 @@ public class ServiceDic {
     }
 
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -21,6 +21,8 @@ public class QuerySellingDemandDTO {
     //公司名称
     private String companyName;
 
+    //类金融牌照
+    private String bankType;
     //企业资质类型 EnterpriseQualification  enterpriseQualification
     private int comQualType;
 
@@ -140,5 +142,14 @@ public class QuerySellingDemandDTO {
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+    }
+
+
+    public String getBankType() {
+        return bankType;
+    }
+
+    public void setBankType(String bankType) {
+        this.bankType = bankType;
     }
 }

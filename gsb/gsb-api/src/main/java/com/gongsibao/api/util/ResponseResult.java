@@ -24,6 +24,11 @@ public class ResponseResult {
     }
 
     public String getMessage() {
+        if(StringManager.isNullOrEmpty (message)){
+            this.message="ok";
+
+
+        }
         return message;
     }
 
