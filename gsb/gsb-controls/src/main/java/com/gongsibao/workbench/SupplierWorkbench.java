@@ -6,6 +6,7 @@ import org.netsharp.panda.controls.layout.LayoutRegion;
 import org.netsharp.panda.controls.other.Body;
 import org.netsharp.panda.controls.tab.Tab;
 import org.netsharp.panda.controls.utility.UrlHelper;
+import org.netsharp.panda.core.JscriptType;
 import org.netsharp.panda.core.Workspace;
 import org.netsharp.panda.core.comunication.IHtmlWriter;
 import org.netsharp.panda.core.workbench.WorkbenchPadHost;
@@ -62,5 +63,18 @@ public class SupplierWorkbench extends Workspace{
 		super.importJs(writer);
 		writer.write("    <link href='" + UrlHelper.getUrl(this.favicon) + "' rel='shortcut icon' type='image/x-icon' />");
 		writer.write(UrlHelper.getVersionScript("/panda-res/js/workbench.js", false));
+		writer.write(UrlHelper.getVersionScript("/gsb/supplier/js/supplier-workbench.js", false));
+		
+	}
+	
+	
+	@Override
+	protected void addJscript() {
+		
+		super.addJscript();
+		this.addJscript("        var workbench = new com.gongsibao.workbench.SupplierWorkbench();", JscriptType.Header);
+		this.addJscript("       $(function(){", JscriptType.Header);
+		this.addJscript("        workbench.init();", JscriptType.Header);
+		this.addJscript("       });", JscriptType.Header);
 	}
 }
