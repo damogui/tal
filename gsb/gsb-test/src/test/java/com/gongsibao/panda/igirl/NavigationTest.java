@@ -1,4 +1,5 @@
 package com.gongsibao.panda.igirl;
+import com.gongsibao.entity.igirl.ChangeTradeMark;
 import com.gongsibao.entity.igirl.TradeMark;
 import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.baseinfo.IGirlConfig;
@@ -10,25 +11,54 @@ import com.gongsibao.entity.igirl.baseinfo.SupplierSiteInfo;
 import org.junit.Before;
 import org.netsharp.meta.base.NavigationBase;
 import org.netsharp.panda.plugin.entity.PNavigation;
+import org.netsharp.panda.plugin.entity.PNavigationItem;
 
 public class NavigationTest extends NavigationBase {
 
-	@Before
-	public void setup() {
-		this.treeName = "IGIRL";
-		this.treePath = "panda/gsb/igirl";
-		this.resourceNode = "GSB_IGIRL";
-	}
+//	@Before
+//	public void setup() {
+//		this.treeName = "IGIRL";
+//		this.treePath = "panda/gsb/igirl";
+//		this.resourceNode = "GSB_IGIRL";
+//	}
 
 	public void createAccodions() {
 
-		this.doCreateAccodions("GSB_IGIRL", "IGIRL", "fa fa-users fa-fw", 3);
+		//this.doCreateAccodions("GSB_IGIRL", "IGIRL", "fa fa-users fa-fw", 3);
 	}
+	
+	protected void createPTree() {
+
+		PNavigation tree = treeService.byPath("panda/gsb/supplier");
+		this.doCreateTree(tree);
+		grantPermission(tree);
+		treeService.save(tree);
+	}
+	
+	@Override
+	protected PNavigationItem createPTreeNode(PNavigation tree, String parentCode,String icon, String code, String name, String url, int seq) {
+
+		PNavigationItem node = new PNavigationItem();
+		{
+			node.toNew();
+			node.setCode(code);
+			node.setName(name);
+			node.setUrl(url);
+			node.setParent(parentCode);
+			node.setSeq(seq);
+			node.setIcon(icon);
+			node.setPathId(tree.getId());
+			tree.getTreeNodes().add(node);
+		}
+
+		return node;
+	}
+	
 
 	@Override
 	protected void doCreateTree(PNavigation tree) {
 
-		createPTreeNode(tree, null, null, "GSB_IGIRL_TM", "商标", "", 1);
+		createPTreeNode(tree, null, null, "GSB_IGIRL_TM", "商标填报", "", 1);
 		{
 			createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_All_" + TradeMarkCase.class.getSimpleName(), "方案生成", "/igirl/trademarkcase/all/list", 1);
 			createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_All_" + TradeMark.class.getSimpleName(),     "进度跟进", "/igirl/all/progress/list", 2);
@@ -38,12 +68,16 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_Dp_"  + TradeMark.class.getSimpleName(),    "部门跟进", "/igirl/dp/progress/list", 6);
 
 		}
-		createPTreeNode(tree, null, null, "GSB_IGIRL_SITE", "微门户", "", 2);
+		createPTreeNode(tree, null, null, "GSB_IGIRL_CTM", "商标变更", "", 2);
+		{
+			createPTreeNode(tree, "GSB_IGIRL_CTM", null, "IGIRL_All_" + ChangeTradeMark.class.getSimpleName(), "方案生成", "/igirl/changetrademark/all/list", 1);
+		}
+		createPTreeNode(tree, null, null, "GSB_IGIRL_SITE", "微门户", "", 3);
 		{
 			createPTreeNode(tree, "GSB_IGIRL_SITE", null, "IGRIL_SITE_" + SupplierSiteInfo.class.getSimpleName(), "站点信息", "/igirl/siteinfo/list", 1);
 			createPTreeNode(tree, "GSB_IGIRL_SITE", null, "IGRIL_SITE_" + SupplierNewInfo.class.getSimpleName(), "最新资讯", "/igirl/newinfo/list", 2);
 		}
-		createPTreeNode(tree, null, null, "GSB_IGIRL_BASE", "基础信息", "", 3);
+		createPTreeNode(tree, null, null, "GSB_IGIRL_BASE", "基础信息", "", 4);
 		{
 			createPTreeNode(tree, "GSB_IGIRL_BASE", null, "IGRIL_BASE_" + NCLTwo.class.getSimpleName(), "商标大类", "/igirl/nclone/all/list", 1);
 			createPTreeNode(tree, "GSB_IGIRL_BASE", null, "IGRIL_BASE_" + NCLTwo.class.getSimpleName(), "商标小类", "/igirl/ncltwo/all/list", 2);

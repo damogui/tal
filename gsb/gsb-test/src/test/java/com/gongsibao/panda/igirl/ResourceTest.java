@@ -1,8 +1,5 @@
 package com.gongsibao.panda.igirl;
-import com.gongsibao.entity.igirl.DownloadAttachment;
-import com.gongsibao.entity.igirl.TradeMark;
-import com.gongsibao.entity.igirl.TradeMarkCase;
-import com.gongsibao.entity.igirl.UploadAttachment;
+import com.gongsibao.entity.igirl.*;
 import com.gongsibao.entity.igirl.baseinfo.IGirlConfig;
 import com.gongsibao.entity.igirl.baseinfo.NCLOne;
 import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
@@ -11,19 +8,27 @@ import com.gongsibao.entity.igirl.baseinfo.SupplierNewInfo;
 import com.gongsibao.entity.igirl.baseinfo.SupplierSiteInfo;
 import com.gongsibao.igirl.base.*;
 import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.meta.base.ResourceCreationBase;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 public class ResourceTest extends ResourceCreationBase {
 
-	@Before
-	public void setup() {
-
-		parentNodeName = "IGIRL";
-		parentNodeCode = "GSB_IGIRL";
-		pluginName = "IGIRL";
-		seq = 3;
-		entityClass = ResourceNode.class;
+//	@Before
+//	public void setup() {
+//
+//		parentNodeName = "IGIRL";
+//		parentNodeCode = "GSB_IGIRL";
+//		pluginName = "IGIRL";
+//		seq = 3;
+//		entityClass = ResourceNode.class;
+//	}
+	
+	@Test
+	public void run() {
+		
+		ResourceNode node = resourceNodeService.byCode("Gsb_Supplier_System");
+		this.createResourceNodeVouchers(node);
 	}
 
 	@Override
@@ -42,6 +47,11 @@ public class ResourceTest extends ResourceCreationBase {
 
 			this.createResourceNodeVoucher(TradeMarkCase.class.getName(), "部门方案", "IGIRL_Dp_" + TradeMarkCase.class.getSimpleName(), ITradeMarkCaseService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(TradeMark.class.getName(), "部门跟进", "IGIRL_Dp_"+TradeMark.class.getSimpleName(), ITradeMarkService.class.getName(), node1.getId());
+		}
+
+		node1 = this.createResourceNodeCategory("商标变更", "GSB_IGIRL_CTM", node.getId());
+		{
+			this.createResourceNodeVoucher(ChangeTradeMark.class.getName(), "方案生成", "IGIRL_All_" + ChangeTradeMark.class.getSimpleName(), IChangeTradeMarkService.class.getName(), node1.getId());
 		}
 		
 		node1 = this.createResourceNodeCategory("微门户", "GSB_IGIRL_SITE", node.getId());

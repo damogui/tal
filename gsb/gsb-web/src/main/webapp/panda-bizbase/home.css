@@ -28,9 +28,9 @@ a {
     border-bottom: none;
 }
 .media{
-	padding: 15px 0;
+	padding: 15px;
 	margin-top: 0;
-  		border-bottom: 1px solid #e4eaec;
+  	border-bottom: 1px solid #e4eaec;
 }
 .media-body, .media-left, .media-right {
     display: table-cell;
@@ -68,6 +68,10 @@ p {
 	font-size:14px;
 }
 
+.panel{
+	
+	border: 1px solid #e4eaec;
+}
 .row{
 	margin-bottom:24px;
 }

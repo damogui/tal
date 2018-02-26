@@ -6,6 +6,6 @@ com.gongsibao.workbench.SupplierWorkbench = org.netsharp.panda.Workbench.Extends
 	openHomePage:function(){
 		
 		//打开服务商的首页，首页可按当前登录人的角色查看部门，业务员，服务商的统计信息
-		this.openWorkspace("首页","https://www.baidu.com",'fa fa-home',false);
+		this.openWorkspace("首页","/nav/gsb/supplier/home",'fa fa-home',false);
 	}
 });

@@ -13,6 +13,7 @@ import com.gongsibao.panda.supplier.sys.SysAllTest;
 		SupplierNavigationTest.class,
 		SupplierWorkbenchTest.class,
 		com.gongsibao.panda.crm.AllTest.class,
+		com.gongsibao.panda.igirl.AllTest.class,
 		SysAllTest.class,
 		})
 		

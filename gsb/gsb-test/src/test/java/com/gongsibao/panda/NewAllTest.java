@@ -31,11 +31,11 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
 	//com.gongsibao.panda.ma.AllTest.class,
 	
     //5.运营管理
-	com.gongsibao.panda.operation.AllTest.class,
+	//com.gongsibao.panda.operation.AllTest.class,
 	
     //2.客户管理
 //	  com.gongsibao.panda.crm.AllTest.class,
-	  SupplierAllTest.class,
+	  //SupplierAllTest.class,
 	
     //6.商品管理
 //	com.gongsibao.panda.product.AllTest.class,
@@ -48,7 +48,7 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
 	 //com.gongsibao.panda.report.AllTest.class,
 
     //10.igri
-//	com.gongsibao.panda.igirl.AllTest.class,
+	com.gongsibao.panda.igirl.AllTest.class,
 
 
     //11.gardian
