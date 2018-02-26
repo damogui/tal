@@ -23,12 +23,10 @@
         <div class="row" style="height:300px;">
         	<div class="cell cell-6">
 	        	<div class="easyui-panel" title="指标" style="padding:10 20px;" data-options="fit:true,border:false">
-
 			    </div>
         	</div>
         	<div class="cell cell-6">
 	        	<div class="easyui-panel" title="交易" data-options="fit:true,border:false">
-
 			    </div>
         	</div>
         </div>
@@ -42,12 +40,10 @@
         <div class="row" style="height:300px;">
         	<div class="cell cell-6">
 	        	<div class="easyui-panel" title="转化分析" style="padding:10 20px;" data-options="fit:true,border:false">
-
 			    </div>
         	</div>
         	<div class="cell cell-6">
 	        	<div class="easyui-panel" title="抽查异常" data-options="fit:true,border:false">
-
 			    </div>
         	</div>
         </div>
