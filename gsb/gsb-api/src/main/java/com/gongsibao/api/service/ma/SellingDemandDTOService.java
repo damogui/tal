@@ -63,6 +63,14 @@ public class SellingDemandDTOService {
 
 
             }
+            //精选筛选结果对应所有资质类公司，热销筛选结果对应所有类金融公司
+            if (queryModel.getIsGood ()>0){
+                filterBuilder.append (" and qualificationDetails.enterpriseQualification>0");//精选
+
+            }
+
+
+
             if (queryModel.getProvinceId () != 0) {//地区省市县
 
                 filterBuilder.append (" and province_id=?");
