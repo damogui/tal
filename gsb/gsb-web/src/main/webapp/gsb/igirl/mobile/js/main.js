@@ -1,4 +1,4 @@
-var ip="http://192.168.10.109:3000";
+var ip="http://192.168.29.137:3000";
 $(function(){
 	var siteCtl=new org.netsharp.core.JServiceLocator()
 	var ctlServiceStr="com.gongsibao.igirl.web.SiteInfoListPart";
@@ -25,7 +25,7 @@ $(function(){
 		}
 		var cr={template:'<div>copyright</div>'}
 		var def={
-				template:'<div>defalut</div>',
+				template:'<div></div>',
 				created:function(){
 					//$("#content").height(0)
 					
@@ -81,13 +81,29 @@ $(function(){
 		      }
 			 next()
 		});
-
+		function getHashParameter(key) {
+			var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)", "i");
+			var index=window.location.href.indexOf("?");
+			if(index!=-1){
+				var searchStr=window.location.href.substr(index);
+				var r = searchStr.substr(1).match(reg);
+				if (r != null) {
+					var x = unescape(r[2]);
+					return decodeURI(x);
+				} else {
+					return null;
+				}
+			}
+			
+		}
 		//获取服务商ID
-		var supplierId=System.Url.getHashParameter("spid");
-		var casecode=System.Url.getHashParameter("casecode");
-		var source=System.Url.getHashParameter("source");
+		var supplierId=getHashParameter("spid");
+		var casecode=getHashParameter("casecode");
+		var source=getHashParameter("source");
+		
 		var siteInfo=null;
 		var sourceInfo={supplierId:supplierId,casecode:casecode,source:source};
+		
 		siteCtl.invoke(ctlServiceStr,"fetchSiteInfo",[supplierId],function(d){
 			 var app = new Vue({
 					  el: '#kpMain',
