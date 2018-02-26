@@ -78,11 +78,7 @@ org.netsharp.core.LoginController = System.Object.Extends({
 				
 				//设置ticket
 				System.Cookies.set("COOKIE_ER_LOGIN_TICKET", message.data, 100);
-				
-				//这种方法不行
-				//System.Cookies.set("COOKIE_ER_LOGIN_TICKET", 'b81a9201-b17f-4f40-aac8-924561a3cdfd', 100);
-				
-				window.location.href = "/panda/workbench";
+				window.location.href = message.workbenchPtah;
 			} else if (message.result == 2) {
 				
 				IMessageBox.error("您的帐号已经冻结，请联系管理员！");

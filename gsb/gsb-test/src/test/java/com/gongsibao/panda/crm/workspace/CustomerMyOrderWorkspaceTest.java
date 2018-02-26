@@ -1,15 +1,14 @@
-package com.gongsibao.panda.crm.workspace.sys;
+package com.gongsibao.panda.crm.workspace;
+
+import org.junit.Before;
+import org.netsharp.organization.dic.OperationTypes;
+import org.netsharp.panda.entity.PDatagrid;
+import org.netsharp.panda.entity.PQueryProject;
+import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.crm.web.CustomerMyOrderListPart;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.panda.trade.workspace.order.AllOrderWorkspaceTest;
-import org.junit.Before;
-import org.netsharp.organization.dic.OperationTypes;
-import org.netsharp.panda.controls.ControlTypes;
-import org.netsharp.panda.entity.PDatagrid;
-import org.netsharp.panda.entity.PDatagridColumn;
-import org.netsharp.panda.entity.PQueryProject;
-import org.netsharp.resourcenode.entity.ResourceNode;
 
 /**
  * Created by zhangchao on 2018/2/9.

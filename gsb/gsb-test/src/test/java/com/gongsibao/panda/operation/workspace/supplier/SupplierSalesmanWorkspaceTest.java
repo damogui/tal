@@ -5,7 +5,7 @@ import org.netsharp.panda.dic.OpenMode;
 
 import com.gongsibao.crm.web.SysSalesmanListPart;
 import com.gongsibao.entity.supplier.Salesman;
-import com.gongsibao.panda.crm.workspace.sys.SysSalesmanWorkspaceTest;
+import com.gongsibao.panda.supplier.sys.workspace.SysSalesmanWorkspaceTest;
 
 public class SupplierSalesmanWorkspaceTest  extends SysSalesmanWorkspaceTest {
 
@@ -25,5 +25,9 @@ public class SupplierSalesmanWorkspaceTest  extends SysSalesmanWorkspaceTest {
         listPartServiceController = SysSalesmanListPart.class.getName();
 
         treeResourceNodeCode = "GSB_Operation_Supplier_Department";
+        
+        productDetailResourceNodeCode = "GSB_Operation_Supplier_SALESMAN_Product";
+        
+        roleDetailResourceNodeCode = "GSB_Operation_Supplier_SALESMAN_ADDROLE";
     }
 }

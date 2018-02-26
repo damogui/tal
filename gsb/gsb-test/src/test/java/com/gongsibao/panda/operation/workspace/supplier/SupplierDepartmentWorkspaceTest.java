@@ -3,7 +3,7 @@ package com.gongsibao.panda.operation.workspace.supplier;
 import org.netsharp.panda.dic.OpenMode;
 
 import com.gongsibao.crm.web.SysDepartmentTreeGridPart;
-import com.gongsibao.panda.crm.workspace.sys.SysDepartmentWorkspaceTest;
+import com.gongsibao.panda.supplier.sys.workspace.SysDepartmentWorkspaceTest;
 
 public class SupplierDepartmentWorkspaceTest extends SysDepartmentWorkspaceTest{
 
@@ -21,5 +21,7 @@ public class SupplierDepartmentWorkspaceTest extends SysDepartmentWorkspaceTest{
 		listPartServiceController = SysDepartmentTreeGridPart.class.getName();
 		
 		listToolbarPath = "/operation/supplier/department/toolbar";
+		
+		productDetailResourceNodeCode = "GSB_Operation_Supplier_Department_Product";
 	}
 }

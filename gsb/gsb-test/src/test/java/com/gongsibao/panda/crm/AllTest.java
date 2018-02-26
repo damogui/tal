@@ -1,6 +1,5 @@
 package com.gongsibao.panda.crm;
 
-import com.gongsibao.panda.crm.workspace.sys.CustomerMyOrderWorkspaceTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -10,12 +9,12 @@ import com.gongsibao.panda.crm.reference.CityReferenceTest;
 import com.gongsibao.panda.crm.reference.CompanyIntentionReferenceTest;
 import com.gongsibao.panda.crm.reference.CustomerRefereneTest;
 import com.gongsibao.panda.crm.reference.EmployeeRefereneTest;
-
 import com.gongsibao.panda.crm.reference.ProductReferenceTest;
 import com.gongsibao.panda.crm.reference.SupplierDepartmentRefereneTest;
 import com.gongsibao.panda.crm.reference.SupplierRefereneTest;
 import com.gongsibao.panda.crm.workspace.CompanyIntentionWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.CustomerAllWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.CustomerMyOrderWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.CustomerOrderWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.CustomerServiceConfigWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.department.DepartmentAllCustomerWorkspaceTest;
@@ -49,8 +48,6 @@ import com.gongsibao.panda.crm.workspace.salesman.form.SalesmanCustomerEditWorks
 import com.gongsibao.panda.crm.workspace.salesman.form.SalesmanTaskAddWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.salesman.form.SalesmanTaskEditWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.salesman.form.SalesmanTaskFollowFormWorkspaceTest;
-import com.gongsibao.panda.crm.workspace.sys.SysDepartmentWorkspaceTest;
-import com.gongsibao.panda.crm.workspace.sys.SysSalesmanWorkspaceTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
@@ -67,9 +64,7 @@ import com.gongsibao.panda.crm.workspace.sys.SysSalesmanWorkspaceTest;
 		CustomerAllWorkspaceTest.class,
 		CustomerMyOrderWorkspaceTest.class,
 		CompanyIntentionWorkspaceTest.class,
-		//系统设置
-		SysDepartmentWorkspaceTest.class,
-		SysSalesmanWorkspaceTest.class,
+
 		
 		
 //		CustomerMyWorkspaceTest.class,

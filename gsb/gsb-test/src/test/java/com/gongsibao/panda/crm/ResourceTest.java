@@ -1,10 +1,6 @@
 package com.gongsibao.panda.crm;
 
-import com.gongsibao.entity.supplier.*;
-import com.gongsibao.supplier.base.*;
-
-import com.gongsibao.trade.base.IOrderService;
-import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.base.IPersistableService;
 import org.netsharp.meta.base.ResourceCreationBase;
 import org.netsharp.organization.base.IEmployeeService;
@@ -18,8 +14,8 @@ import com.gongsibao.crm.base.ICustomerOrderService;
 import com.gongsibao.crm.base.ICustomerProdMapService;
 import com.gongsibao.crm.base.ICustomerService;
 import com.gongsibao.crm.base.ICustomerServiceConfigService;
-import com.gongsibao.crm.base.INCustomerOperationLogService;
 import com.gongsibao.crm.base.INCustomerCompanyService;
+import com.gongsibao.crm.base.INCustomerOperationLogService;
 import com.gongsibao.crm.base.INCustomerProductService;
 import com.gongsibao.crm.base.INCustomerService;
 import com.gongsibao.crm.base.INCustomerTaskFoolowService;
@@ -35,31 +31,45 @@ import com.gongsibao.entity.crm.CustomerOrder;
 import com.gongsibao.entity.crm.CustomerProdMap;
 import com.gongsibao.entity.crm.CustomerServiceConfig;
 import com.gongsibao.entity.crm.NCustomer;
-import com.gongsibao.entity.crm.NCustomerOperationLog;
 import com.gongsibao.entity.crm.NCustomerCompany;
+import com.gongsibao.entity.crm.NCustomerOperationLog;
 import com.gongsibao.entity.crm.NCustomerProduct;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
 import com.gongsibao.entity.crm.NCustomerTaskInspection;
 import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.product.Product;
+import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.supplier.base.ISupplierDepartmentService;
+import com.gongsibao.supplier.base.ISupplierService;
+import com.gongsibao.trade.base.IOrderService;
 
 public class ResourceTest extends ResourceCreationBase {
-
-	@Before
-	public void setup() {
-
-		parentNodeName = "客户管理";
-		parentNodeCode = "GSB_CRM";
-		pluginName = "客户管理";
-		seq = 3;
-		entityClass = ResourceNode.class;
+//
+//	@Before
+//	public void setup() {
+//
+//		parentNodeName = "客户管理";
+//		parentNodeCode = "GSB_CRM";
+//		pluginName = "客户管理";
+//		seq = 3;
+//		entityClass = ResourceNode.class;
+//	}
+//	
+	@Test
+	public void run() {
+		
+		ResourceNode node = resourceNodeService.byCode("Gsb_Supplier_System");
+		this.createResourceNodeVouchers(node);
 	}
 
 	@Override
 	protected void createResourceNodeVouchers(ResourceNode node) {
 
+		node = this.createResourceNodeCategory("客户管理", "GSB_CRM", node.getId());
+		
 		ResourceNode node1 = null;
 		node1 = this.createResourceNodeCategory("客户管理", "GSB_CRM_Manager", node.getId());
 		{
@@ -142,15 +152,6 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(NCustomerTaskNotify.class.getName(), "通知日志", "CRM_DEPARTMENT_Notify",INCustomerTaskNotifyService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerOperationLog.class.getName(), "操作日志", "CRM_DEPARTMENT_Change",INCustomerOperationLogService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTaskInspection.class.getName(), "抽查日志", "CRM_DEPARTMENT_Inspection",INCustomerTaskInspectionService.class.getName(), node1.getId());
-		}
-
-		node1 = this.createResourceNodeCategory("系统设置", "GSB_CRM_SYS", node.getId());
-		{
-			this.createResourceNodeVoucher(SupplierDepartment.class.getName(), "部门列表", "GSB_CRM_SYS_DEPARTMENT", ISupplierDepartmentService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(Salesman.class.getName(), "员工列表", "GSB_CRM_SYS_SALESMAN", ISalesmanService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(SalesmanRole.class.getName(), "添加角色", "GSB_CRM_SYS_SALESMAN_ADDROLE", ISalesmanRoleService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(SalesmanProduct.class.getName(), "服务范围", "GSB_CRM_SYS_SALESMAN_Product", ISalesmanProductService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(DepartmentProduct.class.getName(), "部门服务范围", "GSB_CRM_SYS_Department_Product", IDepartmentProductService.class.getName(), node1.getId());
 		}
 	}
 }

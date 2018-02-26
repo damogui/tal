@@ -1,4 +1,4 @@
-package com.gongsibao.panda.crm.workspace.sys;
+package com.gongsibao.panda.supplier.sys.workspace;
 
 import org.junit.Test;
 import org.netsharp.communication.ServiceFactory;
@@ -23,7 +23,6 @@ import org.netsharp.panda.entity.PWorkspace;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
-import com.gongsibao.controls.CityComboBox;
 import com.gongsibao.controls.DictComboBox;
 import com.gongsibao.crm.web.SalesmanProductDetailPart;
 import com.gongsibao.crm.web.SysSalesmanListPart;
@@ -35,7 +34,11 @@ import com.gongsibao.entity.supplier.Salesman;
 public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 
 	protected String treeResourceNodeCode = "GSB_CRM_SYS_DEPARTMENT";
-
+	
+	protected String productDetailResourceNodeCode = "GSB_CRM_SYS_Department_Product";
+	
+	protected String roleDetailResourceNodeCode = "GSB_CRM_SYS_SALESMAN_ADDROLE";
+	
 	public void setup() {
 		super.setup();
 		urlList = "/crm/sys/salesman/list";
@@ -233,7 +236,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 	// 添加角色
 	private void addRolesDetailPart(PWorkspace workspace) {
 
-		ResourceNode node = this.resourceService.byCode("GSB_CRM_SYS_SALESMAN_ADDROLE");
+		ResourceNode node = this.resourceService.byCode(roleDetailResourceNodeCode);
 		PDatagrid datagrid = new PDatagrid(node, "角色信息");
 		datagrid.setShowCheckbox(true);
 		datagrid.setSingleSelect(false);
@@ -295,7 +298,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 
 	private void addScopesDetailPart(PWorkspace workspace) {
 
-		ResourceNode node = this.resourceService.byCode("GSB_CRM_SYS_SALESMAN_Product");
+		ResourceNode node = this.resourceService.byCode(productDetailResourceNodeCode);
 		PDatagrid datagrid = new PDatagrid(node, "服务范围");
 		{
 			PDatagridColumn column = null;

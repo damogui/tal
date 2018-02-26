@@ -1,4 +1,4 @@
-package com.gongsibao.panda.crm.workspace.sys;
+package com.gongsibao.panda.supplier.sys.workspace;
 
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
@@ -27,6 +27,9 @@ import com.gongsibao.entity.supplier.SupplierDepartment;
 
 //部门管理工作空间
 public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
+	
+
+	protected String productDetailResourceNodeCode = "GSB_CRM_SYS_Department_Product";
 	
 	public void setup() {
 		super.setup();
@@ -134,7 +137,7 @@ public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
 
     private void addScopesDetailPart(PWorkspace workspace) {
 
-        ResourceNode node = this.resourceService.byCode("GSB_CRM_SYS_Department_Product");
+        ResourceNode node = this.resourceService.byCode(productDetailResourceNodeCode);
         PDatagrid datagrid = new PDatagrid(node, "服务范围");
         {
         	datagrid.setShowTitle(true);
