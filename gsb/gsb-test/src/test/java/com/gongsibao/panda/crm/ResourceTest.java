@@ -1,6 +1,7 @@
 package com.gongsibao.panda.crm;
 
 import org.junit.Test;
+import org.netsharp.base.IPersistableService;
 import org.netsharp.meta.base.ResourceCreationBase;
 import org.netsharp.organization.base.IEmployeeService;
 import org.netsharp.organization.entity.Employee;
@@ -22,6 +23,10 @@ import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
 import com.gongsibao.entity.crm.NCustomerTaskInspection;
 import com.gongsibao.entity.crm.NCustomerTaskNotify;
+import com.gongsibao.entity.crm.report.ComprehenReportEntity;
+import com.gongsibao.entity.crm.report.CustomerServiceReportEntity;
+import com.gongsibao.entity.crm.report.FollowReportEntity;
+import com.gongsibao.entity.crm.report.FunnelReportEntity;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.supplier.base.ISupplierDepartmentService;
@@ -113,6 +118,15 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(NCustomerTaskNotify.class.getName(), "通知日志", "CRM_DEPARTMENT_Notify",INCustomerTaskNotifyService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerOperationLog.class.getName(), "操作日志", "CRM_DEPARTMENT_Change",INCustomerOperationLogService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTaskInspection.class.getName(), "抽查日志", "CRM_DEPARTMENT_Inspection",INCustomerTaskInspectionService.class.getName(), node1.getId());
+		}
+		
+		node1 = this.createResourceNodeCategory("CRM统计分析", "GSB_CRM_STATISTICAL", node.getId());
+		{
+			this.createResourceNodeVoucher(ComprehenReportEntity.class.getName(), "综合统计", "CRM_STATISTICAL_Comprehen", IPersistableService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(FunnelReportEntity.class.getName(), "漏斗统计", "CRM_STATISTICAL_Funnel", IPersistableService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(FollowReportEntity.class.getName(), "跟进统计", "CRM_STATISTICAL_Follow", IPersistableService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(CustomerServiceReportEntity.class.getName(), "客服统计", "CRM_STATISTICAL_CustomerService", IPersistableService.class.getName(), node1.getId());
+			
 		}
 	}
 }
