@@ -5,6 +5,10 @@ import org.netsharp.meta.base.NavigationBase;
 import org.netsharp.panda.plugin.entity.PNavigation;
 
 import com.gongsibao.entity.cms.ProductView;
+import com.gongsibao.entity.crm.CompanyIntention;
+import com.gongsibao.entity.crm.Customer;
+import com.gongsibao.entity.crm.CustomerOrder;
+import com.gongsibao.entity.crm.CustomerServiceConfig;
 import com.gongsibao.entity.taurus.ActiveUserView;
 import com.gongsibao.entity.taurus.DayStatisticView;
 import com.gongsibao.entity.taurus.JnzUserBehaviorStatistics;
@@ -12,7 +16,6 @@ import com.gongsibao.entity.taurus.NewUserPerDayView;
 import com.gongsibao.entity.taurus.User;
 import com.gongsibao.entity.taurus.UserConsumptionView;
 import com.gongsibao.entity.taurus.UserInfo;
-import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.SoOrder;
 
 public class NavigationTest extends NavigationBase {
@@ -57,8 +60,17 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Supplier_Category", "服务商分类", "/operation/supplier/category/list",3);
 			createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Supplier", "服务商列表", "/operation/supplier/list", 4);
 		}
-		
-		createPTreeNode(tree, null, "fa fa-file-o fa-fw", "Operation_CRM", "客户管理", "", 4);
+		createPTreeNode(tree, null, "fa fa-users fa-fw", "GSB_CRM_Manager", "客户管理（旧）", "", 4);
+		{
+			createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_All_" + Customer.class.getSimpleName(), "全部客户", "/crm/customer/all/list", 1);
+			createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_My_" + Customer.class.getSimpleName(), "我的客户", "/crm/customer/my/list", 2);
+			createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_" + CompanyIntention.class.getSimpleName(), "企业信息库", "/crm/company/list", 3);
+			createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_Pool_" + Customer.class.getSimpleName(), "客户池", "/crm/customer/pool/list", 4);
+			createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_Operation_" + Customer.class.getSimpleName(), "客户操作", "/crm/customer/operation/list", 5);
+			createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_" + CustomerServiceConfig.class.getSimpleName(), "客服配置", "/crm/customer/service/config/list", 6);
+			createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_" + CustomerOrder.class.getSimpleName(), "订单列表", "/crm/customer/order/list", 7);
+		}
+		createPTreeNode(tree, null, "fa fa-file-o fa-fw", "Operation_CRM", "客户管理", "", 5);
 		{
 			createPTreeNode(tree, "Operation_CRM", "fa fa-user-plus fa-fw", "Operation_CRM_Customer_Add", "新增客户", "/crm/platform/customer/add", 1);
 			

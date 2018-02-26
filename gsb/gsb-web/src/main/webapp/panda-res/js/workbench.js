@@ -31,12 +31,34 @@ org.netsharp.panda.Workbench = System.Object.Extends({
 	    });
 	    
 	    //打开首页
-	    this.openWorkspace("首页","/nav/panda-bizbase/home",'fa fa-home',false);
+	    this.openHomePage();
 	    //默认打开第1个模块
 	    var firstNavItem = $("#nav li").first();
 	    if(firstNavItem){
 		  this.selectNav(firstNavItem);
 	    }
+	    
+	    this.initOkayNav();
+	},
+	initOkayNav:function(){
+		var navigation = $('#nav-main').okayNav({
+			beforeopen: function() {
+				//alert('beforeopen');
+			},
+			open: function() {
+				//alert('open');
+			},
+			beforeclose: function() {
+				//alert('beforeclose');
+			},
+			close: function() {
+				//alert('close');
+			}
+		});
+	},
+	openHomePage:function(){
+
+	    this.openWorkspace("首页","/nav/panda-bizbase/home",'fa fa-home',false);
 	},
     openWorkspace: function(subtitle, url, icon, closable, id,openMode,width,height) {
 
@@ -527,25 +549,3 @@ org.netsharp.panda.Workbench = System.Object.Extends({
     };
 
 }(jQuery, window, document));
-
-
-var workbench = new org.netsharp.panda.Workbench();
-$(function(){
-
-	workbench.init();
-	
-	var navigation = $('#nav-main').okayNav({
-		beforeopen: function() {
-			//alert('beforeopen');
-		},
-		open: function() {
-			//alert('open');
-		},
-		beforeclose: function() {
-			//alert('beforeclose');
-		},
-		close: function() {
-			//alert('close');
-		}
-	});
-});

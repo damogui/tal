@@ -1,12 +1,20 @@
 package com.gongsibao.panda.operation;
 
 import org.junit.Before;
+import org.netsharp.base.IPersistableService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.meta.base.ResourceCreationBase;
 import org.netsharp.resourcenode.IResourceNodeService;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.cms.base.IProductViewService;
+import com.gongsibao.crm.base.ICompanyIntentionService;
+import com.gongsibao.crm.base.ICustomerCompanyMapService;
+import com.gongsibao.crm.base.ICustomerFollowService;
+import com.gongsibao.crm.base.ICustomerOrderService;
+import com.gongsibao.crm.base.ICustomerProdMapService;
+import com.gongsibao.crm.base.ICustomerService;
+import com.gongsibao.crm.base.ICustomerServiceConfigService;
 import com.gongsibao.crm.base.INCustomerOperationLogService;
 import com.gongsibao.crm.base.INCustomerCompanyService;
 import com.gongsibao.crm.base.INCustomerProductService;
@@ -16,7 +24,15 @@ import com.gongsibao.crm.base.INCustomerTaskInspectionService;
 import com.gongsibao.crm.base.INCustomerTaskNotifyService;
 import com.gongsibao.crm.base.INCustomerTaskQualityService;
 import com.gongsibao.crm.base.INCustomerTaskService;
+import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.cms.ProductView;
+import com.gongsibao.entity.crm.CompanyIntention;
+import com.gongsibao.entity.crm.Customer;
+import com.gongsibao.entity.crm.CustomerCompanyMap;
+import com.gongsibao.entity.crm.CustomerFollow;
+import com.gongsibao.entity.crm.CustomerOrder;
+import com.gongsibao.entity.crm.CustomerProdMap;
+import com.gongsibao.entity.crm.CustomerServiceConfig;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.crm.NCustomerOperationLog;
 import com.gongsibao.entity.crm.NCustomerCompany;
@@ -26,6 +42,7 @@ import com.gongsibao.entity.crm.NCustomerTaskFoolow;
 import com.gongsibao.entity.crm.NCustomerTaskInspection;
 import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.crm.NCustomerTaskQuality;
+import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.supplier.DepartmentProduct;
 import com.gongsibao.entity.supplier.FunctionModule;
 import com.gongsibao.entity.supplier.FunctionModuleRole;
@@ -139,7 +156,26 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(DepartmentProduct.class.getName(), "部门服务范围", "GSB_Operation_Supplier_Department_Product", IDepartmentProductService.class.getName(), node1.getId());
 		
 		}
+		node1 = this.createResourceNodeCategory("客户管理（旧）", "GSB_CRM_Manager", node.getId());
+		{
+			this.createResourceNodeVoucher(Customer.class.getName(), "全部客户", "CRM_All_" + Customer.class.getSimpleName(), ICustomerService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(SoOrder.class.getName(), "客户订单", "CRM_My_All_"+SoOrder.class.getSimpleName(), IOrderService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(Customer.class.getName(), "我的客户", "CRM_My_" + Customer.class.getSimpleName(), ICustomerService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(Customer.class.getName(), "企业信息库", "CRM_Enterprise", ICustomerService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(Customer.class.getName(), "客户池", "CRM_Pool_" + Customer.class.getSimpleName(), ICustomerService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(Customer.class.getName(), "客户操作", "CRM_Operation_" + Customer.class.getSimpleName(), ICustomerService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(Dict.class.getName(), "城市", Dict.class.getSimpleName(), IPersistableService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(CustomerProdMap.class.getName(), "意向产品", CustomerProdMap.class.getSimpleName(), ICustomerProdMapService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(Product.class.getName(), "产品", "CRM_" + Product.class.getSimpleName(), IPersistableService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(CustomerServiceConfig.class.getName(), "客服配置", "CRM_" + CustomerServiceConfig.class.getSimpleName(), ICustomerServiceConfigService.class.getName(),
+					node1.getId());
+			this.createResourceNodeVoucher(CompanyIntention.class.getName(), "企业信息", "CRM_" + CompanyIntention.class.getSimpleName(), ICompanyIntentionService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(CustomerCompanyMap.class.getName(), "关联企业", CustomerCompanyMap.class.getSimpleName(), ICustomerCompanyMapService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(CustomerFollow.class.getName(), "沟通日志", CustomerFollow.class.getSimpleName(), ICustomerFollowService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(SoOrder.class.getName(), "订单记录", SoOrder.class.getSimpleName(), IPersistableService.class.getName(), node1.getId());
 
+			this.createResourceNodeVoucher(CustomerOrder.class.getName(), "订单列表", "CRM_" + CustomerOrder.class.getSimpleName(), ICustomerOrderService.class.getName(), node1.getId());
+		}
 		node1 = this.createResourceNodeCategory("客户管理", "Operation_CRM", node.getId());
 		{
 			this.createResourceNodeVoucher(NCustomer.class.getName(), "新增客户", "Operation_CRM_Customer_Add", INCustomerService.class.getName(), node1.getId());
