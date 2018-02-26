@@ -10,20 +10,49 @@ import com.gongsibao.entity.igirl.baseinfo.SupplierSiteInfo;
 import org.junit.Before;
 import org.netsharp.meta.base.NavigationBase;
 import org.netsharp.panda.plugin.entity.PNavigation;
+import org.netsharp.panda.plugin.entity.PNavigationItem;
 
 public class NavigationTest extends NavigationBase {
 
-	@Before
-	public void setup() {
-		this.treeName = "IGIRL";
-		this.treePath = "panda/gsb/igirl";
-		this.resourceNode = "GSB_IGIRL";
-	}
+//	@Before
+//	public void setup() {
+//		this.treeName = "IGIRL";
+//		this.treePath = "panda/gsb/igirl";
+//		this.resourceNode = "GSB_IGIRL";
+//	}
 
 	public void createAccodions() {
 
-		this.doCreateAccodions("GSB_IGIRL", "IGIRL", "fa fa-users fa-fw", 3);
+		//this.doCreateAccodions("GSB_IGIRL", "IGIRL", "fa fa-users fa-fw", 3);
 	}
+	
+	protected void createPTree() {
+
+		PNavigation tree = treeService.byPath("panda/gsb/supplier");
+		this.doCreateTree(tree);
+		grantPermission(tree);
+		treeService.save(tree);
+	}
+	
+	@Override
+	protected PNavigationItem createPTreeNode(PNavigation tree, String parentCode,String icon, String code, String name, String url, int seq) {
+
+		PNavigationItem node = new PNavigationItem();
+		{
+			node.toNew();
+			node.setCode(code);
+			node.setName(name);
+			node.setUrl(url);
+			node.setParent(parentCode);
+			node.setSeq(seq);
+			node.setIcon(icon);
+			node.setPathId(tree.getId());
+			tree.getTreeNodes().add(node);
+		}
+
+		return node;
+	}
+	
 
 	@Override
 	protected void doCreateTree(PNavigation tree) {

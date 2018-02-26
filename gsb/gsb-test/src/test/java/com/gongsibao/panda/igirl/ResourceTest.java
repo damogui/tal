@@ -11,19 +11,27 @@ import com.gongsibao.entity.igirl.baseinfo.SupplierNewInfo;
 import com.gongsibao.entity.igirl.baseinfo.SupplierSiteInfo;
 import com.gongsibao.igirl.base.*;
 import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.meta.base.ResourceCreationBase;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 public class ResourceTest extends ResourceCreationBase {
 
-	@Before
-	public void setup() {
-
-		parentNodeName = "IGIRL";
-		parentNodeCode = "GSB_IGIRL";
-		pluginName = "IGIRL";
-		seq = 3;
-		entityClass = ResourceNode.class;
+//	@Before
+//	public void setup() {
+//
+//		parentNodeName = "IGIRL";
+//		parentNodeCode = "GSB_IGIRL";
+//		pluginName = "IGIRL";
+//		seq = 3;
+//		entityClass = ResourceNode.class;
+//	}
+	
+	@Test
+	public void run() {
+		
+		ResourceNode node = resourceNodeService.byCode("Gsb_Supplier_System");
+		this.createResourceNodeVouchers(node);
 	}
 
 	@Override
