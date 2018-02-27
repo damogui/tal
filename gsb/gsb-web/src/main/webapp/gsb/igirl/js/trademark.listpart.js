@@ -12,7 +12,7 @@ com.gongsibao.igirl.web.TradeMarkListPart = org.netsharp.panda.commerce.ListPart
 		return html;
 	},
 
-    openBussinessPic:function(markid){
+  openBussinessPic:function(markid){
         this.invokeService("getBussinessPicUrl",[markid],function (url) {
             if(url && url!=""){
                 window.open(url)

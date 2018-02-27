@@ -43,7 +43,9 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		formJsController = TradeMarkCasePart.class.getName();
 		formJsImport = "/gsb/igirl/js/markcase.form.part.js";
 		listToolbarPath = "/igirl/list/toolbar";
-
+		
+		listPartImportJs="/gsb/igirl/js/markcase.list.part.js";
+    listPartJsController=TradeMarkCaseListPart.class.getName();
 	}
 	public static final String trademarkToolbarPath = "/igirl/tm/toolbar";
 	public static final String uploadloadToolbarPath = "/igirl/upload/toolbar";
@@ -100,6 +102,18 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 			item.setOperationType(ot1);
 			item.setSeq(4000);
 			item.setCommand("{controller}.remove();");
+			toolbar.getItems().add(item);
+		}
+		item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("");
+			item.setIcon("fa fa-link");
+			item.setName("分配");
+			item.setCommand(null);
+			item.setOperationType(ot1);
+			item.setSeq(4000);
+			item.setCommand("{controller}.doAllot();");
 			toolbar.getItems().add(item);
 		}
 		item = new PToolbarItem();

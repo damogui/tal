@@ -31,6 +31,7 @@ import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanReportWeekW
 @SuiteClasses({ 
 	OrderResourceTest.class,
 	
+	//我的订单
 	SalesmanOrderAddWorkspaceTest.class,
 	SalesmanOrderAllWorkspaceTest.class,
 	SalesmanOrderCarryoverWorkspaceTest.class,
@@ -43,7 +44,7 @@ import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanReportWeekW
 	SalesmanReportWeekWorkspaceTest.class,
 	SalesmanReportMonthWorkspaceTest.class,
 	
-	
+	//部门订单
 	DepartmentOrderAllWorkspaceTest.class,
 	DepartmentOrderPerformanceWorspaceTest.class,
 	DepartmentOrderReceivedWorkspaceTest.class,
@@ -52,7 +53,7 @@ import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanReportWeekW
 	DepartmentReportWeekWorkspaceTest.class,
 	DepartmentReportMonthWorkspaceTest.class,
 	
-	
+	//订单审核
 	AuditPricingWorkspaceTest.class,
 	AuditCarryoverWorkspaceTest.class,
 	AuditRefundWorkspaceTest.class,
