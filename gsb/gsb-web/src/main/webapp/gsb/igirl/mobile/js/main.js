@@ -53,11 +53,23 @@ $(function(){
 			})
 			
 		}))
+		var payment=()=>Promise.resolve(new Promise(function(resolve,reject){
+			//异步加载组件
+			axios.get(ip+"/vue/comp/payment").then(function(res){	
+				 var obj=eval("("+res.data+")");
+				 console.log(obj)
+				 resolve(obj);
+			}).catch(function(reason){
+				console.log(reason)
+			})
+			
+		}))
 		var routes=[
 			{path:'/',component:def},
 			{path:'/tms',component:tms},
 			{path:'/tm',component:tm},
 			{path:'/tmc',component:tmc},//案件确认
+			{path:'/payment',component:payment},//案件确认
 			{path:'/pt',component:tmc},
 			{path:'/cr',component:cr},
 		]
