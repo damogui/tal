@@ -28,7 +28,7 @@ public class TradeMark extends Entity {
 	private String code;
 
 	@Column(name = "proxy_code", header = "代理号")
-	private String proxyCode = DateTime.now().toString("yyyyMMddHHmmssSSS");
+	private String proxyCode;
 
 	@Column(name = "trade_mark_caseid", header = "商标方案Id")
 	private Integer tradeMarkCaseId = -1;

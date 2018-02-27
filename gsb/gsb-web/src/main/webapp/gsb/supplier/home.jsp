@@ -52,7 +52,6 @@
 <script src='/package/easyui/jquery.min.js'></script>
 <script src='/package/layer/layer.js'></script>
 <script src='/package/easyui/jquery.easyui.min.js'></script>
-<script src='/package/easyui/jquery.easyui.patch.js'></script>
 <script src='/package/easyui/locale/easyui-lang-zh_CN.js'></script>
 <script src='/package/easyui/jquery.easyui.extend.js'></script>
 
