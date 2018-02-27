@@ -98,6 +98,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		// 设置商标的服务商id
 		String tmp="";
 		for (TradeMark tm : entity.getTradeMarks()) {
+			tm.setProxyCode( DateTime.now().toString("yyyyMMddHHmmssSSS"));
 			tm.setDepartmentId(departmentId);
 			//设置
 			tmp+=tm.getNclOne().getCode()+" ";
