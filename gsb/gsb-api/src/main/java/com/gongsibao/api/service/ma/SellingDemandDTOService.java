@@ -171,22 +171,34 @@ public class SellingDemandDTOService {
             sellDto.setCompanyNature (item.getCompanyNature ());//公司性质
             if (item.getCompanyNature () != null) {
                 sellDto.setCompanyNatureStr (item.getCompanyNature ().getText ());//公司性质
+            }else{
+                sellDto.setCompanyNatureStr("");
+
             }
 
             sellDto.setCompanyFeature (item.getCompanyFeature ());//公司特点
             if (item.getCompanyFeature () != null) {
                 sellDto.setCompanyFeatureStr (item.getCompanyFeature ().getText ());//公司特点
+            }else{
+
+                sellDto.setCompanyFeatureStr("");
             }
 
             sellDto.setProvince (item.getProvince ());
             if (item.getProvince () != null) {
                 sellDto.setProvinceStr (item.getProvince ().getName ());//省份名称
 
+            }else{
+                sellDto.setProvinceStr("");
+
             }
             sellDto.setCity (item.getCity ());
             if (item.getCity () != null) {
                 sellDto.setCityStr (item.getCity ().getName ());
 
+            }else{
+
+                sellDto.setCityStr("");
             }
 
             sellDto.setCounty (item.getCounty ());
@@ -236,6 +248,9 @@ public class SellingDemandDTOService {
         if (selling.getCompanyType () != null) {//公司类型
             sellingDemandDTO.setCompanyTypeStr (selling.getCompanyType ().getText ());
 
+        }else {
+
+            sellingDemandDTO.setCompanyTypeStr("");
         }
 
 
@@ -244,30 +259,50 @@ public class SellingDemandDTOService {
         if (selling.getCompanyNature () != null) {//公司性质
             sellingDemandDTO.setCompanyNatureStr (selling.getCompanyNature ().getText ());
 
+        }else{
+
+            sellingDemandDTO.setCompanyNatureStr("");
         }
         sellingDemandDTO.setCompanyFeature (selling.getCompanyFeature ());
         if (selling.getCompanyFeature () != null) {//行业特点
             sellingDemandDTO.setCompanyFeatureStr (selling.getCompanyFeature ().getText ());
+
+        }else{
+            sellingDemandDTO.setCompanyFeatureStr("");
 
         }
         sellingDemandDTO.setTaxMode (selling.getTaxMode ());
         if (selling.getTaxMode () != null) {//纳税人
             sellingDemandDTO.setTaxModeStr (selling.getTaxMode ().getText ());
 
+        }else {
+
+            sellingDemandDTO.setTaxModeStr("");
         }
         sellingDemandDTO.setRegistDate (selling.getRegistDate ());
         if (selling.getRegistDate () != null) {//成立时间
             SimpleDateFormat sdf = new SimpleDateFormat ("yyyy");
             sellingDemandDTO.setRegistDateStr (sdf.format (selling.getRegistDate ()));
+        }else{
+
+            sellingDemandDTO.setRegistDateStr("");
         }
         sellingDemandDTO.setProvince (selling.getProvince ());
         if (selling.getProvince () != null) {//省市
             sellingDemandDTO.setProvinceStr (selling.getProvince ().getName ());
 
+        }else{
+
+            sellingDemandDTO.setProvinceStr("");
+
         }
         sellingDemandDTO.setCity (selling.getCity ());
         if (selling.getCity () != null) {//省市
             sellingDemandDTO.setCityStr (selling.getCity ().getName ());
+
+        }else{
+
+            sellingDemandDTO.setCityStr("");
 
         }
         sellingDemandDTO.setAddressStr (sellingDemandDTO.getProvinceStr () + sellingDemandDTO.getCityStr ());//地址
