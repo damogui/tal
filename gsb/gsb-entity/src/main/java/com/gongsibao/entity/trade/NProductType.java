@@ -1,11 +1,13 @@
 package com.gongsibao.entity.trade;
 
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
 /**
  * Created by win on 2018/2/26.
  */
+@Table(name = "n_product_type", header = "产品类型表")
 public class NProductType extends Entity {
     @Column(name = "pid", header = "产品Id")
     private  Integer pId;

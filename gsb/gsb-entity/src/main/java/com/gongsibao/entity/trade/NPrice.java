@@ -3,11 +3,14 @@ package com.gongsibao.entity.trade;
 import com.gongsibao.entity.bd.Dict;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
+import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
 /**
  * Created by win on 2018/2/26.
  */
+
+@Table(name = "n_price", header = "价格表")
 public class NPrice extends Entity {
     @Column(name = "address_fee", header = "收信人地址")
     private  String addressFee;
