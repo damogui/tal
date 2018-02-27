@@ -33,6 +33,7 @@ import com.gongsibao.panda.crm.workspace.department.form.DepartmentCustomerEditW
 import com.gongsibao.panda.crm.workspace.department.form.DepartmentTaskAddWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.department.form.DepartmentTaskEditWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.department.form.DepartmentTaskFollowFormWorkspaceTest;
+import com.gongsibao.panda.crm.workspace.report.ComprehenStatisticalWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.salesman.SalesmanAllCustomerWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.salesman.SalesmanAllTaskWorkspaceTest;
 import com.gongsibao.panda.crm.workspace.salesman.SalesmanCheckAbnormalWorkspaceTest;
@@ -113,6 +114,12 @@ import com.gongsibao.panda.crm.workspace.salesman.form.SalesmanTaskFollowFormWor
 		DepartmentUnFoolowWorkspaceTest.class,
 		DepartmentUnStartWorkspaceTest.class,
 		DepartmentVerifyCustomerWorkspaceTest.class,
+		
+		ComprehenStatisticalWorkspaceTest.class,
+		/*CustomerServiceStatisticalWorkspaceTest.class,
+		FollowStatisticalWorkspaceTest.class,
+		FunnelStatisticalWorkspaceTest.class,*/
+		
 		
 		//Action
 		ActionAllTest.class,

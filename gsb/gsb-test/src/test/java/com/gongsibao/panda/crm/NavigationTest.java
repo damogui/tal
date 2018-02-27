@@ -79,6 +79,14 @@ public class NavigationTest extends NavigationBase {
 				createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_CHECK_ABNORMAL", "抽查异常", "/crm/department/check/abnormal/list", 10);
 				createPTreeNode(tree, "CRM_DEPARTMENT", null, "CRM_DEPARTMENT_TASK_HIGHSEAS", "公海", "/crm/department/highseas/list", 11);
 			}
+			
+			createPTreeNode(tree, "GSB_CRM", null, "CRM_STATISTICAL", "CRM统计分析", "", 3);
+			{
+				createPTreeNode(tree, "CRM_STATISTICAL", "fa fa-user-plus", "CRM_STATISTICAL_COMPREHEN", "综合统计", "/crm/statistical/comprehen/list", 1);
+				createPTreeNode(tree, "CRM_STATISTICAL", null, "CRM_STATISTICAL_FUNNEL", "漏斗统计", "/crm/statistical/customer/funnel/list", 2);
+				createPTreeNode(tree, "CRM_STATISTICAL", null, "CRM_STATISTICAL_FOLLOW", "跟进统计", "/crm/statistical/follow/list", 3);
+				createPTreeNode(tree, "CRM_STATISTICAL", null, "CRM_STATISTICAL_CUSTOMERSERVICE", "客服统计", "/crm/statistical/customer/list", 4);
+			}
 		}
 
 	}

@@ -256,22 +256,6 @@ System.Url = {
 		} else {
 			return null;
 		}
-	},
-	//获取站点信息
-	getHashParameter:function(key) {
-		var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)", "i");
-		var index=window.location.href.indexOf("?");
-		if(index!=-1){
-			var searchStr=window.location.href.substr(index);
-			var r = searchStr.substr(1).match(reg);
-			if (r != null) {
-				var x = unescape(r[2]);
-				return decodeURI(x);
-			} else {
-				return null;
-			}
-		}
-		
 	}
 };
 

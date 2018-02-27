@@ -421,18 +421,17 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 	public int denyAdvice(String caseid, String advice) {
 		// TODO Auto-generated method stub
 		try {
+			String cmdstr = "update ig_trade_mark_case set tmc_state=?,advice=? where id=?";
 			Oql oql=new Oql();
 			{
-				oql.setType(TradeMarkCase.class);
-				oql.setSelects("TradeMarkCase.*");
+				oql.setFilter("tmc_state=?");
+				oql.setFilter("advice=?");
 				oql.setFilter("id=?");
+				oql.getParameters().add("tmc_state",TMCState.ADVICE.getValue(),Types.INTEGER);
+				oql.getParameters().add("advice",advice,Types.VARCHAR);
 				oql.getParameters().add("id",Integer.parseInt(caseid),Types.INTEGER);
 			}
-			TradeMarkCase tmc=this.queryFirst(oql);
-			tmc.setAdvice(advice);
-			tmc.setTmcState(TMCState.ADVICE);
-			tmc.toPersist();
-			this.save(tmc);
+			this.pm.executeNonQuery(cmdstr, oql.getParameters());
 			return 0;
 		}catch(BusinessException e) {
 			return -1;
