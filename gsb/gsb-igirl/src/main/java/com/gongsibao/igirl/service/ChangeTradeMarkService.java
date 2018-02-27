@@ -7,8 +7,12 @@ import com.gongsibao.igirl.base.IChangeTradeMarkService;
 import com.gongsibao.igirl.dto.ChangeTradeMark.ChangeTradeMarkDto;
 import com.gongsibao.igirl.dto.ChangeTradeMark.ChangeTradeMarkToRoBotDto;
 import com.gongsibao.taurus.util.StringManager;
+import com.gongsibao.utils.SupplierSessionManager;
+import org.joda.time.DateTime;
 import org.netsharp.communication.Service;
+import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
+import org.netsharp.entity.IPersistable;
 
 import java.sql.Types;
 import java.util.ArrayList;
@@ -54,7 +58,11 @@ public class ChangeTradeMarkService extends GsbPersistableService<ChangeTradeMar
             changeTradeMarkDto.setCertFileName(getFileName(ctm.getCertFilePath()));
             changeTradeMarkDto.setCertFileENPath(ctm.getCertFileENPath());
             changeTradeMarkDto.setCertFileENName(getFileName(ctm.getCertFileENPath()));
-            changeTradeMarkDto.setCertType(ctm.getCertificateType().getText());
+            if (ctm.getCertificateType()!=null){
+                changeTradeMarkDto.setCertType(ctm.getCertificateType().getText());
+            }else{
+                changeTradeMarkDto.setCertType("");
+            }
             changeTradeMarkDto.setAppCertificateNum(ctm.getAppCertificateNum());
             changeTradeMarkDto.setAppCertFilePath(ctm.getAppCertFilePath());
             changeTradeMarkDto.setAppCertFileName(getFileName(ctm.getAppCertFilePath()));
@@ -92,5 +100,16 @@ public class ChangeTradeMarkService extends GsbPersistableService<ChangeTradeMar
             return url.substring(url.lastIndexOf("/")+1);
         }
         return "";
+    }
+
+    @Override
+    public ChangeTradeMark save(ChangeTradeMark entity) {
+        ChangeTradeMark entity1=entity;
+        Integer departmentId = SupplierSessionManager.getDepartmentId();
+        entity1.setDepartmentId(departmentId);
+        if(entity1.getEntityState()== EntityState.New) {
+            entity1.setAgentFileNum(DateTime.now().toString("yyyyMMddHHmmss"));
+        }
+        return super.save(entity1);
     }
 }
