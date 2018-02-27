@@ -207,6 +207,9 @@ public class SellingDemandDTOService {
             if (item.getRegistDate () != null) {
                 SimpleDateFormat sdf = new SimpleDateFormat ("yyyy");
                 sellDto.setRegistDateStr (sdf.format (item.getRegistDate ()));
+            }else{
+
+                sellDto.setRegistDateStr("");//成立时间默认为空
             }
             sellDto.setSelingStatus (item.getSelingStatus ());//是否出售
 //            sellDto.setCode(item.getCode());
