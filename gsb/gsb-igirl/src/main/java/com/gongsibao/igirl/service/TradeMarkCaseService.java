@@ -18,6 +18,7 @@ import com.gongsibao.igirl.base.ITradeMarkService;
 import com.gongsibao.igirl.base.IUploadAttachmentService;
 import com.gongsibao.igirl.service.builder.TradeMarkCaseAttachmentBuiler;
 import com.gongsibao.supplier.base.ISupplierService;
+import com.gongsibao.taurus.util.StringManager;
 import com.gongsibao.utils.SupplierSessionManager;
 
 import java.io.UnsupportedEncodingException;
@@ -156,6 +157,9 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			Integer departmentId = SupplierSessionManager.getDepartmentId();
 			String tmp="";
 			for (TradeMark tm : entity.getTradeMarks()) {
+				if(StringManager.isNullOrEmpty(tm.getProxyCode())){
+					tm.setProxyCode( DateTime.now().toString("yyyyMMddHHmmssSSS")+tm.getId());
+				}	
 				tm.setSupplierId(sid);
 				tm.setDepartmentId(departmentId);
 				if (tm.getEntityState() != EntityState.Deleted) {
