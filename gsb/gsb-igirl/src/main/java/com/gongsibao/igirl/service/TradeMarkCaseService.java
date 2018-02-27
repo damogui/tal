@@ -158,7 +158,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			String tmp="";
 			for (TradeMark tm : entity.getTradeMarks()) {
 				if(StringManager.isNullOrEmpty(tm.getProxyCode())){
-					tm.setProxyCode( DateTime.now().toString("yyyyMMddHHmmssSSS")+tm.getId());
+					tm.setProxyCode( DateTime.now().toString("yyyyMMddHHmmssSSS")+entity.getId());
 				}	
 				tm.setSupplierId(sid);
 				tm.setDepartmentId(departmentId);
