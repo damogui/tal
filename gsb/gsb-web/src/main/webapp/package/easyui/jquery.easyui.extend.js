@@ -125,7 +125,6 @@ $.extend($.fn.validatebox.defaults.rules, {
         message: '不能含有 ,\'\"\{\}\[\] 特殊字符'
     },
     unnormal : {
-    	
     	// 验证是否包含空格和非法字符 
         validator : function(value) {
         	if(value==""){
