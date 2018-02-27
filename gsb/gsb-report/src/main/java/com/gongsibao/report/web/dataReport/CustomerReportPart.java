@@ -97,7 +97,7 @@ public class CustomerReportPart extends TreegridPart {
 		String startDate = dataMap.get("startDate").replace("'", "");
 		String endDate = dataMap.get("endDate").replace("'", "");
 		//判断时间范围的的请求，返回相应的数据
-		resultMap.put("data", startDate.split(" ")[0]+"至"+endDate.split(" ")[0]);
+		resultMap.put("date", startDate.split(" ")[0]+"至"+endDate.split(" ")[0]);
 		resultMap.put("year",filterMap.get("year")==null?"0":filterMap.get("year"));
 		resultMap.put("month",filterMap.get("month")==null?"0":filterMap.get("month"));
 		
