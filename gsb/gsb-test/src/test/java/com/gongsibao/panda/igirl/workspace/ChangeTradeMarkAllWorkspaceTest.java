@@ -179,11 +179,17 @@ public class ChangeTradeMarkAllWorkspaceTest extends WorkspaceCreationBase {
 
 		addFormField(form, "certCode", "统一社会信用代码", groupName, ControlTypes.TEXT_BOX, false, false);
 
-		addFormField(form, "txt_sqrmyzw", "申请人名称(中文)", groupName, ControlTypes.TEXT_BOX, true, false);
+		formField = addFormField(form, "txt_sqrmyzw", "申请人名称(中文)", groupName, ControlTypes.TEXT_BOX, true, false);
+		{
+			formField.setTroikaTrigger("controllerchangeTradeMark.nameChange(this);");
+		}
 
 		addFormField(form, "txt_sqrmyyw", "申请人名称(英文)", groupName, ControlTypes.TEXT_BOX, false, false);
 
-		addFormField(form, "txt_sqrdzzw", "申请人地址(中文)", groupName, ControlTypes.TEXT_BOX, true, false);
+		formField = addFormField(form, "txt_sqrdzzw", "申请人地址(中文)", groupName, ControlTypes.TEXT_BOX, true, false);
+		{
+			formField.setTroikaTrigger("controllerchangeTradeMark.txt_sqrdzzwChange(this);");
+		}
 
 		addFormField(form, "txt_sqrdzyw", "申请人地址(英文)", groupName, ControlTypes.TEXT_BOX, false, false);
 
@@ -195,10 +201,7 @@ public class ChangeTradeMarkAllWorkspaceTest extends WorkspaceCreationBase {
 
 		groupName = "代理人信息";
 
-		formField = addFormField(form, "txt_dlrmc", "代理人姓名", groupName, ControlTypes.TEXT_BOX, true, false);
-		{
-			formField.setTroikaTrigger("controllerchangeTradeMark.nameChange(this);");
-		}
+		addFormField(form, "txt_dlrmc", "代理人姓名", groupName, ControlTypes.TEXT_BOX, true, false);
 
 		addFormField(form, "agentBookPath", "代理委托书", groupName, ControlTypes.OSS_UPLOAD, true, false);
 
@@ -212,40 +215,43 @@ public class ChangeTradeMarkAllWorkspaceTest extends WorkspaceCreationBase {
 			formField.setTroikaTrigger("controllerchangeTradeMark.languageTypeChange(newValue, oldValue);");
 		}
 
-		addFormField(form, "certFilePath", "主体资格证明文件(中文)", groupName, ControlTypes.OSS_UPLOAD, true, false);
+		addFormField(form, "certFilePath", "主体资格证明文件(中文)", groupName, ControlTypes.OSS_UPLOAD, false, false);
 
-		formField = addFormField(form, "certFileENPath", "主体资格证明原文件(外文)", groupName, ControlTypes.OSS_UPLOAD, true, false);
+		addFormField(form, "certFileENPath", "主体资格证明原文件(外文)", groupName, ControlTypes.OSS_UPLOAD, false, false);
 
+		addFormField(form, "certificateType", "证件名称", groupName, ControlTypes.ENUM_BOX, false, false);
 
-		formField = addFormField(form, "certificateType", "证件名称", groupName, ControlTypes.ENUM_BOX, true, false);
+		addFormField(form, "appCertificateNum", "证件号码", groupName, ControlTypes.TEXT_BOX, false, false);
 
+		addFormField(form, "appCertFilePath", "身份证明文件(中文)", groupName, ControlTypes.OSS_UPLOAD, false, false);
 
-		formField = addFormField(form, "appCertificateNum", "证件号码", groupName, ControlTypes.TEXT_BOX, true, false);
-
-
-		formField = addFormField(form, "appCertFilePath", "身份证明文件(中文)", groupName, ControlTypes.OSS_UPLOAD, true, false);
-
-
-		formField = addFormField(form, "appCertFileENPath", "身份证明原文件(外文)", groupName, ControlTypes.OSS_UPLOAD, true, false);
-
+		addFormField(form, "appCertFileENPath", "身份证明原文件(外文)", groupName, ControlTypes.OSS_UPLOAD, false, false);
 
 		groupName = "业务信息";
 
 		addFormField(form, "changeType", "变更类型", groupName, ControlTypes.ENUM_BOX, true, false);
 
-		addFormField(form, "txt_bgqmyzw", "变更前名称(中文)", groupName, ControlTypes.TEXT_BOX, true, false);
+		formField = addFormField(form, "txt_bgqmyzw", "变更前名称(中文)", groupName, ControlTypes.TEXT_BOX, true, false);
+		{
+			{
+				formField.setTroikaTrigger("controllerchangeTradeMark.nameChange(newValue, oldValue);");
+			}
+		}
 
 		addFormField(form, "txt_bgqmyyw", "变更前名称(英文)", groupName, ControlTypes.TEXT_BOX, false, false);
 
-		addFormField(form, "txt_bgqdzzw", "变更前地址(中文)", groupName, ControlTypes.TEXT_BOX, false, false);
+		addFormField(form, "txt_bgqdzzw", "变更前地址(中文)", groupName, ControlTypes.TEXT_BOX, true, false);
 
-		addFormField(form, "txt_bgqdzyw", "变更前地址(英文)", groupName, ControlTypes.TEXT_BOX, true, false);
+		addFormField(form, "txt_bgqdzyw", "变更前地址(英文)", groupName, ControlTypes.TEXT_BOX, false, false);
 
-		addFormField(form, "proveLanguageType", "变更证明文件是否为中文", groupName, ControlTypes.ENUM_BOX, true, false);
+		formField = addFormField(form, "proveLanguageType", "变更证明文件是否为中文", groupName, ControlTypes.ENUM_BOX, true, false);
+		{
+			formField.setTroikaTrigger("controllerchangeTradeMark.proveLanguageTypeChange(newValue, oldValue);");
+		}
 
 		addFormField(form, "bgzmFilePath", "变更证明文件(中文)", groupName, ControlTypes.OSS_UPLOAD, true, false);
 
-		addFormField(form, "bgzmFileENPath", "变更证明文件(原件)", groupName, ControlTypes.OSS_UPLOAD, true, false);
+		addFormField(form, "bgzmFileENPath", "变更证明文件(原件)", groupName, ControlTypes.OSS_UPLOAD, false, false);
 
 		addFormField(form, "changeTradeMarkType", "商标类型", groupName, ControlTypes.ENUM_BOX, true, false);
 
