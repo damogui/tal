@@ -16,6 +16,9 @@ public class Price extends BaseEntity {
 
 	@Column(name="service_id",header="服务序号")
     private Integer serviceId;
+	
+	@Reference(foreignKey="serviceId",header="服务")
+	private ProductService service;
 
     @Column(name="city_id",header="地区序号，dict=1")
     private Integer cityId;
@@ -168,6 +171,11 @@ public class Price extends BaseEntity {
 		this.agentName = agentName;
 	}
 
-    
-    
+	public ProductService getService() {
+		return service;
+	}
+
+	public void setService(ProductService service) {
+		this.service = service;
+	}
 }
