@@ -5,9 +5,11 @@ import com.gongsibao.entity.igirl.ChangeTradeMark;
 import com.gongsibao.entity.igirl.dict.ChangeTradeMarkState;
 import com.gongsibao.igirl.base.IChangeTradeMarkService;
 import com.gongsibao.igirl.dto.ChangeTradeMark.ChangeTradeMarkDto;
-import com.gongsibao.igirl.dto.ChangeTradeMark.ChangeTradeMarkToRoBotDto;
 import com.gongsibao.taurus.util.StringManager;
+import com.gongsibao.utils.SupplierSessionManager;
+import org.joda.time.DateTime;
 import org.netsharp.communication.Service;
+import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
 
 import java.sql.Types;
@@ -23,8 +25,7 @@ public class ChangeTradeMarkService extends GsbPersistableService<ChangeTradeMar
     }
 
     @Override
-    public ChangeTradeMarkToRoBotDto ctmToRobot() {
-        ChangeTradeMarkToRoBotDto dto = new ChangeTradeMarkToRoBotDto();
+    public List<ChangeTradeMarkDto> ctmToRobot() {
         Oql oql = new Oql();
         oql.setType(ChangeTradeMark.class);
         oql.setSelects("ChangeTradeMark.*");
@@ -50,11 +51,16 @@ public class ChangeTradeMarkService extends GsbPersistableService<ChangeTradeMar
             changeTradeMarkDto.setAgentBookName(getFileName(ctm.getAgentBookPath()));
             changeTradeMarkDto.setAppTypeId(ctm.getApplierType().getText());
             changeTradeMarkDto.setScwjId(ctm.getLanguageType().getText());
+            changeTradeMarkDto.setAgentFileNum(ctm.getAgentFileNum());
             changeTradeMarkDto.setCertFilePath(ctm.getCertFilePath());
             changeTradeMarkDto.setCertFileName(getFileName(ctm.getCertFilePath()));
             changeTradeMarkDto.setCertFileENPath(ctm.getCertFileENPath());
             changeTradeMarkDto.setCertFileENName(getFileName(ctm.getCertFileENPath()));
-            changeTradeMarkDto.setCertType(ctm.getCertificateType().getText());
+            if (ctm.getCertificateType()!=null){
+                changeTradeMarkDto.setCertType(ctm.getCertificateType().getText());
+            }else{
+                changeTradeMarkDto.setCertType("");
+            }
             changeTradeMarkDto.setAppCertificateNum(ctm.getAppCertificateNum());
             changeTradeMarkDto.setAppCertFilePath(ctm.getAppCertFilePath());
             changeTradeMarkDto.setAppCertFileName(getFileName(ctm.getAppCertFilePath()));
@@ -76,21 +82,40 @@ public class ChangeTradeMarkService extends GsbPersistableService<ChangeTradeMar
             changeTradeMarkDto.setCommentName(getFileName(ctm.getCommentPath()));
             ctmDtos.add(changeTradeMarkDto);
         }
-        dto.setCode(200);
-        dto.setCount(ctmDtos.size());
-        dto.setData(ctmDtos);
-        dto.setPin("123456789");
-        if (dto.getCount()>0){
-            dto.setMsg("获取数据成功");
-        }else{
-            dto.setMsg("当前未有数据");
-        }
-        return dto;
+        return ctmDtos;
     }
+
+    @Override
+    public ChangeTradeMark updateCtmState(String agentFileNum, Integer state) {
+        Oql oql = new Oql();
+        oql.setSelects("ChangeTradeMark.*");
+        oql.setType(ChangeTradeMark.class);
+        oql.setFilter("agentFileNum = ?");
+        oql.getParameters().add("agentFileNum", agentFileNum, Types.INTEGER);
+        ChangeTradeMark ctm = this.queryFirst(oql);
+        if (ctm!=null){
+            ctm.setChangeTradeMarkState(ChangeTradeMarkState.getItem(state));
+            ctm.toPersist();
+            ctm = this.save(ctm);
+        }
+        return ctm;
+    }
+
     public String getFileName(String url){
         if (!StringManager.isNullOrEmpty(url)){
             return url.substring(url.lastIndexOf("/")+1);
         }
         return "";
+    }
+
+    @Override
+    public ChangeTradeMark save(ChangeTradeMark entity) {
+        ChangeTradeMark entity1=entity;
+        Integer departmentId = SupplierSessionManager.getDepartmentId();
+        entity1.setDepartmentId(departmentId);
+        if(entity1.getEntityState()== EntityState.New) {
+            entity1.setAgentFileNum(DateTime.now().toString("yyyyMMddHHmmss"));
+        }
+        return super.save(entity1);
     }
 }

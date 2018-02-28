@@ -7,13 +7,13 @@ import org.netsharp.entity.Entity;
 /**
  * Created by win on 2018/2/26.
  */
-@Table(name = "n_dep_refund", header = "退款")
+@Table(name = "n_dep_refund", header = "部门退款")
 public class NDepRefund  extends Entity{
     @Column(name = "amount", header = "数量")
     private  Integer amount;
-    @Column(name = "dep", header = "误差")
-    private  Integer dep;
-    @Column(name = "refund_id", header = "退款")
+    @Column(name = "dep_id", header = "部门Id")
+    private  Integer depId;
+    @Column(name = "refund_id", header = "退款Id")
     private  Integer refund_id;
 
     @Column(name = "salesman_id", header = "员工Id")
@@ -28,13 +28,6 @@ public class NDepRefund  extends Entity{
         this.amount = amount;
     }
 
-    public Integer getDep() {
-        return dep;
-    }
-
-    public void setDep(Integer dep) {
-        this.dep = dep;
-    }
 
     public Integer getRefund_id() {
         return refund_id;
@@ -50,5 +43,13 @@ public class NDepRefund  extends Entity{
 
     public void setSalesmanId(Integer salesmanId) {
         this.salesmanId = salesmanId;
+    }
+
+    public Integer getDepId() {
+        return depId;
+    }
+
+    public void setDepId(Integer depId) {
+        this.depId = depId;
     }
 }

@@ -31,32 +31,33 @@ import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanReportWeekW
 @SuiteClasses({ 
 	OrderResourceTest.class,
 	
+	//我的订单
 	SalesmanOrderAddWorkspaceTest.class,
-	SalesmanOrderAllWorkspaceTest.class,
-	SalesmanOrderCarryoverWorkspaceTest.class,
-	SalesmanOrderContractWorkspaceTest.class,
-	SalesmanOrderPerformanceWorspaceTest.class,
-	SalesmanOrderReceivedWorkspaceTest.class,
-	SalesmanOrderRefundWorkspaceTest.class,
-	SalesmanOrderStagingWorkspaceTest.class,
-	SalesmanReportDayWorkspaceTest.class,
-	SalesmanReportWeekWorkspaceTest.class,
-	SalesmanReportMonthWorkspaceTest.class,
-	
-	
-	DepartmentOrderAllWorkspaceTest.class,
-	DepartmentOrderPerformanceWorspaceTest.class,
-	DepartmentOrderReceivedWorkspaceTest.class,
-	DepartmentOrderRefundWorkspaceTest.class,
-	DepartmentReportDayWorkspaceTest.class,
-	DepartmentReportWeekWorkspaceTest.class,
-	DepartmentReportMonthWorkspaceTest.class,
-	
-	
-	AuditPricingWorkspaceTest.class,
-	AuditCarryoverWorkspaceTest.class,
-	AuditRefundWorkspaceTest.class,
-	AuditStagingWorkspaceTest.class,
+//	SalesmanOrderAllWorkspaceTest.class,
+//	SalesmanOrderCarryoverWorkspaceTest.class,
+//	SalesmanOrderContractWorkspaceTest.class,
+//	SalesmanOrderPerformanceWorspaceTest.class,
+//	SalesmanOrderReceivedWorkspaceTest.class,
+//	SalesmanOrderRefundWorkspaceTest.class,
+//	SalesmanOrderStagingWorkspaceTest.class,
+//	SalesmanReportDayWorkspaceTest.class,
+//	SalesmanReportWeekWorkspaceTest.class,
+//	SalesmanReportMonthWorkspaceTest.class,
+//	
+//	//部门订单
+//	DepartmentOrderAllWorkspaceTest.class,
+//	DepartmentOrderPerformanceWorspaceTest.class,
+//	DepartmentOrderReceivedWorkspaceTest.class,
+//	DepartmentOrderRefundWorkspaceTest.class,
+//	DepartmentReportDayWorkspaceTest.class,
+//	DepartmentReportWeekWorkspaceTest.class,
+//	DepartmentReportMonthWorkspaceTest.class,
+//	
+//	//订单审核
+//	AuditPricingWorkspaceTest.class,
+//	AuditCarryoverWorkspaceTest.class,
+//	AuditRefundWorkspaceTest.class,
+//	AuditStagingWorkspaceTest.class,
 
 	OrderNavigationTest.class, 
 })

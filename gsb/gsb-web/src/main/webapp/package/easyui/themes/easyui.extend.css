@@ -1027,3 +1027,8 @@ div.h10{
 .textbox-disabled .textbox-addon .combo-arrow{
 	background-color: #f3f7f9 !important;
 }
+
+.calendar-selected{
+	background-color: #1E7BB6;
+    border: 1px solid #1E7BB6;
+}

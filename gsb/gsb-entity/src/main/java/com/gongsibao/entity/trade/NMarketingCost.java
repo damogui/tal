@@ -1,11 +1,13 @@
 package com.gongsibao.entity.trade;
 
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
 /**
  * Created by win on 2018/2/26.
  */
+@Table(name = "n_marketing_cost", header = "市场花费")
 public class NMarketingCost  extends Entity {
     @Column(name = "bid_price", header = "出价")
     private  Integer bidPrice;
