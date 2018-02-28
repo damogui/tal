@@ -76,7 +76,7 @@ public class ChangeTradeMarkService extends GsbPersistableService<ChangeTradeMar
             changeTradeMarkDto.setBgzmFileName(getFileName(ctm.getBgzmFilePath()));
             changeTradeMarkDto.setBgzmFileENPath(ctm.getBgzmFileENPath());
             changeTradeMarkDto.setBgzmFileENName(getFileName(ctm.getBgzmFileENPath()));
-            changeTradeMarkDto.setSblx(ctm.getChangeTradeMarkType().getText());
+            changeTradeMarkDto.setSblx(ctm.getChangeTradeMarkType().getContent());
             changeTradeMarkDto.setTxt_sbsqh(ctm.getTxt_sbsqh());
             changeTradeMarkDto.setCommentPath(ctm.getCommentPath());
             changeTradeMarkDto.setCommentName(getFileName(ctm.getCommentPath()));
