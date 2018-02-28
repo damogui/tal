@@ -42,8 +42,6 @@ public class ActionManualAllocationRecordLog implements IAction {
 			changeLog.setFormDepartmentId((Integer) getMap.get("formDepartmentId"));
 			changeLog.setFormSupplierId((Integer) getMap.get("formSupplier"));
 			changeLog.setToUserId(task.getOwnerId());
-			changeLog.setToDepartmentId(task.getDepartmentId());
-			changeLog.setToSupplierId(task.getSupplierId());
 			changeLog.setSupplierId(task.getSupplierId());
 			changeLog.setDepartmentId(task.getDepartmentId());
 			changeService.save(changeLog);

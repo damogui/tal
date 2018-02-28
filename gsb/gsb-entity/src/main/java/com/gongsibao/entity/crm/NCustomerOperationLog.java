@@ -63,18 +63,6 @@ public class NCustomerOperationLog extends Entity {
 
 	@Reference(foreignKey = "toUserId", header = "去向的业务员")
 	private Employee toUser;
-	
-	@Column(name = "to_department_id", header = "去向的部门")
-	private Integer toDepartmentId;
-
-	@Reference(foreignKey = "toDepartmentId", header = "去向的部门")
-	private SupplierDepartment toSupplierDepartment;
-	
-	@Column(name = "to_supplier_id", header = "去向的平台")
-	private Integer toSupplierId;
-
-	@Reference(foreignKey = "toSupplierId", header = "去向的平台")
-	private Supplier toSupplier;
 
 	@Column(name = "content", size = 200, header = "内容")
 	private String content;
@@ -185,38 +173,6 @@ public class NCustomerOperationLog extends Entity {
 
 	public void setFormSupplier(Supplier formSupplier) {
 		this.formSupplier = formSupplier;
-	}
-
-	public Integer getToDepartmentId() {
-		return toDepartmentId;
-	}
-
-	public void setToDepartmentId(Integer toDepartmentId) {
-		this.toDepartmentId = toDepartmentId;
-	}
-
-	public SupplierDepartment getToSupplierDepartment() {
-		return toSupplierDepartment;
-	}
-
-	public void setToSupplierDepartment(SupplierDepartment toSupplierDepartment) {
-		this.toSupplierDepartment = toSupplierDepartment;
-	}
-
-	public Integer getToSupplierId() {
-		return toSupplierId;
-	}
-
-	public void setToSupplierId(Integer toSupplierId) {
-		this.toSupplierId = toSupplierId;
-	}
-
-	public Supplier getToSupplier() {
-		return toSupplier;
-	}
-
-	public void setToSupplier(Supplier toSupplier) {
-		this.toSupplier = toSupplier;
 	}
 
 	public Integer getToUserId() {
