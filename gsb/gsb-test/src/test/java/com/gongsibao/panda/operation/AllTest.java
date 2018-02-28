@@ -1,5 +1,6 @@
 package com.gongsibao.panda.operation;
 
+import com.gongsibao.panda.operation.workspace.crm.*;
 import com.gongsibao.panda.operation.workspace.supplier.*;
 
 import com.gongsibao.panda.operation.workspace.supplier.data.ImportOldDataToNewData;
@@ -8,17 +9,6 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import com.gongsibao.panda.operation.reference.FunctionModuleReferenceTest;
-import com.gongsibao.panda.operation.workspace.crm.CustomerALLWorkspaceTest;
-import com.gongsibao.panda.operation.workspace.crm.CustomerAllocatedWorkspaceTest;
-import com.gongsibao.panda.operation.workspace.crm.CustomerNotTaskWorksapceTest;
-import com.gongsibao.panda.operation.workspace.crm.CustomerUndistributedWorkspaceTest;
-import com.gongsibao.panda.operation.workspace.crm.CustomerVerifyWorkspaceTest;
-import com.gongsibao.panda.operation.workspace.crm.TaskALLWorkspaceTest;
-import com.gongsibao.panda.operation.workspace.crm.TaskAllocatedWorkspaceTest;
-import com.gongsibao.panda.operation.workspace.crm.TaskCheckAbnormalWorkspaceTest;
-import com.gongsibao.panda.operation.workspace.crm.TaskDefeatedWorkspaceTest;
-import com.gongsibao.panda.operation.workspace.crm.TaskOpenSeaWorkspaceTest;
-import com.gongsibao.panda.operation.workspace.crm.TaskUndistributedWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.form.CustomerAddWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.form.CustomerEditWorkspaceTest;
 import com.gongsibao.panda.operation.workspace.crm.form.TaskAddWorkspaceTest;
@@ -110,6 +100,7 @@ import com.gongsibao.panda.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
         ImportTaskRoleAndFunctionTest.class,
        // ImportOldDataToNewData.class,
         SupplierActionTest.class,
+        StatisticalCustomerServiceWorkspaceTest.class,
         NavigationTest.class
 
 })
