@@ -87,7 +87,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 			column.setAlign(DatagridAlign.CENTER);
 		}
 
-		addColumn(datagrid, "isLeader", "主管", ControlTypes.TEXT_BOX, 80);
+		addColumn(datagrid, "isLeader", "主管", ControlTypes.BOOLCOMBO_BOX, 80);
 		addColumn(datagrid, "dayMax", "日分配上限", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "weekMax", "周分配上限", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "xabMax", "XAB类上限", ControlTypes.TEXT_BOX, 80);

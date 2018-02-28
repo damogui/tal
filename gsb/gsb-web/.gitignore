@@ -3,3 +3,4 @@
 /src/main/resources/dev/conf
 /src/test/resources/dev/conf/database.properties
 src/test/resources/dev/conf/database.properties
+/bin/

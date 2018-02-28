@@ -2,11 +2,9 @@ package com.gongsibao.entity.trade;
 
 
 import java.util.Date;
-import java.util.List;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
-import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
