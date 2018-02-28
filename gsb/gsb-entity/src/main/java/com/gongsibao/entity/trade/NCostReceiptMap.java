@@ -7,14 +7,14 @@ import org.netsharp.entity.Entity;
 /**
  * Created by win on 2018/2/26.
  */
-@Table(name = "n_costreceipt_map", header = "消费收据关系")
+@Table(name = "n_costreceipt_map", header = "应收消费关系表")
 public class NCostReceiptMap  extends Entity {
     @Column(name = "cost_id", header = "消费Id")
     private  Integer costId;
-    @Column(name = "cost_receipt", header = "消费数据")
+    @Column(name = "cost_receipt", header = "应收消费")
     private  String costReceipt;
 
-    @Column(name = "receipt_id", header = "收据Id")
+    @Column(name = "receipt_id", header = "应收Id")
     private  Integer receiptId;
 
     public Integer getCostId() {

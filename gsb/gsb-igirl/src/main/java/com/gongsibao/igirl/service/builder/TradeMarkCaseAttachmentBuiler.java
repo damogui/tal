@@ -23,7 +23,7 @@ public class TradeMarkCaseAttachmentBuiler{
 		abCaseShareManager.getUpbuilders().add(new CaseShareAttachmentBuilder());
 		abMarkShareGroupManager.getUpbuilders().add(new CommonAttachmentBuilder());//商标共享组通用附件
 		abMarkShareGroupManager.getUpbuilders().add(new ColorfulAttachmentBuilder());//商标共享组彩色附件
-		abMarkShareGroupManager.getUpbuilders().add(new PersonalAttachmentBuilder());//商标共享组彩色附件
+		//abMarkShareGroupManager.getUpbuilders().add(new PersonalAttachmentBuilder());//商标共享组彩色附件
 		
 		abMarkShareGroupManager.getDownbuilders().add(new CommonAttachmentBuilder());//商标共享组通用附件
 		abMarkShareGroupManager.getDownbuilders().add(new ColorfulAttachmentBuilder());//商标共享组彩色附件

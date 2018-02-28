@@ -7,7 +7,7 @@ import org.netsharp.entity.Entity;
 /**
  * Created by win on 2018/2/26.
  */
-@Table(name = "n_receipt_received", header = "接受收据")
+@Table(name = "n_receipt_received", header = "应收订单表")
 public class NReceiptReceived extends Entity {
     @Column(name = "receipt_type", header = "收据类型")
     private  Integer receiptType;

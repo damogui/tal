@@ -7,7 +7,7 @@ import org.netsharp.entity.Entity;
 /**
  * Created by win on 2018/2/26.
  */
-@Table(name = "n_order_prod_duty_data", header = "订单产品优惠券")
+@Table(name = "n_order_prod_duty_data", header = "订单产品操作")
 public class NOrderProdDutyData  extends Entity {
     @Column(name = "data_name", header = "数据名称")
     private  String dataName;
