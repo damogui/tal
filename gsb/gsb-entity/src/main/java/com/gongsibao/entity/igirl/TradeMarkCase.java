@@ -63,7 +63,7 @@ public class TradeMarkCase extends Entity {
 	@Column(name = "fax", header = "传真（含地区号）")
 	private String fax;
 
-	@Column(name = "applier_address", header = "申请人地址")
+	@Column(name = "applier_address",size = 256, header = "申请人地址")
 	private String applierAddress;
 
 	@Column(name = "identity_code", header = "申请人身份证")

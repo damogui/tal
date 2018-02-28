@@ -50,9 +50,12 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 	private static TradeMarkCaseAttachmentBuiler tradeMarkCaseAttachmentBuiler = new TradeMarkCaseAttachmentBuiler();
 	// 附件营业执照商标ID赋值为-1，因为多个商标共享
 	public final static Integer TradeMarkBizLienseID = -1;
+	// 身份证明商标ID为赋予值为-3，因为多个商标共享
+	public final static Integer PersonMarkProofID = -3;
+
 	// 付款证明商标ID为赋予值为-2，因为多个商标共享
 	public final static Integer TradeMarkPayProofID = -2;
-
+	
 	public TradeMarkCaseService() {
 		super();
 		this.type = TradeMarkCase.class;

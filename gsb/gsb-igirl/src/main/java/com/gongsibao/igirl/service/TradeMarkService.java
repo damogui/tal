@@ -24,6 +24,7 @@ import com.gongsibao.entity.igirl.DownloadAttachment;
 import com.gongsibao.entity.igirl.TradeMark;
 import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.UploadAttachment;
+import com.gongsibao.entity.igirl.dict.ApplierType;
 import com.gongsibao.entity.igirl.dict.AttachmentCat;
 import com.gongsibao.entity.igirl.dict.FileType;
 import com.gongsibao.entity.igirl.dict.MarkState;
@@ -92,14 +93,16 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 				if (ua.getTradeMarkId() == TradeMarkCaseService.TradeMarkBizLienseID) {// 营业执照
 					key = ua.getTradeMarkCaseId() + contantSeprate + "zz" + contantSeprate + "zz";
 				} else {
-					if (ua.getTradeMarkId() == TradeMarkCaseService.TradeMarkPayProofID) {// 表示付款证明
+					if(ua.getTradeMarkId() == TradeMarkCaseService.PersonMarkProofID) {
+						key = ua.getTradeMarkCaseId() + contantSeprate + "sf" + contantSeprate + "sf";				
+					}else if(ua.getTradeMarkId() == TradeMarkCaseService.TradeMarkPayProofID) {// 表示付款证明
 						continue;
+					}else {
+						key = ua.getTradeMarkCaseId() + contantSeprate + ua.getShareGroup().getValue() + contantSeprate
+								+ ua.getAttachmentCat().getValue();
+						// 如果指定颜色，并且是图样，那么设置key的后缀为文件类型
+						key = key + contantSeprate + ua.getFileType().getValue();
 					}
-					key = ua.getTradeMarkCaseId() + contantSeprate + ua.getShareGroup().getValue() + contantSeprate
-							+ ua.getAttachmentCat().getValue();
-					// 如果指定颜色，并且是图样，那么设置key的后缀为文件类型
-					key = key + contantSeprate + ua.getFileType().getValue();
-
 				}
 				if (!shareGroupToTradeMarkMap.containsKey(key)) {
 					shareGroupToTradeMarkMap.put(key, fileurl + contantSeprate + filename);
@@ -109,7 +112,6 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		// 查询附件
 		return shareGroupToTradeMarkMap;
 	}
-
 	// 构造营业执照搜索附件的key
 	private Map<String, String> getBusinessLienceAttachment(TradeMark tm, Map<String, String> attachmentsMap) {
 		Map<String, String> rtnMap = new HashMap<String, String>();
@@ -123,7 +125,19 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		}
 		return rtnMap;
 	}
-
+	// 构造身份证明搜索附件的key
+		private Map<String, String> getPersonProofAttachment(TradeMark tm, Map<String, String> attachmentsMap) {
+			Map<String, String> rtnMap = new HashMap<String, String>();
+			String step2key = tm.getTradeMarkCaseId() + contantSeprate + "sf" + contantSeprate + "sf";
+			if (attachmentsMap.containsKey(step2key)) {
+				String fileinfo = attachmentsMap.get(step2key);
+				String fileUrl = fileinfo.split(contantSeprate)[0];
+				String fileName = fileinfo.split(contantSeprate)[1];
+				rtnMap.put("fileUrl", fileUrl);
+				rtnMap.put("fileName", fileName);
+			}
+			return rtnMap;
+		}
 	// 构造获取委托书的key
 	private Map<String, String> getDeleProofAttachment(TradeMark tm, Map<String, String> attachmentsMap) {
 		Map<String, String> rtnMap = new HashMap<String, String>();
@@ -279,12 +293,12 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			List<UploadAttachment> uas = tmc.getUploadAttachments();
 
 			// 以下6行测试自然人使用，开发后需要改写
-			if (tmc.getApplierType().getText().equals("自然人")) {
-				step2.setAppCertificateNum("120103198007215812"); // 证件号码
-				step2.setAppCertificateId("身份证"); // 证件名称
-				step2.setAppCertFilePath(this.getBusinessLienceAttachment(tm, shareGroupToTradeMarkMap).get("fileUrl"));// 身份证明原件
+			if (tmc.getApplierType()==ApplierType.PRIVATE) {
+				step2.setAppCertificateNum(tmc.getIdentityCode()); // 证件号码
+				step2.setAppCertificateId(tmc.getCertificateType().getText()); // 证件名称
+				step2.setAppCertFilePath(this.getPersonProofAttachment(tm, shareGroupToTradeMarkMap).get("fileUrl"));// 身份证明原件
 				step2.setAppCertFileName(
-						this.getBusinessLienceAttachment(tm, shareGroupToTradeMarkMap).get("fileName"));// 身份证明原件
+						this.getPersonProofAttachment(tm, shareGroupToTradeMarkMap).get("fileName"));// 身份证明原件
 			}
 			// 以上6行测试自然人使用，开发后需要改写
 

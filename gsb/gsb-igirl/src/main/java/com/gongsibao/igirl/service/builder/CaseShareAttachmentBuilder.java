@@ -7,6 +7,7 @@ import com.gongsibao.entity.igirl.DownloadAttachment;
 import com.gongsibao.entity.igirl.TradeMark;
 import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.UploadAttachment;
+import com.gongsibao.entity.igirl.dict.ApplierType;
 import com.gongsibao.entity.igirl.dict.AttachmentCat;
 import com.gongsibao.entity.igirl.dict.FileType;
 import com.gongsibao.entity.igirl.dict.ShareGroup;
@@ -27,6 +28,9 @@ public class CaseShareAttachmentBuilder implements IAttachmentBuilder {
 	public final static Integer TradeMarkBizLienseID = -1;
 	//付款证明商标ID为赋予值为-2，因为多个商标共享
 	public final static Integer TradeMarkPayProofID = -2;
+	
+	//身份证明商标ID为赋予值为-3，因为多个商标共享
+	public final static Integer PersonMarkProofID = -3;
 	@Override
 	public List<UploadAttachment> buildUploads(TradeMark tm,TradeMarkCase tmc) {
 		List<UploadAttachment> ups=new ArrayList<UploadAttachment>();
@@ -35,7 +39,11 @@ public class CaseShareAttachmentBuilder implements IAttachmentBuilder {
 				AttachmentCat.BUSINESS_LIEN, tm.getTradeMarkCaseId(), FileType.PDF, FileType.PDF, TradeMarkBizLienseID,ShareGroup.CASESHARRE);
 		//attachment2.setTradeMarkCase(tm.getTradeMarkCase());
 		ups.add(attachment2);
-
+		if(tmc.getApplierType()==ApplierType.PRIVATE) {
+			attachment2 = (UploadAttachment) AttachmentBuilderManager.buildUploadAttachment("身份证明", AttachmentCat.PERSON_PROOF,
+					tm.getTradeMarkCaseId(), FileType.PDF, FileType.PDF, PersonMarkProofID,ShareGroup.CASESHARRE);
+			ups.add(attachment2);
+		}
 		attachment2 = (UploadAttachment) AttachmentBuilderManager.buildUploadAttachment("付款证明", AttachmentCat.PAYMENT_PROOF,
 				tm.getTradeMarkCaseId(), FileType.JPGB, FileType.JPGB, TradeMarkPayProofID,ShareGroup.CASESHARRE);
 		//attachment2.setTradeMarkCase(tm.getTradeMarkCase());
