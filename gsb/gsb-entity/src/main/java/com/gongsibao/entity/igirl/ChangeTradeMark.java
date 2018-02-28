@@ -57,7 +57,7 @@ public class ChangeTradeMark extends Entity {
     private String agentBookPath;
 
     @Column(name = "applier_type",header = "申请人类型")
-    private ApplierType applierType = ApplierType.PUBLIC;
+    private ChangeApplierType applierType = ChangeApplierType.PUBLIC;
 
     @Column(name = "language_type",header = "语言类型")
     private LanguageType languageType = LanguageType.CHINESE;
@@ -239,11 +239,11 @@ public class ChangeTradeMark extends Entity {
         this.agentBookPath = agentBookPath;
     }
 
-    public ApplierType getApplierType() {
+    public ChangeApplierType getApplierType() {
         return applierType;
     }
 
-    public void setApplierType(ApplierType applierType) {
+    public void setApplierType(ChangeApplierType applierType) {
         this.applierType = applierType;
     }
 

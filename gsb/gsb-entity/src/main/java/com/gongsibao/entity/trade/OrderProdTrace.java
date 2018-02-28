@@ -6,7 +6,6 @@ import java.util.List;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
-import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.trade.dic.OrderProdTraceOperatorType;

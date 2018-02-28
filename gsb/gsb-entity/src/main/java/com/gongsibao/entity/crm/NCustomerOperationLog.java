@@ -40,16 +40,28 @@ public class NCustomerOperationLog extends Entity {
 	@Column(name = "operation_type", header = "操作类型")
 	private OperationType type;
 
-	@Column(name = "form_user_id", header = "来自")
+	@Column(name = "form_user_id", header = "来自业务员")
 	private Integer formUserId;
 
-	@Reference(foreignKey = "formUserId", header = "去向")
+	@Reference(foreignKey = "formUserId", header = "来自业务员")
 	private Employee formUser;
+	
+	@Column(name = "form_department_id", header = "来自的部门")
+	private Integer formDepartmentId;
 
-	@Column(name = "to_user_id", header = "来自")
+	@Reference(foreignKey = "formDepartmentId", header = "来自的部门")
+	private SupplierDepartment formSupplierDepartment;
+
+	@Column(name = "form_supplier_id", header = "来自的平台")
+	private Integer formSupplierId;
+
+	@Reference(foreignKey = "formSupplierId", header = "来自的平台")
+	private Supplier formSupplier;
+	
+	@Column(name = "to_user_id", header = "去向的业务员")
 	private Integer toUserId;
 
-	@Reference(foreignKey = "toUserId", header = "去向")
+	@Reference(foreignKey = "toUserId", header = "去向的业务员")
 	private Employee toUser;
 
 	@Column(name = "content", size = 200, header = "内容")
@@ -114,13 +126,53 @@ public class NCustomerOperationLog extends Entity {
 	public void setType(OperationType type) {
 		this.type = type;
 	}
-
+	
 	public Integer getFormUserId() {
 		return formUserId;
 	}
 
 	public void setFormUserId(Integer formUserId) {
 		this.formUserId = formUserId;
+	}
+
+	public Employee getFormUser() {
+		return formUser;
+	}
+
+	public void setFormUser(Employee formUser) {
+		this.formUser = formUser;
+	}
+
+	public Integer getFormDepartmentId() {
+		return formDepartmentId;
+	}
+
+	public void setFormDepartmentId(Integer formDepartmentId) {
+		this.formDepartmentId = formDepartmentId;
+	}
+
+	public SupplierDepartment getFormSupplierDepartment() {
+		return formSupplierDepartment;
+	}
+
+	public void setFormSupplierDepartment(SupplierDepartment formSupplierDepartment) {
+		this.formSupplierDepartment = formSupplierDepartment;
+	}
+
+	public Integer getFormSupplierId() {
+		return formSupplierId;
+	}
+
+	public void setFormSupplierId(Integer formSupplierId) {
+		this.formSupplierId = formSupplierId;
+	}
+
+	public Supplier getFormSupplier() {
+		return formSupplier;
+	}
+
+	public void setFormSupplier(Supplier formSupplier) {
+		this.formSupplier = formSupplier;
 	}
 
 	public Integer getToUserId() {
@@ -137,14 +189,6 @@ public class NCustomerOperationLog extends Entity {
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	public Employee getFormUser() {
-		return formUser;
-	}
-
-	public void setFormUser(Employee formUser) {
-		this.formUser = formUser;
 	}
 
 	public Employee getToUser() {

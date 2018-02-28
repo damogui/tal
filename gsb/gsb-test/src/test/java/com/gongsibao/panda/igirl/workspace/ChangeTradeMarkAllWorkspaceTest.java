@@ -24,7 +24,7 @@ public class ChangeTradeMarkAllWorkspaceTest extends WorkspaceCreationBase {
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "IGIRL_All_ChangeTradeMark";
 		listPartServiceController=ChangeTradeMarkListPart.class.getName();
-		listToolbarPath = "/igirl/list/toolbar";
+		listToolbarPath = "/igirl/change/toolbar";
 		formJsController = ChangeTradeMarkPart.class.getName();
 		formJsImport = "/gsb/igirl/js/changetrademark.form.part.js";
 	}

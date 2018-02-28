@@ -37,6 +37,8 @@ public class ActionTransferRecordLog implements IAction {
 			changeLog.setChangeType(ChangeType.TRANSFER);
 			changeLog.setCustomerId(task.getCustomerId());
 			changeLog.setFormUserId((Integer) getMap.get("formUserId"));
+			changeLog.setFormDepartmentId((Integer) getMap.get("formDepartmentId"));
+			changeLog.setFormSupplierId((Integer) getMap.get("formSupplier"));
 			changeLog.setToUserId(task.getOwnerId());
 			changeLog.setSupplierId(task.getSupplierId());
 			changeLog.setDepartmentId(task.getDepartmentId());
