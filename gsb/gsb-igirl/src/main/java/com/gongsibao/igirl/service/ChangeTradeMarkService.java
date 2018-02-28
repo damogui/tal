@@ -5,14 +5,12 @@ import com.gongsibao.entity.igirl.ChangeTradeMark;
 import com.gongsibao.entity.igirl.dict.ChangeTradeMarkState;
 import com.gongsibao.igirl.base.IChangeTradeMarkService;
 import com.gongsibao.igirl.dto.ChangeTradeMark.ChangeTradeMarkDto;
-import com.gongsibao.igirl.dto.ChangeTradeMark.ChangeTradeMarkToRoBotDto;
 import com.gongsibao.taurus.util.StringManager;
 import com.gongsibao.utils.SupplierSessionManager;
 import org.joda.time.DateTime;
 import org.netsharp.communication.Service;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
-import org.netsharp.entity.IPersistable;
 
 import java.sql.Types;
 import java.util.ArrayList;
@@ -27,8 +25,7 @@ public class ChangeTradeMarkService extends GsbPersistableService<ChangeTradeMar
     }
 
     @Override
-    public ChangeTradeMarkToRoBotDto ctmToRobot() {
-        ChangeTradeMarkToRoBotDto dto = new ChangeTradeMarkToRoBotDto();
+    public List<ChangeTradeMarkDto> ctmToRobot() {
         Oql oql = new Oql();
         oql.setType(ChangeTradeMark.class);
         oql.setSelects("ChangeTradeMark.*");
@@ -84,17 +81,25 @@ public class ChangeTradeMarkService extends GsbPersistableService<ChangeTradeMar
             changeTradeMarkDto.setCommentName(getFileName(ctm.getCommentPath()));
             ctmDtos.add(changeTradeMarkDto);
         }
-        dto.setCode(200);
-        dto.setCount(ctmDtos.size());
-        dto.setData(ctmDtos);
-        dto.setPin("123456789");
-        if (dto.getCount()>0){
-            dto.setMsg("获取数据成功");
-        }else{
-            dto.setMsg("当前未有数据");
-        }
-        return dto;
+        return ctmDtos;
     }
+
+    @Override
+    public ChangeTradeMark updateCtmState(String agentFileNum, Integer state) {
+        Oql oql = new Oql();
+        oql.setSelects("ChangeTradeMark.*");
+        oql.setType(ChangeTradeMark.class);
+        oql.setFilter("agentFileNum = ?");
+        oql.getParameters().add("agentFileNum", agentFileNum, Types.INTEGER);
+        ChangeTradeMark ctm = this.queryFirst(oql);
+        if (ctm!=null){
+            ctm.setChangeTradeMarkState(ChangeTradeMarkState.getItem(state));
+            ctm.toPersist();
+            ctm = this.save(ctm);
+        }
+        return ctm;
+    }
+
     public String getFileName(String url){
         if (!StringManager.isNullOrEmpty(url)){
             return url.substring(url.lastIndexOf("/")+1);
