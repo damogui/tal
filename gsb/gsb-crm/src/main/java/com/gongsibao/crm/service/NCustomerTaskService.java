@@ -265,7 +265,8 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
         //任务分配
         Map<String, Object> setMap = new HashMap<String, Object>();
         NCustomerTask entity = this.byId(taskId);
-        setMap.put("formUserId", entity.getOwnerId());
+        setMap.put("formDepartmentId", entity.getDepartmentId());
+        setMap.put("formSupplier", entity.getSupplierId());
         //区别批量分配
         setMap.put("alloCount", alloCount);
         //批量分配是否已经发送通知

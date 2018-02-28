@@ -32,14 +32,18 @@ public class ActionManualAllocationRecordLog implements IAction {
 
 		// 1.保存流转日志
 		INCustomerOperationLogService changeService = ServiceFactory.create(INCustomerOperationLogService.class);
+		
 		NCustomerOperationLog changeLog = new NCustomerOperationLog();
 		{
 			changeLog.toNew();
 			changeLog.setTaskId(task.getId());
 			changeLog.setChangeType(ChangeType.ALLOCATION);
 			changeLog.setCustomerId(task.getCustomerId());
-			changeLog.setFormUserId((Integer) getMap.get("formUserId"));
+			changeLog.setFormDepartmentId((Integer) getMap.get("formDepartmentId"));
+			changeLog.setFormSupplierId((Integer) getMap.get("formSupplier"));
 			changeLog.setToUserId(task.getOwnerId());
+			changeLog.setToDepartmentId(task.getDepartmentId());
+			changeLog.setToSupplierId(task.getSupplierId());
 			changeLog.setSupplierId(task.getSupplierId());
 			changeLog.setDepartmentId(task.getDepartmentId());
 			changeService.save(changeLog);
