@@ -154,7 +154,11 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
         setMap.put("noticeMap", noticeMap);
         //2.批量转移是否已经发送通知
         setMap.put("isNotify", isNotify);
-
+        
+        setMap.put("formUserId", entity.getOwnerId());
+        setMap.put("formDepartmentId", entity.getDepartmentId());
+        setMap.put("formSupplier", entity.getSupplierId());
+        
         entity.setSupplierId(supplierId);
         entity.setDepartmentId(departmentId);
         entity.setOwnerId(toUserId);
@@ -265,7 +269,8 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
         //任务分配
         Map<String, Object> setMap = new HashMap<String, Object>();
         NCustomerTask entity = this.byId(taskId);
-        setMap.put("formUserId", entity.getOwnerId());
+        setMap.put("formDepartmentId", entity.getDepartmentId());
+        setMap.put("formSupplier", entity.getSupplierId());
         //区别批量分配
         setMap.put("alloCount", alloCount);
         //批量分配是否已经发送通知
