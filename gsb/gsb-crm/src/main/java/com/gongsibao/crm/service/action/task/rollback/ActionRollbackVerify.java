@@ -24,12 +24,13 @@ public class ActionRollbackVerify implements IAction{
 		NCustomerTask taskEntity = (NCustomerTask)ctx.getItem();
 		
 		//退回级别：业务员（当前任务的ownerId等于当前登录人，退回到业务员当前的部门公海）、上级部门或平台（当前任务的ownerId所在部门的上级部门不为空退回上级部门公海，上级部门为空是平台公海）
-		if(taskEntity.getOwnerId().equals(SessionManager.getUserId())){
+		if(taskEntity.getOwnerId() !=null && taskEntity.getOwnerId().equals(SessionManager.getUserId())){
 			setMap.put("ownerId", SessionManager.getUserId());
 			taskEntity.setOwnerId(null);
 		}else{
-			setMap.put("ownerId", taskEntity.getOwnerId());
-			SalesmanOrganization organization = SupplierSessionManager.getSalesmanOrganization(taskEntity.getOwnerId());
+			Integer currentOwner = taskEntity.getOwnerId() != null ? taskEntity.getOwnerId() : SessionManager.getUserId();
+			setMap.put("ownerId", currentOwner);
+			SalesmanOrganization organization = SupplierSessionManager.getSalesmanOrganization(currentOwner);
 			ISupplierDepartmentService departmentService = ServiceFactory.create(ISupplierDepartmentService.class);
 			Integer currentDepartmentSupId = departmentService.getSupDepartmentId(organization.getDepartmentId());
 			//当前部门的上级为空，进入平台公海。否则进入上级部门公海

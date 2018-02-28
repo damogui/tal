@@ -1,5 +1,7 @@
 package com.gongsibao.crm.service.action.task.regain;
 
+import java.util.Map;
+
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
@@ -24,7 +26,8 @@ public class ActionRegainRecordLog implements IAction {
 	public void execute(ActionContext ctx) {
 
 		NCustomerTask task = (NCustomerTask) ctx.getItem();
-		String content = ctx.getStatus().get("content").toString();
+		Map<String, Object> getMap = ctx.getStatus();
+		String content = getMap.get("content").toString();
 		Integer currentOwner = Integer.valueOf(ctx.getStatus().get("ownerId").toString());
 		SalesmanOrganization organization = SupplierSessionManager.getSalesmanOrganization(currentOwner);
 
@@ -37,6 +40,10 @@ public class ActionRegainRecordLog implements IAction {
 			changeLog.setContent(content);
 			changeLog.setChangeType(ChangeType.RECYCLE);
 			changeLog.setTaskId(task.getId());
+			changeLog.setFormUserId((Integer) getMap.get("formUserId"));
+			changeLog.setFormDepartmentId((Integer) getMap.get("formDepartmentId"));
+			changeLog.setFormSupplierId((Integer) getMap.get("formSupplier"));
+			
 			changeLog.setSupplierId(organization.getSupplierId());
 			changeLog.setDepartmentId(organization.getDepartmentId());
 			changeLog.setCustomerId(task.getCustomerId());
