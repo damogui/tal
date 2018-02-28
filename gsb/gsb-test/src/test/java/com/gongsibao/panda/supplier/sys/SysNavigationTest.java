@@ -40,7 +40,7 @@ public class SysNavigationTest extends NavigationBase {
 	@Override
 	protected void doCreateTree(PNavigation tree) {
 
-		createPTreeNode(tree, null, null, "GSB_CRM_SYS", "系统设置", "", 10);
+		createPTreeNode(tree, null, null, "GSB_CRM_SYS", "系统设置", "", 100);
 		{
 			createPTreeNode(tree, "GSB_CRM_SYS", null, "GSB_CRM_SYS_Organization", "组织机构", "", 1);
 			{

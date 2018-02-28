@@ -27,6 +27,10 @@ public class OrderProd extends BaseEntity {
     @Column(name="order_id",header="订单")
     private Integer orderId;
     
+    @JsonIgnore
+    @Reference(foreignKey = "orderId",header="销售订单")
+    private SoOrder soOrder;
+    
     @Column(name="product_id",header="产品")
     private Integer productId;
     
@@ -61,10 +65,10 @@ public class OrderProd extends BaseEntity {
     private Integer isRefund;
     
     @Column(name="is_complaint",header="客户抱怨")
-    private Integer isComplaint;
+    private Boolean isComplaint;
     
     @Column(name="is_assign",header="已分配")
-    private Integer isAssign;
+    private Boolean isAssign;
     
     @Column(name="processed_days",header="已处理天数")
     private Integer processedDays;
@@ -105,10 +109,6 @@ public class OrderProd extends BaseEntity {
     @Column(name="settle_time",header="结算时间")
     private Date settleTime;
     
-    @JsonIgnore
-    @Reference(foreignKey = "orderId",header="销售订单")
-    private SoOrder soOrder;
-
     @Reference(foreignKey = "productId",header="产品")
     private Product product;
     
@@ -184,22 +184,23 @@ public class OrderProd extends BaseEntity {
     public Integer getIsRefund() {
         return isRefund;
     }
-    public void setIsRefund(Integer isRefund) {
-        this.isRefund = isRefund;
-    }
-    public Integer getIsComplaint() {
-        return isComplaint;
-    }
-    public void setIsComplaint(Integer isComplaint) {
-        this.isComplaint = isComplaint;
-    }
-    public Integer getIsAssign() {
-        return isAssign;
-    }
-    public void setIsAssign(Integer isAssign) {
-        this.isAssign = isAssign;
-    }
-    public Integer getProcessedDays() {
+
+    public Boolean getIsComplaint() {
+		return isComplaint;
+	}
+	public void setIsComplaint(Boolean isComplaint) {
+		this.isComplaint = isComplaint;
+	}
+	public Boolean getIsAssign() {
+		return isAssign;
+	}
+	public void setIsAssign(Boolean isAssign) {
+		this.isAssign = isAssign;
+	}
+	public void setIsRefund(Integer isRefund) {
+		this.isRefund = isRefund;
+	}
+	public Integer getProcessedDays() {
         return processedDays;
     }
     public void setProcessedDays(Integer processedDays) {

@@ -40,7 +40,7 @@ public class OrderNavigationTest extends NavigationBase {
 	@Override
 	protected void doCreateTree(PNavigation tree) {
 
-		createPTreeNode(tree, null, null, "Gsb_Supplier_Order", "订单管理", "", 11);
+		createPTreeNode(tree, null, null, "Gsb_Supplier_Order", "订单管理", "", 9);
 		{
 			createPTreeNode(tree, "Gsb_Supplier_Order", null, "Gsb_Supplier_Order_Salesman", "我的订单", "", 1);
 			{
