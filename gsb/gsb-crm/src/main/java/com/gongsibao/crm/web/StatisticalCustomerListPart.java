@@ -31,7 +31,6 @@ public class StatisticalCustomerListPart extends AdvancedListPart {
 
         this.pdatagrid = this.context.getDatagrid();
         Object json = null;
-        //TODO:获取参数，设置分页
 
         int page = NumberUtils.toInt(getRequest("page"));
         int pageSize = NumberUtils.toInt(getRequest("rows"));
