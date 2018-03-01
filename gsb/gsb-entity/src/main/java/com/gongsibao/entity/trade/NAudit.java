@@ -7,13 +7,13 @@ import org.netsharp.entity.Entity;
 /**
  * Created by win on 2018/2/26.
  */
-@Table(name = "n_audit", header = "审计")
+@Table(name = "n_audit", header = "审核表")
 public class NAudit   extends Entity{
     @Column(name = "applicant_id", header = "申请人Id")
     private  Integer applicantId;
-    @Column(name = "audit_status", header = "审计状态")
+    @Column(name = "audit_status", header = "审核状态")
     private  Integer auditStatus;
-    @Column(name = "audit_type", header = "审计类型")
+    @Column(name = "audit_type", header = "审核类型")
     private  Integer auditType;
 
     public Integer getApplicantId() {

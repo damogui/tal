@@ -11,8 +11,8 @@ import org.netsharp.entity.Entity;
 public class NMarketingCost  extends Entity {
     @Column(name = "bid_price", header = "出价")
     private  Integer bidPrice;
-    @Column(name = "dep", header = "误差")
-    private  Integer dep;
+    @Column(name = "dep_id", header = "部门Id")
+    private  Integer depId;
     @Column(name = "source_link", header = "来源连接")
     private  String sourceLink;
     @Column(name = "supplier_id", header = "供应商Id")
@@ -26,13 +26,7 @@ public class NMarketingCost  extends Entity {
         this.bidPrice = bidPrice;
     }
 
-    public Integer getDep() {
-        return dep;
-    }
 
-    public void setDep(Integer dep) {
-        this.dep = dep;
-    }
 
     public String getSourceLink() {
         return sourceLink;
@@ -48,5 +42,13 @@ public class NMarketingCost  extends Entity {
 
     public void setSupplierId(Integer supplierId) {
         this.supplierId = supplierId;
+    }
+
+    public Integer getDepId() {
+        return depId;
+    }
+
+    public void setDepId(Integer depId) {
+        this.depId = depId;
     }
 }

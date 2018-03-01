@@ -7,13 +7,13 @@ import org.netsharp.entity.Entity;
 /**
  * Created by win on 2018/2/26.
  */
-@Table(name = "n_dep_cost", header = "部门花费")
+@Table(name = "n_dep_cost", header = "部门成本")
 public class NDepCost extends Entity {
-    @Column(name = "amount", header = "数量")
+    @Column(name = "amount", header = "成本金额")
     private  Integer amount;
     @Column(name = "dep_id", header = "部门Id")
     private  Integer depId;
-    @Column(name = "order_cost_map_id", header = "订单消费关系Id")
+    @Column(name = "order_cost_map_id", header = "订单成本关系Id")
     private  Integer orderCostMapId;
     @Column(name = "salesman_id", header = "员工Id")
     private  Integer salesmanId;
