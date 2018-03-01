@@ -9,11 +9,11 @@ import org.netsharp.entity.Entity;
  */
 @Table(name = "n_dep_receivable", header = "部门应收核算款")
 public class NDepReceivable  extends Entity {
-    @Column(name = "amount", header = "数量")
+    @Column(name = "amount", header = "应收款")
     private  Integer amount;
-    @Column(name = "dep_id", header = "误差")
+    @Column(name = "dep_id", header = "部门Id")
     private  Integer depId;
-    @Column(name = "order_id", header = "订单")
+    @Column(name = "order_id", header = "订单Id")
     private  Integer orderId;
     @Column(name = "salesman_id", header = "员工Id")
     private  Integer salesmanId;

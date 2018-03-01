@@ -9,7 +9,7 @@ import org.netsharp.entity.Entity;
  */
 @Table(name = "n_order_cost", header = "订单花费")
 public class NOrderCost   extends Entity{
-    @Column(name = "amount", header = "数量")
+    @Column(name = "amount", header = "花费额度")
     private  Integer amount;
     @Column(name = "cost_prod_type", header = "花费产品类型")
     private  Integer costProdType;

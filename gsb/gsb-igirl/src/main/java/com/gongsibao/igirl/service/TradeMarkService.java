@@ -151,6 +151,7 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			rtnMap.put("fileName", fileName);
 		} else {
 			String fileinfo2 = attachmentsMap.get(step4key);
+			//System.out.println(step4key);
 			String fileUrl = fileinfo2.split(contantSeprate)[0];
 			String fileName = fileinfo2.split(contantSeprate)[1];
 			rtnMap.put("fileUrl", fileUrl);

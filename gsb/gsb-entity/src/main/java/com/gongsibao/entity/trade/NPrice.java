@@ -10,11 +10,11 @@ import org.netsharp.entity.Entity;
  * Created by win on 2018/2/26.
  */
 
-@Table(name = "n_price", header = "价格表")
+@Table(name = "n_price", header = "定价表")
 public class NPrice extends Entity {
     @Column(name = "address_fee", header = "收信人地址")
     private  String addressFee;
-    @Column(name = "amount", header = "数量")
+    @Column(name = "amount", header = "定价额")
     private  Integer amount;
 
 

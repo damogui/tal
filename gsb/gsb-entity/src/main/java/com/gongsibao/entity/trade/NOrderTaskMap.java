@@ -10,7 +10,7 @@ import org.netsharp.entity.Entity;
 @Table(name = "n_order_task_map", header = "订单任务中间表")
 public class NOrderTaskMap extends Entity {
 
-    @Column(name = "order_id", header = "订单")
+    @Column(name = "order_id", header = "订单Id")
     private  Integer orderId;
     @Column(name = "task_id", header = "任务Id")
     private  Integer taskId;

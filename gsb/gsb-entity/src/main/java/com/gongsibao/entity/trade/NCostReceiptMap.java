@@ -7,14 +7,14 @@ import org.netsharp.entity.Entity;
 /**
  * Created by win on 2018/2/26.
  */
-@Table(name = "n_costreceipt_map", header = "应收消费关系表")
+@Table(name = "n_costreceipt_map", header = "成本接受关系表")
 public class NCostReceiptMap  extends Entity {
-    @Column(name = "cost_id", header = "消费Id")
+    @Column(name = "cost_id", header = "成本Id")
     private  Integer costId;
-    @Column(name = "cost_receipt", header = "应收消费")
-    private  String costReceipt;
+    @Column(name = "cost_receipt", header = "成本接受")
+    private  Integer costReceipt;
 
-    @Column(name = "receipt_id", header = "应收Id")
+    @Column(name = "receipt_id", header = "接收人Id")
     private  Integer receiptId;
 
     public Integer getCostId() {
@@ -25,13 +25,7 @@ public class NCostReceiptMap  extends Entity {
         this.costId = costId;
     }
 
-    public String getCostReceipt() {
-        return costReceipt;
-    }
 
-    public void setCostReceipt(String costReceipt) {
-        this.costReceipt = costReceipt;
-    }
 
     public Integer getReceiptId() {
         return receiptId;
@@ -39,5 +33,13 @@ public class NCostReceiptMap  extends Entity {
 
     public void setReceiptId(Integer receiptId) {
         this.receiptId = receiptId;
+    }
+
+    public Integer getCostReceipt() {
+        return costReceipt;
+    }
+
+    public void setCostReceipt(Integer costReceipt) {
+        this.costReceipt = costReceipt;
     }
 }
