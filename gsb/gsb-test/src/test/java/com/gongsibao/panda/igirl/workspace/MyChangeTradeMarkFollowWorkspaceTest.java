@@ -1,6 +1,7 @@
 package com.gongsibao.panda.igirl.workspace;
 
 import com.gongsibao.entity.igirl.ChangeTradeMark;
+import com.gongsibao.igirl.web.ChangeTradeMarkListPart;
 import com.gongsibao.igirl.web.MyChangeTradeMarkListPart;
 import com.gongsibao.igirl.web.TradeMarkListPart;
 import org.junit.Before;
@@ -34,10 +35,9 @@ public class MyChangeTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		openWindowWidth = 800;
 		openWindowHeight = 600;
 		listToolbarPath="/igirl/myctm/changeTradeMark/list";
-		//listFilter = "creator_id = '{userId}'";
 		listPartServiceController = MyChangeTradeMarkListPart.class.getName();
-		listPartJsController=TradeMarkListPart.class.getName();
-		listPartImportJs="/gsb/igirl/js/trademark.listpart.js";
+		listPartJsController=ChangeTradeMarkListPart.class.getName();
+		listPartImportJs="/gsb/igirl/js/changetrademark.listpart.js";
 	}
 
 	@Test
@@ -78,7 +78,7 @@ public class MyChangeTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 			datagrid.setToolbar("panda/datagrid/row/edit");
 			datagrid.setName("商标大类");
 			datagrid.setShowCheckbox(true);
-			datagrid.setSingleSelect(false);
+			datagrid.setSingleSelect(true);
 		}
 		PDatagridColumn column = null;
 		addColumn(datagrid, "createTime", "日期", ControlTypes.DATETIME_BOX, 100, true);

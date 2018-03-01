@@ -3,7 +3,7 @@ package com.gongsibao.api.conroller.igirl;
 import com.gongsibao.api.util.ResponseResult;
 import com.gongsibao.entity.igirl.ChangeTradeMark;
 import com.gongsibao.igirl.base.IChangeTradeMarkService;
-import com.gongsibao.igirl.dto.ChangeTradeMark.ChangeTradeMarkDto;
+import com.gongsibao.igirl.dto.ChangeTradeMarkDto;
 import org.netsharp.communication.ServiceFactory;
 
 import javax.ws.rs.GET;

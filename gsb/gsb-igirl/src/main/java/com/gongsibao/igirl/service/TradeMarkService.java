@@ -1,11 +1,7 @@
 package com.gongsibao.igirl.service;
 
 import java.sql.Types;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.netsharp.attachment.Attachment;
 import org.netsharp.attachment.IAttachmentService;
@@ -422,6 +418,7 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		TradeMark tm = this.queryFirst(oql);
 		if (tm!=null){
 			tm.setMarkState(MarkState.getItem(stateCode));
+			tm.setMarkSubmitTime(new Date());
 			tm.toPersist();
 			tm = this.save(tm);
 		}

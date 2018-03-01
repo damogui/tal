@@ -1,18 +1,16 @@
 package com.gongsibao.entity.igirl;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.joda.time.DateTime;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
-
 import com.gongsibao.entity.igirl.baseinfo.NCLOne;
 import com.gongsibao.entity.igirl.dict.MarkState;
 import com.gongsibao.entity.igirl.dict.ShareGroup;
 import com.gongsibao.entity.igirl.dict.TradeMarkType;
 import com.gongsibao.entity.supplier.Supplier;
-import com.gongsibao.entity.uc.dic.PriorityType;
+import java.util.Date;
 
 @Table(name = "ig_trade_mark", header = "商标")
 public class TradeMark extends Entity {
@@ -72,6 +70,9 @@ public class TradeMark extends Entity {
 
 	@Column(name = "mark_state", header = "商标状态")
 	private MarkState markState = MarkState.READY;
+
+	@Column(name = "mark_submit_time", header = "商标提交时间")
+	private Date markSubmitTime;
 
 	@Column(name = "share_group", header = "分组共享")
 	private ShareGroup shareGroup = ShareGroup.SG1;
@@ -235,14 +236,13 @@ public class TradeMark extends Entity {
 		this.supplier = supplier;
 	}
 
-//	public PriorityType getPriorityType() {
-//		return priorityType;
-//	}
-//
-//	public void setPriorityType(PriorityType priorityType) {
-//		this.priorityType = priorityType;
-//	}
+	public Date getMarkSubmitTime() {
+		return markSubmitTime;
+	}
 
+	public void setMarkSubmitTime(Date markSubmitTime) {
+		this.markSubmitTime = markSubmitTime;
+	}
 
 	public Integer getDepartmentId() {
 		return departmentId;

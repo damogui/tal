@@ -1,4 +1,4 @@
-package com.gongsibao.igirl.dto.ChangeTradeMark;
+package com.gongsibao.igirl.dto;
 
 public class ChangeTradeMarkDto {
     private String  appGjdq;//申请人国籍

@@ -1,9 +1,8 @@
 package com.gongsibao.panda.igirl.workspace;
 
 import com.gongsibao.entity.igirl.TradeMark;
+import com.gongsibao.igirl.web.ChangeTradeMarkListPart;
 import com.gongsibao.igirl.web.DepartmentChangeTradeMarkListPart;
-import com.gongsibao.igirl.web.DepartmentTradeMarkListPart;
-import com.gongsibao.igirl.web.TradeMarkListPart;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
@@ -12,7 +11,6 @@ import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.OpenMode;
-import org.netsharp.panda.dic.OrderbyMode;
 import org.netsharp.panda.entity.*;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
@@ -35,8 +33,8 @@ public class DpChangeTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		openWindowHeight = 600;
 		listToolbarPath="/igirl/dpctm/changeTradeMark/list";
 		listPartServiceController = DepartmentChangeTradeMarkListPart.class.getName();
-		listPartJsController=TradeMarkListPart.class.getName();
-		listPartImportJs="/gsb/igirl/js/trademark.listpart.js";
+		listPartJsController=ChangeTradeMarkListPart.class.getName();
+		listPartImportJs="/gsb/igirl/js/changetrademark.listpart.js";
 	}
 
 	@Test
@@ -122,7 +120,7 @@ public class DpChangeTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 			datagrid.setToolbar("panda/datagrid/row/edit");
 			datagrid.setName("商标大类");
 			datagrid.setShowCheckbox(true);
-			datagrid.setSingleSelect(false);
+			datagrid.setSingleSelect(true);
 		}
 		PDatagridColumn column = null;
 		addColumn(datagrid, "createTime", "日期", ControlTypes.DATETIME_BOX, 100, true);

@@ -4,10 +4,9 @@ import com.gongsibao.bd.service.GsbPersistableService;
 import com.gongsibao.entity.igirl.ChangeTradeMark;
 import com.gongsibao.entity.igirl.dict.ChangeTradeMarkState;
 import com.gongsibao.igirl.base.IChangeTradeMarkService;
-import com.gongsibao.igirl.dto.ChangeTradeMark.ChangeTradeMarkDto;
+import com.gongsibao.igirl.dto.ChangeTradeMarkDto;
 import com.gongsibao.taurus.util.StringManager;
 import com.gongsibao.utils.SupplierSessionManager;
-import org.joda.time.DateTime;
 import org.netsharp.communication.Service;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
@@ -96,7 +95,7 @@ public class ChangeTradeMarkService extends GsbPersistableService<ChangeTradeMar
         if (ctm!=null){
             ctm.setChangeTradeMarkState(ChangeTradeMarkState.getItem(state));
             ctm.toPersist();
-            ctm = this.save(ctm);
+            ctm = super.save(ctm);
         }
         return ctm;
     }
@@ -116,7 +115,7 @@ public class ChangeTradeMarkService extends GsbPersistableService<ChangeTradeMar
         entity1.setDepartmentId(departmentId);
         entity1.setSupplierId(supplierId);
         if(entity1.getEntityState()== EntityState.New) {
-            entity1.setAgentFileNum(DateTime.now().toString("yyyyMMddHHmmss"));
+            entity1.setAgentFileNum(String.valueOf(System.currentTimeMillis()));
         }
         return super.save(entity1);
     }

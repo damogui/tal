@@ -1,7 +1,7 @@
 package com.gongsibao.igirl.base;
 
 import com.gongsibao.entity.igirl.ChangeTradeMark;
-import com.gongsibao.igirl.dto.ChangeTradeMark.ChangeTradeMarkDto;
+import com.gongsibao.igirl.dto.ChangeTradeMarkDto;
 import org.netsharp.base.IPersistableService;
 
 import java.util.List;

@@ -133,6 +133,7 @@ public class MyTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		}
 		PDatagridColumn column = null;
 		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 120);
+		addColumn(datagrid, "markSubmitTime", "商标提交时间", ControlTypes.DATETIME_BOX, 120);
 		addColumn(datagrid, "code", "商标号", ControlTypes.TEXT_BOX, 120);
 		addColumn(datagrid, "proxyCode", "代理号", ControlTypes.TEXT_BOX, 120);
 		addColumn(datagrid, "tradeMarkCase.companyName", "公司名称", ControlTypes.TEXT_BOX, 200);
@@ -171,6 +172,7 @@ public class MyTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		addQueryItem(queryProject, "tradeMarkCase.companyName", "公司名称", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "markState", "状态", ControlTypes.ENUM_BOX);
 		addQueryItem(queryProject, "createTime", "时间", ControlTypes.DATE_BOX).setWidth(400);
+		addQueryItem(queryProject, "markSubmitTime", "商标提交时间", ControlTypes.DATE_BOX).setWidth(400);
 //		PQueryItem item =addQueryItem(queryProject, "mobilePhone", "销售方式", ControlTypes.CUSTOMER);{
 //			
 //			item.setCustomerControlType(DictComboBox.class.getName());
