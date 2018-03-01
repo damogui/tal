@@ -59,7 +59,7 @@ public class SellingDemandDTOService {
                 filterBuilder.append (" and company_name  like '%" + queryModel.getCompanyName () + "%'");
             }
             if (!StringManager.isNullOrEmpty (queryModel.getBankType ())) {//类金融牌照
-                filterBuilder.append (" and company_name  like '%" +ServiceBank.getBankTypesValByKey (queryModel.getBankType ())  + "%'");
+                filterBuilder.append (" and company_name  like '%" + ServiceBank.getBankTypesValByKey (queryModel.getBankType ()) + "%'");
             }
 
             if (queryModel.getComQualType () != 0) {//资质类型  qualificationDetails
@@ -69,18 +69,16 @@ public class SellingDemandDTOService {
 
             }
             //精选筛选结果对应所有资质类公司，热销筛选结果对应所有类金融公司
-            if (queryModel.getIsGood ()>0){
+            if (queryModel.getIsGood () > 0) {
                 filterBuilder.append (" and qualificationDetails.enterpriseQualification>0");//精选
 
             }
             //热销-类金融投资
-            if (queryModel.getIsHot ()>0){
+            if (queryModel.getIsHot () > 0) {
                 filterBuilder.append (" and company_feature=?");
                 qps.add ("@company_feature`", IndustryFeature.IF04.getValue (), Types.INTEGER);
 
             }
-
-
 
 
             if (queryModel.getProvinceId () != 0) {//地区省市县
@@ -158,8 +156,13 @@ public class SellingDemandDTOService {
             throw new BusinessException (e.getMessage ());
 
         }
+        int totalData=sellingDemandService.queryCount (oql);
+        int leftNum = totalData % pageSize;
+        int totalPage = totalData / pageSize;
+        if (leftNum > 0) {
+            totalPage = totalPage + 1;
+        }
 
-        int totalPage = sellingDemandService.queryCount (oql) / pageSize + 1;
         List<SellingDemandDTO> sellingDtoList = new ArrayList<SellingDemandDTO> ();
 
         for (SellingDemand item : sellingList
@@ -171,34 +174,34 @@ public class SellingDemandDTOService {
             sellDto.setCompanyNature (item.getCompanyNature ());//公司性质
             if (item.getCompanyNature () != null) {
                 sellDto.setCompanyNatureStr (item.getCompanyNature ().getText ());//公司性质
-            }else{
-                sellDto.setCompanyNatureStr("");
+            } else {
+                sellDto.setCompanyNatureStr ("");
 
             }
 
             sellDto.setCompanyFeature (item.getCompanyFeature ());//公司特点
             if (item.getCompanyFeature () != null) {
                 sellDto.setCompanyFeatureStr (item.getCompanyFeature ().getText ());//公司特点
-            }else{
+            } else {
 
-                sellDto.setCompanyFeatureStr("");
+                sellDto.setCompanyFeatureStr ("");
             }
 
             sellDto.setProvince (item.getProvince ());
             if (item.getProvince () != null) {
                 sellDto.setProvinceStr (item.getProvince ().getName ());//省份名称
 
-            }else{
-                sellDto.setProvinceStr("");
+            } else {
+                sellDto.setProvinceStr ("");
 
             }
             sellDto.setCity (item.getCity ());
             if (item.getCity () != null) {
                 sellDto.setCityStr (item.getCity ().getName ());
 
-            }else{
+            } else {
 
-                sellDto.setCityStr("");
+                sellDto.setCityStr ("");
             }
 
             sellDto.setCounty (item.getCounty ());
@@ -207,9 +210,9 @@ public class SellingDemandDTOService {
             if (item.getRegistDate () != null) {
                 SimpleDateFormat sdf = new SimpleDateFormat ("yyyy");
                 sellDto.setRegistDateStr (sdf.format (item.getRegistDate ()));
-            }else{
+            } else {
 
-                sellDto.setRegistDateStr("");//成立时间默认为空
+                sellDto.setRegistDateStr ("");//成立时间默认为空
             }
             sellDto.setSelingStatus (item.getSelingStatus ());//是否出售
 //            sellDto.setCode(item.getCode());
@@ -251,9 +254,9 @@ public class SellingDemandDTOService {
         if (selling.getCompanyType () != null) {//公司类型
             sellingDemandDTO.setCompanyTypeStr (selling.getCompanyType ().getText ());
 
-        }else {
+        } else {
 
-            sellingDemandDTO.setCompanyTypeStr("");
+            sellingDemandDTO.setCompanyTypeStr ("");
         }
 
 
@@ -262,50 +265,50 @@ public class SellingDemandDTOService {
         if (selling.getCompanyNature () != null) {//公司性质
             sellingDemandDTO.setCompanyNatureStr (selling.getCompanyNature ().getText ());
 
-        }else{
+        } else {
 
-            sellingDemandDTO.setCompanyNatureStr("");
+            sellingDemandDTO.setCompanyNatureStr ("");
         }
         sellingDemandDTO.setCompanyFeature (selling.getCompanyFeature ());
         if (selling.getCompanyFeature () != null) {//行业特点
             sellingDemandDTO.setCompanyFeatureStr (selling.getCompanyFeature ().getText ());
 
-        }else{
-            sellingDemandDTO.setCompanyFeatureStr("");
+        } else {
+            sellingDemandDTO.setCompanyFeatureStr ("");
 
         }
         sellingDemandDTO.setTaxMode (selling.getTaxMode ());
         if (selling.getTaxMode () != null) {//纳税人
             sellingDemandDTO.setTaxModeStr (selling.getTaxMode ().getText ());
 
-        }else {
+        } else {
 
-            sellingDemandDTO.setTaxModeStr("");
+            sellingDemandDTO.setTaxModeStr ("");
         }
         sellingDemandDTO.setRegistDate (selling.getRegistDate ());
         if (selling.getRegistDate () != null) {//成立时间
             SimpleDateFormat sdf = new SimpleDateFormat ("yyyy");
             sellingDemandDTO.setRegistDateStr (sdf.format (selling.getRegistDate ()));
-        }else{
+        } else {
 
-            sellingDemandDTO.setRegistDateStr("");
+            sellingDemandDTO.setRegistDateStr ("");
         }
         sellingDemandDTO.setProvince (selling.getProvince ());
         if (selling.getProvince () != null) {//省市
             sellingDemandDTO.setProvinceStr (selling.getProvince ().getName ());
 
-        }else{
+        } else {
 
-            sellingDemandDTO.setProvinceStr("");
+            sellingDemandDTO.setProvinceStr ("");
 
         }
         sellingDemandDTO.setCity (selling.getCity ());
         if (selling.getCity () != null) {//省市
             sellingDemandDTO.setCityStr (selling.getCity ().getName ());
 
-        }else{
+        } else {
 
-            sellingDemandDTO.setCityStr("");
+            sellingDemandDTO.setCityStr ("");
 
         }
         sellingDemandDTO.setAddressStr (sellingDemandDTO.getProvinceStr () + sellingDemandDTO.getCityStr ());//地址
@@ -349,11 +352,11 @@ public class SellingDemandDTOService {
 
         if (parentId == 0) {
             listP = provin.queryProvince ();
-            ProvinceCityCounty  provinceCityCounty=new ProvinceCityCounty ();
+            ProvinceCityCounty provinceCityCounty = new ProvinceCityCounty ();
             provinceCityCounty.setName ("全国");
             provinceCityCounty.setCode ("0");
             provinceCityCounty.setId (0);
-            listP.add (0,provinceCityCounty);
+            listP.add (0, provinceCityCounty);
         } else {
             listP = provin.queryPcc (parentId);
         }
@@ -377,10 +380,10 @@ public class SellingDemandDTOService {
         serviceTypeBank.setServiceType (ServiceTypeEnum.p4.getValue ());
         serviceTypeBank.setServiceName (ServiceTypeEnum.p4.getText ());
         ArrayList<ServiceDic> dicListBank = new ArrayList ();
-        HashMap<Integer,String> bankTypes=ServiceBank.getBankTypes ();//类金融牌照
-        for (Integer item:
+        HashMap<Integer, String> bankTypes = ServiceBank.getBankTypes ();//类金融牌照
+        for (Integer item :
                 bankTypes.keySet ()) {
-            ServiceDic  serviceDic=new ServiceDic ();
+            ServiceDic serviceDic = new ServiceDic ();
             serviceDic.setId (item.toString ());
             serviceDic.setName (bankTypes.get (item));
             dicListBank.add (serviceDic);
