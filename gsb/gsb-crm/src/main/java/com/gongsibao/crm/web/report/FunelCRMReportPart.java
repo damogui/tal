@@ -13,12 +13,12 @@ import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.TreegridPart;
 import org.netsharp.util.StringManager;
 
-import com.gongsibao.entity.crm.report.ComprehenReportEntity;
+import com.gongsibao.entity.crm.report.FunnelReportEntity;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.supplier.base.ISupplierDepartmentService;
 import com.gongsibao.utils.SupplierSessionManager;
 
-public class CRMReportPart extends TreegridPart {
+public class FunelCRMReportPart extends TreegridPart {
 
 	ISupplierDepartmentService departService = ServiceFactory.create(ISupplierDepartmentService.class);
 	
@@ -60,10 +60,10 @@ public class CRMReportPart extends TreegridPart {
 			oql.setFilter(filter);
 		}
 		
-		List<ComprehenReportEntity> rows = new ArrayList<ComprehenReportEntity>();
+		List<FunnelReportEntity> rows = new ArrayList<FunnelReportEntity>();
 		List<SupplierDepartment> list = departService.queryList(oql);
 		for (SupplierDepartment o : list) {
-		    ComprehenReportEntity entity = new ComprehenReportEntity();
+			FunnelReportEntity entity = new FunnelReportEntity();
 		    {
 		    	entity.setId(o.getId());
 				entity.setParentId(o.getParentId());
@@ -79,21 +79,23 @@ public class CRMReportPart extends TreegridPart {
 				tempDepartIds = o.getId().toString();
 			}
 			Map<String, Integer> getResultMap = getDataTable(map,tempDepartIds);
-			
-			entity.setCustomerCount(getResultMap.get("customerCount"));
 			entity.setTaskCount(getResultMap.get("taskCount"));
-			/*entity.setSelfCustomerCount(2);
-			entity.setSelfTaskCount(3);*/
-			entity.setAllocationTaskCount(getResultMap.get("allocationTaskCount"));
-			entity.setIntoTaskCount(getResultMap.get("intoTaskCount"));
-			entity.setRollOutTaskCount(getResultMap.get("rollOutTaskCount"));
-			entity.setReturnTaskCount(getResultMap.get("returnTaskCount"));
-			entity.setWithdrawTaskCount(getResultMap.get("withdrawTaskCount"));
-			entity.setFollowTaskCount(getResultMap.get("followTaskCount"));
-			entity.setUnSignTaskCount(getResultMap.get("unSignTaskCount"));
-			entity.setCheckAbnormalTaskCount(getResultMap.get("checkAbnormalTaskCount"));
-			entity.setSigningAmount(getResultMap.get("signingAmount"));
-			entity.setReturnedAmount(getResultMap.get("returnedAmount"));
+			entity.setSCount(getResultMap.get("sCount"));
+			entity.setXCount(getResultMap.get("xCount"));
+			entity.setA0Count(getResultMap.get("A0"));
+			entity.setA1Count(getResultMap.get("A1"));
+			entity.setA2Count(getResultMap.get("A2"));
+			entity.setA3Count(getResultMap.get("A3"));
+			entity.setA4Count(getResultMap.get("A4"));
+			entity.setB1Count(getResultMap.get("B1"));
+			entity.setB2Count(getResultMap.get("B2"));
+			entity.setC1Count(getResultMap.get("C1"));
+			entity.setC2Count(getResultMap.get("C2"));
+			entity.setC3Count(getResultMap.get("C3"));
+			entity.setC4Count(getResultMap.get("C4"));
+			entity.setD1Count(getResultMap.get("D1"));
+			entity.setD2Count(getResultMap.get("D2"));
+			
 			rows.add(entity);
 		}
 		

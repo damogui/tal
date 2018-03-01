@@ -1,6 +1,10 @@
 package com.gongsibao.entity.crm.report;
 
+import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
+
+import com.gongsibao.entity.bd.Dict;
 
 @Table(isView=true, name = "")
 public class FunnelReportEntity extends BaseReportEntity{
@@ -76,6 +80,11 @@ public class FunnelReportEntity extends BaseReportEntity{
 	private Integer C3Count = 0;
 	
 	/**   
+	 * @Fields C4Count : TODO(C3类)   
+	 */   
+	private Integer C4Count = 0;
+	
+	/**   
 	 * @Fields D1Count : TODO(D1类)   
 	 */   
 	private Integer D1Count = 0;
@@ -85,6 +94,12 @@ public class FunnelReportEntity extends BaseReportEntity{
 	 */   
 	private Integer D2Count = 0;
 
+	@Reference(foreignKey = "sourceId", header = "任务来源")
+	private Dict source;
+
+	@Column(name = "source_id", header = "任务来源")
+	private Integer sourceId;
+	
 	public Integer getTaskCount() {
 		return taskCount;
 	}
@@ -188,6 +203,15 @@ public class FunnelReportEntity extends BaseReportEntity{
 	public void setC3Count(Integer c3Count) {
 		C3Count = c3Count;
 	}
+	
+	
+	public Integer getC4Count() {
+		return C4Count;
+	}
+
+	public void setC4Count(Integer c4Count) {
+		C4Count = c4Count;
+	}
 
 	public Integer getD1Count() {
 		return D1Count;
@@ -204,6 +228,21 @@ public class FunnelReportEntity extends BaseReportEntity{
 	public void setD2Count(Integer d2Count) {
 		D2Count = d2Count;
 	}
-	
+
+	public Dict getSource() {
+		return source;
+	}
+
+	public void setSource(Dict source) {
+		this.source = source;
+	}
+
+	public Integer getSourceId() {
+		return sourceId;
+	}
+
+	public void setSourceId(Integer sourceId) {
+		this.sourceId = sourceId;
+	}
 	
 }

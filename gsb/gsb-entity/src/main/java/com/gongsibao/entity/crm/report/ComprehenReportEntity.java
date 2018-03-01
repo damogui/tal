@@ -83,6 +83,7 @@ public class ComprehenReportEntity extends BaseReportEntity{
 	 * @Fields estimatedAmount : TODO(预估回款额)   
 	 */   
 	private Integer returnedAmount = 0;
+	
 	@Reference(foreignKey = "sourceId", header = "任务来源")
 	private Dict source;
 

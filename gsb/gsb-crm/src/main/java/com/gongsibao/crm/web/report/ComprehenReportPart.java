@@ -22,6 +22,7 @@ public class ComprehenReportPart extends CRMReportPart {
 
 	@Override
 	protected Map<String, Integer> getDataTable(HashMap<String, String> filterMap,String orgaId) {
+		
 		Map<String, Integer> resultMap =new HashMap<String, Integer>();
 		Map<String, String> getTaskCustoCountMap = getTaskCustoCount(filterMap,orgaId);
 		Map<String, String> getAllocationTaskCountMap = getAllocationTaskCount(filterMap,orgaId);
@@ -59,6 +60,7 @@ public class ComprehenReportPart extends CRMReportPart {
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
 		String endDate = dataMap.get("endDate").replace("'", "");
+		String sourceId = map.get("sourceId");
 		
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT COUNT(id) taskCount,");
@@ -67,6 +69,9 @@ public class ComprehenReportPart extends CRMReportPart {
 		strSql.append(" where department_id in ("+orgaId+")");
 		strSql.append(" AND create_time >= '"+startDate+"'");
 		strSql.append(" AND create_time <= '"+endDate+"'");
+		if(sourceId != null && sourceId !=""){
+			strSql.append(" AND source_id = " + sourceId);
+		}
 		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
 		for (IRow row : dtNewCount) {
 			resultMap.put("taskCount", row.getString("taskCount"));
@@ -85,14 +90,22 @@ public class ComprehenReportPart extends CRMReportPart {
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
 		String endDate = dataMap.get("endDate").replace("'", "");
+		String sourceId = map.get("sourceId");
 		
 		StringBuilder strSql=new StringBuilder();
-		strSql.append("SELECT COUNT(task_id) allocationTaskCount");
-		strSql.append(" from n_crm_customer_operation_log");
-		strSql.append(" where change_type = 2");
-		strSql.append(" AND form_department_id in ("+orgaId+")");
-		strSql.append(" AND create_time >= '"+startDate+"'");
-		strSql.append(" AND create_time <= '"+endDate+"'");
+		strSql.append("SELECT COUNT(l.task_id) allocationTaskCount");
+		strSql.append(" FROM n_crm_customer_operation_log l");
+		strSql.append(" LEFT JOIN n_crm_customer_task t");
+		strSql.append(" on l.task_id = t.id");
+		
+		strSql.append(" WHERE l.change_type = 2");
+		strSql.append(" AND l.form_department_id in ("+orgaId+")");
+		strSql.append(" AND l.create_time >= '"+startDate+"'");
+		strSql.append(" AND l.create_time <= '"+endDate+"'");
+		if(sourceId != null && sourceId !=""){
+			strSql.append(" AND t.source_id = " + sourceId);
+		}
+		
 		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
 		for (IRow row : dtNewCount) {
 			resultMap.put("allocationTaskCount", row.getString("allocationTaskCount"));
@@ -110,14 +123,20 @@ public class ComprehenReportPart extends CRMReportPart {
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
 		String endDate = dataMap.get("endDate").replace("'", "");
+		String sourceId = map.get("sourceId");
 		
 		StringBuilder strSql=new StringBuilder();
-		strSql.append("SELECT COUNT(distinct task_id) as rollOutTaskCount");
-		strSql.append(" from n_crm_customer_operation_log");
-		strSql.append(" where change_type = 5");
-		strSql.append(" AND form_department_id in ("+orgaId+")");
-		strSql.append(" AND create_time >= '"+startDate+"'");
-		strSql.append(" AND create_time <= '"+endDate+"'");
+		strSql.append("SELECT COUNT(distinct l.task_id) as rollOutTaskCount");
+		strSql.append(" from n_crm_customer_operation_log l");
+		strSql.append(" LEFT JOIN n_crm_customer_task t");
+		strSql.append(" on l.task_id = t.id");
+		strSql.append(" where l.change_type = 5");
+		strSql.append(" AND l.form_department_id in ("+orgaId+")");
+		strSql.append(" AND l.create_time >= '"+startDate+"'");
+		strSql.append(" AND l.create_time <= '"+endDate+"'");
+		if(sourceId != null && sourceId !=""){
+			strSql.append(" AND t.source_id = " + sourceId);
+		}
 		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
 		for (IRow row : dtNewCount) {
 			resultMap.put("rollOutTaskCount", row.getString("rollOutTaskCount"));
@@ -135,14 +154,20 @@ public class ComprehenReportPart extends CRMReportPart {
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
 		String endDate = dataMap.get("endDate").replace("'", "");
+		String sourceId = map.get("sourceId");
 		
 		StringBuilder strSql=new StringBuilder();
-		strSql.append("SELECT COUNT(distinct task_id) as intoTaskCount");
-		strSql.append(" from n_crm_customer_operation_log");
-		strSql.append(" where change_type = 5");
-		strSql.append(" AND department_id in ("+orgaId+")");
-		strSql.append(" AND create_time >= '"+startDate+"'");
-		strSql.append(" AND create_time <= '"+endDate+"'");
+		strSql.append("SELECT COUNT(distinct l.task_id) as intoTaskCount");
+		strSql.append(" from n_crm_customer_operation_log l");
+		strSql.append(" LEFT JOIN n_crm_customer_task t");
+		strSql.append(" on l.task_id = t.id");
+		strSql.append(" where l.change_type = 5");
+		strSql.append(" AND l.department_id in ("+orgaId+")");
+		strSql.append(" AND l.create_time >= '"+startDate+"'");
+		strSql.append(" AND l.create_time <= '"+endDate+"'");
+		if(sourceId != null && sourceId !=""){
+			strSql.append(" AND t.source_id = " + sourceId);
+		}
 		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
 		for (IRow row : dtNewCount) {
 			resultMap.put("intoTaskCount", row.getString("intoTaskCount"));
@@ -160,14 +185,20 @@ public class ComprehenReportPart extends CRMReportPart {
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
 		String endDate = dataMap.get("endDate").replace("'", "");
+		String sourceId = map.get("sourceId");
 		
 		StringBuilder strSql=new StringBuilder();
-		strSql.append("SELECT COUNT(distinct task_id) returnTaskCount");
-		strSql.append(" from n_crm_customer_operation_log");
-		strSql.append(" where change_type = 4");
-		strSql.append(" AND form_department_id in ("+orgaId+")");
-		strSql.append(" AND create_time >= '"+startDate+"'");
-		strSql.append(" AND create_time <= '"+endDate+"'");
+		strSql.append("SELECT COUNT(distinct l.task_id) returnTaskCount");
+		strSql.append(" from n_crm_customer_operation_log l");
+		strSql.append(" LEFT JOIN n_crm_customer_task t");
+		strSql.append(" on l.task_id = t.id");
+		strSql.append(" where l.change_type = 4");
+		strSql.append(" AND l.form_department_id in ("+orgaId+")");
+		strSql.append(" AND l.create_time >= '"+startDate+"'");
+		strSql.append(" AND l.create_time <= '"+endDate+"'");
+		if(sourceId != null && sourceId !=""){
+			strSql.append(" AND t.source_id = " + sourceId);
+		}
 		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
 		for (IRow row : dtNewCount) {
 			resultMap.put("returnTaskCount", row.getString("returnTaskCount"));
@@ -185,14 +216,20 @@ public class ComprehenReportPart extends CRMReportPart {
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
 		String endDate = dataMap.get("endDate").replace("'", "");
+		String sourceId = map.get("sourceId");
 		
 		StringBuilder strSql=new StringBuilder();
-		strSql.append("SELECT COUNT(distinct task_id) as withdrawTaskCount");
-		strSql.append(" from n_crm_customer_operation_log");
-		strSql.append(" where change_type = 6");
-		strSql.append(" AND form_department_id in ("+orgaId+")");
-		strSql.append(" AND create_time >= '"+startDate+"'");
-		strSql.append(" AND create_time <= '"+endDate+"'");
+		strSql.append("SELECT COUNT(distinct l.task_id) as withdrawTaskCount");
+		strSql.append(" from n_crm_customer_operation_log l");
+		strSql.append(" LEFT JOIN n_crm_customer_task t");
+		strSql.append(" on l.task_id = t.id");
+		strSql.append(" where l.change_type = 6");
+		strSql.append(" AND l.form_department_id in ("+orgaId+")");
+		strSql.append(" AND l.create_time >= '"+startDate+"'");
+		strSql.append(" AND l.create_time <= '"+endDate+"'");
+		if(sourceId != null && sourceId !=""){
+			strSql.append(" AND t.source_id = " + sourceId);
+		}
 		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
 		for (IRow row : dtNewCount) {
 			resultMap.put("withdrawTaskCount", row.getString("withdrawTaskCount"));
@@ -210,6 +247,7 @@ public class ComprehenReportPart extends CRMReportPart {
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
 		String endDate = dataMap.get("endDate").replace("'", "");
+		String sourceId = map.get("sourceId");
 		
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT COUNT(distinct id) followTaskCount");
@@ -218,6 +256,9 @@ public class ComprehenReportPart extends CRMReportPart {
 		strSql.append(" AND department_id in ("+orgaId+")");
 		strSql.append(" AND last_follow_time >= '"+startDate+"'");
 		strSql.append(" AND last_follow_time <= '"+endDate+"'");
+		if(sourceId != null && sourceId !=""){
+			strSql.append(" AND source_id = " + sourceId);
+		}
 		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
 		for (IRow row : dtNewCount) {
 			resultMap.put("followTaskCount", row.getString("followTaskCount"));
@@ -235,6 +276,7 @@ public class ComprehenReportPart extends CRMReportPart {
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
 		String endDate = dataMap.get("endDate").replace("'", "");
+		String sourceId = map.get("sourceId");
 		
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT COUNT(distinct id) checkAbnormalTaskCount");
@@ -243,6 +285,9 @@ public class ComprehenReportPart extends CRMReportPart {
 		strSql.append(" AND department_id in ("+orgaId+")");
 		strSql.append(" AND last_inspection_time >= '"+startDate+"'");
 		strSql.append(" AND last_inspection_time <= '"+endDate+"'");
+		if(sourceId != null && sourceId !=""){
+			strSql.append(" AND source_id = " + sourceId);
+		}
 		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
 		for (IRow row : dtNewCount) {
 			resultMap.put("checkAbnormalTaskCount", row.getString("checkAbnormalTaskCount"));
@@ -260,6 +305,7 @@ public class ComprehenReportPart extends CRMReportPart {
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
 		String endDate = dataMap.get("endDate").replace("'", "");
+		String sourceId = map.get("sourceId");
 		
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT COUNT(id) unSignTaskCount");
@@ -268,6 +314,9 @@ public class ComprehenReportPart extends CRMReportPart {
 		strSql.append(" AND department_id in ("+orgaId+")");
 		strSql.append(" AND last_follow_time >= '"+startDate+"'");
 		strSql.append(" AND last_follow_time <= '"+endDate+"'");
+		if(sourceId != null && sourceId !=""){
+			strSql.append(" AND source_id = " + sourceId);
+		}
 		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
 		for (IRow row : dtNewCount) {
 			resultMap.put("unSignTaskCount", row.getString("unSignTaskCount"));
@@ -285,6 +334,7 @@ public class ComprehenReportPart extends CRMReportPart {
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
 		String endDate = dataMap.get("endDate").replace("'", "");
+		String sourceId = map.get("sourceId");
 		
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT SUM(signing_amount) signingAmount,");
@@ -295,6 +345,9 @@ public class ComprehenReportPart extends CRMReportPart {
 		strSql.append(" from n_crm_customer_task");
 		strSql.append(" where department_id in ("+orgaId+")");
 		strSql.append(" AND last_follow_time >= '"+startDate+"'");
+		if(sourceId != null && sourceId !=""){
+			strSql.append(" AND source_id = " + sourceId);
+		}
 		strSql.append(" AND last_follow_time<= '"+endDate+"')");
 		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
 		for (IRow row : dtNewCount) {
