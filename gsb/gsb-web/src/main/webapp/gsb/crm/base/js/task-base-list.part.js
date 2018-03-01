@@ -183,6 +183,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		$("#" + this.context.id).datagrid('selectRecord',id);
 		var row = this.getSelectedItem();
 		var intenCategory = row.intentionCategory;
+		
 		me.doRollBack(id,intenCategory);
 	},
 	doRollBack : function(id,intenCategory) {

@@ -26,31 +26,32 @@ public class SalesmanAddOrderFormPart extends FormPart {
 		}
 		entity.setOwnerId(SessionManager.getUserId());
 		entity.setOwner(owner);
-		
+
 		SupplierDepartment department = SupplierSessionManager.getDepartment();
 		entity.setDepartmentId(department.getId());
 		entity.setDepartment(department);
-		
-		if(department.getSupplier() !=null){
+
+		if (department.getSupplier() != null) {
 
 			entity.setSupplierId(department.getSupplierId());
 			entity.setSupplier(department.getSupplier());
 		}
 		return entity;
 	}
-	
-	/**   
-	 * @Title: getAccount   
-	 * @Description: TODO(根据手机号获取会员信息)   
+
+	/**
+	 * @Title: getAccount
+	 * @Description: TODO(根据手机号获取会员信息)
 	 * @param: @param mobile
-	 * @param: @return      
-	 * @return: Account      
-	 * @throws   
+	 * @param: @return
+	 * @return: Account
+	 * @throws
 	 */
-	public Account getAccount(String mobile){
-		
+	public Account getAccount(String mobile) {
+
 		IAccountService accountService = ServiceFactory.create(IAccountService.class);
 		Account account = accountService.byMobile(mobile);
 		return account;
 	}
+
 }

@@ -349,6 +349,11 @@ public class SellingDemandDTOService {
 
         if (parentId == 0) {
             listP = provin.queryProvince ();
+            ProvinceCityCounty  provinceCityCounty=new ProvinceCityCounty ();
+            provinceCityCounty.setName ("全国");
+            provinceCityCounty.setCode ("0");
+            provinceCityCounty.setId (0);
+            listP.add (0,provinceCityCounty);
         } else {
             listP = provin.queryPcc (parentId);
         }

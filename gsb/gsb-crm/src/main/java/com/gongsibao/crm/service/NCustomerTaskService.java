@@ -324,8 +324,13 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
         ActionManager action = new ActionManager();
         Map<String, Object> setMap = new HashMap<String, Object>();
         setMap.put("content", content);
-
+        
         NCustomerTask entity = this.byId(taskId);
+        
+        setMap.put("formUserId", entity.getOwnerId());
+        setMap.put("formDepartmentId", entity.getDepartmentId());
+        setMap.put("formSupplier", entity.getSupplierId());
+        
         ActionContext ctx = new ActionContext();
         {
             ctx.setPath("gsb/crm/task/regain");
@@ -343,6 +348,10 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
         Map<String, Object> setMap = new HashMap<String, Object>();
         setMap.put("content", content);
 
+        setMap.put("formUserId", entity.getOwnerId());
+        setMap.put("formDepartmentId", entity.getDepartmentId());
+        setMap.put("formSupplier", entity.getSupplierId());
+        
         ActionContext ctx = new ActionContext();
         {
             ctx.setPath("gsb/crm/task/rollback");

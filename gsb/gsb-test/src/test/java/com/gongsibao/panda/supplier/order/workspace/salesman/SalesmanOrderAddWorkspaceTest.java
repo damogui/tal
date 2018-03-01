@@ -27,6 +27,7 @@ import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.trade.web.OrderProdItemDetailPart;
 import com.gongsibao.trade.web.SalesmanAddOrderFormPart;
 
 public class SalesmanOrderAddWorkspaceTest extends WorkspaceCreationBase {
@@ -83,6 +84,11 @@ public class SalesmanOrderAddWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "email", "邮箱", groupName, ControlTypes.TEXT_BOX, false, true);
 		addFormField(form, "accountType", "新/老客户", groupName, ControlTypes.ENUM_BOX, true, false);
 		addFormField(form, "couponCode", "优惠劵", groupName, ControlTypes.TEXT_BOX, false, false);
+		addFormField(form, "totalPrice", "原价金额", groupName, ControlTypes.DECIMAL_FEN_BOX, false, true);
+		addFormField(form, "discountPrice", "优惠金额", groupName, ControlTypes.DECIMAL_FEN_BOX, false, true);
+		addFormField(form, "payablePrice", "应付金额", groupName, ControlTypes.DECIMAL_FEN_BOX, false, true);
+		
+		
 		formField = addFormField(form, "remark", "备注", groupName, ControlTypes.TEXTAREA, false, false);
 		{
 			formField.setFullColumn(true);
@@ -125,6 +131,8 @@ public class SalesmanOrderAddWorkspaceTest extends WorkspaceCreationBase {
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("panda/datagrid/detail");
+			part.setServiceController(OrderProdItemDetailPart.class.getName());
+			part.setJsController(OrderProdItemDetailPart.class.getName());
 		}
 		workspace.getParts().add(part);
 
