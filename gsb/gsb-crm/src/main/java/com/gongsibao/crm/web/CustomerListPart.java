@@ -25,6 +25,7 @@ public class CustomerListPart extends AdvancedListPart {
             if (!StringManager.isNullOrEmpty(endAddOrderDate)) {
                 filters.add(" add_time<='" + endAddOrderDate + "' ");
             }
+            filters.add(" account_id IS NOT NULL AND account_id!=0 ");
             String resFilters = "";
             if (CollectionUtils.isNotEmpty(filters)) {
                 resFilters = " account_id IN(SELECT account_id FROM so_order WHERE " + StringManager.join(" and ", filters) + ") ";
