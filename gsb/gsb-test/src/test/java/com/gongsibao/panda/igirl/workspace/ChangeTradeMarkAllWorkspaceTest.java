@@ -24,7 +24,7 @@ public class ChangeTradeMarkAllWorkspaceTest extends WorkspaceCreationBase {
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "IGIRL_All_ChangeTradeMark";
 		listPartServiceController=ChangeTradeMarkListPart.class.getName();
-		listToolbarPath = "/igirl/list/toolbar";
+		listToolbarPath = "/igirl/change/toolbar";
 		formJsController = ChangeTradeMarkPart.class.getName();
 		formJsImport = "/gsb/igirl/js/changetrademark.form.part.js";
 	}
@@ -154,10 +154,10 @@ public class ChangeTradeMarkAllWorkspaceTest extends WorkspaceCreationBase {
 		PDatagrid datagrid = super.createDatagrid(node);
 		datagrid.setToolbar("panda/datagrid/row/edit");
 		PDatagridColumn column = null;
-		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
 		addColumn(datagrid, "createTime", "日期", ControlTypes.DATETIME_BOX, 100, true);
 		addColumn(datagrid, "agentFileNum", "代理文号", ControlTypes.TEXT_BOX, 120, true);
 		addColumn(datagrid, "txt_sqrmyzw", "申请人名称", ControlTypes.TEXT_BOX, 200);
+		addColumn(datagrid,"changeTradeMarkState","状态",ControlTypes.TEXT_BOX,100);
 		return datagrid;
 	}
 

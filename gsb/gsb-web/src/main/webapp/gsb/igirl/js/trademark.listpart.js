@@ -8,9 +8,21 @@ com.gongsibao.igirl.web.TradeMarkListPart = org.netsharp.panda.commerce.ListPart
 		var html='<a href="#" onclick="controllertradeMarkList.openBussinessPic('+row.id+')">营业执照</a> &nbsp;'
 			+'<a href="#" onclick="controllertradeMarkList.openProxyPic('+row.id+')">委托书</a> &nbsp;'
 			+'<a href="#" onclick="controllertradeMarkList.openMarkPic('+row.id+')">图样</a> &nbsp;'
+            +'<a href="#" onclick="controllertradeMarkList.openIDPic('+row.id+')">身份证</a> &nbsp;'
 		         +'<a href="#" onclick="controllertradeMarkList.totmcase('+row.tradeMarkCaseId+')">案件</a>';
 		return html;
 	},
+
+    openIDPic:function(markid){
+        this.invokeService("getIDPic",[markid],function (url) {
+            if(url && url!=""){
+                window.open(url)
+            }else{
+                IMessageBox.warning("当前案子涉及自然人的身份证还未上传！");
+            }
+
+        });
+    },
 
   openBussinessPic:function(markid){
         this.invokeService("getBussinessPicUrl",[markid],function (url) {

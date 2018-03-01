@@ -122,7 +122,7 @@ public class ResourceTest extends ResourceCreationBase {
 		
 		node1 = this.createResourceNodeCategory("CRM统计分析", "GSB_CRM_STATISTICAL", node.getId());
 		{
-			this.createResourceNodeVoucher(ComprehenReportEntity.class.getName(), "综合统计", "CRM_STATISTICAL_Comprehen", IPersistableService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(ComprehenReportEntity.class.getName(), "综合统计", "CRM_STATISTICAL_COMPREHEN", IPersistableService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(FunnelReportEntity.class.getName(), "漏斗统计", "CRM_STATISTICAL_Funnel", IPersistableService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(FollowReportEntity.class.getName(), "跟进统计", "CRM_STATISTICAL_Follow", IPersistableService.class.getName(), node1.getId());
 			//this.createResourceNodeVoucher(CustomerServiceReportEntity.class.getName(), "客服统计", "CRM_STATISTICAL_CustomerService", IPersistableService.class.getName(), node1.getId());

@@ -59,7 +59,7 @@ public class SellingDemandDTOService {
                 filterBuilder.append (" and company_name  like '%" + queryModel.getCompanyName () + "%'");
             }
             if (!StringManager.isNullOrEmpty (queryModel.getBankType ())) {//类金融牌照
-                filterBuilder.append (" and company_name  like '%" + queryModel.getBankType () + "%'");
+                filterBuilder.append (" and company_name  like '%" +ServiceBank.getBankTypesValByKey (queryModel.getBankType ())  + "%'");
             }
 
             if (queryModel.getComQualType () != 0) {//资质类型  qualificationDetails
@@ -349,6 +349,11 @@ public class SellingDemandDTOService {
 
         if (parentId == 0) {
             listP = provin.queryProvince ();
+            ProvinceCityCounty  provinceCityCounty=new ProvinceCityCounty ();
+            provinceCityCounty.setName ("全国");
+            provinceCityCounty.setCode ("0");
+            provinceCityCounty.setId (0);
+            listP.add (0,provinceCityCounty);
         } else {
             listP = provin.queryPcc (parentId);
         }
@@ -372,11 +377,11 @@ public class SellingDemandDTOService {
         serviceTypeBank.setServiceType (ServiceTypeEnum.p4.getValue ());
         serviceTypeBank.setServiceName (ServiceTypeEnum.p4.getText ());
         ArrayList<ServiceDic> dicListBank = new ArrayList ();
-        HashMap<String,String> bankTypes=ServiceBank.getBankTypes ();//类金融牌照
-        for (String item:
+        HashMap<Integer,String> bankTypes=ServiceBank.getBankTypes ();//类金融牌照
+        for (Integer item:
                 bankTypes.keySet ()) {
             ServiceDic  serviceDic=new ServiceDic ();
-            serviceDic.setId (item);
+            serviceDic.setId (item.toString ());
             serviceDic.setName (bankTypes.get (item));
             dicListBank.add (serviceDic);
         }

@@ -228,7 +228,7 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
     if($("#ncltwogrid").length<=0){
              var $t=$("[name='nclOne_name']")
              $("<input id='filterinput' width='30px'/>").insertAfter($t.parent());
-            $("<table id='ncltwogrid' style='margin-top:5px;padding-top:3px'></table>").insertBefore("#selectedTwoStr")
+            $("<table id='ncltwogrid' style='margin-top:5px;padding-top:3px;'></table>").insertBefore("#selectedTwoStr")
          }
         var selectedItems=[];
         var rtnData=null;
@@ -243,7 +243,7 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
                 rtnData=data;
                 $('#ncltwogrid').datagrid({
                 	  width:450,
-                	  height:300,
+                	  height:100,
                     singleSelect:false,
                     checkOnSelect:true,
                     selectOnCheck:true,

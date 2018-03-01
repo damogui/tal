@@ -10,17 +10,12 @@ import org.netsharp.panda.commerce.ListPart;
  * @author Administrator
  *
  */
-public class ChangeTradeMarkListPart extends ListPart{
+public class MyChangeTradeMarkListPart extends ListPart{
     IChangeTradeMarkService service = ServiceFactory.create(IChangeTradeMarkService.class);
  
    @Override
 	 protected String getExtraFilter() {
-			// TODO Auto-generated method stub
-	   String filter=" supplierId = "+SupplierSessionManager.getSupplierId();
-		 return filter;
+	   String filter=" supplierId = "+ SupplierSessionManager.getSupplierId();
+	   return filter;
 	 }
-
-   public ChangeTradeMark updateState(String agentFileNum,Integer state){
-       return service.updateCtmState(agentFileNum,state);
-   }
 }

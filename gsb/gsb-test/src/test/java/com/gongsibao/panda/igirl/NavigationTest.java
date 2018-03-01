@@ -72,6 +72,9 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, "GSB_TRADE_AI", null, "GSB_IGIRL_CTM", "商标变更", "", 2);
 			{
 				createPTreeNode(tree, "GSB_IGIRL_CTM", null, "IGIRL_All_" + ChangeTradeMark.class.getSimpleName(), "方案生成", "/igirl/changetrademark/all/list", 1);
+				createPTreeNode(tree, "GSB_IGIRL_CTM", null, "IGIRL_My_"  + ChangeTradeMark.class.getSimpleName(),    "我的跟进", "/igirl/myctm/progress/list", 2);
+				createPTreeNode(tree, "GSB_IGIRL_CTM", null, "IGIRL_Dp_"  + ChangeTradeMark.class.getSimpleName(),    "部门跟进", "/igirl/dpctm/progress/list", 3);
+
 			}
 			createPTreeNode(tree, "GSB_TRADE_AI", null, "GSB_IGIRL_BASE", "基础信息", "",3);
 			{

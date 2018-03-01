@@ -97,7 +97,10 @@ public class SoOrder extends BaseEntity {
 
 	@Column(name = "paid_price", header = "已支付金额")
 	private Integer paidPrice;
-
+	
+	@Column(name = "discount_price", header = "优惠金额")
+	private Integer discountPrice;
+	
 	@Column(name = "source_type_id", header = "来源类型")
 	private Integer sourceTypeId;
 
@@ -105,7 +108,7 @@ public class SoOrder extends BaseEntity {
 	private Dict sourceType;
 
 	@Column(name = "is_installment", header = "多次支付")
-	private Boolean isInstallment;
+	private Boolean isInstallment = false;
 
 	@Column(name = "installment_mode", header = "多次支付方式")
 	private String installmentMode;
@@ -117,10 +120,10 @@ public class SoOrder extends BaseEntity {
 	private Dict installmentAuditStatus;
 
 	@Column(name = "is_change_price", header = "改过价")
-	private Boolean isChangePrice;
+	private Boolean isChangePrice = false;
 
 	@Column(name = "is_carry_over", header = "是否是结转订单，默认否")
-	private Boolean isCarryOver;
+	private Boolean isCarryOver = false;
 
 	@Column(name = "carry_over_order_id", header = "结转订单id")
 	private Integer carryOverOrderId;
@@ -141,13 +144,13 @@ public class SoOrder extends BaseEntity {
 	private Dict changePriceAuditStatus;
 
 	@Column(name = "is_invoice", header = "开票")
-	private Boolean isInvoice;
+	private Boolean isInvoice = false;
 
 	@Column(name = "description", header = "description")
 	private String description;
 
 	@Column(name = "is_package", header = "套餐")
-	private Boolean isPackage;
+	private Boolean isPackage = false;
 
 	@Column(name = "package_id", header = "套餐")
 	private Integer packageId;
@@ -174,7 +177,7 @@ public class SoOrder extends BaseEntity {
 	private String prodName;
 
 	@Column(name = "is_delete", header = "已删除")
-	private Boolean isDelete;
+	private Boolean isDelete = false;
 
 	@Column(name = "company_id", header = "公司")
 	private Integer companyId;
@@ -210,7 +213,7 @@ public class SoOrder extends BaseEntity {
 	 */
 
 	@Column(name = "is_expire_sms", header = "过期短信提醒")
-	private Integer isExpireSms;
+	private Boolean isExpireSms = false;
 	
 	@Column(name = "coupon_code", header = "优惠劵编码")
 	private String couponCode;
@@ -226,6 +229,14 @@ public class SoOrder extends BaseEntity {
 
 	@Subs(subType = OrderDiscount.class, foreignKey = "orderId", header = "优惠明细")
 	private List<OrderDiscount> discounts = new ArrayList<OrderDiscount>();
+	
+	public Integer getDiscountPrice() {
+		return discountPrice;
+	}
+
+	public void setDiscountPrice(Integer discountPrice) {
+		this.discountPrice = discountPrice;
+	}
 
 	public OrderType getType() {
 		return type;
@@ -467,11 +478,11 @@ public class SoOrder extends BaseEntity {
 		this.accountType = accountType;
 	}
 
-	public Integer getIsExpireSms() {
+	public Boolean getIsExpireSms() {
 		return isExpireSms;
 	}
 
-	public void setIsExpireSms(Integer isExpireSms) {
+	public void setIsExpireSms(Boolean isExpireSms) {
 		this.isExpireSms = isExpireSms;
 	}
 
