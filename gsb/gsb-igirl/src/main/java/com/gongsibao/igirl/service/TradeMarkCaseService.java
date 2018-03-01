@@ -101,8 +101,10 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		entity.setDepartmentId(departmentId);
 		// 设置商标的服务商id
 		String tmp="";
+		int n=0;
 		for (TradeMark tm : entity.getTradeMarks()) {
-			tm.setProxyCode( DateTime.now().toString("yyyyMMddHHmmssSSS"));
+			tm.setProxyCode( DateTime.now().toString("yyyyMMddHHmmssSSS")+n);
+			n++;
 			tm.setDepartmentId(departmentId);
 			//设置
 			tmp+=tm.getNclOne().getCode()+" ";
@@ -159,9 +161,11 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			Integer sid = SupplierSessionManager.getSupplierId();
 			Integer departmentId = SupplierSessionManager.getDepartmentId();
 			String tmp="";
+			int m=1;
 			for (TradeMark tm : entity.getTradeMarks()) {
 				if(StringManager.isNullOrEmpty(tm.getProxyCode())){
-					tm.setProxyCode( DateTime.now().toString("yyyyMMddHHmmssSSS")+entity.getId());
+					tm.setProxyCode( DateTime.now().toString("yyyyMMddHHmmssSSS")+entity.getId()+m);
+					m++;
 				}	
 				tm.setSupplierId(sid);
 				tm.setDepartmentId(departmentId);

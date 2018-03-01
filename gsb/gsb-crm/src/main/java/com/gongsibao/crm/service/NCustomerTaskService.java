@@ -154,7 +154,11 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
         setMap.put("noticeMap", noticeMap);
         //2.批量转移是否已经发送通知
         setMap.put("isNotify", isNotify);
-
+        
+        setMap.put("formUserId", entity.getOwnerId());
+        setMap.put("formDepartmentId", entity.getDepartmentId());
+        setMap.put("formSupplier", entity.getSupplierId());
+        
         entity.setSupplierId(supplierId);
         entity.setDepartmentId(departmentId);
         entity.setOwnerId(toUserId);
@@ -265,7 +269,8 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
         //任务分配
         Map<String, Object> setMap = new HashMap<String, Object>();
         NCustomerTask entity = this.byId(taskId);
-        setMap.put("formUserId", entity.getOwnerId());
+        setMap.put("formDepartmentId", entity.getDepartmentId());
+        setMap.put("formSupplier", entity.getSupplierId());
         //区别批量分配
         setMap.put("alloCount", alloCount);
         //批量分配是否已经发送通知
@@ -319,8 +324,13 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
         ActionManager action = new ActionManager();
         Map<String, Object> setMap = new HashMap<String, Object>();
         setMap.put("content", content);
-
+        
         NCustomerTask entity = this.byId(taskId);
+        
+        setMap.put("formUserId", entity.getOwnerId());
+        setMap.put("formDepartmentId", entity.getDepartmentId());
+        setMap.put("formSupplier", entity.getSupplierId());
+        
         ActionContext ctx = new ActionContext();
         {
             ctx.setPath("gsb/crm/task/regain");
@@ -338,6 +348,10 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
         Map<String, Object> setMap = new HashMap<String, Object>();
         setMap.put("content", content);
 
+        setMap.put("formUserId", entity.getOwnerId());
+        setMap.put("formDepartmentId", entity.getDepartmentId());
+        setMap.put("formSupplier", entity.getSupplierId());
+        
         ActionContext ctx = new ActionContext();
         {
             ctx.setPath("gsb/crm/task/rollback");

@@ -32,14 +32,24 @@ public class DepartmentHighSeasWorkspaceTest extends DepartmentAllTaskWorkspaceT
 		}
 
 		addToolbarItem(toolbar, "batchAllocation", "批量分配", "fa fa-check", "batchAllocation()", null, 5);
-		//任务收回
-		addToolbarItem(toolbar, "regain", "退回", "fa fa-mail-reply", "regain()", null, 6);
+		
+		//addToolbarItem(toolbar, "regain", "退回", "fa fa-mail-reply", "rollback()", null, 6);
 		return toolbar;
 	}
 	
 	@Override
 	public PToolbar createRowToolbar() {
-		
-		return null;
+		ResourceNode node = this.getResourceNode();
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			toolbar.setBasePath("panda/datagrid/row/edit");
+			toolbar.setPath(rowToolbaPath);
+			toolbar.setName("跟进行工具栏操作");
+			toolbar.setResourceNode(node);
+		}
+		addToolbarItem(toolbar, "rollback", "退回", "fa fa-edit", "rollback()", null, 6);
+		return toolbar;
+		//return null;
 	}
 }

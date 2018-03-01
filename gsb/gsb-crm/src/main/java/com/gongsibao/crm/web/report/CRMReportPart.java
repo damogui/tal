@@ -87,8 +87,8 @@ public class CRMReportPart extends TreegridPart {
 			entity.setFollowTaskCount(2);
 			entity.setUnSignTaskCount(2);
 			entity.setCheckAbnormalTaskCount(3);
-			entity.setEstimatedAmount(2);
-			
+			entity.setSigningAmount(2);
+			entity.setReturnedAmount(3);
 			rows.add(entity);
 		}
 		

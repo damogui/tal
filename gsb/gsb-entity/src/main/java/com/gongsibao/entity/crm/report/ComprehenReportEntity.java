@@ -73,9 +73,12 @@ public class ComprehenReportEntity extends BaseReportEntity{
 	/**   
 	 * @Fields estimatedAmount : TODO(预估签单额)   
 	 */   
-	private Integer estimatedAmount = 0;
+	private Integer signingAmount = 0;
 
-	
+	/**   
+	 * @Fields estimatedAmount : TODO(预估回款额)   
+	 */   
+	private Integer returnedAmount = 0;
 
 	public Integer getCustomerCount() {
 		return customerCount;
@@ -173,11 +176,21 @@ public class ComprehenReportEntity extends BaseReportEntity{
 		this.checkAbnormalTaskCount = checkAbnormalTaskCount;
 	}
 
-	public Integer getEstimatedAmount() {
-		return estimatedAmount;
+	public Integer getSigningAmount() {
+		return signingAmount;
 	}
 
-	public void setEstimatedAmount(Integer estimatedAmount) {
-		this.estimatedAmount = estimatedAmount;
+	public void setSigningAmount(Integer signingAmount) {
+		this.signingAmount = signingAmount;
 	}
+
+	public Integer getReturnedAmount() {
+		return returnedAmount;
+	}
+
+	public void setReturnedAmount(Integer returnedAmount) {
+		this.returnedAmount = returnedAmount;
+	}
+
+	
 }
