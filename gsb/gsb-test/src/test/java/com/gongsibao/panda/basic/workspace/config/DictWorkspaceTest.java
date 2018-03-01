@@ -58,6 +58,7 @@ public class DictWorkspaceTest extends WorkspaceCreationBase {
 	protected PQueryProject createQueryProject(ResourceNode node) {
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
+		addQueryItem(queryProject, "id", "id", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "name", "名称", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "type", "类型", ControlTypes.ENUM_BOX);
 		return queryProject;

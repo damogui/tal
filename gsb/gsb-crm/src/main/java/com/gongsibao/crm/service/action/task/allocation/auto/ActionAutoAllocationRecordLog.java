@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.gongsibao.supplier.base.ISalesmanService;
 import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -40,6 +41,9 @@ public class ActionAutoAllocationRecordLog implements IAction {
     INCustomerTaskNotifyService notifyService = ServiceFactory.create(INCustomerTaskNotifyService.class);
     // 登录人
     IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
+
+    ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
+
 
     @Override
     public void execute(ActionContext ctx) {
@@ -96,10 +100,18 @@ public class ActionAutoAllocationRecordLog implements IAction {
             return;
         if (NumberUtils.toInt(entity.getOwnerId()) == 0)
             return;
+
+        //来自业务员信息
+        Salesman salesman = null;
+        if (NumberUtils.toInt(FormUserId) != 0) {
+            salesman = salesmanService.byEmployeeId(FormUserId);
+        }
         // 1.保存流转日志
         NCustomerOperationLog changeEntity = new NCustomerOperationLog();
         changeEntity.toNew();// 标示下类型，有多种
         changeEntity.setFormUserId(FormUserId);
+        changeEntity.setFormDepartmentId(salesman == null ? null : salesman.getDepartmentId());
+        changeEntity.setFormSupplierId(salesman == null ? null : salesman.getSupplierId());
         changeEntity.setToUserId(entity.getOwnerId());
         changeEntity.setChangeType(ChangeType.ALLOCATION);
         changeEntity.setTaskId(entity.getId());

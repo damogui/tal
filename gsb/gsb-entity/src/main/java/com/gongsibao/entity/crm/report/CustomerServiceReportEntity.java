@@ -1,5 +1,6 @@
 package com.gongsibao.entity.crm.report;
 
+import org.netsharp.core.annotations.Id;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Persistable;
@@ -15,6 +16,12 @@ public class CustomerServiceReportEntity extends Persistable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	@Id
+	private Integer id;
+
+	/*客服名称*/
+	private String name;
 
 	/**   
      * @Fields date : TODO(日期)   
@@ -62,6 +69,34 @@ public class CustomerServiceReportEntity extends Persistable{
 	 * @Fields manualDistribution : TODO(手动分配数)   
 	 */   
 	private Integer manualDistribution = 0;
+
+	/**
+	 * @Fields noTaskCustomerCount : TODO(无任务客户数)
+	 */
+	private Integer noTaskCustomerCount;
+
+	/**
+	 * @Fields unAllotTaskCount : TODO(未分配任务数)
+	 */
+	private Integer unAllotTaskCount;
+
+	/**
+	 * @Fields unStartTaskCount : TODO(未启动任务数)
+	 */
+	private Integer unStartTaskCount;
+
+	/**
+	 * @Fields openSeasCount : TODO(公海数)
+	 */
+	private Integer openSeasCount;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getDate() {
 		return date;
@@ -174,5 +209,44 @@ public class CustomerServiceReportEntity extends Persistable{
 	public void setManualDistribution(Integer manualDistribution) {
 		this.manualDistribution = manualDistribution;
 	}
-	
+
+	public Integer getNoTaskCustomerCount() {
+		return noTaskCustomerCount;
+	}
+
+	public void setNoTaskCustomerCount(Integer noTaskCustomerCount) {
+		this.noTaskCustomerCount = noTaskCustomerCount;
+	}
+
+	public Integer getUnAllotTaskCount() {
+		return unAllotTaskCount;
+	}
+
+	public void setUnAllotTaskCount(Integer unAllotTaskCount) {
+		this.unAllotTaskCount = unAllotTaskCount;
+	}
+
+	public Integer getUnStartTaskCount() {
+		return unStartTaskCount;
+	}
+
+	public void setUnStartTaskCount(Integer unStartTaskCount) {
+		this.unStartTaskCount = unStartTaskCount;
+	}
+
+	public Integer getOpenSeasCount() {
+		return openSeasCount;
+	}
+
+	public void setOpenSeasCount(Integer openSeasCount) {
+		this.openSeasCount = openSeasCount;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }

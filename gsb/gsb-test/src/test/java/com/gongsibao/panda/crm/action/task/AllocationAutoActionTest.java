@@ -58,7 +58,7 @@ public class AllocationAutoActionTest {
 			bean.setSeq(200);
 			
 			beanPath.getItems().add(bean);
-		}	
+		}
 		bean = new Bean();
 		{
 			bean.toNew();
