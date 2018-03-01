@@ -26,7 +26,7 @@ org.netsharp.controls.DictComboBoxQueryItem = org.netsharp.controls.ReferenceBox
         var qp = new org.netsharp.core.FilterParameter();
         qp.key = foreignkey;
         qp.value1 = propertyValue;
-        qp.intelligentMode1 = intelligentMode1 || org.netsharp.core.intelligentMode.LIKE;
+        qp.intelligentMode1 = org.netsharp.core.intelligentMode.LIKE;
         return qp;
     },
 	clear: function() {

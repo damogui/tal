@@ -1,7 +1,9 @@
 package com.gongsibao.panda.operation.workspace.crm;
 
+import com.gongsibao.controls.PropertyQueryDictComboBox;
 import com.gongsibao.crm.web.StatisticalCustomerListPart;
 import com.gongsibao.entity.crm.report.CustomerServiceReportEntity;
+import com.gongsibao.entity.product.Product;
 import org.junit.Before;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
@@ -9,6 +11,7 @@ import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
+import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
@@ -28,7 +31,7 @@ public class StatisticalCustomerServiceWorkspaceTest extends WorkspaceCreationBa
         resourceNodeCode = "Operation_CRM_STATISTICAL_CUSTOMERSERVICE";// 菜单节点码（名称）
         listPartServiceController = StatisticalCustomerListPart.class.getName();
         listPartJsController = StatisticalCustomerListPart.class.getName();
-        listPartImportJs = "/gsb/crm/js/customer.service.statistical.list.js";
+        listPartImportJs = "/gsb/crm/js/customer.service.statistical.list.js|/gsb/gsb.custom.query.controls.js";
     }
 
 
@@ -86,21 +89,19 @@ public class StatisticalCustomerServiceWorkspaceTest extends WorkspaceCreationBa
     protected PQueryProject createQueryProject(ResourceNode node) {
         PQueryProject queryProject = super.createQueryProject(node);
         queryProject.toNew();
+        PQueryItem item = null;
         addQueryItem(queryProject, "date", "日期", ControlTypes.DATE_BOX);
-        /*addQueryItem(queryProject, "orderNo", "订单号", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "u8VoucherId", "u8凭证id", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "receiptNo", "回单编号", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "id", "支付编号", ControlTypes.NUMBER_BOX);
-        addQueryItem(queryProject, "payForOrderCount", "支付订单数量", ControlTypes.ENUM_BOX);
-        addQueryItem(queryProject, "receiptStatus", "回单处理状态", ControlTypes.ENUM_BOX);
-        //参照
-        addRefrenceQueryItem(queryProject, "book.name", "账套", SetOfBooks.class.getSimpleName());
-        PQueryItem item = addRefrenceQueryItem(queryProject, "bank.name", "付款方式", U8Bank.class.getSimpleName());
+        item = addQueryItem(queryProject, "productCategory1.name", "产品一级分类", ControlTypes.CUSTOM);
         {
-            item.setRefFilter("type=0");
+            item.setCustomControlType(PropertyQueryDictComboBox.class.getName());
+            item.setRefFilter("type=201 and pid=0");
         }
-        addQueryItem(queryProject, "addTime", "订单创建日期", ControlTypes.DATE_BOX);
-        addQueryItem(queryProject, "returnTime", "回款日期", ControlTypes.DATE_BOX);*/
+        item = addQueryItem(queryProject, "productCategory2.name", "产品二级分类", ControlTypes.CUSTOM);
+        {
+            item.setCustomControlType(PropertyQueryDictComboBox.class.getName());
+            item.setRefFilter("type=201 and pid<>0");
+        }
+        addRefrenceQueryItem(queryProject, "product.name", "产品", "CRM_" + Product.class.getSimpleName());
         return queryProject;
     }
 
