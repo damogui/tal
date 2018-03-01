@@ -1,10 +1,12 @@
 package com.gongsibao.entity.crm.report;
 
+import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Id;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Persistable;
 
+import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
 @Table(isView=true, name = "")
@@ -41,6 +43,12 @@ public class BaseReportEntity extends Persistable{
     @Reference(foreignKey = "departmentId", header = "分配服务商部门")
 	private SupplierDepartment department;
 	
+    @Column(name = "supplier_id", header = "分配服务商Id")
+	private Integer supplierId;
+
+	@Reference(foreignKey = "supplierId", header = "分配服务商")
+	private Supplier supplier;
+    
 	/**   
 	 * @Fields isLeaf : TODO(是否末节点)   
 	 */   
@@ -100,6 +108,22 @@ public class BaseReportEntity extends Persistable{
 
 	public void setIsLeaf(Boolean isLeaf) {
 		this.isLeaf = isLeaf;
+	}
+
+	public Integer getSupplierId() {
+		return supplierId;
+	}
+
+	public void setSupplierId(Integer supplierId) {
+		this.supplierId = supplierId;
+	}
+
+	public Supplier getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
 	}
 	
 	

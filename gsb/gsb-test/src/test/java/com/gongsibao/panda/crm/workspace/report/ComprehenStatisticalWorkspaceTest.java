@@ -12,8 +12,11 @@ import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
+import com.gongsibao.controls.PropertyQueryDictComboBox;
 import com.gongsibao.crm.web.report.ComprehenReportPart;
 import com.gongsibao.entity.crm.report.ComprehenReportEntity;
+import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.entity.supplier.SupplierDepartment;
 
 
 /**
@@ -34,6 +37,7 @@ public class ComprehenStatisticalWorkspaceTest extends WorkspaceCreationBase{
 		resourceNodeCode = "CRM_STATISTICAL_COMPREHEN";
 		listPartType = PartType.TREEGRID_PART.getId();
 		listPartServiceController = ComprehenReportPart.class.getName();
+		listPartImportJs = "/gsb/gsb.custom.query.controls.js";
 	}
 	
 	@Override
@@ -67,7 +71,6 @@ public class ComprehenStatisticalWorkspaceTest extends WorkspaceCreationBase{
 			column.setVisible(false);
 			column.setSystem(true);
 		}
-		
 		column = addColumn(datagrid, "isLeaf", "isLeaf", ControlTypes.TEXT_BOX, 100);
 		{
 			column.setVisible(false);
@@ -85,7 +88,13 @@ public class ComprehenStatisticalWorkspaceTest extends WorkspaceCreationBase{
 		item = addQueryItem(queryProject, "date", "日期", ControlTypes.DATE_BOX);{
 			item.setRequired(true);
 		}
-		//addRefrenceQueryItem(queryProject, "department.name", "部门", "Gsb_Organization");
+		addRefrenceQueryItem(queryProject, "supplier.name", "服务商", Supplier.class.getSimpleName());
+		addRefrenceQueryItem(queryProject, "department.name", "部门", SupplierDepartment.class.getSimpleName());
+		item = addQueryItem(queryProject, "source.name", "任务来源", ControlTypes.CUSTOM);{
+			
+			item.setCustomControlType(PropertyQueryDictComboBox.class.getName());
+			item.setRefFilter("type=411");
+		}
 		return queryProject;
 	}
 	public void doOperation() {

@@ -1,6 +1,10 @@
 package com.gongsibao.entity.crm.report;
 
+import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
+
+import com.gongsibao.entity.bd.Dict;
 
 @Table(isView=true, name = "")
 public class ComprehenReportEntity extends BaseReportEntity{
@@ -79,7 +83,12 @@ public class ComprehenReportEntity extends BaseReportEntity{
 	 * @Fields estimatedAmount : TODO(预估回款额)   
 	 */   
 	private Integer returnedAmount = 0;
+	@Reference(foreignKey = "sourceId", header = "任务来源")
+	private Dict source;
 
+	@Column(name = "source_id", header = "任务来源")
+	private Integer sourceId;
+	
 	public Integer getCustomerCount() {
 		return customerCount;
 	}
@@ -190,6 +199,22 @@ public class ComprehenReportEntity extends BaseReportEntity{
 
 	public void setReturnedAmount(Integer returnedAmount) {
 		this.returnedAmount = returnedAmount;
+	}
+
+	public Dict getSource() {
+		return source;
+	}
+
+	public void setSource(Dict source) {
+		this.source = source;
+	}
+
+	public Integer getSourceId() {
+		return sourceId;
+	}
+
+	public void setSourceId(Integer sourceId) {
+		this.sourceId = sourceId;
 	}
 
 	
