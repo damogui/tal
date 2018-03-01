@@ -112,7 +112,9 @@ public class ChangeTradeMarkService extends GsbPersistableService<ChangeTradeMar
     public ChangeTradeMark save(ChangeTradeMark entity) {
         ChangeTradeMark entity1=entity;
         Integer departmentId = SupplierSessionManager.getDepartmentId();
+        Integer supplierId = SupplierSessionManager.getSupplierId();
         entity1.setDepartmentId(departmentId);
+        entity1.setSupplierId(supplierId);
         if(entity1.getEntityState()== EntityState.New) {
             entity1.setAgentFileNum(DateTime.now().toString("yyyyMMddHHmmss"));
         }

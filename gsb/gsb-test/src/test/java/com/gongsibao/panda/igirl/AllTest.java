@@ -22,6 +22,8 @@ import org.junit.runners.Suite.SuiteClasses;
 		DpAllTradeMarkCaseWorkspaceTest.class,
 		DpTradeMarkFollowWorkspaceTest.class,
 		ChangeTradeMarkAllWorkspaceTest.class,
+		MyChangeTradeMarkFollowWorkspaceTest.class,
+		DpChangeTradeMarkFollowWorkspaceTest.class,
 		SupplierNewInfoWorkspaceTest.class,
 		SupplierSiteInfoWorkspaceTest.class,
 		NavigationTest.class

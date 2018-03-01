@@ -195,5 +195,8 @@ com.gongsibao.igirl.web.ChangeTradeMarkPart = org.netsharp.panda.commerce.FormPa
             return false
         }
 
+    },
+    updateState:function () {
+
     }
 });
