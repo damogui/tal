@@ -3,6 +3,7 @@ package com.gongsibao.api.dto.ma;
 import com.gongsibao.taurus.util.StringManager;
 
 import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by win on 2018/2/26.
@@ -28,7 +29,7 @@ public class ServiceBank {
 
     /*根据k返回对应的关键字*/
     public static String getBankTypesValByKey(Object key) {
-        HashMap<Integer, String> bankTypes = new HashMap<Integer, String> () {
+        ConcurrentHashMap<Integer, String> bankTypes = new ConcurrentHashMap<Integer, String> () {
         };
 
         if (null == key) {
