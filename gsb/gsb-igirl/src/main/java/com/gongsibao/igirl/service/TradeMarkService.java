@@ -265,7 +265,7 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 				"TradeMark.*,TradeMark.nclOne.*,TradeMark.tradeMarkCase.*,TradeMark.tradeMarkCase.uploadAttachments.*");
 		oql.setFilter("markState=?");
 		oql.getParameters().add("markState", MarkState.WAITCOMMIT.getValue(), Types.INTEGER);
-		oql.setOrderby("tradeMarkCase.urgency asc");
+		oql.setOrderby("tradeMarkCase.urgency asc,tradeMarkCaseId asc");
 		List<TradeMark> tms = this.queryList(oql);
 		// 查询出上传附件列表，然后构造一个案件共享组附件映射
 		Map<String, String> shareGroupToTradeMarkMap = this.buildCaseShareGroupToAttachFileMap();
