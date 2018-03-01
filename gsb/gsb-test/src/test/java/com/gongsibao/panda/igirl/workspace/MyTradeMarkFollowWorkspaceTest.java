@@ -134,13 +134,16 @@ public class MyTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		PDatagridColumn column = null;
 		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 120);
 		addColumn(datagrid, "code", "商标号", ControlTypes.TEXT_BOX, 120);
-		addColumn(datagrid, "proxyCode", "代理号", ControlTypes.TEXT_BOX, 120);
+		addColumn(datagrid, "proxyCode", "代理号", ControlTypes.TEXT_BOX, 150);
 		addColumn(datagrid, "tradeMarkCase.companyName", "公司名称", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "tradeMarkCase.applier", "申请人", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "memo", "商标说明", ControlTypes.TEXT_BOX, 120);
 		addColumn(datagrid, "markState", "状态", ControlTypes.ENUM_BOX, 100);
-		addColumn(datagrid, "tradeMarkCaseId", "案件id", ControlTypes.TEXT_BOX, 200).setVisible(false);
-		column = addColumn(datagrid, "tradeMarkCase.urgency", "紧急(小时)", ControlTypes.TEXT_BOX, 100);
+		
+		column = addColumn(datagrid, "tradeMarkCase.urgency", "紧急(小时)", ControlTypes.TEXT_BOX, 120);
+		column.setOrderbyMode(OrderbyMode.ASC);
+		column=addColumn(datagrid, "tradeMarkCaseId", "案件id", ControlTypes.TEXT_BOX, 30);
+		column.setVisible(true);
 		column.setOrderbyMode(OrderbyMode.ASC);
 		column=addColumn(datagrid, "id","操作", ControlTypes.TEXT_BOX, 200);{
 			column.setFormatter("return controllertradeMarkList.markPic(value,row,index);");
