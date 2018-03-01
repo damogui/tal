@@ -26,7 +26,7 @@ public class OrderResourceTest extends ResourceCreationBase {
 			node1 = this.createResourceNodeCategory("我的订单", "Gsb_Supplier_Order_Salesman", node1.getId());
 			{
 				this.createResourceNodeVoucher(SoOrder.class.getName(), "创建订单", "Gsb_Supplier_Order_Salesman_Add", ISoOrderService.class.getName(), node1.getId());
-				this.createResourceNodeVoucher(OrderProd.class.getName(), "全部订单", "Gsb_Supplier_Order_Salesman_All", IOrderProdService.class.getName(), node1.getId());
+				this.createResourceNodeVoucher(SoOrder.class.getName(), "全部订单", "Gsb_Supplier_Order_Salesman_All", ISoOrderService.class.getName(), node1.getId());
 				this.createResourceNodeVoucher(SoOrder.class.getName(), "订单业绩", "Gsb_Supplier_Order_Salesman_Performance", ISoOrderService.class.getName(), node1.getId());
 				this.createResourceNodeVoucher(SoOrder.class.getName(), "回款业绩", "Gsb_Supplier_Order_Salesman_Received", ISoOrderService.class.getName(), node1.getId());
 				this.createResourceNodeVoucher(SoOrder.class.getName(), "退款订单", "Gsb_Supplier_Order_Salesman_Refund", ISoOrderService.class.getName(), node1.getId());
