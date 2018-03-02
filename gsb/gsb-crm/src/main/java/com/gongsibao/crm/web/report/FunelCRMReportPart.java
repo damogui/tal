@@ -6,13 +6,13 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.TreegridPart;
 import org.netsharp.util.StringManager;
 
+import com.gongsibao.entity.crm.report.BaseReportEntity;
 import com.gongsibao.entity.crm.report.FunnelReportEntity;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.supplier.base.ISupplierDepartmentService;
@@ -20,10 +20,9 @@ import com.gongsibao.utils.SupplierSessionManager;
 
 public class FunelCRMReportPart extends TreegridPart {
 
-	ISupplierDepartmentService departService = ServiceFactory.create(ISupplierDepartmentService.class);
-	
+	ISupplierDepartmentService departService = ServiceFactory.create(ISupplierDepartmentService.class);	
 	HashMap<String, String> map;
-
+	
 	@Override
 	public Object query() throws IOException {
 
@@ -63,7 +62,7 @@ public class FunelCRMReportPart extends TreegridPart {
 		List<FunnelReportEntity> rows = new ArrayList<FunnelReportEntity>();
 		List<SupplierDepartment> list = departService.queryList(oql);
 		for (SupplierDepartment o : list) {
-			FunnelReportEntity entity = new FunnelReportEntity();
+			BaseReportEntity entity = new BaseReportEntity();
 		    {
 		    	entity.setId(o.getId());
 				entity.setParentId(o.getParentId());
@@ -78,37 +77,21 @@ public class FunelCRMReportPart extends TreegridPart {
 		    if(tempDepartIds == null){
 				tempDepartIds = o.getId().toString();
 			}
-			Map<String, Integer> getResultMap = getDataTable(map,tempDepartIds);
-			entity.setTaskCount(getResultMap.get("taskCount"));
-			entity.setSCount(getResultMap.get("sCount"));
-			entity.setXCount(getResultMap.get("xCount"));
-			entity.setA0Count(getResultMap.get("A0"));
-			entity.setA1Count(getResultMap.get("A1"));
-			entity.setA2Count(getResultMap.get("A2"));
-			entity.setA3Count(getResultMap.get("A3"));
-			entity.setA4Count(getResultMap.get("A4"));
-			entity.setB1Count(getResultMap.get("B1"));
-			entity.setB2Count(getResultMap.get("B2"));
-			entity.setC1Count(getResultMap.get("C1"));
-			entity.setC2Count(getResultMap.get("C2"));
-			entity.setC3Count(getResultMap.get("C3"));
-			entity.setC4Count(getResultMap.get("C4"));
-			entity.setD1Count(getResultMap.get("D1"));
-			entity.setD2Count(getResultMap.get("D2"));
-			
-			rows.add(entity);
+		    
+		    FunnelReportEntity funnelEntity = getDataTable(entity,map,tempDepartIds);
+			rows.add(funnelEntity);
 		}
 		
 		Object json = this.serialize(rows, oql);
 		return json;
 	}
-
 	
-	protected Map<String, Integer> getDataTable(HashMap<String, String> filterMap,String orgaId) {
-
+	protected FunnelReportEntity getDataTable(BaseReportEntity entity, HashMap<String, String> filterMap,String orgaId) {
+		
 		return null;
 	}
-
+	
+	
 	protected HashMap<String, String> getMapFilters() throws UnsupportedEncodingException {
 
 		HashMap<String, String> map = new HashMap<String, String>();
