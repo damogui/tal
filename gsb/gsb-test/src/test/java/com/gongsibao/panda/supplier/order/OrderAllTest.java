@@ -33,7 +33,7 @@ import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanReportWeekW
 	
 	//我的订单
 	SalesmanOrderAddWorkspaceTest.class,
-//	SalesmanOrderAllWorkspaceTest.class,
+	SalesmanOrderAllWorkspaceTest.class,
 //	SalesmanOrderCarryoverWorkspaceTest.class,
 //	SalesmanOrderContractWorkspaceTest.class,
 //	SalesmanOrderPerformanceWorspaceTest.class,
