@@ -6,7 +6,10 @@ import java.util.Map;
 import org.netsharp.core.DataTable;
 import org.netsharp.core.IRow;
 
-public class ComprehenReportPart extends CRMReportPart {
+import com.gongsibao.entity.crm.report.BaseReportEntity;
+import com.gongsibao.entity.crm.report.ComprehenReportEntity;
+
+public class ComprehenReportPart extends BaseReport {
 
 	
 	protected HashMap<String, String> getDate(HashMap<String, String> filterMap) {
@@ -18,12 +21,11 @@ public class ComprehenReportPart extends CRMReportPart {
 		map.put("endDate", endDate);
 		return map;
 	}
-
-
+	
 	@Override
-	protected Map<String, Integer> getDataTable(HashMap<String, String> filterMap,String orgaId) {
+	protected ComprehenReportEntity getDataTable(BaseReportEntity entity,HashMap<String, String> filterMap,String orgaId) {
+		ComprehenReportEntity resultEntity = new ComprehenReportEntity();
 		
-		Map<String, Integer> resultMap =new HashMap<String, Integer>();
 		Map<String, String> getTaskCustoCountMap = getTaskCustoCount(filterMap,orgaId);
 		Map<String, String> getAllocationTaskCountMap = getAllocationTaskCount(filterMap,orgaId);
 		Map<String, String> getRollOutTaskCountMap = getRollOutTaskCount(filterMap,orgaId);
@@ -35,20 +37,30 @@ public class ComprehenReportPart extends CRMReportPart {
 		Map<String, String> getUnSignTaskCountMap =getUnSignTaskCount(filterMap,orgaId);
 		Map<String, String> getSignReturAmountMap =getSignReturAmount(filterMap,orgaId);
 		
-		resultMap.put("taskCount", Integer.parseInt(getTaskCustoCountMap.get("taskCount")));
-		resultMap.put("customerCount", Integer.parseInt(getTaskCustoCountMap.get("customerCount")));
-		resultMap.put("allocationTaskCount", Integer.parseInt(getAllocationTaskCountMap.get("allocationTaskCount")));
-		resultMap.put("rollOutTaskCount", Integer.parseInt(getRollOutTaskCountMap.get("rollOutTaskCount")));
-		resultMap.put("intoTaskCount", Integer.parseInt(getIntoTaskCountMap.get("intoTaskCount")));
-		resultMap.put("returnTaskCount", Integer.parseInt(getReturnTaskCountMap.get("returnTaskCount")));
-		resultMap.put("withdrawTaskCount", Integer.parseInt(getWithdrawTaskCountMap.get("withdrawTaskCount")));
-		resultMap.put("followTaskCount", Integer.parseInt(getFollowTaskCountMap.get("followTaskCount")));
-		resultMap.put("checkAbnormalTaskCount", Integer.parseInt(getCheckAbnormalTaskCountMap.get("checkAbnormalTaskCount")));
-		resultMap.put("unSignTaskCount", Integer.parseInt(getUnSignTaskCountMap.get("unSignTaskCount")));
-		resultMap.put("signingAmount", Integer.parseInt(getSignReturAmountMap.get("signingAmount") == null ? "0" : getSignReturAmountMap.get("signingAmount")));
-		resultMap.put("returnedAmount", Integer.parseInt(getSignReturAmountMap.get("returnedAmount") == null ? "0" : getSignReturAmountMap.get("returnedAmount")));
-		return resultMap;		
+		resultEntity.setId(entity.getId());
+		resultEntity.setParentId(entity.getParentId());
+		resultEntity.setSupplierId(entity.getSupplierId());
+		resultEntity.setDepartmentName(entity.getDepartmentName());
+		resultEntity.setIsLeaf(entity.getIsLeaf());
+		resultEntity.setCustomerCount(Integer.parseInt(getTaskCustoCountMap.get("customerCount")));
+		resultEntity.setTaskCount(Integer.parseInt(getTaskCustoCountMap.get("taskCount")));
+		/*entity.setSelfCustomerCount(2);
+		entity.setSelfTaskCount(3);*/
+		resultEntity.setAllocationTaskCount(Integer.parseInt(getAllocationTaskCountMap.get("allocationTaskCount")));
+		resultEntity.setIntoTaskCount(Integer.parseInt(getIntoTaskCountMap.get("intoTaskCount")));
+		resultEntity.setRollOutTaskCount(Integer.parseInt(getRollOutTaskCountMap.get("rollOutTaskCount")));
+		resultEntity.setReturnTaskCount(Integer.parseInt(getReturnTaskCountMap.get("returnTaskCount")));
+		resultEntity.setWithdrawTaskCount(Integer.parseInt(getWithdrawTaskCountMap.get("withdrawTaskCount")));
+		resultEntity.setFollowTaskCount(Integer.parseInt(getFollowTaskCountMap.get("followTaskCount")));
+		resultEntity.setUnSignTaskCount(Integer.parseInt(getUnSignTaskCountMap.get("unSignTaskCount")));
+		resultEntity.setCheckAbnormalTaskCount(Integer.parseInt(getCheckAbnormalTaskCountMap.get("checkAbnormalTaskCount")));
+		resultEntity.setSigningAmount(Integer.parseInt(getSignReturAmountMap.get("signingAmount") == null ? "0" : getSignReturAmountMap.get("signingAmount")));
+		resultEntity.setReturnedAmount(Integer.parseInt(getSignReturAmountMap.get("returnedAmount") == null ? "0" : getSignReturAmountMap.get("returnedAmount")));
+		
+		return resultEntity;		
 	}
+	
+	
 	/**
 	 * 获取全部客户数、全部任务数
 	 * @param filterMap 

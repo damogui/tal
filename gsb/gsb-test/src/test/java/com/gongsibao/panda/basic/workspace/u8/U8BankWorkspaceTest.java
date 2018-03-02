@@ -98,7 +98,7 @@ public class U8BankWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "no", "卡号", ControlTypes.TEXT_BOX,  false, false);
 		addFormField(form, "code", "科目编号", ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "abbreviation", "简称", ControlTypes.TEXT_BOX,  false, false);
-		//addFormFieldRefrence(form, "setOfBooks.name", "账套名称",null,  SetOfBooks.class.getSimpleName(), false, false);
+		addFormFieldRefrence(form, "setOfBooks.name", "账套名称",null,  SetOfBooks.class.getSimpleName(), false, false);
 		addFormField(form, "type", "类型", ControlTypes.ENUM_BOX, true, false);		
 		addFormField(form, "supplierId", "u8供应商id", ControlTypes.TEXT_BOX,  false, false);	
 		addFormField(form, "prepaySubjectId", "预付或手续费id", ControlTypes.NUMBER_BOX,  false, false);
@@ -113,7 +113,7 @@ public class U8BankWorkspaceTest extends WorkspaceCreationBase {
 		field = addFormField(form, "taxRate", "税率", null, ControlTypes.DECIMAL_BOX, false, false);		{
 			field.setPrecision(4);
 		}
-		addFormField(form, "sort", "排序编号", ControlTypes.NUMBER_BOX,  false, false);
+		addFormField(form, "sort", "排序编号", ControlTypes.NUMBER_BOX,  true, false);
 		addFormField(form, "enabled", "是否可用", ControlTypes.SWITCH_BUTTON, false, false);
 		
 		

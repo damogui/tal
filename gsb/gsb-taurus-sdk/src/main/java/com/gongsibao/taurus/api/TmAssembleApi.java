@@ -25,6 +25,10 @@ public class TmAssembleApi extends AbstractApi<TmAssembleResponseMessage> {
     protected String getUrl() {
         return "/dataapi/v3/ic/getTmCountByProtect";
     }
+    @Override
+    public int getInterfaceType() {
+        return 1;
+    }
 
     @Override
     public Class<?> getResponseType() {

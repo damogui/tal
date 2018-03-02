@@ -2,6 +2,7 @@ package com.gongsibao.panda.igirl;
 import com.gongsibao.entity.igirl.ChangeTradeMark;
 import com.gongsibao.entity.igirl.TradeMark;
 import com.gongsibao.entity.igirl.TradeMarkCase;
+import com.gongsibao.entity.igirl.TransferTradeMark;
 import com.gongsibao.entity.igirl.baseinfo.IGirlConfig;
 import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
 import com.gongsibao.entity.igirl.baseinfo.NclBatch;
@@ -76,14 +77,21 @@ public class NavigationTest extends NavigationBase {
 				createPTreeNode(tree, "GSB_IGIRL_CTM", null, "IGIRL_Dp_"  + ChangeTradeMark.class.getSimpleName(),    "部门跟进", "/igirl/dpctm/progress/list", 3);
 
 			}
-			createPTreeNode(tree, "GSB_TRADE_AI", null, "GSB_IGIRL_BASE", "基础信息", "",3);
+			createPTreeNode(tree, "GSB_TRADE_AI", null, "GSB_IGIRL_TTM", "商标转让", "", 3);
+			{
+				createPTreeNode(tree, "GSB_IGIRL_TTM", null, "IGIRL_All_" + TransferTradeMark.class.getSimpleName(), "方案生成", "/igirl/transfertrademark/all/list", 1);
+				createPTreeNode(tree, "GSB_IGIRL_TTM", null, "IGIRL_My_"  + TransferTradeMark.class.getSimpleName(),    "我的跟进", "/igirl/myttm/progress/list", 2);
+				createPTreeNode(tree, "GSB_IGIRL_TTM", null, "IGIRL_Dp_"  + TransferTradeMark.class.getSimpleName(),    "部门跟进", "/igirl/dpttm/progress/list", 3);
+
+			}
+			createPTreeNode(tree, "GSB_TRADE_AI", null, "GSB_IGIRL_BASE", "基础信息", "",4);
 			{
 				createPTreeNode(tree, "GSB_IGIRL_BASE", null, "IGRIL_BASE_" + NCLTwo.class.getSimpleName(), "商标大类", "/igirl/nclone/all/list", 1);
 				createPTreeNode(tree, "GSB_IGIRL_BASE", null, "IGRIL_BASE_" + NCLTwo.class.getSimpleName(), "商标小类", "/igirl/ncltwo/all/list", 2);
 				createPTreeNode(tree, "GSB_IGIRL_BASE", null, "NCL_All_" + NclBatch.class.getSimpleName(), "尼斯期间", "/ncl/batch/list", 3);
 				createPTreeNode(tree, "GSB_IGIRL_BASE", null, "IGRIL_BASE_" + IGirlConfig.class.getSimpleName(), "参数设置", "/igirl/config/list", 4);
 			}
-			createPTreeNode(tree, "GSB_TRADE_AI", null, "GSB_IGIRL_SITE", "微门户", "",4);
+			createPTreeNode(tree, "GSB_TRADE_AI", null, "GSB_IGIRL_SITE", "微门户", "",5);
 			{
 				createPTreeNode(tree, "GSB_IGIRL_SITE", null, "IGRIL_SITE_" + SupplierSiteInfo.class.getSimpleName(), "站点信息", "/igirl/siteinfo/list", 1);
 				createPTreeNode(tree, "GSB_IGIRL_SITE", null, "IGRIL_SITE_" + SupplierNewInfo.class.getSimpleName(), "最新资讯", "/igirl/newinfo/list", 2);

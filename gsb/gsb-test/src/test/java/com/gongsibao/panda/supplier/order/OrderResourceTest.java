@@ -1,5 +1,7 @@
 package com.gongsibao.panda.supplier.order;
 
+import com.gongsibao.entity.trade.Contract;
+import com.gongsibao.trade.base.IContractService;
 import org.junit.Test;
 import org.netsharp.meta.base.ResourceCreationBase;
 import org.netsharp.resourcenode.entity.ResourceNode;
@@ -31,8 +33,8 @@ public class OrderResourceTest extends ResourceCreationBase {
 				this.createResourceNodeVoucher(SoOrder.class.getName(), "回款业绩", "Gsb_Supplier_Order_Salesman_Received", ISoOrderService.class.getName(), node1.getId());
 				this.createResourceNodeVoucher(SoOrder.class.getName(), "退款订单", "Gsb_Supplier_Order_Salesman_Refund", ISoOrderService.class.getName(), node1.getId());
 				this.createResourceNodeVoucher(SoOrder.class.getName(), "分期订单", "Gsb_Supplier_Order_Salesman_Staging", ISoOrderService.class.getName(), node1.getId());
-				this.createResourceNodeVoucher(SoOrder.class.getName(), "结转订单", "Gsb_Supplier_Order_Salesman_Carryover", ISoOrderService.class.getName(), node1.getId());
-				this.createResourceNodeVoucher(SoOrder.class.getName(), "合同管理", "Gsb_Supplier_Order_Salesman_Contract", ISoOrderService.class.getName(), node1.getId());
+				this.createResourceNodeVoucher(SoOrder.class.getName(), "结转订单", "Gsb_Supplier_Order_Salesman_Carryover", IContractService.class.getName(), node1.getId());
+				this.createResourceNodeVoucher(Contract.class.getName(), "合同管理", "Gsb_Supplier_Order_Salesman_Contract", ISoOrderService.class.getName(), node1.getId());
 				this.createResourceNodeVoucher(SoOrder.class.getName(), "日统计", "Gsb_Supplier_Order_Salesman_Day_Report", ISoOrderService.class.getName(), node1.getId());
 				this.createResourceNodeVoucher(SoOrder.class.getName(), "周统计", "Gsb_Supplier_Order_Salesman_Week_Report", ISoOrderService.class.getName(), node1.getId());
 				this.createResourceNodeVoucher(SoOrder.class.getName(), "月统计", "Gsb_Supplier_Order_Salesman_Month_Report", ISoOrderService.class.getName(), node1.getId());

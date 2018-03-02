@@ -1,5 +1,6 @@
 package com.gongsibao.panda.igirl.workspace;
 
+import com.gongsibao.entity.igirl.ChangeTradeMark;
 import com.gongsibao.entity.igirl.TradeMark;
 import com.gongsibao.igirl.web.ChangeTradeMarkListPart;
 import com.gongsibao.igirl.web.DepartmentChangeTradeMarkListPart;
@@ -24,7 +25,7 @@ public class DpChangeTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		super.setup();
 		urlList = "/igirl/dpctm/progress/list";
 		urlForm = "/igirl/dpctm/progress/form";
-		entity = TradeMark.class;
+		entity = ChangeTradeMark.class;
 		meta = MtableManager.getMtable(entity);
 		resourceNodeCode = "IGIRL_Dp_ChangeTradeMark";
 		formPartName = listPartName = meta.getName();

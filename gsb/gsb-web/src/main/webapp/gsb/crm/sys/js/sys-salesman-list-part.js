@@ -103,9 +103,9 @@ com.gongsibao.crm.web.SysSalesmanListPart = org.netsharp.panda.commerce.ListPart
     disabledFormatter:function(value,row,index){
     	
 		return '<input class="easyui-switchbutton" data-options="'
-		+'checked:'+value
+		+'checked:'+(!value)
 		+',onText:\'启用\',offText:\'停用\','
-		+'onChange:function(checked){controllerdepartments.setDisabled(\''+row.id+'\',checked);}">';
+		+'onChange:function(checked){controllerdepartments.setDisabled(\''+row.id+'\',!checked);}">';
     },
     setDisabled:function(salesmanId,state){
     	

@@ -62,6 +62,12 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(ChangeTradeMark.class.getName(), "我的跟进", "IGIRL_My_" + ChangeTradeMark.class.getSimpleName(), IChangeTradeMarkService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(ChangeTradeMark.class.getName(), "部门跟进", "IGIRL_Dp_" + ChangeTradeMark.class.getSimpleName(), IChangeTradeMarkService.class.getName(), node1.getId());
 		}
+		node1 = this.createResourceNodeCategory("商标转让", "GSB_IGIRL_TTM", node.getId());
+		{
+			this.createResourceNodeVoucher(TransferTradeMark.class.getName(), "方案生成", "IGIRL_All_" + TransferTradeMark.class.getSimpleName(), ITransferTradeMarkService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(TransferTradeMark.class.getName(), "我的跟进", "IGIRL_My_" + TransferTradeMark.class.getSimpleName(), ITransferTradeMarkService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(TransferTradeMark.class.getName(), "部门跟进", "IGIRL_Dp_" + TransferTradeMark.class.getSimpleName(), ITransferTradeMarkService.class.getName(), node1.getId());
+		}
 		node1 = this.createResourceNodeCategory("微门户", "GSB_IGIRL_SITE", node.getId());
 		{
 			this.createResourceNodeVoucher(SupplierSiteInfo.class.getName(), "站点信息", "IGRIL_SITE_" + SupplierSiteInfo.class.getSimpleName(), ISupplierSiteInfoService.class.getName(), node1.getId());
