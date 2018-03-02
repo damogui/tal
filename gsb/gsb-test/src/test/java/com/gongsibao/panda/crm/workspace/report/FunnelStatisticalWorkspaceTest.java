@@ -38,6 +38,8 @@ public class FunnelStatisticalWorkspaceTest extends WorkspaceCreationBase{
 		listPartType = PartType.TREEGRID_PART.getId();
 		listPartServiceController = FunelReportPart.class.getName();
 		listPartImportJs = "/gsb/gsb.custom.query.controls.js";
+		//统计级别""-平台；1-服务商；
+		listFilter ="1";
 	}
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
@@ -93,7 +95,6 @@ public class FunnelStatisticalWorkspaceTest extends WorkspaceCreationBase{
 		item = addQueryItem(queryProject, "date", "日期", ControlTypes.DATE_BOX);{
 			item.setRequired(true);
 		}
-		addRefrenceQueryItem(queryProject, "supplier.name", "服务商", Supplier.class.getSimpleName());
 		addRefrenceQueryItem(queryProject, "department.name", "部门", SupplierDepartment.class.getSimpleName());
 		item = addQueryItem(queryProject, "source.name", "任务来源", ControlTypes.CUSTOM);{
 			

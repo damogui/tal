@@ -10,10 +10,8 @@ import com.gongsibao.entity.crm.report.BaseReportEntity;
 import com.gongsibao.entity.crm.report.FunnelReportEntity;
 
 public class FunelReportPart extends BaseReport {
-
 	
-	protected HashMap<String, String> getDate(HashMap<String, String> filterMap) {
-
+	protected HashMap<String, String> getDate(HashMap<String, String> filterMap) {		
 		HashMap<String, String> map = new HashMap<String, String>();
 		String startDate = filterMap.get("date>");
 		String endDate = filterMap.get("date<");

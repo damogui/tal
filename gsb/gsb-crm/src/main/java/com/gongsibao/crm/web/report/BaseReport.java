@@ -21,28 +21,42 @@ public class BaseReport extends TreegridPart {
 
 	ISupplierDepartmentService departService = ServiceFactory.create(ISupplierDepartmentService.class);	
 	HashMap<String, String> map;
-	
+	//统计级别 1-服务商；
+	Integer statistLevel;
 	@Override
 	public Object query() throws IOException {
-
-		// departmentId='324' AND year ='2017'
+		//从工作区获取Filter值，区分平台和服务商 ，使用完重新设置为空
+		if(!this.context.getDatagrid().getFilter().isEmpty()){
+			statistLevel = Integer.parseInt(this.context.getDatagrid().getFilter());
+			this.context.getDatagrid().setFilter("");
+		}
 		List<String> ss = new ArrayList<String>();
 		this.map = getMapFilters();
+		
 		if (this.map.size() > 0) {
 			String departmentId = map.get("departmentId");
-			String supplierId = map.get("supplierId");
-			
-			//过滤部门
-			if (!StringManager.isNullOrEmpty(departmentId)) {
-				ss.add("id=" + departmentId);
-			}
-			//过滤服务商
-			if (!StringManager.isNullOrEmpty(supplierId)) {
-				ss.add("supplierId=" + supplierId);
+			if(statistLevel != null && statistLevel.equals(1)){
+				//过滤部门
+				if (!StringManager.isNullOrEmpty(departmentId)) {
+					ss.add("id=" + departmentId);
+				}else {
+					//部门为空，获取当前登录人的部门
+					ss.add("id=" + SupplierSessionManager.getDepartmentId());
+				}
 			}else {
-				ss.add("supplierId=" + SupplierSessionManager.getSupplierId());
+				String supplierId = map.get("supplierId");			
+				//过滤部门
+				if (!StringManager.isNullOrEmpty(departmentId)) {
+					ss.add("id=" + departmentId);
+				}
+				//过滤服务商
+				if (!StringManager.isNullOrEmpty(supplierId)) {
+					ss.add("supplierId=" + supplierId);
+				}else {
+					//服务商为空，获取当前登录人所在的服务商
+					ss.add("supplierId=" + SupplierSessionManager.getSupplierId());
+				}
 			}
-			
 		}
 		
 		String extraFilter = this.getExtraFilter();
@@ -77,7 +91,6 @@ public class BaseReport extends TreegridPart {
 				tempDepartIds = o.getId().toString();
 			}
 		    
-		    //FunnelReportEntity funnelEntity = getDataTable(entity,map,tempDepartIds);
 		    BaseReportEntity baseEntity = getDataTable(entity,map,tempDepartIds);
 			rows.add(baseEntity);
 		}
@@ -116,10 +129,16 @@ public class BaseReport extends TreegridPart {
 	@Override
 	protected String getExtraFilter() {
 		String id = this.getRequest("id");
-		if (StringManager.isNullOrEmpty(id) && StringManager.isNullOrEmpty(map.get("departmentId"))) {
-			return " (parent_id = 0 or parent_id is NULL)";
-		}else if (!StringManager.isNullOrEmpty(id) && StringManager.isNullOrEmpty(map.get("departmentId"))) {
-			return " parent_id=" + id;
+		if(statistLevel != null && statistLevel.equals(1)){
+			if (!StringManager.isNullOrEmpty(id) && StringManager.isNullOrEmpty(map.get("departmentId"))) {
+				return " parent_id=" + id;
+			}
+		}else{
+			if (StringManager.isNullOrEmpty(id) && StringManager.isNullOrEmpty(map.get("departmentId"))) {
+				return " (parent_id = 0 or parent_id is NULL)";
+			}else if (!StringManager.isNullOrEmpty(id) && StringManager.isNullOrEmpty(map.get("departmentId"))) {
+				return " parent_id=" + id;
+			}
 		}
 		return "";
 	}
