@@ -36,16 +36,16 @@ public class SaveOrderActionTest extends BaseActionTest {
 			beanPath.setName("创建订单");
 		}
 
-		createBean(beanPath, "验证", ActionSaveOrderVerify.class.getName(), resourceNode, 100);
-		createBean(beanPath, "拆分", ActionSaveOrderSplit.class.getName(), resourceNode, 200);
-		createBean(beanPath, "优惠劵", ActionSaveOrderCoupon.class.getName(), resourceNode, 300);
-		createBean(beanPath, "商标", ActionSaveOrderTrademark.class.getName(), resourceNode, 400);
-		createBean(beanPath, "关联公司", ActionSaveOrderCompany.class.getName(), resourceNode, 500);
-		createBean(beanPath, "价格", ActionSaveOrderPrice.class.getName(), resourceNode, 600);
-		createBean(beanPath, "保存", ActionSaveOrderPersist.class.getName(), resourceNode, 700);
-		createBean(beanPath, "改价审核", ActionSaveOrderChangePriceAudit.class.getName(), resourceNode, 800);
-		createBean(beanPath, "分配", ActionSaveOrderAutoAllocation.class.getName(), resourceNode, 900);
-		createBean(beanPath, "消息", ActionSaveOrderSendMessage.class.getName(), resourceNode, 1000);
+		createBean(beanPath, "1.验证", ActionSaveOrderVerify.class.getName(), resourceNode, 100);
+		createBean(beanPath, "2.拆分", ActionSaveOrderSplit.class.getName(), resourceNode, 200);
+		createBean(beanPath, "3.优惠劵", ActionSaveOrderCoupon.class.getName(), resourceNode, 300);
+		createBean(beanPath, "4.商标", ActionSaveOrderTrademark.class.getName(), resourceNode, 400);
+		createBean(beanPath, "5.关联公司", ActionSaveOrderCompany.class.getName(), resourceNode, 500);
+		createBean(beanPath, "6.价格", ActionSaveOrderPrice.class.getName(), resourceNode, 600);
+		createBean(beanPath, "7.持久化", ActionSaveOrderPersist.class.getName(), resourceNode, 700);
+		createBean(beanPath, "8.改价审核", ActionSaveOrderChangePriceAudit.class.getName(), resourceNode, 800);
+		createBean(beanPath, "9.分配", ActionSaveOrderAutoAllocation.class.getName(), resourceNode, 900);
+		createBean(beanPath, "10.消息", ActionSaveOrderSendMessage.class.getName(), resourceNode, 1000);
 		beanPathService.save(beanPath);
 	}
 }
