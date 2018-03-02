@@ -25,6 +25,10 @@ public class YuLeCountApi extends AbstractApi<ItemCountResponseMessage> {
     protected String getUrl() {
         return "/dataapi/v3/ic/getBusinessYuLe";
     }
+    @Override
+    public int getInterfaceType() {
+        return 1;
+    }
 
     @Override
     public Class<?> getResponseType() {

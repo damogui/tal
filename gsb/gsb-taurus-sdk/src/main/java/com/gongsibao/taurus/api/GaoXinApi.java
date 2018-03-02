@@ -25,6 +25,10 @@ public class GaoXinApi extends AbstractApi<CountResponseMessage> {
     protected String getUrl() {
         return "/dataapi/v3/ic/getBusinessGaoXin";
     }
+    @Override
+    public int getInterfaceType() {
+        return 1;
+    }
 
     @Override
     public Class<?> getResponseType() {

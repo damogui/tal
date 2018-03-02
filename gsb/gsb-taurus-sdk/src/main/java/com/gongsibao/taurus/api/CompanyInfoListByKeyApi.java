@@ -26,6 +26,10 @@ public class CompanyInfoListByKeyApi extends AbstractApi<CompanyInfoListByKeyRes
     protected String getUrl() {
         return "/dataapi/v3/ic/getListByKey";
     }
+    @Override
+    public int getInterfaceType() {
+        return 1;
+    }
 
     @Override
     public Class<?> getResponseType() {

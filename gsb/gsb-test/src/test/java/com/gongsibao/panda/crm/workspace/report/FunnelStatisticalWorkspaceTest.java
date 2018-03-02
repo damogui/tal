@@ -31,7 +31,7 @@ public class FunnelStatisticalWorkspaceTest extends WorkspaceCreationBase{
 	public void setup() {
 		entity = FunnelReportEntity.class;
 		urlList = "/crm/statistical/customer/funnel/list";
-		listPartName = formPartName = "综合统计";
+		listPartName = formPartName = "漏斗统计";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "CRM_STATISTICAL_Funnel";

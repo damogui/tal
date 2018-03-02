@@ -9,7 +9,7 @@ import org.netsharp.core.IRow;
 import com.gongsibao.entity.crm.report.BaseReportEntity;
 import com.gongsibao.entity.crm.report.ComprehenReportEntity;
 
-public class ComprehenReportPart extends CRMReportPart {
+public class ComprehenReportPart extends BaseReport {
 
 	
 	protected HashMap<String, String> getDate(HashMap<String, String> filterMap) {

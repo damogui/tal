@@ -17,7 +17,7 @@ import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.supplier.base.ISupplierDepartmentService;
 import com.gongsibao.utils.SupplierSessionManager;
 
-public class CRMReportPart extends TreegridPart {
+public class BaseReport extends TreegridPart {
 
 	ISupplierDepartmentService departService = ServiceFactory.create(ISupplierDepartmentService.class);	
 	HashMap<String, String> map;

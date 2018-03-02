@@ -3,6 +3,7 @@ package com.gongsibao.taurus.service;
 import com.gongsibao.taurus.api.*;
 import com.gongsibao.taurus.entity.*;
 import com.gongsibao.taurus.message.ResponseMessage;
+import com.gongsibao.taurus.message.response.TmNewResponseMessage;
 
 import java.util.List;
 
@@ -504,6 +505,7 @@ public class TaurusApiService {
 
     /**
      * 根据关键字模糊查询公司名字列表
+     *
      * @param key
      * @param currentPage
      * @param pageSize
@@ -519,6 +521,7 @@ public class TaurusApiService {
 
     /**
      * 根据公司名称查询商标列表
+     *
      * @param companyName
      * @param currentPage
      * @param pageSize
@@ -534,6 +537,7 @@ public class TaurusApiService {
 
     /**
      * 根据公司名称查询商标变更列表
+     *
      * @param companyName
      * @param currentPage
      * @param pageSize
@@ -549,6 +553,7 @@ public class TaurusApiService {
 
     /**
      * 根据公司名称查询商标续展列表
+     *
      * @param companyName
      * @param currentPage
      * @param pageSize
@@ -565,6 +570,7 @@ public class TaurusApiService {
 
     /**
      * 查询公司已有商标信息
+     *
      * @param companyName
      * @param currentPage
      * @param pageSize
@@ -580,6 +586,7 @@ public class TaurusApiService {
 
     /**
      * 查询公司商标信息
+     *
      * @param companyName
      * @param currentPage
      * @param pageSize
@@ -595,6 +602,7 @@ public class TaurusApiService {
 
     /**
      * 查询单个公司业务项
+     *
      * @param companyName
      * @return
      */
@@ -613,9 +621,9 @@ public class TaurusApiService {
     }
 
 
-
     /**
      * 查询公司潜在机会数量查询
+     *
      * @param companyName
      * @return
      */
@@ -627,6 +635,7 @@ public class TaurusApiService {
 
     /**
      * 查询单个公司商标覆盖分类数量
+     *
      * @param companyName
      * @return
      */
@@ -638,6 +647,7 @@ public class TaurusApiService {
 
     /**
      * 查询单个公司商标机会数量查询
+     *
      * @param companyName
      * @return
      */
@@ -649,6 +659,7 @@ public class TaurusApiService {
 
     /**
      * 查询单个公司的著作权机会数量
+     *
      * @param companyName
      * @return
      */
@@ -661,6 +672,7 @@ public class TaurusApiService {
 
     /**
      * 查询单个公司年报数量
+     *
      * @param companyName
      * @return
      */
@@ -672,6 +684,7 @@ public class TaurusApiService {
 
     /**
      * 查询单个公司增值电信机会
+     *
      * @param companyName
      * @return
      */
@@ -683,6 +696,7 @@ public class TaurusApiService {
 
     /**
      * 查询单个公司娱乐牌照机会
+     *
      * @param companyName
      * @return
      */
@@ -695,6 +709,7 @@ public class TaurusApiService {
 
     /**
      * 查询单个公司高新企业机会
+     *
      * @param companyName
      * @return
      */
@@ -707,6 +722,7 @@ public class TaurusApiService {
 
     /**
      * 查询单个公司税收筹划机会
+     *
      * @param companyName
      * @return
      */
@@ -718,6 +734,7 @@ public class TaurusApiService {
 
     /**
      * 查询单个公司影视审批机会
+     *
      * @param companyName
      * @return
      */
@@ -729,6 +746,7 @@ public class TaurusApiService {
 
     /**
      * 查询单个公司食品流通机会
+     *
      * @param companyName
      * @return
      */
@@ -738,6 +756,65 @@ public class TaurusApiService {
         return api.getResponse();
     }
 
+    /**
+     * 根据公司名称查询新商标数据
+     * @param companyName 查询条件
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    public static ResponseMessage<TmNew> getTmNewByCompany(String companyName, int currentPage, int pageSize) {
+        TmNewByCompanyApi api = ApiFactory.create(TmNewByCompanyApi.class);
+        api.setQ(companyName);
+        api.setCurrentPage(currentPage);
+        api.setPageSize(pageSize);
+        TmNewResponseMessage response = api.getResponse();
+        if (null != response) {
+            response.setCurrentPage(currentPage);
+            response.setPageSize(pageSize);
+        }
+        return response;
+    }
+
+    /**
+     * 根据商标名称查询新商标数据
+     * @param tmName 查询条件
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    public static ResponseMessage<TmNew> getTmNewByName(String tmName, int currentPage, int pageSize) {
+        TmNewByNameApi api = ApiFactory.create(TmNewByNameApi.class);
+        api.setQ(tmName);
+        api.setCurrentPage(currentPage);
+        api.setPageSize(pageSize);
+        TmNewResponseMessage response = api.getResponse();
+        if (null != response) {
+            response.setCurrentPage(currentPage);
+            response.setPageSize(pageSize);
+        }
+        return response;
+    }
+
+    /**
+     * 根据公司名称查询新商标数据
+     * @param regNo 查询条件
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    public static ResponseMessage<TmNew> getTmNewByRegNo(String regNo, int currentPage, int pageSize) {
+        TmNewByRegNoApi api = ApiFactory.create(TmNewByRegNoApi.class);
+        api.setQ(regNo);
+        api.setCurrentPage(currentPage);
+        api.setPageSize(pageSize);
+        TmNewResponseMessage response = api.getResponse();
+        if (null != response) {
+            response.setCurrentPage(currentPage);
+            response.setPageSize(pageSize);
+        }
+        return response;
+    }
 
 
     public static ResponseMessage<CompanyAbnormal> getAbnormalList(String companyName, int currentPage, int pageSize) {

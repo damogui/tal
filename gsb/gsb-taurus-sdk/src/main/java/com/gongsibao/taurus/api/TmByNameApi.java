@@ -28,6 +28,11 @@ public class TmByNameApi extends AbstractApi<TmByNameResponseMessage> {
     }
 
     @Override
+    public int getInterfaceType() {
+        return 2;
+    }
+
+    @Override
     public Class<?> getResponseType() {
         return TmByNameResponseMessage.class;
     }
@@ -39,4 +44,5 @@ public class TmByNameApi extends AbstractApi<TmByNameResponseMessage> {
     public void setTmName(String tmName) {
         this.tmName = tmName;
     }
+
 }
