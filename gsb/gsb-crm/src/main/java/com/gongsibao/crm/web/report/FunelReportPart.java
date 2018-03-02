@@ -9,7 +9,7 @@ import org.netsharp.core.IRow;
 import com.gongsibao.entity.crm.report.BaseReportEntity;
 import com.gongsibao.entity.crm.report.FunnelReportEntity;
 
-public class FunelReportPart extends FunelCRMReportPart {
+public class FunelReportPart extends CRMReportPart {
 
 	
 	protected HashMap<String, String> getDate(HashMap<String, String> filterMap) {
