@@ -14,18 +14,19 @@ import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.util.sqlbuilder.SelectBuilder;
 
 import com.gongsibao.entity.product.Price;
+import com.gongsibao.product.base.IPriceService;
 import com.gongsibao.utils.pcc.PccDTO;
 import com.gongsibao.utils.pcc.PccHelper;
 
-public class OrderProdItemDetailPart extends DetailPart{
+public class OrderProdItemDetailPart extends DetailPart {
 
-	/**   
-	 * @Title: queryPcc   
-	 * @Description: TODO(获取当前产品下可售地区)   
+	/**
+	 * @Title: queryPcc
+	 * @Description: TODO(获取当前产品下可售地区)
 	 * @param: @param productId
-	 * @param: @return      
-	 * @return: List<PccDTO>      
-	 * @throws   
+	 * @param: @return
+	 * @return: List<PccDTO>
+	 * @throws
 	 */
 	public List<PccDTO> queryPcc(Integer productId) {
 
@@ -38,7 +39,8 @@ public class OrderProdItemDetailPart extends DetailPart{
 			selectBuilder.groupBy("city_id");
 		}
 
-		QueryParameters qps = new QueryParameters();{
+		QueryParameters qps = new QueryParameters();
+		{
 
 			qps.add("productId", productId, Types.INTEGER);
 		}
@@ -52,19 +54,20 @@ public class OrderProdItemDetailPart extends DetailPart{
 		List<PccDTO> list = PccHelper.getFullPcc(pccIdList);
 		return list;
 	}
-	
-	/**   
-	 * @Title: queryServiceItem   
-	 * @Description: TODO(根据产品Id、地区Id查询服务项目)   
+
+	/**
+	 * @Title: queryServiceItem
+	 * @Description: TODO(根据产品Id、地区Id查询服务项目)
 	 * @param: @param productId
 	 * @param: @param cityId
-	 * @param: @return      
-	 * @return: List<ProductService>      
-	 * @throws   
+	 * @param: @return
+	 * @return: List<ProductService>
+	 * @throws
 	 */
-	public List<Price> queryServicePriceItem(Integer productId,Integer cityId){
-		
-		//IPriceService priceService = ServiceFactory.create(IPriceService.class);
-		return null;
+	public List<Price> queryServicePriceItem(Integer productId, Integer cityId) {
+
+		IPriceService priceService = ServiceFactory.create(IPriceService.class);
+		List<Price> list = priceService.queryServicePriceItem(productId,cityId);
+		return list;
 	}
 }

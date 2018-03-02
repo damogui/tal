@@ -2,6 +2,8 @@ package com.gongsibao.trade.service;
 
 import java.sql.Types;
 
+import org.netsharp.action.ActionContext;
+import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.core.Oql;
 import org.netsharp.service.PersistableService;
@@ -16,6 +18,23 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
         super();
         this.type=SoOrder.class;
     }
+    
+	@Override
+	public SoOrder save(SoOrder entity) {
+
+		ActionContext ctx = new ActionContext();
+		{
+			ctx.setPath("gsb/crm/order/save");
+			ctx.setItem(entity);
+			ctx.setState(entity.getEntityState());
+		}
+		ActionManager action = new ActionManager();
+		action.execute(ctx);
+
+		entity = (SoOrder) ctx.getItem();
+		return entity;
+	}
+    
     @Override
 	public SoOrder byId(Object id) {
 
