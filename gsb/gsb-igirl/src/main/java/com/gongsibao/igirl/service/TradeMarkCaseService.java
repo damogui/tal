@@ -55,7 +55,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 
 	// 付款证明商标ID为赋予值为-2，因为多个商标共享
 	public final static Integer TradeMarkPayProofID = -2;
-	
+
 	public TradeMarkCaseService() {
 		super();
 		this.type = TradeMarkCase.class;
@@ -63,7 +63,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 
 	/**
 	 * 填充加盟商信息
-	 * 
+	 *
 	 * @param entity
 	 */
 	private TradeMarkCase fillSupplierInfo(TradeMarkCase entity) {
@@ -130,6 +130,9 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 	public TradeMarkCase save(TradeMarkCase entity) {
 		if (entity.getEntityState() == EntityState.New) {
 			//entity.setCode(DateTime.now().toString("yyyyMMddHHmmss"));
+            //初始化当前业务员为当前登陆账号者
+            entity.setOwnerId(SessionManager.getUserId());
+            entity.setOwnerName(SessionManager.getUserName());
 			// 填充加盟商信息
 			entity = fillSupplierInfo(entity);
 			entity = fillDepartmentInfo(entity);
@@ -140,7 +143,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			// tradeMarkCaseAttamentBuiler.buildUploads(tm)；
 			List<UploadAttachment> caseUps = tradeMarkCaseAttachmentBuiler.buildCaseShareUploads(entity);
 			entity.getUploadAttachments().addAll(caseUps);
-			
+
 			List<UploadAttachment> markShareGroupUps = tradeMarkCaseAttachmentBuiler.buildMarkShareGroupUploads(entity);
 			entity.getUploadAttachments().addAll(markShareGroupUps);
 			List<DownloadAttachment> markShareGroupDowns = tradeMarkCaseAttachmentBuiler.buildDownloads(entity);
@@ -178,14 +181,14 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 						List<UploadAttachment> casenewUps = tradeMarkCaseAttachmentBuiler
 								.buildMarkShareGroupUploadsByTm(tm,entity);
 						entity.getUploadAttachments().addAll(casenewUps);
-						
+
 						List<DownloadAttachment> markShareGroupDowns = tradeMarkCaseAttachmentBuiler.buildDownloads(entity);
 						entity.getDownLoadAttaments().addAll(markShareGroupDowns);
-						
-						
+
+
 						shareGroupCountMap.put(tm.getShareGroup(), 1);
 //						if( entity.getTradeMarks().size()==1) {//如果当前商标项是1，那么就增加营业执照
-						
+
 						// 查看当前tm原先的分组
 						ShareGroup sg = null;
 						for (TradeMark tm1 : origin.getTradeMarks()) {
@@ -217,7 +220,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 							}
 
 						}
-//							
+//
 //						}
 					} else {// 修改后目标分组在map中
 							// 如果改变到的目标分组存在已有分组，分组+1
@@ -278,7 +281,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 						}
 					}
 				}
-               
+
 			}
 			entity.setTradeOptions(tmp);
 		}
@@ -356,7 +359,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		TradeMarkCase tc = super.newInstance();
 //		tc.setYwPhone("010-84927588");
 		tc.setMailCode("100000");
-//		tc.setFax("010-84927588");	
+//		tc.setFax("010-84927588");
 		tc.setYwPhone(sl.getFax());
 		//tc.setMailCode(sl.getPostCode());
 		tc.setFax(sl.getFax());
@@ -450,7 +453,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		}catch(BusinessException e) {
 			return -1;
 		}
-		
+
 	}
 
 	@Override
@@ -463,7 +466,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 				oql.setFilter("tmc_state=?");
 				oql.setFilter("id=?");
 				oql.getParameters().add("tmc_state",TMCState.CONFIRMED.getValue(),Types.INTEGER);
-				oql.getParameters().add("id",Integer.parseInt(caseid),Types.INTEGER);	
+				oql.getParameters().add("id",Integer.parseInt(caseid),Types.INTEGER);
 			}
 			this.pm.executeNonQuery(cmdstr, oql.getParameters());
 			return 0;
