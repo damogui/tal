@@ -31,6 +31,10 @@ public class TmRenewalListApi extends AbstractApi<TmInfoResponseMessage> {
     protected String getUrl() {
         return "/dataapi/v3/ic/getTmRenewalListByCompanyName";
     }
+    @Override
+    public int getInterfaceType() {
+        return 1;
+    }
 
     @Override
     public Class<?> getResponseType() {

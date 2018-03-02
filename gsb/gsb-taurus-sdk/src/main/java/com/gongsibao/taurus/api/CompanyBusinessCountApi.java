@@ -27,6 +27,11 @@ public class CompanyBusinessCountApi extends AbstractApi<CompanyBusinessCountRes
     }
 
     @Override
+    public int getInterfaceType() {
+        return 1;
+    }
+
+    @Override
     public Class<?> getResponseType() {
         return CompanyBusinessCountResponseMessage.class;
     }

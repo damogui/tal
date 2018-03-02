@@ -24,6 +24,10 @@ public class CopyrightCountApi extends AbstractApi<CopyrightCountResponseMessage
     protected String getUrl() {
         return "/dataapi/v3/ic/getBusinessCopyRight";
     }
+    @Override
+    public int getInterfaceType() {
+        return 1;
+    }
 
     @Override
     public Class<?> getResponseType() {
