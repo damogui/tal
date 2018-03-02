@@ -25,6 +25,10 @@ public class PatentCountApi extends AbstractApi<PatentCountResponseMessage> {
     protected String getUrl() {
         return "/dataapi/v3/ic/getBusinessPatent";
     }
+    @Override
+    public int getInterfaceType() {
+        return 1;
+    }
 
     @Override
     public Class<?> getResponseType() {

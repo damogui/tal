@@ -25,6 +25,10 @@ public class TmInfoListApi extends AbstractApi<TmInfoResponseMessage> {
     protected String getUrl() {
         return "/dataapi/v3/ic/getTmListByCompanyName";
     }
+    @Override
+    public int getInterfaceType() {
+        return 1;
+    }
 
     @Override
     public Class<?> getResponseType() {

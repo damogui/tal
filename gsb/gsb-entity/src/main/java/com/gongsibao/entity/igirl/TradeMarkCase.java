@@ -19,10 +19,10 @@ public class TradeMarkCase extends Entity {
 
 	@Column(name = "code", header = "方案编号")
 	private String code;
-	
+
 	@Column(name = "certificate_type", header = "证件名称")
 	private CertificateType certificateType = null;
-	
+
 	// 商标说明
 	@Column(name = "name", header = "方案名称")
 	private String name;
@@ -83,7 +83,7 @@ public class TradeMarkCase extends Entity {
 
 	@Column(name = "case_amount", header = "金额")
 	private BigDecimal caseAmount = BigDecimal.ZERO;
-	
+
 	@Column(name = "order_code", header = "订单号")
 	private String orderCode;
 
@@ -95,7 +95,7 @@ public class TradeMarkCase extends Entity {
 
 	@Column(name = "proxy_company_name", header = "代理商名称")
 	private String proxyCompanyName;
-	
+
 	@Column(name = "case_proxy_contact_person", header = "代理联系人")
 	private String caseProxyContactPerson;
 
@@ -110,7 +110,7 @@ public class TradeMarkCase extends Entity {
 	@JsonIgnore
 	@Reference(foreignKey = "supplierId", header = "服务商")
 	private Supplier supplier;
-	
+
 	@Subs(foreignKey = "tradeMarkCaseId", header = "商标明细", subType = TradeMark.class)
 	private List<TradeMark> tradeMarks;
 
@@ -126,6 +126,28 @@ public class TradeMarkCase extends Entity {
 
 	@Column(name = "department_id",header = "所属部门id")
 	private Integer departmentId;
+
+	@Column(name="owner_id" ,header = "当前业务员id")
+	private Integer ownerId;
+
+	@Column(name="owner_name",header = "当前业务员姓名")
+	private String ownerName;
+
+	public Integer getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(Integer ownerId) {
+		this.ownerId = ownerId;
+	}
+
+	public String getOwnerName() {
+		return ownerName;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
 
 	public String getCode() {
 		return code;

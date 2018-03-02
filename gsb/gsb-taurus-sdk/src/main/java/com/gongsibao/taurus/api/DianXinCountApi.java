@@ -25,6 +25,10 @@ public class DianXinCountApi extends AbstractApi<ItemCountResponseMessage> {
     protected String getUrl() {
         return "/dataapi/v3/ic/getBusinessDianXin";
     }
+    @Override
+    public int getInterfaceType() {
+        return 1;
+    }
 
     @Override
     public Class<?> getResponseType() {

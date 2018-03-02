@@ -25,6 +25,10 @@ public class CompanyNameByKeyApi extends AbstractApi<CompanyNameByKeyResponseMes
     protected String getUrl() {
         return "/dataapi/v3/ic/getNameListByKey";
     }
+    @Override
+    public int getInterfaceType() {
+        return 1;
+    }
 
     @Override
     public Class<?> getResponseType() {
