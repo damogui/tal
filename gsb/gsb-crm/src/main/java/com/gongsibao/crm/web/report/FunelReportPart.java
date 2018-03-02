@@ -6,7 +6,10 @@ import java.util.Map;
 import org.netsharp.core.DataTable;
 import org.netsharp.core.IRow;
 
-public class FunelReportPart extends FunelCRMReportPart {
+import com.gongsibao.entity.crm.report.BaseReportEntity;
+import com.gongsibao.entity.crm.report.FunnelReportEntity;
+
+public class FunelReportPart extends BaseReport {
 
 	
 	protected HashMap<String, String> getDate(HashMap<String, String> filterMap) {
@@ -18,34 +21,35 @@ public class FunelReportPart extends FunelCRMReportPart {
 		map.put("endDate", endDate);
 		return map;
 	}
-
-
+	
 	@Override
-	protected Map<String, Integer> getDataTable(HashMap<String, String> filterMap,String orgaId) {
-		
-		Map<String, Integer> resultMap =new HashMap<String, Integer>();
+	protected FunnelReportEntity getDataTable(BaseReportEntity entity,HashMap<String, String> filterMap,String orgaId) {
+		FunnelReportEntity resultEntity = new FunnelReportEntity();
 		Map<String, String> getXSCountMap = getXSCount(filterMap,orgaId);
 		Map<String, String> getCodeTaskCountMap = getCodeTaskCount(filterMap,orgaId);
 		
-		
-		resultMap.put("taskCount", Integer.parseInt(getXSCountMap.get("taskCount")));
-		resultMap.put("sCount", Integer.parseInt(getXSCountMap.get("sCount")));
-		resultMap.put("xCount", Integer.parseInt(getXSCountMap.get("xCount")));
-		resultMap.put("A0", Integer.parseInt(getCodeTaskCountMap.get("A0")));
-		resultMap.put("A1", Integer.parseInt(getCodeTaskCountMap.get("A1")));
-		resultMap.put("A2", Integer.parseInt(getCodeTaskCountMap.get("A2")));
-		resultMap.put("A3", Integer.parseInt(getCodeTaskCountMap.get("A3")));
-		resultMap.put("A4", Integer.parseInt(getCodeTaskCountMap.get("A4")));
-		resultMap.put("B1", Integer.parseInt(getCodeTaskCountMap.get("B1")));
-		resultMap.put("B2", Integer.parseInt(getCodeTaskCountMap.get("B2")));
-		resultMap.put("C1", Integer.parseInt(getCodeTaskCountMap.get("C1")));
-		resultMap.put("C2", Integer.parseInt(getCodeTaskCountMap.get("C2")));
-		resultMap.put("C3", Integer.parseInt(getCodeTaskCountMap.get("C3")));
-		resultMap.put("C4", Integer.parseInt(getCodeTaskCountMap.get("C4")));
-		resultMap.put("D1", Integer.parseInt(getCodeTaskCountMap.get("D1")));
-		resultMap.put("D2", Integer.parseInt(getCodeTaskCountMap.get("D2")));
-		
-		return resultMap;		
+		resultEntity.setId(entity.getId());
+		resultEntity.setParentId(entity.getParentId());
+		resultEntity.setSupplierId(entity.getSupplierId());
+		resultEntity.setDepartmentName(entity.getDepartmentName());
+		resultEntity.setIsLeaf(entity.getIsLeaf());
+		resultEntity.setTaskCount(Integer.parseInt(getXSCountMap.get("taskCount")));
+		resultEntity.setSCount(Integer.parseInt(getXSCountMap.get("sCount")));
+		resultEntity.setXCount(Integer.parseInt(getXSCountMap.get("xCount")));
+		resultEntity.setA0Count(Integer.parseInt(getCodeTaskCountMap.get("A0")));
+		resultEntity.setA1Count(Integer.parseInt(getCodeTaskCountMap.get("A1")));
+		resultEntity.setA2Count(Integer.parseInt(getCodeTaskCountMap.get("A2")));
+		resultEntity.setA3Count(Integer.parseInt(getCodeTaskCountMap.get("A3")));
+		resultEntity.setA4Count(Integer.parseInt(getCodeTaskCountMap.get("A4")));
+		resultEntity.setB1Count(Integer.parseInt(getCodeTaskCountMap.get("B1")));
+		resultEntity.setB2Count(Integer.parseInt(getCodeTaskCountMap.get("B2")));
+		resultEntity.setC1Count(Integer.parseInt(getCodeTaskCountMap.get("C1")));
+		resultEntity.setC2Count(Integer.parseInt(getCodeTaskCountMap.get("C2")));
+		resultEntity.setC3Count(Integer.parseInt(getCodeTaskCountMap.get("C3")));
+		resultEntity.setC4Count(Integer.parseInt(getCodeTaskCountMap.get("C4")));
+		resultEntity.setD1Count(Integer.parseInt(getCodeTaskCountMap.get("D1")));
+		resultEntity.setD2Count(Integer.parseInt(getCodeTaskCountMap.get("D2")));
+		return resultEntity;		
 	}
 	/**
 	 * 获取全部任务数、X类、S类任务数

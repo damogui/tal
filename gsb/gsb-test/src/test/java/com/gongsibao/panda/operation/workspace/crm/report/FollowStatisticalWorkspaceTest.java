@@ -1,4 +1,4 @@
-package com.gongsibao.panda.crm.workspace.report;
+package com.gongsibao.panda.operation.workspace.crm.report;
 
 import org.junit.Before;
 import org.netsharp.core.MtableManager;
@@ -12,31 +12,30 @@ import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.controls.PropertyQueryDictComboBox;
-import com.gongsibao.crm.web.report.FunelReportPart;
-import com.gongsibao.entity.crm.report.FunnelReportEntity;
+import com.gongsibao.crm.web.report.FollowReportPart;
+import com.gongsibao.entity.crm.report.FollowReportEntity;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
 
 /**
- * 漏斗统计
+ * 跟进统计
  * @author Administrator
  *
  */
-public class FunnelStatisticalWorkspaceTest extends WorkspaceCreationBase{
+public class FollowStatisticalWorkspaceTest extends WorkspaceCreationBase{
 
 	@Override
 	@Before
 	public void setup() {
-		entity = FunnelReportEntity.class;
-		urlList = "/crm/statistical/customer/funnel/list";
-		listPartName = formPartName = "漏斗统计";
+		entity = FollowReportEntity.class;
+		urlList = "/operation/statistical/follow/list";
+		listPartName = formPartName = "跟进统计";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "CRM_STATISTICAL_Funnel";
+		resourceNodeCode = "Operation_CRM_STATISTICAL_FOLLOW";
 		listPartType = PartType.TREEGRID_PART.getId();
-		listPartServiceController = FunelReportPart.class.getName();
+		listPartServiceController = FollowReportPart.class.getName();
 		listPartImportJs = "/gsb/gsb.custom.query.controls.js";
 	}
 	@Override
@@ -51,25 +50,13 @@ public class FunnelStatisticalWorkspaceTest extends WorkspaceCreationBase{
 		column = addColumn(datagrid, "departmentName", "部门", ControlTypes.TEXT_BOX, 300, true);
 		column = addColumn(datagrid, "taskCount", "全部任务数", ControlTypes.NUMBER_BOX, 100);
 		
-		column = addColumn(datagrid, "XCount", "X类", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "SCount", "S类", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "unfoolowCount", "待跟进任务数", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "timeOutCount", "超时任务数", ControlTypes.NUMBER_BOX, 100);
 		
-		column = addColumn(datagrid, "A0Count", "A0", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "A1Count", "A1", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "A2Count", "A2", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "A3Count", "A3", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "A4Count", "A4", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "foolowCount", "跟进任务数", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "qualityRisetaskCount", "质量上升任务数", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "qualityDeclinetaskCount", "质量下降任务数", ControlTypes.NUMBER_BOX, 100);
 		
-		column = addColumn(datagrid, "B1Count", "B1", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "B2Count", "B2", ControlTypes.NUMBER_BOX, 100);
-		
-		column = addColumn(datagrid, "C1Count", "C1", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "C2Count", "C2", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "C3Count", "C3", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "C4Count", "C4", ControlTypes.NUMBER_BOX, 100);
-		
-		column = addColumn(datagrid, "D1Count", "D1", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "D2Count", "D2", ControlTypes.NUMBER_BOX, 100);
 		
 		column = addColumn(datagrid, "parentId", "parentId", ControlTypes.TEXT_BOX, 100);
 		{
@@ -95,11 +82,7 @@ public class FunnelStatisticalWorkspaceTest extends WorkspaceCreationBase{
 		}
 		addRefrenceQueryItem(queryProject, "supplier.name", "服务商", Supplier.class.getSimpleName());
 		addRefrenceQueryItem(queryProject, "department.name", "部门", SupplierDepartment.class.getSimpleName());
-		item = addQueryItem(queryProject, "source.name", "任务来源", ControlTypes.CUSTOM);{
-			
-			item.setCustomControlType(PropertyQueryDictComboBox.class.getName());
-			item.setRefFilter("type=411");
-		}
+		
 		return queryProject;
 	}
 	public void doOperation() {

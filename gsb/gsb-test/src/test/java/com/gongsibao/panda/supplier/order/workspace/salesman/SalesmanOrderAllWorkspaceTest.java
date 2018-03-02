@@ -32,7 +32,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
     public void setup() {
         super.setup ();
         entity = SoOrder.class;
-        urlForm = "/crm/order/salesman/all/list";
+        urlList = "/crm/order/salesman/all/list";
         listPartName = formPartName = "全部订单";
         meta = MtableManager.getMtable (entity);
         formPartName = listPartName = meta.getName ();
@@ -41,7 +41,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         formOpenMode = OpenMode.WINDOW;
         openWindowHeight = 700;
         openWindowWidth = 900;
-        listPartImportJs = "/gsb/crm/sys/js/sys-salesman-list-part.js|/gsb/gsb.custom.query.controls.js";
+        listPartImportJs = "/gsb/gsb.custom.query.controls.js";///gsb/crm/sys/js/sys-salesman-list-part.js|
 //        List<String> ss = new ArrayList<String> ();
 //        ss.add("/gsb/trade/js/salesman-order-add-form.part.js");
 //        ss.add("/gsb/gsb.customer.controls.js");
@@ -49,53 +49,83 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 //        formJsController = SalesmanAddOrderFormPart.class.getName();
 //        formServiceController = SalesmanAddOrderFormPart.class.getName();
     }
+
     @Override
     protected PDatagrid createDatagrid(ResourceNode node) {
 
-        PDatagrid datagrid = super.createDatagrid(node);
+        PDatagrid datagrid = super.createDatagrid (node);
         {
-            datagrid.setName("全部订单");
-            datagrid.setToolbar("panda/datagrid/row/edit");
-            datagrid.setAutoQuery(true);
+            datagrid.setName ("全部订单");
+            datagrid.setToolbar ("panda/datagrid/row/edit");
+            datagrid.setAutoQuery (true);
         }
         PDatagridColumn column = null;
-        addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-        addColumn(datagrid, "supplier.name", "姓名", ControlTypes.TEXT_BOX, 80);
-       addColumn(datagrid, "department.name", "帐号", ControlTypes.TEXT_BOX, 100);
-//        column = addColumn(datagrid, "disabled", "状态", ControlTypes.TEXT_BOX, 80);
-//        {
-//            column.setAlign(DatagridAlign.CENTER);
-//            column.setFormatter("return controllerdepartments.disabledFormatter(value,row,index);");
-//        }
-//        column = addColumn(datagrid, "receiving", "接单", ControlTypes.TEXT_BOX, 80);
-//        {
-//            column.setAlign(DatagridAlign.CENTER);
-//            column.setFormatter("return controllerdepartments.receivingFormatter(value,row,index);");
-//        }
-//        addColumn(datagrid, "department.name", "部门", ControlTypes.TEXT_BOX, 120);
-//        column = addColumn(datagrid, "employee.loginNum", "登录次数", ControlTypes.TEXT_BOX, 100);
-//        {
-//            column.setAlign(DatagridAlign.CENTER);
-//        }
-
-//        addColumn(datagrid, "isLeader", "主管", ControlTypes.BOOLCOMBO_BOX, 80);
-//        addColumn(datagrid, "dayMax", "日分配上限", ControlTypes.TEXT_BOX, 80);
-//        addColumn(datagrid, "weekMax", "周分配上限", ControlTypes.TEXT_BOX, 80);
-//        addColumn(datagrid, "xabMax", "XAB类上限", ControlTypes.TEXT_BOX, 80);
-//        addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 80);
-//        addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
-//        addColumn(datagrid, "updator", "最后修改人", ControlTypes.TEXT_BOX, 80);
-//        addColumn(datagrid, "updateTime", "修改时间", ControlTypes.DATETIME_BOX, 130);
+        addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+        addColumn (datagrid, "no", "订单编号", ControlTypes.TEXT_BOX, 80);
+        addColumn (datagrid, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "addTime", "回款日期", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "prodName", "产品名称", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "no", "办理名称", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "payStatus.name", "订单状态", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "no", "关联企业", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "refundStatus.name", "退单状态", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "totalPrice", "原价金额", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "totalPrice", "应付金额", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "paidPrice", "已付金额", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "no", "分期付款", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "no", "开发票", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "no", "操作员", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "no", "下单人", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "sourceType.name", "订单来源", ControlTypes.TEXT_BOX, 100);
 
         return datagrid;
     }
+
+    @Override
+    protected PQueryProject createQueryProject(ResourceNode node) {
+
+        PQueryProject queryProject = super.createQueryProject (node);
+        queryProject.toNew ();
+        queryProject.setColumnCount (6);
+
+        addQueryItem (queryProject, "no", "编号", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "prodName", "产品名称", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "no", "办理名称", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "no", "客户创建人", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "no", "业务员", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "owner.name", "下单人", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "no", "下单人电话", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "no", "关联企业", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "sourceType.name", "订单来源", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "payStatus.name", "订单状态", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "type", "订单类型", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "no", "组织机构", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "no", "产品分类", ControlTypes.TEXT_BOX);
+
+        addQueryItem (queryProject, "no", "下单方式", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "addTime", "回款日期", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "no", "分期付款", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "no", "开发票", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "addTime", "创建日期", ControlTypes.TEXT_BOX);
+//        addQueryItem (queryProject, "no", "组织机构", ControlTypes.TEXT_BOX);
+//        addQueryItem (queryProject, "no", "组织机构", ControlTypes.TEXT_BOX);
+        //今天 昨天 本周 本月
+
+
+
+
+        return queryProject;
+    }
+
     @Override
     protected void doOperation() {
-        ResourceNode node = this.getResourceNode();
-        operationService.addOperation(node, OperationTypes.view);
-        operationService.addOperation(node, OperationTypes.add);
-        operationService.addOperation(node, OperationTypes.update);
-        operationService.addOperation(node, OperationTypes.delete);
+        ResourceNode node = this.getResourceNode ();
+        operationService.addOperation (node, OperationTypes.view);
+        operationService.addOperation (node, OperationTypes.add);
+        operationService.addOperation (node, OperationTypes.update);
+        operationService.addOperation (node, OperationTypes.delete);
     }
 
 }

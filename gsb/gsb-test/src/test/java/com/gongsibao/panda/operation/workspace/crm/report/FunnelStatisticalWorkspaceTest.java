@@ -1,4 +1,4 @@
-package com.gongsibao.panda.crm.workspace.report;
+package com.gongsibao.panda.operation.workspace.crm.report;
 
 import org.junit.Before;
 import org.netsharp.core.MtableManager;
@@ -30,11 +30,11 @@ public class FunnelStatisticalWorkspaceTest extends WorkspaceCreationBase{
 	@Before
 	public void setup() {
 		entity = FunnelReportEntity.class;
-		urlList = "/crm/statistical/customer/funnel/list";
+		urlList = "/operation/statistical/funnel/list";
 		listPartName = formPartName = "漏斗统计";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "CRM_STATISTICAL_Funnel";
+		resourceNodeCode = "Operation_CRM_STATISTICAL_FUNNEL";
 		listPartType = PartType.TREEGRID_PART.getId();
 		listPartServiceController = FunelReportPart.class.getName();
 		listPartImportJs = "/gsb/gsb.custom.query.controls.js";
