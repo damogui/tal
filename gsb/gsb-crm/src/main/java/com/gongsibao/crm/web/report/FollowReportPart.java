@@ -1,0 +1,183 @@
+package com.gongsibao.crm.web.report;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.netsharp.core.DataTable;
+import org.netsharp.core.IRow;
+
+import com.gongsibao.entity.crm.report.BaseReportEntity;
+import com.gongsibao.entity.crm.report.FollowReportEntity;
+
+public class FollowReportPart extends BaseReport{
+
+	protected HashMap<String, String> getDate(HashMap<String, String> filterMap) {
+
+		HashMap<String, String> map = new HashMap<String, String>();
+		String startDate = filterMap.get("date>");
+		String endDate = filterMap.get("date<");
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		return map;
+	}
+	
+	@Override
+	protected FollowReportEntity getDataTable(BaseReportEntity entity,HashMap<String, String> filterMap,String orgaId) {
+		FollowReportEntity resultEntity = new FollowReportEntity();
+		
+		Integer taskCount = getTaskCount(filterMap,orgaId); 
+		Integer unfoolowCount = getUnfoolowCount(filterMap,orgaId);
+		Integer timeOutCount = getTimeOutCount(filterMap,orgaId);
+		Integer foolowCount = getFoolowCount(filterMap,orgaId);
+		Map<String, String> qualityCountMap = getQualityCount(filterMap,orgaId);
+		
+		resultEntity.setId(entity.getId());
+		resultEntity.setParentId(entity.getParentId());
+		resultEntity.setSupplierId(entity.getSupplierId());
+		resultEntity.setDepartmentName(entity.getDepartmentName());
+		resultEntity.setIsLeaf(entity.getIsLeaf());
+		
+		resultEntity.setTaskCount(taskCount);
+		resultEntity.setUnfoolowCount(unfoolowCount);
+		resultEntity.setTimeOutCount(timeOutCount);
+		resultEntity.setFoolowCount(foolowCount);
+		resultEntity.setQualityDeclinetaskCount(Integer.parseInt(qualityCountMap.get("qualityDeclinetaskCount")));
+		resultEntity.setQualityRisetaskCount(Integer.parseInt(qualityCountMap.get("qualityRisetaskCount")));
+		
+		return resultEntity;		
+	}
+	
+	/**
+	 * 获取全部任务数
+	 * @param filterMap 
+	 * @param orgaId
+	 * @return
+	 */
+	protected Integer getTaskCount(HashMap<String, String> filterMap,String orgaId) {
+		Integer taskCount = 0;
+		HashMap<String, String>  dataMap = this.getDate(filterMap);
+		String startDate = dataMap.get("startDate").replace("'", "");
+		String endDate = dataMap.get("endDate").replace("'", "");
+		
+		
+		StringBuilder strSql=new StringBuilder();
+		strSql.append("SELECT COUNT(id) taskCount");
+		strSql.append(" from n_crm_customer_task");
+		strSql.append(" where department_id in ("+orgaId+")");
+		strSql.append(" AND create_time >= '"+startDate+"'");
+		strSql.append(" AND create_time <= '"+endDate+"'");
+		
+		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
+		for (IRow row : dtNewCount) {
+			taskCount = Integer.parseInt(row.getString("taskCount"));
+		}
+		return taskCount;
+	}
+	/**
+	 * 获取待跟进任务数
+	 * @param filterMap 
+	 * @param orgaId
+	 * @return
+	 */
+	protected Integer getUnfoolowCount(HashMap<String, String> filterMap,String orgaId) {
+		Integer unfoolowCount = 0;
+		HashMap<String, String>  dataMap = this.getDate(filterMap);
+		String startDate = dataMap.get("startDate").replace("'", "");
+		String endDate = dataMap.get("endDate").replace("'", "");
+		
+		
+		StringBuilder strSql=new StringBuilder();
+		strSql.append("SELECT COUNT(id) unfoolowCount");
+		strSql.append(" from n_crm_customer_task");
+		strSql.append(" where department_id in ("+orgaId+")");
+		strSql.append(" AND create_time >= '"+startDate+"'");
+		strSql.append(" AND create_time <= '"+endDate+"'");
+		strSql.append(" AND next_foolow_time is not null");
+		strSql.append(" AND next_foolow_time = CURDATE()");
+		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
+		for (IRow row : dtNewCount) {
+			unfoolowCount = Integer.parseInt(row.getString("unfoolowCount"));
+		}
+		return unfoolowCount;
+	}
+	/**
+	 * 获取超时任务数
+	 * @param filterMap 
+	 * @param orgaId
+	 * @return
+	 */
+	protected Integer getTimeOutCount(HashMap<String, String> filterMap,String orgaId) {
+		Integer timeOutCount = 0;
+		HashMap<String, String>  dataMap = this.getDate(filterMap);
+		String startDate = dataMap.get("startDate").replace("'", "");
+		String endDate = dataMap.get("endDate").replace("'", "");
+		
+		
+		StringBuilder strSql=new StringBuilder();
+		strSql.append("SELECT COUNT(id) timeOutCount");
+		strSql.append(" from n_crm_customer_task");
+		strSql.append(" where department_id in ("+orgaId+")");
+		strSql.append(" AND create_time >= '"+startDate+"'");
+		strSql.append(" AND create_time <= '"+endDate+"'");
+		strSql.append(" AND foolow_status = 3");
+		strSql.append(" AND NOW()> next_foolow_time");
+		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
+		for (IRow row : dtNewCount) {
+			timeOutCount = Integer.parseInt(row.getString("timeOutCount"));
+		}
+		return timeOutCount;
+	}
+	/**
+	 * 获取跟进任务数
+	 * @param filterMap 
+	 * @param orgaId
+	 * @return
+	 */
+	protected Integer getFoolowCount(HashMap<String, String> filterMap,String orgaId) {
+		Integer foolowCount = 0;
+		HashMap<String, String>  dataMap = this.getDate(filterMap);
+		String startDate = dataMap.get("startDate").replace("'", "");
+		String endDate = dataMap.get("endDate").replace("'", "");
+		
+		
+		StringBuilder strSql=new StringBuilder();
+		strSql.append("SELECT COUNT(id) foolowCount");
+		strSql.append(" from n_crm_customer_task");
+		strSql.append(" where department_id in ("+orgaId+")");
+		strSql.append(" AND create_time >= '"+startDate+"'");
+		strSql.append(" AND create_time <= '"+endDate+"'");
+		strSql.append(" AND foolow_status = 3");
+		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
+		for (IRow row : dtNewCount) {
+			foolowCount = Integer.parseInt(row.getString("foolowCount"));
+		}
+		return foolowCount;
+	}
+	
+	/**
+	 * 获取质量上升、下降任务数
+	 * @param filterMap 
+	 * @param orgaId
+	 * @return
+	 */
+	protected Map<String, String> getQualityCount(HashMap<String, String> filterMap,String orgaId) {
+		Map<String, String> resultMap =new HashMap<>();
+		HashMap<String, String>  dataMap = this.getDate(filterMap);
+		String startDate = dataMap.get("startDate").replace("'", "");
+		String endDate = dataMap.get("endDate").replace("'", "");
+		
+		StringBuilder strSql=new StringBuilder();
+		strSql.append("SELECT count(quality_progress = 1 OR NULL) qualityRisetaskCount,");
+		strSql.append("count(intention_category = 2 OR NULL) qualityDeclinetaskCount");
+		strSql.append(" from n_crm_customer_task");
+		strSql.append(" where department_id in ("+orgaId+")");
+		strSql.append(" AND create_time >= '"+startDate+"'");
+		strSql.append(" AND create_time <= '"+endDate+"'");
+		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
+		for (IRow row : dtNewCount) {
+			resultMap.put("qualityRisetaskCount", row.getString("qualityRisetaskCount"));
+			resultMap.put("qualityDeclinetaskCount", row.getString("qualityDeclinetaskCount"));
+		}
+		return resultMap;
+	}
+}
