@@ -1,31 +1,31 @@
 package com.gongsibao.igirl.dto;
 
-public class TranferTradeMarkDto {
-    private String userType = "商标转让";//选择办理业务
+public class TransferTradeMarkDto {
+    private String userType;//选择办理业务
 
-    private String certCode = "AYHJIJIUJIU";//统一社会信用代码
+    private String certCode;//统一社会信用代码
 
-    private String assigneeGjdq = "中国大陆";//转让人国籍
+    private String assigneeGjdq;//转让人国籍
 
     private String appCrtyId;//转让人国家或地区
 
-    private String assigneeCnName="深圳市正鼎源塑胶电子有限公司";//转让人名称(中文)
+    private String assigneeCnName;//转让人名称(中文)
 
     private String assigneeEnName;//转让人名称(英文)
 
-    private String assigneeCnAddr="广东省深圳市宝安区福永街道福海大道福海工业园C区C7幢第一层";//转让人地址(中文)
+    private String assigneeCnAddr;//转让人地址(中文)
 
     private String assigneeEnAddr;//转让人地址(英文)
 
-    private String appGjdq="中国大陆";//受让人国籍
+    private String appGjdq;//受让人国籍
 
     private String assignorCrtyId;//受让人国家或地区
 
-    private String assignorCnName="深圳市金爱酷电子科技有限公司";//受让人名称(中文)
+    private String assignorCnName;//受让人名称(中文)
 
     private String assignorEnName;//受让人名称(英文)
 
-    private String assignorCnAddr="广东省深圳市龙岗区坂田街道大发路27号龙璧工业城8#厂房203";//受让人地址(中文)
+    private String assignorCnAddr;//受让人地址(中文)
 
     private String assignorEnAddr;//受让人地址(英文)
 
@@ -35,29 +35,29 @@ public class TranferTradeMarkDto {
 
     private String acceptZip;//国内接收人邮政编码
 
-    private String assigneeContactZip="100000";//邮政编码
+    private String assigneeContactZip;//邮政编码
 
-    private String assigneeContactPerson="张飞龙";//联系人
+    private String assigneeContactPerson;//联系人
 
-    private String assigneeContactTel="010-84927588";//联系电话
+    private String assigneeContactTel;//联系电话
 
     private String agentFilenum;//代理文号
 
-    private String agentPerson = "张飞龙";//代理人姓名
+    private String agentPerson;//代理人姓名
 
     private String fileWtName;//转让人委托书
 
     private String fileWtName2;//受让人委托书
 
-    private String zdllx="法人或其他组织";//转让人类型
+    private String zdllx;//转让人类型
 
-    private String sdjlx="法人或其他组织";//受让人类型
+    private String sdjlx;//受让人类型
 
-    private String zwjlx = "中文";//转让人上传文件的语言类型
+    private String zwjlx;//转让人上传文件的语言类型
 
-    private String swjlx = "中文";//受让人上传文件的语言类型
+    private String swjlx;//受让人上传文件的语言类型
 
-    private String gqcxName = "";//自然人死亡/企业或其他组织注销证明
+    private String gqcxName;//自然人死亡/企业或其他组织注销证明
 
     private String zrZtCnTrName;//转让人主体资格证明文件(中文)
 
@@ -81,9 +81,9 @@ public class TranferTradeMarkDto {
 
     private String flwsName;//同意转让声明或商标移转证明
 
-    private String tmType="radio_p";//选择商标类型
+    private String tmType;//选择商标类型
 
-    private String ifShareTm = "ifShareTm2";//是否含转/受让共有人
+    private String ifShareTm;//是否含转/受让共有人
 
     private String apporregNum;//商标注册号
 

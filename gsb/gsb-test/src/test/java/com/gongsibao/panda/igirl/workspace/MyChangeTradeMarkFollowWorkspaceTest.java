@@ -53,10 +53,8 @@ public class MyChangeTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 			toolbar.setPath(listToolbarPath);
 			toolbar.setName("进度跟进工具栏");
 			toolbar.setResourceNode(node);
-
 		}
 		PToolbarItem item = new PToolbarItem();
-		item = new PToolbarItem();
 		{
 			item.toNew();
 			item.setCode("edit");
