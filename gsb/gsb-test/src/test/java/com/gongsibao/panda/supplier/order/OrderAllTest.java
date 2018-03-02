@@ -58,7 +58,8 @@ import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanReportWeekW
 //	AuditCarryoverWorkspaceTest.class,
 //	AuditRefundWorkspaceTest.class,
 //	AuditStagingWorkspaceTest.class,
-
+        
+//    	ActionAllTest.class,
         OrderNavigationTest.class,
 })
 public class OrderAllTest {

@@ -10,6 +10,7 @@ import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.Employee;
 import org.netsharp.panda.controls.ControlTypes;
+import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.PDatagrid;
@@ -39,10 +40,11 @@ public class SalesmanOrderAddWorkspaceTest extends WorkspaceCreationBase {
 		urlForm = "/crm/order/salesman/add";
 		listPartName = formPartName = "新增订单";
 		meta = MtableManager.getMtable(entity);
-		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "Gsb_Supplier_Order_Salesman_Add";
 
 		List<String> ss = new ArrayList<String>();
+		ss.add("/package/easyui/datagrid-cellediting.js");
+		ss.add("/package/easyui/datagrid-groupview.js");
 		ss.add("/gsb/trade/js/salesman-order-add-form.part.js");
 		ss.add("/gsb/gsb.customer.controls.js");
 		formJsImport = StringManager.join("|", ss);
@@ -115,8 +117,23 @@ public class SalesmanOrderAddWorkspaceTest extends WorkspaceCreationBase {
 			datagrid.setReadOnly(true);
 			datagrid.setShowTitle(true);
 			PDatagridColumn column = null;
-			addColumn(datagrid, "productName", "产品名称", ControlTypes.DATETIME_BOX, 200);
-			addColumn(datagrid, "city.name", "地区", ControlTypes.TEXT_BOX, 100, false);
+			
+			column = addColumn(datagrid, "productId", "产品名称", ControlTypes.TEXT_BOX, 200);{
+				
+				column.setFormatter("return row.orderProd.productName;");
+			}
+			addColumn(datagrid, "serviceName", "服务名称", ControlTypes.TEXT_BOX, 200);
+			column = addColumn(datagrid, "quantity", "数量", ControlTypes.NUMBER_BOX, 100);{
+				
+				column.setAlign(DatagridAlign.CENTER);
+			}
+			column = addColumn(datagrid, "unitName", "单位", ControlTypes.TEXT_BOX, 50);{
+				
+				column.setAlign(DatagridAlign.CENTER);
+			}
+			addColumn(datagrid, "priceOriginal", "原售价", ControlTypes.NUMBER_BOX, 100);
+			addColumn(datagrid, "price", "现售价", ControlTypes.NUMBER_BOX, 100);
+			
 		}
 
 		PPart part = new PPart();

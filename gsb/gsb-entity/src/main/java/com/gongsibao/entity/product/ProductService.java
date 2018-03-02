@@ -20,7 +20,7 @@ public class ProductService extends BaseEntity {
     @Column(name="unit_id",header="单位序号，type=4")
     private Integer unitId;
     
-	@Reference(foreignKey="unitId",header="单位")
+	@Reference(foreignKey="unitId",header="单位",primaryKey="pkid")
 	private Dict unit;
     
     @Column(name="property_id",header="特性序号，type=207")

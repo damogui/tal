@@ -10,6 +10,7 @@ import com.gongsibao.entity.product.Product;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
@@ -42,6 +43,9 @@ public class OrderProd extends BaseEntity {
     
     @Reference(foreignKey="cityId",header="产品地区")
    	private Dict city;
+    
+    @Exclusive
+    private String cityName;
     
     @Column(name="company_id",header="公司")
     private Integer companyId;
@@ -323,6 +327,12 @@ public class OrderProd extends BaseEntity {
 	}
 	public void setCity(Dict city) {
 		this.city = city;
+	}
+	public String getCityName() {
+		return cityName;
+	}
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
 	}
 	
 }

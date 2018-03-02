@@ -8,6 +8,7 @@ import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.web.OrderProdItemDetailPart;
 import com.gongsibao.trade.web.SalesmanAddOrderFormPart;
+import com.gongsibao.trade.web.SalesmanAllOrderFormPart;
 import com.gongsibao.trade.web.SalesmanAllOrderListPart;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,16 +44,16 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         urlForm = "/crm/order/salesman/all/form";
         listPartName = formPartName = "全部订单";
         meta = MtableManager.getMtable (entity);
-        //formPartName = listPartName = meta.getName ();
+        formPartName = listPartName = meta.getName ();
         resourceNodeCode = "Gsb_Supplier_Order_Salesman_All";
         listToolbarPath = "crm/order/salesman/edit";
-//        formOpenMode = OpenMode.WINDOW;
+       formOpenMode = OpenMode.WINDOW;
         openWindowHeight = 700;
         openWindowWidth = 900;
         listPartImportJs = "/gsb/trade/js/salesman-order-all-list.part.js|/gsb/gsb.custom.query.controls.js";
         listPartJsController = SalesmanAllOrderListPart.class.getName ();
-//        formJsController = SalesmanAllOrderListPart.class.getName ();
-//        formServiceController = SalesmanAllOrderListPart.class.getName ();
+        formJsController = SalesmanAllOrderFormPart.class.getName ();
+        formServiceController = SalesmanAllOrderFormPart.class.getName ();
 
         //添加过滤条件
 //        listFilter = "inspectionState in (3,4)";

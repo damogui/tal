@@ -1032,3 +1032,13 @@ div.h10{
 	background-color: #1E7BB6;
     border: 1px solid #1E7BB6;
 }
+
+.datagrid-btable td,.datagrid-row td{
+	
+	padding:0 !important;
+}
+
+span.numberbox input{
+	
+	text-align: right;
+}
