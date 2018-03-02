@@ -1,6 +1,7 @@
 package com.gongsibao.crm.web;
 
 import com.gongsibao.crm.base.ICustomerServiceConfigService;
+import com.gongsibao.entity.crm.dic.ServiceType;
 import com.gongsibao.entity.crm.report.CustomerServiceReportEntity;
 import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -130,7 +131,7 @@ public class StatisticalCustomerListPart extends AdvancedListPart {
         }
 
         sbSql.append("FROM `sys_permission_employee` em ");
-        sbSql.append("JOIN crm_customer_service_config csc ON csc.employee_id = em.id ");
+        sbSql.append("JOIN crm_customer_service_config csc ON csc.employee_id = em.id and csc.type = " + ServiceType.CUSTOMER_SERVICES.getValue() + " ");
         sbSql.append("WHERE em.disabled = 0 ");
         if (type == 1)
             sbSql.append("LIMIT " + startIndex + ", " + pageSize + " ");
