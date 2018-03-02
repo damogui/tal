@@ -107,4 +107,7 @@ public class TradeMarkCasePart extends FormPart {
 		return ResultDto.getSimpleResultDto(rtn);
  
 	}
+	public int attachmentMake(String caseid) {
+		return tradeMarkCaseService.attachmentMake(caseid);
+	}
 }

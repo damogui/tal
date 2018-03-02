@@ -145,13 +145,13 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		item = new PToolbarItem();
 		{
 			item.toNew();
-			item.setCode("remove");
-			item.setIcon("fa fa-trash-o");
-			item.setName("删除");
+			item.setCode("attachmentMake");
+			item.setIcon("fa fa-link");
+			item.setName("附件记录生成");
 			item.setCommand(null);
 			item.setOperationType(ot1);
 			item.setSeq(4000);
-			item.setCommand("{controller}.remove();");
+			item.setCommand("{controller}.attachmentMake();");
 			toolbar.getItems().add(item);
 		}
 		item = new PToolbarItem();
@@ -262,6 +262,18 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 			item.setOperationType(ot1);
 			item.setSeq(4000);
 			item.setCommand("{controller}.saveP();");
+			toolbar.getItems().add(item);
+		}
+		item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("attachmentMake");
+			item.setIcon("fa fa-link");
+			item.setName("附件记录生成");
+			item.setCommand(null);
+			item.setOperationType(ot1);
+			item.setSeq(4000);
+			item.setCommand("{controller}.attachmentMake();");
 			toolbar.getItems().add(item);
 		}
 		toolbarService.save(toolbar);
