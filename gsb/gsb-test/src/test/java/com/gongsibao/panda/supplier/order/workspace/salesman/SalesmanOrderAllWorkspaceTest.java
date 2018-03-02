@@ -43,23 +43,16 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         urlForm = "/crm/order/salesman/all/form";
         listPartName = formPartName = "全部订单";
         meta = MtableManager.getMtable (entity);
-        formPartName = listPartName = meta.getName ();
+        //formPartName = listPartName = meta.getName ();
         resourceNodeCode = "Gsb_Supplier_Order_Salesman_All";
         listToolbarPath = "crm/order/salesman/edit";
-        formOpenMode = OpenMode.WINDOW;
+//        formOpenMode = OpenMode.WINDOW;
         openWindowHeight = 700;
         openWindowWidth = 900;
         listPartImportJs = "/gsb/trade/js/salesman-order-all-list.part.js|/gsb/gsb.custom.query.controls.js";
         listPartJsController = SalesmanAllOrderListPart.class.getName ();
-
-//        listPartJsController = TaskAllListPart.class.getName();
-//        listPartServiceController = TaskAllListPart.class.getName();
-//        List<String> ss = new ArrayList<String> ();
-//        ss.add("/gsb/trade/js/salesman-order-add-form.part.js");
-//        ss.add("/gsb/gsb.customer.controls.js");
-//        formJsImport = StringManager.join("|", ss);
-        formJsController = SalesmanAllOrderListPart.class.getName ();
-        formServiceController = SalesmanAllOrderListPart.class.getName ();
+//        formJsController = SalesmanAllOrderListPart.class.getName ();
+//        formServiceController = SalesmanAllOrderListPart.class.getName ();
 
         //添加过滤条件
 //        listFilter = "inspectionState in (3,4)";
@@ -200,7 +193,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         }
     }
 
-
+    //列表
     @Override
     protected PDatagrid createDatagrid(ResourceNode node) {
 
@@ -290,6 +283,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 
         //String groupName = null;
         String groupName = "基本信息";
+//        addFormField (form, "no", "订单", groupName, ControlTypes.TEXT_BOX, true);
         addFormField (form, "no", "订单", groupName, ControlTypes.TEXT_BOX, true);
         addFormField (form, "accountName", "账户名称", groupName, ControlTypes.TEXT_BOX, true);
 //        PFormField formField = addFormField(form, "loginName", "帐号", groupName, ControlTypes.TEXT_BOX, false);
@@ -304,20 +298,17 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 //        addFormField(form, "disabled", "停用", groupName, ControlTypes.SWITCH_BUTTON, false, true);
 
 
-
         // 这里还有很多属性，
 
         return form;
     }
 
 
-    /*@Test
-    @Override
-    public void run() {
-
-
-        this.createFormWorkspace ();
-    }*/
+//    @Test
+//    @Override
+//    public void run() {
+//        this.createFormWorkspace ();
+//    }
 
     @Override
     protected void doOperation() {

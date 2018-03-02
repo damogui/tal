@@ -3,31 +3,18 @@ System.Declare("com.gongsibao.trade.web");
 com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.ListPart.Extends({
     ctor : function() {
         this.base();
-        this.addUrl = "/crm/order/salesman/all/form";
-        this.editUrl = "/crm/order/salesman/all/form";
-        this.followUrl = "/crm/order/salesman/all/form";
+        // this.addUrl = "/crm/order/salesman/all/form";
+        // this.editUrl = "/crm/order/salesman/all/form";
+        // this.followUrl = "/crm/order/salesman/all/form";
         //this.addOrderReceivedUrl ='/panda/crm/platform/customer/add';
     },
     addCustomer:function(){
 
         window.open(this.addOrderReceivedUrl);
     },
-    addOrderReceived:function(){
-        var row = this.getSelectedItem();
-        if(row){
-
-            var customerId = row.customerId;
-            var url = this.addUrl+"?fk=customerId:"+customerId;
-            layer.open({
-                type: 2,
-                title: '创建订单业绩',
-                fixed: false,
-                maxmin: true,
-                shadeClose:true,
-                area: ['90%','90%'],
-                content: url
-            });
-        }
+    addOrderReceived:function(id){
+        debugger;
+        this.edit(id);
     },
     detail:function(id){
 
