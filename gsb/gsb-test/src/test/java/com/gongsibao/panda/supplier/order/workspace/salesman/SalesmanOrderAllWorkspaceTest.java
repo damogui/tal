@@ -6,12 +6,14 @@ import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.tools.PToolbarHelper;
 import com.gongsibao.trade.web.OrderProdItemDetailPart;
 import com.gongsibao.trade.web.SalesmanAddOrderFormPart;
 import com.gongsibao.trade.web.SalesmanAllOrderFormPart;
 import com.gongsibao.trade.web.SalesmanAllOrderListPart;
 import org.junit.Before;
 import org.junit.Test;
+import org.netsharp.core.EntityState;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
@@ -74,29 +76,39 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         }
         //详情进行跳转双击操作
 
-        PToolbarItem item = new PToolbarItem ();
-        {
-            item.toNew ();
-            item.setCode ("addOrderReceived");
-            item.setIcon ("fa fa-plus fa-fw");//fa-user-plus
-            item.setName ("创建订单业绩");
-            item.setOperationType (ot1);
-            item.setSeq (1);
-            item.setCommand ("{controller}.addCustomer();");
-            toolbar.getItems ().add (item);
-        }
+       PToolbarItem item =PToolbarHelper.getPToolbarItem (EntityState.New,"addOrderReceived",PToolbarHelper.iconAdd,
+               "创建订单业绩",ot1,1,"{controller}.addCustomer();");
+        toolbar.getItems ().add (item);
 
-        item = new PToolbarItem ();
-        {
-            item.toNew ();
-            item.setCode ("addReceived");
-            item.setIcon ("fa fa-plus fa-fw");
-            item.setName ("创建回款业绩");
-            item.setOperationType (ot1);
-            item.setSeq (2);
-            // item.setCommand("{controller}.add();");
-            toolbar.getItems ().add (item);
-        }
+        //new
+        // PToolbarItem ();
+//        {
+//            item.toNew ();
+//            item.setCode ("addOrderReceived");
+//            item.setIcon ("fa fa-plus fa-fw");//fa-user-plus
+//            item.setName ("创建订单业绩");
+//            item.setOperationType (ot1);
+//            item.setSeq (1);
+//            item.setCommand ("{controller}.addCustomer();");
+//
+//        }
+
+
+        item = PToolbarHelper.getPToolbarItem (EntityState.New,"addOrderReceived",PToolbarHelper.iconAdd,
+                "创建回款业绩",ot1,2,"{controller}.addCustomer();");
+        toolbar.getItems ().add (item);
+
+//                new PToolbarItem ();
+//        {
+//            item.toNew ();
+//            item.setCode ("addReceived");
+//            item.setIcon ("fa fa-plus fa-fw");
+//            item.setName ("创建回款业绩");
+//            item.setOperationType (ot1);
+//            item.setSeq (2);
+//            // item.setCommand("{controller}.add();");
+//            toolbar.getItems ().add (item);
+//        }
 
         item = new PToolbarItem ();
         {
