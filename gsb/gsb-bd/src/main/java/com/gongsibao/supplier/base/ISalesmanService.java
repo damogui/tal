@@ -89,6 +89,12 @@ public interface ISalesmanService extends IPersistableService<Salesman> {
 	 */
 	List<Salesman> getBySupplierId(Integer supplierId);
 	
+	/**根据部门Id获取员工集合
+	 * @param supplierId
+	 * @return
+	 */
+	List<Salesman> getByDepartmentId(Integer departmentId);
+	
 	/**   
 	 * @Title: hasEmployeeId   
 	 * @Description: TODO(是否存在employeeId)   

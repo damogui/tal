@@ -23,19 +23,19 @@ public class ComprehenReportPart extends BaseReport {
 	}
 	
 	@Override
-	protected ComprehenReportEntity getDataTable(BaseReportEntity entity,HashMap<String, String> filterMap,String orgaId) {
+	protected ComprehenReportEntity getDataTable(BaseReportEntity entity,HashMap<String, String> filterMap,String orgaId,Integer salesmanId,Boolean isSalesman) {
 		ComprehenReportEntity resultEntity = new ComprehenReportEntity();
 		
-		Map<String, String> getTaskCustoCountMap = getTaskCustoCount(filterMap,orgaId);
-		Map<String, String> getAllocationTaskCountMap = getAllocationTaskCount(filterMap,orgaId);
-		Map<String, String> getRollOutTaskCountMap = getRollOutTaskCount(filterMap,orgaId);
-		Map<String, String> getIntoTaskCountMap = getIntoTaskCount(filterMap,orgaId);
-		Map<String, String> getReturnTaskCountMap = getReturnTaskCount(filterMap,orgaId);
-		Map<String, String> getWithdrawTaskCountMap = getWithdrawTaskCount(filterMap,orgaId);
-		Map<String, String> getFollowTaskCountMap = getFollowTaskCount(filterMap,orgaId);
-		Map<String, String> getCheckAbnormalTaskCountMap = getCheckAbnormalTaskCount(filterMap,orgaId);
-		Map<String, String> getUnSignTaskCountMap =getUnSignTaskCount(filterMap,orgaId);
-		Map<String, String> getSignReturAmountMap =getSignReturAmount(filterMap,orgaId);
+		Map<String, String> getTaskCustoCountMap = getTaskCustoCount(filterMap,orgaId,salesmanId,isSalesman);
+		Map<String, String> getAllocationTaskCountMap = getAllocationTaskCount(filterMap,orgaId,salesmanId,isSalesman);
+		Map<String, String> getRollOutTaskCountMap = getRollOutTaskCount(filterMap,orgaId,salesmanId,isSalesman);
+		Map<String, String> getIntoTaskCountMap = getIntoTaskCount(filterMap,orgaId,salesmanId,isSalesman);
+		Map<String, String> getReturnTaskCountMap = getReturnTaskCount(filterMap,orgaId,salesmanId,isSalesman);
+		Map<String, String> getWithdrawTaskCountMap = getWithdrawTaskCount(filterMap,orgaId,salesmanId,isSalesman);
+		Map<String, String> getFollowTaskCountMap = getFollowTaskCount(filterMap,orgaId,salesmanId,isSalesman);
+		Map<String, String> getCheckAbnormalTaskCountMap = getCheckAbnormalTaskCount(filterMap,orgaId,salesmanId,isSalesman);
+		Map<String, String> getUnSignTaskCountMap =getUnSignTaskCount(filterMap,orgaId,salesmanId,isSalesman);
+		Map<String, String> getSignReturAmountMap =getSignReturAmount(filterMap,orgaId,salesmanId,isSalesman);
 		
 		resultEntity.setId(entity.getId());
 		resultEntity.setParentId(entity.getParentId());
@@ -67,7 +67,7 @@ public class ComprehenReportPart extends BaseReport {
 	 * @param orgaId
 	 * @return
 	 */
-	protected Map<String, String> getTaskCustoCount(HashMap<String, String> filterMap,String orgaId) {
+	protected Map<String, String> getTaskCustoCount(HashMap<String, String> filterMap,String orgaId,Integer salesmanId,Boolean isSalesman) {
 		Map<String, String> resultMap =new HashMap<>();
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
@@ -78,7 +78,12 @@ public class ComprehenReportPart extends BaseReport {
 		strSql.append("SELECT COUNT(id) taskCount,");
 		strSql.append("count(distinct customer_id) customerCount");
 		strSql.append(" from n_crm_customer_task");
-		strSql.append(" where department_id in ("+orgaId+")");
+		if(isSalesman){
+			strSql.append(" where owner_id =" + salesmanId);
+		}else {
+			strSql.append(" where department_id in ("+orgaId+")");
+		}
+		
 		strSql.append(" AND create_time >= '"+startDate+"'");
 		strSql.append(" AND create_time <= '"+endDate+"'");
 		if(sourceId != null && sourceId !=""){
@@ -97,7 +102,7 @@ public class ComprehenReportPart extends BaseReport {
 	 * @param orgaId
 	 * @return
 	 */
-	protected Map<String, String> getAllocationTaskCount(HashMap<String, String> filterMap,String orgaId) {
+	protected Map<String, String> getAllocationTaskCount(HashMap<String, String> filterMap,String orgaId,Integer salesmanId,Boolean isSalesman) {
 		Map<String, String> resultMap =new HashMap<>();
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
@@ -111,7 +116,13 @@ public class ComprehenReportPart extends BaseReport {
 		strSql.append(" on l.task_id = t.id");
 		
 		strSql.append(" WHERE l.change_type = 2");
-		strSql.append(" AND l.form_department_id in ("+orgaId+")");
+		if(isSalesman){
+			strSql.append(" AND t.owner_id =" + salesmanId);
+			
+		}else {
+			strSql.append(" AND l.form_department_id in ("+orgaId+")");
+		}	
+		
 		strSql.append(" AND l.create_time >= '"+startDate+"'");
 		strSql.append(" AND l.create_time <= '"+endDate+"'");
 		if(sourceId != null && sourceId !=""){
@@ -130,7 +141,7 @@ public class ComprehenReportPart extends BaseReport {
 	 * @param orgaId
 	 * @return
 	 */
-	protected Map<String, String> getRollOutTaskCount(HashMap<String, String> filterMap,String orgaId) {
+	protected Map<String, String> getRollOutTaskCount(HashMap<String, String> filterMap,String orgaId,Integer salesmanId,Boolean isSalesman) {
 		Map<String, String> resultMap =new HashMap<>();
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
@@ -143,7 +154,12 @@ public class ComprehenReportPart extends BaseReport {
 		strSql.append(" LEFT JOIN n_crm_customer_task t");
 		strSql.append(" on l.task_id = t.id");
 		strSql.append(" where l.change_type = 5");
-		strSql.append(" AND l.form_department_id in ("+orgaId+")");
+		if(isSalesman){
+			strSql.append(" AND t.owner_id =" + salesmanId);
+		}else {
+			strSql.append(" AND l.form_department_id in ("+orgaId+")");
+		}	
+		
 		strSql.append(" AND l.create_time >= '"+startDate+"'");
 		strSql.append(" AND l.create_time <= '"+endDate+"'");
 		if(sourceId != null && sourceId !=""){
@@ -161,7 +177,7 @@ public class ComprehenReportPart extends BaseReport {
 	 * @param orgaId
 	 * @return
 	 */
-	protected Map<String, String> getIntoTaskCount(HashMap<String, String> filterMap,String orgaId) {
+	protected Map<String, String> getIntoTaskCount(HashMap<String, String> filterMap,String orgaId,Integer salesmanId,Boolean isSalesman) {
 		Map<String, String> resultMap =new HashMap<>();
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
@@ -174,7 +190,12 @@ public class ComprehenReportPart extends BaseReport {
 		strSql.append(" LEFT JOIN n_crm_customer_task t");
 		strSql.append(" on l.task_id = t.id");
 		strSql.append(" where l.change_type = 5");
-		strSql.append(" AND l.department_id in ("+orgaId+")");
+		if(isSalesman){
+			strSql.append(" AND t.owner_id =" + salesmanId);
+		}else {
+			strSql.append(" AND l.department_id in ("+orgaId+")");
+		}
+		
 		strSql.append(" AND l.create_time >= '"+startDate+"'");
 		strSql.append(" AND l.create_time <= '"+endDate+"'");
 		if(sourceId != null && sourceId !=""){
@@ -192,7 +213,7 @@ public class ComprehenReportPart extends BaseReport {
 	 * @param orgaId
 	 * @return
 	 */
-	protected Map<String, String> getReturnTaskCount(HashMap<String, String> filterMap,String orgaId) {
+	protected Map<String, String> getReturnTaskCount(HashMap<String, String> filterMap,String orgaId,Integer salesmanId,Boolean isSalesman) {
 		Map<String, String> resultMap =new HashMap<>();
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
@@ -205,7 +226,12 @@ public class ComprehenReportPart extends BaseReport {
 		strSql.append(" LEFT JOIN n_crm_customer_task t");
 		strSql.append(" on l.task_id = t.id");
 		strSql.append(" where l.change_type = 4");
-		strSql.append(" AND l.form_department_id in ("+orgaId+")");
+		if(isSalesman){
+			strSql.append(" AND t.owner_id =" + salesmanId);
+		}else {
+			strSql.append(" AND l.form_department_id in ("+orgaId+")");
+		}
+		
 		strSql.append(" AND l.create_time >= '"+startDate+"'");
 		strSql.append(" AND l.create_time <= '"+endDate+"'");
 		if(sourceId != null && sourceId !=""){
@@ -223,7 +249,7 @@ public class ComprehenReportPart extends BaseReport {
 	 * @param orgaId
 	 * @return
 	 */
-	protected Map<String, String> getWithdrawTaskCount(HashMap<String, String> filterMap,String orgaId) {
+	protected Map<String, String> getWithdrawTaskCount(HashMap<String, String> filterMap,String orgaId,Integer salesmanId,Boolean isSalesman) {
 		Map<String, String> resultMap =new HashMap<>();
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
@@ -236,7 +262,12 @@ public class ComprehenReportPart extends BaseReport {
 		strSql.append(" LEFT JOIN n_crm_customer_task t");
 		strSql.append(" on l.task_id = t.id");
 		strSql.append(" where l.change_type = 6");
-		strSql.append(" AND l.form_department_id in ("+orgaId+")");
+		if(isSalesman){
+			strSql.append(" AND t.owner_id =" + salesmanId);
+		}else {
+			strSql.append(" AND l.form_department_id in ("+orgaId+")");
+		}
+		
 		strSql.append(" AND l.create_time >= '"+startDate+"'");
 		strSql.append(" AND l.create_time <= '"+endDate+"'");
 		if(sourceId != null && sourceId !=""){
@@ -254,7 +285,7 @@ public class ComprehenReportPart extends BaseReport {
 	 * @param orgaId
 	 * @return
 	 */
-	protected Map<String, String> getFollowTaskCount(HashMap<String, String> filterMap,String orgaId) {
+	protected Map<String, String> getFollowTaskCount(HashMap<String, String> filterMap,String orgaId,Integer salesmanId,Boolean isSalesman) {
 		Map<String, String> resultMap =new HashMap<>();
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
@@ -265,7 +296,12 @@ public class ComprehenReportPart extends BaseReport {
 		strSql.append("SELECT COUNT(distinct id) followTaskCount");
 		strSql.append(" from n_crm_customer_task");
 		strSql.append(" where foolow_status = 3");
-		strSql.append(" AND department_id in ("+orgaId+")");
+		if(isSalesman){
+			strSql.append(" AND owner_id =" + salesmanId);
+		}else {
+			strSql.append(" AND department_id in ("+orgaId+")");
+		}
+		
 		strSql.append(" AND last_follow_time >= '"+startDate+"'");
 		strSql.append(" AND last_follow_time <= '"+endDate+"'");
 		if(sourceId != null && sourceId !=""){
@@ -283,7 +319,7 @@ public class ComprehenReportPart extends BaseReport {
 	 * @param orgaId
 	 * @return
 	 */
-	protected Map<String, String> getCheckAbnormalTaskCount(HashMap<String, String> filterMap,String orgaId) {
+	protected Map<String, String> getCheckAbnormalTaskCount(HashMap<String, String> filterMap,String orgaId,Integer salesmanId,Boolean isSalesman) {
 		Map<String, String> resultMap =new HashMap<>();
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
@@ -294,7 +330,12 @@ public class ComprehenReportPart extends BaseReport {
 		strSql.append("SELECT COUNT(distinct id) checkAbnormalTaskCount");
 		strSql.append(" from n_crm_customer_task");
 		strSql.append(" where inspection_state in (3,4)");
-		strSql.append(" AND department_id in ("+orgaId+")");
+		if(isSalesman){
+			strSql.append(" AND owner_id =" + salesmanId);
+		}else {
+			strSql.append(" AND department_id in ("+orgaId+")");
+		}
+		
 		strSql.append(" AND last_inspection_time >= '"+startDate+"'");
 		strSql.append(" AND last_inspection_time <= '"+endDate+"'");
 		if(sourceId != null && sourceId !=""){
@@ -312,7 +353,7 @@ public class ComprehenReportPart extends BaseReport {
 	 * @param orgaId
 	 * @return
 	 */
-	protected Map<String, String> getUnSignTaskCount(HashMap<String, String> filterMap,String orgaId) {
+	protected Map<String, String> getUnSignTaskCount(HashMap<String, String> filterMap,String orgaId,Integer salesmanId,Boolean isSalesman) {
 		Map<String, String> resultMap =new HashMap<>();
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
@@ -323,7 +364,12 @@ public class ComprehenReportPart extends BaseReport {
 		strSql.append("SELECT COUNT(id) unSignTaskCount");
 		strSql.append(" from n_crm_customer_task");
 		strSql.append(" where foolow_status = 4");
-		strSql.append(" AND department_id in ("+orgaId+")");
+		if(isSalesman){
+			strSql.append(" AND owner_id =" + salesmanId);
+		}else {
+			strSql.append(" AND department_id in ("+orgaId+")");
+		}
+		
 		strSql.append(" AND last_follow_time >= '"+startDate+"'");
 		strSql.append(" AND last_follow_time <= '"+endDate+"'");
 		if(sourceId != null && sourceId !=""){
@@ -341,7 +387,7 @@ public class ComprehenReportPart extends BaseReport {
 	 * @param orgaId
 	 * @return
 	 */
-	protected Map<String, String> getSignReturAmount(HashMap<String, String> filterMap,String orgaId) {
+	protected Map<String, String> getSignReturAmount(HashMap<String, String> filterMap,String orgaId,Integer salesmanId,Boolean isSalesman) {
 		Map<String, String> resultMap =new HashMap<>();
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
@@ -355,7 +401,12 @@ public class ComprehenReportPart extends BaseReport {
 		strSql.append(" where task_id in (");
 		strSql.append("SELECT id");
 		strSql.append(" from n_crm_customer_task");
-		strSql.append(" where department_id in ("+orgaId+")");
+		if(isSalesman){
+			strSql.append(" where owner_id =" + salesmanId);
+		}else {
+			strSql.append(" where department_id in ("+orgaId+")");
+		}
+		
 		strSql.append(" AND last_follow_time >= '"+startDate+"'");
 		if(sourceId != null && sourceId !=""){
 			strSql.append(" AND source_id = " + sourceId);
