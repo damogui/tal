@@ -53,9 +53,23 @@ com.gongsibao.trade.web.SalesmanAddOrderFormPart = org.netsharp.panda.commerce.F
     addExtraProp:function(entity){
     	
     	//处理金额，需要*100
+    	var fen = 100;
+    	entity.totalPrice = entity.totalPrice*fen;
+    	entity.discountPrice = entity.discountPrice*fen;
+    	entity.payablePrice = entity.payablePrice*fen;
     	
-    	
-    	
+    	$(entity.products).each(function(i,p){
+    		
+    		p.price = p.price*fen;
+    		p.priceOriginal = p.priceOriginal*fen;
+    		p.settlePrice = 0;
+    		
+        	$(p.items).each(function(i,item){
+        		
+        		item.price = item.price*fen;
+        		item.priceOriginal = item.priceOriginal*fen;
+        	});
+    	});
     }
 });
 
@@ -99,7 +113,7 @@ com.gongsibao.trade.web.OrderProdItemDetailPart = org.netsharp.panda.commerce.De
     				hasEditor = true;
     			}else{
     			
-    				col.editor = {type:'numberbox',options:{precision:0,height:31}}
+    				col.editor = {type:'numberbox',options:{precision:0,height:31,min:1,required:true}}
     			}
     		}
     	});
@@ -140,12 +154,6 @@ com.gongsibao.trade.web.OrderProdItemDetailPart = org.netsharp.panda.commerce.De
     	
     	$('#totalPrice').numberbox('setValue',totalPrice);
     	$('#payablePrice').numberbox('setValue',totalPayablePrice);
-    },
-    getDetails:function(){
-    	
-    	//只处理界面显示的，构造成订单需要的明细
-    	
-    	
     },
     serviceNameFormatter:function(value,row,index){
     	
@@ -271,15 +279,14 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
     	orderProd.productId = productId;
     	orderProd.productName = productName;
     	orderProd.cityId = cityId;
+    	orderProd.price = 0;
+    	orderProd.priceOriginal = 0;
     	orderProd.cityName = cityName;
     	orderProd.quantity = 1;
     	orderProd.items = [];
     	$(rows).each(function(i,item){
 
         	var orderProdItem = {};
-        	
-        	//产品信息
-        	orderProdItem.orderProd = orderProd;
         	
         	//单位名称
         	orderProdItem.unitName = item.service.unit.name;
@@ -299,6 +306,9 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
         	
         	orderProdItem.priceOriginal = item.originalPrice;
         	orderProdItem.price =  item.price;
+        	
+        	orderProd.priceOriginal = orderProd.priceOriginal + item.originalPrice;
+        	orderProd.price = orderProd.price + item.price;
 
         	orderProd.items.push(orderProdItem);
     	});

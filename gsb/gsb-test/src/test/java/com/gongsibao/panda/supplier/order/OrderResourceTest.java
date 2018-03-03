@@ -2,6 +2,8 @@ package com.gongsibao.panda.supplier.order;
 
 import com.gongsibao.entity.trade.Contract;
 import com.gongsibao.trade.base.IContractService;
+import com.gongsibao.trade.base.IOrderService;
+
 import org.junit.Test;
 import org.netsharp.meta.base.ResourceCreationBase;
 import org.netsharp.resourcenode.entity.ResourceNode;
@@ -27,7 +29,7 @@ public class OrderResourceTest extends ResourceCreationBase {
 		{
 			node1 = this.createResourceNodeCategory("我的订单", "Gsb_Supplier_Order_Salesman", node1.getId());
 			{
-				this.createResourceNodeVoucher(SoOrder.class.getName(), "创建订单", "Gsb_Supplier_Order_Salesman_Add", ISoOrderService.class.getName(), node1.getId());
+				this.createResourceNodeVoucher(SoOrder.class.getName(), "创建订单", "Gsb_Supplier_Order_Salesman_Add", IOrderService.class.getName(), node1.getId());
 				this.createResourceNodeVoucher(SoOrder.class.getName(), "全部订单", "Gsb_Supplier_Order_Salesman_All", ISoOrderService.class.getName(), node1.getId());
 				this.createResourceNodeVoucher(SoOrder.class.getName(), "订单业绩", "Gsb_Supplier_Order_Salesman_Performance", ISoOrderService.class.getName(), node1.getId());
 				this.createResourceNodeVoucher(SoOrder.class.getName(), "回款业绩", "Gsb_Supplier_Order_Salesman_Received", ISoOrderService.class.getName(), node1.getId());

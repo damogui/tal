@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
+import org.netsharp.organization.entity.Employee;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.PDatagrid;
@@ -15,8 +16,6 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import com.gongsibao.controls.PropertyQueryDictComboBox;
 import com.gongsibao.crm.web.report.FunelReportPart;
 import com.gongsibao.entity.crm.report.FunnelReportEntity;
-import com.gongsibao.entity.supplier.Supplier;
-import com.gongsibao.entity.supplier.SupplierDepartment;
 
 
 /**
@@ -95,7 +94,7 @@ public class FunnelStatisticalWorkspaceTest extends WorkspaceCreationBase{
 		item = addQueryItem(queryProject, "date", "日期", ControlTypes.DATE_BOX);{
 			item.setRequired(true);
 		}
-		addRefrenceQueryItem(queryProject, "department.name", "部门", SupplierDepartment.class.getSimpleName());
+		addRefrenceQueryItem(queryProject, "owner.name", "业务员", Employee.class.getSimpleName());
 		item = addQueryItem(queryProject, "source.name", "任务来源", ControlTypes.CUSTOM);{
 			
 			item.setCustomControlType(PropertyQueryDictComboBox.class.getName());

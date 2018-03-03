@@ -257,7 +257,19 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 		List<Salesman> salesmanList = this.pm.queryList(oql);
 		return salesmanList;
 	}
-
+	
+	@Override
+	public List<Salesman> getByDepartmentId(Integer departmentId) {
+		Oql oql = new Oql();
+		{
+			oql.setType(type);
+			oql.setSelects("*");
+			oql.setFilter("departmentId=? and disabled=0");// 没有停用的
+			oql.getParameters().add("@departmentId", departmentId, Types.INTEGER);
+		}
+		List<Salesman> salesmanList = this.pm.queryList(oql);
+		return salesmanList;
+	}
 	/**
 	 * @throws
 	 * @Title: createEmployee
@@ -407,4 +419,6 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 		}
 		return leaderId;
 	}
+
+	
 }

@@ -44,7 +44,6 @@ public class SalesmanOrderAddWorkspaceTest extends WorkspaceCreationBase {
 
 		List<String> ss = new ArrayList<String>();
 		ss.add("/package/easyui/datagrid-cellediting.js");
-		//ss.add("/package/easyui/datagrid-groupview.js");
 		ss.add("/gsb/trade/js/salesman-order-add-form.part.js");
 		ss.add("/gsb/gsb.customer.controls.js");
 		formJsImport = StringManager.join("|", ss);

@@ -1,10 +1,10 @@
 package com.gongsibao.entity.crm.report;
 
-import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Id;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Persistable;
+import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
@@ -38,17 +38,20 @@ public class BaseReportEntity extends Persistable{
 	 */   
 	private String departmentName;
     
-	private Integer departmentId;
 	
+	private Integer ownerId;
+	@Reference(foreignKey = "ownerId", header = "业务员")
+	private Employee owner;
+	
+	private Integer departmentId;	
     @Reference(foreignKey = "departmentId", header = "分配服务商部门")
 	private SupplierDepartment department;
-	
-    @Column(name = "supplier_id", header = "分配服务商Id")
+   
 	private Integer supplierId;
-
 	@Reference(foreignKey = "supplierId", header = "分配服务商")
 	private Supplier supplier;
     
+	
 	/**   
 	 * @Fields isLeaf : TODO(是否末节点)   
 	 */   
@@ -125,8 +128,20 @@ public class BaseReportEntity extends Persistable{
 	public void setSupplier(Supplier supplier) {
 		this.supplier = supplier;
 	}
-	
-	
-	
-	
+
+	public Integer getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(Integer ownerId) {
+		this.ownerId = ownerId;
+	}
+
+	public Employee getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Employee owner) {
+		this.owner = owner;
+	}
 }
