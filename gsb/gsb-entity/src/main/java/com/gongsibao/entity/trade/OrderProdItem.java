@@ -15,25 +15,25 @@ public class OrderProdItem extends BaseEntity {
     private Integer orderProdId;
 
     @Column(name="price_id",header="定价序号")
-    private Integer priceId;
+    private Integer priceId = 0;
     
     @Column(name="unit_name",header="单位名称")
-    private String unitName;
+    private String unitName="";
     
     @Column(name="service_name",header="服务名称")
-    private String serviceName;
+    private String serviceName = "";
     
     @Column(name="quantity",header="数量")
-    private Integer quantity;
+    private Integer quantity=1;
     
     @Column(name="price",header="单价")
-    private Integer price;
+    private Integer price =0;
     
     @Column(name="price_original",header="原价")
-    private Integer priceOriginal;
+    private Integer priceOriginal=0;
     
     @Column(name="price_refund",header="已退款价")
-    private Integer priceRefund;
+    private Integer priceRefund=0;
     
     @Column(name="is_bbk",header="是否是八百客的数据")
     private String isBbk="0";
@@ -92,4 +92,5 @@ public class OrderProdItem extends BaseEntity {
     public void setIsBbk(String isBbk) {
         this.isBbk = isBbk;
     }
+    
 }

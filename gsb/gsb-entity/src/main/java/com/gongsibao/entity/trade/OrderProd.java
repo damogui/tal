@@ -23,23 +23,23 @@ public class OrderProd extends BaseEntity {
 	private static final long serialVersionUID = -1666193798755838616L;
 	
 	@Column(header="编 号")
-    private String no;
+    private String no = "";
 	
     @Column(name="order_id",header="订单")
-    private Integer orderId;
+    private Integer orderId = 0;
     
     @JsonIgnore
-    @Reference(foreignKey = "orderId",header="销售订单")
+	@Reference(foreignKey = "orderId", header = "销售订单", primaryKey = "pkid")
     private SoOrder soOrder;
     
     @Column(name="product_id",header="产品")
-    private Integer productId;
+    private Integer productId = 0;
     
     @Column(name="product_name",header="产品名称")
     private String productName;
     
     @Column(name="city_id",header="城市")
-    private Integer cityId;
+    private Integer cityId = 0;
     
     @Reference(foreignKey="cityId",header="产品地区")
    	private Dict city;
@@ -48,46 +48,46 @@ public class OrderProd extends BaseEntity {
     private String cityName;
     
     @Exclusive
-    private Integer quantity;
+    private Integer quantity = 1;
     
     @Column(name="company_id",header="公司")
-    private Integer companyId;
+    private Integer companyId = 0;
     
     @Reference(foreignKey = "companyId",header="公司")
     private CompanyIntention companyIntention;
     
     @Column(name="process_status_id",header="进度")
-    private Integer processStatusId;
+    private Integer processStatusId = 0;
     
-    @Column(name="audit_status_id",header="审核状态")
-    private Integer auditStatusId;
+    @Column(name="audit_status_id",header="审核状态：type=105")
+    private Integer auditStatusId=0;
     
     @Column(name="price",header="价格")
-    private Integer price;
+    private Integer price=0;
     
     @Column(name="price_original",header="原价")
-    private Integer priceOriginal;
+    private Integer priceOriginal=0;
     
     @Column(name="is_refund",header="退款")
-    private Integer isRefund;
+    private Boolean isRefund = false;
     
     @Column(name="is_complaint",header="客户抱怨")
-    private Boolean isComplaint;
+    private Boolean isComplaint = false;
     
     @Column(name="is_assign",header="已分配")
-    private Boolean isAssign;
+    private Boolean isAssign = false;
     
     @Column(name="processed_days",header="已处理天数")
-    private Integer processedDays;
+    private Integer processedDays=0;
     
     @Column(name="need_days",header="待处理天数")
-    private Integer needDays;
+    private Integer needDays=0;
     
     @Column(name="timeout_days",header="过期时间")
-    private Integer timeoutDays;
+    private Integer timeoutDays=0;
     
-    @Column(name="invoice_state",header="发票状态")
-    private Integer invoiceState;
+    @Column(name="invoice_state",header="发票状态：供应商开发票状态 0 待开发票 1已开发票 2已投递")
+    private Integer invoiceState = 0;
     
     @Column(name="invoice_title",header="发票抬头")
     private String invoiceTitle;
@@ -101,17 +101,17 @@ public class OrderProd extends BaseEntity {
     @Column(name="handle_name",header="处理人")
     private String handleName;
     
-    @Column(name="cost_status",header="成本状态")
-    private Integer costStatus;
+    @Column(name="cost_status",header="成本录入状态：0未录入, 1录入中, 2完成录入")
+    private Integer costStatus = 0;
     
-    @Column(name="settle_id",header="结算方式")
-    private Integer settleId;
+    @Column(name="settle_id",header="结算方式：打款id")
+    private Integer settleIdInteger=0;
     
     @Column(name="settle_price",header="结算价格")
-    private Integer settlePrice;
+    private Integer settlePrice = 0;
     
-    @Column(name="settle_status",header="结算状态")
-    private Integer settleStatus;
+    @Column(name="settle_status",header="结算状态 0未结算 1部分结算 2已结算1")
+    private Integer settleStatus=0;
     
     @Column(name="settle_time",header="结算时间")
     private Date settleTime;
@@ -194,9 +194,7 @@ public class OrderProd extends BaseEntity {
     public void setPriceOriginal(Integer priceOriginal) {
         this.priceOriginal = priceOriginal;
     }
-    public Integer getIsRefund() {
-        return isRefund;
-    }
+
 
     public Boolean getIsComplaint() {
 		return isComplaint;
@@ -210,9 +208,7 @@ public class OrderProd extends BaseEntity {
 	public void setIsAssign(Boolean isAssign) {
 		this.isAssign = isAssign;
 	}
-	public void setIsRefund(Integer isRefund) {
-		this.isRefund = isRefund;
-	}
+
 	public Integer getProcessedDays() {
         return processedDays;
     }
@@ -267,13 +263,20 @@ public class OrderProd extends BaseEntity {
     public void setCostStatus(Integer costStatus) {
         this.costStatus = costStatus;
     }
-    public Integer getSettleId() {
-        return settleId;
-    }
-    public void setSettleId(Integer settleId) {
-        this.settleId = settleId;
-    }
-    public Integer getSettlePrice() {
+    
+    public Boolean getIsRefund() {
+		return isRefund;
+	}
+	public void setIsRefund(Boolean isRefund) {
+		this.isRefund = isRefund;
+	}
+	public Integer getSettleIdInteger() {
+		return settleIdInteger;
+	}
+	public void setSettleIdInteger(Integer settleIdInteger) {
+		this.settleIdInteger = settleIdInteger;
+	}
+	public Integer getSettlePrice() {
         return settlePrice;
     }
     public void setSettlePrice(Integer settlePrice) {
