@@ -22,6 +22,11 @@ public class PToolbarHelper {
      * 转移
      */
     public  static    String iconTran="fa fa-share-square-o";
+
+    /**
+     * 普通的对号
+     */
+    public  static    String iconCheck="fa fa-check";
     /**
      * 工具栏item选项
      * @entityState 状态

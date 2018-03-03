@@ -49,11 +49,19 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         formPartName = listPartName = meta.getName ();
         resourceNodeCode = "Gsb_Supplier_Order_Salesman_All";
         listToolbarPath = "crm/order/salesman/edit";
-       formOpenMode = OpenMode.WINDOW;
+        formOpenMode = OpenMode.WINDOW;
         openWindowHeight = 700;
         openWindowWidth = 900;
         listPartImportJs = "/gsb/trade/js/salesman-order-all-list.part.js|/gsb/gsb.custom.query.controls.js";
         listPartJsController = SalesmanAllOrderListPart.class.getName ();
+
+
+        List<String> ss = new ArrayList<String>();
+        ss.add("/package/easyui/datagrid-cellediting.js");
+        ss.add("/package/easyui/datagrid-groupview.js");
+       ss.add("/gsb/trade/js/salesman-order-all-form.part.js");
+//        ss.add("/gsb/gsb.customer.controls.js");
+        formJsImport = StringManager.join("|", ss);
         formJsController = SalesmanAllOrderFormPart.class.getName ();
         formServiceController = SalesmanAllOrderFormPart.class.getName ();
 
@@ -76,120 +84,45 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         }
         //详情进行跳转双击操作
 
-       PToolbarItem item =PToolbarHelper.getPToolbarItem (EntityState.New,"addOrderReceived",PToolbarHelper.iconAdd,
-               "创建订单业绩",ot1,1,"{controller}.addCustomer();");
+        PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "addOrderReceived", PToolbarHelper.iconAdd,
+                "创建订单业绩", ot1, 1, "{controller}.addOrderReceived();");
+        toolbar.getItems ().add (item);
+        item = PToolbarHelper.getPToolbarItem (EntityState.New, "addReceived", PToolbarHelper.iconAdd,
+                "创建回款业绩", ot1, 2, "{controller}.addReceived();");
         toolbar.getItems ().add (item);
 
-        //new
-        // PToolbarItem ();
-//        {
-//            item.toNew ();
-//            item.setCode ("addOrderReceived");
-//            item.setIcon ("fa fa-plus fa-fw");//fa-user-plus
-//            item.setName ("创建订单业绩");
-//            item.setOperationType (ot1);
-//            item.setSeq (1);
-//            item.setCommand ("{controller}.addCustomer();");
-//
-//        }
-
-
-        item = PToolbarHelper.getPToolbarItem (EntityState.New,"addOrderReceived",PToolbarHelper.iconAdd,
-                "创建回款业绩",ot1,2,"{controller}.addCustomer();");
+        item = PToolbarHelper.getPToolbarItem (EntityState.New, "addRefund", PToolbarHelper.iconAdd,
+                "创建退款", ot1, 3, "{controller}.addRefund();");
         toolbar.getItems ().add (item);
 
-//                new PToolbarItem ();
-//        {
-//            item.toNew ();
-//            item.setCode ("addReceived");
-//            item.setIcon ("fa fa-plus fa-fw");
-//            item.setName ("创建回款业绩");
-//            item.setOperationType (ot1);
-//            item.setSeq (2);
-//            // item.setCommand("{controller}.add();");
-//            toolbar.getItems ().add (item);
-//        }
+        item = PToolbarHelper.getPToolbarItem (EntityState.New, "addCarryover", PToolbarHelper.iconAdd,
+                "创建结转", ot1, 4, "{controller}.addCarryover();");
+        toolbar.getItems ().add (item);
+        item = PToolbarHelper.getPToolbarItem (EntityState.New, "addStaging", PToolbarHelper.iconAdd,
+                "创建分期", ot1, 5, "{controller}.addStaging();");
+        toolbar.getItems ().add (item);
 
-        item = new PToolbarItem ();
-        {
-            item.toNew ();
-            item.setCode ("addRefund");
-            item.setIcon ("fa fa-plus fa-fw");
-            item.setName ("创建退款");
-            item.setSeq (3);
-            //item.setCommand("{controller}.batchAllocation();");
-            toolbar.getItems ().add (item);
-        }
-        item = new PToolbarItem ();
-        {
-            item.toNew ();
-            item.setCode ("addStaging");
-            item.setIcon ("fa fa-plus fa-fw");
-            item.setName ("创建分期");
-            item.setSeq (4);
-            //item.setCommand("{controller}.batchAllocation();");
-            toolbar.getItems ().add (item);
-        }
-        item = new PToolbarItem ();
-        {
-            item.toNew ();
-            item.setCode ("addCarryover");
-            item.setIcon ("fa fa-plus fa-fw");
-            item.setName ("创建结转");
-            item.setSeq (3);
-            // item.setCommand("{controller}.batchAllocation();");
-            toolbar.getItems ().add (item);
-        }
-        item = new PToolbarItem ();
-        {
-            item.toNew ();
-            item.setCode ("addContract");
-            item.setIcon ("fa fa-plus fa-fw");
-            item.setName ("创建合同");
-            item.setSeq (5);
-            //item.setCommand("{controller}.batchAllocation();");
-            toolbar.getItems ().add (item);
-        }
-        item = new PToolbarItem ();
-        {
-            item.toNew ();
-            item.setCode ("addInvoice");
-            item.setIcon ("fa fa-check");
-            item.setName ("申请发票");
-            item.setSeq (6);
-            //item.setCommand("{controller}.batchAllocation();");
-            toolbar.getItems ().add (item);
-        }
-        item = new PToolbarItem ();
-        {
-            item.toNew ();
-            item.setCode ("batchOrderTran");
-            item.setIcon ("fa fa-share-square-o");
-            item.setName ("批量订单转移");
-            item.setSeq (7);
-            //item.setCommand("{controller}.batchAllocation();");
-            toolbar.getItems ().add (item);
-        }
-        item = new PToolbarItem ();
-        {
-            item.toNew ();
-            item.setCode ("orderTran");
-            item.setIcon ("fa fa-share-square-o");
-            item.setName ("订单转移");
-            item.setSeq (8);
-            //item.setCommand("{controller}.batchAllocation();");
-            toolbar.getItems ().add (item);
-        }
-        item = new PToolbarItem ();
-        {
-            item.toNew ();
-            item.setCode ("begOption");
-            item.setIcon ("fa fa-check");
-            item.setName ("开始操作");
-            item.setSeq (9);
-            //item.setCommand("{controller}.batchAllocation();");
-            toolbar.getItems ().add (item);
-        }
+        item = PToolbarHelper.getPToolbarItem (EntityState.New, "addContract", PToolbarHelper.iconAdd,
+                "创建合同", ot1, 6, "{controller}.addContract();");
+        toolbar.getItems ().add (item);
+
+
+        item = PToolbarHelper.getPToolbarItem (EntityState.New, "addInvoice", PToolbarHelper.iconCheck,
+                "申请发票", ot1, 7, "{controller}.addInvoice();");
+        toolbar.getItems ().add (item);
+
+
+        item = PToolbarHelper.getPToolbarItem (EntityState.New, "batchOrderTran", PToolbarHelper.iconTran,
+                "批量订单转移", ot1, 8, "{controller}.batchOrderTran();");
+        toolbar.getItems ().add (item);
+
+        item = PToolbarHelper.getPToolbarItem (EntityState.New, "orderTran", PToolbarHelper.iconTran,
+                "订单转移", ot1, 9, "{controller}.orderTran();");
+        toolbar.getItems ().add (item);
+        item = PToolbarHelper.getPToolbarItem (EntityState.New, "begOption", PToolbarHelper.iconCheck,
+                "开始操作", ot1, 10, "{controller}.begOption();");
+        toolbar.getItems ().add (item);
+
 
         return toolbar;
     }
@@ -278,7 +211,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         addQueryItem (queryProject, "addTime", "回款日期", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "no", "分期付款", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "no", "开发票", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "addTime", "创建日期", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "addTime", "创建日期", ControlTypes.DATE_BOX);
 //        addQueryItem (queryProject, "no", "组织机构", ControlTypes.TEXT_BOX);
 //        addQueryItem (queryProject, "no", "组织机构", ControlTypes.TEXT_BOX);
         //今天 昨天 本周 本月
