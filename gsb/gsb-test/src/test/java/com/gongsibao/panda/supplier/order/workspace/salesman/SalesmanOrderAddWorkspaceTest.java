@@ -44,7 +44,7 @@ public class SalesmanOrderAddWorkspaceTest extends WorkspaceCreationBase {
 
 		List<String> ss = new ArrayList<String>();
 		ss.add("/package/easyui/datagrid-cellediting.js");
-		ss.add("/package/easyui/datagrid-groupview.js");
+		//ss.add("/package/easyui/datagrid-groupview.js");
 		ss.add("/gsb/trade/js/salesman-order-add-form.part.js");
 		ss.add("/gsb/gsb.customer.controls.js");
 		formJsImport = StringManager.join("|", ss);
@@ -112,27 +112,35 @@ public class SalesmanOrderAddWorkspaceTest extends WorkspaceCreationBase {
 		ResourceNode node = this.resourceService.byCode("Gsb_Supplier_Order_Salesman_OrderProd");
 		PDatagrid datagrid = new PDatagrid(node, "产品信息");
 		{
-			datagrid.setShowCheckbox(false);
+			datagrid.setShowCheckbox(true);
 			datagrid.setSingleSelect(true);
 			datagrid.setReadOnly(true);
 			datagrid.setShowTitle(true);
 			PDatagridColumn column = null;
 			
-			column = addColumn(datagrid, "productId", "产品名称", ControlTypes.TEXT_BOX, 200);{
-				
-				column.setFormatter("return row.orderProd.productName;");
-			}
-			addColumn(datagrid, "serviceName", "服务名称", ControlTypes.TEXT_BOX, 200);
-			column = addColumn(datagrid, "quantity", "数量", ControlTypes.NUMBER_BOX, 100);{
+			column = addColumn(datagrid, "productName", "产品名称", ControlTypes.TEXT_BOX, 150);
+			column = addColumn(datagrid, "quantity", "数量", ControlTypes.NUMBER_BOX, 60);{
 				
 				column.setAlign(DatagridAlign.CENTER);
+			}
+			column = addColumn(datagrid, "cityName", "产品地区", ControlTypes.TEXT_BOX, 150);
+			column = addColumn(datagrid, "serviceName", "服务名称", ControlTypes.TEXT_BOX, 150);{
+				
+				column.setFormatter("return controllerproducts.serviceNameFormatter(value,row,index);");
 			}
 			column = addColumn(datagrid, "unitName", "单位", ControlTypes.TEXT_BOX, 50);{
 				
 				column.setAlign(DatagridAlign.CENTER);
+				column.setFormatter("return controllerproducts.unitNameFormatter(value,row,index);");
 			}
-			addColumn(datagrid, "priceOriginal", "原售价", ControlTypes.NUMBER_BOX, 100);
-			addColumn(datagrid, "price", "现售价", ControlTypes.NUMBER_BOX, 100);
+			column = addColumn(datagrid, "priceOriginal", "原售价", ControlTypes.NUMBER_BOX, 100);{
+				
+				column.setFormatter("return controllerproducts.priceOriginalFormatter(value,row,index);");
+			}
+			column = addColumn(datagrid, "price", "现售价", ControlTypes.NUMBER_BOX, 100);{
+				
+				column.setFormatter("return controllerproducts.priceFormatter(value,row,index);");
+			}
 			
 		}
 
