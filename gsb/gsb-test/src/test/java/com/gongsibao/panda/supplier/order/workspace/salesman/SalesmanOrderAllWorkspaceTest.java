@@ -49,7 +49,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         meta = MtableManager.getMtable (entity);
         formPartName = listPartName = meta.getName ();
         resourceNodeCode = "Gsb_Supplier_Order_Salesman_All";
-        listToolbarPath = "crm/order/salesman/edit";
+        listToolbarPath = "crm/order/orderall/edit";
         formOpenMode = OpenMode.WINDOW;
         openWindowHeight = 700;
         openWindowWidth = 900;
@@ -83,9 +83,13 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
             toolbar.setResourceNode (node);
             toolbar.setToolbarType (ToolbarType.BASE);
         }
-        //详情进行跳转双击操作
 
-        PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "addOrderReceived", PToolbarHelper.iconAdd,
+
+
+        PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "orderDetail", PToolbarHelper.iconExtr,
+                "订单详情", ot1, 1, "{controller}.addOrderReceived();");
+        toolbar.getItems ().add (item);
+         item = PToolbarHelper.getPToolbarItem (EntityState.New, "addOrderReceived", PToolbarHelper.iconAdd,
                 "创建订单业绩", ot1, 1, "{controller}.addOrderReceived();");
         toolbar.getItems ().add (item);
         item = PToolbarHelper.getPToolbarItem (EntityState.New, "addReceived", PToolbarHelper.iconAdd,

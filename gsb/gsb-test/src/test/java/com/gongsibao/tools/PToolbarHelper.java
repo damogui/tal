@@ -27,6 +27,30 @@ public class PToolbarHelper {
      * 普通的对号
      */
     public  static    String iconCheck="fa fa-check";
+
+    /**
+     * 收回
+     */
+    public  static    String iconBack="fa fa-mail-reply";
+
+    /**
+     * 刷新
+     */
+    public  static    String iconRefresh="fa fa-refresh";
+
+    /**
+     * 修改
+     */
+    public  static    String iconEdit="fa fa-edit";
+
+    /**
+     * 删除
+     */
+    public  static    String iconDle="fa fa-trash-o";
+    /**
+     * 附件
+     */
+    public  static    String iconExtr="fa fa-link";
     /**
      * 工具栏item选项
      * @entityState 状态
