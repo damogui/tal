@@ -27,6 +27,7 @@
 		}
 		cls.prototype = proto;
 		cls.constructor = cls;
+		
 		cls.Extends = arguments.callee;
 		return cls;
 	}.apply(Object, []);

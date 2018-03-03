@@ -82,11 +82,12 @@ public class NavigationTest extends NavigationBase {
             createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_ALL", "全部任务", "/operation/customer/task/all/list", 5);
             createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Allocated", "已分配任务", "/operation/customer/task/allocated/list", 6);
             createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Undistributed", "未分配任务", "/operation/customer/task/undistributed/list", 7);
+            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_UNstart", "未启动任务", "/operation/customer/task/unstart/list", 8);
 
-            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Defeated", "无法签单", "/operation/customer/task/defeated/list", 8);
-            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Anomaly_Detection", "抽查异常", "/operation/customer/task/anomalydetection/list", 9);
+            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Defeated", "无法签单", "/operation/customer/task/defeated/list", 9);
+            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Anomaly_Detection", "抽查异常", "/operation/customer/task/anomalydetection/list", 10);
 
-            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_OpenSea", "公海", "/operation/task/opensea/list", 10);
+            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_OpenSea", "公海", "/operation/task/opensea/list", 11);
         }
 
         createPTreeNode(tree, null, "fa fa-file-o fa-fw", "Operation_CRM_STATISTICAL", "CRM统计分析", "", 6);
