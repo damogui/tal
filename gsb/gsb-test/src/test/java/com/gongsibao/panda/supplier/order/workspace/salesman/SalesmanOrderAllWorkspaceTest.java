@@ -1,6 +1,7 @@
 package com.gongsibao.panda.supplier.order.workspace.salesman;
 
 import com.gongsibao.controls.DictComboBox;
+import com.gongsibao.controls.PropertyQueryDictComboBox;
 import com.gongsibao.crm.web.TaskAllListPart;
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.supplier.Supplier;
@@ -192,7 +193,11 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         queryProject.toNew ();
         queryProject.setColumnCount (6);
 
-        addQueryItem (queryProject, "no", "编号", ControlTypes.TEXT_BOX);
+        PQueryItem item= addQueryItem (queryProject, "no", "编号", ControlTypes.TEXT_BOX);{
+
+            item.setTooltip ("编号");
+
+        }
         addQueryItem (queryProject, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "prodName", "产品名称", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "no", "办理名称", ControlTypes.TEXT_BOX);
@@ -201,9 +206,14 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         addQueryItem (queryProject, "owner.name", "下单人", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "no", "下单人电话", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "no", "关联企业", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "sourceType.name", "订单来源", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "payStatus.name", "订单状态", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "type", "订单类型", ControlTypes.TEXT_BOX);
+       // addQueryItem (queryProject, "sourceType", "订单来源", ControlTypes.ENUM_BOX);
+          item = addQueryItem(queryProject, "sourceType.name", "订单来源", ControlTypes.CUSTOM);{
+
+            item.setCustomControlType(PropertyQueryDictComboBox.class.getName());
+            item.setRefFilter("type=304");
+        }
+        addQueryItem (queryProject, "payStatus", "订单状态", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "type", "订单类型", ControlTypes.ENUM_BOX);
         addQueryItem (queryProject, "no", "组织机构", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "no", "产品分类", ControlTypes.TEXT_BOX);
 
@@ -211,7 +221,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         addQueryItem (queryProject, "addTime", "回款日期", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "no", "分期付款", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "no", "开发票", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "addTime", "创建日期", ControlTypes.DATE_BOX);
+        item=addQueryItem (queryProject, "addTime", "创建日期", ControlTypes.DATE_BOX);
 //        addQueryItem (queryProject, "no", "组织机构", ControlTypes.TEXT_BOX);
 //        addQueryItem (queryProject, "no", "组织机构", ControlTypes.TEXT_BOX);
         //今天 昨天 本周 本月
