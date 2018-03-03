@@ -56,7 +56,7 @@ public class SalesmanReportDayWorkspaceTest extends WorkspaceCreationBase {
             toolbar.setToolbarType (ToolbarType.BASE);
         }
         //详情进行跳转双击操作
-        PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "addAudit", PToolbarHelper.iconAdd,
+        PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "addAudit", PToolbarHelper.iconExtr,
                 "明细", null, 1, "{controller}.add();");
         toolbar.getItems ().add (item);
         return toolbar;
