@@ -47,6 +47,9 @@ public class OrderProd extends BaseEntity {
     @Exclusive
     private String cityName;
     
+    @Exclusive
+    private Integer quantity;
+    
     @Column(name="company_id",header="公司")
     private Integer companyId;
     
@@ -125,7 +128,13 @@ public class OrderProd extends BaseEntity {
     @Subs(subType=OrderProdCost.class,foreignKey="orderProdId",header="订单成本")
     private List<OrderProdCost> costs = new ArrayList<OrderProdCost>();
     
-    public String getNo() {
+    public Integer getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+	public String getNo() {
         return no;
     }
     public void setNo(String no) {
