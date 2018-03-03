@@ -15,8 +15,6 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.crm.web.report.FollowReportPart;
 import com.gongsibao.entity.crm.report.FollowReportEntity;
-import com.gongsibao.entity.supplier.Supplier;
-import com.gongsibao.entity.supplier.SupplierDepartment;
 
 
 /**

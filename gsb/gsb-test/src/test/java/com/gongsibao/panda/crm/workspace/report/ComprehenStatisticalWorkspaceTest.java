@@ -16,8 +16,6 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import com.gongsibao.controls.PropertyQueryDictComboBox;
 import com.gongsibao.crm.web.report.ComprehenReportPart;
 import com.gongsibao.entity.crm.report.ComprehenReportEntity;
-import com.gongsibao.entity.supplier.Supplier;
-import com.gongsibao.entity.supplier.SupplierDepartment;
 
 
 /**
