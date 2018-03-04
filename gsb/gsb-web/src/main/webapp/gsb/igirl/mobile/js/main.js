@@ -1,4 +1,4 @@
-var ip="http://192.168.29.137:3000";
+var ip="http://192.168.10.109:3000";
 $(function(){
 	var siteCtl=new org.netsharp.core.JServiceLocator()
 	var ctlServiceStr="com.gongsibao.igirl.web.SiteInfoListPart";
@@ -64,12 +64,24 @@ $(function(){
 			})
 			
 		}))
+		var zzty=()=>Promise.resolve(new Promise(function(resolve,reject){
+			//异步加载组件
+			axios.get(ip+"/vue/comp/zzty").then(function(res){	
+				 var obj=eval("("+res.data+")");
+				 console.log(obj)
+				 resolve(obj);
+			}).catch(function(reason){
+				console.log(reason)
+			})
+			
+		}))
 		var routes=[
 			{path:'/',component:def},
 			{path:'/tms',component:tms},
 			{path:'/tm',component:tm},
 			{path:'/tmc',component:tmc},//案件确认
-			{path:'/payment',component:payment},//案件确认
+			{path:'/payment',component:payment},//服务费用支付
+			{path:'/zzty',component:zzty},//营业执照和图样身份证
 			{path:'/pt',component:tmc},
 			{path:'/cr',component:cr},
 		]
@@ -125,7 +137,8 @@ $(function(){
 							  logo:"",
 							  loopImgs:[],
 							  siteInfo:"",
-							  sourceInfo:"",		  
+							  sourceInfo:"",
+							  caseinfo:null,
 						  }
 					  },
 					 created:function(){

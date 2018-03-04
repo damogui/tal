@@ -21,6 +21,7 @@ import com.gongsibao.entity.igirl.dict.ConfigType;
 import com.gongsibao.igirl.base.IGirlConfigService;
 import com.gongsibao.igirl.base.ITradeMarkCaseService;
 import com.gongsibao.igirl.base.ITradeMarkService;
+import com.gongsibao.igirl.base.IUploadAttachmentService;
 import com.gongsibao.igirl.dto.CompanyDto;
 import com.gongsibao.igirl.dto.ResultDto;
 import com.gongsibao.taurus.api.ApiFactory;
@@ -89,7 +90,7 @@ public class TradeMarkCasePart extends FormPart {
 		Oql oql=new Oql();
 		{
 			oql.setType(TradeMarkCase.class);
-			oql.setSelects("TradeMarkCase.*,TradeMarkCase.tradeMarks.*");
+			oql.setSelects("TradeMarkCase.*,TradeMarkCase.tradeMarks.*,TradeMarkCase.uploadAttachments.*,TradeMarkCase.downLoadAttaments.*");
 			oql.setFilter("code=?");
 			oql.getParameters().add("code",code,Types.VARCHAR);
 		}
@@ -104,6 +105,13 @@ public class TradeMarkCasePart extends FormPart {
 	@Authorization(is=false)
 	public ResultDto confirmCase(String caseid) {
 		int rtn=tradeMarkCaseService.confirmCase(caseid);
+		return ResultDto.getSimpleResultDto(rtn);
+ 
+	}
+	IUploadAttachmentService up=ServiceFactory.create(IUploadAttachmentService.class);
+	@Authorization(is=false)
+	public ResultDto uploadPayProof(String id,String filepath) {
+		int rtn=up.uploadAttachmentFileurl(id, filepath);
 		return ResultDto.getSimpleResultDto(rtn);
  
 	}
