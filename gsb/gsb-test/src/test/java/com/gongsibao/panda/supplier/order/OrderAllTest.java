@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import com.gongsibao.panda.supplier.order.action.ActionAllTest;
 import com.gongsibao.panda.supplier.order.workspace.audit.AuditCarryoverWorkspaceTest;
 import com.gongsibao.panda.supplier.order.workspace.audit.AuditPricingWorkspaceTest;
 import com.gongsibao.panda.supplier.order.workspace.audit.AuditRefundWorkspaceTest;
@@ -59,7 +60,7 @@ import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanReportWeekW
 //	AuditRefundWorkspaceTest.class,
 //	AuditStagingWorkspaceTest.class,
         
-//    	ActionAllTest.class,
+    	ActionAllTest.class,
         OrderNavigationTest.class,
 })
 public class OrderAllTest {

@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
+import org.netsharp.organization.entity.Employee;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.PDatagrid;
@@ -14,8 +15,6 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.crm.web.report.FollowReportPart;
 import com.gongsibao.entity.crm.report.FollowReportEntity;
-import com.gongsibao.entity.supplier.Supplier;
-import com.gongsibao.entity.supplier.SupplierDepartment;
 
 
 /**
@@ -37,6 +36,8 @@ public class FollowStatisticalWorkspaceTest extends WorkspaceCreationBase{
 		listPartType = PartType.TREEGRID_PART.getId();
 		listPartServiceController = FollowReportPart.class.getName();
 		listPartImportJs = "/gsb/gsb.custom.query.controls.js";
+		//统计级别""-平台；1-服务商；
+		listFilter ="1";
 	}
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
@@ -80,8 +81,7 @@ public class FollowStatisticalWorkspaceTest extends WorkspaceCreationBase{
 		item = addQueryItem(queryProject, "date", "日期", ControlTypes.DATE_BOX);{
 			item.setRequired(true);
 		}
-		addRefrenceQueryItem(queryProject, "supplier.name", "服务商", Supplier.class.getSimpleName());
-		addRefrenceQueryItem(queryProject, "department.name", "部门", SupplierDepartment.class.getSimpleName());
+		addRefrenceQueryItem(queryProject, "owner.name", "业务员", Employee.class.getSimpleName());
 		
 		return queryProject;
 	}

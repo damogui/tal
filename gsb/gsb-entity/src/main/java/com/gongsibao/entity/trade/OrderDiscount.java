@@ -1,6 +1,8 @@
 package com.gongsibao.entity.trade;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
@@ -14,6 +16,10 @@ public class OrderDiscount extends BaseEntity {
 	private static final long serialVersionUID = 1894864532185900021L;
 	@Column(name="order_id",header="订单序号")
     private Integer orderId;
+	
+	@JsonIgnore
+	@Reference(foreignKey = "orderId")
+	private SoOrder soOrder;
 	
     @Column(name="type_id",header="优惠类型序号，type=309")
     private Integer typeId;
@@ -39,7 +45,14 @@ public class OrderDiscount extends BaseEntity {
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
     }
-    public Integer getTypeId() {
+    
+    public SoOrder getSoOrder() {
+		return soOrder;
+	}
+	public void setSoOrder(SoOrder soOrder) {
+		this.soOrder = soOrder;
+	}
+	public Integer getTypeId() {
         return typeId;
     }
     public void setTypeId(Integer typeId) {

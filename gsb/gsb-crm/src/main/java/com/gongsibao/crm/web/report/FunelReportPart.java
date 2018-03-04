@@ -10,10 +10,8 @@ import com.gongsibao.entity.crm.report.BaseReportEntity;
 import com.gongsibao.entity.crm.report.FunnelReportEntity;
 
 public class FunelReportPart extends BaseReport {
-
 	
-	protected HashMap<String, String> getDate(HashMap<String, String> filterMap) {
-
+	protected HashMap<String, String> getDate(HashMap<String, String> filterMap) {		
 		HashMap<String, String> map = new HashMap<String, String>();
 		String startDate = filterMap.get("date>");
 		String endDate = filterMap.get("date<");
@@ -23,10 +21,10 @@ public class FunelReportPart extends BaseReport {
 	}
 	
 	@Override
-	protected FunnelReportEntity getDataTable(BaseReportEntity entity,HashMap<String, String> filterMap,String orgaId) {
+	protected FunnelReportEntity getDataTable(BaseReportEntity entity,HashMap<String, String> filterMap,String orgaId,Integer salesmanId,Boolean isSalesman) {
 		FunnelReportEntity resultEntity = new FunnelReportEntity();
-		Map<String, String> getXSCountMap = getXSCount(filterMap,orgaId);
-		Map<String, String> getCodeTaskCountMap = getCodeTaskCount(filterMap,orgaId);
+		Map<String, String> getXSCountMap = getXSCount(filterMap,orgaId,salesmanId,isSalesman);
+		Map<String, String> getCodeTaskCountMap = getCodeTaskCount(filterMap,orgaId,salesmanId,isSalesman);
 		
 		resultEntity.setId(entity.getId());
 		resultEntity.setParentId(entity.getParentId());
@@ -57,7 +55,7 @@ public class FunelReportPart extends BaseReport {
 	 * @param orgaId
 	 * @return
 	 */
-	protected Map<String, String> getXSCount(HashMap<String, String> filterMap,String orgaId) {
+	protected Map<String, String> getXSCount(HashMap<String, String> filterMap,String orgaId,Integer salesmanId,Boolean isSalesman) {
 		Map<String, String> resultMap =new HashMap<>();
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
@@ -69,7 +67,12 @@ public class FunelReportPart extends BaseReport {
 		strSql.append("count(intention_category = 6 OR NULL) sCount,");
 		strSql.append("count(intention_category = 5 OR NULL) xCount");
 		strSql.append(" from n_crm_customer_task");
-		strSql.append(" where department_id in ("+orgaId+")");
+		if(isSalesman){
+			strSql.append(" where owner_id =" + salesmanId);
+		}else {
+			strSql.append(" where department_id in ("+orgaId+")");
+		}
+		
 		strSql.append(" AND create_time >= '"+startDate+"'");
 		strSql.append(" AND create_time <= '"+endDate+"'");
 		if(sourceId != null && sourceId !=""){
@@ -89,7 +92,7 @@ public class FunelReportPart extends BaseReport {
 	 * @param orgaId
 	 * @return
 	 */
-	protected Map<String, String> getCodeTaskCount(HashMap<String, String> filterMap,String orgaId) {
+	protected Map<String, String> getCodeTaskCount(HashMap<String, String> filterMap,String orgaId,Integer salesmanId,Boolean isSalesman) {
 		Map<String, String> resultMap =new HashMap<>();
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
@@ -115,7 +118,12 @@ public class FunelReportPart extends BaseReport {
 		strSql.append(" on f.quality_id = q.id");
 		strSql.append(" where f.task_id in (");
 		strSql.append("SELECT id from n_crm_customer_task");
-		strSql.append(" where department_id in ("+orgaId+")");
+		if(isSalesman){
+			strSql.append(" where owner_id =" + salesmanId);
+		}else {
+			strSql.append(" where department_id in ("+orgaId+")");
+		}
+		
 		strSql.append(" and intention_category in (1,2,3,4)");
 		if(sourceId != null && sourceId !=""){
 			strSql.append(" AND t.source_id = " + sourceId);

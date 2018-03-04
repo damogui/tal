@@ -13,6 +13,7 @@ import org.netsharp.organization.entity.Employee;
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.CompanyIntention;
+import com.gongsibao.entity.product.ProductPackage;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.trade.dic.OrderAccountType;
@@ -26,7 +27,7 @@ public class SoOrder extends BaseEntity {
 	private static final long serialVersionUID = 8766647536940983034L;
 
 	@Column(name = "no", header = "编码")
-	private String no;
+	private String no = "1";
 
 	@Column(name = "type", header = "订单类型")
 	private OrderType type = OrderType.Dd;
@@ -57,13 +58,16 @@ public class SoOrder extends BaseEntity {
 	private Account account;
 
 	@Column(name = "account_name", header = "账户名称")
-	private String accountName;
+	private String accountName = "";
 
 	@Column(name = "account_mobile", header = "手机号")
-	private String accountMobile;
+	private String accountMobile = "";
 
-	@Column(name = "pay_status_id", header = "支付状态")
-	private Integer payStatusId;
+	// 3011 待付款
+	// 3012 已付部分款（根据“是否分期”判断处理流程）
+	// 3013 已付款
+	@Column(name = "pay_status_id", header = "支付状态：type=301")
+	private Integer payStatusId = 3011;
 
 	@Reference(foreignKey = "payStatusId", header = "支付状态")
 	private Dict payStatus;
@@ -77,32 +81,40 @@ public class SoOrder extends BaseEntity {
 	@Column(name = "channel_order_no", header = "渠道订单号")
 	private String channelOrderNo;
 
-	@Column(name = "process_status_id", header = "执行进度")
-	private Integer processStatusId;
+	// 3021 待办理
+	// 3022 正在办理
+	// 3023 已取消
+	// 3024 已完成
+	@Column(name = "process_status_id", header = "执行进度：type=302")
+	private Integer processStatusId = 3021;
 
 	@Reference(foreignKey = "processStatusId", header = "执行进度")
 	private Dict processStatus;
 
-	@Column(name = "refund_status_id", header = "退款状态")
-	private Integer refundStatusId;
+	// 3031 待审核
+	// 3032 退款中
+	// 3033 退款完成
+	// 3034 驳回退款
+	@Column(name = "refund_status_id", header = "退款状态：type=303")
+	private Integer refundStatusId = 3031;
 
 	@Reference(foreignKey = "refundStatusId", header = "退款状态")
 	private Dict refundStatus;
 
 	@Column(name = "total_price", header = "总金额")
-	private Integer totalPrice;
+	private Integer totalPrice = 0;
 
 	@Column(name = "payable_price", header = "未支付金额")
-	private Integer payablePrice;
+	private Integer payablePrice = 0;
 
 	@Column(name = "paid_price", header = "已支付金额")
-	private Integer paidPrice;
-	
+	private Integer paidPrice = 0;
+
 	@Column(name = "discount_price", header = "优惠金额")
-	private Integer discountPrice;
-	
+	private Integer discountPrice = 0;
+
 	@Column(name = "source_type_id", header = "来源类型")
-	private Integer sourceTypeId;
+	private Integer sourceTypeId = 0;
 
 	@Reference(foreignKey = "sourceTypeId", header = "来源类型：type=304")
 	private Dict sourceType;
@@ -111,10 +123,14 @@ public class SoOrder extends BaseEntity {
 	private Boolean isInstallment = false;
 
 	@Column(name = "installment_mode", header = "多次支付方式")
-	private String installmentMode;
+	private String installmentMode = "";
 
-	@Column(name = "installment_audit_status_id", header = "多次支付状态")
-	private Integer installmentAuditStatusId;
+	// 1051 待审核
+	// 1052 审核中
+	// 1053 驳回审核
+	// 1054 审核通过
+	@Column(name = "installment_audit_status_id", header = "多次支付状态：type=105")
+	private Integer installmentAuditStatusId = 1051;
 
 	@Reference(foreignKey = "installmentAuditStatusId", header = "多次支付状态")
 	private Dict installmentAuditStatus;
@@ -137,8 +153,12 @@ public class SoOrder extends BaseEntity {
 	@Column(name = "manual_voucher_status", header = "凭证手动处理状态（0:未完成 1:已完成）")
 	private OrderManualVoucherStatus manualVoucherStatus = OrderManualVoucherStatus.NotStarted;
 
-	@Column(name = "change_price_audit_status_id", header = "改价审核状态")
-	private Integer changePriceAuditStatusId;
+	// 1051 待审核
+	// 1052 审核中
+	// 1053 驳回审核
+	// 1054 审核通过
+	@Column(name = "change_price_audit_status_id", header = "改价审核状态：type=105")
+	private Integer changePriceAuditStatusId = 1051;
 
 	@Reference(foreignKey = "changePriceAuditStatusId", header = "多次支付状态")
 	private Dict changePriceAuditStatus;
@@ -147,22 +167,22 @@ public class SoOrder extends BaseEntity {
 	private Boolean isInvoice = false;
 
 	@Column(name = "description", header = "description")
-	private String description;
+	private String description = "";
 
 	@Column(name = "is_package", header = "套餐")
 	private Boolean isPackage = false;
 
 	@Column(name = "package_id", header = "套餐")
-	private Integer packageId;
+	private Integer packageId = 0;
 
 	@Reference(foreignKey = "packageId", header = "套餐")
-	private Package packageProduct;
+	private ProductPackage packageProduct;
 
 	@Column(name = "is_bbk", header = "IsBbk")
 	private String isBbk = "0";
 
 	@Column(name = "add_user_id", header = "创建人")
-	private Integer addUserId;
+	private Integer addUserId = 0;
 
 	@Reference(foreignKey = "addUserId", header = "创建人")
 	private Employee addUser;
@@ -174,34 +194,37 @@ public class SoOrder extends BaseEntity {
 	private Employee owner;
 
 	@Column(name = "prod_name", header = "产品名称")
-	private String prodName;
+	private String prodName = "";
 
 	@Column(name = "is_delete", header = "已删除")
 	private Boolean isDelete = false;
 
 	@Column(name = "company_id", header = "公司")
-	private Integer companyId;
+	private Integer companyId = 0;
 
 	@Reference(foreignKey = "companyId", header = "公司")
 	private CompanyIntention companyIntention;
 
 	@Column(name = "remark", header = "备注")
-	private String remark;
+	private String remark = "";
 
-	@Column(name = "platform_source", header = "平台来源")
-	private Integer platformSource;
+	/*
+	 * 32101 公司宝 32102 腾讯众创空间 32103 阿里云 32104 星河互联 32105 供应商 32106 微信商城 32108 钉钉
+	 */
+	@Column(name = "platform_source", header = "平台来源：type=321")
+	private Integer platformSource = 0;
 
 	@Reference(foreignKey = "platformSource", header = "平台来源")
 	private Dict platformSourceDict;
 
 	@Column(name = "deliver_id", header = "邮寄人")
-	private Integer deliverId;
+	private Integer deliverId = 0;
 
 	@Reference(foreignKey = "deliverId", header = "邮寄人")
 	private Employee deliver;
 
 	@Column(name = "deliver_addr", header = "邮寄地址")
-	private String deliverAddr;
+	private String deliverAddr = "";
 
 	@Column(name = "account_type", header = "客户类型 0 默认 1新客户签单 2老客户签单")
 	// 1新2老
@@ -214,9 +237,9 @@ public class SoOrder extends BaseEntity {
 
 	@Column(name = "is_expire_sms", header = "过期短信提醒")
 	private Boolean isExpireSms = false;
-	
+
 	@Column(name = "coupon_code", header = "优惠劵编码")
-	private String couponCode;
+	private String couponCode = "";
 
 	@Subs(subType = OrderProd.class, foreignKey = "orderId", header = "产品明细")
 	private List<OrderProd> products = new ArrayList<OrderProd>();
@@ -229,7 +252,7 @@ public class SoOrder extends BaseEntity {
 
 	@Subs(subType = OrderDiscount.class, foreignKey = "orderId", header = "优惠明细")
 	private List<OrderDiscount> discounts = new ArrayList<OrderDiscount>();
-	
+
 	public Integer getDiscountPrice() {
 		return discountPrice;
 	}
@@ -598,11 +621,11 @@ public class SoOrder extends BaseEntity {
 		this.deliver = deliver;
 	}
 
-	public Package getPackageProduct() {
+	public ProductPackage getPackageProduct() {
 		return packageProduct;
 	}
 
-	public void setPackageProduct(Package packageProduct) {
+	public void setPackageProduct(ProductPackage packageProduct) {
 		this.packageProduct = packageProduct;
 	}
 

@@ -1,7 +1,10 @@
 package com.gongsibao.panda.supplier.order.workspace.salesman;
 
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.tools.PToolbarHelper;
 import org.junit.Before;
+import org.junit.Test;
+import org.netsharp.core.EntityState;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
@@ -10,19 +13,23 @@ import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryProject;
+import org.netsharp.panda.plugin.dic.ToolbarType;
+import org.netsharp.panda.plugin.entity.PToolbar;
+import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-/*分期审核*/
+/*分期订单*/
 public class SalesmanOrderStagingWorkspaceTest extends WorkspaceCreationBase {
     @Before
     public void setup() {
         super.setup ();
         entity = SoOrder.class;
-        urlList = "/crm/order/audit/staging/list";
-        listPartName = formPartName = "分期审核";
+        urlList = "/crm/order/salesman/staging/list";
+        listPartName = formPartName = "分期订单";
         meta = MtableManager.getMtable (entity);
         formPartName = listPartName = meta.getName ();
-        resourceNodeCode = "Gsb_Supplier_Order_Audit_Staging";
+        resourceNodeCode = "Gsb_Supplier_Order_Salesman_Staging";
+        listToolbarPath = "crm/order/orderstaging/edit";
 
         formOpenMode = OpenMode.WINDOW;
         openWindowHeight = 700;
@@ -34,6 +41,38 @@ public class SalesmanOrderStagingWorkspaceTest extends WorkspaceCreationBase {
 //        formJsImport = StringManager.join("|", ss);
 //        formJsController = SalesmanAddOrderFormPart.class.getName();
 //        formServiceController = SalesmanAddOrderFormPart.class.getName();
+    }
+
+    public PToolbar createListToolbar() {
+
+        ResourceNode node = this.resourceService.byCode (resourceNodeCode);
+        // OperationType ot1 = operationTypeService.byCode (OperationTypes.add);
+        PToolbar toolbar = new PToolbar ();
+        {
+            toolbar.toNew ();
+            toolbar.setPath (listToolbarPath);
+            toolbar.setName ("订单业绩");
+            toolbar.setResourceNode (node);
+            toolbar.setToolbarType (ToolbarType.BASE);
+        }
+        //详情进行跳转双击操作
+        PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "addAudit", PToolbarHelper.iconAdd,
+                "审批流", null, 1, "{controller}.add();");
+        toolbar.getItems ().add (item);
+        return toolbar;
+    }
+
+
+
+    /*进行设置工具栏*/
+    @Test
+    public void saveListToolbar() {
+
+        PToolbar toolbar = createListToolbar ();
+        if (toolbar != null) {
+
+            toolbarService.save (toolbar);
+        }
     }
 
     @Override

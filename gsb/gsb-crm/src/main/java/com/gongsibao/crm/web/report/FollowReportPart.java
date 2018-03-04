@@ -22,14 +22,14 @@ public class FollowReportPart extends BaseReport{
 	}
 	
 	@Override
-	protected FollowReportEntity getDataTable(BaseReportEntity entity,HashMap<String, String> filterMap,String orgaId) {
+	protected FollowReportEntity getDataTable(BaseReportEntity entity,HashMap<String, String> filterMap,String orgaId,Integer salesmanId,Boolean isSalesman) {
 		FollowReportEntity resultEntity = new FollowReportEntity();
 		
-		Integer taskCount = getTaskCount(filterMap,orgaId); 
-		Integer unfoolowCount = getUnfoolowCount(filterMap,orgaId);
-		Integer timeOutCount = getTimeOutCount(filterMap,orgaId);
-		Integer foolowCount = getFoolowCount(filterMap,orgaId);
-		Map<String, String> qualityCountMap = getQualityCount(filterMap,orgaId);
+		Integer taskCount = getTaskCount(filterMap,orgaId,salesmanId,isSalesman); 
+		Integer unfoolowCount = getUnfoolowCount(filterMap,orgaId,salesmanId,isSalesman);
+		Integer timeOutCount = getTimeOutCount(filterMap,orgaId,salesmanId,isSalesman);
+		Integer foolowCount = getFoolowCount(filterMap,orgaId,salesmanId,isSalesman);
+		Map<String, String> qualityCountMap = getQualityCount(filterMap,orgaId,salesmanId,isSalesman);
 		
 		resultEntity.setId(entity.getId());
 		resultEntity.setParentId(entity.getParentId());
@@ -53,7 +53,7 @@ public class FollowReportPart extends BaseReport{
 	 * @param orgaId
 	 * @return
 	 */
-	protected Integer getTaskCount(HashMap<String, String> filterMap,String orgaId) {
+	protected Integer getTaskCount(HashMap<String, String> filterMap,String orgaId,Integer salesmanId,Boolean isSalesman) {
 		Integer taskCount = 0;
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
@@ -63,7 +63,12 @@ public class FollowReportPart extends BaseReport{
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT COUNT(id) taskCount");
 		strSql.append(" from n_crm_customer_task");
-		strSql.append(" where department_id in ("+orgaId+")");
+		if(isSalesman){
+			strSql.append(" where owner_id =" + salesmanId);
+		}else {
+			strSql.append(" where department_id in ("+orgaId+")");
+		}
+		
 		strSql.append(" AND create_time >= '"+startDate+"'");
 		strSql.append(" AND create_time <= '"+endDate+"'");
 		
@@ -79,7 +84,7 @@ public class FollowReportPart extends BaseReport{
 	 * @param orgaId
 	 * @return
 	 */
-	protected Integer getUnfoolowCount(HashMap<String, String> filterMap,String orgaId) {
+	protected Integer getUnfoolowCount(HashMap<String, String> filterMap,String orgaId,Integer salesmanId,Boolean isSalesman) {
 		Integer unfoolowCount = 0;
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
@@ -89,7 +94,12 @@ public class FollowReportPart extends BaseReport{
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT COUNT(id) unfoolowCount");
 		strSql.append(" from n_crm_customer_task");
-		strSql.append(" where department_id in ("+orgaId+")");
+		if(isSalesman){
+			strSql.append(" where owner_id =" + salesmanId);
+		}else {
+			strSql.append(" where department_id in ("+orgaId+")");
+		}
+		
 		strSql.append(" AND create_time >= '"+startDate+"'");
 		strSql.append(" AND create_time <= '"+endDate+"'");
 		strSql.append(" AND next_foolow_time is not null");
@@ -106,7 +116,7 @@ public class FollowReportPart extends BaseReport{
 	 * @param orgaId
 	 * @return
 	 */
-	protected Integer getTimeOutCount(HashMap<String, String> filterMap,String orgaId) {
+	protected Integer getTimeOutCount(HashMap<String, String> filterMap,String orgaId,Integer salesmanId,Boolean isSalesman) {
 		Integer timeOutCount = 0;
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
@@ -116,7 +126,12 @@ public class FollowReportPart extends BaseReport{
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT COUNT(id) timeOutCount");
 		strSql.append(" from n_crm_customer_task");
-		strSql.append(" where department_id in ("+orgaId+")");
+		if(isSalesman){
+			strSql.append(" where owner_id =" + salesmanId);
+		}else {
+			strSql.append(" where department_id in ("+orgaId+")");
+		}
+		
 		strSql.append(" AND create_time >= '"+startDate+"'");
 		strSql.append(" AND create_time <= '"+endDate+"'");
 		strSql.append(" AND foolow_status = 3");
@@ -133,7 +148,7 @@ public class FollowReportPart extends BaseReport{
 	 * @param orgaId
 	 * @return
 	 */
-	protected Integer getFoolowCount(HashMap<String, String> filterMap,String orgaId) {
+	protected Integer getFoolowCount(HashMap<String, String> filterMap,String orgaId,Integer salesmanId,Boolean isSalesman) {
 		Integer foolowCount = 0;
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
@@ -143,7 +158,12 @@ public class FollowReportPart extends BaseReport{
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT COUNT(id) foolowCount");
 		strSql.append(" from n_crm_customer_task");
-		strSql.append(" where department_id in ("+orgaId+")");
+		if(isSalesman){
+			strSql.append(" where owner_id =" + salesmanId);
+		}else {
+			strSql.append(" where department_id in ("+orgaId+")");
+		}
+		
 		strSql.append(" AND create_time >= '"+startDate+"'");
 		strSql.append(" AND create_time <= '"+endDate+"'");
 		strSql.append(" AND foolow_status = 3");
@@ -160,7 +180,7 @@ public class FollowReportPart extends BaseReport{
 	 * @param orgaId
 	 * @return
 	 */
-	protected Map<String, String> getQualityCount(HashMap<String, String> filterMap,String orgaId) {
+	protected Map<String, String> getQualityCount(HashMap<String, String> filterMap,String orgaId,Integer salesmanId,Boolean isSalesman) {
 		Map<String, String> resultMap =new HashMap<>();
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
 		String startDate = dataMap.get("startDate").replace("'", "");
@@ -170,7 +190,12 @@ public class FollowReportPart extends BaseReport{
 		strSql.append("SELECT count(quality_progress = 1 OR NULL) qualityRisetaskCount,");
 		strSql.append("count(intention_category = 2 OR NULL) qualityDeclinetaskCount");
 		strSql.append(" from n_crm_customer_task");
-		strSql.append(" where department_id in ("+orgaId+")");
+		if(isSalesman){
+			strSql.append(" where owner_id =" + salesmanId);
+		}else {
+			strSql.append(" where department_id in ("+orgaId+")");
+		}
+		
 		strSql.append(" AND create_time >= '"+startDate+"'");
 		strSql.append(" AND create_time <= '"+endDate+"'");
 		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);

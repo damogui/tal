@@ -53,11 +53,26 @@ com.gongsibao.trade.web.SalesmanAddOrderFormPart = org.netsharp.panda.commerce.F
     addExtraProp:function(entity){
     	
     	//处理金额，需要*100
+    	var fen = 100;
+    	entity.totalPrice = entity.totalPrice*fen;
+    	entity.discountPrice = entity.discountPrice*fen;
+    	entity.payablePrice = entity.payablePrice*fen;
     	
-    	
-    	
+    	$(entity.products).each(function(i,p){
+    		
+    		p.price = p.price*fen;
+    		p.priceOriginal = p.priceOriginal*fen;
+    		p.settlePrice = 0;
+    		
+        	$(p.items).each(function(i,item){
+        		
+        		item.price = item.price*fen;
+        		item.priceOriginal = item.priceOriginal*fen;
+        	});
+    	});
     }
 });
+
 
 com.gongsibao.trade.web.OrderProdItemDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
     ctor: function () {
@@ -73,36 +88,136 @@ com.gongsibao.trade.web.OrderProdItemDetailPart = org.netsharp.panda.commerce.De
     	var me = this;
     	var selectCtrl = new com.gongsibao.trade.web.SelectServiceItemCtrl();
     	selectCtrl.parentCtrl = this;
-    	selectCtrl.show(function(items){
+    	selectCtrl.show(function(orderProd){
 
-    		$(items).each(function(i,item){
-
-        		$('#datagridproducts').datagrid('appendRow',item);
-
-    		});
-    		
+        	me.setEditor();
+    		$('#datagridproducts').datagrid('appendRow',orderProd);
         	me.calculateTotalPrice();
+        	
     	});
+    },
+    setEditor:function(){
+    	
+    	//设置数量可编辑
+    	var me = this;
+    	var options = $('#datagridproducts').datagrid('options');
+    	var columns = options.columns[0];
+    	var hasEditor = false;
+    	$(columns).each(function(i,col){
+    		
+    		if(col.field == 'quantity'){
+
+    			var editor = col.editor;
+    			if(editor != undefined){
+    				
+    				hasEditor = true;
+    			}else{
+    			
+    				col.editor = {type:'numberbox',options:{precision:0,height:31,min:1,required:true}}
+    			}
+    		}
+    	});
+    	if(!hasEditor){
+    		
+    		options.onBeginEdit=function(index, row){
+
+			     var ed = $(this).datagrid('getEditor', {index:index,field:'quantity'});
+			     var quantityEditCtrl = $(ed.target[0]).next().children()[0];
+			     $(quantityEditCtrl).bind('blur',function(){
+			    	 
+			    	 //结束编辑
+			    	 $('#datagridproducts').datagrid('endEdit',index);
+			    	 me.calculateTotalPrice();
+			     });
+			},
+    		$('#datagridproducts').datagrid(options);
+    		$('#datagridproducts').datagrid('enableCellEditing');
+    	}
     },
     calculateTotalPrice:function(){
     	
     	var rows = $('#datagridproducts').datagrid('getRows');
     	var totalPayablePrice = 0;
     	var totalPrice = 0;
-    	$(rows).each(function(i,item){
+    	$(rows).each(function(i,row){
     		
-    		totalPayablePrice+=parseInt(item.price);
-    		totalPrice+=parseInt(item.priceOriginal);
+    		var quantity = row.quantity;
+    		
+    		var items = row.items;
+    		$(items).each(function(j,item){
+
+        		totalPayablePrice += parseInt(item.price*quantity);
+        		totalPrice += parseInt(item.priceOriginal*quantity);
+    		});
+    		
     	});
     	
     	$('#totalPrice').numberbox('setValue',totalPrice);
     	$('#payablePrice').numberbox('setValue',totalPayablePrice);
     },
-    getDetails:function(){
+    serviceNameFormatter:function(value,row,index){
     	
-    	//只处理界面显示的，构造成订单需要的明细
+    	var items = row.items;
+    	if(items.length==1){
+    		
+    		return items[0].serviceName;
+    	}else{
+
+        	var str = '';
+        	$(items).each(function(i,item){
+        		
+        		str+='<p>'+item.serviceName+'</p>';
+        	});
+        	return str;
+    	}
+    },
+    unitNameFormatter:function(value,row,index){
     	
+    	var items = row.items;
+    	if(items.length==1){
+    		
+    		return items[0].unitName;
+    	}else{
+
+        	var str = '';
+        	$(items).each(function(i,item){
+        		
+        		str+='<p>'+item.unitName+'</p>';
+        	});
+        	return str;
+    	}
+    },
+    priceOriginalFormatter:function(value,row,index){
     	
+    	var items = row.items;
+    	if(items.length==1){
+    		
+    		return items[0].priceOriginal;
+    	}else{
+
+        	var str = '';
+        	$(items).each(function(i,item){
+        		
+        		str+='<p>'+item.priceOriginal+'</p>';
+        	});
+        	return str;
+    	}
+    },
+    priceFormatter:function(value,row,index){
+    	
+    	var items = row.items;
+    	if(items.length==1){
+    		
+    		return items[0].price;
+    	}else{
+
+        	var str = '';
+        	$(items).each(function(i,item){
+        		
+        		str+='<p>'+item.price+'</p>';
+        	});
+        	return str;
+    	}
     }
 });
 
@@ -143,16 +258,18 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
     		},
             yes: function (index, layero) {
             	
-            	var items = me.getSelectds();
-            	callback(items);
+            	var orderProd = me.getOrderProd();
+            	callback(orderProd);
             	layer.closeAll();
             }
     	});
     },
-    getSelectds:function(){
+    getOrderProd:function(){
     	
     	//构建订单产品明细
-    	var orderProdItemList = [];
+    	
+    	//校验未做
+    	
     	var rows = $('#serviceItems').datagrid('getChecked');
     	var productId = $('#product').combogrid('getValue');
     	var productName = $('#product').combogrid('getText');
@@ -162,14 +279,14 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
     	orderProd.productId = productId;
     	orderProd.productName = productName;
     	orderProd.cityId = cityId;
+    	orderProd.price = 0;
+    	orderProd.priceOriginal = 0;
     	orderProd.cityName = cityName;
-    	
+    	orderProd.quantity = 1;
+    	orderProd.items = [];
     	$(rows).each(function(i,item){
 
         	var orderProdItem = {};
-        	
-        	//产品信息
-        	orderProdItem.orderProd = orderProd;
         	
         	//单位名称
         	orderProdItem.unitName = item.service.unit.name;
@@ -187,13 +304,15 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
         	
         	orderProdItem.quantity = 1;
         	
-        	
         	orderProdItem.priceOriginal = item.originalPrice;
         	orderProdItem.price =  item.price;
+        	
+        	orderProd.priceOriginal = orderProd.priceOriginal + item.originalPrice;
+        	orderProd.price = orderProd.price + item.price;
 
-        	orderProdItemList.push(orderProdItem);
+        	orderProd.items.push(orderProdItem);
     	});
-    	return orderProdItemList;
+    	return orderProd;
     },
     initializeCtrl:function(){
     	
@@ -366,7 +485,7 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
 				//隐藏全选
 				$(this).parent().find('.datagrid-header-check').children().hide();
 
-				 $('#serviceItems').datagrid('enableCellEditing');
+				$('#serviceItems').datagrid('enableCellEditing');
 
 				 //设置必选项
 				 $(data.rows).each(function(i,item){
@@ -380,6 +499,7 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
 		    columns:[[
 		        {field:'id',checkbox:true},
 		        {field:'name',title:'服务名称',width:200,formatter: function(value,row,index){
+		        	
 		        	if(row.service && row.service.type){
 		        		
 		        		var name = row.service.type.name;
@@ -391,6 +511,7 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
 		        	}
 		        }},
 		        {field:'unit',title:'单位',width:50,align:'center',formatter: function(value,row,index){
+		        	
 		        	if(row.service && row.service.unit){
 		        		
 		        		return row.service.unit.name;
