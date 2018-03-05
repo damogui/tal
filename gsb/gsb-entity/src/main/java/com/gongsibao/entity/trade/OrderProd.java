@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.CompanyIntention;
+import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.CostStatus;
@@ -14,6 +15,8 @@ import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
 import com.gongsibao.entity.trade.dic.SettleStatus;
 import com.gongsibao.entity.yj.Trademark;
 
+import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.entity.supplier.SupplierDepartment;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Exclusive;
@@ -22,6 +25,7 @@ import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
+import org.netsharp.organization.entity.Employee;
 
 @Table(name = "so_order_prod")
 public class OrderProd extends BaseEntity {
@@ -139,6 +143,33 @@ public class OrderProd extends BaseEntity {
 
 	@Subs(subType = OrderProdCost.class, foreignKey = "orderProdId", header = "订单成本")
 	private List<OrderProdCost> costs = new ArrayList<OrderProdCost>();
+
+	@Column(name = "owner_id", header = "业务员Id")
+	private Integer ownerId;
+
+	@Reference(foreignKey = "ownerId", header = "业务员")
+	private Employee owner;
+
+	@Column(name = "task_id", header = "任务Id")
+	private Integer taskId;
+
+	@Column(name = "supplier_id", header = "服务商Id")
+	private Integer supplierId;
+
+	@Reference(foreignKey = "supplierId", header = "服务商")
+	private Supplier supplier;
+
+	@Column(name = "department_id", header = "部门Id")
+	private Integer departmentId;
+
+	@Reference(foreignKey = "departmentId", header = "部门")
+	private SupplierDepartment department;
+
+	@Column(name = "customer_id", header = "客户Id")
+	private Integer customerId;
+
+	@Reference(foreignKey = "customerId", header = "客户")
+	private NCustomer customer;
 
 	public Integer getQuantity() {
 		return quantity;
@@ -380,6 +411,77 @@ public class OrderProd extends BaseEntity {
 		this.cityName = cityName;
 	}
 
+	public Integer getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(Integer ownerId) {
+		this.ownerId = ownerId;
+	}
+
+	public Employee getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Employee owner) {
+		this.owner = owner;
+	}
+
+	public Integer getTaskId() {
+		return taskId;
+	}
+
+	public void setTaskId(Integer taskId) {
+		this.taskId = taskId;
+	}
+
+	public Integer getSupplierId() {
+		return supplierId;
+	}
+
+	public void setSupplierId(Integer supplierId) {
+		this.supplierId = supplierId;
+	}
+
+	public Supplier getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
+	}
+
+	public Integer getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(Integer departmentId) {
+		this.departmentId = departmentId;
+	}
+
+	public SupplierDepartment getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(SupplierDepartment department) {
+		this.department = department;
+	}
+
+	public Integer getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
+	}
+
+	public NCustomer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(NCustomer customer) {
+		this.customer = customer;
+	}
 	public Integer getTrademarkId() {
 		return trademarkId;
 	}

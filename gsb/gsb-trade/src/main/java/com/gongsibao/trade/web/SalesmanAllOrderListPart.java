@@ -5,6 +5,7 @@ import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.base.IOrderProdTraceService;
 import com.gongsibao.u8.base.ISoOrderService;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.ListPart;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 /**
  * Created by win on 2018/3/2.
  */
-public class SalesmanAllOrderListPart extends ListPart {
+public class SalesmanAllOrderListPart extends AdvancedListPart {
     ISoOrderService prodTraceService = ServiceFactory.create(ISoOrderService.class);
 
 //    public List<SoOrder> querySoOrderTraceList(Integer soOrderId) {
