@@ -1,6 +1,9 @@
 package com.gongsibao.igirl.web;
 
+import com.gongsibao.entity.igirl.TransferTradeMark;
+import com.gongsibao.igirl.base.ITransferTradeMarkService;
 import com.gongsibao.utils.SupplierSessionManager;
+import org.netsharp.communication.ServiceFactory;
 import org.netsharp.panda.commerce.ListPart;
 import org.netsharp.util.StringManager;
 
@@ -13,6 +16,7 @@ import java.util.List;
  *
  */
 public class DepartmentTransferTradeMarkListPart extends ListPart{
+	ITransferTradeMarkService service = ServiceFactory.create(ITransferTradeMarkService.class);
 	@Override
 	protected String getExtraFilter() {
 		List<String> ss = new ArrayList<String>();
@@ -30,5 +34,8 @@ public class DepartmentTransferTradeMarkListPart extends ListPart{
 			ss.add("1=2");
 		}
 		return StringManager.join(" and ", ss);
+	}
+	public TransferTradeMark updateOwner(Integer ttmId, Integer ownerId){
+		return this.service.updateOwner(ttmId,ownerId);
 	}
 }

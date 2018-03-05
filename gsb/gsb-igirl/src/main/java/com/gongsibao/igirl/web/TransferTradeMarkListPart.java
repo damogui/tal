@@ -1,4 +1,5 @@
 package com.gongsibao.igirl.web;
+import com.gongsibao.entity.igirl.TransferTradeMark;
 import com.gongsibao.igirl.base.ITransferTradeMarkService;
 import com.gongsibao.utils.SupplierSessionManager;
 import org.netsharp.communication.ServiceFactory;
@@ -17,5 +18,9 @@ public class TransferTradeMarkListPart extends ListPart{
 			// TODO Auto-generated method stub
 	   String filter=" supplierId = "+SupplierSessionManager.getSupplierId();
 		 return filter;
+	 }
+
+	 public TransferTradeMark updateOwner(Integer ttmId,Integer ownerId){
+   		return this.service.updateOwner(ttmId,ownerId);
 	 }
 }

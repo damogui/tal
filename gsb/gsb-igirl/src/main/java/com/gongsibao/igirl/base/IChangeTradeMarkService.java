@@ -10,4 +10,6 @@ public interface IChangeTradeMarkService extends IPersistableService<ChangeTrade
     List<ChangeTradeMarkDto> ctmToRobot();
 
     ChangeTradeMark updateCtmState(String agentFileNum,Integer state);
+
+    ChangeTradeMark updateOwner(Integer ctmId,Integer ownerId);
 }

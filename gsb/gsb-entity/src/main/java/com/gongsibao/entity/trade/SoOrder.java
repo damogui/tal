@@ -11,13 +11,21 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.CompanyIntention;
+import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.product.ProductPackage;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.OrderAccountType;
 import com.gongsibao.entity.trade.dic.OrderManualVoucherStatus;
+import com.gongsibao.entity.trade.dic.OrderPayStatusType;
+import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
+import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
+import com.gongsibao.entity.trade.dic.OrderRefundStatusType;
+import com.gongsibao.entity.trade.dic.OrderSourceType;
 import com.gongsibao.entity.trade.dic.OrderType;
 import com.gongsibao.entity.uc.Account;
 
@@ -67,10 +75,7 @@ public class SoOrder extends BaseEntity {
 	// 3012 已付部分款（根据“是否分期”判断处理流程）
 	// 3013 已付款
 	@Column(name = "pay_status_id", header = "支付状态：type=301")
-	private Integer payStatusId = 3011;
-
-	@Reference(foreignKey = "payStatusId", header = "支付状态")
-	private Dict payStatus;
+	private OrderPayStatusType payStatus = OrderPayStatusType.Dhk;
 
 	@Column(name = "pay_time", header = "支付时间")
 	private Date payTime;
@@ -86,20 +91,15 @@ public class SoOrder extends BaseEntity {
 	// 3023 已取消
 	// 3024 已完成
 	@Column(name = "process_status_id", header = "执行进度：type=302")
-	private Integer processStatusId = 3021;
+	private OrderProcessStatusType processStatus = OrderProcessStatusType.Dbl;
 
-	@Reference(foreignKey = "processStatusId", header = "执行进度")
-	private Dict processStatus;
 
 	// 3031 待审核
 	// 3032 退款中
 	// 3033 退款完成
 	// 3034 驳回退款
 	@Column(name = "refund_status_id", header = "退款状态：type=303")
-	private Integer refundStatusId = 3031;
-
-	@Reference(foreignKey = "refundStatusId", header = "退款状态")
-	private Dict refundStatus;
+	private OrderRefundStatusType refundStatus = OrderRefundStatusType.wu;
 
 	@Column(name = "total_price", header = "总金额")
 	private Integer totalPrice = 0;
@@ -109,6 +109,7 @@ public class SoOrder extends BaseEntity {
 
 	@Column(name = "paid_price", header = "已支付金额")
 	private Integer paidPrice = 0;
+	
     @Column(name = "performance_price", header = "已划分金额(业绩已经划分)")
     private Integer performancePrice = 0;
 
@@ -116,10 +117,7 @@ public class SoOrder extends BaseEntity {
 	private Integer discountPrice = 0;
 
 	@Column(name = "source_type_id", header = "来源类型")
-	private Integer sourceTypeId = 0;
-
-	@Reference(foreignKey = "sourceTypeId", header = "来源类型：type=304")
-	private Dict sourceType;
+	private OrderSourceType sourceType;
 
 	@Column(name = "is_installment", header = "多次支付")
 	private Boolean isInstallment = false;
@@ -160,10 +158,7 @@ public class SoOrder extends BaseEntity {
 	// 1053 驳回审核
 	// 1054 审核通过
 	@Column(name = "change_price_audit_status_id", header = "改价审核状态：type=105")
-	private Integer changePriceAuditStatusId = 1051;
-
-	@Reference(foreignKey = "changePriceAuditStatusId", header = "多次支付状态")
-	private Dict changePriceAuditStatus;
+	private AuditStatusType changePriceAuditStatusId = AuditStatusType.wu;
 
 	@Column(name = "is_invoice", header = "开票")
 	private Boolean isInvoice = false;
@@ -213,11 +208,8 @@ public class SoOrder extends BaseEntity {
 	/*
 	 * 32101 公司宝 32102 腾讯众创空间 32103 阿里云 32104 星河互联 32105 供应商 32106 微信商城 32108 钉钉
 	 */
-	@Column(name = "platform_source", header = "平台来源：type=321")
-	private Integer platformSource = 0;
-
-	@Reference(foreignKey = "platformSource", header = "平台来源")
-	private Dict platformSourceDict;
+	@Column(name = "platform_source", header = "平台来源：type=321,自营默认【公司宝】，服务商默认【供应商】")
+	private OrderPlatformSourceType platformSource = OrderPlatformSourceType.Gsb;
 
 	@Column(name = "deliver_id", header = "邮寄人")
 	private Integer deliverId = 0;
@@ -229,19 +221,19 @@ public class SoOrder extends BaseEntity {
 	private String deliverAddr = "";
 
 	@Column(name = "account_type", header = "客户类型 0 默认 1新客户签单 2老客户签单")
-	// 1新2老
 	private OrderAccountType accountType = OrderAccountType.wu;
-
-	/*
-	 * @Reference(foreignKey="accountType",header="账户类型") private Dict
-	 * accountTypeDict;
-	 */
-
+	
 	@Column(name = "is_expire_sms", header = "过期短信提醒")
 	private Boolean isExpireSms = false;
 
 	@Column(name = "coupon_code", header = "优惠劵编码")
 	private String couponCode = "";
+	
+	@Column(name = "trademark_case_id", header = "商标方案Id")
+	private Integer tradeMarkCaseId = 0;
+
+	@Reference(foreignKey = "tradeMarkCaseId", header = "商标方案")
+	private TradeMarkCase tradeMarkCase;
 
 	@Subs(subType = OrderProd.class, foreignKey = "orderId", header = "产品明细")
 	private List<OrderProd> products = new ArrayList<OrderProd>();
@@ -254,7 +246,13 @@ public class SoOrder extends BaseEntity {
 
 	@Subs(subType = OrderDiscount.class, foreignKey = "orderId", header = "优惠明细")
 	private List<OrderDiscount> discounts = new ArrayList<OrderDiscount>();
-
+	
+	@Subs(subType = OrderInvoiceMap.class, foreignKey = "orderId", header = "发票信息")
+	private List<OrderInvoiceMap> invoices = new ArrayList<OrderInvoiceMap>();
+	
+	@Subs(subType = AuditLog.class, foreignKey = "formId", header = "改价审核日志")
+	private List<AuditLog> auditLogs = new ArrayList<AuditLog>();
+	
 	public Integer getDiscountPrice() {
 		return discountPrice;
 	}
@@ -303,14 +301,6 @@ public class SoOrder extends BaseEntity {
 		this.accountMobile = accountMobile;
 	}
 
-	public Integer getPayStatusId() {
-		return payStatusId;
-	}
-
-	public void setPayStatusId(Integer payStatusId) {
-		this.payStatusId = payStatusId;
-	}
-
 	public Date getPayTime() {
 		return payTime;
 	}
@@ -319,21 +309,6 @@ public class SoOrder extends BaseEntity {
 		this.payTime = payTime;
 	}
 
-	public Integer getProcessStatusId() {
-		return processStatusId;
-	}
-
-	public void setProcessStatusId(Integer processStatusId) {
-		this.processStatusId = processStatusId;
-	}
-
-	public Integer getRefundStatusId() {
-		return refundStatusId;
-	}
-
-	public void setRefundStatusId(Integer refundStatusId) {
-		this.refundStatusId = refundStatusId;
-	}
 
 	public Integer getTotalPrice() {
 		return totalPrice;
@@ -359,13 +334,6 @@ public class SoOrder extends BaseEntity {
 		this.paidPrice = paidPrice;
 	}
 
-	public Integer getSourceTypeId() {
-		return sourceTypeId;
-	}
-
-	public void setSourceTypeId(Integer sourceTypeId) {
-		this.sourceTypeId = sourceTypeId;
-	}
 
 	public Boolean getIsInstallment() {
 		return isInstallment;
@@ -391,13 +359,6 @@ public class SoOrder extends BaseEntity {
 		this.installmentAuditStatusId = installmentAuditStatusId;
 	}
 
-	public Integer getChangePriceAuditStatusId() {
-		return changePriceAuditStatusId;
-	}
-
-	public void setChangePriceAuditStatusId(Integer changePriceAuditStatusId) {
-		this.changePriceAuditStatusId = changePriceAuditStatusId;
-	}
 
 	public Boolean getIsInvoice() {
 		return isInvoice;
@@ -471,13 +432,6 @@ public class SoOrder extends BaseEntity {
 		this.remark = remark;
 	}
 
-	public Integer getPlatformSource() {
-		return platformSource;
-	}
-
-	public void setPlatformSource(Integer platformSource) {
-		this.platformSource = platformSource;
-	}
 
 	public Integer getDeliverId() {
 		return deliverId;
@@ -535,38 +489,6 @@ public class SoOrder extends BaseEntity {
 		this.products = products;
 	}
 
-	public Dict getPayStatus() {
-		return payStatus;
-	}
-
-	public void setPayStatus(Dict payStatus) {
-		this.payStatus = payStatus;
-	}
-
-	public Dict getProcessStatus() {
-		return processStatus;
-	}
-
-	public void setProcessStatus(Dict processStatus) {
-		this.processStatus = processStatus;
-	}
-
-	public Dict getRefundStatus() {
-		return refundStatus;
-	}
-
-	public void setRefundStatus(Dict refundStatus) {
-		this.refundStatus = refundStatus;
-	}
-
-	public Dict getSourceType() {
-		return sourceType;
-	}
-
-	public void setSourceType(Dict sourceType) {
-		this.sourceType = sourceType;
-	}
-
 	public Dict getInstallmentAuditStatus() {
 		return installmentAuditStatus;
 	}
@@ -575,21 +497,6 @@ public class SoOrder extends BaseEntity {
 		this.installmentAuditStatus = installmentAuditStatus;
 	}
 
-	public Dict getChangePriceAuditStatus() {
-		return changePriceAuditStatus;
-	}
-
-	public void setChangePriceAuditStatus(Dict changePriceAuditStatus) {
-		this.changePriceAuditStatus = changePriceAuditStatus;
-	}
-
-	public Dict getPlatformSourceDict() {
-		return platformSourceDict;
-	}
-
-	public void setPlatformSourceDict(Dict platformSourceDict) {
-		this.platformSourceDict = platformSourceDict;
-	}
 
 	public Employee getAddUser() {
 		return addUser;
@@ -765,5 +672,93 @@ public class SoOrder extends BaseEntity {
 
 	public void setCouponCode(String couponCode) {
 		this.couponCode = couponCode;
+	}
+
+	public Integer getPerformancePrice() {
+		return performancePrice;
+	}
+
+	public void setPerformancePrice(Integer performancePrice) {
+		this.performancePrice = performancePrice;
+	}
+
+	public Integer getTradeMarkCaseId() {
+		return tradeMarkCaseId;
+	}
+
+	public void setTradeMarkCaseId(Integer tradeMarkCaseId) {
+		this.tradeMarkCaseId = tradeMarkCaseId;
+	}
+
+	public TradeMarkCase getTradeMarkCase() {
+		return tradeMarkCase;
+	}
+
+	public void setTradeMarkCase(TradeMarkCase tradeMarkCase) {
+		this.tradeMarkCase = tradeMarkCase;
+	}
+
+	public OrderPayStatusType getPayStatus() {
+		return payStatus;
+	}
+
+	public void setPayStatus(OrderPayStatusType payStatus) {
+		this.payStatus = payStatus;
+	}
+
+	public OrderProcessStatusType getProcessStatus() {
+		return processStatus;
+	}
+
+	public void setProcessStatus(OrderProcessStatusType processStatus) {
+		this.processStatus = processStatus;
+	}
+
+	public OrderRefundStatusType getRefundStatus() {
+		return refundStatus;
+	}
+
+	public void setRefundStatus(OrderRefundStatusType refundStatus) {
+		this.refundStatus = refundStatus;
+	}
+
+	public OrderSourceType getSourceType() {
+		return sourceType;
+	}
+
+	public void setSourceType(OrderSourceType sourceType) {
+		this.sourceType = sourceType;
+	}
+
+	public AuditStatusType getChangePriceAuditStatusId() {
+		return changePriceAuditStatusId;
+	}
+
+	public void setChangePriceAuditStatusId(AuditStatusType changePriceAuditStatusId) {
+		this.changePriceAuditStatusId = changePriceAuditStatusId;
+	}
+
+	public OrderPlatformSourceType getPlatformSource() {
+		return platformSource;
+	}
+
+	public void setPlatformSource(OrderPlatformSourceType platformSource) {
+		this.platformSource = platformSource;
+	}
+
+	public List<OrderInvoiceMap> getInvoices() {
+		return invoices;
+	}
+
+	public void setInvoices(List<OrderInvoiceMap> invoices) {
+		this.invoices = invoices;
+	}
+
+	public List<AuditLog> getAuditLogs() {
+		return auditLogs;
+	}
+
+	public void setAuditLogs(List<AuditLog> auditLogs) {
+		this.auditLogs = auditLogs;
 	}
 }
