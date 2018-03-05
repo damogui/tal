@@ -115,6 +115,7 @@ com.gongsibao.igirl.web.UploadAttachmentDetailPart=org.netsharp.panda.commerce.D
     	this.parent.save();
     },
   attachmentMake:function(){
+	  
 		IMessageBox.confirm("确认要生成新的附件记录吗？", function(istrue) {
 			if (istrue) {
 				var ent=controllertradeMarkCase.viewModel.currentItem;
