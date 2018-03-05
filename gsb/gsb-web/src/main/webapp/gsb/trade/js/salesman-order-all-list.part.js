@@ -3,10 +3,9 @@ System.Declare("com.gongsibao.trade.web");
 com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.ListPart.Extends({
     ctor : function() {
         this.base();
-        // this.addUrl = "/crm/order/salesman/all/form";
-        // this.editUrl = "/crm/order/salesman/all/form";
-        // this.followUrl = "/crm/order/salesman/all/form";
-        this.addOrderReceivedUrl ='/crm/order/salesman/coperformance';
+
+        this.addOrderReceivedUrl ='/panda/crm/order/salesman/coperformance';
+        this.addReceived ='/panda/crm/order/salesman/coperformance';//回款业绩
 
 
     },
@@ -27,12 +26,12 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         // builder.append('</div>');
 
         layer.open({
-            type : 1,
-            title : '创建订单业绩',
+            type : 2,//1是字符串 2是内容
+            title : '订单信息',
             fixed : false,
-            maxmin : false,
+            maxmin : true,
             shadeClose : false,
-            area : [ '500px', '300px' ],
+            area : [ '60%', '60%' ],
             zIndex : 100000,
             content : this.addOrderReceivedUrl,
             btn : [ '保存', '取消' ],// 可以无限个按钮

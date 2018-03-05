@@ -1,4 +1,5 @@
 package com.gongsibao.igirl.web;
+import com.gongsibao.entity.igirl.TransferTradeMark;
 import com.gongsibao.igirl.base.IChangeTradeMarkService;
 import com.gongsibao.igirl.base.ITransferTradeMarkService;
 import com.gongsibao.utils.SupplierSessionManager;
@@ -18,4 +19,7 @@ public class MyTransferTradeMarkListPart extends ListPart{
 	   String filter=" supplierId = "+ SupplierSessionManager.getSupplierId();
 	   return filter;
 	 }
+	public TransferTradeMark updateOwner(Integer ttmId, Integer ownerId){
+		return this.service.updateOwner(ttmId,ownerId);
+	}
 }

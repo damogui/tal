@@ -163,28 +163,27 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 //            datagrid.setQueryProject(queryProject);
 //            datagrid.setAdvancedQueryProject(advancedQueryProject);
 //            datagrid.setToolbar(rowToolbaPath);
-
-
         }
+
         PDatagridColumn column = null;
         addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
         addColumn(datagrid, "no", "订单编号", ControlTypes.TEXT_BOX, 80);
         addColumn(datagrid, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "addTime", "回款日期", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "payTime", "回款日期", ControlTypes.DATETIME_BOX, 100);
+        addColumn(datagrid, "addTime", "下单时间", ControlTypes.DATETIME_BOX, 100);
         addColumn(datagrid, "prodName", "产品名称", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "no", "办理名称", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "payStatus.name", "订单状态", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "payStatus", "订单支付状态", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "no", "关联企业", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "refundStatus.name", "退单状态", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "refundStatus", "退单状态", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "totalPrice", "原价金额", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "totalPrice", "应付金额", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "paidPrice", "已付金额", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "no", "分期付款", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "no", "开发票", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "isInstallment", "是否分期付款", ControlTypes.BOOLCOMBO_BOX, 100);
         addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "no", "操作员", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "no", "下单人", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "sourceType.name", "订单来源", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "customerName", "下单客户", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "platformSource", "订单来源", ControlTypes.ENUM_BOX, 100);
+        addColumn(datagrid, "sourceType", "下单方式", ControlTypes.ENUM_BOX, 100);
 
         return datagrid;
     }
@@ -202,27 +201,10 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
             item.setTooltip("订单编号、渠道订单编号、下单人、下单人电话、关联公司");
         }
         addQueryItem(queryProject, "prodName", "产品名称", ControlTypes.TEXT_BOX);
-        item = addQueryItem(queryProject, "platformSourceDict.name", "平台来源", ControlTypes.CUSTOM);
-        {
-            item.setCustomControlType(PropertyQueryDictComboBox.class.getName());
-            item.setRefFilter("type=321");
-        }
-        /*item = addQueryItem(queryProject, "processStatus.name", "办理状态", ControlTypes.CUSTOM);
-        {
-            item.setCustomControlType(PropertyQueryDictComboBox.class.getName());
-            item.setRefFilter("type=302");
-        }*/
-        item = addQueryItem(queryProject, "payStatus.name", "支付状态", ControlTypes.CUSTOM);
-        {
-            item.setCustomControlType(PropertyQueryDictComboBox.class.getName());
-            item.setRefFilter("type=301");
-        }
-        item = addQueryItem(queryProject, "sourceType.name", "下单方式", ControlTypes.CUSTOM);
-        {
-            item.setCustomControlType(PropertyQueryDictComboBox.class.getName());
-            item.setRefFilter("type=304");
-        }
-        addQueryItem(queryProject, "owner.name", "业务员", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "platformSource", "订单来源", ControlTypes.ENUM_BOX);
+        addQueryItem(queryProject, "payStatus", "支付状态", ControlTypes.ENUM_BOX);
+        addQueryItem(queryProject, "sourceType", "下单方式", ControlTypes.ENUM_BOX);
+        addQueryItem(queryProject, "ywyName", "业务员", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "addTime", "订单创建日期", ControlTypes.DATE_BOX);
         addQueryItem(queryProject, "payTime", "回款日期", ControlTypes.DATE_BOX);
         addQueryItem(queryProject, "isInstallment", "是否分期", ControlTypes.BOOLCOMBO_BOX);
@@ -238,40 +220,18 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 
         //String groupName = null;
         String groupName = "基本信息";
-//        addFormField (form, "no", "订单", groupName, ControlTypes.TEXT_BOX, true);
         addFormField(form, "no", "订单", groupName, ControlTypes.TEXT_BOX, true);
         addFormField(form, "accountName", "账户名称", groupName, ControlTypes.TEXT_BOX, true);
-//        PFormField formField = addFormField(form, "loginName", "帐号", groupName, ControlTypes.TEXT_BOX, false);
-//        {
-//
-//            formField.setReadonly(true);
-//            formField.setTooltip("自动生成");
-//        }
-//        addFormField(form, "email", "邮箱", groupName, ControlTypes.TEXT_BOX, false);
-//        addFormField(form, "entryDate", "入职日期", groupName, ControlTypes.DATE_BOX, false);
-//        addFormField(form, "quitDate", "离职日期", groupName, ControlTypes.DATE_BOX, false);
-//        addFormField(form, "disabled", "停用", groupName, ControlTypes.SWITCH_BUTTON, false, true);
-
-
         // 这里还有很多属性，
 
         return form;
     }
 
-
-//    @Test
-//    @Override
-//    public void run() {
-//        this.createFormWorkspace ();
-//    }
-
     @Override
     protected void doOperation() {
         ResourceNode node = this.getResourceNode();
         operationService.addOperation(node, OperationTypes.view);
-        operationService.addOperation(node, OperationTypes.add);
-        operationService.addOperation(node, OperationTypes.update);
-        operationService.addOperation(node, OperationTypes.delete);
+        //operationService.addOperation(node, OperationTypes.add);
     }
 
 }

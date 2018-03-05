@@ -18,4 +18,7 @@ public class MyChangeTradeMarkListPart extends ListPart{
 	   String filter=" supplierId = "+ SupplierSessionManager.getSupplierId();
 	   return filter;
 	 }
+	public ChangeTradeMark updateOwner(Integer ctmId,Integer ownerId){
+		return service.updateOwner(ctmId,ownerId);
+	}
 }
