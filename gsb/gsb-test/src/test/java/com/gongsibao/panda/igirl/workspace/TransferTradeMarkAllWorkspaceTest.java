@@ -201,35 +201,48 @@ public class TransferTradeMarkAllWorkspaceTest extends WorkspaceCreationBase {
 
 		addFormField(form, "fileWtName2", "受让人委托书", groupName, ControlTypes.OSS_UPLOAD, true, false);
 
-		addFormField(form, "zdllx", "转让人类型", groupName, ControlTypes.ENUM_BOX, true, false);
+		formField = addFormField(form, "zdllx", "转让人类型", groupName, ControlTypes.ENUM_BOX, true, false);
+		{
+			formField.setTroikaTrigger("controllertransferTradeMark.typeChange(newValue, oldValue);");
+		}
 
-		addFormField(form, "sdjlx", "受让人类型", groupName, ControlTypes.ENUM_BOX, true, false);
-
-		addFormField(form, "zwjlx", "转让人上传文件的语言类型", groupName, ControlTypes.ENUM_BOX, true, false);
-
-		addFormField(form, "swjlx", "受让人上传文件的语言类型", groupName, ControlTypes.ENUM_BOX, true, false);
-
+		formField = addFormField(form, "sdjlx", "受让人类型", groupName, ControlTypes.ENUM_BOX, true, false);
+		{
+			formField.setTroikaTrigger("controllertransferTradeMark.typeChange(newValue, oldValue);");
+		}
+		formField = addFormField(form, "zwjlx", "转让人上传文件的语言类型", groupName, ControlTypes.ENUM_BOX, true, false);
+		{
+			formField.setTroikaTrigger("controllertransferTradeMark.typeChange(newValue, oldValue);");
+		}
+		formField = addFormField(form, "swjlx", "受让人上传文件的语言类型", groupName, ControlTypes.ENUM_BOX, true, false);
+		{
+			formField.setTroikaTrigger("controllertransferTradeMark.typeChange(newValue, oldValue);");
+		}
 		addFormField(form, "gqcxName", "自然人死亡/企业或其他组织注销证明", groupName, ControlTypes.OSS_UPLOAD, false, false);
 
-		addFormField(form, "zrZtCnTrName", "转让人主体资格证明文件(中文)", groupName, ControlTypes.OSS_UPLOAD, false, false);
+		addFormField(form, "zrZtCnTrName", "转让人主体资格证明文件(中文)", groupName, ControlTypes.OSS_UPLOAD, true, false);
 
-		addFormField(form, "zrZtEnTrName", "转让人主体资格证明文件(外文)", groupName, ControlTypes.OSS_UPLOAD, false, false);
+		addFormField(form, "zrZtEnTrName", "转让人主体资格证明文件(外文)", groupName, ControlTypes.OSS_UPLOAD, true, false);
 
-		addFormField(form, "certType", "转让人证件名称", groupName, ControlTypes.ENUM_BOX, false, false);
+		addFormField(form, "srZtCnTrName", "受让人主体资格证明文件(中文)", groupName, ControlTypes.OSS_UPLOAD, true, false);
 
-		addFormField(form, "certNo", "转让人证件号码", groupName, ControlTypes.TEXT_BOX, false, false);
+		addFormField(form, "srZtEnTrName", "受让人主体资格证明文件(外文)", groupName, ControlTypes.OSS_UPLOAD, true, false);
 
-		addFormField(form, "scertType", "受让人证件名称", groupName, ControlTypes.ENUM_BOX, false, false);
+		addFormField(form, "certType", "转让人证件名称", groupName, ControlTypes.ENUM_BOX, true, false);
 
-		addFormField(form, "scertNo", "受让人证件号码", groupName, ControlTypes.TEXT_BOX, false, false);
+		addFormField(form, "certNo", "转让人证件号码", groupName, ControlTypes.TEXT_BOX, true, false);
 
-		addFormField(form, "zrSfCnTrName", "转让人身份证明文件(中文)", groupName, ControlTypes.OSS_UPLOAD, false, false);
+		addFormField(form, "scertType", "受让人证件名称", groupName, ControlTypes.ENUM_BOX, true, false);
 
-		addFormField(form, "srSfCnTrName", "受让人身份证明文件(中文)", groupName, ControlTypes.OSS_UPLOAD, false, false);
+		addFormField(form, "scertNo", "受让人证件号码", groupName, ControlTypes.TEXT_BOX, true, false);
+
+		addFormField(form, "zrSfCnTrName", "转让人身份证明文件(中文)", groupName, ControlTypes.OSS_UPLOAD, true, false);
+
+		addFormField(form, "srSfCnTrName", "受让人身份证明文件(中文)", groupName, ControlTypes.OSS_UPLOAD, true, false);
 
 		addFormField(form, "zrSfEnTrName", "转让人身份证明文件(外文)", groupName, ControlTypes.OSS_UPLOAD, false, false);
 
-		addFormField(form, "srSfEnTrName", "受让人身份证明文件(外文)", groupName, ControlTypes.OSS_UPLOAD, false, false);
+		addFormField(form, "srSfEnTrName", "受让人身份证明文件(外文)", groupName, ControlTypes.OSS_UPLOAD, true, false);
 
 		addFormField(form, "flwsName", "同意转让声明或商标移转证明", groupName, ControlTypes.OSS_UPLOAD, true, false);
 

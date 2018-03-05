@@ -111,6 +111,12 @@ public class TransferTradeMark extends Entity {
     @Column(name = "zr_zt_en_tr_name",header = "转让人主体资格证明文件(外文)",size = 255)
     private String zrZtEnTrName;
 
+    @Column(name = "sr_zt_cn_tr_name",header = "受让人主体资格证明文件(中文)",size = 255)
+    private String srZtCnTrName;
+
+    @Column(name = "sr_zt_en_tr_name",header = "受让人主体资格证明文件(外文)",size = 255)
+    private String srZtEnTrName;
+
     @Column(name = "cert_type",header = "转让人证件名称")
     private CertificateType certType;
 
@@ -535,5 +541,21 @@ public class TransferTradeMark extends Entity {
 
     public void setScertType(CertificateType scertType) {
         this.scertType = scertType;
+    }
+
+    public String getSrZtCnTrName() {
+        return srZtCnTrName;
+    }
+
+    public void setSrZtCnTrName(String srZtCnTrName) {
+        this.srZtCnTrName = srZtCnTrName;
+    }
+
+    public String getSrZtEnTrName() {
+        return srZtEnTrName;
+    }
+
+    public void setSrZtEnTrName(String srZtEnTrName) {
+        this.srZtEnTrName = srZtEnTrName;
     }
 }
