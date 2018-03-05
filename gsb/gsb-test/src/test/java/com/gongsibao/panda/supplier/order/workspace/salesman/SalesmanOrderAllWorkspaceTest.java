@@ -176,9 +176,9 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         addColumn(datagrid, "payStatus", "订单支付状态", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "no", "关联企业", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "refundStatus", "退单状态", ControlTypes.ENUM_BOX, 100);
-        addColumn(datagrid, "totalPrice", "原价金额", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "totalPrice", "应付金额", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "paidPrice", "已付金额", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn(datagrid, "payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn(datagrid, "paidPrice", "已付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn(datagrid, "isInstallment", "是否分期付款", ControlTypes.BOOLCOMBO_BOX, 100);
         addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "customerName", "下单客户", ControlTypes.TEXT_BOX, 100);
@@ -194,7 +194,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         PQueryProject queryProject = super.createQueryProject(node);
         queryProject.toNew();
         PQueryItem item = null;
-        queryProject.setColumnCount(6);
+        queryProject.setColumnCount(3);
 
         item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
         {
