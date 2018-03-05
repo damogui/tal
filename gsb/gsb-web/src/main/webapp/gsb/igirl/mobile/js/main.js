@@ -1,4 +1,4 @@
-var ip="http://192.168.29.137:3000";
+var ip="http://192.168.10.109:3000";
 $(function(){
 	var siteCtl=new org.netsharp.core.JServiceLocator()
 	var ctlServiceStr="com.gongsibao.igirl.web.SiteInfoListPart";
@@ -64,12 +64,24 @@ $(function(){
 			})
 			
 		}))
+		var zzty=()=>Promise.resolve(new Promise(function(resolve,reject){
+			//异步加载组件
+			axios.get(ip+"/vue/comp/zzty").then(function(res){	
+				 var obj=eval("("+res.data+")");
+				 console.log(obj)
+				 resolve(obj);
+			}).catch(function(reason){
+				console.log(reason)
+			})
+			
+		}))
 		var routes=[
 			{path:'/',component:def},
 			{path:'/tms',component:tms},
 			{path:'/tm',component:tm},
 			{path:'/tmc',component:tmc},//案件确认
-			{path:'/payment',component:payment},//案件确认
+			{path:'/payment',component:payment},//服务费用支付
+			{path:'/zzty',component:zzty},//营业执照和图样身份证
 			{path:'/pt',component:tmc},
 			{path:'/cr',component:cr},
 		]
@@ -125,7 +137,8 @@ $(function(){
 							  logo:"",
 							  loopImgs:[],
 							  siteInfo:"",
-							  sourceInfo:"",		  
+							  sourceInfo:"",
+							  caseinfo:null,
 						  }
 					  },
 					 created:function(){
@@ -136,6 +149,12 @@ $(function(){
 						  this.fetchData();
 				          //判断url来源，如果是案件，那么就跳转到案件商标页面
 				  		if(this.sourceInfo.source && this.sourceInfo.source!=""){
+				  			      //应该获取案件信息，根据状态来决定跳转到哪个页面
+				  			      //如果是待确认或异议，那么调转到确认页面
+				  			      //如果是已确认，那么跳专到付款页面
+				  			      //如果是已经付款，那么跳专到上传营业执照和商标图样页面或身份证明...
+				  			      //如果执照和图样已经上传，那么跳专到下载委托书页面
+				  			      //如果是委托书已经上传那么就跳专到首页
 				  			 this.$router.push({path:"/tmc",query:{spid:sourceInfo.supplierId,source:sourceInfo.source,casecode:sourceInfo.casecode}})
 				  			 }
 					  },

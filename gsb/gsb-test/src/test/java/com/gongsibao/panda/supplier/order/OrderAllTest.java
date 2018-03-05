@@ -44,23 +44,23 @@ import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanReportWeekW
         SalesmanReportDayWorkspaceTest.class,
         SalesmanReportWeekWorkspaceTest.class,
         SalesmanReportMonthWorkspaceTest.class,
-//	
-//	//部门订单
-//	DepartmentOrderAllWorkspaceTest.class,
-//	DepartmentOrderPerformanceWorspaceTest.class,
-//	DepartmentOrderReceivedWorkspaceTest.class,
-//	DepartmentOrderRefundWorkspaceTest.class,
-//	DepartmentReportDayWorkspaceTest.class,
-//	DepartmentReportWeekWorkspaceTest.class,
-//	DepartmentReportMonthWorkspaceTest.class,
-//	
-//	//订单审核
-//	AuditPricingWorkspaceTest.class,
-//	AuditCarryoverWorkspaceTest.class,
-//	AuditRefundWorkspaceTest.class,
-//	AuditStagingWorkspaceTest.class,
-        
-    	ActionAllTest.class,
+
+        //部门订单
+        DepartmentOrderAllWorkspaceTest.class,
+        DepartmentOrderPerformanceWorspaceTest.class,
+        DepartmentOrderReceivedWorkspaceTest.class,
+        DepartmentOrderRefundWorkspaceTest.class,
+        DepartmentReportDayWorkspaceTest.class,
+        DepartmentReportWeekWorkspaceTest.class,
+        DepartmentReportMonthWorkspaceTest.class,
+
+        //订单审核
+        AuditPricingWorkspaceTest.class,
+        AuditCarryoverWorkspaceTest.class,
+        AuditRefundWorkspaceTest.class,
+        AuditStagingWorkspaceTest.class,
+
+        ActionAllTest.class,
         OrderNavigationTest.class,
 })
 public class OrderAllTest {
