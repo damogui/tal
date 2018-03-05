@@ -28,7 +28,7 @@ public class CommonAttachmentBuilder implements IAttachmentBuilder {
 	public List<UploadAttachment> buildUploads(TradeMark tm,TradeMarkCase tmc) {
 		// TODO Auto-generated method stub
 		List<UploadAttachment> ups=new ArrayList<UploadAttachment>();
-		UploadAttachment attachment1 = AttachmentBuilderManager.buildUploadAttachment(tm.getMemo() + "_黑色商标图样",
+		UploadAttachment attachment1 = AttachmentBuilderManager.buildUploadAttachment(tm.getMemo() + "_黑白商标图样",
 				AttachmentCat.TRADEMARK_PICT, tm.getTradeMarkCaseId(), FileType.JPGB, FileType.JPGB, tm.getId(),tm.getShareGroup());
 		ups.add(attachment1);
 
