@@ -63,6 +63,10 @@ public class TransferTradeMarkDto {
 
     private String zrZtEnTrName;//转让人主体资格证明文件(外文)
 
+    private String srZtCnTrName;//受让人主体资格证明文件(中文)
+
+    private String srZtEnTrName;//受让人主体资格证明文件(外文)
+
     private String certType;//转让人证件名称
 
     private String certNo;//转让人证件号码
@@ -439,5 +443,21 @@ public class TransferTradeMarkDto {
 
     public void setFileYgName(String fileYgName) {
         this.fileYgName = fileYgName;
+    }
+
+    public String getSrZtCnTrName() {
+        return srZtCnTrName;
+    }
+
+    public void setSrZtCnTrName(String srZtCnTrName) {
+        this.srZtCnTrName = srZtCnTrName;
+    }
+
+    public String getSrZtEnTrName() {
+        return srZtEnTrName;
+    }
+
+    public void setSrZtEnTrName(String srZtEnTrName) {
+        this.srZtEnTrName = srZtEnTrName;
     }
 }
