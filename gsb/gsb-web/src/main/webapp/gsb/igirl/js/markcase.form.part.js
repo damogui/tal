@@ -114,7 +114,26 @@ com.gongsibao.igirl.web.UploadAttachmentDetailPart=org.netsharp.panda.commerce.D
   saveP:function(){
     	this.parent.save();
     },
- 
+  attachmentMake:function(){
+	  
+		IMessageBox.confirm("确认要生成新的附件记录吗？", function(istrue) {
+			if (istrue) {
+				var ent=controllertradeMarkCase.viewModel.currentItem;
+			    if(ent && ent.id){
+			    	controllertradeMarkCase.invokeService("attachmentMake",[ent.id],function(d){
+			    		    if(d==0){
+			    		    	IMessageBox.toast("生成附件成功，您可以去上传附件了！");
+			    		    	controllertradeMarkCase.reload();
+			    		             }else{
+			    		      IMessageBox.toast("生成附件失败！");
+			    		             }
+			    		
+			        	});
+			         }	
+			}
+		});
+	    
+    },
 
 });
 com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.DetailPart.Extends( {
@@ -134,6 +153,25 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
 	    },
 	  saveP:function(){
 	    	this.parent.save();
+	    },
+	  attachmentMake:function(){
+			IMessageBox.confirm("确认要生成新的附件记录吗？", function(istrue) {
+				if (istrue) {
+					var ent=controllertradeMarkCase.viewModel.currentItem;
+				    if(ent && ent.id){
+				    	controllertradeMarkCase.invokeService("attachmentMake",[ent.id],function(d){
+				    		    if(d==0){
+				    		    	IMessageBox.toast("生成附件成功，您可以去上传附件了！");
+				    		    	controllertradeMarkCase.reload();
+				    		             }else{
+				    		      IMessageBox.toast("生成附件失败！");
+				    		             }
+				    		
+				        	});
+				         }	
+				}
+			});
+		    
 	    },
 	  addAfter:function(){
 		  this.base();

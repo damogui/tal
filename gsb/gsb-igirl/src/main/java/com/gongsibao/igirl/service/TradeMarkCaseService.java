@@ -139,28 +139,9 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			if (entity.getApplierType() == ApplierType.PUBLIC) {
 				entity.setApplier(entity.getCompanyName());
 			}
-			// 构建案件共享上传
-			// tradeMarkCaseAttamentBuiler.buildUploads(tm)；
-			List<UploadAttachment> caseUps = tradeMarkCaseAttachmentBuiler.buildCaseShareUploads(entity);
-			entity.getUploadAttachments().addAll(caseUps);
-
-			List<UploadAttachment> markShareGroupUps = tradeMarkCaseAttachmentBuiler.buildMarkShareGroupUploads(entity);
-			entity.getUploadAttachments().addAll(markShareGroupUps);
-			List<DownloadAttachment> markShareGroupDowns = tradeMarkCaseAttachmentBuiler.buildDownloads(entity);
-			entity.getDownLoadAttaments().addAll(markShareGroupDowns);
 		}
 		// //附件商标图样因为色彩而变化
 		if (entity.getEntityState() == EntityState.Persist) {
-			// 先获取原始原始的实体
-			Oql oqlx = new Oql();
-			{
-				oqlx.setType(TradeMarkCase.class);
-				oqlx.setSelects("TradeMarkCase.*,TradeMarkCase.tradeMarks.*");
-				oqlx.setFilter(" id=? ");
-				oqlx.getParameters().add("id", entity.getId(), Types.INTEGER);
-			}
-			TradeMarkCase origin = this.queryFirst(oqlx);
-			Map<ShareGroup, Integer> shareGroupCountMap = this.buildShareGroupCountMap(origin);
 			Integer sid = SupplierSessionManager.getSupplierId();
 			Integer departmentId = SupplierSessionManager.getDepartmentId();
 			String tmp="";
@@ -176,141 +157,10 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 				tm.setDepartmentId(departmentId);
 				if (tm.getEntityState() != EntityState.Deleted) {
 					tmp+=tm.getNclOne().getCode()+" ";
-					if (!shareGroupCountMap.containsKey(tm.getShareGroup())) {
-						// 如果是新增一个分组--tm
-						List<UploadAttachment> casenewUps = tradeMarkCaseAttachmentBuiler
-								.buildMarkShareGroupUploadsByTm(tm,entity);
-						entity.getUploadAttachments().addAll(casenewUps);
-
-						List<DownloadAttachment> markShareGroupDowns = tradeMarkCaseAttachmentBuiler.buildDownloads(entity);
-						entity.getDownLoadAttaments().addAll(markShareGroupDowns);
-
-
-						shareGroupCountMap.put(tm.getShareGroup(), 1);
-//						if( entity.getTradeMarks().size()==1) {//如果当前商标项是1，那么就增加营业执照
-
-						// 查看当前tm原先的分组
-						ShareGroup sg = null;
-						for (TradeMark tm1 : origin.getTradeMarks()) {
-							if (tm1.getId() == tm.getId()) {
-								sg = tm1.getShareGroup();
-								break;
-							}
-						}
-						if (sg != tm.getShareGroup()) {
-							// 当前修改了分组，查看原先分组的计数，如果原先分组是1，那么修改后，应该删除原先分组对应的附件
-							if (sg!=null && shareGroupCountMap.get(sg) == 1) {
-								// 删除原先分组及对应的附件
-								shareGroupCountMap.remove(sg);
-								List<UploadAttachment> ups = entity.getUploadAttachments();
-								for (int i = 0; i < ups.size(); i++) {
-									UploadAttachment uploadAttachment = ups.get(i);
-									if (uploadAttachment.getShareGroup() == sg) {
-										uploadAttachment.setEntityState(EntityState.Deleted);
-									}
-								}
-								List<DownloadAttachment> ds = entity.getDownLoadAttaments();
-								for (int i = 0; i < ds.size(); i++) {
-									DownloadAttachment downloadAttachment = ds.get(i);
-									if (downloadAttachment.getShareGroup() == sg) {
-										downloadAttachment.setEntityState(EntityState.Deleted);
-									}
-
-								}
-							}
-
-						}
-//
-//						}
-					} else {// 修改后目标分组在map中
-							// 如果改变到的目标分组存在已有分组，分组+1
-						shareGroupCountMap.put(tm.getShareGroup(), shareGroupCountMap.get(tm.getShareGroup()) + 1);
-						// 查看当前tm原先的分组
-						ShareGroup sg = null;
-						for (TradeMark tm1 : origin.getTradeMarks()) {
-							if (tm1.getId() == tm.getId()) {
-								sg = tm1.getShareGroup();
-								break;
-							}
-						}
-						if (sg != tm.getShareGroup()) {
-							// 当前修改了分组，查看原先分组的计数，如果原先分组是1，那么修改后，应该删除原先分组对应的附件
-							if (sg!=null && shareGroupCountMap.get(sg) == 1) {
-								// 删除原先分组及对应的附件
-								shareGroupCountMap.remove(sg);
-								List<UploadAttachment> ups = entity.getUploadAttachments();
-								for (int i = 0; i < ups.size(); i++) {
-									UploadAttachment uploadAttachment = ups.get(i);
-									if (uploadAttachment.getShareGroup() == sg) {
-										uploadAttachment.setEntityState(EntityState.Deleted);
-									}
-								}
-								List<DownloadAttachment> ds = entity.getDownLoadAttaments();
-								for (int i = 0; i < ds.size(); i++) {
-									DownloadAttachment downloadAttachment = ds.get(i);
-									if (downloadAttachment.getShareGroup() == sg) {
-										downloadAttachment.setEntityState(EntityState.Deleted);
-									}
-
-								}
-							}
-
-						}
-
-					}
-				}
-				if (tm.getEntityState() == EntityState.Deleted) {
-					//
-					int n = shareGroupCountMap.get(tm.getShareGroup());
-					if (n == 1) {// 删除对应的分组
-						shareGroupCountMap.remove(tm.getShareGroup());
-						List<UploadAttachment> ups = entity.getUploadAttachments();
-						for (int i = 0; i < ups.size(); i++) {
-							UploadAttachment uploadAttachment = ups.get(i);
-							if (uploadAttachment.getShareGroup() == tm.getShareGroup()) {
-								uploadAttachment.setEntityState(EntityState.Deleted);
-							}
-						}
-						List<DownloadAttachment> ds = entity.getDownLoadAttaments();
-						for (int i = 0; i < ds.size(); i++) {
-							DownloadAttachment downloadAttachment = ds.get(i);
-							if (downloadAttachment.getShareGroup() == tm.getShareGroup()) {
-								downloadAttachment.setEntityState(EntityState.Deleted);
-							}
-
-						}
-					}
-				}
-
+			    }
 			}
 			entity.setTradeOptions(tmp);
 		}
-		// 获取原先的共享组集合
-
-		// {// 删除
-		// List<UploadAttachment> ups = entity.getUploadAttachments();
-		// for (int i = 0; i < ups.size(); i++) {
-		// UploadAttachment uploadAttachment = ups.get(i);
-		// uploadAttachment.setEntityState(EntityState.Deleted);
-		//
-		// }
-		// List<DownloadAttachment> ds = entity.getDownLoadAttaments();
-		// for (int i = 0; i < ds.size(); i++) {
-		// DownloadAttachment downloadAttachment = ds.get(i);
-		// downloadAttachment.setEntityState(EntityState.Deleted);
-		// }
-		// }
-		// // 新增
-		// List<UploadAttachment> caseUps =
-		// tradeMarkCaseAttachmentBuiler.buildCaseShareUploads(entity);
-		// entity.getUploadAttachments().addAll(caseUps);
-		// List<UploadAttachment> markShareGroupUps =
-		// tradeMarkCaseAttachmentBuiler.buildMarkShareGroupUploads(entity);
-		// entity.getUploadAttachments().addAll(markShareGroupUps);
-		// List<DownloadAttachment> markShareGroupDowns =
-		// tradeMarkCaseAttachmentBuiler.buildDownloads(entity);
-		// entity.getDownLoadAttaments().addAll(markShareGroupDowns);
-
 		// 删除附件明细
 		if (entity.getEntityState() == EntityState.Deleted) {
 
@@ -469,6 +319,49 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 				oql.getParameters().add("id",Integer.parseInt(caseid),Types.INTEGER);
 			}
 			this.pm.executeNonQuery(cmdstr, oql.getParameters());
+			return 0;
+		}catch(BusinessException e) {
+			return -1;
+		}
+	}
+
+	@Override
+	public int attachmentMake(String caseid) {
+		// TODO Auto-generated method stub
+		//先删除当前案件的所有附件
+		try {
+			String cmdstr = "delete from ig_up_attachment where trade_mark_caseid=?";
+			Oql oql=new Oql();
+			{
+				oql.setFilter("trade_mark_caseid=?");
+				oql.getParameters().add("trade_mark_caseid",Integer.parseInt(caseid),Types.INTEGER);
+			}
+			this.pm.executeNonQuery(cmdstr, oql.getParameters());
+			cmdstr = "delete from ig_down_attachment where trade_mark_caseid=?";
+			oql=new Oql();
+			{
+					oql.setFilter("trade_mark_caseid=?");
+					oql.getParameters().add("trade_mark_caseid",Integer.parseInt(caseid),Types.INTEGER);
+			}
+			this.pm.executeNonQuery(cmdstr, oql.getParameters());
+			//生成附件
+			Oql oqlx = new Oql();
+			{
+				oqlx.setType(TradeMarkCase.class);
+				oqlx.setSelects("TradeMarkCase.*,TradeMarkCase.tradeMarks.*,TradeMarkCase.tradeMarks.nclOne.*,TradeMarkCase.uploadAttachments.*,TradeMarkCase.downLoadAttaments.*");
+				oqlx.setFilter(" id=? ");
+				oqlx.getParameters().add("id", Integer.parseInt(caseid), Types.INTEGER);
+			}
+			TradeMarkCase tmc=this.queryFirst(oqlx);
+			//创建新的附件
+			List<UploadAttachment> caseUps = tradeMarkCaseAttachmentBuiler.buildCaseShareUploads(tmc);	// 构建案件共享上传
+			tmc.getUploadAttachments().addAll(caseUps);				
+			List<UploadAttachment> markShareGroupUps = tradeMarkCaseAttachmentBuiler.buildMarkShareGroupUploads(tmc);
+			tmc.getUploadAttachments().addAll(markShareGroupUps);
+			List<DownloadAttachment> markShareGroupDowns = tradeMarkCaseAttachmentBuiler.buildDownloads(tmc);
+			tmc.getDownLoadAttaments().addAll(markShareGroupDowns);
+			tmc.toPersist();
+			this.save(tmc);
 			return 0;
 		}catch(BusinessException e) {
 			return -1;
