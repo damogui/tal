@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.gongsibao.entity.crm.NCustomer;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
@@ -145,6 +146,13 @@ public class SoOrder extends BaseEntity {
 
 	@Column(name = "carry_over_order_id", header = "结转订单id")
 	private Integer carryOverOrderId;
+
+	@Column(name = "customer_id", header = "客户Id")
+	private Integer customerId;
+
+	@Reference(foreignKey = "customerId", header = "客户")
+	private NCustomer customer;
+
 
 	// 是否生成u8凭证手动处理（异常）（0：否、1：是(跨月异常)） 2:（e支付（财务二维码））、（刷卡）付款方式标记异常
 	// 3:由于借贷方金额都为零，无法生成凭证（【确认收入凭证】，金额太小造成，如：0.01，0.1）
@@ -317,6 +325,22 @@ public class SoOrder extends BaseEntity {
 
 	public void setPayTime(Date payTime) {
 		this.payTime = payTime;
+	}
+
+	public Integer getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
+	}
+
+	public NCustomer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(NCustomer customer) {
+		this.customer = customer;
 	}
 
 	public Integer getProcessStatusId() {
