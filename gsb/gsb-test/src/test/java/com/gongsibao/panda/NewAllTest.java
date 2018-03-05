@@ -18,7 +18,7 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
 //  org.netsharp.cache.plugin.AllTests.class,
 //    org.netsharp.scrum.meta.AllTests.class,
 
-//	//1.基础信息
+//	//1.基础信息 
 	com.gongsibao.panda.basic.AllTest.class,
 
     //2.用户中心
