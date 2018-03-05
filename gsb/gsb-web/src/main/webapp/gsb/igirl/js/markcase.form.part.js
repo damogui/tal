@@ -146,6 +146,7 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
 		  var row=controllertradeMarks.datagrid.datagrid('getSelected');
 		  if(row!=null){
 			  delete row.id;
+			  delete row.proxyCode;
 			  controllertradeMarks.datagrid.datagrid('appendRow',row);
 		    }else{
 		    IMessageBox.warn("请选择要复制的行！");
