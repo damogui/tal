@@ -44,8 +44,8 @@ import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanReportWeekW
         SalesmanReportDayWorkspaceTest.class,
         SalesmanReportWeekWorkspaceTest.class,
         SalesmanReportMonthWorkspaceTest.class,
-//	
-//	//部门订单
+
+        //部门订单
         DepartmentOrderAllWorkspaceTest.class,
         DepartmentOrderPerformanceWorspaceTest.class,
         DepartmentOrderReceivedWorkspaceTest.class,
@@ -53,12 +53,12 @@ import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanReportWeekW
         DepartmentReportDayWorkspaceTest.class,
         DepartmentReportWeekWorkspaceTest.class,
         DepartmentReportMonthWorkspaceTest.class,
-//	
-//	//订单审核
-//	AuditPricingWorkspaceTest.class,
-//	AuditCarryoverWorkspaceTest.class,
-//	AuditRefundWorkspaceTest.class,
-//	AuditStagingWorkspaceTest.class,
+
+        //订单审核
+        AuditPricingWorkspaceTest.class,
+        AuditCarryoverWorkspaceTest.class,
+        AuditRefundWorkspaceTest.class,
+        AuditStagingWorkspaceTest.class,
 
         ActionAllTest.class,
         OrderNavigationTest.class,

@@ -29,7 +29,7 @@ public class DepartmentReportDayWorkspaceTest extends WorkspaceCreationBase {
         meta = MtableManager.getMtable (entity);
         formPartName = listPartName = meta.getName ();
         resourceNodeCode = "Gsb_Supplier_Order_Department_Day_Report";
-        listToolbarPath = "crm/department/ordercarryover/edit";
+        listToolbarPath = "crm/department/dayreport/edit";
         formOpenMode = OpenMode.WINDOW;
         openWindowHeight = 700;
         openWindowWidth = 900;

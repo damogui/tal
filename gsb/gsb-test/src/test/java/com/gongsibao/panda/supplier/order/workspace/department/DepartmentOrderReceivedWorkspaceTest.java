@@ -29,7 +29,7 @@ public class DepartmentOrderReceivedWorkspaceTest extends WorkspaceCreationBase 
         meta = MtableManager.getMtable (entity);
         formPartName = listPartName = meta.getName ();
         resourceNodeCode = "Gsb_Supplier_Order_Department_Received";
-        listToolbarPath = "crm/department/ordercarryover/edit";
+        listToolbarPath = "crm/department/received/edit";
         formOpenMode = OpenMode.WINDOW;
         openWindowHeight = 700;
         openWindowWidth = 900;

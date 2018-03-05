@@ -29,7 +29,7 @@ public class DepartmentReportMonthWorkspaceTest extends WorkspaceCreationBase {
         meta = MtableManager.getMtable (entity);
         formPartName = listPartName = meta.getName ();
         resourceNodeCode = "Gsb_Supplier_Order_Department_Month_Report";
-        listToolbarPath = "crm/order/department/edit";
+        listToolbarPath = "crm/order/department/monthreport";
         formOpenMode = OpenMode.WINDOW;
         openWindowHeight = 700;
         openWindowWidth = 900;

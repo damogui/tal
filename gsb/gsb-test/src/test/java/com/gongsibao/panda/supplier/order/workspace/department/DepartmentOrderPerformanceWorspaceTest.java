@@ -29,7 +29,7 @@ public class DepartmentOrderPerformanceWorspaceTest extends WorkspaceCreationBas
         meta = MtableManager.getMtable (entity);
         formPartName = listPartName = meta.getName ();
         resourceNodeCode = "Gsb_Supplier_Order_Department_Performance";
-        listToolbarPath = "crm/order/ordercarryover/edit";
+        listToolbarPath = "crm/department/performance/edit";
         formOpenMode = OpenMode.WINDOW;
         openWindowHeight = 700;
         openWindowWidth = 900;
