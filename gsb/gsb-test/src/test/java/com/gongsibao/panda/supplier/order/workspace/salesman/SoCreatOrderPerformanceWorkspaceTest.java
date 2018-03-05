@@ -8,6 +8,7 @@ import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.tools.PToolbarHelper;
 import com.gongsibao.trade.web.OrderProdItemDetailPart;
 import com.gongsibao.trade.web.SalesmanAddOrderFormPart;
+import com.gongsibao.trade.web.SoCreatOrderPerformanceFormPart;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.EntityState;
@@ -48,11 +49,11 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
         listToolbarPath = "crm/order/coperformance/edit";
         List<String> ss = new ArrayList<String> ();
 //        ss.add("/package/easyui/datagrid-cellediting.js");
-        ss.add ("/gsb/trade/js/salesman-order-add-form.part.js");
+        ss.add ("/gsb/trade/js/order_performance-form.part.js");
         ss.add ("/gsb/gsb.customer.controls.js");
         formJsImport = StringManager.join ("|", ss);
-        formJsController = SalesmanAddOrderFormPart.class.getName ();
-        formServiceController = SalesmanAddOrderFormPart.class.getName ();
+        formJsController = SoCreatOrderPerformanceFormPart.class.getName ();
+        formServiceController = SoCreatOrderPerformanceFormPart.class.getName ();
     }
 
     @Test
@@ -78,7 +79,7 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
 
 
         PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "orderDetail", PToolbarHelper.iconExtr,
-                "订单详情", ot1, 1, "{controller}.addOrderReceived();");
+                "订单详情", ot1, 1, "{controller}.add();");
         toolbar.getItems ().add (item);
 
         return toolbar;
@@ -136,7 +137,7 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
         {
             datagrid.setShowCheckbox (true);
             datagrid.setSingleSelect (true);
-            datagrid.setReadOnly (true);
+            datagrid.setReadOnly (false);
             datagrid.setShowTitle (true);
 
             PDatagridColumn column = null;
