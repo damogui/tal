@@ -43,22 +43,22 @@ public class SupplierProduct extends Entity{
 	private Product product;
     
 	@Column(name = "province_id")
-	private Integer provinceId;
+	private Integer nProvinceId;
 
-	@Reference(foreignKey = "provinceId", header = "省份")
-	private Dict province;
+	@Reference(foreignKey = "nProvinceId", header = "省份")
+	private Dict nProvince;
 
 	@Column(name = "city_id")
-	private Integer cityId;
+	private Integer nCityId;
 
-	@Reference(foreignKey = "cityId", header = "城市")
-	private Dict city;
+	@Reference(foreignKey = "nCityId", header = "城市")
+	private Dict nCity;
 
 	@Column(name = "county_id")
-	private Integer countyId;
+	private Integer nCountyId;
 
-	@Reference(foreignKey = "countyId",header = "区/县")
-	private Dict county;
+	@Reference(foreignKey = "nCountyId",header = "区/县")
+	private Dict nCounty;
 
 
 	public Integer getProductCategoryId1() {
@@ -93,52 +93,52 @@ public class SupplierProduct extends Entity{
 		this.productCategory2 = productCategory2;
 	}
 
-	public Integer getProvinceId() {
-		return provinceId;
+	public Integer getnProvinceId() {
+		return nProvinceId;
 	}
 
-	public void setProvinceId(Integer provinceId) {
-		this.provinceId = provinceId;
+	public void setnProvinceId(Integer nProvinceId) {
+		this.nProvinceId = nProvinceId;
 	}
 
-	public Dict getProvince() {
-		return province;
+	public Dict getnProvince() {
+		return nProvince;
 	}
 
-	public void setProvince(Dict province) {
-		this.province = province;
+	public void setnProvince(Dict nProvince) {
+		this.nProvince = nProvince;
 	}
 
-	public Integer getCityId() {
-		return cityId;
+	public Integer getnCityId() {
+		return nCityId;
 	}
 
-	public void setCityId(Integer cityId) {
-		this.cityId = cityId;
+	public void setnCityId(Integer nCityId) {
+		this.nCityId = nCityId;
 	}
 
-	public Dict getCity() {
-		return city;
+	public Dict getnCity() {
+		return nCity;
 	}
 
-	public void setCity(Dict city) {
-		this.city = city;
+	public void setnCity(Dict nCity) {
+		this.nCity = nCity;
 	}
 
-	public Integer getCountyId() {
-		return countyId;
+	public Integer getnCountyId() {
+		return nCountyId;
 	}
 
-	public void setCountyId(Integer countyId) {
-		this.countyId = countyId;
+	public void setnCountyId(Integer nCountyId) {
+		this.nCountyId = nCountyId;
 	}
 
-	public Dict getCounty() {
-		return county;
+	public Dict getnCounty() {
+		return nCounty;
 	}
 
-	public void setCounty(Dict county) {
-		this.county = county;
+	public void setnCounty(Dict nCounty) {
+		this.nCounty = nCounty;
 	}
 
 	public Integer getSupplierId() {

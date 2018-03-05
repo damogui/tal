@@ -139,9 +139,9 @@ public class SupplierService extends PersistableService<Supplier> implements ISu
 		builder.append("Supplier.serviceProducts.productCategory1.{id,name},");
 		builder.append("Supplier.serviceProducts.productCategory2.{id,name},");
 		builder.append("Supplier.serviceProducts.product.{id,name},");
-		builder.append("Supplier.serviceProducts.province.{id,name},");
-		builder.append("Supplier.serviceProducts.city.{id,name},");
-		builder.append("Supplier.serviceProducts.county.{id,name},");
+		builder.append("Supplier.serviceProducts.nProvince.{id,name},");
+		builder.append("Supplier.serviceProducts.nCity.{id,name},");
+		builder.append("Supplier.serviceProducts.nCounty.{id,name},");
 		builder.append("Supplier.modules.*,");
 		builder.append("Supplier.modules.functionModule.*");
 		return builder.toString();
