@@ -80,6 +80,7 @@ public class FollowStatisticalWorkspaceTest extends WorkspaceCreationBase{
 		PQueryItem item = null;
 		item = addQueryItem(queryProject, "date", "日期", ControlTypes.DATE_BOX);{
 			item.setRequired(true);
+			item.setInterzone(true);
 		}
 		addRefrenceQueryItem(queryProject, "owner.name", "业务员", Employee.class.getSimpleName());
 		
