@@ -21,6 +21,8 @@ public class OrderDiscount extends BaseEntity {
 	@Reference(foreignKey = "orderId")
 	private SoOrder soOrder;
 	
+//	3091	后台优惠
+//	3092	优惠券
     @Column(name="type_id",header="优惠类型序号，type=309")
     private Integer typeId;
     

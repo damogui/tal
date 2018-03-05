@@ -3,10 +3,9 @@ System.Declare("com.gongsibao.trade.web");
 com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.ListPart.Extends({
     ctor : function() {
         this.base();
-        // this.addUrl = "/crm/order/salesman/all/form";
-        // this.editUrl = "/crm/order/salesman/all/form";
-        // this.followUrl = "/crm/order/salesman/all/form";
-        //this.addOrderReceivedUrl ='/panda/crm/platform/customer/add';
+
+        this.addOrderReceivedUrl ='/panda/crm/order/salesman/coperformance';
+        this.addReceived ='/panda/crm/order/salesman/coperformance';//回款业绩
 
 
     },
@@ -19,44 +18,26 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             return false;
         }
 
-        var builder = new System.StringBuilder();
-        builder.append('<div style="margin:10px;">');
-        builder.append('	<table cellpadding="5" cellspacing="10" class="query-panel">');
-        builder.append(' 		<tr><td class="title">创建订单业绩</td><td><input id="ywyUser"/></td></tr>');
-        builder.append('	</table>');
-        builder.append('</div>');
+        // var builder = new System.StringBuilder();
+        // builder.append('<div style="margin:10px;">');
+        // builder.append('	<table cellpadding="5" cellspacing="10" class="query-panel">');
+        // builder.append(' 		<tr><td class="title">创建订单业绩</td><td><input id="ywyUser"/></td></tr>');
+        // builder.append('	</table>');
+        // builder.append('</div>');
 
         layer.open({
-            type : 1,
-            title : '创建订单业绩',
+            type : 2,//1是字符串 2是内容
+            title : '订单信息',
             fixed : false,
-            maxmin : false,
+            maxmin : true,
             shadeClose : false,
-            area : [ '500px', '300px' ],
+            area : [ '60%', '60%' ],
             zIndex : 100000,
-            content : builder.toString(),
+            content : this.addOrderReceivedUrl,
             btn : [ '保存', '取消' ],// 可以无限个按钮
             success : function(layero, index) {
 
-                // 业务员
-                var options = {
-                    columns : [ [ {
-                        field : 'name',
-                        title : '姓名',
-                        width : 100
-                    } ] ],
-                    url : '\/panda\/rest\/reference?code=Gsb_User&filter=',
-                    idField : 'id',
-                    textField : 'name',
-                    width : 300,
-                    fitColumns : true,
-                    panelWidth : 450,
-                    panelHeight : 310,
-                    pagination : true,
-                    pageSize : 10,
-                    mode : 'remote',
-                    multiple : false
-                };
+
                 $('#ywyUser').combogrid(options);
 
             },

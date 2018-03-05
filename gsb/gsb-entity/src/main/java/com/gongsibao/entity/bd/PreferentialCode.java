@@ -17,7 +17,7 @@ public class PreferentialCode extends BaseEntity {
     private Integer preferentialId;
     @Column(header="no")
     private String no;
-    @Column(header="status")
+    @Column(header="status，状态（0：未激活，1：已激活，2：已使用）")
     private Integer status;
     @Column(name="account_id",header="AccountId")
     private Integer accountId;

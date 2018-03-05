@@ -7,7 +7,7 @@ import org.netsharp.entity.Entity;
 /**
  * Created by win on 2018/2/26.
  */
-@Table(name = "n_dep_receivable", header = "部门应收核算款")
+@Table(name = "n_dep_receivable", header = "部门已收款")
 public class NDepReceivable  extends Entity {
     @Column(name = "amount", header = "应收款")
     private  Integer amount;

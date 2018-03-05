@@ -7,6 +7,12 @@ import java.util.List;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.product.Product;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
+import com.gongsibao.entity.trade.dic.CostStatus;
+import com.gongsibao.entity.trade.dic.InvoiceState;
+import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
+import com.gongsibao.entity.trade.dic.SettleStatus;
+import com.gongsibao.entity.yj.Trademark;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
@@ -56,11 +62,17 @@ public class OrderProd extends BaseEntity {
 	@Reference(foreignKey = "companyId", header = "公司")
 	private CompanyIntention companyIntention;
 
+	@Column(name = "yj_trademark_id", header = "商标信息Id")
+	private Integer trademarkId = 0;
+
+	@Reference(foreignKey = "trademarkId", header = "商标信息")
+	private Trademark trademark;
+
 	@Column(name = "process_status_id", header = "进度")
-	private Integer processStatusId = 0;
+	private OrderProcessStatusType processStatusId = OrderProcessStatusType.Dbl;
 
 	@Column(name = "audit_status_id", header = "审核状态：type=105")
-	private Integer auditStatusId = 0;
+	private AuditStatusType auditStatus = AuditStatusType.wu;
 
 	@Column(name = "price", header = "价格")
 	private Integer price = 0;
@@ -87,7 +99,7 @@ public class OrderProd extends BaseEntity {
 	private Integer timeoutDays = 0;
 
 	@Column(name = "invoice_state", header = "发票状态：供应商开发票状态 0 待开发票 1已开发票 2已投递")
-	private Integer invoiceState = 0;
+	private InvoiceState invoiceState = InvoiceState.AWAIT;
 
 	@Column(name = "invoice_title", header = "发票抬头")
 	private String invoiceTitle;
@@ -102,7 +114,7 @@ public class OrderProd extends BaseEntity {
 	private String handleName;
 
 	@Column(name = "cost_status", header = "成本录入状态：0未录入, 1录入中, 2完成录入")
-	private Integer costStatus = 0;
+	private CostStatus costStatus = CostStatus.NOENTRY;
 
 	@Column(name = "settle_id", header = "结算方式：打款id")
 	private Integer settleIdInteger = 0;
@@ -110,8 +122,8 @@ public class OrderProd extends BaseEntity {
 	@Column(name = "settle_price", header = "结算价格")
 	private Integer settlePrice = 0;
 
-	@Column(name = "settle_status", header = "结算状态 0未结算 1部分结算 2已结算1")
-	private Integer settleStatus = 0;
+	@Column(name = "settle_status", header = "结算状态 0未结算 1部分结算 2已结算")
+	private SettleStatus settleStatus = SettleStatus.NO_SETTLEMENT;
 
 	@Column(name = "settle_time", header = "结算时间")
 	private Date settleTime;
@@ -184,22 +196,6 @@ public class OrderProd extends BaseEntity {
 		this.companyId = companyId;
 	}
 
-	public Integer getProcessStatusId() {
-		return processStatusId;
-	}
-
-	public void setProcessStatusId(Integer processStatusId) {
-		this.processStatusId = processStatusId;
-	}
-
-	public Integer getAuditStatusId() {
-		return auditStatusId;
-	}
-
-	public void setAuditStatusId(Integer auditStatusId) {
-		this.auditStatusId = auditStatusId;
-	}
-
 	public Integer getPrice() {
 		return price;
 	}
@@ -256,14 +252,6 @@ public class OrderProd extends BaseEntity {
 		this.timeoutDays = timeoutDays;
 	}
 
-	public Integer getInvoiceState() {
-		return invoiceState;
-	}
-
-	public void setInvoiceState(Integer invoiceState) {
-		this.invoiceState = invoiceState;
-	}
-
 	public String getInvoiceTitle() {
 		return invoiceTitle;
 	}
@@ -296,14 +284,6 @@ public class OrderProd extends BaseEntity {
 		this.handleName = handleName;
 	}
 
-	public Integer getCostStatus() {
-		return costStatus;
-	}
-
-	public void setCostStatus(Integer costStatus) {
-		this.costStatus = costStatus;
-	}
-
 	public Boolean getIsRefund() {
 		return isRefund;
 	}
@@ -326,14 +306,6 @@ public class OrderProd extends BaseEntity {
 
 	public void setSettlePrice(Integer settlePrice) {
 		this.settlePrice = settlePrice;
-	}
-
-	public Integer getSettleStatus() {
-		return settleStatus;
-	}
-
-	public void setSettleStatus(Integer settleStatus) {
-		this.settleStatus = settleStatus;
 	}
 
 	public Date getSettleTime() {
@@ -408,4 +380,59 @@ public class OrderProd extends BaseEntity {
 		this.cityName = cityName;
 	}
 
+	public Integer getTrademarkId() {
+		return trademarkId;
+	}
+
+	public void setTrademarkId(Integer trademarkId) {
+		this.trademarkId = trademarkId;
+	}
+
+	public Trademark getTrademark() {
+		return trademark;
+	}
+
+	public void setTrademark(Trademark trademark) {
+		this.trademark = trademark;
+	}
+
+	public OrderProcessStatusType getProcessStatusId() {
+		return processStatusId;
+	}
+
+	public void setProcessStatusId(OrderProcessStatusType processStatusId) {
+		this.processStatusId = processStatusId;
+	}
+
+	public AuditStatusType getAuditStatus() {
+		return auditStatus;
+	}
+
+	public void setAuditStatus(AuditStatusType auditStatus) {
+		this.auditStatus = auditStatus;
+	}
+
+	public InvoiceState getInvoiceState() {
+		return invoiceState;
+	}
+
+	public void setInvoiceState(InvoiceState invoiceState) {
+		this.invoiceState = invoiceState;
+	}
+
+	public CostStatus getCostStatus() {
+		return costStatus;
+	}
+
+	public void setCostStatus(CostStatus costStatus) {
+		this.costStatus = costStatus;
+	}
+
+	public SettleStatus getSettleStatus() {
+		return settleStatus;
+	}
+
+	public void setSettleStatus(SettleStatus settleStatus) {
+		this.settleStatus = settleStatus;
+	}
 }
