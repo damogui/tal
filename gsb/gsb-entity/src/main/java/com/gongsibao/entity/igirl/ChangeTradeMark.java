@@ -119,6 +119,12 @@ public class ChangeTradeMark extends Entity {
     @Column(name = "department_id",header = "部门ID")
     private Integer departmentId;
 
+    @Column(name = "owner_id",header = "所属者ID")
+    private Integer ownerId;
+
+    @Column(name = "owner_name",header = "所属者名称")
+    private String ownerName;
+
     public Integer getSupplierId() {
         return supplierId;
     }
@@ -405,5 +411,21 @@ public class ChangeTradeMark extends Entity {
 
     public void setDepartmentId(Integer departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public Integer getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Integer ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 }

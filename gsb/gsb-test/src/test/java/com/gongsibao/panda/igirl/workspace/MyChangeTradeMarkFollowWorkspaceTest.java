@@ -65,6 +65,17 @@ public class MyChangeTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 			item.setCommand("{controller}.edit();");
 			toolbar.getItems().add(item);
 		}
+		item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("doAllot");
+			item.setIcon("fa fa-edit");
+			item.setName("所属人");
+			item.setOperationType(ot1);
+			item.setSeq(3000);
+			item.setCommand("{controller}.doAllot();");
+			toolbar.getItems().add(item);
+		}
 		toolbarService.save(toolbar);
 	}
 
@@ -83,6 +94,7 @@ public class MyChangeTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		addColumn(datagrid, "agentFileNum", "代理文号", ControlTypes.TEXT_BOX, 120, true);
 		addColumn(datagrid, "txt_sqrmyzw", "申请人名称", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid,"changeTradeMarkState","状态",ControlTypes.TEXT_BOX,100);
+		addColumn(datagrid,"ownerName","所属人",ControlTypes.TEXT_BOX,100);
 		return datagrid;
 	}
 
@@ -106,6 +118,7 @@ public class MyChangeTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		queryProject.toNew();
 		addQueryItem(queryProject, "agentFileNum", "代理文号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "txt_sqrmyzw", "申请人名称", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "ownerName", "所属人", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "changeTradeMarkState", "状态", ControlTypes.ENUM_BOX);
 		addQueryItem(queryProject, "createTime", "时间", ControlTypes.DATE_BOX).setWidth(400);
 		return queryProject;
