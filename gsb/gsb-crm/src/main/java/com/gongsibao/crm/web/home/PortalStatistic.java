@@ -33,7 +33,7 @@ public class PortalStatistic {
 		resultEntity.setA1Count(Integer.parseInt(getCodeTaskCountMap.get("A1")));
 		resultEntity.setA2Count(Integer.parseInt(getCodeTaskCountMap.get("A2")));
 		resultEntity.setA3Count(Integer.parseInt(getCodeTaskCountMap.get("A3")));
-		resultEntity.setA4Count(Integer.parseInt(getCodeTaskCountMap.get("A4")));
+		resultEntity.setA4Count(Integer.parseInt(getCodeTaskCountMap.get("A4"))); 
 		resultEntity.setB1Count(Integer.parseInt(getCodeTaskCountMap.get("B1")));
 		resultEntity.setB2Count(Integer.parseInt(getCodeTaskCountMap.get("B2")));
 		resultEntity.setC1Count(Integer.parseInt(getCodeTaskCountMap.get("C1")));
