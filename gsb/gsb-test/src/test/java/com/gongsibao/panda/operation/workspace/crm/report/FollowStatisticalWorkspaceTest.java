@@ -76,7 +76,7 @@ public class FollowStatisticalWorkspaceTest extends WorkspaceCreationBase{
 		
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
-		PQueryItem item = null;
+		PQueryItem item = null; 
 		item = addQueryItem(queryProject, "date", "日期", ControlTypes.DATE_BOX);{
 			item.setRequired(true);
 			item.setInterzone(true);
