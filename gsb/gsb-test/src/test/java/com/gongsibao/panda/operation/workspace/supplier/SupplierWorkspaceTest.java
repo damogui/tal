@@ -414,9 +414,9 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 			addColumn(datagrid, "productCategory1.name", "一级分类", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "productCategory2.name", "二级分类", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "product.name", "产品", ControlTypes.TEXT_BOX, 200, false);
-			addColumn(datagrid, "province.name", "省", ControlTypes.TEXT_BOX, 150, false);
-			addColumn(datagrid, "city.name", "市", ControlTypes.TEXT_BOX, 150, false);
-			addColumn(datagrid, "county.name", "区", ControlTypes.TEXT_BOX, 150, false);
+			addColumn(datagrid, "nProvince.name", "省", ControlTypes.TEXT_BOX, 150, false);
+			addColumn(datagrid, "nCity.name", "市", ControlTypes.TEXT_BOX, 150, false);
+			addColumn(datagrid, "nCounty.name", "区", ControlTypes.TEXT_BOX, 150, false);
 		}
 		PForm form = new PForm();
 		{
@@ -430,7 +430,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
-				formField.setTroikaTrigger("controllerserviceProducts.productCategory1Select(record);");
+				formField.setTroikaTrigger("controllerserviceProducts.productCategory1Select(newValue,oldValue);");
 				formField.setRefFilter("type=201 and pid=0");
 			}
 
@@ -438,7 +438,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(DictComboBox.class.getName());
-				formField.setTroikaTrigger("controllerserviceProducts.productCategory2Select(record);");
+				formField.setTroikaTrigger("controllerserviceProducts.productCategory2Select(newValue,oldValue);");
 				formField.setRefFilter("type=201 and pid<>0");
 			}
 
@@ -447,19 +447,19 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 				formField.setWidth(200);
 				formField.setRefFilter("enabled=1");
 			}
-			formField = addFormField(form, "province.name", "省份", ControlTypes.CUSTOM, false, false);
+			formField = addFormField(form, "nProvince.name", "省份", ControlTypes.CUSTOM, false, false);
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(CityComboBox.class.getName());
-				formField.setDataOptions("level:1,changeCtrlId:'city_name'");
+				formField.setDataOptions("level:1,changeCtrlId:'nCity_name'");
 			}
-			formField = addFormField(form, "city.name", "城市", ControlTypes.CUSTOM, false, false);
+			formField = addFormField(form, "nCity.name", "城市", ControlTypes.CUSTOM, false, false);
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(CityComboBox.class.getName());
-				formField.setDataOptions("level:2,changeCtrlId:'county_name'");
+				formField.setDataOptions("level:2,changeCtrlId:'nCounty_name'");
 			}
-			formField = addFormField(form, "county.name", "区/县", ControlTypes.CUSTOM, false, false);
+			formField = addFormField(form, "nCounty.name", "区/县", ControlTypes.CUSTOM, false, false);
 			{
 				formField.setWidth(200);
 				formField.setCustomControlType(CityComboBox.class.getName());
@@ -482,7 +482,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 			part.setJsController("com.gongsibao.crm.web.SupplierProductDetailPart");
 			part.setServiceController(TaskProductDetailPart.class.getName());
 			part.setWindowWidth(400);
-			part.setWindowHeight(450);
+			part.setWindowHeight(550);
 			part.setForm(form);
 		}
 		workspace.getParts().add(part);
