@@ -6,10 +6,15 @@ import com.gongsibao.entity.igirl.dict.ChangeTradeMarkState;
 import com.gongsibao.igirl.base.IChangeTradeMarkService;
 import com.gongsibao.igirl.dto.ChangeTradeMarkDto;
 import com.gongsibao.taurus.util.StringManager;
+import com.gongsibao.uc.base.IUserService;
 import com.gongsibao.utils.SupplierSessionManager;
 import org.netsharp.communication.Service;
+import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
+import org.netsharp.organization.base.IEmployeeService;
+import org.netsharp.organization.entity.Employee;
+import org.netsharp.persistence.session.SessionManager;
 
 import java.sql.Types;
 import java.util.ArrayList;
@@ -100,6 +105,25 @@ public class ChangeTradeMarkService extends GsbPersistableService<ChangeTradeMar
         return ctm;
     }
 
+    @Override
+    public ChangeTradeMark updateOwner(Integer ctmId, Integer ownerId) {
+        IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
+        Oql oql = new Oql();
+        oql.setSelects("ChangeTradeMark.*");
+        oql.setType(ChangeTradeMark.class);
+        oql.setFilter("id=?");
+        oql.getParameters().add("id",ctmId,Types.INTEGER);
+        ChangeTradeMark ctm = this.queryFirst(oql);
+        if (ctm!=null){
+            ctm.setOwnerId(ownerId);
+            Employee employee = employeeService.byId(ownerId);
+            ctm.setOwnerName(employee.getName());
+            ctm.toPersist();
+            ctm = super.save(ctm);
+        }
+        return ctm;
+    }
+
     public String getFileName(String url){
         if (!StringManager.isNullOrEmpty(url)){
             return url.substring(url.lastIndexOf("/")+1);
@@ -110,11 +134,13 @@ public class ChangeTradeMarkService extends GsbPersistableService<ChangeTradeMar
     @Override
     public ChangeTradeMark save(ChangeTradeMark entity) {
         ChangeTradeMark entity1=entity;
-        Integer departmentId = SupplierSessionManager.getDepartmentId();
-        Integer supplierId = SupplierSessionManager.getSupplierId();
-        entity1.setDepartmentId(departmentId);
-        entity1.setSupplierId(supplierId);
         if(entity1.getEntityState()== EntityState.New) {
+            Integer departmentId = SupplierSessionManager.getDepartmentId();
+            Integer supplierId = SupplierSessionManager.getSupplierId();
+            entity1.setDepartmentId(departmentId);
+            entity1.setSupplierId(supplierId);
+            entity1.setOwnerId(SessionManager.getUserId());
+            entity1.setOwnerName(SessionManager.getUserName());
             entity1.setAgentFileNum(String.valueOf(System.currentTimeMillis()));
         }
         return super.save(entity1);

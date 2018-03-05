@@ -7,8 +7,12 @@ import com.gongsibao.igirl.base.ITransferTradeMarkService;
 import com.gongsibao.igirl.dto.TransferTradeMarkDto;
 import com.gongsibao.utils.SupplierSessionManager;
 import org.netsharp.communication.Service;
+import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
+import org.netsharp.organization.base.IEmployeeService;
+import org.netsharp.organization.entity.Employee;
+import org.netsharp.persistence.session.SessionManager;
 
 import java.sql.Types;
 import java.util.ArrayList;
@@ -109,13 +113,34 @@ public class TransferTradeMarkService extends GsbPersistableService<TransferTrad
     }
 
     @Override
+    public TransferTradeMark updateOwner(Integer ttmId, Integer ownerId) {
+        IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
+        Oql oql = new Oql();
+        oql.setSelects("TransferTradeMark.*");
+        oql.setType(TransferTradeMark.class);
+        oql.setFilter("id=?");
+        oql.getParameters().add("id",ttmId,Types.INTEGER);
+        TransferTradeMark ttm = this.queryFirst(oql);
+        if (ttm!=null){
+            ttm.setOwnerId(ownerId);
+            Employee employee = employeeService.byId(ownerId);
+            ttm.setOwnerName(employee.getName());
+            ttm.toPersist();
+            ttm = super.save(ttm);
+        }
+        return ttm;
+    }
+
+    @Override
     public TransferTradeMark save(TransferTradeMark entity) {
         TransferTradeMark entity1 = entity;
-        Integer departmentId = SupplierSessionManager.getDepartmentId();
-        Integer supplierId = SupplierSessionManager.getSupplierId();
-        entity1.setDepartmentId(departmentId);
-        entity1.setSupplierId(supplierId);
         if(entity1.getEntityState()== EntityState.New) {
+            Integer departmentId = SupplierSessionManager.getDepartmentId();
+            Integer supplierId = SupplierSessionManager.getSupplierId();
+            entity1.setDepartmentId(departmentId);
+            entity1.setSupplierId(supplierId);
+            entity1.setOwnerId(SessionManager.getUserId());
+            entity1.setOwnerName(SessionManager.getUserName());
             entity1.setAgentFileNum(String.valueOf(System.currentTimeMillis()));
         }
         return super.save(entity1);

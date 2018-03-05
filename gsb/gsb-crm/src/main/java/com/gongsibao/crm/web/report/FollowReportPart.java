@@ -15,9 +15,9 @@ public class FollowReportPart extends BaseReport{
 
 		HashMap<String, String> map = new HashMap<String, String>();
 		String startDate = filterMap.get("date>");
-		String endDate = filterMap.get("date<");
+		startDate = startDate.substring(0, startDate.indexOf("and")-1);
 		map.put("startDate", startDate);
-		map.put("endDate", endDate);
+		
 		return map;
 	}
 	
@@ -56,9 +56,7 @@ public class FollowReportPart extends BaseReport{
 	protected Integer getTaskCount(HashMap<String, String> filterMap,String orgaId,Integer salesmanId,Boolean isSalesman) {
 		Integer taskCount = 0;
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
-		String startDate = dataMap.get("startDate").replace("'", "");
-		String endDate = dataMap.get("endDate").replace("'", "");
-		
+		String startDate = dataMap.get("startDate");
 		
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT COUNT(id) taskCount");
@@ -69,8 +67,7 @@ public class FollowReportPart extends BaseReport{
 			strSql.append(" where department_id in ("+orgaId+")");
 		}
 		
-		strSql.append(" AND create_time >= '"+startDate+"'");
-		strSql.append(" AND create_time <= '"+endDate+"'");
+		strSql.append(" AND create_time <= "+startDate);
 		
 		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
 		for (IRow row : dtNewCount) {
@@ -87,9 +84,7 @@ public class FollowReportPart extends BaseReport{
 	protected Integer getUnfoolowCount(HashMap<String, String> filterMap,String orgaId,Integer salesmanId,Boolean isSalesman) {
 		Integer unfoolowCount = 0;
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
-		String startDate = dataMap.get("startDate").replace("'", "");
-		String endDate = dataMap.get("endDate").replace("'", "");
-		
+		String startDate = dataMap.get("startDate");
 		
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT COUNT(id) unfoolowCount");
@@ -100,10 +95,8 @@ public class FollowReportPart extends BaseReport{
 			strSql.append(" where department_id in ("+orgaId+")");
 		}
 		
-		strSql.append(" AND create_time >= '"+startDate+"'");
-		strSql.append(" AND create_time <= '"+endDate+"'");
 		strSql.append(" AND next_foolow_time is not null");
-		strSql.append(" AND next_foolow_time = CURDATE()");
+		strSql.append(" AND next_foolow_time = " + startDate);
 		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
 		for (IRow row : dtNewCount) {
 			unfoolowCount = Integer.parseInt(row.getString("unfoolowCount"));
@@ -119,8 +112,7 @@ public class FollowReportPart extends BaseReport{
 	protected Integer getTimeOutCount(HashMap<String, String> filterMap,String orgaId,Integer salesmanId,Boolean isSalesman) {
 		Integer timeOutCount = 0;
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
-		String startDate = dataMap.get("startDate").replace("'", "");
-		String endDate = dataMap.get("endDate").replace("'", "");
+		String startDate = dataMap.get("startDate");
 		
 		
 		StringBuilder strSql=new StringBuilder();
@@ -132,10 +124,8 @@ public class FollowReportPart extends BaseReport{
 			strSql.append(" where department_id in ("+orgaId+")");
 		}
 		
-		strSql.append(" AND create_time >= '"+startDate+"'");
-		strSql.append(" AND create_time <= '"+endDate+"'");
 		strSql.append(" AND foolow_status = 3");
-		strSql.append(" AND NOW()> next_foolow_time");
+		strSql.append(" AND "+startDate+"> next_foolow_time");
 		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
 		for (IRow row : dtNewCount) {
 			timeOutCount = Integer.parseInt(row.getString("timeOutCount"));
@@ -151,8 +141,7 @@ public class FollowReportPart extends BaseReport{
 	protected Integer getFoolowCount(HashMap<String, String> filterMap,String orgaId,Integer salesmanId,Boolean isSalesman) {
 		Integer foolowCount = 0;
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
-		String startDate = dataMap.get("startDate").replace("'", "");
-		String endDate = dataMap.get("endDate").replace("'", "");
+		String startDate = dataMap.get("startDate");
 		
 		
 		StringBuilder strSql=new StringBuilder();
@@ -164,8 +153,7 @@ public class FollowReportPart extends BaseReport{
 			strSql.append(" where department_id in ("+orgaId+")");
 		}
 		
-		strSql.append(" AND create_time >= '"+startDate+"'");
-		strSql.append(" AND create_time <= '"+endDate+"'");
+		strSql.append(" AND next_foolow_time <= "+startDate);
 		strSql.append(" AND foolow_status = 3");
 		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
 		for (IRow row : dtNewCount) {
@@ -183,8 +171,7 @@ public class FollowReportPart extends BaseReport{
 	protected Map<String, String> getQualityCount(HashMap<String, String> filterMap,String orgaId,Integer salesmanId,Boolean isSalesman) {
 		Map<String, String> resultMap =new HashMap<>();
 		HashMap<String, String>  dataMap = this.getDate(filterMap);
-		String startDate = dataMap.get("startDate").replace("'", "");
-		String endDate = dataMap.get("endDate").replace("'", "");
+		String startDate = dataMap.get("startDate");
 		
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT count(quality_progress = 1 OR NULL) qualityRisetaskCount,");
@@ -195,9 +182,7 @@ public class FollowReportPart extends BaseReport{
 		}else {
 			strSql.append(" where department_id in ("+orgaId+")");
 		}
-		
-		strSql.append(" AND create_time >= '"+startDate+"'");
-		strSql.append(" AND create_time <= '"+endDate+"'");
+		strSql.append(" AND next_foolow_time <= "+startDate);
 		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
 		for (IRow row : dtNewCount) {
 			resultMap.put("qualityRisetaskCount", row.getString("qualityRisetaskCount"));

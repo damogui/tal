@@ -159,6 +159,12 @@ public class TransferTradeMark extends Entity {
     @Column(name = "transfer_trade_mark_state",header = "商标转移状态")
     private TransferTradeMarkState transferTradeMarkState = TransferTradeMarkState.WAIT_CONFIRM;
 
+    @Column(name = "owner_id",header = "所属者ID")
+    private Integer ownerId;
+
+    @Column(name = "owner_name",header = "所属者名称")
+    private String ownerName;
+
     public Integer getSupplierId() {
         return supplierId;
     }
@@ -557,5 +563,21 @@ public class TransferTradeMark extends Entity {
 
     public void setSrZtEnTrName(String srZtEnTrName) {
         this.srZtEnTrName = srZtEnTrName;
+    }
+
+    public Integer getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Integer ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 }

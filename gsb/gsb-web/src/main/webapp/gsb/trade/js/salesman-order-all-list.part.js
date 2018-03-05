@@ -3,10 +3,9 @@ System.Declare("com.gongsibao.trade.web");
 com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.ListPart.Extends({
     ctor : function() {
         this.base();
-        // this.addUrl = "/crm/order/salesman/all/form";
-        // this.editUrl = "/crm/order/salesman/all/form";
-        // this.followUrl = "/crm/order/salesman/all/form";
+
         this.addOrderReceivedUrl ='/panda/crm/order/salesman/coperformance';
+        this.addReceived ='/panda/crm/order/salesman/coperformance';//回款业绩
 
 
     },

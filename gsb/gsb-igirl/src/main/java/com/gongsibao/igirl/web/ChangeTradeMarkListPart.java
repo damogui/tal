@@ -23,4 +23,8 @@ public class ChangeTradeMarkListPart extends ListPart{
    public ChangeTradeMark updateState(String agentFileNum,Integer state){
        return service.updateCtmState(agentFileNum,state);
    }
+
+   public ChangeTradeMark updateOwner(Integer ctmId,Integer ownerId){
+        return service.updateOwner(ctmId,ownerId);
+   }
 }

@@ -10,4 +10,6 @@ public interface ITransferTradeMarkService  extends IPersistableService<Transfer
     List<TransferTradeMarkDto> ctmToRobot();
 
     TransferTradeMark updateTtmState(String agentFileNum, Integer state);
+
+    TransferTradeMark updateOwner(Integer ttmId,Integer ownerId);
 }
