@@ -11,6 +11,7 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.igirl.TradeMarkCase;
@@ -245,7 +246,13 @@ public class SoOrder extends BaseEntity {
 
 	@Subs(subType = OrderDiscount.class, foreignKey = "orderId", header = "优惠明细")
 	private List<OrderDiscount> discounts = new ArrayList<OrderDiscount>();
-
+	
+	@Subs(subType = OrderInvoiceMap.class, foreignKey = "orderId", header = "发票信息")
+	private List<OrderInvoiceMap> invoices = new ArrayList<OrderInvoiceMap>();
+	
+	@Subs(subType = AuditLog.class, foreignKey = "formId", header = "改价审核日志")
+	private List<AuditLog> auditLogs = new ArrayList<AuditLog>();
+	
 	public Integer getDiscountPrice() {
 		return discountPrice;
 	}
@@ -737,5 +744,21 @@ public class SoOrder extends BaseEntity {
 
 	public void setPlatformSource(OrderPlatformSourceType platformSource) {
 		this.platformSource = platformSource;
+	}
+
+	public List<OrderInvoiceMap> getInvoices() {
+		return invoices;
+	}
+
+	public void setInvoices(List<OrderInvoiceMap> invoices) {
+		this.invoices = invoices;
+	}
+
+	public List<AuditLog> getAuditLogs() {
+		return auditLogs;
+	}
+
+	public void setAuditLogs(List<AuditLog> auditLogs) {
+		this.auditLogs = auditLogs;
 	}
 }

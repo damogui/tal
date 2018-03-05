@@ -1,5 +1,6 @@
 package com.gongsibao.entity.trade;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
@@ -17,7 +18,8 @@ public class OrderInvoiceMap extends BaseEntity {
 
 	@Column(name = "invoice_id", header = "发票序号")
 	private Integer invoiceId;
-
+	
+	@JsonIgnore
 	@Reference(foreignKey = "orderId")
 	private SoOrder soOrder;
 	
