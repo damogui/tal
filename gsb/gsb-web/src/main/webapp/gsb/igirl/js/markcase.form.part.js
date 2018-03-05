@@ -144,10 +144,11 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
 	    },
 	  copy:function(){
 		  var row=controllertradeMarks.datagrid.datagrid('getSelected');
-		  if(row!=null){
-			  delete row.id;
-			  delete row.proxyCode;
-			  controllertradeMarks.datagrid.datagrid('appendRow',row);
+		  var newRow=$.extend({},row)
+		  if(newRow!=null){
+			  delete newRow.id;
+			  delete newRow.proxyCode;
+			  controllertradeMarks.datagrid.datagrid('appendRow',newRow);
 		    }else{
 		    IMessageBox.warn("请选择要复制的行！");
 		    }
