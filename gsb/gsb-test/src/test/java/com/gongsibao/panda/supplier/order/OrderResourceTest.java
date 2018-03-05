@@ -31,11 +31,10 @@ public class OrderResourceTest extends ResourceCreationBase {
             {
                 this.createResourceNodeVoucher (SoOrder.class.getName (), "创建订单", "Gsb_Supplier_Order_Salesman_Add", IOrderService.class.getName (), node1.getId ());
                 this.createResourceNodeVoucher (SoOrder.class.getName (), "全部订单", "Gsb_Supplier_Order_Salesman_All", ISoOrderService.class.getName (), node1.getId ());
-                 /*我的订单按钮beg*/
-                this.createResourceNodeVoucher (SoOrder.class.getName (), "创建订单业绩", "Gsb_Supplier_Order_Salesman_All_CreatOrderPerformance", ISoOrderService.class.getName (), node1.getId ());
-                this.createResourceNodeVoucher (SoOrder.class.getName (), "创建回款业绩", "Gsb_Supplier_Order_Salesman_All_CreatReceivedPerformance", ISoOrderService.class.getName (), node1.getId ());
+ /*我的订单按钮beg*/
+                this.createResourceNodeVoucher (SoOrder.class.getName (), "创建订单业绩", "Gsb_Supplier_Order_Salesman_CoPerformance", ISoOrderService.class.getName (), node1.getId ());
+                this.createResourceNodeVoucher (SoOrder.class.getName (), "创建回款业绩", "Gsb_Supplier_Order_Salesman_CReceivedPerformance", ISoOrderService.class.getName (), node1.getId ());
                 /*我的订单按钮end*/
-
 
                 this.createResourceNodeVoucher (SoOrder.class.getName (), "订单业绩", "Gsb_Supplier_Order_Salesman_Performance", ISoOrderService.class.getName (), node1.getId ());
                 this.createResourceNodeVoucher (SoOrder.class.getName (), "回款业绩", "Gsb_Supplier_Order_Salesman_Received", ISoOrderService.class.getName (), node1.getId ());
@@ -49,6 +48,8 @@ public class OrderResourceTest extends ResourceCreationBase {
 
                 this.createResourceNodeVoucher (OrderProd.class.getName (), "订单明细", "Gsb_Supplier_Order_Salesman_OrderProd", IOrderProdService.class.getName (), node1.getId ());
                 this.createResourceNodeVoucher (OrderProdItem.class.getName (), "服务明细", "Gsb_Supplier_Order_Salesman_OrderProdItem", IOrderProdService.class.getName (), node1.getId ());
+
+
 
             }
 

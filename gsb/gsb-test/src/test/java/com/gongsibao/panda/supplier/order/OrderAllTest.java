@@ -1,5 +1,6 @@
 package com.gongsibao.panda.supplier.order;
 
+import com.gongsibao.panda.supplier.order.workspace.salesman.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -16,17 +17,6 @@ import com.gongsibao.panda.supplier.order.workspace.department.DepartmentOrderRe
 import com.gongsibao.panda.supplier.order.workspace.department.DepartmentReportDayWorkspaceTest;
 import com.gongsibao.panda.supplier.order.workspace.department.DepartmentReportMonthWorkspaceTest;
 import com.gongsibao.panda.supplier.order.workspace.department.DepartmentReportWeekWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderAddWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderAllWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderCarryoverWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderContractWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderPerformanceWorspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderReceivedWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderRefundWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderStagingWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanReportDayWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanReportMonthWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanReportWeekWorkspaceTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({
@@ -44,6 +34,9 @@ import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanReportWeekW
         SalesmanReportDayWorkspaceTest.class,
         SalesmanReportWeekWorkspaceTest.class,
         SalesmanReportMonthWorkspaceTest.class,
+        SoCreatOrderPerformanceWorkspaceTest.class,
+        SoCreatReceivedPerformanceWorkspaceTest.class,
+
 
         //部门订单
         DepartmentOrderAllWorkspaceTest.class,
