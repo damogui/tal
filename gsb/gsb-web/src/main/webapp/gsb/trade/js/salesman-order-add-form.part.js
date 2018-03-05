@@ -301,15 +301,11 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
     			serviceName = item.service.property.name+'-'+serviceName;
     		}
         	orderProdItem.serviceName = serviceName;
-        	
         	orderProdItem.quantity = 1;
-        	
         	orderProdItem.priceOriginal = item.originalPrice;
         	orderProdItem.price =  item.price;
-        	
         	orderProd.priceOriginal = orderProd.priceOriginal + item.originalPrice;
         	orderProd.price = orderProd.price + item.price;
-
         	orderProd.items.push(orderProdItem);
     	});
     	return orderProd;

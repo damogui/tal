@@ -54,9 +54,13 @@ public class AuditPricingWorkspaceTest extends WorkspaceCreationBase{
             toolbar.setResourceNode (node);
             toolbar.setToolbarType (ToolbarType.BASE);
         }
-        //详情进行跳转双击操作
-        PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "addAudit", PToolbarHelper.iconAdd,
-                "审批流", null, 1, "{controller}.add();");
+
+
+        PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "addAudit", PToolbarHelper.iconExtr,
+                "查看审核记录", null, 1, "{controller}.add();");
+        toolbar.getItems ().add (item);
+        item = PToolbarHelper.getPToolbarItem (EntityState.New, "addAudit", PToolbarHelper.iconCheck,
+                "审核", null, 2, "{controller}.add();");
         toolbar.getItems ().add (item);
         return toolbar;
     }
@@ -82,6 +86,8 @@ public class AuditPricingWorkspaceTest extends WorkspaceCreationBase{
             datagrid.setName ("结转订单");
             datagrid.setToolbar ("panda/datagrid/row/edit");
             datagrid.setAutoQuery (true);
+            datagrid.setShowCheckbox (true);
+            datagrid.setSingleSelect (false);
         }
         PDatagridColumn column = null;
         addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);

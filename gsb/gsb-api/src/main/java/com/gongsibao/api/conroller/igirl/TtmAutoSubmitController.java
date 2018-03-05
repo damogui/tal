@@ -1,6 +1,7 @@
 package com.gongsibao.api.conroller.igirl;
 
 import com.gongsibao.api.util.ResponseResult;
+import com.gongsibao.entity.igirl.TransferTradeMark;
 import com.gongsibao.igirl.base.ITransferTradeMarkService;
 import com.gongsibao.igirl.dto.TransferTradeMarkDto;
 import org.netsharp.communication.ServiceFactory;
@@ -37,8 +38,14 @@ public class TtmAutoSubmitController {
     public ResponseResult updateTtmState(@PathParam("agentFileNum")String agentFileNum,
                                          @PathParam("state")Integer state){
         ResponseResult result = new ResponseResult();
-        service.updateTtmState(agentFileNum,state);
-
+        TransferTradeMark ttm = service.updateTtmState(agentFileNum,state);
+        if (ttm!=null){
+            result.setCode("200");
+            result.setMessage("修改成功");
+        }else{
+            result.setData("-1");
+            result.setMessage("未获取到当前订单");
+        }
         return result;
     }
 }

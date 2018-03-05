@@ -69,7 +69,7 @@ public class SalesmanOrderAddWorkspaceTest extends WorkspaceCreationBase {
 		addFormFieldRefrence(form, "department.name", "部门", null, SupplierDepartment.class.getSimpleName(), false, true);
 		addFormFieldRefrence(form, "owner.name", "业务员", null, Employee.class.getSimpleName(), false, true);
 		addFormField(form, "channelOrderNo", "渠道订单号", groupName, ControlTypes.TEXT_BOX, false, false);
-		formField = addFormField(form, "platformSourceDict.name", "订单来源", groupName, ControlTypes.CUSTOM, false, false);
+		formField = addFormField(form, "sourceType.name", "订单来源", groupName, ControlTypes.CUSTOM, false, false);
 		{
 			formField.setCustomControlType(DictComboBox.class.getName());
 			formField.setRefFilter("type=421");

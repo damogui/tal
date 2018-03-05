@@ -7,6 +7,7 @@ import java.util.List;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.product.Product;
+import com.gongsibao.entity.yj.Trademark;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
@@ -55,6 +56,12 @@ public class OrderProd extends BaseEntity {
 
 	@Reference(foreignKey = "companyId", header = "公司")
 	private CompanyIntention companyIntention;
+	
+	@Column(name = "yj_trademark_id", header = "商标信息Id")
+	private Integer trademarkId = 0;
+
+	@Reference(foreignKey = "trademarkId", header = "商标信息")
+	private Trademark trademark;
 
 	@Column(name = "process_status_id", header = "进度")
 	private Integer processStatusId = 0;
@@ -408,4 +415,19 @@ public class OrderProd extends BaseEntity {
 		this.cityName = cityName;
 	}
 
+	public Integer getTrademarkId() {
+		return trademarkId;
+	}
+
+	public void setTrademarkId(Integer trademarkId) {
+		this.trademarkId = trademarkId;
+	}
+
+	public Trademark getTrademark() {
+		return trademark;
+	}
+
+	public void setTrademark(Trademark trademark) {
+		this.trademark = trademark;
+	}
 }

@@ -104,11 +104,13 @@ public class SoOrder extends BaseEntity {
 	@Column(name = "total_price", header = "总金额")
 	private Integer totalPrice = 0;
 
-	@Column(name = "payable_price", header = "未支付金额")
+	@Column(name = "payable_price", header = "应付金额")
 	private Integer payablePrice = 0;
 
 	@Column(name = "paid_price", header = "已支付金额")
 	private Integer paidPrice = 0;
+    @Column(name = "performance_price", header = "已划分金额(业绩已经划分)")
+    private Integer performancePrice = 0;
 
 	@Column(name = "discount_price", header = "优惠金额")
 	private Integer discountPrice = 0;

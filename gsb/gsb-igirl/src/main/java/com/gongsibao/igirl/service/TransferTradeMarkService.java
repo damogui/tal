@@ -64,6 +64,8 @@ public class TransferTradeMarkService extends GsbPersistableService<TransferTrad
             dto.setGqcxName(ttm.getGqcxName());
             dto.setZrZtCnTrName(ttm.getZrZtCnTrName());
             dto.setZrZtEnTrName(ttm.getZrZtEnTrName());
+            dto.setSrZtCnTrName(ttm.getSrZtCnTrName());
+            dto.setSrZtEnTrName(ttm.getSrZtEnTrName());
             if (ttm.getCertType()!=null){
                 dto.setCertType(ttm.getCertType().getText());
             }else {
