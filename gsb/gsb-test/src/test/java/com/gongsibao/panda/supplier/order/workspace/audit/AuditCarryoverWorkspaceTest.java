@@ -33,13 +33,8 @@ public class AuditCarryoverWorkspaceTest extends WorkspaceCreationBase{
         formOpenMode = OpenMode.WINDOW;
         openWindowHeight = 700;
         openWindowWidth = 900;
-        listPartImportJs = "/gsb/gsb.custom.query.controls.js";///gsb/crm/sys/js/sys-salesman-list-part.js|
-//        List<String> ss = new ArrayList<String> ();
-//        ss.add("/gsb/trade/js/salesman-order-add-form.part.js");
-//        ss.add("/gsb/gsb.customer.controls.js");
-//        formJsImport = StringManager.join("|", ss);
-//        formJsController = SalesmanAddOrderFormPart.class.getName();
-//        formServiceController = SalesmanAddOrderFormPart.class.getName();
+        listPartImportJs = "/gsb/gsb.custom.query.controls.js";
+
     }
 
     public PToolbar createListToolbar() {
@@ -50,13 +45,16 @@ public class AuditCarryoverWorkspaceTest extends WorkspaceCreationBase{
         {
             toolbar.toNew ();
             toolbar.setPath (listToolbarPath);
-            toolbar.setName ("结转审核");
+            toolbar.setName ("审核");
             toolbar.setResourceNode (node);
             toolbar.setToolbarType (ToolbarType.BASE);
         }
-        //详情进行跳转双击操作
-        PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "addAudit", PToolbarHelper.iconAdd,
-                "审批流", null, 1, "{controller}.add();");
+
+        PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "addAudit", PToolbarHelper.iconExtr,
+                "查看审核记录", null, 1, "{controller}.add();");
+        toolbar.getItems ().add (item);
+         item = PToolbarHelper.getPToolbarItem (EntityState.New, "addAudit", PToolbarHelper.iconCheck,
+                "审核", null, 2, "{controller}.add();");
         toolbar.getItems ().add (item);
         return toolbar;
     }
@@ -82,6 +80,9 @@ public class AuditCarryoverWorkspaceTest extends WorkspaceCreationBase{
             datagrid.setName ("结转订单");
             datagrid.setToolbar ("panda/datagrid/row/edit");
             datagrid.setAutoQuery (true);
+            datagrid.setShowCheckbox (true);
+            datagrid.setSingleSelect (false);
+
         }
         PDatagridColumn column = null;
         addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);

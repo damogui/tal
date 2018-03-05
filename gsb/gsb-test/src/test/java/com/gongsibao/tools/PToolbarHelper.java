@@ -52,6 +52,31 @@ public class PToolbarHelper {
      */
     public  static    String iconExtr="fa fa-link";
     /**
+     * 停用
+     */
+    public  static    String iconOff="fa fa-stop-circle-o";
+    /**
+     * 导出
+     */
+    public  static    String iconExPort="fa fa-download";
+    /**
+     * 导入
+     */
+    public  static    String iconImport="fa fa-upload";
+    /**
+     * 下载模板
+     */
+    public  static    String iconDownloadTemplate="fa fa-file-excel-o";
+
+    /**
+     * 重置密码
+     */
+    public  static    String iconReset="fa fa-history";
+    /**
+     * 查看权限
+     */
+    public  static    String iconPermission="fa fa-list-alt";
+    /**
      * 工具栏item选项
      * @entityState 状态
      * @code code值

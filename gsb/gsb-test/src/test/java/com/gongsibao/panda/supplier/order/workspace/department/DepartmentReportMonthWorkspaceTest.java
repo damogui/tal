@@ -55,8 +55,8 @@ public class DepartmentReportMonthWorkspaceTest extends WorkspaceCreationBase {
             toolbar.setToolbarType (ToolbarType.BASE);
         }
         //详情进行跳转双击操作
-        PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "addAudit", PToolbarHelper.iconAdd,
-                "审批流", null, 1, "{controller}.add();");
+        PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "addAudit", PToolbarHelper.iconExtr,
+                "明细", null, 1, "{controller}.add();");
         toolbar.getItems ().add (item);
         return toolbar;
     }
