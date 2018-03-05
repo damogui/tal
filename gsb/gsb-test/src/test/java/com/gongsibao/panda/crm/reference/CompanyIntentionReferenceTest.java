@@ -24,6 +24,9 @@ public class CompanyIntentionReferenceTest  extends ReferenceCreationBase{
 		popupUrl = "/panda/crm/company/form";
 		width = 1000;
 		height = 600;
+		
+	    panelWidth = 500;
+	    panelHeight = 310;
 	}
 
 	public PDatagrid createDatagrid(ResourceNode node) {
