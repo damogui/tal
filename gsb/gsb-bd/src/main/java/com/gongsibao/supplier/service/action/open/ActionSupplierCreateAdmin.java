@@ -191,9 +191,9 @@ public class ActionSupplierCreateAdmin implements IAction {
 					departmentProduct.setProductCategoryId1(supplierProduct.getProductCategoryId1());
 					departmentProduct.setProductCategoryId2(supplierProduct.getProductCategoryId2());
 					departmentProduct.setProductId(supplierProduct.getProductId());
-					departmentProduct.setProvinceId(supplierProduct.getProvinceId());
-					departmentProduct.setCityId(supplierProduct.getCityId());
-					departmentProduct.setCountyId(supplierProduct.getCountyId());
+					departmentProduct.setProvinceId(supplierProduct.getnProvinceId());
+					departmentProduct.setCityId(supplierProduct.getnCityId());
+					departmentProduct.setCountyId(supplierProduct.getnCountyId());
 					departmentProductList.add(departmentProduct);
 				}
 			}
