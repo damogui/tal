@@ -203,6 +203,7 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
 		},
 	    
     nclOneChange:function (newValue, oldValue) {
+    	  $("#selectedTwoStr").val("");
         function DeleteFromArrayByFilter(attrs,field,fieldvalue,filter){
             var index=-1;
             for(var i=0;i<attrs.length;i++){
