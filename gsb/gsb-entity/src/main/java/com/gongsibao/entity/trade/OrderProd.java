@@ -44,7 +44,7 @@ public class OrderProd extends BaseEntity {
     @Reference(foreignKey="cityId",header="产品地区")
    	private Dict city;
     
-    @Exclusive
+    @Column(name="city_name",header="地区名称(冗余)")
     private String cityName;
     
     @Exclusive
