@@ -14,39 +14,7 @@
 <body>
 	<div class="page-content page-index">
 		<jsp:include page="/panda-bizbase/account-info.jsp"></jsp:include>
-		<div class="row" style="height:150px;">
-        	<div class="cell cell-12">
-	        	<div class="easyui-panel" title="销售简报" data-options="fit:true,border:false">
-			    </div>
-        	</div>
-        </div>
-        <div class="row" style="height:300px;">
-        	<div class="cell cell-6">
-	        	<div class="easyui-panel" title="指标" style="padding:10 20px;" data-options="fit:true,border:false">
-			    </div>
-        	</div>
-        	<div class="cell cell-6">
-	        	<div class="easyui-panel" title="交易" data-options="fit:true,border:false">
-			    </div>
-        	</div>
-        </div>
-		<div class="row" style="height:150px;">
-        	<div class="cell cell-12">
-	        	<div class="easyui-panel" title="线索转化" data-options="fit:true,border:false">
-			    </div>
-        	</div>
-        </div>
-
-        <div class="row" style="height:300px;">
-        	<div class="cell cell-6">
-	        	<div class="easyui-panel" title="转化分析" style="padding:10 20px;" data-options="fit:true,border:false">
-			    </div>
-        	</div>
-        	<div class="cell cell-6">
-	        	<div class="easyui-panel" title="抽查异常" data-options="fit:true,border:false">
-			    </div>
-        	</div>
-        </div>
+		<jsp:include page="portal-statistic.jsp"></jsp:include>
 	</div>
 </body>
 <script src='/package/easyui/jquery.min.js'></script>
