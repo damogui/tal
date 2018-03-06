@@ -62,8 +62,8 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 //        listFilter = "inspectionState in (3,4)";
 //        listFilter = "foolowStatus = 6 and ownerId = '{userId}'";
     }
-
-    public PToolbar createListToolbar() {
+    @Test
+    public void createListToolbar() {
 
         ResourceNode node = this.resourceService.byCode(resourceNodeCode);
         OperationType ot1 = operationTypeService.byCode(OperationTypes.view);//权限挂在哪一个下面
@@ -120,22 +120,13 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         toolbar.getItems().add(item);
 
 
-        return toolbar;
+        toolbarService.save(toolbar);
     }
 
 
-    /*进行设置工具栏*/
+
     @Test
-    public void saveListToolbar() {
-
-        PToolbar toolbar = createListToolbar();
-        if (toolbar != null) {
-
-            toolbarService.save(toolbar);
-        }
-    }
-
-    public PToolbar createRowToolbar() {
+    public void createRowToolbar() {
 
         ResourceNode node = this.resourceService.byCode(resourceNodeCode);
        // OperationType ot1 = operationTypeService.byCode(OperationTypes.view);//权限挂在哪一个下面
@@ -159,17 +150,9 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
             toolbar.getItems().add(item);
         }
 
-        return toolbar;
+        toolbarService.save(toolbar);
     }
-    //列表行的toolbar
-    @Test
-    public void saveRowToolbar() {
 
-        PToolbar toolbar = createRowToolbar();
-        if (toolbar != null) {
-            toolbarService.save(toolbar);
-        }
-    }
 
     //列表
     @Override
@@ -225,6 +208,8 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         }
         addColumn(datagrid, "isInstallment", "是否分期", ControlTypes.BOOLCOMBO_BOX, 80);
         addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 80);
+        addColumn(datagrid, "isInstallment", "是否分期付款", ControlTypes.BOOLCOMBO_BOX, 100);
+        addColumn(datagrid, "accountMobile", "下单客户手机号", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "customerName", "下单客户", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "platformSource", "订单来源", ControlTypes.ENUM_BOX, 80);
         addColumn(datagrid, "sourceType", "下单方式", ControlTypes.ENUM_BOX, 80);
@@ -248,6 +233,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         addQueryItem(queryProject, "platformSource", "订单来源", ControlTypes.ENUM_BOX);
         addQueryItem(queryProject, "payStatus", "支付状态", ControlTypes.ENUM_BOX);
         addQueryItem(queryProject, "sourceType", "下单方式", ControlTypes.ENUM_BOX);
+        addQueryItem(queryProject, "accountMobile", "下单客户手机号", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "ywyName", "业务员", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "addTime", "订单创建日期", ControlTypes.DATE_BOX);
         addQueryItem(queryProject, "payTime", "回款日期", ControlTypes.DATE_BOX);

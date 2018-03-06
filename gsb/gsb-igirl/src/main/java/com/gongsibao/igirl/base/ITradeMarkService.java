@@ -11,7 +11,7 @@ public interface ITradeMarkService extends IPersistableService<TradeMark> {
 
       TmForRobotDto tmsForRobot(Integer innerHour);
 
-      String updateMarkState(String ids,String type);
+      String updateMarkState(String ids,Integer type);
 
       TradeMark tmRobotUpdateMarkState(String proxyCode,Integer stateCode);
 
