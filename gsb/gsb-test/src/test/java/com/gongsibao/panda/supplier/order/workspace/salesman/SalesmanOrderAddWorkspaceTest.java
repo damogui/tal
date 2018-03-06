@@ -23,7 +23,6 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 import org.netsharp.util.StringManager;
 
-import com.gongsibao.controls.DictComboBox;
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
@@ -69,11 +68,7 @@ public class SalesmanOrderAddWorkspaceTest extends WorkspaceCreationBase {
 		addFormFieldRefrence(form, "department.name", "部门", null, SupplierDepartment.class.getSimpleName(), false, true);
 		addFormFieldRefrence(form, "owner.name", "业务员", null, Employee.class.getSimpleName(), false, true);
 		addFormField(form, "channelOrderNo", "渠道订单号", groupName, ControlTypes.TEXT_BOX, false, false);
-		formField = addFormField(form, "sourceType.name", "订单来源", groupName, ControlTypes.CUSTOM, false, false);
-		{
-			formField.setCustomControlType(DictComboBox.class.getName());
-			formField.setRefFilter("type=421");
-		}
+		addFormField(form, "sourceType", "订单来源", groupName, ControlTypes.ENUM_BOX, false, false);
 		addFormFieldRefrence(form, "companyIntention.companyName", "关联企业", null, CompanyIntention.class.getSimpleName(), false, false);
 		formField = addFormField(form, "accountMobile", "手机", groupName, ControlTypes.TEXT_BOX, true, false);
 		{

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.gongsibao.entity.crm.NCustomer;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
@@ -32,733 +33,757 @@ import com.gongsibao.entity.uc.Account;
 @Table(name = "so_order", header = "销售订单")
 public class SoOrder extends BaseEntity {
 
-	private static final long serialVersionUID = 8766647536940983034L;
+    private static final long serialVersionUID = 8766647536940983034L;
 
-	@Column(name = "no", header = "编码")
-	private String no = "1";
+    @Column(name = "no", header = "编码")
+    private String no = "1";
 
-	@Column(name = "type", header = "订单类型")
-	private OrderType type = OrderType.Dd;
+    @Column(name = "type", header = "订单类型")
+    private OrderType type = OrderType.Dd;
 
 	/*
-	 * @Reference(foreignKey="type",header="订单类型") private Dict typeDict;
+     * @Reference(foreignKey="type",header="订单类型") private Dict typeDict;
 	 */
 
-	@Column(name = "task_id", header = "任务Id")
-	private Integer taskId;
+    @Column(name = "task_id", header = "任务Id")
+    private Integer taskId;
 
-	@Column(name = "supplier_id", header = "服务商Id")
-	private Integer supplierId;
+    @Column(name = "supplier_id", header = "服务商Id")
+    private Integer supplierId;
 
-	@Reference(foreignKey = "supplierId", header = "服务商")
-	private Supplier supplier;
+    @Reference(foreignKey = "supplierId", header = "服务商")
+    private Supplier supplier;
 
-	@Column(name = "department_id", header = "部门Id")
-	private Integer departmentId;
+    @Column(name = "department_id", header = "部门Id")
+    private Integer departmentId;
 
-	@Reference(foreignKey = "departmentId", header = "部门")
-	private SupplierDepartment department;
+    @Reference(foreignKey = "departmentId", header = "部门")
+    private SupplierDepartment department;
 
-	@Column(name = "account_id", header = "客户")
-	private Integer accountId;
+    @Column(name = "account_id", header = "客户")
+    private Integer accountId;
 
-	@Reference(foreignKey = "accountId", header = "客户")
-	private Account account;
+    @Reference(foreignKey = "accountId", header = "客户")
+    private Account account;
 
-	@Column(name = "account_name", header = "账户名称")
-	private String accountName = "";
+    @Column(name = "account_name", header = "账户名称")
+    private String accountName = "";
 
-	@Column(name = "account_mobile", header = "手机号")
-	private String accountMobile = "";
+    @Column(name = "account_mobile", header = "手机号")
+    private String accountMobile = "";
 
-	// 3011 待付款
-	// 3012 已付部分款（根据“是否分期”判断处理流程）
-	// 3013 已付款
-	@Column(name = "pay_status_id", header = "支付状态：type=301")
-	private OrderPayStatusType payStatus = OrderPayStatusType.Dhk;
+    // 3011 待付款
+    // 3012 已付部分款（根据“是否分期”判断处理流程）
+    // 3013 已付款
+    @Column(name = "pay_status_id", header = "支付状态：type=301")
+    private OrderPayStatusType payStatus = OrderPayStatusType.Dhk;
 
-	@Column(name = "pay_time", header = "支付时间")
-	private Date payTime;
+    @Column(name = "pay_time", header = "支付时间")
+    private Date payTime;
 
-	@Column(name = "add_time", header = "创建时间")
-	private Date addTime;
+    @Column(name = "add_time", header = "创建时间")
+    private Date addTime;
 
-	@Column(name = "channel_order_no", header = "渠道订单号")
-	private String channelOrderNo;
+    @Column(name = "channel_order_no", header = "渠道订单号")
+    private String channelOrderNo;
 
-	// 3021 待办理
-	// 3022 正在办理
-	// 3023 已取消
-	// 3024 已完成
-	@Column(name = "process_status_id", header = "执行进度：type=302")
-	private OrderProcessStatusType processStatus = OrderProcessStatusType.Dbl;
+    // 3021 待办理
+    // 3022 正在办理
+    // 3023 已取消
+    // 3024 已完成
+    @Column(name = "process_status_id", header = "执行进度：type=302")
+    private OrderProcessStatusType processStatus = OrderProcessStatusType.Dbl;
 
 
-	// 3031 待审核
-	// 3032 退款中
-	// 3033 退款完成
-	// 3034 驳回退款
-	@Column(name = "refund_status_id", header = "退款状态：type=303")
-	private OrderRefundStatusType refundStatus = OrderRefundStatusType.wu;
+    // 3031 待审核
+    // 3032 退款中
+    // 3033 退款完成
+    // 3034 驳回退款
+    @Column(name = "refund_status_id", header = "退款状态：type=303")
+    private OrderRefundStatusType refundStatus = OrderRefundStatusType.wu;
 
-	@Column(name = "total_price", header = "总金额")
-	private Integer totalPrice = 0;
+    @Column(name = "total_price", header = "总金额")
+    private Integer totalPrice = 0;
 
-	@Column(name = "payable_price", header = "应付金额")
-	private Integer payablePrice = 0;
+    @Column(name = "payable_price", header = "应付金额")
+    private Integer payablePrice = 0;
 
-	@Column(name = "paid_price", header = "已支付金额")
-	private Integer paidPrice = 0;
-	
+    @Column(name = "paid_price", header = "已支付金额")
+    private Integer paidPrice = 0;
+
     @Column(name = "performance_price", header = "已划分金额(业绩已经划分)")
     private Integer performancePrice = 0;
 
-	@Column(name = "discount_price", header = "优惠金额")
-	private Integer discountPrice = 0;
+    @Column(name = "discount_price", header = "优惠金额")
+    private Integer discountPrice = 0;
 
-	@Column(name = "source_type_id", header = "来源类型")
-	private OrderSourceType sourceType;
+    @Column(name = "source_type_id", header = "来源类型")
+    private OrderSourceType sourceType;
 
-	@Column(name = "is_installment", header = "多次支付")
-	private Boolean isInstallment = false;
+    @Column(name = "is_installment", header = "多次支付")
+    private Boolean isInstallment = false;
 
-	@Column(name = "installment_mode", header = "多次支付方式")
-	private String installmentMode = "";
+    @Column(name = "installment_mode", header = "多次支付方式")
+    private String installmentMode = "";
 
-	// 1051 待审核
-	// 1052 审核中
-	// 1053 驳回审核
-	// 1054 审核通过
-	@Column(name = "installment_audit_status_id", header = "多次支付状态：type=105")
-	private Integer installmentAuditStatusId = 1051;
+    // 1051 待审核
+    // 1052 审核中
+    // 1053 驳回审核
+    // 1054 审核通过
+    @Column(name = "installment_audit_status_id", header = "多次支付状态：type=105")
+    private AuditStatusType installmentAuditStatusId = AuditStatusType.Dsh;
 
-	@Reference(foreignKey = "installmentAuditStatusId", header = "多次支付状态")
-	private Dict installmentAuditStatus;
+    /*@Reference(foreignKey = "installmentAuditStatusId", header = "多次支付状态")
+    private Dict installmentAuditStatus;*/
 
-	@Column(name = "is_change_price", header = "改过价")
-	private Boolean isChangePrice = false;
+    @Column(name = "is_change_price", header = "改过价")
+    private Boolean isChangePrice = false;
 
-	@Column(name = "is_carry_over", header = "是否是结转订单，默认否")
-	private Boolean isCarryOver = false;
+    @Column(name = "is_carry_over", header = "是否是结转订单，默认否")
+    private Boolean isCarryOver = false;
 
-	@Column(name = "carry_over_order_id", header = "结转订单id")
-	private Integer carryOverOrderId;
+    @Column(name = "carry_over_order_id", header = "结转订单id")
+    private Integer carryOverOrderId;
 
-	// 是否生成u8凭证手动处理（异常）（0：否、1：是(跨月异常)） 2:（e支付（财务二维码））、（刷卡）付款方式标记异常
-	// 3:由于借贷方金额都为零，无法生成凭证（【确认收入凭证】，金额太小造成，如：0.01，0.1）
-	// 4:由于借贷方金额都为零，无法生成凭证（【退款凭证】，金额太小造成，如：0.01，0.1）
-	@Column(name = "is_manual_voucher", header = "是否生成u8凭证手动处理（异常）")
-	private OrderManualVoucherStatus isManualVoucher = OrderManualVoucherStatus.NotStarted;
+    @Column(name = "customer_id", header = "客户Id")
+    private Integer customerId;
 
-	@Column(name = "manual_voucher_status", header = "凭证手动处理状态（0:未完成 1:已完成）")
-	private OrderManualVoucherStatus manualVoucherStatus = OrderManualVoucherStatus.NotStarted;
+    @Reference(foreignKey = "customerId", header = "客户")
+    private NCustomer customer;
 
-	// 1051 待审核
-	// 1052 审核中
-	// 1053 驳回审核
-	// 1054 审核通过
-	@Column(name = "change_price_audit_status_id", header = "改价审核状态：type=105")
-	private AuditStatusType changePriceAuditStatusId = AuditStatusType.wu;
+    @Column(name = "customer_name", header = "客户名称")
+    private String customerName = "";
 
-	@Column(name = "is_invoice", header = "开票")
-	private Boolean isInvoice = false;
 
-	@Column(name = "description", header = "description")
-	private String description = "";
+    // 是否生成u8凭证手动处理（异常）（0：否、1：是(跨月异常)） 2:（e支付（财务二维码））、（刷卡）付款方式标记异常
+    // 3:由于借贷方金额都为零，无法生成凭证（【确认收入凭证】，金额太小造成，如：0.01，0.1）
+    // 4:由于借贷方金额都为零，无法生成凭证（【退款凭证】，金额太小造成，如：0.01，0.1）
+    @Column(name = "is_manual_voucher", header = "是否生成u8凭证手动处理（异常）")
+    private OrderManualVoucherStatus isManualVoucher = OrderManualVoucherStatus.NotStarted;
 
-	@Column(name = "is_package", header = "套餐")
-	private Boolean isPackage = false;
+    @Column(name = "manual_voucher_status", header = "凭证手动处理状态（0:未完成 1:已完成）")
+    private OrderManualVoucherStatus manualVoucherStatus = OrderManualVoucherStatus.NotStarted;
 
-	@Column(name = "package_id", header = "套餐")
-	private Integer packageId = 0;
+    // 1051 待审核
+    // 1052 审核中
+    // 1053 驳回审核
+    // 1054 审核通过
+    @Column(name = "change_price_audit_status_id", header = "改价审核状态：type=105")
+    private AuditStatusType changePriceAuditStatusId = AuditStatusType.wu;
 
-	@Reference(foreignKey = "packageId", header = "套餐")
-	private ProductPackage packageProduct;
+    @Column(name = "is_invoice", header = "开票")
+    private Boolean isInvoice = false;
 
-	@Column(name = "is_bbk", header = "IsBbk")
-	private String isBbk = "0";
+    @Column(name = "description", header = "description")
+    private String description = "";
 
-	@Column(name = "add_user_id", header = "创建人")
-	private Integer addUserId = 0;
+    @Column(name = "is_package", header = "套餐")
+    private Boolean isPackage = false;
 
-	@Reference(foreignKey = "addUserId", header = "创建人")
-	private Employee addUser;
+    @Column(name = "package_id", header = "套餐")
+    private Integer packageId = 0;
 
-	@Column(name = "owner_id", header = "业务员Id")
-	private Integer ownerId;
+    @Reference(foreignKey = "packageId", header = "套餐")
+    private ProductPackage packageProduct;
 
-	@Reference(foreignKey = "ownerId", header = "业务员")
-	private Employee owner;
+    @Column(name = "is_bbk", header = "IsBbk")
+    private String isBbk = "0";
 
-	@Column(name = "prod_name", header = "产品名称")
-	private String prodName = "";
+    @Column(name = "add_user_id", header = "创建人")
+    private Integer addUserId = 0;
 
-	@Column(name = "is_delete", header = "已删除")
-	private Boolean isDelete = false;
+    @Reference(foreignKey = "addUserId", header = "创建人")
+    private Employee addUser;
 
-	@Column(name = "company_id", header = "公司")
-	private Integer companyId = 0;
+    @Column(name = "owner_id", header = "业务员Id")
+    private Integer ownerId;
 
-	@Reference(foreignKey = "companyId", header = "公司")
-	private CompanyIntention companyIntention;
+    @Reference(foreignKey = "ownerId", header = "业务员")
+    private Employee owner;
 
-	@Column(name = "remark", header = "备注")
-	private String remark = "";
+    @Column(name = "prod_name", header = "产品名称")
+    private String prodName = "";
 
-	/*
-	 * 32101 公司宝 32102 腾讯众创空间 32103 阿里云 32104 星河互联 32105 供应商 32106 微信商城 32108 钉钉
-	 */
-	@Column(name = "platform_source", header = "平台来源：type=321,自营默认【公司宝】，服务商默认【供应商】")
-	private OrderPlatformSourceType platformSource = OrderPlatformSourceType.Gsb;
+    @Column(name = "is_delete", header = "已删除")
+    private Boolean isDelete = false;
 
-	@Column(name = "deliver_id", header = "邮寄人")
-	private Integer deliverId = 0;
+    @Column(name = "company_id", header = "公司")
+    private Integer companyId = 0;
 
-	@Reference(foreignKey = "deliverId", header = "邮寄人")
-	private Employee deliver;
-
-	@Column(name = "deliver_addr", header = "邮寄地址")
-	private String deliverAddr = "";
-
-	@Column(name = "account_type", header = "客户类型 0 默认 1新客户签单 2老客户签单")
-	private OrderAccountType accountType = OrderAccountType.wu;
-	
-	@Column(name = "is_expire_sms", header = "过期短信提醒")
-	private Boolean isExpireSms = false;
-
-	@Column(name = "coupon_code", header = "优惠劵编码")
-	private String couponCode = "";
-	
-	@Column(name = "trademark_case_id", header = "商标方案Id")
-	private Integer tradeMarkCaseId = 0;
-
-	@Reference(foreignKey = "tradeMarkCaseId", header = "商标方案")
-	private TradeMarkCase tradeMarkCase;
-
-	@Subs(subType = OrderProd.class, foreignKey = "orderId", header = "产品明细")
-	private List<OrderProd> products = new ArrayList<OrderProd>();
+    @Reference(foreignKey = "companyId", header = "公司")
+    private CompanyIntention companyIntention;
 
-	@Subs(subType = OrderPayMap.class, foreignKey = "orderId", header = "支付明细")
-	private List<OrderPayMap> pays = new ArrayList<OrderPayMap>();
+    @Column(name = "remark", header = "备注")
+    private String remark = "";
 
-	@Subs(subType = Refund.class, foreignKey = "orderId", header = "退款明细")
-	private List<Refund> redunds = new ArrayList<Refund>();
+    /*
+     * 32101 公司宝 32102 腾讯众创空间 32103 阿里云 32104 星河互联 32105 供应商 32106 微信商城 32108 钉钉
+     */
+    @Column(name = "platform_source", header = "平台来源：type=321,自营默认【公司宝】，服务商默认【供应商】")
+    private OrderPlatformSourceType platformSource = OrderPlatformSourceType.Gsb;
 
-	@Subs(subType = OrderDiscount.class, foreignKey = "orderId", header = "优惠明细")
-	private List<OrderDiscount> discounts = new ArrayList<OrderDiscount>();
-	
-	@Subs(subType = OrderInvoiceMap.class, foreignKey = "orderId", header = "发票信息")
-	private List<OrderInvoiceMap> invoices = new ArrayList<OrderInvoiceMap>();
-	
-	@Subs(subType = AuditLog.class, foreignKey = "formId", header = "改价审核日志")
-	private List<AuditLog> auditLogs = new ArrayList<AuditLog>();
-	
-	public Integer getDiscountPrice() {
-		return discountPrice;
-	}
+    @Column(name = "deliver_id", header = "邮寄人")
+    private Integer deliverId = 0;
 
-	public void setDiscountPrice(Integer discountPrice) {
-		this.discountPrice = discountPrice;
-	}
+    @Reference(foreignKey = "deliverId", header = "邮寄人")
+    private Employee deliver;
 
-	public OrderType getType() {
-		return type;
-	}
+    @Column(name = "deliver_addr", header = "邮寄地址")
+    private String deliverAddr = "";
 
-	public void setType(OrderType type) {
-		this.type = type;
-	}
+    @Column(name = "account_type", header = "客户类型 0 默认 1新客户签单 2老客户签单")
+    private OrderAccountType accountType = OrderAccountType.wu;
 
-	public String getNo() {
-		return no;
-	}
+    @Column(name = "is_expire_sms", header = "过期短信提醒")
+    private Boolean isExpireSms = false;
 
-	public void setNo(String no) {
-		this.no = no;
-	}
+    @Column(name = "coupon_code", header = "优惠劵编码")
+    private String couponCode = "";
 
-	public Integer getAccountId() {
-		return accountId;
-	}
+    @Column(name = "trademark_case_id", header = "商标方案Id")
+    private Integer tradeMarkCaseId = 0;
 
-	public void setAccountId(Integer accountId) {
-		this.accountId = accountId;
-	}
+    @Reference(foreignKey = "tradeMarkCaseId", header = "商标方案")
+    private TradeMarkCase tradeMarkCase;
 
-	public String getAccountName() {
-		return accountName;
-	}
+    @Subs(subType = OrderProd.class, foreignKey = "orderId", header = "产品明细")
+    private List<OrderProd> products = new ArrayList<OrderProd>();
 
-	public void setAccountName(String accountName) {
-		this.accountName = accountName;
-	}
+    @Subs(subType = OrderPayMap.class, foreignKey = "orderId", header = "支付明细")
+    private List<OrderPayMap> pays = new ArrayList<OrderPayMap>();
 
-	public String getAccountMobile() {
-		return accountMobile;
-	}
+    @Subs(subType = Refund.class, foreignKey = "orderId", header = "退款明细")
+    private List<Refund> redunds = new ArrayList<Refund>();
 
-	public void setAccountMobile(String accountMobile) {
-		this.accountMobile = accountMobile;
-	}
+    @Subs(subType = OrderDiscount.class, foreignKey = "orderId", header = "优惠明细")
+    private List<OrderDiscount> discounts = new ArrayList<OrderDiscount>();
 
-	public Date getPayTime() {
-		return payTime;
-	}
+    @Subs(subType = OrderInvoiceMap.class, foreignKey = "orderId", header = "发票信息")
+    private List<OrderInvoiceMap> invoices = new ArrayList<OrderInvoiceMap>();
 
-	public void setPayTime(Date payTime) {
-		this.payTime = payTime;
-	}
+    @Subs(subType = AuditLog.class, foreignKey = "formId", header = "改价审核日志")
+    private List<AuditLog> auditLogs = new ArrayList<AuditLog>();
 
+    public Integer getDiscountPrice() {
+        return discountPrice;
+    }
 
-	public Integer getTotalPrice() {
-		return totalPrice;
-	}
+    public void setDiscountPrice(Integer discountPrice) {
+        this.discountPrice = discountPrice;
+    }
 
-	public void setTotalPrice(Integer totalPrice) {
-		this.totalPrice = totalPrice;
-	}
+    public OrderType getType() {
+        return type;
+    }
 
-	public Integer getPayablePrice() {
-		return payablePrice;
-	}
+    public void setType(OrderType type) {
+        this.type = type;
+    }
 
-	public void setPayablePrice(Integer payablePrice) {
-		this.payablePrice = payablePrice;
-	}
+    public String getNo() {
+        return no;
+    }
 
-	public Integer getPaidPrice() {
-		return paidPrice;
-	}
+    public void setNo(String no) {
+        this.no = no;
+    }
 
-	public void setPaidPrice(Integer paidPrice) {
-		this.paidPrice = paidPrice;
-	}
+    public Integer getAccountId() {
+        return accountId;
+    }
 
+    public void setAccountId(Integer accountId) {
+        this.accountId = accountId;
+    }
 
-	public Boolean getIsInstallment() {
-		return isInstallment;
-	}
+    public String getAccountName() {
+        return accountName;
+    }
 
-	public void setIsInstallment(Boolean isInstallment) {
-		this.isInstallment = isInstallment;
-	}
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
+    }
 
-	public String getInstallmentMode() {
-		return installmentMode;
-	}
+    public String getAccountMobile() {
+        return accountMobile;
+    }
 
-	public void setInstallmentMode(String installmentMode) {
-		this.installmentMode = installmentMode;
-	}
+    public void setAccountMobile(String accountMobile) {
+        this.accountMobile = accountMobile;
+    }
 
-	public Integer getInstallmentAuditStatusId() {
-		return installmentAuditStatusId;
-	}
+    public Date getPayTime() {
+        return payTime;
+    }
 
-	public void setInstallmentAuditStatusId(Integer installmentAuditStatusId) {
-		this.installmentAuditStatusId = installmentAuditStatusId;
-	}
+    public void setPayTime(Date payTime) {
+        this.payTime = payTime;
+    }
 
+    public Integer getCustomerId() {
+        return customerId;
+    }
 
-	public Boolean getIsInvoice() {
-		return isInvoice;
-	}
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
 
-	public void setIsInvoice(Boolean isInvoice) {
-		this.isInvoice = isInvoice;
-	}
+    public NCustomer getCustomer() {
+        return customer;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setCustomer(NCustomer customer) {
+        this.customer = customer;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public Integer getTotalPrice() {
+        return totalPrice;
+    }
 
-	public Boolean getIsPackage() {
-		return isPackage;
-	}
+    public void setTotalPrice(Integer totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
-	public void setIsPackage(Boolean isPackage) {
-		this.isPackage = isPackage;
-	}
+    public Integer getPayablePrice() {
+        return payablePrice;
+    }
 
-	public Integer getPackageId() {
-		return packageId;
-	}
+    public void setPayablePrice(Integer payablePrice) {
+        this.payablePrice = payablePrice;
+    }
 
-	public void setPackageId(Integer packageId) {
-		this.packageId = packageId;
-	}
+    public Integer getPaidPrice() {
+        return paidPrice;
+    }
 
-	public String getIsBbk() {
-		return isBbk;
-	}
+    public void setPaidPrice(Integer paidPrice) {
+        this.paidPrice = paidPrice;
+    }
 
-	public void setIsBbk(String isBbk) {
-		this.isBbk = isBbk;
-	}
 
-	public Integer getAddUserId() {
-		return addUserId;
-	}
+    public Boolean getIsInstallment() {
+        return isInstallment;
+    }
 
-	public void setAddUserId(Integer addUserId) {
-		this.addUserId = addUserId;
-	}
+    public void setIsInstallment(Boolean isInstallment) {
+        this.isInstallment = isInstallment;
+    }
 
-	public String getProdName() {
-		return prodName;
-	}
+    public String getInstallmentMode() {
+        return installmentMode;
+    }
 
-	public void setProdName(String prodName) {
-		this.prodName = prodName;
-	}
+    public void setInstallmentMode(String installmentMode) {
+        this.installmentMode = installmentMode;
+    }
 
-	public Integer getCompanyId() {
-		return companyId;
-	}
+    public AuditStatusType getInstallmentAuditStatusId() {
+        return installmentAuditStatusId;
+    }
 
-	public void setCompanyId(Integer companyId) {
-		this.companyId = companyId;
-	}
+    public void setInstallmentAuditStatusId(AuditStatusType installmentAuditStatusId) {
+        this.installmentAuditStatusId = installmentAuditStatusId;
+    }
 
-	public String getRemark() {
-		return remark;
-	}
+    public Boolean getIsInvoice() {
+        return isInvoice;
+    }
 
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
+    public void setIsInvoice(Boolean isInvoice) {
+        this.isInvoice = isInvoice;
+    }
 
+    public String getDescription() {
+        return description;
+    }
 
-	public Integer getDeliverId() {
-		return deliverId;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setDeliverId(Integer deliverId) {
-		this.deliverId = deliverId;
-	}
+    public Boolean getIsPackage() {
+        return isPackage;
+    }
 
-	public String getDeliverAddr() {
-		return deliverAddr;
-	}
+    public void setIsPackage(Boolean isPackage) {
+        this.isPackage = isPackage;
+    }
 
-	public void setDeliverAddr(String deliverAddr) {
-		this.deliverAddr = deliverAddr;
-	}
+    public Integer getPackageId() {
+        return packageId;
+    }
 
-	public OrderAccountType getAccountType() {
-		return accountType;
-	}
+    public void setPackageId(Integer packageId) {
+        this.packageId = packageId;
+    }
 
-	public void setAccountType(OrderAccountType accountType) {
-		this.accountType = accountType;
-	}
+    public String getIsBbk() {
+        return isBbk;
+    }
 
-	public Boolean getIsExpireSms() {
-		return isExpireSms;
-	}
+    public void setIsBbk(String isBbk) {
+        this.isBbk = isBbk;
+    }
 
-	public void setIsExpireSms(Boolean isExpireSms) {
-		this.isExpireSms = isExpireSms;
-	}
+    public Integer getAddUserId() {
+        return addUserId;
+    }
 
-	public List<OrderPayMap> getPays() {
-		return pays;
-	}
+    public void setAddUserId(Integer addUserId) {
+        this.addUserId = addUserId;
+    }
 
-	public void setPays(List<OrderPayMap> pays) {
-		this.pays = pays;
-	}
+    public String getProdName() {
+        return prodName;
+    }
 
-	public List<Refund> getRedunds() {
-		return redunds;
-	}
+    public void setProdName(String prodName) {
+        this.prodName = prodName;
+    }
 
-	public void setRedunds(List<Refund> redunds) {
-		this.redunds = redunds;
-	}
+    public Integer getCompanyId() {
+        return companyId;
+    }
 
-	public List<OrderProd> getProducts() {
-		return products;
-	}
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
+    }
 
-	public void setProducts(List<OrderProd> products) {
-		this.products = products;
-	}
+    public String getRemark() {
+        return remark;
+    }
 
-	public Dict getInstallmentAuditStatus() {
-		return installmentAuditStatus;
-	}
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
-	public void setInstallmentAuditStatus(Dict installmentAuditStatus) {
-		this.installmentAuditStatus = installmentAuditStatus;
-	}
 
+    public Integer getDeliverId() {
+        return deliverId;
+    }
 
-	public Employee getAddUser() {
-		return addUser;
-	}
+    public void setDeliverId(Integer deliverId) {
+        this.deliverId = deliverId;
+    }
 
-	public void setAddUser(Employee addUser) {
-		this.addUser = addUser;
-	}
+    public String getDeliverAddr() {
+        return deliverAddr;
+    }
 
-	public Integer getOwnerId() {
-		return ownerId;
-	}
+    public void setDeliverAddr(String deliverAddr) {
+        this.deliverAddr = deliverAddr;
+    }
 
-	public void setOwnerId(Integer ownerId) {
-		this.ownerId = ownerId;
-	}
+    public OrderAccountType getAccountType() {
+        return accountType;
+    }
 
-	public Employee getOwner() {
-		return owner;
-	}
+    public void setAccountType(OrderAccountType accountType) {
+        this.accountType = accountType;
+    }
 
-	public void setOwner(Employee owner) {
-		this.owner = owner;
-	}
+    public Boolean getIsExpireSms() {
+        return isExpireSms;
+    }
 
-	public Employee getDeliver() {
-		return deliver;
-	}
+    public void setIsExpireSms(Boolean isExpireSms) {
+        this.isExpireSms = isExpireSms;
+    }
 
-	public void setDeliver(Employee deliver) {
-		this.deliver = deliver;
-	}
+    public List<OrderPayMap> getPays() {
+        return pays;
+    }
 
-	public ProductPackage getPackageProduct() {
-		return packageProduct;
-	}
+    public void setPays(List<OrderPayMap> pays) {
+        this.pays = pays;
+    }
 
-	public void setPackageProduct(ProductPackage packageProduct) {
-		this.packageProduct = packageProduct;
-	}
+    public List<Refund> getRedunds() {
+        return redunds;
+    }
 
-	public CompanyIntention getCompanyIntention() {
-		return companyIntention;
-	}
+    public void setRedunds(List<Refund> redunds) {
+        this.redunds = redunds;
+    }
 
-	public void setCompanyIntention(CompanyIntention companyIntention) {
-		this.companyIntention = companyIntention;
-	}
+    public List<OrderProd> getProducts() {
+        return products;
+    }
 
-	public Account getAccount() {
-		return account;
-	}
+    public void setProducts(List<OrderProd> products) {
+        this.products = products;
+    }
 
-	public void setAccount(Account account) {
-		this.account = account;
-	}
 
-	public List<OrderDiscount> getDiscounts() {
-		return discounts;
-	}
+    public Employee getAddUser() {
+        return addUser;
+    }
 
-	public void setDiscounts(List<OrderDiscount> discounts) {
-		this.discounts = discounts;
-	}
+    public void setAddUser(Employee addUser) {
+        this.addUser = addUser;
+    }
 
-	public Integer getCarryOverOrderId() {
-		return carryOverOrderId;
-	}
+    public Integer getOwnerId() {
+        return ownerId;
+    }
 
-	public void setCarryOverOrderId(Integer carryOverOrderId) {
-		this.carryOverOrderId = carryOverOrderId;
-	}
+    public void setOwnerId(Integer ownerId) {
+        this.ownerId = ownerId;
+    }
 
-	public OrderManualVoucherStatus getIsManualVoucher() {
-		return isManualVoucher;
-	}
+    public Employee getOwner() {
+        return owner;
+    }
 
-	public void setIsManualVoucher(OrderManualVoucherStatus isManualVoucher) {
-		this.isManualVoucher = isManualVoucher;
-	}
+    public void setOwner(Employee owner) {
+        this.owner = owner;
+    }
 
-	public OrderManualVoucherStatus getManualVoucherStatus() {
-		return manualVoucherStatus;
-	}
+    public Employee getDeliver() {
+        return deliver;
+    }
 
-	public void setManualVoucherStatus(OrderManualVoucherStatus manualVoucherStatus) {
-		this.manualVoucherStatus = manualVoucherStatus;
-	}
+    public void setDeliver(Employee deliver) {
+        this.deliver = deliver;
+    }
 
-	public Date getAddTime() {
-		return addTime;
-	}
+    public ProductPackage getPackageProduct() {
+        return packageProduct;
+    }
 
-	public void setAddTime(Date addTime) {
-		this.addTime = addTime;
-	}
+    public void setPackageProduct(ProductPackage packageProduct) {
+        this.packageProduct = packageProduct;
+    }
 
-	public String getChannelOrderNo() {
-		return channelOrderNo;
-	}
+    public CompanyIntention getCompanyIntention() {
+        return companyIntention;
+    }
 
-	public void setChannelOrderNo(String channelOrderNo) {
-		this.channelOrderNo = channelOrderNo;
-	}
+    public void setCompanyIntention(CompanyIntention companyIntention) {
+        this.companyIntention = companyIntention;
+    }
 
-	public Integer getTaskId() {
-		return taskId;
-	}
+    public Account getAccount() {
+        return account;
+    }
 
-	public void setTaskId(Integer taskId) {
-		this.taskId = taskId;
-	}
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 
-	public Integer getSupplierId() {
-		return supplierId;
-	}
+    public List<OrderDiscount> getDiscounts() {
+        return discounts;
+    }
 
-	public void setSupplierId(Integer supplierId) {
-		this.supplierId = supplierId;
-	}
+    public void setDiscounts(List<OrderDiscount> discounts) {
+        this.discounts = discounts;
+    }
 
-	public Supplier getSupplier() {
-		return supplier;
-	}
+    public Integer getCarryOverOrderId() {
+        return carryOverOrderId;
+    }
 
-	public void setSupplier(Supplier supplier) {
-		this.supplier = supplier;
-	}
+    public void setCarryOverOrderId(Integer carryOverOrderId) {
+        this.carryOverOrderId = carryOverOrderId;
+    }
 
-	public Integer getDepartmentId() {
-		return departmentId;
-	}
+    public OrderManualVoucherStatus getIsManualVoucher() {
+        return isManualVoucher;
+    }
 
-	public void setDepartmentId(Integer departmentId) {
-		this.departmentId = departmentId;
-	}
+    public void setIsManualVoucher(OrderManualVoucherStatus isManualVoucher) {
+        this.isManualVoucher = isManualVoucher;
+    }
 
-	public SupplierDepartment getDepartment() {
-		return department;
-	}
+    public OrderManualVoucherStatus getManualVoucherStatus() {
+        return manualVoucherStatus;
+    }
 
-	public void setDepartment(SupplierDepartment department) {
-		this.department = department;
-	}
+    public void setManualVoucherStatus(OrderManualVoucherStatus manualVoucherStatus) {
+        this.manualVoucherStatus = manualVoucherStatus;
+    }
 
-	public Boolean getIsChangePrice() {
-		return isChangePrice;
-	}
+    public Date getAddTime() {
+        return addTime;
+    }
 
-	public void setIsChangePrice(Boolean isChangePrice) {
-		this.isChangePrice = isChangePrice;
-	}
+    public void setAddTime(Date addTime) {
+        this.addTime = addTime;
+    }
 
-	public Boolean getIsCarryOver() {
-		return isCarryOver;
-	}
+    public String getChannelOrderNo() {
+        return channelOrderNo;
+    }
 
-	public void setIsCarryOver(Boolean isCarryOver) {
-		this.isCarryOver = isCarryOver;
-	}
+    public void setChannelOrderNo(String channelOrderNo) {
+        this.channelOrderNo = channelOrderNo;
+    }
 
-	public Boolean getIsDelete() {
-		return isDelete;
-	}
+    public Integer getTaskId() {
+        return taskId;
+    }
 
-	public void setIsDelete(Boolean isDelete) {
-		this.isDelete = isDelete;
-	}
+    public void setTaskId(Integer taskId) {
+        this.taskId = taskId;
+    }
 
-	public String getCouponCode() {
-		return couponCode;
-	}
+    public Integer getSupplierId() {
+        return supplierId;
+    }
 
-	public void setCouponCode(String couponCode) {
-		this.couponCode = couponCode;
-	}
+    public void setSupplierId(Integer supplierId) {
+        this.supplierId = supplierId;
+    }
 
-	public Integer getPerformancePrice() {
-		return performancePrice;
-	}
+    public Supplier getSupplier() {
+        return supplier;
+    }
 
-	public void setPerformancePrice(Integer performancePrice) {
-		this.performancePrice = performancePrice;
-	}
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
 
-	public Integer getTradeMarkCaseId() {
-		return tradeMarkCaseId;
-	}
+    public Integer getDepartmentId() {
+        return departmentId;
+    }
 
-	public void setTradeMarkCaseId(Integer tradeMarkCaseId) {
-		this.tradeMarkCaseId = tradeMarkCaseId;
-	}
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
+    }
 
-	public TradeMarkCase getTradeMarkCase() {
-		return tradeMarkCase;
-	}
+    public SupplierDepartment getDepartment() {
+        return department;
+    }
 
-	public void setTradeMarkCase(TradeMarkCase tradeMarkCase) {
-		this.tradeMarkCase = tradeMarkCase;
-	}
+    public void setDepartment(SupplierDepartment department) {
+        this.department = department;
+    }
 
-	public OrderPayStatusType getPayStatus() {
-		return payStatus;
-	}
+    public Boolean getIsChangePrice() {
+        return isChangePrice;
+    }
 
-	public void setPayStatus(OrderPayStatusType payStatus) {
-		this.payStatus = payStatus;
-	}
+    public void setIsChangePrice(Boolean isChangePrice) {
+        this.isChangePrice = isChangePrice;
+    }
 
-	public OrderProcessStatusType getProcessStatus() {
-		return processStatus;
-	}
+    public Boolean getIsCarryOver() {
+        return isCarryOver;
+    }
 
-	public void setProcessStatus(OrderProcessStatusType processStatus) {
-		this.processStatus = processStatus;
-	}
+    public void setIsCarryOver(Boolean isCarryOver) {
+        this.isCarryOver = isCarryOver;
+    }
 
-	public OrderRefundStatusType getRefundStatus() {
-		return refundStatus;
-	}
+    public Boolean getIsDelete() {
+        return isDelete;
+    }
 
-	public void setRefundStatus(OrderRefundStatusType refundStatus) {
-		this.refundStatus = refundStatus;
-	}
+    public void setIsDelete(Boolean isDelete) {
+        this.isDelete = isDelete;
+    }
 
-	public OrderSourceType getSourceType() {
-		return sourceType;
-	}
+    public String getCouponCode() {
+        return couponCode;
+    }
 
-	public void setSourceType(OrderSourceType sourceType) {
-		this.sourceType = sourceType;
-	}
+    public void setCouponCode(String couponCode) {
+        this.couponCode = couponCode;
+    }
 
-	public AuditStatusType getChangePriceAuditStatusId() {
-		return changePriceAuditStatusId;
-	}
+    public Integer getPerformancePrice() {
+        return performancePrice;
+    }
 
-	public void setChangePriceAuditStatusId(AuditStatusType changePriceAuditStatusId) {
-		this.changePriceAuditStatusId = changePriceAuditStatusId;
-	}
+    public void setPerformancePrice(Integer performancePrice) {
+        this.performancePrice = performancePrice;
+    }
 
-	public OrderPlatformSourceType getPlatformSource() {
-		return platformSource;
-	}
+    public Integer getTradeMarkCaseId() {
+        return tradeMarkCaseId;
+    }
 
-	public void setPlatformSource(OrderPlatformSourceType platformSource) {
-		this.platformSource = platformSource;
-	}
+    public void setTradeMarkCaseId(Integer tradeMarkCaseId) {
+        this.tradeMarkCaseId = tradeMarkCaseId;
+    }
 
-	public List<OrderInvoiceMap> getInvoices() {
-		return invoices;
-	}
+    public TradeMarkCase getTradeMarkCase() {
+        return tradeMarkCase;
+    }
 
-	public void setInvoices(List<OrderInvoiceMap> invoices) {
-		this.invoices = invoices;
-	}
+    public void setTradeMarkCase(TradeMarkCase tradeMarkCase) {
+        this.tradeMarkCase = tradeMarkCase;
+    }
 
-	public List<AuditLog> getAuditLogs() {
-		return auditLogs;
-	}
+    public OrderPayStatusType getPayStatus() {
+        return payStatus;
+    }
 
-	public void setAuditLogs(List<AuditLog> auditLogs) {
-		this.auditLogs = auditLogs;
-	}
+    public void setPayStatus(OrderPayStatusType payStatus) {
+        this.payStatus = payStatus;
+    }
+
+    public OrderProcessStatusType getProcessStatus() {
+        return processStatus;
+    }
+
+    public void setProcessStatus(OrderProcessStatusType processStatus) {
+        this.processStatus = processStatus;
+    }
+
+    public OrderRefundStatusType getRefundStatus() {
+        return refundStatus;
+    }
+
+    public void setRefundStatus(OrderRefundStatusType refundStatus) {
+        this.refundStatus = refundStatus;
+    }
+
+    public OrderSourceType getSourceType() {
+        return sourceType;
+    }
+
+    public void setSourceType(OrderSourceType sourceType) {
+        this.sourceType = sourceType;
+    }
+
+    public AuditStatusType getChangePriceAuditStatusId() {
+        return changePriceAuditStatusId;
+    }
+
+    public void setChangePriceAuditStatusId(AuditStatusType changePriceAuditStatusId) {
+        this.changePriceAuditStatusId = changePriceAuditStatusId;
+    }
+
+    public OrderPlatformSourceType getPlatformSource() {
+        return platformSource;
+    }
+
+    public void setPlatformSource(OrderPlatformSourceType platformSource) {
+        this.platformSource = platformSource;
+    }
+
+    public List<OrderInvoiceMap> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(List<OrderInvoiceMap> invoices) {
+        this.invoices = invoices;
+    }
+
+    public List<AuditLog> getAuditLogs() {
+        return auditLogs;
+    }
+
+    public void setAuditLogs(List<AuditLog> auditLogs) {
+        this.auditLogs = auditLogs;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
 }
