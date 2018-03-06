@@ -1,4 +1,5 @@
 System.Declare("com.gongsibao.igirl.web");
+var countinput=0;
 com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart.Extends( {
 
     ctor: function () {
@@ -7,12 +8,14 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
   companyNameChange:function(newValue){
       var name=$(newValue).val();
      // name=encodeURIComponent(name);
+      
       if(name && name!=""){
     	  this.invokeService("fetchCompanyByName", [name], function(data) {
 		       if(data){
 		    	   if(data.appCnName){
-		    		   if(data.appCnName.indexOf(name)!=-1){
+		    		   if(data.appCnName.indexOf(name)!=-1 && countinput<2){
 		    			   $("#companyName").val(data.appCnName);
+		    			   countinput++;
 		    		           }
 		    	           }
 		    	    if(data.certCode){
