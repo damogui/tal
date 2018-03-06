@@ -292,7 +292,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "companyName", "公司名称", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "applier", "申请人", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "urgency", "紧急程度(小时)", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "creator", "业务员", ControlTypes.TEXT_BOX, 50);
+		addColumn(datagrid, "ownerName", "业务员", ControlTypes.TEXT_BOX, 50);
 
 		addColumn(datagrid, "caseAmount", "金额", ControlTypes.DECIMAL_FEN_BOX, 100);
 		addColumn(datagrid, "tmcState", "状态", ControlTypes.ENUM_BOX, 60);

@@ -1,14 +1,14 @@
 package com.gongsibao.panda.supplier.order.workspace.salesman;
 
+import com.gongsibao.controls.CityComboBox;
 import com.gongsibao.controls.DictComboBox;
 import com.gongsibao.entity.crm.CompanyIntention;
+import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.tools.PToolbarHelper;
-import com.gongsibao.trade.web.OrderProdItemDetailPart;
-import com.gongsibao.trade.web.SalesmanAddOrderFormPart;
-import com.gongsibao.trade.web.SoCreatOrderPerformanceFormPart;
+import com.gongsibao.trade.web.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.EntityState;
@@ -46,14 +46,17 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
         listPartName = formPartName = "订单信息";
         meta = MtableManager.getMtable (entity);
         resourceNodeCode = "Gsb_Supplier_Order_Salesman_CoPerformance";
-        listToolbarPath = "crm/order/coperformance/edit";
+        listToolbarPath = "/crm/roworderaddperformance/toolbar";
+        formToolbarPath = "";
         List<String> ss = new ArrayList<String> ();
-//        ss.add("/package/easyui/datagrid-cellediting.js");
-        ss.add ("/gsb/trade/js/order_performance-form.part.js");
+        //ss.add ("/gsb/trade/js/order_performance-form.part.js");
+       ss.add ("/gsb/trade/js/so-performance-add.part.js");
         ss.add ("/gsb/gsb.customer.controls.js");
         formJsImport = StringManager.join ("|", ss);
-        formJsController = SoCreatOrderPerformanceFormPart.class.getName ();
-        formServiceController = SoCreatOrderPerformanceFormPart.class.getName ();
+//        listPartImportJs = "/gsb/trade/js/so-performance-add.part.js";
+        listPartJsController = SoCreatOrderPerformanceListPart.class.getName ();
+//        formJsController = SoCreatOrderPerformanceFormPart.class.getName ();
+//        formServiceController = SoCreatOrderPerformanceFormPart.class.getName ();
     }
 
     @Test
@@ -62,11 +65,11 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
         createFormWorkspace ();
     }
 
-
-    public PToolbar createListToolbar() {
+    @Test
+    public void createListToolbar() {
 
         ResourceNode node = this.resourceService.byCode (resourceNodeCode);
-        OperationType ot1 = operationTypeService.byCode (OperationTypes.add);
+        //OperationType ot1 = operationTypeService.byCode (OperationTypes.add);
         PToolbar toolbar = new PToolbar ();
         {
             toolbar.toNew ();
@@ -77,25 +80,18 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
         }
 
 
-
-        PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "orderDetail", PToolbarHelper.iconExtr,
-                "订单详情", ot1, 1, "{controller}.add();");
+        PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "performanceDetail", PToolbarHelper.iconAdd,
+                "新增", null, 1, "{controller}.add();");//allocation
+        toolbar.getItems ().add (item);
+        item = PToolbarHelper.getPToolbarItem (EntityState.New, "performanceDetail", PToolbarHelper.iconDel,
+                "删除", null, 1, "{controller}.add();");
         toolbar.getItems ().add (item);
 
-        return toolbar;
+        toolbarService.save (toolbar);
+
     }
 
 
-    /*进行设置工具栏*/
-    @Test
-    public void saveListToolbar() {
-
-        PToolbar toolbar = createListToolbar ();
-        if (toolbar != null) {
-
-            toolbarService.save (toolbar);
-        }
-    }
     // 默认的表单配置信息
     protected PForm createForm(ResourceNode node) {
 
@@ -104,17 +100,24 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
         PFormField formField = null;
 
         String groupName = null;
-        formField = addFormFieldRefrence (form, "supplier.name", "订单编号", null, Supplier.class.getSimpleName (), false, true);
+
+        formField = addFormField (form, "no", "订单编号", groupName, ControlTypes.TEXT_BOX, false);
         {
             formField.setReadonly (true);
 
         }
-        addFormFieldRefrence (form, "department.name", "订单金额", null, SupplierDepartment.class.getSimpleName (), false, true);
+
+        formField = addFormField (form, "payablePrice", "订单金额", groupName, ControlTypes.TEXT_BOX, false);
         {
             formField.setReadonly (true);
 
         }
-        addFormFieldRefrence (form, "owner.name", "已划分金额", null, Employee.class.getSimpleName (), false, true);
+        {
+            formField.setReadonly (true);
+
+        }
+
+        formField = addFormField (form, "performancePrice", "已划分金额", groupName, ControlTypes.TEXT_BOX, false);
         {
             formField.setReadonly (true);
 
@@ -129,6 +132,7 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
         performancePart (workspace);
     }
 
+
     // 业绩划分
     public void performancePart(PWorkspace workspace) {
 
@@ -139,35 +143,71 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
             datagrid.setSingleSelect (true);
             datagrid.setReadOnly (false);
             datagrid.setShowTitle (true);
+            datagrid.setToolbar (listToolbarPath);//新增和删除
 
             PDatagridColumn column = null;
 
-            column = addColumn (datagrid, "productName", "服务商", ControlTypes.TEXT_BOX, 150);
-            column = addColumn (datagrid, "quantity", "部门", ControlTypes.NUMBER_BOX, 60);
+
+            column = addColumn (datagrid, "depReceivable.supplier.name", "服务商", ControlTypes.TEXT_BOX, 150);
+
+            column = addColumn (datagrid, "depReceivable.department.name", "部门", ControlTypes.NUMBER_BOX, 60);
             {
 
                 column.setAlign (DatagridAlign.CENTER);
             }
 
-            column = addColumn (datagrid, "cityName", "业务员", ControlTypes.TEXT_BOX, 150);
-            column = addColumn (datagrid, "serviceName", "订单业绩分配金额", ControlTypes.TEXT_BOX, 150);
+            column = addColumn (datagrid, "depReceivable.salesman.name", "业务员", ControlTypes.TEXT_BOX, 150);
+            column = addColumn (datagrid, "depReceivable.amount", "订单业绩分配金额", ControlTypes.TEXT_BOX, 150);
+
+        }
+/*表单beg*/
+        PForm form = new PForm ();
+        {
+            form.toNew ();
+            form.setResourceNode (node);
+            form.setColumnCount (1);
+            form.setName ("业绩划分金额表");
+            // form.setTag ();//设置提示
+            form.setLabelWidth (100);
+            PFormField formField = null;
+            formField = addFormFieldRefrence (form, "depReceivable.supplier.name", "服务商", null, Supplier.class.getSimpleName (), false, false);
+            {
+                //formField.setTroikaTrigger ("controllernCustomerTask.supplierChange(newValue,oldValue);");
+            }
+
+            formField = addFormFieldRefrence (form, "depReceivable.department.name", "部门", null, SupplierDepartment.class.getSimpleName (), false, false);
+            {
+                //formField.setTroikaTrigger ("controllernCustomerTask.departmentChange(newValue,oldValue);");
+            }
+
+            formField = addFormFieldRefrence (form, "depReceivable.salesman.name", "业务员", null, Employee.class.getSimpleName (), false, false);
+            formField = addFormField (form, "depReceivable.amount", "订单业绩分配金额", null, ControlTypes.TEXT_BOX, false, false);
+
+            {
+                //formField.setWidth (300);
+//                formField.setHeight (100);
+            }
 
         }
 
+            /*表单end*/
         PPart part = new PPart ();
         {
             part.toNew ();
             part.setName ("产品信息");
-            part.setCode ("products");
+            part.setCode ("depReceivable");
             part.setParentCode (ReflectManager.getFieldName (meta.getCode ()));
-            part.setRelationRole ("products");
+            part.setRelationRole ("depReceivable");
             part.setResourceNode (node);
             part.setPartTypeId (PartType.DETAIL_PART.getId ());
             part.setDatagrid (datagrid);
             part.setDockStyle (DockType.DOCUMENTHOST);
-            part.setToolbar ("panda/datagrid/detail");
-            part.setServiceController (OrderProdItemDetailPart.class.getName ());
-            part.setJsController (OrderProdItemDetailPart.class.getName ());
+            part.setToolbar (listToolbarPath);
+             part.setForm (form);
+            part.setWindowWidth (400);
+            part.setWindowHeight (450);
+           part.setServiceController (OrderPerformanceDetailPart.class.getName ());
+           part.setJsController (OrderPerformanceDetailPart.class.getName ());
         }
         workspace.getParts ().add (part);
 
@@ -176,6 +216,7 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
             part.setName ("新增订单");
             part.setDockStyle (DockType.TOP);
             part.setHeight (500);
+            part.setHeight (450);
         }
     }
 

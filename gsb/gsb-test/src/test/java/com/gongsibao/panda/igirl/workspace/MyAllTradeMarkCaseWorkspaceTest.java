@@ -42,7 +42,7 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 		formJsController = TradeMarkCasePart.class.getName();
 		formJsImport = "/gsb/igirl/js/markcase.form.part.js";
 		listToolbarPath = "/igirl/my/list/toolbar";
-		listFilter = "creator_id = '{userId}'";
+		listFilter = "owner_id = '{userId}'";
 	}
 
 	public static final String trademarkToolbarPath = "/igirl/tm/toolbar";
@@ -118,7 +118,7 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "companyName", "公司名称", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "applier", "申请人", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "urgency", "紧急(小时)", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "creator", "业务员", ControlTypes.TEXT_BOX, 50);
+		addColumn(datagrid, "ownerName", "业务员", ControlTypes.TEXT_BOX, 50);
 	
 		addColumn(datagrid, "caseAmount", "金额", ControlTypes.DECIMAL_FEN_BOX, 100);
 		addColumn(datagrid, "tmcState", "状态", ControlTypes.ENUM_BOX, 100);

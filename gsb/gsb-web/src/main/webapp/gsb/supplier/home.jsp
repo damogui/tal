@@ -23,4 +23,37 @@
 <script src='/package/easyui/locale/easyui-lang-zh_CN.js'></script>
 <script src='/package/easyui/jquery.easyui.extend.js'></script>
 
+<script src='/panda-res/js/system.js'></script>
+<script src='/panda-res/js/panda.core.js'></script>
+<script src='/gsb/supplier/js/portal-statistic.js'></script>
+
+	<script>
+		//销售简报
+		var brief = new com.gongsibao.crm.web.home.Briefing();
+		//跟进统计
+		var foolow = new com.gongsibao.crm.web.home.Foolow();
+		//预估业绩
+		var forecast = new com.gongsibao.crm.web.home.Forecast();
+		//漏斗统计
+		var funnel = new com.gongsibao.crm.web.home.Funnel(); 
+		
+		$(function() {
+			alert(brief.briefingCount('getNewTasksCount',null));
+			$("#briefing").find('p >span').eq(0).text("新增任务数：" + brief.briefingCount('getNewTasksCount',null) + "个");
+			$("#briefing").find('p >span').eq(1).text("未启动任务数：" + brief.briefingCount('getUnStartTasksCount',null) + "个");
+			$("#briefing").find('p >span').eq(2).text("待跟进任务数：" + brief.briefingCount('getUnfoolowTasksCount',null) + "个");
+			$("#briefing").find('p >span').eq(3).text("超时任务数：" + brief.briefingCount('getTimeOutTasksCount',null) + "个");
+			$("#briefing").find('p >span').eq(4).text("异常未处理任务数：" + brief.briefingCount('getExceptUntreatedTasksCount',null) + "个");
+			$("#briefing").find('p >span').eq(5).text("公海：" + brief.briefingCount('getHighSeasCount',null) + "个");
+			
+			foolow.foolowCount('getFoolowSatatistic',null);
+			
+			forecast.forecastAmount('getForecastAmount',1);
+			forecast.forecastAmount('getForecastAmount',2);
+			forecast.forecastAmount('getForecastAmount',3);
+			
+			funnel.funnelXSCount('getXSCount'); 
+			funnel.funnelCodeCount('getCodeTaskCount');
+		});
+	</script>
 </html>

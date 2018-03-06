@@ -46,7 +46,7 @@ public class PToolbarHelper {
     /**
      * 删除
      */
-    public  static    String iconDle="fa fa-trash-o";
+    public  static    String iconDel="fa fa-trash-o";
     /**
      * 附件
      */

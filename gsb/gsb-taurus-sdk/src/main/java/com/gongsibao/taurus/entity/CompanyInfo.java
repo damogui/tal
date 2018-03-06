@@ -1,6 +1,6 @@
 package com.gongsibao.taurus.entity;
 
-import java.util.Date;
+
 
 /**
  * Created by wk on 2018/1/30.
@@ -31,17 +31,17 @@ public class CompanyInfo implements IEntity {
     /* 注册地址 */
     private String regLocation;
     /* 成立日期 */
-    private Date estiblishTime;
+    private String estiblishTime;
     /* 营业期限开始日期 */
-    private Date fromTime;
+    private String fromTime;
     /* 营业期限终止日期 */
-    private Date toTime;
+    private String toTime;
     /* 经营范围 */
     private String businessScope;
     /* 登记机关 */
     private String regInstitute;
     /* 核准日期 */
-    private Date approvedTime;
+    private String approvedTime;
     /* 核准机关 */
     private String orgApprovedInstitute;
     /* 企业状态 */
@@ -57,7 +57,7 @@ public class CompanyInfo implements IEntity {
     /* 上级机构ID */
     private long parentId;
     /* 修改时间（每次修改系统自动更新） */
-    private Date updatetime;
+    private String updatetime;
     /* 上市代码 */
     private String listCode;
     /* 母公司控股比例 */
@@ -67,7 +67,7 @@ public class CompanyInfo implements IEntity {
     /* 根据名称parse出的公司后缀类型 */
     private String nameSuffix;
     /* 解析完成时间 */
-    private Date crawledtime;
+    private String crawledtime;
     /* 统一社会信用代码 */
     private String property1;
     /* 新公司名id */
@@ -170,27 +170,27 @@ public class CompanyInfo implements IEntity {
         this.regLocation = regLocation;
     }
 
-    public Date getEstiblishTime() {
+    public String getEstiblishTime() {
         return estiblishTime;
     }
 
-    public void setEstiblishTime(Date estiblishTime) {
+    public void setEstiblishTime(String estiblishTime) {
         this.estiblishTime = estiblishTime;
     }
 
-    public Date getFromTime() {
+    public String getFromTime() {
         return fromTime;
     }
 
-    public void setFromTime(Date fromTime) {
+    public void setFromTime(String fromTime) {
         this.fromTime = fromTime;
     }
 
-    public Date getToTime() {
+    public String getToTime() {
         return toTime;
     }
 
-    public void setToTime(Date toTime) {
+    public void setToTime(String toTime) {
         this.toTime = toTime;
     }
 
@@ -210,11 +210,11 @@ public class CompanyInfo implements IEntity {
         this.regInstitute = regInstitute;
     }
 
-    public Date getApprovedTime() {
+    public String getApprovedTime() {
         return approvedTime;
     }
 
-    public void setApprovedTime(Date approvedTime) {
+    public void setApprovedTime(String approvedTime) {
         this.approvedTime = approvedTime;
     }
 
@@ -274,11 +274,11 @@ public class CompanyInfo implements IEntity {
         this.parentId = parentId;
     }
 
-    public Date getUpdatetime() {
+    public String getUpdatetime() {
         return updatetime;
     }
 
-    public void setUpdatetime(Date updatetime) {
+    public void setUpdatetime(String updatetime) {
         this.updatetime = updatetime;
     }
 
@@ -314,11 +314,11 @@ public class CompanyInfo implements IEntity {
         this.nameSuffix = nameSuffix;
     }
 
-    public Date getCrawledtime() {
+    public String getCrawledtime() {
         return crawledtime;
     }
 
-    public void setCrawledtime(Date crawledtime) {
+    public void setCrawledtime(String crawledtime) {
         this.crawledtime = crawledtime;
     }
 

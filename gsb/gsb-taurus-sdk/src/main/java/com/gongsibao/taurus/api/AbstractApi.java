@@ -172,7 +172,7 @@ public abstract class AbstractApi<T extends ResponseMessage<?>> {
         ObjectMapper mapper = new JacksonObjectMapper();
         if (getInterfaceType() == 3) {
             try {
-                Map map = mapper.readValue(json, Map.class);
+                Map<String, Object> map = mapper.readValue(json, Map.class);
                 Integer result = Integer.valueOf(String.valueOf(map.get("result")));
                 Map<String, Object> newJsonMap = new HashMap<>();
                 if (result == 9091) {
