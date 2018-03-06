@@ -22,5 +22,15 @@
 <script src='/package/easyui/jquery.easyui.min.js'></script>
 <script src='/package/easyui/locale/easyui-lang-zh_CN.js'></script>
 <script src='/package/easyui/jquery.easyui.extend.js'></script>
-
+<script src='/panda-res/js/panda.core.js'></script>
+<script src='/panda-res/js/system.js'></script>
+<script type="text/javascript">
+$(function(){
+	var serviceLocator = new org.netsharp.core.JServiceLocator();
+	var service = "com.gongsibao.crm.web.home.PortalStatistic";
+	serviceLocator.invoke(service, 'getNewTasksCount', null, function(data){
+		alert(data);
+	}, null, true);
+})
+</script>
 </html>
