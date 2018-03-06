@@ -30,6 +30,7 @@ import com.gongsibao.trade.web.SalesmanAllOrderListPart;
 
 /*全部订单*/
 public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
+     private   String  listrowToolbarPath="/crm/roworderall/toolbar";
     @Override
     @Before
     public void setup() {
@@ -65,7 +66,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
     public PToolbar createListToolbar() {
 
         ResourceNode node = this.resourceService.byCode(resourceNodeCode);
-        OperationType ot1 = operationTypeService.byCode(OperationTypes.add);
+        OperationType ot1 = operationTypeService.byCode(OperationTypes.view);//权限挂在哪一个下面
         PToolbar toolbar = new PToolbar();
         {
             toolbar.toNew();
@@ -134,14 +135,55 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         }
     }
 
+    public PToolbar createRowToolbar() {
+
+        ResourceNode node = this.resourceService.byCode(resourceNodeCode);
+       // OperationType ot1 = operationTypeService.byCode(OperationTypes.view);//权限挂在哪一个下面
+        PToolbar toolbar = new PToolbar();
+        {
+            toolbar.toNew();
+            toolbar.setBasePath("panda/datagrid/row/edit");
+            toolbar.setPath(listrowToolbarPath);
+            toolbar.setName("转移");
+            toolbar.setResourceNode(node);
+            toolbar.setToolbarType(ToolbarType.BASE);
+        }
+        PToolbarItem item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("ordertran");
+            item.setName("转移");
+            item.setSeq(2);
+           // item.setOperationType (ot1);
+            //item.setCommand("{controller}.tran();");
+            toolbar.getItems().add(item);
+        }
+
+        return toolbar;
+    }
+    //列表行的toolbar
+    @Test
+    public void saveRowToolbar() {
+
+        PToolbar toolbar = createRowToolbar();
+        if (toolbar != null) {
+            toolbarService.save(toolbar);
+        }
+    }
+
     //列表
     @Override
     protected PDatagrid createDatagrid(ResourceNode node) {
 
         PDatagrid datagrid = super.createDatagrid(node);
         {
+
+            String toolbarPath=listrowToolbarPath;
             datagrid.setName("全部订单");
-            datagrid.setToolbar("panda/datagrid/row/edit");
+
+            datagrid.setToolbar(toolbarPath);
+
+
             datagrid.setAutoQuery(true);
             datagrid.setShowCheckbox(true);
             datagrid.setSingleSelect(false);
@@ -232,8 +274,11 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
     @Override
     protected void doOperation() {
         ResourceNode node = this.getResourceNode();
-        operationService.addOperation(node, OperationTypes.view);
-        //operationService.addOperation(node, OperationTypes.add);
+        operationService.addOperation (node, OperationTypes.view);
+
+//       operationService.addOperation (node, OperationTypes.add);
+//        operationService.addOperation (node, OperationTypes.update);
+//        operationService.addOperation (node, OperationTypes.delete);
     }
 
 }
