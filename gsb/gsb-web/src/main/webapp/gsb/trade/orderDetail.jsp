@@ -9,16 +9,103 @@
 	<link href='/package/easyui/themes/easyui.extend.css' rel='stylesheet' type='text/css' />
 	<link href='/package/easyui/themes/color.css' rel='stylesheet' type='text/css' />
 	<link href='/package/easyui/themes/icon.css' rel='stylesheet' type='text/css' />
+	<link href='/panda-res/css/panda.form.css' rel='stylesheet' type='text/css' />
+	<style>
+		.control_td{
+			min-width:120px;
+		}
+		
+		.form-panel td.label_td {
+		
+			line-height: 25px !important;
+		}
+	</style>
 </head>
-<body>
-
+    <body class="easyui-layout">
+        <div id="north" data-options="region:'north',split:false,collapsible:false,closed:false,height:200">
+            <div id="partsoOrder" style=" border:0px;padding:0 20px;">
+                <form id="formsoOrder">
+                    <div class="formContent">
+                        <table cellpadding="3" cellspacing="0" class="form-panel">
+                            <tr>
+                                <td class="label_td"><label>订单编号：</label></td>
+                                <td class="control_td"></td>
+                                <td class="label_td"><label>订单金额：</label></td>
+                                <td class="control_td"></td>
+                                <td class="label_td"><label>已付金额：</label></td>
+                                <td class="control_td"></td>
+							</tr>
+                            <tr>
+                                <td class="label_td"><label>客户名称：</label></td>
+                                <td class="control_td"></td>
+                                <td class="label_td"><label>手机：</label></td>
+                                <td class="control_td"></td>
+                                <td class="label_td"><label>下单时间：</label></td>
+                                <td class="control_td"></td>
+							</tr>
+                            <tr>
+                                <td class="label_td"><label>订单来源：</label></td>
+                                <td class="control_td"></td>
+                                <td class="label_td"><label>付款状态：</label></td>
+                                <td class="control_td"></td>
+                                <td class="label_td"><label>订单金额：</label></td>
+                                <td class="control_td"></td>
+							</tr>
+                            <tr>
+                                <td class="label_td"><label>已付金额：</label></td>
+                                <td class="control_td"></td>
+                                <td class="label_td"><label>客户Id：</label></td>
+                                <td class="control_td"></td>
+                                <td class="label_td"><label></label></td>
+                                <td class="control_td"></td>
+							</tr>
+                            <tr>
+                                <td class="label_td">
+                                    <label>备注：</label></td>
+                                <td colspan="5" class="control_td"></td>
+							</tr>
+						</table>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div id="center" data-options="region:'center',split:false,collapsible:false,closed:false">
+			<div id="detail_tabs" class="easyui-tabs" style="height:100%;">   
+			    <div title="产品信息">   
+			          <table id="order_product_grid"></table>
+			    </div>   
+			    <div title="回款记录">   
+			         <table id="order_payment_grid"></table>
+			    </div>   
+			    <div title="退款记录">   
+			         <table id="order_refund_grid"></table>
+			    </div>
+			    <div title="改价记录">   
+			         <table id="order_change_price_grid"></table>
+			    </div>   
+			    <div title="合同信息">
+			         
+			    </div>
+			    <div title="优惠明细">   
+			         <table id="order_discount_grid"></table>
+			    </div>
+			    <div title="任务信息">   
+			         
+			    </div>
+			    <div title="流转日志">   
+			         <table id="order_follow_grid"></table>
+			    </div>
+			</div>
+		</div>
 </body>
+
 <script src='/package/easyui/jquery.min.js'></script>
 <script src='/package/layer/layer.js'></script>
 <script src='/package/easyui/jquery.easyui.min.js'></script>
 <script src='/package/easyui/locale/easyui-lang-zh_CN.js'></script>
 <script src='/package/easyui/jquery.easyui.extend.js'></script>
-<script src='/panda-res/js/panda.core.js'></script>
 <script src='/panda-res/js/system.js'></script>
+<script src='/panda-res/js/panda.core.js'></script>
+<script src='/gsb/trade/js/order.detail-ctrl.js'></script>
 
 </html>

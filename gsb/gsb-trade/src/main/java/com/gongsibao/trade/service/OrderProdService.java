@@ -1,5 +1,6 @@
 package com.gongsibao.trade.service;
 
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.core.DataTable;
 import org.netsharp.core.IRow;
+import org.netsharp.core.Oql;
 import org.netsharp.core.Row;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.NumUtil;
@@ -113,5 +115,18 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
 		}
 		String sql = updateBuilder.toSQL();
 		return this.pm.executeNonQuery(sql, null);
+	}
+
+	@Override
+	public List<OrderProd> queryByOrderId(Integer orderId) {
+		
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects("*");
+			oql.setFilter("orderId=?");
+			oql.getParameters().add("orderId", orderId, Types.INTEGER);
+		}
+		return this.queryList(oql);
 	}
 }

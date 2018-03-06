@@ -1,5 +1,6 @@
 package com.gongsibao.bd.service;
 
+import java.sql.Types;
 import java.util.Date;
 import java.util.List;
 
@@ -95,5 +96,19 @@ public class AuditLogService extends PersistableService<AuditLog> implements IAu
 		}
 		String cmdText = updateSql.toSQL();
 		return this.pm.executeNonQuery(cmdText, null);
+	}
+
+	@Override
+	public List<AuditLog> queryByFormId(Integer orderId, AuditLogType type) {
+		
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects("*");
+			oql.setFilter("formId=? and typeId=?");
+			oql.getParameters().add("formId", orderId, Types.INTEGER);
+			oql.getParameters().add("typeId", type.getValue(), Types.INTEGER);
+		}
+		return this.queryList(oql);
 	}
 }
