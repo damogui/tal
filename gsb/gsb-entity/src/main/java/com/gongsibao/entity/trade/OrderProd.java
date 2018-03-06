@@ -114,7 +114,7 @@ public class OrderProd extends BaseEntity {
 	@Column(name = "apply_no", header = "支付账号")
 	private String applyNo;
 
-	@Column(name = "handle_name", header = "处理人")
+	@Column(name = "handle_name", header = "办理名称")
 	private String handleName;
 
 	@Column(name = "cost_status", header = "成本录入状态：0未录入, 1录入中, 2完成录入")
