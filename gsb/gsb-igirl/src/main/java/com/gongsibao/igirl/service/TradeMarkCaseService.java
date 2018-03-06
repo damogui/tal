@@ -38,6 +38,8 @@ import org.netsharp.core.DataTable;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
 import org.netsharp.core.Paging;
+import org.netsharp.organization.base.IEmployeeService;
+import org.netsharp.organization.entity.Employee;
 import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.wx.ea.base.IEaMessageService;
 
@@ -355,7 +357,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			TradeMarkCase tmc=this.queryFirst(oqlx);
 			//创建新的附件
 			List<UploadAttachment> caseUps = tradeMarkCaseAttachmentBuiler.buildCaseShareUploads(tmc);	// 构建案件共享上传
-			tmc.getUploadAttachments().addAll(caseUps);				
+			tmc.getUploadAttachments().addAll(caseUps);
 			List<UploadAttachment> markShareGroupUps = tradeMarkCaseAttachmentBuiler.buildMarkShareGroupUploads(tmc);
 			tmc.getUploadAttachments().addAll(markShareGroupUps);
 			List<DownloadAttachment> markShareGroupDowns = tradeMarkCaseAttachmentBuiler.buildDownloads(tmc);
@@ -366,5 +368,23 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		}catch(BusinessException e) {
 			return -1;
 		}
+	}
+	@Override
+	public TradeMarkCase updateOwner(Integer ttmId, Integer ownerId) {
+		IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
+		Oql oql = new Oql();
+		oql.setSelects("TradeMarkCase.*");
+		oql.setType(TradeMarkCase.class);
+		oql.setFilter("id=?");
+		oql.getParameters().add("id",ttmId,Types.INTEGER);
+		TradeMarkCase tradeMarkCase=this.queryFirst(oql);
+        if (tradeMarkCase!=null){
+            tradeMarkCase.setOwnerId(ownerId);
+            Employee employee = employeeService.byId(ownerId);
+            tradeMarkCase.setOwnerName(employee.getName());
+            tradeMarkCase.toPersist();
+            tradeMarkCase = super.save(tradeMarkCase);
+        }
+		return tradeMarkCase;
 	}
 }

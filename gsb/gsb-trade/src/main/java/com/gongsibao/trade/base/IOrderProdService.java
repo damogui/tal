@@ -15,5 +15,7 @@ public interface IOrderProdService extends IPersistableService<OrderProd> {
 	List<Integer> getIdsByOrderIds(List<Integer> orderIdList);
 	//更新是否分配 0 未分配 1已分配
 	int updateAssignByIds(Integer isAssign, List<Integer>  pkidList);
+	
+	List<OrderProd> queryByOrderId(Integer orderId);
 
 }
