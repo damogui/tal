@@ -14,6 +14,8 @@ public enum OrderSourceType implements IEnum  {
 	Ddh5(3047, "钉钉h5"),
 	Icompany(3048, "icompany"), 
 	Wdwxd(3049, "万达微信端");
+	
+	
 	private int value;
 	private String text;
 

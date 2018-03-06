@@ -1,4 +1,5 @@
 System.Declare("com.gongsibao.igirl.web");
+var countinput=0;
 com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart.Extends( {
 
     ctor: function () {
@@ -7,12 +8,14 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
   companyNameChange:function(newValue){
       var name=$(newValue).val();
      // name=encodeURIComponent(name);
+      
       if(name && name!=""){
     	  this.invokeService("fetchCompanyByName", [name], function(data) {
 		       if(data){
 		    	   if(data.appCnName){
-		    		   if(data.appCnName.indexOf(name)!=-1){
+		    		   if(data.appCnName.indexOf(name)!=-1 && countinput<2){
 		    			   $("#companyName").val(data.appCnName);
+		    			   countinput++;
 		    		           }
 		    	           }
 		    	    if(data.certCode){
@@ -79,7 +82,7 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
         		IMessageBox.error("【身份证】格式错误");
         		return false;
         	        }
-        	var x=/(([省])|([北][京][市])|([上][海][市])|([天][津][市])|([重][庆][市])|([内][蒙][古])|([广][西])|([宁][夏])|([新][疆])|([西][藏])|([内][蒙][古][自][治][区])|([新][疆][维][吾][尔][自][治][区])|([广][西][壮][族][自][治][区])|([宁][夏][回][族][自][治][区])|([西][藏][自][治][区]))/g.test(applierAddress);
+            var x=/(([省])|([中][国])|([中][华][人][民][共][和][国])|([北][京][市])|([上][海][市])|([天][津][市])|([重][庆][市])|([内][蒙][古])|([广][西])|([宁][夏])|([新][疆])|([西][藏])|([内][蒙][古][自][治][区])|([新][疆][维][吾][尔][自][治][区])|([广][西][壮][族][自][治][区])|([宁][夏][回][族][自][治][区])|([西][藏][自][治][区]))/g.test(applierAddress);
             //var x=/([广][西])/g.test(applierAddress);
         	if(!x){
         		IMessageBox.error("请检查申请人地址，必须出现省市县（区）三级！");

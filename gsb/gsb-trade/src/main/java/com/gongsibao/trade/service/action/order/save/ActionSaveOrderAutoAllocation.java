@@ -17,6 +17,8 @@ public class ActionSaveOrderAutoAllocation implements IAction{
 	@Override
 	public void execute(ActionContext ctx) {
 		
+		//当前用户是业务员，将所有明细订单分配给当前业务员
+		
 		
 	}
 

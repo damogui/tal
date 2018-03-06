@@ -572,11 +572,15 @@ org.netsharp.controls.NumberBoxQueryItem = org.netsharp.controls.Control.Extends
 	       qp.value1 = propertyValue;
       	   qp.intelligentMode1 = org.netsharp.core.intelligentMode.GTE;
       	   
-      	   var value2 =  $('#End_' + this.propertyName).numberbox('getValue');
-      	   if(!System.isnull(value2)){
-      		   
-      		  qp.value2 = value2;
-      		  qp.intelligentMode2 = org.netsharp.core.intelligentMode.LE;
+      	   var endCtrlId = '#End_' + this.propertyName;
+      	   if($(endCtrlId).length>0){
+
+          	   var value2 =  $().numberbox('getValue');
+          	   if(!System.isnull(value2)){
+          		   
+          		  qp.value2 = value2;
+          		  qp.intelligentMode2 = org.netsharp.core.intelligentMode.LE;
+          	   }
       	   }
       }else{
     	  
