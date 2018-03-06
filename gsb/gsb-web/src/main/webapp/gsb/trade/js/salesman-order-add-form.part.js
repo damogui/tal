@@ -53,23 +53,23 @@ com.gongsibao.trade.web.SalesmanAddOrderFormPart = org.netsharp.panda.commerce.F
     addExtraProp:function(entity){
     	
     	//处理金额，需要*100
-    	var fen = 100;
-    	entity.totalPrice = entity.totalPrice*fen;
-    	entity.discountPrice = entity.discountPrice*fen;
-    	entity.payablePrice = entity.payablePrice*fen;
+//    	var fen = 100;
+//    	entity.totalPrice = entity.totalPrice*fen;
+//    	entity.discountPrice = entity.discountPrice*fen;
+//    	entity.payablePrice = entity.payablePrice*fen;
     	
-    	$(entity.products).each(function(i,p){
-    		
-    		p.price = p.price*fen;
-    		p.priceOriginal = p.priceOriginal*fen;
-    		p.settlePrice = 0;
-    		
-        	$(p.items).each(function(i,item){
-        		
-        		item.price = item.price*fen;
-        		item.priceOriginal = item.priceOriginal*fen;
-        	});
-    	});
+//    	$(entity.products).each(function(i,p){
+//    		
+//    		p.price = p.price*fen;
+//    		p.priceOriginal = p.priceOriginal*fen;
+//    		p.settlePrice = 0;
+//    		
+//        	$(p.items).each(function(i,item){
+//        		
+//        		item.price = item.price*fen;
+//        		item.priceOriginal = item.priceOriginal*fen;
+//        	});
+//    	});
     }
 });
 
@@ -151,7 +151,8 @@ com.gongsibao.trade.web.OrderProdItemDetailPart = org.netsharp.panda.commerce.De
     		});
     		
     	});
-    	
+    	totalPrice = totalPrice/100;
+    	totalPayablePrice = totalPayablePrice/100;
     	$('#totalPrice').numberbox('setValue',totalPrice);
     	$('#payablePrice').numberbox('setValue',totalPayablePrice);
     },
@@ -192,13 +193,13 @@ com.gongsibao.trade.web.OrderProdItemDetailPart = org.netsharp.panda.commerce.De
     	var items = row.items;
     	if(items.length==1){
     		
-    		return items[0].priceOriginal;
+    		return items[0].priceOriginal/100;
     	}else{
 
         	var str = '';
         	$(items).each(function(i,item){
         		
-        		str+='<p>'+item.priceOriginal+'</p>';
+        		str+='<p>'+(item.priceOriginal/100)+'</p>';
         	});
         	return str;
     	}
@@ -208,13 +209,13 @@ com.gongsibao.trade.web.OrderProdItemDetailPart = org.netsharp.panda.commerce.De
     	var items = row.items;
     	if(items.length==1){
     		
-    		return items[0].price;
+    		return items[0].price/100;
     	}else{
 
         	var str = '';
         	$(items).each(function(i,item){
         		
-        		str+='<p>'+item.price+'</p>';
+        		str+='<p>'+(item.price/100)+'</p>';
         	});
         	return str;
     	}
@@ -304,6 +305,7 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
         	orderProdItem.quantity = 1;
         	orderProdItem.priceOriginal = item.originalPrice;
         	orderProdItem.price =  item.price;
+        	
         	orderProd.priceOriginal = orderProd.priceOriginal + item.originalPrice;
         	orderProd.price = orderProd.price + item.price;
         	orderProd.items.push(orderProdItem);
@@ -514,9 +516,15 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
 		        	}
 		        	return value;
 		        }},    
-		        {field:'originalPrice',title:'原售价',width:100,align:'right'},
-		        {field:'price',title:'现售价',width:100,align:'right',editor:{type:'numberbox',options:{precision:0,height:31}}}
-		    ]]    
+		        {field:'originalPrice',title:'原售价',width:100,align:'right',formatter:function(value,row,index){
+		        	return value/100;
+		        }},
+		        {field:'price',title:'现售价',width:100,align:'right',editor:{type:'numberbox',options:{precision:0,height:31}},
+		        	formatter:function(value,row,index){
+		        		
+		        		return value/100;
+		        	}}
+		    ]]
 		});
     },
     getRows:function(){
@@ -610,17 +618,17 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
 		this.invokeService('queryServicePriceItem', [productId,cityId], function(rows){
 
 			 //循环将价格除以100
-			 $(rows).each(function(i,item){
-				 
-		        if(item.price){
-		        		
-		        	item.price = item.price/100;
-		        }
-		        if(item.originalPrice){
-	        		
-		        	item.originalPrice = item.originalPrice/100;
-		        }
-			 });
+//			 $(rows).each(function(i,item){
+//				 
+//		        if(item.price){
+//		        		
+//		        	item.price = item.price;
+//		        }
+//		        if(item.originalPrice){
+//	        		
+//		        	item.originalPrice = item.originalPrice;
+//		        }
+//			 });
 			 var data = {};
 			 data.footer =[{"unit":'合计：',"originalPrice":0,"price":0}];
 			 data.rows = rows;
