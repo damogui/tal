@@ -8,26 +8,48 @@ import org.netsharp.core.DataTable;
 import org.netsharp.core.IRow;
 import org.netsharp.persistence.session.SessionManager;
 
-import com.gongsibao.entity.crm.home.BaseHomeSupplierEntity;
+import com.gongsibao.entity.crm.home.HomeSupplierEntity;
 import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.supplier.base.ISalesmanService;
 import com.gongsibao.supplier.base.ISupplierDepartmentService;
 
 public class PortalStatistic {
-	ISupplierDepartmentService departService = ServiceFactory.create(ISupplierDepartmentService.class);
+	static ISupplierDepartmentService departService = ServiceFactory.create(ISupplierDepartmentService.class);
 	//ISalesmanService manSerice = ServiceFactory.create(ISalesmanService.class);
 	
 	/**
-	 * 获取服务商的门户统计
+	 * 获取服务商的门户的统计
 	 * @return
 	 */
-	public BaseHomeSupplierEntity getDate(){
-		BaseHomeSupplierEntity resultEntity  = new BaseHomeSupplierEntity();
+	public static HomeSupplierEntity getStatisticDate(){
+		HomeSupplierEntity resultEntity  = new HomeSupplierEntity();
 		
+		//部门简报
+		resultEntity.setNewTasksCount(getNewTasksCount());
+		resultEntity.setUnStartTasksCount(getUnStartTasksCount());
+		resultEntity.setUnfoolowTasksCount(getUnfoolowTasksCount());
+		resultEntity.setTimeOutTasksCount(getTimeOutTasksCount());
+		resultEntity.setExceptUntreatedTasksCount(getExceptUntreatedTasksCount());
+		resultEntity.setHighSeasCount(getHighSeasCount());
+		//跟进统计（今日）
+		Map<String, String> getFoolowCountMap = getFoolowSatatistic();
+		resultEntity.setFoolowTasksCount(Integer.parseInt(getFoolowCountMap.get("foolowTasksCount")));
+		resultEntity.setQualityDeclinetaskCount(Integer.parseInt(getFoolowCountMap.get("qualityDeclinetaskCount")));
+		resultEntity.setQualityRisetaskCount(Integer.parseInt(getFoolowCountMap.get("qualityRisetaskCount")));
+		//预估业绩
+		Map<String, String> getDayAmountMap = getDayAmount();
+		Map<String, String> getWeekAmountMap = getWeekAmount();
+		Map<String, String> getMonthAmountMap = getMonthAmount();
+		resultEntity.setDaySigningAmount(Integer.parseInt(getDayAmountMap.get("daySigningAmount")));
+		resultEntity.setDayReturnedAmount(Integer.parseInt(getDayAmountMap.get("dayReturnedAmount")));
+		resultEntity.setWeekSigningAmount(Integer.parseInt(getWeekAmountMap.get("weekSigningAmount")));
+		resultEntity.setWeekReturnedAmount(Integer.parseInt(getWeekAmountMap.get("weekReturnedAmount")));
+		resultEntity.setMonthSigningAmount(Integer.parseInt(getMonthAmountMap.get("monthSigningAmount")));
+		resultEntity.setMonthReturnedAmount(Integer.parseInt(getMonthAmountMap.get("monthReturnedAmount")));
+		//漏斗统计
 		Map<String, String> getXSCountMap = getXSCount();
 		Map<String, String> getCodeTaskCountMap = getCodeTaskCount();
-		
-		/*resultEntity.setSCount(Integer.parseInt(getXSCountMap.get("sCount")));
+		resultEntity.setSCount(Integer.parseInt(getXSCountMap.get("sCount")));
 		resultEntity.setXCount(Integer.parseInt(getXSCountMap.get("xCount")));
 		resultEntity.setA0Count(Integer.parseInt(getCodeTaskCountMap.get("A0")));
 		resultEntity.setA1Count(Integer.parseInt(getCodeTaskCountMap.get("A1")));
@@ -41,7 +63,7 @@ public class PortalStatistic {
 		resultEntity.setC3Count(Integer.parseInt(getCodeTaskCountMap.get("C3")));
 		resultEntity.setC4Count(Integer.parseInt(getCodeTaskCountMap.get("C4")));
 		resultEntity.setD1Count(Integer.parseInt(getCodeTaskCountMap.get("D1")));
-		resultEntity.setD2Count(Integer.parseInt(getCodeTaskCountMap.get("D2")));*/
+		resultEntity.setD2Count(Integer.parseInt(getCodeTaskCountMap.get("D2")));
 		return resultEntity;
 	}
 	/**
@@ -58,7 +80,7 @@ public class PortalStatistic {
 	 * 获取新增任务数
 	 * @return
 	 */
-	private Integer getNewTasksCount() {
+	private static Integer getNewTasksCount() {
 		Integer returnInteger = 0;
 		Salesman salesman = CurrentSalesMan();
 		
@@ -83,7 +105,7 @@ public class PortalStatistic {
 	 * 获取未启动任务数
 	 * @return
 	 */
-	private Integer getUnStartTasksCount() {
+	private static Integer getUnStartTasksCount() {
 		Integer returnInteger = 0;
 		Salesman salesman = CurrentSalesMan();
 		
@@ -108,7 +130,7 @@ public class PortalStatistic {
 	 * 获取待跟进任务数
 	 * @return
 	 */
-	private Integer getUnfoolowTasksCount() {
+	private static Integer getUnfoolowTasksCount() {
 		Integer returnInteger = 0;
 		Salesman salesman = CurrentSalesMan();
 		
@@ -132,7 +154,7 @@ public class PortalStatistic {
 	 * 获取超时任务数
 	 * @return
 	 */
-	private Integer getTimeOutTasksCount() {
+	private static Integer getTimeOutTasksCount() {
 		Integer returnInteger = 0;
 		Salesman salesman = CurrentSalesMan();
 		
@@ -157,7 +179,7 @@ public class PortalStatistic {
 	 * 获取异常未处理任务数----------????????????
 	 * @return
 	 */
-	private Integer getExceptUntreatedTasksCount() {
+	private static Integer getExceptUntreatedTasksCount() {
 		Integer returnInteger = 1111;
 		return returnInteger;
 	}
@@ -165,7 +187,7 @@ public class PortalStatistic {
 	 * 获取公海任务数
 	 * @return
 	 */
-	private Integer getHighSeasCount() {
+	private static Integer getHighSeasCount() {
 		Integer returnInteger = 0;
 		
 		StringBuilder strSql=new StringBuilder();
@@ -184,7 +206,7 @@ public class PortalStatistic {
 	 * 获取跟进统计（跟进任务数、质量上升、下降任务数）
 	 * @return
 	 */
-	private Map<String, String> getFoolowSatatistic() {
+	private static Map<String, String> getFoolowSatatistic() {
 		Map<String, String> resultMap =new HashMap<>();
 		Salesman salesman = CurrentSalesMan();
 		
@@ -199,7 +221,7 @@ public class PortalStatistic {
 		}else {
 			strSql.append(" where owner_id =" + salesman.getId());
 		}
-		strSql.append(" DATE_FORMAT(next_foolow_time,'%Y-%m-%d') = CURDATE()");
+		strSql.append(" AND DATE_FORMAT(next_foolow_time,'%Y-%m-%d') = CURDATE()");
 		
 		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
 		for (IRow row : dtNewCount) {
@@ -213,13 +235,13 @@ public class PortalStatistic {
 	 * 获取今日预估签单金额、预估回款金额
 	 * @return
 	 */
-	private Map<String, String> getDayAmount() {
+	private static Map<String, String> getDayAmount() {
 		Map<String, String> resultMap =new HashMap<>();
 		Salesman salesman = CurrentSalesMan();
 		
 		StringBuilder strSql=new StringBuilder();
-		strSql.append("SELECT SUM(signing_amount) daySigningAmount,");
-		strSql.append("SUM(returned_amount) dayReturnedAmount");
+		strSql.append("SELECT ifnull(SUM(signing_amount),0) daySigningAmount,");
+		strSql.append("ifnull(SUM(returned_amount),0) dayReturnedAmount");
 		
 		strSql.append(" from n_crm_task_foolow");
 		strSql.append(" where task_id in (");
@@ -242,13 +264,13 @@ public class PortalStatistic {
 	 * 获取本周预估签单金额、预估回款金额
 	 * @return
 	 */
-	private Map<String, String> getWeekAmount() {
+	private static Map<String, String> getWeekAmount() {
 		Map<String, String> resultMap =new HashMap<>();
 		Salesman salesman = CurrentSalesMan();
 		
 		StringBuilder strSql=new StringBuilder();
-		strSql.append("SELECT SUM(signing_amount) weekSigningAmount,");
-		strSql.append("SUM(returned_amount) weekReturnedAmount");
+		strSql.append("SELECT ifnull(SUM(signing_amount),0) weekSigningAmount,");
+		strSql.append("ifnull(SUM(returned_amount),0) weekReturnedAmount");
 		
 		strSql.append(" from n_crm_task_foolow");
 		strSql.append(" where task_id in (");
@@ -271,13 +293,13 @@ public class PortalStatistic {
 	 * 获取本月预估签单金额、预估回款金额
 	 * @return
 	 */
-	private Map<String, String> getMonthAmount() {
+	private static Map<String, String> getMonthAmount() {
 		Map<String, String> resultMap =new HashMap<>();
 		Salesman salesman = CurrentSalesMan();
 		
 		StringBuilder strSql=new StringBuilder();
-		strSql.append("SELECT SUM(signing_amount) monthSigningAmount,");
-		strSql.append("SUM(returned_amount) monthReturnedAmount");
+		strSql.append("SELECT ifnull(SUM(signing_amount),0) monthSigningAmount,");
+		strSql.append("ifnull(SUM(returned_amount),0) monthReturnedAmount");
 		
 		strSql.append(" from n_crm_task_foolow");
 		strSql.append(" where task_id in (");
@@ -302,7 +324,7 @@ public class PortalStatistic {
 	 * @param orgaId
 	 * @return
 	 */
-	protected Map<String, String> getXSCount() {
+	protected static Map<String, String> getXSCount() {
 		Map<String, String> resultMap =new HashMap<>();
 		Salesman salesman = CurrentSalesMan();
 		
@@ -333,7 +355,7 @@ public class PortalStatistic {
 	 * @param orgaId
 	 * @return
 	 */
-	protected Map<String, String> getCodeTaskCount() {
+	protected static Map<String, String> getCodeTaskCount() {
 		Map<String, String> resultMap =new HashMap<>();
 		Salesman salesman = CurrentSalesMan();
 		StringBuilder strSql=new StringBuilder();
@@ -362,7 +384,7 @@ public class PortalStatistic {
 		}
 		
 		strSql.append(" and intention_category in (1,2,3,4)");
-		strSql.append(" and DATE_FORMAT(create_time,'%Y-%m-%d') <= CURDATE()");
+		strSql.append(" and DATE_FORMAT(create_time,'%Y-%m-%d') <= CURDATE())");
 		
 		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
 		for (IRow row : dtNewCount) {

@@ -68,20 +68,19 @@ public class SalesmanOrderAddWorkspaceTest extends WorkspaceCreationBase {
 		addFormFieldRefrence(form, "department.name", "部门", null, SupplierDepartment.class.getSimpleName(), false, true);
 		addFormFieldRefrence(form, "owner.name", "业务员", null, Employee.class.getSimpleName(), false, true);
 		addFormField(form, "channelOrderNo", "渠道订单号", groupName, ControlTypes.TEXT_BOX, false, false);
-		addFormField(form, "sourceType", "订单来源", groupName, ControlTypes.ENUM_BOX, false, false);
+		addFormField(form, "platformSource", "订单来源", groupName, ControlTypes.ENUM_BOX, false, false);
 		addFormFieldRefrence(form, "companyIntention.companyName", "关联企业", null, CompanyIntention.class.getSimpleName(), false, false);
 		formField = addFormField(form, "accountMobile", "手机", groupName, ControlTypes.TEXT_BOX, true, false);
 		{
 			formField.setTroikaTrigger("controllersoOrder.accountMobileChange(this);");
 		}
 		addFormField(form, "accountName", "联系人", groupName, ControlTypes.TEXT_BOX, false, true);
-		// addFormField(form, "email", "客户等级", groupName, ControlTypes.TEXT_BOX,
-		// false, true);
+		 addFormField(form, "email", "客户等级", groupName, ControlTypes.TEXT_BOX,false, true);
 		addFormField(form, "email", "邮箱", groupName, ControlTypes.TEXT_BOX, false, true);
 		addFormField(form, "accountType", "新/老客户", groupName, ControlTypes.ENUM_BOX, true, false);
-		addFormField(form, "couponCode", "优惠劵", groupName, ControlTypes.TEXT_BOX, false, false);
+//		addFormField(form, "couponCode", "优惠劵", groupName, ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "totalPrice", "原价金额", groupName, ControlTypes.DECIMAL_FEN_BOX, false, true);
-		addFormField(form, "discountPrice", "优惠金额", groupName, ControlTypes.DECIMAL_FEN_BOX, false, true);
+//		addFormField(form, "discountPrice", "优惠金额", groupName, ControlTypes.DECIMAL_FEN_BOX, false, true);
 		addFormField(form, "payablePrice", "应付金额", groupName, ControlTypes.DECIMAL_FEN_BOX, false, true);
 		
 		
