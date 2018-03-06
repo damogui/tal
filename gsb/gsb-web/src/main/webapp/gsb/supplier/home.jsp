@@ -38,11 +38,12 @@
 		var funnel = new com.gongsibao.crm.web.home.Funnel(); 
 		
 		$(function() {
+			alert(brief.briefingCount('getNewTasksCount',null));
 			$("#briefing").find('p >span').eq(0).text("新增任务数：" + brief.briefingCount('getNewTasksCount',null) + "个");
 			$("#briefing").find('p >span').eq(1).text("未启动任务数：" + brief.briefingCount('getUnStartTasksCount',null) + "个");
 			$("#briefing").find('p >span').eq(2).text("待跟进任务数：" + brief.briefingCount('getUnfoolowTasksCount',null) + "个");
 			$("#briefing").find('p >span').eq(3).text("超时任务数：" + brief.briefingCount('getTimeOutTasksCount',null) + "个");
-			$("#briefing").find('p >span').eq(4).text("异常待跟进任务数：" + brief.briefingCount('getExceptUntreatedTasksCount',null) + "个");
+			$("#briefing").find('p >span').eq(4).text("异常未处理任务数：" + brief.briefingCount('getExceptUntreatedTasksCount',null) + "个");
 			$("#briefing").find('p >span').eq(5).text("公海：" + brief.briefingCount('getHighSeasCount',null) + "个");
 			
 			foolow.foolowCount('getFoolowSatatistic',null);

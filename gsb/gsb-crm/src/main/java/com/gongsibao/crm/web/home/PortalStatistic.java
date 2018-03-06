@@ -39,7 +39,7 @@ public class PortalStatistic {
 		if(salesman.getIsLeader()){
 			strSql.append(" where department_id in ("+salesman.getDepartmentId()+")");
 		}else {
-			strSql.append(" where owner_id =" + salesman.getId());
+			strSql.append(" where owner_id =" + salesman.getEmployeeId());
 		}
 		strSql.append(" AND DATE_FORMAT(create_time,'%Y-%m-%d') = CURDATE()");
 		
@@ -64,7 +64,7 @@ public class PortalStatistic {
 		if(salesman.getIsLeader()){
 			strSql.append(" where department_id in ("+salesman.getDepartmentId()+")");
 		}else {
-			strSql.append(" where owner_id =" + salesman.getId());
+			strSql.append(" where owner_id =" + salesman.getEmployeeId());
 		}
 		strSql.append(" AND DATE_FORMAT(create_time,'%Y-%m-%d') <= CURDATE()");
 		strSql.append(" AND foolow_status = 6");
@@ -89,7 +89,7 @@ public class PortalStatistic {
 		if(salesman.getIsLeader()){
 			strSql.append(" where department_id in ("+salesman.getDepartmentId()+")");
 		}else {
-			strSql.append(" where owner_id =" + salesman.getId());
+			strSql.append(" where owner_id =" + salesman.getEmployeeId());
 		}
 		strSql.append(" AND next_foolow_time = CURDATE()");
 		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
@@ -113,7 +113,7 @@ public class PortalStatistic {
 		if(salesman.getIsLeader()){
 			strSql.append(" where department_id in ("+salesman.getDepartmentId()+")");
 		}else {
-			strSql.append(" where owner_id =" + salesman.getId());
+			strSql.append(" where owner_id =" + salesman.getEmployeeId());
 		}
 		strSql.append(" AND foolow_status = 3");
 		strSql.append(" AND NOW()>next_foolow_time");
@@ -127,7 +127,7 @@ public class PortalStatistic {
 	 * 获取异常未处理任务数----------????????????
 	 * @return
 	 */
-	public static Integer getExceptUntreatedTasksCount() {
+	public Integer getExceptUntreatedTasksCount() {
 		Integer returnInteger = 1111;
 		return returnInteger;
 	}
@@ -167,7 +167,7 @@ public class PortalStatistic {
 		if(salesman.getIsLeader()){
 			strSql.append(" where department_id in ("+salesman.getDepartmentId()+")");
 		}else {
-			strSql.append(" where owner_id =" + salesman.getId());
+			strSql.append(" where owner_id =" + salesman.getEmployeeId());
 		}
 		strSql.append(" AND DATE_FORMAT(next_foolow_time,'%Y-%m-%d') = CURDATE()");
 		
@@ -198,7 +198,7 @@ public class PortalStatistic {
 		if(salesman.getIsLeader()){
 			strSql.append(" where department_id in ("+salesman.getDepartmentId()+")");
 		}else {
-			strSql.append(" where owner_id =" + salesman.getId());
+			strSql.append(" where owner_id =" + salesman.getEmployeeId());
 		}
 		if(type.equals(1)){
 			strSql.append(" and date_format(last_follow_time,'%Y-%m-%d') = CURDATE())");
@@ -234,7 +234,7 @@ public class PortalStatistic {
 		if(salesman.getIsLeader()){
 			strSql.append(" where department_id in ("+salesman.getDepartmentId()+")");
 		}else {
-			strSql.append(" where owner_id =" + salesman.getId());
+			strSql.append(" where owner_id =" + salesman.getEmployeeId());
 		}
 		
 		strSql.append(" AND DATE_FORMAT(create_time,'%Y-%m-%d') <= CURDATE()");
@@ -277,7 +277,7 @@ public class PortalStatistic {
 		if(salesman.getIsLeader()){
 			strSql.append(" where department_id in ("+salesman.getDepartmentId()+")");
 		}else {
-			strSql.append(" where owner_id =" + salesman.getId());
+			strSql.append(" where owner_id =" + salesman.getEmployeeId());
 		}
 		
 		strSql.append(" and intention_category in (1,2,3,4)");

@@ -13,11 +13,11 @@ com.gongsibao.crm.web.home.PortalStatistic = System.Object.Extends({
 //销售简报
 com.gongsibao.crm.web.home.Briefing = com.gongsibao.crm.web.home.PortalStatistic.Extends({
 	briefingCount : function(method,pars){
-		var resultCount = 0;
-		this.invoke(method,null,function(message){
-			resultCount = message;
+		var brieCount = 0;
+		this.invoke(method,null,function(count){
+			brieCount = count;
+			return brieCount;
 		});
-		return resultCount;
 	}
 });
 //跟进统计
@@ -75,7 +75,7 @@ com.gongsibao.crm.web.home.Funnel = com.gongsibao.crm.web.home.PortalStatistic.E
 	funnelCodeCount : function(method,pars){
 		this.invoke(method,null,function(message){
 			$.each(message, function(key, value) {
-				$("#"+key).text(key + ":" + value);
+				$("#"+key).text(key + ":" + value + "个");
 			});
 		});
 	}
