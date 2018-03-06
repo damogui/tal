@@ -457,8 +457,6 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			if (tm.getMarkState().getValue()==0||tm.getMarkState().getValue()==11||tm.getMarkState().getValue()==2){
 				//只有资料准备，填报异常的状态可以点击审核改为待提交，其他状态不允许通过审核变为待提交;
 				//只有待提交、填报异常的状态可以改为材料准备
-				boo = false;
-			}else{
 				tmc = tm.getTradeMarkCase();
 				List<UploadAttachment> uas = tmc.getUploadAttachments();
 				for (UploadAttachment ua : uas) {
@@ -470,6 +468,8 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 						boo = true;
 					}
 				}
+			}else{
+				boo = false;
 			}
 			if (boo) {
 				if (type==1) {
