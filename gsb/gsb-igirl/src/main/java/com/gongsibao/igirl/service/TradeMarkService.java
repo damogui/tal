@@ -443,50 +443,47 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		return tm;
 	}
 
-	public String updateMarkState(String ids, String type) {
+	public String updateMarkState(String ids, Integer type) {
 		Oql oql = new Oql();
-		String cmdstr = "select id from ig_trade_mark where id in (?)".replace("?", ids);
-		DataTable dataTable = this.pm.executeTable(cmdstr, oql.getParameters());
-		List<Map<String, Object>> maps = dataTable.getValueMapList();
-		List<TradeMark> list = new ArrayList<>();
+		oql.setSelects("TradeMark.*,TradeMark.tradeMarkCase.*,TradeMark.tradeMarkCase.uploadAttachments.*");
+		oql.setType(TradeMark.class);
+		oql.setFilter("id in(?)".replace("?",ids));
+		List<TradeMark> tms = this.queryList(oql);
 		StringBuffer str = new StringBuffer("");
-		for (Map<String, Object> map : maps) {
-			int id = (int) map.get("id");
-			oql = new Oql();
-			oql.setSelects("TradeMark.*,TradeMark.tradeMarkCase.*,TradeMark.tradeMarkCase.uploadAttachments.*");
-			oql.setType(TradeMark.class);
-			oql.setFilter("id = ?");
-			oql.getParameters().add("id", id, Types.INTEGER);
-			TradeMark tm = this.queryFirst(oql);
-			TradeMarkCase tmc = tm.getTradeMarkCase();
-			List<UploadAttachment> uas = tmc.getUploadAttachments();
+		TradeMarkCase tmc;
+		List<TradeMark> tradeMarks = new ArrayList<>();
+		for(TradeMark tm:tms){
 			boolean boo = true;
-			for (UploadAttachment ua : uas) {
-				if (ua.getNeeded() && StringManager.isNullOrEmpty(ua.getFileUrl())) {
-					boo = false;
-					str.append(tm.getProxyCode()).append(",");
-					break;
-				} else {
-					boo = true;
+			if (tm.getMarkState().getValue()==0||tm.getMarkState().getValue()==11||tm.getMarkState().getValue()==2){
+				//只有资料准备，填报异常的状态可以点击审核改为待提交，其他状态不允许通过审核变为待提交;
+				//只有待提交、填报异常的状态可以改为材料准备
+				boo = false;
+			}else{
+				tmc = tm.getTradeMarkCase();
+				List<UploadAttachment> uas = tmc.getUploadAttachments();
+				for (UploadAttachment ua : uas) {
+					if (ua.getNeeded() && StringManager.isNullOrEmpty(ua.getFileUrl())) {
+						boo = false;
+						str.append(tm.getProxyCode()).append(",");
+						break;
+					} else {
+						boo = true;
+					}
 				}
 			}
 			if (boo) {
-				if (type.equals("1")) {
+				if (type==1) {
 					tm.setMarkState(MarkState.WAITCOMMIT);
 				} else {
 					tm.setMarkState(MarkState.READY);
 				}
-				list.add(tm);
+				tradeMarks.add(tm);
 			}
 		}
-		if (!list.isEmpty()) {
-			this.saves(list);
+		if (!tradeMarks.isEmpty()) {
+			this.saves(tradeMarks);
 		}
-		if (str.length() > 0) {
-			return str.substring(0, str.lastIndexOf(",") + 1);
-		} else {
-			return "";
-		}
+		return str.toString();
 	}
 
 	private Employee getEmployee(Integer id) {
