@@ -1,10 +1,10 @@
-var ip="http://192.168.10.109:3000";
+var ip="http://192.168.29.137:3000";
 $(function(){
 	var siteCtl=new org.netsharp.core.JServiceLocator()
 	var ctlServiceStr="com.gongsibao.igirl.web.SiteInfoListPart";
 	axios.get(ip+"/vue/comp/base").then(function(res){
 		  //加载所有基础vue组件
-	   console.log(res)
+	  // console.log(res)
 	   res.data.forEach(function(comp){
 		      var obj=eval("("+comp+")");
 	    	  Vue.component(obj.vname,obj);
@@ -35,7 +35,7 @@ $(function(){
 			//异步加载组件
 			axios.get(ip+"/vue/comp/tm").then(function(res){	
 				 var obj=eval("("+res.data+")");
-				 console.log(obj)
+				 //console.log(obj)
 				 resolve(obj);
 			}).catch(function(reason){
 				console.log(reason)
@@ -46,7 +46,7 @@ $(function(){
 			//异步加载组件
 			axios.get(ip+"/vue/comp/tmconfirm").then(function(res){	
 				 var obj=eval("("+res.data+")");
-				 console.log(obj)
+				 //console.log(obj)
 				 resolve(obj);
 			}).catch(function(reason){
 				console.log(reason)
@@ -57,7 +57,7 @@ $(function(){
 			//异步加载组件
 			axios.get(ip+"/vue/comp/payment").then(function(res){	
 				 var obj=eval("("+res.data+")");
-				 console.log(obj)
+				 //console.log(obj)
 				 resolve(obj);
 			}).catch(function(reason){
 				console.log(reason)
@@ -68,7 +68,18 @@ $(function(){
 			//异步加载组件
 			axios.get(ip+"/vue/comp/zzty").then(function(res){	
 				 var obj=eval("("+res.data+")");
-				 console.log(obj)
+				 //console.log(obj)
+				 resolve(obj);
+			}).catch(function(reason){
+				console.log(reason)
+			})
+			
+		}))
+		var viewimg=()=>Promise.resolve(new Promise(function(resolve,reject){
+			//异步加载组件
+			axios.get(ip+"/vue/comp/viewimg").then(function(res){	
+				 var obj=eval("("+res.data+")");
+				 //console.log(obj)
 				 resolve(obj);
 			}).catch(function(reason){
 				console.log(reason)
@@ -82,6 +93,7 @@ $(function(){
 			{path:'/tmc',component:tmc},//案件确认
 			{path:'/payment',component:payment},//服务费用支付
 			{path:'/zzty',component:zzty},//营业执照和图样身份证
+			{path:'/viewimg',component:viewimg},//营业执照和图样身份证
 			{path:'/pt',component:tmc},
 			{path:'/cr',component:cr},
 		]
@@ -139,6 +151,7 @@ $(function(){
 							  siteInfo:"",
 							  sourceInfo:"",
 							  caseinfo:null,
+							  ossconfig:null,
 						  }
 					  },
 					 created:function(){

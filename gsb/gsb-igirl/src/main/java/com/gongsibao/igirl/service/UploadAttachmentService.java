@@ -46,10 +46,18 @@ public class UploadAttachmentService extends GsbPersistableService<UploadAttachm
 			return -1;
 		}
 	}
-
-
-
-
-   
-
+	@Override
+	public List<UploadAttachment> findAllAttachmentsByCaseId(String caseid) {
+		// TODO Auto-generated method stub
+	
+			Oql oql=new Oql();
+			{
+				oql.setType(UploadAttachment.class);
+				oql.setSelects("UploadAttachment.*");
+				oql.setFilter("tradeMarkCaseId=?");
+				oql.getParameters().add("tradeMarkCaseId",Integer.parseInt(caseid),Types.INTEGER);
+			}
+			return this.queryList(oql);
+	
+	}
 }
