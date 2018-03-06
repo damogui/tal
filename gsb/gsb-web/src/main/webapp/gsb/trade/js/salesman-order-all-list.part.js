@@ -9,6 +9,11 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
 
 
     },
+	doubleClickRow : function(index, row) {
+
+		var url = '/nav/gsb/trade/orderDetail?id'+row.id;
+		window.open('/nav/gsb/trade/orderDetail');
+	},
     addOrderReceived : function(id) {//创建订单业绩
         var me = this;
 
