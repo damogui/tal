@@ -89,7 +89,23 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
     },
     orderTran:function(id){//订单转移
 
-        this.edit(id);
+        //this.edit(id);
+        var me = this;
+
+        var rows = this.getSelections();
+        if (rows.length <= 0) {
+            IMessageBox.info('请先选择订单数据');
+            return false;
+        }
+
+        var orderIdList = [];
+        $.each(rows, function(k, v) {
+            orderIdList.push(v.id);
+        });
+
+
+
+
     },
     begOption:function(id){//开始操作
 
