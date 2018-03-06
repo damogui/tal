@@ -1,10 +1,12 @@
 package com.gongsibao.entity.trade;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.gongsibao.entity.crm.NCustomer;
+import com.gongsibao.entity.supplier.SalesmanProduct;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
@@ -112,7 +114,10 @@ public class SoOrder extends BaseEntity {
     private Integer paidPrice = 0;
 
     @Column(name = "performance_price", header = "已划分金额(业绩已经划分)")
-    private Integer performancePrice = 0;
+    private   Integer performancePrice = 0;
+
+    @Subs(subType = NDepReceivable.class, foreignKey = "orderId", header = "业绩划分表")
+    private List<NDepReceivable> depReceivable  ;
 
     @Column(name = "discount_price", header = "优惠金额")
     private Integer discountPrice = 0;
@@ -785,5 +790,13 @@ public class SoOrder extends BaseEntity {
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
+    }
+
+    public List<NDepReceivable> getDepReceivable() {
+        return depReceivable;
+    }
+
+    public void setDepReceivable(List<NDepReceivable> depReceivable) {
+        this.depReceivable = depReceivable;
     }
 }
