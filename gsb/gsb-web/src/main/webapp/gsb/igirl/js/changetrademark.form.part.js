@@ -7,63 +7,64 @@ com.gongsibao.igirl.web.ChangeTradeMarkPart = org.netsharp.panda.commerce.FormPa
         $("#appCertFilePath").parent().parent().hide();
         $("#appCertFileENPath").parent().parent().hide();
         $("#bgzmFileENPath").parent().parent().hide();
+        $("#certFileENPath").attr("data-options","width:0,required:false");
+        $("#certificateType").attr("data-options","width:0,required:false");
+        $("#appCertificateNum").attr("data-options","width:0,required:false");
+        $("#appCertFilePath").attr("data-options","width:0,required:false");
+        $("#appCertFileENPath").attr("data-options","width:0,required:false");
+        $("#bgzmFileENPath").attr("data-options","width:0,required:false");
         this.base();
     },
-    applierTypeChange:function (newValue, oldValue) {
+    changeTypeChange:function (newValue, oldValue) {
         $("#certFileENPath").parent().parent().hide();
         $("#certFilePath").parent().parent().hide();
         $("#certificateType").parent().parent().hide();
         $("#appCertificateNum").parent().parent().hide();
         $("#appCertFilePath").parent().parent().hide();
         $("#appCertFileENPath").parent().parent().hide();
-        var languageType = $("#languageType").val();
-        if(languageType==0&&newValue==0){
-            $("#certFilePath").parent().parent().show();
-        }else if(languageType==1&&newValue==0){
-            $("#certFileENPath").parent().parent().show();
-            $("#certFilePath").parent().parent().show();
-        }else if(languageType==0&&newValue==1){
-            $("#certFilePath").parent().parent().show();
-            $("#certificateType").parent().parent().show();
-            $("#appCertificateNum").parent().parent().show();
-            $("#appCertFilePath").parent().parent().show();
-        }else{
-            $("#certificateType").parent().parent().show();
-            $("#appCertificateNum").parent().parent().show();
-            $("#appCertFilePath").parent().parent().show();
-            $("#appCertFileENPath").parent().parent().show();
-        }
-    },
-    languageTypeChange:function (newValue,oldValue) {
-        $("#certFileENPath").parent().parent().hide();
-        $("#certFilePath").parent().parent().hide();
-        $("#certificateType").parent().parent().hide();
-        $("#appCertificateNum").parent().parent().hide();
-        $("#appCertFilePath").parent().parent().hide();
-        $("#appCertFileENPath").parent().parent().hide();
+        $("#certFileENPath").attr("data-options","width:0,required:false");
+        $("#certFilePath").attr("data-options","width:0,required:false");
+        $("#certificateType").attr("data-options","width:0,required:false");
+        $("#appCertificateNum").attr("data-options","width:0,required:false");
+        $("#appCertFilePath").attr("data-options","width:0,required:false");
+        $("#appCertFileENPath").attr("data-options","width:0,required:false");
         var applierType = $("#applierType").val();
-        if(newValue==0&&applierType==0){
+        var languageType = $("#languageType").val();
+        if(languageType==0&&applierType==0){
             $("#certFilePath").parent().parent().show();
-        }else if(newValue==1&&applierType==0){
+            $("#certFilePath").attr("data-options","width:0,required:true");
+        }else if(languageType==1&&applierType==0){
             $("#certFileENPath").parent().parent().show();
             $("#certFilePath").parent().parent().show();
-        }else if(newValue==0&&applierType==1){
+            $("#certFileENPath").attr("data-options","width:0,required:true");
+            $("#certFilePath").attr("data-options","width:0,required:true");
+        }else if(languageType==0&&applierType==1){
             $("#certFilePath").parent().parent().show();
             $("#certificateType").parent().parent().show();
             $("#appCertificateNum").parent().parent().show();
             $("#appCertFilePath").parent().parent().show();
+            $("#certFilePath").attr("data-options","width:0,required:true");
+            $("#certificateType").attr("data-options","width:0,required:true");
+            $("#appCertificateNum").attr("data-options","width:0,required:true");
+            $("#appCertFilePath").attr("data-options","width:0,required:true");
         }else{
             $("#certificateType").parent().parent().show();
             $("#appCertificateNum").parent().parent().show();
             $("#appCertFilePath").parent().parent().show();
             $("#appCertFileENPath").parent().parent().show();
+            $("#certificateType").attr("data-options","width:0,required:true");
+            $("#appCertificateNum").attr("data-options","width:0,required:true");
+            $("#appCertFilePath").attr("data-options","width:0,required:true");
+            $("#appCertFileENPath").attr("data-options","width:0,required:true");
         }
     },
     proveLanguageTypeChange:function (newValue,oldValue) {
         if (newValue==1){
             $("#bgzmFileENPath").parent().parent().show();
+            $("#bgzmFileENPath").attr("data-options","width:0,required:true");
         }else{
             $("#bgzmFileENPath").parent().parent().hide();
+            $("#bgzmFileENPath").attr("data-options","width:0,required:false");
         }
     },
     nameChange:function (newValue) {
@@ -91,112 +92,41 @@ com.gongsibao.igirl.web.ChangeTradeMarkPart = org.netsharp.panda.commerce.FormPa
                 IMessageBox.error("代理委托书：文件类型必须是jpg");
                 return false;
             }
-            var applierType = $("#applierType").val();
-            var languageType = $("#languageType").val();
             var certFilePath = $("#certFilePath").parent().children(".textbox").children(".textbox-text").val();
             var certFileENPath = $("#certFileENPath").parent().children(".textbox").children(".textbox-text").val();
             var appCertFileENPath = $("#appCertFileENPath").parent().children(".textbox").children(".textbox-text").val();
             var appCertFilePath = $("#appCertFilePath").parent().children(".textbox").children(".textbox-text").val();
-            var certificateType = $("#certificateType").val();
-            var appCertificateNum = $("#appCertificateNum").val();
-            if(languageType==0&&applierType==0){
-                if(certFilePath.length==0){
-                    IMessageBox.error("主体资格证明文件(中文)：不能为空");
-                    return false;
-                }else{
-                    suffix = certFilePath.substring(certFilePath.length-3,certFilePath.length);
-                    if (suffix!=="pdf"){
-                        IMessageBox.error("主体资格证明文件(中文)：文件类型必须是pdf");
-                        return false;
-                    }
-                }
-            }else if(languageType==1&&applierType==0){
-                if(certFilePath.length==0){
-                    IMessageBox.error("主体资格证明文件(中文)：不能为空");
-                    return false;
-                }else{
-                    suffix = certFilePath.substring(certFilePath.length-3,certFilePath.length);
-                    if (suffix!=="pdf"){
-                        IMessageBox.error("主体资格证明文件(中文)：文件类型必须是pdf");
-                        return false;
-                    }
-                }
-                if(certFileENPath.length==0){
-                    IMessageBox.error("主体资格证明原文件(外文)：不能为空");
-                    return false;
-                }else{
-                    suffix = certFileENPath.substring(certFileENPath.length-3,certFileENPath.length);
-                    if (suffix!=="pdf"){
-                        IMessageBox.error("主体资格证明原文件(外文)：文件类型必须是pdf");
-                        return false;
-                    }
-                }
-            }else if(languageType==0&&applierType==1){
-                if(certFilePath.length==0){
-                    IMessageBox.error("主体资格证明文件(中文)：不能为空");
-                    return false;
-                }else{
-                    suffix = certFilePath.substring(certFilePath.length-3,certFilePath.length);
-                    if (suffix!=="pdf"){
-                        IMessageBox.error("主体资格证明文件(中文)：文件类型必须是pdf");
-                        return false;
-                    }
-                }
-                if(certificateType==null){
-                    IMessageBox.error("证件名称：不能为空");
+            if(certFilePath.length>0){
+                suffix = certFilePath.substring(certFilePath.length-3,certFilePath.length);
+                if (suffix!=="pdf"){
+                    IMessageBox.error("主体资格证明文件(中文)：文件类型必须是pdf");
                     return false;
                 }
-                if(appCertificateNum.length==0){
-                    IMessageBox.error("证件号码：不能为空");
+            }
+            if(certFileENPath.length>0){
+                suffix = certFileENPath.substring(certFileENPath.length-3,certFileENPath.length);
+                if (suffix!=="pdf"){
+                    IMessageBox.error("主体资格证明原文件(外文)：文件类型必须是pdf");
                     return false;
                 }
-                if(appCertFilePath.length==0){
-                    IMessageBox.error("身份证明文件(中文)：不能为空");
-                    return false;
-                }else{
-                    suffix = appCertFilePath.substring(appCertFilePath.length-3,appCertFilePath.length);
-                    if (suffix!=="pdf"){
-                        IMessageBox.error("身份证明文件(中文)：文件类型必须是pdf");
-                        return false;
-                    }
-                }
-            }else{
-                if(certificateType==null){
-                    IMessageBox.error("证件名称：不能为空");
+            }
+            if(appCertFilePath.length>0){
+                suffix = appCertFilePath.substring(appCertFilePath.length-3,appCertFilePath.length);
+                if (suffix!=="pdf"){
+                    IMessageBox.error("身份证明文件(中文)：文件类型必须是pdf");
                     return false;
                 }
-                if(appCertificateNum.length==0){
-                    IMessageBox.error("证件号码：不能为空");
+            }
+            if(appCertFileENPath.length>0){
+                suffix = appCertFileENPath.substring(appCertFileENPath.length-3,appCertFileENPath.length);
+                if (suffix!=="pdf"){
+                    IMessageBox.error("身份证明原文件(外文)：文件类型必须是pdf");
                     return false;
-                }
-                if(appCertFilePath.length==0){
-                    IMessageBox.error("身份证明文件(中文)：不能为空");
-                    return false;
-                }else{
-                    suffix = appCertFilePath.substring(appCertFilePath.length-3,appCertFilePath.length);
-                    if (suffix!=="pdf"){
-                        IMessageBox.error("身份证明文件(中文)：文件类型必须是pdf");
-                        return false;
-                    }
-                }
-                if(appCertFileENPath.length==0){
-                    IMessageBox.error("身份证明原文件(外文)：不能为空");
-                    return false;
-                }else{
-                    suffix = appCertFileENPath.substring(appCertFileENPath.length-3,appCertFileENPath.length);
-                    if (suffix!=="pdf"){
-                        IMessageBox.error("身份证明原文件(外文)：文件类型必须是pdf");
-                        return false;
-                    }
                 }
             }
             return true;
         }else{
             return false
         }
-
-    },
-    updateState:function () {
-
     }
 });

@@ -55,8 +55,8 @@ com.gongsibao.igirl.web.TransferTradeMarkPart = org.netsharp.panda.commerce.Form
         if(zdllx==0&&sdjlx==0&&zwjlx==0&swjlx==0){
             $("#zrZtCnTrName").parent().parent().show();
             $("#srZtCnTrName").parent().parent().show();
-            $("#zrZtEnTrName").attr("data-options","width:0,required:true");
-            $("#srZtEnTrName").attr("data-options","width:0,required:true");
+            $("#zrZtCnTrName").attr("data-options","width:0,required:true");
+            $("#srZtCnTrName").attr("data-options","width:0,required:true");
         }else if(zdllx==0&&sdjlx==0&&zwjlx==1&swjlx==0){
             $("#zrZtCnTrName").parent().parent().show();
             $("#zrZtEnTrName").parent().parent().show();
