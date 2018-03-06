@@ -3,8 +3,11 @@ package com.gongsibao.taurus.service;
 import com.gongsibao.taurus.api.*;
 import com.gongsibao.taurus.entity.*;
 import com.gongsibao.taurus.message.ResponseMessage;
+import com.gongsibao.taurus.message.response.CompanyInfoResponseMessage;
 import com.gongsibao.taurus.message.response.TmNewResponseMessage;
+import com.gongsibao.taurus.util.DateUtils;
 
+import java.util.Date;
 import java.util.List;
 
 public class TaurusApiService {
@@ -19,20 +22,63 @@ public class TaurusApiService {
      */
     public static EntRegistry getEntRegistry(String companyName) {
 
-        EntRegistryApi api = ApiFactory.create(EntRegistryApi.class);
+//        EntRegistryApi api = ApiFactory.create(EntRegistryApi.class);
+//        api.setCompanyName(companyName);
+//        ResponseMessage<EntRegistry> response = api.getResponse();
+//        if (response == null) {
+//
+//            return null;
+//        }
+//
+//        if (response.getList().size() == 0) {
+//
+//            return null;
+//        }
+//
+//        return response.getList().get(0);
+        CompanyInfoApi api = ApiFactory.create(CompanyInfoApi.class);
         api.setCompanyName(companyName);
-        ResponseMessage<EntRegistry> response = api.getResponse();
-        if (response == null) {
+        CompanyInfoResponseMessage response = api.getResponse();
+        if (null == response || null == response.getData()) {
+            EntRegistryApi entApi = ApiFactory.create(EntRegistryApi.class);
+            api.setCompanyName(companyName);
+            ResponseMessage<EntRegistry> entResponse = entApi.getResponse();
+            if (response == null) {
 
-            return null;
+                return null;
+            }
+
+            if (response.getList().size() == 0) {
+
+                return null;
+            }
+
+            return entResponse.getList().get(0);
         }
 
-        if (response.getList().size() == 0) {
+        CompanyInfo company = response.getData();
+        EntRegistry entRegistry = new EntRegistry();
 
-            return null;
-        }
+        // 营业时间
+        String fromTime = null == company.getFromTime() ? "-" : DateUtils.formatDate(company.getFromTime(), "yyyy-MM-dd");
+        String toTime = null == company.getToTime() ? "-" : DateUtils.formatDate(company.getToTime(), "yyyy-MM-dd");
 
-        return response.getList().get(0);
+        entRegistry.setName(company.getName());
+        entRegistry.setCreditCode(company.getProperty1());
+        entRegistry.setRegistrID(company.getRegNumber());
+        entRegistry.setCompanyType(company.getCompanyOrgType());
+        entRegistry.setLegalRepresentative(company.getLegalPersonName());
+        entRegistry.setRegisteredCapital(company.getRegCapital());
+        entRegistry.setRegisterOffice(company.getRegInstitute());
+        entRegistry.setBusinessAddress(company.getRegLocation());
+        entRegistry.setScope(company.getBusinessScope());
+        entRegistry.setOrganizationCode(company.getOrgNumber());
+        entRegistry.setManagementState(company.getRegStatus());
+        entRegistry.setFoundation(DateUtils.formatDate(company.getEstiblishTime()));
+
+        entRegistry.setDateIssue(fromTime);
+        entRegistry.setBusinessTerm(fromTime + "至" + toTime);
+        return entRegistry;
     }
 
     /**
@@ -758,6 +804,7 @@ public class TaurusApiService {
 
     /**
      * 根据公司名称查询新商标数据
+     *
      * @param companyName 查询条件
      * @param currentPage
      * @param pageSize
@@ -778,7 +825,8 @@ public class TaurusApiService {
 
     /**
      * 根据商标名称查询新商标数据
-     * @param tmName 查询条件
+     *
+     * @param tmName      查询条件
      * @param currentPage
      * @param pageSize
      * @return
@@ -798,7 +846,8 @@ public class TaurusApiService {
 
     /**
      * 根据公司名称查询新商标数据
-     * @param regNo 查询条件
+     *
+     * @param regNo       查询条件
      * @param currentPage
      * @param pageSize
      * @return

@@ -1,6 +1,9 @@
 package com.gongsibao.entity.trade;
 
+import com.gongsibao.entity.supplier.Salesman;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
@@ -15,8 +18,16 @@ public class NDepReceivable  extends Entity {
     private  Integer depId;
     @Column(name = "order_id", header = "订单Id")
     private  Integer orderId;
+    @JsonIgnore
+    @Reference(foreignKey="orderId")
+    private SoOrder order;
+
     @Column(name = "salesman_id", header = "员工Id")
     private  Integer salesmanId;
+
+    @JsonIgnore
+    @Reference(foreignKey="salesmanId")
+    private Salesman salesman;
 
     public Integer getAmount() {
         return amount;
@@ -49,5 +60,21 @@ public class NDepReceivable  extends Entity {
 
     public void setDepId(Integer depId) {
         this.depId = depId;
+    }
+
+    public SoOrder getOrder() {
+        return order;
+    }
+
+    public void setOrder(SoOrder order) {
+        this.order = order;
+    }
+
+    public Salesman getSalesman() {
+        return salesman;
+    }
+
+    public void setSalesman(Salesman salesman) {
+        this.salesman = salesman;
     }
 }

@@ -62,8 +62,8 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 //        listFilter = "inspectionState in (3,4)";
 //        listFilter = "foolowStatus = 6 and ownerId = '{userId}'";
     }
-
-    public PToolbar createListToolbar() {
+    @Test
+    public void createListToolbar() {
 
         ResourceNode node = this.resourceService.byCode(resourceNodeCode);
         OperationType ot1 = operationTypeService.byCode(OperationTypes.view);//权限挂在哪一个下面
@@ -120,22 +120,13 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         toolbar.getItems().add(item);
 
 
-        return toolbar;
+        toolbarService.save(toolbar);
     }
 
 
-    /*进行设置工具栏*/
+
     @Test
-    public void saveListToolbar() {
-
-        PToolbar toolbar = createListToolbar();
-        if (toolbar != null) {
-
-            toolbarService.save(toolbar);
-        }
-    }
-
-    public PToolbar createRowToolbar() {
+    public void createRowToolbar() {
 
         ResourceNode node = this.resourceService.byCode(resourceNodeCode);
        // OperationType ot1 = operationTypeService.byCode(OperationTypes.view);//权限挂在哪一个下面
@@ -159,17 +150,9 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
             toolbar.getItems().add(item);
         }
 
-        return toolbar;
+        toolbarService.save(toolbar);
     }
-    //列表行的toolbar
-    @Test
-    public void saveRowToolbar() {
 
-        PToolbar toolbar = createRowToolbar();
-        if (toolbar != null) {
-            toolbarService.save(toolbar);
-        }
-    }
 
     //列表
     @Override

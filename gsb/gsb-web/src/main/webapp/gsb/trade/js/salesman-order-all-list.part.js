@@ -9,9 +9,9 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
 
 
     },
-    addOrderReceived : function(id) {//创建订单业绩
+    addOrderReceived : function() {//创建订单业绩
         var me = this;
-
+        var row  = this.getSelectedItem();
         var rows = this.getSelections();
         if (rows.length <= 0) {
             IMessageBox.info('请先选择订单数据');
@@ -33,12 +33,12 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             shadeClose : false,
             area : [ '60%', '60%' ],
             zIndex : 100000,
-            content : this.addOrderReceivedUrl,
+            content : this.addOrderReceivedUrl+"?id="+row.id,
             btn : [ '保存', '取消' ],// 可以无限个按钮
             success : function(layero, index) {
 
 
-                $('#ywyUser').combogrid(options);
+               // $('#ywyUser').combogrid(options);
 
             },
             yes : function(index, layero) {

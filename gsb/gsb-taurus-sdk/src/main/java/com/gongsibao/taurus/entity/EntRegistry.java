@@ -69,7 +69,7 @@ public class EntRegistry implements IEntity {
 	 
 	
 	/**   
-	 * @Fields name : TODO(组织机构代码)   
+	 * @Fields name : TODO(经营状态)
 	 */   
 	private String managementState;
 	
