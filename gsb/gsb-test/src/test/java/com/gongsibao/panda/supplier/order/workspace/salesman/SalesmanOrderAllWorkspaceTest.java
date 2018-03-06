@@ -111,9 +111,9 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         toolbar.getItems().add(item);
 
 
-        item = PToolbarHelper.getPToolbarItem(EntityState.New, "batchOrderTran", PToolbarHelper.iconTran,
+        /*item = PToolbarHelper.getPToolbarItem(EntityState.New, "batchOrderTran", PToolbarHelper.iconTran,
                 "批量订单转移", ot1, 8, "{controller}.batchOrderTran();");
-        toolbar.getItems().add(item);
+        toolbar.getItems().add(item);*/
 
         item = PToolbarHelper.getPToolbarItem(EntityState.New, "orderTran", PToolbarHelper.iconTran,
                 "订单转移", ot1, 9, "{controller}.orderTran();");
@@ -191,7 +191,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         addColumn(datagrid, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "prodName", "产品名称", ControlTypes.TEXT_BOX, 200);
         addColumn(datagrid, "payStatus", "支付状态", ControlTypes.ENUM_BOX, 60);
-        addColumn(datagrid, "companyIntention.companyName", "关联企业", ControlTypes.TEXT_BOX, 250);
+        addColumn(datagrid, "companyIntention.companyName", "签单企业", ControlTypes.TEXT_BOX, 250);
         column = addColumn(datagrid, "totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 80);
         {
             column.setAlign(DatagridAlign.RIGHT);
@@ -228,7 +228,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 
         item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
         {
-            item.setTooltip("订单编号、渠道订单编号、下单人、下单人电话、关联公司");
+            item.setTooltip("订单编号、渠道订单编号、下单人、下单人电话、签单企业");
             item.setWidth(350);
         }
         addQueryItem(queryProject, "prodName", "产品名称", ControlTypes.TEXT_BOX);
