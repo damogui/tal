@@ -29,7 +29,7 @@ public class ActionSaveOrderVerify implements IAction {
 			throw new BusinessException("没有选择产品服务项");
 		}
 
-		if (soOrder.getSourceType() == null) {
+		if (soOrder.getPlatformSource() == null) {
 
 			throw new BusinessException("没有访问来源未知");
 		}
