@@ -18,13 +18,13 @@ com.gongsibao.igirl.web.TradeMarkCaseListPart = org.netsharp.panda.commerce.List
 				type:'combogrid',
 	            className:'',
 				option:supplierOption},
-				
+
 				{id:'allot_department_name',
 					title:'部门',
 					type:'combogrid',
 		            className:'',
 					option:departmentOption},
-					
+
 				{id:'allot_employee_name',
 					title:'业务员',
 					type:'combogrid',
@@ -32,17 +32,24 @@ com.gongsibao.igirl.web.TradeMarkCaseListPart = org.netsharp.panda.commerce.List
 					option:employeeOption}
 			],
 			callback:function(index, layero){
-				
+
 				var supplierId = $('#allot_supplier_name').combogrid('getValue');
 				var departmentId = $('#allot_department_name').combogrid('getValue');
 				var toUserId = $('#allot_employee_name').combogrid('getValue');
-				
+
 				if (System.isnull(supplierId) && System.isnull(departmentId) && System.isnull(toUserId)) {
-					
+
 					IMessageBox.info('请选择');
 					return;
 				}
-				alert(toUserId)
+                var rows=me.getSelections();
+                var ttmId = rows[0].id;
+                me.invokeService("updateOwner", [ttmId,toUserId],function(data) {
+                    me.reload();
+                    IMessageBox.toast('分配成功');
+                    layer.closeAll();
+                    return;
+                });
 //				me.invokeService("allocation", [taskId,supplierId,departmentId,toUserId],function(data) {
 //					me.reload();
 //					IMessageBox.toast('分配成功');
@@ -87,9 +94,9 @@ function getSupplierOption(){
 			var filter = ' supplier_id ____ ----'+ newValue + '----';
 			options.url = '\/panda\/rest\/reference?code=Salesman&filter='+ filter;
 			$(grid).datagrid(options);
-			
+
 		}};
-	
+
 	return supplierOption;
 }
 
@@ -158,6 +165,6 @@ function getEmployeeOption(){
 			/*if(oldValue!="" && newValue != oldValue){
 			}*/
 		}};
-	
+
 	return employeeOption;
 }
