@@ -9,11 +9,6 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
 
 
     },
-	doubleClickRow : function(index, row) {
-
-		var url = '/nav/gsb/trade/orderDetail?id'+row.id;
-		window.open('/nav/gsb/trade/orderDetail');
-	},
     addOrderReceived : function(id) {//创建订单业绩
         var me = this;
 
@@ -102,10 +97,11 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
     },
     detail:function(id){
 
-        this.edit(id);
+		var url = '/nav/gsb/trade/orderDetail?id='+id;
+		window.open('/nav/gsb/trade/orderDetail');
     },
     doubleClickRow : function(index, row) {
-        this.edit(row.id);
+        this.detail(row.id);
     },
     // edit : function(id) {
 
