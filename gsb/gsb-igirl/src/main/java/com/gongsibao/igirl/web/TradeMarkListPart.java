@@ -32,7 +32,7 @@ import org.netsharp.wx.ea.base.IEaMessageService;
 public class TradeMarkListPart extends ListPart{
     ITradeMarkService service = ServiceFactory.create(ITradeMarkService.class);   
     IUploadAttachmentService us=ServiceFactory.create(IUploadAttachmentService.class);
-    public String updateMarkState(String[] ids,String type){
+    public String updateMarkState(String[] ids,Integer type){
         return service.updateMarkState(String.join(",", ids),type);
     }
     

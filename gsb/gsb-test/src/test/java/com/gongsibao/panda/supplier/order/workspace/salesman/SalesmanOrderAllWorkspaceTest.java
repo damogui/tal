@@ -208,6 +208,8 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         }
         addColumn(datagrid, "isInstallment", "是否分期", ControlTypes.BOOLCOMBO_BOX, 80);
         addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 80);
+        addColumn(datagrid, "isInstallment", "是否分期付款", ControlTypes.BOOLCOMBO_BOX, 100);
+        addColumn(datagrid, "accountMobile", "下单客户手机号", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "customerName", "下单客户", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "platformSource", "订单来源", ControlTypes.ENUM_BOX, 80);
         addColumn(datagrid, "sourceType", "下单方式", ControlTypes.ENUM_BOX, 80);
@@ -231,6 +233,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         addQueryItem(queryProject, "platformSource", "订单来源", ControlTypes.ENUM_BOX);
         addQueryItem(queryProject, "payStatus", "支付状态", ControlTypes.ENUM_BOX);
         addQueryItem(queryProject, "sourceType", "下单方式", ControlTypes.ENUM_BOX);
+        addQueryItem(queryProject, "accountMobile", "下单客户手机号", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "ywyName", "业务员", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "addTime", "订单创建日期", ControlTypes.DATE_BOX);
         addQueryItem(queryProject, "payTime", "回款日期", ControlTypes.DATE_BOX);

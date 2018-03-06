@@ -97,10 +97,11 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
     },
     detail:function(id){
 
-        this.edit(id);
+		var url = '/nav/gsb/trade/orderDetail?id='+id;
+		window.open('/nav/gsb/trade/orderDetail');
     },
     doubleClickRow : function(index, row) {
-        this.edit(row.id);
+        this.detail(row.id);
     },
     // edit : function(id) {
 

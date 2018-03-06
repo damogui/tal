@@ -134,6 +134,8 @@ public class MyTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		PDatagridColumn column = null;
 		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 120);
 		addColumn(datagrid, "markSubmitTime", "商标提交时间", ControlTypes.DATETIME_BOX, 120);
+		addColumn(datagrid, "tradeMarkCase.ownerName", "所属业务人员", ControlTypes.TEXT_BOX, 80);
+		addColumn(datagrid, "nclOneId", "商标大类", ControlTypes.TEXT_BOX, 50);
 		addColumn(datagrid, "code", "商标号", ControlTypes.TEXT_BOX, 120);
 		addColumn(datagrid, "proxyCode", "代理号", ControlTypes.TEXT_BOX, 150);
 		addColumn(datagrid, "tradeMarkCase.companyName", "公司名称", ControlTypes.TEXT_BOX, 200);
