@@ -42,7 +42,7 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
 
 
     //8.交易中心
-//	com.gongsibao.panda.trade.AllTest.class,
+	com.gongsibao.panda.trade.AllTest.class,
 
     //9.报表中心
 //	 com.gongsibao.panda.report.AllTest.class,
