@@ -77,7 +77,6 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
         }
 
 
-
         PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "orderDetail", PToolbarHelper.iconExtr,
                 "订单详情", ot1, 1, "{controller}.add();");
         toolbar.getItems ().add (item);
@@ -96,6 +95,7 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
             toolbarService.save (toolbar);
         }
     }
+
     // 默认的表单配置信息
     protected PForm createForm(ResourceNode node) {
 
@@ -104,17 +104,24 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
         PFormField formField = null;
 
         String groupName = null;
-        formField = addFormFieldRefrence (form, "supplier.name", "订单编号", null, Supplier.class.getSimpleName (), false, true);
+
+        formField = addFormField (form, "no", "订单编号", groupName, ControlTypes.TEXT_BOX, true);
         {
             formField.setReadonly (true);
 
         }
-        addFormFieldRefrence (form, "department.name", "订单金额", null, SupplierDepartment.class.getSimpleName (), false, true);
+
+        formField = addFormField (form, "payablePrice", "订单金额", groupName, ControlTypes.TEXT_BOX, true);
         {
             formField.setReadonly (true);
 
         }
-        addFormFieldRefrence (form, "owner.name", "已划分金额", null, Employee.class.getSimpleName (), false, true);
+        {
+            formField.setReadonly (true);
+
+        }
+
+        formField = addFormField (form, "performancePrice", "已划分金额", groupName, ControlTypes.TEXT_BOX, true);
         {
             formField.setReadonly (true);
 
@@ -139,7 +146,7 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
             datagrid.setSingleSelect (true);
             datagrid.setReadOnly (false);
             datagrid.setShowTitle (true);
-
+           // datagrid.setToolbar ();//新增和删除
             PDatagridColumn column = null;
 
             column = addColumn (datagrid, "productName", "服务商", ControlTypes.TEXT_BOX, 150);
