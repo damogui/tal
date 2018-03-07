@@ -79,18 +79,18 @@ public class NclBatchWorkspaceTest extends WorkspaceCreationBase {
             item.setCommand("{controller}.edit();");
             toolbar.getItems().add(item);
         }
-        item = new PToolbarItem();
-        {
-            item.toNew();
-            item.setCode("remove");
-            item.setIcon("fa fa-trash-o");
-            item.setName("删除");
-            item.setCommand(null);
-            item.setOperationType(ot1);
-            item.setSeq(4000);
-            item.setCommand("{controller}.remove();");
-            toolbar.getItems().add(item);
-        }
+//        item = new PToolbarItem();
+//        {
+//            item.toNew();
+//            item.setCode("remove");
+//            item.setIcon("fa fa-trash-o");
+//            item.setName("删除");
+//            item.setCommand(null);
+//            item.setOperationType(ot1);
+//            item.setSeq(4000);
+//            item.setCommand("{controller}.remove();");
+//            toolbar.getItems().add(item);
+//        }
         item = new PToolbarItem();
         {
             item.toNew();
