@@ -40,7 +40,7 @@ public class MyTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		openWindowWidth = 800;
 		openWindowHeight = 600;
 		listToolbarPath="/igirl/my/tradeMark/list";
-		listFilter = "owner_id = '{userId}'";
+		listFilter = "tradeMarkCase.ownerID = '{userId}'";
 		listPartServiceController = TradeMarkListPart.class.getName();
 		listPartJsController=TradeMarkListPart.class.getName();
 		listPartImportJs="/gsb/igirl/js/trademark.listpart.js";
