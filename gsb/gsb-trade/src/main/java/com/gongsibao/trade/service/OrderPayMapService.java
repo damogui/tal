@@ -23,7 +23,7 @@ public class OrderPayMapService extends PersistableService<OrderPayMap> implemen
 		Oql oql = new Oql();
 		{
 			oql.setType(this.type);
-			oql.setSelects("*");
+			oql.setSelects("OrderPayMap.*,Pay.*");
 			oql.setFilter("orderId=?");
 			oql.getParameters().add("orderId", orderId, Types.INTEGER);
 		}

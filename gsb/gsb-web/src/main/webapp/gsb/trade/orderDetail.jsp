@@ -67,8 +67,8 @@
 							</table>
 						</div>
 					</div>
-					<div data-options="region:'center'">
-						<div id="detail_tabs" class="easyui-tabs" style="height:100%;" data-options="tabHeight:30">   
+					<div id="center" data-options="region:'center'">
+						<div id="detail_tabs" style="height:100%;">   
 						    <div title="产品信息">   
 						          <table id="order_product_grid"></table>
 						    </div>   
@@ -113,6 +113,9 @@
 <script src='/gsb/trade/js/order.detail-ctrl.js'></script>
 <script>
 	$(function(){
+		
+		var centerHeight = $('body').height() - 240;
+		$('#center').height(centerHeight);
 		
 		var formCtrl = new com.gongsibao.trade.web.OrderFormCtrl();
 		formCtrl.init();
