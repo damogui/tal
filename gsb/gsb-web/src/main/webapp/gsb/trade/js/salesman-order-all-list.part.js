@@ -123,7 +123,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
 
                 alert("分配成功");
 
-                
+
                 /*me.invokeService("allocation", [taskId,supplierId,departmentId,toUserId],function(data) {
                  me.reload();
                  IMessageBox.toast('分配成功');

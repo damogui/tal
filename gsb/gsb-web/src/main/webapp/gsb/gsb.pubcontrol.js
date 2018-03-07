@@ -71,7 +71,15 @@ function getSupplierOption(departmentId, employeeId) {
         mode: 'remote',
         multiple: false,
         onChange: function (newValue, oldValue) {
-            //改变部门的查询条件
+            //是否有该控件
+            var departmentgridlength = $('#' + departmentId).combogrid().length;
+            var employeegridlength = $('#' + employeeId).combogrid().length;
+            if (departmentgridlength <= 0) {
+                return;
+            }
+            if (employeegridlength <= 0) {
+                return;
+            }
             $('#' + departmentId).combogrid('clear');
             var grid = $('#' + departmentId).combogrid('grid');
             var options = $(grid).datagrid('options');
@@ -112,6 +120,13 @@ function getDepartmentOption(employeeId) {
         mode: 'remote',
         multiple: false,
         onChange: function (newValue, oldValue) {
+
+            //判断是否有【业务员控件】
+            var employeegridlength = $('#' + employeeId).combogrid().length;
+            if (employeegridlength <= 0) {
+                return;
+            }
+
             //改变业务员的查询条件
             $('#' + employeeId).combogrid('clear');
             var grid = $('#' + employeeId).combogrid('grid');
