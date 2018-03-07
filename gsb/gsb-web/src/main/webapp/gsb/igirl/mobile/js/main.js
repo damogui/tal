@@ -92,8 +92,8 @@ $(function(){
 			{path:'/tm',component:tm},
 			{path:'/tmc',component:tmc},//案件确认
 			{path:'/payment',component:payment},//服务费用支付
-			{path:'/zzty',component:zzty},//营业执照和图样身份证
-			{path:'/viewimg',component:viewimg},//营业执照和图样身份证
+			{path:'/zzty',component:zzty,},//营业执照和图样身份证
+			{path:'/zzty/viewimg',component:viewimg},//营业执照和图样身份证
 			{path:'/pt',component:tmc},
 			{path:'/cr',component:cr},
 		]
