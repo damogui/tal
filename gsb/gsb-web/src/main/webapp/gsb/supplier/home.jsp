@@ -54,7 +54,7 @@
 			});
 			brief.briefingCountPars0('currentSalesMan',function(entity){
 				if(entity.isLeader){
-					brief.briefingCountPars1('getHighSeasCount',2,function(count){
+					brief.briefingCountPars2('getHighSeasCount',2,-1,function(count){
 						$("#briefing").find('p >span').eq(5).text("公海：" + count + "个");
 					});
 				}
