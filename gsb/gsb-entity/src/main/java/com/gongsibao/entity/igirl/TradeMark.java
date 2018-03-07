@@ -83,28 +83,6 @@ public class TradeMark extends Entity {
 	@Column(name = "department_id",header = "所属部门id")
 	private Integer departmentId;
 
-	@Column(name="owner_id" ,header = "当前业务员id")
-	private Integer ownerId;
-
-	@Column(name="owner_name",header = "当前业务员姓名")
-	private String ownerName;
-
-	public Integer getOwnerId() {
-		return ownerId;
-	}
-
-	public void setOwnerId(Integer ownerId) {
-		this.ownerId = ownerId;
-	}
-
-	public String getOwnerName() {
-		return ownerName;
-	}
-
-	public void setOwnerName(String ownerName) {
-		this.ownerName = ownerName;
-	}
-
 	public Boolean getHasColor() {
         return hasColor;
     }
