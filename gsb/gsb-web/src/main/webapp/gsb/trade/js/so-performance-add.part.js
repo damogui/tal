@@ -12,10 +12,31 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
 
         window.open(this.addCustomerUrl);
     },
-    add:function () {
-        
+    savexxx:function(){//进行保存的
+        debugger;
+        this.viewModel.context = this.context;
+        var entity = this.viewModel.getEntity();
+        debugger;
+        alert("保存");
 
+        this.invokeService("saveOption", [1,2,3,4],function(data) {
+            me.reload();
+            IMessageBox.toast('操作成功');
+            layer.closeAll();
+            return;
+        });
+
+        var isValidated = $("#" + this.context.formName).form('validate');
+        if (!isValidated) {
+            return;
+        }
+        layer.closeAll();
     },
+
+    // add:function () {
+    //    
+    //
+    // },
     // add:function(){
     //     var row = this.getSelectedItem();
     //     if(row){

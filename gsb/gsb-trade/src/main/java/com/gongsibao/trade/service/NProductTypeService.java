@@ -4,11 +4,13 @@ import com.gongsibao.entity.trade.NProductType;
 import com.gongsibao.entity.trade.OrderCps;
 import com.gongsibao.trade.base.INProductTypeService;
 import com.gongsibao.trade.base.IOrderCpsService;
+import org.netsharp.communication.Service;
 import org.netsharp.service.PersistableService;
 
 /**
  * Created by win on 2018/2/27.
  */
+@Service
 public class NProductTypeService extends PersistableService<NProductType> implements INProductTypeService {
 
     public NProductTypeService(){
