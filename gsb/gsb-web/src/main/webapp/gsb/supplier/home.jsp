@@ -35,25 +35,41 @@
 		//预估业绩
 		var forecast = new com.gongsibao.crm.web.home.Forecast();
 		//漏斗统计
-		var funnel = new com.gongsibao.crm.web.home.Funnel(); 
-		
+		var funnel = new com.gongsibao.crm.web.home.Funnel();
 		$(function() {
-			//alert(brief.briefingCount('getNewTasksCount',null));
-			$("#briefing").find('p >span').eq(0).text("新增任务数：" + brief.briefingCount('getNewTasksCount',1) + "个");
-			$("#briefing").find('p >span').eq(1).text("未启动任务数：" + brief.briefingCount('getUnStartTasksCount',null) + "个");
-			$("#briefing").find('p >span').eq(2).text("待跟进任务数：" + brief.briefingCount('getUnfoolowTasksCount',null) + "个");
-			$("#briefing").find('p >span').eq(3).text("超时任务数：" + brief.briefingCount('getTimeOutTasksCount',null) + "个");
-			$("#briefing").find('p >span').eq(4).text("异常未处理任务数：" + brief.briefingCount('getExceptUntreatedTasksCount',null) + "个");
-			$("#briefing").find('p >span').eq(5).text("公海：" + brief.briefingCount('getHighSeasCount',null) + "个");
+			brief.briefingCountPars2('getNewTasksCount',2,1,function(count){
+				$("#briefing").find('p >span').eq(0).text("新增任务数：" + count + "个");
+			});
+			brief.briefingCountPars2('getUnStartTasksCount',2,1,function(count){
+				$("#briefing").find('p >span').eq(1).text("未启动任务数：" + count + "个");
+			});
+			brief.briefingCountPars0('getUnfoolowTasksCount',function(count){
+				$("#briefing").find('p >span').eq(2).text("待跟进任务数：" + count + "个");
+			});
+			brief.briefingCountPars0('getTimeOutTasksCount',function(count){
+				$("#briefing").find('p >span').eq(3).text("超时任务数：" + count + "个");
+			});
+			brief.briefingCountPars0('getExceptUntreatedTasksCount',function(count){
+				$("#briefing").find('p >span').eq(4).text("异常未处理任务数：" + count + "个");
+			});
+			brief.briefingCountPars0('currentSalesMan',function(entity){
+				if(entity.isLeader){
+					brief.briefingCountPars1('getHighSeasCount',2,function(count){
+						$("#briefing").find('p >span').eq(5).text("公海：" + count + "个");
+					});
+				}
+			});
 			
-			foolow.foolowCount('getFoolowSatatistic',null);
 			
-			forecast.forecastAmount('getForecastAmount',1);
-			forecast.forecastAmount('getForecastAmount',2);
-			forecast.forecastAmount('getForecastAmount',3);
 			
-			funnel.funnelXSCount('getXSCount'); 
-			funnel.funnelCodeCount('getCodeTaskCount');
+			foolow.foolowCountPars0('getFoolowSatatistic');
+			
+			forecast.forecastAmountPars1('getForecastAmount',1);
+			forecast.forecastAmountPars1('getForecastAmount',2);
+			forecast.forecastAmountPars1('getForecastAmount',3);
+			
+			funnel.funnelXSCountPars0('getXSCount'); 
+			funnel.funnelCodeCountPars0('getCodeTaskCount');
 		});
 	</script>
 </html>
