@@ -463,6 +463,7 @@ public class DpAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 		addQueryItem(queryProject, "code", "案件编号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "companyName", "公司名称", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "applier", "申请人", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "ownerName", "业务员", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "TMCState", "状态", ControlTypes.ENUM_BOX);
 		addQueryItem(queryProject, "createTime", "时间", ControlTypes.DATE_BOX).setWidth(400);
 //		PQueryItem item =addQueryItem(queryProject, "mobilePhone", "销售方式", ControlTypes.CUSTOMER);{
