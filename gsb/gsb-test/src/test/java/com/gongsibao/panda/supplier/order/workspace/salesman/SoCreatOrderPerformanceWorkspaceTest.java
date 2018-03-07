@@ -79,11 +79,20 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
         }
 
 
-        PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "performanceDetail", PToolbarHelper.iconAdd,
+        PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "performanceDetailAdd", PToolbarHelper.iconAdd,
                 "新增", null, 1, "{controller}.add();");//allocation
+        toolbar.getItems ().add (item);{
+
+        }
+        item = PToolbarHelper.getPToolbarItem (EntityState.New, "performanceDetailDel", PToolbarHelper.iconDel,
+                "删除", null, 1, "{controller}.remove();");
         toolbar.getItems ().add (item);
-        item = PToolbarHelper.getPToolbarItem (EntityState.New, "performanceDetail", PToolbarHelper.iconDel,
-                "删除", null, 1, "{controller}.add();");
+
+        item = PToolbarHelper.getPToolbarItem (EntityState.New, "performanceDetailSave", PToolbarHelper.iconAdd,
+                "保存", null, 1, "{controller}.savebase();");
+        {
+
+        }
         toolbar.getItems ().add (item);
 
         toolbarService.save (toolbar);
@@ -149,7 +158,7 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
 
             column = addColumn (datagrid, "supplier.name", "服务商", ControlTypes.TEXT_BOX, 150);
 
-            column = addColumn (datagrid, "department.name", "部门", ControlTypes.NUMBER_BOX, 60);
+            column = addColumn (datagrid, "department.name", "部门", ControlTypes.NUMBER_BOX, 150);
             {
 
                 column.setAlign (DatagridAlign.CENTER);
@@ -208,7 +217,7 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
             part.setWindowHeight (450);
 
 //           part.setServiceController (OrderPerformanceDetailPart.class.getName ());
-//           part.setJsController (OrderPerformanceDetailPart.class.getName ());
+          part.setJsController (OrderPerformanceDetailPart.class.getName ());
         }
         workspace.getParts ().add (part);
 

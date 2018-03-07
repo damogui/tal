@@ -36,22 +36,13 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             content: this.addOrderReceivedUrl + "?id=" + row.id,
             btn: ['保存', '取消'],// 可以无限个按钮
             success: function (layero, index) {
+                
 
-
-                // $('#ywyUser').combogrid(options);
 
             },
             yes: function (index, layero) {
-
-                IMessageBox.toast('创建成功');
-
-                me.invokeService("BatchTransferSalesman", [ywyUserId, orderIdList], function () {
-                    me.reload();
-                    IMessageBox.toast('创建成功');
-                    layer.closeAll();
-                    return;
-                });
-
+                
+                document.getElementById('layui-layer-iframe1').contentWindow.controllersoOrder.save();//保存
 
             },
 
@@ -142,8 +133,8 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         this.edit(id);
     },
     detail: function (id) {
-		var url = '/nav/gsb/trade/orderDetail?id='+id;
-		window.open(url);
+        var url = '/nav/gsb/trade/orderDetail?id=' + id;
+        window.open(url);
     },
     doubleClickRow: function (index, row) {
         this.detail(row.id);
