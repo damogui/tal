@@ -9,6 +9,7 @@ import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
+import org.netsharp.entity.Entity;
 import org.netsharp.entity.IPersistable;
 import org.netsharp.panda.annotation.Authorization;
 import org.netsharp.panda.commerce.FormPart;
@@ -16,6 +17,7 @@ import org.netsharp.panda.core.HttpContext;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.igirl.TradeMarkCase;
+import com.gongsibao.entity.igirl.UploadAttachment;
 import com.gongsibao.entity.igirl.baseinfo.IGirlConfig;
 import com.gongsibao.entity.igirl.dict.ConfigType;
 import com.gongsibao.igirl.base.IGirlConfigService;
@@ -110,11 +112,16 @@ public class TradeMarkCasePart extends FormPart {
 	}
 	IUploadAttachmentService up=ServiceFactory.create(IUploadAttachmentService.class);
 	@Authorization(is=false)
-	public ResultDto uploadPayProof(String id,String filepath) {
+	public ResultDto updateAttachment(String id,String filepath) {
 		int rtn=up.uploadAttachmentFileurl(id, filepath);
 		return ResultDto.getSimpleResultDto(rtn);
- 
 	}
+	@Authorization(is=false)
+	public ResultDto findAllAttachmentsByCaseId(String caseid) {
+		List<UploadAttachment> ups=up.findAllAttachmentsByCaseId(caseid);
+		return ResultDto.getEntityListResultDto(ups);
+	}
+	
 	public int attachmentMake(String caseid) {
 		return tradeMarkCaseService.attachmentMake(caseid);
 	}

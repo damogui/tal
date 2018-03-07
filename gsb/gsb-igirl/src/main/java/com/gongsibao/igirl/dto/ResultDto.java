@@ -2,7 +2,7 @@ package com.gongsibao.igirl.dto;
 import java.util.ArrayList;
 import java.util.List;
 import org.netsharp.entity.Entity;
-public class ResultDto {
+public class ResultDto<T> {
 	//0 ok -1 fail
 	private int status;
 	private String msg;
@@ -35,7 +35,7 @@ public class ResultDto {
 		}
 		return rd;
 	}
-	public static ResultDto getEntityResultDto(Entity entity) {
+	public static <T> ResultDto getEntityResultDto(T entity) {
 		ResultDto rd=new ResultDto();
 		if(entity!=null) {
 			rd.setStatus(0);
@@ -47,7 +47,7 @@ public class ResultDto {
 		}
 		return rd;
 	}
-	public static ResultDto getEntityListResultDto(List<Entity> entitys) {
+	public static <T>  ResultDto getEntityListResultDto(List<T> entitys) {
 		ResultDto rd=new ResultDto();
 		if(entitys!=null) {
 			rd.setStatus(0);

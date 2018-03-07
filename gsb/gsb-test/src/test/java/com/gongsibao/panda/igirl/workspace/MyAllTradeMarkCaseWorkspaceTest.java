@@ -42,7 +42,7 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 		formJsController = TradeMarkCasePart.class.getName();
 		formJsImport = "/gsb/igirl/js/markcase.form.part.js";
 		listToolbarPath = "/igirl/my/list/toolbar";
-		listFilter = "creator_id = '{userId}'";
+		listFilter = "owner_id = '{userId}'";
 	}
 
 	public static final String trademarkToolbarPath = "/igirl/tm/toolbar";

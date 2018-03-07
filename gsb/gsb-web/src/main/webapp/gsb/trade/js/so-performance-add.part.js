@@ -1,30 +1,38 @@
 System.Declare("com.gongsibao.trade.web");
-com.gongsibao.trade.web.SoCreatOrderPerformanceFormPart = org.netsharp.panda.commerce.FormPart.Extends( {
-
-    ctor: function () {
+//所有任务列表基类
+com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce.DetailPart.Extends({
+    ctor : function() {
         this.base();
+        this.addUrl = null;
+        this.editUrl = null;
+        this.followUrl = null;
+        this.addCustomerUrl = null;
     },
     addCustomer:function(){
 
         window.open(this.addCustomerUrl);
     },
-    add:function(){
-        var row = this.getSelectedItem();
-        if(row){
-            var customerId = row.customerId;
+    add:function () {
+        
 
-            var url = this.addUrl+"?fk=customerId:"+customerId;
-            layer.open({
-                type: 2,
-                title: '新增任务',
-                fixed: false,
-                maxmin: true,
-                shadeClose:true,
-                area: ['90%','90%'],
-                content: url
-            });
-        }
     },
+    // add:function(){
+    //     var row = this.getSelectedItem();
+    //     if(row){
+    //
+    //         var customerId = row.customerId;
+    //         var url = this.addUrl+"?fk=customerId:"+customerId;
+    //         layer.open({
+    //             type: 2,
+    //             title: '新增任务',
+    //             fixed: false,
+    //             maxmin: true,
+    //             shadeClose:true,
+    //             area: ['90%','90%'],
+    //             content: url
+    //         });
+    //     }
+    // },
     detail:function(id){
 
         this.edit(id);
@@ -62,7 +70,6 @@ com.gongsibao.trade.web.SoCreatOrderPerformanceFormPart = org.netsharp.panda.com
     allocation:function(id){
         //任务分配
         var me = this;
-        alert(dgf);
         me.doAllot(id);
     },
     doAllot : function(taskId) {
@@ -491,4 +498,3 @@ function customerQuality(intenCategory){
         return '提示：请慎用！执行退回后该任务将不会再分配给你，如果只是需要将任务转给同事或者下属，请使用【任务转移】功能！';
     }
 }
-

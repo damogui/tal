@@ -30,7 +30,8 @@ import com.gongsibao.trade.web.SalesmanAllOrderListPart;
 
 /*全部订单*/
 public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
-     private   String  listrowToolbarPath="/crm/roworderall/toolbar";
+    private String listrowToolbarPath = "/crm/roworderall/toolbar";
+
     @Override
     @Before
     public void setup() {
@@ -47,6 +48,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         openWindowWidth = 900;
         listPartImportJs = "/gsb/trade/js/salesman-order-all-list.part.js|/gsb/gsb.custom.query.controls.js";
         listPartJsController = SalesmanAllOrderListPart.class.getName();
+        listPartServiceController = SalesmanAllOrderListPart.class.getName();
 
 
         List<String> ss = new ArrayList<String>();
@@ -62,6 +64,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 //        listFilter = "inspectionState in (3,4)";
 //        listFilter = "foolowStatus = 6 and ownerId = '{userId}'";
     }
+
     @Test
     public void createListToolbar() {
 
@@ -108,9 +111,9 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         toolbar.getItems().add(item);
 
 
-        item = PToolbarHelper.getPToolbarItem(EntityState.New, "batchOrderTran", PToolbarHelper.iconTran,
+        /*item = PToolbarHelper.getPToolbarItem(EntityState.New, "batchOrderTran", PToolbarHelper.iconTran,
                 "批量订单转移", ot1, 8, "{controller}.batchOrderTran();");
-        toolbar.getItems().add(item);
+        toolbar.getItems().add(item);*/
 
         item = PToolbarHelper.getPToolbarItem(EntityState.New, "orderTran", PToolbarHelper.iconTran,
                 "订单转移", ot1, 9, "{controller}.orderTran();");
@@ -124,12 +127,11 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
     }
 
 
-
     @Test
     public void createRowToolbar() {
 
         ResourceNode node = this.resourceService.byCode(resourceNodeCode);
-       // OperationType ot1 = operationTypeService.byCode(OperationTypes.view);//权限挂在哪一个下面
+        // OperationType ot1 = operationTypeService.byCode(OperationTypes.view);//权限挂在哪一个下面
         PToolbar toolbar = new PToolbar();
         {
             toolbar.toNew();
@@ -145,14 +147,13 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
             item.setCode("ordertran");
             item.setName("转移");
             item.setSeq(2);
-           // item.setOperationType (ot1);
+            // item.setOperationType (ot1);
             //item.setCommand("{controller}.tran();");
             toolbar.getItems().add(item);
         }
 
         toolbarService.save(toolbar);
     }
-
 
     //列表
     @Override
@@ -161,7 +162,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         PDatagrid datagrid = super.createDatagrid(node);
         {
 
-            String toolbarPath=listrowToolbarPath;
+            String toolbarPath = listrowToolbarPath;
             datagrid.setName("全部订单");
 
             datagrid.setToolbar(toolbarPath);
@@ -183,36 +184,36 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 
         PDatagridColumn column = null;
         addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-        column = addColumn(datagrid, "no", "订单编号", ControlTypes.TEXT_BOX, 80);{
-        	column.setAlign(DatagridAlign.CENTER);
+        column = addColumn(datagrid, "no", "订单编号", ControlTypes.TEXT_BOX, 80);
+        {
+            column.setAlign(DatagridAlign.CENTER);
         }
         addColumn(datagrid, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "payTime", "回款日期", ControlTypes.DATE_BOX, 100);
-        addColumn(datagrid, "addTime", "下单时间", ControlTypes.DATETIME_BOX, 100);
         addColumn(datagrid, "prodName", "产品名称", ControlTypes.TEXT_BOX, 200);
-        addColumn(datagrid, "no", "办理名称", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "payStatus", "支付状态", ControlTypes.ENUM_BOX, 60);
-        addColumn(datagrid, "companyIntention.name", "关联企业", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "refundStatus", "退单状态", ControlTypes.ENUM_BOX, 60);
-        column = addColumn(datagrid, "totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 80);{
-        	
-        	column.setAlign(DatagridAlign.RIGHT);
+        addColumn(datagrid, "companyIntention.companyName", "签单企业", ControlTypes.TEXT_BOX, 250);
+        column = addColumn(datagrid, "totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 80);
+        {
+            column.setAlign(DatagridAlign.RIGHT);
         }
-        column = addColumn(datagrid, "payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 80);{
-        	
-        	column.setAlign(DatagridAlign.RIGHT);
+        column = addColumn(datagrid, "payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 80);
+        {
+            column.setAlign(DatagridAlign.RIGHT);
         }
-        column = addColumn(datagrid, "paidPrice", "已付金额", ControlTypes.DECIMAL_FEN_BOX, 80);{
-        	
-        	column.setAlign(DatagridAlign.RIGHT);
+        column = addColumn(datagrid, "paidPrice", "已付金额", ControlTypes.DECIMAL_FEN_BOX, 80);
+        {
+            column.setAlign(DatagridAlign.RIGHT);
         }
+        addColumn(datagrid, "payTime", "回款日期", ControlTypes.DATETIME_BOX, 100);
+        addColumn(datagrid, "refundStatus", "退款状态", ControlTypes.ENUM_BOX, 60);
         addColumn(datagrid, "isInstallment", "是否分期", ControlTypes.BOOLCOMBO_BOX, 80);
-        addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 80);
-        addColumn(datagrid, "isInstallment", "是否分期付款", ControlTypes.BOOLCOMBO_BOX, 100);
-        addColumn(datagrid, "accountMobile", "下单客户手机号", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "customerName", "下单客户", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "platformSource", "订单来源", ControlTypes.ENUM_BOX, 80);
+        addColumn(datagrid, "accountMobile", "下单客户手机号", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 80);
         addColumn(datagrid, "sourceType", "下单方式", ControlTypes.ENUM_BOX, 80);
+        addColumn(datagrid, "platformSource", "订单来源", ControlTypes.ENUM_BOX, 80);
+        addColumn(datagrid, "addTime", "下单时间", ControlTypes.DATETIME_BOX, 100);
+        addColumn(datagrid, "accountType", "新老客户", ControlTypes.ENUM_BOX, 80);
 
         return datagrid;
     }
@@ -227,17 +228,17 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 
         item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
         {
-            item.setTooltip("订单编号、渠道订单编号、下单人、下单人电话、关联公司");
+            item.setTooltip("订单编号、渠道订单编号、下单人、下单人电话、签单企业");
+            item.setWidth(350);
         }
         addQueryItem(queryProject, "prodName", "产品名称", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "platformSource", "订单来源", ControlTypes.ENUM_BOX);
-        addQueryItem(queryProject, "payStatus", "支付状态", ControlTypes.ENUM_BOX);
-        addQueryItem(queryProject, "sourceType", "下单方式", ControlTypes.ENUM_BOX);
-        addQueryItem(queryProject, "accountMobile", "下单客户手机号", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "payStatus", "付款状态", ControlTypes.ENUM_BOX);
+        addQueryItem(queryProject, "accountMobile", "客户手机号", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "ywyName", "业务员", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "isInstallment", "是否分期", ControlTypes.BOOLCOMBO_BOX);
         addQueryItem(queryProject, "addTime", "订单创建日期", ControlTypes.DATE_BOX);
         addQueryItem(queryProject, "payTime", "回款日期", ControlTypes.DATE_BOX);
-        addQueryItem(queryProject, "isInstallment", "是否分期", ControlTypes.BOOLCOMBO_BOX);
         return queryProject;
     }
 
@@ -260,7 +261,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
     @Override
     protected void doOperation() {
         ResourceNode node = this.getResourceNode();
-        operationService.addOperation (node, OperationTypes.view);
+        operationService.addOperation(node, OperationTypes.view);
 
 //       operationService.addOperation (node, OperationTypes.add);
 //        operationService.addOperation (node, OperationTypes.update);

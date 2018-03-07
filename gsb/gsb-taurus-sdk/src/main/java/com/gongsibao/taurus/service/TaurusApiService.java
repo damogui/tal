@@ -5,9 +5,8 @@ import com.gongsibao.taurus.entity.*;
 import com.gongsibao.taurus.message.ResponseMessage;
 import com.gongsibao.taurus.message.response.CompanyInfoResponseMessage;
 import com.gongsibao.taurus.message.response.TmNewResponseMessage;
-import com.gongsibao.taurus.util.DateUtils;
+import com.gongsibao.taurus.util.StringManager;
 
-import java.util.Date;
 import java.util.List;
 
 public class TaurusApiService {
@@ -60,8 +59,8 @@ public class TaurusApiService {
         EntRegistry entRegistry = new EntRegistry();
 
         // 营业时间
-        String fromTime = null == company.getFromTime() ? "-" : DateUtils.formatDate(company.getFromTime(), "yyyy-MM-dd");
-        String toTime = null == company.getToTime() ? "-" : DateUtils.formatDate(company.getToTime(), "yyyy-MM-dd");
+        String fromTime = StringManager.isNullOrEmpty(company.getFromTime()) ? "-" : company.getFromTime().replace("00:00:00", "").trim();
+        String toTime = StringManager.isNullOrEmpty(company.getToTime()) ? "-" : company.getToTime().replace("00:00:00", "").trim();
 
         entRegistry.setName(company.getName());
         entRegistry.setCreditCode(company.getProperty1());
@@ -74,7 +73,7 @@ public class TaurusApiService {
         entRegistry.setScope(company.getBusinessScope());
         entRegistry.setOrganizationCode(company.getOrgNumber());
         entRegistry.setManagementState(company.getRegStatus());
-        entRegistry.setFoundation(DateUtils.formatDate(company.getEstiblishTime()));
+        entRegistry.setFoundation(company.getEstiblishTime());
 
         entRegistry.setDateIssue(fromTime);
         entRegistry.setBusinessTerm(fromTime + "至" + toTime);

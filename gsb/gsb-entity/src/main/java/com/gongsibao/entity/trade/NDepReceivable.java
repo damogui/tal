@@ -1,6 +1,8 @@
 package com.gongsibao.entity.trade;
 
 import com.gongsibao.entity.supplier.Salesman;
+import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.entity.supplier.SupplierDepartment;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
@@ -12,10 +14,19 @@ import org.netsharp.entity.Entity;
  */
 @Table(name = "n_dep_receivable", header = "部门已收款")
 public class NDepReceivable  extends Entity {
-    @Column(name = "amount", header = "应收款")
+    @Column(name = "amount", header = "订单业绩分配金额")
     private  Integer amount;
-    @Column(name = "dep_id", header = "部门Id")
-    private  Integer depId;
+    @Column(name = "department_id", header = "部门Id")
+    private Integer departmentId = 0;
+
+    @Reference(foreignKey = "departmentId", header = "部门")
+    private SupplierDepartment department;
+
+    @Column(name = "supplier_id", header = "服务商Id")
+    private Integer supplierId = 0;
+
+    @Reference(foreignKey = "supplierId", header = "服务商")
+    private Supplier supplier;
     @Column(name = "order_id", header = "订单Id")
     private  Integer orderId;
     @JsonIgnore
@@ -54,13 +65,6 @@ public class NDepReceivable  extends Entity {
         this.salesmanId = salesmanId;
     }
 
-    public Integer getDepId() {
-        return depId;
-    }
-
-    public void setDepId(Integer depId) {
-        this.depId = depId;
-    }
 
     public SoOrder getOrder() {
         return order;
@@ -76,5 +80,37 @@ public class NDepReceivable  extends Entity {
 
     public void setSalesman(Salesman salesman) {
         this.salesman = salesman;
+    }
+
+    public Integer getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public SupplierDepartment getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(SupplierDepartment department) {
+        this.department = department;
+    }
+
+    public Integer getSupplierId() {
+        return supplierId;
+    }
+
+    public void setSupplierId(Integer supplierId) {
+        this.supplierId = supplierId;
+    }
+
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
     }
 }

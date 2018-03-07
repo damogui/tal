@@ -1,6 +1,10 @@
 package com.gongsibao.trade.service;
 
+import java.sql.Types;
+import java.util.List;
+
 import org.netsharp.communication.Service;
+import org.netsharp.core.Oql;
 import org.netsharp.service.PersistableService;
 
 import com.gongsibao.entity.trade.Refund;
@@ -13,4 +17,16 @@ public class RefundService extends PersistableService<Refund> implements IRefund
         super();
         this.type=Refund.class;
     }
+
+	@Override
+	public List<Refund> queryByOrderId(Integer orderId) {
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects("*");
+			oql.setFilter("orderId=?");
+			oql.getParameters().add("orderId", orderId, Types.INTEGER);
+		}
+		return this.queryList(oql);
+	}
 }
