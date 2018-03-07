@@ -38,8 +38,8 @@
 		var funnel = new com.gongsibao.crm.web.home.Funnel(); 
 		
 		$(function() {
-			alert(brief.briefingCount('getNewTasksCount',null));
-			$("#briefing").find('p >span').eq(0).text("新增任务数：" + brief.briefingCount('getNewTasksCount',null) + "个");
+			//alert(brief.briefingCount('getNewTasksCount',null));
+			$("#briefing").find('p >span').eq(0).text("新增任务数：" + brief.briefingCount('getNewTasksCount',1) + "个");
 			$("#briefing").find('p >span').eq(1).text("未启动任务数：" + brief.briefingCount('getUnStartTasksCount',null) + "个");
 			$("#briefing").find('p >span').eq(2).text("待跟进任务数：" + brief.briefingCount('getUnfoolowTasksCount',null) + "个");
 			$("#briefing").find('p >span').eq(3).text("超时任务数：" + brief.briefingCount('getTimeOutTasksCount',null) + "个");
