@@ -112,8 +112,8 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             ],
             callback: function (index, layero) {
 
-                var supplierId = $('#supplier_name').combogrid('getValue');
-                var departmentId = $('#department_name').combogrid('getValue');
+                //var supplierId = $('#supplier_name').combogrid('getValue');
+                //var departmentId = $('#department_name').combogrid('getValue');
                 var toUserId = $('#employee_name').combogrid('getValue');
 
                 if (System.isnull(toUserId)) {
@@ -121,15 +121,13 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                     return;
                 }
 
-                alert("分配成功");
 
-
-                /*me.invokeService("allocation", [taskId,supplierId,departmentId,toUserId],function(data) {
-                 me.reload();
-                 IMessageBox.toast('分配成功');
-                 layer.closeAll();
-                 return;
-                 });*/
+                me.invokeService("allocation", [taskId, supplierId, departmentId, toUserId], function (data) {
+                    me.reload();
+                    IMessageBox.toast('分配成功');
+                    layer.closeAll();
+                    return;
+                });
             }
         });
 
@@ -142,8 +140,8 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         this.edit(id);
     },
     detail: function (id) {
-		var url = '/nav/gsb/trade/orderDetail?id='+id;
-		window.open(url);
+        var url = '/nav/gsb/trade/orderDetail?id=' + id;
+        window.open(url);
     },
     doubleClickRow: function (index, row) {
         this.detail(row.id);

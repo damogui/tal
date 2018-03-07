@@ -14,4 +14,6 @@ public interface ISoOrderService extends IPersistableService<SoOrder> {
 	//根据订单id集合获取订单客户名称
 	Map<Integer,String> getCustNameByOrderIdList(List<Integer> orderIdList);
 
+	//转移/分配（包括批量转移/分配）
+	void orderTran(List<Integer> orderList, Integer toUserId);
 }
