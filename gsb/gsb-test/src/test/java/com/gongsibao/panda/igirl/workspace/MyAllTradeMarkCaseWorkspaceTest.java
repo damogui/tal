@@ -41,8 +41,10 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 		formServiceController = TradeMarkCasePart.class.getName();
 		formJsController = TradeMarkCasePart.class.getName();
 		formJsImport = "/gsb/igirl/js/markcase.form.part.js";
+		listPartImportJs="/gsb/igirl/js/markcase.list.part.js";
 		listToolbarPath = "/igirl/my/list/toolbar";
 		listFilter = "owner_id = '{userId}'";
+		listPartJsController=TradeMarkCaseListPart.class.getName();
 	}
 
 	public static final String trademarkToolbarPath = "/igirl/tm/toolbar";
@@ -50,10 +52,10 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 	public static final String downloadToolbarPath = "/igirl/download/toolbar";
 	 @Test
 	 public void fromToolbar() {
-	
+
 	 ResourceNode node =	 this.resourceService.byCode(resourceNodeCode);
 	 OperationType ot1 = operationTypeService.byCode(OperationTypes.add);
-	
+
 	 PToolbar toolbar = new PToolbar();
 	 {
 		 toolbar.toNew();
@@ -61,9 +63,9 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 		 toolbar.setPath(listToolbarPath);
 		 toolbar.setName("案件工具栏");
 		 toolbar.setResourceNode(node);
-	
+
 	 }
-	 
+
 	 PToolbarItem item = new PToolbarItem();
 	 {
 	 item.toNew();
@@ -76,7 +78,7 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 	 item.setCommand("{controller}.add();");
 	 toolbar.getItems().add(item);
 	 }
-	
+
 	 item = new PToolbarItem();
 	 {
 	 item.toNew();
@@ -88,6 +90,18 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 	 item.setSeq(3000);
 	 item.setCommand("{controller}.edit();");
 	 toolbar.getItems().add(item);
+	 }
+	 item = new PToolbarItem();
+	 {
+		 item.toNew();
+		 item.setCode("");
+		 item.setIcon("fa fa-link");
+		 item.setName("分配");
+		 item.setCommand(null);
+		 item.setOperationType(ot1);
+		 item.setSeq(3000);
+		 item.setCommand("{controller}.doAllot();");
+		 toolbar.getItems().add(item);
 	 }
 //	 item = new PToolbarItem();
 //	 {
@@ -101,11 +115,11 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 //	 item.setCommand("{controller}.remove();");
 //	 toolbar.getItems().add(item);
 //	 }
-	
-	
+
+
 	 toolbarService.save(toolbar);
 	 }
-	
+
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
 
@@ -119,12 +133,12 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "applier", "申请人", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "urgency", "紧急(小时)", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "ownerName", "业务员", ControlTypes.TEXT_BOX, 50);
-	
+
 		addColumn(datagrid, "caseAmount", "金额", ControlTypes.DECIMAL_FEN_BOX, 100);
 		addColumn(datagrid, "tmcState", "状态", ControlTypes.ENUM_BOX, 100);
 		addColumn(datagrid, "tradeOptions", "商标选项", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "orderCode", "订单号", ControlTypes.TEXT_BOX, 100);
-	
+
 		return datagrid;
 	}
 
@@ -160,7 +174,7 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 			// formField.setWidth(350);
 			formField.setWidth(200);
 		}
-	
+
 		addFormField(form, "applierAddress", "地址", "申请人基本信息", ControlTypes.TEXT_BOX, true, false).setWidth(300);
 		formField = addFormField(form, "certificateType", "证件名称", "自然人信息", ControlTypes.ENUM_BOX, false, false);
 		{
@@ -177,27 +191,27 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 		// false, false);
 		addFormField(form, "momo", "交流记录", "客户留言", ControlTypes.TEXTAREA, false, false).setFullColumn(true);
 		addFormField(form, "advice", "客户异议", "客户留言", ControlTypes.TEXTAREA, false, true).setFullColumn(true);
-	
+
 		addFormField(form, "caseProxyContactPerson", "联系人", "代理人信息", ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "ywPhone", "电话", "代理人信息", ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "mailCode", "邮编",  "代理人信息", ControlTypes.NUMBER_BOX, true, false);
 		addFormField(form, "fax", "传真",  "代理人信息", ControlTypes.TEXT_BOX, true, false);
-		
-		
+
+
 		addFormField(form, "orderCode", "订单号", "案件信息", ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "caseAmount", "方案金额", "案件信息", ControlTypes.DECIMAL_FEN_BOX, true, false);
 		addFormField(form, "tokenImgUrl", "二维码", "案件信息", ControlTypes.IMAGE, false, true);
 		addFormField(form, "tmcState", "方案状态", "案件信息", ControlTypes.ENUM_BOX, true, false).setVisible(false);
-		
-		
+
+
 		addFormField(form, "token", "token", "案件信息", ControlTypes.TEXT_BOX, false, true).setVisible(false);
 		addFormField(form, "code", "方案编号", "案件信息", ControlTypes.TEXT_BOX, false, true).setVisible(false);
 		addFormField(form, "tradeOptions", "商标选项", "案件信息", ControlTypes.TEXT_BOX, false, true).setVisible(false);
-		
-		
-		
-		
-		
+
+
+
+
+
 		return form;
 	}
 
@@ -397,7 +411,7 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 				// column.setFormatter("return '<a
 				// href=\"url\">name</a>'.replace('name',row.name).replace('url',row.fileUrl)");
 			}
-	
+
 			column = addColumn(datagrid, "attachmentCat", "附件类别", ControlTypes.TEXT_BOX, 100);{
 				String formatter=EnumUtil.getColumnFormatter(AttachmentCat.class);
 				column.setFormatter(formatter);
@@ -420,7 +434,7 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 			{
 				column.setFormatter("if(row.fileUrl=='' || row.fileUrl==null ){return '待生成' } else{ return '可下载' }");
 			}
-			
+
 
 		}
 		PForm form = new PForm();
@@ -472,7 +486,7 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 		addQueryItem(queryProject, "TMCState", "状态", ControlTypes.ENUM_BOX);
 		addQueryItem(queryProject, "createTime", "时间", ControlTypes.DATE_BOX).setWidth(400);
 //		PQueryItem item =addQueryItem(queryProject, "mobilePhone", "销售方式", ControlTypes.CUSTOMER);{
-//			
+//
 //			item.setCustomerControlType(DictComboBox.class.getName());
 //			item.setRefFilter("type=8");
 //		}
