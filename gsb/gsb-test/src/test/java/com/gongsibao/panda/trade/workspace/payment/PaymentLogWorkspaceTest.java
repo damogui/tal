@@ -51,14 +51,14 @@ public class PaymentLogWorkspaceTest extends WorkspaceCreationBase {
 			
 			column.setAlign(DatagridAlign.CENTER);
 		}
-		column = addColumn(datagrid, "pay.successStatus.name", "支付状态", ControlTypes.TEXT_BOX, 80);{
+		column = addColumn(datagrid, "pay.successStatus", "支付状态", ControlTypes.ENUM_BOX, 80);{
 			
 			column.setAlign(DatagridAlign.CENTER);
 		}
 		column = addColumn(datagrid, "pay.offlineAddUser.name", "付款提交人", ControlTypes.TEXT_BOX, 80);{
 			column.setAlign(DatagridAlign.CENTER);
 		}
-		column = addColumn(datagrid, "pay.offlineAuditStatus.name", "审核状态	", ControlTypes.TEXT_BOX, 80);{
+		column = addColumn(datagrid, "pay.offlineAuditStatus", "审核状态", ControlTypes.ENUM_BOX, 80);{
 			
 			column.setAlign(DatagridAlign.CENTER);
 		}
@@ -77,16 +77,8 @@ public class PaymentLogWorkspaceTest extends WorkspaceCreationBase {
 		addQueryItem(queryProject, "soOrder.accountName", "下单人名称", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "soOrder.accountMobile", "下单人手机号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "pay.onlineTradeNo", "线上付款银行名称", ControlTypes.TEXT_BOX);
-		PQueryItem item = addQueryItem(queryProject, "pay.successStatusId", "支付状态", ControlTypes.CUSTOM);{
-			
-			item.setCustomControlType(PropertyQueryDictComboBox.class.getName());
-			item.setRefFilter("type=312");
-		}
-		item = addQueryItem(queryProject, "pay.offlineAuditStatusId", "付款审核状态", ControlTypes.CUSTOM);{
-		
-			item.setCustomControlType(PropertyQueryDictComboBox.class.getName());
-			item.setRefFilter("type=105");
-		}
+		PQueryItem item = addQueryItem(queryProject, "pay.successStatus", "支付状态", ControlTypes.ENUM_BOX);
+		item = addQueryItem(queryProject, "pay.offlineAuditStatus", "付款审核状态", ControlTypes.ENUM_BOX);
 		item = addQueryItem(queryProject, "pay.payWayTypeId", "付款方式", ControlTypes.CUSTOM);{
 			
 			item.setCustomControlType(PropertyQueryDictComboBox.class.getName());

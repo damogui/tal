@@ -1,6 +1,7 @@
 package com.gongsibao.trade.web;
 
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.netsharp.communication.ServiceFactory;
@@ -12,6 +13,7 @@ import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.OrderDiscount;
 import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.entity.trade.OrderProd;
+import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.base.IOrderDiscountService;
@@ -66,10 +68,16 @@ public class OrderDetailController {
 	 * @return: List<OrderPayMap>      
 	 * @throws   
 	 */
-	public List<OrderPayMap> queryPaymentList(Integer orderId) {
+	public List<Pay> queryPayList(Integer orderId) {
 
+		List<Pay> payList = new ArrayList<Pay>();
 		IOrderPayMapService payService =  ServiceFactory.create(IOrderPayMapService.class);
-		return payService.queryByOrderId(orderId);
+		List<OrderPayMap> payMapList =  payService.queryByOrderId(orderId);
+		for (OrderPayMap orderPayMap : payMapList) {
+			
+			payList.add(orderPayMap.getPay());
+		}
+		return payList;
 	}
 
 	/**   

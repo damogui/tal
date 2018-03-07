@@ -123,7 +123,7 @@ public class SoOrder extends BaseEntity {
     private Integer discountPrice = 0;
 
     @Column(name = "source_type_id", header = "来源类型")
-    private OrderSourceType sourceType;
+    private OrderSourceType sourceType = OrderSourceType.wu;
 
     @Column(name = "is_installment", header = "多次支付")
     private Boolean isInstallment = false;
