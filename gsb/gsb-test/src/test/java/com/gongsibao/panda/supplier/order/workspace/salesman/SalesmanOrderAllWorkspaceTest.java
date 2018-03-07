@@ -46,7 +46,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         listToolbarPath = "crm/order/orderall/edit";
         openWindowHeight = 700;
         openWindowWidth = 900;
-        listPartImportJs = "/gsb/trade/js/salesman-order-all-list.part.js|/gsb/gsb.custom.query.controls.js";
+        listPartImportJs = "/gsb/trade/js/salesman-order-all-list.part.js|/gsb/gsb.custom.query.controls.js|/gsb/gsb.pubcontrol.js";
         listPartJsController = SalesmanAllOrderListPart.class.getName();
         listPartServiceController = SalesmanAllOrderListPart.class.getName();
 
@@ -111,13 +111,11 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         toolbar.getItems().add(item);
 
 
-        /*item = PToolbarHelper.getPToolbarItem(EntityState.New, "batchOrderTran", PToolbarHelper.iconTran,
+        item = PToolbarHelper.getPToolbarItem(EntityState.New, "batchOrderTran", PToolbarHelper.iconTran,
                 "批量订单转移", ot1, 8, "{controller}.batchOrderTran();");
-        toolbar.getItems().add(item);*/
-
-        item = PToolbarHelper.getPToolbarItem(EntityState.New, "orderTran", PToolbarHelper.iconTran,
-                "订单转移", ot1, 9, "{controller}.orderTran();");
         toolbar.getItems().add(item);
+
+
         item = PToolbarHelper.getPToolbarItem(EntityState.New, "begOption", PToolbarHelper.iconCheck,
                 "开始操作", ot1, 10, "{controller}.begOption();");
         toolbar.getItems().add(item);
