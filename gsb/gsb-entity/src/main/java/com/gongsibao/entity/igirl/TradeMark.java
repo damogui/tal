@@ -14,13 +14,13 @@ import java.util.Date;
 
 @Table(name = "ig_trade_mark", header = "商标")
 public class TradeMark extends Entity {
-	
+
 	@Column(name = "supplier_id", header = "服务商Id")
 	private Integer supplierId = -1;
 	@JsonIgnore
 	@Reference(foreignKey = "supplierId", header = "服务商")
 	private Supplier supplier;
-	
+
 
 	@Column(name = "code", header = "商标号")
 	private String code;
@@ -55,7 +55,7 @@ public class TradeMark extends Entity {
 
 	@Column(name = "whether_color_group", header = "是否颜色组合")
 	private Boolean whetherColorGroup = false;
-	
+
     @Column(name="has_color",header="是否指定颜色")
     private Boolean  hasColor=false;
 
@@ -82,9 +82,30 @@ public class TradeMark extends Entity {
 
 	@Column(name = "department_id",header = "所属部门id")
 	private Integer departmentId;
-	
-	
-    public Boolean getHasColor() {
+
+	@Column(name="owner_id" ,header = "当前业务员id")
+	private Integer ownerId;
+
+	@Column(name="owner_name",header = "当前业务员姓名")
+	private String ownerName;
+
+	public Integer getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(Integer ownerId) {
+		this.ownerId = ownerId;
+	}
+
+	public String getOwnerName() {
+		return ownerName;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
+
+	public Boolean getHasColor() {
         return hasColor;
     }
 
