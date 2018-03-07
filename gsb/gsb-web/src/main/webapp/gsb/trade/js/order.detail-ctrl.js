@@ -246,28 +246,18 @@ com.gongsibao.trade.web.OrderPaymentCollectionDetailCtrl = com.gongsibao.trade.w
 		        	
 		        	return '<a class="grid-btn" href="javascript:;">查看</a>';
 		        }},
-		        {field:'productName',title:'支付编号',width:200},
+		        {field:'no',title:'支付编号',width:100},
 		        {field:'serviceName',title:'审核编号',width:200},
-		        {field:'name',title:'支付金额',width:150,formatter: function(value,row,index){
+		        {field:'amount',title:'支付金额',width:150,formatter: function(value,row,index){
 		        	
-		        	if(row.service && row.service.type){
-		        		
-		        		var name = row.service.type.name;
-		        		if(row.service.property){
-		        			
-		        			name = row.service.property.name+'-'+name;
-		        		}
-		        		return name;
-		        	}
+		        	return value/100;
 		        }},   
-		        {field:'originalPrice',title:'账户名称',width:100,align:'right',formatter:function(value,row,index){
-		        	return value/100;
-		        }},
-		        {field:'price',title:'付款账号',width:100,align:'right',formatter:function(value,row,index){
+		        {field:'offlinePayerName',title:'账户名称',width:100},
+		        {field:'offlineBankNo',title:'付款账号',width:100,formatter:function(value,row,index){
 		        		
 		        	return value/100;
 		        }},
-		        {field:'processStatusId',title:'付款类别',width:100,align:'right',formatter:function(value,row,index){
+		        {field:'payWayType',title:'付款类别',width:100,formatter:function(value,row,index){
 	        		
 	        		
 		        }},

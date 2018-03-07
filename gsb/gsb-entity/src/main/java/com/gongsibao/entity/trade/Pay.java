@@ -7,13 +7,13 @@ import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
-import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.OfflineWayType;
 import com.gongsibao.entity.trade.dic.PayForOrderCountType;
 import com.gongsibao.entity.trade.dic.PayOfflineInstallmentType;
 import com.gongsibao.entity.trade.dic.PayReceiptStatus;
 import com.gongsibao.entity.trade.dic.PaySuccessStatus;
+import com.gongsibao.entity.trade.dic.PayWayType;
 import com.gongsibao.entity.uc.User;
 
 @Table(name = "so_pay")
@@ -27,14 +27,8 @@ public class Pay extends BaseEntity {
 	@Column(header = "金额")
 	private Integer amount;
 
-	@Column(name = "pay_way_type_id", header = "支付类型")
-	private Integer payWayTypeId;
-
-	// 3101 在线支付
-	// 3102 线下支付
-	// 3103 内部结转
-	@Reference(foreignKey = "payWayTypeId", header = "支付类型,type=310")
-	private Dict payWayType;
+	@Column(name = "pay_way_type_id", header = "支付类型,type=310")
+	private PayWayType payWayType;
 
 	@Column(name = "success_status_id", header = "成功状态")
 	private PaySuccessStatus successStatus;
@@ -100,19 +94,11 @@ public class Pay extends BaseEntity {
 		this.amount = amount;
 	}
 
-	public Integer getPayWayTypeId() {
-		return payWayTypeId;
-	}
-
-	public void setPayWayTypeId(Integer payWayTypeId) {
-		this.payWayTypeId = payWayTypeId;
-	}
-
-	public Dict getPayWayType() {
+	public PayWayType getPayWayType() {
 		return payWayType;
 	}
 
-	public void setPayWayType(Dict payWayType) {
+	public void setPayWayType(PayWayType payWayType) {
 		this.payWayType = payWayType;
 	}
 
