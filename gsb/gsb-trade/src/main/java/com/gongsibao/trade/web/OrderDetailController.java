@@ -62,7 +62,7 @@ public class OrderDetailController {
 
 	/**   
 	 * @Title: queryPaymentList   
-	 * @Description: TODO(查询支付记录)   
+	 * @Description: TODO(查询支付记录 )   
 	 * @param: @param orderId
 	 * @param: @return      
 	 * @return: List<OrderPayMap>      
