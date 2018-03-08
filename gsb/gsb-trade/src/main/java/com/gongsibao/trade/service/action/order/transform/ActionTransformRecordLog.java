@@ -71,7 +71,7 @@ public class ActionTransformRecordLog implements IAction {
         log.setToDepartmentId(toUser.getDepartmentId());
         log.setToDepartmentName(toUser.getDepartment().getName());
         log.setToUserId(toUser.getEmployeeId());
-        log.setToUserName(toUser.getName());
+        log.setToUserName(toUser.getEmployee().getName());
         //来自业务员信息
         if (formUser != null) {
             log.setFormSupplierId(formUser.getSupplierId());
