@@ -77,15 +77,15 @@ function getSupplierOption(departmentId, employeeId) {
             if (departmentgridlength <= 0) {
                 return;
             }
-            if (employeegridlength <= 0) {
-                return;
-            }
             $('#' + departmentId).combogrid('clear');
             var grid = $('#' + departmentId).combogrid('grid');
             var options = $(grid).datagrid('options');
             var filter = ' supplier_id ____ ----' + newValue + '----';
             options.url = '\/panda\/rest\/reference?code=CRM_Supplier_Depart&filter=' + filter;
             $(grid).datagrid(options);
+            if (employeegridlength <= 0) {
+                return;
+            }
             //改变业务员的查询条件
             $('#' + employeeId).combogrid('clear');
             var grid = $('#' + employeeId).combogrid('grid');

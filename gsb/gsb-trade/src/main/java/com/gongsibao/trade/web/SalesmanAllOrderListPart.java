@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class SalesmanAllOrderListPart extends AdvancedListPart {
     ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
-    
+
     @Override
     public String getFilterByParameter(FilterParameter parameter) {
 
@@ -42,11 +42,13 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
         return parameter.getFilter();
     }
 
+    //转移/分配（包括批量转移/分配）
+    public void orderTran(List<Integer> orderList, Integer toUserId) {
+        orderService.orderTran(orderList, toUserId);
+    }
 
-    public  int  saveNDepReceivableBySoder(SoOrder entity){
-
-
-        orderService.save (entity);
+    public int saveNDepReceivableBySoder(SoOrder entity) {
+        orderService.save(entity);
         return 1;
     }
 

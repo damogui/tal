@@ -142,11 +142,11 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         PToolbarItem item = new PToolbarItem();
         {
             item.toNew();
-            item.setCode("ordertran");
+            item.setCode("orderTran");
             item.setName("转移");
             item.setSeq(2);
-            // item.setOperationType (ot1);
-            //item.setCommand("{controller}.tran();");
+            //item.setOperationType (ot1);
+            item.setCommand("{controller}.orderTran();");
             toolbar.getItems().add(item);
         }
 
