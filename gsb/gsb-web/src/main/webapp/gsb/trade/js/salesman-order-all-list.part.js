@@ -4,8 +4,8 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
     ctor: function () {
         this.base();
 
-        this.addOrderReceivedUrl = '/panda/crm/order/salesman/coperformance';
-        this.addReceived = '/panda/crm/order/salesman/coperformance';//回款业绩
+        this.addOrderReceivedUrl = '/panda/crm/order/salesman/coperformance';//创建订单业绩
+        this.addReceivedUrl = "/crm/order/salesman/creceivedperformance";//回款业绩
 
 
     },
@@ -34,12 +34,6 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             zIndex: 100000,
             id:"addOrderReceivedIframe",
             content:urlEnd,
-            //content: iframeStr,//this.addOrderReceivedUrl + "?id=" + row.id,
-            // iframe: {
-            //     src:urlEnd,
-            //     id:""
-            //
-            // },
             btn: ['保存', '取消'],// 可以无限个按钮
             success: function (layero, index) {
                 
@@ -53,15 +47,47 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                 IMessageBox.toast('保存成功');
 
 
-            },
-
-            btn2: function (index, layero) {
             }
+
+
         });
     },
     addReceived: function (id) {//创建回款业绩
 
-        this.edit(id);
+        var me = this;
+        var row = this.getSelectedItem();
+        var rows = this.getSelections();
+        if (rows.length <= 0) {
+            IMessageBox.info('请先选择订单数据');
+            return false;
+        }
+
+
+        var  urlEnd=this.addReceivedUrl + "?id=" + row.id;
+        layer.open({
+            type: 2,//1是字符串 2是内容
+            title: '订单信息',
+            fixed: false,
+            maxmin: true,
+            shadeClose: false,
+            area: ['60%', '60%'],
+            zIndex: 100000,
+            id:"addReceivedIframe",
+            content:urlEnd,
+
+            btn: ['保存', '取消'],// 可以无限个按钮
+
+            yes: function (index, layero) {
+
+                layer.closeAll();
+                document.getElementById('addReceivedIframe').firstElementChild.contentWindow.controllersoOrder.save();
+                IMessageBox.toast('保存成功');
+
+
+            },
+
+
+        });
     },
     addRefund: function (id) {//创建退款
 
