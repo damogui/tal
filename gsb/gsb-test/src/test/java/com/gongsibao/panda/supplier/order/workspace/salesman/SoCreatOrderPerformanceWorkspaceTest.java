@@ -82,7 +82,8 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
 
         PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "performanceDetailAdd", PToolbarHelper.iconAdd,
                 "新增", null, 1, "{controller}.add();");//allocation
-        toolbar.getItems ().add (item);{
+        toolbar.getItems ().add (item);
+        {
 
         }
         item = PToolbarHelper.getPToolbarItem (EntityState.New, "performanceDetailDel", PToolbarHelper.iconDel,
@@ -115,14 +116,59 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
             formField.setReadonly (true);
 
         }
+        /*beg*/
+        formField = addFormField (form, "paidPrice", "已付金额", groupName, ControlTypes.TEXT_BOX, false);
         {
             formField.setReadonly (true);
 
         }
+        formField = addFormField (form, "customer.realName", "客户", groupName, ControlTypes.TEXT_BOX, false);
+        {
+            formField.setReadonly (true);
+
+        }
+        formField = addFormField (form, "customer.mobile", "客户电话", groupName, ControlTypes.TEXT_BOX, false);
+        {
+            formField.setReadonly (true);
+
+        }
+        formField = addFormField (form, "createTime", "下单时间", groupName, ControlTypes.TEXT_BOX, false);
+        {
+            formField.setReadonly (true);
+
+        }
+        formField = addFormField (form, "sourceType", "订单来源", groupName, ControlTypes.ENUM_BOX, false);
+        {
+            formField.setReadonly (true);
+
+        }
+        formField = addFormField (form, "payStatus", "付款状态", groupName, ControlTypes.ENUM_BOX, false);
+        {
+            formField.setReadonly (true);
+
+        }
+        formField = addFormField (form, "stageNum", "分期次数", groupName, ControlTypes.TEXT_BOX, false);
+        {
+            formField.setReadonly (true);
+
+        }
+        formField = addFormField (form, "channelOrderNo", "渠道订单号", groupName, ControlTypes.TEXT_BOX, false);
+        {
+            formField.setReadonly (true);
+
+        }
+     /*end*/
+
 
         formField = addFormField (form, "performancePrice", "已划分金额", groupName, ControlTypes.TEXT_BOX, false);
         {
             formField.setReadonly (true);
+
+        }
+        formField = addFormField (form, "remark", "备注", groupName, ControlTypes.TEXT_BOX, false);
+        {
+            formField.setReadonly (true);
+            formField.setWidth (120);
 
         }
 
@@ -213,7 +259,7 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
             part.setWindowHeight (450);
 
 //         part.setServiceController (OrderPerformanceDetailPart.class.getName ());
-          part.setJsController (OrderPerformanceDetailPart.class.getName ());
+            part.setJsController (OrderPerformanceDetailPart.class.getName ());
         }
         workspace.getParts ().add (part);
 

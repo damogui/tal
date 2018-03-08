@@ -80,6 +80,9 @@ public class SoOrder extends BaseEntity {
     @Column(name = "pay_status_id", header = "支付状态：type=301")
     private OrderPayStatusType payStatus = OrderPayStatusType.Dhk;
 
+    @Column(name = "stage_num", header = "分期次数（待讨论）")
+    private Integer stageNum;
+
     @Column(name = "pay_time", header = "支付时间")
     private Date payTime;
 
@@ -798,5 +801,13 @@ public class SoOrder extends BaseEntity {
 
     public void setDepReceivable(List<NDepReceivable> depReceivable) {
         this.depReceivable = depReceivable;
+    }
+
+    public Integer getStageNum() {
+        return stageNum;
+    }
+
+    public void setStageNum(Integer stageNum) {
+        this.stageNum = stageNum;
     }
 }
