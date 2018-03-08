@@ -20,10 +20,12 @@ public class ServiceBank {
         bankTypes.put (4, "典当行");
         bankTypes.put (5, "保险经纪");
         bankTypes.put (6, "保险代理");
-        bankTypes.put (7, "融资担保");
-        bankTypes.put (8, "小额贷款");
-        bankTypes.put (9, "互联网支付");
-        bankTypes.put (10, "互联网借贷");
+        bankTypes.put (7, "互联网支付");
+        bankTypes.put (8, "融资担保");
+        bankTypes.put (9, "互联网借贷");
+        bankTypes.put (10, "小额贷款");
+
+
         return bankTypes;
     }
 
@@ -43,10 +45,10 @@ public class ServiceBank {
         bankTypes.put (4, "典当");
         bankTypes.put (5, "保险经纪");
         bankTypes.put (6, "保险代理");
-        bankTypes.put (7, "融资担保");
-        bankTypes.put (8, "小额贷款");
-        bankTypes.put (9, "互联网支付");
-        bankTypes.put (10, "互联网借贷");
+        bankTypes.put (7, "互联网支付");
+        bankTypes.put (8, "融资担保");
+        bankTypes.put (9, "互联网借贷");
+        bankTypes.put (10, "小额贷款");
         return bankTypes.get (indexKey);
     }
 
