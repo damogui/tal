@@ -23,6 +23,36 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
 
         this.setState();
     },
+        supplierChange:function(newValue,oldValue){
+
+            //改变部门的查询条件
+            $('#department_name').combogrid('clear');
+            var grid = $('#department_name').combogrid('grid');
+            var options = $(grid).datagrid('options');
+            var filter = ' supplier_id ____ ----'+ newValue + '----';
+            options.url = '\/panda\/rest\/reference?code=SupplierDepartment&filter='+ filter;
+            $(grid).datagrid(options);
+
+            //改变业务员的查询条件
+            $('#salesman_name').combogrid('clear');
+            var grid = $('#salesman_name').combogrid('grid');
+            var options = $(grid).datagrid('options');
+            var filter = ' id IN ( SELECT employee_id FROM sp_salesman WHERE supplier_id ____ ----'+ newValue + '----)';
+            options.url = '\/panda\/rest\/reference?code=Employee&filter='+ filter;
+            $(grid).datagrid(options);
+
+        },
+        departmentChange:function(newValue,oldValue){
+
+            //改变业务员的查询条件
+            $('#salesman_name').combogrid('clear');
+            var grid = $('#salesman_name').combogrid('grid');
+            var options = $(grid).datagrid('options');
+            var filter = ' id IN ( SELECT employee_id FROM sp_salesman WHERE department_id ____ ----'+ newValue + '----)';
+            options.url = '\/panda\/rest\/reference?code=Employee&filter='+ filter;
+            $(grid).datagrid(options);
+        },
+
     addCustomer: function () {
 
         window.open(this.addCustomerUrl);
