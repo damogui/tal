@@ -248,7 +248,7 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 	}
 
 	@Override
-	public TmForRobotDto tmsForRobot(Integer innerHour) {
+	public List<TradeMarkApplyInfo> tmsForRobot(Integer innerHour) {
 
 		List<TradeMarkApplyInfo> tminfos = new ArrayList<>();
 		TradeMarkApplyInfo tminfo;
@@ -271,7 +271,15 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		Map<String, String> shareGroupToTradeMarkMap = this.buildCaseShareGroupToAttachFileMap();
 		for (TradeMark tm : tms) {
 			TradeMarkCase tmc = tm.getTradeMarkCase();
+			Integer ownerId = tmc.getOwnerId();
 			tminfo = new TradeMarkApplyInfo();
+			if (ownerId!=null){
+				IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
+				Employee employee = employeeService.byId(ownerId);
+				tminfo.setMobile(employee.getMobile());
+			}else{
+				tminfo.setMobile("");
+			}
 			step1 = new Step1();
 			tminfo.setCorpTrademarkId(tm.getProxyCode());
 			step1.setAppGjdq(tmc.getWriteType().getText());
@@ -373,11 +381,7 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			tminfo.setStep7(step7);
 			tminfos.add(tminfo);
 		}
-		TmForRobotDto tfr = new TmForRobotDto();
-		tfr.setCode("200");
-		tfr.setCount(String.valueOf(tms.size()));
-		tfr.setData(tminfos);
-		return tfr;
+		return tminfos;
 	}
 
 	public List<Goods> goodSl(String str, String code) {

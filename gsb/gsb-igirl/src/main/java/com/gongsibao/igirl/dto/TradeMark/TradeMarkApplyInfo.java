@@ -3,6 +3,8 @@ package com.gongsibao.igirl.dto.TradeMark;
 public class TradeMarkApplyInfo {
     private Integer status;
 
+    private String mobile;
+
     private String msg;
 
     private String corpTrademarkId;
@@ -99,5 +101,13 @@ public class TradeMarkApplyInfo {
 
     public void setStep7(Step7 step7) {
         this.step7 = step7;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 }
