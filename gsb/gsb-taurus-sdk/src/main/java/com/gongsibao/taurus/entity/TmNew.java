@@ -1,7 +1,5 @@
 package com.gongsibao.taurus.entity;
 
-import java.util.Date;
-
 /**
  * Created by wk on 2018/3/1.
  */
@@ -12,22 +10,22 @@ public class TmNew implements IEntity {
     private String sbsqrzwdz;
     private String gjlb;
     private String sbsqrywdz;
-    private Date cjsj;
+    private String cjsj;
     private String csggh;
     private String sbmc;
     private String yxqrq;
     private String sbzch;
-    private Date zyqqxjssj;
+    private String zyqqxjssj;
     private String dlsws;
     private String sbsrryw;
-    private Date zyqqxkssj;
+    private String zyqqxkssj;
     private String sbgysqr;
     private String logo;
     private String guzcrq;
     private String zcggh;
-    private Date zcggrq;
+    private String zcggrq;
     private String zt;
-    private Date csggrq;
+    private String csggrq;
     private String hqzdrq;
 
     public String getSbsqr() {
@@ -62,11 +60,11 @@ public class TmNew implements IEntity {
         this.sbsqrywdz = sbsqrywdz;
     }
 
-    public Date getCjsj() {
+    public String getCjsj() {
         return cjsj;
     }
 
-    public void setCjsj(Date cjsj) {
+    public void setCjsj(String cjsj) {
         this.cjsj = cjsj;
     }
 
@@ -102,11 +100,11 @@ public class TmNew implements IEntity {
         this.sbzch = sbzch;
     }
 
-    public Date getZyqqxjssj() {
+    public String getZyqqxjssj() {
         return zyqqxjssj;
     }
 
-    public void setZyqqxjssj(Date zyqqxjssj) {
+    public void setZyqqxjssj(String zyqqxjssj) {
         this.zyqqxjssj = zyqqxjssj;
     }
 
@@ -126,11 +124,11 @@ public class TmNew implements IEntity {
         this.sbsrryw = sbsrryw;
     }
 
-    public Date getZyqqxkssj() {
+    public String getZyqqxkssj() {
         return zyqqxkssj;
     }
 
-    public void setZyqqxkssj(Date zyqqxkssj) {
+    public void setZyqqxkssj(String zyqqxkssj) {
         this.zyqqxkssj = zyqqxkssj;
     }
 
@@ -166,11 +164,11 @@ public class TmNew implements IEntity {
         this.zcggh = zcggh;
     }
 
-    public Date getZcggrq() {
+    public String getZcggrq() {
         return zcggrq;
     }
 
-    public void setZcggrq(Date zcggrq) {
+    public void setZcggrq(String zcggrq) {
         this.zcggrq = zcggrq;
     }
 
@@ -182,11 +180,11 @@ public class TmNew implements IEntity {
         this.zt = zt;
     }
 
-    public Date getCsggrq() {
+    public String getCsggrq() {
         return csggrq;
     }
 
-    public void setCsggrq(Date csggrq) {
+    public void setCsggrq(String csggrq) {
         this.csggrq = csggrq;
     }
 

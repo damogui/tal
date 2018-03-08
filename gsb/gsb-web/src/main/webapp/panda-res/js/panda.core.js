@@ -352,24 +352,6 @@ PandaHelper.ShowLogin = function () {
 
 //弹出支柱表单窗口
 PandaHelper.openDynamicForm = function(option){
-	
-//	option = {
-//		title:'',
-//		width:400,
-//		height:300,
-//	    explain:null,
-//      notice:null,
-//		items :[{
-//			id:null,
-//			title:null,
-//			type:null,
-//          className:'',
-//			option:null
-//		}], 
-//		callback:function(){
-//			
-//		}
-//	};
 
 	var items = option.items;
 	if(items==null || items.length==0){
@@ -456,5 +438,31 @@ PandaHelper.dimString = function(str){
 	var value = str.substring(0,halfLength-1)+asteriskStr;
 	return value;
 }
+
+//-------------------------------------------------------------------------------------------------------------------------------
+//处理枚举
+PandaHelper.Enum = {
+		
+	get:function(enumName){
+		
+		var str = sessionStorage[enumName];
+		if(str){
+			return JSON.parse(str);
+		}
+		this.invoke(enumName,function(data){
+			
+			obj = JSON.parse(data);
+			sessionStorage[enumName] = data;
+		});
+	    return obj;
+	},
+	invoke:function(enumName,callback){
+        var serviceLocator = new org.netsharp.core.JServiceLocator();
+        serviceLocator.invoke("com.gongsibao.controller.EnumController", "getEnumItems", [enumName], function(data){
+        	
+        	callback(data);
+        }, null, false);
+	}
+};
 //-------------------------------------------------------------------------------------------------------------------------------
 var LODOP;//用于Lodop打印控件

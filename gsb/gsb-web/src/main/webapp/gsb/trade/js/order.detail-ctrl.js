@@ -154,6 +154,9 @@ com.gongsibao.trade.web.OrderProductDetailCtrl = com.gongsibao.trade.web.BaseCtr
     },
     initGrid:function(data){
     	
+    	//办理进度
+    	var processStatusEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderProcessStatusType');
+
     	var me = this;
 		$('#order_product_grid').datagrid({
 			idField:'id',
@@ -161,6 +164,7 @@ com.gongsibao.trade.web.OrderProductDetailCtrl = com.gongsibao.trade.web.BaseCtr
 			striped:true,
 			pagination:false,
 			showFooter:true,
+			singleSelect:true,
 			height:'100%',
 			data:data,
 		    columns:[[
@@ -204,7 +208,7 @@ com.gongsibao.trade.web.OrderProductDetailCtrl = com.gongsibao.trade.web.BaseCtr
 	        		
 	        		if(value){
 	        		
-	        			return '-';
+	        			return processStatusEnum[value];
 	        		}
 	        		return '-';
 		        }},
@@ -232,14 +236,26 @@ com.gongsibao.trade.web.OrderPaymentCollectionDetailCtrl = com.gongsibao.trade.w
     	this.base();
     },
     init:function(){
+    	
+    	var me = this;
+    	var orderId = this.getOrderId();
+    	this.invokeService ("queryPayList", [orderId], function(data){
+    		
+    		me.initGrid(data);
+    	});
 
+    },
+    initGrid:function(data){
+    	
 		$('#order_payment_grid').datagrid({
 			idField:'id',
 			emptyMsg:'暂无记录',
 			striped:true,
 			pagination:false,
 			showFooter:true,
+			singleSelect:true,
 			height:'100%',
+			data:data,
 		    columns:[[
 
 		        {field:'a',title:'操作',width:80,align:'center',formatter:function(value,row,index){
@@ -247,42 +263,31 @@ com.gongsibao.trade.web.OrderPaymentCollectionDetailCtrl = com.gongsibao.trade.w
 		        	return '<a class="grid-btn" href="javascript:;">查看</a>';
 		        }},
 		        {field:'no',title:'支付编号',width:100},
-		        {field:'serviceName',title:'审核编号',width:200},
-		        {field:'amount',title:'支付金额',width:150,formatter: function(value,row,index){
+		        {field:'receiptNo',title:'审核编号',width:100},
+		        {field:'amount',title:'支付金额',width:80,align:'right',formatter: function(value,row,index){
 		        	
 		        	return value/100;
 		        }},   
 		        {field:'offlinePayerName',title:'账户名称',width:100},
-		        {field:'offlineBankNo',title:'付款账号',width:100,formatter:function(value,row,index){
-		        		
-		        	return value/100;
+		        {field:'offlineBankNo',title:'付款账号',width:100},
+		        {field:'payWayType',title:'付款类别',width:100,align:'center',formatter:function(value,row,index){
+	        		
+	        		return value;
 		        }},
-		        {field:'payWayType',title:'付款类别',width:100,formatter:function(value,row,index){
+		        {field:'offlineWayType',title:'付款方式',width:100,align:'center',formatter:function(value,row,index){
 	        		
-	        		
+		        	return value;
 		        }},
-		        {field:'handleName',title:'付款方式',width:100,align:'right',formatter:function(value,row,index){
+		        {field:'payTime',title:'回款日期',width:130,align:'center'},
+		        {field:'confirmTime',title:'审核通过时间',width:130,align:'center'},
+		        {field:'createTime',title:'创建时间',width:120,align:'center'},
+		        {field:'receiptStatus',title:'状态',width:100,align:'center',formatter:function(value,row,index){
 	        		
-	        		
-		        }},
-		        {field:'handleName',title:'回款日期',width:100,align:'right',formatter:function(value,row,index){
-	        		
-	        		
-		        }},
-		        {field:'handleName',title:'审核通过日期',width:100,align:'right',formatter:function(value,row,index){
-	        		
-	        		
-		        }},
-		        {field:'handleName',title:'创建时间',width:100,align:'right',formatter:function(value,row,index){
-	        		
-	        		
-		        }},
-		        {field:'handleName',title:'状态',width:100,align:'right',formatter:function(value,row,index){
-	        		
-	        		
+	        		return value;
 		        }}
 		    ]]
 		});
+    	
     }
 });
 
@@ -303,6 +308,7 @@ com.gongsibao.trade.web.OrderRefundDetailCtrl = com.gongsibao.trade.web.BaseCtrl
 			striped:true,
 			pagination:false,
 			showFooter:true,
+			singleSelect:true,
 			height:'100%',
 		    columns:[[
 
@@ -310,19 +316,11 @@ com.gongsibao.trade.web.OrderRefundDetailCtrl = com.gongsibao.trade.web.BaseCtrl
 		        	
 		        	return '<a class="grid-btn" href="javascript:;">查看</a>';
 		        }},
-		        {field:'productName',title:'退款记录编号',width:200},
+		        {field:'no',title:'退款记录编号',width:200},
 		        {field:'serviceName',title:'审核编号',width:200},
-		        {field:'name',title:'退款金额',width:150,formatter: function(value,row,index){
+		        {field:'amount',title:'退款金额',width:150,formatter: function(value,row,index){
 		        	
-		        	if(row.service && row.service.type){
-		        		
-		        		var name = row.service.type.name;
-		        		if(row.service.property){
-		        			
-		        			name = row.service.property.name+'-'+name;
-		        		}
-		        		return name;
-		        	}
+		        	return value/100;
 		        }},   
 		        {field:'originalPrice',title:'退款产品',width:100,align:'right',formatter:function(value,row,index){
 		        	return value/100;
@@ -331,23 +329,23 @@ com.gongsibao.trade.web.OrderRefundDetailCtrl = com.gongsibao.trade.web.BaseCtrl
 		        		
 		        	return value/100;
 		        }},
-		        {field:'processStatusId',title:'办理进度',width:100,align:'right',formatter:function(value,row,index){
+		        {field:'soOrder.processStatus',title:'办理进度',width:100,align:'right',formatter:function(value,row,index){
+	        		
+	        		//订单产品的办理进度
+		        }},
+		        {field:'wayTypeId',title:'退款方式',width:100,align:'right',formatter:function(value,row,index){
 	        		
 	        		
 		        }},
-		        {field:'handleName',title:'退款方式',width:100,align:'right',formatter:function(value,row,index){
+		        {field:'refundTime',title:'退款时间',width:100,align:'right',formatter:function(value,row,index){
 	        		
 	        		
 		        }},
-		        {field:'handleName',title:'退款时间',width:100,align:'right',formatter:function(value,row,index){
+		        {field:'createTime',title:'创建时间',width:100,align:'right',formatter:function(value,row,index){
 	        		
 	        		
 		        }},
-		        {field:'handleName',title:'创建时间',width:100,align:'right',formatter:function(value,row,index){
-	        		
-	        		
-		        }},
-		        {field:'handleName',title:'审核状态',width:100,align:'right',formatter:function(value,row,index){
+		        {field:'auditStatusId',title:'审核状态',width:100,align:'right',formatter:function(value,row,index){
 	        		
 	        		
 		        }}
@@ -378,6 +376,7 @@ com.gongsibao.trade.web.OrderChangePriceDetailCtrl = com.gongsibao.trade.web.Bas
 			striped:true,
 			pagination:false,
 			showFooter:true,
+			singleSelect:true,
 			height:'100%',
 		    columns:[[
 		              
@@ -436,6 +435,7 @@ com.gongsibao.trade.web.OrderDiscountDetailCtrl = com.gongsibao.trade.web.BaseCt
 			striped:true,
 			pagination:false,
 			showFooter:true,
+			singleSelect:true,
 			height:'100%',
 		    columns:[[
 		              
@@ -493,6 +493,7 @@ com.gongsibao.trade.web.OrderFollowDetailCtrl = com.gongsibao.trade.web.BaseCtrl
 			striped:true,
 			pagination:false,
 			showFooter:true,
+			singleSelect:true,
 			height:'100%',
 		    columns:[[
 		        {field:'a',title:'操作',width:80,align:'center',formatter:function(value,row,index){
