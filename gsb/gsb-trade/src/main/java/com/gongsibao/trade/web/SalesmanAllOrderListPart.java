@@ -48,8 +48,6 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
     }
 
     public int saveNDepReceivableBySoder(SoOrder entity) {
-
-
         orderService.save(entity);
         return 1;
     }
