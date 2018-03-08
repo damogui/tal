@@ -173,21 +173,21 @@ com.gongsibao.trade.web.OrderProductDetailCtrl = com.gongsibao.trade.web.BaseCtr
 		        {field:'serviceName',title:'服务名称',width:200,formatter:function(value,row,index){
 
 		        	var items = row.items;
-		        	if(items){
+		        	if(items && items.length > 0){
 		        		
 		        		var len = items.length;
 		        		if(len==1){
 		        			return items[0].serviceName;
 		        		}else{
 		        			
-		        			var serviceName = items[0].serviceName+'...';
+		        			var serviceName = items[0].serviceName + '...';
 		        			var ss = [];
 		        			$(items).each(function(i,item){
 		        				
 		        				ss.push(item.serviceName);
 		        			});
 		        			var fullServiceName = ss.join(',');
-		        			var tipId='tip'+row.id;
+		        			var tipId = 'tip' + row.id;
 				        	return '<a id="'+tipId+'" onmouseover="layer.tips(\''+fullServiceName+'\',\'#'+tipId+'\',{tips: [1, \'#1E7BB6\']})">'+serviceName+'</a>';
 		        		}
 		        	}
