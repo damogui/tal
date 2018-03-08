@@ -55,7 +55,7 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
         ss.add ("/gsb/gsb.customer.controls.js");
         formJsImport = StringManager.join ("|", ss);
         listPartJsController = SoCreatOrderPerformanceListPart.class.getName ();
-
+        formServiceController = SoCreatOrderPerformanceFormPart.class.getName ();
     }
 
     @Test
@@ -76,6 +76,7 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
             toolbar.setName ("所有订单操作");
             toolbar.setResourceNode (node);
             toolbar.setToolbarType (ToolbarType.BASE);
+
         }
 
 
@@ -88,12 +89,6 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
                 "删除", null, 1, "{controller}.remove();");
         toolbar.getItems ().add (item);
 
-        item = PToolbarHelper.getPToolbarItem (EntityState.New, "performanceDetailSave", PToolbarHelper.iconAdd,
-                "保存", null, 1, "{controller}.savebase();");
-        {
-
-        }
-        toolbar.getItems ().add (item);
 
         toolbarService.save (toolbar);
 
@@ -148,7 +143,7 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
         PDatagrid datagrid = new PDatagrid (node, "业绩划分");
         {
             datagrid.setShowCheckbox (true);
-            datagrid.setSingleSelect (true);
+            datagrid.setSingleSelect (false);
             datagrid.setReadOnly (false);
             datagrid.setShowTitle (true);
             datagrid.setToolbar (listToolbarPath);//新增和删除
@@ -165,7 +160,7 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
             }
 
             column = addColumn (datagrid, "salesman.name", "业务员", ControlTypes.TEXT_BOX, 150);
-            column = addColumn (datagrid, "amount", "订单业绩分配金额", ControlTypes.TEXT_BOX, 150);
+            column = addColumn (datagrid, "amount", "分配金额", ControlTypes.DECIMAL_FEN_BOX, 150);
 
         }
 /*表单beg*/
@@ -179,22 +174,23 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
             // form.setTag ();//设置提示
             form.setLabelWidth (100);
             PFormField formField = null;
-            formField = addFormFieldRefrence (form, "supplier.name", "服务商", null, Supplier.class.getSimpleName (), false, false);
+            formField = addFormFieldRefrence (form, "supplier.name", "服务商", null, Supplier.class.getSimpleName (), true, false);
             {
                 formField.setTroikaTrigger ("controllerdepReceivable.supplierChange(newValue,oldValue);");
             }
 
-            formField = addFormFieldRefrence (form, "department.name", "部门", null, SupplierDepartment.class.getSimpleName (), false, false);
+            formField = addFormFieldRefrence (form, "department.name", "部门", null, SupplierDepartment.class.getSimpleName (), true, false);
             {
                 formField.setTroikaTrigger ("controllerdepReceivable.departmentChange(newValue,oldValue);");
             }
 
-            formField = addFormFieldRefrence (form, "salesman.name", "业务员", null, Employee.class.getSimpleName (), false, false);
-            formField = addFormField (form, "amount", "订单业绩分配金额", null, ControlTypes.TEXT_BOX, false, false);
+            formField = addFormFieldRefrence (form, "salesman.name", "业务员", null, Employee.class.getSimpleName (), true, false);
+            formField = addFormField (form, "amount", "分配金额", null, ControlTypes.DECIMAL_FEN_BOX, true, false);
 
             {
-                //formField.setWidth (300);
-//                formField.setHeight (100);
+//                //formField.setWidth (300);
+//              formField.setHeight (100);
+
             }
 
         }
@@ -216,7 +212,7 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
             part.setWindowWidth (400);
             part.setWindowHeight (450);
 
-//           part.setServiceController (OrderPerformanceDetailPart.class.getName ());
+//         part.setServiceController (OrderPerformanceDetailPart.class.getName ());
           part.setJsController (OrderPerformanceDetailPart.class.getName ());
         }
         workspace.getParts ().add (part);

@@ -60,13 +60,13 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
     saveAfter: function () {//统计表格的划分金额
         var rows = this.getGrid().datagrid('getRows');
         var totalAmount = 0;
-        debugger;
+       
         $(rows).each(function (i, item) {
 
             totalAmount += parseInt(item.amount);
 
         });
-
+        totalAmount=totalAmount/100;
         $("#performancePrice").val(totalAmount);
     },
     remove : function(rowIndex,row) {//也需要进行计算
@@ -91,7 +91,7 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
             $grid.datagrid('deleteRow',rowIndex);
             me.dataSource.remove(row);
         });
-        debugger;
+       
         me.saveAfter();
 
     },

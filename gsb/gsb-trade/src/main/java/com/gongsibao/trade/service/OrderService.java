@@ -22,7 +22,7 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
 	@Override
 	public SoOrder save(SoOrder entity) {
 
-        List<NDepReceivable> depList = entity.getDepReceivable ();
+
 		ActionContext ctx = new ActionContext();
 		{
 			ctx.setPath("gsb/crm/order/save");
