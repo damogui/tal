@@ -19,11 +19,11 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         }
 
 
-         var  urlEnd=this.addOrderReceivedUrl + "?id=" + row.id;
+        var urlEnd = this.addOrderReceivedUrl + "?id=" + row.id;
 
         // var  iframeStr='<iframe scrolling="auto" allowtransparency="true" id="addOrderReceivedIframe"   frameborder="0"  src='+urlEnd+' style="height: 462px;"></iframe>';
 
-  
+
         layer.open({
             type: 2,//1是字符串 2是内容
             title: '订单信息',
@@ -32,8 +32,8 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             shadeClose: false,
             area: ['60%', '60%'],
             zIndex: 100000,
-            id:"addOrderReceivedIframe",
-            content:urlEnd,
+            id: "addOrderReceivedIframe",
+            content: urlEnd,
             //content: iframeStr,//this.addOrderReceivedUrl + "?id=" + row.id,
             // iframe: {
             //     src:urlEnd,
@@ -42,12 +42,11 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             // },
             btn: ['保存', '取消'],// 可以无限个按钮
             success: function (layero, index) {
-                
 
 
             },
             yes: function (index, layero) {
-              
+
                 layer.closeAll();
                 document.getElementById('addOrderReceivedIframe').firstElementChild.contentWindow.controllersoOrder.save();//保存
                 IMessageBox.toast('保存成功');
@@ -84,22 +83,27 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         this.edit(id);
     },
     batchOrderTran: function (id) {//批量订单转移
-        //this.edit(id);
-
         var me = this;
-
         var rows = this.getSelections();
         if (rows.length <= 0) {
             IMessageBox.info('请先选择订单数据');
             return false;
         }
-
         var orderIdList = [];
         $.each(rows, function (k, v) {
             orderIdList.push(v.id);
         });
-
+        me.doOrderTran(orderIdList);
+    },
+    orderTran: function (id) {//订单转移
+        var me = this;
+        var orderIdList = [];
+        orderIdList.push(id);
+        me.doOrderTran(orderIdList);
+    },
+    doOrderTran: function (orderList) {//订单转移
         //公共控件集合
+        var me = this;
         var pubControlList = new org.netsharp.controls.PubControlList();
         PandaHelper.openDynamicForm({
             title: '订单转移',
@@ -121,8 +125,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                     return;
                 }
 
-
-                me.invokeService("allocation", [taskId, supplierId, departmentId, toUserId], function (data) {
+                me.invokeService("orderTran", [orderList, toUserId], function (data) {
                     me.reload();
                     IMessageBox.toast('分配成功');
                     layer.closeAll();
@@ -130,10 +133,6 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                 });
             }
         });
-
-    },
-    orderTran: function (id) {//订单转移
-        //this.edit(id);
     },
     begOption: function (id) {//开始操作
 

@@ -10,7 +10,7 @@ import org.netsharp.entity.Entity;
  * Created by zhangchao on 2018/3/7.
  */
 @Table(name = "n_order_exchange_log", header = "订单流转日志")
-class NOrderExchangeLog extends Entity {
+public class NOrderExchangeLog extends Entity {
 
 
     @Column(name = "order_id", header = "订单id")
@@ -18,6 +18,9 @@ class NOrderExchangeLog extends Entity {
 
     @Column(name = "type", header = "类型（1:分配 2:转移）")
     private NOrderExchangeLogType nOrderExchangeLogType = NOrderExchangeLogType.Fenpei;
+
+    @Column(name = "is_current", header = "是否当前（0:否（曾经负责） 1:是（正在负责））")
+    private boolean isCurrent;
 
     @Column(name = "form_department_id", header = "来自的部门id")
     private Integer formDepartmentId;
@@ -187,5 +190,13 @@ class NOrderExchangeLog extends Entity {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public boolean isCurrent() {
+        return isCurrent;
+    }
+
+    public void setCurrent(boolean current) {
+        isCurrent = current;
     }
 }
