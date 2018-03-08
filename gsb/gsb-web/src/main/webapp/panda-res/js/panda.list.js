@@ -593,7 +593,18 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 	},
 	onload : function() {
 		
+		this.bindKeyupEvent();
 		this.setStyle();
+	},
+	bindKeyupEvent:function(){
+		
+		var me = this;
+		$(document).keyup(function (e) {
+		    if (e.keyCode == 13) {
+
+		    	me.query();
+		    }  
+		});  
 	},
 	setStyle : function() {
 

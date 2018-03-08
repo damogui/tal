@@ -5,19 +5,32 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.gongsibao.api.util.ResponseResult;
 import com.gongsibao.entity.igirl.TradeMark;
+import com.gongsibao.igirl.dto.TradeMark.TradeMarkApplyInfo;
 import org.netsharp.communication.ServiceFactory;
 import com.gongsibao.igirl.base.ITradeMarkService;
 import com.gongsibao.igirl.dto.TradeMark.TmForRobotDto;
+
+import java.util.List;
+
 @Path("/igirl")
 public class TmAutoSubmitController {
 	ITradeMarkService tmService=ServiceFactory.create(ITradeMarkService.class);
 	@GET
 	@Path("/tm/autosub/{innerHour}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public TmForRobotDto tmsForRobot(@PathParam("innerHour") Integer innerHour) {
-		TmForRobotDto trf =tmService.tmsForRobot(innerHour);
-		return trf;
+	public ResponseResult tmsForRobot(@PathParam("innerHour") Integer innerHour) {
+		List<TradeMarkApplyInfo> tminfos =tmService.tmsForRobot(innerHour);
+		ResponseResult result = new ResponseResult();
+		result.setCode("200");
+		if (tminfos.size()>0){
+			result.setMessage("获取数据成功！");
+		}else {
+			result.setMessage("未获取到申报数据！");
+		}
+		result.setData(tminfos);
+		return result;
 	}
 	@GET
 	@Path("/tm/updatestate/{proxyCode}/{stateCode}")

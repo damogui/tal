@@ -38,29 +38,29 @@
 		var funnel = new com.gongsibao.crm.web.home.Funnel();
 		$(function() {
 			brief.briefingCountPars2('getNewTasksCount',2,1,function(count){
-				$("#briefing").find('p >span').eq(0).text("新增任务数：" + count + "个");
+				$("#briefing p").eq(0).find('span').eq(0).text("新增任务数：" + count + "个");
 			});
 			brief.briefingCountPars2('getUnStartTasksCount',2,1,function(count){
-				$("#briefing").find('p >span').eq(1).text("未启动任务数：" + count + "个");
+				$("#briefing p").eq(0).find('span').eq(1).text("未启动任务数：" + count + "个");
 			});
 			brief.briefingCountPars0('getUnfoolowTasksCount',function(count){
-				$("#briefing").find('p >span').eq(2).text("待跟进任务数：" + count + "个");
+				$("#briefing p").eq(0).find('span').eq(2).text("待跟进任务数：" + count + "个");
 			});
 			brief.briefingCountPars0('getTimeOutTasksCount',function(count){
-				$("#briefing").find('p >span').eq(3).text("超时任务数：" + count + "个");
+				$("#briefing p").eq(0).find('span').eq(3).text("超时任务数：" + count + "个");
 			});
+			
+			
 			brief.briefingCountPars0('getExceptUntreatedTasksCount',function(count){
-				$("#briefing").find('p >span').eq(4).text("异常未处理任务数：" + count + "个");
+				$("#briefing p").eq(1).find('span').eq(0).text("异常未处理任务数：" + count + "个");
 			});
 			brief.briefingCountPars0('currentSalesMan',function(entity){
 				if(entity.isLeader){
 					brief.briefingCountPars2('getHighSeasCount',2,-1,function(count){
-						$("#briefing").find('p >span').eq(5).text("公海：" + count + "个");
+						$("#briefing p").eq(1).find('span').eq(1).text("公海：" + count + "个");
 					});
 				}
 			});
-			
-			
 			
 			foolow.foolowCountPars0('getFoolowSatatistic');
 			
