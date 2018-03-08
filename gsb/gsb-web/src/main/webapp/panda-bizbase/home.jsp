@@ -101,30 +101,30 @@
 		//销售简报
 		var brief = new com.gongsibao.crm.web.home.Briefing();
 		function getBriefingCount(type){
-			brief.briefingCountPars1('getNewCustomerCount',type,function(count){
-				$("#briefing").find('p >span').eq(0).text("新增客户数：" + count + "个");
+			 brief.briefingCountPars1('getNewCustomerCount',type,function(count){
+				$("#briefing p").eq(0).find('span').eq(0).text("新增客户数：" + count + "个");
 			});
 			brief.briefingCountPars2('getNewTasksCount',1,type,function(count){
-				$("#briefing").find('p >span').eq(1).text("新增任务数：" + count + "个");
+				$("#briefing p").eq(0).find('span').eq(1).text("新增任务数：" + count + "个");
 			});
 			brief.briefingCountPars1('getUndistributed',type,function(count){
-				$("#briefing").find('p >span').eq(2).text("未分配任务数：" + count + "个");
+				$("#briefing p").eq(0).find('span').eq(2).text("未分配任务数：" + count + "个");
 			});
 			brief.briefingCountPars2('getUnStartTasksCount',1,type,function(count){
-				$("#briefing").find('p >span').eq(3).text("未启动任务数：" + count + "个");
+				$("#briefing p").eq(0).find('span').eq(3).text("未启动任务数：" + count + "个");
 			});
 			
 			brief.briefingCountPars1('getNotTaskCount',type,function(count){
-				$("#briefing").find('p >span').eq(4).text("无任务的客户数：" + count + "个");
+				$("#briefing p").eq(1).find('span').eq(0).text("无任务的客户数：" + count + "个");
 			});
 			brief.briefingCountPars1('getDefeatedCount',type,function(count){
-				$("#briefing").find('p >span').eq(5).text("无法签单任务数：" + count + "个");
+				$("#briefing p").eq(1).find('span').eq(1).text("无法签单任务数：" + count + "个");
 			});
 			brief.briefingCountPars1('getCheckAbnormalCount',type,function(count){
-				$("#briefing").find('p >span').eq(6).text("抽查异常任务数：" + count + "个");
+				$("#briefing p").eq(1).find('span').eq(2).text("抽查异常任务数：" + count + "个");
 			});
 			brief.briefingCountPars2('getHighSeasCount',1,type,function(count){
-				$("#briefing").find('p >span').eq(7).text(" 公海：" + count + "个");
+				$("#briefing p").eq(1).find('span').eq(3).text(" 公海：" + count + "个");
 			});
 		};
 		 $(function() {
