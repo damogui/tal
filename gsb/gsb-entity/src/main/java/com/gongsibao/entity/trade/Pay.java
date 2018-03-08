@@ -35,7 +35,10 @@ public class Pay extends BaseEntity {
 
 	@Column(name = "confirm_time", header = "确认时间")
 	private Date confirmTime;
-
+	
+	@Column(name = "pay_time", header = "支付时间")
+	private Date payTime;
+	
 	@Column(name = "offline_way_type_id", header = "线下类型")
 	private OfflineWayType offlineWayType;
 
@@ -77,6 +80,14 @@ public class Pay extends BaseEntity {
 
 	@Column(name = "pay_for_order_count", header = "支付订单数量（0:一笔单单 1:一笔多单）")
 	private PayForOrderCountType payForOrderCount = PayForOrderCountType.Ybdd;
+	
+	public Date getPayTime() {
+		return payTime;
+	}
+
+	public void setPayTime(Date payTime) {
+		this.payTime = payTime;
+	}
 
 	public String getNo() {
 		return no;

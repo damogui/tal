@@ -23,7 +23,7 @@ public class RefundService extends PersistableService<Refund> implements IRefund
 		Oql oql = new Oql();
 		{
 			oql.setType(this.type);
-			oql.setSelects("*");
+			oql.setSelects("Refund.*,refunds.*,prices.*");
 			oql.setFilter("orderId=?");
 			oql.getParameters().add("orderId", orderId, Types.INTEGER);
 		}

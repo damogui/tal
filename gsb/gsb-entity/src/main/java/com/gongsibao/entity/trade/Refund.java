@@ -1,6 +1,7 @@
 package com.gongsibao.entity.trade;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -50,6 +51,9 @@ public class Refund extends BaseEntity {
 
 	@Column(header = "备注")
 	private String remark;
+	
+	@Column(name="refund_time",header="退款时间")
+    private Date refundTime;
 
 	@Subs(subType = RefundItem.class, foreignKey = "refundId", header = "退款明细")
 	private List<RefundItem> refunds = new ArrayList<RefundItem>();
@@ -161,4 +165,11 @@ public class Refund extends BaseEntity {
 		this.soOrder = soOrder;
 	}
 
+	public Date getRefundTime() {
+		return refundTime;
+	}
+
+	public void setRefundTime(Date refundTime) {
+		this.refundTime = refundTime;
+	}
 }
