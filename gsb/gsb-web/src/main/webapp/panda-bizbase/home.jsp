@@ -124,7 +124,7 @@
 				$("#briefing p").eq(1).find('span').eq(2).text("抽查异常任务数：" + count + "个");
 			});
 			brief.briefingCountPars2('getHighSeasCount',1,type,function(count){
-				$("#briefing p").eq(1).find('span').eq(3).text(" 公海：" + count + "个");
+				$("#briefing p").eq(1).find('span').eq(3).text("公海：" + count + "个");
 			});
 		};
 		 $(function() {

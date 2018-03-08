@@ -12,16 +12,16 @@
 	        		</div>
 	        		<div id="briefing" style="padding-top: 15px;">
 	        			<p>
-	        				<span>0-1</span>
-	        				<span class="padding-15">0-2</span>
-	        				<span class="padding-15">0-3</span>
-	        				<span class="padding-15">0-4</span>
+	        				<span>新增客户数：0个</span>
+	        				<span class="padding-15">新增任务数：0个</span>
+	        				<span class="padding-15">未分配任务数：0个</span>
+	        				<span class="padding-15">未启动任务数：0个</span>
 	        			</p>
 	        			<p>
-	        				<span>1-1</span>
-	        				<span class="padding-15">1-2</span>
-	        				<span class="padding-15">1-3</span>
-	        				<span class="padding-15">1-4</span>
+	        				<span>无任务的客户数：0个</span>
+	        				<span class="padding-15">无法签单任务数：0个</span>
+	        				<span class="padding-15">抽查异常任务数：0个</span>
+	        				<span class="padding-15">公海：0个</span>
 	        			</p>
 	        		</div>
 			    </div>
