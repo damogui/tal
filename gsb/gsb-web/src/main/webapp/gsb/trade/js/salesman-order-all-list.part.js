@@ -18,13 +18,12 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             return false;
         }
 
-        // var builder = new System.StringBuilder();
-        // builder.append('<div style="margin:10px;">');
-        // builder.append('	<table cellpadding="5" cellspacing="10" class="query-panel">');
-        // builder.append(' 		<tr><td class="title">创建订单业绩</td><td><input id="ywyUser"/></td></tr>');
-        // builder.append('	</table>');
-        // builder.append('</div>');
 
+         var  urlEnd=this.addOrderReceivedUrl + "?id=" + row.id;
+
+        // var  iframeStr='<iframe scrolling="auto" allowtransparency="true" id="addOrderReceivedIframe"   frameborder="0"  src='+urlEnd+' style="height: 462px;"></iframe>';
+
+  
         layer.open({
             type: 2,//1是字符串 2是内容
             title: '订单信息',
@@ -33,24 +32,25 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             shadeClose: false,
             area: ['60%', '60%'],
             zIndex: 100000,
-            content: this.addOrderReceivedUrl + "?id=" + row.id,
+            id:"addOrderReceivedIframe",
+            content:urlEnd,
+            //content: iframeStr,//this.addOrderReceivedUrl + "?id=" + row.id,
+            // iframe: {
+            //     src:urlEnd,
+            //     id:""
+            //
+            // },
             btn: ['保存', '取消'],// 可以无限个按钮
             success: function (layero, index) {
+                
 
-
-                // $('#ywyUser').combogrid(options);
 
             },
             yes: function (index, layero) {
-
-                IMessageBox.toast('创建成功');
-
-                me.invokeService("BatchTransferSalesman", [ywyUserId, orderIdList], function () {
-                    me.reload();
-                    IMessageBox.toast('创建成功');
-                    layer.closeAll();
-                    return;
-                });
+              
+                layer.closeAll();
+                document.getElementById('addOrderReceivedIframe').firstElementChild.contentWindow.controllersoOrder.save();//保存
+                IMessageBox.toast('保存成功');
 
 
             },

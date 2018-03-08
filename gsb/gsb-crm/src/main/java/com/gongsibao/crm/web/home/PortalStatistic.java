@@ -13,12 +13,12 @@ import com.gongsibao.supplier.base.ISalesmanService;
 import com.gongsibao.supplier.base.ISupplierDepartmentService;
 
 public class PortalStatistic {
-	static ISupplierDepartmentService departService = ServiceFactory.create(ISupplierDepartmentService.class);	
+   ISupplierDepartmentService departService = ServiceFactory.create(ISupplierDepartmentService.class);	
 	/**
 	 * 获取当前登录人实体
 	 * @return
 	 */
-	public Salesman CurrentSalesMan(){
+	public Salesman currentSalesMan(){
 		ISalesmanService manSerice = ServiceFactory.create(ISalesmanService.class);
 		Integer currentLogin = SessionManager.getUserId();
 		Salesman salesman = manSerice.byEmployeeId(currentLogin);
@@ -26,22 +26,42 @@ public class PortalStatistic {
 	}
 	/**
 	 * 获取新增任务数
+	 * @param portalLevel 1-售前、2-服务商
+	 * @param dateType 1-今日、2-本周、3-本月、4-本年
 	 * @return
 	 */
-	public Integer getNewTasksCount() {
+	public Integer getNewTasksCount(Integer portalLevel,Integer dateType) {
 		Integer returnInteger = 0;
-		Salesman salesman = CurrentSalesMan();
+		Salesman salesman = currentSalesMan();
 		
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT COUNT(id) newTasksCount");
 		strSql.append(" from n_crm_customer_task");
-		
-		if(salesman.getIsLeader()){
-			strSql.append(" where department_id in ("+salesman.getDepartmentId()+")");
-		}else {
-			strSql.append(" where owner_id =" + salesman.getEmployeeId());
+		//门户级别
+		if(portalLevel.equals(1)){
+			strSql.append(" where 1=1");
+		}else{
+			if(salesman.getIsLeader()){
+				strSql.append(" where department_id in ("+salesman.getDepartmentId()+")");
+			}else {
+				strSql.append(" where owner_id =" + salesman.getEmployeeId());
+			}
 		}
-		strSql.append(" AND DATE_FORMAT(create_time,'%Y-%m-%d') = CURDATE()");
+		switch(dateType){
+			case 1:
+				strSql.append(" AND DATE_FORMAT(create_time,'%Y-%m-%d') = CURDATE()");
+				break;
+			case 2:
+				strSql.append(" and YEARWEEK(date_format(create_time,'%Y-%m-%d')) = YEARWEEK(now())");
+				break;
+			case 3:
+				strSql.append(" and date_format(create_time,'%Y-%m') = date_format(now(),'%Y-%m')");
+				break;
+			case 4:
+				strSql.append(" and date_format(create_time,'%Y') = date_format(now(),'%Y')");
+				break;
+		}
+		
 		
 		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
 		for (IRow row : dtNewCount) {
@@ -51,22 +71,40 @@ public class PortalStatistic {
 	}
 	/**
 	 * 获取未启动任务数
+	 * @param portalLevel 1-售前、2-服务商
+	 * @param dateType 1-今日、2-本周、3-本月、4-本年
 	 * @return
 	 */
-	public Integer getUnStartTasksCount() {
+	public Integer getUnStartTasksCount(Integer portalLevel,Integer dateType) {
 		Integer returnInteger = 0;
-		Salesman salesman = CurrentSalesMan();
+		Salesman salesman = currentSalesMan();
 		
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT count(id) unStartTasksCount");
 		strSql.append(" from n_crm_customer_task");
-		
-		if(salesman.getIsLeader()){
-			strSql.append(" where department_id in ("+salesman.getDepartmentId()+")");
+		if(portalLevel.equals(1)){
+			switch(dateType){
+			case 1:
+				strSql.append(" where DATE_FORMAT(create_time,'%Y-%m-%d') = CURDATE()");
+				break;
+			case 2:
+				strSql.append(" where YEARWEEK(date_format(create_time,'%Y-%m-%d')) = YEARWEEK(now())");
+				break;
+			case 3:
+				strSql.append(" where date_format(create_time,'%Y-%m') = date_format(now(),'%Y-%m')");
+				break;
+			case 4:
+				strSql.append(" where date_format(create_time,'%Y') = date_format(now(),'%Y')");
+				break;
+			}
 		}else {
-			strSql.append(" where owner_id =" + salesman.getEmployeeId());
+			if(salesman.getIsLeader()){
+				strSql.append(" where department_id in ("+salesman.getDepartmentId()+")");
+			}else {
+				strSql.append(" where owner_id =" + salesman.getEmployeeId());
+			}
+			strSql.append(" AND DATE_FORMAT(create_time,'%Y-%m-%d') <= CURDATE()");
 		}
-		strSql.append(" AND DATE_FORMAT(create_time,'%Y-%m-%d') <= CURDATE()");
 		strSql.append(" AND foolow_status = 6");
 		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
 		for (IRow row : dtNewCount) {
@@ -80,7 +118,7 @@ public class PortalStatistic {
 	 */
 	public Integer getUnfoolowTasksCount() {
 		Integer returnInteger = 0;
-		Salesman salesman = CurrentSalesMan();
+		Salesman salesman = currentSalesMan();
 		
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT COUNT(id) unfoolowTasksCount");
@@ -104,7 +142,7 @@ public class PortalStatistic {
 	 */
 	public Integer getTimeOutTasksCount() {
 		Integer returnInteger = 0;
-		Salesman salesman = CurrentSalesMan();
+		Salesman salesman = currentSalesMan();
 		
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT COUNT(id) timeOutTasksCount");
@@ -124,25 +162,62 @@ public class PortalStatistic {
 		return returnInteger;
 	}
 	/**
-	 * 获取异常未处理任务数----------????????????
+	 * 获取异常未处理任务数
 	 * @return
 	 */
 	public Integer getExceptUntreatedTasksCount() {
-		Integer returnInteger = 1111;
+		Integer returnInteger = 0;
+		Salesman salesman = currentSalesMan();
+		
+		StringBuilder strSql=new StringBuilder();
+		strSql.append("SELECT COUNT(id) exceptUntreatedTasksCount");
+		strSql.append(" from n_crm_customer_task");
+		
+		if(salesman.getIsLeader()){
+			strSql.append(" where department_id in ("+salesman.getDepartmentId()+")");
+		}else {
+			strSql.append(" where owner_id =" + salesman.getEmployeeId());
+		}
+		strSql.append(" AND inspection_state = 3");
+		strSql.append(" AND DATE_FORMAT(last_inspection_time,'%Y-%m-%d') <= CURDATE()");
+		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
+		for (IRow row : dtNewCount) {
+			returnInteger = Integer.valueOf(row.getString("exceptUntreatedTasksCount"));
+		}
 		return returnInteger;
 	}
 	/**
 	 * 获取公海任务数
+	 * @param portalLevel 1-售前、2-服务商
+	 * @param dateType 1-今日、2-本周、3-本月
 	 * @return
 	 */
-	public Integer getHighSeasCount() {
+	public Integer getHighSeasCount(Integer portalLevel,Integer dateType) {
 		Integer returnInteger = 0;
-		
+		Salesman salesman = currentSalesMan();
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT COUNT(id) highSeasCount");
 		strSql.append(" from n_crm_customer_task");
 		strSql.append(" WHERE (owner_id is null or owner_id=0)");
-		strSql.append(" and DATE_FORMAT(create_time,'%Y-%m-%d') <= CURDATE()");
+		if(portalLevel.equals(2)){
+			strSql.append(" and department_id in ("+salesman.getDepartmentId()+")");
+			strSql.append(" and DATE_FORMAT(create_time,'%Y-%m-%d') <= CURDATE()");
+		}else {
+			switch(dateType){
+			case 1:
+				strSql.append(" and DATE_FORMAT(create_time,'%Y-%m-%d') = CURDATE()");
+				break;
+			case 2:
+				strSql.append(" and YEARWEEK(date_format(create_time,'%Y-%m-%d')) = YEARWEEK(now())");
+				break;
+			case 3:
+				strSql.append(" and date_format(create_time,'%Y-%m') = date_format(now(),'%Y-%m')");
+				break;
+			case 4:
+				strSql.append(" and date_format(create_time,'%Y') = date_format(now(),'%Y')");
+				break;
+			}
+		}
 		
 		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
 		for (IRow row : dtNewCount) {
@@ -156,7 +231,7 @@ public class PortalStatistic {
 	 */
 	public Map<String, String> getFoolowSatatistic() {
 		Map<String, String> resultMap =new HashMap<>();
-		Salesman salesman = CurrentSalesMan();
+		Salesman salesman = currentSalesMan();
 		
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT COUNT(foolow_status = 3 OR NULL) foolowTasksCount,");
@@ -181,12 +256,12 @@ public class PortalStatistic {
 	}
 	/**
 	 * 获取预估签单金额、预估回款金额
-	 * @param type 1-今日、2-本周、3-本月
+	 * @param dateType 1-今日、2-本周、3-本月
 	 * @return
 	 */
-	public Map<String, String> getForecastAmount(Integer type) {
+	public Map<String, String> getForecastAmount(Integer dateType) {
 		Map<String, String> resultMap =new HashMap<>();
-		Salesman salesman = CurrentSalesMan();
+		Salesman salesman = currentSalesMan();
 		
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT ifnull(SUM(signing_amount),0) signingAmount,");
@@ -200,9 +275,9 @@ public class PortalStatistic {
 		}else {
 			strSql.append(" where owner_id =" + salesman.getEmployeeId());
 		}
-		if(type.equals(1)){
+		if(dateType.equals(1)){
 			strSql.append(" and date_format(last_follow_time,'%Y-%m-%d') = CURDATE())");
-		}else if (type.equals(2)) {
+		}else if (dateType.equals(2)) {
 			strSql.append(" and YEARWEEK(date_format(last_follow_time,'%Y-%m-%d')) = YEARWEEK(now()))");
 		}else {
 			strSql.append(" and date_format(last_follow_time,'%Y-%m') = date_format(now(),'%Y-%m'))");
@@ -223,7 +298,7 @@ public class PortalStatistic {
 	 */
 	public Map<String, String> getXSCount() {
 		Map<String, String> resultMap =new HashMap<>();
-		Salesman salesman = CurrentSalesMan();
+		Salesman salesman = currentSalesMan();
 		
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT COUNT(id) taskCount,");
@@ -254,7 +329,7 @@ public class PortalStatistic {
 	 */
 	public Map<String, String> getCodeTaskCount() {
 		Map<String, String> resultMap =new HashMap<>();
-		Salesman salesman = CurrentSalesMan();
+		Salesman salesman = currentSalesMan();
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT COUNT(q.`code` = 'A0' OR NULL) A0,");
 		strSql.append("COUNT(q.`code` = 'A1' OR NULL) A1,");
@@ -300,5 +375,166 @@ public class PortalStatistic {
 			resultMap.put("D2", row.getString("D2"));
 		}
 		return resultMap;
+	}
+	/**
+	 * 获取新增客户数
+	 * @param dateType 1-今日、2-本周、3-本月、4-本年
+	 * @return
+	 */
+	public Integer getNewCustomerCount(Integer dateType) {
+		Integer returnInteger = 0;
+		
+		StringBuilder strSql=new StringBuilder();
+		strSql.append("SELECT COUNT(distinct customer_id) newCustomerCount");
+		strSql.append(" from n_crm_customer_task");
+		switch(dateType){
+			case 1:
+				strSql.append(" where DATE_FORMAT(create_time,'%Y-%m-%d') = CURDATE()");
+				break;
+			case 2:
+				strSql.append(" where YEARWEEK(date_format(create_time,'%Y-%m-%d')) = YEARWEEK(now())");
+				break;
+			case 3:
+				strSql.append(" where date_format(create_time,'%Y-%m') = date_format(now(),'%Y-%m')");
+				break;
+			case 4:
+				strSql.append(" where date_format(create_time,'%Y') = date_format(now(),'%Y')");
+				break;
+		}
+		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
+		for (IRow row : dtNewCount) {
+			returnInteger = Integer.valueOf(row.getString("newCustomerCount"));
+		}
+		return returnInteger;
+	}
+	/**
+	 * 获取未分配任务数
+	 * @param dateType 1-今日、2-本周、3-本月、4-本年
+	 * @return
+	 */
+	public Integer getUndistributed(Integer dateType) {
+		Integer returnInteger = 0;
+		
+		StringBuilder strSql=new StringBuilder();
+		strSql.append("SELECT COUNT(id) undistributed");
+		strSql.append(" from n_crm_customer_task");
+		strSql.append(" where (distribut is NULL or distribut = 0)");
+		switch(dateType){
+			case 1:
+				strSql.append(" and DATE_FORMAT(create_time,'%Y-%m-%d') = CURDATE()");
+				break;
+			case 2:
+				strSql.append(" and YEARWEEK(date_format(create_time,'%Y-%m-%d')) = YEARWEEK(now())");
+				break;
+			case 3:
+				strSql.append(" and date_format(create_time,'%Y-%m') = date_format(now(),'%Y-%m')");
+				break;
+			case 4:
+				strSql.append(" and date_format(create_time,'%Y') = date_format(now(),'%Y')");
+				break;
+		}
+		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
+		for (IRow row : dtNewCount) {
+			returnInteger = Integer.valueOf(row.getString("undistributed"));
+		}
+		return returnInteger;
+	}
+	/**
+	 * 获取无任务的客户数
+	 * @param dateType 1-今日、2-本周、3-本月、4-本年
+	 * @return
+	 */
+	public Integer getNotTaskCount(Integer dateType) {
+		Integer returnInteger = 0;
+		
+		StringBuilder strSql=new StringBuilder();
+		strSql.append("SELECT COUNT(*) notTaskCount");
+		strSql.append(" from n_crm_customer");
+		strSql.append(" where id not IN(");
+		strSql.append("SELECT distinct customer_id");
+		strSql.append(" from n_crm_customer_task");
+		switch(dateType){
+			case 1:
+				strSql.append(" where DATE_FORMAT(create_time,'%Y-%m-%d') = CURDATE())");
+				break;
+			case 2:
+				strSql.append(" where YEARWEEK(date_format(create_time,'%Y-%m-%d')) = YEARWEEK(now()))");
+				break;
+			case 3:
+				strSql.append(" where date_format(create_time,'%Y-%m') = date_format(now(),'%Y-%m'))");
+				break;
+			case 4:
+				strSql.append(" where date_format(create_time,'%Y') = date_format(now(),'%Y'))");
+				break;
+		}
+		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
+		for (IRow row : dtNewCount) {
+			returnInteger = Integer.valueOf(row.getString("notTaskCount"));
+		}
+		return returnInteger;
+	}
+	/**
+	 * 获取无法签单任务数
+	 * @param dateType 1-今日、2-本周、3-本月、4-本年
+	 * @return
+	 */
+	public Integer getDefeatedCount(Integer dateType) {
+		Integer returnInteger = 0;
+		
+		StringBuilder strSql=new StringBuilder();
+		strSql.append("SELECT COUNT(*) defeatedCount");
+		strSql.append(" FROM n_crm_customer_task");
+		strSql.append(" where foolow_status = 4");
+		switch(dateType){
+			case 1:
+				strSql.append(" and DATE_FORMAT(create_time,'%Y-%m-%d') = CURDATE()");
+				break;
+			case 2:
+				strSql.append(" and YEARWEEK(date_format(create_time,'%Y-%m-%d')) = YEARWEEK(now())");
+				break;
+			case 3:
+				strSql.append(" and date_format(create_time,'%Y-%m') = date_format(now(),'%Y-%m')");
+				break;
+			case 4:
+				strSql.append(" and date_format(create_time,'%Y') = date_format(now(),'%Y')");
+				break;
+		}
+		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
+		for (IRow row : dtNewCount) {
+			returnInteger = Integer.valueOf(row.getString("defeatedCount"));
+		}
+		return returnInteger;
+	}
+	/**
+	 * 获取抽查异常任务数
+	 * @param dateType 1-今日、2-本周、3-本月、4-本年
+	 * @return
+	 */
+	public Integer getCheckAbnormalCount(Integer dateType) {
+		Integer returnInteger = 0;
+		
+		StringBuilder strSql=new StringBuilder();
+		strSql.append("SELECT COUNT(*) checkAbnormalCount");
+		strSql.append(" FROM n_crm_customer_task");
+		strSql.append(" where inspection_state in (3,4)");
+		switch(dateType){
+			case 1:
+				strSql.append(" and DATE_FORMAT(create_time,'%Y-%m-%d') = CURDATE()");
+				break;
+			case 2:
+				strSql.append(" and YEARWEEK(date_format(create_time,'%Y-%m-%d')) = YEARWEEK(now())");
+				break;
+			case 3:
+				strSql.append(" and date_format(create_time,'%Y-%m') = date_format(now(),'%Y-%m')");
+				break;
+			case 4:
+				strSql.append(" and date_format(create_time,'%Y') = date_format(now(),'%Y')");
+				break;
+		}
+		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
+		for (IRow row : dtNewCount) {
+			returnInteger = Integer.valueOf(row.getString("checkAbnormalCount"));
+		}
+		return returnInteger;
 	}
 }

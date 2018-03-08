@@ -6,6 +6,7 @@ import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
+import com.gongsibao.entity.trade.NDepReceivable;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.tools.PToolbarHelper;
 import com.gongsibao.trade.web.*;
@@ -50,13 +51,11 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
         formToolbarPath = "";
         List<String> ss = new ArrayList<String> ();
         //ss.add ("/gsb/trade/js/order_performance-form.part.js");
-       ss.add ("/gsb/trade/js/so-performance-add.part.js");
+        ss.add ("/gsb/trade/js/so-performance-add.part.js");
         ss.add ("/gsb/gsb.customer.controls.js");
         formJsImport = StringManager.join ("|", ss);
-//        listPartImportJs = "/gsb/trade/js/so-performance-add.part.js";
         listPartJsController = SoCreatOrderPerformanceListPart.class.getName ();
-//        formJsController = SoCreatOrderPerformanceFormPart.class.getName ();
-//        formServiceController = SoCreatOrderPerformanceFormPart.class.getName ();
+
     }
 
     @Test
@@ -80,11 +79,20 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
         }
 
 
-        PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "performanceDetail", PToolbarHelper.iconAdd,
+        PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "performanceDetailAdd", PToolbarHelper.iconAdd,
                 "新增", null, 1, "{controller}.add();");//allocation
+        toolbar.getItems ().add (item);{
+
+        }
+        item = PToolbarHelper.getPToolbarItem (EntityState.New, "performanceDetailDel", PToolbarHelper.iconDel,
+                "删除", null, 1, "{controller}.remove();");
         toolbar.getItems ().add (item);
-        item = PToolbarHelper.getPToolbarItem (EntityState.New, "performanceDetail", PToolbarHelper.iconDel,
-                "删除", null, 1, "{controller}.add();");
+
+        item = PToolbarHelper.getPToolbarItem (EntityState.New, "performanceDetailSave", PToolbarHelper.iconAdd,
+                "保存", null, 1, "{controller}.savebase();");
+        {
+
+        }
         toolbar.getItems ().add (item);
 
         toolbarService.save (toolbar);
@@ -148,16 +156,16 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
             PDatagridColumn column = null;
 
 
-            column = addColumn (datagrid, "depReceivable.supplier.name", "服务商", ControlTypes.TEXT_BOX, 150);
+            column = addColumn (datagrid, "supplier.name", "服务商", ControlTypes.TEXT_BOX, 150);
 
-            column = addColumn (datagrid, "depReceivable.department.name", "部门", ControlTypes.NUMBER_BOX, 60);
+            column = addColumn (datagrid, "department.name", "部门", ControlTypes.NUMBER_BOX, 150);
             {
 
                 column.setAlign (DatagridAlign.CENTER);
             }
 
-            column = addColumn (datagrid, "depReceivable.salesman.name", "业务员", ControlTypes.TEXT_BOX, 150);
-            column = addColumn (datagrid, "depReceivable.amount", "订单业绩分配金额", ControlTypes.TEXT_BOX, 150);
+            column = addColumn (datagrid, "salesman.name", "业务员", ControlTypes.TEXT_BOX, 150);
+            column = addColumn (datagrid, "amount", "订单业绩分配金额", ControlTypes.TEXT_BOX, 150);
 
         }
 /*表单beg*/
@@ -167,21 +175,22 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
             form.setResourceNode (node);
             form.setColumnCount (1);
             form.setName ("业绩划分金额表");
+
             // form.setTag ();//设置提示
             form.setLabelWidth (100);
             PFormField formField = null;
-            formField = addFormFieldRefrence (form, "depReceivable.supplier.name", "服务商", null, Supplier.class.getSimpleName (), false, false);
+            formField = addFormFieldRefrence (form, "supplier.name", "服务商", null, Supplier.class.getSimpleName (), false, false);
             {
-                //formField.setTroikaTrigger ("controllernCustomerTask.supplierChange(newValue,oldValue);");
+                formField.setTroikaTrigger ("controllerdepReceivable.supplierChange(newValue,oldValue);");
             }
 
-            formField = addFormFieldRefrence (form, "depReceivable.department.name", "部门", null, SupplierDepartment.class.getSimpleName (), false, false);
+            formField = addFormFieldRefrence (form, "department.name", "部门", null, SupplierDepartment.class.getSimpleName (), false, false);
             {
-                //formField.setTroikaTrigger ("controllernCustomerTask.departmentChange(newValue,oldValue);");
+                formField.setTroikaTrigger ("controllerdepReceivable.departmentChange(newValue,oldValue);");
             }
 
-            formField = addFormFieldRefrence (form, "depReceivable.salesman.name", "业务员", null, Employee.class.getSimpleName (), false, false);
-            formField = addFormField (form, "depReceivable.amount", "订单业绩分配金额", null, ControlTypes.TEXT_BOX, false, false);
+            formField = addFormFieldRefrence (form, "salesman.name", "业务员", null, Employee.class.getSimpleName (), false, false);
+            formField = addFormField (form, "amount", "订单业绩分配金额", null, ControlTypes.TEXT_BOX, false, false);
 
             {
                 //formField.setWidth (300);
@@ -194,7 +203,7 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
         PPart part = new PPart ();
         {
             part.toNew ();
-            part.setName ("产品信息");
+            part.setName ("业绩划分");
             part.setCode ("depReceivable");
             part.setParentCode (ReflectManager.getFieldName (meta.getCode ()));
             part.setRelationRole ("depReceivable");
@@ -203,17 +212,18 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
             part.setDatagrid (datagrid);
             part.setDockStyle (DockType.DOCUMENTHOST);
             part.setToolbar (listToolbarPath);
-             part.setForm (form);
+            part.setForm (form);
             part.setWindowWidth (400);
             part.setWindowHeight (450);
-           part.setServiceController (OrderPerformanceDetailPart.class.getName ());
-           part.setJsController (OrderPerformanceDetailPart.class.getName ());
+
+//           part.setServiceController (OrderPerformanceDetailPart.class.getName ());
+          part.setJsController (OrderPerformanceDetailPart.class.getName ());
         }
         workspace.getParts ().add (part);
 
         part = workspace.getParts ().get (0);
         {
-            part.setName ("新增订单");
+            part.setName ("创建订单业绩");
             part.setDockStyle (DockType.TOP);
             part.setHeight (500);
             part.setHeight (450);

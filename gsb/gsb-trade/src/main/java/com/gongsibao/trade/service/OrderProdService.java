@@ -123,7 +123,7 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
 		Oql oql = new Oql();
 		{
 			oql.setType(this.type);
-			oql.setSelects("*");
+			oql.setSelects("OrderProd.*,OrderProd.owner.{id,name},OrderProd.items.{id,serviceName}");
 			oql.setFilter("orderId=?");
 			oql.getParameters().add("orderId", orderId, Types.INTEGER);
 		}

@@ -14,6 +14,7 @@
 <body>
 	<div class="page-content page-index">
 		<jsp:include page="/panda-bizbase/account-info.jsp"></jsp:include>
+		<jsp:include page="portal-statistic.jsp"></jsp:include>
          <!-- 
         <div class="row" style="height:300px;">
         	<div class="cell cell-7">
@@ -99,13 +100,35 @@
 <script>
 		//销售简报
 		var brief = new com.gongsibao.crm.web.home.Briefing();
-		$(function() {
-			$("#briefing").find('p >span').eq(0).text("新增任务数：" + brief.briefingCount('getNewTasksCount',null) + "个");
-			$("#briefing").find('p >span').eq(1).text("未启动任务数：" + brief.briefingCount('getUnStartTasksCount',null) + "个");
-			$("#briefing").find('p >span').eq(2).text("待跟进任务数：" + brief.briefingCount('getUnfoolowTasksCount',null) + "个");
-			$("#briefing").find('p >span').eq(3).text("超时任务数：" + brief.briefingCount('getTimeOutTasksCount',null) + "个");
-			$("#briefing").find('p >span').eq(4).text("异常未处理任务数：" + brief.briefingCount('getExceptUntreatedTasksCount',null) + "个");
-			$("#briefing").find('p >span').eq(5).text("公海：" + brief.briefingCount('getHighSeasCount',null) + "个");
-		});
+		function getBriefingCount(type){
+			 brief.briefingCountPars1('getNewCustomerCount',type,function(count){
+				$("#briefing p").eq(0).find('span').eq(0).text("新增客户数：" + count + "个");
+			});
+			brief.briefingCountPars2('getNewTasksCount',1,type,function(count){
+				$("#briefing p").eq(0).find('span').eq(1).text("新增任务数：" + count + "个");
+			});
+			brief.briefingCountPars1('getUndistributed',type,function(count){
+				$("#briefing p").eq(0).find('span').eq(2).text("未分配任务数：" + count + "个");
+			});
+			brief.briefingCountPars2('getUnStartTasksCount',1,type,function(count){
+				$("#briefing p").eq(0).find('span').eq(3).text("未启动任务数：" + count + "个");
+			});
+			
+			brief.briefingCountPars1('getNotTaskCount',type,function(count){
+				$("#briefing p").eq(1).find('span').eq(0).text("无任务的客户数：" + count + "个");
+			});
+			brief.briefingCountPars1('getDefeatedCount',type,function(count){
+				$("#briefing p").eq(1).find('span').eq(1).text("无法签单任务数：" + count + "个");
+			});
+			brief.briefingCountPars1('getCheckAbnormalCount',type,function(count){
+				$("#briefing p").eq(1).find('span').eq(2).text("抽查异常任务数：" + count + "个");
+			});
+			brief.briefingCountPars2('getHighSeasCount',1,type,function(count){
+				$("#briefing p").eq(1).find('span').eq(3).text(" 公海：" + count + "个");
+			});
+		};
+		 $(function() {
+			 getBriefingCount(1);
+		}); 
 	</script>
 </html>

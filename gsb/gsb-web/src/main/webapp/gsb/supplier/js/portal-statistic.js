@@ -12,17 +12,19 @@ com.gongsibao.crm.web.home.PortalStatistic = System.Object.Extends({
 });
 //销售简报
 com.gongsibao.crm.web.home.Briefing = com.gongsibao.crm.web.home.PortalStatistic.Extends({
-	briefingCount : function(method,pars){
-		var brieCount = 0;
-		this.invoke(method,null,function(count){
-			brieCount = count;
-			return brieCount;
-		});
+	briefingCountPars0 : function(method,callback){
+		this.invoke(method,null,callback);
+	},
+	briefingCountPars1 : function(method,pars0,callback){
+		this.invoke(method,[pars0],callback);
+	},
+	briefingCountPars2 : function(method,pars0,pars1,callback){
+		this.invoke(method,[pars0,pars1],callback);
 	}
 });
 //跟进统计
 com.gongsibao.crm.web.home.Foolow = com.gongsibao.crm.web.home.PortalStatistic.Extends({
-	foolowCount : function(method,pars){
+	foolowCountPars0 : function(method){
 		this.invoke(method,null,function(message){
 			$.each(message, function(key, value) {
 				$("#foolow").append("<p><span>"+key+"："+value+"个</span></p>");
@@ -32,7 +34,7 @@ com.gongsibao.crm.web.home.Foolow = com.gongsibao.crm.web.home.PortalStatistic.E
 });
 //预估业绩
 com.gongsibao.crm.web.home.Forecast = com.gongsibao.crm.web.home.PortalStatistic.Extends({
-	forecastAmount : function(method,pars){
+	forecastAmountPars1 : function(method,pars){
 		this.invoke(method,[pars],function(message){
 			var pContent = "<p>";
 			$.each(message, function(key, value) {
@@ -55,7 +57,7 @@ com.gongsibao.crm.web.home.Forecast = com.gongsibao.crm.web.home.PortalStatistic
 });
 //漏斗统计
 com.gongsibao.crm.web.home.Funnel = com.gongsibao.crm.web.home.PortalStatistic.Extends({
-	funnelXSCount : function(method,pars){
+	funnelXSCountPars0 : function(method,pars){
 		this.invoke(method,null,function(message){
 			$.each(message, function(key, value) {
 				switch(key){
@@ -72,7 +74,7 @@ com.gongsibao.crm.web.home.Funnel = com.gongsibao.crm.web.home.PortalStatistic.E
 			});
 		});
 	},
-	funnelCodeCount : function(method,pars){
+	funnelCodeCountPars0 : function(method,pars){
 		this.invoke(method,null,function(message){
 			$.each(message, function(key, value) {
 				$("#"+key).text(key + ":" + value + "个");

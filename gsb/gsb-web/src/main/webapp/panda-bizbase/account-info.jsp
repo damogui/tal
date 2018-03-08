@@ -40,18 +40,4 @@
             <a href="javascript:window.top.workbench.openWorkspace('操作日志','/panda/system/nlog/list?creatorId=<%=employee.getId()%>','fa fa-list-ul', true,'1',null,null,null);">日志</a>，如果不是您本人登录，请及时  <a href="javascript:window.top.workbench.changePassword();">修改密码</a>。
         </p>
     </div>
-    <div class="row" style="height:150px;">
-        	<div class="cell cell-12">
-	        	<div id="briefing" class="easyui-panel" title="销售简报" data-options="fit:true,border:false">
-	        		<p>
-	        			<span></span>
-	        			<span class="padding-15"></span>
-	        			<span class="padding-15"></span>
-	        			<span class="padding-15"></span>
-	        			<span class="padding-15"></span>
-	        			<span class="padding-15"></span>
-	        		</p>
-			    </div>
-        	</div>	
-        </div>
 </div>
