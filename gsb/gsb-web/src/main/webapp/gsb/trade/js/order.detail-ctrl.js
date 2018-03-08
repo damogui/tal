@@ -247,6 +247,11 @@ com.gongsibao.trade.web.OrderPaymentCollectionDetailCtrl = com.gongsibao.trade.w
     },
     initGrid:function(data){
     	
+    	var payWayTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.PayWayType');
+    	var offlineWayType = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OfflineWayType');
+    	var receiptStatus = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.PayReceiptStatus');
+    	var payForOrderCount = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.PayForOrderCountType');
+    	
 		$('#order_payment_grid').datagrid({
 			idField:'id',
 			emptyMsg:'暂无记录',
@@ -262,6 +267,10 @@ com.gongsibao.trade.web.OrderPaymentCollectionDetailCtrl = com.gongsibao.trade.w
 		        	
 		        	return '<a class="grid-btn" href="javascript:;">查看</a>';
 		        }},
+		        {field:'payForOrderCount',title:'回款类别',width:80,align:'center',formatter:function(value,row,index){
+	        		
+		        	return payForOrderCount[value];
+		        }},
 		        {field:'no',title:'支付编号',width:100},
 		        {field:'receiptNo',title:'审核编号',width:100},
 		        {field:'amount',title:'支付金额',width:80,align:'right',formatter: function(value,row,index){
@@ -270,20 +279,20 @@ com.gongsibao.trade.web.OrderPaymentCollectionDetailCtrl = com.gongsibao.trade.w
 		        }},   
 		        {field:'offlinePayerName',title:'账户名称',width:100},
 		        {field:'offlineBankNo',title:'付款账号',width:100},
-		        {field:'payWayType',title:'付款类别',width:100,align:'center',formatter:function(value,row,index){
+		        {field:'payWayType',title:'付款类别',width:80,align:'center',formatter:function(value,row,index){
 	        		
-	        		return value;
+	        		return payWayTypeEnum[value];
 		        }},
-		        {field:'offlineWayType',title:'付款方式',width:100,align:'center',formatter:function(value,row,index){
+		        {field:'offlineWayType',title:'付款方式',width:80,align:'center',formatter:function(value,row,index){
 	        		
-		        	return value;
+		        	return offlineWayType[value];
 		        }},
 		        {field:'payTime',title:'回款日期',width:130,align:'center'},
 		        {field:'confirmTime',title:'审核通过时间',width:130,align:'center'},
 		        {field:'createTime',title:'创建时间',width:120,align:'center'},
 		        {field:'receiptStatus',title:'状态',width:100,align:'center',formatter:function(value,row,index){
 	        		
-	        		return value;
+		        	return receiptStatus[value];
 		        }}
 		    ]]
 		});

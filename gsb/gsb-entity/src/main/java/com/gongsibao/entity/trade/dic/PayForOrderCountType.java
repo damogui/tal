@@ -5,7 +5,7 @@ import org.netsharp.base.IEnum;
 
 public enum PayForOrderCountType implements IEnum  {
 
-	Ybdd(0, "一笔单单"), 
+	Ybdd(0, "一笔一单"), 
 	Ybduodan(1, "一笔多单");
 	private int value;
 	private String text;
