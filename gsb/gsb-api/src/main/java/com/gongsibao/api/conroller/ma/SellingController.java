@@ -22,7 +22,7 @@ import java.util.List;
  */
 /*公司出售需求控制器只提供查询接口*/
 @Path("/ma/selling")
-@AuthAnnotation
+//@AuthAnnotation
 public class SellingController {
     SellingDemandDTOService sellingDemandDTOService = new SellingDemandDTOService();
     /*列表接口*/

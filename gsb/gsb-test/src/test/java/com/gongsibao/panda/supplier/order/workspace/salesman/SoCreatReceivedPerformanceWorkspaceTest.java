@@ -188,45 +188,45 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
 
         formField = addFormField (form, "payablePrice", "付款账套", groupName2, ControlTypes.TEXT_BOX, false);
         {
-            formField.setReadonly (true);
+            formField.setReadonly (false);
 
         }
         formField = addFormField (form, "no", "付款方式", groupName2, ControlTypes.TEXT_BOX, false);
         {
-            formField.setReadonly (true);
+            formField.setReadonly (false);
 
         }
 
         formField = addFormField (form, "payablePrice", "付款账号名称", groupName2, ControlTypes.TEXT_BOX, false);
         {
-            formField.setReadonly (true);
+            formField.setReadonly (false);
 
         }
         formField = addFormField (form, "no", "付款账号", groupName2, ControlTypes.TEXT_BOX, false);
         {
-            formField.setReadonly (true);
+            formField.setReadonly (false);
 
         }
 
         formField = addFormField (form, "payablePrice", "是否一笔多单", groupName2, ControlTypes.TEXT_BOX, false);
         {
-            formField.setReadonly (true);
+            formField.setReadonly (false);
 
         }
         formField = addFormField (form, "no", "付款金额", groupName2, ControlTypes.TEXT_BOX, false);
         {
-            formField.setReadonly (true);
+            formField.setReadonly (false);
 
         }
 
         formField = addFormField (form, "payablePrice", "付款凭证", groupName2, ControlTypes.TEXT_BOX, false);
         {
-            formField.setReadonly (true);
+            formField.setReadonly (false);
 
         }
         formField = addFormField (form, "no", "付款说明", groupName2, ControlTypes.TEXT_BOX, false);
         {
-            formField.setReadonly (true);
+            formField.setReadonly (false);
 
         }
 
