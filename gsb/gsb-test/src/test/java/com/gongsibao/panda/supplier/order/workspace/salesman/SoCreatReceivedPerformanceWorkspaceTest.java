@@ -48,11 +48,11 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
 
         List<String> ss = new ArrayList<String> ();
         ss.add("/package/easyui/datagrid-cellediting.js");
-        ss.add("/gsb/trade/js/salesman-order-add-form.part.js");
+        //ss.add("/gsb/trade/js/salesman-order-add-form.part.js");
         ss.add("/gsb/gsb.customer.controls.js");
         formJsImport = StringManager.join("|", ss);
         //formJsController = SalesmanAddOrderFormPart.class.getName();
-        formServiceController = SalesmanAddOrderFormPart.class.getName();
+        //formServiceController = SalesmanAddOrderFormPart.class.getName();
     }
 
     @Test
@@ -100,6 +100,7 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
         PFormField formField = null;
 
         String groupName = null;
+        String groupName2="回款申请";
 
         formField = addFormField (form, "no", "订单编号", groupName, ControlTypes.TEXT_BOX, false);
         {
@@ -112,7 +113,6 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
             formField.setReadonly (true);
 
         }
-        /*beg*/
         formField = addFormField (form, "paidPrice", "已付金额", groupName, ControlTypes.TEXT_BOX, false);
         {
             formField.setReadonly (true);
@@ -153,7 +153,7 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
             formField.setReadonly (true);
 
         }
-     /*end*/
+
 
 
         formField = addFormField (form, "performancePrice", "已划分金额", groupName, ControlTypes.TEXT_BOX, false);
@@ -167,22 +167,88 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
             formField.setWidth (120);
 
         }
+        /*回款申请beg*/
+
+        formField = addFormField (form, "isCarryOver", "有无结转", groupName2, ControlTypes.BOOLCOMBO_BOX, false);
+        {
+            formField.setReadonly (true);
+
+        }
+
+        formField = addFormField (form, "carryOverOrderId", "结转来源订单号", groupName2, ControlTypes.TEXT_BOX, false);
+        {
+            formField.setReadonly (true);
+
+        }
+        formField = addFormField (form, "no", "结转金额", groupName2, ControlTypes.TEXT_BOX, false);
+        {
+            formField.setReadonly (true);
+
+        }
+
+        formField = addFormField (form, "payablePrice", "付款账套", groupName2, ControlTypes.TEXT_BOX, false);
+        {
+            formField.setReadonly (true);
+
+        }
+        formField = addFormField (form, "no", "付款方式", groupName2, ControlTypes.TEXT_BOX, false);
+        {
+            formField.setReadonly (true);
+
+        }
+
+        formField = addFormField (form, "payablePrice", "付款账号名称", groupName2, ControlTypes.TEXT_BOX, false);
+        {
+            formField.setReadonly (true);
+
+        }
+        formField = addFormField (form, "no", "付款账号", groupName2, ControlTypes.TEXT_BOX, false);
+        {
+            formField.setReadonly (true);
+
+        }
+
+        formField = addFormField (form, "payablePrice", "是否一笔多单", groupName2, ControlTypes.TEXT_BOX, false);
+        {
+            formField.setReadonly (true);
+
+        }
+        formField = addFormField (form, "no", "付款金额", groupName2, ControlTypes.TEXT_BOX, false);
+        {
+            formField.setReadonly (true);
+
+        }
+
+        formField = addFormField (form, "payablePrice", "付款凭证", groupName2, ControlTypes.TEXT_BOX, false);
+        {
+            formField.setReadonly (true);
+
+        }
+        formField = addFormField (form, "no", "付款说明", groupName2, ControlTypes.TEXT_BOX, false);
+        {
+            formField.setReadonly (true);
+
+        }
+
+
+        /*回款申请end*/
+
 
         return form;
     }
 
     protected void addDetailGridPart(PWorkspace workspace) {
 
-        // 业绩划分
+        // 关联订单
         performancePart (workspace);
     }
 
 
-    // 业绩划分
+    // 关联订单
     public void performancePart(PWorkspace workspace) {
 
         ResourceNode node = this.resourceService.byCode ("Gsb_Supplier_Order_Salesman_performance");
-        PDatagrid datagrid = new PDatagrid (node, "业绩划分");
+        PDatagrid datagrid = new PDatagrid (node, "关联订单");
         {
             datagrid.setShowCheckbox (true);
             datagrid.setSingleSelect (false);

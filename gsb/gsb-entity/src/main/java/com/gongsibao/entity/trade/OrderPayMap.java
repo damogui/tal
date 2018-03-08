@@ -1,5 +1,6 @@
 package com.gongsibao.entity.trade;
 
+import com.gongsibao.entity.supplier.Supplier;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
@@ -24,7 +25,14 @@ public class OrderPayMap extends BaseEntity {
 
 	@Reference(header = "支付", foreignKey = "payId", primaryKey = "pkid")
 	private Pay pay;
+    /*new beg*/
+//    @Column(name = "supplier_id", header = "服务商Id")
+//    private Integer supplierId;
+//
+//    @Reference(foreignKey = "supplierId", header = "服务商")
+//    private Supplier supplier;
 
+    /*new end*/
 	public Integer getOrderId() {
 		return orderId;
 	}
