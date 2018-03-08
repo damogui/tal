@@ -27,11 +27,11 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
 
         window.open(this.addCustomerUrl);
     },
-     getperformanceDetailSaveState:function(){//父表单的保存
-        debugger;
-
-        return UiElementState.Hide;
-    },
+    //  getperformanceDetailSaveState:function(){//父表单的保存
+    //     debugger;
+    //
+    //     return UiElementState.Hide;
+    // },
     savebase:function () {
         this.parent.save();
 

@@ -41,8 +41,10 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
 
             },
             yes: function (index, layero) {
-                
+
+                layer.closeAll();
                 document.getElementById('layui-layer-iframe1').contentWindow.controllersoOrder.save();//保存
+              
 
             },
 

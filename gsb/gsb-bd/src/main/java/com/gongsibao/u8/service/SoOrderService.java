@@ -65,12 +65,4 @@ public class SoOrderService extends PersistableService<SoOrder> implements ISoOr
     }
 
 
-    @Override
-    public SoOrder save(SoOrder entity) {
-        List<NDepReceivable> depList = entity.getDepReceivable ();
-
-        return super.save (entity);
-    }
-
-
 }
