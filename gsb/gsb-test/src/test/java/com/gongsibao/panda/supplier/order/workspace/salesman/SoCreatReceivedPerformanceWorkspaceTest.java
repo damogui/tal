@@ -171,67 +171,79 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
 
         }
         /*回款申请beg*/
-//
-//        formField = addFormField (form, "isCarryOver", "有无结转", groupName2, ControlTypes.BOOLCOMBO_BOX, false);
-//        {
-//            formField.setReadonly (true);
-//
-//        }
-//
-//        formField = addFormField (form, "carryOverOrderId", "结转来源订单号", groupName2, ControlTypes.TEXT_BOX, false);
-//        {
-//            formField.setReadonly (true);
-//
-//        }
-//        formField = addFormField (form, "carryAmount", "结转金额", groupName2, ControlTypes.TEXT_BOX, false);
-//        {
-//            formField.setReadonly (true);
-//
-//        }
-//
-//
+
+        formField = addFormField (form, "isCarryOver", "有无结转", groupName2, ControlTypes.SWITCH_BUTTON, false);
+        {
+            formField.setReadonly (true);
+
+        }
+
+        formField = addFormField (form, "carryOverOrderId", "结转来源订单号", groupName2, ControlTypes.TEXT_BOX, false);
+        {
+            formField.setReadonly (true);
+
+        }
+        formField = addFormField (form, "carryAmount", "结转金额", groupName2, ControlTypes.TEXT_BOX, false);
+        {
+            formField.setReadonly (true);
+
+        }
+
+
 //        formField = addFormFieldRefrence (form, "supplier.name", "付款账套", groupName2, SetOfBooks.class.getSimpleName (), true, false);//进行联动
 //        {
-//            formField.setTroikaTrigger ("controllerdepReceivable.supplierChange(newValue,oldValue);");
+//            //SetOfBooks
+//            //formField.setTroikaTrigger ("controllerdepReceivable.supplierChange(newValue,oldValue);");
 //        }
 //
 //        formField = addFormFieldRefrence (form, "department.name", "付款方式", groupName2, U8Bank.class.getSimpleName (), true, false);
 //        {
-//            formField.setTroikaTrigger ("controllerdepReceivable.departmentChange(newValue,oldValue);");
+//            //U8Bank
+//            //formField.setTroikaTrigger ("controllerdepReceivable.departmentChange(newValue,oldValue);");
 //        }
-//
-//        formField = addFormField (form, "payablePrice", "付款账号名称", groupName2, ControlTypes.TEXT_BOX, false);
-//        {
-//            formField.setReadonly (false);
-//
-//        }
-//        formField = addFormField (form, "no", "付款账号", groupName2, ControlTypes.TEXT_BOX, false);
-//        {
-//            formField.setReadonly (false);
-//
-//        }
-//
-//        formField = addFormField (form, "payablePrice", "是否一笔多单", groupName2, ControlTypes.TEXT_BOX, false);
-//        {
-//            formField.setReadonly (false);
-//
-//        }
-//        formField = addFormField (form, "no", "付款金额", groupName2, ControlTypes.TEXT_BOX, false);
-//        {
-//            formField.setReadonly (false);
-//
-//        }
-//
-//        formField = addFormField (form, "payablePrice", "付款凭证", groupName2, ControlTypes.PICTURE_FILE_BOX, false);
-//        {
-//            formField.setReadonly (false);
-//
-//        }
-//        formField = addFormField (form, "no", "付款说明", groupName2, ControlTypes.TEXT_BOX, false);
-//        {
-//            formField.setReadonly (false);
-//
-//        }
+        formField = addFormField (form, "no", "付款账套", groupName2, ControlTypes.TEXT_BOX, false);
+        {
+            formField.setReadonly (false);
+
+        }
+        formField = addFormField (form, "no", "付款方式", groupName2, ControlTypes.TEXT_BOX, false);
+        {
+            formField.setReadonly (false);
+
+        }
+
+        formField = addFormField (form, "no", "付款账号名称", groupName2, ControlTypes.TEXT_BOX, false);
+        {
+            formField.setReadonly (false);
+
+        }
+        formField = addFormField (form, "no", "付款账号", groupName2, ControlTypes.TEXT_BOX, false);
+        {
+            formField.setReadonly (false);
+
+        }
+
+        formField = addFormField (form, "no", "是否一笔多单", groupName2, ControlTypes.TEXT_BOX, false);
+        {
+            formField.setReadonly (false);
+
+        }
+        formField = addFormField (form, "no", "付款金额", groupName2, ControlTypes.TEXT_BOX, false);
+        {
+            formField.setReadonly (false);
+
+        }
+
+        formField = addFormField (form, "remark", "付款凭证", groupName2, ControlTypes.OSS_UPLOAD, false);
+        {
+            formField.setReadonly (false);
+
+        }
+        formField = addFormField (form, "no", "付款说明", groupName2, ControlTypes.TEXT_BOX, false);
+        {
+            formField.setReadonly (false);
+
+        }
 
 
         /*回款申请end*/
