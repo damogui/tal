@@ -31,7 +31,7 @@ public class StatisticalCustomerServiceWorkspaceTest extends WorkspaceCreationBa
         resourceNodeCode = "Operation_CRM_STATISTICAL_CUSTOMERSERVICE";// 菜单节点码（名称）
         listPartServiceController = StatisticalCustomerListPart.class.getName();
         listPartJsController = StatisticalCustomerListPart.class.getName();
-        listPartImportJs = "/gsb/crm/js/customer.service.statistical.list.js|/gsb/gsb.custom.query.controls.js";
+        listPartImportJs = "/gsb/platform/operation/crm/js/old/customer.service.statistical.list.js|/gsb/gsb.custom.query.controls.js";
     }
 
 

@@ -28,7 +28,7 @@ public class CustomerMyOrderWorkspaceTest extends AllOrderWorkspaceTest {
 
         listPartServiceController = CustomerMyOrderListPart.class.getName();
         listPartJsController = CustomerMyOrderListPart.class.getName();
-        listPartImportJs = "/gsb/crm/js/customer.myorder.list.part.js";
+        listPartImportJs = "/gsb/platform/operation/crm/js/old/customer.myorder.list.part.js";
 
     }
 

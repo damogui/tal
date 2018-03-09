@@ -37,7 +37,7 @@ public class OrderALLWorkspaceTest extends SalesmanOrderAllWorkspaceTest {
         //listPartName = formPartName = "全部订单";
         //meta = MtableManager.getMtable(entity);// 获取实体元数据
         //formPartName = listPartName = meta.getName();
-        //listPartImportJs = "/gsb/crm/base/js/customer-base-list.part.js|/gsb/crm/platform/js/customer-all-list.part.js|/gsb/gsb.custom.query.controls.js";
+        //listPartImportJs = "/gsb/crm/base/js/customer-base-list.part.js|/gsb/platform/operation/crm/js/customer-all-list.part.js|/gsb/gsb.custom.query.controls.js";
         //listFilter = "id not in (SELECT customer_id from n_crm_customer_task GROUP BY customer_id)";
         //listPartJsController = NCustomerAllListPart.class.getName();
         //listPartServiceController = NCustomerAllListPart.class.getName();

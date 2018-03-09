@@ -25,7 +25,7 @@ public class DepartmentTaskAddWorkspaceTest extends TaskAddWorkspaceTest{
 		resourceNodeCode = "CRM_DEPARTMENT_TASK_ADD";
 		List<String> ss = new ArrayList<String>();
 		
-		ss.add("/gsb/crm/platform/js/task-add-form.part.js");
+		ss.add("/gsb/platform/operation/crm/js/task-add-form.part.js");
 		ss.add("/gsb/gsb.customer.controls.js");
 		formJsImport = StringManager.join("|", ss);
 		

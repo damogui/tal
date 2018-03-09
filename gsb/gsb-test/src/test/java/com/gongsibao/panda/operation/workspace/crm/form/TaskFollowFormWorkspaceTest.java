@@ -27,7 +27,7 @@ public class TaskFollowFormWorkspaceTest extends WorkspaceCreationBase {
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "Operation_CRM_Foolow_Edit";
 
-		formJsImport = "/gsb/crm/platform/js/follow-form.part.js|/gsb/gsb.customer.controls.js";
+		formJsImport = "/gsb/platform/operation/crm/js/follow-form.part.js|/gsb/gsb.customer.controls.js";
 		formJsController = NCustomerFollowFormPart.class.getName();
 		formServiceController = NCustomerFollowFormPart.class.getName();
 	}

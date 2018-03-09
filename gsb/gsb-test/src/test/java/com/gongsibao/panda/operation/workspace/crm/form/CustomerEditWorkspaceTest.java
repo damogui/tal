@@ -50,7 +50,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 
 		List<String> ss = new ArrayList<String>();
 		ss.add("/gsb/supplier/crm/base/js/customer-base-form.part.js");
-		ss.add("/gsb/supplier/crm/platform/js/customer-edit-form.part.js");
+		ss.add("/gsb/platform/operation/crm/js/customer-edit-form.part.js");
 		ss.add("/gsb/gsb.customer.controls.js");
 		formJsImport = StringManager.join("|", ss);
 

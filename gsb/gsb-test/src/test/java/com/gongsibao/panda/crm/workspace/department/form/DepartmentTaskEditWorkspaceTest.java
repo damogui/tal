@@ -26,7 +26,7 @@ public class DepartmentTaskEditWorkspaceTest extends TaskEditWorkspaceTest{
 		resourceNodeCode = "CRM_DEPARTMENT_TASK_EDIT";
 		
 		List<String> ss = new ArrayList<String>();
-		ss.add("/gsb/crm/platform/js/task-add-form.part.js");
+		ss.add("/gsb/platform/operation/crm/js/task-add-form.part.js");
 		ss.add("/gsb/supplier/crm/base/js/task-base-edit-form.part.js");
 		ss.add("/gsb/supplier/crm/department/js/task-edit-form.part.js");
 		ss.add("/gsb/supplier/crm/base/js/task-follow-base.ctrl.js");

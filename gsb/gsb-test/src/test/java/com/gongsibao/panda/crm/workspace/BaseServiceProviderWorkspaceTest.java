@@ -41,7 +41,7 @@ public class BaseServiceProviderWorkspaceTest extends WorkspaceCreationBase{
 		resourceNodeCode = "Service_Provider_"+ServiceProvider.class.getSimpleName();
 		
 		//选项卡页面的js
-		formJsImport = "/gsb/crm/js/service.provider.form.part.js|/gsb/gsb.customer.controls.js";
+		formJsImport = "/gsb/platform/operation/crm/js/old/service.provider.form.part.js|/gsb/gsb.customer.controls.js";
 	}
 	
 	@Override

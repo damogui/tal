@@ -42,7 +42,7 @@ public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
 		listToolbarPath = "task/batch/allocation";
 		listPartJsController = TaskAllListPart.class.getName();
 		listPartServiceController = TaskAllListPart.class.getName();
-		listPartImportJs = "/gsb/supplier/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-all-list.part.js|/gsb/gsb.custom.query.controls.js";
+		listPartImportJs = "/gsb/supplier/crm/base/js/task-base-list.part.js|/gsb/platform/operation/crm/js/task-all-list.part.js|/gsb/gsb.custom.query.controls.js";
 	}
 
 	public PToolbar createListToolbar() {

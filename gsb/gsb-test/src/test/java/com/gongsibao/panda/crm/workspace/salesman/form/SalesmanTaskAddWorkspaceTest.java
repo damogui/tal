@@ -25,7 +25,7 @@ public class SalesmanTaskAddWorkspaceTest extends TaskAddWorkspaceTest{
 		resourceNodeCode = "CRM_SALESMAN_TASK_ADD";
 		
 		List<String> ss = new ArrayList<String>();
-		ss.add("/gsb/crm/platform/js/task-add-form.part.js");
+		ss.add("/gsb/platform/operation/crm/js/task-add-form.part.js");
 		ss.add("/gsb/gsb.customer.controls.js");
 		ss.add("/gsb/supplier/crm/base/js/task-follow-base.ctrl.js");
 		formJsImport = StringManager.join("|", ss);

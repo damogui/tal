@@ -32,7 +32,7 @@ public class CustomerVerifyWorkspaceTest extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "Operation_CRM_Customer_Add";
-		listPartImportJs = "/gsb/crm/platform/js/customer-verify-list.part.js|/gsb/gsb.custom.query.controls.js";
+		listPartImportJs = "/gsb/platform/operation/crm/js/customer-verify-list.part.js|/gsb/gsb.custom.query.controls.js";
 		listPartJsController = NCustomerVerifyListPart.class.getName();
 		listPartServiceController = NCustomerVerifyListPart.class.getName();
 	}
