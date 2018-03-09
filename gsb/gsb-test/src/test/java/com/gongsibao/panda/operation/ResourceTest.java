@@ -222,6 +222,7 @@ public class ResourceTest extends ResourceCreationBase {
         node1 = this.createResourceNodeCategory("订单管理", "Operation_Order", node.getId());
         {
             this.createResourceNodeVoucher(SoOrder.class.getName(), "全部订单", "Operation_Order_Salesman_All", ISoOrderService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(SoOrder.class.getName(), "订单池", "Operation_Order_Salesman_Pool", ISoOrderService.class.getName(), node1.getId());
         }
     }
 }

@@ -100,6 +100,7 @@ public class NavigationTest extends NavigationBase {
         createPTreeNode(tree, null, "fa fa-file-o fa-fw", "Operation_Order", "订单管理", "", 7);
         {
             createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Salesman_All", "全部订单", "/operation/order/salesman/all/list", 1);
+            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Salesman_Pool", "订单池", "/operation/order/salesman/pool/list", 2);
         }
     }
 }

@@ -2,6 +2,7 @@ package com.gongsibao.panda.operation;
 
 import com.gongsibao.panda.operation.workspace.crm.*;
 import com.gongsibao.panda.operation.workspace.order.OrderALLWorkspaceTest;
+import com.gongsibao.panda.operation.workspace.order.OrderPoolWorkspaceTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -108,6 +109,9 @@ import com.gongsibao.panda.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
 
         //订单操作
         OrderALLWorkspaceTest.class,
+        OrderPoolWorkspaceTest.class,
+
+
 
         ImportTaskQualityDataTest.class,
         ImportTaskRoleAndFunctionTest.class,
