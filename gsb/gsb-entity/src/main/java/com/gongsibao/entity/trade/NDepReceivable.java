@@ -14,7 +14,11 @@ import org.netsharp.entity.Entity;
  */
 @Table(name = "n_dep_receivable", header = "部门已收款")
 public class NDepReceivable  extends Entity {
-    @Column(name = "amount", header = "订单业绩分配金额")
+    /**   
+	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
+	 */   
+	private static final long serialVersionUID = 3765188133382227841L;
+	@Column(name = "amount", header = "订单业绩分配金额")
     private  Integer amount;
     @Column(name = "department_id", header = "部门Id")
     private Integer departmentId = 0;

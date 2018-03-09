@@ -1,6 +1,5 @@
 package com.gongsibao.entity.trade;
 
-import com.gongsibao.entity.supplier.Supplier;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;

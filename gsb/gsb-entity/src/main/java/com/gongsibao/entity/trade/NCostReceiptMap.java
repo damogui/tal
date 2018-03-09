@@ -9,7 +9,11 @@ import org.netsharp.entity.Entity;
  */
 @Table(name = "n_costreceipt_map", header = "成本接受关系表")
 public class NCostReceiptMap  extends Entity {
-    @Column(name = "cost_id", header = "成本Id")
+    /**   
+	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
+	 */   
+	private static final long serialVersionUID = -6717983194865541163L;
+	@Column(name = "cost_id", header = "成本Id")
     private  Integer costId;
     @Column(name = "cost_receipt", header = "成本接受")
     private  Integer costReceipt;

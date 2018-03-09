@@ -9,7 +9,11 @@ import org.netsharp.entity.Entity;
  */
 @Table(name = "n_audit", header = "审核表")
 public class NAudit   extends Entity{
-    @Column(name = "applicant_id", header = "申请人Id")
+    /**   
+	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
+	 */   
+	private static final long serialVersionUID = 1758543125983155181L;
+	@Column(name = "applicant_id", header = "申请人Id")
     private  Integer applicantId;
     @Column(name = "audit_status", header = "审核状态")
     private  Integer auditStatus;

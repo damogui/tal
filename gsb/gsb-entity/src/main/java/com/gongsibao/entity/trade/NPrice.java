@@ -12,7 +12,11 @@ import org.netsharp.entity.Entity;
 
 @Table(name = "n_price", header = "定价表")
 public class NPrice extends Entity {
-    @Column(name = "address_fee", header = "收信人地址")
+    /**   
+	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
+	 */   
+	private static final long serialVersionUID = -4895274105651428745L;
+	@Column(name = "address_fee", header = "收信人地址")
     private  String addressFee;
     @Column(name = "amount", header = "定价额")
     private  Integer amount;

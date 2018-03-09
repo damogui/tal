@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
-import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;

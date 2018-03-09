@@ -1,6 +1,5 @@
 package com.gongsibao.entity.trade;
 
-import com.gongsibao.entity.supplier.Supplier;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
@@ -11,7 +10,11 @@ import org.netsharp.entity.Entity;
  */
 @Table(name = "n_dep_pay", header = "部门支付表")
 public class NDepPay  extends Entity {
-    @Column(name = "amount", header = "支付额")
+    /**   
+	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
+	 */   
+	private static final long serialVersionUID = -233203413500559037L;
+	@Column(name = "amount", header = "支付额")
     private  Integer amount;
     @Column(name = "dep_id", header = "部门Id")
     private  Integer depId;
