@@ -617,18 +617,6 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
     	var me = this;
 		this.invokeService('queryServicePriceItem', [productId,cityId], function(rows){
 
-			 //循环将价格除以100
-//			 $(rows).each(function(i,item){
-//				 
-//		        if(item.price){
-//		        		
-//		        	item.price = item.price;
-//		        }
-//		        if(item.originalPrice){
-//	        		
-//		        	item.originalPrice = item.originalPrice;
-//		        }
-//			 });
 			 var data = {};
 			 data.footer =[{"unit":'合计：',"originalPrice":0,"price":0}];
 			 data.rows = rows;
