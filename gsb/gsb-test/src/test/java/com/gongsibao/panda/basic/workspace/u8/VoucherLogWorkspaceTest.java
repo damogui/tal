@@ -57,11 +57,11 @@ public class VoucherLogWorkspaceTest extends WorkspaceCreationBase {
 		{
 			column.setVisible(false);
 		}
-		column = addColumn(datagrid, "ordernoCustname", "订单编号和客户名称", ControlTypes.TEXT_BOX, 200);
+		column = addColumn(datagrid, "ordernoCustname", "订单编号和客户名称", ControlTypes.TEXT_BOX, 280);
 		{
 			column.setImported(true);
 		}
-		column = addColumn(datagrid, "abstractInfo", "摘要", ControlTypes.TEXT_BOX, 150);
+		column = addColumn(datagrid, "abstractInfo", "摘要", ControlTypes.TEXT_BOX, 300);
 		{
 			column.setImported(true);
 		}
@@ -85,7 +85,7 @@ public class VoucherLogWorkspaceTest extends WorkspaceCreationBase {
 		{
 			column.setImported(true);
 		}
-		column = addColumn(datagrid, "dsc", "u8返回信息说明", ControlTypes.TEXT_BOX, 100);
+		column = addColumn(datagrid, "dsc", "u8返回信息说明", ControlTypes.TEXT_BOX, 260);
 		{
 			column.setImported(true);
 		}
