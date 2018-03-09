@@ -1,16 +1,10 @@
 package com.gongsibao.panda.supplier.order.workspace.salesman;
 
-import com.gongsibao.controls.DictComboBox;
-import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.entity.u8.SetOfBooks;
-import com.gongsibao.entity.u8.U8Bank;
 import com.gongsibao.tools.PToolbarHelper;
 import com.gongsibao.trade.web.OrderPerformanceDetailPart;
-import com.gongsibao.trade.web.OrderProdItemDetailPart;
-import com.gongsibao.trade.web.SalesmanAddOrderFormPart;
 import com.gongsibao.trade.web.SoCreatReceivePerformanceFormPart;
 import org.junit.Before;
 import org.junit.Test;
