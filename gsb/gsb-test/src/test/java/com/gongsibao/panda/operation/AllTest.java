@@ -1,6 +1,7 @@
 package com.gongsibao.panda.operation;
 
 import com.gongsibao.panda.operation.workspace.crm.*;
+import com.gongsibao.panda.operation.workspace.order.OrderALLWorkspaceTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -105,16 +106,19 @@ import com.gongsibao.panda.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
         TaskCheckAbnormalWorkspaceTest.class,
         QualityWorkspaceTest.class,
 
+        //订单操作
+        OrderALLWorkspaceTest.class,
+
         ImportTaskQualityDataTest.class,
         ImportTaskRoleAndFunctionTest.class,
-       // ImportOldDataToNewData.class,
+        // ImportOldDataToNewData.class,
         SupplierActionTest.class,
-        
+
         ComprehenStatisticalWorkspaceTest.class,
         FollowStatisticalWorkspaceTest.class,
         FunnelStatisticalWorkspaceTest.class,
         StatisticalCustomerServiceWorkspaceTest.class,
-        
+
         NavigationTest.class
 
 })

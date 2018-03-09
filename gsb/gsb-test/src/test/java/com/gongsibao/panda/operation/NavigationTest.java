@@ -97,5 +97,9 @@ public class NavigationTest extends NavigationBase {
             createPTreeNode(tree, "Operation_CRM_STATISTICAL", null, "Operation_CRM_STATISTICAL_FOLLOW", "跟进统计", "/operation/statistical/follow/list", 3);
             createPTreeNode(tree, "Operation_CRM_STATISTICAL", null, "Operation_CRM_STATISTICAL_CUSTOMERSERVICE", "客服统计", "/operation/statistical/customer/list", 4);
         }
+        createPTreeNode(tree, null, "fa fa-file-o fa-fw", "Operation_Order", "订单管理", "", 7);
+        {
+            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Salesman_All", "全部订单", "/operation/order/salesman/all/list", 1);
+        }
     }
 }
