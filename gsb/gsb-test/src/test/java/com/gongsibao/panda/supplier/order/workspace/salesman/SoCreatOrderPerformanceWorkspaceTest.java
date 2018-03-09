@@ -44,7 +44,7 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
         super.setup ();
         entity = SoOrder.class;
         urlForm = "/crm/order/salesman/coperformance";
-        listPartName = formPartName = "订单信息";
+        listPartName = formPartName = "创建订单业绩";
         meta = MtableManager.getMtable (entity);
         resourceNodeCode = "Gsb_Supplier_Order_Salesman_CoPerformance";
         listToolbarPath = "/crm/roworderaddperformance/toolbar";

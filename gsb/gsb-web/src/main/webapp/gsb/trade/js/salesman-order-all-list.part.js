@@ -5,7 +5,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         this.base();
 
         this.addOrderReceivedUrl = '/panda/crm/order/salesman/coperformance';//创建订单业绩
-        this.addReceivedUrl = "/crm/order/salesman/creceivedperformance";//回款业绩
+        this.addReceivedUrl = "/panda/crm/order/salesman/creceivedperformance";//回款业绩
 
 
     },

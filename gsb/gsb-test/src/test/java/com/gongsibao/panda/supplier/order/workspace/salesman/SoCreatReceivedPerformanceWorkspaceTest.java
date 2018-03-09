@@ -5,10 +5,13 @@ import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.u8.SetOfBooks;
+import com.gongsibao.entity.u8.U8Bank;
 import com.gongsibao.tools.PToolbarHelper;
 import com.gongsibao.trade.web.OrderPerformanceDetailPart;
 import com.gongsibao.trade.web.OrderProdItemDetailPart;
 import com.gongsibao.trade.web.SalesmanAddOrderFormPart;
+import com.gongsibao.trade.web.SoCreatReceivePerformanceFormPart;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.EntityState;
@@ -44,15 +47,15 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
         listPartName = formPartName = "创建回款业绩";
         meta = MtableManager.getMtable(entity);
         resourceNodeCode = "Gsb_Supplier_Order_Salesman_CReceivedPerformance";
-
+        listToolbarPath = "/crm/roworderaddperformance/toolbar";
 
         List<String> ss = new ArrayList<String> ();
         ss.add("/package/easyui/datagrid-cellediting.js");
         //ss.add("/gsb/trade/js/salesman-order-add-form.part.js");
-        ss.add("/gsb/gsb.customer.controls.js");
+//        ss.add("/gsb/gsb.customer.controls.js");
         formJsImport = StringManager.join("|", ss);
         //formJsController = SalesmanAddOrderFormPart.class.getName();
-        //formServiceController = SalesmanAddOrderFormPart.class.getName();
+        formServiceController = SoCreatReceivePerformanceFormPart.class.getName();//处理回款业绩
     }
 
     @Test
@@ -76,13 +79,13 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
         }
 
 
-        PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "performanceDetailAdd", PToolbarHelper.iconAdd,
+        PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "receivePerformanceDetailAdd", PToolbarHelper.iconAdd,
                 "新增", null, 1, "{controller}.add();");//allocation
         toolbar.getItems ().add (item);
         {
 
         }
-        item = PToolbarHelper.getPToolbarItem (EntityState.New, "performanceDetailDel", PToolbarHelper.iconDel,
+        item = PToolbarHelper.getPToolbarItem (EntityState.New, "receivePerformanceDetailDel", PToolbarHelper.iconDel,
                 "删除", null, 1, "{controller}.remove();");
         toolbar.getItems ().add (item);
 
@@ -168,67 +171,67 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
 
         }
         /*回款申请beg*/
-
-        formField = addFormField (form, "isCarryOver", "有无结转", groupName2, ControlTypes.BOOLCOMBO_BOX, false);
-        {
-            formField.setReadonly (true);
-
-        }
-
-        formField = addFormField (form, "carryOverOrderId", "结转来源订单号", groupName2, ControlTypes.TEXT_BOX, false);
-        {
-            formField.setReadonly (true);
-
-        }
-        formField = addFormField (form, "no", "结转金额", groupName2, ControlTypes.TEXT_BOX, false);
-        {
-            formField.setReadonly (true);
-
-        }
-
-        formField = addFormField (form, "payablePrice", "付款账套", groupName2, ControlTypes.TEXT_BOX, false);
-        {
-            formField.setReadonly (false);
-
-        }
-        formField = addFormField (form, "no", "付款方式", groupName2, ControlTypes.TEXT_BOX, false);
-        {
-            formField.setReadonly (false);
-
-        }
-
-        formField = addFormField (form, "payablePrice", "付款账号名称", groupName2, ControlTypes.TEXT_BOX, false);
-        {
-            formField.setReadonly (false);
-
-        }
-        formField = addFormField (form, "no", "付款账号", groupName2, ControlTypes.TEXT_BOX, false);
-        {
-            formField.setReadonly (false);
-
-        }
-
-        formField = addFormField (form, "payablePrice", "是否一笔多单", groupName2, ControlTypes.TEXT_BOX, false);
-        {
-            formField.setReadonly (false);
-
-        }
-        formField = addFormField (form, "no", "付款金额", groupName2, ControlTypes.TEXT_BOX, false);
-        {
-            formField.setReadonly (false);
-
-        }
-
-        formField = addFormField (form, "payablePrice", "付款凭证", groupName2, ControlTypes.TEXT_BOX, false);
-        {
-            formField.setReadonly (false);
-
-        }
-        formField = addFormField (form, "no", "付款说明", groupName2, ControlTypes.TEXT_BOX, false);
-        {
-            formField.setReadonly (false);
-
-        }
+//
+//        formField = addFormField (form, "isCarryOver", "有无结转", groupName2, ControlTypes.BOOLCOMBO_BOX, false);
+//        {
+//            formField.setReadonly (true);
+//
+//        }
+//
+//        formField = addFormField (form, "carryOverOrderId", "结转来源订单号", groupName2, ControlTypes.TEXT_BOX, false);
+//        {
+//            formField.setReadonly (true);
+//
+//        }
+//        formField = addFormField (form, "carryAmount", "结转金额", groupName2, ControlTypes.TEXT_BOX, false);
+//        {
+//            formField.setReadonly (true);
+//
+//        }
+//
+//
+//        formField = addFormFieldRefrence (form, "supplier.name", "付款账套", groupName2, SetOfBooks.class.getSimpleName (), true, false);//进行联动
+//        {
+//            formField.setTroikaTrigger ("controllerdepReceivable.supplierChange(newValue,oldValue);");
+//        }
+//
+//        formField = addFormFieldRefrence (form, "department.name", "付款方式", groupName2, U8Bank.class.getSimpleName (), true, false);
+//        {
+//            formField.setTroikaTrigger ("controllerdepReceivable.departmentChange(newValue,oldValue);");
+//        }
+//
+//        formField = addFormField (form, "payablePrice", "付款账号名称", groupName2, ControlTypes.TEXT_BOX, false);
+//        {
+//            formField.setReadonly (false);
+//
+//        }
+//        formField = addFormField (form, "no", "付款账号", groupName2, ControlTypes.TEXT_BOX, false);
+//        {
+//            formField.setReadonly (false);
+//
+//        }
+//
+//        formField = addFormField (form, "payablePrice", "是否一笔多单", groupName2, ControlTypes.TEXT_BOX, false);
+//        {
+//            formField.setReadonly (false);
+//
+//        }
+//        formField = addFormField (form, "no", "付款金额", groupName2, ControlTypes.TEXT_BOX, false);
+//        {
+//            formField.setReadonly (false);
+//
+//        }
+//
+//        formField = addFormField (form, "payablePrice", "付款凭证", groupName2, ControlTypes.PICTURE_FILE_BOX, false);
+//        {
+//            formField.setReadonly (false);
+//
+//        }
+//        formField = addFormField (form, "no", "付款说明", groupName2, ControlTypes.TEXT_BOX, false);
+//        {
+//            formField.setReadonly (false);
+//
+//        }
 
 
         /*回款申请end*/
@@ -240,7 +243,7 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
     protected void addDetailGridPart(PWorkspace workspace) {
 
         // 关联订单
-        performancePart (workspace);
+        //performancePart (workspace);
     }
 
 

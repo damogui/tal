@@ -18,7 +18,7 @@ import java.util.List;
  * Created by win on 2018/3/8.
  */
 /*回款业绩的save操作*/
-public class SoCreatPerformanceFormPart extends FormPart {
+public class SoCreatReceivePerformanceFormPart extends FormPart {
     @Override
     public IPersistable save(IPersistable obj) {
         INDepReceivableService nDepReceivableService = ServiceFactory.create (INDepReceivableService.class);//订单业绩服务
