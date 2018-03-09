@@ -35,7 +35,7 @@ public class SupplierCategoryWorkspaceTest extends WorkspaceCreationBase{
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_Operation_Supplier_Category";
 		listPartType = PartType.TREEGRID_PART.getId();
-		listPartImportJs="/gsb/supplier/js/supplier-category-list-part.js|/gsb/gsb.custom.query.controls.js";
+		listPartImportJs="/gsb/supplier/sys/js/organization/supplier-category-list-part.js|/gsb/gsb.custom.query.controls.js";
 		listPartJsController = SupplierCategoryTreegridPart.class.getName();
 		listPartServiceController = SupplierCategoryTreegridPart.class.getName();
 		listToolbarPath = "/operation/supplier/category/toolbar";
