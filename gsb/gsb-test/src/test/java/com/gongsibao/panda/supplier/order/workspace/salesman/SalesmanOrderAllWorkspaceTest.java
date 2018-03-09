@@ -46,7 +46,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         listToolbarPath = "crm/order/orderall/edit";
         openWindowHeight = 700;
         openWindowWidth = 900;
-        listPartImportJs = "/gsb/trade/js/salesman-order-all-list.part.js|/gsb/gsb.custom.query.controls.js|/gsb/gsb.pubcontrol.js";
+        listPartImportJs = "/gsb/platform/trade/js/salesman-order-all-list.part.js|/gsb/gsb.custom.query.controls.js|/gsb/gsb.pubcontrol.js";
         listPartJsController = SalesmanAllOrderListPart.class.getName();
         listPartServiceController = SalesmanAllOrderListPart.class.getName();
 
@@ -54,7 +54,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         List<String> ss = new ArrayList<String>();
         ss.add("/package/easyui/datagrid-cellediting.js");
         ss.add("/package/easyui/datagrid-groupview.js");
-        ss.add("/gsb/trade/js/salesman-order-all-form.part.js");
+        ss.add("/gsb/platform/trade/js/salesman-order-all-form.part.js");
 //        ss.add("/gsb/gsb.customer.controls.js");
         formJsImport = StringManager.join("|", ss);
         formJsController = SalesmanAllOrderFormPart.class.getName();

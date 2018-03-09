@@ -50,8 +50,8 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
         listToolbarPath = "/crm/roworderaddperformance/toolbar";
         formToolbarPath = "";
         List<String> ss = new ArrayList<String> ();
-        //ss.add ("/gsb/trade/js/order_performance-form.part.js");
-        ss.add ("/gsb/trade/js/so-performance-add.part.js");
+        //ss.add ("/gsb/platform/trade/js/order_performance-form.part.js");
+        ss.add ("/gsb/platform/trade/js/so-performance-add.part.js");
         ss.add ("/gsb/gsb.customer.controls.js");
         formJsImport = StringManager.join ("|", ss);
         listPartJsController = SoCreatOrderPerformanceListPart.class.getName ();

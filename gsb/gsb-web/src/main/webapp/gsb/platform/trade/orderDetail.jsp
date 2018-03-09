@@ -112,7 +112,7 @@
 <script src='/package/easyui/jquery.easyui.extend.js'></script>
 <script src='/panda-res/js/system.js'></script>
 <script src='/panda-res/js/panda.core.js'></script>
-<script src='/gsb/trade/js/order.detail-ctrl.js'></script>
+<script src='/gsb/platform/trade/js/order.detail-ctrl.js'></script>
 <script>
 	$(function(){
 		

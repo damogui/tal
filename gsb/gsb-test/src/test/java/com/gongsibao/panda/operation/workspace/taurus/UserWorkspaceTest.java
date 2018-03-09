@@ -49,7 +49,7 @@ public class UserWorkspaceTest extends WorkspaceCreationBase {
 		resourceNodeCode = "GSB_TAURUS_" + User.class.getSimpleName();
 		formServiceController = UserFormPart.class.getName();
 		formJsController = UserFormPart.class.getName();
-		formJsImport = "/gsb/taurus/js/user.form.part.js";
+		formJsImport = "/gsb/platform/taurus/js/user.form.part.js";
 		formOpenMode = OpenMode.WINDOW;
 		openWindowWidth = 800;
 		openWindowHeight = 650;

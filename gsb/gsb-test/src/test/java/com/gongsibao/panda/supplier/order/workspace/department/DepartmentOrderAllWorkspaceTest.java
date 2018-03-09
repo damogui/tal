@@ -41,14 +41,14 @@ public class DepartmentOrderAllWorkspaceTest extends WorkspaceCreationBase {
         formOpenMode = OpenMode.WINDOW;
         openWindowHeight = 700;
         openWindowWidth = 900;
-        listPartImportJs = "/gsb/trade/js/salesman-order-all-list.part.js|/gsb/gsb.custom.query.controls.js";
+        listPartImportJs = "/gsb/platform/trade/js/salesman-order-all-list.part.js|/gsb/gsb.custom.query.controls.js";
         listPartJsController = SalesmanAllOrderListPart.class.getName ();
 
 
         List<String> ss = new ArrayList<String> ();
         ss.add("/package/easyui/datagrid-cellediting.js");
         ss.add("/package/easyui/datagrid-groupview.js");
-        ss.add("/gsb/trade/js/salesman-order-all-form.part.js");
+        ss.add("/gsb/platform/trade/js/salesman-order-all-form.part.js");
 //        ss.add("/gsb/gsb.customer.controls.js");
         formJsImport = StringManager.join("|", ss);
         formJsController = SalesmanAllOrderFormPart.class.getName ();

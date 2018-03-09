@@ -42,7 +42,7 @@ public class ContractAuditWorkspaceTest extends WorkspaceCreationBase {
 		/*
 		 * listPartServiceController = OrderOperationController.class.getName();
 		 * listPartJsController = OrderOperationController.class.getName();
-		 * listPartImportJs = "/gsb/trade/js/orderoperation.list.part.js";
+		 * listPartImportJs = "/gsb/platform/trade/js/orderoperation.list.part.js";
 		 * listToolbarPath = "/trade/manage/order/operation/toolbar";
 		 */
 	}

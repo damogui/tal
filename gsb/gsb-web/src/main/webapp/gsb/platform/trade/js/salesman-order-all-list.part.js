@@ -172,7 +172,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         }
         var row = id == null ? this.getSelectedItem() : {};
         id = id == null ? row.id : id;
-        var url = '/nav/gsb/trade/orderDetail?id=' + id;
+        var url = '/nav/gsb/platform/trade/orderDetail?id=' + id;
         window.open(url);
     },
     doubleClickRow: function (index, row) {

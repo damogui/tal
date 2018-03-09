@@ -35,7 +35,7 @@ public class DepartmentReportWeekWorkspaceTest extends WorkspaceCreationBase {
         openWindowWidth = 900;
         listPartImportJs = "/gsb/gsb.custom.query.controls.js";///gsb/crm/sys/js/sys-salesman-list-part.js|
 //        List<String> ss = new ArrayList<String> ();
-//        ss.add("/gsb/trade/js/salesman-order-add-form.part.js");
+//        ss.add("/gsb/platform/trade/js/salesman-order-add-form.part.js");
 //        ss.add("/gsb/gsb.customer.controls.js");
 //        formJsImport = StringManager.join("|", ss);
 //        formJsController = SalesmanAddOrderFormPart.class.getName();

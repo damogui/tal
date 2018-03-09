@@ -44,7 +44,7 @@ public class WanDaSoOrderWorkspaceTest extends WorkspaceCreationBase {
 		// 扩展
 		listPartServiceController = SoOrderListPart.class.getName();
 		listPartJsController = SoOrderListPart.class.getName();
-		listPartImportJs = "/gsb/trade/js/soOrder.list.part.js";
+		listPartImportJs = "/gsb/platform/trade/js/soOrder.list.part.js";
 	}
 
 	@Test
