@@ -6,8 +6,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
 
         this.addOrderReceivedUrl = '/panda/crm/order/salesman/coperformance';//创建订单业绩
         this.addReceivedUrl = "/crm/order/salesman/creceivedperformance";//回款业绩
-
-
+        this.originType = null;//来源类型（0或null：业务员跳转过来的；1：平台跳转过来的）
     },
     addOrderReceived: function () {//创建订单业绩
         var me = this;
@@ -131,8 +130,9 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         //公共控件集合
         var me = this;
         var pubControlList = new org.netsharp.controls.PubControlList();
+        var zyStr = me.originType == 1 ? "分配" : '转移';
         PandaHelper.openDynamicForm({
-            title: '订单转移',
+            title: "订单" + zyStr,
             width: 450,
             height: 300,
             items: [
@@ -153,7 +153,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
 
                 me.invokeService("orderTran", [orderList, toUserId], function (data) {
                     me.reload();
-                    IMessageBox.toast('分配成功');
+                    IMessageBox.toast(zyStr + '成功');
                     layer.closeAll();
                     return;
                 });

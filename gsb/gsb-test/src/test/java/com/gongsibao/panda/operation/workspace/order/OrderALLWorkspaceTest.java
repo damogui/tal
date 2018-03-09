@@ -6,12 +6,8 @@ import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.panda.operation.workspace.crm.CustomerALLWorkspaceTest;
 import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderAllWorkspaceTest;
 import com.gongsibao.tools.PToolbarHelper;
+import com.gongsibao.trade.web.OrderAllListPart;
 import org.junit.Before;
-import org.junit.Test;
-import org.netsharp.core.EntityState;
-import org.netsharp.core.MtableManager;
-import org.netsharp.organization.dic.OperationTypes;
-import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.plugin.dic.ToolbarType;
 import org.netsharp.panda.plugin.entity.PToolbar;
@@ -34,6 +30,10 @@ public class OrderALLWorkspaceTest extends SalesmanOrderAllWorkspaceTest {
         urlList = "/operation/order/salesman/all/list";// 列表的url
         resourceNodeCode = "Operation_Order_Salesman_All";
         listToolbarPath = "operation/order/orderall/edit";
+        listPartImportJs = "/gsb/trade/js/salesman-order-all-list.part.js|/gsb/trade/platform/js/order-all-list-part.js|/gsb/gsb.custom.query.controls.js|/gsb/gsb.pubcontrol.js";
+        listPartJsController = OrderAllListPart.class.getName();
+        listPartServiceController = OrderAllListPart.class.getName();
+        listFilter = "";
         //listPartName = formPartName = "全部订单";
         //meta = MtableManager.getMtable(entity);// 获取实体元数据
         //formPartName = listPartName = meta.getName();
