@@ -197,16 +197,14 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
     @Test
     public void saveListToolbar() {
         PToolbar toolbar = createListToolbar();
-        if(toolbar != null){
+        if (toolbar != null) {
             toolbarService.save(toolbar);
         }
     }
 
-    @Test
-    public void createRowToolbar() {
+    public PToolbar createRowToolbar() {
 
         ResourceNode node = this.resourceService.byCode(resourceNodeCode);
-        // OperationType ot1 = operationTypeService.byCode(OperationTypes.view);//权限挂在哪一个下面
         PToolbar toolbar = new PToolbar();
         {
             toolbar.toNew();
@@ -222,12 +220,21 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
             item.setCode("orderTran");
             item.setName("转移");
             item.setSeq(2);
-            //item.setOperationType (ot1);
-            item.setCommand("{controller}.orderTran(id,2);");
+            item.setCommand("{controller}.orderTran();");
             toolbar.getItems().add(item);
         }
 
-        toolbarService.save(toolbar);
+        return toolbar;
+    }
+
+    @Test
+    public void saveRowToolbar() {
+
+        PToolbar toolbar = createRowToolbar();
+        if (toolbar != null) {
+
+            toolbarService.save(toolbar);
+        }
     }
 
     //列表

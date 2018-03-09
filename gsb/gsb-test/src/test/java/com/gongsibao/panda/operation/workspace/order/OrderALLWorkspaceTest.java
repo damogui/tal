@@ -12,6 +12,7 @@ import org.netsharp.core.EntityState;
 import org.netsharp.core.MtableManager;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.OperationType;
+import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.plugin.dic.ToolbarType;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
@@ -22,6 +23,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
  */
 public class OrderALLWorkspaceTest extends SalesmanOrderAllWorkspaceTest {
 
+    private String listrowToolbarPath = "/operation/roworderall/toolbar";
 
     @Before
     public void setup() {
@@ -70,7 +72,7 @@ public class OrderALLWorkspaceTest extends SalesmanOrderAllWorkspaceTest {
             item.toNew();
             item.setCode("batchOrderTran");
             item.setIcon(PToolbarHelper.iconTran);
-            item.setName("批量订单转移");
+            item.setName("批量订单分配");
             item.setSeq(9);
             item.setCommand("{controller}.batchOrderTran(1);");
             toolbar.getItems().add(item);
@@ -79,17 +81,13 @@ public class OrderALLWorkspaceTest extends SalesmanOrderAllWorkspaceTest {
         return toolbar;
     }
 
-
-    @Test
-    public void createRowToolbar() {
-
+    public PToolbar createRowToolbar() {
         ResourceNode node = this.resourceService.byCode(resourceNodeCode);
-        OperationType ot1 = operationTypeService.byCode(OperationTypes.view);//权限挂在哪一个下面
         PToolbar toolbar = new PToolbar();
         {
             toolbar.toNew();
             toolbar.setBasePath("panda/datagrid/row/edit");
-            toolbar.setPath("/operation/roworderall/toolbar");
+            toolbar.setPath(listrowToolbarPath);
             toolbar.setName("分配");
             toolbar.setResourceNode(node);
             toolbar.setToolbarType(ToolbarType.BASE);
@@ -100,11 +98,17 @@ public class OrderALLWorkspaceTest extends SalesmanOrderAllWorkspaceTest {
             item.setCode("orderTran");
             item.setName("分配");
             item.setSeq(2);
-            item.setOperationType(ot1);
             item.setCommand("{controller}.orderTran();");
             toolbar.getItems().add(item);
         }
 
-        toolbarService.save(toolbar);
+        return toolbar;
     }
+
+    protected PDatagrid createDatagrid(ResourceNode node) {
+        PDatagrid grid = super.createDatagrid(node);
+        grid.setToolbar(listrowToolbarPath);
+        return grid;
+    }
+
 }
