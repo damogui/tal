@@ -24,7 +24,7 @@ public class AuditLog extends BaseEntity {
 	@Column(name = "form_id", header = "关联表外键")
 	private Integer formId;
 	@Column(name = "status_id", header = "审核状态序号，type=105，1051 待审核、1052 审核中、1053 驳回审核、1054 审核通过、1055排队、1056关闭")
-	private AuditLogStatusType statusId = AuditLogStatusType.TOAUDIT;
+	private AuditLogStatusType status = AuditLogStatusType.TOAUDIT;
 	@Column(name = "content", header = "审批内容")
 	private String content;
 	@Column(name = "remark", header = "说明")
@@ -58,14 +58,6 @@ public class AuditLog extends BaseEntity {
 
 	public void setTypeId(AuditLogType typeId) {
 		this.typeId = typeId;
-	}
-
-	public AuditLogStatusType getStatusId() {
-		return statusId;
-	}
-
-	public void setStatusId(AuditLogStatusType statusId) {
-		this.statusId = statusId;
 	}
 
 	public Integer getFormId() {
@@ -139,6 +131,12 @@ public class AuditLog extends BaseEntity {
 	public void setFefund(Refund fefund) {
 		this.fefund = fefund;
 	}
-	
 
+	public AuditLogStatusType getStatus() {
+		return status;
+	}
+
+	public void setStatus(AuditLogStatusType status) {
+		this.status = status;
+	}
 }
