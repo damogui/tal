@@ -146,6 +146,8 @@ public class SoOrder extends BaseEntity {
 
     @Column(name = "carry_over_order_id", header = "结转订单id")
     private Integer carryOverOrderId;
+    @Column(name = "carry_amount", header = "结转金额")
+    private Integer carryAmount;
 
     @Column(name = "customer_id", header = "客户Id")
     private Integer customerId;
@@ -796,5 +798,13 @@ public class SoOrder extends BaseEntity {
 
     public void setStageNum(Integer stageNum) {
         this.stageNum = stageNum;
+    }
+
+    public Integer getCarryAmount() {
+        return carryAmount;
+    }
+
+    public void setCarryAmount(Integer carryAmount) {
+        this.carryAmount = carryAmount;
     }
 }
