@@ -40,7 +40,7 @@ public class OrganizationWorkspaceTest  extends WorkspaceCreationBase{
 		resourceNodeCode = "User_Center_" + entity.getSimpleName();
 		formPartName = listPartName = meta.getName();
 
-		listPartImportJs="/gsb/uc/js/organization.list.part.js";
+		listPartImportJs="/gsb/platform/user/js/organization.list.part.js";
 		formOpenMode = OpenMode.WINDOW;
 		openWindowWidth = 800;
 		openWindowHeight = 600;

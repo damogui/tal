@@ -81,10 +81,10 @@ public class AcquisitionDemandWorkspaceTest extends WorkspaceCreationBase{
 		resourceNodeCode = AcquisitionDemand.class.getSimpleName();
 		formServiceController = AcquisitionDemandFormPart.class.getName();
 		formJsController = AcquisitionDemandFormPart.class.getName();
-		formJsImport = "/gsb/ma/js/acquisitionDemand.form.part.js";
+		formJsImport = "/gsb/platform/ma/js/acquisitionDemand.form.part.js";
 		
 
-		listPartImportJs = "/gsb/ma/js/acquisitionDemand.list.part.js";
+		listPartImportJs = "/gsb/platform/ma/js/acquisitionDemand.list.part.js";
 		listPartJsController = AcquisitionDemandListPart.class.getName();
 		listPartServiceController = AcquisitionDemandListPart.class.getName();
 	}
@@ -309,7 +309,7 @@ public class AcquisitionDemandWorkspaceTest extends WorkspaceCreationBase{
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("ma/acquisition/refresh");
-			part.setImports("/gsb/ma/js/acquisition-demand-mtching-detail-part.js");
+			part.setImports("/gsb/platform/ma/js/acquisition-demand-mtching-detail-part.js");
 			part.setServiceController(AcquisitionDemandMatchingDetailPart.class.getName());
 			part.setJsController(AcquisitionDemandMatchingDetailPart.class.getName());
 		}

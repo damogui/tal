@@ -51,12 +51,12 @@ public class MyFranchiseeWorkspaceTest  extends WorkspaceCreationBase{
 		formPartName = listPartName = "客户信息 ";
 		resourceNodeCode = "BD_MY_MY";
 		listFilter = "ownerId='{userId}'";
-		formJsImport = "/gsb/franchisee/js/franchisee.form.part.js";
+		formJsImport = "/gsb/platform/franchisee/jsfranchisee.form.part.js";
 		formServiceController = MyFranchiseeFormPart.class.getName();
 		formJsController = FranchiseeFormPart.class.getName();
 		this.formToolbarPath = "bd/franchisee/form";
 		
-		listPartImportJs = "/gsb/franchisee/js/franchisee.list.part.js";
+		listPartImportJs = "/gsb/platform/franchisee/jsfranchisee.list.part.js";
 		listPartJsController = FranchiseeListPart.class.getName();
 		listPartServiceController = FranchiseeListPart.class.getName();
 	}

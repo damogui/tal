@@ -35,7 +35,7 @@ public class ProductPackageWorkspaceTest  extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		resourceNodeCode = "GSB_Product_Manage_Package";
 		formPartName = listPartName = meta.getName();
-		listPartImportJs = "/gsb/product/js/package-list-part.js";
+		listPartImportJs = "/gsb/platform/product/js/package-list-part.js";
 		listPartJsController = PackageListPart.class.getName();
 		listPartServiceController = PackageListPart.class.getName();
 	}

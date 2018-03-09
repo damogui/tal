@@ -39,7 +39,7 @@ public class DeviceWorkspaceTest extends WorkspaceCreationBase{
 
 		formServiceController = DeviceFormPart.class.getName();
 		formJsController = DeviceFormPart.class.getName();
-		formJsImport = "/gsb/gardian/js/device.form.part.js";
+		formJsImport = "/gsb/platform/gardian/js/device.form.part.js";
 
 		openWindowWidth = 800;
 		openWindowHeight = 600;

@@ -35,7 +35,7 @@ public class DepartmentDayReportWorkspaceTest extends WorkspaceCreationBase {
 		listToolbarPath = "/bd/crm/report/toolbar";
 		listPartServiceController = FranchiseeReportController.class.getName();
 		listPartJsController = FranchiseeReportController.class.getName();
-		listPartImportJs = "/gsb/franchisee/js/report.part.js";
+		listPartImportJs = "/gsb/platform/franchisee/jsreport.part.js";
 		listToolbarPath = "/bd/crm/report/toolbar";
 		
 //		/

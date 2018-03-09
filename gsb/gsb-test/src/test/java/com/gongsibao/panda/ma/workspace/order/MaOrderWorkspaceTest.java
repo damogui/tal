@@ -31,7 +31,7 @@ public class MaOrderWorkspaceTest extends WorkspaceCreationBase{
 		
 		formServiceController = MaOrderFormPart.class.getName();
 		formJsController = MaOrderFormPart.class.getName();
-		formJsImport = "/gsb/ma/js/order.form.part.js";
+		formJsImport = "/gsb/platform/ma/js/order.form.part.js";
 	}
 	
 	@Override

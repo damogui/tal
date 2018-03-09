@@ -29,7 +29,7 @@ public class MaOrderMyWorkspaceTest extends MaOrderWorkspaceTest{
 		listFilter = "creatorId='{userId}'";
 		formServiceController = MaOrderFormPart.class.getName();
 		formJsController = MaOrderFormPart.class.getName();
-		formJsImport = "/gsb/ma/js/order.form.part.js";
+		formJsImport = "/gsb/platform/ma/js/order.form.part.js";
 		
 		formToolbarPath = "ma/order/my";
 	}

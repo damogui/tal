@@ -23,7 +23,7 @@ public class AcquisitionDemandMyWorkspaceTest extends AcquisitionDemandWorkspace
 		resourceNodeCode = "My"+AcquisitionDemand.class.getSimpleName();
 		formServiceController = AcquisitionDemandFormPart.class.getName();
 		formJsController = AcquisitionDemandFormPart.class.getName();
-		formJsImport = "/gsb/ma/js/acquisitionDemand.form.part.js";
+		formJsImport = "/gsb/platform/ma/js/acquisitionDemand.form.part.js";
 	}
 	
 	public void doOperation() {

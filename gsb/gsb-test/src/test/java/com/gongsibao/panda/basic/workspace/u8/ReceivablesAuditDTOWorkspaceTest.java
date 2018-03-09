@@ -15,8 +15,6 @@ import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.trade.dto.ReceivablesAuditDTO;
-import com.gongsibao.entity.u8.SetOfBooks;
-import com.gongsibao.entity.u8.U8Bank;
 import com.gongsibao.u8.web.ReceivablesAuditDTOController;
 
 public class ReceivablesAuditDTOWorkspaceTest extends WorkspaceCreationBase {
@@ -40,7 +38,7 @@ public class ReceivablesAuditDTOWorkspaceTest extends WorkspaceCreationBase {
 		listToolbarPath = "/basic/u8/receivablesaudit/toolbar";
 		listPartServiceController = ReceivablesAuditDTOController.class.getName();
 		listPartJsController = ReceivablesAuditDTOController.class.getName();
-		listPartImportJs = "/gsb/bd/js/u8/receivablesaudit.part.js";
+		listPartImportJs = "/gsb/platform/basic/js/u8/receivablesaudit.part.js";
 		// formJsImport = "/gsb/gsb.customer.controls.js";
 	}
 

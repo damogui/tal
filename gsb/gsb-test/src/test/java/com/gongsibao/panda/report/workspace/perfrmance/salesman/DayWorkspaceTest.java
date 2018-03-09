@@ -31,7 +31,7 @@ public class DayWorkspaceTest extends WorkspaceCreationBase {
 		//工具条添加任务
 		listPartServiceController = PerformanceStatisticsController.class.getName();
 		listPartJsController = PerformanceStatisticsController.class.getName();
-		listPartImportJs = "/gsb/performance/js/report.part.js";
+		listPartImportJs = "/gsb/platform/report/js/report.part.js";
 		listToolbarPath = "/bd/crm/performance/report/toolbar";
 	}
 

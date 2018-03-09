@@ -33,7 +33,7 @@ public class AcquisitionDemandChannelWorkspaceTest extends AcquisitionDemandWork
 		resourceNodeCode = "Channel" + AcquisitionDemand.class.getSimpleName();
 		formServiceController = AcquisitionDemandFormPart.class.getName();
 		formJsController = AcquisitionDemandFormPart.class.getName();
-		formJsImport = "/gsb/ma/js/acquisitionDemand.form.part.js";
+		formJsImport = "/gsb/platform/ma/js/acquisitionDemand.form.part.js";
 
 	}
 

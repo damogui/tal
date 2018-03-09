@@ -35,7 +35,7 @@ public class ManualVoucherOrderDTOWorkspaceTest extends WorkspaceCreationBase  {
 		
 		listPartServiceController = ManualVoucherOrderDTOController.class.getName();
 		listPartJsController = ManualVoucherOrderDTOController.class.getName();
-		listPartImportJs = "/gsb/bd/js/u8/manualvoucherorder.part.js";
+		listPartImportJs = "/gsb/platform/basic/js/u8/manualvoucherorder.part.js";
 		listToolbarPath="/basic/u8/manualvoucherorder/toolbar";
 	}
 	

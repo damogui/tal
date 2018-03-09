@@ -38,7 +38,7 @@ public class PayReceiptCheckDTOWorkspaceTest extends WorkspaceCreationBase {
 
 		listPartServiceController = PayReceiptCheckDTOController.class.getName();
 		listPartJsController = PayReceiptCheckDTOController.class.getName();
-		listPartImportJs = "/gsb/bd/js/u8/pay.receipt.part.js";
+		listPartImportJs = "/gsb/platform/basic/js/u8/pay.receipt.part.js";
 		listToolbarPath = "/basic/u8/receiptcheck/toolbar";
 	}
 

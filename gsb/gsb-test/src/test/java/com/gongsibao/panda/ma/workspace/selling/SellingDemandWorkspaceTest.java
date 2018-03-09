@@ -49,9 +49,9 @@ public class SellingDemandWorkspaceTest extends WorkspaceCreationBase{
 		
 		formServiceController = SellingDemandFormPart.class.getName();
 		formJsController = SellingDemandFormPart.class.getName();
-		formJsImport = "/gsb/ma/js/sellingDemand.form.part.js";
+		formJsImport = "/gsb/platform/ma/js/sellingDemand.form.part.js";
 		
-		listPartImportJs = "/gsb/ma/js/sellingDemand.list.part.js";
+		listPartImportJs = "/gsb/platform/ma/js/sellingDemand.list.part.js";
 		listPartJsController = SellingDemandListPart.class.getName();
 		listPartServiceController = SellingDemandListPart.class.getName();
 	}

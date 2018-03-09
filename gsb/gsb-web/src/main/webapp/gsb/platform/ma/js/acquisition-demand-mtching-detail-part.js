@@ -32,7 +32,7 @@ com.gongsibao.ma.web.AcquisitionDemandMatchingDetailPart = org.netsharp.panda.co
     doOpen:function(acquisitionDemandId,sellingDemandId){
     	
     	var me = this;
-    	var url = '/gsb/ma/demand_comparison.html';
+    	var url = '/gsb/platform/ma/demand_comparison.html';
 		url = System.Url.join(url, "acquisitionDemandId=" + acquisitionDemandId);
 		url = System.Url.join(url, "sellingDemandId=" + sellingDemandId);
 		

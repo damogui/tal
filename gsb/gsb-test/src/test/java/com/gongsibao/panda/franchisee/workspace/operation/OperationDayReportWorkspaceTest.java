@@ -36,7 +36,7 @@ public class OperationDayReportWorkspaceTest extends WorkspaceCreationBase {
 		// 扩展
 		listPartServiceController = FranchiseeReportController.class.getName();
 		listPartJsController = FranchiseeReportController.class.getName();
-		listPartImportJs = "/gsb/franchisee/js/report.part.js";
+		listPartImportJs = "/gsb/platform/franchisee/jsreport.part.js";
 		listToolbarPath = "/bd/crm/report/toolbar";
 	}
 

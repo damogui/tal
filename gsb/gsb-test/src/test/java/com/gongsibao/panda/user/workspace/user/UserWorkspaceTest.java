@@ -49,7 +49,7 @@ public class UserWorkspaceTest  extends WorkspaceCreationBase{
 
 		formServiceController = UserFormPart.class.getName();
 		formJsController = UserFormPart.class.getName();
-		formJsImport = "/gsb/uc/js/user.form.part.js|/gsb/gsb.customer.controls.js";
+		formJsImport = "/gsb/platform/user/js/user.form.part.js|/gsb/gsb.customer.controls.js";
 
 		// formOpenMode = OpenMode.WINDOW;
 		// openWindowWidth = 800;

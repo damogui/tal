@@ -32,7 +32,7 @@ public class SellingDemandChannelWorkspaceTest extends SellingDemandWorkspaceTes
 		resourceNodeCode = "Channel" + SellingDemand.class.getSimpleName();
 		formServiceController = SellingDemandFormPart.class.getName();
 		formJsController = SellingDemandFormPart.class.getName();
-		formJsImport = "/gsb/ma/js/sellingDemand.form.part.js";
+		formJsImport = "/gsb/platform/ma/js/sellingDemand.form.part.js";
 
 	}
 
