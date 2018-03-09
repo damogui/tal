@@ -20,7 +20,7 @@ public class SupplierSalesmanWorkspaceTest  extends SysSalesmanWorkspaceTest {
 		formOpenMode = OpenMode.WINDOW;
 		openWindowHeight = 650;
 		openWindowWidth = 900;
-        listPartImportJs = "/gsb/crm/sys/js/sys-salesman-list-part.js|/gsb/gsb.custom.query.controls.js";
+        listPartImportJs = "/gsb/supplier/sys/organization/js/sys-salesman-list-part.js|/gsb/gsb.custom.query.controls.js";
         listPartJsController = SysSalesmanListPart.class.getName();
         listPartServiceController = SysSalesmanListPart.class.getName();
 
