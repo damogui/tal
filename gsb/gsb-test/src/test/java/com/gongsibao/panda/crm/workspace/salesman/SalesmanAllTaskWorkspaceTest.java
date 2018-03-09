@@ -29,10 +29,10 @@ public class SalesmanAllTaskWorkspaceTest extends TaskALLWorkspaceTest {
 		resourceNodeCode = "CRM_SALESMAN_TASK_ALL";
 		
 		List<String> ss = new ArrayList<String>();
-		ss.add("/gsb/crm/base/js/task-base-list.part.js");
-		ss.add("/gsb/crm/salesman/js/task-all-list.part.js");
+		ss.add("/gsb/supplier/crm/base/js/task-base-list.part.js");
+		ss.add("/gsb/supplier/crm/salesman/js/task-all-list.part.js");
 		ss.add("/gsb/gsb.custom.query.controls.js");
-		ss.add("/gsb/crm/base/js/task-follow-base.ctrl.js");
+		ss.add("/gsb/supplier/crm/base/js/task-follow-base.ctrl.js");
 		listPartImportJs = StringManager.join("|", ss);
 
 		listFilter = "owner_id = '{userId}'";

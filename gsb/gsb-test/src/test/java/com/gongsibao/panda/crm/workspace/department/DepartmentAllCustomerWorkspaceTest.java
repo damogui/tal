@@ -27,8 +27,8 @@ public class DepartmentAllCustomerWorkspaceTest extends CustomerALLWorkspaceTest
 		resourceNodeCode = "CRM_DEPARTMENT_CUSTOMER_ALL";
 		
 		List<String> ss = new ArrayList<String>();
-		ss.add("/gsb/crm/base/js/customer-base-list.part.js");
-		ss.add("/gsb/crm/department/js/customer-all-list.part.js");
+		ss.add("/gsb/supplier/crm/base/js/customer-base-list.part.js");
+		ss.add("/gsb/supplier/crm/department/js/customer-all-list.part.js");
 		ss.add("/gsb/gsb.custom.query.controls.js");
 		listPartImportJs = StringManager.join("|", ss);
 

@@ -55,9 +55,9 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 		
 		List<String> ss = new ArrayList<String>();
 		ss.add("/gsb/crm/platform/js/task-add-form.part.js");
-		ss.add("/gsb/crm/base/js/task-base-edit-form.part.js");
+		ss.add("/gsb/supplier/crm/base/js/task-base-edit-form.part.js");
 		ss.add("/gsb/crm/platform/js/task-edit-form.part.js");
-		ss.add("/gsb/crm/base/js/task-follow-base.ctrl.js");
+		ss.add("/gsb/supplier/crm/base/js/task-follow-base.ctrl.js");
 		ss.add("/gsb/gsb.customer.controls.js");
 		formJsImport = StringManager.join("|", ss);
 		

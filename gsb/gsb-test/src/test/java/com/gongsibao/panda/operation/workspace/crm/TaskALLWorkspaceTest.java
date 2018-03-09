@@ -24,7 +24,7 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 		resourceNodeCode = "Operation_CRM_Task_ALL";
 		listPartJsController = TaskAllListPart.class.getName();
 		listPartServiceController = TaskAllListPart.class.getName();
-		listPartImportJs = "/gsb/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-all-list.part.js|/gsb/gsb.custom.query.controls.js";
+		listPartImportJs = "/gsb/supplier/crm/base/js/task-base-list.part.js|/gsb/crm/platform/js/task-all-list.part.js|/gsb/gsb.custom.query.controls.js";
 		listToolbarPath = "task/all/list";
 		listFilter = null;
 	}

@@ -20,7 +20,7 @@ public class CustomerAllocatedWorkspaceTest extends CustomerALLWorkspaceTest {
 		meta = MtableManager.getMtable(entity);// 获取实体元数据
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "Operation_CRM_Customer_Allocated";
-		listPartImportJs = "/gsb/crm/base/js/customer-base-list.part.js|/gsb/crm/platform/js/customer-all-list.part.js|/gsb/gsb.custom.query.controls.js";
+		listPartImportJs = "/gsb/supplier/crm/base/js/customer-base-list.part.js|/gsb/crm/platform/js/customer-all-list.part.js|/gsb/gsb.custom.query.controls.js";
 		listFilter = "id in (SELECT customer_id from n_crm_customer_task where owner_id is not null and owner_id>0)";//已分配客户
 		listPartJsController = NCustomerAllListPart.class.getName();
 		listPartServiceController = NCustomerAllListPart.class.getName();
