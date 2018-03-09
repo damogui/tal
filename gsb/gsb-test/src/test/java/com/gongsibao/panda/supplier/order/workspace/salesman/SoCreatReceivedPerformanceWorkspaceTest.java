@@ -3,6 +3,8 @@ package com.gongsibao.panda.supplier.order.workspace.salesman;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.u8.SetOfBooks;
+import com.gongsibao.entity.u8.U8Bank;
 import com.gongsibao.tools.PToolbarHelper;
 import com.gongsibao.trade.web.OrderPerformanceDetailPart;
 import com.gongsibao.trade.web.SoCreatReceivePerformanceFormPart;
@@ -38,6 +40,7 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
         super.setup();
         entity = SoOrder.class;
         urlForm = "/crm/order/salesman/creceivedperformance";
+        formToolbarPath = "";
         listPartName = formPartName = "创建回款业绩";
         meta = MtableManager.getMtable(entity);
         resourceNodeCode = "Gsb_Supplier_Order_Salesman_CReceivedPerformance";
@@ -45,10 +48,10 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
 
         List<String> ss = new ArrayList<String> ();
         ss.add("/package/easyui/datagrid-cellediting.js");
-        //ss.add("/gsb/trade/js/salesman-order-add-form.part.js");
+        ss.add("/gsb/trade/js/so-receiveperformance-add.part.js");
 //        ss.add("/gsb/gsb.customer.controls.js");
         formJsImport = StringManager.join("|", ss);
-        //formJsController = SalesmanAddOrderFormPart.class.getName();
+        formJsController = SoCreatReceivePerformanceFormPart.class.getName();
         formServiceController = SoCreatReceivePerformanceFormPart.class.getName();//处理回款业绩
     }
 
@@ -184,27 +187,29 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
         }
 
 
-//        formField = addFormFieldRefrence (form, "supplier.name", "付款账套", groupName2, SetOfBooks.class.getSimpleName (), true, false);//进行联动
+        formField = addFormFieldRefrence (form, "pays.u8Bank.setOfBooks.name", "付款账套", groupName2, SetOfBooks.class.getSimpleName (), true, false);//进行联动
+        {
+
+            //SetOfBooks
+            //formField.setTroikaTrigger ("controllerdepReceivable.supplierChange(newValue,oldValue);");
+        }
+
+        formField = addFormFieldRefrence (form, "pays.u8Bank.name", "付款方式", groupName2, U8Bank.class.getSimpleName (), true, false);
+        {
+            formField.setRefFilter("set_of_books_id=1");
+            //U8Bank
+            //formField.setTroikaTrigger ("controllerdepReceivable.departmentChange(newValue,oldValue);");
+        }
+//        formField = addFormField (form, "no", "付款账套", groupName2, ControlTypes.TEXT_BOX, false);
 //        {
-//            //SetOfBooks
-//            //formField.setTroikaTrigger ("controllerdepReceivable.supplierChange(newValue,oldValue);");
-//        }
+//            formField.setReadonly (false);
 //
-//        formField = addFormFieldRefrence (form, "department.name", "付款方式", groupName2, U8Bank.class.getSimpleName (), true, false);
-//        {
-//            //U8Bank
-//            //formField.setTroikaTrigger ("controllerdepReceivable.departmentChange(newValue,oldValue);");
 //        }
-        formField = addFormField (form, "no", "付款账套", groupName2, ControlTypes.TEXT_BOX, false);
-        {
-            formField.setReadonly (false);
-
-        }
-        formField = addFormField (form, "no", "付款方式", groupName2, ControlTypes.TEXT_BOX, false);
-        {
-            formField.setReadonly (false);
-
-        }
+//        formField = addFormField (form, "no", "付款方式", groupName2, ControlTypes.TEXT_BOX, false);
+//        {
+//            formField.setReadonly (false);
+//
+//        }
 
         formField = addFormField (form, "no", "付款账号名称", groupName2, ControlTypes.TEXT_BOX, false);
         {
@@ -268,16 +273,16 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
             PDatagridColumn column = null;
 
 
-            column = addColumn (datagrid, "supplier.name", "服务商", ControlTypes.TEXT_BOX, 150);
+            column = addColumn (datagrid, "depPays.supplier", "服务商", ControlTypes.TEXT_BOX, 150);
 
-            column = addColumn (datagrid, "department.name", "部门", ControlTypes.NUMBER_BOX, 150);
+            column = addColumn (datagrid, "depPays.department", "部门", ControlTypes.NUMBER_BOX, 150);
             {
 
                 column.setAlign (DatagridAlign.CENTER);
             }
 
-            column = addColumn (datagrid, "salesman.name", "业务员", ControlTypes.TEXT_BOX, 150);
-            column = addColumn (datagrid, "amount", "分配金额", ControlTypes.DECIMAL_FEN_BOX, 150);
+            column = addColumn (datagrid, "depPays.salesman.name", "业务员", ControlTypes.TEXT_BOX, 150);
+            column = addColumn (datagrid, "depPays.amount", "分配金额", ControlTypes.DECIMAL_FEN_BOX, 150);
 
         }
 /*表单beg*/
@@ -291,18 +296,18 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
             // form.setTag ();//设置提示
             form.setLabelWidth (100);
             PFormField formField = null;
-            formField = addFormFieldRefrence (form, "supplier.name", "服务商", null, Supplier.class.getSimpleName (), true, false);
+            formField = addFormFieldRefrence (form, "depPays.supplier", "服务商", null, Supplier.class.getSimpleName (), true, false);
             {
-                formField.setTroikaTrigger ("controllerdepReceivable.supplierChange(newValue,oldValue);");
+                //formField.setTroikaTrigger ("controllerdepReceivable.supplierChange(newValue,oldValue);");
             }
 
-            formField = addFormFieldRefrence (form, "department.name", "部门", null, SupplierDepartment.class.getSimpleName (), true, false);
+            formField = addFormFieldRefrence (form, "depPays.department", "部门", null, SupplierDepartment.class.getSimpleName (), true, false);
             {
-                formField.setTroikaTrigger ("controllerdepReceivable.departmentChange(newValue,oldValue);");
+                //formField.setTroikaTrigger ("controllerdepReceivable.departmentChange(newValue,oldValue);");
             }
 
-            formField = addFormFieldRefrence (form, "salesman.name", "业务员", null, Employee.class.getSimpleName (), true, false);
-            formField = addFormField (form, "amount", "分配金额", null, ControlTypes.DECIMAL_FEN_BOX, true, false);
+            formField = addFormFieldRefrence (form, "depPays.salesman", "业务员", null, Employee.class.getSimpleName (), true, false);
+            formField = addFormField (form, "depPays.amount", "分配金额", null, ControlTypes.DECIMAL_FEN_BOX, true, false);
 
             {
 //                //formField.setWidth (300);
@@ -316,27 +321,27 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
         PPart part = new PPart ();
         {
             part.toNew ();
-            part.setName ("业绩划分");
-            part.setCode ("depReceivable");
+            part.setName ("业绩回款");
+            part.setCode ("pays");
             part.setParentCode (ReflectManager.getFieldName (meta.getCode ()));
-            part.setRelationRole ("depReceivable");
+            part.setRelationRole ("pays");//pays.depPays
             part.setResourceNode (node);
             part.setPartTypeId (PartType.DETAIL_PART.getId ());
             part.setDatagrid (datagrid);
             part.setDockStyle (DockType.DOCUMENTHOST);
             part.setToolbar (listToolbarPath);
-            part.setForm (form);
+           // part.setForm (form);
             part.setWindowWidth (400);
             part.setWindowHeight (450);
 
 //         part.setServiceController (OrderPerformanceDetailPart.class.getName ());
-            part.setJsController (OrderPerformanceDetailPart.class.getName ());
+           // part.setJsController (OrderPerformanceDetailPart.class.getName ());
         }
         workspace.getParts ().add (part);
 
         part = workspace.getParts ().get (0);
         {
-            part.setName ("创建订单业绩");
+            part.setName ("创建回款业绩");
             part.setDockStyle (DockType.TOP);
             part.setHeight (500);
             part.setHeight (450);
@@ -346,6 +351,7 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
     // 默认的表单操作
     @Override
     protected void doOperation() {
+
 
         ResourceNode node = this.getResourceNode ();
         operationService.addOperation (node, OperationTypes.view);
