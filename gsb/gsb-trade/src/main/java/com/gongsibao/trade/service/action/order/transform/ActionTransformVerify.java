@@ -1,13 +1,13 @@
 package com.gongsibao.trade.service.action.order.transform;
 
-import com.gongsibao.entity.crm.NCustomerTask;
-import com.gongsibao.entity.supplier.Salesman;
-import com.gongsibao.entity.trade.SoOrder;
+import java.util.Map;
+
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.core.BusinessException;
 
-import java.util.Map;
+import com.gongsibao.entity.supplier.Salesman;
+import com.gongsibao.entity.trade.SoOrder;
 
 /**
  * Created by zhangchao on 2018/3/8.

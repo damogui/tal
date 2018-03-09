@@ -12,7 +12,8 @@ com.gongsibao.trade.web.BaseCtrl = System.Object.Extends({
     	this.auditStatusTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.AuditStatusType');
     	this.refundWayTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.RefundWayType');
     	this.auditLogStatusTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.bd.dic.AuditLogStatusType');
-    	
+    	this.platformSourceTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderPlatformSourceType');
+    	this.payStatusTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderPayStatusType');
     },
     invokeService: function (method, pars, callback, isAsyn, errorCallback) {
 
@@ -124,9 +125,8 @@ com.gongsibao.trade.web.OrderFormCtrl = com.gongsibao.trade.web.BaseCtrl.Extends
     	$('#accountMobile').text(soOrder.accountMobile);
     	$('#addTime').text(soOrder.addTime);
     	
-    	$('#platformSource').text(soOrder.platformSource);
-    	$('#payStatus').text(soOrder.payStatus);
-    	
+    	$('#platformSource').text(this.platformSourceTypeEnum[soOrder.platformSource]);
+    	$('#payStatus').text(this.payStatusTypeEnum[soOrder.payStatus]);
     	var installmentMode = soOrder.installmentMode;
     	if(installmentMode){
     		

@@ -9,7 +9,11 @@ import org.netsharp.entity.Entity;
  */
 @Table(name = "n_marketing_cost", header = "市场花费")
 public class NMarketingCost  extends Entity {
-    @Column(name = "bid_price", header = "出价")
+    /**   
+	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
+	 */   
+	private static final long serialVersionUID = 5667099155945939799L;
+	@Column(name = "bid_price", header = "出价")
     private  Integer bidPrice;
     @Column(name = "dep_id", header = "部门Id")
     private  Integer depId;

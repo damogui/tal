@@ -3,8 +3,6 @@ package com.gongsibao.entity.trade.dic;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
-import com.gongsibao.entity.u8.dic.SetOfBooksType;
-
 public enum OrderManualVoucherStatus implements IEnum  {
 
 	NotStarted(0, "未开始"), 

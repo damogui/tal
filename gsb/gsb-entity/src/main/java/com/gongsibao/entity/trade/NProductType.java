@@ -9,7 +9,11 @@ import org.netsharp.entity.Entity;
  */
 @Table(name = "n_product_type", header = "产品类型表")
 public class NProductType extends Entity {
-    @Column(name = "pid", header = "产品Id")
+    /**   
+	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
+	 */   
+	private static final long serialVersionUID = 5002790202772920382L;
+	@Column(name = "pid", header = "产品Id")
     private  Integer pId;
     @Column(name = "type_level", header = "类型级别")
     private  Integer typeLevel;

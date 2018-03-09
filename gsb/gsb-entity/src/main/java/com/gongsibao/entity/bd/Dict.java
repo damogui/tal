@@ -5,7 +5,6 @@ import java.util.Date;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Id;
 import org.netsharp.core.annotations.Table;
-import org.netsharp.entity.IEntity;
 import org.netsharp.entity.Persistable;
 import org.netsharp.util.StringManager;
 

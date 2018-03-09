@@ -1,8 +1,8 @@
 package com.gongsibao.trade.web;
 
-import com.gongsibao.entity.trade.NDepReceivable;
-import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.trade.base.INDepReceivableService;
+import java.sql.Types;
+import java.util.List;
+
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.QueryParameters;
@@ -11,8 +11,9 @@ import org.netsharp.panda.commerce.FormPart;
 import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
 
-import java.sql.Types;
-import java.util.List;
+import com.gongsibao.entity.trade.NDepReceivable;
+import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.trade.base.INDepReceivableService;
 
 /**
  * Created by win on 2018/3/8.

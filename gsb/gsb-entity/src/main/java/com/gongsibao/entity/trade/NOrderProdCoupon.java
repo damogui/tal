@@ -9,7 +9,11 @@ import org.netsharp.entity.Entity;
  */
 @Table(name = "n_order_prod_coupon", header = "订单产品优惠券")
 public class NOrderProdCoupon  extends Entity {
-    @Column(name = "coupon_id", header = "优惠券Id")
+    /**   
+	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
+	 */   
+	private static final long serialVersionUID = -4815377430974468777L;
+	@Column(name = "coupon_id", header = "优惠券Id")
     private  Integer couponId;
     @Column(name = "coupon_price", header = "优惠券面值")
     private  Integer couponPrice;

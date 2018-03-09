@@ -9,7 +9,11 @@ import org.netsharp.entity.Entity;
  */
 @Table(name = "n_order_cost_map", header = "订单花费中间表")
 public class NOrderCostMap extends Entity {
-    @Column(name = "cost_id", header = "花费id")
+    /**   
+	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
+	 */   
+	private static final long serialVersionUID = 3257199427955890392L;
+	@Column(name = "cost_id", header = "花费id")
     private  Integer costId;
     @Column(name = "order_cost", header = "订单花费")
     private  Integer orderCost;

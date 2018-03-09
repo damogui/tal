@@ -8,4 +8,9 @@ import org.netsharp.entity.Entity;
  */
 @Table(name = "n_instalment", header = "分期付款")
 public class NInstalment extends Entity {
+
+	/**   
+	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
+	 */   
+	private static final long serialVersionUID = 3716764363463405540L;
 }
