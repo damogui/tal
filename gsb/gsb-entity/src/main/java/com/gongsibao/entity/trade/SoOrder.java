@@ -1,12 +1,9 @@
 package com.gongsibao.entity.trade;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.gongsibao.entity.crm.NCustomer;
-import com.gongsibao.entity.supplier.SalesmanProduct;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
@@ -15,8 +12,8 @@ import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.AuditLog;
-import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.CompanyIntention;
+import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.product.ProductPackage;
 import com.gongsibao.entity.supplier.Supplier;
@@ -86,9 +83,6 @@ public class SoOrder extends BaseEntity {
     @Column(name = "pay_time", header = "支付时间")
     private Date payTime;
 
-    @Column(name = "add_time", header = "创建时间")
-    private Date addTime;
-
     @Column(name = "channel_order_no", header = "渠道订单号")
     private String channelOrderNo;
 
@@ -153,9 +147,6 @@ public class SoOrder extends BaseEntity {
     @Column(name = "carry_over_order_id", header = "结转订单id")
     private Integer carryOverOrderId;
 
-    @Column(name = "carry_amount", header = "结转金额")
-    private Integer carryAmount;
-
     @Column(name = "customer_id", header = "客户Id")
     private Integer customerId;
 
@@ -180,7 +171,7 @@ public class SoOrder extends BaseEntity {
     // 1053 驳回审核
     // 1054 审核通过
     @Column(name = "change_price_audit_status_id", header = "改价审核状态：type=105")
-    private AuditStatusType changePriceAuditStatusId = AuditStatusType.wu;
+    private AuditStatusType changePriceAuditStatus = AuditStatusType.wu;
 
     @Column(name = "is_invoice", header = "开票")
     private Boolean isInvoice = false;
@@ -614,14 +605,6 @@ public class SoOrder extends BaseEntity {
         this.manualVoucherStatus = manualVoucherStatus;
     }
 
-    public Date getAddTime() {
-        return addTime;
-    }
-
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
-
     public String getChannelOrderNo() {
         return channelOrderNo;
     }
@@ -758,15 +741,16 @@ public class SoOrder extends BaseEntity {
         this.sourceType = sourceType;
     }
 
-    public AuditStatusType getChangePriceAuditStatusId() {
-        return changePriceAuditStatusId;
-    }
+    
+    public AuditStatusType getChangePriceAuditStatus() {
+		return changePriceAuditStatus;
+	}
 
-    public void setChangePriceAuditStatusId(AuditStatusType changePriceAuditStatusId) {
-        this.changePriceAuditStatusId = changePriceAuditStatusId;
-    }
+	public void setChangePriceAuditStatus(AuditStatusType changePriceAuditStatus) {
+		this.changePriceAuditStatus = changePriceAuditStatus;
+	}
 
-    public OrderPlatformSourceType getPlatformSource() {
+	public OrderPlatformSourceType getPlatformSource() {
         return platformSource;
     }
 
@@ -812,14 +796,5 @@ public class SoOrder extends BaseEntity {
 
     public void setStageNum(Integer stageNum) {
         this.stageNum = stageNum;
-    }
-
-
-    public Integer getCarryAmount() {
-        return carryAmount;
-    }
-
-    public void setCarryAmount(Integer carryAmount) {
-        this.carryAmount = carryAmount;
     }
 }

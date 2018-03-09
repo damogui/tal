@@ -6,11 +6,14 @@ import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
+import com.gongsibao.entity.trade.dic.RefundWayType;
 
 @Table(name = "so_refund", header = "退款")
 public class Refund extends BaseEntity {
@@ -25,11 +28,13 @@ public class Refund extends BaseEntity {
 	@Reference(foreignKey = "orderId")
 	private SoOrder soOrder;
 
-	@Column(name = "audit_status_id", header = "审核")
-	private Integer auditStatusId;
+	//审核状态序号，type=105，1051待审核、1052通过、1053不通过
+	@Column(name = "audit_status_id", header = "审核状态")
+	private AuditStatusType auditStatus = AuditStatusType.wu;
 
+	//退款方式序号，type=313，3131线上、3132线下
 	@Column(name = "way_type_id", header = "退款方式")
-	private Integer wayTypeId;
+	private RefundWayType wayType;
 
 	@Column(name = "is_full_refund", header = "全额退款")
 	private Integer isFullRefund;
@@ -51,7 +56,7 @@ public class Refund extends BaseEntity {
 
 	@Column(header = "备注")
 	private String remark;
-	
+
 	@Column(name="refund_time",header="退款时间")
     private Date refundTime;
 
@@ -67,22 +72,6 @@ public class Refund extends BaseEntity {
 
 	public void setOrderId(Integer orderId) {
 		this.orderId = orderId;
-	}
-
-	public Integer getAuditStatusId() {
-		return auditStatusId;
-	}
-
-	public void setAuditStatusId(Integer auditStatusId) {
-		this.auditStatusId = auditStatusId;
-	}
-
-	public Integer getWayTypeId() {
-		return wayTypeId;
-	}
-
-	public void setWayTypeId(Integer wayTypeId) {
-		this.wayTypeId = wayTypeId;
 	}
 
 	public Integer getIsFullRefund() {
@@ -171,5 +160,21 @@ public class Refund extends BaseEntity {
 
 	public void setRefundTime(Date refundTime) {
 		this.refundTime = refundTime;
+	}
+
+	public AuditStatusType getAuditStatus() {
+		return auditStatus;
+	}
+
+	public void setAuditStatus(AuditStatusType auditStatus) {
+		this.auditStatus = auditStatus;
+	}
+
+	public RefundWayType getWayType() {
+		return wayType;
+	}
+
+	public void setWayType(RefundWayType wayType) {
+		this.wayType = wayType;
 	}
 }

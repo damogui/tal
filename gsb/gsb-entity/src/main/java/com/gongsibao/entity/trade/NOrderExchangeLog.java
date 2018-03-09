@@ -1,10 +1,11 @@
 package com.gongsibao.entity.trade;
 
-import com.gongsibao.entity.trade.dic.NOrderExchangeLogOperationType;
-import com.gongsibao.entity.trade.dic.NOrderExchangeLogType;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
+
+import com.gongsibao.entity.trade.dic.NOrderExchangeLogOperationType;
+import com.gongsibao.entity.trade.dic.NOrderExchangeLogType;
 
 /**
  * Created by zhangchao on 2018/3/7.
@@ -13,7 +14,12 @@ import org.netsharp.entity.Entity;
 public class NOrderExchangeLog extends Entity {
 
 
-    @Column(name = "order_id", header = "订单id")
+    /**   
+	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
+	 */   
+	private static final long serialVersionUID = 3969311434200532300L;
+
+	@Column(name = "order_id", header = "订单id")
     private Integer orderId;
 
     @Column(name = "type", header = "类型（1:分配 2:转移）")

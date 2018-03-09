@@ -6,6 +6,8 @@ import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.bd.Preferential;
+import com.gongsibao.entity.trade.dic.PreferentiaType;
 
 @Table(name="so_order_discount",header="优惠劵信息")
 public class OrderDiscount extends BaseEntity {
@@ -24,10 +26,13 @@ public class OrderDiscount extends BaseEntity {
 //	3091	后台优惠
 //	3092	优惠券
     @Column(name="type_id",header="优惠类型序号，type=309")
-    private Integer typeId;
+    private PreferentiaType type = PreferentiaType.COUPON;
     
     @Column(name="preferential_id",header="优惠券ID")
     private Integer preferentialId;
+    
+	@Reference(foreignKey = "preferentialId")
+	private Preferential preferential;
     
     @Column(name="amount",header="优惠金额，优惠前-优惠后")
     private Integer amount;
@@ -54,13 +59,20 @@ public class OrderDiscount extends BaseEntity {
 	public void setSoOrder(SoOrder soOrder) {
 		this.soOrder = soOrder;
 	}
-	public Integer getTypeId() {
-        return typeId;
-    }
-    public void setTypeId(Integer typeId) {
-        this.typeId = typeId;
-    }
-    public Integer getPreferentialId() {
+	
+    public PreferentiaType getType() {
+		return type;
+	}
+	public void setType(PreferentiaType type) {
+		this.type = type;
+	}
+	public Preferential getPreferential() {
+		return preferential;
+	}
+	public void setPreferential(Preferential preferential) {
+		this.preferential = preferential;
+	}
+	public Integer getPreferentialId() {
         return preferentialId;
     }
     public void setPreferentialId(Integer preferentialId) {

@@ -3,6 +3,16 @@ com.gongsibao.trade.web.BaseCtrl = System.Object.Extends({
     ctor: function () {
     	
     	this.service = 'com.gongsibao.trade.web.OrderDetailController';
+
+    	this.processStatusEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderProcessStatusType');
+    	this.offlineWayType = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OfflineWayType');
+    	this.receiptStatus = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.PayReceiptStatus');
+    	this.payForOrderCount = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.PayForOrderCountType');
+    	this.payWayTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.PayWayType');
+    	this.auditStatusTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.AuditStatusType');
+    	this.refundWayTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.RefundWayType');
+    	this.auditLogStatusTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.bd.dic.AuditLogStatusType');
+    	
     },
     invokeService: function (method, pars, callback, isAsyn, errorCallback) {
 
@@ -153,10 +163,6 @@ com.gongsibao.trade.web.OrderProductDetailCtrl = com.gongsibao.trade.web.BaseCtr
     	});
     },
     initGrid:function(data){
-    	
-    	//办理进度
-    	var processStatusEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderProcessStatusType');
-
     	var me = this;
 		$('#order_product_grid').datagrid({
 			idField:'id',
@@ -208,7 +214,7 @@ com.gongsibao.trade.web.OrderProductDetailCtrl = com.gongsibao.trade.web.BaseCtr
 	        		
 	        		if(value){
 	        		
-	        			return processStatusEnum[value];
+	        			return me.processStatusEnum[value];
 	        		}
 	        		return '-';
 		        }},
@@ -246,12 +252,8 @@ com.gongsibao.trade.web.OrderPaymentCollectionDetailCtrl = com.gongsibao.trade.w
 
     },
     initGrid:function(data){
-    	
-    	var payWayTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.PayWayType');
-    	var offlineWayType = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OfflineWayType');
-    	var receiptStatus = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.PayReceiptStatus');
-    	var payForOrderCount = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.PayForOrderCountType');
-    	
+
+    	var me = this;
 		$('#order_payment_grid').datagrid({
 			idField:'id',
 			emptyMsg:'暂无记录',
@@ -269,30 +271,30 @@ com.gongsibao.trade.web.OrderPaymentCollectionDetailCtrl = com.gongsibao.trade.w
 		        }},
 		        {field:'payForOrderCount',title:'回款类别',width:80,align:'center',formatter:function(value,row,index){
 	        		
-		        	return payForOrderCount[value];
+		        	return me.payForOrderCount[value];
 		        }},
 		        {field:'no',title:'支付编号',width:100},
 		        {field:'receiptNo',title:'审核编号',width:100},
 		        {field:'amount',title:'支付金额',width:80,align:'right',formatter: function(value,row,index){
 		        	
-		        	return value/100;
-		        }},   
+		        	return (value/100).toFixed(2);
+		        }},
 		        {field:'offlinePayerName',title:'账户名称',width:100},
 		        {field:'offlineBankNo',title:'付款账号',width:100},
 		        {field:'payWayType',title:'付款类别',width:80,align:'center',formatter:function(value,row,index){
 	        		
-	        		return payWayTypeEnum[value];
+	        		return me.payWayTypeEnum[value];
 		        }},
 		        {field:'offlineWayType',title:'付款方式',width:80,align:'center',formatter:function(value,row,index){
 	        		
-		        	return offlineWayType[value];
+		        	return me.offlineWayType[value];
 		        }},
 		        {field:'payTime',title:'回款日期',width:130,align:'center'},
 		        {field:'confirmTime',title:'审核通过时间',width:130,align:'center'},
 		        {field:'createTime',title:'创建时间',width:120,align:'center'},
 		        {field:'receiptStatus',title:'状态',width:100,align:'center',formatter:function(value,row,index){
 	        		
-		        	return receiptStatus[value];
+		        	return me.receiptStatus[value];
 		        }}
 		    ]]
 		});
@@ -311,6 +313,16 @@ com.gongsibao.trade.web.OrderRefundDetailCtrl = com.gongsibao.trade.web.BaseCtrl
     },
     init:function(){
     	
+    	var me = this;
+    	var orderId = this.getOrderId();
+    	this.invokeService ("queryRefundList", [orderId], function(data){
+    		
+    		me.initGrid(data);
+    	});
+    },
+    initGrid:function(data){
+
+    	var me = this;
 		$('#order_refund_grid').datagrid({
 			idField:'id',
 			emptyMsg:'暂无记录',
@@ -319,44 +331,52 @@ com.gongsibao.trade.web.OrderRefundDetailCtrl = com.gongsibao.trade.web.BaseCtrl
 			showFooter:true,
 			singleSelect:true,
 			height:'100%',
+			data:data,
 		    columns:[[
 
 		        {field:'a',title:'操作',width:80,align:'center',formatter:function(value,row,index){
 		        	
 		        	return '<a class="grid-btn" href="javascript:;">查看</a>';
 		        }},
-		        {field:'no',title:'退款记录编号',width:200},
-		        {field:'serviceName',title:'审核编号',width:200},
-		        {field:'amount',title:'退款金额',width:150,formatter: function(value,row,index){
+		        {field:'no',title:'退款记录编号',width:100},
+		        {field:'serviceName',title:'审核编号',width:100},
+		        {field:'amount',title:'退款金额',width:100,align:'right',formatter: function(value,row,index){
 		        	
-		        	return value/100;
+		        	return (value/100).toFixed(2);
 		        }},   
-		        {field:'originalPrice',title:'退款产品',width:100,align:'right',formatter:function(value,row,index){
-		        	return value/100;
+		        {field:'orderProdId',title:'退款产品',width:150,formatter:function(value,row,index){
+		        	
 		        }},
-		        {field:'price',title:'退款产品地区',width:100,align:'right',formatter:function(value,row,index){
+		        {field:'cityName',title:'退款产品地区',width:150,align:'right',formatter:function(value,row,index){
 		        		
-		        	return value/100;
+		        	
 		        }},
-		        {field:'soOrder.processStatus',title:'办理进度',width:100,align:'right',formatter:function(value,row,index){
-	        		
+		        {field:'processStatus',title:'办理进度',width:80,align:'center',formatter:function(value,row,index){
+		        	
+	        		if(value){
+		        		
+	        			return me.processStatusEnum[value];
+	        		}
+	        		return '-';
 	        		//订单产品的办理进度
 		        }},
-		        {field:'wayTypeId',title:'退款方式',width:100,align:'right',formatter:function(value,row,index){
+		        {field:'wayType',title:'退款方式',width:80,align:'center',formatter:function(value,row,index){
 	        		
-	        		
+	        		if(value){
+		        		
+	        			return me.refundWayTypeEnum[value];
+	        		}
+	        		return '-';
 		        }},
-		        {field:'refundTime',title:'退款时间',width:100,align:'right',formatter:function(value,row,index){
-	        		
-	        		
-		        }},
-		        {field:'createTime',title:'创建时间',width:100,align:'right',formatter:function(value,row,index){
-	        		
-	        		
-		        }},
-		        {field:'auditStatusId',title:'审核状态',width:100,align:'right',formatter:function(value,row,index){
-	        		
-	        		
+		        {field:'refundTime',title:'退款时间',width:130,align:'center'},
+		        {field:'createTime',title:'创建时间',width:130,align:'center'},
+		        {field:'auditStatus',title:'审核状态',width:80,align:'center',formatter:function(value,row,index){
+		        	
+	        		if(value){
+		        		
+	        			return me.auditStatusTypeEnum[value];
+	        		}
+	        		return '-';
 		        }}
 		    ]]
 		});
@@ -379,6 +399,16 @@ com.gongsibao.trade.web.OrderChangePriceDetailCtrl = com.gongsibao.trade.web.Bas
     },
     init:function(){
     	
+    	var me = this;
+    	var orderId = this.getOrderId();
+    	this.invokeService ("queryChangePriceList", [orderId], function(data){
+    		
+    		me.initGrid(data);
+    	});
+    },
+    initGrid:function(data){
+
+    	var me = this;
 		$('#order_change_price_grid').datagrid({
 			idField:'id',
 			emptyMsg:'暂无记录',
@@ -387,40 +417,31 @@ com.gongsibao.trade.web.OrderChangePriceDetailCtrl = com.gongsibao.trade.web.Bas
 			showFooter:true,
 			singleSelect:true,
 			height:'100%',
+			data:data,
 		    columns:[[
 		              
 		        {field:'a',title:'操作',width:80,align:'center',formatter:function(value,row,index){
 		        	
 		        	return '<a class="grid-btn" href="javascript:;">查看</a>';
 		        }},
-		        {field:'productName',title:'改价审核编号',width:200},
-		        {field:'serviceName',title:'改价前金额',width:200},
-		        {field:'name',title:'改价后金额',width:150,formatter: function(value,row,index){
-		        	
-		        	if(row.service && row.service.type){
-		        		
-		        		var name = row.service.type.name;
-		        		if(row.service.property){
-		        			
-		        			name = row.service.property.name+'-'+name;
-		        		}
-		        		return name;
-		        	}
+		        {field:'no',title:'改价审核编号',width:100,align:'center'},
+		        {field:'originalPrice',title:'改价前金额',width:100,align:'right',formatter:function(value,row,index){
+		        	return (value/100).toFixed(2);
+		        }},
+		        {field:'payablePrice',title:'改价后金额',width:100,align:'right',formatter:function(value,row,index){
+		        	return (value/100).toFixed(2);
 		        }},   
-		        {field:'originalPrice',title:'差额',width:100,align:'right',formatter:function(value,row,index){
-		        	return value/100;
+		        {field:'differencePrice',title:'差额',width:100,align:'right',formatter:function(value,row,index){
+		        	return (value/100).toFixed(2);
 		        }},
-		        {field:'price',title:'发起人',width:100,align:'right',formatter:function(value,row,index){
+		        {field:'creator',title:'发起人',width:100,align:'center'},
+		        {field:'createTime',title:'发起时间',width:130,align:'center'},
+		        {field:'status',title:'审核状态',width:80,align:'center',formatter:function(value,row,index){
+	        		if(value){
 		        		
-		        	return value/100;
-		        }},
-		        {field:'processStatusId',title:'发起时间',width:100,align:'right',formatter:function(value,row,index){
-	        		
-	        		
-		        }},
-		        {field:'handleName',title:'审核状态',width:100,align:'right',formatter:function(value,row,index){
-	        		
-	        		
+	        			return me.auditLogStatusTypeEnum[value];
+	        		}
+	        		return '-';
 		        }}
 		    ]]
 		});
@@ -438,6 +459,16 @@ com.gongsibao.trade.web.OrderDiscountDetailCtrl = com.gongsibao.trade.web.BaseCt
     },
     init:function(){
     	
+    	var me = this;
+    	var orderId = this.getOrderId();
+    	this.invokeService ("queryDiscountList", [orderId], function(data){
+    		
+    		me.initGrid(data);
+    	});
+    },
+    initGrid:function(data){
+
+    	var me = this;    	
 		$('#order_discount_grid').datagrid({
 			idField:'id',
 			emptyMsg:'暂无记录',
@@ -446,41 +477,21 @@ com.gongsibao.trade.web.OrderDiscountDetailCtrl = com.gongsibao.trade.web.BaseCt
 			showFooter:true,
 			singleSelect:true,
 			height:'100%',
+			data:data,
 		    columns:[[
-		              
-		        {field:'a',title:'操作',width:80,align:'center',formatter:function(value,row,index){
-		        	
-		        	return '<a class="grid-btn" href="javascript:;">查看</a>';
+
+		        {field:'no',title:'优惠卷码',width:200},
+		        {field:'amount',title:'优惠金额',width:80,align:'right',formatter:function(value,row,index){
+		        	return (value/100).toFixed(2);
 		        }},
-		        {field:'productName',title:'产品名称',width:200},
-		        {field:'serviceName',title:'服务名称',width:200},
-		        {field:'name',title:'产品地区',width:150,formatter: function(value,row,index){
+		        {field:'preferentialId',title:'优惠券制作人',width:100,formatter: function(value,row,index){
 		        	
-		        	if(row.service && row.service.type){
+		        	if(row.preferential){
 		        		
-		        		var name = row.service.type.name;
-		        		if(row.service.property){
-		        			
-		        			name = row.service.property.name+'-'+name;
-		        		}
-		        		return name;
+		        		return row.preferential.creator;
 		        	}
 		        }},   
-		        {field:'originalPrice',title:'原价',width:100,align:'right',formatter:function(value,row,index){
-		        	return value/100;
-		        }},
-		        {field:'price',title:'售价',width:100,align:'right',formatter:function(value,row,index){
-		        		
-		        	return value/100;
-		        }},
-		        {field:'processStatusId',title:'办理进度',width:100,align:'right',formatter:function(value,row,index){
-	        		
-	        		
-		        }},
-		        {field:'handleName',title:'业务员',width:100,align:'right',formatter:function(value,row,index){
-	        		
-	        		
-		        }}
+		        {field:'createTime',title:'使用时间',width:130,align:'center'}
 		    ]]
 		});
     }
@@ -496,6 +507,15 @@ com.gongsibao.trade.web.OrderFollowDetailCtrl = com.gongsibao.trade.web.BaseCtrl
     },
     init:function(){
     	
+    	var me = this;
+    	var orderId = this.getOrderId();
+    	this.invokeService ("queryExchangeLogList", [orderId], function(data){
+    		
+    		me.initGrid(data);
+    	});
+    },
+    initGrid:function(data){
+    	
 		$('#order_follow_grid').datagrid({
 			idField:'id',
 			emptyMsg:'暂无记录',
@@ -504,29 +524,14 @@ com.gongsibao.trade.web.OrderFollowDetailCtrl = com.gongsibao.trade.web.BaseCtrl
 			showFooter:true,
 			singleSelect:true,
 			height:'100%',
+			data:data,
 		    columns:[[
-		        {field:'a',title:'操作',width:80,align:'center',formatter:function(value,row,index){
-		        	
-		        	return '<a class="grid-btn" href="javascript:;">查看</a>';
-		        }},
-		        {field:'id',title:'来自',width:100},
-		        {field:'productName',title:'去向',width:200},
-		        {field:'serviceName',title:'转移通知',width:200},
-		        {field:'name',title:'操作人',width:150,formatter: function(value,row,index){
-		        	
-		        	if(row.service && row.service.type){
-		        		
-		        		var name = row.service.type.name;
-		        		if(row.service.property){
-		        			
-		        			name = row.service.property.name+'-'+name;
-		        		}
-		        		return name;
-		        	}
-		        }},   
-		        {field:'originalPrice',title:'操作时间',width:100,align:'right',formatter:function(value,row,index){
-		        	return value/100;
-		        }}
+
+		        {field:'formUserName',title:'来自',width:80,align:'center'},
+		        {field:'toUserName',title:'去向',width:80,align:'center'},
+		        {field:'content',title:'转移通知',width:300},
+		        {field:'creator',title:'操作人',width:80,align:'center'},   
+		        {field:'createTime',title:'操作时间',width:130,align:'center'}
 		    ]]
 		});
     }

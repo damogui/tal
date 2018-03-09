@@ -18,6 +18,8 @@
 		.form-panel td.label_td {
 		
 			line-height: 25px !important;
+			font-size: 12px;
+			font-weight: bold;
 		}
 	</style>
 </head>
