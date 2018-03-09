@@ -35,7 +35,7 @@ public class FollowStatisticalWorkspaceTest extends WorkspaceCreationBase{
 		resourceNodeCode = "CRM_STATISTICAL_Follow";
 		listPartType = PartType.TREEGRID_PART.getId();
 		listPartServiceController = FollowReportPart.class.getName();
-		listPartImportJs = "/gsb/gsb.custom.query.controls.js";
+		listPartImportJs = "/gsb/panda-extend/gsb.custom.query.controls.js";
 		//统计级别""-平台；1-服务商；
 		listFilter ="1";
 	}

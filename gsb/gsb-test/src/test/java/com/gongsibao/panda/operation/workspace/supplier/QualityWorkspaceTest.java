@@ -32,7 +32,7 @@ public class QualityWorkspaceTest extends WorkspaceCreationBase {
 		formOpenMode = OpenMode.WINDOW;// 编辑框打开的形式
 		openWindowWidth = 800;
 		openWindowHeight = 550;
-		// formJsImport = "/gsb/gsb.customer.controls.js";
+		// formJsImport = "/gsb/panda-extend/gsb.customer.controls.js";
 	}
 
 	// 默认的grid信息的配置

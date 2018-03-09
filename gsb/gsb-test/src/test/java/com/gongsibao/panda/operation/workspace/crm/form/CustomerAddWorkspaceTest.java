@@ -51,7 +51,7 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 		List<String> ss = new ArrayList<String>();
 		ss.add("/gsb/supplier/crm/base/js/customer-base-form.part.js");
 		ss.add("/gsb/crm/platform/js/customer-add-form.part.js");
-		ss.add("/gsb/gsb.customer.controls.js");
+		ss.add("/gsb/panda-extend/gsb.customer.controls.js");
 		formJsImport = StringManager.join("|", ss);
 		formJsController = "com.gongsibao.crm.web.NCustomerPlatformAddFormPart";
 		formServiceController = NCustomerFormPart.class.getName();

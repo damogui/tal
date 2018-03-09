@@ -27,14 +27,14 @@ public class OrderALLWorkspaceTest extends SalesmanOrderAllWorkspaceTest {
         urlList = "/operation/order/salesman/all/list";// 列表的url
         resourceNodeCode = "Operation_Order_Salesman_All";
         listToolbarPath = "operation/order/orderall/edit";
-        listPartImportJs = "/gsb/platform/trade/js/salesman-order-all-list.part.js|/gsb/platform/trade/js/order-all-list-part.js|/gsb/gsb.custom.query.controls.js|/gsb/gsb.pubcontrol.js";
+        listPartImportJs = "/gsb/platform/trade/js/salesman-order-all-list.part.js|/gsb/platform/trade/js/order-all-list-part.js|/gsb/panda-extend/gsb.custom.query.controls.js|/gsb/panda-extend/gsb.pubcontrol.js";
         listPartJsController = OrderAllListPart.class.getName();
         listPartServiceController = OrderAllListPart.class.getName();
         listFilter = "";
         //listPartName = formPartName = "全部订单";
         //meta = MtableManager.getMtable(entity);// 获取实体元数据
         //formPartName = listPartName = meta.getName();
-        //listPartImportJs = "/gsb/crm/base/js/customer-base-list.part.js|/gsb/platform/operation/crm/js/customer-all-list.part.js|/gsb/gsb.custom.query.controls.js";
+        //listPartImportJs = "/gsb/crm/base/js/customer-base-list.part.js|/gsb/platform/operation/crm/js/customer-all-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
         //listFilter = "id not in (SELECT customer_id from n_crm_customer_task GROUP BY customer_id)";
         //listPartJsController = NCustomerAllListPart.class.getName();
         //listPartServiceController = NCustomerAllListPart.class.getName();

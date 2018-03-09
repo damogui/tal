@@ -37,7 +37,7 @@ public class FunnelStatisticalWorkspaceTest extends WorkspaceCreationBase{
 		resourceNodeCode = "Operation_CRM_STATISTICAL_FUNNEL";
 		listPartType = PartType.TREEGRID_PART.getId();
 		listPartServiceController = FunelReportPart.class.getName();
-		listPartImportJs = "/gsb/gsb.custom.query.controls.js";
+		listPartImportJs = "/gsb/panda-extend/gsb.custom.query.controls.js";
 	}
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {

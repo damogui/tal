@@ -16,7 +16,7 @@ public class SupplierDepartmentWorkspaceTest extends SysDepartmentWorkspaceTest{
 		formOpenMode = OpenMode.WINDOW;
 		openWindowWidth = 1000;
 		openWindowHeight = 600;
-		listPartImportJs="/gsb/supplier/sys/organization/js/sys-department-list-part.js|/gsb/gsb.custom.query.controls.js";
+		listPartImportJs="/gsb/supplier/sys/organization/js/sys-department-list-part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
 		listPartJsController = SysDepartmentTreeGridPart.class.getName();
 		listPartServiceController = SysDepartmentTreeGridPart.class.getName();
 		

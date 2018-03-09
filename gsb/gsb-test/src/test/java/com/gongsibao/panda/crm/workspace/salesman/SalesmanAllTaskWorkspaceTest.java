@@ -31,7 +31,7 @@ public class SalesmanAllTaskWorkspaceTest extends TaskALLWorkspaceTest {
 		List<String> ss = new ArrayList<String>();
 		ss.add("/gsb/supplier/crm/base/js/task-base-list.part.js");
 		ss.add("/gsb/supplier/crm/salesman/js/task-all-list.part.js");
-		ss.add("/gsb/gsb.custom.query.controls.js");
+		ss.add("/gsb/panda-extend/gsb.custom.query.controls.js");
 		ss.add("/gsb/supplier/crm/base/js/task-follow-base.ctrl.js");
 		listPartImportJs = StringManager.join("|", ss);
 

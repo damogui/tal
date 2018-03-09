@@ -31,7 +31,7 @@ public class CompanyIntentionWorkspaceTest extends WorkspaceCreationBase{
 		openWindowWidth = 1000;
 		openWindowHeight = 600;
 		
-		formJsImport = "/gsb/gsb.customer.controls.js";
+		formJsImport = "/gsb/panda-extend/gsb.customer.controls.js";
 	}
 
 	protected PDatagrid createDatagrid(ResourceNode node) {

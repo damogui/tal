@@ -51,7 +51,7 @@ public class CustomerAllWorkspaceTest extends WorkspaceCreationBase {
         resourceNodeCode = "CRM_All_" + Customer.class.getSimpleName();
         formServiceController = CustomerFormPart.class.getName();
         formJsController = CustomerFormPart.class.getName();
-        formJsImport = "/gsb/platform/operation/crm/js/old/customer.form.part.js|/gsb/gsb.customer.controls.js";
+        formJsImport = "/gsb/platform/operation/crm/js/old/customer.form.part.js|/gsb/panda-extend/gsb.customer.controls.js";
 
         listPartServiceController = CustomerListPart.class.getName();
         listPartJsController = CustomerListPart.class.getName();

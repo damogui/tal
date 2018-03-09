@@ -29,7 +29,7 @@ public class DepartmentAllCustomerWorkspaceTest extends CustomerALLWorkspaceTest
 		List<String> ss = new ArrayList<String>();
 		ss.add("/gsb/supplier/crm/base/js/customer-base-list.part.js");
 		ss.add("/gsb/supplier/crm/department/js/customer-all-list.part.js");
-		ss.add("/gsb/gsb.custom.query.controls.js");
+		ss.add("/gsb/panda-extend/gsb.custom.query.controls.js");
 		listPartImportJs = StringManager.join("|", ss);
 
 		listPartJsController = DepartmentAllCustomerListPart.class.getName();

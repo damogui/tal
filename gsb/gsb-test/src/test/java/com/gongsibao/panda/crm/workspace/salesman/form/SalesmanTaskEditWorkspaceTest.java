@@ -32,7 +32,7 @@ public class SalesmanTaskEditWorkspaceTest extends TaskEditWorkspaceTest{
 		ss.add("/gsb/supplier/crm/base/js/task-base-edit-form.part.js");
 		ss.add("/gsb/supplier/crm/salesman/js/task-edit-form.part.js");
 		ss.add("/gsb/supplier/crm/base/js/task-follow-base.ctrl.js");
-		ss.add("/gsb/gsb.customer.controls.js");
+		ss.add("/gsb/panda-extend/gsb.customer.controls.js");
 		formJsImport = StringManager.join("|", ss);
 
 		

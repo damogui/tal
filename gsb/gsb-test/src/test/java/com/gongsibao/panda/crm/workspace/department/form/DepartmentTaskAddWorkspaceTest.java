@@ -26,7 +26,7 @@ public class DepartmentTaskAddWorkspaceTest extends TaskAddWorkspaceTest{
 		List<String> ss = new ArrayList<String>();
 		
 		ss.add("/gsb/platform/operation/crm/js/task-add-form.part.js");
-		ss.add("/gsb/gsb.customer.controls.js");
+		ss.add("/gsb/panda-extend/gsb.customer.controls.js");
 		formJsImport = StringManager.join("|", ss);
 		
 		formJsController = NCustomerTaskAddFormPart.class.getName();

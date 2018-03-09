@@ -34,7 +34,7 @@ public class MyOrderWorkspaceTest  extends WorkspaceCreationBase{
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_Trade_Manage_My_Order";
 		//查询用---自定义控件
-		listPartImportJs = "/gsb/gsb.custom.query.controls.js";
+		listPartImportJs = "/gsb/panda-extend/gsb.custom.query.controls.js";
 		//当前登录人的userId=3590;
 		listFilter = "accountId='{userId}'";
 	}

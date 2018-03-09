@@ -34,7 +34,7 @@ public class U8BankWorkspaceTest extends WorkspaceCreationBase {
 		formOpenMode = OpenMode.WINDOW;//编辑框打开的形式
 		openWindowWidth = 900;
 		openWindowHeight = 750;		
-		formJsImport = "/gsb/gsb.customer.controls.js";
+		formJsImport = "/gsb/panda-extend/gsb.customer.controls.js";
 	}
 
 	//默认的grid信息的配置

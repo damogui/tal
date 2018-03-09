@@ -52,7 +52,7 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
         List<String> ss = new ArrayList<String> ();
         //ss.add ("/gsb/platform/trade/js/order_performance-form.part.js");
         ss.add ("/gsb/platform/trade/js/so-performance-add.part.js");
-        ss.add ("/gsb/gsb.customer.controls.js");
+        ss.add ("/gsb/panda-extend/gsb.customer.controls.js");
         formJsImport = StringManager.join ("|", ss);
         listPartJsController = SoCreatOrderPerformanceListPart.class.getName ();
         formServiceController = SoCreatOrderPerformanceFormPart.class.getName ();

@@ -39,7 +39,7 @@ public class ReceivablesAuditDTOWorkspaceTest extends WorkspaceCreationBase {
 		listPartServiceController = ReceivablesAuditDTOController.class.getName();
 		listPartJsController = ReceivablesAuditDTOController.class.getName();
 		listPartImportJs = "/gsb/platform/basic/js/u8/receivablesaudit.part.js";
-		// formJsImport = "/gsb/gsb.customer.controls.js";
+		// formJsImport = "/gsb/panda-extend/gsb.customer.controls.js";
 	}
 
 	@Test

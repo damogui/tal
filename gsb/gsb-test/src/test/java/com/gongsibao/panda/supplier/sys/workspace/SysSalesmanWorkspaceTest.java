@@ -51,11 +51,11 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		formOpenMode = OpenMode.WINDOW;
 		openWindowHeight = 700;
 		openWindowWidth = 900;
-		listPartImportJs = "/gsb/supplier/sys/organization/js/sys-salesman-list-part.js|/gsb/gsb.custom.query.controls.js";
+		listPartImportJs = "/gsb/supplier/sys/organization/js/sys-salesman-list-part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
 		listPartJsController = SysSalesmanListPart.class.getName();
 		listPartServiceController = SysSalesmanListPart.class.getName();
 		formJsController = "com.gongsibao.crm.web.SalesmanFormPart";
-		formJsImport = "/gsb/supplier/sys/organization/js/salesman-form.part.js|/gsb/gsb.customer.controls.js";
+		formJsImport = "/gsb/supplier/sys/organization/js/salesman-form.part.js|/gsb/panda-extend/gsb.customer.controls.js";
 	}
 
 	@Override

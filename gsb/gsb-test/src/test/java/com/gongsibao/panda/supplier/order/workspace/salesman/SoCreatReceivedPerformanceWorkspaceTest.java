@@ -49,7 +49,7 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
         List<String> ss = new ArrayList<String> ();
         ss.add("/package/easyui/datagrid-cellediting.js");
         ss.add("/gsb/platform/trade/js/so-receiveperformance-add.part.js");
-//        ss.add("/gsb/gsb.customer.controls.js");
+//        ss.add("/gsb/panda-extend/gsb.customer.controls.js");
         formJsImport = StringManager.join("|", ss);
         formJsController = SoCreatReceivePerformanceFormPart.class.getName();
         formServiceController = SoCreatReceivePerformanceFormPart.class.getName();//处理回款业绩

@@ -20,7 +20,7 @@ public class TaskDefeatedWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 		resourceNodeCode = "Operation_CRM_Task_Defeated";
 		listPartJsController = TaskAllListPart.class.getName();
 		listPartServiceController = TaskAllListPart.class.getName();
-		listPartImportJs = "/gsb/supplier/crm/base/js/task-base-list.part.js|/gsb/platform/operation/crm/js/task-all-list.part.js|/gsb/gsb.custom.query.controls.js";
+		listPartImportJs = "/gsb/supplier/crm/base/js/task-base-list.part.js|/gsb/platform/operation/crm/js/task-all-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
 		listToolbarPath = null;
 		rowToolbaPath = "/operation/task/lostOrder/toolbar";
 		listFilter = "foolowStatus = 4";
