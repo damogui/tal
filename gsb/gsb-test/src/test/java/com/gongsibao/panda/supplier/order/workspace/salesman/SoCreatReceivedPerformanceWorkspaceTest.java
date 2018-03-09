@@ -273,9 +273,9 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
             PDatagridColumn column = null;
 
 
-            column = addColumn (datagrid, "depPays.supplier", "服务商", ControlTypes.TEXT_BOX, 150);
+            column = addColumn (datagrid, "depPays.supplier.name", "服务商", ControlTypes.TEXT_BOX, 150);
 
-            column = addColumn (datagrid, "depPays.department", "部门", ControlTypes.NUMBER_BOX, 150);
+            column = addColumn (datagrid, "depPays.departmen.namet", "部门", ControlTypes.NUMBER_BOX, 150);
             {
 
                 column.setAlign (DatagridAlign.CENTER);
@@ -296,12 +296,12 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
             // form.setTag ();//设置提示
             form.setLabelWidth (100);
             PFormField formField = null;
-            formField = addFormFieldRefrence (form, "depPays.supplier", "服务商", null, Supplier.class.getSimpleName (), true, false);
+            formField = addFormFieldRefrence (form, "depPays.supplier.name", "服务商", null, Supplier.class.getSimpleName (), true, false);
             {
                 //formField.setTroikaTrigger ("controllerdepReceivable.supplierChange(newValue,oldValue);");
             }
 
-            formField = addFormFieldRefrence (form, "depPays.department", "部门", null, SupplierDepartment.class.getSimpleName (), true, false);
+            formField = addFormFieldRefrence (form, "depPays.departmen.namet", "部门", null, SupplierDepartment.class.getSimpleName (), true, false);
             {
                 //formField.setTroikaTrigger ("controllerdepReceivable.departmentChange(newValue,oldValue);");
             }
