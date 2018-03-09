@@ -79,7 +79,7 @@ public class ActionTransformRecordLog implements IAction {
             log.setFormDepartmentId(formUser.getDepartmentId());
             log.setFormDepartmentName(formUser.getDepartment().getName());
             log.setFormUserId(formUser.getEmployeeId());
-            log.setFormUserName(formUser.getName());
+            log.setFormUserName(formUser.getEmployee().getName());
         }
         orderExchangeLogService.save(log);
         // endregion
