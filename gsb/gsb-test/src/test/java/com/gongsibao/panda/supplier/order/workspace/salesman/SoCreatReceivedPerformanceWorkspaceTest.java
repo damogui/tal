@@ -248,16 +248,16 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
 
     protected void addDetailGridPart(PWorkspace workspace) {
 
-        // 关联订单
-        //performancePart (workspace);
+        // 关联部门回款表
+        performancePart (workspace);
     }
 
 
-    // 关联订单
+    // 关联部门回款表
     public void performancePart(PWorkspace workspace) {
 
-        ResourceNode node = this.resourceService.byCode ("Gsb_Supplier_Order_Salesman_performance");
-        PDatagrid datagrid = new PDatagrid (node, "关联订单");
+        ResourceNode node = this.resourceService.byCode ("Gsb_Supplier_Order_Salesman_Received");
+        PDatagrid datagrid = new PDatagrid (node, "关联回款订单");
         {
             datagrid.setShowCheckbox (true);
             datagrid.setSingleSelect (false);

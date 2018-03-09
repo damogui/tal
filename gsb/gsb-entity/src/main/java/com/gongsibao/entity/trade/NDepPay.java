@@ -1,5 +1,9 @@
 package com.gongsibao.entity.trade;
 
+import com.gongsibao.entity.supplier.Salesman;
+import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.entity.supplier.SupplierDepartment;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
@@ -16,12 +20,29 @@ public class NDepPay  extends Entity {
 	private static final long serialVersionUID = -233203413500559037L;
 	@Column(name = "amount", header = "支付额")
     private  Integer amount;
-    @Column(name = "dep_id", header = "部门Id")
-    private  Integer depId;
-    @Column(name = "order_pay_map_id", header = "支付明细Id")
-    private  Integer orderPayMapId;
+
+    @Column(name = "supplier_id", header = "服务商Id")
+    private Integer supplierId = 0;
+
+    @Reference(foreignKey = "supplierId", header = "服务商")
+    private Supplier supplier;
+    @Column(name = "department_id", header = "部门Id")
+    private Integer departmentId = 0;
+
+    @Reference(foreignKey = "departmentId", header = "部门")
+    private SupplierDepartment department;
+
     @Column(name = "salesman_id", header = "员工Id")
     private  Integer salesmanId;
+
+    @JsonIgnore
+    @Reference(foreignKey="salesmanId")
+    private Salesman salesman;
+
+
+    @Column(name = "order_pay_map_id", header = "支付明细Id")
+    private  Integer orderPayMapId;
+
 
     /*new beg*/
 
@@ -47,13 +68,7 @@ public class NDepPay  extends Entity {
         this.salesmanId = salesmanId;
     }
 
-    public Integer getDepId() {
-        return depId;
-    }
 
-    public void setDepId(Integer depId) {
-        this.depId = depId;
-    }
 
     public Integer getOrderPayMapId() {
         return orderPayMapId;
@@ -69,5 +84,45 @@ public class NDepPay  extends Entity {
 
     public void setOrderPayMap(OrderPayMap orderPayMap) {
         this.orderPayMap = orderPayMap;
+    }
+
+    public Integer getSupplierId() {
+        return supplierId;
+    }
+
+    public void setSupplierId(Integer supplierId) {
+        this.supplierId = supplierId;
+    }
+
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
+
+    public Integer getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public SupplierDepartment getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(SupplierDepartment department) {
+        this.department = department;
+    }
+
+    public Salesman getSalesman() {
+        return salesman;
+    }
+
+    public void setSalesman(Salesman salesman) {
+        this.salesman = salesman;
     }
 }
