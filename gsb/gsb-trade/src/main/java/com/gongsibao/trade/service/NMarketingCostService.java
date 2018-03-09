@@ -1,10 +1,9 @@
 package com.gongsibao.trade.service;
 
-import com.gongsibao.entity.trade.NMarketingCost;
-import com.gongsibao.entity.trade.OrderCps;
-import com.gongsibao.trade.base.INMarketingCostService;
-import com.gongsibao.trade.base.IOrderCpsService;
 import org.netsharp.service.PersistableService;
+
+import com.gongsibao.entity.trade.NMarketingCost;
+import com.gongsibao.trade.base.INMarketingCostService;
 
 /**
  * Created by win on 2018/2/27.

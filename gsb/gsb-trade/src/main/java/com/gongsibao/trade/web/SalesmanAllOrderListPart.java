@@ -1,17 +1,15 @@
 package com.gongsibao.trade.web;
 
-import com.gongsibao.entity.trade.OrderProdTrace;
-import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.trade.base.IOrderProdTraceService;
-import com.gongsibao.u8.base.ISoOrderService;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
-import org.netsharp.panda.commerce.ListPart;
 import org.netsharp.util.StringManager;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.u8.base.ISoOrderService;
 
 /**
  * Created by win on 2018/3/2.

@@ -1,16 +1,9 @@
 package com.gongsibao.trade.web;
 
-import com.gongsibao.entity.trade.NDepReceivable;
-import com.gongsibao.entity.trade.OrderProdTrace;
-import com.gongsibao.trade.base.INDepReceivableService;
-import com.gongsibao.trade.base.IOrderProdTraceService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.panda.commerce.DetailPart;
-import org.netsharp.panda.commerce.FormDetailPart;
-import org.netsharp.panda.commerce.FormPart;
-import org.netsharp.panda.commerce.ListPart;
 
-import java.util.List;
+import com.gongsibao.trade.base.INDepReceivableService;
 
 /**
  * Created by win on 2018/3/6.

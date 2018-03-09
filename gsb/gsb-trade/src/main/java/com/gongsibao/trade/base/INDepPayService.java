@@ -1,8 +1,8 @@
 package com.gongsibao.trade.base;
 
-import com.gongsibao.entity.trade.NDepPay;
-import com.gongsibao.entity.trade.NReceiptReceived;
 import org.netsharp.base.IPersistableService;
+
+import com.gongsibao.entity.trade.NDepPay;
 
 /**
  * Created by win on 2018/2/27.
