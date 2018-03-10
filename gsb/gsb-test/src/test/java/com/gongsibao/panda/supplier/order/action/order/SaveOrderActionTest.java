@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.plugin.bean.BeanPath;
 
-import com.gongsibao.panda.crm.action.BaseActionTest;
+import com.gongsibao.panda.supplier.crm.action.BaseActionTest;
 import com.gongsibao.trade.service.action.order.save.ActionSaveOrderAutoAllocation;
 import com.gongsibao.trade.service.action.order.save.ActionSaveOrderChangePriceAudit;
 import com.gongsibao.trade.service.action.order.save.ActionSaveOrderCompany;

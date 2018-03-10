@@ -3,7 +3,8 @@ package com.gongsibao.panda.supplier.order.action.order;
 import com.gongsibao.trade.service.action.order.transform.ActionTransformPersist;
 import com.gongsibao.trade.service.action.order.transform.ActionTransformRecordLog;
 import com.gongsibao.trade.service.action.order.transform.ActionTransformVerify;
-import com.gongsibao.panda.crm.action.BaseActionTest;
+import com.gongsibao.panda.supplier.crm.action.BaseActionTest;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.plugin.bean.BeanPath;
