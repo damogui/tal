@@ -33,8 +33,7 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
     //5.运营管理
 	com.gongsibao.panda.platform.operation.AllTest.class,
 
-    //2.客户管理
-	  //com.gongsibao.panda.crm.AllTest.class,
+    //2.服务商系统
 	  SupplierAllTest.class,
 
     //6.商品管理

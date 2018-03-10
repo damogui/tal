@@ -32,6 +32,6 @@ import org.junit.runners.Suite.SuiteClasses;
 		NavigationTest.class
 		})
 		
-public class AllTest {
+public class IgirlAllTest {
 
 }

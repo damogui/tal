@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import com.gongsibao.panda.supplier.crm.CrmAllTest;
+import com.gongsibao.panda.supplier.igirl.IgirlAllTest;
 import com.gongsibao.panda.supplier.order.OrderAllTest;
 import com.gongsibao.panda.supplier.sys.SysAllTest;
 
@@ -16,7 +17,7 @@ import com.gongsibao.panda.supplier.sys.SysAllTest;
 		SupplierWorkbenchTest.class,
 		CrmAllTest.class,
 		OrderAllTest.class,
-		com.gongsibao.panda.supplier.igirl.AllTest.class,
+		IgirlAllTest.class,
 		SysAllTest.class,
 		})
 		
