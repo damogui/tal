@@ -95,7 +95,7 @@
 
 <script src='/panda-res/js/system.js'></script>
 <script src='/panda-res/js/panda.core.js'></script>
-<script src='/gsb/supplier/js/portal-statistic.js'></script>
+<script src='/gsb/supplier/home/js/portal-statistic.js'></script>
 
 <script>
 		//销售简报
