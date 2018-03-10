@@ -51,7 +51,7 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
 
 
     //11.gardian
- 	com.gongsibao.panda.gardian.AllTest.class,
+ 	com.gongsibao.panda.platform.gardian.AllTest.class,
 	//处理资源Id
 	org.netsharp.meta.end.AllTests.class,
 	})
