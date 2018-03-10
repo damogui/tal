@@ -6,7 +6,7 @@ import org.netsharp.core.MtableManager;
 
 import com.gongsibao.crm.web.NCustomerVerifyListPart;
 import com.gongsibao.entity.crm.NCustomer;
-import com.gongsibao.panda.operation.workspace.crm.CustomerVerifyWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.CustomerVerifyWorkspaceTest;
 
 public class SalesmanVerifyCustomerWorkspaceTest extends CustomerVerifyWorkspaceTest{
 

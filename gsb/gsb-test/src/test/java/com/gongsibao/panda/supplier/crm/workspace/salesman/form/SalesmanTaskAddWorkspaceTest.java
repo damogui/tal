@@ -9,7 +9,7 @@ import org.netsharp.util.StringManager;
 
 import com.gongsibao.crm.web.NCustomerTaskAddFormPart;
 import com.gongsibao.entity.crm.NCustomerTask;
-import com.gongsibao.panda.operation.workspace.crm.form.TaskAddWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.form.TaskAddWorkspaceTest;
 
 public class SalesmanTaskAddWorkspaceTest extends TaskAddWorkspaceTest{
 

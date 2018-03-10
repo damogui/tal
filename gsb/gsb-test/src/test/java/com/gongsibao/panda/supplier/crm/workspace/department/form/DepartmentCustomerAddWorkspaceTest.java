@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.util.StringManager;
 
-import com.gongsibao.panda.operation.workspace.crm.form.CustomerAddWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.form.CustomerAddWorkspaceTest;
 
 public class DepartmentCustomerAddWorkspaceTest extends CustomerAddWorkspaceTest{
 

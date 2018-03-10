@@ -4,11 +4,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import com.gongsibao.panda.operation.workspace.crm.old.CompanyIntentionWorkspaceTest;
-import com.gongsibao.panda.operation.workspace.crm.old.CustomerAllWorkspaceTest;
-import com.gongsibao.panda.operation.workspace.crm.old.CustomerMyOrderWorkspaceTest;
-import com.gongsibao.panda.operation.workspace.crm.old.CustomerOrderWorkspaceTest;
-import com.gongsibao.panda.operation.workspace.crm.old.CustomerServiceConfigWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.old.CompanyIntentionWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.old.CustomerAllWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.old.CustomerMyOrderWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.old.CustomerOrderWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.old.CustomerServiceConfigWorkspaceTest;
 import com.gongsibao.panda.supplier.crm.action.ActionAllTest;
 import com.gongsibao.panda.supplier.crm.reference.CityReferenceTest;
 import com.gongsibao.panda.supplier.crm.reference.CompanyIntentionReferenceTest;

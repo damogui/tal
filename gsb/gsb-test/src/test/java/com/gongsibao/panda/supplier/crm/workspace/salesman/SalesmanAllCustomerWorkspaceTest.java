@@ -13,7 +13,7 @@ import org.netsharp.util.StringManager;
 import com.gongsibao.controls.PropertyQueryDictComboBox;
 import com.gongsibao.crm.web.NCustomerAllListPart;
 import com.gongsibao.entity.supplier.Supplier;
-import com.gongsibao.panda.operation.workspace.crm.CustomerALLWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.CustomerALLWorkspaceTest;
 
 public class SalesmanAllCustomerWorkspaceTest extends CustomerALLWorkspaceTest{
 	

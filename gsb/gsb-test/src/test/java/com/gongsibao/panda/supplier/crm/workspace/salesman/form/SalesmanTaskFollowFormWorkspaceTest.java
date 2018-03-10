@@ -2,7 +2,7 @@ package com.gongsibao.panda.supplier.crm.workspace.salesman.form;
 
 import org.junit.Before;
 
-import com.gongsibao.panda.operation.workspace.crm.form.TaskFollowFormWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.form.TaskFollowFormWorkspaceTest;
 
 public class SalesmanTaskFollowFormWorkspaceTest extends TaskFollowFormWorkspaceTest {
 

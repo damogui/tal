@@ -10,7 +10,7 @@ import org.netsharp.util.StringManager;
 
 import com.gongsibao.crm.web.NCustomerFormPart;
 import com.gongsibao.entity.crm.NCustomer;
-import com.gongsibao.panda.operation.workspace.crm.form.CustomerEditWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.form.CustomerEditWorkspaceTest;
 
 public class DepartmentCustomerEditWorkspaceTest  extends CustomerEditWorkspaceTest{
 	@Before
