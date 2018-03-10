@@ -56,6 +56,6 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
 	//处理资源Id
 	org.netsharp.meta.end.AllTests.class,
 	})
-public class NewAllTest {
+public class DevAllTest {
 
 }
