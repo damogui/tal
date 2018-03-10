@@ -25,10 +25,10 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
 	com.gongsibao.panda.user.AllTest.class,
 
     //3.招商CRM
-	com.gongsibao.panda.franchisee.AllTest.class,
+	com.gongsibao.panda.platform.franchisee.AllTest.class,
 	
     //4.股转中心
-	com.gongsibao.panda.ma.AllTest.class,
+	com.gongsibao.panda.platform.ma.AllTest.class,
 	
     //5.运营管理
 	com.gongsibao.panda.operation.AllTest.class,
