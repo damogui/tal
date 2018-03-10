@@ -8,7 +8,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.crm.web.CustomerMyOrderListPart;
 import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.panda.trade.workspace.order.AllOrderWorkspaceTest;
+import com.gongsibao.panda.platform.trade.workspace.order.AllOrderWorkspaceTest;
 
 /**
  * Created by zhangchao on 2018/2/9.

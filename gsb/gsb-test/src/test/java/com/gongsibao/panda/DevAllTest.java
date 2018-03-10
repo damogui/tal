@@ -19,7 +19,7 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
 //    org.netsharp.scrum.meta.AllTests.class,
 
 //	//1.基础信息 
-	com.gongsibao.panda.basic.AllTest.class,
+	com.gongsibao.panda.platform.basic.AllTest.class,
 
     //2.用户中心
 //	com.gongsibao.panda.user.AllTest.class,
@@ -42,10 +42,10 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
 
 
     //8.交易中心
-	com.gongsibao.panda.trade.AllTest.class,
+	com.gongsibao.panda.platform.trade.AllTest.class,
 
     //9.报表中心
-	 com.gongsibao.panda.report.AllTest.class,
+	 com.gongsibao.panda.platform.report.AllTest.class,
 
     //10.igri
 	//com.gongsibao.panda.igirl.AllTest.class,
