@@ -32,7 +32,7 @@ public class RefundAuditWorkspaceTest extends WorkspaceCreationBase {
 		listPartName = formPartName = "退单审核列表";
 		meta = MtableManager.getMtable(entity);// 获取实体元数据
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_Trade_Audit_Refund_Aduit";// 菜单节点码（名称）
+		resourceNodeCode = "GSB_Trade_Audit_Refund";// 菜单节点码（名称）
 
 		formOpenMode = OpenMode.WINDOW;// 编辑框打开的形式
 		openWindowHeight = 400;

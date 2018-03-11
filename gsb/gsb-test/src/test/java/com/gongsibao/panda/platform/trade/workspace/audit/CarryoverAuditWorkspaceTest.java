@@ -8,33 +8,22 @@ import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
-import org.netsharp.panda.entity.PForm;
-import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.bd.AuditLog;
 
-/**   
- * @ClassName:  ChangePriceAuditWorkspaceTest   
- * @Description:TODO 改价审核
- * @author: 韩伟
- * @date:   2017年12月7日 下午8:09:45   
- *     
- * @Copyright: 2017 www.yikuaxiu.com Inc. All rights reserved. 
- */
-public class ChangePriceAuditWorkspaceTest extends WorkspaceCreationBase {
-
+public class CarryoverAuditWorkspaceTest extends WorkspaceCreationBase{
 	@Before
 	public void setup() {
 
 		entity = AuditLog.class;// 实体
-		urlList = "/trade/audit/change/list";// 列表的url
-		urlForm = "/trade/audit/change/form";// 弹出框的url
+		urlList = "/trade/audit/carryover/list";// 列表的url
+		urlForm = "/trade/audit/carryover/form";// 弹出框的url
 		listPartName = formPartName = "改价审核列表";
 		meta = MtableManager.getMtable(entity);// 获取实体元数据
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_Trade_Audit_Price_Change";// 菜单节点码（名称）
+		resourceNodeCode = "GSB_Trade_Audit_Carryover";// 菜单节点码（名称）
 
 		formOpenMode = OpenMode.WINDOW;// 编辑框打开的形式
 		openWindowHeight = 400;

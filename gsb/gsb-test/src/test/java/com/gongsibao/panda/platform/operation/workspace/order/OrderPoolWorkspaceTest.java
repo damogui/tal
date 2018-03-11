@@ -1,13 +1,13 @@
 package com.gongsibao.panda.platform.operation.workspace.order;
 
-import com.gongsibao.tools.PToolbarHelper;
-import com.gongsibao.trade.web.OrderAllListPart;
 import org.junit.Before;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.plugin.dic.ToolbarType;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
+
+import com.gongsibao.tools.PToolbarHelper;
 
 /**
  * Created by zhangchao on 2018/3/9.
@@ -22,8 +22,8 @@ public class OrderPoolWorkspaceTest extends OrderALLWorkspaceTest {
 
         super.setup();
 
-        urlList = "/operation/order/salesman/pool/list";// 列表的url
-        resourceNodeCode = "Operation_Order_Salesman_Pool";
+        urlList = "/operation/order/pool/list";// 列表的url
+        resourceNodeCode = "Operation_Order_Pool";
         listPartName = formPartName = "订单池";
         listToolbarPath = "operation/order/orderpool/edit";
         listFilter = "(owner_id is null or owner_id=0)";

@@ -22,8 +22,18 @@ import com.gongsibao.panda.platform.operation.workspace.crm.form.CustomerEditWor
 import com.gongsibao.panda.platform.operation.workspace.crm.form.TaskAddWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.form.TaskEditWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.form.TaskFollowFormWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.order.CarryoverWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.order.ContractWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.order.InvoiceWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.order.OrderALLWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.order.OrderPoolWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.order.PerformanceWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.order.ReceivedWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.order.RefundWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.order.ReportDayWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.order.ReportMonthWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.order.ReportWeekWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.order.StagingWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.reference.QualityRefeerenceTest;
 import com.gongsibao.panda.platform.operation.workspace.reference.SupplierDepartmentReferenceTest;
 import com.gongsibao.panda.platform.operation.workspace.reference.SupplierReferenceTest;
@@ -117,8 +127,17 @@ import com.gongsibao.panda.platform.operation.workspace.wanda.WanDaSoOrderWorksp
         //订单操作
         OrderALLWorkspaceTest.class,
         OrderPoolWorkspaceTest.class,
-
-
+        CarryoverWorkspaceTest.class,
+        ContractWorkspaceTest.class,
+        InvoiceWorkspaceTest.class,
+        PerformanceWorkspaceTest.class,
+        ReceivedWorkspaceTest.class,
+        RefundWorkspaceTest.class,
+        StagingWorkspaceTest.class,
+        ReportDayWorkspaceTest.class,
+        ReportWeekWorkspaceTest.class,
+        ReportMonthWorkspaceTest.class,
+        
 
         ImportTaskQualityDataTest.class,
         ImportTaskRoleAndFunctionTest.class,

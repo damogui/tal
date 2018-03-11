@@ -45,32 +45,34 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(SoOrderDTO.class.getName(), "订单操作", node1.getCode() + "_Order_Operation", IOrderOperationService.class.getName(), node1.getId());			
 		}
 		
-		/*node1 = this.createResourceNodeCategory("订单操作", prefix + "_Operation", node.getId());
-		{
-			this.createResourceNodeVoucher(SoOrder.class.getName(), "操作订单池", node1.getCode() + "_Operation_Order", IOrderService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(SoOrder.class.getName(), "我负责的订单", node1.getCode() + "_Responsible_Order", IOrderService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(SoOrder.class.getName(), "订单审核", node1.getCode() + "_Order_Audit", IOrderService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(SoOrder.class.getName(), "订单流量监控 ", node1.getCode() + "_Monitoring_Pool", IOrderService.class.getName(), node1.getId());
-		}*/
-
 		node1 = this.createResourceNodeCategory("审核中心", prefix + "_Audit", node.getId());
 		{
+			this.createResourceNodeVoucher(AuditLog.class.getName(), "业绩审核", node1.getCode() + "_Performance", IAuditLogService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(AuditLog.class.getName(), "回款审核", node1.getCode() + "_Received", IAuditLogService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(AuditLog.class.getName(), "退款审核", node1.getCode() + "_Refund", IAuditLogService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(AuditLog.class.getName(), "结转审核", node1.getCode() + "_Carryover", IAuditLogService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(AuditLog.class.getName(), "发票审核", node1.getCode() + "_Invoice", IAuditLogService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(AuditLog.class.getName(), "成本审核", node1.getCode() + "_Cost", IAuditLogService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(AuditLog.class.getName(), "合同审核", node1.getCode() + "_Contract", IAuditLogService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(AuditLog.class.getName(), "改价审核", node1.getCode() + "_Price_Change", IAuditLogService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(AuditLog.class.getName(), "合同审核", node1.getCode() + "_Contract_Audit", IAuditLogService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(AuditLog.class.getName(), "发票审核", node1.getCode() + "_Invoice_Audit", IAuditLogService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(AuditLog.class.getName(), "收款审核", node1.getCode() + "_Receipt_Audit", IAuditLogService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(AuditLog.class.getName(), "退单审核", node1.getCode() + "_Refund_Aduit", IAuditLogService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(AuditLog.class.getName(), "分期审核", node1.getCode() + "_Installment", IAuditLogService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(AuditLog.class.getName(), "分期审核", node1.getCode() + "_Staging", IAuditLogService.class.getName(), node1.getId());
 			/*this.createResourceNodeVoucher(AuditLog.class.getName(), "商城充值审核", node1.getCode() + "_Recharge", IAuditLogService.class.getName(), node1.getId());*/
+
+//			回发票审核
+
 		}
 
-		/*node1 = this.createResourceNodeCategory("成本管理", prefix + "_Cost", node.getId());
+		node1 = this.createResourceNodeCategory("成本管理", prefix + "_Cost", node.getId());
 		{
+//			全部订单
+//			全部成本
+//			全部回款发票
+
 			this.createResourceNodeVoucher(SoOrder.class.getName(), "成本管理", node1.getCode() + "_Manage", IOrderService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(SoOrder.class.getName(), "收款方管理", node1.getCode() + "_Payee", IOrderService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(SoOrder.class.getName(), "请款审核", node1.getCode() + "_CashOut", IOrderService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(SoOrder.class.getName(), "供应商发票审核", node1.getCode() + "_Invoice", IOrderService.class.getName(), node1.getId());
-		}*/
+		}
 
 		node1 = this.createResourceNodeCategory("支付记录", prefix + "_Payment", node.getId());
 		{

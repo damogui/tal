@@ -27,12 +27,12 @@ public class InvoiceAuditWorkspaceTest extends WorkspaceCreationBase {
 	public void setup() {
 
 		entity = AuditLog.class;// 实体
-		urlList = "/trade/audit/invice/list";// 列表的url
-		urlForm = "/trade/audit/invice/form";// 弹出框的url
+		urlList = "/trade/audit/invoice/list";// 列表的url
+		urlForm = "/trade/audit/invoice/form";// 弹出框的url
 		listPartName = formPartName = "发票审核列表";
 		meta = MtableManager.getMtable(entity);// 获取实体元数据
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_Trade_Audit_Invoice_Audit";// 菜单节点码（名称）
+		resourceNodeCode = "GSB_Trade_Audit_Invoice";// 菜单节点码（名称）
 
 		formOpenMode = OpenMode.WINDOW;// 编辑框打开的形式
 		openWindowHeight = 400;

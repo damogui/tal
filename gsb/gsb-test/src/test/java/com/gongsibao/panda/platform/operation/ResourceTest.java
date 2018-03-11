@@ -209,8 +209,21 @@ public class ResourceTest extends ResourceCreationBase {
 
         node1 = this.createResourceNodeCategory("订单管理", "Operation_Order", node.getId());
         {
-            this.createResourceNodeVoucher(SoOrder.class.getName(), "全部订单", "Operation_Order_Salesman_All", ISoOrderService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(SoOrder.class.getName(), "订单池", "Operation_Order_Salesman_Pool", ISoOrderService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(SoOrder.class.getName(), "全部订单", "Operation_Order_All", ISoOrderService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(SoOrder.class.getName(), "订单池", "Operation_Order_Pool", ISoOrderService.class.getName(), node1.getId());
+
+            this.createResourceNodeVoucher(SoOrder.class.getName(), "订单业绩", "Operation_Order_Performance", ISoOrderService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(SoOrder.class.getName(), "回款业绩", "Operation_Order_Received", ISoOrderService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(SoOrder.class.getName(), "退款订单", "Operation_Order_Refund", ISoOrderService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(SoOrder.class.getName(), "分期订单", "Operation_Order_Staging", ISoOrderService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(SoOrder.class.getName(), "结转订单", "Operation_Order_Carryover", ISoOrderService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(SoOrder.class.getName(), "合同管理", "Operation_Order_Contract", ISoOrderService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(SoOrder.class.getName(), "发票管理", "Operation_Order_Invoice", ISoOrderService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(SoOrder.class.getName(), "日统计", "Operation_Order_Day_Report", ISoOrderService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(SoOrder.class.getName(), "周统计", "Operation_Order_Week_Report", ISoOrderService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(SoOrder.class.getName(), "月统计", "Operation_Order_Month_Report", ISoOrderService.class.getName(), node1.getId());
+            
+
         }
     }
 }
