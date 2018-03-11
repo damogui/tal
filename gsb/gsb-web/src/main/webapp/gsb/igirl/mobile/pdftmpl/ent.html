@@ -5,21 +5,6 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no">
 <title>知产宝</title>
-<!-- Bootstrap -->
-<link href='./res/bs4/css/bootstrap.min.css' rel='stylesheet'	type='text/css' />
-<link href='./res/fa/css/font-awesome.min.css' rel='stylesheet'	type='text/css'/>
-
-<link href='./res/buttons/buttons.min.css' rel='stylesheet'	type='text/css' />
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-		<script src="./res/vue/vue.min.js"></script>
-		<script src="./res/vue/vue-router.min.js"></script>
-		<script src="./res/vue/axios.min.js"></script>
-		<script src='/package/plupload/js/plupload.full.min.js'></script>
 <style>
 body {
 }
@@ -36,10 +21,10 @@ input{
 </style>
 </head>
 <body>
-	<div id="kpMain"  class="container-fluid" style="padding:20px;margin:0px"">   
+	<div id="kpMain" style="padding:20px;margin:0px"">   
 	      <div style="margin:5px auto;width:100%;text-align:center;"><h2>商&nbsp;标&nbsp;代&nbsp;理&nbsp;委&nbsp;托&nbsp;书</h2></div>   
 	            <br/>         
-	      <table style="width:100%;" cellpadding="0px">
+	      <table style="width:100%;display:block]" cellpadding="0px">
 			       <tbody>
 				         <tr>
 				           <td style="font-size:0.8rem" colspan="2">
@@ -48,31 +33,28 @@ input{
 				                   &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
 				                   &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
 				                   &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+				                   &nbsp; <span id="client"></span>&nbsp;
 				                   &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
 				                   &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-				                   &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-				                   &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-				   
-				         
 				                   
 				               </span>
 				               <span>是</span>
 				               <span style="text-decoration:underline">
-				                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				                    &nbsp;&nbsp;&nbsp;中&nbsp;&nbsp;&nbsp;
 				               </span>
 				               <span>国国籍、</span>
 				               <p>依：
 				               <span style="text-decoration:underline">
-				                    &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				                    &nbsp;&nbsp;中&nbsp;&nbsp;
 				               </span>
 				               <span>国法律组成，现委托</span>
 				               <span style="text-decoration:underline">
-				                  &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;汉唐信通（北京）咨询股份有限公司&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+				                  &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<span id="delecomp">汉唐信通（北京）咨询股份有限公司</span>&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
 				               </span>
 				               <br/><br/><br/>
 				               <p style="float:left;">代理</p>
-				               <img style="width:100px;height:100px;float:left;margin-left:80px;margin-top:-55px;" src="http://gsb-public.oss-cn-beijing.aliyuncs.com/netsharp_frmjmPrCthfEp4CSErDS4XQPwHSAiA8t.jpg"/>
-				               <span style="float:left;text-decoration:underline;z-index:1000;margin-left:-180px;margin-top:10px">
+				               <img id="img" style="width:50px;height:50px;float:left;margin-left:80px;margin-top:-30px;" src="http://gsb-public.oss-cn-beijing.aliyuncs.com/netsharp_frmjmPrCthfEp4CSErDS4XQPwHSAiA8t.jpg"/>
+				               <span style="float:left;text-decoration:underline;z-index:1000;margin-left:-130px;margin-top:10px">
 				                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				                &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -162,10 +144,8 @@ input{
 				            <td style="font-size:0.8rem">
 				               <br/><br/>
 				                            委托人地址:<span style="text-decoration:underline">
-				                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				                            &nbsp;&nbsp;</span>
+				                            <span id="applieraddress"></span>
+				                       </span>
 				            </td>
 				            <td style="font-size:0.8rem">
 				               <br/><br/>
@@ -179,25 +159,63 @@ input{
 				         </tr>
 				         <tr>
 				            <td style="font-size:0.8rem">联&nbsp;&nbsp;&nbsp;&nbsp;系&nbsp;&nbsp;&nbsp;&nbsp;人:
-				            <span style="text-decoration:underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+				            <span style="text-decoration:underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="proxycontactname"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 				            </td>
 				            <td ></td>
 				         </tr>
 				         <tr>
-				            <td style="font-size:0.8rem">电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话:<span style="text-decoration:underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+				            <td style="font-size:0.8rem">电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话:<span style="text-decoration:underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="ywphone"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 				            </td>
 				            <td></td>
 				         </tr>
 				         <tr>
-				            <td style="font-size:0.8rem">邮政&nbsp;&nbsp;&nbsp;&nbsp;编码:<span style="text-decoration:underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+				            <td style="font-size:0.8rem">邮政&nbsp;&nbsp;&nbsp;&nbsp;编码:<span style="text-decoration:underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="mailCode"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 				            </td>
-				            <td align="right" style="font-size:0.8rem;padding-right:30px">2017年12月31日</td>
+				            <td align="right" style="font-size:0.8rem;padding-right:30px"><span id="deledate"></span></td>
 				         </tr>
 			       </tbody>
 	      </table>
 	</div>
 </body>
 <script src="/package/easyui/jquery.min.js"></script>
-<script src="./res/bs4/js/bootstrap.min.js"></script>
+<script src='/package/layer/layer.js'></script>
+<script src="/panda-res/js/system.js"></script>
+<script src="/panda-res/js/panda.core.js"></script>
+<script type="text/javascript">
+ $(function(){
+	 var siteCtl=new org.netsharp.core.JServiceLocator();
+	 var ctlServiceStr2="com.gongsibao.igirl.web.TradeMarkCasePart";
+		function getHashParameter(key) {
+			var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)", "i");
+			var index=window.location.href.indexOf("?");
+			if(index!=-1){
+				var searchStr=window.location.href.substr(index);
+				var r = searchStr.substr(1).match(reg);
+				if (r != null) {
+					var x = unescape(r[2]);
+					return decodeURI(x);
+				} else {
+					return null;
+				}
+			}
+			
+		}
+		var casecode=getHashParameter("casecode");
+		var imgurl=getHashParameter("imgurl");
+		 siteCtl.invoke(ctlServiceStr2,"fetchUnconfirmedCaseInfoByCode",[casecode],function(d){
+			   console.log(d)
+				$("#client").text(d.applier);
+				$("#delecomp").text(d.proxyCompanyName);
+				$("#applieraddress").text(d.applierAddress);
+				$("#ywphone").text(d.ywPhone);
+				$("#proxycontactname").text(d.caseProxyContactPerson);
+				$("#mailCode").text(d.mailCode);
+				var dd=new Date();
+				$("#deledate").text(dd.getFullYear()+"年"+(dd.getMonth()+1)+"月"+dd.getDate()+"日");
+				$("#img").attr("src",imgurl);
+		 });
+ });
+</script>
+
 </html>
 

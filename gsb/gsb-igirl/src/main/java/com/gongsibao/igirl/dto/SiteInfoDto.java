@@ -12,6 +12,9 @@ public class SiteInfoDto {
     
     //站点访问的apiip
   private String webApiIp;
+  
+  //站点访问的domain
+  private String domain;
 
 	public String getLogoUrl() {
 		return logoUrl;
@@ -35,6 +38,14 @@ public class SiteInfoDto {
 
 	public void setWebApiIp(String webApiIp) {
 		this.webApiIp = webApiIp;
+	}
+
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
 	}
 
    

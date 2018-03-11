@@ -24,6 +24,7 @@ $(function(){
 	var sourceInfo={supplierId:supplierId,casecode:casecode,source:source};
 	siteCtl.invoke(ctlServiceStr,"fetchSiteInfo",[supplierId],function(d){
 	var ip=d.webApiIp;
+	var domain=d.domain;
 	axios.get(ip+"/vue/comp/base").then(function(res){
 		  //加载所有基础vue组件
 	  // console.log(res)
@@ -174,7 +175,8 @@ $(function(){
 							  sourceInfo:"",
 							  caseinfo:null,
 							  ossconfig:null,
-							  webApiIp:ip
+							  webApiIp:ip,
+							  currentDomian:domain,
 						  }
 					  },
 					 created:function(){
