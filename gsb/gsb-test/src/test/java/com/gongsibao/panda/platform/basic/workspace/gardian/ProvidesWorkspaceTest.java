@@ -1,4 +1,4 @@
-package com.gongsibao.panda.platform.gardian.workspace;
+package com.gongsibao.panda.platform.basic.workspace.gardian;
 
 import com.gongsibao.entity.gardian.baseinfo.Device;
 import com.gongsibao.entity.gardian.baseinfo.Provides;
