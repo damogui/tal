@@ -23,6 +23,7 @@ import com.gongsibao.utils.SupplierSessionManager;
  */
 public class ActionTransferRecordLog implements IAction {
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void execute(ActionContext ctx) {
 
@@ -74,6 +75,7 @@ public class ActionTransferRecordLog implements IAction {
 	 * @param typeCountMap
 	 * @param task
 	 */
+	@SuppressWarnings("rawtypes")
 	private void salesmanTosalesman(Map<Integer, Integer> typeCountMap,NCustomerTask task){
 		SalesmanOrganization orgaTo = SupplierSessionManager.getSalesmanOrganization(task.getOwnerId());
 		int countTo = 0;
@@ -118,6 +120,7 @@ public class ActionTransferRecordLog implements IAction {
 	 * @param typeCountMap
 	 * @param task
 	 */
+	@SuppressWarnings("rawtypes")
 	private void seasTosalesman(Map<Integer, Integer> typeCountMap,NCustomerTask task){
 		SalesmanOrganization orgaTo = SupplierSessionManager.getSalesmanOrganization(task.getOwnerId());
 		int countTo = 0;
@@ -167,6 +170,7 @@ public class ActionTransferRecordLog implements IAction {
 	 * @param typeCountMap
 	 * @param task
 	 */
+	@SuppressWarnings("rawtypes")
 	private void salesmanToseas(Map<Integer, Integer> typeCountMap,NCustomerTask task){
 		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
 		Integer leaderId = salesmanService.getLeaderId(task.getSupplierId(), task.getDepartmentId());
@@ -213,6 +217,7 @@ public class ActionTransferRecordLog implements IAction {
 	 * @param typeCountMap
 	 * @param task
 	 */
+	@SuppressWarnings("rawtypes")
 	private void seasToseas(Map<Integer, Integer> typeCountMap,NCustomerTask task){
 		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
 		Integer leaderIdTo = salesmanService.getLeaderId(task.getSupplierId(), task.getDepartmentId());

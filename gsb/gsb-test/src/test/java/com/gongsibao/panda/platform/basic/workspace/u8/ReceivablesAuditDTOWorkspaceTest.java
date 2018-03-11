@@ -89,7 +89,7 @@ public class ReceivablesAuditDTOWorkspaceTest extends WorkspaceCreationBase {
 	protected PQueryProject createQueryProject(ResourceNode node) {
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
-		PQueryItem queryItem = null;
+//		PQueryItem queryItem = null;
 		addQueryItem(queryProject, "id", "申请编号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "orderNos", "关联订单号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "applyUserName", "申请人", ControlTypes.TEXT_BOX);

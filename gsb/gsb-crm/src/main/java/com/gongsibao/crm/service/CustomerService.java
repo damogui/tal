@@ -13,8 +13,6 @@ import org.netsharp.core.MtableManager;
 import org.netsharp.core.Oql;
 import org.netsharp.organization.base.IEmployeeService;
 import org.netsharp.organization.entity.Employee;
-import org.netsharp.persistence.IPersister;
-import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
@@ -25,7 +23,6 @@ import com.gongsibao.crm.base.ICustomerServiceConfigService;
 import com.gongsibao.entity.crm.Customer;
 import com.gongsibao.entity.crm.CustomerProdMap;
 import com.gongsibao.entity.crm.dic.ServiceType;
-import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.uc.User;
 import com.gongsibao.uc.base.IUserService;
 
@@ -220,19 +217,19 @@ public class CustomerService extends GsbPersistableService<Customer> implements 
 		return entity;
 	}
 
-	private List<SoOrder> getOrderList(int accountId) {
-
-		Oql oql = new Oql();
-		{
-			oql.setType(SoOrder.class);
-			oql.setSelects("*");
-			oql.setFilter("accountId=?");
-			oql.getParameters().add("accountId", accountId, Types.INTEGER);
-		}
-
-		IPersister<SoOrder> orderPm = PersisterFactory.create();
-		return orderPm.queryList(oql);
-	}
+//	private List<SoOrder> getOrderList(int accountId) {
+//
+//		Oql oql = new Oql();
+//		{
+//			oql.setType(SoOrder.class);
+//			oql.setSelects("*");
+//			oql.setFilter("accountId=?");
+//			oql.getParameters().add("accountId", accountId, Types.INTEGER);
+//		}
+//
+//		IPersister<SoOrder> orderPm = PersisterFactory.create();
+//		return orderPm.queryList(oql);
+//	}
 
 	@Override
 	public Customer byContactWay(String contactWay, String type) {

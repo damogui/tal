@@ -1,6 +1,5 @@
 package com.gongsibao.taurus.message.response;
 
-import com.gongsibao.taurus.entity.CompanyNameByKey;
 import com.gongsibao.taurus.entity.TmAssemble;
 import com.gongsibao.taurus.message.ResponseMessage;
 

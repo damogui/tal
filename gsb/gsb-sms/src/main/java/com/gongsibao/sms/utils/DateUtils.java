@@ -610,7 +610,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
         String d1 = "2016-02-07至2026-02-06";
         String d2 = "2015/08/07 - 2025/08/06";
 
-        Date nowDate = new Date();
+//        Date nowDate = new Date();
 
         System.out.println(DateUtils.getDateByDateStr(StringUtils.trimToEmpty(d1.split("至")[0])));
         System.out.println(DateUtils.getDateByDateStr(StringUtils.trimToEmpty(d1.split("至")[1])));
@@ -622,7 +622,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
         Calendar cal_end = Calendar.getInstance();
         cal_start.setTime(new Date());
         cal_end.setTime(DateUtils.strToDate("2018-09-27 12:12:12"));
-        int handleDayCount = DateUtils.getWorkingDay(cal_start, cal_end);
+//        int handleDayCount = DateUtils.getWorkingDay(cal_start, cal_end);
 
         System.out.println("handleDayCount:" + 73500L * 100);
 
@@ -799,10 +799,8 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
             d2 = swap;
         }
 
-        int betweendays = getDaysBetween(d1, d2);
-
-
-        int charge_date = 0;
+//        int betweendays = getDaysBetween(d1, d2);
+//        int charge_date = 0;
         int charge_start_date = 0;//开始日期的日期偏移量
         int charge_end_date = 0;//结束日期的日期偏移量
         // 日期不在同一个日期内

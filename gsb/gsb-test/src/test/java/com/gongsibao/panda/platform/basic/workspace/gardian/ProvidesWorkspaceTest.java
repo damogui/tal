@@ -1,23 +1,24 @@
 package com.gongsibao.panda.platform.basic.workspace.gardian;
 
-import com.gongsibao.entity.gardian.baseinfo.Device;
-import com.gongsibao.entity.gardian.baseinfo.Provides;
-import com.gongsibao.igirl.web.TradeMarkDetailPart;
 import org.junit.Before;
-import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
-import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.dic.PartType;
-import org.netsharp.panda.entity.*;
-import org.netsharp.panda.plugin.entity.PToolbar;
-import org.netsharp.panda.plugin.entity.PToolbarItem;
+import org.netsharp.panda.entity.PDatagrid;
+import org.netsharp.panda.entity.PDatagridColumn;
+import org.netsharp.panda.entity.PForm;
+import org.netsharp.panda.entity.PFormField;
+import org.netsharp.panda.entity.PPart;
+import org.netsharp.panda.entity.PQueryProject;
+import org.netsharp.panda.entity.PWorkspace;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
+
+import com.gongsibao.entity.gardian.baseinfo.Provides;
 
 /**   
  * @ClassName:  ProductWorkspaceTest   
@@ -54,7 +55,7 @@ public class ProvidesWorkspaceTest extends WorkspaceCreationBase{
 			datagrid.setToolbar("panda/datagrid/row/edit"); //系统默认的工具栏
 			datagrid.setName("服务列表");
 		}
-		PDatagridColumn column = null;
+//		PDatagridColumn column = null;
 		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "useage", "用途", ControlTypes.TEXTAREA, 100);
 
@@ -77,7 +78,7 @@ public class ProvidesWorkspaceTest extends WorkspaceCreationBase{
 			form.setColumnCount(2);//每行列数
 		}
 
-		PFormField field = null;
+//		PFormField field = null;
 		addFormField(form, "name", "名称", null, ControlTypes.TEXT_BOX, true,false).setWidth(200);
 		addFormField(form, "occurrences", "预计并发数", null, ControlTypes.NUMBER_BOX, false,false).setWidth(200);
 		addFormField(form, "domainname", "使用域名", null, ControlTypes.TEXT_BOX, false,false).setWidth(200);
@@ -122,7 +123,7 @@ public class ProvidesWorkspaceTest extends WorkspaceCreationBase{
 			form.setColumnCount(2);
 			form.setName("服务环境");
 			String groupName = null;
-			PFormField formField = null;
+//			PFormField formField = null;
 			addFormField(form, "name", "名称", groupName, ControlTypes.TEXT_BOX, true, false);
 			addFormField(form, "privateip", "内网IP", "网络环境", ControlTypes.TEXT_BOX, true, false);
 			addFormField(form, "privateport", "内网端口", "网络环境", ControlTypes.NUMBER_BOX, true, false);

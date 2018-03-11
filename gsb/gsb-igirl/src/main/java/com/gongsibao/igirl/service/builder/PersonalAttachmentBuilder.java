@@ -1,10 +1,8 @@
 package com.gongsibao.igirl.service.builder;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.Oql;
 
 import com.gongsibao.entity.igirl.DownloadAttachment;
 import com.gongsibao.entity.igirl.TradeMark;
@@ -16,7 +14,6 @@ import com.gongsibao.entity.igirl.dict.FileType;
 import com.gongsibao.igirl.base.ITradeMarkCaseService;
 import com.gongsibao.igirl.service.builder.base.AbstractSwitchBuilder;
 import com.gongsibao.igirl.service.builder.base.AttachmentBuilderManager;
-import com.gongsibao.igirl.service.builder.base.ISwitch;
 /**
  * 
  * @author jy
@@ -49,8 +46,4 @@ public class PersonalAttachmentBuilder extends AbstractSwitchBuilder{
 		List<DownloadAttachment> ds=new ArrayList<DownloadAttachment>();
 		return ds;
 	}
-
-
-
-
 }

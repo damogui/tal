@@ -1,24 +1,27 @@
 package com.gongsibao.igirl.web;
-import com.gongsibao.entity.igirl.baseinfo.IGirlConfig;
-import com.gongsibao.entity.igirl.baseinfo.NCLOne;
-import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
-import com.gongsibao.entity.igirl.baseinfo.NclBatch;
-import com.gongsibao.igirl.base.*;
-import com.gongsibao.igirl.utils.JsonFormatTool;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import org.apache.commons.io.FileUtils;
+
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.ListPart;
 import org.netsharp.util.StringManager;
 
-import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.List;
+import com.gongsibao.entity.igirl.baseinfo.NCLOne;
+import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
+import com.gongsibao.entity.igirl.baseinfo.NclBatch;
+import com.gongsibao.igirl.base.INCLOneService;
+import com.gongsibao.igirl.base.INCLTwoService;
+import com.gongsibao.igirl.base.INclBatchService;
+import com.gongsibao.igirl.base.ITradeMarkService;
 
 /**
  * 我的任务列表操作功能集合

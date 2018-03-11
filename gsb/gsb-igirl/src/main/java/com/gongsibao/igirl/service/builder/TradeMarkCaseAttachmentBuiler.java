@@ -13,7 +13,6 @@ import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.UploadAttachment;
 import com.gongsibao.entity.igirl.dict.ShareGroup;
 import com.gongsibao.igirl.service.builder.base.AttachmentBuilderManager;
-import com.gongsibao.igirl.service.builder.base.IAttachmentBuilder;
 
 public class TradeMarkCaseAttachmentBuiler{
 	

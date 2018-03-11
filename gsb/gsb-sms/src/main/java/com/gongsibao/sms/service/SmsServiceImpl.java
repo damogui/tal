@@ -108,7 +108,8 @@ public class SmsServiceImpl implements ISmsService, InitializingBean {
         return smsResponse;
     }
 
-    public SmsTemplateResponse getTemplateBy(Integer templateId, Map<String, String> smsRequestParas) {
+    @SuppressWarnings({ "deprecation" })
+	public SmsTemplateResponse getTemplateBy(Integer templateId, Map<String, String> smsRequestParas) {
         SmsTemplateResponse response = null;
         String result = null;
         try {

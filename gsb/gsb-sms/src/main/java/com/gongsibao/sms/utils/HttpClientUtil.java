@@ -47,6 +47,7 @@ import org.apache.http.util.EntityUtils;
 import com.gongsibao.sms.utils.http.HttpResponseModel;
 
 
+@SuppressWarnings("deprecation")
 public class HttpClientUtil {
 
     private static Log log = LogFactory.getLog(HttpClientUtil.class);

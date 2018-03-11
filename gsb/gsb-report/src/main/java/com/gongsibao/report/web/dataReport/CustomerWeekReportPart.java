@@ -1,6 +1,5 @@
 package com.gongsibao.report.web.dataReport;
 
-import java.util.Calendar;
 import java.util.HashMap;
 
 import org.netsharp.core.DataTable;
@@ -16,8 +15,6 @@ public class CustomerWeekReportPart extends CustomerReportPart{
 		HashMap<String, String> map= new HashMap<String, String>();
 		String year = this.map.get("year");
 		String month = this.map.get("month");
-		
-		Calendar cl = Calendar.getInstance(); 
 
 		//这里天要取周所在的日期
 		String startDate = year + "-" + month + "-" + "01 00:00:00";

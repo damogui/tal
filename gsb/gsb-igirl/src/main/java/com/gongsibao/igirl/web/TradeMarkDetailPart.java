@@ -1,10 +1,11 @@
 package com.gongsibao.igirl.web;
-import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
-import com.gongsibao.igirl.base.INCLTwoService;
+import java.util.List;
+
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.panda.commerce.DetailPart;
 
-import java.util.List;
+import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
+import com.gongsibao.igirl.base.INCLTwoService;
 
 public class TradeMarkDetailPart extends DetailPart{
 	INCLTwoService nclTwoService= ServiceFactory.create(INCLTwoService.class);
