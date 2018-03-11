@@ -104,6 +104,7 @@ public class NCustomerTask extends Entity {
 	private TaskInspectionState inspectionState = TaskInspectionState.UNINSPECTION;
 
 	// 处理状态，其实返回的就是‘抽查状态’
+	@SuppressWarnings("unused")
 	private Integer processingState;
 
 	@Column(name = "last_inspection_user_id", header = "最后抽查人Id")
@@ -596,4 +597,6 @@ public class NCustomerTask extends Entity {
 	public void setSwtServiceId(String swtServiceId) {
 		this.swtServiceId = swtServiceId;
 	}
+	
+	
 }

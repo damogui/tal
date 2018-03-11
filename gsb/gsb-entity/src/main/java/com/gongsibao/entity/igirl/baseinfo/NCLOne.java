@@ -11,6 +11,11 @@ import java.util.List;
 
 @Table(name="ig_base_nclone",header="商标大类",orderBy="code asc")
 public class NCLOne extends Entity {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7045611896623763207L;
+
 	@Column(name="code",header="编码")
     private String code;
 	

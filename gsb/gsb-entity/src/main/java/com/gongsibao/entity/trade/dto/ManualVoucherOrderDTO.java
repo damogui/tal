@@ -14,6 +14,11 @@ import com.gongsibao.entity.trade.dic.OrderManualVoucherStatus;
 public class ManualVoucherOrderDTO extends Persistable  {
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7990009311195701582L;
+
 	/* id必须存在否者运行失败 */
 	@Id
 	@Auto

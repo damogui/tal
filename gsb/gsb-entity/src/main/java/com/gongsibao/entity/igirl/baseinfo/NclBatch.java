@@ -7,7 +7,12 @@ import org.netsharp.entity.Entity;
 
 @Table(name = "ig_base_ncl_batch",header = "尼斯数据批次")
 public class NclBatch extends Entity{
-    @Column(name = "code",header = "编号")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4310771042751098618L;
+
+	@Column(name = "code",header = "编号")
 
     private String code = DateTime.now().toString("yyyyMMdd");
 

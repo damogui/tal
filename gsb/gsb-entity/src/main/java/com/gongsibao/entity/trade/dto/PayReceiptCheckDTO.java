@@ -3,7 +3,6 @@ package com.gongsibao.entity.trade.dto;
 import java.util.Date;
 
 import org.netsharp.core.annotations.Auto;
-import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Id;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
