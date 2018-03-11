@@ -5,6 +5,11 @@ import org.netsharp.core.annotations.Table;
 import com.gongsibao.entity.igirl.EntityWithSupplierInfo;
 @Table(name = "ig_supplier_siteinfo", header = "服务商站点信息")
 public class SupplierSiteInfo extends EntityWithSupplierInfo {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1136996867945608263L;
+
 	@Column(name = "title", header = "标题")
 	private String title;
 	

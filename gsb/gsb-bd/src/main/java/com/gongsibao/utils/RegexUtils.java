@@ -1,7 +1,5 @@
 package com.gongsibao.utils;
 
-import org.apache.commons.lang.*;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

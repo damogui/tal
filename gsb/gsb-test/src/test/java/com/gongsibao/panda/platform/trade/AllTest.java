@@ -4,11 +4,14 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import com.gongsibao.panda.platform.trade.workspace.audit.CarryoverAuditWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.audit.ChangePriceAuditWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.audit.ContractAuditWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.audit.InstallmentWorkspaceTest;
+import com.gongsibao.panda.platform.trade.workspace.audit.CostAuditWorkspaceTest;
+import com.gongsibao.panda.platform.trade.workspace.audit.StagingWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.audit.InvoiceAuditWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.audit.ReceiptAuditWorkspaceTest;
+import com.gongsibao.panda.platform.trade.workspace.audit.PerformanceAuditWorkspaceTest;
+import com.gongsibao.panda.platform.trade.workspace.audit.ReceivedAuditWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.audit.RefundAuditWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.order.AllOrderWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.order.MyOrderWorkspaceTest;
@@ -37,13 +40,15 @@ import com.gongsibao.panda.platform.trade.workspace.payment.PaymentLogWorkspaceT
 	OrderMonitoringWorkspaceTest.class,*/
 
 	//审核中心:改价审核,合同审核,发票审核,收款审核,分期审核,退单审核,商城充值审核
+	CarryoverAuditWorkspaceTest.class,
+	CostAuditWorkspaceTest.class,
+	PerformanceAuditWorkspaceTest.class,
 	ChangePriceAuditWorkspaceTest.class,
 	ContractAuditWorkspaceTest.class,
 	InvoiceAuditWorkspaceTest.class,	
-	ReceiptAuditWorkspaceTest.class,
+	ReceivedAuditWorkspaceTest.class,
 	RefundAuditWorkspaceTest.class,
-    InstallmentWorkspaceTest.class,	
-	/*RechargeWorkspaceTest.class,*/
+    StagingWorkspaceTest.class,	
 	
 	
 	//成本管理:成本管理,收款方管理,请款审核,请款审核,供应商发票审核

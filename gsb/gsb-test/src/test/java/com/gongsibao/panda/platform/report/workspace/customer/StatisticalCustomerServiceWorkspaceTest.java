@@ -1,4 +1,4 @@
-package com.gongsibao.panda.platform.operation.workspace.crm.report;
+package com.gongsibao.panda.platform.report.workspace.customer;
 
 import com.gongsibao.controls.PropertyQueryDictComboBox;
 import com.gongsibao.crm.web.StatisticalCustomerListPart;

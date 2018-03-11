@@ -28,8 +28,6 @@ import org.junit.runners.Suite.SuiteClasses;
     //9.报表中心
 	 com.gongsibao.panda.platform.report.AllTest.class,
 
-    //11.gardian
- 	com.gongsibao.panda.platform.gardian.AllTest.class,
 
 	})
 public class PlatformAllTest {

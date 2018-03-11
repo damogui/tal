@@ -29,8 +29,8 @@ public class ChangePriceAuditWorkspaceTest extends WorkspaceCreationBase {
 	public void setup() {
 
 		entity = AuditLog.class;// 实体
-		urlList = "/trade/audit/price/change/list";// 列表的url
-		urlForm = "/trade/audit/price/change/form";// 弹出框的url
+		urlList = "/trade/audit/change/list";// 列表的url
+		urlForm = "/trade/audit/change/form";// 弹出框的url
 		listPartName = formPartName = "改价审核列表";
 		meta = MtableManager.getMtable(entity);// 获取实体元数据
 		formPartName = listPartName = meta.getName();

@@ -1,9 +1,8 @@
 package com.gongsibao.taurus.api;
 
-import com.gongsibao.taurus.message.response.CompanyInfoListByKeyResponseMessage;
-import com.gongsibao.taurus.message.response.CompanyInfoResponseMessage;
-
 import java.util.List;
+
+import com.gongsibao.taurus.message.response.CompanyInfoListByKeyResponseMessage;
 
 /**
  * 模糊查询公司信息

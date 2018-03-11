@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebListener;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.netsharp.cache.service.CacheStartup;
 import org.netsharp.job.core.JobStartup;
 import org.netsharp.log.LogStartup;
 import org.netsharp.startup.IStartup;

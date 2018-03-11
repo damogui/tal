@@ -1,16 +1,11 @@
 package com.gongsibao.api.service.ma;
 
-import com.gongsibao.api.dto.ma.*;
-import com.gongsibao.entity.ma.DemandFixedAssets;
-import com.gongsibao.entity.ma.DemandIntangibleAssets;
-import com.gongsibao.entity.ma.DemandQualificationDetail;
-import com.gongsibao.entity.ma.SellingDemand;
-import com.gongsibao.entity.ma.dic.CompanyNature;
-import com.gongsibao.entity.ma.dic.CompanyType;
-import com.gongsibao.entity.ma.dic.EnterpriseQualification;
-import com.gongsibao.entity.ma.dic.IndustryFeature;
-import com.gongsibao.ma.service.SellingDemandService;
-import com.gongsibao.taurus.util.StringManager;
+import java.sql.Types;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import org.netsharp.core.BusinessException;
 import org.netsharp.core.Oql;
 import org.netsharp.core.Paging;
@@ -18,11 +13,23 @@ import org.netsharp.core.QueryParameters;
 import org.netsharp.pcc.entity.ProvinceCityCounty;
 import org.netsharp.pcc.service.ProvinceCityCountyService;
 
-import java.sql.Types;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import com.gongsibao.api.dto.ma.FilterTypeDTO;
+import com.gongsibao.api.dto.ma.ProvinceCityCountyDTO;
+import com.gongsibao.api.dto.ma.QuerySellingDemandDTO;
+import com.gongsibao.api.dto.ma.SellingDemandDTO;
+import com.gongsibao.api.dto.ma.ServiceBank;
+import com.gongsibao.api.dto.ma.ServiceDic;
+import com.gongsibao.api.dto.ma.ServiceTypeDTO;
+import com.gongsibao.api.dto.ma.ServiceTypeEnum;
+import com.gongsibao.entity.ma.DemandFixedAssets;
+import com.gongsibao.entity.ma.DemandIntangibleAssets;
+import com.gongsibao.entity.ma.DemandQualificationDetail;
+import com.gongsibao.entity.ma.SellingDemand;
+import com.gongsibao.entity.ma.dic.CompanyNature;
+import com.gongsibao.entity.ma.dic.CompanyType;
+import com.gongsibao.entity.ma.dic.IndustryFeature;
+import com.gongsibao.ma.service.SellingDemandService;
+import com.gongsibao.taurus.util.StringManager;
 
 /**
  * 出售需求对外接口逻辑层
@@ -379,7 +386,7 @@ public class SellingDemandDTOService {
         ServiceTypeDTO serviceTypeBank = new ServiceTypeDTO ();//类金融
         serviceTypeBank.setServiceType (ServiceTypeEnum.p4.getValue ());
         serviceTypeBank.setServiceName (ServiceTypeEnum.p4.getText ());
-        ArrayList<ServiceDic> dicListBank = new ArrayList ();
+        ArrayList<ServiceDic> dicListBank = new ArrayList<ServiceDic> ();
         HashMap<Integer, String> bankTypes = ServiceBank.getBankTypes ();//类金融牌照
         for (Integer item :
                 bankTypes.keySet ()) {

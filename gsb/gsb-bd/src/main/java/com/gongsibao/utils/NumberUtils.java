@@ -1,11 +1,10 @@
 package com.gongsibao.utils;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.helpers.Loader;
-import org.netsharp.util.StringManager;
-
 import java.text.DecimalFormat;
 import java.text.Format;
+
+import org.apache.commons.lang.StringUtils;
+import org.netsharp.util.StringManager;
 
 /**
  * Created by zhangchao on 2018/2/6.

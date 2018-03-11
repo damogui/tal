@@ -7,7 +7,12 @@ import org.netsharp.entity.Entity;
 @Table(name="gd_provides_env",header="服务环境")
 public class ProvidesEnv extends Entity {
 
-    @Column(name = "name", header = "名称")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4813059865807109558L;
+
+	@Column(name = "name", header = "名称")
     private String name;
 
     @Column(name = "private_ip", header = "内网IP")

@@ -2,14 +2,12 @@ package com.gongsibao.api.conroller.sys.stat;
 
 import javax.ws.rs.Path;
 
-import org.apache.log4j.Logger;
-
 /**
  * Created by wk on 2017/3/6.
  */
 @Path("/stat/screen/datav")
 public class ScreenDatavController {
-    private static Logger log = Logger.getLogger(ScreenDatavController.class);
+//    private static Logger log = Logger.getLogger(ScreenDatavController.class);
 //
 //    @Autowired
 //    private ScreenDatavService screenDatavService;

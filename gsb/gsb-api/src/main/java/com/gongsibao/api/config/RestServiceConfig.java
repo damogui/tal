@@ -2,14 +2,14 @@ package com.gongsibao.api.config;
 
 import javax.ws.rs.ApplicationPath;
 
-import com.gongsibao.api.conroller.igirl.CtmAutoSubmitController;
-import com.gongsibao.api.conroller.igirl.TtmAutoSubmitController;
-import com.gongsibao.api.conroller.ma.SellingController;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import com.gongsibao.api.auth.AuthorizationFilterFeature;
+import com.gongsibao.api.conroller.igirl.CtmAutoSubmitController;
 import com.gongsibao.api.conroller.igirl.TmAutoSubmitController;
+import com.gongsibao.api.conroller.igirl.TtmAutoSubmitController;
+import com.gongsibao.api.conroller.ma.SellingController;
 import com.gongsibao.api.conroller.test.CarTypeController;
 import com.gongsibao.api.conroller.test.CouponController;
 import com.gongsibao.api.conroller.test.GoodsController;

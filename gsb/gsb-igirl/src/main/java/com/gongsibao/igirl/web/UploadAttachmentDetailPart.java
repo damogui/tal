@@ -1,7 +1,8 @@
 package com.gongsibao.igirl.web;
-import com.gongsibao.igirl.base.IUploadAttachmentService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.panda.commerce.DetailPart;
+
+import com.gongsibao.igirl.base.IUploadAttachmentService;
 public class UploadAttachmentDetailPart extends DetailPart{
 	IUploadAttachmentService uploadAttachment= ServiceFactory.create(IUploadAttachmentService.class);
 

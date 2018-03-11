@@ -1,5 +1,21 @@
 package com.gongsibao.igirl.service;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.sql.Types;
+import java.util.List;
+
+import org.joda.time.DateTime;
+import org.netsharp.communication.Service;
+import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.BusinessException;
+import org.netsharp.core.EntityState;
+import org.netsharp.core.Oql;
+import org.netsharp.core.Paging;
+import org.netsharp.organization.base.IEmployeeService;
+import org.netsharp.organization.entity.Employee;
+import org.netsharp.persistence.session.SessionManager;
+
 import com.gongsibao.bd.service.GsbPersistableService;
 import com.gongsibao.entity.igirl.DownloadAttachment;
 import com.gongsibao.entity.igirl.TradeMark;
@@ -8,7 +24,6 @@ import com.gongsibao.entity.igirl.UploadAttachment;
 import com.gongsibao.entity.igirl.baseinfo.IGirlConfig;
 import com.gongsibao.entity.igirl.dict.ApplierType;
 import com.gongsibao.entity.igirl.dict.ConfigType;
-import com.gongsibao.entity.igirl.dict.ShareGroup;
 import com.gongsibao.entity.igirl.dict.TMCState;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.igirl.base.IDownloadAttachmentService;
@@ -20,28 +35,6 @@ import com.gongsibao.igirl.service.builder.TradeMarkCaseAttachmentBuiler;
 import com.gongsibao.supplier.base.ISupplierService;
 import com.gongsibao.taurus.util.StringManager;
 import com.gongsibao.utils.SupplierSessionManager;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.sql.Types;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.joda.time.DateTime;
-import org.netsharp.communication.Service;
-import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.BusinessException;
-import org.netsharp.core.DataTable;
-import org.netsharp.core.EntityState;
-import org.netsharp.core.Oql;
-import org.netsharp.core.Paging;
-import org.netsharp.organization.base.IEmployeeService;
-import org.netsharp.organization.entity.Employee;
-import org.netsharp.persistence.session.SessionManager;
-import org.netsharp.wx.ea.base.IEaMessageService;
 
 @Service
 public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> implements ITradeMarkCaseService {
@@ -114,19 +107,19 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		entity.setTradeOptions(tmp);
 		return entity;
 	}
-
-	private Map<ShareGroup, Integer> buildShareGroupCountMap(TradeMarkCase tmc) {
-		Map<ShareGroup, Integer> shareGroupCountMap = new HashMap<ShareGroup, Integer>();
-		for (TradeMark tm : tmc.getTradeMarks()) {
-			if (!shareGroupCountMap.containsKey(tm.getShareGroup())) {
-				shareGroupCountMap.put(tm.getShareGroup(), 1);
-			} else {
-				int n = shareGroupCountMap.get(tm.getShareGroup()) + 1;
-				shareGroupCountMap.put(tm.getShareGroup(), n);
-			}
-		}
-		return shareGroupCountMap;
-	}
+//hw 2018-03-11 未使用方法
+//	private Map<ShareGroup, Integer> buildShareGroupCountMap(TradeMarkCase tmc) {
+//		Map<ShareGroup, Integer> shareGroupCountMap = new HashMap<ShareGroup, Integer>();
+//		for (TradeMark tm : tmc.getTradeMarks()) {
+//			if (!shareGroupCountMap.containsKey(tm.getShareGroup())) {
+//				shareGroupCountMap.put(tm.getShareGroup(), 1);
+//			} else {
+//				int n = shareGroupCountMap.get(tm.getShareGroup()) + 1;
+//				shareGroupCountMap.put(tm.getShareGroup(), n);
+//			}
+//		}
+//		return shareGroupCountMap;
+//	}
 
 	@Override
 	public TradeMarkCase save(TradeMarkCase entity) {

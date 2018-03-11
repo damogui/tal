@@ -11,7 +11,12 @@ import java.util.Date;
 @Table(name="gd_device",header="设备列表")
 public class Device extends Entity {
 
-    @Column(name = "name", header = "名称")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5601831041657753920L;
+
+	@Column(name = "name", header = "名称")
     private String name;
 
     @Column(name = "code", header = "编号")

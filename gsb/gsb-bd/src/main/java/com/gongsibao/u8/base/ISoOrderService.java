@@ -3,13 +3,12 @@ package com.gongsibao.u8.base;
 import java.util.List;
 import java.util.Map;
 
-import com.gongsibao.entity.supplier.Salesman;
 import org.netsharp.base.IPersistableService;
+import org.netsharp.core.annotations.Transaction;
 
+import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.OrderManualVoucherStatus;
-import org.netsharp.core.annotations.Transaction;
-import org.netsharp.organization.entity.Employee;
 
 public interface ISoOrderService extends IPersistableService<SoOrder> {
 

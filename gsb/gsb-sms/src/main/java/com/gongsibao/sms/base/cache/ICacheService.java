@@ -16,7 +16,8 @@ public interface ICacheService {
 
     boolean put(String key, Object value, int expireSecond);
 
-    default <T> T get(String key, Class<T> clazz) {
+    @SuppressWarnings("unchecked")
+	default <T> T get(String key, Class<T> clazz) {
         return (T) get(key);
     }
 
@@ -24,7 +25,8 @@ public interface ICacheService {
 
     Object delete(String key);
 
-    default <T> T delete(String key, Class<T> clazz) {
+    @SuppressWarnings("unchecked")
+	default <T> T delete(String key, Class<T> clazz) {
         return (T) delete(key);
     }
 

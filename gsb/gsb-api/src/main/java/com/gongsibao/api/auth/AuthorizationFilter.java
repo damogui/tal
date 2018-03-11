@@ -1,19 +1,14 @@
 package com.gongsibao.api.auth;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+
+import org.netsharp.util.StringManager;
 
 import com.gongsibao.api.config.DeviceException;
 import com.gongsibao.api.dto.ma.MaResponseCodeEnum;
-import com.gongsibao.api.util.ResponseResult;
-import org.netsharp.util.StringManager;
 
 /**
  * @author hw

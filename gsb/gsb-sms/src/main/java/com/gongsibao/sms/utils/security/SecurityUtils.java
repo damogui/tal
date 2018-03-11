@@ -29,7 +29,8 @@ public class SecurityUtils {
      * @param sourceSecretKey
      * @return
      */
-    private static String getSecretKey(String sourceSecretKey) {
+    @SuppressWarnings("unused")
+	private static String getSecretKey(String sourceSecretKey) {
         String md5secretKey = MD5Encode(sourceSecretKey);
         return md5secretKey.substring(md5secretKey.length() - 8);
     }

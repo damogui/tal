@@ -34,7 +34,7 @@ public class NavigationTest extends NavigationBase {
     @Override
     protected void doCreateTree(PNavigation tree) {
 
-        createPTreeNode(tree, null, "fa fa-file-o fa-fw", "GSB_TAURUS", "金牛座", "", 1);
+        createPTreeNode(tree, null, null, "GSB_TAURUS", "金牛座", "", 1);
         {
             createPTreeNode(tree, "GSB_TAURUS", null, "GSB_TAURUS_" + User.class.getSimpleName(), "帐号信息", "/taurus/user/list", 1);
             createPTreeNode(tree, "GSB_TAURUS", null, "GSB_TAURUS_" + UserInfo.class.getSimpleName(), "用户信息", "/taurus/userinfo/list", 1);
@@ -47,20 +47,20 @@ public class NavigationTest extends NavigationBase {
             createPTreeNode(tree, "GSB_TAURUS", null, "GSB_TAURUS_" + UserConsumptionView.class.getSimpleName(), "用户消费数据", "/taurus/user/userConsumption/list", 1);
         }
 
-        createPTreeNode(tree, null, "fa fa-file-o fa-fw", "GSB_WANDA", "万达项目", "", 2);
+        createPTreeNode(tree, null, null, "GSB_WANDA", "万达项目", "", 2);
         {
             createPTreeNode(tree, "GSB_WANDA", null, "GSB_WANDA_" + ProductView.class.getSimpleName(), "服务列表", "/operation/wanda/product/list", 1);
             createPTreeNode(tree, "GSB_WANDA", null, "GSB_WANDA_" + SoOrder.class.getSimpleName(), "订单列表", "/operation/wanda/order/list", 1);
         }
 
-        createPTreeNode(tree, null, "fa fa-file-o fa-fw", "GSB_Supplier", "服务商管理", "", 3);
+        createPTreeNode(tree, null, null, "GSB_Supplier", "服务商管理", "", 3);
         {
             createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Customer_Quality", "客户质量", "/operation/customer/quality/list", 1);
             createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Function_Module", "功能模块", "/operation/supplier/module/list", 2);
             createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Supplier_Category", "服务商分类", "/operation/supplier/category/list", 3);
             createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Supplier", "服务商列表", "/operation/supplier/list", 4);
         }
-        createPTreeNode(tree, null, "fa fa-users fa-fw", "GSB_CRM_Manager", "客户管理（旧）", "", 4);
+        createPTreeNode(tree, null,null, "GSB_CRM_Manager", "客户管理（旧）", "", 4);
         {
             createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_All_" + Customer.class.getSimpleName(), "全部客户", "/crm/customer/all/list", 1);
             createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_My_" + Customer.class.getSimpleName(), "我的客户", "/crm/customer/my/list", 2);
@@ -70,9 +70,9 @@ public class NavigationTest extends NavigationBase {
             createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_" + CustomerServiceConfig.class.getSimpleName(), "客服配置", "/crm/customer/service/config/list", 6);
             createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_" + CustomerOrder.class.getSimpleName(), "订单列表", "/crm/customer/order/list", 7);
         }
-        createPTreeNode(tree, null, "fa fa-file-o fa-fw", "Operation_CRM", "客户管理", "", 5);
+        createPTreeNode(tree, null,null, "Operation_CRM", "客户管理", "", 5);
         {
-            createPTreeNode(tree, "Operation_CRM", "fa fa-user-plus fa-fw", "Operation_CRM_Customer_Add", "新增客户", "/crm/platform/customer/add", 1);
+            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_Add", "新增客户", "/crm/platform/customer/add", 1);
 
             createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_ALL", "全部客户", "/operation/customer/all/list", 2);
             createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_Allocated", "已分配客户", "/operation/customer/allocated/list", 3);
@@ -90,17 +90,21 @@ public class NavigationTest extends NavigationBase {
             createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_OpenSea", "公海", "/operation/task/opensea/list", 11);
         }
 
-        createPTreeNode(tree, null, "fa fa-file-o fa-fw", "Operation_CRM_STATISTICAL", "CRM统计分析", "", 6);
+
+        createPTreeNode(tree, null, null, "Operation_Order", "订单管理", "", 7);
         {
-            createPTreeNode(tree, "Operation_CRM_STATISTICAL", null, "Operation_CRM_STATISTICAL_COMPREHEN", "综合统计", "/operation/statistical/comprehen/list", 1);
-            createPTreeNode(tree, "Operation_CRM_STATISTICAL", null, "Operation_CRM_STATISTICAL_FUNNEL", "漏斗统计", "/operation/statistical/funnel/list", 2);
-            createPTreeNode(tree, "Operation_CRM_STATISTICAL", null, "Operation_CRM_STATISTICAL_FOLLOW", "跟进统计", "/operation/statistical/follow/list", 3);
-            createPTreeNode(tree, "Operation_CRM_STATISTICAL", null, "Operation_CRM_STATISTICAL_CUSTOMERSERVICE", "客服统计", "/operation/statistical/customer/list", 4);
-        }
-        createPTreeNode(tree, null, "fa fa-file-o fa-fw", "Operation_Order", "订单管理", "", 7);
-        {
-            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Salesman_All", "全部订单", "/operation/order/salesman/all/list", 1);
-            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Salesman_Pool", "订单池", "/operation/order/salesman/pool/list", 2);
+            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_All", "全部订单", "/operation/order/all/list", 1);
+            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Pool", "订单池", "/operation/order/pool/list", 2);
+            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Performance", "订单业绩", "/operation/order/performance/list", 3);
+            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Received", "回款业绩", "/operation/order/received/list", 4);
+            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Refund", "退款订单", "/operation/order/refund/list", 5);
+            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Staging", "分期订单", "/operation/order/staging/list", 6);
+            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Carryover", "结转订单", "/operation/order/carryover/list", 7);
+            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Contract", "合同管理", "/operation/order/contract/list", 8);
+            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Invoice", "发票管理", "/operation/order/invoice/list", 9);
+            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Day_Report", "日统计", "/operation/order/report/day", 10);
+            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Week_Report", "周统计", "/operation/order/report/week", 11);
+            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Month_Report", "月统计", "/operation/order/report/month", 12);            
         }
     }
 }

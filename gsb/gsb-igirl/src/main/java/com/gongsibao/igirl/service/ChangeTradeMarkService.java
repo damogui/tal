@@ -1,13 +1,9 @@
 package com.gongsibao.igirl.service;
 
-import com.gongsibao.bd.service.GsbPersistableService;
-import com.gongsibao.entity.igirl.ChangeTradeMark;
-import com.gongsibao.entity.igirl.dict.ChangeTradeMarkState;
-import com.gongsibao.igirl.base.IChangeTradeMarkService;
-import com.gongsibao.igirl.dto.ChangeTradeMarkDto;
-import com.gongsibao.taurus.util.StringManager;
-import com.gongsibao.uc.base.IUserService;
-import com.gongsibao.utils.SupplierSessionManager;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
@@ -16,9 +12,13 @@ import org.netsharp.organization.base.IEmployeeService;
 import org.netsharp.organization.entity.Employee;
 import org.netsharp.persistence.session.SessionManager;
 
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.List;
+import com.gongsibao.bd.service.GsbPersistableService;
+import com.gongsibao.entity.igirl.ChangeTradeMark;
+import com.gongsibao.entity.igirl.dict.ChangeTradeMarkState;
+import com.gongsibao.igirl.base.IChangeTradeMarkService;
+import com.gongsibao.igirl.dto.ChangeTradeMarkDto;
+import com.gongsibao.taurus.util.StringManager;
+import com.gongsibao.utils.SupplierSessionManager;
 
 @Service
 public class ChangeTradeMarkService extends GsbPersistableService<ChangeTradeMark> implements IChangeTradeMarkService {

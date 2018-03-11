@@ -10,7 +10,11 @@ import org.netsharp.entity.Entity;
 
 @Table(name = "ig_transfer_trade_mark",header = "商标转让")
 public class TransferTradeMark extends Entity {
-    @Column(name = "supplier_id", header = "服务商Id")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1032124897710059378L;
+	@Column(name = "supplier_id", header = "服务商Id")
     private Integer supplierId = -1;
     @JsonIgnore
     @Reference(foreignKey = "supplierId", header = "服务商")

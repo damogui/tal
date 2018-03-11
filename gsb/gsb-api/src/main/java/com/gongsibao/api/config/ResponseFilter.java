@@ -5,11 +5,9 @@ import java.io.IOException;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
-import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.ext.Provider;
 
 import com.gongsibao.api.auth.AuthAnnotation;
-import com.gongsibao.api.dto.ma.MaResponseCodeEnum;
 import com.gongsibao.api.util.ResponseResult;
 
 

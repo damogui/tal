@@ -1,18 +1,18 @@
 package com.gongsibao.igirl.web;
 
-import com.aliyun.oss.OSSClient;
-import com.aliyun.oss.common.utils.BinaryUtil;
-import com.aliyun.oss.model.MatchMode;
-import com.aliyun.oss.model.PolicyConditions;
-import com.gongsibao.entity.igirl.TradeMarkCase;
-import com.gongsibao.igirl.base.ITradeMarkCaseService;
-
 import java.util.Date;
 
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.panda.annotation.Authorization;
 import org.netsharp.util.DateManage;
 import org.netsharp.web.dto.OssConfig;
+
+import com.aliyun.oss.OSSClient;
+import com.aliyun.oss.common.utils.BinaryUtil;
+import com.aliyun.oss.model.MatchMode;
+import com.aliyun.oss.model.PolicyConditions;
+import com.gongsibao.entity.igirl.TradeMarkCase;
+import com.gongsibao.igirl.base.ITradeMarkCaseService;
 
 public class TradeMarkCaseController {
 	ITradeMarkCaseService tradeMarkCaseService = ServiceFactory.create(ITradeMarkCaseService.class);

@@ -22,10 +22,10 @@ public class RegexUtils {
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_PATTERN_STRING);
     private static final Pattern PHONE_PATTERN = Pattern.compile(PHONE_PATTERN_STRING);
-    private static final Pattern CHINESE_PATTERN = Pattern.compile(CHINESE_PATTERN_STRING);
-    private static final Pattern ENGLISH_PATTERN = Pattern.compile(ENGLISH_PATTERN_STRING);
-    private static final Pattern QQ_PATTERN = Pattern.compile(QQ_PATTERN_STRING);
-    private static final Pattern NUMBER_PATTERN = Pattern.compile(NUMBER_PATTERN_STRING);
+//    private static final Pattern CHINESE_PATTERN = Pattern.compile(CHINESE_PATTERN_STRING);
+//    private static final Pattern ENGLISH_PATTERN = Pattern.compile(ENGLISH_PATTERN_STRING);
+//    private static final Pattern QQ_PATTERN = Pattern.compile(QQ_PATTERN_STRING);
+//    private static final Pattern NUMBER_PATTERN = Pattern.compile(NUMBER_PATTERN_STRING);
     public static final Pattern CONTAINS_CHINESE_PATTERN = Pattern.compile(CONTAINS_CHINESE_PATTERN_STRING);
     public static final Pattern CONTAINS_ENGLISH_PATTERN = Pattern.compile(CONTAINS_ENGLISH_PATTERN_STRING);
     public static final Pattern CONTAINS_NUM_PATTERN = Pattern.compile(CONTAINS_NUM_PATTERN_STRING);

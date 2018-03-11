@@ -43,7 +43,7 @@ public class SoCreatOrderPerformanceFormPart extends FormPart {
         QueryParameters qps = new QueryParameters();
         qps.add("@performance_price", totalAmount, Types.INTEGER);
         qps.add("@pkid", entity.getId (), Types.INTEGER);
-        int numObjectRoleGroup = orderService.executeNonQuery(sql, qps);
+        orderService.executeNonQuery(sql, qps);
         return obj;
     }
 

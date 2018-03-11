@@ -5,18 +5,35 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import com.gongsibao.panda.platform.operation.reference.FunctionModuleReferenceTest;
-import com.gongsibao.panda.platform.operation.workspace.crm.*;
+import com.gongsibao.panda.platform.operation.workspace.crm.CustomerALLWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.CustomerAllocatedWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.CustomerNotTaskWorksapceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.CustomerUndistributedWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.CustomerVerifyWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.TaskALLWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.TaskAllocatedWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.TaskCheckAbnormalWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.TaskDefeatedWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.TaskOpenSeaWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.TaskUndistributedWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.TaskUnstartWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.form.CustomerAddWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.form.CustomerEditWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.form.TaskAddWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.form.TaskEditWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.form.TaskFollowFormWorkspaceTest;
-import com.gongsibao.panda.platform.operation.workspace.crm.report.ComprehenStatisticalWorkspaceTest;
-import com.gongsibao.panda.platform.operation.workspace.crm.report.FollowStatisticalWorkspaceTest;
-import com.gongsibao.panda.platform.operation.workspace.crm.report.FunnelStatisticalWorkspaceTest;
-import com.gongsibao.panda.platform.operation.workspace.crm.report.StatisticalCustomerServiceWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.order.CarryoverWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.order.ContractWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.order.InvoiceWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.order.OrderALLWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.order.OrderPoolWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.order.PerformanceWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.order.ReceivedWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.order.RefundWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.order.ReportDayWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.order.ReportMonthWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.order.ReportWeekWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.order.StagingWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.reference.QualityRefeerenceTest;
 import com.gongsibao.panda.platform.operation.workspace.reference.SupplierDepartmentReferenceTest;
 import com.gongsibao.panda.platform.operation.workspace.reference.SupplierReferenceTest;
@@ -110,18 +127,23 @@ import com.gongsibao.panda.platform.operation.workspace.wanda.WanDaSoOrderWorksp
         //订单操作
         OrderALLWorkspaceTest.class,
         OrderPoolWorkspaceTest.class,
-
-
+        CarryoverWorkspaceTest.class,
+        ContractWorkspaceTest.class,
+        InvoiceWorkspaceTest.class,
+        PerformanceWorkspaceTest.class,
+        ReceivedWorkspaceTest.class,
+        RefundWorkspaceTest.class,
+        StagingWorkspaceTest.class,
+        ReportDayWorkspaceTest.class,
+        ReportWeekWorkspaceTest.class,
+        ReportMonthWorkspaceTest.class,
+        
 
         ImportTaskQualityDataTest.class,
         ImportTaskRoleAndFunctionTest.class,
         // ImportOldDataToNewData.class,
         SupplierActionTest.class,
 
-        ComprehenStatisticalWorkspaceTest.class,
-        FollowStatisticalWorkspaceTest.class,
-        FunnelStatisticalWorkspaceTest.class,
-        StatisticalCustomerServiceWorkspaceTest.class,
 
         NavigationTest.class
 

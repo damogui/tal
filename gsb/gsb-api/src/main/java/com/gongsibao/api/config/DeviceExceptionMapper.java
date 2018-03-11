@@ -1,12 +1,11 @@
 package com.gongsibao.api.config;
 
-import com.gongsibao.api.dto.ma.MaResponseCodeEnum;
-import com.gongsibao.api.util.ResponseResult;
-
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
+
+import com.gongsibao.api.dto.ma.MaResponseCodeEnum;
+import com.gongsibao.api.util.ResponseResult;
 
 /**
  * Created by win on 2018/2/5.

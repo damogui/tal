@@ -1,11 +1,12 @@
 package com.gongsibao.igirl.web;
 
-import com.gongsibao.utils.SupplierSessionManager;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.netsharp.panda.commerce.ListPart;
 import org.netsharp.util.StringManager;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.gongsibao.utils.SupplierSessionManager;
 
 /**
  * 我的任务列表操作功能集合

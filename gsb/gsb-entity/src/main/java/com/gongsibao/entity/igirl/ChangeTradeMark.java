@@ -11,7 +11,11 @@ import org.netsharp.entity.Entity;
 @Table(name = "ig_change_trade_mark",header = "商标变更")
 public class ChangeTradeMark extends Entity {
 
-    @Column(name = "supplier_id", header = "服务商Id")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6120929894850003833L;
+	@Column(name = "supplier_id", header = "服务商Id")
     private Integer supplierId = -1;
     @JsonIgnore
     @Reference(foreignKey = "supplierId", header = "服务商")

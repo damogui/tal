@@ -7,7 +7,6 @@ import org.netsharp.communication.Service;
 import org.netsharp.core.Oql;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.StringManager;
-import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.bd.base.IDictService;
 import com.gongsibao.entity.bd.Dict;

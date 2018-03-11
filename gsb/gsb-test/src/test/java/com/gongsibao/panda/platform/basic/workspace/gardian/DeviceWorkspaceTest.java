@@ -1,7 +1,5 @@
-package com.gongsibao.panda.platform.gardian.workspace;
+package com.gongsibao.panda.platform.basic.workspace.gardian;
 
-import com.gongsibao.entity.gardian.baseinfo.Device;
-import com.gongsibao.gardian.web.DeviceFormPart;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
@@ -9,11 +7,17 @@ import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
-import org.netsharp.panda.dic.OpenMode;
-import org.netsharp.panda.entity.*;
+import org.netsharp.panda.entity.PDatagrid;
+import org.netsharp.panda.entity.PDatagridColumn;
+import org.netsharp.panda.entity.PForm;
+import org.netsharp.panda.entity.PFormField;
+import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
+
+import com.gongsibao.entity.gardian.baseinfo.Device;
+import com.gongsibao.gardian.web.DeviceFormPart;
 
 /**   
  * @ClassName:  ProductWorkspaceTest   
@@ -113,7 +117,7 @@ public class DeviceWorkspaceTest extends WorkspaceCreationBase{
 			datagrid.setToolbar("panda/datagrid/row/edit"); //系统默认的工具栏
 			datagrid.setName("设备列表");
 		}
-		PDatagridColumn column = null;
+//		PDatagridColumn column = null;
 		addColumn(datagrid, "code", "编码", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "deviceType", "设备类型", ControlTypes.ENUM_BOX, 100);

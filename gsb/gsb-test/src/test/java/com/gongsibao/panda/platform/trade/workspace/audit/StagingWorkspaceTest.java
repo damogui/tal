@@ -21,18 +21,18 @@ import com.gongsibao.entity.bd.AuditLog;
  *     
  * @Copyright: 2017 www.yikuaxiu.com Inc. All rights reserved. 
  */
-public class InstallmentWorkspaceTest extends WorkspaceCreationBase {
+public class StagingWorkspaceTest extends WorkspaceCreationBase {
 
 	@Before
 	public void setup() {
 
 		entity = AuditLog.class;// 实体
-		urlList = "/trade/audit/installment/list";// 列表的url
-		urlForm = "/trade/audit/installment/form";// 弹出框的url
+		urlList = "/trade/audit/staging/list";// 列表的url
+		urlForm = "/trade/audit/staging/form";// 弹出框的url
 		listPartName = formPartName = "分期审核列表";
 		meta = MtableManager.getMtable(entity);// 获取实体元数据
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "GSB_Trade_Audit_Installment";// 菜单节点码（名称）
+		resourceNodeCode = "GSB_Trade_Audit_Staging";// 菜单节点码（名称）
 
 		formOpenMode = OpenMode.WINDOW;// 编辑框打开的形式
 		openWindowHeight = 400;

@@ -21,7 +21,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 
     /*获取一串字符串中的数字*/
     public static int getMathFromStr(String str) {
-        int res = 0;
+//        int res = 0;
         str = str.trim();
         String str2 = "";
         if (str != null && !"".equals(str)) {

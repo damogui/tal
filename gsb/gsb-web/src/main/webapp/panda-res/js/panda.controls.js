@@ -337,53 +337,66 @@ org.netsharp.controls.OSSUpload = org.netsharp.controls.QiNiuUpload.Extends({
 	init:function(){
 		
 		var buttonId = this.getButtonId();
+		var filtersStr = $('#'+this.propertyName).attr('filters');
+		var filtersObj = null;
+		if(!System.isnull(filtersStr)){
+			
+			filtersStr = filtersStr.replaceAll('\'','"');
+			filtersObj = JSON.parse(filtersStr);
+		}
+
 		var me = this;
-		var uploader = new plupload.Uploader({
-			runtimes : 'html5,flash,silverlight,html4',
-			browse_button :buttonId, 
-			// container: document.getElementById('container'),
-			flash_swf_url : '/package/plupload/js/Moxie.swf',
-			silverlight_xap_url : '/package/plupload/js/Moxie.xap',
-		    url : 'http://oss.aliyuncs.com',
-		    multi_selection: false,
-			init: {
-				PostInit: function() {
-//		            me.setUploadParam(uploader);
-				},
+		var options = {
+				runtimes : 'html5,flash,silverlight,html4',
+				browse_button :buttonId, 
+				// container: document.getElementById('container'),
+				flash_swf_url : '/package/plupload/js/Moxie.swf',
+				silverlight_xap_url : '/package/plupload/js/Moxie.xap',
+			    url : 'http://oss.aliyuncs.com',
+			    multi_selection: false,
+				init: {
+					PostInit: function() {
+//			            me.setUploadParam(uploader);
+					},
 
-				FilesAdded: function(up, files) {
+					FilesAdded: function(up, files) {
 
-					me.setUploadParam(up);
-					uploader.start();
-				},
+						me.setUploadParam(up);
+						uploader.start();
+					},
 
-				UploadProgress: function(up, file) {
-					IMessageBox.loading.show();
-				},
+					UploadProgress: function(up, file) {
+						IMessageBox.loading.show();
+					},
 
-				FileUploaded: function(up, file, info) {
+					FileUploaded: function(up, file, info) {
 
-					
-					IMessageBox.loading.hide();
-		            if (info.status == 200)
-		            {
-		            	var path = up.getOption().url+'/'+ up.getOption().multipart_params.key;
-						$("#" + me.propertyName).filebox("setText", path);
-						me.preview(path,file);
-		            }
-		            else
-		            {
-		            	IMessageBox.info(info.response);
-		            } 
-				},
+						
+						IMessageBox.loading.hide();
+			            if (info.status == 200)
+			            {
+			            	var path = up.getOption().url+'/'+ up.getOption().multipart_params.key;
+							$("#" + me.propertyName).filebox("setText", path);
+							me.preview(path,file);
+			            }
+			            else
+			            {
+			            	IMessageBox.info(info.response);
+			            } 
+					},
 
-				Error: function(up, err) {
+					Error: function(up, err) {
 
-					IMessageBox.error(err.response);
+						IMessageBox.error(err.response);
+					}
 				}
-			}
-		});
+			};
+		if(filtersObj){
 
+			options.filters = filtersObj;
+		}
+
+		var uploader = new plupload.Uploader(options);
 		uploader.init();
 	},
 	setUploadParam:function (up)
