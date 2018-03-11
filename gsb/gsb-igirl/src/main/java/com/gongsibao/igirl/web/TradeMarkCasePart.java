@@ -16,10 +16,12 @@ import org.netsharp.panda.commerce.FormPart;
 import org.netsharp.panda.core.HttpContext;
 import org.netsharp.util.StringManager;
 
+import com.gongsibao.entity.igirl.DownloadAttachment;
 import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.UploadAttachment;
 import com.gongsibao.entity.igirl.baseinfo.IGirlConfig;
 import com.gongsibao.entity.igirl.dict.ConfigType;
+import com.gongsibao.igirl.base.IDownloadAttachmentService;
 import com.gongsibao.igirl.base.IGirlConfigService;
 import com.gongsibao.igirl.base.ITradeMarkCaseService;
 import com.gongsibao.igirl.base.ITradeMarkService;
@@ -81,7 +83,6 @@ public class TradeMarkCasePart extends FormPart {
 			return new CompanyDto();
 		}
 	}
-	
 	public String fetchQrCodeUrl(String casecode) {
 		String url=HttpContext.getCurrent().getRequest().getRequestURL().replace("panda/rest/service", "");
 		return tradeMarkCaseService.fetchQrCodeUrl(url,casecode);
@@ -111,6 +112,7 @@ public class TradeMarkCasePart extends FormPart {
  
 	}
 	IUploadAttachmentService up=ServiceFactory.create(IUploadAttachmentService.class);
+	IDownloadAttachmentService down=ServiceFactory.create(IDownloadAttachmentService.class);
 	@Authorization(is=false)
 	public ResultDto updateAttachment(String id,String filepath) {
 		int rtn=up.uploadAttachmentFileurl(id, filepath);
@@ -120,6 +122,26 @@ public class TradeMarkCasePart extends FormPart {
 	public ResultDto findAllAttachmentsByCaseId(String caseid) {
 		List<UploadAttachment> ups=up.findAllAttachmentsByCaseId(caseid);
 		return ResultDto.getEntityListResultDto(ups);
+	}
+	
+	@Authorization(is=false)
+	public ResultDto findDownAttachmentsByCaseId(String caseid) {
+		List<DownloadAttachment> ups=down.findDownAttachmentsByCaseId(caseid);
+		return ResultDto.getEntityListResultDto(ups);
+	}
+	
+	
+	@Authorization(is=false)
+	public ResultDto fetchCaseState(String casecode) {
+		int st=tradeMarkCaseService.fetchCaseState(casecode);
+		System.out.println(st);
+		return ResultDto.getSimpleResultDto(st);
+	}
+	
+	@Authorization(is=false)
+	public ResultDto updateCaseState(String casecode,int state) {
+		int st=tradeMarkCaseService.updateCaseState(casecode,state);
+		return ResultDto.getSimpleResultDto(st);
 	}
 	
 	public int attachmentMake(String caseid) {

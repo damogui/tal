@@ -387,4 +387,36 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
         }
 		return tradeMarkCase;
 	}
+
+	@Override
+	public int fetchCaseState(String casecode) {
+		// TODO Auto-generated method stub
+		Oql oql = new Oql();
+		oql.setType(TradeMarkCase.class);
+		oql.setSelects("TradeMarkCase.*");
+		oql.setType(TradeMarkCase.class);
+		oql.setFilter("code=?");
+		oql.getParameters().add("code",casecode,Types.VARCHAR);
+		TradeMarkCase tradeMarkCase=this.queryFirst(oql);
+		return tradeMarkCase.getTmcState().getValue();
+	}
+
+	@Override
+	public int updateCaseState(String casecode,int state) {
+		// TODO Auto-generated method stub
+		try {
+			String cmdstr = "update ig_trade_mark_case set tmc_state=? where code=?";
+			Oql oql=new Oql();
+			{
+				oql.setFilter("tmc_state=?");
+				oql.setFilter("code=?");
+				oql.getParameters().add("tmc_state",state,Types.INTEGER);
+				oql.getParameters().add("code",casecode,Types.VARCHAR);
+			}
+			this.pm.executeNonQuery(cmdstr, oql.getParameters());
+			return 0;
+		}catch(BusinessException e) {
+			return -1;
+		}
+	}
 }

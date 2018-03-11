@@ -1,5 +1,6 @@
 package com.gongsibao.entity.igirl.baseinfo;
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Table;
 import com.gongsibao.entity.igirl.EntityWithSupplierInfo;
 @Table(name = "ig_supplier_siteinfo", header = "服务商站点信息")
@@ -12,6 +13,10 @@ public class SupplierSiteInfo extends EntityWithSupplierInfo {
 
 	@Column(name = "memo", header = "关于我们", size = 512)
 	private String memo;
+	
+	@Exclusive
+	@Column(name = "webApiIp", header = "站点API访问IP")
+	private String webApiIp;
 
 
 	public String getTitle() {
@@ -36,6 +41,14 @@ public class SupplierSiteInfo extends EntityWithSupplierInfo {
 
 	public void setLogoUrl(String logoUrl) {
 		this.logoUrl = logoUrl;
+	}
+
+	public String getWebApiIp() {
+		return webApiIp;
+	}
+
+	public void setWebApiIp(String webApiIp) {
+		this.webApiIp = webApiIp;
 	}
 	
 

@@ -1,7 +1,29 @@
-var ip="http://192.168.29.137:3000";
 $(function(){
 	var siteCtl=new org.netsharp.core.JServiceLocator()
 	var ctlServiceStr="com.gongsibao.igirl.web.SiteInfoListPart";
+	function getHashParameter(key) {
+		var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)", "i");
+		var index=window.location.href.indexOf("?");
+		if(index!=-1){
+			var searchStr=window.location.href.substr(index);
+			var r = searchStr.substr(1).match(reg);
+			if (r != null) {
+				var x = unescape(r[2]);
+				return decodeURI(x);
+			} else {
+				return null;
+			}
+		}
+		
+	}
+	//获取服务商ID
+	var supplierId=getHashParameter("spid");
+	var casecode=getHashParameter("casecode");
+	var source=getHashParameter("source");
+	var siteInfo=null;
+	var sourceInfo={supplierId:supplierId,casecode:casecode,source:source};
+	siteCtl.invoke(ctlServiceStr,"fetchSiteInfo",[supplierId],function(d){
+	var ip=d.webApiIp;
 	axios.get(ip+"/vue/comp/base").then(function(res){
 		  //加载所有基础vue组件
 	  // console.log(res)
@@ -86,6 +108,28 @@ $(function(){
 			})
 			
 		}))
+	  var downdele=()=>Promise.resolve(new Promise(function(resolve,reject){
+			//异步加载组件
+			axios.get(ip+"/vue/comp/downdele").then(function(res){	
+				 var obj=eval("("+res.data+")");
+				 //console.log(obj)
+				 resolve(obj);
+			}).catch(function(reason){
+				console.log(reason)
+			})
+			
+		}))
+	  var downup=()=>Promise.resolve(new Promise(function(resolve,reject){
+			//异步加载组件
+			axios.get(ip+"/vue/comp/downup").then(function(res){	
+				 var obj=eval("("+res.data+")");
+				 //console.log(obj)
+				 resolve(obj);
+			}).catch(function(reason){
+				console.log(reason)
+			})
+			
+		}))
 		var routes=[
 			{path:'/',component:def},
 			{path:'/tms',component:tms},
@@ -94,6 +138,8 @@ $(function(){
 			{path:'/payment',component:payment},//服务费用支付
 			{path:'/zzty',component:zzty,},//营业执照和图样身份证
 			{path:'/zzty/viewimg',component:viewimg},//营业执照和图样身份证
+			{path:'/zzty/downdele',component:downdele},//下载委托书
+			{path:'/zzty/downup',component:downup},//上传委托书
 			{path:'/pt',component:tmc},
 			{path:'/cr',component:cr},
 		]
@@ -117,31 +163,7 @@ $(function(){
 		      }
 			 next()
 		});
-		function getHashParameter(key) {
-			var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)", "i");
-			var index=window.location.href.indexOf("?");
-			if(index!=-1){
-				var searchStr=window.location.href.substr(index);
-				var r = searchStr.substr(1).match(reg);
-				if (r != null) {
-					var x = unescape(r[2]);
-					return decodeURI(x);
-				} else {
-					return null;
-				}
-			}
-			
-		}
-		//获取服务商ID
-		var supplierId=getHashParameter("spid");
-		var casecode=getHashParameter("casecode");
-		var source=getHashParameter("source");
-		
-		var siteInfo=null;
-		var sourceInfo={supplierId:supplierId,casecode:casecode,source:source};
-		
-		siteCtl.invoke(ctlServiceStr,"fetchSiteInfo",[supplierId],function(d){
-			 var app = new Vue({
+		var app = new Vue({
 					  el: '#kpMain',
 					  router:router,
 					  data: function(){
@@ -152,10 +174,11 @@ $(function(){
 							  sourceInfo:"",
 							  caseinfo:null,
 							  ossconfig:null,
+							  webApiIp:ip
 						  }
 					  },
 					 created:function(){
-						  console.log("root vue created...")
+						  console.log("root vue created...");
 						  $("#navDiv").height($(window).height());
 						  this.siteInfo=d;
 						  this.sourceInfo=sourceInfo;
@@ -168,25 +191,53 @@ $(function(){
 				  			      //如果是已经付款，那么跳专到上传营业执照和商标图样页面或身份证明...
 				  			      //如果执照和图样已经上传，那么跳专到下载委托书页面
 				  			      //如果是委托书已经上传那么就跳专到首页
-				  			 this.$router.push({path:"/tmc",query:{spid:sourceInfo.supplierId,source:sourceInfo.source,casecode:sourceInfo.casecode}})
+				  			 var caseState=-1;
+				  			 if(sourceInfo.casecode && sourceInfo.casecode!=""){
+				  				 var ctlServiceStr2="com.gongsibao.igirl.web.TradeMarkCasePart";
+				  				 var me=this;
+				  				 siteCtl.invoke(ctlServiceStr2,"fetchUnconfirmedCaseInfoByCode",[sourceInfo.casecode],function(d){
+				  					 me.caseinfo=d;
+				  					 if(d.tmcState==0 || d.tmcState==1){//待确认
+				  						 me.$router.push({path:"/tmc",query:{spid:sourceInfo.supplierId,source:sourceInfo.source,casecode:sourceInfo.casecode}});
+				  					   return;
+				  					      }
+				  					 if(d.tmcState==2){//如果已经确认，但没有付款
+				  						     //跳转到付款页面,付款成功，修改为3状态
+				  						 me.$router.push({path:"/payment",query:{spid:sourceInfo.supplierId,source:sourceInfo.source,casecode:sourceInfo.casecode}});
+				  						 return;
+				  					      }
+				  					 if(d.tmcState==3){
+				  						    //如果已付款，经跳专到上传基本资料页面，点击下一步后，修改为4状态
+				  					  	me.$router.push({path:"/zzty",query:{spid:sourceInfo.supplierId,source:sourceInfo.source,casecode:sourceInfo.casecode}});
+				  						 return;
+				  					      }
+				  					 if(d.tmcState==4){
+				  						    //下载委托书，跳专到上传委托书页面,点击下一步修改为5（已经上传状态），且跳专到
+				  					      }
+				  					 if(d.tmcState==5){
+				  						    //已经上传状态，进入微门户
+				  						    
+				  					      }
+				  			    	  });
+				  			      }
+				  			 
 				  			 }
 					  },
 					  methods:{
 						  fetchData:function(){
 							  var me=this;
 							  this.logo=this.siteInfo.logoUrl;
-				  			this.siteInfo.loopImgs.forEach(function(url){
-				  				me.loopImgs.push(url);
-				  			    });
+//				  			this.siteInfo.loopImgs.forEach(function(url){
+//				  				me.loopImgs.push(url);
+//				  			    });
 						  }
 					  }
 				});
 			
-	    });
-
-	}).catch(function(reason){
-		console.log(reason)
-	});
+		}).catch(function(reason){
+			console.log(reason)
+		});
+    });//
 	
 });
 
