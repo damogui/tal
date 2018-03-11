@@ -1,7 +1,5 @@
 package com.gongsibao.igirl.web;
 import java.sql.Types;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.netsharp.attachment.Attachment;
 import org.netsharp.communication.ServiceFactory;
@@ -49,6 +47,7 @@ public class TradeMarkListPart extends ListPart{
 			oql.getParameters().add("id",markId,Types.INTEGER);
 		}
 		TradeMark tm=service.queryFirst(oql);
+		@SuppressWarnings("unused")
 		ShareGroup  sg;
 		if(tm!=null){
 			sg= tm.getShareGroup();
@@ -87,6 +86,7 @@ public class TradeMarkListPart extends ListPart{
 			oql.getParameters().add("id",markId,Types.INTEGER);
 		}
 		TradeMark tm=service.queryFirst(oql);
+		@SuppressWarnings("unused")
 		ShareGroup  sg;
 		if(tm!=null){
 			sg= tm.getShareGroup();

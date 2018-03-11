@@ -1,14 +1,16 @@
 package com.gongsibao.api.config;
 
-import com.gongsibao.api.dto.ma.MaResponseCodeEnum;
-
 import java.io.IOException;
 
 /**
  * Created by win on 2018/2/5.
  */
 public class DeviceException  extends IOException {
-    private String code;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8926934114859622348L;
+	private String code;
     private String message;
 
     /**

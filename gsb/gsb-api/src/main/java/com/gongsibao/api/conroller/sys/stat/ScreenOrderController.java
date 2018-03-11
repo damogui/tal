@@ -2,8 +2,6 @@ package com.gongsibao.api.conroller.sys.stat;
 
 import javax.ws.rs.Path;
 
-import org.apache.log4j.Logger;
-
 
 
 /**
@@ -12,7 +10,7 @@ import org.apache.log4j.Logger;
 @Path("/stat/screen/order")
 public class ScreenOrderController {
 
-    private static Logger log = Logger.getLogger(ScreenOrderController.class);
+//    private static Logger log = Logger.getLogger(ScreenOrderController.class);
 //
 //    @Autowired
 //    private SoOrderService soOrderService;

@@ -1,7 +1,5 @@
 package com.gongsibao.api.dto.ma;
 
-import org.netsharp.core.annotations.Reference;
-import org.netsharp.pcc.entity.ProvinceCityCounty;
 
 /**
  *提供省市县接口

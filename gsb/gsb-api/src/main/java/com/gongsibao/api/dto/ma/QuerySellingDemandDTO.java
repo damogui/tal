@@ -1,16 +1,5 @@
 package com.gongsibao.api.dto.ma;
 
-import com.gongsibao.entity.ma.DemandFixedAssets;
-import com.gongsibao.entity.ma.DemandIntangibleAssets;
-import com.gongsibao.entity.ma.DemandQualificationDetail;
-import com.gongsibao.entity.ma.dic.*;
-import org.netsharp.core.annotations.Column;
-import org.netsharp.core.annotations.Reference;
-import org.netsharp.core.annotations.Subs;
-import org.netsharp.pcc.entity.ProvinceCityCounty;
-
-import java.util.Date;
-import java.util.List;
 
 /**
  * 出售信息查询的query类
