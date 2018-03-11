@@ -17,6 +17,10 @@ public class SupplierSiteInfo extends EntityWithSupplierInfo {
 	@Exclusive
 	@Column(name = "webApiIp", header = "站点API访问IP")
 	private String webApiIp;
+	
+	@Exclusive
+	@Column(name = "domain", header = "当前站点所在域")
+	private String domain;
 
 
 	public String getTitle() {
@@ -50,6 +54,13 @@ public class SupplierSiteInfo extends EntityWithSupplierInfo {
 	public void setWebApiIp(String webApiIp) {
 		this.webApiIp = webApiIp;
 	}
-	
+
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
 
 }

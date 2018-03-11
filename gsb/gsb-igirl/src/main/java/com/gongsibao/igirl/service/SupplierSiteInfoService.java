@@ -69,6 +69,7 @@ public class SupplierSiteInfoService extends GsbPersistableService<SupplierSiteI
 		}
 		IGirlConfig config=girlConf.queryFirst(oql);
 		sid.setWebApiIp(config.getConfigValue());
+		
 		return sid;
 	}
 }
