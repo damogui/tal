@@ -1,4 +1,4 @@
-package com.gongsibao.panda.platform.operation.workspace.crm.report;
+package com.gongsibao.panda.platform.report.workspace.customer;
 
 import org.junit.Before;
 import org.netsharp.core.MtableManager;
@@ -12,34 +12,32 @@ import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.controls.PropertyQueryDictComboBox;
-import com.gongsibao.crm.web.report.ComprehenReportPart;
-import com.gongsibao.entity.crm.report.ComprehenReportEntity;
+import com.gongsibao.crm.web.report.FollowReportPart;
+import com.gongsibao.entity.crm.report.FollowReportEntity;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
 
 /**
- * 综合统计
+ * 跟进统计
  * @author Administrator
  *
  */
-public class ComprehenStatisticalWorkspaceTest extends WorkspaceCreationBase{
+public class FollowStatisticalWorkspaceTest extends WorkspaceCreationBase{
 
 	@Override
 	@Before
 	public void setup() {
-		entity = ComprehenReportEntity.class;
-		urlList = "/operation/statistical/comprehen/list";
-		listPartName = formPartName = "综合统计";
+		entity = FollowReportEntity.class;
+		urlList = "/operation/statistical/follow/list";
+		listPartName = formPartName = "跟进统计";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
-		resourceNodeCode = "Operation_CRM_STATISTICAL_COMPREHEN";
+		resourceNodeCode = "Operation_CRM_STATISTICAL_FOLLOW";
 		listPartType = PartType.TREEGRID_PART.getId();
-		listPartServiceController = ComprehenReportPart.class.getName();
+		listPartServiceController = FollowReportPart.class.getName();
 		listPartImportJs = "/gsb/panda-extend/gsb.custom.query.controls.js";
 	}
-	
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
 
@@ -50,21 +48,15 @@ public class ComprehenStatisticalWorkspaceTest extends WorkspaceCreationBase{
 		PDatagridColumn column = null;
 
 		column = addColumn(datagrid, "departmentName", "部门", ControlTypes.TEXT_BOX, 300, true);
-		column = addColumn(datagrid, "customerCount", "全部客户数", ControlTypes.NUMBER_BOX, 100);
 		column = addColumn(datagrid, "taskCount", "全部任务数", ControlTypes.NUMBER_BOX, 100);
 		
-		/*column = addColumn(datagrid, "selfCustomerCount", "自拓客户数", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "selfTaskCount", "自拓任务数", ControlTypes.NUMBER_BOX, 100);*/
-		column = addColumn(datagrid, "allocationTaskCount", "分配任务数", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "intoTaskCount", "转入任务数", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "rollOutTaskCount", "转出任务数", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "returnTaskCount", "退回任务数", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "withdrawTaskCount", "收回任务数", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "followTaskCount", "跟进任务数", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "unSignTaskCount", "无法签单任务数", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "checkAbnormalTaskCount", "抽查异常任务数", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "signingAmount", "预估签单额", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "returnedAmount", "预估回款额", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "unfoolowCount", "待跟进任务数", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "timeOutCount", "超时任务数", ControlTypes.NUMBER_BOX, 100);
+		
+		column = addColumn(datagrid, "foolowCount", "跟进任务数", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "qualityRisetaskCount", "质量上升任务数", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "qualityDeclinetaskCount", "质量下降任务数", ControlTypes.NUMBER_BOX, 100);
+		
 		
 		column = addColumn(datagrid, "parentId", "parentId", ControlTypes.TEXT_BOX, 100);
 		{
@@ -84,17 +76,14 @@ public class ComprehenStatisticalWorkspaceTest extends WorkspaceCreationBase{
 		
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
-		PQueryItem item = null;
+		PQueryItem item = null; 
 		item = addQueryItem(queryProject, "date", "日期", ControlTypes.DATE_BOX);{
 			item.setRequired(true);
+			item.setInterzone(true);
 		}
 		addRefrenceQueryItem(queryProject, "supplier.name", "服务商", Supplier.class.getSimpleName());
 		addRefrenceQueryItem(queryProject, "department.name", "部门", SupplierDepartment.class.getSimpleName());
-		item = addQueryItem(queryProject, "source.name", "任务来源", ControlTypes.CUSTOM);{
-			
-			item.setCustomControlType(PropertyQueryDictComboBox.class.getName());
-			item.setRefFilter("type=411");
-		}
+		
 		return queryProject;
 	}
 	public void doOperation() {

@@ -85,3 +85,7 @@ public class ResourceTest extends ResourceCreationBase {
 		}*/
 	}
 }
+//财务审核
+//法务审核
+//采购审核
+//成本管理

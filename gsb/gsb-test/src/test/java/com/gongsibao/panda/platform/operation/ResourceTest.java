@@ -1,10 +1,5 @@
 package com.gongsibao.panda.platform.operation;
 
-import com.gongsibao.entity.crm.report.ComprehenReportEntity;
-import com.gongsibao.entity.crm.report.CustomerServiceReportEntity;
-import com.gongsibao.entity.crm.report.FollowReportEntity;
-import com.gongsibao.entity.crm.report.FunnelReportEntity;
-import com.gongsibao.u8.base.ISoOrderService;
 import org.junit.Before;
 import org.netsharp.base.IPersistableService;
 import org.netsharp.communication.ServiceFactory;
@@ -20,8 +15,8 @@ import com.gongsibao.crm.base.ICustomerOrderService;
 import com.gongsibao.crm.base.ICustomerProdMapService;
 import com.gongsibao.crm.base.ICustomerService;
 import com.gongsibao.crm.base.ICustomerServiceConfigService;
-import com.gongsibao.crm.base.INCustomerOperationLogService;
 import com.gongsibao.crm.base.INCustomerCompanyService;
+import com.gongsibao.crm.base.INCustomerOperationLogService;
 import com.gongsibao.crm.base.INCustomerProductService;
 import com.gongsibao.crm.base.INCustomerService;
 import com.gongsibao.crm.base.INCustomerTaskFoolowService;
@@ -39,8 +34,8 @@ import com.gongsibao.entity.crm.CustomerOrder;
 import com.gongsibao.entity.crm.CustomerProdMap;
 import com.gongsibao.entity.crm.CustomerServiceConfig;
 import com.gongsibao.entity.crm.NCustomer;
-import com.gongsibao.entity.crm.NCustomerOperationLog;
 import com.gongsibao.entity.crm.NCustomerCompany;
+import com.gongsibao.entity.crm.NCustomerOperationLog;
 import com.gongsibao.entity.crm.NCustomerProduct;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
@@ -100,6 +95,7 @@ import com.gongsibao.taurus.base.IUserWalletLogService;
 import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IOrderProdTraceService;
 import com.gongsibao.trade.base.IOrderService;
+import com.gongsibao.u8.base.ISoOrderService;
 
 public class ResourceTest extends ResourceCreationBase {
 
@@ -211,14 +207,6 @@ public class ResourceTest extends ResourceCreationBase {
             this.createResourceNodeVoucher(NCustomerTaskInspection.class.getName(), "抽查日志", "Operation_CRM_Customer_Inspection", INCustomerTaskInspectionService.class.getName(), node1.getId());
         }
 
-        node1 = this.createResourceNodeCategory("CRM统计分析", "Operation_CRM_STATISTICAL", node.getId());
-        {
-            this.createResourceNodeVoucher(ComprehenReportEntity.class.getName(), "综合统计", "Operation_CRM_STATISTICAL_Comprehen", IPersistableService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(FunnelReportEntity.class.getName(), "漏斗统计", "Operation_CRM_STATISTICAL_Funnel", IPersistableService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(FollowReportEntity.class.getName(), "跟进统计", "Operation_CRM_STATISTICAL_Follow", IPersistableService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(CustomerServiceReportEntity.class.getName(), "客服统计", "Operation_CRM_STATISTICAL_CustomerService", IPersistableService.class.getName(), node1.getId());
-
-        }
         node1 = this.createResourceNodeCategory("订单管理", "Operation_Order", node.getId());
         {
             this.createResourceNodeVoucher(SoOrder.class.getName(), "全部订单", "Operation_Order_Salesman_All", ISoOrderService.class.getName(), node1.getId());

@@ -4,11 +4,15 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import com.gongsibao.panda.platform.report.workspace.customer.ComprehenStatisticalWorkspaceTest;
 import com.gongsibao.panda.platform.report.workspace.customer.DayReportWorkspaceTest;
 import com.gongsibao.panda.platform.report.workspace.customer.DistrictReportWorkspaceTest;
+import com.gongsibao.panda.platform.report.workspace.customer.FollowStatisticalWorkspaceTest;
+import com.gongsibao.panda.platform.report.workspace.customer.FunnelStatisticalWorkspaceTest;
 import com.gongsibao.panda.platform.report.workspace.customer.MonthReportWorkspaceTest;
 import com.gongsibao.panda.platform.report.workspace.customer.ProductReportWorkspaceTest;
 import com.gongsibao.panda.platform.report.workspace.customer.SourceReportWorkspaceTest;
+import com.gongsibao.panda.platform.report.workspace.customer.StatisticalCustomerServiceWorkspaceTest;
 import com.gongsibao.panda.platform.report.workspace.customer.StatusReportWorkspaceTest;
 import com.gongsibao.panda.platform.report.workspace.customer.WeekReportWorkspaceTest;
 import com.gongsibao.panda.platform.report.workspace.customer.YearReportWorkspaceTest;
@@ -56,6 +60,12 @@ import com.gongsibao.panda.platform.report.workspace.customer.YearReportWorkspac
 	 ProductReportWorkspaceTest.class,
 	 SourceReportWorkspaceTest.class,
 	 StatusReportWorkspaceTest.class,
+	 
+     ComprehenStatisticalWorkspaceTest.class,
+     FollowStatisticalWorkspaceTest.class,
+     FunnelStatisticalWorkspaceTest.class,
+     StatisticalCustomerServiceWorkspaceTest.class,
+     
 	 NavigationTest.class
 	
 })
