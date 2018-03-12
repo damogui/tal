@@ -6,6 +6,7 @@ import org.netsharp.plugin.bean.BeanPath;
 
 import com.gongsibao.panda.supplier.crm.action.BaseActionTest;
 import com.gongsibao.trade.service.action.order.carryover.ActionApplyCarryoverAudit;
+import com.gongsibao.trade.service.action.order.carryover.ActionApplyCarryoverLog;
 import com.gongsibao.trade.service.action.order.carryover.ActionApplyCarryoverPersist;
 import com.gongsibao.trade.service.action.order.carryover.ActionApplyCarryoverSendMessage;
 import com.gongsibao.trade.service.action.order.carryover.ActionApplyCarryoverVerify;
@@ -41,8 +42,9 @@ public class CarryoverActionTest  extends BaseActionTest{
 
 		createBean(beanPath, "1.验证", ActionApplyCarryoverVerify.class.getName(), resourceNode, 100);
 		createBean(beanPath, "2.保存", ActionApplyCarryoverPersist.class.getName(), resourceNode, 200);
-		createBean(beanPath, "4.审核", ActionApplyCarryoverAudit.class.getName(), resourceNode, 300);
-		createBean(beanPath, "5.通知", ActionApplyCarryoverSendMessage.class.getName(), resourceNode, 400);
+		createBean(beanPath, "3.审核", ActionApplyCarryoverAudit.class.getName(), resourceNode, 300);
+		createBean(beanPath, "4.通知", ActionApplyCarryoverSendMessage.class.getName(), resourceNode, 400);
+		createBean(beanPath, "5.日志", ActionApplyCarryoverLog.class.getName(), resourceNode, 500);
 		beanPathService.save(beanPath);
 	}
 }
