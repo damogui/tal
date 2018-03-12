@@ -1,8 +1,10 @@
 package com.gongsibao.panda.supplier.order;
 
 import com.gongsibao.entity.trade.*;
+import com.gongsibao.entity.u8.U8Bank;
 import com.gongsibao.trade.base.*;
 
+import com.gongsibao.u8.base.IU8BankService;
 import org.junit.Test;
 import org.netsharp.meta.base.ResourceCreationBase;
 import org.netsharp.resourcenode.entity.ResourceNode;
@@ -27,6 +29,8 @@ public class OrderResourceTest extends ResourceCreationBase {
                 /*我的订单按钮beg*/
                 this.createResourceNodeVoucher(SoOrder.class.getName(), "创建订单业绩", "Gsb_Supplier_Order_Salesman_CoPerformance", IOrderService.class.getName(), node1.getId());
                 this.createResourceNodeVoucher(SoOrder.class.getName(), "创建回款业绩", "Gsb_Supplier_Order_Salesman_CReceivedPerformance", IOrderService.class.getName(), node1.getId());
+
+                this.createResourceNodeVoucher(U8Bank.class.getName(), "u8Bank付款方式", "GSB_Basic_SupplierU8_" + U8Bank.class.getSimpleName(), IU8BankService.class.getName(), node1.getId());
 
 //                this.createResourceNodeVoucher (OrderPayMap.class.getName (), "支付明细", "Gsb_Supplier_Order_Salesman_OrderPayMap", IOrderPayMapService.class.getName (), node1.getId ());
                 /*我的订单按钮end*/
