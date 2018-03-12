@@ -36,33 +36,34 @@ import java.util.List;
  * Created by win on 2018/3/5.
  */
 /*创建回款业绩*/
-public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationBase {
+public class SoCreatReceivedPerformanceWorkspaceTest extends WorkspaceCreationBase {
     @Before
     public void setup() {
-        super.setup();
+        super.setup ();
         entity = SoOrder.class;
         urlForm = "/crm/order/salesman/creceivedperformance";
         formToolbarPath = "";
         listPartName = formPartName = "创建回款业绩";
-        meta = MtableManager.getMtable(entity);
+        meta = MtableManager.getMtable (entity);
         resourceNodeCode = "Gsb_Supplier_Order_Salesman_CReceivedPerformance";
         listToolbarPath = "/crm/roworderaddreceiveformance/toolbar";
 
         List<String> ss = new ArrayList<String> ();
         //ss.add("/package/easyui/datagrid-cellediting.js");
-        ss.add("/gsb/platform/trade/js/so-receiveperformance-add.part.js");
+        ss.add ("/gsb/platform/trade/js/so-receiveperformance-add.part.js");
         ss.add ("/gsb/panda-extend/gsb.customer.controls.js");
-        formJsImport = StringManager.join("|", ss);
-       // formJsController = SoCreatReceivePerformanceFormPart.class.getName();
+        formJsImport = StringManager.join ("|", ss);
+        // formJsController = SoCreatReceivePerformanceFormPart.class.getName();
         listPartJsController = SoCreatOrderPerformanceListPart.class.getName ();
-        formServiceController = SoCreatReceivePerformanceFormPart.class.getName();//处理回款业绩
+        formServiceController = SoCreatReceivePerformanceFormPart.class.getName ();//处理回款业绩
     }
 
     @Test
     public void run() {
 
-        createFormWorkspace();
+        createFormWorkspace ();
     }
+
     @Test
     public void createListToolbar() {
 
@@ -103,7 +104,7 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
         PFormField formField = null;
 
         String groupName = null;
-        String groupName2="回款申请";
+        String groupName2 = "回款申请";
 
         formField = addFormField (form, "no", "订单编号", groupName, ControlTypes.TEXT_BOX, false);
         {
@@ -158,7 +159,6 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
         }
 
 
-
         formField = addFormField (form, "performancePrice", "已划分金额", groupName, ControlTypes.TEXT_BOX, false);
         {
             formField.setReadonly (true);
@@ -199,7 +199,7 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
 
         formField = addFormFieldRefrence (form, "pays.u8Bank.name", "付款方式", groupName2, U8Bank.class.getSimpleName (), true, false);
         {
-            formField.setRefFilter("set_of_books_id=1");
+            formField.setRefFilter ("set_of_books_id=1");
             //U8Bank
             //formField.setTroikaTrigger ("controllerdepReceivable.departmentChange(newValue,oldValue);");
         }
@@ -276,7 +276,7 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
             PDatagridColumn column = null;
 
 
-            column = addColumn (datagrid, "payId", "订单号", ControlTypes.TEXT_BOX, 150);//depPays.supplier.name
+            column = addColumn (datagrid, "orderId", "订单号", ControlTypes.TEXT_BOX, 150);//depPays.supplier.name
             column = addColumn (datagrid, "payId", "订单分配金额", ControlTypes.TEXT_BOX, 150);
             column = addColumn (datagrid, "payId", "付款类别", ControlTypes.TEXT_BOX, 150);
             column = addColumn (datagrid, "payId", "回款业绩分配服务商", ControlTypes.TEXT_BOX, 200);
@@ -285,33 +285,9 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
             column = addColumn (datagrid, "payId", "回款业绩分配金额", ControlTypes.TEXT_BOX, 150);
 
 
+         }
+            /*表单beg*/
 
-//            column = addColumn (datagrid, "orderId", "部门", ControlTypes.NUMBER_BOX, 150);//depPays.departmen.name
-//            {
-//
-//                column.setAlign (DatagridAlign.CENTER);
-//            }
-
-           // column = addColumn (datagrid, "payId", "业务员", ControlTypes.TEXT_BOX, 150);//depPays.salesman.name
-//            column = addColumn (datagrid, "orderId", "分配金额", ControlTypes.DECIMAL_FEN_BOX, 150);//depPays.amount
-
-        }
-/*表单beg*/
-        PForm form = new PForm ();
-        {//预置不出来
-            form.toNew ();
-            form.setResourceNode (node);
-            form.setColumnCount (1);
-            form.setName ("业绩划分金额表");
-
-            // form.setTag ();//设置提示
-            form.setLabelWidth (100);
-            PFormField formField = null;
-//            formField = addFormFieldRefrence (form, "orderId", "服务商", null, Supplier.class.getSimpleName (), true, false);
-//            {
-
-
-        }
 
             /*表单end*/
         PPart part = new PPart ();
@@ -326,7 +302,7 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
             part.setDatagrid (datagrid);
             part.setDockStyle (DockType.DOCUMENTHOST);
             part.setToolbar (listToolbarPath);
-           // part.setForm (form);
+            // part.setForm (form);
             part.setWindowWidth (400);
             part.setWindowHeight (450);
 
