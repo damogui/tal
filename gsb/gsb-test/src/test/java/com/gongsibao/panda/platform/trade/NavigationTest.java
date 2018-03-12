@@ -60,7 +60,7 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Staging", "分期审核", "/trade/audit/staging/list", 9);
 		}
 
-		parentNodeCode = ResourceTest.resourcePrefix + "_Cost";
+		/*parentNodeCode = ResourceTest.resourcePrefix + "_Cost";
 		createPTreeNode(tree, null, "fa fa-rmb fa-fw", parentNodeCode, "成本管理", "", 4);
 		{
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Manage", "成本管理", "/trade/cost/manage/list", 1);
@@ -68,7 +68,7 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_CashOut", "请款审核", "/trade/cost/cashout/list", 3);
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Invoice", "供应商发票审核", "/trade/cost/invoice/list", 4);
 		}
-
+*/
 		/*parentNodeCode = ResourceTest.resourcePrefix + "_Payment";
 		createPTreeNode(tree, null, "fa fa-credit-card fa-fw", parentNodeCode, "支付记录", "", 5);
 		{
