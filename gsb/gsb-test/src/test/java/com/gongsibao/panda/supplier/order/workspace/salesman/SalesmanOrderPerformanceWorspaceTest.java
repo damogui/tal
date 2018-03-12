@@ -33,46 +33,12 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
         meta = MtableManager.getMtable(entity);
         formPartName = listPartName = meta.getName();
         resourceNodeCode = "Gsb_Supplier_Order_Salesman_Performance";
-        //listToolbarPath = "crm/order/orderperformance/edit";
         formOpenMode = OpenMode.WINDOW;
         openWindowHeight = 700;
         openWindowWidth = 900;
         listPartImportJs = "/gsb/panda-extend/gsb.custom.query.controls.js";
+        listFilter = "(employee_id = {userId} OR creator_id = {userId})";
     }
-
-
-    /*public PToolbar createListToolbar() {
-
-        ResourceNode node = this.resourceService.byCode (resourceNodeCode);
-       // OperationType ot1 = operationTypeService.byCode (OperationTypes.add);
-        PToolbar toolbar = new PToolbar ();
-        {
-            toolbar.toNew ();
-            toolbar.setPath (listToolbarPath);
-            toolbar.setName ("订单业绩");
-            toolbar.setResourceNode (node);
-            toolbar.setToolbarType (ToolbarType.BASE);
-        }
-        //详情进行跳转双击操作
-        PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "addAudit", PToolbarHelper.iconAdd,
-                "审批流", null, 1, "{controller}.add();");
-        toolbar.getItems ().add (item);
-        return toolbar;
-    }
-
-
-
-    *//*进行设置工具栏*//*
-    @Test
-    public void saveListToolbar() {
-
-        PToolbar toolbar = createListToolbar ();
-        if (toolbar != null) {
-
-            toolbarService.save (toolbar);
-        }
-    }*/
-
 
     @Override
     protected PDatagrid createDatagrid(ResourceNode node) {
@@ -87,8 +53,8 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
         addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
         addColumn(datagrid, "order.no", "订单编号", ControlTypes.TEXT_BOX, 80);
         addColumn(datagrid, "order.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "order.prodName", "产品名称", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "order.companyIntention.companyName", "签单公司", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "order.prodName", "产品名称", ControlTypes.TEXT_BOX, 250);
+        addColumn(datagrid, "order.companyIntention.companyName", "签单公司", ControlTypes.TEXT_BOX, 250);
         column = addColumn(datagrid, "order.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         {
             column.setAlign(DatagridAlign.RIGHT);
@@ -111,7 +77,6 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
         addColumn(datagrid, "order.createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);
         addColumn(datagrid, "creator", "订单业绩创建人", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "order.owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
-
         return datagrid;
     }
 
@@ -125,28 +90,6 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
         addQueryItem(queryProject, "no", "编号", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "prodName", "产品名称", ControlTypes.TEXT_BOX);
-        /*addQueryItem(queryProject, "no", "办理名称", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "no", "客户创建人", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "no", "业务员", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "owner.name", "下单人", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "no", "下单人电话", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "no", "关联企业", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "sourceType.name", "订单来源", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "payStatus.name", "订单状态", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "type", "订单类型", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "no", "组织机构", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "no", "产品分类", ControlTypes.TEXT_BOX);
-
-        addQueryItem(queryProject, "no", "下单方式", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "addTime", "回款日期", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "no", "分期付款", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "no", "开发票", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "addTime", "创建日期", ControlTypes.TEXT_BOX);*/
-//        addQueryItem (queryProject, "no", "组织机构", ControlTypes.TEXT_BOX);
-//        addQueryItem (queryProject, "no", "组织机构", ControlTypes.TEXT_BOX);
-        //今天 昨天 本周 本月
-
-
         return queryProject;
     }
 
@@ -154,9 +97,6 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
     protected void doOperation() {
         ResourceNode node = this.getResourceNode();
         operationService.addOperation(node, OperationTypes.view);
-        /*operationService.addOperation (node, OperationTypes.add);
-        operationService.addOperation (node, OperationTypes.update);
-        operationService.addOperation (node, OperationTypes.delete);*/
     }
 
 }
