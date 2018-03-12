@@ -88,7 +88,7 @@ public class SoOrderService extends PersistableService<SoOrder> implements ISoOr
             oql.setType(this.type);
             oql.setSelects("*");
             oql.setFilter("pkid in (" + orderIds + ")");
-            oql.setOrderby("addTime Desc");
+            oql.setOrderby("add_time Desc");
         }
         List<SoOrder> soOrderList = this.pm.queryList(oql);
         //转移的目标业务员
@@ -128,7 +128,7 @@ public class SoOrderService extends PersistableService<SoOrder> implements ISoOr
             oql.setType(this.type);
             oql.setSelects("*");
             oql.setFilter("pkid in (" + orderIds + ")");
-            oql.setOrderby("addTime Desc");
+            oql.setOrderby("add_time Desc");
         }
 
         List<SoOrder> soOrderList = this.pm.queryList(oql);

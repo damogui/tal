@@ -6,27 +6,88 @@ package com.gongsibao.taurus.entity;
 public class TmNew implements IEntity {
     private static final long serialVersionUID = 4439460126093986286L;
 
-    private String sbsqr;
-    private String sbsqrzwdz;
-    private String gjlb;
-    private String sbsqrywdz;
-    private String cjsj;
-    private String csggh;
-    private String sbmc;
-    private String yxqrq;
+    /* 商标注册号 */
     private String sbzch;
-    private String zyqqxjssj;
-    private String dlsws;
-    private String sbsrryw;
-    private String zyqqxkssj;
-    private String sbgysqr;
-    private String logo;
-    private String guzcrq;
-    private String zcggh;
-    private String zcggrq;
+    /* 国际类别 */
+    private String gjlb;
+    /* 商标名称 */
+    private String sbmc;
+    /* 状态 */
     private String zt;
+    /* 创建时间 */
+    private String cjsj;
+    /* 商标申请人 */
+    private String sbsqr;
+    /* 商标申请人中文地址 */
+    private String sbsqrzwdz;
+    /* 商标共有申请人 */
+    private String sbgysqr;
+    /* 商标申请人英文 */
+    private String sbsrryw;
+    /* 商标申请人英文地址 */
+    private String sbsqrywdz;
+    /* 初审公告期号 */
+    private String csggh;
+    /* 初审公告日期 */
     private String csggrq;
+    /* 注册公告期号 */
+    private String zcggh;
+    /* 注册公告日期 */
+    private String zcggrq;
+    /* 专用权期限开始时间 */
+    private String zyqqxkssj;
+    /* 专用权期限结束时间 */
+    private String zyqqxjssj;
+    /* 代理事务所 */
+    private String dlsws;
+    /* 后期指定日期 */
     private String hqzdrq;
+    /* 国际注册日期 */
+    private String guzcrq;
+    /* 优先权日期 */
+    private String yxqrq;
+    /* 商标图 目前格式base64 */
+    private String logo;
+
+    public String getSbzch() {
+        return sbzch;
+    }
+
+    public void setSbzch(String sbzch) {
+        this.sbzch = sbzch;
+    }
+
+    public String getGjlb() {
+        return gjlb;
+    }
+
+    public void setGjlb(String gjlb) {
+        this.gjlb = gjlb;
+    }
+
+    public String getSbmc() {
+        return sbmc;
+    }
+
+    public void setSbmc(String sbmc) {
+        this.sbmc = sbmc;
+    }
+
+    public String getZt() {
+        return zt;
+    }
+
+    public void setZt(String zt) {
+        this.zt = zt;
+    }
+
+    public String getCjsj() {
+        return cjsj;
+    }
+
+    public void setCjsj(String cjsj) {
+        this.cjsj = cjsj;
+    }
 
     public String getSbsqr() {
         return sbsqr;
@@ -44,76 +105,12 @@ public class TmNew implements IEntity {
         this.sbsqrzwdz = sbsqrzwdz;
     }
 
-    public String getGjlb() {
-        return gjlb;
+    public String getSbgysqr() {
+        return sbgysqr;
     }
 
-    public void setGjlb(String gjlb) {
-        this.gjlb = gjlb;
-    }
-
-    public String getSbsqrywdz() {
-        return sbsqrywdz;
-    }
-
-    public void setSbsqrywdz(String sbsqrywdz) {
-        this.sbsqrywdz = sbsqrywdz;
-    }
-
-    public String getCjsj() {
-        return cjsj;
-    }
-
-    public void setCjsj(String cjsj) {
-        this.cjsj = cjsj;
-    }
-
-    public String getCsggh() {
-        return csggh;
-    }
-
-    public void setCsggh(String csggh) {
-        this.csggh = csggh;
-    }
-
-    public String getSbmc() {
-        return sbmc;
-    }
-
-    public void setSbmc(String sbmc) {
-        this.sbmc = sbmc;
-    }
-
-    public String getYxqrq() {
-        return yxqrq;
-    }
-
-    public void setYxqrq(String yxqrq) {
-        this.yxqrq = yxqrq;
-    }
-
-    public String getSbzch() {
-        return sbzch;
-    }
-
-    public void setSbzch(String sbzch) {
-        this.sbzch = sbzch;
-    }
-
-    public String getZyqqxjssj() {
-        return zyqqxjssj;
-    }
-
-    public void setZyqqxjssj(String zyqqxjssj) {
-        this.zyqqxjssj = zyqqxjssj;
-    }
-
-    public String getDlsws() {
-        return dlsws;
-    }
-
-    public void setDlsws(String dlsws) {
-        this.dlsws = dlsws;
+    public void setSbgysqr(String sbgysqr) {
+        this.sbgysqr = sbgysqr;
     }
 
     public String getSbsrryw() {
@@ -124,36 +121,28 @@ public class TmNew implements IEntity {
         this.sbsrryw = sbsrryw;
     }
 
-    public String getZyqqxkssj() {
-        return zyqqxkssj;
+    public String getSbsqrywdz() {
+        return sbsqrywdz;
     }
 
-    public void setZyqqxkssj(String zyqqxkssj) {
-        this.zyqqxkssj = zyqqxkssj;
+    public void setSbsqrywdz(String sbsqrywdz) {
+        this.sbsqrywdz = sbsqrywdz;
     }
 
-    public String getSbgysqr() {
-        return sbgysqr;
+    public String getCsggh() {
+        return csggh;
     }
 
-    public void setSbgysqr(String sbgysqr) {
-        this.sbgysqr = sbgysqr;
+    public void setCsggh(String csggh) {
+        this.csggh = csggh;
     }
 
-    public String getLogo() {
-        return logo;
+    public String getCsggrq() {
+        return csggrq;
     }
 
-    public void setLogo(String logo) {
-        this.logo = logo;
-    }
-
-    public String getGuzcrq() {
-        return guzcrq;
-    }
-
-    public void setGuzcrq(String guzcrq) {
-        this.guzcrq = guzcrq;
+    public void setCsggrq(String csggrq) {
+        this.csggrq = csggrq;
     }
 
     public String getZcggh() {
@@ -172,20 +161,28 @@ public class TmNew implements IEntity {
         this.zcggrq = zcggrq;
     }
 
-    public String getZt() {
-        return zt;
+    public String getZyqqxkssj() {
+        return zyqqxkssj;
     }
 
-    public void setZt(String zt) {
-        this.zt = zt;
+    public void setZyqqxkssj(String zyqqxkssj) {
+        this.zyqqxkssj = zyqqxkssj;
     }
 
-    public String getCsggrq() {
-        return csggrq;
+    public String getZyqqxjssj() {
+        return zyqqxjssj;
     }
 
-    public void setCsggrq(String csggrq) {
-        this.csggrq = csggrq;
+    public void setZyqqxjssj(String zyqqxjssj) {
+        this.zyqqxjssj = zyqqxjssj;
+    }
+
+    public String getDlsws() {
+        return dlsws;
+    }
+
+    public void setDlsws(String dlsws) {
+        this.dlsws = dlsws;
     }
 
     public String getHqzdrq() {
@@ -194,5 +191,29 @@ public class TmNew implements IEntity {
 
     public void setHqzdrq(String hqzdrq) {
         this.hqzdrq = hqzdrq;
+    }
+
+    public String getGuzcrq() {
+        return guzcrq;
+    }
+
+    public void setGuzcrq(String guzcrq) {
+        this.guzcrq = guzcrq;
+    }
+
+    public String getYxqrq() {
+        return yxqrq;
+    }
+
+    public void setYxqrq(String yxqrq) {
+        this.yxqrq = yxqrq;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
     }
 }
