@@ -55,12 +55,6 @@ com.gongsibao.trade.web.OrderFormCtrl = com.gongsibao.trade.web.BaseCtrl.Extends
     init:function(){
     	
     	var me = this;
-    	var orderId = this.getOrderId();
-    	this.invokeService ("getSoOrder", [orderId], function(data){
-    		
-    		me.bindData(data);
-    	});
-
 		$('#detail_tabs').tabs({    
 			tabHeight:30,
 		    onSelect:function(title){    
@@ -110,37 +104,6 @@ com.gongsibao.trade.web.OrderFormCtrl = com.gongsibao.trade.web.BaseCtrl.Extends
     	productDetailCtrl.init();
     	me.initializeDetailList.add('产品信息',productDetailCtrl);
     	
-    },
-    bindData:function(soOrder){
-    	
-    	$('#no').text(soOrder.no);
-    	
-    	var payablePrice=soOrder.payablePrice/100;
-    	$('#payablePrice').text(payablePrice.toFixed(2));
-    	
-    	var paidPrice=(soOrder.paidPrice/100).toFixed(2);
-    	$('#paidPrice').text(paidPrice);
-    	
-    	$('#accountName').text(soOrder.accountName);
-    	$('#accountMobile').text(soOrder.accountMobile);
-    	$('#addTime').text(soOrder.addTime);
-    	
-    	$('#platformSource').text(this.platformSourceTypeEnum[soOrder.platformSource]);
-    	$('#payStatus').text(this.payStatusTypeEnum[soOrder.payStatus]);
-    	var installmentMode = soOrder.installmentMode;
-    	if(installmentMode){
-    		
-    		var ss = installmentMode.split('|');
-    		var count = ss.length;
-        	$('#installmentCount').text(count+'期');
-    	}else{
-    		
-    		$('#installmentCount').text('-');
-    	}
-    	
-    	$('#channelOrderNo').text(soOrder.channelOrderNo||'');
-    	
-    	$('#remark').text(soOrder.remark||'');
     }
 });
 
