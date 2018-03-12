@@ -1,6 +1,7 @@
 package com.gongsibao.panda.supplier.order;
 
 import com.gongsibao.panda.supplier.order.workspace.salesman.*;
+import com.gongsibao.panda.supplier.reference.SupplierU8BankReferenceTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -21,6 +22,8 @@ import com.gongsibao.panda.supplier.order.workspace.department.DepartmentReportW
 @RunWith(Suite.class)
 @SuiteClasses({
         OrderResourceTest.class,
+
+        SupplierU8BankReferenceTest.class,
 
         //我的订单
         SalesmanOrderAddWorkspaceTest.class,

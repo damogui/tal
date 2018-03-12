@@ -18,9 +18,9 @@ public class SupplierU8BankReferenceTest  extends ReferenceCreationBase   {
     @Before
     public void setup() {
 
-        resourceNodeCode =  "GSB_Basic_SupplierU8_" + U8Bank.class.getSimpleName();
+        resourceNodeCode =  "GSB_Basic_SupplierU8_U8Bank";
         datagridName = referenceName = "预付科目参照";
-        referenceCode = "Supplier"+U8Bank.class.getSimpleName();
+        referenceCode = "SupplierU8Bank";
         intelligentMode = IntelligentMode.LIKE;
         intelligentFields = "name";
     }
