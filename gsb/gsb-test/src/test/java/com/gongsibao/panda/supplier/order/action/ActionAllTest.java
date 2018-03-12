@@ -7,11 +7,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import com.gongsibao.panda.supplier.order.action.order.SaveOrderActionTest;
+import com.gongsibao.panda.supplier.order.action.order.OrderNewSaveActionTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-        SaveOrderActionTest.class,
+        OrderNewSaveActionTest.class,
         TransformActionTest.class,
         OrderApplyStageActionTest.class
 })
