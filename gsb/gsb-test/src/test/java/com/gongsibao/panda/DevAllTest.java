@@ -44,7 +44,7 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
 	com.gongsibao.panda.platform.trade.AllTest.class,
 
     //9.报表中心
-	 com.gongsibao.panda.platform.report.AllTest.class,
+//	 com.gongsibao.panda.platform.report.AllTest.class,
 
     //10.igri
 	//com.gongsibao.panda.igirl.AllTest.class,

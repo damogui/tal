@@ -18,7 +18,6 @@ com.gongsibao.trade.web.OrderStagetrl = org.netsharp.panda.core.CustomCtrl.Exten
     		var stageAmount = ((data.payablePrice - data.paidPrice)/100).toFixed(2);
     		$('#stageAmount').numberbox('setValue',stageAmount);
     		$('#stageNum').combobox('setValue','2');
-    		
     	});
     },
     stageNumChange:function(newValue,oldValue){
@@ -38,10 +37,10 @@ com.gongsibao.trade.web.OrderStagetrl = org.netsharp.panda.core.CustomCtrl.Exten
     		$('#stagePercentage'+i).numberbox('clear');
     	}
     	
-    	//禁用最后一个
+    	// 禁用最后一个
     	$('#stageAmount'+num).numberbox('disable');
     	
-    	//还有一些联动未处理 hw
+    	// 还有一些联动未处理 hw
     },
     stageAmountChange:function(newValue,oldValue,numIndex){
     	
@@ -73,6 +72,42 @@ com.gongsibao.trade.web.OrderStagetrl = org.netsharp.panda.core.CustomCtrl.Exten
     },
     save:function(){
     	
-    	alert('保存！');
+    	var stageList = [];
+    	var orderId = this.queryString('id');
+    	var num = parseInt($('#stageNum').combobox('getValue'));
+    	for(var i=1;i<=num;i++){
+    		
+    		var amount = parseFloat($('#stageAmount'+i).numberbox('getValue'))*100;
+    		if(System.isnull(amount)){
+    			
+    			IMessageBox.toast('请填写分期金额!',2);
+    			return;
+    		}
+    		var percentage = $('#stagePercentage'+i).numberbox('getValue');
+    		var stage = {
+    				orderId:orderId,
+    				instalmentIndex:i,
+    				percentage:percentage,
+    					amount:amount
+    		};
+    		stageList.push(stage);
+    	}
+    	
+    	var soOrder = {id:orderId,
+		    			staged:true,
+		    			stageNum:num,
+		    			stages:stageList};
+    	
+    	var me = this;
+    	IMessageBox.confirm('确定提交申请吗？',function(r){
+    		
+    		if(r){
+
+    			me.invokeService("applyStage", [soOrder], function(data){
+    	    		
+    	    		IMessageBox.info('申请成功，请等待审核!');
+    	    	});
+    		}
+    	});
     }
 });

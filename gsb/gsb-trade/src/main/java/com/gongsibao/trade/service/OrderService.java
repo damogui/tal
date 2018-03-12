@@ -56,4 +56,10 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
 //		builder.append("SoOrder.products.*");
 //		return builder.toString();
 //	}
+
+	@Override
+	public Boolean applyStage(SoOrder soOrder) {
+
+		return true;
+	}
 }
