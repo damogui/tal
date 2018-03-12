@@ -44,7 +44,7 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
         listPartName = formPartName = "创建回款业绩";
         meta = MtableManager.getMtable(entity);
         resourceNodeCode = "Gsb_Supplier_Order_Salesman_CReceivedPerformance";
-        listToolbarPath = "/crm/roworderaddperformance/toolbar";
+        listToolbarPath = "/crm/roworderaddreceiveformance/toolbar";
 
         List<String> ss = new ArrayList<String> ();
         ss.add("/package/easyui/datagrid-cellediting.js");
@@ -261,7 +261,7 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
     // 关联部门回款表
     public void performancePart(PWorkspace workspace) {
 
-        ResourceNode node = this.resourceService.byCode ("Gsb_Supplier_Order_Salesman_Received");
+        ResourceNode node = this.resourceService.byCode ("Gsb_Supplier_Order_Salesman_OrderPayMap");
         PDatagrid datagrid = new PDatagrid (node, "关联回款订单");
         {
             datagrid.setShowCheckbox (true);
@@ -273,21 +273,29 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
             PDatagridColumn column = null;
 
 
-            column = addColumn (datagrid, "depPays.supplier.name", "服务商", ControlTypes.TEXT_BOX, 150);
+            column = addColumn (datagrid, "payId", "订单号", ControlTypes.TEXT_BOX, 150);//depPays.supplier.name
+            column = addColumn (datagrid, "payId", "订单分配金额", ControlTypes.TEXT_BOX, 150);
+            column = addColumn (datagrid, "payId", "付款类别", ControlTypes.TEXT_BOX, 150);
+            column = addColumn (datagrid, "payId", "回款业绩分配服务商", ControlTypes.TEXT_BOX, 200);
+            column = addColumn (datagrid, "payId", "回款业绩分配部门", ControlTypes.TEXT_BOX, 200);
+            column = addColumn (datagrid, "payId", "回款业绩分配业务员", ControlTypes.TEXT_BOX, 150);
+            column = addColumn (datagrid, "payId", "回款业绩分配金额", ControlTypes.TEXT_BOX, 150);
 
-            column = addColumn (datagrid, "depPays.departmen.namet", "部门", ControlTypes.NUMBER_BOX, 150);
-            {
 
-                column.setAlign (DatagridAlign.CENTER);
-            }
 
-            column = addColumn (datagrid, "depPays.salesman.name", "业务员", ControlTypes.TEXT_BOX, 150);
-            column = addColumn (datagrid, "depPays.amount", "分配金额", ControlTypes.DECIMAL_FEN_BOX, 150);
+//            column = addColumn (datagrid, "orderId", "部门", ControlTypes.NUMBER_BOX, 150);//depPays.departmen.name
+//            {
+//
+//                column.setAlign (DatagridAlign.CENTER);
+//            }
+
+           // column = addColumn (datagrid, "payId", "业务员", ControlTypes.TEXT_BOX, 150);//depPays.salesman.name
+//            column = addColumn (datagrid, "orderId", "分配金额", ControlTypes.DECIMAL_FEN_BOX, 150);//depPays.amount
 
         }
 /*表单beg*/
         PForm form = new PForm ();
-        {
+        {//预置不出来
             form.toNew ();
             form.setResourceNode (node);
             form.setColumnCount (1);
@@ -296,18 +304,18 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
             // form.setTag ();//设置提示
             form.setLabelWidth (100);
             PFormField formField = null;
-            formField = addFormFieldRefrence (form, "depPays.supplier.name", "服务商", null, Supplier.class.getSimpleName (), true, false);
-            {
-                //formField.setTroikaTrigger ("controllerdepReceivable.supplierChange(newValue,oldValue);");
-            }
-
-            formField = addFormFieldRefrence (form, "depPays.departmen.namet", "部门", null, SupplierDepartment.class.getSimpleName (), true, false);
-            {
-                //formField.setTroikaTrigger ("controllerdepReceivable.departmentChange(newValue,oldValue);");
-            }
-
-            formField = addFormFieldRefrence (form, "depPays.salesman", "业务员", null, Employee.class.getSimpleName (), true, false);
-            formField = addFormField (form, "depPays.amount", "分配金额", null, ControlTypes.DECIMAL_FEN_BOX, true, false);
+//            formField = addFormFieldRefrence (form, "orderId", "服务商", null, Supplier.class.getSimpleName (), true, false);
+//            {
+//                //formField.setTroikaTrigger ("controllerdepReceivable.supplierChange(newValue,oldValue);");
+//            }
+//
+//            formField = addFormFieldRefrence (form, "orderId", "部门", null, SupplierDepartment.class.getSimpleName (), true, false);
+//            {
+//                //formField.setTroikaTrigger ("controllerdepReceivable.departmentChange(newValue,oldValue);");
+//            }
+//
+//            formField = addFormFieldRefrence (form, "orderId", "业务员", null, Employee.class.getSimpleName (), true, false);
+           // formField = addFormField (form, "payId", "分配金额", null, ControlTypes.TEXT_BOX, true, false);
 
             {
 //                //formField.setWidth (300);

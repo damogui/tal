@@ -68,7 +68,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             fixed: false,
             maxmin: true,
             shadeClose: false,
-            area: ['60%', '60%'],
+            area: ['80%', '80%'],
             zIndex: 100000,
             id: "addReceivedIframe",
             content: urlEnd,

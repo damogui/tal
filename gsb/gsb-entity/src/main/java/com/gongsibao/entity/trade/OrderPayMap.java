@@ -49,6 +49,8 @@ public class OrderPayMap extends BaseEntity {
 
 
 
+
+
     /*new end*/
     public Integer getOrderId() {
         return orderId;

@@ -69,7 +69,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
     public PToolbar createListToolbar() {
 
         ResourceNode node = this.resourceService.byCode(resourceNodeCode);
-        OperationType ot1 = operationTypeService.byCode(OperationTypes.add);
+        OperationType ot1 = operationTypeService.byCode(OperationTypes.view);
         PToolbar toolbar = new PToolbar();
         {
             toolbar.toNew();
