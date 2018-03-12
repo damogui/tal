@@ -49,7 +49,7 @@ public class SoCreatReceivedPerformanceWorkspaceTest extends WorkspaceCreationBa
         listToolbarPath = "/crm/roworderaddreceiveformance/toolbar";
 
         List<String> ss = new ArrayList<String> ();
-        //ss.add("/package/easyui/datagrid-cellediting.js");
+        ss.add("/package/easyui/datagrid-cellediting.js");
         ss.add ("/gsb/platform/trade/js/so-receiveperformance-add.part.js");
         ss.add ("/gsb/panda-extend/gsb.customer.controls.js");
         formJsImport = StringManager.join ("|", ss);
@@ -190,14 +190,14 @@ public class SoCreatReceivedPerformanceWorkspaceTest extends WorkspaceCreationBa
         }
 
 
-        formField = addFormFieldRefrence (form, "pays.u8Bank.setOfBooks.name", "付款账套", groupName2, SetOfBooks.class.getSimpleName (), true, false);//进行联动
+        formField = addFormFieldRefrence (form, "u8Bank.setOfBooks.name", "付款账套", groupName2, SetOfBooks.class.getSimpleName (), true, false);//进行联动
         {
 
-            //SetOfBooks
-            //formField.setTroikaTrigger ("controllerdepReceivable.supplierChange(newValue,oldValue);");
+
+            formField.setTroikaTrigger ("controllerpays.bankBooksChange(newValue,oldValue);");
         }
 
-        formField = addFormFieldRefrence (form, "pays.u8Bank.name", "付款方式", groupName2, U8Bank.class.getSimpleName (), true, false);
+        formField = addFormFieldRefrence (form, "u8Bank.name", "付款方式", groupName2, U8Bank.class.getSimpleName (), true, false);
         {
             formField.setRefFilter ("set_of_books_id=1");
             //U8Bank
