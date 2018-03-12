@@ -2,14 +2,12 @@ package com.gongsibao.api.conroller.sys.stat;
 
 import javax.ws.rs.Path;
 
-import org.apache.log4j.Logger;
-
 /**
  * Created by oupeng on 17/7/27.
  */
 @Path("/stat/dingtalk/robot")
 public class DingTalkRobotController {
-    private static Logger log = Logger.getLogger(DingTalkRobotController.class);
+//    private static Logger log = Logger.getLogger(DingTalkRobotController.class);
 
 //    @Autowired
 //    private DingTalkRobotService dingTalkRobotService;

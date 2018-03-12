@@ -2,9 +2,14 @@ package com.gongsibao.igirl.service;
 
 import com.gongsibao.bd.service.GsbPersistableService;
 import com.gongsibao.entity.igirl.DownloadAttachment;
+import com.gongsibao.entity.igirl.UploadAttachment;
 import com.gongsibao.igirl.base.IDownloadAttachmentService;
 
+import java.sql.Types;
+import java.util.List;
+
 import org.netsharp.communication.Service;
+import org.netsharp.core.Oql;
 @Service
 public class DownloadAttachmentService extends GsbPersistableService<DownloadAttachment> implements IDownloadAttachmentService {
 
@@ -12,6 +17,20 @@ public class DownloadAttachmentService extends GsbPersistableService<DownloadAtt
 		super();
 		this.type = DownloadAttachment.class;
 	}
+
+	@Override
+	public List<DownloadAttachment> findDownAttachmentsByCaseId(String caseid) {
+		// TODO Auto-generated method stub
+		Oql oql=new Oql();
+		{
+			oql.setType(UploadAttachment.class);
+			oql.setSelects("DownloadAttachment.*");
+			oql.setFilter("tradeMarkCaseId=?");
+			oql.getParameters().add("tradeMarkCaseId",Integer.parseInt(caseid),Types.INTEGER);
+		}
+		return this.queryList(oql);
+	}
+	
 
 //	@Override
 //	public Customer save(Customer entity) {

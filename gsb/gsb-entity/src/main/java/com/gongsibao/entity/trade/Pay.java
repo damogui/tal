@@ -1,12 +1,15 @@
 package com.gongsibao.entity.trade;
 
 import java.util.Date;
+import java.util.List;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
+import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.OfflineWayType;
 import com.gongsibao.entity.trade.dic.PayForOrderCountType;
@@ -69,7 +72,11 @@ public class Pay extends BaseEntity {
 	@Column(name = "u8_voucher_id", header = "u8凭证id")
 	private String u8VoucherId;
 
-	@Column(name = "online_trade_no", header = "在线交易号")
+    @Subs(subType = File.class, foreignKey = "formId", header = "上传图片表（一个支付可以多个凭证）")
+    private List<File> files;
+
+
+    @Column(name = "online_trade_no", header = "在线交易号")
 	private String onlineTradeNo;
 
 	@Column(name = "receipt_no", header = "回单编号")
@@ -240,4 +247,12 @@ public class Pay extends BaseEntity {
 	public void setOfflineAuditStatus(AuditStatusType offlineAuditStatus) {
 		this.offlineAuditStatus = offlineAuditStatus;
 	}
+
+    public List<File> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<File> files) {
+        this.files = files;
+    }
 }

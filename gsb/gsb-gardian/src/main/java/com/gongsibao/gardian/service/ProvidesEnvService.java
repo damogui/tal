@@ -1,11 +1,10 @@
 package com.gongsibao.gardian.service;
 
+import org.netsharp.communication.Service;
+
 import com.gongsibao.bd.service.GsbPersistableService;
-import com.gongsibao.entity.gardian.baseinfo.Provides;
 import com.gongsibao.entity.gardian.baseinfo.ProvidesEnv;
 import com.gongsibao.gardian.base.IProvidesEnvService;
-import com.gongsibao.gardian.base.IProvidesService;
-import org.netsharp.communication.Service;
 
 @Service
 public class ProvidesEnvService extends GsbPersistableService<ProvidesEnv> implements IProvidesEnvService {

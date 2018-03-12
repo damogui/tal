@@ -23,7 +23,7 @@ public class OrderDiscountService extends PersistableService<OrderDiscount> impl
 		Oql oql = new Oql();
 		{
 			oql.setType(this.type);
-			oql.setSelects("*");
+			oql.setSelects("OrderDiscount.*,preferential.{id,creator}");
 			oql.setFilter("orderId=?");
 			oql.getParameters().add("orderId", orderId, Types.INTEGER);
 		}

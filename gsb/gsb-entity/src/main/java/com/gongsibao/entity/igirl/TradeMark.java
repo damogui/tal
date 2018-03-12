@@ -15,6 +15,10 @@ import java.util.Date;
 @Table(name = "ig_trade_mark", header = "商标")
 public class TradeMark extends Entity {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8913818010374168515L;
 	@Column(name = "supplier_id", header = "服务商Id")
 	private Integer supplierId = -1;
 	@JsonIgnore

@@ -19,6 +19,7 @@ import com.gongsibao.utils.DateUtils;
  */
 public class AssignmentNoticeJob implements IJob{
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public void execute(String par) {
 		boolean isInDate = DateUtils.isInDate(new Date(), "09:00:00", "19:00:00");

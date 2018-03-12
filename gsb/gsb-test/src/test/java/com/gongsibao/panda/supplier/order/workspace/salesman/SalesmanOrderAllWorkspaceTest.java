@@ -46,7 +46,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         listToolbarPath = "crm/order/orderall/edit";
         openWindowHeight = 700;
         openWindowWidth = 900;
-        listPartImportJs = "/gsb/trade/js/salesman-order-all-list.part.js|/gsb/gsb.custom.query.controls.js|/gsb/gsb.pubcontrol.js";
+        listPartImportJs = "/gsb/platform/trade/js/salesman-order-all-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js|/gsb/panda-extend/gsb.pubcontrol.js";
         listPartJsController = SalesmanAllOrderListPart.class.getName();
         listPartServiceController = SalesmanAllOrderListPart.class.getName();
 
@@ -54,8 +54,8 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         List<String> ss = new ArrayList<String>();
         ss.add("/package/easyui/datagrid-cellediting.js");
         ss.add("/package/easyui/datagrid-groupview.js");
-        ss.add("/gsb/trade/js/salesman-order-all-form.part.js");
-//        ss.add("/gsb/gsb.customer.controls.js");
+        ss.add("/gsb/platform/trade/js/salesman-order-all-form.part.js");
+//        ss.add("/gsb/panda-extend/gsb.customer.controls.js");
         formJsImport = StringManager.join("|", ss);
         formJsController = SalesmanAllOrderFormPart.class.getName();
         formServiceController = SalesmanAllOrderFormPart.class.getName();
@@ -65,11 +65,11 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 //        listFilter = "foolowStatus = 6 and ownerId = '{userId}'";
     }
 
-    @Test
-    public void createListToolbar() {
+
+    public PToolbar createListToolbar() {
 
         ResourceNode node = this.resourceService.byCode(resourceNodeCode);
-        OperationType ot1 = operationTypeService.byCode(OperationTypes.view);//权限挂在哪一个下面
+        OperationType ot1 = operationTypeService.byCode(OperationTypes.view);
         PToolbar toolbar = new PToolbar();
         {
             toolbar.toNew();
@@ -79,57 +79,132 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
             toolbar.setToolbarType(ToolbarType.BASE);
         }
 
+        PToolbarItem item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("detail");
+            item.setIcon(PToolbarHelper.iconExtr);
+            item.setName("订单详情");
+            item.setOperationType(ot1);
+            item.setSeq(1);
+            item.setCommand("{controller}.detail();");
+            toolbar.getItems().add(item);
+        }
 
-        PToolbarItem item = PToolbarHelper.getPToolbarItem(EntityState.New, "orderDetail", PToolbarHelper.iconExtr,
-                "订单详情", ot1, 1, "{controller}.addOrderReceived();");
-        toolbar.getItems().add(item);
-        item = PToolbarHelper.getPToolbarItem(EntityState.New, "addOrderReceived", PToolbarHelper.iconAdd,
-                "创建订单业绩", ot1, 1, "{controller}.addOrderReceived();");
-        toolbar.getItems().add(item);
-        item = PToolbarHelper.getPToolbarItem(EntityState.New, "addReceived", PToolbarHelper.iconAdd,
-                "创建回款业绩", ot1, 2, "{controller}.addReceived();");
-        toolbar.getItems().add(item);
+        item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("addOrderReceived");
+            item.setIcon(PToolbarHelper.iconAdd);
+            item.setName("创建订单业绩");
+            item.setOperationType(ot1);
+            item.setSeq(2);
+            item.setCommand("{controller}.addOrderReceived();");
+            toolbar.getItems().add(item);
+        }
 
-        item = PToolbarHelper.getPToolbarItem(EntityState.New, "addRefund", PToolbarHelper.iconAdd,
-                "创建退款", ot1, 3, "{controller}.addRefund();");
-        toolbar.getItems().add(item);
+        item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("addReceived");
+            item.setIcon(PToolbarHelper.iconAdd);
+            item.setName("创建回款业绩");
+            item.setSeq(3);
+            item.setCommand("{controller}.addReceived();");
+            toolbar.getItems().add(item);
+        }
 
-        item = PToolbarHelper.getPToolbarItem(EntityState.New, "addCarryover", PToolbarHelper.iconAdd,
-                "创建结转", ot1, 4, "{controller}.addCarryover();");
-        toolbar.getItems().add(item);
-        item = PToolbarHelper.getPToolbarItem(EntityState.New, "addStaging", PToolbarHelper.iconAdd,
-                "创建分期", ot1, 5, "{controller}.addStaging();");
-        toolbar.getItems().add(item);
+        item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("addRefund");
+            item.setIcon(PToolbarHelper.iconAdd);
+            item.setName("创建退款");
+            item.setSeq(4);
+            item.setCommand("{controller}.addRefund();");
+            toolbar.getItems().add(item);
+        }
 
-        item = PToolbarHelper.getPToolbarItem(EntityState.New, "addContract", PToolbarHelper.iconAdd,
-                "创建合同", ot1, 6, "{controller}.addContract();");
-        toolbar.getItems().add(item);
+        item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("addCarryover");
+            item.setIcon(PToolbarHelper.iconAdd);
+            item.setName("创建结转");
+            item.setSeq(5);
+            item.setCommand("{controller}.addCarryover();");
+            toolbar.getItems().add(item);
+        }
 
+        item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("addStaging");
+            item.setIcon(PToolbarHelper.iconAdd);
+            item.setName("创建分期");
+            item.setSeq(6);
+            item.setCommand("{controller}.addStaging();");
+            toolbar.getItems().add(item);
+        }
 
-        item = PToolbarHelper.getPToolbarItem(EntityState.New, "addInvoice", PToolbarHelper.iconCheck,
-                "申请发票", ot1, 7, "{controller}.addInvoice();");
-        toolbar.getItems().add(item);
+        item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("addContract");
+            item.setIcon(PToolbarHelper.iconAdd);
+            item.setName("创建合同");
+            item.setSeq(7);
+            item.setCommand("{controller}.addContract();");
+            toolbar.getItems().add(item);
+        }
 
+        item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("addInvoice");
+            item.setIcon(PToolbarHelper.iconCheck);
+            item.setName("申请发票");
+            item.setSeq(8);
+            item.setCommand("{controller}.addInvoice();");
+            toolbar.getItems().add(item);
+        }
 
-        item = PToolbarHelper.getPToolbarItem(EntityState.New, "batchOrderTran", PToolbarHelper.iconTran,
-                "批量订单转移", ot1, 8, "{controller}.batchOrderTran();");
-        toolbar.getItems().add(item);
+        item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("batchOrderTran");
+            item.setIcon(PToolbarHelper.iconTran);
+            item.setName("批量订单转移");
+            item.setSeq(9);
+            item.setCommand("{controller}.batchOrderTran();");
+            toolbar.getItems().add(item);
+        }
 
+        item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("begOption");
+            item.setIcon(PToolbarHelper.iconCheck);
+            item.setName("开始操作");
+            item.setSeq(10);
+            item.setCommand("{controller}.begOption();");
+            toolbar.getItems().add(item);
+        }
 
-        item = PToolbarHelper.getPToolbarItem(EntityState.New, "begOption", PToolbarHelper.iconCheck,
-                "开始操作", ot1, 10, "{controller}.begOption();");
-        toolbar.getItems().add(item);
-
-
-        toolbarService.save(toolbar);
+        return toolbar;
     }
 
-
     @Test
-    public void createRowToolbar() {
+    public void saveListToolbar() {
+        PToolbar toolbar = createListToolbar();
+        if (toolbar != null) {
+            toolbarService.save(toolbar);
+        }
+    }
+
+    public PToolbar createRowToolbar() {
 
         ResourceNode node = this.resourceService.byCode(resourceNodeCode);
-        // OperationType ot1 = operationTypeService.byCode(OperationTypes.view);//权限挂在哪一个下面
         PToolbar toolbar = new PToolbar();
         {
             toolbar.toNew();
@@ -142,15 +217,24 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         PToolbarItem item = new PToolbarItem();
         {
             item.toNew();
-            item.setCode("ordertran");
+            item.setCode("orderTran");
             item.setName("转移");
             item.setSeq(2);
-            // item.setOperationType (ot1);
-            //item.setCommand("{controller}.tran();");
+            item.setCommand("{controller}.orderTran();");
             toolbar.getItems().add(item);
         }
 
-        toolbarService.save(toolbar);
+        return toolbar;
+    }
+
+    @Test
+    public void saveRowToolbar() {
+
+        PToolbar toolbar = createRowToolbar();
+        if (toolbar != null) {
+
+            toolbarService.save(toolbar);
+        }
     }
 
     //列表
@@ -210,7 +294,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 80);
         addColumn(datagrid, "sourceType", "下单方式", ControlTypes.ENUM_BOX, 80);
         addColumn(datagrid, "platformSource", "订单来源", ControlTypes.ENUM_BOX, 80);
-        addColumn(datagrid, "addTime", "下单时间", ControlTypes.DATETIME_BOX, 100);
+        addColumn(datagrid, "createTime", "下单时间", ControlTypes.DATETIME_BOX, 100);
         addColumn(datagrid, "accountType", "新老客户", ControlTypes.ENUM_BOX, 80);
 
         return datagrid;
@@ -235,7 +319,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         addQueryItem(queryProject, "accountMobile", "客户手机号", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "ywyName", "业务员", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "isInstallment", "是否分期", ControlTypes.BOOLCOMBO_BOX);
-        addQueryItem(queryProject, "addTime", "订单创建日期", ControlTypes.DATE_BOX);
+        addQueryItem(queryProject, "createTime", "订单创建日期", ControlTypes.DATE_BOX);
         addQueryItem(queryProject, "payTime", "回款日期", ControlTypes.DATE_BOX);
         return queryProject;
     }

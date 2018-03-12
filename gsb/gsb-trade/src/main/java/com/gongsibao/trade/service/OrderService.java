@@ -1,6 +1,5 @@
 package com.gongsibao.trade.service;
 
-import com.gongsibao.entity.trade.NDepReceivable;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
@@ -8,8 +7,6 @@ import org.netsharp.service.PersistableService;
 
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.base.IOrderService;
-
-import java.util.List;
 
 @Service
 public class OrderService extends PersistableService<SoOrder> implements IOrderService {

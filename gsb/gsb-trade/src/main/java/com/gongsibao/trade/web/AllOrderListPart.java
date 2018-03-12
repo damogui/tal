@@ -1,12 +1,12 @@
 package com.gongsibao.trade.web;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
 import org.netsharp.util.StringManager;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by zhangchao on 2018/2/8.

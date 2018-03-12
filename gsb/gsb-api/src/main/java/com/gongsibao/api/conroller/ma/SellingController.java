@@ -1,20 +1,24 @@
 package com.gongsibao.api.conroller.ma;
 
 
-import com.gongsibao.api.auth.AuthAnnotation;
-import com.gongsibao.api.dto.ma.*;
-import com.gongsibao.api.service.ma.SellingDemandDTOService;
-import com.gongsibao.taurus.util.StringManager;
-
-import javax.servlet.http.HttpServletRequest;
-
-import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+
+import com.gongsibao.api.dto.ma.FilterTypeDTO;
+import com.gongsibao.api.dto.ma.ProvinceCityCountyDTO;
+import com.gongsibao.api.dto.ma.QuerySellingDemandDTO;
+import com.gongsibao.api.dto.ma.SellingDemandDTO;
+import com.gongsibao.api.dto.ma.ServiceTypeDTO;
+import com.gongsibao.api.service.ma.SellingDemandDTOService;
+import com.gongsibao.taurus.util.StringManager;
 
 
 /**
@@ -22,7 +26,7 @@ import java.util.List;
  */
 /*公司出售需求控制器只提供查询接口*/
 @Path("/ma/selling")
-@AuthAnnotation
+//@AuthAnnotation
 public class SellingController {
     SellingDemandDTOService sellingDemandDTOService = new SellingDemandDTOService();
     /*列表接口*/

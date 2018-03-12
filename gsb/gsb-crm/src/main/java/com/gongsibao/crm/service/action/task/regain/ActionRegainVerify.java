@@ -1,15 +1,8 @@
 package com.gongsibao.crm.service.action.task.regain;
 
 import java.sql.Types;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
-import com.gongsibao.crm.base.ICustomerServiceConfigService;
-import com.gongsibao.entity.crm.dic.AllocationState;
-import com.gongsibao.entity.crm.dic.ServiceType;
-import com.gongsibao.utils.NumberUtils;
-import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
@@ -21,13 +14,13 @@ import org.netsharp.organization.entity.RoleGroup;
 import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.persistence.session.SessionManager;
-
-import com.gongsibao.entity.crm.NCustomerTask;
-import com.gongsibao.supplier.base.ISupplierDepartmentService;
-import com.gongsibao.utils.SalesmanOrganization;
-import com.gongsibao.utils.SupplierSessionManager;
-import org.netsharp.util.StrUtil;
 import org.netsharp.util.StringManager;
+
+import com.gongsibao.crm.base.ICustomerServiceConfigService;
+import com.gongsibao.entity.crm.NCustomerTask;
+import com.gongsibao.entity.crm.dic.AllocationState;
+import com.gongsibao.entity.crm.dic.ServiceType;
+import com.gongsibao.utils.NumberUtils;
 
 /**
  * @author hw
@@ -40,7 +33,8 @@ public class ActionRegainVerify implements IAction {
 
     IPersister<RoleGroup> pmRole = PersisterFactory.create();
 
-    @Override
+    @SuppressWarnings("unused")
+	@Override
     public void execute(ActionContext ctx) {
         Map<String, Object> setMap = ctx.getStatus();
         NCustomerTask taskEntity = (NCustomerTask) ctx.getItem();
@@ -148,7 +142,7 @@ public class ActionRegainVerify implements IAction {
 
     private DataTable getRoleMapList(int userId) {
         // 角色
-        List<Map<String, Object>> roleMapList = new ArrayList();
+       
         StringBuffer sqlRole = new StringBuffer();
         sqlRole.append("SELECT pr.name 'roleName',pr.code 'roleCode',em.`name` 'employeeName',sa.`employee_id` 'employeeId', ");
         sqlRole.append("sa.`id` 'salesmanId',sa.`department_id` 'departmentId',sa.`supplier_id` 'supplierId' FROM `sp_salesman_role` rm ");

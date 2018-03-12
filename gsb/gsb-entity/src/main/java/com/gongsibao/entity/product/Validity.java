@@ -1,7 +1,6 @@
 package com.gongsibao.entity.product;
 
 import org.netsharp.core.annotations.Column;
-import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Persistable;
 
 //@Table(name="prod_validity",header="")

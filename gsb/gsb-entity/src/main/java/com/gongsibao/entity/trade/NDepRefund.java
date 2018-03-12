@@ -9,7 +9,11 @@ import org.netsharp.entity.Entity;
  */
 @Table(name = "n_dep_refund", header = "部门退款")
 public class NDepRefund  extends Entity{
-    @Column(name = "amount", header = "图款额")
+    /**   
+	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
+	 */   
+	private static final long serialVersionUID = -6906396799119828651L;
+	@Column(name = "amount", header = "图款额")
     private  Integer amount;
     @Column(name = "dep_id", header = "部门Id")
     private  Integer depId;

@@ -1,16 +1,22 @@
 package com.gongsibao.api.dto.ma;
 
-import com.gongsibao.entity.ma.DemandFixedAssets;
-import com.gongsibao.entity.ma.DemandIntangibleAssets;
-import com.gongsibao.entity.ma.DemandQualificationDetail;
-import com.gongsibao.entity.ma.dic.*;
+import java.util.Date;
+import java.util.List;
+
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
 import org.netsharp.pcc.entity.ProvinceCityCounty;
 
-import java.util.Date;
-import java.util.List;
+import com.gongsibao.entity.ma.DemandFixedAssets;
+import com.gongsibao.entity.ma.DemandIntangibleAssets;
+import com.gongsibao.entity.ma.DemandQualificationDetail;
+import com.gongsibao.entity.ma.dic.AddressMode;
+import com.gongsibao.entity.ma.dic.CompanyNature;
+import com.gongsibao.entity.ma.dic.CompanyType;
+import com.gongsibao.entity.ma.dic.IndustryFeature;
+import com.gongsibao.entity.ma.dic.SelingStatus;
+import com.gongsibao.entity.ma.dic.SellingDemandTaxMode;
 
 /**
  * Created by win on 2018/2/1.

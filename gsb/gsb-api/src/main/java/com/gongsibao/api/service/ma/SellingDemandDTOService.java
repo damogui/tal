@@ -1,16 +1,11 @@
 package com.gongsibao.api.service.ma;
 
-import com.gongsibao.api.dto.ma.*;
-import com.gongsibao.entity.ma.DemandFixedAssets;
-import com.gongsibao.entity.ma.DemandIntangibleAssets;
-import com.gongsibao.entity.ma.DemandQualificationDetail;
-import com.gongsibao.entity.ma.SellingDemand;
-import com.gongsibao.entity.ma.dic.CompanyNature;
-import com.gongsibao.entity.ma.dic.CompanyType;
-import com.gongsibao.entity.ma.dic.EnterpriseQualification;
-import com.gongsibao.entity.ma.dic.IndustryFeature;
-import com.gongsibao.ma.service.SellingDemandService;
-import com.gongsibao.taurus.util.StringManager;
+import java.sql.Types;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import org.netsharp.core.BusinessException;
 import org.netsharp.core.Oql;
 import org.netsharp.core.Paging;
@@ -18,11 +13,23 @@ import org.netsharp.core.QueryParameters;
 import org.netsharp.pcc.entity.ProvinceCityCounty;
 import org.netsharp.pcc.service.ProvinceCityCountyService;
 
-import java.sql.Types;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import com.gongsibao.api.dto.ma.FilterTypeDTO;
+import com.gongsibao.api.dto.ma.ProvinceCityCountyDTO;
+import com.gongsibao.api.dto.ma.QuerySellingDemandDTO;
+import com.gongsibao.api.dto.ma.SellingDemandDTO;
+import com.gongsibao.api.dto.ma.ServiceBank;
+import com.gongsibao.api.dto.ma.ServiceDic;
+import com.gongsibao.api.dto.ma.ServiceTypeDTO;
+import com.gongsibao.api.dto.ma.ServiceTypeEnum;
+import com.gongsibao.entity.ma.DemandFixedAssets;
+import com.gongsibao.entity.ma.DemandIntangibleAssets;
+import com.gongsibao.entity.ma.DemandQualificationDetail;
+import com.gongsibao.entity.ma.SellingDemand;
+import com.gongsibao.entity.ma.dic.CompanyNature;
+import com.gongsibao.entity.ma.dic.CompanyType;
+import com.gongsibao.entity.ma.dic.IndustryFeature;
+import com.gongsibao.ma.service.SellingDemandService;
+import com.gongsibao.taurus.util.StringManager;
 
 /**
  * 出售需求对外接口逻辑层
@@ -156,7 +163,7 @@ public class SellingDemandDTOService {
             throw new BusinessException (e.getMessage ());
 
         }
-        int totalData=sellingDemandService.queryCount (oql);
+        int totalData = sellingDemandService.queryCount (oql);
         int leftNum = totalData % pageSize;
         int totalPage = totalData / pageSize;
         if (leftNum > 0) {
@@ -379,7 +386,7 @@ public class SellingDemandDTOService {
         ServiceTypeDTO serviceTypeBank = new ServiceTypeDTO ();//类金融
         serviceTypeBank.setServiceType (ServiceTypeEnum.p4.getValue ());
         serviceTypeBank.setServiceName (ServiceTypeEnum.p4.getText ());
-        ArrayList<ServiceDic> dicListBank = new ArrayList ();
+        ArrayList<ServiceDic> dicListBank = new ArrayList<ServiceDic> ();
         HashMap<Integer, String> bankTypes = ServiceBank.getBankTypes ();//类金融牌照
         for (Integer item :
                 bankTypes.keySet ()) {
@@ -391,23 +398,77 @@ public class SellingDemandDTOService {
         serviceTypeBank.setServiceList (dicListBank);
         listServiceType.add (serviceTypeBank);//类金融
 
-        ServiceTypeDTO serviceTypeDTO = new ServiceTypeDTO ();
-        serviceTypeDTO.setServiceName (ServiceTypeEnum.p5.getText ());
-        serviceTypeDTO.setServiceType (ServiceTypeEnum.p5.getValue ());
-        ArrayList<ServiceDic> dicList = new ArrayList ();
-          /*循环公司性质枚举返回*/
-        for (EnterpriseQualification item : EnterpriseQualification.values ()
-                ) {
-            ServiceDic serviceDic = new ServiceDic ();
-            serviceDic.setId (item.getValue ().toString ());
-            serviceDic.setName (item.getText ());
-            dicList.add (serviceDic);
+        ServiceTypeDTO serviceTypeDTO1 = new ServiceTypeDTO ();
+        serviceTypeDTO1.setServiceName ("增值电信类资质");
+        serviceTypeDTO1.setServiceType (ServiceTypeEnum.p5.getValue ());
+        ArrayList<ServiceDic> dicList1 = getTelecomTypes ();
 
-        }
-        serviceTypeDTO.setServiceList (dicList);
-        listServiceType.add (serviceTypeDTO);
+        ServiceTypeDTO serviceTypeDTO2 = new ServiceTypeDTO ();
+        serviceTypeDTO2.setServiceName ("网络文化类资质");
+        serviceTypeDTO2.setServiceType (ServiceTypeEnum.p5.getValue ());
+        ArrayList<ServiceDic> dicList2 = getInternetTypes ();
+
+        ServiceTypeDTO serviceTypeDTO3 = new ServiceTypeDTO ();
+        serviceTypeDTO3.setServiceName ("其他");
+        serviceTypeDTO3.setServiceType (ServiceTypeEnum.p5.getValue ());
+        ArrayList<ServiceDic> dicList3 = getElseTypes ();
+//        dicList.add ();
+          /*循环公司性质枚举返回*/
+//        for (EnterpriseQualification item : EnterpriseQualification.values ()
+//                ) {
+//            ServiceDic serviceDic = new ServiceDic ();
+//            serviceDic.setId (item.getValue ().toString ());
+//            serviceDic.setName (item.getText ());
+//            dicList.add (serviceDic);
+//
+//        }
+        serviceTypeDTO1.setServiceList (dicList1);
+        listServiceType.add (serviceTypeDTO1);
+        serviceTypeDTO2.setServiceList (dicList2);
+        listServiceType.add (serviceTypeDTO2);
+        serviceTypeDTO3.setServiceList (dicList3);
+        listServiceType.add (serviceTypeDTO3);
         return listServiceType;
 
+
+    }
+
+    /*其他*/
+    private ArrayList<ServiceDic> getElseTypes() {
+        ArrayList<ServiceDic>  list=new ArrayList<ServiceDic>();
+        list.add (new ServiceDic ("9","人力资源服务许可"));
+        list.add (new ServiceDic ("10","劳动派遣许可"));
+        list.add (new ServiceDic ("12","国内旅行社"));
+        list.add (new ServiceDic ("13","国际旅行社"));
+        list.add (new ServiceDic ("16","医疗器械经营许可二级"));
+        list.add (new ServiceDic ("17","医疗器械经营许可三级"));
+        list.add (new ServiceDic ("15","高级认证"));
+        list.add (new ServiceDic ("18","进出口权"));
+        return   list;
+    }
+
+    /*网络文化类资质*/
+    private ArrayList<ServiceDic> getInternetTypes() {
+
+        ArrayList<ServiceDic>  list=new ArrayList<ServiceDic>();
+        list.add (new ServiceDic ("5","网络文化经营许可"));
+        list.add (new ServiceDic ("6","游戏备案"));
+        list.add (new ServiceDic ("19","演出经纪许可"));//不存在
+        list.add (new ServiceDic ("11","广播电视制作"));
+
+        return   list;
+    }
+
+
+    /*增值电信类资质*/
+    private ArrayList<ServiceDic> getTelecomTypes() {
+        ArrayList<ServiceDic>  list=new ArrayList<ServiceDic>();
+        list.add (new ServiceDic ("1","ICP许可"));
+        list.add (new ServiceDic ("2","SP许可"));
+        list.add (new ServiceDic ("3","IDC许可"));
+        list.add (new ServiceDic ("3","ISP许可"));
+        list.add (new ServiceDic ("4","短号码"));
+        return   list;
 
     }
 

@@ -1,18 +1,19 @@
 package com.gongsibao.api.conroller.igirl;
 
-import com.gongsibao.api.util.ResponseResult;
-import com.gongsibao.entity.igirl.TransferTradeMark;
-import com.gongsibao.igirl.base.ITransferTradeMarkService;
-import com.gongsibao.igirl.dto.TransferTradeMarkDto;
-import org.netsharp.communication.ServiceFactory;
+import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.netsharp.communication.ServiceFactory;
+
+import com.gongsibao.api.util.ResponseResult;
+import com.gongsibao.entity.igirl.TransferTradeMark;
+import com.gongsibao.igirl.base.ITransferTradeMarkService;
+import com.gongsibao.igirl.dto.TransferTradeMarkDto;
 
 @Path("/igirl")
 public class TtmAutoSubmitController {

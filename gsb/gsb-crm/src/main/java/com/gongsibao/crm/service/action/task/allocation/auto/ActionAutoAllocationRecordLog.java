@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.gongsibao.supplier.base.ISalesmanService;
-import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.netsharp.action.ActionContext;
@@ -20,8 +18,6 @@ import org.netsharp.util.StringManager;
 
 import com.gongsibao.crm.base.INCustomerOperationLogService;
 import com.gongsibao.crm.base.INCustomerTaskNotifyService;
-import com.gongsibao.crm.base.INCustomerTaskService;
-import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.crm.NCustomerOperationLog;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskNotify;
@@ -29,6 +25,8 @@ import com.gongsibao.entity.crm.dic.ChangeType;
 import com.gongsibao.entity.crm.dic.NAllocationType;
 import com.gongsibao.entity.crm.dic.NotifyType;
 import com.gongsibao.entity.supplier.Salesman;
+import com.gongsibao.supplier.base.ISalesmanService;
+import com.gongsibao.utils.NumberUtils;
 
 /**
  * @author zhangchao 写入跟进记录

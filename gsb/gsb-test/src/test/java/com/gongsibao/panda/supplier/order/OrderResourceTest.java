@@ -1,15 +1,11 @@
 package com.gongsibao.panda.supplier.order;
 
 import com.gongsibao.entity.trade.*;
-import com.gongsibao.trade.base.IContractService;
-import com.gongsibao.trade.base.INDepReceivableService;
-import com.gongsibao.trade.base.IOrderService;
+import com.gongsibao.trade.base.*;
 
 import org.junit.Test;
 import org.netsharp.meta.base.ResourceCreationBase;
 import org.netsharp.resourcenode.entity.ResourceNode;
-
-import com.gongsibao.trade.base.IOrderProdService;
 
 public class OrderResourceTest extends ResourceCreationBase {
     @Test
@@ -31,10 +27,12 @@ public class OrderResourceTest extends ResourceCreationBase {
  /*我的订单按钮beg*/
                 this.createResourceNodeVoucher (SoOrder.class.getName (), "创建订单业绩", "Gsb_Supplier_Order_Salesman_CoPerformance", IOrderService.class.getName (), node1.getId ());
                 this.createResourceNodeVoucher (SoOrder.class.getName (), "创建回款业绩", "Gsb_Supplier_Order_Salesman_CReceivedPerformance", IOrderService.class.getName (), node1.getId ());
+
+//                this.createResourceNodeVoucher (OrderPayMap.class.getName (), "支付明细", "Gsb_Supplier_Order_Salesman_OrderPayMap", IOrderPayMapService.class.getName (), node1.getId ());
                 /*我的订单按钮end*/
 
                 this.createResourceNodeVoucher (NDepReceivable.class.getName (), "订单业绩", "Gsb_Supplier_Order_Salesman_Performance", INDepReceivableService.class.getName (), node1.getId ());
-                this.createResourceNodeVoucher (SoOrder.class.getName (), "回款业绩", "Gsb_Supplier_Order_Salesman_Received", IOrderService.class.getName (), node1.getId ());
+                this.createResourceNodeVoucher (OrderPayMap.class.getName (), "回款业绩", "Gsb_Supplier_Order_Salesman_Received", IOrderPayMapService.class.getName (), node1.getId ());
                 this.createResourceNodeVoucher (SoOrder.class.getName (), "退款订单", "Gsb_Supplier_Order_Salesman_Refund", IOrderService.class.getName (), node1.getId ());
                 this.createResourceNodeVoucher (SoOrder.class.getName (), "分期订单", "Gsb_Supplier_Order_Salesman_Staging", IOrderService.class.getName (), node1.getId ());
                 this.createResourceNodeVoucher (SoOrder.class.getName (), "结转订单", "Gsb_Supplier_Order_Salesman_Carryover", IContractService.class.getName (), node1.getId ());

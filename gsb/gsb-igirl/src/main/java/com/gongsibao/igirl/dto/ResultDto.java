@@ -1,6 +1,7 @@
 package com.gongsibao.igirl.dto;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.netsharp.entity.Entity;
 public class ResultDto<T> {
 	//0 ok -1 fail
@@ -25,6 +26,7 @@ public class ResultDto<T> {
 	public void setData(List<Entity> data) {
 		this.data = data;
 	}
+	@SuppressWarnings("rawtypes")
 	public static ResultDto getSimpleResultDto(int status) {
 		ResultDto rd=new ResultDto();
 		rd.setStatus(status);
@@ -35,6 +37,7 @@ public class ResultDto<T> {
 		}
 		return rd;
 	}
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static <T> ResultDto getEntityResultDto(T entity) {
 		ResultDto rd=new ResultDto();
 		if(entity!=null) {
@@ -47,6 +50,7 @@ public class ResultDto<T> {
 		}
 		return rd;
 	}
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static <T>  ResultDto getEntityListResultDto(List<T> entitys) {
 		ResultDto rd=new ResultDto();
 		if(entitys!=null) {

@@ -1,18 +1,19 @@
 package com.gongsibao.entity.igirl.baseinfo;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
-import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Table(name="ig_base_ncltwo",header="商标小类",orderBy="code asc")
 public class NCLTwo extends Entity {
 
-    @Column(name="code",header="二级编码/分组")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6388786836663106010L;
+
+
+	@Column(name="code",header="二级编码/分组")
     private String code;
 
 

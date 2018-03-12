@@ -13,10 +13,11 @@ public enum TMCState implements IEnum {
     CONFIRMED(2, "已确认"),// trademark picture
     PAYED(3, "已付款"),// trademark picture
     //delegate proof
-    OVER(4, "已完结");
+	  DOWNUPLOADED(4, "下载委托书"),
+	  UPLOADED(5, "已上传完毕"),
+	  OVER(6, "已完结");
     private int value;
     private String text;
-
     TMCState(int value, String text) {
         this.value = value;
         this.text = text;

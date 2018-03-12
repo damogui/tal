@@ -1,6 +1,7 @@
 package com.gongsibao.igirl.service.builder;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.gongsibao.entity.igirl.DownloadAttachment;
 import com.gongsibao.entity.igirl.TradeMark;
 import com.gongsibao.entity.igirl.TradeMarkCase;
@@ -9,7 +10,6 @@ import com.gongsibao.entity.igirl.dict.AttachmentCat;
 import com.gongsibao.entity.igirl.dict.FileType;
 import com.gongsibao.igirl.service.builder.base.AbstractSwitchBuilder;
 import com.gongsibao.igirl.service.builder.base.AttachmentBuilderManager;
-import com.gongsibao.igirl.service.builder.base.ISwitch;
 /**
  * 
  * @author jy

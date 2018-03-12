@@ -1,13 +1,8 @@
 package com.gongsibao.trade.web;
 
-import com.gongsibao.entity.supplier.FunctionModuleRole;
-import com.gongsibao.entity.trade.NDepReceivable;
-import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.trade.base.INDepReceivableService;
-import com.gongsibao.trade.base.IOrderService;
-import com.gongsibao.u8.base.ISoOrderService;
-import org.netsharp.action.ActionContext;
-import org.netsharp.action.ActionManager;
+import java.sql.Types;
+import java.util.List;
+
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.QueryParameters;
@@ -16,8 +11,9 @@ import org.netsharp.panda.commerce.FormPart;
 import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
 
-import java.sql.Types;
-import java.util.List;
+import com.gongsibao.entity.trade.NDepReceivable;
+import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.trade.base.INDepReceivableService;
 
 /**
  * Created by win on 2018/3/5.
@@ -47,7 +43,7 @@ public class SoCreatOrderPerformanceFormPart extends FormPart {
         QueryParameters qps = new QueryParameters();
         qps.add("@performance_price", totalAmount, Types.INTEGER);
         qps.add("@pkid", entity.getId (), Types.INTEGER);
-        int numObjectRoleGroup = orderService.executeNonQuery(sql, qps);
+        orderService.executeNonQuery(sql, qps);
         return obj;
     }
 

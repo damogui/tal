@@ -69,7 +69,7 @@ public class JsonUtils {
         return null;
     }
 
-    public static <T> List<T> jsonToList(String json, Class classType, String... dateFormat) {
+	public static <T> List<T> jsonToList(String json, Class<?> classType, String... dateFormat) {
         if (StringUtils.isBlank(json)) {
             return null;
         }

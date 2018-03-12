@@ -14,7 +14,6 @@ import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.trade.OrderProdTrace;
 import com.gongsibao.entity.trade.OrderProdUserMap;
-import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.OrderProdTraceType;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapStatusType;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapType;

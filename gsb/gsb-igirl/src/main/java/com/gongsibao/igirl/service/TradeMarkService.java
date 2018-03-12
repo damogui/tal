@@ -1,13 +1,17 @@
 package com.gongsibao.igirl.service;
 
 import java.sql.Types;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.netsharp.attachment.Attachment;
 import org.netsharp.attachment.IAttachmentService;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.DataTable;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
 import org.netsharp.organization.base.IEmployeeService;
@@ -16,7 +20,6 @@ import org.netsharp.util.StringManager;
 import org.netsharp.wx.ea.base.IEaMessageService;
 
 import com.gongsibao.bd.service.GsbPersistableService;
-import com.gongsibao.entity.igirl.DownloadAttachment;
 import com.gongsibao.entity.igirl.TradeMark;
 import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.UploadAttachment;
@@ -36,7 +39,6 @@ import com.gongsibao.igirl.dto.TradeMark.Step4;
 import com.gongsibao.igirl.dto.TradeMark.Step5;
 import com.gongsibao.igirl.dto.TradeMark.Step6;
 import com.gongsibao.igirl.dto.TradeMark.Step7;
-import com.gongsibao.igirl.dto.TradeMark.TmForRobotDto;
 import com.gongsibao.igirl.dto.TradeMark.TradeMarkApplyInfo;
 
 @Service
@@ -85,7 +87,7 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 				int index = fileurl.lastIndexOf("/");
 				String filename = fileurl.substring(index + 1);
 				String key = "";
-				TradeMark tm = ua.getTradeMark();
+//				TradeMark tm = ua.getTradeMark(); hw 2018-03-11 未使用变更
 				if (ua.getTradeMarkId() == TradeMarkCaseService.TradeMarkBizLienseID) {// 营业执照
 					key = ua.getTradeMarkCaseId() + contantSeprate + "zz" + contantSeprate + "zz";
 				} else {
@@ -295,7 +297,7 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			step2.setCertFilePath(this.getBusinessLienceAttachment(tm, shareGroupToTradeMarkMap).get("fileUrl"));
 			step2.setCertFileName(this.getBusinessLienceAttachment(tm, shareGroupToTradeMarkMap).get("fileName"));
 
-			List<UploadAttachment> uas = tmc.getUploadAttachments();
+//			List<UploadAttachment> uas = tmc.getUploadAttachments();hw 2018-03-11 未使用变更
 
 			// 以下6行测试自然人使用，开发后需要改写
 			if (tmc.getApplierType()==ApplierType.PRIVATE) {

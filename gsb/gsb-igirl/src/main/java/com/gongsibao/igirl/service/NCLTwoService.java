@@ -1,14 +1,14 @@
 package com.gongsibao.igirl.service;
 
-import com.gongsibao.bd.service.GsbPersistableService;
-import com.gongsibao.entity.igirl.baseinfo.NCLOne;
-import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
-import com.gongsibao.igirl.base.INCLTwoService;
+import java.sql.Types;
+import java.util.List;
+
 import org.netsharp.communication.Service;
 import org.netsharp.core.Oql;
 
-import java.sql.Types;
-import java.util.List;
+import com.gongsibao.bd.service.GsbPersistableService;
+import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
+import com.gongsibao.igirl.base.INCLTwoService;
 
 @Service
 public class NCLTwoService extends GsbPersistableService<NCLTwo> implements INCLTwoService {

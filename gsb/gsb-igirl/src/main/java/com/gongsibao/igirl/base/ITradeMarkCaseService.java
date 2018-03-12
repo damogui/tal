@@ -9,5 +9,7 @@ public interface ITradeMarkCaseService extends IPersistableService<TradeMarkCase
 	public int denyAdvice(String caseid,String advice);
 	public int confirmCase(String caseid);
 	public TradeMarkCase updateOwner(Integer ttmId,Integer ownerId);
+	public int fetchCaseState(String casecode);
+	public int updateCaseState(String casecode,int state);
 
 }

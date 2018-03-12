@@ -63,7 +63,7 @@ public class SupplierWorkbench extends Workspace{
 		super.importJs(writer);
 		writer.write("    <link href='" + UrlHelper.getUrl(this.favicon) + "' rel='shortcut icon' type='image/x-icon' />");
 		writer.write(UrlHelper.getVersionScript("/panda-res/js/workbench.js", false));
-		writer.write(UrlHelper.getVersionScript("/gsb/supplier/js/supplier-workbench.js", false));
+		writer.write(UrlHelper.getVersionScript("/gsb/supplier/sys/organization/js/supplier-workbench.js", false));
 		
 	}
 	

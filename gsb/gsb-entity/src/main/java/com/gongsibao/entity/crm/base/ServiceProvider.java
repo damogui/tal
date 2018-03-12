@@ -7,7 +7,6 @@ import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
-import com.gongsibao.entity.crm.CustomerCompanyMap;
 import com.gongsibao.entity.crm.dic.NotifiedType;
 
 @Table(name = "base_service_provider", header = "服务商档案")

@@ -21,8 +21,6 @@ import com.gongsibao.api.conroller.taurus.analysis.AnalysisContext;
 import com.gongsibao.api.conroller.taurus.analysis.AnalysisManager;
 import com.gongsibao.api.conroller.taurus.dto.AnalysisDTO;
 import com.gongsibao.api.conroller.taurus.dto.CompanyRegistryInfoDTO;
-import com.gongsibao.api.conroller.taurus.dto.HaveProtectedTmCategoryDTO;
-import com.gongsibao.api.conroller.taurus.dto.TmInfoDTO;
 import com.gongsibao.api.conroller.taurus.dto.TmOrCopyrightDTO;
 import com.gongsibao.api.util.ApiException;
 import com.gongsibao.taurus.entity.AnnualReport;
@@ -432,15 +430,15 @@ public class CompanyController {
 		}
 	}
 
-	private TmInfoDTO getTrademarkInfo(EntRegistry entRegistry) {
-
-		TmInfoDTO dto = new TmInfoDTO();
-
-		ResponseMessage<Tm> tmResponseMessage = TaurusApiService.getTmList(
-				entRegistry.getName(), 0, Integer.MAX_VALUE);
-		int tmCount = tmResponseMessage.getTotalSize();
-
-		List<HaveProtectedTmCategoryDTO> haveList = new ArrayList<HaveProtectedTmCategoryDTO>();
+//	private TmInfoDTO getTrademarkInfo(EntRegistry entRegistry) {
+//
+//		TmInfoDTO dto = new TmInfoDTO();
+//
+//		ResponseMessage<Tm> tmResponseMessage = TaurusApiService.getTmList(
+//				entRegistry.getName(), 0, Integer.MAX_VALUE);
+//		int tmCount = tmResponseMessage.getTotalSize();
+//
+//		List<HaveProtectedTmCategoryDTO> haveList = new ArrayList<HaveProtectedTmCategoryDTO>();
 		// List<YjTrademarkCategory> trademarkCategoryList =
 		// yjTrademarkCategoryService.getByLevel(1);
 //		List<YjTrademarkCategory> trademarkCategoryList = new ArrayList<YjTrademarkCategory>();
@@ -482,6 +480,6 @@ public class CompanyController {
 		// AmountUtils.ceil(prodApiService.getPrice(1177) *
 		// suggestList.size()));//潜在金额(默认【商标注册专业版】)
 
-		return dto;
-	}
+//		return dto;
+//	}
 }

@@ -35,7 +35,7 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
         formOpenMode = OpenMode.WINDOW;
         openWindowHeight = 700;
         openWindowWidth = 900;
-        listPartImportJs = "/gsb/gsb.custom.query.controls.js";
+        listPartImportJs = "/gsb/panda-extend/gsb.custom.query.controls.js";
     }
 
 

@@ -117,7 +117,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 		Oql oql = new Oql();
 		{
 			oql.setType(type);
-			oql.setSelects("*");
+			oql.setSelects("Salesman.*,Salesman.supplier.{id,name},Salesman.department.{id,name},Salesman.employee.{id,name}*");
 			oql.setFilter("employeeId=?");
 			oql.getParameters().add("@employeeId", employeeId, Types.INTEGER);
 		}

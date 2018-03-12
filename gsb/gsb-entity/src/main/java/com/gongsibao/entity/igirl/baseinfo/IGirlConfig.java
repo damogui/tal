@@ -7,7 +7,12 @@ import org.netsharp.entity.Entity;
 
 @Table(name = "ig_base_config",header = "尼斯数据批次")
 public class IGirlConfig  extends Entity{
-    @Column(name = "config_type", header = "申请人类型")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5537764649336562684L;
+
+	@Column(name = "config_type", header = "申请人类型")
     private ConfigType configType;
 
     @Column(name = "configValue",header = "类型值",size = 255)

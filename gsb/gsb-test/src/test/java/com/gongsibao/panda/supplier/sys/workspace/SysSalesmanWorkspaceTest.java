@@ -51,11 +51,11 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		formOpenMode = OpenMode.WINDOW;
 		openWindowHeight = 700;
 		openWindowWidth = 900;
-		listPartImportJs = "/gsb/crm/sys/js/sys-salesman-list-part.js|/gsb/gsb.custom.query.controls.js";
+		listPartImportJs = "/gsb/supplier/sys/organization/js/sys-salesman-list-part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
 		listPartJsController = SysSalesmanListPart.class.getName();
 		listPartServiceController = SysSalesmanListPart.class.getName();
 		formJsController = "com.gongsibao.crm.web.SalesmanFormPart";
-		formJsImport = "/gsb/crm/sys/js/salesman-form.part.js|/gsb/gsb.customer.controls.js";
+		formJsImport = "/gsb/supplier/sys/organization/js/salesman-form.part.js|/gsb/panda-extend/gsb.customer.controls.js";
 	}
 
 	@Override
@@ -190,7 +190,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 
 			part.setJsController(SysSalesmanTreePart.class.getName());
 			part.setServiceController(SysSalesmanTreePart.class.getName());
-			part.setImports("/gsb/crm/sys/js/sys-salesman-tree-part.js");
+			part.setImports("/gsb/supplier/sys/organization/js/sys-salesman-tree-part.js");
 			part.setAutoQuery(false);
 		}
 		workspace.getParts().add(part);

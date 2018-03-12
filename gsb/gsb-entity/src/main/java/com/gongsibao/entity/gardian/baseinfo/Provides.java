@@ -1,17 +1,21 @@
 package com.gongsibao.entity.gardian.baseinfo;
+import java.util.List;
+
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
-import java.util.Date;
-import java.util.List;
-
 
 @Table(name="gd_provides_list",header="服务列表")
 public class Provides extends Entity {
 
-    @Column(name = "name", header = "名称")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -313318187771575054L;
+
+	@Column(name = "name", header = "名称")
     private String name;
 
     @Column(name = "useage", header = "用途")

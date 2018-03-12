@@ -4,13 +4,11 @@ import java.math.BigDecimal;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.netsharp.core.annotations.Column;
-import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
 import com.gongsibao.entity.json.JsonTaxRateBigDecimalSerializer;
 import com.gongsibao.entity.u8.dic.SetOfBooksType;
-import com.gongsibao.entity.uc.User;
 
 @Table(name = "u8_set_of_books")
 public class SetOfBooks extends Entity {

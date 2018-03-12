@@ -9,7 +9,11 @@ import org.netsharp.entity.Entity;
  */
 @Table(name = "n_receipt_received", header = "应收订单表")
 public class NReceiptReceived extends Entity {
-    @Column(name = "receipt_type", header = "收据类型")
+    /**   
+	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
+	 */   
+	private static final long serialVersionUID = -5802457239814483246L;
+	@Column(name = "receipt_type", header = "收据类型")
     private  Integer receiptType;
     @Column(name = "screen_shot", header = "抓屏")
     private  Integer screenShot;

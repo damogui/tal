@@ -1,27 +1,24 @@
 package com.gongsibao.crm.web;
 
-import com.gongsibao.crm.base.ICustomerServiceConfigService;
-import com.gongsibao.entity.crm.dic.ServiceType;
-import com.gongsibao.entity.crm.report.CustomerServiceReportEntity;
-import com.gongsibao.utils.NumberUtils;
-import org.apache.commons.collections.CollectionUtils;
-import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.DataTable;
-import org.netsharp.core.IRow;
-import org.netsharp.core.Oql;
-import org.netsharp.core.Row;
-import org.netsharp.panda.commerce.AdvancedListPart;
-import org.netsharp.panda.commerce.EasyuiDatagridResult;
-import org.netsharp.panda.commerce.FilterParameter;
-import org.netsharp.panda.commerce.ListPart;
-import org.netsharp.panda.entity.PDatagrid;
-import org.netsharp.panda.json.DatagridResultJson;
-import org.netsharp.util.StringManager;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.DataTable;
+import org.netsharp.core.Row;
+import org.netsharp.panda.commerce.AdvancedListPart;
+import org.netsharp.panda.commerce.EasyuiDatagridResult;
+import org.netsharp.panda.commerce.FilterParameter;
+import org.netsharp.panda.json.DatagridResultJson;
+import org.netsharp.util.StringManager;
+
+import com.gongsibao.crm.base.ICustomerServiceConfigService;
+import com.gongsibao.entity.crm.dic.ServiceType;
+import com.gongsibao.entity.crm.report.CustomerServiceReportEntity;
+import com.gongsibao.utils.NumberUtils;
 
 /**
  * Created by zhangchao on 2018/2/28.
@@ -45,7 +42,7 @@ public class StatisticalCustomerListPart extends AdvancedListPart {
 
         DataTable rows = dustomerServiceConfigService.executeTable(getSql(1, startIndex, pageSize, filterMap), null);
 
-        List<CustomerServiceReportEntity> resRows = new ArrayList();
+        List<CustomerServiceReportEntity> resRows = new ArrayList<CustomerServiceReportEntity>();
 
         for (Row r : rows) {
             CustomerServiceReportEntity entity = new CustomerServiceReportEntity();
@@ -83,8 +80,8 @@ public class StatisticalCustomerListPart extends AdvancedListPart {
         //查询数据
         if (type == 1) {
 
-            List<String> filterWhereList = new ArrayList();
-            List<String> productWhereList = new ArrayList();
+            List<String> filterWhereList = new ArrayList<String>();
+            List<String> productWhereList = new ArrayList<String>();
             for (String key : filterMap.keySet()) {
                 //日期
                 if (key.equals("date")) {

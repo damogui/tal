@@ -1,22 +1,14 @@
 package com.gongsibao.igirl.service;
-import com.gongsibao.bd.service.GsbPersistableService;
-import com.gongsibao.entity.igirl.TradeMark;
-import com.gongsibao.entity.igirl.TradeMarkCase;
-import com.gongsibao.entity.igirl.UploadAttachment;
-import com.gongsibao.entity.igirl.dict.AttachmentCat;
-import com.gongsibao.entity.igirl.dict.FileType;
-import com.gongsibao.entity.igirl.dict.ShareGroup;
-import com.gongsibao.entity.igirl.dict.TMCState;
-import com.gongsibao.igirl.base.IUploadAttachmentService;
-
 import java.sql.Types;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.netsharp.communication.Service;
 import org.netsharp.core.BusinessException;
 import org.netsharp.core.Oql;
+
+import com.gongsibao.bd.service.GsbPersistableService;
+import com.gongsibao.entity.igirl.UploadAttachment;
+import com.gongsibao.igirl.base.IUploadAttachmentService;
 @Service
 public class UploadAttachmentService extends GsbPersistableService<UploadAttachment> implements IUploadAttachmentService {
 
