@@ -233,24 +233,30 @@ public class PortalStatistic {
 		Map<String, String> resultMap =new HashMap<>();
 		Salesman salesman = currentSalesMan();
 		
-		StringBuilder strSql=new StringBuilder();
-		strSql.append("SELECT COUNT(foolow_status = 3 OR NULL) foolowTasksCount,");
-		strSql.append("count(quality_progress = 1 OR NULL) qualityRisetaskCount,");
-		strSql.append("count(intention_category = 2 OR NULL) qualityDeclinetaskCount");
-		
-		strSql.append(" from n_crm_customer_task");
-		if(salesman.getIsLeader()){
-			strSql.append(" where department_id in ("+salesman.getDepartmentId()+")");
-		}else {
-			strSql.append(" where owner_id =" + salesman.getEmployeeId());
-		}
-		strSql.append(" AND DATE_FORMAT(next_foolow_time,'%Y-%m-%d') = CURDATE()");
-		
-		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
-		for (IRow row : dtNewCount) {
-			resultMap.put("跟进任务数", row.getString("foolowTasksCount"));
-			resultMap.put("质量上升任务数", row.getString("qualityRisetaskCount"));
-			resultMap.put("质量下降任务数", row.getString("qualityDeclinetaskCount"));
+		try {
+			StringBuilder strSql=new StringBuilder();
+			strSql.append("SELECT COUNT(foolow_status = 3 OR NULL) foolowTasksCount,");
+			strSql.append("count(quality_progress = 1 OR NULL) qualityRisetaskCount,");
+			strSql.append("count(intention_category = 2 OR NULL) qualityDeclinetaskCount");
+			
+			strSql.append(" from n_crm_customer_task");
+			if(salesman.getIsLeader()){
+				strSql.append(" where department_id in ("+salesman.getDepartmentId()+")");
+			}else {
+				strSql.append(" where owner_id =" + salesman.getEmployeeId());
+			}
+			strSql.append(" AND DATE_FORMAT(next_foolow_time,'%Y-%m-%d') = CURDATE()");
+			
+			DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
+			for (IRow row : dtNewCount) {
+				resultMap.put("跟进任务数", row.getString("foolowTasksCount"));
+				resultMap.put("质量上升任务数", row.getString("qualityRisetaskCount"));
+				resultMap.put("质量下降任务数", row.getString("qualityDeclinetaskCount"));
+			}
+		} catch (Exception e) {
+			resultMap.put("跟进任务数", "0");
+			resultMap.put("质量上升任务数", "0");
+			resultMap.put("质量下降任务数", "0");
 		}
 		return resultMap;
 	}
@@ -263,29 +269,34 @@ public class PortalStatistic {
 		Map<String, String> resultMap =new HashMap<>();
 		Salesman salesman = currentSalesMan();
 		
-		StringBuilder strSql=new StringBuilder();
-		strSql.append("SELECT ifnull(SUM(signing_amount),0) signingAmount,");
-		strSql.append("ifnull(SUM(returned_amount),0) returnedAmount");
-		
-		strSql.append(" from n_crm_task_foolow");
-		strSql.append(" where task_id in (");
-		strSql.append("SELECT id from n_crm_customer_task");
-		if(salesman.getIsLeader()){
-			strSql.append(" where department_id in ("+salesman.getDepartmentId()+")");
-		}else {
-			strSql.append(" where owner_id =" + salesman.getEmployeeId());
-		}
-		if(dateType.equals(1)){
-			strSql.append(" and date_format(last_follow_time,'%Y-%m-%d') = CURDATE())");
-		}else if (dateType.equals(2)) {
-			strSql.append(" and YEARWEEK(date_format(last_follow_time,'%Y-%m-%d')) = YEARWEEK(now()))");
-		}else {
-			strSql.append(" and date_format(last_follow_time,'%Y-%m') = date_format(now(),'%Y-%m'))");
-		}
-		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
-		for (IRow row : dtNewCount) {
-			resultMap.put("预估签单金额", row.getString("signingAmount"));
-			resultMap.put("预估回款金额", row.getString("returnedAmount"));
+		try {
+			StringBuilder strSql=new StringBuilder();
+			strSql.append("SELECT ifnull(SUM(signing_amount),0) signingAmount,");
+			strSql.append("ifnull(SUM(returned_amount),0) returnedAmount");
+			
+			strSql.append(" from n_crm_task_foolow");
+			strSql.append(" where task_id in (");
+			strSql.append("SELECT id from n_crm_customer_task");
+			if(salesman.getIsLeader()){
+				strSql.append(" where department_id in ("+salesman.getDepartmentId()+")");
+			}else {
+				strSql.append(" where owner_id =" + salesman.getEmployeeId());
+			}
+			if(dateType.equals(1)){
+				strSql.append(" and date_format(last_follow_time,'%Y-%m-%d') = CURDATE())");
+			}else if (dateType.equals(2)) {
+				strSql.append(" and YEARWEEK(date_format(last_follow_time,'%Y-%m-%d')) = YEARWEEK(now()))");
+			}else {
+				strSql.append(" and date_format(last_follow_time,'%Y-%m') = date_format(now(),'%Y-%m'))");
+			}
+			DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
+			for (IRow row : dtNewCount) {
+				resultMap.put("预估签单金额", row.getString("signingAmount"));
+				resultMap.put("预估回款金额", row.getString("returnedAmount"));
+			}
+		} catch (Exception e) {
+			resultMap.put("预估签单金额", "0");
+			resultMap.put("预估回款金额", "0");
 		}
 		return resultMap;
 	}
