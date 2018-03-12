@@ -7,6 +7,7 @@ import com.gongsibao.entity.u8.SetOfBooks;
 import com.gongsibao.entity.u8.U8Bank;
 import com.gongsibao.tools.PToolbarHelper;
 import com.gongsibao.trade.web.OrderPerformanceDetailPart;
+import com.gongsibao.trade.web.SoCreatOrderPerformanceListPart;
 import com.gongsibao.trade.web.SoCreatReceivePerformanceFormPart;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,11 +48,12 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
         listToolbarPath = "/crm/roworderaddreceiveformance/toolbar";
 
         List<String> ss = new ArrayList<String> ();
-        ss.add("/package/easyui/datagrid-cellediting.js");
+        //ss.add("/package/easyui/datagrid-cellediting.js");
         ss.add("/gsb/platform/trade/js/so-receiveperformance-add.part.js");
-//        ss.add("/gsb/panda-extend/gsb.customer.controls.js");
+        ss.add ("/gsb/panda-extend/gsb.customer.controls.js");
         formJsImport = StringManager.join("|", ss);
-        formJsController = SoCreatReceivePerformanceFormPart.class.getName();
+       // formJsController = SoCreatReceivePerformanceFormPart.class.getName();
+        listPartJsController = SoCreatOrderPerformanceListPart.class.getName ();
         formServiceController = SoCreatReceivePerformanceFormPart.class.getName();//处理回款业绩
     }
 
@@ -343,7 +345,7 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
             part.setWindowHeight (450);
 
 //         part.setServiceController (OrderPerformanceDetailPart.class.getName ());
-           // part.setJsController (OrderPerformanceDetailPart.class.getName ());
+            part.setJsController (OrderPerformanceDetailPart.class.getName ());
         }
         workspace.getParts ().add (part);
 
