@@ -190,14 +190,14 @@ public class SoCreatReceivedPerformanceWorkspaceTest extends WorkspaceCreationBa
         }
 
 
-        formField = addFormFieldRefrence (form, "u8Bank.setOfBooks.name", "付款账套", groupName2, SetOfBooks.class.getSimpleName (), true, false);//进行联动
+        formField = addFormFieldRefrence (form, "pays.u8Bank.setOfBooks.name", "付款账套", groupName2, SetOfBooks.class.getSimpleName (), true, false);//进行联动
         {
 
 
             formField.setTroikaTrigger ("controllerpays.bankBooksChange(newValue,oldValue);");
         }
 
-        formField = addFormFieldRefrence (form, "u8Bank.name", "付款方式", groupName2,"Supplier"+U8Bank.class.getSimpleName (), true, false);
+        formField = addFormFieldRefrence (form, "pays.u8Bank.name", "付款方式", groupName2,"SupplierU8Bank", true, false);
         {
             formField.setRefFilter ("set_of_books_id=1");
             //U8Bank
