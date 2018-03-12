@@ -197,7 +197,7 @@ public class SoCreatReceivedPerformanceWorkspaceTest extends WorkspaceCreationBa
             formField.setTroikaTrigger ("controllerpays.bankBooksChange(newValue,oldValue);");
         }
 
-        formField = addFormFieldRefrence (form, "u8Bank.name", "付款方式", groupName2, U8Bank.class.getSimpleName (), true, false);
+        formField = addFormFieldRefrence (form, "u8Bank.name", "付款方式", groupName2,"Supplier"+U8Bank.class.getSimpleName (), true, false);
         {
             formField.setRefFilter ("set_of_books_id=1");
             //U8Bank
