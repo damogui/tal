@@ -7,6 +7,7 @@ import com.gongsibao.entity.u8.SetOfBooks;
 import com.gongsibao.entity.u8.U8Bank;
 import com.gongsibao.tools.PToolbarHelper;
 import com.gongsibao.trade.web.OrderPerformanceDetailPart;
+import com.gongsibao.trade.web.OrderReceivePerformanceDetailPart;
 import com.gongsibao.trade.web.SoCreatOrderPerformanceListPart;
 import com.gongsibao.trade.web.SoCreatReceivePerformanceFormPart;
 import org.junit.Before;
@@ -263,7 +264,7 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
     // 关联部门回款表
     public void performancePart(PWorkspace workspace) {
 
-        ResourceNode node = this.resourceService.byCode ("Gsb_Supplier_Order_Salesman_OrderPayMap");
+        ResourceNode node = this.resourceService.byCode ("Gsb_Supplier_Order_Salesman_Received");
         PDatagrid datagrid = new PDatagrid (node, "关联回款订单");
         {
             datagrid.setShowCheckbox (true);
@@ -308,22 +309,7 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
             PFormField formField = null;
 //            formField = addFormFieldRefrence (form, "orderId", "服务商", null, Supplier.class.getSimpleName (), true, false);
 //            {
-//                //formField.setTroikaTrigger ("controllerdepReceivable.supplierChange(newValue,oldValue);");
-//            }
-//
-//            formField = addFormFieldRefrence (form, "orderId", "部门", null, SupplierDepartment.class.getSimpleName (), true, false);
-//            {
-//                //formField.setTroikaTrigger ("controllerdepReceivable.departmentChange(newValue,oldValue);");
-//            }
-//
-//            formField = addFormFieldRefrence (form, "orderId", "业务员", null, Employee.class.getSimpleName (), true, false);
-           // formField = addFormField (form, "payId", "分配金额", null, ControlTypes.TEXT_BOX, true, false);
 
-            {
-//                //formField.setWidth (300);
-//              formField.setHeight (100);
-
-            }
 
         }
 
@@ -345,7 +331,7 @@ public class SoCreatReceivedPerformanceWorkspaceTest  extends WorkspaceCreationB
             part.setWindowHeight (450);
 
 //         part.setServiceController (OrderPerformanceDetailPart.class.getName ());
-            part.setJsController (OrderPerformanceDetailPart.class.getName ());
+            part.setJsController (OrderReceivePerformanceDetailPart.class.getName ());
         }
         workspace.getParts ().add (part);
 
