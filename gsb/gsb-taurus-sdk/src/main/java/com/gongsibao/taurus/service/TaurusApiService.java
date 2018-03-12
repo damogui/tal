@@ -6,12 +6,9 @@ import com.gongsibao.taurus.message.ResponseMessage;
 import com.gongsibao.taurus.message.response.CompanyInfoResponseMessage;
 import com.gongsibao.taurus.message.response.TmNewResponseMessage;
 import com.gongsibao.taurus.util.StringManager;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.ComparatorUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -19,6 +16,7 @@ public class TaurusApiService {
     private static ExecutorService exec = Executors.newCachedThreadPool();
 
     private static final int CONCURRENT_PAGE_SIZE = 20;
+
     /**
      * @throws
      * @Title: getEntRegistry
@@ -832,6 +830,7 @@ public class TaurusApiService {
 
     /**
      * 并发获取，区分请求，每个请求20条
+     *
      * @param companyName
      * @param limit
      * @return
@@ -872,7 +871,7 @@ public class TaurusApiService {
 
         try {
             List<Future<ResponseMessage<TmNew>>> results = exec.invokeAll(tasks);
-            if (CollectionUtils.isEmpty(results)) {
+            if (null == results || results.isEmpty()) {
                 result.setResultMsg("无返回数据");
                 return result;
             }
