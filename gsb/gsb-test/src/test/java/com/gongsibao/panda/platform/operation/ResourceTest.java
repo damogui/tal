@@ -58,6 +58,7 @@ import com.gongsibao.entity.taurus.ActiveUserView;
 import com.gongsibao.entity.taurus.DayStatisticView;
 import com.gongsibao.entity.taurus.JnzUserBehaviorStatistics;
 import com.gongsibao.entity.taurus.NewUserPerDayView;
+import com.gongsibao.entity.taurus.UcOrganizationUserView;
 import com.gongsibao.entity.taurus.User;
 import com.gongsibao.entity.taurus.UserCollectCompany;
 import com.gongsibao.entity.taurus.UserConsStatisticView;
@@ -84,6 +85,7 @@ import com.gongsibao.taurus.base.IActiveUserViewService;
 import com.gongsibao.taurus.base.IBdUserBehaviorStatistics;
 import com.gongsibao.taurus.base.IDayStatisticViewService;
 import com.gongsibao.taurus.base.INewUserPerDayViewService;
+import com.gongsibao.taurus.base.IUcOrganizationService;
 import com.gongsibao.taurus.base.IUserCollectCompanyService;
 import com.gongsibao.taurus.base.IUserConsStatisticViewService;
 import com.gongsibao.taurus.base.IUserConsumptionService;
@@ -129,6 +131,7 @@ public class ResourceTest extends ResourceCreationBase {
             this.createResourceNodeVoucher(DayStatisticView.class.getName(), "日统计数据", "GSB_TAURUS_" + DayStatisticView.class.getSimpleName(), IDayStatisticViewService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(JnzUserBehaviorStatistics.class.getName(), "统计数据", "GSB_TAURUS_" + JnzUserBehaviorStatistics.class.getSimpleName(), IBdUserBehaviorStatistics.class.getName(), node1.getId());
             this.createResourceNodeVoucher(UserConsumptionView.class.getName(), "用户消费数据", "GSB_TAURUS_" + UserConsumptionView.class.getSimpleName(), IUserConsumptionService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(UcOrganizationUserView.class.getName(), "业务用户统计", "GSB_TAURUS_" + UcOrganizationUserView.class.getSimpleName(), IUcOrganizationService.class.getName(), node1.getId());
         }
         node1 = this.createResourceNodeCategory("万达项目", "GSB_WANDA", node.getId());
         {

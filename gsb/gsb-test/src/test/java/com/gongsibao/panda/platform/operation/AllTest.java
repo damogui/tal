@@ -51,6 +51,7 @@ import com.gongsibao.panda.platform.operation.workspace.taurus.ActiveUserWorkspa
 import com.gongsibao.panda.platform.operation.workspace.taurus.DayStatisticWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.taurus.JnzUserBalanceWorkSpaceTest;
 import com.gongsibao.panda.platform.operation.workspace.taurus.NewUserPerDayWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.taurus.UcOrginazationWorkTest;
 import com.gongsibao.panda.platform.operation.workspace.taurus.UserConsumptionWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.taurus.UserWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.wanda.WanDaProductWorkspaceTest;
@@ -80,6 +81,7 @@ import com.gongsibao.panda.platform.operation.workspace.wanda.WanDaSoOrderWorksp
         DayStatisticWorkspaceTest.class,
         JnzUserBalanceWorkSpaceTest.class,
         UserConsumptionWorkspaceTest.class,
+        UcOrginazationWorkTest.class,
 
         //万达
         WanDaProductWorkspaceTest.class,

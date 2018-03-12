@@ -16,7 +16,7 @@ import com.gongsibao.trade.service.action.order.save.ActionSaveOrderSplit;
 import com.gongsibao.trade.service.action.order.save.ActionSaveOrderTrademark;
 import com.gongsibao.trade.service.action.order.save.ActionSaveOrderVerify;
 
-public class SaveOrderActionTest extends BaseActionTest {
+public class OrderNewSaveActionTest extends BaseActionTest {
 	@Before
 	public void setup() {
 

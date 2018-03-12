@@ -33,8 +33,8 @@
 					<div id="center" data-options="region:'center'">
 						<div id="detail_tabs">
 						    <div title="分期信息">   
-						        <div style=" border:0px;padding:20px;">
-						           <form id="form1">
+						        <div style=" border:0px;padding:10px;">
+						           <form id="form1" style="padding-top: 0px;">
 									   <table cellpadding="3" cellspacing="0" class="form-panel">
 									       <tr>
 									           <td class="label_td"><label>分期期数：</label></td>
@@ -104,7 +104,6 @@
 			    </div>
 			</div>
     	</div>
-    
 </body>
 
 <script>

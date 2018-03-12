@@ -19,7 +19,6 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
 	@Override
 	public SoOrder save(SoOrder entity) {
 
-
 		ActionContext ctx = new ActionContext();
 		{
 			ctx.setPath("gsb/crm/order/save");
@@ -58,8 +57,16 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
 //	}
 
 	@Override
-	public Boolean applyStage(SoOrder soOrder) {
+	public Boolean applyStage(SoOrder entity) {
 
+		ActionContext ctx = new ActionContext();
+		{
+			ctx.setPath("gsb/crm/order/stage");
+			ctx.setItem(entity);
+			ctx.setState(entity.getEntityState());
+		}
+		ActionManager action = new ActionManager();
+		action.execute(ctx);
 		return true;
 	}
 }
