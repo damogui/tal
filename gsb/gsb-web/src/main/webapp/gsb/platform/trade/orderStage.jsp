@@ -3,7 +3,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>订单详情</title>
+	<title>订单分期</title>
 	<link href='/package/font-awesome/css/font-awesome.min.css' rel='stylesheet' type='text/css' />
 	<link href='/package/easyui/themes/material/easyui.css' rel='stylesheet' type='text/css' />
 	<link href='/package/easyui/themes/easyui.extend.css' rel='stylesheet' type='text/css' />
@@ -24,40 +24,50 @@
     <body class="easyui-layout">
         <div data-options="region:'center',split:false,collapsible:false,closed:false" style="height:100%;" >
             <div id="tabs" class="easyui-tabs" style="height:100%;" data-options="fit:true,plain:false,tabPosition:'top',tabWidth:0,tabHeight:35">
-			    <div title="订单详情">
+			    <div title="订单信息">
 			        <div data-options="region:'north',split:false,collapsible:false,closed:false,height:200">
 						<jsp:include page="/gsb/platform/trade/orderInfo.jsp"></jsp:include>
 					</div>
 					<div id="center" data-options="region:'center'">
-						<div id="detail_tabs" style="height:100%;">   
-						    <div title="产品信息">   
-						          <table id="order_product_grid"></table>
-						    </div>   
-						    <div title="回款记录">   
-						         <table id="order_payment_grid"></table>
-						    </div>   
-						    <div title="退款记录">   
-						         <table id="order_refund_grid"></table>
-						    </div>
-						    <div title="改价记录">   
-						         <table id="order_change_price_grid"></table>
-						    </div>  
-						    <div title="优惠明细">   
-						         <table id="order_discount_grid"></table>
-						    </div>
-						    <div title="流转日志">   
-						         <table id="order_follow_grid"></table>
+						<div id="detail_tabs">   
+						    <div title="分期信息">   
+						        <div style=" border:0px;padding:20px;">
+								   <table cellpadding="3" cellspacing="0" class="form-panel">
+								       <tr>
+								           <td class="label_td"><label>分期期数：</label></td>
+								           <td class="control_td"></td>
+								           <td class="label_td"><label>分期金额：</label></td>
+								           <td class="control_td"></td>
+									   </tr>
+								       <tr>
+								           <td class="label_td"><label>一期付款：</label></td>
+								           <td class="control_td"></td>
+								           <td class="label_td"><label>付款比例：</label></td>
+								           <td class="control_td"></td>
+									   </tr>
+								       <tr>
+								           <td class="label_td"><label>二期付款：</label></td>
+								           <td class="control_td"></td>
+								           <td class="label_td"><label>付款比例：</label></td>
+								           <td class="control_td"></td>
+									   </tr>
+								       <tr>
+								           <td class="label_td"><label>三期付款：</label></td>
+								           <td class="control_td"></td>
+								           <td class="label_td"><label>付款比例：</label></td>
+								           <td class="control_td"></td>
+									   </tr>
+								       <tr>
+								           <td class="label_td"><label>四期付款：</label></td>
+								           <td class="control_td"></td>
+								           <td class="label_td"><label>付款比例：</label></td>
+								           <td class="control_td"></td>
+									   </tr>
+									</table>
+								</div>
 						    </div>
 						</div>
 					</div>
-			    </div>
-			     
-			    <div title="合同信息">
-			         
-			    </div>
-			     
-			    <div title="任务信息">
-			         
 			    </div>
 			</div>
     	</div>
@@ -70,8 +80,12 @@
 		var centerHeight = $('body').height() - 240;
 		$('#center').height(centerHeight);
 		
-		var formCtrl = new com.gongsibao.trade.web.OrderFormCtrl();
-		formCtrl.init();
+		$('#detail_tabs').tabs({
+			fit:true,
+			tabHeight:35
+		});
+		//var formCtrl = new com.gongsibao.trade.web.OrderFormCtrl();
+		//formCtrl.init();
 	});
 </script>
 </html>

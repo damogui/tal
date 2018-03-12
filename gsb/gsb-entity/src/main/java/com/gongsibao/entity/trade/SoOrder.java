@@ -26,6 +26,7 @@ import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
 import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
 import com.gongsibao.entity.trade.dic.OrderRefundStatusType;
 import com.gongsibao.entity.trade.dic.OrderSourceType;
+import com.gongsibao.entity.trade.dic.OrderStageNum;
 import com.gongsibao.entity.trade.dic.OrderType;
 import com.gongsibao.entity.uc.Account;
 
@@ -78,7 +79,7 @@ public class SoOrder extends BaseEntity {
 	private OrderPayStatusType payStatus = OrderPayStatusType.Dhk;
 
 	@Column(name = "stage_num", header = "分期次数（待讨论）")
-	private Integer stageNum = 0;
+	private OrderStageNum stageNum = OrderStageNum.ONE;
 	
 	@Column(name = "staged", header = "分期的")
 	private Boolean staged;
@@ -799,11 +800,11 @@ public class SoOrder extends BaseEntity {
 		this.depReceivable = depReceivable;
 	}
 
-	public Integer getStageNum() {
+	public OrderStageNum getStageNum() {
 		return stageNum;
 	}
 
-	public void setStageNum(Integer stageNum) {
+	public void setStageNum(OrderStageNum stageNum) {
 		this.stageNum = stageNum;
 	}
 

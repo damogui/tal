@@ -1,30 +1,11 @@
 System.Declare("com.gongsibao.trade.web");
-com.gongsibao.trade.web.OrderInfoCtrl = com.gongsibao.trade.web.BaseCtrl.Extends({
+com.gongsibao.trade.web.OrderInfoCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
     ctor: function () {
     	
     	this.base();
-    },    
-    invokeService: function (method, pars, callback, isAsyn, errorCallback) {
-
-        var serviceLocator = new org.netsharp.core.JServiceLocator();
-        var me = this;
-        var thisCallback = function (data) {
-        	
-            if (!System.isnull(callback)) {
-            	
-                callback(data);
-            }
-        };
-        serviceLocator.invoke(this.service, method, pars, thisCallback, null, isAsyn, errorCallback);
-    },
-    queryString: function (name) {
-
-        var result = location.search.match(new RegExp("[\?\&]" + name + "=([^\&]+)", "i"));
-        if (result == null || result.length < 1) {
-
-            return "";
-        }
-        return result[1];
+    	this.service = 'com.gongsibao.trade.web.OrderDetailController';
+    	this.platformSourceTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderPlatformSourceType');
+    	this.payStatusTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderPayStatusType');
     },
     init:function(){
     	
