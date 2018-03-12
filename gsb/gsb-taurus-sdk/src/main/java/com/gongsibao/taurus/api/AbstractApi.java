@@ -72,7 +72,7 @@ public abstract class AbstractApi<T extends ResponseMessage<?>> {
     protected List<String> getParameters() {
 
         String nowTime = shortFormate.format(new Date());
-        List<String> parameters = new ArrayList<String>();
+        List<String> parameters = Collections.synchronizedList(new ArrayList<String>());
 
 
         parameters.add("appKey=" + ConfigHelper.APP_KEY);
