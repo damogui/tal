@@ -276,7 +276,7 @@ public class SoCreatReceivedPerformanceWorkspaceTest extends WorkspaceCreationBa
             PDatagridColumn column = null;
 
 
-            column = addColumn (datagrid, "orderId", "订单号", ControlTypes.TEXT_BOX, 150);//depPays.supplier.name
+            column = addColumn (datagrid, "no", "订单号", ControlTypes.TEXT_BOX, 150);//depPays.supplier.name
             column = addColumn (datagrid, "payId", "订单分配金额", ControlTypes.TEXT_BOX, 150);
             column = addColumn (datagrid, "payId", "付款类别", ControlTypes.TEXT_BOX, 150);
             column = addColumn (datagrid, "payId", "回款业绩分配服务商", ControlTypes.TEXT_BOX, 200);

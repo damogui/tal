@@ -291,26 +291,7 @@ public class SoOrder extends BaseEntity {
     @Column(name = "depReceivableCreator", header = "订单业绩创建人")
     private String depReceivableCreator = "";
 
-    /*回款业绩用beg*/
-    @Exclusive
-    @Column(name = "order_cut_amount", header = "订单分配金额")
-    private String orderCutAmount = "";
-    @Exclusive
-    @Column(name = "order_cut_type", header = "付款类别")
-    private String orderCutType = "";
-    @Exclusive
-    @Column(name = "order_cut_supplier", header = "回款业绩服务商")
-    private String orderCutSupplier = "";
-    @Exclusive
-    @Column(name = "order_cut_dep", header = "回款业绩分配部门")
-    private String orderCutDep = "";
-    @Exclusive
-    @Column(name = "order_cut_man", header = "回款业绩分配业务员")
-    private String orderCutMan = "";
-    @Exclusive
-    @Column(name = "order_cut_amount", header = "回款业绩分配金额")
-    private String orderCutBackAmount = "";
-        /*回款业绩用end*/
+
 
     public List<NOrderStage> getStages() {
         return stages;
@@ -896,51 +877,5 @@ public class SoOrder extends BaseEntity {
         this.depReceivableCreator = depReceivableCreator;
     }
 
-    public String getOrderCutAmount() {
-        return orderCutAmount;
-    }
 
-    public void setOrderCutAmount(String orderCutAmount) {
-        this.orderCutAmount = orderCutAmount;
-    }
-
-    public String getOrderCutType() {
-        return orderCutType;
-    }
-
-    public void setOrderCutType(String orderCutType) {
-        this.orderCutType = orderCutType;
-    }
-
-    public String getOrderCutSupplier() {
-        return orderCutSupplier;
-    }
-
-    public void setOrderCutSupplier(String orderCutSupplier) {
-        this.orderCutSupplier = orderCutSupplier;
-    }
-
-    public String getOrderCutDep() {
-        return orderCutDep;
-    }
-
-    public void setOrderCutDep(String orderCutDep) {
-        this.orderCutDep = orderCutDep;
-    }
-
-    public String getOrderCutMan() {
-        return orderCutMan;
-    }
-
-    public void setOrderCutMan(String orderCutMan) {
-        this.orderCutMan = orderCutMan;
-    }
-
-    public String getOrderCutBackAmount() {
-        return orderCutBackAmount;
-    }
-
-    public void setOrderCutBackAmount(String orderCutBackAmount) {
-        this.orderCutBackAmount = orderCutBackAmount;
-    }
 }
