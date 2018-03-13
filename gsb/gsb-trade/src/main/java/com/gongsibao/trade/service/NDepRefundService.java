@@ -12,8 +12,8 @@ import com.gongsibao.trade.base.INDepRefundService;
 @Service
 public class NDepRefundService extends PersistableService<NDepRefund> implements INDepRefundService {
 
-    public NDepRefundService(){
-        super();
-        this.type=NDepRefund.class;
-    }
+	public NDepRefundService() {
+		super();
+		this.type = NDepRefund.class;
+	}
 }
