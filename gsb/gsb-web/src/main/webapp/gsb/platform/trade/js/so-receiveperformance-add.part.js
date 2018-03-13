@@ -4,7 +4,7 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
 
     ctor: function () {
         this.base();
-       
+
 
     },init:function () {
         $("body").on("click","#peperformanceAdd",function () {
@@ -266,22 +266,9 @@ function getDepartmentOption(){
 
 function getEmployeeOption(){
     var employeeOption = {columns : [ [ {
-        field : 'supplier_name',
-        title : '服务商',
-        width : 100
-    },{
-        field : 'department_name',
-        title : '部门',
-        width : 100
-    },{
         field : 'employee_name',
         title : '名称',
         width : 100
-    },{
-        field : 'receiving',
-        title : '自动接受任务',
-        width : 100,
-        formatter : function(value,row,index){return value===false?'否':'是';}
     }] ],
         rowStyler: function(index,row){if(row.receiving ===false) {return 'color:red;';  }},
         url : '\/panda\/rest\/reference?code=Salesman&filter=',
