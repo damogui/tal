@@ -1,5 +1,6 @@
 System.Declare("com.gongsibao.trade.web");
 //创建回款业绩
+var depPayMapDTO=[];//关联回款订单的入库实体
 com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.commerce.DetailPart.Extends({
 
     ctor: function () {
@@ -79,7 +80,7 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
                     }
                     layer.close(index);
                     //layer.closeAll();
-                    var orderDepPay = {};
+                    var orderDepPay = {};//业绩划分弹窗数据
                     orderDepPay.supplierId = supplierId;
                     orderDepPay.departmentId = departmentId;
                     orderDepPay.salesmanId = toUserId;
@@ -88,6 +89,20 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
                     orderDepPay.suppliername = suppliername;
                     orderDepPay.departmentname = departmentname;
                     orderDepPay.salesmanname = toUsername;
+                    var backOrder={};//添加回款订单小弹窗的数据
+                    var orderDepPayP={};//添加回款订单小弹窗的数据
+                    orderDepPayP.supplierId=supplierId;
+                    orderDepPayP.departmentId=departmentId;
+                    orderDepPayP.salesmanId=toUserId;
+
+                    backOrder.orderNo=$("#orderNo").numberbox("getValue");
+                    backOrder.orderCutPrice=$("#orderCutPrice").numberbox("getValue");
+                    backOrder.payType=$("#payType").combobox("getValue");
+                    backOrder.orderDepPayP=orderDepPayP;
+
+
+                    depPayMapDTO.push(backOrder);
+
 
                     $('#order_product_grid').datagrid('appendRow', orderDepPay);//赋值
                     return;
@@ -198,7 +213,7 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
             yes: function (index, layero) {
 
                 alert("提交数据");
-              
+
                 var orderBack = me.getOrderBack();
 
                 $('#datagridpays').datagrid('appendRow', orderBack);//赋值

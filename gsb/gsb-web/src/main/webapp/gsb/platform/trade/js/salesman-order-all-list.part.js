@@ -81,7 +81,20 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                 alert("回款业绩保存");
 
                 var depPayMapDTO={};
-                depPayMapDTO.orderNo=888;
+               // depPayMapDTO.setOfBooks=$("#pays_u8Bank_setOfBooks_name").combogrid("getValue");
+                // depPayMapDTO.u8Bank=$("#pays_u8Bank_name").combogrid("getValue");
+                // depPayMapDTO.offlinePayerName=$("#pays.pay.offlinePayerName").textbox("getValue");
+                // depPayMapDTO.offlineBankNo=$("#pays.pay.offlineBankNo").textbox("getValue");
+                // // depPayMapDTO.payForOrderCount=$("#pays.pay.payForOrderCount").textbox("getValue");
+                // depPayMapDTO.amount=$("#pays.pay.amount").textbox("getValue");
+                // //depPayMapDTO.files=$("#button_pays.pay.files").textbox("getValue");
+                // depPayMapDTO.offlineRemark=$("#pays.pay.offlineRemark").textbox("getValue");
+                debugger;
+                document.getElementById('addReceivedIframe').firstElementChild.contentWindow.depPayMapDTO;//保存
+                depPayMapDTO.orderPayMaps=$("#pays_u8Bank_setOfBooks_name").textbox("getValue");
+
+
+
                 me.invokeService('saveNDepReceivableBySoder',[depPayMapDTO], function(data){
 
                     if(data>0){
