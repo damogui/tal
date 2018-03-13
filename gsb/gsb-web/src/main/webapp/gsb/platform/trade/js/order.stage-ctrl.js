@@ -101,7 +101,7 @@ com.gongsibao.trade.web.OrderStageCtrl = org.netsharp.panda.core.CustomCtrl.Exte
     		if(r){
     			me.invokeService("applyStage", [soOrder], function(data){
     	    		IMessageBox.info('申请成功，请等待审核!',function(s){
-    	    			layer.closeAll();
+    	    			window.parent.layer.closeAll();
     	    		});
     	    	});
     		}
