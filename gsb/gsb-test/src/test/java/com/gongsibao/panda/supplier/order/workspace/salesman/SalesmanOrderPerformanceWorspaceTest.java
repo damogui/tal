@@ -27,6 +27,7 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
         super.setup();
         entity = SoOrder.class;
         urlList = "/crm/order/salesman/performance/list";
+        urlForm = "/crm/order/salesman/coperformance";
         listPartName = formPartName = "订单业绩";
         meta = MtableManager.getMtable(entity);
         formPartName = listPartName = meta.getName();
@@ -96,7 +97,7 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
         addQueryItem(queryProject, "depReceivableAuditStatusId", "审核状态", ControlTypes.ENUM_BOX);
         addQueryItem(queryProject, "payStatus", "付款状态", ControlTypes.ENUM_BOX);
         addQueryItem(queryProject, "ywyName", "业务员", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "creator", "订单业绩创建人", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "depReceivableCreator", "订单业绩创建人", ControlTypes.TEXT_BOX);
         return queryProject;
     }
 

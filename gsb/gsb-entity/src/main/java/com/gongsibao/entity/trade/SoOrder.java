@@ -273,8 +273,8 @@ public class SoOrder extends BaseEntity {
     @Subs(subType = OrderInvoiceMap.class, foreignKey = "orderId", header = "发票信息")
     private List<OrderInvoiceMap> invoices = new ArrayList<OrderInvoiceMap>();
 
-    @Subs(subType = AuditLog.class, foreignKey = "formId", header = "改价审核日志")
-    private List<AuditLog> auditLogs = new ArrayList<AuditLog>();
+    /*@Subs(subType = AuditLog.class, foreignKey = "formId", header = "改价审核日志")
+    private List<AuditLog> auditLogs = new ArrayList<AuditLog>();*/
 
     @Subs(subType = NOrderStage.class, foreignKey = "orderId", header = "分期明细")
     private List<NOrderStage> stages = new ArrayList<NOrderStage>();
@@ -803,13 +803,13 @@ public class SoOrder extends BaseEntity {
         this.invoices = invoices;
     }
 
-    public List<AuditLog> getAuditLogs() {
+    /*public List<AuditLog> getAuditLogs() {
         return auditLogs;
     }
 
     public void setAuditLogs(List<AuditLog> auditLogs) {
         this.auditLogs = auditLogs;
-    }
+    }*/
 
     public String getCustomerName() {
         return customerName;
