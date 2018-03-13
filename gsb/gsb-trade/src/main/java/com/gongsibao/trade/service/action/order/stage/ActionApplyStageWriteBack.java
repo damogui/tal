@@ -17,7 +17,7 @@ public class ActionApplyStageWriteBack implements IAction{
 		{
 			updateSql.update("so_order");
 			updateSql.set("staged", true);
-			updateSql.where("id =" + order.getId());
+			updateSql.where("pkid =" + order.getId());
 		}
 		String cmdText = updateSql.toSQL();
 		IPersister<SoOrder> pm = PersisterFactory.create();

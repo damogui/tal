@@ -1,5 +1,5 @@
 System.Declare("com.gongsibao.trade.web");
-com.gongsibao.trade.web.OrderStagetrl = org.netsharp.panda.core.CustomCtrl.Extends({
+com.gongsibao.trade.web.OrderStageCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
     ctor: function () {
     	
     	this.base();
