@@ -197,8 +197,10 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
             },
             yes: function (index, layero) {
 
-                // alert("提交数据");
+                alert("提交数据");
+                debugger;
                 var orderBack = me.getOrderBack();
+
                 $('#datagridpays').datagrid('appendRow', orderBack);//赋值
 
                 // callback(orderProd);
@@ -222,10 +224,10 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
         // var toUsername = $('#cut_employee_name').combogrid('getText');
 
         var orderBack = {};
-        orderBack.orderNo = $("#orderNo").numberbox("getValue");
-        orderBack.orderCutPrice = $("#orderCutPrice").numberbox("getValue");
-        orderBack.payType = $("#orderCutPrice").combogrid("getValue");
-        orderBack.payTypeName = $("#orderCutPrice").combogrid("getText");
+        orderBack.orderId = $("#orderNo").numberbox("getValue");
+        orderBack.orderCutAmount = $("#orderCutPrice").numberbox("getValue");
+        orderBack.payType = $("#payType").combogrid("getValue");
+        orderBack.payTypeStr = $("#payType").combogrid("getText");
 
 
 
@@ -239,14 +241,14 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
         $(rows).each(function (i, item) {
             suppliernameStr+='<p>' + item.suppliername + '</p>';
             departmentnameStr+='<p>' + item.departmentname + '</p>';
-            salesmannameStr+='<p>' + item.toUsername + '</p>';
+            salesmannameStr+='<p>' + item.salesmanname + '</p>';
             amountStr+='<p>' + item.amount + '</p>';
         });
 
-        orderBack.suppliernameStr = supplierId;
-        orderBack.departmentnameStr = departmentId;
-        orderBack.salesmannameStr = toUserId;
-        orderBack.amountStr = amountStr;
+        orderBack.supperName = suppliernameStr;
+        orderBack.depName = departmentnameStr;
+        orderBack.cutMan = salesmannameStr;
+        orderBack.cutAmountStr = amountStr;
         return orderBack;
     },
     choiceNameFormatter: function (value, row, index) {

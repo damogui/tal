@@ -44,10 +44,14 @@ public class OrderPayMap extends BaseEntity {
     @Exclusive
     private Integer orderCutAmount;//订单分配金额
     private Integer payType;//付款类别
+    private String  payTypeStr;//付款类别
     private String supperName;//回款业绩分配服务商
     private String depName;//回款业绩分配部门
     private String cutMan;//回款业绩分配业务员
     private Integer cutAmount;//回款业绩分配金额
+    @Exclusive
+    private Integer cutAmountStr;//回款业绩分配金额
+
 
 
     /*new end*/
@@ -170,5 +174,21 @@ public class OrderPayMap extends BaseEntity {
 
     public void setCutAmount(Integer cutAmount) {
         this.cutAmount = cutAmount;
+    }
+
+    public Integer getCutAmountStr() {
+        return cutAmountStr;
+    }
+
+    public void setCutAmountStr(Integer cutAmountStr) {
+        this.cutAmountStr = cutAmountStr;
+    }
+
+    public String getPayTypeStr() {
+        return payTypeStr;
+    }
+
+    public void setPayTypeStr(String payTypeStr) {
+        this.payTypeStr = payTypeStr;
     }
 }

@@ -276,13 +276,13 @@ public class SoCreatReceivedPerformanceWorkspaceTest extends WorkspaceCreationBa
             PDatagridColumn column = null;
 
 
-            column = addColumn (datagrid, "no", "订单号", ControlTypes.TEXT_BOX, 150);//depPays.supplier.name
-            column = addColumn (datagrid, "payId", "订单分配金额", ControlTypes.TEXT_BOX, 150);
-            column = addColumn (datagrid, "payId", "付款类别", ControlTypes.TEXT_BOX, 150);
-            column = addColumn (datagrid, "payId", "回款业绩分配服务商", ControlTypes.TEXT_BOX, 200);
-            column = addColumn (datagrid, "payId", "回款业绩分配部门", ControlTypes.TEXT_BOX, 200);
-            column = addColumn (datagrid, "payId", "回款业绩分配业务员", ControlTypes.TEXT_BOX, 150);
-            column = addColumn (datagrid, "payId", "回款业绩分配金额", ControlTypes.TEXT_BOX, 150);
+            column = addColumn (datagrid, "orderId", "订单号", ControlTypes.TEXT_BOX, 150);//depPays.supplier.name
+            column = addColumn (datagrid, "orderCutAmount", "订单分配金额", ControlTypes.TEXT_BOX, 150);
+            column = addColumn (datagrid, "payTypeStr", "付款类别", ControlTypes.TEXT_BOX, 150);
+            column = addColumn (datagrid, "supperName", "回款业绩分配服务商", ControlTypes.TEXT_BOX, 200);
+            column = addColumn (datagrid, "depName", "回款业绩分配部门", ControlTypes.TEXT_BOX, 200);
+            column = addColumn (datagrid, "cutMan", "回款业绩分配业务员", ControlTypes.TEXT_BOX, 150);
+            column = addColumn (datagrid, "cutAmountStr", "回款业绩分配金额", ControlTypes.TEXT_BOX, 150);
 
 
          }
