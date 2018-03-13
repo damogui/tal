@@ -16,20 +16,25 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
                 title:'回款业绩分配',
                 width:450,
                 height:300,
-                items:[{id:'allot_supplier_name',
+                items:[{id:'cut_supplier_name',
                     title:'服务商',
                     type:'combogrid',
                     className:'',
                     option:supplierOption},
 
-                    {id:'allot_department_name',
+                    {id:'cut_department_name',
                         title:'部门',
                         type:'combogrid',
                         className:'',
                         option:departmentOption},
 
-                    {id:'allot_employee_name',
+                    {id:'cut_employee',
                         title:'业务员',
+                        type:'combogrid',
+                        className:'',
+                        option:employeeOption},
+                    {id:'cut_amount',
+                        title:'回款业绩分配金额',
                         type:'combogrid',
                         className:'',
                         option:employeeOption}
@@ -100,7 +105,7 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
                 {field: 'productName', title: '部门', width: 150},
 
                 {field: 'cityName', title: '业务员', width: 150},
-          
+
                 {
                     field: 'price',
                     title: '回款业绩分配金额',
@@ -124,7 +129,7 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
         builder.append('<table cellpadding="3" cellspacing="0" class="form-panel" style="width:100%;">');
         builder.append('<tr><td class="title" style="width:100px;text-align: right;">订单编号</td><td><input id="orderNo" class="nsInput"/></td>');
         builder.append('<td class="title" style="width:100px;text-align: right;"> 订单分配金额</td><td><input id="orderCutPrice"  class="nsInput"/> </td>');
-        builder.append('<td class="title" style="width:100px;text-align: right;"> 付款类别</td><td> <input id="payType" class="easyui-combobox"/></td></tr>');
+        builder.append('<td class="title" style="width:100px;text-align: right;"> 付款类别</td><td> <input id="payType" class="easyui-combobox" /></td></tr>');
         builder.append('</table>');
         builder.append('</div>');
         builder.append('</form>');
@@ -144,14 +149,24 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
             content: builder.toString(),
             btn: ['提交', '取消'],
             success: function (layero, index) {
-                //me.initializeCtrl();
-                  var  dataArr=[{id:"0", text:"全款"},{id:"1", text:"一期款"},{id:"2", text:"二期款"},{id:"3", text:"三期款"},{id:"4", text:"四期款"}];
-
-                var data = [['0', '全款'], ['1', '一期款'], ['2', '二期款'], ['3', '三期款'], ['4', '四期款']];
                 var options = {
-                    data : data,
-                    textField:1,
-                    valueField:0
+                    editable:false,
+                    valueField:'value',
+                    textField:'text',
+                    width:150,
+                    method:'get',
+                    url:'/panda/rest/enum?name=com.gongsibao.entity.trade.dic.OrderStageNum',
+                    onLoadSuccess: function () {  //加载完成后,设置选中第一项
+                        var val = $(this).combobox("getData");
+                        for (var item in val[0]) {
+                            if (item == "value") {
+                                $(this).combobox("select", val[0][item]);
+                            }
+                        }
+                    }
+
+
+
                 };
                 $("#payType").combobox(options);
 
@@ -163,12 +178,6 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
                 layer.closeAll();
             }
         });
-        debugger;
-        //  var  dataArr=[{id:"0", text:"全款"},{id:"1", text:"一期款"},{id:"2", text:"二期款"},{id:"3", text:"三期款"},{id:"4", text:"四期款"}];
-        //var data = [['0', '累计雨量'], ['1', '时雨量'], ['2', '日雨量'], ['3', '旬雨量'], ['4', '月雨量'], ['5', '年雨量']];
-
-
-        $("#payType").combobox("loadData", dataArr); //最后，加载数组数据
         me.initGrid();
         me.init();
 
