@@ -50,6 +50,10 @@ public class OrderPayMap extends BaseEntity {
     private Integer cutAmount;//回款业绩分配金额
 
 
+    //我的订单回款额
+    @Exclusive
+    private Integer myOrderCutAmount;
+
     /*new end*/
     public Integer getOrderId() {
         return orderId;
@@ -170,5 +174,13 @@ public class OrderPayMap extends BaseEntity {
 
     public void setCutAmount(Integer cutAmount) {
         this.cutAmount = cutAmount;
+    }
+
+    public Integer getMyOrderCutAmount() {
+        return myOrderCutAmount;
+    }
+
+    public void setMyOrderCutAmount(Integer myOrderCutAmount) {
+        this.myOrderCutAmount = myOrderCutAmount;
     }
 }

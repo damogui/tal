@@ -22,231 +22,243 @@ import com.gongsibao.entity.uc.User;
 @Table(name = "so_pay")
 public class Pay extends BaseEntity {
 
-	private static final long serialVersionUID = 2379304079106456618L;
+    private static final long serialVersionUID = 2379304079106456618L;
 
-	@Column(header = "编号")
-	private String no;
+    @Column(header = "编号")
+    private String no;
 
-	@Column(header = "金额")
-	private Integer amount;
+    @Column(header = "金额")
+    private Integer amount;
 
-	@Column(name = "pay_way_type_id", header = "支付类型,type=310")
-	private PayWayType payWayType;
+    @Column(name = "pay_way_type_id", header = "支付类型,type=310")
+    private PayWayType payWayType;
 
-	@Column(name = "success_status_id", header = "成功状态")
-	private PaySuccessStatus successStatus;
+    @Column(name = "success_status_id", header = "成功状态")
+    private PaySuccessStatus successStatus;
 
-	@Column(name = "confirm_time", header = "确认时间")
-	private Date confirmTime;
-	
-	@Column(name = "pay_time", header = "支付时间")
-	private Date payTime;
-	
-	@Column(name = "offline_way_type_id", header = "线下类型")
-	private OfflineWayType offlineWayType;
+    @Column(name = "confirm_time", header = "确认时间")
+    private Date confirmTime;
 
-	@Column(name = "offline_installment_type", header = "线下结算类型,线下分期类型序号，type= 全款为0，首款为1，尾款为-1，二期为2，三期为3，以此类推")
-	private PayOfflineInstallmentType offlineInstallmentType = PayOfflineInstallmentType.sk;
+    @Column(name = "pay_time", header = "支付时间")
+    private Date payTime;
 
-	@Column(name = "offline_payer_name", header = "线下支付名称")
-	private String offlinePayerName;
+    @Column(name = "offline_way_type_id", header = "线下类型")
+    private OfflineWayType offlineWayType;
 
-	@Column(name = "offline_bank_no", header = "线下银行卡号")
-	private String offlineBankNo;
+    @Column(name = "offline_installment_type", header = "线下结算类型,线下分期类型序号，type= 全款为0，首款为1，尾款为-1，二期为2，三期为3，以此类推")
+    private PayOfflineInstallmentType offlineInstallmentType = PayOfflineInstallmentType.sk;
 
-	@Column(name = "offline_remark", header = "线下备注")
-	private String offlineRemark;
+    @Column(name = "offline_payer_name", header = "线下支付名称")
+    private String offlinePayerName;
 
-	@Column(name = "offline_audit_status_id", header = "审核状态")
-	private AuditStatusType offlineAuditStatus = AuditStatusType.wu;
+    @Column(name = "offline_bank_no", header = "线下银行卡号")
+    private String offlineBankNo;
 
-	@Column(name = "offline_add_user_id", header = "线下创建人")
-	private Integer offlineAddUserId;
+    @Column(name = "offline_remark", header = "线下备注")
+    private String offlineRemark;
 
-	@Reference(foreignKey = "offlineAddUserId", header = "线下创建人")
-	private User offlineAddUser;
+    @Column(name = "offline_audit_status_id", header = "审核状态")
+    private AuditStatusType offlineAuditStatus = AuditStatusType.wu;
 
-	@Column(name = "online_bank_code_id", header = "在线银行卡")
-	private String onlineBankCodeId;
+    @Column(name = "offline_add_user_id", header = "线下创建人")
+    private Integer offlineAddUserId;
 
-	@Column(name = "u8_voucher_id", header = "u8凭证id")
-	private String u8VoucherId;
+    @Reference(foreignKey = "offlineAddUserId", header = "线下创建人")
+    private User offlineAddUser;
+
+    @Column(name = "online_bank_code_id", header = "在线银行卡")
+    private String onlineBankCodeId;
+
+    @Column(name = "u8_voucher_id", header = "u8凭证id")
+    private String u8VoucherId;
 
     @Subs(subType = File.class, foreignKey = "formId", header = "上传图片表（一个支付可以多个凭证）")
     private List<File> files;
 
 
     @Column(name = "online_trade_no", header = "在线交易号")
-	private String onlineTradeNo;
+    private String onlineTradeNo;
 
-	@Column(name = "receipt_no", header = "回单编号")
-	private String receiptNo;
+    @Column(name = "receipt_no", header = "回单编号")
+    private String receiptNo;
 
-	@Column(name = "receipt_status", header = "回单处理状态（0：未完成 1已完成：）")
-	private PayReceiptStatus receiptStatus = PayReceiptStatus.NotStarted;
+    @Column(name = "receipt_status", header = "回单处理状态（0：未完成 1已完成：）")
+    private PayReceiptStatus receiptStatus = PayReceiptStatus.NotStarted;
 
-	@Column(name = "pay_for_order_count", header = "支付订单数量（0:一笔单单 1:一笔多单）")
-	private PayForOrderCountType payForOrderCount = PayForOrderCountType.Ybdd;
-	
-	public Date getPayTime() {
-		return payTime;
-	}
+    @Column(name = "pay_for_order_count", header = "支付订单数量（0:一笔单单 1:一笔多单）")
+    private PayForOrderCountType payForOrderCount = PayForOrderCountType.Ybdd;
 
-	public void setPayTime(Date payTime) {
-		this.payTime = payTime;
-	}
+    @Column(name = "dep_pay_create_time", header = "回款业绩创建时间")
+    private Date depPayCreateTime;
 
-	public String getNo() {
-		return no;
-	}
+    @Column(name = "dep_pay_audit_pass_time", header = "回款业绩审核通过时间")
+    private String depPayAuditPassTime;
 
-	public void setNo(String no) {
-		this.no = no;
-	}
+    @Column(name = "dep_pay_create_employee_id", header = "回款业绩创建人id")
+    private Integer depPayCreateEmployeeId;
 
-	public Integer getAmount() {
-		return amount;
-	}
+    @Column(name = "dep_pay_create_employee_name", header = "回款业绩创建人")
+    private Integer depPayCreateEmployeeName;
 
-	public void setAmount(Integer amount) {
-		this.amount = amount;
-	}
+    public Date getPayTime() {
+        return payTime;
+    }
 
-	public PayWayType getPayWayType() {
-		return payWayType;
-	}
+    public void setPayTime(Date payTime) {
+        this.payTime = payTime;
+    }
 
-	public void setPayWayType(PayWayType payWayType) {
-		this.payWayType = payWayType;
-	}
+    public String getNo() {
+        return no;
+    }
 
-	public Date getConfirmTime() {
-		return confirmTime;
-	}
+    public void setNo(String no) {
+        this.no = no;
+    }
 
-	public void setConfirmTime(Date confirmTime) {
-		this.confirmTime = confirmTime;
-	}
+    public Integer getAmount() {
+        return amount;
+    }
 
-	public String getOfflinePayerName() {
-		return offlinePayerName;
-	}
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
 
-	public void setOfflinePayerName(String offlinePayerName) {
-		this.offlinePayerName = offlinePayerName;
-	}
+    public PayWayType getPayWayType() {
+        return payWayType;
+    }
 
-	public String getOfflineBankNo() {
-		return offlineBankNo;
-	}
+    public void setPayWayType(PayWayType payWayType) {
+        this.payWayType = payWayType;
+    }
 
-	public void setOfflineBankNo(String offlineBankNo) {
-		this.offlineBankNo = offlineBankNo;
-	}
+    public Date getConfirmTime() {
+        return confirmTime;
+    }
 
-	public String getOfflineRemark() {
-		return offlineRemark;
-	}
+    public void setConfirmTime(Date confirmTime) {
+        this.confirmTime = confirmTime;
+    }
 
-	public void setOfflineRemark(String offlineRemark) {
-		this.offlineRemark = offlineRemark;
-	}
+    public String getOfflinePayerName() {
+        return offlinePayerName;
+    }
 
-	public Integer getOfflineAddUserId() {
-		return offlineAddUserId;
-	}
+    public void setOfflinePayerName(String offlinePayerName) {
+        this.offlinePayerName = offlinePayerName;
+    }
 
-	public void setOfflineAddUserId(Integer offlineAddUserId) {
-		this.offlineAddUserId = offlineAddUserId;
-	}
+    public String getOfflineBankNo() {
+        return offlineBankNo;
+    }
 
-	public User getOfflineAddUser() {
-		return offlineAddUser;
-	}
+    public void setOfflineBankNo(String offlineBankNo) {
+        this.offlineBankNo = offlineBankNo;
+    }
 
-	public void setOfflineAddUser(User offlineAddUser) {
-		this.offlineAddUser = offlineAddUser;
-	}
+    public String getOfflineRemark() {
+        return offlineRemark;
+    }
 
-	public String getOnlineBankCodeId() {
-		return onlineBankCodeId;
-	}
+    public void setOfflineRemark(String offlineRemark) {
+        this.offlineRemark = offlineRemark;
+    }
 
-	public void setOnlineBankCodeId(String onlineBankCodeId) {
-		this.onlineBankCodeId = onlineBankCodeId;
-	}
+    public Integer getOfflineAddUserId() {
+        return offlineAddUserId;
+    }
 
-	public String getOnlineTradeNo() {
-		return onlineTradeNo;
-	}
+    public void setOfflineAddUserId(Integer offlineAddUserId) {
+        this.offlineAddUserId = offlineAddUserId;
+    }
 
-	public void setOnlineTradeNo(String onlineTradeNo) {
-		this.onlineTradeNo = onlineTradeNo;
-	}
+    public User getOfflineAddUser() {
+        return offlineAddUser;
+    }
 
-	public String getReceiptNo() {
-		return receiptNo;
-	}
+    public void setOfflineAddUser(User offlineAddUser) {
+        this.offlineAddUser = offlineAddUser;
+    }
 
-	public void setReceiptNo(String receiptNo) {
-		this.receiptNo = receiptNo;
-	}
+    public String getOnlineBankCodeId() {
+        return onlineBankCodeId;
+    }
 
-	public PayReceiptStatus getReceiptStatus() {
-		return receiptStatus;
-	}
+    public void setOnlineBankCodeId(String onlineBankCodeId) {
+        this.onlineBankCodeId = onlineBankCodeId;
+    }
 
-	public void setReceiptStatus(PayReceiptStatus receiptStatus) {
-		this.receiptStatus = receiptStatus;
-	}
+    public String getOnlineTradeNo() {
+        return onlineTradeNo;
+    }
 
-	public PayForOrderCountType getPayForOrderCount() {
-		return payForOrderCount;
-	}
+    public void setOnlineTradeNo(String onlineTradeNo) {
+        this.onlineTradeNo = onlineTradeNo;
+    }
 
-	public void setPayForOrderCount(PayForOrderCountType payForOrderCount) {
-		this.payForOrderCount = payForOrderCount;
-	}
+    public String getReceiptNo() {
+        return receiptNo;
+    }
 
-	public String getU8VoucherId() {
-		return u8VoucherId;
-	}
+    public void setReceiptNo(String receiptNo) {
+        this.receiptNo = receiptNo;
+    }
 
-	public void setU8VoucherId(String u8VoucherId) {
-		this.u8VoucherId = u8VoucherId;
-	}
+    public PayReceiptStatus getReceiptStatus() {
+        return receiptStatus;
+    }
 
-	public PaySuccessStatus getSuccessStatus() {
-		return successStatus;
-	}
+    public void setReceiptStatus(PayReceiptStatus receiptStatus) {
+        this.receiptStatus = receiptStatus;
+    }
 
-	public void setSuccessStatus(PaySuccessStatus successStatus) {
-		this.successStatus = successStatus;
-	}
+    public PayForOrderCountType getPayForOrderCount() {
+        return payForOrderCount;
+    }
 
-	public OfflineWayType getOfflineWayType() {
-		return offlineWayType;
-	}
+    public void setPayForOrderCount(PayForOrderCountType payForOrderCount) {
+        this.payForOrderCount = payForOrderCount;
+    }
 
-	public void setOfflineWayType(OfflineWayType offlineWayType) {
-		this.offlineWayType = offlineWayType;
-	}
+    public String getU8VoucherId() {
+        return u8VoucherId;
+    }
 
-	public PayOfflineInstallmentType getOfflineInstallmentType() {
-		return offlineInstallmentType;
-	}
+    public void setU8VoucherId(String u8VoucherId) {
+        this.u8VoucherId = u8VoucherId;
+    }
 
-	public void setOfflineInstallmentType(PayOfflineInstallmentType offlineInstallmentType) {
-		this.offlineInstallmentType = offlineInstallmentType;
-	}
+    public PaySuccessStatus getSuccessStatus() {
+        return successStatus;
+    }
 
-	public AuditStatusType getOfflineAuditStatus() {
-		return offlineAuditStatus;
-	}
+    public void setSuccessStatus(PaySuccessStatus successStatus) {
+        this.successStatus = successStatus;
+    }
 
-	public void setOfflineAuditStatus(AuditStatusType offlineAuditStatus) {
-		this.offlineAuditStatus = offlineAuditStatus;
-	}
+    public OfflineWayType getOfflineWayType() {
+        return offlineWayType;
+    }
+
+    public void setOfflineWayType(OfflineWayType offlineWayType) {
+        this.offlineWayType = offlineWayType;
+    }
+
+    public PayOfflineInstallmentType getOfflineInstallmentType() {
+        return offlineInstallmentType;
+    }
+
+    public void setOfflineInstallmentType(PayOfflineInstallmentType offlineInstallmentType) {
+        this.offlineInstallmentType = offlineInstallmentType;
+    }
+
+    public AuditStatusType getOfflineAuditStatus() {
+        return offlineAuditStatus;
+    }
+
+    public void setOfflineAuditStatus(AuditStatusType offlineAuditStatus) {
+        this.offlineAuditStatus = offlineAuditStatus;
+    }
 
     public List<File> getFiles() {
         return files;
@@ -254,5 +266,37 @@ public class Pay extends BaseEntity {
 
     public void setFiles(List<File> files) {
         this.files = files;
+    }
+
+    public Date getDepPayCreateTime() {
+        return depPayCreateTime;
+    }
+
+    public void setDepPayCreateTime(Date depPayCreateTime) {
+        this.depPayCreateTime = depPayCreateTime;
+    }
+
+    public String getDepPayAuditPassTime() {
+        return depPayAuditPassTime;
+    }
+
+    public void setDepPayAuditPassTime(String depPayAuditPassTime) {
+        this.depPayAuditPassTime = depPayAuditPassTime;
+    }
+
+    public Integer getDepPayCreateEmployeeId() {
+        return depPayCreateEmployeeId;
+    }
+
+    public void setDepPayCreateEmployeeId(Integer depPayCreateEmployeeId) {
+        this.depPayCreateEmployeeId = depPayCreateEmployeeId;
+    }
+
+    public Integer getDepPayCreateEmployeeName() {
+        return depPayCreateEmployeeName;
+    }
+
+    public void setDepPayCreateEmployeeName(Integer depPayCreateEmployeeName) {
+        this.depPayCreateEmployeeName = depPayCreateEmployeeName;
     }
 }
