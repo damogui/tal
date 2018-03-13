@@ -61,7 +61,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         formServiceController = SalesmanAllOrderFormPart.class.getName();
 
         //添加过滤条件
-//        listFilter = "inspectionState in (3,4)";
+       // listFilter = "owner_id = '{userId}'";
 //        listFilter = "foolowStatus = 6 and ownerId = '{userId}'";
     }
 
@@ -69,7 +69,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
     public PToolbar createListToolbar() {
 
         ResourceNode node = this.resourceService.byCode(resourceNodeCode);
-        OperationType ot1 = operationTypeService.byCode(OperationTypes.add);
+        OperationType ot1 = operationTypeService.byCode(OperationTypes.view);
         PToolbar toolbar = new PToolbar();
         {
             toolbar.toNew();

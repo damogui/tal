@@ -12,7 +12,9 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
+import com.gongsibao.entity.trade.dic.RefundType;
 import com.gongsibao.entity.trade.dic.RefundWayType;
+import com.gongsibao.entity.u8.SetOfBooks;
 
 @Table(name = "so_refund", header = "退款")
 public class Refund extends BaseEntity {
@@ -26,6 +28,13 @@ public class Refund extends BaseEntity {
 	@JsonIgnore
 	@Reference(foreignKey = "orderId")
 	private SoOrder soOrder;
+	
+	
+	@Column(name = "set_of_books_id", header = "账套")
+	private Integer setOfBooksId;
+
+	@Reference(foreignKey = "setOfBooksId")
+	private SetOfBooks setOfBooks;
 
 	//审核状态序号，type=105，1051待审核、1052通过、1053不通过
 	@Column(name = "audit_status_id", header = "审核状态")
@@ -35,8 +44,8 @@ public class Refund extends BaseEntity {
 	@Column(name = "way_type_id", header = "退款方式")
 	private RefundWayType wayType;
 
-	@Column(name = "is_full_refund", header = "全额退款")
-	private Integer isFullRefund;
+	@Column(name = "is_full_refund", header = "是否全额退款")
+	private RefundType refundType;
 
 	@Column(header = "编号")
 	private String no;
@@ -65,6 +74,9 @@ public class Refund extends BaseEntity {
 	@Subs(subType = RefundItemPrice.class, foreignKey = "refundId", header = "退款价格")
 	private List<RefundItemPrice> prices = new ArrayList<RefundItemPrice>();
 
+	@Subs(subType = NDepRefund.class, foreignKey = "refundId", header = "部门退款业绩")
+	private List<NDepRefund> depRefunds = new ArrayList<NDepRefund>();
+	
 	public Integer getOrderId() {
 		return orderId;
 	}
@@ -73,12 +85,13 @@ public class Refund extends BaseEntity {
 		this.orderId = orderId;
 	}
 
-	public Integer getIsFullRefund() {
-		return isFullRefund;
+
+	public RefundType getRefundType() {
+		return refundType;
 	}
 
-	public void setIsFullRefund(Integer isFullRefund) {
-		this.isFullRefund = isFullRefund;
+	public void setRefundType(RefundType refundType) {
+		this.refundType = refundType;
 	}
 
 	public String getNo() {
@@ -175,5 +188,29 @@ public class Refund extends BaseEntity {
 
 	public void setWayType(RefundWayType wayType) {
 		this.wayType = wayType;
+	}
+
+	public Integer getSetOfBooksId() {
+		return setOfBooksId;
+	}
+
+	public void setSetOfBooksId(Integer setOfBooksId) {
+		this.setOfBooksId = setOfBooksId;
+	}
+
+	public SetOfBooks getSetOfBooks() {
+		return setOfBooks;
+	}
+
+	public void setSetOfBooks(SetOfBooks setOfBooks) {
+		this.setOfBooks = setOfBooks;
+	}
+
+	public List<NDepRefund> getDepRefunds() {
+		return depRefunds;
+	}
+
+	public void setDepRefunds(List<NDepRefund> depRefunds) {
+		this.depRefunds = depRefunds;
 	}
 }

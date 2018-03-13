@@ -1,5 +1,13 @@
 package com.gongsibao.panda.platform.operation;
 
+import com.gongsibao.entity.igirl.DownloadAttachment;
+import com.gongsibao.entity.igirl.TradeMark;
+import com.gongsibao.entity.igirl.TradeMarkCase;
+import com.gongsibao.entity.igirl.UploadAttachment;
+import com.gongsibao.igirl.base.IDownloadAttachmentService;
+import com.gongsibao.igirl.base.ITradeMarkCaseService;
+import com.gongsibao.igirl.base.ITradeMarkService;
+import com.gongsibao.igirl.base.IUploadAttachmentService;
 import org.junit.Before;
 import org.netsharp.base.IPersistableService;
 import org.netsharp.communication.ServiceFactory;
@@ -58,6 +66,7 @@ import com.gongsibao.entity.taurus.ActiveUserView;
 import com.gongsibao.entity.taurus.DayStatisticView;
 import com.gongsibao.entity.taurus.JnzUserBehaviorStatistics;
 import com.gongsibao.entity.taurus.NewUserPerDayView;
+import com.gongsibao.entity.taurus.UcOrganizationUserView;
 import com.gongsibao.entity.taurus.User;
 import com.gongsibao.entity.taurus.UserCollectCompany;
 import com.gongsibao.entity.taurus.UserConsStatisticView;
@@ -84,6 +93,7 @@ import com.gongsibao.taurus.base.IActiveUserViewService;
 import com.gongsibao.taurus.base.IBdUserBehaviorStatistics;
 import com.gongsibao.taurus.base.IDayStatisticViewService;
 import com.gongsibao.taurus.base.INewUserPerDayViewService;
+import com.gongsibao.taurus.base.IUcOrganizationService;
 import com.gongsibao.taurus.base.IUserCollectCompanyService;
 import com.gongsibao.taurus.base.IUserConsStatisticViewService;
 import com.gongsibao.taurus.base.IUserConsumptionService;
@@ -129,6 +139,7 @@ public class ResourceTest extends ResourceCreationBase {
             this.createResourceNodeVoucher(DayStatisticView.class.getName(), "日统计数据", "GSB_TAURUS_" + DayStatisticView.class.getSimpleName(), IDayStatisticViewService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(JnzUserBehaviorStatistics.class.getName(), "统计数据", "GSB_TAURUS_" + JnzUserBehaviorStatistics.class.getSimpleName(), IBdUserBehaviorStatistics.class.getName(), node1.getId());
             this.createResourceNodeVoucher(UserConsumptionView.class.getName(), "用户消费数据", "GSB_TAURUS_" + UserConsumptionView.class.getSimpleName(), IUserConsumptionService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(UcOrganizationUserView.class.getName(), "业务用户统计", "GSB_TAURUS_" + UcOrganizationUserView.class.getSimpleName(), IUcOrganizationService.class.getName(), node1.getId());
         }
         node1 = this.createResourceNodeCategory("万达项目", "GSB_WANDA", node.getId());
         {
@@ -224,6 +235,13 @@ public class ResourceTest extends ResourceCreationBase {
             this.createResourceNodeVoucher(SoOrder.class.getName(), "月统计", "Operation_Order_Month_Report", ISoOrderService.class.getName(), node1.getId());
             
 
+        }
+        node1 = this.createResourceNodeCategory("智能商标", "Operation_IGIRL", node.getId());
+        {
+            this.createResourceNodeVoucher(TradeMarkCase.class.getName(), "方案列表", "Operation_IGIRL_All_TradeMarkCase", ITradeMarkCaseService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(TradeMark.class.getName(), "进度跟进", "Operation_IGIRL_All_TradeMark", ITradeMarkService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(UploadAttachment.class.getName(), "上传附件", "Operation_IGIRL_UPLOAD_" + UploadAttachment.class.getSimpleName(), IUploadAttachmentService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(DownloadAttachment.class.getName(), "下载附件", "Operation_IGIRL_DOWNLOAD_" + DownloadAttachment.class.getSimpleName(), IDownloadAttachmentService.class.getName(), node1.getId());
         }
     }
 }

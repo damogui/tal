@@ -1,25 +1,25 @@
 package com.gongsibao.entity.trade;
 
-import com.gongsibao.entity.supplier.Salesman;
-import com.gongsibao.entity.supplier.Supplier;
-import com.gongsibao.entity.supplier.SupplierDepartment;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
+import org.netsharp.organization.entity.Employee;
+
+import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.entity.supplier.SupplierDepartment;
 
 /**
  * Created by win on 2018/2/26.
  */
 @Table(name = "n_dep_pay", header = "部门支付表")
-public class NDepPay  extends Entity {
-    /**   
-	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
-	 */   
-	private static final long serialVersionUID = -233203413500559037L;
-	@Column(name = "amount", header = "支付额")
-    private  Integer amount;
+public class NDepPay extends Entity {
+    /**
+     * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
+     */
+    private static final long serialVersionUID = -233203413500559037L;
+    @Column(name = "amount", header = "支付额")
+    private Integer amount;
 
     @Column(name = "supplier_id", header = "服务商Id")
     private Integer supplierId = 0;
@@ -32,16 +32,15 @@ public class NDepPay  extends Entity {
     @Reference(foreignKey = "departmentId", header = "部门")
     private SupplierDepartment department;
 
-    @Column(name = "salesman_id", header = "员工Id")
-    private  Integer salesmanId;
+    @Column(name = "employee_id", header = "员工Id")
+    private Integer employeeId;
 
-    @JsonIgnore
-    @Reference(foreignKey="salesmanId")
-    private Salesman salesman;
+    @Reference(foreignKey = "employeeId")
+    private Employee employee;
 
 
     @Column(name = "order_pay_map_id", header = "支付明细Id")
-    private  Integer orderPayMapId;
+    private Integer orderPayMapId;
 
 
     /*new beg*/
@@ -57,18 +56,6 @@ public class NDepPay  extends Entity {
     public void setAmount(Integer amount) {
         this.amount = amount;
     }
-
-
-
-    public Integer getSalesmanId() {
-        return salesmanId;
-    }
-
-    public void setSalesmanId(Integer salesmanId) {
-        this.salesmanId = salesmanId;
-    }
-
-
 
     public Integer getOrderPayMapId() {
         return orderPayMapId;
@@ -118,11 +105,11 @@ public class NDepPay  extends Entity {
         this.department = department;
     }
 
-    public Salesman getSalesman() {
-        return salesman;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setSalesman(Salesman salesman) {
-        this.salesman = salesman;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }

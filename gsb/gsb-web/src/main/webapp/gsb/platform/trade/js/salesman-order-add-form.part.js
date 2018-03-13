@@ -129,7 +129,7 @@ com.gongsibao.trade.web.OrderProdItemDetailPart = org.netsharp.panda.commerce.De
 			    	 $('#datagridproducts').datagrid('endEdit',index);
 			    	 me.calculateTotalPrice();
 			     });
-			},
+			}
     		$('#datagridproducts').datagrid(options);
     		$('#datagridproducts').datagrid('enableCellEditing');
     	}

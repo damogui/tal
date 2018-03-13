@@ -7,9 +7,15 @@ import com.gongsibao.taurus.message.response.CompanyInfoResponseMessage;
 import com.gongsibao.taurus.message.response.TmNewResponseMessage;
 import com.gongsibao.taurus.util.StringManager;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.*;
 
 public class TaurusApiService {
+    private static ExecutorService exec = Executors.newCachedThreadPool();
+
+    private static final int CONCURRENT_PAGE_SIZE = 20;
 
     /**
      * @throws
@@ -823,9 +829,91 @@ public class TaurusApiService {
     }
 
     /**
+     * 并发获取，区分请求，每个请求20条
+     *
+     * @param companyName
+     * @param limit
+     * @return
+     */
+    public static ResponseMessage<TmNew> getTmNewByCompanyConcurrent(String companyName, int limit) {
+        ResponseMessage<TmNew> result = new ResponseMessage<>();
+        if (StringManager.isNullOrEmpty(companyName) || limit == 0) {
+            result.setResultMsg("参数为空");
+            return result;
+        }
+
+        // 20条以内做多线程请求
+        if (limit <= CONCURRENT_PAGE_SIZE) {
+            return getTmNewByCompany(companyName, 0, limit);
+        }
+
+        // 分页
+        int pageNum = (limit / CONCURRENT_PAGE_SIZE) + (limit % CONCURRENT_PAGE_SIZE > 0 ? 1 : 0);
+
+        List<Callable<ResponseMessage<TmNew>>> tasks = new ArrayList<>();
+
+        for (int i = 1; i <= pageNum; i++) {
+            int size = CONCURRENT_PAGE_SIZE;
+
+            // 结算最后一页边界条件
+            if (CONCURRENT_PAGE_SIZE * i > limit) {
+                size = limit - CONCURRENT_PAGE_SIZE * (i - 1);
+            }
+
+            final int finalI = i;
+            final int finalSize = size;
+            tasks.add(() -> {
+                ResponseMessage<TmNew> res = getTmNewByCompany("天津市真地商贸有限公司金街酒销售分公司", finalI, finalSize);
+                res.setResult(finalI);
+                return res;
+            });
+        }
+
+        try {
+            List<Future<ResponseMessage<TmNew>>> results = exec.invokeAll(tasks);
+            if (null == results || results.isEmpty()) {
+                result.setResultMsg("无返回数据");
+                return result;
+            }
+
+            Collections.sort(results, (o1, o2) -> {
+                try {
+                    ResponseMessage<TmNew> m1 = o1.get();
+                    ResponseMessage<TmNew> m2 = o2.get();
+                    return m1.getCurrentPage() - m2.getCurrentPage();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    return 0;
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                    return 0;
+                }
+            });
+
+            List<TmNew> tmNewList = new ArrayList<>();
+            for (Future<ResponseMessage<TmNew>> future : results) {
+                ResponseMessage<TmNew> message = future.get();
+                if (null == message) {
+                    continue;
+                }
+                tmNewList.addAll(message.getList());
+            }
+
+            result.setList(tmNewList);
+            result.setResultMsg("请求成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setResultMsg("请求异常");
+            return result;
+        }
+
+        return result;
+    }
+
+    /**
      * 根据商标名称查询新商标数据
      *
-     * @param tmName      查询条件
+     * @param tmName      商标名称
      * @param currentPage
      * @param pageSize
      * @return
@@ -844,9 +932,9 @@ public class TaurusApiService {
     }
 
     /**
-     * 根据公司名称查询新商标数据
+     * 根据商标注册号查询新商标数据
      *
-     * @param regNo       查询条件
+     * @param regNo       商标注册号
      * @param currentPage
      * @param pageSize
      * @return

@@ -1,9 +1,8 @@
 System.Declare("com.gongsibao.trade.web");
-com.gongsibao.trade.web.BaseCtrl = System.Object.Extends({
+com.gongsibao.trade.web.BaseCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
     ctor: function () {
     	
     	this.service = 'com.gongsibao.trade.web.OrderDetailController';
-
     	this.processStatusEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderProcessStatusType');
     	this.offlineWayType = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OfflineWayType');
     	this.receiptStatus = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.PayReceiptStatus');
@@ -14,32 +13,6 @@ com.gongsibao.trade.web.BaseCtrl = System.Object.Extends({
     	this.auditLogStatusTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.bd.dic.AuditLogStatusType');
     	this.platformSourceTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderPlatformSourceType');
     	this.payStatusTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderPayStatusType');
-    },
-    invokeService: function (method, pars, callback, isAsyn, errorCallback) {
-
-        var serviceLocator = new org.netsharp.core.JServiceLocator();
-        var me = this;
-        var thisCallback = function (data) {
-        	
-            if (!System.isnull(callback)) {
-            	
-                callback(data);
-            }
-        };
-        serviceLocator.invoke(this.service, method, pars, thisCallback, null, isAsyn, errorCallback);
-    },
-    queryString: function (name) {
-
-        var result = location.search.match(new RegExp("[\?\&]" + name + "=([^\&]+)", "i"));
-        if (result == null || result.length < 1) {
-
-            return "";
-        }
-        return result[1];
-    },
-    getOrderId:function(){
-    	
-    	return this.queryString('id');
     }
 });
 
@@ -55,12 +28,6 @@ com.gongsibao.trade.web.OrderFormCtrl = com.gongsibao.trade.web.BaseCtrl.Extends
     init:function(){
     	
     	var me = this;
-    	var orderId = this.getOrderId();
-    	this.invokeService ("getSoOrder", [orderId], function(data){
-    		
-    		me.bindData(data);
-    	});
-
 		$('#detail_tabs').tabs({    
 			tabHeight:30,
 		    onSelect:function(title){    
@@ -110,37 +77,6 @@ com.gongsibao.trade.web.OrderFormCtrl = com.gongsibao.trade.web.BaseCtrl.Extends
     	productDetailCtrl.init();
     	me.initializeDetailList.add('产品信息',productDetailCtrl);
     	
-    },
-    bindData:function(soOrder){
-    	
-    	$('#no').text(soOrder.no);
-    	
-    	var payablePrice=soOrder.payablePrice/100;
-    	$('#payablePrice').text(payablePrice.toFixed(2));
-    	
-    	var paidPrice=(soOrder.paidPrice/100).toFixed(2);
-    	$('#paidPrice').text(paidPrice);
-    	
-    	$('#accountName').text(soOrder.accountName);
-    	$('#accountMobile').text(soOrder.accountMobile);
-    	$('#addTime').text(soOrder.addTime);
-    	
-    	$('#platformSource').text(this.platformSourceTypeEnum[soOrder.platformSource]);
-    	$('#payStatus').text(this.payStatusTypeEnum[soOrder.payStatus]);
-    	var installmentMode = soOrder.installmentMode;
-    	if(installmentMode){
-    		
-    		var ss = installmentMode.split('|');
-    		var count = ss.length;
-        	$('#installmentCount').text(count+'期');
-    	}else{
-    		
-    		$('#installmentCount').text('-');
-    	}
-    	
-    	$('#channelOrderNo').text(soOrder.channelOrderNo||'');
-    	
-    	$('#remark').text(soOrder.remark||'');
     }
 });
 
@@ -156,7 +92,7 @@ com.gongsibao.trade.web.OrderProductDetailCtrl = com.gongsibao.trade.web.BaseCtr
     init:function(){
     	
     	var me = this;
-    	var orderId = this.getOrderId();
+    	var orderId = this.queryString('id');
     	this.invokeService ("queryProductList", [orderId], function(data){
     		
     		me.initGrid(data);
@@ -244,7 +180,7 @@ com.gongsibao.trade.web.OrderPaymentCollectionDetailCtrl = com.gongsibao.trade.w
     init:function(){
     	
     	var me = this;
-    	var orderId = this.getOrderId();
+    	var orderId = this.queryString('id');
     	this.invokeService ("queryPayList", [orderId], function(data){
     		
     		me.initGrid(data);
@@ -314,7 +250,7 @@ com.gongsibao.trade.web.OrderRefundDetailCtrl = com.gongsibao.trade.web.BaseCtrl
     init:function(){
     	
     	var me = this;
-    	var orderId = this.getOrderId();
+    	var orderId = this.queryString('id');
     	this.invokeService ("queryRefundList", [orderId], function(data){
     		
     		me.initGrid(data);
@@ -400,7 +336,7 @@ com.gongsibao.trade.web.OrderChangePriceDetailCtrl = com.gongsibao.trade.web.Bas
     init:function(){
     	
     	var me = this;
-    	var orderId = this.getOrderId();
+    	var orderId = this.queryString('id');
     	this.invokeService ("queryChangePriceList", [orderId], function(data){
     		
     		me.initGrid(data);
@@ -460,7 +396,7 @@ com.gongsibao.trade.web.OrderDiscountDetailCtrl = com.gongsibao.trade.web.BaseCt
     init:function(){
     	
     	var me = this;
-    	var orderId = this.getOrderId();
+    	var orderId = this.queryString('id');
     	this.invokeService ("queryDiscountList", [orderId], function(data){
     		
     		me.initGrid(data);
@@ -508,7 +444,7 @@ com.gongsibao.trade.web.OrderFollowDetailCtrl = com.gongsibao.trade.web.BaseCtrl
     init:function(){
     	
     	var me = this;
-    	var orderId = this.getOrderId();
+    	var orderId = this.queryString('id');
     	this.invokeService ("queryExchangeLogList", [orderId], function(data){
     		
     		me.initGrid(data);

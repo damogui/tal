@@ -147,7 +147,7 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
             formField.setReadonly (true);
 
         }
-        formField = addFormField (form, "stageNum", "分期次数", groupName, ControlTypes.TEXT_BOX, false);
+        formField = addFormField (form, "stageNum", "分期次数", groupName, ControlTypes.ENUM_BOX, false);
         {
             formField.setReadonly (true);
 
@@ -199,13 +199,13 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
 
             column = addColumn (datagrid, "supplier.name", "服务商", ControlTypes.TEXT_BOX, 150);
 
-            column = addColumn (datagrid, "department.name", "部门", ControlTypes.NUMBER_BOX, 150);
+            column = addColumn (datagrid, "department.name", "部门", ControlTypes.TEXT_BOX, 150);
             {
 
                 column.setAlign (DatagridAlign.CENTER);
             }
 
-            column = addColumn (datagrid, "salesman.name", "业务员", ControlTypes.TEXT_BOX, 150);
+            column = addColumn (datagrid, "employee.name", "业务员", ControlTypes.TEXT_BOX, 150);
             column = addColumn (datagrid, "amount", "分配金额", ControlTypes.DECIMAL_FEN_BOX, 150);
 
         }
@@ -230,7 +230,7 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
                 formField.setTroikaTrigger ("controllerdepReceivable.departmentChange(newValue,oldValue);");
             }
 
-            formField = addFormFieldRefrence (form, "salesman.name", "业务员", null, Employee.class.getSimpleName (), true, false);
+            formField = addFormFieldRefrence (form, "employee.name", "业务员", null, Employee.class.getSimpleName (), true, false);
             formField = addFormField (form, "amount", "分配金额", null, ControlTypes.DECIMAL_FEN_BOX, true, false);
 
             {

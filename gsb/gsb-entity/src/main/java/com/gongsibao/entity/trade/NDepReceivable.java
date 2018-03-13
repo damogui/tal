@@ -1,25 +1,27 @@
 package com.gongsibao.entity.trade;
 
-import com.gongsibao.entity.supplier.Salesman;
-import com.gongsibao.entity.supplier.Supplier;
-import com.gongsibao.entity.supplier.SupplierDepartment;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
+import org.netsharp.organization.entity.Employee;
+
+import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.entity.supplier.SupplierDepartment;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 
 /**
  * Created by win on 2018/2/26.
  */
-@Table(name = "n_dep_receivable", header = "部门已收款")
-public class NDepReceivable  extends Entity {
-    /**   
-	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
-	 */   
-	private static final long serialVersionUID = 3765188133382227841L;
-	@Column(name = "amount", header = "订单业绩分配金额")
-    private  Integer amount;
+@Table(name = "n_dep_receivable", header = "订单业绩")
+public class NDepReceivable extends Entity {
+    /**
+     * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
+     */
+    private static final long serialVersionUID = 3765188133382227841L;
+    @Column(name = "amount", header = "订单业绩分配金额")
+    private Integer amount;
     @Column(name = "department_id", header = "部门Id")
     private Integer departmentId = 0;
 
@@ -32,17 +34,19 @@ public class NDepReceivable  extends Entity {
     @Reference(foreignKey = "supplierId", header = "服务商")
     private Supplier supplier;
     @Column(name = "order_id", header = "订单Id")
-    private  Integer orderId;
+    private Integer orderId;
     @JsonIgnore
-    @Reference(foreignKey="orderId")
+    @Reference(foreignKey = "orderId")
     private SoOrder order;
 
-    @Column(name = "salesman_id", header = "员工Id")
-    private  Integer salesmanId;
+    @Column(name = "employee_id", header = "员工Id")
+    private Integer employeeId;
 
-    @JsonIgnore
-    @Reference(foreignKey="salesmanId")
-    private Salesman salesman;
+    @Reference(foreignKey = "employeeId")
+    private Employee employee;
+
+    @Column(name = "status", header = "审核状态")
+    private AuditStatusType statusType = AuditStatusType.Dsh;
 
     public Integer getAmount() {
         return amount;
@@ -52,7 +56,6 @@ public class NDepReceivable  extends Entity {
         this.amount = amount;
     }
 
-
     public Integer getOrderId() {
         return orderId;
     }
@@ -60,15 +63,6 @@ public class NDepReceivable  extends Entity {
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
     }
-
-    public Integer getSalesmanId() {
-        return salesmanId;
-    }
-
-    public void setSalesmanId(Integer salesmanId) {
-        this.salesmanId = salesmanId;
-    }
-
 
     public SoOrder getOrder() {
         return order;
@@ -78,12 +72,20 @@ public class NDepReceivable  extends Entity {
         this.order = order;
     }
 
-    public Salesman getSalesman() {
-        return salesman;
+    public Integer getEmployeeId() {
+        return employeeId;
     }
 
-    public void setSalesman(Salesman salesman) {
-        this.salesman = salesman;
+    public void setEmployeeId(Integer employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     public Integer getDepartmentId() {
@@ -116,5 +118,13 @@ public class NDepReceivable  extends Entity {
 
     public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
+    }
+
+    public AuditStatusType getStatusType() {
+        return statusType;
+    }
+
+    public void setStatusType(AuditStatusType statusType) {
+        this.statusType = statusType;
     }
 }

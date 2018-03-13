@@ -106,7 +106,7 @@ public class DepartmentOrderAllWorkspaceTest extends WorkspaceCreationBase {
 
 
         item = PToolbarHelper.getPToolbarItem (EntityState.New, "batchOrderTran", PToolbarHelper.iconTran,
-                "批量订单转移", ot1, 8, "{controller}.batchOrderTran();");
+                "批量转移", ot1, 8, "{controller}.batchOrderTran();");
         toolbar.getItems ().add (item);
 
         item = PToolbarHelper.getPToolbarItem (EntityState.New, "orderTran", PToolbarHelper.iconTran,

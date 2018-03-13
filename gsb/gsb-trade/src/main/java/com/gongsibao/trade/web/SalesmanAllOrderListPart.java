@@ -1,9 +1,12 @@
 package com.gongsibao.trade.web;
 
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gongsibao.entity.trade.dto.DepPayMapDTO;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
 import org.netsharp.util.StringManager;
@@ -45,9 +48,27 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
         orderService.orderTran(orderList, toUserId);
     }
 
-    public int saveNDepReceivableBySoder(SoOrder entity) {
-        orderService.save(entity);
+
+    /*回款业绩保存*/
+    public int saveNDepReceivableBySoder(DepPayMapDTO entity) {
+
         return 1;
     }
-
+    
+    /**
+	 * 是否是分期付款的订单
+	 * @param id
+	 * @return
+	 */
+	public Boolean isStaged(Integer id){
+		Oql oql = new Oql();
+		{
+			oql.setType(SoOrder.class);
+			oql.setSelects("*");
+			oql.setFilter("id=?");
+			oql.getParameters().add("id", id, Types.INTEGER);
+		}
+		SoOrder entity = orderService.queryFirst(oql);
+		return entity.getStaged() == null ? false : entity.getStaged();
+	}
 }

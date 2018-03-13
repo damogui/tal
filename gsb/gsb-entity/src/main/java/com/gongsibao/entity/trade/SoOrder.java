@@ -5,13 +5,13 @@ import java.util.Date;
 import java.util.List;
 
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.BaseEntity;
-import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.igirl.TradeMarkCase;
@@ -26,6 +26,7 @@ import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
 import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
 import com.gongsibao.entity.trade.dic.OrderRefundStatusType;
 import com.gongsibao.entity.trade.dic.OrderSourceType;
+import com.gongsibao.entity.trade.dic.OrderStageNum;
 import com.gongsibao.entity.trade.dic.OrderType;
 import com.gongsibao.entity.uc.Account;
 
@@ -78,7 +79,10 @@ public class SoOrder extends BaseEntity {
     private OrderPayStatusType payStatus = OrderPayStatusType.Dhk;
 
     @Column(name = "stage_num", header = "分期次数（待讨论）")
-    private Integer stageNum;
+    private OrderStageNum stageNum = OrderStageNum.ONE;
+
+    @Column(name = "staged", header = "分期的")
+    private Boolean staged;
 
     @Column(name = "pay_time", header = "支付时间")
     private Date payTime;
@@ -92,7 +96,6 @@ public class SoOrder extends BaseEntity {
     // 3024 已完成
     @Column(name = "process_status_id", header = "执行进度：type=302")
     private OrderProcessStatusType processStatus = OrderProcessStatusType.Dbl;
-
 
     // 3031 待审核
     // 3032 退款中
@@ -111,10 +114,10 @@ public class SoOrder extends BaseEntity {
     private Integer paidPrice = 0;
 
     @Column(name = "performance_price", header = "已划分金额(业绩已经划分)")
-    private   Integer performancePrice = 0;
+    private Integer performancePrice = 0;
 
     @Subs(subType = NDepReceivable.class, foreignKey = "orderId", header = "业绩划分表")
-    private List<NDepReceivable> depReceivable= new ArrayList<> ()  ;
+    private List<NDepReceivable> depReceivable = new ArrayList<>();
 
     @Column(name = "discount_price", header = "优惠金额")
     private Integer discountPrice = 0;
@@ -132,11 +135,20 @@ public class SoOrder extends BaseEntity {
     // 1052 审核中
     // 1053 驳回审核
     // 1054 审核通过
+    @Column(name = "dep_receivable_audit_status_id", header = "订单业绩审核状态")
+    private AuditStatusType depReceivableAuditStatusId = AuditStatusType.Dsh;
+
+    // 1051 待审核
+    // 1052 审核中
+    // 1053 驳回审核
+    // 1054 审核通过
     @Column(name = "installment_audit_status_id", header = "多次支付状态：type=105")
     private AuditStatusType installmentAuditStatusId = AuditStatusType.Dsh;
 
-    /*@Reference(foreignKey = "installmentAuditStatusId", header = "多次支付状态")
-    private Dict installmentAuditStatus;*/
+	/*
+     * @Reference(foreignKey = "installmentAuditStatusId", header = "多次支付状态")
+	 * private Dict installmentAuditStatus;
+	 */
 
     @Column(name = "is_change_price", header = "改过价")
     private Boolean isChangePrice = false;
@@ -157,7 +169,6 @@ public class SoOrder extends BaseEntity {
 
     @Column(name = "customer_name", header = "客户名称")
     private String customerName = "";
-
 
     // 是否生成u8凭证手动处理（异常）（0：否、1：是(跨月异常)） 2:（e支付（财务二维码））、（刷卡）付款方式标记异常
     // 3:由于借贷方金额都为零，无法生成凭证（【确认收入凭证】，金额太小造成，如：0.01，0.1）
@@ -265,8 +276,41 @@ public class SoOrder extends BaseEntity {
     @Subs(subType = OrderInvoiceMap.class, foreignKey = "orderId", header = "发票信息")
     private List<OrderInvoiceMap> invoices = new ArrayList<OrderInvoiceMap>();
 
-    @Subs(subType = AuditLog.class, foreignKey = "formId", header = "改价审核日志")
-    private List<AuditLog> auditLogs = new ArrayList<AuditLog>();
+    /*@Subs(subType = AuditLog.class, foreignKey = "formId", header = "改价审核日志")
+    private List<AuditLog> auditLogs = new ArrayList<AuditLog>();*/
+
+    @Subs(subType = NOrderStage.class, foreignKey = "orderId", header = "分期明细")
+    private List<NOrderStage> stages = new ArrayList<NOrderStage>();
+
+    @Exclusive
+    @Column(name = "depReceivableAmount", header = "订单业绩分配金额")
+    private Integer depReceivableAmount = 0;
+
+    @Exclusive
+    @Column(name = "depReceivableCreateTime", header = "订单业绩创建时间")
+    private Date depReceivableCreateTime = null;
+
+    @Exclusive
+    @Column(name = "depReceivableCreator", header = "订单业绩创建人")
+    private String depReceivableCreator = "";
+
+
+
+    public List<NOrderStage> getStages() {
+        return stages;
+    }
+
+    public void setStages(List<NOrderStage> stages) {
+        this.stages = stages;
+    }
+
+    public Boolean getStaged() {
+        return staged;
+    }
+
+    public void setStaged(Boolean staged) {
+        this.staged = staged;
+    }
 
     public Integer getDiscountPrice() {
         return discountPrice;
@@ -364,7 +408,6 @@ public class SoOrder extends BaseEntity {
         this.paidPrice = paidPrice;
     }
 
-
     public Boolean getIsInstallment() {
         return isInstallment;
     }
@@ -461,7 +504,6 @@ public class SoOrder extends BaseEntity {
         this.remark = remark;
     }
 
-
     public Integer getDeliverId() {
         return deliverId;
     }
@@ -517,7 +559,6 @@ public class SoOrder extends BaseEntity {
     public void setProducts(List<OrderProd> products) {
         this.products = products;
     }
-
 
     public Employee getAddUser() {
         return addUser;
@@ -743,16 +784,15 @@ public class SoOrder extends BaseEntity {
         this.sourceType = sourceType;
     }
 
-    
     public AuditStatusType getChangePriceAuditStatus() {
-		return changePriceAuditStatus;
-	}
+        return changePriceAuditStatus;
+    }
 
-	public void setChangePriceAuditStatus(AuditStatusType changePriceAuditStatus) {
-		this.changePriceAuditStatus = changePriceAuditStatus;
-	}
+    public void setChangePriceAuditStatus(AuditStatusType changePriceAuditStatus) {
+        this.changePriceAuditStatus = changePriceAuditStatus;
+    }
 
-	public OrderPlatformSourceType getPlatformSource() {
+    public OrderPlatformSourceType getPlatformSource() {
         return platformSource;
     }
 
@@ -768,13 +808,13 @@ public class SoOrder extends BaseEntity {
         this.invoices = invoices;
     }
 
-    public List<AuditLog> getAuditLogs() {
+    /*public List<AuditLog> getAuditLogs() {
         return auditLogs;
     }
 
     public void setAuditLogs(List<AuditLog> auditLogs) {
         this.auditLogs = auditLogs;
-    }
+    }*/
 
     public String getCustomerName() {
         return customerName;
@@ -792,11 +832,11 @@ public class SoOrder extends BaseEntity {
         this.depReceivable = depReceivable;
     }
 
-    public Integer getStageNum() {
+    public OrderStageNum getStageNum() {
         return stageNum;
     }
 
-    public void setStageNum(Integer stageNum) {
+    public void setStageNum(OrderStageNum stageNum) {
         this.stageNum = stageNum;
     }
 
@@ -807,4 +847,38 @@ public class SoOrder extends BaseEntity {
     public void setCarryAmount(Integer carryAmount) {
         this.carryAmount = carryAmount;
     }
+
+    public AuditStatusType getDepReceivableAuditStatusId() {
+        return depReceivableAuditStatusId;
+    }
+
+    public void setDepReceivableAuditStatusId(AuditStatusType depReceivableAuditStatusId) {
+        this.depReceivableAuditStatusId = depReceivableAuditStatusId;
+    }
+
+    public Integer getDepReceivableAmount() {
+        return depReceivableAmount;
+    }
+
+    public void setDepReceivableAmount(Integer depReceivableAmount) {
+        this.depReceivableAmount = depReceivableAmount;
+    }
+
+    public Date getDepReceivableCreateTime() {
+        return depReceivableCreateTime;
+    }
+
+    public void setDepReceivableCreateTime(Date depReceivableCreateTime) {
+        this.depReceivableCreateTime = depReceivableCreateTime;
+    }
+
+    public String getDepReceivableCreator() {
+        return depReceivableCreator;
+    }
+
+    public void setDepReceivableCreator(String depReceivableCreator) {
+        this.depReceivableCreator = depReceivableCreator;
+    }
+
+
 }

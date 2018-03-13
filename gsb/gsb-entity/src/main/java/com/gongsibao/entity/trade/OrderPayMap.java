@@ -3,10 +3,7 @@ package com.gongsibao.entity.trade;
 import com.gongsibao.entity.trade.dic.PayOfflineInstallmentType;
 import com.gongsibao.entity.u8.U8Bank;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.netsharp.core.annotations.Column;
-import org.netsharp.core.annotations.Reference;
-import org.netsharp.core.annotations.Subs;
-import org.netsharp.core.annotations.Table;
+import org.netsharp.core.annotations.*;
 
 import com.gongsibao.entity.BaseEntity;
 
@@ -41,13 +38,25 @@ public class OrderPayMap extends BaseEntity {
     private U8Bank u8Bank;
 
 
-
-//部门回款业绩表
+    //部门回款业绩表
     @Subs(subType = NDepPay.class, foreignKey = "orderPayMapId", header = "回款业绩")
     private List<NDepPay> depPays;
+    @Exclusive
+    private Integer orderCutAmount;//订单分配金额
+    private Integer payType;//付款类别
+    private String  payTypeStr;//付款类别
+    private String supperName;//回款业绩分配服务商
+    private String depName;//回款业绩分配部门
+    private String cutMan;//回款业绩分配业务员
+    private Integer cutAmount;//回款业绩分配金额
+    @Exclusive
+    private Integer cutAmountStr;//回款业绩分配金额
 
 
 
+    //我的订单回款额
+    @Exclusive
+    private Integer myOrderCutAmount;
 
     /*new end*/
     public Integer getOrderId() {
@@ -121,5 +130,76 @@ public class OrderPayMap extends BaseEntity {
 
     public void setU8Bank(U8Bank u8Bank) {
         this.u8Bank = u8Bank;
+    }
+
+    public Integer getOrderCutAmount() {
+        return orderCutAmount;
+    }
+
+    public void setOrderCutAmount(Integer orderCutAmount) {
+        this.orderCutAmount = orderCutAmount;
+    }
+
+    public Integer getPayType() {
+        return payType;
+    }
+
+    public void setPayType(Integer payType) {
+        this.payType = payType;
+    }
+
+    public String getSupperName() {
+        return supperName;
+    }
+
+    public void setSupperName(String supperName) {
+        this.supperName = supperName;
+    }
+
+    public String getDepName() {
+        return depName;
+    }
+
+    public void setDepName(String depName) {
+        this.depName = depName;
+    }
+
+    public String getCutMan() {
+        return cutMan;
+    }
+
+    public void setCutMan(String cutMan) {
+        this.cutMan = cutMan;
+    }
+
+    public Integer getCutAmount() {
+        return cutAmount;
+    }
+
+    public void setCutAmount(Integer cutAmount) {
+        this.cutAmount = cutAmount;
+    }
+
+    public Integer getCutAmountStr() {
+        return cutAmountStr;
+    }
+
+    public void setCutAmountStr(Integer cutAmountStr) {
+        this.cutAmountStr = cutAmountStr;
+    }
+
+    public String getPayTypeStr() {
+        return payTypeStr;
+    }
+
+    public void setPayTypeStr(String payTypeStr) {
+        this.payTypeStr = payTypeStr;
+    }
+    public Integer getMyOrderCutAmount() {
+        return myOrderCutAmount;
+    }
+
+    public void setMyOrderCutAmount(Integer myOrderCutAmount) {
+        this.myOrderCutAmount = myOrderCutAmount;
     }
 }

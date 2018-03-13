@@ -33,6 +33,9 @@ public class PortalStatistic {
 	public Integer getNewTasksCount(Integer portalLevel,Integer dateType) {
 		Integer returnInteger = 0;
 		Salesman salesman = currentSalesMan();
+		if(salesman == null){
+			return returnInteger;
+		}
 		
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT COUNT(id) newTasksCount");
@@ -41,7 +44,7 @@ public class PortalStatistic {
 		if(portalLevel.equals(1)){
 			strSql.append(" where 1=1");
 		}else{
-			if(salesman.getIsLeader()){
+			if(salesman.getIsLeader()!= null && salesman.getIsLeader()){
 				strSql.append(" where department_id in ("+salesman.getDepartmentId()+")");
 			}else {
 				strSql.append(" where owner_id =" + salesman.getEmployeeId());
@@ -78,7 +81,9 @@ public class PortalStatistic {
 	public Integer getUnStartTasksCount(Integer portalLevel,Integer dateType) {
 		Integer returnInteger = 0;
 		Salesman salesman = currentSalesMan();
-		
+		if(salesman == null){
+			return returnInteger;
+		}
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT count(id) unStartTasksCount");
 		strSql.append(" from n_crm_customer_task");
@@ -98,7 +103,7 @@ public class PortalStatistic {
 				break;
 			}
 		}else {
-			if(salesman.getIsLeader()){
+			if(salesman.getIsLeader()!= null && salesman.getIsLeader()){
 				strSql.append(" where department_id in ("+salesman.getDepartmentId()+")");
 			}else {
 				strSql.append(" where owner_id =" + salesman.getEmployeeId());
@@ -119,12 +124,14 @@ public class PortalStatistic {
 	public Integer getUnfoolowTasksCount() {
 		Integer returnInteger = 0;
 		Salesman salesman = currentSalesMan();
-		
+		if(salesman == null){
+			return returnInteger;
+		}
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT COUNT(id) unfoolowTasksCount");
 		strSql.append(" from n_crm_customer_task");
 		
-		if(salesman.getIsLeader()){
+		if(salesman.getIsLeader()!= null && salesman.getIsLeader()){
 			strSql.append(" where department_id in ("+salesman.getDepartmentId()+")");
 		}else {
 			strSql.append(" where owner_id =" + salesman.getEmployeeId());
@@ -143,12 +150,14 @@ public class PortalStatistic {
 	public Integer getTimeOutTasksCount() {
 		Integer returnInteger = 0;
 		Salesman salesman = currentSalesMan();
-		
+		if(salesman == null){
+			return returnInteger;
+		}
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT COUNT(id) timeOutTasksCount");
 		strSql.append(" from n_crm_customer_task");
 		
-		if(salesman.getIsLeader()){
+		if(salesman.getIsLeader()!= null && salesman.getIsLeader()){
 			strSql.append(" where department_id in ("+salesman.getDepartmentId()+")");
 		}else {
 			strSql.append(" where owner_id =" + salesman.getEmployeeId());
@@ -168,12 +177,14 @@ public class PortalStatistic {
 	public Integer getExceptUntreatedTasksCount() {
 		Integer returnInteger = 0;
 		Salesman salesman = currentSalesMan();
-		
+		if(salesman == null){
+			return returnInteger;
+		}
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT COUNT(id) exceptUntreatedTasksCount");
 		strSql.append(" from n_crm_customer_task");
 		
-		if(salesman.getIsLeader()){
+		if(salesman.getIsLeader()!= null && salesman.getIsLeader()){
 			strSql.append(" where department_id in ("+salesman.getDepartmentId()+")");
 		}else {
 			strSql.append(" where owner_id =" + salesman.getEmployeeId());
@@ -195,6 +206,10 @@ public class PortalStatistic {
 	public Integer getHighSeasCount(Integer portalLevel,Integer dateType) {
 		Integer returnInteger = 0;
 		Salesman salesman = currentSalesMan();
+		if(salesman == null){
+			return returnInteger;
+		}
+		
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT COUNT(id) highSeasCount");
 		strSql.append(" from n_crm_customer_task");
@@ -232,14 +247,19 @@ public class PortalStatistic {
 	public Map<String, String> getFoolowSatatistic() {
 		Map<String, String> resultMap =new HashMap<>();
 		Salesman salesman = currentSalesMan();
-		
+		if(salesman == null){
+			resultMap.put("跟进任务数", "0");
+			resultMap.put("质量上升任务数", "0");
+			resultMap.put("质量下降任务数", "0");
+			return resultMap;
+		}
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT COUNT(foolow_status = 3 OR NULL) foolowTasksCount,");
 		strSql.append("count(quality_progress = 1 OR NULL) qualityRisetaskCount,");
 		strSql.append("count(intention_category = 2 OR NULL) qualityDeclinetaskCount");
 		
 		strSql.append(" from n_crm_customer_task");
-		if(salesman.getIsLeader()){
+		if(salesman.getIsLeader()!= null && salesman.getIsLeader()){
 			strSql.append(" where department_id in ("+salesman.getDepartmentId()+")");
 		}else {
 			strSql.append(" where owner_id =" + salesman.getEmployeeId());
@@ -262,7 +282,11 @@ public class PortalStatistic {
 	public Map<String, String> getForecastAmount(Integer dateType) {
 		Map<String, String> resultMap =new HashMap<>();
 		Salesman salesman = currentSalesMan();
-		
+		if(salesman == null){
+			resultMap.put("预估签单金额", "0");
+			resultMap.put("预估回款金额", "0");
+			return resultMap;
+		}
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT ifnull(SUM(signing_amount),0) signingAmount,");
 		strSql.append("ifnull(SUM(returned_amount),0) returnedAmount");
@@ -270,7 +294,7 @@ public class PortalStatistic {
 		strSql.append(" from n_crm_task_foolow");
 		strSql.append(" where task_id in (");
 		strSql.append("SELECT id from n_crm_customer_task");
-		if(salesman.getIsLeader()){
+		if(salesman.getIsLeader()!= null && salesman.getIsLeader()){
 			strSql.append(" where department_id in ("+salesman.getDepartmentId()+")");
 		}else {
 			strSql.append(" where owner_id =" + salesman.getEmployeeId());
@@ -287,6 +311,7 @@ public class PortalStatistic {
 			resultMap.put("预估签单金额", row.getString("signingAmount"));
 			resultMap.put("预估回款金额", row.getString("returnedAmount"));
 		}
+		
 		return resultMap;
 	}
 
@@ -299,14 +324,19 @@ public class PortalStatistic {
 	public Map<String, String> getXSCount() {
 		Map<String, String> resultMap =new HashMap<>();
 		Salesman salesman = currentSalesMan();
-		
+		if(salesman == null){
+			resultMap.put("全部任务", "0");
+			resultMap.put("S类", "0");
+			resultMap.put("X类", "0");
+			return resultMap;
+		}
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT COUNT(id) taskCount,");
 		strSql.append("count(intention_category = 6 OR NULL) sCount,");
 		strSql.append("count(intention_category = 5 OR NULL) xCount");
 		strSql.append(" from n_crm_customer_task");
 		
-		if(salesman.getIsLeader()){
+		if(salesman.getIsLeader()!= null && salesman.getIsLeader()){
 			strSql.append(" where department_id in ("+salesman.getDepartmentId()+")");
 		}else {
 			strSql.append(" where owner_id =" + salesman.getEmployeeId());
@@ -330,6 +360,22 @@ public class PortalStatistic {
 	public Map<String, String> getCodeTaskCount() {
 		Map<String, String> resultMap =new HashMap<>();
 		Salesman salesman = currentSalesMan();
+		if(salesman == null){
+			resultMap.put("A0", "0");
+			resultMap.put("A1", "0");
+			resultMap.put("A2", "0");
+			resultMap.put("A3", "0");
+			resultMap.put("A4", "0");
+			resultMap.put("B1", "0");
+			resultMap.put("B2", "0");
+			resultMap.put("C1", "0");
+			resultMap.put("C2", "0");
+			resultMap.put("C3", "0");
+			resultMap.put("C4", "0");
+			resultMap.put("D1", "0");
+			resultMap.put("D2", "0");
+			return resultMap;
+		}
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT COUNT(q.`code` = 'A0' OR NULL) A0,");
 		strSql.append("COUNT(q.`code` = 'A1' OR NULL) A1,");
@@ -349,7 +395,7 @@ public class PortalStatistic {
 		strSql.append(" on f.quality_id = q.id");
 		strSql.append(" where f.task_id in (");
 		strSql.append("SELECT id from n_crm_customer_task");
-		if(salesman.getIsLeader()){
+		if(salesman.getIsLeader()!= null && salesman.getIsLeader()){
 			strSql.append(" where department_id in ("+salesman.getDepartmentId()+")");
 		}else {
 			strSql.append(" where owner_id =" + salesman.getEmployeeId());

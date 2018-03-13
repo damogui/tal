@@ -13,6 +13,7 @@ import com.gongsibao.entity.taurus.ActiveUserView;
 import com.gongsibao.entity.taurus.DayStatisticView;
 import com.gongsibao.entity.taurus.JnzUserBehaviorStatistics;
 import com.gongsibao.entity.taurus.NewUserPerDayView;
+import com.gongsibao.entity.taurus.UcOrganizationUserView;
 import com.gongsibao.entity.taurus.User;
 import com.gongsibao.entity.taurus.UserConsumptionView;
 import com.gongsibao.entity.taurus.UserInfo;
@@ -45,6 +46,7 @@ public class NavigationTest extends NavigationBase {
             createPTreeNode(tree, "GSB_TAURUS", null, "GSB_TAURUS_" + DayStatisticView.class.getSimpleName(), "日统计数据", "/taurus/user/dayStatistic/list", 1);
             createPTreeNode(tree, "GSB_TAURUS", null, "GSB_TAURUS_" + JnzUserBehaviorStatistics.class.getSimpleName(), "统计数据", "/taurus/user/statistic/list", 1);
             createPTreeNode(tree, "GSB_TAURUS", null, "GSB_TAURUS_" + UserConsumptionView.class.getSimpleName(), "用户消费数据", "/taurus/user/userConsumption/list", 1);
+            createPTreeNode(tree, "GSB_TAURUS", null, "GSB_TAURUS_" + UcOrganizationUserView.class.getSimpleName(), "业务用户统计", "/taurus/user/userOrganization/list", 1);
         }
 
         createPTreeNode(tree, null, null, "GSB_WANDA", "万达项目", "", 2);
@@ -89,6 +91,13 @@ public class NavigationTest extends NavigationBase {
 
             createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_OpenSea", "公海", "/operation/task/opensea/list", 11);
         }
+
+        createPTreeNode(tree, null,null, "Operation_IGIRL", "智能商标", "", 6);
+        {
+            createPTreeNode(tree, "Operation_IGIRL", null, "Operation_IGIRL_All_TradeMarkCase", "申请方案列表", "/operation/igirl/trademarkcase/all/list", 1);
+
+            createPTreeNode(tree, "Operation_IGIRL", null, "Operation_IGIRL_All_TradeMark", "申请进度跟进", "/operation/igirl/all/progress/list", 2);
+         }
 
 
         createPTreeNode(tree, null, null, "Operation_Order", "订单管理", "", 7);
