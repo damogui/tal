@@ -54,6 +54,10 @@ public class OrderPayMap extends BaseEntity {
 
 
 
+    //我的订单回款额
+    @Exclusive
+    private Integer myOrderCutAmount;
+
     /*new end*/
     public Integer getOrderId() {
         return orderId;
@@ -190,5 +194,12 @@ public class OrderPayMap extends BaseEntity {
 
     public void setPayTypeStr(String payTypeStr) {
         this.payTypeStr = payTypeStr;
+    }
+    public Integer getMyOrderCutAmount() {
+        return myOrderCutAmount;
+    }
+
+    public void setMyOrderCutAmount(Integer myOrderCutAmount) {
+        this.myOrderCutAmount = myOrderCutAmount;
     }
 }
