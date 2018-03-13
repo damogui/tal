@@ -98,13 +98,11 @@ com.gongsibao.trade.web.OrderStagetrl = org.netsharp.panda.core.CustomCtrl.Exten
     	
     	var me = this;
     	IMessageBox.confirm('确定提交申请吗？',function(r){
-    		
     		if(r){
-
     			me.invokeService("applyStage", [soOrder], function(data){
-    	    		
-    	    		IMessageBox.info('申请成功，请等待审核!');
-    	    		layer.closeAll();
+    	    		IMessageBox.info('申请成功，请等待审核!',function(s){
+    	    			layer.closeAll();
+    	    		});
     	    	});
     		}
     	});

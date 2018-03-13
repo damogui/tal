@@ -61,7 +61,6 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             return false;
         }
 
-
         var urlEnd = this.addReceivedUrl + "?id=" + row.id;
         layer.open({
             type: 2,//1是字符串 2是内容
@@ -97,7 +96,6 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         this.edit(id);
     },
     addStaging: function (id) {//创建分期
-
     	var me = this;
         var row = this.getSelectedItem();
         var rows = this.getSelections();
@@ -106,21 +104,29 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             return false;
         }
         var contentUrl = this.addStagingUrl + "?id=" + row.id;
-        layer.open({
-            type: 2,//1是字符串 2是内容
-            title: '订单信息',
-            fixed: false,
-            maxmin: true,
-            shadeClose: false,
-            area: ['50%', '70%'],
-            zIndex: 100000,
-            id: "addStagingIframe",
-            content: contentUrl,
-            btn: ['保存', '取消'],// 可以无限个按钮
-            yes: function (index, layero) {
-                document.getElementById('addStagingIframe').firstElementChild.contentWindow.stagetrl.save();
-            },
+        //判断是否已经分期付款了（先支持1次分期）
+        me.invokeService("isStaged", [row.id], function (data) {
+            if(data){
+            	IMessageBox.info('该订单已经分期付款');
+            }else{
+                layer.open({
+                    type: 2,//1是字符串 2是内容
+                    title: '订单信息',
+                    fixed: false,
+                    maxmin: true,
+                    shadeClose: false,
+                    area: ['50%', '70%'],
+                    zIndex: 100000,
+                    id: "addStagingIframe",
+                    content: contentUrl,
+                    btn: ['保存', '取消'],// 可以无限个按钮
+                    yes: function (index, layero) {
+                        document.getElementById('addStagingIframe').firstElementChild.contentWindow.stagetrl.save();
+                    },
+                });
+            }
         });
+    	
     },
     addContract: function (id) {//创建合同
 
