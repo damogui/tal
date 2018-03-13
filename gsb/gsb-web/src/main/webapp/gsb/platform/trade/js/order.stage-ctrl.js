@@ -91,7 +91,6 @@ com.gongsibao.trade.web.OrderStagetrl = org.netsharp.panda.core.CustomCtrl.Exten
     		};
     		stageList.push(stage);
     	}
-    	
     	var soOrder = {id:orderId,
 		    			staged:true,
 		    			stageNum:num,
@@ -105,6 +104,7 @@ com.gongsibao.trade.web.OrderStagetrl = org.netsharp.panda.core.CustomCtrl.Exten
     			me.invokeService("applyStage", [soOrder], function(data){
     	    		
     	    		IMessageBox.info('申请成功，请等待审核!');
+    	    		layer.closeAll();
     	    	});
     		}
     	});

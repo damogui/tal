@@ -31,6 +31,7 @@ public class SoOrderService extends PersistableService<SoOrder> implements ISoOr
     //业务员接口服务
     ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
 
+    ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
     public SoOrderService() {
         super();
         this.type = SoOrder.class;
@@ -183,6 +184,18 @@ public class SoOrderService extends PersistableService<SoOrder> implements ISoOr
         return res;
     }
     // endregion
+
+	@Override
+	public SoOrder getByOrderId(Integer orderId) {
+		Oql oql = new Oql();
+        {
+        	oql.setType(this.type);
+        	oql.setSelects("*");
+        	oql.setFilter("pkid =" + orderId);
+        }
+       SoOrder entity = orderService.queryFirst(oql);
+		return entity;
+	}
 
 
 }
