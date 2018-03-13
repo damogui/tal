@@ -1,5 +1,9 @@
 package com.gongsibao.panda.platform.operation;
 
+import com.gongsibao.entity.igirl.TradeMark;
+import com.gongsibao.entity.igirl.TradeMarkCase;
+import com.gongsibao.igirl.base.ITradeMarkCaseService;
+import com.gongsibao.igirl.base.ITradeMarkService;
 import org.junit.Before;
 import org.netsharp.base.IPersistableService;
 import org.netsharp.communication.ServiceFactory;
@@ -226,6 +230,12 @@ public class ResourceTest extends ResourceCreationBase {
             this.createResourceNodeVoucher(SoOrder.class.getName(), "周统计", "Operation_Order_Week_Report", ISoOrderService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(SoOrder.class.getName(), "月统计", "Operation_Order_Month_Report", ISoOrderService.class.getName(), node1.getId());
             
+
+        }
+        node1 = this.createResourceNodeCategory("智能商标", "Operation_IGIRL", node.getId());
+        {
+            this.createResourceNodeVoucher(TradeMarkCase.class.getName(), "方案生成", "Operation_IGIRL_All_TradeMarkCase", ITradeMarkCaseService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(TradeMark.class.getName(), "进度跟进", "Operation_IGIRL_All_TradeMark", ITradeMarkService.class.getName(), node1.getId());
 
         }
     }
