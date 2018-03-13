@@ -5,6 +5,7 @@ import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.service.PersistableService;
 
+import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.base.IOrderService;
 
@@ -48,14 +49,14 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
 //		return entity;
 //	}
 //
-	private String getSelectFullFields() {
-
-		StringBuilder builder = new StringBuilder();
-		builder.append("SoOrder.*");
-		builder.append("SoOrder.products.*");
-		builder.append("SoOrder.products.items.*");
-		return builder.toString();
-	}
+//	private String getSelectFullFields() {
+//
+//		StringBuilder builder = new StringBuilder();
+//		builder.append("SoOrder.*");
+//		builder.append("SoOrder.products.*");
+//		builder.append("SoOrder.products.items.*");
+//		return builder.toString();
+//	}
 
 	@Override
 	public Boolean applyStage(SoOrder entity) {
@@ -65,6 +66,20 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
 			ctx.setPath("gsb/crm/order/stage");
 			ctx.setItem(entity);
 			ctx.setState(entity.getEntityState());
+		}
+		ActionManager action = new ActionManager();
+		action.execute(ctx);
+		return true;
+	}
+
+	@Override
+	public Boolean applyRefund(Refund refund) {
+
+		ActionContext ctx = new ActionContext();
+		{
+			ctx.setPath("gsb/crm/order/refund");
+			ctx.setItem(refund);
+			ctx.setState(refund.getEntityState());
 		}
 		ActionManager action = new ActionManager();
 		action.execute(ctx);

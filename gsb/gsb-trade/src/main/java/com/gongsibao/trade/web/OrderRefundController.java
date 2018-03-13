@@ -8,11 +8,15 @@ import org.netsharp.core.Oql;
 import org.netsharp.panda.json.EnumResultJson;
 
 import com.gongsibao.entity.trade.OrderProd;
+import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.u8.SetOfBooks;
 import com.gongsibao.trade.base.IOrderProdService;
+import com.gongsibao.trade.base.IOrderService;
 import com.gongsibao.u8.base.ISetOfBooksService;
 
 public class OrderRefundController {
+
+	IOrderService orderService = ServiceFactory.create(IOrderService.class);
 
 	public List<EnumResultJson> querySetOfBooksList() {
 
@@ -35,7 +39,7 @@ public class OrderRefundController {
 		}
 		return enumList;
 	}
-	
+
 	/**
 	 * @Title: queryProductList
 	 * @Description: TODO(查询产品明细)
@@ -49,4 +53,18 @@ public class OrderRefundController {
 		IOrderProdService prodService = ServiceFactory.create(IOrderProdService.class);
 		return prodService.queryByOrderId(orderId);
 	}
+
+	/**
+	 * @Title: applyStage
+	 * @Description: TODO(申请分期)
+	 * @param: @param soOrder
+	 * @param: @return
+	 * @return: Boolean
+	 * @throws
+	 */
+	public Boolean applyRefund(Refund refund) {
+
+		return orderService.applyRefund(refund);
+	}
+
 }
