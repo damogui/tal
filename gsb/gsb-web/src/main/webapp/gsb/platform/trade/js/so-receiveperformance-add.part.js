@@ -134,13 +134,17 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
         var builder = new System.StringBuilder();
         // builder.append(' <table cellpadding="3" cellspacing="0" class="form-panel"> <tbody> <tr> <td width="120px" class="label_td"> <label for="no"> 订单编号： </label> </td> <td class="control_td"> <input validtype="unnormal" type="text" collected="true"  controltype="TextBox" id="no" style="width:180px;" class="easyui-validatebox nsInput validatebox-text validatebox-disabled" data-options="validateOnCreate:false,validateOnBlur:true,required:false"> </td> <td width="120px" class="label_td"> <label for="payablePrice"> 订单分配金额： </label> </td> <td class="control_td"> <input validtype="unnormal" type="text" collected="true"  controltype="TextBox" id="payablePrice" style="width:180px;" class="easyui-validatebox nsInput validatebox-text validatebox-disabled" data-options="validateOnCreate:false,validateOnBlur:true,required:false"> </td> <td width="120px" class="label_td"> <label for="paidPrice"> 付款类别： </label> </td> <td class="control_td"> <input validtype="unnormal" type="text" collected="true" controltype="TextBox" id="paidPrice" style="width:180px;" class="easyui-validatebox nsInput validatebox-text validatebox-disabled" data-options="validateOnCreate:false,validateOnBlur:true,required:false"> </td> </tr> </tbody> </table>');
 
+//<input id="cc2" class="easyui-combobox" data-options="valueField:'id',textField:'text'">
+
+        //<select  id="payType" class="easyui-combobox" name="dept" style="width:200px;"> <option value="0">全款</option> <option value="1">一期款</option> <option value="2">二期款</option> <option value="3">三期款</option> <option value="4">四期款</option> </select>
+
 
         builder.append('<form id="dynamicForm">');
         builder.append('<div style="margin:10px;">');
         builder.append('<table cellpadding="3" cellspacing="0" class="form-panel" style="width:100%;">');
-        builder.append('<tr><td class="title" style="width:100px;text-align: right;">订单编号</td><td><input id="orderNo"/></td>');
-        builder.append('<td class="title" style="width:100px;text-align: right;"> 订单分配金额</td><td><input id="orderCutPrice"/> </td>');
-        builder.append('<td class="title" style="width:100px;text-align: right;"> 付款类别</td><td>  <select  id="payType" class="easyui-combobox" name="dept" style="width:200px;"> <option value="0">全款</option> <option value="1">一期款</option> <option value="2">二期款</option> <option value="3">三期款</option> <option value="4">四期款</option> </select> </td></tr>');
+        builder.append('<tr><td class="title" style="width:100px;text-align: right;">订单编号</td><td><input id="orderNo" class="nsInput"/></td>');
+        builder.append('<td class="title" style="width:100px;text-align: right;"> 订单分配金额</td><td><input id="orderCutPrice"  class="nsInput"/> </td>');
+        builder.append('<td class="title" style="width:100px;text-align: right;"> 付款类别</td><td> <input id="payType" class="easyui-combobox"/></td></tr>');
         builder.append('</table>');
         builder.append('</div>');
         builder.append('</form>');
@@ -161,6 +165,15 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
             btn: ['提交', '取消'],
             success: function (layero, index) {
                 //me.initializeCtrl();
+                  var  dataArr=[{id:"0", text:"全款"},{id:"1", text:"一期款"},{id:"2", text:"二期款"},{id:"3", text:"三期款"},{id:"4", text:"四期款"}];
+
+                var data = [['0', '全款'], ['1', '一期款'], ['2', '二期款'], ['3', '三期款'], ['4', '四期款']];
+                var options = {
+                    data : data,
+                    textField:1,
+                    valueField:0
+                };
+                $("#payType").combobox(options);
 
             },
             yes: function (index, layero) {
@@ -174,7 +187,8 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
         //  var  dataArr=[{id:"0", text:"全款"},{id:"1", text:"一期款"},{id:"2", text:"二期款"},{id:"3", text:"三期款"},{id:"4", text:"四期款"}];
         //var data = [['0', '累计雨量'], ['1', '时雨量'], ['2', '日雨量'], ['3', '旬雨量'], ['4', '月雨量'], ['5', '年雨量']];
 
-        //$("#payType").combobox("loadData", dataArr); //最后，加载数组数据
+
+        $("#payType").combobox("loadData", dataArr); //最后，加载数组数据
         me.initGrid();
         me.init();
 
