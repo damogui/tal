@@ -32,7 +32,7 @@ public class NDepRefund  extends Entity{
     private  Integer amount;
 	
     @Column(name = "refund_id", header = "退款Id")
-    private  Integer refund_id;
+    private  Integer refundId;
 
     @Column(name = "supplier_id", header = "服务商Id")
     private Integer supplierId = 0;
@@ -62,14 +62,15 @@ public class NDepRefund  extends Entity{
         this.amount = amount;
     }
 
+    
 
-    public Integer getRefund_id() {
-        return refund_id;
-    }
+	public Integer getRefundId() {
+		return refundId;
+	}
 
-    public void setRefund_id(Integer refund_id) {
-        this.refund_id = refund_id;
-    }
+	public void setRefundId(Integer refundId) {
+		this.refundId = refundId;
+	}
 
 	public Integer getSupplierId() {
 		return supplierId;

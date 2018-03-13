@@ -34,18 +34,15 @@
 					  <table cellpadding="3" cellspacing="0" class="form-panel">
 					      <tr>
 					          <td class="label_td"><label style="color:Red">*</label><label>退款账套：</label></td>
-					          <td class="control_td">
+					          <td class="control_td" colspan="3">
 									<input id="setOfBooksId" class="easyui-combobox" 
-									data-options="editable:false,width:150,panelWidth:250"/>
-					          <td class="label_td"><label style="color:Red">*</label><label>退款支付方式：</label></td>
-					          <td class="control_td">
-									<input id="wayType" class="easyui-combobox" 
-									data-options="editable:false,width:150,method:'get',url:'/panda/rest/enum?name=com.gongsibao.entity.trade.dic.RefundWayType'"/>
+									data-options="editable:false,width:415"/>
 					          </td>
 					          <td class="label_td"><label style="color:Red">*</label><label>退款类别：</label></td>
 					          <td class="control_td">
 									<input id="refundType" class="easyui-combobox" 
-									data-options="editable:false,width:150,method:'get',url:'/panda/rest/enum?name=com.gongsibao.entity.trade.dic.RefundType'"/> 
+									data-options="editable:false,width:150,onChange:function(newValue,oldValue){refundCtrl.refundTypeChange(newValue,oldValue);},
+									method:'get',url:'/panda/rest/enum?name=com.gongsibao.entity.trade.dic.RefundType'"/> 
 					          </td>
 					   </tr>
 					      <tr>
@@ -86,12 +83,14 @@
 </body>
 
 <script>
+
+	var refundCtrl = null;
 	$(function(){
 		
 		var centerHeight = $('body').height() - 240;
 		$('#center').height(centerHeight);
 		
- 		var refundCtrl = new com.gongsibao.trade.web.OrderRefundCtrl();
+		refundCtrl = new com.gongsibao.trade.web.OrderRefundCtrl();
  		refundCtrl.init(); 
 	});
 </script>

@@ -74,6 +74,9 @@ public class Refund extends BaseEntity {
 	@Subs(subType = RefundItemPrice.class, foreignKey = "refundId", header = "退款价格")
 	private List<RefundItemPrice> prices = new ArrayList<RefundItemPrice>();
 
+	@Subs(subType = NDepRefund.class, foreignKey = "refundId", header = "部门退款业绩")
+	private List<NDepRefund> depRefunds = new ArrayList<NDepRefund>();
+	
 	public Integer getOrderId() {
 		return orderId;
 	}
@@ -201,5 +204,13 @@ public class Refund extends BaseEntity {
 
 	public void setSetOfBooks(SetOfBooks setOfBooks) {
 		this.setOfBooks = setOfBooks;
+	}
+
+	public List<NDepRefund> getDepRefunds() {
+		return depRefunds;
+	}
+
+	public void setDepRefunds(List<NDepRefund> depRefunds) {
+		this.depRefunds = depRefunds;
 	}
 }
