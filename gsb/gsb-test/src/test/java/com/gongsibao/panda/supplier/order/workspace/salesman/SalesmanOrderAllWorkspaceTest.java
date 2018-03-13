@@ -61,7 +61,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         formServiceController = SalesmanAllOrderFormPart.class.getName();
 
         //添加过滤条件
-//        listFilter = "inspectionState in (3,4)";
+        listFilter = "owner_id = '{userId}'";
 //        listFilter = "foolowStatus = 6 and ownerId = '{userId}'";
     }
 

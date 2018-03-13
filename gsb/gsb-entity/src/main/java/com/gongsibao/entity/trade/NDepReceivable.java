@@ -42,7 +42,6 @@ public class NDepReceivable extends Entity {
     @Column(name = "employee_id", header = "员工Id")
     private Integer employeeId;
 
-    @JsonIgnore
     @Reference(foreignKey = "employeeId")
     private Employee employee;
 
