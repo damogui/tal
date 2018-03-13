@@ -7,7 +7,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         this.addOrderReceivedUrl = '/panda/crm/order/salesman/coperformance';//创建订单业绩
         this.addReceivedUrl = "/panda/crm/order/salesman/creceivedperformance";//回款业绩
         this.originType = null;//来源类型（0或null：业务员跳转过来的；1：平台跳转过来的）
-        this.addStagingUrl = '/nav/gsb/platform/trade/orderStage';//创建订单业绩
+        this.addStagingUrl = '/nav/gsb/platform/trade/orderStage';//创建分期
     },
     addOrderReceived: function () {//创建订单业绩
         var me = this;
