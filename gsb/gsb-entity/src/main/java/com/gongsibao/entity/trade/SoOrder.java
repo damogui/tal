@@ -80,7 +80,7 @@ public class SoOrder extends BaseEntity {
 
 	@Column(name = "stage_num", header = "分期次数（待讨论）")
 	private OrderStageNum stageNum = OrderStageNum.ONE;
-	
+
 	@Column(name = "staged", header = "分期的")
 	private Boolean staged;
 
@@ -271,7 +271,18 @@ public class SoOrder extends BaseEntity {
 
 	@Subs(subType = AuditLog.class, foreignKey = "formId", header = "改价审核日志")
 	private List<AuditLog> auditLogs = new ArrayList<AuditLog>();
+
+	@Subs(subType = NOrderStage.class, foreignKey = "orderId", header = "分期明细")
+	private List<NOrderStage> stages = new ArrayList<NOrderStage>();
 	
+	public List<NOrderStage> getStages() {
+		return stages;
+	}
+
+	public void setStages(List<NOrderStage> stages) {
+		this.stages = stages;
+	}
+
 	public Boolean getStaged() {
 		return staged;
 	}

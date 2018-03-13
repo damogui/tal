@@ -28,7 +28,7 @@ public class NOrderStage extends Entity {
 	private Integer instalmentIndex  = 0;
 
 	@Column(name = "percentage", header = "百分比")
-	private Integer percentage = 0;
+	private Double percentage = 0D;
 
 	@Column(name = "amount", header = "金额")
 	private Integer amount = 0;
@@ -57,11 +57,11 @@ public class NOrderStage extends Entity {
 		this.instalmentIndex = instalmentIndex;
 	}
 
-	public Integer getPercentage() {
+	public Double getPercentage() {
 		return percentage;
 	}
 
-	public void setPercentage(Integer percentage) {
+	public void setPercentage(Double percentage) {
 		this.percentage = percentage;
 	}
 

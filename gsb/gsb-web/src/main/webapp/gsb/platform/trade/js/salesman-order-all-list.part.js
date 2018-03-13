@@ -7,6 +7,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         this.addOrderReceivedUrl = '/panda/crm/order/salesman/coperformance';//创建订单业绩
         this.addReceivedUrl = "/panda/crm/order/salesman/creceivedperformance";//回款业绩
         this.originType = null;//来源类型（0或null：业务员跳转过来的；1：平台跳转过来的）
+        this.addStagingUrl = '/nav/gsb/platform/trade/orderStage';//创建分期
     },
     addOrderReceived: function () {//创建订单业绩
         var me = this;
@@ -97,7 +98,31 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
     },
     addStaging: function (id) {//创建分期
 
-        this.edit(id);
+    	var me = this;
+        var row = this.getSelectedItem();
+        var rows = this.getSelections();
+        if (rows.length <= 0) {
+            IMessageBox.info('请先选择订单数据');
+            return false;
+        }
+        var contentUrl = this.addStagingUrl + "?id=" + row.id;
+        layer.open({
+            type: 2,//1是字符串 2是内容
+            title: '订单信息',
+            fixed: false,
+            maxmin: true,
+            shadeClose: false,
+            area: ['80%', '80%'],
+            zIndex: 100000,
+            id: "addStagingIframe",
+            content: contentUrl,
+            btn: ['保存', '取消'],// 可以无限个按钮
+            yes: function (index, layero) {
+                layer.closeAll();
+                document.getElementById('addStagingIframe').firstElementChild.contentWindow.controllersoOrder.save();
+                IMessageBox.toast('保存成功');
+            },
+        });
     },
     addContract: function (id) {//创建合同
 
