@@ -114,12 +114,12 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             shadeClose: false,
             area: ['80%', '80%'],
             zIndex: 100000,
-            id: "addReceivedIframe",
+            id: "addStagIframe",
             content: urlEnd,
             btn: ['保存', '取消'],// 可以无限个按钮
             yes: function (index, layero) {
                 layer.closeAll();
-                document.getElementById('addReceivedIframe').firstElementChild.contentWindow.controllersoOrder.save();
+                document.getElementById('addStagIframe').firstElementChild.contentWindow.controllersoOrder.save();
                 IMessageBox.toast('保存成功');
             },
         });
