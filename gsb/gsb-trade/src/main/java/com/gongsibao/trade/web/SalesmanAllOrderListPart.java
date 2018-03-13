@@ -61,7 +61,7 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
 		Oql oql = new Oql();
 		{
 			oql.setType(SoOrder.class);
-			oql.setSelects("staged");
+			oql.setSelects("*");
 			oql.setFilter("id=?");
 			oql.getParameters().add("id", id, Types.INTEGER);
 		}
