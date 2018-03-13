@@ -3,6 +3,7 @@ package com.gongsibao.panda.supplier.order.workspace.salesman;
 import com.gongsibao.entity.trade.NDepReceivable;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.tools.PToolbarHelper;
+import com.gongsibao.trade.web.SalesmanOrderPerformanceListPart;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.EntityState;
@@ -13,10 +14,7 @@ import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.OpenMode;
-import org.netsharp.panda.entity.PDatagrid;
-import org.netsharp.panda.entity.PDatagridColumn;
-import org.netsharp.panda.entity.PForm;
-import org.netsharp.panda.entity.PQueryProject;
+import org.netsharp.panda.entity.*;
 import org.netsharp.panda.plugin.dic.ToolbarType;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
@@ -36,7 +34,9 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
         formOpenMode = OpenMode.WINDOW;
         openWindowHeight = 700;
         openWindowWidth = 900;
-        listPartImportJs = "/gsb/panda-extend/gsb.custom.query.controls.js";
+        listPartImportJs = "/gsb/platform/trade/js/salesman-order-performance-list.js|/gsb/panda-extend/gsb.custom.query.controls.js";
+        listPartServiceController = SalesmanOrderPerformanceListPart.class.getName();
+        listPartJsController = SalesmanOrderPerformanceListPart.class.getName();
         listFilter = "(employee_id = {userId} OR creator_id = {userId})";
     }
 
@@ -85,11 +85,18 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
 
         PQueryProject queryProject = super.createQueryProject(node);
         queryProject.toNew();
-        queryProject.setColumnCount(6);
-
-        addQueryItem(queryProject, "no", "编号", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX);
+        PQueryItem item = null;
+        queryProject.setColumnCount(3);
+        item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
+        {
+            item.setTooltip("订单编号、渠道订单编号、下单人、下单人电话、签单企业");
+            item.setWidth(350);
+        }
         addQueryItem(queryProject, "prodName", "产品名称", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "statusType", "审核状态", ControlTypes.ENUM_BOX);
+        addQueryItem(queryProject, "order.payStatus", "付款状态", ControlTypes.ENUM_BOX);
+        addQueryItem(queryProject, "ywyName", "业务员", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "creator", "订单业绩创建人", ControlTypes.TEXT_BOX);
         return queryProject;
     }
 
