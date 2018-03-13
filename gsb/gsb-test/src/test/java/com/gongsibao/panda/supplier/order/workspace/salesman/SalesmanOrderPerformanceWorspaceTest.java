@@ -30,7 +30,7 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
         listPartName = formPartName = "订单业绩";
         meta = MtableManager.getMtable(entity);
         formPartName = listPartName = meta.getName();
-        resourceNodeCode = "Gsb_Supplier_Order_Salesman_Performance";
+        resourceNodeCode = "Gsb_Supplier_Order_Salesman_My_Performance";
         formOpenMode = OpenMode.WINDOW;
         openWindowHeight = 700;
         openWindowWidth = 900;
