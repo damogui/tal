@@ -32,7 +32,7 @@ public class OrderStageController {
 		SoOrder entity = orderService.queryFirst(oql);
 		return entity;
 	}
-
+	
 	/**
 	 * @Title: applyStage
 	 * @Description: TODO(申请分期)

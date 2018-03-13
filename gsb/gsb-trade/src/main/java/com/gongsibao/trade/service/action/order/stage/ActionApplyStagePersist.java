@@ -23,6 +23,7 @@ public class ActionApplyStagePersist implements IAction{
 		SoOrder order = (SoOrder) ctx.getItem();
 		INOrderStageService stageService = ServiceFactory.create(INOrderStageService.class);
 		for (NOrderStage item : order.getStages()) {
+			item.toNew();
 			stageService.save(item);	
 		}
 		
