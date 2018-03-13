@@ -54,12 +54,7 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
                     }
                     var rows=me.getSelections();
                     var ttmId = rows[0].id;
-                    me.invokeService("updateOwner", [ttmId,toUserId],function(data) {
-                        me.reload();
-                        IMessageBox.toast('分配成功');
-                        layer.closeAll();
-                        return;
-                    });
+
                 }
             });
 
@@ -105,15 +100,7 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
                 {field: 'productName', title: '部门', width: 150},
 
                 {field: 'cityName', title: '业务员', width: 150},
-                // {
-                //     field: 'priceOriginal',
-                //     title: '原价',
-                //     width: 100,
-                //     align: 'right',
-                //     formatter: function (value, row, index) {
-                //         return (value / 100).toFixed(2);
-                //     }
-                // },
+          
                 {
                     field: 'price',
                     title: '回款业绩分配金额',
@@ -132,14 +119,7 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
         var me = this;
         var formId = System.GUID.newGUID();
         var builder = new System.StringBuilder();
-        // builder.append(' <table cellpadding="3" cellspacing="0" class="form-panel"> <tbody> <tr> <td width="120px" class="label_td"> <label for="no"> 订单编号： </label> </td> <td class="control_td"> <input validtype="unnormal" type="text" collected="true"  controltype="TextBox" id="no" style="width:180px;" class="easyui-validatebox nsInput validatebox-text validatebox-disabled" data-options="validateOnCreate:false,validateOnBlur:true,required:false"> </td> <td width="120px" class="label_td"> <label for="payablePrice"> 订单分配金额： </label> </td> <td class="control_td"> <input validtype="unnormal" type="text" collected="true"  controltype="TextBox" id="payablePrice" style="width:180px;" class="easyui-validatebox nsInput validatebox-text validatebox-disabled" data-options="validateOnCreate:false,validateOnBlur:true,required:false"> </td> <td width="120px" class="label_td"> <label for="paidPrice"> 付款类别： </label> </td> <td class="control_td"> <input validtype="unnormal" type="text" collected="true" controltype="TextBox" id="paidPrice" style="width:180px;" class="easyui-validatebox nsInput validatebox-text validatebox-disabled" data-options="validateOnCreate:false,validateOnBlur:true,required:false"> </td> </tr> </tbody> </table>');
-
-//<input id="cc2" class="easyui-combobox" data-options="valueField:'id',textField:'text'">
-
-        //<select  id="payType" class="easyui-combobox" name="dept" style="width:200px;"> <option value="0">全款</option> <option value="1">一期款</option> <option value="2">二期款</option> <option value="3">三期款</option> <option value="4">四期款</option> </select>
-
-
-        builder.append('<form id="dynamicForm">');
+        builder.append('<form id="addFormPerformance">');
         builder.append('<div style="margin:10px;">');
         builder.append('<table cellpadding="3" cellspacing="0" class="form-panel" style="width:100%;">');
         builder.append('<tr><td class="title" style="width:100px;text-align: right;">订单编号</td><td><input id="orderNo" class="nsInput"/></td>');
