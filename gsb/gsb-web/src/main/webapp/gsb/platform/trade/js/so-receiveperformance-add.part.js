@@ -198,7 +198,7 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
             yes: function (index, layero) {
 
                 alert("提交数据");
-                debugger;
+              
                 var orderBack = me.getOrderBack();
 
                 $('#datagridpays').datagrid('appendRow', orderBack);//赋值
