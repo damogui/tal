@@ -4,6 +4,7 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gongsibao.entity.trade.dto.DepPayMapDTO;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.AdvancedListPart;
@@ -47,8 +48,10 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
         orderService.orderTran(orderList, toUserId);
     }
 
-    public int saveNDepReceivableBySoder(SoOrder entity) {
-        orderService.save(entity);
+
+    /*回款业绩保存*/
+    public int saveNDepReceivableBySoder(DepPayMapDTO entity) {
+
         return 1;
     }
     

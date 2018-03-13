@@ -78,8 +78,22 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             yes: function (index, layero) {
 
                 layer.closeAll();
-                document.getElementById('addReceivedIframe').firstElementChild.contentWindow.controllersoOrder.save();
-                IMessageBox.toast('保存成功');
+                alert("回款业绩保存");
+
+                var depPayMapDTO={};
+                depPayMapDTO.orderNo=888;
+                me.invokeService('saveNDepReceivableBySoder',[depPayMapDTO], function(data){
+
+                    if(data>0){
+
+                        IMessageBox.toast('保存成功');
+
+                    }else{
+
+                        IMessageBox.toast('保存失败');
+                    }
+                });
+
 
 
             },
@@ -96,7 +110,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         this.edit(id);
     },
     addStaging: function (id) {//创建分期
-    	var me = this;
+        var me = this;
         var row = this.getSelectedItem();
         var rows = this.getSelections();
         if (rows.length <= 0) {
@@ -106,9 +120,9 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         var contentUrl = this.addStagingUrl + "?id=" + row.id;
         //判断是否已经分期付款了（先支持1次分期）
         me.invokeService("isStaged", [row.id], function (data) {
-            if(data){
-            	IMessageBox.info('该订单已经分期付款');
-            }else{
+            if (data) {
+                IMessageBox.info('该订单已经分期付款');
+            } else {
                 layer.open({
                     type: 2,//1是字符串 2是内容
                     title: '订单信息',
@@ -126,7 +140,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                 });
             }
         });
-    	
+
     },
     addContract: function (id) {//创建合同
 
