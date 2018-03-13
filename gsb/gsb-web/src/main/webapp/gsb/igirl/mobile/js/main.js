@@ -14,7 +14,6 @@ $(function(){
 				return null;
 			}
 		}
-		
 	}
 	//获取服务商ID
 	var supplierId=getHashParameter("spid");
@@ -181,6 +180,7 @@ $(function(){
 					  },
 					 created:function(){
 						  console.log("root vue created...");
+	
 						  $("#navDiv").height($(window).height());
 						  this.siteInfo=d;
 						  this.sourceInfo=sourceInfo;
@@ -194,11 +194,14 @@ $(function(){
 				  			      //如果执照和图样已经上传，那么跳专到下载委托书页面
 				  			      //如果是委托书已经上传那么就跳专到首页
 				  			 var caseState=-1;
+				  		
 				  			 if(sourceInfo.casecode && sourceInfo.casecode!=""){
+				  				 
 				  				 var ctlServiceStr2="com.gongsibao.igirl.web.TradeMarkCasePart";
 				  				 var me=this;
 				  				 siteCtl.invoke(ctlServiceStr2,"fetchUnconfirmedCaseInfoByCode",[sourceInfo.casecode],function(d){
 				  					 me.caseinfo=d;
+				  				
 				  					 if(d.tmcState==0 || d.tmcState==1){//待确认
 				  						 me.$router.push({path:"/tmc",query:{spid:sourceInfo.supplierId,source:sourceInfo.source,casecode:sourceInfo.casecode}});
 				  					   return;
@@ -215,10 +218,12 @@ $(function(){
 				  					      }
 				  					 if(d.tmcState==4){
 				  						    //下载委托书，跳专到上传委托书页面,点击下一步修改为5（已经上传状态），且跳专到
+				  						me.$router.push({path:"/zzty/downdele",query:{spid:sourceInfo.supplierId,source:sourceInfo.source,casecode:sourceInfo.casecode}});
+				  					  return;
 				  					      }
 				  					 if(d.tmcState==5){
 				  						    //已经上传状态，进入微门户
-				  						    
+				  						me.$router.push({path:"/",query:{spid:sourceInfo.supplierId}});
 				  					      }
 				  			    	  });
 				  			      }

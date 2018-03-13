@@ -45,6 +45,9 @@ public class DownloadAttachment extends Entity {
 
 	@Reference(foreignKey = "tradeMarkId", header = "商标")
 	private TradeMark tradeMark;
+	
+	@Column(name = "needed", header = "是否需要上传")
+	private Boolean needed = true;
 
 	public Integer getTradeMarkCaseId() {
 		return tradeMarkCaseId;
@@ -168,6 +171,14 @@ public class DownloadAttachment extends Entity {
 
 	public void setShareGroup(ShareGroup shareGroup) {
 		this.shareGroup = shareGroup;
+	}
+
+	public Boolean getNeeded() {
+		return needed;
+	}
+
+	public void setNeeded(Boolean needed) {
+		this.needed = needed;
 	}
 
 }

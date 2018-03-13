@@ -24,6 +24,7 @@ import com.gongsibao.igirl.service.builder.base.IAttachmentBuilder;
  *黑白确认函
  */
 public class CommonAttachmentBuilder implements IAttachmentBuilder {
+	public static final String deleProofName="_黑白委托书";
 	@Override
 	public List<UploadAttachment> buildUploads(TradeMark tm,TradeMarkCase tmc) {
 		// TODO Auto-generated method stub
@@ -32,8 +33,8 @@ public class CommonAttachmentBuilder implements IAttachmentBuilder {
 				AttachmentCat.TRADEMARK_PICT, tm.getTradeMarkCaseId(), FileType.JPGB, FileType.JPGB, tm.getId(),tm.getShareGroup());
 		ups.add(attachment1);
 
-		attachment1 =  AttachmentBuilderManager.buildUploadAttachment(tm.getMemo() + "_委托书",
-				AttachmentCat.DELEGATE_PROOF, tm.getTradeMarkCaseId(), FileType.JPGC, FileType.JPGC, tm.getId(),tm.getShareGroup());
+		attachment1 =  AttachmentBuilderManager.buildUploadAttachment(tm.getMemo() + "_黑白委托书",
+				AttachmentCat.DELEGATE_PROOF, tm.getTradeMarkCaseId(), FileType.JPGB, FileType.JPGB, tm.getId(),tm.getShareGroup());
 		ups.add(attachment1);
 
 		attachment1 = AttachmentBuilderManager.buildUploadAttachment(tm.getMemo() + "_补充证明", AttachmentCat.MEMO_DESC,
@@ -49,12 +50,13 @@ public class CommonAttachmentBuilder implements IAttachmentBuilder {
 	public List<DownloadAttachment> buildDownloads(TradeMark tm,TradeMarkCase tmc) {
 		// TODO Auto-generated method stub
 		List<DownloadAttachment> ds=new ArrayList<DownloadAttachment>();
-		DownloadAttachment attachment1 =AttachmentBuilderManager.buildDownloadAttachment(tm.getMemo() + "_黑色委托书",
+		DownloadAttachment attachment1 =AttachmentBuilderManager.buildDownloadAttachment(tm.getMemo() + "_黑白委托书",
 				AttachmentCat.DELEGATE_PROOF, tm.getTradeMarkCaseId(), FileType.JPGB, FileType.JPGB, tm.getId(),tm.getShareGroup());
 		ds.add(attachment1);
 		
-		 attachment1 =AttachmentBuilderManager.buildDownloadAttachment(tm.getMemo() + "_黑色确认函",
+		 attachment1 =AttachmentBuilderManager.buildDownloadAttachment(tm.getMemo() + "_黑白确认函",
 					AttachmentCat.CONFIRM_PROOF, tm.getTradeMarkCaseId(), FileType.JPGB, FileType.JPGB, tm.getId(),tm.getShareGroup());
+		 attachment1.setNeeded(false);
 		ds.add(attachment1);
 		
 		return ds;

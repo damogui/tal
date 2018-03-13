@@ -22,6 +22,7 @@ import com.gongsibao.igirl.service.builder.base.AttachmentBuilderManager;
  *彩色委托书
  */
 public class ColorfulAttachmentBuilder extends AbstractSwitchBuilder{
+	public static final String deleProofName="_彩色委托书";
 	@Override
 	public boolean isOpen(TradeMark tm,TradeMarkCase tmc) {
 		// TODO Auto-generated method stub
@@ -46,7 +47,7 @@ public class ColorfulAttachmentBuilder extends AbstractSwitchBuilder{
 	public List<DownloadAttachment> buildDowns(TradeMark tm) {
 		// TODO Auto-generated method stub
 		List<DownloadAttachment> ds=new ArrayList<DownloadAttachment>();
-		DownloadAttachment attachment1 =AttachmentBuilderManager.buildDownloadAttachment(tm.getMemo() + "_彩色委托书",
+		DownloadAttachment attachment1 =AttachmentBuilderManager.buildDownloadAttachment(tm.getMemo() + deleProofName,
 				AttachmentCat.DELEGATE_PROOF, tm.getTradeMarkCaseId(), FileType.JPGC, FileType.JPGC, tm.getId(),tm.getShareGroup());
 		ds.add(attachment1);	
 		return ds;

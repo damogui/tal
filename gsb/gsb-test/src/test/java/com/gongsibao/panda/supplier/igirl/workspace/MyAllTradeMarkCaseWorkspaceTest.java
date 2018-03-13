@@ -411,7 +411,10 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 				// column.setFormatter("return '<a
 				// href=\"url\">name</a>'.replace('name',row.name).replace('url',row.fileUrl)");
 			}
-
+			column = addColumn(datagrid, "needed", "是否需要上传", ControlTypes.TEXT_BOX, 150);
+			{
+				column.setFormatter("if( row.needed==1  ){ return '需要上传' } else{ return '无需上传' }");
+			}
 			column = addColumn(datagrid, "attachmentCat", "附件类别", ControlTypes.TEXT_BOX, 100);{
 				String formatter=EnumUtil.getColumnFormatter(AttachmentCat.class);
 				column.setFormatter(formatter);
@@ -449,6 +452,7 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 			addFormField(form, "fileType", "文件类型", groupName, ControlTypes.ENUM_BOX, true, false);
 			addFormField(form, "toFileType", "目标文件类型", groupName, ControlTypes.ENUM_BOX, true, false);
 			addFormField(form, "name", "附件名称", groupName, ControlTypes.TEXT_BOX, true, false);
+			addFormField(form, "needed", "是否需上传", groupName, ControlTypes.SWITCH_BUTTON, true, false);
 			addFormField(form, "fileUrl", "上传", groupName, ControlTypes.OSS_UPLOAD, true, false);
 
 		}

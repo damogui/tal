@@ -113,6 +113,16 @@ public class TradeMarkCasePart extends FormPart {
 		int rtn=up.uploadAttachmentFileurl(id, filepath);
 		return ResultDto.getSimpleResultDto(rtn);
 	}
+	
+	
+	@SuppressWarnings("rawtypes")
+	@Authorization(is=false)
+	public ResultDto updateDownloadAttachment(String upid,String filepath) {
+		//参数是上传图样附件的id,获取上传附件，获取caseid和name,获取memo,按照caseid,memo+"_xxxxx"的方式去更新待下载附件
+		int rtn=down.updateDownloadDeleProofAttachmentFileurl(upid, filepath);
+		return ResultDto.getSimpleResultDto(rtn);
+	}
+	
 	@SuppressWarnings("rawtypes")
 	@Authorization(is=false)
 	public ResultDto findAllAttachmentsByCaseId(String caseid) {
