@@ -71,7 +71,6 @@ com.gongsibao.trade.web.OrderStagetrl = org.netsharp.panda.core.CustomCtrl.Exten
     	}
     },
     save:function(){
-    	
     	var stageList = [];
     	var orderId = this.queryString('id');
     	var num = parseInt($('#stageNum').combobox('getValue'));
