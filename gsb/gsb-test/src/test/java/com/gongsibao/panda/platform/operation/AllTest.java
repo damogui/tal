@@ -56,8 +56,8 @@ import com.gongsibao.panda.platform.operation.workspace.taurus.UserConsumptionWo
 import com.gongsibao.panda.platform.operation.workspace.taurus.UserWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.wanda.WanDaProductWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
-
-
+import com.gongsibao.panda.platform.operation.workspace.igirl.TradeMarkCaseAllWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.igirl.TradeMarkFollowWorkspaceTest;
 @RunWith(Suite.class)
 @SuiteClasses({
 
@@ -145,7 +145,9 @@ import com.gongsibao.panda.platform.operation.workspace.wanda.WanDaSoOrderWorksp
         ImportTaskRoleAndFunctionTest.class,
         // ImportOldDataToNewData.class,
         SupplierActionTest.class,
-
+        //智能商标在运营下面的列表
+        TradeMarkCaseAllWorkspaceTest.class,
+        TradeMarkFollowWorkspaceTest.class,
 
         NavigationTest.class
 
