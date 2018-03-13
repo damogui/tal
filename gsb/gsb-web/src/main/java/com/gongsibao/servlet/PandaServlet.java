@@ -18,6 +18,7 @@ import org.netsharp.panda.core.comunication.IHtmlWriter;
 import org.netsharp.panda.core.comunication.ServletRequest;
 import org.netsharp.panda.core.comunication.ServletResponse;
 import org.netsharp.panda.rest.RestComboxTreeService;
+import org.netsharp.panda.rest.RestEnumService;
 import org.netsharp.panda.rest.RestReferenceService;
 import org.netsharp.panda.rest.RestService;
 
@@ -57,6 +58,13 @@ public class PandaServlet extends HttpServlet {
 		if (requestURL.endsWith("/panda/rest/comboxtree")) {
 
 			RestComboxTreeService handler = new RestComboxTreeService();
+			handler.processRequest(HttpContext.getCurrent());
+			return;
+		}
+		
+		if (requestURL.endsWith("/panda/rest/enum")) {
+
+			RestEnumService handler = new RestEnumService();
 			handler.processRequest(HttpContext.getCurrent());
 			return;
 		}
