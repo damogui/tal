@@ -39,6 +39,11 @@ public class SalesmanOrderPerformanceListPart extends AdvancedListPart {
             return "owner_id in (select id from sys_permission_employee where name = '" + keyword + "')";
         }
 
+        //订单业绩创建人
+        if (parameter.getKey().equals("depReceivableCreator")) {
+            return "pkid in (select order_id from n_dep_receivable where creator like '%" + keyword + "%')";
+        }
+
         return parameter.getFilter();
     }
 
