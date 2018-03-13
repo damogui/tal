@@ -1,6 +1,7 @@
 package com.gongsibao.panda.platform.operation.workspace.igirl;
 
 import com.gongsibao.entity.igirl.TradeMark;
+import com.gongsibao.igirl.web.TradeMarkCaseOptListPart;
 import com.gongsibao.igirl.web.TradeMarkListPart;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +36,7 @@ public class TradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		resourceNodeCode = "Operation_IGIRL_All_TradeMark";
 		formPartName = listPartName = meta.getName();
 		listToolbarPath="/operation/igirl/tradeMark/list";
-		listPartServiceController = TradeMarkListPart.class.getName();
+		listPartServiceController = TradeMarkCaseOptListPart.class.getName();
 		listPartJsController=TradeMarkListPart.class.getName();
 		listPartImportJs="/gsb/igirl/js/trademark.listpart.js";
 
@@ -115,6 +116,7 @@ public class TradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		}
 		datagrid.setOrderby("urgency asc,tradeMarkCaseId asc");
 		PDatagridColumn column = null;
+		addColumn(datagrid, "supplier.name", "服务商", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 120);
 		addColumn(datagrid, "markSubmitTime", "商标提交时间", ControlTypes.DATETIME_BOX, 120);
 		addColumn(datagrid, "tradeMarkCase.ownerName", "业务人员", ControlTypes.TEXT_BOX, 80);
@@ -154,6 +156,7 @@ public class TradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
+		addQueryItem(queryProject, "supplier.name", "服务商", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "code", "商标号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "proxyCode", "代理号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "tradeMarkCase.companyName", "公司名称", ControlTypes.TEXT_BOX);

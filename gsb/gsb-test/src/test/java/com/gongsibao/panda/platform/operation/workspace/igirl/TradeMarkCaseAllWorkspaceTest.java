@@ -5,6 +5,7 @@ import com.gongsibao.entity.igirl.dict.FileType;
 import com.gongsibao.entity.igirl.dict.MarkState;
 import com.gongsibao.entity.igirl.dict.ShareGroup;
 import com.gongsibao.igirl.web.TradeMarkCaseListPart;
+import com.gongsibao.igirl.web.TradeMarkCaseOptListPart;
 import com.gongsibao.igirl.web.TradeMarkCasePart;
 import com.gongsibao.igirl.web.TradeMarkDetailPart;
 import com.gongsibao.igirl.web.UploadAttachmentDetailPart;
@@ -37,7 +38,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = "商标方案";
 		resourceNodeCode = "Operation_IGIRL_All_TradeMarkCase";
-		listPartServiceController=TradeMarkCaseListPart.class.getName();
+		listPartServiceController=TradeMarkCaseOptListPart.class.getName();
 		formServiceController = TradeMarkCasePart.class.getName();
 		formJsController = TradeMarkCasePart.class.getName();
 		formJsImport = "/gsb/igirl/js/markcase.form.part.js";
@@ -249,6 +250,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 		datagrid.setToolbar("panda/datagrid/row/edit");
 		PDatagridColumn column = null;
 		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+		addColumn(datagrid, "supplier.name", "服务商", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "createTime", "日期", ControlTypes.DATETIME_BOX, 100, true);
 		addColumn(datagrid, "code", "编号", ControlTypes.TEXT_BOX, 120, true);
 		addColumn(datagrid, "companyName", "公司名称", ControlTypes.TEXT_BOX, 200);
@@ -353,7 +355,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 	// */
 	private void createTradeMarkDetailPart(PWorkspace workspace) {
 
-		ResourceNode node = this.resourceService.byCode("IGIRL_All_TradeMark");
+		ResourceNode node = this.resourceService.byCode("Operation_IGIRL_All_TradeMark");
 		PDatagridColumn column = null;
 		PDatagrid datagrid = new PDatagrid(node, "商标选项");
 		{
@@ -437,7 +439,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 
 	private void createUploadAttamentDetailPart(PWorkspace workspace) {
 
-		ResourceNode node = this.resourceService.byCode("IGIRL_UPLOAD_UploadAttachment");
+		ResourceNode node = this.resourceService.byCode("Operation_IGIRL_UPLOAD_UploadAttachment");
 		PDatagridColumn column = null;
 		PDatagrid datagrid = new PDatagrid(node, "上传盖章附件");
 		{
@@ -522,7 +524,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 
 	private void createDownloadAttamentDetailPart(PWorkspace workspace) {
 
-		ResourceNode node = this.resourceService.byCode("IGIRL_DOWNLOAD_DownloadAttachment");
+		ResourceNode node = this.resourceService.byCode("Operation_IGIRL_DOWNLOAD_DownloadAttachment");
 		PDatagridColumn column = null;
 		PDatagrid datagrid = new PDatagrid(node, "下载待盖章附件");
 		{
@@ -603,6 +605,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
+		addQueryItem(queryProject, "supplier.name", "服务商", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "code", "案件编号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "companyName", "公司名称", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "applier", "申请人", ControlTypes.TEXT_BOX);
