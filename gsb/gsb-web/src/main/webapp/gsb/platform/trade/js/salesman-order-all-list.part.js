@@ -105,7 +105,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             IMessageBox.info('请先选择订单数据');
             return false;
         }
-        var urlEnd = this.addStagingUrl + "?id=" + row.id;
+        var contentUrl = this.addStagingUrl + "?id=" + row.id;
         layer.open({
             type: 2,//1是字符串 2是内容
             title: '订单信息',
@@ -114,12 +114,12 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             shadeClose: false,
             area: ['80%', '80%'],
             zIndex: 100000,
-            id: "addStagIframe",
-            content: urlEnd,
+            id: "addStagingIframe",
+            content: contentUrl,
             btn: ['保存', '取消'],// 可以无限个按钮
             yes: function (index, layero) {
                 layer.closeAll();
-                document.getElementById('addStagIframe').firstElementChild.contentWindow.controllersoOrder.save();
+                document.getElementById('addStagingIframe').firstElementChild.contentWindow.controllersoOrder.save();
                 IMessageBox.toast('保存成功');
             },
         });
