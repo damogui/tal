@@ -25,7 +25,7 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
     @Before
     public void setup() {
         super.setup();
-        entity = NDepReceivable.class;
+        entity = SoOrder.class;
         urlList = "/crm/order/salesman/performance/list";
         listPartName = formPartName = "订单业绩";
         meta = MtableManager.getMtable(entity);
@@ -37,7 +37,7 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
         listPartImportJs = "/gsb/platform/trade/js/salesman-order-performance-list.js|/gsb/panda-extend/gsb.custom.query.controls.js";
         listPartServiceController = SalesmanOrderPerformanceListPart.class.getName();
         listPartJsController = SalesmanOrderPerformanceListPart.class.getName();
-        listFilter = "(employee_id = {userId} OR creator_id = {userId})";
+        listFilter = " pkid in (select order_id from n_dep_receivable where employee_id = {userId} OR creator_id = {userId})";
     }
 
     @Override
@@ -51,32 +51,32 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
         }
         PDatagridColumn column = null;
         addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-        addColumn(datagrid, "order.no", "订单编号", ControlTypes.TEXT_BOX, 80);
-        addColumn(datagrid, "order.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "order.prodName", "产品名称", ControlTypes.TEXT_BOX, 250);
-        addColumn(datagrid, "order.companyIntention.companyName", "签单公司", ControlTypes.TEXT_BOX, 250);
-        column = addColumn(datagrid, "order.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn(datagrid, "no", "订单编号", ControlTypes.TEXT_BOX, 80);
+        addColumn(datagrid, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "prodName", "产品名称", ControlTypes.TEXT_BOX, 250);
+        addColumn(datagrid, "companyIntention.companyName", "签单公司", ControlTypes.TEXT_BOX, 250);
+        column = addColumn(datagrid, "totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         {
             column.setAlign(DatagridAlign.RIGHT);
         }
-        column = addColumn(datagrid, "order.payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        column = addColumn(datagrid, "payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         {
             column.setAlign(DatagridAlign.RIGHT);
         }
-        column = addColumn(datagrid, "order.paidPrice", "已付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        column = addColumn(datagrid, "paidPrice", "已付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         {
             column.setAlign(DatagridAlign.RIGHT);
         }
-        addColumn(datagrid, "order.payStatus", "付款状态", ControlTypes.ENUM_BOX, 100);
+        addColumn(datagrid, "payStatus", "付款状态", ControlTypes.ENUM_BOX, 100);
         column = addColumn(datagrid, "amount", "订单业绩分配金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         {
             column.setAlign(DatagridAlign.RIGHT);
         }
-        addColumn(datagrid, "statusType", "审核状态", ControlTypes.ENUM_BOX, 80);
+        addColumn(datagrid, "depReceivableAuditStatusId", "审核状态", ControlTypes.ENUM_BOX, 80);
         addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 100);
-        addColumn(datagrid, "order.createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);
+        addColumn(datagrid, "createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);
         addColumn(datagrid, "creator", "订单业绩创建人", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "order.owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
         return datagrid;
     }
 
@@ -93,8 +93,8 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
             item.setWidth(350);
         }
         addQueryItem(queryProject, "prodName", "产品名称", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "statusType", "审核状态", ControlTypes.ENUM_BOX);
-        addQueryItem(queryProject, "order.payStatus", "付款状态", ControlTypes.ENUM_BOX);
+        addQueryItem(queryProject, "depReceivableAuditStatusId", "审核状态", ControlTypes.ENUM_BOX);
+        addQueryItem(queryProject, "payStatus", "付款状态", ControlTypes.ENUM_BOX);
         addQueryItem(queryProject, "ywyName", "业务员", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "creator", "订单业绩创建人", ControlTypes.TEXT_BOX);
         return queryProject;
