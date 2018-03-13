@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.netsharp.core.annotations.Column;
-import org.netsharp.core.annotations.Reference;
-import org.netsharp.core.annotations.Subs;
-import org.netsharp.core.annotations.Table;
+import org.netsharp.core.annotations.*;
 import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.BaseEntity;
@@ -281,6 +278,18 @@ public class SoOrder extends BaseEntity {
 
     @Subs(subType = NOrderStage.class, foreignKey = "orderId", header = "分期明细")
     private List<NOrderStage> stages = new ArrayList<NOrderStage>();
+
+    @Exclusive
+    @Column(name = "depReceivableAmount", header = "订单业绩分配金额")
+    private Integer depReceivableAmount = 0;
+
+    @Exclusive
+    @Column(name = "depReceivableCreateTime", header = "订单业绩创建时间")
+    private Date depReceivableCreateTime = null;
+
+    @Exclusive
+    @Column(name = "depReceivableCreator", header = "订单业绩创建人")
+    private String depReceivableCreator = "";
 
     public List<NOrderStage> getStages() {
         return stages;
@@ -840,5 +849,29 @@ public class SoOrder extends BaseEntity {
 
     public void setDepReceivableAuditStatusId(AuditStatusType depReceivableAuditStatusId) {
         this.depReceivableAuditStatusId = depReceivableAuditStatusId;
+    }
+
+    public Integer getDepReceivableAmount() {
+        return depReceivableAmount;
+    }
+
+    public void setDepReceivableAmount(Integer depReceivableAmount) {
+        this.depReceivableAmount = depReceivableAmount;
+    }
+
+    public Date getDepReceivableCreateTime() {
+        return depReceivableCreateTime;
+    }
+
+    public void setDepReceivableCreateTime(Date depReceivableCreateTime) {
+        this.depReceivableCreateTime = depReceivableCreateTime;
+    }
+
+    public String getDepReceivableCreator() {
+        return depReceivableCreator;
+    }
+
+    public void setDepReceivableCreator(String depReceivableCreator) {
+        this.depReceivableCreator = depReceivableCreator;
     }
 }

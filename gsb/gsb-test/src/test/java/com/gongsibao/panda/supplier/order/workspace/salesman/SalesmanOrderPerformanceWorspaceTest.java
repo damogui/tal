@@ -37,7 +37,7 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
         listPartImportJs = "/gsb/platform/trade/js/salesman-order-performance-list.js|/gsb/panda-extend/gsb.custom.query.controls.js";
         listPartServiceController = SalesmanOrderPerformanceListPart.class.getName();
         listPartJsController = SalesmanOrderPerformanceListPart.class.getName();
-        listFilter = " pkid in (select order_id from n_dep_receivable where employee_id = {userId} OR creator_id = {userId})";
+        listFilter = " pkid in (select order_id from n_dep_receivable where employee_id = '{userId}' OR creator_id = '{userId}' )";
     }
 
     @Override
@@ -68,14 +68,14 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
             column.setAlign(DatagridAlign.RIGHT);
         }
         addColumn(datagrid, "payStatus", "付款状态", ControlTypes.ENUM_BOX, 100);
-        column = addColumn(datagrid, "amount", "订单业绩分配金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        column = addColumn(datagrid, "depReceivableAmount", "订单业绩额", ControlTypes.DECIMAL_FEN_BOX, 100);
         {
             column.setAlign(DatagridAlign.RIGHT);
         }
         addColumn(datagrid, "depReceivableAuditStatusId", "审核状态", ControlTypes.ENUM_BOX, 80);
-        addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 100);
+        addColumn(datagrid, "depReceivableCreateTime", "订单业绩创建时间", ControlTypes.DATETIME_BOX, 100);
         addColumn(datagrid, "createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);
-        addColumn(datagrid, "creator", "订单业绩创建人", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "depReceivableCreator", "订单业绩创建人", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
         return datagrid;
     }
