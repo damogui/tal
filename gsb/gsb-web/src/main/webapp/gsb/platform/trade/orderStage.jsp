@@ -114,7 +114,7 @@
 		var centerHeight = $('body').height() - 240;
 		$('#center').height(centerHeight);
 
-		stagetrl = new com.gongsibao.trade.web.OrderStagetrl();
+		stagetrl = new com.gongsibao.trade.web.OrderStageCtrl();
 		stagetrl.init();
 	});
 </script>

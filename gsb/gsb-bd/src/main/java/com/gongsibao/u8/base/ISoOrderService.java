@@ -25,4 +25,9 @@ public interface ISoOrderService extends IPersistableService<SoOrder> {
     *根据订单id集合获取，对应的业务员信息
     * */
     public Map<Integer, Salesman> getSalesmanMapByOrderIdList(List<Integer> orderIdList);
+    
+    /*
+     *根据订单id获取订单实体
+     * */
+     public SoOrder getByOrderId(Integer orderId);
 }

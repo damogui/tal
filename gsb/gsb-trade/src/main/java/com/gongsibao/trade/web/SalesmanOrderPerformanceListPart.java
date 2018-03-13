@@ -1,10 +1,19 @@
 package com.gongsibao.trade.web;
 
+import com.gongsibao.entity.trade.NDepReceivable;
+import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.utils.NumberUtils;
+import org.netsharp.core.Oql;
+import org.netsharp.core.Paging;
 import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
+import org.netsharp.panda.entity.PDatagrid;
+import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.util.StringManager;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zhangchao on 2018/3/12.
@@ -23,26 +32,49 @@ public class SalesmanOrderPerformanceListPart extends AdvancedListPart {
             filters.add("account_mobile like '%" + keyword + "%'");
             filters.add("customer_name like '%" + keyword + "%'");
             filters.add("company_id in( select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' )  )");
-
-            String orderWhere = " order_id IN (SELECT pkid FROM so_order WHERE " + StringManager.join(" or ", filters) + " ) ";
-
-            return orderWhere;
+            return "(" + StringManager.join(" or ", filters) + ")";
         }
         //业务员
         if (parameter.getKey().equals("ywyName")) {
-            return " order_id IN (SELECT pkid FROM so_order WHERE owner_id IN(SELECT id FROM sys_permission_employee WHERE NAME = '" + keyword + "' ))";
+            return "owner_id in (select id from sys_permission_employee where name = '" + keyword + "')";
         }
 
-        //支付状态
-        if (parameter.getKey().equals("order_payStatus")) {
-            return " order_id IN (SELECT pkid FROM so_order WHERE pay_status_id IN(" + keyword + "))";
-        }
-
-        //产品名称
-        if (parameter.getKey().equals("prodName")) {
-            return " order_id IN (SELECT pkid FROM so_order WHERE prod_name like '%" + keyword + "%') ";
+        //订单业绩创建人
+        if (parameter.getKey().equals("depReceivableCreator")) {
+            return "pkid in (select order_id from n_dep_receivable where creator like '%" + keyword + "%')";
         }
 
         return parameter.getFilter();
     }
+
+    @Override
+    public List<?> doQuery(Oql oql) {
+        oql.setSelects("depReceivable.*,soOrder.*,owner.*,companyIntention.*");
+        List<SoOrder> resList = (List<SoOrder>) super.doQuery(oql);
+        for (SoOrder order : resList) {
+            List<NDepReceivable> depReceivableList = order.getDepReceivable();
+            NDepReceivable depReceivable = getDepReceivableByUserId(depReceivableList);
+            if (depReceivable != null) {
+                order.setDepReceivableAmount(depReceivable.getAmount());
+                order.setDepReceivableCreator(depReceivable.getCreator());
+                order.setDepReceivableCreateTime(depReceivable.getCreateTime());
+            }
+        }
+        return resList;
+    }
+
+    private NDepReceivable getDepReceivableByUserId(List<NDepReceivable> depReceivableList) {
+        Integer userId = SessionManager.getUserId();
+        NDepReceivable res = null;
+        for (NDepReceivable depReceivable : depReceivableList) {
+            if (NumberUtils.toInt(depReceivable.getEmployeeId()) == NumberUtils.toInt(userId)) {
+                res = depReceivable;
+                break;
+            }
+        }
+
+        return res;
+
+    }
+
 }

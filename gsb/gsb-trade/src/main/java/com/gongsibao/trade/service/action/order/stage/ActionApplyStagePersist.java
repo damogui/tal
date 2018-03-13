@@ -2,6 +2,11 @@ package com.gongsibao.trade.service.action.order.stage;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
+import org.netsharp.communication.ServiceFactory;
+
+import com.gongsibao.entity.trade.NOrderStage;
+import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.trade.base.INOrderStageService;
 
 /**   
  * @ClassName:  ActionApplyStagePersist   
@@ -15,7 +20,12 @@ public class ActionApplyStagePersist implements IAction{
 
 	@Override
 	public void execute(ActionContext ctx) {
-		// TODO Auto-generated method stub
+		SoOrder order = (SoOrder) ctx.getItem();
+		INOrderStageService stageService = ServiceFactory.create(INOrderStageService.class);
+		for (NOrderStage item : order.getStages()) {
+			stageService.save(item);	
+		}
+		
 		
 	}
 

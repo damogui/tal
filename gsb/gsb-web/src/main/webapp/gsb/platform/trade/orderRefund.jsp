@@ -19,10 +19,11 @@
 	<script src='/panda-res/js/system.js'></script>
 	<script src='/panda-res/js/panda.core.js'></script>
 	<script src='/panda-res/js/panda.js'></script>
-	<script src='/gsb/platform/trade/js/order.detail-ctrl.js'></script>
+    <script src='/package/easyui/datagrid-cellediting.js'></script>
+	<script src='/gsb/platform/trade/js/order.refund-ctrl.js'></script>
 </head>
     <body class="easyui-layout">
-        <div data-options="region:'north',split:false,collapsible:false,closed:false,height:400">
+        <div data-options="region:'north',split:false,collapsible:false,closed:false,height:375">
         	 <div class="formContent">
 		        <fieldset style="margin-bottom:0px;">
 		        	<legend>订单信息</legend>
@@ -32,59 +33,40 @@
 		        	<legend>退款信息</legend>
 					  <table cellpadding="3" cellspacing="0" class="form-panel">
 					      <tr>
-					          <td class="label_td"><label>是否结转：</label></td>
-					          <td class="control_td"><input class="easyui-switchbutton" data-options="onText:'是',offText:'否'"></td>
-					          <td class="label_td"><label>结转去向订单号：</label></td>
-					          <td class="control_td"><input class="easyui-validatebox nsInput" style="width:150px"></td>
-					          <td class="label_td"><label></label></td>
-					          <td class="control_td"></td>
-					   </tr>
-					      <tr>
-					          <td class="label_td"><label>退款账套：</label></td>
+					          <td class="label_td"><label style="color:Red">*</label><label>退款账套：</label></td>
 					          <td class="control_td">
-									<select id="cc" class="easyui-combobox" data-options="editable:false,width:150">
-									    <option value="aa">aitem1</option>   
-									    <option>bitem2</option>   
-									    <option>bitem3</option>   
-									    <option>ditem4</option>   
-									    <option>eitem5</option>   
-									</select>  
+									<input id="setOfBooksId" class="easyui-combobox" 
+									data-options="editable:false,width:150,panelWidth:250"/>
+					          <td class="label_td"><label style="color:Red">*</label><label>退款支付方式：</label></td>
+					          <td class="control_td">
+									<input id="wayType" class="easyui-combobox" 
+									data-options="editable:false,width:150,method:'get',url:'/panda/rest/enum?name=com.gongsibao.entity.trade.dic.RefundWayType'"/>
 					          </td>
-					          <td class="label_td"><label>退款支付方式：</label></td>
+					          <td class="label_td"><label style="color:Red">*</label><label>退款类别：</label></td>
 					          <td class="control_td">
-									<select id="cc3" class="easyui-combobox" data-options="editable:false,width:150">
-									    <option value="aa">aitem1</option>   
-									    <option>bitem2</option>   
-									    <option>bitem3</option>   
-									    <option>ditem4</option>   
-									    <option>eitem5</option>   
-									</select>  
-					          </td>
-					          <td class="label_td"><label>退款类别：</label></td>
-					          <td class="control_td">
-									<select id="cc3" class="easyui-combobox" data-options="editable:false,width:150">
-									    <option value="aa">aitem1</option>   
-									    <option>bitem2</option>   
-									    <option>bitem3</option>   
-									    <option>ditem4</option>   
-									    <option>eitem5</option>   
-									</select>  
+									<input id="refundType" class="easyui-combobox" 
+									data-options="editable:false,width:150,method:'get',url:'/panda/rest/enum?name=com.gongsibao.entity.trade.dic.RefundType'"/> 
 					          </td>
 					   </tr>
 					      <tr>
-					          <td class="label_td"><label>退款账户名称：</label></td>
-					          <td class="control_td"><input class="easyui-validatebox nsInput" style="width:150px;"/></td>
-					          <td class="label_td"><label>退款账号：</label></td>
-					          <td class="control_td"><input class="easyui-validatebox nsInput" style="width:150px;"/></td>
-					          <td class="label_td"><label>退款金额：</label></td>
+					          <td class="label_td"><label style="color:Red">*</label><label>退款账户名称：</label></td>
 					          <td class="control_td">
-					          	<input class="easyui-validatebox nsInput" style="width:150px;"/>
+					          		<input id="payerName" class="easyui-validatebox nsInput" style="width:150px"
+					          			data-options="required:true"/></td>
+					          <td class="label_td"><label style="color:Red">*</label><label>退款账号：</label></td>
+					          <td class="control_td">
+					          		<input id="bankNo" class="easyui-validatebox nsInput"   style="width:150px"
+										data-options="width:150,required:true"/></td>
+					          <td class="label_td"><label style="color:Red">*</label><label>退款金额：</label></td>
+					          <td class="control_td">
+					          		<input id="amount" class="easyui-numberbox nsInput"
+					          			data-options="precision:2,width:150,min:1,required:true"/>
 					          </td>
 						</tr>
 					      <tr>
-					          <td class="label_td"><label>退款说明：</label></td>
+					          <td class="label_td"><label style="color:Red">*</label><label>退款说明：</label></td>
 					          <td colspan="5" class="control_td">
-									<textarea collected="true" controlType="TextArea" id="momo" style="width:100%;height:50px;" class="easyui-validatebox nsInput"></textarea>
+									<textarea id="remark" style="width:100%;height:50px;" class="easyui-validatebox nsInput" data-options="width:150,required:true"></textarea>
 					          </td>
 						</tr>
 					</table>
@@ -97,7 +79,7 @@
 			          <table id="order_product_grid"></table>
 			    </div>   
 			    <div title="退款业绩分配">   
-			         <table id="order_payment_grid"></table>
+			         <table id="order_refund_grid"></table>
 			    </div>
 			</div>
 		</div>
@@ -109,8 +91,8 @@
 		var centerHeight = $('body').height() - 240;
 		$('#center').height(centerHeight);
 		
-		var formCtrl = new com.gongsibao.trade.web.OrderFormCtrl();
-		formCtrl.init();
+ 		var refundCtrl = new com.gongsibao.trade.web.OrderRefundCtrl();
+ 		refundCtrl.init(); 
 	});
 </script>
 </html>
