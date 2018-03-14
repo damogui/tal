@@ -68,7 +68,7 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
 		return entity.getStaged() == null ? false : entity.getStaged();
 	}
 	/**
-	 * 获取订单的退款状态
+	 * 获取订单的退款状态、是否满足退款金额判断
 	 * @param id
 	 * @return
 	 */
@@ -81,7 +81,15 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
 			oql.getParameters().add("id", id, Types.INTEGER);
 		}
 		SoOrder entity = orderService.queryFirst(oql);
-		return entity.getRefundStatus() == null ? 0 : entity.getRefundStatus().getValue();
+		
+		Integer refundPrice = entity.getRefundPrice() == null ? 0 : entity.getRefundPrice().intValue();
+		if((entity.getPaidPrice().intValue() - refundPrice.intValue()) > 0){
+			return entity.getRefundStatus() == null ? 0 : entity.getRefundStatus().getValue();
+		}else {
+			return -1;
+		}
+		
+		
 	}
 	
 }

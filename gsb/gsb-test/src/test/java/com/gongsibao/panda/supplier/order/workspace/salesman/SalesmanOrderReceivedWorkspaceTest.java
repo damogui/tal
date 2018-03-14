@@ -1,13 +1,6 @@
 package com.gongsibao.panda.supplier.order.workspace.salesman;
 
-import com.gongsibao.entity.trade.OrderPayMap;
-import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.tools.PToolbarHelper;
-import com.gongsibao.trade.web.SalesmanOrderReceivedListPart;
-import org.apache.commons.collections.OrderedMap;
 import org.junit.Before;
-import org.junit.Test;
-import org.netsharp.core.EntityState;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
@@ -17,10 +10,10 @@ import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
-import org.netsharp.panda.plugin.dic.ToolbarType;
-import org.netsharp.panda.plugin.entity.PToolbar;
-import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
+
+import com.gongsibao.entity.trade.OrderPayMap;
+import com.gongsibao.trade.web.SalesmanOrderReceivedListPart;
 
 /*回款业绩*/
 public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
