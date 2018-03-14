@@ -72,23 +72,43 @@ public class SoCreatReceivePerformanceFormPart extends FormPart {
         Dict dict = u8BankService.byId (entity.getU8Bank ()).getOfflineWayType ();
         pay.setOfflineWayType (OfflineWayType.getItem (dict.getId ()));
         pay.setEntityState (EntityState.New);
-        Pay paySave = payService.save (pay);
-        OrderPayMap orderPayMap = new OrderPayMap ();
-        orderPayMap.setPayId (paySave.getId ());
-        orderPayMap.setOrderId (entity.getOrderNo ());
-        orderPayMap.setU8BankId (entity.getU8Bank ());
-        orderPayMap.setOrderPrice (entity.getAmount ());
-        orderPayMap.setEntityState (EntityState.New);
-        OrderPayMap saveOrderPayMap = orderPayMapService.save (orderPayMap);
+        Pay savePay = payService.save (pay);
 
-        for (OrderRelationDTO item : entity.getOrderRelations ()
-                ) {
-            NDepPay nDepPay = new NDepPay ();
-            // nDepPay.setAmount (item.get);
-            //u8_bank_so_pay_map
+        for (OrderRelationDTO item:entity.getOrderRelations ()
+             ) {
+            OrderPayMap orderPayMap = new OrderPayMap ();//支付明细
+            orderPayMap.setPayId (savePay.getId ());
+            orderPayMap.setOrderId (item.getOrderId ());
+            orderPayMap.setU8BankId (entity.getU8Bank ());
+            orderPayMap.setOrderPrice (item.getOrderCutAmount ());
+            orderPayMap.setEntityState (EntityState.New);
+            OrderPayMap saveOrderPayMap = orderPayMapService.save (orderPayMap);
+            for (NDepPay item2 :item.getItems ()
+                    ) {
+                NDepPay nDepPay = new NDepPay ();//回款业绩划分
+                nDepPay.setAmount (item2.getAmount ());
+                nDepPay.setSupplierId (item2.getSupplierId ());
+                nDepPay.setDepartmentId (item2.getDepartmentId ());
+                nDepPay.setEmployeeId (item2.getEmployeeId ());
+                nDepPay.setEmployeeId (item2.getEmployeeId ());
+                nDepPay.setOrderPayMapId (saveOrderPayMap.getId ());
+                nDepPay.setEntityState (EntityState.New);
+                nDepPayService.save (nDepPay);
+
+            }
+            NU8BankSoPayMap  nU8BankSoPayMap=new NU8BankSoPayMap();
+            nU8BankSoPayMap.setPayId (savePay.getId ());
+            nU8BankSoPayMap.setSetOfBooksId (entity.getSetOfBooks ());
+            nU8BankSoPayMap.setType (0);
+            nU8BankSoPayMap.setU8BankId (entity.getU8Bank ());
+            nU8BankSoPayMap.setPrice (entity.getAmount ());
+
 
 
         }
+
+
+
 
 
         return 1;

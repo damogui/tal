@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class DepPayMapDTO {
 
-    private Integer orderNo;
+//    private Integer orderNo;//从下面读取
   /*付款账套*/
     private Integer setOfBooks;
     /*u8Bank*/
@@ -105,13 +105,6 @@ public class DepPayMapDTO {
         this.orderRelations = orderRelations;
     }
 
-    public Integer getOrderNo() {
-        return orderNo;
-    }
-
-    public void setOrderNo(Integer orderNo) {
-        this.orderNo = orderNo;
-    }
 }
 
 
