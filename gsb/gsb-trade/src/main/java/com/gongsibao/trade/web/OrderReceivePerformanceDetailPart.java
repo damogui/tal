@@ -1,5 +1,6 @@
 package com.gongsibao.trade.web;
 
+import com.gongsibao.entity.trade.dto.DepPayMapDTO;
 import com.gongsibao.trade.base.INDepReceivableService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.panda.commerce.DetailPart;
@@ -17,4 +18,15 @@ public class OrderReceivePerformanceDetailPart extends DetailPart {
 //        //NDepReceivable obj  = nDepReceivableService.save (null);
 //        return 1;
 //    }
+
+
+    /*回款业绩保存*/
+    public int saveNDepReceivableBySoder(DepPayMapDTO entity) {
+
+        return 1;
+    }
+
+
+
+
 }

@@ -49,11 +49,7 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
     }
 
 
-    /*回款业绩保存*/
-    public int saveNDepReceivableBySoder(DepPayMapDTO entity) {
 
-        return 1;
-    }
     
     /**
 	 * 是否是分期付款的订单
