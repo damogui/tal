@@ -1,8 +1,8 @@
 package com.gongsibao.panda.platform.operation.workspace.igirl;
 
 import com.gongsibao.entity.igirl.TradeMark;
-import com.gongsibao.igirl.web.TradeMarkCaseOptListPart;
-import com.gongsibao.igirl.web.TradeMarkListPart;
+import com.gongsibao.entity.igirl.TradeMarkCase;
+import com.gongsibao.igirl.web.TradeMarkOptListPart;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
@@ -16,13 +16,6 @@ import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-/**
- * @ClassName:  ProductWorkspaceTest
- * @Description:TODO 尼斯分类
- * @author: 蒋勇
- * @date:   20181.1.10
- *
- */
 public class TradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 
 	@Before
@@ -36,9 +29,9 @@ public class TradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		resourceNodeCode = "Operation_IGIRL_All_TradeMark";
 		formPartName = listPartName = meta.getName();
 		listToolbarPath="/operation/igirl/tradeMark/list";
-		listPartServiceController = TradeMarkCaseOptListPart.class.getName();
-		listPartJsController=TradeMarkListPart.class.getName();
-		listPartImportJs="/gsb/igirl/js/trademark.listpart.js";
+		listPartServiceController = TradeMarkOptListPart.class.getName();
+		listPartJsController=TradeMarkOptListPart.class.getName();
+		listPartImportJs="/gsb/igirl/js/trademark.opt.listpart.js";
 
 	}
 
@@ -133,7 +126,7 @@ public class TradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		column.setVisible(true);
 		column.setOrderbyMode(OrderbyMode.ASC);
 		column=addColumn(datagrid, "id","操作", ControlTypes.TEXT_BOX, 200);{
-			column.setFormatter("return controllertradeMarkList.markPic(value,row,index);");
+			column.setFormatter("return controllertradeMarkOptList.markPic(value,row,index);");
 		}
 		return datagrid;
 	}
