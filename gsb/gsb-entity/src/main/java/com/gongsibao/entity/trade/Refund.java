@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.gongsibao.entity.u8.U8Bank;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
@@ -35,6 +36,12 @@ public class Refund extends BaseEntity {
 
 	@Reference(foreignKey = "setOfBooksId")
 	private SetOfBooks setOfBooks;
+
+	@Column(name = "u8_bank_id", header = "支付方式")
+	private Integer u8BankId;
+
+	@Reference(foreignKey = "u8BankId")
+	private U8Bank u8Bank;
 
 	//审核状态序号，type=105，1051待审核、1052通过、1053不通过
 	@Column(name = "audit_status_id", header = "审核状态")
@@ -212,5 +219,21 @@ public class Refund extends BaseEntity {
 
 	public void setDepRefunds(List<NDepRefund> depRefunds) {
 		this.depRefunds = depRefunds;
+	}
+
+	public U8Bank getU8Bank() {
+		return u8Bank;
+	}
+
+	public void setU8Bank(U8Bank u8Bank) {
+		this.u8Bank = u8Bank;
+	}
+
+	public Integer getU8BankId() {
+		return u8BankId;
+	}
+
+	public void setU8BankId(Integer u8BankId) {
+		this.u8BankId = u8BankId;
 	}
 }

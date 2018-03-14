@@ -83,7 +83,7 @@ public class Pay extends BaseEntity {
     @Reference(foreignKey = "setOfBooksId")
     private SetOfBooks setOfBooks;
 
-    @Column(name = "u8_bank_id", header = "银行科目编号序号")
+    @Column(name = "u8_bank_id", header = "支付方式")
     private Integer u8BankId;
 
     @Reference(foreignKey = "u8BankId")
