@@ -55,8 +55,8 @@ public class OrderRefundController {
 	}
 
 	/**
-	 * @Title: applyStage
-	 * @Description: TODO(申请分期)
+	 * @Title: applyRefund
+	 * @Description: TODO(申请退款)
 	 * @param: @param soOrder
 	 * @param: @return
 	 * @return: Boolean

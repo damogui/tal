@@ -205,9 +205,17 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 //		tc.setYwPhone("010-84927588");
 		tc.setMailCode("100000");
 //		tc.setFax("010-84927588");
-		tc.setYwPhone(sl.getFax());
-		//tc.setMailCode(sl.getPostCode());
-		tc.setFax(sl.getFax());
+		if(sl!=null)
+		{
+			tc.setYwPhone(sl.getTelePhone());
+			//tc.setMailCode(sl.getPostCode());
+			tc.setFax(sl.getFax());
+		}
+		else {
+			tc.setYwPhone("010-84927588");
+			tc.setFax("010-84927588");
+		}
+
 		// 查出当前登陆人办的最后一个案子，取出案件联系人，然后赋予初值
 		Oql oql = new Oql();
 		{
