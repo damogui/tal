@@ -12,7 +12,7 @@ import com.gongsibao.entity.supplier.SupplierDepartment;
 /**
  * Created by win on 2018/2/26.
  */
-@Table(name = "n_dep_pay", header = "部门支付表")
+@Table(name = "n_dep_pay", header = "回款业绩")
 public class NDepPay extends Entity {
     /**
      * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
