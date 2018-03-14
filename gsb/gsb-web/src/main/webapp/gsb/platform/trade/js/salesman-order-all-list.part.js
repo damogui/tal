@@ -77,7 +77,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             btn: ['保存', '取消'],// 可以无限个按钮
 
             yes: function (index, layero) {
-                layer.closeAll();
+                //layer.closeAll();
                var num= document.getElementById('addReceivedIframe').firstElementChild.contentWindow.controllersoOrder .save();//保存
                 IMessageBox.toast('保存成功');
 

@@ -58,6 +58,7 @@ public class SoCreatReceivePerformanceFormPart extends FormPart {
         IU8BankService u8BankService = ServiceFactory.create (IU8BankService.class);//获取线下支付
         INU8BankSoPayMapService nU8BankSoPayMapService = ServiceFactory.create (INU8BankSoPayMapService.class);//插入u8中间表
         Pay pay = new Pay ();
+        pay.setAmount (entity.getAmount ());
         pay.setSetOfBooksId (entity.getSetOfBooks ());
         pay.setU8BankId (entity.getU8Bank ());
         pay.setOfflinePayerName (entity.getOfflinePayerName ());
