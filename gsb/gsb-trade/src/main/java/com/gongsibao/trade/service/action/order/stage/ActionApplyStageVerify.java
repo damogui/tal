@@ -1,7 +1,5 @@
 package com.gongsibao.trade.service.action.order.stage;
 
-import java.math.BigDecimal;
-
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
@@ -9,7 +7,6 @@ import org.netsharp.core.BusinessException;
 
 import com.gongsibao.entity.trade.NOrderStage;
 import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.trade.base.INOrderStageService;
 import com.gongsibao.u8.base.ISoOrderService;
 
 /**   

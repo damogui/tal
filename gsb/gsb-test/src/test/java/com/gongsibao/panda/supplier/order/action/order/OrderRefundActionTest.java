@@ -10,6 +10,7 @@ import com.gongsibao.trade.service.action.order.refund.ActionApplyRefundLog;
 import com.gongsibao.trade.service.action.order.refund.ActionApplyRefundPersist;
 import com.gongsibao.trade.service.action.order.refund.ActionApplyRefundSendMessage;
 import com.gongsibao.trade.service.action.order.refund.ActionApplyRefundVerify;
+import com.gongsibao.trade.service.action.order.refund.ActionApplyRefundWriteBack;
 
 /**   
  * @ClassName:  OrderRefundActionTest   
@@ -46,7 +47,8 @@ public class OrderRefundActionTest  extends BaseActionTest{
 		createBean(beanPath, "2.保存", ActionApplyRefundPersist.class.getName(), resourceNode, 200);
 		createBean(beanPath, "3.审核", ActionApplyRefundAudit.class.getName(), resourceNode, 300);
 		createBean(beanPath, "4.通知", ActionApplyRefundSendMessage.class.getName(), resourceNode, 400);
-		createBean(beanPath, "5.日志", ActionApplyRefundLog.class.getName(), resourceNode, 500);
+		createBean(beanPath, "5.回写", ActionApplyRefundWriteBack.class.getName(), resourceNode, 500);
+		createBean(beanPath, "6.日志", ActionApplyRefundLog.class.getName(), resourceNode, 600);
 		beanPathService.save(beanPath);
 	}
 }

@@ -67,4 +67,21 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
 		SoOrder entity = orderService.queryFirst(oql);
 		return entity.getStaged() == null ? false : entity.getStaged();
 	}
+	/**
+	 * 获取订单的退款状态
+	 * @param id
+	 * @return
+	 */
+	public Integer refundStatus(Integer id){
+		Oql oql = new Oql();
+		{
+			oql.setType(SoOrder.class);
+			oql.setSelects("*");
+			oql.setFilter("id=?");
+			oql.getParameters().add("id", id, Types.INTEGER);
+		}
+		SoOrder entity = orderService.queryFirst(oql);
+		return entity.getRefundStatus() == null ? 0 : entity.getRefundStatus().getValue();
+	}
+	
 }
