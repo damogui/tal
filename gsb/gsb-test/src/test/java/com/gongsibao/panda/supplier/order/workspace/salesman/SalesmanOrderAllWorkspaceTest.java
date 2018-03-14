@@ -174,7 +174,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
             item.toNew();
             item.setCode("batchOrderTran");
             item.setIcon(PToolbarHelper.iconTran);
-            item.setName("批量订单转移");
+            item.setName("批量转移");
             item.setSeq(9);
             item.setCommand("{controller}.batchOrderTran();");
             toolbar.getItems().add(item);
