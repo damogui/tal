@@ -53,8 +53,9 @@ public class SoCreatReceivedPerformanceWorkspaceTest extends WorkspaceCreationBa
         ss.add ("/gsb/platform/trade/js/so-receiveperformance-add.part.js");
         ss.add ("/gsb/panda-extend/gsb.customer.controls.js");
         formJsImport = StringManager.join ("|", ss);
-        // formJsController = SoCreatReceivePerformanceFormPart.class.getName();
         listPartJsController = SoCreatOrderPerformanceListPart.class.getName ();
+
+        formJsController = SoCreatReceivePerformanceFormPart.class.getName();
         formServiceController = SoCreatReceivePerformanceFormPart.class.getName ();//处理回款业绩
     }
 
@@ -214,34 +215,34 @@ public class SoCreatReceivedPerformanceWorkspaceTest extends WorkspaceCreationBa
 //
 //        }
 
-        formField = addFormField (form, "pays.pay.offlinePayerName", "付款账号名称", groupName2, ControlTypes.TEXT_BOX, false);
+        formField = addFormField (form, "offlinePayerName", "付款账号名称", groupName2, ControlTypes.TEXT_BOX, false);
         {
             formField.setReadonly (false);
 
         }
-        formField = addFormField (form, "pays.pay.offlineBankNo", "付款账号", groupName2, ControlTypes.TEXT_BOX, false);
-        {
-            formField.setReadonly (false);
-
-        }
-
-        formField = addFormField (form, "pays.pay.payForOrderCount", "是否一笔多单", groupName2, ControlTypes.SWITCH_BUTTON, false);
-        {
-            formField.setReadonly (false);
-
-        }
-        formField = addFormField (form, "pays.pay.amount", "付款金额", groupName2, ControlTypes.TEXT_BOX, false);
+        formField = addFormField (form, "offlineBankNo", "付款账号", groupName2, ControlTypes.TEXT_BOX, false);
         {
             formField.setReadonly (false);
 
         }
 
-        formField = addFormField (form, "pays.pay.files", "付款凭证", groupName2, ControlTypes.OSS_UPLOAD, false);
+        formField = addFormField (form, "payForOrderCount", "是否一笔多单", groupName2, ControlTypes.SWITCH_BUTTON, false);
         {
             formField.setReadonly (false);
 
         }
-        formField = addFormField (form, "pays.pay.offlineRemark", "付款说明", groupName2, ControlTypes.TEXT_BOX, false);
+        formField = addFormField (form, "amount", "付款金额", groupName2, ControlTypes.TEXT_BOX, false);
+        {
+            formField.setReadonly (false);
+
+        }
+
+        formField = addFormField (form, "files", "付款凭证", groupName2, ControlTypes.OSS_UPLOAD, false);
+        {
+            formField.setReadonly (false);
+
+        }
+        formField = addFormField (form, "offlineRemark", "付款说明", groupName2, ControlTypes.TEXT_BOX, false);
         {
             formField.setReadonly (false);
 

@@ -20,11 +20,7 @@ public class OrderReceivePerformanceDetailPart extends DetailPart {
 //    }
 
 
-    /*回款业绩保存*/
-    public int saveNDepReceivableBySoder(DepPayMapDTO entity) {
 
-        return 1;
-    }
 
 
 

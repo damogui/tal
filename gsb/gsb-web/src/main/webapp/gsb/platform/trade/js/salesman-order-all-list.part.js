@@ -40,7 +40,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
 
             },
             yes: function (index, layero) {
-
+                debugger;
                 layer.closeAll();
                 document.getElementById('addOrderReceivedIframe').firstElementChild.contentWindow.controllersoOrder.save();//保存
                 IMessageBox.toast('保存成功');
@@ -77,9 +77,8 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
 
             yes: function (index, layero) {
                 layer.closeAll();
-               var num= document.getElementById('addReceivedIframe').firstElementChild.contentWindow.controllerpays .save();//保存
+                var num = document.getElementById('addReceivedIframe').firstElementChild.contentWindow.controllersoOrder.save();//保存
                 IMessageBox.toast('保存成功');
-
 
 
             },

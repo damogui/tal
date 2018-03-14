@@ -112,4 +112,12 @@ public class NDepPay extends Entity {
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
+
+    public Integer getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(Integer employeeId) {
+        this.employeeId = employeeId;
+    }
 }
