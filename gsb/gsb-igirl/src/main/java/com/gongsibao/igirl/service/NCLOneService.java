@@ -4,6 +4,9 @@ import com.gongsibao.bd.service.GsbPersistableService;
 import com.gongsibao.entity.igirl.baseinfo.NCLOne;
 import com.gongsibao.igirl.base.INCLOneService;
 import org.netsharp.communication.Service;
+import org.netsharp.core.Oql;
+
+import java.sql.Types;
 
 @Service
 public class NCLOneService extends GsbPersistableService<NCLOne> implements INCLOneService {
@@ -11,6 +14,18 @@ public class NCLOneService extends GsbPersistableService<NCLOne> implements INCL
 	public NCLOneService() {
 		super();
 		this.type = NCLOne.class;
+	}
+
+	@Override
+	public NCLOne getNclOneByCode(String code) {
+		Oql oql=new Oql();
+		{
+			oql.setType(NCLOne.class);
+			oql.setSelects("NCLOne.*");
+			oql.setFilter(" code=?");
+			oql.getParameters().add("code", code, Types.VARCHAR);
+		}
+		return this.queryFirst(oql);
 	}
 
 //	@Override
