@@ -77,10 +77,10 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
         addColumn(datagrid, "myOrderCutAmount", "我的回款业绩额", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "pay.offlineAuditStatus", "审核状态", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "pay.payTime", "回款日期", ControlTypes.DATETIME_BOX, 100);
-        addColumn(datagrid, "pay.depPayCreateTime", "回款业绩创建时间", ControlTypes.DATETIME_BOX, 100);
+        addColumn(datagrid, "pay.createTime", "回款业绩创建时间", ControlTypes.DATETIME_BOX, 100);
         addColumn(datagrid, "pay.depPayAuditPassTime", "回款业绩审核通过时间", ControlTypes.DATETIME_BOX, 100);
         addColumn(datagrid, "soOrder.createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);
-        addColumn(datagrid, "pay.depPayCreateEmployeeName", "回款业绩创建人", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "pay.creator", "回款业绩创建人", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
 
         return datagrid;
@@ -104,9 +104,9 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
         addQueryItem(queryProject, "pay.successStatus", "支付状态", ControlTypes.ENUM_BOX);
         addQueryItem(queryProject, "pay.payWayType", "支付类别", ControlTypes.ENUM_BOX);
         addQueryItem(queryProject, "ywyName", "业务员", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "depPayCreateEmployeeName", "回款业绩创建人", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "payCreator", "回款业绩创建人", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "pay.payForOrderCount", "是否一笔多单", ControlTypes.ENUM_BOX);
-        addQueryItem(queryProject, "depPayCreateTime", "回款业绩创建时间", ControlTypes.DATE_BOX);
+        addQueryItem(queryProject, "payCreateTime", "回款业绩创建时间", ControlTypes.DATE_BOX);
         addQueryItem(queryProject, "orderCreateTime", "订单创建时间", ControlTypes.DATE_BOX);
         return queryProject;
     }

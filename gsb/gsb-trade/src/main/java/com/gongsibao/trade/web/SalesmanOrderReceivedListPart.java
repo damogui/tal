@@ -60,8 +60,8 @@ public class SalesmanOrderReceivedListPart extends AdvancedListPart {
         }
 
         //回款业绩创建人
-        if (parameter.getKey().equals("depPayCreateEmployeeName")) {
-            return "pay_id in (select pkid from so_pay where dep_pay_create_employee_name like '%" + keyword + "%' )";
+        if (parameter.getKey().equals("payCreator")) {
+            return "pay_id in (select pkid from so_pay where creator like '%" + keyword + "%' )";
         }
 
         //是否一笔多单
@@ -75,13 +75,13 @@ public class SalesmanOrderReceivedListPart extends AdvancedListPart {
         }
 
         //回款业绩创建时间
-        if (parameter.getKey().equals("depPayCreateTime")) {
+        if (parameter.getKey().equals("payCreateTime")) {
             List<String> depPayCreateTimeWhere = new ArrayList<>();
             if (parameter.getValue1() != null) {
-                depPayCreateTimeWhere.add(" dep_pay_create_time >= '" + parameter.getValue1().toString() + "'");
+                depPayCreateTimeWhere.add(" add_time >= '" + parameter.getValue1().toString() + "'");
             }
             if (parameter.getValue2() != null) {
-                depPayCreateTimeWhere.add(" dep_pay_create_time <= '" + parameter.getValue2().toString() + "'");
+                depPayCreateTimeWhere.add(" add_time <= '" + parameter.getValue2().toString() + "'");
             }
             return "pay_id in (select pkid from so_pay where " + StringManager.join(" and ", depPayCreateTimeWhere) + " )";
         }
