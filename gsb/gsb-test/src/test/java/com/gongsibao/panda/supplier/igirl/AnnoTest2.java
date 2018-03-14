@@ -1,19 +1,24 @@
 package com.gongsibao.panda.supplier.igirl;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
+import org.junit.Test;
+import org.netsharp.cache.service.redis.RedisCacheCommand;
+import org.netsharp.cache.service.redis.RedisConnection;
+import org.netsharp.communication.ServiceFactory;
+
 import com.gongsibao.entity.igirl.TradeMark;
 import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.UploadAttachment;
 import com.gongsibao.entity.igirl.baseinfo.NCLOne;
 import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
-import com.gongsibao.entity.igirl.baseinfo.NclBatch;
-import com.gongsibao.igirl.base.*;
+import com.gongsibao.igirl.base.INCLOneService;
+import com.gongsibao.igirl.base.INCLTwoService;
+import com.gongsibao.igirl.base.INclBatchService;
+import com.gongsibao.igirl.base.ITradeMarkCaseService;
+import com.gongsibao.igirl.base.ITradeMarkService;
+import com.gongsibao.igirl.base.IUploadAttachmentService;
 import com.gongsibao.tools.HttpUtils;
-import com.sun.xml.internal.bind.v2.TODO;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import org.junit.Test;
-import org.netsharp.cache.service.redis.RedisCacheCommand;
-import org.netsharp.cache.service.redis.RedisConnection;
-import org.netsharp.communication.ServiceFactory;
 
 public class AnnoTest2 {
 	@Test

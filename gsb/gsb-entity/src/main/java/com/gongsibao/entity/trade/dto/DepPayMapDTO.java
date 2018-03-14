@@ -1,5 +1,6 @@
 package com.gongsibao.entity.trade.dto;
 
+import com.gongsibao.entity.trade.NDepPay;
 import com.gongsibao.entity.trade.OrderPayMap;
 
 import java.util.List;
@@ -9,25 +10,25 @@ import java.util.List;
  */
 public class DepPayMapDTO {
 
-    //private Integer orderNo;
+    private Integer orderNo;
   /*付款账套*/
     private Integer setOfBooks;
     /*u8Bank*/
     private Integer u8Bank;
     /*付款账号名称*/
-    private Integer offlinePayerName;
+    private String offlinePayerName;
     /*付款账号*/
-    private Integer offlineBankNo;
+    private String offlineBankNo;
     /*是否一笔多单*/
     private Boolean payForOrderCount;
     /*付款金额*/
     private Integer amount;
     /*付款凭证*/
-    private Integer files;
+    private String files;
     /*付款说明*/
-    private Integer offlineRemark;
+    private String offlineRemark;
     /*回款订单关联*/
-    private List<OrderPayMap> orderPayMaps;
+    private List<OrderRelationDTO> orderRelations;
 
 
     public Integer getSetOfBooks() {
@@ -46,19 +47,20 @@ public class DepPayMapDTO {
         this.u8Bank = u8Bank;
     }
 
-    public Integer getOfflinePayerName() {
+
+    public String getOfflinePayerName() {
         return offlinePayerName;
     }
 
-    public void setOfflinePayerName(Integer offlinePayerName) {
+    public void setOfflinePayerName(String offlinePayerName) {
         this.offlinePayerName = offlinePayerName;
     }
 
-    public Integer getOfflineBankNo() {
+    public String getOfflineBankNo() {
         return offlineBankNo;
     }
 
-    public void setOfflineBankNo(Integer offlineBankNo) {
+    public void setOfflineBankNo(String offlineBankNo) {
         this.offlineBankNo = offlineBankNo;
     }
 
@@ -78,27 +80,38 @@ public class DepPayMapDTO {
         this.amount = amount;
     }
 
-    public Integer getFiles() {
+    public String getFiles() {
         return files;
     }
 
-    public void setFiles(Integer files) {
+    public void setFiles(String files) {
         this.files = files;
     }
 
-    public Integer getOfflineRemark() {
+    public String getOfflineRemark() {
         return offlineRemark;
     }
 
-    public void setOfflineRemark(Integer offlineRemark) {
+    public void setOfflineRemark(String offlineRemark) {
         this.offlineRemark = offlineRemark;
     }
 
-    public List<OrderPayMap> getOrderPayMaps() {
-        return orderPayMaps;
+
+    public List<OrderRelationDTO> getOrderRelations() {
+        return orderRelations;
     }
 
-    public void setOrderPayMaps(List<OrderPayMap> orderPayMaps) {
-        this.orderPayMaps = orderPayMaps;
+    public void setOrderRelations(List<OrderRelationDTO> orderRelations) {
+        this.orderRelations = orderRelations;
+    }
+
+    public Integer getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(Integer orderNo) {
+        this.orderNo = orderNo;
     }
 }
+
+

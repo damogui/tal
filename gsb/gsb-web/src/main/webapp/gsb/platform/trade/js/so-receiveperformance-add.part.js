@@ -1,6 +1,55 @@
 System.Declare("com.gongsibao.trade.web");
+
+com.gongsibao.trade.web.SoCreatReceivePerformanceFormPart = org.netsharp.panda.commerce.FormPart.Extends({
+
+    save: function () {
+        var me = this;
+        var depPayMapDTO = {};
+        debugger;
+        depPayMapDTO.orderPayMaps = []; //$("#pays_u8Bank_setOfBooks_name").textbox("getValue");
+        depPayMapDTO.setOfBooks = $("#pays_u8Bank_setOfBooks_name").combogrid("getValue");
+        depPayMapDTO.u8Bank = $("#pays_u8Bank_name").combogrid("getValue");
+        depPayMapDTO.offlinePayerName = $("#offlinePayerName").val();
+        depPayMapDTO.offlineBankNo = $("#offlineBankNo").val();
+        depPayMapDTO.payForOrderCount = $("#payForOrderCount")[0].checked;
+        depPayMapDTO.amount = $("#amount").val();
+
+        depPayMapDTO.files = $("#files").val();
+        depPayMapDTO.offlineRemark = $("#offlineRemark").val();
+
+        var rows = $('#datagridpays').datagrid('getRows');//添加的行
+
+        var orderRelations=[];
+        $(rows).each(function (i, item) {
+            var orderRelation = {};
+            orderRelation.orderId = item.orderId;
+            orderRelation.orderCutAmount = item.orderCutAmount;
+            orderRelation.payType = item.payType;
+            debugger;
+            orderRelation.items = item.items;
+            orderRelations.push(orderRelation);
+        });
+        depPayMapDTO.orderRelations=orderRelations;
+
+        me.invokeService('saveNDepReceivableBySoder', [depPayMapDTO], function (data) {
+
+            if (data > 0) {
+
+                IMessageBox.toast('保存成功');
+
+            } else {
+
+                IMessageBox.toast('保存失败');
+            }
+        });
+
+        alert("保存");
+        return;
+
+    },
+});
 //创建回款业绩
-var depPayMapDTO=[];//关联回款订单的入库实体
+var depPayMapDTO = [];//关联回款订单的入库实体
 com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.commerce.DetailPart.Extends({
 
     ctor: function () {
@@ -85,25 +134,9 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
                     orderDepPay.departmentId = departmentId;
                     orderDepPay.salesmanId = toUserId;
                     orderDepPay.amount = cutamount;
-
                     orderDepPay.suppliername = suppliername;
                     orderDepPay.departmentname = departmentname;
                     orderDepPay.salesmanname = toUsername;
-                    var backOrder={};//添加回款订单小弹窗的数据
-                    var orderDepPayP={};//添加回款订单小弹窗的数据
-                    orderDepPayP.supplierId=supplierId;
-                    orderDepPayP.departmentId=departmentId;
-                    orderDepPayP.salesmanId=toUserId;
-
-                    backOrder.orderNo=$("#orderNo").numberbox("getValue");
-                    backOrder.orderCutPrice=$("#orderCutPrice").numberbox("getValue");
-                    backOrder.payType=$("#payType").combobox("getValue");
-                    backOrder.orderDepPayP=orderDepPayP;
-
-
-                    depPayMapDTO.push(backOrder);
-
-
                     $('#order_product_grid').datagrid('appendRow', orderDepPay);//赋值
                     return;
 
@@ -112,44 +145,25 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
 
         });
 
+
+        $("body").off("click", "#peperformanceDel");
         $("body").on("click", "#peperformanceDel", function () {
 
-            alert("删除");
-
-        });
-
-
-    },
-    save:function () {
-
-        var depPayMapDTO={};
-        // depPayMapDTO.setOfBooks=$("#pays_u8Bank_setOfBooks_name").combogrid("getValue");
-        // depPayMapDTO.u8Bank=$("#pays_u8Bank_name").combogrid("getValue");
-        // depPayMapDTO.offlinePayerName=$("#pays.pay.offlinePayerName").textbox("getValue");
-        // depPayMapDTO.offlineBankNo=$("#pays.pay.offlineBankNo").textbox("getValue");
-        // // depPayMapDTO.payForOrderCount=$("#pays.pay.payForOrderCount").textbox("getValue");
-        // depPayMapDTO.amount=$("#pays.pay.amount").textbox("getValue");
-        // //depPayMapDTO.files=$("#button_pays.pay.files").textbox("getValue");
-        // depPayMapDTO.offlineRemark=$("#pays.pay.offlineRemark").textbox("getValue");
-        debugger;
-
-       
-       // document.getElementById('addReceivedIframe').firstElementChild.contentWindow.depPayMapDTO;//保存
-        depPayMapDTO.orderPayMaps=$("#pays_u8Bank_setOfBooks_name").textbox("getValue");
-
-        me.invokeService('saveNDepReceivableBySoder',[depPayMapDTO], function(data){
-
-            if(data>0){
-
-                IMessageBox.toast('保存成功');
-
-            }else{
-
-                IMessageBox.toast('保存失败');
+            var rows = $('#order_product_grid').datagrid('getSelected');
+            if (rows.length != undefined) {
+                for (var i = rows.length - 1; i >= 0; i--) {
+                    var index = $('#order_product_grid').datagrid('getRowIndex', rows[i]);
+                    $('#order_product_grid').datagrid('deleteRow', index);
+                }
             }
+            else {
+
+                var index = $('#order_product_grid').datagrid('getRowIndex', rows);
+                $('#order_product_grid').datagrid('deleteRow', index);
+            }
+
         });
 
-        alert("保存");
 
     },
 
@@ -245,12 +259,11 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
             yes: function (index, layero) {
 
                 alert("提交数据");
-
+                //进行绑定数据
                 var orderBack = me.getOrderBack();
 
                 $('#datagridpays').datagrid('appendRow', orderBack);//赋值
-
-                // callback(orderProd);
+                debugger;
                 layer.closeAll();
             }
         });
@@ -261,14 +274,7 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
     getOrderBack: function () {
 
         // //构建关联回款订单
-        var rows = $('#order_product_grid').datagrid('getChecked');//添加的行
-
-        // var departmentId = $('#cut_department_name').combogrid('getValue');
-        // var toUserId = $('#cut_employee_name').combogrid('getValue');
-        // var cutamount = $('#cut_amount').numberbox('getValue');
-        // var suppliername = $('#cut_supplier_name').combogrid('getText');
-        // var departmentname = $('#cut_department_name').combogrid('getText');
-        // var toUsername = $('#cut_employee_name').combogrid('getText');
+        var rows = $('#order_product_grid').datagrid('getRows');//添加的行
 
         var orderBack = {};
         orderBack.orderId = $("#orderNo").numberbox("getValue");
@@ -277,25 +283,30 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
         orderBack.payTypeStr = $("#payType").combogrid("getText");
 
 
-
         var suppliernameStr = "";
         var departmentnameStr = "";
         var salesmannameStr = "";
         var amountStr = "";
-
-
-        // orderBack.items = [];
+        var items = [];
         $(rows).each(function (i, item) {
-            suppliernameStr+='<p>' + item.suppliername + '</p>';
-            departmentnameStr+='<p>' + item.departmentname + '</p>';
-            salesmannameStr+='<p>' + item.salesmanname + '</p>';
-            amountStr+='<p>' + item.amount + '</p>';
+            suppliernameStr += '<p>' + item.suppliername + '</p>';
+            departmentnameStr += '<p>' + item.departmentname + '</p>';
+            salesmannameStr += '<p>' + item.salesmanname + '</p>';
+            amountStr += '<p>' + item.amount + '</p>';
+            var allDepPay={};
+            allDepPay.supplierId=item.supplierId;
+            allDepPay.departmentId=item.departmentId;
+            allDepPay.employeeId=item.salesmanId;
+            allDepPay.amount=item.amount;
+            items.push(allDepPay);
         });
-
+        debugger;
         orderBack.supperName = suppliernameStr;
         orderBack.depName = departmentnameStr;
         orderBack.cutMan = salesmannameStr;
         orderBack.cutAmountStr = amountStr;
+        orderBack.items = items;//循环保存实体
+        debugger;
         return orderBack;
     },
     choiceNameFormatter: function (value, row, index) {

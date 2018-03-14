@@ -98,20 +98,29 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             return false;
         }
         var contentUrl = this.addRefundUrl + "?id=" + row.id;
-        layer.open({
-            type: 2,//1是字符串 2是内容
-            title: '订单信息',
-            fixed: false,
-            maxmin: true,
-            shadeClose: false,
-            area: ['70%', '70%'],
-            zIndex: 100000,
-            id: "addRefundIframe",
-            content: contentUrl,
-            btn: ['保存', '取消'],// 可以无限个按钮
-            yes: function (index, layero) {
-                document.getElementById('addRefundIframe').firstElementChild.contentWindow.refundCtrl.save();
-            },
+        //
+        me.invokeService("refundStatus", [row.id], function (data) {
+        	if(data == 3031){
+        		layer.msg('退款待审核中，暂不能操作！');
+        	}else if(data == 3032){
+        		layer.msg('退款中，暂不能操作！');
+        	}else{
+        		layer.open({
+                    type: 2,//1是字符串 2是内容
+                    title: '订单信息',
+                    fixed: false,
+                    maxmin: true,
+                    shadeClose: false,
+                    area: ['70%', '70%'],
+                    zIndex: 100000,
+                    id: "addRefundIframe",
+                    content: contentUrl,
+                    btn: ['保存', '取消'],// 可以无限个按钮
+                    yes: function (index, layero) {
+                        document.getElementById('addRefundIframe').firstElementChild.contentWindow.refundCtrl.save();
+                    },
+                });
+        	}
         });
     },
     addCarryover: function (id) {//创建结转

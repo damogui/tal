@@ -3,6 +3,8 @@ package com.gongsibao.entity.trade;
 import java.util.Date;
 import java.util.List;
 
+import com.gongsibao.entity.u8.SetOfBooks;
+import com.gongsibao.entity.u8.U8Bank;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
@@ -75,6 +77,17 @@ public class Pay extends BaseEntity {
     @Subs(subType = File.class, foreignKey = "formId", header = "上传图片表（一个支付可以多个凭证）")
     private List<File> files;
 
+    @Column(name = "set_of_books_id", header = "账套id")
+    private Integer setOfBooksId;
+
+    @Reference(foreignKey = "setOfBooksId")
+    private SetOfBooks setOfBooks;
+
+    @Column(name = "u8_bank_id", header = "支付方式")
+    private Integer u8BankId;
+
+    @Reference(foreignKey = "u8BankId")
+    private U8Bank u8Bank;
 
     @Column(name = "online_trade_no", header = "在线交易号")
     private String onlineTradeNo;
@@ -88,17 +101,17 @@ public class Pay extends BaseEntity {
     @Column(name = "pay_for_order_count", header = "支付订单数量（0:一笔单单 1:一笔多单）")
     private PayForOrderCountType payForOrderCount = PayForOrderCountType.Ybdd;
 
-    @Column(name = "dep_pay_create_time", header = "回款业绩创建时间")
-    private Date depPayCreateTime;
+    /*@Column(name = "dep_pay_create_time", header = "回款业绩创建时间")
+    private Date depPayCreateTime;*/
 
     @Column(name = "dep_pay_audit_pass_time", header = "回款业绩审核通过时间")
     private String depPayAuditPassTime;
 
-    @Column(name = "dep_pay_create_employee_id", header = "回款业绩创建人id")
+    /*@Column(name = "dep_pay_create_employee_id", header = "回款业绩创建人id")
     private Integer depPayCreateEmployeeId;
 
     @Column(name = "dep_pay_create_employee_name", header = "回款业绩创建人")
-    private Integer depPayCreateEmployeeName;
+    private Integer depPayCreateEmployeeName;*/
 
     public Date getPayTime() {
         return payTime;
@@ -268,14 +281,6 @@ public class Pay extends BaseEntity {
         this.files = files;
     }
 
-    public Date getDepPayCreateTime() {
-        return depPayCreateTime;
-    }
-
-    public void setDepPayCreateTime(Date depPayCreateTime) {
-        this.depPayCreateTime = depPayCreateTime;
-    }
-
     public String getDepPayAuditPassTime() {
         return depPayAuditPassTime;
     }
@@ -284,19 +289,35 @@ public class Pay extends BaseEntity {
         this.depPayAuditPassTime = depPayAuditPassTime;
     }
 
-    public Integer getDepPayCreateEmployeeId() {
-        return depPayCreateEmployeeId;
+    public Integer getSetOfBooksId() {
+        return setOfBooksId;
     }
 
-    public void setDepPayCreateEmployeeId(Integer depPayCreateEmployeeId) {
-        this.depPayCreateEmployeeId = depPayCreateEmployeeId;
+    public void setSetOfBooksId(Integer setOfBooksId) {
+        this.setOfBooksId = setOfBooksId;
     }
 
-    public Integer getDepPayCreateEmployeeName() {
-        return depPayCreateEmployeeName;
+    public SetOfBooks getSetOfBooks() {
+        return setOfBooks;
     }
 
-    public void setDepPayCreateEmployeeName(Integer depPayCreateEmployeeName) {
-        this.depPayCreateEmployeeName = depPayCreateEmployeeName;
+    public void setSetOfBooks(SetOfBooks setOfBooks) {
+        this.setOfBooks = setOfBooks;
+    }
+
+    public Integer getU8BankId() {
+        return u8BankId;
+    }
+
+    public void setU8BankId(Integer u8BankId) {
+        this.u8BankId = u8BankId;
+    }
+
+    public U8Bank getU8Bank() {
+        return u8Bank;
+    }
+
+    public void setU8Bank(U8Bank u8Bank) {
+        this.u8Bank = u8Bank;
     }
 }
