@@ -88,8 +88,9 @@ com.gongsibao.trade.web.OrderRefundCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     		if(r){
 
     			me.invokeService("applyRefund", [refund], function(data){
-    	    		
-    	    		IMessageBox.info('申请成功，请等待审核!');
+    				IMessageBox.info('申请成功，请等待审核!',function(s){
+    	    			window.parent.layer.closeAll();
+    	    		});
     	    	});
     		}
     	});
