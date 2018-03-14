@@ -1,6 +1,7 @@
 package com.gongsibao.trade.base;
 
 import org.netsharp.base.IPersistableService;
+import org.netsharp.core.annotations.Transaction;
 
 import com.gongsibao.entity.trade.NOrderCarryover;
 import com.gongsibao.entity.trade.Refund;
@@ -16,6 +17,7 @@ public interface IOrderService extends IPersistableService<SoOrder> {
 	 * @return: Boolean      
 	 * @throws   
 	 */
+	@Transaction
 	Boolean applyStage(SoOrder soOrder);
 	
 	
@@ -27,6 +29,7 @@ public interface IOrderService extends IPersistableService<SoOrder> {
 	 * @return: Boolean      
 	 * @throws   
 	 */
+	@Transaction
 	Boolean applyRefund(Refund refund);
 	
 	/**   
@@ -36,5 +39,6 @@ public interface IOrderService extends IPersistableService<SoOrder> {
 	 * @return: Boolean      
 	 * @throws   
 	 */
+	@Transaction
 	Boolean applyCarryover(NOrderCarryover orderCarryover);
 }

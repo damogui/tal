@@ -18,7 +18,7 @@ public class ActionApplyRefundPersist  implements IAction{
 		refund.setWayType(RefundWayType.Dsh);
 		//目前给默认值
 		refund.setNo("");
-		refund.setCost(new Integer(1));
+		refund.setCost(0);
 		refundService.save(refund);
 	}
 }
