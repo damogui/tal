@@ -101,17 +101,17 @@ public class Pay extends BaseEntity {
     @Column(name = "pay_for_order_count", header = "支付订单数量（0:一笔单单 1:一笔多单）")
     private PayForOrderCountType payForOrderCount = PayForOrderCountType.Ybdd;
 
-    @Column(name = "dep_pay_create_time", header = "回款业绩创建时间")
-    private Date depPayCreateTime;
+    /*@Column(name = "dep_pay_create_time", header = "回款业绩创建时间")
+    private Date depPayCreateTime;*/
 
     @Column(name = "dep_pay_audit_pass_time", header = "回款业绩审核通过时间")
     private String depPayAuditPassTime;
 
-    @Column(name = "dep_pay_create_employee_id", header = "回款业绩创建人id")
+    /*@Column(name = "dep_pay_create_employee_id", header = "回款业绩创建人id")
     private Integer depPayCreateEmployeeId;
 
     @Column(name = "dep_pay_create_employee_name", header = "回款业绩创建人")
-    private Integer depPayCreateEmployeeName;
+    private Integer depPayCreateEmployeeName;*/
 
     public Date getPayTime() {
         return payTime;
@@ -281,36 +281,12 @@ public class Pay extends BaseEntity {
         this.files = files;
     }
 
-    public Date getDepPayCreateTime() {
-        return depPayCreateTime;
-    }
-
-    public void setDepPayCreateTime(Date depPayCreateTime) {
-        this.depPayCreateTime = depPayCreateTime;
-    }
-
     public String getDepPayAuditPassTime() {
         return depPayAuditPassTime;
     }
 
     public void setDepPayAuditPassTime(String depPayAuditPassTime) {
         this.depPayAuditPassTime = depPayAuditPassTime;
-    }
-
-    public Integer getDepPayCreateEmployeeId() {
-        return depPayCreateEmployeeId;
-    }
-
-    public void setDepPayCreateEmployeeId(Integer depPayCreateEmployeeId) {
-        this.depPayCreateEmployeeId = depPayCreateEmployeeId;
-    }
-
-    public Integer getDepPayCreateEmployeeName() {
-        return depPayCreateEmployeeName;
-    }
-
-    public void setDepPayCreateEmployeeName(Integer depPayCreateEmployeeName) {
-        this.depPayCreateEmployeeName = depPayCreateEmployeeName;
     }
 
     public Integer getSetOfBooksId() {
