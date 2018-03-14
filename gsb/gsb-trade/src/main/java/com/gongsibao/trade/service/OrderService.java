@@ -5,6 +5,7 @@ import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.service.PersistableService;
 
+import com.gongsibao.entity.trade.NOrderCarryover;
 import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.base.IOrderService;
@@ -80,6 +81,20 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
 			ctx.setPath("gsb/crm/order/refund");
 			ctx.setItem(refund);
 			ctx.setState(refund.getEntityState());
+		}
+		ActionManager action = new ActionManager();
+		action.execute(ctx);
+		return true;
+	}
+
+	@Override
+	public Boolean applyCarryover(NOrderCarryover orderCarryover) {
+
+		ActionContext ctx = new ActionContext();
+		{
+			ctx.setPath("gsb/crm/order/carryover");
+			ctx.setItem(orderCarryover);
+			ctx.setState(orderCarryover.getEntityState());
 		}
 		ActionManager action = new ActionManager();
 		action.execute(ctx);
