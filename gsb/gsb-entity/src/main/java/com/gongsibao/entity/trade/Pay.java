@@ -3,6 +3,8 @@ package com.gongsibao.entity.trade;
 import java.util.Date;
 import java.util.List;
 
+import com.gongsibao.entity.u8.SetOfBooks;
+import com.gongsibao.entity.u8.U8Bank;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
@@ -75,6 +77,17 @@ public class Pay extends BaseEntity {
     @Subs(subType = File.class, foreignKey = "formId", header = "上传图片表（一个支付可以多个凭证）")
     private List<File> files;
 
+    @Column(name = "set_of_books_id", header = "账套id")
+    private Integer setOfBooksId;
+
+    @Reference(foreignKey = "setOfBooksId")
+    private SetOfBooks setOfBooks;
+
+    @Column(name = "u8_bank_id", header = "银行科目编号序号")
+    private Integer u8BankId;
+
+    @Reference(foreignKey = "u8BankId")
+    private U8Bank u8Bank;
 
     @Column(name = "online_trade_no", header = "在线交易号")
     private String onlineTradeNo;
@@ -298,5 +311,37 @@ public class Pay extends BaseEntity {
 
     public void setDepPayCreateEmployeeName(Integer depPayCreateEmployeeName) {
         this.depPayCreateEmployeeName = depPayCreateEmployeeName;
+    }
+
+    public Integer getSetOfBooksId() {
+        return setOfBooksId;
+    }
+
+    public void setSetOfBooksId(Integer setOfBooksId) {
+        this.setOfBooksId = setOfBooksId;
+    }
+
+    public SetOfBooks getSetOfBooks() {
+        return setOfBooks;
+    }
+
+    public void setSetOfBooks(SetOfBooks setOfBooks) {
+        this.setOfBooks = setOfBooks;
+    }
+
+    public Integer getU8BankId() {
+        return u8BankId;
+    }
+
+    public void setU8BankId(Integer u8BankId) {
+        this.u8BankId = u8BankId;
+    }
+
+    public U8Bank getU8Bank() {
+        return u8Bank;
+    }
+
+    public void setU8Bank(U8Bank u8Bank) {
+        this.u8Bank = u8Bank;
     }
 }
