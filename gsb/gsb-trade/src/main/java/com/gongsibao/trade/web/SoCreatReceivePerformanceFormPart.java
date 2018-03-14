@@ -3,7 +3,11 @@ package com.gongsibao.trade.web;
 import java.sql.Types;
 import java.util.List;
 
+import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.entity.trade.dto.DepPayMapDTO;
+import com.gongsibao.trade.base.INDepPayService;
+import com.gongsibao.trade.base.IOrderPayMapService;
+import com.gongsibao.trade.base.IPayService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.QueryParameters;
@@ -49,6 +53,15 @@ public class SoCreatReceivePerformanceFormPart extends FormPart {
 
     /*回款业绩保存*/
     public int saveNDepReceivableBySoder(DepPayMapDTO entity) {
+        IPayService  payService = ServiceFactory.create (IPayService.class);//订单支付表
+        IOrderPayMapService orderPayMapService = ServiceFactory.create (IOrderPayMapService.class);//订单支付中间表
+        INDepPayService  nDepPayService = ServiceFactory.create (INDepPayService.class);//回款业绩表
+        Pay   pay=new Pay ();
+//        pay.set
+//        payService.save ();
+
+
+
 
         return 1;
     }
