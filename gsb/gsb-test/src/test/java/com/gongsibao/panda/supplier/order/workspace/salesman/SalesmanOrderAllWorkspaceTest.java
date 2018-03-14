@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.netsharp.core.EntityState;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;

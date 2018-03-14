@@ -1,7 +1,5 @@
 package com.gongsibao.panda.supplier.order.workspace.salesman;
 
-import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.tools.PToolbarHelper;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.EntityState;
@@ -17,6 +15,9 @@ import org.netsharp.panda.plugin.dic.ToolbarType;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
+
+import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.tools.PToolbarHelper;
 
 /*月统计*/
 public class SalesmanReportMonthWorkspaceTest extends WorkspaceCreationBase {

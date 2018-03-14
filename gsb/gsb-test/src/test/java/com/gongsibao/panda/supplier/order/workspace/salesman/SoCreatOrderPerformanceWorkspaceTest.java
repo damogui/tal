@@ -1,15 +1,8 @@
 package com.gongsibao.panda.supplier.order.workspace.salesman;
 
-import com.gongsibao.controls.CityComboBox;
-import com.gongsibao.controls.DictComboBox;
-import com.gongsibao.entity.crm.CompanyIntention;
-import com.gongsibao.entity.product.Product;
-import com.gongsibao.entity.supplier.Supplier;
-import com.gongsibao.entity.supplier.SupplierDepartment;
-import com.gongsibao.entity.trade.NDepReceivable;
-import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.tools.PToolbarHelper;
-import com.gongsibao.trade.web.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.EntityState;
@@ -17,12 +10,16 @@ import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.Employee;
-import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.PartType;
-import org.netsharp.panda.entity.*;
+import org.netsharp.panda.entity.PDatagrid;
+import org.netsharp.panda.entity.PDatagridColumn;
+import org.netsharp.panda.entity.PForm;
+import org.netsharp.panda.entity.PFormField;
+import org.netsharp.panda.entity.PPart;
+import org.netsharp.panda.entity.PWorkspace;
 import org.netsharp.panda.plugin.dic.ToolbarType;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
@@ -30,8 +27,13 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 import org.netsharp.util.StringManager;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.entity.supplier.SupplierDepartment;
+import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.tools.PToolbarHelper;
+import com.gongsibao.trade.web.OrderPerformanceDetailPart;
+import com.gongsibao.trade.web.SoCreatOrderPerformanceFormPart;
+import com.gongsibao.trade.web.SoCreatOrderPerformanceListPart;
 
 /**
  * Created by win on 2018/3/5.
