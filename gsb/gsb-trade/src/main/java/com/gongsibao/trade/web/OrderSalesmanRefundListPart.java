@@ -1,11 +1,10 @@
 package com.gongsibao.trade.web;
 
 import com.gongsibao.entity.trade.NDepPay;
-import com.gongsibao.entity.trade.NDepReceivable;
+import com.gongsibao.entity.trade.NDepRefund;
 import com.gongsibao.entity.trade.OrderPayMap;
-import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.utils.NumberUtils;
-import org.apache.xmlbeans.impl.xb.xsdschema.LocalSimpleType;
 import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
@@ -18,7 +17,7 @@ import java.util.List;
 /**
  * Created by zhangchao on 2018/3/14.
  */
-public class SalesmanOrderReceivedListPart extends AdvancedListPart {
+public class OrderSalesmanRefundListPart extends AdvancedListPart {
 
     @Override
     public String getFilterByParameter(FilterParameter parameter) {
@@ -46,44 +45,13 @@ public class SalesmanOrderReceivedListPart extends AdvancedListPart {
         if (parameter.getKey().equals("prodName")) {
             return "order_id in (select pkid from so_order where prod_name like '%" + keyword + "%' )";
         }
-        //审核状态
-        if (parameter.getKey().equals("pay_offlineAuditStatus")) {
-            return "pay_id in (select pkid from so_pay where offline_audit_status_id in (" + keyword + ") )";
-        }
         //订单付款状态
         if (parameter.getKey().equals("soOrder_payStatus")) {
             return "order_id in (select pkid from so_order where pay_status_id in (" + keyword + ") )";
         }
-        //支付状态
-        if (parameter.getKey().equals("pay_successStatus")) {
-            return "pay_id in (select pkid from so_pay where success_status_id in (" + keyword + ") )";
-        }
-
-        //回款业绩创建人
+        //退款业绩创建人
         if (parameter.getKey().equals("payCreator")) {
             return "pay_id in (select pkid from so_pay where creator like '%" + keyword + "%' )";
-        }
-
-        //是否一笔多单
-        if (parameter.getKey().equals("pay_payForOrderCount")) {
-            return "pay_id in (select pkid from so_pay where pay_for_order_count in (" + keyword + ") )";
-        }
-
-        //支付类型
-        if (parameter.getKey().equals("pay_payWayType")) {
-            return "pay_id in (select pkid from so_pay where pay_way_type_id in (" + keyword + ") )";
-        }
-
-        //回款业绩创建时间
-        if (parameter.getKey().equals("payCreateTime")) {
-            List<String> depPayCreateTimeWhere = new ArrayList<>();
-            if (parameter.getValue1() != null) {
-                depPayCreateTimeWhere.add(" add_time >= '" + parameter.getValue1().toString() + "'");
-            }
-            if (parameter.getValue2() != null) {
-                depPayCreateTimeWhere.add(" add_time <= '" + parameter.getValue2().toString() + "'");
-            }
-            return "pay_id in (select pkid from so_pay where " + StringManager.join(" and ", depPayCreateTimeWhere) + " )";
         }
 
         //订单创建时间
@@ -104,13 +72,13 @@ public class SalesmanOrderReceivedListPart extends AdvancedListPart {
 
     @Override
     public List<?> doQuery(Oql oql) {
-        oql.setSelects("pay.*,soOrder.*,soOrder.owner.{id,name},soOrder.companyIntention.{pkid,name,full_name,company_name},depPays.*,pay.u8Bank.{id,name},pay.setOfBooks.{id,name}");
-        List<OrderPayMap> resList = (List<OrderPayMap>) super.doQuery(oql);
-        for (OrderPayMap orderPayMap : resList) {
-            NDepPay depPay = getDepPayByUserId(orderPayMap.getDepPays());
+        oql.setSelects("refund.*,soOrder.*,soOrder.owner.{id,name},soOrder.companyIntention.{pkid,name,full_name,company_name},depRefunds.*,setOfBooks.{id,name},u8Bank.{id,name}");
+        List<Refund> resList = (List<Refund>) super.doQuery(oql);
+        for (Refund refund : resList) {
+            NDepRefund depRefund = getDepRefundByUserId(refund.getDepRefunds());
             //获取我的回款业绩额
-            if (depPay != null) {
-                orderPayMap.setMyOrderCutAmount(depPay.getAmount());
+            if (depRefund != null) {
+                refund.setMyDepRefundAmount(depRefund.getAmount());
             }
         }
         return resList;
@@ -118,16 +86,16 @@ public class SalesmanOrderReceivedListPart extends AdvancedListPart {
 
 
     //获取我的回款信息
-    private NDepPay getDepPayByUserId(List<NDepPay> depPays) {
-        NDepPay depPay = null;
+    private NDepRefund getDepRefundByUserId(List<NDepRefund> depRefunds) {
+        NDepRefund depRefund = null;
         Integer userId = SessionManager.getUserId();
-        for (NDepPay dp : depPays) {
-            if (NumberUtils.toInt(dp.getEmployeeId()) == NumberUtils.toInt(userId)) {
-                depPay = dp;
+        for (NDepRefund df : depRefunds) {
+            if (NumberUtils.toInt(df.getEmployeeId()) == NumberUtils.toInt(userId)) {
+                depRefund = df;
                 break;
             }
         }
-        return depPay;
+        return depRefund;
     }
 
 }

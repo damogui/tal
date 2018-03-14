@@ -45,12 +45,11 @@ public class NDepRefund  extends Entity{
     @Reference(foreignKey = "departmentId", header = "部门")
     private SupplierDepartment department;
 
-    @Column(name = "salesman_id", header = "业务员Id")
-    private Integer salesmanId;
+	@Column(name = "employee_id", header = "员工Id")
+	private Integer employeeId;
 
-    @JsonIgnore
-    @Reference(foreignKey = "salesmanId")
-    private Employee salesman;
+    @Reference(foreignKey = "employeeId")
+    private Employee employee;
 
 
     public Integer getAmount() {
@@ -115,20 +114,20 @@ public class NDepRefund  extends Entity{
 		this.order = order;
 	}
 
-	public Integer getSalesmanId() {
-		return salesmanId;
+	public Integer getEmployeeId() {
+		return employeeId;
 	}
 
-	public void setSalesmanId(Integer salesmanId) {
-		this.salesmanId = salesmanId;
+	public void setEmployeeId(Integer employeeId) {
+		this.employeeId = employeeId;
 	}
 
-	public Employee getSalesman() {
-		return salesman;
+	public Employee getEmployee() {
+		return employee;
 	}
 
-	public void setSalesman(Employee salesman) {
-		this.salesman = salesman;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
 	public Integer getOrderId() {

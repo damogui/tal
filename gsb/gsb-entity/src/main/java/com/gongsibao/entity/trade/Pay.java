@@ -41,9 +41,6 @@ public class Pay extends BaseEntity {
     @Column(name = "confirm_time", header = "确认时间")
     private Date confirmTime;
 
-    @Column(name = "pay_time", header = "支付时间")
-    private Date payTime;
-
     @Column(name = "offline_way_type_id", header = "线下类型")
     private OfflineWayType offlineWayType;
 
@@ -101,25 +98,8 @@ public class Pay extends BaseEntity {
     @Column(name = "pay_for_order_count", header = "支付订单数量（0:一笔单单 1:一笔多单）")
     private PayForOrderCountType payForOrderCount = PayForOrderCountType.Ybdd;
 
-    /*@Column(name = "dep_pay_create_time", header = "回款业绩创建时间")
-    private Date depPayCreateTime;*/
-
     @Column(name = "dep_pay_audit_pass_time", header = "回款业绩审核通过时间")
-    private String depPayAuditPassTime;
-
-    /*@Column(name = "dep_pay_create_employee_id", header = "回款业绩创建人id")
-    private Integer depPayCreateEmployeeId;
-
-    @Column(name = "dep_pay_create_employee_name", header = "回款业绩创建人")
-    private Integer depPayCreateEmployeeName;*/
-
-    public Date getPayTime() {
-        return payTime;
-    }
-
-    public void setPayTime(Date payTime) {
-        this.payTime = payTime;
-    }
+    private Date depPayAuditPassTime;
 
     public String getNo() {
         return no;
@@ -281,11 +261,11 @@ public class Pay extends BaseEntity {
         this.files = files;
     }
 
-    public String getDepPayAuditPassTime() {
+    public Date getDepPayAuditPassTime() {
         return depPayAuditPassTime;
     }
 
-    public void setDepPayAuditPassTime(String depPayAuditPassTime) {
+    public void setDepPayAuditPassTime(Date depPayAuditPassTime) {
         this.depPayAuditPassTime = depPayAuditPassTime;
     }
 

@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import com.gongsibao.entity.u8.U8Bank;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.*;
 
 import com.gongsibao.entity.BaseEntity;
@@ -23,7 +22,6 @@ public class Refund extends BaseEntity {
     private Integer orderId;
 
     // 订单
-    @JsonIgnore
     @Reference(foreignKey = "orderId")
     private SoOrder soOrder;
 
@@ -71,6 +69,9 @@ public class Refund extends BaseEntity {
 
     @Column(name = "refund_time", header = "退款时间")
     private Date refundTime;
+
+    @Column(name = "dep_refund_audit_pass_time", header = "退款业绩审核通过时间")
+    private Date depRefundAuditPassTime;
 
     @Subs(subType = RefundItem.class, foreignKey = "refundId", header = "退款明细")
     private List<RefundItem> refunds = new ArrayList<RefundItem>();
@@ -244,5 +245,13 @@ public class Refund extends BaseEntity {
 
     public void setMyDepRefundAmount(Integer myDepRefundAmount) {
         this.myDepRefundAmount = myDepRefundAmount;
+    }
+
+    public Date getDepRefundAuditPassTime() {
+        return depRefundAuditPassTime;
+    }
+
+    public void setDepRefundAuditPassTime(Date depRefundAuditPassTime) {
+        this.depRefundAuditPassTime = depRefundAuditPassTime;
     }
 }
