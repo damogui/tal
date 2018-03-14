@@ -103,11 +103,6 @@ public class SoCreatReceivePerformanceFormPart extends FormPart {
 
 
         }
-
-
-
-
-
         return 1;
     }
 }
