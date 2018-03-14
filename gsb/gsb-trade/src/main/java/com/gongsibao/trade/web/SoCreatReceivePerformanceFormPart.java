@@ -9,9 +9,7 @@ import com.gongsibao.entity.trade.dic.OfflineWayType;
 import com.gongsibao.entity.trade.dic.PayWayType;
 import com.gongsibao.entity.trade.dto.DepPayMapDTO;
 import com.gongsibao.entity.trade.dto.OrderRelationDTO;
-import com.gongsibao.trade.base.INDepPayService;
-import com.gongsibao.trade.base.IOrderPayMapService;
-import com.gongsibao.trade.base.IPayService;
+import com.gongsibao.trade.base.*;
 import com.gongsibao.u8.base.IU8BankService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
@@ -20,8 +18,6 @@ import org.netsharp.entity.IPersistable;
 import org.netsharp.panda.commerce.FormPart;
 import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
-
-import com.gongsibao.trade.base.INDepReceivableService;
 
 /**
  * Created by win on 2018/3/8.
@@ -60,7 +56,7 @@ public class SoCreatReceivePerformanceFormPart extends FormPart {
         IOrderPayMapService orderPayMapService = ServiceFactory.create (IOrderPayMapService.class);//订单支付中间表
         INDepPayService nDepPayService = ServiceFactory.create (INDepPayService.class);//回款业绩表
         IU8BankService u8BankService = ServiceFactory.create (IU8BankService.class);//获取线下支付
-
+        INU8BankSoPayMapService nU8BankSoPayMapService = ServiceFactory.create (INU8BankSoPayMapService.class);//插入u8中间表
         Pay pay = new Pay ();
         pay.setSetOfBooksId (entity.getSetOfBooks ());
         pay.setU8BankId (entity.getU8Bank ());
@@ -102,7 +98,8 @@ public class SoCreatReceivePerformanceFormPart extends FormPart {
             nU8BankSoPayMap.setType (0);
             nU8BankSoPayMap.setU8BankId (entity.getU8Bank ());
             nU8BankSoPayMap.setPrice (entity.getAmount ());
-
+            nU8BankSoPayMap.setEntityState (EntityState.New);
+            nU8BankSoPayMapService.save (nU8BankSoPayMap);//u8中间表
 
 
         }
