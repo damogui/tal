@@ -110,15 +110,20 @@ public class SoOrder extends BaseEntity {
     @Column(name = "payable_price", header = "应付金额")
     private Integer payablePrice = 0;
 
+    @Column(name = "refund_price", header = "已退金额")
+    private Integer refundPrice = 0;
+    
     @Column(name = "paid_price", header = "已支付金额")
     private Integer paidPrice = 0;
 
-    @Column(name = "performance_price", header = "已划分金额(业绩已经划分)")
+    @Column(name = "performance_price", header = "订单业绩已划分金额")
     private Integer performancePrice = 0;
 
     @Subs(subType = NDepReceivable.class, foreignKey = "orderId", header = "业绩划分表")
     private List<NDepReceivable> depReceivable = new ArrayList<>();
 
+    @Column(name = "returned_price", header = "回款业绩已划分金额")
+    private Integer  returnedPrice = 0;
     @Column(name = "discount_price", header = "优惠金额")
     private Integer discountPrice = 0;
 
@@ -880,5 +885,20 @@ public class SoOrder extends BaseEntity {
         this.depReceivableCreator = depReceivableCreator;
     }
 
+	public Integer getRefundPrice() {
+		return refundPrice;
+	}
 
+	public void setRefundPrice(Integer refundPrice) {
+		this.refundPrice = refundPrice;
+	}
+
+
+    public Integer getReturnedPrice() {
+        return returnedPrice;
+    }
+
+    public void setReturnedPrice(Integer returnedPrice) {
+        this.returnedPrice = returnedPrice;
+    }
 }

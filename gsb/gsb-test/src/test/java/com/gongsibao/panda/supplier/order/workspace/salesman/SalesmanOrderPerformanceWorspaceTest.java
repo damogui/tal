@@ -1,24 +1,20 @@
 package com.gongsibao.panda.supplier.order.workspace.salesman;
 
-import com.gongsibao.entity.trade.NDepReceivable;
-import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.tools.PToolbarHelper;
-import com.gongsibao.trade.web.SalesmanOrderPerformanceListPart;
 import org.junit.Before;
-import org.junit.Test;
-import org.netsharp.core.EntityState;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
-import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.OpenMode;
-import org.netsharp.panda.entity.*;
-import org.netsharp.panda.plugin.dic.ToolbarType;
-import org.netsharp.panda.plugin.entity.PToolbar;
-import org.netsharp.panda.plugin.entity.PToolbarItem;
+import org.netsharp.panda.entity.PDatagrid;
+import org.netsharp.panda.entity.PDatagridColumn;
+import org.netsharp.panda.entity.PQueryItem;
+import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
+
+import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.trade.web.SalesmanOrderPerformanceListPart;
 
 /*订单业绩*/
 public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase {

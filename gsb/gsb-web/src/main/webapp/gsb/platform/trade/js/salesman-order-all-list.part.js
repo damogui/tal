@@ -77,8 +77,8 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             btn: ['保存', '取消'],// 可以无限个按钮
 
             yes: function (index, layero) {
-                layer.closeAll();
-               var num= document.getElementById('addReceivedIframe').firstElementChild.contentWindow.controllerpays .save();//保存
+                //layer.closeAll();
+               var num= document.getElementById('addReceivedIframe').firstElementChild.contentWindow.controllersoOrder .save();//保存
                 IMessageBox.toast('保存成功');
 
 
@@ -100,7 +100,10 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         var contentUrl = this.addRefundUrl + "?id=" + row.id;
         //
         me.invokeService("refundStatus", [row.id], function (data) {
-        	if(data == 3031){
+        	if(data < 0){
+        		layer.msg('无退款金额！');
+        	}
+        	else if(data == 3031){
         		layer.msg('退款待审核中，暂不能操作！');
         	}else if(data == 3032){
         		layer.msg('退款中，暂不能操作！');

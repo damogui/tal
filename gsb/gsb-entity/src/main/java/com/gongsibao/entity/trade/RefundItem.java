@@ -23,7 +23,7 @@ public class RefundItem extends BaseEntity {
     private Integer amount;
     
     @Column(name="cost",header="成本")
-    private Integer cost;
+    private Integer cost = 0;
 
     public Integer getRefundId() {
         return refundId;

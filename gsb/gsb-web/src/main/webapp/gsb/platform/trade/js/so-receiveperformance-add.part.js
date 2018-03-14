@@ -13,23 +13,23 @@ com.gongsibao.trade.web.SoCreatReceivePerformanceFormPart = org.netsharp.panda.c
         depPayMapDTO.offlineBankNo = $("#offlineBankNo").val();
         depPayMapDTO.payForOrderCount = $("#payForOrderCount")[0].checked;
         depPayMapDTO.amount = $("#amount").val();
-
+        debugger;
         depPayMapDTO.files = $("#files").val();
         depPayMapDTO.offlineRemark = $("#offlineRemark").val();
 
         var rows = $('#datagridpays').datagrid('getRows');//添加的行
 
-        var orderRelations=[];
+        var orderRelations = [];
         $(rows).each(function (i, item) {
             var orderRelation = {};
             orderRelation.orderId = item.orderId;
             orderRelation.orderCutAmount = item.orderCutAmount;
             orderRelation.payType = item.payType;
-            debugger;
+
             orderRelation.items = item.items;
             orderRelations.push(orderRelation);
         });
-        depPayMapDTO.orderRelations=orderRelations;
+        depPayMapDTO.orderRelations = orderRelations;
 
         me.invokeService('saveNDepReceivableBySoder', [depPayMapDTO], function (data) {
 
@@ -258,12 +258,13 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
             },
             yes: function (index, layero) {
 
-                alert("提交数据");
+
+                alert("校验订单号是否存在");
                 //进行绑定数据
                 var orderBack = me.getOrderBack();
 
                 $('#datagridpays').datagrid('appendRow', orderBack);//赋值
-                debugger;
+
                 layer.closeAll();
             }
         });
@@ -293,20 +294,20 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
             departmentnameStr += '<p>' + item.departmentname + '</p>';
             salesmannameStr += '<p>' + item.salesmanname + '</p>';
             amountStr += '<p>' + item.amount + '</p>';
-            var allDepPay={};
-            allDepPay.supplierId=item.supplierId;
-            allDepPay.departmentId=item.departmentId;
-            allDepPay.employeeId=item.salesmanId;
-            allDepPay.amount=item.amount;
+            var allDepPay = {};
+            allDepPay.supplierId = item.supplierId;
+            allDepPay.departmentId = item.departmentId;
+            allDepPay.employeeId = item.salesmanId;
+            allDepPay.amount = item.amount;
             items.push(allDepPay);
         });
-        debugger;
+
         orderBack.supperName = suppliernameStr;
         orderBack.depName = departmentnameStr;
         orderBack.cutMan = salesmannameStr;
         orderBack.cutAmountStr = amountStr;
         orderBack.items = items;//循环保存实体
-        debugger;
+
         return orderBack;
     },
     choiceNameFormatter: function (value, row, index) {
@@ -422,9 +423,9 @@ function getEmployeeOption() {
             width: 100
         }]],
         rowStyler: function (index, row) {
-            if (row.receiving === false) {
-                return 'color:red;';
-            }
+            // if (row.receiving === false) {
+            //     return 'color:red;';
+            // }
         },
         url: '\/panda\/rest\/reference?code=Salesman&filter=',
         idField: 'employeeId',

@@ -126,7 +126,7 @@ public class TradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		column.setVisible(true);
 		column.setOrderbyMode(OrderbyMode.ASC);
 		column=addColumn(datagrid, "id","操作", ControlTypes.TEXT_BOX, 200);{
-			column.setFormatter("return controllertradeMarkOptList.markPic(value,row,index);");
+			column.setFormatter("return controllertradeMarkList.markPic(value,row,index);");
 		}
 		return datagrid;
 	}

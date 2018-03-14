@@ -16,7 +16,53 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 		
 		//缓存当前控制器方便弹出窗体使用
 		window.listController = this;
+		
+		this.cmenu = null;
 	},
+    onHeaderContextMenu: function(e, field){
+    	
+    	var me = this;
+        e.preventDefault();
+        if (this.cmenu == null){
+        	me.createColumnMenu();
+        }
+        this.cmenu.menu('show', {
+            left:e.pageX,
+            top:e.pageY
+        });
+    },
+	createColumnMenu:function (){
+		
+		var me = this;
+		this.cmenu = $('<div/>').appendTo('body');
+		this.cmenu.menu({
+            onClick: function(item){
+                if (item.iconCls == 'fa fa-check'){
+                	me.datagrid.datagrid('hideColumn', item.name);
+                	me.cmenu.menu('setIcon', {
+                        target: item.target,
+                        iconCls: 'icon-empty'
+                    });
+                } else {
+                	me.datagrid.datagrid('showColumn', item.name);
+                	me.cmenu.menu('setIcon', {
+                        target: item.target,
+                        iconCls: 'fa fa-check'
+                    });
+                }
+            }
+        });
+        var fields = me.datagrid.datagrid('getColumnFields');
+        for(var i=0; i<fields.length; i++){
+            var field = fields[i];
+            var col = me.datagrid.datagrid('getColumnOption', field);
+            me.cmenu.menu('appendItem', {
+                text: col.title,
+                name: field,
+                iconCls: 'fa fa-check'
+            });
+        }
+    },
 	// -----------------------
 	// 获取列表选择的行记录
 	// -----------------------

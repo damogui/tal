@@ -4,11 +4,11 @@ com.gongsibao.igirl.web.TradeMarkOptListPart = org.netsharp.panda.commerce.ListP
 		this.base();
 	},
 	markPic:function(value,row,index){
-		var html='<a href="#" onclick="controllertradeMarkOptList.openBussinessPic('+row.id+')">营业执照</a> &nbsp;'
-			+'<a href="#" onclick="controllertradeMarkOptList.openProxyPic('+row.id+')">委托书</a> &nbsp;'
-			+'<a href="#" onclick="controllertradeMarkOptList.openMarkPic('+row.id+')">图样</a> &nbsp;'
-            +'<a href="#" onclick="controllertradeMarkOptList.openIDPic('+row.id+')">身份证</a> &nbsp;'
-		         +'<a href="#" onclick="controllertradeMarkOptList.totmcase('+row.tradeMarkCaseId+')">案件</a>';
+		var html='<a href="#" onclick="controllertradeMarkList.openBussinessPic('+row.id+')">营业执照</a> &nbsp;'
+			+'<a href="#" onclick="controllertradeMarkList.openProxyPic('+row.id+')">委托书</a> &nbsp;'
+			+'<a href="#" onclick="controllertradeMarkList.openMarkPic('+row.id+')">图样</a> &nbsp;'
+            +'<a href="#" onclick="controllertradeMarkList.openIDPic('+row.id+')">身份证</a> &nbsp;'
+		         +'<a href="#" onclick="controllertradeMarkList.totmcase('+row.tradeMarkCaseId+')">案件</a>';
 		return html;
 	},
 

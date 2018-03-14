@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class DepPayMapDTO {
 
-    //private Integer orderNo;
+//    private Integer orderNo;//从下面读取
   /*付款账套*/
     private Integer setOfBooks;
     /*u8Bank*/
@@ -104,45 +104,7 @@ public class DepPayMapDTO {
     public void setOrderRelations(List<OrderRelationDTO> orderRelations) {
         this.orderRelations = orderRelations;
     }
+
 }
 
-  class OrderRelationDTO{
 
-      private  Integer orderId;
-      private  Integer orderCutAmount;
-      private  Integer payType;
-      private  List<NDepPay> items;
-
-
-      public Integer getOrderId() {
-          return orderId;
-      }
-
-      public void setOrderId(Integer orderId) {
-          this.orderId = orderId;
-      }
-
-      public Integer getOrderCutAmount() {
-          return orderCutAmount;
-      }
-
-      public void setOrderCutAmount(Integer orderCutAmount) {
-          this.orderCutAmount = orderCutAmount;
-      }
-
-      public Integer getPayType() {
-          return payType;
-      }
-
-      public void setPayType(Integer payType) {
-          this.payType = payType;
-      }
-
-      public List<NDepPay> getItems() {
-          return items;
-      }
-
-      public void setItems(List<NDepPay> items) {
-          this.items = items;
-      }
-  }
