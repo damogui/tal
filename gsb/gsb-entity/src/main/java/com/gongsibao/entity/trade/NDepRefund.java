@@ -13,13 +13,12 @@ import com.gongsibao.entity.supplier.SupplierDepartment;
 /**
  * Created by win on 2018/2/26.
  */
-@Table(name = "n_dep_refund", header = "部门退款")
+@Table(name = "n_dep_refund", header = "退款业绩")
 public class NDepRefund  extends Entity{
     /**   
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = -6906396799119828651L;
-	
     
     @Column(name = "order_id", header = "订单Id")
     private Integer orderId;
