@@ -19,7 +19,7 @@ import com.gongsibao.trade.service.action.order.invoice.ActionApplyInvoiceVerify
  *     
  * @Copyright: 2018 www.yikuaxiu.com Inc. All rights reserved. 
  */
-public class ApplyInvoiceActionTest  extends BaseActionTest{
+public class OrderApplyInvoiceActionTest  extends BaseActionTest{
 
 	@Before
 	public void setup() {
