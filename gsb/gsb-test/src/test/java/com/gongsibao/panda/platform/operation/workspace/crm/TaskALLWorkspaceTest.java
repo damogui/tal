@@ -137,7 +137,7 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 		addColumn(datagrid, "lastFoolowUser.name", "最后跟进人", ControlTypes.TEXT_BOX, 100, false);
 
 		// addColumn(datagrid, "customer.realName", "意向产品",
-		// ControlTypes.TEXT_BOX, 100, true);
+		// ControlTypes.TEXT_BOX, 100, true );
 		addColumn(datagrid, "source.name", "任务来源", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "lastContent", "最后跟进内容", ControlTypes.TEXT_BOX, 300, false);
 		addColumn(datagrid, "lastFollowTime", "最后跟进时间", ControlTypes.DATETIME_BOX, 130, false);
@@ -149,6 +149,12 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 
 		column = addColumn(datagrid, "qualityProgress", "质量进度", ControlTypes.TEXT_BOX, 130, false);{
 			
+			column.setVisible(false);
+			column.setSystem(true);
+		}
+
+		column = addColumn(datagrid, "customer.accountId", "会员ID", ControlTypes.TEXT_BOX, 60, false);{
+
 			column.setVisible(false);
 			column.setSystem(true);
 		}

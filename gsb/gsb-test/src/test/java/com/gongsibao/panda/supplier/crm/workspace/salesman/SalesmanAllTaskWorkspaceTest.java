@@ -54,6 +54,7 @@ public class SalesmanAllTaskWorkspaceTest extends TaskALLWorkspaceTest {
 
 		addToolbarItem(toolbar, "add", "新增任务", "fa fa-plus", "add()", null, 5);
 		addToolbarItem(toolbar, "batchTransfer", "任务转移", "fa fa-share-square-o", "batchTransfer();", null,6);
+		addToolbarItem(toolbar, "addOrder", "新增订单", "fa fa-file-text-o", "addOrder();", null,7);
 		return toolbar;
 	}
 
