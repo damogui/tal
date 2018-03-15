@@ -81,9 +81,6 @@ public class SoOrder extends BaseEntity {
     @Column(name = "stage_num", header = "分期次数（待讨论）")
     private OrderStageNum stageNum = OrderStageNum.ONE;
 
-    @Column(name = "staged", header = "分期的")
-    private Boolean staged;
-
     @Column(name = "pay_time", header = "支付时间")
     private Date payTime;
 
@@ -112,7 +109,7 @@ public class SoOrder extends BaseEntity {
 
     @Column(name = "refund_price", header = "已退金额")
     private Integer refundPrice = 0;
-    
+
     @Column(name = "paid_price", header = "已支付金额")
     private Integer paidPrice = 0;
 
@@ -123,17 +120,17 @@ public class SoOrder extends BaseEntity {
     private List<NDepReceivable> depReceivable = new ArrayList<>();
 
     @Column(name = "returned_price", header = "回款业绩已划分金额")
-    private Integer  returnedPrice = 0;
+    private Integer returnedPrice = 0;
     @Column(name = "discount_price", header = "优惠金额")
     private Integer discountPrice = 0;
 
     @Column(name = "source_type_id", header = "来源类型")
     private OrderSourceType sourceType = OrderSourceType.wu;
 
-    @Column(name = "is_installment", header = "多次支付")
+    @Column(name = "is_installment", header = "是否分期支付")
     private Boolean isInstallment = false;
 
-    @Column(name = "installment_mode", header = "多次支付方式")
+    @Column(name = "installment_mode", header = "分期支付金额，格式：1|2|3")
     private String installmentMode = "";
 
     // 1051 待审核
@@ -147,7 +144,7 @@ public class SoOrder extends BaseEntity {
     // 1052 审核中
     // 1053 驳回审核
     // 1054 审核通过
-    @Column(name = "installment_audit_status_id", header = "多次支付状态：type=105")
+    @Column(name = "installment_audit_status_id", header = "分期支付审核状态：type=105")
     private AuditStatusType installmentAuditStatusId = AuditStatusType.Dsh;
 
 	/*
@@ -299,6 +296,13 @@ public class SoOrder extends BaseEntity {
     @Column(name = "depReceivableCreator", header = "订单业绩创建人")
     private String depReceivableCreator = "";
 
+    @Exclusive
+    @Column(name = "stageCreateTime", header = "分期申请时间")
+    private Date stageCreateTime = null;
+
+    @Exclusive
+    @Column(name = "stageCreator", header = "分期申请人")
+    private String stageCreator = "";
 
 
     public List<NOrderStage> getStages() {
@@ -307,14 +311,6 @@ public class SoOrder extends BaseEntity {
 
     public void setStages(List<NOrderStage> stages) {
         this.stages = stages;
-    }
-
-    public Boolean getStaged() {
-        return staged;
-    }
-
-    public void setStaged(Boolean staged) {
-        this.staged = staged;
     }
 
     public Integer getDiscountPrice() {
@@ -885,13 +881,13 @@ public class SoOrder extends BaseEntity {
         this.depReceivableCreator = depReceivableCreator;
     }
 
-	public Integer getRefundPrice() {
-		return refundPrice;
-	}
+    public Integer getRefundPrice() {
+        return refundPrice;
+    }
 
-	public void setRefundPrice(Integer refundPrice) {
-		this.refundPrice = refundPrice;
-	}
+    public void setRefundPrice(Integer refundPrice) {
+        this.refundPrice = refundPrice;
+    }
 
 
     public Integer getReturnedPrice() {
@@ -900,5 +896,21 @@ public class SoOrder extends BaseEntity {
 
     public void setReturnedPrice(Integer returnedPrice) {
         this.returnedPrice = returnedPrice;
+    }
+
+    public String getStageCreator() {
+        return stageCreator;
+    }
+
+    public void setStageCreator(String stageCreator) {
+        this.stageCreator = stageCreator;
+    }
+
+    public Date getStageCreateTime() {
+        return stageCreateTime;
+    }
+
+    public void setStageCreateTime(Date stageCreateTime) {
+        this.stageCreateTime = stageCreateTime;
     }
 }

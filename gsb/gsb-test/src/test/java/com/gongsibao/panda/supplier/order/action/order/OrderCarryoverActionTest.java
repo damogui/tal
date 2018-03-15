@@ -19,7 +19,7 @@ import com.gongsibao.trade.service.action.order.carryover.ActionApplyCarryoverVe
  *     
  * @Copyright: 2018 www.yikuaxiu.com Inc. All rights reserved. 
  */
-public class CarryoverActionTest  extends BaseActionTest{
+public class OrderCarryoverActionTest  extends BaseActionTest{
 
 	@Before
 	public void setup() {

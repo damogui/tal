@@ -13,7 +13,7 @@ import org.netsharp.plugin.bean.BeanPath;
  * Created by zhangchao on 2018/3/7.
  * 订单转移/分配
  */
-public class TransformActionTest extends BaseActionTest {
+public class OrderTransformActionTest extends BaseActionTest {
 
     @Before
     public void setup() {
