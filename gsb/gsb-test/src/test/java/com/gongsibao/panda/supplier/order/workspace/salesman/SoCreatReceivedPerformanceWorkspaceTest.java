@@ -285,7 +285,7 @@ public class SoCreatReceivedPerformanceWorkspaceTest extends WorkspaceCreationBa
             part.setWindowWidth (400);
             part.setWindowHeight (450);
 
-//         part.setServiceController (OrderPerformanceDetailPart.class.getName ());
+           part.setServiceController (OrderReceivePerformanceDetailPart.class.getName ());
             part.setJsController (OrderReceivePerformanceDetailPart.class.getName ());
         }
         workspace.getParts ().add (part);

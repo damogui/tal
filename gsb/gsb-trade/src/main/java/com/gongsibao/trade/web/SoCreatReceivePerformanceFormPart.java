@@ -68,17 +68,17 @@ public class SoCreatReceivePerformanceFormPart extends FormPart {
         pay.setPayWayType (PayWayType.ONLINE_PAYMENT);//线下支付
         //offlineWayType  查u8
 //        Dict dict = u8BankService.byId (entity.getU8Bank ()).getOfflineWayType ();
-        Integer offlineWayTypeId=u8BankService.byId (entity.getU8Bank ()).getOfflineWayTypeId ();//类型有可能为空
-        OfflineWayType offlineWayType= OfflineWayType.getItem (offlineWayTypeId);
-        if (offlineWayType==null){
-            offlineWayType=OfflineWayType.SK;
+        Integer offlineWayTypeId = u8BankService.byId (entity.getU8Bank ()).getOfflineWayTypeId ();//类型有可能为空
+        OfflineWayType offlineWayType = OfflineWayType.getItem (offlineWayTypeId);
+        if (offlineWayType == null) {
+            offlineWayType = OfflineWayType.SK;
         }
         pay.setOfflineWayType (offlineWayType);
         pay.setEntityState (EntityState.New);
         Pay savePay = payService.save (pay);
 
-        for (OrderRelationDTO item:entity.getOrderRelations ()
-             ) {
+        for (OrderRelationDTO item : entity.getOrderRelations ()
+                ) {
             OrderPayMap orderPayMap = new OrderPayMap ();//支付明细
             orderPayMap.setPayId (savePay.getId ());
             orderPayMap.setOrderId (item.getOrderId ());
@@ -87,7 +87,7 @@ public class SoCreatReceivePerformanceFormPart extends FormPart {
             orderPayMap.setOfflineInstallmentType (PayOfflineInstallmentType.getItem (item.getPayType ()));
             orderPayMap.setEntityState (EntityState.New);
             OrderPayMap saveOrderPayMap = orderPayMapService.save (orderPayMap);
-            for (NDepPay item2 :item.getItems ()
+            for (NDepPay item2 : item.getItems ()
                     ) {
                 NDepPay nDepPay = new NDepPay ();//回款业绩划分
                 nDepPay.setAmount (item2.getAmount ());
@@ -102,9 +102,8 @@ public class SoCreatReceivePerformanceFormPart extends FormPart {
             }
 
 
-
         }
-        NU8BankSoPayMap  nU8BankSoPayMap=new NU8BankSoPayMap();
+        NU8BankSoPayMap nU8BankSoPayMap = new NU8BankSoPayMap ();
         nU8BankSoPayMap.setPayId (savePay.getId ());
         nU8BankSoPayMap.setSetOfBooksId (entity.getSetOfBooks ());
         nU8BankSoPayMap.setType (0);
@@ -114,4 +113,7 @@ public class SoCreatReceivePerformanceFormPart extends FormPart {
         nU8BankSoPayMapService.save (nU8BankSoPayMap);//u8中间表
         return 1;
     }
+
+
+
 }

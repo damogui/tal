@@ -1,5 +1,6 @@
 System.Declare("com.gongsibao.trade.web");
 
+var isInit = 0;//0是页面初始化1否
 com.gongsibao.trade.web.SoCreatReceivePerformanceFormPart = org.netsharp.panda.commerce.FormPart.Extends({
 
     save: function () {
@@ -279,6 +280,22 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
         });
         me.initGrid();
 
+        me.initOrderInfo();
+
+
+    },
+    initOrderInfo: function () {//处理一笔单单和一笔多单的情况
+
+        var orderMultiple = $("#payForOrderCount")[0].checked;
+        var orderOnlne = $("#isOnlinePay")[0].checked;
+        if (!orderMultiple || orderOnlne) {//一笔单单和在线支付
+
+            $("#orderNo").val($("#no").val());
+            $("#orderCutPrice").val($("#amount").val());
+
+
+        }
+
 
     },
     getOrderBack: function () {
@@ -348,23 +365,48 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
 
     },
     isOnlineChange: function (checked) {
+        var me = this;
         // var isInit = $("#isOnlinePay").attr("disabled");
         //是否是线上支付
-        var stateStr="enable";
-        if(checked){
+        var stateStr = "enable";
+        if (checked && isInit == 1) {
 
-            stateStr="disable";
+            stateStr = "disable";
+            //处理业务获取订单支付payId  未创建业绩金额
+            var orderId = $("#no").val();
+            $("#payForOrderCount").switchbutton('reset');
+            me.invokeService('getOnlinePayInfoBySoderOId', [orderId], function (data) {
+                //
+
+
+
+
+                // if (data > 0) {
+                //
+                //     IMessageBox.toast('保存成功');
+                //
+                // } else {
+                //
+                //     IMessageBox.toast('保存失败');
+                // }
+            });
+
+
         }
 
         $("#pays_u8Bank_setOfBooks_name").combogrid(stateStr);
         $("#pays_u8Bank_name").combogrid(stateStr);
-        $("#offlinePayerName").attr("disabled",checked);
-        $("#offlineBankNo").attr("disabled",checked);
+        $("#offlinePayerName").attr("disabled", checked);
+        $("#offlineBankNo").attr("disabled", checked);
         $("#payForOrderCount").switchbutton(stateStr);
-        $("#amount").attr("disabled",checked);
+        $("#amount").attr("disabled", checked);
 
-        $("#files").attr("disabled",checked);
-        $("#offlineRemark").attr("disabled",checked);
+        $("#files").attr("disabled", checked);
+        $("#offlineRemark").attr("disabled", checked);
+
+        if (!checked && isInit == 0) {
+            isInit = 1;//代表初始化完成
+        }
 
 
     }
