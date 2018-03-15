@@ -1,3 +1,4 @@
+
 System.Declare("com.gongsibao.trade.web");
 
 com.gongsibao.trade.web.SoCreatReceivePerformanceFormPart = org.netsharp.panda.commerce.FormPart.Extends({
@@ -57,6 +58,19 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
         this.init();
 
     }, init: function () {
+
+        $("#imagefiles").hide();
+        /*图片上传*/
+        $("body").off("click", "#imagefiles");
+        $("body").on("click", "#imagefiles", function () {
+           //var imageUrl=uploadImg(files)
+
+            alert(imageUrl);
+
+        });
+
+
+
         $("body").off("click", "#peperformanceAdd");
         $("body").on("click", "#peperformanceAdd", function () {
 
@@ -446,6 +460,79 @@ function getEmployeeOption() {
 
     return employeeOption;
 }
+
+
+/*上传图片返回路径*/
+function  uploadImg(btnid) {
+    var buttonId = btnid;
+    var filtersStr = $('#'+this.propertyName).attr('filters');
+    var filtersObj = null;
+    if(!System.isnull(filtersStr)){
+
+        filtersStr = filtersStr.replaceAll('\'','"');
+        filtersObj = JSON.parse(filtersStr);
+    }
+
+    var me = this;
+    var options = {
+        runtimes : 'html5,flash,silverlight,html4',
+        browse_button :buttonId,
+        // container: document.getElementById('container'),
+        flash_swf_url : '/package/plupload/js/Moxie.swf',
+        silverlight_xap_url : '/package/plupload/js/Moxie.xap',
+        url : 'http://oss.aliyuncs.com',
+        multi_selection: false,
+        init: {
+            PostInit: function() {
+//			            me.setUploadParam(uploader);
+            },
+
+            FilesAdded: function(up, files) {
+
+                me.setUploadParam(up);
+                uploader.start();
+            },
+
+            UploadProgress: function(up, file) {
+                IMessageBox.loading.show();
+            },
+
+            FileUploaded: function(up, file, info) {
+
+
+                IMessageBox.loading.hide();
+                if (info.status == 200)
+                {
+                    var path = up.getOption().url+'/'+ up.getOption().multipart_params.key;
+                    // $("#" + me.propertyName).filebox("setText", path);
+                    // me.preview(path,file);
+
+                    return  path;
+                }
+                else
+                {
+                    IMessageBox.info(info.response);
+                }
+            },
+
+            Error: function(up, err) {
+
+                IMessageBox.error(err.response);
+            }
+        }
+    };
+    if(filtersObj){
+
+        options.filters = filtersObj;
+    }
+
+    var uploader = new plupload.Uploader(options);
+    uploader.init();
+
+
+
+}
+
 
 
 

@@ -237,14 +237,24 @@ public class SoCreatReceivedPerformanceWorkspaceTest extends WorkspaceCreationBa
 
         }
 
-        formField = addFormField (form, "files", "付款凭证", groupName2, ControlTypes.OSS_UPLOAD, false);
+
+        formField = addFormField (form, "offlineRemark", "付款说明", groupName2, ControlTypes.TEXT_BOX, false);
         {
             formField.setReadonly (false);
 
         }
-        formField = addFormField (form, "offlineRemark", "付款说明", groupName2, ControlTypes.TEXT_BOX, false);
+
+
+
+        formField = addFormField (form, "files", "付款凭证", groupName2, ControlTypes.OSS_UPLOAD, false);
         {
             formField.setReadonly (false);
+
+
+        }
+
+        formField = addFormField (form, "imagefiles", "付款凭证图片", groupName2, ControlTypes.IMAGE, false);
+        {
 
         }
 
