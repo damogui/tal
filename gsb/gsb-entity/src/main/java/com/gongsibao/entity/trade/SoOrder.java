@@ -24,6 +24,7 @@ import com.gongsibao.entity.trade.dic.OrderManualVoucherStatus;
 import com.gongsibao.entity.trade.dic.OrderPayStatusType;
 import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
 import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
+import com.gongsibao.entity.trade.dic.OrderRefundStatusType;
 import com.gongsibao.entity.trade.dic.OrderSourceType;
 import com.gongsibao.entity.trade.dic.OrderStageNum;
 import com.gongsibao.entity.trade.dic.OrderType;
@@ -98,7 +99,7 @@ public class SoOrder extends BaseEntity {
     // 3033 退款完成
     // 3034 驳回退款
     @Column(name = "refund_status_id", header = "退款状态：type=303")
-    private AuditStatusType refundStatus = AuditStatusType.wu;
+    private OrderRefundStatusType refundStatus = OrderRefundStatusType.wu;
 
     @Column(name = "total_price", header = "总金额")
     private Integer totalPrice = 0;
@@ -926,13 +927,11 @@ public class SoOrder extends BaseEntity {
         isOnlinePay = onlinePay;
     }
 
-	
-
-	public AuditStatusType getRefundStatus() {
+	public OrderRefundStatusType getRefundStatus() {
 		return refundStatus;
 	}
 
-	public void setRefundStatus(AuditStatusType refundStatus) {
+	public void setRefundStatus(OrderRefundStatusType refundStatus) {
 		this.refundStatus = refundStatus;
 	}
 
