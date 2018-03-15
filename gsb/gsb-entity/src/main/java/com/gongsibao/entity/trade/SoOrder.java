@@ -20,12 +20,10 @@ import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.OrderAccountType;
-import com.gongsibao.entity.trade.dic.OrderCarryStatusType;
 import com.gongsibao.entity.trade.dic.OrderManualVoucherStatus;
 import com.gongsibao.entity.trade.dic.OrderPayStatusType;
 import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
 import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
-import com.gongsibao.entity.trade.dic.OrderRefundStatusType;
 import com.gongsibao.entity.trade.dic.OrderSourceType;
 import com.gongsibao.entity.trade.dic.OrderStageNum;
 import com.gongsibao.entity.trade.dic.OrderType;
@@ -100,7 +98,7 @@ public class SoOrder extends BaseEntity {
     // 3033 退款完成
     // 3034 驳回退款
     @Column(name = "refund_status_id", header = "退款状态：type=303")
-    private OrderRefundStatusType refundStatus = OrderRefundStatusType.wu;
+    private AuditStatusType refundStatus = AuditStatusType.wu;
 
     @Column(name = "total_price", header = "总金额")
     private Integer totalPrice = 0;
@@ -169,7 +167,7 @@ public class SoOrder extends BaseEntity {
     // 3033 退款完成
     // 3034 驳回退款
     @Column(name = "carry_status_id", header = "结转状态：type=303")
-    private OrderCarryStatusType carryStatus = OrderCarryStatusType.wu;
+    private AuditStatusType carryStatus = AuditStatusType.wu;
     
     @Column(name = "customer_id", header = "客户Id")
     private Integer customerId;
@@ -781,13 +779,7 @@ public class SoOrder extends BaseEntity {
         this.processStatus = processStatus;
     }
 
-    public OrderRefundStatusType getRefundStatus() {
-        return refundStatus;
-    }
-
-    public void setRefundStatus(OrderRefundStatusType refundStatus) {
-        this.refundStatus = refundStatus;
-    }
+    
 
     public OrderSourceType getSourceType() {
         return sourceType;
@@ -934,11 +926,21 @@ public class SoOrder extends BaseEntity {
         isOnlinePay = onlinePay;
     }
 
-	public OrderCarryStatusType getCarryStatus() {
+	
+
+	public AuditStatusType getRefundStatus() {
+		return refundStatus;
+	}
+
+	public void setRefundStatus(AuditStatusType refundStatus) {
+		this.refundStatus = refundStatus;
+	}
+
+	public AuditStatusType getCarryStatus() {
 		return carryStatus;
 	}
 
-	public void setCarryStatus(OrderCarryStatusType carryStatus) {
+	public void setCarryStatus(AuditStatusType carryStatus) {
 		this.carryStatus = carryStatus;
 	}
 

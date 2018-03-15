@@ -807,6 +807,19 @@ public class TaurusApiService {
         api.setName(companyName);
         return api.getResponse();
     }
+    /**
+     * 查询单个公司食品流通机会
+     *
+     * @param companyName
+     * @return
+     */
+    public static ResponseMessage<TmOccupied> getTmOccupiedCount(String companyName, int currentPage, int pageSize) {
+        TmOccupiedApi api = ApiFactory.create(TmOccupiedApi.class);
+        api.setName(companyName);
+        api.setCurrentPage(currentPage);
+        api.setPageSize(pageSize);
+        return api.getResponse();
+    }
 
     /**
      * 根据公司名称查询新商标数据

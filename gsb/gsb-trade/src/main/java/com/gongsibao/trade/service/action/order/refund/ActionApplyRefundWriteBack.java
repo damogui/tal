@@ -9,7 +9,7 @@ import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.entity.trade.dic.OrderRefundStatusType;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.u8.base.ISoOrderService;
 
 /**
@@ -31,7 +31,7 @@ public class ActionApplyRefundWriteBack implements IAction{
 		UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("so_order");
-			updateSql.set("refund_status_id", OrderRefundStatusType.Dsh.getValue());
+			updateSql.set("refund_status_id", AuditStatusType.Dsh.getValue());
 			updateSql.set("refund_price", refundAmount + refund.getAmount());
 			updateSql.where("pkid =" + refund.getOrderId());
 		}
