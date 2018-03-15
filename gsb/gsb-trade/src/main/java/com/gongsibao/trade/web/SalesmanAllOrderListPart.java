@@ -40,6 +40,25 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
             return "owner_id in (select id from sys_permission_employee where name = '" + keyword + "')";
         }
 
+        //分期申请时间
+        if (parameter.getKey().equals("stageCreateTime")) {
+
+            List<String> stageCreateTime = new ArrayList<>();
+            if (parameter.getValue1() != null) {
+                stageCreateTime.add(" create_time >= '" + parameter.getValue1().toString() + "'");
+            }
+            if (parameter.getValue2() != null) {
+                stageCreateTime.add(" create_time <= '" + parameter.getValue2().toString() + "'");
+            }
+
+            return "pkid in (select order_id from so_order_stage where " + StringManager.join(" and ", stageCreateTime) + " )";
+        }
+
+        //分期申请人
+        if (parameter.getKey().equals("stageCreator")) {
+            return "pkid in (select order_id from so_order_stage where creator like '%" + keyword + "%')";
+        }
+
         return parameter.getFilter();
     }
 
@@ -49,47 +68,48 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
     }
 
 
-
-    
     /**
-	 * 是否是分期付款的订单
-	 * @param id
-	 * @return
-	 */
-	public Boolean isStaged(Integer id){
-		Oql oql = new Oql();
-		{
-			oql.setType(SoOrder.class);
-			oql.setSelects("*");
-			oql.setFilter("id=?");
-			oql.getParameters().add("id", id, Types.INTEGER);
-		}
-		SoOrder entity = orderService.queryFirst(oql);
-		return entity.getStaged() == null ? false : entity.getStaged();
-	}
-	/**
-	 * 获取订单的退款状态、是否满足退款金额判断
-	 * @param id
-	 * @return
-	 */
-	public Integer refundStatus(Integer id){
-		Oql oql = new Oql();
-		{
-			oql.setType(SoOrder.class);
-			oql.setSelects("*");
-			oql.setFilter("id=?");
-			oql.getParameters().add("id", id, Types.INTEGER);
-		}
-		SoOrder entity = orderService.queryFirst(oql);
-		
-		Integer refundPrice = entity.getRefundPrice() == null ? 0 : entity.getRefundPrice().intValue();
-		if((entity.getPaidPrice().intValue() - refundPrice.intValue()) > 0){
-			return entity.getRefundStatus() == null ? 0 : entity.getRefundStatus().getValue();
-		}else {
-			return -1;
-		}
-		
-		
-	}
-	
+     * 是否是分期付款的订单
+     *
+     * @param id
+     * @return
+     */
+    public Boolean isStaged(Integer id) {
+        Oql oql = new Oql();
+        {
+            oql.setType(SoOrder.class);
+            oql.setSelects("*");
+            oql.setFilter("id=?");
+            oql.getParameters().add("id", id, Types.INTEGER);
+        }
+        SoOrder entity = orderService.queryFirst(oql);
+        return entity.getStaged() == null ? false : entity.getStaged();
+    }
+
+    /**
+     * 获取订单的退款状态、是否满足退款金额判断
+     *
+     * @param id
+     * @return
+     */
+    public Integer refundStatus(Integer id) {
+        Oql oql = new Oql();
+        {
+            oql.setType(SoOrder.class);
+            oql.setSelects("*");
+            oql.setFilter("id=?");
+            oql.getParameters().add("id", id, Types.INTEGER);
+        }
+        SoOrder entity = orderService.queryFirst(oql);
+
+        Integer refundPrice = entity.getRefundPrice() == null ? 0 : entity.getRefundPrice().intValue();
+        if ((entity.getPaidPrice().intValue() - refundPrice.intValue()) > 0) {
+            return entity.getRefundStatus() == null ? 0 : entity.getRefundStatus().getValue();
+        } else {
+            return -1;
+        }
+
+
+    }
+
 }
