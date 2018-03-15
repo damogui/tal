@@ -9,6 +9,7 @@ import com.gongsibao.taurus.util.StringManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -863,8 +864,10 @@ public class TaurusApiService {
             final int finalI = i;
             final int finalSize = size;
             tasks.add(() -> {
-                ResponseMessage<TmNew> res = getTmNewByCompany("天津市真地商贸有限公司金街酒销售分公司", finalI, finalSize);
-                res.setResult(finalI);
+                ResponseMessage<TmNew> res = getTmNewByCompany(companyName, finalI, finalSize);
+                if (null != res) {
+                    res.setResult(finalI);
+                }
                 return res;
             });
         }
@@ -874,6 +877,13 @@ public class TaurusApiService {
             if (null == results || results.isEmpty()) {
                 result.setResultMsg("无返回数据");
                 return result;
+            }
+            Iterator<Future<ResponseMessage<TmNew>>> iterator = results.iterator();
+            while (iterator.hasNext()) {
+                Future<ResponseMessage<TmNew>> next = iterator.next();
+                if (null == next || null == next.get()) {
+                    iterator.remove();
+                }
             }
 
             Collections.sort(results, (o1, o2) -> {
