@@ -2,6 +2,7 @@ package com.gongsibao.panda.platform.operation.workspace.igirl;
 
 import com.gongsibao.entity.igirl.TradeMark;
 import com.gongsibao.entity.igirl.TradeMarkCase;
+import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.igirl.web.TradeMarkOptListPart;
 import org.junit.Before;
 import org.junit.Test;
@@ -149,7 +150,7 @@ public class TradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
-		addQueryItem(queryProject, "supplier.name", "服务商", ControlTypes.TEXT_BOX);
+		addRefrenceQueryItem(queryProject, "supplier.name", "服务商", Supplier.class.getSimpleName());
 		addQueryItem(queryProject, "code", "商标号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "proxyCode", "代理号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "tradeMarkCase.companyName", "公司名称", ControlTypes.TEXT_BOX);

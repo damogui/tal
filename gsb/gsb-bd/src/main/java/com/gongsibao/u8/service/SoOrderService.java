@@ -197,5 +197,17 @@ public class SoOrderService extends PersistableService<SoOrder> implements ISoOr
 		return entity;
 	}
 
+	@Override
+	public SoOrder getByOrderNo(String orderNo) {
+		Oql oql = new Oql();
+        {
+        	oql.setType(this.type);
+        	oql.setSelects("*");
+        	oql.setFilter("no =" + orderNo);
+        }
+       SoOrder entity = orderService.queryFirst(oql);
+		return entity;
+	}
+
 
 }

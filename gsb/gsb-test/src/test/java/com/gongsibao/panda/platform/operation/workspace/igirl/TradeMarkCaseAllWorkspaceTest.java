@@ -4,6 +4,7 @@ import com.gongsibao.entity.igirl.dict.AttachmentCat;
 import com.gongsibao.entity.igirl.dict.FileType;
 import com.gongsibao.entity.igirl.dict.MarkState;
 import com.gongsibao.entity.igirl.dict.ShareGroup;
+import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.igirl.web.TradeMarkCaseListPart;
 import com.gongsibao.igirl.web.TradeMarkCaseOptListPart;
 import com.gongsibao.igirl.web.TradeMarkCasePart;
@@ -605,7 +606,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
 
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
-		addQueryItem(queryProject, "supplier.name", "服务商", ControlTypes.TEXT_BOX);
+		addRefrenceQueryItem(queryProject, "supplier.name", "服务商", Supplier.class.getSimpleName());
 		addQueryItem(queryProject, "code", "案件编号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "companyName", "公司名称", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "applier", "申请人", ControlTypes.TEXT_BOX);
