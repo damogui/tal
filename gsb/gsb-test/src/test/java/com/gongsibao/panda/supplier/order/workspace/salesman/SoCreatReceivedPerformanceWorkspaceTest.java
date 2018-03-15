@@ -169,13 +169,16 @@ public class SoCreatReceivedPerformanceWorkspaceTest extends WorkspaceCreationBa
         }
         /*回款申请beg*/
 
-        formField = addFormField (form, "isOnlinePay", "是否线上支付", groupName2, ControlTypes.SWITCH_BUTTON, false);
+        formField = addFormField (form, "isOnlinePay", "是否线上支付", groupName2, ControlTypes.SWITCH_BUTTON, true);
         {
+            formField.setTroikaTrigger("controllerpays.isOnlineChange(checked);");
             formField.setReadonly (false);
+            //formField.setDataOptions("有|无");
+
 
         }
 
-        formField = addFormField (form, "onLineNotCutPay", "在线支付为创建业绩总额", groupName2, ControlTypes.TEXT_BOX, false);
+        formField = addFormField (form, "onLineNotCutPay", "在线支付未创建业绩总额", groupName2, ControlTypes.TEXT_BOX, false);
         {
             formField.setReadonly (true);
             //formField.setRowSpan (2);
@@ -191,6 +194,7 @@ public class SoCreatReceivedPerformanceWorkspaceTest extends WorkspaceCreationBa
 
 
             formField.setTroikaTrigger ("controllerpays.bankBooksChange(newValue,oldValue);");
+
         }
 
         formField = addFormFieldRefrence (form, "pays.u8Bank.name", "付款方式", groupName2,"SupplierU8Bank", true, false);

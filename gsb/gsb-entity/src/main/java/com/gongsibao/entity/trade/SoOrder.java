@@ -305,7 +305,7 @@ public class SoOrder extends BaseEntity {
     private String stageCreator = "";
 
     @Column(name = "is_online_pay", header = "是否线上支付")
-    private Boolean isOnlinePay = false;
+    private Boolean isOnlinePay=false ;
 
 
 

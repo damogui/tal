@@ -1,4 +1,3 @@
-
 System.Declare("com.gongsibao.trade.web");
 
 com.gongsibao.trade.web.SoCreatReceivePerformanceFormPart = org.netsharp.panda.commerce.FormPart.Extends({
@@ -48,7 +47,6 @@ com.gongsibao.trade.web.SoCreatReceivePerformanceFormPart = org.netsharp.panda.c
     },
 });
 //创建回款业绩
-var depPayMapDTO = [];//关联回款订单的入库实体
 com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.commerce.DetailPart.Extends({
 
     ctor: function () {
@@ -61,12 +59,11 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
         /*图片上传*/
         $("body").off("click", "#imagefiles");
         $("body").on("click", "#imagefiles", function () {
-           //var imageUrl=uploadImg(files)
+            //var imageUrl=uploadImg(files)
 
             alert(imageUrl);
 
         });
-
 
 
         $("body").off("click", "#peperformanceAdd");
@@ -349,7 +346,29 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
         options.url = '\/panda\/rest\/reference?code=SupplierU8Bank&filter=' + filter;
         $(grid).datagrid(options);
 
+    },
+    isOnlineChange: function (checked) {
+        // var isInit = $("#isOnlinePay").attr("disabled");
+        //是否是线上支付
+        var stateStr="enable";
+        if(checked){
+
+            stateStr="disable";
+        }
+
+        $("#pays_u8Bank_setOfBooks_name").combogrid(stateStr);
+        $("#pays_u8Bank_name").combogrid(stateStr);
+        $("#offlinePayerName").attr("disabled",checked);
+        $("#offlineBankNo").attr("disabled",checked);
+        $("#payForOrderCount").switchbutton(stateStr);
+        $("#amount").attr("disabled",checked);
+
+        $("#files").attr("disabled",checked);
+        $("#offlineRemark").attr("disabled",checked);
+
+
     }
+
 
 });
 
@@ -461,72 +480,69 @@ function getEmployeeOption() {
 
 
 /*上传图片返回路径*/
-function  uploadImg(btnid) {
+function uploadImg(btnid) {
     var buttonId = btnid;
-    var filtersStr = $('#'+this.propertyName).attr('filters');
+    var filtersStr = $('#' + this.propertyName).attr('filters');
     var filtersObj = null;
-    if(!System.isnull(filtersStr)){
+    if (!System.isnull(filtersStr)) {
 
-        filtersStr = filtersStr.replaceAll('\'','"');
+        filtersStr = filtersStr.replaceAll('\'', '"');
         filtersObj = JSON.parse(filtersStr);
     }
 
     var me = this;
     var options = {
-        runtimes : 'html5,flash,silverlight,html4',
-        browse_button :buttonId,
+        runtimes: 'html5,flash,silverlight,html4',
+        browse_button: buttonId,
         // container: document.getElementById('container'),
-        flash_swf_url : '/package/plupload/js/Moxie.swf',
-        silverlight_xap_url : '/package/plupload/js/Moxie.xap',
-        url : 'http://oss.aliyuncs.com',
+        flash_swf_url: '/package/plupload/js/Moxie.swf',
+        silverlight_xap_url: '/package/plupload/js/Moxie.xap',
+        url: 'http://oss.aliyuncs.com',
         multi_selection: false,
         init: {
-            PostInit: function() {
+            PostInit: function () {
 //			            me.setUploadParam(uploader);
             },
 
-            FilesAdded: function(up, files) {
+            FilesAdded: function (up, files) {
 
                 me.setUploadParam(up);
                 uploader.start();
             },
 
-            UploadProgress: function(up, file) {
+            UploadProgress: function (up, file) {
                 IMessageBox.loading.show();
             },
 
-            FileUploaded: function(up, file, info) {
+            FileUploaded: function (up, file, info) {
 
 
                 IMessageBox.loading.hide();
-                if (info.status == 200)
-                {
-                    var path = up.getOption().url+'/'+ up.getOption().multipart_params.key;
+                if (info.status == 200) {
+                    var path = up.getOption().url + '/' + up.getOption().multipart_params.key;
                     // $("#" + me.propertyName).filebox("setText", path);
                     // me.preview(path,file);
 
-                    return  path;
+                    return path;
                 }
-                else
-                {
+                else {
                     IMessageBox.info(info.response);
                 }
             },
 
-            Error: function(up, err) {
+            Error: function (up, err) {
 
                 IMessageBox.error(err.response);
             }
         }
     };
-    if(filtersObj){
+    if (filtersObj) {
 
         options.filters = filtersObj;
     }
 
     var uploader = new plupload.Uploader(options);
     uploader.init();
-
 
 
 }
