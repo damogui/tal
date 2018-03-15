@@ -32,6 +32,13 @@ com.gongsibao.trade.web.OrderCarryoverCtrl = org.netsharp.panda.core.CustomCtrl.
     			layer.msg('去向订单号输入有误，请重新输入');
     		}else{
     			$("#orderId_hidden").val(data.id);
+    			if(data.carryStatus == 3031){
+    				layer.msg('去向订单待审核中，暂不能操作！');
+    				return false;
+    			}else if(data == 3032){
+            		layer.msg('去向订单结转中，暂不能操作！');
+            		return false;
+    			}
     		}
     	});
     },
@@ -45,7 +52,7 @@ com.gongsibao.trade.web.OrderCarryoverCtrl = org.netsharp.panda.core.CustomCtrl.
     	
     	var amount = parseFloat($('#amount').numberbox('getValue'))*100;
     	
-    	alert(amount + "|" + $("#remark").validatebox('getValue') + "|" + toOrderId);
+    	alert(amount + "|" + $("#remark").html() + "|" + toOrderId);
     	//未校验
     	
     	var orderCarryover = {
