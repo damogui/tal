@@ -70,6 +70,12 @@ public class ResponseMessage<T extends IEntity> {
 	}
 
 	public T getData() {
+		if (null == data) {
+			if (null == list || list.size() != 1) {
+				return null;
+			}
+			return list.get(0);
+		}
 		return data;
 	}
 
