@@ -31,6 +31,40 @@ org.netsharp.controls.Control = System.Object.Extends({
 	enable: function() {
 	}
 });
+org.netsharp.controls.Label = org.netsharp.controls.Control.Extends({
+	ctor: function() {
+		this.base();
+	},
+	set: function(entity) {
+		
+		var propertyValue = null;
+		var expression;
+		if (this.propertyName.indexOf('_') != -1) {
+
+			var arr = this.propertyName.split('_');
+			for(var i=0;i<arr.length;i++){
+				
+				var referenceField = arr[i];
+				var referenceValue = entity[referenceField];
+				if(System.isnull(referenceValue)){
+					
+					return;
+				}
+			}
+
+			var expression = 'propertyValue=entity.'+arr.join('.')+';';
+			eval(expression);
+		} else {
+			
+			propertyValue = entity[this.propertyName];
+		}
+
+		if (System.isnull(propertyValue)) {
+			propertyValue = "";
+		}
+		$(this.uiElement).text(propertyValue);
+	}
+});
 
 org.netsharp.controls.TextBox = org.netsharp.controls.Control.Extends({
 	ctor: function() {

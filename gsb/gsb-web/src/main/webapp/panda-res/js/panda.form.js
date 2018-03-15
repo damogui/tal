@@ -823,7 +823,7 @@ org.netsharp.panda.commerce.FormPartModel = System.Object.Extends({
         var viewmodel = this;
         viewmodel.controls = [];
         var formName = this.controller.context.formName;
-        var items = $("#" + formName).find("input[collected=true],textarea[collected=true],a[collected=true],select[collected=true],img[collected=true]");
+        var items = $("#" + formName).find("input[collected=true],textarea[collected=true],label[collected=true],a[collected=true],select[collected=true],img[collected=true]");
 
         for(var i=0;i<items.length;i++){
         	
