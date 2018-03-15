@@ -209,7 +209,7 @@ public class SoCreatReceivedPerformanceWorkspaceTest extends WorkspaceCreationBa
         formField = addFormField (form, "offlineBankNo", "付款账号", groupName2, ControlTypes.TEXT_BOX, true,false);
 
         formField = addFormField (form, "payForOrderCount", "是否一笔多单", groupName2, ControlTypes.SWITCH_BUTTON, true,false);
-        formField = addFormField (form, "amount", "付款金额", groupName2, ControlTypes.TEXT_BOX, true,false);
+        formField = addFormField (form, "amount", "付款金额", groupName2, ControlTypes.DECIMAL_FEN_BOX, true,false);
 
         formField = addFormField (form, "offlineRemark", "付款说明", groupName2, ControlTypes.TEXT_BOX, false);
         {
