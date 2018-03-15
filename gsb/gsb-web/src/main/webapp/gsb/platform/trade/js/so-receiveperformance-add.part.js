@@ -8,6 +8,7 @@ com.gongsibao.trade.web.SoCreatReceivePerformanceFormPart = org.netsharp.panda.c
         var me = this;
         var depPayMapDTO = {};
         var imgs = [];
+        var totalCutAmount=0;//添加的划分金额总额
 
 
         depPayMapDTO.payForOrderCount = $("#isOnlinePay")[0].checked;//是否在线支付
@@ -35,8 +36,15 @@ com.gongsibao.trade.web.SoCreatReceivePerformanceFormPart = org.netsharp.panda.c
 
             orderRelation.items = item.items;
             orderRelations.push(orderRelation);
+            totalCutAmount+=parseFloat(item.orderCutAmount) ;
+
         });
         depPayMapDTO.orderRelations = orderRelations;
+        var  maxCut=$("#paidPrice").numberbox('getValue');
+        if(!depPayMapDTO.payForOrderCount&&totalCutAmount>maxCut){
+
+            IMessageBox.toast('业绩分配总额超过支付金额');
+        }
 
         me.invokeService('saveNDepReceivableBySoder', [depPayMapDTO], function (data) {
 
