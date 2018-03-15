@@ -1,6 +1,8 @@
 package com.gongsibao.entity.trade;
 
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
@@ -18,6 +20,9 @@ public class NOrderCarryover extends Entity {
 	@Column(name = "form_order_id", header = "来源订单Id")
 	private Integer formOrderId;
 
+	@Reference(foreignKey = "formOrderId", header = "服务商")
+	private SoOrder formOrder;
+
 	@Column(name = "to_order_id", header = "去向订单Id")
 	private Integer toOrderId;
 	
@@ -26,6 +31,9 @@ public class NOrderCarryover extends Entity {
 
 	@Column(name = "to_order_no", header = "去向订单编号")
 	private String toOrderNo;
+
+	@Column(name = "audit_status", header = "结转状态")
+	private AuditStatusType auditStatus = AuditStatusType.wu;
 
 	@Column(name = "remark", size = 500, header = "结转说明")
 	private String remark;
@@ -76,5 +84,21 @@ public class NOrderCarryover extends Entity {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public SoOrder getFormOrder() {
+		return formOrder;
+	}
+
+	public void setFormOrder(SoOrder formOrder) {
+		this.formOrder = formOrder;
+	}
+
+	public AuditStatusType getAuditStatus() {
+		return auditStatus;
+	}
+
+	public void setAuditStatus(AuditStatusType auditStatus) {
+		this.auditStatus = auditStatus;
 	}
 }
