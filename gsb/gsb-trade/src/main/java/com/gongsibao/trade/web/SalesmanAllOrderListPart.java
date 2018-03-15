@@ -68,12 +68,11 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
     }
 
 
-    /**
-     * 是否是分期付款的订单
-     *
-     * @param id
-     * @return
-     */
+    /*
+    * 是否是分期付款的订单
+    * @param id
+    * @return
+    */
     public Boolean isStaged(Integer id) {
         Oql oql = new Oql();
         {
@@ -83,7 +82,7 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
             oql.getParameters().add("id", id, Types.INTEGER);
         }
         SoOrder entity = orderService.queryFirst(oql);
-        return entity.getStaged() == null ? false : entity.getStaged();
+        return entity.getIsInstallment() == null ? false : entity.getIsInstallment();
     }
 
     /**
@@ -108,8 +107,6 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
         } else {
             return -1;
         }
-
-
     }
 
 }

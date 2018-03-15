@@ -27,7 +27,7 @@ public class SalesmanStagingListPart extends SalesmanAllOrderListPart {
                 order.setStageCreator(stages.get(0).getCreator());
             }
         }
-        
+
         return resList;
     }
 }

@@ -27,7 +27,23 @@ org.netsharp.we.core.franchiseeDetailCtrl = org.netsharp.we.core.detailCtrl.Exte
 
         	$('#annualIncome').text(entity.annualIncome+'万');
     	}
-    	var district = entity.province.name + ' / ' +  entity.city.name + ' / ' + entity.county.name;
+    	
+    	var arr = new Array();
+    	if(entity.province){
+
+        	arr.push(entity.province.name);
+    	}
+    	
+    	if(entity.city){
+
+        	arr.push(entity.city.name);
+    	}
+    	
+    	if(entity.county){
+
+        	arr.push(entity.county.name);
+    	}
+    	var district = arr.join(" / ");
     	$('#district').text(district);
     	$('#registerAddress').text(entity.registerAddress);
     	$('#workdAddress').text(entity.workdAddress);
