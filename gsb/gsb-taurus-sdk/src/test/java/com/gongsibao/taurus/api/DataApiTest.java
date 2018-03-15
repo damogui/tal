@@ -25,7 +25,7 @@ public class DataApiTest {
         //region 可使用接口
 
 //        testGetByName("四川腾中重工机械有限公司");
-        testGetCompanyByKey("腾中重工");
+//        testGetCompanyByKey("腾中重工");
 //        testCompanyNameByKey("中重工有限");
 //        testGetCompanyTmList("四川腾中重工机械有限公司");
 
@@ -48,7 +48,7 @@ public class DataApiTest {
 //        testShuiShou("四川腾中重工机械有限公司");
 //        testYingShi("四川腾中重工机械有限公司");
 //        testShiPin("四川腾中重工机械有限公司");
-
+        getTmOccupied("四川腾中重工机械有限公司");
 
         //endregion
 
@@ -57,6 +57,20 @@ public class DataApiTest {
 
         System.err.println("/**************************************************/");
     }
+
+    /**
+     * 获取公司详情
+     */
+    public void getTmOccupied(String companyName) {
+        try {
+            ResponseMessage<TmOccupied> response = TaurusApiService.getTmOccupiedCount(companyName, 1, 100);
+            System.err.println(response);
+            System.out.println(response.getResult() + "：" + response.getResultMsg());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * 获取公司详情
