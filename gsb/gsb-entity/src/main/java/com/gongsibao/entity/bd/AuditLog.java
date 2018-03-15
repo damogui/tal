@@ -19,16 +19,22 @@ public class AuditLog extends BaseEntity {
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
 	 */
 	private static final long serialVersionUID = -8815735808036860870L;
+	
 	@Column(name = "type_id", header = "审核类型序号，type=104，1041产品定价申请审核、1042订单改价申请审核、1043合同申请审核、1044发票申请审核、1045收款申请审核、1046退单申请审核、1047分期申请审核、1048产品改价申请审核")
-	private AuditLogType typeId = AuditLogType.wu;
+	private AuditLogType type = AuditLogType.wu;
+	
 	@Column(name = "form_id", header = "关联表外键")
 	private Integer formId;
+	
 	@Column(name = "status_id", header = "审核状态序号，type=105，1051 待审核、1052 审核中、1053 驳回审核、1054 审核通过、1055排队、1056关闭")
 	private AuditLogStatusType status = AuditLogStatusType.TOAUDIT;
+	
 	@Column(name = "content", header = "审批内容")
 	private String content;
+	
 	@Column(name = "remark", header = "说明")
 	private String remark;
+	
 	@Column(name = "level", header = "审核层级")
 	private Integer level;
 
@@ -52,12 +58,12 @@ public class AuditLog extends BaseEntity {
 	@Reference(foreignKey = "formId")
 	private Refund fefund;
 
-	public AuditLogType getTypeId() {
-		return typeId;
+	public AuditLogType getType() {
+		return type;
 	}
 
-	public void setTypeId(AuditLogType typeId) {
-		this.typeId = typeId;
+	public void setType(AuditLogType type) {
+		this.type = type;
 	}
 
 	public Integer getFormId() {

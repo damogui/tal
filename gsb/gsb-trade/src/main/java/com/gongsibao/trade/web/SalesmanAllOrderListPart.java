@@ -86,27 +86,34 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
     }
 
     /**
-     * 获取订单的退款状态、是否满足退款金额判断
-     *
-     * @param id
-     * @return
-     */
-    public Integer refundStatus(Integer id) {
-        Oql oql = new Oql();
-        {
-            oql.setType(SoOrder.class);
-            oql.setSelects("*");
-            oql.setFilter("id=?");
-            oql.getParameters().add("id", id, Types.INTEGER);
-        }
-        SoOrder entity = orderService.queryFirst(oql);
-
-        Integer refundPrice = entity.getRefundPrice() == null ? 0 : entity.getRefundPrice().intValue();
-        if ((entity.getPaidPrice().intValue() - refundPrice.intValue()) > 0) {
-            return entity.getRefundStatus() == null ? 0 : entity.getRefundStatus().getValue();
-        } else {
-            return -1;
-        }
-    }
+	 *  获取订单的退款状态、退款(结转)金额判断
+	 * @param id 订单Id
+	 * @param type 0-退款、1-结转
+	 * @return -1 金额不足
+	 */
+	public Integer refundCarryValidate(Integer id , Integer type){
+		Integer reusltValue = 0;
+		Oql oql = new Oql();
+		{
+			oql.setType(SoOrder.class);
+			oql.setSelects("*");
+			oql.setFilter("id=?");
+			oql.getParameters().add("id", id, Types.INTEGER);
+		}
+		SoOrder entity = orderService.queryFirst(oql);
+		//退款金额
+		Integer refundPrice = entity.getRefundPrice() == null ? 0 : entity.getRefundPrice().intValue();
+		//结转金额
+		Integer carryAmount = entity.getCarryAmount() == null ? 0 : entity.getCarryAmount().intValue();
+		Integer allAmount = refundPrice.intValue() + carryAmount.intValue();
+		if((entity.getPaidPrice().intValue() - allAmount.intValue()) > 0){
+			if(type.equals(0)){
+				reusltValue = entity.getRefundStatus() == null ? 0 : entity.getRefundStatus().getValue();
+			}
+		}else {
+			reusltValue = -1;
+		}
+		return reusltValue;
+	}
 
 }

@@ -9,6 +9,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         this.originType = null;//来源类型（0或null：业务员跳转过来的；1：平台跳转过来的）
         this.addStagingUrl = '/nav/gsb/platform/trade/orderStage';//创建分期
         this.addRefundUrl = '/nav/gsb/platform/trade/orderRefund';//创建退款
+        this.addCarryoverUrl = '/nav/gsb/platform/trade/orderCarryover';//创建结转
     },
     addOrderReceived: function () {//创建订单业绩
         var me = this;
@@ -98,8 +99,8 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             return false;
         }
         var contentUrl = this.addRefundUrl + "?id=" + row.id;
-        //
-        me.invokeService("refundStatus", [row.id], function (data) {
+        //验证金额 和一些退款的状态
+        me.invokeService("refundCarryValidate", [row.id,0], function (data) {
         	if(data < 0){
         		layer.msg('无退款金额！');
         	}
@@ -110,7 +111,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         	}else{
         		layer.open({
                     type: 2,//1是字符串 2是内容
-                    title: '订单信息',
+                    title: '创建退款',
                     fixed: false,
                     maxmin: true,
                     shadeClose: false,
@@ -127,8 +128,37 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         });
     },
     addCarryover: function (id) {//创建结转
-
-        this.edit(id);
+    	
+    	var me = this;
+        var row = this.getSelectedItem();
+        var rows = this.getSelections();
+        if (rows.length <= 0) {
+            IMessageBox.info('请先选择订单数据');
+            return false;
+        }
+        var contentUrl = this.addCarryoverUrl + "?id=" + row.id;
+        me.invokeService("refundCarryValidate", [row.id,1], function (data) {
+        	if(data < 0){
+        		layer.msg('结转金额不足！');
+        	}else{
+        		layer.open({
+    	            type: 2,//1是字符串 2是内容
+    	            title: '创建结转',
+    	            fixed: false,
+    	            maxmin: true,
+    	            shadeClose: false,
+    	            area: ['50%', '70%'],
+    	            zIndex: 100000,
+    	            id: "addCarryoverIframe",
+    	            content: contentUrl,
+    	            btn: ['保存', '取消'],// 可以无限个按钮
+    	            yes: function (index, layero) {
+    	                document.getElementById('addCarryoverIframe').firstElementChild.contentWindow.carryoverCtrl.save();
+    	            },
+    	        });
+        	}
+        });
+       
     },
     addStaging: function (id) {//创建分期
         var me = this;
@@ -146,7 +176,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             } else {
                 layer.open({
                     type: 2,//1是字符串 2是内容
-                    title: '订单信息',
+                    title: '创建分期',
                     fixed: false,
                     maxmin: true,
                     shadeClose: false,
