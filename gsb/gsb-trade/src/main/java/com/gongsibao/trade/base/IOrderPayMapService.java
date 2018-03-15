@@ -9,4 +9,7 @@ import com.gongsibao.entity.trade.OrderPayMap;
 public interface IOrderPayMapService extends IPersistableService<OrderPayMap> {
 	
 	List<OrderPayMap> queryByOrderId(Integer orderId);
+
+    /*根据支付id获取payMap*/
+    OrderPayMap queryByPayId(Integer payId);
 }

@@ -178,7 +178,7 @@ public class SoCreatReceivedPerformanceWorkspaceTest extends WorkspaceCreationBa
 
         }
 
-        formField = addFormField (form, "onLineNotCutPay", "在线支付未创建业绩总额", groupName2, ControlTypes.TEXT_BOX, false);
+        formField = addFormField (form, "onLineNotCutPay", "在线支付未创建业绩总额", groupName2, ControlTypes.DECIMAL_FEN_BOX, false);
         {
             formField.setReadonly (true);
             //formField.setRowSpan (2);

@@ -49,4 +49,4 @@
           <td colspan="5" class="control_td" id="remark"></td>
 	</tr>
 </table>
-<script src='/gsb/platform/trade/js/order-info-ctrl.js'></script>
+<script src='/gsb/platform/trade/js/order.info-ctrl.js'></script>
