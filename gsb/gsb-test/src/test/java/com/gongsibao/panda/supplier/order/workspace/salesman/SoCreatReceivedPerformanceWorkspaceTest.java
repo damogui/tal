@@ -113,7 +113,7 @@ public class SoCreatReceivedPerformanceWorkspaceTest extends WorkspaceCreationBa
 
         }
 
-        formField = addFormField (form, "payablePrice", "订单金额", groupName, ControlTypes.TEXT_BOX, false);
+        formField = addFormField (form, "payablePrice", "订单金额", groupName, ControlTypes.DECIMAL_FEN_BOX, false);
         {
             formField.setReadonly (true);
 

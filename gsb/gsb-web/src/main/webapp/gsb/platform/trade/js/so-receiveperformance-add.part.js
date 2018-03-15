@@ -1,6 +1,7 @@
 System.Declare("com.gongsibao.trade.web");
 
 var isInit = 0;//0是页面初始化1否
+var payId=0;//在线支付的时候从后台获取的支付id
 com.gongsibao.trade.web.SoCreatReceivePerformanceFormPart = org.netsharp.panda.commerce.FormPart.Extends({
 
     save: function () {
@@ -238,9 +239,17 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
                 return 1;
             }
             var val5 = $("#amount").numberbox('getValue');
+            var val55 = $("#payablePrice").numberbox('getValue');
+            debugger;
             if(parseInt(val5)<=0){
 
                 IMessageBox.info("付款金额必填")
+                return 1;
+            }
+
+            if(parseInt(val5)>parseInt(val55)){
+
+                IMessageBox.info("付款金额不能大于订单金额")
                 return 1;
             }
             // var val7 = $("#files").attr("disabled", checked);
@@ -311,9 +320,29 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
 
             },
             yes: function (index, layero) {
+                //如果是一笔多单的情况校验是不是存在订单号
+                var orderMultiple = $("#payForOrderCount")[0].checked;
+                if(orderMultiple){
+                    alert("校验订单号是否存在");
+
+                    me.invokeService('checkOrderId', [orderId], function (data) {
+                        //
 
 
-                alert("校验订单号是否存在");
+                        // if (data > 0) {
+                        //
+                        //     IMessageBox.toast('保存成功');
+                        //
+                        // } else {
+                        //
+                        //     IMessageBox.toast('保存失败');
+                        // }
+                    });
+
+                }
+
+
+
                 //进行绑定数据
                 var orderBack = me.getOrderBack();
 
@@ -424,17 +453,13 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
             var orderId = $("#no").val();
             $("#payForOrderCount").switchbutton('reset');
             me.invokeService('getOnlinePayInfoBySoderOId', [orderId], function (data) {
-                //
+                if (data > 0) {
 
+                    payId=data;
 
-                // if (data > 0) {
-                //
-                //     IMessageBox.toast('保存成功');
-                //
-                // } else {
-                //
-                //     IMessageBox.toast('保存失败');
-                // }
+                } else {
+                    IMessageBox.info('不存在支付记录');
+                }
             });
 
 
