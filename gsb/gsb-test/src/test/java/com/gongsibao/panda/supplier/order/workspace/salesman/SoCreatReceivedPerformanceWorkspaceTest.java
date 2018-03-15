@@ -105,7 +105,7 @@ public class SoCreatReceivedPerformanceWorkspaceTest extends WorkspaceCreationBa
         PFormField formField = null;
 
         String groupName = null;
-        String groupName2 = "回款申请";
+        String groupName2 = "回款信息";
 
         formField = addFormField (form, "no", "订单编号", groupName, ControlTypes.TEXT_BOX, false);
         {
@@ -160,35 +160,30 @@ public class SoCreatReceivedPerformanceWorkspaceTest extends WorkspaceCreationBa
         }
 
 
-        formField = addFormField (form, "performancePrice", "已划分金额", groupName, ControlTypes.TEXT_BOX, false);
-        {
-            formField.setReadonly (true);
 
-        }
         formField = addFormField (form, "remark", "备注", groupName, ControlTypes.TEXT_BOX, false);
         {
             formField.setReadonly (true);
-            formField.setWidth (120);
+            formField.setWidth (400);
 
         }
         /*回款申请beg*/
 
-        formField = addFormField (form, "isCarryOver", "有无结转", groupName2, ControlTypes.SWITCH_BUTTON, false);
+        formField = addFormField (form, "isOnlinePay", "是否线上支付", groupName2, ControlTypes.SWITCH_BUTTON, false);
         {
-            formField.setReadonly (true);
+            formField.setReadonly (false);
 
         }
 
-        formField = addFormField (form, "carryOverOrderId", "结转来源订单号", groupName2, ControlTypes.TEXT_BOX, false);
+        formField = addFormField (form, "onLineNotCutPay", "在线支付为创建业绩总额", groupName2, ControlTypes.TEXT_BOX, false);
         {
             formField.setReadonly (true);
+            //formField.setRowSpan (2);
+           // formField.setColumnSpan (2);
+            //formField.setFullColumn (true);
 
         }
-        formField = addFormField (form, "carryAmount", "结转金额", groupName2, ControlTypes.TEXT_BOX, false);
-        {
-            formField.setReadonly (true);
 
-        }
 
 
         formField = addFormFieldRefrence (form, "pays.u8Bank.setOfBooks.name", "付款账套", groupName2, SetOfBooks.class.getSimpleName (), true, false);//进行联动
@@ -201,42 +196,16 @@ public class SoCreatReceivedPerformanceWorkspaceTest extends WorkspaceCreationBa
         formField = addFormFieldRefrence (form, "pays.u8Bank.name", "付款方式", groupName2,"SupplierU8Bank", true, false);
         {
             formField.setRefFilter ("set_of_books_id=1");
-            //U8Bank
-            //formField.setTroikaTrigger ("controllerdepReceivable.departmentChange(newValue,oldValue);");
-        }
-//        formField = addFormField (form, "no", "付款账套", groupName2, ControlTypes.TEXT_BOX, false);
-//        {
-//            formField.setReadonly (false);
-//
-//        }
-//        formField = addFormField (form, "no", "付款方式", groupName2, ControlTypes.TEXT_BOX, false);
-//        {
-//            formField.setReadonly (false);
-//
-//        }
-
-        formField = addFormField (form, "offlinePayerName", "付款账号名称", groupName2, ControlTypes.TEXT_BOX, false);
-        {
-            formField.setReadonly (false);
-
-        }
-        formField = addFormField (form, "offlineBankNo", "付款账号", groupName2, ControlTypes.TEXT_BOX, false);
-        {
-            formField.setReadonly (false);
 
         }
 
-        formField = addFormField (form, "payForOrderCount", "是否一笔多单", groupName2, ControlTypes.SWITCH_BUTTON, false);
-        {
-            formField.setReadonly (false);
 
-        }
-        formField = addFormField (form, "amount", "付款金额", groupName2, ControlTypes.TEXT_BOX, false);
-        {
-            formField.setReadonly (false);
+        formField = addFormField (form, "offlinePayerName", "付款账号名称", groupName2, ControlTypes.TEXT_BOX, true,false);
 
-        }
+        formField = addFormField (form, "offlineBankNo", "付款账号", groupName2, ControlTypes.TEXT_BOX, true,false);
 
+        formField = addFormField (form, "payForOrderCount", "是否一笔多单", groupName2, ControlTypes.SWITCH_BUTTON, true,false);
+        formField = addFormField (form, "amount", "付款金额", groupName2, ControlTypes.TEXT_BOX, true,false);
 
         formField = addFormField (form, "offlineRemark", "付款说明", groupName2, ControlTypes.TEXT_BOX, false);
         {
@@ -246,12 +215,7 @@ public class SoCreatReceivedPerformanceWorkspaceTest extends WorkspaceCreationBa
 
 
 
-        formField = addFormField (form, "files", "付款凭证", groupName2, ControlTypes.OSS_UPLOAD, false);
-        {
-            formField.setReadonly (false);
-
-
-        }
+        formField = addFormField (form, "files", "付款凭证", groupName2, ControlTypes.OSS_UPLOAD, true,false);
 
         formField = addFormField (form, "imagefiles", "付款凭证图片", groupName2, ControlTypes.IMAGE, false);
         {
