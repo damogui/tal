@@ -2,6 +2,7 @@ package com.gongsibao.entity.trade;
 
 import java.util.Date;
 
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Reference;
@@ -70,7 +71,7 @@ public class Contract extends BaseEntity {
 	private Integer fileId;
 
 	@Column(name = "audit_status_id", header = "审核状态序号，type=105，1051待审核、1052通过、1053不通过")
-	private Integer auditStatusId;
+	private AuditStatusType auditStatusId;
 
 	@Column(name = "is_bbk", header = "IsBbk")
 	private String isBbk = "0";
@@ -235,11 +236,11 @@ public class Contract extends BaseEntity {
 		this.fileId = fileId;
 	}
 
-	public Integer getAuditStatusId() {
+	public AuditStatusType getAuditStatusId() {
 		return auditStatusId;
 	}
 
-	public void setAuditStatusId(Integer auditStatusId) {
+	public void setAuditStatusId(AuditStatusType auditStatusId) {
 		this.auditStatusId = auditStatusId;
 	}
 
