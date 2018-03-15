@@ -20,6 +20,7 @@ import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.OrderAccountType;
+import com.gongsibao.entity.trade.dic.OrderCarryStatusType;
 import com.gongsibao.entity.trade.dic.OrderManualVoucherStatus;
 import com.gongsibao.entity.trade.dic.OrderPayStatusType;
 import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
@@ -163,6 +164,13 @@ public class SoOrder extends BaseEntity {
     @Column(name = "carry_amount", header = "结转金额")
     private Integer carryAmount;
 
+    // 3031 待审核
+    // 3032 退款中
+    // 3033 退款完成
+    // 3034 驳回退款
+    @Column(name = "carry_status_id", header = "结转状态：type=303")
+    private OrderCarryStatusType carryStatus = OrderCarryStatusType.wu;
+    
     @Column(name = "customer_id", header = "客户Id")
     private Integer customerId;
 
@@ -925,4 +933,21 @@ public class SoOrder extends BaseEntity {
     public void setOnlinePay(Boolean onlinePay) {
         isOnlinePay = onlinePay;
     }
+
+	public OrderCarryStatusType getCarryStatus() {
+		return carryStatus;
+	}
+
+	public void setCarryStatus(OrderCarryStatusType carryStatus) {
+		this.carryStatus = carryStatus;
+	}
+
+	public Boolean getIsOnlinePay() {
+		return isOnlinePay;
+	}
+
+	public void setIsOnlinePay(Boolean isOnlinePay) {
+		this.isOnlinePay = isOnlinePay;
+	}
+    
 }
