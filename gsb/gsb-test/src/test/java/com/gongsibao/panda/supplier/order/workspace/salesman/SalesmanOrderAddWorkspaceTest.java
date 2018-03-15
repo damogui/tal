@@ -74,9 +74,9 @@ public class SalesmanOrderAddWorkspaceTest extends WorkspaceCreationBase {
 		{
 			formField.setTroikaTrigger("controllersoOrder.accountMobileChange(this);");
 		}
-		addFormField(form, "accountName", "联系人", groupName, ControlTypes.TEXT_BOX, false, true);
-		 addFormField(form, "email", "客户等级", groupName, ControlTypes.TEXT_BOX,false, true);
-		addFormField(form, "email", "邮箱", groupName, ControlTypes.TEXT_BOX, false, true);
+		addFormField(form, "accountName", "联系人", groupName, ControlTypes.TEXT_BOX, false, false);
+		addFormField(form, "important", "客户等级", groupName, ControlTypes.ENUM_BOX,false, false);
+		addFormField(form, "email", "邮箱", groupName, ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "accountType", "新/老客户", groupName, ControlTypes.ENUM_BOX, true, false);
 //		addFormField(form, "couponCode", "优惠劵", groupName, ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "totalPrice", "原价金额", groupName, ControlTypes.DECIMAL_FEN_BOX, false, true);

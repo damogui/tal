@@ -14,6 +14,7 @@ import org.netsharp.organization.entity.Employee;
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.crm.NCustomer;
+import com.gongsibao.entity.crm.dic.Important;
 import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.product.ProductPackage;
 import com.gongsibao.entity.supplier.Supplier;
@@ -71,6 +72,9 @@ public class SoOrder extends BaseEntity {
 
     @Column(name = "account_mobile", header = "手机号")
     private String accountMobile = "";
+    
+	@Column(name = "important", header = "402 重要程度: 4021普通、 4022中级、 4023高级、 4024VIP")
+	private Important important = Important.COMMON;
 
     // 3011 待付款
     // 3012 已付部分款（根据“是否分期”判断处理流程）
@@ -950,5 +954,14 @@ public class SoOrder extends BaseEntity {
 	public void setIsOnlinePay(Boolean isOnlinePay) {
 		this.isOnlinePay = isOnlinePay;
 	}
+
+	public Important getImportant() {
+		return important;
+	}
+
+	public void setImportant(Important important) {
+		this.important = important;
+	}
     
+	
 }

@@ -6,6 +6,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		this.addUrl = null;
 		this.editUrl = null;
 		this.followUrl = null;
+		
 		this.addCustomerUrl = null;
 	},
 	addCustomer:function(){
@@ -19,10 +20,13 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 			var taskId = row.id ||'';
 			var customerId = row.customerId ||'';
 			var accountId = row.customer_accountId ||'';
+			var mobile = row.customer_mobile ||'';
+			//var important = row.customer_important ||'';
 			var ps = new Array();
 			ps.push('taskId='+taskId);
 			ps.push('customerId='+customerId);
 			ps.push('accountId='+accountId);
+			ps.push('mobile='+mobile);
 			var urlParameter = ps.join('&');
 			var url = '/panda/crm/order/salesman/add?'+urlParameter;
 			window.open(url);

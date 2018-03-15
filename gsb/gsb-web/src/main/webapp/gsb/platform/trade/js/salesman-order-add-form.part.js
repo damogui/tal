@@ -24,16 +24,23 @@ com.gongsibao.trade.web.SalesmanAddOrderFormPart = org.netsharp.panda.commerce.F
     	}
     	
     	//2.验证是否已开户
+    	this.bindAccount(mobile);
+    },
+    bindAccount:function(mobile){
+    	
         this.invokeService("getAccount", [mobile], function (data) {
         	
         	var account = data;
         	if(account){
         		
         		//会员名称
-        		$('#accountName').val(account.name);
+        		$('#accountName').val(account.realName);
         		
         		//会员邮箱
         		$('#email').val(account.email);
+        		
+        		//客户等级
+        		$('#important').combobox('setValue',account.important);
         		
         		//会员Id
         		me.currentItem.accountId = account.id;
@@ -70,6 +77,38 @@ com.gongsibao.trade.web.SalesmanAddOrderFormPart = org.netsharp.panda.commerce.F
 //        		item.priceOriginal = item.priceOriginal*fen;
 //        	});
 //    	});
+    	
+    	//?taskId=29&customerId=13&accountId=364627
+    	
+    	
+    },
+    added: function (currentItem) {
+
+    	var taskId = this.queryString('taskId') || null;
+    	if(taskId){
+    	
+    		currentItem.taskId = taskId; 
+    	}
+    	
+    	var customerId = this.queryString('customerId') || null;
+    	if(customerId){
+        	
+    		currentItem.customerId = customerId; 
+    	}
+    	
+    	var accountId = this.queryString('accountId') || null;
+    	if(accountId){
+        	
+    		currentItem.accountId = accountId;
+    	}
+    	
+    	var mobile = this.queryString('mobile') || null;
+    	if(mobile){
+        	
+    		currentItem.accountMobile = mobile;
+    		this.bindAccount(mobile);
+    	}
+    	
     }
 });
 

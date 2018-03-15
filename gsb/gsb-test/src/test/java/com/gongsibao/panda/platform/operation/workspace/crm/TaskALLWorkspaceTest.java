@@ -158,7 +158,6 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 			column.setVisible(false);
 			column.setSystem(true);
 		}
-
 		return datagrid;
 	}
 

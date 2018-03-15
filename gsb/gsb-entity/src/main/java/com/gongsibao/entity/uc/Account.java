@@ -6,6 +6,7 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.Dict;
+import com.gongsibao.entity.crm.dic.Important;
 
 @Table(name="uc_account")
 public class Account extends BaseEntity {
@@ -49,6 +50,9 @@ public class Account extends BaseEntity {
     
     @Column(name="identity_card",header="身份证号码")
     private String identityCard;
+    
+    @Column(name="important",header="402 重要程度: 4021普通、 4022中级、 4023高级、 4024VIP")
+    private Important important = Important.COMMON;
 
 	public String getName() {
 		return name;
@@ -144,5 +148,13 @@ public class Account extends BaseEntity {
 
 	public void setIdentityCard(String identityCard) {
 		this.identityCard = identityCard;
+	}
+
+	public Important getImportant() {
+		return important;
+	}
+
+	public void setImportant(Important important) {
+		this.important = important;
 	}
 }
