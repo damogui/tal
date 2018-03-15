@@ -304,6 +304,10 @@ public class SoOrder extends BaseEntity {
     @Column(name = "stageCreator", header = "分期申请人")
     private String stageCreator = "";
 
+    @Column(name = "is_online_pay", header = "是否线上支付")
+    private Boolean isOnlinePay=false ;
+
+
 
     public List<NOrderStage> getStages() {
         return stages;
@@ -912,5 +916,13 @@ public class SoOrder extends BaseEntity {
 
     public void setStageCreateTime(Date stageCreateTime) {
         this.stageCreateTime = stageCreateTime;
+    }
+
+    public Boolean getOnlinePay() {
+        return isOnlinePay;
+    }
+
+    public void setOnlinePay(Boolean onlinePay) {
+        isOnlinePay = onlinePay;
     }
 }

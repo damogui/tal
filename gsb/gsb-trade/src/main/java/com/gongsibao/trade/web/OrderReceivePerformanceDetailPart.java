@@ -12,12 +12,16 @@ import org.netsharp.panda.commerce.DetailPart;
 public class OrderReceivePerformanceDetailPart extends DetailPart {
 
     /*NDepReceivable 业绩实体类 prodTraceService*/
-//    INDepReceivableService nDepReceivableService= ServiceFactory.create(INDepReceivableService.class);
-//
-//    public   int  saveOption(Integer soOrderId,Integer soOrderId2,Integer soOrderId3,Integer soOrderId4) {
-//        //NDepReceivable obj  = nDepReceivableService.save (null);
-//        return 1;
-//    }
+    INDepReceivableService nDepReceivableService= ServiceFactory.create(INDepReceivableService.class);
+
+
+    //根据订单号获取订单的支付信息针对线上支付
+    public int getOnlinePayInfoBySoderOId(Integer orderId) {
+        //NDepReceivable obj  = nDepReceivableService.save (null);
+        return 1;
+    }
+
+
 
 
 
