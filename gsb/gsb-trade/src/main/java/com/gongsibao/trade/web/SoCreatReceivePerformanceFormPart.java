@@ -1,8 +1,11 @@
 package com.gongsibao.trade.web;
 
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.gongsibao.bd.base.IFileService;
+import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.trade.*;
 import com.gongsibao.entity.trade.dic.OfflineWayType;
 import com.gongsibao.entity.trade.dic.PayOfflineInstallmentType;
@@ -74,6 +77,9 @@ public class SoCreatReceivePerformanceFormPart extends FormPart {
         IU8BankService u8BankService = ServiceFactory.create (IU8BankService.class);//获取线下支付
         INU8BankSoPayMapService nU8BankSoPayMapService = ServiceFactory.create (INU8BankSoPayMapService.class);//插入u8中间表
 
+        IFileService fileService = ServiceFactory.create (IFileService.class);//支付凭证图片
+
+
         Pay pay = new Pay ();
         pay.setAmount (entity.getAmount ());
         pay.setSetOfBooksId (entity.getSetOfBooks ());
@@ -92,6 +98,18 @@ public class SoCreatReceivePerformanceFormPart extends FormPart {
         pay.setOfflineWayType (offlineWayType);
         pay.setEntityState (EntityState.New);
         Pay savePay = payService.save (pay);
+        List<File> files = new ArrayList<> ();
+        for (String item : entity.getImgs ()
+                ) {
+            File file = new File ();
+            file.setTabName ("so_pay");
+            file.setFormId (savePay.getId ());
+            file.setName ("sql同步的付款凭证图片");
+            file.setUrl (item);
+            files.add (file);
+        }
+
+        fileService.saves (files);
 
         for (OrderRelationDTO item : entity.getOrderRelations ()
                 ) {

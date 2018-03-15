@@ -31,12 +31,14 @@ public class DepPayMapDTO {
     private Boolean payForOrderCount = false;
     /*付款金额*/
     private Integer amount = 0;
-    /*付款凭证*/
-    private String files = "";
+//    /*付款凭证*/
+//    private String files = "";
     /*付款说明*/
     private String offlineRemark = "";
     /*回款订单关联*/
     private List<OrderRelationDTO> orderRelations = new ArrayList<> ();
+    /*付款凭证图片*/
+    private List<String> imgs = new ArrayList<> ();
 
 
     public Integer getSetOfBooks() {
@@ -88,13 +90,7 @@ public class DepPayMapDTO {
         this.amount = amount;
     }
 
-    public String getFiles() {
-        return files;
-    }
 
-    public void setFiles(String files) {
-        this.files = files;
-    }
 
     public String getOfflineRemark() {
         return offlineRemark;
@@ -135,6 +131,14 @@ public class DepPayMapDTO {
 
     public void setPayId(Integer payId) {
         this.payId = payId;
+    }
+
+    public List<String> getImgs() {
+        return imgs;
+    }
+
+    public void setImgs(List<String> imgs) {
+        this.imgs = imgs;
     }
 }
 
