@@ -6,6 +6,7 @@ import java.util.List;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.trade.*;
 import com.gongsibao.entity.trade.dic.OfflineWayType;
+import com.gongsibao.entity.trade.dic.PayOfflineInstallmentType;
 import com.gongsibao.entity.trade.dic.PayWayType;
 import com.gongsibao.entity.trade.dto.DepPayMapDTO;
 import com.gongsibao.entity.trade.dto.OrderRelationDTO;
@@ -66,8 +67,13 @@ public class SoCreatReceivePerformanceFormPart extends FormPart {
         pay.setOfflineRemark (entity.getOfflineRemark ());
         pay.setPayWayType (PayWayType.ONLINE_PAYMENT);//线下支付
         //offlineWayType  查u8
-        Dict dict = u8BankService.byId (entity.getU8Bank ()).getOfflineWayType ();
-        pay.setOfflineWayType (OfflineWayType.getItem (dict.getId ()));
+//        Dict dict = u8BankService.byId (entity.getU8Bank ()).getOfflineWayType ();
+        Integer offlineWayTypeId=u8BankService.byId (entity.getU8Bank ()).getOfflineWayTypeId ();//类型有可能为空
+        OfflineWayType offlineWayType= OfflineWayType.getItem (offlineWayTypeId);
+        if (offlineWayType==null){
+            offlineWayType=OfflineWayType.SK;
+        }
+        pay.setOfflineWayType (offlineWayType);
         pay.setEntityState (EntityState.New);
         Pay savePay = payService.save (pay);
 
@@ -78,6 +84,7 @@ public class SoCreatReceivePerformanceFormPart extends FormPart {
             orderPayMap.setOrderId (item.getOrderId ());
             orderPayMap.setU8BankId (entity.getU8Bank ());
             orderPayMap.setOrderPrice (item.getOrderCutAmount ());
+            orderPayMap.setOfflineInstallmentType (PayOfflineInstallmentType.getItem (item.getPayType ()));
             orderPayMap.setEntityState (EntityState.New);
             OrderPayMap saveOrderPayMap = orderPayMapService.save (orderPayMap);
             for (NDepPay item2 :item.getItems ()
@@ -93,17 +100,18 @@ public class SoCreatReceivePerformanceFormPart extends FormPart {
                 nDepPayService.save (nDepPay);
 
             }
-            NU8BankSoPayMap  nU8BankSoPayMap=new NU8BankSoPayMap();
-            nU8BankSoPayMap.setPayId (savePay.getId ());
-            nU8BankSoPayMap.setSetOfBooksId (entity.getSetOfBooks ());
-            nU8BankSoPayMap.setType (0);
-            nU8BankSoPayMap.setU8BankId (entity.getU8Bank ());
-            nU8BankSoPayMap.setPrice (entity.getAmount ());
-            nU8BankSoPayMap.setEntityState (EntityState.New);
-            nU8BankSoPayMapService.save (nU8BankSoPayMap);//u8中间表
+
 
 
         }
+        NU8BankSoPayMap  nU8BankSoPayMap=new NU8BankSoPayMap();
+        nU8BankSoPayMap.setPayId (savePay.getId ());
+        nU8BankSoPayMap.setSetOfBooksId (entity.getSetOfBooks ());
+        nU8BankSoPayMap.setType (0);
+        nU8BankSoPayMap.setU8BankId (entity.getU8Bank ());
+        nU8BankSoPayMap.setPrice (entity.getAmount ());
+        nU8BankSoPayMap.setEntityState (EntityState.New);
+        nU8BankSoPayMapService.save (nU8BankSoPayMap);//u8中间表
         return 1;
     }
 }

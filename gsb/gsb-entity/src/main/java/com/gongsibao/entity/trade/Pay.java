@@ -1,5 +1,6 @@
 package com.gongsibao.entity.trade;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,70 +28,70 @@ public class Pay extends BaseEntity {
     private static final long serialVersionUID = 2379304079106456618L;
 
     @Column(header = "编号")
-    private String no;
+    private String no="";
 
     @Column(header = "金额")
-    private Integer amount;
+    private Integer amount=0;
 
     @Column(name = "pay_way_type_id", header = "支付类型,type=310")
-    private PayWayType payWayType;
+    private PayWayType payWayType=PayWayType.OFFLINE_PAYMENT;
 
     @Column(name = "success_status_id", header = "成功状态")
-    private PaySuccessStatus successStatus;
+    private PaySuccessStatus successStatus=PaySuccessStatus.Weizhifu;
 
     @Column(name = "confirm_time", header = "确认时间")
-    private Date confirmTime;
+    private Date confirmTime=new Date ();
 
     @Column(name = "offline_way_type_id", header = "线下类型")
-    private OfflineWayType offlineWayType;
+    private OfflineWayType offlineWayType=OfflineWayType.SK;
 
     @Column(name = "offline_installment_type", header = "线下结算类型,线下分期类型序号，type= 全款为0，首款为1，尾款为-1，二期为2，三期为3，以此类推")
     private PayOfflineInstallmentType offlineInstallmentType = PayOfflineInstallmentType.sk;
 
     @Column(name = "offline_payer_name", header = "线下支付名称")
-    private String offlinePayerName;
+    private String offlinePayerName="";
 
     @Column(name = "offline_bank_no", header = "线下银行卡号")
-    private String offlineBankNo;
+    private String offlineBankNo="";
 
     @Column(name = "offline_remark", header = "线下备注")
-    private String offlineRemark;
+    private String offlineRemark="";
 
     @Column(name = "offline_audit_status_id", header = "审核状态")
     private AuditStatusType offlineAuditStatus = AuditStatusType.wu;
 
     @Column(name = "offline_add_user_id", header = "线下创建人")
-    private Integer offlineAddUserId;
+    private Integer offlineAddUserId=0;
 
     @Reference(foreignKey = "offlineAddUserId", header = "线下创建人")
     private User offlineAddUser;
 
     @Column(name = "online_bank_code_id", header = "在线银行卡")
-    private String onlineBankCodeId;
+    private String onlineBankCodeId="";
 
     @Column(name = "u8_voucher_id", header = "u8凭证id")
-    private String u8VoucherId;
+    private String u8VoucherId="";
 
     @Subs(subType = File.class, foreignKey = "formId", header = "上传图片表（一个支付可以多个凭证）")
-    private List<File> files;
+    private List<File> files=new ArrayList<> ();
 
     @Column(name = "set_of_books_id", header = "账套id")
-    private Integer setOfBooksId;
+    private Integer setOfBooksId=0;
 
     @Reference(foreignKey = "setOfBooksId")
     private SetOfBooks setOfBooks;
 
     @Column(name = "u8_bank_id", header = "支付方式")
-    private Integer u8BankId;
+    private Integer u8BankId=0;
 
     @Reference(foreignKey = "u8BankId")
     private U8Bank u8Bank;
 
     @Column(name = "online_trade_no", header = "在线交易号")
-    private String onlineTradeNo;
+    private String onlineTradeNo="";
 
     @Column(name = "receipt_no", header = "回单编号")
-    private String receiptNo;
+    private String receiptNo="";
 
     @Column(name = "receipt_status", header = "回单处理状态（0：未完成 1已完成：）")
     private PayReceiptStatus receiptStatus = PayReceiptStatus.NotStarted;
@@ -99,7 +100,7 @@ public class Pay extends BaseEntity {
     private PayForOrderCountType payForOrderCount = PayForOrderCountType.Ybdd;
 
     @Column(name = "dep_pay_audit_pass_time", header = "回款业绩审核通过时间")
-    private Date depPayAuditPassTime;
+    private Date depPayAuditPassTime=new Date ();
 
     public String getNo() {
         return no;

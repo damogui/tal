@@ -10,7 +10,7 @@ import org.netsharp.core.annotations.Table;
 /**/
 @Table(name = "u8_bank_so_pay_map", header = "支付账号关系中间表")
 public class NU8BankSoPayMap  extends BaseEntity {
-    @Column(name = "payId", header = "支付编号")
+    @Column(name = "pay_id", header = "支付编号")
     private  Integer payId;
     @Column(name = "set_of_books_id", header = "账套id")
     private  Integer setOfBooksId;

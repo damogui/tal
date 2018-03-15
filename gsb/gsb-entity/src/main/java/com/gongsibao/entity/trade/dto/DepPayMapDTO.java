@@ -3,6 +3,7 @@ package com.gongsibao.entity.trade.dto;
 import com.gongsibao.entity.trade.NDepPay;
 import com.gongsibao.entity.trade.OrderPayMap;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,23 +13,23 @@ public class DepPayMapDTO {
 
 //    private Integer orderNo;//从下面读取
   /*付款账套*/
-    private Integer setOfBooks;
+    private Integer setOfBooks=0;
     /*u8Bank*/
-    private Integer u8Bank;
+    private Integer u8Bank=0;
     /*付款账号名称*/
-    private String offlinePayerName;
+    private String offlinePayerName="";
     /*付款账号*/
-    private String offlineBankNo;
+    private String offlineBankNo="";
     /*是否一笔多单*/
-    private Boolean payForOrderCount;
+    private Boolean payForOrderCount=false;
     /*付款金额*/
-    private Integer amount;
+    private Integer amount=0;
     /*付款凭证*/
-    private String files;
+    private String files="";
     /*付款说明*/
-    private String offlineRemark;
+    private String offlineRemark="";
     /*回款订单关联*/
-    private List<OrderRelationDTO> orderRelations;
+    private List<OrderRelationDTO> orderRelations=new ArrayList<> ();
 
 
     public Integer getSetOfBooks() {

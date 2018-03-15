@@ -41,20 +41,7 @@ public class OrderPayMap extends BaseEntity {
     //部门回款业绩表
     @Subs(subType = NDepPay.class, foreignKey = "orderPayMapId", header = "回款业绩")
     private List<NDepPay> depPays;
-    private Integer orderCutAmount;//订单分配金额
-    private Integer payType;//付款类别
-    @Exclusive
-    private String  payTypeStr;//付款类别
-    private String supperName;//回款业绩分配服务商
-    @Exclusive
-    private String depName;//回款业绩分配部门
-    @Exclusive
-    private String cutMan;//回款业绩分配业务员
-    @Exclusive
-    private Integer cutAmount;//回款业绩分配金额
-    @Exclusive
-    private Integer cutAmountStr;//回款业绩分配金额
-
+//    private Integer orderCutAmount;//订单分配金额
 
     //我的订单回款额
     @Exclusive
@@ -134,69 +121,8 @@ public class OrderPayMap extends BaseEntity {
         this.u8Bank = u8Bank;
     }
 
-    public Integer getOrderCutAmount() {
-        return orderCutAmount;
-    }
 
-    public void setOrderCutAmount(Integer orderCutAmount) {
-        this.orderCutAmount = orderCutAmount;
-    }
 
-    public Integer getPayType() {
-        return payType;
-    }
-
-    public void setPayType(Integer payType) {
-        this.payType = payType;
-    }
-
-    public String getSupperName() {
-        return supperName;
-    }
-
-    public void setSupperName(String supperName) {
-        this.supperName = supperName;
-    }
-
-    public String getDepName() {
-        return depName;
-    }
-
-    public void setDepName(String depName) {
-        this.depName = depName;
-    }
-
-    public String getCutMan() {
-        return cutMan;
-    }
-
-    public void setCutMan(String cutMan) {
-        this.cutMan = cutMan;
-    }
-
-    public Integer getCutAmount() {
-        return cutAmount;
-    }
-
-    public void setCutAmount(Integer cutAmount) {
-        this.cutAmount = cutAmount;
-    }
-
-    public Integer getCutAmountStr() {
-        return cutAmountStr;
-    }
-
-    public void setCutAmountStr(Integer cutAmountStr) {
-        this.cutAmountStr = cutAmountStr;
-    }
-
-    public String getPayTypeStr() {
-        return payTypeStr;
-    }
-
-    public void setPayTypeStr(String payTypeStr) {
-        this.payTypeStr = payTypeStr;
-    }
 
     public Integer getMyOrderCutAmount() {
         return myOrderCutAmount;

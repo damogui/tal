@@ -15,11 +15,9 @@ com.gongsibao.trade.web.SoCreatReceivePerformanceFormPart = org.netsharp.panda.c
         depPayMapDTO.payForOrderCount = $("#payForOrderCount")[0].checked;
         depPayMapDTO.amount = $("#amount").val();
         debugger;
-        depPayMapDTO.files = $("#files").val();
+        depPayMapDTO.files = $(".btn-preview").attr("href");
         depPayMapDTO.offlineRemark = $("#offlineRemark").val();
-
         var rows = $('#datagridpays').datagrid('getRows');//添加的行
-
         var orderRelations = [];
         $(rows).each(function (i, item) {
             var orderRelation = {};
