@@ -59,9 +59,10 @@ public class SalesmanOrderContractListPart extends AdvancedListPart {
             for (OrderProd orderProd : products) {
                 contractPrice = contractPrice + orderProd.getPrice();
             }
+            //合同业绩总额
             contract.setContractPrice(contractPrice);
-
-            if (contract.getHasDataFee()) {
+            //材料撰写费
+            if (contract.getHasDataFee() != null && contract.getHasDataFee()) {
                 //合同总额- 业绩总额
                 contract.setDataFee(contract.getSoOrder().getPayablePrice() - contractPrice);
             }

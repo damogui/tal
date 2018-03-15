@@ -71,7 +71,7 @@ public class Contract extends BaseEntity {
 	private Integer fileId;
 
 	@Column(name = "audit_status_id", header = "审核状态序号，type=105，1051待审核、1052通过、1053不通过")
-	private AuditStatusType auditStatusId;
+	private AuditStatusType auditStatusId = AuditStatusType.wu;
 
 	@Column(name = "is_bbk", header = "IsBbk")
 	private String isBbk = "0";

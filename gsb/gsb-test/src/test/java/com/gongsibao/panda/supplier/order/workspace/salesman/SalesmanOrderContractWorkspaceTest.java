@@ -1,5 +1,6 @@
 package com.gongsibao.panda.supplier.order.workspace.salesman;
 
+import com.gongsibao.trade.web.SalesmanOrderContractListPart;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.EntityState;
@@ -25,17 +26,19 @@ public class SalesmanOrderContractWorkspaceTest extends WorkspaceCreationBase {
 
     @Before
     public void setup() {
-        super.setup ();
+        super.setup();
         entity = Contract.class;
         urlList = "/crm/order/salesman/contract/list";
         listPartName = formPartName = "合同管理";
-        meta = MtableManager.getMtable (entity);
-        formPartName = listPartName = meta.getName ();
+        meta = MtableManager.getMtable(entity);
+        formPartName = listPartName = meta.getName();
         resourceNodeCode = "Gsb_Supplier_Order_Salesman_Contract";
         formOpenMode = OpenMode.WINDOW;
         openWindowHeight = 700;
         openWindowWidth = 900;
         listPartImportJs = "/gsb/panda-extend/gsb.custom.query.controls.js";///gsb/crm/sys/js/sys-salesman-list-part.js|
+        listPartServiceController = SalesmanOrderContractListPart.class.getName();
+        //listFilter = "order_id in(select pkid from so_order where owner_id = '{userId}' )";
 
 //        List<String> ss = new ArrayList<String> ();
 //        ss.add("/gsb/platform/trade/js/salesman-order-add-form.part.js");
@@ -49,27 +52,28 @@ public class SalesmanOrderContractWorkspaceTest extends WorkspaceCreationBase {
     @Override
     protected PDatagrid createDatagrid(ResourceNode node) {
 
-        PDatagrid datagrid = super.createDatagrid (node);
+        PDatagrid datagrid = super.createDatagrid(node);
         {
-            datagrid.setName ("合同管理");
-            datagrid.setToolbar ("panda/datagrid/row/edit");
-            datagrid.setAutoQuery (true);
+            datagrid.setName("合同管理");
+            datagrid.setToolbar("panda/datagrid/row/edit");
+            datagrid.setAutoQuery(true);
         }
         PDatagridColumn column = null;
-        addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-        addColumn (datagrid, "soOrder.no", "订单编号", ControlTypes.TEXT_BOX, 80);
-        addColumn (datagrid, "soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "soOrder.accountType", "新老客户签单", ControlTypes.ENUM_BOX, 100);
-        addColumn (datagrid, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "soOrder.payablePrice", "合同总额", ControlTypes.DECIMAL_FEN_BOX, 100);
-        addColumn (datagrid, "contractPrice", "业绩总额", ControlTypes.DECIMAL_FEN_BOX, 100);
-        addColumn (datagrid, "dataFee", "材料撰写费", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+        addColumn(datagrid, "soOrder.no", "订单编号", ControlTypes.TEXT_BOX, 80);
+        addColumn(datagrid, "soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "soOrder.accountType", "新老客户签单", ControlTypes.ENUM_BOX, 100);
+        addColumn(datagrid, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "soOrder.payablePrice", "合同总额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn(datagrid, "contractPrice", "业绩总额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn(datagrid, "hasDataFee", "是否有材料撰写费", ControlTypes.BOOLCOMBO_BOX, 105);
+        addColumn(datagrid, "dataFee", "材料撰写费", ControlTypes.TEXT_BOX, 100);
 
-        addColumn (datagrid, "liquidatedDamages", "违约金", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "creator", "合同创建人", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "createTime", "合同创建时间", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "auditStatusId", "审核状态", ControlTypes.ENUM_BOX, 100);
-        addColumn (datagrid, "soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "liquidatedDamages", "违约金", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "creator", "合同创建人", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "createTime", "合同创建时间", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "auditStatusId", "审核状态", ControlTypes.ENUM_BOX, 100);
+        addColumn(datagrid, "soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
 
 
         return datagrid;
@@ -88,18 +92,19 @@ public class SalesmanOrderContractWorkspaceTest extends WorkspaceCreationBase {
             item.setTooltip("订单编号、渠道订单编号、下单人、下单人电话、关联公司");
             item.setWidth(350);
         }
-        addQueryItem(queryProject, "auditStatus", "产品名称", ControlTypes.ENUM_BOX);
-        addQueryItem(queryProject, "creator", "审核状态", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "prodName", "产品名称", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "auditStatusId", "审核状态", ControlTypes.ENUM_BOX);
+        addQueryItem(queryProject, "hasDataFee", "是否有材料撰写费", ControlTypes.BOOLCOMBO_BOX);
         addQueryItem(queryProject, "creator", "合同创建人", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "creator", "业务员", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "ywyName", "业务员", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "createTime", "合同创建时间", ControlTypes.DATE_BOX);
         return queryProject;
     }
 
     @Override
     protected void doOperation() {
-        ResourceNode node = this.getResourceNode ();
-        operationService.addOperation (node, OperationTypes.view);
+        ResourceNode node = this.getResourceNode();
+        operationService.addOperation(node, OperationTypes.view);
     }
 
 }
