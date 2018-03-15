@@ -12,6 +12,22 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		
 		window.open(this.addCustomerUrl);
 	},
+	addOrder:function(){
+		
+		var row = this.getSelectedItem();
+		if(row){
+			var taskId = row.id ||'';
+			var customerId = row.customerId ||'';
+			var accountId = row.customer_accountId ||'';
+			var ps = new Array();
+			ps.push('taskId='+taskId);
+			ps.push('customerId='+customerId);
+			ps.push('accountId='+accountId);
+			var urlParameter = ps.join('&');
+			var url = '/panda/crm/order/salesman/add?'+urlParameter;
+			window.open(url);
+		}
+	},
 	add:function(){
 		var row = this.getSelectedItem();
 		if(row){

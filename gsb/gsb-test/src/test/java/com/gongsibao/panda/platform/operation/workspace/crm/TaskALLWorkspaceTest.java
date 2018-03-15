@@ -153,6 +153,12 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 			column.setSystem(true);
 		}
 
+		column = addColumn(datagrid, "customer.accountId", "会员ID", ControlTypes.TEXT_BOX, 60, false);{
+
+			column.setVisible(false);
+			column.setSystem(true);
+		}
+
 		return datagrid;
 	}
 
