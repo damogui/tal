@@ -1,6 +1,7 @@
 package com.gongsibao.bd.service;
 
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class AuditLogService extends PersistableService<AuditLog> implements IAu
 		if (CollectionUtils.isNotEmpty(resList)) {
 			AuditLog auditLog = resList.get(0);
 			// 合同审核时
-			if (auditLog.getTypeId().equals(AuditLogType.Htsq)) {
+			if (auditLog.getType().equals(AuditLogType.Htsq)) {
 				for (AuditLog auditItem : resList) {
 					SoOrder order = auditItem.getSoOrder();
 					Integer contractPrice = 0;
@@ -110,5 +111,13 @@ public class AuditLogService extends PersistableService<AuditLog> implements IAu
 			oql.getParameters().add("typeId", type.getValue(), Types.INTEGER);
 		}
 		return this.queryList(oql);
+	}
+
+	@Override
+	public List<AuditLog> createAuditLog(AuditLogType type, Integer formId, Integer addUserId) {
+		
+		List<AuditLog> list = new ArrayList<AuditLog>();
+		
+		return list;
 	}
 }
