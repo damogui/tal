@@ -86,7 +86,7 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
     }
 
     /**
-	 *  获取订单的退款状态、退款(结转)金额判断
+	 *  获取订单的退款(结转)状态、退款(结转)金额判断
 	 * @param id 订单Id
 	 * @param type 0-退款、1-结转
 	 * @return -1 金额不足
@@ -109,6 +109,8 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
 		if((entity.getPaidPrice().intValue() - allAmount.intValue()) > 0){
 			if(type.equals(0)){
 				reusltValue = entity.getRefundStatus() == null ? 0 : entity.getRefundStatus().getValue();
+			}else {
+				reusltValue = entity.getCarryStatus() == null ? 0 : entity.getCarryStatus().getValue();
 			}
 		}else {
 			reusltValue = -1;

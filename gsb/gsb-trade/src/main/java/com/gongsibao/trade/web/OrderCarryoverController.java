@@ -35,6 +35,24 @@ public class OrderCarryoverController {
 	}
 	
 	/**
+	 * 根据订单编号获取订单实体
+	 * @param orderNo
+	 * @return
+	 */
+	public SoOrder getSoOrderByNo(String orderNo) {
+
+		Oql oql = new Oql();
+		{
+			oql.setType(SoOrder.class);
+			oql.setSelects("*");
+			oql.setFilter("no=?");
+			oql.getParameters().add("no", orderNo, Types.VARCHAR);
+		}
+		SoOrder entity = orderService.queryFirst(oql);
+		return entity;
+	}
+	
+	/**
 	 * @Title: applyStage
 	 * @Description: TODO(申请结转)
 	 * @param: @param soOrder

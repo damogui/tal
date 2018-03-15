@@ -9,6 +9,8 @@ import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.entity.trade.NOrderCarryover;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.trade.dic.OrderCarryStatusType;
+import com.gongsibao.entity.trade.dic.OrderRefundStatusType;
 import com.gongsibao.u8.base.ISoOrderService;
 
 public class ActionApplyCarryoverWriteBack implements IAction{
@@ -26,6 +28,7 @@ public class ActionApplyCarryoverWriteBack implements IAction{
 		{
 			updateSql.update("so_order");
 			updateSql.set("is_carry_over", true);
+			updateSql.set("carry_status_id", OrderCarryStatusType.Dsh.getValue());
 			updateSql.set("carry_amount", carryAmount + carryOver.getAmount());
 			updateSql.where("pkid =" + carryOver.getFormOrderId());
 		}

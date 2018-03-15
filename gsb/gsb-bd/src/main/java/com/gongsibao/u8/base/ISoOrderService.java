@@ -30,4 +30,8 @@ public interface ISoOrderService extends IPersistableService<SoOrder> {
      *根据订单id获取订单实体
      * */
      public SoOrder getByOrderId(Integer orderId);
+     /*
+      *根据订单no获取订单实体
+      * */
+      public SoOrder getByOrderNo(String orderNo);
 }

@@ -24,17 +24,28 @@ com.gongsibao.trade.web.OrderCarryoverCtrl = org.netsharp.panda.core.CustomCtrl.
     	
     },
     toOrderNoBlur:function(){
-    	
-    	alert(1);
+    	var me = this;
+    	var orderNo = $('#toOrderNo').val();
+    	me.invokeService("getSoOrderByNo", [orderNo], function(data){
+    		if(data == null){
+    			$('#toOrderNo').val("");
+    			layer.msg('去向订单号输入有误，请重新输入');
+    		}else{
+    			$("#orderId_hidden").val(data.id);
+    		}
+    	});
     },
     save:function(){
     	
     	var formOrderId = this.queryString('id');
     	var formOrderNo = $('#formOrderNo').val();
-    	var toOrderId = null;
+    	var toOrderId = $("#orderId_hidden").val();
     	var toOrderNo = $('#toOrderNo').val();
     	var remark = $('#remark').val();
-
+    	
+    	var amount = parseFloat($('#amount').numberbox('getValue'))*100;
+    	
+    	alert(amount + "|" + $("#remark").validatebox('getValue') + "|" + toOrderId);
     	//未校验
     	
     	var orderCarryover = {
@@ -42,6 +53,7 @@ com.gongsibao.trade.web.OrderCarryoverCtrl = org.netsharp.panda.core.CustomCtrl.
     			toOrderId:toOrderId,
     			formOrderNo:formOrderNo,
     			toOrderNo:toOrderNo,
+    			amount:amount,
     			remark:remark
     	};
     	

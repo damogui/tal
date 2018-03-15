@@ -43,6 +43,7 @@
 									          			data-options="required:true,disabled:true"/></td>
 									          <td class="label_td"><label style="color:Red">*</label><label>去向订单号：</label></td>
 									          <td class="control_td">
+									          		<input type="hidden" id ="orderId_hidden"> 
 									          		<input id="toOrderNo" class="easyui-validatebox nsInput" onblur="carryoverCtrl.toOrderNoBlur();"
 														data-options="width:150,required:true"/></td>
 									          <td class="label_td"><label style="color:Red">*</label><label>结转金额：</label></td>

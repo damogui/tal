@@ -32,7 +32,7 @@ public class ActionApplyCarryoverVerify  implements IAction{
 			throw new BusinessException("结转金额不应大于应付的金额！");
 		}
 		//2.去向订单号是否存在
-		SoOrder toOrder = orderService.getByOrderId(carryOver.getToOrderId());
+		SoOrder toOrder = orderService.getByOrderNo(carryOver.getToOrderNo());
 		if(toOrder == null){
 			throw new BusinessException("去向订单号输入有误！");
 		}
