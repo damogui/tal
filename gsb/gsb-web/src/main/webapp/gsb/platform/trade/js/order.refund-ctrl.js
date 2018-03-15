@@ -59,7 +59,7 @@ com.gongsibao.trade.web.OrderRefundCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     	refund.payerName =  $('#payerName').val();
     	refund.bankNo =  $('#bankNo').val();
     	refund.amount =  parseFloat($('#amount').numberbox('getValue'))*100;
-    	refund.remark =  $('#remark').val();
+    	refund.remark =  $('#refundRemark').val();
     	//退款产品
     	var refundProductRows = $('#order_product_grid').datagrid('getRows');
     	var itemList = [];

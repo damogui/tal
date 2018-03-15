@@ -63,7 +63,7 @@
 					      <tr>
 					          <td class="label_td"><label style="color:Red">*</label><label>退款说明：</label></td>
 					          <td colspan="5" class="control_td">
-									<textarea id="remark" style="width:100%;height:50px;" class="easyui-validatebox nsInput" data-options="width:150,required:true"></textarea>
+									<textarea id="refundRemark" style="width:100%;height:50px;" class="easyui-validatebox nsInput" data-options="width:150,required:true"></textarea>
 					          </td>
 						</tr>
 					</table>

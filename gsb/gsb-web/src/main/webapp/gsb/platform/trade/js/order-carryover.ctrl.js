@@ -32,12 +32,12 @@ com.gongsibao.trade.web.OrderCarryoverCtrl = org.netsharp.panda.core.CustomCtrl.
     			layer.msg('去向订单号输入有误，请重新输入');
     		}else{
     			$("#orderId_hidden").val(data.id);
-    			if(data.carryStatus == 3031){
+    			if(data.carryStatus == 1051){
+    				$('#toOrderNo').val("");
     				layer.msg('去向订单待审核中，暂不能操作！');
-    				return false;
-    			}else if(data == 3032){
+    			}else if(data.carryStatus == 1052){
+    				$('#toOrderNo').val("");
             		layer.msg('去向订单结转中，暂不能操作！');
-            		return false;
     			}
     		}
     	});
@@ -48,13 +48,14 @@ com.gongsibao.trade.web.OrderCarryoverCtrl = org.netsharp.panda.core.CustomCtrl.
     	var formOrderNo = $('#formOrderNo').val();
     	var toOrderId = $("#orderId_hidden").val();
     	var toOrderNo = $('#toOrderNo').val();
-    	var remark = $('#remark').val();
+    	var remark = $('#carryRemark').val();
     	
     	var amount = parseFloat($('#amount').numberbox('getValue'))*100;
-    	
-    	alert(amount + "|" + $("#remark").html() + "|" + toOrderId);
     	//未校验
-    	
+    	if(isEmpty(toOrderNo) || isNaN(amount) || isEmpty(remark)){
+    		layer.msg('请输入必填项');
+    		return false;
+    	}
     	var orderCarryover = {
     			formOrderId:formOrderId,
     			toOrderId:toOrderId,
@@ -76,3 +77,11 @@ com.gongsibao.trade.web.OrderCarryoverCtrl = org.netsharp.panda.core.CustomCtrl.
     	});
     }
 });
+//字符验证
+function isEmpty(obj){
+    if(typeof obj == "undefined" || obj == null || obj == "" ){
+        return true;
+    }else{
+        return false;
+    }
+}

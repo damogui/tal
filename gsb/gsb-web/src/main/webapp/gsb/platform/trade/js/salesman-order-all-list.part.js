@@ -103,9 +103,9 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         me.invokeService("refundCarryValidate", [row.id,0], function (data) {
         	if(data < 0){
         		layer.msg('无退款金额！');
-        	}else if(data == 3031){
+        	}else if(data == 1051){
         		layer.msg('退款待审核中，暂不能操作！');
-        	}else if(data == 3032){
+        	}else if(data == 1052){
         		layer.msg('退款中，暂不能操作！');
         	}else{
         		layer.open({
@@ -139,9 +139,9 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         me.invokeService("refundCarryValidate", [row.id,1], function (data) {
         	if(data < 0){
         		layer.msg('结转金额不足！');
-        	}else if(data == 3031){
+        	}else if(data == 1051){
         		layer.msg('结转待审核中，暂不能操作！');
-        	}else if(data == 3032){
+        	}else if(data == 1052){
         		layer.msg('结转中，暂不能操作！');
         	}else{
         		layer.open({
