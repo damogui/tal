@@ -81,9 +81,6 @@ public class SoOrder extends BaseEntity {
     @Column(name = "stage_num", header = "分期次数（待讨论）")
     private OrderStageNum stageNum = OrderStageNum.ONE;
 
-    @Column(name = "staged", header = "分期的")
-    private Boolean staged;
-
     @Column(name = "pay_time", header = "支付时间")
     private Date payTime;
 
@@ -307,14 +304,6 @@ public class SoOrder extends BaseEntity {
 
     public void setStages(List<NOrderStage> stages) {
         this.stages = stages;
-    }
-
-    public Boolean getStaged() {
-        return staged;
-    }
-
-    public void setStaged(Boolean staged) {
-        this.staged = staged;
     }
 
     public Integer getDiscountPrice() {

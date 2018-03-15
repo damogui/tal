@@ -24,7 +24,7 @@ public class ActionApplyStageWriteBack implements IAction{
 		UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("so_order");
-			updateSql.set("staged", true);
+			updateSql.set("is_installment", true);
 			updateSql.set("paid_price", getStageAllBigDecimal);
 			updateSql.set("stage_num", stageTimes);
 			
