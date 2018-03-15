@@ -3,6 +3,7 @@ package com.gongsibao.trade.service;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
+import org.netsharp.core.Oql;
 import org.netsharp.service.PersistableService;
 
 import com.gongsibao.entity.trade.NOrderCarryover;
@@ -100,4 +101,28 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
 		action.execute(ctx);
 		return true;
 	}
+
+
+    public SoOrder getByOrderId(Integer orderId) {
+        Oql oql = new Oql();
+        {
+            oql.setType(this.type);
+            oql.setSelects("*");
+            oql.setFilter("pkid =" + orderId);
+        }
+        SoOrder entity = super.queryFirst(oql);
+        return entity;
+    }
+
+
+    public SoOrder getByOrderNo(String orderNo) {
+        Oql oql = new Oql();
+        {
+            oql.setType(this.type);
+            oql.setSelects("*");
+            oql.setFilter("no =" + orderNo);
+        }
+        SoOrder entity = super.queryFirst(oql);
+        return entity;
+    }
 }

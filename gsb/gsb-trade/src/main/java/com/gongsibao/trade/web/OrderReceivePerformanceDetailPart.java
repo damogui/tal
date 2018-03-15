@@ -4,6 +4,7 @@ import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dto.DepPayMapDTO;
 import com.gongsibao.trade.base.INDepReceivableService;
+import com.gongsibao.trade.base.IOrderService;
 import com.gongsibao.u8.base.ISoOrderService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.QueryParameters;
@@ -26,8 +27,8 @@ public class OrderReceivePerformanceDetailPart extends DetailPart {
 
     /*根据订单号获取订单的支付信息针对线上支付*/
     public int getOnlinePayInfoBySoderOId(Integer orderId) {
-        ISoOrderService soOrderService = ServiceFactory.create (ISoOrderService.class);
-        SoOrder soOrder = soOrderService.byId (orderId);
+        IOrderService orderService = ServiceFactory.create (IOrderService.class);
+        SoOrder soOrder = orderService.getByOrderNo (orderId.toString ());
 
         List<OrderPayMap> pays = soOrder.getPays ();
         if (pays.size () > 0) {//注意是否判断已经划分回款业绩金额
