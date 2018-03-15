@@ -29,4 +29,18 @@ public class OrderPayMapService extends PersistableService<OrderPayMap> implemen
 		}
 		return this.queryList(oql);
 	}
+
+    @Override
+    public OrderPayMap queryByPayId(Integer payId) {
+        Oql oql = new Oql();
+        {
+            oql.setType(this.type);
+            oql.setSelects("*");
+            oql.setFilter("pay_id=?");
+            oql.getParameters().add("pay_id", payId, Types.INTEGER);
+        }
+        return this.queryFirst (oql);
+    }
+
+
 }

@@ -31,7 +31,9 @@ public class OrderReceivePerformanceDetailPart extends DetailPart {
         SoOrder soOrder = orderService.getByOrderNo (orderId.toString ());
 
         List<OrderPayMap> pays = soOrder.getPays ();
-        if (pays.size () > 0) {//注意是否判断已经划分回款业绩金额
+        if (pays.size () > 0) {//注意是否判断已经划分回款业绩金额  未创建业绩总额  付款金额
+
+
             return pays.get (0).getPayId ();
         } else {
 

@@ -14,26 +14,26 @@ import com.gongsibao.trade.base.IOrderService;
 @Service
 public class OrderService extends PersistableService<SoOrder> implements IOrderService {
 
-    public OrderService(){
-        super();
-        this.type=SoOrder.class;
+    public OrderService() {
+        super ();
+        this.type = SoOrder.class;
     }
-    
-	@Override
-	public SoOrder save(SoOrder entity) {
 
-		ActionContext ctx = new ActionContext();
-		{
-			ctx.setPath("gsb/crm/order/save");
-			ctx.setItem(entity);
-			ctx.setState(entity.getEntityState());
-		}
-		ActionManager action = new ActionManager();
-		action.execute(ctx);
+    @Override
+    public SoOrder save(SoOrder entity) {
 
-		entity = (SoOrder) ctx.getItem();
-		return entity;
-	}
+        ActionContext ctx = new ActionContext ();
+        {
+            ctx.setPath ("gsb/crm/order/save");
+            ctx.setItem (entity);
+            ctx.setState (entity.getEntityState ());
+        }
+        ActionManager action = new ActionManager ();
+        action.execute (ctx);
+
+        entity = (SoOrder) ctx.getItem ();
+        return entity;
+    }
 //    
 //    @Override
 //	public SoOrder byId(Object id) {
@@ -60,69 +60,69 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
 //		return builder.toString();
 //	}
 
-	@Override
-	public Boolean applyStage(SoOrder entity) {
+    @Override
+    public Boolean applyStage(SoOrder entity) {
 
-		ActionContext ctx = new ActionContext();
-		{
-			ctx.setPath("gsb/crm/order/stage");
-			ctx.setItem(entity);
-			ctx.setState(entity.getEntityState());
-		}
-		ActionManager action = new ActionManager();
-		action.execute(ctx);
-		return true;
-	}
-
-	@Override
-	public Boolean applyRefund(Refund refund) {
-
-		ActionContext ctx = new ActionContext();
-		{
-			ctx.setPath("gsb/crm/order/refund");
-			ctx.setItem(refund);
-			ctx.setState(refund.getEntityState());
-		}
-		ActionManager action = new ActionManager();
-		action.execute(ctx);
-		return true;
-	}
-
-	@Override
-	public Boolean applyCarryover(NOrderCarryover orderCarryover) {
-
-		ActionContext ctx = new ActionContext();
-		{
-			ctx.setPath("gsb/crm/order/carryover");
-			ctx.setItem(orderCarryover);
-			ctx.setState(orderCarryover.getEntityState());
-		}
-		ActionManager action = new ActionManager();
-		action.execute(ctx);
-		return true;
-	}
-
-
-    public SoOrder getByOrderId(Integer orderId) {
-        Oql oql = new Oql();
+        ActionContext ctx = new ActionContext ();
         {
-            oql.setType(this.type);
-            oql.setSelects("*");
-            oql.setFilter("pkid =" + orderId);
+            ctx.setPath ("gsb/crm/order/stage");
+            ctx.setItem (entity);
+            ctx.setState (entity.getEntityState ());
         }
-        SoOrder entity = super.queryFirst(oql);
+        ActionManager action = new ActionManager ();
+        action.execute (ctx);
+        return true;
+    }
+
+    @Override
+    public Boolean applyRefund(Refund refund) {
+
+        ActionContext ctx = new ActionContext ();
+        {
+            ctx.setPath ("gsb/crm/order/refund");
+            ctx.setItem (refund);
+            ctx.setState (refund.getEntityState ());
+        }
+        ActionManager action = new ActionManager ();
+        action.execute (ctx);
+        return true;
+    }
+
+    @Override
+    public Boolean applyCarryover(NOrderCarryover orderCarryover) {
+
+        ActionContext ctx = new ActionContext ();
+        {
+            ctx.setPath ("gsb/crm/order/carryover");
+            ctx.setItem (orderCarryover);
+            ctx.setState (orderCarryover.getEntityState ());
+        }
+        ActionManager action = new ActionManager ();
+        action.execute (ctx);
+        return true;
+    }
+
+    @Override
+    public SoOrder getByOrderId(Integer orderId) {
+        Oql oql = new Oql ();
+        {
+            oql.setType (this.type);
+            oql.setSelects ("*");
+            oql.setFilter ("pkid =" + orderId);
+        }
+        SoOrder entity = super.queryFirst (oql);
         return entity;
     }
 
-
+    @Override
     public SoOrder getByOrderNo(String orderNo) {
-        Oql oql = new Oql();
+        Oql oql = new Oql ();
         {
-            oql.setType(this.type);
-            oql.setSelects("*");
-            oql.setFilter("no =" + orderNo);
+            oql.setType (this.type);
+            oql.setSelects ("*");
+            oql.setFilter ("no =" + orderNo);
         }
-        SoOrder entity = super.queryFirst(oql);
+        SoOrder entity = super.queryFirst (oql);
         return entity;
     }
 }

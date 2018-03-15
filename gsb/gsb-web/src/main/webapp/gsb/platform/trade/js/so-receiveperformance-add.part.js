@@ -8,13 +8,18 @@ com.gongsibao.trade.web.SoCreatReceivePerformanceFormPart = org.netsharp.panda.c
         var me = this;
         var depPayMapDTO = {};
 
+
+
+        depPayMapDTO.payForOrderCount = $("#isOnlinePay")[0].checked;//是否在线支付
+        depPayMapDTO.noCutAmount = $("#onLineNotCutPay").numberbox('getValue');//未创建业绩总额
+        depPayMapDTO.payId=payId;
         depPayMapDTO.orderPayMaps = []; //$("#pays_u8Bank_setOfBooks_name").textbox("getValue");
         depPayMapDTO.setOfBooks = $("#pays_u8Bank_setOfBooks_name").combogrid("getValue");
         depPayMapDTO.u8Bank = $("#pays_u8Bank_name").combogrid("getValue");
         depPayMapDTO.offlinePayerName = $("#offlinePayerName").val();
         depPayMapDTO.offlineBankNo = $("#offlineBankNo").val();
         depPayMapDTO.payForOrderCount = $("#payForOrderCount")[0].checked;
-        depPayMapDTO.amount = $("#amount").val();
+        depPayMapDTO.amount = $("#amount").numberbox('getValue');
 
         depPayMapDTO.files = $(".btn-preview").attr("href");
         depPayMapDTO.offlineRemark = $("#offlineRemark").val();
