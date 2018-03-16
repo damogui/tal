@@ -80,7 +80,11 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             yes: function (index, layero) {
                 //layer.closeAll();
                var num= document.getElementById('addReceivedIframe').firstElementChild.contentWindow.controllersoOrder .save();//保存
-                IMessageBox.toast('保存成功');
+                if (num>0){
+
+                    IMessageBox.toast('保存成功');
+                }
+
 
 
 
