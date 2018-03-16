@@ -33,6 +33,7 @@ public class SalesmanOrderInvoiceWorkspaceTest extends WorkspaceCreationBase {
         openWindowWidth = 900;
         listPartImportJs = "/gsb/panda-extend/gsb.custom.query.controls.js";
         listPartServiceController = SalesmanOrderInvoiceListPart.class.getName();
+        //listFilter = "order_id in (select * from so_order where owner_id = '{userId}' )";
     }
 
     @Override
