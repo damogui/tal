@@ -38,7 +38,7 @@ public class PayPerformanceActionTest extends BaseActionTest{
 			beanPath.toNew();
 			beanPath.setPath(pathName);
 			beanPath.setResourceNode(resourceNode);
-			beanPath.setName("申请回款业绩");
+			beanPath.setName("创建回款业绩");
 		}
 
 		createBean(beanPath, "1.验证", ActionApplyPayPerformanceVerify.class.getName(), resourceNode, 100);
