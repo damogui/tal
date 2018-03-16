@@ -41,6 +41,7 @@ public class SalesmanOrderRefundWorkspaceTest extends WorkspaceCreationBase {
         openWindowWidth = 900;
         listPartImportJs = "/gsb/panda-extend/gsb.custom.query.controls.js";///gsb/crm/sys/js/sys-salesman-list-part.js|
         listPartServiceController = OrderSalesmanRefundListPart.class.getName();
+        listFilter = "order_id in(select pkid so_order where owner_id = '{userId}')";
 //        List<String> ss = new ArrayList<String> ();
 //        ss.add("/gsb/platform/trade/js/salesman-order-add-form.part.js");
 //        ss.add("/gsb/panda-extend/gsb.customer.controls.js");

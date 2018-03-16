@@ -37,7 +37,7 @@ public class OrderPerformanceActionTest extends BaseActionTest{
 			beanPath.toNew();
 			beanPath.setPath(pathName);
 			beanPath.setResourceNode(resourceNode);
-			beanPath.setName("申请订单业绩");
+			beanPath.setName("创建订单业绩");
 		}
 
 		createBean(beanPath, "1.验证", ActionApplyOrderPerformanceVerify.class.getName(), resourceNode, 100);

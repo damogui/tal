@@ -1,12 +1,11 @@
 package com.gongsibao.trade.web;
 
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.gongsibao.bd.base.IFileService;
 import com.gongsibao.entity.bd.File;
-import com.gongsibao.entity.trade.*;
+import com.gongsibao.entity.trade.NDepPay;
+import com.gongsibao.entity.trade.NU8BankSoPayMap;
+import com.gongsibao.entity.trade.OrderPayMap;
+import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.entity.trade.dic.OfflineWayType;
 import com.gongsibao.entity.trade.dic.PayOfflineInstallmentType;
 import com.gongsibao.entity.trade.dic.PayWayType;
@@ -16,59 +15,113 @@ import com.gongsibao.trade.base.*;
 import com.gongsibao.u8.base.IU8BankService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
-import org.netsharp.core.QueryParameters;
-import org.netsharp.entity.IPersistable;
 import org.netsharp.panda.commerce.FormPart;
-import org.netsharp.persistence.IPersister;
-import org.netsharp.persistence.PersisterFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by win on 2018/3/8.
  */
 /*回款业绩的save操作*/
 public class SoCreatReceivePerformanceFormPart extends FormPart {
-    @Override
-    public IPersistable save(IPersistable obj) {
-        INDepReceivableService nDepReceivableService = ServiceFactory.create (INDepReceivableService.class);//订单业绩服务
-        IPersister<SoOrder> orderService = PersisterFactory.create ();
-        SoOrder entity = (SoOrder) obj;
-        List<NDepReceivable> depList = entity.getDepReceivable ();
-        int totalAmount = 0;
-        for (NDepReceivable item : depList
-                ) {
-            if (!item.getEntityState ().equals (EntityState.Deleted)) {
-
-                totalAmount += item.getAmount ();
-            }
-
-        }
-        totalAmount = totalAmount / 100;
-        nDepReceivableService.saves (depList);
-        String sql = "UPDATE  so_order  SET  performance_price=?  WHERE  pkid=? ;";
-        QueryParameters qps = new QueryParameters ();
-        qps.add ("@performance_price", totalAmount, Types.INTEGER);
-        qps.add ("@pkid", entity.getId (), Types.INTEGER);
-        orderService.executeNonQuery (sql, qps);
-        return obj;
-    }
 
 
     /*回款业绩保存*/
     public int saveNDepReceivableBySoder(DepPayMapDTO entity) {
-        if (entity.getOnlinePay ()) {//在线支付的话
-            int numLine = handleOnlinePay (entity);
-            return numLine;
+        INOrderAndPerformanceService nOrderAndPerformanceService = ServiceFactory.create (INOrderAndPerformanceService.class);//服务
+        IU8BankService u8BankService = ServiceFactory.create (IU8BankService.class);//获取线下支付
+        Pay pay = new Pay ();
+        if (entity.getOnlinePay ()) {
+            pay.setPayWayType (PayWayType.ONLINE_PAYMENT);//线上
+            pay.setId (entity.getPayId ());
 
         } else {
-            //非在线支付
-            int numLine = handleOfflinePay (entity);
-            return numLine;
+            pay.setPayWayType (PayWayType.OFFLINE_PAYMENT);
 
         }
 
 
+        pay.setAmount (entity.getAmount ());
+        pay.setSetOfBooksId (entity.getSetOfBooks ());
+        pay.setU8BankId (entity.getU8Bank ());
+        pay.setOfflinePayerName (entity.getOfflinePayerName ());
+        pay.setOfflineBankNo (entity.getOfflineBankNo ());
+        pay.setOfflineRemark (entity.getOfflineRemark ());
+       // pay.setPayWayType (PayWayType.ONLINE_PAYMENT);//线下支付
+        Integer offlineWayTypeId = u8BankService.byId (entity.getU8Bank ()).getOfflineWayTypeId ();//类型有可能为空
+        OfflineWayType offlineWayType = OfflineWayType.getItem (offlineWayTypeId);
+        if (offlineWayType == null) {
+            offlineWayType = OfflineWayType.SK;
+        }
+        pay.setOfflineWayType (offlineWayType);
+        pay.setEntityState (EntityState.New);
+        //Pay savePay = payService.save (pay);
+        List<File> files = new ArrayList<> ();
+        for (String item : entity.getImgs ()
+                ) {
+            File file = new File ();
+            file.setTabName ("so_pay");
+            file.setFormId (pay.getId ());//最后保存
+            file.setName ("sql同步的付款凭证图片");
+            file.setUrl (item);
+            files.add (file);
+        }
+        pay.setFiles (files);//付款凭证
+        List<OrderPayMap> orderPayMaps = new ArrayList<> ();
+        List<NDepPay> nDepPays = new ArrayList<> ();
+        for (OrderRelationDTO item : entity.getOrderRelations ()
+                ) {
+            OrderPayMap orderPayMap = new OrderPayMap ();//支付明细
+            orderPayMap.setPayId (pay.getId ());
+            orderPayMap.setOrderId (item.getOrderId ());
+            orderPayMap.setU8BankId (entity.getU8Bank ());
+            orderPayMap.setOrderPrice (item.getOrderCutAmount ());
+            orderPayMap.setOfflineInstallmentType (PayOfflineInstallmentType.getItem (item.getPayType ()));
+            orderPayMap.setEntityState (EntityState.New);
+            //OrderPayMap saveOrderPayMap = orderPayMapService.save (orderPayMap);
+            orderPayMaps.add (orderPayMap);
+            for (NDepPay item2 : item.getItems ()
+                    ) {
+                NDepPay nDepPay = new NDepPay ();//回款业绩划分
+                nDepPay.setAmount (item2.getAmount ());
+                nDepPay.setSupplierId (item2.getSupplierId ());
+                nDepPay.setDepartmentId (item2.getDepartmentId ());
+                nDepPay.setEmployeeId (item2.getEmployeeId ());
+
+                nDepPay.setOrderPayMapId (orderPayMap.getId ());
+                nDepPay.setEntityState (EntityState.New);
+                //nDepPayService.save (nDepPay);
+                nDepPays.add (nDepPay);
+
+            }
+            orderPayMap.setDepPays (nDepPays);
+        }
+
+
+        return nOrderAndPerformanceService.saveNDepReceivableBySoder (pay);
+
+
+
+
+
+        /*old*/
+//        if (entity.getOnlinePay ()) {//在线支付的话
+//            int numLine = handleOnlinePay (entity);
+//            return numLine;
+//
+//        } else {
+//            //非在线支付
+//            int numLine = handleOfflinePay (entity);
+//            return numLine;
+//
+//        }
+
+
     }
 
+
+    /*old已经挪到控制器实现*/
     /*处理线下支付*/
     private int handleOfflinePay(DepPayMapDTO entity) {
         IPayService payService = ServiceFactory.create (IPayService.class);//订单支付表

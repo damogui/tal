@@ -3,6 +3,7 @@ package com.gongsibao.trade.web;
 import java.sql.Types;
 import java.util.List;
 
+import com.gongsibao.trade.base.INOrderAndPerformanceService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.QueryParameters;
@@ -24,6 +25,14 @@ public class SoCreatOrderPerformanceFormPart extends FormPart {
 
     @Override
     public IPersistable save(IPersistable obj) {
+        SoOrder entity = (SoOrder) obj;
+        INOrderAndPerformanceService nOrderAndPerformanceService = ServiceFactory.create(INOrderAndPerformanceService.class);//服务
+        return nOrderAndPerformanceService.saveOrderPerformance(entity);
+
+    }
+
+
+    public IPersistable saveold(IPersistable obj) {
         INDepReceivableService nDepReceivableService = ServiceFactory.create (INDepReceivableService.class);//订单业绩服务
         IPersister<SoOrder> orderService = PersisterFactory.create();
         SoOrder entity = (SoOrder) obj;
