@@ -1,10 +1,10 @@
 package com.gongsibao.taurus.api;
 
-import com.gongsibao.taurus.message.response.TmOccupiedResponseMessage;
+import com.gongsibao.taurus.message.response.TmAssembleResponseMessage;
 
 import java.util.List;
 
-public class TmOccupiedApi extends AbstractApi<TmOccupiedResponseMessage> {
+public class TmOccupiedApi extends AbstractApi<TmAssembleResponseMessage> {
     /**
      * 公司名称
      */
@@ -12,7 +12,7 @@ public class TmOccupiedApi extends AbstractApi<TmOccupiedResponseMessage> {
 
     @Override
     public String getUrl() {
-        return "/dataapi/v3/ic/getTmCountByOccupied";
+        return "/dataapi/v3/ic/getTmListByOccupied";
     }
 
     @Override
@@ -22,7 +22,7 @@ public class TmOccupiedApi extends AbstractApi<TmOccupiedResponseMessage> {
 
     @Override
     public Class<?> getResponseType() {
-        return TmOccupiedResponseMessage.class;
+        return TmAssembleResponseMessage.class;
     }
 
     @Override

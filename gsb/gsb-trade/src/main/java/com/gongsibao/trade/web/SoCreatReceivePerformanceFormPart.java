@@ -27,44 +27,24 @@ import org.netsharp.persistence.PersisterFactory;
  */
 /*回款业绩的save操作*/
 public class SoCreatReceivePerformanceFormPart extends FormPart {
-    @Override
-    public IPersistable save(IPersistable obj) {
-        INDepReceivableService nDepReceivableService = ServiceFactory.create (INDepReceivableService.class);//订单业绩服务
-        IPersister<SoOrder> orderService = PersisterFactory.create ();
-        SoOrder entity = (SoOrder) obj;
-        List<NDepReceivable> depList = entity.getDepReceivable ();
-        int totalAmount = 0;
-        for (NDepReceivable item : depList
-                ) {
-            if (!item.getEntityState ().equals (EntityState.Deleted)) {
 
-                totalAmount += item.getAmount ();
-            }
-
-        }
-        totalAmount = totalAmount / 100;
-        nDepReceivableService.saves (depList);
-        String sql = "UPDATE  so_order  SET  performance_price=?  WHERE  pkid=? ;";
-        QueryParameters qps = new QueryParameters ();
-        qps.add ("@performance_price", totalAmount, Types.INTEGER);
-        qps.add ("@pkid", entity.getId (), Types.INTEGER);
-        orderService.executeNonQuery (sql, qps);
-        return obj;
-    }
-
-
+    INOrderAndPerformanceService nOrderAndPerformanceService = ServiceFactory.create(INOrderAndPerformanceService.class);//服务
     /*回款业绩保存*/
     public int saveNDepReceivableBySoder(DepPayMapDTO entity) {
-        if (entity.getOnlinePay ()) {//在线支付的话
-            int numLine = handleOnlinePay (entity);
-            return numLine;
 
-        } else {
-            //非在线支付
-            int numLine = handleOfflinePay (entity);
-            return numLine;
+       return nOrderAndPerformanceService.saveNDepReceivableBySoder(entity);
 
-        }
+        /*old*/
+//        if (entity.getOnlinePay ()) {//在线支付的话
+//            int numLine = handleOnlinePay (entity);
+//            return numLine;
+//
+//        } else {
+//            //非在线支付
+//            int numLine = handleOfflinePay (entity);
+//            return numLine;
+//
+//        }
 
 
     }
