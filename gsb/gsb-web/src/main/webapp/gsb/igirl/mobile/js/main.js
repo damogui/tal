@@ -1,11 +1,15 @@
 $(function(){
 	var siteCtl=new org.netsharp.core.JServiceLocator()
 	var ctlServiceStr="com.gongsibao.igirl.web.SiteInfoListPart";
+	var  hrefurl=window.location.href;
+	if(window.location.href.indexOf("from=singlemessage#")!=-1){
+		hrefurl=hrefurl.replace("from=singlemessage#","").replace("main.html?","main.html#");
+	}
 	function getHashParameter(key) {
 		var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)", "i");
-		var index=window.location.href.indexOf("?");
+		var index=hrefurl.indexOf("?");
 		if(index!=-1){
-			var searchStr=window.location.href.substr(index);
+			var searchStr=hrefurl.substr(index);
 			var r = searchStr.substr(1).match(reg);
 			if (r != null) {
 				var x = unescape(r[2]);
@@ -20,6 +24,7 @@ $(function(){
 	var casecode=getHashParameter("casecode");
 	var source=getHashParameter("source");
 	var siteInfo=null;
+
 	var sourceInfo={supplierId:supplierId,casecode:casecode,source:source};
 	siteCtl.invoke(ctlServiceStr,"fetchSiteInfo",[supplierId],function(d){
 	var ip=d.webApiIp;
