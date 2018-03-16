@@ -62,7 +62,7 @@ public class NavigationTest extends NavigationBase {
             createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Supplier_Category", "服务商分类", "/operation/supplier/category/list", 3);
             createPTreeNode(tree, "GSB_Supplier", null, "GSB_Operation_Supplier", "服务商列表", "/operation/supplier/list", 4);
         }
-        createPTreeNode(tree, null,null, "GSB_CRM_Manager", "客户管理（旧）", "", 4);
+        createPTreeNode(tree, null, null, "GSB_CRM_Manager", "客户管理（旧）", "", 4);
         {
             createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_All_" + Customer.class.getSimpleName(), "全部客户", "/crm/customer/all/list", 1);
             createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_My_" + Customer.class.getSimpleName(), "我的客户", "/crm/customer/my/list", 2);
@@ -72,7 +72,7 @@ public class NavigationTest extends NavigationBase {
             createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_" + CustomerServiceConfig.class.getSimpleName(), "客服配置", "/crm/customer/service/config/list", 6);
             createPTreeNode(tree, "GSB_CRM_Manager", null, "CRM_" + CustomerOrder.class.getSimpleName(), "订单列表", "/crm/customer/order/list", 7);
         }
-        createPTreeNode(tree, null,null, "Operation_CRM", "客户管理", "", 5);
+        createPTreeNode(tree, null, null, "Operation_CRM", "客户管理", "", 5);
         {
             createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_Add", "新增客户", "/crm/platform/customer/add", 1);
 
@@ -92,12 +92,12 @@ public class NavigationTest extends NavigationBase {
             createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_OpenSea", "公海", "/operation/task/opensea/list", 11);
         }
 
-        createPTreeNode(tree, null,null, "Operation_IGIRL", "智能商标", "", 6);
+        createPTreeNode(tree, null, null, "Operation_IGIRL", "智能商标", "", 6);
         {
             createPTreeNode(tree, "Operation_IGIRL", null, "Operation_IGIRL_All_TradeMarkCase", "申请方案列表", "/operation/igirl/trademarkcase/all/list", 1);
 
             createPTreeNode(tree, "Operation_IGIRL", null, "Operation_IGIRL_All_TradeMark", "申请进度跟进", "/operation/igirl/all/progress/list", 2);
-         }
+        }
 
 
         createPTreeNode(tree, null, null, "Operation_Order", "订单管理", "", 7);
@@ -113,7 +113,7 @@ public class NavigationTest extends NavigationBase {
             createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Invoice", "发票管理", "/operation/order/invoice/list", 9);
             createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Day_Report", "日统计", "/operation/order/report/day", 10);
             createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Week_Report", "周统计", "/operation/order/report/week", 11);
-            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Month_Report", "月统计", "/operation/order/report/month", 12);            
+            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Month_Report", "月统计", "/operation/order/report/month", 12);
         }
     }
 }

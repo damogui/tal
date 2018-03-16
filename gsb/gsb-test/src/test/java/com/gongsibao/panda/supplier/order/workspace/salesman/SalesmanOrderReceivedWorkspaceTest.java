@@ -32,7 +32,7 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
         listPartImportJs = "/gsb/panda-extend/gsb.custom.query.controls.js";///gsb/crm/sys/js/sys-salesman-list-part.js|
         listPartServiceController = SalesmanOrderReceivedListPart.class.getName();
         //listPartJsController = SalesmanOrderReceivedListPart.class.getName();
-        //listFilter = "pkid in(select order_pay_map_id from n_dep_pay where employee_id = '{userId}' or creator_id = '{userId}')";
+        listFilter = "pkid in(select order_pay_map_id from n_dep_pay where employee_id = '{userId}' or creator_id = '{userId}')";
 //        List<String> ss = new ArrayList<String> ();
 //        ss.add("/gsb/platform/trade/js/salesman-order-add-form.part.js");
 //        ss.add("/gsb/panda-extend/gsb.customer.controls.js");
