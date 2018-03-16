@@ -2,7 +2,9 @@ package com.gongsibao.panda.supplier.order.workspace.department;
 
 import com.gongsibao.controls.PropertyQueryDictComboBox;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderAllWorkspaceTest;
 import com.gongsibao.tools.PToolbarHelper;
+import com.gongsibao.trade.web.OrderAllListPart;
 import com.gongsibao.trade.web.SalesmanAllOrderFormPart;
 import com.gongsibao.trade.web.SalesmanAllOrderListPart;
 import org.junit.Before;
@@ -25,246 +27,65 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*全部订单   根据部门过滤就行*/
-public class DepartmentOrderAllWorkspaceTest extends WorkspaceCreationBase {
-    @Override
+public class DepartmentOrderAllWorkspaceTest extends SalesmanOrderAllWorkspaceTest {
+
+    private String listrowToolbarPath = "/department/roworderall/toolbar";
+
     @Before
     public void setup() {
-        super.setup ();
-        entity = SoOrder.class;
-        urlList =  "/crm/order/department/all/list";
-        urlForm = "/crm/order/department/all/form";
-        listPartName = formPartName = "全部订单";
-        meta = MtableManager.getMtable (entity);
-        formPartName = listPartName = meta.getName ();
+
+        super.setup();
+
+        //entity = SoOrder.class;// 实体
+        urlList = "/crm/order/department/all/list";// 列表的url
         resourceNodeCode = "Gsb_Supplier_Order_Department_All";
-        listToolbarPath = "crm/department/orderall/edit";
-        formOpenMode = OpenMode.WINDOW;
-        openWindowHeight = 700;
-        openWindowWidth = 900;
-        listPartImportJs = "/gsb/platform/trade/js/salesman-order-all-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
-        listPartJsController = SalesmanAllOrderListPart.class.getName ();
+        listToolbarPath = "department/order/orderall/edit";
+        listPartImportJs = "/gsb/platform/trade/js/salesman-order-all-list.part.js||/gsb/panda-extend/gsb.custom.query.controls.js|/gsb/panda-extend/gsb.pubcontrol.js";
+        listPartJsController = SalesmanAllOrderListPart.class.getName();
+        listPartServiceController = SalesmanAllOrderListPart.class.getName();
+        //listFilter = " department_id in (select department_id from sp_salesman where employee_id = '{userId}' ) ";
 
-
-        List<String> ss = new ArrayList<String> ();
-        ss.add("/package/easyui/datagrid-cellediting.js");
-        ss.add("/package/easyui/datagrid-groupview.js");
-        ss.add("/gsb/platform/trade/js/salesman-order-all-form.part.js");
-//        ss.add("/gsb/panda-extend/gsb.customer.controls.js");
-        formJsImport = StringManager.join("|", ss);
-        formJsController = SalesmanAllOrderFormPart.class.getName ();
-        formServiceController = SalesmanAllOrderFormPart.class.getName ();
-
-        //添加过滤条件
-//        listFilter = "inspectionState in (3,4)";
-//        listFilter = "foolowStatus = 6 and ownerId = '{userId}'";
+        //listPartName = formPartName = "全部订单";
+        //meta = MtableManager.getMtable(entity);// 获取实体元数据
+        //formPartName = listPartName = meta.getName();
+        //listPartImportJs = "/gsb/crm/base/js/customer-base-list.part.js|/gsb/platform/operation/crm/js/customer-all-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
+        //listPartJsController = NCustomerAllListPart.class.getName();
+        //listPartServiceController = NCustomerAllListPart.class.getName();
     }
 
-    public PToolbar createListToolbar() {
-
-        ResourceNode node = this.resourceService.byCode (resourceNodeCode);
-        OperationType ot1 = operationTypeService.byCode (OperationTypes.add);
-        PToolbar toolbar = new PToolbar ();
+    public PToolbar createRowToolbar() {
+        ResourceNode node = this.resourceService.byCode(resourceNodeCode);
+        PToolbar toolbar = new PToolbar();
         {
-            toolbar.toNew ();
-            toolbar.setPath (listToolbarPath);
-            toolbar.setName ("所有订单操作");
-            toolbar.setResourceNode (node);
-            toolbar.setToolbarType (ToolbarType.BASE);
+            toolbar.toNew();
+            toolbar.setBasePath("panda/datagrid/row/edit");
+            toolbar.setPath(listrowToolbarPath);
+            toolbar.setName("转移");
+            toolbar.setResourceNode(node);
+            toolbar.setToolbarType(ToolbarType.BASE);
         }
-
-
-
-        PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "orderDetail", PToolbarHelper.iconExtr,
-                "订单详情", ot1, 1, "{controller}.addOrderReceived();");
-        toolbar.getItems ().add (item);
-        item = PToolbarHelper.getPToolbarItem (EntityState.New, "addOrderReceived", PToolbarHelper.iconAdd,
-                "创建订单业绩", ot1, 1, "{controller}.addOrderReceived();");
-        toolbar.getItems ().add (item);
-        item = PToolbarHelper.getPToolbarItem (EntityState.New, "addReceived", PToolbarHelper.iconAdd,
-                "创建回款业绩", ot1, 2, "{controller}.addReceived();");
-        toolbar.getItems ().add (item);
-
-        item = PToolbarHelper.getPToolbarItem (EntityState.New, "addRefund", PToolbarHelper.iconAdd,
-                "创建退款", ot1, 3, "{controller}.addRefund();");
-        toolbar.getItems ().add (item);
-
-        item = PToolbarHelper.getPToolbarItem (EntityState.New, "addCarryover", PToolbarHelper.iconAdd,
-                "创建结转", ot1, 4, "{controller}.addCarryover();");
-        toolbar.getItems ().add (item);
-        item = PToolbarHelper.getPToolbarItem (EntityState.New, "addStaging", PToolbarHelper.iconAdd,
-                "创建分期", ot1, 5, "{controller}.addStaging();");
-        toolbar.getItems ().add (item);
-
-        item = PToolbarHelper.getPToolbarItem (EntityState.New, "addContract", PToolbarHelper.iconAdd,
-                "创建合同", ot1, 6, "{controller}.addContract();");
-        toolbar.getItems ().add (item);
-
-
-        item = PToolbarHelper.getPToolbarItem (EntityState.New, "addInvoice", PToolbarHelper.iconCheck,
-                "申请发票", ot1, 7, "{controller}.addInvoice();");
-        toolbar.getItems ().add (item);
-
-
-        item = PToolbarHelper.getPToolbarItem (EntityState.New, "batchOrderTran", PToolbarHelper.iconTran,
-                "批量转移", ot1, 8, "{controller}.batchOrderTran();");
-        toolbar.getItems ().add (item);
-
-        item = PToolbarHelper.getPToolbarItem (EntityState.New, "orderTran", PToolbarHelper.iconTran,
-                "订单转移", ot1, 9, "{controller}.orderTran();");
-        toolbar.getItems ().add (item);
-        item = PToolbarHelper.getPToolbarItem (EntityState.New, "begOption", PToolbarHelper.iconCheck,
-                "开始操作", ot1, 10, "{controller}.begOption();");
-        toolbar.getItems ().add (item);
-
+        PToolbarItem item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("orderTran");
+            item.setName("转移");
+            item.setSeq(2);
+            item.setCommand("{controller}.orderTran();");
+            toolbar.getItems().add(item);
+        }
 
         return toolbar;
     }
 
-
-    /*进行设置工具栏*/
-    @Test
-    public void saveListToolbar() {
-
-        PToolbar toolbar = createListToolbar ();
-        if (toolbar != null) {
-
-            toolbarService.save (toolbar);
-        }
-    }
-
-    //列表
-    @Override
     protected PDatagrid createDatagrid(ResourceNode node) {
-
-        PDatagrid datagrid = super.createDatagrid (node);
-        {
-            datagrid.setName ("全部订单");
-            datagrid.setToolbar ("panda/datagrid/row/edit");
-            datagrid.setAutoQuery (true);
-            datagrid.setShowCheckbox (true);
-            datagrid.setSingleSelect (false);
-//            datagrid.setPageSize(20);
-//            datagrid.setShowCheckbox(true);
-//            datagrid.setSingleSelect(false);
-//            datagrid.setToolbar(rowToolbaPath);
-//            datagrid.setReadOnly(true);
-//            datagrid.setFilter(listFilter);
-//            datagrid.setQueryProject(queryProject);
-//            datagrid.setAdvancedQueryProject(advancedQueryProject);
-//            datagrid.setToolbar(rowToolbaPath);
-
-
-        }
-        PDatagridColumn column = null;
-        addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-        addColumn (datagrid, "no", "订单编号", ControlTypes.TEXT_BOX, 80);
-        addColumn (datagrid, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "addTime", "回款日期", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "prodName", "产品名称", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "no", "办理名称", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "payStatus.name", "订单状态", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "no", "关联企业", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "refundStatus.name", "退单状态", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "totalPrice", "原价金额", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "totalPrice", "应付金额", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "paidPrice", "已付金额", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "no", "分期付款", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "no", "开发票", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "no", "操作员", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "no", "下单人", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "sourceType.name", "订单来源", ControlTypes.TEXT_BOX, 100);
-
-        return datagrid;
+        PDatagrid grid = super.createDatagrid(node);
+        grid.setToolbar(listrowToolbarPath);
+        return grid;
     }
-
-    @Override
-    protected PQueryProject createQueryProject(ResourceNode node) {
-
-        PQueryProject queryProject = super.createQueryProject (node);
-        queryProject.toNew ();
-        queryProject.setColumnCount (6);
-
-        PQueryItem item= addQueryItem (queryProject, "no", "编号", ControlTypes.TEXT_BOX);{
-
-            item.setTooltip ("编号");
-
-        }
-        addQueryItem (queryProject, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "prodName", "产品名称", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "no", "办理名称", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "no", "客户创建人", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "no", "业务员", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "owner.name", "下单人", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "no", "下单人电话", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "no", "关联企业", ControlTypes.TEXT_BOX);
-        // addQueryItem (queryProject, "sourceType", "订单来源", ControlTypes.ENUM_BOX);
-        item = addQueryItem(queryProject, "sourceType.name", "订单来源", ControlTypes.CUSTOM);{
-
-            item.setCustomControlType(PropertyQueryDictComboBox.class.getName());
-            item.setRefFilter("type=304");
-        }
-        addQueryItem (queryProject, "payStatus", "订单状态", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "type", "订单类型", ControlTypes.ENUM_BOX);
-        addQueryItem (queryProject, "no", "组织机构", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "no", "产品分类", ControlTypes.TEXT_BOX);
-
-        addQueryItem (queryProject, "no", "下单方式", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "addTime", "回款日期", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "no", "分期付款", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "no", "开发票", ControlTypes.TEXT_BOX);
-        item=addQueryItem (queryProject, "addTime", "创建日期", ControlTypes.DATE_BOX);
-//        addQueryItem (queryProject, "no", "组织机构", ControlTypes.TEXT_BOX);
-//        addQueryItem (queryProject, "no", "组织机构", ControlTypes.TEXT_BOX);
-        //今天 昨天 本周 本月
-
-
-        return queryProject;
-    }
-
-
-    // 表单填充字段
-    protected PForm createForm(ResourceNode node) {
-
-        PForm form = super.createForm (node);
-        form.setColumnCount (3);
-
-        //String groupName = null;
-        String groupName = "基本信息";
-//        addFormField (form, "no", "订单", groupName, ControlTypes.TEXT_BOX, true);
-        addFormField (form, "no", "订单", groupName, ControlTypes.TEXT_BOX, true);
-        addFormField (form, "accountName", "账户名称", groupName, ControlTypes.TEXT_BOX, true);
-//        PFormField formField = addFormField(form, "loginName", "帐号", groupName, ControlTypes.TEXT_BOX, false);
-//        {
-//
-//            formField.setReadonly(true);
-//            formField.setTooltip("自动生成");
-//        }
-//        addFormField(form, "email", "邮箱", groupName, ControlTypes.TEXT_BOX, false);
-//        addFormField(form, "entryDate", "入职日期", groupName, ControlTypes.DATE_BOX, false);
-//        addFormField(form, "quitDate", "离职日期", groupName, ControlTypes.DATE_BOX, false);
-//        addFormField(form, "disabled", "停用", groupName, ControlTypes.SWITCH_BUTTON, false, true);
-
-
-        // 这里还有很多属性，
-
-        return form;
-    }
-
-
-//    @Test
-//    @Override
-//    public void run() {
-//        this.createFormWorkspace ();
-//    }
 
     @Override
     protected void doOperation() {
-        ResourceNode node = this.getResourceNode ();
-        operationService.addOperation (node, OperationTypes.view);
-        operationService.addOperation (node, OperationTypes.add);
-        operationService.addOperation (node, OperationTypes.update);
-        operationService.addOperation (node, OperationTypes.delete);
+        ResourceNode node = this.getResourceNode();
+        operationService.addOperation(node, OperationTypes.view);
     }
-
 }
