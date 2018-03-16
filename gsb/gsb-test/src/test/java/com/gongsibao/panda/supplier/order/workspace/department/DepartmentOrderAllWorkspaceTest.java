@@ -43,6 +43,7 @@ public class DepartmentOrderAllWorkspaceTest extends SalesmanOrderAllWorkspaceTe
         listPartImportJs = "/gsb/platform/trade/js/salesman-order-all-list.part.js||/gsb/panda-extend/gsb.custom.query.controls.js|/gsb/panda-extend/gsb.pubcontrol.js";
         listPartJsController = SalesmanAllOrderListPart.class.getName();
         listPartServiceController = SalesmanAllOrderListPart.class.getName();
+        listFilter = "";//为了测试有数据，所以先条件为空，之后正式用下面的
         //listFilter = " department_id in (select department_id from sp_salesman where employee_id = '{userId}' ) ";
 
         //listPartName = formPartName = "全部订单";
