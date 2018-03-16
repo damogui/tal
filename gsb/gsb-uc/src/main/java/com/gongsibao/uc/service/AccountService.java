@@ -35,7 +35,7 @@ public class AccountService extends PersistableService<Account> implements IAcco
 		Oql oql = new Oql();
 		{
 			oql.setType(type);
-			oql.setSelects("*");
+			oql.setSelects("Account.*,company.{id,companyName}");
 			oql.setFilter("mobilePhone=?");
 			oql.getParameters().add("@mobile", mobile, Types.VARCHAR);
 		}
