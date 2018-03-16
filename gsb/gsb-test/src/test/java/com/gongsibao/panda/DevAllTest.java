@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import com.gongsibao.panda.auth.AuthAllTest;
 import com.gongsibao.panda.supplier.SupplierAllTest;
 
 @RunWith(Suite.class)
@@ -54,6 +55,9 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
 // 	com.gongsibao.panda.gardian.AllTest.class,
 	//处理资源Id
 	org.netsharp.meta.end.AllTests.class,
+	
+	//放在最后处理
+	AuthAllTest.class
 	})
 public class DevAllTest {
 
