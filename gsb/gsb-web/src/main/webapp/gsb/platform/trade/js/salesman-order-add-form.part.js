@@ -28,6 +28,7 @@ com.gongsibao.trade.web.SalesmanAddOrderFormPart = org.netsharp.panda.commerce.F
     },
     bindAccount:function(mobile){
     	
+    	var me = this;
         this.invokeService("getAccount", [mobile], function (data) {
         	
         	var account = data;
@@ -44,6 +45,14 @@ com.gongsibao.trade.web.SalesmanAddOrderFormPart = org.netsharp.panda.commerce.F
         		
         		//会员Id
         		me.currentItem.accountId = account.id;
+        		
+        		//关联企业
+        		if(account.company){
+
+            		$('#companyIntention_companyName').combogrid('setValue',account.companyId);
+            		$('#companyIntention_companyName').combogrid('setText',account.company.companyName);
+        		}
+        		
         	}else{
         		
         		IMessageBox.toast('会员不存在',2);
@@ -232,13 +241,13 @@ com.gongsibao.trade.web.OrderProdItemDetailPart = org.netsharp.panda.commerce.De
     	var items = row.items;
     	if(items.length==1){
     		
-    		return items[0].priceOriginal/100;
+    		return (items[0].priceOriginal/100).toFixed(2);
     	}else{
 
         	var str = '';
         	$(items).each(function(i,item){
         		
-        		str+='<p>'+(item.priceOriginal/100)+'</p>';
+        		str+='<p>'+(item.priceOriginal/100).toFixed(2)+'</p>';
         	});
         	return str;
     	}
@@ -248,13 +257,13 @@ com.gongsibao.trade.web.OrderProdItemDetailPart = org.netsharp.panda.commerce.De
     	var items = row.items;
     	if(items.length==1){
     		
-    		return items[0].price/100;
+    		return (items[0].price/100).toFixed(2);
     	}else{
 
         	var str = '';
         	$(items).each(function(i,item){
         		
-        		str+='<p>'+(item.price/100)+'</p>';
+        		str+='<p>'+(item.price/100).toFixed(2)+'</p>';
         	});
         	return str;
     	}
