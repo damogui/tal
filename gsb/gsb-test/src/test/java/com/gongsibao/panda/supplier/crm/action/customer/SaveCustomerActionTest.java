@@ -4,9 +4,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.plugin.bean.BeanPath;
 
-import com.gongsibao.crm.service.action.customer.save.ActionSaveCustomerRecordLog;
 import com.gongsibao.crm.service.action.customer.save.ActionSaveCustomerPersist;
+import com.gongsibao.crm.service.action.customer.save.ActionSaveCustomerRecordLog;
 import com.gongsibao.crm.service.action.customer.save.ActionSaveCustomerVerify;
+import com.gongsibao.crm.service.action.customer.save.ActionSaveCustomerWriteBack;
 import com.gongsibao.panda.supplier.crm.action.BaseActionTest;
 
 public class SaveCustomerActionTest extends BaseActionTest{
@@ -32,7 +33,8 @@ public class SaveCustomerActionTest extends BaseActionTest{
 
 		createBean(beanPath, "验证", ActionSaveCustomerVerify.class.getName(), resourceNode, 100);
 		createBean(beanPath, "保存", ActionSaveCustomerPersist.class.getName(), resourceNode, 200);
-		createBean(beanPath, "日志", ActionSaveCustomerRecordLog.class.getName(), resourceNode, 300);
+		createBean(beanPath, "回写", ActionSaveCustomerWriteBack.class.getName(), resourceNode, 300);
+		createBean(beanPath, "日志", ActionSaveCustomerRecordLog.class.getName(), resourceNode, 400);
 		beanPathService.save(beanPath);
 	}
 }
