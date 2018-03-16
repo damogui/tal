@@ -1,15 +1,21 @@
 package com.gongsibao.panda.auth.authorization;
 
-import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
+
+import com.gongsibao.panda.auth.authorization.supplier.SupplierAuthorizationAllTest;
 
 /**
  * @author hw
  * 处理授权
  */
-public class AuthorizationAllTest {
+@RunWith(Suite.class)
+@SuiteClasses({
 	
-	@Test
-	public void run() {
+//	PlatformAuthorizationAllTest.class,
+	SupplierAuthorizationAllTest.class
+})
+public class AuthorizationAllTest {
 
-	}
 }

@@ -45,6 +45,7 @@ public class RoleTest {
 		// 1.3 平台-运营
 		this.create("Platform_Operation_Admin", "运营_总监", "Platform_Operation", workbench);
 		this.create("Platform_Operation_Leader", "运营_经理", "Platform_Operation", workbench);
+		this.create("Platform_Operation_Legal", "运营_法务", "Platform_Operation", workbench);
 
 		// 2.服务商
 		workbench = "/panda/supplier/workbench";
