@@ -1,12 +1,11 @@
 package com.gongsibao.trade.web;
 
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.gongsibao.bd.base.IFileService;
 import com.gongsibao.entity.bd.File;
-import com.gongsibao.entity.trade.*;
+import com.gongsibao.entity.trade.NDepPay;
+import com.gongsibao.entity.trade.NU8BankSoPayMap;
+import com.gongsibao.entity.trade.OrderPayMap;
+import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.entity.trade.dic.OfflineWayType;
 import com.gongsibao.entity.trade.dic.PayOfflineInstallmentType;
 import com.gongsibao.entity.trade.dic.PayWayType;
@@ -16,11 +15,10 @@ import com.gongsibao.trade.base.*;
 import com.gongsibao.u8.base.IU8BankService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
-import org.netsharp.core.QueryParameters;
-import org.netsharp.entity.IPersistable;
 import org.netsharp.panda.commerce.FormPart;
-import org.netsharp.persistence.IPersister;
-import org.netsharp.persistence.PersisterFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by win on 2018/3/8.
@@ -31,8 +29,12 @@ public class SoCreatReceivePerformanceFormPart extends FormPart {
 
     /*回款业绩保存*/
     public int saveNDepReceivableBySoder(DepPayMapDTO entity) {
-        INOrderAndPerformanceService nOrderAndPerformanceService = ServiceFactory.create(INOrderAndPerformanceService.class);//服务
-       return nOrderAndPerformanceService.saveNDepReceivableBySoder(entity);
+        INOrderAndPerformanceService nOrderAndPerformanceService = ServiceFactory.create (INOrderAndPerformanceService.class);//服务
+        return nOrderAndPerformanceService.saveNDepReceivableBySoder (entity);
+
+
+
+
 
         /*old*/
 //        if (entity.getOnlinePay ()) {//在线支付的话

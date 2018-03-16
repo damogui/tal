@@ -1,10 +1,8 @@
 package com.gongsibao.trade.service;
 
-import com.gongsibao.entity.trade.NOrderCarryover;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dto.DepPayMapDTO;
 import com.gongsibao.trade.base.INOrderAndPerformanceService;
-import com.gongsibao.trade.base.IOrderService;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
