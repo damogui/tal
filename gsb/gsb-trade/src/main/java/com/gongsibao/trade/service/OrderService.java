@@ -34,31 +34,10 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
         entity = (SoOrder) ctx.getItem ();
         return entity;
     }
-//    
-//    @Override
-//	public SoOrder byId(Object id) {
-//
-//		String selectFields = getSelectFullFields();
-//		Oql oql = new Oql();
-//		{
-//			oql.setType(this.type);
-//			oql.setSelects(selectFields);
-//			oql.setFilter("id=?");
-//			oql.getParameters().add("id", id, Types.INTEGER);
-//		}
-//
-//		SoOrder entity = this.queryFirst(oql);
-//		return entity;
-//	}
-//
-//	private String getSelectFullFields() {
-//
-//		StringBuilder builder = new StringBuilder();
-//		builder.append("SoOrder.*");
-//		builder.append("SoOrder.products.*");
-//		builder.append("SoOrder.products.items.*");
-//		return builder.toString();
-//	}
+
+
+
+
 
     @Override
     public Boolean applyStage(SoOrder entity) {
@@ -125,4 +104,7 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
         SoOrder entity = super.queryFirst (oql);
         return entity;
     }
+
+
+
 }
