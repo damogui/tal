@@ -2,6 +2,7 @@ package com.gongsibao.entity.trade;
 
 import java.util.List;
 
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
@@ -30,7 +31,7 @@ public class Invoice extends BaseEntity {
 	private String content;
 
 	@Column(name = "audit_status_id", header = "审核状态序号，type=105")
-	private Integer auditStatusId;
+	private AuditStatusType auditStatusId;
 
 	@Column(name = "receiver_name", header = "接收人姓名")
 	private String receiverName;
@@ -106,11 +107,11 @@ public class Invoice extends BaseEntity {
 		this.content = content;
 	}
 
-	public Integer getAuditStatusId() {
+	public AuditStatusType getAuditStatusId() {
 		return auditStatusId;
 	}
 
-	public void setAuditStatusId(Integer auditStatusId) {
+	public void setAuditStatusId(AuditStatusType auditStatusId) {
 		this.auditStatusId = auditStatusId;
 	}
 

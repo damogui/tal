@@ -39,6 +39,7 @@ import com.gongsibao.panda.supplier.order.workspace.department.DepartmentReportW
         SalesmanReportMonthWorkspaceTest.class,
         SoCreatOrderPerformanceWorkspaceTest.class,
         SoCreatReceivedPerformanceWorkspaceTest.class,
+        SalesmanOrderInvoiceWorkspaceTest.class,
 
 
         //部门订单
