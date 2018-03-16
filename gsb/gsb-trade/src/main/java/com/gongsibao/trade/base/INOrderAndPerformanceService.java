@@ -2,6 +2,7 @@ package com.gongsibao.trade.base;
 
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.trade.NOrderCarryover;
+import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dto.DepPayMapDTO;
@@ -26,7 +27,7 @@ public interface INOrderAndPerformanceService extends IPersistableService<SoOrde
      * @throws
      */
     @Transaction
-    int saveNDepReceivableBySoder(DepPayMapDTO entity);
+    int saveNDepReceivableBySoder(Pay entity);
     /**
      * @Title: applyCarryover
      * @Description: TODO(创建订单业绩)

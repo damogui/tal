@@ -30,7 +30,76 @@ public class SoCreatReceivePerformanceFormPart extends FormPart {
     /*回款业绩保存*/
     public int saveNDepReceivableBySoder(DepPayMapDTO entity) {
         INOrderAndPerformanceService nOrderAndPerformanceService = ServiceFactory.create (INOrderAndPerformanceService.class);//服务
-        return nOrderAndPerformanceService.saveNDepReceivableBySoder (entity);
+        IU8BankService u8BankService = ServiceFactory.create (IU8BankService.class);//获取线下支付
+        Pay pay = new Pay ();
+        if (entity.getOnlinePay ()) {
+            pay.setPayWayType (PayWayType.ONLINE_PAYMENT);//线上
+            pay.setId (entity.getPayId ());
+
+        } else {
+            pay.setPayWayType (PayWayType.OFFLINE_PAYMENT);
+
+        }
+
+
+        pay.setAmount (entity.getAmount ());
+        pay.setSetOfBooksId (entity.getSetOfBooks ());
+        pay.setU8BankId (entity.getU8Bank ());
+        pay.setOfflinePayerName (entity.getOfflinePayerName ());
+        pay.setOfflineBankNo (entity.getOfflineBankNo ());
+        pay.setOfflineRemark (entity.getOfflineRemark ());
+       // pay.setPayWayType (PayWayType.ONLINE_PAYMENT);//线下支付
+        Integer offlineWayTypeId = u8BankService.byId (entity.getU8Bank ()).getOfflineWayTypeId ();//类型有可能为空
+        OfflineWayType offlineWayType = OfflineWayType.getItem (offlineWayTypeId);
+        if (offlineWayType == null) {
+            offlineWayType = OfflineWayType.SK;
+        }
+        pay.setOfflineWayType (offlineWayType);
+        pay.setEntityState (EntityState.New);
+        //Pay savePay = payService.save (pay);
+        List<File> files = new ArrayList<> ();
+        for (String item : entity.getImgs ()
+                ) {
+            File file = new File ();
+            file.setTabName ("so_pay");
+            file.setFormId (pay.getId ());//最后保存
+            file.setName ("sql同步的付款凭证图片");
+            file.setUrl (item);
+            files.add (file);
+        }
+        pay.setFiles (files);//付款凭证
+        List<OrderPayMap> orderPayMaps = new ArrayList<> ();
+        List<NDepPay> nDepPays = new ArrayList<> ();
+        for (OrderRelationDTO item : entity.getOrderRelations ()
+                ) {
+            OrderPayMap orderPayMap = new OrderPayMap ();//支付明细
+            orderPayMap.setPayId (pay.getId ());
+            orderPayMap.setOrderId (item.getOrderId ());
+            orderPayMap.setU8BankId (entity.getU8Bank ());
+            orderPayMap.setOrderPrice (item.getOrderCutAmount ());
+            orderPayMap.setOfflineInstallmentType (PayOfflineInstallmentType.getItem (item.getPayType ()));
+            orderPayMap.setEntityState (EntityState.New);
+            //OrderPayMap saveOrderPayMap = orderPayMapService.save (orderPayMap);
+            orderPayMaps.add (orderPayMap);
+            for (NDepPay item2 : item.getItems ()
+                    ) {
+                NDepPay nDepPay = new NDepPay ();//回款业绩划分
+                nDepPay.setAmount (item2.getAmount ());
+                nDepPay.setSupplierId (item2.getSupplierId ());
+                nDepPay.setDepartmentId (item2.getDepartmentId ());
+                nDepPay.setEmployeeId (item2.getEmployeeId ());
+
+                nDepPay.setOrderPayMapId (orderPayMap.getId ());
+                nDepPay.setEntityState (EntityState.New);
+                //nDepPayService.save (nDepPay);
+                nDepPays.add (nDepPay);
+
+            }
+            orderPayMap.setDepPays (nDepPays);
+        }
+
+
+        return nOrderAndPerformanceService.saveNDepReceivableBySoder (pay);
 
 
 

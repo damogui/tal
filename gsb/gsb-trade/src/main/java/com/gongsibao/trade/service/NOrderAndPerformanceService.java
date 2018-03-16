@@ -1,5 +1,6 @@
 package com.gongsibao.trade.service;
 
+import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dto.DepPayMapDTO;
 import com.gongsibao.trade.base.INOrderAndPerformanceService;
@@ -23,7 +24,7 @@ public class NOrderAndPerformanceService extends PersistableService<SoOrder> imp
 
     /*回款业绩保存*/
     @Override
-    public int saveNDepReceivableBySoder(DepPayMapDTO entity) {
+    public int saveNDepReceivableBySoder(Pay entity) {
 
         ActionContext ctx = new ActionContext ();
         {
@@ -33,7 +34,7 @@ public class NOrderAndPerformanceService extends PersistableService<SoOrder> imp
         }
         ActionManager action = new ActionManager ();
         action.execute (ctx);
-        entity = (DepPayMapDTO) ctx.getItem ();
+        entity = (Pay) ctx.getItem ();
         return 1;
     }
     /*订单业绩保存*/
