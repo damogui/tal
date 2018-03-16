@@ -28,10 +28,10 @@ import org.netsharp.persistence.PersisterFactory;
 /*回款业绩的save操作*/
 public class SoCreatReceivePerformanceFormPart extends FormPart {
 
-    INOrderAndPerformanceService nOrderAndPerformanceService = ServiceFactory.create(INOrderAndPerformanceService.class);//服务
+
     /*回款业绩保存*/
     public int saveNDepReceivableBySoder(DepPayMapDTO entity) {
-
+        INOrderAndPerformanceService nOrderAndPerformanceService = ServiceFactory.create(INOrderAndPerformanceService.class);//服务
        return nOrderAndPerformanceService.saveNDepReceivableBySoder(entity);
 
         /*old*/

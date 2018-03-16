@@ -9,6 +9,7 @@ import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.core.EntityState;
+import org.netsharp.entity.IPersistable;
 import org.netsharp.service.PersistableService;
 
 /**
@@ -36,5 +37,21 @@ public class NOrderAndPerformanceService extends PersistableService<SoOrder> imp
         action.execute (ctx);
         entity = (DepPayMapDTO) ctx.getItem ();
         return 1;
+    }
+    /*订单业绩保存*/
+    @Override
+    public IPersistable saveOrderPerformance(SoOrder entity) {
+
+
+        ActionContext ctx = new ActionContext ();
+        {
+            ctx.setPath ("gsb/crm/order/performance");//订单业绩保存
+            ctx.setItem (entity);
+            ctx.setState (EntityState.Persist);//修改业绩
+        }
+        ActionManager action = new ActionManager ();
+        action.execute (ctx);
+        entity = (SoOrder) ctx.getItem ();
+        return null;
     }
 }
