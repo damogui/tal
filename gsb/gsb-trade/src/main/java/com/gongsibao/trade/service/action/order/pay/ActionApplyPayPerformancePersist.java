@@ -81,21 +81,22 @@ public class ActionApplyPayPerformancePersist implements IAction {
 
         // fileService.saves (files);
 
-        for (OrderPayMap item : entity.getOrderPayMaps ()
-                ) {
-            item.setPayId (savePay.getId ());
-            item.setEntityState (EntityState.New);
-            OrderPayMap saveOrderPayMap = orderPayMapService.save (item);
-//            for (NDepPay item2:saveOrderPayMap.getDepPays ()
-//                 ) {
+        /*上面已经能进行持久化*/
+//        for (OrderPayMap item : entity.getOrderPayMaps ()
+//                ) {
+//            item.setPayId (savePay.getId ());
+//            item.setEntityState (EntityState.New);
+//            OrderPayMap saveOrderPayMap = orderPayMapService.save (item);
+////            for (NDepPay item2:saveOrderPayMap.getDepPays ()
+////                 ) {
+////
+////                item2.setOrderPayMapId (saveOrderPayMap.getId ());
+////                item2.setEntityState (EntityState.New);
+////                nDepPayService.save (item2);
+////            }
 //
-//                item2.setOrderPayMapId (saveOrderPayMap.getId ());
-//                item2.setEntityState (EntityState.New);
-//                nDepPayService.save (item2);
-//            }
-
-
-        }
+//
+//        }
 
 
         NU8BankSoPayMap nU8BankSoPayMap = new NU8BankSoPayMap ();

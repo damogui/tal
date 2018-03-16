@@ -97,6 +97,7 @@ public class SoCreatReceivePerformanceFormPart extends FormPart {
             }
             orderPayMap.setDepPays (nDepPays);
         }
+        pay.setOrderPayMaps (orderPayMaps);
 
 
         return nOrderAndPerformanceService.saveNDepReceivableBySoder (pay);
