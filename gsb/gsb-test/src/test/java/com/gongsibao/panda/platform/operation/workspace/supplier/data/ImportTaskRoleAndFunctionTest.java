@@ -116,6 +116,11 @@ public class ImportTaskRoleAndFunctionTest {
 			}
 
 		}
+		
+		
+		
+		
+		
 		// 角色end
 		FunctionModule entityFunctionModule = new FunctionModule();
 		{
@@ -132,6 +137,8 @@ public class ImportTaskRoleAndFunctionTest {
 		qsFunctionModule.add("@code", entityFunctionModule.getCode(), Types.VARCHAR);
 		Object numObjectFunctionModule = pmFunctionModule.executeScalar(sqlFunctionModule, qsFunctionModule);
 
+		
+		
 		if (numObjectFunctionModule == null) {// 添加
 			entityFunctionModule.toNew();
 			serviceFunctionModuleService.save(entityFunctionModule);

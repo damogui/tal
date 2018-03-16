@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import com.gongsibao.panda.auth.authorization.AuthorizationAllTest;
+import com.gongsibao.panda.auth.role.FunctionTest;
 import com.gongsibao.panda.auth.role.RoleGroupTest;
 import com.gongsibao.panda.auth.role.RoleTest;
 
@@ -17,6 +18,7 @@ import com.gongsibao.panda.auth.role.RoleTest;
 	
 	RoleGroupTest.class,
 	RoleTest.class,
+	FunctionTest.class,
 	AuthorizationAllTest.class
 })
 public class AuthAllTest {
