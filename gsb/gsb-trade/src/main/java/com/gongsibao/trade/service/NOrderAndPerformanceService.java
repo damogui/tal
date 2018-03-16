@@ -7,15 +7,17 @@ import com.gongsibao.trade.base.INOrderAndPerformanceService;
 import com.gongsibao.trade.base.IOrderService;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
+import org.netsharp.communication.Service;
 import org.netsharp.core.EntityState;
 import org.netsharp.service.PersistableService;
 
 /**
  * 订单业绩和回款业绩
  */
-public class OrderAndPerformanceService extends PersistableService<SoOrder> implements INOrderAndPerformanceService {
+@Service
+public class NOrderAndPerformanceService extends PersistableService<SoOrder> implements INOrderAndPerformanceService {
 
-    public OrderAndPerformanceService() {
+    public NOrderAndPerformanceService() {
         super ();
         this.type = SoOrder.class;
     }

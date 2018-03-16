@@ -20,29 +20,6 @@ public class ActionApplyOrderPerformanceVerify  implements IAction{
 	public void execute(ActionContext ctx) {
 		// TODO Auto-generated method stub
 
-        DepPayMapDTO depPayMapDTO = (DepPayMapDTO) ctx.getItem();//进行校验金额
-        List<OrderRelationDTO>  orderRelationDTOList=depPayMapDTO.getOrderRelations ();
-        if (orderRelationDTOList.size ()==0){
-
-            throw new BusinessException ("回款业绩必须分配！");
-
-        }
-
-        if (depPayMapDTO.getImgs ().size ()==0&&!depPayMapDTO.getOnlinePay ()){//线上支付不需要凭证
-
-            throw new BusinessException ("凭证必须上传");
-
-        }
-
-        //根据订单Id获取订单实体
-        IOrderService orderService = ServiceFactory.create(IOrderService.class);
-        SoOrder order = orderService.getByOrderId(orderRelationDTOList.get (0).getOrderId ());
-
-        if (order.getTotalPrice ()<depPayMapDTO.getAmount ()){
-
-
-            throw new BusinessException ("付款金额不能大于订单金额");
-        }
 
 
 

@@ -14,7 +14,7 @@ import com.gongsibao.trade.service.action.order.pay.ActionApplyPayPerformanceVer
 /**   
  * @ClassName:  PayPerformanceActionTest   
  * @Description:TODO 回款业绩
- * @author: 韩伟
+ * @author: 郭佳
  * @date:   2018年3月12日 下午5:02:48   
  *     
  * @Copyright: 2018 www.yikuaxiu.com Inc. All rights reserved. 

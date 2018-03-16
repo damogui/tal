@@ -49,6 +49,8 @@ public class SoCreatReceivePerformanceFormPart extends FormPart {
 
     }
 
+
+    /*old已经挪到控制器实现*/
     /*处理线下支付*/
     private int handleOfflinePay(DepPayMapDTO entity) {
         IPayService payService = ServiceFactory.create (IPayService.class);//订单支付表
