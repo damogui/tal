@@ -6,6 +6,7 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.Dict;
+import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.crm.dic.Important;
 
 @Table(name="uc_account")
@@ -53,7 +54,14 @@ public class Account extends BaseEntity {
     
     @Column(name="important",header="402 重要程度: 4021普通、 4022中级、 4023高级、 4024VIP")
     private Important important = Important.COMMON;
-
+    
+    @Column(name="company_id",header="关联公司Id")
+    private Integer companyId;
+    
+	@Reference(foreignKey="companyId",header="关联公司：默认最后一次关联")
+	private CompanyIntention company;
+	
+	
 	public String getName() {
 		return name;
 	}
@@ -156,5 +164,21 @@ public class Account extends BaseEntity {
 
 	public void setImportant(Important important) {
 		this.important = important;
+	}
+
+	public CompanyIntention getCompany() {
+		return company;
+	}
+
+	public void setCompany(CompanyIntention company) {
+		this.company = company;
+	}
+
+	public Integer getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
 	}
 }

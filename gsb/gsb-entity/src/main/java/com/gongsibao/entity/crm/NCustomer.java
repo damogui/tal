@@ -169,6 +169,12 @@ public class NCustomer extends Entity {
 //
 	@Column(name = "task_count", header = "任务数量：创建任务，删除任务时更新此值")
 	private Integer taskCount = 0;
+    
+    @Column(name="company_id",header="关联公司Id")
+    private Integer companyId;
+    
+	@Reference(foreignKey="companyId",header="关联公司：默认最后一次关联")
+	private CompanyIntention company;
 
 	@Subs(foreignKey = "customerId", header = "客户任务", subType = NCustomerTask.class)
 	private List<NCustomerTask> tasks;
@@ -604,5 +610,19 @@ public class NCustomer extends Entity {
 		this.isMember = isMember;
 	}
 
+	public Integer getCompanyId() {
+		return companyId;
+	}
 
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
+	}
+
+	public CompanyIntention getCompany() {
+		return company;
+	}
+
+	public void setCompany(CompanyIntention company) {
+		this.company = company;
+	}
 }
