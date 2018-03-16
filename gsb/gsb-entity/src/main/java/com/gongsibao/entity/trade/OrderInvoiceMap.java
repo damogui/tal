@@ -18,8 +18,7 @@ public class OrderInvoiceMap extends BaseEntity {
 
 	@Column(name = "invoice_id", header = "发票序号")
 	private Integer invoiceId;
-	
-	@JsonIgnore
+
 	@Reference(foreignKey = "orderId")
 	private SoOrder soOrder;
 	
