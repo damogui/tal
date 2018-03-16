@@ -813,7 +813,7 @@ public class TaurusApiService {
      * @param companyName
      * @return
      */
-    public static ResponseMessage<TmOccupied> getTmOccupiedCount(String companyName, int currentPage, int pageSize) {
+    public static ResponseMessage<TmAssemble> getTmOccupiedCount(String companyName, int currentPage, int pageSize) {
         TmOccupiedApi api = ApiFactory.create(TmOccupiedApi.class);
         api.setName(companyName);
         api.setCurrentPage(currentPage);
