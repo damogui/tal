@@ -4,6 +4,7 @@ import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dto.DepPayMapDTO;
 import com.gongsibao.trade.base.INDepReceivableService;
+import com.gongsibao.trade.base.INOrderAndPerformanceService;
 import com.gongsibao.trade.base.IOrderService;
 import com.gongsibao.u8.base.ISoOrderService;
 import org.netsharp.communication.ServiceFactory;
@@ -21,8 +22,6 @@ import java.util.List;
 /*创建回款业绩的js控制器*/
 public class OrderReceivePerformanceDetailPart extends DetailPart {
 
-    /*NDepReceivable 业绩实体类 prodTraceService*/
-    INDepReceivableService nDepReceivableService = ServiceFactory.create (INDepReceivableService.class);
 
 
     /*根据订单号获取订单的支付信息针对线上支付*/

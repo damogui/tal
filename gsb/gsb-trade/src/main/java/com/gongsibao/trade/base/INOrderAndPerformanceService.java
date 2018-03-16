@@ -4,6 +4,7 @@ import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.trade.NOrderCarryover;
 import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.trade.dto.DepPayMapDTO;
 import org.netsharp.base.IPersistableService;
 import org.netsharp.core.annotations.Transaction;
 
@@ -15,13 +16,14 @@ import java.util.Map;
  */
 public interface INOrderAndPerformanceService extends IPersistableService<SoOrder> {
 
+
     /**
      * @Title: applyCarryover
-     * @Description: TODO(申请结转)
+     * @Description: TODO(创建回款业绩)
      * @param: @return
      * @return: Boolean
      * @throws
      */
     @Transaction
-    Boolean applyCarryover(NOrderCarryover orderCarryover);
+    int saveNDepReceivableBySoder(DepPayMapDTO entity);
 }
