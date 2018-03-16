@@ -22,6 +22,8 @@ import com.gongsibao.panda.platform.operation.workspace.crm.form.CustomerEditWor
 import com.gongsibao.panda.platform.operation.workspace.crm.form.TaskAddWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.form.TaskEditWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.form.TaskFollowFormWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.igirl.TradeMarkCaseAllWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.igirl.TradeMarkFollowWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.order.CarryoverWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.order.ContractWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.order.InvoiceWorkspaceTest;
@@ -46,7 +48,6 @@ import com.gongsibao.panda.platform.operation.workspace.supplier.SupplierDepartm
 import com.gongsibao.panda.platform.operation.workspace.supplier.SupplierSalesmanWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.supplier.SupplierWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportTaskQualityDataTest;
-import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportTaskRoleAndFunctionTest;
 import com.gongsibao.panda.platform.operation.workspace.taurus.ActiveUserWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.taurus.DayStatisticWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.taurus.JnzUserBalanceWorkSpaceTest;
@@ -56,8 +57,6 @@ import com.gongsibao.panda.platform.operation.workspace.taurus.UserConsumptionWo
 import com.gongsibao.panda.platform.operation.workspace.taurus.UserWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.wanda.WanDaProductWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
-import com.gongsibao.panda.platform.operation.workspace.igirl.TradeMarkCaseAllWorkspaceTest;
-import com.gongsibao.panda.platform.operation.workspace.igirl.TradeMarkFollowWorkspaceTest;
 @RunWith(Suite.class)
 @SuiteClasses({
 
@@ -142,7 +141,7 @@ import com.gongsibao.panda.platform.operation.workspace.igirl.TradeMarkFollowWor
         
 
         ImportTaskQualityDataTest.class,
-        ImportTaskRoleAndFunctionTest.class,
+//        ImportTaskRoleAndFunctionTest.class,
         // ImportOldDataToNewData.class,
         SupplierActionTest.class,
         //智能商标在运营下面的列表
