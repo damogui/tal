@@ -46,20 +46,20 @@ public class TradeMarkCasePart extends FormPart {
 	}
 	public CompanyDto fetchCompanyByName(String name) {
 		try {
-			ResponseMessage<com.gongsibao.taurus.entity.Company> cms=TaurusApiService.getEntList(name, 0, 10);
+			ResponseMessage<com.gongsibao.taurus.entity.CompanyInfo> cms=TaurusApiService.getCompanyListByKey(name, 0, 10);
 			if(cms!=null) {
 				if(cms.getResult()==0) {
 					return null;
 				}else {
-					com.gongsibao.taurus.entity.Company cm=cms.getList().get(0);
-					String cmname=cm.getEntName();
+					com.gongsibao.taurus.entity.CompanyInfo cm=cms.getList().get(0);
+					String cmname=cm.getName();
 					if(!StringManager.isNullOrEmpty(cmname)) {
-						EntRegistry er=TaurusApiService.getEntRegistry(cmname);
+						//EntRegistry er=TaurusApiService.getEntRegistry(cmname);
 						CompanyDto cp=new CompanyDto();
-						cp.setAppCnName(er.getName());
-						cp.setAppCnAddr(er.getBusinessAddress());
-						cp.setCertCode(er.getCreditCode());
-						cp.setApplyer(er.getLegalRepresentative());
+						cp.setAppCnName(cm.getName());
+						cp.setAppCnAddr(cm.getRegLocation());
+						cp.setCertCode(cm.getRegNumber());
+						cp.setApplyer(cm.getLegalPersonName());
 						cp.setPostcode("");
 						cp.setFax("");
 						return cp;

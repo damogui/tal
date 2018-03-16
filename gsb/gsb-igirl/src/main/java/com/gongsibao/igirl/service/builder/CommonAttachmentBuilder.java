@@ -52,6 +52,7 @@ public class CommonAttachmentBuilder implements IAttachmentBuilder {
 		List<DownloadAttachment> ds=new ArrayList<DownloadAttachment>();
 		DownloadAttachment attachment1 =AttachmentBuilderManager.buildDownloadAttachment(tm.getMemo() + "_黑白委托书",
 				AttachmentCat.DELEGATE_PROOF, tm.getTradeMarkCaseId(), FileType.JPGB, FileType.JPGB, tm.getId(),tm.getShareGroup());
+		attachment1.setNeeded(true);
 		ds.add(attachment1);
 		
 		 attachment1 =AttachmentBuilderManager.buildDownloadAttachment(tm.getMemo() + "_黑白确认函",

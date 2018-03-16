@@ -207,14 +207,14 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 //		tc.setFax("010-84927588");
 		if(sl!=null)
 		{
-			if(sl.getTelePhone().length()<=0){
+			if(sl.getTelePhone()!=null && sl.getTelePhone().length()<=0){
 				tc.setYwPhone("010-84927588");
 			}
 			else
 			{
 				tc.setYwPhone(sl.getTelePhone());
 			}
-			if(sl.getFax().length()<=0)
+			if(sl.getFax()!=null && sl.getFax().length()<=0)
 			{
 				tc.setFax("010-84927588");
 			}else
