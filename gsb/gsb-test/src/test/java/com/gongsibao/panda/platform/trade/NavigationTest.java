@@ -4,9 +4,6 @@ import org.junit.Before;
 import org.netsharp.meta.base.NavigationBase;
 import org.netsharp.panda.plugin.entity.PNavigation;
 
-import com.gongsibao.bd.base.IAuditLogService;
-import com.gongsibao.entity.bd.AuditLog;
-
 
 public class NavigationTest extends NavigationBase {
 
@@ -30,11 +27,24 @@ public class NavigationTest extends NavigationBase {
 		String parentNodeCode = ResourceTest.resourcePrefix + "_Manage";
 		createPTreeNode(tree, null, "fa fa-file-text-o fa-fw", parentNodeCode, "订单管理", "", 1);
 		{
-			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_All_Order", "全部订单", "/trade/manage/order/all/list", 1);
-			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_My_Order", "我的订单", "/trade/manage/order/my/list", 2);
-			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_My_Order_Detail", "我的订单明细", "/trade/manage/orderdetail/my/list", 3);
-			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Order_Pool", "订单明细", "/trade/manage/order/pool/list", 4);
-			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Order_Operation", "订单操作", "/trade/manage/order/operation/list", 5);
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_All_Order", "全部订单(老)", "/trade/manage/order/all/list", 1);
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_My_Order", "我的订单(老)", "/trade/manage/order/my/list", 2);
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_My_Order_Detail", "我的订单明细(老)", "/trade/manage/orderdetail/my/list", 3);
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Order_Pool", "订单明细(老)", "/trade/manage/order/pool/list", 4);
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Order_Operation", "订单操作(老)", "/trade/manage/order/operation/list", 5);
+			
+            createPTreeNode(tree, parentNodeCode, null, "Operation_Order_All", "全部订单", "/operation/order/all/list", 11);
+            createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Pool", "订单池", "/operation/order/pool/list", 21);
+            createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Performance", "订单业绩", "/operation/order/performance/list", 31);
+            createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Received", "回款业绩", "/operation/order/received/list", 41);
+            createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Refund", "退款订单", "/operation/order/refund/list", 51);
+            createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Staging", "分期订单", "/operation/order/staging/list", 61);
+            createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Carryover", "结转订单", "/operation/order/carryover/list", 71);
+            createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Contract", "合同管理", "/operation/order/contract/list", 81);
+            createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Invoice", "发票管理", "/operation/order/invoice/list", 91);
+            createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Day_Report", "日统计", "/operation/order/report/day", 101);
+            createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Week_Report", "周统计", "/operation/order/report/week", 111);
+            createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Month_Report", "月统计", "/operation/order/report/month", 121);
 		}
 
 		/*parentNodeCode = ResourceTest.resourcePrefix + "_Operation";

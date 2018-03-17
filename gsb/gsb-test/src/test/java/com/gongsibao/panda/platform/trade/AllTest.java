@@ -14,9 +14,19 @@ import com.gongsibao.panda.platform.trade.workspace.audit.PerformanceAuditWorksp
 import com.gongsibao.panda.platform.trade.workspace.audit.ReceivedAuditWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.audit.RefundAuditWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.order.AllOrderWorkspaceTest;
+import com.gongsibao.panda.platform.trade.workspace.order.CarryoverWorkspaceTest;
+import com.gongsibao.panda.platform.trade.workspace.order.ContractWorkspaceTest;
+import com.gongsibao.panda.platform.trade.workspace.order.InvoiceWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.order.MyOrderWorkspaceTest;
+import com.gongsibao.panda.platform.trade.workspace.order.OrderALLWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.order.OrderOperationWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.order.OrderPoolWorkspaceTest;
+import com.gongsibao.panda.platform.trade.workspace.order.PerformanceWorkspaceTest;
+import com.gongsibao.panda.platform.trade.workspace.order.ReceivedWorkspaceTest;
+import com.gongsibao.panda.platform.trade.workspace.order.RefundWorkspaceTest;
+import com.gongsibao.panda.platform.trade.workspace.order.ReportDayWorkspaceTest;
+import com.gongsibao.panda.platform.trade.workspace.order.ReportMonthWorkspaceTest;
+import com.gongsibao.panda.platform.trade.workspace.order.ReportWeekWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.payment.PaymentLogWorkspaceTest;
 
 
@@ -33,6 +43,19 @@ import com.gongsibao.panda.platform.trade.workspace.payment.PaymentLogWorkspaceT
 //	MyOrderDetailWorkspaceTest.class,
 	OrderPoolWorkspaceTest.class,
 	
+    //订单操作
+    OrderALLWorkspaceTest.class,
+    OrderPoolWorkspaceTest.class,
+    CarryoverWorkspaceTest.class,
+    ContractWorkspaceTest.class,
+    InvoiceWorkspaceTest.class,
+    PerformanceWorkspaceTest.class,
+    ReceivedWorkspaceTest.class,
+    RefundWorkspaceTest.class,
+    StagingWorkspaceTest.class,
+    ReportDayWorkspaceTest.class,
+    ReportWeekWorkspaceTest.class,
+    ReportMonthWorkspaceTest.class,
 	/*//订单操作:操作订单池,我负责的订单,订单审核,订单流量监控
 	OperationOrderPoolWorkspaceTest.class,
 	MyResponsibleOrderWorkspaceTest.class,

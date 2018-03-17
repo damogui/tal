@@ -1,4 +1,4 @@
-package com.gongsibao.panda.platform.operation.workspace.order;
+package com.gongsibao.panda.platform.trade.workspace.order;
 
 import org.junit.Before;
 import org.junit.Test;
