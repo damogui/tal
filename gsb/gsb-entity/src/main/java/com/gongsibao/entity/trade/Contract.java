@@ -18,7 +18,7 @@ public class Contract extends BaseEntity {
 	private Integer orderId;
 
 	// 订单
-	@Reference(foreignKey = "orderId")
+	@Reference(foreignKey = "orderId", primaryKey = "pkid")
 	private SoOrder soOrder;
 
 	@Column(name = "sgining_time", header = "签约日期")
