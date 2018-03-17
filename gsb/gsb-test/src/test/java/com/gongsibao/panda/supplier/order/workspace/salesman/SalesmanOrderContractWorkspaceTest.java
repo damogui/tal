@@ -5,7 +5,7 @@ import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
-import org.netsharp.panda.dic.OpenMode;
+import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
@@ -25,21 +25,10 @@ public class SalesmanOrderContractWorkspaceTest extends WorkspaceCreationBase {
         urlList = "/crm/order/salesman/contract/list";
         listPartName = formPartName = "合同管理";
         meta = MtableManager.getMtable(entity);
-        formPartName = listPartName = meta.getName();
         resourceNodeCode = "Gsb_Supplier_Order_Salesman_Contract";
-        formOpenMode = OpenMode.WINDOW;
-        openWindowHeight = 700;
-        openWindowWidth = 900;
-        listPartImportJs = "/gsb/panda-extend/gsb.custom.query.controls.js";///gsb/crm/sys/js/sys-salesman-list-part.js|
+        listPartImportJs = "/gsb/panda-extend/gsb.custom.query.controls.js";
         listPartServiceController = SalesmanOrderContractListPart.class.getName();
-        //listFilter = "order_id in(select pkid from so_order where owner_id = '{userId}' )";
-
-//        List<String> ss = new ArrayList<String> ();
-//        ss.add("/gsb/platform/trade/js/salesman-order-add-form.part.js");
-//        ss.add("/gsb/panda-extend/gsb.customer.controls.js");
-//        formJsImport = StringManager.join("|", ss);
-//        formJsController = SalesmanAddOrderFormPart.class.getName();
-//        formServiceController = SalesmanAddOrderFormPart.class.getName();
+        listFilter = "soOrder.owner_id = '{userId}'";
     }
 
 
@@ -58,17 +47,29 @@ public class SalesmanOrderContractWorkspaceTest extends WorkspaceCreationBase {
         addColumn(datagrid, "soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "soOrder.accountType", "新老客户签单", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "soOrder.payablePrice", "合同总额", ControlTypes.DECIMAL_FEN_BOX, 100);
-        addColumn(datagrid, "contractPrice", "业绩总额", ControlTypes.DECIMAL_FEN_BOX, 100);
-        addColumn(datagrid, "hasDataFee", "是否有材料撰写费", ControlTypes.BOOLCOMBO_BOX, 105);
-        addColumn(datagrid, "dataFee", "材料撰写费", ControlTypes.TEXT_BOX, 100);
+        column = addColumn(datagrid, "soOrder.payablePrice", "合同总额", ControlTypes.DECIMAL_FEN_BOX, 100);{
+        	column.setAlign(DatagridAlign.RIGHT);
+        }
+        
+        column = addColumn(datagrid, "contractPrice", "业绩总额", ControlTypes.DECIMAL_FEN_BOX, 100);{
+        	column.setAlign(DatagridAlign.RIGHT);
+        }
+        
+        column = addColumn(datagrid, "hasDataFee", "是否有材料撰写费", ControlTypes.BOOLCOMBO_BOX, 105);{
+        	column.setAlign(DatagridAlign.RIGHT);
+        }
+        
+        column = addColumn(datagrid, "dataFee", "材料撰写费", ControlTypes.TEXT_BOX, 100);{
+        	column.setAlign(DatagridAlign.RIGHT);
+        }
 
-        addColumn(datagrid, "liquidatedDamages", "违约金", ControlTypes.TEXT_BOX, 100);
+        column = addColumn(datagrid, "liquidatedDamages", "违约金", ControlTypes.TEXT_BOX, 100);{
+        	column.setAlign(DatagridAlign.RIGHT);
+        }
         addColumn(datagrid, "creator", "合同创建人", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "createTime", "合同创建时间", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "auditStatusId", "审核状态", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
-
 
         return datagrid;
     }
@@ -86,11 +87,11 @@ public class SalesmanOrderContractWorkspaceTest extends WorkspaceCreationBase {
             item.setTooltip("订单编号、渠道订单编号、下单人、下单人电话、关联公司");
             item.setWidth(350);
         }
-        addQueryItem(queryProject, "prodName", "产品名称", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "auditStatusId", "审核状态", ControlTypes.ENUM_BOX);
         addQueryItem(queryProject, "hasDataFee", "是否有材料撰写费", ControlTypes.BOOLCOMBO_BOX);
         addQueryItem(queryProject, "creator", "合同创建人", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "ywyName", "业务员", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "createTime", "合同创建时间", ControlTypes.DATE_BOX);
         return queryProject;
     }
@@ -100,5 +101,4 @@ public class SalesmanOrderContractWorkspaceTest extends WorkspaceCreationBase {
         ResourceNode node = this.getResourceNode();
         operationService.addOperation(node, OperationTypes.view);
     }
-
 }

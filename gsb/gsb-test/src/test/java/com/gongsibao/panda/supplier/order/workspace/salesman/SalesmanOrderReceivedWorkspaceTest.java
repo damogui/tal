@@ -5,6 +5,7 @@ import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
+import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
@@ -57,9 +58,15 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
         addColumn(datagrid, "pay.payForOrderCount", "是否一笔多单", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "order.prodName", "产品名称", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "order.companyIntention.companyName", "签单公司", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "order.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);
-        addColumn(datagrid, "order.payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
-        addColumn(datagrid, "order.paidPrice", "已付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        column = addColumn(datagrid, "order.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
+        	column.setAlign(DatagridAlign.RIGHT);
+        }
+        column = addColumn(datagrid, "order.payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
+        	column.setAlign(DatagridAlign.RIGHT);
+        }
+        column = addColumn(datagrid, "order.paidPrice", "已付金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
+        	column.setAlign(DatagridAlign.RIGHT);
+        }
         addColumn(datagrid, "order.payStatus", "订单付款状态", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "pay.successStatus", "支付状态", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "pay.payWayType", "支付类别", ControlTypes.ENUM_BOX, 100);
@@ -67,7 +74,9 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
         addColumn(datagrid, "pay.setOfBooks.name", "线下支付账套", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "pay.u8Bank.name", "线下支付方式", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "pay.payWayType", "付款类别", ControlTypes.ENUM_BOX, 100);
-        addColumn(datagrid, "amount", "我的回款业绩额", ControlTypes.TEXT_BOX, 100);
+        column = addColumn(datagrid, "amount", "我的回款业绩额", ControlTypes.TEXT_BOX, 100);{
+        	column.setAlign(DatagridAlign.RIGHT);
+        }
         addColumn(datagrid, "pay.offlineAuditStatus", "审核状态", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "pay.confirmTime", "回款日期", ControlTypes.DATETIME_BOX, 100);
         addColumn(datagrid, "createTime", "回款业绩创建时间", ControlTypes.DATETIME_BOX, 100);

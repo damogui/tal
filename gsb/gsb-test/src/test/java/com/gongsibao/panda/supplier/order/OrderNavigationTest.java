@@ -48,14 +48,14 @@ public class OrderNavigationTest extends NavigationBase {
 				createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", null, "Gsb_Supplier_Order_Salesman_All", "全部订单", "/crm/order/salesman/all/list", 2);
 				createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", null, "Gsb_Supplier_Order_Salesman_Performance", "订单业绩", "/crm/order/salesman/performance/list", 3);
 				createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", null, "Gsb_Supplier_Order_Salesman_Received", "回款业绩", "/crm/order/salesman/received/list", 4);
-				createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", null, "Gsb_Supplier_Order_Salesman_Refund", "退款订单", "/crm/order/salesman/refund/list", 5);
-				createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", null, "Gsb_Supplier_Order_Salesman_Staging", "分期订单", "/crm/order/salesman/staging/list", 6);
-				createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", null, "Gsb_Supplier_Order_Salesman_Carryover", "结转订单", "/crm/order/salesman/carryover/list", 7);
+				createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", null, "Gsb_Supplier_Order_Salesman_Refund", "我的退款", "/crm/order/salesman/refund/list", 5);
+				createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", null, "Gsb_Supplier_Order_Salesman_Staging", "我的分期", "/crm/order/salesman/staging/list", 6);
+				createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", null, "Gsb_Supplier_Order_Salesman_Carryover", "我的结转", "/crm/order/salesman/carryover/list", 7);
 				createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", null, "Gsb_Supplier_Order_Salesman_Contract", "合同管理", "/crm/order/salesman/contract/list", 8);
 				createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", null, "Gsb_Supplier_Order_Salesman_Invoice", "发票管理", "/crm/order/salesman/invoice/list", 9);
-				createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", null, "Gsb_Supplier_Order_Salesman_Day_Report", "日统计", "/crm/order/salesman/day/report", 10);
-				createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", null, "Gsb_Supplier_Order_Salesman_Week_Report", "周统计", "/crm/order/salesman/week/report", 11);
-				createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", null, "Gsb_Supplier_Order_Salesman_Month_Report", "月统计", "/crm/order/salesman/month/report", 12);
+//				createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", null, "Gsb_Supplier_Order_Salesman_Day_Report", "日统计", "/crm/order/salesman/day/report", 10);
+//				createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", null, "Gsb_Supplier_Order_Salesman_Week_Report", "周统计", "/crm/order/salesman/week/report", 11);
+//				createPTreeNode(tree, "Gsb_Supplier_Order_Salesman", null, "Gsb_Supplier_Order_Salesman_Month_Report", "月统计", "/crm/order/salesman/month/report", 12);
 			}
 
 			createPTreeNode(tree, "Gsb_Supplier_Order", null, "Gsb_Supplier_Order_Department", "部门订单", "", 2);

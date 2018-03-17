@@ -5,10 +5,8 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
-import org.netsharp.organization.base.IOperationTypeService;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
@@ -20,7 +18,6 @@ import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.plugin.dic.ToolbarType;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
-import org.netsharp.resourcenode.IResourceNodeService;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.StringManager;
 
