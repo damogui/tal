@@ -12,7 +12,7 @@ import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.entity.trade.OrderPayMap;
+import com.gongsibao.entity.trade.NDepPay;
 import com.gongsibao.trade.web.SalesmanOrderReceivedListPart;
 
 /*回款业绩*/
@@ -20,7 +20,7 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
     @Before
     public void setup() {
         super.setup();
-        entity = OrderPayMap.class;
+        entity = NDepPay.class;
         urlList = "/crm/order/salesman/received/list";
         listPartName = formPartName = "回款业绩";
         meta = MtableManager.getMtable(entity);
@@ -32,7 +32,7 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
         listPartImportJs = "/gsb/panda-extend/gsb.custom.query.controls.js";///gsb/crm/sys/js/sys-salesman-list-part.js|
         listPartServiceController = SalesmanOrderReceivedListPart.class.getName();
         //listPartJsController = SalesmanOrderReceivedListPart.class.getName();
-        listFilter = "pkid in(select order_pay_map_id from n_dep_pay where employee_id = '{userId}' or creator_id = '{userId}')";
+        listFilter = "employee_id = '{userId}'";
 //        List<String> ss = new ArrayList<String> ();
 //        ss.add("/gsb/platform/trade/js/salesman-order-add-form.part.js");
 //        ss.add("/gsb/panda-extend/gsb.customer.controls.js");
@@ -52,29 +52,29 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
         }
         PDatagridColumn column = null;
         addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-        addColumn(datagrid, "soOrder.no", "订单编号", ControlTypes.TEXT_BOX, 80);
-        addColumn(datagrid, "soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "order.no", "订单编号", ControlTypes.TEXT_BOX, 80);
+        addColumn(datagrid, "order.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "pay.payForOrderCount", "是否一笔多单", ControlTypes.ENUM_BOX, 100);
-        addColumn(datagrid, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "soOrder.companyIntention.companyName", "签单公司", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "soOrder.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);
-        addColumn(datagrid, "soOrder.payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
-        addColumn(datagrid, "soOrder.paidPrice", "已付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
-        addColumn(datagrid, "soOrder.payStatus", "订单付款状态", ControlTypes.ENUM_BOX, 100);
+        addColumn(datagrid, "order.prodName", "产品名称", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "order.companyIntention.companyName", "签单公司", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "order.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn(datagrid, "order.payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn(datagrid, "order.paidPrice", "已付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn(datagrid, "order.payStatus", "订单付款状态", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "pay.successStatus", "支付状态", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "pay.payWayType", "支付类别", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "pay.onlineBankCodeId", "支付银行", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "pay.setOfBooks.name", "线下支付账套", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "pay.u8Bank.name", "线下支付方式", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "pay.payWayType", "付款类别", ControlTypes.ENUM_BOX, 100);
-        addColumn(datagrid, "myOrderCutAmount", "我的回款业绩额", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "amount", "我的回款业绩额", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "pay.offlineAuditStatus", "审核状态", ControlTypes.ENUM_BOX, 100);
-        addColumn(datagrid, "pay.payTime", "回款日期", ControlTypes.DATETIME_BOX, 100);
-        addColumn(datagrid, "pay.createTime", "回款业绩创建时间", ControlTypes.DATETIME_BOX, 100);
+        addColumn(datagrid, "pay.confirmTime", "回款日期", ControlTypes.DATETIME_BOX, 100);
+        addColumn(datagrid, "createTime", "回款业绩创建时间", ControlTypes.DATETIME_BOX, 100);
         addColumn(datagrid, "pay.depPayAuditPassTime", "回款业绩审核通过时间", ControlTypes.DATETIME_BOX, 100);
-        addColumn(datagrid, "soOrder.createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);
+        addColumn(datagrid, "order.createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);
         addColumn(datagrid, "pay.creator", "回款业绩创建人", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "order.owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
 
         return datagrid;
     }
@@ -91,16 +91,18 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
             item.setTooltip("订单编号、渠道订单编号、下单人、下单人电话、签单企业");
             item.setWidth(350);
         }
-        addQueryItem(queryProject, "prodName", "产品名称", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "pay.offlineAuditStatus", "审核状态", ControlTypes.ENUM_BOX);
-        addQueryItem(queryProject, "soOrder.payStatus", "订单付款状态", ControlTypes.ENUM_BOX);
+        addQueryItem(queryProject, "order.prodName", "产品名称", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "orderPayMap.pay.offlineAuditStatus", "审核状态", ControlTypes.ENUM_BOX);
+        addQueryItem(queryProject, "order.payStatus", "订单付款状态", ControlTypes.ENUM_BOX);
         addQueryItem(queryProject, "pay.successStatus", "支付状态", ControlTypes.ENUM_BOX);
         addQueryItem(queryProject, "pay.payWayType", "支付类别", ControlTypes.ENUM_BOX);
-        addQueryItem(queryProject, "ywyName", "业务员", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "payCreator", "回款业绩创建人", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "order.owner.name", "业务员", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "creator", "回款业绩创建人", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "pay.payForOrderCount", "是否一笔多单", ControlTypes.ENUM_BOX);
-        addQueryItem(queryProject, "payCreateTime", "回款业绩创建时间", ControlTypes.DATE_BOX);
-        addQueryItem(queryProject, "orderCreateTime", "订单创建时间", ControlTypes.DATE_BOX);
+        addQueryItem(queryProject, "createTime", "回款业绩创建时间", ControlTypes.DATE_BOX);
+        addQueryItem(queryProject, "order.CreateTime", "订单创建时间", ControlTypes.DATE_BOX);
+        addQueryItem(queryProject, "order.CreateTime", "回款日期", ControlTypes.DATE_BOX);
+        addQueryItem(queryProject, "pay.depPayAuditPassTime", "审核通过日期", ControlTypes.DATE_BOX);
         return queryProject;
     }
 

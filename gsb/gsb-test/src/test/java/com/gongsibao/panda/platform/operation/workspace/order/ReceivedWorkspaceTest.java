@@ -1,10 +1,8 @@
 package com.gongsibao.panda.platform.operation.workspace.order;
 
-import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderReceivedWorkspaceTest;
 import org.junit.Before;
-import org.junit.Test;
 
-import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderAllWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderReceivedWorkspaceTest;
 
 public class ReceivedWorkspaceTest extends SalesmanOrderReceivedWorkspaceTest {
 	@Before

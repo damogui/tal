@@ -1,30 +1,16 @@
 package com.gongsibao.panda.supplier.order.workspace.department;
 
-import com.gongsibao.controls.PropertyQueryDictComboBox;
-import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderAllWorkspaceTest;
-import com.gongsibao.tools.PToolbarHelper;
-import com.gongsibao.trade.web.OrderAllListPart;
-import com.gongsibao.trade.web.SalesmanAllOrderFormPart;
-import com.gongsibao.trade.web.SalesmanAllOrderListPart;
 import org.junit.Before;
 import org.junit.Test;
-import org.netsharp.core.EntityState;
-import org.netsharp.core.MtableManager;
-import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
-import org.netsharp.organization.entity.OperationType;
-import org.netsharp.panda.controls.ControlTypes;
-import org.netsharp.panda.dic.OpenMode;
-import org.netsharp.panda.entity.*;
+import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.plugin.dic.ToolbarType;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
-import org.netsharp.util.StringManager;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderAllWorkspaceTest;
+import com.gongsibao.trade.web.SalesmanAllOrderListPart;
 
 /*全部订单   根据部门过滤就行*/
 public class DepartmentOrderAllWorkspaceTest extends SalesmanOrderAllWorkspaceTest {
@@ -54,7 +40,8 @@ public class DepartmentOrderAllWorkspaceTest extends SalesmanOrderAllWorkspaceTe
         //listPartServiceController = NCustomerAllListPart.class.getName();
     }
 
-    public PToolbar createRowToolbar() {
+    @Test
+    public void createRowToolbar() {
         ResourceNode node = this.resourceService.byCode(resourceNodeCode);
         PToolbar toolbar = new PToolbar();
         {
@@ -74,8 +61,11 @@ public class DepartmentOrderAllWorkspaceTest extends SalesmanOrderAllWorkspaceTe
             item.setCommand("{controller}.orderTran();");
             toolbar.getItems().add(item);
         }
-
-        return toolbar;
+        toolbarService.save(toolbar);
+    }
+    @Test
+    public void createListToolbar() {
+    	
     }
 
     protected PDatagrid createDatagrid(ResourceNode node) {

@@ -1,7 +1,5 @@
 package com.gongsibao.panda.supplier.order;
 
-import com.gongsibao.panda.supplier.order.workspace.salesman.*;
-import com.gongsibao.panda.supplier.reference.SupplierU8BankReferenceTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -18,6 +16,21 @@ import com.gongsibao.panda.supplier.order.workspace.department.DepartmentOrderRe
 import com.gongsibao.panda.supplier.order.workspace.department.DepartmentReportDayWorkspaceTest;
 import com.gongsibao.panda.supplier.order.workspace.department.DepartmentReportMonthWorkspaceTest;
 import com.gongsibao.panda.supplier.order.workspace.department.DepartmentReportWeekWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderAddWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderAllWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderCarryoverWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderContractWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderInvoiceWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderPerformanceWorspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderReceivedWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderRefundWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderStagingWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanReportDayWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanReportMonthWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanReportWeekWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SoCreatOrderPerformanceWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SoCreatReceivedPerformanceWorkspaceTest;
+import com.gongsibao.panda.supplier.reference.SupplierU8BankReferenceTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({
