@@ -15,13 +15,13 @@ public class ReportMonthWorkspaceTest extends SalesmanOrderAllWorkspaceTest{
 		listToolbarPath = "panda/datagrid/edit";
 	}	
     @Test
-    public void saveListToolbar() {
+    public void createListToolbar() {
     	
     }
     
 
     @Test
-    public void saveRowToolbar() {
+    public void createRowToolbar() {
     	
     }
 }

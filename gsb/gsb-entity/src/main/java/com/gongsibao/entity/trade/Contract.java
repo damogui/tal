@@ -2,11 +2,15 @@ package com.gongsibao.entity.trade;
 
 import java.util.Date;
 
+import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
+
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
+import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.BaseEntity;
 
@@ -18,7 +22,7 @@ public class Contract extends BaseEntity {
 	private Integer orderId;
 
 	// 订单
-	@Reference(foreignKey = "orderId")
+	@Reference(foreignKey = "orderId", primaryKey = "pkid")
 	private SoOrder soOrder;
 
 	@Column(name = "sgining_time", header = "签约日期")
@@ -100,6 +104,24 @@ public class Contract extends BaseEntity {
 	// 合同业绩总额（不生成数据库字段）
 	@Exclusive
 	private Integer contractPrice;
+	
+	@Column(name = "supplier_id", header = "服务商Id")
+	private Integer supplierId;
+
+	@Reference(foreignKey = "supplierId", header = "服务商")
+	private Supplier supplier;
+
+	@Column(name = "department_id", header = "部门Id")
+	private Integer departmentId;
+
+	@Reference(foreignKey = "departmentId", header = "部门")
+	private SupplierDepartment department;
+	
+	@Column(name = "owner_id", header = "业务员Id")
+	private Integer ownerId;
+
+	@Reference(foreignKey = "ownerId", header = "业务员")
+	private Employee owner;
 
 	public Integer getOrderId() {
 		return orderId;
@@ -330,5 +352,53 @@ public class Contract extends BaseEntity {
 
 	public void setElectronics(Boolean electronics) {
 		this.electronics = electronics;
+	}
+
+	public Integer getSupplierId() {
+		return supplierId;
+	}
+
+	public void setSupplierId(Integer supplierId) {
+		this.supplierId = supplierId;
+	}
+
+	public Supplier getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
+	}
+
+	public Integer getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(Integer departmentId) {
+		this.departmentId = departmentId;
+	}
+
+	public SupplierDepartment getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(SupplierDepartment department) {
+		this.department = department;
+	}
+
+	public Integer getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(Integer ownerId) {
+		this.ownerId = ownerId;
+	}
+
+	public Employee getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Employee owner) {
+		this.owner = owner;
 	}
 }

@@ -1,7 +1,5 @@
 package com.gongsibao.panda.supplier.order.workspace.audit;
 
-import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.tools.PToolbarHelper;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.EntityState;
@@ -9,7 +7,6 @@ import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
-import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryProject;
@@ -17,6 +14,9 @@ import org.netsharp.panda.plugin.dic.ToolbarType;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
+
+import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.tools.PToolbarHelper;
 
 /*结转审核*/
 public class AuditCarryoverWorkspaceTest extends WorkspaceCreationBase{
@@ -27,12 +27,8 @@ public class AuditCarryoverWorkspaceTest extends WorkspaceCreationBase{
         urlList = "/crm/order/audit/carryover/list";
         listPartName = formPartName = "结转审核";
         meta = MtableManager.getMtable (entity);
-        formPartName = listPartName = meta.getName ();
         resourceNodeCode = "Gsb_Supplier_Order_Audit_Carryover";
         listToolbarPath = "crm/audit/carryover/edit";
-        formOpenMode = OpenMode.WINDOW;
-        openWindowHeight = 700;
-        openWindowWidth = 900;
         listPartImportJs = "/gsb/panda-extend/gsb.custom.query.controls.js";
 
     }

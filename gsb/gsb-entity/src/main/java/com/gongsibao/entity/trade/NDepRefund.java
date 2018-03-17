@@ -32,6 +32,10 @@ public class NDepRefund  extends Entity{
 	
     @Column(name = "refund_id", header = "退款Id")
     private  Integer refundId;
+    
+    @JsonIgnore
+    @Reference(foreignKey = "refundId")
+    private Refund refund;
 
     @Column(name = "supplier_id", header = "服务商Id")
     private Integer supplierId = 0;
@@ -132,5 +136,13 @@ public class NDepRefund  extends Entity{
 
 	public Integer getOrderId() {
 		return orderId;
+	}
+
+	public Refund getRefund() {
+		return refund;
+	}
+
+	public void setRefund(Refund refund) {
+		this.refund = refund;
 	}
 }

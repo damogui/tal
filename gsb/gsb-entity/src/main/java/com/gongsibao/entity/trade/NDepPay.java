@@ -1,5 +1,6 @@
 package com.gongsibao.entity.trade;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
@@ -37,7 +38,18 @@ public class NDepPay extends Entity {
 
     @Reference(foreignKey = "employeeId")
     private Employee employee;
+    
+    @Column(name = "order_id", header = "订单Id")
+    private Integer orderId;
+    @JsonIgnore
+    @Reference(foreignKey = "orderId")
+    private SoOrder order;
 
+    @Column(name = "pay_id", header = "支付序号")
+    private Integer payId;
+
+    @Reference(header = "支付", foreignKey = "payId", primaryKey = "pkid")
+    private Pay pay;
 
     @Column(name = "order_pay_map_id", header = "支付明细Id")
     private Integer orderPayMapId;
@@ -120,4 +132,38 @@ public class NDepPay extends Entity {
     public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
     }
+
+	public Integer getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
+	}
+
+	public SoOrder getOrder() {
+		return order;
+	}
+
+	public void setOrder(SoOrder order) {
+		this.order = order;
+	}
+
+	public Integer getPayId() {
+		return payId;
+	}
+
+	public void setPayId(Integer payId) {
+		this.payId = payId;
+	}
+
+	public Pay getPay() {
+		return pay;
+	}
+
+	public void setPay(Pay pay) {
+		this.pay = pay;
+	}
+	
+	
 }

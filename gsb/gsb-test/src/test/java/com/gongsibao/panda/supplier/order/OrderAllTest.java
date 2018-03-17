@@ -1,7 +1,5 @@
 package com.gongsibao.panda.supplier.order;
 
-import com.gongsibao.panda.supplier.order.workspace.salesman.*;
-import com.gongsibao.panda.supplier.reference.SupplierU8BankReferenceTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -12,12 +10,25 @@ import com.gongsibao.panda.supplier.order.workspace.audit.AuditPricingWorkspaceT
 import com.gongsibao.panda.supplier.order.workspace.audit.AuditRefundWorkspaceTest;
 import com.gongsibao.panda.supplier.order.workspace.audit.AuditStagingWorkspaceTest;
 import com.gongsibao.panda.supplier.order.workspace.department.DepartmentOrderAllWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.department.DepartmentOrderCarryoverWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.department.DepartmentOrderContractWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.department.DepartmentOrderInvoiceWorkspaceTest;
 import com.gongsibao.panda.supplier.order.workspace.department.DepartmentOrderPerformanceWorspaceTest;
 import com.gongsibao.panda.supplier.order.workspace.department.DepartmentOrderReceivedWorkspaceTest;
 import com.gongsibao.panda.supplier.order.workspace.department.DepartmentOrderRefundWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.department.DepartmentReportDayWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.department.DepartmentReportMonthWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.department.DepartmentReportWeekWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.department.DepartmentOrderStagingWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderAddWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderAllWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderCarryoverWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderContractWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderInvoiceWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderPerformanceWorspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderReceivedWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderRefundWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderStagingWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SoCreatOrderPerformanceWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SoCreatReceivedPerformanceWorkspaceTest;
+import com.gongsibao.panda.supplier.reference.SupplierU8BankReferenceTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({
@@ -34,9 +45,9 @@ import com.gongsibao.panda.supplier.order.workspace.department.DepartmentReportW
         SalesmanOrderReceivedWorkspaceTest.class,
         SalesmanOrderRefundWorkspaceTest.class,
         SalesmanOrderStagingWorkspaceTest.class,
-        SalesmanReportDayWorkspaceTest.class,
-        SalesmanReportWeekWorkspaceTest.class,
-        SalesmanReportMonthWorkspaceTest.class,
+//        SalesmanReportDayWorkspaceTest.class,
+//        SalesmanReportWeekWorkspaceTest.class,
+//        SalesmanReportMonthWorkspaceTest.class,
         SoCreatOrderPerformanceWorkspaceTest.class,
         SoCreatReceivedPerformanceWorkspaceTest.class,
         SalesmanOrderInvoiceWorkspaceTest.class,
@@ -47,9 +58,13 @@ import com.gongsibao.panda.supplier.order.workspace.department.DepartmentReportW
         DepartmentOrderPerformanceWorspaceTest.class,
         DepartmentOrderReceivedWorkspaceTest.class,
         DepartmentOrderRefundWorkspaceTest.class,
-        DepartmentReportDayWorkspaceTest.class,
-        DepartmentReportWeekWorkspaceTest.class,
-        DepartmentReportMonthWorkspaceTest.class,
+        DepartmentOrderCarryoverWorkspaceTest.class,
+        DepartmentOrderContractWorkspaceTest.class,
+        DepartmentOrderInvoiceWorkspaceTest.class,
+        DepartmentOrderStagingWorkspaceTest.class,
+//        DepartmentReportDayWorkspaceTest.class,
+//        DepartmentReportWeekWorkspaceTest.class,
+//        DepartmentReportMonthWorkspaceTest.class,
 
         //订单审核
         AuditPricingWorkspaceTest.class,

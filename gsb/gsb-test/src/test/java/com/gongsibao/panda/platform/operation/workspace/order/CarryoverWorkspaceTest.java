@@ -1,10 +1,8 @@
 package com.gongsibao.panda.platform.operation.workspace.order;
 
-import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderCarryoverWorkspaceTest;
 import org.junit.Before;
-import org.junit.Test;
 
-import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderAllWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderCarryoverWorkspaceTest;
 
 public class CarryoverWorkspaceTest extends SalesmanOrderCarryoverWorkspaceTest {
 
@@ -17,4 +15,5 @@ public class CarryoverWorkspaceTest extends SalesmanOrderCarryoverWorkspaceTest 
         listFilter = "";
     }
 
+    
 }
