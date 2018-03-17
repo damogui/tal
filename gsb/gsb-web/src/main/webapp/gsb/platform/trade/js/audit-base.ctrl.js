@@ -67,7 +67,7 @@ com.gongsibao.trade.web.AuditBaseCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     		return;
     	}
     	
-    	var rejectedRemark = $('#rejectedRemark').val();
+    	var remark = $('#remark').val();
     	/*
     	 * 具体有哪些参数，目前未知，主要是要看列表上能传入什么参数
     	 * 1.orderId

@@ -2,7 +2,7 @@ package com.gongsibao.trade.web.audit;
 
 import com.gongsibao.trade.service.action.audit.AuditState;
 
-public class AuditPerformanceController extends AuditBaseController{
+public class AuditContractController extends AuditBaseController{
 
 	/**
 	 * 审核通过 注：参数未定
@@ -11,7 +11,7 @@ public class AuditPerformanceController extends AuditBaseController{
 	 */
 	public Boolean approved(Integer auditLogId) {
 
-		return auditService.auditPerformance(AuditState.PASS, auditLogId, null);
+		return auditService.auditContract(AuditState.PASS, auditLogId, null);
 	}
 
 	/**
@@ -21,6 +21,7 @@ public class AuditPerformanceController extends AuditBaseController{
 	 */
 	public Boolean rejected(Integer auditLogId, String remark) {
 
-		return auditService.auditPerformance(AuditState.NOTPASS, auditLogId, remark);
+		return auditService.auditContract(AuditState.NOTPASS, auditLogId, remark);
 	}
+
 }

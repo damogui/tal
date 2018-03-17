@@ -3,7 +3,7 @@ com.gongsibao.trade.web.AuditContractCtrl = com.gongsibao.trade.web.AuditBaseCtr
     ctor: function () {
     	
     	this.base();
-    	this.service = 'com.gongsibao.trade.web.audit.AuditContactController';
+    	this.service = 'com.gongsibao.trade.web.audit.AuditContractController';
     },
     initStyle:function(){
     	
