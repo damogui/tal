@@ -10,10 +10,8 @@ import com.gongsibao.entity.trade.NDepReceivable;
 import com.gongsibao.entity.trade.NDepRefund;
 import com.gongsibao.entity.trade.NOrderCarryover;
 import com.gongsibao.entity.trade.OrderInvoiceMap;
-import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.OrderProdItem;
-import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.u8.U8Bank;
 import com.gongsibao.trade.base.IContractService;
@@ -22,10 +20,8 @@ import com.gongsibao.trade.base.INDepReceivableService;
 import com.gongsibao.trade.base.INDepRefundService;
 import com.gongsibao.trade.base.INOrderCarryoverService;
 import com.gongsibao.trade.base.IOrderInvoiceMapService;
-import com.gongsibao.trade.base.IOrderPayMapService;
 import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IOrderService;
-import com.gongsibao.trade.base.IRefundService;
 import com.gongsibao.u8.base.IU8BankService;
 
 public class OrderResourceTest extends ResourceCreationBase {
@@ -41,48 +37,53 @@ public class OrderResourceTest extends ResourceCreationBase {
 
         ResourceNode node1 = this.createResourceNodeCategory("订单管理", "Gsb_Supplier_Order", node.getId());
         {
-            node = this.createResourceNodeCategory("我的订单", "Gsb_Supplier_Order_Salesman", node1.getId());
+        	ResourceNode node2 = this.createResourceNodeCategory("我的订单", "Gsb_Supplier_Order_Salesman", node1.getId());
             {
-                this.createResourceNodeVoucher(SoOrder.class.getName(), "创建订单", "Gsb_Supplier_Order_Salesman_Add", IOrderService.class.getName(), node1.getId());
-                this.createResourceNodeVoucher(SoOrder.class.getName(), "全部订单", "Gsb_Supplier_Order_Salesman_All", IOrderService.class.getName(), node1.getId());
+                this.createResourceNodeVoucher(SoOrder.class.getName(), "创建订单", "Gsb_Supplier_Order_Salesman_Add", IOrderService.class.getName(), node2.getId());
+                this.createResourceNodeVoucher(SoOrder.class.getName(), "全部订单", "Gsb_Supplier_Order_Salesman_All", IOrderService.class.getName(), node2.getId());
                 /*我的订单按钮beg*/
-                this.createResourceNodeVoucher(SoOrder.class.getName(), "创建订单业绩", "Gsb_Supplier_Order_Salesman_CoPerformance", IOrderService.class.getName(), node1.getId());
-                this.createResourceNodeVoucher(SoOrder.class.getName(), "创建回款业绩", "Gsb_Supplier_Order_Salesman_CReceivedPerformance", IOrderService.class.getName(), node1.getId());
-                this.createResourceNodeVoucher(U8Bank.class.getName(), "u8Bank付款方式", "GSB_Basic_SupplierU8_U8Bank", IU8BankService.class.getName(), node1.getId());
+                this.createResourceNodeVoucher(SoOrder.class.getName(), "创建订单业绩", "Gsb_Supplier_Order_Salesman_CoPerformance", IOrderService.class.getName(), node2.getId());
+                this.createResourceNodeVoucher(SoOrder.class.getName(), "创建回款业绩", "Gsb_Supplier_Order_Salesman_CReceivedPerformance", IOrderService.class.getName(), node2.getId());
+                this.createResourceNodeVoucher(U8Bank.class.getName(), "u8Bank付款方式", "GSB_Basic_SupplierU8_U8Bank", IU8BankService.class.getName(), node2.getId());
 
-                this.createResourceNodeVoucher(NDepReceivable.class.getName(), "订单业绩", "Gsb_Supplier_Order_Salesman_Performance", INDepReceivableService.class.getName(), node1.getId());
-                this.createResourceNodeVoucher(NDepPay.class.getName(), "回款业绩", "Gsb_Supplier_Order_Salesman_Received", INDepPayService.class.getName(), node1.getId());
-                this.createResourceNodeVoucher(NDepRefund.class.getName(), "我的退款", "Gsb_Supplier_Order_Salesman_Refund", INDepRefundService.class.getName(), node1.getId());
-                this.createResourceNodeVoucher(SoOrder.class.getName(), "我的分期", "Gsb_Supplier_Order_Salesman_Staging", IOrderService.class.getName(), node1.getId());
-                this.createResourceNodeVoucher(NOrderCarryover.class.getName(), "我的结转", "Gsb_Supplier_Order_Salesman_Carryover", INOrderCarryoverService.class.getName(), node1.getId());
-                this.createResourceNodeVoucher(Contract.class.getName(), "合同管理", "Gsb_Supplier_Order_Salesman_Contract", IContractService.class.getName(), node1.getId());
-                this.createResourceNodeVoucher(OrderInvoiceMap.class.getName(), "发票管理", "Gsb_Supplier_Order_Salesman_Invoice", IOrderInvoiceMapService.class.getName(), node1.getId());
+                this.createResourceNodeVoucher(NDepReceivable.class.getName(), "订单业绩", "Gsb_Supplier_Order_Salesman_Performance", INDepReceivableService.class.getName(), node2.getId());
+                this.createResourceNodeVoucher(NDepPay.class.getName(), "回款业绩", "Gsb_Supplier_Order_Salesman_Received", INDepPayService.class.getName(), node2.getId());
+                this.createResourceNodeVoucher(NDepRefund.class.getName(), "我的退款", "Gsb_Supplier_Order_Salesman_Refund", INDepRefundService.class.getName(), node2.getId());
+                this.createResourceNodeVoucher(SoOrder.class.getName(), "我的分期", "Gsb_Supplier_Order_Salesman_Staging", IOrderService.class.getName(), node2.getId());
+                this.createResourceNodeVoucher(NOrderCarryover.class.getName(), "我的结转", "Gsb_Supplier_Order_Salesman_Carryover", INOrderCarryoverService.class.getName(), node2.getId());
+                this.createResourceNodeVoucher(Contract.class.getName(), "合同管理", "Gsb_Supplier_Order_Salesman_Contract", IContractService.class.getName(), node2.getId());
+                this.createResourceNodeVoucher(OrderInvoiceMap.class.getName(), "发票管理", "Gsb_Supplier_Order_Salesman_Invoice", IOrderInvoiceMapService.class.getName(), node2.getId());
 //                this.createResourceNodeVoucher(SoOrder.class.getName(), "日统计", "Gsb_Supplier_Order_Salesman_Day_Report", IOrderService.class.getName(), node1.getId());
 //                this.createResourceNodeVoucher(SoOrder.class.getName(), "周统计", "Gsb_Supplier_Order_Salesman_Week_Report", IOrderService.class.getName(), node1.getId());
 //                this.createResourceNodeVoucher(SoOrder.class.getName(), "月统计", "Gsb_Supplier_Order_Salesman_Month_Report", IOrderService.class.getName(), node1.getId());
 
-                this.createResourceNodeVoucher(OrderProd.class.getName(), "订单明细", "Gsb_Supplier_Order_Salesman_OrderProd", IOrderProdService.class.getName(), node1.getId());
-                this.createResourceNodeVoucher(OrderProdItem.class.getName(), "服务明细", "Gsb_Supplier_Order_Salesman_OrderProdItem", IOrderProdService.class.getName(), node1.getId());
+                this.createResourceNodeVoucher(OrderProd.class.getName(), "订单明细", "Gsb_Supplier_Order_Salesman_OrderProd", IOrderProdService.class.getName(), node2.getId());
+                this.createResourceNodeVoucher(OrderProdItem.class.getName(), "服务明细", "Gsb_Supplier_Order_Salesman_OrderProdItem", IOrderProdService.class.getName(), node2.getId());
 
             }
 
-            node = this.createResourceNodeCategory("部门订单", "Gsb_Supplier_Order_Department", node1.getId());
+            ResourceNode node3 = this.createResourceNodeCategory("部门订单", "Gsb_Supplier_Order_Department", node1.getId());
             {
-                this.createResourceNodeVoucher(SoOrder.class.getName(), "全部订单", "Gsb_Supplier_Order_Department_All", IOrderService.class.getName(), node1.getId());
-                this.createResourceNodeVoucher(SoOrder.class.getName(), "订单业绩", "Gsb_Supplier_Order_Department_Performance", IOrderService.class.getName(), node1.getId());
-                this.createResourceNodeVoucher(OrderPayMap.class.getName(), "回款业绩", "Gsb_Supplier_Order_Department_Received", IOrderPayMapService.class.getName(), node1.getId());
-                this.createResourceNodeVoucher(Refund.class.getName(), "退款订单", "Gsb_Supplier_Order_Department_Refund", IRefundService.class.getName(), node1.getId());
-                this.createResourceNodeVoucher(SoOrder.class.getName(), "日统计", "Gsb_Supplier_Order_Department_Day_Report", IOrderService.class.getName(), node1.getId());
-                this.createResourceNodeVoucher(SoOrder.class.getName(), "周统计", "Gsb_Supplier_Order_Department_Week_Report", IOrderService.class.getName(), node1.getId());
-                this.createResourceNodeVoucher(SoOrder.class.getName(), "月统计", "Gsb_Supplier_Order_Department_Month_Report", IOrderService.class.getName(), node1.getId());
+                this.createResourceNodeVoucher(SoOrder.class.getName(), "全部订单", "Gsb_Supplier_Order_Department_All", IOrderService.class.getName(), node3.getId());
+                this.createResourceNodeVoucher(NDepReceivable.class.getName(), "订单业绩", "Gsb_Supplier_Order_Department_Performance", INDepReceivableService.class.getName(), node3.getId());
+                this.createResourceNodeVoucher(NDepPay.class.getName(), "回款业绩", "Gsb_Supplier_Order_Department_Received", INDepPayService.class.getName(), node3.getId());
+                this.createResourceNodeVoucher(NDepRefund.class.getName(), "退款订单", "Gsb_Supplier_Order_Department_Refund", INDepRefundService.class.getName(), node3.getId());
+                this.createResourceNodeVoucher(SoOrder.class.getName(), "分期订单", "Gsb_Supplier_Order_Department_Staging", IOrderService.class.getName(), node3.getId());
+                this.createResourceNodeVoucher(NOrderCarryover.class.getName(), "结转订单", "Gsb_Supplier_Order_Department_Carryover", INOrderCarryoverService.class.getName(), node3.getId());
+                this.createResourceNodeVoucher(Contract.class.getName(), "合同管理", "Gsb_Supplier_Order_Department_Contract", IContractService.class.getName(), node3.getId());
+                this.createResourceNodeVoucher(OrderInvoiceMap.class.getName(), "发票管理", "Gsb_Supplier_Order_Department_Invoice", IOrderInvoiceMapService.class.getName(), node3.getId());
+
+//                this.createResourceNodeVoucher(SoOrder.class.getName(), "日统计", "Gsb_Supplier_Order_Department_Day_Report", IOrderService.class.getName(), node1.getId());
+//                this.createResourceNodeVoucher(SoOrder.class.getName(), "周统计", "Gsb_Supplier_Order_Department_Week_Report", IOrderService.class.getName(), node1.getId());
+//                this.createResourceNodeVoucher(SoOrder.class.getName(), "月统计", "Gsb_Supplier_Order_Department_Month_Report", IOrderService.class.getName(), node1.getId());
             }
 
-            node = this.createResourceNodeCategory("订单审核", "Gsb_Supplier_Order_Audit", node1.getId());
+            ResourceNode node4 = this.createResourceNodeCategory("订单审核", "Gsb_Supplier_Order_Audit", node1.getId());
             {
-                this.createResourceNodeVoucher(SoOrder.class.getName(), "定价审核", "Gsb_Supplier_Order_Audit_Pricing", IOrderService.class.getName(), node1.getId());
-                this.createResourceNodeVoucher(SoOrder.class.getName(), "退款审核", "Gsb_Supplier_Order_Audit_Refund", IOrderService.class.getName(), node1.getId());
-                this.createResourceNodeVoucher(SoOrder.class.getName(), "分期审核", "Gsb_Supplier_Order_Audit_Staging", IOrderService.class.getName(), node1.getId());
-                this.createResourceNodeVoucher(SoOrder.class.getName(), "结转审核", "Gsb_Supplier_Order_Audit_Carryover", IOrderService.class.getName(), node1.getId());
+                this.createResourceNodeVoucher(SoOrder.class.getName(), "定价审核", "Gsb_Supplier_Order_Audit_Pricing", IOrderService.class.getName(), node4.getId());
+                this.createResourceNodeVoucher(SoOrder.class.getName(), "退款审核", "Gsb_Supplier_Order_Audit_Refund", IOrderService.class.getName(), node4.getId());
+                this.createResourceNodeVoucher(SoOrder.class.getName(), "分期审核", "Gsb_Supplier_Order_Audit_Staging", IOrderService.class.getName(), node4.getId());
+                this.createResourceNodeVoucher(SoOrder.class.getName(), "结转审核", "Gsb_Supplier_Order_Audit_Carryover", IOrderService.class.getName(), node4.getId());
             }
         }
     }

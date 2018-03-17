@@ -25,7 +25,6 @@ public class SalesmanOrderCarryoverWorkspaceTest extends WorkspaceCreationBase {
         urlList = "/crm/order/salesman/carryover/list";
         listPartName = formPartName = "结转订单";
         meta = MtableManager.getMtable(entity);
-        formPartName = listPartName = meta.getName();
         resourceNodeCode = "Gsb_Supplier_Order_Salesman_Carryover";
         listPartImportJs = "/gsb/panda-extend/gsb.custom.query.controls.js";
         listPartServiceController = SalesmanOrderCarryoverListPart.class.getName();

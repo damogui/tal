@@ -10,7 +10,7 @@ import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderAllWorkspaceTest;
-import com.gongsibao.trade.web.SalesmanAllOrderListPart;
+import com.gongsibao.trade.web.department.DepartmentOrderAllListPart;
 
 /*全部订单   根据部门过滤就行*/
 public class DepartmentOrderAllWorkspaceTest extends SalesmanOrderAllWorkspaceTest {
@@ -21,23 +21,13 @@ public class DepartmentOrderAllWorkspaceTest extends SalesmanOrderAllWorkspaceTe
     public void setup() {
 
         super.setup();
-
-        //entity = SoOrder.class;// 实体
-        urlList = "/crm/order/department/all/list";// 列表的url
+        urlList = "/crm/order/department/all/list";
         resourceNodeCode = "Gsb_Supplier_Order_Department_All";
-        listToolbarPath = "department/order/orderall/edit";
-        listPartImportJs = "/gsb/platform/trade/js/salesman-order-all-list.part.js||/gsb/panda-extend/gsb.custom.query.controls.js|/gsb/panda-extend/gsb.pubcontrol.js";
-        listPartJsController = SalesmanAllOrderListPart.class.getName();
-        listPartServiceController = SalesmanAllOrderListPart.class.getName();
-        listFilter = "";//为了测试有数据，所以先条件为空，之后正式用下面的
-        //listFilter = " department_id in (select department_id from sp_salesman where employee_id = '{userId}' ) ";
-
-        //listPartName = formPartName = "全部订单";
-        //meta = MtableManager.getMtable(entity);// 获取实体元数据
-        //formPartName = listPartName = meta.getName();
-        //listPartImportJs = "/gsb/crm/base/js/customer-base-list.part.js|/gsb/platform/operation/crm/js/customer-all-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
-        //listPartJsController = NCustomerAllListPart.class.getName();
-        //listPartServiceController = NCustomerAllListPart.class.getName();
+        
+        //批量转移工具栏
+//        listToolbarPath = "department/order/orderall/edit";
+        listPartServiceController = DepartmentOrderAllListPart.class.getName();
+        listFilter = "";
     }
 
     @Test
