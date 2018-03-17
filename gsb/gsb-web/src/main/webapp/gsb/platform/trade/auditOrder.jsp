@@ -2,32 +2,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>申请退款</title>
-	<link href='/package/font-awesome/css/font-awesome.min.css' rel='stylesheet' type='text/css' />
-	<link href='/package/easyui/themes/material/easyui.css' rel='stylesheet' type='text/css' />
-	<link href='/package/easyui/themes/easyui.extend.css' rel='stylesheet' type='text/css' />
-	<link href='/package/easyui/themes/color.css' rel='stylesheet' type='text/css' />
-	<link href='/package/easyui/themes/icon.css' rel='stylesheet' type='text/css' />
-	<link href='/panda-res/css/panda.form.css' rel='stylesheet' type='text/css' />
-	<style type="text/css">.label_td{width:100px;}</style>
-	<script src='/package/easyui/jquery.min.js'></script>
-	<script src='/package/layer/layer.js'></script>
-	<script src='/package/easyui/jquery.easyui.min.js'></script>
-	<script src='/package/easyui/locale/easyui-lang-zh_CN.js'></script>
-	<script src='/package/easyui/jquery.easyui.extend.js'></script>
-	<script src='/panda-res/js/system.js'></script>
-	<script src='/panda-res/js/panda.core.js'></script>
-	<script src='/panda-res/js/panda.js'></script>
-    <script src='/package/easyui/datagrid-cellediting.js'></script>
-	<script src='/gsb/platform/trade/js/order.refund-ctrl.js'></script>
+	<title>订单审核</title>
+	<jsp:include page="/gsb/platform/trade/meta.jsp"></jsp:include>
 </head>
     <body class="easyui-layout">
         <div data-options="region:'north',split:false,collapsible:false,closed:false,height:375">
         	 <div class="formContent">
 		        <fieldset style="margin-bottom:0px;">
 		        	<legend>订单信息</legend>
-					<jsp:include page="/gsb/platform/trade/include/orderInfo.jsp"></jsp:include>
+					<jsp:include page="/gsb/platform/trade/orderInfo.jsp"></jsp:include>
 				</fieldset>
 		        <fieldset style="margin-bottom:0px;">
 		        	<legend>退款信息</legend>
@@ -82,6 +65,7 @@
 		</div>
 </body>
 
+<script src='/gsb/platform/trade/js/audit.order-ctrl.js'></script>
 <script>
 
 	var refundCtrl = null;
