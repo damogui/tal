@@ -3,14 +3,14 @@
 <html>
 <head>
 	<title>订单审核</title>
-	<jsp:include page="/gsb/platform/trade/meta.jsp"></jsp:include>
+	<jsp:include page="/gsb/platform/trade/include/meta.jsp"></jsp:include>
 </head>
     <body class="easyui-layout">
         <div data-options="region:'north',split:false,collapsible:false,closed:false,height:375">
         	 <div class="formContent">
 		        <fieldset style="margin-bottom:0px;">
 		        	<legend>订单信息</legend>
-					<jsp:include page="/gsb/platform/trade/orderInfo.jsp"></jsp:include>
+					<jsp:include page="/gsb/platform/trade/include/orderInfo.jsp"></jsp:include>
 				</fieldset>
 		        <fieldset style="margin-bottom:0px;">
 		        	<legend>退款信息</legend>
@@ -65,17 +65,15 @@
 		</div>
 </body>
 
+<script src='/gsb/platform/trade/js/audit-base.ctrl.js'></script>
 <script src='/gsb/platform/trade/js/audit.order-ctrl.js'></script>
 <script>
 
-	var refundCtrl = null;
+	var auditOrderCtrl = null;
 	$(function(){
 		
-		var centerHeight = $('body').height() - 240;
-		$('#center').height(centerHeight);
-		
-		refundCtrl = new com.gongsibao.trade.web.OrderRefundCtrl();
- 		refundCtrl.init(); 
+		auditOrderCtrl = new com.gongsibao.trade.web.AuditOrderCtrl();
+		auditOrderCtrl.init(); 
 	});
 </script>
 </html>
