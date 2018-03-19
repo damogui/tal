@@ -30,26 +30,26 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
         var grid = $('#department_name').combogrid('grid');
         var options = $(grid).datagrid('options');
         var filter = ' supplier_id ____ ----' + newValue + '----';
-        options.url = '\/panda\/rest\/reference?code=SupplierDepartment&filter=' + filter;
+        options.url = '\/panda\/rest\/reference?code=OrderSupplierDepartment&filter=' + filter;
         $(grid).datagrid(options);
 
         //改变业务员的查询条件
         $('#employee_name').combogrid('clear');
         var grid = $('#employee_name').combogrid('grid');
         var options = $(grid).datagrid('options');
-        var filter = ' id IN ( SELECT employee_id FROM sp_salesman WHERE supplier_id ____ ----' + newValue + '----)';
-        options.url = '\/panda\/rest\/reference?code=Employee&filter=' + filter;
+        var filter = ' employee_id IN ( SELECT employee_id FROM sp_salesman WHERE supplier_id ____ ----' + newValue + '----)';
+        options.url = '\/panda\/rest\/reference?code=OrderSalesman&filter=' + filter;
         $(grid).datagrid(options);
 
     },
     departmentChange: function (newValue, oldValue) {
-
+        debugger;
         //改变业务员的查询条件
         $('#employee_name').combogrid('clear');
         var grid = $('#employee_name').combogrid('grid');
         var options = $(grid).datagrid('options');
-        var filter = ' id IN ( SELECT employee_id FROM sp_salesman WHERE department_id ____ ----' + newValue + '----)';
-        options.url = '\/panda\/rest\/reference?code=Employee&filter=' + filter;
+        var filter = ' employee_id IN ( SELECT employee_id FROM sp_salesman WHERE department_id ____ ----' + newValue + '----)';
+        options.url = '\/panda\/rest\/reference?code=OrderSalesman&filter=' + filter;
         $(grid).datagrid(options);
     },
     savebase: function () {
@@ -60,21 +60,21 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
     saveAfter: function () {//统计表格的划分金额
         var rows = this.getGrid().datagrid('getRows');
         var totalAmount = 0;
-       
+
         $(rows).each(function (i, item) {
 
             totalAmount += parseInt(item.amount);
 
         });
-        totalAmount=totalAmount/100;
+        totalAmount = totalAmount / 100;
         $("#performancePrice").val(totalAmount);
     },
-    remove : function(rowIndex,row) {//也需要进行计算
+    remove: function (rowIndex, row) {//也需要进行计算
 
         var $grid = this.getGrid();
-        if(row){
+        if (row) {
 
-            $grid.datagrid('deleteRow',rowIndex);
+            $grid.datagrid('deleteRow', rowIndex);
             this.dataSource.remove(row);
             return;
         }
@@ -85,13 +85,13 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
         }
 
         var me = this;
-        rows.forEach(function(row, index, array) {
+        rows.forEach(function (row, index, array) {
 
-            rowIndex = $grid.datagrid('getRowIndex',row);
-            $grid.datagrid('deleteRow',rowIndex);
+            rowIndex = $grid.datagrid('getRowIndex', row);
+            $grid.datagrid('deleteRow', rowIndex);
             me.dataSource.remove(row);
         });
-       
+
         me.saveAfter();
 
     },
