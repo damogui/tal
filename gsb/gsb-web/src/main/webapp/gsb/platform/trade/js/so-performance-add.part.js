@@ -43,7 +43,7 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
 
     },
     departmentChange: function (newValue, oldValue) {
-        debugger;
+        
         //改变业务员的查询条件
         $('#employee_name').combogrid('clear');
         var grid = $('#employee_name').combogrid('grid');
