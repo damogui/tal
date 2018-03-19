@@ -22,6 +22,12 @@ public class ActionApplyPayPerformanceVerify implements IAction {
         // TODO Auto-generated method stub
         Pay pay = (Pay) ctx.getItem ();//进行校验金额
         List<OrderPayMap> orderPayMaps = pay.getOrderPayMaps ();
+
+        //校验订单是否已经处于审核状态是的话不能进行创建回款审核
+
+
+
+
         if (orderPayMaps.size () == 0) {
 
             throw new BusinessException ("回款业绩必须分配！");
