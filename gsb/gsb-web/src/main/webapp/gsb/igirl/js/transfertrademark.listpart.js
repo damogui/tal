@@ -6,70 +6,80 @@ com.gongsibao.igirl.web.TransferTradeMarkListPart = org.netsharp.panda.commerce.
 	},
     doAllot : function() {
         var me = this;
-        var supplierOption = getSupplierOption();
-        var departmentOption = getDepartmentOption();
-        var employeeOption = getEmployeeOption();
-        PandaHelper.openDynamicForm({
-            title:'分配所属人',
-            width:450,
-            height:300,
-            items:[{id:'allot_supplier_name',
-                title:'服务商',
-                type:'combogrid',
-                className:'',
-                option:supplierOption},
-
-                {id:'allot_department_name',
-                    title:'部门',
+        var rows=me.getSelections();
+        if (rows.length == 0) {
+            IMessageBox.info("您没有选择记录!");
+            return;
+        } else if (rows.length > 1) {
+            IMessageBox.info("只能选择一条记录!");
+            return;
+        }
+        me.invokeService("getTradeMarkCaseSupplierId",[],function (data) {
+            var supplierOption = getSupplierOption(data);
+            var departmentOption = getDepartmentOption();
+            var employeeOption = getEmployeeOption();
+            PandaHelper.openDynamicForm({
+                title:'分配所属人',
+                width:450,
+                height:300,
+                items:[{id:'allot_supplier_name',
+                    title:'服务商',
                     type:'combogrid',
                     className:'',
-                    option:departmentOption},
+                    option:supplierOption},
 
-                {id:'allot_employee_name',
-                    title:'业务员',
-                    type:'combogrid',
-                    className:'',
-                    option:employeeOption}
-            ],
-            callback:function(index, layero){
+                    {id:'allot_department_name',
+                        title:'部门',
+                        type:'combogrid',
+                        className:'',
+                        option:departmentOption},
 
-                var supplierId = $('#allot_supplier_name').combogrid('getValue');
-                var departmentId = $('#allot_department_name').combogrid('getValue');
-                var toUserId = $('#allot_employee_name').combogrid('getValue');
+                    {id:'allot_employee_name',
+                        title:'业务员',
+                        type:'combogrid',
+                        className:'',
+                        option:employeeOption}
+                ],
+                callback:function(index, layero){
 
-                if (System.isnull(supplierId)) {
-                    IMessageBox.info('请选择服务商');
-                    return;
+                    var supplierId = $('#allot_supplier_name').combogrid('getValue');
+                    var departmentId = $('#allot_department_name').combogrid('getValue');
+                    var toUserId = $('#allot_employee_name').combogrid('getValue');
+
+                    if (System.isnull(supplierId)) {
+                        IMessageBox.info('请选择服务商');
+                        return;
+                    }
+                    if (System.isnull(departmentId)) {
+                        IMessageBox.info('请选择部门');
+                        return;
+                    }
+                    if (System.isnull(toUserId)) {
+                        IMessageBox.info('请选择业务员');
+                        return;
+                    }
+
+                    var ttmId = rows[0].id;
+                    me.invokeService("updateOwner", [ttmId,toUserId],function(data) {
+                        me.reload();
+                        IMessageBox.toast('分配成功');
+                        layer.closeAll();
+                        return;
+                    });
                 }
-                if (System.isnull(departmentId)) {
-                    IMessageBox.info('请选择部门');
-                    return;
-                }
-                if (System.isnull(toUserId)) {
-                    IMessageBox.info('请选择业务员');
-                    return;
-                }
-
-                var rows=me.getSelections();
-                var ttmId = rows[0].id;
-				me.invokeService("updateOwner", [ttmId,toUserId],function(data) {
-					me.reload();
-					IMessageBox.toast('分配成功');
-					layer.closeAll();
-					return;
-				});
-            }
+            });
         });
     },
 });
 
-function getSupplierOption(){
+function getSupplierOption(supplierId){
+    var filter = ' id ____ ----'+supplierId+'----';
     var supplierOption = {columns : [ [ {
             field : 'name',
             title : '名称',
             width : 100
         }] ],
-        url : '\/panda\/rest\/reference?code=CRM_Supplier&filter=',
+        url : '\/panda\/rest\/reference?code=CRM_Supplier&filter='+filter,
         idField : 'id',
         textField : 'name',
         width : 300,
