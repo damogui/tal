@@ -13,7 +13,10 @@ public enum AuditLogType implements IEnum  {
 	Sksq(1045, "收款申请审核"),
 	Tdsq(1046, "退单申请审核"),
 	Fqsq(1047, "分期申请审核"),
-	Cpgj(1048, "产品改价申请审核");
+	Cpgj(1048, "产品改价申请审核"),
+    DdSh(1049, "产品订单审核"),
+    DdYjSh(1050, "订单业绩审核"),
+    ;
 	
 	private int value;
 	private String text;
