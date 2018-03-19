@@ -9,9 +9,9 @@ import org.netsharp.base.IEnum;
 public enum RefundSettlementMethodType implements IEnum {
 
     //01和07对应财务现金流编号
-    wu(0, "无"),
-    Yjs(1, "已结算"),
-    Wjs(7, "未结算");
+    wu(1, "无"),
+    Yjs(2, "已结算"),//对应财务现金流：01
+    Wjs(3, "未结算");//对应财务现金流：07
     private int value;
     private String text;
 
