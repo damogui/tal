@@ -29,6 +29,7 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
         meta = MtableManager.getMtable (entity);
         resourceNodeCode = "Gsb_Supplier_Order_Audit_Staging";
         listToolbarPath = "crm/audit/staging/edit";
+        listFilter = "is_installment = 1";
         listPartImportJs = "/gsb/panda-extend/gsb.custom.query.controls.js";
     }
 
@@ -73,7 +74,7 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
 
         PDatagrid datagrid = super.createDatagrid (node);
         {
-            datagrid.setName ("结转订单");
+            datagrid.setName ("分期审核");
             datagrid.setToolbar ("panda/datagrid/row/edit");
             datagrid.setAutoQuery (true);
             datagrid.setShowCheckbox (true);
@@ -83,22 +84,21 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
         addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
         addColumn (datagrid, "no", "订单编号", ControlTypes.TEXT_BOX, 80);
         addColumn (datagrid, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "addTime", "回款日期", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "prodName", "产品名称", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "no", "办理名称", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "payStatus.name", "订单状态", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "no", "关联企业", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "refundStatus.name", "退单状态", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "payStatus", "付款状态", ControlTypes.ENUM_BOX, 100);
+        addColumn (datagrid, "prodName", "产品名称", ControlTypes.TEXT_BOX, 200);
+        addColumn (datagrid, "companyIntention.name", "签单公司", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "totalPrice", "原价金额", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "totalPrice", "应付金额", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "payablePrice", "应付金额", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "paidPrice", "已付金额", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "no", "分期付款", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "no", "开发票", ControlTypes.TEXT_BOX, 100);
+        column = addColumn (datagrid, "toBePaid", "待付金额", ControlTypes.TEXT_BOX, 100);{
+        	column.setFormatter("return (row.payablePrice - row.paidPrice)");
+        }
+        addColumn (datagrid, "stageNum", "==分期次数", ControlTypes.ENUM_BOX, 100);
+        addColumn (datagrid, "installmentAuditStatusId", "审核状态", ControlTypes.ENUM_BOX, 100);
+        addColumn (datagrid, "createTime", "==分期申请时间", ControlTypes.DATE_BOX, 250);
+        addColumn (datagrid, "createTime", "订单创建时间", ControlTypes.DATE_BOX, 250);
+        addColumn (datagrid, "creator", "分期申请人", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "no", "操作员", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "no", "下单人", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "sourceType.name", "订单来源", ControlTypes.TEXT_BOX, 100);
-
         return datagrid;
     }
 
