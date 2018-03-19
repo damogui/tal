@@ -1,8 +1,10 @@
 package com.gongsibao.panda.supplier.order.workspace.audit;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
-import org.netsharp.core.EntityState;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
@@ -14,13 +16,17 @@ import org.netsharp.panda.plugin.dic.ToolbarType;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
+import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.tools.PToolbarHelper;
+import com.gongsibao.trade.web.audit.AuditStageController;
 
 /*分期审核*/
 public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
-    @Before
+	private String listrowToolbarPath = "/audit/rowStag/toolbar";
+
+	@Override
+	@Before
     public void setup() {
         super.setup ();
         entity = SoOrder.class;
@@ -28,12 +34,24 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
         listPartName = formPartName = "分期审核";
         meta = MtableManager.getMtable (entity);
         resourceNodeCode = "Gsb_Supplier_Order_Audit_Staging";
-        listToolbarPath = "crm/audit/staging/edit";
         listFilter = "is_installment = 1";
-        listPartImportJs = "/gsb/panda-extend/gsb.custom.query.controls.js";
+        
+        List<String> ss = new ArrayList<String>();
+        
+        ss.add("/gsb/platform/trade/js/audit-base.ctrl.js");
+		ss.add("/gsb/platform/trade/js/audit-stage.ctrl.js");
+		ss.add("/gsb/panda-extend/gsb.custom.query.controls.js");
+		
+		listPartImportJs = StringManager.join("|", ss);
+		
+		listPartJsController = AuditStageController.class.getName();
+		/*listPartServiceController = AuditStageController.class.getName();*/
+		
+		
+		
     }
 
-    public PToolbar createListToolbar() {
+   /* public PToolbar createListToolbar() {
 
         ResourceNode node = this.resourceService.byCode (resourceNodeCode);
         // OperationType ot1 = operationTypeService.byCode (OperationTypes.add);
@@ -58,7 +76,7 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
 
 
 
-    /*进行设置工具栏*/
+    进行设置工具栏
     @Test
     public void saveListToolbar() {
 
@@ -67,15 +85,42 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
 
             toolbarService.save (toolbar);
         }
-    }
+    }*/
+    
+    @Test
+	public void createRowToolbar() {
 
+		ResourceNode node = this.resourceService.byCode(resourceNodeCode);
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			toolbar.setBasePath("panda/datagrid/row/edit");
+			toolbar.setPath(listrowToolbarPath);
+			toolbar.setName("审核");
+			toolbar.setResourceNode(node);
+			toolbar.setToolbarType(ToolbarType.BASE);
+		}
+		PToolbarItem item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("auditStage");
+			item.setName("审核");
+			item.setSeq(2);
+			item.setCommand("{controller}.auditStage();");
+			toolbar.getItems().add(item);
+		}
+
+		toolbarService.save(toolbar);
+	}
+    
+    
     @Override
     protected PDatagrid createDatagrid(ResourceNode node) {
 
         PDatagrid datagrid = super.createDatagrid (node);
         {
             datagrid.setName ("分期审核");
-            datagrid.setToolbar ("panda/datagrid/row/edit");
+            datagrid.setToolbar (listrowToolbarPath);
             datagrid.setAutoQuery (true);
             datagrid.setShowCheckbox (true);
             datagrid.setSingleSelect (false);
@@ -93,10 +138,13 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
         column = addColumn (datagrid, "toBePaid", "待付金额", ControlTypes.TEXT_BOX, 100);{
         	column.setFormatter("return (row.payablePrice - row.paidPrice)");
         }
-        addColumn (datagrid, "stageNum", "==分期次数", ControlTypes.ENUM_BOX, 100);
+        addColumn (datagrid, "stageNum", "分期次数", ControlTypes.ENUM_BOX, 100);
         addColumn (datagrid, "installmentAuditStatusId", "审核状态", ControlTypes.ENUM_BOX, 100);
-        addColumn (datagrid, "createTime", "==分期申请时间", ControlTypes.DATE_BOX, 250);
-        addColumn (datagrid, "createTime", "订单创建时间", ControlTypes.DATE_BOX, 250);
+        column = addColumn (datagrid, "createTime", "==分期申请时间", ControlTypes.DATE_BOX, 350);
+        {                                  
+        	//column.setFormatter("return controllersoOrderList.serviceNameFormatter(value,row,index);");
+        }
+        addColumn (datagrid, "createTime", "订单创建时间", ControlTypes.DATE_BOX, 350);
         addColumn (datagrid, "creator", "分期申请人", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
         return datagrid;

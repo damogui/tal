@@ -1,5 +1,5 @@
-System.Declare("com.gongsibao.trade.web");
-com.gongsibao.trade.web.AuditStageCtrl = com.gongsibao.trade.web.AuditBaseCtrl.Extends({
+System.Declare("com.gongsibao.trade.web.audit");
+com.gongsibao.trade.web.audit.AuditStageCtrl = com.gongsibao.trade.web.AuditBaseCtrl.Extends({
     ctor: function () {
     	
     	this.base();
@@ -7,5 +7,8 @@ com.gongsibao.trade.web.AuditStageCtrl = com.gongsibao.trade.web.AuditBaseCtrl.E
     },
     initData:function(){
 
+    },
+    auditStage : function(id){
+    	alert(123);
     }
 });
