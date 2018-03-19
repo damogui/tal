@@ -457,6 +457,10 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
                     payId = data;
 
                 } else {
+                    $('#isOnlinePay').switchbutton('clear');
+                    $('#isOnlinePay').switchbutton('disable');
+
+
                     IMessageBox.toast("不存在支付记录",2);
 
                 }
