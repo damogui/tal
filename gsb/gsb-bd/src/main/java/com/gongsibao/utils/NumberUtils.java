@@ -6,6 +6,8 @@ import java.text.Format;
 import org.apache.commons.lang.StringUtils;
 import org.netsharp.util.StringManager;
 
+import static org.apache.commons.lang.math.NumberUtils.toDouble;
+
 /**
  * Created by zhangchao on 2018/2/6.
  */
@@ -84,5 +86,14 @@ public class NumberUtils {
             return 0;
         }
         return (long) AmountUtils.round(d, 0);
+    }
+
+    /*进行除以100的操作*/
+    public static double getRealMoney(Integer money) {
+        double m = toDouble(String.valueOf(money));
+        if (m == 0) {
+            return m;
+        }
+        return m / 100d;
     }
 }

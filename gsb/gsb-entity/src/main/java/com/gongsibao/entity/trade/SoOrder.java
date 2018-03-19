@@ -117,6 +117,11 @@ public class SoOrder extends BaseEntity {
 	@Column(name = "paid_price", header = "已支付金额")
 	private Integer paidPrice = 0;
 
+	/**
+	 * 临时字段-待支付
+	 */
+	private Integer toBePaid;
+	
 	@Column(name = "performance_price", header = "订单业绩已划分金额")
 	private Integer performancePrice = 0;
 
@@ -958,5 +963,4 @@ public class SoOrder extends BaseEntity {
 	public void setImportant(Important important) {
 		this.important = important;
 	}
-
 }

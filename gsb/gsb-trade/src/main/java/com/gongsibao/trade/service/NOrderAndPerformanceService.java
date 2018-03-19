@@ -51,6 +51,6 @@ public class NOrderAndPerformanceService extends PersistableService<SoOrder> imp
         ActionManager action = new ActionManager ();
         action.execute (ctx);
         entity = (SoOrder) ctx.getItem ();
-        return null;
+        return entity;
     }
 }
