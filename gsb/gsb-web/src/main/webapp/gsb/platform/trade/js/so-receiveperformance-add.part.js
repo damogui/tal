@@ -15,6 +15,18 @@ com.gongsibao.trade.web.SoCreatReceivePerformanceFormPart = org.netsharp.panda.c
             return 0;//校验没通过
         }
         depPayMapDTO.isOnlinePay = $("#isOnlinePay")[0].checked;//是否在线支付
+        if(depPayMapDTO.isOnlinePay){
+            if (payId==0){
+                
+                IMessageBox.toast("不存在支付记录",2);
+                return;
+            }
+
+
+
+        }
+
+
         depPayMapDTO.noCutAmount =parseFloat($("#onLineNotCutPay").numberbox('getValue')) ;//未创建业绩总额
         depPayMapDTO.payId = payId;
         //depPayMapDTO.orderPayMaps = []; //$("#pays_u8Bank_setOfBooks_name").textbox("getValue");
@@ -66,7 +78,7 @@ com.gongsibao.trade.web.SoCreatReceivePerformanceFormPart = org.netsharp.panda.c
             }
         });
 
-        alert("保存");
+
         return 1;
 
     },
@@ -445,7 +457,8 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
                     payId = data;
 
                 } else {
-                    IMessageBox.info('不存在支付记录');
+                    IMessageBox.toast("不存在支付记录",2);
+
                 }
             });
 
