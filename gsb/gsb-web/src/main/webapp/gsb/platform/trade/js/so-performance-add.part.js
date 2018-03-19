@@ -37,7 +37,7 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
         $('#employee_name').combogrid('clear');
         var grid = $('#employee_name').combogrid('grid');
         var options = $(grid).datagrid('options');
-        var filter = ' employee_id IN ( SELECT employee_id FROM sp_salesman WHERE supplier_id ____ ----' + newValue + '----)';
+        var filter = ' department_id ____ ----' + newValue + '----';
         options.url = '\/panda\/rest\/reference?code=OrderSalesman&filter=' + filter;
         $(grid).datagrid(options);
 
@@ -48,7 +48,7 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
         $('#employee_name').combogrid('clear');
         var grid = $('#employee_name').combogrid('grid');
         var options = $(grid).datagrid('options');
-        var filter = ' employee_id IN ( SELECT employee_id FROM sp_salesman WHERE department_id ____ ----' + newValue + '----)';
+        var filter = ' department_id ____ ----' + newValue + '----';
         options.url = '\/panda\/rest\/reference?code=OrderSalesman&filter=' + filter;
         $(grid).datagrid(options);
     },
