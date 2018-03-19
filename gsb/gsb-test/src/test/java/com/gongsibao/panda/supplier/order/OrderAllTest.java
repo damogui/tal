@@ -1,5 +1,8 @@
 package com.gongsibao.panda.supplier.order;
 
+import com.gongsibao.panda.supplier.reference.OrderDepartmentReferenceTest;
+import com.gongsibao.panda.supplier.reference.OrderSalesmanReferenceTest;
+import com.gongsibao.panda.supplier.reference.OrderSupplierReferenceTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -33,7 +36,10 @@ import com.gongsibao.panda.supplier.reference.SupplierU8BankReferenceTest;
 @RunWith(Suite.class)
 @SuiteClasses({
         OrderResourceTest.class,
-
+        /*反射表的扩展*/
+        OrderSupplierReferenceTest.class,
+        OrderDepartmentReferenceTest.class,
+        OrderSalesmanReferenceTest.class,
         SupplierU8BankReferenceTest.class,
 
         //我的订单
