@@ -65,7 +65,7 @@ public class Refund extends BaseEntity {
     @Column(header = "成本")
     private Integer cost;
 
-    @Column(name = "settlement_method", header = "结算方式（0：无；01：已结算；07：未结算）、01和07对应财务现金流编号")
+    @Column(name = "settlement_method", header = "结算方式（0：无；01：已结算；07：未结算）")
     private RefundSettlementMethodType settlementMethod = RefundSettlementMethodType.Yjs;
 
     @Column(header = "备注")
