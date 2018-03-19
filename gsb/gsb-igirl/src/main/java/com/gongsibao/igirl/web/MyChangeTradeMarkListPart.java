@@ -22,4 +22,8 @@ public class MyChangeTradeMarkListPart extends ListPart{
 	public ChangeTradeMark updateOwner(Integer ctmId,Integer ownerId){
 		return service.updateOwner(ctmId,ownerId);
 	}
+
+	public Integer getTradeMarkCaseSupplierId(){
+		return SupplierSessionManager.getSupplierId();
+	}
 }
