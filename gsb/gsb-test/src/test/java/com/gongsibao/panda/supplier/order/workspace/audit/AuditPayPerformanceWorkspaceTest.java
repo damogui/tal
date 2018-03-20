@@ -23,7 +23,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
  * Created by win on 2018/3/20.
  */
 /*回款业绩审核*/
-public class AuditPayPerformanceWorkspaceTest  extends WorkspaceCreationBase {
+public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
     @Before
     public void setup() {
         super.setup ();
@@ -34,7 +34,8 @@ public class AuditPayPerformanceWorkspaceTest  extends WorkspaceCreationBase {
         resourceNodeCode = "Gsb_Supplier_Pay_Audit_Performance";
         listToolbarPath = "crm/audit/pay/edit";
         listPartImportJs = "/gsb/platform/trade/js/audit-pay-list.js";
-        listPartJsController = AuditPayListPart.class.getName();
+        listPartJsController = AuditPayListPart.class.getName ();
+        listPartServiceController = AuditPayListPart.class.getName ();
     }
 
     public PToolbar createListToolbar() {
@@ -58,7 +59,6 @@ public class AuditPayPerformanceWorkspaceTest  extends WorkspaceCreationBase {
         toolbar.getItems ().add (item);
         return toolbar;
     }
-
 
 
     /*进行设置工具栏*/
@@ -85,11 +85,10 @@ public class AuditPayPerformanceWorkspaceTest  extends WorkspaceCreationBase {
         }
         PDatagridColumn column = null;
         addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 60, true);
-        column=addColumn (datagrid, "no", "订单编号", ControlTypes.TEXT_BOX, 120);//需要拼接
+        // addColumn (datagrid, "u8Bank.name", "姓名", ControlTypes.TEXT_BOX, 100);
+        column = addColumn (datagrid, "orderIds", "订单编号", ControlTypes.TEXT_BOX, 120);//需要拼接
          {
-
-
-             column.setFormatter("return controllerpayList.orderNameFormatter(value,row,index);");
+            // column.setFormatter("return controllerpayList.orderNameFormatter(value,row,index);");
 
         }
         addColumn (datagrid, "payForOrderCount", "是否一笔多单", ControlTypes.TEXT_BOX, 100);
@@ -111,10 +110,10 @@ public class AuditPayPerformanceWorkspaceTest  extends WorkspaceCreationBase {
         queryProject.setColumnCount (3);
 
         PQueryItem item = null;
-        item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
+        item = addQueryItem (queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
         {
-            item.setTooltip("订单编号");
-            item.setWidth(350);
+            item.setTooltip ("订单编号");
+            item.setWidth (350);
         }
 
 
@@ -124,7 +123,6 @@ public class AuditPayPerformanceWorkspaceTest  extends WorkspaceCreationBase {
 
         addQueryItem (queryProject, "creator", "回款业绩创建人", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "createTime", "回款业绩创建时间", ControlTypes.DATE_BOX);
-
 
 
         return queryProject;
