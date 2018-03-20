@@ -89,7 +89,7 @@ public class AuditPayPerformanceWorkspaceTest  extends WorkspaceCreationBase {
          {
 
 
-             column.setFormatter("return controllerPay.orderNameFormatter(value,row,index);");
+             column.setFormatter("return controllerpayList.orderNameFormatter(value,row,index);");
 
         }
         addColumn (datagrid, "payForOrderCount", "是否一笔多单", ControlTypes.TEXT_BOX, 100);

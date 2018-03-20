@@ -9,6 +9,7 @@ com.gongsibao.trade.web.AuditPayListPart = org.netsharp.panda.commerce.ListPart.
     },
 
     orderNameFormatter:function(value,row,index){
+        debugger;
         return "哈哈";
 
         var items = row.items;
