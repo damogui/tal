@@ -26,7 +26,7 @@
             <div id="tabs" class="easyui-tabs" style="height:100%;" data-options="fit:true,plain:false,tabPosition:'top',tabWidth:0,tabHeight:35">
 			    <div title="订单详情">
 			        <div data-options="region:'north',split:false,collapsible:false,closed:false,height:200">
-						<jsp:include page="/gsb/platform/trade/orderInfo.jsp"></jsp:include>
+						<jsp:include page="/gsb/platform/trade/include/orderInfo.jsp"></jsp:include>
 					</div>
 					<div id="center" data-options="region:'center'">
 						<div id="detail_tabs" style="height:100%;">   

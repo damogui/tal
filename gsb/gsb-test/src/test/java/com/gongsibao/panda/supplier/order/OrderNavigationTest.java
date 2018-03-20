@@ -75,10 +75,18 @@ public class OrderNavigationTest extends NavigationBase {
 			
 			createPTreeNode(tree, "Gsb_Supplier_Order", null, "Gsb_Supplier_Order_Audit", "订单审核", "", 3);
 			{
-				createPTreeNode(tree, "Gsb_Supplier_Order_Audit", null, "Gsb_Supplier_Order_Audit_Pricing", "定价审核", "/crm/order/audit/pricing/list", 1);
-				createPTreeNode(tree, "Gsb_Supplier_Order_Audit", null, "Gsb_Supplier_Order_Audit_Refund", "退款审核", "/crm/order/audit/refund/list", 2);
-				createPTreeNode(tree, "Gsb_Supplier_Order_Audit", null, "Gsb_Supplier_Order_Audit_Staging", "分期审核", "/crm/order/audit/staging/list", 3);
-				createPTreeNode(tree, "Gsb_Supplier_Order_Audit", null, "Gsb_Supplier_Order_Audit_Carryover", "结转审核", "/crm/order/audit/carryover/list", 4);
+
+
+                createPTreeNode(tree, "Gsb_Supplier_Order_Audit", null, "Gsb_Supplier_Order_Audit_Order", "订单审核", "/crm/order/audit/ortder/list", 1);
+
+                createPTreeNode(tree, "Gsb_Supplier_Order_Audit", null, "Gsb_Supplier_Order_Audit_Performance", "订单业绩审核", "/crm/order/audit/orderp/list", 2);
+                createPTreeNode(tree, "Gsb_Supplier_Order_Audit", null, "Gsb_Supplier_Pay_Audit_Performance", "回款审核", "/crm/order/audit/pay/list", 3);
+
+
+				createPTreeNode(tree, "Gsb_Supplier_Order_Audit", null, "Gsb_Supplier_Order_Audit_Pricing", "定价审核", "/crm/order/audit/pricing/list", 4);
+				createPTreeNode(tree, "Gsb_Supplier_Order_Audit", null, "Gsb_Supplier_Order_Audit_Refund", "退款审核", "/crm/order/audit/refund/list", 5);
+				createPTreeNode(tree, "Gsb_Supplier_Order_Audit", null, "Gsb_Supplier_Order_Audit_Staging", "分期审核", "/crm/order/audit/staging/list", 6);
+				createPTreeNode(tree, "Gsb_Supplier_Order_Audit", null, "Gsb_Supplier_Order_Audit_Carryover", "结转审核", "/crm/order/audit/carryover/list", 7);
 			}
 		}
 	}

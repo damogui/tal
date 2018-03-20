@@ -35,6 +35,7 @@ public class MyChangeTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		openWindowWidth = 800;
 		openWindowHeight = 600;
 		listToolbarPath="/igirl/myctm/changeTradeMark/list";
+		listFilter = "changeTradeMark.ownerID = '{userId}'";
 		listPartServiceController = MyChangeTradeMarkListPart.class.getName();
 		listPartJsController=ChangeTradeMarkListPart.class.getName();
 		listPartImportJs="/gsb/igirl/js/changetrademark.listpart.js";

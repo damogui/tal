@@ -27,7 +27,7 @@
         	 <div class="formContent">
 		        <fieldset style="margin-bottom:0px;">
 		        	<legend>订单信息</legend>
-					<jsp:include page="/gsb/platform/trade/orderInfo.jsp"></jsp:include>
+					<jsp:include page="/gsb/platform/trade/include/orderInfo.jsp"></jsp:include>
 				</fieldset>
 		        <fieldset style="margin-bottom:0px;">
 		        	<legend>退款信息</legend>

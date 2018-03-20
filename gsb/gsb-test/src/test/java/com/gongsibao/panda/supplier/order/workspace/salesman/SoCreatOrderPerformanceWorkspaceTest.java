@@ -222,17 +222,17 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
             // form.setTag ();//设置提示
             form.setLabelWidth (100);
             PFormField formField = null;
-            formField = addFormFieldRefrence (form, "supplier.name", "服务商", null, Supplier.class.getSimpleName (), true, false);
+            formField = addFormFieldRefrence (form, "supplier.name", "服务商", null,"OrderSupplier", true, false);
             {
                 formField.setTroikaTrigger ("controllerdepReceivable.supplierChange(newValue,oldValue);");
             }
 
-            formField = addFormFieldRefrence (form, "department.name", "部门", null, SupplierDepartment.class.getSimpleName (), true, false);
+            formField = addFormFieldRefrence (form, "department.name", "部门", null, "OrderSupplierDepartment", true, false);
             {
                 formField.setTroikaTrigger ("controllerdepReceivable.departmentChange(newValue,oldValue);");
             }
 
-            formField = addFormFieldRefrence (form, "employee.name", "业务员", null, Employee.class.getSimpleName (), true, false);
+            formField = addFormFieldRefrence (form, "employee.name", "业务员", null, "OrderSalesman", true, false);
             formField = addFormField (form, "amount", "分配金额", null, ControlTypes.DECIMAL_FEN_BOX, true, false);
 
             {

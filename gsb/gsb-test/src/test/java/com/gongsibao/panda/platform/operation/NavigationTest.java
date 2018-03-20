@@ -98,22 +98,5 @@ public class NavigationTest extends NavigationBase {
 
             createPTreeNode(tree, "Operation_IGIRL", null, "Operation_IGIRL_All_TradeMark", "申请进度跟进", "/operation/igirl/all/progress/list", 2);
         }
-
-
-        createPTreeNode(tree, null, null, "Operation_Order", "订单管理", "", 7);
-        {
-            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_All", "全部订单", "/operation/order/all/list", 1);
-            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Pool", "订单池", "/operation/order/pool/list", 2);
-            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Performance", "订单业绩", "/operation/order/performance/list", 3);
-            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Received", "回款业绩", "/operation/order/received/list", 4);
-            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Refund", "退款订单", "/operation/order/refund/list", 5);
-            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Staging", "分期订单", "/operation/order/staging/list", 6);
-            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Carryover", "结转订单", "/operation/order/carryover/list", 7);
-            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Contract", "合同管理", "/operation/order/contract/list", 8);
-            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Invoice", "发票管理", "/operation/order/invoice/list", 9);
-            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Day_Report", "日统计", "/operation/order/report/day", 10);
-            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Week_Report", "周统计", "/operation/order/report/week", 11);
-            createPTreeNode(tree, "Operation_Order", null, "Operation_Order_Month_Report", "月统计", "/operation/order/report/month", 12);
-        }
     }
 }

@@ -1,18 +1,25 @@
 package com.gongsibao.entity.trade;
 
+import java.util.ArrayList;
 import java.util.Date;
-
-import com.gongsibao.entity.supplier.Supplier;
-import com.gongsibao.entity.supplier.SupplierDepartment;
-import com.gongsibao.entity.trade.dic.AuditStatusType;
+import java.util.List;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Reference;
+import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.entity.supplier.SupplierDepartment;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
+import com.gongsibao.entity.trade.dic.BreachType;
+import com.gongsibao.entity.trade.dic.ContractType;
+import com.gongsibao.entity.trade.dic.CustomerType;
+import com.gongsibao.entity.trade.dic.DataFeeCountType;
+import com.gongsibao.entity.trade.dic.SginingCompanyType;
 
 @Table(name = "so_contract", header = "合同")
 public class Contract extends BaseEntity {
@@ -22,14 +29,14 @@ public class Contract extends BaseEntity {
 	private Integer orderId;
 
 	// 订单
-	@Reference(foreignKey = "orderId", primaryKey = "pkid")
+	@Reference(foreignKey = "orderId", header = "订单")
 	private SoOrder soOrder;
 
 	@Column(name = "sgining_time", header = "签约日期")
 	private Date sginingTime;
 
 	@Column(name = "sgining_company_id", header = "签单公司，type=316，3161汉唐信通（北京）咨询股份有限公司、3162汉唐信通（北京）科技有限公司")
-	private Integer sginingCompanyId;
+	private SginingCompanyType sginingCompanyId = SginingCompanyType.CONSULT;
 
 	@Column(name = "is_urgeney", header = "是否加急")
 	private Boolean urgeney;
@@ -44,26 +51,22 @@ public class Contract extends BaseEntity {
 	private Integer realAmount;
 
 	@Column(name = "has_data_fee", header = "是否有材料撰写情况")
-	private Boolean hasDataFee;
-
-	// 材料撰写费
-	@Exclusive
-	private double dataFee;
+	private BreachType hasDataFee = BreachType.YOU;
 
 	@Column(name = "data_fee_count_type_id", header = "材料撰写次数类型序号，type=317，3171无、3172首期一次、3173末期一次、3174首期一次末期一次")
-	private Integer dataFeeCountTypeId;
+	private DataFeeCountType dataFeeCountTypeId = DataFeeCountType.WU;
 
 	@Column(name = "first_payment", header = "首期付款")
-	private Integer firstPayment;
+	private Integer firstPayment = 0;
 
 	@Column(name = "final_payment", header = "末期付款")
-	private Integer finalPayment;
+	private Integer finalPayment = 0;
 
 	@Column(name = "has_liquidated_damages", header = "是否有违约金")
-	private Boolean hasLiquidatedDamages;
+	private BreachType hasLiquidatedDamages = BreachType.YOU;
 
 	@Column(name = "has_breach", header = "是否有违约责任事项")
-	private Boolean hasBreach;
+	private BreachType hasBreach =BreachType.YOU;
 
 	@Column(name = "liquidated_damages", header = "违约金额")
 	private Integer liquidatedDamages;
@@ -72,7 +75,7 @@ public class Contract extends BaseEntity {
 	private String breachInfo;
 
 	@Column(name = "file_id", header = "附件序号")
-	private Integer fileId;
+	private Integer fileId = 0;
 
 	@Column(name = "audit_status_id", header = "审核状态序号，type=105，1051待审核、1052通过、1053不通过")
 	private AuditStatusType auditStatusId = AuditStatusType.wu;
@@ -86,24 +89,24 @@ public class Contract extends BaseEntity {
 	@Column(name = "license_no", header = "营业执照号")
 	private String licenseNo;
 
+	@Column(name = "id_number", header = "身份证号")
+	private String idNumber ;
+
 	@Column(name = "contract_title", header = "合同标题")
 	private String contractTitle;
 
 	@Column(name = "company_name", header = "公司名称")
 	private String companyName;
 
-	@Column(name = "contract_type", header = "合同类型1：个人；2：企业")
-	private Integer contractType;
+	@Column(name = "contract_type", header = "客户类型  1：个人；2：企业")
+	private CustomerType contractType = CustomerType.QY ;
 
 	@Column(name = "contract_sign", header = "合同签署状态0：平台没签署；1：平台签署")
-	private Integer contractSign;
+	private Integer contractSign = 0;
 
-	@Column(name = "is_electronics", header = "是否电子合同0：纸质；1：电子")
-	private Boolean electronics;
-
-	// 合同业绩总额（不生成数据库字段）
-	@Exclusive
-	private Integer contractPrice;
+	@Column(name = "is_electronics", header = "合同类型   0：纸质；1：电子")
+	private ContractType electronics = ContractType.DZ;
+	
 	
 	@Column(name = "supplier_id", header = "服务商Id")
 	private Integer supplierId;
@@ -122,6 +125,134 @@ public class Contract extends BaseEntity {
 
 	@Reference(foreignKey = "ownerId", header = "业务员")
 	private Employee owner;
+	//======================================================非持久化字段======================================================//
+    
+	@Exclusive
+    @Subs(subType = OrderProd.class, foreignKey = "orderId", header = "产品明细")
+    private List<OrderProd> products = new ArrayList<OrderProd>();
+	// 材料撰写费
+	@Exclusive
+	private double dataFee = 0;
+	// 合同业绩总额（不生成数据库字段）
+	@Exclusive
+	private Integer contractPrice;
+	//订单编号
+	@Exclusive
+	private String soOrderNo ;
+	//渠道编号
+	@Exclusive
+	private String channelOrderNo;
+	//客户姓名
+	@Exclusive
+	private String customerName;
+	//客户邮箱
+	@Exclusive
+	private String customerEmail;
+	//客户手机号
+	@Exclusive
+	private String customerMobile;
+	//合同来源（平台来源）
+	@Exclusive
+	private String platformSource;
+	//新/老客户
+	@Exclusive
+	private String accountType ;
+	//部门名称
+	@Exclusive
+	private String departmentName;
+	//业务员名称
+	@Exclusive
+	private String ownerName;
+    
+	public String getIdNumber() {
+		return idNumber;
+	}
+
+	public void setIdNumber(String idNumber) {
+		this.idNumber = idNumber;
+	}
+	
+	public String getDepartmentName() {
+		return departmentName;
+	}
+
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
+
+	public String getOwnerName() {
+		return ownerName;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
+
+	public String getAccountType() {
+		return accountType;
+	}
+
+	public void setAccountType(String accountType) {
+		this.accountType = accountType;
+	}
+
+	public String getPlatformSource() {
+		return platformSource;
+	}
+
+	public void setPlatformSource(String platformSource) {
+		this.platformSource = platformSource;
+	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
+	public String getCustomerEmail() {
+		return customerEmail;
+	}
+
+	public void setCustomerEmail(String customerEmail) {
+		this.customerEmail = customerEmail;
+	}
+
+	public String getCustomerMobile() {
+		return customerMobile;
+	}
+
+	public void setCustomerMobile(String customerMobile) {
+		this.customerMobile = customerMobile;
+	}
+
+	public String getSoOrderNo() {
+		return soOrderNo;
+	}
+
+	public void setSoOrderNo(String soOrderNo) {
+		this.soOrderNo = soOrderNo;
+	}
+
+	public String getChannelOrderNo() {
+		return channelOrderNo;
+	}
+
+	public void setChannelOrderNo(String channelOrderNo) {
+		this.channelOrderNo = channelOrderNo;
+	}
+
+	public List<OrderProd> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<OrderProd> products) {
+		this.products = products;
+	}
+
+	
 
 	public Integer getOrderId() {
 		return orderId;
@@ -139,22 +270,22 @@ public class Contract extends BaseEntity {
 		this.sginingTime = sginingTime;
 	}
 
-	public Integer getSginingCompanyId() {
+	public SginingCompanyType getSginingCompanyId() {
 		return sginingCompanyId;
 	}
 
-	public void setSginingCompanyId(Integer sginingCompanyId) {
+	public void setSginingCompanyId(SginingCompanyType sginingCompanyId) {
 		this.sginingCompanyId = sginingCompanyId;
 	}
 
 	public double getDataFee() {
-		if (!getHasDataFee() || null == getRealAmount()) {
-			return 0;
-		}
-		dataFee = getRealAmount() - getContractPrice();
-		if (dataFee < 0) {
-			return 0;
-		}
+//		if (getHasDataFee().getValue()==0 || null == getRealAmount()) {
+//			return 0;
+//		}
+//		dataFee = getRealAmount() - getContractPrice();
+//		if (dataFee < 0) {
+//			return 0;
+//		}
 		return dataFee;
 	}
 
@@ -186,11 +317,11 @@ public class Contract extends BaseEntity {
 		this.realAmount = realAmount;
 	}
 
-	public Integer getDataFeeCountTypeId() {
+	public DataFeeCountType getDataFeeCountTypeId() {
 		return dataFeeCountTypeId;
 	}
 
-	public void setDataFeeCountTypeId(Integer dataFeeCountTypeId) {
+	public void setDataFeeCountTypeId(DataFeeCountType dataFeeCountTypeId) {
 		this.dataFeeCountTypeId = dataFeeCountTypeId;
 	}
 
@@ -210,27 +341,27 @@ public class Contract extends BaseEntity {
 		this.finalPayment = finalPayment;
 	}
 
-	public Boolean getHasDataFee() {
+	public BreachType getHasDataFee() {
 		return hasDataFee;
 	}
 
-	public void setHasDataFee(Boolean hasDataFee) {
+	public void setHasDataFee(BreachType hasDataFee) {
 		this.hasDataFee = hasDataFee;
 	}
 
-	public Boolean getHasLiquidatedDamages() {
+	public BreachType getHasLiquidatedDamages() {
 		return hasLiquidatedDamages;
 	}
 
-	public void setHasLiquidatedDamages(Boolean hasLiquidatedDamages) {
+	public void setHasLiquidatedDamages(BreachType hasLiquidatedDamages) {
 		this.hasLiquidatedDamages = hasLiquidatedDamages;
 	}
 
-	public Boolean getHasBreach() {
+	public BreachType getHasBreach() {
 		return hasBreach;
 	}
 
-	public void setHasBreach(Boolean hasBreach) {
+	public void setHasBreach(BreachType hasBreach) {
 		this.hasBreach = hasBreach;
 	}
 
@@ -306,11 +437,11 @@ public class Contract extends BaseEntity {
 		this.companyName = companyName;
 	}
 
-	public Integer getContractType() {
+	public CustomerType getContractType() {
 		return contractType;
 	}
 
-	public void setContractType(Integer contractType) {
+	public void setContractType(CustomerType contractType) {
 		this.contractType = contractType;
 	}
 
@@ -346,11 +477,11 @@ public class Contract extends BaseEntity {
 		this.urgeney = urgeney;
 	}
 
-	public Boolean getElectronics() {
+	public ContractType getElectronics() {
 		return electronics;
 	}
 
-	public void setElectronics(Boolean electronics) {
+	public void setElectronics(ContractType electronics) {
 		this.electronics = electronics;
 	}
 

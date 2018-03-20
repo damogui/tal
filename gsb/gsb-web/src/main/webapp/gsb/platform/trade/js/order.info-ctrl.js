@@ -11,6 +11,10 @@ com.gongsibao.trade.web.OrderInfoCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     	
     	var me = this;
     	var orderId = this.queryString('id');
+    	if(System.isnull(orderId)){
+    		
+    		return;
+    	}
     	this.invokeService ("getSoOrder", [orderId], function(data){
     		
     		me.bindData(data);

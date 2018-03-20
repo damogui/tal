@@ -23,4 +23,7 @@ public class TradeMarkCaseListPart extends ListPart{
 		return this.service.updateOwner(ttmId,ownerId);
 	}
 
+	public Integer getTradeMarkCaseSupplierId(){
+   		return SupplierSessionManager.getSupplierId();
+	}
 }

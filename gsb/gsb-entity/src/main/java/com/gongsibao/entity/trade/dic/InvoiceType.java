@@ -6,6 +6,7 @@ import org.netsharp.base.IEnum;
 public enum InvoiceType implements IEnum  {
 
 	Pt(3081, "普通发票"), 
+	Dz(3083, "电子发票"), 
 	Zzszy(3082, "增值税专用发票"); 
 	private int value;
 	private String text;

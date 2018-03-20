@@ -20,9 +20,9 @@ public class ActionSaveOrderChangePriceAudit implements IAction{
 	public void execute(ActionContext ctx) {
 		
 		SoOrder soOrder = (SoOrder) ctx.getItem();
-		if (soOrder.getIsChangePrice()) {
-			
-		}
+//		if (soOrder.getIsChangePrice()) {
+//			
+//		}
 	}
 
 }

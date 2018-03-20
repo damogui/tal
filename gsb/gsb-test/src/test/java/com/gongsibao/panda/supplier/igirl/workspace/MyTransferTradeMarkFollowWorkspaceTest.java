@@ -31,6 +31,7 @@ public class MyTransferTradeMarkFollowWorkspaceTest extends WorkspaceCreationBas
 		openWindowWidth = 800;
 		openWindowHeight = 600;
 		listToolbarPath="/igirl/myttm/transferTradeMark/list";
+		listFilter = "transferTradeMark.ownerID = '{userId}'";
 		listPartServiceController = MyTransferTradeMarkListPart.class.getName();
 		listPartJsController=TransferTradeMarkListPart.class.getName();
 		listPartImportJs="/gsb/igirl/js/transfertrademark.listpart.js";

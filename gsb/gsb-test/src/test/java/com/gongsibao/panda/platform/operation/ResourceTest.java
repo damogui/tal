@@ -1,15 +1,5 @@
 package com.gongsibao.panda.platform.operation;
 
-import com.gongsibao.entity.igirl.DownloadAttachment;
-import com.gongsibao.entity.igirl.TradeMark;
-import com.gongsibao.entity.igirl.TradeMarkCase;
-import com.gongsibao.entity.igirl.UploadAttachment;
-import com.gongsibao.entity.trade.*;
-import com.gongsibao.igirl.base.IDownloadAttachmentService;
-import com.gongsibao.igirl.base.ITradeMarkCaseService;
-import com.gongsibao.igirl.base.ITradeMarkService;
-import com.gongsibao.igirl.base.IUploadAttachmentService;
-import com.gongsibao.trade.base.*;
 import org.junit.Before;
 import org.netsharp.base.IPersistableService;
 import org.netsharp.communication.ServiceFactory;
@@ -52,6 +42,10 @@ import com.gongsibao.entity.crm.NCustomerTaskFoolow;
 import com.gongsibao.entity.crm.NCustomerTaskInspection;
 import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.crm.NCustomerTaskQuality;
+import com.gongsibao.entity.igirl.DownloadAttachment;
+import com.gongsibao.entity.igirl.TradeMark;
+import com.gongsibao.entity.igirl.TradeMarkCase;
+import com.gongsibao.entity.igirl.UploadAttachment;
 import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.supplier.DepartmentProduct;
 import com.gongsibao.entity.supplier.FunctionModule;
@@ -77,6 +71,13 @@ import com.gongsibao.entity.taurus.UserDingtalkKeyword;
 import com.gongsibao.entity.taurus.UserInfo;
 import com.gongsibao.entity.taurus.UserRenewalStatisticView;
 import com.gongsibao.entity.taurus.UserWalletLog;
+import com.gongsibao.entity.trade.OrderProd;
+import com.gongsibao.entity.trade.OrderProdTrace;
+import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.igirl.base.IDownloadAttachmentService;
+import com.gongsibao.igirl.base.ITradeMarkCaseService;
+import com.gongsibao.igirl.base.ITradeMarkService;
+import com.gongsibao.igirl.base.IUploadAttachmentService;
 import com.gongsibao.supplier.base.IDepartmentProductService;
 import com.gongsibao.supplier.base.IFunctionModuleRoleService;
 import com.gongsibao.supplier.base.IFunctionModuleService;
@@ -101,7 +102,9 @@ import com.gongsibao.taurus.base.IUserInfoService;
 import com.gongsibao.taurus.base.IUserRenewalStatisticViewService;
 import com.gongsibao.taurus.base.IUserService;
 import com.gongsibao.taurus.base.IUserWalletLogService;
-import com.gongsibao.u8.base.ISoOrderService;
+import com.gongsibao.trade.base.IOrderProdService;
+import com.gongsibao.trade.base.IOrderProdTraceService;
+import com.gongsibao.trade.base.IOrderService;
 
 public class ResourceTest extends ResourceCreationBase {
 
@@ -214,24 +217,6 @@ public class ResourceTest extends ResourceCreationBase {
             this.createResourceNodeVoucher(NCustomerTaskInspection.class.getName(), "抽查日志", "Operation_CRM_Customer_Inspection", INCustomerTaskInspectionService.class.getName(), node1.getId());
         }
 
-        node1 = this.createResourceNodeCategory("订单管理", "Operation_Order", node.getId());
-        {
-            this.createResourceNodeVoucher(SoOrder.class.getName(), "全部订单", "Operation_Order_All", ISoOrderService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(SoOrder.class.getName(), "订单池", "Operation_Order_Pool", ISoOrderService.class.getName(), node1.getId());
-
-            this.createResourceNodeVoucher(SoOrder.class.getName(), "订单业绩", "Operation_Order_Performance", ISoOrderService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(OrderPayMap.class.getName(), "回款业绩", "Operation_Order_Received", IOrderPayMapService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(Refund.class.getName(), "退款订单", "Operation_Order_Refund", IRefundService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(SoOrder.class.getName(), "分期订单", "Operation_Order_Staging", ISoOrderService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(NOrderCarryover.class.getName(), "结转订单", "Operation_Order_Carryover", INOrderCarryoverService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(Contract.class.getName(), "合同管理", "Operation_Order_Contract", IContractService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(OrderInvoiceMap.class.getName(), "发票管理", "Operation_Order_Invoice", IOrderInvoiceMapService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(SoOrder.class.getName(), "日统计", "Operation_Order_Day_Report", ISoOrderService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(SoOrder.class.getName(), "周统计", "Operation_Order_Week_Report", ISoOrderService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(SoOrder.class.getName(), "月统计", "Operation_Order_Month_Report", ISoOrderService.class.getName(), node1.getId());
-            
-
-        }
         node1 = this.createResourceNodeCategory("智能商标", "Operation_IGIRL", node.getId());
         {
             this.createResourceNodeVoucher(TradeMarkCase.class.getName(), "方案列表", "Operation_IGIRL_All_TradeMarkCase", ITradeMarkCaseService.class.getName(), node1.getId());

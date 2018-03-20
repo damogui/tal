@@ -117,6 +117,11 @@ public class SoOrder extends BaseEntity {
 	@Column(name = "paid_price", header = "已支付金额")
 	private Integer paidPrice = 0;
 
+	/**
+	 * 临时字段-待支付
+	 */
+	private Integer toBePaid;
+	
 	@Column(name = "performance_price", header = "订单业绩已划分金额")
 	private Integer performancePrice = 0;
 
@@ -143,6 +148,13 @@ public class SoOrder extends BaseEntity {
 	// 1054 审核通过
 	@Column(name = "dep_receivable_audit_status_id", header = "订单业绩审核状态")
 	private AuditStatusType depReceivableAuditStatusId = AuditStatusType.Dsh;
+
+    // 1051 待审核
+    // 1052 审核中
+    // 1053 驳回审核
+    // 1054 审核通过
+    @Column(name = "dep_pay_audit_status_id", header = "回款审核状态")
+    private AuditStatusType depPayAuditStatusId = AuditStatusType.Dsh;
 
 	// 1051 待审核
 	// 1052 审核中
@@ -196,6 +208,7 @@ public class SoOrder extends BaseEntity {
 	// 1052 审核中
 	// 1053 驳回审核
 	// 1054 审核通过
+    //订单审核
 	@Column(name = "change_price_audit_status_id", header = "改价审核状态：type=105")
 	private AuditStatusType changePriceAuditStatus = AuditStatusType.wu;
 
@@ -286,8 +299,8 @@ public class SoOrder extends BaseEntity {
 	@Subs(subType = OrderDiscount.class, foreignKey = "orderId", header = "优惠明细")
 	private List<OrderDiscount> discounts = new ArrayList<OrderDiscount>();
 
-	@Subs(subType = OrderInvoiceMap.class, foreignKey = "orderId", header = "发票信息")
-	private List<OrderInvoiceMap> invoices = new ArrayList<OrderInvoiceMap>();
+//    @Subs(subType = OrderInvoiceMap.class, foreignKey = "orderId", header = "发票信息")
+//    private List<OrderInvoiceMap> invoices = new ArrayList<OrderInvoiceMap>();
 
 	/*
 	 * @Subs(subType = AuditLog.class, foreignKey = "formId", header = "改价审核日志")
@@ -808,13 +821,14 @@ public class SoOrder extends BaseEntity {
 		this.platformSource = platformSource;
 	}
 
+    /*
 	public List<OrderInvoiceMap> getInvoices() {
 		return invoices;
 	}
 
 	public void setInvoices(List<OrderInvoiceMap> invoices) {
 		this.invoices = invoices;
-	}
+	}*/
 
 	/*
 	 * public List<AuditLog> getAuditLogs() { return auditLogs; }
@@ -959,4 +973,11 @@ public class SoOrder extends BaseEntity {
 		this.important = important;
 	}
 
+    public AuditStatusType getDepPayAuditStatusId() {
+        return depPayAuditStatusId;
+    }
+
+    public void setDepPayAuditStatusId(AuditStatusType depPayAuditStatusId) {
+        this.depPayAuditStatusId = depPayAuditStatusId;
+    }
 }
