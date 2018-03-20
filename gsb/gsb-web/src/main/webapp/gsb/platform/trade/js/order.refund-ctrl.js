@@ -79,6 +79,8 @@ com.gongsibao.trade.web.OrderRefundCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     	
     	//退款业绩分配
     	var depRefunds = $('#order_refund_grid').datagrid('getRows');
+    	alert(depRefunds.salesmanId + "===" + depRefunds.departmentId);
+    	alert(111);
     	refund.depRefunds = depRefunds;
     	
     	var me = this;
