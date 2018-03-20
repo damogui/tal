@@ -1,5 +1,6 @@
 package com.gongsibao.panda.supplier.order;
 
+import com.gongsibao.panda.supplier.order.workspace.audit.*;
 import com.gongsibao.panda.supplier.reference.OrderDepartmentReferenceTest;
 import com.gongsibao.panda.supplier.reference.OrderSalesmanReferenceTest;
 import com.gongsibao.panda.supplier.reference.OrderSupplierReferenceTest;
@@ -8,10 +9,6 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import com.gongsibao.panda.supplier.order.action.ActionAllTest;
-import com.gongsibao.panda.supplier.order.workspace.audit.AuditCarryoverWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.audit.AuditPricingWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.audit.AuditRefundWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.audit.AuditStagingWorkspaceTest;
 import com.gongsibao.panda.supplier.order.workspace.department.DepartmentOrderAllWorkspaceTest;
 import com.gongsibao.panda.supplier.order.workspace.department.DepartmentOrderCarryoverWorkspaceTest;
 import com.gongsibao.panda.supplier.order.workspace.department.DepartmentOrderContractWorkspaceTest;
@@ -73,6 +70,9 @@ import com.gongsibao.panda.supplier.reference.SupplierU8BankReferenceTest;
 //        DepartmentReportMonthWorkspaceTest.class,
 
         //订单审核
+        AuditOrderWorkspaceTest.class,
+        AuditOrderPerformanceWorkspaceTest.class,
+        AuditPayPerformanceWorkspaceTest.class,
         AuditPricingWorkspaceTest.class,
         AuditCarryoverWorkspaceTest.class,
         AuditRefundWorkspaceTest.class,
