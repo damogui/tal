@@ -24,7 +24,7 @@ com.gongsibao.trade.web.AuditBaseCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     	//子类重写
     },
     approved:function(){
-    	
+    	alert("tongguo")
     	//审核通过
     	
     	//弹出确认提交窗
@@ -51,7 +51,7 @@ com.gongsibao.trade.web.AuditBaseCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     	});
     },
     rejected:function(){
-    	
+    	alert("butongguo")
     	//驳回
     	
     	//这里有弹出填写驳回原因的窗口，校验

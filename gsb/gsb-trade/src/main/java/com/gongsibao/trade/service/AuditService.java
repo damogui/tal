@@ -5,17 +5,17 @@ import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.service.PersistableService;
 
-import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.trade.service.action.audit.AuditContext;
 import com.gongsibao.trade.service.action.audit.AuditState;
 
 @Service
-public class AuditService extends PersistableService<SoOrder> implements IAuditService {
+public class AuditService extends PersistableService<AuditLog> implements IAuditService {
 
 	public AuditService() {
 		super();
-		this.type = SoOrder.class;
+		this.type = AuditLog.class;
 	}
 
 	@Override

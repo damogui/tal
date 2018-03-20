@@ -4,6 +4,21 @@
 <head>
 	<title>分期审核</title>
 	<jsp:include page="/gsb/platform/trade/include/meta.jsp"></jsp:include>
+	<style>
+	
+	.progress{
+		margin-top: 12px;
+		margin-left: 17px;
+		width: 90%;
+		border:solid #e4eaec; 
+		border-width:1px 0px 0px 1px;
+	}
+	.progress td{
+		border:solid #e4eaec; 
+		border-width:0px 1px 1px 0px; 
+		padding:10px 0px;
+	}
+</style>
 </head>
     <body class="easyui-layout">
         <div data-options="region:'north',split:false,collapsible:false,closed:false,height:220">
@@ -17,10 +32,10 @@
 		<div id="center" data-options="region:'center'">
 			<div id="detail_tabs" style="height:100%;">   
 			    <div title="分期信息">   
-			          <table id="stage_info_grid"></table>
+			          <table cellpadding="3" cellspacing="0" class="form-panel" id="stage_info_grid"></table>
 			    </div>   
 			    <div title="审批进度">   
-			         <table id="audit_progress_grid"></table>
+			         <table class="progress" id="audit_progress_grid"></table>
 			    </div>
 			</div>
 		</div>

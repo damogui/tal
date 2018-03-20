@@ -1,14 +1,7 @@
 package com.gongsibao.trade.service.action.order.pay;
 
-import com.gongsibao.entity.bd.AuditLog;
-import com.gongsibao.entity.trade.OrderPayMap;
-import com.gongsibao.entity.trade.Pay;
-import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.entity.trade.dic.PayWayType;
-import com.gongsibao.entity.trade.dto.DepPayMapDTO;
-import com.gongsibao.entity.trade.dto.OrderRelationDTO;
-import com.gongsibao.trade.base.IOrderService;
-import com.sun.javafx.binding.StringFormatter;
+import java.util.List;
+
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
@@ -17,8 +10,12 @@ import org.netsharp.core.QueryParameters;
 import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
 
-import java.sql.Types;
-import java.util.List;
+import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.trade.OrderPayMap;
+import com.gongsibao.entity.trade.Pay;
+import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.trade.dic.PayWayType;
+import com.gongsibao.trade.base.IOrderService;
 
 /*验证回款业绩的操作*/
 public class ActionApplyPayPerformanceVerify implements IAction {

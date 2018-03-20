@@ -417,6 +417,18 @@ System.DX = function(n) {
 			/^元零?|零分/g, "").replace(/元$/g, "元整");
 }
 
+/*人民币：元分处理*/
+System.RMB = {
+		
+	YuanToFen:function(value){
+		
+		return value*100;
+	},
+	FenToYun:function(value){
+		
+		return (value/100).toFixed(2);
+	}
+}
 System.dateTimeShortcutChange = function(newValue, oldValue, startControlId,
 		endControlId) {
 
