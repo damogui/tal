@@ -19,33 +19,9 @@ public class AuditPayListPart extends AdvancedListPart {
 
     @Override
     public List<?> doQuery(Oql oql) {
-        oql.setSelects ("id,payForOrderCount,payWayType,amount,u8BankId,offlineAuditStatus,createTime,creator,orderPayMaps.*,u8Bank.*");
+        oql.setSelects ("id,payForOrderCount,payWayType,amount,offlineAuditStatus,createTime,creator,orderPayMaps.*");
         List<Pay> resList = (List<Pay>) super.doQuery (oql);
-        for (Pay pay : resList) {
-//            NDepPay depPay = getDepPayByUserId(orderPayMap.getDepPays());
-//            //获取我的回款业绩额
-//            if (depPay != null) {
-//                orderPayMap.setMyOrderCutAmount(depPay.getAmount());
-//            }
 
-            StringBuilder sb = new StringBuilder ();
-            if (pay.getOrderPayMaps ().size () > 0) {
-
-
-                for (OrderPayMap item : pay.getOrderPayMaps ()
-                        ) {
-                    sb.append (item.getOrderId ());
-                    if (!item.equals (pay.getOrderPayMaps ().get (pay.getOrderPayMaps ().size () - 1))) {
-                        sb.append (",");
-
-                    }
-
-
-                }
-                pay.setOrderIds (sb.toString ());
-
-            }
-        }
         return resList;
     }
 

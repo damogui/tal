@@ -17,18 +17,18 @@ public class PayService extends PersistableService<Pay> implements IPayService {
         super();
         this.type=Pay.class;
     }
-    @Override
-    public List<Pay> queryList(Oql oql) {
-        oql.setSelects ("orderIds,id,payForOrderCount,payWayType,amount,u8BankId,offlineAuditStatus,createTime,creator,orderPayMaps.*,u8Bank.*");
-//        oql.setSelects ("u8Bank.*,");
-       // oql.setSelects ("orderPayMaps.*");
-        //List<Pay>  list= super.queryList (oql);
-
-
-        List<Pay> list = super.queryList (oql);
-
-       return list;
-    }
+//    @Override
+//    public List<Pay> queryList(Oql oql) {
+//        oql.setSelects ("orderIds,id,payForOrderCount,payWayType,amount,u8BankId,offlineAuditStatus,createTime,creator,orderPayMaps.*,u8Bank.*");
+////        oql.setSelects ("u8Bank.*,");
+//       // oql.setSelects ("orderPayMaps.*");
+//        //List<Pay>  list= super.queryList (oql);
+//
+//
+//        List<Pay> list = super.queryList (oql);
+//
+//       return list;
+//    }
 
 
 
