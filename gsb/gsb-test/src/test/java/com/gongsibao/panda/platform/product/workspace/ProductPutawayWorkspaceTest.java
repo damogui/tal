@@ -51,7 +51,7 @@ public class ProductPutawayWorkspaceTest  extends WorkspaceCreationBase{
 		addColumn(datagrid, "product.name", "产品名称", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "remark", "影响地区", ControlTypes.TEXT_BOX, 200);
 		column = addColumn(datagrid, "enabled", "启用/禁用", ControlTypes.TEXT_BOX, 100);{
-			
+			column.setFormatter(" return value==false?'停用':'启用';");
 		}
 		return datagrid;
 	}
