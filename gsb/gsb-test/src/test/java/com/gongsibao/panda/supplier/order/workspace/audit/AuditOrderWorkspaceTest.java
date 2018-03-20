@@ -11,6 +11,7 @@ import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
+import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.plugin.dic.ToolbarType;
 import org.netsharp.panda.plugin.entity.PToolbar;
@@ -108,31 +109,18 @@ public class AuditOrderWorkspaceTest  extends WorkspaceCreationBase {
 
         PQueryProject queryProject = super.createQueryProject (node);
         queryProject.toNew ();
-        queryProject.setColumnCount (6);
+        queryProject.setColumnCount (3);
+        PQueryItem item = null;
+        item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
+        {
+            item.setTooltip("订单编号、渠道订单编号、下单人、下单人电话、签单企业");
+            item.setWidth(350);
+        }
 
-        addQueryItem (queryProject, "no", "编号", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "prodName", "产品名称", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "no", "办理名称", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "no", "客户创建人", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "no", "业务员", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "owner.name", "下单人", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "no", "下单人电话", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "no", "关联企业", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "sourceType.name", "订单来源", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "payStatus.name", "订单状态", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "type", "订单类型", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "no", "组织机构", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "no", "产品分类", ControlTypes.TEXT_BOX);
-
-        addQueryItem (queryProject, "no", "下单方式", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "addTime", "回款日期", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "no", "分期付款", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "no", "开发票", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "no", "产品名称", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "channelOrderNo", "审核状态", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "prodName", "订单创建人", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "addTime", "创建日期", ControlTypes.TEXT_BOX);
-//        addQueryItem (queryProject, "no", "组织机构", ControlTypes.TEXT_BOX);
-//        addQueryItem (queryProject, "no", "组织机构", ControlTypes.TEXT_BOX);
-        //今天 昨天 本周 本月
 
 
 
