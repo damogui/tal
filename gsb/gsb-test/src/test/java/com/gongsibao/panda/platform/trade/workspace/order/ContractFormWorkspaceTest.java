@@ -49,11 +49,11 @@ public class ContractFormWorkspaceTest extends WorkspaceCreationBase {
         PForm form = super.createForm(node);
         String groupName = "";
         PFormField formField = null;
-        addFormField(form, "soOrder.id", "订单编号", ControlTypes.TEXT_BOX, false, false);
+        addFormField(form, "soOrder.no", "订单编号", ControlTypes.LABEL, false, true);
         addFormField(form, "soOrder.channelOrderNo", "渠道编号", ControlTypes.LABEL, false, true);
         addFormField(form, "soOrder.platformSource", "合同来源", ControlTypes.LABEL, false, true);
-        addFormField(form, "soOrder.customerName", "客户姓名", ControlTypes.LABEL, false, true);
-        addFormField(form, "soOrder.customer.mobile", "联系人手机", ControlTypes.LABEL, false, true);
+        addFormField(form, "soOrder.customer.realName", "客户姓名", ControlTypes.LABEL, false, true);
+        addFormField(form, "soOrder.accountMobile", "联系人手机", ControlTypes.LABEL, false, true);
         addFormField(form, "soOrder.customer.email", "邮箱", ControlTypes.LABEL, false, true);
         addFormField(form, "soOrder.owner.name", "签单业务员", ControlTypes.LABEL, false, true);
         addFormField(form, "soOrder.department.name", "所在部门", ControlTypes.LABEL, false, true);
@@ -77,7 +77,7 @@ public class ContractFormWorkspaceTest extends WorkspaceCreationBase {
 
 
         groupName = "合同款项";
-        addFormField(form, "totalPrice", "订单金额", groupName, ControlTypes.DECIMAL_FEN_BOX, false, true);
+        addFormField(form, "soOrder.payablePrice", "订单金额", groupName, ControlTypes.LABEL, false, true);
         addFormField(form, "realAmount", "合同总额", groupName, ControlTypes.DECIMAL_FEN_BOX, true, false);
         groupName = "撰写材料费";
         formField = addFormField(form, "hasDataFee", "有/无材料费", groupName, ControlTypes.ENUM_BOX, false, false);
