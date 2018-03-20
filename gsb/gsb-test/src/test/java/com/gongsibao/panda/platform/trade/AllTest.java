@@ -13,9 +13,12 @@ import com.gongsibao.panda.platform.trade.workspace.audit.InvoiceAuditWorkspaceT
 import com.gongsibao.panda.platform.trade.workspace.audit.PerformanceAuditWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.audit.ReceivedAuditWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.audit.RefundAuditWorkspaceTest;
+import com.gongsibao.panda.platform.trade.workspace.audit.StagingWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.order.AllOrderWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.order.CarryoverWorkspaceTest;
+import com.gongsibao.panda.platform.trade.workspace.order.ContractFormWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.order.ContractWorkspaceTest;
+import com.gongsibao.panda.platform.trade.workspace.order.InvoiceFormWorKspace;
 import com.gongsibao.panda.platform.trade.workspace.order.InvoiceWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.order.MyOrderWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.order.OrderALLWorkspaceTest;
@@ -88,6 +91,8 @@ import com.gongsibao.panda.platform.trade.workspace.payment.PaymentLogWorkspaceT
 	SettleListWorkspaceTest.class,
 	RemittanceListWorkspaceTest.class,*/
 
+	ContractFormWorkspaceTest.class,
+	InvoiceFormWorKspace.class,
 	NavigationTest.class
 })
 

@@ -299,8 +299,8 @@ public class SoOrder extends BaseEntity {
 	@Subs(subType = OrderDiscount.class, foreignKey = "orderId", header = "优惠明细")
 	private List<OrderDiscount> discounts = new ArrayList<OrderDiscount>();
 
-	@Subs(subType = OrderInvoiceMap.class, foreignKey = "orderId", header = "发票信息")
-	private List<OrderInvoiceMap> invoices = new ArrayList<OrderInvoiceMap>();
+//    @Subs(subType = OrderInvoiceMap.class, foreignKey = "orderId", header = "发票信息")
+//    private List<OrderInvoiceMap> invoices = new ArrayList<OrderInvoiceMap>();
 
 	/*
 	 * @Subs(subType = AuditLog.class, foreignKey = "formId", header = "改价审核日志")
@@ -821,13 +821,14 @@ public class SoOrder extends BaseEntity {
 		this.platformSource = platformSource;
 	}
 
+    /*
 	public List<OrderInvoiceMap> getInvoices() {
 		return invoices;
 	}
 
 	public void setInvoices(List<OrderInvoiceMap> invoices) {
 		this.invoices = invoices;
-	}
+	}*/
 
 	/*
 	 * public List<AuditLog> getAuditLogs() { return auditLogs; }

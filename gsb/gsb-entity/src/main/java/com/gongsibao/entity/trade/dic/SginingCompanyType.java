@@ -2,24 +2,27 @@ package com.gongsibao.entity.trade.dic;
 
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
-//发票类型
-public enum InvoiceType implements IEnum  {
+/**
+ * 签约公司
+ * @author angang
+ *
+ */
+public enum SginingCompanyType  implements IEnum{
 
-	Pt(3081, "普通发票"), 
-	Dz(3083, "电子发票"), 
-	Zzszy(3082, "增值税专用发票"); 
+	CONSULT(3161, "汉唐信通（北京）咨询股份有限公司"), LTD(3162, "汉唐信通（北京）科技有限公司");
+	
 	private int value;
 	private String text;
 
-	InvoiceType(int value, String text) {
+	SginingCompanyType(int value, String text) {
 		this.value = value;
 		this.text = text;
 	}
 
 	@JsonCreator
-	public static InvoiceType getItem(int value) {
+	public static SginingCompanyType getItem(int value) {
 
-		for (InvoiceType item : values()) {
+		for (SginingCompanyType item : values()) {
 
 			if (item.getValue() == value) {
 				return item;

@@ -2,13 +2,14 @@ package com.gongsibao.entity.trade;
 
 import java.util.List;
 
-import com.gongsibao.entity.trade.dic.AuditStatusType;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.InvoiceOpenBallotCompanyType;
+import com.gongsibao.entity.trade.dic.InvoiceTitleType;
 import com.gongsibao.entity.trade.dic.InvoiceType;
 
 @Table(name = "so_invoice", header = "发票")
@@ -17,6 +18,9 @@ public class Invoice extends BaseEntity {
 	private static final long serialVersionUID = -3543797519223170163L;
 	@Column(name = "title", header = "抬头")
 	private String title;
+	
+	@Column(name = "title_type", header = "抬头类型")
+	private InvoiceTitleType titleType =InvoiceTitleType.GR ;
 
 	@Column(name = "company_id", header = "开票公司，type=307")
 	private InvoiceOpenBallotCompanyType companyId = InvoiceOpenBallotCompanyType.Htzx;
@@ -31,7 +35,7 @@ public class Invoice extends BaseEntity {
 	private String content;
 
 	@Column(name = "audit_status_id", header = "审核状态序号，type=105")
-	private AuditStatusType auditStatusId;
+	private AuditStatusType auditStatusId =AuditStatusType.Dsh;
 
 	@Column(name = "receiver_name", header = "接收人姓名")
 	private String receiverName;
@@ -41,30 +45,34 @@ public class Invoice extends BaseEntity {
 
 	@Column(name = "receiver_address", header = "接收人地址")
 	private String receiverAddress;
+	
+	@Column(name = "receiver_email", header = "接收人邮箱")
+	private String receiverEmail;
 
 	@Column(name = "vat_tax_no", header = "增值税公司税号")
 	private String vatTaxNo;
 
-	@Column(name = "vat_address", header = "增值税公司注册地址")
+	@Column(name = "vat_address", header = "增值税公司注册地址" ,required = false)
 	private String vatAddress;
 
-	@Column(name = "vat_phone", header = "增值税公司注册电话")
+	@Column(name = "vat_phone", header = "增值税公司注册电话" ,required = false)
 	private String vatPhone;
 
-	@Column(name = "vat_bank_name", header = "增值税公司开户行名称")
+	@Column(name = "vat_bank_name", header = "增值税公司开户行名称" ,required = false)
 	private String vatBankName;
 
-	@Column(name = "vat_bank_no", header = "增值税公司开户行帐号")
+	@Column(name = "vat_bank_no", header = "增值税公司开户行帐号" ,required = false)
 	private String vatBankNo;
 
 	@Column(name = "file_id", header = "附件序号")
 	private Integer fileId;
 
-	@Column(name = "remark", header = "说明")
+	@Column(name = "remark", header = "说明" , required = false)
 	private String remark;
 	
 	@Subs(foreignKey = "invoiceId", header = "订单和发票的中间表", subType = OrderInvoiceMap.class)
 	private List<OrderInvoiceMap> orderInvoiceMaps;
+	
 
 	public String getTitle() {
 		return title;
@@ -201,6 +209,22 @@ public class Invoice extends BaseEntity {
 
 	public void setOrderInvoiceMaps(List<OrderInvoiceMap> orderInvoiceMaps) {
 		this.orderInvoiceMaps = orderInvoiceMaps;
+	}
+
+	public InvoiceTitleType getTitleType() {
+		return titleType;
+	}
+
+	public void setTitleType(InvoiceTitleType titleType) {
+		this.titleType = titleType;
+	}
+
+	public String getReceiverEmail() {
+		return receiverEmail;
+	}
+
+	public void setReceiverEmail(String receiverEmail) {
+		this.receiverEmail = receiverEmail;
 	}
 	
 }

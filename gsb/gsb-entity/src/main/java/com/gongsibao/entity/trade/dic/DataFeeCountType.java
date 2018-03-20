@@ -2,24 +2,26 @@ package com.gongsibao.entity.trade.dic;
 
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
-//发票类型
-public enum InvoiceType implements IEnum  {
-
-	Pt(3081, "普通发票"), 
-	Dz(3083, "电子发票"), 
-	Zzszy(3082, "增值税专用发票"); 
+/**
+ * 撰写次数
+ * @author angang
+ *
+ */
+public enum DataFeeCountType  implements IEnum{
+	WU(3171, "无"), FIRST(3172, "首期一次"), LAST(3173, "末期一次"), FIRSTORLAST(3174, "首期一次末期一次"); 
+	
 	private int value;
 	private String text;
 
-	InvoiceType(int value, String text) {
+	DataFeeCountType(int value, String text) {
 		this.value = value;
 		this.text = text;
 	}
 
 	@JsonCreator
-	public static InvoiceType getItem(int value) {
+	public static DataFeeCountType getItem(int value) {
 
-		for (InvoiceType item : values()) {
+		for (DataFeeCountType item : values()) {
 
 			if (item.getValue() == value) {
 				return item;

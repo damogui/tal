@@ -1,6 +1,7 @@
 package com.gongsibao.panda.platform.operation.workspace.crm.old;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PQueryProject;
@@ -32,6 +33,11 @@ public class CustomerMyOrderWorkspaceTest extends AllOrderWorkspaceTest {
 
     }
 
+    @Test
+    public void saveListToolbar() {
+    	
+    }
+    
     @Override
     protected PDatagrid createDatagrid(ResourceNode node) {
 

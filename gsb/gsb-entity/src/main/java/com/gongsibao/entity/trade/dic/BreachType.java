@@ -2,24 +2,27 @@ package com.gongsibao.entity.trade.dic;
 
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
-//发票类型
-public enum InvoiceType implements IEnum  {
+/**
+ * 是否有违约
+ * @author angang
+ *
+ */
+public enum BreachType  implements IEnum{
 
-	Pt(3081, "普通发票"), 
-	Dz(3083, "电子发票"), 
-	Zzszy(3082, "增值税专用发票"); 
+	YOU(1, "有"), WU(0, "无");
+	
 	private int value;
 	private String text;
 
-	InvoiceType(int value, String text) {
+	BreachType(int value, String text) {
 		this.value = value;
 		this.text = text;
 	}
 
 	@JsonCreator
-	public static InvoiceType getItem(int value) {
+	public static BreachType getItem(int value) {
 
-		for (InvoiceType item : values()) {
+		for (BreachType item : values()) {
 
 			if (item.getValue() == value) {
 				return item;
