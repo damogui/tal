@@ -17,7 +17,7 @@ public class OrderAllListPart extends SalesmanAllOrderListPart {
 	
 
 	/**
-	 * ¸ù¾Ý¶©µ¥²éÑ¯ºÏÍ¬
+	 * ï¿½ï¿½ï¿½Ý¶ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½Í¬
 	 * @param orderId
 	 * @return
 	 */
