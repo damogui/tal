@@ -26,10 +26,10 @@ import com.gongsibao.panda.auth.authorization.supplier.order.SupplierOrderSalesm
 	SupplierOrderLeaderAuthTest.class,
 	SupplierOrderSalesmanAuthTest.class,
 
-	SupplierIgirlAdminAuthTest.class,
-	SupplierIgirlLeaderAuthTest.class,
-	SupplierIgirlSalesmanAuthTest.class,
-	SupplierIgirlAuditAuthTest.class,
+	//SupplierIgirlAdminAuthTest.class,
+	//SupplierIgirlLeaderAuthTest.class,
+	//SupplierIgirlSalesmanAuthTest.class,
+	//SupplierIgirlAuditAuthTest.class,
 })
 public class SupplierAuthorizationAllTest {
 
