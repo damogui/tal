@@ -58,7 +58,7 @@ public class TradeMarkCasePart extends FormPart {
 						CompanyDto cp=new CompanyDto();
 						cp.setAppCnName(cm.getName());
 						cp.setAppCnAddr(cm.getRegLocation());
-						cp.setCertCode(cm.getRegNumber());
+						cp.setCertCode(cm.getProperty1());
 						cp.setApplyer(cm.getLegalPersonName());
 						cp.setPostcode("");
 						cp.setFax("");

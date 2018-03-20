@@ -3,10 +3,10 @@ package com.gongsibao.trade.base;
 import org.netsharp.base.IPersistableService;
 import org.netsharp.core.annotations.Transaction;
 
-import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.trade.service.action.audit.AuditState;
 
-public interface IAuditService extends IPersistableService<SoOrder> {
+public interface IAuditService extends IPersistableService<AuditLog> {
 
 	 
 	/**

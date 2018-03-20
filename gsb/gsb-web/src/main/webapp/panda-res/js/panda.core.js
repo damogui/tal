@@ -458,7 +458,7 @@ PandaHelper.Enum = {
 	},
 	invoke:function(enumName,callback){
         var serviceLocator = new org.netsharp.core.JServiceLocator();
-        serviceLocator.invoke("com.gongsibao.controller.EnumController", "getEnumItems", [enumName], function(data){
+        serviceLocator.invoke("org.netsharp.panda.utils.enums.EnumController", "getEnumItems", [enumName], function(data){
         	
         	callback(data);
         }, null, false);

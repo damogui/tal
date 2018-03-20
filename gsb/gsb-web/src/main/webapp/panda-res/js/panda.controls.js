@@ -42,23 +42,29 @@ org.netsharp.controls.Label = org.netsharp.controls.Control.Extends({
 		if (this.propertyName.indexOf('_') != -1) {
 
 			var arr = this.propertyName.split('_');
-			for(var i=0;i<arr.length;i++){
-				
-				var referenceField = arr[i];
-				var referenceValue = entity[referenceField];
-				if(System.isnull(referenceValue)){
-					
-					return;
-				}
-			}
+			try{
 
-			var expression = 'propertyValue=entity.'+arr.join('.')+';';
-			eval(expression);
+				var expression = 'propertyValue=entity.'+arr.join('.')+';';
+				eval(expression);
+			}catch(e){
+				
+			}
 		} else {
 			
 			propertyValue = entity[this.propertyName];
 		}
 
+		var optionsExpression = $(this.uiElement).attr('data-options');
+		if(!System.isnull(optionsExpression)){
+			
+			eval(' var options = {'+optionsExpression+'};');
+			var type = options.type;
+			if(type){
+				
+				var items = PandaHelper.Enum.get(type);
+				propertyValue = items[propertyValue];
+			}
+		}
 		if (System.isnull(propertyValue)) {
 			propertyValue = "";
 		}
