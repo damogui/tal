@@ -1,5 +1,6 @@
 package com.gongsibao.panda.supplier.order.workspace.audit;
 
+import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.tools.PToolbarHelper;
 import org.junit.Before;
@@ -26,9 +27,9 @@ public class AuditPayPerformanceWorkspaceTest  extends WorkspaceCreationBase {
     @Before
     public void setup() {
         super.setup ();
-        entity = SoOrder.class;
+        entity = Pay.class;
         urlList = "/crm/order/audit/pay/list";
-        listPartName = formPartName = "回款审核";//回款业绩审核
+        listPartName = formPartName = "回款业绩审核";//回款业绩审核
         meta = MtableManager.getMtable (entity);
         resourceNodeCode = "Gsb_Supplier_Pay_Audit_Performance";
         listToolbarPath = "crm/audit/pay/edit";
@@ -43,7 +44,7 @@ public class AuditPayPerformanceWorkspaceTest  extends WorkspaceCreationBase {
         {
             toolbar.toNew ();
             toolbar.setPath (listToolbarPath);
-            toolbar.setName ("退款审核");
+            toolbar.setName ("回款业绩审核");
             toolbar.setResourceNode (node);
             toolbar.setToolbarType (ToolbarType.BASE);
         }
@@ -75,31 +76,22 @@ public class AuditPayPerformanceWorkspaceTest  extends WorkspaceCreationBase {
 
         PDatagrid datagrid = super.createDatagrid (node);
         {
-            datagrid.setName ("结转订单");
+            datagrid.setName ("回款业绩审核");
             datagrid.setToolbar ("panda/datagrid/row/edit");
             datagrid.setAutoQuery (true);
             datagrid.setShowCheckbox (true);
             datagrid.setSingleSelect (false);
         }
         PDatagridColumn column = null;
-        addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-        addColumn (datagrid, "no", "订单编号", ControlTypes.TEXT_BOX, 80);
-        addColumn (datagrid, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "addTime", "回款日期", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "prodName", "产品名称", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "no", "办理名称", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "payStatus.name", "订单状态", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "no", "关联企业", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "refundStatus.name", "退单状态", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "totalPrice", "原价金额", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "totalPrice", "应付金额", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "paidPrice", "已付金额", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "no", "分期付款", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "no", "开发票", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "no", "操作员", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "no", "下单人", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "sourceType.name", "订单来源", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 60, true);
+        addColumn (datagrid, "no", "订单编号", ControlTypes.TEXT_BOX, 120);//需要拼接
+        addColumn (datagrid, "payForOrderCount", "是否一笔多单", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "payWayType", "是否在线支付", ControlTypes.ENUM_BOX, 100);
+        addColumn (datagrid, "amount", "付款金额", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "offlineAuditStatus", "审核状态", ControlTypes.ENUM_BOX, 100);
+        addColumn (datagrid, "createTime", "回款创建时间", ControlTypes.DATETIME_BOX, 100);
+        addColumn (datagrid, "creator", "回款业绩创建人", ControlTypes.TEXT_BOX, 100);
+
 
         return datagrid;
     }
@@ -114,17 +106,17 @@ public class AuditPayPerformanceWorkspaceTest  extends WorkspaceCreationBase {
         PQueryItem item = null;
         item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
         {
-            item.setTooltip("订单编号、渠道订单编号、下单人、下单人电话、签单企业");
+            item.setTooltip("订单编号");
             item.setWidth(350);
         }
 
 
-        addQueryItem (queryProject, "depPayAuditStatusId", "审核状态", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "no", "是否一笔多单", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "no", "是否在线支付", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "offlineAuditStatus", "审核状态", ControlTypes.ENUM_BOX);
+        addQueryItem (queryProject, "payForOrderCount", "是否一笔多单", ControlTypes.ENUM_BOX);
+        addQueryItem (queryProject, "payWayType", "是否在线支付", ControlTypes.ENUM_BOX);
 
-        addQueryItem (queryProject, "prodName", "回款业绩创建人", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "addTime", "回款业绩创建时间", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "creator", "回款业绩创建人", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "createTime", "回款业绩创建时间", ControlTypes.DATE_BOX);
 
 
 
