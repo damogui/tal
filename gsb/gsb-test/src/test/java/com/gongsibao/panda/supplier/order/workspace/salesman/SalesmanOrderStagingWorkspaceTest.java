@@ -22,7 +22,7 @@ public class SalesmanOrderStagingWorkspaceTest extends WorkspaceCreationBase {
         super.setup();
         entity = SoOrder.class;
         urlList = "/crm/order/salesman/staging/list";
-        listPartName = formPartName = "分期订单";
+        listPartName = formPartName = "我的分期";
         meta = MtableManager.getMtable(entity);
         resourceNodeCode = "Gsb_Supplier_Order_Salesman_Staging";
         listPartImportJs = "/gsb/panda-extend/gsb.custom.query.controls.js";
@@ -35,13 +35,13 @@ public class SalesmanOrderStagingWorkspaceTest extends WorkspaceCreationBase {
 
         PDatagrid datagrid = super.createDatagrid(node);
         {
-            datagrid.setName("分期订单");
+            datagrid.setName("我的分期");
             datagrid.setToolbar("panda/datagrid/row/edit");
             datagrid.setAutoQuery(true);
         }
         PDatagridColumn column = null;
         addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-        addColumn(datagrid, "no", "订单编号", ControlTypes.TEXT_BOX, 80);
+        addColumn(datagrid, "no", "订单编号11", ControlTypes.TEXT_BOX, 80);
         addColumn(datagrid, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "payStatus", "付款状态", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "prodName", "产品名称", ControlTypes.TEXT_BOX, 100);
