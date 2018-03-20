@@ -113,13 +113,13 @@ public class AuditOrderWorkspaceTest  extends WorkspaceCreationBase {
         PQueryItem item = null;
         item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
         {
-            item.setTooltip("订单编号、渠道订单编号、下单人、下单人电话、签单企业");
+            item.setTooltip("订单编号、渠道订单编号、下单人、下单人电话、关联公司");
             item.setWidth(350);
         }
 
-        addQueryItem (queryProject, "no", "产品名称", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "channelOrderNo", "审核状态", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "prodName", "订单创建人", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "prodName", "产品名称", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "depReceivableAuditStatusId", "审核状态", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "addUser.name", "订单创建人", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "addTime", "创建日期", ControlTypes.TEXT_BOX);
 
 

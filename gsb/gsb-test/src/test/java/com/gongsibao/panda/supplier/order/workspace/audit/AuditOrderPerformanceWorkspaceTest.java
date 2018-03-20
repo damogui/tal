@@ -113,17 +113,17 @@ public class AuditOrderPerformanceWorkspaceTest  extends WorkspaceCreationBase {
         PQueryItem item = null;
         item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
         {
-            item.setTooltip("订单编号、渠道订单编号、下单人、下单人电话、签单企业");
+            item.setTooltip("订单编号、渠道订单编号、下单人、下单人电话、关联公司");
             item.setWidth(350);
         }
 
-        addQueryItem (queryProject, "no", "产品名称", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "channelOrderNo", "审核状态", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "channelOrderNo", "付款状态", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "channelOrderNo", "业务员状态", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "channelOrderNo", "订单业绩创建人", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "prodName", "产品名称", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "depReceivableAuditStatusId", "审核状态", ControlTypes.ENUM_BOX);
+        addQueryItem (queryProject, "payStatus", "付款状态", ControlTypes.ENUM_BOX);
+        addQueryItem (queryProject, "owner.name", "业务员", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "depReceivableCreator", "订单业绩创建人", ControlTypes.TEXT_BOX);
 
-        addQueryItem (queryProject, "addTime", "订单业绩创建时间", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "depReceivableCreateTime", "订单业绩创建时间", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "addTime", "订单创建时间", ControlTypes.TEXT_BOX);
 
 

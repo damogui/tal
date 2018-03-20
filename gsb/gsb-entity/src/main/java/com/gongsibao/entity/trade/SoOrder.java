@@ -149,6 +149,13 @@ public class SoOrder extends BaseEntity {
 	@Column(name = "dep_receivable_audit_status_id", header = "订单业绩审核状态")
 	private AuditStatusType depReceivableAuditStatusId = AuditStatusType.Dsh;
 
+    // 1051 待审核
+    // 1052 审核中
+    // 1053 驳回审核
+    // 1054 审核通过
+    @Column(name = "dep_pay_audit_status_id", header = "回款审核状态")
+    private AuditStatusType depPayAuditStatusId = AuditStatusType.Dsh;
+
 	// 1051 待审核
 	// 1052 审核中
 	// 1053 驳回审核
@@ -201,6 +208,7 @@ public class SoOrder extends BaseEntity {
 	// 1052 审核中
 	// 1053 驳回审核
 	// 1054 审核通过
+    //订单审核
 	@Column(name = "change_price_audit_status_id", header = "改价审核状态：type=105")
 	private AuditStatusType changePriceAuditStatus = AuditStatusType.wu;
 
@@ -963,4 +971,12 @@ public class SoOrder extends BaseEntity {
 	public void setImportant(Important important) {
 		this.important = important;
 	}
+
+    public AuditStatusType getDepPayAuditStatusId() {
+        return depPayAuditStatusId;
+    }
+
+    public void setDepPayAuditStatusId(AuditStatusType depPayAuditStatusId) {
+        this.depPayAuditStatusId = depPayAuditStatusId;
+    }
 }
