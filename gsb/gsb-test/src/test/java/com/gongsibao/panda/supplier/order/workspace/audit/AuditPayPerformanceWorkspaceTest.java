@@ -119,7 +119,7 @@ public class AuditPayPerformanceWorkspaceTest  extends WorkspaceCreationBase {
         }
 
 
-        addQueryItem (queryProject, "channelOrderNo", "审核状态", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "depPayAuditStatusId", "审核状态", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "no", "是否一笔多单", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "no", "是否在线支付", ControlTypes.TEXT_BOX);
 
