@@ -9,6 +9,7 @@ import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
+import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryProject;
@@ -19,7 +20,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.trade.web.audit.AuditStageController;
+import com.gongsibao.trade.web.AuditStageListPart;
 
 /*分期审核*/
 public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
@@ -37,18 +38,11 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
         listFilter = "is_installment = 1";
         
         List<String> ss = new ArrayList<String>();
-        
-        ss.add("/gsb/platform/trade/js/audit-base.ctrl.js");
-		ss.add("/gsb/platform/trade/js/audit-stage.ctrl.js");
+		ss.add("/gsb/platform/trade/js/audit-stage-list.part.js");
 		ss.add("/gsb/panda-extend/gsb.custom.query.controls.js");
-		
 		listPartImportJs = StringManager.join("|", ss);
-		
-		listPartJsController = AuditStageController.class.getName();
-		/*listPartServiceController = AuditStageController.class.getName();*/
-		
-		
-		
+		listPartJsController = AuditStageListPart.class.getName();
+		listPartServiceController = AuditStageListPart.class.getName();
     }
 
    /* public PToolbar createListToolbar() {
@@ -140,9 +134,10 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
         }
         addColumn (datagrid, "stageNum", "分期次数", ControlTypes.ENUM_BOX, 100);
         addColumn (datagrid, "installmentAuditStatusId", "审核状态", ControlTypes.ENUM_BOX, 100);
-        column = addColumn (datagrid, "createTime", "==分期申请时间", ControlTypes.DATE_BOX, 350);
-        {                                  
-        	//column.setFormatter("return controllersoOrderList.serviceNameFormatter(value,row,index);");
+        column = addColumn (datagrid, "stages", "==分期申请时间==", ControlTypes.DATE_BOX, 350);
+        {     
+        	column.setAlign(DatagridAlign.CENTER);
+        	column.setFormatter("return controllersoOrderList.serviceNameFormatter(value,row,index);");
         }
         addColumn (datagrid, "createTime", "订单创建时间", ControlTypes.DATE_BOX, 350);
         addColumn (datagrid, "creator", "分期申请人", ControlTypes.TEXT_BOX, 100);
