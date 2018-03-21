@@ -38,7 +38,7 @@ public class NDepPay extends Entity {
 
     @Reference(foreignKey = "employeeId")
     private Employee employee;
-    
+
     @Column(name = "order_id", header = "订单Id")
     private Integer orderId;
     @JsonIgnore
@@ -47,7 +47,7 @@ public class NDepPay extends Entity {
 
     @Column(name = "pay_id", header = "支付序号")
     private Integer payId;
-
+    @JsonIgnore
     @Reference(header = "支付", foreignKey = "payId", primaryKey = "pkid")
     private Pay pay;
 
@@ -56,7 +56,7 @@ public class NDepPay extends Entity {
 
 
     /*new beg*/
-
+    @JsonIgnore
     @Reference(foreignKey = "orderPayMapId", header = "支付明细")
     private OrderPayMap orderPayMap;
 
@@ -133,37 +133,37 @@ public class NDepPay extends Entity {
         this.employeeId = employeeId;
     }
 
-	public Integer getOrderId() {
-		return orderId;
-	}
+    public Integer getOrderId() {
+        return orderId;
+    }
 
-	public void setOrderId(Integer orderId) {
-		this.orderId = orderId;
-	}
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
 
-	public SoOrder getOrder() {
-		return order;
-	}
+    public SoOrder getOrder() {
+        return order;
+    }
 
-	public void setOrder(SoOrder order) {
-		this.order = order;
-	}
+    public void setOrder(SoOrder order) {
+        this.order = order;
+    }
 
-	public Integer getPayId() {
-		return payId;
-	}
+    public Integer getPayId() {
+        return payId;
+    }
 
-	public void setPayId(Integer payId) {
-		this.payId = payId;
-	}
+    public void setPayId(Integer payId) {
+        this.payId = payId;
+    }
 
-	public Pay getPay() {
-		return pay;
-	}
+    public Pay getPay() {
+        return pay;
+    }
 
-	public void setPay(Pay pay) {
-		this.pay = pay;
-	}
-	
-	
+    public void setPay(Pay pay) {
+        this.pay = pay;
+    }
+
+
 }

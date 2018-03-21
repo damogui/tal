@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.gongsibao.entity.u8.SetOfBooks;
 import com.gongsibao.entity.u8.U8Bank;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.*;
 
 import com.gongsibao.entity.BaseEntity;
@@ -100,6 +101,7 @@ public class Pay extends BaseEntity {
     private Date depPayAuditPassTime = new Date ();
 
     /*new beg*/
+    @JsonIgnore
     @Exclusive
     @Subs(subType = OrderPayMap.class, foreignKey = "payId", header = "支付明细")
     private List<OrderPayMap> orderPayMaps = new ArrayList<> ();
