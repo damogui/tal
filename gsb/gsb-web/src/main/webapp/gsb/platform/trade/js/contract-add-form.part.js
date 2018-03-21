@@ -12,40 +12,12 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
     add: function () {
         var me = this;
         var url = window.location.href;
-        var fk = this.queryString("fk");
-        var orderId = null;
-        if (fk != null && fk != "") {
-
-            var properties = fk.split(';');
-            for (var i = 0; i < properties.length; i++) {
-
-                var property = properties[i];
-                var pair = property.split(':');
-                if (pair[0] == 'orderId') {
-
-                    orderId = pair[1];
-                }
-            }
-        }
+        var fkParam = this.getfkParam();
+        var orderId = fkParam.orderId;
 
         this.invokeService("newInstance", [orderId], function (jmessage) {
 
             me.currentItem = jmessage;
-
-            var fk = me.queryString("fk");
-            if (fk != null && fk != "") {
-
-                var properties = fk.split(';');
-                for (var i = 0; i < properties.length; i++) {
-
-                    var property = properties[i];
-                    var pair = property.split(':');
-                    var expression = "me.currentItem." + pair[0] + "='" + pair[1] + "';";
-                    eval(expression);
-                }
-            }
-
-
             me.viewModel.currentItem = me.currentItem;
             me.currentItem.entityState = EntityState.New;
             //公司名称
