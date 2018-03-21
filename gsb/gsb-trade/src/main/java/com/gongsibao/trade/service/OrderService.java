@@ -4,12 +4,17 @@ import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.core.Oql;
+import org.netsharp.core.QueryParameters;
+import org.netsharp.persistence.IPersister;
+import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.service.PersistableService;
 
 import com.gongsibao.entity.trade.NOrderCarryover;
 import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.base.IOrderService;
+
+import java.sql.Types;
 
 @Service
 public class OrderService extends PersistableService<SoOrder> implements IOrderService {
@@ -34,9 +39,6 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
         entity = (SoOrder) ctx.getItem ();
         return entity;
     }
-
-
-
 
 
     @Override
@@ -105,6 +107,17 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
         return entity;
     }
 
+
+    /*获取订单id根据no*/
+    @Override
+    public Integer getOrderIdByNo(Integer orderNo) {
+        IPersister<SoOrder> orderService = PersisterFactory.create ();
+        String sql = "SELECT  IFNULL(MAX(pkid),0) FROM so_order  WHERE  no=? ;";//根据订单编号获取订单id
+        QueryParameters qps = new QueryParameters ();
+        qps.add ("@no", orderNo, Types.INTEGER);//订单编号
+        Integer orderId = orderService.executeInt (sql, qps);
+        return orderId;
+    }
 
 
 }
