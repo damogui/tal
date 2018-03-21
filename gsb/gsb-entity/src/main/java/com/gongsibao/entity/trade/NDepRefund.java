@@ -56,6 +56,14 @@ public class NDepRefund  extends Entity{
     private Employee employee;
 
 
+//    @Column(name = "salesman_id", header = "业务员Id")
+//    private Integer salesmanId;
+//
+//    @JsonIgnore
+//    @Reference(foreignKey = "salesmanId")
+//    private Employee salesman;
+    
+
     public Integer getAmount() {
         return amount;
     }
