@@ -52,7 +52,7 @@ public class NDepRefund  extends Entity{
 	@Column(name = "salesman_id", header = "业务员Id")
 	private Integer salesmanId;
 
-	@JsonIgnore
+	//@JsonIgnore
     @Reference(foreignKey = "salesmanId")
     private Employee salesman;
     

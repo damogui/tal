@@ -4,6 +4,21 @@
 <head>
 	<title>退款审核</title>
 	<jsp:include page="/gsb/platform/trade/include/meta.jsp"></jsp:include>
+	<style>
+	
+	.currentTable{
+		margin-top: 12px;
+		margin-left: 17px;
+		width: 90%;
+		border:solid #e4eaec; 
+		border-width:1px 0px 0px 1px;
+	}
+	.currentTable td{
+		border:solid #e4eaec; 
+		border-width:0px 1px 1px 0px; 
+		padding:10px 0px;
+	}
+	</style>
 </head>
     <body class="easyui-layout">
         <div data-options="region:'north',split:false,collapsible:false,closed:false,height:375">
@@ -14,9 +29,12 @@
 				</fieldset>
 		        <fieldset style="margin-bottom:0px;">
 		        	<legend>退款信息</legend>
-					  <table cellpadding="3" cellspacing="0" class="form-panel">
+					  <table cellpadding="3" id = "refund_info_grid" cellspacing="0" class="form-panel">
 					      <tr>
-					          <td class="label_td"><label>退款账套：</label></td>
+					          <td class="label_td">
+					          	<input type="hidden" id="tempOrderId">
+					          	<label>退款账套：</label>
+					          </td>
 					          <td class="control_td" colspan="3"></td>
 					          <td class="label_td"><label>退款类别：</label></td>
 					          <td class="control_td"></td>
@@ -42,13 +60,13 @@
 		<div id="center" data-options="region:'center'">
 			<div id="detail_tabs" style="height:100%;">   
 			    <div title="退款产品">   
-			          <table id="audit_product_grid"></table>
+			          <table class="currentTable" id="audit_product_grid"></table>
 			    </div>   
 			    <div title="退款业绩分配">   
-			         <table id="audit_refund_grid"></table>
+			         <table class="currentTable" id="audit_refund_grid"></table>
 			    </div>
 			    <div title="审批进度">   
-			         <table id="audit_progress_grid"></table>
+			         <table class="currentTable" id="audit_progress_grid"></table>
 			    </div>
 			</div>
 		</div>

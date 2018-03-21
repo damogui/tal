@@ -37,7 +37,7 @@ com.gongsibao.trade.web.AuditStageCtrl = com.gongsibao.trade.web.AuditBaseCtrl.E
     		$("#stage_info_grid").append(builder.toString());
     	});
     	//2.获取审批进度
-    	this.invokeService ("getAuditLogList", [orderId], function(data){
+    	this.invokeService ("getAuditLogList", [orderId,1047], function(data){
     		var builder = new System.StringBuilder();
     		builder.append('<tr>');
     		builder.append('<td width="10%">创建人名称</td>');
