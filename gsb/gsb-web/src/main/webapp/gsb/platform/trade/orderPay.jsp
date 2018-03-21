@@ -23,7 +23,7 @@
 	<script src='/panda-res/js/panda.core.js'></script>
 	<script src='/panda-res/js/panda.js'></script>
 	<script src='/panda-res/js/panda.controls.js'></script>
-	<script src='/gsb/platform/trade/js/order.pay-ctrl.js'></script>
+	<script src='/gsb/platform/trade/js/order-pay.ctrl.js'></script>
 </head>
      <body class="easyui-layout">
         <div data-options="region:'north',split:false,collapsible:false,closed:false,height:260">
@@ -45,7 +45,7 @@
 					  
 				          <td class="label_td"><label>付款账套：</label></td>
 				          <td class="control_td">
-								<input id="setOfBooksId" class="easyui-combobox" data-options="editable:false,width:200"/>
+								<input id="setOfBooksId" class="easyui-combobox" data-options="editable:false,width:200,onChange:function(newValue,oldValue){payCtrl.setOfBooksIdChange(newValue,oldValue);}"/>
 				          </td>
 				          <td class="label_td"><label>付款方式：</label></td>
 				          <td class="control_td">
@@ -95,7 +95,6 @@
 </body>
 <div id="upload_toolbar">
 	<a href="#" id="btn_upload" class="easyui-linkbutton" data-options="iconCls:'fa fa-cloud-upload',plain:true">上传</a>
-	<a href="#" id="btn_remove" class="easyui-linkbutton" data-options="iconCls:'fa fa-remove',plain:true,onClick:function(){payCtrl.payVoucherDetailCtrl.remove();}">删除</a>
 </div>
 
 <script>

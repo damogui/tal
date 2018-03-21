@@ -1,9 +1,15 @@
 System.Declare("com.gongsibao.trade.web");
+
+/***
+ * 
+ * 回款主控制器
+ */
 com.gongsibao.trade.web.OrderPayCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
     ctor: function () {
     	
     	this.base();
     	this.service = 'com.gongsibao.trade.web.OrderPayController';
+    	this.onlinePayId = null;
     },
     init:function(){
 
@@ -30,79 +36,104 @@ com.gongsibao.trade.web.OrderPayCtrl = org.netsharp.panda.core.CustomCtrl.Extend
     		$('#setOfBooksId').combobox('loadData',data);
 		});
     },
+    setOfBooksIdChange:function(newValue,oldValue){
+    	
+    	this.invokeService ("queryU8BankList", [newValue], function(data){
+			
+    		$('#u8BankId').combobox('clear').combobox('loadData',data);
+		});
+    },
     isOnlineChange:function(checked){
     	
-    	alert(checked);
-    },
-    refundTypeChange:function(newValue,oldValue){
-    	
-    	//全款退
-    	if(newValue==='1'){
+    	var state = checked==true?'disable':'enable';
+        $("#setOfBooksId").combobox(state);
+        $("#u8BankId").combobox(state);
+        $("#payForOrderCount").switchbutton(state);
+        $("#amount").numberbox(state);
+        $("#offlinePayerName").prop("disabled", checked);
+        $("#offlineBankNo").prop("disabled", checked);
+        $("#offlineRemark").prop("disabled", checked);
+    	if(checked === true){
+    		
+            $("#setOfBooksId").combobox('clear');
+            $("#u8BankId").combobox('clear');
+            $("#payForOrderCount").switchbutton('clear');
+            $("#amount").numberbox('clear');
+            $("#offlinePayerName").val('');
+            $("#offlineBankNo").val('');
+            $("#offlineRemark").val('');
+            
+            var me = this;
+            var orderId = this.queryString('id');
+            this.invokeService('getOnlinePayInfoByOrderId', [orderId], function (data) {
+            	
+                if (data > 0) {
 
-    		//这里有很多种情况判断，如：结转，已存在退款
-    		var paidPrice = parseFloat($('#paidPrice').text());
-    		if(paidPrice>0){
-    			
-    			$('#amount').numberbox('setValue',paidPrice).numberbox('readonly',true);
-    			
-    			//如果表格只有一行，则直接设置退款金额
-    			var refundAmount = paidPrice*100;
-    			this.productDetailCtrl.setRefundAmount(refundAmount);
-    		}else{
-    			
-    			$('#amount').numberbox('readonly',false);
-    		}
+                    me.onlinePayId = data;
+                } else {
+                	
+                    IMessageBox.toast("不存在支付记录", 2);
+                }
+            });
+    	}else{
+    		
+    		$("#onLineNotCutPay").numberbox('clear');
     	}
+    	
     },
     save:function(){
 
     	//还没有做校验 hw 2018-03-13
-    	
-    	var orderId = this.queryString('id');
-    	var refund = new Object();
-    	refund.orderId = orderId;
-    	refund.setOfBooksId = $('#setOfBooksId').combogrid('getValue');
-    	refund.refundType =  $('#refundType').combobox('getValue');
-    	refund.payerName =  $('#payerName').val();
-    	refund.bankNo =  $('#bankNo').val();
-    	refund.amount =  parseFloat($('#amount').numberbox('getValue'))*100;
-    	refund.remark =  $('#refundRemark').val();
-    	//退款产品
-    	var refundProductRows = $('#order_product_grid').datagrid('getRows');
-    	var itemList = [];
-    	for(var i=0;i<refundProductRows.length;i++){
-    		
-    		var prod = refundProductRows[i];
-    		if(!System.isnull(prod.refundAmount) && parseFloat(prod.refundAmount) >0){
-
-        		var item = new Object();
-        		item.orderId = orderId;
-        		item.orderProdId = prod.id;
-        		item.amount = prod.refundAmount;
-        		itemList.push(item);
-    		}
-    	}
-    	refund.refunds = itemList;
-    	
-    	//退款业绩分配
-    	var depRefunds = $('#order_refund_grid').datagrid('getRows');
-    	refund.depRefunds = depRefunds;
-    	
-    	var me = this;
-    	IMessageBox.confirm('确定提交申请吗？',function(r){
-    		
-    		if(r){
-
-    			me.invokeService("applyRefund", [refund], function(data){
-    				IMessageBox.info('申请成功，请等待审核!',function(s){
-    	    			window.parent.layer.closeAll();
-    	    		});
-    	    	});
-    		}
-    	});
+//    	var orderId = this.queryString('id');
+//    	var refund = new Object();
+//    	refund.orderId = orderId;
+//    	refund.setOfBooksId = $('#setOfBooksId').combogrid('getValue');
+//    	refund.refundType =  $('#refundType').combobox('getValue');
+//    	refund.payerName =  $('#payerName').val();
+//    	refund.bankNo =  $('#bankNo').val();
+//    	refund.amount =  parseFloat($('#amount').numberbox('getValue'))*100;
+//    	refund.remark =  $('#refundRemark').val();
+//    	//退款产品
+//    	var refundProductRows = $('#order_product_grid').datagrid('getRows');
+//    	var itemList = [];
+//    	for(var i=0;i<refundProductRows.length;i++){
+//    		
+//    		var prod = refundProductRows[i];
+//    		if(!System.isnull(prod.refundAmount) && parseFloat(prod.refundAmount) >0){
+//
+//        		var item = new Object();
+//        		item.orderId = orderId;
+//        		item.orderProdId = prod.id;
+//        		item.amount = prod.refundAmount;
+//        		itemList.push(item);
+//    		}
+//    	}
+//    	refund.refunds = itemList;
+//    	
+//    	//退款业绩分配
+//    	var depRefunds = $('#order_refund_grid').datagrid('getRows');
+//    	refund.depRefunds = depRefunds;
+//    	
+//    	var me = this;
+//    	IMessageBox.confirm('确定提交申请吗？',function(r){
+//    		
+//    		if(r){
+//
+//    			me.invokeService("applyRefund", [refund], function(data){
+//    				IMessageBox.info('申请成功，请等待审核!',function(s){
+//    	    			window.parent.layer.closeAll();
+//    	    		});
+//    	    	});
+//    		}
+//    	});
     }
 });
 
+
+/***
+ * 
+ * 凭证明细控制器
+ */
 com.gongsibao.trade.web.PayVoucherDetailCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
     ctor: function () {
 
@@ -118,6 +149,8 @@ com.gongsibao.trade.web.PayVoucherDetailCtrl = org.netsharp.panda.core.CustomCtr
     },
 	initGrid:function(){
 	    
+		var data = [{name:'1.png',url:'http://gsb-public.oss-cn-beijing.aliyuncs.com/netsharp_BrPabywwYSdk7pw2PJiahxrAYpfQehFR.png'}];
+		
 		var me = this;
 		$(this.$gridId).datagrid({
 			idField:'id',
@@ -126,18 +159,21 @@ com.gongsibao.trade.web.PayVoucherDetailCtrl = org.netsharp.panda.core.CustomCtr
 			pagination:false,
 			showFooter:true,
 			singleSelect:true,
+			data:data,
 			height:'100%',
 			toolbar: '#upload_toolbar',
 		    columns:[[
 		        {field:'id',title:'操作',width:80,align:'center',formatter:function(value,row,index){
 		        	
-		        	return '<a class="grid-btn" href="javascript:;">查看</a> <a class="grid-btn" href="javascript:;">删除</a>';
+		        	var str = '<a class="grid-btn" href="javascript:window.open(\''+row.url+'\');">查看</a> \
+		        			   <a class="grid-btn" href="javascript:payCtrl.payVoucherDetailCtrl.remove('+index+');">删除</a>';
+		        	return str;
 		        }},
 		        {field:'name',title:'文件名称',width:250},
-		        {field:'createTime',title:'上传时间',width:130,align:'center',formatter:function(value,row,index){
-	        		
-		        }},
-		        {field:'creator',title:'创建人',width:80,align:'center'}
+//		        {field:'createTime',title:'上传时间',width:130,align:'center',formatter:function(value,row,index){
+//	        		
+//		        }},
+//		        {field:'creator',title:'创建人',width:80,align:'center'}
 		    ]]
 		});
 	},
@@ -149,12 +185,16 @@ com.gongsibao.trade.web.PayVoucherDetailCtrl = org.netsharp.panda.core.CustomCtr
 	},
 	add: function (path,file) {
 
-    	//构建凭证对象并插入到表格中
+	    var voucherFile = new Object();
+	    voucherFile.name = file.name;
+	    voucherFile.url = path;
+	    $(this.$gridId).datagrid('appendRow',voucherFile);
+	    
     },
-	remove:function(){
-		
-		alert('删除文件！');
-	}
+    remove:function(index){
+    	
+    	$(this.$gridId).datagrid('deleteRow',index);
+    }
 });
 
 
@@ -181,6 +221,10 @@ org.netsharp.controls.PayVoucherUpload = org.netsharp.controls.OSSUpload.Extends
 	}
 });
 
+/***
+ * 
+ * 关联订单控制器
+ */
 com.gongsibao.trade.web.OrderRelevancePerformanceCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
     ctor: function () {
 
@@ -288,7 +332,6 @@ com.gongsibao.trade.web.OrderRelevancePerformanceCtrl = org.netsharp.panda.core.
 
 	remove:function(){
 		
-		alert('删除关联订单');
 		var row = $(this.$gridId).datagrid('getSelected');
 		if(row == null){
 			
