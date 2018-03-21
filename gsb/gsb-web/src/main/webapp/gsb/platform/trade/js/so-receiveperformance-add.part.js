@@ -395,7 +395,7 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
             var allDepPay = {};
             allDepPay.supplierId = item.supplierId;
             allDepPay.departmentId = item.departmentId;
-            allDepPay.employeeId = item.salesmanId;
+            allDepPay.salesmanId = item.salesmanId;
             allDepPay.amount = parseFloat(item.amount);
             items.push(allDepPay);
         });

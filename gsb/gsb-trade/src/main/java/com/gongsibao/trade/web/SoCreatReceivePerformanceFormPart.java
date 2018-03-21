@@ -90,7 +90,7 @@ public class SoCreatReceivePerformanceFormPart extends FormPart {
                 nDepPay.setAmount (item2.getAmount ());
                 nDepPay.setSupplierId (item2.getSupplierId ());
                 nDepPay.setDepartmentId (item2.getDepartmentId ());
-                nDepPay.setEmployeeId (item2.getEmployeeId ());
+                nDepPay.setSalesmanId (item2.getSalesmanId ());
 
                 nDepPay.setOrderPayMapId (orderPayMap.getId ());
                 nDepPay.setEntityState (EntityState.New);
