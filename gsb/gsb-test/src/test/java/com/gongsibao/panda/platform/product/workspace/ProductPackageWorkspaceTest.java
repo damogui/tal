@@ -7,6 +7,7 @@ import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
+import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryProject;
@@ -30,12 +31,13 @@ public class ProductPackageWorkspaceTest  extends WorkspaceCreationBase{
 
 		super.setup();
 		urlList = "/prod/package/list";
-		urlForm ="/nav/gsb/product/packageForm";
+//		urlForm ="/nav/gsb/product/packageForm";
 		entity = ProductPackage.class;
 		meta = MtableManager.getMtable(entity);
 		resourceNodeCode = "GSB_Product_Manage_Package";
 		formPartName = listPartName = meta.getName();
 		listPartImportJs = "/gsb/platform/product/js/package-list-part.js";
+		formOpenMode = OpenMode.WINDOW;
 		listPartJsController = PackageListPart.class.getName();
 		listPartServiceController = PackageListPart.class.getName();
 	}

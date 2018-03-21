@@ -32,17 +32,17 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
 	//com.gongsibao.panda.ma.AllTest.class,
 
     //5.运营管理
-	com.gongsibao.panda.platform.operation.AllTest.class,
+//	com.gongsibao.panda.platform.operation.AllTest.class,
 
     //2.服务商系统
-	  SupplierAllTest.class,
+//	  SupplierAllTest.class,
 
     //6.商品管理
-//	com.gongsibao.panda.product.AllTest.class,
+	com.gongsibao.panda.platform.product.AllTest.class,
 
 
     //8.交易中心
-	com.gongsibao.panda.platform.trade.AllTest.class,
+//	com.gongsibao.panda.platform.trade.AllTest.class,
 
     //9.报表中心
 //	 com.gongsibao.panda.platform.report.AllTest.class,
