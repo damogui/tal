@@ -61,7 +61,7 @@ com.gongsibao.trade.web.OrderRefundCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     	refund.amount =  parseFloat($('#amount').numberbox('getValue'))*100;
     	refund.remark =  $('#refundRemark').val();
     	//退款产品
-    	var refundProductRows = $('#order_product_grid').datagrid('getRows');
+    	var refundProductRows = this.productDetailCtrl.getProductRows();
     	var itemList = [];
     	for(var i=0;i<refundProductRows.length;i++){
     		
@@ -78,7 +78,7 @@ com.gongsibao.trade.web.OrderRefundCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     	refund.refunds = itemList;
     	
     	//退款业绩分配
-    	var depRefunds = $('#order_refund_grid').datagrid('getRows');
+    	var depRefunds = this.refundPerformanceCtrl.getDepRefundRows();
     	alert(depRefunds.salesmanId + "===" + depRefunds.departmentId);
     	alert(111);
     	refund.depRefunds = depRefunds;
@@ -103,6 +103,7 @@ com.gongsibao.trade.web.OrderProductDetailCtrl = org.netsharp.panda.core.CustomC
 
     	this.base();
     	this.service = 'com.gongsibao.trade.web.OrderRefundController';
+    	this.$gridId = '#order_product_grid';
     	this.processStatusEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderProcessStatusType');
     },
     init:function(){
@@ -117,7 +118,7 @@ com.gongsibao.trade.web.OrderProductDetailCtrl = org.netsharp.panda.core.CustomC
 	initGrid:function(data){
 	    
 		var me = this;
-		$('#order_product_grid').datagrid({
+		$(this.$gridId ).datagrid({
 			idField:'id',
 			emptyMsg:'暂无记录',
 			striped:true,
@@ -196,7 +197,7 @@ com.gongsibao.trade.web.OrderProductDetailCtrl = org.netsharp.panda.core.CustomC
 			     var ed = $(this).datagrid('getEditor', {index:index,field:'refundAmount'});
 			     var refundType = $('#refundType').combobox('getValue');
 			     if(refundType==='1'){
-			    	 $('#order_product_grid').datagrid('endEdit',index);
+			    	 $(me.$gridId).datagrid('endEdit',index);
 			    	 return false;
 			     }else{
 			    	 
@@ -206,7 +207,7 @@ com.gongsibao.trade.web.OrderProductDetailCtrl = org.netsharp.panda.core.CustomC
 				     $(editCtrl).bind('blur',function(){
 				    	 
 				    	 //结束编辑
-				    	 $('#order_product_grid').datagrid('endEdit',index);
+				    	 $(me.$gridId ).datagrid('endEdit',index);
 				     });
 				     
 			     }
@@ -224,17 +225,21 @@ com.gongsibao.trade.web.OrderProductDetailCtrl = org.netsharp.panda.core.CustomC
 			     }
 			}
 		});
-		$('#order_product_grid').datagrid('enableCellEditing');
+		$(this.$gridId).datagrid('enableCellEditing');
 	},
 	setRefundAmount:function(refundAmount){
 		
-		var rows = $('#order_product_grid').datagrid('getRows');
+		var rows = $(this.$gridId).datagrid('getRows');
 		var len = rows.length;
 		if(len==1){
 			
 			rows[0].refundAmount = refundAmount;
-			$('#order_product_grid').datagrid('loadData',rows);
+			$(this.$gridId).datagrid('loadData',rows);
 		}
+	},
+	getProductRows:function(){
+		
+		 return $(this.$gridId).datagrid('getRows');
 	}
 });
 
@@ -244,6 +249,7 @@ com.gongsibao.trade.web.OrderRefundPerformanceCtrl = org.netsharp.panda.core.Cus
 
     	this.base();
     	this.service = 'com.gongsibao.trade.web.OrderRefundController';
+    	this.$gridId = '#order_refund_grid';
     },
     init:function(){
 
@@ -252,7 +258,7 @@ com.gongsibao.trade.web.OrderRefundPerformanceCtrl = org.netsharp.panda.core.Cus
 	initGrid:function(){
 		
 		var me = this;
-		$('#order_refund_grid').datagrid({
+		$(this.$gridId).datagrid({
 			idField:'id',
 			emptyMsg:'暂无记录',
 			striped:true,
@@ -314,11 +320,11 @@ com.gongsibao.trade.web.OrderRefundPerformanceCtrl = org.netsharp.panda.core.Cus
 	appendRow:function(row){
 		var orderId = this.queryString('id');
 		row.orderId = orderId;
-		$('#order_refund_grid').datagrid('appendRow',row);
+		$(this.$gridId).datagrid('appendRow',row);
 	},
 	remove:function(){
 		
-		var row = $('#order_refund_grid').datagrid('getSelected');
+		var row = $(this.$gridId).datagrid('getSelected');
 		if(row == null){
 			
 			return;
@@ -326,7 +332,11 @@ com.gongsibao.trade.web.OrderRefundPerformanceCtrl = org.netsharp.panda.core.Cus
 		
 		//提示确认
 		
-		var index = $('#order_refund_grid').datagrid('getRowIndex',row);
-		$('#order_refund_grid').datagrid('deleteRow',index);
+		var index = $(this.$gridId).datagrid('getRowIndex',row);
+		$(this.$gridId).datagrid('deleteRow',index);
+	},
+	getDepRefundRows:function(){
+
+		return $('#order_refund_grid').datagrid('getRows');
 	}
 });
