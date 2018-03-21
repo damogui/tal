@@ -51,6 +51,7 @@ public class ContractFormPart extends FormPart {
         StringBuilder builder = new StringBuilder();
         builder.append("soOrder.*,");
         builder.append("soOrder.department.{id,name},");
+        builder.append("soOrder.companyIntention.{pkid,companyName},");
         builder.append("soOrder.customer.{id,real_name,email},");
         builder.append("soOrder.owner.{id,name}");
 
@@ -87,23 +88,8 @@ public class ContractFormPart extends FormPart {
 
     @Override
     public IPersistable save(IPersistable entity) {
-
-        IPersistable persistable = super.save(entity);
-
-        Contract contract = (Contract) persistable;
-
-        //将订单类型改为合同
-        UpdateBuilder updateBuilder = UpdateBuilder.getInstance();
-        {
-            updateBuilder.update("so_order");
-            updateBuilder.set("type", OrderType.Ht.getValue());
-            updateBuilder.where("pkid = ? ");
-        }
-        String sql = updateBuilder.toSQL();
-        QueryParameters qps = new QueryParameters();
-        qps.add("id", contract.getOrderId(), Types.INTEGER);
-        orderPm.executeNonQuery(sql, qps);
-
-        return persistable;
+        Contract contract = (Contract) entity;
+        contractService.saveContract(contract);
+        return entity;
     }
 }

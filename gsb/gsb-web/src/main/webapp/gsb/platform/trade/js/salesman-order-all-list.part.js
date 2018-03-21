@@ -209,7 +209,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             return false;
         }
         var serviceLocator = new org.netsharp.core.JServiceLocator();
-        var url = this.addContractUrl + '?fk=orderId:' + row.id + ';companyName:' + row.companyIntention_companyName;
+        var url = this.addContractUrl + '?fk=orderId:' + row.id;
         //增加订单是否创建合同
         serviceLocator.invoke("com.gongsibao.trade.web.OrderAllListPart", "checkContract", [row.id], function (data) {
 
