@@ -80,7 +80,6 @@ com.gongsibao.trade.web.OrderPayMapCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     	//分配明细
     	payMap.depPays = this.payDepDetailCtrl.getDepPays();
     	
-    	debugger;
     	return payMap;
     }
 });
