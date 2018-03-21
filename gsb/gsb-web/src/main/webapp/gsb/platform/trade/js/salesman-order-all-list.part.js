@@ -117,7 +117,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             } else {
                 layer.open({
                     type: 2,//1是字符串 2是内容
-                    title: '创建退款',
+                    title: '申请退款',
                     fixed: false,
                     maxmin: true,
                     shadeClose: false,
@@ -186,7 +186,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             } else {
                 layer.open({
                     type: 2,//1是字符串 2是内容
-                    title: '创建分期',
+                    title: '申请分期',
                     fixed: false,
                     maxmin: true,
                     shadeClose: false,
@@ -278,7 +278,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         layer.open({
             id: "invoiceCreateIframe",
             type: 2,
-            title: '基本信息',
+            title: '申请发票',
             fixed: false,
             maxmin: true,
             shadeClose: true,
