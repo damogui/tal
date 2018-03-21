@@ -90,6 +90,15 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         entity.sginingUserId = entity.soOrder.ownerId == null ? 0 : entity.soOrder.ownerId;
         entity.customerId = entity.soOrder.customerId == null ? 0 : entity.soOrder.customerId;
     },
+    onSaved: function (jmessage) {
+        if (jmessage != null) {
+            IMessageBox.toast("保存成功！");
+            this.databind();
+            window.parent.layer.closeAll();
+        } else {
+            IMessageBox.error("保存失败！");
+        }
+    },
     contractTypeChange: function (el) {  //合同类型
         if ($(el).val() == 0) {
             $('#idNumber').textbox({value: ""});

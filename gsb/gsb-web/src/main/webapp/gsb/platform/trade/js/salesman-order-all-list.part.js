@@ -239,32 +239,6 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                 });
             }
         }, null, false);
-
-        /*//增加订单是否创建合同
-         me.invokeService("checkContract", [row.id], function (data) {
-         if (data) {
-         IMessageBox.info('该订单已经创建合同');
-         } else {
-         var url = this.addContractUrl + '?fk=orderId:' + row.id;
-         layer.open({
-         id: "contractCreateIframe",
-         type: 2,
-         title: '合同信息',
-         fixed: false,
-         maxmin: true,
-         shadeClose: true,
-         area: ['60%', '90%'],
-         content: url,
-         btn: ['提交', '取消'],
-         success: function (layero, index) {
-
-         },
-         yes: function () {
-         document.getElementById('contractCreateIframe').firstElementChild.contentWindow.controllercontract.save();
-         }
-         });
-         }
-         });*/
     },
     addInvoice: function (id) {//申请发票
         var me = this;
@@ -275,23 +249,33 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             return false;
         }
         var url = this.addInvoiceUrl + '?fk=orderId:' + row.id;
-        layer.open({
-            id: "invoiceCreateIframe",
-            type: 2,
-            title: '基本信息',
-            fixed: false,
-            maxmin: true,
-            shadeClose: true,
-            area: ['60%', '90%'],
-            content: url,
-            btn: ['提交', '取消'],
-            success: function (layero, index) {
+        var serviceLocator = new org.netsharp.core.JServiceLocator();
+        //增加订单是否创建发票
+        serviceLocator.invoke("com.gongsibao.trade.web.InvoiceFormPart", "checkInvoice", [row.id], function (data) {
 
-            },
-            yes: function () {
-                document.getElementById('invoiceCreateIframe').firstElementChild.contentWindow.controllercontract.save();
+            if (data) {
+                IMessageBox.info('该订单已经创建支票了');
+            } else {
+                layer.open({
+                    id: "invoiceCreateIframe",
+                    type: 2,
+                    title: '基本信息',
+                    fixed: false,
+                    maxmin: true,
+                    shadeClose: true,
+                    area: ['60%', '90%'],
+                    content: url,
+                    btn: ['提交', '取消'],
+                    success: function (layero, index) {
+
+                    },
+                    yes: function () {
+                        document.getElementById('invoiceCreateIframe').firstElementChild.contentWindow.controllerinvoice.save();
+                    }
+                });
             }
-        });
+        }, null, false);
+
     },
     batchOrderTran: function () {//批量订单转移
         var me = this;
