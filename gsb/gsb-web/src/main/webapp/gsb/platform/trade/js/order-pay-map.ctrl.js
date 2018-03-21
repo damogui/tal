@@ -17,7 +17,7 @@ com.gongsibao.trade.web.OrderPayMapCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     orderNoBlur:function(e){
     	
     	var me = this;
-    	var orderNo = $(e).val();
+    	var orderNo = $(e).val().trim();
     	if(!System.isnull(orderNo)){
     		
     		//调用后台验证orderNo是否存在
