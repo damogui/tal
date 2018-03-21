@@ -33,12 +33,14 @@ public class NDepPay extends Entity {
     @Reference(foreignKey = "departmentId", header = "部门")
     private SupplierDepartment department;
 
-    @Column(name = "employee_id", header = "员工Id")
-    private Integer employeeId;
+    @Column(name = "salesman_id", header = "业务员Id")
+    private Integer salesmanId;
 
-    @Reference(foreignKey = "employeeId")
-    private Employee employee;
-    
+    @JsonIgnore
+    @Reference(foreignKey = "salesmanId")
+    private Employee salesman;
+
+
     @Column(name = "order_id", header = "订单Id")
     private Integer orderId;
     @JsonIgnore
@@ -47,7 +49,7 @@ public class NDepPay extends Entity {
 
     @Column(name = "pay_id", header = "支付序号")
     private Integer payId;
-
+    @JsonIgnore
     @Reference(header = "支付", foreignKey = "payId", primaryKey = "pkid")
     private Pay pay;
 
@@ -56,8 +58,9 @@ public class NDepPay extends Entity {
 
 
     /*new beg*/
-
-    @Reference(foreignKey = "orderPayMapId", header = "支付明细")
+    @JsonIgnore
+    @Reference(foreignKey = "orderPayMapId", header = "支付明细"
+    )
     private OrderPayMap orderPayMap;
 
     /*new end*/
@@ -117,53 +120,54 @@ public class NDepPay extends Entity {
         this.department = department;
     }
 
-    public Employee getEmployee() {
-        return employee;
+
+
+    public Integer getOrderId() {
+        return orderId;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 
-    public Integer getEmployeeId() {
-        return employeeId;
+    public SoOrder getOrder() {
+        return order;
     }
 
-    public void setEmployeeId(Integer employeeId) {
-        this.employeeId = employeeId;
+    public void setOrder(SoOrder order) {
+        this.order = order;
     }
 
-	public Integer getOrderId() {
-		return orderId;
-	}
+    public Integer getPayId() {
+        return payId;
+    }
 
-	public void setOrderId(Integer orderId) {
-		this.orderId = orderId;
-	}
+    public void setPayId(Integer payId) {
+        this.payId = payId;
+    }
 
-	public SoOrder getOrder() {
-		return order;
-	}
+    public Pay getPay() {
+        return pay;
+    }
 
-	public void setOrder(SoOrder order) {
-		this.order = order;
-	}
+    public void setPay(Pay pay) {
+        this.pay = pay;
+    }
 
-	public Integer getPayId() {
-		return payId;
-	}
 
-	public void setPayId(Integer payId) {
-		this.payId = payId;
-	}
+    public Integer getSalesmanId() {
+        return salesmanId;
+    }
 
-	public Pay getPay() {
-		return pay;
-	}
+    public void setSalesmanId(Integer salesmanId) {
+        this.salesmanId = salesmanId;
+    }
 
-	public void setPay(Pay pay) {
-		this.pay = pay;
-	}
-	
-	
+    public Employee getSalesman() {
+        return salesman;
+    }
+
+    public void setSalesman(Employee salesman) {
+        this.salesman = salesman;
+    }
 }

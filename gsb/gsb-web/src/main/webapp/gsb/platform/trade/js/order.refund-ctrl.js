@@ -61,7 +61,7 @@ com.gongsibao.trade.web.OrderRefundCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     	refund.amount =  parseFloat($('#amount').numberbox('getValue'))*100;
     	refund.remark =  $('#refundRemark').val();
     	//退款产品
-    	var refundProductRows = $('#order_product_grid').datagrid('getRows');
+    	var refundProductRows = this.productDetailCtrl.getProductRows();
     	var itemList = [];
     	for(var i=0;i<refundProductRows.length;i++){
     		
@@ -78,7 +78,7 @@ com.gongsibao.trade.web.OrderRefundCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     	refund.refunds = itemList;
     	
     	//退款业绩分配
-    	var depRefunds = $('#order_refund_grid').datagrid('getRows');
+    	var depRefunds = this.refundPerformanceCtrl.getDepRefundRows();
     	alert(depRefunds.salesmanId + "===" + depRefunds.departmentId);
     	alert(111);
     	refund.depRefunds = depRefunds;
@@ -103,6 +103,7 @@ com.gongsibao.trade.web.OrderProductDetailCtrl = org.netsharp.panda.core.CustomC
 
     	this.base();
     	this.service = 'com.gongsibao.trade.web.OrderRefundController';
+    	this.$gridId = '#order_product_grid';
     	this.processStatusEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderProcessStatusType');
     },
     init:function(){
@@ -117,7 +118,7 @@ com.gongsibao.trade.web.OrderProductDetailCtrl = org.netsharp.panda.core.CustomC
 	initGrid:function(data){
 	    
 		var me = this;
-		$('#order_product_grid').datagrid({
+		$(this.$gridId ).datagrid({
 			idField:'id',
 			emptyMsg:'暂无记录',
 			striped:true,
@@ -196,7 +197,7 @@ com.gongsibao.trade.web.OrderProductDetailCtrl = org.netsharp.panda.core.CustomC
 			     var ed = $(this).datagrid('getEditor', {index:index,field:'refundAmount'});
 			     var refundType = $('#refundType').combobox('getValue');
 			     if(refundType==='1'){
-			    	 $('#order_product_grid').datagrid('endEdit',index);
+			    	 $(me.$gridId).datagrid('endEdit',index);
 			    	 return false;
 			     }else{
 			    	 
@@ -206,7 +207,7 @@ com.gongsibao.trade.web.OrderProductDetailCtrl = org.netsharp.panda.core.CustomC
 				     $(editCtrl).bind('blur',function(){
 				    	 
 				    	 //结束编辑
-				    	 $('#order_product_grid').datagrid('endEdit',index);
+				    	 $(me.$gridId ).datagrid('endEdit',index);
 				     });
 				     
 			     }
@@ -224,17 +225,21 @@ com.gongsibao.trade.web.OrderProductDetailCtrl = org.netsharp.panda.core.CustomC
 			     }
 			}
 		});
-		$('#order_product_grid').datagrid('enableCellEditing');
+		$(this.$gridId).datagrid('enableCellEditing');
 	},
 	setRefundAmount:function(refundAmount){
 		
-		var rows = $('#order_product_grid').datagrid('getRows');
+		var rows = $(this.$gridId).datagrid('getRows');
 		var len = rows.length;
 		if(len==1){
 			
 			rows[0].refundAmount = refundAmount;
-			$('#order_product_grid').datagrid('loadData',rows);
+			$(this.$gridId).datagrid('loadData',rows);
 		}
+	},
+	getProductRows:function(){
+		
+		 return $(this.$gridId).datagrid('getRows');
 	}
 });
 
@@ -244,6 +249,7 @@ com.gongsibao.trade.web.OrderRefundPerformanceCtrl = org.netsharp.panda.core.Cus
 
     	this.base();
     	this.service = 'com.gongsibao.trade.web.OrderRefundController';
+    	this.$gridId = '#order_refund_grid';
     },
     init:function(){
 
@@ -252,7 +258,7 @@ com.gongsibao.trade.web.OrderRefundPerformanceCtrl = org.netsharp.panda.core.Cus
 	initGrid:function(){
 		
 		var me = this;
-		$('#order_refund_grid').datagrid({
+		$(this.$gridId).datagrid({
 			idField:'id',
 			emptyMsg:'暂无记录',
 			striped:true,
@@ -304,101 +310,21 @@ com.gongsibao.trade.web.OrderRefundPerformanceCtrl = org.netsharp.panda.core.Cus
 	},
 	add:function(){
 		
-        var me = this;
-        var supplierOption = getSupplierOption();
-        var departmentOption = getDepartmentOption();
-        var employeeOption = getEmployeeOption();
-        PandaHelper.openDynamicForm({
-            title:'退款业绩分配',
-            width:450,
-            height:330,
-            items:[{id:'allot_supplier_name',
-                title:'服务商',
-                type:'combogrid',
-                className:'',
-                option:supplierOption},
-
-                {id:'allot_department_name',
-                    title:'部门',
-                    type:'combogrid',
-                    className:'',
-                    option:departmentOption},
-
-                {id:'allot_salesman_name',
-                    title:'业务员',
-                    type:'combogrid',
-                    className:'',
-                    option:employeeOption},
-                {id:'allot_amount',
-                    title:'分配金额',
-                    type:'numberbox',
-                    className:'',
-                    option:{width:300,precision:2,min:1,required:true}}
-            ],
-            callback:function(index, layero){
-
-                var supplierId = $('#allot_supplier_name').combogrid('getValue');
-                var departmentId = $('#allot_department_name').combogrid('getValue');
-                var salesmanId = $('#allot_salesman_name').combogrid('getValue');
-                var amount = $('#allot_amount').numberbox('getValue');
-                
-                if (System.isnull(supplierId)) {
-                    IMessageBox.info('请选择服务商');
-                    return;
-                }
-                if (System.isnull(departmentId)) {
-                    IMessageBox.info('请选择部门');
-                    return;
-                }
-                if (System.isnull(salesmanId)) {
-                    IMessageBox.info('请选择业务员');
-                    return;
-                }
-
-                if (System.isnull(amount)) {
-                    IMessageBox.info('请填写分配金额');
-                    return;
-                }
-                
-                //这里要校验金额之和不能大于退款金额
-                var depRefund = new Object();
-                depRefund.supplierId = supplierId;
-                var supplierName = $('#allot_supplier_name').combogrid('getText');
-                depRefund.supplier = {
-                	id:supplierId,
-                	name:supplierName
-                };
-                
-                depRefund.departmentId = departmentId;
-                var departmentName = $('#allot_department_name').combogrid('getText');
-                depRefund.department = {
-                    	id:departmentId,
-                    	name:departmentName
-                };
-                
-                depRefund.salesmanId = salesmanId;
-                var salesmanName = $('#allot_salesman_name').combogrid('getText');
-                depRefund.salesman = {
-                    	id:salesmanId,
-                    	name:salesmanName
-                };
-                
-                depRefund.amount = parseFloat(amount)*100;
-                me.appendRow(depRefund);
-                
-                //关闭当前窗口
-                layer.close(index);
-            }
-        });
+		var me = this;
+		var orderAllotCtrl = new com.gongsibao.trade.web.OrderAllotCtrl();
+		orderAllotCtrl.show('退款业绩分配',function(obj){
+			
+			me.appendRow(obj);
+		});
 	},
 	appendRow:function(row){
 		var orderId = this.queryString('id');
 		row.orderId = orderId;
-		$('#order_refund_grid').datagrid('appendRow',row);
+		$(this.$gridId).datagrid('appendRow',row);
 	},
 	remove:function(){
 		
-		var row = $('#order_refund_grid').datagrid('getSelected');
+		var row = $(this.$gridId).datagrid('getSelected');
 		if(row == null){
 			
 			return;
@@ -406,103 +332,11 @@ com.gongsibao.trade.web.OrderRefundPerformanceCtrl = org.netsharp.panda.core.Cus
 		
 		//提示确认
 		
-		var index = $('#order_refund_grid').datagrid('getRowIndex',row);
-		$('#order_refund_grid').datagrid('deleteRow',index);
+		var index = $(this.$gridId).datagrid('getRowIndex',row);
+		$(this.$gridId).datagrid('deleteRow',index);
+	},
+	getDepRefundRows:function(){
+
+		return $('#order_refund_grid').datagrid('getRows');
 	}
 });
-
-//这些统一一个类处理
-function getSupplierOption(){
-    var supplierOption = {columns : [ [ {
-        field : 'name',
-        title : '名称',
-        width : 100
-    }] ],
-        url : '\/panda\/rest\/reference?code=CRM_Supplier&filter=',
-        idField : 'id',
-        textField : 'name',
-        width : 300,
-        fitColumns : true,
-        panelWidth : 450,
-        panelHeight : 310,
-        pagination : true,
-        pageSize : 10,
-        mode : 'remote',
-        multiple : false,
-        onChange : function(newValue, oldValue) {
-            //改变部门的查询条件
-            $('#allot_department_name').combogrid('clear');
-            var grid = $('#allot_department_name').combogrid('grid');
-            var options = $(grid).datagrid('options');
-            var filter = ' supplier_id ____ ----'+ newValue + '----';
-            options.url = '\/panda\/rest\/reference?code=CRM_Supplier_Depart&filter='+ filter;
-            $(grid).datagrid(options);
-            //改变业务员的查询条件
-            $('#allot_salesman_name').combogrid('clear');
-            var grid = $('#allot_salesman_name').combogrid('grid');
-            var options = $(grid).datagrid('options');
-            //var filter = ' id IN ( SELECT employee_id FROM sp_salesman WHERE supplier_id ____ ----'+ newValue + '----)';
-            var filter = ' supplier_id ____ ----'+ newValue + '----';
-            options.url = '\/panda\/rest\/reference?code=Salesman&filter='+ filter;
-            $(grid).datagrid(options);
-
-        }};
-
-    return supplierOption;
-}
-
-function getDepartmentOption(){
-    var departmentOption = {columns : [ [ {
-        field : 'name',
-        title : '名称',
-        width : 100
-    }] ],
-        url : '\/panda\/rest\/reference?code=CRM_Supplier_Depart&filter=',
-        idField : 'id',
-        textField : 'name',
-        width : 300,
-        fitColumns : true,
-        panelWidth : 450,
-        panelHeight : 310,
-        pagination : true,
-        pageSize : 10,
-        mode : 'remote',
-        multiple : false,
-        onChange : function(newValue, oldValue) {
-            //改变业务员的查询条件
-            $('#allot_salesman_name').combogrid('clear');
-            var grid = $('#allot_salesman_name').combogrid('grid');
-            var options = $(grid).datagrid('options');
-            //var filter = ' id IN ( SELECT employee_id FROM sp_salesman WHERE department_id ____ ----'+ newValue + '----)';
-            var filter = ' department_id ____ ----'+ newValue + '----';
-            options.url = '\/panda\/rest\/reference?code=Salesman&filter='+ filter;
-            $(grid).datagrid(options);
-        }};
-    return departmentOption;
-}
-
-function getEmployeeOption(){
-    var employeeOption = {columns : [ [ {
-        field : 'employee_name',
-        title : '名称',
-        width : 100
-    }] ],
-        rowStyler: function(index,row){if(row.receiving ===false) {return 'color:red;';  }},
-        url : '\/panda\/rest\/reference?code=Salesman&filter=',
-        idField : 'employeeId',
-        textField : 'employee_name',
-        width : 300,
-        fitColumns : true,
-        panelWidth : 450,
-        panelHeight : 310,
-        pagination : true,
-        pageSize : 10,
-        mode : 'remote',
-        multiple : false,
-        onChange : function(newValue, oldValue) {
-            /*if(oldValue!="" && newValue != oldValue){
-             }*/
-        }};
-
-    return employeeOption;
-}

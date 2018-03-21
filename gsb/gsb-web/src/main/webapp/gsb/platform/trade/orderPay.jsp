@@ -17,10 +17,12 @@
 	<script src='/package/layer/layer.js'></script>
 	<script src='/package/easyui/jquery.easyui.min.js'></script>
 	<script src='/package/easyui/locale/easyui-lang-zh_CN.js'></script>
-	<script src='/package/easyui/jquery.easyui.extend.js'></script>
+	<script src='/package/easyui/jquery.easyui.extend.js'></script>	
+	<script src='/package/qiniu/plupload.full.min.js'></script>
 	<script src='/panda-res/js/system.js'></script>
 	<script src='/panda-res/js/panda.core.js'></script>
 	<script src='/panda-res/js/panda.js'></script>
+	<script src='/panda-res/js/panda.controls.js'></script>
 	<script src='/gsb/platform/trade/js/order.pay-ctrl.js'></script>
 </head>
      <body class="easyui-layout">
@@ -91,6 +93,10 @@
 			</div>
 		</div>
 </body>
+<div id="upload_toolbar">
+	<a href="#" id="btn_upload" class="easyui-linkbutton" data-options="iconCls:'fa fa-cloud-upload',plain:true">上传</a>
+	<a href="#" id="btn_remove" class="easyui-linkbutton" data-options="iconCls:'fa fa-remove',plain:true,onClick:function(){payCtrl.payVoucherDetailCtrl.remove();}">删除</a>
+</div>
 
 <script>
 

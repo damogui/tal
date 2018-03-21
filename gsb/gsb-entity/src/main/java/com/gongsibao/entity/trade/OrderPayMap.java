@@ -24,6 +24,7 @@ public class OrderPayMap extends BaseEntity {
     @Column(name = "pay_id", header = "支付序号")
     private Integer payId;
 
+    @JsonIgnore
     @Reference(header = "支付", foreignKey = "payId", primaryKey = "pkid")
     private Pay pay;
     /*new beg*/

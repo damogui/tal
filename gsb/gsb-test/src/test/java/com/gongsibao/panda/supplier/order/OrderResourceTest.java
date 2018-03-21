@@ -48,7 +48,7 @@ public class OrderResourceTest extends ResourceCreationBase {
                 /*下拉列表反射end*/
 
                 this.createResourceNodeVoucher (NDepReceivable.class.getName (), "订单业绩", "Gsb_Supplier_Order_Salesman_Performance", INDepReceivableService.class.getName (), node2.getId ());
-                this.createResourceNodeVoucher (NDepPay.class.getName (), "回款业绩", "Gsb_Supplier_Order_Salesman_Received", INDepPayService.class.getName (), node2.getId ());
+                this.createResourceNodeVoucher (Pay.class.getName (), "回款业绩", "Gsb_Supplier_Order_Salesman_Received", IPayService.class.getName (), node2.getId ());
                 this.createResourceNodeVoucher (NDepRefund.class.getName (), "我的退款", "Gsb_Supplier_Order_Salesman_Refund", INDepRefundService.class.getName (), node2.getId ());
                 this.createResourceNodeVoucher (SoOrder.class.getName (), "我的分期", "Gsb_Supplier_Order_Salesman_Staging", IOrderService.class.getName (), node2.getId ());
                 this.createResourceNodeVoucher (NOrderCarryover.class.getName (), "我的结转", "Gsb_Supplier_Order_Salesman_Carryover", INOrderCarryoverService.class.getName (), node2.getId ());
@@ -82,7 +82,7 @@ public class OrderResourceTest extends ResourceCreationBase {
             ResourceNode node4 = this.createResourceNodeCategory ("订单审核", "Gsb_Supplier_Order_Audit", node1.getId ());
             {
                 this.createResourceNodeVoucher (SoOrder.class.getName (), "订单审核", "Gsb_Supplier_Order_Audit_Order", IOrderService.class.getName (), node4.getId ());
-                this.createResourceNodeVoucher (SoOrder.class.getName (), "订单业绩审核", "Gsb_Supplier_Order_Audit_Performance", IOrderService.class.getName (), node4.getId ());
+                this.createResourceNodeVoucher (NDepReceivable.class.getName (), "订单业绩审核", "Gsb_Supplier_Order_Audit_Performance", INDepReceivableService.class.getName (), node4.getId ());
                 this.createResourceNodeVoucher (Pay.class.getName (), "回款业绩审核", "Gsb_Supplier_Pay_Audit_Performance", IPayService.class.getName (), node4.getId ());
 
 

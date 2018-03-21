@@ -12,6 +12,7 @@ import com.gongsibao.entity.trade.dic.PayWayType;
 import com.gongsibao.entity.trade.dto.DepPayMapDTO;
 import com.gongsibao.entity.trade.dto.OrderRelationDTO;
 import com.gongsibao.trade.base.*;
+import com.gongsibao.u8.base.ISoOrderService;
 import com.gongsibao.u8.base.IU8BankService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
@@ -31,6 +32,7 @@ public class SoCreatReceivePerformanceFormPart extends FormPart {
     public int saveNDepReceivableBySoder(DepPayMapDTO entity) {
         INOrderAndPerformanceService nOrderAndPerformanceService = ServiceFactory.create (INOrderAndPerformanceService.class);//服务
         IU8BankService u8BankService = ServiceFactory.create (IU8BankService.class);//获取线下支付
+        IOrderService   orderService = ServiceFactory.create (IOrderService.class);//订单
         Pay pay = new Pay ();
         if (entity.getOnlinePay ()) {
             pay.setPayWayType (PayWayType.ONLINE_PAYMENT);//线上
@@ -74,7 +76,8 @@ public class SoCreatReceivePerformanceFormPart extends FormPart {
                 ) {
             OrderPayMap orderPayMap = new OrderPayMap ();//支付明细
             orderPayMap.setPayId (pay.getId ());
-            orderPayMap.setOrderId (item.getOrderId ());
+            //根据订单no获取订单id
+            orderPayMap.setOrderId (orderService.getOrderIdByNo(item.getOrderId ()));
             orderPayMap.setU8BankId (entity.getU8Bank ());
             orderPayMap.setOrderPrice (item.getOrderCutAmount ());
             orderPayMap.setOfflineInstallmentType (PayOfflineInstallmentType.getItem (item.getPayType ()));
@@ -87,7 +90,7 @@ public class SoCreatReceivePerformanceFormPart extends FormPart {
                 nDepPay.setAmount (item2.getAmount ());
                 nDepPay.setSupplierId (item2.getSupplierId ());
                 nDepPay.setDepartmentId (item2.getDepartmentId ());
-                nDepPay.setEmployeeId (item2.getEmployeeId ());
+                nDepPay.setSalesmanId (item2.getSalesmanId ());
 
                 nDepPay.setOrderPayMapId (orderPayMap.getId ());
                 nDepPay.setEntityState (EntityState.New);

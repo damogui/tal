@@ -35,15 +35,17 @@ public class NDepReceivable extends Entity {
     private Supplier supplier;
     @Column(name = "order_id", header = "订单Id")
     private Integer orderId;
+
+
     @JsonIgnore
     @Reference(foreignKey = "orderId")
     private SoOrder order;
 
-    @Column(name = "employee_id", header = "员工Id")
-    private Integer employeeId;
+    @Column(name = "salesman_id", header = "员工Id")
+    private Integer salesmanId;
 
-    @Reference(foreignKey = "employeeId")
-    private Employee employee;
+    @Reference(foreignKey = "salesmanId")
+    private Employee salesman;
 
     @Column(name = "status", header = "审核状态")
     private AuditStatusType statusType = AuditStatusType.Dsh;
@@ -72,21 +74,7 @@ public class NDepReceivable extends Entity {
         this.order = order;
     }
 
-    public Integer getEmployeeId() {
-        return employeeId;
-    }
 
-    public void setEmployeeId(Integer employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
 
     public Integer getDepartmentId() {
         return departmentId;
@@ -126,5 +114,21 @@ public class NDepReceivable extends Entity {
 
     public void setStatusType(AuditStatusType statusType) {
         this.statusType = statusType;
+    }
+
+    public Integer getSalesmanId() {
+        return salesmanId;
+    }
+
+    public void setSalesmanId(Integer salesmanId) {
+        this.salesmanId = salesmanId;
+    }
+
+    public Employee getSalesman() {
+        return salesman;
+    }
+
+    public void setSalesman(Employee salesman) {
+        this.salesman = salesman;
     }
 }

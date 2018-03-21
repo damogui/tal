@@ -69,7 +69,7 @@ public class ActionApplyPayPerformanceVerify implements IAction {
 
         //根据订单Id获取订单实体
         IOrderService orderService = ServiceFactory.create (IOrderService.class);
-        SoOrder order = orderService.getByOrderNo (pay.getOrderPayMaps ().get (0).getOrderId ().toString ());
+        SoOrder order = orderService.getByOrderId (pay.getOrderPayMaps ().get (0).getOrderId ());
 
         if (order.getTotalPrice () < pay.getAmount ()) {
 

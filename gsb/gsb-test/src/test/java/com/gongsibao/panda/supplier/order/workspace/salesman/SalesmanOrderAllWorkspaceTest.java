@@ -27,7 +27,7 @@ import com.gongsibao.trade.web.SalesmanAllOrderFormPart;
 import com.gongsibao.trade.web.SalesmanAllOrderListPart;
 
 /*全部订单*/
-public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
+public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {        
 	private String listrowToolbarPath = "/crm/roworderall/toolbar";
 
 	@Override
@@ -179,13 +179,21 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 		PToolbar toolbar = new PToolbar();
 		{
 			toolbar.toNew();
-			toolbar.setBasePath("panda/datagrid/row/edit");
 			toolbar.setPath(listrowToolbarPath);
 			toolbar.setName("转移");
 			toolbar.setResourceNode(node);
 			toolbar.setToolbarType(ToolbarType.BASE);
 		}
 		PToolbarItem item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("view");
+			item.setName("查看");
+			item.setSeq(1);
+			item.setCommand("{controller}.view();");
+			toolbar.getItems().add(item);
+		}
+		item = new PToolbarItem();
 		{
 			item.toNew();
 			item.setCode("orderTran");

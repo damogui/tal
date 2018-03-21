@@ -280,15 +280,20 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 	private void createEmployee(Salesman entity) {
 
 		IEmployeeService service = ServiceFactory.create(IEmployeeService.class);
-		Employee employee = new Employee();
-		employee.toNew();
-		employee.setName(entity.getName());
-		employee.setMobile(entity.getMobile());
-		employee.setLoginName(entity.getLoginName());
-		employee.setEmail(entity.getEmail());
-		employee.setEntryDate(entity.getEntryDate());
-		employee.setQuitDate(entity.getQuitDate());
-		employee.setDisabled(entity.getDisabled());
+		
+		Employee employee = service.byPhone(entity.getMobile());
+		if(employee == null){
+
+			employee = new Employee();
+			employee.toNew();
+			employee.setName(entity.getName());
+			employee.setMobile(entity.getMobile());
+			employee.setLoginName(entity.getLoginName());
+			employee.setEmail(entity.getEmail());
+			employee.setEntryDate(entity.getEntryDate());
+			employee.setQuitDate(entity.getQuitDate());
+			employee.setDisabled(entity.getDisabled());
+		}
 
 		RoleEmployee roleEmployee = null;
 		List<RoleEmployee> reList = new ArrayList<RoleEmployee>();
@@ -298,6 +303,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 			roleEmployee = new RoleEmployee();
 			roleEmployee.toNew();
 			roleEmployee.setRoleId(salesmanRole.getRoleId());
+			roleEmployee.setEmployeeId(employee.getId());
 			reList.add(roleEmployee);
 		}
 

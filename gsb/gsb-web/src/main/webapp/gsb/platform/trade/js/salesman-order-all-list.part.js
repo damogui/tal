@@ -5,7 +5,10 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         this.base();
 
         this.addOrderReceivedUrl = '/panda/crm/order/salesman/coperformance';//创建订单业绩
-        this.addReceivedUrl = "/panda/crm/order/salesman/creceivedperformance";//回款业绩
+        //this.addReceivedUrl = "/panda/crm/order/salesman/creceivedperformance";//回款业绩
+        
+        this.addReceivedUrl = "/nav/gsb/platform/trade/orderPay";//回款业绩
+        
         this.originType = null;//来源类型（0或null：业务员跳转过来的；1：平台跳转过来的）
         this.addStagingUrl = '/nav/gsb/platform/trade/orderStage';//创建分期
         this.addRefundUrl = '/nav/gsb/platform/trade/orderRefund';//创建退款
@@ -114,11 +117,11 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             } else {
                 layer.open({
                     type: 2,//1是字符串 2是内容
-                    title: '创建退款',
+                    title: '申请退款',
                     fixed: false,
                     maxmin: true,
                     shadeClose: false,
-                    area: ['70%', '70%'],
+                    area: ['70%', '95%'],
                     zIndex: 100000,
                     id: "addRefundIframe",
                     content: contentUrl,
@@ -183,7 +186,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             } else {
                 layer.open({
                     type: 2,//1是字符串 2是内容
-                    title: '创建分期',
+                    title: '申请分期',
                     fixed: false,
                     maxmin: true,
                     shadeClose: false,
@@ -209,7 +212,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             return false;
         }
         var serviceLocator = new org.netsharp.core.JServiceLocator();
-        var url = this.addContractUrl + '?fk=orderId:' + row.id + ';companyName:' + row.companyIntention_companyName;
+        var url = this.addContractUrl + '?fk=orderId:' + row.id;
         //增加订单是否创建合同
         serviceLocator.invoke("com.gongsibao.trade.web.OrderAllListPart", "checkContract", [row.id], function (data) {
 
@@ -275,7 +278,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         layer.open({
             id: "invoiceCreateIframe",
             type: 2,
-            title: '基本信息',
+            title: '申请发票',
             fixed: false,
             maxmin: true,
             shadeClose: true,

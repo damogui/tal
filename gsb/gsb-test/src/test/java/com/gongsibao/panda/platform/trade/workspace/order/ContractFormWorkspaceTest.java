@@ -90,13 +90,22 @@ public class ContractFormWorkspaceTest extends WorkspaceCreationBase {
         formField = addFormField(form, "hasLiquidatedDamages", "有/无违约金", groupName, ControlTypes.ENUM_BOX, false, false);
         {
             formField.setTroikaTrigger("controllercontract.hasLiquidatedDamagesChange(this);");
+            formField.setColumnSpan(2);
         }
         formField = addFormField(form, "liquidatedDamages", "违约金", groupName, ControlTypes.DECIMAL_FEN_BOX, false, false);
+        {
+            formField.setColumnSpan(2);
+        }
         formField = addFormField(form, "hasBreach", "有/无违约事项", groupName, ControlTypes.ENUM_BOX, false, false);
         {
             formField.setTroikaTrigger("controllercontract.hasBreachChange(this);");
+            formField.setColumnSpan(2);
         }
-        formField = addFormField(form, "breachInfo", "违约责任", groupName, ControlTypes.TEXT_BOX, false, false);
+        formField = addFormField(form, "breachInfo", "违约责任", groupName, ControlTypes.TEXTAREA, false, false);
+        {
+            formField.setFullColumn(false);
+            formField.setWidth(280);
+        }
         groupName = "其他说明";
         addFormField(form, "fileId", "附件", groupName, ControlTypes.FILE_BOX, false, false);
         formField = addFormField(form, "remark", "备注", groupName, ControlTypes.TEXTAREA, false, false);
