@@ -27,7 +27,7 @@ import com.gongsibao.trade.web.SalesmanAllOrderFormPart;
 import com.gongsibao.trade.web.SalesmanAllOrderListPart;
 
 /*全部订单*/
-public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
+public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {        
 	private String listrowToolbarPath = "/crm/roworderall/toolbar";
 
 	@Override
