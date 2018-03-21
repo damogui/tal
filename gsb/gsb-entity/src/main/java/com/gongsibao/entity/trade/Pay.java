@@ -100,7 +100,7 @@ public class Pay extends BaseEntity {
     private Date depPayAuditPassTime = new Date ();
 
     /*new beg*/
-//    @Exclusive
+    @Exclusive
     @Subs(subType = OrderPayMap.class, foreignKey = "payId", header = "支付明细")
     private List<OrderPayMap> orderPayMaps = new ArrayList<> ();
 

@@ -37,7 +37,7 @@ public class NDepReceivable extends Entity {
     private Integer orderId;
 
 
-
+    @JsonIgnore
     @Reference(foreignKey = "orderId")
     private SoOrder order;
 
