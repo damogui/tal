@@ -45,7 +45,7 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
             datagrid.setAutoQuery(true);
         }
         PDatagridColumn column = null;
-        addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+        addColumn(datagrid, "order.id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
         addColumn(datagrid, "order.no", "订单编号", ControlTypes.TEXT_BOX, 80);
         addColumn(datagrid, "order.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "order.prodName", "产品名称", ControlTypes.TEXT_BOX, 250);
