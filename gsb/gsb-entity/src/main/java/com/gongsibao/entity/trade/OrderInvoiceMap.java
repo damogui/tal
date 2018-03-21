@@ -20,7 +20,7 @@ public class OrderInvoiceMap extends BaseEntity {
 	private Integer invoiceId;
 	
 	//@JsonIgnore
-	@Reference(foreignKey = "orderId")
+	@Reference(foreignKey = "orderId", primaryKey = "pkid")
 	private SoOrder soOrder;
 
 	@Reference(foreignKey = "invoiceId", primaryKey = "pkid")
