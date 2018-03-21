@@ -31,8 +31,6 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         this.invokeService("newInstance", [orderId], function (jmessage) {
 
             me.currentItem = jmessage;
-            //绑定订单信息
-            me.bindOrderInfo(jmessage);
 
             var fk = me.queryString("fk");
             if (fk != null && fk != "") {
@@ -42,7 +40,7 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
 
                     var property = properties[i];
                     var pair = property.split(':');
-                    var expression = "me.currentItem." + pair[0] + "='" + decodeURI(pair[1]) + "';";
+                    var expression = "me.currentItem." + pair[0] + "='" + pair[1] + "';";
                     eval(expression);
                 }
             }
@@ -50,11 +48,16 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
 
             me.viewModel.currentItem = me.currentItem;
             me.currentItem.entityState = EntityState.New;
+            //公司名称
+            me.currentItem.companyName = jmessage.soOrder.companyIntention == null ? "" : jmessage.soOrder.companyIntention.companyName;
+            me.currentItem.platformSource = me.orderPlatformSourceEnum[jmessage.soOrder.platformSource];
             me.added(me.currentItem);
             if (me.currentItem == null) {
                 me.viewModel.clear();
             } else {
                 me.databind();
+                //绑定订单信息
+                me.bindOrderInfo(jmessage);
             }
         });
     },
@@ -82,42 +85,6 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         //所在部门
         $("#soOrder_department_name").text(jmessage.soOrder.department == null ? "" : jmessage.soOrder.department.name);
         // endregion
-    },
-    save: function () {
-        var isValidated = this.validate();
-
-        if (!isValidated) {
-            return;
-        }
-
-        this.viewModel.context = this.context;
-        var entity = this.viewModel.getEntity();
-
-        //如果父部件为树部件
-        if (this.viewModel.parentId != null && this.viewModel.parentId != "" && this.viewModel.parentId != undefined) {
-
-            entity.parentId = this.viewModel.parentId;
-        }
-
-        if (!this.onSaving(entity)) {
-            return;
-        }
-
-        var fk = this.queryString("fk");
-        if (fk != null && fk != "") {
-
-            var properties = fk.split(';');
-            for (var i = 0; i < properties.length; i++) {
-
-                var property = properties[i];
-                var pair = property.split(':');
-                var expression = "entity." + pair[0] + "='" + pair[1] + "';";
-                eval(expression);
-            }
-        }
-
-        this.addExtraProp(entity);
-        this.doSave(entity);
     },
     addExtraProp: function (entity) {
         entity.sginingUserId = entity.soOrder.ownerId == null ? 0 : entity.soOrder.ownerId;
@@ -175,7 +142,7 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
             }
             return true;
         }
-        return true;
+        return false;
     }
 
 });

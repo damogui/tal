@@ -21,7 +21,8 @@ public class RegexUtils {
     // 日期(yyyy-MM-dd或yyyy-MM-dd HH:mm:ss)
     public static final String DATE_PATTERN_STRING = "((^((1[8-9]\\d{2})|([2-9]\\d{3}))[-](10|12|0?[13578])[-](3[01]|[12][0-9]|0?[1-9])(\\s{1}([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$)|(^((1[8-9]\\d{2})|([2-9]\\d{3}))[-](11|0?[469])[-](30|[12][0-9]|0?[1-9])(\\s{1}([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$)|(^((1[8-9]\\d{2})|([2-9]\\d{3}))[-](0?2)[-](2[0-8]|1[0-9]|0?[1-9])(\\s{1}([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$)|(^([2468][048]00)[-](0?2)[-](29)(\\s{1}([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$)|(^([3579][26]00)[-](0?2)[-](29)(\\s{1}([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$)|(^([1][89][0][48])[-](0?2)[-](29)(\\s{1}([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$)|(^([2-9][0-9][0][48])[-](0?2)[-](29)(\\s{1}([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$)|(^([1][89][2468][048])[-](0?2)[-](29)(\\s{1}([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$)|(^([2-9][0-9][2468][048])[-](0?2)[-](29)(\\s{1}([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$)|(^([1][89][13579][26])[-](0?2)[-](29)(\\s{1}([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$)|(^([2-9][0-9][13579][26])[-](0?2)[-](29)(\\s{1}([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])?$)|(^([2-9][0-9][13579][26])[-](0?2)[-](29)(\\s{1}([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]*))?$))";
     public static final String PASSWORD_STRING = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$";
-
+    //身份证
+    public static final String IDCard_STRING = "(^\\d{15}$)|(^\\d{18}$)|(^\\d{17}(\\d|X|x)$)";
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_PATTERN_STRING);
     private static final Pattern PHONE_PATTERN = Pattern.compile(PHONE_PATTERN_STRING);
@@ -37,6 +38,8 @@ public class RegexUtils {
     public final static Pattern PASSWORD_PATTERN = Pattern.compile(PASSWORD_STRING);
     //特殊字符
     public final static Pattern Teshu_PATTERN = Pattern.compile("[^\\w\\s]+");
+
+    public final static Pattern IDCard_PATTERN = Pattern.compile(IDCard_STRING);
 
 
     /*加密ID正则表达式*/
@@ -68,6 +71,13 @@ public class RegexUtils {
             return false;
         }
         return PHONE_PATTERN.matcher(value).find();
+    }
+
+    public static boolean isIdCard(String value) {
+        if (org.apache.commons.lang.StringUtils.isEmpty(value)) {
+            return false;
+        }
+        return IDCard_PATTERN.matcher(value).find();
     }
 
     public static boolean isNotPhone(String value) {

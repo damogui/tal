@@ -20,6 +20,7 @@
 	<script src='/panda-res/js/panda.core.js'></script>
 	<script src='/panda-res/js/panda.js'></script>
     <script src='/package/easyui/datagrid-cellediting.js'></script>
+	<script src='/gsb/platform/trade/js/order-allot.ctrl.js'></script>
 	<script src='/gsb/platform/trade/js/order.refund-ctrl.js'></script>
 </head>
     <body class="easyui-layout">

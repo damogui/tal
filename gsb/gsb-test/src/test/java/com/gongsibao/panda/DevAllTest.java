@@ -10,7 +10,7 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
 @RunWith(Suite.class)
 @SuiteClasses({
 
-//平台相关（不可删除）
+        //平台相关（不可删除）
         org.netsharp.meta.framework.AllTests.class,
         org.netsharp.meta.platform.AllTests.class,
         org.netsharp.meta.basebiz.AllTests.class,
@@ -38,7 +38,7 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
         SupplierAllTest.class,
 
         //6.商品管理
-//	com.gongsibao.panda.product.AllTest.class,
+        com.gongsibao.panda.platform.product.AllTest.class,
 
 
         //8.交易中心
@@ -58,7 +58,7 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
 
         //放在最后处理
         AuthAllTest.class
-	})
+})
 public class DevAllTest {
 
 }
