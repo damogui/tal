@@ -203,7 +203,7 @@ input{
 		var imgurl=getHashParameter("imgurl");
 		 siteCtl.invoke(ctlServiceStr2,"fetchUnconfirmedCaseInfoByCode",[casecode],function(d){
 			  var len= d.applier.length;
-			  $("#client").html(d.applier+repeat("&nbsp;",40-len));
+			  $("#client").html(d.applier+repeat("&nbsp;",36-len));
 			  len= d.proxyCompanyName.length;
 				$("#delecomp").html(d.proxyCompanyName+repeat("&nbsp;",60-len));
 				$("#applieraddress").text(d.applierAddress);
