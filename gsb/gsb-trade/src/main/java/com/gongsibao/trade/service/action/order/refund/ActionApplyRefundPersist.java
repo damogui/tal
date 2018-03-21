@@ -33,7 +33,7 @@ public class ActionApplyRefundPersist  implements IAction{
 			entity.setRefundId(item.getRefundId());
 			entity.setSupplierId(item.getSupplierId());
 			entity.setDepartmentId(item.getDepartmentId());
-			entity.setEmployeeId(item.getEmployeeId());
+			entity.setSalesmanId(item.getSalesmanId());
 			depRefundService.save(entity);
 		}
 	}

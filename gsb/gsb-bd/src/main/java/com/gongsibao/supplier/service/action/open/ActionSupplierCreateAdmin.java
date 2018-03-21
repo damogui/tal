@@ -8,13 +8,10 @@ import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.base.IPersistableService;
 import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.BusinessException;
 import org.netsharp.core.Oql;
 import org.netsharp.organization.base.IEmployeeService;
 import org.netsharp.organization.base.IRoleEmployeeService;
-import org.netsharp.organization.base.IRoleService;
 import org.netsharp.organization.entity.Employee;
-import org.netsharp.organization.entity.Role;
 import org.netsharp.organization.entity.RoleEmployee;
 import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
@@ -22,11 +19,14 @@ import org.netsharp.util.ReflectManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.entity.supplier.DepartmentProduct;
+import com.gongsibao.entity.supplier.FunctionModuleRole;
 import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
+import com.gongsibao.entity.supplier.SupplierFunctionModule;
 import com.gongsibao.entity.supplier.SupplierProduct;
 import com.gongsibao.entity.supplier.dict.SupplierStatus;
+import com.gongsibao.supplier.base.IFunctionModuleRoleService;
 import com.gongsibao.supplier.base.ISupplierDepartmentService;
 import com.gongsibao.supplier.service.SupplierService;
 
@@ -121,13 +121,16 @@ public class ActionSupplierCreateAdmin implements IAction {
 		IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
 		Employee employee = employeeService.byPhone(mobile);
 
-		Role role = getAdminRole();
 		List<RoleEmployee> roles = new ArrayList<RoleEmployee>();
-		RoleEmployee reEmployee = new RoleEmployee();
-		{
-			reEmployee.toNew();
-			reEmployee.setRoleId(role.getId());
-			roles.add(reEmployee);
+		List<FunctionModuleRole> fmrList = getAdminRole(supplier);
+		for (FunctionModuleRole fmr : fmrList) {
+
+			RoleEmployee reEmployee = new RoleEmployee();
+			{
+				reEmployee.toNew();
+				reEmployee.setRoleId(fmr.getRoleId());
+				roles.add(reEmployee);
+			}
 		}
 
 		if (employee == null) {
@@ -149,7 +152,7 @@ public class ActionSupplierCreateAdmin implements IAction {
 			if (!isHasAdminRole) {
 
 				employee.setRoles(roles);
-				reEmployee.setEmployeeId(employee.getId());
+				//reEmployee.setEmployeeId(employee.getId());
 			}
 		}
 
@@ -206,21 +209,17 @@ public class ActionSupplierCreateAdmin implements IAction {
 		return department;
 	}
 
-	private Role getAdminRole() {
+	private List<FunctionModuleRole> getAdminRole(Supplier supplier) {
 
-		IRoleService roleService = ServiceFactory.create(IRoleService.class);
-		Oql oql = new Oql();
-		{
-			oql.setType(Role.class);
-			oql.setSelects("id,name");
-			oql.setFilter("code='Supplier_Admin'");
+		List<Integer> moduleIdList = new ArrayList<Integer>();
+		List<SupplierFunctionModule> moduleList = supplier.getModules();
+		for (SupplierFunctionModule sfm : moduleList) {
+
+			moduleIdList.add(sfm.getFunctionModuleId());
 		}
 
-		Role role = roleService.queryFirst(oql);
-		if (role == null) {
-
-			throw new BusinessException("请设置编码为'Supplier_Admin'的角色！");
-		}
-		return role;
+		IFunctionModuleRoleService fmrService = ServiceFactory.create(IFunctionModuleRoleService.class);
+		List<FunctionModuleRole> fmrList = fmrService.queryList(moduleIdList);
+		return fmrList;
 	}
 }

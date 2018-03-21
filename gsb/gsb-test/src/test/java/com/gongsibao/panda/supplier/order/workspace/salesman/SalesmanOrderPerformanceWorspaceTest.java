@@ -15,7 +15,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import com.gongsibao.entity.trade.NDepReceivable;
 import com.gongsibao.trade.web.SalesmanOrderPerformanceListPart;
 
-/*订单业绩*/
+/*订单业绩列表*/
 public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase {
     @Before
     public void setup() {

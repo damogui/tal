@@ -8,46 +8,52 @@ import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
 
 public interface IOrderService extends IPersistableService<SoOrder> {
-	
-	/**   
-	 * @Title: applyStage   
-	 * @Description: TODO(申请分期)
-	 * @param: @param soOrder
-	 * @param: @return
-	 * @return: Boolean      
-	 * @throws   
-	 */
-	@Transaction
-	Boolean applyStage(SoOrder soOrder);
-	
-	
-	/**   
-	 * @Title: applyRefund   
-	 * @Description: TODO(申请退款)   
-	 * @param: @param refund
-	 * @param: @return      
-	 * @return: Boolean      
-	 * @throws   
-	 */
-	@Transaction
-	Boolean applyRefund(Refund refund);
-	
-	/**   
-	 * @Title: applyCarryover   
-	 * @Description: TODO(申请结转)   
-	 * @param: @return      
-	 * @return: Boolean      
-	 * @throws   
-	 */
-	@Transaction
-	Boolean applyCarryover(NOrderCarryover orderCarryover);
+
+    /**
+     * @throws
+     * @Title: applyStage
+     * @Description: TODO(申请分期)
+     * @param: @param soOrder
+     * @param: @return
+     * @return: Boolean
+     */
+    @Transaction
+    Boolean applyStage(SoOrder soOrder);
+
+
+    /**
+     * @throws
+     * @Title: applyRefund
+     * @Description: TODO(申请退款)
+     * @param: @param refund
+     * @param: @return
+     * @return: Boolean
+     */
+    @Transaction
+    Boolean applyRefund(Refund refund);
+
+    /**
+     * @throws
+     * @Title: applyCarryover
+     * @Description: TODO(申请结转)
+     * @param: @return
+     * @return: Boolean
+     */
+    @Transaction
+    Boolean applyCarryover(NOrderCarryover orderCarryover);
 
     /*
     *根据订单id获取订单实体
     * */
-    public SoOrder getByOrderId(Integer orderId);
+    SoOrder getByOrderId(Integer orderId);
+
     /*
      *根据订单no获取订单实体
      * */
-    public SoOrder getByOrderNo(String orderNo);
+    SoOrder getByOrderNo(String orderNo);
+
+    /*
+     *根据订单no获取订单id
+     * */
+    Integer getOrderIdByNo(Integer orderNo);
 }

@@ -24,22 +24,26 @@
 	<script src='/gsb/platform/trade/js/order-pay-map.ctrl.js'></script>
 </head>
      <body class="easyui-layout">
-        <div data-options="region:'north',split:false,collapsible:false,closed:false,height:80">
+        <div data-options="region:'north',split:false,collapsible:false,closed:false,height:150">
         	 <div class="formContent">
 				  <table cellpadding="3" cellspacing="0" class="form-panel">
-				      <tr>
-				          <td class="label_td"><label>订单号：</label></td>
-				          <td class="control_td">
-				          		<input id="orderNo" class="easyui-validatebox nsInput" style="width:200px;"/>
-				          </td>
-				          <td class="label_td"><label>订单分配金额：</label></td>
-				          <td class="control_td">
-					          	<input id="amount" class="easyui-numberbox nsInput" data-options="precision:2,width:200,min:1"/>
-				          </td>
-				          <td class="label_td"><label>付款类别：</label></td>
-				          <td class="control_td">
-				          		<input id="u8BankId" class="easyui-combobox nsInput" data-options="editable:false,width:200"/>
-				          </td>
+				    <tr>
+				       <td class="label_td"><label>订单号：</label></td>
+				       <td class="control_td">
+				          	<input id="orderNo" class="easyui-validatebox nsInput" style="width:200px;"/>
+				       </td>
+					</tr>
+					<tr>
+				       <td class="label_td"><label>订单分配金额：</label></td>
+				       <td class="control_td">
+					       <input id="amount" class="easyui-numberbox nsInput" data-options="precision:2,width:200,min:1"/>
+				       </td>
+					</tr>
+					<tr>
+				      <td class="label_td"><label>付款类别：</label></td>
+				      <td class="control_td">
+				           <input id="u8BankId" class="easyui-combobox nsInput" data-options="editable:false,width:200"/>
+				      </td>
 					</tr>
 				</table>
         	 </div>

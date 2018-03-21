@@ -114,6 +114,7 @@ com.gongsibao.trade.web.PayVoucherDetailCtrl = org.netsharp.panda.core.CustomCtr
     init:function(){
 
     	this.initGrid();
+    	this.initUpload();
     },
 	initGrid:function(){
 	    
@@ -126,19 +127,7 @@ com.gongsibao.trade.web.PayVoucherDetailCtrl = org.netsharp.panda.core.CustomCtr
 			showFooter:true,
 			singleSelect:true,
 			height:'100%',
-			toolbar: [{
-				iconCls: 'fa fa-cloud-upload',
-				text:'上传',
-				handler: function(){
-					me.add();
-				}
-			},'-',{
-				iconCls: 'fa fa-remove',
-				text:'删除',
-				handler: function(){
-					me.remove();
-				}
-			}],
+			toolbar: '#upload_toolbar',
 		    columns:[[
 		        {field:'id',title:'操作',width:80,align:'center',formatter:function(value,row,index){
 		        	
@@ -152,16 +141,45 @@ com.gongsibao.trade.web.PayVoucherDetailCtrl = org.netsharp.panda.core.CustomCtr
 		    ]]
 		});
 	},
-	add:function(){
-		
-		alert('上传文件！');
+	initUpload:function(){
+
+		var upload = new org.netsharp.controls.PayVoucherUpload();
+		upload.parent = this;
+		upload.init();
 	},
+	add: function (path,file) {
+
+    	//构建凭证对象并插入到表格中
+    },
 	remove:function(){
 		
 		alert('删除文件！');
 	}
 });
 
+
+/***
+ * 
+ * 凭证上传组件
+ */
+org.netsharp.controls.PayVoucherUpload = org.netsharp.controls.OSSUpload.Extends({
+	ctor: function() {
+		this.base();
+		this.multi_selection = true;
+		this.parent = null;
+	},
+	getButtonId:function(){
+		
+		return "btn_upload";
+	},
+	preview:function(path,file){
+		
+		if(System.isnull(path)){
+			return;
+		}
+		this.parent.add(path,file);
+	}
+});
 
 com.gongsibao.trade.web.OrderRelevancePerformanceCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
     ctor: function () {
@@ -253,7 +271,7 @@ com.gongsibao.trade.web.OrderRelevancePerformanceCtrl = org.netsharp.panda.core.
             fixed: false,
             maxmin: true,
             shadeClose: false,
-            area: ['60%', '70%'],
+            area: ['600px', '500px'],
             zIndex: 100000,
             id: "orderPayMap",
             content: url,

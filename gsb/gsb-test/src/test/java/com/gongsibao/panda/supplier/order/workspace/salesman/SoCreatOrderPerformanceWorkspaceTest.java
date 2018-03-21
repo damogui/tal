@@ -207,7 +207,7 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
                 column.setAlign (DatagridAlign.CENTER);
             }
 
-            column = addColumn (datagrid, "employee.name", "业务员", ControlTypes.TEXT_BOX, 150);
+            column = addColumn (datagrid, "salesman.name", "业务员", ControlTypes.TEXT_BOX, 150);
             column = addColumn (datagrid, "amount", "分配金额", ControlTypes.DECIMAL_FEN_BOX, 150);
 
         }
@@ -232,7 +232,8 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
                 formField.setTroikaTrigger ("controllerdepReceivable.departmentChange(newValue,oldValue);");
             }
 
-            formField = addFormFieldRefrence (form, "employee.name", "业务员", null, "OrderSalesman", true, false);
+            formField = addFormFieldRefrence (form, "salesman.name", "业务员", null, "OrderSalesman", true, false);
+
             formField = addFormField (form, "amount", "分配金额", null, ControlTypes.DECIMAL_FEN_BOX, true, false);
 
             {

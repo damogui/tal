@@ -137,6 +137,9 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		}
 		// //附件商标图样因为色彩而变化
 		if (entity.getEntityState() == EntityState.Persist) {
+			Integer sid = SupplierSessionManager.getSupplierId();
+			Integer departmentId = SupplierSessionManager.getDepartmentId();
+
 			String tmp="";
 			int m=1;
 			for (TradeMark tm : entity.getTradeMarks()) {
@@ -145,6 +148,12 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 					m++;
 				}	else {
 					m++;
+				}
+				if(sid!=null && sid!=-1){
+					tm.setSupplierId(sid);
+				}
+				if(departmentId!=null && departmentId!=-1) {
+					tm.setDepartmentId(departmentId);
 				}
 				if (tm.getEntityState() != EntityState.Deleted) {
 					tmp+=tm.getNclOne().getCode()+" ";

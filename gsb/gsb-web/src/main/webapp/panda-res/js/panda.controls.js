@@ -369,6 +369,7 @@ org.netsharp.controls.QiNiuUpload = org.netsharp.controls.TextBox.Extends({
 org.netsharp.controls.OSSUpload = org.netsharp.controls.QiNiuUpload.Extends({
 	ctor: function() {
 		this.base();
+		this.multi_selection = false;
 	},
 	getButtonId:function(){
 		
@@ -393,7 +394,7 @@ org.netsharp.controls.OSSUpload = org.netsharp.controls.QiNiuUpload.Extends({
 				flash_swf_url : '/package/plupload/js/Moxie.swf',
 				silverlight_xap_url : '/package/plupload/js/Moxie.xap',
 			    url : 'http://oss.aliyuncs.com',
-			    multi_selection: false,
+			    multi_selection: me.multi_selection,
 				init: {
 					PostInit: function() {
 //			            me.setUploadParam(uploader);

@@ -6,6 +6,8 @@ import java.util.List;
 
 import com.gongsibao.entity.trade.dic.RefundSettlementMethodType;
 import com.gongsibao.entity.u8.U8Bank;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.*;
 
 import com.gongsibao.entity.BaseEntity;
@@ -23,6 +25,7 @@ public class Refund extends BaseEntity {
     private Integer orderId;
 
     // 订单
+    @JsonIgnore
     @Reference(foreignKey = "orderId")
     private SoOrder soOrder;
 
