@@ -57,7 +57,8 @@ public class NDepPay extends Entity {
 
     /*new beg*/
     @JsonIgnore
-    @Reference(foreignKey = "orderPayMapId", header = "支付明细")
+    @Reference(foreignKey = "orderPayMapId", header = "支付明细"
+    )
     private OrderPayMap orderPayMap;
 
     /*new end*/

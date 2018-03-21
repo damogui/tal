@@ -8,26 +8,25 @@ com.gongsibao.trade.web.SoCreatReceivePerformanceFormPart = org.netsharp.panda.c
         var me = this;
         var depPayMapDTO = {};
         var imgs = [];
-        var totalCutAmount=0;//添加的划分金额总额
+        var totalCutAmount = 0;//添加的划分金额总额
 
         var checkVal = checkFormVal();//校验表单
         if (checkVal == 1) {
             return 0;//校验没通过
         }
         depPayMapDTO.isOnlinePay = $("#isOnlinePay")[0].checked;//是否在线支付
-        if(depPayMapDTO.isOnlinePay){
-            if (payId==0){
-                
-                IMessageBox.toast("不存在支付记录",2);
+        if (depPayMapDTO.isOnlinePay) {
+            if (payId == 0) {
+
+                IMessageBox.toast("不存在支付记录", 2);
                 return;
             }
-
 
 
         }
 
 
-        depPayMapDTO.noCutAmount =parseFloat($("#onLineNotCutPay").numberbox('getValue')) ;//未创建业绩总额
+        depPayMapDTO.noCutAmount = parseFloat($("#onLineNotCutPay").numberbox('getValue'));//未创建业绩总额
         depPayMapDTO.payId = payId;
         //depPayMapDTO.orderPayMaps = []; //$("#pays_u8Bank_setOfBooks_name").textbox("getValue");
         depPayMapDTO.setOfBooks = $("#pays_u8Bank_setOfBooks_name").combogrid("getValue");
@@ -35,30 +34,30 @@ com.gongsibao.trade.web.SoCreatReceivePerformanceFormPart = org.netsharp.panda.c
         depPayMapDTO.offlinePayerName = $("#offlinePayerName").val();
         depPayMapDTO.offlineBankNo = $("#offlineBankNo").val();
         depPayMapDTO.payForOrderCount = $("#payForOrderCount")[0].checked;
-        depPayMapDTO.amount =parseFloat($("#amount").numberbox('getValue')) ;
+        depPayMapDTO.amount = parseFloat($("#amount").numberbox('getValue'));
 
         //depPayMapDTO.files = $(".btn-preview").attr("href");//凭证图片
         imgs.push($(".btn-preview").attr("href"));
-        depPayMapDTO.imgs=imgs;
+        depPayMapDTO.imgs = imgs;
         depPayMapDTO.offlineRemark = $("#offlineRemark").val();
         var rows = $('#datagridpays').datagrid('getRows');//添加的行
         var orderRelations = [];
-        
+
         $(rows).each(function (i, item) {
             var orderRelation = {};
             orderRelation.orderId = item.orderId;
-            orderRelation.orderCutAmount =parseFloat(item.orderCutAmount);
+            orderRelation.orderCutAmount = parseFloat(item.orderCutAmount);
             orderRelation.payType = item.payType;
 
             orderRelation.items = item.items;
             orderRelations.push(orderRelation);
-            totalCutAmount+=parseFloat(item.orderCutAmount) ;
+            totalCutAmount += parseFloat(item.orderCutAmount);
 
         });
         depPayMapDTO.orderRelations = orderRelations;
-        var  maxCut=$("#amount").numberbox('getValue');
-        
-        if(!depPayMapDTO.payForOrderCount&&totalCutAmount>parseFloat(maxCut)){
+        var maxCut = $("#amount").numberbox('getValue');
+
+        if (!depPayMapDTO.payForOrderCount && totalCutAmount > parseFloat(maxCut)) {
 
             IMessageBox.toast('业绩分配总额超过支付金额');
             return;
@@ -246,7 +245,7 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
             ]]
         });
     },
-    
+
     add: function () {
         var me = this;
         var checkVal = checkFormVal();//校验表单
@@ -311,37 +310,36 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
                 //如果是一笔多单的情况校验是不是存在订单号
                 var orderMultiple = $("#payForOrderCount")[0].checked;
                 if (orderMultiple) {
-                    alert("校验订单号是否存在");
-
+                  
+                    var orderId = $("#orderNo").numberbox('getValue');
                     me.invokeService('checkOrderId', [orderId], function (data) {
-                        //
+
+                        
+                        if (data > 0) {
+
+                            //进行绑定数据
+                            var orderBack = me.getOrderBack();
+                            var orderCutAmount = $("#orderCutPrice").numberbox('getValue');
+
+                            if (orderBack.allAmount != parseFloat(orderCutAmount)) {
+
+                                IMessageBox.toast("回款业绩分配金额必须等于订单分配金额", 2);
+                                return
+                            } else {
+
+                                $('#datagridpays').datagrid('appendRow', orderBack);//赋值
+
+                                layer.closeAll();
+                            }
+
+                        } else {
+                            IMessageBox.toast('订单不存在', 2);
+                            return;
 
 
-                        // if (data > 0) {
-                        //
-                        //     IMessageBox.toast('保存成功');
-                        //
-                        // } else {
-                        //
-                        //     IMessageBox.toast('保存失败');
-                        // }
+                        }
                     });
 
-                }
-
-                //进行绑定数据
-                var orderBack = me.getOrderBack();
-                var orderCutAmount=$("#orderCutPrice").numberbox('getValue');
-
-                if(orderBack.allAmount!=parseFloat(orderCutAmount)){
-
-                    IMessageBox.toast("回款业绩分配金额必须等于订单分配金额",2);
-                    return
-                }else{
-
-                    $('#datagridpays').datagrid('appendRow', orderBack);//赋值
-
-                    layer.closeAll();
                 }
 
 
@@ -381,7 +379,7 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
         orderBack.orderCutAmount = $("#orderCutPrice").numberbox("getValue");
         orderBack.payType = $("#payType").combogrid("getValue");
         orderBack.payTypeStr = $("#payType").combogrid("getText");
-         var orderBackAllAmount=0;
+        var orderBackAllAmount = 0;
 
         var suppliernameStr = "";
         var departmentnameStr = "";
@@ -393,12 +391,12 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
             departmentnameStr += '<p>' + item.departmentname + '</p>';
             salesmannameStr += '<p>' + item.salesmanname + '</p>';
             amountStr += '<p>' + item.amount + '</p>';
-            orderBackAllAmount+=parseFloat(item.amount);
+            orderBackAllAmount += parseFloat(item.amount);
             var allDepPay = {};
             allDepPay.supplierId = item.supplierId;
             allDepPay.departmentId = item.departmentId;
             allDepPay.employeeId = item.salesmanId;
-            allDepPay.amount = parseFloat( item.amount);
+            allDepPay.amount = parseFloat(item.amount);
             items.push(allDepPay);
         });
 
@@ -408,7 +406,7 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
         orderBack.cutAmountStr = amountStr;
         orderBack.items = items;//循环保存实体
 
-        orderBack.allAmount=orderBackAllAmount;//总金额保存的时候跟订单金额进行比较
+        orderBack.allAmount = orderBackAllAmount;//总金额保存的时候跟订单金额进行比较
 
         return orderBack;
     },
@@ -461,7 +459,7 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
                     $('#isOnlinePay').switchbutton('disable');
 
 
-                    IMessageBox.toast("不存在支付记录",2);
+                    IMessageBox.toast("不存在支付记录", 2);
 
                 }
             });
@@ -597,7 +595,7 @@ function getEmployeeOption() {
 
 
 /*进行校验*/
-function  checkFormVal () {
+function checkFormVal() {
     var orderOnlne = $("#isOnlinePay")[0].checked;
 
     //校验值必填项和金额比对
@@ -606,31 +604,31 @@ function  checkFormVal () {
         var val1 = $("#pays_u8Bank_setOfBooks_name").combogrid('getValue');
         if (System.isnull(val1)) {
             // IMessageBox.info("付款账套必选");
-            IMessageBox.toast("付款账套必选",2);
+            IMessageBox.toast("付款账套必选", 2);
             return 1;
 
         }
         var val2 = $("#pays_u8Bank_name").combogrid('getValue');
         if (System.isnull(val2)) {
             // IMessageBox.info("付款方式必选")
-            IMessageBox.toast("付款方式必选",2);
+            IMessageBox.toast("付款方式必选", 2);
             return 1;
         }
         var val3 = $("#offlinePayerName").val();
         if (System.isnull(val3)) {
             //IMessageBox.info("付款账号名称必填")
-            IMessageBox.toast("付款账号名称必填",2);
+            IMessageBox.toast("付款账号名称必填", 2);
             return 1;
         }
         var val4 = $("#offlineBankNo").val();
         if (System.isnull(val4)) {
             //IMessageBox.info("付款账号必填")
-            IMessageBox.toast("付款账号必填",2);
+            IMessageBox.toast("付款账号必填", 2);
             return 1;
         }
         var val5 = $("#amount").numberbox('getValue');
         var val55 = $("#payablePrice").numberbox('getValue');
-        
+
         if (parseInt(val5) <= 0) {
 
             IMessageBox.info("付款金额必填")
@@ -646,7 +644,7 @@ function  checkFormVal () {
 
         return 0;
     }
-    
+
 }
 
 
