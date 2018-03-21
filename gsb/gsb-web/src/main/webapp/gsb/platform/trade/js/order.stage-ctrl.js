@@ -7,11 +7,11 @@ com.gongsibao.trade.web.OrderStageCtrl = org.netsharp.panda.core.CustomCtrl.Exte
     },
     init:function(){
 		
-		$('#detail_tabs').tabs({
-			fit:true,
-			tabHeight:35
+		$('#stage_panel').panel('resize',{
+			height: $('body').height()-220
 		});
-		
+
+
     	var orderId = this.queryString('id');
     	this.invokeService ("getSoOrder", [orderId], function(data){
     		
