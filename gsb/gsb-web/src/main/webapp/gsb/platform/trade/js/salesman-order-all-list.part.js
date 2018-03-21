@@ -121,7 +121,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                     fixed: false,
                     maxmin: true,
                     shadeClose: false,
-                    area: ['70%', '85%'],
+                    area: ['70%', '95%'],
                     zIndex: 100000,
                     id: "addRefundIframe",
                     content: contentUrl,
