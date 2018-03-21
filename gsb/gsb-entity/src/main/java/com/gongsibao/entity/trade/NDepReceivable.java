@@ -35,7 +35,9 @@ public class NDepReceivable extends Entity {
     private Supplier supplier;
     @Column(name = "order_id", header = "订单Id")
     private Integer orderId;
-    @JsonIgnore
+
+
+
     @Reference(foreignKey = "orderId")
     private SoOrder order;
 

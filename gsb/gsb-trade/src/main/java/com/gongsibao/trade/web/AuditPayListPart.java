@@ -2,6 +2,9 @@ package com.gongsibao.trade.web;
 
 import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.entity.trade.Pay;
+import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.trade.base.IOrderService;
+import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.EasyuiDatagridResult;
@@ -45,6 +48,8 @@ public class AuditPayListPart extends AdvancedListPart {
     /*获取订单号*/
     private Object getOrderIds(Object o) {
         Pay pay = (Pay) o;
+        IOrderService orderService = ServiceFactory.create (IOrderService.class);//订
+        /*根据订单id获取订单编号*/
         StringBuilder sb = new StringBuilder ();
         if (pay.getOrderPayMaps ().size () > 0) {
 
@@ -52,16 +57,23 @@ public class AuditPayListPart extends AdvancedListPart {
             for (OrderPayMap item : pay.getOrderPayMaps ()
                     ) {
 
+
                 if (!item.equals (pay.getOrderPayMaps ().get (pay.getOrderPayMaps ().size () - 1))) {
                     sb.append ("<p>");
 
                 }
-                sb.append (item.getOrderId ());
+                SoOrder order = orderService.getByOrderId (item.getOrderId ());
+                if (order != null) {
+
+                    sb.append (order.getNo ());
+                }
+
 
                 if (!item.equals (pay.getOrderPayMaps ().get (pay.getOrderPayMaps ().size () - 1))) {
                     sb.append ("</p>");
 
                 }
+
 
             }
 
