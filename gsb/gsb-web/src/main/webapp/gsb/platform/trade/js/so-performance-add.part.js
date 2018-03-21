@@ -8,6 +8,10 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
         this.editUrl = null;
         this.followUrl = null;
         this.addCustomerUrl = null;
+        var employeeOption = getEmployeeOption();//重新制定
+        $('#salesman_name').combogrid(employeeOption);
+
+
     },
     onload: function () {
 
@@ -34,22 +38,22 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
         $(grid).datagrid(options);
 
         //改变业务员的查询条件
-        $('#employee_name').combogrid('clear');
-        var grid = $('#employee_name').combogrid('grid');
+        $('#salesman_name').combogrid('clear');
+        var grid = $('#salesman_name').combogrid('grid');
         var options = $(grid).datagrid('options');
         var filter = ' department_id ____ ----' + newValue + '----';
-        options.url = '\/panda\/rest\/reference?code=OrderSalesman&filter=' + filter;
+        options.url = '\/panda\/rest\/reference?code=Salesman&filter=' + filter;
         $(grid).datagrid(options);
 
     },
     departmentChange: function (newValue, oldValue) {
         
         //改变业务员的查询条件
-        $('#employee_name').combogrid('clear');
-        var grid = $('#employee_name').combogrid('grid');
+        $('#salesman_name').combogrid('clear');
+        var grid = $('#salesman_name').combogrid('grid');
         var options = $(grid).datagrid('options');
         var filter = ' department_id ____ ----' + newValue + '----';
-        options.url = '\/panda\/rest\/reference?code=OrderSalesman&filter=' + filter;
+        options.url = '\/panda\/rest\/reference?code=Salesman&filter=' + filter;
         $(grid).datagrid(options);
     },
     savebase: function () {
@@ -121,4 +125,38 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
     }
 
 });
+
+function getEmployeeOption() {
+    var employeeOption = {
+        columns: [[{
+            field: 'employee_name',
+            title: '名称',
+            width: 100
+        }]],
+        rowStyler: function (index, row) {
+            // if (row.receiving === false) {
+            //     return 'color:red;';
+            // }
+        },
+        url: '\/panda\/rest\/reference?code=Salesman&filter=',
+        idField: 'employeeId',
+        textField: 'employee_name',
+        // width: 160,
+        fitColumns: true,
+        // panelWidth: 450,
+        // panelHeight: 310,
+        pagination: true,
+        pageSize: 10,
+        mode: 'remote',
+        multiple: false,
+        onChange: function (newValue, oldValue) {
+            /*if(oldValue!="" && newValue != oldValue){
+             }*/
+        }
+    };
+
+    return employeeOption;
+}
+
+
 

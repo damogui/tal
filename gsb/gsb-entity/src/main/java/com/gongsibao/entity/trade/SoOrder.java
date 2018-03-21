@@ -125,7 +125,7 @@ public class SoOrder extends BaseEntity {
     @Column(name = "performance_price", header = "订单业绩已划分金额")
     private Integer performancePrice = 0;
 
-    @Subs(subType = NDepReceivable.class, foreignKey = "orderId", header = "业绩划分表")
+    @Subs(subType = NDepReceivable.class, foreignKey = "orderId", header = "订单业绩划分表")
     private List<NDepReceivable> depReceivable = new ArrayList<> ();
 
     @Column(name = "returned_price", header = "回款业绩已划分金额")
