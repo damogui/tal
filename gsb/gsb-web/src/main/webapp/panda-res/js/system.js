@@ -424,7 +424,7 @@ System.RMB = {
 		
 		return value*100;
 	},
-	FenToYun:function(value){
+	FenToYuan:function(value){
 		
 		return (value/100).toFixed(2);
 	}

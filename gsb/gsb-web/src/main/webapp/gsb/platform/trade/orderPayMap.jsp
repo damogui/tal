@@ -21,6 +21,7 @@
 	<script src='/panda-res/js/system.js'></script>
 	<script src='/panda-res/js/panda.core.js'></script>
 	<script src='/panda-res/js/panda.js'></script>
+	<script src='/gsb/platform/trade/js/order-allot.ctrl.js'></script>
 	<script src='/gsb/platform/trade/js/order-pay-map.ctrl.js'></script>
 </head>
      <body class="easyui-layout">
@@ -30,20 +31,23 @@
 				    <tr>
 				       <td class="label_td"><label>订单号：</label></td>
 				       <td class="control_td">
-				          	<input id="orderNo" class="easyui-validatebox nsInput" style="width:200px;"/>
+				          	<input id="orderNo" class="easyui-validatebox nsInput" onblur="payMapCtrl.orderNoBlur(this);" style="width:200px;"/>
+				       </td>
+				       <td class="label_td"><label>待支付金额：</label></td>
+				       <td class="control_td">
+					       <input id="unpaidAmount" class="easyui-numberbox nsInput" data-options="precision:2,width:200,min:1,disabled:true"/>
 				       </td>
 					</tr>
+					
 					<tr>
+				       <td class="label_td"><label>付款类别：</label></td>
+				       <td class="control_td">
+				           <input id="offlineInstallmentType" class="easyui-combobox nsInput" data-options="editable:false,width:200,url: '/panda/rest/enum?name=com.gongsibao.entity.trade.dic.PayOfflineInstallmentType'"/>
+				       </td>
 				       <td class="label_td"><label>订单分配金额：</label></td>
 				       <td class="control_td">
-					       <input id="amount" class="easyui-numberbox nsInput" data-options="precision:2,width:200,min:1"/>
+					       <input id="amount" class="easyui-numberbox nsInput" data-options="precision:2,width:200,min:1,onChange:function(newValue,oldValue){payMapCtrl.amountChange(newValue,oldValue);}"/>
 				       </td>
-					</tr>
-					<tr>
-				      <td class="label_td"><label>付款类别：</label></td>
-				      <td class="control_td">
-				           <input id="u8BankId" class="easyui-combobox nsInput" data-options="editable:false,width:200,url: '/panda/rest/enum?name=com.gongsibao.entity.trade.dic.PayOfflineInstallmentType'"/>
-				      </td>
 					</tr>
 				</table>
         	 </div>

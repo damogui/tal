@@ -17,10 +17,14 @@ import com.gongsibao.entity.u8.SetOfBooks;
 import com.gongsibao.entity.u8.U8Bank;
 import com.gongsibao.trade.base.IOrderPayMapService;
 import com.gongsibao.u8.base.ISetOfBooksService;
+import com.gongsibao.u8.base.ISoOrderService;
 import com.gongsibao.u8.base.IU8BankService;
 
 public class OrderPayController {
 
+	/**
+	 * @return
+	 */
 	public List<EnumResultJson> querySetOfBooksList() {
 
 		Oql oql = new Oql();
@@ -43,6 +47,10 @@ public class OrderPayController {
 		return enumList;
 	}
 
+	/**
+	 * @param setOfBooksId
+	 * @return
+	 */
 	public List<EnumResultJson> queryU8BankList(Integer setOfBooksId) {
 
 		IU8BankService bankService = ServiceFactory.create(IU8BankService.class);
@@ -113,4 +121,17 @@ public class OrderPayController {
 		return num;
 	}
 
+	
+	public SoOrder getOrderByNo(String orderNo){
+		
+		Oql oql = new Oql();
+		{
+			oql.setType(SoOrder.class);
+			oql.setSelects("id,no,totalPrice,payablePrice,refundPrice,paidPrice,carryAmount");
+			oql.setFilter("no=? and paid_price < payable_price");
+			oql.getParameters().add("no", orderNo, Types.INTEGER);
+		}
+		ISoOrderService service = ServiceFactory.create(ISoOrderService.class);
+		return service.queryFirst(oql);
+	}
 }

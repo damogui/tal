@@ -267,21 +267,21 @@ com.gongsibao.trade.web.OrderRelevancePerformanceCtrl = org.netsharp.panda.core.
 
 		        {field:'orderId',title:'订单号',align:'center',rowspan:2,width:150,formatter:function(value,row,index){
 	
-		        	if(row.order){
+		        	if(row.soOrder){
 		        		
-		        		return row.order.no;
+		        		return row.soOrder.no;
 		        	}
 		        }},
 		        {field:'orderPrice',title:'订单分配金额',align:'center',rowspan:2,width:100,formatter:function(value,row,index){
 		        	
-		        	return System.RMB.FenToYun(value);
+		        	return System.RMB.FenToYuan(value);
 		        }},
 		        {field:'offlineInstallmentType',title:'付款类别',rowspan:2,align:'center',width:100,formatter:function(value,row,index){
 		        	
 		        	return me.payOfflineInstallmentTypeEnum[value];
 		        }},
 		        {title:'回款业绩分配',colspan:4}],
-		        [{field:'supplierId',title:'服务商',width:200,align:'right',formatter:function(value,row,index){
+		        [{field:'supplierId',title:'服务商',width:200,formatter:function(value,row,index){
 
 		        	var items = row.depPays;
 		        	if(items){
@@ -302,7 +302,7 @@ com.gongsibao.trade.web.OrderRelevancePerformanceCtrl = org.netsharp.panda.core.
 		        	
 		        	return '';
 		        }},
-		        {field:'departmentId',title:'部门',width:100,align:'right',formatter:function(value,row,index){
+		        {field:'departmentId',title:'部门',width:100,formatter:function(value,row,index){
 	        		
 		        	var items = row.depPays;
 		        	if(items){
@@ -322,7 +322,7 @@ com.gongsibao.trade.web.OrderRelevancePerformanceCtrl = org.netsharp.panda.core.
 		        	}
 		        	return '';
 		        }},
-		        {field:'salesmanId',title:'业务员',width:100,align:'right',formatter:function(value,row,index){
+		        {field:'salesmanId',title:'业务员',width:100,align:'center',formatter:function(value,row,index){
 	        		
 		        	var items = row.depPays;
 		        	if(items){
@@ -349,13 +349,13 @@ com.gongsibao.trade.web.OrderRelevancePerformanceCtrl = org.netsharp.panda.core.
 
 			        	if(items.length == 1){
 			        		
-			        		return System.RMB.FenToYun(items[0].amount);
+			        		return System.RMB.FenToYuan(items[0].amount);
 			        	}else{
 
 			            	var str = '';
 			            	$(items).each(function(i,item){
 			            		
-			            		str += '<p>' + System.RMB.FenToYun(items.amount) + '</p>';
+			            		str += '<p>' + System.RMB.FenToYuan(items.amount) + '</p>';
 			            	});
 			            	return str;
 			        	}
@@ -375,7 +375,7 @@ com.gongsibao.trade.web.OrderRelevancePerformanceCtrl = org.netsharp.panda.core.
             fixed: false,
             maxmin: true,
             shadeClose: false,
-            area: ['600px', '500px'],
+            area: ['700px', '500px'],
             zIndex: 100000,
             id: "orderPayMap",
             content: url,
@@ -384,8 +384,8 @@ com.gongsibao.trade.web.OrderRelevancePerformanceCtrl = org.netsharp.panda.core.
 
                 layer.closeAll();
                 var iframeWindow = document.getElementById('orderPayMap').firstElementChild.contentWindow;
-                var row = iframeWindow.payMapCtrl.getDepPay();
-                $(me.$gridId).datagrid('appendRow',row);
+                var payMap = iframeWindow.payMapCtrl.getPayMap();
+                $(me.$gridId).datagrid('appendRow',payMap);
             }
         });
 	},
