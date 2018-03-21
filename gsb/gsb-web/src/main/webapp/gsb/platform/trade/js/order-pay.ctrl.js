@@ -278,7 +278,7 @@ com.gongsibao.trade.web.OrderRelevancePerformanceCtrl = org.netsharp.panda.core.
 		        }},
 		        {field:'offlineInstallmentType',title:'付款类别',rowspan:2,align:'center',width:100,formatter:function(value,row,index){
 		        	
-		        	return this.payOfflineInstallmentTypeEnum[value];
+		        	return me.payOfflineInstallmentTypeEnum[value];
 		        }},
 		        {title:'回款业绩分配',colspan:4}],
 		        [{field:'supplierId',title:'服务商',width:200,align:'right',formatter:function(value,row,index){

@@ -42,7 +42,7 @@
 					<tr>
 				      <td class="label_td"><label>付款类别：</label></td>
 				      <td class="control_td">
-				           <input id="u8BankId" class="easyui-combobox nsInput" data-options="editable:false,width:200"/>
+				           <input id="u8BankId" class="easyui-combobox nsInput" data-options="editable:false,width:200,url: '/panda/rest/enum?name=com.gongsibao.entity.trade.dic.PayOfflineInstallmentType'"/>
 				      </td>
 					</tr>
 				</table>

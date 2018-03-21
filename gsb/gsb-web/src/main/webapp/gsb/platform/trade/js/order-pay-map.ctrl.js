@@ -26,7 +26,6 @@ com.gongsibao.trade.web.PayDepDetailCtrl = org.netsharp.panda.core.CustomCtrl.Ex
     	this.base();
     	this.$gridId = '#pay_dep_grid';
     	this.service = 'com.gongsibao.trade.web.OrderPayController';
-    	this.processStatusEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderProcessStatusType');
     },
     init:function(){
 
