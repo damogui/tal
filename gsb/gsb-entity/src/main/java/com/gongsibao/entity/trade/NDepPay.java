@@ -27,6 +27,7 @@ public class NDepPay extends Entity {
 
     @Reference(foreignKey = "supplierId", header = "服务商")
     private Supplier supplier;
+    
     @Column(name = "department_id", header = "部门Id")
     private Integer departmentId = 0;
 
@@ -40,22 +41,22 @@ public class NDepPay extends Entity {
     @Reference(foreignKey = "salesmanId")
     private Employee salesman;
 
-
     @Column(name = "order_id", header = "订单Id")
     private Integer orderId;
+    
     @JsonIgnore
     @Reference(foreignKey = "orderId")
     private SoOrder order;
 
     @Column(name = "pay_id", header = "支付序号")
     private Integer payId;
+    
     @JsonIgnore
     @Reference(header = "支付", foreignKey = "payId", primaryKey = "pkid")
     private Pay pay;
 
     @Column(name = "order_pay_map_id", header = "支付明细Id")
     private Integer orderPayMapId;
-
 
     /*new beg*/
     @JsonIgnore

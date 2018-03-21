@@ -13,19 +13,19 @@ com.gongsibao.trade.web.OrderPayMapCtrl = org.netsharp.panda.core.CustomCtrl.Ext
 		this.payDepDetailCtrl = new com.gongsibao.trade.web.PayDepDetailCtrl();
 		this.payDepDetailCtrl.init();
     },
-    save:function(){
+    getDepPay:function(){
 
-    	//还没有做校验 hw 2018-03-13
-
+    	return {};
     }
 });
 
 com.gongsibao.trade.web.PayDepDetailCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
+	
     ctor: function () {
 
     	this.base();
-    	this.service = 'com.gongsibao.trade.web.OrderPayController';
     	this.$gridId = '#pay_dep_grid';
+    	this.service = 'com.gongsibao.trade.web.OrderPayController';
     	this.processStatusEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderProcessStatusType');
     },
     init:function(){
@@ -90,10 +90,16 @@ com.gongsibao.trade.web.PayDepDetailCtrl = org.netsharp.panda.core.CustomCtrl.Ex
 	},
 	add:function(){
 		
+		
 		alert('上传文件！');
 	},
 	remove:function(){
 		
+		
 		alert('删除文件！');
+	},
+	getDepPay:function(){
+		
+		
 	}
 });

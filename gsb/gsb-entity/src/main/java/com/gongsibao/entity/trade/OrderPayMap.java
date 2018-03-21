@@ -30,8 +30,10 @@ public class OrderPayMap extends BaseEntity {
     /*new beg*/
     @Column(name = "offline_installment_type", header = "线下结算类型,线下分期类型序号，type= 全款为0，首款为1，尾款为-1，二期为2，三期为3，以此类推")
     private PayOfflineInstallmentType offlineInstallmentType = PayOfflineInstallmentType.sk;
+    
     @Column(name = "u8_bank_id", header = "银行科目编号序号")
     private Integer u8BankId;
+    
     @Column(name = "order_price", header = "订单额（一笔多单时，u8生成凭证时，每单的金额）")
     private Integer orderPrice;
 

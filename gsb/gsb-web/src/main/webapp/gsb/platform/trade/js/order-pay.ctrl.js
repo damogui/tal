@@ -231,6 +231,7 @@ com.gongsibao.trade.web.OrderRelevancePerformanceCtrl = org.netsharp.panda.core.
     	this.base();
     	this.service = 'com.gongsibao.trade.web.OrderPayController';
     	this.$gridId = '#order_relevance_grid';
+    	this.payOfflineInstallmentTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.PayOfflineInstallmentType');
     },
     init:function(){
 
@@ -264,50 +265,109 @@ com.gongsibao.trade.web.OrderRelevancePerformanceCtrl = org.netsharp.panda.core.
 			}],
 		    columns:[[
 
-		        {field:'orderId',title:'订单号',align:'center',width:150,formatter:function(value,row,index){
+		        {field:'orderId',title:'订单号',align:'center',rowspan:2,width:150,formatter:function(value,row,index){
 	
 		        	if(row.order){
 		        		
 		        		return row.order.no;
 		        	}
 		        }},
-		        {field:'orderPrice',title:'订单分配金额',align:'center',width:100,formatter:function(value,row,index){
+		        {field:'orderPrice',title:'订单分配金额',align:'center',rowspan:2,width:100,formatter:function(value,row,index){
 		        	
 		        	return System.RMB.FenToYun(value);
 		        }},
-		        {field:'offlineInstallmentType',title:'付款类别',align:'center',width:100,formatter:function(value,row,index){
+		        {field:'offlineInstallmentType',title:'付款类别',rowspan:2,align:'center',width:100,formatter:function(value,row,index){
 		        	
+		        	return this.payOfflineInstallmentTypeEnum[value];
 		        }},
-		        {field:'supplierId',title:'服务商',width:200,align:'right',formatter:function(value,row,index){
-		        		
-		        	if(row.supplier){
-		        		
-		        		return row.supplier.name;
+		        {title:'回款业绩分配',colspan:4}],
+		        [{field:'supplierId',title:'服务商',width:200,align:'right',formatter:function(value,row,index){
+
+		        	var items = row.depPays;
+		        	if(items){
+
+			        	if(items.length==1){
+			        		
+			        		return items[0].supplier.name;
+			        	}else{
+
+			            	var str = '';
+			            	$(items).each(function(i,item){
+			            		
+			            		str+='<p>'+item.supplier.name+'</p>';
+			            	});
+			            	return str;
+			        	}
 		        	}
+		        	
+		        	return '';
 		        }},
 		        {field:'departmentId',title:'部门',width:100,align:'right',formatter:function(value,row,index){
 	        		
-		        	if(row.department){
-		        		
-		        		return row.department.name;
+		        	var items = row.depPays;
+		        	if(items){
+
+			        	if(items.length == 1){
+			        		
+			        		return items[0].department.name;
+			        	}else{
+
+			            	var str = '';
+			            	$(items).each(function(i,item){
+			            		
+			            		str+='<p>'+item.department.name+'</p>';
+			            	});
+			            	return str;
+			        	}
 		        	}
+		        	return '';
 		        }},
-		        {field:'employeeId',title:'业务员',width:100,align:'right',formatter:function(value,row,index){
+		        {field:'salesmanId',title:'业务员',width:100,align:'right',formatter:function(value,row,index){
 	        		
-		        	if(row.employee){
+		        	var items = row.depPays;
+		        	if(items){
 		        		
-		        		return row.employee.name;
+			        	if(items.length == 1){
+			        		
+			        		return items[0].salesman.name;
+			        	}else{
+
+			            	var str = '';
+			            	$(items).each(function(i,item){
+			            		
+			            		str+='<p>'+item.salesman.name+'</p>';
+			            	});
+			            	return str;
+			        	}
 		        	}
+		        	return '';
 		        }},
 		        {field:'amount',title:'分配金额',width:100,align:'right',formatter:function(value,row,index){
 	        		
-		        	return System.RMB.FenToYun(value);
+		        	var items = row.depPays;
+		        	if(items){
+
+			        	if(items.length == 1){
+			        		
+			        		return System.RMB.FenToYun(items[0].amount);
+			        	}else{
+
+			            	var str = '';
+			            	$(items).each(function(i,item){
+			            		
+			            		str += '<p>' + System.RMB.FenToYun(items.amount) + '</p>';
+			            	});
+			            	return str;
+			        	}
+		        	}
+		        	return '';
 		        }}
 		    ]]
 		});
 	},
 	add:function(){
 		
+		var me = this;
 		var url = '/nav/gsb/platform/trade/orderPayMap';
         layer.open({
             type: 2,
@@ -324,12 +384,11 @@ com.gongsibao.trade.web.OrderRelevancePerformanceCtrl = org.netsharp.panda.core.
 
                 layer.closeAll();
                 var iframeWindow = document.getElementById('orderPayMap').firstElementChild.contentWindow;
-                iframeWindow.controllersoOrder.save();
-                IMessageBox.toast('保存成功');
+                var row = iframeWindow.payMapCtrl.getDepPay();
+                $(me.$gridId).datagrid('appendRow',row);
             }
         });
 	},
-
 	remove:function(){
 		
 		var row = $(this.$gridId).datagrid('getSelected');
