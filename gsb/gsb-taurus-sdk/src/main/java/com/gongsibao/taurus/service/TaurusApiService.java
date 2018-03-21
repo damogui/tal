@@ -47,18 +47,15 @@ public class TaurusApiService {
         CompanyInfoResponseMessage response = api.getResponse();
         if (null == response || null == response.getData()) {
             EntRegistryApi entApi = ApiFactory.create(EntRegistryApi.class);
-            api.setCompanyName(companyName);
+            entApi.setCompanyName(companyName);
             ResponseMessage<EntRegistry> entResponse = entApi.getResponse();
-            if (response == null) {
-
+            if (entResponse == null || null == entResponse.getList()) {
                 return null;
             }
 
-            if (response.getList().size() == 0) {
-
+            if (entResponse.getList().size() == 0) {
                 return null;
             }
-
             return entResponse.getList().get(0);
         }
 
