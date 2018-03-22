@@ -1,11 +1,12 @@
 package com.gongsibao.trade.web.audit;
 
 import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.NDepReceivable;
 import com.gongsibao.trade.base.INDepReceivableService;
 import com.gongsibao.trade.service.action.audit.AuditState;
+import com.gongsibao.trade.web.dto.AuditLogDTO;
 import com.gongsibao.trade.web.dto.NDepReceivableDTO;
-import com.gongsibao.u8.base.ISoOrderService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 
@@ -51,10 +52,10 @@ public class AuditPerformanceController extends AuditBaseController {
 
         }
         depReceivables = nDepReceivableService.queryList (oql);
-        for (NDepReceivable  item:depReceivables
-             ) {
+        for (NDepReceivable item : depReceivables
+                ) {
 
-            NDepReceivableDTO  nDepReceivableDTO=new NDepReceivableDTO();
+            NDepReceivableDTO nDepReceivableDTO = new NDepReceivableDTO ();
 
             nDepReceivableDTO.setId (item.getId ());
             nDepReceivableDTO.setSuppliername (item.getSupplier ().getName ());
@@ -68,6 +69,25 @@ public class AuditPerformanceController extends AuditBaseController {
 
         return depReceivableDTOs;
 
+    }
+
+    /*订单业绩审核流程*/
+    public List<AuditLogDTO> getAuditLogList(Integer id) {
+        List<AuditLog> logList = new ArrayList<AuditLog> ();
+        List<AuditLogDTO> logDtos = new ArrayList<AuditLogDTO> ();
+
+        logList = super.getAuditLogList (id, AuditLogType.DdYjSq.getValue ());
+        for (AuditLog item : logList
+                ) {
+            AuditLogDTO auditLogDTO = new AuditLogDTO ();
+            auditLogDTO.setId (item.getId ());
+            auditLogDTO.setCreator (item.getCreator ());
+            auditLogDTO.setOption (item.getStatus ().getText ());
+            auditLogDTO.setRemark (item.getContent ());
+            auditLogDTO.setCreateTime (item.getCreateTime ().toString ());
+            logDtos.add (auditLogDTO);
+        }
+        return logDtos;
     }
 
 
