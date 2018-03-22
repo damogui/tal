@@ -40,10 +40,13 @@ com.gongsibao.trade.web.AuditOrderPerformanceListPart = org.netsharp.panda.comme
             zIndex: 100000,
             id: "addAuditPerIframe",
             content: contentUrl,
-            btn: ['保存', '取消'],
-            yes: function (index, layero) {
-                document.getElementById('addAuditPerIframe').firstElementChild.contentWindow.refundCtrl.save();
+            btn: ['审核通过', '审核不通过'],// 可以无限个按钮
+            btn1: function (index, layero) {
+                document.getElementById('addAuditPerIframe').firstElementChild.contentWindow.auditPerformanceCtrl .approved();
             },
+            btn2: function (){
+                document.getElementById('addAuditPerIframe').firstElementChild.contentWindow.auditPerformanceCtrl .rejected();
+            }
         });
 
 
