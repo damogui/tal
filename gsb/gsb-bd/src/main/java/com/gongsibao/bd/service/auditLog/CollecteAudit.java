@@ -13,10 +13,16 @@ import com.gongsibao.entity.bd.dic.AuditLogType;
 public class CollecteAudit extends AbstractAuditLogService{
 
 	@Override
-	public List<AuditLog> getExtenAuditLogList(AuditLogType type,
-			Integer formId, Integer addUserId) {
+	protected List<AuditLog> getExtenAuditLogList(Integer formId,
+			Integer addUserId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	protected AuditLogType setAuditLogType() {
+		// TODO Auto-generated method stub
+		return AuditLogType.Sksq;
 	}
 
 }
