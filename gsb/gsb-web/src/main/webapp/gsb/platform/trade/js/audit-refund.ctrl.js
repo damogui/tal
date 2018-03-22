@@ -145,8 +145,8 @@ com.gongsibao.trade.web.AuditRefundCtrl = com.gongsibao.trade.web.AuditBaseCtrl.
     		        {field:'status',title:'审核状态',width:80,align:'center',formatter: function(value,row,index){
     		        	return me.auditLogStatusEnum[value];
     		        }},
-    		        {field:'createTime',title:'创建时间',width:300,align:'center'},
-    		        {field:'content',title:'审批内容',width:280,align:'right'},
+    		        {field:'createTime',title:'创建时间',width:150,align:'center'},
+    		        {field:'content',title:'审批内容',width:150,align:'right'},
     		        {field:'remark',title:'说明',width:300,align:'center'}
     		    ]]
     		});

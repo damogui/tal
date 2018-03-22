@@ -79,6 +79,7 @@ public abstract class AbstractAuditLogService {
 	 */
 	private List<Integer> recursiveLeaderId(Integer addUserId) {
 		List<Integer> leaderIdList = new ArrayList<Integer>();
+		
 		SalesmanOrganization organization = SupplierSessionManager.getSalesmanOrganization(addUserId);
 		//1.直级领导
         if (organization.getDirectLeaderId() != null && !organization.getDirectLeaderId().equals(addUserId)) {

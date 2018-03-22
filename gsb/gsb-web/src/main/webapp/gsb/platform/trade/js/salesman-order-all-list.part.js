@@ -5,9 +5,9 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         this.base();
 
         this.addOrderReceivedUrl = '/panda/crm/order/salesman/coperformance';//创建订单业绩
-        this.addReceivedUrl = "/panda/crm/order/salesman/creceivedperformance";//回款业绩
+        //this.addReceivedUrl = "/panda/crm/order/salesman/creceivedperformance";//回款业绩
 
-       // this.addReceivedUrl = "/nav/gsb/platform/trade/orderPay";//回款业绩
+        this.addReceivedUrl = "/nav/gsb/platform/trade/orderPay";//回款业绩
 
         this.originType = null;//来源类型（0或null：业务员跳转过来的；1：平台跳转过来的）
         this.addStagingUrl = '/nav/gsb/platform/trade/orderStage';//创建分期
@@ -71,7 +71,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         var urlEnd = this.addReceivedUrl + "?id=" + row.id;
         layer.open({
             type: 2,//1是字符串 2是内容
-            title: '订单信息',
+            title: '创建回款',
             fixed: false,
             maxmin: true,
             shadeClose: false,
@@ -79,21 +79,19 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             zIndex: 100000,
             id: "addReceivedIframe",
             content: urlEnd,
-
-            btn: ['保存', '取消'],// 可以无限个按钮
-
+            btn: ['保存', '取消'],
             yes: function (index, layero) {
-                //layer.closeAll();
-                var num = document.getElementById('addReceivedIframe').firstElementChild.contentWindow.controllersoOrder.save();//保存
-                if (num > 0) {
 
-                    IMessageBox.toast('保存成功');
+            	var payCtrl = document.getElementById('addReceivedIframe').firstElementChild.contentWindow.payCtrl;
+                var isSave = payCtrl.save();
+                if (isSave === true) {
+
+                	layer.msg('保存成功！',function(){
+
+                    	layer.closeAll();
+                	});
                 }
-
-
-            },
-
-
+            }
         });
     },
     addRefund: function (id) {//创建退款

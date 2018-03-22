@@ -68,7 +68,7 @@ public class OrderResourceTest extends ResourceCreationBase {
                 this.createResourceNodeVoucher (SoOrder.class.getName (), "全部订单", "Gsb_Supplier_Order_Department_All", IOrderService.class.getName (), node3.getId ());
                 this.createResourceNodeVoucher (NDepReceivable.class.getName (), "订单业绩", "Gsb_Supplier_Order_Department_Performance", INDepReceivableService.class.getName (), node3.getId ());
                 this.createResourceNodeVoucher (Pay.class.getName (), "回款业绩", "Gsb_Supplier_Order_Department_Received", IPayService.class.getName (), node3.getId ());
-                this.createResourceNodeVoucher (NDepRefund.class.getName (), "退款订单", "Gsb_Supplier_Order_Department_Refund", INDepRefundService.class.getName (), node3.getId ());
+                this.createResourceNodeVoucher (Refund.class.getName (), "退款订单", "Gsb_Supplier_Order_Department_Refund", IRefundService.class.getName (), node3.getId ());
                 this.createResourceNodeVoucher (SoOrder.class.getName (), "分期订单", "Gsb_Supplier_Order_Department_Staging", IOrderService.class.getName (), node3.getId ());
                 this.createResourceNodeVoucher (NOrderCarryover.class.getName (), "结转订单", "Gsb_Supplier_Order_Department_Carryover", INOrderCarryoverService.class.getName (), node3.getId ());
                 this.createResourceNodeVoucher (Contract.class.getName (), "合同管理", "Gsb_Supplier_Order_Department_Contract", IContractService.class.getName (), node3.getId ());
@@ -88,7 +88,7 @@ public class OrderResourceTest extends ResourceCreationBase {
 
 
                 this.createResourceNodeVoucher (SoOrder.class.getName (), "定价审核", "Gsb_Supplier_Order_Audit_Pricing", IOrderService.class.getName (), node4.getId ());
-                this.createResourceNodeVoucher (SoOrder.class.getName (), "退款审核", "Gsb_Supplier_Order_Audit_Refund", IOrderService.class.getName (), node4.getId ());
+                this.createResourceNodeVoucher (Refund.class.getName (), "退款审核", "Gsb_Supplier_Order_Audit_Refund", IRefundService.class.getName (), node4.getId ());
                 this.createResourceNodeVoucher (SoOrder.class.getName (), "分期审核", "Gsb_Supplier_Order_Audit_Staging", IOrderService.class.getName (), node4.getId ());
                 this.createResourceNodeVoucher (SoOrder.class.getName (), "结转审核", "Gsb_Supplier_Order_Audit_Carryover", IOrderService.class.getName (), node4.getId ());
             }

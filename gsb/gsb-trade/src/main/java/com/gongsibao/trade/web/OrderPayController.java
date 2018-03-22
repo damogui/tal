@@ -12,10 +12,12 @@ import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
 
 import com.gongsibao.entity.trade.OrderPayMap;
+import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.u8.SetOfBooks;
 import com.gongsibao.entity.u8.U8Bank;
 import com.gongsibao.trade.base.IOrderPayMapService;
+import com.gongsibao.trade.base.IPayService;
 import com.gongsibao.u8.base.ISetOfBooksService;
 import com.gongsibao.u8.base.ISoOrderService;
 import com.gongsibao.u8.base.IU8BankService;
@@ -83,21 +85,22 @@ public class OrderPayController {
 	 * @return: int
 	 * @throws
 	 */
-	public Integer getOnlinePayInfoByOrderId(Integer orderId) {
+	public OrderPayMap getOnlinePayInfoByOrderId(Integer orderId) {
 
 		IOrderPayMapService service = ServiceFactory.create(IOrderPayMapService.class);
 		Oql oql = new Oql();
 		{
 			oql.setType(OrderPayMap.class);
-			oql.setSelects("id,orderId,payId");
+			oql.setSelects("OrderPayMap.{id,payId,orderId},pay.*");
 			oql.setFilter("orderId=?");
 			oql.getParameters().add("orderId", orderId, Types.INTEGER);
 		}
 
 		OrderPayMap payMap = service.queryFirst(oql);
 		if (payMap != null) {
+
 			// 注意是否判断已经划分回款业绩金额 未创建业绩总额 付款金额
-			return payMap.getPayId();
+			return payMap;
 		}
 
 		return null;
@@ -121,9 +124,8 @@ public class OrderPayController {
 		return num;
 	}
 
-	
-	public SoOrder getOrderByNo(String orderNo){
-		
+	public SoOrder getOrderByNo(String orderNo) {
+
 		Oql oql = new Oql();
 		{
 			oql.setType(SoOrder.class);
@@ -133,5 +135,19 @@ public class OrderPayController {
 		}
 		ISoOrderService service = ServiceFactory.create(ISoOrderService.class);
 		return service.queryFirst(oql);
+	}
+
+	/**   
+	 * @Title: save   
+	 * @Description: TODO(创建回款)   
+	 * @param: @param pay
+	 * @param: @return      
+	 * @return: Boolean      
+	 * @throws   
+	 */
+	public Boolean applyPay(Pay pay) {
+
+		IPayService service = ServiceFactory.create(IPayService.class);
+		return service.applyPay(pay);
 	}
 }

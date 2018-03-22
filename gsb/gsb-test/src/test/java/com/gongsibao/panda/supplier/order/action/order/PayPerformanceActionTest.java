@@ -5,11 +5,11 @@ import org.junit.Test;
 import org.netsharp.plugin.bean.BeanPath;
 
 import com.gongsibao.panda.supplier.crm.action.BaseActionTest;
-import com.gongsibao.trade.service.action.order.pay.ActionApplyPayPerformanceAudit;
-import com.gongsibao.trade.service.action.order.pay.ActionApplyPayPerformanceLog;
-import com.gongsibao.trade.service.action.order.pay.ActionApplyPayPerformancePersist;
-import com.gongsibao.trade.service.action.order.pay.ActionApplyPayPerformanceSendMessage;
-import com.gongsibao.trade.service.action.order.pay.ActionApplyPayPerformanceVerify;
+import com.gongsibao.trade.service.action.order.pay.ActionApplyPayAudit;
+import com.gongsibao.trade.service.action.order.pay.ActionApplyPayLog;
+import com.gongsibao.trade.service.action.order.pay.ActionApplyPayPersist;
+import com.gongsibao.trade.service.action.order.pay.ActionApplyPaySendMessage;
+import com.gongsibao.trade.service.action.order.pay.ActionApplyPayVerify;
 
 /**   
  * @ClassName:  PayPerformanceActionTest   
@@ -32,20 +32,20 @@ public class PayPerformanceActionTest extends BaseActionTest{
 	@Test
 	public void save() {
 		
-		String pathName = "gsb/crm/order/pay/performance";
+		String pathName = "gsb/crm/order/pay";
 		BeanPath beanPath = new BeanPath();
 		{
 			beanPath.toNew();
 			beanPath.setPath(pathName);
 			beanPath.setResourceNode(resourceNode);
-			beanPath.setName("创建回款业绩");
+			beanPath.setName("创建回款");
 		}
 
-		createBean(beanPath, "1.验证", ActionApplyPayPerformanceVerify.class.getName(), resourceNode, 100);
-		createBean(beanPath, "2.保存", ActionApplyPayPerformancePersist.class.getName(), resourceNode, 200);
-		createBean(beanPath, "3.审核", ActionApplyPayPerformanceAudit.class.getName(), resourceNode, 300);
-		createBean(beanPath, "4.通知", ActionApplyPayPerformanceSendMessage.class.getName(), resourceNode, 400);
-		createBean(beanPath, "5.日志", ActionApplyPayPerformanceLog.class.getName(), resourceNode, 500);
+		createBean(beanPath, "1.验证", ActionApplyPayVerify.class.getName(), resourceNode, 100);
+		createBean(beanPath, "2.保存", ActionApplyPayPersist.class.getName(), resourceNode, 200);
+		createBean(beanPath, "3.审核", ActionApplyPayAudit.class.getName(), resourceNode, 300);
+		createBean(beanPath, "4.通知", ActionApplyPaySendMessage.class.getName(), resourceNode, 400);
+		createBean(beanPath, "5.日志", ActionApplyPayLog.class.getName(), resourceNode, 500);
 		beanPathService.save(beanPath);
 	}
 }

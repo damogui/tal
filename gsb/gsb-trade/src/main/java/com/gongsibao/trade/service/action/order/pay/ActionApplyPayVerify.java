@@ -18,10 +18,11 @@ import com.gongsibao.entity.trade.dic.PayWayType;
 import com.gongsibao.trade.base.IOrderService;
 
 /*验证回款业绩的操作*/
-public class ActionApplyPayPerformanceVerify implements IAction {
+public class ActionApplyPayVerify implements IAction {
 
     @Override
     public void execute(ActionContext ctx) {
+    	
         // TODO Auto-generated method stub
         IPersister<AuditLog> auditLogService = PersisterFactory.create ();
 

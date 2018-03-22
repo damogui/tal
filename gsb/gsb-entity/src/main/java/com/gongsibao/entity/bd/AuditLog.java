@@ -20,7 +20,7 @@ public class AuditLog extends BaseEntity {
 	 */
 	private static final long serialVersionUID = -8815735808036860870L;
 	
-	@Column(name = "type_id", header = "审核类型序号，type=104，1041产品定价申请审核、1042订单改价申请审核、1043合同申请审核、1044发票申请审核、1045收款申请审核、1046退单申请审核、1047分期申请审核、1048产品改价申请审核")
+	@Column(name = "type_id", header = "审核类型序号，type=104，1041产品定价申请审核、1042订单改价申请审核、1043合同申请审核、1044发票申请审核、1045收款申请审核、1046退单申请审核、1047分期申请审核、1048产品改价申请审核、1050订单业绩审核")
 	private AuditLogType type = AuditLogType.wu;
 	
 	@Column(name = "form_id", header = "关联表外键")

@@ -3,6 +3,7 @@ package com.gongsibao.panda.supplier.order.workspace.audit;
 import com.gongsibao.entity.trade.NDepReceivable;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.tools.PToolbarHelper;
+import com.gongsibao.trade.web.AuditOrderPerformanceListPart;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.EntityState;
@@ -35,6 +36,7 @@ public class AuditOrderPerformanceWorkspaceTest extends WorkspaceCreationBase {
         resourceNodeCode = "Gsb_Supplier_Order_Audit_Performance";
         listToolbarPath = "";//crm/audit/orderp/edit
         listPartImportJs = "/gsb/platform/trade/js/audit-order-performance.js|/gsb/panda-extend/gsb.custom.query.controls.js";
+        listPartJsController=AuditOrderPerformanceListPart.class.getName ();
 
     }
 
@@ -53,10 +55,10 @@ public class AuditOrderPerformanceWorkspaceTest extends WorkspaceCreationBase {
         PToolbarItem item = new PToolbarItem();
         {
             item.toNew();
-            item.setCode("view");
+            item.setCode("audit");
             item.setName("审核");
             item.setSeq(1);
-            //item.setCommand("{controller}.view();");
+            item.setCommand("{controller}.audit();");
             toolbar.getItems().add(item);
         }
 
