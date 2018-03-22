@@ -86,12 +86,12 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                 var isSave = payCtrl.save();
                 if (isSave === true) {
 
-                    IMessageBox.toast('保存成功');
-                	layer.closeAll();
+                	layer.msg('保存成功！',function(){
+
+                    	layer.closeAll();
+                	});
                 }
-            },
-
-
+            }
         });
     },
     addRefund: function (id) {//创建退款

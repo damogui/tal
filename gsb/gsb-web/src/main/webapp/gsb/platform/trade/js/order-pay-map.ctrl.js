@@ -96,10 +96,12 @@ com.gongsibao.trade.web.OrderPayMapCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     		
     		layer.msg('【订单分配金额】不能超过【待支付金额】');
     		return ;
-    	}else{
-    		
-    		$('#amount').numberbox('setValue',System.RMB.FenToYuan(unpaidAmount));
     	}
+    	
+//    	else{
+//    		
+//    		$('#amount').numberbox('setValue',System.RMB.FenToYuan(unpaidAmount));
+//    	}
     	
     	//支付类别怎么控制？hw 2018-03-21
     	
