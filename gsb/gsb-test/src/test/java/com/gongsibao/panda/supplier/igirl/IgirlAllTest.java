@@ -1,6 +1,7 @@
 package com.gongsibao.panda.supplier.igirl;
 import com.gongsibao.panda.supplier.igirl.reference.NCLOneReferenceTest;
 import com.gongsibao.panda.supplier.igirl.reference.NCLTwoReferenceTest;
+import com.gongsibao.panda.supplier.igirl.reference.TradeMarkProductReferenceTest;
 import com.gongsibao.panda.supplier.igirl.workspace.*;
 
 import org.junit.runner.RunWith;
@@ -11,6 +12,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		ResourceTest.class,
 		NCLOneReferenceTest.class,
 		NCLTwoReferenceTest.class,
+		TradeMarkProductReferenceTest.class,
 		NclOneWorkspaceTest.class,
 		NclTwoWorkspaceTest.class,
 		NclBatchWorkspaceTest.class,
