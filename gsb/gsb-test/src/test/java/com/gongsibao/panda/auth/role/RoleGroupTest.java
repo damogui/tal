@@ -26,6 +26,7 @@ public class RoleGroupTest {
 		this.create("Platform_Franchisee", "招商CRM", "Platform");
 		this.create("Platform_Ma", " 股转中心", "Platform");
 		this.create("Platform_Finance", "财务", "Platform");
+		this.create("Platform_Law", "法务", "Platform");
 		this.create("Platform_Operation", "运营", "Platform");
 
 		this.create("Supplier", "服务商");
