@@ -83,7 +83,7 @@ com.gongsibao.trade.web.OrderPayCtrl = org.netsharp.panda.core.CustomCtrl.Extend
 		pay.setOfBooksId = setOfBooksId;
 		pay.u8BankId = u8BankId;
 		pay.offlinePayerName = offlinePayerName;
-		pay.amount = amount;
+		pay.amount = System.RMB.YuanToFen(amount);
 		pay.payForOrderCount = this.payForOrderCount;
 		pay.offlineRemark = $('#offlineRemark').val();
 		return pay;
