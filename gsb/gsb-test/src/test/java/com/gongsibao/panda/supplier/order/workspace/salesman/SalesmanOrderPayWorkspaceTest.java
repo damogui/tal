@@ -32,6 +32,7 @@ public class SalesmanOrderPayWorkspaceTest  extends WorkspaceCreationBase {
         listPartServiceController = AuditPayListPart.class.getName ();
         //listFilter = "salesman_id = '{userId}'";
         listToolbarPath="";
+        listFilter = " pkid IN (SELECT pay_id FROM so_order_pay_map WHERE order_id IN (SELECT pkid FROM so_order WHERE owner_id = '{userId}' ORDER BY pkid DESC)) OR add_user_id = '{userId}' ";
     }
 
     @Override
