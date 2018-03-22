@@ -29,7 +29,7 @@ com.gongsibao.trade.web.OrderPayMapCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     			
     			me.soOrder = data;
     			var unpaidAmount = me.getUnpaidAmount();
-    			unpaidAmount=System.RMB.FenToYuan(unpaidAmount);
+    			unpaidAmount=System.RMB.fenToYuan(unpaidAmount);
     			$('#unpaidAmount').numberbox('setValue',unpaidAmount);
     			
     		},false);
@@ -85,13 +85,13 @@ com.gongsibao.trade.web.OrderPayMapCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     	if(newValue==='0'||newValue==='-1'||newValue==='4'){
     		
     		var unpaidAmount = this.getUnpaidAmount();
-    		$('#amount').numberbox('setValue',System.RMB.FenToYuan(unpaidAmount));
+    		$('#amount').numberbox('setValue',System.RMB.fenToYuan(unpaidAmount));
     	}
     },
     amountChange:function(newValue,oldValue){
     	
     	var unpaidAmount = this.getUnpaidAmount();
-    	var amount = System.RMB.YuanToFen(newValue);
+    	var amount = System.RMB.yuanToFen(newValue);
     	if(amount>unpaidAmount){
     		
     		layer.msg('【订单分配金额】不能超过【待支付金额】');
@@ -100,7 +100,7 @@ com.gongsibao.trade.web.OrderPayMapCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     	
 //    	else{
 //    		
-//    		$('#amount').numberbox('setValue',System.RMB.FenToYuan(unpaidAmount));
+//    		$('#amount').numberbox('setValue',System.RMB.fenToYuan(unpaidAmount));
 //    	}
     	
     	//支付类别怎么控制？hw 2018-03-21
@@ -136,7 +136,7 @@ com.gongsibao.trade.web.OrderPayMapCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     	payMap.soOrder = this.soOrder;
     	payMap.offlineInstallmentType = $('#offlineInstallmentType').combobox('getValue');
     	var amount = $('#amount').numberbox('getValue');
-    	payMap.orderPrice = System.RMB.YuanToFen(amount);
+    	payMap.orderPrice = System.RMB.yuanToFen(amount);
     	return payMap;
     }
 });

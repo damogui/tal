@@ -58,7 +58,7 @@ com.gongsibao.trade.web.PayPerformanceCtrl = org.netsharp.panda.core.CustomCtrl.
     	$('#channelOrderNo').text(soOrder.channelOrderNo||'');
     	
     	var unAllotAmount = soOrder.paidPrice - soOrder.returnedPrice;
-    	unAllotAmount = System.RMB.FenToYuan(unAllotAmount);
+    	unAllotAmount = System.RMB.fenToYuan(unAllotAmount);
     	$('#unAllotAmount').text(unAllotAmount);
     	
     	$('#remark').text(soOrder.remark||'');
@@ -142,7 +142,7 @@ com.gongsibao.trade.web.OrderPayPerformanceCtrl = org.netsharp.panda.core.Custom
 		        }},
 		        {field:'amount',title:'分配金额',width:100,align:'right',formatter:function(value,row,index){
 	        		
-		        	return System.RMB.FenToYuan(value);
+		        	return System.RMB.fenToYuan(value);
 		        }}
 		    ]]
 		});

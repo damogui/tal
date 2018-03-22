@@ -84,7 +84,7 @@ com.gongsibao.trade.web.OrderPayCtrl = org.netsharp.panda.core.CustomCtrl.Extend
 		pay.u8BankId = u8BankId;
 		pay.offlinePayerName = offlinePayerName;
 		pay.offlineBankNo = offlineBankNo;
-		pay.amount = System.RMB.YuanToFen(amount);
+		pay.amount = System.RMB.yuanToFen(amount);
 		pay.payForOrderCount = this.payForOrderCount;
 		pay.offlineRemark = $('#offlineRemark').val();
 		return pay;
@@ -114,7 +114,7 @@ com.gongsibao.trade.web.OrderPayCtrl = org.netsharp.panda.core.CustomCtrl.Extend
 		
 		//校验关联订单的总金额是否==支付金额
 		var amount = $('#amount').numberbox('getValue');
-		var payAmount = System.RMB.YuanToFen(amount);
+		var payAmount = System.RMB.yuanToFen(amount);
 		
 		var allotTotalAmount = 0;
 		$(relevanceRows).each(function(i,item){
@@ -272,7 +272,7 @@ com.gongsibao.trade.web.OrderRelevancePerformanceCtrl = org.netsharp.panda.core.
 		        }},
 		        {field:'orderPrice',title:'订单分配金额',align:'right',width:100,formatter:function(value,row,index){
 		        	
-		        	return System.RMB.FenToYuan(value);
+		        	return System.RMB.fenToYuan(value);
 		        }}]]
 		});
 	},
