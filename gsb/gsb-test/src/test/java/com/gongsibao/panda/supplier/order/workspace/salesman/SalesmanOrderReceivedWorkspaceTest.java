@@ -2,6 +2,7 @@ package com.gongsibao.panda.supplier.order.workspace.salesman;
 
 import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.trade.web.AuditPayListPart;
+import com.gongsibao.trade.web.SalesmanOrderPerformanceListPart;
 import org.junit.Before;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
@@ -30,7 +31,7 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
         resourceNodeCode = "Gsb_Supplier_Order_Salesman_Received";
         listToolbarPath = "crm/audit/pay/edit";
         listPartImportJs = "/gsb/platform/trade/js/salesman-order-payperformance-list.js";
-        listPartJsController = AuditPayListPart.class.getName ();
+        listPartJsController = SalesmanOrderReceivedListPart.class.getName ();
         listPartServiceController = AuditPayListPart.class.getName ();
         //listFilter = "salesman_id = '{userId}'";
         listToolbarPath="";

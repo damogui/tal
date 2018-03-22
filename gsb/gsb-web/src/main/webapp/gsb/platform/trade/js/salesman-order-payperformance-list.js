@@ -2,8 +2,8 @@
  * Created by win on 2018/3/21.
  */
 System.Declare("com.gongsibao.trade.web");
-//订单业绩
-com.gongsibao.trade.web.SalesmanOrderPerformanceListPart = org.netsharp.panda.commerce.ListPart.Extends({
+//回款业绩跳转
+com.gongsibao.trade.web.SalesmanOrderReceivedListPart = org.netsharp.panda.commerce.ListPart.Extends({
     ctor: function () {
         this.base();
     },
@@ -24,7 +24,7 @@ com.gongsibao.trade.web.SalesmanOrderPerformanceListPart = org.netsharp.panda.co
 
             //id = rows[0].order_id;//订单id
         }
-        var url = System.Url.join("/crm/order/salesman/coperformance", "id=" + rows[0].order_id);
+        var url = System.Url.join("/crm/order/salesman/creceivedperformance", "id=" + rows[0].order_id);
         url = System.Url.getUrl(url);
         if (this.context.openMode == OpenType.window) {
 
