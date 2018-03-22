@@ -1,5 +1,6 @@
 package com.gongsibao.trade.service.action.order.pay;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.netsharp.action.ActionContext;
@@ -7,6 +8,7 @@ import org.netsharp.action.IAction;
 import org.netsharp.base.IPersistableService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.util.ReflectManager;
+import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.trade.NU8BankSoPayMap;
@@ -41,13 +43,18 @@ public class ActionApplyPayPersist implements IAction {
 			file.setTabName(tableName);
 		}
 
+		List<String> orderNoList = new ArrayList<String>();
 		List<OrderPayMap> orderPayMaps = pay.getOrderPayMaps();
 		for (OrderPayMap map : orderPayMaps) {
 
 			map.toNew();
 			map.setU8BankId(pay.getU8BankId());
+			orderNoList.add(map.getSoOrder().getNo());
 		}
 
+		String orderNoStr = StringManager.join(",", orderNoList);
+		pay.setOrderNo(orderNoStr);
+		
 		IPersistableService<Pay> service = (IPersistableService<Pay>) ReflectManager.newInstance(OrderService.class.getSuperclass());
 		pay = service.save(pay);
 		
