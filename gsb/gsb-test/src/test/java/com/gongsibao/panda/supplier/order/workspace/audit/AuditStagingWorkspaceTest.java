@@ -45,42 +45,6 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
 		listPartServiceController = AuditStageListPart.class.getName();
     }
 
-   /* public PToolbar createListToolbar() {
-
-        ResourceNode node = this.resourceService.byCode (resourceNodeCode);
-        // OperationType ot1 = operationTypeService.byCode (OperationTypes.add);
-        PToolbar toolbar = new PToolbar ();
-        {
-            toolbar.toNew ();
-            toolbar.setPath (listToolbarPath);
-            toolbar.setName ("订单业绩");
-            toolbar.setResourceNode (node);
-            toolbar.setToolbarType (ToolbarType.BASE);
-        }
-
-
-        PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "addAudit", PToolbarHelper.iconAdd,
-                "查看审核记录", null, 1, "{controller}.add();");
-        toolbar.getItems ().add (item);
-        item = PToolbarHelper.getPToolbarItem (EntityState.New, "addAudit", PToolbarHelper.iconCheck,
-                "审核", null, 2, "{controller}.add();");
-        toolbar.getItems ().add (item);
-        return toolbar;
-    }
-
-
-
-    进行设置工具栏
-    @Test
-    public void saveListToolbar() {
-
-        PToolbar toolbar = createListToolbar ();
-        if (toolbar != null) {
-
-            toolbarService.save (toolbar);
-        }
-    }*/
-    
     @Test
 	public void createRowToolbar() {
 
