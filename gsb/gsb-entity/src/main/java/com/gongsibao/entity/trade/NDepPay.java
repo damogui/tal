@@ -1,6 +1,5 @@
 package com.gongsibao.entity.trade;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
@@ -15,9 +14,7 @@ import com.gongsibao.entity.supplier.SupplierDepartment;
  */
 @Table(name = "n_dep_pay", header = "回款业绩")
 public class NDepPay extends Entity {
-    /**
-     * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
-     */
+
     private static final long serialVersionUID = -233203413500559037L;
     @Column(name = "amount", header = "支付额")
     private Integer amount;
@@ -37,14 +34,12 @@ public class NDepPay extends Entity {
     @Column(name = "salesman_id", header = "业务员Id")
     private Integer salesmanId;
 
-    @JsonIgnore
     @Reference(foreignKey = "salesmanId")
     private Employee salesman;
 
     @Column(name = "order_id", header = "订单Id")
     private Integer orderId;
     
-    @JsonIgnore
     @Reference(foreignKey = "orderId")
     private SoOrder order;
 
