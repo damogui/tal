@@ -21,7 +21,6 @@ public abstract class AbstractAuditLogService {
 	
 	/**
 	 * 根据不同的审核类型返回审核日志的集合
-	 * @param type 审核类型
 	 * @param formId 来源Id
 	 * @param addUserId 提交审核人Id
 	 * @return
@@ -32,7 +31,6 @@ public abstract class AbstractAuditLogService {
 	}
 	/**
 	 * 根据不同的审核类型返回审核日志的集合
-	 * @param type 审核类型
 	 * @param formId 来源Id
 	 * @return
 	 */
