@@ -14,6 +14,13 @@ import com.gongsibao.utils.SupplierSessionManager;
 public abstract class AbstractAuditLogService {
 	IOrganizationService organizationService = ServiceFactory.create(IOrganizationService.class);
 	
+	/**
+	 * 根据不同的审核类型返回审核日志的集合
+	 * @param type 审核类型
+	 * @param formId 来源Id
+	 * @param addUserId 提交审核人Id
+	 * @return
+	 */
 	public List<AuditLog> execute(AuditLogType type, Integer formId, Integer addUserId) {
 		List<AuditLog> userAuditList = this.getUserAuditLogList(type, formId, addUserId);
 		List<AuditLog> departAuditList =this.getDepartAuditLogList(type, formId, addUserId);
