@@ -14,6 +14,16 @@ public interface IAuditLogService extends IPersistableService<AuditLog> {
 	int updateStatusByFidTidLev(Integer formId, Integer typeId, Integer level, Integer status, String levelLogic, Integer exceptId);
 
 	List<AuditLog> queryByFormId(Integer orderId, AuditLogType type);
+	
+	/**   
+	 * @Title: queryUnPassCountByFormId   
+	 * @Description: TODO(根据订单Id获取审核未通过的数量)
+	 * @param: @param orderIds
+	 * @param: @return      
+	 * @return: int      
+	 * @throws   
+	 */
+	int queryUnPassCountByFormId(List<Integer> orderIdList);
 
 
 	/**   

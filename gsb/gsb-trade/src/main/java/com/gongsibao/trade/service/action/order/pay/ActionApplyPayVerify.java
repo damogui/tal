@@ -1,84 +1,83 @@
 package com.gongsibao.trade.service.action.order.pay;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
-import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
-import org.netsharp.core.QueryParameters;
-import org.netsharp.persistence.IPersister;
-import org.netsharp.persistence.PersisterFactory;
+import org.netsharp.util.StringManager;
 
-import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.entity.trade.Pay;
-import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.entity.trade.dic.PayWayType;
-import com.gongsibao.trade.base.IOrderService;
 
-/*验证回款业绩的操作*/
+/**
+ * @ClassName: ActionApplyPayVerify
+ * @Description:TODO 回款验证
+ * @author: 韩伟
+ * @date: 2018年3月22日 下午5:44:49
+ * 
+ * @Copyright: 2018 www.yikuaxiu.com Inc. All rights reserved.
+ */
 public class ActionApplyPayVerify implements IAction {
 
-    @Override
-    public void execute(ActionContext ctx) {
-    	
-        // TODO Auto-generated method stub
-        IPersister<AuditLog> auditLogService = PersisterFactory.create ();
+	@Override
+	public void execute(ActionContext ctx) {
 
-        Pay pay = (Pay) ctx.getItem ();//进行校验金额
-        List<OrderPayMap> orderPayMaps = pay.getOrderPayMaps ();
-        //校验订单是否已经处于审核状态是的话不能进行创建回款审核
+		Pay pay = (Pay) ctx.getItem();
+		if (pay.getSetOfBooksId() == null || pay.getSetOfBooksId().equals(0)) {
 
-        StringBuilder sb = new StringBuilder ();
-        sb.append ("(");
-        for (OrderPayMap item : orderPayMaps
-                ) {
-            if (item.equals (orderPayMaps.get (orderPayMaps.size () - 1))) {//最后一个不加,
-                sb.append (item.getOrderId ());
-            } else {
-                sb.append (item.getOrderId ());
-                sb.append (",");
+			throw new BusinessException("请选择【付款账套】！");
+		}
 
-            }
+		if (pay.getU8BankId() == null || pay.getU8BankId().equals(0)) {
 
+			throw new BusinessException("请选择【付款方式】！");
+		}
 
-        }
+		if (StringManager.isNullOrEmpty(pay.getOfflinePayerName())) {
 
-        sb.append (")");
+			throw new BusinessException("请填写【付款账户名称】！");
+		}
 
-        String sql = String.format ("SELECT  IFNULL(MAX(form_id),0) FROM  bd_audit_log  WHERE  type_id=1045  AND     form_id  IN %s", sb.toString ());//查询是否存在订单审核状态
-        QueryParameters qps = new QueryParameters ();
-        Integer execNum = auditLogService.executeInt (sql, qps);
-        if (execNum > 0) {
+		if (StringManager.isNullOrEmpty(pay.getOfflineBankNo())) {
 
-            throw new BusinessException (String.format ("订单号:%s正处于回款审核状态",execNum));
+			throw new BusinessException("请填写【付款账号】！");
+		}
 
-        }
+		Integer payAmount = pay.getAmount();
+		if (payAmount == null || payAmount.equals(0)) {
 
-        if (orderPayMaps.size () == 0) {
+			throw new BusinessException("请填写【付款金额】！");
+		}
 
-            throw new BusinessException ("回款业绩必须分配！");
+		if (pay.getFiles() == null || pay.getFiles().size() == 0) {
 
-        }
+			throw new BusinessException("请上传【付款凭证】！");
+		}
 
-        if (pay.getFiles ().size () == 0 && pay.getPayWayType ().equals (PayWayType.OFFLINE_PAYMENT)) {//线上支付不需要凭证
+		List<OrderPayMap> orderPayMaps = pay.getOrderPayMaps();
+		if (orderPayMaps == null || orderPayMaps.size() == 0) {
 
-            throw new BusinessException ("凭证必须上传");
+			throw new BusinessException("请创建【关联订单】！");
+		}
 
-        }
+		Integer allotTotalAmount = 0;
+		List<Integer> orderIdList = new ArrayList<Integer>();
+		for (OrderPayMap payMap : orderPayMaps) {
 
-        //根据订单Id获取订单实体
-        IOrderService orderService = ServiceFactory.create (IOrderService.class);
-        SoOrder order = orderService.getByOrderId (pay.getOrderPayMaps ().get (0).getOrderId ());
+			allotTotalAmount += payMap.getOrderPrice();
+			orderIdList.add(payMap.getOrderId());
+		}
 
-        if (order.getTotalPrice () < pay.getAmount ()) {
+		if (allotTotalAmount.compareTo(payAmount) != 0) {
 
+			throw new BusinessException("【关联订单分配金额总和】与【付款金额】不相等！");
+		}
 
-            throw new BusinessException ("回款业绩不能大于支付金额");
-        }
-
-
-    }
+		/**
+		 * 校验订单是否已经处于审核状态是的话不能进行创建回款审核 1.结转、退款、分期 这里不用校验
+		 */
+	}
 
 }
