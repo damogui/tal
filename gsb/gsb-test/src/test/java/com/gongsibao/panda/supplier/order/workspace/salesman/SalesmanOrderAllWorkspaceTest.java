@@ -97,7 +97,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 			item.toNew();
 			item.setCode("addReceived");
 			item.setIcon(PToolbarHelper.iconAdd);
-			item.setName("创建回款业绩");
+			item.setName("创建回款");
 			item.setSeq(3);
 			item.setCommand("{controller}.addReceived();");
 			toolbar.getItems().add(item);

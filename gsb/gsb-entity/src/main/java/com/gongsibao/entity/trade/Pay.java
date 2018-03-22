@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.gongsibao.entity.u8.SetOfBooks;
-import com.gongsibao.entity.u8.U8Bank;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.netsharp.core.annotations.*;
+import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Exclusive;
+import org.netsharp.core.annotations.Reference;
+import org.netsharp.core.annotations.Subs;
+import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.File;
@@ -18,6 +19,8 @@ import com.gongsibao.entity.trade.dic.PayOfflineInstallmentType;
 import com.gongsibao.entity.trade.dic.PayReceiptStatus;
 import com.gongsibao.entity.trade.dic.PaySuccessStatus;
 import com.gongsibao.entity.trade.dic.PayWayType;
+import com.gongsibao.entity.u8.SetOfBooks;
+import com.gongsibao.entity.u8.U8Bank;
 import com.gongsibao.entity.uc.User;
 
 @Table(name = "so_pay")
@@ -101,7 +104,6 @@ public class Pay extends BaseEntity {
     private Date depPayAuditPassTime = new Date ();
 
     /*new beg*/
-    @JsonIgnore
     @Exclusive
     @Subs(subType = OrderPayMap.class, foreignKey = "payId", header = "支付明细")
     private List<OrderPayMap> orderPayMaps = new ArrayList<> ();

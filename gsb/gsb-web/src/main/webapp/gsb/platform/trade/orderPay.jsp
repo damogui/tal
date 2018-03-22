@@ -26,23 +26,10 @@
 	<script src='/gsb/platform/trade/js/order-pay.ctrl.js'></script>
 </head>
      <body class="easyui-layout">
-        <div data-options="region:'north',split:false,collapsible:false,closed:false,height:260">
+        <div data-options="region:'north',split:false,collapsible:false,closed:false,height:220">
         	 <div class="formContent">
 				  <table cellpadding="3" cellspacing="0" class="form-panel">
-				      <tr>
-				          <td class="label_td"><label>是否线上支付：</label></td>
-				          <td class="control_td">
-									<input id="isOnlinePay" class="easyui-switchbutton" 
-									data-options="width:60,height:28,onText:'是',offText:'否',onChange:function(checked){payCtrl.isOnlineChange(checked);},required:false"/>
-
-				          </td>
-				          <td class="label_td"><label>在线支付未创建业绩总额：</label></td>
-				          <td class="control_td">
-                                   <input id="onLineNotCutPay" class="easyui-numberbox nsInput" data-options="precision:2,width:200,disabled:true"/>
-						  </td>
-					</tr>
 					  <tr>
-					  
 				          <td class="label_td"><label>付款账套：</label></td>
 				          <td class="control_td">
 								<input id="setOfBooksId" class="easyui-combobox" data-options="editable:false,width:200,onChange:function(newValue,oldValue){payCtrl.setOfBooksIdChange(newValue,oldValue);}"/>
@@ -63,9 +50,9 @@
 				          </td>
 					</tr>
 				      <tr>
-				          <td class="label_td"><label>是否一笔多单：</label></td>
+				          <td class="label_td"><label>一笔多单：</label></td>
 				          <td class="control_td">
-									<input id="payForOrderCount" class="easyui-switchbutton" data-options="width:60,height:28,onText:'是',offText:'否'"/>
+									<input id="payForOrderCount" class="easyui-switchbutton" data-options="width:60,height:28,onText:'是',offText:'否',onChange:function(checked){payCtrl.payForOrderCount=checked;}"/>
 				          </td>
 				          <td class="label_td"><label>付款金额：</label></td>
 				          <td class="control_td">
