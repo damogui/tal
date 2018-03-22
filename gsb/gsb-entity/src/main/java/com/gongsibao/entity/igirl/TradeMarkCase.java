@@ -1,9 +1,7 @@
 package com.gongsibao.entity.igirl;
 
-import com.gongsibao.entity.igirl.dict.ApplierType;
-import com.gongsibao.entity.igirl.dict.CertificateType;
-import com.gongsibao.entity.igirl.dict.TMCState;
-import com.gongsibao.entity.igirl.dict.WriteType;
+import com.gongsibao.entity.igirl.dict.*;
+import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.supplier.Supplier;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -132,6 +130,12 @@ public class TradeMarkCase extends Entity {
 
 	@Column(name="owner_name",header = "当前业务员姓名")
 	private String ownerName;
+
+	@Column(name = "product_id", header = "商标产品id")
+	private Integer productId;
+
+	@Reference(foreignKey = "productId", header = "商标产品")
+	private Product product;
 
 	public Integer getOwnerId() {
 		return ownerId;
@@ -427,5 +431,21 @@ public class TradeMarkCase extends Entity {
 
 	public void setDepartmentId(Integer departmentId) {
 		this.departmentId = departmentId;
+	}
+
+	public Integer getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Integer productId) {
+		this.productId = productId;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 }
