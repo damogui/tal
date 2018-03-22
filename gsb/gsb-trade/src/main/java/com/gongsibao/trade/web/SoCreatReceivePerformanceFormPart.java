@@ -1,9 +1,14 @@
 package com.gongsibao.trade.web;
 
-import com.gongsibao.bd.base.IFileService;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.EntityState;
+import org.netsharp.panda.commerce.FormPart;
+
 import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.trade.NDepPay;
-import com.gongsibao.entity.trade.NU8BankSoPayMap;
 import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.entity.trade.dic.OfflineWayType;
@@ -11,15 +16,9 @@ import com.gongsibao.entity.trade.dic.PayOfflineInstallmentType;
 import com.gongsibao.entity.trade.dic.PayWayType;
 import com.gongsibao.entity.trade.dto.DepPayMapDTO;
 import com.gongsibao.entity.trade.dto.OrderRelationDTO;
-import com.gongsibao.trade.base.*;
-import com.gongsibao.u8.base.ISoOrderService;
+import com.gongsibao.trade.base.INOrderAndPerformanceService;
+import com.gongsibao.trade.base.IOrderService;
 import com.gongsibao.u8.base.IU8BankService;
-import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.EntityState;
-import org.netsharp.panda.commerce.FormPart;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by win on 2018/3/8.
@@ -92,13 +91,13 @@ public class SoCreatReceivePerformanceFormPart extends FormPart {
                 nDepPay.setDepartmentId (item2.getDepartmentId ());
                 nDepPay.setSalesmanId (item2.getSalesmanId ());
 
-                nDepPay.setOrderPayMapId (orderPayMap.getId ());
+                //nDepPay.setOrderPayMapId (orderPayMap.getId ());
                 nDepPay.setEntityState (EntityState.New);
                 //nDepPayService.save (nDepPay);
                 nDepPays.add (nDepPay);
 
             }
-            orderPayMap.setDepPays (nDepPays);
+            //orderPayMap.setDepPays (nDepPays);
         }
         pay.setOrderPayMaps (orderPayMaps);
 

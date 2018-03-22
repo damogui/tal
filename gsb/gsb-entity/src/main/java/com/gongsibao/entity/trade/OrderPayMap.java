@@ -1,13 +1,14 @@
 package com.gongsibao.entity.trade;
 
-import com.gongsibao.entity.trade.dic.PayOfflineInstallmentType;
-import com.gongsibao.entity.u8.U8Bank;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.netsharp.core.annotations.*;
+import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Exclusive;
+import org.netsharp.core.annotations.Reference;
+import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
-
-import java.util.List;
+import com.gongsibao.entity.trade.dic.PayOfflineInstallmentType;
+import com.gongsibao.entity.u8.U8Bank;
 
 @Table(name = "so_order_pay_map", header = "订单和支付关系")
 public class OrderPayMap extends BaseEntity {

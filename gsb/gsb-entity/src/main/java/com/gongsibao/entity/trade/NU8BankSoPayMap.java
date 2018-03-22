@@ -10,7 +10,13 @@ import org.netsharp.core.annotations.Table;
 /**/
 @Table(name = "u8_bank_so_pay_map", header = "支付账号关系中间表")
 public class NU8BankSoPayMap  extends BaseEntity {
-    @Column(name = "pay_id", header = "支付编号")
+	
+    /**   
+	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
+	 */   
+	private static final long serialVersionUID = 6061493551046107952L;
+	
+	@Column(name = "pay_id", header = "支付编号")
     private  Integer payId;
     @Column(name = "set_of_books_id", header = "账套id")
     private  Integer setOfBooksId;

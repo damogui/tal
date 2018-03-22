@@ -9,7 +9,6 @@ import com.gongsibao.bd.service.auditLog.AbstractAuditLogService;
 import com.gongsibao.bd.service.auditLog.AuditFactory;
 import com.gongsibao.bd.service.auditLog.PayAudit;
 import com.gongsibao.entity.bd.AuditLog;
-import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.Pay;
 
 /*创建回款业绩审核*/
@@ -20,7 +19,7 @@ public class ActionApplyPayAudit implements IAction {
 
 		Pay pay = (Pay) ctx.getItem();
 		AbstractAuditLogService auditLogHandler = AuditFactory.getAudit(PayAudit.class);
-		List<AuditLog> auditLogList = auditLogHandler.execute(AuditLogType.Sksq, pay.getId(), null);
+		List<AuditLog> auditLogList = auditLogHandler.execute(pay.getId());
 
 		// 推送消息
 		

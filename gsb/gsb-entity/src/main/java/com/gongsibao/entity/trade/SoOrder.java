@@ -120,7 +120,7 @@ public class SoOrder extends BaseEntity {
 	/**
 	 * 临时字段-待支付
 	 */
-	private Integer toBePaidPrice;
+	private Integer toBePaidPrice = 0;
 
 	@Column(name = "performance_price", header = "订单业绩已划分金额")
 	private Integer performancePrice = 0;

@@ -18,7 +18,6 @@ import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.web.AuditStageListPart;
-import com.gongsibao.trade.web.SalesmanStagingListPart;
 
 /*分期订单*/
 public class SalesmanOrderStagingWorkspaceTest extends WorkspaceCreationBase {
