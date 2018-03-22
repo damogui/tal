@@ -9,13 +9,12 @@ com.gongsibao.trade.web.OrderPayCtrl = org.netsharp.panda.core.CustomCtrl.Extend
     	
     	this.base();
     	this.service = 'com.gongsibao.trade.web.OrderPayController';
-    	this.onlinePayId = null;
+    	
+    	//是否一笔多单：默认否
+    	this.payForOrderCount = false;
     },
     init:function(){
 
-		var centerHeight = $('body').height() - 240;
-		$('#center').height(centerHeight);
-		
 		$('#detail_tabs').tabs({
 			fit:true,
 			tabHeight:35
@@ -43,89 +42,102 @@ com.gongsibao.trade.web.OrderPayCtrl = org.netsharp.panda.core.CustomCtrl.Extend
     		$('#u8BankId').combobox('clear').combobox('loadData',data);
 		});
     },
-    isOnlineChange:function(checked){
+    getPay:function(){
     	
-    	var state = checked==true?'disable':'enable';
-        $("#setOfBooksId").combobox(state);
-        $("#u8BankId").combobox(state);
-        $("#payForOrderCount").switchbutton(state);
-        $("#amount").numberbox(state);
-        $("#offlinePayerName").prop("disabled", checked);
-        $("#offlineBankNo").prop("disabled", checked);
-        $("#offlineRemark").prop("disabled", checked);
-    	if(checked === true){
-    		
-            $("#setOfBooksId").combobox('clear');
-            $("#u8BankId").combobox('clear');
-            $("#payForOrderCount").switchbutton('clear');
-            $("#amount").numberbox('clear');
-            $("#offlinePayerName").val('');
-            $("#offlineBankNo").val('');
-            $("#offlineRemark").val('');
-            
-            var me = this;
-            var orderId = this.queryString('id');
-            this.invokeService('getOnlinePayInfoByOrderId', [orderId], function (data) {
-            	
-                if (data > 0) {
-
-                    me.onlinePayId = data;
-                } else {
-                	
-                    IMessageBox.toast("不存在支付记录", 2);
-                }
-            });
-    	}else{
-    		
-    		$("#onLineNotCutPay").numberbox('clear');
-    	}
-    	
+		var setOfBooksId = $('#setOfBooksId').combobox('getValue');
+		if(System.isnull(setOfBooksId)){
+			
+    		layer.msg('请选择【付款账套】！');
+			return null;
+		}
+		
+		var u8BankId = $('#u8BankId').combobox('getValue');
+		if(System.isnull(u8BankId)){
+			
+    		layer.msg('请选择【付款方式】！');
+			return null;
+		}
+		
+		var offlinePayerName = $('#offlinePayerName').val();
+		if(System.isnull(offlinePayerName)){
+			
+    		layer.msg('请填写【付款账户名称】！');
+			return null;
+		}
+		
+		var offlineBankNo = $('#offlineBankNo').val();
+		if(System.isnull(offlineBankNo)){
+			
+    		layer.msg('请填写【付款账号】！');
+			return null;
+		}
+		
+		var amount = $('#amount').numberbox('getValue');
+		if(System.isnull(amount)){
+			
+    		layer.msg('请填写【付款金额】！');
+			return null;
+		}
+		
+		var pay = new Object();
+		pay.setOfBooksId = setOfBooksId;
+		pay.u8BankId = u8BankId;
+		pay.offlinePayerName = offlinePayerName;
+		pay.amount = amount;
+		pay.payForOrderCount = this.payForOrderCount;
+		pay.offlineRemark = $('#offlineRemark').val();
+		return pay;
     },
     save:function(){
-
-    	//还没有做校验 hw 2018-03-13
-//    	var orderId = this.queryString('id');
-//    	var refund = new Object();
-//    	refund.orderId = orderId;
-//    	refund.setOfBooksId = $('#setOfBooksId').combogrid('getValue');
-//    	refund.refundType =  $('#refundType').combobox('getValue');
-//    	refund.payerName =  $('#payerName').val();
-//    	refund.bankNo =  $('#bankNo').val();
-//    	refund.amount =  parseFloat($('#amount').numberbox('getValue'))*100;
-//    	refund.remark =  $('#refundRemark').val();
-//    	//退款产品
-//    	var refundProductRows = $('#order_product_grid').datagrid('getRows');
-//    	var itemList = [];
-//    	for(var i=0;i<refundProductRows.length;i++){
-//    		
-//    		var prod = refundProductRows[i];
-//    		if(!System.isnull(prod.refundAmount) && parseFloat(prod.refundAmount) >0){
-//
-//        		var item = new Object();
-//        		item.orderId = orderId;
-//        		item.orderProdId = prod.id;
-//        		item.amount = prod.refundAmount;
-//        		itemList.push(item);
-//    		}
-//    	}
-//    	refund.refunds = itemList;
-//    	
-//    	//退款业绩分配
-//    	var depRefunds = $('#order_refund_grid').datagrid('getRows');
-//    	refund.depRefunds = depRefunds;
-//    	
-//    	var me = this;
-//    	IMessageBox.confirm('确定提交申请吗？',function(r){
-//    		
-//    		if(r){
-//
-//    			me.invokeService("applyRefund", [refund], function(data){
-//    				IMessageBox.info('申请成功，请等待审核!',function(s){
-//    	    			window.parent.layer.closeAll();
-//    	    		});
-//    	    	});
-//    		}
-//    	});
+    	
+		var pay = this.getPay();
+		if(pay == null){
+			
+			return;
+		}
+		
+		//校验是否上传凭证
+		var voucherFiles = this.payVoucherDetailCtrl.getRows();
+		if(voucherFiles.length == 0){
+			
+			layer.msg('请上传【付款凭证】！');
+			return;
+		}
+		
+		var relevanceRows = this.relevancePerformanceCtrl.getRows();
+		if(relevanceRows.length==0){
+			
+			layer.msg('请创建【关联订单】！');
+			return;
+		}
+		
+		//校验关联订单的总金额是否==支付金额
+		var amount = $('#amount').numberbox('getValue');
+		var payAmount = System.RMB.YuanToFen(amount);
+		
+		var allotTotalAmount = 0;
+		$(relevanceRows).each(function(i,item){
+			
+			allotTotalAmount+=item.orderPrice;
+		});
+		
+		if(allotTotalAmount != payAmount){
+			
+			layer.msg('【关联订单分配金额总和】与【付款金额】不相等！');
+			return;
+		}
+		
+		pay.files = voucherFiles;
+		pay.orderPayMaps = relevanceRows;
+		
+		//使用同步提交
+		var isSave = false;
+		this.invokeService("applyPay",[pay],function(data){
+			
+			isSave = data;
+			
+		},false);
+		return isSave;
     }
 });
 
@@ -194,30 +206,11 @@ com.gongsibao.trade.web.PayVoucherDetailCtrl = org.netsharp.panda.core.CustomCtr
     remove:function(index){
     	
     	$(this.$gridId).datagrid('deleteRow',index);
-    }
-});
-
-
-/***
- * 
- * 凭证上传组件
- */
-org.netsharp.controls.PayVoucherUpload = org.netsharp.controls.OSSUpload.Extends({
-	ctor: function() {
-		this.base();
-		this.multi_selection = true;
-		this.parent = null;
-	},
-	getButtonId:function(){
+    },
+	getRows:function(){
 		
-		return "btn_upload";
-	},
-	preview:function(path,file){
-		
-		if(System.isnull(path)){
-			return;
-		}
-		this.parent.add(path,file);
+		var rows = $(this.$gridId).datagrid('getRows');
+		return rows;
 	}
 });
 
@@ -264,108 +257,43 @@ com.gongsibao.trade.web.OrderRelevancePerformanceCtrl = org.netsharp.panda.core.
 				}
 			}],
 		    columns:[[
-
-		        {field:'orderId',title:'订单号',align:'center',rowspan:2,width:150,formatter:function(value,row,index){
+		              
+		        {field:'orderId',title:'订单号',align:'center',width:150,formatter:function(value,row,index){
 	
 		        	if(row.soOrder){
 		        		
 		        		return row.soOrder.no;
 		        	}
 		        }},
-		        {field:'orderPrice',title:'订单分配金额',align:'center',rowspan:2,width:100,formatter:function(value,row,index){
-		        	
-		        	return System.RMB.FenToYuan(value);
-		        }},
-		        {field:'offlineInstallmentType',title:'付款类别',rowspan:2,align:'center',width:100,formatter:function(value,row,index){
+		        {field:'offlineInstallmentType',title:'付款类别',align:'center',width:100,formatter:function(value,row,index){
 		        	
 		        	return me.payOfflineInstallmentTypeEnum[value];
 		        }},
-		        {title:'回款业绩分配',colspan:4}],
-		        [{field:'supplierId',title:'服务商',width:200,formatter:function(value,row,index){
-
-		        	var items = row.depPays;
-		        	if(items){
-
-			        	if(items.length==1){
-			        		
-			        		return items[0].supplier.name;
-			        	}else{
-
-			            	var str = '';
-			            	$(items).each(function(i,item){
-			            		
-			            		str+='<p>'+item.supplier.name+'</p>';
-			            	});
-			            	return str;
-			        	}
-		        	}
+		        {field:'orderPrice',title:'订单分配金额',align:'right',width:100,formatter:function(value,row,index){
 		        	
-		        	return '';
-		        }},
-		        {field:'departmentId',title:'部门',width:100,formatter:function(value,row,index){
-	        		
-		        	var items = row.depPays;
-		        	if(items){
-
-			        	if(items.length == 1){
-			        		
-			        		return items[0].department.name;
-			        	}else{
-
-			            	var str = '';
-			            	$(items).each(function(i,item){
-			            		
-			            		str+='<p>'+item.department.name+'</p>';
-			            	});
-			            	return str;
-			        	}
-		        	}
-		        	return '';
-		        }},
-		        {field:'salesmanId',title:'业务员',width:100,align:'center',formatter:function(value,row,index){
-	        		
-		        	var items = row.depPays;
-		        	if(items){
-		        		
-			        	if(items.length == 1){
-			        		
-			        		return items[0].salesman.name;
-			        	}else{
-
-			            	var str = '';
-			            	$(items).each(function(i,item){
-			            		
-			            		str+='<p>'+item.salesman.name+'</p>';
-			            	});
-			            	return str;
-			        	}
-		        	}
-		        	return '';
-		        }},
-		        {field:'amount',title:'分配金额',width:100,align:'right',formatter:function(value,row,index){
-	        		
-		        	var items = row.depPays;
-		        	if(items){
-
-			        	if(items.length == 1){
-			        		
-			        		return System.RMB.FenToYuan(items[0].amount);
-			        	}else{
-
-			            	var str = '';
-			            	$(items).each(function(i,item){
-			            		
-			            		str += '<p>' + System.RMB.FenToYuan(items.amount) + '</p>';
-			            	});
-			            	return str;
-			        	}
-		        	}
-		        	return '';
-		        }}
-		    ]]
+		        	return System.RMB.FenToYuan(value);
+		        }}]]
 		});
 	},
 	add:function(){
+		
+		var pay = payCtrl.getPay();
+		if(pay == null){
+			
+			return;
+		}
+		
+		if(payCtrl.payForOrderCount===false){
+			
+			//一笔一单：不允许再新增【关联订单】
+			
+			var relevanceRows = this.getRows();
+			if(relevanceRows.length>=1){
+				
+				layer.msg('【一笔一单】情况下只允许关联1张订单！');
+				return;
+			}
+		}
 		
 		var me = this;
 		var url = '/nav/gsb/platform/trade/orderPayMap';
@@ -375,19 +303,27 @@ com.gongsibao.trade.web.OrderRelevancePerformanceCtrl = org.netsharp.panda.core.
             fixed: false,
             maxmin: true,
             shadeClose: false,
-            area: ['700px', '500px'],
+            area: ['400px', '380px'],
             zIndex: 100000,
             id: "orderPayMap",
             content: url,
             btn: ['保存', '取消'],
             yes: function (index, layero) {
 
-                layer.closeAll();
                 var iframeWindow = document.getElementById('orderPayMap').firstElementChild.contentWindow;
                 var payMap = iframeWindow.payMapCtrl.getPayMap();
+                if(payMap == undefined){
+                	return;
+                }
+                layer.closeAll();
                 $(me.$gridId).datagrid('appendRow',payMap);
             }
         });
+	},
+	getRows:function(){
+		
+		var rows = $(this.$gridId).datagrid('getRows');
+		return rows;
 	},
 	remove:function(){
 		
@@ -403,6 +339,27 @@ com.gongsibao.trade.web.OrderRelevancePerformanceCtrl = org.netsharp.panda.core.
 	}
 });
 
-
+/***
+ * 
+ * 凭证上传组件
+ */
+org.netsharp.controls.PayVoucherUpload = org.netsharp.controls.OSSUpload.Extends({
+	ctor: function() {
+		this.base();
+		this.multi_selection = true;
+		this.parent = null;
+	},
+	getButtonId:function(){
+		
+		return "btn_upload";
+	},
+	preview:function(path,file){
+		
+		if(System.isnull(path)){
+			return;
+		}
+		this.parent.add(path,file);
+	}
+});
 
 
