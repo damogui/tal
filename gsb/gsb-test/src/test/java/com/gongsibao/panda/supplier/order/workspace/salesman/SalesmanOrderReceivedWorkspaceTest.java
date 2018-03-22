@@ -1,22 +1,18 @@
 package com.gongsibao.panda.supplier.order.workspace.salesman;
 
-import com.gongsibao.entity.trade.Pay;
-import com.gongsibao.trade.web.AuditPayListPart;
-import com.gongsibao.trade.web.SalesmanOrderPerformanceListPart;
 import org.junit.Before;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
-import org.netsharp.panda.dic.DatagridAlign;
-import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.entity.trade.NDepPay;
+import com.gongsibao.entity.trade.Pay;
+import com.gongsibao.trade.web.AuditPayListPart;
 import com.gongsibao.trade.web.SalesmanOrderReceivedListPart;
 
 /*回款业绩*/
