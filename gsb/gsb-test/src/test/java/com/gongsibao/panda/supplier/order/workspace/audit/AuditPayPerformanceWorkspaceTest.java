@@ -24,6 +24,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
  */
 /*回款业绩审核*/
 public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
+    private String listrowToolbarPath="/crm/roworderpay/toolbar";
     @Before
     public void setup() {
         super.setup ();
@@ -32,53 +33,51 @@ public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
         listPartName = formPartName = "回款业绩审核";//回款业绩审核
         meta = MtableManager.getMtable (entity);
         resourceNodeCode = "Gsb_Supplier_Pay_Audit_Performance";
-        listToolbarPath = "crm/audit/pay/edit";
+        listToolbarPath = "";
         listPartImportJs = "/gsb/platform/trade/js/audit-pay-list.js";
         listPartJsController = AuditPayListPart.class.getName ();
         listPartServiceController = AuditPayListPart.class.getName ();
     }
 
-    public PToolbar createListToolbar() {
-
-        ResourceNode node = this.resourceService.byCode (resourceNodeCode);
-        // OperationType ot1 = operationTypeService.byCode (OperationTypes.add);
-        PToolbar toolbar = new PToolbar ();
-        {
-            toolbar.toNew ();
-            toolbar.setPath (listToolbarPath);
-            toolbar.setName ("回款业绩审核");
-            toolbar.setResourceNode (node);
-            toolbar.setToolbarType (ToolbarType.BASE);
-        }
-
-        PToolbarItem item = PToolbarHelper.getPToolbarItem (EntityState.New, "addAudit", PToolbarHelper.iconExtr,
-                "查看审核记录", null, 1, "{controller}.add();");
-        toolbar.getItems ().add (item);
-        item = PToolbarHelper.getPToolbarItem (EntityState.New, "addAudit", PToolbarHelper.iconCheck,
-                "审核", null, 2, "{controller}.add();");
-        toolbar.getItems ().add (item);
-        return toolbar;
-    }
 
 
-    /*进行设置工具栏*/
+
+
     @Test
-    public void saveListToolbar() {
+    public void createRowToolbar() {
 
-        PToolbar toolbar = createListToolbar ();
-        if (toolbar != null) {
-
-            toolbarService.save (toolbar);
+        ResourceNode node = this.resourceService.byCode(resourceNodeCode);
+        PToolbar toolbar = new PToolbar();
+        {
+            toolbar.toNew();
+            toolbar.setPath(listrowToolbarPath);
+            toolbar.setName("审核");
+            toolbar.setResourceNode(node);
+            toolbar.setToolbarType(ToolbarType.BASE);
         }
+        PToolbarItem item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("audit");
+            item.setName("审核");
+            item.setSeq(1);
+            item.setCommand("{controller}.audit();");
+            toolbar.getItems().add(item);
+        }
+
+
+        toolbarService.save(toolbar);
     }
+
 
     @Override
     protected PDatagrid createDatagrid(ResourceNode node) {
 
         PDatagrid datagrid = super.createDatagrid (node);
         {
+            datagrid.setToolbar (listrowToolbarPath);
             datagrid.setName ("回款业绩审核");
-            datagrid.setToolbar ("panda/datagrid/row/edit");
+
             datagrid.setAutoQuery (true);
             datagrid.setShowCheckbox (true);
             datagrid.setSingleSelect (false);
