@@ -311,8 +311,8 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
                 var orderMultiple = $("#payForOrderCount")[0].checked;
                 if (orderMultiple) {
                   
-                    var orderId = $("#orderNo").numberbox('getValue');
-                    me.invokeService('checkOrderId', [orderId], function (data) {
+                    var orderNo = $("#orderNo").numberbox('getValue');
+                    me.invokeService('checkOrderByNo', [orderNo], function (data) {
 
                         
                         if (data > 0) {

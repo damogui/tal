@@ -41,11 +41,11 @@ public class OrderReceivePerformanceDetailPart extends DetailPart {
     }
 
     /*校验订单是否存在且付款金额小于订单金额*/
-    public int checkOrderId(Integer orderId) {
+    public int checkOrderByNo(Integer orderNo) {
         IPersister<SoOrder> orderService = PersisterFactory.create ();
         String sql = "SELECT  COUNT(1)  FROM  so_order  WHERE   `no`=?  AND  paid_price<total_price;";
         QueryParameters qps = new QueryParameters ();
-        qps.add ("@no", orderId, Types.INTEGER);
+        qps.add ("@no", orderNo, Types.INTEGER);
         int num = orderService.executeInt (sql, qps);//1存在符合条件的订单0不存在
         return num;
     }
