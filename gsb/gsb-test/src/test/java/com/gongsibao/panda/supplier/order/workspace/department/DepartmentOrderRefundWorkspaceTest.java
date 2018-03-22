@@ -3,7 +3,6 @@ package com.gongsibao.panda.supplier.order.workspace.department;
 import org.junit.Before;
 
 import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderRefundWorkspaceTest;
-import com.gongsibao.trade.web.department.DepartmentOrderRefundListPart;
 
 /*退款订单*/
 public class DepartmentOrderRefundWorkspaceTest extends SalesmanOrderRefundWorkspaceTest {
@@ -12,7 +11,7 @@ public class DepartmentOrderRefundWorkspaceTest extends SalesmanOrderRefundWorks
 		super.setup();
 		urlList = "/crm/order/department/refund/list";
 		resourceNodeCode = "Gsb_Supplier_Order_Department_Refund";
-		listPartServiceController = DepartmentOrderRefundListPart.class.getName();
+		//listPartServiceController = DepartmentOrderRefundListPart.class.getName();
 		listFilter = "";
 	}
 }
