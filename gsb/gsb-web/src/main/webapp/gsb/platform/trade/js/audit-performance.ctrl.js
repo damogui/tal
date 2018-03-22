@@ -19,12 +19,9 @@ com.gongsibao.trade.web.AuditPerformanceCtrl = com.gongsibao.trade.web.AuditBase
     },
     initGridPer: function (id) {//根据订单id获取信息渲染订单业绩
         var me = this;
-
-        // var maxWidth = $('#dynamicForm').width()-180;
-        // var maxHeight = $('#dynamicForm').parent().height()-150;
         me.invokeService("getOrderCutPerformance", [id], function (data) {
 
-            debugger;
+
             $('#order_performance_grid').datagrid({
                 idField: 'id',
                 emptyMsg: '暂无记录',
@@ -48,8 +45,6 @@ com.gongsibao.trade.web.AuditPerformanceCtrl = com.gongsibao.trade.web.AuditBase
                         width: 100,
                         align: 'right',
                         formatter: function (value, row, index) {
-                           // return value;
-
                             return (value / 100).toFixed(2);
                         }
                     }
@@ -57,7 +52,6 @@ com.gongsibao.trade.web.AuditPerformanceCtrl = com.gongsibao.trade.web.AuditBase
                 ]]
             });
 
-            //$('#order_performance_grid').datagrid('loadData', data);
             me.initGridAudit(id);//等上一个请求完渲染第二个
         });
 
@@ -65,7 +59,6 @@ com.gongsibao.trade.web.AuditPerformanceCtrl = com.gongsibao.trade.web.AuditBase
     },
 
     initGridAudit: function (orderId) {//审批进度
-       
         var me = this;
         this.invokeService ("getAuditLogList", [orderId], function(data){
             $('#audit_progress_grid').datagrid({
