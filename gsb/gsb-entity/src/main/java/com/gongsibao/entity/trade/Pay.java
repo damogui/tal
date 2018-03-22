@@ -110,6 +110,10 @@ public class Pay extends BaseEntity {
 	@Column(header = "订单编号拼接")
 	private String orderIds = "";// 拼接订单Id
 
+	@Exclusive
+	@Subs(subType = OrderPayMap.class, foreignKey = "payId", header = "支付明细")
+	private List<OrderPayMap> orderPayMaps = new ArrayList<>();
+	
 	/* new end */
 
 	public String getNo() {
@@ -327,6 +331,12 @@ public class Pay extends BaseEntity {
 	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
-	
-	
+
+	public List<OrderPayMap> getOrderPayMaps() {
+		return orderPayMaps;
+	}
+
+	public void setOrderPayMaps(List<OrderPayMap> orderPayMaps) {
+		this.orderPayMaps = orderPayMaps;
+	}
 }

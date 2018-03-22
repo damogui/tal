@@ -40,12 +40,6 @@ public class OrderPayMap extends BaseEntity {
     @Reference(foreignKey = "u8BankId", header = "支付方式")
     private U8Bank u8Bank;
 
-
-    //部门回款业绩表
-    @Subs(subType = NDepPay.class, foreignKey = "orderPayMapId", header = "回款业绩")
-    private List<NDepPay> depPays;
-//    private Integer orderCutAmount;//订单分配金额
-
     //我的订单回款额
     @Exclusive
     private Integer myOrderCutAmount = 0;
@@ -81,14 +75,6 @@ public class OrderPayMap extends BaseEntity {
 
     public void setPay(Pay pay) {
         this.pay = pay;
-    }
-
-    public List<NDepPay> getDepPays() {
-        return depPays;
-    }
-
-    public void setDepPays(List<NDepPay> depPays) {
-        this.depPays = depPays;
     }
 
     public PayOfflineInstallmentType getOfflineInstallmentType() {
