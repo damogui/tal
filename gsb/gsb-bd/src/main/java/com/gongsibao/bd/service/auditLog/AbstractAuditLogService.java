@@ -13,7 +13,6 @@ import com.gongsibao.utils.SupplierSessionManager;
 
 public abstract class AbstractAuditLogService {
 	IOrganizationService organizationService = ServiceFactory.create(IOrganizationService.class);
-	 private List<Integer> leaderIdList = new ArrayList<Integer>();
 	
 	public List<AuditLog> execute(AuditLogType type, Integer formId, Integer addUserId) {
 		List<AuditLog> userAuditList = this.getUserAuditLogList(type, formId, addUserId);
@@ -25,7 +24,7 @@ public abstract class AbstractAuditLogService {
 		if(departAuditList.size() > 0){
 			allList.addAll(departAuditList);
 		}
-		if(extenAuditList.size() > 0){
+		if(extenAuditList!= null && extenAuditList.size() > 0){
 			allList.addAll(extenAuditList);
 		}
 		return allList;
@@ -52,7 +51,7 @@ public abstract class AbstractAuditLogService {
 	protected List<AuditLog> getDepartAuditLogList(AuditLogType type, Integer formId, Integer addUserId){
 		List<AuditLog> resuList = new ArrayList<AuditLog>();
 		
-		recursiveLeaderId(addUserId);
+		List<Integer> leaderIdList = recursiveLeaderId(addUserId);
 		int i = 0;
 		for (Integer item : leaderIdList) {
 			i +=1;
@@ -68,15 +67,20 @@ public abstract class AbstractAuditLogService {
 	public abstract List<AuditLog> getExtenAuditLogList(AuditLogType type,Integer formId,Integer addUserId);
 	
 	/**
-	 * 递归获取leaderId
+	 * 递归获取leaderId,目前只取2级领导（直属领导、隔级领导）
 	 * @param addUserId
 	 */
-	private void recursiveLeaderId(Integer addUserId) {
+	private List<Integer> recursiveLeaderId(Integer addUserId) {
+		List<Integer> leaderIdList = new ArrayList<Integer>();
 		SalesmanOrganization organization = SupplierSessionManager.getSalesmanOrganization(addUserId);
-        if (organization.getDirectLeaderId() != null) {
-        	Integer leaderId = organization.getDirectLeaderId();
-        	leaderIdList.add(leaderId);
-        	recursiveLeaderId(leaderId);
+		//1.直级领导
+        if (organization.getDirectLeaderId() != null && !organization.getDirectLeaderId().equals(addUserId)) {
+        	leaderIdList.add(organization.getDirectLeaderId());
         }
+        //2.隔级领导
+        if (organization.getSuperiorLeaderId() != null && !organization.getSuperiorLeaderId().equals(addUserId)) {
+        	leaderIdList.add(organization.getSuperiorLeaderId());
+        }
+        return leaderIdList;
 	}
 }
