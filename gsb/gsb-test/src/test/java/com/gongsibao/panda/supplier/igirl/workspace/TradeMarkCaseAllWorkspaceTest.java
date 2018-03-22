@@ -409,7 +409,8 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
                 String formatter = EnumUtil.getColumnFormatter(ShareGroup.class);
                 column.setFormatter(formatter);
             }
-
+            addColumn(datagrid, "cost", "成本", ControlTypes.DECIMAL_BOX, 150);
+            addColumn(datagrid, "charge", "服务费", ControlTypes.DECIMAL_BOX, 150);
         }
         PForm form = new PForm();
         {
@@ -433,6 +434,12 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
             formField.setVisible(false);
             formField = addFormField(form, "priorityType", "是否优先权", groupName, ControlTypes.ENUM_BOX, false, false);
             formField.setVisible(false);
+
+            // 成本
+            addFormField(form, "cost", "成本", groupName, ControlTypes.DECIMAL_BOX, true, true);
+            // 服务费
+            addFormField(form, "charge", "服务费", groupName, ControlTypes.DECIMAL_BOX, true, false);
+
             formField = addFormFieldRefrence(form, "nclOne.name", "商标大类", null, "NCLOne", true, false);
             {
                 formField.setTroikaTrigger("controllertradeMarks.nclOneChange(newValue,oldValue);");
@@ -462,8 +469,8 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
             part.setWindowWidth(1024);
             part.setWindowHeight(800);
             part.setForm(form);
-
         }
+
         workspace.getParts().add(part);
         part = workspace.getParts().get(0);
         {
@@ -471,6 +478,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
             part.setStyle("height:500px;");
             part.setDockStyle(DockType.DOCUMENTHOST);
         }
+
 
     }
 
