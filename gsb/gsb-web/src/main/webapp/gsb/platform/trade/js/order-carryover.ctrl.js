@@ -14,14 +14,22 @@ com.gongsibao.trade.web.OrderCarryoverCtrl = org.netsharp.panda.core.CustomCtrl.
 		
     	var orderId = this.queryString('id');
     	this.invokeService ("getSoOrder", [orderId], function(data){
-    		
+      		$("#paidPrice_hidden").val(data.paidPrice);
+      		$("#refundPrice_hidden").val(data.refundPrice);
+      		$("#carryAmount_hidden").val(data.carryAmount);
+      		
     		$('#formOrderNo').val(data.no);
     	});
     },
     amountChange:function(newValue,oldValue){
-    	
-    	//校验金额合法性
-    	
+    	var paidPrice = $("#paidPrice_hidden").val();
+    	var refundPrice = $("#refundPrice_hidden").val();
+    	var carryAmount = $("#carryAmount_hidden").val();
+    	var getFinals = paidPrice - refundPrice - carryAmount;
+    	if((getFinals - newValue) < 0){
+    		$('#amount').numberbox('clear');
+    		layer.msg('结转金额不应大于应付的金额！');
+    	}
     },
     toOrderNoBlur:function(){
     	var me = this;
