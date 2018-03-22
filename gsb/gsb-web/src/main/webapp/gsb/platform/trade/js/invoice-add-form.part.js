@@ -2,6 +2,8 @@ System.Declare("com.gongsibao.trade.web");
 com.gongsibao.trade.web.InvoiceFormPart = org.netsharp.panda.commerce.FormPart.Extends({
     ctor: function () {
         this.base();
+        //订单下单方式枚举
+        this.orderPlatformSourceEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderPlatformSourceType');
     },
     init: function () {
 
@@ -15,21 +17,24 @@ com.gongsibao.trade.web.InvoiceFormPart = org.netsharp.panda.commerce.FormPart.E
         //显示订单信息
         this.invokeService("querySoOrderById", [orderId], function (data) {
             if (data != null) {
-                var soOrder = data;
-                $("#soOrderNo").text(soOrder.no);
-                $("#payablePrice").text((soOrder.payablePrice / 100).toFixed(2));
-                $("#paidPrice").text((soOrder.paidPrice / 100).toFixed(2));
-                $("#customerName").text(soOrder.customerName == null ? "" : soOrder.customerName);
-                $("#accountMobile").text(soOrder.accountMobile);
-                $("#createTime").text(soOrder.createTime);
-                $("#sourceType").text(soOrder.sourceType);
-                $("#payStatus").text(soOrder.payStatus);
-                $("#stageNum").text(soOrder.stageNum);
-                $("#channelOrderNo").text(soOrder.channelOrderNo);
-                $("#remark").text(soOrder.remark);
-                //$("#forminvoice").append("<input type='hidden' id='orderId' value='"+soOrder.id+"' />");
+                //绑定订单信息
+                me.bandOrderInfo(data);
             }
         });
+    },
+    bandOrderInfo: function (soOrder) {
+        var me = this;
+        $("#soOrderNo").text(soOrder.no);
+        $("#payablePrice").text((soOrder.payablePrice / 100).toFixed(2));
+        $("#paidPrice").text((soOrder.paidPrice / 100).toFixed(2));
+        $("#customerName").text(soOrder.customerName == null ? "" : soOrder.customerName);
+        $("#accountMobile").text(soOrder.accountMobile);
+        $("#createTime").text(soOrder.createTime);
+        $("#platformSource").text(me.orderPlatformSourceEnum[soOrder.platformSource]);
+        $("#payStatus").text(soOrder.payStatus);
+        $("#stageNum").text(soOrder.stageNum);
+        $("#channelOrderNo").text(soOrder.channelOrderNo);
+        $("#remark").text(soOrder.remark);
     },
     doSave: function (entity) {
         var me = this;
