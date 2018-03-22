@@ -106,15 +106,14 @@ public class Pay extends BaseEntity {
 	@Column(name = "dep_pay_audit_pass_time", header = "回款业绩审核通过时间")
 	private Date depPayAuditPassTime = new Date();
 
-	/* new beg */
-	@Exclusive
-	@Subs(subType = OrderPayMap.class, foreignKey = "payId", header = "支付明细")
-	private List<OrderPayMap> orderPayMaps = new ArrayList<>();
-
 	@Exclusive
 	@Column(header = "订单编号拼接")
 	private String orderIds = "";// 拼接订单Id
 
+	@Exclusive
+	@Subs(subType = OrderPayMap.class, foreignKey = "payId", header = "支付明细")
+	private List<OrderPayMap> orderPayMaps = new ArrayList<>();
+	
 	/* new end */
 
 	public String getNo() {
@@ -317,14 +316,6 @@ public class Pay extends BaseEntity {
 		this.u8Bank = u8Bank;
 	}
 
-	public List<OrderPayMap> getOrderPayMaps() {
-		return orderPayMaps;
-	}
-
-	public void setOrderPayMaps(List<OrderPayMap> orderPayMaps) {
-		this.orderPayMaps = orderPayMaps;
-	}
-
 	public String getOrderIds() {
 		return orderIds;
 	}
@@ -340,6 +331,12 @@ public class Pay extends BaseEntity {
 	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
-	
-	
+
+	public List<OrderPayMap> getOrderPayMaps() {
+		return orderPayMaps;
+	}
+
+	public void setOrderPayMaps(List<OrderPayMap> orderPayMaps) {
+		this.orderPayMaps = orderPayMaps;
+	}
 }

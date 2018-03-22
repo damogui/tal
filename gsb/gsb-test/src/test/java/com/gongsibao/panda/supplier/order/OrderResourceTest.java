@@ -48,7 +48,8 @@ public class OrderResourceTest extends ResourceCreationBase {
                 /*下拉列表反射end*/
 
                 this.createResourceNodeVoucher (NDepReceivable.class.getName (), "订单业绩", "Gsb_Supplier_Order_Salesman_Performance", INDepReceivableService.class.getName (), node2.getId ());
-                this.createResourceNodeVoucher (Pay.class.getName (), "回款业绩", "Gsb_Supplier_Order_Salesman_Received", IPayService.class.getName (), node2.getId ());
+                this.createResourceNodeVoucher (Pay.class.getName (), "我的回款", "Gsb_Supplier_Order_Salesman_Pay", IPayService.class.getName (), node2.getId ());
+                this.createResourceNodeVoucher (Pay.class.getName (), "我的回款业绩", "Gsb_Supplier_Order_Salesman_Received", IPayService.class.getName (), node2.getId ());
                 this.createResourceNodeVoucher (Refund.class.getName (), "我的退款", "Gsb_Supplier_Order_Salesman_Refund", IRefundService.class.getName (), node2.getId ());
                 this.createResourceNodeVoucher (SoOrder.class.getName (), "我的分期", "Gsb_Supplier_Order_Salesman_Staging", IOrderService.class.getName (), node2.getId ());
                 this.createResourceNodeVoucher (NOrderCarryover.class.getName (), "我的结转", "Gsb_Supplier_Order_Salesman_Carryover", INOrderCarryoverService.class.getName (), node2.getId ());
@@ -67,7 +68,8 @@ public class OrderResourceTest extends ResourceCreationBase {
             {
                 this.createResourceNodeVoucher (SoOrder.class.getName (), "全部订单", "Gsb_Supplier_Order_Department_All", IOrderService.class.getName (), node3.getId ());
                 this.createResourceNodeVoucher (NDepReceivable.class.getName (), "订单业绩", "Gsb_Supplier_Order_Department_Performance", INDepReceivableService.class.getName (), node3.getId ());
-                this.createResourceNodeVoucher (Pay.class.getName (), "回款业绩", "Gsb_Supplier_Order_Department_Received", IPayService.class.getName (), node3.getId ());
+                this.createResourceNodeVoucher (Pay.class.getName (), "部门回款", "Gsb_Supplier_Order_Department_Pay", IPayService.class.getName (), node3.getId ());
+                this.createResourceNodeVoucher (Pay.class.getName (), "部门回款业绩", "Gsb_Supplier_Order_Department_Received", IPayService.class.getName (), node3.getId ());
                 this.createResourceNodeVoucher (Refund.class.getName (), "退款订单", "Gsb_Supplier_Order_Department_Refund", IRefundService.class.getName (), node3.getId ());
                 this.createResourceNodeVoucher (SoOrder.class.getName (), "分期订单", "Gsb_Supplier_Order_Department_Staging", IOrderService.class.getName (), node3.getId ());
                 this.createResourceNodeVoucher (NOrderCarryover.class.getName (), "结转订单", "Gsb_Supplier_Order_Department_Carryover", INOrderCarryoverService.class.getName (), node3.getId ());
@@ -83,6 +85,7 @@ public class OrderResourceTest extends ResourceCreationBase {
             {
                 this.createResourceNodeVoucher (SoOrder.class.getName (), "订单审核", "Gsb_Supplier_Order_Audit_Order", IOrderService.class.getName (), node4.getId ());
                 this.createResourceNodeVoucher (NDepReceivable.class.getName (), "订单业绩审核", "Gsb_Supplier_Order_Audit_Performance", INDepReceivableService.class.getName (), node4.getId ());
+                this.createResourceNodeVoucher (Pay.class.getName (), "回款审核", "Gsb_Supplier_Pay_Audit", IPayService.class.getName (), node4.getId ());
                 this.createResourceNodeVoucher (Pay.class.getName (), "回款业绩审核", "Gsb_Supplier_Pay_Audit_Performance", IPayService.class.getName (), node4.getId ());
 
 

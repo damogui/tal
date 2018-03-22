@@ -38,6 +38,9 @@ public class AuditLog extends BaseEntity {
 	@Column(name = "level", header = "审核层级")
 	private Integer level;
 
+	@Column(name = "max_level", header = "最高审核层级（用于在审核通过时，和当前级别比较下，相等时进行修改主实体状态等操作）")
+	private Integer maxLevel;
+	
 	// 订单
 	@Reference(foreignKey = "formId")
 	private SoOrder soOrder;
@@ -96,6 +99,14 @@ public class AuditLog extends BaseEntity {
 
 	public void setLevel(Integer level) {
 		this.level = level;
+	}	
+	
+	public Integer getMaxLevel() {
+		return maxLevel;
+	}
+
+	public void setMaxLevel(Integer maxLevel) {
+		this.maxLevel = maxLevel;
 	}
 
 	public SoOrder getSoOrder() {

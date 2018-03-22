@@ -1,11 +1,9 @@
 package com.gongsibao.panda.supplier.order.workspace.audit;
 
 import com.gongsibao.entity.trade.Pay;
-import com.gongsibao.tools.PToolbarHelper;
 import com.gongsibao.trade.web.AuditPayListPart;
 import org.junit.Before;
 import org.junit.Test;
-import org.netsharp.core.EntityState;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
@@ -20,19 +18,19 @@ import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 /**
- * Created by win on 2018/3/20.
+ * Created by win on 2018/3/22.
  */
-/*回款业绩审核*/
-public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
+public class AuditPayWorkspaceTest  extends WorkspaceCreationBase {
+
     private String listrowToolbarPath="/crm/roworderpay/toolbar";
     @Before
     public void setup() {
         super.setup ();
         entity = Pay.class;
-        urlList = "/crm/order/audit/payper/list";
-        listPartName = formPartName = "回款业绩审核";//回款业绩审核
+        urlList = "/crm/order/audit/pay/list";
+        listPartName = formPartName = "回款审核";//回款审核
         meta = MtableManager.getMtable (entity);
-        resourceNodeCode = "Gsb_Supplier_Pay_Audit_Performance";
+        resourceNodeCode = "Gsb_Supplier_Pay_Audit";
         listToolbarPath = "";
         listPartImportJs = "/gsb/platform/trade/js/audit-pay-list.js";
         listPartJsController = AuditPayListPart.class.getName ();
@@ -86,7 +84,7 @@ public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
         addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 60, true);
         // addColumn (datagrid, "u8Bank.name", "姓名", ControlTypes.TEXT_BOX, 100);
         column = addColumn (datagrid, "orderIds", "订单编号", ControlTypes.TEXT_BOX, 120);//需要拼接
-         {
+        {
             // column.setFormatter("return controllerpayList.orderNameFormatter(value,row,index);");
 
         }

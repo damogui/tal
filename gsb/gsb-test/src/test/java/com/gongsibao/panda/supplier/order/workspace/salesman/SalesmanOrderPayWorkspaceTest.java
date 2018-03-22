@@ -1,11 +1,9 @@
-package com.gongsibao.panda.supplier.order.workspace.audit;
+package com.gongsibao.panda.supplier.order.workspace.salesman;
 
 import com.gongsibao.entity.trade.Pay;
-import com.gongsibao.tools.PToolbarHelper;
 import com.gongsibao.trade.web.AuditPayListPart;
+import com.gongsibao.trade.web.SalesmanOrderReceivedListPart;
 import org.junit.Before;
-import org.junit.Test;
-import org.netsharp.core.EntityState;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
@@ -14,70 +12,36 @@ import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
-import org.netsharp.panda.plugin.dic.ToolbarType;
-import org.netsharp.panda.plugin.entity.PToolbar;
-import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 /**
- * Created by win on 2018/3/20.
+ * Created by win on 2018/3/22.
  */
-/*回款业绩审核*/
-public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
-    private String listrowToolbarPath="/crm/roworderpay/toolbar";
+public class SalesmanOrderPayWorkspaceTest  extends WorkspaceCreationBase {
     @Before
     public void setup() {
         super.setup ();
         entity = Pay.class;
-        urlList = "/crm/order/audit/payper/list";
-        listPartName = formPartName = "回款业绩审核";//回款业绩审核
+        urlList = "/crm/order/salesman/pay/list";
+        listPartName = formPartName = "我的回款";//我的回款
         meta = MtableManager.getMtable (entity);
-        resourceNodeCode = "Gsb_Supplier_Pay_Audit_Performance";
-        listToolbarPath = "";
-        listPartImportJs = "/gsb/platform/trade/js/audit-pay-list.js";
-        listPartJsController = AuditPayListPart.class.getName ();
+        resourceNodeCode = "Gsb_Supplier_Order_Salesman_Pay";
+        listToolbarPath = "crm/salesman/pay/edit";
+        listPartImportJs = "/gsb/platform/trade/js/salesman-order-payperformance-list.js";
+        listPartJsController = SalesmanOrderReceivedListPart.class.getName ();
         listPartServiceController = AuditPayListPart.class.getName ();
+        //listFilter = "salesman_id = '{userId}'";
+        listToolbarPath="";
+        listFilter = " pkid IN (SELECT pay_id FROM so_order_pay_map WHERE order_id IN (SELECT pkid FROM so_order WHERE owner_id = '{userId}' ORDER BY pkid DESC)) OR add_user_id = '{userId}' ";
     }
-
-
-
-
-
-    @Test
-    public void createRowToolbar() {
-
-        ResourceNode node = this.resourceService.byCode(resourceNodeCode);
-        PToolbar toolbar = new PToolbar();
-        {
-            toolbar.toNew();
-            toolbar.setPath(listrowToolbarPath);
-            toolbar.setName("审核");
-            toolbar.setResourceNode(node);
-            toolbar.setToolbarType(ToolbarType.BASE);
-        }
-        PToolbarItem item = new PToolbarItem();
-        {
-            item.toNew();
-            item.setCode("audit");
-            item.setName("审核");
-            item.setSeq(1);
-            item.setCommand("{controller}.audit();");
-            toolbar.getItems().add(item);
-        }
-
-
-        toolbarService.save(toolbar);
-    }
-
 
     @Override
     protected PDatagrid createDatagrid(ResourceNode node) {
 
         PDatagrid datagrid = super.createDatagrid (node);
         {
-            datagrid.setToolbar (listrowToolbarPath);
-            datagrid.setName ("回款业绩审核");
-
+            datagrid.setName ("回款业绩");
+            datagrid.setToolbar ("panda/datagrid/row/edit");
             datagrid.setAutoQuery (true);
             datagrid.setShowCheckbox (true);
             datagrid.setSingleSelect (false);
@@ -86,7 +50,7 @@ public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
         addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 60, true);
         // addColumn (datagrid, "u8Bank.name", "姓名", ControlTypes.TEXT_BOX, 100);
         column = addColumn (datagrid, "orderIds", "订单编号", ControlTypes.TEXT_BOX, 120);//需要拼接
-         {
+        {
             // column.setFormatter("return controllerpayList.orderNameFormatter(value,row,index);");
 
         }
@@ -126,13 +90,9 @@ public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
 
         return queryProject;
     }
-
     @Override
     protected void doOperation() {
-        ResourceNode node = this.getResourceNode ();
-        operationService.addOperation (node, OperationTypes.view);
-        operationService.addOperation (node, OperationTypes.add);
-        operationService.addOperation (node, OperationTypes.update);
-        operationService.addOperation (node, OperationTypes.delete);
+        ResourceNode node = this.getResourceNode();
+        operationService.addOperation(node, OperationTypes.view);
     }
 }
