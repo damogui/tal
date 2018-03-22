@@ -14,8 +14,8 @@
         </fieldset>
     </div>
 </div>
-<div id="center" data-options="region:'center'">
-    <div id="detail_tabs" style="height:100%;">
+<div id="center" data-options="region:'center'"  style="height:100%;width: 100%">
+    <div id="detail_tabs" style="height:100%;width: 100%">
         <div title="业绩划分">
             <table id="order_performance_grid"></table>
         </div>
