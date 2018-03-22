@@ -8,7 +8,6 @@ import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 
 import com.gongsibao.entity.bd.AuditLog;
-import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.u8.base.ISoOrderService;
 

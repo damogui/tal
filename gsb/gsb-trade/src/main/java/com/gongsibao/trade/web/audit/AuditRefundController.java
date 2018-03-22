@@ -7,8 +7,10 @@ import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 
 import com.gongsibao.entity.trade.NDepRefund;
+import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.trade.base.INDepRefundService;
+import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IRefundService;
 import com.gongsibao.trade.service.action.audit.AuditState;
 
@@ -32,6 +34,20 @@ public class AuditRefundController extends AuditBaseController{
 	public Boolean rejected(Integer auditLogId, String remark) {
 
 		return auditService.auditRefund(AuditState.NOTPASS, auditLogId, remark);
+	}
+	
+	/**
+	 * @Title: queryProductList
+	 * @Description: TODO(查询产品明细)
+	 * @param: @param orderId
+	 * @param: @return
+	 * @return: List<OrderProd>
+	 * @throws
+	 */
+	public List<OrderProd> queryProductList(Integer orderId) {
+
+		IOrderProdService prodService = ServiceFactory.create(IOrderProdService.class);
+		return prodService.queryByOrderId(orderId);
 	}
 	
 	/**

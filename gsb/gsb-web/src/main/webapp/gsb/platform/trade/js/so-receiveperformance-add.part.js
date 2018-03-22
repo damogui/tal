@@ -308,6 +308,7 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
             },
             yes: function (index, layero) {
                 //如果是一笔多单的情况校验是不是存在订单号
+               
                 var orderMultiple = $("#payForOrderCount")[0].checked;
                 if (orderMultiple) {
                   
@@ -315,31 +316,30 @@ com.gongsibao.trade.web.OrderReceivePerformanceDetailPart = org.netsharp.panda.c
                     me.invokeService('checkOrderByNo', [orderNo], function (data) {
 
                         
-                        if (data > 0) {
+                        if (data == 0) {
 
-                            //进行绑定数据
-                            var orderBack = me.getOrderBack();
-                            var orderCutAmount = $("#orderCutPrice").numberbox('getValue');
-
-                            if (orderBack.allAmount != parseFloat(orderCutAmount)) {
-
-                                IMessageBox.toast("回款业绩分配金额必须等于订单分配金额", 2);
-                                return
-                            } else {
-
-                                $('#datagridpays').datagrid('appendRow', orderBack);//赋值
-
-                                layer.closeAll();
-                            }
-
-                        } else {
                             IMessageBox.toast('订单不存在', 2);
                             return;
-
 
                         }
                     });
 
+                }
+
+
+                //进行绑定数据
+                var orderBack = me.getOrderBack();
+                var orderCutAmount = $("#orderCutPrice").numberbox('getValue');
+
+                if (orderBack.allAmount != parseFloat(orderCutAmount)) {
+
+                    IMessageBox.toast("回款业绩分配金额必须等于订单分配金额", 2);
+                    return
+                } else {
+
+                    $('#datagridpays').datagrid('appendRow', orderBack);//赋值
+
+                    layer.closeAll();
                 }
 
 
