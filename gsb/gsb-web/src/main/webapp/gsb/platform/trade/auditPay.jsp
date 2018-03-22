@@ -4,6 +4,10 @@
 <head>
 	<title>回款审核</title>
 	<jsp:include page="/gsb/platform/trade/include/meta.jsp"></jsp:include>
+      <style  type="text/css">
+
+
+      </style>
 </head>
     <body class="easyui-layout">
 
@@ -13,39 +17,38 @@
             <table cellpadding="3" cellspacing="0" class="form-panel">
                 <tr>
                     <td class="label_td"><label>付款账套：</label></td>
-                    <td class="control_td">
-                        <input id="setOfBooksId" class="easyui-combobox" data-options="editable:false,width:200,onChange:function(newValue,oldValue){payCtrl.setOfBooksIdChange(newValue,oldValue);}"/>
+                    <td class="control_td"  id="setOfBooksId">
+
                     </td>
                     <td class="label_td"><label>付款方式：</label></td>
-                    <td class="control_td">
-                        <input id="u8BankId" class="easyui-combobox nsInput" data-options="editable:false,width:200"/>
+                    <td class="control_td" id="u8BankId">
+
                     </td>
                 </tr>
                 <tr>
                     <td class="label_td"><label>付款账户名称：</label></td>
-                    <td class="control_td">
-                        <input id="offlinePayerName" class="easyui-validatebox nsInput" style="width:200px;"/>
+                    <td class="control_td" id="offlinePayerName">
+
                     </td>
                     <td class="label_td"><label>付款账号：</label></td>
-                    <td class="control_td">
-                        <input id="offlineBankNo" class="easyui-validatebox nsInput" style="width:200px;"/>
+                    <td class="control_td" id="offlineBankNo">
+
                     </td>
                 </tr>
                 <tr>
                     <td class="label_td"><label>一笔多单：</label></td>
-                    <td class="control_td">
-                        <input id="payForOrderCount" class="easyui-switchbutton" data-options="width:60,height:28,onText:'是',offText:'否',onChange:function(checked){payCtrl.payForOrderCount=checked;}"/>
+                    <td class="control_td" id="payForOrderCount">
+
                     </td>
                     <td class="label_td"><label>付款金额：</label></td>
-                    <td class="control_td">
-                        <input id="amount" class="easyui-numberbox nsInput"
-                               data-options="precision:2,width:200,min:1"/>
+                    <td class="control_td"  id="amount">
+
                     </td>
                 </tr>
                 <tr>
                     <td class="label_td"><label>付款说明：</label></td>
-                    <td colspan="3" class="control_td">
-                        <textarea id="offlineRemark" style="width:100%;height:50px;" class="easyui-validatebox nsInput"></textarea>
+                    <td colspan="3" class="control_td" id="offlineRemark">
+
                     </td>
                 </tr>
             </table>

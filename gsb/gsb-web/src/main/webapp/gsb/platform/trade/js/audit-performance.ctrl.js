@@ -5,15 +5,7 @@ com.gongsibao.trade.web.AuditPerformanceCtrl = com.gongsibao.trade.web.AuditBase
         this.base();
         this.service = 'com.gongsibao.trade.web.audit.AuditPerformanceController';
     },
-    init: function () {
-        var centerHeight = $('body').height() - 240;
-        $('#center').height(centerHeight);
-        $('#detail_tabs').tabs({
-            fit: true,
-            tabHeight: 35
-
-        });
-
+    initData: function () {
         var id = this.queryString('id');
         this.initGridPer(id);
 
