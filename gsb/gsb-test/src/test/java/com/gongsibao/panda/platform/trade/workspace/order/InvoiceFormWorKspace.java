@@ -40,7 +40,7 @@ public class InvoiceFormWorKspace extends WorkspaceCreationBase {
         addFormField(form, "customerName", "客户姓名", ControlTypes.LABEL, false, true);
         addFormField(form, "accountMobile", "客户电话", ControlTypes.LABEL, false, true);
         addFormField(form, "createTime", "下单时间", ControlTypes.LABEL, false, true);
-        addFormField(form, "sourceType", "订单来源", ControlTypes.LABEL, false, true);
+        addFormField(form, "platformSource", "订单来源", ControlTypes.LABEL, false, true);
         addFormField(form, "payStatus", "付款状态", ControlTypes.LABEL, false, true);
         addFormField(form, "stageNum", "分期次数", ControlTypes.LABEL, false, true);
         addFormField(form, "channelOrderNo", "渠道订单号", ControlTypes.LABEL, false, true);

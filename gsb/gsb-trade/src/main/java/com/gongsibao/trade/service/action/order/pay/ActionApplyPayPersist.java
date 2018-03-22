@@ -49,8 +49,11 @@ public class ActionApplyPayPersist implements IAction {
 		}
 
 		IPersistableService<Pay> service = (IPersistableService<Pay>) ReflectManager.newInstance(OrderService.class.getSuperclass());
-		service.save(pay);
-
+		pay = service.save(pay);
+		
+		//转递给后续Action处理
+		ctx.setItem(pay);
+		
 		this.saveU8BankSoPayMap(pay);
 	}
 

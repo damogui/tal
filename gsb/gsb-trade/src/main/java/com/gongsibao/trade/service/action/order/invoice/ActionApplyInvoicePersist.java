@@ -2,6 +2,7 @@ package com.gongsibao.trade.service.action.order.invoice;
 
 import java.util.Map;
 
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
@@ -22,7 +23,9 @@ public class ActionApplyInvoicePersist implements IAction {
         invoice.toNew();
         invoice.setFileId(0);
         invoice.setRemark("");
+        invoice.setAuditStatusId(AuditStatusType.Dsh);
         Invoice temp = invoiceService.save(invoice);
+        ctx.setItem(temp);
         if (temp != null && temp.getId() != null) {
             Integer orderId = Integer.parseInt(paraMap.get("orderId").toString());
             IOrderInvoiceMapService orderInvoiceMapService = ServiceFactory.create(IOrderInvoiceMapService.class);

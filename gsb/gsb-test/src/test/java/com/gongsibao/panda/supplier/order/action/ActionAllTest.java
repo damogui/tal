@@ -23,6 +23,7 @@ import com.gongsibao.panda.supplier.order.action.audit.AuditStageActionTest;
         OrderCarryoverActionTest.class,
         OrderPerformanceActionTest.class,
         OrderRefundActionTest.class,
+        OrderPayActionTest.class,
         PayPerformanceActionTest.class,
         
         AuditCarryoverActionTest.class,
