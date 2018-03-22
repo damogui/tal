@@ -11,6 +11,7 @@ com.gongsibao.trade.web.AuditPerformanceCtrl = com.gongsibao.trade.web.AuditBase
         $('#detail_tabs').tabs({
             fit: true,
             tabHeight: 35
+
         });
 
         var id = this.queryString('id');
