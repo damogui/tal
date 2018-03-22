@@ -6,30 +6,69 @@
 	<jsp:include page="/gsb/platform/trade/include/meta.jsp"></jsp:include>
 </head>
     <body class="easyui-layout">
-        <div data-options="region:'north',split:false,collapsible:false,closed:false,height:375">
-        	 <div class="formContent">
-		        <fieldset style="margin-bottom:0px;">
-		        	<legend>订单信息</legend>
-					<jsp:include page="/gsb/platform/trade/include/orderInfo.jsp"></jsp:include>
-				</fieldset>
-		        <fieldset style="margin-bottom:0px;">
-		        	<legend>回款信息</legend>
-				</fieldset>
-        	 </div>
-		</div>
-		<div id="center" data-options="region:'center'">
-			<div id="detail_tabs" style="height:100%;">   
-			    <div title="关联订单">   
-			          <table id="order_grid"></table>
-			    </div>
-			    <div title="业绩划分">   
-			          <table id="order_performance_grid"></table>
-			    </div>   
-			    <div title="审批进度">   
-			         <table id="audit_progress_grid"></table>
-			    </div>
-			</div>
-		</div>
+
+
+    <div data-options="region:'north',split:false,collapsible:false,closed:false,height:220">
+        <div class="formContent">
+            <table cellpadding="3" cellspacing="0" class="form-panel">
+                <tr>
+                    <td class="label_td"><label>付款账套：</label></td>
+                    <td class="control_td">
+                        <input id="setOfBooksId" class="easyui-combobox" data-options="editable:false,width:200,onChange:function(newValue,oldValue){payCtrl.setOfBooksIdChange(newValue,oldValue);}"/>
+                    </td>
+                    <td class="label_td"><label>付款方式：</label></td>
+                    <td class="control_td">
+                        <input id="u8BankId" class="easyui-combobox nsInput" data-options="editable:false,width:200"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label_td"><label>付款账户名称：</label></td>
+                    <td class="control_td">
+                        <input id="offlinePayerName" class="easyui-validatebox nsInput" style="width:200px;"/>
+                    </td>
+                    <td class="label_td"><label>付款账号：</label></td>
+                    <td class="control_td">
+                        <input id="offlineBankNo" class="easyui-validatebox nsInput" style="width:200px;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label_td"><label>一笔多单：</label></td>
+                    <td class="control_td">
+                        <input id="payForOrderCount" class="easyui-switchbutton" data-options="width:60,height:28,onText:'是',offText:'否',onChange:function(checked){payCtrl.payForOrderCount=checked;}"/>
+                    </td>
+                    <td class="label_td"><label>付款金额：</label></td>
+                    <td class="control_td">
+                        <input id="amount" class="easyui-numberbox nsInput"
+                               data-options="precision:2,width:200,min:1"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label_td"><label>付款说明：</label></td>
+                    <td colspan="3" class="control_td">
+                        <textarea id="offlineRemark" style="width:100%;height:50px;" class="easyui-validatebox nsInput"></textarea>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="center" data-options="region:'center'">
+        <div id="detail_tabs" style="height:100%;">
+            <div title="付款凭证">
+                <table id="pay_voucher_grid"></table>
+            </div>
+            <div title="关联订单">
+                <table id="order_relevance_grid"></table>
+            </div>
+            <div title="审批进度">
+                <table id="audit_progress_grid"></table>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
 </body>
 
 <script src='/gsb/platform/trade/js/audit-base.ctrl.js'></script>

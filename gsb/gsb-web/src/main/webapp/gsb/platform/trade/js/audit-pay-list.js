@@ -29,20 +29,20 @@ com.gongsibao.trade.web.AuditPayListPart = org.netsharp.panda.commerce.ListPart.
 
         layer.open({
             type: 2,//1是字符串 2是内容
-            title: '订单业绩审核',
+            title: '回款审核',
             fixed: false,
             maxmin: true,
             shadeClose: false,
             area: ['70%', '95%'],
             zIndex: 100000,
-            id: "addAuditPerIframe",
+            id: "addAuditPayIframe",
             content: contentUrl,
             btn: ['审核通过', '审核不通过'],// 可以无限个按钮
             btn1: function (index, layero) {
-                document.getElementById('addAuditPerIframe').firstElementChild.contentWindow.auditPerformanceCtrl .approved();
+                document.getElementById('addAuditPayIframe').firstElementChild.contentWindow.auditPayCtrl  .approved();
             },
             btn2: function (){
-                document.getElementById('addAuditPerIframe').firstElementChild.contentWindow.auditPerformanceCtrl .rejected();
+                document.getElementById('addAuditPayIframe').firstElementChild.contentWindow.auditPayCtrl  .rejected();
             }
         });
 
