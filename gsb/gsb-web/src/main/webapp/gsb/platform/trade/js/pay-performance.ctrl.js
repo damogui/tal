@@ -9,6 +9,8 @@ com.gongsibao.trade.web.PayPerformanceCtrl = org.netsharp.panda.core.CustomCtrl.
     	
     	this.base();
     	this.service = 'com.gongsibao.trade.web.PayPerformanceController';
+    	this.platformSourceTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderPlatformSourceType');
+    	this.payStatusTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderPayStatusType');
     },
     init:function(){
 
@@ -40,7 +42,7 @@ com.gongsibao.trade.web.PayPerformanceCtrl = org.netsharp.panda.core.CustomCtrl.
     	$('#accountMobile').text(soOrder.accountMobile);
     	$('#addTime').text(soOrder.addTime);
     	
-    	//$('#platformSource').text(this.platformSourceTypeEnum[soOrder.platformSource]);
+    	$('#platformSource').text(this.platformSourceTypeEnum[soOrder.platformSource]);
     	$('#payStatus').text(this.payStatusTypeEnum[soOrder.payStatus]);
     	var installmentMode = soOrder.installmentMode;
     	if(installmentMode){
@@ -54,6 +56,10 @@ com.gongsibao.trade.web.PayPerformanceCtrl = org.netsharp.panda.core.CustomCtrl.
     	}
     	
     	$('#channelOrderNo').text(soOrder.channelOrderNo||'');
+    	
+    	var unAllotAmount = soOrder.paidPrice - soOrder.returnedPrice;
+    	unAllotAmount = System.RMB.FenToYuan(unAllotAmount);
+    	$('#unAllotAmount').text(unAllotAmount);
     	
     	$('#remark').text(soOrder.remark||'');
     },
