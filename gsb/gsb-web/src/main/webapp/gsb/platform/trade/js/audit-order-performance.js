@@ -23,10 +23,7 @@ com.gongsibao.trade.web.AuditOrderPerformanceListPart = org.netsharp.panda.comme
         var me = this;
         var row = this.getSelectedItem();
         var rows = this.getSelections();
-        // if (rows.length <= 0) {
-        //     IMessageBox.info('请先选择订单数据');
-        //     return false;
-        // }
+       
         var contentUrl = this.auditUrl + "?id=" + row.orderId;
 
 
@@ -50,7 +47,7 @@ com.gongsibao.trade.web.AuditOrderPerformanceListPart = org.netsharp.panda.comme
         });
 
 
-    },
+    }
 
 
 });
