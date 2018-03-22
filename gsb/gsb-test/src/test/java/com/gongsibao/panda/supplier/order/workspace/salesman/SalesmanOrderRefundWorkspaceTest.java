@@ -65,8 +65,7 @@ public class SalesmanOrderRefundWorkspaceTest extends WorkspaceCreationBase {
         column = addColumn(datagrid, "soOrder.paidPrice", "已付金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
         	column.setAlign(DatagridAlign.RIGHT);
         }
-        column = addColumn (datagrid, "soOrder.toBePaid", "待付金额", ControlTypes.TEXT_BOX, 100);{
-        	column.setFormatter("return (row.soOrder_payablePrice - row.soOrder_paidPrice)");
+        column = addColumn (datagrid, "soOrder.toBePaidPrice", "待付金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
         }
         column = addColumn(datagrid, "amount", "退款金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
         	column.setAlign(DatagridAlign.RIGHT);

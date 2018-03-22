@@ -120,7 +120,7 @@ public class SoOrder extends BaseEntity {
 	/**
 	 * 临时字段-待支付
 	 */
-	private Integer toBePaid;
+	private Integer toBePaidPrice;
 
 	@Column(name = "performance_price", header = "订单业绩已划分金额")
 	private Integer performancePrice = 0;
@@ -130,6 +130,7 @@ public class SoOrder extends BaseEntity {
 
 	@Column(name = "returned_price", header = "回款业绩已划分金额")
 	private Integer returnedPrice = 0;
+
 	@Column(name = "discount_price", header = "优惠金额")
 	private Integer discountPrice = 0;
 
@@ -980,4 +981,14 @@ public class SoOrder extends BaseEntity {
 	public void setDepPayAuditStatusId(AuditStatusType depPayAuditStatusId) {
 		this.depPayAuditStatusId = depPayAuditStatusId;
 	}
+
+	public Integer getToBePaidPrice() {
+
+		return this.payablePrice - this.paidPrice;
+	}
+
+	public void setToBePaidPrice(Integer toBePaidPrice) {
+		this.toBePaidPrice = toBePaidPrice;
+	}
+
 }

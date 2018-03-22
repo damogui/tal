@@ -67,8 +67,7 @@ public class SalesmanOrderStagingWorkspaceTest extends WorkspaceCreationBase {
         column =  addColumn(datagrid, "paidPrice", "已付金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
         	column.setAlign(DatagridAlign.RIGHT);
         }
-        column = addColumn (datagrid, "toBePaid", "待付金额", ControlTypes.TEXT_BOX, 100);{
-        	column.setFormatter("return (row.payablePrice - row.paidPrice)");
+        column = addColumn (datagrid, "toBePaidPrice", "待付金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
         }
         addColumn(datagrid, "stageNum", "分期次数", ControlTypes.ENUM_BOX, 100);
         

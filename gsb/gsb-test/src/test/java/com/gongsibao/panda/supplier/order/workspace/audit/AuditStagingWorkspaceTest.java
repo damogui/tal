@@ -93,8 +93,7 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
         addColumn (datagrid, "totalPrice", "原价金额", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "payablePrice", "应付金额", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "paidPrice", "已付金额", ControlTypes.TEXT_BOX, 100);
-        column = addColumn (datagrid, "toBePaid", "待付金额", ControlTypes.TEXT_BOX, 100);{
-        	column.setFormatter("return (row.payablePrice - row.paidPrice)");
+        column = addColumn (datagrid, "toBePaidPrice", "待付金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
         }
         addColumn (datagrid, "stageNum", "分期次数", ControlTypes.ENUM_BOX, 100);
         addColumn (datagrid, "installmentAuditStatusId", "审核状态", ControlTypes.ENUM_BOX, 100);
