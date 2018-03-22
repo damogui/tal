@@ -10,6 +10,7 @@ import com.gongsibao.trade.service.action.order.pay.ActionApplyPayLog;
 import com.gongsibao.trade.service.action.order.pay.ActionApplyPayPersist;
 import com.gongsibao.trade.service.action.order.pay.ActionApplyPaySendMessage;
 import com.gongsibao.trade.service.action.order.pay.ActionApplyPayVerify;
+import com.gongsibao.trade.service.action.order.pay.ActionApplyPayWriteBack;
 
 /**   
  * @ClassName:  PayPerformanceActionTest   
@@ -43,9 +44,10 @@ public class OrderPayActionTest extends BaseActionTest{
 
 		createBean(beanPath, "1.验证", ActionApplyPayVerify.class.getName(), resourceNode, 100);
 		createBean(beanPath, "2.保存", ActionApplyPayPersist.class.getName(), resourceNode, 200);
-		createBean(beanPath, "3.审核", ActionApplyPayAudit.class.getName(), resourceNode, 300);
-		createBean(beanPath, "4.通知", ActionApplyPaySendMessage.class.getName(), resourceNode, 400);
-		createBean(beanPath, "5.日志", ActionApplyPayLog.class.getName(), resourceNode, 500);
+		createBean(beanPath, "3.回写", ActionApplyPayWriteBack.class.getName(), resourceNode, 300);
+		createBean(beanPath, "4.审核", ActionApplyPayAudit.class.getName(), resourceNode, 400);
+		createBean(beanPath, "5.通知", ActionApplyPaySendMessage.class.getName(), resourceNode, 500);
+		createBean(beanPath, "6.日志", ActionApplyPayLog.class.getName(), resourceNode, 600);
 		beanPathService.save(beanPath);
 	}
 }
