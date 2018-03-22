@@ -33,7 +33,7 @@ public class DepartmentOrderReceivedWorkspaceTest extends WorkspaceCreationBase 
         listToolbarPath="";
 
        // listPartJsController = SalesmanOrderReceivedListPart.class.getName ();
-        //listPartServiceController = DepartmentOrderReceivedListPart.class.getName();
+        listPartServiceController = DepartmentOrderReceivedListPart.class.getName();
 
 
     }
