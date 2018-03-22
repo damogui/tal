@@ -5,7 +5,17 @@ com.gongsibao.trade.web.AuditPerformanceCtrl = com.gongsibao.trade.web.AuditBase
     	this.base();
     	this.service = 'com.gongsibao.trade.web.audit.AuditPerformanceController';
     },
-    initData:function(){
+    init:function () {
+
+        var id = this.queryString('id');
+        alert(id);
+        this.initGrid1();
+        this.initGrid2();
+    },
+    initGrid1:function(){
+
+    },
+    initGrid2:function(){
 
     }
 });
