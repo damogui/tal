@@ -86,17 +86,17 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
 
         }
         addColumn (datagrid, "order.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "order.totalPrice", "原价金额", ControlTypes.ENUM_BOX, 100);
+        addColumn (datagrid, "order.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn (datagrid, "order.payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn (datagrid, "order.paidPrice", "已经付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn (datagrid, "amount", "我的回款业绩额", ControlTypes.DECIMAL_FEN_BOX, 100);
-        addColumn (datagrid, "statusType", "审核状态", ControlTypes.DECIMAL_FEN_BOX, 100);
-        addColumn (datagrid, "createTime", "回款业绩创建时间", ControlTypes.DECIMAL_FEN_BOX, 100);
-        addColumn (datagrid, "auditTime", "审核通过时间", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn (datagrid, "statusType", "审核状态", ControlTypes.ENUM_BOX, 100);
+        addColumn (datagrid, "createTime", "回款业绩创建时间", ControlTypes.DATETIME_BOX, 100);
+        addColumn (datagrid, "auditTime", "审核通过时间", ControlTypes.DATETIME_BOX, 100);
 
-        addColumn (datagrid, "order.createTime", "订单创建时间", ControlTypes.ENUM_BOX, 100);
+        addColumn (datagrid, "order.createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);
         addColumn (datagrid, "creator", "回款业绩创建人", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "salesman.name", "业务员", ControlTypes.DATETIME_BOX, 100);
+        addColumn (datagrid, "salesman.name", "业务员", ControlTypes.TEXT_BOX, 100);
 
 
         return datagrid;
@@ -117,9 +117,9 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
         }
 
 
-        addQueryItem (queryProject, "offlineAuditStatus", "审核状态", ControlTypes.ENUM_BOX);
+        addQueryItem (queryProject, "statusType", "审核状态", ControlTypes.ENUM_BOX);
         // addQueryItem (queryProject, "payForOrderCount", "是否一笔多单", ControlTypes.ENUM_BOX);//已经去掉中间表
-        addQueryItem (queryProject, "payWayType", "是否在线支付", ControlTypes.ENUM_BOX);
+        addQueryItem (queryProject, "order.isOnlinePay", "是否在线支付", ControlTypes.BOOLCOMBO_BOX);
 
         addQueryItem (queryProject, "creator", "回款业绩创建人", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "createTime", "回款业绩创建时间", ControlTypes.DATE_BOX);
