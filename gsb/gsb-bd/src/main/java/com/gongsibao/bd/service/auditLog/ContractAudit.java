@@ -28,14 +28,14 @@ public class ContractAudit extends AbstractAuditLogService {
         //财务_收退款专员
         List<Integer> stkzyIds = salesmanService.getEmployeeIdListByRoleCodes(Arrays.asList("Platform_Finance_STKZY"));
         for (Integer stkzyId : stkzyIds) {
-            addAuditLog(formId, AuditLogStatusType.Paidui, "收退款专员审核", stkzyId, level);
+            addAuditLog(formId, "收退款专员审核", stkzyId, level);
         }
 
         //法务_法务专员
         level++;
         List<Integer> fWZYIds = salesmanService.getEmployeeIdListByRoleCodes(Arrays.asList("Platform_Law_FWZY"));
         for (Integer fWZYId : fWZYIds) {
-            addAuditLog(formId, AuditLogStatusType.Paidui, "法务专员审核", fWZYId, level);
+            addAuditLog(formId, "法务专员审核", fWZYId, level);
         }
 
         return auditLogList;
@@ -46,7 +46,6 @@ public class ContractAudit extends AbstractAuditLogService {
     protected AuditLogType setAuditLogType() {
         return AuditLogType.Htsq;
     }
-
 
 
 }
