@@ -1,11 +1,11 @@
 package com.gongsibao.entity.bd;
 
+import com.gongsibao.entity.bd.dic.AuditLogStatusType;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
-import com.gongsibao.entity.bd.dic.AuditLogStatusType;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.Contract;
 import com.gongsibao.entity.trade.Invoice;

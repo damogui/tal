@@ -120,11 +120,11 @@ public class Contract extends BaseEntity {
     @Reference(foreignKey = "departmentId", header = "部门")
     private SupplierDepartment department;
 
-    @Column(name = "owner_id", header = "业务员Id")
-    private Integer ownerId;
+    @Column(name = "salesman_id", header = "业务员Id")
+    private Integer salesmanId;
 
-    @Reference(foreignKey = "ownerId", header = "业务员")
-    private Employee owner;
+    @Reference(foreignKey = "salesmanId")
+    private Employee salesman;
     //======================================================非持久化字段======================================================//
 
     @Exclusive
@@ -521,19 +521,19 @@ public class Contract extends BaseEntity {
         this.department = department;
     }
 
-    public Integer getOwnerId() {
-        return ownerId;
+    public Integer getSalesmanId() {
+        return salesmanId;
     }
 
-    public void setOwnerId(Integer ownerId) {
-        this.ownerId = ownerId;
+    public void setSalesmanId(Integer salesmanId) {
+        this.salesmanId = salesmanId;
     }
 
-    public Employee getOwner() {
-        return owner;
+    public Employee getSalesman() {
+        return salesman;
     }
 
-    public void setOwner(Employee owner) {
-        this.owner = owner;
+    public void setSalesman(Employee salesman) {
+        this.salesman = salesman;
     }
 }

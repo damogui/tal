@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.gongsibao.entity.bd.AuditLog;
-import com.gongsibao.entity.bd.dic.AuditLogStatusType;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.supplier.base.ISalesmanService;
 import org.netsharp.communication.ServiceFactory;

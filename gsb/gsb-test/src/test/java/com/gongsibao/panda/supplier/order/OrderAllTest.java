@@ -64,6 +64,7 @@ import com.gongsibao.panda.supplier.reference.SupplierU8BankReferenceTest;
         AuditRefundWorkspaceTest.class,
         AuditStagingWorkspaceTest.class,
         AuditContractWorkspaceTest.class,
+        AuditInvoiceWorkspaceTest.class,
 
         ActionAllTest.class,
         OrderNavigationTest.class,

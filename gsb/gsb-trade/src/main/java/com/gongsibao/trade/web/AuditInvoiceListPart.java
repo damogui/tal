@@ -1,18 +1,15 @@
 package com.gongsibao.trade.web;
 
-import com.gongsibao.u8.base.ISoOrderService;
-import org.netsharp.communication.ServiceFactory;
 import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
 import org.netsharp.util.StringManager;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by zhangchao on 2018/3/23.
  */
-public class AuditContractListPart extends AdvancedListPart {
+public class AuditInvoiceListPart  extends AdvancedListPart {
 
     @Override
     public String getFilterByParameter(FilterParameter parameter) {

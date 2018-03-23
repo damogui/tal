@@ -19,14 +19,14 @@ public class OrderSalesmanRefundListPart extends AdvancedListPart {
         String keyword = parameter.getValue1().toString();
         if (parameter.getKey().equals("keyword")) {
 
-            filters.add("soOrder.no ='" + keyword + "'");
-            filters.add("soOrder.channel_order_no = '" + keyword + "'");
-            filters.add("soOrder.account_mobile = '" + keyword + "'");
-            filters.add("soOrder.account_name = '" + keyword + "'");
-            filters.add("soOrder.company_id in( select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' )  )");
-            return "(" + StringManager.join(" or ", filters) + ")";
+            filters.add("no like '%" + keyword + "%'");
+            filters.add("channel_order_no like '%" + keyword + "%'");
+            filters.add("account_mobile like '%" + keyword + "%'");
+            filters.add("customer_name like '%" + keyword + "%'");
+            filters.add("company_id in( select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' )  )");
+            String orderWhere = " form_id in (select invoice_id from so_order_invoice_map where order_id in(select pkid from so_order where (" + StringManager.join(" or ", filters) + ") ))";
+            return orderWhere;
         }
-
         return parameter.getFilter();
     }
 }
