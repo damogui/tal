@@ -10,6 +10,7 @@ import com.gongsibao.supplier.base.ISalesmanService;
 import com.gongsibao.supplier.base.ISupplierDepartmentService;
 import com.gongsibao.supplier.base.ISupplierService;
 import com.gongsibao.trade.base.*;
+
 import org.junit.Test;
 import org.netsharp.meta.base.ResourceCreationBase;
 import org.netsharp.resourcenode.entity.ResourceNode;
@@ -100,6 +101,7 @@ public class OrderResourceTest extends ResourceCreationBase {
                 this.createResourceNodeVoucher(NOrderCarryover.class.getName(), "结转审核", "Gsb_Supplier_Order_Audit_Carryover", INOrderCarryoverService.class.getName(), node4.getId());
                 this.createResourceNodeVoucher(AuditLog.class.getName(), "合同审核", "Gsb_Supplier_Order_Audit_Contract", IAuditLogService.class.getName(), node4.getId());
                 this.createResourceNodeVoucher(AuditLog.class.getName(), "发票审核", "Gsb_Supplier_Order_Audit_Invoice", IAuditLogService.class.getName(), node4.getId());
+
             }
         }
     }

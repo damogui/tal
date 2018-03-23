@@ -21,6 +21,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.trade.web.AuditStagingListPart;
 import com.gongsibao.trade.web.SalesmanStagingListPart;
 
 /*分期审核*/
@@ -38,11 +39,11 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
         listFilter = "is_installment = 1";
         
         List<String> ss = new ArrayList<String>();
-		ss.add("/gsb/platform/trade/js/salesman-order-stage-list.part.js");
+		ss.add("/gsb/platform/trade/js/audit-stage-list.part.js");
 		ss.add("/gsb/panda-extend/gsb.custom.query.controls.js");
 		listPartImportJs = StringManager.join("|", ss);
-		listPartJsController = SalesmanStagingListPart.class.getName();
-		listPartServiceController = SalesmanStagingListPart.class.getName();
+		listPartJsController = AuditStagingListPart.class.getName();
+		listPartServiceController = AuditStagingListPart.class.getName();
     }
 
     @Test
