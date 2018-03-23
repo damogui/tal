@@ -10,6 +10,7 @@ com.gongsibao.trade.web.SalesmanOrderReceivedListPart = org.netsharp.panda.comme
     detail: function (id) {
 
         var rows = this.getSelections();
+        debugger;
         if (System.isnull(id)) {
 
             if (rows.length > 1) {

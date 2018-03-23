@@ -19,7 +19,7 @@ import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 /**
- * Created by win on 2018/3/22.
+ * 我的回款
  */
 public class SalesmanOrderPayWorkspaceTest  extends WorkspaceCreationBase {
 
