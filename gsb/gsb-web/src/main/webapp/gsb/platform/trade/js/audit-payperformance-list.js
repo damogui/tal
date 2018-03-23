@@ -4,7 +4,7 @@ com.gongsibao.trade.web.AuditPayListPart = org.netsharp.panda.commerce.ListPart.
     ctor: function () {
         this.base();
 
-        this.auditUrl = "/nav/gsb/platform/trade/auditPay";//回款审核的jsp
+        this.auditUrl = "/nav/gsb/platform/trade/auditPayPerformance";//回款业绩审核的jsp
 
 
     },

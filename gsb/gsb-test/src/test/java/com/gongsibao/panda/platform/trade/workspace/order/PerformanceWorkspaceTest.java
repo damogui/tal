@@ -9,6 +9,8 @@ import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
+
+/*运营平台订单业绩*/
 public class PerformanceWorkspaceTest extends SalesmanOrderPerformanceWorspaceTest {
     private String listrowToolbarPath = "/crm/row/per/toolbar";
     @Before
@@ -28,7 +30,7 @@ public class PerformanceWorkspaceTest extends SalesmanOrderPerformanceWorspaceTe
         {
             toolbar.toNew ();
             toolbar.setPath (listrowToolbarPath);
-            toolbar.setName ("部门业绩回款查看");
+            toolbar.setName ("回款查看");
             toolbar.setResourceNode (node);
             toolbar.setToolbarType (ToolbarType.BASE);
         }

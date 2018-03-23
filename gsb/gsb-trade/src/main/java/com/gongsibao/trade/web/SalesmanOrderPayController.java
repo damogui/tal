@@ -1,17 +1,16 @@
 package com.gongsibao.trade.web;
 
-import java.util.ArrayList;
-
 import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
 import org.netsharp.util.StringManager;
 
-/**
- * Created by zhangchao on 2018/3/14.
- */
-/*回款业绩*/
-public class SalesmanOrderReceivedListPart extends AdvancedListPart {
+import java.util.ArrayList;
 
+/**
+ * Created by win on 2018/3/23.
+ */
+//我的回款
+public class SalesmanOrderPayController  extends AdvancedListPart {
     @Override
     public String getFilterByParameter(FilterParameter parameter) {
 

@@ -1,5 +1,6 @@
 package com.gongsibao.panda.supplier.order.workspace.salesman;
 
+import com.gongsibao.entity.trade.NDepPay;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
@@ -21,11 +22,12 @@ import com.gongsibao.trade.web.SalesmanOrderReceivedListPart;
 
 /*回款业绩*/
 public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
-    private String listrowToolbarPath = "/crm/roworderre/toolbar";
+    private String listrowToolbarPath = "/crm/roworderper/toolbar";
+
     @Before
     public void setup() {
         super.setup ();
-        entity = Pay.class;
+        entity = NDepPay.class;
         urlList = "/crm/order/salesman/received/list";
         listPartName = formPartName = "回款业绩列表";//回款业绩
         meta = MtableManager.getMtable (entity);
@@ -33,36 +35,36 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
         listToolbarPath = "crm/audit/pay/edit";
         listPartImportJs = "/gsb/platform/trade/js/salesman-order-payperformance-list.js";
         listPartJsController = SalesmanOrderReceivedListPart.class.getName ();
-        listPartServiceController = AuditPayListPart.class.getName ();
-        //listFilter = "salesman_id = '{userId}'";
-        listToolbarPath="";
+        //listPartServiceController = AuditPayListPart.class.getName ();
+        listFilter = "salesman_id = '{userId}'  or creator_id = '{userId}'";//我创建和别人分配给我
+        listToolbarPath = "";
     }
 
 
     @Test
     public void createRowToolbar() {
 
-        ResourceNode node = this.resourceService.byCode(resourceNodeCode);
-        PToolbar toolbar = new PToolbar();
+        ResourceNode node = this.resourceService.byCode (resourceNodeCode);
+        PToolbar toolbar = new PToolbar ();
         {
-            toolbar.toNew();
-            toolbar.setPath(listrowToolbarPath);
-            toolbar.setName("回款业绩查看");
-            toolbar.setResourceNode(node);
-            toolbar.setToolbarType(ToolbarType.BASE);
+            toolbar.toNew ();
+            toolbar.setPath (listrowToolbarPath);
+            toolbar.setName ("回款业绩查看");
+            toolbar.setResourceNode (node);
+            toolbar.setToolbarType (ToolbarType.BASE);
         }
-        PToolbarItem item = new PToolbarItem();
+        PToolbarItem item = new PToolbarItem ();
         {
-            item.toNew();
-            item.setCode("view");
-            item.setName("查看");
-            item.setSeq(1);
-            item.setCommand("{controller}.view();");
-            toolbar.getItems().add(item);
+            item.toNew ();
+            item.setCode ("detail");
+            item.setName ("查看");
+            item.setSeq (1);
+            item.setCommand("{controller}.detail();");
+            toolbar.getItems ().add (item);
         }
 
 
-        toolbarService.save(toolbar);
+        toolbarService.save (toolbar);
     }
 
     @Override
@@ -71,25 +73,30 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
         PDatagrid datagrid = super.createDatagrid (node);
         {
             datagrid.setName ("回款业绩");
-            datagrid.setToolbar ("panda/datagrid/row/edit");
+            datagrid.setToolbar (listrowToolbarPath);
             datagrid.setAutoQuery (true);
             datagrid.setShowCheckbox (true);
             datagrid.setSingleSelect (false);
         }
         PDatagridColumn column = null;
         addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 60, true);
-        // addColumn (datagrid, "u8Bank.name", "姓名", ControlTypes.TEXT_BOX, 100);
-        column = addColumn (datagrid, "orderIds", "订单编号", ControlTypes.TEXT_BOX, 120);//需要拼接
+        column = addColumn (datagrid, "orderId", "订单编号", ControlTypes.TEXT_BOX, 120);//需要拼接
         {
             // column.setFormatter("return controllerpayList.orderNameFormatter(value,row,index);");
 
         }
-        addColumn (datagrid, "payForOrderCount", "是否一笔多单", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "payWayType", "是否在线支付", ControlTypes.ENUM_BOX, 100);
-        addColumn (datagrid, "amount", "付款金额", ControlTypes.DECIMAL_FEN_BOX, 100);
-        addColumn (datagrid, "offlineAuditStatus", "审核状态", ControlTypes.ENUM_BOX, 100);
-        addColumn (datagrid, "createTime", "回款创建时间", ControlTypes.DATETIME_BOX, 100);
+        addColumn (datagrid, "order.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "order.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn (datagrid, "order.payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn (datagrid, "order.paidPrice", "已经付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn (datagrid, "amount", "我的回款业绩额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn (datagrid, "statusType", "审核状态", ControlTypes.ENUM_BOX, 100);
+        addColumn (datagrid, "createTime", "回款业绩创建时间", ControlTypes.DATETIME_BOX, 100);
+        addColumn (datagrid, "auditTime", "审核通过时间", ControlTypes.DATETIME_BOX, 100);
+
+        addColumn (datagrid, "order.createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);
         addColumn (datagrid, "creator", "回款业绩创建人", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "salesman.name", "业务员", ControlTypes.TEXT_BOX, 100);
 
 
         return datagrid;
@@ -110,9 +117,9 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
         }
 
 
-        addQueryItem (queryProject, "offlineAuditStatus", "审核状态", ControlTypes.ENUM_BOX);
-        addQueryItem (queryProject, "payForOrderCount", "是否一笔多单", ControlTypes.ENUM_BOX);
-        addQueryItem (queryProject, "payWayType", "是否在线支付", ControlTypes.ENUM_BOX);
+        addQueryItem (queryProject, "statusType", "审核状态", ControlTypes.ENUM_BOX);
+        // addQueryItem (queryProject, "payForOrderCount", "是否一笔多单", ControlTypes.ENUM_BOX);//已经去掉中间表
+        addQueryItem (queryProject, "order.isOnlinePay", "是否在线支付", ControlTypes.BOOLCOMBO_BOX);
 
         addQueryItem (queryProject, "creator", "回款业绩创建人", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "createTime", "回款业绩创建时间", ControlTypes.DATE_BOX);
@@ -120,10 +127,11 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
 
         return queryProject;
     }
+
     @Override
     protected void doOperation() {
-        ResourceNode node = this.getResourceNode();
-        operationService.addOperation(node, OperationTypes.view);
+        ResourceNode node = this.getResourceNode ();
+        operationService.addOperation (node, OperationTypes.view);
     }
 
 }

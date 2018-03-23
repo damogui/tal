@@ -65,7 +65,7 @@
 				          <td class="label_td"><label>渠道订单号：</label></td>
 				          <td class="control_td" id="channelOrderNo"></td>
 				          <td class="label_td"><label>未划分回款业绩额：</label></td>
-				          <td class="control_td" id="unAllotAmount"></td>
+				          <td class="control_td" id="unAllotPayPrice"></td>
 				          <td class="control_td" colspan="2" style="color:red;">注：本次需把未划分回款业绩额全部分配</td>
 					</tr>
 				      <tr>

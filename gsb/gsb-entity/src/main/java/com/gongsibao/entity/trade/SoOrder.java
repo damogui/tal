@@ -105,7 +105,7 @@ public class SoOrder extends BaseEntity {
 	@Column(name = "refund_status_id", header = "退款状态：type=303")
 	private OrderRefundStatusType refundStatus = OrderRefundStatusType.wu;
 
-	@Column(name = "total_price", header = "总金额")
+	@Column(name = "total_price", header = "总金额（原价金额）")
 	private Integer totalPrice = 0;
 
 	@Column(name = "payable_price", header = "应付金额")
@@ -185,8 +185,9 @@ public class SoOrder extends BaseEntity {
 
 	@Column(name = "carry_over_order_id", header = "结转订单id")
 	private Integer carryOverOrderId;
+
 	@Column(name = "carry_amount", header = "结转金额")
-	private Integer carryAmount;
+	private Integer carryAmount = 0;
 
 	// 3031 待审核
 	// 3032 退款中
@@ -1001,7 +1002,11 @@ public class SoOrder extends BaseEntity {
 
 	public Integer getUnAllotPayPrice() {
 
-		return paidPrice - refundPrice - returnedPrice - carryAmount;
+		refundPrice = refundPrice == null ? 0 : refundPrice;
+		returnedPrice = returnedPrice == null ? 0 : returnedPrice;
+		carryAmount = carryAmount == null ? 0 : carryAmount;
+		this.unAllotPayPrice = paidPrice - refundPrice - returnedPrice - carryAmount;
+		return this.unAllotPayPrice;
 	}
 
 	public void setUnAllotPayPrice(Integer unAllotPayPrice) {
