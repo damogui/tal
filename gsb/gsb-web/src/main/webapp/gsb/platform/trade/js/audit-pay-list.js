@@ -17,7 +17,7 @@ com.gongsibao.trade.web.AuditPayListPart = org.netsharp.panda.commerce.ListPart.
         //     IMessageBox.info('请先选择订单数据');
         //     return false;
         // }
-        var contentUrl = this.auditUrl + "?id=" + row.orderId;
+        var contentUrl = this.auditUrl + "?id=" + id;
         layer.open({
             type: 2,//1是字符串 2是内容
             title: '回款审核',

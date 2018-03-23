@@ -25,8 +25,7 @@ import com.gongsibao.trade.web.SalesmanStagingListPart;
 
 /*分期审核*/
 public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
-	private String listrowToolbarPath = "/audit/rowStag/toolbar";
-
+	protected String listrowToolbarPath = "/audit/rowStag/toolbar";
 	@Override
 	@Before
     public void setup() {

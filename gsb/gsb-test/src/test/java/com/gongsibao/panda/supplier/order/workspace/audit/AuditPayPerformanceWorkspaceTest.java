@@ -4,6 +4,7 @@ import com.gongsibao.entity.trade.NDepPay;
 import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.tools.PToolbarHelper;
 import com.gongsibao.trade.web.AuditPayListPart;
+import com.gongsibao.trade.web.AuditPayPerformanceListPart;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.EntityState;
@@ -36,8 +37,8 @@ public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
         resourceNodeCode = "Gsb_Supplier_Pay_Audit_Performance";
         listToolbarPath = "";
         listPartImportJs = "/gsb/platform/trade/js/audit-payperformance-list.js";
-        listPartJsController = AuditPayListPart.class.getName ();
-        listPartServiceController = AuditPayListPart.class.getName ();
+        listPartJsController = AuditPayPerformanceListPart.class.getName ();
+        listPartServiceController = AuditPayPerformanceListPart.class.getName ();
     }
 
 
