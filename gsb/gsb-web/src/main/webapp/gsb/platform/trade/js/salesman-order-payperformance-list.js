@@ -6,6 +6,7 @@ System.Declare("com.gongsibao.trade.web");
 com.gongsibao.trade.web.SalesmanOrderReceivedListPart = org.netsharp.panda.commerce.ListPart.Extends({
     ctor: function () {
         this.base();
+        this.auditPayUrl="/nav/gsb/platform/trade/auditPay";//审核回款
     },
     detail: function (id) {
 
@@ -25,24 +26,35 @@ com.gongsibao.trade.web.SalesmanOrderReceivedListPart = org.netsharp.panda.comme
 
             //id = rows[0].order_id;//订单id
         }
-        var url = System.Url.join("/crm/order/salesman/creceivedperformance", "id=" + rows[0].order_id);
-        url = System.Url.getUrl(url);
-        if (this.context.openMode == OpenType.window) {
 
-            var me = this;
-            url = System.Url.join(url, "openType=" + OpenType.window);
-            IMessageBox.open("详情", url, this.context.windowWidth, this.context.windowHeight, function () {
 
-                me.reload();
-            });
+        var urlEnd = this.auditPayUrl + "?id=" + id;//回款
 
-        } else if (this.context.openMode == OpenType.redirect) {
-            url = System.Url.join(url, "openType=" + OpenType.redirect);
-            window.location.href = url;
-        } else {
-            url = System.Url.join(url, "openType=" + OpenType.open);
-            window.open(url);
-        }
+        layer.open({
+            type: 2,//1是字符串 2是内容
+            title: '我的回款信息',
+            fixed: false,
+            maxmin: true,
+            shadeClose: false,
+            area: ['60%', '60%'],
+            zIndex: 100000,
+            id: "myorderpay",
+            content: urlEnd,
+            // btn: ['保存', '取消'],// 可以无限个按钮
+            success: function (layero, index) {
+
+
+            },
+            yes: function (index, layero) {
+
+            }
+
+
+        });
+
+
+
+
     }
 });
 
