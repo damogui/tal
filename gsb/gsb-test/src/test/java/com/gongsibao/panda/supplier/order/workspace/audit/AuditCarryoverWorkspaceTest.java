@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.netsharp.core.EntityState;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
@@ -21,10 +20,8 @@ import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.StringManager;
 
-import com.gongsibao.entity.trade.NOrderCarryover;
-import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.tools.PToolbarHelper;
-import com.gongsibao.trade.web.SalesmanOrderCarryoverListPart;
+import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.trade.web.AuditCarryoverListPart;
 
 /*结转审核*/
 public class AuditCarryoverWorkspaceTest extends WorkspaceCreationBase{
@@ -34,18 +31,18 @@ public class AuditCarryoverWorkspaceTest extends WorkspaceCreationBase{
 	@Before
     public void setup() {
         super.setup ();
-        entity = NOrderCarryover.class;
+        entity = AuditLog.class;
         urlList = "/crm/order/audit/carryover/list";
         listPartName = formPartName = "结转审核";
         meta = MtableManager.getMtable (entity);
         resourceNodeCode = "Gsb_Supplier_Order_Audit_Carryover";
         
         List<String> ss = new ArrayList<String>();
-		ss.add("/gsb/platform/trade/js/salesman-order-carryover-list.part.js");
+		ss.add("/gsb/platform/trade/js/audit-carryover-list.part.js");
 		ss.add("/gsb/panda-extend/gsb.custom.query.controls.js");
 		listPartImportJs = StringManager.join("|", ss);
-		listPartJsController = SalesmanOrderCarryoverListPart.class.getName();
-        listPartServiceController = SalesmanOrderCarryoverListPart.class.getName();
+		listPartJsController = AuditCarryoverListPart.class.getName();
+        listPartServiceController = AuditCarryoverListPart.class.getName();
     }
 
     @Test

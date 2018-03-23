@@ -1,17 +1,15 @@
 package com.gongsibao.bd.service.auditLog;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
+import com.gongsibao.entity.bd.dic.AuditLogStatusType;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.organization.base.IOrganizationService;
 import org.netsharp.persistence.session.SessionManager;
 
 import com.gongsibao.bd.base.IAuditLogService;
 import com.gongsibao.entity.bd.AuditLog;
-import com.gongsibao.entity.bd.dic.AuditLogStatusType;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.utils.SalesmanOrganization;
 import com.gongsibao.utils.SupplierSessionManager;
