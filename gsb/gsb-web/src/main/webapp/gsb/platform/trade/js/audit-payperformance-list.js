@@ -30,10 +30,10 @@ com.gongsibao.trade.web.AuditPayPerformanceListPart = org.netsharp.panda.commerc
             content: contentUrl,
             btn: ['审核通过', '审核不通过'],// 可以无限个按钮
             btn1: function (index, layero) {
-                document.getElementById('addAuditPayIframe').firstElementChild.contentWindow.PayPerformanceCtrl  .approved();
+                document.getElementById('addAuditPayIframe').firstElementChild.contentWindow.AuditPayPerformanceCtrl.approved();
             },
             btn2: function (){
-                document.getElementById('addAuditPayIframe').firstElementChild.contentWindow.PayPerformanceCtrl  .rejected();
+                document.getElementById('addAuditPayIframe').firstElementChild.contentWindow.AuditPayPerformanceCtrl.rejected();
             }
         });
 
