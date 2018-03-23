@@ -4,6 +4,7 @@ import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.entity.trade.Pay;
+import com.gongsibao.trade.base.IOrderPayMapService;
 import com.gongsibao.trade.base.IPayService;
 import com.gongsibao.trade.service.action.audit.AuditState;
 import com.gongsibao.trade.web.dto.AuditLogDTO;
@@ -64,30 +65,44 @@ public class AuditPayController extends AuditBaseController {
         OrderPayInfoDTO orderPayInfoDTO = new OrderPayInfoDTO ();
         Oql oql = new Oql ();
         {
-            oql.setType (AuditLog.class);
-            oql.setSelects ("setOfBooks.name,u8Bank.name,offlinePayerName,offlineBankNo,payForOrderCount,amount,offlineRemark,files,orderPayMaps.*");
+            oql.setType (Pay.class);
+            oql.setSelects ("setOfBooksId,setOfBooks.name,u8Bank.name,offlinePayerName,offlineBankNo,payForOrderCount,amount,offlineRemark,files");//,orderPayMaps.{soOrder,orderPrice,offlineInstallmentType}
             oql.setFilter ("id=?");
             oql.getParameters ().add ("@id", id, Types.INTEGER);
 
         }
         Pay pay = payService.queryFirst (oql);
 
-        orderPayInfoDTO.setAccountName (pay.getSetOfBooks ().getName ());
-        orderPayInfoDTO.setPayWay (pay.getU8Bank ().getName ());
+        orderPayInfoDTO.setAccountName ( pay.getSetOfBooks ()==null?"": pay.getSetOfBooks ().getName ());
+        orderPayInfoDTO.setPayWay (pay.getU8Bank ()==null?"":pay.getU8Bank ().getName ());
         orderPayInfoDTO.setBankName (pay.getOfflinePayerName ());
         orderPayInfoDTO.setBankNo (pay.getOfflineBankNo ());
         orderPayInfoDTO.setIsMoreOrder (pay.getPayForOrderCount ().getText ());
         orderPayInfoDTO.setAmount (pay.getAmount ().toString ());
         orderPayInfoDTO.setMark (pay.getOfflineRemark ());
         orderPayInfoDTO.setFiles (pay.getFiles ());
-        orderPayInfoDTO.setOrderInfos (getOrderInfosByMap (pay.getOrderPayMaps ()));
+       // orderPayInfoDTO.setOrderInfos (getOrderInfosByMap (pay.getOrderPayMaps ()));
 
 
         return orderPayInfoDTO;
     }
 
     /*获取关联订单的信息*/
-    private List<OrderInfoDTO> getOrderInfosByMap(List<OrderPayMap> orderPayMaps) {
+    public List<OrderInfoDTO> getOrderInfosById(Integer id) {
+
+        IOrderPayMapService orderPayMapService= ServiceFactory.create (IOrderPayMapService.class);
+
+        Oql oql = new Oql ();
+        {
+            oql.setType (OrderPayMap.class);
+            oql.setSelects ("soOrder.no,orderPrice,offlineInstallmentType");//,orderPayMaps.{soOrder,orderPrice,offlineInstallmentType}
+            oql.setFilter ("payId=?");
+            oql.getParameters ().add ("@payId", id, Types.INTEGER);
+
+        }
+
+        List<OrderPayMap> orderPayMaps =new ArrayList<> ();
+        orderPayMaps=orderPayMapService.queryList (oql);
         List<OrderInfoDTO> orderInfoDTOs = new ArrayList<> ();
         for (OrderPayMap item : orderPayMaps
                 ) {
