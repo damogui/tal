@@ -3,7 +3,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>订单结转</title>
+	<title>产品方案</title>
 	<link href='/package/font-awesome/css/font-awesome.min.css' rel='stylesheet' type='text/css' />
 	<link href='/package/easyui/themes/material/easyui.css' rel='stylesheet' type='text/css' />
 	<link href='/package/easyui/themes/easyui.extend.css' rel='stylesheet' type='text/css' />
@@ -31,13 +31,13 @@
     <body class="easyui-layout">
         <div data-options="region:'center',split:false,collapsible:false,closed:false" style="height:100%;" >
             <div id="tabs" class="easyui-tabs" style="height:100%;" data-options="fit:true,plain:false,tabPosition:'top',tabWidth:0,tabHeight:35">
-			    <div title="订单信息">
-			        <div data-options="region:'north',split:false,collapsible:false,closed:false,height:200">
+			    <div title="产品方案">
+			        <%-- <div data-options="region:'north',split:false,collapsible:false,closed:false,height:200">
 						<jsp:include page="/gsb/platform/trade/include/orderInfo.jsp"></jsp:include>
-					</div>
+					</div> --%>
 					<div id="center" data-options="region:'center'">
 						<div id="detail_tabs">
-						    <div title="结转信息">   
+						    <div title="产品方案">   
 						        <div style=" border:0px;padding:10px;">
 						           <form id="form1" style="padding-top: 0px;">
 									   <table cellpadding="3" cellspacing="0" class="form-panel">
@@ -108,12 +108,12 @@
 
 <script>
 
-	var stagetrl = null;
+	var productProjectCtrl = null;
 	$(function(){
 		var centerHeight = $('body').height() - 240;
 		$('#center').height(centerHeight);
-		stagetrl = new com.gongsibao.product.web.ProductListPart();
-		stagetrl.init();
+		productProjectCtrl = new com.gongsibao.product.web.ProductListPart();
+		productProjectCtrl.init();
 	});
 </script>
 </html>

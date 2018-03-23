@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
+import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.DockType;
@@ -19,20 +20,23 @@ import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PPart;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.entity.PWorkspace;
+import org.netsharp.panda.plugin.dic.ToolbarType;
+import org.netsharp.panda.plugin.entity.PToolbar;
+import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.product.Workflow;
 import com.gongsibao.product.web.ProductListPart;
 import com.gongsibao.product.web.ProductTypeTreePart;
+import com.gongsibao.tools.PToolbarHelper;
 
 /**   
  * @ClassName:  ProductProjectWorkspaceTest   
  * @Description:TODO 产品方案
- * @author: 韩伟
- * @date:   2017年12月7日 下午8:16:38
+ * @author: wwm
+ * @date:   2018年3月22日 
  * 
- * @Copyright: 2017 www.yikuaxiu.com Inc. All rights reserved. 
  */
 public class ProductProjectWorkspaceTest  extends WorkspaceCreationBase{
 
@@ -51,7 +55,7 @@ public class ProductProjectWorkspaceTest  extends WorkspaceCreationBase{
 //		formOpenMode = OpenMode.WINDOW;
 //		openWindowWidth = 800;
 //		openWindowHeight = 600;
-		listToolbarPath = "product/detail/all/list";
+		listToolbarPath = "product/project/detail/all/list";
 		List<String> ss = new ArrayList<String>();
 		ss.add("/gsb/platform/product/js/add-product-project.part.js");
 		ss.add("/gsb/panda-extend/gsb.custom.query.controls.js");
@@ -59,6 +63,37 @@ public class ProductProjectWorkspaceTest  extends WorkspaceCreationBase{
 		listPartImportJs = StringManager.join("|", ss);
 		listPartJsController = ProductListPart.class.getName();
 		listPartServiceController = ProductListPart.class.getName();
+	}
+	
+	
+	@Test
+	public void createListToolbar() {
+
+		String listToolbarPath = "product/project/detail/all/list";
+		ResourceNode node = resourceService.byCode(resourceNodeCode);
+		OperationType ot1 = operationTypeService.byCode(OperationTypes.view);
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			toolbar.setPath(listToolbarPath);
+			toolbar.setName("方案录入");
+			toolbar.setResourceNode(node);
+			toolbar.setToolbarType(ToolbarType.BASE);
+		}
+
+		PToolbarItem item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("addProduct");
+			item.setIcon(PToolbarHelper.iconAdd);
+			item.setName("录入产品方案");
+			item.setOperationType(ot1);
+			item.setSeq(2);
+			item.setCommand("{controller}.addProducts();");
+			toolbar.getItems().add(item);
+		}
+
+		toolbarService.save(toolbar);
 	}
 	
 //	@Test
@@ -141,26 +176,26 @@ public class ProductProjectWorkspaceTest  extends WorkspaceCreationBase{
 	}
 
 	//产品名称，销售方式
-//	@Override
-//	protected PForm createForm(ResourceNode node) {
-//
-//		PForm form = new PForm(node, this.formPartName);
-//		{
-//			form.setColumnCount(1);
-//		}
-//		
-//		PFormField field = null;
-//
-//		addFormField(form, "organizationType", "类型", null, ControlTypes.ENUM_BOX, true);
-//		addFormField(form, "name", "公司名称", null, ControlTypes.TEXT_BOX, true,false);
-//		addFormField(form, "shortName", "组织名称", null, ControlTypes.TEXT_BOX, true,false);
-//		addFormFieldRefrence(form, "leader.name", "主管人", null, "Gsb_User", false,false);
-//
-//		//city
-//		addFormField(form, "enabled", "启用", null, ControlTypes.SWITCH_BUTTON, false,false);
-//		addFormField(form, "remark", "备注", null, ControlTypes.TEXTAREA, false,false);
-//		return form;
-//	}
+	@Override
+	protected PForm createForm(ResourceNode node) {
+
+		PForm form = new PForm(node, this.formPartName);
+		{
+			form.setColumnCount(1);
+		}
+		
+		PFormField field = null;
+
+		addFormField(form, "organizationType", "类型", null, ControlTypes.ENUM_BOX, true);
+		addFormField(form, "name", "公司名称", null, ControlTypes.TEXT_BOX, true,false);
+		addFormField(form, "shortName", "组织名称", null, ControlTypes.TEXT_BOX, true,false);
+		addFormFieldRefrence(form, "leader.name", "主管人", null, "Gsb_User", false,false);
+
+		//city
+		addFormField(form, "enabled", "启用", null, ControlTypes.SWITCH_BUTTON, false,false);
+		addFormField(form, "remark", "备注", null, ControlTypes.TEXTAREA, false,false);
+		return form;
+	}
 	
 	
 	@Override
