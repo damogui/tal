@@ -95,10 +95,6 @@ public class OrderResourceTest extends ResourceCreationBase {
                 this.createResourceNodeVoucher(Refund.class.getName(), "退款审核", "Gsb_Supplier_Order_Audit_Refund", IRefundService.class.getName(), node4.getId());
                 this.createResourceNodeVoucher(SoOrder.class.getName(), "分期审核", "Gsb_Supplier_Order_Audit_Staging", IOrderService.class.getName(), node4.getId());
                 this.createResourceNodeVoucher(SoOrder.class.getName(), "结转审核", "Gsb_Supplier_Order_Audit_Carryover", IOrderService.class.getName(), node4.getId());
-                this.createResourceNodeVoucher(SoOrder.class.getName(), "定价审核", "Gsb_Supplier_Order_Audit_Pricing", IOrderService.class.getName(), node4.getId());
-                this.createResourceNodeVoucher(Refund.class.getName(), "退款审核", "Gsb_Supplier_Order_Audit_Refund", IRefundService.class.getName(), node4.getId());
-                this.createResourceNodeVoucher(SoOrder.class.getName(), "分期审核", "Gsb_Supplier_Order_Audit_Staging", IOrderService.class.getName(), node4.getId());
-                this.createResourceNodeVoucher(NOrderCarryover.class.getName(), "结转审核", "Gsb_Supplier_Order_Audit_Carryover", INOrderCarryoverService.class.getName(), node4.getId());
                 this.createResourceNodeVoucher(AuditLog.class.getName(), "合同审核", "Gsb_Supplier_Order_Audit_Contract", IAuditLogService.class.getName(), node4.getId());
                 this.createResourceNodeVoucher(AuditLog.class.getName(), "发票审核", "Gsb_Supplier_Order_Audit_Invoice", IAuditLogService.class.getName(), node4.getId());
 
