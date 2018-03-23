@@ -38,10 +38,7 @@ public class AuditContractWorkspaceTest extends WorkspaceCreationBase {
         listToolbarPath = "crm/audit/ordercontract/edit";
         listPartServiceController = AuditContractListPart.class.getName();
         listPartJsController = AuditContractListPart.class.getName();
-
         listFilter = "type_id=" + AuditLogType.Htsq.getValue() + " and add_user_id = '{userId}' ";
-
-
     }
 
     @Test
