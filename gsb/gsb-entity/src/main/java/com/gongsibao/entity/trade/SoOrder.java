@@ -105,7 +105,7 @@ public class SoOrder extends BaseEntity {
 	@Column(name = "refund_status_id", header = "退款状态：type=303")
 	private OrderRefundStatusType refundStatus = OrderRefundStatusType.wu;
 
-	@Column(name = "total_price", header = "总金额")
+	@Column(name = "total_price", header = "总金额（原价金额）")
 	private Integer totalPrice = 0;
 
 	@Column(name = "payable_price", header = "应付金额")
