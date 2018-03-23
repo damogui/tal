@@ -92,6 +92,8 @@ public class OrderNavigationTest extends NavigationBase {
 				createPTreeNode(tree, "Gsb_Supplier_Order_Audit", null, "Gsb_Supplier_Order_Audit_Refund", "退款审核", "/crm/order/audit/refund/list", 6);
 				createPTreeNode(tree, "Gsb_Supplier_Order_Audit", null, "Gsb_Supplier_Order_Audit_Staging", "分期审核", "/crm/order/audit/staging/list", 7);
 				createPTreeNode(tree, "Gsb_Supplier_Order_Audit", null, "Gsb_Supplier_Order_Audit_Carryover", "结转审核", "/crm/order/audit/carryover/list", 8);
+
+				createPTreeNode(tree, "Gsb_Supplier_Order_Audit", null, "Gsb_Supplier_Order_Audit_Contract", "合同审核", "/crm/order/audit/contract/list", 9);
 			}
 		}
 	}
