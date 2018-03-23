@@ -1,28 +1,14 @@
 package com.gongsibao.panda.platform.trade;
 
+import com.gongsibao.entity.trade.*;
+import com.gongsibao.trade.base.*;
 import org.junit.Before;
 import org.netsharp.meta.base.ResourceCreationBase;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.bd.base.IAuditLogService;
 import com.gongsibao.entity.bd.AuditLog;
-import com.gongsibao.entity.trade.Contract;
-import com.gongsibao.entity.trade.Invoice;
-import com.gongsibao.entity.trade.NOrderCarryover;
-import com.gongsibao.entity.trade.OrderPayMap;
-import com.gongsibao.entity.trade.OrderProd;
-import com.gongsibao.entity.trade.OrderProdItem;
-import com.gongsibao.entity.trade.Refund;
-import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dto.SoOrderDTO;
-import com.gongsibao.trade.base.IContractService;
-import com.gongsibao.trade.base.IInvoiceService;
-import com.gongsibao.trade.base.INOrderCarryoverService;
-import com.gongsibao.trade.base.IOrderOperationService;
-import com.gongsibao.trade.base.IOrderPayMapService;
-import com.gongsibao.trade.base.IOrderProdService;
-import com.gongsibao.trade.base.IOrderService;
-import com.gongsibao.trade.base.IRefundService;
 import com.gongsibao.u8.base.ISoOrderService;
 
 public class ResourceTest extends ResourceCreationBase {
@@ -56,8 +42,8 @@ public class ResourceTest extends ResourceCreationBase {
             this.createResourceNodeVoucher(SoOrder.class.getName(), "全部订单", "Operation_Order_All", ISoOrderService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(SoOrder.class.getName(), "订单池", "Operation_Order_Pool", ISoOrderService.class.getName(), node1.getId());
 
-            this.createResourceNodeVoucher(SoOrder.class.getName(), "订单业绩", "Operation_Order_Performance", ISoOrderService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(OrderPayMap.class.getName(), "回款业绩", "Operation_Order_Received", IOrderPayMapService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(NDepReceivable.class.getName(), "运营平台订单业绩", "Operation_Order_Performance", INDepReceivableService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(NDepPay.class.getName(), "运营平台回款业绩", "Operation_Order_Received", INDepPayService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(Refund.class.getName(), "退款订单", "Operation_Order_Refund", IRefundService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(SoOrder.class.getName(), "分期订单", "Operation_Order_Staging", ISoOrderService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(NOrderCarryover.class.getName(), "结转订单", "Operation_Order_Carryover", INOrderCarryoverService.class.getName(), node1.getId());
@@ -74,13 +60,13 @@ public class ResourceTest extends ResourceCreationBase {
 		{
 			this.createResourceNodeVoucher(AuditLog.class.getName(), "业绩审核", node1.getCode() + "_Performance", IAuditLogService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(AuditLog.class.getName(), "回款审核", node1.getCode() + "_Received", IAuditLogService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(AuditLog.class.getName(), "退款审核", node1.getCode() + "_Refund", IAuditLogService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(AuditLog.class.getName(), "结转审核", node1.getCode() + "_Carryover", IAuditLogService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(Refund.class.getName(), "退款审核", node1.getCode() + "_Refund", IRefundService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NOrderCarryover.class.getName(), "结转审核", node1.getCode() + "_Carryover", INOrderCarryoverService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(AuditLog.class.getName(), "发票审核", node1.getCode() + "_Invoice", IAuditLogService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(AuditLog.class.getName(), "成本审核", node1.getCode() + "_Cost", IAuditLogService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(AuditLog.class.getName(), "合同审核", node1.getCode() + "_Contract", IAuditLogService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(AuditLog.class.getName(), "改价审核", node1.getCode() + "_Price_Change", IAuditLogService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(AuditLog.class.getName(), "分期审核", node1.getCode() + "_Staging", IAuditLogService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(SoOrder.class.getName(), "分期审核", node1.getCode() + "_Staging", ISoOrderService.class.getName(), node1.getId());
 			/*this.createResourceNodeVoucher(AuditLog.class.getName(), "商城充值审核", node1.getCode() + "_Recharge", IAuditLogService.class.getName(), node1.getId());*/
 
 //			回发票审核

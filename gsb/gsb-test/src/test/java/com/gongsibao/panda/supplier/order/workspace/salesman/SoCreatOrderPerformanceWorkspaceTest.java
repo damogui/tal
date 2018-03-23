@@ -9,7 +9,6 @@ import org.netsharp.core.EntityState;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
-import org.netsharp.organization.entity.Employee;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.DockType;
@@ -27,8 +26,6 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 import org.netsharp.util.StringManager;
 
-import com.gongsibao.entity.supplier.Supplier;
-import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.tools.PToolbarHelper;
 import com.gongsibao.trade.web.OrderPerformanceDetailPart;

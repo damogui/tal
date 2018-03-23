@@ -1,5 +1,8 @@
 package com.gongsibao.panda.supplier.order.workspace.salesman;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
@@ -11,6 +14,7 @@ import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
+import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.trade.NOrderCarryover;
 import com.gongsibao.trade.web.SalesmanOrderCarryoverListPart;
@@ -26,7 +30,11 @@ public class SalesmanOrderCarryoverWorkspaceTest extends WorkspaceCreationBase {
         listPartName = formPartName = "结转订单";
         meta = MtableManager.getMtable(entity);
         resourceNodeCode = "Gsb_Supplier_Order_Salesman_Carryover";
-        listPartImportJs = "/gsb/panda-extend/gsb.custom.query.controls.js";
+        List<String> ss = new ArrayList<String>();
+		ss.add("/gsb/platform/trade/js/salesman-order-carryover-list.part.js");
+		ss.add("/gsb/panda-extend/gsb.custom.query.controls.js");
+		listPartImportJs = StringManager.join("|", ss);
+		listPartJsController = SalesmanOrderCarryoverListPart.class.getName();
         listPartServiceController = SalesmanOrderCarryoverListPart.class.getName();
         listFilter = "creator_id='{userId}'";
         

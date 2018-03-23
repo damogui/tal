@@ -17,7 +17,6 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.trade.web.AuditStageListPart;
 import com.gongsibao.trade.web.SalesmanStagingListPart;
 
 /*分期订单*/
@@ -30,16 +29,14 @@ public class SalesmanOrderStagingWorkspaceTest extends WorkspaceCreationBase {
         listPartName = formPartName = "我的分期";
         meta = MtableManager.getMtable(entity);
         resourceNodeCode = "Gsb_Supplier_Order_Salesman_Staging";
-        /*listPartImportJs = "/gsb/panda-extend/gsb.custom.query.controls.js";
-        listPartServiceController = SalesmanStagingListPart.class.getName();*/
         listFilter = " owner_id = '{userId}' and is_installment = 1 ";
         
         List<String> ss = new ArrayList<String>();
-		ss.add("/gsb/platform/trade/js/audit-stage-list.part.js");
+		ss.add("/gsb/platform/trade/js/salesman-order-stage-list.part.js");
 		ss.add("/gsb/panda-extend/gsb.custom.query.controls.js");
 		listPartImportJs = StringManager.join("|", ss);
-		listPartJsController = AuditStageListPart.class.getName();
-		listPartServiceController = AuditStageListPart.class.getName();
+		listPartJsController = SalesmanStagingListPart.class.getName();
+		listPartServiceController = SalesmanStagingListPart.class.getName();
     }
 
     @Override
@@ -67,8 +64,7 @@ public class SalesmanOrderStagingWorkspaceTest extends WorkspaceCreationBase {
         column =  addColumn(datagrid, "paidPrice", "已付金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
         	column.setAlign(DatagridAlign.RIGHT);
         }
-        column = addColumn (datagrid, "toBePaid", "待付金额", ControlTypes.TEXT_BOX, 100);{
-        	column.setFormatter("return (row.payablePrice - row.paidPrice)");
+        column = addColumn (datagrid, "toBePaidPrice", "待付金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
         }
         addColumn(datagrid, "stageNum", "分期次数", ControlTypes.ENUM_BOX, 100);
         

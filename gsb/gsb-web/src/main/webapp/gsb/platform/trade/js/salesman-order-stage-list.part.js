@@ -1,19 +1,12 @@
 System.Declare("com.gongsibao.trade.web");
 //订单审核-分期审核
-com.gongsibao.trade.web.AuditStageListPart = org.netsharp.panda.commerce.ListPart.Extends({
+com.gongsibao.trade.web.SalesmanStagingListPart = org.netsharp.panda.commerce.ListPart.Extends({
     ctor: function () {
         this.base();
         this.auditStageUrl = '/nav/gsb/platform/trade/auditStage';//分期审核jsp
     },
     auditStage: function (id) {//订单审核-分期审核
-        var me = this;
-        var row = this.getSelectedItem();
-        var rows = this.getSelections();
-        if (rows.length <= 0) {
-            IMessageBox.info('请先选择订单数据');
-            return false;
-        }
-        var contentUrl = this.auditStageUrl + "?id=" + row.id;
+        var contentUrl = this.auditStageUrl + "?id=" + id;
         layer.open({
             type: 2,//1是字符串 2是内容
             title: '分期审核',
@@ -35,8 +28,7 @@ com.gongsibao.trade.web.AuditStageListPart = org.netsharp.panda.commerce.ListPar
 
     },
     detail : function(id){
-    	var row = this.getSelectedItem();
-    	var contentUrl = this.auditStageUrl + "?id=" + row.id;
+    	var contentUrl = this.auditStageUrl + "?id=" + id;
     	  layer.open({
               type: 2,//1是字符串 2是内容
               title: '查看',

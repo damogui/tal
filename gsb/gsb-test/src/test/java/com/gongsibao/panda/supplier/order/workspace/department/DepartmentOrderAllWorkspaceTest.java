@@ -10,6 +10,7 @@ import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderAllWorkspaceTest;
+import com.gongsibao.tools.PToolbarHelper;
 import com.gongsibao.trade.web.department.DepartmentOrderAllListPart;
 
 /*全部订单   根据部门过滤就行*/
@@ -25,7 +26,7 @@ public class DepartmentOrderAllWorkspaceTest extends SalesmanOrderAllWorkspaceTe
         resourceNodeCode = "Gsb_Supplier_Order_Department_All";
         
         //批量转移工具栏
-//        listToolbarPath = "department/order/orderall/edit";
+        listToolbarPath = "department/order/orderall/edit";
         listPartServiceController = DepartmentOrderAllListPart.class.getName();
         listFilter = "";
     }
@@ -55,7 +56,29 @@ public class DepartmentOrderAllWorkspaceTest extends SalesmanOrderAllWorkspaceTe
     }
     @Test
     public void createListToolbar() {
-    	
+
+		ResourceNode node = resourceService.byCode(resourceNodeCode);
+//		OperationType ot1 = operationTypeService.byCode(OperationTypes.view);
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			toolbar.setPath(listToolbarPath);
+			toolbar.setName("所有订单操作");
+			toolbar.setResourceNode(node);
+			toolbar.setToolbarType(ToolbarType.BASE);
+		}
+		PToolbarItem item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("batchOrderTran");
+			item.setIcon(PToolbarHelper.iconTran);
+			item.setName("批量转移");
+			item.setSeq(1);
+			item.setCommand("{controller}.batchOrderTran();");
+			toolbar.getItems().add(item);
+		}
+
+		toolbarService.save(toolbar);
     }
 
     protected PDatagrid createDatagrid(ResourceNode node) {

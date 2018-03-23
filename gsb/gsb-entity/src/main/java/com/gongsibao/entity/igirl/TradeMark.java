@@ -10,6 +10,8 @@ import com.gongsibao.entity.igirl.dict.MarkState;
 import com.gongsibao.entity.igirl.dict.ShareGroup;
 import com.gongsibao.entity.igirl.dict.TradeMarkType;
 import com.gongsibao.entity.supplier.Supplier;
+
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Table(name = "ig_trade_mark", header = "商标")
@@ -86,6 +88,12 @@ public class TradeMark extends Entity {
 
 	@Column(name = "department_id",header = "所属部门id")
 	private Integer departmentId;
+
+	@Column(name = "cost", size = 10, precition = 2, header = "成本")
+	private BigDecimal cost;
+
+	@Column(name = "charge", size = 10, precition = 2, header = "服务费")
+	private BigDecimal charge;
 
 	public Boolean getHasColor() {
         return hasColor;
@@ -253,5 +261,21 @@ public class TradeMark extends Entity {
 
 	public void setDepartmentId(Integer departmentId) {
 		this.departmentId = departmentId;
+	}
+
+	public BigDecimal getCost() {
+		return cost;
+	}
+
+	public void setCost(BigDecimal cost) {
+		this.cost = cost;
+	}
+
+	public BigDecimal getCharge() {
+		return charge;
+	}
+
+	public void setCharge(BigDecimal charge) {
+		this.charge = charge;
 	}
 }

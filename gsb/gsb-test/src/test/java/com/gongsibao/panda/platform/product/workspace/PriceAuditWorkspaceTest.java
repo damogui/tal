@@ -10,6 +10,7 @@ import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
+import com.gongsibao.entity.product.ProdPriceAuditRow;
 import com.gongsibao.entity.product.Product;
 
 /**   
@@ -28,7 +29,7 @@ public class PriceAuditWorkspaceTest  extends WorkspaceCreationBase{
 
 		super.setup();
 		urlList = "/prod/priceaudit/list";
-		entity = Product.class;
+		entity = ProdPriceAuditRow.class;
 		meta = MtableManager.getMtable(entity);
 		resourceNodeCode = "GSB_Product_Manage_PriceAudit";
 		formPartName = listPartName = meta.getName();
@@ -40,18 +41,18 @@ public class PriceAuditWorkspaceTest  extends WorkspaceCreationBase{
 
 		PDatagrid datagrid = super.createDatagrid(node);
 		{
-			datagrid.setToolbar("panda/datagrid/row/edit");
-			datagrid.setName("产品方案列表");
+//			datagrid.setToolbar("panda/datagrid/row/edit");
+			datagrid.setName("产品定价列表");
 		}
 		
-		PDatagridColumn column = null;
+//		PDatagridColumn column = null;
 		addColumn(datagrid, "formName", "操作", ControlTypes.OPERATION_COLUMN, 100);
-		addColumn(datagrid, "id", "编号", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "product.name", "产品名称", ControlTypes.TEXT_BOX, 200);
-		addColumn(datagrid, "remark", "影响地区", ControlTypes.TEXT_BOX, 200);
-		column = addColumn(datagrid, "enabled", "启用/禁用", ControlTypes.TEXT_BOX, 100);{
-			
-		}
+		addColumn(datagrid, "statusId", "状态编码", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "productName", "产品名称", ControlTypes.TEXT_BOX, 200);
+		addColumn(datagrid, "statusType", "状态类型", ControlTypes.TEXT_BOX, 200);
+//		column = addColumn(datagrid, "enabled", "启用/禁用", ControlTypes.TEXT_BOX, 100);{
+//			
+//		}
 		return datagrid;
 	}
 

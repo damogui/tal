@@ -420,11 +420,11 @@ System.DX = function(n) {
 /*人民币：元分处理*/
 System.RMB = {
 		
-	YuanToFen:function(value){
+	yuanToFen:function(value){
 		
 		return value*100;
 	},
-	FenToYun:function(value){
+	fenToYuan:function(value){
 		
 		return (value/100).toFixed(2);
 	}

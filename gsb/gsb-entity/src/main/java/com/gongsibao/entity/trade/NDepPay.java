@@ -1,6 +1,6 @@
 package com.gongsibao.entity.trade;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
@@ -10,14 +10,14 @@ import org.netsharp.organization.entity.Employee;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
+import java.util.Date;
+
 /**
  * Created by win on 2018/2/26.
  */
 @Table(name = "n_dep_pay", header = "回款业绩")
 public class NDepPay extends Entity {
-    /**
-     * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
-     */
+
     private static final long serialVersionUID = -233203413500559037L;
     @Column(name = "amount", header = "支付额")
     private Integer amount;
@@ -27,6 +27,7 @@ public class NDepPay extends Entity {
 
     @Reference(foreignKey = "supplierId", header = "服务商")
     private Supplier supplier;
+    
     @Column(name = "department_id", header = "部门Id")
     private Integer departmentId = 0;
 
@@ -36,32 +37,25 @@ public class NDepPay extends Entity {
     @Column(name = "salesman_id", header = "业务员Id")
     private Integer salesmanId;
 
-    @JsonIgnore
     @Reference(foreignKey = "salesmanId")
     private Employee salesman;
 
-
     @Column(name = "order_id", header = "订单Id")
     private Integer orderId;
-    @JsonIgnore
+    
     @Reference(foreignKey = "orderId")
     private SoOrder order;
 
-    @Column(name = "pay_id", header = "支付序号")
-    private Integer payId;
-    @JsonIgnore
-    @Reference(header = "支付", foreignKey = "payId", primaryKey = "pkid")
-    private Pay pay;
 
-    @Column(name = "order_pay_map_id", header = "支付明细Id")
-    private Integer orderPayMapId;
+    /*必须冗余回款业绩审核状态*/
+    @Column(name = "status", header = "审核状态")
+    private AuditStatusType statusType = AuditStatusType.Dsh;
 
 
-    /*new beg*/
-    @JsonIgnore
-    @Reference(foreignKey = "orderPayMapId", header = "支付明细"
-    )
-    private OrderPayMap orderPayMap;
+    @Column(name = "audit_time", header = "审核通过时间")
+    private Date auditTime = null;
+
+
 
     /*new end*/
     public Integer getAmount() {
@@ -70,22 +64,6 @@ public class NDepPay extends Entity {
 
     public void setAmount(Integer amount) {
         this.amount = amount;
-    }
-
-    public Integer getOrderPayMapId() {
-        return orderPayMapId;
-    }
-
-    public void setOrderPayMapId(Integer orderPayMapId) {
-        this.orderPayMapId = orderPayMapId;
-    }
-
-    public OrderPayMap getOrderPayMap() {
-        return orderPayMap;
-    }
-
-    public void setOrderPayMap(OrderPayMap orderPayMap) {
-        this.orderPayMap = orderPayMap;
     }
 
     public Integer getSupplierId() {
@@ -137,24 +115,7 @@ public class NDepPay extends Entity {
     public void setOrder(SoOrder order) {
         this.order = order;
     }
-
-    public Integer getPayId() {
-        return payId;
-    }
-
-    public void setPayId(Integer payId) {
-        this.payId = payId;
-    }
-
-    public Pay getPay() {
-        return pay;
-    }
-
-    public void setPay(Pay pay) {
-        this.pay = pay;
-    }
-
-
+    
     public Integer getSalesmanId() {
         return salesmanId;
     }
@@ -169,5 +130,21 @@ public class NDepPay extends Entity {
 
     public void setSalesman(Employee salesman) {
         this.salesman = salesman;
+    }
+
+    public AuditStatusType getStatusType() {
+        return statusType;
+    }
+
+    public void setStatusType(AuditStatusType statusType) {
+        this.statusType = statusType;
+    }
+
+    public Date getAuditTime() {
+        return auditTime;
+    }
+
+    public void setAuditTime(Date auditTime) {
+        this.auditTime = auditTime;
     }
 }

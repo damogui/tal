@@ -6,15 +6,53 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
 
         this.addOrderReceivedUrl = '/panda/crm/order/salesman/coperformance';//创建订单业绩
         //this.addReceivedUrl = "/panda/crm/order/salesman/creceivedperformance";//回款业绩
+
+        this.addReceivedUrl = "/nav/gsb/platform/trade/orderPay";//回款
         
-        this.addReceivedUrl = "/nav/gsb/platform/trade/orderPay";//回款业绩
-        
+        this.addPayPerformanceUrl = "/nav/gsb/platform/trade/payPerformance";//回款业绩
+
         this.originType = null;//来源类型（0或null：业务员跳转过来的；1：平台跳转过来的）
         this.addStagingUrl = '/nav/gsb/platform/trade/orderStage';//创建分期
         this.addRefundUrl = '/nav/gsb/platform/trade/orderRefund';//创建退款
         this.addCarryoverUrl = '/nav/gsb/platform/trade/orderCarryover';//创建结转
         this.addContractUrl = '/panda/trade/order/contract/form';//创建合同
         this.addInvoiceUrl = '/panda/trade/order/invoice/form';//创建发票
+    },
+    addPayPerformance:function(){
+    	
+        var me = this;
+        var row = this.getSelectedItem();
+        var rows = this.getSelections();
+        if (rows.length <= 0) {
+            IMessageBox.info('请先选择订单数据');
+            return false;
+        }
+
+        var urlEnd = this.addPayPerformanceUrl + "?id=" + row.id;
+        layer.open({
+            type: 2,//1是字符串 2是内容
+            title: '创建回款业绩',
+            fixed: false,
+            maxmin: true,
+            shadeClose: false,
+            area: ['80%', '80%'],
+            zIndex: 100000,
+            id: "addReceivedIframe",
+            content: urlEnd,
+            btn: ['保存', '取消'],
+            yes: function (index, layero) {
+
+            	var payPerformanceCtrl = document.getElementById('addReceivedIframe').firstElementChild.contentWindow.payPerformanceCtrl;
+                var isSave = payPerformanceCtrl.save();
+                if (isSave === true) {
+
+                	layer.msg('保存成功！',function(){
+
+                    	layer.closeAll();
+                	});
+                }
+            }
+        });
     },
     addOrderReceived: function () {//创建订单业绩
         var me = this;
@@ -71,7 +109,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         var urlEnd = this.addReceivedUrl + "?id=" + row.id;
         layer.open({
             type: 2,//1是字符串 2是内容
-            title: '订单信息',
+            title: '创建回款',
             fixed: false,
             maxmin: true,
             shadeClose: false,
@@ -79,21 +117,19 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             zIndex: 100000,
             id: "addReceivedIframe",
             content: urlEnd,
-
-            btn: ['保存', '取消'],// 可以无限个按钮
-
+            btn: ['保存', '取消'],
             yes: function (index, layero) {
-                //layer.closeAll();
-                var num = document.getElementById('addReceivedIframe').firstElementChild.contentWindow.controllersoOrder.save();//保存
-                if (num > 0) {
 
-                    IMessageBox.toast('保存成功');
+            	var payCtrl = document.getElementById('addReceivedIframe').firstElementChild.contentWindow.payCtrl;
+                var isSave = payCtrl.save();
+                if (isSave === true) {
+
+                	layer.msg('保存成功！',function(){
+
+                    	layer.closeAll();
+                	});
                 }
-
-
-            },
-
-
+            }
         });
     },
     addRefund: function (id) {//创建退款
@@ -239,32 +275,6 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                 });
             }
         }, null, false);
-
-        /*//增加订单是否创建合同
-         me.invokeService("checkContract", [row.id], function (data) {
-         if (data) {
-         IMessageBox.info('该订单已经创建合同');
-         } else {
-         var url = this.addContractUrl + '?fk=orderId:' + row.id;
-         layer.open({
-         id: "contractCreateIframe",
-         type: 2,
-         title: '合同信息',
-         fixed: false,
-         maxmin: true,
-         shadeClose: true,
-         area: ['60%', '90%'],
-         content: url,
-         btn: ['提交', '取消'],
-         success: function (layero, index) {
-
-         },
-         yes: function () {
-         document.getElementById('contractCreateIframe').firstElementChild.contentWindow.controllercontract.save();
-         }
-         });
-         }
-         });*/
     },
     addInvoice: function (id) {//申请发票
         var me = this;
@@ -275,23 +285,32 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             return false;
         }
         var url = this.addInvoiceUrl + '?fk=orderId:' + row.id;
-        layer.open({
-            id: "invoiceCreateIframe",
-            type: 2,
-            title: '申请发票',
-            fixed: false,
-            maxmin: true,
-            shadeClose: true,
-            area: ['60%', '90%'],
-            content: url,
-            btn: ['提交', '取消'],
-            success: function (layero, index) {
+        var serviceLocator = new org.netsharp.core.JServiceLocator();
+        //增加订单是否创建发票
+        serviceLocator.invoke("com.gongsibao.trade.web.InvoiceFormPart", "checkInvoice", [row.id], function (data) {
+            if (data) {
+                IMessageBox.info('该订单已经创建支票了');
+            } else {
+                layer.open({
+                    id: "invoiceCreateIframe",
+                    type: 2,
+                    title: '基本信息',
+                    fixed: false,
+                    maxmin: true,
+                    shadeClose: true,
+                    area: ['60%', '90%'],
+                    content: url,
+                    btn: ['提交', '取消'],
+                    success: function (layero, index) {
 
-            },
-            yes: function () {
-                document.getElementById('invoiceCreateIframe').firstElementChild.contentWindow.controllercontract.save();
+                    },
+                    yes: function () {
+                        document.getElementById('invoiceCreateIframe').firstElementChild.contentWindow.controllerinvoice.save();
+                    }
+                });
             }
-        });
+        }, null, false);
+
     },
     batchOrderTran: function () {//批量订单转移
         var me = this;

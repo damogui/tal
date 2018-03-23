@@ -43,7 +43,11 @@
 									          			data-options="required:true,disabled:true"/></td>
 									          <td class="label_td"><label style="color:Red">*</label><label>去向订单号：</label></td>
 									          <td class="control_td">
-									          		<input type="hidden" id ="orderId_hidden"> 
+									          		<!-- 存储临时值 -->
+									          		<input type="hidden" id ="orderId_hidden">
+									          		<input type="hidden" id ="paidPrice_hidden">
+									          		<input type="hidden" id ="refundPrice_hidden">
+									          		<input type="hidden" id ="carryAmount_hidden">  
 									          		<input id="toOrderNo" class="easyui-validatebox nsInput" onblur="carryoverCtrl.toOrderNoBlur();"
 														data-options="width:150,required:true"/></td>
 									          <td class="label_td"><label style="color:Red">*</label><label>结转金额：</label></td>

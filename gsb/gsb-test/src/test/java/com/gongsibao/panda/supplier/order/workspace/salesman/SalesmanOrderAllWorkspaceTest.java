@@ -97,9 +97,21 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 			item.toNew();
 			item.setCode("addReceived");
 			item.setIcon(PToolbarHelper.iconAdd);
-			item.setName("创建回款业绩");
+			item.setName("创建回款");
 			item.setSeq(3);
 			item.setCommand("{controller}.addReceived();");
+			toolbar.getItems().add(item);
+		}
+		
+
+		item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("addPayPerformance");
+			item.setIcon(PToolbarHelper.iconAdd);
+			item.setName("创建回款业绩");
+			item.setSeq(4);
+			item.setCommand("{controller}.addPayPerformance();");
 			toolbar.getItems().add(item);
 		}
 
@@ -109,7 +121,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 			item.setCode("addCarryover");
 			item.setIcon(PToolbarHelper.iconAdd);
 			item.setName("创建结转");
-			item.setSeq(4);
+			item.setSeq(5);
 			item.setCommand("{controller}.addCarryover();");
 			toolbar.getItems().add(item);
 		}
@@ -120,7 +132,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 			item.setCode("addContract");
 			item.setIcon(PToolbarHelper.iconAdd);
 			item.setName("创建合同");
-			item.setSeq(5);
+			item.setSeq(6);
 			item.setCommand("{controller}.addContract();");
 			toolbar.getItems().add(item);
 		}
@@ -131,7 +143,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 			item.setCode("addRefund");
 			item.setIcon(PToolbarHelper.iconAdd);
 			item.setName("申请退款");
-			item.setSeq(6);
+			item.setSeq(7);
 			item.setCommand("{controller}.addRefund();");
 			toolbar.getItems().add(item);
 		}
@@ -142,7 +154,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 			item.setCode("addStaging");
 			item.setIcon(PToolbarHelper.iconAdd);
 			item.setName("申请分期");
-			item.setSeq(7);
+			item.setSeq(8);
 			item.setCommand("{controller}.addStaging();");
 			toolbar.getItems().add(item);
 		}
@@ -153,7 +165,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 			item.setCode("addInvoice");
 			item.setIcon(PToolbarHelper.iconCheck);
 			item.setName("申请发票");
-			item.setSeq(8);
+			item.setSeq(9);
 			item.setCommand("{controller}.addInvoice();");
 			toolbar.getItems().add(item);
 		}

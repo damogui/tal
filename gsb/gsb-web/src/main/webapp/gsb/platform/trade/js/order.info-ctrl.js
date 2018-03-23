@@ -4,8 +4,8 @@ com.gongsibao.trade.web.OrderInfoCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     	
     	this.base();
     	this.service = 'com.gongsibao.trade.web.OrderDetailController';
-    	this.platformSourceTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderPlatformSourceType');
-    	this.payStatusTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderPayStatusType');
+    	//this.platformSourceTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderPlatformSourceType');
+    	//this.payStatusTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderPayStatusType');
     },
     init:function(){
     	
@@ -34,7 +34,7 @@ com.gongsibao.trade.web.OrderInfoCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     	$('#accountMobile').text(soOrder.accountMobile);
     	$('#addTime').text(soOrder.addTime);
     	
-    	$('#platformSource').text(this.platformSourceTypeEnum[soOrder.platformSource]);
+    	//$('#platformSource').text(this.platformSourceTypeEnum[soOrder.platformSource]);
     	$('#payStatus').text(this.payStatusTypeEnum[soOrder.payStatus]);
     	var installmentMode = soOrder.installmentMode;
     	if(installmentMode){

@@ -1,27 +1,105 @@
 package com.gongsibao.trade.web.audit;
 
+import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.bd.dic.AuditLogType;
+import com.gongsibao.entity.trade.OrderPayMap;
+import com.gongsibao.entity.trade.Pay;
+import com.gongsibao.trade.base.IPayService;
 import com.gongsibao.trade.service.action.audit.AuditState;
+import com.gongsibao.trade.web.dto.AuditLogDTO;
+import com.gongsibao.trade.web.dto.OrderInfoDTO;
+import com.gongsibao.trade.web.dto.OrderPayInfoDTO;
+import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.Oql;
 
-public class AuditPayController extends AuditBaseController{
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
 
-	/**
-	 * 审核通过 注：参数未定
-	 * 
-	 * @return
-	 */
-	public Boolean approved(Integer auditLogId) {
+public class AuditPayController extends AuditBaseController {
 
-		return auditService.auditPay(AuditState.PASS, auditLogId, null);
-	}
+    /**
+     * 审核通过 注：参数未定
+     *
+     * @return
+     */
+    public Boolean approved(Integer auditLogId) {
 
-	/**
-	 * 驳回 注：参数未定
-	 * 
-	 * @return
-	 */
-	public Boolean rejected(Integer auditLogId, String remark) {
+        return auditService.auditPay (AuditState.PASS, auditLogId, null);
+    }
 
-		return auditService.auditPay(AuditState.NOTPASS, auditLogId, remark);
-	}
+    /**
+     * 驳回 注：参数未定
+     *
+     * @return
+     */
+    public Boolean rejected(Integer auditLogId, String remark) {
+
+        return auditService.auditPay (AuditState.NOTPASS, auditLogId, remark);
+    }
+
+    /*订单业绩审核流程*/
+    public List<AuditLogDTO> getAuditLogList(Integer id) {
+        List<AuditLog> logList = new ArrayList<AuditLog> ();
+        List<AuditLogDTO> logDtos = new ArrayList<AuditLogDTO> ();
+
+        logList = super.getAuditLogList (id, AuditLogType.Sksq.getValue ());
+        for (AuditLog item : logList
+                ) {
+            AuditLogDTO auditLogDTO = new AuditLogDTO ();
+            auditLogDTO.setId (item.getId ());
+            auditLogDTO.setCreator (item.getCreator ());
+            auditLogDTO.setOption (item.getStatus ().getText ());
+            auditLogDTO.setRemark (item.getContent ());
+            auditLogDTO.setCreateTime (item.getCreateTime ().toString ());
+            logDtos.add (auditLogDTO);
+        }
+        return logDtos;
+    }
+
+    /*获取订单信息、付款凭证、关联订单*/
+    public OrderPayInfoDTO getOrderCutPerformanceByPayId(Integer id) {
+
+        IPayService payService = ServiceFactory.create (IPayService.class);
+        OrderPayInfoDTO orderPayInfoDTO = new OrderPayInfoDTO ();
+        Oql oql = new Oql ();
+        {
+            oql.setType (AuditLog.class);
+            oql.setSelects ("setOfBooks.name,u8Bank.name,offlinePayerName,offlineBankNo,payForOrderCount,amount,offlineRemark,files,orderPayMaps.*");
+            oql.setFilter ("id=?");
+            oql.getParameters ().add ("@id", id, Types.INTEGER);
+
+        }
+        Pay pay = payService.queryFirst (oql);
+
+        orderPayInfoDTO.setAccountName (pay.getSetOfBooks ().getName ());
+        orderPayInfoDTO.setPayWay (pay.getU8Bank ().getName ());
+        orderPayInfoDTO.setBankName (pay.getOfflinePayerName ());
+        orderPayInfoDTO.setBankNo (pay.getOfflineBankNo ());
+        orderPayInfoDTO.setIsMoreOrder (pay.getPayForOrderCount ().getText ());
+        orderPayInfoDTO.setAmount (pay.getAmount ().toString ());
+        orderPayInfoDTO.setMark (pay.getOfflineRemark ());
+        orderPayInfoDTO.setFiles (pay.getFiles ());
+        orderPayInfoDTO.setOrderInfos (getOrderInfosByMap (pay.getOrderPayMaps ()));
+
+
+        return orderPayInfoDTO;
+    }
+
+    /*获取关联订单的信息*/
+    private List<OrderInfoDTO> getOrderInfosByMap(List<OrderPayMap> orderPayMaps) {
+        List<OrderInfoDTO> orderInfoDTOs = new ArrayList<> ();
+        for (OrderPayMap item : orderPayMaps
+                ) {
+            OrderInfoDTO orderInfoDTO = new OrderInfoDTO ();
+            orderInfoDTO.setOrderNo (item.getSoOrder ().getNo ());
+            orderInfoDTO.setOrderCut (item.getOrderPrice ().toString ());
+            orderInfoDTO.setPayType (item.getOfflineInstallmentType ().getText ());
+            orderInfoDTOs.add (orderInfoDTO);
+        }
+        return orderInfoDTOs;
+
+    }
+
 
 }

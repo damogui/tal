@@ -440,9 +440,14 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
 			onBeginEdit:function(index, row){
 
 			     var ed = $(this).datagrid('getEditor', {index:index,field:'price'});
+			     var price = System.RMB.fenToYuan(row.price);
+			     $(ed.target).numberbox('setValue', price);
+
 			     var priceEditCtrl = $(ed.target[0]).next().children()[0];
 			     $(priceEditCtrl).bind('blur',function(){
 			    	 
+			    	 var value = System.RMB.yuanToFen($(this).val());
+			    	 $(ed.target).numberbox('setValue', value);
 			    	 //结束编辑
 			    	 $('#serviceItems').datagrid('endEdit',index);
 			    	 me.calculateTotalPrice();
@@ -565,12 +570,13 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
 		        	return value;
 		        }},    
 		        {field:'originalPrice',title:'原售价',width:100,align:'right',formatter:function(value,row,index){
-		        	return value/100;
+		        	
+		        	return System.RMB.fenToYuan(value);
 		        }},
-		        {field:'price',title:'现售价',width:100,align:'right',editor:{type:'numberbox',options:{precision:0,height:31}},
+		        {field:'price',title:'现售价',width:100,align:'right',editor:{type:'numberbox',options:{precision:2,height:31}},
 		        	formatter:function(value,row,index){
 		        		
-		        		return value/100;
+		        		return System.RMB.fenToYuan(value);
 		        	}}
 		    ]]
 		});

@@ -3,12 +3,33 @@ com.gongsibao.trade.web.AuditStageCtrl = com.gongsibao.trade.web.AuditBaseCtrl.E
     ctor: function () {
     	
     	this.base();
+    	this.initializeDetailList = new System.Dictionary();
+    	//获取枚举
+    	this.auditLogStatusEnum = PandaHelper.Enum.get('com.gongsibao.entity.bd.dic.AuditLogStatusType');
     	this.service = 'com.gongsibao.trade.web.audit.AuditStageController';
     },
     initData:function(){
     	var orderId = this.queryString('id');
-    	//异步加载？1.获取分期信息
-    	this.invokeService ("getSoOrder", [orderId], function(data){
+    	var me = this;
+    	//加载Tab项
+    	$('#detail_tabs').tabs({ 
+    		tabHeight:30,
+		    onSelect:function(title){
+		    	var detailCtrl = me.initializeDetailList.byKey(title);
+		    	if(detailCtrl){		    		
+		    		//已经初始化过的不再执行
+		    		return;
+		    	}
+		    	if(title=='审批进度'){
+		    		me.auditLogInfor(orderId);
+		    	}
+		    }
+    	});
+    	me.initializeDetailList.add('分期信息',this.installInfo(orderId));
+    },
+    installInfo: function(id){
+    	//tab-获取分期信息
+    	this.invokeService ("getSoOrder", [id], function(data){
     		var stageAmount = ((data.payablePrice - data.paidPrice)/100).toFixed(2);
     		var builder = new System.StringBuilder();
     		builder.append('<tr>');
@@ -36,51 +57,30 @@ com.gongsibao.trade.web.AuditStageCtrl = com.gongsibao.trade.web.AuditBaseCtrl.E
         	});
     		$("#stage_info_grid").append(builder.toString());
     	});
-    	//2.获取审批进度
-    	this.invokeService ("getAuditLogList", [orderId], function(data){
-    		var builder = new System.StringBuilder();
-    		builder.append('<tr>');
-    		builder.append('<td width="10%">创建人名称</td>');
-    		builder.append('<td width="10%">审核状态</td>');
-    		builder.append('<td width="20%">创建时间</td>');
-    		builder.append('<td width="20%">审批内容</td>');
-    		builder.append('<td>说明</th>');
-    		builder.append('</tr>');
-    		$(data).each(function(i,item){
-    			builder.append('<tr>');
-        		builder.append('<td>' + item.creator + '</td>');
-        		builder.append('<td>' + getStatus(item.status) + '</td>');
-        		builder.append('<td>' + item.createTime + '</td>');
-        		builder.append('<td>' + item.content + '</td>');
-        		builder.append('<td>' + item.remark + '</td>');
-        		builder.append('</tr>');
+    },
+    auditLogInfor: function(id){
+    	//tab-审批进度
+    	var me = this;
+    	this.invokeService("getAuditLogList", [id,1047], function(data){    		
+    		$('#audit_progress_grid').datagrid({
+    			idField:'id',
+    			emptyMsg:'暂无记录',
+    			striped:true,
+    			pagination:false,
+    			showFooter:true,
+    			singleSelect:true,
+    			height:'100%',
+    			data:data,
+    		    columns:[[
+    		        {field:'creator',title:'创建人名称',width:80,align:'center'},
+    		        {field:'status',title:'审核状态',width:80,align:'center',formatter: function(value,row,index){
+    		        	return me.auditLogStatusEnum[value];
+    		        }},
+    		        {field:'createTime',title:'创建时间',width:150,align:'center'},
+    		        {field:'content',title:'审批内容',width:150,align:'center'},
+    		        {field:'remark',title:'说明',width:300,align:'center'}
+    		    ]]
     		});
-    		$("#audit_progress_grid").append(builder.toString());
     	});
     }
 });
-
-//判断审核状态
-function getStatus(status){
-	var statString = '待审核';
-	switch (status){
-	case 1051:
-		statString = "待审核";
-	  break;
-	case 1052:
-		statString = "审核中";
-	  break;
-	case 1053:
-		statString = "驳回审核";
-	  break;
-	case 1054:
-		statString = "审核通过";
-	  break;
-	case 1055:
-		statString = "排队";
-	  break;
-	default:
-		statString = "关闭";
-	}
-	return statString;
-}

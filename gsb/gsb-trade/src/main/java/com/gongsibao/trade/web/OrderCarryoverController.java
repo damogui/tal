@@ -26,7 +26,7 @@ public class OrderCarryoverController {
 		Oql oql = new Oql();
 		{
 			oql.setType(SoOrder.class);
-			oql.setSelects("id,no,payablePrice,paidPrice");
+			oql.setSelects("id,no,payablePrice,paidPrice,refundPrice,carryAmount");
 			oql.setFilter("id=?");
 			oql.getParameters().add("id", id, Types.INTEGER);
 		}

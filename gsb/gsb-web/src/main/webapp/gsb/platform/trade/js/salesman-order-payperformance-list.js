@@ -2,14 +2,16 @@
  * Created by win on 2018/3/21.
  */
 System.Declare("com.gongsibao.trade.web");
-//订单业绩
-com.gongsibao.trade.web.SalesmanOrderPerformanceListPart = org.netsharp.panda.commerce.ListPart.Extends({
+//回款业绩跳转
+com.gongsibao.trade.web.SalesmanOrderReceivedListPart = org.netsharp.panda.commerce.ListPart.Extends({
     ctor: function () {
         this.base();
+        this.auditPayUrl="/nav/gsb/platform/trade/auditPayPerformance";//回款业绩审核
     },
     detail: function (id) {
 
         var rows = this.getSelections();
+        debugger;
         if (System.isnull(id)) {
 
             if (rows.length > 1) {
@@ -24,24 +26,35 @@ com.gongsibao.trade.web.SalesmanOrderPerformanceListPart = org.netsharp.panda.co
 
             //id = rows[0].order_id;//订单id
         }
-        var url = System.Url.join("/crm/order/salesman/coperformance", "id=" + rows[0].order_id);
-        url = System.Url.getUrl(url);
-        if (this.context.openMode == OpenType.window) {
 
-            var me = this;
-            url = System.Url.join(url, "openType=" + OpenType.window);
-            IMessageBox.open("详情", url, this.context.windowWidth, this.context.windowHeight, function () {
 
-                me.reload();
-            });
+        var urlEnd = this.auditPayUrl + "?id=" + id;//回款
 
-        } else if (this.context.openMode == OpenType.redirect) {
-            url = System.Url.join(url, "openType=" + OpenType.redirect);
-            window.location.href = url;
-        } else {
-            url = System.Url.join(url, "openType=" + OpenType.open);
-            window.open(url);
-        }
+        layer.open({
+            type: 2,//1是字符串 2是内容
+            title: '我的回款信息',
+            fixed: false,
+            maxmin: true,
+            shadeClose: false,
+            area: ['60%', '60%'],
+            zIndex: 100000,
+            id: "myorderpay",
+            content: urlEnd,
+            // btn: ['保存', '取消'],// 可以无限个按钮
+            success: function (layero, index) {
+
+
+            },
+            yes: function (index, layero) {
+
+            }
+
+
+        });
+
+
+
+
     }
 });
 
