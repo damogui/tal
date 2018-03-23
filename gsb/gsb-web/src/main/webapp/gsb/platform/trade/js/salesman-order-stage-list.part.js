@@ -1,6 +1,6 @@
 System.Declare("com.gongsibao.trade.web");
 //订单审核-分期审核
-com.gongsibao.trade.web.AuditStageListPart = org.netsharp.panda.commerce.ListPart.Extends({
+com.gongsibao.trade.web.SalesmanStagingListPart = org.netsharp.panda.commerce.ListPart.Extends({
     ctor: function () {
         this.base();
         this.auditStageUrl = '/nav/gsb/platform/trade/auditStage';//分期审核jsp
