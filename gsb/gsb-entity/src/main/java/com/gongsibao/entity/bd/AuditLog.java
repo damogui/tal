@@ -1,6 +1,7 @@
 package com.gongsibao.entity.bd;
 
 import com.gongsibao.entity.bd.dic.AuditLogStatusType;
+
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
@@ -9,6 +10,7 @@ import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.Contract;
 import com.gongsibao.entity.trade.Invoice;
+import com.gongsibao.entity.trade.NOrderCarryover;
 import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
@@ -61,6 +63,10 @@ public class AuditLog extends BaseEntity {
 	@Reference(foreignKey = "formId")
 	private Refund fefund;
 
+	// 结转记录
+	@Reference(foreignKey = "formId")
+	private NOrderCarryover carryover;
+		
 	public AuditLogType getType() {
 		return type;
 	}
@@ -149,6 +155,14 @@ public class AuditLog extends BaseEntity {
 		this.fefund = fefund;
 	}
 
+	public NOrderCarryover getCarryover() {
+		return carryover;
+	}
+
+	public void setCarryover(NOrderCarryover carryover) {
+		this.carryover = carryover;
+	}
+
 	public AuditLogStatusType getStatus() {
 		return status;
 	}
@@ -156,4 +170,5 @@ public class AuditLog extends BaseEntity {
 	public void setStatus(AuditLogStatusType status) {
 		this.status = status;
 	}
+	
 }
