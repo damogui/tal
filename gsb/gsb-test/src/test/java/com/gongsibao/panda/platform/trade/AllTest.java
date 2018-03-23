@@ -8,12 +8,12 @@ import com.gongsibao.panda.platform.trade.workspace.audit.CarryoverAuditWorkspac
 import com.gongsibao.panda.platform.trade.workspace.audit.ChangePriceAuditWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.audit.ContractAuditWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.audit.CostAuditWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.audit.StagingWorkspaceTest;
+import com.gongsibao.panda.platform.trade.workspace.audit.StagingAuditWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.audit.InvoiceAuditWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.audit.PerformanceAuditWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.audit.ReceivedAuditWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.audit.RefundAuditWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.audit.StagingWorkspaceTest;
+import com.gongsibao.panda.platform.trade.workspace.audit.StagingAuditWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.order.AllOrderWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.order.CarryoverWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.order.ContractFormWorkspaceTest;
@@ -30,6 +30,7 @@ import com.gongsibao.panda.platform.trade.workspace.order.RefundWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.order.ReportDayWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.order.ReportMonthWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.order.ReportWeekWorkspaceTest;
+import com.gongsibao.panda.platform.trade.workspace.order.StagingWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.payment.PaymentLogWorkspaceTest;
 
 
@@ -74,7 +75,7 @@ import com.gongsibao.panda.platform.trade.workspace.payment.PaymentLogWorkspaceT
 	InvoiceAuditWorkspaceTest.class,	
 	ReceivedAuditWorkspaceTest.class,
 	RefundAuditWorkspaceTest.class,
-    StagingWorkspaceTest.class,	
+	StagingAuditWorkspaceTest.class,	
 	
 	
 	//成本管理:成本管理,收款方管理,请款审核,请款审核,供应商发票审核
