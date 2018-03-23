@@ -17,23 +17,25 @@ com.gongsibao.trade.web.AuditPayPerformanceListPart = org.netsharp.panda.commerc
         //     IMessageBox.info('请先选择订单数据');
         //     return false;
         // }
+        //115763722
+        debugger;
         var contentUrl = this.auditUrl + "?id=" + row.orderId;
         layer.open({
             type: 2,//1是字符串 2是内容
-            title: '回款审核',
+            title: '回款业绩审核',
             fixed: false,
             maxmin: true,
             shadeClose: false,
             area: ['70%', '95%'],
             zIndex: 100000,
-            id: "addAuditPayIframe",
+            id: "auditPayPerIframe",
             content: contentUrl,
             btn: ['审核通过', '审核不通过'],// 可以无限个按钮
             btn1: function (index, layero) {
-                document.getElementById('addAuditPayIframe').firstElementChild.contentWindow.AuditPayPerformanceCtrl.approved();
+                document.getElementById('auditPayPerIframe').firstElementChild.contentWindow.AuditPayPerformanceCtrl.approved();
             },
             btn2: function (){
-                document.getElementById('addAuditPayIframe').firstElementChild.contentWindow.AuditPayPerformanceCtrl.rejected();
+                document.getElementById('auditPayPerIframe').firstElementChild.contentWindow.AuditPayPerformanceCtrl.rejected();
             }
         });
 

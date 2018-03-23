@@ -1,5 +1,5 @@
 System.Declare("com.gongsibao.trade.web");
-com.gongsibao.trade.web.AuditPayPerformanceCtrl = com.gongsibao.trade.web.AuditBaseCtrl.Extends({
+com.gongsibao.trade.web.AuditPerformanceCtrl = com.gongsibao.trade.web.AuditBaseCtrl.Extends({
     ctor: function () {
 
         this.base();

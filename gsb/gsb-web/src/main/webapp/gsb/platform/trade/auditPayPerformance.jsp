@@ -31,7 +31,7 @@
     <script src='/panda-res/js/panda.js'></script>
     <script src='/panda-res/js/panda.controls.js'></script>
     <script src='/gsb/platform/trade/js/audit-base.ctrl.js'></script>
-    <script src='/gsb/platform/trade/js/audit-performance.ctrl.js'></script>
+    <script src='/gsb/platform/trade/js/audit-payperformance.ctrl.js'></script>
 </head>
 <body class="easyui-layout">
 <div data-options="region:'north',split:false,collapsible:false,closed:false,height:220">
