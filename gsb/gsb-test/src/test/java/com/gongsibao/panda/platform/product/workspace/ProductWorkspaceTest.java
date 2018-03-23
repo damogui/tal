@@ -11,15 +11,9 @@ import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
-import org.netsharp.panda.dic.DockType;
-import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
-import org.netsharp.panda.entity.PForm;
-import org.netsharp.panda.entity.PFormField;
-import org.netsharp.panda.entity.PPart;
 import org.netsharp.panda.entity.PQueryProject;
-import org.netsharp.panda.entity.PWorkspace;
 import org.netsharp.panda.plugin.dic.ToolbarType;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
@@ -27,12 +21,8 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.product.Product;
-import com.gongsibao.product.web.PackageListPart;
 import com.gongsibao.product.web.ProductListPart;
-import com.gongsibao.product.web.ProductTypeTreePart;
 import com.gongsibao.tools.PToolbarHelper;
-import com.gongsibao.trade.web.SalesmanAllOrderFormPart;
-import com.gongsibao.trade.web.SalesmanAllOrderListPart;
 
 /**   
  * @ClassName:  ProductWorkspaceTest   

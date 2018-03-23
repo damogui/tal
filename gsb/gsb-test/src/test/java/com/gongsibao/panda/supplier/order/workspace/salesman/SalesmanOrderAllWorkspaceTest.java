@@ -23,7 +23,6 @@ import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.tools.PToolbarHelper;
-import com.gongsibao.trade.web.SalesmanAllOrderFormPart;
 import com.gongsibao.trade.web.SalesmanAllOrderListPart;
 
 /*全部订单*/
@@ -51,18 +50,6 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 		listFilter = "owner_id = '{userId}'";
 		listPartJsController = SalesmanAllOrderListPart.class.getName();
 		listPartServiceController = SalesmanAllOrderListPart.class.getName();
-
-		
-		ss = new ArrayList<String>();
-		ss.add("/package/easyui/datagrid-cellediting.js");
-		ss.add("/package/easyui/datagrid-groupview.js");
-		ss.add("/gsb/platform/trade/js/salesman-order-all-form.part.js");
-		// ss.add("/gsb/panda-extend/gsb.customer.controls.js");
-		formJsImport = StringManager.join("|", ss);
-		
-		formJsController = SalesmanAllOrderFormPart.class.getName();
-		formServiceController = SalesmanAllOrderFormPart.class.getName();
-
 	}
 
 	@Test
