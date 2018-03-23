@@ -1,14 +1,14 @@
 package com.gongsibao.panda.supplier.igirl;
-import com.gongsibao.entity.igirl.dict.ApplierType;
-import com.gongsibao.entity.igirl.dict.TMCState;
-import com.gongsibao.entity.igirl.dict.WriteType;
-import com.gongsibao.taurus.util.StringManager;
-import com.google.common.base.Ascii;
-import com.sun.org.apache.xpath.internal.SourceTree;
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import org.netsharp.cache.service.redis.RedisCacheCommand;
 import org.netsharp.cache.service.redis.RedisConnection;
@@ -19,20 +19,17 @@ import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.UploadAttachment;
 import com.gongsibao.entity.igirl.baseinfo.NCLOne;
 import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
+import com.gongsibao.entity.igirl.dict.ApplierType;
+import com.gongsibao.entity.igirl.dict.TMCState;
+import com.gongsibao.entity.igirl.dict.WriteType;
 import com.gongsibao.igirl.base.INCLOneService;
 import com.gongsibao.igirl.base.INCLTwoService;
 import com.gongsibao.igirl.base.INclBatchService;
 import com.gongsibao.igirl.base.ITradeMarkCaseService;
 import com.gongsibao.igirl.base.ITradeMarkService;
 import com.gongsibao.igirl.base.IUploadAttachmentService;
+import com.gongsibao.taurus.util.StringManager;
 import com.gongsibao.tools.HttpUtils;
-
-import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class AnnoTest2 {
 	@Test
