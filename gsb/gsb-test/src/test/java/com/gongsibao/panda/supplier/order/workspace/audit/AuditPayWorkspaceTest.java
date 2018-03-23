@@ -22,7 +22,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
  */
 public class AuditPayWorkspaceTest  extends WorkspaceCreationBase {
 
-    private String listrowToolbarPath="/crm/roworderpay/toolbar";
+    private String listrowToolbarPath="/crm/order/audit/roworderpay/toolbar";
     @Before
     public void setup() {
         super.setup ();
