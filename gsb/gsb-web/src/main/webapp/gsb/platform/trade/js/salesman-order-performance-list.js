@@ -40,6 +40,7 @@ com.gongsibao.trade.web.SalesmanOrderPerformanceListPart = org.netsharp.panda.co
             window.open(url);
         }
     }
+
 });
 
 
