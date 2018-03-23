@@ -1,6 +1,7 @@
 package com.gongsibao.panda.platform.trade.workspace.audit;
 
 import org.junit.Before;
+import org.junit.Test;
 
 import com.gongsibao.panda.supplier.order.workspace.audit.AuditRefundWorkspaceTest;
 
@@ -21,4 +22,8 @@ public class RefundAuditWorkspaceTest extends AuditRefundWorkspaceTest {
 		resourceNodeCode = "GSB_Trade_Audit_Refund";
 		listFilter = "";
 	}
+	@Test
+	public void createRowToolbar() {
+    	
+    }
 }

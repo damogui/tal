@@ -31,13 +31,13 @@ public class NCLTwoService extends GsbPersistableService<NCLTwo> implements INCL
 	}
 
 	@Override
-	public NCLTwo findNclTwoByThirdCode(String thirdCode,String name) {
+	public NCLTwo findNclTwoByCode(String code,String name) {
 		Oql oql=new Oql();
 		{
 			oql.setType(NCLTwo.class);
 			oql.setSelects("NCLTwo.*");
-			oql.setFilter(" thirdCode=? and name=?");
-			oql.getParameters().add("thirdCode", thirdCode, Types.VARCHAR);
+			oql.setFilter(" code=? and name=?");
+			oql.getParameters().add("code", code, Types.VARCHAR);
 			oql.getParameters().add("name", name, Types.VARCHAR);
 		}
 		return this.queryFirst(oql);
