@@ -25,7 +25,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
  */
 /*订单业绩审核*/
 public class AuditOrderPerformanceWorkspaceTest extends WorkspaceCreationBase {
-    private String listrowToolbarPath="/crm/roworderper/toolbar";
+    private String listrowToolbarPath="/crm/audit/row/orderper/toolbar";
     @Before
     public void setup() {
         super.setup ();

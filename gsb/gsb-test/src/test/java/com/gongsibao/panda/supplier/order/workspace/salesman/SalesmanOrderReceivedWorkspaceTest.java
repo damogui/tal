@@ -35,7 +35,7 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
         listToolbarPath = "crm/audit/pay/edit";
         listPartImportJs = "/gsb/platform/trade/js/salesman-order-payperformance-list.js";
         listPartJsController = SalesmanOrderReceivedListPart.class.getName ();
-        listPartServiceController = AuditPayListPart.class.getName ();
+        //listPartServiceController = AuditPayListPart.class.getName ();
         listFilter = "salesman_id = '{userId}'  or creator_id = '{userId}'";//我创建和别人分配给我
         listToolbarPath = "";
     }
@@ -59,7 +59,7 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
             item.setCode ("detail");
             item.setName ("查看");
             item.setSeq (1);
-            //item.setCommand("{controller}.view();");
+            item.setCommand("{controller}.detail();");
             toolbar.getItems ().add (item);
         }
 
