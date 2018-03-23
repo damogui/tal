@@ -3,7 +3,7 @@ com.gongsibao.trade.web.AuditPayPerformanceCtrl = com.gongsibao.trade.web.AuditB
     ctor: function () {
 
         this.base();
-        this.service = 'com.gongsibao.trade.web.audit.AuditPerformanceController';
+        this.service = 'com.gongsibao.trade.web.audit.AuditPayPerformanceController';
     },
     initData: function () {
         var id = this.queryString('id');
@@ -12,10 +12,10 @@ com.gongsibao.trade.web.AuditPayPerformanceCtrl = com.gongsibao.trade.web.AuditB
     },
     initGridPer: function (id) {//根据订单id获取信息渲染订单业绩
         var me = this;
-        me.invokeService("getOrderCutPerformance", [id], function (data) {
+        me.invokeService("getPayCutPerformance", [id], function (data) {
 
 
-            $('#order_performance_grid').datagrid({
+            $('#order_amount_cut').datagrid({
                 idField: 'id',
                 emptyMsg: '暂无记录',
                 striped: true,
@@ -34,7 +34,7 @@ com.gongsibao.trade.web.AuditPayPerformanceCtrl = com.gongsibao.trade.web.AuditB
 
                     {
                         field: 'amount',
-                        title: '订单业绩分配金额',
+                        title: '回款业绩分配金额',
                         width: 100,
                         align: 'right',
                         formatter: function (value, row, index) {
