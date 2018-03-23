@@ -7,7 +7,35 @@ com.gongsibao.trade.web.AuditPayPerformanceCtrl = com.gongsibao.trade.web.AuditB
     },
     initData: function () {
         var id = this.queryString('id');
-        this.initGridPer(id);
+        this.initOrderInfo(id);
+
+    },
+    initOrderInfo: function (id) {//根据订单id获取信息渲染订单业绩
+        var me = this;
+        me.invokeService("getOrderInfo", [id], function (data) {
+            //订单信息
+            $("#no").html(data.orderNo);
+            $("#payablePrice").html(data.payablePrice);
+            $("#paidPrice").html(data.paidPrice);
+            $("#accountName").html(data.accountName);
+            $("#accountMobile").html(data.accountMobile);
+            $("#addTime").html(data.addTime);
+            $("#platformSource").html(data.platformSource);
+            $("#payStatus").html(data.payStatus);
+            $("#installmentCount").html(data.installmentCount);
+            $("#channelOrderNo").html(data.channelOrderNo);
+            $("#unAllotPayPrice").html(data.unAllotPayPrice);
+            $("#remark").html(data.remark);
+            // $("#").html();
+            // $("#").html();
+
+            
+
+
+
+            me.initGridPer(id);//等上一个请求完渲染第二个
+        });
+
 
     },
     initGridPer: function (id) {//根据订单id获取信息渲染订单业绩
@@ -53,7 +81,7 @@ com.gongsibao.trade.web.AuditPayPerformanceCtrl = com.gongsibao.trade.web.AuditB
 
     initGridAudit: function (orderId) {//审批进度
         var me = this;
-        this.invokeService ("getAuditLogList", [orderId], function(data){
+        this.invokeService("getAuditLogList", [orderId], function (data) {
             $('#audit_progress_grid').datagrid({
                 idField: 'id',
                 emptyMsg: '暂无记录',
