@@ -6,14 +6,7 @@ com.gongsibao.trade.web.OrderSalesmanRefundListPart = org.netsharp.panda.commerc
         this.addRefundUrl = '/nav/gsb/platform/trade/auditRefund';//创建退款jsp
     },
     detail : function(id){
-    	 var me = this;
-         var row = this.getSelectedItem();
-         var rows = this.getSelections();
-         if (rows.length <= 0) {
-             IMessageBox.info('请先选择订单数据');
-             return false;
-         }
-         var contentUrl = this.addRefundUrl + "?id=" + row.id;
+         var contentUrl = this.addRefundUrl + "?id=" + id;
          layer.open({
              type: 2,//1是字符串 2是内容
              title: '查看退款',

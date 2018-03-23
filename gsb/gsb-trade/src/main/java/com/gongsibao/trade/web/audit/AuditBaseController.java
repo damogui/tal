@@ -9,12 +9,14 @@ import org.netsharp.core.Oql;
 
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.trade.base.IAuditService;
+import com.gongsibao.trade.base.INOrderCarryoverService;
 import com.gongsibao.u8.base.ISoOrderService;
 
 public abstract class AuditBaseController {
 
 	IAuditService auditService = ServiceFactory.create(IAuditService.class);
 	ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
+	INOrderCarryoverService carryoverService = ServiceFactory.create(INOrderCarryoverService.class);
 	/**
 	 * 审核通过 注：参数未定
 	 * 
