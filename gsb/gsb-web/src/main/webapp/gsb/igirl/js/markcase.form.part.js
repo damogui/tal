@@ -39,10 +39,16 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
 
         }
     },
-    onload: function () {
-        this.base();
-        $("#certificateType").parent().parent().parent().parent().parent().hide();
-    },
+    onload:function(){
+    	 this.base();
+    	 $("#certificateType").parent().parent().parent().parent().parent().hide();
+    	 $("#tokenImgUrl").click(function(){
+    		      var qrurl=$(this).attr("src");
+    		      if(qrurl && qrurl!=""){
+    		    	  var enurl=qrurl.split("=")[1];
+    		    	  window.open(decodeURIComponent(enurl));
+    		                }
+    	      });
     applierTypeChange: function (newValue, oldValue) {
         if (newValue == 1) {
             $("#companyName").validatebox('disable').validatebox('disableValidation');

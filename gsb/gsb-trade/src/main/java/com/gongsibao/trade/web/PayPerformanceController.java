@@ -10,6 +10,7 @@ import com.gongsibao.entity.trade.NDepPay;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.base.INDepPayService;
 import com.gongsibao.trade.base.IOrderService;
+import com.gongsibao.trade.web.dto.PayPerformanceDTO;
 
 public class PayPerformanceController {
 
@@ -35,9 +36,10 @@ public class PayPerformanceController {
 		return entity;
 	}
 
-	public Boolean applyPayPerformance(List<NDepPay> depPayList) {
+	public Boolean applyPayPerformance(PayPerformanceDTO dto) {
 
 		INDepPayService service = ServiceFactory.create(INDepPayService.class);
+		List<NDepPay> depPayList =  dto.getDepPayList();
 		return service.applyPayPerformance(depPayList);
 	}
 }

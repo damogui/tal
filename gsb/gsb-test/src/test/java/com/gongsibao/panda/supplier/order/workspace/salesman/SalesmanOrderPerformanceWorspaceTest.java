@@ -57,7 +57,7 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
         PToolbarItem item = new PToolbarItem();
         {
             item.toNew();
-            item.setCode("orderpershow");
+            item.setCode("detail");
             item.setName("查看");
             item.setSeq(1);
             item.setCommand("{controller}.detail();");

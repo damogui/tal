@@ -69,7 +69,8 @@ com.gongsibao.trade.web.PayPerformanceCtrl = org.netsharp.panda.core.CustomCtrl.
     },
     save:function(){
     	
-    	if(soOrder.unAllotPayPrice<=0){
+    	var me = this;
+    	if(this.soOrder.unAllotPayPrice<=0){
     		
     		layer.msg('【未划分回款业绩额】为0，不能分配！');
     		return false;
@@ -88,18 +89,20 @@ com.gongsibao.trade.web.PayPerformanceCtrl = org.netsharp.panda.core.CustomCtrl.
 			allotTotalAmount+=item.amount;
 			
 			//设置orderId
-			item.orderId = this.soOrder.id;
+			item.orderId = me.soOrder.id;
 		});
 		
-		if(allotTotalAmount != unAllotPayPrice){
+		if(allotTotalAmount != this.soOrder.unAllotPayPrice){
 			
 			layer.msg('本次需把未划分回款业绩额全部分配！');
 			return;
 		}
 		
+		var dto = new Object();
+		dto.depPayList = depPayList;
 		//使用同步提交
 		var isSave = false;
-		this.invokeService("applyPayPerformance",[depPayList],function(data){
+		this.invokeService("applyPayPerformance",[dto],function(data){
 			
 			isSave = data;
 			
@@ -146,18 +149,11 @@ com.gongsibao.trade.web.OrderPayPerformanceCtrl = org.netsharp.panda.core.Custom
 
 					me.add();
 				}
-			},'-',{
-				iconCls: 'fa fa-remove',
-				text:'删除',
-				handler: function(){
-
-					me.remove();
-				}
 			}],
 		    columns:[[
 		        {field:'id',title:'操作',width:80,align:'center',formatter:function(value,row,index){
 		        	
-		        	var str = '<a class="grid-btn" href="javascript:payMapCtrl.payDepDetailCtrl.remove('+index+');">删除</a>';
+		        	var str = '<a class="grid-btn" href="javascript:payPerformanceCtrl.payPerformanceCtrl.remove('+index+');">删除</a>';
 		        	return str;
 		        }},
 		        {field:'supplierId',title:'服务商',width:200,formatter:function(value,row,index){

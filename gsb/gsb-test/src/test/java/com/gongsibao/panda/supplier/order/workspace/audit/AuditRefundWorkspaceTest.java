@@ -21,7 +21,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.trade.Refund;
-import com.gongsibao.trade.web.AuditRefundListPart;
+import com.gongsibao.trade.web.OrderSalesmanRefundListPart;
 
 /*退款审核*/
 public class AuditRefundWorkspaceTest extends WorkspaceCreationBase{
@@ -35,13 +35,13 @@ public class AuditRefundWorkspaceTest extends WorkspaceCreationBase{
         listPartName = formPartName = "退款审核";
         meta = MtableManager.getMtable (entity);
         resourceNodeCode = "Gsb_Supplier_Order_Audit_Refund";
-        List<String> ss = new ArrayList<String>();
-		ss.add("/gsb/platform/trade/js/audit-refund-list.part.js");
-		ss.add("/gsb/panda-extend/gsb.custom.query.controls.js");
-		listPartImportJs = StringManager.join("|", ss); 
 		
-		listPartJsController = AuditRefundListPart.class.getName();
-		listPartServiceController = AuditRefundListPart.class.getName();
+		List<String> ss = new ArrayList<String>();
+		ss.add("/gsb/platform/trade/js/salesman-order-refund-list.part.js");
+		ss.add("/gsb/panda-extend/gsb.custom.query.controls.js");
+		listPartImportJs = StringManager.join("|", ss);
+		listPartJsController = OrderSalesmanRefundListPart.class.getName();
+        listPartServiceController = OrderSalesmanRefundListPart.class.getName();
     }
    
 	@Test
