@@ -37,5 +37,5 @@ public class ContractAudit extends AbstractAuditLogService {
 		// TODO Auto-generated method stub
 		return AuditLogType.Htsq;
 	}
-    
+
 }
