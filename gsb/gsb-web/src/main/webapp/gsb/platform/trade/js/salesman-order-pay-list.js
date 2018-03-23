@@ -2,11 +2,11 @@
  * Created by win on 2018/3/21.
  */
 System.Declare("com.gongsibao.trade.web");
-//回款业绩跳转
-com.gongsibao.trade.web.SalesmanOrderReceivedListPart = org.netsharp.panda.commerce.ListPart.Extends({
+//回款跳转
+com.gongsibao.trade.web.SalesmanOrderPayController = org.netsharp.panda.commerce.ListPart.Extends({
     ctor: function () {
         this.base();
-        this.auditPayUrl="/nav/gsb/platform/trade/auditPayPerformance";//回款业绩审核
+        this.auditPayUrl="/nav/gsb/platform/trade/auditPay";//审核回款
     },
     detail: function (id) {
 
