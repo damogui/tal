@@ -18,7 +18,6 @@ public class OrderSalesmanRefundListPart extends AdvancedListPart {
         //当是关键字时(订单编号、渠道订单编号、下单人、下单人电话、关联公司)
         String keyword = parameter.getValue1().toString();
         if (parameter.getKey().equals("keyword")) {
-
             filters.add("no ='" + keyword + "'");
             filters.add("channel_order_no = '" + keyword + "'");
             filters.add("account_mobile = '" + keyword + "'");
