@@ -20,6 +20,7 @@ import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.StringManager;
 
+import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.web.AuditStagingListPart;
 import com.gongsibao.trade.web.SalesmanStagingListPart;
@@ -31,7 +32,7 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
 	@Before
     public void setup() {
         super.setup ();
-        entity = SoOrder.class;
+        entity = AuditLog.class;
         urlList = "/crm/order/audit/staging/list";
         listPartName = formPartName = "分期审核";
         meta = MtableManager.getMtable (entity);
@@ -86,26 +87,26 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
         }
         PDatagridColumn column = null;
         addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-        addColumn (datagrid, "no", "订单编号", ControlTypes.TEXT_BOX, 80);
-        addColumn (datagrid, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "payStatus", "付款状态", ControlTypes.ENUM_BOX, 100);
-        addColumn (datagrid, "prodName", "产品名称", ControlTypes.TEXT_BOX, 200);
-        addColumn (datagrid, "companyIntention.name", "签单公司", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "totalPrice", "原价金额", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "payablePrice", "应付金额", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "paidPrice", "已付金额", ControlTypes.TEXT_BOX, 100);
-        column = addColumn (datagrid, "toBePaidPrice", "待付金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
+        addColumn (datagrid, "soOrder.no", "订单编号", ControlTypes.TEXT_BOX, 80);
+        addColumn (datagrid, "soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "soOrder.payStatus", "付款状态", ControlTypes.ENUM_BOX, 100);
+        addColumn (datagrid, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX, 200);
+        addColumn (datagrid, "soOrder.companyIntention.name", "签单公司", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "soOrder.totalPrice", "原价金额", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "soOrder.payablePrice", "应付金额", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "soOrder.paidPrice", "已付金额", ControlTypes.TEXT_BOX, 100);
+        column = addColumn (datagrid, "soOrder.toBePaidPrice", "待付金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
         }
-        addColumn (datagrid, "stageNum", "分期次数", ControlTypes.ENUM_BOX, 100);
-        addColumn (datagrid, "installmentAuditStatusId", "审核状态", ControlTypes.ENUM_BOX, 100);
-        column = addColumn (datagrid, "stages", "==分期申请时间==", ControlTypes.DATE_BOX, 350);
+        addColumn (datagrid, "soOrder.stageNum", "分期次数", ControlTypes.ENUM_BOX, 100);
+        addColumn (datagrid, "soOrder.installmentAuditStatusId", "审核状态", ControlTypes.ENUM_BOX, 100);
+        column = addColumn (datagrid, "soOrder.stages", "==分期申请时间==", ControlTypes.DATE_BOX, 350);
         {     
         	column.setAlign(DatagridAlign.CENTER);
         	column.setFormatter("return controllersoOrderList.serviceNameFormatter(value,row,index);");
         }
-        addColumn (datagrid, "createTime", "订单创建时间", ControlTypes.DATE_BOX, 350);
-        addColumn (datagrid, "creator", "分期申请人", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "soOrder.createTime", "订单创建时间", ControlTypes.DATE_BOX, 350);
+        addColumn (datagrid, "soOrder.creator", "分期申请人", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
         return datagrid;
     }
 
@@ -122,14 +123,14 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
             item.setTooltip("订单编号、渠道订单编号、下单人、下单人电话、签单企业");
             item.setWidth(350);
         }
-        addQueryItem(queryProject, "prodName", "产品名称", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "installmentAuditStatusId", "审核状态", ControlTypes.ENUM_BOX);
-        addQueryItem(queryProject, "payStatus", "付款状态", ControlTypes.ENUM_BOX);
-        addQueryItem(queryProject, "owner.name", "业务员", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "soOrder.installmentAuditStatusId", "审核状态", ControlTypes.ENUM_BOX);
+        addQueryItem(queryProject, "soOrder.payStatus", "付款状态", ControlTypes.ENUM_BOX);
+        addQueryItem(queryProject, "soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX);
 //        addQueryItem(queryProject, "stageCreator", "分期申请人", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "stageNum", "分期次数", ControlTypes.ENUM_BOX);
+        addQueryItem(queryProject, "soOrder.stageNum", "分期次数", ControlTypes.ENUM_BOX);
 //        addQueryItem(queryProject, "stageCreateTime", "分期申请时间", ControlTypes.DATE_BOX);
-        addQueryItem(queryProject, "createTime", "订单创建时间", ControlTypes.DATE_BOX);
+        addQueryItem(queryProject, "soOrder.createTime", "订单创建时间", ControlTypes.DATE_BOX);
         return queryProject;
     }
 

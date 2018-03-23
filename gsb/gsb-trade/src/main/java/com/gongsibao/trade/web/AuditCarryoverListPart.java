@@ -16,8 +16,8 @@ public class AuditCarryoverListPart extends AdvancedListPart{
         String keyword = parameter.getValue1().toString();
         if (parameter.getKey().equals("keyword")) {
 
-            filters.add("form_order_no = '" + keyword + "'");
-            filters.add("to_order_no = '" + keyword + "'");
+            filters.add("carryover.form_order_no = '" + keyword + "'");
+            filters.add("carryover.to_order_no = '" + keyword + "'");
             return "(" + StringManager.join(" or ", filters) + ")";
         }
 

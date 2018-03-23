@@ -43,6 +43,8 @@ public class AuditCarryoverWorkspaceTest extends WorkspaceCreationBase{
 		listPartImportJs = StringManager.join("|", ss);
 		listPartJsController = AuditCarryoverListPart.class.getName();
         listPartServiceController = AuditCarryoverListPart.class.getName();
+        
+        listFilter = "type_id=1052 AND add_user_id='{userId}' ";
     }
 
     @Test
@@ -85,15 +87,15 @@ public class AuditCarryoverWorkspaceTest extends WorkspaceCreationBase{
         }
         PDatagridColumn column = null;
         addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-        addColumn(datagrid, "formOrderNo", "结转来源订单号", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "toOrderNo", "结转去向订单号", ControlTypes.TEXT_BOX, 100);
-        column = addColumn(datagrid, "amount", "结转金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
+        addColumn(datagrid, "carryover.formOrderNo", "结转来源订单号", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "carryover.toOrderNo", "结转去向订单号", ControlTypes.TEXT_BOX, 100);
+        column = addColumn(datagrid, "carryover.amount", "结转金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
         	
         	column.setAlign(DatagridAlign.RIGHT);
         }
-        addColumn(datagrid, "auditStatus", "审核状态", ControlTypes.ENUM_BOX, 100);
-        addColumn(datagrid, "createTime", "创建结转时间", ControlTypes.DATETIME_BOX, 100);
-        addColumn(datagrid, "creator", "结转创建人", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "status", "审核状态", ControlTypes.ENUM_BOX, 100);
+        addColumn(datagrid, "carryover.createTime", "创建结转时间", ControlTypes.DATETIME_BOX, 100);
+        addColumn(datagrid, "carryover.creator", "结转创建人", ControlTypes.TEXT_BOX, 100);
 
         return datagrid;
     }
@@ -110,9 +112,9 @@ public class AuditCarryoverWorkspaceTest extends WorkspaceCreationBase{
         {
             item.setTooltip("结转来源/去向订单号");
         }
-        addQueryItem(queryProject, "auditStatus", "审核状态", ControlTypes.ENUM_BOX);
-        addQueryItem(queryProject, "creator", "结转创建人", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "createTime", "创建结转时间", ControlTypes.DATE_BOX);
+        addQueryItem(queryProject, "status", "审核状态", ControlTypes.ENUM_BOX);
+        addQueryItem(queryProject, "carryover.creator", "结转创建人", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "carryover.createTime", "创建结转时间", ControlTypes.DATE_BOX);
 
         return queryProject;
     }

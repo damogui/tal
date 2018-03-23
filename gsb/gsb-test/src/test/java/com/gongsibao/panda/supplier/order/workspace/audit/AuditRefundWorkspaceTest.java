@@ -20,7 +20,7 @@ import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.StringManager;
 
-import com.gongsibao.entity.trade.Refund;
+import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.trade.web.AuditRefundListPart;
 
 /*退款审核*/
@@ -30,7 +30,7 @@ public class AuditRefundWorkspaceTest extends WorkspaceCreationBase{
 	@Before
     public void setup() {
         super.setup ();
-        entity = Refund.class;
+        entity = AuditLog.class;
         urlList = "/crm/order/audit/refund/list";
         listPartName = formPartName = "退款审核";
         meta = MtableManager.getMtable (entity);
@@ -83,31 +83,31 @@ public class AuditRefundWorkspaceTest extends WorkspaceCreationBase{
         }
         PDatagridColumn column = null;
         addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-        addColumn(datagrid, "soOrder.no", "订单编号", ControlTypes.TEXT_BOX, 80);
-        addColumn(datagrid, "soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "soOrder.payStatus", "付款状态", ControlTypes.ENUM_BOX, 100);
-        addColumn(datagrid, "soOrder.companyIntention.name", "签单公司", ControlTypes.TEXT_BOX, 250);
-        column = addColumn(datagrid, "soOrder.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
+        addColumn(datagrid, "fefund.soOrder.no", "订单编号", ControlTypes.TEXT_BOX, 80);
+        addColumn(datagrid, "fefund.soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "fefund.soOrder.payStatus", "付款状态", ControlTypes.ENUM_BOX, 100);
+        addColumn(datagrid, "fefund.soOrder.companyIntention.name", "签单公司", ControlTypes.TEXT_BOX, 250);
+        column = addColumn(datagrid, "fefund.soOrder.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
         	column.setAlign(DatagridAlign.RIGHT);
         }
-        column = addColumn(datagrid, "soOrder.payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
+        column = addColumn(datagrid, "fefund.soOrder.payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
         	column.setAlign(DatagridAlign.RIGHT);
         }
-        column = addColumn(datagrid, "soOrder.paidPrice", "已付金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
+        column = addColumn(datagrid, "fefund.soOrder.paidPrice", "已付金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
         	column.setAlign(DatagridAlign.RIGHT);
         }
-        column = addColumn (datagrid, "soOrder.toBePaidPrice", "待付金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
+        column = addColumn (datagrid, "fefund.soOrder.toBePaidPrice", "待付金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
         }
-        column = addColumn(datagrid, "amount", "退款金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
+        column = addColumn(datagrid, "fefund.amount", "退款金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
         	column.setAlign(DatagridAlign.RIGHT);
         }
-        addColumn(datagrid, "refundType", "退款类别", ControlTypes.ENUM_BOX, 100);
-        addColumn(datagrid, "amount", "==退款业绩分配金额", ControlTypes.DECIMAL_FEN_BOX, 100);
-        addColumn(datagrid, "auditStatus", "审核状态", ControlTypes.ENUM_BOX, 100);
-        addColumn(datagrid, "createTime", "退款创建时间", ControlTypes.DATETIME_BOX, 100);
-        addColumn(datagrid, "soOrder.createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);
-        addColumn(datagrid, "creator", "退款创建人", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "fefund.refundType", "退款类别", ControlTypes.ENUM_BOX, 100);
+        addColumn(datagrid, "fefund.amount", "==退款业绩分配金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn(datagrid, "status", "审核状态", ControlTypes.ENUM_BOX, 100);
+        addColumn(datagrid, "fefund.createTime", "退款创建时间", ControlTypes.DATETIME_BOX, 100);
+        addColumn(datagrid, "fefund.soOrder.createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);
+        addColumn(datagrid, "fefund.creator", "退款创建人", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "fefund.soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
 
         return datagrid;
     }
@@ -124,14 +124,14 @@ public class AuditRefundWorkspaceTest extends WorkspaceCreationBase{
              item.setTooltip("订单编号、渠道订单编号、下单人、下单人电话、签单企业");
              item.setWidth(350);
          }
-         addQueryItem(queryProject, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX);
-         addQueryItem(queryProject, "auditStatus", "审核状态", ControlTypes.ENUM_BOX);
-         addQueryItem(queryProject, "soOrder.payStatus", "订单付款状态", ControlTypes.ENUM_BOX);
-         addQueryItem(queryProject, "refundType", "退款类别", ControlTypes.ENUM_BOX);
-         addQueryItem(queryProject, "soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX);
-         addQueryItem(queryProject, "creator", "退款业绩创建人", ControlTypes.TEXT_BOX);
-         addQueryItem(queryProject, "createTime", "退款业绩创建时间", ControlTypes.DATE_BOX);
-         addQueryItem(queryProject, "soOrder.createTime", "订单创建时间", ControlTypes.DATE_BOX);
+         addQueryItem(queryProject, "fefund.soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX);
+         addQueryItem(queryProject, "status", "审核状态", ControlTypes.ENUM_BOX);
+         addQueryItem(queryProject, "fefund.soOrder.payStatus", "订单付款状态", ControlTypes.ENUM_BOX);
+         addQueryItem(queryProject, "fefund.refundType", "退款类别", ControlTypes.ENUM_BOX);
+         addQueryItem(queryProject, "fefund.soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX);
+         addQueryItem(queryProject, "fefund.creator", "退款业绩创建人", ControlTypes.TEXT_BOX);
+         addQueryItem(queryProject, "fefund.createTime", "退款业绩创建时间", ControlTypes.DATE_BOX);
+         addQueryItem(queryProject, "fefund.soOrder.createTime", "订单创建时间", ControlTypes.DATE_BOX);
          
         return queryProject;
     }
