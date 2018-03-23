@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.gongsibao.entity.igirl.dict.*;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -19,9 +20,6 @@ import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.UploadAttachment;
 import com.gongsibao.entity.igirl.baseinfo.NCLOne;
 import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
-import com.gongsibao.entity.igirl.dict.ApplierType;
-import com.gongsibao.entity.igirl.dict.TMCState;
-import com.gongsibao.entity.igirl.dict.WriteType;
 import com.gongsibao.igirl.base.INCLOneService;
 import com.gongsibao.igirl.base.INCLTwoService;
 import com.gongsibao.igirl.base.INclBatchService;
@@ -60,14 +58,14 @@ public class AnnoTest2 {
 		INclBatchService nclBatchService = ServiceFactory.create(INclBatchService.class);
 		INCLOneService oneService = ServiceFactory.create(INCLOneService.class);
 		INCLTwoService twoService = ServiceFactory.create(INCLTwoService.class);
-		String result = HttpUtils.get("http://192.168.2.169/igirl/api/trademark/report/fill");
+		String result = HttpUtils.get("http://127.0.0.1/igirl/api/trademark/report/fill");
 		//String result = HttpUtils.get("http://192.168.2.169/igirl2/api/trademark/report/fill");
 		JSONObject json  = JSONObject.fromObject(result);
 		JSONArray data = json.getJSONArray("data");
 		String corpTrademarkId;
         Date updTime=new Date();
-		TradeMark tradeMark;
-		TradeMarkCase tradeMarkCase;
+		TradeMark tradeMark=new TradeMark();
+		TradeMarkCase tradeMarkCase=new TradeMarkCase();
 		UploadAttachment uploadAttachment;
         String caseCode;
         NCLOne nclOne = new NCLOne();
@@ -75,6 +73,7 @@ public class AnnoTest2 {
         for (int i=0;i<data.size();i++) {
             JSONObject step = data.getJSONObject(i);
             corpTrademarkId = step.getString("corpTrademarkId");
+            System.out.println(corpTrademarkId);
             SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 
@@ -94,6 +93,7 @@ public class AnnoTest2 {
             JSONObject good;
             String tradeOption="";
             int tradeMarkCaseID;
+            int tradeMarkID;
 
             List<String> ncls = new ArrayList<>();
             StringBuffer ncl = new StringBuffer("");
@@ -126,11 +126,11 @@ public class AnnoTest2 {
             {
                 //TODO tradeMarkCase 数据
                 tradeMarkCase = new TradeMarkCase();
-
+                //tradeMarkCase.toNew();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 
                 //caseCode = TimeToCode(updTime, corpTrademarkId);
-                caseCode=sdf.format(updTime);
+                caseCode = sdf.format(updTime);
 
                 tradeMarkCase.setCode(caseCode);
 
@@ -146,8 +146,9 @@ public class AnnoTest2 {
                 tradeMarkCase.setUpdatorId(1808);
                 tradeMarkCase.setUpdateTime(updTime);
                 tradeMarkCase.setSupplierId(1);
-                 //写入大类
-                tradeMarkCase.setTradeOptions(tradeOption+" ");
+                tradeMarkCase.setDepartmentId(2);
+                //写入大类
+                tradeMarkCase.setTradeOptions(tradeOption + " ");
 
                 tradeMarkCase.setApplier(step2.getString("appCnName"));
                 tradeMarkCase.setCompanyName(step2.getString("appCnName"));
@@ -160,23 +161,26 @@ public class AnnoTest2 {
                 tradeMarkCase.setMailCode("1000000");
                 tradeMarkCase.setContactName("曹玉玺");
                 tradeMarkCase.setToken("13000000000");
-                tradeMarkCase.setTokenImgUrl("http://123.57.156.212:9999/qc?detailLink=http%3A%2F%2Figirl.gongsibao.com%2F%2Fgsb%2Figirl%2Fmobile%2Fmain.html%23%2F%3Fspid%3D1%26casecode%3D"+caseCode+"%26source%3Dcase");
+                tradeMarkCase.setTokenImgUrl("http://123.57.156.212:9999/qc?detailLink=http%3A%2F%2Figirl.gongsibao.com%2F%2Fgsb%2Figirl%2Fmobile%2Fmain.html%23%2F%3Fspid%3D1%26casecode%3D" + caseCode + "%26source%3Dcase");
 
                 tradeMarkCase.setCaseAmount(new BigDecimal(0));
                 tradeMarkCase.setProxyCompanyName("汉唐信通（北京）科技有限公司");
                 tradeMarkCase.setCaseProxyContactPerson("张飞龙");
                 tradeMarkCase.setAccountNo("2110444010400028162");
                 tradeMarkCase.setUrgency(72);
-                tradeMarkCase.setDepartmentId(2);
 
                 tradeMarkCaseService.save(tradeMarkCase);
-                tradeMarkCaseID=tradeMarkCase.getId();
+                tradeMarkCaseID = tradeMarkCase.getId();
 
 
                 //TODO tradeMark 数据
                 tradeMark = new TradeMark();
+//                tradeMark.toNew();
+                tradeMark.setSupplierId(1);
+                tradeMark.setProxyCode(corpTrademarkId);
+                tradeMark.setDepartmentId(2);
                 tradeMark.setTradeMarkCaseId(tradeMarkCaseID);
-                if (nclOne!=null){
+                if (nclOne != null) {
                     tradeMark.setNclOneId(nclOne.getId());
                 }
                 tradeMark.setSelectedTwoStr(nclStr);
@@ -186,16 +190,162 @@ public class AnnoTest2 {
                 tradeMark.setUpdator("曹玉玺");
                 tradeMark.setUpdatorId(1808);
                 tradeMark.setUpdateTime(updTime);
-                //TODO 未完待续
+                tradeMark.setTradeMarkType(TradeMarkType.GENERAL);
+                tradeMark.setWhetherThirdSpace(false);
+                tradeMark.setWhetherColorGroup(false);
+                tradeMark.setHasColor(false);
+                tradeMark.setWhetherSound(false);
+                tradeMark.setWhetherPersonPhoto(false);
+                tradeMark.setMemo(step3.getString("tmDesignDeclare"));
+                tradeMark.setMarkState(MarkState.ROBOT);
+                tradeMark.setMarkSubmitTime(updTime);
+                tradeMark.setShareGroup(ShareGroup.SG1);
+                tradeMark.setWhetherShare(false);
+
                 tradeMarkService.save(tradeMark);
+                tradeMarkID = tradeMark.getId();
+                //TODO 附件-营业执照
+                {
+                    uploadAttachment = new UploadAttachment();
 
-                //TODO uploadAttachment 数据
-                uploadAttachment = new UploadAttachment();
-                uploadAttachment.setName("营业执照");
+                    uploadAttachment.setName("营业执照");
+                    uploadAttachment.setShareGroup(ShareGroup.CASESHARRE);
+                    uploadAttachment.setAttachmentCat(AttachmentCat.BUSINESS_LIEN);
+                    uploadAttachment.setFileType(FileType.PDF);
+                    uploadAttachment.setToFileType(FileType.PDF);
+                    uploadAttachment.setFileUrl(step2.getString("certFilePath"));
+                    uploadAttachment.setNeeded(true);
 
-                upattachementService.save(uploadAttachment);
+                    uploadAttachment.setTradeMarkCaseId(tradeMarkCaseID);
+                    uploadAttachment.setTradeMarkId(tradeMarkID);
+
+                    uploadAttachment.setMinPx(500);
+                    uploadAttachment.setMinBytes(100);
+                    uploadAttachment.setMaxPx(2000);
+                    uploadAttachment.setMaxBytes(500);
+                    uploadAttachment.setCreatorId(1808);
+                    uploadAttachment.setCreator("曹玉玺");
+                    uploadAttachment.setCreateTime(updTime);
+                    uploadAttachment.setUpdator("曹玉玺");
+                    uploadAttachment.setUpdatorId(1808);
+                    uploadAttachment.setUpdateTime(updTime);
+
+                    upattachementService.save(uploadAttachment);
+                }
+                //TODO 附件-付款证明
+                {
+                    uploadAttachment = new UploadAttachment();
+
+                    uploadAttachment.setName("付款证明");
+                    uploadAttachment.setShareGroup(ShareGroup.CASESHARRE);
+                    uploadAttachment.setAttachmentCat(AttachmentCat.PAYMENT_PROOF);
+                    uploadAttachment.setFileType(FileType.JPGC);
+                    uploadAttachment.setToFileType(FileType.JPGC);
+                    uploadAttachment.setFileUrl("");
+                    uploadAttachment.setNeeded(false);
+
+                    uploadAttachment.setTradeMarkCaseId(tradeMarkCaseID);
+                    uploadAttachment.setTradeMarkId(tradeMarkID);
+
+                    uploadAttachment.setMinPx(500);
+                    uploadAttachment.setMinBytes(100);
+                    uploadAttachment.setMaxPx(2000);
+                    uploadAttachment.setMaxBytes(500);
+                    uploadAttachment.setCreatorId(1808);
+                    uploadAttachment.setCreator("曹玉玺");
+                    uploadAttachment.setCreateTime(updTime);
+                    uploadAttachment.setUpdator("曹玉玺");
+                    uploadAttachment.setUpdatorId(1808);
+                    uploadAttachment.setUpdateTime(updTime);
+
+                    upattachementService.save(uploadAttachment);
+                }
+                //TODO 附件-委托书
+                {
+                    uploadAttachment = new UploadAttachment();
+
+                    uploadAttachment.setName(step3.getString("tmDesignDeclare") + "_委托书");
+                    uploadAttachment.setShareGroup(ShareGroup.SG1);
+                    uploadAttachment.setAttachmentCat(AttachmentCat.DELEGATE_PROOF);
+                    uploadAttachment.setFileType(FileType.JPGC);
+                    uploadAttachment.setToFileType(FileType.JPGC);
+                    uploadAttachment.setFileUrl(step2.getString("agentBookPath"));
+                    uploadAttachment.setNeeded(true);
+
+                    uploadAttachment.setTradeMarkCaseId(tradeMarkCaseID);
+                    uploadAttachment.setTradeMarkId(tradeMarkID);
+
+                    uploadAttachment.setMinPx(500);
+                    uploadAttachment.setMinBytes(100);
+                    uploadAttachment.setMaxPx(2000);
+                    uploadAttachment.setMaxBytes(500);
+                    uploadAttachment.setCreatorId(1808);
+                    uploadAttachment.setCreator("曹玉玺");
+                    uploadAttachment.setCreateTime(updTime);
+                    uploadAttachment.setUpdator("曹玉玺");
+                    uploadAttachment.setUpdatorId(1808);
+                    uploadAttachment.setUpdateTime(updTime);
+
+                    upattachementService.save(uploadAttachment);
+                }
+                //TODO 附件-补充证明
+                {
+                    uploadAttachment = new UploadAttachment();
+
+                    uploadAttachment.setName(step3.getString("tmDesignDeclare") + "_补充证明");
+                    uploadAttachment.setShareGroup(ShareGroup.SG1);
+                    uploadAttachment.setAttachmentCat(AttachmentCat.DELEGATE_PROOF);
+                    uploadAttachment.setFileType(FileType.PDF);
+                    uploadAttachment.setToFileType(FileType.PDF);
+                    uploadAttachment.setFileUrl("");
+                    uploadAttachment.setNeeded(false);
+
+                    uploadAttachment.setTradeMarkCaseId(tradeMarkCaseID);
+                    uploadAttachment.setTradeMarkId(tradeMarkID);
+
+                    uploadAttachment.setMinPx(500);
+                    uploadAttachment.setMinBytes(100);
+                    uploadAttachment.setMaxPx(2000);
+                    uploadAttachment.setMaxBytes(500);
+                    uploadAttachment.setCreatorId(1808);
+                    uploadAttachment.setCreator("曹玉玺");
+                    uploadAttachment.setCreateTime(updTime);
+                    uploadAttachment.setUpdator("曹玉玺");
+                    uploadAttachment.setUpdatorId(1808);
+                    uploadAttachment.setUpdateTime(updTime);
+
+                    upattachementService.save(uploadAttachment);
+                }
+                //TODO 附件-黑色商标图样
+                {
+                    uploadAttachment = new UploadAttachment();
+
+                    uploadAttachment.setName(step3.getString("tmDesignDeclare") + "_黑色商标图样");
+                    uploadAttachment.setShareGroup(ShareGroup.SG1);
+                    uploadAttachment.setAttachmentCat(AttachmentCat.DELEGATE_PROOF);
+                    uploadAttachment.setFileType(FileType.PDF);
+                    uploadAttachment.setToFileType(FileType.PDF);
+                    uploadAttachment.setFileUrl(step7.getString("picPath"));
+                    uploadAttachment.setNeeded(true);
+
+                    uploadAttachment.setTradeMarkCaseId(tradeMarkCaseID);
+                    uploadAttachment.setTradeMarkId(tradeMarkID);
+
+                    uploadAttachment.setMinPx(500);
+                    uploadAttachment.setMinBytes(100);
+                    uploadAttachment.setMaxPx(2000);
+                    uploadAttachment.setMaxBytes(500);
+                    uploadAttachment.setCreatorId(1808);
+                    uploadAttachment.setCreator("曹玉玺");
+                    uploadAttachment.setCreateTime(updTime);
+                    uploadAttachment.setUpdator("曹玉玺");
+                    uploadAttachment.setUpdatorId(1808);
+                    uploadAttachment.setUpdateTime(updTime);
+
+                    upattachementService.save(uploadAttachment);
+
+                }
             }
-
         }
 	}
 
