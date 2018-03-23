@@ -62,16 +62,14 @@ com.gongsibao.trade.web.PayPerformanceCtrl = org.netsharp.panda.core.CustomCtrl.
     	
     	$('#channelOrderNo').text(soOrder.channelOrderNo||'');
     	
-    	var unAllotAmount = soOrder.paidPrice - soOrder.returnedPrice;
-    	unAllotAmount = System.RMB.fenToYuan(unAllotAmount);
-    	$('#unAllotAmount').text(unAllotAmount);
+    	var unAllotPayPrice = System.RMB.fenToYuan(soOrder.unAllotPayPrice);
+    	$('#unAllotPayPrice').text(unAllotPayPrice);
     	
     	$('#remark').text(soOrder.remark||'');
     },
     save:function(){
     	
-    	var unAllotAmount = this.soOrder.paidPrice -  this.soOrder.returnedPrice;
-    	if(unAllotAmount<=0){
+    	if(soOrder.unAllotPayPrice<=0){
     		
     		layer.msg('【未划分回款业绩额】为0，不能分配！');
     		return false;
@@ -93,7 +91,7 @@ com.gongsibao.trade.web.PayPerformanceCtrl = org.netsharp.panda.core.CustomCtrl.
 			item.orderId = this.soOrder.id;
 		});
 		
-		if(allotTotalAmount != unAllotAmount){
+		if(allotTotalAmount != unAllotPayPrice){
 			
 			layer.msg('本次需把未划分回款业绩额全部分配！');
 			return;
@@ -192,8 +190,7 @@ com.gongsibao.trade.web.OrderPayPerformanceCtrl = org.netsharp.panda.core.Custom
 	},
 	add:function(){
 		
-    	var unAllotAmount = this.parentCtrl.soOrder.paidPrice -  this.parentCtrl.soOrder.returnedPrice;
-    	if(unAllotAmount<=0){
+    	if(this.parentCtrl.soOrder.unAllotPayPrice<=0){
     		
     		layer.msg('【未划分回款业绩额】为0，不能分配！');
     		return false;
