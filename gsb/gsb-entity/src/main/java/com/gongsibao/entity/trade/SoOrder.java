@@ -120,7 +120,15 @@ public class SoOrder extends BaseEntity {
 	/**
 	 * 临时字段-待支付
 	 */
+	@Exclusive
 	private Integer toBePaidPrice = 0;
+
+	/**
+	 * @Fields unAllotPayPrice :
+	 *         TODO(未分配回款业绩=paidPrice-refundPrice-returnedPrice-carryAmount)
+	 */
+	@Exclusive
+	private Integer unAllotPayPrice = 0;
 
 	@Column(name = "performance_price", header = "订单业绩已划分金额")
 	private Integer performancePrice = 0;
@@ -991,4 +999,12 @@ public class SoOrder extends BaseEntity {
 		this.toBePaidPrice = toBePaidPrice;
 	}
 
+	public Integer getUnAllotPayPrice() {
+
+		return paidPrice - refundPrice - returnedPrice - carryAmount;
+	}
+
+	public void setUnAllotPayPrice(Integer unAllotPayPrice) {
+		this.unAllotPayPrice = unAllotPayPrice;
+	}
 }

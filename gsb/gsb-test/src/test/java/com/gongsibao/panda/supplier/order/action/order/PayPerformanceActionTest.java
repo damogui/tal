@@ -24,13 +24,13 @@ public class PayPerformanceActionTest extends BaseActionTest {
 	@Test
 	public void save() {
 		
-		String pathName = "gsb/crm/order/pay";
+		String pathName = "gsb/crm/order/pay/performance";
 		BeanPath beanPath = new BeanPath();
 		{
 			beanPath.toNew();
 			beanPath.setPath(pathName);
 			beanPath.setResourceNode(resourceNode);
-			beanPath.setName("创建回款");
+			beanPath.setName("创建回款业绩");
 		}
 
 		createBean(beanPath, "1.验证", ActionApplyPayPerformanceVerify.class.getName(), resourceNode, 100);

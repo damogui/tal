@@ -1,15 +1,17 @@
 package com.gongsibao.trade.service.action.order.performance.pay;
 
-import java.util.ArrayList;
+import java.sql.Types;
 import java.util.List;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
+import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
-import org.netsharp.util.StringManager;
+import org.netsharp.core.Oql;
 
-import com.gongsibao.entity.trade.OrderPayMap;
-import com.gongsibao.entity.trade.Pay;
+import com.gongsibao.entity.trade.NDepPay;
+import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.trade.base.IOrderService;
 
 /**
  * @ClassName: ActionApplyPayVerify
@@ -24,60 +26,62 @@ public class ActionApplyPayPerformanceVerify implements IAction {
 	@Override
 	public void execute(ActionContext ctx) {
 
-		Pay pay = (Pay) ctx.getItem();
-		if (pay.getSetOfBooksId() == null || pay.getSetOfBooksId().equals(0)) {
+		@SuppressWarnings("unchecked")
+		List<NDepPay> depPayList = (List<NDepPay>) ctx.getItem();
 
-			throw new BusinessException("请选择【付款账套】！");
+		if (depPayList == null || depPayList.size() == 0) {
+
+			throw new BusinessException("分配记录不能为空！");
 		}
 
-		if (pay.getU8BankId() == null || pay.getU8BankId().equals(0)) {
+		Integer orderId = depPayList.get(0).getOrderId();
+		if (orderId == null || orderId.equals(0)) {
 
-			throw new BusinessException("请选择【付款方式】！");
+			throw new BusinessException("订单信息错误！");
 		}
 
-		if (StringManager.isNullOrEmpty(pay.getOfflinePayerName())) {
+		SoOrder soOrder = this.getSoOrder(orderId);
+		if (soOrder == null) {
 
-			throw new BusinessException("请填写【付款账户名称】！");
+			throw new BusinessException("订单信息不存在！");
 		}
 
-		if (StringManager.isNullOrEmpty(pay.getOfflineBankNo())) {
+		Integer unAllotPayPrice = soOrder.getUnAllotPayPrice();
+		if (unAllotPayPrice == null || unAllotPayPrice.compareTo(0) != 1) {
 
-			throw new BusinessException("请填写【付款账号】！");
-		}
-
-		Integer payAmount = pay.getAmount();
-		if (payAmount == null || payAmount.equals(0)) {
-
-			throw new BusinessException("请填写【付款金额】！");
-		}
-
-		if (pay.getFiles() == null || pay.getFiles().size() == 0) {
-
-			throw new BusinessException("请上传【付款凭证】！");
-		}
-
-		List<OrderPayMap> orderPayMaps = pay.getOrderPayMaps();
-		if (orderPayMaps == null || orderPayMaps.size() == 0) {
-
-			throw new BusinessException("请创建【关联订单】！");
+			throw new BusinessException("【未划分回款业绩额】为0！");
 		}
 
 		Integer allotTotalAmount = 0;
-		List<Integer> orderIdList = new ArrayList<Integer>();
-		for (OrderPayMap payMap : orderPayMaps) {
+		for (NDepPay depPay : depPayList) {
 
-			allotTotalAmount += payMap.getOrderPrice();
-			orderIdList.add(payMap.getOrderId());
+			depPay.toNew();
+			allotTotalAmount += depPay.getAmount();
 		}
 
-		if (allotTotalAmount.compareTo(payAmount) != 0) {
+		if (allotTotalAmount.compareTo(unAllotPayPrice) != 0) {
 
-			throw new BusinessException("【关联订单分配金额总和】与【付款金额】不相等！");
+			throw new BusinessException("本次需把未划分回款业绩额全部分配！");
 		}
 
 		/**
-		 * 校验订单是否已经处于审核状态是的话不能进行创建回款审核 1.结转、退款、分期 这里不用校验
+		 * 校验订单是否已经处于审核状态是的话不能进行创建回款审核 1.结转、退款、分期 (抽取公共处理，这里只需调用)
+		 *
 		 */
+
 	}
 
+	private SoOrder getSoOrder(Integer id) {
+
+		Oql oql = new Oql();
+		{
+			oql.setType(SoOrder.class);
+			oql.setSelects("id,totalPrice,payablePrice,paidPrice,refundPrice,returnedPrice,carryAmount");
+			oql.setFilter("id=?");
+			oql.getParameters().add("id", id, Types.INTEGER);
+		}
+		IOrderService orderService = ServiceFactory.create(IOrderService.class);
+		SoOrder entity = orderService.queryFirst(oql);
+		return entity;
+	}
 }
