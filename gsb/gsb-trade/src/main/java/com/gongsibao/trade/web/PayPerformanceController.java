@@ -1,11 +1,14 @@
 package com.gongsibao.trade.web;
 
 import java.sql.Types;
+import java.util.List;
 
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 
+import com.gongsibao.entity.trade.NDepPay;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.trade.base.INDepPayService;
 import com.gongsibao.trade.base.IOrderService;
 
 public class PayPerformanceController {
@@ -30,5 +33,11 @@ public class PayPerformanceController {
 		IOrderService orderService = ServiceFactory.create(IOrderService.class);
 		SoOrder entity = orderService.queryFirst(oql);
 		return entity;
+	}
+
+	public Boolean applyPayPerformance(List<NDepPay> depPayList) {
+
+		INDepPayService service = ServiceFactory.create(INDepPayService.class);
+		return service.applyPayPerformance(depPayList);
 	}
 }

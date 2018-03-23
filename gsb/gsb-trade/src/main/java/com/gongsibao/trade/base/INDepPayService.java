@@ -1,5 +1,7 @@
 package com.gongsibao.trade.base;
 
+import java.util.List;
+
 import org.netsharp.base.IPersistableService;
 
 import com.gongsibao.entity.trade.NDepPay;
@@ -9,4 +11,6 @@ import com.gongsibao.entity.trade.NDepPay;
  */
 /*回款业绩*/
 public interface INDepPayService extends IPersistableService<NDepPay> {
+	
+	Boolean applyPayPerformance(List<NDepPay> depPayList);
 }
