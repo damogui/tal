@@ -29,7 +29,6 @@ com.gongsibao.trade.web.AuditCarryoverCtrl = com.gongsibao.trade.web.AuditBaseCt
     	me.initializeDetailList.add('结转信息',this.carryoverInfo(carryOverId));
     },
     carryoverInfo: function(id){
-    	alert(id);
     	//tab-获取分期信息
     	this.invokeService ("getNOrderCarryover", [id], function(data){
     		var builder = new System.StringBuilder();
