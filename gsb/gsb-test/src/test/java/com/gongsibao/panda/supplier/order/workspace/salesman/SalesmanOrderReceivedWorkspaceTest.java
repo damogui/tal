@@ -34,7 +34,7 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
         listPartImportJs = "/gsb/platform/trade/js/salesman-order-payperformance-list.js";
         listPartJsController = SalesmanOrderReceivedListPart.class.getName ();
         listPartServiceController = AuditPayListPart.class.getName ();
-        //listFilter = "salesman_id = '{userId}'";
+        listFilter = "salesman_id = '{userId}'  or creator_id = '{userId}'";//我创建和别人分配给我
         listToolbarPath="";
     }
 
@@ -54,10 +54,10 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
         PToolbarItem item = new PToolbarItem();
         {
             item.toNew();
-            item.setCode("view");
+            item.setCode("detail");
             item.setName("查看");
             item.setSeq(1);
-            item.setCommand("{controller}.view();");
+            //item.setCommand("{controller}.view();");
             toolbar.getItems().add(item);
         }
 
@@ -71,7 +71,7 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
         PDatagrid datagrid = super.createDatagrid (node);
         {
             datagrid.setName ("回款业绩");
-            datagrid.setToolbar ("panda/datagrid/row/edit");
+            datagrid.setToolbar (listrowToolbarPath);
             datagrid.setAutoQuery (true);
             datagrid.setShowCheckbox (true);
             datagrid.setSingleSelect (false);
