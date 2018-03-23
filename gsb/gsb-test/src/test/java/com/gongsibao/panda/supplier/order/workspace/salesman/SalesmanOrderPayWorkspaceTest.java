@@ -34,7 +34,7 @@ public class SalesmanOrderPayWorkspaceTest  extends WorkspaceCreationBase {
         meta = MtableManager.getMtable (entity);
         resourceNodeCode = "Gsb_Supplier_Order_Salesman_Pay";
         listToolbarPath = "crm/salesman/pay/edit";
-        listPartImportJs = "/gsb/platform/trade/js/salesman-order-pay-list.js";
+        listPartImportJs = "/gsb/platform/trade/js/salesman-order-pay-list.part.js";
         listPartJsController = SalesmanOrderPayController.class.getName ();
         listPartServiceController = AuditPayListPart.class.getName ();
         //listFilter = "salesman_id = '{userId}'";
