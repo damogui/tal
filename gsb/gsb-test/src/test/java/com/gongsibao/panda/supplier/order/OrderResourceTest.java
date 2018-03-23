@@ -45,7 +45,7 @@ public class OrderResourceTest extends ResourceCreationBase {
 
 
 
-                /*下拉列表反射end*/
+                /*下拉列表反射end*/ 
 
                 this.createResourceNodeVoucher (NDepReceivable.class.getName (), "订单业绩", "Gsb_Supplier_Order_Salesman_Performance", INDepReceivableService.class.getName (), node2.getId ());
                 this.createResourceNodeVoucher (Pay.class.getName (), "我的回款", "Gsb_Supplier_Order_Salesman_Pay", IPayService.class.getName (), node2.getId ());
