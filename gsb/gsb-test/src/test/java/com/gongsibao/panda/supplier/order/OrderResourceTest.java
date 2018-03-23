@@ -1,5 +1,7 @@
 package com.gongsibao.panda.supplier.order;
 
+import com.gongsibao.bd.base.IAuditLogService;
+import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
@@ -8,6 +10,7 @@ import com.gongsibao.supplier.base.ISalesmanService;
 import com.gongsibao.supplier.base.ISupplierDepartmentService;
 import com.gongsibao.supplier.base.ISupplierService;
 import com.gongsibao.trade.base.*;
+
 import org.junit.Test;
 import org.netsharp.meta.base.ResourceCreationBase;
 import org.netsharp.resourcenode.entity.ResourceNode;
@@ -93,7 +96,7 @@ public class OrderResourceTest extends ResourceCreationBase {
                 this.createResourceNodeVoucher (SoOrder.class.getName (), "定价审核", "Gsb_Supplier_Order_Audit_Pricing", IOrderService.class.getName (), node4.getId ());
                 this.createResourceNodeVoucher (Refund.class.getName (), "退款审核", "Gsb_Supplier_Order_Audit_Refund", IRefundService.class.getName (), node4.getId ());
                 this.createResourceNodeVoucher (SoOrder.class.getName (), "分期审核", "Gsb_Supplier_Order_Audit_Staging", IOrderService.class.getName (), node4.getId ());
-                this.createResourceNodeVoucher (NOrderCarryover.class.getName (), "结转审核", "Gsb_Supplier_Order_Audit_Carryover", INOrderCarryoverService.class.getName (), node4.getId ());
+                this.createResourceNodeVoucher (AuditLog.class.getName (), "结转审核", "Gsb_Supplier_Order_Audit_Carryover", IAuditLogService.class.getName (), node4.getId ());
             }
         }
     }
