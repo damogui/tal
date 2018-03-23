@@ -4,31 +4,32 @@ import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.trade.service.action.audit.AuditState;
 import com.gongsibao.trade.web.dto.AuditLogDTO;
+import com.gongsibao.trade.web.dto.OrderPayInfoDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AuditPayController extends AuditBaseController{
+public class AuditPayController extends AuditBaseController {
 
-	/**
-	 * 审核通过 注：参数未定
-	 * 
-	 * @return
-	 */
-	public Boolean approved(Integer auditLogId) {
+    /**
+     * 审核通过 注：参数未定
+     *
+     * @return
+     */
+    public Boolean approved(Integer auditLogId) {
 
-		return auditService.auditPay(AuditState.PASS, auditLogId, null);
-	}
+        return auditService.auditPay (AuditState.PASS, auditLogId, null);
+    }
 
-	/**
-	 * 驳回 注：参数未定
-	 * 
-	 * @return
-	 */
-	public Boolean rejected(Integer auditLogId, String remark) {
+    /**
+     * 驳回 注：参数未定
+     *
+     * @return
+     */
+    public Boolean rejected(Integer auditLogId, String remark) {
 
-		return auditService.auditPay(AuditState.NOTPASS, auditLogId, remark);
-	}
+        return auditService.auditPay (AuditState.NOTPASS, auditLogId, remark);
+    }
 
     /*订单业绩审核流程*/
     public List<AuditLogDTO> getAuditLogList(Integer id) {
@@ -48,5 +49,21 @@ public class AuditPayController extends AuditBaseController{
         }
         return logDtos;
     }
+
+    /*获取订单信息、付款凭证、关联订单*/
+    public List<OrderPayInfoDTO> getOrderCutPerformanceByPayId(Integer id) {
+
+
+
+
+
+
+
+
+
+
+        return null;
+    }
+
 
 }

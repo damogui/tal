@@ -13,7 +13,7 @@ com.gongsibao.trade.web.AuditPayCtrl = com.gongsibao.trade.web.AuditBaseCtrl.Ext
 
     initGridOrder: function (id) {//获取付款凭证和关联订单
         var me = this;
-        me.invokeService("getOrderCutPerformance", [id], function (data) {
+        me.invokeService("getOrderCutPerformanceByPayId", [id], function (data) {
 
 
             $('#order_performance_grid').datagrid({
