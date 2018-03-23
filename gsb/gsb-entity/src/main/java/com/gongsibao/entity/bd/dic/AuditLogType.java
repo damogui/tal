@@ -16,7 +16,8 @@ public enum AuditLogType implements IEnum {
     Cpgj(1048, "产品改价申请审核"),
     DdSq(1049, "产品订单审核"),
     DdYjSq(1050, "订单业绩审核"),
-    Skyjsh(1051, "回款业绩审核");
+    Skyjsh(1051, "回款业绩审核"),
+    Jzsh(1052, "结转审核");
 
     private int value;
     private String text;
