@@ -22,7 +22,7 @@ public class ActionApplyInvoiceAudit  implements IAction{
 		Map<String, Object> paraMap = ctx.getStatus();
 		Integer userId = SessionManager.getUserId();
 
-		//合同审核
+		//发票审核
 		AbstractAuditLogService auditLogService = AuditFactory.getAudit(InvoiceAudit.class);
 
 		List<AuditLog> auditLogList = auditLogService.execute(invoice.getId());

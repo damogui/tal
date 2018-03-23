@@ -40,8 +40,8 @@ public class RoleTest {
         // 1.3 平台-财务
         this.create("Platform_Finance_Admin", "财务_总监", "Platform_Finance", workbench);
         this.create("Platform_Finance_Leader", "财务_经理", "Platform_Finance", workbench);
-        this.create("Platform_Finance_Salesman", "财务_出纳", "Platform_Finance", workbench);
         this.create("Platform_Finance_STKZY", "财务_收退款专员", "Platform_Finance", workbench);
+        this.create("Platform_Finance_FPZY", "财务_发票专员", "Platform_Finance", workbench);
 
         // 1.3 平台-法务
         this.create("Platform_Law_FWZY", "法务_法务专员", "Platform_Law", workbench);
