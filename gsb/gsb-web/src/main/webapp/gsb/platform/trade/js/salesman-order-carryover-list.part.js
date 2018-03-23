@@ -9,7 +9,7 @@ com.gongsibao.trade.web.SalesmanOrderCarryoverListPart = org.netsharp.panda.comm
     	var contentUrl = this.addCarryOverUrl + "?id=" + id;
         layer.open({
             type: 2,//1是字符串 2是内容
-            title: '查看回款',
+            title: '查看结转',
             fixed: false,
             maxmin: true,
             shadeClose: false,
@@ -30,7 +30,7 @@ com.gongsibao.trade.web.SalesmanOrderCarryoverListPart = org.netsharp.panda.comm
          var contentUrl = this.addCarryOverUrl + "?id=" + id;
          layer.open({
              type: 2,//1是字符串 2是内容
-             title: '查看回款',
+             title: '查看结转',
              fixed: false,
              maxmin: true,
              shadeClose: false,
