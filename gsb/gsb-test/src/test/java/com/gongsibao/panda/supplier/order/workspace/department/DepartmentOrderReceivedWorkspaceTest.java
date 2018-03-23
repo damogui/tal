@@ -1,5 +1,6 @@
 package com.gongsibao.panda.supplier.order.workspace.department;
 
+import com.gongsibao.entity.trade.NDepPay;
 import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.trade.web.AuditPayListPart;
 import com.gongsibao.trade.web.SalesmanOrderReceivedListPart;
@@ -28,13 +29,13 @@ public class DepartmentOrderReceivedWorkspaceTest extends SalesmanOrderReceivedW
     @Before
     public void setup() {
         super.setup();
-        entity = Pay.class;
+        entity = NDepPay.class;
         urlList = "/crm/order/department/received/list";
         resourceNodeCode = "Gsb_Supplier_Order_Department_Received";
         listPartName = formPartName = "部门回款业绩列表";//回款业绩  我部门创建的回款业绩和别人创建的回款业绩的订单所有人在我的部门
         meta = MtableManager.getMtable (entity);
         listToolbarPath="";
-        listFilter = "salesman_id = '{userId}'  or creator_id = '{userId}'";//我创建和别人分配给我
+       // listFilter = "salesman_id = '{userId}'  or creator_id = '{userId}'";//我创建和别人分配给我
         listPartServiceController = DepartmentOrderReceivedListPart.class.getName();
 
 
