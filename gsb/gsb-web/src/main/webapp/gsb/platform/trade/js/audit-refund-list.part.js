@@ -11,6 +11,11 @@ com.gongsibao.trade.web.AuditRefundListPart = org.netsharp.panda.commerce.ListPa
     	var orderId = row.fefund_orderId;
     	
         var contentUrl = this.addRefundUrl + "?fefundId=" + fefundId + "&id=" + orderId;
+        if(row.status != '待审核'){
+    		layer.msg('该审核记录的状态不是【待审核】，禁止审核！');
+    		return;
+    	}
+        
         layer.open({
             type: 2,//1是字符串 2是内容
             title: '退款审核',

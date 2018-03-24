@@ -9,6 +9,11 @@ com.gongsibao.trade.web.AuditStagingListPart = org.netsharp.panda.commerce.ListP
     	var row = this.getSelectedItem();
     	var stageId = row.formId; 
     	var orderId = row.soOrder_id;
+    	
+    	if(row.status != '待审核'){
+    		layer.msg('该审核记录的状态不是【待审核】，禁止审核！');
+    		return;
+    	}
         var contentUrl = this.auditStageUrl + "?stageId=" + stageId + "&id=" + orderId;
         layer.open({
             type: 2,//1是字符串 2是内容
