@@ -330,10 +330,15 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
                  updateSelectTxtVal();
                     }
                 });
+                var selfme=me;
+                me.invokeService("getTmplByNclOneId", [newValue], function(data) {
+                	$("#selectedTwoStr").val(data);
+                	backSelect();
+                });
                 
                 //根据文本框内的值反选择grid
-            backSelect();
             
+//                backSelect();
             
             });
 

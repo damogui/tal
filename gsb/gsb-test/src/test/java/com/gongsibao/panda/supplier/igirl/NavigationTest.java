@@ -1,11 +1,13 @@
 package com.gongsibao.panda.supplier.igirl;
 import com.gongsibao.entity.igirl.ChangeTradeMark;
+import com.gongsibao.entity.igirl.DownloadAttachment;
 import com.gongsibao.entity.igirl.TradeMark;
 import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.TransferTradeMark;
 import com.gongsibao.entity.igirl.baseinfo.IGirlConfig;
 import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
 import com.gongsibao.entity.igirl.baseinfo.NclBatch;
+import com.gongsibao.entity.igirl.baseinfo.NclMap;
 import com.gongsibao.entity.igirl.baseinfo.SupplierNewInfo;
 import com.gongsibao.entity.igirl.baseinfo.SupplierSiteInfo;
 
@@ -90,6 +92,7 @@ public class NavigationTest extends NavigationBase {
 				createPTreeNode(tree, "GSB_IGIRL_BASE", null, "IGRIL_BASE_" + NCLTwo.class.getSimpleName(), "商标小类", "/igirl/ncltwo/all/list", 2);
 				createPTreeNode(tree, "GSB_IGIRL_BASE", null, "NCL_All_" + NclBatch.class.getSimpleName(), "尼斯期间", "/ncl/batch/list", 3);
 				createPTreeNode(tree, "GSB_IGIRL_BASE", null, "IGRIL_BASE_" + IGirlConfig.class.getSimpleName(), "参数设置", "/igirl/config/list", 4);
+				createPTreeNode(tree, "GSB_IGIRL_BASE", null, "NCL_All_"+NclMap.class.getSimpleName(), "尼斯映射", "/igirl/nclmap/list", 5);
 			}
 			createPTreeNode(tree, "GSB_TRADE_AI", null, "GSB_IGIRL_SITE", "微门户", "",5);
 			{
