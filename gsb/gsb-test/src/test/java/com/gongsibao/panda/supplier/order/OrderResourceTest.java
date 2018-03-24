@@ -86,9 +86,9 @@ public class OrderResourceTest extends ResourceCreationBase {
             ResourceNode node4 = this.createResourceNodeCategory("订单审核", "Gsb_Supplier_Order_Audit", node1.getId());
             {
                 this.createResourceNodeVoucher(SoOrder.class.getName(), "订单审核", "Gsb_Supplier_Order_Audit_Order", IOrderService.class.getName(), node4.getId());
-                this.createResourceNodeVoucher(NDepReceivable.class.getName(), "订单业绩审核", "Gsb_Supplier_Order_Audit_Performance", INDepReceivableService.class.getName(), node4.getId());
-                this.createResourceNodeVoucher(Pay.class.getName(), "回款审核", "Gsb_Supplier_Pay_Audit", IPayService.class.getName(), node4.getId());
-                this.createResourceNodeVoucher(NDepPay.class.getName(), "回款业绩审核", "Gsb_Supplier_Pay_Audit_Performance", INDepPayService.class.getName(), node4.getId());
+                this.createResourceNodeVoucher(AuditLog.class.getName(), "订单业绩审核", "Gsb_Supplier_Order_Audit_Performance", IAuditLogService.class.getName(), node4.getId());
+                this.createResourceNodeVoucher(AuditLog.class.getName(), "回款审核", "Gsb_Supplier_Pay_Audit", IAuditLogService.class.getName(), node4.getId());
+                this.createResourceNodeVoucher(AuditLog.class.getName(), "回款业绩审核", "Gsb_Supplier_Pay_Audit_Performance", IAuditLogService.class.getName(), node4.getId());
 
 
                 this.createResourceNodeVoucher(SoOrder.class.getName(), "定价审核", "Gsb_Supplier_Order_Audit_Pricing", IOrderService.class.getName(), node4.getId());
