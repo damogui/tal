@@ -24,16 +24,13 @@ com.gongsibao.trade.web.AuditBaseCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     	//子类重写
     },
     approved:function(){
-    	alert("tongguo")
-    	//审核通过
-    	
     	//弹出确认提交窗
     	this.doApproved();
     },
     doApproved:function(){
     	
      	var me = this;
-    	var auditLogId = this.queryString('id');
+    	var auditLogId = this.queryString('auditId');
     	if(System.isnull(auditLogId)){
     		
     		return;
@@ -51,9 +48,6 @@ com.gongsibao.trade.web.AuditBaseCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     	});
     },
     rejected:function(){
-    	alert("butongguo")
-    	//驳回
-    	
     	//这里有弹出填写驳回原因的窗口，校验
     	this.doRejected();
 
@@ -61,7 +55,7 @@ com.gongsibao.trade.web.AuditBaseCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     doRejected:function(){
     	
     	var me = this;
-    	var auditLogId = this.queryString('id');
+    	var auditLogId = this.queryString('auditId');
     	if(System.isnull(auditLogId)){
     		
     		return;
