@@ -9,7 +9,7 @@ com.gongsibao.trade.web.AuditCarryoverListPart = org.netsharp.panda.commerce.Lis
     	var row = this.getSelectedItem();
     	var carryoverId = row.formId; 
     	var orderId = row.carryover_formOrderId;
-    	var contentUrl = this.addCarryOverUrl + "?carryoverId=" + carryoverId + "&id=" + orderId;
+    	var contentUrl = this.addCarryOverUrl + "?carryoverId=" + carryoverId + "&id=" + orderId + "&auditId=" + id;
     	if(row.status != '待审核'){
     		layer.msg('该审核记录的状态不是【待审核】，禁止审核！');
     		return;
