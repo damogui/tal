@@ -33,4 +33,12 @@ public class AuditContractListPart extends AdvancedListPart {
 
         return parameter.getFilter();
     }
+
+    //合同审核
+    public boolean audit() {
+
+
+        return true;
+    }
+
 }

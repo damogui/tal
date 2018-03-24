@@ -17,6 +17,8 @@ import org.netsharp.communication.ServiceFactory;
 public class InvoiceAudit extends AbstractAuditLogService {
 
     ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
+
+    //发票申请审批流：提交人（级别:0,状态:审核通过）-》发票专员（级别:1,状态:待审核）
     @Override
     protected List<AuditLog> getExtenAuditLogList(Integer formId, Integer addUserId) {
         List<AuditLog> auditLogList = new ArrayList();
@@ -36,4 +38,13 @@ public class InvoiceAudit extends AbstractAuditLogService {
         return AuditLogType.Fbsq;
     }
 
+    @Override
+    protected AuditLog getDirectLeaderAudit(Integer formId, Integer addUserId) {
+        return new AuditLog();
+    }
+
+    @Override
+    protected AuditLog getSuperiorLeaderAudit(Integer formId, Integer addUserId) {
+        return new AuditLog();
+    }
 }
