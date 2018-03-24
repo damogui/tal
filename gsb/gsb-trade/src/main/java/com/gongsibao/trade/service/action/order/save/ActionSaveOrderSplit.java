@@ -5,14 +5,14 @@ import java.util.List;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
+import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.SoOrder;
 
 /**
  * @ClassName: ActionSaveOrderSplit
- * @Description:TODO 订单拆分：如果1条产品明细数量大于1则拆分成多个明细
- * 执行顺序：2
+ * @Description:TODO 订单拆分：如果1条产品明细数量大于1则拆分成多个明细 执行顺序：2
  * @author: 韩伟
  * @date: 2018年3月2日 下午5:01:25
  * 
@@ -26,6 +26,7 @@ public class ActionSaveOrderSplit implements IAction {
 		SoOrder soOrder = (SoOrder) ctx.getItem();
 		List<OrderProd> newProdList = new ArrayList<OrderProd>();
 		List<OrderProd> oldProdList = soOrder.getProducts();
+
 		for (OrderProd prod : oldProdList) {
 
 			int quantity = prod.getQuantity();
@@ -37,7 +38,39 @@ public class ActionSaveOrderSplit implements IAction {
 				newProdList.add(prod);
 			}
 		}
+
+		this.assembleProdName(soOrder);
+
 		soOrder.setProducts(newProdList);
+	}
+
+	/**
+	 * @Title: assembleProdName
+	 * @Description: TODO(构建产品名称（冗余，为了列表显示）)
+	 * @param: @param soOrder
+	 * @return: void
+	 * @throws
+	 */
+	private void assembleProdName(SoOrder soOrder) {
+
+		if (StringManager.isNullOrEmpty(soOrder.getProdName())) {
+
+			List<String> ss = new ArrayList<String>();
+			List<OrderProd> prodList = soOrder.getProducts();
+			for (OrderProd orderProd : prodList) {
+
+				String cityName = orderProd.getCityName();
+				long count = prodList.stream().filter(x -> x.getProductId().equals(orderProd.getProductId()) && x.getCityId().equals(orderProd.getCityId())).count();
+				String prodName = orderProd.getProductName() + "*" + count + "|" + cityName;
+				if(!ss.contains(prodName)){
+					
+					ss.add(prodName);
+				}
+			}
+			
+			String fullProdName = StringManager.join("，", ss);
+			soOrder.setProdName(fullProdName);
+		}
 	}
 
 	/**
