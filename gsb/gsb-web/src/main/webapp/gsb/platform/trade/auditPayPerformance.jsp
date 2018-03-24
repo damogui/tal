@@ -95,11 +95,11 @@
 
 <script>
 
-    var payPerformanceCtrl = null;
+    var auditPayPerformanceCtrl = null;
     $(function(){
 
-        payPerformanceCtrl = new com.gongsibao.trade.web.AuditPayPerformanceCtrl ();
-        payPerformanceCtrl.init();
+        auditPayPerformanceCtrl = new com.gongsibao.trade.web.AuditPayPerformanceCtrl ();
+        auditPayPerformanceCtrl.init();
     });
 </script>
 </html>

@@ -26,13 +26,6 @@ com.gongsibao.trade.web.AuditPayPerformanceCtrl = com.gongsibao.trade.web.AuditB
             $("#channelOrderNo").html(data.channelOrderNo);
             $("#unAllotPayPrice").html(data.unAllotPayPrice);
             $("#remark").html(data.remark);
-            // $("#").html();
-            // $("#").html();
-
-            
-
-
-
             me.initGridPer(id);//等上一个请求完渲染第二个
         });
 
@@ -58,8 +51,7 @@ com.gongsibao.trade.web.AuditPayPerformanceCtrl = com.gongsibao.trade.web.AuditB
                     {field: 'departmentname', title: '部门', width: 150},
 
                     {field: 'salesmanname', title: '业务员', width: 150},
-                    //{field: 'amount', title: '订单业绩分配金额', width: 150}
-
+                   
                     {
                         field: 'amount',
                         title: '回款业绩分配金额',
