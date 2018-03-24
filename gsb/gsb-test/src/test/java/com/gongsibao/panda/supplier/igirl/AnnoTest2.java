@@ -94,6 +94,7 @@ public class AnnoTest2 {
             StringBuffer ncl = new StringBuffer("");
             int count = 1;
             for (int m = 0; m < goods.size(); m++) {
+
                 good = goods.getJSONObject(m);
                 String classes = good.getString("classes");
                 tradeOption=classes;
@@ -102,6 +103,7 @@ public class AnnoTest2 {
                 String group = good.getString("group");
                 JSONArray nameList= good.getJSONArray("nameList");
                 for (int j = nameList.size() - 1; j >= 0; j--) {
+                    ncl = new StringBuffer("");
                     String name = nameList.getString(j);
                     NCLTwo nclTwo = twoService.findNclTwoByCode(group, name);
                     //TODO nclTwo 数据
@@ -109,11 +111,12 @@ public class AnnoTest2 {
                     ncl.append(name).append(":");
                     ncl.append(group).append(":");
                     ncl.append(nclTwo.getId());
+                    ncl.append(System.getProperty("line.separator"));
                     ncls.add(ncl.toString());
                     count++;
                 }
             }
-            String nclStr = StringManager.join("\r\n",ncls);
+            String nclStr = StringManager.join("",ncls);
 
 //            System.out.println(tradeOption);
             JSONObject step7 = step.getJSONObject("step7");
