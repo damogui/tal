@@ -21,6 +21,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.trade.web.AuditRefundListPart; 
 
 /*退款审核*/
@@ -42,6 +43,8 @@ public class AuditRefundWorkspaceTest extends WorkspaceCreationBase{
 		listPartImportJs = StringManager.join("|", ss);
 		listPartJsController = AuditRefundListPart.class.getName();
         listPartServiceController = AuditRefundListPart.class.getName();
+        
+        listFilter = "type_id=" + AuditLogType.Tdsq.getValue()+ " AND add_user_id='{userId}' ";
     }
    
 	@Test

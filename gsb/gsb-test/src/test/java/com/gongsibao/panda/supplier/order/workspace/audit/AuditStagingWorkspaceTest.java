@@ -21,6 +21,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.trade.web.AuditStagingListPart;
 
 /*分期审核*/
@@ -35,7 +36,6 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
         listPartName = formPartName = "分期审核";
         meta = MtableManager.getMtable (entity);
         resourceNodeCode = "Gsb_Supplier_Order_Audit_Staging";
-        listFilter = "is_installment = 1";
         
         List<String> ss = new ArrayList<String>();
 		ss.add("/gsb/platform/trade/js/audit-stage-list.part.js");
@@ -43,6 +43,8 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
 		listPartImportJs = StringManager.join("|", ss);
 		listPartJsController = AuditStagingListPart.class.getName();
 		listPartServiceController = AuditStagingListPart.class.getName();
+		
+		listFilter = "type_id=" + AuditLogType.Fqsq.getValue()+ " AND add_user_id='{userId}' ";
     }
 
     @Test
