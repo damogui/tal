@@ -21,9 +21,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.bd.AuditLog;
-import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.web.AuditStagingListPart;
-import com.gongsibao.trade.web.SalesmanStagingListPart;
 
 /*分期审核*/
 public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{

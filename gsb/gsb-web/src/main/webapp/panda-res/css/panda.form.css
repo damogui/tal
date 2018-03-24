@@ -118,7 +118,9 @@ legend{
 	font-size:14px;
 }
 
-.datagrid-btable tr{height: 31px;}
+.datagrid-btable tr{
+	min-height: 31px;
+}
 .combo-panel .datagrid-btable tr{height: 25px !important;}
 .layui-layer-content form{
 	

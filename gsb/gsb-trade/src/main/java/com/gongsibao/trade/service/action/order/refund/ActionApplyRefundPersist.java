@@ -22,7 +22,9 @@ public class ActionApplyRefundPersist  implements IAction{
 		//目前给默认值
 		refund.setNo("");
 		refund.setCost(0);
-		refundService.save(refund);
+		refund = refundService.save(refund);
+		ctx.setItem(refund);
+		
 		//2.添加退款业绩
 		INDepRefundService depRefundService = ServiceFactory.create(INDepRefundService.class);
 		for (NDepRefund item : refund.getDepRefunds()) {

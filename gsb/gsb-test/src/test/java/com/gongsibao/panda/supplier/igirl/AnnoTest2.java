@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.gongsibao.entity.igirl.dict.*;
+import com.gongsibao.igirl.base.*;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -20,12 +21,6 @@ import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.igirl.UploadAttachment;
 import com.gongsibao.entity.igirl.baseinfo.NCLOne;
 import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
-import com.gongsibao.igirl.base.INCLOneService;
-import com.gongsibao.igirl.base.INCLTwoService;
-import com.gongsibao.igirl.base.INclBatchService;
-import com.gongsibao.igirl.base.ITradeMarkCaseService;
-import com.gongsibao.igirl.base.ITradeMarkService;
-import com.gongsibao.igirl.base.IUploadAttachmentService;
 import com.gongsibao.taurus.util.StringManager;
 import com.gongsibao.tools.HttpUtils;
 
@@ -52,9 +47,9 @@ public class AnnoTest2 {
 	@Test
 	//TODO IGIRL 老数据入库
 	public void transferData(){
-		IUploadAttachmentService upattachementService = ServiceFactory.create(IUploadAttachmentService.class);
-		ITradeMarkService tradeMarkService = ServiceFactory.create(ITradeMarkService.class);
-		ITradeMarkCaseService tradeMarkCaseService = ServiceFactory.create(ITradeMarkCaseService.class);
+		IUploadAttachmentIgirlService upattachementService = ServiceFactory.create(IUploadAttachmentIgirlService.class);
+        ITradeMarkCaseIgirlService tradeMarkCaseService = ServiceFactory.create(ITradeMarkCaseIgirlService.class);
+		ITradeMarkIgirlService tradeMarkService = ServiceFactory.create(ITradeMarkIgirlService.class);
 		INclBatchService nclBatchService = ServiceFactory.create(INclBatchService.class);
 		INCLOneService oneService = ServiceFactory.create(INCLOneService.class);
 		INCLTwoService twoService = ServiceFactory.create(INCLTwoService.class);
@@ -64,8 +59,8 @@ public class AnnoTest2 {
 		JSONArray data = json.getJSONArray("data");
 		String corpTrademarkId;
         Date updTime=new Date();
-		TradeMark tradeMark=new TradeMark();
-		TradeMarkCase tradeMarkCase=new TradeMarkCase();
+		TradeMark tradeMark;
+		TradeMarkCase tradeMarkCase;
 		UploadAttachment uploadAttachment;
         String caseCode;
         NCLOne nclOne = new NCLOne();
@@ -99,6 +94,7 @@ public class AnnoTest2 {
             StringBuffer ncl = new StringBuffer("");
             int count = 1;
             for (int m = 0; m < goods.size(); m++) {
+
                 good = goods.getJSONObject(m);
                 String classes = good.getString("classes");
                 tradeOption=classes;
@@ -107,26 +103,28 @@ public class AnnoTest2 {
                 String group = good.getString("group");
                 JSONArray nameList= good.getJSONArray("nameList");
                 for (int j = nameList.size() - 1; j >= 0; j--) {
-                    String name = nameList.getString(i);
+                    ncl = new StringBuffer("");
+                    String name = nameList.getString(j);
                     NCLTwo nclTwo = twoService.findNclTwoByCode(group, name);
                     //TODO nclTwo 数据
                     ncl.append(count).append(":");
                     ncl.append(name).append(":");
                     ncl.append(group).append(":");
                     ncl.append(nclTwo.getId());
+                    ncl.append(System.getProperty("line.separator"));
                     ncls.add(ncl.toString());
                     count++;
                 }
             }
-            String nclStr = StringManager.join("/r/n",ncls);
+            String nclStr = StringManager.join("",ncls);
 
-            System.out.println(tradeOption);
+//            System.out.println(tradeOption);
             JSONObject step7 = step.getJSONObject("step7");
             //写入新数据库
             {
                 //TODO tradeMarkCase 数据
                 tradeMarkCase = new TradeMarkCase();
-                //tradeMarkCase.toNew();
+                tradeMarkCase.toNew();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 
                 //caseCode = TimeToCode(updTime, corpTrademarkId);
@@ -175,7 +173,7 @@ public class AnnoTest2 {
 
                 //TODO tradeMark 数据
                 tradeMark = new TradeMark();
-//                tradeMark.toNew();
+                tradeMark.toNew();
                 tradeMark.setSupplierId(1);
                 tradeMark.setProxyCode(corpTrademarkId);
                 tradeMark.setDepartmentId(2);
@@ -207,7 +205,7 @@ public class AnnoTest2 {
                 //TODO 附件-营业执照
                 {
                     uploadAttachment = new UploadAttachment();
-
+                    uploadAttachment.toNew();
                     uploadAttachment.setName("营业执照");
                     uploadAttachment.setShareGroup(ShareGroup.CASESHARRE);
                     uploadAttachment.setAttachmentCat(AttachmentCat.BUSINESS_LIEN);
@@ -235,7 +233,7 @@ public class AnnoTest2 {
                 //TODO 附件-付款证明
                 {
                     uploadAttachment = new UploadAttachment();
-
+                    uploadAttachment.toNew();
                     uploadAttachment.setName("付款证明");
                     uploadAttachment.setShareGroup(ShareGroup.CASESHARRE);
                     uploadAttachment.setAttachmentCat(AttachmentCat.PAYMENT_PROOF);
@@ -263,7 +261,7 @@ public class AnnoTest2 {
                 //TODO 附件-委托书
                 {
                     uploadAttachment = new UploadAttachment();
-
+                    uploadAttachment.toNew();
                     uploadAttachment.setName(step3.getString("tmDesignDeclare") + "_委托书");
                     uploadAttachment.setShareGroup(ShareGroup.SG1);
                     uploadAttachment.setAttachmentCat(AttachmentCat.DELEGATE_PROOF);
@@ -291,7 +289,7 @@ public class AnnoTest2 {
                 //TODO 附件-补充证明
                 {
                     uploadAttachment = new UploadAttachment();
-
+                    uploadAttachment.toNew();
                     uploadAttachment.setName(step3.getString("tmDesignDeclare") + "_补充证明");
                     uploadAttachment.setShareGroup(ShareGroup.SG1);
                     uploadAttachment.setAttachmentCat(AttachmentCat.DELEGATE_PROOF);
@@ -319,7 +317,7 @@ public class AnnoTest2 {
                 //TODO 附件-黑色商标图样
                 {
                     uploadAttachment = new UploadAttachment();
-
+                    uploadAttachment.toNew();
                     uploadAttachment.setName(step3.getString("tmDesignDeclare") + "_黑色商标图样");
                     uploadAttachment.setShareGroup(ShareGroup.SG1);
                     uploadAttachment.setAttachmentCat(AttachmentCat.DELEGATE_PROOF);
