@@ -1,6 +1,7 @@
 package com.gongsibao.panda.supplier.order.workspace.salesman;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
@@ -10,6 +11,9 @@ import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
+import org.netsharp.panda.plugin.dic.ToolbarType;
+import org.netsharp.panda.plugin.entity.PToolbar;
+import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.trade.NDepReceivable;
@@ -17,6 +21,7 @@ import com.gongsibao.trade.web.SalesmanOrderPerformanceListPart;
 
 /*订单业绩列表*/
 public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase {
+    private String listrowToolbarPath = "/crm/row/order/per/toolbar";
     @Before
     public void setup() {
     	
@@ -28,11 +33,39 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
         meta = MtableManager.getMtable(entity);
         formPartName = listPartName = meta.getName();
         resourceNodeCode = "Gsb_Supplier_Order_Salesman_Performance";
-        listPartImportJs = "/gsb/platform/trade/js/salesman-order-performance-list.js|/gsb/panda-extend/gsb.custom.query.controls.js";
+        listPartImportJs = "/gsb/platform/trade/js/salesman-order-performance-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
         listPartServiceController = SalesmanOrderPerformanceListPart.class.getName();
         listPartJsController = SalesmanOrderPerformanceListPart.class.getName();
         listFilter = "salesman_id = '{userId}'";
         listToolbarPath="";
+    }
+
+
+
+    @Test
+    public void createRowToolbar() {
+
+        ResourceNode node = this.resourceService.byCode(resourceNodeCode);
+        PToolbar toolbar = new PToolbar();
+        {
+            toolbar.toNew();
+            toolbar.setPath(listrowToolbarPath);
+            toolbar.setName("查看");
+            toolbar.setResourceNode(node);
+            toolbar.setToolbarType(ToolbarType.BASE);
+        }
+        PToolbarItem item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("detail");
+            item.setName("查看");
+            item.setSeq(1);
+            item.setCommand("{controller}.detail();");
+            toolbar.getItems().add(item);
+        }
+
+
+        toolbarService.save(toolbar);
     }
 
     @Override
@@ -41,11 +74,11 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
         PDatagrid datagrid = super.createDatagrid(node);
         {
             datagrid.setName("订单业绩");
-            datagrid.setToolbar("panda/datagrid/row/edit");
+            datagrid.setToolbar(listrowToolbarPath);
             datagrid.setAutoQuery(true);
         }
         PDatagridColumn column = null;
-        addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+        addColumn(datagrid, "order.id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
         addColumn(datagrid, "order.no", "订单编号", ControlTypes.TEXT_BOX, 80);
         addColumn(datagrid, "order.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "order.prodName", "产品名称", ControlTypes.TEXT_BOX, 250);

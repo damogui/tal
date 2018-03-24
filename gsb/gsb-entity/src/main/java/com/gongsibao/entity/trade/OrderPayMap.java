@@ -1,13 +1,14 @@
 package com.gongsibao.entity.trade;
 
-import com.gongsibao.entity.trade.dic.PayOfflineInstallmentType;
-import com.gongsibao.entity.u8.U8Bank;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.netsharp.core.annotations.*;
+import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Exclusive;
+import org.netsharp.core.annotations.Reference;
+import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
-
-import java.util.List;
+import com.gongsibao.entity.trade.dic.PayOfflineInstallmentType;
+import com.gongsibao.entity.u8.U8Bank;
 
 @Table(name = "so_order_pay_map", header = "订单和支付关系")
 public class OrderPayMap extends BaseEntity {
@@ -30,19 +31,15 @@ public class OrderPayMap extends BaseEntity {
     /*new beg*/
     @Column(name = "offline_installment_type", header = "线下结算类型,线下分期类型序号，type= 全款为0，首款为1，尾款为-1，二期为2，三期为3，以此类推")
     private PayOfflineInstallmentType offlineInstallmentType = PayOfflineInstallmentType.sk;
+    
     @Column(name = "u8_bank_id", header = "银行科目编号序号")
     private Integer u8BankId;
+    
     @Column(name = "order_price", header = "订单额（一笔多单时，u8生成凭证时，每单的金额）")
     private Integer orderPrice;
 
     @Reference(foreignKey = "u8BankId", header = "支付方式")
     private U8Bank u8Bank;
-
-
-    //部门回款业绩表
-    @Subs(subType = NDepPay.class, foreignKey = "orderPayMapId", header = "回款业绩")
-    private List<NDepPay> depPays;
-//    private Integer orderCutAmount;//订单分配金额
 
     //我的订单回款额
     @Exclusive
@@ -79,14 +76,6 @@ public class OrderPayMap extends BaseEntity {
 
     public void setPay(Pay pay) {
         this.pay = pay;
-    }
-
-    public List<NDepPay> getDepPays() {
-        return depPays;
-    }
-
-    public void setDepPays(List<NDepPay> depPays) {
-        this.depPays = depPays;
     }
 
     public PayOfflineInstallmentType getOfflineInstallmentType() {

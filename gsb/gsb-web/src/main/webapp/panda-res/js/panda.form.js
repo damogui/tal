@@ -1,5 +1,4 @@
-﻿
-org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
+﻿org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
 
     ctor: function () {
         this.base();
@@ -9,7 +8,7 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
         this.paging = null;
         this.Sd = new org.netsharp.tools.SdForm(this);
         //缓存当前控制器方便弹出窗体使用
-		window.formController=this;
+        window.formController = this;
     },
 
     //----------------------
@@ -38,10 +37,10 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
 
         var fk = this.queryString("fk");
         if (fk != null && fk != "") {
-        	
+
             var properties = fk.split(';');
             for (var i = 0; i < properties.length; i++) {
-            	
+
                 var property = properties[i];
                 var pair = property.split(':');
                 var expression = "entity." + pair[0] + "='" + pair[1] + "';";
@@ -52,57 +51,71 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
         this.addExtraProp(entity);
         this.doSave(entity);
     },
-    doSave:function(entity){
+    getfkParam: function () {
+        var fk = this.queryString("fk");
+        var fkParam = {};
+        if (fk != null && fk != "") {
+            var properties = fk.split(';');
+            for (var i = 0; i < properties.length; i++) {
+
+                var property = properties[i];
+                var pair = property.split(':');
+                fkParam[pair[0]] = pair[1];
+            }
+        }
+        return fkParam;
+    },
+    doSave: function (entity) {
 
         var me = this;
         this.invokeService("save", [entity], function (jmessage) {
-        	
-       	  me.onSaved(jmessage);
-       });
+
+            me.onSaved(jmessage);
+        });
     },
-    addExtraProp:function(entity){
-    	
+    addExtraProp: function (entity) {
+
     },
     //弹出选单页面
-    selectVoucher:function(url,sourceVoucherType){
-    	
-    	url="/panda-res"+url+"?sourceVoucherType="+sourceVoucherType+"&instanceName="+this.context.instanceName;
-    	IMessageBox.open("选单", url, 1000, 700, function(){
-    		
-    	});
+    selectVoucher: function (url, sourceVoucherType) {
+
+        url = "/panda-res" + url + "?sourceVoucherType=" + sourceVoucherType + "&instanceName=" + this.context.instanceName;
+        IMessageBox.open("选单", url, 1000, 700, function () {
+
+        });
 
     },
     //加载选单的数据
-    convertVoucher:function(sourceVoucherType,voucherId,detailIds){
-    	
-    	var me = this; 
-    	var entity = this.viewModel.getEntity();
-        this.invokeService("convertVoucher", [sourceVoucherType,voucherId,detailIds,entity], function (jmessage) {
+    convertVoucher: function (sourceVoucherType, voucherId, detailIds) {
 
-        	me.currentItem = jmessage;
-        	var fk = me.queryString("fk");
-	        if (fk != null && fk != "") {
-	        	
-	            var properties = fk.split(';');
-	            for (var i = 0; i < properties.length; i++) {
-	            	
-	                var property = properties[i];
-	                var pair = property.split(':');
-	                var expression = "me.currentItem." + pair[0] + "='" + pair[1] + "';";
-	                eval(expression);
-	            }
-	        }
-        	
+        var me = this;
+        var entity = this.viewModel.getEntity();
+        this.invokeService("convertVoucher", [sourceVoucherType, voucherId, detailIds, entity], function (jmessage) {
+
+            me.currentItem = jmessage;
+            var fk = me.queryString("fk");
+            if (fk != null && fk != "") {
+
+                var properties = fk.split(';');
+                for (var i = 0; i < properties.length; i++) {
+
+                    var property = properties[i];
+                    var pair = property.split(':');
+                    var expression = "me.currentItem." + pair[0] + "='" + pair[1] + "';";
+                    eval(expression);
+                }
+            }
+
             me.viewModel.currentItem = me.currentItem;
             me.currentItem.entityState = EntityState.New;
             me.added(me.currentItem);
             if (me.currentItem == null) {
 
                 me.viewModel.clear();
-            }else {
+            } else {
                 me.databind();
             }
-       });
+        });
     },
 
     onSaving: function () {
@@ -112,14 +125,14 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
 
     onSaved: function (jmessage) {
         this.currentItem = jmessage;
-        if(this.currentItem!=null){
+        if (this.currentItem != null) {
 
-        	IMessageBox.toast("保存成功！");
+            IMessageBox.toast("保存成功！");
             this.currentItem.entityState = EntityState.Persist;
             this.viewModel.currentItem = this.currentItem;
-            this.databind();	
-        }else{
-        	IMessageBox.error("保存失败！");
+            this.databind();
+        } else {
+            IMessageBox.error("保存失败！");
         }
     },
 
@@ -139,15 +152,15 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
 
             this.viewModel.clear();
             this.currentItem = null;
-        }else {
+        } else {
 
             this.viewModel.setEntity(this.viewModel.currentItem);
         }
-        
+
         this.notifyCurrentItemChanged();
         this.databindafter();
     },
-    databindafter:function(){
+    databindafter: function () {
         $('.easyui-combobox,.easyui-combogrid').combobox("initClearBtn");
         $('.easyui-filebox').filebox("initClearBtn");
     },
@@ -157,10 +170,10 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
         if (System.isnull(id)) {
 
             this.add();
-        }else {
+        } else {
             this.byId(id);
         }
-        
+
         //
 //        var formId = this.context.formName;
 //        var $toolbar = $('#'+formId).prev();
@@ -196,13 +209,13 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
 
                     me.viewModel.currentItem = jmessage.ReturnValue;
                     if (me.viewModel.currentItem != null) {
-                    	
+
                         me.viewModel.currentItem.entityState = EntityState.Transient;
                     }
 
                     me.databind();
                     IMessageBox.toast("删除成功！");
-                }else {
+                } else {
 
                     IMessageBox.warning(jmessage.Exception.Message);
                 }
@@ -216,7 +229,7 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
     // audit
     //----------------------
     audit: function () {
-    	
+
         var isValidated = this.validate();
         if (!isValidated) {
             return;
@@ -244,10 +257,10 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
 
         var fk = this.queryString("fk");
         if (fk != null && fk != "") {
-        	
+
             var properties = fk.split(';');
             for (var i = 0; i < properties.length; i++) {
-            	
+
                 var property = properties[i];
                 var pair = property.split(':');
                 var expression = "entity." + pair[0] + "='" + pair[1] + "';";
@@ -259,7 +272,7 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
 
         this.invokeService("audit", [entity], function (jmessage) {
 
-        	 me.onAudited(jmessage);
+            me.onAudited(jmessage);
         });
     },
 
@@ -269,14 +282,14 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
     },
 
     onAudited: function (jmessage) {
-    	
+
         this.currentItem = jmessage;
         this.currentItem.entityState = EntityState.Persist;
         this.viewModel.currentItem = this.currentItem;
         this.databind();
         IMessageBox.info("审核成功!");
     },
-    
+
     //-----------------------
     // unaudit
     //----------------------
@@ -309,10 +322,10 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
 
         var fk = this.queryString("fk");
         if (fk != null && fk != "") {
-        	
+
             var properties = fk.split(';');
             for (var i = 0; i < properties.length; i++) {
-            	
+
                 var property = properties[i];
                 var pair = property.split(':');
                 var expression = "entity." + pair[0] + "='" + pair[1] + "';";
@@ -323,8 +336,8 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
         var me = this;
         this.invokeService("unAudit", [entity], function (jmessage) {
 
-        	 me.onUnAudited(jmessage);     
-        
+            me.onUnAudited(jmessage);
+
         });
     },
 
@@ -345,27 +358,27 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
     //----------------------
     print: function () {
 
-    	var id = this.queryString("id");
+        var id = this.queryString("id");
         if (System.isnull(id)) {
-        	IMessageBox.warning("新增状态下不能打印！");
+            IMessageBox.warning("新增状态下不能打印！");
             return;
         }
-    	
-    	var vid= this.workspaceId;
-    	var url = "/panda/formDetail?viewid="+vid+"&id="+id;
-    	$.get(url, function(data){
 
-    		  var printHtml = data;
-    			LODOP=getLodop();  
-    			LODOP.PRINT_INIT("打印");
-    			LODOP.SET_PRINTER_INDEX(-1);
-    			LODOP.SET_PRINT_PAGESIZE(0,0,0,"A4");
-    			LODOP.ADD_PRINT_HTM("1mm","1mm","200mm","287mm",printHtml);
-    			//LODOP.PREVIEW();
-    			LODOP.PRINTA();
-    	});
+        var vid = this.workspaceId;
+        var url = "/panda/formDetail?viewid=" + vid + "&id=" + id;
+        $.get(url, function (data) {
+
+            var printHtml = data;
+            LODOP = getLodop();
+            LODOP.PRINT_INIT("打印");
+            LODOP.SET_PRINTER_INDEX(-1);
+            LODOP.SET_PRINT_PAGESIZE(0, 0, 0, "A4");
+            LODOP.ADD_PRINT_HTM("1mm", "1mm", "200mm", "287mm", printHtml);
+            //LODOP.PREVIEW();
+            LODOP.PRINTA();
+        });
     },
-    
+
     //导出excel
     excel: function () {
 
@@ -376,7 +389,7 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
     //----------------------
     reload: function () {
 
-    	window.location.reload();
+        window.location.reload();
     },
 
     //-----------------------
@@ -388,29 +401,29 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
         var url = window.location.href;
         var parentId = System.Url.getParameter(this.context.parentId);
         this.invokeService("newInstance", [parentId], function (jmessage) {
-        	
-        	me.currentItem = jmessage;
-        	var fk = me.queryString("fk");
-	        if (fk != null && fk != "") {
-	        	
-	            var properties = fk.split(';');
-	            for (var i = 0; i < properties.length; i++) {
-	            	
-	                var property = properties[i];
-	                var pair = property.split(':');
-	                var expression = "me.currentItem." + pair[0] + "='" + pair[1] + "';";
-	                eval(expression);
-	            }
-	        }
-        	
+
+            me.currentItem = jmessage;
+            var fk = me.queryString("fk");
+            if (fk != null && fk != "") {
+
+                var properties = fk.split(';');
+                for (var i = 0; i < properties.length; i++) {
+
+                    var property = properties[i];
+                    var pair = property.split(':');
+                    var expression = "me.currentItem." + pair[0] + "='" + pair[1] + "';";
+                    eval(expression);
+                }
+            }
+
             me.viewModel.currentItem = me.currentItem;
             me.currentItem.entityState = EntityState.New;
             me.added(me.currentItem);
             if (me.currentItem == null) {
 
                 me.viewModel.clear();
-            }else {
-            	
+            } else {
+
                 me.databind();
             }
         });
@@ -429,12 +442,12 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
         var me = this;
 
         this.invokeService("byId", [id], function (jmessage) {
-        	
-        	 var nav = jmessage;
-             vm.currentItem = nav.Entity;
-             vm.currentItem.entityState = EntityState.Persist;
-             me.paging = nav.Paging;
-             me.databind();
+
+            var nav = jmessage;
+            vm.currentItem = nav.Entity;
+            vm.currentItem.entityState = EntityState.Persist;
+            me.paging = nav.Paging;
+            me.databind();
         });
     },
 
@@ -442,12 +455,12 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
 
         var item = this.viewModel.currentItem;
 
-        if (System.isnull(item.entityState)){
-        	
+        if (System.isnull(item.entityState)) {
+
             IMessageBox.warning("请先保存当前记录！");
             return;
-        }else if (item.entityState == EntityState.New || item.entityState == EntityState.Deleted){
-        	
+        } else if (item.entityState == EntityState.New || item.entityState == EntityState.Deleted) {
+
             IMessageBox.warning("请先保存当前记录！");
             return;
         }
@@ -460,7 +473,7 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
 
                 vm.currentItem = jmessage.ReturnValue;
                 me.databind();
-            }else {
+            } else {
 
                 IMessageBox.warning(jmessage.Exception.Message);
             }
@@ -479,25 +492,25 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
     // pre
     //----------------------
     pre: function () {
-    	
+
         var item = this.viewModel.currentItem;
-        this.navigation("pre",[item.id, this.paging]);
+        this.navigation("pre", [item.id, this.paging]);
     },
 
     //-----------------------
     // next
     //----------------------
     next: function () {
-    	
+
         var item = this.viewModel.currentItem;
-        this.navigation("next",[item.id, this.paging]);
+        this.navigation("next", [item.id, this.paging]);
     },
 
     //-----------------------
     // last
     //----------------------
     last: function () {
-    	
+
         var item = this.viewModel.currentItem;
         this.navigation("last", [item.id]);
     },
@@ -506,9 +519,9 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
 
         var id = null;
         if (this.currentItem) {
-        	
+
             id = this.currentItem.id;
-        }else {
+        } else {
             id = this.viewModel.currentItem.id;
         }
 
@@ -520,10 +533,10 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
         var vm = this.viewModel;
         var me = this;
         this.invokeService(methodName, pars, function (jmessage) {
-	       	 var nav = jmessage;
-	         vm.currentItem = nav.Entity;
-	         me.paging = nav.Paging;
-	         me.databind();
+            var nav = jmessage;
+            vm.currentItem = nav.Entity;
+            me.paging = nav.Paging;
+            me.databind();
         });
     },
 
@@ -532,22 +545,22 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
         var isValidate = $("#" + this.context.formName).form('validate');
         return isValidate;
     },
-    
-    attachment:function(){
-    	
+
+    attachment: function () {
+
         var foreignKey = this.queryString("id");
         if (System.isnull(foreignKey)) {
-        	
-        	IMessageBox.info("新增时不能上传附件！");
-        	return;
-        }
-		var url = '/nav/panda-platform/attachment/attachment-list?foreignKey=' + foreignKey + "&entityId=" + this.context.entityId;
-		var me = this;
-		var close = function() {
-			me.reload();
-		};
 
-		IMessageBox.open("附件", url, 1000, 600, close, true);
+            IMessageBox.info("新增时不能上传附件！");
+            return;
+        }
+        var url = '/nav/panda-platform/attachment/attachment-list?foreignKey=' + foreignKey + "&entityId=" + this.context.entityId;
+        var me = this;
+        var close = function () {
+            me.reload();
+        };
+
+        IMessageBox.open("附件", url, 1000, 600, close, true);
     },
 
     //==================================
@@ -556,12 +569,12 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
     getfirstState: function () {
 
         if (this.paging.PageIndex == 1) {
-        	
+
             return UiElementState.Disable;
         }
 
         if (this.paging.TotalCount <= 1) {
-        	
+
             return UiElementState.Disable;
         }
 
@@ -576,12 +589,12 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
     getnextState: function () {
 
         if (this.paging.TotalCount <= 1) {
-        	
+
             return UiElementState.Disable;
         }
 
         if (this.paging.TotalCount == this.paging.PageIndex) {
-        	
+
             return UiElementState.Disable;
         }
 
@@ -636,7 +649,7 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
 
         return UiElementState.Empty;
     },
-    
+
     jsondata: function () {
 
         var pars = [this.viewModel.currentItem.id];
@@ -685,35 +698,35 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
             }
         });
     },
-    
-    disable:function(){
-    	
-    	this.viewModel.disable();
-    	
+
+    disable: function () {
+
+        this.viewModel.disable();
+
         var me = this;
         for (var i = 0; i < this.statusControls.length; i++) {
-        	
+
             var uielement = me.statusControls[i];
             if (uielement == undefined || uielement == null) {
 
-            	continue;
+                continue;
             }
-            me.setElementState(uielement,UiElementState.Disable);
+            me.setElementState(uielement, UiElementState.Disable);
         }
     },
-    enable:function(){
-    	
-    	this.viewModel.enable();
+    enable: function () {
 
-    	var me = this;
+        this.viewModel.enable();
+
+        var me = this;
         for (var i = 0; i < this.statusControls.length; i++) {
-        	
+
             var uielement = me.statusControls[i];
             if (uielement == undefined || uielement == null) {
 
-            	continue;
+                continue;
             }
-            me.setElementState(uielement,UiElementState.Enable);
+            me.setElementState(uielement, UiElementState.Enable);
         }
     }
 });
@@ -722,7 +735,7 @@ org.netsharp.panda.commerce.FormPart = org.netsharp.panda.core.View.Extends({
 //---------------------------------------------------------------------------------
 org.netsharp.panda.commerce.FormPartModel = System.Object.Extends({
     ctor: function () {
-    	
+
         this.currentItem = null;
         this.iscollected = false;
         this.context = null;
@@ -734,31 +747,31 @@ org.netsharp.panda.commerce.FormPartModel = System.Object.Extends({
         this.collectControl();
 
         if (this.currentItem == null) {
-        	
+
             this.currentItem = {
                 "entityState": EntityState.New
             };
         }
         else if (this.currentItem.entityState != EntityState.New) {
 
-        	this.currentItem.entityState = EntityState.Persist;
+            this.currentItem.entityState = EntityState.Persist;
         }
-        
+
         for (var i = 0; i < this.controls.length; i++) {
-        	
+
             var control = this.controls[i];
             control.get(this.currentItem);
         }
-        
+
 
         //明细列表
-        var me=this;
+        var me = this;
         var subs = this.controller.subs;
         $.each(subs, function (index, sub) {
 
             var details = sub.getDetails();
-			var expression = "me.currentItem."+sub.context.relationRole+"=details;";
-			eval(expression);
+            var expression = "me.currentItem." + sub.context.relationRole + "=details;";
+            eval(expression);
         });
 
         return this.currentItem;
@@ -784,31 +797,31 @@ org.netsharp.panda.commerce.FormPartModel = System.Object.Extends({
         }
 
     },
-    disable:function(){
-    	
-    	var controls = this.controls;
-    	$(controls).each(function(i,item){
-    		item.disable();
-    	});
-    	
+    disable: function () {
+
+        var controls = this.controls;
+        $(controls).each(function (i, item) {
+            item.disable();
+        });
+
         var subs = this.controller.subs;
         $.each(subs, function (index, sub) {
 
-        	sub.disable();
+            sub.disable();
         });
 
     },
-    enable:function(){
+    enable: function () {
 
-    	var controls = this.controls;
-    	$(controls).each(function(i,item){
-    		item.enable();
-    	});
-    	
+        var controls = this.controls;
+        $(controls).each(function (i, item) {
+            item.enable();
+        });
+
         var subs = this.controller.subs;
         $.each(subs, function (index, sub) {
 
-        	sub.enable();
+            sub.enable();
         });
 
     },
@@ -817,27 +830,27 @@ org.netsharp.panda.commerce.FormPartModel = System.Object.Extends({
         if (this.iscollected) {
             return;
         }
-        
-        var formName =this.controller.context.formName;
+
+        var formName = this.controller.context.formName;
         this.iscollected = true;
         var viewmodel = this;
         viewmodel.controls = [];
         var formName = this.controller.context.formName;
         var items = $("#" + formName).find("input[collected=true],textarea[collected=true],label[collected=true],a[collected=true],select[collected=true],img[collected=true]");
 
-        for(var i=0;i<items.length;i++){
-        	
-        	var item = items[i];
-            var controlType = $(item).attr("customControlType") || ('org.netsharp.controls.'+$(item).attr("controlType"));
+        for (var i = 0; i < items.length; i++) {
+
+            var item = items[i];
+            var controlType = $(item).attr("customControlType") || ('org.netsharp.controls.' + $(item).attr("controlType"));
             var control = null;
-            var expression = 'control= new '+controlType;
+            var expression = 'control= new ' + controlType;
             eval(expression);
-            if(control){
-            	
-            	control.formName = formName;
-            	control.uiElement = item;
-            	control.propertyName = item.id;
-            	control.init();
+            if (control) {
+
+                control.formName = formName;
+                control.uiElement = item;
+                control.propertyName = item.id;
+                control.init();
                 viewmodel.controls.push(control);
             }
         }

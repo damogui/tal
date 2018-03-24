@@ -67,29 +67,7 @@ com.gongsibao.trade.web.SalesmanAddOrderFormPart = org.netsharp.panda.commerce.F
     	this.currentItem.accountId = null;
     },
     addExtraProp:function(entity){
-    	
-    	//处理金额，需要*100
-//    	var fen = 100;
-//    	entity.totalPrice = entity.totalPrice*fen;
-//    	entity.discountPrice = entity.discountPrice*fen;
-//    	entity.payablePrice = entity.payablePrice*fen;
-    	
-//    	$(entity.products).each(function(i,p){
-//    		
-//    		p.price = p.price*fen;
-//    		p.priceOriginal = p.priceOriginal*fen;
-//    		p.settlePrice = 0;
-//    		
-//        	$(p.items).each(function(i,item){
-//        		
-//        		item.price = item.price*fen;
-//        		item.priceOriginal = item.priceOriginal*fen;
-//        	});
-//    	});
-    	
-    	//?taskId=29&customerId=13&accountId=364627
-    	
-    	
+
     },
     added: function (currentItem) {
 
@@ -199,8 +177,8 @@ com.gongsibao.trade.web.OrderProdItemDetailPart = org.netsharp.panda.commerce.De
     		});
     		
     	});
-    	totalPrice = totalPrice/100;
-    	totalPayablePrice = totalPayablePrice/100;
+    	totalPrice = System.RMB.fenToYuan(totalPrice);
+    	totalPayablePrice = System.RMB.fenToYuan(totalPayablePrice);
     	$('#totalPrice').numberbox('setValue',totalPrice);
     	$('#payablePrice').numberbox('setValue',totalPayablePrice);
     },
@@ -241,13 +219,13 @@ com.gongsibao.trade.web.OrderProdItemDetailPart = org.netsharp.panda.commerce.De
     	var items = row.items;
     	if(items.length==1){
     		
-    		return (items[0].priceOriginal/100).toFixed(2);
+    		return System.RMB.fenToYuan(items[0].priceOriginal);
     	}else{
 
         	var str = '';
         	$(items).each(function(i,item){
         		
-        		str+='<p>'+(item.priceOriginal/100).toFixed(2)+'</p>';
+        		str+='<p>'+System.RMB.fenToYuan(item.priceOriginal)+'</p>';
         	});
         	return str;
     	}
@@ -257,13 +235,13 @@ com.gongsibao.trade.web.OrderProdItemDetailPart = org.netsharp.panda.commerce.De
     	var items = row.items;
     	if(items.length==1){
     		
-    		return (items[0].price/100).toFixed(2);
+    		return System.RMB.fenToYuan(items[0].price);
     	}else{
 
         	var str = '';
         	$(items).each(function(i,item){
         		
-        		str+='<p>'+(item.price/100).toFixed(2)+'</p>';
+        		str+='<p>'+System.RMB.fenToYuan(item.price)+'</p>';
         	});
         	return str;
     	}
@@ -440,9 +418,14 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
 			onBeginEdit:function(index, row){
 
 			     var ed = $(this).datagrid('getEditor', {index:index,field:'price'});
+			     var price = System.RMB.fenToYuan(row.price);
+			     $(ed.target).numberbox('setValue', price);
+
 			     var priceEditCtrl = $(ed.target[0]).next().children()[0];
 			     $(priceEditCtrl).bind('blur',function(){
 			    	 
+			    	 var value = System.RMB.yuanToFen($(this).val());
+			    	 $(ed.target).numberbox('setValue', value);
 			    	 //结束编辑
 			    	 $('#serviceItems').datagrid('endEdit',index);
 			    	 me.calculateTotalPrice();
@@ -565,12 +548,13 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
 		        	return value;
 		        }},    
 		        {field:'originalPrice',title:'原售价',width:100,align:'right',formatter:function(value,row,index){
-		        	return value/100;
+		        	
+		        	return System.RMB.fenToYuan(value);
 		        }},
-		        {field:'price',title:'现售价',width:100,align:'right',editor:{type:'numberbox',options:{precision:0,height:31}},
+		        {field:'price',title:'现售价',width:100,align:'right',editor:{type:'numberbox',options:{precision:2,height:31}},
 		        	formatter:function(value,row,index){
 		        		
-		        		return value/100;
+		        		return System.RMB.fenToYuan(value);
 		        	}}
 		    ]]
 		});

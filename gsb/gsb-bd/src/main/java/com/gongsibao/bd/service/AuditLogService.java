@@ -9,6 +9,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.core.Oql;
 import org.netsharp.service.PersistableService;
+import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.bd.base.IAuditLogService;
@@ -34,14 +35,14 @@ public class AuditLogService extends PersistableService<AuditLog> implements IAu
 		selects.append("AuditLog.soOrder.*,");
 		selects.append("AuditLog.contract.*,");
 		selects.append("AuditLog.contract.soOrder.*,");
-		selects.append("AuditLog.contract.soOrder.products.*,");		
+		selects.append("AuditLog.contract.soOrder.products.*,");
 		selects.append("AuditLog.invoice.*,");
 		selects.append("AuditLog.invoice.orderInvoiceMaps.*,");
-		selects.append("AuditLog.invoice.orderInvoiceMaps.soOrder.*");		
-//		selects.append("AuditLog.pay.*,");
-//		selects.append("AuditLog.pay.orderPayMaps.*,");
-//		selects.append("AuditLog.pay.orderPayMaps.soOrder.*");
-//		oql.setSelects(selects.toString());
+		selects.append("AuditLog.invoice.orderInvoiceMaps.soOrder.*");
+		// selects.append("AuditLog.pay.*,");
+		// selects.append("AuditLog.pay.orderPayMaps.*,");
+		// selects.append("AuditLog.pay.orderPayMaps.soOrder.*");
+		// oql.setSelects(selects.toString());
 
 		List<AuditLog> resList = super.queryList(oql);
 
@@ -68,7 +69,7 @@ public class AuditLogService extends PersistableService<AuditLog> implements IAu
 			}
 		}
 
-		//return super.queryList(oql);
+		// return super.queryList(oql);
 		return resList;
 	}
 
@@ -101,7 +102,7 @@ public class AuditLogService extends PersistableService<AuditLog> implements IAu
 
 	@Override
 	public List<AuditLog> queryByFormId(Integer orderId, AuditLogType type) {
-		
+
 		Oql oql = new Oql();
 		{
 			oql.setType(this.type);
@@ -114,10 +115,31 @@ public class AuditLogService extends PersistableService<AuditLog> implements IAu
 	}
 
 	@Override
+	public int queryUnPassCountByFormId(List<Integer> orderIdList) {
+
+		String orderIds = StringManager.join(",", orderIdList);
+
+		List<Integer> typeIdList = new ArrayList<Integer>();
+		typeIdList.add(AuditLogType.Sksq.getValue());
+		typeIdList.add(AuditLogType.Tdsq.getValue());
+		typeIdList.add(AuditLogType.Fqsq.getValue());
+		typeIdList.add(AuditLogType.Ddgj.getValue());
+		String typeIds = StringManager.join(",", typeIdList);
+
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setFilter("form_id in (" + orderIds + ") and type_id in (" + typeIds + ")");
+		}
+
+		return this.queryCount(oql);
+	}
+
+	@Override
 	public List<AuditLog> createAuditLog(AuditLogType type, Integer formId, Integer addUserId) {
-		
+
 		List<AuditLog> list = new ArrayList<AuditLog>();
-		
+
 		return list;
 	}
 }

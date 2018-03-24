@@ -15,7 +15,7 @@ body {
 td{
   width:50%;
   font-size:0.6rem;
-  padding:3px;
+  padding:2px;
   line-height:0.8rem;
 }
 input{
@@ -33,7 +33,7 @@ input{
 				           <td style="font-size:0.8rem" colspan="2">
 				               &nbsp; &nbsp;&nbsp;&nbsp;委托人
 				               <span style="text-decoration:underline">
-				                    <span id="client"></span>
+				                    <span id="client"></span><span id="clientblank"></span>
 				               </span>
 				               <span>是</span>
 				               <span style="text-decoration:underline">
@@ -50,8 +50,8 @@ input{
 				               </span>
 				               <br/><br/><br/>
 				               <p style="float:left;">代理</p>
-				               <img id="img" style="width:50px;height:50px;float:left;margin-left:80px;margin-top:-30px;" src="http://gsb-public.oss-cn-beijing.aliyuncs.com/netsharp_frmjmPrCthfEp4CSErDS4XQPwHSAiA8t.jpg"/>
-				               <span style="float:left;text-decoration:underline;z-index:1000;margin-left:-130px;margin-top:10px">
+				               <img id="img" style="width:100px;height:80px;float:left;margin-left:80px;margin-top:-30px;" src="http://gsb-public.oss-cn-beijing.aliyuncs.com/netsharp_frmjmPrCthfEp4CSErDS4XQPwHSAiA8t.jpg"/>
+				               <span style="float:left;text-decoration:underline;z-index:1000;margin-left:-180px;margin-top:10px">
 				                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				                &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -63,10 +63,10 @@ input{
 				         </tr>
 				         <tr>
 				            <td ><input style="background-color:white" type="checkbox" checked></input>商标注册申请</td>
-				            <td><h5 style="font-size:6px">□撤销成为商品/服务通用名称注册商标申请</h5></td>
+				            <td>□撤销成为商品/服务通用名称注册商标申请</td>
 				         </tr>
 				        <tr>
-				            <td style="font-size:4px">□商标异议申请</td>
+				            <td>□商标异议申请</td>
 				            <td>□撤销连续三年不使用注册商标提供证据</td>
 				         </tr>
 				           <tr>
@@ -196,12 +196,16 @@ input{
 			}
 			
 		}
+		function repeat(str,n){
+			return new Array(n+1).join(str);
+		}
 		var casecode=getHashParameter("casecode");
 		var imgurl=getHashParameter("imgurl");
 		 siteCtl.invoke(ctlServiceStr2,"fetchUnconfirmedCaseInfoByCode",[casecode],function(d){
-			   console.log(d)
-				$("#client").text(d.applier);
-				$("#delecomp").text(d.proxyCompanyName);
+			  var len= d.applier.length;
+			  $("#client").html(d.applier+repeat("&nbsp;",32-len));
+			  len= d.proxyCompanyName.length;
+				$("#delecomp").html(d.proxyCompanyName+repeat("&nbsp;",60-len));
 				$("#applieraddress").text(d.applierAddress);
 				$("#ywphone").text(d.ywPhone);
 				$("#proxycontactname").text(d.caseProxyContactPerson);

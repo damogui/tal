@@ -5,21 +5,13 @@ import org.junit.Test;
 import org.netsharp.plugin.bean.BeanPath;
 
 import com.gongsibao.panda.supplier.crm.action.BaseActionTest;
-import com.gongsibao.trade.service.action.order.pay.ActionApplyPayPerformanceAudit;
-import com.gongsibao.trade.service.action.order.pay.ActionApplyPayPerformanceLog;
-import com.gongsibao.trade.service.action.order.pay.ActionApplyPayPerformancePersist;
-import com.gongsibao.trade.service.action.order.pay.ActionApplyPayPerformanceSendMessage;
-import com.gongsibao.trade.service.action.order.pay.ActionApplyPayPerformanceVerify;
+import com.gongsibao.trade.service.action.order.performance.pay.ActionApplyPayPerformanceAudit;
+import com.gongsibao.trade.service.action.order.performance.pay.ActionApplyPayPerformanceLog;
+import com.gongsibao.trade.service.action.order.performance.pay.ActionApplyPayPerformancePersist;
+import com.gongsibao.trade.service.action.order.performance.pay.ActionApplyPayPerformanceSendMessage;
+import com.gongsibao.trade.service.action.order.performance.pay.ActionApplyPayPerformanceVerify;
 
-/**   
- * @ClassName:  PayPerformanceActionTest   
- * @Description:TODO 回款业绩
- * @author: 郭佳
- * @date:   2018年3月12日 下午5:02:48   
- *     
- * @Copyright: 2018 www.yikuaxiu.com Inc. All rights reserved. 
- */
-public class PayPerformanceActionTest extends BaseActionTest{
+public class PayPerformanceActionTest extends BaseActionTest {
 
 	@Before
 	public void setup() {

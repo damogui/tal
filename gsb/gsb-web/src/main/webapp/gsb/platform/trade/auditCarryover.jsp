@@ -17,7 +17,8 @@
 		<div id="center" data-options="region:'center'">
 			<div id="detail_tabs" style="height:100%;">   
 			    <div title="结转信息">   
-			          	这里可以嵌套一个iframe
+			          	<!-- 这里可以嵌套一个iframe -->
+			          	<table cellpadding="3" cellspacing="0" class="form-panel" id="carryover_info_grid"></table>
 			    </div>   
 			    <div title="审批进度">   
 			         <table id="audit_progress_grid"></table>

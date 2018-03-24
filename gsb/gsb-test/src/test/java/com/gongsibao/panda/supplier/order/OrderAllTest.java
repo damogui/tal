@@ -1,6 +1,8 @@
 package com.gongsibao.panda.supplier.order;
 
 import com.gongsibao.panda.supplier.order.workspace.audit.*;
+import com.gongsibao.panda.supplier.order.workspace.department.*;
+import com.gongsibao.panda.supplier.order.workspace.salesman.*;
 import com.gongsibao.panda.supplier.reference.OrderDepartmentReferenceTest;
 import com.gongsibao.panda.supplier.reference.OrderSalesmanReferenceTest;
 import com.gongsibao.panda.supplier.reference.OrderSupplierReferenceTest;
@@ -9,25 +11,6 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import com.gongsibao.panda.supplier.order.action.ActionAllTest;
-import com.gongsibao.panda.supplier.order.workspace.department.DepartmentOrderAllWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.department.DepartmentOrderCarryoverWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.department.DepartmentOrderContractWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.department.DepartmentOrderInvoiceWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.department.DepartmentOrderPerformanceWorspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.department.DepartmentOrderReceivedWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.department.DepartmentOrderRefundWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.department.DepartmentOrderStagingWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderAddWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderAllWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderCarryoverWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderContractWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderInvoiceWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderPerformanceWorspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderReceivedWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderRefundWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderStagingWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.salesman.SoCreatOrderPerformanceWorkspaceTest;
-import com.gongsibao.panda.supplier.order.workspace.salesman.SoCreatReceivedPerformanceWorkspaceTest;
 import com.gongsibao.panda.supplier.reference.SupplierU8BankReferenceTest;
 
 @RunWith(Suite.class)
@@ -45,6 +28,7 @@ import com.gongsibao.panda.supplier.reference.SupplierU8BankReferenceTest;
         SalesmanOrderCarryoverWorkspaceTest.class,
         SalesmanOrderContractWorkspaceTest.class,
         SalesmanOrderPerformanceWorspaceTest.class,
+        SalesmanOrderPayWorkspaceTest.class,
         SalesmanOrderReceivedWorkspaceTest.class,
         SalesmanOrderRefundWorkspaceTest.class,
         SalesmanOrderStagingWorkspaceTest.class,
@@ -52,13 +36,13 @@ import com.gongsibao.panda.supplier.reference.SupplierU8BankReferenceTest;
 //        SalesmanReportWeekWorkspaceTest.class,
 //        SalesmanReportMonthWorkspaceTest.class,
         SoCreatOrderPerformanceWorkspaceTest.class,
-        SoCreatReceivedPerformanceWorkspaceTest.class,
         SalesmanOrderInvoiceWorkspaceTest.class,
 
 
         //部门订单
         DepartmentOrderAllWorkspaceTest.class,
         DepartmentOrderPerformanceWorspaceTest.class,
+        DepartmentOrderPayWorkspaceTest.class,
         DepartmentOrderReceivedWorkspaceTest.class,
         DepartmentOrderRefundWorkspaceTest.class,
         DepartmentOrderCarryoverWorkspaceTest.class,
@@ -73,10 +57,13 @@ import com.gongsibao.panda.supplier.reference.SupplierU8BankReferenceTest;
         AuditOrderWorkspaceTest.class,
         AuditOrderPerformanceWorkspaceTest.class,
         AuditPayPerformanceWorkspaceTest.class,
+        AuditPayWorkspaceTest.class,
         AuditPricingWorkspaceTest.class,
         AuditCarryoverWorkspaceTest.class,
         AuditRefundWorkspaceTest.class,
         AuditStagingWorkspaceTest.class,
+        AuditContractWorkspaceTest.class,
+        AuditInvoiceWorkspaceTest.class,
 
         ActionAllTest.class,
         OrderNavigationTest.class,

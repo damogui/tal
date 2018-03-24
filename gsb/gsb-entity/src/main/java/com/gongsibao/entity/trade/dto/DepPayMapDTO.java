@@ -1,8 +1,5 @@
 package com.gongsibao.entity.trade.dto;
 
-import com.gongsibao.entity.trade.NDepPay;
-import com.gongsibao.entity.trade.OrderPayMap;
-
 import java.util.ArrayList;
 import java.util.List;
 

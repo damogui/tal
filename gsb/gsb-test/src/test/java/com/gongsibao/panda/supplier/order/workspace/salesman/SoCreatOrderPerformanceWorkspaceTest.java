@@ -9,7 +9,6 @@ import org.netsharp.core.EntityState;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
-import org.netsharp.organization.entity.Employee;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.DockType;
@@ -27,8 +26,6 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 import org.netsharp.util.StringManager;
 
-import com.gongsibao.entity.supplier.Supplier;
-import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.tools.PToolbarHelper;
 import com.gongsibao.trade.web.OrderPerformanceDetailPart;
@@ -52,8 +49,8 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
         listToolbarPath = "/crm/roworderaddperformance/toolbar";
         formToolbarPath = "";
         List<String> ss = new ArrayList<String> ();
-        //ss.add ("/gsb/platform/trade/js/order_performance-form.part.js");
-        ss.add ("/gsb/platform/trade/js/so-performance-add.part.js");
+        //ss.add ("/gsb/platform/trade/js/order-performance-form.part.js");
+        ss.add ("/gsb/platform/trade/js/salesman-order-performance-add.part.js");
         ss.add ("/gsb/panda-extend/gsb.customer.controls.js");
         formJsImport = StringManager.join ("|", ss);
         listPartJsController = SoCreatOrderPerformanceListPart.class.getName ();
@@ -113,13 +110,13 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
 
         }
 
-        formField = addFormField (form, "payablePrice", "订单金额", groupName, ControlTypes.TEXT_BOX, false);
+        formField = addFormField (form, "payablePrice", "订单金额", groupName, ControlTypes.DECIMAL_FEN_BOX, false);
         {
             formField.setReadonly (true);
 
         }
         /*beg*/
-        formField = addFormField (form, "paidPrice", "已付金额", groupName, ControlTypes.TEXT_BOX, false);
+        formField = addFormField (form, "paidPrice", "已付金额", groupName, ControlTypes.DECIMAL_FEN_BOX, false);
         {
             formField.setReadonly (true);
 
@@ -162,7 +159,7 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
      /*end*/
 
 
-        formField = addFormField (form, "performancePrice", "已划分金额", groupName, ControlTypes.TEXT_BOX, false);
+        formField = addFormField (form, "performancePrice", "已划分金额", groupName, ControlTypes.DECIMAL_FEN_BOX, false);
         {
             formField.setReadonly (true);
 

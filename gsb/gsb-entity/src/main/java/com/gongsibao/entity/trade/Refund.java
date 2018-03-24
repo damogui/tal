@@ -26,7 +26,7 @@ public class Refund extends BaseEntity {
 
     // 订单
     @JsonIgnore
-    @Reference(foreignKey = "orderId")
+    @Reference(foreignKey = "orderId",primaryKey="pkid")
     private SoOrder soOrder;
 
 

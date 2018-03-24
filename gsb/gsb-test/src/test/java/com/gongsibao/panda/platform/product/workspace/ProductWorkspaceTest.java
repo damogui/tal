@@ -11,15 +11,9 @@ import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
-import org.netsharp.panda.dic.DockType;
-import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
-import org.netsharp.panda.entity.PForm;
-import org.netsharp.panda.entity.PFormField;
-import org.netsharp.panda.entity.PPart;
 import org.netsharp.panda.entity.PQueryProject;
-import org.netsharp.panda.entity.PWorkspace;
 import org.netsharp.panda.plugin.dic.ToolbarType;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
@@ -27,20 +21,15 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.product.Product;
-import com.gongsibao.product.web.PackageListPart;
 import com.gongsibao.product.web.ProductListPart;
-import com.gongsibao.product.web.ProductTypeTreePart;
 import com.gongsibao.tools.PToolbarHelper;
-import com.gongsibao.trade.web.SalesmanAllOrderFormPart;
-import com.gongsibao.trade.web.SalesmanAllOrderListPart;
 
 /**   
  * @ClassName:  ProductWorkspaceTest   
  * @Description:TODO 产品列表
- * @author: 韩伟
- * @date:   2017年12月7日 下午8:17:21   
+ * @author: wwm
+ * @date:   2018年3月22日
  *     
- * @Copyright: 2017 www.yikuaxiu.com Inc. All rights reserved. 
  */
 public class ProductWorkspaceTest  extends WorkspaceCreationBase{
 

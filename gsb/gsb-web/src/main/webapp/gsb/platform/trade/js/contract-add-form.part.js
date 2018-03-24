@@ -12,40 +12,12 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
     add: function () {
         var me = this;
         var url = window.location.href;
-        var fk = this.queryString("fk");
-        var orderId = null;
-        if (fk != null && fk != "") {
-
-            var properties = fk.split(';');
-            for (var i = 0; i < properties.length; i++) {
-
-                var property = properties[i];
-                var pair = property.split(':');
-                if (pair[0] == 'orderId') {
-
-                    orderId = pair[1];
-                }
-            }
-        }
+        var fkParam = this.getfkParam();
+        var orderId = fkParam.orderId;
 
         this.invokeService("newInstance", [orderId], function (jmessage) {
 
             me.currentItem = jmessage;
-
-            var fk = me.queryString("fk");
-            if (fk != null && fk != "") {
-
-                var properties = fk.split(';');
-                for (var i = 0; i < properties.length; i++) {
-
-                    var property = properties[i];
-                    var pair = property.split(':');
-                    var expression = "me.currentItem." + pair[0] + "='" + pair[1] + "';";
-                    eval(expression);
-                }
-            }
-
-
             me.viewModel.currentItem = me.currentItem;
             me.currentItem.entityState = EntityState.New;
             //公司名称
@@ -90,6 +62,15 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         entity.sginingUserId = entity.soOrder.ownerId == null ? 0 : entity.soOrder.ownerId;
         entity.customerId = entity.soOrder.customerId == null ? 0 : entity.soOrder.customerId;
     },
+    onSaved: function (jmessage) {
+        if (jmessage != null) {
+            IMessageBox.toast("保存成功！");
+            this.databind();
+            window.parent.layer.closeAll();
+        } else {
+            IMessageBox.error("保存失败！");
+        }
+    },
     contractTypeChange: function (el) {  //合同类型
         if ($(el).val() == 0) {
             $('#idNumber').textbox({value: ""});
@@ -100,10 +81,10 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
     },
     customerTypeChange: function (el) {  //客户类型
         if ($(el).val() == 1) {
-            $('#licenseNo').textbox({value: ""});
-            $('#licenseNo').textbox({disabled: true});
+            $('#businessLicenseNo').textbox({value: ""});
+            $('#businessLicenseNo').textbox({disabled: true});
         } else {
-            $('#licenseNo').textbox({disabled: false});
+            $('#businessLicenseNo').textbox({disabled: false});
         }
     },
     hasDataFeeChange: function (el) {  //有/无材料费
@@ -145,6 +126,63 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         return false;
     }
 
+});
+
+
+com.gongsibao.trade.web.OrderContractFileDetailPart = org.netsharp.panda.commerce.DetailPart.Extends({
+
+    ctor: function () {
+        this.base();
+    },
+	initUpload:function(){
+		
+		var upload = new org.netsharp.controls.ContractFileUpload();
+		upload.parent = this;
+		upload.init();
+	},
+	appendRow: function (path,file) {
+
+	    var row = new Object();
+	    row.name = file.name;
+	    row.url = path;
+	    row.tabName = 'so_contract';//要放到后台处理
+	    $('#' + this.context.id).datagrid('appendRow',row);
+    },
+    onload: function () {
+
+    	this.resize();
+    	this.initUpload();
+    },
+    urlFormatter:function(value,row,index){
+    	
+    	var str = '<a class="grid-btn" href="javascript:window.open(\''+row.url+'\');">查看</a> \
+		   <a class="grid-btn" href="javascript:controllerfiles.remove('+index+');">删除</a>';
+    	return str;
+    },
+    remove:function(index){
+    	
+    	$('#' + this.context.id).datagrid('deleteRow',index);
+    }
+});
+
+
+org.netsharp.controls.ContractFileUpload = org.netsharp.controls.OSSUpload.Extends({
+	ctor: function() {
+		this.base();
+		this.multi_selection = true;
+		this.parent = null;
+	},
+	getButtonId:function(){
+		
+		return "controllerfilesupload";
+	},
+	preview:function(path,file){
+		
+		if(System.isnull(path)){
+			return;
+		}
+		this.parent.appendRow(path,file);
+	}
 });
 
 

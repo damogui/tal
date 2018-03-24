@@ -10,8 +10,8 @@ public enum AuditLogStatusType implements IEnum  {
 	AUDITING(1052, "审核中"), 
 	AUDITREJECT(1053, "驳回审核"),
 	AUDITPASS(1054, "审核通过"),
-	Paidui(1055, "排队"),
-	Close(1056, "关闭");
+	Paidui(1055, "审核排队"),
+	Close(1056, "审核关闭");
 	
 	private int value;
 	private String text;

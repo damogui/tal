@@ -14,9 +14,12 @@
 				</fieldset>
 		        <fieldset style="margin-bottom:0px;">
 		        	<legend>退款信息</legend>
-					  <table cellpadding="3" cellspacing="0" class="form-panel">
+					  <table cellpadding="3" id = "refund_info_grid" cellspacing="0" class="form-panel">
 					      <tr>
-					          <td class="label_td"><label>退款账套：</label></td>
+					          <td class="label_td">
+					          	<input type="hidden" id="tempOrderId">
+					          	<label>退款账套：</label>
+					          </td>
 					          <td class="control_td" colspan="3"></td>
 					          <td class="label_td"><label>退款类别：</label></td>
 					          <td class="control_td"></td>
@@ -48,7 +51,7 @@
 			         <table id="audit_refund_grid"></table>
 			    </div>
 			    <div title="审批进度">   
-			         <table id="audit_progress_grid"></table>
+			         <table  id="audit_progress_grid"></table>
 			    </div>
 			</div>
 		</div>

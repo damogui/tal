@@ -1,4 +1,5 @@
 package com.gongsibao.panda.supplier.igirl;
+
 import com.gongsibao.entity.igirl.*;
 import com.gongsibao.entity.igirl.baseinfo.IGirlConfig;
 import com.gongsibao.entity.igirl.baseinfo.NCLOne;
@@ -7,8 +8,9 @@ import com.gongsibao.entity.igirl.baseinfo.NclBatch;
 import com.gongsibao.entity.igirl.baseinfo.NclMap;
 import com.gongsibao.entity.igirl.baseinfo.SupplierNewInfo;
 import com.gongsibao.entity.igirl.baseinfo.SupplierSiteInfo;
+import com.gongsibao.entity.product.Product;
 import com.gongsibao.igirl.base.*;
-import org.junit.Before;
+import com.gongsibao.product.base.IProductService;
 import org.junit.Test;
 import org.netsharp.meta.base.ResourceCreationBase;
 import org.netsharp.resourcenode.entity.ResourceNode;
@@ -55,6 +57,8 @@ public class ResourceTest extends ResourceCreationBase {
 
 			this.createResourceNodeVoucher(TradeMarkCase.class.getName(), "部门方案", "IGIRL_Dp_" + TradeMarkCase.class.getSimpleName(), ITradeMarkCaseService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(TradeMark.class.getName(), "部门跟进", "IGIRL_Dp_"+TradeMark.class.getSimpleName(), ITradeMarkService.class.getName(), node1.getId());
+
+			this.createResourceNodeVoucher(Product.class.getName(), "商标注册产品参照", "IGIRL_Product_" + TradeMarkCase.class.getSimpleName(), IProductService.class.getName(), node1.getId());
 		}
 
 		node1 = this.createResourceNodeCategory("商标变更", "GSB_IGIRL_CTM", node.getId());

@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface INCLTwoService extends IPersistableService<NCLTwo> {
     public List<NCLTwo> findSubsByNclOneId(int ncloneid);
-    public NCLTwo findNclTwoByThirdCode(String thirdCode,String name);
+    public NCLTwo findNclTwoByCode(String Code,String name);
 }

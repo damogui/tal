@@ -412,7 +412,6 @@ org.netsharp.controls.OSSUpload = org.netsharp.controls.QiNiuUpload.Extends({
 
 					FileUploaded: function(up, file, info) {
 
-						
 						IMessageBox.loading.hide();
 			            if (info.status == 200)
 			            {
@@ -465,13 +464,13 @@ org.netsharp.controls.OSSUpload = org.netsharp.controls.QiNiuUpload.Extends({
 		},null, false);
 	},
 	randomString:function (len) {
-	　　len = len || 32;
-	　　var chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';   
-	　　var maxPos = chars.length;
-	　　var pwd = '';
-	　　for (i = 0; i < len; i++) {
-	    　　pwd += chars.charAt(Math.floor(Math.random() * maxPos));
-	    }
+		len = len || 32;
+		var chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';   
+		var maxPos = chars.length;
+		var pwd = '';
+		for (i = 0; i < len; i++) {
+			pwd += chars.charAt(Math.floor(Math.random() * maxPos));
+		}
 	    return pwd;
 	},
 	getSuffix:function (filename) {

@@ -9,6 +9,7 @@ import org.netsharp.util.StringManager;
 /**
  * Created by zhangchao on 2018/3/14.
  */
+/*回款业绩*/
 public class SalesmanOrderReceivedListPart extends AdvancedListPart {
 
     @Override

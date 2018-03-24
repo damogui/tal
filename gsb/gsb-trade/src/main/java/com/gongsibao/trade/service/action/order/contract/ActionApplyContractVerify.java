@@ -43,7 +43,7 @@ public class ActionApplyContractVerify implements IAction {
             throw new BusinessException("公司名称不能为空！");
         }
         //营业执照号
-        if (StringManager.isNullOrEmpty(contract.getLicenseNo())) {
+        if (StringManager.isNullOrEmpty(contract.getBusinessLicenseNo())) {
             throw new BusinessException("营业执照号不能为空！");
         }
         //签约日期
