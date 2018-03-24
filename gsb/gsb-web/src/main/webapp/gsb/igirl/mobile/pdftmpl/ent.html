@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no">
-<title>知产宝</title>
+<title>商标办理</title>
 <style>
 body {
   padding:0px;
@@ -203,9 +203,12 @@ input{
 		var imgurl=getHashParameter("imgurl");
 		 siteCtl.invoke(ctlServiceStr2,"fetchUnconfirmedCaseInfoByCode",[casecode],function(d){
 			  var len= d.applier.length;
-			  $("#client").html(d.applier+repeat("&nbsp;",32-len));
-			  len= d.proxyCompanyName.length;
-				$("#delecomp").html(d.proxyCompanyName+repeat("&nbsp;",60-len));
+			  var lenhalf=Math.round((32-len)/2);
+			  $("#client").html(repeat("&nbsp;",lenhalf)+d.applier+repeat("&nbsp;",lenhalf));
+			  var tmpp="汉唐信通(北京)咨询股份有限公司" ;
+			  len= tmpp.length;
+			  lenhalf=Math.round((60-len)/2);
+				$("#delecomp").html(repeat("&nbsp;",lenhalf)+tmpp+repeat("&nbsp;",lenhalf));
 				$("#applieraddress").text(d.applierAddress);
 				$("#ywphone").text(d.ywPhone);
 				$("#proxycontactname").text(d.caseProxyContactPerson);
