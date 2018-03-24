@@ -63,11 +63,8 @@ public class ActionAuditContractVerify implements IAction {
 
 
         Map<String, Object> statusMap = new HashMap();
-
         statusMap.put("auditLog", auditLog);
         statusMap.put("contract", contract);
-
-
     }
 
 }
