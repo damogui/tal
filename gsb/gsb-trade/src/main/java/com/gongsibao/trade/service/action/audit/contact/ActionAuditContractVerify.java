@@ -58,10 +58,8 @@ public class ActionAuditContractVerify implements IAction {
         }
 
         if (!contract.getAuditStatusId().equals(AuditStatusType.Dsh)) {
-            throw new BusinessException("该合同类别不是【" + AuditStatusType.Dsh.getText() + "】,禁止审核");
+            throw new BusinessException("该合同不是【" + AuditStatusType.Dsh.getText() + "】,禁止审核");
         }
-
-
         Map<String, Object> statusMap = new HashMap();
         statusMap.put("auditLog", auditLog);
         statusMap.put("contract", contract);
