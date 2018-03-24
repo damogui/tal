@@ -70,10 +70,26 @@ public class AddsupplieaccountTest {
         AddSalesmanByDepartment (saveDeps);
 
     }
-/*添加对应的用户*/
+
+    /*添加对应的用户*/
     private void AddSalesmanByDepartment(List<SupplierDepartment> saveDeps) {
 
         ISalesmanService salesmanService = ServiceFactory.create (ISalesmanService.class);//添加用户
+
+        List<Salesman> listSalesman = new ArrayList<> ();
+        for (SupplierDepartment item : saveDeps
+                ) {
+            Salesman  salesman1=new Salesman ();
+            salesman1.setSupplierId (item.getSupplierId ());
+            salesman1.setDepartmentId (item.getId ());
+            salesman1.setEmployeeId (110);//对应登录表的id
+
+
+            listSalesman.add (salesman1);
+
+        }
+
+
     }
 
     /*添加供应商*/
