@@ -13,7 +13,7 @@ import java.util.List;
 
 public class AuditOrderController extends AuditBaseController{
 
-    // 合同审核
+    // 订单（改价）审核
     AbstractAuditLogService auditLogService = AuditFactory.getAudit(ChangeOrderPriceAudit.class);
 
 	/**

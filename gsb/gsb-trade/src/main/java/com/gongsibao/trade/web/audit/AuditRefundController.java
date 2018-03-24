@@ -19,7 +19,7 @@ import com.gongsibao.trade.base.IRefundService;
 
 public class AuditRefundController extends AuditBaseController{
 
-	// 合同审核
+	// 退款审核
 	AbstractAuditLogService auditLogService = AuditFactory.getAudit(RefundAudit.class);
 
 	/**
