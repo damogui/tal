@@ -119,6 +119,7 @@ public class AuditService extends PersistableService<AuditLog> implements IAudit
     public Boolean auditRejected(Integer auditId, String remark) {
 
         AuditLog auditLog = byId(auditId);
+        //将自己的状态改为【审核驳回】
         updateStatus(auditLog.getId(), AuditLogStatusType.AUDITREJECT, remark);
         //将大于自己同级别的审核记录修改成【关闭】,且不包括自己
         updateStatusToClose(auditLog, ">=");
