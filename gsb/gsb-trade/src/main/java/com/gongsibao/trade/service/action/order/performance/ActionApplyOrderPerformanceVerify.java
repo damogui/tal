@@ -43,7 +43,7 @@ public class ActionApplyOrderPerformanceVerify implements IAction {
 
         }
         if (entity.getDepReceivable ().size () == 0) {
-            throw new BusinessException ("订单业绩必须没分配！");
+            throw new BusinessException ("订单业绩必须分配才能保存！");
         }
 
 
