@@ -701,6 +701,10 @@ org.netsharp.panda.commerce.DetailPart = org.netsharp.panda.core.View.Extends({
 	 */	
     onload: function () {
     	
+    	this.resize();
+    },
+    resize:function(){
+    	
     	var subheight = $('#center').height();
     	if($('#center').find('.easyui-tabs').length >0){
     		
@@ -711,8 +715,6 @@ org.netsharp.panda.commerce.DetailPart = org.netsharp.panda.core.View.Extends({
     	}
     	this.getGrid().datagrid('resize',{ 'height': subheight });
     },
-
-	
 	addState : function() {
 		
 		if (this.disabled === true) {

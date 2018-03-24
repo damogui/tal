@@ -12,6 +12,7 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
@@ -86,8 +87,9 @@ public class Contract extends BaseEntity {
     @Column(name = "remark", header = "说明")
     private String remark;
 
+    //licenseNo 有BUG，好你是easyui的关键字 hw 2018-03-24
     @Column(name = "license_no", header = "营业执照号")
-    private String licenseNo;
+    private String  businessLicenseNo;
 
     @Column(name = "id_number", header = "身份证号")
     private String idNumber;
@@ -127,15 +129,18 @@ public class Contract extends BaseEntity {
     private Employee salesman;
     //======================================================非持久化字段======================================================//
 
-    @Exclusive
-    @Subs(subType = OrderProd.class, foreignKey = "orderId", header = "产品明细")
-    private List<OrderProd> products = new ArrayList<OrderProd>();
-
     @Column(name = "data_fee", header = "材料撰写费")
     private Integer dataFee = 0;
 
     @Column(name = "achievement_amount", header = "合同业绩额")
     private Integer achievementAmount = 0;
+    
+	@Subs(subType = File.class, foreignKey = "formId", header = "上传图片表（一个支付可以多个凭证）")
+	private List<File> files = new ArrayList<>();
+	
+    @Exclusive
+    @Subs(subType = OrderProd.class, foreignKey = "orderId", header = "产品明细")
+    private List<OrderProd> products = new ArrayList<OrderProd>();
 
     // 合同业绩总额（不生成数据库字段）
     @Exclusive
@@ -417,15 +422,15 @@ public class Contract extends BaseEntity {
         this.remark = remark;
     }
 
-    public String getLicenseNo() {
-        return licenseNo;
-    }
+    public String getBusinessLicenseNo() {
+		return businessLicenseNo;
+	}
 
-    public void setLicenseNo(String licenseNo) {
-        this.licenseNo = licenseNo;
-    }
+	public void setBusinessLicenseNo(String businessLicenseNo) {
+		this.businessLicenseNo = businessLicenseNo;
+	}
 
-    public String getContractTitle() {
+	public String getContractTitle() {
         return contractTitle;
     }
 
@@ -536,4 +541,12 @@ public class Contract extends BaseEntity {
     public void setSalesman(Employee salesman) {
         this.salesman = salesman;
     }
+
+	public List<File> getFiles() {
+		return files;
+	}
+
+	public void setFiles(List<File> files) {
+		this.files = files;
+	}
 }

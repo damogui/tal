@@ -384,6 +384,11 @@ div.h10{
 	padding:10px 0;
 }
 
+.form-panel{
+	
+	width:100%;
+}
+
 .form-panel td {
 
 	padding:3px;
@@ -465,6 +470,7 @@ div.h10{
     border-radius:  2px 2px 2px 2px;
   	box-sizing: border-box;
   	resize:vertical;
+  	margin-top:10px;
 }
 
 .form-panel .nsInput.validatebox-invalid {
