@@ -7,9 +7,9 @@ public enum AuditStatusType implements IEnum {
 
     wu(0, "无"),
     Dsh(1051, "待审核"),
-    Tkz(1052, "审核中"),
-    Tkwc(1053, "驳回审核"),
-    Bhtk(1054, "审核通过"),
+    Shz(1052, "审核中"),
+    Bhsh(1053, "驳回审核"),
+    Shtg(1054, "审核通过"),
     Shpd(1055, "审核排队"),
     Shgb(1056, "审核关闭");
     private int value;
