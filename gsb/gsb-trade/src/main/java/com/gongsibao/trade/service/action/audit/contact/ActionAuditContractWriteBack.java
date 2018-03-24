@@ -29,11 +29,13 @@ public class ActionAuditContractWriteBack implements IAction {
         Contract contract = (Contract) objectMap.get("contract");
         //当审核通过时
         if (state.equals(AuditState.PASS)) {
+            auditService.auditApproved(auditLog.getId());
+
 
         }
         //当审核驳回时
         if (state.equals(AuditState.NOTPASS)) {
-
+            auditService.auditRejected(auditLog.getId(), "");
         }
 
 

@@ -8,10 +8,12 @@ import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.trade.base.IContractService;
 import com.gongsibao.trade.service.action.audit.AuditContext;
+import com.gongsibao.trade.service.action.audit.AuditState;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
+import org.netsharp.util.StringManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,6 +40,10 @@ public class ActionAuditContractVerify implements IAction {
             throw new BusinessException("审核信息不能为空");
         }
 
+        if (auditContext.getState().equals(AuditState.NOTPASS) && StringManager.isNullOrEmpty(auditContext.getremark())) {
+            throw new BusinessException("当审核失败时，审批意见不能为空");
+        }
+
         if (!auditLog.getStatus().equals(AuditLogStatusType.TOAUDIT)) {
             throw new BusinessException("该审核状态不是【" + AuditLogStatusType.TOAUDIT.getText() + "】,禁止审核");
         }
@@ -54,6 +60,7 @@ public class ActionAuditContractVerify implements IAction {
         if (!contract.getAuditStatusId().equals(AuditStatusType.Dsh)) {
             throw new BusinessException("该合同类别不是【" + AuditStatusType.Dsh.getText() + "】,禁止审核");
         }
+
 
         Map<String, Object> statusMap = new HashMap();
 

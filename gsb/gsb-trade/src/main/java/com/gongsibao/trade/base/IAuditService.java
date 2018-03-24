@@ -85,7 +85,7 @@ public interface IAuditService extends IPersistableService<AuditLog> {
     @Transaction
     Boolean auditApproved(Integer auditId);
 
-    //审核通过
+    //审核驳回
     @Transaction
     Boolean auditRejected(Integer auditId, String remark);
 
