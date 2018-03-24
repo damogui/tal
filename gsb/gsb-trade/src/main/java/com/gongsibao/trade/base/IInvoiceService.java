@@ -2,19 +2,23 @@ package com.gongsibao.trade.base;
 
 import java.util.Map;
 
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 import org.netsharp.base.IPersistableService;
 
 import com.gongsibao.entity.trade.Invoice;
 
 public interface IInvoiceService extends IPersistableService<Invoice> {
-	
-	/**
-	 * ÉêÇë·¢Æ±
- 	 * @Title: applyInvoice  
-	 * @Description: TODO
-	 * @param @return    ²ÎÊý  
-	 * @return Boolean    ·µ»ØÀàÐÍ  
-	 * @throws
-	 */
-	public Boolean applyInvoice(Invoice invoice,Map<String,Object> paraMap);
+
+    /**
+     * ï¿½ï¿½ï¿½ë·¢Æ±
+     *
+     * @param @return ï¿½ï¿½ï¿½ï¿½
+     * @return Boolean    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * @throws
+     * @Title: applyInvoice
+     * @Description: TODO
+     */
+    public Boolean applyInvoice(Invoice invoice, Map<String, Object> paraMap);
+
+    void updateStatus(Integer id, AuditStatusType auditStatusType);
 }

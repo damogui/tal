@@ -18,4 +18,9 @@ public class PayPerformanceAudit extends AbstractAuditLogService {
 
 		return AuditLogType.Skyjsh;
 	}
+
+	@Override
+	protected String setActionPath() {
+		return "";
+	}
 }

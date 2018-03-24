@@ -25,6 +25,9 @@ public class ChangeOrderPriceAudit extends AbstractAuditLogService{
 		// TODO Auto-generated method stub
 		return AuditLogType.Ddgj;
 	}
-	
-	
+
+	@Override
+	protected String setActionPath() {
+		return "gsb/crm/audit/order";
+	}
 }

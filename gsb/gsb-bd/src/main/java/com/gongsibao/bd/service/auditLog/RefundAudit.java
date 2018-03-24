@@ -45,4 +45,8 @@ public class RefundAudit extends AbstractAuditLogService{
 		return AuditLogType.Tdsq;
 	}
 
+    @Override
+    protected String setActionPath() {
+        return "gsb/crm/audit/refund";
+    }
 }

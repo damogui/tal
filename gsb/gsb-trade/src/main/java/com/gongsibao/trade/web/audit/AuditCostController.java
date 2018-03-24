@@ -1,27 +1,32 @@
 package com.gongsibao.trade.web.audit;
 
-import com.gongsibao.trade.service.action.audit.AuditState;
+import com.gongsibao.bd.service.auditLog.AbstractAuditLogService;
+import com.gongsibao.bd.service.auditLog.AuditFactory;
+import com.gongsibao.bd.service.auditLog.AuditState;
 
-public class AuditCostController extends AuditBaseController{
+//TODO:成本审核还没有做
+/*public class AuditCostController extends AuditBaseController{
 
-	/**
-	 * 审核通过 注：参数未定
-	 * 
-	 * @return
-	 */
-	public Boolean approved(Integer auditLogId) {
+	// 合同审核
+	AbstractAuditLogService auditLogService = AuditFactory.getAudit(CostAudit.class);
 
-		return auditService.auditCost(AuditState.PASS, auditLogId, null);
+	*//**
+ * 审核通过 注：参数未定
+ *
+ * @return 驳回 注：参数未定
+ * @return
+ *//*
+    public Boolean approved(Integer auditLogId) {
+		return auditLogService.audit(AuditState.PASS, auditLogId, null);
 	}
 
-	/**
-	 * 驳回 注：参数未定
-	 * 
-	 * @return
-	 */
+	*//**
+ * 驳回 注：参数未定
+ *
+ * @return
+ *//*
 	public Boolean rejected(Integer auditLogId, String remark) {
-
-		return auditService.auditCost(AuditState.NOTPASS, auditLogId, remark);
+		return auditLogService.audit(AuditState.NOTPASS, auditLogId, remark);
 	}
 
-}
+}*/

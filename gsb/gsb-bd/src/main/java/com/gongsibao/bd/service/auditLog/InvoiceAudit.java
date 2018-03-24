@@ -49,4 +49,9 @@ public class InvoiceAudit extends AbstractAuditLogService {
         //发票申请不需要，服务商领导审核
         return new AuditLog();
     }
+
+    @Override
+    protected String setActionPath() {
+        return "gsb/crm/audit/invoice";
+    }
 }

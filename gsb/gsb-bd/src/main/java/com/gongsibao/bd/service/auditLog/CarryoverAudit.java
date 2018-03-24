@@ -46,4 +46,9 @@ public class CarryoverAudit extends AbstractAuditLogService{
 	protected AuditLogType setAuditLogType() {
 		return AuditLogType.Jzsh;
 	}
+
+	@Override
+	protected String setActionPath() {
+		return "gsb/crm/audit/carryover";
+	}
 }
