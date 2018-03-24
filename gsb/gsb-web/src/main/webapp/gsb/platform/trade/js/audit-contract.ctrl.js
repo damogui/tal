@@ -15,7 +15,7 @@ com.gongsibao.trade.web.AuditContractListPart = org.netsharp.panda.commerce.List
         });
     },
     initData: function () {
-        
+
     },
     addAudit: function (id) {//审核弹框
         var row = this.getSelectedItem();
@@ -27,8 +27,12 @@ com.gongsibao.trade.web.AuditContractListPart = org.netsharp.panda.commerce.List
         }
 
         if (me.auditLogStatusTypeEnum[1051] != row.status) {
-            IMessageBox.error("该审核记录的状态不是【" + me.auditLogStatusTypeEnum[1051] + "】，禁止审核");
+            IMessageBox.info("该审核记录的状态不是【" + me.auditLogStatusTypeEnum[1051] + "】，禁止审核");
             return;
         }
+
+        IMessageBox.info('可以审批');
+
+
     }
 });

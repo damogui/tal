@@ -18,6 +18,7 @@ public class ContractAudit extends AbstractAuditLogService {
 
     ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
 
+    //合同申请审批流：提交人（级别:0,状态:审核通过）-》分公司总经理（级别:1,状态:待审核）->事业部总经理(合同额大于5w时有或有违约责任事项时)(级别:2,状态:等待)->合同采购专员(级别:3,状态:等待)->法务专员(级别:4,状态:等待)
     @Override
     protected List<AuditLog> getExtenAuditLogList(Integer formId, Integer addUserId) {
         List<AuditLog> auditLogList = new ArrayList<AuditLog>();
@@ -25,9 +26,9 @@ public class ContractAudit extends AbstractAuditLogService {
         Integer level = getCurrentLevel();
         level++;
         //财务_收退款专员
-        List<Integer> stkzyIds = salesmanService.getEmployeeIdListByRoleCodes(Arrays.asList("Platform_Finance_STKZY"));
+        List<Integer> stkzyIds = salesmanService.getEmployeeIdListByRoleCodes(Arrays.asList("Platform_Finance_HTCGZY"));
         for (Integer stkzyId : stkzyIds) {
-            addAuditLog(formId, "收退款专员审核", stkzyId, level);
+            addAuditLog(formId, "合同采购专员审核", stkzyId, level);
         }
 
         //法务_法务专员
