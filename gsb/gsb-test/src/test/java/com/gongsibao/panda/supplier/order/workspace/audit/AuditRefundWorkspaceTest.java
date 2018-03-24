@@ -21,7 +21,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.bd.AuditLog;
-import com.gongsibao.trade.web.AuditRefundListPart;
+import com.gongsibao.trade.web.AuditRefundListPart; 
 
 /*退款审核*/
 public class AuditRefundWorkspaceTest extends WorkspaceCreationBase{
