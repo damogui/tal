@@ -1,12 +1,17 @@
 package com.gongsibao.trade.service;
 
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
+import org.netsharp.core.QueryParameters;
 import org.netsharp.service.PersistableService;
 
 import com.gongsibao.entity.trade.Contract;
 import com.gongsibao.trade.base.IContractService;
+import org.netsharp.util.sqlbuilder.UpdateBuilder;
+
+import java.sql.Types;
 
 @Service
 public class ContractService extends PersistableService<Contract> implements IContractService {
@@ -31,4 +36,18 @@ public class ContractService extends PersistableService<Contract> implements ICo
         return contract;
     }
 
+    @Override
+    public void updateStatus(Integer id, AuditStatusType auditStatusType) {
+
+        UpdateBuilder updateBuilder = new UpdateBuilder();
+        {
+            updateBuilder.update("so_contract");
+            updateBuilder.set("audit_status_id", auditStatusType.getValue());
+            updateBuilder.where("pkid=?");
+        }
+        String sql = updateBuilder.toSQL();
+        QueryParameters qps = new QueryParameters();
+        qps.add("id", id, Types.INTEGER);
+        this.pm.executeNonQuery(sql, qps);
+    }
 }
