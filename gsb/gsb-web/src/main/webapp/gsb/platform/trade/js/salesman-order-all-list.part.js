@@ -8,7 +8,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         //this.addReceivedUrl = "/panda/crm/order/salesman/creceivedperformance";//回款业绩
 
         this.addReceivedUrl = "/nav/gsb/platform/trade/orderPay";//回款
-        
+
         this.addPayPerformanceUrl = "/nav/gsb/platform/trade/payPerformance";//回款业绩
 
         this.originType = null;//来源类型（0或null：业务员跳转过来的；1：平台跳转过来的）
@@ -18,8 +18,8 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         this.addContractUrl = '/panda/trade/order/contract/form';//创建合同
         this.addInvoiceUrl = '/panda/trade/order/invoice/form';//创建发票
     },
-    addPayPerformance:function(){
-    	
+    addPayPerformance: function () {
+
         var me = this;
         var row = this.getSelectedItem();
         var rows = this.getSelections();
@@ -42,14 +42,14 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             btn: ['保存', '取消'],
             yes: function (index, layero) {
 
-            	var payPerformanceCtrl = document.getElementById('addReceivedIframe').firstElementChild.contentWindow.payPerformanceCtrl;
+                var payPerformanceCtrl = document.getElementById('addReceivedIframe').firstElementChild.contentWindow.payPerformanceCtrl;
                 var isSave = payPerformanceCtrl.save();
                 if (isSave === true) {
 
-                	layer.msg('保存成功！',function(){
+                    layer.msg('保存成功！', function () {
 
-                    	layer.closeAll();
-                	});
+                        layer.closeAll();
+                    });
                 }
             }
         });
@@ -62,12 +62,12 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             IMessageBox.info('请先选择订单数据');
             return false;
         }
-
+        if (row.paidPrice <= 0) {
+            IMessageBox.toast('必须有付款才能创建订单业绩',2);
+            return false;
+        }
 
         var urlEnd = this.addOrderReceivedUrl + "?id=" + row.id;
-
-        // var  iframeStr='<iframe scrolling="auto" allowtransparency="true" id="addOrderReceivedIframe"   frameborder="0"  src='+urlEnd+' style="height: 462px;"></iframe>';
-
 
         layer.open({
             type: 2,//1是字符串 2是内容
@@ -81,7 +81,6 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             content: urlEnd,
             btn: ['保存', '取消'],// 可以无限个按钮
             success: function (layero, index) {
-
 
             },
             yes: function (index, layero) {
@@ -120,14 +119,14 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             btn: ['保存', '取消'],
             yes: function (index, layero) {
 
-            	var payCtrl = document.getElementById('addReceivedIframe').firstElementChild.contentWindow.payCtrl;
+                var payCtrl = document.getElementById('addReceivedIframe').firstElementChild.contentWindow.payCtrl;
                 var isSave = payCtrl.save();
                 if (isSave === true) {
 
-                	layer.msg('保存成功！',function(){
+                    layer.msg('保存成功！', function () {
 
-                    	layer.closeAll();
-                	});
+                        layer.closeAll();
+                    });
                 }
             }
         });
