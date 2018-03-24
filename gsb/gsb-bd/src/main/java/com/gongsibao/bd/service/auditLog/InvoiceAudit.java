@@ -40,11 +40,13 @@ public class InvoiceAudit extends AbstractAuditLogService {
 
     @Override
     protected AuditLog getDirectLeaderAudit(Integer formId, Integer addUserId) {
+        //发票申请不需要，部门领导审核
         return new AuditLog();
     }
 
     @Override
     protected AuditLog getSuperiorLeaderAudit(Integer formId, Integer addUserId) {
+        //发票申请不需要，服务商领导审核
         return new AuditLog();
     }
 }
