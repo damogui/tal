@@ -13,7 +13,11 @@ import com.gongsibao.supplier.base.ISupplierService;
 import org.junit.Test;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
+import org.netsharp.core.Oql;
+import org.netsharp.organization.base.IRoleService;
+import org.netsharp.organization.entity.Role;
 
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +29,7 @@ import java.util.List;
 3.每个帐号需对应上角色。
 4.完成后给出一个简单文档(excel)：主要是帐号信息。*/
 public class AddSupplieAccountsTest {
-
+    IRoleService roleService = ServiceFactory.create (IRoleService.class);//根据橘色
     @Test
     public void run() {
 
@@ -84,12 +88,29 @@ public class AddSupplieAccountsTest {
             salesman1.setDepartmentId (item.getId ());
             salesman1.setEmployeeId (110);//对应登录表的id
 
+//            roleService.by
+
 
             listSalesman.add (salesman1);
 
         }
 
 
+    }
+
+    /*根据code获取角色*/
+    private Role byCode(String code) {
+
+        Oql oql = new Oql ();
+        {
+            oql.setType (Role.class);
+            oql.setSelects ("*");
+            oql.setFilter ("code=?");
+            oql.getParameters ().add ("@code", code, Types.VARCHAR);
+        }
+
+        Role group = roleService.queryFirst (oql);
+        return group;
     }
 
     /*添加供应商*/
