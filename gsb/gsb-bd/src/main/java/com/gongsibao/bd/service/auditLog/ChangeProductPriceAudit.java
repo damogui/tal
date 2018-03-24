@@ -25,4 +25,8 @@ public class ChangeProductPriceAudit extends AbstractAuditLogService{
 		return AuditLogType.Cpdj;
 	}
 
+	@Override
+	protected String setActionPath() {
+		return "";
+	}
 }

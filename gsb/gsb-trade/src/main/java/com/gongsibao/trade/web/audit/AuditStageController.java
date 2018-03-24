@@ -2,14 +2,18 @@ package com.gongsibao.trade.web.audit;
 
 import java.sql.Types;
 
+import com.gongsibao.bd.service.auditLog.AbstractAuditLogService;
+import com.gongsibao.bd.service.auditLog.AuditFactory;
+import com.gongsibao.bd.service.auditLog.AuditState;
+import com.gongsibao.bd.service.auditLog.StageAudit;
 import org.netsharp.core.Oql;
 
 import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.trade.service.action.audit.AuditState;
 
 public class AuditStageController extends AuditBaseController{
 
-	
+	// 分期审核
+	AbstractAuditLogService auditLogService = AuditFactory.getAudit(StageAudit.class);
 	/**
 	 * @Title: getSoOrder
 	 * @Description: TODO(这里用一句话描述这个方法的作用)
@@ -36,8 +40,7 @@ public class AuditStageController extends AuditBaseController{
 	 * @return
 	 */
 	public Boolean approved(Integer auditLogId) {
-
-		return auditService.auditStage(AuditState.PASS, auditLogId, null);
+		return auditLogService.audit(AuditState.PASS, auditLogId, null);
 	}
 
 	/**
@@ -46,7 +49,6 @@ public class AuditStageController extends AuditBaseController{
 	 * @return
 	 */
 	public Boolean rejected(Integer auditLogId, String remark) {
-
-		return auditService.auditStage(AuditState.NOTPASS, auditLogId, remark);
+		return auditLogService.audit(AuditState.NOTPASS, auditLogId, remark);
 	}
 }

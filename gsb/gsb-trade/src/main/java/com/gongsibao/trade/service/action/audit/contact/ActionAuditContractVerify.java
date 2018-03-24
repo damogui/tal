@@ -1,5 +1,7 @@
 package com.gongsibao.trade.service.action.audit.contact;
 
+import com.gongsibao.bd.service.auditLog.AuditContext;
+import com.gongsibao.bd.service.auditLog.AuditState;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.dic.AuditLogStatusType;
 import com.gongsibao.entity.bd.dic.AuditLogType;
@@ -7,8 +9,6 @@ import com.gongsibao.entity.trade.Contract;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.trade.base.IContractService;
-import com.gongsibao.trade.service.action.audit.AuditContext;
-import com.gongsibao.trade.service.action.audit.AuditState;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;

@@ -25,4 +25,8 @@ public class CollecteAudit extends AbstractAuditLogService{
 		return AuditLogType.Sksq;
 	}
 
+	@Override
+	protected String setActionPath() {
+		return "gsb/crm/audit/pay";
+	}
 }

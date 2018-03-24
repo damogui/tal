@@ -19,4 +19,9 @@ public class OrderPerformanceAudit  extends AbstractAuditLogService{
     protected AuditLogType setAuditLogType() {
         return AuditLogType.DdYjSq;
     }
+
+    @Override
+    protected String setActionPath() {
+        return "gsb/crm/audit/performance";
+    }
 }

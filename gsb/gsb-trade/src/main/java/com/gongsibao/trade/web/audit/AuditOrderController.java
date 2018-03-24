@@ -1,8 +1,11 @@
 package com.gongsibao.trade.web.audit;
 
+import com.gongsibao.bd.service.auditLog.AbstractAuditLogService;
+import com.gongsibao.bd.service.auditLog.AuditFactory;
+import com.gongsibao.bd.service.auditLog.AuditState;
+import com.gongsibao.bd.service.auditLog.ChangeOrderPriceAudit;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.dic.AuditLogType;
-import com.gongsibao.trade.service.action.audit.AuditState;
 import com.gongsibao.trade.web.dto.AuditLogDTO;
 
 import java.util.ArrayList;
@@ -10,14 +13,16 @@ import java.util.List;
 
 public class AuditOrderController extends AuditBaseController{
 
+    // 合同审核
+    AbstractAuditLogService auditLogService = AuditFactory.getAudit(ChangeOrderPriceAudit.class);
+
 	/**
 	 * 审核通过 注：参数未定
 	 * 
 	 * @return
 	 */
 	public Boolean approved(Integer auditLogId) {
-
-		return auditService.auditOrder(AuditState.PASS, auditLogId, null);
+        return auditLogService.audit(AuditState.PASS, auditLogId, null);
 	}
 
 	/**
@@ -26,8 +31,7 @@ public class AuditOrderController extends AuditBaseController{
 	 * @return
 	 */
 	public Boolean rejected(Integer auditLogId, String remark) {
-
-		return auditService.auditOrder(AuditState.NOTPASS, auditLogId, remark);
+        return auditLogService.audit(AuditState.NOTPASS, auditLogId, remark);
 	}
 
     /*订单业绩审核流程*/

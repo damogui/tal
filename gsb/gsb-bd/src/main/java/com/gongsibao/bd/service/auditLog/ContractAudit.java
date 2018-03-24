@@ -47,5 +47,8 @@ public class ContractAudit extends AbstractAuditLogService {
         return AuditLogType.Htsq;
     }
 
-
+    @Override
+    protected String setActionPath() {
+        return "gsb/crm/audit/contract";
+    }
 }
