@@ -87,6 +87,13 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
         }
         PDatagridColumn column = null;
         addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+        column = addColumn(datagrid, "formId", "来源Id", ControlTypes.NUMBER_BOX, 100, true);{
+        	column.setVisible(false);
+        }
+        column = addColumn(datagrid, "soOrder.id", "订单Id", ControlTypes.NUMBER_BOX, 100, true);{
+        	column.setSystem(true);
+        	column.setVisible(false);
+        }
         addColumn (datagrid, "soOrder.no", "订单编号", ControlTypes.TEXT_BOX, 80);
         addColumn (datagrid, "soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "soOrder.payStatus", "付款状态", ControlTypes.ENUM_BOX, 100);
@@ -102,7 +109,7 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
         column = addColumn (datagrid, "soOrder.stages", "==分期申请时间==", ControlTypes.DATE_BOX, 350);
         {     
         	column.setAlign(DatagridAlign.CENTER);
-        	column.setFormatter("return controllersoOrderList.serviceNameFormatter(value,row,index);");
+        	column.setFormatter("return controllerauditLogList.serviceNameFormatter(value,row,index);");
         }
         addColumn (datagrid, "soOrder.createTime", "订单创建时间", ControlTypes.DATE_BOX, 350);
         addColumn (datagrid, "soOrder.creator", "分期申请人", ControlTypes.TEXT_BOX, 100);

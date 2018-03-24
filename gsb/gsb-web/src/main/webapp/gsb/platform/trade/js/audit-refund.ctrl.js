@@ -11,9 +11,12 @@ com.gongsibao.trade.web.AuditRefundCtrl = com.gongsibao.trade.web.AuditBaseCtrl.
     },
     initData:function(){
     	var me = this;
-    	var refundId = this.queryString('id');
+    	var refundId = this.queryString('fefundId');
+    	var orderId = this.queryString('id');
+    	//临时存储OrderId,为了获取审核进度
+		$("#tempOrderId").val(orderId);
+		
     	me.refundInfor(refundId);
-    	
     	//加载Tab项
     	$('#detail_tabs').tabs({ 
     		tabHeight:30,
@@ -26,7 +29,7 @@ com.gongsibao.trade.web.AuditRefundCtrl = com.gongsibao.trade.web.AuditBaseCtrl.
 		    	if(title=='退款业绩分配'){
 		    		me.resultsfundInfor(refundId);
 		    	}else if(title=='审批进度'){
-		    		me.auditLogInfor();
+		    		me.auditLogInfor(refundId);
 		    	}
 		    }
     	});
@@ -35,8 +38,6 @@ com.gongsibao.trade.web.AuditRefundCtrl = com.gongsibao.trade.web.AuditBaseCtrl.
     	//退款信息
     	var me = this;
     	this.invokeService("getRefundById", [id], function(data){
-    		//临时存储OrderId,为了获取审核进度
-    		$("#tempOrderId").val(data.orderId);
     		$("#refund_info_grid tr").eq(0).find("td").eq(1).html(data.setOfBooks.name);
     		$("#refund_info_grid tr").eq(0).find("td").eq(3).html(data.refundType);
     		
@@ -47,7 +48,7 @@ com.gongsibao.trade.web.AuditRefundCtrl = com.gongsibao.trade.web.AuditBaseCtrl.
     		$("#refund_info_grid tr").eq(2).find("td").eq(1).html(data.remark);
     		
     		//加载默认第一项‘退款产品’
-    		me.initializeDetailList.add('退款产品',me.refundProductInfor(data.orderId));
+    		me.initializeDetailList.add('退款产品',me.refundProductInfor($("#tempOrderId").val()));
     	});
     },
     refundProductInfor: function(id){
@@ -126,11 +127,10 @@ com.gongsibao.trade.web.AuditRefundCtrl = com.gongsibao.trade.web.AuditBaseCtrl.
     		});
     	});
     },
-    auditLogInfor: function(){
+    auditLogInfor: function(formId){
     	//tab-审批进度
-    	var orderId = $("#tempOrderId").val();
     	var me = this;
-    	this.invokeService("getAuditLogList", [orderId,1046], function(data){    		
+    	this.invokeService("getAuditLogList", [formId,1046], function(data){    		
     		$('#audit_progress_grid').datagrid({
     			idField:'id',
     			emptyMsg:'暂无记录',

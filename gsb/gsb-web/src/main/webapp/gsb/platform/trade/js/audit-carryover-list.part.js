@@ -6,14 +6,18 @@ com.gongsibao.trade.web.AuditCarryoverListPart = org.netsharp.panda.commerce.Lis
         this.addCarryOverUrl = '/nav/gsb/platform/trade/auditCarryover';//结转审核jsp
     },
     auditCarryOver : function (id){
-    	var contentUrl = this.addCarryOverUrl + "?id=" + id;
+    	var row = this.getSelectedItem();
+    	var carryoverId = row.formId; 
+    	var orderId = row.carryover_formOrderId;
+    	var contentUrl = this.addCarryOverUrl + "?carryoverId=" + carryoverId + "&id=" + orderId;
+    	alert(contentUrl);
         layer.open({
             type: 2,//1是字符串 2是内容
             title: '查看结转',
             fixed: false,
             maxmin: true,
             shadeClose: false,
-            area: ['70%', '70%'],
+            area: ['50%', '70%'],
             zIndex: 100000,
             id: "carryOverIframe",
             content: contentUrl,
@@ -27,7 +31,10 @@ com.gongsibao.trade.web.AuditCarryoverListPart = org.netsharp.panda.commerce.Lis
         });
     },
     detail : function(id){
-         var contentUrl = this.addCarryOverUrl + "?id=" + id;
+    	var row = this.getSelectedItem();
+    	var carryoverId = row.formId; 
+    	var orderId = row.carryover_formOrderId;
+    	var contentUrl = this.addCarryOverUrl + "?carryoverId=" + carryoverId + "&id=" + orderId;
          layer.open({
              type: 2,//1是字符串 2是内容
              title: '查看结转',

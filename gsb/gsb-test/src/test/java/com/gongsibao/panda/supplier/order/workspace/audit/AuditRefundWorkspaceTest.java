@@ -86,6 +86,12 @@ public class AuditRefundWorkspaceTest extends WorkspaceCreationBase{
         }
         PDatagridColumn column = null;
         addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+        column = addColumn(datagrid, "formId", "来源Id", ControlTypes.NUMBER_BOX, 100, true);{
+        	column.setVisible(false);
+        }
+        column = addColumn(datagrid, "fefund.orderId", "订单Id", ControlTypes.NUMBER_BOX, 100, true);{
+        	column.setVisible(false);
+        }
         addColumn(datagrid, "fefund.soOrder.no", "订单编号", ControlTypes.TEXT_BOX, 80);
         addColumn(datagrid, "fefund.soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "fefund.soOrder.payStatus", "付款状态", ControlTypes.ENUM_BOX, 100);

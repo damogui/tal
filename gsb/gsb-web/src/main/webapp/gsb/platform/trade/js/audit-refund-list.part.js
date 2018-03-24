@@ -5,8 +5,12 @@ com.gongsibao.trade.web.AuditRefundListPart = org.netsharp.panda.commerce.ListPa
         this.base();
         this.addRefundUrl = '/nav/gsb/platform/trade/auditRefund';//创建退款jsp
     },
-    auditRefund: function (id) {//订单审核-退款审核 
-        var contentUrl = this.addRefundUrl + "?id=" + id;
+    auditRefund: function (id) {//订单审核-退款审核
+    	var row = this.getSelectedItem();
+    	var fefundId = row.formId; 
+    	var orderId = row.fefund_orderId;
+    	
+        var contentUrl = this.addRefundUrl + "?fefundId=" + fefundId + "&id=" + orderId;
         layer.open({
             type: 2,//1是字符串 2是内容
             title: '退款审核',
@@ -28,7 +32,11 @@ com.gongsibao.trade.web.AuditRefundListPart = org.netsharp.panda.commerce.ListPa
 
     },
     detail : function(id){
-         var contentUrl = this.addRefundUrl + "?id=" + id;
+    	var row = this.getSelectedItem();
+    	var fefundId = row.formId; 
+    	var orderId = row.fefund_orderId;
+    	
+        var contentUrl = this.addRefundUrl + "?fefundId=" + fefundId + "&id=" + orderId;
          layer.open({
              type: 2,//1是字符串 2是内容
              title: '查看退款',

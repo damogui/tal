@@ -6,7 +6,10 @@ com.gongsibao.trade.web.AuditStagingListPart = org.netsharp.panda.commerce.ListP
         this.auditStageUrl = '/nav/gsb/platform/trade/auditStage';//分期审核jsp
     },
     auditStage: function (id) {//订单审核-分期审核
-        var contentUrl = this.auditStageUrl + "?id=" + id;
+    	var row = this.getSelectedItem();
+    	var stageId = row.formId; 
+    	var orderId = row.soOrder_id;
+        var contentUrl = this.auditStageUrl + "?stageId=" + stageId + "&id=" + orderId;
         layer.open({
             type: 2,//1是字符串 2是内容
             title: '分期审核',
@@ -28,7 +31,10 @@ com.gongsibao.trade.web.AuditStagingListPart = org.netsharp.panda.commerce.ListP
 
     },
     detail : function(id){
-    	var contentUrl = this.auditStageUrl + "?id=" + id;
+    	var row = this.getSelectedItem();
+    	var stageId = row.formId; 
+    	var orderId = row.soOrder_id;
+        var contentUrl = this.auditStageUrl + "?stageId=" + stageId + "&id=" + orderId;
     	  layer.open({
               type: 2,//1是字符串 2是内容
               title: '查看',
