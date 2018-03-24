@@ -3,6 +3,7 @@ package com.gongsibao.panda.platform.operation.workspace.supplier.data.setaccoun
 import com.gongsibao.crm.base.INCustomerTaskQualityService;
 import com.gongsibao.entity.crm.dic.TaskCustomerType;
 import com.gongsibao.entity.supplier.Salesman;
+import com.gongsibao.entity.supplier.SalesmanRole;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.supplier.dict.SupplierStatus;
@@ -30,15 +31,16 @@ import java.util.List;
 4.完成后给出一个简单文档(excel)：主要是帐号信息。*/
 public class AddSupplieAccountsTest {
     IRoleService roleService = ServiceFactory.create (IRoleService.class);//根据橘色
+
     @Test
     public void run() {
 
         List<Supplier> suppliers = addSuppliers ();//添加供应商
-        int num = 0;
+        int num = 1;
         for (Supplier item : suppliers
                 ) {
 
-            addDepartmentforSupplier (item);
+            addDepartmentforSupplier (item, num);
 
             num += 1;
 
@@ -51,7 +53,7 @@ public class AddSupplieAccountsTest {
     }
 
     /*添加部门为供应商*/
-    private void addDepartmentforSupplier(Supplier item) {
+    private void addDepartmentforSupplier(Supplier item, Integer num) {
         ISupplierDepartmentService departmnet = ServiceFactory.create (ISupplierDepartmentService.class);//供应商部门
         List<SupplierDepartment> listDep = new ArrayList<> ();
         SupplierDepartment dep1 = new SupplierDepartment ();
@@ -71,30 +73,66 @@ public class AddSupplieAccountsTest {
         listDep.add (dep1);
         listDep.add (dep2);
         List<SupplierDepartment> saveDeps = departmnet.saves (listDep);
-        AddSalesmanByDepartment (saveDeps);
+        if (saveDeps != null && saveDeps.size () > 0) {
+
+            AddSalesmanByDepartment (saveDeps.get (saveDeps.size () - 1), num);
+        }
+
 
     }
 
     /*添加对应的用户*/
-    private void AddSalesmanByDepartment(List<SupplierDepartment> saveDeps) {
+    private void AddSalesmanByDepartment(SupplierDepartment supplierDepartment, Integer num) {
 
         ISalesmanService salesmanService = ServiceFactory.create (ISalesmanService.class);//添加用户
 
         List<Salesman> listSalesman = new ArrayList<> ();
-        for (SupplierDepartment item : saveDeps
-                ) {
-            Salesman salesman1 = new Salesman ();
-            salesman1.setSupplierId (item.getSupplierId ());
-            salesman1.setDepartmentId (item.getId ());
-            salesman1.setEmployeeId (110);//对应登录表的id
 
-//            roleService.by
+        //salesman1.setEmployeeId (110);//对应登录表的id
+//          业务员 Supplier_Order_Salesman
+// 法务专员帐号 Platform_Law_FWZY、
+// 财务帐号（收退款专员 Platform_Finance_STKZY、发票专员 Platform_Finance_FPZY）
+
+        String tel = "";
+        if (num == 1) {
+
+            tel = "1651158529";
 
 
-            listSalesman.add (salesman1);
+        } else {
+            tel = "1751158529";
 
         }
 
+        Salesman salesman1 = getSalesman (supplierDepartment, "Supplier_Order_Salesman", tel + "1");
+        Salesman salesman2 = getSalesman (supplierDepartment, "Platform_Law_FWZY", tel + "2");
+        Salesman salesman3 = getSalesman (supplierDepartment, "Platform_Finance_STKZY", tel + "3");
+        Salesman salesman4 = getSalesman (supplierDepartment, "Platform_Finance_FPZY", tel + "4");
+
+        listSalesman.add (salesman1);
+        listSalesman.add (salesman2);
+        listSalesman.add (salesman3);
+        listSalesman.add (salesman4);
+        salesmanService.saves (listSalesman);
+
+    }
+
+    /*构造用户*/
+    private Salesman getSalesman(SupplierDepartment item, String roleCode, String loginName) {
+
+        Salesman salesman = new Salesman ();
+        salesman.setSupplierId (item.getSupplierId ());
+        salesman.setDepartmentId (item.getId ());
+        Role role1 = byCode (roleCode);
+        salesman.setLoginName (loginName);
+        SalesmanRole salesmanRole = new SalesmanRole ();
+        salesmanRole.setRoleId (role1.getId ());
+        salesmanRole.setSalesmanId (salesman.getId ());
+        List<SalesmanRole> listSalesmanRole = new ArrayList<> ();
+        listSalesmanRole.add (salesmanRole);
+        salesman.setRoles (listSalesmanRole);
+        salesman.toNew ();
+        return salesman;
 
     }
 
