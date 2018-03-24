@@ -14,7 +14,7 @@ com.gongsibao.trade.web.AuditStagingListPart = org.netsharp.panda.commerce.ListP
     		layer.msg('该审核记录的状态不是【待审核】，禁止审核！');
     		return;
     	}
-        var contentUrl = this.auditStageUrl + "?stageId=" + stageId + "&id=" + orderId;
+        var contentUrl = this.auditStageUrl + "?stageId=" + stageId + "&id=" + orderId + "&auditId=" + id;
         layer.open({
             type: 2,//1是字符串 2是内容
             title: '分期审核',
