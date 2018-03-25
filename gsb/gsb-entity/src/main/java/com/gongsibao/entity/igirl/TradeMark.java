@@ -71,7 +71,7 @@ public class TradeMark extends Entity {
 	@Column(name = "whether_person_photo", header = "是否以肖像作为商标申请注册")
 	private Boolean whetherPersonPhoto = false;
 
-	@Column(name = "momo", header = "商标说明")
+	@Column(name = "momo",size = 1024, header = "商标说明")
 	private String memo;
 
 	@Column(name = "mark_state", header = "商标状态")
