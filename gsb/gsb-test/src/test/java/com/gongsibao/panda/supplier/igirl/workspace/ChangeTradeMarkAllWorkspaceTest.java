@@ -229,13 +229,14 @@ public class ChangeTradeMarkAllWorkspaceTest extends WorkspaceCreationBase {
 
 		groupName = "业务信息";
 
-		addFormField(form, "changeType", "变更类型", groupName, ControlTypes.ENUM_BOX, true, false);
+		formField = addFormField(form, "changeType", "变更类型", groupName, ControlTypes.ENUM_BOX, true, false);
+		{
+			formField.setTroikaTrigger("controllerchangeTradeMark.changeType(newValue, oldValue);");
+		}
 
 		formField = addFormField(form, "txt_bgqmyzw", "变更前名称(中文)", groupName, ControlTypes.TEXT_BOX, true, false);
 		{
-			{
-				formField.setTroikaTrigger("controllerchangeTradeMark.nameChange(this);");
-			}
+			formField.setTroikaTrigger("controllerchangeTradeMark.nameChange(this);");
 		}
 
 		addFormField(form, "txt_bgqmyyw", "变更前名称(英文)", groupName, ControlTypes.TEXT_BOX, false, false);

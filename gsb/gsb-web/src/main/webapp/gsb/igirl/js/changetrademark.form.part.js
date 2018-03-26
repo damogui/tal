@@ -58,6 +58,24 @@ com.gongsibao.igirl.web.ChangeTradeMarkPart = org.netsharp.panda.commerce.FormPa
             $("#appCertFileENPath").attr("data-options","width:0,required:true");
         }
     },
+    changeType:function (newValue,oldValue) {
+        if(newValue==0){
+            $("#txt_bgqmyzw").validatebox("enableValidation");
+            $("#txt_bgqdzzw").validatebox("disableValidation");
+            $("#txt_bgqmyzw").parent().parent().find("label").first().show();
+            $("#txt_bgqdzzw").parent().parent().find("label").first().hide();
+        }else if(newValue ==1){
+            $("#txt_bgqmyzw").validatebox("disableValidation");
+            $("#txt_bgqdzzw").validatebox("enableValidation");
+            $("#txt_bgqmyzw").parent().parent().find("label").first().hide();
+            $("#txt_bgqdzzw").parent().parent().find("label").first().show();
+        }else{
+            $("#txt_bgqmyzw").validatebox("enableValidation");
+            $("#txt_bgqdzzw").validatebox("enableValidation");
+            $("#txt_bgqmyzw").parent().parent().find("label").first().show();
+            $("#txt_bgqdzzw").parent().parent().find("label").first().show();
+        }
+    },
     proveLanguageTypeChange:function (newValue,oldValue) {
         if (newValue==1){
             $("#bgzmFileENPath").parent().parent().show();
