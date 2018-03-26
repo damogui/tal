@@ -36,9 +36,9 @@ com.gongsibao.trade.web.AuditPayPerformanceListPart = org.netsharp.panda.commerc
                 IMessageBox.toast("审核成功");
                 layer.close(index);
             },
-            btn2: function (){
+            btn2: function (index, layero){
                 document.getElementById('auditPayPerIframe').firstElementChild.contentWindow.auditPayPerformanceCtrl.rejected();
-                layer.close(index);
+               return false;
             }
         });
 
