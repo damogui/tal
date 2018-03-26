@@ -3,6 +3,8 @@ package com.gongsibao.trade.web;
 import java.sql.Types;
 import java.util.List;
 
+import com.gongsibao.bd.base.IFileService;
+import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.trade.dic.OrderType;
 import com.gongsibao.utils.NumberUtils;
 import org.netsharp.communication.ServiceFactory;
@@ -29,6 +31,8 @@ public class ContractFormPart extends FormPart {
 
     IPersister<SoOrder> orderPm = PersisterFactory.create();
 
+    IFileService fileService = ServiceFactory.create(IFileService.class);
+
     public IPersistable newInstance(Object par) {
 
         this.getService();
@@ -44,6 +48,31 @@ public class ContractFormPart extends FormPart {
         }
 
         return contract;
+    }
+
+    @Override
+    public FormNavigation byId(Object id) {
+
+        FormNavigation navigation = this.createFormNavigation(id);
+        Oql oql = new Oql();
+        {
+            oql.setType(Contract.class);
+            oql.setSelects("contract.*,soOrder.*,soOrder.products.*,soOrder.products.items.*");
+            oql.setFilter("id=?");
+            oql.getParameters().add("id", NumberUtils.toInt(id), Types.INTEGER);
+        }
+        Contract contract = contractService.queryFirst(oql);
+        if (contract == null) {
+            navigation.Entity = this.newInstance(null);
+        } else {
+            if (contract.getSoOrder() != null) {
+                contract.setProducts(contract.getSoOrder().getProducts());
+            }
+            List<File> filelist = fileService.getByTabNameFormId("so_contract", contract.getId());
+            contract.setFiles(filelist);
+            navigation.Entity = contract;
+        }
+        return navigation;
     }
 
     private SoOrder getSoOrder(Object id) {
