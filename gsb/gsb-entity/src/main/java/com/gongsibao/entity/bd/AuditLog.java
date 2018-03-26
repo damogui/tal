@@ -56,7 +56,7 @@ public class AuditLog extends BaseEntity {
 	private Contract contract;
 
 	// 发票
-	@Reference(foreignKey = "formId")
+	@Reference(foreignKey = "formId",primaryKey = "pkid")
 	private Invoice invoice;
 
 

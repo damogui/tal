@@ -1,5 +1,6 @@
 package com.gongsibao.trade.web;
 
+import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.u8.base.ISoOrderService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.panda.commerce.AdvancedListPart;
@@ -27,9 +28,8 @@ public class AuditContractListPart extends AdvancedListPart {
             filters.add("account_mobile = '" + keyword + "'");
             filters.add("account_name = '" + keyword + "'");
             filters.add("company_id in( select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' )  )");
-            return "order_id in ( select pkid from so_order where " + StringManager.join(" or ", filters) + ")";
+            return " type_id = "+ AuditLogType.Htsq.getValue()+" and form_id in (select pkid from so_contract where order_id in ( select pkid from so_order where " + StringManager.join(" or ", filters) + "))";
         }
-
         return parameter.getFilter();
     }
 
