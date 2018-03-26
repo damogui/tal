@@ -31,7 +31,7 @@ public class ActionApplyOrderPerformancePersist  implements IAction{
 
 
 
-        String sql = "UPDATE  so_order  SET  performance_price=0,dep_receivable_audit_status_id=？  WHERE  pkid=? ;";//订单业绩只能一次
+        String sql = "UPDATE  so_order  SET  performance_price=0,dep_receivable_audit_status_id=?  WHERE  pkid=? ;";//订单业绩只能一次
         QueryParameters qps = new QueryParameters();
         qps.add("@dep_receivable_audit_status_id", AuditStatusType.Dsh.getValue (), Types.INTEGER);//订单业绩校验已经处理过累加
         qps.add("@pkid", entity.getId (), Types.INTEGER);
