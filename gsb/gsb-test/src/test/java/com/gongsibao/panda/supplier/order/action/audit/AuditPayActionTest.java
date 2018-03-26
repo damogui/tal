@@ -8,7 +8,7 @@ import com.gongsibao.panda.supplier.crm.action.BaseActionTest;
 import com.gongsibao.trade.service.action.audit.pay.ActionAuditPaySendMessage;
 import com.gongsibao.trade.service.action.audit.pay.ActionAuditPayVerify;
 import com.gongsibao.trade.service.action.audit.pay.ActionAuditPayWriteBack;
-
+/*回款审核*/
 public class AuditPayActionTest  extends BaseActionTest{
 	@Before
 	public void setup() {
