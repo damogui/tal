@@ -52,6 +52,10 @@ public class SalesmanOrderCarryoverWorkspaceTest extends WorkspaceCreationBase {
         PDatagridColumn column = null;
         addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
         addColumn(datagrid, "formOrderNo", "结转来源订单号", ControlTypes.TEXT_BOX, 100);
+        column = addColumn(datagrid, "formOrderId", "订单Id", ControlTypes.NUMBER_BOX, 100, true);{
+        	column.setSystem(true);
+        	column.setVisible(false);
+        }
         addColumn(datagrid, "toOrderNo", "结转去向订单号", ControlTypes.TEXT_BOX, 100);
         column = addColumn(datagrid, "amount", "结转金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
         	

@@ -10,7 +10,7 @@ com.gongsibao.trade.web.OrderSalesmanRefundListPart = org.netsharp.panda.commerc
     	var orderId = row.orderId;
     
     	var contentUrl = this.addRefundUrl + "?fefundId=" + id + "&id=" + orderId;
-    	alert(contentUrl);
+    	
          layer.open({
              type: 2,//1是字符串 2是内容
              title: '查看退款',

@@ -6,7 +6,9 @@ com.gongsibao.trade.web.SalesmanOrderCarryoverListPart = org.netsharp.panda.comm
         this.addCarryOverUrl = '/nav/gsb/platform/trade/auditCarryover';//结转审核jsp
     },
     detail : function(id){
-         var contentUrl = this.addCarryOverUrl + "?id=" + id;
+    	var row = this.getSelectedItem();
+    	var orderId = row.formOrderId;
+    	var contentUrl = this.addCarryOverUrl + "?carryoverId=" + id + "&id=" + orderId;
          layer.open({
              type: 2,//1是字符串 2是内容
              title: '查看结转',

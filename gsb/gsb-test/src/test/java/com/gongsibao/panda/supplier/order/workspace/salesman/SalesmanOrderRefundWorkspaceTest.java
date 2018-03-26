@@ -54,6 +54,7 @@ public class SalesmanOrderRefundWorkspaceTest extends WorkspaceCreationBase {
         addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
         addColumn(datagrid, "soOrder.no", "订单编号", ControlTypes.TEXT_BOX, 80);
         column = addColumn(datagrid, "orderId", "订单Id", ControlTypes.NUMBER_BOX, 100, true);{
+        	column.setSystem(true);
         	column.setVisible(false);
         }
         addColumn(datagrid, "soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
