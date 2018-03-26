@@ -4,6 +4,9 @@ import com.gongsibao.panda.supplier.crm.action.BaseActionTest;
 import com.gongsibao.trade.service.action.audit.pay.ActionAuditPaySendMessage;
 import com.gongsibao.trade.service.action.audit.pay.ActionAuditPayVerify;
 import com.gongsibao.trade.service.action.audit.pay.ActionAuditPayWriteBack;
+import com.gongsibao.trade.service.action.audit.payperformance.ActionAuditPayPerSendMessage;
+import com.gongsibao.trade.service.action.audit.payperformance.ActionAuditPayPerVerify;
+import com.gongsibao.trade.service.action.audit.payperformance.ActionAuditPayPerWriteBack;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.plugin.bean.BeanPath;
@@ -32,9 +35,9 @@ public class AuditPayPerformanceActionTest extends BaseActionTest {
             beanPath.setName("回款业绩审核");
         }
 
-        createBean(beanPath, "1.验证", ActionAuditPayVerify.class.getName(), resourceNode, 100);
-        createBean(beanPath, "2.回写", ActionAuditPayWriteBack.class.getName(), resourceNode, 200);
-        createBean(beanPath, "4.通知", ActionAuditPaySendMessage.class.getName(), resourceNode, 300);
+        createBean(beanPath, "1.验证", ActionAuditPayPerVerify.class.getName(), resourceNode, 100);
+        createBean(beanPath, "2.回写", ActionAuditPayPerWriteBack.class.getName(), resourceNode, 200);
+        createBean(beanPath, "4.通知", ActionAuditPayPerSendMessage.class.getName(), resourceNode, 300);
         beanPathService.save(beanPath);
     }
 }

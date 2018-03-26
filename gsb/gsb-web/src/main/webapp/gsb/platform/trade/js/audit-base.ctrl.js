@@ -42,9 +42,11 @@ com.gongsibao.trade.web.AuditBaseCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     	 * 2.....
     	 */
     	this.invokeService ("approved", [auditLogId], function(data){
-    		
     		//后续处理
-    		
+    		if(data){
+    			layer.msg('操作成功！');
+    		}
+    		window.parent.layer.closeAll();
     	});
     },
     rejected:function(){
@@ -86,7 +88,10 @@ com.gongsibao.trade.web.AuditBaseCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     	this.invokeService ("rejected", [auditLogId,remark], function(data){
     		
     		//后续处理
-    		alert(data);
+    		if(data){
+    			layer.msg('操作成功！');
+    		}
+    		window.parent.layer.closeAll();
     	});
     }
 });

@@ -1,14 +1,18 @@
 package com.gongsibao.trade.service;
 
+import java.sql.Types;
 import java.util.List;
 
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
+import org.netsharp.core.QueryParameters;
 import org.netsharp.service.PersistableService;
 
 import com.gongsibao.entity.trade.NDepPay;
 import com.gongsibao.trade.base.INDepPayService;
+import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 /**
  * Created by win on 2018/2/27.
@@ -33,4 +37,19 @@ public class NDepPayService extends PersistableService<NDepPay> implements INDep
 		action.execute(ctx);
 		return true;
 	}
+
+    @Override
+    public void updateStatus(Integer id, AuditStatusType auditStatusType) {
+
+        UpdateBuilder updateBuilder = new UpdateBuilder();
+        {
+            updateBuilder.update("n_dep_pay");
+            updateBuilder.set("status", auditStatusType.getValue());
+            updateBuilder.where("id=?");
+        }
+        String sql = updateBuilder.toSQL();
+        QueryParameters qps = new QueryParameters();
+        qps.add("id", id, Types.INTEGER);
+        this.pm.executeNonQuery(sql, qps);
+    }
 }
