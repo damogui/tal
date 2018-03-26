@@ -48,7 +48,7 @@ public class ActionAuditContractVerify implements IAction {
             throw new BusinessException("该审核状态不是【" + AuditLogStatusType.TOAUDIT.getText() + "】,禁止审核");
         }
 
-        if (auditLog.getType().equals(AuditLogType.Htsq)) {
+        if (!auditLog.getType().equals(AuditLogType.Htsq)) {
             throw new BusinessException("该审核类别不是【" + AuditLogType.Htsq.getText() + "】,禁止审核");
         }
 

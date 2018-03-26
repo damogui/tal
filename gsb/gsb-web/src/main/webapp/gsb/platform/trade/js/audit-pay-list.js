@@ -35,9 +35,9 @@ com.gongsibao.trade.web.AuditPayListPart = org.netsharp.panda.commerce.ListPart.
                 IMessageBox.toast("审核通过");
                 layer.close(index);
             },
-            btn2: function (){
+            btn2: function (index, layero){
                 document.getElementById('addAuditPayIframe').firstElementChild.contentWindow.auditPayCtrl  .rejected();
-                layer.close(index);
+                return false;
             }
         });
 

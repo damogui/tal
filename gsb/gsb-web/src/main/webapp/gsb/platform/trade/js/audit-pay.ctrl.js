@@ -24,7 +24,7 @@ com.gongsibao.trade.web.AuditPayCtrl = com.gongsibao.trade.web.AuditBaseCtrl.Ext
             $("#amount").html(data.amount);
             $("#offlineRemark").html(data.mark);//订单信息
 
-            debugger;
+           
             $('#pay_voucher_grid').datagrid({//付款凭证
                 idField: 'id',
                 emptyMsg: '暂无记录',
@@ -36,12 +36,16 @@ com.gongsibao.trade.web.AuditPayCtrl = com.gongsibao.trade.web.AuditBaseCtrl.Ext
                 data: data.files,
                 columns: [[
                     {
-                        field: 'amount',
+                        field: 'id',
                         title: '凭证名称',
-                        width: 100,
+                        width: 400,
                         align: 'right',
                         formatter: function (value, row, index) {
-                            return value;
+
+                            var str = '<a class="grid-btn" href="javascript:window.open(\''+row.url+'\');">'+row.name+'</a>';
+
+                            return str;
+
                         }
                     }
 

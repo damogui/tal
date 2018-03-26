@@ -30,8 +30,9 @@ com.gongsibao.trade.web.AuditRefundListPart = org.netsharp.panda.commerce.ListPa
             btn1: function (index, layero) {
                 document.getElementById('auditRefundIframe').firstElementChild.contentWindow.auditRefundCtrl.approved();
             },
-            btn2: function (){
+            btn2: function (index, layero){
             	document.getElementById('auditRefundIframe').firstElementChild.contentWindow.auditRefundCtrl.rejected();
+            	return false;
             }
         });
 

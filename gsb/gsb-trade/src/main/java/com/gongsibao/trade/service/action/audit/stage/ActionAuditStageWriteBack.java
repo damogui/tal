@@ -13,6 +13,7 @@ import com.gongsibao.bd.service.auditLog.AuditContext;
 import com.gongsibao.bd.service.auditLog.AuditState;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.u8.base.ISoOrderService;
 
@@ -41,11 +42,13 @@ public class ActionAuditStageWriteBack implements IAction{
         switch (state.getValue()) {
             case 0://驳回审核
                 auditService.auditRejected(auditLog.getId(), remark);
-                writeBackOrder(auditLog.getFormId(),state);
+                writeBackOrder(auditLog.getFormId(),AuditStatusType.Bhsh);
                 break;
             case 1://通过审核
                 auditService.auditApproved(auditLog.getId());
-                writeBackOrder(auditLog.getFormId(),state);
+                if (auditLog.getLevel().equals(auditLog.getMaxLevel())) {
+                	writeBackOrder(auditLog.getFormId(),AuditStatusType.Shtg);
+                }
                 break;
         }
     }
@@ -54,12 +57,12 @@ public class ActionAuditStageWriteBack implements IAction{
 	 * @param formId 来源Id
 	 * @param state 审核状态
 	 */
-	private void writeBackOrder(Integer formId, AuditState state){
+	private void writeBackOrder(Integer formId, AuditStatusType state){
 		//修改订单
         UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("so_order");
-			updateSql.set("installmentAuditStatusId", state);
+			updateSql.set("installment_audit_status_id", state.getValue());
 			updateSql.where("pkid =" + formId);
 		}
 		String cmdText = updateSql.toSQL();

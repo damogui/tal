@@ -36,7 +36,7 @@ public class SalesmanOrderPayWorkspaceTest  extends WorkspaceCreationBase {
         listToolbarPath = "crm/salesman/pay/edit";
         listPartImportJs = "/gsb/platform/trade/js/salesman-order-pay-list.part.js";
         listPartJsController = SalesmanOrderPayController.class.getName ();
-        listPartServiceController = AuditPayListPart.class.getName ();
+        listPartServiceController = SalesmanOrderPayController.class.getName ();
         //listFilter = "salesman_id = '{userId}'";
         listToolbarPath="";
         listFilter = " pkid IN (SELECT pay_id FROM so_order_pay_map WHERE order_id IN (SELECT pkid FROM so_order WHERE owner_id = '{userId}' ORDER BY pkid DESC)) OR add_user_id = '{userId}' ";

@@ -30,8 +30,9 @@ com.gongsibao.trade.web.AuditStagingListPart = org.netsharp.panda.commerce.ListP
             btn1: function (index, layero) {
                 document.getElementById('auditStageIframe').firstElementChild.contentWindow.auditStageCtrl.approved();
             },
-            btn2: function (){
+            btn2: function (index, layero){
             	document.getElementById('auditStageIframe').firstElementChild.contentWindow.auditStageCtrl.rejected();
+            	return false;
             }
         });
 
