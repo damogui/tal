@@ -6,7 +6,7 @@ com.gongsibao.trade.web.SalesmanStagingListPart = org.netsharp.panda.commerce.Li
         this.auditStageUrl = '/nav/gsb/platform/trade/auditStage';//分期审核jsp
     },
     detail : function(id){
-    	var contentUrl = this.auditStageUrl + "?id=" + id;
+    	var contentUrl = this.auditStageUrl + "?stageId=" + id + "&id=" + id;
     	  layer.open({
               type: 2,//1是字符串 2是内容
               title: '查看',
