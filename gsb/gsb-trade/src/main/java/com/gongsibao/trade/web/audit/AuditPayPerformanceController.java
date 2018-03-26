@@ -26,14 +26,27 @@ import java.util.List;
 public class AuditPayPerformanceController extends AuditBaseController {
 
     // 合同审核
-    AbstractAuditLogService auditLogService = AuditFactory.getAudit(PayPerformanceAudit.class);
+    AbstractAuditLogService auditLogService = AuditFactory.getAudit (PayPerformanceAudit.class);
+
     /**
      * 审核通过 注：参数未定
      *
      * @return
      */
     public Boolean approved(Integer auditLogId) {
-        return auditLogService.audit(AuditState.PASS, auditLogId, null);
+
+
+        Boolean auditResult = auditLogService.audit (AuditState.PASS, auditLogId, null);
+
+        if (auditResult) {
+
+//回写数据
+        } else {
+
+            //
+        }
+
+        return auditResult;
     }
 
     /**
@@ -42,7 +55,7 @@ public class AuditPayPerformanceController extends AuditBaseController {
      * @return
      */
     public Boolean rejected(Integer auditLogId, String remark) {
-        return auditLogService.audit(AuditState.NOTPASS, auditLogId, remark);
+        return auditLogService.audit (AuditState.NOTPASS, auditLogId, remark);
     }
 
     /*获取订单业绩划分展示根据订单id*/
@@ -115,7 +128,7 @@ public class AuditPayPerformanceController extends AuditBaseController {
 
         }
         SoOrder soOrder = soOrderService.queryFirst (oql);
-        if(soOrder==null){
+        if (soOrder == null) {
             return orderInfoDTO;
         }
         orderInfoDTO.setOrderNo (soOrder.getNo ());

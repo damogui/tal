@@ -32,7 +32,17 @@ public class AuditPayController extends AuditBaseController {
      * @return
      */
     public Boolean approved(Integer auditLogId) {
-        return auditLogService.audit(AuditState.PASS, auditLogId, null);
+        boolean auditResult= auditLogService.audit(AuditState.PASS, auditLogId, null);
+
+        if (auditResult) {
+
+//回写数据
+        } else {
+
+            //
+        }
+
+        return auditResult;
     }
 
     /**

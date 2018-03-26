@@ -1,6 +1,7 @@
 package com.gongsibao.panda.supplier.order.workspace.audit;
 
 import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.NDepReceivable;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.tools.PToolbarHelper;
@@ -38,6 +39,9 @@ public class AuditOrderPerformanceWorkspaceTest extends WorkspaceCreationBase {
         listToolbarPath = "";//crm/audit/orderp/edit
         listPartImportJs = "/gsb/platform/trade/js/audit-order-performance.js|/gsb/panda-extend/gsb.custom.query.controls.js";
         listPartJsController=AuditOrderPerformanceListPart.class.getName ();
+        listPartServiceController=AuditOrderPerformanceListPart.class.getName ();
+
+        listFilter = "type_id=" + AuditLogType.DdYjSq.getValue() + " and add_user_id = '{userId}' ";
 
     }
 
@@ -82,6 +86,10 @@ public class AuditOrderPerformanceWorkspaceTest extends WorkspaceCreationBase {
         }
         PDatagridColumn column = null;
         addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+        column=addColumn (datagrid, "nDepReceivable.order.id", "订单id", ControlTypes.TEXT_BOX, 80);{
+
+            //column.setStyler ("display:none");
+        }
         addColumn (datagrid, "nDepReceivable.order.no", "订单编号", ControlTypes.TEXT_BOX, 80);
         addColumn (datagrid, "nDepReceivable.order.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "nDepReceivable.order.prodName", "产品名称", ControlTypes.TEXT_BOX, 100);

@@ -1,6 +1,7 @@
 package com.gongsibao.panda.supplier.order.workspace.audit;
 
 import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.NDepPay;
 import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.tools.PToolbarHelper;
@@ -40,6 +41,8 @@ public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
         listPartImportJs = "/gsb/platform/trade/js/audit-pay-performance-list.js";
         listPartJsController = AuditPayPerformanceListPart.class.getName ();
         listPartServiceController = AuditPayPerformanceListPart.class.getName ();
+        listFilter = "type_id=" + AuditLogType.Skyjsh.getValue() + " and add_user_id = '{userId}' ";
+
     }
 
 
@@ -86,11 +89,12 @@ public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
         }
         PDatagridColumn column = null;
         addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 60, true);
-        column = addColumn (datagrid, "orderId", "订单编号", ControlTypes.TEXT_BOX, 120);//需要拼接
+        column = addColumn (datagrid, "nDepPay.orderId", "订单Id", ControlTypes.TEXT_BOX, 120);//需要拼接
         {
             // column.setFormatter("return controllerpayList.orderNameFormatter(value,row,index);");
 
         }
+        column = addColumn (datagrid, "nDepPay.order.no", "订单编号", ControlTypes.TEXT_BOX, 120);//需要拼接
         addColumn (datagrid, "nDepPay.order.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "nDepPay.order.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn (datagrid, "nDepPay.order.payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);

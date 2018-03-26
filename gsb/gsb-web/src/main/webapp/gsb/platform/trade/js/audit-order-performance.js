@@ -17,14 +17,14 @@ com.gongsibao.trade.web.AuditOrderPerformanceListPart = org.netsharp.panda.comme
 
 
 
-       debugger;
+      
 
 
         var me = this;
         var row = this.getSelectedItem();
         var rows = this.getSelections();
        
-        var contentUrl = this.auditUrl + "?id=" + row.orderId;
+        var contentUrl = this.auditUrl + "?id=" + row.nDepReceivable_order_id+"&auditId="+row.id;
 
 
         layer.open({
@@ -39,10 +39,14 @@ com.gongsibao.trade.web.AuditOrderPerformanceListPart = org.netsharp.panda.comme
             content: contentUrl,
             btn: ['审核通过', '审核不通过'],// 可以无限个按钮
             btn1: function (index, layero) {
+               
                 document.getElementById('addAuditPerIframe').firstElementChild.contentWindow.auditPerformanceCtrl .approved();
+                IMessageBox.toast("审核通过");
+                layer.close(index);
             },
             btn2: function (){
                 document.getElementById('addAuditPerIframe').firstElementChild.contentWindow.auditPerformanceCtrl .rejected();
+                layer.close(index);
             }
         });
 

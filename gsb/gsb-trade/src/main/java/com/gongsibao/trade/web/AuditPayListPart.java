@@ -1,5 +1,7 @@
 package com.gongsibao.trade.web;
 
+import com.gongsibao.bd.base.IAuditLogService;
+import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.entity.trade.SoOrder;
@@ -17,11 +19,28 @@ import java.util.List;
 /**
  * Created by win on 2018/3/20.
  */
+/*回款审核*/
 public class AuditPayListPart extends AdvancedListPart {
+
 
 
     @Override
     public List<?> doQuery(Oql oql) {
+        StringBuilder selects = new StringBuilder ();
+        selects.append ("AuditLog.*,");
+        selects.append ("AuditLog.pay.*,");
+        selects.append ("AuditLog.pay.order.*");
+
+        IAuditLogService auditLogService = ServiceFactory.create (IAuditLogService.class);
+        oql.setSelects (selects.toString ());
+        List<AuditLog> auditLogs = auditLogService.queryList (oql);
+        return auditLogs;
+    }
+
+
+
+    //@Override
+    public List<?> doQuery11(Oql oql) {
         oql.setSelects ("id,payForOrderCount,payWayType,amount,offlineAuditStatus,createTime,creator,orderPayMaps.*");
         List<Pay> resList = (List<Pay>) super.doQuery (oql);
 
@@ -29,8 +48,8 @@ public class AuditPayListPart extends AdvancedListPart {
     }
 
 
-    @Override
-    protected Object serialize(List<?> list, Oql oql) {
+//    @Override
+    protected Object serialize11(List<?> list, Oql oql) {
 
         HashMap<String, Object> json = (HashMap<String, Object>) super.serialize (list, oql);
         ArrayList<HashMap<String, Object>> ob2 = (ArrayList<HashMap<String, Object>>) json.get ("rows");
