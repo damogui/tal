@@ -72,7 +72,7 @@ public class AuditService extends PersistableService<AuditLog> implements IAudit
 
     //将等于（或大于）自己同级别的审核记录修改成【关闭】,且不包括自己
     private void updateStatusToClose(AuditLog auditLog, String operationStr) {
-        UpdateBuilder updateBuilder = new UpdateBuilder();
+    	UpdateBuilder updateBuilder = new UpdateBuilder();
         {
             updateBuilder.update("bd_audit_log");
             updateBuilder.set("status_id", AuditLogStatusType.Close.getValue());
@@ -81,7 +81,8 @@ public class AuditService extends PersistableService<AuditLog> implements IAudit
                     "and form_id = " + auditLog.getFormId() + " " +
                     "and pkid !=" + auditLog.getId() + " ");
         }
-        this.pm.executeNonQuery(updateBuilder.toString(), null);
+        String sql = updateBuilder.toSQL();
+        this.pm.executeNonQuery(sql, null);
     }
 
     //将下一级别的审核记录修改成【待审核】

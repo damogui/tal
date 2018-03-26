@@ -12,13 +12,12 @@ import org.netsharp.util.sqlbuilder.UpdateBuilder;
 import com.gongsibao.bd.service.auditLog.AuditContext;
 import com.gongsibao.bd.service.auditLog.AuditState;
 import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.base.IAuditService;
-import com.gongsibao.trade.base.IRefundService;
 
 public class ActionAuditRefundWriteBack implements IAction{
 	IAuditService auditService = ServiceFactory.create(IAuditService.class);
-	IRefundService refundService = ServiceFactory.create(IRefundService.class);
 	
 	@Override
 	public void execute(ActionContext ctx) {
@@ -63,7 +62,7 @@ public class ActionAuditRefundWriteBack implements IAction{
 			updateSql.where("pkid =" + formId);
 		}
 		String cmdText = updateSql.toSQL();
-		IPersister<SoOrder> pm = PersisterFactory.create();
+		IPersister<Refund> pm = PersisterFactory.create();
 		pm.executeNonQuery(cmdText, null);
 	} 
 	/**
