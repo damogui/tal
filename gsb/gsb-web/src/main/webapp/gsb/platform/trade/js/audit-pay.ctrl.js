@@ -36,12 +36,16 @@ com.gongsibao.trade.web.AuditPayCtrl = com.gongsibao.trade.web.AuditBaseCtrl.Ext
                 data: data.files,
                 columns: [[
                     {
-                        field: 'amount',
+                        field: 'id',
                         title: '凭证名称',
                         width: 100,
                         align: 'right',
                         formatter: function (value, row, index) {
-                            return value;
+
+                            var str = '<a class="grid-btn" href="javascript:window.open(\''+row.url+'\');">'+row.name+'</a>';
+
+                            return str;
+
                         }
                     }
 

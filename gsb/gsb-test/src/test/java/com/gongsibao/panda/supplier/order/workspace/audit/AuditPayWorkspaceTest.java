@@ -82,7 +82,7 @@ public class AuditPayWorkspaceTest  extends WorkspaceCreationBase {
             datagrid.setName ("回款业绩审核");
 
             datagrid.setAutoQuery (true);
-            datagrid.setShowCheckbox (true);
+            //datagrid.setShowCheckbox (true);
             datagrid.setSingleSelect (false);
         }
         PDatagridColumn column = null;
