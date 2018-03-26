@@ -28,7 +28,7 @@ public class OrderApplyContractActionTest extends BaseActionTest {
             beanPath.toNew();
             beanPath.setPath(pathName);
             beanPath.setResourceNode(resourceNode);
-            beanPath.setName("合同发票");
+            beanPath.setName("合同");
         }
 
         createBean(beanPath, "1.验证", ActionApplyContractVerify.class.getName(), resourceNode, 100);

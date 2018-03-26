@@ -2,8 +2,10 @@ package com.gongsibao.trade.service.action.order.contract;
 
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.trade.Contract;
+import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
+import com.gongsibao.entity.trade.dic.BreachType;
 import com.gongsibao.trade.base.IContractService;
 import com.gongsibao.u8.base.ISoOrderService;
 import org.netsharp.action.ActionContext;
@@ -28,7 +30,19 @@ public class ActionApplyContractPersist implements IAction {
         //初始状态为【待审核】
         contract.setAuditStatusId(AuditStatusType.Dsh);
 
-        SoOrder order = soOrderService.getByOrderId(contract.getOrderId());
+        SoOrder order = soOrderService.getOrderWithOrderProdsByOrderId(contract.getOrderId());
+
+        //合同业绩额
+        Integer dataFee = 0;
+        for (OrderProd orderProd : order.getProducts()) {
+            dataFee = dataFee + orderProd.getPrice();
+        }
+        contract.setDataFee(dataFee);
+        //当有材料撰写情况
+        if (contract.getHasDataFee().equals(BreachType.YOU)) {
+            contract.setAchievementAmount(contract.getRealAmount() - dataFee);
+        }
+
         //分配合同跟进人
         contract.setSupplierId(order.getSupplierId());
         contract.setDepartmentId(order.getDepartmentId());
