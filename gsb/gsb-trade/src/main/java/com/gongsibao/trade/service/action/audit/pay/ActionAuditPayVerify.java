@@ -49,7 +49,7 @@ public class ActionAuditPayVerify implements IAction {
             throw new BusinessException ("该审核状态不是【" + AuditLogStatusType.TOAUDIT.getText () + "】,禁止审核");
         }
 
-        if (auditLog.getType ().equals (AuditLogType.Sksq)) {
+        if (!auditLog.getType ().equals (AuditLogType.Sksq)) {
             throw new BusinessException ("该审核类别不是【" + AuditLogType.Sksq.getText () + "】,禁止审核");
         }
 

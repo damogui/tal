@@ -50,7 +50,7 @@ public class ActionAuditPayPerVerify implements IAction{
             throw new BusinessException ("该审核状态不是【" + AuditLogStatusType.TOAUDIT.getText () + "】,禁止审核");
         }
 
-        if (auditLog.getType ().equals (AuditLogType.Skyjsh)) {
+        if (!auditLog.getType ().equals (AuditLogType.Skyjsh)) {
             throw new BusinessException ("该审核类别不是【" + AuditLogType.Skyjsh.getText () + "】,禁止审核");
         }
 
