@@ -27,7 +27,8 @@ import org.netsharp.resourcenode.entity.ResourceNode;
  */
 /*订单业绩审核*/
 public class AuditOrderPerformanceWorkspaceTest extends WorkspaceCreationBase {
-    private String listrowToolbarPath="/crm/audit/row/orderper/toolbar";
+    private String listrowToolbarPath = "/crm/audit/row/orderper/toolbar";
+
     @Before
     public void setup() {
         super.setup ();
@@ -38,37 +39,37 @@ public class AuditOrderPerformanceWorkspaceTest extends WorkspaceCreationBase {
         resourceNodeCode = "Gsb_Supplier_Order_Audit_Performance";
         listToolbarPath = "";//crm/audit/orderp/edit
         listPartImportJs = "/gsb/platform/trade/js/audit-order-performance.js|/gsb/panda-extend/gsb.custom.query.controls.js";
-        listPartJsController=AuditOrderPerformanceListPart.class.getName ();
-        listPartServiceController=AuditOrderPerformanceListPart.class.getName ();
+        listPartJsController = AuditOrderPerformanceListPart.class.getName ();
+        listPartServiceController = AuditOrderPerformanceListPart.class.getName ();
 
-        listFilter = "type_id=" + AuditLogType.DdYjSq.getValue() + " and add_user_id = '{userId}' ";
+        listFilter = "type_id=" + AuditLogType.DdYjSq.getValue () + " and add_user_id = '{userId}' ";
 
     }
 
     @Test
     public void createRowToolbar() {
 
-        ResourceNode node = this.resourceService.byCode(resourceNodeCode);
-        PToolbar toolbar = new PToolbar();
+        ResourceNode node = this.resourceService.byCode (resourceNodeCode);
+        PToolbar toolbar = new PToolbar ();
         {
-            toolbar.toNew();
-            toolbar.setPath(listrowToolbarPath);
-            toolbar.setName("审核");
-            toolbar.setResourceNode(node);
-            toolbar.setToolbarType(ToolbarType.BASE);
+            toolbar.toNew ();
+            toolbar.setPath (listrowToolbarPath);
+            toolbar.setName ("审核");
+            toolbar.setResourceNode (node);
+            toolbar.setToolbarType (ToolbarType.BASE);
         }
-        PToolbarItem item = new PToolbarItem();
+        PToolbarItem item = new PToolbarItem ();
         {
-            item.toNew();
-            item.setCode("audit");
-            item.setName("审核");
-            item.setSeq(1);
-            item.setCommand("{controller}.audit();");
-            toolbar.getItems().add(item);
+            item.toNew ();
+            item.setCode ("audit");
+            item.setName ("审核");
+            item.setSeq (1);
+            item.setCommand ("{controller}.audit();");
+            toolbar.getItems ().add (item);
         }
 
 
-        toolbarService.save(toolbar);
+        toolbarService.save (toolbar);
     }
 
 
@@ -86,7 +87,10 @@ public class AuditOrderPerformanceWorkspaceTest extends WorkspaceCreationBase {
         }
         PDatagridColumn column = null;
         addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-        column=addColumn (datagrid, "soOrder.id", "订单id", ControlTypes.TEXT_BOX, 80);{
+        column = addColumn (datagrid, "soOrder.id", "订单id", ControlTypes.TEXT_BOX, 80);
+        {
+            column.setSystem (true);
+            column.setVisible (false);
 
             //column.setStyler ("display:none");
         }
@@ -98,7 +102,7 @@ public class AuditOrderPerformanceWorkspaceTest extends WorkspaceCreationBase {
         addColumn (datagrid, "soOrder.totalPrice", "原价金额", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "soOrder.payablePrice", "应付金额", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "soOrder.paidPrice", "已付金额", ControlTypes.TEXT_BOX, 100);
-       // addColumn (datagrid, "soOrder.orderId", "待付款金额", ControlTypes.TEXT_BOX, 100);//??
+        // addColumn (datagrid, "soOrder.orderId", "待付款金额", ControlTypes.TEXT_BOX, 100);//??
         addColumn (datagrid, "soOrder.payStatus", "待付款状态", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "soOrder.payablePrice", "订单业绩分配金额", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "soOrder.depReceivableAuditStatusId", "审核状态", ControlTypes.TEXT_BOX, 100);
