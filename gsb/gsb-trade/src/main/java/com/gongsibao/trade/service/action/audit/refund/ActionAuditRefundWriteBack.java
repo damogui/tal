@@ -14,6 +14,7 @@ import com.gongsibao.bd.service.auditLog.AuditState;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.IAuditService;
 
 public class ActionAuditRefundWriteBack implements IAction{
@@ -38,13 +39,15 @@ public class ActionAuditRefundWriteBack implements IAction{
         switch (state.getValue()) {
             case 0://驳回审核
                 auditService.auditRejected(auditLog.getId(), remark);
-                writeBackRefund(auditLog.getFormId(),state);
-                writeBackOrder(auditLog.getFormId(),state);
+                writeBackRefund(auditLog.getFormId(),AuditStatusType.Bhsh);
+                writeBackOrder(auditLog.getFormId(),AuditStatusType.Bhsh);
                 break;
             case 1://通过审核
                 auditService.auditApproved(auditLog.getId());
-                writeBackRefund(auditLog.getFormId(),state);
-                writeBackOrder(auditLog.getFormId(),state);
+                if (auditLog.getLevel().equals(auditLog.getMaxLevel())) {
+                	writeBackRefund(auditLog.getFormId(),AuditStatusType.Shtg);
+                    writeBackOrder(auditLog.getFormId(),AuditStatusType.Shtg);
+                }
                 break;
         }
     }
@@ -54,11 +57,11 @@ public class ActionAuditRefundWriteBack implements IAction{
 	 * @param formId 来源Id
 	 * @param state 审核状态
 	 */
-	private void writeBackRefund(Integer formId, AuditState state){		
+	private void writeBackRefund(Integer formId, AuditStatusType state){		
         UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("so_refund");
-			updateSql.set("auditStatus", state);
+			updateSql.set("auditStatus", state.getValue());
 			updateSql.where("pkid =" + formId);
 		}
 		String cmdText = updateSql.toSQL();
@@ -70,11 +73,11 @@ public class ActionAuditRefundWriteBack implements IAction{
 	 * @param formId 来源Id
 	 * @param state 审核状态
 	 */
-	private void writeBackOrder(Integer formId, AuditState state){
+	private void writeBackOrder(Integer formId, AuditStatusType state){
         UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("so_order");
-			updateSql.set("refundStatus", state);
+			updateSql.set("refundStatus", state.getValue());
 			updateSql.where("pkid =" + formId);
 		}
 		String cmdText = updateSql.toSQL();
