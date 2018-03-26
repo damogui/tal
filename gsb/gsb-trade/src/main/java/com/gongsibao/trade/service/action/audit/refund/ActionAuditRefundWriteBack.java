@@ -30,23 +30,23 @@ public class ActionAuditRefundWriteBack implements IAction{
         //审核意见
         String remark = auditContext.getremark();
         AuditLog auditLog = (AuditLog) objectMap.get("auditLog");
-        
+        Integer orderId = (Integer)objectMap.get("orderId");
         //审核
-        audit(state, auditLog, remark);
+        audit(state, auditLog,orderId, remark);
 		
 	}
-	private void audit(AuditState state, AuditLog auditLog, String remark) {
+	private void audit(AuditState state, AuditLog auditLog,Integer orderId, String remark) {
         switch (state.getValue()) {
             case 0://驳回审核
                 auditService.auditRejected(auditLog.getId(), remark);
                 writeBackRefund(auditLog.getFormId(),AuditStatusType.Bhsh);
-                writeBackOrder(auditLog.getFormId(),AuditStatusType.Bhsh);
+                writeBackOrder(orderId,AuditStatusType.Bhsh);
                 break;
             case 1://通过审核
                 auditService.auditApproved(auditLog.getId());
                 if (auditLog.getLevel().equals(auditLog.getMaxLevel())) {
                 	writeBackRefund(auditLog.getFormId(),AuditStatusType.Shtg);
-                    writeBackOrder(auditLog.getFormId(),AuditStatusType.Shtg);
+                    writeBackOrder(orderId,AuditStatusType.Shtg);
                 }
                 break;
         }
@@ -61,7 +61,7 @@ public class ActionAuditRefundWriteBack implements IAction{
         UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("so_refund");
-			updateSql.set("auditStatus", state.getValue());
+			updateSql.set("audit_status_id", state.getValue());
 			updateSql.where("pkid =" + formId);
 		}
 		String cmdText = updateSql.toSQL();
@@ -73,12 +73,12 @@ public class ActionAuditRefundWriteBack implements IAction{
 	 * @param formId 来源Id
 	 * @param state 审核状态
 	 */
-	private void writeBackOrder(Integer formId, AuditStatusType state){
+	private void writeBackOrder(Integer orderId, AuditStatusType state){
         UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("so_order");
-			updateSql.set("refundStatus", state.getValue());
-			updateSql.where("pkid =" + formId);
+			updateSql.set("refund_status_id", state.getValue());
+			updateSql.where("pkid =" + orderId);
 		}
 		String cmdText = updateSql.toSQL();
 		IPersister<SoOrder> pm = PersisterFactory.create();
