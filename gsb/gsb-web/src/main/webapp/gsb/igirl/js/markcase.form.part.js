@@ -82,12 +82,38 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
     validate: function () {
         var isValidate = $("#" + this.context.formName).form('validate');
         if (isValidate) {
+            var applierType=$("#applierType").val();
+            var writeType=$("#writeType").val();
+            if(System.isnull(applierType) || System.isnull(writeType))
+            {
+                IMessageBox.error("请选择申请人类型和书式类型");
+                return false;
+            }
+            if(writeType!='0')
+            {
+                IMessageBox.error("书式类型目前只支持中国大陆");
+                return false;
+            }
+
             var ywPhone = $("#ywPhone").val();
+            var certificateType=$("#certificateType").val();
             var idencode = $("#identityCode").val();
             var applierAddress = $("#applierAddress").val();
-            if (!System.isnull(idencode) && !/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(idencode)) {
-                IMessageBox.error("【身份证】格式错误");
-                return false;
+
+            if(applierType=='1')
+            {
+                if(System.isnull(certificateType))
+                {
+                    IMessageBox.error("请选择证件名称");
+                    return false;
+                }
+                if(certificateType=='0')
+                {
+                    if (System.isnull(idencode) || !/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(idencode)) {
+                        IMessageBox.error("【身份证】格式错误");
+                        return false;
+                    }
+                }
             }
             var x = /(([省])|([中][国])|([中][华][人][民][共][和][国])|([北][京][市])|([上][海][市])|([天][津][市])|([重][庆][市])|([内][蒙][古])|([广][西])|([宁][夏])|([新][疆])|([西][藏])|([内][蒙][古][自][治][区])|([新][疆][维][吾][尔][自][治][区])|([广][西][壮][族][自][治][区])|([宁][夏][回][族][自][治][区])|([西][藏][自][治][区]))/g.test(applierAddress);
             //var x=/([广][西])/g.test(applierAddress);
