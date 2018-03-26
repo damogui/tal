@@ -364,7 +364,9 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
 
                 var selfme=me;
                 me.invokeService("getTmplByNclOneId", [newValue], function(data) {
-                	$("#selectedTwoStr").val(data);
+                	if($.trim($("#selectedTwoStr").val())=="" && data!=""){
+                		$("#selectedTwoStr").val(data);
+                                 	}
                 	backSelect();
                 });
                 
