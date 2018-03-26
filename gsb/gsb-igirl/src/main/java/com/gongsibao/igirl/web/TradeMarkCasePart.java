@@ -154,6 +154,7 @@ public class TradeMarkCasePart extends FormPart {
 	}
 	
 	public int attachmentMake(String caseid) {
+		//
 		return tradeMarkCaseService.attachmentMake(caseid);
 	}
 }
