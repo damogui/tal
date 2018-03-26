@@ -43,7 +43,7 @@ public class NDepPay extends Entity {
     @Column(name = "order_id", header = "订单Id")
     private Integer orderId;
     
-    @Reference(foreignKey = "orderId")
+    @Reference(foreignKey = "orderId",primaryKey = "pkid")
     private SoOrder order;
 
 

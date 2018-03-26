@@ -24,6 +24,7 @@ com.gongsibao.trade.web.AuditBaseCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     	//子类重写
     },
     approved:function(){
+        debugger;
     	//弹出确认提交窗
     	this.doApproved();
     },

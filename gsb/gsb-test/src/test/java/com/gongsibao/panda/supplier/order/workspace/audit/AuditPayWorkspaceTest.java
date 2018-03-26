@@ -37,6 +37,7 @@ public class AuditPayWorkspaceTest  extends WorkspaceCreationBase {
         listPartImportJs = "/gsb/platform/trade/js/audit-pay-list.js";
         listPartJsController = AuditPayListPart.class.getName ();
         listPartServiceController = AuditPayListPart.class.getName ();
+
         listFilter = "type_id=" + AuditLogType.Sksq.getValue() + " and add_user_id = '{userId}' ";
 
     }
