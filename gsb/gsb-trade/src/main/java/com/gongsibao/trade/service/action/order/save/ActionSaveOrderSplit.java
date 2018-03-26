@@ -105,37 +105,4 @@ public class ActionSaveOrderSplit implements IAction {
 		}
 		return splitList;
 	}
-
-	// 老系统代码:
-	// List<Integer> orderProdIds = new ArrayList<>();
-	// for (SoOrderProd soOrderProd : soOrder.getProdList()) {
-	// soOrderProd.setOrderId(orderId);
-	// soOrderProd.setIsAssign(0);
-	//
-	// log.info("----------------------- PROD_PRICE[" + orderId +
-	// "] == 0 -------------------------");
-	// log.info("----------------------- PROD_PRICE[" +
-	// soOrderProd.getPriceOriginal() + "] == 0 -------------------------");
-	// log.info("----------------------- PROD_PRICE[" + soOrder.getAddTime() +
-	// "] == 0 -------------------------");
-	//
-	// if (soOrderProd.getPriceOriginal() == 0) {
-	// log.info("----------------------- FUCK[" + soOrder.getPkid() +
-	// "] == 0 -------------------------");
-	// log.info("----------------------- FUCK[" + soOrderProd.getPriceOriginal()
-	// + "] == 0 -------------------------");
-	// }
-	//
-	// int quantity = soOrderProd.getQuantity();
-	// for (int i = 0; i < quantity; i++) {
-	// int orderProdId = soOrderProdDao.insert(soOrderProd);
-	// orderProdIds.add(orderProdId);
-	//
-	// for (SoOrderProdItem soOrderProdItem : soOrderProd.getItemList()) {
-	// soOrderProdItem.setOrderProdId(orderProdId);
-	// soOrderProdItem.setQuantity(1);
-	// soOrderProdItemDao.insert(soOrderProdItem);
-	// }
-	// }
-	// }
 }

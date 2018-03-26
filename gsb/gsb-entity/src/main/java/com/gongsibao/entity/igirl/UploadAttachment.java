@@ -16,7 +16,7 @@ public class UploadAttachment extends Entity {
 	* 
 	*/
 	private static final long serialVersionUID = 1L;
-	@Column(name = "name", header = "名称")
+	@Column(name = "name",size = 512	, header = "名称")
 	private String name;
 	
 	@Column(name = "share_group", header = "共享组")

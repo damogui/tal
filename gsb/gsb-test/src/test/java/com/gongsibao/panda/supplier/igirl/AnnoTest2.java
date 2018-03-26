@@ -89,6 +89,9 @@ public class AnnoTest2 {
             String tradeOption="";
             int tradeMarkCaseID;
             int tradeMarkID;
+            good = goods.getJSONObject(0);
+            String classes = good.getString("classes");
+            tradeOption=classes;
 
             List<String> ncls = new ArrayList<>();
             StringBuffer ncl = new StringBuffer("");
@@ -96,8 +99,6 @@ public class AnnoTest2 {
             for (int m = 0; m < goods.size(); m++) {
 
                 good = goods.getJSONObject(m);
-                String classes = good.getString("classes");
-                tradeOption=classes;
                 nclOne =oneService.getNclOneByCode(classes);
                 //TODO nclOne 数据
                 String group = good.getString("group");
@@ -110,7 +111,12 @@ public class AnnoTest2 {
                     ncl.append(count).append(":");
                     ncl.append(name).append(":");
                     ncl.append(group).append(":");
-                    ncl.append(nclTwo.getId());
+                    if(nclTwo!=null){
+                        ncl.append(nclTwo.getId());
+                    }else
+                    {
+                        continue;
+                    }
                     ncl.append(System.getProperty("line.separator"));
                     ncls.add(ncl.toString());
                     count++;
@@ -194,6 +200,7 @@ public class AnnoTest2 {
                 tradeMark.setHasColor(false);
                 tradeMark.setWhetherSound(false);
                 tradeMark.setWhetherPersonPhoto(false);
+                System.out.println(step3.getString("tmDesignDeclare"));
                 tradeMark.setMemo(step3.getString("tmDesignDeclare"));
                 tradeMark.setMarkState(MarkState.ROBOT);
                 tradeMark.setMarkSubmitTime(updTime);
@@ -258,11 +265,16 @@ public class AnnoTest2 {
 
                     upattachementService.save(uploadAttachment);
                 }
+                String nameSpilt=step3.getString("tmDesignDeclare");
+                if(nameSpilt.length()>500){
+                    nameSpilt=nameSpilt.substring(0,499);
+                }
+
                 //TODO 附件-委托书
                 {
                     uploadAttachment = new UploadAttachment();
                     uploadAttachment.toNew();
-                    uploadAttachment.setName(step3.getString("tmDesignDeclare") + "_委托书");
+                    uploadAttachment.setName(nameSpilt + "_委托书");
                     uploadAttachment.setShareGroup(ShareGroup.SG1);
                     uploadAttachment.setAttachmentCat(AttachmentCat.DELEGATE_PROOF);
                     uploadAttachment.setFileType(FileType.JPGC);
@@ -290,7 +302,7 @@ public class AnnoTest2 {
                 {
                     uploadAttachment = new UploadAttachment();
                     uploadAttachment.toNew();
-                    uploadAttachment.setName(step3.getString("tmDesignDeclare") + "_补充证明");
+                    uploadAttachment.setName(nameSpilt + "_补充证明");
                     uploadAttachment.setShareGroup(ShareGroup.SG1);
                     uploadAttachment.setAttachmentCat(AttachmentCat.DELEGATE_PROOF);
                     uploadAttachment.setFileType(FileType.PDF);
@@ -318,7 +330,7 @@ public class AnnoTest2 {
                 {
                     uploadAttachment = new UploadAttachment();
                     uploadAttachment.toNew();
-                    uploadAttachment.setName(step3.getString("tmDesignDeclare") + "_黑色商标图样");
+                    uploadAttachment.setName(nameSpilt + "_黑色商标图样");
                     uploadAttachment.setShareGroup(ShareGroup.SG1);
                     uploadAttachment.setAttachmentCat(AttachmentCat.DELEGATE_PROOF);
                     uploadAttachment.setFileType(FileType.PDF);

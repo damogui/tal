@@ -360,7 +360,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
         addFormField(form, "fax", "传真", "代理人信息", ControlTypes.TEXT_BOX, true, false);
 
         addFormField(form, "orderCode", "订单号", "案件信息", ControlTypes.TEXT_BOX, false, false);
-        addFormField(form, "caseAmount", "方案金额", "案件信息", ControlTypes.DECIMAL_FEN_BOX, true, false);
+        addFormField(form, "caseAmount", "方案金额", "案件信息", ControlTypes.DECIMAL_BOX, true, false);
         addFormField(form, "tokenImgUrl", "二维码", "案件信息", ControlTypes.IMAGE, false, true);
         addFormField(form, "tmcState", "方案状态", "案件信息", ControlTypes.ENUM_BOX, true, false).setVisible(true);
 

@@ -2,18 +2,13 @@ package com.gongsibao.entity.bd;
 
 import com.gongsibao.entity.bd.dic.AuditLogStatusType;
 
+import com.gongsibao.entity.trade.*;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.dic.AuditLogType;
-import com.gongsibao.entity.trade.Contract;
-import com.gongsibao.entity.trade.Invoice;
-import com.gongsibao.entity.trade.NOrderCarryover;
-import com.gongsibao.entity.trade.Pay;
-import com.gongsibao.entity.trade.Refund;
-import com.gongsibao.entity.trade.SoOrder;
 
 @Table(name = "bd_audit_log")
 public class AuditLog extends BaseEntity {
@@ -46,6 +41,15 @@ public class AuditLog extends BaseEntity {
 	// 订单
 	@Reference(foreignKey = "formId")
 	private SoOrder soOrder;
+    // 订单业绩
+    @Reference(foreignKey = "formId")
+    private NDepReceivable nDepReceivable;
+    // 支付记录(回款审核)
+    @Reference(foreignKey = "formId")
+    private Pay pay;
+    // 回款业绩审核
+    @Reference(foreignKey = "formId")
+    private NDepPay nDepPay;
 
 	// 合同
 	@Reference(foreignKey = "formId")
@@ -55,9 +59,7 @@ public class AuditLog extends BaseEntity {
 	@Reference(foreignKey = "formId")
 	private Invoice invoice;
 
-	// 支付记录
-	@Reference(foreignKey = "formId")
-	private Pay pay;
+
 	
 	// 退单记录
 	@Reference(foreignKey = "formId")
@@ -170,5 +172,20 @@ public class AuditLog extends BaseEntity {
 	public void setStatus(AuditLogStatusType status) {
 		this.status = status;
 	}
-	
+
+    public NDepReceivable getnDepReceivable() {
+        return nDepReceivable;
+    }
+
+    public void setnDepReceivable(NDepReceivable nDepReceivable) {
+        this.nDepReceivable = nDepReceivable;
+    }
+
+    public NDepPay getnDepPay() {
+        return nDepPay;
+    }
+
+    public void setnDepPay(NDepPay nDepPay) {
+        this.nDepPay = nDepPay;
+    }
 }

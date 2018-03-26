@@ -105,7 +105,7 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
         column = addColumn (datagrid, "soOrder.toBePaidPrice", "待付金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
         }
         addColumn (datagrid, "soOrder.stageNum", "分期次数", ControlTypes.ENUM_BOX, 100);
-        addColumn (datagrid, "soOrder.installmentAuditStatusId", "审核状态", ControlTypes.ENUM_BOX, 100);
+        addColumn (datagrid, "status", "审核状态", ControlTypes.ENUM_BOX, 100);
         column = addColumn (datagrid, "soOrder.stages", "==分期申请时间==", ControlTypes.DATE_BOX, 350);
         {     
         	column.setAlign(DatagridAlign.CENTER);

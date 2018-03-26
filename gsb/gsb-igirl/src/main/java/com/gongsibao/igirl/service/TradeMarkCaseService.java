@@ -1,6 +1,7 @@
 package com.gongsibao.igirl.service;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.sql.Types;
 import java.util.List;
@@ -97,13 +98,20 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		// 设置商标的服务商id
 		String tmp="";
 		int n=0;
+		BigDecimal bd=BigDecimal.ZERO;
 		for (TradeMark tm : entity.getTradeMarks()) {
 			tm.setProxyCode( DateTime.now().toString("yyyyMMddHHmmssSSS")+n);
 			n++;
 			tm.setDepartmentId(departmentId);
 			//设置
 			tmp+=tm.getNclOne().getCode()+" ";
+			
+			if(tm.getEntityState()!=EntityState.Deleted) {
+				bd=bd.add(tm.getCost());
+				bd=bd.add(tm.getCharge());
+			}
 		}
+		entity.setCaseAmount(bd);
 		entity.setTradeOptions(tmp);
 		return entity;
 	}
@@ -141,8 +149,13 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			Integer departmentId = SupplierSessionManager.getDepartmentId();
 
 			String tmp="";
+			BigDecimal bd=BigDecimal.ZERO;
 			int m=1;
 			for (TradeMark tm : entity.getTradeMarks()) {
+				if(tm.getEntityState()!=EntityState.Deleted) {
+					bd=bd.add(tm.getCost());
+					bd=bd.add(tm.getCharge());
+				}
 				if(StringManager.isNullOrEmpty(tm.getProxyCode())){
 					tm.setProxyCode( DateTime.now().toString("yyyyMMddHHmmssSSS")+entity.getId()+m);
 					m++;
@@ -159,6 +172,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 					tmp+=tm.getNclOne().getCode()+" ";
 			    }
 			}
+			entity.setCaseAmount(bd);
 			entity.setTradeOptions(tmp);
 		}
 		// 删除附件明细
