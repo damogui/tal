@@ -52,7 +52,7 @@ public class AuditLog extends BaseEntity {
     private NDepPay nDepPay;
 
 	// 合同
-	@Reference(foreignKey = "formId")
+	@Reference(foreignKey = "formId",primaryKey = "pkid")
 	private Contract contract;
 
 	// 发票
