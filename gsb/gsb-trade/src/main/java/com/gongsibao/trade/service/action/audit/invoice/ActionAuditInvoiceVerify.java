@@ -46,7 +46,7 @@ public class ActionAuditInvoiceVerify implements IAction {
             throw new BusinessException("该审核状态不是【" + AuditLogStatusType.TOAUDIT.getText() + "】,禁止审核");
         }
 
-        if (auditLog.getType().equals(AuditLogType.Fbsq)) {
+        if (!auditLog.getType().equals(AuditLogType.Fbsq)) {
             throw new BusinessException("该审核类别不是【" + AuditLogType.Fbsq.getText() + "】,禁止审核");
         }
 
@@ -62,6 +62,7 @@ public class ActionAuditInvoiceVerify implements IAction {
         Map<String, Object> statusMap = new HashMap();
         statusMap.put("auditLog", auditLog);
         statusMap.put("invoice", invoice);
+        ctx.setStatus(statusMap);
 
     }
 

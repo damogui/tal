@@ -58,6 +58,10 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         $("#soOrder_department_name").text(jmessage.soOrder.department == null ? "" : jmessage.soOrder.department.name);
         // endregion
     },
+    databindextra: function (entity) {
+        var me = this;
+        me.bindOrderInfo(entity);
+    },
     addExtraProp: function (entity) {
         entity.sginingUserId = entity.soOrder.ownerId == null ? 0 : entity.soOrder.ownerId;
         entity.customerId = entity.soOrder.customerId == null ? 0 : entity.soOrder.customerId;
@@ -134,55 +138,55 @@ com.gongsibao.trade.web.OrderContractFileDetailPart = org.netsharp.panda.commerc
     ctor: function () {
         this.base();
     },
-	initUpload:function(){
-		
-		var upload = new org.netsharp.controls.ContractFileUpload();
-		upload.parent = this;
-		upload.init();
-	},
-	appendRow: function (path,file) {
+    initUpload: function () {
 
-	    var row = new Object();
-	    row.name = file.name;
-	    row.url = path;
-	    row.tabName = 'so_contract';//要放到后台处理
-	    $('#' + this.context.id).datagrid('appendRow',row);
+        var upload = new org.netsharp.controls.ContractFileUpload();
+        upload.parent = this;
+        upload.init();
+    },
+    appendRow: function (path, file) {
+
+        var row = new Object();
+        row.name = file.name;
+        row.url = path;
+        row.tabName = 'so_contract';//要放到后台处理
+        $('#' + this.context.id).datagrid('appendRow', row);
     },
     onload: function () {
 
-    	this.resize();
-    	this.initUpload();
+        this.resize();
+        this.initUpload();
     },
-    urlFormatter:function(value,row,index){
-    	
-    	var str = '<a class="grid-btn" href="javascript:window.open(\''+row.url+'\');">查看</a> \
-		   <a class="grid-btn" href="javascript:controllerfiles.remove('+index+');">删除</a>';
-    	return str;
+    urlFormatter: function (value, row, index) {
+
+        var str = '<a class="grid-btn" href="javascript:window.open(\'' + row.url + '\');">查看</a> \
+		   <a class="grid-btn" href="javascript:controllerfiles.remove(' + index + ');">删除</a>';
+        return str;
     },
-    remove:function(index){
-    	
-    	$('#' + this.context.id).datagrid('deleteRow',index);
+    remove: function (index) {
+
+        $('#' + this.context.id).datagrid('deleteRow', index);
     }
 });
 
 
 org.netsharp.controls.ContractFileUpload = org.netsharp.controls.OSSUpload.Extends({
-	ctor: function() {
-		this.base();
-		this.multi_selection = true;
-		this.parent = null;
-	},
-	getButtonId:function(){
-		
-		return "controllerfilesupload";
-	},
-	preview:function(path,file){
-		
-		if(System.isnull(path)){
-			return;
-		}
-		this.parent.appendRow(path,file);
-	}
+    ctor: function () {
+        this.base();
+        this.multi_selection = true;
+        this.parent = null;
+    },
+    getButtonId: function () {
+
+        return "controllerfilesupload";
+    },
+    preview: function (path, file) {
+
+        if (System.isnull(path)) {
+            return;
+        }
+        this.parent.appendRow(path, file);
+    }
 });
 
 

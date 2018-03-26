@@ -3,7 +3,12 @@ package com.gongsibao.trade.web;
 import java.sql.Types;
 import java.util.List;
 
+import com.gongsibao.bd.base.IFileService;
+import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.bd.File;
+import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.dic.OrderType;
+import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.utils.NumberUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
@@ -29,6 +34,10 @@ public class ContractFormPart extends FormPart {
 
     IPersister<SoOrder> orderPm = PersisterFactory.create();
 
+    IFileService fileService = ServiceFactory.create(IFileService.class);
+
+    IAuditService auditService = ServiceFactory.create(IAuditService.class);
+
     public IPersistable newInstance(Object par) {
 
         this.getService();
@@ -44,6 +53,34 @@ public class ContractFormPart extends FormPart {
         }
 
         return contract;
+    }
+
+    @Override
+    public FormNavigation byId(Object id) {
+
+        FormNavigation navigation = this.createFormNavigation(id);
+        Oql oql = new Oql();
+        {
+            oql.setType(Contract.class);
+            oql.setSelects("contract.*,soOrder.*,soOrder.products.*,soOrder.products.items.*");
+            oql.setFilter("id=?");
+            oql.getParameters().add("id", NumberUtils.toInt(id), Types.INTEGER);
+        }
+        Contract contract = contractService.queryFirst(oql);
+        if (contract == null) {
+            navigation.Entity = this.newInstance(null);
+        } else {
+            if (contract.getSoOrder() != null) {
+                contract.setProducts(contract.getSoOrder().getProducts());
+            }
+            List<File> filelist = fileService.getByTabNameFormId("so_contract", contract.getId());
+            contract.setFiles(filelist);
+
+            List<AuditLog> contractAuditList = auditService.getByTypeIdFormId(AuditLogType.Htsq, contract.getId());
+            contract.setAuditLogs(contractAuditList);
+            navigation.Entity = contract;
+        }
+        return navigation;
     }
 
     private SoOrder getSoOrder(Object id) {

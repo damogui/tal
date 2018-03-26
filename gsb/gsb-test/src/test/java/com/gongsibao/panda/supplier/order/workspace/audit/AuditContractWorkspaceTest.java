@@ -106,6 +106,10 @@ public class AuditContractWorkspaceTest extends WorkspaceCreationBase {
         PDatagridColumn column = null;
         addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
         addColumn(datagrid, "contract.soOrder.no", "订单编号", ControlTypes.TEXT_BOX, 80);
+        column = addColumn(datagrid, "formId", "formId", ControlTypes.TEXT_BOX, 80);
+        {
+            column.setVisible(false);
+        }
         addColumn(datagrid, "contract.soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "contract.soOrder.accountType", "新老客户签单", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "contract.soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX, 100);

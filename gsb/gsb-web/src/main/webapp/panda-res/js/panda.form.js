@@ -159,10 +159,14 @@
 
         this.notifyCurrentItemChanged();
         this.databindafter();
+        this.databindextra(this.viewModel.currentItem);
     },
     databindafter: function () {
         $('.easyui-combobox,.easyui-combogrid').combobox("initClearBtn");
         $('.easyui-filebox').filebox("initClearBtn");
+    },
+    databindextra: function (entity) {
+
     },
     onload: function () {
 
@@ -178,14 +182,14 @@
 //        var formId = this.context.formName;
 //        var $toolbar = $('#'+formId).prev();
 //        if($toolbar){
-//        	
+//
 //        	var toolbarId = $toolbar.attr('id');
 //        	var html = $toolbar.prop("outerHTML");
 //        	$toolbar.remove();
-//        	
+//
 //        	var $panel = $('body.easyui-layout>.layout-panel:first');
 //        	$panel.append(html);
-//        	
+//
 //        	$('#'+toolbarId).addClass('global-toolbar');
 //        }
     },
