@@ -39,8 +39,8 @@ public class NDepReceivable extends Entity {
     private Integer orderId;
 
 
-//    @JsonIgnore
-    @Reference(foreignKey = "orderId",primaryKey = "pkid")
+    @JsonIgnore
+    @Reference(foreignKey = "orderId", primaryKey = "pkid")
     private SoOrder order;
 
     @Column(name = "salesman_id", header = "员工Id")
@@ -75,7 +75,6 @@ public class NDepReceivable extends Entity {
     public void setOrder(SoOrder order) {
         this.order = order;
     }
-
 
 
     public Integer getDepartmentId() {
