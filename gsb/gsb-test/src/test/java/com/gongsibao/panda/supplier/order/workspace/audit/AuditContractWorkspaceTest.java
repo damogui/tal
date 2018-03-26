@@ -74,7 +74,6 @@ public class AuditContractWorkspaceTest extends WorkspaceCreationBase {
         PToolbar toolbar = new PToolbar();
         {
             toolbar.toNew();
-            toolbar.setBasePath("panda/datagrid/row/edit");
             toolbar.setPath(listrowToolbarPath);
             toolbar.setName("审核");
             toolbar.setResourceNode(node);

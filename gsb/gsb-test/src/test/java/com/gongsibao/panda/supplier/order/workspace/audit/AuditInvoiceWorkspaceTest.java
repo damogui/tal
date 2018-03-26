@@ -76,7 +76,6 @@ public class AuditInvoiceWorkspaceTest  extends WorkspaceCreationBase {
         PToolbar toolbar = new PToolbar();
         {
             toolbar.toNew();
-            toolbar.setBasePath("panda/datagrid/row/edit");
             toolbar.setPath(listrowToolbarPath);
             toolbar.setName("审核");
             toolbar.setResourceNode(node);
@@ -139,7 +138,7 @@ public class AuditInvoiceWorkspaceTest  extends WorkspaceCreationBase {
             item.setTooltip("订单编号、渠道订单编号、下单人、下单人电话、签单企业");
             item.setWidth(350);
         }
-        addQueryItem(queryProject, "invoice.soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "prodName", "产品名称", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "status", "审核状态", ControlTypes.ENUM_BOX);
         addQueryItem(queryProject, "invoice.typeId", "发票类型", ControlTypes.ENUM_BOX);
         addQueryItem(queryProject, "invoice.salesman.name", "业务员", ControlTypes.TEXT_BOX);
