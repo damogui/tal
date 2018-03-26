@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no">
+<title>商标办理</title>
+<style>
+body{
+  margin:0px;padding:0px;background-color:white;width:400px;height:400px;
+}
+#content{
+  font-size:64px;width:400px;height:400px;text-align:center;line-height:400px
+ }
+ </style>
+</head>
+<body>
+<div id="content"></div>
+</body>
+<script src="/package/easyui/jquery.min.js"></script>
+<script src='/package/layer/layer.js'></script>
+<script src="/panda-res/js/system.js"></script>
+<script src="/panda-res/js/panda.core.js"></script>
+<script type="text/javascript">
+ $(function(){
+		function getHashParameter(key) {
+			var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)", "i");
+			var index=window.location.href.indexOf("?");
+			if(index!=-1){
+				var searchStr=window.location.href.substr(index);
+				var r = searchStr.substr(1).match(reg);
+				if (r != null) {
+					var x = unescape(r[2]);
+					return decodeURI(x);
+				} else {
+					return null;
+				}
+			}
+		}
+		var w=getHashParameter("word");
+		$("#content").text(w);
+   });
+</script>
+</html>
+
