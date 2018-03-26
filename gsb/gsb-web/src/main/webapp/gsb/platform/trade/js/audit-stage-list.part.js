@@ -15,6 +15,7 @@ com.gongsibao.trade.web.AuditStagingListPart = org.netsharp.panda.commerce.ListP
     		return;
     	}
         var contentUrl = this.auditStageUrl + "?stageId=" + stageId + "&id=" + orderId + "&auditId=" + id;
+        
         layer.open({
             type: 2,//1是字符串 2是内容
             title: '分期审核',
@@ -22,7 +23,7 @@ com.gongsibao.trade.web.AuditStagingListPart = org.netsharp.panda.commerce.ListP
             maxmin: true,
             shadeClose: false,
             area: ['50%', '70%'],
-            zIndex: 100000,
+            zIndex: 1000,
             id: "auditStageIframe",
             content: contentUrl,
             btn: ['审核通过', '审核不通过'],// 可以无限个按钮

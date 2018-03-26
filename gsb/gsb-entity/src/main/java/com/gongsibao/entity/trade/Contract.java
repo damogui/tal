@@ -48,7 +48,7 @@ public class Contract extends BaseEntity {
     @Column(name = "customer_id", header = "客户序号")
     private Integer customerId;
 
-    @Column(name = "real_amount", header = "实际合同额")
+    @Column(name = "real_amount", header = "实际合同额(合同总额)")
     private Integer realAmount;
 
     @Column(name = "has_data_fee", header = "是否有材料撰写情况")
@@ -89,7 +89,7 @@ public class Contract extends BaseEntity {
 
     //licenseNo 有BUG，好你是easyui的关键字 hw 2018-03-24
     @Column(name = "license_no", header = "营业执照号")
-    private String  businessLicenseNo;
+    private String businessLicenseNo;
 
     @Column(name = "id_number", header = "身份证号")
     private String idNumber;
@@ -134,10 +134,10 @@ public class Contract extends BaseEntity {
 
     @Column(name = "achievement_amount", header = "合同业绩额")
     private Integer achievementAmount = 0;
-    
-	@Subs(subType = File.class, foreignKey = "formId", header = "上传图片表（一个支付可以多个凭证）")
-	private List<File> files = new ArrayList<>();
-	
+
+    @Subs(subType = File.class, foreignKey = "formId", header = "上传图片表（一个支付可以多个凭证）")
+    private List<File> files = new ArrayList<>();
+
     @Exclusive
     @Subs(subType = OrderProd.class, foreignKey = "orderId", header = "产品明细")
     private List<OrderProd> products = new ArrayList<OrderProd>();
@@ -423,14 +423,14 @@ public class Contract extends BaseEntity {
     }
 
     public String getBusinessLicenseNo() {
-		return businessLicenseNo;
-	}
+        return businessLicenseNo;
+    }
 
-	public void setBusinessLicenseNo(String businessLicenseNo) {
-		this.businessLicenseNo = businessLicenseNo;
-	}
+    public void setBusinessLicenseNo(String businessLicenseNo) {
+        this.businessLicenseNo = businessLicenseNo;
+    }
 
-	public String getContractTitle() {
+    public String getContractTitle() {
         return contractTitle;
     }
 
@@ -542,11 +542,11 @@ public class Contract extends BaseEntity {
         this.salesman = salesman;
     }
 
-	public List<File> getFiles() {
-		return files;
-	}
+    public List<File> getFiles() {
+        return files;
+    }
 
-	public void setFiles(List<File> files) {
-		this.files = files;
-	}
+    public void setFiles(List<File> files) {
+        this.files = files;
+    }
 }

@@ -2,12 +2,15 @@ package com.gongsibao.trade.web;
 
 import java.sql.Types;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.gongsibao.entity.trade.Contract;
 import com.gongsibao.entity.trade.OrderInvoiceMap;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.IContractService;
 import com.gongsibao.trade.base.IOrderInvoiceMapService;
+import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.FormPart;
@@ -46,14 +49,17 @@ public class InvoiceFormPart extends FormPart {
     public boolean checkInvoice(Integer orderId) {
         Oql oql = new Oql();
         {
-            oql.setType(OrderInvoiceMap.class);
+            oql.setType(Invoice.class);
             oql.setSelects("*");
-            oql.setFilter("orderId=?");
+            StringBuffer sbWhere = new StringBuffer();
+            sbWhere.append("audit_status_id in(" + AuditStatusType.Dsh.getValue() + "," + AuditStatusType.Shtg.getValue() + "," + AuditStatusType.Shz.getValue() + ") ");
+            sbWhere.append("and pkid in(select invoice_id from so_order_invoice_map where order_id = ?) ");
+            oql.setFilter(sbWhere.toString());
             oql.getParameters().add("orderId", orderId, Types.INTEGER);
         }
 
-        OrderInvoiceMap entity = orderInvoiceMapService.queryFirst(oql);
-        if (entity != null) {
+        List<Invoice> invoices = invoiceService.queryList(oql);
+        if (CollectionUtils.isNotEmpty(invoices)) {
             return true;
         } else {
             return false;

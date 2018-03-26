@@ -88,7 +88,8 @@ public class AuditPayWorkspaceTest  extends WorkspaceCreationBase {
         PDatagridColumn column = null;
         addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 60, true);
         // addColumn (datagrid, "u8Bank.name", "姓名", ControlTypes.TEXT_BOX, 100);
-        column = addColumn (datagrid, "pay.orderIds", "订单编号", ControlTypes.TEXT_BOX, 120);//需要拼接
+        column = addColumn (datagrid, "pay.id", "支付id", ControlTypes.TEXT_BOX, 120);//需要拼接
+        column = addColumn (datagrid, "pay.orderNo", "订单编号", ControlTypes.TEXT_BOX, 120);//需要拼接
         {
             // column.setFormatter("return controllerpayList.orderNameFormatter(value,row,index);");
 
