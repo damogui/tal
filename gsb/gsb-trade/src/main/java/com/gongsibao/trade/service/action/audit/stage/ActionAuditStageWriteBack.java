@@ -59,7 +59,7 @@ public class ActionAuditStageWriteBack implements IAction{
         UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("so_order");
-			updateSql.set("installmentAuditStatusId", state);
+			updateSql.set("installment_audit_status_id", state);
 			updateSql.where("pkid =" + formId);
 		}
 		String cmdText = updateSql.toSQL();

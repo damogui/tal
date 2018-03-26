@@ -28,8 +28,9 @@ com.gongsibao.trade.web.AuditCarryoverListPart = org.netsharp.panda.commerce.Lis
             btn1: function (index, layero) {
                 document.getElementById('carryOverIframe').firstElementChild.contentWindow.auditCarryoverCtrl.approved();
             },
-            btn2: function (){
+            btn2: function (index, layero){
             	document.getElementById('carryOverIframe').firstElementChild.contentWindow.auditCarryoverCtrl.rejected();
+            	return false;
             }
         });
     },

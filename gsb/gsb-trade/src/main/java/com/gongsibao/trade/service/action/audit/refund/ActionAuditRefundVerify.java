@@ -41,7 +41,7 @@ public class ActionAuditRefundVerify implements IAction{
             throw new BusinessException("该审核状态不是【" + AuditLogStatusType.TOAUDIT.getText() + "】,禁止审核");
         }
 
-        if (auditLog.getType().equals(AuditLogType.Fqsq)) {
+        if (auditLog.getType().equals(AuditLogType.Tdsq.getText())) {
             throw new BusinessException("该审核类别不是【" + AuditLogType.Fqsq.getText() + "】,禁止审核");
         }
 
@@ -51,5 +51,6 @@ public class ActionAuditRefundVerify implements IAction{
         }
         Map<String, Object> statusMap = new HashMap<String, Object>();
         statusMap.put("auditLog", auditLog);
+        ctx.setStatus(statusMap);
 	}
 }
