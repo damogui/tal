@@ -12,6 +12,7 @@ import com.gongsibao.trade.base.IPayService;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.BusinessException;
 
 import java.util.Map;
 
@@ -44,6 +45,7 @@ public class ActionAuditPayWriteBack implements IAction{
         switch (state.getValue()) {
             case 0://驳回审核
                 auditService.auditRejected(auditLog.getId(), remark);
+
                 payService.updateStatus(pay.getId(), AuditStatusType.Bhsh);
                 break;
             case 1://通过审核

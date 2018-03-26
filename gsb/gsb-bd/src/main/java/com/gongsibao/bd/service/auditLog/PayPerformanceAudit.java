@@ -5,6 +5,7 @@ import java.util.List;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 
+/*回款业绩*/
 public class PayPerformanceAudit extends AbstractAuditLogService {
 
 	@Override
@@ -21,6 +22,6 @@ public class PayPerformanceAudit extends AbstractAuditLogService {
 
 	@Override
 	protected String setActionPath() {
-		return "";
+		return "gsb/crm/audit/payper";
 	}
 }

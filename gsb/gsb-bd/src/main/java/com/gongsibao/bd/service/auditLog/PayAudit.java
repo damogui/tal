@@ -5,6 +5,7 @@ import java.util.List;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 
+/*回款*/
 public class PayAudit extends AbstractAuditLogService {
 
     @Override

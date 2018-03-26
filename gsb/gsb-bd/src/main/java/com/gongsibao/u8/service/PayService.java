@@ -37,7 +37,6 @@ public class PayService extends PersistableService<Pay> implements IPayService {
 		UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("so_pay");
-			updateSql.set("success_status_id", successStatusId);
 			updateSql.set("offline_audit_status_id", auditStatusId);
 			updateSql.where("pkid=" + payId + "" + oldStatusIdWhereString + "");
 		}

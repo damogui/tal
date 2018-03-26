@@ -4,6 +4,7 @@ import com.gongsibao.entity.trade.dic.AuditStatusType;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
+import org.netsharp.core.BusinessException;
 import org.netsharp.core.QueryParameters;
 import org.netsharp.service.PersistableService;
 
@@ -54,13 +55,14 @@ public class PayService extends PersistableService<Pay> implements IPayService {
 
         UpdateBuilder updateBuilder = new UpdateBuilder();
         {
-            updateBuilder.update("so_contract");
-            updateBuilder.set("so_pay", auditStatusType.getValue());
+            updateBuilder.update("so_pay");
+            updateBuilder.set("offline_audit_status_id", auditStatusType.getValue());
             updateBuilder.where("pkid=?");
         }
         String sql = updateBuilder.toSQL();
         QueryParameters qps = new QueryParameters();
         qps.add("id", id, Types.INTEGER);
+       // throw  new BusinessException ("测试");
         this.pm.executeNonQuery(sql, qps);
     }
 
