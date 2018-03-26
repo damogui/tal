@@ -1,6 +1,7 @@
 package com.gongsibao.panda.supplier.order.workspace.audit;
 
 import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.NDepPay;
 import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.tools.PToolbarHelper;
@@ -40,6 +41,8 @@ public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
         listPartImportJs = "/gsb/platform/trade/js/audit-pay-performance-list.js";
         listPartJsController = AuditPayPerformanceListPart.class.getName ();
         listPartServiceController = AuditPayPerformanceListPart.class.getName ();
+        listFilter = "type_id=" + AuditLogType.Skyjsh.getValue() + " and add_user_id = '{userId}' ";
+
     }
 
 

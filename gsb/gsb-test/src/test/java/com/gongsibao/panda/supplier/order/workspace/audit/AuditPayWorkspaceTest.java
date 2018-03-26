@@ -1,6 +1,7 @@
 package com.gongsibao.panda.supplier.order.workspace.audit;
 
 import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.trade.web.AuditPayListPart;
 import org.junit.Before;
@@ -36,6 +37,8 @@ public class AuditPayWorkspaceTest  extends WorkspaceCreationBase {
         listPartImportJs = "/gsb/platform/trade/js/audit-pay-list.js";
         listPartJsController = AuditPayListPart.class.getName ();
         listPartServiceController = AuditPayListPart.class.getName ();
+        listFilter = "type_id=" + AuditLogType.Sksq.getValue() + " and add_user_id = '{userId}' ";
+
     }
 
 

@@ -20,7 +20,7 @@ import java.util.List;
 public class AuditPerformanceController extends AuditBaseController {
 
     // 订单业绩审核
-    AbstractAuditLogService auditLogService = AuditFactory.getAudit(OrderPerformanceAudit.class);
+    AbstractAuditLogService auditLogService = AuditFactory.getAudit (OrderPerformanceAudit.class);
 
     /**
      * 审核通过 注：参数未定
@@ -28,7 +28,19 @@ public class AuditPerformanceController extends AuditBaseController {
      * @return
      */
     public Boolean approved(Integer auditLogId) {
-        return auditLogService.audit(AuditState.PASS, auditLogId, null);
+        boolean auditResult = auditLogService.audit (AuditState.PASS, auditLogId, null);
+
+        if (auditResult) {
+
+//回写数据
+        } else {
+
+            //
+        }
+
+        return  auditResult;
+
+
     }
 
     /**
@@ -37,7 +49,7 @@ public class AuditPerformanceController extends AuditBaseController {
      * @return
      */
     public Boolean rejected(Integer auditLogId, String remark) {
-        return auditLogService.audit(AuditState.NOTPASS, auditLogId, remark);
+        return auditLogService.audit (AuditState.NOTPASS, auditLogId, remark);
     }
 
     /*获取订单业绩划分展示根据订单id*/
