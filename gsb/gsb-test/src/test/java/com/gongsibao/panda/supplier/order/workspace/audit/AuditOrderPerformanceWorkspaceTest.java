@@ -86,27 +86,27 @@ public class AuditOrderPerformanceWorkspaceTest extends WorkspaceCreationBase {
         }
         PDatagridColumn column = null;
         addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-        column=addColumn (datagrid, "nDepReceivable.order.id", "订单id", ControlTypes.TEXT_BOX, 80);{
+        column=addColumn (datagrid, "soOrder.id", "订单id", ControlTypes.TEXT_BOX, 80);{
 
             //column.setStyler ("display:none");
         }
-        addColumn (datagrid, "nDepReceivable.order.no", "订单编号", ControlTypes.TEXT_BOX, 80);
-        addColumn (datagrid, "nDepReceivable.order.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "nDepReceivable.order.prodName", "产品名称", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "nDepReceivable.order.companyIntention.name", "签单公司", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "soOrder.no", "订单编号", ControlTypes.TEXT_BOX, 80);
+        addColumn (datagrid, "soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "soOrder.companyIntention.name", "签单公司", ControlTypes.TEXT_BOX, 100);
 
-        addColumn (datagrid, "nDepReceivable.order.totalPrice", "原价金额", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "nDepReceivable.order.payablePrice", "应付金额", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "nDepReceivable.order.paidPrice", "已付金额", ControlTypes.TEXT_BOX, 100);
-       // addColumn (datagrid, "nDepReceivable.order.orderId", "待付款金额", ControlTypes.TEXT_BOX, 100);//??
-        addColumn (datagrid, "nDepReceivable.order.payStatus", "待付款状态", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "nDepReceivable.amount", "订单业绩分配金额", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "nDepReceivable.statusType", "审核状态", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "nDepReceivable.createTime", "订单业绩创建款时间", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "nDepReceivable.order.createTime", "订单创建时间", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "soOrder.totalPrice", "原价金额", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "soOrder.payablePrice", "应付金额", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "soOrder.paidPrice", "已付金额", ControlTypes.TEXT_BOX, 100);
+       // addColumn (datagrid, "soOrder.orderId", "待付款金额", ControlTypes.TEXT_BOX, 100);//??
+        addColumn (datagrid, "soOrder.payStatus", "待付款状态", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "soOrder.payablePrice", "订单业绩分配金额", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "soOrder.depReceivableAuditStatusId", "审核状态", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "createTime", "订单业绩创建款时间", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "soOrder.createTime", "订单创建时间", ControlTypes.TEXT_BOX, 100);
 
-        addColumn (datagrid, "nDepReceivable.creator", "订单业绩创建人", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "nDepReceivable.order.owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "creator", "订单业绩创建人", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
 
         return datagrid;
     }
@@ -126,11 +126,11 @@ public class AuditOrderPerformanceWorkspaceTest extends WorkspaceCreationBase {
 
         addQueryItem (queryProject, "prodName", "产品名称", ControlTypes.TEXT_BOX);
 //        addQueryItem (queryProject, "nDepReceivable.statusType", "审核状态", ControlTypes.ENUM_BOX);//addQueryItem (queryProject, "nDepReceivable.order.payStatus", "付款状态", ControlTypes.ENUM_BOX);
-        addQueryItem (queryProject, "nDepReceivable.order.owner.name", "业务员", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "nDepReceivable.creator", "订单业绩创建人", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "creator", "订单业绩创建人", ControlTypes.TEXT_BOX);
 
-        addQueryItem (queryProject, "nDepReceivable.createTime", "订单业绩创建时间", ControlTypes.DATE_BOX);
-        addQueryItem (queryProject, "nDepReceivable.order.createTime", "订单创建时间", ControlTypes.DATE_BOX);
+        addQueryItem (queryProject, "createTime", "订单业绩创建时间", ControlTypes.DATE_BOX);
+        addQueryItem (queryProject, "soOrder.createTime", "订单创建时间", ControlTypes.DATE_BOX);
 
 
         return queryProject;

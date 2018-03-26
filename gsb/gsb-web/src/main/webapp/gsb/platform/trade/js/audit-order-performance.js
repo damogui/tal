@@ -13,18 +13,11 @@ com.gongsibao.trade.web.AuditOrderPerformanceListPart = org.netsharp.panda.comme
     },
 
     audit: function (id) {//审核
-
-
-
-
-      
-
-
         var me = this;
         var row = this.getSelectedItem();
         var rows = this.getSelections();
        
-        var contentUrl = this.auditUrl + "?id=" + row.nDepReceivable_order_id+"&auditId="+row.id;
+        var contentUrl = this.auditUrl + "?id=" + row.soOrder_id+"&auditId="+row.id;
 
 
         layer.open({

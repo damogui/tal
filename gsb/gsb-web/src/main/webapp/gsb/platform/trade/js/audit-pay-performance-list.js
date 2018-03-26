@@ -18,8 +18,8 @@ com.gongsibao.trade.web.AuditPayPerformanceListPart = org.netsharp.panda.commerc
         //     return false;
         // }
         //115763722
-        debugger;
-        var contentUrl = this.auditUrl + "?id=" + row.nDepPay_orderId+"&auditId="+row.id;
+       
+        var contentUrl = this.auditUrl + "?id=" + row.soOrder_id+"&auditId="+row.id;
         layer.open({
             type: 2,//1是字符串 2是内容
             title: '回款业绩审核',

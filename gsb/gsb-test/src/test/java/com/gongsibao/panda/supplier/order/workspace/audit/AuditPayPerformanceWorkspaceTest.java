@@ -89,24 +89,24 @@ public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
         }
         PDatagridColumn column = null;
         addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 60, true);
-        column = addColumn (datagrid, "nDepPay.orderId", "订单Id", ControlTypes.TEXT_BOX, 120);//需要拼接
+        column = addColumn (datagrid, "soOrder.id", "订单Id", ControlTypes.TEXT_BOX, 120);//需要拼接
         {
             // column.setFormatter("return controllerpayList.orderNameFormatter(value,row,index);");
 
         }
-        column = addColumn (datagrid, "nDepPay.order.no", "订单编号", ControlTypes.TEXT_BOX, 120);//需要拼接
-        addColumn (datagrid, "nDepPay.order.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "nDepPay.order.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);
-        addColumn (datagrid, "nDepPay.order.payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
-        addColumn (datagrid, "nDepPay.order.paidPrice", "已经付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
-        addColumn (datagrid, "nDepPay.amount", "我的回款业绩额", ControlTypes.DECIMAL_FEN_BOX, 100);
-        addColumn (datagrid, "nDepPay.statusType", "审核状态", ControlTypes.ENUM_BOX, 100);
-        addColumn (datagrid, "nDepPay.createTime", "回款业绩创建时间", ControlTypes.DATETIME_BOX, 100);
-        addColumn (datagrid, "nDepPay.auditTime", "审核通过时间", ControlTypes.DATETIME_BOX, 100);
+        column = addColumn (datagrid, "soOrder.no", "订单编号", ControlTypes.TEXT_BOX, 120);//需要拼接
+        addColumn (datagrid, "soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "soOrder.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn (datagrid, "soOrder.payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn (datagrid, "soOrder.paidPrice", "已经付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn (datagrid, "amount", "我的回款业绩额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn (datagrid, "status", "审核状态", ControlTypes.ENUM_BOX, 100);
+        addColumn (datagrid, "createTime", "回款业绩创建时间", ControlTypes.DATETIME_BOX, 100);
+        addColumn (datagrid, "updateTime", "审核通过时间", ControlTypes.DATETIME_BOX, 100);
 
-        addColumn (datagrid, "nDepPay.order.createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);
-        addColumn (datagrid, "nDepPay.creator", "回款业绩创建人", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "nDepPay.salesman.name", "业务员", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "soOrder.createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);
+        addColumn (datagrid, "creator", "回款业绩创建人", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
 
 
         return datagrid;
@@ -129,10 +129,10 @@ public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
 
         addQueryItem (queryProject, "status", "审核状态", ControlTypes.ENUM_BOX);
         // addQueryItem (queryProject, "payForOrderCount", "是否一笔多单", ControlTypes.ENUM_BOX);//已经去掉中间表
-        addQueryItem (queryProject, "nDepPay.order.isOnlinePay", "是否在线支付", ControlTypes.BOOLCOMBO_BOX);
+        addQueryItem (queryProject, "soOrder.isOnlinePay", "是否在线支付", ControlTypes.BOOLCOMBO_BOX);
 
-        addQueryItem (queryProject, "nDepPay.creator", "回款业绩创建人", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "nDepPay.createTime", "回款业绩创建时间", ControlTypes.DATE_BOX);
+        addQueryItem (queryProject, "creator", "回款业绩创建人", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "createTime", "回款业绩创建时间", ControlTypes.DATE_BOX);
 
 
         return queryProject;

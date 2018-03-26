@@ -20,9 +20,9 @@ public class AuditOrderPerformanceListPart extends AdvancedListPart {
     @Override
     public List<?> doQuery(Oql oql) {
         StringBuilder selects = new StringBuilder ();
-        selects.append ("AuditLog.*,");
-        selects.append ("AuditLog.nDepReceivable.*,");
-        selects.append ("AuditLog.nDepReceivable.order.*");
+        selects.append ("auditLog.*,");
+        selects.append ("auditLog.soOrder.*,");
+        //selects.append ("auditLog.soOrder.depReceivable.*");
 
         IAuditLogService auditLogService = ServiceFactory.create (IAuditLogService.class);
         oql.setSelects (selects.toString ());
