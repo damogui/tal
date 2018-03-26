@@ -1,7 +1,13 @@
 package com.gongsibao.panda.supplier.igirl;
 
 import com.gongsibao.entity.igirl.*;
-import com.gongsibao.entity.igirl.baseinfo.*;
+import com.gongsibao.entity.igirl.baseinfo.IGirlConfig;
+import com.gongsibao.entity.igirl.baseinfo.NCLOne;
+import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
+import com.gongsibao.entity.igirl.baseinfo.NclBatch;
+import com.gongsibao.entity.igirl.baseinfo.NclMap;
+import com.gongsibao.entity.igirl.baseinfo.SupplierNewInfo;
+import com.gongsibao.entity.igirl.baseinfo.SupplierSiteInfo;
 import com.gongsibao.entity.product.Product;
 import com.gongsibao.igirl.base.*;
 import com.gongsibao.product.base.IProductService;
@@ -78,6 +84,7 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(NCLTwo.class.getName(), "商标小类", "IGRIL_BASE_" +NCLTwo.class.getSimpleName(), INCLTwoService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NclBatch.class.getName(), "尼斯期间", "NCL_All_" + NclBatch.class.getSimpleName(), INclBatchService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(IGirlConfig.class.getName(), "参数设置", "IGRIL_BASE_" + IGirlConfig.class.getSimpleName(), IGirlConfigService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NclMap.class.getName(), "尼斯映射", "NCL_All_" + NclMap.class.getSimpleName(), INclMapService.class.getName(), node1.getId());
 			
 		}
 	

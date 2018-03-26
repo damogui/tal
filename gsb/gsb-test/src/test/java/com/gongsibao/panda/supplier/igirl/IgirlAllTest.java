@@ -1,4 +1,5 @@
 package com.gongsibao.panda.supplier.igirl;
+import com.gongsibao.panda.supplier.igirl.reference.NCLBatchReferenceTest;
 import com.gongsibao.panda.supplier.igirl.reference.NCLOneReferenceTest;
 import com.gongsibao.panda.supplier.igirl.reference.NCLTwoReferenceTest;
 import com.gongsibao.panda.supplier.igirl.reference.TradeMarkProductReferenceTest;
@@ -11,6 +12,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({ 
 		ResourceTest.class,
 		NCLOneReferenceTest.class,
+		NCLBatchReferenceTest.class,
 		NCLTwoReferenceTest.class,
 		TradeMarkProductReferenceTest.class,
 		NclOneWorkspaceTest.class,
@@ -31,6 +33,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		DpTransferTradeMarkFollowWorkspaceTest.class,
 		SupplierNewInfoWorkspaceTest.class,
 		SupplierSiteInfoWorkspaceTest.class,
+		NclMapWorkspaceTest.class,
 		NavigationTest.class
 		})
 		

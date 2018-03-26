@@ -5,17 +5,22 @@ import java.util.List;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 
-public class PayAudit extends AbstractAuditLogService{
+public class PayAudit extends AbstractAuditLogService {
 
-	@Override
-	protected List<AuditLog> getExtenAuditLogList(Integer formId,Integer addUserId) {
+    @Override
+    protected List<AuditLog> getExtenAuditLogList(Integer formId, Integer addUserId) {
 
-		return null;
-	}
+        return null;
+    }
 
-	@Override
-	protected AuditLogType setAuditLogType() {
+    @Override
+    protected AuditLogType setAuditLogType() {
 
-		return AuditLogType.Sksq;
-	}
+        return AuditLogType.Sksq;
+    }
+
+    @Override
+    protected String setActionPath() {
+        return "gsb/crm/audit/pay";
+    }
 }

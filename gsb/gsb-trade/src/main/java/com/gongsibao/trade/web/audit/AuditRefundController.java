@@ -3,6 +3,10 @@ package com.gongsibao.trade.web.audit;
 import java.sql.Types;
 import java.util.List;
 
+import com.gongsibao.bd.service.auditLog.AbstractAuditLogService;
+import com.gongsibao.bd.service.auditLog.AuditFactory;
+import com.gongsibao.bd.service.auditLog.AuditState;
+import com.gongsibao.bd.service.auditLog.RefundAudit;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 
@@ -12,9 +16,11 @@ import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.trade.base.INDepRefundService;
 import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IRefundService;
-import com.gongsibao.trade.service.action.audit.AuditState;
 
 public class AuditRefundController extends AuditBaseController{
+
+	// 退款审核
+	AbstractAuditLogService auditLogService = AuditFactory.getAudit(RefundAudit.class);
 
 	/**
 	 * 审核通过 注：参数未定
@@ -22,8 +28,7 @@ public class AuditRefundController extends AuditBaseController{
 	 * @return
 	 */
 	public Boolean approved(Integer auditLogId) {
-
-		return auditService.auditRefund(AuditState.PASS, auditLogId, null);
+		return auditLogService.audit(AuditState.PASS, auditLogId, null);
 	}
 
 	/**
@@ -32,8 +37,7 @@ public class AuditRefundController extends AuditBaseController{
 	 * @return
 	 */
 	public Boolean rejected(Integer auditLogId, String remark) {
-
-		return auditService.auditRefund(AuditState.NOTPASS, auditLogId, remark);
+		return auditLogService.audit(AuditState.NOTPASS, auditLogId, remark);
 	}
 	
 	/**

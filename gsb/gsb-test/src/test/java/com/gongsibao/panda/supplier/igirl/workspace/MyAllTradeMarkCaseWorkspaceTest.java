@@ -201,16 +201,14 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "orderCode", "订单号", "案件信息", ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "caseAmount", "方案金额", "案件信息", ControlTypes.DECIMAL_FEN_BOX, true, false);
 		addFormField(form, "tokenImgUrl", "二维码", "案件信息", ControlTypes.IMAGE, false, true);
-		addFormField(form, "tmcState", "方案状态", "案件信息", ControlTypes.ENUM_BOX, true, false).setVisible(false);
+		addFormField(form, "tmcState", "方案状态", "案件信息", ControlTypes.ENUM_BOX, true, false).setVisible(true);
 
 
 		addFormField(form, "token", "token", "案件信息", ControlTypes.TEXT_BOX, false, true).setVisible(false);
 		addFormField(form, "code", "方案编号", "案件信息", ControlTypes.TEXT_BOX, false, true).setVisible(false);
 		addFormField(form, "tradeOptions", "商标选项", "案件信息", ControlTypes.TEXT_BOX, false, true).setVisible(false);
 
-
-
-
+		addFormFieldRefrence(form, "product.name", "商标产品", "案件信息", "RegisterTypeTradeMarkList", true, false);
 
 		return form;
 	}
@@ -252,7 +250,8 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 				String formatter = EnumUtil.getColumnFormatter(ShareGroup.class);
 				column.setFormatter(formatter);
 			}
-
+			addColumn(datagrid, "cost", "成本", ControlTypes.DECIMAL_BOX, 150);
+			addColumn(datagrid, "charge", "服务费", ControlTypes.DECIMAL_BOX, 150);
 		}
 		PForm form = new PForm();
 		{
@@ -276,6 +275,12 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 			formField.setVisible(false);
 			formField = addFormField(form, "priorityType", "是否优先权", groupName, ControlTypes.ENUM_BOX, false, false);
 			formField.setVisible(false);
+
+			// 成本
+			addFormField(form, "cost", "成本", groupName, ControlTypes.DECIMAL_BOX, true, true);
+			// 服务费
+			addFormField(form, "charge", "服务费", groupName, ControlTypes.DECIMAL_BOX, true, false);
+
 			formField = addFormFieldRefrence(form, "nclOne.name", "商标大类", null, "NCLOne", true, false);
 			{
 				formField.setTroikaTrigger("controllertradeMarks.nclOneChange(newValue,oldValue);");

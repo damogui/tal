@@ -14,6 +14,7 @@ public class ActionApplyCarryoverPersist  implements IAction{
 		NOrderCarryover carryOver = (NOrderCarryover) ctx.getItem();
 		INOrderCarryoverService overService = ServiceFactory.create(INOrderCarryoverService.class);
 		carryOver.toNew();
-		overService.save(carryOver);
+		carryOver = overService.save(carryOver);
+		ctx.setItem(carryOver);
 	}
 }

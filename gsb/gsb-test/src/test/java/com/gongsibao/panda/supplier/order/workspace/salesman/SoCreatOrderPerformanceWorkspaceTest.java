@@ -49,8 +49,8 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
         listToolbarPath = "/crm/roworderaddperformance/toolbar";
         formToolbarPath = "";
         List<String> ss = new ArrayList<String> ();
-        //ss.add ("/gsb/platform/trade/js/order_performance-form.part.js");
-        ss.add ("/gsb/platform/trade/js/so-performance-add.part.js");
+        //ss.add ("/gsb/platform/trade/js/order-performance-form.part.js");
+        ss.add ("/gsb/platform/trade/js/salesman-order-performance-add.part.js");
         ss.add ("/gsb/panda-extend/gsb.customer.controls.js");
         formJsImport = StringManager.join ("|", ss);
         listPartJsController = SoCreatOrderPerformanceListPart.class.getName ();
@@ -110,13 +110,13 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
 
         }
 
-        formField = addFormField (form, "payablePrice", "订单金额", groupName, ControlTypes.TEXT_BOX, false);
+        formField = addFormField (form, "payablePrice", "订单金额", groupName, ControlTypes.DECIMAL_FEN_BOX, false);
         {
             formField.setReadonly (true);
 
         }
         /*beg*/
-        formField = addFormField (form, "paidPrice", "已付金额", groupName, ControlTypes.TEXT_BOX, false);
+        formField = addFormField (form, "paidPrice", "已付金额", groupName, ControlTypes.DECIMAL_FEN_BOX, false);
         {
             formField.setReadonly (true);
 
@@ -159,7 +159,7 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
      /*end*/
 
 
-        formField = addFormField (form, "performancePrice", "已划分金额", groupName, ControlTypes.TEXT_BOX, false);
+        formField = addFormField (form, "performancePrice", "已划分金额", groupName, ControlTypes.DECIMAL_FEN_BOX, false);
         {
             formField.setReadonly (true);
 

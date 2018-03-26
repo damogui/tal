@@ -58,7 +58,7 @@ public class ManualVoucherOrderDTOService extends PersistableService<ManualVouch
 		sqlBuffer.append("FROM so_order  ");
 		sqlBuffer.append("JOIN uc_account  ON uc_account.pkid = so_order.account_id  ");
 		sqlBuffer.append("LEFT JOIN crm_customer ON crm_customer.account_id = uc_account.pkid  ");
-		sqlBuffer.append("LEFT JOIN crm_customer_company_map ON customer_id = crm_customer.pkid  ");
+		sqlBuffer.append("LEFT JOIN crm_customer_company_map ON crm_customer_company_map.customer_id = crm_customer.pkid  ");
 		sqlBuffer.append("LEFT JOIN crm_company_intention ON crm_company_intention.pkid = crm_customer_company_map.company_id  ");
 		sqlBuffer.append("LEFT JOIN crm_company_intention cri1 ON cri1.pkid = so_order.company_id  ");
 		sqlBuffer.append("WHERE so_order.pkid = oi.`pkid` LIMIT 1) 'custName',  ");

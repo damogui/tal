@@ -1,6 +1,7 @@
 package com.gongsibao.panda.platform.trade.workspace.audit;
 
 import org.junit.Before;
+import org.junit.Test;
 
 import com.gongsibao.panda.supplier.order.workspace.audit.AuditStagingWorkspaceTest;
 
@@ -13,13 +14,17 @@ import com.gongsibao.panda.supplier.order.workspace.audit.AuditStagingWorkspaceT
  * @Copyright: 2017 www.yikuaxiu.com Inc. All rights reserved. 
  */
 public class StagingAuditWorkspaceTest extends AuditStagingWorkspaceTest {
-
+	
 	@Before
 	public void setup() {
 		super.setup();
 		urlList = "/trade/audit/staging/list";
 		resourceNodeCode = "GSB_Trade_Audit_Staging";
 		listFilter = "";
-		
 	}
+	
+    @Test
+	public void createRowToolbar() {
+    	
+    }
 }

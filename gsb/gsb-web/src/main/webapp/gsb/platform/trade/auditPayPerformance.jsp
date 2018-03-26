@@ -30,8 +30,8 @@
     <script src='/panda-res/js/panda.core.js'></script>
     <script src='/panda-res/js/panda.js'></script>
     <script src='/panda-res/js/panda.controls.js'></script>
-    <script src='/gsb/platform/trade/js/order-allot.ctrl.js'></script>
-    <script src='/gsb/platform/trade/js/pay-performance.ctrl.js'></script>
+    <script src='/gsb/platform/trade/js/audit-base.ctrl.js'></script>
+    <script src='/gsb/platform/trade/js/audit-pay-performance.ctrl.js'></script>
 </head>
 <body class="easyui-layout">
 <div data-options="region:'north',split:false,collapsible:false,closed:false,height:220">
@@ -66,7 +66,7 @@
                 <td class="control_td" id="channelOrderNo"></td>
                 <td class="label_td"><label>未划分回款业绩额：</label></td>
                 <td class="control_td" id="unAllotPayPrice"></td>
-                <td class="control_td" colspan="2" style="color:red;">注：本次需把未划分回款业绩额全部分配</td>
+                <%--<td class="control_td" colspan="2" style="color:red;">注：本次需把未划分回款业绩额全部分配</td>--%>
             </tr>
             <tr>
                 <td class="label_td"><label>备注：</label></td>
@@ -95,11 +95,11 @@
 
 <script>
 
-    var payPerformanceCtrl = null;
+    var auditPayPerformanceCtrl = null;
     $(function(){
 
-        payPerformanceCtrl = new com.gongsibao.trade.web.PayPerformanceCtrl();
-        payPerformanceCtrl.init();
+        auditPayPerformanceCtrl = new com.gongsibao.trade.web.AuditPayPerformanceCtrl ();
+        auditPayPerformanceCtrl.init();
     });
 </script>
 </html>

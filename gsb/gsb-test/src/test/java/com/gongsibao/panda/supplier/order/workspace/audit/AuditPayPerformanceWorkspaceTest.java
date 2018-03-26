@@ -1,9 +1,11 @@
 package com.gongsibao.panda.supplier.order.workspace.audit;
 
+import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.NDepPay;
 import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.tools.PToolbarHelper;
 import com.gongsibao.trade.web.AuditPayListPart;
+import com.gongsibao.trade.web.AuditPayPerformanceListPart;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.EntityState;
@@ -29,15 +31,15 @@ public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
     @Before
     public void setup() {
         super.setup ();
-        entity = NDepPay.class;
+        entity = AuditLog.class;
         urlList = "/crm/order/audit/payper/list";
         listPartName = formPartName = "回款业绩审核";//回款业绩审核
         meta = MtableManager.getMtable (entity);
         resourceNodeCode = "Gsb_Supplier_Pay_Audit_Performance";
         listToolbarPath = "";
-        listPartImportJs = "/gsb/platform/trade/js/audit-payperformance-list.js";
-        listPartJsController = AuditPayListPart.class.getName ();
-        listPartServiceController = AuditPayListPart.class.getName ();
+        listPartImportJs = "/gsb/platform/trade/js/audit-pay-performance-list.js";
+        listPartJsController = AuditPayPerformanceListPart.class.getName ();
+        listPartServiceController = AuditPayPerformanceListPart.class.getName ();
     }
 
 
@@ -89,18 +91,18 @@ public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
             // column.setFormatter("return controllerpayList.orderNameFormatter(value,row,index);");
 
         }
-        addColumn (datagrid, "order.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "order.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);
-        addColumn (datagrid, "order.payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
-        addColumn (datagrid, "order.paidPrice", "已经付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
-        addColumn (datagrid, "amount", "我的回款业绩额", ControlTypes.DECIMAL_FEN_BOX, 100);
-        addColumn (datagrid, "statusType", "审核状态", ControlTypes.ENUM_BOX, 100);
-        addColumn (datagrid, "createTime", "回款业绩创建时间", ControlTypes.DATETIME_BOX, 100);
-        addColumn (datagrid, "auditTime", "审核通过时间", ControlTypes.DATETIME_BOX, 100);
+        addColumn (datagrid, "nDepPay.order.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "nDepPay.order.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn (datagrid, "nDepPay.order.payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn (datagrid, "nDepPay.order.paidPrice", "已经付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn (datagrid, "nDepPay.amount", "我的回款业绩额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn (datagrid, "nDepPay.statusType", "审核状态", ControlTypes.ENUM_BOX, 100);
+        addColumn (datagrid, "nDepPay.createTime", "回款业绩创建时间", ControlTypes.DATETIME_BOX, 100);
+        addColumn (datagrid, "nDepPay.auditTime", "审核通过时间", ControlTypes.DATETIME_BOX, 100);
 
-        addColumn (datagrid, "order.createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);
-        addColumn (datagrid, "creator", "回款业绩创建人", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "salesman.name", "业务员", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "nDepPay.order.createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);
+        addColumn (datagrid, "nDepPay.creator", "回款业绩创建人", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "nDepPay.salesman.name", "业务员", ControlTypes.TEXT_BOX, 100);
 
 
         return datagrid;
@@ -121,12 +123,12 @@ public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
         }
 
 
-        addQueryItem (queryProject, "statusType", "审核状态", ControlTypes.ENUM_BOX);
+        addQueryItem (queryProject, "status", "审核状态", ControlTypes.ENUM_BOX);
         // addQueryItem (queryProject, "payForOrderCount", "是否一笔多单", ControlTypes.ENUM_BOX);//已经去掉中间表
-        addQueryItem (queryProject, "order.isOnlinePay", "是否在线支付", ControlTypes.BOOLCOMBO_BOX);
+        addQueryItem (queryProject, "nDepPay.order.isOnlinePay", "是否在线支付", ControlTypes.BOOLCOMBO_BOX);
 
-        addQueryItem (queryProject, "creator", "回款业绩创建人", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "createTime", "回款业绩创建时间", ControlTypes.DATE_BOX);
+        addQueryItem (queryProject, "nDepPay.creator", "回款业绩创建人", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "nDepPay.createTime", "回款业绩创建时间", ControlTypes.DATE_BOX);
 
 
         return queryProject;

@@ -81,10 +81,10 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
     },
     customerTypeChange: function (el) {  //客户类型
         if ($(el).val() == 1) {
-            $('#licenseNo').textbox({value: ""});
-            $('#licenseNo').textbox({disabled: true});
+            $('#businessLicenseNo').textbox({value: ""});
+            $('#businessLicenseNo').textbox({disabled: true});
         } else {
-            $('#licenseNo').textbox({disabled: false});
+            $('#businessLicenseNo').textbox({disabled: false});
         }
     },
     hasDataFeeChange: function (el) {  //有/无材料费
@@ -126,6 +126,63 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         return false;
     }
 
+});
+
+
+com.gongsibao.trade.web.OrderContractFileDetailPart = org.netsharp.panda.commerce.DetailPart.Extends({
+
+    ctor: function () {
+        this.base();
+    },
+	initUpload:function(){
+		
+		var upload = new org.netsharp.controls.ContractFileUpload();
+		upload.parent = this;
+		upload.init();
+	},
+	appendRow: function (path,file) {
+
+	    var row = new Object();
+	    row.name = file.name;
+	    row.url = path;
+	    row.tabName = 'so_contract';//要放到后台处理
+	    $('#' + this.context.id).datagrid('appendRow',row);
+    },
+    onload: function () {
+
+    	this.resize();
+    	this.initUpload();
+    },
+    urlFormatter:function(value,row,index){
+    	
+    	var str = '<a class="grid-btn" href="javascript:window.open(\''+row.url+'\');">查看</a> \
+		   <a class="grid-btn" href="javascript:controllerfiles.remove('+index+');">删除</a>';
+    	return str;
+    },
+    remove:function(index){
+    	
+    	$('#' + this.context.id).datagrid('deleteRow',index);
+    }
+});
+
+
+org.netsharp.controls.ContractFileUpload = org.netsharp.controls.OSSUpload.Extends({
+	ctor: function() {
+		this.base();
+		this.multi_selection = true;
+		this.parent = null;
+	},
+	getButtonId:function(){
+		
+		return "controllerfilesupload";
+	},
+	preview:function(path,file){
+		
+		if(System.isnull(path)){
+			return;
+		}
+		this.parent.appendRow(path,file);
+	}
 });
 
 

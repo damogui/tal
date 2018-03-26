@@ -40,15 +40,16 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
         }
     },
     onload:function(){
-    	 this.base();
-    	 $("#certificateType").parent().parent().parent().parent().parent().hide();
-    	 $("#tokenImgUrl").click(function(){
-    		      var qrurl=$(this).attr("src");
-    		      if(qrurl && qrurl!=""){
-    		    	  var enurl=qrurl.split("=")[1];
-    		    	  window.open(decodeURIComponent(enurl));
-    		                }
-    	      });
+    	this.base();
+    	$("#certificateType").parent().parent().parent().parent().parent().hide();
+    	$("#tokenImgUrl").click(function(){
+    		var qrurl=$(this).attr("src");
+    		if(qrurl && qrurl!=""){
+    			var enurl=qrurl.split("=")[1];
+    			window.open(decodeURIComponent(enurl));
+    		}
+    	});
+    },
     applierTypeChange: function (newValue, oldValue) {
         if (newValue == 1) {
             $("#companyName").validatebox('disable').validatebox('disableValidation');
@@ -361,10 +362,13 @@ com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Detail
                     }
                 });
 
-                //根据文本框内的值反选择grid
-                backSelect();
-
-
+                var selfme=me;
+                me.invokeService("getTmplByNclOneId", [newValue], function(data) {
+                	$("#selectedTwoStr").val(data);
+                	backSelect();
+                });
+                
+                
             });
 
         }

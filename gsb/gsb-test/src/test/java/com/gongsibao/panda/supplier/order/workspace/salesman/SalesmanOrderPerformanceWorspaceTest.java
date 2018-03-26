@@ -33,7 +33,7 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
         meta = MtableManager.getMtable(entity);
         formPartName = listPartName = meta.getName();
         resourceNodeCode = "Gsb_Supplier_Order_Salesman_Performance";
-        listPartImportJs = "/gsb/platform/trade/js/salesman-order-performance-list.js|/gsb/panda-extend/gsb.custom.query.controls.js";
+        listPartImportJs = "/gsb/platform/trade/js/salesman-order-performance-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
         listPartServiceController = SalesmanOrderPerformanceListPart.class.getName();
         listPartJsController = SalesmanOrderPerformanceListPart.class.getName();
         listFilter = "salesman_id = '{userId}'";

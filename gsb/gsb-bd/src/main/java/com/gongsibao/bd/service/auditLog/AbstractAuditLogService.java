@@ -1,17 +1,17 @@
 package com.gongsibao.bd.service.auditLog;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
+import com.gongsibao.entity.bd.dic.AuditLogStatusType;
+import org.netsharp.action.ActionContext;
+import org.netsharp.action.ActionManager;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.organization.base.IOrganizationService;
 import org.netsharp.persistence.session.SessionManager;
 
 import com.gongsibao.bd.base.IAuditLogService;
 import com.gongsibao.entity.bd.AuditLog;
-import com.gongsibao.entity.bd.dic.AuditLogStatusType;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.utils.SalesmanOrganization;
 import com.gongsibao.utils.SupplierSessionManager;
@@ -43,6 +43,30 @@ public abstract class AbstractAuditLogService {
         Integer addUserId = SessionManager.getUserId();
         List<AuditLog> allList = auditLogAllList(formId, addUserId);
         return allList;
+    }
+
+    /*
+    * 审核
+    * */
+    public boolean audit(AuditState state, Integer auditLogId, String remark) {
+
+        String actionPath = setActionPath();
+
+        AuditContext auditContext = new AuditContext();
+        {
+            // 这里根据传入的参数构造;
+            auditContext.setState(state);
+            auditContext.setAuditLogId(auditLogId);
+            auditContext.setremark(remark);
+        }
+        ActionContext ctx = new ActionContext();
+        {
+            ctx.setPath(actionPath);
+            ctx.setItem(auditContext);
+        }
+        ActionManager action = new ActionManager();
+        action.execute(ctx);
+        return true;
     }
 
     /**
@@ -135,6 +159,9 @@ public abstract class AbstractAuditLogService {
      * @return
      */
     protected abstract AuditLogType setAuditLogType();
+
+    //设置每个审核的actionPath
+    protected abstract String setActionPath();
 
     /*
     * 添加审核记录

@@ -130,7 +130,7 @@ public class SoOrder extends BaseEntity {
 	@Exclusive
 	private Integer unAllotPayPrice = 0;
 
-	@Column(name = "performance_price", header = "订单业绩已划分金额")
+	@Column(name = "performance_price", header = "订单业绩已划分金额（需要审核通过之后进行回写）")
 	private Integer performancePrice = 0;
 
 	@Subs(subType = NDepReceivable.class, foreignKey = "orderId", header = "订单业绩划分表")

@@ -22,14 +22,13 @@ public class TaskBaseListPart extends AdvancedListPart {
 			String keyword = parameter.getValue1().toString();
 			filters.add("id='" + keyword + "'");
 			filters.add("name='" + keyword + "'");
-			filters.add("customer.id='" + keyword + "'");
-			filters.add("customer.real_name='" + keyword + "'");
-			filters.add("customer.mobile='" + keyword + "'");
-			filters.add("customer.telephone='" + keyword + "'");
-			filters.add("customer.qq='" + keyword + "'");
-			filters.add("customer.weixin='" + keyword + "'");
-			return "(" + StringManager.join(" or ", filters) + ")";
-			
+			filters.add("id='" + keyword + "'");
+			filters.add("real_name='" + keyword + "'");
+			filters.add("mobile='" + keyword + "'");
+			filters.add("telephone='" + keyword + "'");
+			filters.add("qq='" + keyword + "'");
+			filters.add("weixin='" + keyword + "'");
+			return "customer_id in ( select id from n_crm_customer where " + StringManager.join(" or ", filters) + ")";
 		}else if(parameter.getKey().equals("unFollowDayCount")){
 			
 			//未跟进天数：当前时间-上次跟进时间

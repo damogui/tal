@@ -10,7 +10,7 @@ com.gongsibao.trade.web.AuditCarryoverCtrl = com.gongsibao.trade.web.AuditBaseCt
     	this.service = 'com.gongsibao.trade.web.audit.AuditCarryoverController';
     },
     initData:function(){
-    	var carryOverId = this.queryString('id');
+    	var carryOverId = this.queryString('carryoverId');
     	var me = this;
     	//加载Tab项
     	$('#detail_tabs').tabs({ 

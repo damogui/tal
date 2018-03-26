@@ -10,9 +10,15 @@ $(function() {
 
 	var creatorId = controllernLogList.queryString('creatorId');
 	var url = controllernLogList.context.queryUrl;
-    var qp = new org.netsharp.core.FilterParameter();
-    qp.key = "creatorId";
-    qp.value1 = creatorId;
-    qp.intelligentMode1 = org.netsharp.core.intelligentMode.EQUALS;
-	controllernLogList.resetUrl(url,[qp]);
+	if(System.isnull(creatorId)){
+	
+		controllernLogList.resetUrl(url,[]);
+	}else{
+
+	    var qp = new org.netsharp.core.FilterParameter();
+	    qp.key = "creatorId";
+	    qp.value1 = creatorId;
+	    qp.intelligentMode1 = org.netsharp.core.intelligentMode.EQUALS;
+		controllernLogList.resetUrl(url,[qp]);
+	}
 });

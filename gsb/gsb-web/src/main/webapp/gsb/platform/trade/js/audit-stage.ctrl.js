@@ -9,7 +9,9 @@ com.gongsibao.trade.web.AuditStageCtrl = com.gongsibao.trade.web.AuditBaseCtrl.E
     	this.service = 'com.gongsibao.trade.web.audit.AuditStageController';
     },
     initData:function(){
+    	var stageId = this.queryString('stageId');
     	var orderId = this.queryString('id');
+    	
     	var me = this;
     	//加载Tab项
     	$('#detail_tabs').tabs({ 
@@ -21,7 +23,7 @@ com.gongsibao.trade.web.AuditStageCtrl = com.gongsibao.trade.web.AuditBaseCtrl.E
 		    		return;
 		    	}
 		    	if(title=='审批进度'){
-		    		me.auditLogInfor(orderId);
+		    		me.auditLogInfor(stageId);
 		    	}
 		    }
     	});

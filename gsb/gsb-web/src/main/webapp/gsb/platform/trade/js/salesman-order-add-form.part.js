@@ -67,29 +67,7 @@ com.gongsibao.trade.web.SalesmanAddOrderFormPart = org.netsharp.panda.commerce.F
     	this.currentItem.accountId = null;
     },
     addExtraProp:function(entity){
-    	
-    	//处理金额，需要*100
-//    	var fen = 100;
-//    	entity.totalPrice = entity.totalPrice*fen;
-//    	entity.discountPrice = entity.discountPrice*fen;
-//    	entity.payablePrice = entity.payablePrice*fen;
-    	
-//    	$(entity.products).each(function(i,p){
-//    		
-//    		p.price = p.price*fen;
-//    		p.priceOriginal = p.priceOriginal*fen;
-//    		p.settlePrice = 0;
-//    		
-//        	$(p.items).each(function(i,item){
-//        		
-//        		item.price = item.price*fen;
-//        		item.priceOriginal = item.priceOriginal*fen;
-//        	});
-//    	});
-    	
-    	//?taskId=29&customerId=13&accountId=364627
-    	
-    	
+
     },
     added: function (currentItem) {
 
@@ -199,8 +177,8 @@ com.gongsibao.trade.web.OrderProdItemDetailPart = org.netsharp.panda.commerce.De
     		});
     		
     	});
-    	totalPrice = totalPrice/100;
-    	totalPayablePrice = totalPayablePrice/100;
+    	totalPrice = System.RMB.fenToYuan(totalPrice);
+    	totalPayablePrice = System.RMB.fenToYuan(totalPayablePrice);
     	$('#totalPrice').numberbox('setValue',totalPrice);
     	$('#payablePrice').numberbox('setValue',totalPayablePrice);
     },
@@ -241,13 +219,13 @@ com.gongsibao.trade.web.OrderProdItemDetailPart = org.netsharp.panda.commerce.De
     	var items = row.items;
     	if(items.length==1){
     		
-    		return (items[0].priceOriginal/100).toFixed(2);
+    		return System.RMB.fenToYuan(items[0].priceOriginal);
     	}else{
 
         	var str = '';
         	$(items).each(function(i,item){
         		
-        		str+='<p>'+(item.priceOriginal/100).toFixed(2)+'</p>';
+        		str+='<p>'+System.RMB.fenToYuan(item.priceOriginal)+'</p>';
         	});
         	return str;
     	}
@@ -257,13 +235,13 @@ com.gongsibao.trade.web.OrderProdItemDetailPart = org.netsharp.panda.commerce.De
     	var items = row.items;
     	if(items.length==1){
     		
-    		return (items[0].price/100).toFixed(2);
+    		return System.RMB.fenToYuan(items[0].price);
     	}else{
 
         	var str = '';
         	$(items).each(function(i,item){
         		
-        		str+='<p>'+(item.price/100).toFixed(2)+'</p>';
+        		str+='<p>'+System.RMB.fenToYuan(item.price)+'</p>';
         	});
         	return str;
     	}

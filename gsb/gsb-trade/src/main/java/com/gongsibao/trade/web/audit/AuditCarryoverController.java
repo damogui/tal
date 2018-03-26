@@ -2,22 +2,22 @@ package com.gongsibao.trade.web.audit;
 
 import java.sql.Types;
 
+import com.gongsibao.bd.service.auditLog.*;
 import org.netsharp.core.Oql;
 
 import com.gongsibao.entity.trade.NOrderCarryover;
-import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.trade.service.action.audit.AuditState;
 
 public class AuditCarryoverController extends AuditBaseController {
 
+	// 结转审核
+	AbstractAuditLogService auditLogService = AuditFactory.getAudit(CarryoverAudit.class);
 	/**
 	 * 审核通过 注：参数未定
 	 * 
 	 * @return
 	 */
 	public Boolean approved(Integer auditLogId) {
-
-		return auditService.auditCarryover(AuditState.PASS, auditLogId, null);
+		return auditLogService.audit(AuditState.PASS, auditLogId, null);
 	}
 
 	/**
@@ -26,8 +26,7 @@ public class AuditCarryoverController extends AuditBaseController {
 	 * @return
 	 */
 	public Boolean rejected(Integer auditLogId, String remark) {
-
-		return auditService.auditCarryover(AuditState.NOTPASS, auditLogId, remark);
+		return auditLogService.audit(AuditState.NOTPASS, auditLogId, remark);
 	}
 	
 	/**
