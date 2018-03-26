@@ -65,6 +65,7 @@ public class ActionAuditPayPerVerify implements IAction{
         Map<String, Object> statusMap = new HashMap ();
         statusMap.put ("auditLog", auditLog);
         statusMap.put ("nDepPay", nDepPay);
+        ctx.setStatus (statusMap);
 
     }
 

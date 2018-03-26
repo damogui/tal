@@ -64,8 +64,8 @@ public class ActionAuditPerformanceVerify implements IAction{
         }
         Map<String, Object> statusMap = new HashMap ();
         statusMap.put ("auditLog", auditLog);
-        statusMap.put ("nDepReceivableService", nDepReceivableService);
-
+        statusMap.put ("nDepReceivable", nDepReceivable);
+        ctx.setStatus (statusMap);
     }
 
 }
