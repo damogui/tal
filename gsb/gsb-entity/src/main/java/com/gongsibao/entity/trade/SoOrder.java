@@ -155,15 +155,16 @@ public class SoOrder extends BaseEntity {
 	// 1052 审核中
 	// 1053 驳回审核
 	// 1054 审核通过
+    //备注 默认无（前端根据此状态判断是否创建订单业绩）
 	@Column(name = "dep_receivable_audit_status_id", header = "订单业绩审核状态")
-	private AuditStatusType depReceivableAuditStatusId = AuditStatusType.Dsh;
+	private AuditStatusType depReceivableAuditStatusId = AuditStatusType.wu;
 
 	// 1051 待审核
 	// 1052 审核中
 	// 1053 驳回审核
 	// 1054 审核通过
 	@Column(name = "dep_pay_audit_status_id", header = "回款审核状态")
-	private AuditStatusType depPayAuditStatusId = AuditStatusType.Dsh;
+	private AuditStatusType depPayAuditStatusId = AuditStatusType.wu;
 
 	// 1051 待审核
 	// 1052 审核中

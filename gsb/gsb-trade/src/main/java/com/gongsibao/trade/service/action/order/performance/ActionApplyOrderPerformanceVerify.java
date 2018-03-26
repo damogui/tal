@@ -4,6 +4,7 @@ import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.NDepReceivable;
 import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dto.DepPayMapDTO;
 import com.gongsibao.entity.trade.dto.OrderRelationDTO;
 import com.gongsibao.trade.base.IOrderService;
@@ -42,9 +43,9 @@ public class ActionApplyOrderPerformanceVerify implements IAction {
             throw new BusinessException (String.format ("订单号:%s正处于订单业绩审核状态", execNum));
 
         }
-        if (entity.getDepReceivable ().size () == 0) {
-            throw new BusinessException ("订单业绩必须分配才能保存！");
-        }
+//        if (entity.getDepReceivable ().size () == 0) {
+//            throw new BusinessException ("订单业绩必须分配才能保存！");
+//        }
 
 
         List<NDepReceivable> depList = entity.getDepReceivable ();
@@ -55,12 +56,13 @@ public class ActionApplyOrderPerformanceVerify implements IAction {
 
                 totalAmount += item.getAmount ();
             }
+            item.setStatusType (AuditStatusType.Dsh);
 
         }
         //totalAmount = totalAmount / 100;//数据库以分进行保存
 
-        if (entity.getDepReceivable ().size () == 0) {
-            throw new BusinessException ("订单业绩必须没分配！");
+        if (totalAmount == 0) {
+            throw new BusinessException ("订单业绩必须分配！");
         }
 
         if (entity.getTotalPrice () < totalAmount) {
@@ -68,7 +70,7 @@ public class ActionApplyOrderPerformanceVerify implements IAction {
 
             throw new BusinessException ("订单业绩必须小于订单额！");
         }
-        entity.setPerformancePrice (totalAmount);
+        //entity.setPerformancePrice (totalAmount);
         ctx.setItem (entity);
 
 

@@ -2,6 +2,7 @@ package com.gongsibao.trade.service.action.order.performance;
 
 import com.gongsibao.entity.trade.NDepReceivable;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.INDepReceivableService;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
@@ -26,23 +27,16 @@ public class ActionApplyOrderPerformancePersist  implements IAction{
         IPersister<SoOrder> orderService = PersisterFactory.create();
 
         List<NDepReceivable> depList = entity.getDepReceivable ();
-//        int totalAmount=0;
-//        for (NDepReceivable item:depList
-//                ) {
-//            if (!item.getEntityState ().equals (EntityState.Deleted)){
-//
-//                totalAmount+=item.getAmount ();
-//            }
-//
-//        }
-//        totalAmount=totalAmount/100;
         nDepReceivableService.saves (depList);
-        String sql = "UPDATE  so_order  SET  performance_price=?  WHERE  pkid=? ;";//订单业绩只能一次
+
+
+
+        String sql = "UPDATE  so_order  SET  performance_price=0,dep_receivable_audit_status_id=？  WHERE  pkid=? ;";//订单业绩只能一次
         QueryParameters qps = new QueryParameters();
-        qps.add("@performance_price", entity.getPerformancePrice (), Types.INTEGER);//订单业绩校验已经处理过累加
+        qps.add("@dep_receivable_audit_status_id", AuditStatusType.Dsh.getValue (), Types.INTEGER);//订单业绩校验已经处理过累加
         qps.add("@pkid", entity.getId (), Types.INTEGER);
         orderService.executeNonQuery(sql, qps);
-       // return entity;
+
 
 	}
 
