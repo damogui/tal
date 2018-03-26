@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.gongsibao.entity.bd.AuditLog;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Reference;
@@ -141,6 +142,10 @@ public class Contract extends BaseEntity {
     @Exclusive
     @Subs(subType = OrderProd.class, foreignKey = "orderId", header = "产品明细")
     private List<OrderProd> products = new ArrayList<OrderProd>();
+
+    @Exclusive
+    @Subs(subType = AuditLog.class, foreignKey = "formId", header = "审核记录")
+    private List<AuditLog> auditLogs = new ArrayList<AuditLog>();
 
     // 合同业绩总额（不生成数据库字段）
     @Exclusive
@@ -548,5 +553,13 @@ public class Contract extends BaseEntity {
 
     public void setFiles(List<File> files) {
         this.files = files;
+    }
+
+    public List<AuditLog> getAuditLogs() {
+        return auditLogs;
+    }
+
+    public void setAuditLogs(List<AuditLog> auditLogs) {
+        this.auditLogs = auditLogs;
     }
 }

@@ -4,8 +4,11 @@ import java.sql.Types;
 import java.util.List;
 
 import com.gongsibao.bd.base.IFileService;
+import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.File;
+import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.dic.OrderType;
+import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.utils.NumberUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
@@ -32,6 +35,8 @@ public class ContractFormPart extends FormPart {
     IPersister<SoOrder> orderPm = PersisterFactory.create();
 
     IFileService fileService = ServiceFactory.create(IFileService.class);
+
+    IAuditService auditService = ServiceFactory.create(IAuditService.class);
 
     public IPersistable newInstance(Object par) {
 
@@ -70,6 +75,9 @@ public class ContractFormPart extends FormPart {
             }
             List<File> filelist = fileService.getByTabNameFormId("so_contract", contract.getId());
             contract.setFiles(filelist);
+
+            List<AuditLog> contractAuditList = auditService.getByTypeIdFormId(AuditLogType.Htsq, contract.getId());
+            contract.setAuditLogs(contractAuditList);
             navigation.Entity = contract;
         }
         return navigation;

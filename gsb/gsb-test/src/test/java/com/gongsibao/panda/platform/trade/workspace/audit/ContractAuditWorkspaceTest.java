@@ -28,7 +28,6 @@ public class ContractAuditWorkspaceTest extends WorkspaceCreationBase {
 
 		entity = AuditLog.class;// 实体
 		urlList = "/trade/audit/contract/list";// 列表的url
-		urlForm = "/trade/audit/contract/form";// 弹出框的url
 		listPartName = formPartName = "合同审核列表";
 		meta = MtableManager.getMtable(entity);// 获取实体元数据
 		formPartName = listPartName = meta.getName();

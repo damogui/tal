@@ -165,6 +165,9 @@
         $('.easyui-combobox,.easyui-combogrid').combobox("initClearBtn");
         $('.easyui-filebox').filebox("initClearBtn");
     },
+    databindextra: function (entity) {
+
+    },
     onload: function () {
 
         var id = this.queryString("id");

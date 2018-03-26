@@ -30,9 +30,9 @@ com.gongsibao.trade.web.AuditContractListPart = org.netsharp.panda.commerce.List
             IMessageBox.info("该审核记录的状态不是【" + me.auditLogStatusTypeEnum[1051] + "】，禁止审核");
             return;
         }
-        
+
         var serviceLocator = new org.netsharp.core.JServiceLocator();
-        var url = '/panda/trade/order/contract/form?id=' + row.formId;
+        var url = '/panda/trade/audit/contract/form?id=' + row.formId;
         //增加订单是否创建合同
 
         layer.open({
@@ -44,12 +44,15 @@ com.gongsibao.trade.web.AuditContractListPart = org.netsharp.panda.commerce.List
             shadeClose: true,
             area: ['60%', '90%'],
             content: url,
-            btn: ['提交', '取消'],
-            success: function (layero, index) {
-
+            btn: ['审核通过', '审核驳回'],// 可以无限个按钮
+            btn1: function (index, layero) {
+                //document.getElementById('carryOverIframe').firstElementChild.contentWindow.auditCarryoverCtrl.approved();
+                alert("审核通过");
             },
-            yes: function () {
-                //document.getElementById('contractCreateIframe').firstElementChild.contentWindow.controllercontract.save();
+            btn2: function (index, layero) {
+                //document.getElementById('carryOverIframe').firstElementChild.contentWindow.auditCarryoverCtrl.rejected();
+                alert("审核驳回");
+                return false;
             }
         });
 
