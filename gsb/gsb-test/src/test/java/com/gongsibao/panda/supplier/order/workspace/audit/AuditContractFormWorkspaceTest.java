@@ -39,7 +39,7 @@ public class AuditContractFormWorkspaceTest extends ContractFormWorkspaceTest {
     }
 
     private void createAuditListPart(PWorkspace workspace) {
-        ResourceNode node = this.resourceService.byCode("Operation_Order_AuditLog");
+        ResourceNode node = this.resourceService.byCode(resourceNodeCode);
         PDatagrid datagrid = new PDatagrid(node, "审批进度");
         {
             datagrid.setReadOnly(true);
