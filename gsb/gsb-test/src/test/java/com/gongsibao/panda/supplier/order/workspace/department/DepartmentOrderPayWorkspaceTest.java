@@ -37,8 +37,9 @@ public class DepartmentOrderPayWorkspaceTest extends SalesmanOrderPayWorkspaceTe
         //listFilter = "salesman_id = '{userId}' ";//and deId in(select deid from sp_salesman where empyleId='{}')
 
         listToolbarPath="";
-        listFilter = " pkid IN (SELECT pay_id FROM so_order_pay_map WHERE order_id IN (SELECT pkid FROM so_order WHERE owner_id = '{userId}' ORDER BY pkid DESC)) OR add_user_id = '{userId}' ";
+        //listFilter = " pkid IN (SELECT pay_id FROM so_order_pay_map WHERE order_id IN (SELECT pkid FROM so_order WHERE owner_id = '{userId}' ORDER BY pkid DESC)) OR add_user_id = '{userId}' ";
         // listPartJsController = SalesmanOrderReceivedListPart.class.getName ();
+        listFilter="";
         listPartServiceController = DepartmentOrderReceivedListPart.class.getName();
 
 
