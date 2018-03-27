@@ -15,6 +15,9 @@ public class SupplierOrderSalesmanAuthTest extends AuthBaseTest {
 
     protected void getResourceCodeList() {
 //客户管理（我的商机）、订单管理（我的订单）、统计分析（综合统计、漏斗统计、跟进统计）
-        this.resourceNodeCodeList.add ("Gsb_Supplier_Order_Salesman");
+        this.resourceNodeCodeList.add("GSB_CRM_MY");//客户管理 我的商机
+        this.resourceNodeCodeList.add ("Gsb_Supplier_Order_Salesman");//我的订单
+        this.resourceNodeCodeList.add("GSB_CRM_STATISTICAL");//统计分析：
+
     }
 }
