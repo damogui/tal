@@ -78,7 +78,31 @@ org.netsharp.core.LoginController = System.Object.Extends({
 				
 				//设置ticket
 				System.Cookies.set("COOKIE_ER_LOGIN_TICKET", message.data, 100);
-				window.location.href = message.workbenchPtah;
+				
+				var workbenchList = message.workbenchList;
+				if(workbenchList.length == 1){
+
+					window.location.href = workbenchList[0].path;
+				}else{
+					
+				    var content = '';
+				    $(workbenchList).each(function(index,item){
+				    	
+				    	content += '<div class="workbench-item"><a href="'+item.path+'">'+(index+1)+'. '+item.name+'</a></div>';
+				    });
+				    
+				    var offsetLeft = ($('body').width() - 410)+'px';
+				    var offsetTop = (($('body').height() - 150)/2)+'px';
+				    layer.open({
+				        type: 1,
+				        closeBtn:0,
+				        anim: 2,
+				        offset: [offsetTop,offsetLeft],
+				        title:'请选择工作台',
+				        area: ['350px', '150px'],
+				        content: content
+				      });
+				}
 			} else if (message.result == 2) {
 				
 				IMessageBox.error("您的帐号已经冻结，请联系管理员！");
