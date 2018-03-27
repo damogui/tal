@@ -9,6 +9,7 @@ import org.netsharp.util.StringManager;
 
 import com.gongsibao.utils.SupplierSessionManager;
 
+/*部门回款业绩*/
 public class DepartmentOrderReceivedListPart extends AdvancedListPart {
     @Override
     public String getFilterByParameter(FilterParameter parameter) {
@@ -28,28 +29,29 @@ public class DepartmentOrderReceivedListPart extends AdvancedListPart {
 
         return parameter.getFilter();
     }
-    @Override
-	protected String getExtraFilter() {
 
-		List<String> ss = new ArrayList<String>();
 
-		// 父类过滤条件
-		String filter = super.getExtraFilter();
-		if (!StringManager.isNullOrEmpty(filter)) {
-			ss.add(filter);
-		}
+    protected String getExtraFilter() {
 
-		// 过滤部门Id
-		String departmentIds = SupplierSessionManager.getSubDepartmentIdsStr();
-		if (!StringManager.isNullOrEmpty(departmentIds)) {
-ss.add (String.format ("pkid IN (SELECT pay_id FROM so_order_pay_map WHERE order_id IN (SELECT pkid FROM so_order WHERE owner_id   IN ( SELECT employee_id FROM   `sp_salesman` WHERE  department_id in (%s))    ORDER BY pkid DESC))",departmentIds));//进行过滤
-           // ss.add("departmentId in (" + departmentIds + ")");
-		} else {
+        List<String> ss = new ArrayList<String>();
 
-			// 非服务商内部人员看不到数据
-			ss.add("1=2");
-		}
+        // 父类过滤条件
+        String filter = super.getExtraFilter();
+        if (!StringManager.isNullOrEmpty(filter)) {
+            ss.add(filter);
+        }
 
-		return StringManager.join(" and ", ss);
-	}
+        // 过滤部门Id
+        String departmentIds = SupplierSessionManager.getSubDepartmentIdsStr();
+        if (!StringManager.isNullOrEmpty(departmentIds)) {
+
+            ss.add("departmentId in (" + departmentIds + ")");
+        } else {
+
+            // 非服务商内部人员看不到数据
+            ss.add("1=2");
+        }
+
+        return StringManager.join(" and ", ss);
+    }
 }
