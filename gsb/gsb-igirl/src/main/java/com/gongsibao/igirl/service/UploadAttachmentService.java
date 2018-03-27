@@ -57,7 +57,7 @@ public class UploadAttachmentService extends GsbPersistableService<UploadAttachm
 		Oql oql=new Oql();
 		{
 			oql.setType(UploadAttachment.class);
-			oql.setSelects("UploadAttachment.fileUrl");
+			oql.setSelects("UploadAttachment.*");
 			oql.setFilter("tradeMarkCaseId=? and needed=1");
 			oql.getParameters().add("tradeMarkCaseId",tradeMarkCaseId,Types.INTEGER);
 		}
