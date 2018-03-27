@@ -6,12 +6,12 @@ System.Declare("com.gongsibao.trade.web");
 com.gongsibao.trade.web.SalesmanOrderReceivedListPart = org.netsharp.panda.commerce.ListPart.Extends({
     ctor: function () {
         this.base();
-        this.auditPayUrl="/nav/gsb/platform/trade/auditPayPerformance";//回款业绩审核
+        this.auditPayUrl = "/nav/gsb/platform/trade/auditPayPerformance";//回款业绩审核
     },
     detail: function (id) {
 
         var rows = this.getSelections();
-        debugger;
+       
         if (System.isnull(id)) {
 
             if (rows.length > 1) {
@@ -26,9 +26,10 @@ com.gongsibao.trade.web.SalesmanOrderReceivedListPart = org.netsharp.panda.comme
 
             //id = rows[0].order_id;//订单id
         }
-
-
-        var urlEnd = this.auditPayUrl + "?id=" + id;//回款
+       
+        var rowCurrent = this.getSelectedItem()
+        //var row = this.getSelected();
+        var urlEnd = this.auditPayUrl + "?id=" + rowCurrent.order_id;//传递订单id
 
         layer.open({
             type: 2,//1是字符串 2是内容
@@ -51,8 +52,6 @@ com.gongsibao.trade.web.SalesmanOrderReceivedListPart = org.netsharp.panda.comme
 
 
         });
-
-
 
 
     }

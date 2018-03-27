@@ -28,7 +28,7 @@ public class AuditOrderPerformanceListPart extends AdvancedListPart {
         oql.setSelects (selects.toString ());
         List<AuditLog> auditLogs = auditLogService.queryList (oql);
 
-        List<AuditLog> auditLogs2 = (List<AuditLog>) super.doQuery (oql);
+       // List<AuditLog> auditLogs2 = (List<AuditLog>) super.doQuery (oql);
 
         return auditLogs;
     }

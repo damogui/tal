@@ -35,7 +35,7 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
         listToolbarPath = "crm/audit/pay/edit";
         listPartImportJs = "/gsb/platform/trade/js/salesman-order-pay-performance-list.part.js";
         listPartJsController = SalesmanOrderReceivedListPart.class.getName ();
-        //listPartServiceController = AuditPayListPart.class.getName ();
+        listPartServiceController = SalesmanOrderReceivedListPart.class.getName ();//设置查询的列
         listFilter = "salesman_id = '{userId}'  or creator_id = '{userId}'";//我创建和别人分配给我
         listToolbarPath = "";
     }
@@ -59,7 +59,7 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
             item.setCode ("detail");
             item.setName ("查看");
             item.setSeq (1);
-            item.setCommand("{controller}.detail();");
+            item.setCommand ("{controller}.detail();");
             toolbar.getItems ().add (item);
         }
 
@@ -80,9 +80,11 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
         }
         PDatagridColumn column = null;
         addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 60, true);
-        column = addColumn (datagrid, "orderId", "订单编号", ControlTypes.TEXT_BOX, 120);//需要拼接
+        column = addColumn (datagrid, "order.no", "订单编号", ControlTypes.TEXT_BOX, 120);//需要拼接
+        column = addColumn (datagrid, "order.id", "订单Id", ControlTypes.TEXT_BOX, 120);//需要拼接
         {
-            // column.setFormatter("return controllerpayList.orderNameFormatter(value,row,index);");
+            column.setSystem (true);
+            column.setVisible (false);//传递订单id到时候
 
         }
         addColumn (datagrid, "order.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
