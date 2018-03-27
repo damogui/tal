@@ -330,11 +330,10 @@ public class SoOrder extends BaseEntity {
     @Column(name = "depReceivableCreator", header = "订单业绩创建人")
     private String depReceivableCreator = "";
 
-    @Exclusive
+    
     @Column(name = "stage_create_time", header = "分期申请时间")
     private Date stageCreateTime = null;
-
-    @Exclusive
+    
     @Column(name = "stage_creator", header = "分期申请人")
     private String stageCreator = "";
 

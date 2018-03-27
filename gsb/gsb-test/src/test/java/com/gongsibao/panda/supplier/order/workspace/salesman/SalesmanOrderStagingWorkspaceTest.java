@@ -29,7 +29,7 @@ public class SalesmanOrderStagingWorkspaceTest extends WorkspaceCreationBase {
         listPartName = formPartName = "我的分期";
         meta = MtableManager.getMtable(entity);
         resourceNodeCode = "Gsb_Supplier_Order_Salesman_Staging";
-        listFilter = " owner_id = '{userId}' and is_installment = 1 ";
+        listFilter = " (owner_id = '{userId}' and is_installment = 1) ";
         
         List<String> ss = new ArrayList<String>();
 		ss.add("/gsb/platform/trade/js/salesman-order-stage-list.part.js");
@@ -71,9 +71,9 @@ public class SalesmanOrderStagingWorkspaceTest extends WorkspaceCreationBase {
         addColumn(datagrid, "installmentAuditStatusId", "审核状态", ControlTypes.ENUM_BOX, 100);
         
         
-//        addColumn(datagrid, "stageCreateTime", "分期申请时间", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "createTime", "订单创建时间", ControlTypes.DATE_BOX, 350);
-        addColumn(datagrid, "creator", "分期申请人", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "stageCreateTime", "分期申请时间", ControlTypes.DATETIME_BOX, 100);
+        addColumn(datagrid, "createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 350);
+        addColumn(datagrid, "stageCreator", "分期申请人", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
 
         return datagrid;
@@ -96,9 +96,9 @@ public class SalesmanOrderStagingWorkspaceTest extends WorkspaceCreationBase {
         addQueryItem(queryProject, "installmentAuditStatusId", "审核状态", ControlTypes.ENUM_BOX);
         addQueryItem(queryProject, "payStatus", "付款状态", ControlTypes.ENUM_BOX);
         addQueryItem(queryProject, "owner.name", "业务员", ControlTypes.TEXT_BOX);
-//        addQueryItem(queryProject, "stageCreator", "分期申请人", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "stageCreator", "分期申请人", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "stageNum", "分期次数", ControlTypes.ENUM_BOX);
-//        addQueryItem(queryProject, "stageCreateTime", "分期申请时间", ControlTypes.DATE_BOX);
+        addQueryItem(queryProject, "stageCreateTime", "分期申请时间", ControlTypes.DATE_BOX);
         addQueryItem(queryProject, "createTime", "订单创建时间", ControlTypes.DATE_BOX);
         return queryProject;
     }

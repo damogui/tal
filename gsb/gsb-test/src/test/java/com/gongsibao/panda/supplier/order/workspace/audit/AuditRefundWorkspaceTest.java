@@ -128,19 +128,19 @@ public class AuditRefundWorkspaceTest extends WorkspaceCreationBase{
          queryProject.toNew();
          PQueryItem item = null;
          queryProject.setColumnCount(3);
-         item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
+         /*item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
          {
              item.setTooltip("订单编号、渠道订单编号、下单人、下单人电话、签单企业");
              item.setWidth(350);
-         }
-         addQueryItem(queryProject, "fefund.soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX);
+         }*/
+         /*addQueryItem(queryProject, "fefund.soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX);*/
          addQueryItem(queryProject, "status", "审核状态", ControlTypes.ENUM_BOX);
-         addQueryItem(queryProject, "fefund.soOrder.payStatus", "订单付款状态", ControlTypes.ENUM_BOX);
+         /*addQueryItem(queryProject, "fefund.soOrder.payStatus", "订单付款状态", ControlTypes.ENUM_BOX);*/
          addQueryItem(queryProject, "fefund.refundType", "退款类别", ControlTypes.ENUM_BOX);
          addQueryItem(queryProject, "fefund.soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX);
          addQueryItem(queryProject, "fefund.creator", "退款业绩创建人", ControlTypes.TEXT_BOX);
          addQueryItem(queryProject, "fefund.createTime", "退款业绩创建时间", ControlTypes.DATE_BOX);
-         addQueryItem(queryProject, "fefund.soOrder.createTime", "订单创建时间", ControlTypes.DATE_BOX);
+         /*addQueryItem(queryProject, "fefund.soOrder.createTime", "订单创建时间", ControlTypes.DATE_BOX);*/
          
         return queryProject;
     }
