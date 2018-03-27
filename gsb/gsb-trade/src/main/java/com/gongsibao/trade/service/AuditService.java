@@ -26,14 +26,14 @@ public class AuditService extends PersistableService<AuditLog> implements IAudit
 
     //审核通过
     @Override
-    public Boolean auditApproved(Integer auditId) {
+    public Boolean auditApproved(Integer auditId,String remark) {
         AuditLog auditLog = byId(auditId);
         if (auditLog == null) {
             return false;
         }
 
         //将自己的状态改为【审核通过】
-        updateStatus(auditLog.getId(), AuditLogStatusType.AUDITPASS, "");
+        updateStatus(auditLog.getId(), AuditLogStatusType.AUDITPASS, remark);
         //将等于自己同级别的审核记录修改成【关闭】,且不包括自己
         updateStatusToClose(auditLog, "=");
         //将下一级别的审核记录修改成【待审核】

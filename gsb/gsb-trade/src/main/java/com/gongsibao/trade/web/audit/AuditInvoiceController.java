@@ -14,8 +14,8 @@ public class AuditInvoiceController extends AuditBaseController{
 	 * 
 	 * @return
 	 */
-	public Boolean approved(Integer auditLogId) {
-		return auditLogService.audit(AuditState.PASS, auditLogId, null);
+	public Boolean approved(Integer auditLogId, String remark) {
+		return auditLogService.audit(AuditState.PASS, auditLogId, remark);
 	}
 
 	/**

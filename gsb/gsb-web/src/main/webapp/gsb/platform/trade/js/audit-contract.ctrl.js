@@ -31,7 +31,7 @@ com.gongsibao.trade.web.AuditContractListPart = org.netsharp.panda.commerce.List
             return;
         }
 
-        var serviceLocator = new org.netsharp.core.JServiceLocator();
+        
         var url = '/panda/trade/audit/contract/form?id=' + row.formId;
         //审核id
         var id = row.id;
@@ -46,20 +46,13 @@ com.gongsibao.trade.web.AuditContractListPart = org.netsharp.panda.commerce.List
             content: url,
             btn: ['审核通过', '审核驳回'],// 可以无限个按钮
             btn1: function (index, layero) {
-
-                serviceLocator.invoke("com.gongsibao.trade.web.audit.AuditContractController", "approved", [id], function (data) {
-                    IMessageBox.toast('提交成功！');
-                    me.onload();
-                }, null, false);
+                document.getElementById('contractCreateIframe').firstElementChild.contentWindow.controllercontract.approved(id);
             },
             btn2: function (index, layero) {
-                serviceLocator.invoke("com.gongsibao.trade.web.audit.AuditContractController", "rejected", [id, "审核意见"], function (data) {
-                    IMessageBox.toast('提交成功！');
-                    me.onload();
-                }, null, false);
+                document.getElementById('contractCreateIframe').firstElementChild.contentWindow.controllercontract.rejected(id);
                 return false;
             }
         });
-        
+
     }
 });

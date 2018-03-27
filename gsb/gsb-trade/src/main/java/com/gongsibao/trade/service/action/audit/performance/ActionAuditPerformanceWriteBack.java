@@ -47,7 +47,7 @@ public class ActionAuditPerformanceWriteBack implements IAction{
                 nDepReceivableService.updateStatus(nDepReceivable.getId(), AuditStatusType.Bhsh);
                 break;
             case 1://通过审核
-                auditService.auditApproved(auditLog.getId());
+                auditService.auditApproved(auditLog.getId(),remark);
                 if (auditLog.getLevel().equals(auditLog.getMaxLevel())) {
                     nDepReceivableService.updateStatus(nDepReceivable.getId(), AuditStatusType.Shtg);
                 }
