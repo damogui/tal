@@ -25,6 +25,7 @@ import com.gongsibao.panda.platform.operation.workspace.crm.form.TaskFollowFormW
 import com.gongsibao.panda.platform.operation.workspace.igirl.TradeMarkCaseAllWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.igirl.TradeMarkFollowWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.reference.QualityRefeerenceTest;
+import com.gongsibao.panda.platform.operation.workspace.reference.SupplierCategoryRefeerenceTest;
 import com.gongsibao.panda.platform.operation.workspace.reference.SupplierDepartmentReferenceTest;
 import com.gongsibao.panda.platform.operation.workspace.reference.SupplierReferenceTest;
 import com.gongsibao.panda.platform.operation.workspace.reference.SupplierSalesmanReferenceTest;
@@ -69,6 +70,7 @@ import com.gongsibao.panda.platform.trade.workspace.order.StagingWorkspaceTest;
         SupplierDepartmentReferenceTest.class,
         SupplierSalesmanReferenceTest.class,
         QualityRefeerenceTest.class,
+        SupplierCategoryRefeerenceTest.class,
 
         //金牛座
         UserWorkspaceTest.class,

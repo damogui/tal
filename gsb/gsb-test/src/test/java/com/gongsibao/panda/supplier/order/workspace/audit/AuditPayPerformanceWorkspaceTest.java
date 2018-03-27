@@ -91,7 +91,8 @@ public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
         addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 60, true);
         column = addColumn (datagrid, "soOrder.id", "订单Id", ControlTypes.TEXT_BOX, 120);//需要拼接
         {
-            // column.setFormatter("return controllerpayList.orderNameFormatter(value,row,index);");
+            column.setSystem (true);
+            column.setVisible (false);
 
         }
         column = addColumn (datagrid, "soOrder.no", "订单编号", ControlTypes.TEXT_BOX, 120);//需要拼接

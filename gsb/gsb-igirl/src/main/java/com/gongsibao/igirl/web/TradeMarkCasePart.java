@@ -28,12 +28,13 @@ import com.gongsibao.utils.SupplierSessionManager;
 public class TradeMarkCasePart extends FormPart {
      ITradeMarkCaseService tradeMarkCaseService = ServiceFactory.create(ITradeMarkCaseService.class);
 	ITradeMarkService tradeMarkService = ServiceFactory.create(ITradeMarkService.class);
-
+	IUploadAttachmentService uploadAttachmentService = ServiceFactory.create(IUploadAttachmentService.class);
+	
 	@Override
 	public IPersistable save(IPersistable entity) {
 		// TODO Auto-generated method stub
 		//this.getContext().getWorkspace().ge
-		//获取当前的域名
+		//鑾峰彇褰撳墠鐨勫煙鍚�
 		TradeMarkCase entity1=(TradeMarkCase)entity;
 		Integer departmentId = SupplierSessionManager.getDepartmentId();
 		entity1.setDepartmentId(departmentId);	
@@ -118,7 +119,7 @@ public class TradeMarkCasePart extends FormPart {
 	@SuppressWarnings("rawtypes")
 	@Authorization(is=false)
 	public ResultDto updateDownloadAttachment(String upid,String filepath) {
-		//参数是上传图样附件的id,获取上传附件，获取caseid和name,获取memo,按照caseid,memo+"_xxxxx"的方式去更新待下载附件
+		//鍙傛暟鏄笂浼犲浘鏍烽檮浠剁殑id,鑾峰彇涓婁紶闄勪欢锛岃幏鍙朿aseid鍜宯ame,鑾峰彇memo,鎸夌収caseid,memo+"_xxxxx"鐨勬柟寮忓幓鏇存柊寰呬笅杞介檮浠�
 		int rtn=down.updateDownloadDeleProofAttachmentFileurl(upid, filepath);
 		return ResultDto.getSimpleResultDto(rtn);
 	}
@@ -152,8 +153,14 @@ public class TradeMarkCasePart extends FormPart {
 		int st=tradeMarkCaseService.updateCaseState(casecode,state);
 		return ResultDto.getSimpleResultDto(st);
 	}
-	
+	@SuppressWarnings("rawtypes")
+	@Authorization(is=false)
+	public ResultDto isAllUpload(int caseId) {
+		int ua=uploadAttachmentService.isAllUpload(caseId);
+		return ResultDto.getSimpleResultDto(ua);//
+	}
 	public int attachmentMake(String caseid) {
+		//
 		return tradeMarkCaseService.attachmentMake(caseid);
 	}
 }

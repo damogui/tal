@@ -52,4 +52,21 @@ public class UploadAttachmentService extends GsbPersistableService<UploadAttachm
 			return this.queryList(oql);
 	
 	}
+	@Override
+	public int isAllUpload(int tradeMarkCaseId) {
+		Oql oql=new Oql();
+		{
+			oql.setType(UploadAttachment.class);
+			oql.setSelects("UploadAttachment.fileUrl");
+			oql.setFilter("tradeMarkCaseId=? and needed=1");
+			oql.getParameters().add("tradeMarkCaseId",tradeMarkCaseId,Types.INTEGER);
+		}
+		List<UploadAttachment> uas = this.queryList(oql);
+		for(UploadAttachment ua: uas){
+			if(ua.getFileUrl()==null || ua.getFileUrl()==""){
+				return -1;
+			}
+		}
+		return 0;
+	}
 }
