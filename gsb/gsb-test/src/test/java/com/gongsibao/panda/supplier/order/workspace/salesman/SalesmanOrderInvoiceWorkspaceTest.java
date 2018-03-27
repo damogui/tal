@@ -27,8 +27,9 @@ public class SalesmanOrderInvoiceWorkspaceTest extends WorkspaceCreationBase {
         listPartName = formPartName = "发票管理";
         meta = MtableManager.getMtable(entity);
         resourceNodeCode = "Gsb_Supplier_Order_Salesman_Invoice";
-        listPartImportJs = "/gsb/panda-extend/gsb.custom.query.controls.js";
+        listPartImportJs = "/gsb/platform/trade/js/salesman-order-invoice-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
         listPartServiceController = SalesmanOrderInvoiceListPart.class.getName();
+        listPartJsController = SalesmanOrderInvoiceListPart.class.getName();
         listFilter = "soOrder.owner_id = '{userId}'";
     }
 
@@ -47,14 +48,17 @@ public class SalesmanOrderInvoiceWorkspaceTest extends WorkspaceCreationBase {
         addColumn(datagrid, "soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "soOrder.accountType", "新老客户签单", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX, 200);
-        column = addColumn(datagrid, "soOrder.totalPrice", "订单金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
-        	column.setAlign(DatagridAlign.RIGHT);
+        column = addColumn(datagrid, "soOrder.totalPrice", "订单金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        {
+            column.setAlign(DatagridAlign.RIGHT);
         }
-        column = addColumn(datagrid, "soOrder.payablePrice", "付款金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
-        	column.setAlign(DatagridAlign.RIGHT);
+        column = addColumn(datagrid, "soOrder.payablePrice", "付款金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        {
+            column.setAlign(DatagridAlign.RIGHT);
         }
-        column = addColumn(datagrid, "invoice.amount", "发票金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
-        	column.setAlign(DatagridAlign.RIGHT);
+        column = addColumn(datagrid, "invoice.amount", "发票金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        {
+            column.setAlign(DatagridAlign.RIGHT);
         }
         addColumn(datagrid, "invoice.typeId", "发票类型", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "invoice.title", "发票抬头", ControlTypes.TEXT_BOX, 100);

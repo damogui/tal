@@ -24,7 +24,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 /**
  * Created by zhangchao on 2018/3/23.
  */
-public class AuditInvoiceWorkspaceTest  extends WorkspaceCreationBase {
+public class AuditInvoiceWorkspaceTest extends WorkspaceCreationBase {
 
     private String listrowToolbarPath = "/audit/rowinvoice/toolbar";
 
@@ -106,6 +106,10 @@ public class AuditInvoiceWorkspaceTest  extends WorkspaceCreationBase {
         }
         PDatagridColumn column = null;
         addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+        column = addColumn(datagrid, "formId", "formId", ControlTypes.OPERATION_COLUMN, 100, true);
+        {
+            column.setVisible(false);
+        }
         addColumn(datagrid, "invoice.soOrderNo", "订单编号", ControlTypes.TEXT_BOX, 80);
         addColumn(datagrid, "invoice.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "invoice.accountTypeName", "新老客户签单", ControlTypes.TEXT_BOX, 100);

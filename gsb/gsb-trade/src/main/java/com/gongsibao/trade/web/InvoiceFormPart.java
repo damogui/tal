@@ -5,14 +5,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.gongsibao.bd.base.IFileService;
+import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.bd.File;
+import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.Contract;
 import com.gongsibao.entity.trade.OrderInvoiceMap;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
+import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.trade.base.IContractService;
 import com.gongsibao.trade.base.IOrderInvoiceMapService;
+import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
+import org.netsharp.panda.commerce.FormNavigation;
 import org.netsharp.panda.commerce.FormPart;
 
 import com.gongsibao.entity.trade.Invoice;
@@ -26,6 +33,9 @@ public class InvoiceFormPart extends FormPart {
 
     IInvoiceService invoiceService = ServiceFactory.create(IInvoiceService.class);
 
+    IFileService fileService = ServiceFactory.create(IFileService.class);
+
+    IAuditService auditService = ServiceFactory.create(IAuditService.class);
 
     /**
      * 订单id 查询订单信息
@@ -42,6 +52,39 @@ public class InvoiceFormPart extends FormPart {
         SoOrder soOrder = soOrderService.byId(orderId);
         return soOrder;
     }
+
+
+    @Override
+    public FormNavigation byId(Object id) {
+
+        FormNavigation navigation = this.createFormNavigation(id);
+        Oql oql = new Oql();
+        {
+            oql.setType(Invoice.class);
+            oql.setSelects("*");
+            oql.setFilter("id=?");
+            oql.getParameters().add("id", NumberUtils.toInt(id), Types.INTEGER);
+        }
+        Invoice invoice = invoiceService.queryFirst(oql);
+        if (invoice == null) {
+            navigation.Entity = this.newInstance(null);
+        } else {
+
+            List<OrderInvoiceMap> orderInvoiceMapList = orderInvoiceMapService.getByInvoiceId(invoice.getId());
+
+            if (CollectionUtils.isNotEmpty(orderInvoiceMapList)) {
+                invoice.setSoOrder(orderInvoiceMapList.get(0).getSoOrder());
+            }
+            List<File> filelist = fileService.getByTabNameFormId("so_invoice", invoice.getId());
+            invoice.setFiles(filelist);
+
+            List<AuditLog> contractAuditList = auditService.getByTypeIdFormId(AuditLogType.Fbsq, invoice.getId());
+            invoice.setAuditLogs(contractAuditList);
+            navigation.Entity = invoice;
+        }
+        return navigation;
+    }
+
 
     /*
     *检查该订单是否已经有发票了
