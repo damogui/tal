@@ -46,7 +46,7 @@ public class ActionRegainVerify implements IAction {
         int ownerId = NumberUtils.toInt(taskEntity.getOwnerId());
 
         if (supplierId == 0 && departmentId == 0 && ownerId == 0) {
-            throw new BusinessException("当前任务已经是大公海任务了，禁止收回！");
+            throw new BusinessException("当前商机已经是大公海商机了，禁止收回！");
         }
         //当前登录人
         int userId = SessionManager.getUserId();
@@ -55,7 +55,7 @@ public class ActionRegainVerify implements IAction {
 
 
         if (roleRow == null) {
-            throw new BusinessException("当前登录人无权限，收回任务");
+            throw new BusinessException("当前登录人无权限，收回商机");
         }
         if (roleRow != null) {
             StringBuffer flag = new StringBuffer();
@@ -79,12 +79,12 @@ public class ActionRegainVerify implements IAction {
             }
             //当该登录人既不是售前也是不服务商管理也不是部门负责人时
             if (StringManager.isNullOrEmpty(flag.toString())) {
-                throw new BusinessException("当前登录人无权限，收回任务");
+                throw new BusinessException("当前登录人无权限，收回商机");
             }
             //当该登录人是：【部门负责人】时
             if (flag.indexOf("d") > -1) {
                 if (supplierId != 0 && departmentId != 0 && ownerId == 0) {
-                    throw new BusinessException("该任务已经是到该部门公海了，禁止收回");
+                    throw new BusinessException("该商机已经是到该部门公海了，禁止收回");
                 }
                 //退出等级：1：退回到大公海（即:服务商id,部门id,业务员id都设置为空）、2：退回到服务商（（即:服务商id不为空））、3：退回到部门（（即:服务商id,部门id不为空））
                 setMap.put("backLevel", 3);
@@ -96,7 +96,7 @@ public class ActionRegainVerify implements IAction {
             //当该登录人是：服务商【管理员】时
             if (flag.indexOf("s") > -1) {
                 if (supplierId != 0 && departmentId == 0 && ownerId == 0) {
-                    throw new BusinessException("该任务已经是到该服务商公海了，禁止收回");
+                    throw new BusinessException("该商机已经是到该服务商公海了，禁止收回");
                 }
                 //退出等级：1：退回到大公海（即:服务商id,部门id,业务员id都设置为空）、2：退回到服务商（（即:服务商id不为空））、3：退回到部门（（即:服务商id,部门id不为空））
                 setMap.put("backLevel", 2);
@@ -117,10 +117,10 @@ public class ActionRegainVerify implements IAction {
                 taskEntity.setAllocationState(AllocationState.WAIT);//待分配
             } else {
                 //当是售前时，则将
-                throw new BusinessException("当前任务已经是大公海任务了，禁止收回！");
+                throw new BusinessException("当前商机已经是大公海商机了，禁止收回！");
             }
         }
-        //收回级别：业务员（当前任务的ownerId等于当前登录人，退回到业务员当前的部门公海）、上级部门或平台（当前任务的ownerId所在部门的上级部门不为空退回上级部门公海，上级部门为空是平台公海）
+        //收回级别：业务员（当前商机的ownerId等于当前登录人，退回到业务员当前的部门公海）、上级部门或平台（当前商机的ownerId所在部门的上级部门不为空退回上级部门公海，上级部门为空是平台公海）
         /*if (taskEntity.getOwnerId() != null && taskEntity.getOwnerId().equals(SessionManager.getUserId())) {
             setMap.put("ownerId", SessionManager.getUserId());
             taskEntity.setOwnerId(null);

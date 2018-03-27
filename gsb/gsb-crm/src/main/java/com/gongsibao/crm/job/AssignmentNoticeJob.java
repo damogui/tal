@@ -29,7 +29,7 @@ public class AssignmentNoticeJob implements IJob{
 			for (Map.Entry entry : assignmentMap.entrySet()) {
 				Integer receivedId =  (Integer) entry.getKey();
 				int count = (Integer) entry.getValue();
-				String copyWriterForm = String.format("【待分配提醒】您好，公海里有【%s】个新的任务未分配给您，请及时分配",count);
+				String copyWriterForm = String.format("【待分配提醒】您好，公海里有【%s】个新的商机未分配给您，请及时分配",count);
 				sendNotify(copyWriterForm,receivedId);
 			}
 		}

@@ -23,7 +23,7 @@ import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.supplier.dict.SupplierType;
 
-@Table(name = "n_crm_customer_task", header = "客户任务")
+@Table(name = "n_crm_customer_task", header = "客户商机")
 public class NCustomerTask extends Entity {
 
 	/**
@@ -38,7 +38,7 @@ public class NCustomerTask extends Entity {
 	@Column(name = "customer_id", header = "客户")
 	private Integer customerId;
 
-	@Column(name = "task_type", header = "任务类型")
+	@Column(name = "task_type", header = "商机类型")
 	private TaskCustomerType taskType = TaskCustomerType.NEW;
 
 	@Column(name = "name", size = 200, header = "名称")
@@ -147,10 +147,10 @@ public class NCustomerTask extends Entity {
 	@Column(name = "allocation_dispositon", header = "自营/平台")
 	private SupplierType allocationDispositon = SupplierType.UNLIMITED;
 
-	@Reference(foreignKey = "sourceId", header = "任务来源")
+	@Reference(foreignKey = "sourceId", header = "商机来源")
 	private Dict source;
 
-	@Column(name = "source_id", header = "任务来源")
+	@Column(name = "source_id", header = "商机来源")
 	private Integer sourceId;
 
 	@Column(name = "source_other", header = "客户来源选择其他时填写的详情")

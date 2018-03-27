@@ -37,7 +37,7 @@ public class SoOrder extends BaseEntity {
      * @Reference(foreignKey="type",header="订单类型") private Dict typeDict;
 	 */
 
-    @Column(name = "task_id", header = "任务Id")
+    @Column(name = "task_id", header = "商机Id")
     private Integer taskId;
 
     @Column(name = "supplier_id", header = "服务商Id")

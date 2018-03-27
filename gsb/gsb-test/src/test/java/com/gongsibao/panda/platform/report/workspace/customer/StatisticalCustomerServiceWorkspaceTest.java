@@ -54,27 +54,27 @@ public class StatisticalCustomerServiceWorkspaceTest extends WorkspaceCreationBa
         {
             column.setImported(true);
         }
-        column = addColumn(datagrid, "creatTaskCount", "创建任务数", ControlTypes.NUMBER_BOX, 80);
+        column = addColumn(datagrid, "creatTaskCount", "创建商机数", ControlTypes.NUMBER_BOX, 80);
         {
             column.setImported(true);
         }
-        column = addColumn(datagrid, "noTaskCustomerCount", "无任务客户数", ControlTypes.NUMBER_BOX, 80);
+        column = addColumn(datagrid, "noTaskCustomerCount", "无商机客户数", ControlTypes.NUMBER_BOX, 80);
         {
             column.setImported(true);
         }
-        column = addColumn(datagrid, "manualDistribution", "手动分配任务数", ControlTypes.NUMBER_BOX, 80);
+        column = addColumn(datagrid, "manualDistribution", "手动分配商机数", ControlTypes.NUMBER_BOX, 80);
         {
             column.setVisible(false);
         }
-        column = addColumn(datagrid, "unAllotTaskCount", "未分配任务数", ControlTypes.NUMBER_BOX, 80);
+        column = addColumn(datagrid, "unAllotTaskCount", "未分配商机数", ControlTypes.NUMBER_BOX, 80);
         {
             column.setImported(true);
         }
-        column = addColumn(datagrid, "unStartTaskCount", "未启动任务数", ControlTypes.NUMBER_BOX, 80);
+        column = addColumn(datagrid, "unStartTaskCount", "未启动商机数", ControlTypes.NUMBER_BOX, 80);
         {
             column.setImported(true);
         }
-        column = addColumn(datagrid, "unSignTaskCount", "无法签单任务数", ControlTypes.NUMBER_BOX, 100);
+        column = addColumn(datagrid, "unSignTaskCount", "无法签单商机数", ControlTypes.NUMBER_BOX, 100);
         {
             column.setImported(true);
         }

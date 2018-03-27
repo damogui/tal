@@ -20,7 +20,7 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 
 		super.setup();
 		urlList = "/operation/customer/task/all/list";
-		listPartName = formPartName = "全部任务";
+		listPartName = formPartName = "全部商机";
 		resourceNodeCode = "Operation_CRM_Task_ALL";
 		listPartJsController = TaskAllListPart.class.getName();
 		listPartServiceController = TaskAllListPart.class.getName();
@@ -73,7 +73,7 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 		PDatagridColumn column = null;
 
 		addColumn(datagrid, "ownerId", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-		column = addColumn(datagrid, "id", "任务ID", ControlTypes.TEXT_BOX, 60, false);{
+		column = addColumn(datagrid, "id", "商机ID", ControlTypes.TEXT_BOX, 60, false);{
 			
 			StringBuilder builder = new StringBuilder();
 			builder.append("if(row.qualityProgress=='上升'){return value+'<i title=\\'意向度上升\\' style=\\'font-size: 12px;color:red;float:right;\\' class=\\'fa fa-level-up\\'></i>';}");
@@ -83,7 +83,7 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 		}
 		addColumn(datagrid, "allocationState", "分配状态", ControlTypes.ENUM_BOX, 100, false);
 
-		addColumn(datagrid, "name", "任务名称", ControlTypes.TEXT_BOX, 250, false);
+		addColumn(datagrid, "name", "商机名称", ControlTypes.TEXT_BOX, 250, false);
 		addColumn(datagrid, "customerId", "客户ID", ControlTypes.TEXT_BOX, 60, false);
 		addColumn(datagrid, "customer.realName", "客户名称", ControlTypes.TEXT_BOX, 100, false);
 
@@ -138,7 +138,7 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 
 		// addColumn(datagrid, "customer.realName", "意向产品",
 		// ControlTypes.TEXT_BOX, 100, true );
-		addColumn(datagrid, "source.name", "任务来源", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "source.name", "商机来源", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "lastContent", "最后跟进内容", ControlTypes.TEXT_BOX, 300, false);
 		addColumn(datagrid, "lastFollowTime", "最后跟进时间", ControlTypes.DATETIME_BOX, 130, false);
 

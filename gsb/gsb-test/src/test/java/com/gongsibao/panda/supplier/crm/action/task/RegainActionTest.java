@@ -28,7 +28,7 @@ public class RegainActionTest extends BaseActionTest{
 			beanPath.toNew();
 			beanPath.setPath(pathName);
 			beanPath.setResourceNode(resourceNode);
-			beanPath.setName("任务收回");
+			beanPath.setName("商机收回");
 		}
 
 		createBean(beanPath, "验证", ActionRegainVerify.class.getName(), resourceNode, 100);

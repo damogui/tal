@@ -15,7 +15,7 @@ import com.gongsibao.entity.crm.NCustomerTaskFoolow;
 import com.gongsibao.entity.crm.dic.QualityCategory;
 
 /**
- * @author hw 跟进回写：任务，客户相关
+ * @author hw 跟进回写：商机，客户相关
  */
 public class ActionFollowWriteBack implements IAction {
 

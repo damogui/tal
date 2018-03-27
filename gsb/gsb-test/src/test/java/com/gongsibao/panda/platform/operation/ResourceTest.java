@@ -191,20 +191,20 @@ public class ResourceTest extends ResourceCreationBase {
         {
             this.createResourceNodeVoucher(NCustomer.class.getName(), "新增客户", "Operation_CRM_Customer_Add", INCustomerService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(NCustomer.class.getName(), "修改客户", "Operation_CRM_Customer_Edit", INCustomerService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(NCustomerTask.class.getName(), "新增任务", "Operation_CRM_Task_Add", INCustomerTaskService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(NCustomerTask.class.getName(), "修改任务", "Operation_CRM_Task_Edit", INCustomerTaskService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(NCustomerTask.class.getName(), "新增商机", "Operation_CRM_Task_Add", INCustomerTaskService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(NCustomerTask.class.getName(), "修改商机", "Operation_CRM_Task_Edit", INCustomerTaskService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(NCustomerTaskFoolow.class.getName(), "跟进", "Operation_CRM_Foolow_Edit", INCustomerTaskFoolowService.class.getName(), node1.getId());
 
 
             this.createResourceNodeVoucher(NCustomer.class.getName(), "全部客户", "Operation_CRM_Customer_ALL", INCustomerService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(NCustomer.class.getName(), "已分配客户", "Operation_CRM_Customer_Allocated", INCustomerService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(NCustomer.class.getName(), "未分配客户", "Operation_CRM_Customer_Undistributed", INCustomerService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(NCustomer.class.getName(), "无任务客户", "Operation_CRM_Customer_NotTask", INCustomerService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(NCustomer.class.getName(), "无商机客户", "Operation_CRM_Customer_NotTask", INCustomerService.class.getName(), node1.getId());
 
-            this.createResourceNodeVoucher(NCustomerTask.class.getName(), "全部任务", "Operation_CRM_Task_ALL", INCustomerTaskService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(NCustomerTask.class.getName(), "已分配任务", "Operation_CRM_Task_Allocated", INCustomerTaskService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(NCustomerTask.class.getName(), "未分配任务", "Operation_CRM_Task_Undistributed", INCustomerTaskService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(NCustomerTask.class.getName(), "未启动任务", "Operation_CRM_Task_UNstart", INCustomerTaskService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(NCustomerTask.class.getName(), "全部商机", "Operation_CRM_Task_ALL", INCustomerTaskService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(NCustomerTask.class.getName(), "已分配商机", "Operation_CRM_Task_Allocated", INCustomerTaskService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(NCustomerTask.class.getName(), "未分配商机", "Operation_CRM_Task_Undistributed", INCustomerTaskService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(NCustomerTask.class.getName(), "未启动商机", "Operation_CRM_Task_UNstart", INCustomerTaskService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(NCustomerTask.class.getName(), "无法签单", "Operation_CRM_Task_Defeated", INCustomerTaskService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(NCustomerTask.class.getName(), "抽查异常", "Operation_CRM_Task_Anomaly_Detection", INCustomerTaskService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(NCustomerTask.class.getName(), "公海", "Operation_CRM_Customer_OpenSea", INCustomerTaskService.class.getName(), node1.getId());

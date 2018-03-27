@@ -16,7 +16,7 @@ com.gongsibao.trade.web.SoCreatOrderPerformanceFormPart = org.netsharp.panda.com
             var url = this.addUrl+"?fk=customerId:"+customerId;
             layer.open({
                 type: 2,
-                title: '新增任务',
+                title: '新增商机',
                 fixed: false,
                 maxmin: true,
                 shadeClose:true,
@@ -40,7 +40,7 @@ com.gongsibao.trade.web.SoCreatOrderPerformanceFormPart = org.netsharp.panda.com
         var url = this.editUrl+"?taskId="+id+"&customerId="+selectRow.customerId;
         layer.open({
             type: 2,
-            title: '编辑任务',
+            title: '编辑商机',
             fixed: false,
             maxmin: true,
             shadeClose:true,
@@ -49,7 +49,7 @@ com.gongsibao.trade.web.SoCreatOrderPerformanceFormPart = org.netsharp.panda.com
         });
     },
     batchAllocation:function(){
-        //任务批量分配
+        //商机批量分配
         var me = this;
         var row = this.getSelectedItem();
         var id = this.getSelectionIds();
@@ -60,7 +60,7 @@ com.gongsibao.trade.web.SoCreatOrderPerformanceFormPart = org.netsharp.panda.com
         me.doAllot(id);
     },
     allocation:function(id){
-        //任务分配
+        //商机分配
         var me = this;
         alert(dgf);
         me.doAllot(id);
@@ -71,7 +71,7 @@ com.gongsibao.trade.web.SoCreatOrderPerformanceFormPart = org.netsharp.panda.com
         var departmentOption = getDepartmentOption();
         var employeeOption = getEmployeeOption();
         PandaHelper.openDynamicForm({
-            title:'任务分配',
+            title:'商机分配',
             width:450,
             height:300,
             items:[{id:'allot_supplier_name',
@@ -138,7 +138,7 @@ com.gongsibao.trade.web.SoCreatOrderPerformanceFormPart = org.netsharp.panda.com
         });
     },
     regain : function(){
-        //任务收回
+        //商机收回
         var me = this;
         var id = this.getSelectionIds();
         if(id == "" || id == null ){
@@ -150,7 +150,7 @@ com.gongsibao.trade.web.SoCreatOrderPerformanceFormPart = org.netsharp.panda.com
     doRegain : function(id) {
         var me = this;
         PandaHelper.openDynamicForm({
-            title:'收回任务',
+            title:'收回商机',
             width:500,
             height:400,
             items:[{id:'txtNote',
@@ -160,7 +160,7 @@ com.gongsibao.trade.web.SoCreatOrderPerformanceFormPart = org.netsharp.panda.com
                 width:300,
                 className:''}
             ],
-            explain:'任务将会退回至【公海】，进行【二次分配】',
+            explain:'商机将会退回至【公海】，进行【二次分配】',
             notice:'',
             callback:function(index, layero){
                 var getNote = $("#txtNote").val();
@@ -173,7 +173,7 @@ com.gongsibao.trade.web.SoCreatOrderPerformanceFormPart = org.netsharp.panda.com
         });
     },
     rollback : function(id){
-        //任务退回
+        //商机退回
         var me = this;
         //这里先要取消所有行，再选中1行
         $("#" + this.context.id).datagrid('unselectAll');
@@ -186,7 +186,7 @@ com.gongsibao.trade.web.SoCreatOrderPerformanceFormPart = org.netsharp.panda.com
     doRollBack : function(id,intenCategory) {
         var me = this;
         PandaHelper.openDynamicForm({
-            title:'退回任务',
+            title:'退回商机',
             width:500,
             height:400,
             items:[{id:'txtNote',
@@ -196,7 +196,7 @@ com.gongsibao.trade.web.SoCreatOrderPerformanceFormPart = org.netsharp.panda.com
                 width:300,
                 className:''}
             ],
-            explain:'任务将会退回至【公海】，进行【二次分配】',
+            explain:'商机将会退回至【公海】，进行【二次分配】',
             notice:customerQuality(intenCategory),
             callback:function(index, layero){
                 var getNote = $("#txtNote").val();
@@ -218,7 +218,7 @@ com.gongsibao.trade.web.SoCreatOrderPerformanceFormPart = org.netsharp.panda.com
         });
     },
     batchTransfer : function(){
-        //任务批量转移
+        //商机批量转移
         var me = this;
         var id = this.getSelectionIds();
         if(id == "" || id == null ){
@@ -228,7 +228,7 @@ com.gongsibao.trade.web.SoCreatOrderPerformanceFormPart = org.netsharp.panda.com
         me.doTransfer(id);
     },
     transfer : function(id){
-        //任务转移
+        //商机转移
         var me = this;
         var row = this.getSelectedItem();
         if (row == null) {
@@ -244,7 +244,7 @@ com.gongsibao.trade.web.SoCreatOrderPerformanceFormPart = org.netsharp.panda.com
         var employeeOption = getEmployeeOption();
 
         PandaHelper.openDynamicForm({
-            title:'任务转移',
+            title:'商机转移',
             width:450,
             height:300,
             items:[{id:'allot_supplier_name',
@@ -457,7 +457,7 @@ function getEmployeeOption(){
         width : 100
     },{
         field : 'receiving',
-        title : '自动接受任务',
+        title : '自动接受商机',
         width : 100,
         formatter : function(value,row,index){return value===false?'否':'是';}
     }] ],
@@ -488,7 +488,7 @@ function getEmployeeOption(){
 function customerQuality(intenCategory){
 
     if(intenCategory.indexOf("A") > -1 || intenCategory.indexOf("B") > -1 || intenCategory.indexOf("X") > -1){
-        return '提示：请慎用！执行退回后该任务将不会再分配给你，如果只是需要将任务转给同事或者下属，请使用【任务转移】功能！';
+        return '提示：请慎用！执行退回后该商机将不会再分配给你，如果只是需要将商机转给同事或者下属，请使用【商机转移】功能！';
     }
 }
 

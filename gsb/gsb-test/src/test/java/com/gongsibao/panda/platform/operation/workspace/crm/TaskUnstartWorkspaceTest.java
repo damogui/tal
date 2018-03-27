@@ -16,7 +16,7 @@ public class TaskUnstartWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 
         super.setup();
         urlList = "/operation/customer/task/unstart/list";
-        listPartName = formPartName = "未启动任务";
+        listPartName = formPartName = "未启动商机";
         resourceNodeCode = "Operation_CRM_Task_UNstart";
         listPartJsController = TaskAllListPart.class.getName();
         listPartServiceController = TaskAllListPart.class.getName();

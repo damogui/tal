@@ -21,7 +21,7 @@ import com.gongsibao.entity.crm.dic.NAllocationType;
 import com.gongsibao.utils.DateUtils;
 
 /**
- * @author zhangchao 任务的分配状态的回写
+ * @author zhangchao 商机的分配状态的回写
  */
 public class ActionAutoAllocationUpdateTaskStatus implements IAction {
 
@@ -33,7 +33,7 @@ public class ActionAutoAllocationUpdateTaskStatus implements IAction {
 
         // 验证非空
         if (entity == null) {
-            throw new BusinessException("该任务不存在！");
+            throw new BusinessException("该商机不存在！");
         }
         //服务商id
         Integer supplierId = NumberUtils.toInt(entity.getSupplierId());

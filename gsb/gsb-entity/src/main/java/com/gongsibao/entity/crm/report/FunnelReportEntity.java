@@ -15,7 +15,7 @@ public class FunnelReportEntity extends BaseReportEntity{
 	private static final long serialVersionUID = 1L;
 
 	/**   
-	 * @Fields taskCount : TODO(全部任务数)   
+	 * @Fields taskCount : TODO(全部商机数)   
 	 */   
 	private Integer taskCount = 0;
 	
@@ -94,10 +94,10 @@ public class FunnelReportEntity extends BaseReportEntity{
 	 */   
 	private Integer D2Count = 0;
 
-	@Reference(foreignKey = "sourceId", header = "任务来源")
+	@Reference(foreignKey = "sourceId", header = "商机来源")
 	private Dict source;
 
-	@Column(name = "source_id", header = "任务来源")
+	@Column(name = "source_id", header = "商机来源")
 	private Integer sourceId;
 	
 	public Integer getTaskCount() {

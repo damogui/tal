@@ -49,12 +49,12 @@ public class StatisticalCustomerListPart extends AdvancedListPart {
             entity.setId(r.getInteger("id"));
             entity.setName(r.getString("name"));//客服名称
             entity.setCreatCustomerCount(NumberUtils.toInt(r.getString("creatCustomerCount")));//创建客户数
-            entity.setCreatTaskCount(NumberUtils.toInt(r.getString("creatTaskCount")));//创建任务数
-            entity.setNoTaskCustomerCount(NumberUtils.toInt(r.getString("noTaskCustomerCount")));//无任务客户数
-            entity.setManualDistribution(NumberUtils.toInt(r.getString("manualDistribution")));//手动分配任务数
-            entity.setUnAllotTaskCount(NumberUtils.toInt(r.getString("unAllotTaskCount")));//未分配任务数
-            entity.setUnStartTaskCount(NumberUtils.toInt(r.getString("unStartTaskCount")));//未启动任务数
-            entity.setUnSignTaskCount(NumberUtils.toInt(r.getString("unSignTaskCount")));//无法签单任务数
+            entity.setCreatTaskCount(NumberUtils.toInt(r.getString("creatTaskCount")));//创建商机数
+            entity.setNoTaskCustomerCount(NumberUtils.toInt(r.getString("noTaskCustomerCount")));//无商机客户数
+            entity.setManualDistribution(NumberUtils.toInt(r.getString("manualDistribution")));//手动分配商机数
+            entity.setUnAllotTaskCount(NumberUtils.toInt(r.getString("unAllotTaskCount")));//未分配商机数
+            entity.setUnStartTaskCount(NumberUtils.toInt(r.getString("unStartTaskCount")));//未启动商机数
+            entity.setUnSignTaskCount(NumberUtils.toInt(r.getString("unSignTaskCount")));//无法签单商机数
             entity.setOpenSeasCount(NumberUtils.toInt(r.getString("openSeasCount")));//公海
             resRows.add(entity);
         }
@@ -114,12 +114,12 @@ public class StatisticalCustomerListPart extends AdvancedListPart {
             String lastAllocationTime = CollectionUtils.isEmpty(filterWhereList) ? "" : " and " + StringManager.join(" and ", filterWhereList).replace("date", "last_allocation_time");
 
             sbSql.append("SELECT em.id,em.name,(SELECT COUNT(*) FROM n_crm_customer WHERE creator_id = em.id " + createTimeWhere.replace("{paramid}", "customer_id") + " ) 'creatCustomerCount' ");//创建客户数(取创建时间-create_time)
-            sbSql.append(",(SELECT COUNT(*) FROM n_crm_customer_task WHERE creator_id = em.id " + createTimeWhere.replace("{paramid}", "task_id") + ") 'creatTaskCount' ");//创建任务数(取创建时间)
+            sbSql.append(",(SELECT COUNT(*) FROM n_crm_customer_task WHERE creator_id = em.id " + createTimeWhere.replace("{paramid}", "task_id") + ") 'creatTaskCount' ");//创建商机数(取创建时间)
             sbSql.append(",(SELECT COUNT(*) FROM n_crm_customer WHERE id NOT IN(SELECT DISTINCT customer_id  FROM n_crm_customer_task) AND creator_id = em.id " + createTimeWhere.replace("{paramid}", "task_id") + ") 'noTaskCustomerCount' ");//创建客户数(取创建时间)
-            sbSql.append(",(SELECT COUNT(*) FROM n_crm_customer_task WHERE creator_id = em.id AND allocation_type = 2 " + lastAllocationTime.replace("{paramid}", "task_id") + " ) 'manualDistribution' ");//手动分配任务数(取分配时间-last_allocation_time)
-            sbSql.append(",(SELECT COUNT(*) FROM n_crm_customer_task WHERE creator_id = em.id AND (distribut IS NULL OR distribut = 0) " + createTimeWhere.replace("{paramid}", "task_id") + " ) 'creatTaskCount' ");//未分配任务数(取创建时间)
-            sbSql.append(",(SELECT COUNT(*) FROM n_crm_customer_task WHERE creator_id = em.id AND foolow_status = 6 " + createTimeWhere.replace("{paramid}", "task_id") + ") 'unStartTaskCount' ");//未启动任务数(取创建时间)
-            sbSql.append(",(SELECT COUNT(*) FROM n_crm_customer_task WHERE creator_id = em.id AND foolow_status = 4 " + createTimeWhere.replace("{paramid}", "task_id") + " ) 'unSignTaskCount' ");//无法签单任务数(取创建时间)
+            sbSql.append(",(SELECT COUNT(*) FROM n_crm_customer_task WHERE creator_id = em.id AND allocation_type = 2 " + lastAllocationTime.replace("{paramid}", "task_id") + " ) 'manualDistribution' ");//手动分配商机数(取分配时间-last_allocation_time)
+            sbSql.append(",(SELECT COUNT(*) FROM n_crm_customer_task WHERE creator_id = em.id AND (distribut IS NULL OR distribut = 0) " + createTimeWhere.replace("{paramid}", "task_id") + " ) 'creatTaskCount' ");//未分配商机数(取创建时间)
+            sbSql.append(",(SELECT COUNT(*) FROM n_crm_customer_task WHERE creator_id = em.id AND foolow_status = 6 " + createTimeWhere.replace("{paramid}", "task_id") + ") 'unStartTaskCount' ");//未启动商机数(取创建时间)
+            sbSql.append(",(SELECT COUNT(*) FROM n_crm_customer_task WHERE creator_id = em.id AND foolow_status = 4 " + createTimeWhere.replace("{paramid}", "task_id") + " ) 'unSignTaskCount' ");//无法签单商机数(取创建时间)
             sbSql.append(",(SELECT COUNT(*) FROM n_crm_customer_task WHERE creator_id = em.id AND ( (owner_id IS NULL OR owner_id =0) AND (department_id IS NULL OR department_id = 0) AND (supplier_id IS NULL OR supplier_id = 0)) " + createTimeWhere.replace("{paramid}", "task_id") + " ) 'openSeasCount' ");//公海(取创建时间)
         }
         //获取该次查询的总条数

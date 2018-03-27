@@ -38,10 +38,10 @@ import java.util.List;
     /*旧表*/
 /* crm_customer （客户）  crm_customer_prod_map（意向产品）   crm_customer_share（分享记录）  crm_customer_follow（沟通日志） crm_customer_company_map（顾客关联企业） */
 /*新表*/
-/* n_crm_customer（客户）   n_crm_customer_task（客户任务） n_crm_customer_product_map（意向产品）  n_crm_task_foolow（跟进日志）  n_crm_customer_company_map（顾客关联企业）*/
+/* n_crm_customer（客户）   n_crm_customer_task（客户商机） n_crm_customer_product_map（意向产品）  n_crm_task_foolow（跟进日志）  n_crm_customer_company_map（顾客关联企业）*/
     /*Service*/
 /*old  CustomerService  客户   CustomerProdMapService 意向产品  CustomerShareService  分享记录 CustomerFollowService 沟通日志  CustomerCompanyMapService  顾客关联企业*/
-/*new    NCustomerService  客户    NCustomerTaskService  客户任务   NCustomerProductService 意向产品   NCustomerTaskFoolowService  跟进日志  NCustomerCompanyService  顾客关联企业*/
+/*new    NCustomerService  客户    NCustomerTaskService  客户商机   NCustomerProductService 意向产品   NCustomerTaskFoolowService  跟进日志  NCustomerCompanyService  顾客关联企业*/
 
 
 // 备注：渠道商 状态不导入新库
@@ -211,10 +211,10 @@ public class ImportOldDataToNewData {
                 nCustomer.setUpdatorId (item.getUpdatorId ());
                 nCustomer.setUpdator (item.getUpdator ());
                 nCustomer.setUpdateTime (item.getUpdateTime ());
-                //任务
+                //商机
                 List<NCustomerTask> listTask = getTasksByCustomerId (item);
-                nCustomer.setTasks (listTask);//任务里面进行意向产品
-                nCustomer.setTaskCount (listTask.size ());//0任务数量回写
+                nCustomer.setTasks (listTask);//商机里面进行意向产品
+                nCustomer.setTaskCount (listTask.size ());//0商机数量回写
                 //意向产品
                 // nCustomer.setProducts(getProductsByCustomerId(item));
                 //跟进日志，流转日志暂时不考虑
@@ -335,7 +335,7 @@ public class ImportOldDataToNewData {
     }
 
 
-    /*根据客户id获取相关任务*/
+    /*根据客户id获取相关商机*/
     private List<NCustomerTask> getTasksByCustomerId(Customer item) {
 
         List<NCustomerTask> list = new ArrayList<> ();
@@ -448,7 +448,7 @@ public class ImportOldDataToNewData {
 
         nCustomerTask.setProducts (getProductsByTask (nCustomerTask));//设置意向产品集合
         list.add (nCustomerTask);
-        //当客户有分享的时候再添加任务
+        //当客户有分享的时候再添加商机
         ICustomerShareService serviceCustomerShare = ServiceFactory.create (ICustomerShareService.class);
         Oql oql = new Oql ();
         oql.setFilter ("customer_id=" + item.getId ());
@@ -479,7 +479,7 @@ public class ImportOldDataToNewData {
 
     }
 
-    /*根据任务获取意向产品赋值*/
+    /*根据商机获取意向产品赋值*/
     private List<NCustomerProduct> getProductsByTask(NCustomerTask nCustomerTask) {
         ICustomerProdMapService serviceCustomerProdMap = ServiceFactory.create (ICustomerProdMapService.class);
         INCustomerProductService serviceNewCustomerProdMap = ServiceFactory.create (INCustomerProductService.class);//意向产品
@@ -507,7 +507,7 @@ public class ImportOldDataToNewData {
                 nCustomerProduct.setId (item.getId ());
                 //nCustomerProduct.setSupplierId(0);//回写
                 nCustomerProduct.setCustomerId (item.getCustomerId ());
-                nCustomerProduct.setTaskId (nCustomerTask.getId ());//任务
+                nCustomerProduct.setTaskId (nCustomerTask.getId ());//商机
                 nCustomerProduct.setProductCategoryId1 (1);//分类  产品表对应typeid 二级分类 一级分类从字典表取值
                 //nCustomerProduct.setProductCategory1(item.get());
                 nCustomerProduct.setProductCategoryId2 (1);
@@ -564,7 +564,7 @@ public class ImportOldDataToNewData {
                 nCustomerProduct.setId (item.getId ());
                 //nCustomerProduct.setSupplierId(0);//回写
                 nCustomerProduct.setCustomerId (item.getCustomerId ());
-                //nCustomerProduct.setTaskId();//任务
+                //nCustomerProduct.setTaskId();//商机
                 nCustomerProduct.setProductCategoryId1 (1);//分类  产品表对应typeid 二级分类 一级分类从字典表取值
                 //nCustomerProduct.setProductCategory1(item.get());
                 nCustomerProduct.setProductCategoryId2 (1);

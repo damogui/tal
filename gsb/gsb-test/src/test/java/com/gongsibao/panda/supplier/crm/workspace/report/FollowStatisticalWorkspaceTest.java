@@ -49,14 +49,14 @@ public class FollowStatisticalWorkspaceTest extends WorkspaceCreationBase{
 		PDatagridColumn column = null;
 
 		column = addColumn(datagrid, "departmentName", "部门", ControlTypes.TEXT_BOX, 300, true);
-		column = addColumn(datagrid, "taskCount", "全部任务数", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "taskCount", "全部商机数", ControlTypes.NUMBER_BOX, 100);
 		
-		column = addColumn(datagrid, "unfoolowCount", "待跟进任务数", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "timeOutCount", "超时任务数", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "unfoolowCount", "待跟进商机数", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "timeOutCount", "超时商机数", ControlTypes.NUMBER_BOX, 100);
 		
-		column = addColumn(datagrid, "foolowCount", "跟进任务数", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "qualityRisetaskCount", "质量上升任务数", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "qualityDeclinetaskCount", "质量下降任务数", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "foolowCount", "跟进商机数", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "qualityRisetaskCount", "质量上升商机数", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "qualityDeclinetaskCount", "质量下降商机数", ControlTypes.NUMBER_BOX, 100);
 		
 		
 		column = addColumn(datagrid, "parentId", "parentId", ControlTypes.TEXT_BOX, 100);

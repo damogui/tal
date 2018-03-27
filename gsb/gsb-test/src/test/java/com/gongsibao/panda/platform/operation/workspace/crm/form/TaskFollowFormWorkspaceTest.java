@@ -50,7 +50,7 @@ public class TaskFollowFormWorkspaceTest extends WorkspaceCreationBase {
 		PFormField formField = null;
 		String groupName = null;
 
-		formField = addFormFieldRefrence(form, "quality.name", "任务质量", groupName, NCustomerTaskQuality.class.getSimpleName(), true, false);
+		formField = addFormFieldRefrence(form, "quality.name", "商机质量", groupName, NCustomerTaskQuality.class.getSimpleName(), true, false);
 		{
 			formField.setTroikaTrigger("controllernCustomerTaskFoolow.qualityChange(newValue, oldValue);");
 		}

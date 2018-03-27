@@ -11,7 +11,7 @@ public class SalesmanSignWorkspaceTest extends SalesmanAllTaskWorkspaceTest{
 		
 		super.setup();
 		
-		listPartName = "已签单任务";
+		listPartName = "已签单商机";
 		urlList = "/crm/salesman/task/signed/list";
 		resourceNodeCode = "CRM_SALESMAN_TASK_SIGNED";
 		listFilter = "foolowStatus=5 and ownerId = '{userId}'";

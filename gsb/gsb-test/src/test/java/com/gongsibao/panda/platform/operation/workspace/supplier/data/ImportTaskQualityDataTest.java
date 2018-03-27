@@ -32,7 +32,7 @@ public class ImportTaskQualityDataTest {
 			entity.setIntentionCategory(QualityCategory.X);
 			entity.setCode("X");
 			entity.setName("未启动");
-			entity.setMemoto("任务已创建，尚未开始跟进");
+			entity.setMemoto("商机已创建，尚未开始跟进");
 			entity.setRequiredInfo("");
 			entity.setNextFoolowType("业务员主动联系");
 			entity.setScore(0);

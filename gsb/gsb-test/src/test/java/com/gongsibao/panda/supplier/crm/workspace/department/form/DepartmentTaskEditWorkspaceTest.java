@@ -20,7 +20,7 @@ public class DepartmentTaskEditWorkspaceTest extends TaskEditWorkspaceTest{
 		super.setup();
 		entity = NCustomerTask.class;
 		urlForm = "/crm/department/task/edit";
-		listPartName = formPartName = "任务信息";
+		listPartName = formPartName = "商机信息";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "CRM_DEPARTMENT_TASK_EDIT";

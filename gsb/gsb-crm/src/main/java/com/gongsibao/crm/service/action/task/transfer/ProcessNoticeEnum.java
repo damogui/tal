@@ -4,10 +4,10 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
 public enum ProcessNoticeEnum implements IEnum{
-	salesmanTosalesman(1, "业务员任务转移给业务员"),
-	salesmanToseas(2, "业务员任务转移给公海"),
-	seasTosalesman(3, "公海任务转移给业务员"),
-	seasToseas(4, "公海任务转移给公海");
+	salesmanTosalesman(1, "业务员商机转移给业务员"),
+	salesmanToseas(2, "业务员商机转移给公海"),
+	seasTosalesman(3, "公海商机转移给业务员"),
+	seasToseas(4, "公海商机转移给公海");
 	
 	private int value;
 	private String text;

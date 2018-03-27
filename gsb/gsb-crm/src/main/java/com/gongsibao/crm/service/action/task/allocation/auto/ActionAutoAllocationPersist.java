@@ -37,11 +37,11 @@ import com.gongsibao.supplier.base.ISalesmanService;
  */
 public class ActionAutoAllocationPersist implements IAction {
 
-    // 任务服务对象
+    // 商机服务对象
     INCustomerTaskService nCustomerTaskService = ServiceFactory.create(INCustomerTaskService.class);
     // 业务员服务
     ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
-    // 任务服务
+    // 商机服务
     IPersister<NCustomerTask> taskPm = PersisterFactory.create();
 
     @Override
@@ -75,7 +75,7 @@ public class ActionAutoAllocationPersist implements IAction {
                 entity.setOwnerId(0);
                 entity.setSupplierId(entity.getCostSupplierId());
                 entity.setDepartmentId(0);
-                // TODO:提醒部门负责人进行任务分配，日志信息
+                // TODO:提醒部门负责人进行商机分配，日志信息
                 return;
             }
         }
@@ -87,7 +87,7 @@ public class ActionAutoAllocationPersist implements IAction {
             entity.setOwnerId(0);
             entity.setSupplierId(taskSalesmanProducts.get(0).getSupplierId());
             entity.setDepartmentId(taskSalesmanProducts.get(0).getDepartmentId());
-            // TODO:提醒部门负责人进行任务分配，日志信息
+            // TODO:提醒部门负责人进行商机分配，日志信息
             return;
         }
 
@@ -149,11 +149,11 @@ public class ActionAutoAllocationPersist implements IAction {
         // 筛选出满足服务范围的业务员
         for (Salesman s : salesmanList) {
             for (NCustomerProduct nCustomerProduct : taskProducts) {
-                // 任务产品一级分类
+                // 商机产品一级分类
                 Integer taskProductCategoryId1 = nCustomerProduct.getProductCategoryId1() == null ? 0 : nCustomerProduct.getProductCategoryId1();
-                // 任务产品一级分类
+                // 商机产品一级分类
                 Integer taskProductCategoryId2 = nCustomerProduct.getProductCategoryId2() == null ? 0 : nCustomerProduct.getProductCategoryId2();
-                // 任务产品id
+                // 商机产品id
                 Integer taskProductId = nCustomerProduct.getProductId() == null ? 0 : nCustomerProduct.getProductId();
                 // 获取【产品一级】、【产品二级】
                 if (!taskProductId.equals(0)) {
@@ -173,11 +173,11 @@ public class ActionAutoAllocationPersist implements IAction {
                     }
                 }
 
-                // 任务省id
+                // 商机省id
                 Integer taskProvinceId = nCustomerProduct.getProvinceId() == null ? 0 : nCustomerProduct.getProvinceId();
-                // 任务市id
+                // 商机市id
                 Integer taskCityId = nCustomerProduct.getCityId() == null ? 0 : nCustomerProduct.getCityId();
-                // 任务区id
+                // 商机区id
                 Integer taskCountyId = nCustomerProduct.getCountyId() == null ? 0 : nCustomerProduct.getCountyId();
 
                 // 获取【省】、【市】
@@ -200,11 +200,11 @@ public class ActionAutoAllocationPersist implements IAction {
 
                 for (SalesmanProduct salesmanProduct : salesmanProducts) {
 
-                    // 任务产品一级分类
+                    // 商机产品一级分类
                     Integer salesmanProductCategoryId1 = salesmanProduct.getProductCategoryId1() == null ? 0 : salesmanProduct.getProductCategoryId1();
-                    // 任务产品一级分类
+                    // 商机产品一级分类
                     Integer salesmanProductCategoryId2 = salesmanProduct.getProductCategoryId2() == null ? 0 : salesmanProduct.getProductCategoryId2();
-                    // 任务产品id
+                    // 商机产品id
                     Integer salesmanProductId = salesmanProduct.getProductId() == null ? 0 : salesmanProduct.getProductId();
 
                     // 获取【产品一级】、【产品二级】
@@ -225,11 +225,11 @@ public class ActionAutoAllocationPersist implements IAction {
                         }
                     }
 
-                    // 任务省id
+                    // 商机省id
                     Integer salesmanProvinceId = salesmanProduct.getProvinceId() == null ? 0 : salesmanProduct.getProvinceId();
-                    // 任务市id
+                    // 商机市id
                     Integer salesmanCityId = salesmanProduct.getCityId() == null ? 0 : salesmanProduct.getCityId();
-                    // 任务区id
+                    // 商机区id
                     Integer salesmanCountyId = salesmanProduct.getCountyId() == null ? 0 : salesmanProduct.getCountyId();
 
                     // 获取【省】、【市】
@@ -251,13 +251,13 @@ public class ActionAutoAllocationPersist implements IAction {
                     Boolean isAddForProduct = false;
                     // 是否符合区域服务范围条件
                     Boolean isAddForCity = false;
-                    // 该任务的该服务范围选了具体的产品时
+                    // 该商机的该服务范围选了具体的产品时
                     if (!taskProductId.equals(0)) {
                         // 当该业务员也选择了产品，则两者选择的产品也要相等
                         if (!salesmanProductId.equals(0) && salesmanProductId.equals(taskProductId)) {
                             isAddForProduct = true;
                         }
-                        // 当业务员没有选择产品时，则业务员选项的产品二级分类要和任务的二级分类相等
+                        // 当业务员没有选择产品时，则业务员选项的产品二级分类要和商机的二级分类相等
                         if (salesmanProductId.equals(0) && !salesmanProductCategoryId2.equals(0) && salesmanProductCategoryId2.equals(taskProductCategoryId2)) {
                             isAddForProduct = true;
                         }
@@ -266,9 +266,9 @@ public class ActionAutoAllocationPersist implements IAction {
                             isAddForProduct = true;
                         }
                     }
-                    // 当该任务没有选择具体的服务产品时
+                    // 当该商机没有选择具体的服务产品时
                     if (taskProductId.equals(0)) {
-                        // 当该任务选择了产品二级分类时
+                        // 当该商机选择了产品二级分类时
                         if (!taskProductCategoryId2.equals(0)) {
                             // 当业务员没有选择了产品二级分类时，则只需要两者选择的产品一级分类相等就行了
                             if (salesmanProductCategoryId2.equals(0) && salesmanProductCategoryId1.equals(taskProductCategoryId1)) {
@@ -279,7 +279,7 @@ public class ActionAutoAllocationPersist implements IAction {
                                 isAddForProduct = true;
                             }
                         }
-                        // 当该任务只选择了产品大类，则只需要两者的产品大类相等就行了
+                        // 当该商机只选择了产品大类，则只需要两者的产品大类相等就行了
                         if (!taskProductCategoryId1.equals(0) && taskProductCategoryId2.equals(0)) {
                             if (salesmanProductCategoryId1.equals(taskProductCategoryId1)) {
                                 isAddForProduct = true;
@@ -287,7 +287,7 @@ public class ActionAutoAllocationPersist implements IAction {
                         }
                     }
 
-                    // 当该任务服务范围的省市区都不选时，默认【全国】
+                    // 当该商机服务范围的省市区都不选时，默认【全国】
                     if (taskProvinceId.equals(0) && taskCityId.equals(0) && taskCountyId.equals(0)) {
                         isAddForCity = true;
                     }
@@ -296,7 +296,7 @@ public class ActionAutoAllocationPersist implements IAction {
                         isAddForCity = true;
                     }
 
-                    // 当该任务的该服务范围，选择到了区
+                    // 当该商机的该服务范围，选择到了区
                     if (!taskCountyId.equals(0)) {
                         if (!salesmanCountyId.equals(0) && taskCountyId.equals(salesmanCountyId)) {
                             isAddForCity = true;
@@ -370,7 +370,7 @@ public class ActionAutoAllocationPersist implements IAction {
 
     }
 
-    // 分配任务给业务员(自动分配)
+    // 分配商机给业务员(自动分配)
     private void allocation(NCustomerTask entity, List<Salesman> taskSalesmanProducts) {
         // 最后的结果集合
         List<Salesman> resSalesmanList = new ArrayList<Salesman>();
@@ -400,7 +400,7 @@ public class ActionAutoAllocationPersist implements IAction {
                 // 周分配上线
                 if (NumberUtils.toInt(salesman.getWeekMax()) < weekCount)
                     continue;
-                // XAB类任务上限
+                // XAB类商机上限
                 if (NumberUtils.toInt(salesman.getXabMax()) < abxCount)
                     continue;
                 salesman.setDayAllocatedCount(dayCount);
@@ -429,7 +429,7 @@ public class ActionAutoAllocationPersist implements IAction {
                 entity.setOwnerId(ownerId);
                 entity.setSupplierId(supplierId);
                 entity.setDepartmentId(departmentId);
-            } else {// 无可分配对象->分配至目标部门的【公海】->将分配方式选中【手动分配】->提醒部门负责人进行任务分配
+            } else {// 无可分配对象->分配至目标部门的【公海】->将分配方式选中【手动分配】->提醒部门负责人进行商机分配
                 // 将分配方式选中【手动分配】
                 updateTaskAllocationType(entity.getId(), NAllocationType.MANUAL);
                 // 跟新实体，防止后面的action用到实体时，不是最新的就要重新查一下，影响效率
@@ -459,7 +459,7 @@ public class ActionAutoAllocationPersist implements IAction {
         taskPm.executeNonQuery(cmdText, qps);
     }
 
-    // 修改任务的【分配方式】
+    // 修改商机的【分配方式】
     private void updateTaskAllocationType(Integer taskId, NAllocationType allocationType) {
         // 跟新【分配方式】
         // IPersister<NCustomerTask> taskPm = PersisterFactory.create();

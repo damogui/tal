@@ -41,7 +41,7 @@ public class TaskBaseListPart extends AdvancedListPart {
 	INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
 	
 	/**
-	 * 任务分配
+	 * 商机分配
 	 * @param taskId
 	 * @param supplierId
 	 * @param departmentId
@@ -54,7 +54,7 @@ public class TaskBaseListPart extends AdvancedListPart {
 		return taskService.batchAllocation(taskIdArray, supplierId, departmentId, toUserId);
 	}
 	/**
-	 * 任务收回
+	 * 商机收回
 	 * @param taskId
 	 * @param getNote
 	 * @return
@@ -65,7 +65,7 @@ public class TaskBaseListPart extends AdvancedListPart {
 		return taskService.batchRegain(taskIdArray, getNote);
 	}
 	/**
-	 * 任务退回
+	 * 商机退回
 	 * @param taskId
 	 * @param getNote
 	 * @return
@@ -75,7 +75,7 @@ public class TaskBaseListPart extends AdvancedListPart {
 		return taskService.rollback(taskId, getNote);
 	}
 	/**
-	 * 任务转移
+	 * 商机转移
 	 * @param taskId
 	 * @param supplierId
 	 * @param departmentId
@@ -99,7 +99,7 @@ public class TaskBaseListPart extends AdvancedListPart {
 	}
 	/**
 	 * 抽查异常处理
-	 * @param taskId  任务Id
+	 * @param taskId  商机Id
 	 * @param state  1-"未抽查",2-"抽查正常",3-"抽查异常",4-"异常已处理"
 	 * @param content 处理内容
 	 * @param type  1-"抽查",2-"处理"

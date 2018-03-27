@@ -25,7 +25,7 @@ public class PortalStatistic {
 		return salesman;
 	}
 	/**
-	 * 获取新增任务数
+	 * 获取新增商机数
 	 * @param portalLevel 1-售前、2-服务商
 	 * @param dateType 1-今日、2-本周、3-本月、4-本年
 	 * @return
@@ -73,7 +73,7 @@ public class PortalStatistic {
 		return returnInteger;
 	}
 	/**
-	 * 获取未启动任务数
+	 * 获取未启动商机数
 	 * @param portalLevel 1-售前、2-服务商
 	 * @param dateType 1-今日、2-本周、3-本月、4-本年
 	 * @return
@@ -118,7 +118,7 @@ public class PortalStatistic {
 		return returnInteger;
 	}
 	/**
-	 * 获取待跟进任务数
+	 * 获取待跟进商机数
 	 * @return
 	 */
 	public Integer getUnfoolowTasksCount() {
@@ -144,7 +144,7 @@ public class PortalStatistic {
 		return returnInteger;
 	}
 	/**
-	 * 获取超时任务数
+	 * 获取超时商机数
 	 * @return
 	 */
 	public Integer getTimeOutTasksCount() {
@@ -171,7 +171,7 @@ public class PortalStatistic {
 		return returnInteger;
 	}
 	/**
-	 * 获取异常未处理任务数
+	 * 获取异常未处理商机数
 	 * @return
 	 */
 	public Integer getExceptUntreatedTasksCount() {
@@ -198,7 +198,7 @@ public class PortalStatistic {
 		return returnInteger;
 	}
 	/**
-	 * 获取公海任务数
+	 * 获取公海商机数
 	 * @param portalLevel 1-售前、2-服务商
 	 * @param dateType 1-今日、2-本周、3-本月
 	 * @return
@@ -241,16 +241,16 @@ public class PortalStatistic {
 		return returnInteger;
 	}
 	/**
-	 * 获取跟进统计（跟进任务数、质量上升、下降任务数）
+	 * 获取跟进统计（跟进商机数、质量上升、下降商机数）
 	 * @return
 	 */
 	public Map<String, String> getFoolowSatatistic() {
 		Map<String, String> resultMap =new HashMap<>();
 		Salesman salesman = currentSalesMan();
 		if(salesman == null){
-			resultMap.put("跟进任务数", "0");
-			resultMap.put("质量上升任务数", "0");
-			resultMap.put("质量下降任务数", "0");
+			resultMap.put("跟进商机数", "0");
+			resultMap.put("质量上升商机数", "0");
+			resultMap.put("质量下降商机数", "0");
 			return resultMap;
 		}
 		StringBuilder strSql=new StringBuilder();
@@ -268,9 +268,9 @@ public class PortalStatistic {
 		
 		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
 		for (IRow row : dtNewCount) {
-			resultMap.put("跟进任务数", row.getString("foolowTasksCount"));
-			resultMap.put("质量上升任务数", row.getString("qualityRisetaskCount"));
-			resultMap.put("质量下降任务数", row.getString("qualityDeclinetaskCount"));
+			resultMap.put("跟进商机数", row.getString("foolowTasksCount"));
+			resultMap.put("质量上升商机数", row.getString("qualityRisetaskCount"));
+			resultMap.put("质量下降商机数", row.getString("qualityDeclinetaskCount"));
 		}
 		return resultMap;
 	}
@@ -316,7 +316,7 @@ public class PortalStatistic {
 	}
 
 	/**
-	 * 获取全部任务数、X类、S类任务数
+	 * 获取全部商机数、X类、S类商机数
 	 * @param filterMap 
 	 * @param orgaId
 	 * @return
@@ -325,7 +325,7 @@ public class PortalStatistic {
 		Map<String, String> resultMap =new HashMap<>();
 		Salesman salesman = currentSalesMan();
 		if(salesman == null){
-			resultMap.put("全部任务", "0");
+			resultMap.put("全部商机", "0");
 			resultMap.put("S类", "0");
 			resultMap.put("X类", "0");
 			return resultMap;
@@ -345,14 +345,14 @@ public class PortalStatistic {
 		strSql.append(" AND DATE_FORMAT(create_time,'%Y-%m-%d') <= CURDATE()");
 		DataTable dtNewCount = departService.executeTable(strSql.toString(), null);
 		for (IRow row : dtNewCount) {
-			resultMap.put("全部任务", row.getString("taskCount"));
+			resultMap.put("全部商机", row.getString("taskCount"));
 			resultMap.put("S类", row.getString("sCount"));
 			resultMap.put("X类", row.getString("xCount"));
 		}
 		return resultMap;
 	}
 	/**
-	 * 获取任务质量数
+	 * 获取商机质量数
 	 * @param filterMap 
 	 * @param orgaId
 	 * @return
@@ -454,7 +454,7 @@ public class PortalStatistic {
 		return returnInteger;
 	}
 	/**
-	 * 获取未分配任务数
+	 * 获取未分配商机数
 	 * @param dateType 1-今日、2-本周、3-本月、4-本年
 	 * @return
 	 */
@@ -486,7 +486,7 @@ public class PortalStatistic {
 		return returnInteger;
 	}
 	/**
-	 * 获取无任务的客户数
+	 * 获取无商机的客户数
 	 * @param dateType 1-今日、2-本周、3-本月、4-本年
 	 * @return
 	 */
@@ -520,7 +520,7 @@ public class PortalStatistic {
 		return returnInteger;
 	}
 	/**
-	 * 获取无法签单任务数
+	 * 获取无法签单商机数
 	 * @param dateType 1-今日、2-本周、3-本月、4-本年
 	 * @return
 	 */
@@ -552,7 +552,7 @@ public class PortalStatistic {
 		return returnInteger;
 	}
 	/**
-	 * 获取抽查异常任务数
+	 * 获取抽查异常商机数
 	 * @param dateType 1-今日、2-本周、3-本月、4-本年
 	 * @return
 	 */

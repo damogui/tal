@@ -345,7 +345,7 @@ com.gongsibao.crm.web.NCustomerTaskDetailPart = org.netsharp.panda.commerce.Deta
 
     	layer.open({
   		  type: 2,
-  		  title: '新增任务',
+  		  title: '新增商机',
   		  fixed: false,
   		  maxmin: true,
   		  shadeClose:true,
@@ -369,7 +369,7 @@ com.gongsibao.crm.web.NCustomerTaskDetailPart = org.netsharp.panda.commerce.Deta
     	
     	layer.open({
   		  type: 2,
-  		  title: '任务信息',
+  		  title: '商机信息',
   		  fixed: false,
   		  maxmin: true,
   		  shadeClose:true,

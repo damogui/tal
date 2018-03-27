@@ -13,7 +13,7 @@ import com.gongsibao.entity.crm.dic.TaskQualityProgress;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
-@Table(name = "n_crm_task_foolow", orderBy = " create_time DESC",header = "任务跟进")
+@Table(name = "n_crm_task_foolow", orderBy = " create_time DESC",header = "商机跟进")
 public class NCustomerTaskFoolow extends Entity {
 
 	/**
@@ -29,10 +29,10 @@ public class NCustomerTaskFoolow extends Entity {
 	private Integer customerId;
 
 	@JsonIgnore
-	@Reference(foreignKey = "taskId", header = "任务Id")
+	@Reference(foreignKey = "taskId", header = "商机Id")
 	private NCustomerTask task;
 
-	@Column(name = "task_id", header = "任务")
+	@Column(name = "task_id", header = "商机")
 	private Integer taskId;
 	
 	@Column(name = "quality_category", header = "质量分类")

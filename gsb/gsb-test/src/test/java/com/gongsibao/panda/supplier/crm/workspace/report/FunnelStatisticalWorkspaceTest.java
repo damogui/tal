@@ -50,7 +50,7 @@ public class FunnelStatisticalWorkspaceTest extends WorkspaceCreationBase{
 		PDatagridColumn column = null;
 
 		column = addColumn(datagrid, "departmentName", "部门", ControlTypes.TEXT_BOX, 300, true);
-		column = addColumn(datagrid, "taskCount", "全部任务数", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "taskCount", "全部商机数", ControlTypes.NUMBER_BOX, 100);
 		
 		column = addColumn(datagrid, "XCount", "X类", ControlTypes.NUMBER_BOX, 100);
 		column = addColumn(datagrid, "SCount", "S类", ControlTypes.NUMBER_BOX, 100);
@@ -95,7 +95,7 @@ public class FunnelStatisticalWorkspaceTest extends WorkspaceCreationBase{
 			item.setRequired(true);
 		}
 		addRefrenceQueryItem(queryProject, "owner.name", "业务员", Employee.class.getSimpleName());
-		item = addQueryItem(queryProject, "source.name", "任务来源", ControlTypes.CUSTOM);{
+		item = addQueryItem(queryProject, "source.name", "商机来源", ControlTypes.CUSTOM);{
 			
 			item.setCustomControlType(PropertyQueryDictComboBox.class.getName());
 			item.setRefFilter("type=411");

@@ -13,13 +13,13 @@ import com.gongsibao.entity.crm.dic.AllocationState;
 import com.gongsibao.entity.crm.dic.NAllocationType;
 
 /**
- * @author hw 保存任务：新增状态，如果是立即分配，则执行分配
+ * @author hw 保存商机：新增状态，如果是立即分配，则执行分配
  */
 public class ActionSaveTaskAllocation implements IAction {
 
     //客户服务
     INCustomerService nCustomerService = ServiceFactory.create(INCustomerService.class);
-    //任务服务
+    //商机服务
     INCustomerTaskService nCustomerTaskService = ServiceFactory.create(INCustomerTaskService.class);
 
     @Override
@@ -27,7 +27,7 @@ public class ActionSaveTaskAllocation implements IAction {
 
         NCustomerTask task = (NCustomerTask) ctx.getItem();
         NAllocationType allocationType = task.getAllocationType();
-        //当为【手动分配】时，修改任务的分配状态
+        //当为【手动分配】时，修改商机的分配状态
         if(allocationType.equals(NAllocationType.MANUAL)){
             nCustomerTaskService.updateAllocationState(task);
         }

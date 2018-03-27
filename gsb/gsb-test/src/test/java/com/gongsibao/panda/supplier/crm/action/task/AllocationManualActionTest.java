@@ -28,7 +28,7 @@ public class AllocationManualActionTest extends BaseActionTest{
 			beanPath.toNew();
 			beanPath.setPath(pathName);
 			beanPath.setResourceNode(resourceNode);
-			beanPath.setName("任务手动分配");
+			beanPath.setName("商机手动分配");
 		}
 
 		createBean(beanPath, "验证", ActionManualAllocationVerify.class.getName(), resourceNode, 100);

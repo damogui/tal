@@ -50,7 +50,7 @@ public class FunelReportPart extends BaseReport {
 		return resultEntity;		
 	}
 	/**
-	 * 获取全部任务数、X类、S类任务数
+	 * 获取全部商机数、X类、S类商机数
 	 * @param filterMap 
 	 * @param orgaId
 	 * @return
@@ -87,7 +87,7 @@ public class FunelReportPart extends BaseReport {
 		return resultMap;
 	}
 	/**
-	 * 获取任务质量数
+	 * 获取商机质量数
 	 * @param filterMap 
 	 * @param orgaId
 	 * @return

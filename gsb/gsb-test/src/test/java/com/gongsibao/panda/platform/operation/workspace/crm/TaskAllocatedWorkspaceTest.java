@@ -18,7 +18,7 @@ public class TaskAllocatedWorkspaceTest extends TaskALLWorkspaceTest{
 		
 		super.setup();
 		urlList = "/operation/customer/task/allocated/list";
-		listPartName = formPartName = "已分配任务";
+		listPartName = formPartName = "已分配商机";
 		resourceNodeCode = "Operation_CRM_Task_Allocated";
 		listPartJsController = TaskAllListPart.class.getName();
 		listPartServiceController = TaskAllListPart.class.getName();
@@ -58,7 +58,7 @@ public class TaskAllocatedWorkspaceTest extends TaskALLWorkspaceTest{
 			item.toNew();
 			item.setCode("add");
 			item.setIcon("fa fa-plus fa-fw");
-			item.setName("新增任务");
+			item.setName("新增商机");
 			item.setOperationType(ot1);
 			item.setSeq(2);
 			item.setCommand("{controller}.add();");

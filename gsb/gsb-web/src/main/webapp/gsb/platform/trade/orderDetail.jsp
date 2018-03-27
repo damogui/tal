@@ -56,7 +56,7 @@
 			         
 			    </div>
 			     
-			    <div title="任务信息">
+			    <div title="商机信息">
 			         
 			    </div>
 			</div>

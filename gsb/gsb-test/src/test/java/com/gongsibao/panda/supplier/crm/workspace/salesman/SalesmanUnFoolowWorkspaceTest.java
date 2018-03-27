@@ -11,7 +11,7 @@ public class SalesmanUnFoolowWorkspaceTest extends SalesmanAllTaskWorkspaceTest{
 		
 		super.setup();
 		
-		listPartName = "待跟进任务";
+		listPartName = "待跟进商机";
 		urlList = "/crm/salesman/task/unfoolow/list";
 		resourceNodeCode = "CRM_SALESMAN_TASK_UNFOOLOW";
 		

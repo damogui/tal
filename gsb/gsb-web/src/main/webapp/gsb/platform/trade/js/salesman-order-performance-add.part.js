@@ -115,7 +115,7 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
         var url = this.editUrl + "?taskId=" + id + "&customerId=" + selectRow.customerId;
         layer.open({
             type: 2,
-            title: '编辑任务',
+            title: '编辑商机',
             fixed: false,
             maxmin: true,
             shadeClose: true,
