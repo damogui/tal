@@ -14,4 +14,8 @@ public class PlatformFinanceFPZYAuditTest extends AuthBaseTest {
         super.setup();
         roleCode = "Platform_Finance_FPZY";
     }
+    protected void getResourceCodeList() {
+
+        this.resourceNodeCodeList.add("Gsb_Supplier_Order_Salesman");
+    }
 }

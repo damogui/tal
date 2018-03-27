@@ -14,4 +14,9 @@ public class PlatformFinanceSTKZYAuditTest extends AuthBaseTest {
         super.setup();
         roleCode = "Platform_Finance_STKZY";
     }
+
+    protected void getResourceCodeList() {
+
+        this.resourceNodeCodeList.add("Gsb_Supplier_Order_Salesman");
+    }
 }

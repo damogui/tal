@@ -14,4 +14,8 @@ public class PlatformLawFWZYAuthTest extends AuthBaseTest {
         super.setup();
         roleCode = "Platform_Law_FWZY";
     }
+    protected void getResourceCodeList() {
+
+        this.resourceNodeCodeList.add("Gsb_Supplier_Order_Salesman");
+    }
 }
