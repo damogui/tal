@@ -24,7 +24,7 @@ public class RoleTest {
 	@Test
 	public void run() {
 
-		// 1.平台
+		// 1.平台 
 		RoleWorkbench workbench = createWorkbench("中控管理平台","/panda/workbench");
 		
 		// 1.1 平台-售前
