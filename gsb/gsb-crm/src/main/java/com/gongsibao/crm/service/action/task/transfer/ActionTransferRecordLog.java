@@ -71,7 +71,7 @@ public class ActionTransferRecordLog implements IAction {
 		}	   
 	}
 	/**
-	 * 业务员任务转移给业务员
+	 * 业务员商机转移给业务员
 	 * @param typeCountMap
 	 * @param task
 	 */
@@ -87,9 +87,9 @@ public class ActionTransferRecordLog implements IAction {
 			Integer formUserId =  (Integer) entry.getKey();
 			SalesmanOrganization orgaForm = SupplierSessionManager.getSalesmanOrganization(formUserId);
 			
-			String copyWriterForm = String.format("【转移提醒】您好，【%s】把您的%s个任务转移给【%s】，请知悉",
+			String copyWriterForm = String.format("【转移提醒】您好，【%s】把您的%s个商机转移给【%s】，请知悉",
 					SessionManager.getUserName(),alloCount,orgaTo.getEmployeeName());
-			String leaderCopyWriterForm = String.format("【转移提醒】您好，【%s】从【%s】转移给【%s】%s个任务，请知悉",
+			String leaderCopyWriterForm = String.format("【转移提醒】您好，【%s】从【%s】转移给【%s】%s个商机，请知悉",
 					SessionManager.getUserName(),orgaForm.getEmployeeName(),orgaTo.getEmployeeName(),alloCount);
 			
 			sendNotify(task,copyWriterForm,formUserId);
@@ -101,9 +101,9 @@ public class ActionTransferRecordLog implements IAction {
 			}
 		}
 		//接收业务员		
-		String copyWriterTo = String.format("【转移提醒】您好，【%s】转移给您%s个任务，请及时跟进",
+		String copyWriterTo = String.format("【转移提醒】您好，【%s】转移给您%s个商机，请及时跟进",
 				SessionManager.getUserName(),countTo);
-		String leaderCopyWriterTo = String.format("【转移提醒】您好，【%s】转移给【%s】%s个任务，请知悉",
+		String leaderCopyWriterTo = String.format("【转移提醒】您好，【%s】转移给【%s】%s个商机，请知悉",
 				SessionManager.getUserName(),orgaTo.getEmployeeName(),countTo);
 		
 		sendNotify(task,copyWriterTo,task.getOwnerId());
@@ -116,7 +116,7 @@ public class ActionTransferRecordLog implements IAction {
 		}			
 	}
 	/**
-	 * 公海任务转移给业务员
+	 * 公海商机转移给业务员
 	 * @param typeCountMap
 	 * @param task
 	 */
@@ -134,10 +134,10 @@ public class ActionTransferRecordLog implements IAction {
 			Integer leaderId = salesmanService.getLeaderId(null, formDepartId);
 			SalesmanOrganization orgaForm = SupplierSessionManager.getSalesmanOrganization(leaderId);
 			
-			String copyWriterForm = String.format("【转移提醒】您好，【%s】把您部门公海的%s个任务转移给【%s】，请知悉",
+			String copyWriterForm = String.format("【转移提醒】您好，【%s】把您部门公海的%s个商机转移给【%s】，请知悉",
 					SessionManager.getUserName(),alloCount,orgaTo.getEmployeeName());
 			
-			String leaderCopyWriterForm = String.format("【转移提醒】您好，【%s】从【%s】的公海转移给【%s】的公海%s个任务，请知悉",
+			String leaderCopyWriterForm = String.format("【转移提醒】您好，【%s】从【%s】的公海转移给【%s】的公海%s个商机，请知悉",
 					SessionManager.getUserName(),orgaForm.getDepartmentName(),orgaTo.getEmployeeName(),alloCount);
 			
 			sendNotify(task,copyWriterForm,leaderId);			
@@ -150,9 +150,9 @@ public class ActionTransferRecordLog implements IAction {
 			}			
 		}
 		//接收业务员		
-		String copyWriterTo = String.format("【转移提醒】您好，【%s】转移给您%s个任务，请及时跟进",
+		String copyWriterTo = String.format("【转移提醒】您好，【%s】转移给您%s个商机，请及时跟进",
 				SessionManager.getUserName(),countTo);
-		String leaderCopyWriterTo = String.format("【转移提醒】您好，【%s】转移给【%s】%s个任务，请知悉",
+		String leaderCopyWriterTo = String.format("【转移提醒】您好，【%s】转移给【%s】%s个商机，请知悉",
 				 SessionManager.getUserName(),orgaTo.getEmployeeName(),countTo);
 		
 		sendNotify(task,copyWriterTo,task.getOwnerId());
@@ -166,7 +166,7 @@ public class ActionTransferRecordLog implements IAction {
 	}
 	
 	/**
-	 * 业务员任务转移给公海
+	 * 业务员商机转移给公海
 	 * @param typeCountMap
 	 * @param task
 	 */
@@ -184,9 +184,9 @@ public class ActionTransferRecordLog implements IAction {
 			Integer formUserId =  (Integer) entry.getKey();
 			SalesmanOrganization orgaForm = SupplierSessionManager.getSalesmanOrganization(formUserId);
 			
-			String copyWriterForm = String.format("【转移提醒】您好，【%s】把您的%s个任务转移给【%s】的公海，请知悉",
+			String copyWriterForm = String.format("【转移提醒】您好，【%s】把您的%s个商机转移给【%s】的公海，请知悉",
 					SessionManager.getUserName(),alloCount,orgaTo.getDepartmentName());
-			String leaderCopyWriterForm = String.format("【转移提醒】您好，【%s】从【%s】转移给【%s】的公海%s个任务，请知悉",
+			String leaderCopyWriterForm = String.format("【转移提醒】您好，【%s】从【%s】转移给【%s】的公海%s个商机，请知悉",
 					SessionManager.getUserName(),orgaForm.getEmployeeName(),orgaTo.getDepartmentName(),alloCount);
 			
 			sendNotify(task,copyWriterForm,formUserId);
@@ -198,9 +198,9 @@ public class ActionTransferRecordLog implements IAction {
 			}
 		}
 		//接收部门负责人		
-		String copyWriterTo = String.format("【转移提醒】您好，【%s】转移给您部门公海%s个任务，请及时跟进",
+		String copyWriterTo = String.format("【转移提醒】您好，【%s】转移给您部门公海%s个商机，请及时跟进",
 				SessionManager.getUserName(),countTo);
-		String leaderCopyWriterTo = String.format("【转移提醒】您好，【操作人】转移给【%s】的公海%s个任务，请知悉",
+		String leaderCopyWriterTo = String.format("【转移提醒】您好，【操作人】转移给【%s】的公海%s个商机，请知悉",
 				SessionManager.getUserName(),orgaTo.getDepartmentName(),countTo);
 		
 		sendNotify(task,copyWriterTo,leaderId);
@@ -213,7 +213,7 @@ public class ActionTransferRecordLog implements IAction {
 		}			
 	}
 	/**
-	 * 公海任务转移给公海
+	 * 公海商机转移给公海
 	 * @param typeCountMap
 	 * @param task
 	 */
@@ -232,10 +232,10 @@ public class ActionTransferRecordLog implements IAction {
 			Integer leaderIdFrom = salesmanService.getLeaderId(null, formDepartId);
 			SalesmanOrganization orgaForm = SupplierSessionManager.getSalesmanOrganization(leaderIdFrom);
 			
-			String copyWriterForm = String.format("【转移提醒】您好，【%s】把您部门公海的%s个任务转移给【%s】的公海，请知悉",
+			String copyWriterForm = String.format("【转移提醒】您好，【%s】把您部门公海的%s个商机转移给【%s】的公海，请知悉",
 					SessionManager.getUserName(),alloCount,orgaTo.getDepartmentName());
 			
-			String leaderCopyWriterForm = String.format("【转移提醒】您好，【%s】从【%s】的公海转移给【%s】的公海N个任务，请知悉",
+			String leaderCopyWriterForm = String.format("【转移提醒】您好，【%s】从【%s】的公海转移给【%s】的公海N个商机，请知悉",
 					SessionManager.getUserName(),orgaForm.getDepartmentName(),orgaTo.getDepartmentName(),alloCount);
 			
 			sendNotify(task,copyWriterForm,leaderIdFrom);			
@@ -248,9 +248,9 @@ public class ActionTransferRecordLog implements IAction {
 			}			
 		}
 		//接收部门的负责人		
-		String copyWriterTo = String.format("【转移提醒】您好，【%s】转移给您部门公海%s个任务，请及时跟进",
+		String copyWriterTo = String.format("【转移提醒】您好，【%s】转移给您部门公海%s个商机，请及时跟进",
 				SessionManager.getUserName(),countTo);
-		String leaderCopyWriterTo = String.format("【转移提醒】您好，【%s】转移给【%s】的公海%s个任务，请知悉",
+		String leaderCopyWriterTo = String.format("【转移提醒】您好，【%s】转移给【%s】的公海%s个商机，请知悉",
 				 SessionManager.getUserName(),orgaTo.getDepartmentName(),countTo);
 		
 		sendNotify(task,copyWriterTo,leaderIdTo);

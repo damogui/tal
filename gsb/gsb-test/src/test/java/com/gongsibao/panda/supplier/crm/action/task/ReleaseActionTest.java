@@ -28,7 +28,7 @@ public class ReleaseActionTest extends BaseActionTest{
 			beanPath.toNew();
 			beanPath.setPath(pathName);
 			beanPath.setResourceNode(resourceNode);
-			beanPath.setName("任务释放");
+			beanPath.setName("商机释放");
 		}
 
 		createBean(beanPath, "验证", ActionReleaseVerify.class.getName(), resourceNode, 100);

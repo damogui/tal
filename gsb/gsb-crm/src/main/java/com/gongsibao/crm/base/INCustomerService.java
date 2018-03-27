@@ -63,7 +63,7 @@ public interface INCustomerService extends IPersistableService<NCustomer> {
 	/**
 	 * 根据id获取客户信息(只是查客户信息本身，提高效率)
 	 * 
-	 * @param taskId任务id
+	 * @param taskId商机id
 	 * @return
 	 */
 	NCustomer getById(Integer taskId);

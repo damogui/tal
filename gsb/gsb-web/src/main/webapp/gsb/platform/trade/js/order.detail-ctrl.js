@@ -488,7 +488,7 @@ com.gongsibao.trade.web.OrderContractCtrl = com.gongsibao.trade.web.BaseCtrl.Ext
 });
 
 /*
- * 订单任务明细
+ * 订单商机明细
  */
 com.gongsibao.trade.web.OrderTaskDetailCtrl = com.gongsibao.trade.web.BaseCtrl.Extends({
     ctor: function () {

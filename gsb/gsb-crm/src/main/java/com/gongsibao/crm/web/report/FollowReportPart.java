@@ -48,7 +48,7 @@ public class FollowReportPart extends BaseReport{
 	}
 	
 	/**
-	 * 获取全部任务数
+	 * 获取全部商机数
 	 * @param filterMap 
 	 * @param orgaId
 	 * @return
@@ -76,7 +76,7 @@ public class FollowReportPart extends BaseReport{
 		return taskCount;
 	}
 	/**
-	 * 获取待跟进任务数
+	 * 获取待跟进商机数
 	 * @param filterMap 
 	 * @param orgaId
 	 * @return
@@ -104,7 +104,7 @@ public class FollowReportPart extends BaseReport{
 		return unfoolowCount;
 	}
 	/**
-	 * 获取超时任务数
+	 * 获取超时商机数
 	 * @param filterMap 
 	 * @param orgaId
 	 * @return
@@ -133,7 +133,7 @@ public class FollowReportPart extends BaseReport{
 		return timeOutCount;
 	}
 	/**
-	 * 获取跟进任务数
+	 * 获取跟进商机数
 	 * @param filterMap 
 	 * @param orgaId
 	 * @return
@@ -163,7 +163,7 @@ public class FollowReportPart extends BaseReport{
 	}
 	
 	/**
-	 * 获取质量上升、下降任务数
+	 * 获取质量上升、下降商机数
 	 * @param filterMap 
 	 * @param orgaId
 	 * @return

@@ -385,7 +385,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
     // edit : function(id) {
 
     batchAllocation: function () {
-        //任务批量分配
+        //商机批量分配
         var me = this;
         var row = this.getSelectedItem();
         var id = this.getSelectionIds();
@@ -397,7 +397,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
     },
 
     batchTransfer: function () {
-        //任务批量转移
+        //商机批量转移
         var me = this;
         var id = this.getSelectionIds();
         if (id == "" || id == null) {
@@ -407,7 +407,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         me.doTransfer(id);
     },
     transfer: function (id) {
-        //任务转移
+        //商机转移
         var me = this;
         var row = this.getSelectedItem();
         if (row == null) {

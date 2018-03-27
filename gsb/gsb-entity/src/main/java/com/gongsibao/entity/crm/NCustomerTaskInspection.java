@@ -11,7 +11,7 @@ import com.gongsibao.entity.crm.dic.TaskInspectionType;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
-@Table(name = "n_crm_task_inspection", header = "任务抽查处理记录")
+@Table(name = "n_crm_task_inspection", header = "商机抽查处理记录")
 public class NCustomerTaskInspection extends Entity{
 
 	/**
@@ -27,10 +27,10 @@ public class NCustomerTaskInspection extends Entity{
 	private Integer customerId;
 
 	@JsonIgnore
-	@Reference(foreignKey = "taskId", header = "任务Id")
+	@Reference(foreignKey = "taskId", header = "商机Id")
 	private NCustomerTask task;
 
-	@Column(name = "task_id", header = "任务")
+	@Column(name = "task_id", header = "商机")
 	private Integer taskId;
 	
 	@Column(name = "inspection_type", header = "抽查类型")

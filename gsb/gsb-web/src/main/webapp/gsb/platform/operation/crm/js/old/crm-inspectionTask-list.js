@@ -9,7 +9,7 @@ com.gongsibao.crm.web.MyAllTaskListPart = org.netsharp.panda.commerce.ListPart.E
 		var row = this.getSelectedItem();
 		var taskId = row.id;
 		var url = "/panda/crm/my/task/followUp/from?fk=taskId:"+taskId;
-		IMessageBox.open("跟进任务", url, 700, 400, function() {
+		IMessageBox.open("跟进商机", url, 700, 400, function() {
 			me.reload();
 		});
 	},//rowToolBar-行退回
@@ -20,7 +20,7 @@ com.gongsibao.crm.web.MyAllTaskListPart = org.netsharp.panda.commerce.ListPart.E
 		var intenCategory = row.intentionCategory;
 		var ownerId = row.ownerId;
 		var customerId = row.customer_id;
-		var content = '<p style="padding-left:150px;">任务将会退回至【公海】，进行【二次分配】</p>'
+		var content = '<p style="padding-left:150px;">商机将会退回至【公海】，进行【二次分配】</p>'
 			    + '<p style="padding-left:50px;">&nbsp;退回原因：</p>'
 				+ '<p style="padding-left:50px;">'
 				+ '<textarea collected="true" controltype="TextArea" id="txtNote" style="width:445px;height:100px;" '
@@ -29,12 +29,12 @@ com.gongsibao.crm.web.MyAllTaskListPart = org.netsharp.panda.commerce.ListPart.E
 				
 		//判断客户质量AB需要提示
 		if(intenCategory.indexOf("A") > -1 || intenCategory.indexOf("B") > -1 || intenCategory.indexOf("X") > -1){
-			content += '<p id="prompt" style="padding-left:30px;color:red;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提示：请慎用！执行退回后该任务将不会再分配给你，'
-				+ '如果只是需要将<br/>任务转给同事或者下属，请使用【任务转移】功能！</p>';
+			content += '<p id="prompt" style="padding-left:30px;color:red;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提示：请慎用！执行退回后该商机将不会再分配给你，'
+				+ '如果只是需要将<br/>商机转给同事或者下属，请使用【商机转移】功能！</p>';
 		};
 		layer.open({
 			type : 1,
-			title : '释放任务',
+			title : '释放商机',
 			fixed : false,
 			maxmin : false,
 			shadeClose : false,

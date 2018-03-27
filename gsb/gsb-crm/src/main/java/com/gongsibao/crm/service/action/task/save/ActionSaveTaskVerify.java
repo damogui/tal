@@ -11,7 +11,7 @@ import com.gongsibao.entity.crm.dic.AllocationState;
 import com.gongsibao.entity.crm.dic.NAllocationType;
 
 /**
- * @author hw 新增任务校验
+ * @author hw 新增商机校验
  */
 public class ActionSaveTaskVerify implements IAction {
 
@@ -26,7 +26,7 @@ public class ActionSaveTaskVerify implements IAction {
 			//校验是否已分配，是否已经有跟进信息。
 			if(allocationState == AllocationState.ALLOCATED){
 				
-				throw new BusinessException("任务已分配，不能删除！");
+				throw new BusinessException("商机已分配，不能删除！");
 			}
 		}
 

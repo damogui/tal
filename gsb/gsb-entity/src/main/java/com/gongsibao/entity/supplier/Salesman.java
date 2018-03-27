@@ -96,7 +96,7 @@ public class Salesman extends Entity {
 		this.isLeader = isLeader;
 	}
 
-	//当日已分配的任务数
+	//当日已分配的商机数
     @Exclusive
     private Integer dayAllocatedCount;
 	

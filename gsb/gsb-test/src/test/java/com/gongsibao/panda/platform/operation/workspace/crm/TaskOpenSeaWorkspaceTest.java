@@ -75,7 +75,7 @@ public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
 			item.toNew();
 			item.setCode("add");
 			item.setIcon("fa fa-plus fa-fw");
-			item.setName("新增任务");
+			item.setName("新增商机");
 			item.setOperationType(ot1);
 			item.setSeq(2);
 			item.setCommand("{controller}.add();");
@@ -153,8 +153,8 @@ public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
 		PDatagridColumn column = null;
 
 		addColumn(datagrid, "ownerId", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-		addColumn(datagrid, "id", "任务ID", ControlTypes.TEXT_BOX, 60, false);
-		addColumn(datagrid, "name", "任务名称", ControlTypes.TEXT_BOX, 250, false);
+		addColumn(datagrid, "id", "商机ID", ControlTypes.TEXT_BOX, 60, false);
+		addColumn(datagrid, "name", "商机名称", ControlTypes.TEXT_BOX, 250, false);
 		addColumn(datagrid, "customerId", "客户ID", ControlTypes.TEXT_BOX, 60, false);
 		addColumn(datagrid, "customer.realName", "客户名称", ControlTypes.TEXT_BOX, 100, false);
 
@@ -193,7 +193,7 @@ public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
 
 		// addColumn(datagrid, "customer.realName", "意向产品",
 		// ControlTypes.TEXT_BOX, 100, true);
-		addColumn(datagrid, "source.name", "任务来源", ControlTypes.TEXT_BOX, 100, false);
+		addColumn(datagrid, "source.name", "商机来源", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "lastContent", "最后跟进内容", ControlTypes.TEXT_BOX, 300, false);
 		addColumn(datagrid, "lastFollowTime", "最后跟进时间", ControlTypes.DATETIME_BOX, 130, false);
 		addColumn(datagrid, "lastFoolowUser.name", "原业务员", ControlTypes.TEXT_BOX, 100, false);
@@ -210,10 +210,10 @@ public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
 		PQueryItem item = null;
 		item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
 		{
-			item.setTooltip("输入任务ID、客户ID、任务名称、客户名称、联系方式等");
+			item.setTooltip("输入商机ID、客户ID、商机名称、客户名称、联系方式等");
 			//item.setWidth(300);
 		}
-		item = addQueryItem(queryProject, "source.name", "任务来源", ControlTypes.CUSTOM);{
+		item = addQueryItem(queryProject, "source.name", "商机来源", ControlTypes.CUSTOM);{
 			
 			item.setCustomControlType(PropertyQueryDictComboBox.class.getName());
 			item.setRefFilter("type=411");
@@ -228,7 +228,7 @@ public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
 		addRefrenceQueryItem(queryProject, "quality.name", "客户质量", NCustomerTaskQuality.class.getSimpleName());
 
 		//意向产品
-		addQueryItem(queryProject, "foolowStatus", "任务状态", ControlTypes.ENUM_BOX);
+		addQueryItem(queryProject, "foolowStatus", "商机状态", ControlTypes.ENUM_BOX);
 		return queryProject;
 	}
 

@@ -150,7 +150,7 @@ public class OrderProd extends BaseEntity {
 	@Reference(foreignKey = "ownerId", header = "业务员")
 	private Employee owner;
 
-	@Column(name = "task_id", header = "任务Id")
+	@Column(name = "task_id", header = "商机Id")
 	private Integer taskId;
 
 	@Column(name = "supplier_id", header = "服务商Id")

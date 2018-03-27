@@ -28,7 +28,7 @@ public class RollbackActionTest extends BaseActionTest{
 			beanPath.toNew();
 			beanPath.setPath(pathName);
 			beanPath.setResourceNode(resourceNode);
-			beanPath.setName("任务回退");
+			beanPath.setName("商机回退");
 		}
 
 		createBean(beanPath, "验证", ActionRollbackVerify.class.getName(), resourceNode, 100);

@@ -11,7 +11,7 @@ public class SalesmanUnStartWorkspaceTest extends SalesmanAllTaskWorkspaceTest{
 		
 		super.setup();
 		
-		listPartName = "未启动任务";
+		listPartName = "未启动商机";
 		urlList = "/crm/salesman/task/unstart/list";
 		resourceNodeCode = "CRM_SALESMAN_TASK_START";
 		listFilter = "foolowStatus = 6 and ownerId = '{userId}'";

@@ -32,11 +32,11 @@ public class ActionAbnormalRecordLog  implements IAction{
 		String leaderCopyWriter = "";
 		//1.抽查不属实通知日志
 		if(state.equals(3)){
-			copyWriter = String.format("【抽查提醒】您好，您有1个无法签单任务被抽查，结果为不属实，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，不属实原因【%s】，请及时跟进",
+			copyWriter = String.format("【抽查提醒】您好，您有1个无法签单商机被抽查，结果为不属实，商机名称【%s】，客户名称【%s】，客户联系方式【%s】，不属实原因【%s】，请及时跟进",
 					task.getName(),task.getCustomer().getRealName(),getContact,content);
-			leaderCopyWriter = String.format("【抽查提醒】您好，【%s】有1个无法签单任务被抽查，结果为不属实，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，不属实原因【%s】，请及时处理",
+			leaderCopyWriter = String.format("【抽查提醒】您好，【%s】有1个无法签单商机被抽查，结果为不属实，商机名称【%s】，客户名称【%s】，客户联系方式【%s】，不属实原因【%s】，请及时处理",
 					organization.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact,content);
-			//通知该条任务的最后跟进人
+			//通知该条商机的最后跟进人
 			notify(task,organization,copyWriter,lastFoolowUserId);
 			//通知一级领导
 			if(organization.getDirectLeaderId() != null){
@@ -50,11 +50,11 @@ public class ActionAbnormalRecordLog  implements IAction{
 		//2.处理通知日志
 		Integer type = Integer.valueOf(ctx.getStatus().get("type").toString());
 		if(type.equals(2)){
-			copyWriter = String.format("【抽查提醒】您好，您有1个无法签单任务被抽查，结果为不属实，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，不属实原因【%s】，请及时跟进",
+			copyWriter = String.format("【抽查提醒】您好，您有1个无法签单商机被抽查，结果为不属实，商机名称【%s】，客户名称【%s】，客户联系方式【%s】，不属实原因【%s】，请及时跟进",
 					task.getName(),task.getCustomer().getRealName(),getContact,content);
-			String checkCopyWriter = String.format("【抽查处理提醒】您好，【%s】的1个被抽查为不属实的无法签单任务，已处理，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，处理记录【%s】，请知悉",
+			String checkCopyWriter = String.format("【抽查处理提醒】您好，【%s】的1个被抽查为不属实的无法签单商机，已处理，商机名称【%s】，客户名称【%s】，客户联系方式【%s】，处理记录【%s】，请知悉",
 					organization.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact,content);
-			//通知该条任务的最后跟进人
+			//通知该条商机的最后跟进人
 			notify(task,organization,copyWriter,lastFoolowUserId);
 			//通知抽查人(当前登录人)
 			notify(task,organization,checkCopyWriter,SessionManager.getUserId());
@@ -62,7 +62,7 @@ public class ActionAbnormalRecordLog  implements IAction{
 	}
 	/**
 	 * 发送通知
-	 * @param task 任务实体
+	 * @param task 商机实体
 	 * @param organization 业务员组织机构
 	 * @param copyWriter 通知文案
 	 * @param receivedId 接收人

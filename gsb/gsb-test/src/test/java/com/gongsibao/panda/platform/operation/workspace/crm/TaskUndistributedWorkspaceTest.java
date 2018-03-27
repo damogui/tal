@@ -13,7 +13,7 @@ public class TaskUndistributedWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 
 		super.setup();
 		urlList = "/operation/customer/task/undistributed/list";
-		listPartName = formPartName = "未分配任务";
+		listPartName = formPartName = "未分配商机";
 		resourceNodeCode = "Operation_CRM_Task_Undistributed";
 		listPartJsController = TaskAllListPart.class.getName();
 		listPartServiceController = TaskAllListPart.class.getName();

@@ -12,7 +12,7 @@ import com.gongsibao.entity.crm.NCustomerTask;
 
 /**
  * @ClassName: ActionSaveWriteBack
- * @Description:TODO 新增任务：回写客户taskCount
+ * @Description:TODO 新增商机：回写客户taskCount
  * @author: 韩伟
  * @date: 2018年1月29日 下午4:10:02
  * 
