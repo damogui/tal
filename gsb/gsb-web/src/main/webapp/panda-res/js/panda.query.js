@@ -326,7 +326,8 @@ org.netsharp.controls.DateBoxQueryItem = org.netsharp.controls.Control.Extends({
 		       qp.value1 = propertyValue+ ' 00:00:00';
 	      	   qp.intelligentMode1 = org.netsharp.core.intelligentMode.GTE;
 	      	   
-	      	   var value2 =  $('#' + this.uiElement.id).datebox('getValue');
+	      	   var propertyName = this.propertyName.replace('.','_');
+	      	   var value2 =  $('#End_' + propertyName).datebox('getValue');
 	      	   if(!System.isnull(value2)){
 	      		   
 	      		  qp.value2 = value2+ ' 23:59:59';
@@ -346,7 +347,6 @@ org.netsharp.controls.DateBoxQueryItem = org.netsharp.controls.Control.Extends({
     },
 	clear: function() {
 		
-		var propertyName = this.propertyName.replaceAll('.','_');
 		$('#' + this.uiElement.id).datebox('setValue','');
 		$('#' + this.uiElement.id).datebox('setValue','');
 	}

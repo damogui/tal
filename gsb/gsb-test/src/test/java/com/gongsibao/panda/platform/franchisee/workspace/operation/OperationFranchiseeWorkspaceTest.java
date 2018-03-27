@@ -107,6 +107,7 @@ public class OperationFranchiseeWorkspaceTest extends MyFranchiseeWorkspaceTest 
 		addQueryItem(queryProject, "id", "客户Id", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "creator", "创建人", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "createTime", "创建时间", ControlTypes.DATE_BOX);
+		addQueryItem(queryProject, "province.name", "省份", ControlTypes.TEXT_BOX);
 		return queryProject;
 	}
 }
