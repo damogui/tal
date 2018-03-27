@@ -258,7 +258,6 @@ org.netsharp.controls.CheckBoxQueryItem=org.netsharp.controls.Control.Extends({
 	}
 });
 
-
 org.netsharp.controls.DateBoxQueryItem = org.netsharp.controls.Control.Extends({
     ctor: function () {
         this.base();
@@ -327,7 +326,7 @@ org.netsharp.controls.DateBoxQueryItem = org.netsharp.controls.Control.Extends({
 		       qp.value1 = propertyValue+ ' 00:00:00';
 	      	   qp.intelligentMode1 = org.netsharp.core.intelligentMode.GTE;
 	      	   
-	      	   var value2 =  $('#End_' + this.propertyName).datebox('getValue');
+	      	   var value2 =  $('#' + this.uiElement.id).datebox('getValue');
 	      	   if(!System.isnull(value2)){
 	      		   
 	      		  qp.value2 = value2+ ' 23:59:59';
@@ -346,8 +345,10 @@ org.netsharp.controls.DateBoxQueryItem = org.netsharp.controls.Control.Extends({
       return qp;
     },
 	clear: function() {
-		$('#Start_' + this.propertyName).datebox('setValue','');
-		$('#End_' + this.propertyName).datebox('setValue','');
+		
+		var propertyName = this.propertyName.replaceAll('.','_');
+		$('#' + this.uiElement.id).datebox('setValue','');
+		$('#' + this.uiElement.id).datebox('setValue','');
 	}
 });
 
@@ -435,7 +436,7 @@ org.netsharp.controls.EnumBoxQueryItem=org.netsharp.controls.Control.Extends({
             return null;
         }
         var qp = new org.netsharp.core.FilterParameter();
-        qp.key = this.propertyName;
+        qp.key = this.propertyName.replace("_",".");
         
         var filter = "";
         $(propertyValue).each(function(i,item){
