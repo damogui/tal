@@ -15,7 +15,7 @@ public class TaskFollowCtrl {
 	INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
 	
 	/**
-	 * 任务跟进
+	 * 商机跟进
 	 * @param entity 
 	 * @param originalQualityId 没更新前质量Id（用于判断是否改变，发送通知用）
 	 * @return
@@ -34,7 +34,7 @@ public class TaskFollowCtrl {
 	}
 	
 	/**
-	 * 任务跟进，验证意向产品
+	 * 商机跟进，验证意向产品
 	 * @param taskId
 	 * @return
 	 */
@@ -61,7 +61,7 @@ public class TaskFollowCtrl {
 	
 	/**   
 	 * @Title: getSigningAmounjt   
-	 * @Description: TODO(根据任务计算估计签单金额)
+	 * @Description: TODO(根据商机计算估计签单金额)
 	 * @param: @param taskId
 	 * @param: @return      
 	 * @return: Integer      

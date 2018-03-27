@@ -33,7 +33,7 @@ com.gongsibao.crm.web.BaseCustomerListPart = org.netsharp.panda.commerce.ListPar
     	var url=this.addTaskUrl+'?fk=customerId:'+customerId;
     	layer.open({
   		  type: 2,
-  		  title: '新增任务',
+  		  title: '新增商机',
   		  fixed: false,
   		  maxmin: true,
   		  shadeClose:true,

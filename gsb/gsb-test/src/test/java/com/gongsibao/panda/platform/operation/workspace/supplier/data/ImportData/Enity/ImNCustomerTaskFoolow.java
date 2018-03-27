@@ -19,7 +19,7 @@ import java.util.Date;
 /**
  * Created by win on 2018/2/11.
  */
-@Table(name = "n_crm_task_foolow", orderBy = " create_time DESC",header = "任务跟进")
+@Table(name = "n_crm_task_foolow", orderBy = " create_time DESC",header = "商机跟进")
 public class ImNCustomerTaskFoolow  extends Persistable implements IEntity {
     /**
      * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
@@ -126,10 +126,10 @@ public class ImNCustomerTaskFoolow  extends Persistable implements IEntity {
     private Integer customerId;
 
     @JsonIgnore
-    @Reference(foreignKey = "taskId", header = "任务Id")
+    @Reference(foreignKey = "taskId", header = "商机Id")
     private NCustomerTask task;
 
-    @Column(name = "task_id", header = "任务")
+    @Column(name = "task_id", header = "商机")
     private Integer taskId;
 
     @Column(name = "quality_category", header = "质量分类")

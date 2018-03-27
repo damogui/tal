@@ -20,7 +20,7 @@ public class ComprehenReportEntity extends BaseReportEntity{
 	private Integer customerCount = 0;
 	
 	/**   
-	 * @Fields taskCount : TODO(全部任务数)   
+	 * @Fields taskCount : TODO(全部商机数)   
 	 */   
 	private Integer taskCount = 0;
 	
@@ -30,47 +30,47 @@ public class ComprehenReportEntity extends BaseReportEntity{
 	private Integer selfCustomerCount = 0;
 	
 	/**   
-	 * @Fields selfTaskCount : TODO(自拓任务数)   
+	 * @Fields selfTaskCount : TODO(自拓商机数)   
 	 */   
 	private Integer selfTaskCount = 0;
 	
 	/**   
-	 * @Fields allocationTaskCount : TODO(分配任务数)   
+	 * @Fields allocationTaskCount : TODO(分配商机数)   
 	 */   
 	private Integer allocationTaskCount = 0;
 	
 	/**   
-	 * @Fields intoTaskCount : TODO(转入任务数)   
+	 * @Fields intoTaskCount : TODO(转入商机数)   
 	 */   
 	private Integer intoTaskCount = 0;
 	
 	/**   
-	 * @Fields rollOutTaskCount : TODO(转出任务数)   
+	 * @Fields rollOutTaskCount : TODO(转出商机数)   
 	 */   
 	private Integer rollOutTaskCount = 0;
 	
 	/**   
-	 * @Fields returnTaskCount : TODO(退回任务数)   
+	 * @Fields returnTaskCount : TODO(退回商机数)   
 	 */   
 	private Integer returnTaskCount = 0;
 	
 	/**   
-	 * @Fields withdrawTaskCount : TODO(收回任务数)   
+	 * @Fields withdrawTaskCount : TODO(收回商机数)   
 	 */   
 	private Integer withdrawTaskCount = 0;
 	
 	/**   
-	 * @Fields followTaskCount : TODO(跟进任务数)   
+	 * @Fields followTaskCount : TODO(跟进商机数)   
 	 */   
 	private Integer followTaskCount = 0;
 	
 	/**   
-	 * @Fields unSignTaskCount : TODO(无法签单任务数)   
+	 * @Fields unSignTaskCount : TODO(无法签单商机数)   
 	 */   
 	private Integer unSignTaskCount = 0;
 	
 	/**   
-	 * @Fields checkAbnormalTaskCount : TODO(抽查异常任务数)   
+	 * @Fields checkAbnormalTaskCount : TODO(抽查异常商机数)   
 	 */   
 	private Integer checkAbnormalTaskCount = 0;
 	
@@ -84,10 +84,10 @@ public class ComprehenReportEntity extends BaseReportEntity{
 	 */   
 	private Integer returnedAmount = 0;
 	
-	@Reference(foreignKey = "sourceId", header = "任务来源")
+	@Reference(foreignKey = "sourceId", header = "商机来源")
 	private Dict source;
 
-	@Column(name = "source_id", header = "任务来源")
+	@Column(name = "source_id", header = "商机来源")
 	private Integer sourceId;
 	
 	public Integer getCustomerCount() {

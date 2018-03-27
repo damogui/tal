@@ -33,10 +33,10 @@ public class UnFoolowNoticeJob implements IJob{
 				String getContact = NCustomerContact.handleContact(item.getCustomer());
 				
 				SalesmanOrganization organization = SupplierSessionManager.getSalesmanOrganization(item.getLastFoolowUserId());
-				String copyWriter = String.format("【待跟进提醒】您好，您有1个任务今天需要跟进，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请按时跟进",
+				String copyWriter = String.format("【待跟进提醒】您好，您有1个商机今天需要跟进，商机名称【%s】，客户名称【%s】，客户联系方式【%s】，请按时跟进",
 						item.getName(),item.getCustomer().getRealName(),getContact);
 				
-				String leaderCopyWriter = String.format("【待跟进提醒】您好，【%s】有1个任务今天需要跟进，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请安排按时跟进",
+				String leaderCopyWriter = String.format("【待跟进提醒】您好，【%s】有1个商机今天需要跟进，商机名称【%s】，客户名称【%s】，客户联系方式【%s】，请安排按时跟进",
 						organization.getEmployeeName(),item.getName(),item.getCustomer().getRealName(),getContact);
 				
 				sendNotify(item,organization,copyWriter,item.getLastFoolowUserId());
@@ -55,7 +55,7 @@ public class UnFoolowNoticeJob implements IJob{
 	
 	/**
 	 * 发送通知
-	 * @param task 任务实体
+	 * @param task 商机实体
 	 * @param organization 业务员组织机构
 	 * @param copyWriter 通知文案
 	 * @param receivedId 接收人

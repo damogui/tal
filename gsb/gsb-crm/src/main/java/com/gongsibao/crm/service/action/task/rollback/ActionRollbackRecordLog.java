@@ -54,7 +54,7 @@ public class ActionRollbackRecordLog implements IAction {
 		
 		//2.保存通知日志（通知部门领导和服务商管理员）
 		String getContact = NCustomerContact.handleContact(task.getCustomer());
-		String copyWriter = String.format("【退回提醒】您好，【%s】退回至公海1个任务，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，退回原因为【%s】，请及时处理",
+		String copyWriter = String.format("【退回提醒】您好，【%s】退回至公海1个商机，商机名称【%s】，客户名称【%s】，客户联系方式【%s】，退回原因为【%s】，请及时处理",
 				organization.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact,content);
 		//通知直属领导
 		if(organization.getDirectLeaderId() != null){
@@ -67,7 +67,7 @@ public class ActionRollbackRecordLog implements IAction {
 	}
 	/**
 	 * 发送通知
-	 * @param task 任务实体
+	 * @param task 商机实体
 	 * @param organization 业务员组织机构
 	 * @param copyWriter 通知文案
 	 * @param receivedId 接收人

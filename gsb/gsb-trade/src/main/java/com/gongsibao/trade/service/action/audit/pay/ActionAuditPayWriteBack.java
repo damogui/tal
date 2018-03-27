@@ -49,7 +49,7 @@ public class ActionAuditPayWriteBack implements IAction{
                 payService.updateStatus(pay.getId(), AuditStatusType.Bhsh);
                 break;
             case 1://通过审核
-                auditService.auditApproved(auditLog.getId());
+                auditService.auditApproved(auditLog.getId(),remark);
                 //当最后级别审核通过时，修改合同实体审核状态为审核通过
                 if (auditLog.getLevel().equals(auditLog.getMaxLevel())) {
                     payService.updateStatus(pay.getId(), AuditStatusType.Shtg);

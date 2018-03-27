@@ -31,7 +31,7 @@ public class ActionFollowVerify implements IAction {
 		if (quality.getProductRequired()) {
 			Boolean isHas = hasProduct(taskFoolow.getTaskId());
 			if(!isHas){
-				throw new BusinessException("此类质量的任务必须添加意向产品");
+				throw new BusinessException("此类质量的商机必须添加意向产品");
 			}
 		}
 		
@@ -63,7 +63,7 @@ public class ActionFollowVerify implements IAction {
 
 	/**   
 	 * @Title: hasProduct   
-	 * @Description: TODO(判断任务是否有意向产品)   
+	 * @Description: TODO(判断商机是否有意向产品)   
 	 * @param: @param taskId
 	 * @param: @return      
 	 * @return: Boolean      
@@ -83,7 +83,7 @@ public class ActionFollowVerify implements IAction {
 	
 	/**   
 	 * @Title: hasDistrict   
-	 * @Description: TODO(判断任务的意向产品是否有意向地区)   
+	 * @Description: TODO(判断商机的意向产品是否有意向地区)   
 	 * @param: @param taskId
 	 * @param: @return      
 	 * @return: Boolean      

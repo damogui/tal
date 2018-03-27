@@ -37,7 +37,7 @@ public class AllocationAutoActionTest {
 			beanPath.toNew();
 			beanPath.setPath(pathName);
 			beanPath.setResourceNode(resourceNode);
-			beanPath.setName("任务自动分配");
+			beanPath.setName("商机自动分配");
 		}
 		Bean bean = new Bean();
 		{
@@ -62,7 +62,7 @@ public class AllocationAutoActionTest {
 		bean = new Bean();
 		{
 			bean.toNew();
-			bean.setName("任务的分配状态的回写");
+			bean.setName("商机的分配状态的回写");
 			bean.setType(ActionAutoAllocationUpdateTaskStatus.class.getName());
 			bean.setResourceNode(resourceNode);
 			bean.setSeq(300);

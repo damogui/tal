@@ -156,16 +156,16 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 
 	protected void addDetailGridPart(PWorkspace workspace) {
 
-		// 客户任务
+		// 客户商机
 		createTasksPart(workspace);
 		createCompanysDetailPart(workspace);
 	}
 
-	// 客户任务
+	// 客户商机
 	public void createTasksPart(PWorkspace workspace) {
 
 		ResourceNode node = this.resourceService.byCode(taskDetailResourceNodeCode);
-		PDatagrid datagrid = new PDatagrid(node, "任务信息");
+		PDatagrid datagrid = new PDatagrid(node, "商机信息");
 		{
 			datagrid.setShowCheckbox(false);
 			datagrid.setSingleSelect(true);
@@ -194,7 +194,7 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 		PPart part = new PPart();
 		{
 			part.toNew();
-			part.setName("任务信息");
+			part.setName("商机信息");
 			part.setCode("tasks");
 			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
 			part.setRelationRole("tasks");

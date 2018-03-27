@@ -56,12 +56,12 @@ public class CustomerServiceReportEntity extends Persistable{
 	private Integer creatCustomerCount = 0;
 	
 	/**   
-	 * @Fields creatTaskCount : TODO(创建任务数)   
+	 * @Fields creatTaskCount : TODO(创建商机数)   
 	 */   
 	private Integer creatTaskCount = 0;
 	
 	/**   
-	 * @Fields unSignTaskCount : TODO(无法签单任务数)   
+	 * @Fields unSignTaskCount : TODO(无法签单商机数)   
 	 */   
 	private Integer unSignTaskCount = 0;
 	
@@ -71,17 +71,17 @@ public class CustomerServiceReportEntity extends Persistable{
 	private Integer manualDistribution = 0;
 
 	/**
-	 * @Fields noTaskCustomerCount : TODO(无任务客户数)
+	 * @Fields noTaskCustomerCount : TODO(无商机客户数)
 	 */
 	private Integer noTaskCustomerCount;
 
 	/**
-	 * @Fields unAllotTaskCount : TODO(未分配任务数)
+	 * @Fields unAllotTaskCount : TODO(未分配商机数)
 	 */
 	private Integer unAllotTaskCount;
 
 	/**
-	 * @Fields unStartTaskCount : TODO(未启动任务数)
+	 * @Fields unStartTaskCount : TODO(未启动商机数)
 	 */
 	private Integer unStartTaskCount;
 

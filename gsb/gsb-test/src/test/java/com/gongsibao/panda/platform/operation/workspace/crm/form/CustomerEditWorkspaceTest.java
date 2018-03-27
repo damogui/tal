@@ -205,7 +205,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 		
 		addNotificationLogPart(workspace);
 
-		// 客户任务
+		// 客户商机
 		createTasksPart(workspace);
 
 

@@ -11,32 +11,32 @@ public class FollowReportEntity extends BaseReportEntity{
 	private static final long serialVersionUID = 1L;
 	
 	/**   
-	 * @Fields taskCount : TODO(全部任务数)   
+	 * @Fields taskCount : TODO(全部商机数)   
 	 */   
 	private Integer taskCount = 0;
 	
 	/**   
-	 * @Fields unfoolowCount : TODO(待跟进任务数)   
+	 * @Fields unfoolowCount : TODO(待跟进商机数)   
 	 */   
 	private Integer unfoolowCount = 0;
 	
 	/**   
-	 * @Fields timeOutCount : TODO(超时任务数)   
+	 * @Fields timeOutCount : TODO(超时商机数)   
 	 */   
 	private Integer timeOutCount = 0;
 	
 	/**   
-	 * @Fields foolowCount : TODO(跟进任务数)   
+	 * @Fields foolowCount : TODO(跟进商机数)   
 	 */   
 	private Integer foolowCount = 0;
 	
 	/**   
-	 * @Fields qualityRisetaskCount : TODO(质量上升任务数)   
+	 * @Fields qualityRisetaskCount : TODO(质量上升商机数)   
 	 */   
 	private Integer qualityRisetaskCount = 0;
 	
 	/**   
-	 * @Fields qualityDeclinetaskCount : TODO(质量下降任务数)   
+	 * @Fields qualityDeclinetaskCount : TODO(质量下降商机数)   
 	 */   
 	private Integer qualityDeclinetaskCount = 0;
 

@@ -5,6 +5,7 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         this.base();
         //订单下单方式枚举
         this.orderPlatformSourceEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderPlatformSourceType');
+        this.serviceLocator = new org.netsharp.core.JServiceLocator();
     },
     init: function () {
 
@@ -128,6 +129,30 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
             return true;
         }
         return false;
+    },
+    approved: function (auditId) {
+        var me = this;
+        //审批意见
+        var auditRemark = $("#auditRemark").val();
+        me.serviceLocator.invoke("com.gongsibao.trade.web.audit.AuditContractController", "approved", [auditId, auditRemark], function (data) {
+            IMessageBox.toast('操作成功！');
+            window.parent.layer.closeAll();
+            //me.reload();
+        }, null, false);
+    },
+    rejected: function (auditId) {
+        var me = this;
+        //审批意见
+        var auditRemark = $("#auditRemark").val();
+        if (System.isnull(auditRemark)) {
+            IMessageBox.info('审核驳回时，请输入审批意见');
+            return false;
+        }
+        me.serviceLocator.invoke("com.gongsibao.trade.web.audit.AuditContractController", "rejected", [auditId, auditRemark], function (data) {
+            IMessageBox.toast('操作成功！');
+            window.parent.layer.closeAll();
+        }, null, false);
+
     }
 
 });

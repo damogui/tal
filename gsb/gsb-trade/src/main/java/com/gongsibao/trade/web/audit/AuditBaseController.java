@@ -22,7 +22,7 @@ public abstract class AuditBaseController {
 	 * 
 	 * @return
 	 */
-	public abstract Boolean approved(Integer auditLogId);
+	public abstract Boolean approved(Integer auditLogId, String remark);
 
 	/**
 	 * 驳回 注：参数未定

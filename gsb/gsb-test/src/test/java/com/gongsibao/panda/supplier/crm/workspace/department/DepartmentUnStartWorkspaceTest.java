@@ -32,7 +32,7 @@ public class DepartmentUnStartWorkspaceTest extends DepartmentAllTaskWorkspaceTe
 		}
 
 		addToolbarItem(toolbar, "regain", "收回", "fa fa-mail-reply", "regain()", null, 6);
-		addToolbarItem(toolbar, "transfer", "任务转移", "fa fa-share-square-o", "transfer()", null, 7);
+		addToolbarItem(toolbar, "transfer", "商机转移", "fa fa-share-square-o", "transfer()", null, 7);
 		return toolbar;
 	}
 

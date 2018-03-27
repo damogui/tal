@@ -43,7 +43,7 @@ public class ActionAuditRefundWriteBack implements IAction{
                 writeBackOrder(orderId,AuditStatusType.Bhsh);
                 break;
             case 1://通过审核
-                auditService.auditApproved(auditLog.getId());
+                auditService.auditApproved(auditLog.getId(),remark);
                 if (auditLog.getLevel().equals(auditLog.getMaxLevel())) {
                 	writeBackRefund(auditLog.getFormId(),AuditStatusType.Shtg);
                     writeBackOrder(orderId,AuditStatusType.Shtg);

@@ -12,7 +12,7 @@ import com.gongsibao.entity.crm.dic.OperationType;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
-@Table(name = "n_crm_customer_operation_log", orderBy = " create_time DESC", header = "任务流转")
+@Table(name = "n_crm_customer_operation_log", orderBy = " create_time DESC", header = "商机流转")
 public class NCustomerOperationLog extends Entity {
 
 	/**

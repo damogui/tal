@@ -5,13 +5,13 @@
         	<div class="cell cell-12">
 	        	<div id="briefing" class="easyui-panel" title="销售简报" data-options="fit:true,border:false">
 	        		<p>
-	        			<span>新增任务数：0个</span>
-	        			<span class="padding-15">未启动任务数：0个</span>
-	        			<span class="padding-15">待跟进任务数：0个</span>
-	        			<span class="padding-15">超时任务数：0个</span>
+	        			<span>新增商机数：0个</span>
+	        			<span class="padding-15">未启动商机数：0个</span>
+	        			<span class="padding-15">待跟进商机数：0个</span>
+	        			<span class="padding-15">超时商机数：0个</span>
 	        		</p>
 	        		<p>
-	        			<span>异常未处理任务数：0个</span>
+	        			<span>异常未处理商机数：0个</span>
 	        			<span class="padding-15">公海：0个</span>
 	        		</p>
 			    </div>
@@ -32,7 +32,7 @@
         	<div class="cell cell-12">
 	        	<div class="easyui-panel" title="漏斗统计" data-options="fit:true,border:false">
 	        		<p>
-	        			<span id="allTasks">全部任务：0个</span>
+	        			<span id="allTasks">全部商机：0个</span>
 	        		</p>
 	        		<p>
 	        			<span id="xClass">X类：0个</span>

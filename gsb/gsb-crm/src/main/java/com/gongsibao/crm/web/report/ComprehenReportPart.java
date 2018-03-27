@@ -62,7 +62,7 @@ public class ComprehenReportPart extends BaseReport {
 	
 	
 	/**
-	 * 获取全部客户数、全部任务数
+	 * 获取全部客户数、全部商机数
 	 * @param filterMap 
 	 * @param orgaId
 	 * @return
@@ -97,7 +97,7 @@ public class ComprehenReportPart extends BaseReport {
 		return resultMap;
 	}
 	/**
-	 * 获取分配任务数
+	 * 获取分配商机数
 	 * @param filterMap 
 	 * @param orgaId
 	 * @return
@@ -136,7 +136,7 @@ public class ComprehenReportPart extends BaseReport {
 		return resultMap;
 	}
 	/**
-	 * 获取转出任务数
+	 * 获取转出商机数
 	 * @param filterMap 
 	 * @param orgaId
 	 * @return
@@ -172,7 +172,7 @@ public class ComprehenReportPart extends BaseReport {
 		return resultMap;
 	}
 	/**
-	 * 获取转入任务数
+	 * 获取转入商机数
 	 * @param filterMap 
 	 * @param orgaId
 	 * @return
@@ -208,7 +208,7 @@ public class ComprehenReportPart extends BaseReport {
 		return resultMap;
 	}
 	/**
-	 * 获取退回任务数
+	 * 获取退回商机数
 	 * @param filterMap 
 	 * @param orgaId
 	 * @return
@@ -244,7 +244,7 @@ public class ComprehenReportPart extends BaseReport {
 		return resultMap;
 	}
 	/**
-	 * 获取任务收回数
+	 * 获取商机收回数
 	 * @param filterMap 
 	 * @param orgaId
 	 * @return
@@ -280,7 +280,7 @@ public class ComprehenReportPart extends BaseReport {
 		return resultMap;
 	}
 	/**
-	 * 获取跟进任务数
+	 * 获取跟进商机数
 	 * @param filterMap 
 	 * @param orgaId
 	 * @return
@@ -314,7 +314,7 @@ public class ComprehenReportPart extends BaseReport {
 		return resultMap;
 	}
 	/**
-	 * 获取抽查异常任务数
+	 * 获取抽查异常商机数
 	 * @param filterMap 
 	 * @param orgaId
 	 * @return
@@ -348,7 +348,7 @@ public class ComprehenReportPart extends BaseReport {
 		return resultMap;
 	}
 	/**
-	 * 获取无法签单任务数
+	 * 获取无法签单商机数
 	 * @param filterMap 
 	 * @param orgaId
 	 * @return

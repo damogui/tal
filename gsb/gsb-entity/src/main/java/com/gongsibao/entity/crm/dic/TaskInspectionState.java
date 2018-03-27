@@ -5,7 +5,7 @@ import org.netsharp.base.IEnum;
 
 /**   
  * @ClassName:  TaskRandomInspectionState   
- * @Description:TODO 任务抽查状态
+ * @Description:TODO 商机抽查状态
  * @author: 韩伟
  * @date:   2018年1月17日 下午2:41:29   
  *     

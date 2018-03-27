@@ -87,7 +87,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 
 		    			if(me.type == 'list'){
 
-			    			layer.confirm('此类质量的任务必须添加意向产品,是否立即添加？', {
+			    			layer.confirm('此类质量的商机必须添加意向产品,是否立即添加？', {
 			    				  btn: ['立即添加', '取消']
 			    				}, function(index, layero){
 			    				  
@@ -96,7 +96,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 			    				});
 		    			}else{
 		    				
-			    			layer.confirm('此类质量的任务必须添加意向产品,是否立即添加？', {
+			    			layer.confirm('此类质量的商机必须添加意向产品,是否立即添加？', {
 			    				  btn: ['立即添加', '取消']
 			    				}, function(index, layero){
 			    				  
@@ -117,7 +117,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 
 		    			if(me.type == 'list'){
 		    				
-			    			layer.confirm('此类质量的任务必须添加意向地区,是否立即添加？', {
+			    			layer.confirm('此类质量的商机必须添加意向地区,是否立即添加？', {
 			    				  btn: ['立即添加', '取消']
 			    				}, function(index, layero){
 			    				  
@@ -126,7 +126,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 			    			});
 		    			}else{
 		    				
-			    			layer.confirm('此类质量的任务必须添加意向地区,是否立即添加？', {
+			    			layer.confirm('此类质量的商机必须添加意向地区,是否立即添加？', {
 			    				  btn: ['立即添加', '取消']
 			    				}, function(index, layero){
 			    				  
@@ -197,11 +197,11 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 		var me = this;
     	var intentionOption = this.getIntentionOption(taskId);
     	PandaHelper.openDynamicForm({
-			title:'任务跟进',
+			title:'商机跟进',
 			width:500,
 			height:480,
 			items:[{id:'allot_intention_name',
-				title:'任务质量',
+				title:'商机质量',
 				type:'combogrid',
 				className:'',
 				option:intentionOption},

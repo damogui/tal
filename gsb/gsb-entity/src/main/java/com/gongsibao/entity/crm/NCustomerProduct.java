@@ -32,10 +32,10 @@ public class NCustomerProduct extends Entity {
 	private Integer customerId;
 
 	@JsonIgnore
-	@Reference(foreignKey = "taskId", header = "客户任务")
+	@Reference(foreignKey = "taskId", header = "客户商机")
 	private NCustomerTask task;
 
-	@Column(name = "task_id", header = "客户任务Id")
+	@Column(name = "task_id", header = "客户商机Id")
 	private Integer taskId;
 
 	@Column(name = "product_category_id_1")

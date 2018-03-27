@@ -10,7 +10,7 @@ public class SalesmanFollowIngWorkspaceTest extends SalesmanAllTaskWorkspaceTest
 	public void setup() {
 		
 		super.setup();
-		listPartName = "跟进中任务";
+		listPartName = "跟进中商机";
 		urlList = "/crm/salesman/task/following/list";
 		resourceNodeCode = "CRM_SALESMAN_TASK_FOLLOWING";
 		listFilter = "foolowStatus = 3 and ownerId = '{userId}'";

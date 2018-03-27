@@ -79,12 +79,12 @@ public class NavigationTest extends NavigationBase {
             createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_ALL", "全部客户", "/operation/customer/all/list", 2);
             createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_Allocated", "已分配客户", "/operation/customer/allocated/list", 3);
             createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_Undistributed", "未分配客户", "/operation/customer/undistributed/list", 4);
-            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_NotTask", "无任务客户", "/operation/customer/nottask/list", 4);
+            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_NotTask", "无商机客户", "/operation/customer/nottask/list", 4);
 
-            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_ALL", "全部任务", "/operation/customer/task/all/list", 5);
-            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Allocated", "已分配任务", "/operation/customer/task/allocated/list", 6);
-            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Undistributed", "未分配任务", "/operation/customer/task/undistributed/list", 7);
-            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_UNstart", "未启动任务", "/operation/customer/task/unstart/list", 8);
+            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_ALL", "全部商机", "/operation/customer/task/all/list", 5);
+            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Allocated", "已分配商机", "/operation/customer/task/allocated/list", 6);
+            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Undistributed", "未分配商机", "/operation/customer/task/undistributed/list", 7);
+            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_UNstart", "未启动商机", "/operation/customer/task/unstart/list", 8);
 
             createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Defeated", "无法签单", "/operation/customer/task/defeated/list", 9);
             createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Anomaly_Detection", "抽查异常", "/operation/customer/task/anomalydetection/list", 10);

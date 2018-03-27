@@ -46,22 +46,22 @@ public class CrmResourceTest extends ResourceCreationBase{
 		
 		ResourceNode node1 = null;
 
-		node1 = this.createResourceNodeCategory("我的任务", "GSB_CRM_MY", node.getId());
+		node1 = this.createResourceNodeCategory("我的商机", "GSB_CRM_MY", node.getId());
 		{
 			this.createResourceNodeVoucher(NCustomer.class.getName(), "新增客户", "CRM_SALESMAN_CUSTOMER_ADD", INCustomerService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomer.class.getName(), "修改客户", "CRM_SALESMAN_CUSTOMER_Edit", INCustomerService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "新增任务", "CRM_SALESMAN_TASK_ADD", INCustomerTaskService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "修改任务", "CRM_SALESMAN_TASK_EDIT", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "新增商机", "CRM_SALESMAN_TASK_ADD", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "修改商机", "CRM_SALESMAN_TASK_EDIT", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTaskFoolow.class.getName(), "跟进", "CRM_SALESMAN_TASK_Foolow", INCustomerTaskFoolowService.class.getName(), node1.getId());
 			
 			this.createResourceNodeVoucher(NCustomer.class.getName(), "全部客户", "CRM_SALESMAN_CUSTOMER", INCustomerService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "全部任务", "CRM_SALESMAN_TASK_ALL", INCustomerTaskService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "未启动任务", "CRM_SALESMAN_TASK_START", INCustomerTaskService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "未跟进任务", "CRM_SALESMAN_TASK_UNFOOLOW", INCustomerTaskService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "跟进中任务", "CRM_SALESMAN_TASK_FOLLOWING", INCustomerTaskService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "已签单任务", "CRM_SALESMAN_TASK_SIGNED", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "全部商机", "CRM_SALESMAN_TASK_ALL", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "未启动商机", "CRM_SALESMAN_TASK_START", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "未跟进商机", "CRM_SALESMAN_TASK_UNFOOLOW", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "跟进中商机", "CRM_SALESMAN_TASK_FOLLOWING", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "已签单商机", "CRM_SALESMAN_TASK_SIGNED", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "超时提醒", "CRM_SALESMAN_TIMEOUT", INCustomerTaskService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "无法签单任务", "CRM_SALESMAN_TASK_DEFEATED", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "无法签单商机", "CRM_SALESMAN_TASK_DEFEATED", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "跟进统计", "CRM_SALESMAN_REPORT", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "抽查异常", "CRM_SALESMAN_CHECK_ABNORMAL", INCustomerTaskService.class.getName(), node1.getId());
 
@@ -84,18 +84,18 @@ public class CrmResourceTest extends ResourceCreationBase{
 		{
 			this.createResourceNodeVoucher(NCustomer.class.getName(), "新增客户", "CRM_DEPARTMENT_CUSTOMER_ADD", INCustomerService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomer.class.getName(), "修改客户", "CRM_DEPARTMENT_CUSTOMER_Edit", INCustomerService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "新增任务", "CRM_DEPARTMENT_TASK_ADD", INCustomerTaskService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "修改任务", "CRM_DEPARTMENT_TASK_EDIT", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "新增商机", "CRM_DEPARTMENT_TASK_ADD", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "修改商机", "CRM_DEPARTMENT_TASK_EDIT", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTaskFoolow.class.getName(), "跟进", "CRM_DEPARTMENT_TASK_Foolow", INCustomerTaskFoolowService.class.getName(), node1.getId());
 
 			this.createResourceNodeVoucher(NCustomer.class.getName(), "全部客户", "CRM_DEPARTMENT_CUSTOMER_ALL", INCustomerService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "全部任务", "CRM_DEPARTMENT_TASK_ALL", INCustomerTaskService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "未启动任务", "CRM_DEPARTMENT_TASK_START", INCustomerTaskService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "跟进中任务", "CRM_DEPARTMENT_TASK_FOLLOWING", INCustomerTaskService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "已签单任务", "CRM_DEPARTMENT_TASK_SIGNED", INCustomerTaskService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "待跟进任务", "CRM_DEPARTMENT_TASK_UNFOOLOW", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "全部商机", "CRM_DEPARTMENT_TASK_ALL", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "未启动商机", "CRM_DEPARTMENT_TASK_START", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "跟进中商机", "CRM_DEPARTMENT_TASK_FOLLOWING", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "已签单商机", "CRM_DEPARTMENT_TASK_SIGNED", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "待跟进商机", "CRM_DEPARTMENT_TASK_UNFOOLOW", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "超时提醒", "CRM_DEPARTMENT_TASK_TIMEOUT", INCustomerTaskService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "无法签单任务", "CRM_DEPARTMENT_TASK_DEFEATED", INCustomerTaskService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "无法签单商机", "CRM_DEPARTMENT_TASK_DEFEATED", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "抽查异常", "CRM_DEPARTMENT_TASK_CHECK_ABNORMAL", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "公海", "CRM_DEPARTMENT_TASK_HIGHSEAS", INCustomerTaskService.class.getName(), node1.getId());
 

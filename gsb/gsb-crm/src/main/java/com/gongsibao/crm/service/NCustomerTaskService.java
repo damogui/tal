@@ -131,7 +131,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
     @Override
     public Boolean batchTransfer(String[] taskIdArray, Integer supplierId, Integer departmentId, Integer toUserId) {
-        //任务批量转移
+        //商机批量转移
         Map<ProcessNoticeEnum, Map<Integer, Integer>> noticeMap = transgerNotice(taskIdArray, supplierId, departmentId, toUserId);
         boolean isNotify = false;
         for (String taskId : taskIdArray) {
@@ -144,7 +144,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
     @Override
     public Boolean transfer(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId, Map<ProcessNoticeEnum, Map<Integer, Integer>> noticeMap, boolean isNotify) {
-        //任务转移
+        //商机转移
         Map<String, Object> setMap = new HashMap<String, Object>();
         NCustomerTask entity = this.byId(taskId);
 
@@ -222,7 +222,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
     /**
      * 抽查异常
      *
-     * @param taskId  任务Id
+     * @param taskId  商机Id
      * @param state   1-"未抽查",2-"抽查正常",3-"抽查异常",4-"异常已处理"
      * @param content
      * @param type    1-"抽查",2-"处理"
@@ -251,7 +251,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
     @Override
     public Boolean batchAllocation(String[] taskIdArray, Integer supplierId, Integer departmentId, Integer toUserId) {
-        //任务批量分配
+        //商机批量分配
         int taskIdCount = taskIdArray.length;
         boolean isNotify = false;
         for (String taskId : taskIdArray) {
@@ -263,7 +263,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
     @Override
     public Boolean allocation(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId, int alloCount, boolean isNotify) {
-        //任务分配
+        //商机分配
         Map<String, Object> setMap = new HashMap<String, Object>();
         NCustomerTask entity = this.byId(taskId);
         setMap.put("formDepartmentId", entity.getDepartmentId());
@@ -288,7 +288,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
     @Override
     public Boolean follow(NCustomerTaskFoolow taskFoolow, Integer originalQualityId) {
-        //任务跟进
+        //商机跟进
         Map<String, Object> setMap = new HashMap<String, Object>();
         setMap.put("originalQualityId", originalQualityId);
         ActionContext ctx = new ActionContext();
@@ -307,7 +307,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
     @Override
     public Boolean batchRegain(String[] taskIdArray, String content) {
 
-        //任务批量收回
+        //商机批量收回
         for (String taskId : taskIdArray) {
 
             this.regain(Integer.valueOf(taskId), content);
@@ -317,7 +317,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
     @Override
     public Boolean regain(Integer taskId, String content) {
-        //任务收回
+        //商机收回
         ActionManager action = new ActionManager();
         Map<String, Object> setMap = new HashMap<String, Object>();
         setMap.put("content", content);
@@ -340,7 +340,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
     @Override
     public Boolean rollback(Integer taskId, String content) {
-        // 任务回退
+        // 商机回退
         NCustomerTask entity = this.byId(taskId);
         Map<String, Object> setMap = new HashMap<String, Object>();
         setMap.put("content", content);
@@ -463,7 +463,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
             Integer leaderId = salesmanService.getLeaderId(item.getSupplierId(), item.getDepartmentId());
             SalesmanOrganization orgaForm = SupplierSessionManager.getSalesmanOrganization(leaderId);
 
-            //统计部门，及部门下的待分配任务的数量
+            //统计部门，及部门下的待分配商机的数量
             if (orgaForm.getEmployeeId() != null) {
                 if (resMap.containsKey(orgaForm.getEmployeeId())) {
                     resMap.put(orgaForm.getEmployeeId(), resMap.get(leaderId).intValue() + 1);
@@ -472,7 +472,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
                 }
             }
 
-            //统计服务商，及服务商下的待分配任务的数量
+            //统计服务商，及服务商下的待分配商机的数量
             if (orgaForm.getAdminId() != null) {
                 if (resMap.containsKey(orgaForm.getAdminId())) {
                     resMap.put(orgaForm.getAdminId(), resMap.get(orgaForm.getAdminId()).intValue() + 1);
@@ -537,7 +537,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
         // 验证非空
         if (task == null || NumberUtils.toInt(task.getId()) == 0) {
-            throw new BusinessException("该任务不存在！");
+            throw new BusinessException("该商机不存在！");
         }
         //服务商id
         Integer supplierId = NumberUtils.toInt(task.getSupplierId());

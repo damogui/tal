@@ -24,7 +24,7 @@ public class SalesmanAllTaskWorkspaceTest extends TaskALLWorkspaceTest {
 
 		super.setup();
 		
-		listPartName = "全部任务";
+		listPartName = "全部商机";
 		urlList = "/crm/salesman/task/all/list";
 		resourceNodeCode = "CRM_SALESMAN_TASK_ALL";
 		
@@ -52,8 +52,8 @@ public class SalesmanAllTaskWorkspaceTest extends TaskALLWorkspaceTest {
 			toolbar.setResourceNode(node);
 		}
 
-		addToolbarItem(toolbar, "add", "新增任务", "fa fa-plus", "add()", null, 5);
-		addToolbarItem(toolbar, "batchTransfer", "任务转移", "fa fa-share-square-o", "batchTransfer();", null,6);
+		addToolbarItem(toolbar, "add", "新增商机", "fa fa-plus", "add()", null, 5);
+		addToolbarItem(toolbar, "batchTransfer", "商机转移", "fa fa-share-square-o", "batchTransfer();", null,6);
 		addToolbarItem(toolbar, "addOrder", "新增订单", "fa fa-file-text-o", "addOrder();", null,7);
 		return toolbar;
 	}
@@ -88,7 +88,7 @@ public class SalesmanAllTaskWorkspaceTest extends TaskALLWorkspaceTest {
 			item.setTooltip("输入客户ID、客户名称、联系方式等");
 			item.setWidth(250);
 		}
-		item = addQueryItem(queryProject, "source.name", "任务来源", ControlTypes.CUSTOM);{
+		item = addQueryItem(queryProject, "source.name", "商机来源", ControlTypes.CUSTOM);{
 			
 			item.setCustomControlType(PropertyQueryDictComboBox.class.getName());
 			item.setRefFilter("type=411");
