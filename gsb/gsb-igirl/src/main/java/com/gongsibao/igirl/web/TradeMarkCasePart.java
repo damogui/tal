@@ -152,7 +152,12 @@ public class TradeMarkCasePart extends FormPart {
 		int st=tradeMarkCaseService.updateCaseState(casecode,state);
 		return ResultDto.getSimpleResultDto(st);
 	}
-	
+	@SuppressWarnings("rawtypes")
+	@Authorization(is=false)
+	public ResultDto isAllUpload(int caseId) {
+		int ua=uploadAttachmentService.isAllUpload(caseId);
+		return ResultDto.getSimpleResultDto(ua);//
+	}
 	public int attachmentMake(String caseid) {
 		//
 		return tradeMarkCaseService.attachmentMake(caseid);
