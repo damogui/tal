@@ -88,7 +88,7 @@ public class SalesmanOrderPayWorkspaceTest  extends WorkspaceCreationBase {
             // column.setFormatter("return controllerpayList.orderNameFormatter(value,row,index);");
 
         }
-        addColumn (datagrid, "payForOrderCount", "是否一笔多单", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "payForOrderCount", "是否一笔多单", ControlTypes.ENUM_BOX, 100);
         addColumn (datagrid, "payWayType", "是否在线支付", ControlTypes.ENUM_BOX, 100);
         addColumn (datagrid, "amount", "付款金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn (datagrid, "offlineAuditStatus", "审核状态", ControlTypes.ENUM_BOX, 100);
