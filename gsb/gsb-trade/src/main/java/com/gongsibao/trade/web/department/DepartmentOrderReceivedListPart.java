@@ -3,12 +3,13 @@ package com.gongsibao.trade.web.department;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.utils.SupplierSessionManager;
 
-public class DepartmentOrderReceivedListPart extends DepartmentOrderAllListPart{
+public class DepartmentOrderReceivedListPart extends AdvancedListPart {
     @Override
     public String getFilterByParameter(FilterParameter parameter) {
 
@@ -27,7 +28,7 @@ public class DepartmentOrderReceivedListPart extends DepartmentOrderAllListPart{
 
         return parameter.getFilter();
     }
-    
+    @Override
 	protected String getExtraFilter() {
 
 		List<String> ss = new ArrayList<String>();
@@ -41,8 +42,8 @@ public class DepartmentOrderReceivedListPart extends DepartmentOrderAllListPart{
 		// 过滤部门Id
 		String departmentIds = SupplierSessionManager.getSubDepartmentIdsStr();
 		if (!StringManager.isNullOrEmpty(departmentIds)) {
-
-			ss.add("departmentId in (" + departmentIds + ")");
+ss.add (String.format ("pkid IN (SELECT pay_id FROM so_order_pay_map WHERE order_id IN (SELECT pkid FROM so_order WHERE owner_id   IN ( SELECT employee_id FROM   `sp_salesman` WHERE  department_id in (%s))    ORDER BY pkid DESC))",departmentIds));//进行过滤
+           // ss.add("departmentId in (" + departmentIds + ")");
 		} else {
 
 			// 非服务商内部人员看不到数据

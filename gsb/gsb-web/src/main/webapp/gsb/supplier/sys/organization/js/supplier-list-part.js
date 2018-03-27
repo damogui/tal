@@ -10,8 +10,7 @@ com.gongsibao.supplier.web.SupplierListPart = org.netsharp.panda.commerce.ListPa
     	var relationItem = this.relationItem;
     	if(relationItem == null){
     		
-    		IMessageBox.info("请选择服务商分类");
-    		return false;
+    		return true;
     	}
     	
     	if(relationItem.children.length>0){
@@ -21,6 +20,27 @@ com.gongsibao.supplier.web.SupplierListPart = org.netsharp.panda.commerce.ListPa
     	}
     	return true;
     },
+    
+	add : function() {
+
+		if (!this.onAdding()) {
+			return;
+		}
+
+		var fks = [];
+	    if (this.context.relationRole != null && this.relationItem!=null) {
+			fks.push("categoryId:" + this.relationItem.id);
+			fks.push("categoryName:" + this.relationItem.text);
+		}
+		
+		if(fks.length>0){
+
+			this.doAdd("fk=" + fks.join(";"));
+		}else{
+			this.doAdd();
+		}
+
+	},
     openAccount:function(){//开户
     	
 		var count = this.getSelectionCount();

@@ -3,7 +3,15 @@ com.gongsibao.supplier.web.SupplierFormPart = org.netsharp.panda.commerce.FormPa
 
     ctor: function () {
         this.base();
-    }
+    },
+    added: function (currentItem) {
+
+    	var fkParam = this.getfkParam();
+    	var category = new Object();
+    	category.id = fkParam['categoryId'];
+    	category.name = decodeURI(fkParam['categoryName']);
+    	currentItem.category = category;
+    },
 });
 
 System.Declare("com.gongsibao.crm.web");
