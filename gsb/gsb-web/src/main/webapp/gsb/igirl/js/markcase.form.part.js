@@ -41,7 +41,7 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
     },
     onload:function(){
     	this.base();
-    	$("#certificateType").parent().parent().parent().parent().parent().hide();
+    	$("#certificateType").parent().parent().parent().parent().hide();
     	$("#tokenImgUrl").click(function(){
     		var qrurl=$(this).attr("src");
     		if(qrurl && qrurl!=""){
@@ -53,10 +53,10 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
     applierTypeChange: function (newValue, oldValue) {
         if (newValue == 1) {
             $("#companyName").validatebox('disable').validatebox('disableValidation');
-            $("#certificateType").parent().parent().parent().parent().parent().show();
+            $("#certificateType").parent().parent().parent().parent().show();
         } else {
             $("#companyName").validatebox('enable').validatebox('enableValidation');
-            $("#certificateType").parent().parent().parent().parent().parent().hide()
+            $("#certificateType").parent().parent().parent().parent().hide()
         }
     },
     mobileChange: function (ctl) {
