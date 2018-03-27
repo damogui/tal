@@ -4,11 +4,23 @@ import org.junit.Before;
 
 import com.gongsibao.panda.auth.authorization.AuthBaseTest;
 
+
+/*售前经理*/
 public class PlatformPreSalesLeaderAuthTest extends AuthBaseTest{
 	@Before
 	public void setup() {
 
 		super.setup();
-		roleCode = "Platform_Finance_Admin";
+		roleCode = "Platform_PreSales_Leader";
 	}
+    protected void getResourceCodeList() {
+
+        this.resourceNodeCodeList.add("GSB_CRM");//客户管理
+        this.resourceNodeCodeList.add("Gsb_Supplier_Order");//订单管理
+        this.resourceNodeCodeList.add("GSB_CRM_STATISTICAL");//统计分析
+        this.resourceNodeCodeList.add("GSB_Supplier");//服务商管理
+
+
+
+    }
 }

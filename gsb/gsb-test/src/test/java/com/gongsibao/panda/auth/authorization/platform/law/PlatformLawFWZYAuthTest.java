@@ -15,7 +15,9 @@ public class PlatformLawFWZYAuthTest extends AuthBaseTest {
         roleCode = "Platform_Law_FWZY";
     }
     protected void getResourceCodeList() {
+//        审核中心（合同审核、退款审核）
+        this.resourceNodeCodeList.add("Gsb_Supplier_Order_Audit_Contract");
+        this.resourceNodeCodeList.add("Gsb_Supplier_Order_Audit_Refund");
 
-        this.resourceNodeCodeList.add("Gsb_Supplier_Order_Salesman");
     }
 }
