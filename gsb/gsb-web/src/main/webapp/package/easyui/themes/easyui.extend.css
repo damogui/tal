@@ -379,49 +379,6 @@ div.h10{
 	border-bottom: 1px solid #ddd;
 }
 
-/*表单 开始*/
-.formContent{
-	
-	padding:10px 0;
-}
-
-.form-panel{
-	
-	width:100%;
-}
-
-.form-panel td {
-
-	padding:3px;
-}
-
-.form-panel td.label_td {
-
-	/*width:120px;*/
-	text-align:right;
-	padding-right:5px;
-    line-height: 36px;
-    font-weight: 400;
-    font-size: 14px;
-}
-
-.form-panel td.control_td {
-	
-	text-align:left;
-}
-.form-panel td.label_td .fa {
-
-	color:gray;
-}
-.form-panel tr {
-	border: 1px solid #c9c9c9;
-}
-.form-panel input[type='checkbox'] {
-	width:16px;
-	height:16px;
-	border-width:0px;
-	border-radius:0px;
-}
 .combobox-item-selected {
     background-color: #428bca;
     color: #fff;
@@ -1048,4 +1005,92 @@ div.h10{
 span.numberbox input{
 	
 	text-align: right;
+}
+
+
+ul.query-panel,ul.form-panel{
+	
+	dispaly:flex;
+	display:-webkit-flex;
+	display:-ms-flex;
+	display:-moz-flex;
+	display:-o-flex;
+	-webkit-box-flex: 0;
+    -webkit-flex: 0 1 auto;
+    flex: 0 1 auto;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+  
+	list-style: none;
+	width:100%;
+	padding: 0;
+	margin-top:0px;
+}
+
+ul.query-panel li.item,ul.form-panel li.item{
+	
+	-webkit-box-flex: 0;
+    -webkit-flex: 0 1 auto;
+    flex: 0 1 auto;
+	float:left;
+	margin:5px;
+	
+	dispaly:flex;
+	display:-webkit-flex;
+	display:-ms-flex;
+	display:-moz-flex;
+	display:-o-flex;
+	-webkit-box-flex: 0;
+    -webkit-flex: 0 1 auto;
+    flex: 0 1 auto;
+    -webkit-flex-wrap: wrap;
+}
+
+ul.query-panel li.item div.label,
+ul.form-panel li.item div.label{
+	
+	float:left;
+	padding:0 5px;
+	min-width:80px;
+	font-size: 14px;
+	line-height:35px;
+	text-align: right;
+}
+
+ul.query-panel li.item div.ctrl,
+ul.form-panel li.item div.ctrl{
+	
+	float:left;
+	min-width:155px;
+}
+
+
+ul.form-panel li.full{
+	
+	width:100%;
+}
+
+
+/*表单 开始*/
+.formContent{
+	
+	padding:10px 0;
+	width:1000px;
+}
+
+ul.form-panel li.item div.label{
+	
+	min-width:120px;
+}
+
+textarea.full{
+	
+	width:820px;
+}
+
+
+ul.form-panel li .easyui-tooltip{
+
+    line-height: 30px;
+    margin-left: 5px;
 }

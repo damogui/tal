@@ -418,7 +418,7 @@ input.page-login .login-form .form-control {
 }
 
 .page-login .login-form .input-group+.form-control-feedback {
-	display: none!important
+	display: none!important;
 }
 
 .page-login button {
@@ -469,4 +469,21 @@ input.page-login .login-form .form-control {
 	.page-login .login-form {
 		width: auto
 	}
+}
+
+.workbench-item{
+	
+	padding:35px 20px 0px 20px;
+	width:50%;
+	float:left;
+}
+
+.workbench-item a:hover{
+	
+	color:red;
+}
+
+.layui-layer-title{
+	background: #16191f !important;
+	color:#fff !important;
 }
