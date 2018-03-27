@@ -52,7 +52,7 @@ public class ActionAuditContractVerify implements IAction {
             throw new BusinessException("该审核类别不是【" + AuditLogType.Htsq.getText() + "】,禁止审核");
         }
 
-        Contract contract = contractService.byId(auditLog.getFormId());
+        Contract contract = contractService.getById(auditLog.getFormId());
         if (contract == null) {
             throw new BusinessException("该合同信息不存在");
         }
