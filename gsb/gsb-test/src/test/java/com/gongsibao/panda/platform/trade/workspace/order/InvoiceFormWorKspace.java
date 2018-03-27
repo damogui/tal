@@ -1,15 +1,21 @@
 package com.gongsibao.panda.platform.trade.workspace.order;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.panda.controls.ControlTypes;
-import org.netsharp.panda.entity.PForm;
-import org.netsharp.panda.entity.PFormField;
+import org.netsharp.panda.dic.DockType;
+import org.netsharp.panda.dic.PartType;
+import org.netsharp.panda.entity.*;
+import org.netsharp.panda.plugin.dic.ToolbarType;
+import org.netsharp.panda.plugin.entity.PToolbar;
+import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.trade.Invoice;
 import com.gongsibao.trade.web.InvoiceFormPart;
+import org.netsharp.util.ReflectManager;
 
 public class InvoiceFormWorKspace extends WorkspaceCreationBase {
 
@@ -71,11 +77,73 @@ public class InvoiceFormWorKspace extends WorkspaceCreationBase {
         addFormField(form, "receiverEmail", "邮箱", groupName, ControlTypes.TEXT_BOX, true, false);
         addFormField(form, "receiverAddress", "邮寄地址", groupName, ControlTypes.TEXT_BOX, true, false);
 
-		addFormField(form, "vatAddress", "开票公司注册地址", groupName,  ControlTypes.TEXT_BOX,true, true);
-		addFormField(form, "vatPhone", "开票公司注册电话", groupName,  ControlTypes.TEXT_BOX,true, true);
-		addFormField(form, "vatBankName", "开户银行名称", groupName,  ControlTypes.TEXT_BOX,true, true);
-		addFormField(form, "vatBankNo", "开户银行账号", groupName,  ControlTypes.TEXT_BOX,true, true);
+        addFormField(form, "vatAddress", "开票公司注册地址", groupName, ControlTypes.TEXT_BOX, true, true);
+        addFormField(form, "vatPhone", "开票公司注册电话", groupName, ControlTypes.TEXT_BOX, true, true);
+        addFormField(form, "vatBankName", "开户银行名称", groupName, ControlTypes.TEXT_BOX, true, true);
+        addFormField(form, "vatBankNo", "开户银行账号", groupName, ControlTypes.TEXT_BOX, true, true);
 
         return form;
     }
+
+    protected void addDetailGridPart(PWorkspace workspace) {
+        createOrderFileListPart(workspace);
+    }
+
+    @Test
+    public void createDetailRowToolbar() {
+
+        ResourceNode node = this.resourceService.byCode(resourceNodeCode);
+        PToolbar toolbar = new PToolbar();
+        {
+            toolbar.toNew();
+            toolbar.setPath("invoice/file/toolbar");
+            toolbar.setName("发票附件上传");
+            toolbar.setResourceNode(node);
+            toolbar.setToolbarType(ToolbarType.BASE);
+        }
+        PToolbarItem item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("upload");
+            item.setIcon("fa fa-cloud-upload");
+            item.setName("上传");
+            item.setSeq(1);
+            toolbar.getItems().add(item);
+        }
+
+        toolbarService.save(toolbar);
+    }
+
+    private void createOrderFileListPart(PWorkspace workspace) {
+
+        ResourceNode node = this.resourceService.byCode(resourceNodeCode);//"Operation_Order_Invoice_File"
+        PDatagrid datagrid = new PDatagrid(node, "发票附件");
+        {
+            datagrid.setReadOnly(true);
+            datagrid.setResourceNode(node);
+            datagrid.setShowCheckbox(false);
+            PDatagridColumn column = null;
+            column = addColumn(datagrid, "url", "操作", ControlTypes.TEXT_BOX, 80);
+            {
+                column.setFormatter("return controllerfiles.urlFormatter(value,row,index);");
+            }
+            addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 200);
+        }
+        PPart part = new PPart();
+        {
+            part.toNew();
+            part.setName("发票附件");
+            part.setCode("files");
+            part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
+            part.setRelationRole("files");
+            part.setResourceNode(node);
+            part.setPartTypeId(PartType.DETAIL_PART.getId());
+            part.setDatagrid(datagrid);
+            part.setToolbar("invoice/file/toolbar");
+            part.setDockStyle(DockType.DOCUMENTHOST);
+            part.setJsController("com.gongsibao.trade.web.OrderInvoiceFileDetailPart");
+        }
+        workspace.getParts().add(part);
+    }
+
 }

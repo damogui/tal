@@ -28,12 +28,10 @@ public class InvoiceAuditWorkspaceTest extends WorkspaceCreationBase {
 
 		entity = AuditLog.class;// 实体
 		urlList = "/trade/audit/invoice/list";// 列表的url
-		urlForm = "/trade/audit/invoice/form";// 弹出框的url
 		listPartName = formPartName = "发票审核列表";
 		meta = MtableManager.getMtable(entity);// 获取实体元数据
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_Trade_Audit_Invoice";// 菜单节点码（名称）
-
 		formOpenMode = OpenMode.WINDOW;// 编辑框打开的形式
 		openWindowHeight = 400;
 		openWindowWidth = 800;
@@ -44,21 +42,6 @@ public class InvoiceAuditWorkspaceTest extends WorkspaceCreationBase {
 		listPartImportJs = "/gsb/platform/trade/js/orderoperation.list.part.js";
 		listToolbarPath = "/trade/manage/order/operation/toolbar";*/
 	}
-
-	/*@Test
-	public void createToolbar() {
-		ResourceNode node = this.getResourceNode();
-		PToolbar toolbar = new PToolbar();
-		{
-			toolbar.toNew();
-			toolbar.setBasePath("panda/datagrid/edit");
-			toolbar.setPath(listToolbarPath);
-			toolbar.setName("订单操作工具栏");
-			toolbar.setResourceNode(node);
-		}
-		addToolbarItem(toolbar, "disabled", "批量转移", "fa fa-edit", "batchTransferWeb()", null, 5);
-		toolbarService.save(toolbar);
-	}*/
 
 	// 默认的grid信息的配置
 	protected PDatagrid createDatagrid(ResourceNode node) {
@@ -86,9 +69,6 @@ public class InvoiceAuditWorkspaceTest extends WorkspaceCreationBase {
 		//addColumn(datagrid, "contract.paidPrice", "材料撰写费", ControlTypes.DECIMAL_BOX, 80);		
 		addColumn(datagrid, "invoice.typeId", "发票类型", ControlTypes.ENUM_BOX, 80);		
 		addColumn(datagrid, "invoice.companyId", "开票公司", ControlTypes.ENUM_BOX, 80);
-		/*addColumn(datagrid, "", "业务员", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "", "申请人", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "", "申请时间", ControlTypes.DATETIME_BOX, 100);*/		
 		addColumn(datagrid, "invoice.orderInvoiceMaps.soOrder.accountName", "下单人", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "invoice.orderInvoiceMaps.soOrder.accountMobile", "下单人电话", ControlTypes.TEXT_BOX, 100);
 		//addColumn(datagrid, "", "关联企业", ControlTypes.TEXT_BOX, 100);
@@ -110,15 +90,6 @@ public class InvoiceAuditWorkspaceTest extends WorkspaceCreationBase {
 		addQueryItem(queryProject, "accountMobile", "下单人手机号", ControlTypes.TEXT_BOX);*/
 		return queryProject;
 	}
-
-	// 默认的表单配置信息
-	/*protected PForm createForm(ResourceNode node) {
-		PForm form = super.createForm(node);
-		form.setColumnCount(3);
-		PFormField field = null;
-		addFormField(form, "orderNo", "订单号", ControlTypes.TEXT_BOX, true, false);
-		return form;
-	}*/
 
 	// 默认的表单操作
 	@Override

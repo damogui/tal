@@ -1,28 +1,29 @@
 package com.gongsibao.panda.supplier.order.workspace.audit;
 
-import com.gongsibao.panda.platform.trade.workspace.order.ContractFormWorkspaceTest;
+import com.gongsibao.panda.platform.trade.workspace.order.InvoiceFormWorKspace;
 import com.gongsibao.trade.web.OrderProdItemDetailPart;
-import com.gongsibao.trade.web.department.DepartmentOrderAllListPart;
 import org.junit.Before;
 import org.netsharp.panda.controls.ControlTypes;
-import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.PartType;
-import org.netsharp.panda.entity.*;
+import org.netsharp.panda.entity.PDatagrid;
+import org.netsharp.panda.entity.PDatagridColumn;
+import org.netsharp.panda.entity.PPart;
+import org.netsharp.panda.entity.PWorkspace;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
 /**
- * Created by zhangchao on 2018/3/26.
+ * Created by zhangchao on 2018/3/27.
  */
-public class AuditContractFormWorkspaceTest extends ContractFormWorkspaceTest {
+public class AuditInvoiceFormWorkspaceTest extends InvoiceFormWorKspace {
 
-    //合同审核界面
+    //发票审核界面
     @Before
     public void setup() {
         super.setup();
-        urlForm = "/trade/audit/contract/form";
-        resourceNodeCode = "GSB_Trade_Audit_Form_Contract";
+        urlForm = "/trade/audit/invoice/form";
+        resourceNodeCode = "GSB_Trade_Audit_Form_Invoice";
     }
 
     protected void addDetailGridPart(PWorkspace workspace) {
@@ -55,7 +56,7 @@ public class AuditContractFormWorkspaceTest extends ContractFormWorkspaceTest {
             part.setPartTypeId(PartType.DETAIL_PART.getId());
             part.setDatagrid(datagrid);
             part.setDockStyle(DockType.DOCUMENTHOST);
-            part.setJsController(OrderProdItemDetailPart.class.getName());
+            //part.setJsController(OrderProdItemDetailPart.class.getName());
 
         }
         workspace.getParts().add(part);

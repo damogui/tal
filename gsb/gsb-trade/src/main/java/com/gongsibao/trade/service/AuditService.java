@@ -2,6 +2,7 @@ package com.gongsibao.trade.service;
 
 import com.gongsibao.entity.bd.dic.AuditLogStatusType;
 import com.gongsibao.entity.bd.dic.AuditLogType;
+import org.apache.commons.lang.StringUtils;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
@@ -26,7 +27,7 @@ public class AuditService extends PersistableService<AuditLog> implements IAudit
 
     //审核通过
     @Override
-    public Boolean auditApproved(Integer auditId,String remark) {
+    public Boolean auditApproved(Integer auditId, String remark) {
         AuditLog auditLog = byId(auditId);
         if (auditLog == null) {
             return false;
@@ -76,6 +77,7 @@ public class AuditService extends PersistableService<AuditLog> implements IAudit
     //region 私有方法
     //修改审核状态,和审批记录
     private void updateStatus(Integer id, AuditLogStatusType auditLogStatusType, String remark) {
+        remark = StringUtils.trimToEmpty(remark);
         UpdateBuilder updateBuilder = new UpdateBuilder();
         {
             updateBuilder.update("bd_audit_log");

@@ -2,6 +2,7 @@ package com.gongsibao.panda.platform.trade;
 
 import com.gongsibao.panda.platform.trade.workspace.audit.*;
 import com.gongsibao.panda.supplier.order.workspace.audit.AuditContractFormWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.audit.AuditInvoiceFormWorkspaceTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -70,6 +71,7 @@ import com.gongsibao.panda.platform.trade.workspace.payment.PaymentLogWorkspaceT
         RefundAuditWorkspaceTest.class,
         StagingAuditWorkspaceTest.class,
         AuditContractFormWorkspaceTest.class,
+        AuditInvoiceFormWorkspaceTest.class,
 
 
         //成本管理:成本管理,收款方管理,请款审核,请款审核,供应商发票审核

@@ -6,6 +6,7 @@ com.gongsibao.trade.web.AuditContractListPart = org.netsharp.panda.commerce.List
         //this.service = 'com.gongsibao.trade.web.audit.AuditContractController';
         //订单下单方式枚举
         this.auditLogStatusTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.bd.dic.AuditLogStatusType');
+        this.auditContractUrl = '/panda/trade/audit/contract/form';
     },
     initStyle: function () {
 
@@ -31,8 +32,8 @@ com.gongsibao.trade.web.AuditContractListPart = org.netsharp.panda.commerce.List
             return;
         }
 
-        
-        var url = '/panda/trade/audit/contract/form?id=' + row.formId;
+
+        var url = me.auditContractUrl + '?id=' + row.formId;
         //审核id
         var id = row.id;
         layer.open({

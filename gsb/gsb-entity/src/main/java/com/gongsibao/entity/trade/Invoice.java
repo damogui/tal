@@ -1,8 +1,11 @@
 package com.gongsibao.entity.trade;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import org.netsharp.core.annotations.*;
@@ -92,6 +95,17 @@ public class Invoice extends BaseEntity {
 
     @Reference(foreignKey = "salesmanId")
     private Employee salesman;
+
+    @Subs(subType = File.class, foreignKey = "formId", header = "上传图片表（一个支付可以多个凭证）")
+    private List<File> files = new ArrayList<>();
+
+    @Exclusive
+    @Subs(subType = AuditLog.class, foreignKey = "formId", header = "审核记录")
+    private List<AuditLog> auditLogs = new ArrayList<AuditLog>();
+
+    //订单信息
+    @Exclusive
+    private SoOrder soOrder;
 
     //订单编号
     @Exclusive
@@ -370,5 +384,29 @@ public class Invoice extends BaseEntity {
 
     public void setOrderCreateTime(Date orderCreateTime) {
         this.orderCreateTime = orderCreateTime;
+    }
+
+    public List<File> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<File> files) {
+        this.files = files;
+    }
+
+    public List<AuditLog> getAuditLogs() {
+        return auditLogs;
+    }
+
+    public void setAuditLogs(List<AuditLog> auditLogs) {
+        this.auditLogs = auditLogs;
+    }
+
+    public SoOrder getSoOrder() {
+        return soOrder;
+    }
+
+    public void setSoOrder(SoOrder soOrder) {
+        this.soOrder = soOrder;
     }
 }
