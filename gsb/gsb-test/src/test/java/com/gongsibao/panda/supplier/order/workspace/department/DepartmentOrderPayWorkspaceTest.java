@@ -34,12 +34,7 @@ public class DepartmentOrderPayWorkspaceTest extends SalesmanOrderPayWorkspaceTe
         resourceNodeCode = "Gsb_Supplier_Order_Department_Pay";
         listPartName = formPartName = "部门回款";//我部门创建的回款和别人创建的回款的订单所有人在我的部门
         meta = MtableManager.getMtable (entity);
-        //listPartImportJs = "/gsb/platform/trade/js/salesman-order-payperformance-list.js";
-        //listFilter = "salesman_id = '{userId}' ";//and deId in(select deid from sp_salesman where empyleId='{}')
-
         listToolbarPath="";
-        //listFilter = " pkid IN (SELECT pay_id FROM so_order_pay_map WHERE order_id IN (SELECT pkid FROM so_order WHERE owner_id = '{userId}' ORDER BY pkid DESC)) OR add_user_id = '{userId}' ";
-        // listPartJsController = SalesmanOrderReceivedListPart.class.getName ();
         listFilter="";
         listPartServiceController = DepartmentOrderPayListPart.class.getName();
 
