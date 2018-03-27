@@ -135,6 +135,7 @@ public class SupplierService extends PersistableService<Supplier> implements ISu
 
 		StringBuilder builder = new StringBuilder();
 		builder.append("Supplier.*,");
+		builder.append("Supplier.category.{id,name},");
 		builder.append("Supplier.serviceProducts.*,");
 		builder.append("Supplier.serviceProducts.productCategory1.{id,name},");
 		builder.append("Supplier.serviceProducts.productCategory2.{id,name},");

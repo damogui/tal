@@ -14,7 +14,7 @@
 <body>
 	<div class="page-content page-index">
 		<jsp:include page="/panda-bizbase/account-info.jsp"></jsp:include>
-		<jsp:include page="portal-statistic.jsp"></jsp:include>
+		<%-- <jsp:include page="portal-statistic.jsp"></jsp:include> --%>
          <!-- 
         <div class="row" style="height:300px;">
         	<div class="cell cell-7">
@@ -99,7 +99,7 @@
 
 <script>
 		//销售简报
-		var brief = new com.gongsibao.crm.web.home.Briefing();
+/* 		var brief = new com.gongsibao.crm.web.home.Briefing();
 		function getBriefingCount(type){
 			 brief.briefingCountPars1('getNewCustomerCount',type,function(count){
 				$("#briefing p").eq(0).find('span').eq(0).text("新增客户数：" + count + "个");
@@ -129,6 +129,6 @@
 		};
 		 $(function() {
 			 getBriefingCount(1);
-		}); 
+		});  */
 	</script>
 </html>
