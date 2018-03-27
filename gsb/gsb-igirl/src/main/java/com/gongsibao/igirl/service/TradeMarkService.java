@@ -533,7 +533,7 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			Employee emp = this.getEmployee(tm.getTradeMarkCase().getOwnerId());
 			eMessageService.send("IGirl",
 					msg, emp.getMobile().substring(0,11));
-			msg="> @"+emp.getMobile()+"\\n >"+msg;
+			msg="> @"+emp.getMobile()+"\\n >"+msg;//
 			rs.postToRobot(msg);
 			
 		}
