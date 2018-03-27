@@ -41,7 +41,7 @@ public class AuditLog extends BaseEntity {
 	private Integer maxLevel;
 
 	// 订单
-	@Reference(foreignKey = "creatorId", primaryKey = "pkid")
+	@Reference(foreignKey = "creatorId")
 	private Employee employee;
 	
 	// 订单
