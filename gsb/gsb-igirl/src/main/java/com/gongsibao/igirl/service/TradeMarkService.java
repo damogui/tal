@@ -530,9 +530,10 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			// tm.getCreatorId()
 			// 根据tm
 			String msg=tm.getTradeMarkCase().getApplier() + "的商标申请:" + tm.getMemo() + "," + ms.getText()+",请及时跟进!";
-			Employee emp = this.getEmployee(tm.getCreatorId());
+			Employee emp = this.getEmployee(tm.getTradeMarkCase().getOwnerId());
 			eMessageService.send("IGirl",
 					msg, emp.getMobile().substring(0,11));
+			msg="> @"+emp.getMobile()+"\\n >"+msg;
 			rs.postToRobot(msg);
 			
 		}
