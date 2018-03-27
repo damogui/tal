@@ -9,6 +9,7 @@ import org.netsharp.organization.base.IOperationTypeService;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
+import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.PDatagrid;
@@ -27,6 +28,7 @@ import com.gongsibao.crm.web.TaskProductDetailPart;
 import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.supplier.FunctionModule;
 import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.entity.supplier.SupplierCategory;
 import com.gongsibao.supplier.web.SupplierFormPart;
 import com.gongsibao.supplier.web.SupplierListPart;
 
@@ -139,6 +141,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
+		
 		PDatagrid datagrid = super.createDatagrid(node);
 		{
 			datagrid.setName("服务商列表");
@@ -146,13 +149,23 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		}
 		PDatagridColumn column = null;
 		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 80, true);
+		addColumn(datagrid, "category.name", "分类", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "type", "类型", ControlTypes.ENUM_BOX, 80, false);
 		addColumn(datagrid, "status", "状态", ControlTypes.ENUM_BOX, 80, false);
-		addColumn(datagrid, "openTime", "开户时间", ControlTypes.DATETIME_BOX, 130, false);
-		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 80, false);
-		addColumn(datagrid, "contact", "联系人", ControlTypes.TEXT_BOX, 200, false);
-		addColumn(datagrid, "mobilePhone", "手机号", ControlTypes.TEXT_BOX, 200, false);
-		addColumn(datagrid, "bankName", "银行名", ControlTypes.TEXT_BOX, 100, false);
+		column = addColumn(datagrid, "openTime", "开户时间", ControlTypes.DATETIME_BOX, 130, false);{
+			
+			column.setAlign(DatagridAlign.CENTER);
+		}
+		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 200, false);
+		column = addColumn(datagrid, "contact", "联系人", ControlTypes.TEXT_BOX, 80, false);{
+			
+			column.setAlign(DatagridAlign.CENTER);
+		}
+		column = addColumn(datagrid, "mobilePhone", "手机号", ControlTypes.TEXT_BOX, 100, false);{
+			
+			column.setAlign(DatagridAlign.CENTER);
+		}
+		addColumn(datagrid, "bankName", "银行名", ControlTypes.TEXT_BOX, 150, false);
 		addColumn(datagrid, "bankNum", "银行卡号", ControlTypes.TEXT_BOX, 150, false);
 		addColumn(datagrid, "address", "地址", ControlTypes.TEXT_BOX, 200, false);
 		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130, false);
@@ -169,6 +182,12 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		PFormField field = null;
 
 		String groupName = "基本信息";
+		field = addFormFieldRefrence(form, "category.name", "分类", groupName, SupplierCategory.class.getSimpleName(), true, false);{
+			
+			field.setControlType(ControlTypes.COMBOTREE_BOX);
+			field.setWidth(300);
+		}
+		
 		field = addFormField(form, "name", "服务商名称", groupName, ControlTypes.TEXT_BOX, true);
 		{
 			field.setWidth(300);

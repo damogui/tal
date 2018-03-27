@@ -71,13 +71,14 @@ com.gongsibao.trade.web.OrderStageCtrl = org.netsharp.panda.core.CustomCtrl.Exte
     	}
     },
     save:function(){
+    	debugger;
     	var stageList = [];
     	var orderId = this.queryString('id');
     	var num = parseInt($('#stageNum').combobox('getValue'));
     	for(var i=1;i<=num;i++){
     		
     		var amount = parseFloat($('#stageAmount'+i).numberbox('getValue'))*100;
-    		if(System.isnull(amount)){
+    		if(isNaN(amount)){
     			
     			IMessageBox.toast('请填写分期金额!',2);
     			return;

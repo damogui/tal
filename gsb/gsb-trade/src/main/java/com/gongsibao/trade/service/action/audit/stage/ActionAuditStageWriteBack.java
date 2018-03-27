@@ -45,7 +45,7 @@ public class ActionAuditStageWriteBack implements IAction{
                 writeBackOrder(auditLog.getFormId(),AuditStatusType.Bhsh);
                 break;
             case 1://通过审核
-                auditService.auditApproved(auditLog.getId());
+                auditService.auditApproved(auditLog.getId(),remark);
                 if (auditLog.getLevel().equals(auditLog.getMaxLevel())) {
                 	writeBackOrder(auditLog.getFormId(),AuditStatusType.Shtg);
                 }

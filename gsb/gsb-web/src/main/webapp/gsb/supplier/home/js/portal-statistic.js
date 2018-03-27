@@ -61,7 +61,7 @@ com.gongsibao.crm.web.home.Funnel = com.gongsibao.crm.web.home.PortalStatistic.E
 		this.invoke(method,null,function(message){
 			$.each(message, function(key, value) {
 				switch(key){
-					case '全部任务':
+					case '全部商机':
 						$("#allTasks").text(key + "："+ value +"个");
 						break;
 					case 'S类':

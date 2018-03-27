@@ -28,7 +28,7 @@ public class DayWorkspaceTest extends WorkspaceCreationBase {
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_Report_Salesman_Perfrmance_Day";
 		listFilter = "dateType=5 and organizationType=1";
-		//工具条添加任务
+		//工具条添加商机
 		listPartServiceController = PerformanceStatisticsController.class.getName();
 		listPartJsController = PerformanceStatisticsController.class.getName();
 		listPartImportJs = "/gsb/platform/report/js/report.part.js";

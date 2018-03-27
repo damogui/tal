@@ -37,8 +37,8 @@ public class SalesmanOrderRefundWorkspaceTest extends WorkspaceCreationBase {
 		listPartImportJs = StringManager.join("|", ss);
 		listPartJsController = OrderSalesmanRefundListPart.class.getName();
         listPartServiceController = OrderSalesmanRefundListPart.class.getName();
-        
-        listFilter = "add_user_id = '{userId}' OR pkid in(SELECT DISTINCT refund_id from n_dep_refund where salesman_id = '{userId}')";
+        //过滤条件：我退的款或者退款业绩分给我的
+        listFilter = "(Refund.add_user_id = '{userId}' OR Refund.pkid in(SELECT DISTINCT refund_id from n_dep_refund where salesman_id = '{userId}'))";
     }
 
     @Override

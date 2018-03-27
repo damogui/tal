@@ -186,10 +186,10 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 		PToolbarItem item = new PToolbarItem();
 		{
 			item.toNew();
-			item.setCode("view");
+			item.setCode("detail");
 			item.setName("查看");
 			item.setSeq(1);
-			item.setCommand("{controller}.view();");
+			item.setCommand("{controller}.detail();");
 			toolbar.getItems().add(item);
 		}
 		item = new PToolbarItem();

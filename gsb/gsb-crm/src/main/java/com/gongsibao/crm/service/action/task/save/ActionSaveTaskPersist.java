@@ -20,7 +20,7 @@ import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.NAllocationType;
 
 /**
- * @author hw 新增任务：保存
+ * @author hw 新增商机：保存
  */
 public class ActionSaveTaskPersist implements IAction {
 
@@ -30,7 +30,7 @@ public class ActionSaveTaskPersist implements IAction {
         NCustomerTask task = (NCustomerTask) ctx.getItem();
         EntityState state = task.getEntityState();
 
-        // 如果任务名称为空，则自动生成（默认取客户意向产品、意向地区，支持手动填写/修改）
+        // 如果商机名称为空，则自动生成（默认取客户意向产品、意向地区，支持手动填写/修改）
         if (StringManager.isNullOrEmpty(task.getName())) {
 
             createTaskName(task);
@@ -56,7 +56,7 @@ public class ActionSaveTaskPersist implements IAction {
                 task.setFoolowStatus(CustomerFollowStatus.UNSTART);
             }
         }
-        //当该任务有：【市场投放费用】时，则将该任务的市场投放服务商更新为跟进服务商
+        //当该商机有：【市场投放费用】时，则将该商机的市场投放服务商更新为跟进服务商
         if (task.getCosted() && NumberUtils.toInt(task.getCostSupplierId()) == 0) {
             task.setCostSupplierId(task.getSupplierId());
         }

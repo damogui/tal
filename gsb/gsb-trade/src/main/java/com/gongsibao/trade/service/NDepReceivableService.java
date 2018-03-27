@@ -30,11 +30,11 @@ public class NDepReceivableService extends PersistableService<NDepReceivable> im
         {
             updateBuilder.update ("n_dep_receivable");
             updateBuilder.set ("status", auditStatusType.getValue ());
-            updateBuilder.where ("id=?");
+            updateBuilder.where ("order_id=?");
         }
         String sql = updateBuilder.toSQL ();
         QueryParameters qps = new QueryParameters ();
-        qps.add ("id", id, Types.INTEGER);
+        qps.add ("@order_id", id, Types.INTEGER);
         this.pm.executeNonQuery (sql, qps);
     }
 }

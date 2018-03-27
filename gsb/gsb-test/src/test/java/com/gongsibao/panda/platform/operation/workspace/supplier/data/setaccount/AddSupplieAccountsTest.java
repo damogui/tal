@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
+import org.netsharp.core.QueryParameters;
 import org.netsharp.organization.base.IRoleService;
 import org.netsharp.organization.entity.Role;
 
@@ -30,12 +31,12 @@ import java.util.List;
 3.每个帐号需对应上角色。
 4.完成后给出一个简单文档(excel)：主要是帐号信息。*/
 public class AddSupplieAccountsTest {
-    IRoleService roleService = ServiceFactory.create (IRoleService.class);//根据橘色
+    IRoleService roleService = ServiceFactory.create (IRoleService.class);//根据角色
 
     @Test
     public void run() {
 
-        List<Supplier> suppliers = addSuppliers ();//添加供应商
+        List<Supplier> suppliers = addSuppliers ();//添加供应商(存在的话就不更新，不存在插入)
         int num = 1;
         for (Supplier item : suppliers
                 ) {
@@ -104,10 +105,10 @@ public class AddSupplieAccountsTest {
 
         }
 
-        Salesman salesman1 = getSalesman (supplierDepartment, "Supplier_Order_Salesman", tel + "1");
-        Salesman salesman2 = getSalesman (supplierDepartment, "Platform_Law_FWZY", tel + "2");
-        Salesman salesman3 = getSalesman (supplierDepartment, "Platform_Finance_STKZY", tel + "3");
-        Salesman salesman4 = getSalesman (supplierDepartment, "Platform_Finance_FPZY", tel + "4");
+        Salesman salesman1 = getSalesman (supplierDepartment, "Supplier_Order_Salesman", tel + "1","业务员");
+        Salesman salesman2 = getSalesman (supplierDepartment, "Platform_Law_FWZY", tel + "2","法务专员");
+        Salesman salesman3 = getSalesman (supplierDepartment, "Platform_Finance_STKZY", tel + "3","收退款专员");
+        Salesman salesman4 = getSalesman (supplierDepartment, "Platform_Finance_FPZY", tel + "4","发票专员");
 
         listSalesman.add (salesman1);
         listSalesman.add (salesman2);
@@ -118,12 +119,13 @@ public class AddSupplieAccountsTest {
     }
 
     /*构造用户*/
-    private Salesman getSalesman(SupplierDepartment item, String roleCode, String loginName) {
+    private Salesman getSalesman(SupplierDepartment item, String roleCode, String loginName,String name) {
 
         Salesman salesman = new Salesman ();
         salesman.setSupplierId (item.getSupplierId ());
         salesman.setDepartmentId (item.getId ());
         Role role1 = byCode (roleCode);
+        salesman.setName (name);
         salesman.setLoginName (loginName);
         SalesmanRole salesmanRole = new SalesmanRole ();
         salesmanRole.setRoleId (role1.getId ());
@@ -166,9 +168,17 @@ public class AddSupplieAccountsTest {
         su1.setCountyId (101110101);
         su1.setType (SupplierType.SELFSUPPORT);
         su1.setStatus (SupplierStatus.OPEND);
-        su1.setEntityState (EntityState.New);
-//        su1.setAdminId (1124);
-//
+        su1.toNew ();
+
+        Oql oql = new Oql (Supplier.class.getName (), "id", "admin_id=" + 1124, new QueryParameters ());
+
+        List<Supplier> superQuers = supplierService.queryList (oql);
+
+        if (superQuers.size () == 0) {
+
+            suppliers.add (su1);//不存在才插入
+        }
+
         Supplier su2 = new Supplier ();
         su2.setName ("北京快无忧财务咨询有限公司");
         su2.setContact ("王桂峰");
@@ -179,7 +189,15 @@ public class AddSupplieAccountsTest {
         su2.setCountyId (101110101);
         su2.setType (SupplierType.SELFSUPPORT);
         su2.setStatus (SupplierStatus.OPEND);
-        su2.setEntityState (EntityState.New);
+        su2.toNew ();//如果存在则不操作
+        oql.setFilter ("admin_id=" + 1135);
+        List<Supplier> superQuers2 = supplierService.queryList (oql);
+
+        if (superQuers2.size () == 0) {
+
+            suppliers.add (su2);//不存在才插入
+        }
+
         List<Supplier> saveSuppliers = supplierService.saves (suppliers);
 
         return saveSuppliers;

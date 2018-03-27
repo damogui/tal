@@ -52,18 +52,18 @@ public class ComprehenStatisticalWorkspaceTest extends WorkspaceCreationBase{
 
 		column = addColumn(datagrid, "departmentName", "部门", ControlTypes.TEXT_BOX, 300, true);
 		column = addColumn(datagrid, "customerCount", "全部客户数", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "taskCount", "全部任务数", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "taskCount", "全部商机数", ControlTypes.NUMBER_BOX, 100);
 		
 		/*column = addColumn(datagrid, "selfCustomerCount", "自拓客户数", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "selfTaskCount", "自拓任务数", ControlTypes.NUMBER_BOX, 100);*/
-		column = addColumn(datagrid, "allocationTaskCount", "分配任务数", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "intoTaskCount", "转入任务数", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "rollOutTaskCount", "转出任务数", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "returnTaskCount", "退回任务数", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "withdrawTaskCount", "收回任务数", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "followTaskCount", "跟进任务数", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "unSignTaskCount", "无法签单任务数", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "checkAbnormalTaskCount", "抽查异常任务数", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "selfTaskCount", "自拓商机数", ControlTypes.NUMBER_BOX, 100);*/
+		column = addColumn(datagrid, "allocationTaskCount", "分配商机数", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "intoTaskCount", "转入商机数", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "rollOutTaskCount", "转出商机数", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "returnTaskCount", "退回商机数", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "withdrawTaskCount", "收回商机数", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "followTaskCount", "跟进商机数", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "unSignTaskCount", "无法签单商机数", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "checkAbnormalTaskCount", "抽查异常商机数", ControlTypes.NUMBER_BOX, 100);
 		column = addColumn(datagrid, "signingAmount", "预估签单额", ControlTypes.NUMBER_BOX, 100);
 		column = addColumn(datagrid, "returnedAmount", "预估回款额", ControlTypes.NUMBER_BOX, 100);
 		
@@ -91,7 +91,7 @@ public class ComprehenStatisticalWorkspaceTest extends WorkspaceCreationBase{
 		}
 		
 		addRefrenceQueryItem(queryProject, "owner.name", "业务员", Employee.class.getSimpleName());
-		item = addQueryItem(queryProject, "source.name", "任务来源", ControlTypes.CUSTOM);{
+		item = addQueryItem(queryProject, "source.name", "商机来源", ControlTypes.CUSTOM);{
 			
 			item.setCustomControlType(PropertyQueryDictComboBox.class.getName());
 			item.setRefFilter("type=411");

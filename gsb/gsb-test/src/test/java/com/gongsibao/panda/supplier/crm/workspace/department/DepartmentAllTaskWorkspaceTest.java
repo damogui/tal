@@ -53,13 +53,13 @@ public class DepartmentAllTaskWorkspaceTest extends TaskALLWorkspaceTest{
 		{
 			toolbar.toNew();
 			toolbar.setPath(listToolbarPath);
-			toolbar.setName("部门任务工具栏操作");
+			toolbar.setName("部门商机工具栏操作");
 			toolbar.setResourceNode(node);
 		}
 
-		addToolbarItem(toolbar, "add", "新增任务", "fa fa-plus", "add()", null, 5);
+		addToolbarItem(toolbar, "add", "新增商机", "fa fa-plus", "add()", null, 5);
 		addToolbarItem(toolbar, "regain", "收回", "fa fa-mail-reply", "regain()", null, 6);
-		addToolbarItem(toolbar, "batchTransfer", "任务转移", "fa fa-share-square-o", "batchTransfer()", null, 7);
+		addToolbarItem(toolbar, "batchTransfer", "商机转移", "fa fa-share-square-o", "batchTransfer()", null, 7);
 		return toolbar;
 	}
 
@@ -92,7 +92,7 @@ public class DepartmentAllTaskWorkspaceTest extends TaskALLWorkspaceTest{
 			item.setTooltip("输入客户ID、客户名称、联系方式等");
 			item.setWidth(250);
 		}
-		item = addQueryItem(queryProject, "source.name", "任务来源", ControlTypes.CUSTOM);{
+		item = addQueryItem(queryProject, "source.name", "商机来源", ControlTypes.CUSTOM);{
 			
 			item.setCustomControlType(PropertyQueryDictComboBox.class.getName());
 			item.setRefFilter("type=411");

@@ -66,7 +66,7 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 			item.toNew();
 			item.setCode("addTask");
 			item.setIcon("fa fa-plus");
-			item.setName("新增任务");
+			item.setName("新增商机");
 			item.setCommand(null);
 			item.setSeq(2);
 			item.setCommand("{controller}.addTask();");
@@ -128,9 +128,9 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 
 		addColumn(datagrid, "important", "客户等级", ControlTypes.ENUM_BOX, 100);
 		
-//		最近任务来源
-//		最近任务跟进人
-//		最近任务费用部门
+//		最近商机来源
+//		最近商机跟进人
+//		最近商机费用部门
 		addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 20);
 

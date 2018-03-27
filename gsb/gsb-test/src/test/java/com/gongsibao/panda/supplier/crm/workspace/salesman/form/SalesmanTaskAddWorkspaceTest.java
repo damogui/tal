@@ -19,7 +19,7 @@ public class SalesmanTaskAddWorkspaceTest extends TaskAddWorkspaceTest{
 		super.setup();
 		entity = NCustomerTask.class;
 		urlForm = "/crm/salesman/task/add";
-		listPartName = formPartName = "新增任务";
+		listPartName = formPartName = "新增商机";
 		meta = MtableManager.getMtable(entity);
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "CRM_SALESMAN_TASK_ADD";

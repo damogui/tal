@@ -156,7 +156,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                     fixed: false,
                     maxmin: true,
                     shadeClose: false,
-                    area: ['70%', '95%'],
+                    area: ['65%', '80%'],
                     zIndex: 100000,
                     id: "addRefundIframe",
                     content: contentUrl,
@@ -192,7 +192,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                     fixed: false,
                     maxmin: true,
                     shadeClose: false,
-                    area: ['50%', '70%'],
+                    area: ['60%', '70%'],
                     zIndex: 100000,
                     id: "addCarryoverIframe",
                     content: contentUrl,
@@ -225,7 +225,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                     fixed: false,
                     maxmin: true,
                     shadeClose: false,
-                    area: ['50%', '70%'],
+                    area: ['60%', '70%'],
                     zIndex: 100000,
                     id: "addStagingIframe",
                     content: contentUrl,
@@ -385,7 +385,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
     // edit : function(id) {
 
     batchAllocation: function () {
-        //任务批量分配
+        //商机批量分配
         var me = this;
         var row = this.getSelectedItem();
         var id = this.getSelectionIds();
@@ -397,7 +397,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
     },
 
     batchTransfer: function () {
-        //任务批量转移
+        //商机批量转移
         var me = this;
         var id = this.getSelectionIds();
         if (id == "" || id == null) {
@@ -407,7 +407,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         me.doTransfer(id);
     },
     transfer: function (id) {
-        //任务转移
+        //商机转移
         var me = this;
         var row = this.getSelectedItem();
         if (row == null) {

@@ -12,7 +12,7 @@ public class SalesmanCheckAbnormalWorkspaceTest extends SalesmanAllTaskWorkspace
 		
 		super.setup();
 		
-		listPartName = "抽查异常任务";
+		listPartName = "抽查异常商机";
 		urlList = "/crm/salesman/check/abnormal/list";
 		resourceNodeCode = "CRM_SALESMAN_CHECK_ABNORMAL";
 		//listFilter = "inspectionState in (3,4) and foolowStatus=4 and ownerId = '{userId}'";

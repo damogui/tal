@@ -58,7 +58,7 @@ public class ActionManualAllocationRecordLog implements IAction {
 		}
 	}
 	/**
-	 * 单任务分配
+	 * 单商机分配
 	 * @param task
 	 */
 	private void allocation(NCustomerTask task){
@@ -68,7 +68,7 @@ public class ActionManualAllocationRecordLog implements IAction {
 		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
 		//业务员为空，通知服务商管理员或部门主管
 		if(task.getOwnerId() == null){
-			String.format("【分配提醒】您好，1个新任务待您分配，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请及时分配跟进",
+			String.format("【分配提醒】您好，1个新商机待您分配，商机名称【%s】，客户名称【%s】，客户联系方式【%s】，请及时分配跟进",
 					task.getName(),task.getCustomer().getRealName(),getContact);
 			
 			Integer leaderId = salesmanService.getLeaderId(task.getSupplierId(), task.getDepartmentId());
@@ -76,13 +76,13 @@ public class ActionManualAllocationRecordLog implements IAction {
 		}else{
 			
 			//通知业务员文案
-			copyWriter = String.format("【分配提醒】您好，1个新任务分配给您，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请及时跟进",
+			copyWriter = String.format("【分配提醒】您好，1个新商机分配给您，商机名称【%s】，客户名称【%s】，客户联系方式【%s】，请及时跟进",
 					task.getName(),task.getCustomer().getRealName(),getContact);
 			sendNotify(task,copyWriter,task.getOwnerId());
 			
 			//通知业务员的一二级领导
 			SalesmanOrganization organization = SupplierSessionManager.getSalesmanOrganization(task.getOwnerId());
-			String leaderCopyWriter = String.format("【分配提醒】您好，1个新任务分配给【%s】，任务名称【%s】，客户名称【%s】，客户联系方式【%s】，请及时安排跟进",
+			String leaderCopyWriter = String.format("【分配提醒】您好，1个新商机分配给【%s】，商机名称【%s】，客户名称【%s】，客户联系方式【%s】，请及时安排跟进",
 					organization.getEmployeeName(),task.getName(),task.getCustomer().getRealName(),getContact);
 			
 			if(organization.getDirectLeaderId() !=null){
@@ -101,19 +101,19 @@ public class ActionManualAllocationRecordLog implements IAction {
 		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
 		//业务员为空，通知服务商管理员或部门主管
 		if(task.getOwnerId() == null){
-			String copyWriter = String.format("【批量分配提醒】您好，%s个新任务待您分配，请及时分配跟进",alloCount);
+			String copyWriter = String.format("【批量分配提醒】您好，%s个新商机待您分配，请及时分配跟进",alloCount);
 			Integer leaderId = salesmanService.getLeaderId(task.getSupplierId(), task.getDepartmentId());
 			sendNotify(task,copyWriter,leaderId);
 		}else{
 			SalesmanOrganization organization = SupplierSessionManager.getSalesmanOrganization(task.getOwnerId());
 			
 			//通知业务员文案
-			String copyWriter = String.format("【批量分配提醒】您好，【%s】分配%s个任务给您，请及时跟进",
+			String copyWriter = String.format("【批量分配提醒】您好，【%s】分配%s个商机给您，请及时跟进",
 					organization.getDirectLeaderName(),alloCount);
 			sendNotify(task,copyWriter,task.getOwnerId());
 			//通知业务员的一二级领导
 			
-			String leaderCopyWriter = String.format("【批量分配提醒】您好，【%s】分配%s个任务给【%s】，请及时安排跟进",
+			String leaderCopyWriter = String.format("【批量分配提醒】您好，【%s】分配%s个商机给【%s】，请及时安排跟进",
 					organization.getDirectLeaderName(),alloCount,organization.getEmployeeName());
 			
 			if(organization.getDirectLeaderId() !=null){
@@ -128,7 +128,7 @@ public class ActionManualAllocationRecordLog implements IAction {
 	}
 	/**
 	 * 发送通知
-	 * @param task 任务实体	 
+	 * @param task 商机实体	 
 	 * @param copyWriter 通知文案
 	 * @param receivedId 接收人
 	 */

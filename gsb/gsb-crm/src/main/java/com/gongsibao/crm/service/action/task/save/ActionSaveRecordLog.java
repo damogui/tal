@@ -16,7 +16,7 @@ import com.gongsibao.entity.crm.dic.OperationType;
 
 /**
  * @author hw
- * 新增任务：保存日志
+ * 新增商机：保存日志
  */
 public class ActionSaveRecordLog implements IAction{
 
@@ -31,10 +31,10 @@ public class ActionSaveRecordLog implements IAction{
 		String content = null; 
 		if(state == EntityState.New){
 			
-			content = String.format("[%s]创建任务", creator); 
+			content = String.format("[%s]创建商机", creator); 
 		}else{
 			
-			content = String.format("[%s]编辑任务", creator); 
+			content = String.format("[%s]编辑商机", creator); 
 		}
 		NCustomerOperationLog changeLog = new NCustomerOperationLog();
 		{
@@ -59,7 +59,7 @@ public class ActionSaveRecordLog implements IAction{
 		if (allocationType == NAllocationType.MANUAL && allocationState == AllocationState.WAIT) {
 		
 			//task.getOwner()可能为空
-			content = String.format("[%s]分配任务给[%s]", creator,task.getOwner().getName()); 
+			content = String.format("[%s]分配商机给[%s]", creator,task.getOwner().getName()); 
 			changeLog = new NCustomerOperationLog();
 			{
 				changeLog.toNew();

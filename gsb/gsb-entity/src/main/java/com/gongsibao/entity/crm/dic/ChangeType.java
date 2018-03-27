@@ -5,7 +5,7 @@ import org.netsharp.base.IEnum;
 
 /**
  * @ClassName: ChangeType
- * @Description:TODO 客户任务流转日志
+ * @Description:TODO 客户商机流转日志
  * @author: 韩伟
  * @date: 2018年1月9日 下午7:03:30
  * 

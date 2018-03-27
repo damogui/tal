@@ -14,7 +14,7 @@ import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.crm.NCustomerTask;
 
 /**
- * @author hw 客户保存：保存 1.把客户和任务分开保存 2.如果是新增状态的任务，则需要走任务的保存Action
+ * @author hw 客户保存：保存 1.把客户和商机分开保存 2.如果是新增状态的商机，则需要走商机的保存Action
  */
 public class ActionSaveCustomerPersist implements IAction {
 

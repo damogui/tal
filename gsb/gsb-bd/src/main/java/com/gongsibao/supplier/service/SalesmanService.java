@@ -196,13 +196,13 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
             }
             entity = super.save(entity);
 
-        } else {// 删除的时候走校验是不是存在任务，存在任务不能删除
+        } else {// 删除的时候走校验是不是存在商机，存在商机不能删除
 
             // entity.setEmployeeId(super.byId(entity.getId()).getEmployeeId());//需要用到员工id下面处理
             int taskCount = this.deleteVerify(entity);
             if (taskCount > 0) {// 校验能不能删除
 
-                throw new BusinessException("该员工存在任务,不能删除");
+                throw new BusinessException("该员工存在,不能删除");
 
             } else {// 为0的能删除
 
@@ -214,7 +214,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
         return entity;
     }
 
-    // /删除的时候校验员工下面是否存在任务
+    // /删除的时候校验员工下面是否存在商机
     private int deleteVerify(Salesman entity) {
 
         String sqlQ = "SELECT  employee_id  FROM sp_salesman  WHERE  id=?";

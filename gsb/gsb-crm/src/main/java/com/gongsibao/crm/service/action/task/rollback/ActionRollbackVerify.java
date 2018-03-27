@@ -23,7 +23,7 @@ public class ActionRollbackVerify implements IAction{
 		Map<String, Object> setMap = ctx.getStatus();
 		NCustomerTask taskEntity = (NCustomerTask)ctx.getItem();
 		
-		//退回级别：业务员（当前任务的ownerId等于当前登录人，退回到业务员当前的部门公海）、上级部门或平台（当前任务的ownerId所在部门的上级部门不为空退回上级部门公海，上级部门为空是平台公海）
+		//退回级别：业务员（当前商机的ownerId等于当前登录人，退回到业务员当前的部门公海）、上级部门或平台（当前商机的ownerId所在部门的上级部门不为空退回上级部门公海，上级部门为空是平台公海）
 		if(taskEntity.getOwnerId() !=null && taskEntity.getOwnerId().equals(SessionManager.getUserId())){
 			setMap.put("ownerId", SessionManager.getUserId());
 			taskEntity.setOwnerId(null);

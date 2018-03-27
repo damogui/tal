@@ -29,7 +29,7 @@ public class SaveActionTest extends BaseActionTest {
 			beanPath.toNew();
 			beanPath.setPath(pathName);
 			beanPath.setResourceNode(resourceNode);
-			beanPath.setName("任务新增");
+			beanPath.setName("商机新增");
 		}
 
 		createBean(beanPath, "验证", ActionSaveTaskVerify.class.getName(), resourceNode, 100);

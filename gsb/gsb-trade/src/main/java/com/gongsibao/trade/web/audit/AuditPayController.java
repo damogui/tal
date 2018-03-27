@@ -31,8 +31,8 @@ public class AuditPayController extends AuditBaseController {
      *
      * @return
      */
-    public Boolean approved(Integer auditLogId) {
-        boolean auditResult = auditLogService.audit (AuditState.PASS, auditLogId, null);
+    public Boolean approved(Integer auditLogId, String remark) {
+        boolean auditResult = auditLogService.audit (AuditState.PASS, auditLogId, remark);
 
         if (auditResult) {
 

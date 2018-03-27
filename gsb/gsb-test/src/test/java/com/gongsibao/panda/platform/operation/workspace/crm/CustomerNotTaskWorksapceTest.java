@@ -17,7 +17,7 @@ public class CustomerNotTaskWorksapceTest extends CustomerALLWorkspaceTest{
 		
 		entity = NCustomer.class;// 实体
 		urlList = "/operation/customer/nottask/list";// 列表的url
-		listPartName = formPartName = "无任务客户";
+		listPartName = formPartName = "无商机客户";
 		meta = MtableManager.getMtable(entity);// 获取实体元数据
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "Operation_CRM_Customer_NotTask";

@@ -33,10 +33,10 @@ public class AuditPayPerformanceController extends AuditBaseController {
      *
      * @return
      */
-    public Boolean approved(Integer auditLogId) {
+    public Boolean approved(Integer auditLogId, String remark) {
 
 
-        Boolean auditResult = auditLogService.audit (AuditState.PASS, auditLogId, null);
+        Boolean auditResult = auditLogService.audit (AuditState.PASS, auditLogId, remark);
 
         if (auditResult) {
 

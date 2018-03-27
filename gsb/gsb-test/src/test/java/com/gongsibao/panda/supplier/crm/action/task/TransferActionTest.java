@@ -28,7 +28,7 @@ public class TransferActionTest extends BaseActionTest{
 			beanPath.toNew();
 			beanPath.setPath(pathName);
 			beanPath.setResourceNode(resourceNode);
-			beanPath.setName("任务转移");
+			beanPath.setName("商机转移");
 		}
 
 		createBean(beanPath, "验证", ActionTransferVerify.class.getName(), resourceNode, 100);
