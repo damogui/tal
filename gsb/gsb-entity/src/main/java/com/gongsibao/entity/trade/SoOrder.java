@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.gongsibao.entity.trade.dic.*;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Reference;
@@ -19,16 +20,6 @@ import com.gongsibao.entity.igirl.TradeMarkCase;
 import com.gongsibao.entity.product.ProductPackage;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
-import com.gongsibao.entity.trade.dic.AuditStatusType;
-import com.gongsibao.entity.trade.dic.OrderAccountType;
-import com.gongsibao.entity.trade.dic.OrderManualVoucherStatus;
-import com.gongsibao.entity.trade.dic.OrderPayStatusType;
-import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
-import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
-import com.gongsibao.entity.trade.dic.OrderRefundStatusType;
-import com.gongsibao.entity.trade.dic.OrderSourceType;
-import com.gongsibao.entity.trade.dic.OrderStageNum;
-import com.gongsibao.entity.trade.dic.OrderType;
 import com.gongsibao.entity.uc.Account;
 
 @Table(name = "so_order", header = "销售订单")
@@ -213,7 +204,7 @@ public class SoOrder extends BaseEntity {
     // 3:由于借贷方金额都为零，无法生成凭证（【确认收入凭证】，金额太小造成，如：0.01，0.1）
     // 4:由于借贷方金额都为零，无法生成凭证（【退款凭证】，金额太小造成，如：0.01，0.1）
     @Column(name = "is_manual_voucher", header = "是否生成u8凭证手动处理（异常）")
-    private OrderManualVoucherStatus isManualVoucher = OrderManualVoucherStatus.NotStarted;
+    private OrderIsManualVoucherType isManualVoucher = OrderIsManualVoucherType.wu;
 
     @Column(name = "manual_voucher_status", header = "凭证手动处理状态（0:未完成 1:已完成）")
     private OrderManualVoucherStatus manualVoucherStatus = OrderManualVoucherStatus.NotStarted;
@@ -312,6 +303,7 @@ public class SoOrder extends BaseEntity {
 
     @Subs(subType = OrderDiscount.class, foreignKey = "orderId", header = "优惠明细")
     private List<OrderDiscount> discounts = new ArrayList<OrderDiscount> ();
+
 
     // @Subs(subType = OrderInvoiceMap.class, foreignKey = "orderId", header =
     // "发票信息")
@@ -677,11 +669,11 @@ public class SoOrder extends BaseEntity {
         this.carryOverOrderId = carryOverOrderId;
     }
 
-    public OrderManualVoucherStatus getIsManualVoucher() {
+    public OrderIsManualVoucherType getIsManualVoucher() {
         return isManualVoucher;
     }
 
-    public void setIsManualVoucher(OrderManualVoucherStatus isManualVoucher) {
+    public void setIsManualVoucher(OrderIsManualVoucherType isManualVoucher) {
         this.isManualVoucher = isManualVoucher;
     }
 
@@ -1023,5 +1015,62 @@ public class SoOrder extends BaseEntity {
 
     public void setDepPayPerAuditStatusId(AuditStatusType depPayPerAuditStatusId) {
         this.depPayPerAuditStatusId = depPayPerAuditStatusId;
+    }
+
+
+    public Boolean getInstallment() {
+        return isInstallment;
+    }
+
+    public void setInstallment(Boolean installment) {
+        isInstallment = installment;
+    }
+
+    public Boolean getChangePrice() {
+        return isChangePrice;
+    }
+
+    public void setChangePrice(Boolean changePrice) {
+        isChangePrice = changePrice;
+    }
+
+    public Boolean getCarryOver() {
+        return isCarryOver;
+    }
+
+    public void setCarryOver(Boolean carryOver) {
+        isCarryOver = carryOver;
+    }
+
+    public Boolean getInvoice() {
+        return isInvoice;
+    }
+
+    public void setInvoice(Boolean invoice) {
+        isInvoice = invoice;
+    }
+
+    public Boolean getPackage() {
+        return isPackage;
+    }
+
+    public void setPackage(Boolean aPackage) {
+        isPackage = aPackage;
+    }
+
+    public Boolean getDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
+    }
+
+    public Boolean getExpireSms() {
+        return isExpireSms;
+    }
+
+    public void setExpireSms(Boolean expireSms) {
+        isExpireSms = expireSms;
     }
 }

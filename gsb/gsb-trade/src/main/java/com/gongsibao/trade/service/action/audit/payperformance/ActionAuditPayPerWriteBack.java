@@ -50,7 +50,7 @@ public class ActionAuditPayPerWriteBack implements IAction {
                 depPayService.updateStatus (order.getId (), AuditStatusType.Bhsh);
                 break;
             case 1://通过审核
-                auditService.auditApproved (auditLog.getId ());
+                auditService.auditApproved (auditLog.getId (),remark);
                 if (auditLog.getLevel ().equals (auditLog.getMaxLevel ())) {
                     depPayService.updateStatus (order.getId (), AuditStatusType.Shtg);
                     orderService.updateStatus("dep_payper_audit_status_id", order.getId(),AuditStatusType.Shtg);

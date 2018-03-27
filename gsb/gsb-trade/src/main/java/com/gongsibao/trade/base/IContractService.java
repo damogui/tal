@@ -14,4 +14,6 @@ public interface IContractService extends IPersistableService<Contract> {
     //修改合同状态
     void updateStatus(Integer id, AuditStatusType auditStatusType);
 
+    Contract getById(Integer id);
+
 }
