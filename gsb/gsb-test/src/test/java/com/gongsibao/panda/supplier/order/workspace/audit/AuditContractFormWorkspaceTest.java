@@ -25,13 +25,13 @@ public class AuditContractFormWorkspaceTest extends ContractFormWorkspaceTest {
         resourceNodeCode = "GSB_Trade_Audit_Form_Contract";
     }
 
-    protected PForm createForm(ResourceNode node) {
+    /*protected PForm createForm(ResourceNode node) {
         PForm form = super.createForm(node);
         String groupName = "审批意见";
         PFormField formField = null;
         formField = addFormField(form, "auditRemark", "审批意见", groupName, ControlTypes.TEXTAREA, false, false);
         return form;
-    }
+    }*/
 
     protected void addDetailGridPart(PWorkspace workspace) {
         super.addDetailGridPart(workspace);

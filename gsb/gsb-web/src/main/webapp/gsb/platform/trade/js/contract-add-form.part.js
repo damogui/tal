@@ -142,16 +142,30 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
     },
     rejected: function (auditId) {
         var me = this;
-        //审批意见
-        var auditRemark = $("#auditRemark").val();
-        if (System.isnull(auditRemark)) {
-            IMessageBox.info('审核驳回时，请输入审批意见');
-            return false;
-        }
-        me.serviceLocator.invoke("com.gongsibao.trade.web.audit.AuditContractController", "rejected", [auditId, auditRemark], function (data) {
-            IMessageBox.toast('操作成功！');
-            window.parent.layer.closeAll();
-        }, null, false);
+        PandaHelper.openDynamicForm({
+            title:'审核不通过原因',
+            width:400,
+            height:300,
+            items:[{id:'auditRemark',
+                title:'内容',
+                type:'textarea',
+                height:130,
+                width:300,
+                className:''}
+            ],
+            callback:function(index, layero){
+                //审批意见
+                var auditRemark = $("#auditRemark").val();
+                if (System.isnull(auditRemark)) {
+                    IMessageBox.info('请输入审核不通过原因');
+                    return false;
+                }
+                me.serviceLocator.invoke("com.gongsibao.trade.web.audit.AuditContractController", "rejected", [auditId, auditRemark], function (data) {
+                    IMessageBox.toast('操作成功！');
+                    window.parent.layer.closeAll();
+                }, null, false);
+            }
+        });
 
     }
 

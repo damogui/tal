@@ -26,8 +26,9 @@ public class SalesmanOrderContractWorkspaceTest extends WorkspaceCreationBase {
         listPartName = formPartName = "合同管理";
         meta = MtableManager.getMtable(entity);
         resourceNodeCode = "Gsb_Supplier_Order_Salesman_Contract";
-        listPartImportJs = "/gsb/panda-extend/gsb.custom.query.controls.js";
+        listPartImportJs = "/gsb/platform/trade/js/salesman-order-contract-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
         listPartServiceController = SalesmanOrderContractListPart.class.getName();
+        listPartJsController = SalesmanOrderContractListPart.class.getName();
         listFilter = "soOrder.owner_id = '{userId}'";
     }
 
