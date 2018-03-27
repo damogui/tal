@@ -41,11 +41,11 @@ public class AuditLog extends BaseEntity {
 	private Integer maxLevel;
 
 	// 订单
-	@Reference(foreignKey = "creatorId")
+	@Reference(foreignKey = "creatorId", primaryKey = "pkid")
 	private Employee employee;
 	
 	// 订单
-    @Reference(foreignKey = "formId")
+    @Reference(foreignKey = "formId", primaryKey = "pkid")
     private SoOrder soOrder;
 
     /*订单业绩，回款业绩 总金额*/
@@ -65,7 +65,7 @@ public class AuditLog extends BaseEntity {
     private Invoice invoice;
 
     // 退单记录
-    @Reference(foreignKey = "formId")
+    @Reference(foreignKey = "formId", primaryKey = "pkid")
     private Refund fefund;
 
     // 结转记录

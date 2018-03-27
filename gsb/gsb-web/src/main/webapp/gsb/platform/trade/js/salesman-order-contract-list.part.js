@@ -5,8 +5,8 @@ com.gongsibao.trade.web.SalesmanOrderContractListPart = org.netsharp.panda.comme
         this.base();
         this.auditContractUrl = '/panda/trade/audit/contract/form';
     },
-    detail : function(id){
-        var contentUrl = this.auditContractUrl + "?id=" + id;
+    detail: function (id) {
+        var contentUrl = this.auditContractUrl + "?id=" + id + "&isView=1";
         layer.open({
             id: "contractCreateIframe",
             type: 2,//1是字符串 2是内容

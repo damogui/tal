@@ -1,9 +1,12 @@
 package com.gongsibao.trade.service.action.order.stage;
 
+import java.util.Date;
+
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
+import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.entity.trade.NOrderStage;
@@ -24,6 +27,8 @@ public class ActionApplyStageWriteBack implements IAction{
 		{
 			updateSql.update("so_order");
 			updateSql.set("is_installment", true);
+			updateSql.set("stage_creator",SessionManager.getUserName());
+			updateSql.set("stage_create_time",new Date());
 			updateSql.set("installment_mode", installmentMode.substring(0,installmentMode.length()-1));
 			updateSql.set("stage_num", order.getStages().size());
 			

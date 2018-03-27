@@ -106,13 +106,12 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
         }
         addColumn (datagrid, "soOrder.stageNum", "分期次数", ControlTypes.ENUM_BOX, 100);
         addColumn (datagrid, "status", "审核状态", ControlTypes.ENUM_BOX, 100);
-        column = addColumn (datagrid, "soOrder.stages", "==分期申请时间==", ControlTypes.DATE_BOX, 350);
+        column = addColumn (datagrid, "soOrder.stageCreateTime", "分期申请时间", ControlTypes.DATETIME_BOX, 350);
         {     
         	column.setAlign(DatagridAlign.CENTER);
-        	column.setFormatter("return controllerauditLogList.serviceNameFormatter(value,row,index);");
         }
-        addColumn (datagrid, "soOrder.createTime", "订单创建时间", ControlTypes.DATE_BOX, 350);
-        addColumn (datagrid, "soOrder.creator", "分期申请人", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "soOrder.createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 350);
+        addColumn (datagrid, "soOrder.stageCreator", "分期申请人", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
         return datagrid;
     }
@@ -125,19 +124,19 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
         PQueryItem item = null;
         queryProject.setColumnCount(3);
 
-        item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
+        /*item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
         {
             item.setTooltip("订单编号、渠道订单编号、下单人、下单人电话、签单企业");
             item.setWidth(350);
-        }
-        addQueryItem(queryProject, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX);
+        }*/
+        /*addQueryItem(queryProject, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX);*/
         addQueryItem(queryProject, "soOrder.installmentAuditStatusId", "审核状态", ControlTypes.ENUM_BOX);
         addQueryItem(queryProject, "soOrder.payStatus", "付款状态", ControlTypes.ENUM_BOX);
         addQueryItem(queryProject, "soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX);
-//        addQueryItem(queryProject, "stageCreator", "分期申请人", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "soOrder.stageCreator", "分期申请人", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "soOrder.stageNum", "分期次数", ControlTypes.ENUM_BOX);
-//        addQueryItem(queryProject, "stageCreateTime", "分期申请时间", ControlTypes.DATE_BOX);
-        addQueryItem(queryProject, "soOrder.createTime", "订单创建时间", ControlTypes.DATE_BOX);
+        addQueryItem(queryProject, "soOrder.stageCreateTime", "分期申请时间", ControlTypes.DATE_BOX);
+        /*addQueryItem(queryProject, "soOrder.createTime", "订单创建时间", ControlTypes.DATE_BOX);*/
         return queryProject;
     }
 
