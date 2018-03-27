@@ -1,5 +1,6 @@
 package com.gongsibao.trade.base;
 
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 import org.netsharp.base.IPersistableService;
 import org.netsharp.core.annotations.Transaction;
 
@@ -56,4 +57,8 @@ public interface IOrderService extends IPersistableService<SoOrder> {
      *根据订单no获取订单id
      * */
     Integer getOrderIdByNo(Integer orderNo);
+
+    /*更新状态值根据字段名、订单id、和状态值*/
+    @Transaction
+    void updateStatus(String status_id, Integer id, AuditStatusType shzt);
 }

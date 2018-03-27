@@ -1,5 +1,6 @@
 package com.gongsibao.trade.service;
 
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
@@ -13,6 +14,7 @@ import com.gongsibao.entity.trade.NOrderCarryover;
 import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.base.IOrderService;
+import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import java.sql.Types;
 
@@ -118,6 +120,33 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
         Integer orderId = orderService.executeInt (sql, qps);
         return orderId;
     }
+
+    /*根据参数值更细状态值*/
+    @Override
+    public void updateStatus(String status_id, Integer id, AuditStatusType shzt) {
+
+        UpdateBuilder updateBuilder = new UpdateBuilder ();
+        {
+            updateBuilder.update ("so_order");
+            updateBuilder.set (status_id, shzt.getValue ());
+            if (shzt.equals (AuditStatusType.Shtg)&&status_id.equals ("dep_receivable_audit_status_id")) {
+                updateBuilder.set ("performancePrice", "payable_price");//订单业绩
+            }
+//            if (shzt.equals (AuditStatusType.Shtg)&&status_id.equals ("dep_receivable_audit_status_id")) {
+//                updateBuilder.set ("returned_price=returned_price"+);//回款业绩
+//            }
+
+
+            updateBuilder.where ("pkid=?");
+        }
+        String sql = updateBuilder.toSQL ();
+        QueryParameters qps = new QueryParameters ();
+        qps.add ("@pkid", id, Types.INTEGER);
+        this.pm.executeNonQuery (sql, qps);
+
+    }
+
+
 
 
 }

@@ -17,5 +17,5 @@ public interface INDepPayService extends IPersistableService<NDepPay> {
 	Boolean applyPayPerformance(List<NDepPay> depPayList);
 
     @Transaction
-    void updateStatus(Integer id, AuditStatusType bhsh);
+    void updateStatus(Integer id, AuditStatusType shzt);
 }

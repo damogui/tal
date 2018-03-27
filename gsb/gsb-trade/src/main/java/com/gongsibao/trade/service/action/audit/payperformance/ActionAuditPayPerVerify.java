@@ -7,9 +7,11 @@ import com.gongsibao.entity.bd.dic.AuditLogStatusType;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.NDepPay;
 import com.gongsibao.entity.trade.Pay;
+import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.trade.base.INDepPayService;
+import com.gongsibao.trade.base.IOrderService;
 import com.gongsibao.trade.base.IPayService;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
@@ -23,8 +25,8 @@ import java.util.Map;
 public class ActionAuditPayPerVerify implements IAction{
 
     IAuditService auditService = ServiceFactory.create (IAuditService.class);
-
-    INDepPayService  depPayService = ServiceFactory.create (INDepPayService.class);
+    IOrderService orderService = ServiceFactory.create (IOrderService.class);//主实体是订单
+   // INDepPayService  depPayService = ServiceFactory.create (INDepPayService.class);
 
 
     @Override
@@ -54,17 +56,17 @@ public class ActionAuditPayPerVerify implements IAction{
             throw new BusinessException ("该审核类别不是【" + AuditLogType.Skyjsh.getText () + "】,禁止审核");
         }
 
-        NDepPay nDepPay = depPayService.byId (auditLog.getFormId ());
-        if (nDepPay == null) {
+        SoOrder soOrder = orderService.byId (auditLog.getFormId ());
+        if (soOrder == null) {
             throw new BusinessException ("该回款业绩信息不存在");
         }
 
-        if (!nDepPay.getStatusType ().equals (AuditStatusType.Dsh)) {
+        if (!soOrder.getDepPayPerAuditStatusId ().equals (AuditStatusType.Dsh)) {
             throw new BusinessException ("该回款业绩不是【" + AuditStatusType.Dsh.getText () + "】,禁止审核");
         }
         Map<String, Object> statusMap = new HashMap ();
         statusMap.put ("auditLog", auditLog);
-        statusMap.put ("nDepPay", nDepPay);
+        statusMap.put ("soOrder", soOrder);
         ctx.setStatus (statusMap);
 
     }

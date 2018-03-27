@@ -45,11 +45,11 @@ public class NDepPayService extends PersistableService<NDepPay> implements INDep
         {
             updateBuilder.update("n_dep_pay");
             updateBuilder.set("status", auditStatusType.getValue());
-            updateBuilder.where("id=?");
+            updateBuilder.where("order_id=?");
         }
         String sql = updateBuilder.toSQL();
         QueryParameters qps = new QueryParameters();
-        qps.add("id", id, Types.INTEGER);
+        qps.add("@order_id", id, Types.INTEGER);
         this.pm.executeNonQuery(sql, qps);
     }
 }
