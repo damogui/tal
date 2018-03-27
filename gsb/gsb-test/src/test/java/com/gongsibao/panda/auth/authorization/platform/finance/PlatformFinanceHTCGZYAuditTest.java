@@ -6,6 +6,7 @@ import org.junit.Before;
 /**
  * Created by win on 2018/3/27.
  */
+/*合同采购专员*/
 public class PlatformFinanceHTCGZYAuditTest extends AuthBaseTest {
 
     @Before
