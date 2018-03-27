@@ -27,6 +27,7 @@ import com.gongsibao.crm.web.TaskProductDetailPart;
 import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.supplier.FunctionModule;
 import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.entity.supplier.SupplierCategory;
 import com.gongsibao.supplier.web.SupplierFormPart;
 import com.gongsibao.supplier.web.SupplierListPart;
 
@@ -169,6 +170,11 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		PFormField field = null;
 
 		String groupName = "基本信息";
+		field = addFormFieldRefrence(form, "category.name", "分类", null, SupplierCategory.class.getSimpleName(), true, false);{
+			
+			field.setControlType(ControlTypes.COMBOTREE_BOX);
+		}
+		
 		field = addFormField(form, "name", "服务商名称", groupName, ControlTypes.TEXT_BOX, true);
 		{
 			field.setWidth(300);
