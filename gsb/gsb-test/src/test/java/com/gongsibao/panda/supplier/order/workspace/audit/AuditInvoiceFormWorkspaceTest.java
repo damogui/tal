@@ -1,7 +1,7 @@
 package com.gongsibao.panda.supplier.order.workspace.audit;
 
 import com.gongsibao.panda.platform.trade.workspace.order.InvoiceFormWorKspace;
-import com.gongsibao.trade.web.OrderProdItemDetailPart;
+import com.gongsibao.trade.web.AuditLogDetailPart;
 import org.junit.Before;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DockType;
@@ -40,7 +40,10 @@ public class AuditInvoiceFormWorkspaceTest extends InvoiceFormWorKspace {
             datagrid.setShowCheckbox(false);
             PDatagridColumn column = null;
             addColumn(datagrid, "employee.name", "审批人", ControlTypes.TEXT_BOX, 100);
-            addColumn(datagrid, "status", "状态", ControlTypes.ENUM_BOX, 100);
+            column = addColumn(datagrid, "status", "状态", ControlTypes.TEXT_BOX, 100);
+            {
+                column.setFormatter("return controllerauditLogs.auditNameFormatter(value,row,index);");
+            }
             addColumn(datagrid, "content", "审批说明", ControlTypes.TEXT_BOX, 150);
             addColumn(datagrid, "remark", "审批内容", ControlTypes.TEXT_BOX, 150);
             addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 100);
@@ -56,7 +59,7 @@ public class AuditInvoiceFormWorkspaceTest extends InvoiceFormWorKspace {
             part.setPartTypeId(PartType.DETAIL_PART.getId());
             part.setDatagrid(datagrid);
             part.setDockStyle(DockType.DOCUMENTHOST);
-            //part.setJsController(OrderProdItemDetailPart.class.getName());
+            part.setJsController(AuditLogDetailPart.class.getName());
 
         }
         workspace.getParts().add(part);

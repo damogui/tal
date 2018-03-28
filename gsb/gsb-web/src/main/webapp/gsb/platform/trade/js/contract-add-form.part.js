@@ -66,6 +66,8 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
     databindextra: function (entity) {
         var me = this;
         me.bindOrderInfo(entity);
+        //禁用整个form
+        controllercontract.disable();
     },
     addExtraProp: function (entity) {
         entity.sginingUserId = entity.soOrder.ownerId == null ? 0 : entity.soOrder.ownerId;

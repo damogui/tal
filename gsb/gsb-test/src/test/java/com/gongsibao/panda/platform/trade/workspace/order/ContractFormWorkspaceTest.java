@@ -35,7 +35,7 @@ public class ContractFormWorkspaceTest extends WorkspaceCreationBase {
         meta = MtableManager.getMtable(entity);
         resourceNodeCode = "Operation_Order_Contract";
 
-        formJsImport = "/gsb/platform/trade/js/contract-add-form.part.js|/package/qiniu/plupload.full.min.js";
+        formJsImport = "/gsb/platform/trade/js/contract-add-form.part.js|/gsb/platform/trade/js/audit-detail-part.js|/package/qiniu/plupload.full.min.js";
         formServiceController = ContractFormPart.class.getName();
         formJsController = ContractFormPart.class.getName();
         formToolbarPath = "";
