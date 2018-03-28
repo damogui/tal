@@ -10,6 +10,7 @@ import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.controls.form.FormGroup;
 import org.netsharp.panda.controls.form.IPropertyControl;
 import org.netsharp.panda.controls.input.Combobox;
+import org.netsharp.panda.controls.input.SelectOption;
 import org.netsharp.panda.entity.PForm;
 import org.netsharp.panda.entity.PFormField;
 import org.netsharp.util.StringManager;
@@ -51,6 +52,14 @@ public class CityComboBox implements IPropertyControl{
 	        	
 	        	control.width = formField.getWidth();
 			}
+	        
+			SelectOption option = new SelectOption();
+			{
+				option.optionValue = "";
+				option.value = "";
+			}
+
+			control.getControls().add(option);
 
 		}
 		return control;

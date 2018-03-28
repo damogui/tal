@@ -106,6 +106,7 @@ public class SellingDemandWorkspaceTest extends WorkspaceCreationBase{
 		formField = addFormField(form, "county.name", "注册区/县",groupName,ControlTypes.PCC_BOX, true, false);{
 			formField.setDataOptions("level:3");
 		}
+		
 		addFormField(form, "taxMode", "纳税人",groupName,ControlTypes.ENUM_BOX, true, false);
 		addFormField(form, "shareholderCount", "股东人数",groupName,ControlTypes.NUMBER_BOX, true, false);
 		
