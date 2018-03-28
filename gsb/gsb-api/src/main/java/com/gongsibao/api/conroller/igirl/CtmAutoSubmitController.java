@@ -1,9 +1,9 @@
 package com.gongsibao.api.conroller.igirl;
 
 import com.gongsibao.api.util.ResponseResult;
-import com.gongsibao.entity.igirl.ChangeTradeMark;
-import com.gongsibao.igirl.base.IChangeTradeMarkService;
-import com.gongsibao.igirl.dto.ChangeTradeMarkDto;
+import com.gongsibao.entity.igirl.tm.ChangeTradeMark;
+import com.gongsibao.igirl.tm.base.IChangeTradeMarkService;
+import com.gongsibao.igirl.tm.dto.ChangeTradeMarkDto;
 import org.netsharp.communication.ServiceFactory;
 
 import javax.ws.rs.GET;

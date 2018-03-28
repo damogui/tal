@@ -143,7 +143,7 @@ public class ProvidesWorkspaceTest extends WorkspaceCreationBase{
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("panda/datagrid/detail");
-			//part.setJsController("com.gongsibao.igirl.web.TradeMarkDetailPart");
+			//part.setJsController("com.gongsibao.igirl.tm.web.TradeMarkDetailPart");
 			//part.setServiceController(TradeMarkDetailPart.class.getName());
 			part.setWindowWidth(800);
 			part.setWindowHeight(600);

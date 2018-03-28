@@ -2,16 +2,15 @@ package com.gongsibao.panda.supplier.igirl;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gongsibao.entity.igirl.baseinfo.IGirlConfig;
-import com.gongsibao.entity.igirl.dict.ConfigType;
-import com.gongsibao.igirl.base.IGirlConfigService;
-import com.gongsibao.igirl.base.IGirlRobotService;
-import com.gongsibao.igirl.utils.JsonFormatTool;
+import com.gongsibao.entity.igirl.tm.baseinfo.IGirlConfig;
+import com.gongsibao.entity.igirl.tm.dict.ConfigType;
+import com.gongsibao.igirl.tm.base.IGirlConfigService;
+import com.gongsibao.igirl.tm.base.IGirlRobotService;
+import com.gongsibao.igirl.tm.utils.JsonFormatTool;
 import com.gongsibao.utils.SupplierSessionManager;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;

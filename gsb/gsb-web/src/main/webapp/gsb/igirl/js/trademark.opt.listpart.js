@@ -1,5 +1,5 @@
-System.Declare("com.gongsibao.igirl.web");
-com.gongsibao.igirl.web.TradeMarkOptListPart = org.netsharp.panda.commerce.ListPart.Extends({
+System.Declare("com.gongsibao.igirl.tm.web");
+com.gongsibao.igirl.tm.web.TradeMarkOptListPart = org.netsharp.panda.commerce.ListPart.Extends({
 	ctor : function() {
 		this.base();
 	},

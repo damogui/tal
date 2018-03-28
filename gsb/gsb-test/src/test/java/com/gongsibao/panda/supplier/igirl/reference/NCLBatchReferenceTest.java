@@ -1,5 +1,5 @@
 package com.gongsibao.panda.supplier.igirl.reference;
-import com.gongsibao.entity.igirl.baseinfo.NclBatch;
+import com.gongsibao.entity.igirl.tm.baseinfo.NclBatch;
 
 import org.junit.Before;
 import org.netsharp.meta.base.ReferenceCreationBase;

@@ -11,9 +11,9 @@ import javax.ws.rs.core.MediaType;
 import org.netsharp.communication.ServiceFactory;
 
 import com.gongsibao.api.util.ResponseResult;
-import com.gongsibao.entity.igirl.TransferTradeMark;
-import com.gongsibao.igirl.base.ITransferTradeMarkService;
-import com.gongsibao.igirl.dto.TransferTradeMarkDto;
+import com.gongsibao.entity.igirl.tm.TransferTradeMark;
+import com.gongsibao.igirl.tm.base.ITransferTradeMarkService;
+import com.gongsibao.igirl.tm.dto.TransferTradeMarkDto;
 
 @Path("/igirl")
 public class TtmAutoSubmitController {

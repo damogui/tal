@@ -1,15 +1,15 @@
 package com.gongsibao.panda.supplier.igirl;
 
-import com.gongsibao.entity.igirl.*;
-import com.gongsibao.entity.igirl.baseinfo.IGirlConfig;
-import com.gongsibao.entity.igirl.baseinfo.NCLOne;
-import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
-import com.gongsibao.entity.igirl.baseinfo.NclBatch;
-import com.gongsibao.entity.igirl.baseinfo.NclMap;
-import com.gongsibao.entity.igirl.baseinfo.SupplierNewInfo;
-import com.gongsibao.entity.igirl.baseinfo.SupplierSiteInfo;
+import com.gongsibao.entity.igirl.tm.*;
+import com.gongsibao.entity.igirl.tm.baseinfo.IGirlConfig;
+import com.gongsibao.entity.igirl.tm.baseinfo.NCLOne;
+import com.gongsibao.entity.igirl.tm.baseinfo.NCLTwo;
+import com.gongsibao.entity.igirl.tm.baseinfo.NclBatch;
+import com.gongsibao.entity.igirl.tm.baseinfo.NclMap;
+import com.gongsibao.entity.igirl.tm.baseinfo.SupplierNewInfo;
+import com.gongsibao.entity.igirl.tm.baseinfo.SupplierSiteInfo;
 import com.gongsibao.entity.product.Product;
-import com.gongsibao.igirl.base.*;
+import com.gongsibao.igirl.tm.base.*;
 import com.gongsibao.product.base.IProductService;
 import org.junit.Test;
 import org.netsharp.meta.base.ResourceCreationBase;

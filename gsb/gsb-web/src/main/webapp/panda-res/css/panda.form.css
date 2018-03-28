@@ -119,7 +119,7 @@ legend{
 }
 
 .datagrid-btable tr{
-	min-height: 31px;
+	height: 31px !important;
 }
 .combo-panel .datagrid-btable tr{height: 25px !important;}
 .layui-layer-content form{
