@@ -382,8 +382,6 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
     doubleClickRow: function (index, row) {
         this.detail(row.id);
     },
-    // edit : function(id) {
-
     batchAllocation: function () {
         //商机批量分配
         var me = this;
@@ -395,7 +393,6 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         }
         me.doAllot(id);
     },
-
     batchTransfer: function () {
         //商机批量转移
         var me = this;
@@ -416,8 +413,6 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         }
         me.doTransfer(id);
     }
-
-
 });
 
 
