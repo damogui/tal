@@ -4,6 +4,7 @@ import com.gongsibao.bd.base.IFileService;
 import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.trade.Contract;
+import com.gongsibao.entity.trade.Invoice;
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
@@ -34,9 +35,7 @@ public class ActionApplyContractPersist implements IAction {
         Contract contract = (Contract) ctx.getItem();
         //初始状态为【待审核】
         contract.setAuditStatusId(AuditStatusType.Dsh);
-
         SoOrder order = soOrderService.getOrderWithOrderProdsByOrderId(contract.getOrderId());
-
         //合同业绩额
         Integer dataFee = 0;
         for (OrderProd orderProd : order.getProducts()) {
@@ -47,24 +46,27 @@ public class ActionApplyContractPersist implements IAction {
         if (contract.getHasDataFee().equals(BreachType.YOU)) {
             contract.setAchievementAmount(contract.getRealAmount() - dataFee);
         }
-
         //分配合同跟进人
         contract.setSupplierId(order.getSupplierId());
         contract.setDepartmentId(order.getDepartmentId());
         contract.setSalesmanId(order.getOwnerId());
         contract = contractService.save(contract);
+        //附件的保存
+        saveFiles(contract);
+        //更新合同
+        ctx.setItem(contract);
+    }
 
-        for (File file : contract.getFiles()) {
-            file.setFormId(contract.getId());
+    //region 私有方法
+    //附件的保存
+    private void saveFiles(Contract contract) {
+        for (File f : contract.getFiles()) {
+            f.setFormId(contract.getId());
         }
-
         if (CollectionUtils.isNotEmpty(contract.getFiles())) {
             fileService.saves(contract.getFiles());
         }
-
-        //更新合同
-        ctx.setItem(contract);
-
-
     }
+    // endregion
+
 }
