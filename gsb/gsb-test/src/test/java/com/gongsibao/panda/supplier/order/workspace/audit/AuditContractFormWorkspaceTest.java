@@ -1,10 +1,9 @@
 package com.gongsibao.panda.supplier.order.workspace.audit;
 
 import com.gongsibao.panda.platform.trade.workspace.order.ContractFormWorkspaceTest;
-import com.gongsibao.trade.web.ContractAuditDetailPart;
+import com.gongsibao.trade.web.AuditLogDetailPart;
 import org.junit.Before;
 import org.netsharp.panda.controls.ControlTypes;
-import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.*;
@@ -38,7 +37,7 @@ public class AuditContractFormWorkspaceTest extends ContractFormWorkspaceTest {
             datagrid.setShowCheckbox(false);
             PDatagridColumn column = null;
             addColumn(datagrid, "employee.name", "审批人", ControlTypes.TEXT_BOX, 100);
-            column = addColumn(datagrid, "status", "状态", ControlTypes.ENUM_BOX, 100);
+            column = addColumn(datagrid, "status", "状态", ControlTypes.TEXT_BOX, 100);
             {
                 column.setFormatter("return controllerauditLogs.auditNameFormatter(value,row,index);");
             }
@@ -57,7 +56,7 @@ public class AuditContractFormWorkspaceTest extends ContractFormWorkspaceTest {
             part.setPartTypeId(PartType.DETAIL_PART.getId());
             part.setDatagrid(datagrid);
             part.setDockStyle(DockType.DOCUMENTHOST);
-            part.setJsController(ContractAuditDetailPart.class.getName());
+            part.setJsController(AuditLogDetailPart.class.getName());
 
         }
         workspace.getParts().add(part);
