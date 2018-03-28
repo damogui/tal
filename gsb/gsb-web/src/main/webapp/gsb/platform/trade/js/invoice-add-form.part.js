@@ -156,7 +156,7 @@ com.gongsibao.trade.web.OrderInvoiceFileDetailPart = org.netsharp.panda.commerce
         var row = new Object();
         row.name = file.name;
         row.url = path;
-        row.tabName = 'so_contract';//要放到后台处理
+        row.tabName = 'so_invoice';//要放到后台处理
         $('#' + this.context.id).datagrid('appendRow', row);
     },
     onload: function () {

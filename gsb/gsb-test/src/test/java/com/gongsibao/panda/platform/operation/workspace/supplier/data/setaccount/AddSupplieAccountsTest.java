@@ -168,9 +168,9 @@ public class AddSupplieAccountsTest {
 
         }
 
-        Salesman salesman1 = getSalesman (supplierDepartment, "Supplier_Order_Admin", tel + "1", "fs管理员");
-        Salesman salesman2 = getSalesman (supplierDepartment, "Supplier_Order_Leader", tel + "2", "fs部门主管");
-        Salesman salesman3 = getSalesman (supplierDepartment, "Supplier_Order_Salesman", tel + "3", "fs业务员");
+        Salesman salesman1 = getSalesman (supplierDepartment, "Supplier_Order_Admin", tel + "1", String.format ("fs管理员%s",num));
+        Salesman salesman2 = getSalesman (supplierDepartment, "Supplier_Order_Leader", tel + "2",String.format ("fs部门主管%s",num));
+        Salesman salesman3 = getSalesman (supplierDepartment, "Supplier_Order_Salesman", tel + "3", String.format ("fs业务员%s",num));
 
 
         listSalesman.add (salesman1);
@@ -242,8 +242,8 @@ public class AddSupplieAccountsTest {
         }
 
         Supplier su2 = new Supplier ();
-        su2.setName ("北京快无忧财务咨询有限公司");
-        su2.setContact ("王桂峰");
+        su2.setName ("北京快无忧2财务咨询有限公司");
+        su2.setContact ("王桂峰2");
         su2.setMobilePhone ("18576794946");// 1135
         su2.setAdminId (1135);
         su2.setProvinceId (101110000);

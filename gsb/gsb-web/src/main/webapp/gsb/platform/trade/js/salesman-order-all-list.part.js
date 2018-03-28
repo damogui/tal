@@ -63,7 +63,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             return false;
         }
         if (row.paidPrice <= 0) {
-            IMessageBox.toast('必须有付款才能创建订单业绩',2);
+            IMessageBox.toast('必须有付款才能创建订单业绩', 2);
             return false;
         }
 
@@ -85,9 +85,10 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             },
             yes: function (index, layero) {
 
-                layer.closeAll();
-                document.getElementById('addOrderReceivedIframe').firstElementChild.contentWindow.controllersoOrder.save();//保存
-                IMessageBox.toast('保存成功');
+              
+                document.getElementById('addOrderReceivedIframe').firstElementChild.contentWindow.controllerdepReceivable .savebase();//保存
+                //IMessageBox.toast('保存成功');
+                //layer.closeAll();
 
 
             }

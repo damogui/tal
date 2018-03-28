@@ -6,6 +6,7 @@ import com.gongsibao.entity.trade.dic.AuditStatusType;
 import org.netsharp.base.IPersistableService;
 
 import com.gongsibao.entity.trade.Invoice;
+import org.netsharp.core.annotations.Transaction;
 
 public interface IInvoiceService extends IPersistableService<Invoice> {
 
@@ -18,6 +19,7 @@ public interface IInvoiceService extends IPersistableService<Invoice> {
      * @Title: applyInvoice
      * @Description: TODO
      */
+    @Transaction
     public Boolean applyInvoice(Invoice invoice, Map<String, Object> paraMap);
 
     void updateStatus(Integer id, AuditStatusType auditStatusType);
