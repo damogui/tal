@@ -22,7 +22,7 @@ public class SalesmanOrderInvoiceListPart extends AdvancedListPart {
             filters.add("soOrder.channel_order_no like '%" + keyword + "%'");
             filters.add("soOrder.account_mobile like '%" + keyword + "%'");
             filters.add("soOrder.account_name like '%" + keyword + "%'");
-            filters.add("invoice.company_id in( select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' )  )");
+            filters.add("soOrder.company_id in( select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' )  )");
 
             return "(" + StringManager.join(" or ", filters) + ") ";
         }
