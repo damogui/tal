@@ -26,14 +26,14 @@ public class RefundAudit extends AbstractAuditLogService{
         //财务_收退款专员
         List<Integer> stkzyIds = salesmanService.getEmployeeIdListByRoleCodes(Arrays.asList("Platform_Finance_STKZY"));
         for (Integer stkzyId : stkzyIds) {
-            addAuditLog(formId, "收退款专员审核", stkzyId, level);
+        	auditLogList.add(addAuditLog(formId, "收退款专员审核", stkzyId, level));
         }
 
         //法务_法务专员
         level++;
         List<Integer> fWZYIds = salesmanService.getEmployeeIdListByRoleCodes(Arrays.asList("Platform_Law_FWZY"));
         for (Integer fWZYId : fWZYIds) {
-            addAuditLog(formId, "法务专员审核", fWZYId, level);
+        	auditLogList.add(addAuditLog(formId, "法务专员审核", fWZYId, level));
         }
 
         return auditLogList;
