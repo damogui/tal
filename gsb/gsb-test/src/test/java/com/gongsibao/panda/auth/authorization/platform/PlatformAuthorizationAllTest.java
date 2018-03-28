@@ -34,7 +34,7 @@ import com.gongsibao.panda.auth.authorization.platform.presales.PlatformPreSales
 
         PlatformFinanceAdminAuditTest.class,
         PlatformFinanceLeaderAuditTest.class,
-        PlatformFinanceSalesmanAuditTest.class,
+        //PlatformFinanceSalesmanAuditTest.class,//对应的角色不存在
 
         PlatformOperationAdminAuditTest.class,
         PlatformOperationLeaderAuditTest.class,
