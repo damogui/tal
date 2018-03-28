@@ -68,17 +68,22 @@ com.gongsibao.trade.web.InvoiceFormPart = org.netsharp.panda.commerce.FormPart.E
                 IMessageBox.error('【邮箱】格式错误');
                 return false;
             }
+            //发表金额
+            var amount = $("#amount").val();
+            amount = amount == null ? 0 : parseInt(amount);
+            if (amount <= 0) {
+                IMessageBox.error('发票金额不能小于等于0');
+                return false;
+            }
+            var paidPrice = $("#paidPrice").text() == null ? 0 : parseInt($("#paidPrice").text());
+            if (amount > paidPrice) {
+                IMessageBox.error('发票金额不能大于已付金额');
+                return false;
+            }
+
             return true;
         }
         return isValidate;
-    },
-    checkAmount: function (el) {//验证发票金额
-        var amount = $(el).val();
-        var payablePrice = $("#payablePrice").text();
-        if (payablePrice != null && amount > payablePrice) {
-            IMessageBox.error('发票金额不能大于支付金额');
-            return false;
-        }
     },
     changeInvoiceType: function (el) { //增值转票
         var invoiceType = $(el).val();

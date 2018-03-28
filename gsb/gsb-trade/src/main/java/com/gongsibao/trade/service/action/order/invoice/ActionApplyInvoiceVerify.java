@@ -2,11 +2,14 @@ package com.gongsibao.trade.service.action.order.invoice;
 
 import com.gongsibao.entity.trade.Contract;
 import com.gongsibao.entity.trade.OrderInvoiceMap;
+import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.InvoiceType;
 import com.gongsibao.trade.base.IInvoiceService;
 import com.gongsibao.trade.base.IOrderInvoiceMapService;
+import com.gongsibao.u8.base.ISoOrderService;
 import com.gongsibao.utils.NumberUtils;
 import com.gongsibao.utils.RegexUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 
@@ -17,11 +20,14 @@ import org.netsharp.core.Oql;
 import org.netsharp.util.StringManager;
 
 import java.sql.Types;
+import java.util.List;
 import java.util.Map;
 
 public class ActionApplyInvoiceVerify implements IAction {
 
     IOrderInvoiceMapService orderInvoiceMapService = ServiceFactory.create(IOrderInvoiceMapService.class);
+
+    ISoOrderService soOrderService = ServiceFactory.create(ISoOrderService.class);
 
     @Override
     public void execute(ActionContext ctx) {
@@ -89,17 +95,15 @@ public class ActionApplyInvoiceVerify implements IAction {
         Map<String, Object> statusMap = ctx.getStatus();
         Integer orderId = (Integer) statusMap.get("orderId");
 
-        Oql oql = new Oql();
-        {
-            oql.setType(OrderInvoiceMap.class);
-            oql.setSelects("*");
-            oql.setFilter("order_id=?");
-            oql.getParameters().add("id", orderId, Types.INTEGER);
-        }
-        OrderInvoiceMap orderInvoiceMap = orderInvoiceMapService.queryFirst(oql);
+        List<OrderInvoiceMap> orderInvoiceMapList = orderInvoiceMapService.getByOrderId(orderId);
 
-        if (orderInvoiceMap != null) {
+        if (CollectionUtils.isNotEmpty(orderInvoiceMapList)) {
             throw new BusinessException("该订单已经存在发票了，禁止提交！");
+        }
+
+        SoOrder order = soOrderService.getByOrderId(orderId);
+        if (invoice.getAmount() > order.getPaidPrice()) {
+            throw new BusinessException("发票金额不能大于订单已付金额！");
         }
 
 
