@@ -118,7 +118,7 @@
         });
     },
 
-    onSaving: function () {
+    onSaving: function (entity) {
 
         return true;
     },

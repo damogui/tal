@@ -33,6 +33,11 @@ public class ActionSaveOrderVerify implements IAction {
 
 			throw new BusinessException("没有访问来源未知");
 		}
+		
+		if(soOrder.getAccountId() == null || soOrder.getAccountId().compareTo(0) == 0){
+			
+			throw new BusinessException("会员帐号不存在");
+		}
 
 		List<OrderDiscount> discountList = soOrder.getDiscounts();
 		for (OrderDiscount discount : discountList) {

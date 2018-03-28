@@ -96,6 +96,10 @@ com.gongsibao.trade.web.SalesmanAddOrderFormPart = org.netsharp.panda.commerce.F
     		this.bindAccount(mobile);
     	}
     	
+    },
+    onSaving: function (entity) {
+
+        return true;
     }
 });
 
