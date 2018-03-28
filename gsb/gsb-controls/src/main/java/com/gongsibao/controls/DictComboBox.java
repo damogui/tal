@@ -89,13 +89,25 @@ public class DictComboBox implements IPropertyControl{
 		
 		String filter = StringManager.join(" and ",filterList);
 		List<Dict> dictList = queryDicList(filter);
-		for (Dict dict : dictList) {
+		if(dictList.size() > 0){
 
+			for (Dict dict : dictList) {
+
+				SelectOption option = new SelectOption();
+				{
+					option.optionValue = dict.getId().toString();
+					option.value = dict.getName();
+				}
+				control.getControls().add(option);
+			}
+		}else {
+			
 			SelectOption option = new SelectOption();
 			{
-				option.optionValue = dict.getId().toString();
-				option.value = dict.getName();
+				option.optionValue = "";
+				option.value = "";
 			}
+
 			control.getControls().add(option);
 		}
 		return control;

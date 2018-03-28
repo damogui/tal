@@ -443,6 +443,12 @@ div.h10{
 .easyui-tabs .detail{
 	padding-top:0px;
 } 
+
+.detail .formContent{
+	
+	width:auto !important;
+} 
+
 /*表单 结束*/
 
 .datagrid-cell .easyui-linkbutton {
@@ -575,6 +581,7 @@ div.h10{
 .radiogroupbox,.checkboxgroup{
 	font-size:14px;
 	padding:10px 10px 10px 0;
+    display: table;
 }
 .radiogroupbox .radio-item,.checkboxgroup .check-item{
 	float:left;
@@ -1088,9 +1095,20 @@ textarea.full{
 	width:820px;
 }
 
+.detail textarea.full{
+	
+	width:100% !important;
+} 
+
 
 ul.form-panel li .easyui-tooltip{
 
     line-height: 30px;
     margin-left: 5px;
+}
+
+ul.form-panel li.item div.ctrl{
+	
+	float:left;
+	min-width:180px;
 }
