@@ -28,7 +28,7 @@ public class InvoiceFormWorKspace extends WorkspaceCreationBase {
         meta = MtableManager.getMtable(entity);
         resourceNodeCode = "Operation_Order_Invoice";
 
-        formJsImport = "/gsb/platform/trade/js/invoice-add-form.part.js|/panda-res/js/panda.form.js";
+        formJsImport = "/gsb/platform/trade/js/invoice-add-form.part.js|/package/qiniu/plupload.full.min.js";
         formServiceController = InvoiceFormPart.class.getName();
         formJsController = InvoiceFormPart.class.getName();
         formToolbarPath = "";

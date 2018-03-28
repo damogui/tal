@@ -36,7 +36,7 @@ public class ActionApplyInvoiceVerify implements IAction {
             throw new BusinessException("抬头类型不能为空");
         }
 
-        if (invoice.getCompanyId() == null) {
+        if (invoice.getCompanyId() == null || NumberUtils.toInt(invoice.getCompanyId().getValue()) == 0) {
             throw new BusinessException("开票公司不能为空");
         }
 
