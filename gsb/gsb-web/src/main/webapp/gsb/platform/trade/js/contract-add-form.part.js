@@ -40,11 +40,12 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
 
         //region 订单信息的赋值
         //订单编号
+        var payablePrice = System.RMB.fenToYuan(jmessage.soOrder.payablePrice);
         $("#soOrder_no").text(jmessage.soOrder.no);
         //订单渠道号
         $("#soOrder_channelOrderNo").text(jmessage.soOrder.channelOrderNo);
         //订单应付金额
-        $("#soOrder_payablePrice").text((jmessage.soOrder.payablePrice / 100).toFixed(2));
+        $("#soOrder_payablePrice").text(payablePrice);
         //合同来源
         $("#soOrder_platformSource").text(me.orderPlatformSourceEnum[jmessage.soOrder.platformSource]);
         //客户姓名
@@ -57,6 +58,9 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         $("#soOrder_owner_name").text(jmessage.soOrder.owner == null ? "" : jmessage.soOrder.owner.name);
         //所在部门
         $("#soOrder_department_name").text(jmessage.soOrder.department == null ? "" : jmessage.soOrder.department.name);
+        //合同金额
+        $("#realAmount").numberbox('setValue', payablePrice);
+
         // endregion
     },
     databindextra: function (entity) {
@@ -93,14 +97,34 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         }
     },
     hasDataFeeChange: function (el) {  //有/无材料费
+        var me = this;
         if ($(el).val() == 0) {
             $('#dataFee').textbox({value: ""});
             $('#dataFee').textbox({disabled: true});
             $('#dataFeeCountTypeId').combobox({disabled: true});
+            me.updateRealAmount(0);
         } else {
             $('#dataFee').textbox({disabled: false});
             $('#dataFeeCountTypeId').combobox({disabled: false});
+            //合同金额
+            var entity = me.getCurrentItem();
+            var payablePrice = parseInt(System.RMB.fenToYuan(entity.soOrder.payablePrice));
+            $("#realAmount").numberbox('setValue', payablePrice);
         }
+    },
+    dataFeeChange: function (el) {
+        //材料撰写费
+        var me = this;
+        var dataFee = $("#dataFee").numberbox('getValue');
+        dataFee = System.isnull(dataFee) ? 0 : parseInt(dataFee);
+        me.updateRealAmount(dataFee);
+    },
+    updateRealAmount:function (dataFee) {
+        //合同金额
+        var me = this;
+        var entity = me.getCurrentItem();
+        var payablePrice = parseInt(System.RMB.fenToYuan(entity.soOrder.payablePrice));
+        $("#realAmount").numberbox('setValue', payablePrice + dataFee);
     },
     hasLiquidatedDamagesChange: function (el) { //有/无违约金
         if ($(el).val() == 0) {
@@ -143,17 +167,19 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
     rejected: function (auditId) {
         var me = this;
         PandaHelper.openDynamicForm({
-            title:'审核不通过原因',
-            width:400,
-            height:300,
-            items:[{id:'auditRemark',
-                title:'内容',
-                type:'textarea',
-                height:130,
-                width:300,
-                className:''}
+            title: '审核不通过原因',
+            width: 400,
+            height: 300,
+            items: [{
+                id: 'auditRemark',
+                title: '内容',
+                type: 'textarea',
+                height: 130,
+                width: 300,
+                className: ''
+            }
             ],
-            callback:function(index, layero){
+            callback: function (index, layero) {
                 //审批意见
                 var auditRemark = $("#auditRemark").val();
                 if (System.isnull(auditRemark)) {

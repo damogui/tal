@@ -1,5 +1,7 @@
 package com.gongsibao.trade.service.action.order.contract;
 
+import com.gongsibao.bd.base.IFileService;
+import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.trade.Contract;
 import com.gongsibao.entity.trade.OrderProd;
@@ -8,6 +10,7 @@ import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.BreachType;
 import com.gongsibao.trade.base.IContractService;
 import com.gongsibao.u8.base.ISoOrderService;
+import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.base.IPersistableService;
@@ -22,6 +25,8 @@ public class ActionApplyContractPersist implements IAction {
     IContractService contractService = ServiceFactory.create(IContractService.class);
 
     ISoOrderService soOrderService = ServiceFactory.create(ISoOrderService.class);
+
+    IFileService fileService = ServiceFactory.create(IFileService.class);
 
     @Override
     public void execute(ActionContext ctx) {
@@ -48,6 +53,15 @@ public class ActionApplyContractPersist implements IAction {
         contract.setDepartmentId(order.getDepartmentId());
         contract.setSalesmanId(order.getOwnerId());
         contract = contractService.save(contract);
+
+        for (File file : contract.getFiles()) {
+            file.setFormId(contract.getId());
+        }
+
+        if (CollectionUtils.isNotEmpty(contract.getFiles())) {
+            fileService.saves(contract.getFiles());
+        }
+
         //更新合同
         ctx.setItem(contract);
 
