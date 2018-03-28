@@ -57,7 +57,10 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
         $(grid).datagrid(options);
     },
     savebase: function () {
+      
         this.parent.save();
+        layer.closeAll();
+        //IMessageBox.toast('保存成功');
 
     },
 

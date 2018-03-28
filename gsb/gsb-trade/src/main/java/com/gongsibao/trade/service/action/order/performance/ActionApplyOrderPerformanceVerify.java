@@ -40,7 +40,7 @@ public class ActionApplyOrderPerformanceVerify implements IAction {
         Integer execNum = auditLogService.executeInt (sql, qps);
         if (execNum > 0) {
 
-            throw new BusinessException (String.format ("订单号:%s正处于订单业绩审核状态", execNum));
+            throw new BusinessException ("订单正处于订单业绩审核状态");//execNum
 
         }
 //        if (entity.getDepReceivable ().size () == 0) {
