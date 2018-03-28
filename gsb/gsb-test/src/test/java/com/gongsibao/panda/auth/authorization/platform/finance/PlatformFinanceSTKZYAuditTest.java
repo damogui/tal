@@ -10,9 +10,9 @@ import org.junit.Before;
 public class PlatformFinanceSTKZYAuditTest extends AuthBaseTest {
     @Before
     public void setup() {
-
-        super.setup ();
         roleCode = "Platform_Finance_STKZY";
+        super.setup ();
+
     }
 
     protected void getResourceCodeList() {

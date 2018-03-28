@@ -10,9 +10,9 @@ import org.junit.Before;
 public class PlatformFinanceFPZYAuditTest extends AuthBaseTest {
     @Before
     public void setup() {
-
-        super.setup();
         roleCode = "Platform_Finance_FPZY";
+        super.setup();
+
     }
     protected void getResourceCodeList() {
 //        审核中心（发票审核）

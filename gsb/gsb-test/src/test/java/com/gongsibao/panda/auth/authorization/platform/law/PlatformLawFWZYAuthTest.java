@@ -10,9 +10,9 @@ import org.junit.Before;
 public class PlatformLawFWZYAuthTest extends AuthBaseTest {
     @Before
     public void setup() {
-
-        super.setup();
         roleCode = "Platform_Law_FWZY";
+        super.setup();
+
     }
     protected void getResourceCodeList() {
 //        审核中心（合同审核、退款审核）

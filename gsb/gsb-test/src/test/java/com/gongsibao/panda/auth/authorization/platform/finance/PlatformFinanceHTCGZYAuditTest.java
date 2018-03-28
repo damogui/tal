@@ -11,9 +11,9 @@ public class PlatformFinanceHTCGZYAuditTest extends AuthBaseTest {
 
     @Before
     public void setup() {
-
-        super.setup ();
         roleCode = "Platform_Finance_HTCGZY";
+        super.setup ();
+
     }
 
     protected void getResourceCodeList() {

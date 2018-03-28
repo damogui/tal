@@ -8,8 +8,8 @@ public class PlatformFinanceAdminAuditTest extends AuthBaseTest {
 
 	@Before
 	public void setup() {
-
+        roleCode = "Platform_Finance_Admin";
 		super.setup();
-		roleCode = "Platform_Finance_Admin";
+
 	}
 }
