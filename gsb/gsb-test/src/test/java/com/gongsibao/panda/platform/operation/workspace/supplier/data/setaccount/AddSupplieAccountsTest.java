@@ -16,8 +16,11 @@ import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
 import org.netsharp.core.QueryParameters;
+import org.netsharp.organization.base.IEmployeeService;
 import org.netsharp.organization.base.IRoleService;
+import org.netsharp.organization.entity.Employee;
 import org.netsharp.organization.entity.Role;
+import org.netsharp.organization.entity.RoleEmployee;
 
 import java.sql.Types;
 import java.util.ArrayList;
@@ -33,8 +36,18 @@ import java.util.List;
 public class AddSupplieAccountsTest {
     IRoleService roleService = ServiceFactory.create (IRoleService.class);//根据角色
 
+    //删除的sql
+    //加条件删除  删除供应商 部门 登录人
+    //DELETE  FROM  sp_supplier  WHERE  id>3
+    //DELETE  FROM   sp_department  WHERE  id>55
+    //DELETE  FROM  sp_salesman WHERE  id>76
+    //DELETE  FROM  sys_permission_employee  WHERE  id>3625
+
+
     @Test
     public void run() {
+        List<Employee> employees = addEmployees (1); //添加职能角色的先关账号(不需要服务商属性)暂时生成两套账号
+
 
         List<Supplier> suppliers = addSuppliers ();//添加供应商(存在的话就不更新，不存在插入)
         int num = 1;
@@ -49,6 +62,59 @@ public class AddSupplieAccountsTest {
 
         String msg = String.format ("添加供应商%s条", num);
         System.out.println (msg);
+
+
+    }
+
+    /*添加职能平台账号 暂时只提供两套*/
+    private List<Employee> addEmployees(Integer num) {
+        List<Employee> employees = new ArrayList<> ();
+
+        String tel = "";
+        if (num == 1) {
+
+            tel = "1351158529";
+
+
+        } else {
+            tel = "1451158529";
+
+        }
+
+        Employee employee1 = getEmployee ("Platform_PreSales_Leader", tel + "1", "售前经理");
+        Employee employee2 = getEmployee ("Platform_PreSales_Service", tel + "2", "售前客服");
+        Employee employee3 = getEmployee ("Platform_Finance_STKZY", tel + "3", "收退款专员");
+        Employee employee4 = getEmployee ("Platform_Law_FWZY", tel + "4", "法务专员");//
+        Employee employee5 = getEmployee ("Platform_Finance_HTCGZY", tel + "5", "合同采购专员");//
+        Employee employee6 = getEmployee ("Platform_Finance_FPZY", tel + "6", "发票专员");
+
+        employees.add (employee1);
+        employees.add (employee2);
+        employees.add (employee3);
+        employees.add (employee4);
+        employees.add (employee5);
+        employees.add (employee6);
+        IEmployeeService ems = ServiceFactory.create (IEmployeeService.class);//进行添加登录用户
+        List<Employee> employeesSaves = ems.saves (employees);
+        return employeesSaves;
+
+
+    }
+
+    /*进行构造Employee实体*/
+    private Employee getEmployee(String roleCode, String tel, String name) {
+        Employee employee = new Employee ();
+        Role role1 = byCode (roleCode);
+        employee.setName (name);
+        employee.setLoginName (tel);
+        RoleEmployee role = new RoleEmployee ();
+        role.setRoleId (role1.getId ());
+        role.setEmployeeId (employee.getId ());
+        List<RoleEmployee> listRole = new ArrayList<> ();
+        listRole.add (role);
+        employee.setRoles (listRole);
+        employee.toNew ();
+        return employee;
 
 
     }
@@ -89,11 +155,8 @@ public class AddSupplieAccountsTest {
 
         List<Salesman> listSalesman = new ArrayList<> ();
 
-        //salesman1.setEmployeeId (110);//对应登录表的id
-//          业务员 Supplier_Order_Salesman
-// 法务专员帐号 Platform_Law_FWZY、
-// 财务帐号（收退款专员 Platform_Finance_STKZY、发票专员 Platform_Finance_FPZY）
 
+//预置两套服务商账号
         String tel = "";
         if (num == 1) {
 
@@ -105,21 +168,20 @@ public class AddSupplieAccountsTest {
 
         }
 
-        Salesman salesman1 = getSalesman (supplierDepartment, "Supplier_Order_Salesman", tel + "1","业务员");
-        Salesman salesman2 = getSalesman (supplierDepartment, "Platform_Law_FWZY", tel + "2","法务专员");
-        Salesman salesman3 = getSalesman (supplierDepartment, "Platform_Finance_STKZY", tel + "3","收退款专员");
-        Salesman salesman4 = getSalesman (supplierDepartment, "Platform_Finance_FPZY", tel + "4","发票专员");
+        Salesman salesman1 = getSalesman (supplierDepartment, "Supplier_Order_Admin", tel + "1", "fs管理员");
+        Salesman salesman2 = getSalesman (supplierDepartment, "Supplier_Order_Leader", tel + "2", "fs部门主管");
+        Salesman salesman3 = getSalesman (supplierDepartment, "Supplier_Order_Salesman", tel + "3", "fs业务员");
+
 
         listSalesman.add (salesman1);
         listSalesman.add (salesman2);
         listSalesman.add (salesman3);
-        listSalesman.add (salesman4);
         salesmanService.saves (listSalesman);
 
     }
 
     /*构造用户*/
-    private Salesman getSalesman(SupplierDepartment item, String roleCode, String loginName,String name) {
+    private Salesman getSalesman(SupplierDepartment item, String roleCode, String loginName, String name) {
 
         Salesman salesman = new Salesman ();
         salesman.setSupplierId (item.getSupplierId ());
