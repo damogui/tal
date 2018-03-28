@@ -3,6 +3,7 @@ package com.gongsibao.trade.service.action.order.invoice;
 import com.gongsibao.entity.trade.Contract;
 import com.gongsibao.entity.trade.OrderInvoiceMap;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.InvoiceType;
 import com.gongsibao.trade.base.IInvoiceService;
 import com.gongsibao.trade.base.IOrderInvoiceMapService;
@@ -50,9 +51,9 @@ public class ActionApplyInvoiceVerify implements IAction {
             throw new BusinessException("发票类型不能为空");
         }
 
-        if (NumberUtils.toInt(invoice.getAmount()) == 0) {
-            throw new BusinessException("发票金额不能为空");
-        }
+        /*if (NumberUtils.toInt(invoice.getAmount()) == 0) {
+            throw new BusinessException("发票金额不能为零");
+        }*/
         if (StringManager.isNullOrEmpty(invoice.getContent())) {
             throw new BusinessException("发票内容不能为空");
         }
@@ -95,7 +96,15 @@ public class ActionApplyInvoiceVerify implements IAction {
         Map<String, Object> statusMap = ctx.getStatus();
         Integer orderId = (Integer) statusMap.get("orderId");
 
-        List<OrderInvoiceMap> orderInvoiceMapList = orderInvoiceMapService.getByOrderId(orderId);
+        Oql oql = new Oql();
+        {
+            oql.setType(OrderInvoiceMap.class);
+            oql.setSelects("*");
+            oql.setFilter("order_id = ? and invoice_id in(select pkid from so_invoice where audit_status_id in(" + AuditStatusType.Dsh.getValue() + "," + AuditStatusType.Shtg.getValue() + "," + AuditStatusType.Shz.getValue() + "))");
+            oql.getParameters().add("orderId", orderId, Types.INTEGER);
+        }
+
+        List<OrderInvoiceMap> orderInvoiceMapList = orderInvoiceMapService.queryList(oql);
 
         if (CollectionUtils.isNotEmpty(orderInvoiceMapList)) {
             throw new BusinessException("该订单已经存在发票了，禁止提交！");
