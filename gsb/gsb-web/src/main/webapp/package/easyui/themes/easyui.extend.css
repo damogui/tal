@@ -581,6 +581,7 @@ div.h10{
 .radiogroupbox,.checkboxgroup{
 	font-size:14px;
 	padding:10px 10px 10px 0;
+    display: table;
 }
 .radiogroupbox .radio-item,.checkboxgroup .check-item{
 	float:left;
