@@ -14,9 +14,9 @@ import com.gongsibao.panda.auth.authorization.supplier.SupplierAuthorizationAllT
 @RunWith(Suite.class)
 @SuiteClasses({
 
-        //PlatformAuthorizationAllTest.class,
-        PlatformAuthorizationAllTest.class,
-        SupplierAuthorizationAllTest.class
+
+        PlatformAuthorizationAllTest.class,//职能、自营、非自营
+        SupplierAuthorizationAllTest.class//服务商
 })
 public class AuthorizationAllTest {
 
