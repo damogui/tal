@@ -429,10 +429,10 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
     @Override
     public List<Integer> getEmployeeIdListByRoleCodes(List<String> roleCodes) {
 
-        List<Integer> employeeIdList = new ArrayList();
+        List<Integer> employeeIdList = new ArrayList(); 
         StringBuffer sql = new StringBuffer();
 
-        if (CollectionUtils.isEmpty(roleCodes)) {
+        if (CollectionUtils.isEmpty(roleCodes)) { 
             return new ArrayList();
         }
 
