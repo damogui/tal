@@ -1216,8 +1216,8 @@ org.netsharp.controls.PccBox = org.netsharp.controls.Control.Extends({
 
 			options.onChange = function(newValue,oldValue){
 				
-//				/if(newValue && typeof newValue === 'number'){
-				if(newValue){
+				//if(newValue && typeof newValue === 'number'){
+				if(newValue && !System.isnull(newValue.toString().trim())){
 					bindData(newValue,changeCtrlId);
 				}else{
 					$('#' + changeCtrlId).combobox('setValue',null);
@@ -1230,7 +1230,7 @@ org.netsharp.controls.PccBox = org.netsharp.controls.Control.Extends({
 		if(level==1){
 			
 			var data = $ctrl.combobox('getData');
-			if(data==null || data.length ==0){
+			if(data==null || data.length ==0 || data.length ==1){//2018-03-28 hw 特殊处理，呕心
 
 				bindData(null,this.propertyName);
 			}
