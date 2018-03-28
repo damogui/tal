@@ -1,6 +1,6 @@
-System.Declare("com.gongsibao.igirl.web");
+System.Declare("com.gongsibao.igirl.tm.web");
 var countinput = 0;
-com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart.Extends({
+com.gongsibao.igirl.tm.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart.Extends({
 
     ctor: function () {
         this.base();
@@ -131,7 +131,7 @@ com.gongsibao.igirl.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormPart
 ///"省"|"上海市"|"天津市"|"重庆市"|"内蒙古"|"广西"|"宁夏"|"新疆"|"西藏"|"内蒙古自治区"|"新疆维吾尔自治区"|" 广西壮族自治区"|"宁夏回族自治区"|"西藏自治区"/g
 
 
-com.gongsibao.igirl.web.DownloadAttachmentDetailPart = org.netsharp.panda.commerce.DetailPart.Extends({
+com.gongsibao.igirl.tm.web.DownloadAttachmentDetailPart = org.netsharp.panda.commerce.DetailPart.Extends({
     ctor: function () {
         this.base();
 
@@ -142,7 +142,7 @@ com.gongsibao.igirl.web.DownloadAttachmentDetailPart = org.netsharp.panda.commer
 
 });
 
-com.gongsibao.igirl.web.UploadAttachmentDetailPart = org.netsharp.panda.commerce.DetailPart.Extends({
+com.gongsibao.igirl.tm.web.UploadAttachmentDetailPart = org.netsharp.panda.commerce.DetailPart.Extends({
     ctor: function () {
         this.base();
 
@@ -172,7 +172,7 @@ com.gongsibao.igirl.web.UploadAttachmentDetailPart = org.netsharp.panda.commerce
     },
 
 });
-com.gongsibao.igirl.web.TradeMarkDetailPart = org.netsharp.panda.commerce.DetailPart.Extends({
+com.gongsibao.igirl.tm.web.TradeMarkDetailPart = org.netsharp.panda.commerce.DetailPart.Extends({
 
     ctor: function () {
         this.base();

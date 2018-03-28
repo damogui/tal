@@ -1,15 +1,15 @@
 package com.gongsibao.panda.supplier.igirl;
-import com.gongsibao.entity.igirl.ChangeTradeMark;
-import com.gongsibao.entity.igirl.DownloadAttachment;
-import com.gongsibao.entity.igirl.TradeMark;
-import com.gongsibao.entity.igirl.TradeMarkCase;
-import com.gongsibao.entity.igirl.TransferTradeMark;
-import com.gongsibao.entity.igirl.baseinfo.IGirlConfig;
-import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
-import com.gongsibao.entity.igirl.baseinfo.NclBatch;
-import com.gongsibao.entity.igirl.baseinfo.NclMap;
-import com.gongsibao.entity.igirl.baseinfo.SupplierNewInfo;
-import com.gongsibao.entity.igirl.baseinfo.SupplierSiteInfo;
+import com.gongsibao.entity.igirl.tm.ChangeTradeMark;
+import com.gongsibao.entity.igirl.tm.DownloadAttachment;
+import com.gongsibao.entity.igirl.tm.TradeMark;
+import com.gongsibao.entity.igirl.tm.TradeMarkCase;
+import com.gongsibao.entity.igirl.tm.TransferTradeMark;
+import com.gongsibao.entity.igirl.tm.baseinfo.IGirlConfig;
+import com.gongsibao.entity.igirl.tm.baseinfo.NCLTwo;
+import com.gongsibao.entity.igirl.tm.baseinfo.NclBatch;
+import com.gongsibao.entity.igirl.tm.baseinfo.NclMap;
+import com.gongsibao.entity.igirl.tm.baseinfo.SupplierNewInfo;
+import com.gongsibao.entity.igirl.tm.baseinfo.SupplierSiteInfo;
 
 import org.junit.Before;
 import org.netsharp.meta.base.NavigationBase;

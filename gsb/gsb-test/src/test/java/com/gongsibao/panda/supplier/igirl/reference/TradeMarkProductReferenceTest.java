@@ -1,6 +1,6 @@
 package com.gongsibao.panda.supplier.igirl.reference;
-import com.gongsibao.entity.igirl.TradeMarkCase;
-import com.gongsibao.entity.igirl.baseinfo.NCLOne;
+import com.gongsibao.entity.igirl.tm.TradeMarkCase;
+import com.gongsibao.entity.igirl.tm.baseinfo.NCLOne;
 import org.junit.Before;
 import org.netsharp.meta.base.ReferenceCreationBase;
 import org.netsharp.panda.controls.ControlTypes;

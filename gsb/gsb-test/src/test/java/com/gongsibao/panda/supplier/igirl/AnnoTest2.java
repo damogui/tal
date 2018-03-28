@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.gongsibao.entity.igirl.dict.*;
-import com.gongsibao.igirl.base.*;
+import com.gongsibao.entity.igirl.tm.dict.*;
+import com.gongsibao.igirl.tm.base.*;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -16,11 +16,11 @@ import org.netsharp.cache.service.redis.RedisCacheCommand;
 import org.netsharp.cache.service.redis.RedisConnection;
 import org.netsharp.communication.ServiceFactory;
 
-import com.gongsibao.entity.igirl.TradeMark;
-import com.gongsibao.entity.igirl.TradeMarkCase;
-import com.gongsibao.entity.igirl.UploadAttachment;
-import com.gongsibao.entity.igirl.baseinfo.NCLOne;
-import com.gongsibao.entity.igirl.baseinfo.NCLTwo;
+import com.gongsibao.entity.igirl.tm.TradeMark;
+import com.gongsibao.entity.igirl.tm.TradeMarkCase;
+import com.gongsibao.entity.igirl.tm.UploadAttachment;
+import com.gongsibao.entity.igirl.tm.baseinfo.NCLOne;
+import com.gongsibao.entity.igirl.tm.baseinfo.NCLTwo;
 import com.gongsibao.taurus.util.StringManager;
 import com.gongsibao.tools.HttpUtils;
 

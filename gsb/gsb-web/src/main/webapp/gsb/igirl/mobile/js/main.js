@@ -1,6 +1,6 @@
 $(function(){
 	var siteCtl=new org.netsharp.core.JServiceLocator()
-	var ctlServiceStr="com.gongsibao.igirl.web.SiteInfoListPart";
+	var ctlServiceStr="com.gongsibao.igirl.tm.web.SiteInfoListPart";
 	var  hrefurl=window.location.href;
 	if(window.location.href.indexOf("from=singlemessage#")!=-1){
 		hrefurl=hrefurl.replace("from=singlemessage#","").replace("main.html?","main.html#");
@@ -202,7 +202,7 @@ $(function(){
 				  		
 				  			 if(sourceInfo.casecode && sourceInfo.casecode!=""){
 				  				 
-				  				 var ctlServiceStr2="com.gongsibao.igirl.web.TradeMarkCasePart";
+				  				 var ctlServiceStr2="com.gongsibao.igirl.tm.web.TradeMarkCasePart";
 				  				 var me=this;
 				  				 siteCtl.invoke(ctlServiceStr2,"fetchUnconfirmedCaseInfoByCode",[sourceInfo.casecode],function(d){
 				  					 me.caseinfo=d;
