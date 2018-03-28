@@ -68,7 +68,7 @@ com.gongsibao.trade.web.InvoiceFormPart = org.netsharp.panda.commerce.FormPart.E
                 IMessageBox.error('【邮箱】格式错误');
                 return false;
             }
-            /*//发表金额
+            //发表金额
             var amount = $("#amount").val();
             amount = amount == null ? 0 : parseInt(amount);
             if (amount <= 0) {
@@ -79,7 +79,7 @@ com.gongsibao.trade.web.InvoiceFormPart = org.netsharp.panda.commerce.FormPart.E
             if (amount > paidPrice) {
                 IMessageBox.error('发票金额不能大于已付金额');
                 return false;
-            }*/
+            }
 
             return true;
         }

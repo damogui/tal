@@ -51,9 +51,9 @@ public class ActionApplyInvoiceVerify implements IAction {
             throw new BusinessException("发票类型不能为空");
         }
 
-        /*if (NumberUtils.toInt(invoice.getAmount()) == 0) {
+        if (NumberUtils.toInt(invoice.getAmount()) == 0) {
             throw new BusinessException("发票金额不能为零");
-        }*/
+        }
         if (StringManager.isNullOrEmpty(invoice.getContent())) {
             throw new BusinessException("发票内容不能为空");
         }
