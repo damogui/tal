@@ -18,7 +18,7 @@ public class ActionApplyOrderPerformanceAudit implements IAction {
         // TODO Auto-generated method stub
         /*订单业绩开始审核*/
         SoOrder entity = (SoOrder) ctx.getItem ();
-        AbstractAuditLogService service = AuditFactory.getAudit(OrderPerformanceAudit.class);
+        AbstractAuditLogService service = AuditFactory.getAudit(OrderPerformanceAudit.class);//进行重写
         service.execute(entity.getId (), SessionManager.getUserId ());
     }
 
