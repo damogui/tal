@@ -89,14 +89,14 @@ public class ExpenseBillWorkspaceTest extends WorkspaceCreationBase {
 		}
 		PDatagridColumn column = null;
 		
-		addColumn(datagrid, "type", "报销类型", ControlTypes.OPERATION_COLUMN, 200, true);
-		addColumn(datagrid, "code", "报销单号", ControlTypes.OPERATION_COLUMN, 200, true);
-		addColumn(datagrid, "amount", "报销金额", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "type", "报销类型", ControlTypes.ENUM_BOX, 200, true);
+		addColumn(datagrid, "code", "报销单号", ControlTypes.TEXT_BOX, 200, true);
+		addColumn(datagrid, "amount", "报销金额", ControlTypes.DECIMAL_FEN_BOX, 100);
 		addColumn(datagrid, "formNumber", "单据数量", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "reason", "报销理由", ControlTypes.TEXT_BOX, 300);
 		addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 300);
-		addColumn(datagrid, "creator", "创建日期", ControlTypes.TEXT_BOX, 300);
-		addColumn(datagrid, "status", "审批状态", ControlTypes.TEXT_BOX, 300);
+		addColumn(datagrid, "creator", "创建日期", ControlTypes.DATE_BOX, 300);  
+		addColumn(datagrid, "status", "审批状态", ControlTypes.ENUM_BOX, 300);
 		return datagrid;
 	}
     
