@@ -18,7 +18,7 @@ public class PlatformFinanceHTCGZYAuditTest extends AuthBaseTest {
 
     protected void getResourceCodeList() {
 //审核中心（合同审核）
-        this.resourceNodeCodeList.add ("Gsb_Supplier_Order_Audit_Contract");//合同审核
+        this.resourceNodeCodeList.add ("GSB_Trade_Audit_Form_Contract");//合同审核
 
 
     }

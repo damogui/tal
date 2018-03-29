@@ -24,6 +24,7 @@ import com.gongsibao.entity.trade.Contract;
 import com.gongsibao.trade.web.ContractFormPart;
 import com.gongsibao.trade.web.OrderProdItemDetailPart;
 
+/*合同管理*/
 public class ContractFormWorkspaceTest extends WorkspaceCreationBase {
 
     @Before
