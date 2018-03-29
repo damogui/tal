@@ -30,6 +30,7 @@ import com.gongsibao.trade.web.OrderOperationController;
  *     
  * @Copyright: 2017 www.yikuaxiu.com Inc. All rights reserved. 
  */
+/*交易中心全部订单*/
 public class AllOrderWorkspaceTest extends WorkspaceCreationBase{
 
 	@Before
