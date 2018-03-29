@@ -33,7 +33,7 @@ public class DepartmentHighSeasWorkspaceTest extends DepartmentAllTaskWorkspaceT
 
 		addToolbarItem(toolbar, "batchAllocation", "批量分配", "fa fa-check", "batchAllocation()", null, 5);
 		
-		//addToolbarItem(toolbar, "regain", "退回", "fa fa-mail-reply", "rollback()", null, 6);
+		//addToolbarItem(toolbar, "regain", "释放", "fa fa-mail-reply", "rollback()", null, 6);
 		return toolbar;
 	}
 	
@@ -48,7 +48,7 @@ public class DepartmentHighSeasWorkspaceTest extends DepartmentAllTaskWorkspaceT
 			toolbar.setName("跟进行工具栏操作");
 			toolbar.setResourceNode(node);
 		}
-		addToolbarItem(toolbar, "rollback", "退回", "fa fa-edit", "rollback()", null, 6);
+		addToolbarItem(toolbar, "rollback", "释放", "fa fa-edit", "rollback()", null, 6);
 		return toolbar;
 		//return null;
 	}
