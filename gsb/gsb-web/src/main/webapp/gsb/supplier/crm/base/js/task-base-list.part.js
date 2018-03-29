@@ -181,11 +181,18 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 				type:'textarea',
 				height:130,
 				width:300,
-	            className:''}
-			],
+	            className:'',
+	            option:{required:true,validType:['maxLength[500]']}
+			}],
 			explain:'商机将会退回至【公海】，进行【二次分配】',
 			notice:'',
 			callback:function(index, layero){
+				
+				var validate = $('#dynamicForm').form('validate');
+				if(!validate){
+					
+					return;
+				}
 				var getNote = $("#txtNote").val();
 				if (System.isnull(getNote)) {
 					IMessageBox.info('请输入内容');
@@ -217,11 +224,18 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 				type:'textarea',
 				height:130,
 				width:300,
-	            className:''}
-			],
+	            className:'',
+	            option:{required:true,validType:['maxLength[500]']}
+			}],
 			explain:'商机将会退回至【公海】，进行【二次分配】',
 			notice:customerQuality(intenCategory),
 			callback:function(index, layero){
+				
+				var validate = $('#dynamicForm').form('validate');
+				if(!validate){
+					
+					return;
+				}
 				var getNote = $("#txtNote").val();
 				if (System.isnull(getNote)) {
 					IMessageBox.info('请输入内容');
@@ -358,9 +372,16 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 				type:'textarea',
 				height:130,
 				width:300,
-	            className:''}
-			],
+	            className:'',
+	            option:{required:true,validType:['maxLength[500]']}
+			}],
 			callback:function(index, layero){
+				
+				var validate = $('#dynamicForm').form('validate');
+				if(!validate){
+					
+					return;
+				}
 				var getNote = $("#txtNote").val();
 				if (System.isnull(getNote)) {
 					IMessageBox.info('请输入内容');
