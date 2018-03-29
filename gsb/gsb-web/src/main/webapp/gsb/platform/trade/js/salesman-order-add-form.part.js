@@ -121,6 +121,7 @@ com.gongsibao.trade.web.OrderProdItemDetailPart = org.netsharp.panda.commerce.De
     	selectCtrl.show(function(orderProd){
 
         	me.setEditor();
+
     		$('#datagridproducts').datagrid('appendRow',orderProd);
         	me.calculateTotalPrice();
         	
@@ -201,6 +202,10 @@ com.gongsibao.trade.web.OrderProdItemDetailPart = org.netsharp.panda.commerce.De
         	});
         	return str;
     	}
+    },
+    indexFormatter:function(value,row,index){
+    	
+    	return index+1;
     },
     unitNameFormatter:function(value,row,index){
     	

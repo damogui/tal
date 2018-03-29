@@ -108,11 +108,18 @@ public class SalesmanOrderAddWorkspaceTest extends WorkspaceCreationBase {
 		ResourceNode node = this.resourceService.byCode("Gsb_Supplier_Order_Salesman_OrderProd");
 		PDatagrid datagrid = new PDatagrid(node, "产品信息");
 		{
-			datagrid.setShowCheckbox(true);
+			datagrid.setShowCheckbox(false);
 			datagrid.setSingleSelect(true);
 			datagrid.setReadOnly(true);
 			datagrid.setShowTitle(true);
+			datagrid.setRownumbers(false);
 			PDatagridColumn column = null;
+			column = addColumn(datagrid, "index", "", ControlTypes.TEXT_BOX, 40);{
+				
+				column.setAlign(DatagridAlign.CENTER);
+				column.setFormatter("return controllerproducts.indexFormatter(value,row,index);");
+			}
+			
 			column = addColumn(datagrid, "id", "操作", ControlTypes.TEXT_BOX, 60);{
 				
 				column.setAlign(DatagridAlign.CENTER);
