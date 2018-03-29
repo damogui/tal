@@ -145,13 +145,13 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         //验证金额 和一些退款的状态
         me.invokeService("refundCarryValidate", [row.id, 0], function (data) {
             if (data < 0) {
-                layer.msg('无退款金额！');
+                layer.msg('该订单无可退款金额，请知悉');
             } else if (data == 1051) {
-                layer.msg('退款待审核中，暂不能操作！');
+                layer.msg('有笔退款或结转目前待审核中，请审核通过后，再创建');
             } else if (data == 1052) {
-                layer.msg('退款中，暂不能操作！');
+                layer.msg('有笔退款或结转目前退款中，请审核通过后，再创建 ');
             } else {
-                layer.open({
+                layer.open({ 
                     type: 2,//1是字符串 2是内容
                     title: '申请退款',
                     fixed: false,
@@ -181,11 +181,11 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         var contentUrl = this.addCarryoverUrl + "?id=" + row.id;
         me.invokeService("refundCarryValidate", [row.id, 1], function (data) {
             if (data < 0) {
-                layer.msg('结转金额不足！');
+                layer.msg('该订单无可结转金额，请知悉');
             } else if (data == 1051) {
-                layer.msg('结转待审核中，暂不能操作！');
+                layer.msg('有笔退款或结转目前待审核中，请审核通过后，再创建');
             } else if (data == 1052) {
-                layer.msg('结转中，暂不能操作！');
+                layer.msg('有笔退款或结转目前结转中，请审核通过后，再创建');
             } else {
                 layer.open({
                     type: 2,//1是字符串 2是内容
@@ -218,7 +218,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         //判断是否已经分期付款了（先支持1次分期）
         me.invokeService("isStaged", [row.id], function (data) {
             if (data) {
-                IMessageBox.info('该订单已经分期付款');
+                IMessageBox.info('该订单已申请分期，并审核通过，请知悉');
             } else {
                 layer.open({
                     type: 2,//1是字符串 2是内容

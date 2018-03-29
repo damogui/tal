@@ -66,8 +66,8 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
     databindextra: function (entity) {
         var me = this;
         me.bindOrderInfo(entity);
-        //禁用整个form
-        controllercontract.disable();
+        //查看时禁用整个form
+        me.disable();
     },
     addExtraProp: function (entity) {
         entity.sginingUserId = entity.soOrder.ownerId == null ? 0 : entity.soOrder.ownerId;
@@ -121,7 +121,7 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         dataFee = System.isnull(dataFee) ? 0 : parseInt(dataFee);
         me.updateRealAmount(dataFee);
     },
-    updateRealAmount:function (dataFee) {
+    updateRealAmount: function (dataFee) {
         //合同金额
         var me = this;
         var entity = me.getCurrentItem();
@@ -156,17 +156,19 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         }
         return false;
     },
-    approved: function (auditId) {
+    approved: function (auditId, callback) {
         var me = this;
         //审批意见
         var auditRemark = $("#auditRemark").val();
         me.serviceLocator.invoke("com.gongsibao.trade.web.audit.AuditContractController", "approved", [auditId, auditRemark], function (data) {
             IMessageBox.toast('操作成功！');
             window.parent.layer.closeAll();
-            //me.reload();
+            //$('#datagridauditLogList').datagrid('reload');
+            if (callback)
+                callback(data);
         }, null, false);
     },
-    rejected: function (auditId) {
+    rejected: function (auditId, callback) {
         var me = this;
         PandaHelper.openDynamicForm({
             title: '审核不通过原因',
@@ -191,6 +193,8 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
                 me.serviceLocator.invoke("com.gongsibao.trade.web.audit.AuditContractController", "rejected", [auditId, auditRemark], function (data) {
                     IMessageBox.toast('操作成功！');
                     window.parent.layer.closeAll();
+                    if (callback)
+                        callback(data);
                 }, null, false);
             }
         });

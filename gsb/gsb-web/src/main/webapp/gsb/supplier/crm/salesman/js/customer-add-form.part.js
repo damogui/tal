@@ -19,7 +19,29 @@ com.gongsibao.crm.web.SalesmanNCustomerAddFormPart =com.gongsibao.crm.web.NCusto
     	
     		return UiElementState.Hide;
     	}
-    }
+    },
+    onSaving: function (entity) {
+
+    	if(entity.entityState == EntityState.New){
+    		
+    		if(entity.tasks && entity.tasks.length == 0){
+    			
+    			IMessageBox.error("保存失败：请添加商机！");
+    			return false;
+    		}
+    		
+    	}else{
+    		
+    		entity.tasks = [];
+    	}
+    	entity.products = [];
+    	entity.follows = [];
+    	entity.notifys = [];
+    	entity.changes = [];
+    	
+    	//提高效率，将明细全部置空
+        return true;
+    },
 });
 
 com.gongsibao.crm.web.SalesmanNCustomerTaskDetailPart = com.gongsibao.crm.web.NCustomerTaskDetailPart.Extends( {

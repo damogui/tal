@@ -32,7 +32,7 @@ public class ActionApplyStageVerify implements IAction{
 		order = orderService.getByOrderId(order.getId());
 		Integer instaAmount = order.getPayablePrice().intValue() - order.getPaidPrice().intValue();
 		if(!instaAmount.equals(getStageAllBigDecimal)){
-			throw new BusinessException("分期金额和应付的分期金额不匹配！");
+			throw new BusinessException("分期总额不等于订单应付金额，请核实");
 		}
 	}
 

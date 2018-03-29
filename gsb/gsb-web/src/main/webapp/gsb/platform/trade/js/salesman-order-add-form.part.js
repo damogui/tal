@@ -290,8 +290,11 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
             yes: function (index, layero) {
             	
             	var orderProd = me.getOrderProd();
-            	callback(orderProd);
-            	layer.closeAll();
+            	if(orderProd != null){
+
+                	callback(orderProd);
+                	layer.closeAll();
+            	}
             }
     	});
     },
@@ -302,6 +305,11 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
     	//校验未做
     	
     	var rows = $('#serviceItems').datagrid('getChecked');
+    	if(rows== null || rows.length == 0){
+    		
+    		layer.msg('请选择服务项目！');
+    		return null;
+    	}
     	var productId = $('#product').combogrid('getValue');
     	var productName = $('#product').combogrid('getText');
     	var cityId = $('#county').combobox('getValue');
