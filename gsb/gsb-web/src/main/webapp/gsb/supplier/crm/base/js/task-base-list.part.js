@@ -75,13 +75,12 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 	batchAllocation:function(){
 		//商机批量分配
 		var me = this;
-		var row = this.getSelectedItem();
-		var id = this.getSelectionIds();
-		if(id == "" || id == null ){
+		var ids = this.getSelectionIds();
+		if(ids == "" || ids == null ){
 			IMessageBox.info('请选择记录');
 			return;
 	    }
-		me.doAllot(id);
+		me.doAllot(ids);
 	},
 	allocation:function(id){
 		//商机分配
