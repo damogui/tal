@@ -1035,6 +1035,11 @@ ul.query-panel li.item,ul.form-panel li.item{
     -webkit-flex-wrap: wrap;
 }
 
+ul.query-panel li.btn a{
+	
+	margin-right:5px;
+}
+
 ul.query-panel li.item div.label,
 ul.form-panel li.item div.label{
 	
