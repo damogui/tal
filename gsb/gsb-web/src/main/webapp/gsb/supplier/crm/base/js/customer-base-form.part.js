@@ -51,12 +51,6 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
     		
     		$('#mobile').passwordbox('disable');
     	}
-    	$('#intentionCategory').combobox('disable');
-    	$('#quality_name').combogrid('disable');
-    	$('#lastFoolowUser_name').combogrid('disable');
-    	$('#lastFollowTime').datetimebox('disable');
-    	$('#nextFoolowTime').datetimebox('disable');
-    	$('#lastContent').prop('disabled',true);
     	
         $('#controllernCustomeredit').linkbutton('disable');
     	$('#controllernCustomereye').linkbutton('disable');
