@@ -156,17 +156,19 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         }
         return false;
     },
-    approved: function (auditId) {
+    approved: function (auditId, callback) {
         var me = this;
         //审批意见
         var auditRemark = $("#auditRemark").val();
         me.serviceLocator.invoke("com.gongsibao.trade.web.audit.AuditContractController", "approved", [auditId, auditRemark], function (data) {
             IMessageBox.toast('操作成功！');
             window.parent.layer.closeAll();
-            $('#datagridauditLogList').datagrid('reload');
+            //$('#datagridauditLogList').datagrid('reload');
+            if (callback)
+                callback(data);
         }, null, false);
     },
-    rejected: function (auditId) {
+    rejected: function (auditId, callback) {
         var me = this;
         PandaHelper.openDynamicForm({
             title: '审核不通过原因',
@@ -191,7 +193,8 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
                 me.serviceLocator.invoke("com.gongsibao.trade.web.audit.AuditContractController", "rejected", [auditId, auditRemark], function (data) {
                     IMessageBox.toast('操作成功！');
                     window.parent.layer.closeAll();
-                    $('#datagridauditLogList').datagrid('reload');
+                    if (callback)
+                        callback(data);
                 }, null, false);
             }
         });
