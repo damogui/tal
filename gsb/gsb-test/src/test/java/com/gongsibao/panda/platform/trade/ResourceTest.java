@@ -65,7 +65,7 @@ public class ResourceTest extends ResourceCreationBase {
 		node1 = this.createResourceNodeCategory("审核中心", prefix + "_Audit", node.getId());
 		{
 			this.createResourceNodeVoucher(AuditLog.class.getName(), "业绩审核", node1.getCode() + "_Performance", IAuditLogService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(AuditLog.class.getName(), "回款审核", node1.getCode() + "_Received", IAuditLogService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(AuditLog.class.getName(), "回款审核", "GSB_Trade_Audit_Received", IAuditLogService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(AuditLog.class.getName(), "回款业绩审核", node1.getCode() + "_ReceivedPer",
                     IAuditLogService.class.getName(), node1.getId());
 

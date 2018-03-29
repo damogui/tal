@@ -67,11 +67,12 @@ import com.gongsibao.panda.platform.trade.workspace.payment.PaymentLogWorkspaceT
         ChangePriceAuditWorkspaceTest.class,
         ContractAuditWorkspaceTest.class,
         InvoiceAuditWorkspaceTest.class,
-        ReceivedAuditWorkspaceTest.class,
+        ReceivedAuditWorkspaceTest.class,//回款业绩
         RefundAuditWorkspaceTest.class,
         StagingAuditWorkspaceTest.class,
         AuditContractFormWorkspaceTest.class,
         AuditInvoiceFormWorkspaceTest.class,
+        PayAuditWorkspaceTest.class,//回款审核
 
 
         //成本管理:成本管理,收款方管理,请款审核,请款审核,供应商发票审核
