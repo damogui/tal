@@ -53,7 +53,8 @@ public class ActionApplyPayPersist implements IAction {
 
             map.toNew();
             map.setU8BankId(pay.getU8BankId());
-            orderNoList.add(map.getSoOrder().getNo());
+            //获取下订单号
+            orderNoList.add(map.getOrderNo ());
         }
 
         String orderNoStr = StringManager.join(",", orderNoList);
