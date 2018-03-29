@@ -16,6 +16,6 @@ public class PlatformFinanceFPZYAuditTest extends AuthBaseTest {
     }
     protected void getResourceCodeList() {
 //        审核中心（发票审核）
-        this.resourceNodeCodeList.add("Gsb_Supplier_Order_Audit_Invoice");
+        this.resourceNodeCodeList.add("GSB_Trade_Audit_Form_Invoice");
     }
 }
