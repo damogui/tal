@@ -108,13 +108,17 @@ public class SysDepartmentWorkspaceTest extends WorkspaceCreationBase {
 
 		PForm form = super.createForm(node);
 		form.setColumnCount(2);
-		addFormField(form, "name", "名称", null, ControlTypes.TEXT_BOX, true);
+		PFormField formField = addFormField(form, "name", "名称", null, ControlTypes.TEXT_BOX, true);{
+			formField.setTroikaValidation("['maxLength[50]']");
+		}
 		addFormField(form, "customerType", "分组类别", null, ControlTypes.ENUM_BOX, true);
 		
-		PFormField formField = addFormField(form, "memoto", "备注", ControlTypes.TEXTAREA, false, false);{
+		 formField = addFormField(form, "memoto", "备注", ControlTypes.TEXTAREA, false, false);{
 			
 			formField.setHeight(100);
-			formField.setFullColumn(true);
+			formField.setWidth(500);
+			formField.setFullColumn(false);
+			formField.setTroikaValidation("[\'maxLength[500]\']");
 		}
 		return form;
 	}

@@ -121,9 +121,12 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 
 		String groupName = null;
 		// String groupName = "基本信息";
-		addFormField(form, "name", "姓名", groupName, ControlTypes.TEXT_BOX, true);
+		PFormField formField = addFormField(form, "name", "姓名", groupName, ControlTypes.TEXT_BOX, true);{
+			
+			formField.setTroikaValidation("['maxLength[50]']");
+		}
 		addFormField(form, "mobile", "手机号", groupName, ControlTypes.TEXT_BOX, true);
-		PFormField formField = addFormField(form, "loginName", "帐号", groupName, ControlTypes.TEXT_BOX, false);
+		formField = addFormField(form, "loginName", "帐号", groupName, ControlTypes.TEXT_BOX, false);
 		{
 
 			formField.setReadonly(true);
