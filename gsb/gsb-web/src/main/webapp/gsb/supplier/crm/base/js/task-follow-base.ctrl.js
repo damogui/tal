@@ -235,7 +235,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 					height:100,
 					width:300,
 					className:'easyui-validatebox',
-					option:{required:true}
+					option:{required:true,validType:['maxLength[500]']}
 				}
 			],
 			callback:function(index, layero){
