@@ -30,7 +30,7 @@ public class NCustomer extends Entity {
 
 	@Column(name = "account_id", header = "帐号Id")
 	private Integer accountId;
-	
+
 	@Reference(foreignKey = "accountId")
 	private Account account;
 
@@ -45,7 +45,7 @@ public class NCustomer extends Entity {
 
 	@Column(name = "is_member", header = "是否是会员：0-否；1-是")
 	private Boolean isMember = false;
-	
+
 	@Column(name = "telephone", header = "座机")
 	private String telephone;
 
@@ -109,7 +109,7 @@ public class NCustomer extends Entity {
 	@Column(name = "introducer_id", header = "介绍人id")
 	private Integer introducerId;
 
-	@Column(name = "remark", header = "备注信息")
+	@Column(name = "remark", size = 500, header = "备注信息")
 	private String remark;
 
 	@Column(name = "allocation_type", header = "分配方式")
@@ -120,13 +120,12 @@ public class NCustomer extends Entity {
 
 	@Reference(foreignKey = "supplierId", header = "分配服务商")
 	private Supplier supplier;
-	
+
 	@Column(name = "department_id", header = "分配服务商部门Id")
 	private Integer departmentId;
 
 	@Reference(foreignKey = "departmentId", header = "分配服务商部门")
 	private SupplierDepartment department;
-	
 
 	@Column(name = "swt_customer_id", header = "商务通客Id")
 	private String swtCustomerId;
@@ -136,25 +135,25 @@ public class NCustomer extends Entity {
 
 	@Column(name = "intention_category", header = "质量分类")
 	private QualityCategory intentionCategory;
-	
+
 	@Column(name = "quality_id", header = "质量Id")
 	private Integer qualityId;
-	
+
 	@Reference(foreignKey = "qualityId", header = "质量")
 	private NCustomerTaskQuality quality;
-	
+
 	@Column(name = "last_follow_time", header = "最近跟进时间")
 	private Date lastFollowTime;
-	
+
 	@Column(name = "last_foolow_user_id", header = "最后跟进人Id")
 	private Integer lastFoolowUserId;
-	
+
 	@Reference(foreignKey = "lastFoolowUserId", header = "最后跟进人")
 	private Employee lastFoolowUser;
-	
+
 	@Column(name = "last_content", size = 1000, header = "最后跟进内容")
 	private String lastContent;
-	
+
 	@Column(name = "next_foolow_time", header = "下次跟进时间")
 	private Date nextFoolowTime;
 
@@ -164,16 +163,16 @@ public class NCustomer extends Entity {
 	@Column(name = "customer_source_id", header = "客户来源")
 	private Integer customerSourceId;
 
-//    @Column(name = "crm_source_type", header = "是不是招商渠道来源")
-//    private Integer crmSourceType=0;//1是招商渠道  FollowStatus  区分 4017  渠道合作
-//
+	// @Column(name = "crm_source_type", header = "是不是招商渠道来源")
+	// private Integer crmSourceType=0;//1是招商渠道 FollowStatus 区分 4017 渠道合作
+	//
 	@Column(name = "task_count", header = "商机数量：创建商机，删除商机时更新此值")
 	private Integer taskCount = 0;
-    
-    @Column(name="company_id",header="关联公司Id")
-    private Integer companyId;
-    
-	@Reference(foreignKey="companyId",header="关联公司：默认最后一次关联")
+
+	@Column(name = "company_id", header = "关联公司Id")
+	private Integer companyId;
+
+	@Reference(foreignKey = "companyId", header = "关联公司：默认最后一次关联")
 	private CompanyIntention company;
 
 	@Subs(foreignKey = "customerId", header = "客户商机", subType = NCustomerTask.class)
@@ -193,7 +192,7 @@ public class NCustomer extends Entity {
 
 	@Subs(foreignKey = "customerId", header = "流转日志", subType = NCustomerOperationLog.class)
 	private List<NCustomerOperationLog> changes;
-	
+
 	public Integer getTaskCount() {
 		return taskCount;
 	}
