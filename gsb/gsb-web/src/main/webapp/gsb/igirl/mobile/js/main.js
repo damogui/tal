@@ -5,6 +5,9 @@ $(function(){
 	if(window.location.href.indexOf("from=singlemessage#")!=-1){
 		hrefurl=hrefurl.replace("from=singlemessage#","").replace("main.html?","main.html#");
 	}
+	if(window.location.href.indexOf("from=singlemessage&isappinstalled=0#")!=-1){
+		hrefurl=hrefurl.replace("from=singlemessage&isappinstalled=0#","").replace("main.html?","main.html#");
+	}
 	function getHashParameter(key) {
 		var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)", "i");
 		var index=hrefurl.indexOf("?");
