@@ -151,7 +151,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             } else if (data == 1052) {
                 layer.msg('有笔退款或结转目前退款中，请审核通过后，再创建 ');
             } else {
-                layer.open({
+                layer.open({ 
                     type: 2,//1是字符串 2是内容
                     title: '申请退款',
                     fixed: false,
