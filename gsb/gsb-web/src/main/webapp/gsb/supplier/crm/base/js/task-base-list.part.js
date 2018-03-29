@@ -526,7 +526,7 @@ function getEmployeeOption(){
 }
 /**
  * 判断客户质量ABX需要提示
- * @param intenCategory
+ * @param intenCategory 
  * @returns {String}
  */
 function customerQuality(intenCategory){
