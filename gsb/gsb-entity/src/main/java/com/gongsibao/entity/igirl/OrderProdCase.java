@@ -1,7 +1,7 @@
 package com.gongsibao.entity.igirl;
 
 import com.gongsibao.entity.BaseEntity;
-import com.gongsibao.entity.igirl.dict.CaseType;
+import com.gongsibao.entity.igirl.tm.dict.CaseType;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 

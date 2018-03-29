@@ -3,6 +3,7 @@ package com.gongsibao.panda.platform.trade.workspace.audit;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.panda.supplier.order.workspace.audit.AuditRefundWorkspaceTest;
 
 /**   
@@ -20,7 +21,7 @@ public class RefundAuditWorkspaceTest extends AuditRefundWorkspaceTest {
 		super.setup();
 		urlList = "/trade/audit/refund/list";
 		resourceNodeCode = "GSB_Trade_Audit_Refund";
-		listFilter = "";
+		listFilter = "type_id=" + AuditLogType.Tdsq.getValue()+ " AND add_user_id='{userId}' ";
 	}
 	@Test
 	public void createRowToolbar() {

@@ -66,13 +66,16 @@ public class ResourceTest extends ResourceCreationBase {
 		{
 			this.createResourceNodeVoucher(AuditLog.class.getName(), "业绩审核", node1.getCode() + "_Performance", IAuditLogService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(AuditLog.class.getName(), "回款审核", node1.getCode() + "_Received", IAuditLogService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(Refund.class.getName(), "退款审核", node1.getCode() + "_Refund", IRefundService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(NOrderCarryover.class.getName(), "结转审核", node1.getCode() + "_Carryover", INOrderCarryoverService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(AuditLog.class.getName(), "回款业绩审核", node1.getCode() + "_ReceivedPer",
+                    IAuditLogService.class.getName(), node1.getId());
+
+            this.createResourceNodeVoucher(AuditLog.class.getName(), "退款审核", node1.getCode() + "_Refund", IAuditLogService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(AuditLog.class.getName(), "结转审核", node1.getCode() + "_Carryover", IAuditLogService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(AuditLog.class.getName(), "发票审核", node1.getCode() + "_Invoice", IAuditLogService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(AuditLog.class.getName(), "成本审核", node1.getCode() + "_Cost", IAuditLogService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(AuditLog.class.getName(), "合同审核", node1.getCode() + "_Contract", IAuditLogService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(AuditLog.class.getName(), "改价审核", node1.getCode() + "_Price_Change", IAuditLogService.class.getName(), node1.getId());
-			this.createResourceNodeVoucher(SoOrder.class.getName(), "分期审核", node1.getCode() + "_Staging", IOrderService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(AuditLog.class.getName(), "分期审核", node1.getCode() + "_Staging", IAuditLogService.class.getName(), node1.getId());
 
 			this.createResourceNodeVoucher(Contract.class.getName(), "合同审核界面", node1.getCode() + "_Form_Contract", IContractService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(Invoice.class.getName(), "发票审核界面", node1.getCode() + "_Form_Invoice", IInvoiceService.class.getName(), node1.getId());

@@ -21,8 +21,8 @@ import com.gongsibao.panda.auth.authorization.platform.presales.PlatformPreSales
 @RunWith(Suite.class)
 @SuiteClasses({
 
-        PlatformPreSalesServiceAuthTest.class,
-        PlatformPreSalesLeaderAuthTest.class,
+        PlatformPreSalesServiceAuthTest.class,//售前客服
+        PlatformPreSalesLeaderAuthTest.class,//售前经理
 
         PlatformFranchiseeAdminAuthTest.class,
         PlatformFranchiseeLeaderAuthTest.class,
@@ -34,15 +34,16 @@ import com.gongsibao.panda.auth.authorization.platform.presales.PlatformPreSales
 
         PlatformFinanceAdminAuditTest.class,
         PlatformFinanceLeaderAuditTest.class,
-        PlatformFinanceSalesmanAuditTest.class,
+        //PlatformFinanceSalesmanAuditTest.class,//对应的角色不存在
 
         PlatformOperationAdminAuditTest.class,
         PlatformOperationLeaderAuditTest.class,
         PlatformOperationLegalAuditTest.class,
-        PlatformLawFWZYAuthTest.class,//法务专员帐号
         PlatformFinanceSTKZYAuditTest.class,//收退款专员
-        PlatformFinanceFPZYAuditTest.class,//发票专员
+        PlatformLawFWZYAuthTest.class,//法务专员帐号
         PlatformFinanceHTCGZYAuditTest.class,//合同采购专员
+        PlatformFinanceFPZYAuditTest.class,//发票专员
+
 })
 public class PlatformAuthorizationAllTest {
 

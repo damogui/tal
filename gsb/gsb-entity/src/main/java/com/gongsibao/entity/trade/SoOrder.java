@@ -16,7 +16,7 @@ import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.crm.dic.Important;
-import com.gongsibao.entity.igirl.TradeMarkCase;
+import com.gongsibao.entity.igirl.tm.TradeMarkCase;
 import com.gongsibao.entity.product.ProductPackage;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;

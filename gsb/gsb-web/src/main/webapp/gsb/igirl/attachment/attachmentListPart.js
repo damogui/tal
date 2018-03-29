@@ -3,7 +3,7 @@ org.netsharp.core.attachmentListController = System.Object.Extends({
 	ctor: function() {
 		this.jServiceLocator = null;
 		this.service = "org.netsharp.attachment.AttachmentListPart";
-		this.service2 = "com.gongsibao.igirl.web.TradeMarkListPart";
+		this.service2 = "com.gongsibao.igirl.tm.web.TradeMarkListPart";
 		this.entityId = "";
 		this.foreignKey = 0;
 	},

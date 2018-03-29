@@ -11,14 +11,14 @@ public class PlatformFinanceHTCGZYAuditTest extends AuthBaseTest {
 
     @Before
     public void setup() {
-
-        super.setup ();
         roleCode = "Platform_Finance_HTCGZY";
+        super.setup ();
+
     }
 
     protected void getResourceCodeList() {
 //审核中心（合同审核）
-        this.resourceNodeCodeList.add ("Gsb_Supplier_Order_Audit_Contract");//合同审核
+        this.resourceNodeCodeList.add ("GSB_Trade_Audit_Form_Contract");//合同审核
 
 
     }

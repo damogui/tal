@@ -10,9 +10,9 @@ import javax.ws.rs.core.MediaType;
 import org.netsharp.communication.ServiceFactory;
 
 import com.gongsibao.api.util.ResponseResult;
-import com.gongsibao.entity.igirl.TradeMark;
-import com.gongsibao.igirl.base.ITradeMarkService;
-import com.gongsibao.igirl.dto.TradeMark.TradeMarkApplyInfo;
+import com.gongsibao.entity.igirl.tm.TradeMark;
+import com.gongsibao.igirl.tm.base.ITradeMarkService;
+import com.gongsibao.igirl.tm.dto.TradeMark.TradeMarkApplyInfo;
 
 @Path("/igirl")
 public class TmAutoSubmitController {

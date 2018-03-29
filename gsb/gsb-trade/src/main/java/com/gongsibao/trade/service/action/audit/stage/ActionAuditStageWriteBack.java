@@ -1,5 +1,6 @@
 package com.gongsibao.trade.service.action.audit.stage;
 
+import java.util.List;
 import java.util.Map;
 
 import org.netsharp.action.ActionContext;
@@ -12,15 +13,18 @@ import org.netsharp.util.sqlbuilder.UpdateBuilder;
 import com.gongsibao.bd.service.auditLog.AuditContext;
 import com.gongsibao.bd.service.auditLog.AuditState;
 import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.trade.NOrderStage;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.IAuditService;
+import com.gongsibao.trade.base.INOrderStageService;
 import com.gongsibao.u8.base.ISoOrderService;
 
 public class ActionAuditStageWriteBack implements IAction{
 	
 	IAuditService auditService = ServiceFactory.create(IAuditService.class);
 	ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
+	INOrderStageService stageService = ServiceFactory.create(INOrderStageService.class);
 	
 	@Override
 	public void execute(ActionContext ctx) {
@@ -58,11 +62,18 @@ public class ActionAuditStageWriteBack implements IAction{
 	 * @param state 审核状态
 	 */
 	private void writeBackOrder(Integer formId, AuditStatusType state){
-		//修改订单
+		//1.获取分期的总金额
+		Integer getAllStageAmount = 0;
+		List<NOrderStage> stageList = stageService.getStageListByOrderId(formId);
+		for (NOrderStage item : stageList) {
+			getAllStageAmount += item.getAmount();
+		}
+		//2.回写订单
         UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("so_order");
 			updateSql.set("installment_audit_status_id", state.getValue());
+			updateSql.set("paid_price", getAllStageAmount);
 			updateSql.where("pkid =" + formId);
 		}
 		String cmdText = updateSql.toSQL();

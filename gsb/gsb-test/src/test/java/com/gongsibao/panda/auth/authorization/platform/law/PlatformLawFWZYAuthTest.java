@@ -10,14 +10,14 @@ import org.junit.Before;
 public class PlatformLawFWZYAuthTest extends AuthBaseTest {
     @Before
     public void setup() {
-
-        super.setup();
         roleCode = "Platform_Law_FWZY";
+        super.setup();
+
     }
     protected void getResourceCodeList() {
 //        审核中心（合同审核、退款审核）
-        this.resourceNodeCodeList.add("Gsb_Supplier_Order_Audit_Contract");
-        this.resourceNodeCodeList.add("Gsb_Supplier_Order_Audit_Refund");
+        this.resourceNodeCodeList.add("GSB_Trade_Audit_Contract");
+        this.resourceNodeCodeList.add("GSB_Trade_Audit_Refund");
 
     }
 }

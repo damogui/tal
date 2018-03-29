@@ -20,4 +20,11 @@ public interface ISupplierDepartmentService  extends IPersistableService<Supplie
 	 * @return
 	 */
 	Integer getSupDepartmentId(Integer departmentId);
+
+    /**
+     * 获取顶级部门的id
+     * @param superId 供应商id
+     * @return
+     */
+    Integer getBegDepartmentId(Integer superId);
 }

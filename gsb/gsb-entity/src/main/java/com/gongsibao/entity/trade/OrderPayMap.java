@@ -18,6 +18,10 @@ public class OrderPayMap extends BaseEntity {
     @Column(name = "order_id", header = "订单序号")
     private Integer orderId;
 
+    @Exclusive
+    @Column(name = "order_no", header = "订单编号(不进入数据库只是传递使用)")
+    private String orderNo;
+
     @JsonIgnore
     @Reference(header = "订单", foreignKey = "orderId", primaryKey = "pkid")
     private SoOrder soOrder;
@@ -120,5 +124,14 @@ public class OrderPayMap extends BaseEntity {
 
     public void setMyOrderCutAmount(Integer myOrderCutAmount) {
         this.myOrderCutAmount = myOrderCutAmount;
+    }
+
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
     }
 }

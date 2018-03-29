@@ -1,6 +1,6 @@
-System.Declare("com.gongsibao.igirl.web");
+System.Declare("com.gongsibao.igirl.tm.web");
 var countinput=0;
-com.gongsibao.igirl.web.NclMapPart = org.netsharp.panda.commerce.FormPart.Extends( {
+com.gongsibao.igirl.tm.web.NclMapPart = org.netsharp.panda.commerce.FormPart.Extends( {
 
 	ctor : function () {
 		this.base();

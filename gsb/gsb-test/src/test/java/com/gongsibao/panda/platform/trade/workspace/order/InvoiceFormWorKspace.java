@@ -28,7 +28,7 @@ public class InvoiceFormWorKspace extends WorkspaceCreationBase {
         meta = MtableManager.getMtable(entity);
         resourceNodeCode = "Operation_Order_Invoice";
 
-        formJsImport = "/gsb/platform/trade/js/invoice-add-form.part.js|/panda-res/js/panda.form.js";
+        formJsImport = "/gsb/platform/trade/js/invoice-add-form.part.js|/gsb/platform/trade/js/audit-detail-part.js|/package/qiniu/plupload.full.min.js";
         formServiceController = InvoiceFormPart.class.getName();
         formJsController = InvoiceFormPart.class.getName();
         formToolbarPath = "";
@@ -63,10 +63,7 @@ public class InvoiceFormWorKspace extends WorkspaceCreationBase {
         {
             formField.setTroikaTrigger("controllerinvoice.changeInvoiceType(this);");  //增值税发票
         }
-        formField = addFormField(form, "amount", "发票金额", groupName, ControlTypes.DECIMAL_FEN_BOX, true, false);
-        {
-            formField.setTroikaTrigger("controllerinvoice.checkAmount(this);");  //验证发票金额
-        }
+        addFormField(form, "amount", "发票金额", groupName, ControlTypes.DECIMAL_FEN_BOX, true, false);
         formField = addFormField(form, "content", "发票内容", groupName, ControlTypes.TEXTAREA, true, false);
         {
             formField.setFullColumn(true);

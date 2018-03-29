@@ -2,10 +2,7 @@ package com.gongsibao.panda.platform.operation.workspace.supplier.data.setaccoun
 
 import com.gongsibao.crm.base.INCustomerTaskQualityService;
 import com.gongsibao.entity.crm.dic.TaskCustomerType;
-import com.gongsibao.entity.supplier.Salesman;
-import com.gongsibao.entity.supplier.SalesmanRole;
-import com.gongsibao.entity.supplier.Supplier;
-import com.gongsibao.entity.supplier.SupplierDepartment;
+import com.gongsibao.entity.supplier.*;
 import com.gongsibao.entity.supplier.dict.SupplierStatus;
 import com.gongsibao.entity.supplier.dict.SupplierType;
 import com.gongsibao.supplier.base.ISalesmanService;
@@ -29,7 +26,7 @@ import java.util.List;
 /**
  * Created by win on 2018/3/24.
  */
-/*1.预置2个服务商，开户、创建部门（2级）、业务员，法务专员帐号、财务帐号（收退款专员、发票专员）。
+/*1.预置2个服务商，开户、创建部门（创建一个部门）、业务员，法务专员帐号、财务帐号（收退款专员、发票专员）。
 2.通过测试用例，自动创建。
 3.每个帐号需对应上角色。
 4.完成后给出一个简单文档(excel)：主要是帐号信息。*/
@@ -122,24 +119,33 @@ public class AddSupplieAccountsTest {
     /*添加部门为供应商*/
     private void addDepartmentforSupplier(Supplier item, Integer num) {
         ISupplierDepartmentService departmnet = ServiceFactory.create (ISupplierDepartmentService.class);//供应商部门
-        List<SupplierDepartment> listDep = new ArrayList<> ();
-        SupplierDepartment dep1 = new SupplierDepartment ();
-        dep1.setEntityState (EntityState.New);
-        dep1.setName ("一级部门");
-        dep1.setSupplierId (item.getId ());
-        dep1.setCustomerType (TaskCustomerType.OLD);
-        dep1.setType (SupplierType.SELFSUPPORT);
 
+        Integer depFId = departmnet.getBegDepartmentId (item.getId ());//服务商创建的时候自动创建的部门
+//        List<SupplierDepartment> listDep = new ArrayList<> ();
+//        SupplierDepartment dep1 = new SupplierDepartment ();
+//        dep1.setEntityState (EntityState.New);
+//        dep1.setIsLeaf (false);
+//        dep1.setParentId (depFId);
+//        dep1.setName ("二级部门");
+//        dep1.setSupplierId (item.getId ());
+//        dep1.setCustomerType (TaskCustomerType.OLD);
+//        dep1.setType (SupplierType.SELFSUPPORT);
+//        SupplierDepartment  depSave1=departmnet.save (dep1);
         SupplierDepartment dep2 = new SupplierDepartment ();
         dep2.setEntityState (EntityState.New);
         dep2.setName ("二级部门");
+        dep2.setIsLeaf (true);
+        dep2.setParentId (depFId);
         dep2.setSupplierId (item.getId ());
         dep2.setCustomerType (TaskCustomerType.OLD);
         dep2.setType (SupplierType.SELFSUPPORT);
-        dep2.setParentId (dep1.getId ());
-        listDep.add (dep1);
-        listDep.add (dep2);
-        List<SupplierDepartment> saveDeps = departmnet.saves (listDep);
+//        dep2.setParentId (depSave1.getId ());
+
+        SupplierDepartment  depSave2=departmnet.save (dep2);
+
+        List<SupplierDepartment> saveDeps = new ArrayList<> ();
+        //saveDeps.add (depSave1);
+        saveDeps.add (depSave2);
         if (saveDeps != null && saveDeps.size () > 0) {
 
             AddSalesmanByDepartment (saveDeps.get (saveDeps.size () - 1), num);
@@ -168,12 +174,14 @@ public class AddSupplieAccountsTest {
 
         }
 
-        Salesman salesman1 = getSalesman (supplierDepartment, "Supplier_Order_Admin", tel + "1", "fs管理员");
-        Salesman salesman2 = getSalesman (supplierDepartment, "Supplier_Order_Leader", tel + "2", "fs部门主管");
-        Salesman salesman3 = getSalesman (supplierDepartment, "Supplier_Order_Salesman", tel + "3", "fs业务员");
+//        Salesman salesman1 = getSalesman (supplierDepartment, "Supplier_Order_Admin", tel + "1", String.format ("fs管理员%s",num));//自动初始化
+        // salesman1.setIsLeader (true);
+        Salesman salesman2 = getSalesman (supplierDepartment, "Supplier_Order_Leader", tel + "2", String.format ("fs部门主管%s", num));
+        salesman2.setIsLeader (true);
+        Salesman salesman3 = getSalesman (supplierDepartment, "Supplier_Order_Salesman", tel + "3", String.format ("fs业务员%s", num));
 
 
-        listSalesman.add (salesman1);
+        // listSalesman.add (salesman1);
         listSalesman.add (salesman2);
         listSalesman.add (salesman3);
         salesmanService.saves (listSalesman);
@@ -218,21 +226,25 @@ public class AddSupplieAccountsTest {
     /*添加供应商*/
     private List<Supplier> addSuppliers() {
         ISupplierService supplierService = ServiceFactory.create (ISupplierService.class);//供应商
+
+
         List<Supplier> suppliers = new ArrayList<> ();
 
         Supplier su1 = new Supplier ();
         su1.setName ("北京快无忧财务咨询有限公司");
-        su1.setContact ("王桂峰");
-        su1.setMobilePhone ("15010087928");//18576794946 1135
-        su1.setAdminId (1124);
+        su1.setContact ("fs管理员1");
+        su1.setMobilePhone ("16511585291");
+//        su1.setAdminId (1124);
         su1.setProvinceId (101110000);
         su1.setCityId (101110100);
         su1.setCountyId (101110101);
         su1.setType (SupplierType.SELFSUPPORT);
-        su1.setStatus (SupplierStatus.OPEND);
+        //su1.setStatus (SupplierStatus.OPEND);
+        List<SupplierFunctionModule> listFunc = getInitListFuncModule (su1);
+        su1.setModules (listFunc);
         su1.toNew ();
 
-        Oql oql = new Oql (Supplier.class.getName (), "id", "admin_id=" + 1124, new QueryParameters ());
+        Oql oql = new Oql (Supplier.class.getName (), "id", "mobile_phone='16511585291'", new QueryParameters ());
 
         List<Supplier> superQuers = supplierService.queryList (oql);
 
@@ -242,17 +254,19 @@ public class AddSupplieAccountsTest {
         }
 
         Supplier su2 = new Supplier ();
-        su2.setName ("北京快无忧财务咨询有限公司");
-        su2.setContact ("王桂峰");
-        su2.setMobilePhone ("18576794946");// 1135
-        su2.setAdminId (1135);
+        su2.setName ("北京快无忧2财务咨询有限公司");
+        su2.setContact ("fs管理员2");
+        su2.setMobilePhone ("17511585291");// 1135
+        //su2.setAdminId (1135);
         su2.setProvinceId (101110000);
         su2.setCityId (101110100);
         su2.setCountyId (101110101);
         su2.setType (SupplierType.SELFSUPPORT);
-        su2.setStatus (SupplierStatus.OPEND);
+        //su2.setStatus (SupplierStatus.OPEND);
+        listFunc = getInitListFuncModule (su2);
+        su2.setModules (listFunc);
         su2.toNew ();//如果存在则不操作
-        oql.setFilter ("admin_id=" + 1135);
+        oql.setFilter ("admin_id='17511585291'");
         List<Supplier> superQuers2 = supplierService.queryList (oql);
 
         if (superQuers2.size () == 0) {
@@ -262,9 +276,34 @@ public class AddSupplieAccountsTest {
 
         List<Supplier> saveSuppliers = supplierService.saves (suppliers);
 
+        for (Supplier item : saveSuppliers
+                ) {
+            supplierService.openAccount (item.getId ());//开户自动回写adminid等操作
+
+        }
+
+
         return saveSuppliers;
 
     }
 
+    /*获取预置的服务商角色模块*/
+    public List<SupplierFunctionModule> getInitListFuncModule(Supplier su1) {
 
+        List<SupplierFunctionModule> list = new ArrayList<> ();
+        SupplierFunctionModule suf1 = new SupplierFunctionModule ();
+        // suf.setFunctionModuleId (1);
+        suf1.setFunctionModuleId (2);
+        suf1.setSupplierId (su1.getId ());
+        suf1.toNew ();
+        SupplierFunctionModule suf2 = new SupplierFunctionModule ();
+        // suf.setFunctionModuleId (1);
+        suf2.setFunctionModuleId (2);
+        suf2.setSupplierId (suf2.getId ());
+        suf2.toNew ();
+        list.add (suf1);
+        list.add (suf2);
+
+        return list;
+    }
 }

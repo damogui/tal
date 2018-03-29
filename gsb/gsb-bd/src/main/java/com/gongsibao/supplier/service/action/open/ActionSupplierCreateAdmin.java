@@ -109,6 +109,7 @@ public class ActionSupplierCreateAdmin implements IAction {
 			salesman.setDepartmentId(department.getId());
 			salesman.setSupplierId(department.getSupplierId());
 			salesman.setEmployeeId(employee.getId());
+            salesman.setIsLeader (true);//设置为leader
 		}
 
 		IPersister<Salesman> pm = PersisterFactory.create();// 因为重写了，所以调用父类

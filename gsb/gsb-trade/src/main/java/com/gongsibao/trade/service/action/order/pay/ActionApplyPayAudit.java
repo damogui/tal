@@ -11,7 +11,7 @@ import com.gongsibao.bd.service.auditLog.PayAudit;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.Pay;
 
-/*创建回款业绩审核*/
+/*创建回款审核*/
 public class ActionApplyPayAudit implements IAction {
 
 	@Override

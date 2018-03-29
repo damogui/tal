@@ -14,7 +14,7 @@ import com.gongsibao.trade.service.action.order.pay.ActionApplyPayWriteBack;
 
 /**   
  * @ClassName:  PayPerformanceActionTest   
- * @Description:TODO 回款业绩
+ * @Description:TODO 回款
  * @author: 郭佳
  * @date:   2018年3月12日 下午5:02:48   
  *     

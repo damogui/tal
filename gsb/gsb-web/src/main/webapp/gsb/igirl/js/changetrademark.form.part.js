@@ -1,5 +1,5 @@
-System.Declare("com.gongsibao.igirl.web");
-com.gongsibao.igirl.web.ChangeTradeMarkPart = org.netsharp.panda.commerce.FormPart.Extends( {
+System.Declare("com.gongsibao.igirl.tm.web");
+com.gongsibao.igirl.tm.web.ChangeTradeMarkPart = org.netsharp.panda.commerce.FormPart.Extends( {
     ctor: function () {
         $("#certFileENPath").parent().parent().hide();
         $("#certificateType").parent().parent().hide();

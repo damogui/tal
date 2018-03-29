@@ -106,6 +106,7 @@ com.gongsibao.trade.web.OrderPayCtrl = org.netsharp.panda.core.CustomCtrl.Extend
 		}
 		
 		var relevanceRows = this.relevancePerformanceCtrl.getRows();
+        
 		if(relevanceRows.length==0){
 			
 			layer.msg('请创建【关联订单】！');
@@ -120,6 +121,7 @@ com.gongsibao.trade.web.OrderPayCtrl = org.netsharp.panda.core.CustomCtrl.Extend
 		$(relevanceRows).each(function(i,item){
 			
 			allotTotalAmount+=item.orderPrice;
+            item.orderNo=item.soOrder.no;
 		});
 		
 		if(allotTotalAmount != payAmount){
@@ -162,7 +164,7 @@ com.gongsibao.trade.web.PayVoucherDetailCtrl = org.netsharp.panda.core.CustomCtr
     },
 	initGrid:function(){
 	    
-		var data = [{name:'1.png',url:'http://gsb-public.oss-cn-beijing.aliyuncs.com/netsharp_BrPabywwYSdk7pw2PJiahxrAYpfQehFR.png'}];
+		var data =[]; //[{name:'1.png',url:'http://gsb-public.oss-cn-beijing.aliyuncs.com/netsharp_BrPabywwYSdk7pw2PJiahxrAYpfQehFR.png'}];
 		
 		var me = this;
 		$(this.$gridId).datagrid({

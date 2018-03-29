@@ -7,8 +7,8 @@ import com.gongsibao.panda.auth.authorization.AuthBaseTest;
 public class PlatformFranchiseeAdminAuthTest extends AuthBaseTest{
 	@Before
 	public void setup() {
-
+        roleCode = "Platform_Franchisee_Admin";
 		super.setup();
-		roleCode = "Platform_Franchisee_Admin";
+
 	}
 }

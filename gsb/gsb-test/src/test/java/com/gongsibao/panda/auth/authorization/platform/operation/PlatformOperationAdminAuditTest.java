@@ -7,8 +7,8 @@ import com.gongsibao.panda.auth.authorization.AuthBaseTest;
 public class PlatformOperationAdminAuditTest extends AuthBaseTest{
 	@Before
 	public void setup() {
-
+        roleCode = "Platform_Operation_Admin";
 		super.setup();
-		roleCode = "Platform_Operation_Admin";
+
 	}
 }

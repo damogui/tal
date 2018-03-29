@@ -22,8 +22,8 @@ import com.gongsibao.panda.platform.operation.workspace.crm.form.CustomerEditWor
 import com.gongsibao.panda.platform.operation.workspace.crm.form.TaskAddWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.form.TaskEditWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.form.TaskFollowFormWorkspaceTest;
-import com.gongsibao.panda.platform.operation.workspace.igirl.TradeMarkCaseAllWorkspaceTest;
-import com.gongsibao.panda.platform.operation.workspace.igirl.TradeMarkFollowWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.igirl.tm.TradeMarkCaseAllWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.igirl.tm.TradeMarkFollowWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.reference.QualityRefeerenceTest;
 import com.gongsibao.panda.platform.operation.workspace.reference.SupplierCategoryRefeerenceTest;
 import com.gongsibao.panda.platform.operation.workspace.reference.SupplierDepartmentReferenceTest;
@@ -46,18 +46,7 @@ import com.gongsibao.panda.platform.operation.workspace.taurus.UserConsumptionWo
 import com.gongsibao.panda.platform.operation.workspace.taurus.UserWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.wanda.WanDaProductWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.CarryoverWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.ContractWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.InvoiceWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.OrderALLWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.OrderPoolWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.PerformanceWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.ReceivedWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.RefundWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.ReportDayWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.ReportMonthWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.ReportWeekWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.StagingWorkspaceTest;
+
 @RunWith(Suite.class)
 @SuiteClasses({
 
