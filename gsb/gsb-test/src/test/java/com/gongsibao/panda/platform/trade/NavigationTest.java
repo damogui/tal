@@ -61,6 +61,7 @@ public class NavigationTest extends NavigationBase {
 		{
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Performance", "业绩审核", "/trade/audit/performance/list", 1);
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Received", "回款审核", "/trade/audit/pay/list", 2);
+
             createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_ReceivedPer", "回款业绩审核",
                     "/trade/audit/received/list", 3);
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Refund", "退款审核",
