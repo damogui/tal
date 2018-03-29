@@ -16,6 +16,7 @@ import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.NOrderStage;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
+import com.gongsibao.entity.trade.dic.OrderPayStatusType;
 import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.trade.base.INOrderStageService;
 import com.gongsibao.u8.base.ISoOrderService;
@@ -62,18 +63,13 @@ public class ActionAuditStageWriteBack implements IAction{
 	 * @param state 审核状态
 	 */
 	private void writeBackOrder(Integer formId, AuditStatusType state){
-		//1.获取分期的总金额
-		Integer getAllStageAmount = 0;
-		List<NOrderStage> stageList = stageService.getStageListByOrderId(formId);
-		for (NOrderStage item : stageList) {
-			getAllStageAmount += item.getAmount();
-		}
-		//2.回写订单
+		
+		//1.回写订单：分期审核状态、是否分期
         UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("so_order");
 			updateSql.set("installment_audit_status_id", state.getValue());
-			updateSql.set("paid_price", getAllStageAmount);
+			updateSql.set("is_installment", true);
 			updateSql.where("pkid =" + formId);
 		}
 		String cmdText = updateSql.toSQL();
