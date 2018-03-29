@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Created by win on 2018/3/24.
  */
-/*1.预置2个服务商，开户、创建部门（2级）、业务员，法务专员帐号、财务帐号（收退款专员、发票专员）。
+/*1.预置2个服务商，开户、创建部门（创建一个部门）、业务员，法务专员帐号、财务帐号（收退款专员、发票专员）。
 2.通过测试用例，自动创建。
 3.每个帐号需对应上角色。
 4.完成后给出一个简单文档(excel)：主要是帐号信息。*/
@@ -122,20 +122,20 @@ public class AddSupplieAccountsTest {
 
         Integer depFId = departmnet.getBegDepartmentId (item.getId ());//服务商创建的时候自动创建的部门
 //        List<SupplierDepartment> listDep = new ArrayList<> ();
-        SupplierDepartment dep1 = new SupplierDepartment ();
-        dep1.setEntityState (EntityState.New);
-        dep1.setIsLeaf (false);
-        dep1.setParentId (depFId);
-        dep1.setName ("二级部门");
-        dep1.setSupplierId (item.getId ());
-        dep1.setCustomerType (TaskCustomerType.OLD);
-        dep1.setType (SupplierType.SELFSUPPORT);
-        SupplierDepartment  depSave1=departmnet.save (dep1);
+//        SupplierDepartment dep1 = new SupplierDepartment ();
+//        dep1.setEntityState (EntityState.New);
+//        dep1.setIsLeaf (false);
+//        dep1.setParentId (depFId);
+//        dep1.setName ("二级部门");
+//        dep1.setSupplierId (item.getId ());
+//        dep1.setCustomerType (TaskCustomerType.OLD);
+//        dep1.setType (SupplierType.SELFSUPPORT);
+//        SupplierDepartment  depSave1=departmnet.save (dep1);
         SupplierDepartment dep2 = new SupplierDepartment ();
         dep2.setEntityState (EntityState.New);
-        dep2.setName ("三级部门");
+        dep2.setName ("二级部门");
         dep2.setIsLeaf (true);
-        dep2.setParentId (depSave1.getId ());
+        dep2.setParentId (depFId);
         dep2.setSupplierId (item.getId ());
         dep2.setCustomerType (TaskCustomerType.OLD);
         dep2.setType (SupplierType.SELFSUPPORT);
@@ -144,7 +144,7 @@ public class AddSupplieAccountsTest {
         SupplierDepartment  depSave2=departmnet.save (dep2);
 
         List<SupplierDepartment> saveDeps = new ArrayList<> ();
-        saveDeps.add (depSave1);
+        //saveDeps.add (depSave1);
         saveDeps.add (depSave2);
         if (saveDeps != null && saveDeps.size () > 0) {
 
