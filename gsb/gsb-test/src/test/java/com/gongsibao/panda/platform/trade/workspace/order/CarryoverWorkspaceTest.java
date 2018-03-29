@@ -4,6 +4,7 @@ import org.junit.Before;
 
 import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderCarryoverWorkspaceTest;
 
+/*结转订单*/
 public class CarryoverWorkspaceTest extends SalesmanOrderCarryoverWorkspaceTest {
 
     @Before

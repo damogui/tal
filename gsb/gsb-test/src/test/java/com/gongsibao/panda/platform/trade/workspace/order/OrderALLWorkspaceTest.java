@@ -15,6 +15,7 @@ import com.gongsibao.trade.web.OrderAllListPart;
 /**
  * Created by zhangchao on 2018/3/9.
  */
+/*全部订单*/
 public class OrderALLWorkspaceTest extends SalesmanOrderAllWorkspaceTest {
 
 	private String listrowToolbarPath = "/operation/roworderall/toolbar";
