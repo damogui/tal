@@ -110,7 +110,10 @@ public class AllOrderWorkspaceTest extends WorkspaceCreationBase{
 //			column.setFormatter("return value==0?'否':'是'");
 //		}
 		addColumn(datagrid, "accountName", "客户名称", ControlTypes.TEXT_BOX, 100);
-		column = addColumn(datagrid, "accountMobile", "手机号", ControlTypes.TEXT_BOX, 90);
+		column = addColumn(datagrid, "accountMobile", "手机号", ControlTypes.TEXT_BOX, 90);{
+			
+			column.setFormatter("return PandaHelper.dimString(value);");
+		}
 		//column = addColumn(datagrid, "platformSourceDict.name", "订单来源", ControlTypes.NUMBER_BOX, 90);
 		addColumn(datagrid, "payTime", "支付时间", ControlTypes.DATE_BOX, 130);
 		//addColumn(datagrid, "addTime", "创建时间", ControlTypes.DATE_BOX, 130);
