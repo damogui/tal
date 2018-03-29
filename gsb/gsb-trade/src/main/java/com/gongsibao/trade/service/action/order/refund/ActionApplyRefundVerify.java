@@ -28,7 +28,7 @@ public class ActionApplyRefundVerify  implements IAction{
 		Integer allAmount = refundAmount.intValue() + carryAmount.intValue(); 
 		//1.验证退款总金额是否超出
 		if(allAmount > paidAmount){
-			throw new BusinessException("退款金额不应大于应付的金额！");
+			throw new BusinessException("该订单无可退款金额，请知悉");
 		}
 		//2.验证退款类型
 		switch (refund.getRefundType().getValue()) {
