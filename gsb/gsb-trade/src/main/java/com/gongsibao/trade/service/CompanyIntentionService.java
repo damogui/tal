@@ -1,12 +1,15 @@
 package com.gongsibao.trade.service;
 
+import java.sql.Types;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.gongsibao.entity.trade.SoOrder;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.core.DataTable;
+import org.netsharp.core.Oql;
 import org.netsharp.core.Row;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.StringManager;
@@ -49,5 +52,18 @@ public class CompanyIntentionService extends PersistableService<CompanyIntention
 		}
 
 		return resMap;
+	}
+
+	@Override
+	public CompanyIntention byCompanyName(String companyName) {
+		Oql oql = new Oql ();
+		{
+			oql.setType (this.type);
+			oql.setSelects ("*");
+			oql.setFilter ("companyName = ? ");
+			oql.getParameters().add("companyName", companyName, Types.VARCHAR);
+		}
+		CompanyIntention entity = super.queryFirst (oql);
+		return entity;
 	}
 }

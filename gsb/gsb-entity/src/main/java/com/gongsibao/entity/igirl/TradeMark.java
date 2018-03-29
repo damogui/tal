@@ -264,7 +264,7 @@ public class TradeMark extends Entity {
 	}
 
 	public BigDecimal getCost() {
-		return cost;
+		return null == cost ? new BigDecimal(0) : cost;
 	}
 
 	public void setCost(BigDecimal cost) {
@@ -272,7 +272,7 @@ public class TradeMark extends Entity {
 	}
 
 	public BigDecimal getCharge() {
-		return charge;
+		return null == charge ? new BigDecimal(0) : charge;
 	}
 
 	public void setCharge(BigDecimal charge) {

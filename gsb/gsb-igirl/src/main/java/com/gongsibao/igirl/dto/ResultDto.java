@@ -1,8 +1,9 @@
 package com.gongsibao.igirl.dto;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.netsharp.entity.Entity;
+
+import java.util.ArrayList;
+import java.util.List;
 public class ResultDto<T> {
 	//0 ok -1 fail
 	private int status;
