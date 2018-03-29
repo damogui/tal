@@ -59,7 +59,7 @@ public class ComprehenStatisticalWorkspaceTest extends WorkspaceCreationBase{
 		column = addColumn(datagrid, "allocationTaskCount", "分配商机数", ControlTypes.NUMBER_BOX, 100);
 		column = addColumn(datagrid, "intoTaskCount", "转入商机数", ControlTypes.NUMBER_BOX, 100);
 		column = addColumn(datagrid, "rollOutTaskCount", "转出商机数", ControlTypes.NUMBER_BOX, 100);
-		column = addColumn(datagrid, "returnTaskCount", "退回商机数", ControlTypes.NUMBER_BOX, 100);
+		column = addColumn(datagrid, "returnTaskCount", "释放商机数", ControlTypes.NUMBER_BOX, 100);
 		column = addColumn(datagrid, "withdrawTaskCount", "收回商机数", ControlTypes.NUMBER_BOX, 100);
 		column = addColumn(datagrid, "followTaskCount", "跟进商机数", ControlTypes.NUMBER_BOX, 100);
 		column = addColumn(datagrid, "unSignTaskCount", "无法签单商机数", ControlTypes.NUMBER_BOX, 100);

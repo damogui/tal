@@ -71,7 +71,7 @@ public class SalesmanAllTaskWorkspaceTest extends TaskALLWorkspaceTest {
 			toolbar.setResourceNode(node);
 		}
 		addToolbarItem(toolbar, "follow", "跟进", "fa fa-edit", "follow()", null, 6);
-		addToolbarItem(toolbar, "rollback", "退回", "fa fa-edit", "rollback()", null, 7);
+		addToolbarItem(toolbar, "rollback", "释放", "fa fa-edit", "rollback()", null, 7);
 		return toolbar;
 	}
 

@@ -160,7 +160,7 @@ com.gongsibao.trade.web.SoCreatOrderPerformanceFormPart = org.netsharp.panda.com
                 width:300,
                 className:''}
             ],
-            explain:'商机将会退回至【公海】，进行【二次分配】',
+            explain:'商机将会释放至【公海】，进行【二次分配】',
             notice:'',
             callback:function(index, layero){
                 var getNote = $("#txtNote").val();
@@ -173,7 +173,7 @@ com.gongsibao.trade.web.SoCreatOrderPerformanceFormPart = org.netsharp.panda.com
         });
     },
     rollback : function(id){
-        //商机退回
+        //商机释放
         var me = this;
         //这里先要取消所有行，再选中1行
         $("#" + this.context.id).datagrid('unselectAll');
@@ -186,7 +186,7 @@ com.gongsibao.trade.web.SoCreatOrderPerformanceFormPart = org.netsharp.panda.com
     doRollBack : function(id,intenCategory) {
         var me = this;
         PandaHelper.openDynamicForm({
-            title:'退回商机',
+            title:'释放商机',
             width:500,
             height:400,
             items:[{id:'txtNote',
@@ -196,7 +196,7 @@ com.gongsibao.trade.web.SoCreatOrderPerformanceFormPart = org.netsharp.panda.com
                 width:300,
                 className:''}
             ],
-            explain:'商机将会退回至【公海】，进行【二次分配】',
+            explain:'商机将会释放至【公海】，进行【二次分配】',
             notice:customerQuality(intenCategory),
             callback:function(index, layero){
                 var getNote = $("#txtNote").val();
@@ -488,7 +488,7 @@ function getEmployeeOption(){
 function customerQuality(intenCategory){
 
     if(intenCategory.indexOf("A") > -1 || intenCategory.indexOf("B") > -1 || intenCategory.indexOf("X") > -1){
-        return '提示：请慎用！执行退回后该商机将不会再分配给你，如果只是需要将商机转给同事或者下属，请使用【商机转移】功能！';
+        return '提示：请慎用！执行释放后该商机将不会再分配给你，如果只是需要将商机转给同事或者下属，请使用【商机转移】功能！';
     }
 }
 
