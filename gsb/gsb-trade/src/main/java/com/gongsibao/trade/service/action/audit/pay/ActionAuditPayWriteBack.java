@@ -6,53 +6,54 @@ import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.Contract;
 import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
-import com.gongsibao.trade.base.IAuditService;
-import com.gongsibao.trade.base.IContractService;
-import com.gongsibao.trade.base.IPayService;
+import com.gongsibao.trade.base.*;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
+import org.netsharp.core.annotations.Transaction;
 
 import java.util.Map;
 
-public class ActionAuditPayWriteBack implements IAction{
+public class ActionAuditPayWriteBack implements IAction {
 
-    IAuditService auditService = ServiceFactory.create(IAuditService.class);
+    IAuditService auditService = ServiceFactory.create (IAuditService.class);
 
-    IPayService payService = ServiceFactory.create(IPayService.class);
-
+    IPayService payService = ServiceFactory.create (IPayService.class);
+    IOrderPayMapService orderPayMapService = ServiceFactory.create (IOrderPayMapService.class);//回写使用
     @Override
     public void execute(ActionContext ctx) {
 
-        AuditContext auditContext = (AuditContext) ctx.getItem();
+        AuditContext auditContext = (AuditContext) ctx.getItem ();
 
-        Map<String, Object> objectMap = ctx.getStatus();
+        Map<String, Object> objectMap = ctx.getStatus ();
         //本次审核通过或驳回
-        AuditState state = auditContext.getState();
+        AuditState state = auditContext.getState ();
         //审核意见
-        String remark = auditContext.getremark();
-        AuditLog auditLog = (AuditLog) objectMap.get("auditLog");
-        Pay pay = (Pay) objectMap.get("pay");
+        String remark = auditContext.getremark ();
+        AuditLog auditLog = (AuditLog) objectMap.get ("auditLog");
+        Pay pay = (Pay) objectMap.get ("pay");
         //审核
-        audit(state, auditLog, pay, remark);
+        audit (state, auditLog, pay, remark);
 
         //TODO:获取需要通知审核的审核人id
 
     }
 
+    @Transaction
     private void audit(AuditState state, AuditLog auditLog, Pay pay, String remark) {
-        switch (state.getValue()) {
+        switch (state.getValue ()) {
             case 0://驳回审核
-                auditService.auditRejected(auditLog.getId(), remark);
+                auditService.auditRejected (auditLog.getId (), remark);
 
-                payService.updateStatus(pay.getId(), AuditStatusType.Bhsh);
+                payService.updateStatus (pay.getId (), AuditStatusType.Bhsh);
                 break;
             case 1://通过审核
-                auditService.auditApproved(auditLog.getId(),remark);
+                auditService.auditApproved (auditLog.getId (), remark);
                 //当最后级别审核通过时，修改合同实体审核状态为审核通过
-                if (auditLog.getLevel().equals(auditLog.getMaxLevel())) {
-                    payService.updateStatus(pay.getId(), AuditStatusType.Shtg);
+                if (auditLog.getLevel ().equals (auditLog.getMaxLevel ())) {
+                    payService.updateStatus (pay.getId (), AuditStatusType.Shtg);
+                    orderPayMapService.updateByPayId(pay.getId ());//回写支付的状态
                 }
                 break;
         }

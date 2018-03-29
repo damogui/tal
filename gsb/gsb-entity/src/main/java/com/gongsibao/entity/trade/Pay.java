@@ -62,7 +62,7 @@ public class Pay extends BaseEntity {
 	private String offlineRemark = "";
 
 	@Column(name = "offline_audit_status_id", header = "审核状态")
-	private AuditStatusType offlineAuditStatus = AuditStatusType.wu;
+	private AuditStatusType offlineAuditStatus = AuditStatusType.Dsh;
 
 	@Column(name = "offline_add_user_id", header = "线下创建人")
 	private Integer offlineAddUserId = 0;

@@ -14,6 +14,7 @@ import com.gongsibao.trade.base.IPayService;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.annotations.Transaction;
 
 import java.util.Map;
 
@@ -42,7 +43,7 @@ public class ActionAuditPerformanceWriteBack implements IAction{
         //TODO:获取需要通知审核的审核人id
 
     }
-
+    @Transaction
     private void audit(AuditState state, AuditLog auditLog, SoOrder  order, String remark) {
         switch (state.getValue()) {
             case 0://驳回审核
