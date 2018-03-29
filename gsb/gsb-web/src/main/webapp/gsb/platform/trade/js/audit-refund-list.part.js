@@ -6,6 +6,7 @@ com.gongsibao.trade.web.AuditRefundListPart = org.netsharp.panda.commerce.ListPa
         this.addRefundUrl = '/nav/gsb/platform/trade/auditRefund';//创建退款jsp
     },
     auditRefund: function (id) {//订单审核-退款审核
+    	var me = this;
     	var row = this.getSelectedItem();
     	var fefundId = row.formId; 
     	var orderId = row.fefund_orderId;
@@ -28,10 +29,14 @@ com.gongsibao.trade.web.AuditRefundListPart = org.netsharp.panda.commerce.ListPa
             content: contentUrl,
             btn: ['审核通过', '审核不通过'],// 可以无限个按钮
             btn1: function (index, layero) {
-                document.getElementById('auditRefundIframe').firstElementChild.contentWindow.auditRefundCtrl.approved();
+                document.getElementById('auditRefundIframe').firstElementChild.contentWindow.auditRefundCtrl.approved(function(){
+                	me.reload();
+                });
             },
             btn2: function (index, layero){
-            	document.getElementById('auditRefundIframe').firstElementChild.contentWindow.auditRefundCtrl.rejected();
+            	document.getElementById('auditRefundIframe').firstElementChild.contentWindow.auditRefundCtrl.rejected(function(){
+            		me.reload();
+            	});
             	return false;
             }
         });
