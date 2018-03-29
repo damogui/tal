@@ -29,7 +29,7 @@ public class ActionApplyCarryoverVerify  implements IAction{
 		Integer allAmount = carryAllAmount.intValue() + refundPrice.intValue(); 
 		//1.验证结转总金额是否超出
 		if(allAmount > paidAmount){
-			throw new BusinessException("结转金额不应大于应付的金额！");
+			throw new BusinessException("该订单无可结转金额，请知悉");
 		}
 		//2.去向订单号是否存在
 		SoOrder toOrder = orderService.getByOrderNo(carryOver.getToOrderNo());

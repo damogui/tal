@@ -26,4 +26,8 @@ public class TaskUnstartWorkspaceTest extends TaskOpenSeaWorkspaceTest {
         listFilter = " foolow_status = " + CustomerFollowStatus.UNSTART.getValue() + " ";//未启动
     }
 
+	public PToolbar createRowToolbar() {
+		
+		return null;
+	}
 }

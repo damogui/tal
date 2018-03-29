@@ -249,6 +249,14 @@ com.gongsibao.trade.web.OrderProdItemDetailPart = org.netsharp.panda.commerce.De
         	});
         	return str;
     	}
+    },
+    operationFormatter:function(value,row,index){
+    	
+    	return  '<a class="grid-btn" href="javascript:controllerproducts.remove('+index+');">删除</a>';
+    },
+    remove:function(index){
+    	
+		$('#datagridproducts').datagrid('deleteRow',index);
     }
 });
 

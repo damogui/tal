@@ -28,7 +28,7 @@ com.gongsibao.trade.web.OrderCarryoverCtrl = org.netsharp.panda.core.CustomCtrl.
     	var getFinals = paidPrice - refundPrice - carryAmount;
     	if((getFinals - newValue) < 0){
     		$('#amount').numberbox('clear');
-    		layer.msg('结转金额不应大于应付的金额！');
+    		layer.msg('结转金额大于订单可结转金额，请核实');
     	}
     },
     toOrderNoBlur:function(){
