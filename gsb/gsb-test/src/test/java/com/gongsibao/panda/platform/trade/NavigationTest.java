@@ -60,14 +60,23 @@ public class NavigationTest extends NavigationBase {
 		createPTreeNode(tree, null, "fa fa-check-square-o fa-fw", parentNodeCode, "审核中心", "", 3);
 		{
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Performance", "业绩审核", "/trade/audit/performance/list", 1);
-			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Received", "回款审核", "/trade/audit/received/list", 2);
-			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Refund", "退款审核", "/trade/audit/refund/list", 3);
-			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Carryover", "结转审核", "/trade/audit/carryover/list", 4);
-			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Invoice", "发票审核", "/trade/audit/invoice/list", 5);	
-			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Cost", "成本审核", "/trade/audit/cost/list", 6);		
-			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Contract", "合同审核", "/trade/audit/contract/list", 7);		
-			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Price_Change", "改价审核", "/trade/audit/change/list", 8);		
-			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Staging", "分期审核", "/trade/audit/staging/list", 9);
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Received", "回款审核", "/trade/audit/pay/list", 2);
+            createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_ReceivedPer", "回款业绩审核",
+                    "/trade/audit/received/list", 3);
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Refund", "退款审核",
+                    "/trade/audit/refund/list", 4);
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Carryover", "结转审核",
+                    "/trade/audit/carryover/list", 5);
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Invoice", "发票审核",
+                    "/trade/audit/invoice/list", 6);
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Cost", "成本审核", "/trade/audit/cost/list",
+                    7);
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Contract", "合同审核",
+                    "/trade/audit/contract/list", 8);
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Price_Change", "改价审核",
+                    "/trade/audit/change/list", 9);
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Staging", "分期审核",
+                    "/trade/audit/staging/list", 10);
 		}
 
 		/*parentNodeCode = ResourceTest.resourcePrefix + "_Cost";
