@@ -22,7 +22,7 @@ public class PayAudit extends AbstractAuditLogService {
         //财务_收退款专员
         List<Integer> stkzyIds = salesmanService.getEmployeeIdListByRoleCodes(Arrays.asList("Platform_Finance_STKZY"));
         for (Integer stkzyId : stkzyIds) {
-            addAuditLog(formId, "收退款专员审核", stkzyId, level);
+            auditLogList.add(addAuditLog(formId, "收退款专员审核", stkzyId, level));
         }
         return auditLogList;
     }
