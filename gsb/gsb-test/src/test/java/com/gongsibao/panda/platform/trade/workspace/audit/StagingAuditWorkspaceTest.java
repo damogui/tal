@@ -3,6 +3,7 @@ package com.gongsibao.panda.platform.trade.workspace.audit;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.panda.supplier.order.workspace.audit.AuditStagingWorkspaceTest;
 
 /**   
@@ -20,7 +21,7 @@ public class StagingAuditWorkspaceTest extends AuditStagingWorkspaceTest {
 		super.setup();
 		urlList = "/trade/audit/staging/list";
 		resourceNodeCode = "GSB_Trade_Audit_Staging";
-		listFilter = "";
+		listFilter = "type_id=" + AuditLogType.Fqsq.getValue()+ " AND add_user_id='{userId}' ";
 	}
 	
     @Test
