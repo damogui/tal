@@ -60,11 +60,11 @@ public class SalesmanOrderContractWorkspaceTest extends WorkspaceCreationBase {
         	column.setAlign(DatagridAlign.RIGHT);
         }
         
-        column = addColumn(datagrid, "dataFee", "材料撰写费", ControlTypes.TEXT_BOX, 100);{
+        column = addColumn(datagrid, "dataFee", "材料撰写费", ControlTypes.DECIMAL_FEN_BOX, 100);{
         	column.setAlign(DatagridAlign.RIGHT);
         }
 
-        column = addColumn(datagrid, "liquidatedDamages", "违约金", ControlTypes.TEXT_BOX, 100);{
+        column = addColumn(datagrid, "liquidatedDamages", "违约金", ControlTypes.DECIMAL_FEN_BOX, 100);{
         	column.setAlign(DatagridAlign.RIGHT);
         }
         addColumn(datagrid, "creator", "合同创建人", ControlTypes.TEXT_BOX, 100);
