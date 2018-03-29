@@ -81,9 +81,15 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 			formField.setTroikaTrigger("controllernCustomerTask.allocationDispositonChange(newValue,oldValue);");
 		}
 
-		addFormField(form, "sourceOther", "其它来源", groupName, ControlTypes.TEXT_BOX, false, true);
+		formField = addFormField(form, "sourceOther", "其它来源", groupName, ControlTypes.TEXT_BOX, false, true);{
+			
+			formField.setTroikaValidation("['maxLength[50]']");
+		}
 
-		addFormField(form, "consultWayOther", "其它咨询途径", groupName, ControlTypes.TEXT_BOX, false, true);
+		formField = addFormField(form, "consultWayOther", "其它咨询途径", groupName, ControlTypes.TEXT_BOX, false, true);{
+			
+			formField.setTroikaValidation("['maxLength[50]']");
+		}
 
 		formField = addFormField(form, "allocationType", "分配方式", groupName, ControlTypes.ENUM_BOX, true, false);{
 			
@@ -111,10 +117,12 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 		formField = addFormField(form, "remark", "售前备注", groupName, ControlTypes.TEXTAREA, true, false);{
 			formField.setHeight(50);
 			formField.setFullColumn(false);
+			formField.setTroikaValidation("[\'maxLength[500]\']");
 		}
 		formField = addFormField(form, "smsRemark", "短信备注", groupName, ControlTypes.TEXTAREA, false, false);{
 			formField.setHeight(50);
 			formField.setFullColumn(false);
+			formField.setTroikaValidation("[\'maxLength[500]\']");
 		}
 		return form; 
 	}
