@@ -14,7 +14,7 @@ public class PlatformPreSalesLeaderAuthTest extends AuthBaseTest{
 
 	}
     protected void getResourceCodeList() {
-
+        this.resourceNodeCodeList.add("GSB_CRM_MY");//客户管理 我的商机
         this.resourceNodeCodeList.add("GSB_CRM");//客户管理
         this.resourceNodeCodeList.add("GSB_Trade_Manage");//订单管理
         this.resourceNodeCodeList.add("GSB_CRM_STATISTICAL");//统计分析
