@@ -66,8 +66,8 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
     databindextra: function (entity) {
         var me = this;
         me.bindOrderInfo(entity);
-        //禁用整个form
-        controllercontract.disable();
+        //查看时禁用整个form
+        me.disable();
     },
     addExtraProp: function (entity) {
         entity.sginingUserId = entity.soOrder.ownerId == null ? 0 : entity.soOrder.ownerId;
@@ -121,7 +121,7 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         dataFee = System.isnull(dataFee) ? 0 : parseInt(dataFee);
         me.updateRealAmount(dataFee);
     },
-    updateRealAmount:function (dataFee) {
+    updateRealAmount: function (dataFee) {
         //合同金额
         var me = this;
         var entity = me.getCurrentItem();
@@ -163,7 +163,7 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         me.serviceLocator.invoke("com.gongsibao.trade.web.audit.AuditContractController", "approved", [auditId, auditRemark], function (data) {
             IMessageBox.toast('操作成功！');
             window.parent.layer.closeAll();
-            //me.reload();
+            $('#datagridauditLogList').datagrid('reload');
         }, null, false);
     },
     rejected: function (auditId) {
@@ -191,6 +191,7 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
                 me.serviceLocator.invoke("com.gongsibao.trade.web.audit.AuditContractController", "rejected", [auditId, auditRemark], function (data) {
                     IMessageBox.toast('操作成功！');
                     window.parent.layer.closeAll();
+                    $('#datagridauditLogList').datagrid('reload');
                 }, null, false);
             }
         });
