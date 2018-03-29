@@ -25,6 +25,7 @@ public class TaskFollowCtrl {
 		INCustomerTaskFoolowService foolowService = ServiceFactory.create(INCustomerTaskFoolowService.class);
 		NCustomerTaskFoolow newTaskFoolow = foolowService.newInstance();
 		newTaskFoolow.setTaskId(entity.getTaskId());
+		newTaskFoolow.setCustomerId(entity.getCustomerId());
 		newTaskFoolow.setQualityId(entity.getQualityId());
 		newTaskFoolow.setNextFoolowTime(entity.getNextFoolowTime());
 		newTaskFoolow.setSigningAmount(entity.getSigningAmount());
