@@ -26,7 +26,7 @@ public class ReceivedAuditWorkspaceTest extends AuditPayPerformanceWorkspaceTest
 
     @Before
     public void setup() {
-
+        super.setup ();
         entity = AuditLog.class;// 实体
         urlList = "/trade/audit/received/list";// 列表的url
         //urlForm = "/trade/audit/received/form";// 弹出框的url

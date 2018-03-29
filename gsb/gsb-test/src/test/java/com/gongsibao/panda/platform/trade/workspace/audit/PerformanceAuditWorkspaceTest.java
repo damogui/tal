@@ -18,6 +18,7 @@ import com.gongsibao.entity.bd.AuditLog;
 public class PerformanceAuditWorkspaceTest extends AuditOrderPerformanceWorkspaceTest {
     @Before
     public void setup() {
+        super.setup ();
         entity = AuditLog.class;// 实体
         urlList = "/trade/audit/performance/list";// 列表的url
         //urlForm = "/trade/audit/performance/form";// 弹出框的url
