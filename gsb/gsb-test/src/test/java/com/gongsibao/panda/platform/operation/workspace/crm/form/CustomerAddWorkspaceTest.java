@@ -103,28 +103,28 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 		String groupName = null;
 		formField = addFormField(form, "realName", "姓名", groupName, ControlTypes.TEXT_BOX, true, false);{
 			
-			formField.setTroikaValidation("maxLength[50]");
+			formField.setTroikaValidation("['maxLength[50]']");
 		}
 		addFormField(form, "sex", "性别", groupName, ControlTypes.ENUM_BOX, false, false);
 		formField = addFormField(form, "mobile", "手机", groupName, ControlTypes.TEXT_BOX, true, false);{
 			
 			formField.setTroikaTrigger("controllernCustomer.contactWayChange(this);");
-			formField.setTroikaValidation("validationContactWay['mobile','手机']");
+			formField.setTroikaValidation("['validationContactWay[\\'mobile\\',\\'手机\\']']");
 		}
 		formField = addFormField(form, "telephone", "座机", groupName, ControlTypes.TEXT_BOX, true, false);{
 			
 			formField.setTroikaTrigger("controllernCustomer.contactWayChange(this);");
-			formField.setTroikaValidation("validationContactWay['telephone','座机']");
+			formField.setTroikaValidation("['validationContactWay[\\'telephone\\',\\'座机\\']']");
 		}
 		formField = addFormField(form, "qq", "QQ", groupName, ControlTypes.TEXT_BOX, true, false);{
 			
 			formField.setTroikaTrigger("controllernCustomer.contactWayChange(this);");
-			formField.setTroikaValidation("validationContactWay['qq','QQ']");
+			formField.setTroikaValidation("['validationContactWay[\\'qq\\',\\'QQ\\']']");
 		}
 		formField = addFormField(form, "weixin", "微信", groupName, ControlTypes.TEXT_BOX, true, false);{
 			
 			formField.setTroikaTrigger("controllernCustomer.contactWayChange(this);");
-			formField.setTroikaValidation("validationContactWay['weixin','微信']");
+			formField.setTroikaValidation("['validationContactWay[\\'weixin\\',\\'微信\\']']");
 		}
 		formField = addFormField(form, "email", "邮箱", groupName, ControlTypes.TEXT_BOX, false, false);{
 			
@@ -152,7 +152,7 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 		formField = addFormField(form, "remark", "备注", groupName, ControlTypes.TEXTAREA, false, false);{
 			formField.setFullColumn(true);
 			formField.setHeight(50);
-			formField.setTroikaValidation("maxLength[500]");
+			formField.setTroikaValidation("[\'maxLength[500]\']");
 		}
 		
 		return form;

@@ -6,6 +6,7 @@ com.gongsibao.trade.web.AuditCarryoverListPart = org.netsharp.panda.commerce.Lis
         this.addCarryOverUrl = '/nav/gsb/platform/trade/auditCarryover';//结转审核jsp
     },
     auditCarryOver : function (id){
+    	var me = this;
     	var row = this.getSelectedItem();
     	var carryoverId = row.formId; 
     	var orderId = row.carryover_formOrderId;
@@ -26,10 +27,14 @@ com.gongsibao.trade.web.AuditCarryoverListPart = org.netsharp.panda.commerce.Lis
             content: contentUrl,
             btn: ['审核通过', '审核不通过'],// 可以无限个按钮
             btn1: function (index, layero) {
-                document.getElementById('carryOverIframe').firstElementChild.contentWindow.auditCarryoverCtrl.approved();
+                document.getElementById('carryOverIframe').firstElementChild.contentWindow.auditCarryoverCtrl.approved(function(s){
+                	me.reload();
+                });
             },
             btn2: function (index, layero){
-            	document.getElementById('carryOverIframe').firstElementChild.contentWindow.auditCarryoverCtrl.rejected();
+            	document.getElementById('carryOverIframe').firstElementChild.contentWindow.auditCarryoverCtrl.rejected(function(s){
+            		me.reload();
+            	});
             	return false;
             }
         });

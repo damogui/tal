@@ -81,8 +81,6 @@ public class AuditRefundWorkspaceTest extends WorkspaceCreationBase{
             datagrid.setName ("退款审核");
             datagrid.setToolbar (listrowToolbarPath);
             datagrid.setAutoQuery (true);
-            datagrid.setShowCheckbox (true);
-            datagrid.setSingleSelect (false);
         }
         PDatagridColumn column = null;
         addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);

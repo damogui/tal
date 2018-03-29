@@ -55,9 +55,9 @@ public class CustomerFollowService extends PersistableService<CustomerFollow> im
 					customer.setFollowStatus(FollowStatus.FOLLOW_STATUS_2);
 					customerService.save(customer);
 				}
-				Employee employee = this.getEmployee();
+				String mobiles = this.getEmployeeMobiles();
 				IUserService userService = ServiceFactory.create(IUserService.class);
-				User user = userService.byMobilePhone(employee.getLoginName());
+				User user = userService.byMobilePhone(mobiles);
 				entity.setCreatorId(user.getId());
 			}
 		}
@@ -67,17 +67,17 @@ public class CustomerFollowService extends PersistableService<CustomerFollow> im
 		return entity;
 	}
 	
-	private Employee getEmployee(){
+	private String getEmployeeMobiles(){
 		
 		Oql oql = new Oql();
 		{
 			oql.setType(Employee.class);
-			oql.setSelects("employee.{id,loginName}");
+			oql.setSelects("employee.{id,mobile}");
 			oql.setFilter(" id=? ");
 			oql.getParameters().add("id", SessionManager.getUserId(), Types.INTEGER);
 		}
 		IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
 		Employee employee = employeeService.queryFirst(oql);
-		return employee;
+		return employee.getMobile();
 	}
 }
