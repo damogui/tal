@@ -19,6 +19,9 @@ import org.netsharp.panda.entity.PForm;
 import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PPart;
 import org.netsharp.panda.entity.PWorkspace;
+import org.netsharp.panda.plugin.dic.ToolbarType;
+import org.netsharp.panda.plugin.entity.PToolbar;
+import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 import org.netsharp.util.StringManager;
@@ -110,7 +113,11 @@ public class SalesmanOrderAddWorkspaceTest extends WorkspaceCreationBase {
 			datagrid.setReadOnly(true);
 			datagrid.setShowTitle(true);
 			PDatagridColumn column = null;
-			
+			column = addColumn(datagrid, "id", "操作", ControlTypes.TEXT_BOX, 60);{
+				
+				column.setAlign(DatagridAlign.CENTER);
+				column.setFormatter("return controllerproducts.operationFormatter(value,row,index);");
+			}
 			column = addColumn(datagrid, "productName", "产品名称", ControlTypes.TEXT_BOX, 150);
 			column = addColumn(datagrid, "quantity", "数量", ControlTypes.NUMBER_BOX, 60);{
 				
@@ -148,7 +155,7 @@ public class SalesmanOrderAddWorkspaceTest extends WorkspaceCreationBase {
 			part.setPartTypeId(PartType.DETAIL_PART.getId());
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
-			part.setToolbar("panda/datagrid/detail");
+			part.setToolbar("order/product/detail");
 			part.setServiceController(OrderProdItemDetailPart.class.getName());
 			part.setJsController(OrderProdItemDetailPart.class.getName());
 		}
@@ -160,6 +167,32 @@ public class SalesmanOrderAddWorkspaceTest extends WorkspaceCreationBase {
 			part.setDockStyle(DockType.TOP);
 			part.setHeight(500);
 		}
+	}
+	
+	@Test
+	public void createRowToolbar() {
+
+		ResourceNode node = this.resourceService.byCode(resourceNodeCode);
+		PToolbar toolbar = new PToolbar();
+		{
+			toolbar.toNew();
+			toolbar.setPath("order/product/detail");
+			toolbar.setName("新增");
+			toolbar.setResourceNode(node);
+			toolbar.setToolbarType(ToolbarType.BASE);
+		}
+		PToolbarItem item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("add");
+			item.setName("新增");
+			item.setIcon("fa fa-plus fa-fw");
+			item.setSeq(1);
+			item.setCommand("{controller}.add();");
+			toolbar.getItems().add(item);
+		}
+
+		toolbarService.save(toolbar);
 	}
 
 	// 默认的表单操作
