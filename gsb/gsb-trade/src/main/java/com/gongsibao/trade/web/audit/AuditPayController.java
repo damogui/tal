@@ -1,5 +1,6 @@
 package com.gongsibao.trade.web.audit;
 
+import com.gongsibao.bd.base.IAuditLogService;
 import com.gongsibao.bd.service.auditLog.AbstractAuditLogService;
 import com.gongsibao.bd.service.auditLog.AuditFactory;
 import com.gongsibao.bd.service.auditLog.AuditState;
@@ -16,11 +17,15 @@ import com.gongsibao.trade.web.dto.OrderPayInfoDTO;
 import com.gongsibao.utils.NumberUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
+import org.netsharp.core.QueryParameters;
+import org.netsharp.persistence.IPersister;
+import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.util.NumUtil;
 import org.netsharp.util.StringManager;
 
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class AuditPayController extends AuditBaseController {
@@ -34,18 +39,33 @@ public class AuditPayController extends AuditBaseController {
      *
      * @return
      */
-    public Boolean approved(Integer auditLogId, String remark) {
+    public Boolean approvedPay(Integer auditLogId, String remark, String payTime) {
         boolean auditResult = auditLogService.audit (AuditState.PASS, auditLogId, remark);
 
         if (auditResult) {
+            IPersister<Pay> payIPersister = PersisterFactory.create ();
+            //IPersister<AuditLog> auditLogIPersister = PersisterFactory.create ();
+            IAuditLogService auditLogService = ServiceFactory.create (IAuditLogService.class);
 
-//回写数据
+            AuditLog auditLog = auditLogService.byId (auditLogId);
+            String sql = "  UPDATE  so_pay  SET  confirm_time=? WHERE  pkid=?  ";
+
+            QueryParameters qps = new QueryParameters ();
+            qps.add ("@confirm_time", payTime, Types.DATE);
+            qps.add ("@pkid", auditLog.getFormId (), Types.DATE);
+            payIPersister.executeNonQuery (sql, qps);
+            //更改确认时间
         } else {
 
-            //
+
         }
 
         return auditResult;
+    }
+
+    @Override
+    public Boolean approved(Integer auditLogId, String remark) {
+        return null;
     }
 
     /**
@@ -57,7 +77,7 @@ public class AuditPayController extends AuditBaseController {
         return auditLogService.audit (AuditState.NOTPASS, auditLogId, remark);
     }
 
-    /*订单业绩审核流程*/
+    /*回款审核流程*/
     public List<AuditLogDTO> getAuditLogList(Integer id) {
         List<AuditLog> logList = new ArrayList<AuditLog> ();
         List<AuditLogDTO> logDtos = new ArrayList<AuditLogDTO> ();
@@ -67,7 +87,7 @@ public class AuditPayController extends AuditBaseController {
                 ) {
             AuditLogDTO auditLogDTO = new AuditLogDTO ();
             auditLogDTO.setId (item.getId ());
-            auditLogDTO.setCreator (item.getCreator ());
+            auditLogDTO.setCreator (item.getEmployee ()==null?"":item.getEmployee ().getName ());
             auditLogDTO.setOption (item.getStatus ().getText ());
             auditLogDTO.setRemark (item.getContent ());
             auditLogDTO.setCreateTime (item.getCreateTime ().toString ());

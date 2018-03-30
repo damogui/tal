@@ -39,9 +39,13 @@
 				  <table cellpadding="3" cellspacing="0" class="form-panel">
 				      <tr>
 				          <td class="label_td"><label style="color:Red">*</label><label>退款账套：</label></td>
-				          <td class="control_td" colspan="3">
+				          <td class="control_td">
 								<input id="setOfBooksId" class="easyui-combobox" 
-								data-options="editable:false,width:415"/>
+								data-options="editable:false,width:200,onChange:function(newValue,oldValue){refundCtrl.setOfBooksIdChange(newValue,oldValue);}"/>
+				          </td>
+				          <td class="label_td"><label style="color:Red">*</label><label>付款方式：</label></td>
+				          <td class="control_td">
+				          		<input id="u8BankId" class="easyui-combobox nsInput" data-options="editable:false,width:200"/>
 				          </td>
 				          <td class="label_td"><label style="color:Red">*</label><label>退款类别：</label></td>
 				          <td class="control_td">
@@ -62,7 +66,7 @@
 				          <td class="label_td"><label style="color:Red">*</label><label>退款金额：</label></td>
 				          <td class="control_td">
 				          		<input id="amount" class="easyui-numberbox nsInput"
-				          			data-options="precision:2,width:150,min:1,required:true,onChange:function(newValue,oldValue){refundCtrl.amountChange(newValue,oldValue);"/>
+				          			data-options="precision:2,width:150,min:1,required:true,onChange:function(newValue,oldValue){refundCtrl.amountChange(newValue,oldValue);}"/>
 				          </td>
 					</tr>
 				      <tr>

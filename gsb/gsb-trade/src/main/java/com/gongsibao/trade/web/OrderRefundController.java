@@ -12,9 +12,11 @@ import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.u8.SetOfBooks;
+import com.gongsibao.entity.u8.U8Bank;
 import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IOrderService;
 import com.gongsibao.u8.base.ISetOfBooksService;
+import com.gongsibao.u8.base.IU8BankService;
 
 public class OrderRefundController {
 
@@ -41,7 +43,31 @@ public class OrderRefundController {
 		}
 		return enumList;
 	}
+	/**
+	 * @param setOfBooksId
+	 * @return
+	 */
+	public List<EnumResultJson> queryU8BankList(Integer setOfBooksId) {
 
+		IU8BankService bankService = ServiceFactory.create(IU8BankService.class);
+		Oql oql = new Oql();
+		{
+			oql.setType(U8Bank.class);
+			oql.setSelects("id,name");
+			oql.setFilter("setOfBooksId=? and enabled=1");
+			oql.getParameters().add("setOfBooksId", setOfBooksId, Types.INTEGER);
+		}
+		List<U8Bank> list = bankService.queryList(oql);
+		List<EnumResultJson> enumList = new ArrayList<EnumResultJson>();
+		for (U8Bank bank : list) {
+
+			EnumResultJson enumItem = new EnumResultJson();
+			enumItem.setText(bank.getName());
+			enumItem.setValue(bank.getId().toString());
+			enumList.add(enumItem);
+		}
+		return enumList;
+	}
 	/**
 	 * @Title: getSoOrder
 	 * @Description: TODO(这里用一句话描述这个方法的作用)

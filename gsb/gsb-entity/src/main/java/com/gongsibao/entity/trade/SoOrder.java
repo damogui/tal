@@ -181,8 +181,11 @@ public class SoOrder extends BaseEntity {
     @Column(name = "carry_over_order_id", header = "结转订单id")
     private Integer carryOverOrderId;
 
-    @Column(name = "carry_amount", header = "结转金额")
+    @Column(name = "carry_amount", header = "结转转出金额(之前就存在字段没再修改)")
     private Integer carryAmount = 0;
+    
+    @Column(name = "carry_into_amount", header = "结转转入金额")
+    private Integer carryIntoAmount = 0;
 
     // 3031 待审核
     // 3032 退款中
@@ -285,12 +288,6 @@ public class SoOrder extends BaseEntity {
 
     @Column(name = "coupon_code", header = "优惠劵编码")
     private String couponCode = "";
-
-    @Column(name = "trademark_case_id", header = "商标方案Id")
-    private Integer tradeMarkCaseId = 0;
-
-    @Reference(foreignKey = "tradeMarkCaseId", header = "商标方案")
-    private TradeMarkCase tradeMarkCase;
 
     @Subs(subType = OrderProd.class, foreignKey = "orderId", header = "产品明细")
     private List<OrderProd> products = new ArrayList<OrderProd> ();
@@ -772,22 +769,6 @@ public class SoOrder extends BaseEntity {
         this.performancePrice = performancePrice;
     }
 
-    public Integer getTradeMarkCaseId() {
-        return tradeMarkCaseId;
-    }
-
-    public void setTradeMarkCaseId(Integer tradeMarkCaseId) {
-        this.tradeMarkCaseId = tradeMarkCaseId;
-    }
-
-    public TradeMarkCase getTradeMarkCase() {
-        return tradeMarkCase;
-    }
-
-    public void setTradeMarkCase(TradeMarkCase tradeMarkCase) {
-        this.tradeMarkCase = tradeMarkCase;
-    }
-
     public OrderPayStatusType getPayStatus() {
         return payStatus;
     }
@@ -874,7 +855,15 @@ public class SoOrder extends BaseEntity {
         this.carryAmount = carryAmount;
     }
 
-    public AuditStatusType getDepReceivableAuditStatusId() {
+	public Integer getCarryIntoAmount() {
+		return carryIntoAmount;
+	}
+
+	public void setCarryIntoAmount(Integer carryIntoAmount) {
+		this.carryIntoAmount = carryIntoAmount;
+	}
+
+	public AuditStatusType getDepReceivableAuditStatusId() {
         return depReceivableAuditStatusId;
     }
 

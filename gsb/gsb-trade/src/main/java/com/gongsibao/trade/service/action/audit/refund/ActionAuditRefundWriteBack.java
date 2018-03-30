@@ -1,5 +1,6 @@
 package com.gongsibao.trade.service.action.audit.refund;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +19,6 @@ import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.trade.base.IRefundService;
-import com.gongsibao.trade.service.RefundService;
 
 public class ActionAuditRefundWriteBack implements IAction{
 	IAuditService auditService = ServiceFactory.create(IAuditService.class);
@@ -79,7 +79,7 @@ public class ActionAuditRefundWriteBack implements IAction{
 	private void writeBackOrder(Integer orderId, AuditStatusType state){
 		//1.审核成功，获取订单退款金额
 		Integer allAmout = 0;
-		if(state.getValue().equals(1054)){
+		if(state.equals(AuditStatusType.Shtg)){
 			List<Refund> refundList = refundService.queryByOrderId(orderId);
 			for (Refund item : refundList) {
 				allAmout += item.getAmount();
@@ -91,7 +91,7 @@ public class ActionAuditRefundWriteBack implements IAction{
 			updateSql.update("so_order");
 			updateSql.set("refund_status_id", state.getValue());
 			updateSql.set("refund_price", allAmout);
-			
+			updateSql.set("upd_time", new Date());
 			updateSql.where("pkid =" + orderId);
 		}
 		String cmdText = updateSql.toSQL();

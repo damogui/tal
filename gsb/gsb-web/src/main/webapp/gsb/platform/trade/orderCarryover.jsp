@@ -45,6 +45,7 @@
 									          <td class="control_td">
 									          		<!-- 存储临时值 -->
 									          		<input type="hidden" id ="orderId_hidden">
+									          		<input type="hidden" id ="payablePrice_hidden">
 									          		<input type="hidden" id ="paidPrice_hidden">
 									          		<input type="hidden" id ="refundPrice_hidden">
 									          		<input type="hidden" id ="carryAmount_hidden">  

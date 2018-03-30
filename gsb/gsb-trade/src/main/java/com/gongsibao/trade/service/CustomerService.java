@@ -1,5 +1,6 @@
 package com.gongsibao.trade.service;
 
+import java.sql.Types;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.core.DataTable;
+import org.netsharp.core.Oql;
 import org.netsharp.core.Row;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.StringManager;
@@ -43,5 +45,17 @@ public class CustomerService extends PersistableService<Customer> implements ICu
 			resMap.put(row.getInteger("orderId"), row.getString("real_name"));
 		}
 		return resMap;
+	}
+
+	@Override
+	public Customer byAccountId(int accountId) {
+		Oql oql = new Oql();
+		{
+			oql.setType (this.type);
+			oql.setSelects ("*");
+			oql.setFilter ("accountId = ? ");
+			oql.getParameters().add("accountId", accountId, Types.INTEGER);
+		}
+		return super.queryFirst (oql);
 	}
 }

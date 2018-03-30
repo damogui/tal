@@ -25,6 +25,12 @@ com.gongsibao.trade.web.OrderRefundCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     		$('#setOfBooksId').combobox('loadData',data);
 		});
     },
+    setOfBooksIdChange:function(newValue,oldValue){
+    	this.invokeService ("queryU8BankList", [newValue], function(data){
+			
+    		$('#u8BankId').combobox('clear').combobox('loadData',data);
+		});
+    },
     amountChange:function(newValue,oldValue){
     	//验证 退款总额是否≤订单可退款额
     	var orderId = this.queryString('id');
@@ -33,7 +39,8 @@ com.gongsibao.trade.web.OrderRefundCtrl = org.netsharp.panda.core.CustomCtrl.Ext
       		var refundPrice = data.refundPrice;
       		var carryAmount = data.carryAmount;
       		var getFinals = paidPrice - refundPrice - carryAmount;
-        	if((getFinals - newValue) < 0){
+      		var getNewValue = parseFloat(newValue)*100;
+        	if((getFinals - getNewValue) < 0){
         		$('#amount').numberbox('clear');
         		layer.msg('退款业绩总额不等于退款总额，请核实');
         	}
@@ -60,13 +67,14 @@ com.gongsibao.trade.web.OrderRefundCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     save:function(){
 
     	var booksId = $('#setOfBooksId').combogrid('getValue');
+    	var u8BankId = $("#u8BankId").combogrid('getValue');
     	var refundType = $('#refundType').combobox('getValue');
     	var payerName = $('#payerName').val();
     	var bankNo = $('#bankNo').val();
     	var amount = parseFloat($('#amount').numberbox('getValue'))*100;
     	var refundRemark = $('#refundRemark').val();
     	//验证
-    	if(isEmpty(booksId) || isEmpty(refundType) || isEmpty(payerName) || isEmpty(bankNo) || isNaN(amount) || isEmpty(refundRemark)){
+    	if(isEmpty(booksId) || isEmpty(u8BankId) || isEmpty(refundType) || isEmpty(payerName) || isEmpty(bankNo) || isNaN(amount) || isEmpty(refundRemark)){
     		layer.msg('请输入必填项');
     		return false;
     	}
@@ -75,6 +83,7 @@ com.gongsibao.trade.web.OrderRefundCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     	var refund = new Object();
     	refund.orderId = orderId;
     	refund.setOfBooksId = booksId;
+    	refund.u8BankId = u8BankId;
     	refund.refundType = refundType;
     	refund.payerName = payerName;
     	refund.bankNo = bankNo;
