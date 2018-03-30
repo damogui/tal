@@ -4,8 +4,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import com.gongsibao.panda.auth.AuthAllTest;
-import com.gongsibao.panda.platform.PlatformAllTest;
 import com.gongsibao.panda.supplier.SupplierAllTest;
 
 @RunWith(Suite.class)
@@ -40,7 +38,7 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
 	  SupplierAllTest.class,
 
     //6.商品管理
-//	com.gongsibao.panda.product.AllTest.class,
+	  com.gongsibao.panda.platform.product.AllTest.class,
 
 
     //8.交易中心
