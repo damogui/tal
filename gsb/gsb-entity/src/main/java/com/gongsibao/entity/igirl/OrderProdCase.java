@@ -14,15 +14,20 @@ public class OrderProdCase extends BaseEntity {
     @Column(name = "order_prod_id", header = "明细订单id")
     private Integer orderProdId;
 
+    @Column(name = "order_id", header = "订单id")
+    private Integer orderId;
+
+    @Column(name = "account_id", header = "会员id")
+    private Integer accountId;
+
     @Column(name = "case_type", header = "方案类型（1商标注册...）")
     private CaseType caseType = CaseType.TRADEMARK_REG;
 
     @Column(name = "case_item_id", header = "子方案id")
-    private Integer cateItemId;
+    private Integer caseItemId;
 
     @Column(name = "case_id", header = "方案id")
-    private Integer cateId;
-
+    private Integer caseId;
 
     public Integer getOrderProdId() {
         return orderProdId;
@@ -30,6 +35,22 @@ public class OrderProdCase extends BaseEntity {
 
     public void setOrderProdId(Integer orderProdId) {
         this.orderProdId = orderProdId;
+    }
+
+    public Integer getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
+
+    public Integer getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(Integer accountId) {
+        this.accountId = accountId;
     }
 
     public CaseType getCaseType() {
@@ -40,19 +61,19 @@ public class OrderProdCase extends BaseEntity {
         this.caseType = caseType;
     }
 
-    public Integer getCateItemId() {
-        return cateItemId;
+    public Integer getCaseItemId() {
+        return caseItemId;
     }
 
-    public void setCateItemId(Integer cateItemId) {
-        this.cateItemId = cateItemId;
+    public void setCaseItemId(Integer caseItemId) {
+        this.caseItemId = caseItemId;
     }
 
-    public Integer getCateId() {
-        return cateId;
+    public Integer getCaseId() {
+        return caseId;
     }
 
-    public void setCateId(Integer cateId) {
-        this.cateId = cateId;
+    public void setCaseId(Integer caseId) {
+        this.caseId = caseId;
     }
 }

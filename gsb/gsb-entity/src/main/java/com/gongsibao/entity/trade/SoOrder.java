@@ -286,12 +286,6 @@ public class SoOrder extends BaseEntity {
     @Column(name = "coupon_code", header = "优惠劵编码")
     private String couponCode = "";
 
-    @Column(name = "trademark_case_id", header = "商标方案Id")
-    private Integer tradeMarkCaseId = 0;
-
-    @Reference(foreignKey = "tradeMarkCaseId", header = "商标方案")
-    private TradeMarkCase tradeMarkCase;
-
     @Subs(subType = OrderProd.class, foreignKey = "orderId", header = "产品明细")
     private List<OrderProd> products = new ArrayList<OrderProd> ();
     /* 回款业绩明细 */
@@ -770,22 +764,6 @@ public class SoOrder extends BaseEntity {
 
     public void setPerformancePrice(Integer performancePrice) {
         this.performancePrice = performancePrice;
-    }
-
-    public Integer getTradeMarkCaseId() {
-        return tradeMarkCaseId;
-    }
-
-    public void setTradeMarkCaseId(Integer tradeMarkCaseId) {
-        this.tradeMarkCaseId = tradeMarkCaseId;
-    }
-
-    public TradeMarkCase getTradeMarkCase() {
-        return tradeMarkCase;
-    }
-
-    public void setTradeMarkCase(TradeMarkCase tradeMarkCase) {
-        this.tradeMarkCase = tradeMarkCase;
     }
 
     public OrderPayStatusType getPayStatus() {

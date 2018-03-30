@@ -7,6 +7,8 @@ import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.crm.Customer;
 import com.gongsibao.entity.crm.dic.*;
 import com.gongsibao.entity.igirl.*;
+import com.gongsibao.entity.igirl.dict.CaseConvertType;
+import com.gongsibao.entity.igirl.res.ConvertToOrderResult;
 import com.gongsibao.entity.igirl.tm.DownloadAttachment;
 import com.gongsibao.entity.igirl.tm.TradeMark;
 import com.gongsibao.entity.igirl.tm.TradeMarkCase;
@@ -20,7 +22,10 @@ import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.OrderProdItem;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.CostStatus;
+import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
+import com.gongsibao.entity.trade.dic.OrderSourceType;
 import com.gongsibao.entity.uc.Account;
 import com.gongsibao.igirl.base.*;
 import com.gongsibao.igirl.tm.base.*;
@@ -34,6 +39,7 @@ import com.gongsibao.uc.base.IAccountService;
 import com.gongsibao.utils.NumberUtils;
 import com.gongsibao.utils.RegexUtils;
 import com.gongsibao.utils.SupplierSessionManager;
+import com.sun.istack.internal.NotNull;
 import org.apache.commons.collections.CollectionUtils;
 import org.joda.time.DateTime;
 import org.netsharp.communication.Service;
@@ -482,68 +488,89 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 	}
 
     @Override
-    public int convertToOrder(String caseid) {
+    public ConvertToOrderResult convertToOrder(String caseid) {
         TradeMarkCase tradeMarkCase = byId(caseid);
         if (null == tradeMarkCase) {
             // 方案不存在
-            return 0;
+            return new ConvertToOrderResult(CaseConvertType.ERROR_0);
         }
 
-        // 方案明细
+        // 是否已下单，已下单直接返回
+		List<OrderProdCase> caseList = orderProdCaseService.byCaseId(tradeMarkCase.getId());
+		if (null != caseList && caseList.size() > 0) {
+			OrderProdCase orderProdCase = caseList.get(0);
+			ConvertToOrderResult result = new ConvertToOrderResult(CaseConvertType.SUCCESS);
+			result.getExtend().put("accountId", orderProdCase.getAccountId());
+			result.getExtend().put("orderId", orderProdCase.getOrderId());
+			return result;
+		}
+
+		// 方案明细
         List<TradeMark> tradeMarks = tradeMarkCase.getTradeMarks();
         if (CollectionUtils.isEmpty(tradeMarks)) {
             // 缺少子方案
-            return -1;
+			return new ConvertToOrderResult(CaseConvertType.ERROR_1);
         }
 
         Integer productId = tradeMarkCase.getProductId();
         if (null == productId || productId == 0) {
             // 产品不存在
-            return -2;
+			return new ConvertToOrderResult(CaseConvertType.ERROR_2);
         }
 
         String mobile = tradeMarkCase.getMobile();
         if (StringManager.isNullOrEmpty(mobile) || RegexUtils.isNotPhone(mobile)) {
             // 客户手机号码错误
-            return -3;
+			return new ConvertToOrderResult(CaseConvertType.ERROR_3);
         }
 
         String companyName = tradeMarkCase.getCompanyName();
-        if (StringManager.isNullOrEmpty(companyName)) {
+        if (StringManager.isNullOrEmpty(companyName) && tradeMarkCase.getApplierType().getValue() == ApplierType.PUBLIC.getValue()) {
             // 公司名称不存在
-            return -4;
+			return new ConvertToOrderResult(CaseConvertType.ERROR_4);
         }
 
         // 目前商标注册，都是大陆地区
         Dict dict = dictService.byId(101900101);
+
+		// 完善公司信息
+		CompanyIntention company = null;
+		if (tradeMarkCase.getApplierType().getValue() == ApplierType.PRIVATE.getValue()) {
+			company = new CompanyIntention();
+			company.setId(0);
+			company.setCompanyName(null == companyName ? "" : companyName);
+		} else{
+			company = getAndSaveCompany(companyName, tradeMarkCase, dict.getId());
+		}
 
         // 创建会员及客户
         Account account = accountService.byMobile(mobile);
         Customer customer = null;
         if (null == account) {
             // 保存客户
-            account = getAndSaveAccount(tradeMarkCase);
+            account = getAndSaveAccount(tradeMarkCase, company);
             // 保存会员
-            customer = getAndSaveCustomer(account);
+            customer = getAndSaveCustomer(account, tradeMarkCase);
         }
 
         if (null == customer) {
             customer = customerService.byAccountId(account.getId());
         }
 
-        // 完善公司信息
-        CompanyIntention company = getAndSaveCompany(companyName, tradeMarkCase, dict.getId());
-
-        // 生产为订单实体
-        SoOrder order = generatorOrderEntity(tradeMarkCase, account, customer, company, dict);
+        // 转换订单实体
+        SoOrder order = convertToOrderEntity(tradeMarkCase, account, customer, company, dict);
 
         // 保存订单
         order = orderService.save(order);
 
         // 订单信息关联方案回写
-        List<OrderProdCase> orderProdCaseList = generatorOrderProdCaseList(tradeMarkCase, order);
+        List<OrderProdCase> orderProdCaseList = convertToOrderProdCaseList(tradeMarkCase, order);
         orderProdCaseService.saves(orderProdCaseList);
-        return 0;
+
+		ConvertToOrderResult result = new ConvertToOrderResult(CaseConvertType.SUCCESS);
+		result.getExtend().put("accountId", account.getId());
+		result.getExtend().put("orderId", order.getId());
+		return result;
     }
 
     /**
@@ -553,7 +580,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
      * @param order
      * @return
      */
-    private List<OrderProdCase> generatorOrderProdCaseList(TradeMarkCase tradeMarkCase, SoOrder order) {
+    private List<OrderProdCase> convertToOrderProdCaseList(TradeMarkCase tradeMarkCase, SoOrder order) {
         List<TradeMark> tradeMarks = tradeMarkCase.getTradeMarks();
         List<OrderProd> products = order.getProducts();
         List<OrderProdCase> orderProdCaseList = new ArrayList<>();
@@ -564,10 +591,12 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
             OrderProdCase orderProdCase = new OrderProdCase();
             {
                 orderProdCase.toNew();
-                orderProdCase.setOrderProdId(orderProd.getId());
-                orderProdCase.setCaseType(CaseType.TRADEMARK_REG);
-                orderProdCase.setCateId(tradeMarkCase.getId());
-                orderProdCase.setCateItemId(tradeMark.getId());
+				orderProdCase.setOrderId(order.getId());
+				orderProdCase.setOrderProdId(orderProd.getId());
+				orderProdCase.setCaseType(CaseType.TRADEMARK_REG);
+				orderProdCase.setCaseId(tradeMarkCase.getId());
+				orderProdCase.setCaseItemId(tradeMark.getId());
+				orderProdCase.setCreatorId(order.getAccountId());
             }
             orderProdCaseList.add(orderProdCase);
         }
@@ -584,7 +613,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
      * @param dict
      * @return
      */
-    private SoOrder generatorOrderEntity(TradeMarkCase tradeMarkCase, Account account, Customer customer, CompanyIntention company, Dict dict) {
+    private SoOrder convertToOrderEntity(TradeMarkCase tradeMarkCase, Account account, Customer customer, CompanyIntention company, Dict dict) {
         List<TradeMark> tradeMarks = tradeMarkCase.getTradeMarks();
         Integer productId = tradeMarkCase.getProductId();
         int totalPrice = 0;
@@ -666,6 +695,15 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
             order.setAccountMobile(account.getMobilePhone());
             order.setTotalPrice(totalPrice);
             order.setPayablePrice(totalPrice);
+            order.setChannelOrderNo("");
+            order.setSourceType(OrderSourceType.IGIRL_TM);
+            order.setIsInstallment(false);
+            order.setInstallmentAuditStatusId(AuditStatusType.wu);
+            order.setAddUserId(tradeMarkCase.getOwnerId());
+            order.setCompanyId(company.getId());
+            order.setPlatformSource(OrderPlatformSourceType.Gsb);
+            order.setCustomerId(customer.getId());
+            order.setCustomerName(customer.getRealName());
         }
         return order;
     }
@@ -676,7 +714,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
      * @param account
      * @return
      */
-    private Customer getAndSaveCustomer(Account account) {
+    private Customer getAndSaveCustomer(Account account, TradeMarkCase tradeMarkCase) {
         Customer customer = new Customer();
         {
             customer.toNew();
@@ -692,21 +730,23 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
             customer.setBirdthday(null);
             customer.setAddr("");
             customer.setCityId(0);
-            customer.setFollowUserId(0);
+            customer.setFollowUserId(tradeMarkCase.getOwnerId());
             customer.setFollowStatus(FollowStatus.FOLLOW_STATUS_1);
             customer.setUnvalidRemark("");
 
             customer.setLastFollowTime(new Date());
             customer.setBackNum(0);
-            customer.setCustomerSource(dictService.byId(4110214));
+            customer.setCustomerSource(dictService.byId(4110215));
             customer.setConsultWay(ConsultWay.CONSULT_WAY_4215);
             customer.setImportant(Important.COMMON);
 
-            customer.setIntroducerUserId(0);
+            customer.setIntroducerUserId(tradeMarkCase.getOwnerId());
             customer.setIntroducerId(0);
             customer.setRemark("");
+            customer.setCreatorId(tradeMarkCase.getOwnerId());
+            customer.setUpdatorId(tradeMarkCase.getOwnerId());
         }
-        return customerService.save(customer);
+		return customerService.save(customer);
     }
 
     /**
@@ -715,7 +755,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
      * @param tradeMarkCase
      * @return
      */
-    private Account getAndSaveAccount(TradeMarkCase tradeMarkCase) {
+    private Account getAndSaveAccount(TradeMarkCase tradeMarkCase, CompanyIntention company) {
         Account account;
         account = new Account();
         {
@@ -730,7 +770,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
             account.setRealName(tradeMarkCase.getContactName());
             account.setSourceClientId(0);
             account.setIdentityCard("");
-            account.setCompanyId(0);
+            account.setCompanyId(company.getId());
         }
 
         account = accountService.save(account);

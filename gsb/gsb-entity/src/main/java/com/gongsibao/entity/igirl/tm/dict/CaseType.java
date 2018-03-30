@@ -24,12 +24,12 @@ public enum  CaseType implements IEnum {
 
     @Override
     public String getText() {
-        return null;
+        return this.text;
     }
 
     @Override
     public Integer getValue() {
-        return null;
+        return this.value;
     }
 
     @JsonCreator
