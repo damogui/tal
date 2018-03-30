@@ -45,6 +45,7 @@ public class AuditInvoiceFormWorkspaceTest extends InvoiceFormWorKspace {
 		for (PFormField field : fieldList) {
 
 			field.setControlType(ControlTypes.LABEL);
+			field.setRequired(false);
 		}
 
 		return form;

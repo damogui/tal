@@ -66,7 +66,7 @@ org.netsharp.controls.Label = org.netsharp.controls.Control.Extends({
 			}
 		}
 		if (System.isnull(propertyValue)) {
-			propertyValue = "";
+			propertyValue = "-";
 		}
 		$(this.uiElement).text(propertyValue);
 	}

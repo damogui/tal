@@ -1098,6 +1098,7 @@ ul.form-panel li.item div.ctrl{
 	
 	float:left;
 	min-width:180px;
+	max-width: 820px;
 }
 
 ul.form-panel li.item div.ctrl label{
