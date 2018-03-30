@@ -15,7 +15,9 @@ org.netsharp.panda.commerce.DetailPart = org.netsharp.panda.core.View.Extends({
 		this.disabled = false;
 		this.cmenu = null;
 	},
-
+	onHeaderContextMenu: function(e, field){
+		
+	},
 	getDialog:function(){
 		
 		return $("#"+this.context.code+"_dialog");
@@ -95,7 +97,10 @@ org.netsharp.panda.commerce.DetailPart = org.netsharp.panda.core.View.Extends({
 			}
 		});
 	},
-	
+	onHeaderContextMenu:function(){
+		
+		
+	},
 	/******************************************
 	 * 
 	 * 表格右击事件：创建右击菜单

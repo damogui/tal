@@ -974,11 +974,11 @@ div.h10{
 }
 
 .textbox-disabled .textbox-addon{
-	background-color: #f3f7f9 !important;
+	background-color: #F8F8F8 !important;
 }
 
 .textbox-disabled .textbox-addon .combo-arrow{
-	background-color: #f3f7f9 !important;
+	background-color: #F8F8F8 !important;
 }
 
 .calendar-selected{
@@ -1046,7 +1046,7 @@ ul.form-panel li.item div.label{
 	float:left;
 	padding:0 5px;
 	min-width:80px;
-	font-size: 14px;
+	font-size: 12px;
 	line-height:35px;
 	text-align: right;
 }

@@ -294,8 +294,8 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		part = workspace.getParts().get(0);
 		{
 			part.setName("基本信息");
-			part.setDockStyle(DockType.TOP);
-			part.setHeight(350);
+//			part.setDockStyle(DockType.TOP);
+//			part.setHeight(350);
 		}
 	}
 
