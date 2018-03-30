@@ -1,6 +1,7 @@
 package com.gongsibao.trade.service.action.order.performance;
 
 import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.NDepReceivable;
 import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
@@ -8,6 +9,7 @@ import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dto.DepPayMapDTO;
 import com.gongsibao.entity.trade.dto.OrderRelationDTO;
 import com.gongsibao.trade.base.IOrderService;
+import com.gongsibao.trade.service.action.order.utils.AuditHelper;
 import com.gongsibao.u8.base.ISoOrderService;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
@@ -30,22 +32,14 @@ public class ActionApplyOrderPerformanceVerify implements IAction {
 
         SoOrder entity = (SoOrder) ctx.getItem ();//进行校验金额
         //根据订单Id获取订单实体
-        //IOrderService orderService = ServiceFactory.create (IOrderService.class);
-        IPersister<AuditLog> auditLogService = PersisterFactory.create ();
 
-/*处于审核状态的订单不能再被审核*/
-        String sql = "SELECT  IFNULL(MAX(form_id),0) FROM  bd_audit_log  WHERE  type_id=1050  AND     form_id=?";//查询是否存在订单业绩审核状态
-        QueryParameters qps = new QueryParameters ();
-        qps.add ("@form_id", entity.getId (), Types.INTEGER);
-        Integer execNum = auditLogService.executeInt (sql, qps);
+        Integer execNum = AuditHelper.getRecode (entity.getId (), AuditLogType.DdYjSq.getValue ());
         if (execNum > 0) {
 
             throw new BusinessException ("订单正处于订单业绩审核状态");//execNum
 
         }
-//        if (entity.getDepReceivable ().size () == 0) {
-//            throw new BusinessException ("订单业绩必须分配才能保存！");
-//        }
+
 
 
         List<NDepReceivable> depList = entity.getDepReceivable ();
