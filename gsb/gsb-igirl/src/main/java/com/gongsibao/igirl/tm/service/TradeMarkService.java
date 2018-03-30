@@ -12,11 +12,14 @@ import org.netsharp.attachment.Attachment;
 import org.netsharp.attachment.IAttachmentService;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.DataTable;
 import org.netsharp.core.EntityState;
+import org.netsharp.core.IRow;
 import org.netsharp.core.Oql;
 import org.netsharp.organization.base.IEmployeeService;
 import org.netsharp.organization.entity.Employee;
 import org.netsharp.util.StringManager;
+import org.netsharp.util.sqlbuilder.SelectBuilder;
 import org.netsharp.wx.ea.base.IEaMessageService;
 
 import com.gongsibao.bd.service.GsbPersistableService;
@@ -538,5 +541,21 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			
 		}
 
+	}
+
+	@Override
+	public List<String> findUrlById(int caseId) {
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT path FROM sys_attachment WHERE foreign_key ="+caseId+" and entity_id = 'com.gongsibao.entity.igirl.tm.TradeMark'");
+	    DataTable dataTable = this.pm.executeTable(sql.toString(), null);
+	    List<String> urlList = new ArrayList(); 
+	    for (IRow row : dataTable) {
+	    	String url = row.getString("path");
+	    	if (!urlList.contains(url)) {
+	    		urlList.add(url);
+	    	}
+	    }
+
+	    return urlList;
 	}
 }

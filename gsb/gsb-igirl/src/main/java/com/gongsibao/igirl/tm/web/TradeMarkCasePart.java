@@ -1,5 +1,6 @@
 package com.gongsibao.igirl.tm.web;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.gongsibao.entity.igirl.res.ConvertToOrderResult;
@@ -14,6 +15,7 @@ import org.netsharp.panda.core.HttpContext;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.igirl.tm.DownloadAttachment;
+import com.gongsibao.entity.igirl.tm.TradeMark;
 import com.gongsibao.entity.igirl.tm.TradeMarkCase;
 import com.gongsibao.entity.igirl.tm.UploadAttachment;
 import com.gongsibao.igirl.tm.base.IDownloadAttachmentService;
@@ -22,6 +24,7 @@ import com.gongsibao.igirl.tm.base.ITradeMarkService;
 import com.gongsibao.igirl.tm.base.IUploadAttachmentService;
 import com.gongsibao.igirl.tm.dto.CompanyDto;
 import com.gongsibao.igirl.tm.dto.ResultDto;
+import com.gongsibao.igirl.tm.dto.TradeMarkDto;
 import com.gongsibao.taurus.message.ResponseMessage;
 import com.gongsibao.taurus.service.TaurusApiService;
 import com.gongsibao.utils.SupplierSessionManager;
@@ -172,6 +175,27 @@ public class TradeMarkCasePart extends FormPart {
 	public int attachmentMake(String caseid) {
 		//
 		return tradeMarkCaseService.attachmentMake(caseid);
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Authorization(is=false)
+	public ResultDto findTradeMarksByCode(String  caseCode) {
+		List<TradeMark> tradeMarks=tradeMarkCaseService.findTradeMarksByCode(caseCode);
+		List<TradeMarkDto> tmds = new ArrayList<>();
+		for(TradeMark tm :tradeMarks) {
+			TradeMarkDto tmd =new TradeMarkDto();
+			tmd.setTmId(tm.getId());
+			tmd.setTmName(tm.getMemo());
+			tmd.setTmState(tm.getMarkState().getText());
+			tmds.add(tmd);
+		}
+		return ResultDto.getEntityListResultDto(tmds);
+	}
+	@SuppressWarnings("rawtypes")
+	@Authorization(is=false)
+	public ResultDto findUrlByCaseId(int  caseId) {
+		List<String> urlList=tradeMarkService.findUrlById(caseId);
+		return ResultDto.getEntityListResultDto(urlList);//
 	}
 
 	@Authorization(is = false)

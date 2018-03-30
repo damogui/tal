@@ -1,6 +1,10 @@
 package com.gongsibao.igirl.tm.base;
 import com.gongsibao.entity.igirl.res.ConvertToOrderResult;
+import com.gongsibao.entity.igirl.tm.TradeMark;
 import com.gongsibao.entity.igirl.tm.TradeMarkCase;
+
+import java.util.List;
+
 import org.netsharp.base.IPersistableService;
 import org.netsharp.core.annotations.Transaction;
 
@@ -13,7 +17,7 @@ public interface ITradeMarkCaseService extends IPersistableService<TradeMarkCase
 	public TradeMarkCase updateOwner(Integer ttmId,Integer ownerId);
 	public int fetchCaseState(String casecode);
 	public int updateCaseState(String casecode,int state);
-
+	public List<TradeMark> findTradeMarksByCode(String caseCode);
     /**
      * 商标注册方案，生成转化为订单
      *

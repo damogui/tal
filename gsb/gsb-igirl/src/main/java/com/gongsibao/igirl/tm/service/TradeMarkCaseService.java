@@ -860,4 +860,18 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
         }
         return company;
     }
+    @Override
+	public List<TradeMark> findTradeMarksByCode(String caseCode) {
+		Oql oql=new Oql();
+		{
+			oql.setType(TradeMarkCase.class);
+			oql.setSelects("TradeMarkCase.tradeMarks.*");
+			oql.setFilter("code=?");
+			oql.getParameters().add("code",caseCode,Types.VARCHAR);
+		}
+		TradeMarkCase tradeMarkCase=this.queryFirst(oql);
+		List<TradeMark> tradeMarks = tradeMarkCase.getTradeMarks();
+		return tradeMarks;
+		
+	}
 }
