@@ -170,7 +170,7 @@ public class BaseServiceProviderWorkspaceTest extends WorkspaceCreationBase{
 		addFormField(form, "serviceName", "服务商名称", groupName, ControlTypes.TEXT_BOX, true, false);
 		field = addFormField(form, "mobilePhone", "手机号", groupName, ControlTypes.TEXT_BOX, true, false);
 		{
-			field.setTroikaValidation("validationMobile");
+			field.setTroikaValidation("['validationMobile']");
 		}
 		addFormField(form, "isProprietary", "是否自营", groupName, ControlTypes.SWITCH_BUTTON, false, false);
 		

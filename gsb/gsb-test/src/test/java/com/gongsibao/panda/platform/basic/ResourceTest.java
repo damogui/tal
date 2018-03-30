@@ -31,7 +31,7 @@ public class ResourceTest extends ResourceCreationBase {
 
 	IResourceNodeService service = ServiceFactory.create(IResourceNodeService.class);
 
-	// 初始化资源
+	// 初始化资源 init
 	@Before
 	public void setup() {
 		parentNodeName = "基础配置";

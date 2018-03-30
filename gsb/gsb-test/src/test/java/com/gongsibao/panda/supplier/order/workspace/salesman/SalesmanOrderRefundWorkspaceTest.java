@@ -78,7 +78,7 @@ public class SalesmanOrderRefundWorkspaceTest extends WorkspaceCreationBase {
         addColumn(datagrid, "amount", "==我的退款业绩额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn(datagrid, "auditStatus", "审核状态", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "createTime", "退款创建时间", ControlTypes.DATETIME_BOX, 100);
-        addColumn(datagrid, "createTime", "==退款审核通过时间", ControlTypes.DATETIME_BOX, 100);
+        addColumn(datagrid, "updateTime", "退款审核通过时间", ControlTypes.DATETIME_BOX, 100);
         addColumn(datagrid, "soOrder.createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);
         addColumn(datagrid, "creator", "退款创建人", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX, 100);

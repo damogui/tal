@@ -120,7 +120,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		form.setColumnCount(3);
 
 		String groupName = null;
-		// String groupName = "基本信息";
+		// String groupName = "基本信息 ";
 		PFormField formField = addFormField(form, "name", "姓名", groupName, ControlTypes.TEXT_BOX, true);{
 			
 			formField.setTroikaValidation("['maxLength[50]']");

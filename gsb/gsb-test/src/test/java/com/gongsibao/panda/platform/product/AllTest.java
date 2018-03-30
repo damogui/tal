@@ -5,6 +5,9 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import com.gongsibao.panda.platform.product.workspace.OnSaleProductWorkspaceTest;
+import com.gongsibao.panda.platform.product.workspace.OrderStatisticsMonthWorkspaceTest;
+import com.gongsibao.panda.platform.product.workspace.OrderStatisticsWeekWorkspaceTest;
+import com.gongsibao.panda.platform.product.workspace.OrderStatisticsYearWorkspaceTest;
 import com.gongsibao.panda.platform.product.workspace.PriceAuditWorkspaceTest;
 import com.gongsibao.panda.platform.product.workspace.ProductPackageWorkspaceTest;
 import com.gongsibao.panda.platform.product.workspace.ProductProjectWorkspaceTest;
@@ -25,6 +28,9 @@ import com.gongsibao.panda.platform.product.workspace.ProductWorkspaceTest;
 	ProductPutawayWorkspaceTest.class,
 	ProductSoldOutWorkspaceTest.class,
 	
+	OrderStatisticsYearWorkspaceTest.class,
+	OrderStatisticsMonthWorkspaceTest.class,
+	OrderStatisticsWeekWorkspaceTest.class,
 
 	NavigationTest.class
 })
