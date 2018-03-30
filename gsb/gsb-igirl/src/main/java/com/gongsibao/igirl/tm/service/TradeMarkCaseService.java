@@ -4,8 +4,12 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.joda.time.DateTime;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
@@ -17,16 +21,41 @@ import org.netsharp.organization.base.IEmployeeService;
 import org.netsharp.organization.entity.Employee;
 import org.netsharp.persistence.session.SessionManager;
 
+import com.gongsibao.bd.base.IDictService;
 import com.gongsibao.bd.service.GsbPersistableService;
+import com.gongsibao.entity.bd.Dict;
+import com.gongsibao.entity.crm.CompanyIntention;
+import com.gongsibao.entity.crm.Customer;
+import com.gongsibao.entity.crm.dic.CapitalType;
+import com.gongsibao.entity.crm.dic.CompanyOrgType;
+import com.gongsibao.entity.crm.dic.CompanyType;
+import com.gongsibao.entity.crm.dic.ConsultWay;
+import com.gongsibao.entity.crm.dic.FollowStatus;
+import com.gongsibao.entity.crm.dic.Important;
+import com.gongsibao.entity.crm.dic.RegisterCapitalType;
+import com.gongsibao.entity.crm.dic.Sex;
+import com.gongsibao.entity.igirl.OrderProdCase;
+import com.gongsibao.entity.igirl.dict.CaseConvertType;
+import com.gongsibao.entity.igirl.res.ConvertToOrderResult;
 import com.gongsibao.entity.igirl.tm.DownloadAttachment;
 import com.gongsibao.entity.igirl.tm.TradeMark;
 import com.gongsibao.entity.igirl.tm.TradeMarkCase;
 import com.gongsibao.entity.igirl.tm.UploadAttachment;
 import com.gongsibao.entity.igirl.tm.baseinfo.IGirlConfig;
 import com.gongsibao.entity.igirl.tm.dict.ApplierType;
+import com.gongsibao.entity.igirl.tm.dict.CaseType;
 import com.gongsibao.entity.igirl.tm.dict.ConfigType;
 import com.gongsibao.entity.igirl.tm.dict.TMCState;
 import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.entity.trade.OrderProd;
+import com.gongsibao.entity.trade.OrderProdItem;
+import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
+import com.gongsibao.entity.trade.dic.CostStatus;
+import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
+import com.gongsibao.entity.trade.dic.OrderSourceType;
+import com.gongsibao.entity.uc.Account;
+import com.gongsibao.igirl.base.IOrderProdCaseService;
 import com.gongsibao.igirl.tm.base.IDownloadAttachmentService;
 import com.gongsibao.igirl.tm.base.IGirlConfigService;
 import com.gongsibao.igirl.tm.base.ITradeMarkCaseService;
@@ -35,15 +64,34 @@ import com.gongsibao.igirl.tm.base.IUploadAttachmentService;
 import com.gongsibao.igirl.tm.service.builder.TradeMarkCaseAttachmentBuiler;
 import com.gongsibao.supplier.base.ISupplierService;
 import com.gongsibao.taurus.util.StringManager;
+import com.gongsibao.trade.base.ICompanyIntentionService;
+import com.gongsibao.trade.base.ICustomerService;
+import com.gongsibao.trade.base.IOrderService;
+import com.gongsibao.uc.base.IAccountService;
+import com.gongsibao.utils.NumberUtils;
+import com.gongsibao.utils.RegexUtils;
 import com.gongsibao.utils.SupplierSessionManager;
 
 @Service
 public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> implements ITradeMarkCaseService {
-	ISupplierService supplierServcie = ServiceFactory.create(ISupplierService.class);
-	IUploadAttachmentService upattachementService = ServiceFactory.create(IUploadAttachmentService.class);
-	IDownloadAttachmentService downattachementService = ServiceFactory.create(IDownloadAttachmentService.class);
-	ITradeMarkService tradeMarkService = ServiceFactory.create(ITradeMarkService.class);
-	private static TradeMarkCaseAttachmentBuiler tradeMarkCaseAttachmentBuiler = new TradeMarkCaseAttachmentBuiler();
+    ISupplierService supplierServcie = ServiceFactory.create(ISupplierService.class);
+    IUploadAttachmentService upattachementService = ServiceFactory.create(IUploadAttachmentService.class);
+    IDownloadAttachmentService downattachementService = ServiceFactory.create(IDownloadAttachmentService.class);
+    ITradeMarkService tradeMarkService = ServiceFactory.create(ITradeMarkService.class);
+
+    IOrderService orderService = ServiceFactory.create(IOrderService.class);
+
+    IAccountService accountService = ServiceFactory.create(IAccountService.class);
+
+    IOrderProdCaseService orderProdCaseService = ServiceFactory.create(IOrderProdCaseService.class);
+
+    ICustomerService customerService = ServiceFactory.create(ICustomerService.class);
+
+    ICompanyIntentionService companyIntentionService = ServiceFactory.create(ICompanyIntentionService.class);
+
+    IDictService dictService = ServiceFactory.create(IDictService.class);
+
+    private static TradeMarkCaseAttachmentBuiler tradeMarkCaseAttachmentBuiler = new TradeMarkCaseAttachmentBuiler();
 	// 附件营业执照商标ID赋值为-1，因为多个商标共享
 	public final static Integer TradeMarkBizLienseID = -1;
 	// 身份证明商标ID为赋予值为-3，因为多个商标共享
@@ -189,6 +237,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			entity = this.queryFirst(oql);
 
 			entity.setEntityState(EntityState.Deleted);
+
 			List<UploadAttachment> ups = entity.getUploadAttachments();
 			for (int i = 0; i < ups.size(); i++) {
 				UploadAttachment uploadAttachment = ups.get(i);
@@ -452,4 +501,363 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			return -1;
 		}
 	}
+
+    @Override
+    public ConvertToOrderResult convertToOrder(String caseid) {
+        TradeMarkCase tradeMarkCase = byId(caseid);
+        if (null == tradeMarkCase) {
+            // 方案不存在
+            return new ConvertToOrderResult(CaseConvertType.ERROR_0);
+        }
+
+        // 是否已下单，已下单直接返回
+		List<OrderProdCase> caseList = orderProdCaseService.byCaseId(tradeMarkCase.getId());
+		if (null != caseList && caseList.size() > 0) {
+			OrderProdCase orderProdCase = caseList.get(0);
+			ConvertToOrderResult result = new ConvertToOrderResult(CaseConvertType.SUCCESS);
+			result.getExtend().put("accountId", orderProdCase.getAccountId());
+			result.getExtend().put("orderId", orderProdCase.getOrderId());
+			return result;
+		}
+
+		// 方案明细
+        List<TradeMark> tradeMarks = tradeMarkCase.getTradeMarks();
+        if (CollectionUtils.isEmpty(tradeMarks)) {
+            // 缺少子方案
+			return new ConvertToOrderResult(CaseConvertType.ERROR_1);
+        }
+
+        Integer productId = tradeMarkCase.getProductId();
+        if (null == productId || productId == 0) {
+            // 产品不存在
+			return new ConvertToOrderResult(CaseConvertType.ERROR_2);
+        }
+
+        String mobile = tradeMarkCase.getMobile();
+        if (StringManager.isNullOrEmpty(mobile) || RegexUtils.isNotPhone(mobile)) {
+            // 客户手机号码错误
+			return new ConvertToOrderResult(CaseConvertType.ERROR_3);
+        }
+
+        String companyName = tradeMarkCase.getCompanyName();
+        if (StringManager.isNullOrEmpty(companyName) && tradeMarkCase.getApplierType().getValue() == ApplierType.PUBLIC.getValue()) {
+            // 公司名称不存在
+			return new ConvertToOrderResult(CaseConvertType.ERROR_4);
+        }
+
+        // 目前商标注册，都是大陆地区
+        Dict dict = dictService.byId(101900101);
+
+		// 完善公司信息
+		CompanyIntention company = null;
+		if (tradeMarkCase.getApplierType().getValue() == ApplierType.PRIVATE.getValue()) {
+			company = new CompanyIntention();
+			company.setId(0);
+			company.setCompanyName(null == companyName ? "" : companyName);
+		} else{
+			company = getAndSaveCompany(companyName, tradeMarkCase, dict.getId());
+		}
+
+        // 创建会员及客户
+        Account account = accountService.byMobile(mobile);
+        Customer customer = null;
+        if (null == account) {
+            // 保存客户
+            account = getAndSaveAccount(tradeMarkCase, company);
+            // 保存会员
+            customer = getAndSaveCustomer(account, tradeMarkCase);
+        }
+
+        if (null == customer) {
+            customer = customerService.byAccountId(account.getId());
+        }
+
+        // 转换订单实体
+        SoOrder order = convertToOrderEntity(tradeMarkCase, account, customer, company, dict);
+
+        // 保存订单
+        order = orderService.save(order);
+
+        // 订单信息关联方案回写
+        List<OrderProdCase> orderProdCaseList = convertToOrderProdCaseList(tradeMarkCase, order);
+        orderProdCaseService.saves(orderProdCaseList);
+
+		ConvertToOrderResult result = new ConvertToOrderResult(CaseConvertType.SUCCESS);
+		result.getExtend().put("accountId", account.getId());
+		result.getExtend().put("orderId", order.getId());
+		return result;
+    }
+
+    /**
+     * 生成明细订单关联商标注册方案实体
+     *
+     * @param tradeMarkCase
+     * @param order
+     * @return
+     */
+    private List<OrderProdCase> convertToOrderProdCaseList(TradeMarkCase tradeMarkCase, SoOrder order) {
+        List<TradeMark> tradeMarks = tradeMarkCase.getTradeMarks();
+        List<OrderProd> products = order.getProducts();
+        List<OrderProdCase> orderProdCaseList = new ArrayList<>();
+        for (int i = 0; i < products.size(); i++) {
+            OrderProd orderProd = products.get(i);
+            TradeMark tradeMark = tradeMarks.get(i);
+
+            OrderProdCase orderProdCase = new OrderProdCase();
+            {
+                orderProdCase.toNew();
+				orderProdCase.setOrderId(order.getId());
+				orderProdCase.setOrderProdId(orderProd.getId());
+				orderProdCase.setCaseType(CaseType.TRADEMARK_REG);
+				orderProdCase.setCaseId(tradeMarkCase.getId());
+				orderProdCase.setCaseItemId(tradeMark.getId());
+				orderProdCase.setCreatorId(order.getAccountId());
+            }
+            orderProdCaseList.add(orderProdCase);
+        }
+        return orderProdCaseList;
+    }
+
+    /**
+     * 生成订单实体
+     *
+     * @param tradeMarkCase
+     * @param account
+     * @param customer
+     * @param company
+     * @param dict
+     * @return
+     */
+    private SoOrder convertToOrderEntity(TradeMarkCase tradeMarkCase, Account account, Customer customer, CompanyIntention company, Dict dict) {
+        List<TradeMark> tradeMarks = tradeMarkCase.getTradeMarks();
+        Integer productId = tradeMarkCase.getProductId();
+        int totalPrice = 0;
+        // 构建so_order_prod信息
+        List<OrderProd> orderProdList = new ArrayList<>();
+        for (TradeMark tradeMark : tradeMarks) {
+            int cost = NumberUtils.doubleRoundInt(tradeMark.getCost().doubleValue() * 100);
+            int charge = NumberUtils.doubleRoundInt(tradeMark.getCharge().doubleValue() * 100);
+
+            int orderProdPrice = cost + charge;
+
+            OrderProd orderProd = new OrderProd();
+            {
+                orderProd.toNew();
+                orderProd.setNo("");
+                orderProd.setOrderId(0);
+                orderProd.setProductId(productId);
+                orderProd.setProductName(tradeMarkCase.getProduct().getName());
+                orderProd.setCityId(dict.getId());
+                orderProd.setCity(dict);
+                orderProd.setCityName(dict.getName());
+                orderProd.setQuantity(1);
+                orderProd.setCompanyId(company.getId());
+                orderProd.setTrademarkId(0);
+                orderProd.setPrice(orderProdPrice);
+                orderProd.setPriceOriginal(orderProdPrice);
+                orderProd.setInvoiceTitle("");
+                orderProd.setApplyNo("");// 暂时先设置成这样
+                orderProd.setHandleName("");
+                orderProd.setCostStatus(CostStatus.NOENTRY);
+                orderProd.setSettleIdInteger(0);
+                orderProd.setSettlePrice(0);
+                orderProd.setSettleTime(null);
+                orderProd.setOwnerId(tradeMarkCase.getOwnerId());
+                orderProd.setTaskId(0);
+                orderProd.setSupplierId(tradeMarkCase.getSupplierId());
+                orderProd.setDepartmentId(tradeMarkCase.getDepartmentId());
+                orderProd.setCustomerId(customer.getId());
+            }
+
+
+            List<OrderProdItem> items = new ArrayList<>();
+            OrderProdItem costItem = new OrderProdItem();
+            {
+                costItem.toNew();
+                costItem.setServiceName("成本");
+                costItem.setPrice(cost);
+                costItem.setPriceOriginal(cost);
+                costItem.setPriceRefund(0);
+            }
+
+            OrderProdItem chargeItem = new OrderProdItem();
+            {
+                chargeItem.toNew();
+                chargeItem.setServiceName("服务费");
+                chargeItem.setPrice(charge);
+                chargeItem.setPriceOriginal(charge);
+                chargeItem.setPriceRefund(0);
+            }
+
+            items.add(costItem);
+            items.add(chargeItem);
+            orderProd.setItems(items);
+            orderProdList.add(orderProd);
+
+            // 计算总价
+            totalPrice = totalPrice + cost + charge;
+        }
+        // 构建so_order信息
+        SoOrder order = new SoOrder();
+        {
+            order.toNew();
+            order.setProducts(orderProdList);
+            order.setTaskId(0);
+            order.setSupplierId(tradeMarkCase.getSupplierId());
+            order.setDepartmentId(tradeMarkCase.getDepartmentId());
+            order.setAccountId(account.getId());
+            order.setAccountName(StringManager.isNullOrEmpty(account.getRealName()) ? account.getMobilePhone() : account.getRealName());
+            order.setAccountMobile(account.getMobilePhone());
+            order.setTotalPrice(totalPrice);
+            order.setPayablePrice(totalPrice);
+            order.setChannelOrderNo("");
+            order.setSourceType(OrderSourceType.IGIRL_TM);
+            order.setIsInstallment(false);
+            order.setInstallmentAuditStatusId(AuditStatusType.wu);
+            order.setAddUserId(tradeMarkCase.getOwnerId());
+            order.setCompanyId(company.getId());
+            order.setPlatformSource(OrderPlatformSourceType.Gsb);
+            order.setCustomerId(customer.getId());
+            order.setCustomerName(customer.getRealName());
+        }
+        return order;
+    }
+
+    /**
+     * 保存客户
+     *
+     * @param account
+     * @return
+     */
+    private Customer getAndSaveCustomer(Account account, TradeMarkCase tradeMarkCase) {
+        Customer customer = new Customer();
+        {
+            customer.toNew();
+            customer.setAccountId(account.getId());
+            customer.setRealName(account.getRealName());
+            customer.setMobile(account.getMobilePhone());
+            customer.setEmail(account.getEmail());
+            customer.setSex(Sex.SECRECY);
+            customer.setTelephone("");
+            customer.setQq("");
+            customer.setWeixin("");
+
+            customer.setBirdthday(null);
+            customer.setAddr("");
+            customer.setCityId(0);
+            customer.setFollowUserId(tradeMarkCase.getOwnerId());
+            customer.setFollowStatus(FollowStatus.FOLLOW_STATUS_1);
+            customer.setUnvalidRemark("");
+
+            customer.setLastFollowTime(new Date());
+            customer.setBackNum(0);
+            customer.setCustomerSource(dictService.byId(4110215));
+            customer.setConsultWay(ConsultWay.CONSULT_WAY_4215);
+            customer.setImportant(Important.COMMON);
+
+            customer.setIntroducerUserId(tradeMarkCase.getOwnerId());
+            customer.setIntroducerId(0);
+            customer.setRemark("");
+            customer.setCreatorId(tradeMarkCase.getOwnerId());
+            customer.setUpdatorId(tradeMarkCase.getOwnerId());
+        }
+		return customerService.save(customer);
+    }
+
+    /**
+     * 保存会员
+     *
+     * @param tradeMarkCase
+     * @return
+     */
+    private Account getAndSaveAccount(TradeMarkCase tradeMarkCase, CompanyIntention company) {
+        Account account;
+        account = new Account();
+        {
+            account.toNew();
+            account.setName("IGIRL_TRADEMARK_" + tradeMarkCase.getMobile());
+            account.setPasswd("");
+            account.setTicket(UUID.randomUUID().toString());
+            account.setEmail("");
+            account.setMobilePhone(tradeMarkCase.getMobile());
+            account.setTelephone("");
+            account.setHeadThumbFileId(0);
+            account.setRealName(tradeMarkCase.getContactName());
+            account.setSourceClientId(0);
+            account.setIdentityCard("");
+            account.setCompanyId(company.getId());
+        }
+
+        account = accountService.save(account);
+        return account;
+    }
+
+    /**
+     * 保存公司实体
+     *
+     * @param companyName
+     * @param tradeMarkCase
+     * @param cityId
+     * @return
+     */
+    private CompanyIntention getAndSaveCompany(String companyName, TradeMarkCase tradeMarkCase, Integer cityId) {
+        CompanyIntention company = companyIntentionService.byCompanyName(companyName);
+        if (null == company) {
+            company = new CompanyIntention();
+            {
+                company.toNew();
+                company.setName(companyName);
+                company.setOrgType(CompanyOrgType.TYPE_44101);
+                company.setOptionalName("");
+                company.setFullName(companyName);
+                company.setCompanyName(companyName);
+                company.setCompanyType(CompanyType.CompanyType_0);
+                company.setCode(tradeMarkCase.getCreditCode());
+                company.setOrderProdId(0);
+                company.setOrderContactName(tradeMarkCase.getContactName());
+                company.setOrderContactMobile(tradeMarkCase.getMobile());
+                company.setOrderContactEmail("");
+                company.setSetupStatus(1);
+                company.setCityId(cityId);
+                company.setIsSelfAddress(1);
+                company.setAddress(tradeMarkCase.getApplierAddress());
+                company.setCapitalType(CapitalType.CapitalType_1);
+                company.setRegisterCapital(0);
+                company.setRegisterCapitalType(RegisterCapitalType.CompanyType_0);
+                company.setIsSelfCapital(1);
+                company.setIsExpress(0);
+                company.setIsNameVerify(0);
+                company.setNameVerifyFileId(0);
+                company.setVerifyNo("");
+                company.setBusinessTypeId(0);
+                company.setOwnedBusinessType("");
+                company.setBusinessScopeSupply("");
+                company.setHasDirectorate(false);
+                company.setStreet("");
+                company.setPoliceStation("");
+                company.setIsDelete(false);
+                company.setArea("");
+                company.setOrganizationNo("");
+                company.setLegalPerson("");
+                company.setSetUpDate(null);
+                company.setPaidYears("");
+                company.setOperatingLife("");
+                company.setTelephone("");
+                company.setOrderContractQq("");
+                company.setOrderContractWechat("");
+                company.setResidenceType(0);
+                company.setHouseOwner("");
+                company.setHouseSpace(0);
+                company.setLogoUrl("");
+                company.setNationTax("");
+                company.setLocalTax("");
+                company.setRemark("IGIRL-商标方案创建");
+                company.setDescription("");
+                company.setFinishTime(null);
+            }
+
+            company = companyIntentionService.save(company);
+        }
+        return company;
+    }
 }

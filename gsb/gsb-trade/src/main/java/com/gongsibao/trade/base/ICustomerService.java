@@ -10,5 +10,7 @@ import com.gongsibao.entity.crm.Customer;
 public interface ICustomerService extends IPersistableService<Customer> {
 	
 	Map<Integer, String> getCustomerNameByOrderIdList(List<Integer> orderIdList);
+
+	Customer byAccountId(int accountId);
 }
 

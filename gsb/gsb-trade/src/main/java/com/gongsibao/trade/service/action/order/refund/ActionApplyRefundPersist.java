@@ -2,12 +2,14 @@ package com.gongsibao.trade.service.action.order.refund;
 
 import com.gongsibao.entity.trade.NU8BankSoPayMap;
 import com.gongsibao.trade.base.INU8BankSoPayMapService;
+
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
 
 import com.gongsibao.entity.trade.NDepRefund;
 import com.gongsibao.entity.trade.Refund;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.RefundWayType;
 import com.gongsibao.trade.base.INDepRefundService;
 import com.gongsibao.trade.base.IRefundService;
@@ -23,15 +25,16 @@ public class ActionApplyRefundPersist implements IAction {
         IRefundService refundService = ServiceFactory.create(IRefundService.class);
         refund.toNew();
         refund.setWayType(RefundWayType.Dsh);
+        refund.setAuditStatus(AuditStatusType.Dsh);
         //目前给默认值
         refund.setNo("");
         refund.setCost(0);
         refund = refundService.save(refund);
         ctx.setItem(refund);
-        //保存退款表和u8的中间表
+        //2.保存退款表和u8的中间表
         saveU8BankSoPayMap(refund);
 
-        //2.添加退款业绩
+        //3.添加退款业绩
         INDepRefundService depRefundService = ServiceFactory.create(INDepRefundService.class);
         for (NDepRefund item : refund.getDepRefunds()) {
             NDepRefund entity = new NDepRefund();
