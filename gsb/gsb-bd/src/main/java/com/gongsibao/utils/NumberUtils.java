@@ -89,7 +89,7 @@ public class NumberUtils {
     }
 
     /*进行除以100的操作*/
-    public static double getRealMoney(Integer money) {
+    public static Double getRealMoney(Integer money) {
         double m = toDouble(String.valueOf(money));
         if (m == 0) {
             return m;
