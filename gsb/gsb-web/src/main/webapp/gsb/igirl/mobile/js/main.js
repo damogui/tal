@@ -138,6 +138,28 @@ $(function(){
 			})
 			
 		}))
+        var share=()=>Promise.resolve(new Promise(function(resolve,reject){
+            //异步加载组件
+            axios.get(ip+"/vue/comp/share").then(function(res){
+                var obj=eval("("+res.data+")");
+                //console.log(obj)
+                resolve(obj);
+            }).catch(function(reason){
+                console.log(reason)
+            })
+
+        }))
+        var zzlist=()=>Promise.resolve(new Promise(function(resolve,reject){
+            //异步加载组件
+            axios.get(ip+"/vue/comp/zzlist").then(function(res){
+                var obj=eval("("+res.data+")");
+                //console.log(obj)
+                resolve(obj);
+            }).catch(function(reason){
+                console.log(reason)
+            })
+
+        }))
 		var routes=[
 			{path:'/',component:def},
 			{path:'/tms',component:tms},
@@ -148,6 +170,8 @@ $(function(){
 			{path:'/zzty/viewimg',component:viewimg},//营业执照和图样身份证
 			{path:'/zzty/downdele',component:downdele},//下载委托书
 			{path:'/zzty/downup',component:downup},//上传委托书
+            {path:'/zzty/share',component:share},//二维码分享
+            {path:'/zzty/list',component:zzlist},//
 			{path:'/pt',component:tmc},
 			{path:'/cr',component:cr},
 		]
