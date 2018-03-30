@@ -31,6 +31,10 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_SoldOut", "产品下架", "/prod/soldout/list", 5);
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_PriceAudit", "定价审核", "/prod/priceaudit/list", 6);
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Package", "产品套餐", "/prod/package/list", 7);
+			
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_statisticsYear", "订单统计(年)", "/prod/year/statistics", 9);
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_statisticsMonth", "订单统计(月)", "/prod/month/statistics", 10);
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_statisticsWeek", "订单统计(周)", "/prod/week/statistics", 11);
 		}
 	}
 }
