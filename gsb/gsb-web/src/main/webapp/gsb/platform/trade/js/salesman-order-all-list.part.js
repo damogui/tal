@@ -85,8 +85,8 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             },
             yes: function (index, layero) {
 
-              
-                document.getElementById('addOrderReceivedIframe').firstElementChild.contentWindow.controllerdepReceivable .savebase();//保存
+
+                document.getElementById('addOrderReceivedIframe').firstElementChild.contentWindow.controllerdepReceivable.savebase();//保存
                 //IMessageBox.toast('保存成功');
                 //layer.closeAll();
 
@@ -151,7 +151,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             } else if (data == 1052) {
                 layer.msg('有笔退款或结转目前退款中，请审核通过后，再创建 ');
             } else {
-                layer.open({ 
+                layer.open({
                     type: 2,//1是字符串 2是内容
                     title: '申请退款',
                     fixed: false,
@@ -248,7 +248,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             return false;
         }
         var serviceLocator = new org.netsharp.core.JServiceLocator();
-        var url = this.addContractUrl + '?fk=orderId:' + row.id;
+        var url = this.addContractUrl + '?fk=orderId:' + row.id + "&isAdd=1";
         //增加订单是否创建合同
         serviceLocator.invoke("com.gongsibao.trade.web.OrderAllListPart", "checkContract", [row.id], function (data) {
 
@@ -284,7 +284,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             IMessageBox.info('请先选择订单数据');
             return false;
         }
-        var url = this.addInvoiceUrl + '?fk=orderId:' + row.id;
+        var url = this.addInvoiceUrl + '?fk=orderId:' + row.id + "&isAdd=1";;
         var serviceLocator = new org.netsharp.core.JServiceLocator();
         //增加订单是否创建发票
         serviceLocator.invoke("com.gongsibao.trade.web.InvoiceFormPart", "checkInvoice", [row.id], function (data) {
