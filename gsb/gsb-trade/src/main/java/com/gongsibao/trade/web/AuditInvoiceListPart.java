@@ -7,6 +7,7 @@ import com.gongsibao.entity.trade.OrderInvoiceMap;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.base.IOrderInvoiceMapService;
 
+import com.gongsibao.utils.NumberUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.AdvancedListPart;
@@ -16,6 +17,7 @@ import org.netsharp.panda.json.DatagridResultJson;
 import org.netsharp.util.StringManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -79,23 +81,21 @@ public class AuditInvoiceListPart extends AdvancedListPart {
         }
         return resList;
     }
-    
-	protected Object serialize(List<?> list, Oql oql) {
 
-		EasyuiDatagridResult result = new EasyuiDatagridResult();
-		{
-			result.setRows(list);
-			result.setFooter(this.getFooter(oql));
-			if (oql.getPaging() != null) {
-
-				result.setTotal(oql.getPaging().getTotalCount());
-			}
-		}
-
-//		DatagridResultJson parser = new DatagridResultJson(result, pdatagrid);
-//		Object json = parser.parse();
-		return result;
-	}
+    @Override
+    protected Object serialize(List<?> list, Oql oql) {
+        HashMap<String, Object> json = (HashMap<String, Object>) super.serialize(list, oql);
+        ArrayList<HashMap<String, Object>> ob2 = (ArrayList<HashMap<String, Object>>) json.get("rows");
+        for (int i = 0; i < ob2.size(); i++) {
+            ob2.get(i).put("invoice_soOrderNo", getOrderInfoByPropertyName(list, i, "invoice_soOrderNo"));
+            ob2.get(i).put("invoice_prodName", getOrderInfoByPropertyName(list, i, "invoice_prodName"));
+            ob2.get(i).put("invoice_channelOrderNo", getOrderInfoByPropertyName(list, i, "invoice_channelOrderNo"));
+            ob2.get(i).put("invoice_accountTypeName", getOrderInfoByPropertyName(list, i, "invoice_accountTypeName"));
+            ob2.get(i).put("invoice_orderPayablePrice", getOrderInfoByPropertyName(list, i, "invoice_orderPayablePrice"));
+            ob2.get(i).put("invoice_orderPaidPrice", getOrderInfoByPropertyName(list, i, "invoice_orderPaidPrice"));
+        }
+        return json;
+    }
 
 
     //region 私有方法
@@ -127,6 +127,38 @@ public class AuditInvoiceListPart extends AdvancedListPart {
         invoive.setProdName(order.getProdName());
         invoive.setOrderPayablePrice(order.getPayablePrice());
         invoive.setOrderPaidPrice(order.getPaidPrice());
+    }
+
+    //获取属性的值
+    private Object getOrderInfoByPropertyName(List<?> list, Integer index, String propertyName) {
+        Object res = new Object();
+        AuditLog auditLog = ((AuditLog) list.get(index));
+        if (auditLog == null) return null;
+        Invoice invoice = auditLog.getInvoice();
+        if (invoice == null) {
+            return null;
+        }
+        switch (propertyName) {
+            case "invoice_soOrderNo":
+                res = invoice.getSoOrderNo();
+                break;
+            case "invoice_prodName":
+                res = invoice.getProdName();
+                break;
+            case "invoice_channelOrderNo":
+                res = invoice.getChannelOrderNo();
+                break;
+            case "invoice_accountTypeName":
+                res = invoice.getAccountTypeName();
+                break;
+            case "invoice_orderPayablePrice":
+                res = invoice.getOrderPayablePrice();
+                break;
+            case "invoice_orderPaidPrice":
+                res = invoice.getOrderPaidPrice();
+                break;
+        }
+        return res;
     }
     // endregion
 

@@ -110,10 +110,7 @@ public class AuditInvoiceWorkspaceTest extends WorkspaceCreationBase {
         {
             column.setVisible(false);
         }
-        column =  addColumn(datagrid, "invoice.soOrderNo", "订单编号", ControlTypes.TEXT_BOX, 80);{
-        	
-        	column.setFormatter("if(row.invoice){return row.invoice.soOrderNo;}");
-        }
+        addColumn(datagrid, "invoice.soOrderNo", "订单编号", ControlTypes.TEXT_BOX, 80);
         addColumn(datagrid, "invoice.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "invoice.accountTypeName", "新老客户签单", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "invoice.prodName", "产品名称", ControlTypes.TEXT_BOX, 100);
