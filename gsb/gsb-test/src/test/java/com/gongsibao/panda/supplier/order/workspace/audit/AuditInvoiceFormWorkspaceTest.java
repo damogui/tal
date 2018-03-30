@@ -2,7 +2,9 @@ package com.gongsibao.panda.supplier.order.workspace.audit;
 
 import com.gongsibao.panda.platform.trade.workspace.order.InvoiceFormWorKspace;
 import com.gongsibao.trade.web.AuditLogDetailPart;
+
 import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.PartType;
@@ -24,6 +26,11 @@ public class AuditInvoiceFormWorkspaceTest extends InvoiceFormWorKspace {
         super.setup();
         urlForm = "/trade/audit/invoice/form";
         resourceNodeCode = "GSB_Trade_Audit_Form_Invoice";
+    }
+    
+    @Test
+    public void createDetailRowToolbar() {
+    	
     }
 
     protected void addDetailGridPart(PWorkspace workspace) {

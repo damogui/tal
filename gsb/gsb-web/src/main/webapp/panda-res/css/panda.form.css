@@ -31,10 +31,10 @@
 	border-top-width:0px;
 }
 
-.tabs-panels .panel form{
+/* .toolbar+form{
 	padding-top: 30px;
 }
-
+ */
 .tabs li a.tabs-inner{
 	background: #fff;
 	border-radius:0px !important;

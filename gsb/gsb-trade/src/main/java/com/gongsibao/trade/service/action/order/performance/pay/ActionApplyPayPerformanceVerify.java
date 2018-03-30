@@ -3,6 +3,8 @@ package com.gongsibao.trade.service.action.order.performance.pay;
 import java.sql.Types;
 import java.util.List;
 
+import com.gongsibao.entity.bd.dic.AuditLogType;
+import com.gongsibao.trade.service.action.order.utils.AuditHelper;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
@@ -29,7 +31,13 @@ public class ActionApplyPayPerformanceVerify implements IAction {
 		@SuppressWarnings("unchecked")
 		List<NDepPay> depPayList = (List<NDepPay>) ctx.getItem();
 
-		if (depPayList == null || depPayList.size() == 0) {
+
+
+
+
+
+
+        if (depPayList == null || depPayList.size() == 0) {
 
 			throw new BusinessException("分配记录不能为空！");
 		}
@@ -40,13 +48,23 @@ public class ActionApplyPayPerformanceVerify implements IAction {
 			throw new BusinessException("订单信息错误！");
 		}
 
+
+
 		SoOrder soOrder = this.getSoOrder(orderId);
 		if (soOrder == null) {
 
 			throw new BusinessException("订单信息不存在！");
 		}
 
-		Integer unAllotPayPrice = soOrder.getUnAllotPayPrice();
+        Integer execNum = AuditHelper.getRecode (soOrder.getId (), AuditLogType.Skyjsh.getValue ());
+        if (execNum > 0) {
+
+            throw new BusinessException ("订单正处于回款业绩审核状态");//execNum
+
+        }
+
+
+        Integer unAllotPayPrice = soOrder.getUnAllotPayPrice();
 		if (unAllotPayPrice == null || unAllotPayPrice.compareTo(0) != 1) {
 
 			throw new BusinessException("【未划分回款业绩额】为0！");
