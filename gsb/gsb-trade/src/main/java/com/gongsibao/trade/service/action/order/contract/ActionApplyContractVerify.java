@@ -4,6 +4,8 @@ import com.gongsibao.entity.trade.Contract;
 import com.gongsibao.entity.trade.Invoice;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
+import com.gongsibao.entity.trade.dic.ContractType;
+import com.gongsibao.entity.trade.dic.CustomerType;
 import com.gongsibao.trade.base.IContractService;
 import com.gongsibao.utils.NumberUtils;
 import com.gongsibao.utils.RegexUtils;
@@ -31,20 +33,24 @@ public class ActionApplyContractVerify implements IAction {
         if (NumberUtils.toInt(contract.getOrderId()) == 0) {
             throw new BusinessException("订单不能为空！");
         }
-        //身份证
-        if (StringManager.isNullOrEmpty(contract.getIdNumber())) {
-            throw new BusinessException("身份证号码不能为空！");
+        //合同类型，选为电子时，身份证号显示，为必填
+        if (contract.getElectronics().equals(ContractType.DZ)) {
+            //身份证
+            if (StringManager.isNullOrEmpty(contract.getIdNumber())) {
+                throw new BusinessException("身份证号码不能为空！");
+            }
+            //身份证号码格式错误
+            if (!RegexUtils.isIdCard(contract.getIdNumber())) {
+                throw new BusinessException("身份证号码格式错误！");
+            }
         }
-        //身份证号码格式错误
-        if (!RegexUtils.isIdCard(contract.getIdNumber())) {
-            throw new BusinessException("身份证号码格式错误！");
-        }
+
         //公司名称
         if (StringManager.isNullOrEmpty(contract.getCompanyName())) {
             throw new BusinessException("公司名称不能为空！");
         }
-        //营业执照号
-        if (StringManager.isNullOrEmpty(contract.getBusinessLicenseNo())) {
+        //营业执照号(客户类型，选为企业时，营业执照号显示，为必填)
+        if (contract.getContractType().equals(CustomerType.QY) && StringManager.isNullOrEmpty(contract.getBusinessLicenseNo())) {
             throw new BusinessException("营业执照号不能为空！");
         }
         //签约日期

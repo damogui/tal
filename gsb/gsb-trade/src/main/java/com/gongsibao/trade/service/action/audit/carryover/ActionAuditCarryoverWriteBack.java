@@ -85,7 +85,7 @@ public class ActionAuditCarryoverWriteBack implements IAction{
 			allAmout = carryover.getAmount();
 			toOrderId = carryover.getToOrderId();
 		}
-		//2.回写订单:结转审核状态、结转金额
+		//2.回写订单:结转审核状态、结转转出额
         UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("so_order");
@@ -96,12 +96,12 @@ public class ActionAuditCarryoverWriteBack implements IAction{
 		String cmdText = updateSql.toSQL();
 		IPersister<SoOrder> pm = PersisterFactory.create();
 		pm.executeNonQuery(cmdText, null);
-		//3.回写订单:结转审核状态、去向订单的付款金额
+		//3.回写订单:结转审核状态、结转转入额
         UpdateBuilder updateSqlTwo = UpdateBuilder.getInstance();
 		{
 			updateSql.update("so_order");
 			updateSql.set("carry_status_id", state.getValue());
-			updateSql.set("paid_price", allAmout);
+			updateSql.set("carry_into_amount", allAmout);
 			updateSql.where("pkid =" + toOrderId);
 		}
 		String cmdTextTwo = updateSqlTwo.toSQL();

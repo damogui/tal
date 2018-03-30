@@ -33,7 +33,8 @@ com.gongsibao.trade.web.OrderRefundCtrl = org.netsharp.panda.core.CustomCtrl.Ext
       		var refundPrice = data.refundPrice;
       		var carryAmount = data.carryAmount;
       		var getFinals = paidPrice - refundPrice - carryAmount;
-        	if((getFinals - newValue) < 0){
+      		var getNewValue = parseFloat(newValue)*100;
+        	if((getFinals - getNewValue) < 0){
         		$('#amount').numberbox('clear');
         		layer.msg('退款业绩总额不等于退款总额，请核实');
         	}
