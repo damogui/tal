@@ -62,7 +62,7 @@
 				          <td class="label_td"><label style="color:Red">*</label><label>退款金额：</label></td>
 				          <td class="control_td">
 				          		<input id="amount" class="easyui-numberbox nsInput"
-				          			data-options="precision:2,width:150,min:1,required:true"/>
+				          			data-options="precision:2,width:150,min:1,required:true,onChange:function(newValue,oldValue){refundCtrl.amountChange(newValue,oldValue);"/>
 				          </td>
 					</tr>
 				      <tr>
