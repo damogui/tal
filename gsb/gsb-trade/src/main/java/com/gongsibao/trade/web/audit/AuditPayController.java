@@ -13,8 +13,11 @@ import com.gongsibao.trade.base.IPayService;
 import com.gongsibao.trade.web.dto.AuditLogDTO;
 import com.gongsibao.trade.web.dto.OrderInfoDTO;
 import com.gongsibao.trade.web.dto.OrderPayInfoDTO;
+import com.gongsibao.utils.NumberUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
+import org.netsharp.util.NumUtil;
+import org.netsharp.util.StringManager;
 
 import java.sql.Types;
 import java.util.ArrayList;
@@ -101,7 +104,8 @@ public class AuditPayController extends AuditBaseController {
         orderPayInfoDTO.setBankName (pay.getOfflinePayerName ());
         orderPayInfoDTO.setBankNo (pay.getOfflineBankNo ());
         orderPayInfoDTO.setIsMoreOrder (pay.getPayForOrderCount ().getText ());
-        orderPayInfoDTO.setAmount (pay.getAmount ().toString ());
+
+        orderPayInfoDTO.setAmount (NumberUtils.getRealMoney (pay.getAmount ()).toString ());//转换为元
         orderPayInfoDTO.setMark (pay.getOfflineRemark ());
         orderPayInfoDTO.setFiles (pay.getFiles ());
         // orderPayInfoDTO.setOrderInfos (getOrderInfosByMap (pay.getOrderPayMaps ()));
@@ -131,7 +135,7 @@ public class AuditPayController extends AuditBaseController {
                 ) {
             OrderInfoDTO orderInfoDTO = new OrderInfoDTO ();
             orderInfoDTO.setOrderNo (item.getSoOrder ().getNo ());
-            orderInfoDTO.setOrderCut (item.getOrderPrice ().toString ());
+            orderInfoDTO.setOrderCut (NumberUtils.getRealMoney (item.getOrderPrice ()).toString ());
             orderInfoDTO.setPayType (item.getOfflineInstallmentType ().getText ());
             orderInfoDTOs.add (orderInfoDTO);
         }
