@@ -32,13 +32,13 @@ com.gongsibao.trade.web.AuditPayPerformanceListPart = org.netsharp.panda.commerc
             content: contentUrl,
             btn: ['审核通过', '审核不通过'],// 可以无限个按钮
             btn1: function (index, layero) {
-                document.getElementById('auditPayPerIframe').firstElementChild.contentWindow.auditPayPerformanceCtrl.approved();
-                IMessageBox.toast("审核成功");
-                layer.close(index);
+                document.getElementById('auditPayPerIframe').firstElementChild.contentWindow.auditPayPerformanceCtrl.approved(reloadPage);
+                // IMessageBox.toast("审核成功");
+                // layer.close(index);
             },
             btn2: function (index, layero){
-                document.getElementById('auditPayPerIframe').firstElementChild.contentWindow.auditPayPerformanceCtrl.rejected();
-               return false;
+                document.getElementById('auditPayPerIframe').firstElementChild.contentWindow.auditPayPerformanceCtrl.rejected(reloadPage);
+               // return false;
             }
         });
 
@@ -48,5 +48,11 @@ com.gongsibao.trade.web.AuditPayPerformanceListPart = org.netsharp.panda.commerc
 
 });
 
+
+/*重新调取下请求方法*/
+function reloadPage() {
+    controllerauditLogList.query();
+
+}
 
 
