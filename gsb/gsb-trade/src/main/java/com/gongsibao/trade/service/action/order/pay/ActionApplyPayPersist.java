@@ -3,6 +3,7 @@ package com.gongsibao.trade.service.action.order.pay;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.OfflineWayType;
 import com.gongsibao.entity.u8.U8Bank;
 import com.gongsibao.u8.base.IU8BankService;
@@ -36,6 +37,7 @@ public class ActionApplyPayPersist implements IAction {
     public void execute(ActionContext ctx) {
 
         Pay pay = (Pay) ctx.getItem();
+        pay.setOfflineAuditStatus (AuditStatusType.Dsh);
         pay.toNew();
 
         // 处理付款凭证

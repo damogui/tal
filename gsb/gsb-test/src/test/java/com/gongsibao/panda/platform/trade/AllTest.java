@@ -63,15 +63,16 @@ import com.gongsibao.panda.platform.trade.workspace.payment.PaymentLogWorkspaceT
         //审核中心:改价审核,合同审核,发票审核,收款审核,分期审核,退单审核,商城充值审核
         CarryoverAuditWorkspaceTest.class,
         CostAuditWorkspaceTest.class,
-        //PerformanceAuditWorkspaceTest.class,
+        PerformanceAuditWorkspaceTest.class,
         ChangePriceAuditWorkspaceTest.class,
         ContractAuditWorkspaceTest.class,
         InvoiceAuditWorkspaceTest.class,
-        ReceivedAuditWorkspaceTest.class,
+        ReceivedAuditWorkspaceTest.class,//回款业绩
         RefundAuditWorkspaceTest.class,
         StagingAuditWorkspaceTest.class,
         AuditContractFormWorkspaceTest.class,
         AuditInvoiceFormWorkspaceTest.class,
+        PayAuditWorkspaceTest.class,//回款审核
 
 
         //成本管理:成本管理,收款方管理,请款审核,请款审核,供应商发票审核

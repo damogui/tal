@@ -27,8 +27,11 @@ com.gongsibao.trade.web.InvoiceFormPart = org.netsharp.panda.commerce.FormPart.E
     databindextra: function (entity) {
         var me = this;
         me.bandOrderInfo(entity.soOrder);
-        //禁用整个form
-        controllerinvoice.disable();
+        //查看时禁用整个form
+        var isAdd = System.Url.getParameter("isAdd");
+        if (isAdd != 1) {
+            me.disable();
+        }
     },
     bandOrderInfo: function (soOrder) {
         var me = this;

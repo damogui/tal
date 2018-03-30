@@ -75,63 +75,74 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 		form.toNew();
 		form.setColumnCount(3);
 		form.setName(formPartName);
-		
+
 		PFormField formField = null;
-		
+
 		String groupName = null;
-		addFormField(form, "realName", "姓名", groupName, ControlTypes.TEXT_BOX, true, false);
+		formField = addFormField(form, "realName", "姓名", groupName, ControlTypes.TEXT_BOX, true, false);
+		{
+
+			formField.setTroikaValidation("['maxLength[50]']");
+		}
 		addFormField(form, "sex", "性别", groupName, ControlTypes.ENUM_BOX, false, false);
-		formField = addFormField(form, "mobile", "手机", groupName, ControlTypes.ENCRYPTION_BOX, true, false);{
-			
+		formField = addFormField(form, "mobile", "手机", groupName, ControlTypes.ENCRYPTION_BOX, false, false);
+		{
+
 			formField.setTroikaTrigger("controllernCustomer.contactWayChange(this);");
-			formField.setTroikaValidation("validationContactWay['mobile','手机']");
+			formField.setTroikaValidation("['validationContactWay[\\'mobile\\',\\'手机\\']']");
 		}
-		formField = addFormField(form, "telephone", "座机", groupName, ControlTypes.ENCRYPTION_BOX, true, false);{
-			
+		formField = addFormField(form, "telephone", "座机", groupName, ControlTypes.ENCRYPTION_BOX, false, false);
+		{
+
 			formField.setTroikaTrigger("controllernCustomer.contactWayChange(this);");
-			formField.setTroikaValidation("validationContactWay['telephone','座机']");
+			formField.setTroikaValidation("['validationContactWay[\\'telephone\\',\\'座机\\']']");
 		}
-		formField = addFormField(form, "qq", "QQ", groupName, ControlTypes.ENCRYPTION_BOX, true, false);{
-			
+		formField = addFormField(form, "qq", "QQ", groupName, ControlTypes.ENCRYPTION_BOX, false, false);
+		{
+
 			formField.setTroikaTrigger("controllernCustomer.contactWayChange(this);");
-			formField.setTroikaValidation("validationContactWay['qq','QQ']");
+			formField.setTroikaValidation("['validationContactWay[\\'qq\\',\\'QQ\\']']");
 		}
-		formField = addFormField(form, "weixin", "微信", groupName, ControlTypes.ENCRYPTION_BOX, true, false);{
-			
+		formField = addFormField(form, "weixin", "微信", groupName, ControlTypes.ENCRYPTION_BOX, false, false);
+		{
+
 			formField.setTroikaTrigger("controllernCustomer.contactWayChange(this);");
-			formField.setTroikaValidation("validationContactWay['weixin','微信']");
+			formField.setTroikaValidation("['validationContactWay[\\'weixin\\',\\'微信\\']']");
 		}
-		formField = addFormField(form, "email", "邮箱", groupName, ControlTypes.ENCRYPTION_BOX, false, false);{
-			
-			formField.setTroikaValidation("email");
+		formField = addFormField(form, "email", "邮箱", groupName, ControlTypes.ENCRYPTION_BOX, false, false);
+		{
+
+			formField.setTroikaValidation("['email','maxLength[50]']");
 		}
 		addFormField(form, "birdthday", "生日", groupName, ControlTypes.DATE_BOX, false, false);
 		addFormField(form, "important", "重要程度", groupName, ControlTypes.ENUM_BOX, false, false);
-		formField = addFormField(form, "province.name", "省份",groupName, ControlTypes.CUSTOM, false, false);
+		formField = addFormField(form, "province.name", "省份", groupName, ControlTypes.CUSTOM, false, false);
 		{
 			formField.setCustomControlType(CityComboBox.class.getName());
 			formField.setDataOptions("level:1,changeCtrlId:'city_name'");
 		}
-		formField = addFormField(form, "city.name", "城市", groupName,ControlTypes.CUSTOM, false, false);
+		formField = addFormField(form, "city.name", "城市", groupName, ControlTypes.CUSTOM, false, false);
 		{
 			formField.setCustomControlType(CityComboBox.class.getName());
 			formField.setDataOptions("level:2,changeCtrlId:'county_name'");
 		}
 
-		formField = addFormField(form, "county.name", "区/县", groupName,ControlTypes.CUSTOM, false, false);
+		formField = addFormField(form, "county.name", "区/县", groupName, ControlTypes.CUSTOM, false, false);
 		{
 			formField.setCustomControlType(CityComboBox.class.getName());
 			formField.setDataOptions("level:3");
 		}
 
-		formField = addFormField(form, "remark", "备注", groupName, ControlTypes.TEXTAREA, false, false);{
+		formField = addFormField(form, "remark", "备注", groupName, ControlTypes.TEXTAREA, false, false);
+		{
 			formField.setFullColumn(true);
 			formField.setHeight(50);
+			formField.setTroikaValidation("[\'maxLength[500]\']");
 		}
-		
+
 		return form;
 	}
-	
+
 	@Test
 	public void createFormToolbar() {
 
@@ -156,7 +167,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 			item.setCommand("{controller}.edit();");
 			toolbar.getItems().add(item);
 		}
-		
+
 		item = new PToolbarItem();
 		{
 			item.toNew();
@@ -202,12 +213,11 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 
 		// 日志信息
 		addCommunicatLogsPart(workspace);
-		
+
 		addNotificationLogPart(workspace);
 
 		// 客户商机
 		createTasksPart(workspace);
-
 
 		// 意向产品
 		addIntenProductPart(workspace);
@@ -222,6 +232,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 		ResourceNode node = this.resourceService.byCode(productsDetailResourceNodeCode);
 		PDatagrid datagrid = new PDatagrid(node, "意向产品");
 		{
+			datagrid.setShowCheckbox(false);
 			addColumn(datagrid, "productCategory1.name", "一级分类", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "productCategory2.name", "二级分类", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "product.name", "产品", ControlTypes.TEXT_BOX, 300);
@@ -252,6 +263,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 		ResourceNode node = this.resourceService.byCode(foolowDetailResourceNodeCode);
 		PDatagrid datagrid = new PDatagrid(node, "跟进日志");
 		{
+			datagrid.setShowCheckbox(false);
 			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
 			PDatagridColumn column = addColumn(datagrid, "foolowStatus", "跟进状态", ControlTypes.ENUM_BOX, 100);
 			{
@@ -261,7 +273,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 			addColumn(datagrid, "nextFoolowTime", "下次跟进时间", ControlTypes.DATE_BOX, 150);
 			addColumn(datagrid, "signingAmount", "估计签单金额", ControlTypes.DECIMAL_FEN_BOX, 150);
 			addColumn(datagrid, "returnedAmount", "估计回款金额", ControlTypes.DECIMAL_FEN_BOX, 150);
-			
+
 			addColumn(datagrid, "content", "跟进内容", ControlTypes.TEXT_BOX, 400);
 		}
 		PPart part = new PPart();
@@ -284,6 +296,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 		ResourceNode node = this.resourceService.byCode(notifyDetailResourceNodeCode);
 		PDatagrid datagrid = new PDatagrid(node, "通知日志");
 		{
+			datagrid.setShowCheckbox(false);
 			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
 			PDatagridColumn column = addColumn(datagrid, "type", "通知类型", ControlTypes.ENUM_BOX, 100);
 			{
@@ -312,6 +325,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 
 		PDatagrid datagrid = new PDatagrid(node, "操作日志");
 		{
+			datagrid.setShowCheckbox(false);
 			// 子页面枚举显示需要格式化一下
 			addColumn(datagrid, "createTime", "操作时间", ControlTypes.DATETIME_BOX, 130);
 			PDatagridColumn column = addColumn(datagrid, "changeType", "操作类型", ControlTypes.ENUM_BOX, 100);

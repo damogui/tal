@@ -85,8 +85,8 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             },
             yes: function (index, layero) {
 
-              
-                document.getElementById('addOrderReceivedIframe').firstElementChild.contentWindow.controllerdepReceivable .savebase();//保存
+
+                document.getElementById('addOrderReceivedIframe').firstElementChild.contentWindow.controllerdepReceivable.savebase();//保存
                 //IMessageBox.toast('保存成功');
                 //layer.closeAll();
 
@@ -145,11 +145,11 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         //验证金额 和一些退款的状态
         me.invokeService("refundCarryValidate", [row.id, 0], function (data) {
             if (data < 0) {
-                layer.msg('无退款金额！');
+                layer.msg('该订单无可退款金额，请知悉');
             } else if (data == 1051) {
-                layer.msg('退款待审核中，暂不能操作！');
+                layer.msg('有笔退款或结转目前待审核中，请审核通过后，再创建');
             } else if (data == 1052) {
-                layer.msg('退款中，暂不能操作！');
+                layer.msg('有笔退款或结转目前退款中，请审核通过后，再创建 ');
             } else {
                 layer.open({
                     type: 2,//1是字符串 2是内容
@@ -181,11 +181,11 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         var contentUrl = this.addCarryoverUrl + "?id=" + row.id;
         me.invokeService("refundCarryValidate", [row.id, 1], function (data) {
             if (data < 0) {
-                layer.msg('结转金额不足！');
+                layer.msg('该订单无可结转金额，请知悉');
             } else if (data == 1051) {
-                layer.msg('结转待审核中，暂不能操作！');
+                layer.msg('有笔退款或结转目前待审核中，请审核通过后，再创建');
             } else if (data == 1052) {
-                layer.msg('结转中，暂不能操作！');
+                layer.msg('有笔退款或结转目前结转中，请审核通过后，再创建');
             } else {
                 layer.open({
                     type: 2,//1是字符串 2是内容
@@ -218,7 +218,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         //判断是否已经分期付款了（先支持1次分期）
         me.invokeService("isStaged", [row.id], function (data) {
             if (data) {
-                IMessageBox.info('该订单已经分期付款');
+                IMessageBox.info('该订单已申请分期，并审核通过，请知悉');
             } else {
                 layer.open({
                     type: 2,//1是字符串 2是内容
@@ -248,7 +248,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             return false;
         }
         var serviceLocator = new org.netsharp.core.JServiceLocator();
-        var url = this.addContractUrl + '?fk=orderId:' + row.id;
+        var url = this.addContractUrl + '?fk=orderId:' + row.id + "&isAdd=1";
         //增加订单是否创建合同
         serviceLocator.invoke("com.gongsibao.trade.web.OrderAllListPart", "checkContract", [row.id], function (data) {
 
@@ -284,7 +284,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             IMessageBox.info('请先选择订单数据');
             return false;
         }
-        var url = this.addInvoiceUrl + '?fk=orderId:' + row.id;
+        var url = this.addInvoiceUrl + '?fk=orderId:' + row.id + "&isAdd=1";;
         var serviceLocator = new org.netsharp.core.JServiceLocator();
         //增加订单是否创建发票
         serviceLocator.invoke("com.gongsibao.trade.web.InvoiceFormPart", "checkInvoice", [row.id], function (data) {

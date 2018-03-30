@@ -14,6 +14,7 @@ com.gongsibao.trade.web.OrderCarryoverCtrl = org.netsharp.panda.core.CustomCtrl.
 		
     	var orderId = this.queryString('id');
     	this.invokeService ("getSoOrder", [orderId], function(data){
+    		$("payablePrice_hidden").val(data.payablePrice);
       		$("#paidPrice_hidden").val(data.paidPrice);
       		$("#refundPrice_hidden").val(data.refundPrice);
       		$("#carryAmount_hidden").val(data.carryAmount);
@@ -22,13 +23,22 @@ com.gongsibao.trade.web.OrderCarryoverCtrl = org.netsharp.panda.core.CustomCtrl.
     	});
     },
     amountChange:function(newValue,oldValue){
+    	//1.判断结转转出额是否大于订单可结转金额
+    	var payAblePrice = $("payablePrice_hidden").val();
     	var paidPrice = $("#paidPrice_hidden").val();
     	var refundPrice = $("#refundPrice_hidden").val();
     	var carryAmount = $("#carryAmount_hidden").val();
-    	var getFinals = paidPrice - refundPrice - carryAmount;
-    	if((getFinals - newValue) < 0){
+    	var rollOutAmout = paidPrice - refundPrice - carryAmount;
+    	var getNewValue = parseFloat(newValue)*100;
+    	if((rollOutAmout - getNewValue) < 0){
     		$('#amount').numberbox('clear');
-    		layer.msg('结转金额不应大于应付的金额！');
+    		layer.msg('结转转出额大于订单可结转金额，请核实');
+    	}
+    	//2.判断结转转入额是否大于待付款金额
+    	var intoAmount = payAblePrice - paidPrice;
+    	if((intoAmount - getNewValue) > 0){
+    		$('#amount').numberbox('clear');
+    		layer.msg('结转转入额大于待付金额，请核实');
     	}
     },
     toOrderNoBlur:function(){

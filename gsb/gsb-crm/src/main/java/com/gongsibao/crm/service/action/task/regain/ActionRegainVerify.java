@@ -36,6 +36,7 @@ public class ActionRegainVerify implements IAction {
     @SuppressWarnings("unused")
 	@Override
     public void execute(ActionContext ctx) {
+    	
         Map<String, Object> setMap = ctx.getStatus();
         NCustomerTask taskEntity = (NCustomerTask) ctx.getItem();
         //服务商id
@@ -46,24 +47,29 @@ public class ActionRegainVerify implements IAction {
         int ownerId = NumberUtils.toInt(taskEntity.getOwnerId());
 
         if (supplierId == 0 && departmentId == 0 && ownerId == 0) {
+        	
             throw new BusinessException("当前商机已经是大公海商机了，禁止收回！");
         }
         //当前登录人
         int userId = SessionManager.getUserId();
         //当不是售前时，判断是不是服务商管理员或部门负责人
         DataTable roleRow = getRoleMapList(userId);
-
-
         if (roleRow == null) {
-            throw new BusinessException("当前登录人无权限，收回商机");
+        	
+            throw new BusinessException("当前登录人无权限收回！");
         }
+        
         if (roleRow != null) {
+        	
             StringBuffer flag = new StringBuffer();
             //当前登录人的部门id
             Integer currentDepartmentId = 0;
+            
             //当前登录人的服务商id
             Integer currentSupplierId = 0;
+            
             for (IRow role : roleRow) {
+            	
                 //管理员:Supplier_Admin、部门负责人:Supplier_Leader、业务员:Supplier_Salesman
                 String roleCode = role.getString("roleCode");
                 //管理员
@@ -77,13 +83,17 @@ public class ActionRegainVerify implements IAction {
                 currentDepartmentId = NumberUtils.toInt(role.get("departmentId"));
                 currentSupplierId = NumberUtils.toInt(role.get("supplierId"));
             }
+            
             //当该登录人既不是售前也是不服务商管理也不是部门负责人时
             if (StringManager.isNullOrEmpty(flag.toString())) {
+            	
                 throw new BusinessException("当前登录人无权限，收回商机");
             }
             //当该登录人是：【部门负责人】时
             if (flag.indexOf("d") > -1) {
+            	
                 if (supplierId != 0 && departmentId != 0 && ownerId == 0) {
+                	
                     throw new BusinessException("该商机已经是到该部门公海了，禁止收回");
                 }
                 //退出等级：1：退回到大公海（即:服务商id,部门id,业务员id都设置为空）、2：退回到服务商（（即:服务商id不为空））、3：退回到部门（（即:服务商id,部门id不为空））
@@ -95,7 +105,9 @@ public class ActionRegainVerify implements IAction {
             }
             //当该登录人是：服务商【管理员】时
             if (flag.indexOf("s") > -1) {
+            	
                 if (supplierId != 0 && departmentId == 0 && ownerId == 0) {
+                	
                     throw new BusinessException("该商机已经是到该服务商公海了，禁止收回");
                 }
                 //退出等级：1：退回到大公海（即:服务商id,部门id,业务员id都设置为空）、2：退回到服务商（（即:服务商id不为空））、3：退回到部门（（即:服务商id,部门id不为空））
@@ -109,6 +121,7 @@ public class ActionRegainVerify implements IAction {
             //当前登录人是否是售前
             ServiceType serviceType = customerServiceConfigService.getTypeByEmployeeId(userId);
             if (serviceType != null && ServiceType.CUSTOMER_SERVICES.equals(serviceType)) {
+            	
                 //退出等级：1：退回到大公海（即:服务商id,部门id,业务员id都设置为空）、2：退回到服务商（（即:服务商id不为空））、3：退回到部门（（即:服务商id,部门id不为空））
                 setMap.put("backLevel", 1);
                 taskEntity.setSupplierId(null);
@@ -116,6 +129,7 @@ public class ActionRegainVerify implements IAction {
                 taskEntity.setOwnerId(null);
                 taskEntity.setAllocationState(AllocationState.WAIT);//待分配
             } else {
+            	
                 //当是售前时，则将
                 throw new BusinessException("当前商机已经是大公海商机了，禁止收回！");
             }

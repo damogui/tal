@@ -95,6 +95,18 @@ public class TradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 			item.setCommand("{controller}.edit();");
 			toolbar.getItems().add(item);
 		}
+		 item = new PToolbarItem();
+	        {
+	            item.toNew();
+	            item.setCode("exportExcel");
+	            item.setIcon("fa fa-download");
+	            item.setName("导出");
+	            item.setCommand(null);
+	            item.setOperationType(ot1);
+	            item.setSeq(4000);
+	            item.setCommand("{controller}.exportExcel();");
+	            toolbar.getItems().add(item);
+	        }
 		toolbarService.save(toolbar);
 	}
 

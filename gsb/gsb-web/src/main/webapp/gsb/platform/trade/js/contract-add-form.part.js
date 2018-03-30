@@ -1,6 +1,5 @@
 System.Declare("com.gongsibao.trade.web");
 com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.Extends({
-
     ctor: function () {
         this.base();
         //订单下单方式枚举
@@ -15,59 +14,38 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         var url = window.location.href;
         var fkParam = this.getfkParam();
         var orderId = fkParam.orderId;
-
         this.invokeService("newInstance", [orderId], function (jmessage) {
-
             me.currentItem = jmessage;
             me.viewModel.currentItem = me.currentItem;
             me.currentItem.entityState = EntityState.New;
-            //公司名称
             me.currentItem.companyName = jmessage.soOrder.companyIntention == null ? "" : jmessage.soOrder.companyIntention.companyName;
-            me.currentItem.platformSource = me.orderPlatformSourceEnum[jmessage.soOrder.platformSource];
-            me.added(me.currentItem);
             if (me.currentItem == null) {
                 me.viewModel.clear();
             } else {
                 me.databind();
-                //绑定订单信息
                 me.bindOrderInfo(jmessage);
             }
         });
     },
     bindOrderInfo: function (jmessage) {
-
         var me = this;
-
         //region 订单信息的赋值
-        //订单编号
         var payablePrice = System.RMB.fenToYuan(jmessage.soOrder.payablePrice);
-        $("#soOrder_no").text(jmessage.soOrder.no);
-        //订单渠道号
-        $("#soOrder_channelOrderNo").text(jmessage.soOrder.channelOrderNo);
         //订单应付金额
         $("#soOrder_payablePrice").text(payablePrice);
         //合同来源
         $("#soOrder_platformSource").text(me.orderPlatformSourceEnum[jmessage.soOrder.platformSource]);
-        //客户姓名
-        $("#soOrder_customer_realName").text(jmessage.soOrder.customer == null ? "" : jmessage.soOrder.customer.realName);
-        //联系人手机
-        $("#soOrder_accountMobile").text(jmessage.soOrder.accountMobile);
-        //邮箱
-        $("#soOrder_customer_email").text(jmessage.soOrder.customer == null ? "" : jmessage.soOrder.customer.email);
-        //签单业务员
-        $("#soOrder_owner_name").text(jmessage.soOrder.owner == null ? "" : jmessage.soOrder.owner.name);
-        //所在部门
-        $("#soOrder_department_name").text(jmessage.soOrder.department == null ? "" : jmessage.soOrder.department.name);
         //合同金额
         $("#realAmount").numberbox('setValue', payablePrice);
-
         // endregion
     },
     databindextra: function (entity) {
         var me = this;
-        me.bindOrderInfo(entity);
-        //禁用整个form
-        controllercontract.disable();
+        //查看时禁用整个form
+        var isAdd = System.Url.getParameter("isAdd");
+        if (isAdd != 1) {
+            me.disable();
+        }
     },
     addExtraProp: function (entity) {
         entity.sginingUserId = entity.soOrder.ownerId == null ? 0 : entity.soOrder.ownerId;
@@ -121,7 +99,7 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         dataFee = System.isnull(dataFee) ? 0 : parseInt(dataFee);
         me.updateRealAmount(dataFee);
     },
-    updateRealAmount:function (dataFee) {
+    updateRealAmount: function (dataFee) {
         //合同金额
         var me = this;
         var entity = me.getCurrentItem();
@@ -145,28 +123,48 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         }
     },
     validate: function () {
+        var me = this;
         var isValidate = $("#" + this.context.formName).form('validate');
         if (isValidate) {
-            var idNumber = $("#idNumber").val();
-            if (!System.isnull(idNumber) && !/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(idNumber)) {
-                IMessageBox.error("【身份证】格式错误");
-                return false;
+            //当前实体
+            var entity = me.viewModel.getEntity();
+            //合同类型，选为电子时，身份证号显示，为必填
+            if (entity.electronics == 1) {
+                if (System.isnull(entity.idNumber)) {
+                    IMessageBox.error("【身份证】不能为空");
+                    return false;
+                }
+                if (!/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(entity.idNumber)) {
+                    IMessageBox.error("【身份证】格式错误");
+                    return false;
+                }
+            }
+            //客户类型，选为企业时，营业执照号显示，为必填
+            if (entity.contractType == 2) {
+                if (System.isnull(entity.businessLicenseNo)) {
+                    IMessageBox.error("【营业执照号】不能为空");
+                    return false;
+                }
             }
             return true;
         }
         return false;
-    },
-    approved: function (auditId) {
+    }
+    ,
+    approved: function (auditId, callback) {
         var me = this;
         //审批意见
         var auditRemark = $("#auditRemark").val();
         me.serviceLocator.invoke("com.gongsibao.trade.web.audit.AuditContractController", "approved", [auditId, auditRemark], function (data) {
             IMessageBox.toast('操作成功！');
             window.parent.layer.closeAll();
-            //me.reload();
+            //$('#datagridauditLogList').datagrid('reload');
+            if (callback)
+                callback(data);
         }, null, false);
-    },
-    rejected: function (auditId) {
+    }
+    ,
+    rejected: function (auditId, callback) {
         var me = this;
         PandaHelper.openDynamicForm({
             title: '审核不通过原因',
@@ -191,12 +189,13 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
                 me.serviceLocator.invoke("com.gongsibao.trade.web.audit.AuditContractController", "rejected", [auditId, auditRemark], function (data) {
                     IMessageBox.toast('操作成功！');
                     window.parent.layer.closeAll();
+                    if (callback)
+                        callback(data);
                 }, null, false);
             }
         });
 
     }
-
 });
 
 

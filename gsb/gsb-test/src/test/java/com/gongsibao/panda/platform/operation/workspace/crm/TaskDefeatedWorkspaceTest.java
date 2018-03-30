@@ -66,10 +66,10 @@ public class TaskDefeatedWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 		item = new PToolbarItem();
 		{
 			item.toNew();
-			item.setCode("submitRemark");
+			item.setCode("remark");
 			item.setName("备注");
 			item.setSeq(3000);
-			item.setCommand("{controller}.submitRemark();");
+			item.setCommand("{controller}.remark();");
 			toolbar.getItems().add(item);
 		}
 		return toolbar;

@@ -71,7 +71,7 @@ public class SalesmanAllTaskWorkspaceTest extends TaskALLWorkspaceTest {
 			toolbar.setResourceNode(node);
 		}
 		addToolbarItem(toolbar, "follow", "跟进", "fa fa-edit", "follow()", null, 6);
-		addToolbarItem(toolbar, "rollback", "退回", "fa fa-edit", "rollback()", null, 7);
+		addToolbarItem(toolbar, "rollback", "释放", "fa fa-edit", "rollback()", null, 7);
 		return toolbar;
 	}
 
@@ -93,7 +93,7 @@ public class SalesmanAllTaskWorkspaceTest extends TaskALLWorkspaceTest {
 			item.setCustomControlType(PropertyQueryDictComboBox.class.getName());
 			item.setRefFilter("type=411");
 		}
-		addRefrenceQueryItem(queryProject, "supplier.name", "服务商", Supplier.class.getSimpleName());
+//		addRefrenceQueryItem(queryProject, "supplier.name", "服务商", Supplier.class.getSimpleName());
 		addQueryItem(queryProject, "creator", "创建人", ControlTypes.TEXT_BOX);
 		
 		addRefrenceQueryItem(queryProject, "quality.name", "客户质量", NCustomerTaskQuality.class.getSimpleName());

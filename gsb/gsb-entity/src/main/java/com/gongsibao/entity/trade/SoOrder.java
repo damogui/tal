@@ -154,7 +154,7 @@ public class SoOrder extends BaseEntity {
     // 1052 审核中
     // 1053 驳回审核
     // 1054 审核通过
-    @Column(name = "dep_pay_audit_status_id", header = "回款审核状态")
+    @Column(name = "dep_pay_audit_status_id", header = "回款审核状态（涉及到多次审核）")
     private AuditStatusType depPayAuditStatusId = AuditStatusType.wu;
     /*回款业绩审核状态*/
     @Column(name = "dep_payper_audit_status_id", header = "回款业绩审核状态")
@@ -181,8 +181,11 @@ public class SoOrder extends BaseEntity {
     @Column(name = "carry_over_order_id", header = "结转订单id")
     private Integer carryOverOrderId;
 
-    @Column(name = "carry_amount", header = "结转金额")
+    @Column(name = "carry_amount", header = "结转转出金额(之前就存在字段没再修改)")
     private Integer carryAmount = 0;
+    
+    @Column(name = "carry_into_amount", header = "结转转入金额")
+    private Integer carryIntoAmount = 0;
 
     // 3031 待审核
     // 3032 退款中
@@ -852,7 +855,15 @@ public class SoOrder extends BaseEntity {
         this.carryAmount = carryAmount;
     }
 
-    public AuditStatusType getDepReceivableAuditStatusId() {
+	public Integer getCarryIntoAmount() {
+		return carryIntoAmount;
+	}
+
+	public void setCarryIntoAmount(Integer carryIntoAmount) {
+		this.carryIntoAmount = carryIntoAmount;
+	}
+
+	public AuditStatusType getDepReceivableAuditStatusId() {
         return depReceivableAuditStatusId;
     }
 

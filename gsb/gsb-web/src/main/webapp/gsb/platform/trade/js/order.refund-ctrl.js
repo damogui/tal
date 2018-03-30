@@ -25,6 +25,21 @@ com.gongsibao.trade.web.OrderRefundCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     		$('#setOfBooksId').combobox('loadData',data);
 		});
     },
+    amountChange:function(newValue,oldValue){
+    	//验证 退款总额是否≤订单可退款额
+    	var orderId = this.queryString('id');
+    	this.invokeService ("getSoOrder", [orderId], function(data){
+    		var paidPrice = data.paidPrice;
+      		var refundPrice = data.refundPrice;
+      		var carryAmount = data.carryAmount;
+      		var getFinals = paidPrice - refundPrice - carryAmount;
+      		var getNewValue = parseFloat(newValue)*100;
+        	if((getFinals - getNewValue) < 0){
+        		$('#amount').numberbox('clear');
+        		layer.msg('退款业绩总额不等于退款总额，请核实');
+        	}
+    	});
+    },
     refundTypeChange:function(newValue,oldValue){
     	//全款退
     	if(newValue==='1'){

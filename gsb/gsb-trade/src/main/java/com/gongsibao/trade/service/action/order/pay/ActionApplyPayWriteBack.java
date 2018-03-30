@@ -2,6 +2,7 @@ package com.gongsibao.trade.service.action.order.pay;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
+import org.netsharp.core.annotations.Transaction;
 
 /**   
  * @ClassName:  ActionApplyPayWriteBack   
@@ -16,6 +17,8 @@ public class ActionApplyPayWriteBack implements IAction{
 	@Override
 	public void execute(ActionContext ctx) {
 		// TODO Auto-generated method stub
+
+        //审核通过之后才回写
 		
 	}
 

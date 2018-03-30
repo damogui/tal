@@ -1,5 +1,7 @@
 package com.gongsibao.trade.service.action.audit.refund;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.netsharp.action.ActionContext;
@@ -16,10 +18,12 @@ import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.IAuditService;
+import com.gongsibao.trade.base.IRefundService;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 public class ActionAuditRefundWriteBack implements IAction{
 	IAuditService auditService = ServiceFactory.create(IAuditService.class);
-	
+	IRefundService refundService = ServiceFactory.create(IRefundService.class);
 	@Override
 	public void execute(ActionContext ctx) {
 		AuditContext auditContext = (AuditContext) ctx.getItem();
@@ -74,10 +78,21 @@ public class ActionAuditRefundWriteBack implements IAction{
 	 * @param state 审核状态
 	 */
 	private void writeBackOrder(Integer orderId, AuditStatusType state){
+		//1.审核成功，获取订单退款金额
+		Integer allAmout = 0;
+		if(state.equals(AuditStatusType.Shtg)){
+			List<Refund> refundList = refundService.queryByOrderId(orderId);
+			for (Refund item : refundList) {
+				allAmout += item.getAmount();
+			}
+		}
+		//2.回写订单:退款审核状态、退款金额
         UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("so_order");
 			updateSql.set("refund_status_id", state.getValue());
+			updateSql.set("refund_price", allAmout);
+			updateSql.set("upd_time", new Date());
 			updateSql.where("pkid =" + orderId);
 		}
 		String cmdText = updateSql.toSQL();

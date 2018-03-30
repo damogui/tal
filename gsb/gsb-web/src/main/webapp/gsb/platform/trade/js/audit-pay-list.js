@@ -18,7 +18,8 @@ com.gongsibao.trade.web.AuditPayListPart = org.netsharp.panda.commerce.ListPart.
         //     return false;
         // }
         // row.nDepPay_orderId+"&auditId="+row.id;
-        var contentUrl = this.auditUrl + "?id=" + row.pay_id+"&auditId="+row.id;;
+        var contentUrl = this.auditUrl + "?id=" + row.pay_id + "&auditId=" + row.id;
+        ;
         layer.open({
             type: 2,//1是字符串 2是内容
             title: '回款审核',
@@ -31,12 +32,12 @@ com.gongsibao.trade.web.AuditPayListPart = org.netsharp.panda.commerce.ListPart.
             content: contentUrl,
             btn: ['审核通过', '审核不通过'],// 可以无限个按钮
             btn1: function (index, layero) {
-                document.getElementById('addAuditPayIframe').firstElementChild.contentWindow.auditPayCtrl  .approved();
-                IMessageBox.toast("审核通过");
-                layer.close(index);
+                document.getElementById('addAuditPayIframe').firstElementChild.contentWindow.auditPayCtrl.approved(reloadPage);
+                // IMessageBox.toast("审核通过");
+                // layer.close(index);
             },
-            btn2: function (index, layero){
-                document.getElementById('addAuditPayIframe').firstElementChild.contentWindow.auditPayCtrl  .rejected();
+            btn2: function (index, layero) {
+                document.getElementById('addAuditPayIframe').firstElementChild.contentWindow.auditPayCtrl.rejected(reloadPage);
                 return false;
             }
         });
@@ -46,6 +47,12 @@ com.gongsibao.trade.web.AuditPayListPart = org.netsharp.panda.commerce.ListPart.
 
 
 });
+/*重新调取下请求方法*/
+function reloadPage() {
+    controllerauditLogList.query();
+
+}
+
 
 
 

@@ -121,6 +121,7 @@ com.gongsibao.trade.web.OrderProdItemDetailPart = org.netsharp.panda.commerce.De
     	selectCtrl.show(function(orderProd){
 
         	me.setEditor();
+
     		$('#datagridproducts').datagrid('appendRow',orderProd);
         	me.calculateTotalPrice();
         	
@@ -202,6 +203,10 @@ com.gongsibao.trade.web.OrderProdItemDetailPart = org.netsharp.panda.commerce.De
         	return str;
     	}
     },
+    indexFormatter:function(value,row,index){
+    	
+    	return index+1;
+    },
     unitNameFormatter:function(value,row,index){
     	
     	var items = row.items;
@@ -249,6 +254,14 @@ com.gongsibao.trade.web.OrderProdItemDetailPart = org.netsharp.panda.commerce.De
         	});
         	return str;
     	}
+    },
+    operationFormatter:function(value,row,index){
+    	
+    	return  '<a class="grid-btn" href="javascript:controllerproducts.remove('+index+');">删除</a>';
+    },
+    remove:function(index){
+    	
+		$('#datagridproducts').datagrid('deleteRow',index);
     }
 });
 
@@ -290,8 +303,11 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
             yes: function (index, layero) {
             	
             	var orderProd = me.getOrderProd();
-            	callback(orderProd);
-            	layer.closeAll();
+            	if(orderProd != null){
+
+                	callback(orderProd);
+                	layer.closeAll();
+            	}
             }
     	});
     },
@@ -302,6 +318,11 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
     	//校验未做
     	
     	var rows = $('#serviceItems').datagrid('getChecked');
+    	if(rows== null || rows.length == 0){
+    		
+    		layer.msg('请选择服务项目！');
+    		return null;
+    	}
     	var productId = $('#product').combogrid('getValue');
     	var productName = $('#product').combogrid('getText');
     	var cityId = $('#county').combobox('getValue');

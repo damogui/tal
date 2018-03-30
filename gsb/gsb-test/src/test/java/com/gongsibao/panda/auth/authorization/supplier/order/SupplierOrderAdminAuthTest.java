@@ -19,6 +19,7 @@ public class SupplierOrderAdminAuthTest extends AuthBaseTest{
 		//this.resourceNodeCodeList.add("Gsb_Supplier_Order");
 		this.resourceNodeCodeList.add("GSB_CRM_SYS");//系统设置
         /*new*/
+       // this.resourceNodeCodeList.add("GSB_BD_DEPARTMENT");//部门管理
         this.resourceNodeCodeList.add("GSB_CRM_MY");//客户管理 我的商机
         this.resourceNodeCodeList.add("Gsb_Supplier_Order_Salesman");//我的订单
         this.resourceNodeCodeList.add("Gsb_Supplier_Order_Department");//部门订单
