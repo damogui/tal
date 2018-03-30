@@ -8,6 +8,8 @@ import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.*;
 
 import com.gongsibao.entity.BaseEntity;
@@ -15,6 +17,7 @@ import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.InvoiceOpenBallotCompanyType;
 import com.gongsibao.entity.trade.dic.InvoiceTitleType;
 import com.gongsibao.entity.trade.dic.InvoiceType;
+
 import org.netsharp.organization.entity.Employee;
 
 @Table(name = "so_invoice", header = "发票")
@@ -99,6 +102,7 @@ public class Invoice extends BaseEntity {
     @Subs(subType = File.class, foreignKey = "formId", header = "上传图片表（一个支付可以多个凭证）")
     private List<File> files = new ArrayList<>();
 
+    @JsonIgnore
     @Exclusive
     @Subs(subType = AuditLog.class, foreignKey = "formId", header = "审核记录")
     private List<AuditLog> auditLogs = new ArrayList<AuditLog>();
@@ -109,24 +113,37 @@ public class Invoice extends BaseEntity {
 
     //订单编号
     @Exclusive
+    @Column(name = "soOrderNo")
     private String soOrderNo;
+    
     //渠道编号
     @Exclusive
+    @Column(name = "channelOrderNo")
     private String channelOrderNo;
+    
     //产品名称
     @Exclusive
+    @Column(name = "prodName")
     private String prodName;
+    
     //新老客户签单
     @Exclusive
+    @Column(name = "accountTypeName")
     private String accountTypeName;
+    
     //订单金额
     @Exclusive
+    @Column(name = "orderPayablePrice")
     private Integer orderPayablePrice;
+    
     //订单付款金额
     @Exclusive
+    @Column(name = "orderPaidPrice")
     private Integer orderPaidPrice;
+    
     //订单创建时间
     @Exclusive
+    @Column(name = "orderCreateTime")
     private Date orderCreateTime;
 
 
