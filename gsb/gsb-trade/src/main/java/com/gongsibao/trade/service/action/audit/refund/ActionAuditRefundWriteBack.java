@@ -19,7 +19,6 @@ import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.trade.base.IRefundService;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 public class ActionAuditRefundWriteBack implements IAction{
 	IAuditService auditService = ServiceFactory.create(IAuditService.class);
