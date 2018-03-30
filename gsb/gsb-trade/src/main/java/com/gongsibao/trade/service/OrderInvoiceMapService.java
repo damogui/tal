@@ -1,22 +1,25 @@
 package com.gongsibao.trade.service;
 
 import com.gongsibao.entity.trade.SoOrder;
+import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.core.Oql;
 import org.netsharp.service.PersistableService;
 
 import com.gongsibao.entity.trade.OrderInvoiceMap;
 import com.gongsibao.trade.base.IOrderInvoiceMapService;
+import org.netsharp.util.StringManager;
 
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class OrderInvoiceMapService extends PersistableService<OrderInvoiceMap> implements IOrderInvoiceMapService {
 
-    public OrderInvoiceMapService(){
+    public OrderInvoiceMapService() {
         super();
-        this.type=OrderInvoiceMap.class;
+        this.type = OrderInvoiceMap.class;
     }
 
     @Override
@@ -48,5 +51,23 @@ public class OrderInvoiceMapService extends PersistableService<OrderInvoiceMap> 
         List<OrderInvoiceMap> orderInvoiceMaps = this.pm.queryList(oql);
 
         return orderInvoiceMaps;
+    }
+
+    @Override
+    public List<OrderInvoiceMap> getByInvoiceIdList(List<Integer> invoiceIdList) {
+
+        if (CollectionUtils.isEmpty(invoiceIdList)) {
+            return new ArrayList<>();
+        }
+        String invoiceIds = StringManager.join(",", invoiceIdList);
+
+        Oql oql = new Oql();
+        {
+            oql.setType(OrderInvoiceMap.class);
+            oql.setSelects("orderInvoiceMap.*,soOrder.*,invoice.*");
+            oql.setFilter("invoice_id in (" + invoiceIds + ")");
+        }
+
+        return this.pm.queryList(oql);
     }
 }
