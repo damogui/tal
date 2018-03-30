@@ -13,10 +13,12 @@ import org.netsharp.core.annotations.Transaction;
  * @Copyright: 2018 www.yikuaxiu.com Inc. All rights reserved. 
  */
 public class ActionApplyPayWriteBack implements IAction{
-    @Transaction
+
 	@Override
 	public void execute(ActionContext ctx) {
 		// TODO Auto-generated method stub
+
+        //审核通过之后才回写
 		
 	}
 

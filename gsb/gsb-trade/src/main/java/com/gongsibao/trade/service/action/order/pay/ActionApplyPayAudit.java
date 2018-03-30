@@ -18,7 +18,7 @@ public class ActionApplyPayAudit implements IAction {
 	public void execute(ActionContext ctx) {
 
 		Pay pay = (Pay) ctx.getItem();
-		AbstractAuditLogService auditLogHandler = AuditFactory.getAudit(PayAudit.class);
+        AbstractAuditLogService auditLogHandler = AuditFactory.getAudit(PayAudit.class);
 		List<AuditLog> auditLogList = auditLogHandler.execute(pay.getId());
 
 		// 推送消息
