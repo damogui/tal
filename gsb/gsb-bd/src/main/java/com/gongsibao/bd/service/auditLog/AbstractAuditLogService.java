@@ -111,7 +111,8 @@ public abstract class AbstractAuditLogService {
      * 获取业务员审核的集合
      */
     protected AuditLog getUserAuditLog(Integer formId, Integer addUserId) {
-        AuditLog logEntity = addAuditLog(formId, "提交" + setAuditLogType().getText(), addUserId, 0);
+    	String creator = SessionManager.getUserName();
+        AuditLog logEntity = addAuditLog(formId, "提交" + setAuditLogType().getText(), addUserId,creator, 0);
         return logEntity;
     }
 
@@ -123,7 +124,7 @@ public abstract class AbstractAuditLogService {
         //1.直级领导
         if (organization.getDirectLeaderId() != null && !organization.getDirectLeaderId().equals(addUserId)) {
             Integer level = getCurrentLevel() + 1;
-            AuditLog logEntity = addAuditLog(formId, "部门领导人审核", organization.getDirectLeaderId(), level);
+            AuditLog logEntity = addAuditLog(formId, "部门领导人审核", organization.getDirectLeaderId(),organization.getDirectLeaderName(), level);
             return logEntity;
         }
         return null;
@@ -138,7 +139,7 @@ public abstract class AbstractAuditLogService {
         //2.隔级领导
         if (organization.getSuperiorLeaderId() != null && !organization.getSuperiorLeaderId().equals(addUserId)) {
             Integer level = getCurrentLevel() + 1;
-            AuditLog logEntity = addAuditLog(formId, "服务商领导人审核", organization.getSuperiorLeaderId(), level);
+            AuditLog logEntity = addAuditLog(formId, "服务商领导人审核", organization.getSuperiorLeaderId(),organization.getSuperiorLeaderName(), level);
             return logEntity;
         }
         return null;
@@ -166,13 +167,14 @@ public abstract class AbstractAuditLogService {
     /*
     * 添加审核记录
     * */
-    protected AuditLog addAuditLog(Integer formId, String content, Integer creatorId, Integer level) {
+    protected AuditLog addAuditLog(Integer formId, String content, Integer creatorId,String creator, Integer level) {
         AuditLog auditLog = new AuditLog();
         AuditLogStatusType auditLogStatus = getAuditLogStatusType(level);
         auditLog.setType(setAuditLogType());
         auditLog.setFormId(formId);
         auditLog.setStatus(auditLogStatus);
         auditLog.setCreatorId(creatorId);
+        auditLog.setCreator(creator);
         auditLog.setContent(content);
         auditLog.setLevel(level);
         setCurrentLevel(level);
