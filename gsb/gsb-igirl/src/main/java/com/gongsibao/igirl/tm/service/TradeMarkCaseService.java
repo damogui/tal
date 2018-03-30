@@ -223,6 +223,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			entity = this.queryFirst(oql);
 
 			entity.setEntityState(EntityState.Deleted);
+
 			List<UploadAttachment> ups = entity.getUploadAttachments();
 			for (int i = 0; i < ups.size(); i++) {
 				UploadAttachment uploadAttachment = ups.get(i);

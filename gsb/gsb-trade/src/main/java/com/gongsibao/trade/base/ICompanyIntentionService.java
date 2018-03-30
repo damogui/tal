@@ -9,7 +9,8 @@ import com.gongsibao.entity.crm.CompanyIntention;
 
 public interface ICompanyIntentionService extends IPersistableService<CompanyIntention> {
 
-	Map<Integer, String> getCompanyByOrderIdList(List<Integer> orderIdList);
+    Map<Integer, String> getCompanyByOrderIdList(List<Integer> orderIdList);
 
-	CompanyIntention byCompanyName(String companyName);
+    CompanyIntention byCompanyName(String companyName);
+
 }
