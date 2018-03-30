@@ -8,10 +8,13 @@ com.gongsibao.gardian.web.DeviceFormPart = org.netsharp.panda.commerce.FormPart.
 
         if(newValue==1||newValue==0){
             //$("fieldset:first").next().show();
-            $("#memory").parent().parent().parent().parent().parent().show()
+            //$("#memory").parent().parent().parent().parent().parent().show()
+            $("fieldset:contains('主机配置')").show();
         }else{
             //$("fieldset:first").next().hide();
-            $("#memory").parent().parent().parent().parent().parent().hide()
+            //$("#memory").parent().parent().parent().parent().parent().hide()
+            $("fieldset:contains('主机配置')").hide();
+
         }
     },
     validate:function () {
