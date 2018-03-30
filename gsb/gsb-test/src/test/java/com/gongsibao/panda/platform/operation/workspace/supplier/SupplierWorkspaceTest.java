@@ -198,7 +198,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		}
 		field = addFormField(form, "mobilePhone", "手机号", groupName, ControlTypes.TEXT_BOX, true, false);
 		{
-			field.setTroikaValidation("mobile");
+			field.setTroikaValidation("['mobile']");
 			field.setWidth(300);
 		}
 		field = addFormField(form, "sex", "性别", groupName, ControlTypes.RADIO_BOX_GROUP, true, false);
@@ -215,7 +215,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		}
 		field = addFormField(form, "postCode", "邮编", groupName, ControlTypes.TEXT_BOX, false, false);
 		{
-			field.setTroikaValidation("ZIP");
+			field.setTroikaValidation("['ZIP']");
 			field.setWidth(300);
 		}
 		field = addFormField(form, "fax", "传真", groupName, ControlTypes.TEXT_BOX, false, false);
@@ -225,7 +225,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		field = addFormField(form, "qq", "QQ", groupName, ControlTypes.TEXT_BOX, false, false);
 		{
 			field.setWidth(300);
-			field.setTroikaValidation("qq");
+			field.setTroikaValidation("['qq']");
 		}
 		field = addFormField(form, "weixin", "微信", groupName, ControlTypes.TEXT_BOX, false, false);
 		{
@@ -234,7 +234,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		field = addFormField(form, "email", "邮箱", groupName, ControlTypes.TEXT_BOX, false, false);
 		{
 			field.setWidth(300);
-			field.setTroikaValidation("email");
+			field.setTroikaValidation("['email']");
 		}
 		field = addFormField(form, "headPortrait", "头像", groupName, ControlTypes.OSS_UPLOAD, false, false);
 		{
@@ -270,7 +270,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		}
 		field = addFormField(form, "identityCard", "身份证号", groupName, ControlTypes.TEXT_BOX, false, false);
 		{
-			field.setTroikaValidation("idcard");
+			field.setTroikaValidation("['idcard']");
 			field.setWidth(300);
 		}
 		field = addFormField(form, "identityCardPhotoFont", "身份证照片正面", groupName, ControlTypes.OSS_UPLOAD, false, false);
@@ -323,7 +323,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		field = addFormField(form, "bankNum", "银行卡号", groupName, ControlTypes.TEXT_BOX, false, false);
 		{
 			field.setWidth(300);
-			field.setTroikaValidation("bankNum");
+			field.setTroikaValidation("['bankNum']");
 		}
 
 		groupName = "系统设置";

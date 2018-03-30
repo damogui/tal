@@ -284,7 +284,7 @@ public class UserWorkspaceTest  extends WorkspaceCreationBase{
 		addFormField(form, "name", "姓名", groupName, ControlTypes.TEXT_BOX, true, false);
 		field = addFormField(form, "mobilePhone", "手机号", groupName, ControlTypes.TEXT_BOX, true, false);
 		{
-			field.setTroikaValidation("validationMobile");
+			field.setTroikaValidation("['validationMobile']");
 		}
 		addFormField(form, "loginValid", "登录验证", groupName, ControlTypes.ENUM_BOX, false, false);
 
@@ -305,7 +305,7 @@ public class UserWorkspaceTest  extends WorkspaceCreationBase{
 	    
 		field = addFormField(form, "email", "电子邮件", groupName, ControlTypes.TEXT_BOX, false, false);
 		{
-			field.setTroikaValidation("email");
+			field.setTroikaValidation("['email']");
 		}
 		addFormField(form, "qq", "QQ", groupName, ControlTypes.TEXT_BOX, false, false);
 		addFormField(form, "weixin", "微信", groupName, ControlTypes.TEXT_BOX, false, false);
