@@ -26,7 +26,8 @@ com.gongsibao.trade.web.OrderCarryoverCtrl = org.netsharp.panda.core.CustomCtrl.
     	var refundPrice = $("#refundPrice_hidden").val();
     	var carryAmount = $("#carryAmount_hidden").val();
     	var getFinals = paidPrice - refundPrice - carryAmount;
-    	if((getFinals - newValue) < 0){
+    	var getNewValue = parseFloat(newValue)*100;
+    	if((getFinals - getNewValue) < 0){
     		$('#amount').numberbox('clear');
     		layer.msg('结转金额大于订单可结转金额，请核实');
     	}
