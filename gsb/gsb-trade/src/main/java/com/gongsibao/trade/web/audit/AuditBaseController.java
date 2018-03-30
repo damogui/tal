@@ -40,7 +40,8 @@ public abstract class AuditBaseController {
 		Oql oql = new Oql();
 		{
 			oql.setType(AuditLog.class);
-			oql.setSelects("*");
+			oql.setSelects("auditLog.*,");
+            oql.setSelects("employee.name");
 			oql.setFilter("formId=? and type=?");
 			oql.getParameters().add("formId", id, Types.INTEGER);
 			oql.getParameters().add("type", auditLogType, Types.INTEGER);

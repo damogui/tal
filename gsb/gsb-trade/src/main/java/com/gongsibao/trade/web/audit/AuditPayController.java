@@ -77,7 +77,7 @@ public class AuditPayController extends AuditBaseController {
         return auditLogService.audit (AuditState.NOTPASS, auditLogId, remark);
     }
 
-    /*订单业绩审核流程*/
+    /*回款审核流程*/
     public List<AuditLogDTO> getAuditLogList(Integer id) {
         List<AuditLog> logList = new ArrayList<AuditLog> ();
         List<AuditLogDTO> logDtos = new ArrayList<AuditLogDTO> ();
@@ -87,7 +87,7 @@ public class AuditPayController extends AuditBaseController {
                 ) {
             AuditLogDTO auditLogDTO = new AuditLogDTO ();
             auditLogDTO.setId (item.getId ());
-            auditLogDTO.setCreator (item.getCreator ());
+            auditLogDTO.setCreator (item.getEmployee ()==null?"":item.getEmployee ().getName ());
             auditLogDTO.setOption (item.getStatus ().getText ());
             auditLogDTO.setRemark (item.getContent ());
             auditLogDTO.setCreateTime (item.getCreateTime ().toString ());

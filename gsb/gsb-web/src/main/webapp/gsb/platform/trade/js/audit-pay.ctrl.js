@@ -91,9 +91,9 @@ com.gongsibao.trade.web.AuditPayCtrl = com.gongsibao.trade.web.AuditBaseCtrl.Ext
     },
 
 
-    initGridAudit: function (orderId) {//审批进度
+    initGridAudit: function (payId) {//审批进度
         var me = this;
-        this.invokeService("getAuditLogList", [orderId], function (data) {
+        this.invokeService("getAuditLogList", [payId], function (data) {
             $('#audit_progress_grid').datagrid({
                 idField: 'id',
                 emptyMsg: '暂无记录',
