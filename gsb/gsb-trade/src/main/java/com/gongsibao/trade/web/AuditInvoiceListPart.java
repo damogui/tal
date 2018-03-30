@@ -6,10 +6,13 @@ import com.gongsibao.entity.trade.Invoice;
 import com.gongsibao.entity.trade.OrderInvoiceMap;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.base.IOrderInvoiceMapService;
+
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.AdvancedListPart;
+import org.netsharp.panda.commerce.EasyuiDatagridResult;
 import org.netsharp.panda.commerce.FilterParameter;
+import org.netsharp.panda.json.DatagridResultJson;
 import org.netsharp.util.StringManager;
 
 import java.util.ArrayList;
@@ -76,6 +79,23 @@ public class AuditInvoiceListPart extends AdvancedListPart {
         }
         return resList;
     }
+    
+	protected Object serialize(List<?> list, Oql oql) {
+
+		EasyuiDatagridResult result = new EasyuiDatagridResult();
+		{
+			result.setRows(list);
+			result.setFooter(this.getFooter(oql));
+			if (oql.getPaging() != null) {
+
+				result.setTotal(oql.getPaging().getTotalCount());
+			}
+		}
+
+//		DatagridResultJson parser = new DatagridResultJson(result, pdatagrid);
+//		Object json = parser.parse();
+		return result;
+	}
 
 
     //region 私有方法
