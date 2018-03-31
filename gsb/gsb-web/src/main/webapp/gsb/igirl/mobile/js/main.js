@@ -138,9 +138,9 @@ $(function(){
 			})
 			
 		}))
-        var share=()=>Promise.resolve(new Promise(function(resolve,reject){
+        var noticeqr=()=>Promise.resolve(new Promise(function(resolve,reject){
             //异步加载组件
-            axios.get(ip+"/vue/comp/share").then(function(res){
+            axios.get(ip+"/vue/comp/noticeqr").then(function(res){
                 var obj=eval("("+res.data+")");
                 //console.log(obj)
                 resolve(obj);
@@ -149,9 +149,9 @@ $(function(){
             })
 
         }))
-        var zzlist=()=>Promise.resolve(new Promise(function(resolve,reject){
+    var progresslist=()=>Promise.resolve(new Promise(function(resolve,reject){
             //异步加载组件
-            axios.get(ip+"/vue/comp/zzlist").then(function(res){
+            axios.get(ip+"/vue/comp/progresslist").then(function(res){
                 var obj=eval("("+res.data+")");
                 //console.log(obj)
                 resolve(obj);
@@ -159,6 +159,16 @@ $(function(){
                 console.log(reason)
             })
 
+        }))
+     var attachments=()=>Promise.resolve(new Promise(function(resolve,reject){
+            //异步加载组件
+            axios.get(ip+"/vue/comp/attachments").then(function(res){
+                var obj=eval("("+res.data+")");
+                //console.log(obj)
+                resolve(obj);
+            }).catch(function(reason){
+                console.log(reason)
+            })
         }))
 		var routes=[
 			{path:'/',component:def},
@@ -170,8 +180,9 @@ $(function(){
 			{path:'/zzty/viewimg',component:viewimg},//营业执照和图样身份证
 			{path:'/zzty/downdele',component:downdele},//下载委托书
 			{path:'/zzty/downup',component:downup},//上传委托书
-            {path:'/zzty/share',component:share},//二维码分享
-            {path:'/zzty/list',component:zzlist},//
+      {path:'/noticeqr',component:noticeqr},//提醒关注
+      {path:'/progresslist',component:progresslist},//商标进度列表
+      {path:'/attachments',component:attachments},//商标进度列表
 			{path:'/pt',component:tmc},
 			{path:'/cr',component:cr},
 		]
@@ -205,6 +216,7 @@ $(function(){
 							  siteInfo:"",
 							  sourceInfo:"",
 							  caseinfo:null,
+							  caseOrder:null,
 							  ossconfig:null,
 							  webApiIp:ip,
 							  currentDomian:domain,
