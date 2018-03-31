@@ -612,6 +612,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 				orderProdCase.setCaseId(tradeMarkCase.getId());
 				orderProdCase.setCaseItemId(tradeMark.getId());
 				orderProdCase.setCreatorId(order.getAccountId());
+				orderProdCase.setAccountId(order.getAccountId());
             }
             orderProdCaseList.add(orderProdCase);
         }
