@@ -61,7 +61,7 @@ com.gongsibao.cw.web.ExpenseBillFormPart = org.netsharp.panda.commerce.FormPart.
         		  IMessageBox.error("至少需要添加一条报销明细");
         		  return false;
         	 }
-        	 return true;
+        	 return true; 
         }else{
         	return false;
         }
