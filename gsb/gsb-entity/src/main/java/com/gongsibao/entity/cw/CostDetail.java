@@ -39,6 +39,9 @@ public class CostDetail extends BizEntity{
 	@Column(name = "organization_id", header = "费用归属部门（组织机构id）")
 	private Integer organizationId;
 	
+	@Column(name = "pathName", header = "部门名称（冗余字段）")
+	private String pathName;
+	
 	
 	@Reference(foreignKey = "organizationId")
 	private Organization organization;
@@ -86,9 +89,22 @@ public class CostDetail extends BizEntity{
 	public void setReasonType(Integer reasonType) {
 		this.reasonType = reasonType;
 	}
-	
-	
-	
+
+	public String getPathName() {
+		return pathName;
+	}
+
+	public void setPathName(String pathName) {
+		this.pathName = pathName;
+	}
+
+	public Organization getOrganization() {
+		return organization;
+	}
+
+	public void setOrganization(Organization organization) {
+		this.organization = organization;
+	}
 	
 	
 }

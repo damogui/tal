@@ -13,13 +13,13 @@ com.gongsibao.cw.web.ExpenseBillListPart = org.netsharp.panda.commerce.ListPart.
              maxmin: true,
              shadeClose:true,
              area: ['60%','90%'],
-             content: "/gsb/platform/cw/expense_bill_form.jsp",
+             content: "/panda/cw/bill/expense/form",
              btn : [ '提交', '取消' ],
              success: function (layero, index) {
             	
              },
              yes:function (){
-            	 document.getElementById('expenseBillIframe').firstElementChild.contentWindow.controllercontract.save();
+            	 document.getElementById('expenseBillIframe').firstElementChild.contentWindow.controllerexpense.save();
              }
          });
 	}
