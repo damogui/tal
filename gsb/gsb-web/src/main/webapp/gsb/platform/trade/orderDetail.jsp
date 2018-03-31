@@ -23,12 +23,12 @@
 </head>
     <body class="easyui-layout">
         <div data-options="region:'center',split:false,collapsible:false,closed:false" style="height:100%;" >
-            <div id="tabs" class="easyui-tabs" style="height:100%;" data-options="fit:true,plain:false,tabPosition:'top',tabWidth:0,tabHeight:35">
+            <div id="tabs" class="easyui-tabs" style="height:100%;" data-options="fit:true,plain:false,tabPosition:'top',tabWidth:0,tabHeight:30">
 			    <div title="订单详情">
 			        <div data-options="region:'north',split:false,collapsible:false,closed:false,height:200">
 						<jsp:include page="/gsb/platform/trade/include/orderInfo.jsp"></jsp:include>
 					</div>
-					<div id="center" data-options="region:'center'">
+					<div id="center" data-options="region:'center'" style="border-top: 1px #eee solid;">
 						<div id="detail_tabs" style="height:100%;">   
 						    <div title="产品信息">   
 						          <table id="order_product_grid"></table>

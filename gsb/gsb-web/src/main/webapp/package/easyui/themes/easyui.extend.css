@@ -152,9 +152,8 @@ html,body{
     opacity: .9;
 	background:none; 
     border: 1px solid #e4eaec !important;
-    background-color: #fff !important;
+    background-color: #f7f7f7 !important;
     color: #555 !important;
-	
 }
 
 .btn.easyui-linkbutton:hover{
@@ -162,9 +161,9 @@ html,body{
 	filter:alpha(opacity=80);
 	border-radius: 2px;
 	padding: 0 7px;
-	background-color: #f5f5f5 !important;
+	background-color: #fff !important;
 	/*border: 1px solid #009688 !important; */
-	color:#555;
+	color:#1E7CB5 !important;
 }
 
 .btn.easyui-linkbutton.normal{
@@ -420,7 +419,7 @@ div.h10{
 
 
 .detail{
-	padding-top:10px;
+	/* padding-top:10px; */
 } 
 .easyui-tabs .detail{
 	padding-top:0px;
@@ -1127,6 +1126,7 @@ table.form-panel td.label_td {
 table.form-panel td.control_td {
 	
 	text-align:left;
+	max-width: 820px;
 }
 table.form-panel td.label_td .fa {
 

@@ -32,9 +32,9 @@ com.gongsibao.trade.web.OrderInfoCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     	
     	$('#accountName').text(soOrder.accountName);
     	$('#accountMobile').text(soOrder.accountMobile);
-    	$('#addTime').text(soOrder.addTime);
+    	$('#addTime').text(soOrder.addTime||'-');
     	
-    	//$('#platformSource').text(this.platformSourceTypeEnum[soOrder.platformSource]);
+    	$('#platformSource').text(this.platformSourceTypeEnum[soOrder.platformSource]||'-');
     	$('#payStatus').text(this.payStatusTypeEnum[soOrder.payStatus]);
     	var installmentMode = soOrder.installmentMode;
     	if(installmentMode){
@@ -47,9 +47,9 @@ com.gongsibao.trade.web.OrderInfoCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     		$('#installmentCount').text('-');
     	}
     	
-    	$('#channelOrderNo').text(soOrder.channelOrderNo||'');
+    	$('#channelOrderNo').text(soOrder.channelOrderNo||'-');
     	
-    	$('#remark').text(soOrder.remark||'');
+    	$('#remark').text(soOrder.remark||'-');
     }
 });
 $(function(){
