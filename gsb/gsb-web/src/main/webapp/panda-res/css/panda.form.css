@@ -141,3 +141,8 @@ legend{
 	
 	padding-top:0 !important;
 }
+
+.layout-panel-north{
+	
+	border-bottom: 1px #eee solid;
+}
