@@ -157,7 +157,7 @@ public class SoOrder extends BaseEntity {
     @Column(name = "pay_audit_status_id", header = "回款审核状态（有回款的时候审核状态更改为待审核，通过的时候改成无）")
     private AuditStatusType depPayAuditStatusId = AuditStatusType.wu;
     /*回款业绩审核状态*/
-    @Column(name = "dep_payper_audit_status_id", header = "回款业绩审核状态")
+    @Column(name = "dep_payper_audit_status_id", header = "回款业绩审核状态(考虑到时候去掉,以审核表为主)")
     private AuditStatusType depPayPerAuditStatusId = AuditStatusType.wu;
 
     // 1051 待审核

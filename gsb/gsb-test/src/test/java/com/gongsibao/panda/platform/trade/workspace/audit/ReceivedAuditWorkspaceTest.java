@@ -18,20 +18,14 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.bd.AuditLog;
 
-/**
- * @ClassName: ReceiptAuditWorkspaceTest
- * @Description:TODO 收款审核
- * @author: 韩伟
- * @date: 2017年12月7日 下午8:08:20
- * @Copyright: 2017 www.yikuaxiu.com Inc. All rights reserved.
- */
+
 /*交易中心回款业绩审核 */
 public class ReceivedAuditWorkspaceTest extends AuditPayPerformanceWorkspaceTest {
     private String listrowToolbarPath="/trade/audit/roworderrec/toolbar";
     @Before
     public void setup() {
         super.setup ();
-        entity = AuditLog.class;// 实体
+        //entity = AuditLog.class;// 实体
         urlList = "/trade/audit/received/list";// 列表的url
         //urlForm = "/trade/audit/received/form";// 弹出框的url
         listPartName = formPartName = "回款业绩审核";

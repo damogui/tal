@@ -132,16 +132,10 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
             if (shzt.equals (AuditStatusType.Shtg)&&status_id.equals ("dep_receivable_audit_status_id")) {
                 sql=String.format ("update  so_order  set performance_price=payable_price,%s=%s  where  pkid=? ",status_id,shzt.getValue ());
             }
-            updateBuilder.update ("so_order");
-            updateBuilder.set (status_id, shzt.getValue ());
             if (shzt.equals (AuditStatusType.Shtg)&&status_id.equals ("dep_payper_audit_status_id")) {
-                updateBuilder.set ("returned_price","paid_price-refund_price-returned_price-carry_amount");//回款业绩待划分金额,计算公式
-                //paid_price-refund_price-returned_price-carry_amount
-                sql = updateBuilder.toSQL ();
+               //updateBuilder.set ("returned_price","paid_price-refund_price-returned_price-carry_amount");//回款业绩待划分金额,计算公式
+                sql=String.format ("update  so_order  set returned_price=paid_price-refund_price-carry_amount,%s=%s  where  pkid=? ",status_id,shzt.getValue ());
             }
-
-
-            updateBuilder.where ("pkid=?");
         }
 
         QueryParameters qps = new QueryParameters ();

@@ -1,39 +1,11 @@
 package com.gongsibao.igirl.tm.service;
 
-import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.joda.time.DateTime;
-import org.netsharp.communication.Service;
-import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.BusinessException;
-import org.netsharp.core.EntityState;
-import org.netsharp.core.Oql;
-import org.netsharp.core.Paging;
-import org.netsharp.organization.base.IEmployeeService;
-import org.netsharp.organization.entity.Employee;
-import org.netsharp.persistence.session.SessionManager;
-
 import com.gongsibao.bd.base.IDictService;
 import com.gongsibao.bd.service.GsbPersistableService;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.crm.Customer;
-import com.gongsibao.entity.crm.dic.CapitalType;
-import com.gongsibao.entity.crm.dic.CompanyOrgType;
-import com.gongsibao.entity.crm.dic.CompanyType;
-import com.gongsibao.entity.crm.dic.ConsultWay;
-import com.gongsibao.entity.crm.dic.FollowStatus;
-import com.gongsibao.entity.crm.dic.Important;
-import com.gongsibao.entity.crm.dic.RegisterCapitalType;
-import com.gongsibao.entity.crm.dic.Sex;
+import com.gongsibao.entity.crm.dic.*;
 import com.gongsibao.entity.igirl.OrderProdCase;
 import com.gongsibao.entity.igirl.dict.CaseConvertType;
 import com.gongsibao.entity.igirl.res.ConvertToOrderResult;
@@ -56,11 +28,7 @@ import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
 import com.gongsibao.entity.trade.dic.OrderSourceType;
 import com.gongsibao.entity.uc.Account;
 import com.gongsibao.igirl.base.IOrderProdCaseService;
-import com.gongsibao.igirl.tm.base.IDownloadAttachmentService;
-import com.gongsibao.igirl.tm.base.IGirlConfigService;
-import com.gongsibao.igirl.tm.base.ITradeMarkCaseService;
-import com.gongsibao.igirl.tm.base.ITradeMarkService;
-import com.gongsibao.igirl.tm.base.IUploadAttachmentService;
+import com.gongsibao.igirl.tm.base.*;
 import com.gongsibao.igirl.tm.service.builder.TradeMarkCaseAttachmentBuiler;
 import com.gongsibao.supplier.base.ISupplierService;
 import com.gongsibao.taurus.util.StringManager;
@@ -71,6 +39,26 @@ import com.gongsibao.uc.base.IAccountService;
 import com.gongsibao.utils.NumberUtils;
 import com.gongsibao.utils.RegexUtils;
 import com.gongsibao.utils.SupplierSessionManager;
+import org.apache.commons.collections.CollectionUtils;
+import org.joda.time.DateTime;
+import org.netsharp.communication.Service;
+import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.BusinessException;
+import org.netsharp.core.EntityState;
+import org.netsharp.core.Oql;
+import org.netsharp.core.Paging;
+import org.netsharp.organization.base.IEmployeeService;
+import org.netsharp.organization.entity.Employee;
+import org.netsharp.persistence.session.SessionManager;
+
+import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.net.URLEncoder;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> implements ITradeMarkCaseService {
@@ -583,8 +571,10 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
         orderProdCaseService.saves(orderProdCaseList);
 
 		ConvertToOrderResult result = new ConvertToOrderResult(CaseConvertType.SUCCESS);
-		result.getExtend().put("accountId", account.getId());
-		result.getExtend().put("orderId", order.getId());
+		{
+			result.getExtend().put("accountId", account.getId());
+			result.getExtend().put("orderId", order.getId());
+		}
 		return result;
     }
 

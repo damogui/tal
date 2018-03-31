@@ -104,24 +104,35 @@ public class FinanceDict {
 	 * 费用类型
 	 */
 	public static enum CostType implements IEnum{
-		BGYP(1, "办公用品"),
-		JTF(2, "交通费"),
-		SDF(3, "水电费"),
-		ZXF(4, "装修费"),
-		TJF(5, "团建费"),
-		WBFWF(6, "外包服务费"),
-		RJFWF(7, "软件服务电费"),
-		ZIXF(8, "咨询费"),
-		ZPF(9, "招聘费"),
-		LDF(10, "劳动费"),
-		WANGF(11, "网费"),
-		ZDF(12, "招待费"),
-		YGFLF(13, "员工福利费"),
-		HYF(14, "会议费"),
-		SBXLF(15, "设备修理费"),
-		SBZJF(16, "设备租金费"),
+		FGSBYJ(1, "分公司备用金"),
+		BGYP(2, "办公用品"),
+		FGSSBGJJ(3, "分公司社保、公积金"),
+		CGJK(4, "采购借款"),
+		JTF(5, "交通费"),
+		SDF(6, "水电费"),
+		TXF(7, "通讯费"),
+		QCF(8, "汽车费用"),
+		BMHDF(9, "部门活动费"),
+		LDF(10, "劳务费"),
+		ZPF(11, "招聘费"),
+		ZJF(12, "中介费"),
+		ZXF(13, "咨询费"),
+		SSF(14, "诉讼费"),
+		FZWYCN(15, "房租、物业、采暖"),
+		WF(16, "网费"),
 		KDF(17, "快递费"),
-		QT(18, "其他");
+		HYF(18, "会议费"),
+		SBZJ(19, "设备租金"),
+		SBXLF(20, "设备修理费"),
+		ZGFLF(21, "职工福利费"),
+		SYBXF(22, "商业保险费"),
+		CAZSGBF(23, "CA证书工本费"),
+		TJF(24, "团建费"),
+		ZXF1(25, "装修费"),
+		XBGJJ(26, "社保、公积金"),
+		RJFWF(27, "软件服务费"),
+		WBFWF(28, "外包服务费"),
+		QT(29, "其他");
 		private int value;
 		private String text;
 
@@ -239,4 +250,74 @@ public class FinanceDict {
 				return this.value;
 			}
 		} 
+		//补助类别
+		public static enum SubsidyType implements IEnum{
+			SubsidyType_1(1, "出差补助"),
+			SubsidyType_2(2, "交通补助"),
+			SubsidyType_3(3, "餐补"),
+			SubsidyType_4(4, "话费补助");
+			private int value;
+			private String text;
+
+			SubsidyType(int value, String text) {
+				this.value = value;
+				this.text = text;
+			}
+			@JsonCreator
+			public static SubsidyType getItem(int value) {
+				for (SubsidyType item : values()) {
+					if (item.getValue() == value) {
+						return item;
+					}
+				}
+				return null;
+			}
+
+			public String getText() {
+				return this.text;
+			}
+			public Integer getValue() {
+				return this.value;
+			}
+		}
+		//业务类型
+		public static enum BusinessType implements IEnum {
+			CAZS(1, "CA证书"),
+			DZF(2, "地址费"),
+			KZF(3, "刻章费"),
+			ZSCQ(4, "知识产权（商标）"),
+			GF(5, "规费"),
+			DSDF(6, "代收代付（CA证书、刻章、地址费））"),
+			DLF(7, "代理费"),
+			CLZXF(8, "材料撰写费"),
+			LWF(9, "劳务费"),
+			IDC_ISP(10, "IDC/ISP系统"),
+			BGQ(11, "并购款"),
+			QT(4, "其它");
+			
+			
+			private int value;
+			private String text;
+
+			BusinessType(int value, String text) {
+				this.value = value;
+				this.text = text;
+			}
+			@JsonCreator
+			public static BusinessType getItem(int value) {
+				for (BusinessType item : values()) {
+					if (item.getValue() == value) {
+						return item;
+					}
+				}
+				return null;
+			}
+
+			public String getText() {
+				return this.text;
+			}
+			public Integer getValue() {
+				return this.value;
+			}
+		}
 }

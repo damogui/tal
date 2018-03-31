@@ -68,7 +68,7 @@ public class Loan extends BizEntity {
 	@Column(name = "audit_step", header = "审核步骤")
 	private Integer auditStep;
 	
-	@Column(name = "status", header = "状态 1:待审核 ，2：审核中 ，3：已通过")
+	@Column(name = "status", header = "状态 1:待审核 ，2：审核中 ，3：已通过，4：财务办理")
 	private FinanceDict.AuditStatus status = FinanceDict.AuditStatus.Status_1;
 
 	

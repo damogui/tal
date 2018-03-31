@@ -1,8 +1,14 @@
 package com.gongsibao.entity.cw;
 
+import java.util.Date;
+
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.BizEntity;
+
+import com.gongsibao.entity.cw.dict.FinanceDict;
+import com.gongsibao.entity.u8.SetOfBooks;
 
 /**
  * 
@@ -27,17 +33,20 @@ public class Payment extends BizEntity{
 	@Column(name="amount",header="付款金额")
 	private Integer amount;
 	
-	@Column(name="reason",header="付款理由")
-	private String reason;
-	
-	@Column(name="cost_type",header="费用类型 ")
-	private Integer costType;
+	@Column(name="business_type",header="业务类型 ")
+	private FinanceDict.BusinessType businessType = FinanceDict.BusinessType.QT;
 	
 	@Column(name = "organization_id", header = "费用归属部门（组织机构id）")
 	private Integer organizationId;
 	
 	@Column(name = "set_of_books_id", header = "付款单位（对应套帐）")
 	private Integer setOfBooksId;
+	
+	@Column(name = "collect_invoice_date", header = "收发票日期")
+	private Date collectInvoiceDate ;
+	
+	@Reference(foreignKey = "setOfBooksId")
+	private SetOfBooks setOfBooks;
 	
 	@Column(name = "payment_method", header = "付款方式 1:现金 ，2：转账 ，3：支票")
 	private Integer paymentMethod;
@@ -63,22 +72,6 @@ public class Payment extends BizEntity{
 
 	public void setAmount(Integer amount) {
 		this.amount = amount;
-	}
-
-	public String getReason() {
-		return reason;
-	}
-
-	public void setReason(String reason) {
-		this.reason = reason;
-	}
-
-	public Integer getCostType() {
-		return costType;
-	}
-
-	public void setCostType(Integer costType) {
-		this.costType = costType;
 	}
 
 	public Integer getOrganizationId() {

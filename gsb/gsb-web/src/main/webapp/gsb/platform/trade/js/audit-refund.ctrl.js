@@ -130,9 +130,7 @@ com.gongsibao.trade.web.AuditRefundCtrl = com.gongsibao.trade.web.AuditBaseCtrl.
     auditLogInfor: function(formId){
     	//tab-审批进度
     	var me = this;
-    	this.invokeService("getAuditLogList", [formId,1046], function(data){ 
-    		debugger;
-    		alert(data);
+    	this.invokeService("getAuditLogList", [formId,1046], function(data){
     		$('#audit_progress_grid').datagrid({
     			idField:'id',
     			emptyMsg:'暂无记录',
@@ -143,7 +141,9 @@ com.gongsibao.trade.web.AuditRefundCtrl = com.gongsibao.trade.web.AuditBaseCtrl.
     			height:'100%',
     			data:data,
     		    columns:[[
-    		        {field:'creator',title:'创建人名称',width:80,align:'center'},
+    		        {field:'creatorId',title:'创建人名称',width:80,align:'center',formatter: function(value,row,index){
+    		        	return row.employee.name;
+    		        }},
     		        {field:'status',title:'审核状态',width:80,align:'center',formatter: function(value,row,index){
     		        	return me.auditLogStatusEnum[value];
     		        }},

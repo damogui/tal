@@ -48,12 +48,15 @@ public class AuditHelper {
 
             Oql oql = new Oql ();
             oql.setType (OrderPayMap.class);
-            oql.setSelects ("pay_id");
-            oql.setFilter (String.format ("  where order_id in (%s)", orderIds));
+            oql.setSelects ("pkid,pay_id");//orderPayMap.*
+            oql.setFilter (String.format ("order_id in (%s)", orderIds));
             List<OrderPayMap> listOrderPayMap = orderPayMapService.queryList (oql);
             for (OrderPayMap item2 :
                     listOrderPayMap) {
-                listPayIds.add (item2.getPayId ());
+                  if (item2.getPayId ()!=null){
+                      listPayIds.add (item2.getPayId ());
+                  }
+
             }
 
             if (listPayIds.size () > 0) {
