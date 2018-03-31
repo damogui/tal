@@ -1,19 +1,6 @@
 package com.gongsibao.igirl.tm.web;
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.gongsibao.entity.igirl.res.ConvertToOrderResult;
-import org.joda.time.DateTime;
-import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.EntityState;
-import org.netsharp.core.Oql;
-import org.netsharp.entity.IPersistable;
-import org.netsharp.panda.annotation.Authorization;
-import org.netsharp.panda.commerce.FormPart;
-import org.netsharp.panda.core.HttpContext;
-import org.netsharp.util.StringManager;
-
 import com.gongsibao.entity.igirl.tm.DownloadAttachment;
 import com.gongsibao.entity.igirl.tm.TradeMark;
 import com.gongsibao.entity.igirl.tm.TradeMarkCase;
@@ -28,6 +15,19 @@ import com.gongsibao.igirl.tm.dto.TradeMarkDto;
 import com.gongsibao.taurus.message.ResponseMessage;
 import com.gongsibao.taurus.service.TaurusApiService;
 import com.gongsibao.utils.SupplierSessionManager;
+import org.joda.time.DateTime;
+import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.EntityState;
+import org.netsharp.core.Oql;
+import org.netsharp.entity.IPersistable;
+import org.netsharp.panda.annotation.Authorization;
+import org.netsharp.panda.commerce.FormPart;
+import org.netsharp.panda.core.HttpContext;
+import org.netsharp.util.StringManager;
+
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TradeMarkCasePart extends FormPart {
 	ITradeMarkCaseService tradeMarkCaseService = ServiceFactory.create(ITradeMarkCaseService.class);
