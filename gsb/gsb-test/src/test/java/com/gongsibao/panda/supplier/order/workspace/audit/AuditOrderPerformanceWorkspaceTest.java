@@ -99,12 +99,12 @@ public class AuditOrderPerformanceWorkspaceTest extends WorkspaceCreationBase {
         addColumn (datagrid, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "soOrder.companyIntention.name", "签单公司", ControlTypes.TEXT_BOX, 100);
 
-        addColumn (datagrid, "soOrder.totalPrice", "原价金额", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "soOrder.payablePrice", "应付金额", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "soOrder.paidPrice", "已付金额", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "soOrder.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn (datagrid, "soOrder.payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn (datagrid, "soOrder.paidPrice", "已付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         // addColumn (datagrid, "soOrder.orderId", "待付款金额", ControlTypes.TEXT_BOX, 100);//??
         addColumn (datagrid, "soOrder.payStatus", "待付款状态", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "soOrder.payablePrice", "订单业绩分配金额", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "soOrder.payablePrice", "订单业绩分配金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn (datagrid, "soOrder.depReceivableAuditStatusId", "审核状态", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "createTime", "订单业绩创建款时间", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "soOrder.createTime", "订单创建时间", ControlTypes.TEXT_BOX, 100);
