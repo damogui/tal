@@ -154,16 +154,16 @@ com.gongsibao.trade.web.OrderProductDetailCtrl = com.gongsibao.trade.web.BaseCtr
 	        		}
 	        		return '-';
 		        }},
-		        {field:'ownerId',title:'业务员',width:80,align:'center',formatter:function(value,row,index){
-	        		
-	        		if(row.owner){
-	        			
-	        			return row.owner.name;
-	        		}else {
-	        			
-	        			return '-';
-	        		}
-		        }}
+//		        {field:'ownerId',title:'业务员',width:80,align:'center',formatter:function(value,row,index){
+//	        		
+//	        		if(row.owner){
+//	        			
+//	        			return row.owner.name;
+//	        		}else {
+//	        			
+//	        			return '-';
+//	        		}
+//		        }}
 		    ]]
 		});
     }
