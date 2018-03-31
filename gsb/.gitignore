@@ -32,4 +32,4 @@ logs
 /gsb-*/.settings
 /gsb-*/.classpath
 /gsb-*/.project
-/gsb-*/.ignore
+/gsb-*/.gitignore
