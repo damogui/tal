@@ -29,6 +29,11 @@ public class ActionSaveOrderSplit implements IAction {
 
 		for (OrderProd prod : oldProdList) {
 
+			//代入服务商相关信息
+			prod.setSupplierId(soOrder.getSupplierId());
+			prod.setDepartmentId(soOrder.getDepartmentId());
+			prod.setOwnerId(soOrder.getOwnerId());
+			
 			int quantity = prod.getQuantity();
 			if (quantity > 1) {
 
@@ -99,6 +104,9 @@ public class ActionSaveOrderSplit implements IAction {
 				newProd.setCityName(prod.getCityName());
 				newProd.setCityId(prod.getCityId());
 				newProd.setItems(prod.getItems());
+				newProd.setSupplierId(prod.getSupplierId());
+				newProd.setDepartmentId(prod.getDepartmentId());
+				newProd.setOwnerId(prod.getOwnerId());
 			}
 
 			splitList.add(newProd);
