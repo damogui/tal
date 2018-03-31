@@ -1,18 +1,10 @@
 package com.gongsibao.panda.supplier.order.action;
 
+import com.gongsibao.panda.supplier.order.action.audit.*;
 import com.gongsibao.panda.supplier.order.action.order.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
-
-import com.gongsibao.panda.supplier.order.action.audit.AuditCarryoverActionTest;
-import com.gongsibao.panda.supplier.order.action.audit.AuditContractActionTest;
-import com.gongsibao.panda.supplier.order.action.audit.AuditCostActionTest;
-import com.gongsibao.panda.supplier.order.action.audit.AuditInvoiceActionTest;
-import com.gongsibao.panda.supplier.order.action.audit.AuditPayActionTest;
-import com.gongsibao.panda.supplier.order.action.audit.AuditPerformanceActionTest;
-import com.gongsibao.panda.supplier.order.action.audit.AuditRefundActionTest;
-import com.gongsibao.panda.supplier.order.action.audit.AuditStageActionTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({
@@ -32,6 +24,7 @@ import com.gongsibao.panda.supplier.order.action.audit.AuditStageActionTest;
         AuditInvoiceActionTest.class,
         OrderApplyContractActionTest.class,
         AuditPayActionTest.class,
+        AuditPayPerformanceActionTest.class,//回款业绩审核
         AuditPerformanceActionTest.class,
         AuditRefundActionTest.class,
         AuditStageActionTest.class
