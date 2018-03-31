@@ -286,6 +286,7 @@ public class LoansBillWorkspaceTest extends WorkspaceCreationBase {
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar(uploadloadToolbarPath);
+			part.setJsController("com.gongsibao.cw.web.AttachmentListPart");
 
 		}
 		workspace.getParts().add(part);

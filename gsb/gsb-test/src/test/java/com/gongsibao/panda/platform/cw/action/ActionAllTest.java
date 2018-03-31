@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import com.gongsibao.panda.platform.cw.action.audit.AuditRecordActionTest;
+import com.gongsibao.panda.platform.cw.action.expense.ExpenseBillActionTest;
 import com.gongsibao.panda.platform.cw.action.loan.LoanBillActionTest;
 
 @RunWith(Suite.class)
@@ -12,6 +13,7 @@ import com.gongsibao.panda.platform.cw.action.loan.LoanBillActionTest;
        
 	LoanBillActionTest.class,
 	AuditRecordActionTest.class,
+	ExpenseBillActionTest.class,
    
 })
 

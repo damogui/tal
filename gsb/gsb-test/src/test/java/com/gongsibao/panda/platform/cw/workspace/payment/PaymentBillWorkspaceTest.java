@@ -87,15 +87,13 @@ public class PaymentBillWorkspaceTest extends WorkspaceCreationBase {
 			datagrid.setToolbar("panda/datagrid/row/edit");
 			datagrid.setAutoQuery(false);
 		}
-		PDatagridColumn column = null;
-		addColumn(datagrid, "paymentNo", "报销单号", ControlTypes.OPERATION_COLUMN, 100, true);
-		addColumn(datagrid, "paymentReason", "借款理由", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "paymentAmount", "借款金额", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "remark", "备注", ControlTypes.TEXT_BOX, 300);
-		addColumn(datagrid, "companyAccount", "对方公司帐号", ControlTypes.TEXT_BOX, 150);
-		addColumn(datagrid, "companyBank", "对方公司开户行", ControlTypes.TEXT_BOX, 150);
-		addColumn(datagrid, "companyName", "对方公司名称", ControlTypes.TEXT_BOX, 150);
-		addColumn(datagrid, "status", "审核状态", ControlTypes.TEXT_BOX, 150);
+		addColumn(datagrid, "code", "付款单号", ControlTypes.OPERATION_COLUMN, 100, true);
+		addColumn(datagrid, "businessType", "业务类型", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "amount", "付款金额", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "setOfBooks.name", "付款单位", ControlTypes.TEXT_BOX, 300);
+		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATE_BOX, 200);
+		addColumn(datagrid, "status", "审核状态", ControlTypes.ENUM_BOX, 150);
+		addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 400);
 		return datagrid;
 	}
     
