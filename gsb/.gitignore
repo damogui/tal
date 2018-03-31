@@ -30,3 +30,4 @@ logs
 /gsb-*/bin
 /gsb-*/build
 /gsb-*/.settings
+/gsb-*/.classpath
