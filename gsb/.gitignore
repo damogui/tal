@@ -27,3 +27,6 @@ gradle.properties
 /gsb-web/src/main/resources/dev/conf/configuration.properties
 local.properties
 logs
+/gsb-*/bin
+/gsb-*/build
+/gsb-*/.settings
