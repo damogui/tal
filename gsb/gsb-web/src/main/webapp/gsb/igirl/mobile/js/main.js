@@ -160,6 +160,17 @@ $(function(){
             })
 
         }))
+        var dmdt=()=>Promise.resolve(new Promise(function(resolve,reject){
+            //异步加载组件
+            axios.get(ip+"/vue/comp/dmdt").then(function(res){
+                var obj=eval("("+res.data+")");
+                //console.log(obj)
+                resolve(obj);
+            }).catch(function(reason){
+                console.log(reason)
+            })
+
+        }))
 		var routes=[
 			{path:'/',component:def},
 			{path:'/tms',component:tms},
@@ -171,7 +182,8 @@ $(function(){
 			{path:'/zzty/downdele',component:downdele},//下载委托书
 			{path:'/zzty/downup',component:downup},//上传委托书
             {path:'/zzty/share',component:share},//二维码分享
-            {path:'/zzty/list',component:zzlist},//
+            {path:'/zzty/list',component:zzlist},//商标列表
+            {path:'/zzty/dmdt',component:dmdt},//商标对应附件列表
 			{path:'/pt',component:tmc},
 			{path:'/cr',component:cr},
 		]
