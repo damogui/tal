@@ -61,9 +61,9 @@ public class ActionAuditPayPerVerify implements IAction{
             throw new BusinessException ("该回款业绩信息不存在");
         }
 
-        if (!soOrder.getDepPayPerAuditStatusId ().equals (AuditStatusType.Dsh)) {
-            throw new BusinessException ("该回款业绩不是【" + AuditStatusType.Dsh.getText () + "】,禁止审核");
-        }
+//        if (!soOrder.getDepPayPerAuditStatusId ().equals (AuditStatusType.Dsh)) {
+//            throw new BusinessException ("该回款业绩不是【" + AuditStatusType.Dsh.getText () + "】,禁止审核");
+//        }//以审核表为主
         Map<String, Object> statusMap = new HashMap ();
         statusMap.put ("auditLog", auditLog);
         statusMap.put ("soOrder", soOrder);
