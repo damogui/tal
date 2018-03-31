@@ -218,7 +218,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         //判断是否已经分期付款了（先支持1次分期）
         me.invokeService("isStaged", [row.id], function (data) {
             if (data) {
-                IMessageBox.info('该订单已申请分期，并审核通过，请知悉');
+                layer.msg('该订单已申请分期，并审核通过，请知悉');
             } else {
                 layer.open({
                     type: 2,//1是字符串 2是内容
