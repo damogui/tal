@@ -9,7 +9,7 @@ import org.netsharp.panda.plugin.base.IPToolbarService;
 import org.netsharp.resourcenode.IResourceNodeService;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.workbench.SupplierWorkbench;
+import com.gongsibao.workbench.supplier.SupplierWorkbench;
 
 public class SupplierWorkbenchTest {
 

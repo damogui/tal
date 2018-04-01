@@ -1,4 +1,4 @@
-package com.gongsibao.workbench;
+package com.gongsibao.workbench.supplier;
 
 import org.netsharp.panda.controls.html5.Nav;
 import org.netsharp.panda.controls.layout.LayoutPanel;

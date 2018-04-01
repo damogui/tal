@@ -1,4 +1,4 @@
-package com.gongsibao.workbench;
+package com.gongsibao.workbench.supplier;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.gongsibao.workbench;
+package com.gongsibao.workbench.supplier;
 
 import org.netsharp.application.Application;
 import org.netsharp.panda.controls.layout.LayoutPanel;
