@@ -23,7 +23,7 @@ public class SupplierWorkbench extends Workspace{
 		layout.getInnerValues().put("isTabs", isTabs.toString());
 		layout.setClassName("easyui-layout");
 		layout.getControls().add(new SupplierWorkbenchHeader());
-		layout.getControls().add(new WorkbenchPadHost());
+		layout.getControls().add(new SupplierWorkbenchPadHost());
 
 		LayoutPanel center = new LayoutPanel();
 		{
@@ -55,6 +55,7 @@ public class SupplierWorkbench extends Workspace{
 		
 		super.importCss(writer);
 		writer.write("    <link href='" + UrlHelper.getUrl("/panda-res/css/workbench.css") + "' rel='stylesheet' type='text/css' />");
+		writer.write("    <link href='" + UrlHelper.getUrl("/panda-res/css/workbench_supplier.css") + "' rel='stylesheet' type='text/css' />");
 	}
 
 	@Override

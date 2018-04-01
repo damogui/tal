@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import com.gongsibao.panda.auth.AuthAllTest;
 import com.gongsibao.panda.supplier.SupplierAllTest;
 
 @RunWith(Suite.class)
@@ -62,7 +63,7 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
 	
 	
 	//放在最后处理
-	//AuthAllTest.class
+	AuthAllTest.class
 	})
 public class DevAllTest {
 

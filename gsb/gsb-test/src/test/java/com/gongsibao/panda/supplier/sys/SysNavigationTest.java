@@ -39,13 +39,13 @@ public class SysNavigationTest extends NavigationBase {
 	
 	@Override
 	protected void doCreateTree(PNavigation tree) {
-
-		createPTreeNode(tree, null, null, "GSB_CRM_SYS", "系统设置", "", 100);
+		String nodeIcon="fa fa-circle-o";
+		createPTreeNode(tree, null, "fa fa-cog", "GSB_CRM_SYS", "系统设置", "", 100);
 		{
 			createPTreeNode(tree, "GSB_CRM_SYS", null, "GSB_CRM_SYS_Organization", "组织机构", "", 1);
 			{
-				createPTreeNode(tree, "GSB_CRM_SYS_Organization", null, "GSB_CRM_SYS_DEPARTMENT", "部门列表", "/crm/sys/department/list", 1);
-				createPTreeNode(tree, "GSB_CRM_SYS_Organization", null, "GSB_CRM_SYS_SALESMAN", "员工列表", "/crm/sys/salesman/list", 2);
+				createPTreeNode(tree, "GSB_CRM_SYS_Organization", nodeIcon, "GSB_CRM_SYS_DEPARTMENT", "部门列表", "/crm/sys/department/list", 1);
+				createPTreeNode(tree, "GSB_CRM_SYS_Organization", nodeIcon, "GSB_CRM_SYS_SALESMAN", "员工列表", "/crm/sys/salesman/list", 2);
 			}
 		}
 	}

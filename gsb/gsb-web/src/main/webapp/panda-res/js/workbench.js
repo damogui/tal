@@ -113,7 +113,6 @@ org.netsharp.panda.Workbench = System.Object.Extends({
 
         } else {
         	
-        	subtitle = '系统管理 > 业务类型';
             $("#center1").html(iframe);
             $("#center1").panel({
                 title: subtitle,
@@ -218,7 +217,7 @@ org.netsharp.panda.Workbench = System.Object.Extends({
     	
     	var west_panel = $(".easyui-layout").layout("panel","west");
     	var options = $(west_panel).panel("options");
-    	options.title = $item.text();
+//    	options.title = $item.text();
     	$(west_panel).panel(options);
     	
     	var me = this;

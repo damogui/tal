@@ -4,7 +4,6 @@ import org.netsharp.panda.controls.html5.Nav;
 import org.netsharp.panda.controls.layout.LayoutPanel;
 import org.netsharp.panda.controls.layout.LayoutRegion;
 import org.netsharp.panda.controls.other.Div;
-import org.netsharp.panda.core.workbench.RightNavigation;
 
 public class SupplierWorkbenchHeader extends LayoutPanel{
 	
@@ -27,7 +26,7 @@ public class SupplierWorkbenchHeader extends LayoutPanel{
 			nav.getControls().add(new SupplierLeftNavigation());
 		}
 		this.getControls().add(nav);
-		this.getControls().add(new RightNavigation());
+		this.getControls().add(new SupplierRightNavigation());
 		super.initialize();
 	}
 }

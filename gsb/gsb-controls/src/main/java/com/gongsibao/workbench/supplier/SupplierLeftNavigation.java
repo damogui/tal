@@ -62,6 +62,14 @@ public class SupplierLeftNavigation extends Ul {
 										
 										li.onclick = "workbench.selectNav(this);";
 										li.setId(treeNode.id);
+										
+										if(!StringManager.isNullOrEmpty(treeNode.iconCls)){
+
+											I icon = new I();
+											icon.setClassName(treeNode.iconCls);
+											li.getControls().add(icon);
+										}
+										
 										li.getControls().add(span);
 										this.getControls().add(li);
 										

@@ -249,8 +249,8 @@ html,body{
 }
 
 .query-panel .easyui-linkbutton{
-	
-	padding: 2px 4px !important;
+	margin-top: 2px;
+	padding: 0px 4px !important;
 	box-shadow:none;
 }
 
