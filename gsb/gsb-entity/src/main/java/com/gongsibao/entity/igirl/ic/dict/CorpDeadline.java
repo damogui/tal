@@ -4,27 +4,28 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
 /**
- * s 通用 是 / 否
+ * 任职期限
  * @author cyx
  *
  */
-public enum CorpBoolean implements IEnum {
+public enum CorpDeadline implements IEnum {
 
-	FALSE(0, "否"),
-	TRUE(1, "是");
+	ONE(0, "1年"),
+	TWO(1, "2年"),
+	THREE(2, "3年");
 
 	private int value;
 	private String text;
 
-	CorpBoolean(int value, String text) {
+	CorpDeadline(int value, String text) {
 		this.value = value;
 		this.text = text;
 	}
 
 	@JsonCreator
-	public static CorpBoolean getItem(int value) {
+	public static CorpDeadline getItem(int value) {
 
-		for (CorpBoolean item : values()) {
+		for (CorpDeadline item : values()) {
 
 			if (item.getValue() == value) {
 				return item;

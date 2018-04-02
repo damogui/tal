@@ -4,30 +4,30 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
 /**
- * 营业期限。4.2这里有问题
+ * 证件类型
  * @author cyx
  *
  */
-public enum CorpTimeLimite implements IEnum {
-	// TODO 4-3工商网站正常后，修改一下。这个是错误的
-	SETUP(0, "设立"),
-	CHANGE(1, "变更"),
-	AUTH(2, "备案"),
-	ADDMOD(3, "增减补换照"),
-	PLEDGE(4, "股权出质"),
-	LOGOUT(5, "注销");
+public enum CorpLicenceType implements IEnum {
+
+	IDC(0, "中华人民共和国居民身份证"),
+	ARMIRETIRED(1, "军人离(退)休证"),
+	OTHER(2, "其他有效身份证件"),
+	ARMI(3, "中华人民共和国军官证"),
+	POLICE(4, "中华人民共和国警官证");
+
 	private int value;
 	private String text;
 
-	CorpTimeLimite(int value, String text) {
+	CorpLicenceType(int value, String text) {
 		this.value = value;
 		this.text = text;
 	}
 
 	@JsonCreator
-	public static CorpTimeLimite getItem(int value) {
+	public static CorpLicenceType getItem(int value) {
 
-		for (CorpTimeLimite item : values()) {
+		for (CorpLicenceType item : values()) {
 
 			if (item.getValue() == value) {
 				return item;
