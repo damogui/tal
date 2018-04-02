@@ -6,9 +6,9 @@ import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
 import org.netsharp.util.StringManager;
 
+import com.gongsibao.account.base.IAccountService;
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.crm.NCustomer;
-import com.gongsibao.gardian.base.IAccountService;
 
 public class ActionMemberVerify implements IAction {
 

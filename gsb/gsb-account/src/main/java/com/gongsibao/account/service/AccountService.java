@@ -1,4 +1,4 @@
-package com.gongsibao.gardian.service;
+package com.gongsibao.account.service;
 
 import java.sql.Types;
 
@@ -6,8 +6,8 @@ import org.netsharp.communication.Service;
 import org.netsharp.core.Oql;
 import org.netsharp.service.PersistableService;
 
+import com.gongsibao.account.base.IAccountService;
 import com.gongsibao.entity.acount.Account;
-import com.gongsibao.gardian.base.IAccountService;
 
 @Service
 public class AccountService extends PersistableService<Account> implements IAccountService {

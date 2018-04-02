@@ -1,5 +1,6 @@
 package com.gongsibao.igirl.tm.service;
 
+import com.gongsibao.account.base.IAccountService;
 import com.gongsibao.bd.base.IDictService;
 import com.gongsibao.bd.service.GsbPersistableService;
 import com.gongsibao.entity.acount.Account;

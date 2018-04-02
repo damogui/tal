@@ -6,10 +6,10 @@ import org.netsharp.organization.entity.Employee;
 import org.netsharp.panda.commerce.FormPart;
 import org.netsharp.persistence.session.SessionManager;
 
+import com.gongsibao.account.base.IAccountService;
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.gardian.base.IAccountService;
 import com.gongsibao.utils.SupplierSessionManager;
 
 public class SalesmanAddOrderFormPart extends FormPart {

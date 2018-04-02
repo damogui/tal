@@ -1,10 +1,10 @@
-package com.gongsibao.gardian.service;
+package com.gongsibao.account.service;
 
 import org.netsharp.communication.Service;
 import org.netsharp.service.PersistableService;
 
+import com.gongsibao.account.base.IAccountDingtalkFileService;
 import com.gongsibao.entity.acount.AccountDingtalkFile;
-import com.gongsibao.gardian.base.IAccountDingtalkFileService;
 
 @Service
 public class AccountDingtalkFileService extends PersistableService<AccountDingtalkFile> implements IAccountDingtalkFileService {

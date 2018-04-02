@@ -1,4 +1,4 @@
-package com.gongsibao.gardian.base;
+package com.gongsibao.account.base;
 
 import org.netsharp.base.IPersistableService;
 

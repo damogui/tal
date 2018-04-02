@@ -1,10 +1,10 @@
-package com.gongsibao.gardian.service;
+package com.gongsibao.account.service;
 
 import org.netsharp.communication.Service;
 import org.netsharp.service.PersistableService;
 
+import com.gongsibao.account.base.IAccountDeliverAddressService;
 import com.gongsibao.entity.acount.AccountDeliverAddress;
-import com.gongsibao.gardian.base.IAccountDeliverAddressService;
 
 @Service
 public class AccountDeliverAddressService extends PersistableService<AccountDeliverAddress> implements IAccountDeliverAddressService {
