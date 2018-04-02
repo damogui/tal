@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.netsharp.meta.base.NavigationBase;
 import org.netsharp.panda.plugin.entity.PNavigation;
 
-import com.gongsibao.entity.uc.Account;
+import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.uc.Auth;
 import com.gongsibao.entity.uc.Organization;
 import com.gongsibao.entity.uc.Role;

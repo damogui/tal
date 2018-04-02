@@ -9,4 +9,6 @@ import java.util.List;
 public interface IOrderProdCaseService extends IPersistableService<OrderProdCase> {
 
     List<OrderProdCase> byCaseId(Integer caseId);
+
+    List<OrderProdCase> byOrderId(Integer orderId);
 }

@@ -1,11 +1,12 @@
 package com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportData.Enity;
 
+import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.*;
 import com.gongsibao.entity.crm.dic.*;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
-import com.gongsibao.entity.uc.Account;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.*;
 import org.netsharp.core.annotations.*;

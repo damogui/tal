@@ -2,6 +2,7 @@ package com.gongsibao.igirl.tm.service;
 
 import com.gongsibao.bd.base.IDictService;
 import com.gongsibao.bd.service.GsbPersistableService;
+import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.crm.Customer;
@@ -26,7 +27,6 @@ import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.CostStatus;
 import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
 import com.gongsibao.entity.trade.dic.OrderSourceType;
-import com.gongsibao.entity.uc.Account;
 import com.gongsibao.igirl.base.IOrderProdCaseService;
 import com.gongsibao.igirl.tm.base.*;
 import com.gongsibao.igirl.tm.service.builder.TradeMarkCaseAttachmentBuiler;
@@ -34,11 +34,12 @@ import com.gongsibao.supplier.base.ISupplierService;
 import com.gongsibao.taurus.util.StringManager;
 import com.gongsibao.trade.base.ICompanyIntentionService;
 import com.gongsibao.trade.base.ICustomerService;
+import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IOrderService;
-import com.gongsibao.uc.base.IAccountService;
 import com.gongsibao.utils.NumberUtils;
 import com.gongsibao.utils.RegexUtils;
 import com.gongsibao.utils.SupplierSessionManager;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.joda.time.DateTime;
 import org.netsharp.communication.Service;
@@ -67,7 +68,10 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 	IDownloadAttachmentService downattachementService = ServiceFactory.create(IDownloadAttachmentService.class);
 	ITradeMarkService tradeMarkService = ServiceFactory.create(ITradeMarkService.class);
 
-	IOrderService orderService = ServiceFactory.create(IOrderService.class);
+
+    IOrderService orderService = ServiceFactory.create(IOrderService.class);
+    IOrderProdService orderProdService = ServiceFactory.create(IOrderProdService.class);
+
 
 	IAccountService accountService = ServiceFactory.create(IAccountService.class);
 
@@ -576,6 +580,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			result.getExtend().put("orderId", order.getId());
 		}
 		return result;
+
 	}
 
 	/**
@@ -596,6 +601,111 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			OrderProdCase orderProdCase = new OrderProdCase();
 			{
 				orderProdCase.toNew();
+
+    }
+
+    @Override
+	public ConvertToOrderResult convertToOrder(String caseid, String orderNo) {
+		SoOrder order = orderService.getByOrderNo(orderNo);
+		if (null == order) {
+			// 订单不存在
+			return new ConvertToOrderResult(CaseConvertType.ERROR_5);
+		}
+
+		// 验证订单是否与其他方案关联
+		List<OrderProdCase> orderProdCaseList = orderProdCaseService.byOrderId(order.getId());
+		if (null != orderProdCaseList && !orderProdCaseList.isEmpty()) {
+			return new ConvertToOrderResult(CaseConvertType.ERROR_11);
+		}
+
+		// 查询明细订单
+		List<OrderProd> orderProdList = orderProdService.queryByOrderId(order.getId());
+		order.setProducts(orderProdList);
+
+		// 查询方案
+		TradeMarkCase tradeMarkCase = byId(caseid);
+		if (null == tradeMarkCase) {
+			return new ConvertToOrderResult(CaseConvertType.ERROR_0);
+		}
+
+		// 判断订单付款状态
+        if (order.getIsInstallment()) {
+            if (order.getPaidPrice() == 0) {
+                // 分期订单，订单未付款
+				return new ConvertToOrderResult(CaseConvertType.ERROR_6);
+            }
+        } else if (order.getPayablePrice() > 0 && !order.getPayablePrice().equals(order.getPaidPrice())) {
+            // 订单未完成付款
+			return new ConvertToOrderResult(CaseConvertType.ERROR_6);
+        }
+
+		List<TradeMark> tradeMarks = tradeMarkCase.getTradeMarks();
+
+		// 计算方案总价
+		int total = 0;
+		for (TradeMark tradeMark : tradeMarks) {
+			total = total + NumberUtils.doubleRoundInt(tradeMark.getCost().doubleValue() * 100);
+			total = total + NumberUtils.doubleRoundInt(tradeMark.getCharge().doubleValue() * 100);
+		}
+
+		// 比较方案总价和订单总价是否一致
+		if (total != order.getPayablePrice()) {
+			return new ConvertToOrderResult(CaseConvertType.ERROR_8);
+		}
+
+		// 比对方案中选项数量与明细订单数量
+		if (tradeMarks.size() != orderProdList.size()) {
+			return new ConvertToOrderResult(CaseConvertType.ERROR_9);
+		}
+
+		// 比对产品id
+		for (OrderProd orderProd : orderProdList) {
+			if (!orderProd.getProductId().equals(tradeMarkCase.getProductId())) {
+				return new ConvertToOrderResult(CaseConvertType.ERROR_10);
+			}
+		}
+
+		// 查询方案子选项
+		orderProdCaseList = orderProdCaseService.byCaseId(Integer.parseInt(caseid));
+		if (null == orderProdCaseList || orderProdCaseList.isEmpty()) {
+			orderProdCaseList = convertToOrderProdCaseList(tradeMarkCase, order);
+			orderProdCaseService.saves(orderProdCaseList);
+		} else {
+			// 如果存在方案子选项，比对一下订单id是否是现有订单id
+			OrderProdCase orderProdCase = orderProdCaseList.get(0);
+			if (!orderProdCase.getOrderId().equals(order.getId())) {
+				return new ConvertToOrderResult(CaseConvertType.ERROR_7);
+			}
+		}
+
+		// 返回正确结果
+		ConvertToOrderResult result = new ConvertToOrderResult(CaseConvertType.SUCCESS);
+		{
+			result.getExtend().put("accountId", order.getAccountId());
+			result.getExtend().put("orderId", order.getId());
+		}
+		return result;
+	}
+
+	/**
+     * 生成明细订单关联商标注册方案实体
+     *
+     * @param tradeMarkCase
+     * @param order
+     * @return
+     */
+    private List<OrderProdCase> convertToOrderProdCaseList(TradeMarkCase tradeMarkCase, SoOrder order) {
+        List<TradeMark> tradeMarks = tradeMarkCase.getTradeMarks();
+        List<OrderProd> products = order.getProducts();
+        List<OrderProdCase> orderProdCaseList = new ArrayList<>();
+        for (int i = 0; i < products.size(); i++) {
+            OrderProd orderProd = products.get(i);
+            TradeMark tradeMark = tradeMarks.get(i);
+
+            OrderProdCase orderProdCase = new OrderProdCase();
+            {
+                orderProdCase.toNew();
+
 				orderProdCase.setOrderId(order.getId());
 				orderProdCase.setOrderProdId(orderProd.getId());
 				orderProdCase.setCaseType(CaseType.TRADEMARK_REG);
@@ -603,6 +713,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 				orderProdCase.setCaseItemId(tradeMark.getId());
 				orderProdCase.setCreatorId(order.getAccountId());
 				orderProdCase.setAccountId(order.getAccountId());
+
 			}
 			orderProdCaseList.add(orderProdCase);
 		}
@@ -753,6 +864,162 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			customer.setCreatorId(tradeMarkCase.getOwnerId());
 			customer.setUpdatorId(tradeMarkCase.getOwnerId());
 		}
+
+
+				orderProdCase.setMemo(tradeMark.getMemo());
+				orderProdCase.setCost(tradeMark.getCost());
+				orderProdCase.setCharge(tradeMark.getCharge());
+            }
+            orderProdCaseList.add(orderProdCase);
+        }
+        return orderProdCaseList;
+    }
+
+    /**
+     * 生成订单实体
+     *
+     * @param tradeMarkCase
+     * @param account
+     * @param customer
+     * @param company
+     * @param dict
+     * @return
+     */
+    private SoOrder convertToOrderEntity(TradeMarkCase tradeMarkCase, Account account, Customer customer, CompanyIntention company, Dict dict) {
+        List<TradeMark> tradeMarks = tradeMarkCase.getTradeMarks();
+        Integer productId = tradeMarkCase.getProductId();
+        int totalPrice = 0;
+        // 构建so_order_prod信息
+        List<OrderProd> orderProdList = new ArrayList<>();
+        for (TradeMark tradeMark : tradeMarks) {
+            int cost = NumberUtils.doubleRoundInt(tradeMark.getCost().doubleValue() * 100);
+            int charge = NumberUtils.doubleRoundInt(tradeMark.getCharge().doubleValue() * 100);
+
+            int orderProdPrice = cost + charge;
+
+            OrderProd orderProd = new OrderProd();
+            {
+                orderProd.toNew();
+                orderProd.setNo("");
+                orderProd.setOrderId(0);
+                orderProd.setProductId(productId);
+                orderProd.setProductName(tradeMarkCase.getProduct().getName());
+                orderProd.setCityId(dict.getId());
+                orderProd.setCity(dict);
+                orderProd.setCityName(dict.getName());
+                orderProd.setQuantity(1);
+                orderProd.setCompanyId(company.getId());
+                orderProd.setTrademarkId(0);
+                orderProd.setPrice(orderProdPrice);
+                orderProd.setPriceOriginal(orderProdPrice);
+                orderProd.setInvoiceTitle("");
+                orderProd.setApplyNo("");// 暂时先设置成这样
+                orderProd.setHandleName("");
+                orderProd.setCostStatus(CostStatus.NOENTRY);
+                orderProd.setSettleIdInteger(0);
+                orderProd.setSettlePrice(0);
+                orderProd.setSettleTime(null);
+                orderProd.setOwnerId(tradeMarkCase.getOwnerId());
+                orderProd.setTaskId(0);
+                orderProd.setSupplierId(tradeMarkCase.getSupplierId());
+                orderProd.setDepartmentId(tradeMarkCase.getDepartmentId());
+                orderProd.setCustomerId(customer.getId());
+            }
+
+
+            List<OrderProdItem> items = new ArrayList<>();
+            OrderProdItem costItem = new OrderProdItem();
+            {
+                costItem.toNew();
+                costItem.setServiceName("成本");
+                costItem.setPrice(cost);
+                costItem.setPriceOriginal(cost);
+                costItem.setPriceRefund(0);
+            }
+
+            OrderProdItem chargeItem = new OrderProdItem();
+            {
+                chargeItem.toNew();
+                chargeItem.setServiceName("服务费");
+                chargeItem.setPrice(charge);
+                chargeItem.setPriceOriginal(charge);
+                chargeItem.setPriceRefund(0);
+            }
+
+            items.add(costItem);
+            items.add(chargeItem);
+            orderProd.setItems(items);
+            orderProdList.add(orderProd);
+
+            // 计算总价
+            totalPrice = totalPrice + cost + charge;
+        }
+        // 构建so_order信息
+        SoOrder order = new SoOrder();
+        {
+            order.toNew();
+            order.setProducts(orderProdList);
+            order.setTaskId(0);
+            order.setSupplierId(tradeMarkCase.getSupplierId());
+            order.setDepartmentId(tradeMarkCase.getDepartmentId());
+            order.setAccountId(account.getId());
+            order.setAccountName(StringManager.isNullOrEmpty(account.getRealName()) ? account.getMobilePhone() : account.getRealName());
+            order.setAccountMobile(account.getMobilePhone());
+            order.setTotalPrice(totalPrice);
+            order.setPayablePrice(totalPrice);
+            order.setChannelOrderNo("");
+            order.setSourceType(OrderSourceType.IGIRL_TM);
+            order.setIsInstallment(false);
+            order.setInstallmentAuditStatusId(AuditStatusType.wu);
+            order.setAddUserId(tradeMarkCase.getOwnerId());
+            order.setOwnerId(tradeMarkCase.getOwnerId());
+            order.setCompanyId(company.getId());
+            order.setPlatformSource(OrderPlatformSourceType.Gsb);
+            order.setCustomerId(customer.getId());
+            order.setCustomerName(customer.getRealName());
+        }
+        return order;
+    }
+
+    /**
+     * 保存客户
+     *
+     * @param account
+     * @return
+     */
+    private Customer getAndSaveCustomer(Account account, TradeMarkCase tradeMarkCase) {
+        Customer customer = new Customer();
+        {
+            customer.toNew();
+            customer.setAccountId(account.getId());
+            customer.setRealName(account.getRealName());
+            customer.setMobile(account.getMobilePhone());
+            customer.setEmail(account.getEmail());
+            customer.setSex(Sex.SECRECY);
+            customer.setTelephone("");
+            customer.setQq("");
+            customer.setWeixin("");
+
+            customer.setBirdthday(null);
+            customer.setAddr("");
+            customer.setCityId(0);
+            customer.setFollowUserId(tradeMarkCase.getOwnerId());
+            customer.setFollowStatus(FollowStatus.FOLLOW_STATUS_1);
+            customer.setUnvalidRemark("");
+
+            customer.setLastFollowTime(new Date());
+            customer.setBackNum(0);
+            customer.setCustomerSource(dictService.byId(4110215));
+            customer.setConsultWay(ConsultWay.CONSULT_WAY_4215);
+            customer.setImportant(Important.COMMON);
+
+            customer.setIntroducerUserId(tradeMarkCase.getOwnerId());
+            customer.setIntroducerId(0);
+            customer.setRemark("");
+            customer.setCreatorId(tradeMarkCase.getOwnerId());
+            customer.setUpdatorId(tradeMarkCase.getOwnerId());
+        }
+
 		return customerService.save(customer);
 	}
 

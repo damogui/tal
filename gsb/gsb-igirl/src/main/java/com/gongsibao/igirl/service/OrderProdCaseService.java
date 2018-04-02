@@ -28,4 +28,17 @@ public class OrderProdCaseService extends PersistableService<OrderProdCase> impl
         }
         return this.queryList(oql);
     }
+
+    @Override
+    public List<OrderProdCase> byOrderId(Integer orderId) {
+        Oql oql = new Oql();
+        {
+            oql.setType(OrderProdCase.class);
+            oql.setSelects("OrderProdCase.*");
+            oql.setFilter("orderId=?");
+            oql.getParameters().add("@orderId", orderId, Types.INTEGER);
+        }
+        return this.queryList(oql);
+
+    }
 }

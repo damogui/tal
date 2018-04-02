@@ -58,6 +58,7 @@ public abstract class AbstractAuditLogService {
             auditContext.setState(state);
             auditContext.setAuditLogId(auditLogId);
             auditContext.setremark(remark);
+
         }
         ActionContext ctx = new ActionContext();
         {

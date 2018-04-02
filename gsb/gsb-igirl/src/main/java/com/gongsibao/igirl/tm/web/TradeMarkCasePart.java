@@ -204,4 +204,10 @@ public class TradeMarkCasePart extends FormPart {
 		return ResultDto.getConvertToOrderResultDto(result);
 	}
 
+	@Authorization(is = false)
+	public ResultDto convertToOrder(String caseid, String orderNo) {
+		ConvertToOrderResult result = tradeMarkCaseService.convertToOrder(caseid, orderNo);
+		return ResultDto.getConvertToOrderResultDto(result);
+	}
+
 }
