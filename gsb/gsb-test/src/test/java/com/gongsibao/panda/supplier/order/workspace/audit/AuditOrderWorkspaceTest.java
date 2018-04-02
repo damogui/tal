@@ -122,9 +122,9 @@ public class AuditOrderWorkspaceTest  extends WorkspaceCreationBase {
         }
 
         addQueryItem (queryProject, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "soOrder.changePriceAuditStatus", "审核状态", ControlTypes.ENUM_BOX);
+        addQueryItem (queryProject, "status", "审核状态", ControlTypes.ENUM_BOX);
         addQueryItem (queryProject, "soOrder.owner.name", "订单创建人", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "soOrder.addTime", "创建日期", ControlTypes.DATE_BOX);
+        addQueryItem (queryProject, "soOrder.createTime", "创建日期", ControlTypes.DATE_BOX);
 
         return queryProject;
     }
