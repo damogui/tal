@@ -80,9 +80,9 @@ public class SupplierRightNavigation extends Div{
 		Div option = new Div();
 		{
 			option.setClassName("icon-option");
-			option.innerValues.put("onclick", "workbench.exit();");
+			//option.innerValues.put("onclick", "workbench.exit();");
 			I i = new I();
-			i.setClassName("fa fa-sign-out");
+			//i.setClassName("fa fa-sign-out");
 			option.getControls().add(i);
 
 			Div dropBox = new Div();

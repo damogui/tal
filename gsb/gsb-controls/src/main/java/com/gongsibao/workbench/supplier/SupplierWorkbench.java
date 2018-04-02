@@ -9,7 +9,6 @@ import org.netsharp.panda.controls.utility.UrlHelper;
 import org.netsharp.panda.core.JscriptType;
 import org.netsharp.panda.core.Workspace;
 import org.netsharp.panda.core.comunication.IHtmlWriter;
-import org.netsharp.panda.core.workbench.WorkbenchPadHost;
 
 public class SupplierWorkbench extends Workspace{
 	
