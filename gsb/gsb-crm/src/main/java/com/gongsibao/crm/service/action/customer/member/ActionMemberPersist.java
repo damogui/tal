@@ -4,9 +4,9 @@ import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
 
+import com.gongsibao.account.base.IAccountService;
+import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.crm.NCustomer;
-import com.gongsibao.entity.uc.Account;
-import com.gongsibao.uc.base.IAccountService;
 
 /**
  * @author hw

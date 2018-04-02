@@ -3,12 +3,15 @@ package com.gongsibao.panda.supplier.order.workspace.audit;
 import com.gongsibao.panda.platform.trade.workspace.order.ContractFormWorkspaceTest;
 import com.gongsibao.trade.web.AuditLogDetailPart;
 import org.junit.Before;
+import org.junit.Test;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.*;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
+
+import java.util.List;
 
 /**
  * Created by zhangchao on 2018/3/26.
@@ -21,6 +24,24 @@ public class AuditContractFormWorkspaceTest extends ContractFormWorkspaceTest {
         super.setup();
         urlForm = "/trade/audit/contract/form";
         resourceNodeCode = "GSB_Trade_Audit_Form_Contract";
+    }
+
+    @Test
+    public void createDetailRowToolbar() {
+
+    }
+
+    protected PForm createForm(ResourceNode node) {
+
+        PForm form = super.createForm(node);
+        List<PFormField> fieldList = form.getFields();
+        for (PFormField field : fieldList) {
+            if (!field.getControlType().equals(ControlTypes.ENUM_BOX) && !field.getControlType().equals(ControlTypes.DECIMAL_FEN_BOX)) {
+                field.setControlType(ControlTypes.LABEL);
+            }
+            field.setRequired(false);
+        }
+        return form;
     }
 
     protected void addDetailGridPart(PWorkspace workspace) {

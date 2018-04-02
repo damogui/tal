@@ -71,51 +71,13 @@
         this.invokeService("save", [entity], function (jmessage) {
 
             me.onSaved(jmessage);
+        },true,null,function(){
+        	
+        	
         });
     },
     addExtraProp: function (entity) {
 
-    },
-    //弹出选单页面
-    selectVoucher: function (url, sourceVoucherType) {
-
-        url = "/panda-res" + url + "?sourceVoucherType=" + sourceVoucherType + "&instanceName=" + this.context.instanceName;
-        IMessageBox.open("选单", url, 1000, 700, function () {
-
-        });
-
-    },
-    //加载选单的数据
-    convertVoucher: function (sourceVoucherType, voucherId, detailIds) {
-
-        var me = this;
-        var entity = this.viewModel.getEntity();
-        this.invokeService("convertVoucher", [sourceVoucherType, voucherId, detailIds, entity], function (jmessage) {
-
-            me.currentItem = jmessage;
-            var fk = me.queryString("fk");
-            if (fk != null && fk != "") {
-
-                var properties = fk.split(';');
-                for (var i = 0; i < properties.length; i++) {
-
-                    var property = properties[i];
-                    var pair = property.split(':');
-                    var expression = "me.currentItem." + pair[0] + "='" + pair[1] + "';";
-                    eval(expression);
-                }
-            }
-
-            me.viewModel.currentItem = me.currentItem;
-            me.currentItem.entityState = EntityState.New;
-            me.added(me.currentItem);
-            if (me.currentItem == null) {
-
-                me.viewModel.clear();
-            } else {
-                me.databind();
-            }
-        });
     },
 
     onSaving: function (entity) {

@@ -1,7 +1,9 @@
 package com.gongsibao.igirl.tm.service;
 
+import com.gongsibao.account.base.IAccountService;
 import com.gongsibao.bd.base.IDictService;
 import com.gongsibao.bd.service.GsbPersistableService;
+import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.crm.Customer;
@@ -26,7 +28,6 @@ import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.CostStatus;
 import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
 import com.gongsibao.entity.trade.dic.OrderSourceType;
-import com.gongsibao.entity.uc.Account;
 import com.gongsibao.igirl.base.IOrderProdCaseService;
 import com.gongsibao.igirl.tm.base.*;
 import com.gongsibao.igirl.tm.service.builder.TradeMarkCaseAttachmentBuiler;
@@ -34,11 +35,12 @@ import com.gongsibao.supplier.base.ISupplierService;
 import com.gongsibao.taurus.util.StringManager;
 import com.gongsibao.trade.base.ICompanyIntentionService;
 import com.gongsibao.trade.base.ICustomerService;
+import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IOrderService;
-import com.gongsibao.uc.base.IAccountService;
 import com.gongsibao.utils.NumberUtils;
 import com.gongsibao.utils.RegexUtils;
 import com.gongsibao.utils.SupplierSessionManager;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.joda.time.DateTime;
 import org.netsharp.communication.Service;
@@ -68,6 +70,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
     ITradeMarkService tradeMarkService = ServiceFactory.create(ITradeMarkService.class);
 
     IOrderService orderService = ServiceFactory.create(IOrderService.class);
+    IOrderProdService orderProdService = ServiceFactory.create(IOrderProdService.class);
 
     IAccountService accountService = ServiceFactory.create(IAccountService.class);
 
@@ -578,7 +581,90 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		return result;
     }
 
-    /**
+    @Override
+	public ConvertToOrderResult convertToOrder(String caseid, String orderNo) {
+		SoOrder order = orderService.getByOrderNo(orderNo);
+		if (null == order) {
+			// 订单不存在
+			return new ConvertToOrderResult(CaseConvertType.ERROR_5);
+		}
+
+		// 验证订单是否与其他方案关联
+		List<OrderProdCase> orderProdCaseList = orderProdCaseService.byOrderId(order.getId());
+		if (null != orderProdCaseList && !orderProdCaseList.isEmpty()) {
+			return new ConvertToOrderResult(CaseConvertType.ERROR_11);
+		}
+
+		// 查询明细订单
+		List<OrderProd> orderProdList = orderProdService.queryByOrderId(order.getId());
+		order.setProducts(orderProdList);
+
+		// 查询方案
+		TradeMarkCase tradeMarkCase = byId(caseid);
+		if (null == tradeMarkCase) {
+			return new ConvertToOrderResult(CaseConvertType.ERROR_0);
+		}
+
+		// 判断订单付款状态
+        if (order.getIsInstallment()) {
+            if (order.getPaidPrice() == 0) {
+                // 分期订单，订单未付款
+				return new ConvertToOrderResult(CaseConvertType.ERROR_6);
+            }
+        } else if (order.getPayablePrice() > 0 && !order.getPayablePrice().equals(order.getPaidPrice())) {
+            // 订单未完成付款
+			return new ConvertToOrderResult(CaseConvertType.ERROR_6);
+        }
+
+		List<TradeMark> tradeMarks = tradeMarkCase.getTradeMarks();
+
+		// 计算方案总价
+		int total = 0;
+		for (TradeMark tradeMark : tradeMarks) {
+			total = total + NumberUtils.doubleRoundInt(tradeMark.getCost().doubleValue() * 100);
+			total = total + NumberUtils.doubleRoundInt(tradeMark.getCharge().doubleValue() * 100);
+		}
+
+		// 比较方案总价和订单总价是否一致
+		if (total != order.getPayablePrice()) {
+			return new ConvertToOrderResult(CaseConvertType.ERROR_8);
+		}
+
+		// 比对方案中选项数量与明细订单数量
+		if (tradeMarks.size() != orderProdList.size()) {
+			return new ConvertToOrderResult(CaseConvertType.ERROR_9);
+		}
+
+		// 比对产品id
+		for (OrderProd orderProd : orderProdList) {
+			if (!orderProd.getProductId().equals(tradeMarkCase.getProductId())) {
+				return new ConvertToOrderResult(CaseConvertType.ERROR_10);
+			}
+		}
+
+		// 查询方案子选项
+		orderProdCaseList = orderProdCaseService.byCaseId(Integer.parseInt(caseid));
+		if (null == orderProdCaseList || orderProdCaseList.isEmpty()) {
+			orderProdCaseList = convertToOrderProdCaseList(tradeMarkCase, order);
+			orderProdCaseService.saves(orderProdCaseList);
+		} else {
+			// 如果存在方案子选项，比对一下订单id是否是现有订单id
+			OrderProdCase orderProdCase = orderProdCaseList.get(0);
+			if (!orderProdCase.getOrderId().equals(order.getId())) {
+				return new ConvertToOrderResult(CaseConvertType.ERROR_7);
+			}
+		}
+
+		// 返回正确结果
+		ConvertToOrderResult result = new ConvertToOrderResult(CaseConvertType.SUCCESS);
+		{
+			result.getExtend().put("accountId", order.getAccountId());
+			result.getExtend().put("orderId", order.getId());
+		}
+		return result;
+	}
+
+	/**
      * 生成明细订单关联商标注册方案实体
      *
      * @param tradeMarkCase
@@ -603,6 +689,10 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 				orderProdCase.setCaseItemId(tradeMark.getId());
 				orderProdCase.setCreatorId(order.getAccountId());
 				orderProdCase.setAccountId(order.getAccountId());
+
+				orderProdCase.setMemo(tradeMark.getMemo());
+				orderProdCase.setCost(tradeMark.getCost());
+				orderProdCase.setCharge(tradeMark.getCharge());
             }
             orderProdCaseList.add(orderProdCase);
         }
