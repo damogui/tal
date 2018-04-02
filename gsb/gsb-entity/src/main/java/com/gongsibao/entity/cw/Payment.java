@@ -1,12 +1,16 @@
 package com.gongsibao.entity.cw;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
+import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.BizEntity;
 
+import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.cw.dict.FinanceDict;
 import com.gongsibao.entity.u8.SetOfBooks;
 
@@ -36,20 +40,18 @@ public class Payment extends BizEntity{
 	@Column(name="business_type",header="业务类型 ")
 	private FinanceDict.BusinessType businessType = FinanceDict.BusinessType.QT;
 	
-	@Column(name = "organization_id", header = "费用归属部门（组织机构id）")
-	private Integer organizationId;
 	
 	@Column(name = "set_of_books_id", header = "付款单位（对应套帐）")
 	private Integer setOfBooksId;
 	
-	@Column(name = "collect_invoice_date", header = "收发票日期")
-	private Date collectInvoiceDate ;
-	
 	@Reference(foreignKey = "setOfBooksId")
 	private SetOfBooks setOfBooks;
 	
+	@Column(name = "collect_invoice_date", header = "收发票日期")
+	private Date collectInvoiceDate ;
+	
 	@Column(name = "payment_method", header = "付款方式 1:现金 ，2：转账 ，3：支票")
-	private Integer paymentMethod;
+	private FinanceDict.PaymentMethod paymentMethod = FinanceDict.PaymentMethod.XJ;
 	
 	@Column(name = "company_account", header = "接收公司帐号")
 	private String companyAccount;
@@ -64,7 +66,16 @@ public class Payment extends BizEntity{
 	private Integer auditStep;
 	
 	@Column(name = "status", header = "状态 1:待审核 ，2：审核中 ，3：已通过")
-	private Integer status;
+	private FinanceDict.AuditStatus status = FinanceDict.AuditStatus.Status_1;
+	
+	@Subs(subType = CostDetail.class, foreignKey = "formId", header = "费用明细")
+	private List<CostDetail> costDetailItem = new ArrayList<CostDetail>();
+	    
+	@Subs(subType = File.class, foreignKey = "formId", header = "借款附件")
+	private List<File> files = new ArrayList<>();
+
+	@Subs(subType = AuditRecord.class, foreignKey = "formId", header = "审核明细")
+	private List<AuditRecord> auditItem =  new ArrayList<AuditRecord>();
 
 	public Integer getAmount() {
 		return amount;
@@ -72,14 +83,6 @@ public class Payment extends BizEntity{
 
 	public void setAmount(Integer amount) {
 		this.amount = amount;
-	}
-
-	public Integer getOrganizationId() {
-		return organizationId;
-	}
-
-	public void setOrganizationId(Integer organizationId) {
-		this.organizationId = organizationId;
 	}
 
 	public Integer getSetOfBooksId() {
@@ -90,11 +93,11 @@ public class Payment extends BizEntity{
 		this.setOfBooksId = setOfBooksId;
 	}
 
-	public Integer getPaymentMethod() {
+	public FinanceDict.PaymentMethod getPaymentMethod() {
 		return paymentMethod;
 	}
 
-	public void setPaymentMethod(Integer paymentMethod) {
+	public void setPaymentMethod(FinanceDict.PaymentMethod paymentMethod) {
 		this.paymentMethod = paymentMethod;
 	}
 
@@ -130,12 +133,60 @@ public class Payment extends BizEntity{
 		this.auditStep = auditStep;
 	}
 
-	public Integer getStatus() {
+	public FinanceDict.AuditStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(FinanceDict.AuditStatus status) {
 		this.status = status;
+	}
+
+	public FinanceDict.BusinessType getBusinessType() {
+		return businessType;
+	}
+
+	public void setBusinessType(FinanceDict.BusinessType businessType) {
+		this.businessType = businessType;
+	}
+
+	public SetOfBooks getSetOfBooks() {
+		return setOfBooks;
+	}
+
+	public void setSetOfBooks(SetOfBooks setOfBooks) {
+		this.setOfBooks = setOfBooks;
+	}
+
+	public Date getCollectInvoiceDate() {
+		return collectInvoiceDate;
+	}
+
+	public void setCollectInvoiceDate(Date collectInvoiceDate) {
+		this.collectInvoiceDate = collectInvoiceDate;
+	}
+
+	public List<CostDetail> getCostDetailItem() {
+		return costDetailItem;
+	}
+
+	public void setCostDetailItem(List<CostDetail> costDetailItem) {
+		this.costDetailItem = costDetailItem;
+	}
+
+	public List<File> getFiles() {
+		return files;
+	}
+
+	public void setFiles(List<File> files) {
+		this.files = files;
+	}
+
+	public List<AuditRecord> getAuditItem() {
+		return auditItem;
+	}
+
+	public void setAuditItem(List<AuditRecord> auditItem) {
+		this.auditItem = auditItem;
 	}
 	
 	

@@ -47,6 +47,7 @@ com.gongsibao.cw.web.ExpenseBillFormPart = org.netsharp.panda.commerce.FormPart.
                 me.invokeService("saveExpense", [entity], function (data) {
                     IMessageBox.info('申请成功，请等待审核!', function (s) {
                         window.parent.layer.closeAll();
+                        window.parent.controllerexpenseList.reload();
                     });
                 });
             }

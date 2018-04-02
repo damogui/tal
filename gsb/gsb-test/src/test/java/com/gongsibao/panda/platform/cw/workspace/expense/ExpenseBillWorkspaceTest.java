@@ -104,7 +104,6 @@ public class ExpenseBillWorkspaceTest extends WorkspaceCreationBase {
 		{
 			datagrid.setName("报销单");
 			datagrid.setToolbar("panda/datagrid/row/edit");
-			datagrid.setAutoQuery(false);
 		}
 		PDatagridColumn column = null;
 		

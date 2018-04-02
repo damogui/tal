@@ -48,6 +48,7 @@ com.gongsibao.cw.web.LoansBillFormPart = org.netsharp.panda.commerce.FormPart.Ex
         }
     }
 });
+
 //费用明细
 com.gongsibao.cw.web.CostDetailListPart = org.netsharp.panda.commerce.DetailPart.Extends({
 	ctor: function () {

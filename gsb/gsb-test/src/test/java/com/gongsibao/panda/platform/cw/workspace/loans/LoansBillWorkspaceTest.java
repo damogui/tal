@@ -257,7 +257,7 @@ public class LoansBillWorkspaceTest extends WorkspaceCreationBase {
         
         
     }
-    //附件(未完成)
+    //附件
 	private void createUploadAttamentDetailPart(PWorkspace workspace) {
 
 		ResourceNode node = this.resourceService.byCode("GSB_CW_Manage_Cost_Detail");

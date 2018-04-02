@@ -13,7 +13,7 @@ com.gongsibao.cw.web.PaymentBillListPart = org.netsharp.panda.commerce.ListPart.
              maxmin: true,
              shadeClose:true,
              area: ['60%','90%'],
-             content: "/gsb/platform/cw/payment_bill_form.jsp",
+             content: "/panda/cw/bill/payment/form",
              btn : [ '提交', '取消' ],
              success: function (layero, index) {
             	
@@ -22,24 +22,5 @@ com.gongsibao.cw.web.PaymentBillListPart = org.netsharp.panda.commerce.ListPart.
             	 document.getElementById('paymentBillIframe').firstElementChild.contentWindow.controllercontract.save();
              }
          });
-	},
-	checkPayment : function(){
-		layer.open({
-   		 id: "checkBillIframe",
-            type: 2,
-            title: '新建借款单',
-            fixed: false,
-            maxmin: true,
-            shadeClose:true,
-            area: ['60%','90%'],
-            content: "/gsb/platform/cw/check_bill_form.jsp",
-            btn : [ '提交', '取消' ],
-            success: function (layero, index) {
-           	
-            },
-            yes:function (){
-           	 document.getElementById('checkBillIframe').firstElementChild.contentWindow.controllercontract.save();
-            }
-        });
 	}
 });

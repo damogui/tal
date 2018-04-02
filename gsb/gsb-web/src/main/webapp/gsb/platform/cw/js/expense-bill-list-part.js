@@ -5,6 +5,7 @@ com.gongsibao.cw.web.ExpenseBillListPart = org.netsharp.panda.commerce.ListPart.
 	   this.base();
 	},
 	applyExpense:function (){ 
+		var me = this;
 		 layer.open({
     		 id: "expenseBillIframe",
              type: 2,
