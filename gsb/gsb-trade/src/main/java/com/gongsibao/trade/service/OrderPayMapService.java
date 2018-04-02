@@ -49,36 +49,13 @@ public class OrderPayMapService extends PersistableService<OrderPayMap> implemen
     /*最后的回写支付挂靠到订单*/
     @Override
     public int updateByPayId(Integer payId) {
-        IOrderService orderService = ServiceFactory.create (IOrderService.class);
-        Oql oql = new Oql ();
-        {
-            oql.setType (this.type);
-            oql.setSelects ("*");
-            oql.setFilter ("pay_id=?");
-            oql.getParameters ().add ("pay_id", payId, Types.INTEGER);
-        }
-        List<OrderPayMap> orderPayMapList = queryList (oql);
-
-        for (OrderPayMap item:orderPayMapList
-             ) {
-
-            String  sql=String.format ("UPDATE so_order SET  paid_price=paid_price+%s  WHERE  pkid=?",item.getOrderPrice ());//应该以分进行相加
-
-            QueryParameters qps=new QueryParameters ();
-            qps.add ("@pkid",item.getOrderId (),Types.INTEGER);
-
-            this.pm.executeNonQuery (sql,qps);//进行更新回款
+        QueryParameters qpsPay = new QueryParameters ();
+        qpsPay.add ("@pkid", payId, Types.INTEGER);
+        String sqlPay = "UPDATE   so_pay SET  offline_audit_status_id=1054  WHERE  pkid=?";
+        Integer num = this.pm.executeNonQuery (sqlPay, qpsPay);//进行更新回款
 
 
-        }
-        QueryParameters qpsPay=new QueryParameters ();
-        qpsPay.add ("@pkid",payId,Types.INTEGER);
-        String sqlPay="UPDATE   so_pay SET  offline_audit_status_id=1054  WHERE  pkid=?";
-        this.pm.executeNonQuery (sqlPay,qpsPay);//进行更新回款
-
-
-
-        return 1;
+        return num;
     }
 
 
