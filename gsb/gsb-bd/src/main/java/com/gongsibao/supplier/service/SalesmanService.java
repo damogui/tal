@@ -7,10 +7,17 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.*;
+import org.netsharp.core.BusinessException;
+import org.netsharp.core.DataTable;
+import org.netsharp.core.EntityState;
+import org.netsharp.core.IRow;
+import org.netsharp.core.MtableManager;
+import org.netsharp.core.Oql;
+import org.netsharp.core.QueryParameters;
 import org.netsharp.organization.base.IEmployeeService;
 import org.netsharp.organization.entity.Employee;
 import org.netsharp.organization.entity.RoleEmployee;
+import org.netsharp.util.EncrypUtil;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
@@ -208,7 +215,6 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 
                 entity = super.save(entity);
             }
-
         }
 
         return entity;
@@ -277,9 +283,14 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
      * @return: void
      */
     private void createEmployee(Salesman entity) {
-
+    	
+    	if(StringManager.isNullOrEmpty(entity.getNewPassword())){
+    		
+    		throw new BusinessException("请设置密码");
+    	}
+    	
+    	String pwd = EncrypUtil.md5(entity.getNewPassword() + "user!@#123").substring(8,24);
         IEmployeeService service = ServiceFactory.create(IEmployeeService.class);
-
         Employee employee = service.byPhone(entity.getMobile());
         if (employee == null) {
 
@@ -292,6 +303,10 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
             employee.setEntryDate(entity.getEntryDate());
             employee.setQuitDate(entity.getQuitDate());
             employee.setDisabled(entity.getDisabled());
+            employee.setPwd(pwd);
+        }else{
+        	
+        	
         }
 
         RoleEmployee roleEmployee = null;
@@ -323,6 +338,14 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 
         IEmployeeService service = ServiceFactory.create(IEmployeeService.class);
         Employee employee = service.byId(entity.getEmployeeId());
+        
+    	if(!StringManager.isNullOrEmpty(entity.getNewPassword())){
+    		
+        	String pwd = EncrypUtil.md5(entity.getNewPassword() + "user!@#123").substring(8,24);
+        	employee.setPwd(pwd);
+    	}
+    	
+    	
         employee.setName(entity.getName());
         employee.setMobile(entity.getMobile());
         employee.setLoginName(entity.getLoginName());

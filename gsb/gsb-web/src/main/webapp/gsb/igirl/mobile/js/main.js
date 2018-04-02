@@ -160,25 +160,16 @@ $(function(){
             })
 
         }))
-<<<<<<< HEAD
      var attachments=()=>Promise.resolve(new Promise(function(resolve,reject){
             //异步加载组件
             axios.get(ip+"/vue/comp/attachments").then(function(res){
-=======
-        var dmdt=()=>Promise.resolve(new Promise(function(resolve,reject){
-            //异步加载组件
-            axios.get(ip+"/vue/comp/dmdt").then(function(res){
->>>>>>> 5540453c1ddf63537974e74f8b3ddfad3e238670
                 var obj=eval("("+res.data+")");
                 //console.log(obj)
                 resolve(obj);
             }).catch(function(reason){
                 console.log(reason)
             })
-<<<<<<< HEAD
-=======
 
->>>>>>> 5540453c1ddf63537974e74f8b3ddfad3e238670
         }))
 		var routes=[
 			{path:'/',component:def},

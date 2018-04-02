@@ -1,6 +1,7 @@
 package com.gongsibao.panda.supplier.igirl;
 import com.gongsibao.entity.igirl.tm.ChangeTradeMark;
 import com.gongsibao.entity.igirl.tm.DownloadAttachment;
+import com.gongsibao.entity.igirl.tm.HelpBook;
 import com.gongsibao.entity.igirl.tm.TradeMark;
 import com.gongsibao.entity.igirl.tm.TradeMarkCase;
 import com.gongsibao.entity.igirl.tm.TransferTradeMark;
@@ -98,6 +99,14 @@ public class NavigationTest extends NavigationBase {
 			{
 				createPTreeNode(tree, "GSB_IGIRL_SITE", null, "IGRIL_SITE_" + SupplierSiteInfo.class.getSimpleName(), "站点信息", "/igirl/siteinfo/list", 1);
 				createPTreeNode(tree, "GSB_IGIRL_SITE", null, "IGRIL_SITE_" + SupplierNewInfo.class.getSimpleName(), "最新资讯", "/igirl/newinfo/list", 2);
+			}
+			createPTreeNode(tree, "GSB_TRADE_AI", null, "GSB_IGIRL_ABOUT", "关于", "",6);
+			{
+				createPTreeNode(tree, "GSB_IGIRL_ABOUT", null, "IGRIL_ABOUT_" + HelpBook.class.getSimpleName(), "使用手册", "/igirl/help/list", 1);
+				createPTreeNode(tree, "GSB_IGIRL_ABOUT", null, "IGRIL_ABOUT_ADMINISTRATOR", "管理员篇", "/igirl/help_administrator/list", 2);
+				createPTreeNode(tree, "GSB_IGIRL_ABOUT", null, "IGRIL_ABOUT_SALESMAN", "业务员篇", "/igirl/help_salesman/list", 3);
+				createPTreeNode(tree, "GSB_IGIRL_ABOUT", null, "IGRIL_ABOUT_MANAGER", "部门负责人篇", "/igirl/help_manager/list", 4);
+				createPTreeNode(tree, "GSB_IGIRL_ABOUT", null, "IGRIL_ABOUT_CUSTOMER", "客户篇", "/igirl/help_customer/list", 5);
 			}
 			
 		}

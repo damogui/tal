@@ -76,8 +76,10 @@ public class SoOrder extends BaseEntity {
     @Column(name = "stage_num", header = "分期次数（待讨论）")
     private OrderStageNum stageNum = OrderStageNum.ONE;
 
-    @Column(name = "pay_time", header = "支付时间")
+    @Column(name = "pay_time", header = "支付时间(完全通过审核)")
     private Date payTime;
+    @Column(name = "fist_pay_time", header = "首款审核日期")
+    private Date fistPayTime;//默认为null有回款通过的时候更新时间
 
     @Column(name = "channel_order_no", header = "渠道订单号")
     private String channelOrderNo;
@@ -121,7 +123,7 @@ public class SoOrder extends BaseEntity {
     @Exclusive
     private Integer unAllotPayPrice = 0;
 
-    @Column(name = "performance_price", header = "订单业绩已划分金额（需要审核通过之后进行回写）")
+    @Column(name = "performance_price", header = "订单业绩分配金额（需要审核通过之后进行回写）")
     private Integer performancePrice = 0;
 
     @Subs(subType = NDepReceivable.class, foreignKey = "orderId", header = "订单业绩划分表")
@@ -315,9 +317,9 @@ public class SoOrder extends BaseEntity {
     @Subs(subType = NOrderStage.class, foreignKey = "orderId", header = "分期明细")
     private List<NOrderStage> stages = new ArrayList<NOrderStage> ();
 
-    @Exclusive
-    @Column(name = "depReceivableAmount", header = "订单业绩分配金额")
-    private Integer depReceivableAmount = 0;
+//    @Exclusive
+//    @Column(name = "depReceivableAmount", header = "订单业绩分配金额")
+//    private Integer depReceivableAmount = 0;
 
     @Exclusive
     @Column(name = "depReceivableCreateTime", header = "订单业绩创建时间")
@@ -871,13 +873,6 @@ public class SoOrder extends BaseEntity {
         this.depReceivableAuditStatusId = depReceivableAuditStatusId;
     }
 
-    public Integer getDepReceivableAmount() {
-        return depReceivableAmount;
-    }
-
-    public void setDepReceivableAmount(Integer depReceivableAmount) {
-        this.depReceivableAmount = depReceivableAmount;
-    }
 
     public Date getDepReceivableCreateTime() {
         return depReceivableCreateTime;
@@ -1060,5 +1055,13 @@ public class SoOrder extends BaseEntity {
 
     public void setExpireSms(Boolean expireSms) {
         isExpireSms = expireSms;
+    }
+
+    public Date getFistPayTime() {
+        return fistPayTime;
+    }
+
+    public void setFistPayTime(Date fistPayTime) {
+        this.fistPayTime = fistPayTime;
     }
 }

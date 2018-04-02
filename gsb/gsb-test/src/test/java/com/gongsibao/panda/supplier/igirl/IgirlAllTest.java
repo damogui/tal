@@ -9,6 +9,7 @@ import com.gongsibao.panda.supplier.igirl.workspace.tm.change.ChangeTradeMarkAll
 import com.gongsibao.panda.supplier.igirl.workspace.tm.change.DpChangeTradeMarkFollowWorkspaceTest;
 import com.gongsibao.panda.supplier.igirl.workspace.tm.change.MyChangeTradeMarkFollowWorkspaceTest;
 import com.gongsibao.panda.supplier.igirl.workspace.tm.common.*;
+import com.gongsibao.panda.supplier.igirl.workspace.tm.helpBook.*;
 import com.gongsibao.panda.supplier.igirl.workspace.tm.transfer.DpTransferTradeMarkFollowWorkspaceTest;
 import com.gongsibao.panda.supplier.igirl.workspace.tm.transfer.MyTransferTradeMarkFollowWorkspaceTest;
 import com.gongsibao.panda.supplier.igirl.workspace.tm.transfer.TransferTradeMarkAllWorkspaceTest;
@@ -41,6 +42,11 @@ import org.junit.runners.Suite.SuiteClasses;
 		SupplierNewInfoWorkspaceTest.class,
 		SupplierSiteInfoWorkspaceTest.class,
 		NclMapWorkspaceTest.class,
+		HelpBookWorkspaceTest.class,
+		HelpAdministratorWorkspaceTest.class,
+		HelpSalesmanWorkspaceTest.class,
+		HelpManagerWorkspaceTest.class,
+		HelpCustomerWorkspaceTest.class,
 		NavigationTest.class
 		})
 		

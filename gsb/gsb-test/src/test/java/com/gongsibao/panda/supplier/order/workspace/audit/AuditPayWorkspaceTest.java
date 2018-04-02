@@ -20,7 +20,7 @@ import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 /**
- * Created by win on 2018/3/22.
+ * 回款审核.
  */
 public class AuditPayWorkspaceTest  extends WorkspaceCreationBase {
 
