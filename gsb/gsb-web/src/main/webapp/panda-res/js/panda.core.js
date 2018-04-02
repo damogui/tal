@@ -89,7 +89,7 @@ org.netsharp.core.JServiceLocator = System.Object.Extends({
             url: url,
             type: "Post",
             dataType: "text",
-            contentType: "json;charset=utf-8",
+            contentType: "application/json;charset=utf-8",
             data: jstr,
             async: isAsyn,
             success: function (json) {
