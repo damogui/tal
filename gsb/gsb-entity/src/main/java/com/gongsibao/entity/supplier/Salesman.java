@@ -88,7 +88,31 @@ public class Salesman extends Entity {
     @Column(name = "xab_max", header = "XAB类上限")
     private Integer xabMax;
     
-    public Boolean getIsLeader() {
+    @Exclusive
+    @Column(name = "new_password", header = "新密码")
+    private String newPassword;
+    
+    @Exclusive
+    @Column(name = "confirm_password", header = "确认密码")
+    private String confirmPassword;
+    
+    public String getNewPassword() {
+		return newPassword;
+	}
+
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
+	public Boolean getIsLeader() {
 		return isLeader;
 	}
 

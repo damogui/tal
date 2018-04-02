@@ -24,6 +24,7 @@ dependencies {
     compile project(':gsb-report')
     compile project(':gsb-gardian')
     compile project(':gsb-cw')
+    compile project(':gsb-account')    
     providedCompile group: 'org.apache.tomcat', name: 'tomcat-websocket', version: '8.0.21'
     providedCompile group: 'org.apache.tomcat', name: 'tomcat-coyote', version: '8.0.21'
     providedCompile group: 'org.apache.tomcat', name: 'tomcat-catalina', version: '8.0.21'

@@ -1071,6 +1071,11 @@ ul.form-panel li.full{
 	max-width:1000px;
 }
 
+ul.form-panel li.item{
+	
+	float:left;
+}
+
 ul.form-panel li.item div.label{
 	
 	min-width:120px;

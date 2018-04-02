@@ -10,6 +10,7 @@ import com.gongsibao.entity.igirl.tm.baseinfo.SupplierNewInfo;
 import com.gongsibao.entity.igirl.tm.baseinfo.SupplierSiteInfo;
 import com.gongsibao.entity.product.Product;
 import com.gongsibao.igirl.tm.base.*;
+import com.gongsibao.igirl.tm.service.HelpBookService;
 import com.gongsibao.product.base.IProductService;
 import org.junit.Test;
 import org.netsharp.meta.base.ResourceCreationBase;
@@ -85,6 +86,15 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(NclBatch.class.getName(), "尼斯期间", "NCL_All_" + NclBatch.class.getSimpleName(), INclBatchService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(IGirlConfig.class.getName(), "参数设置", "IGRIL_BASE_" + IGirlConfig.class.getSimpleName(), IGirlConfigService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NclMap.class.getName(), "尼斯映射", "NCL_All_" + NclMap.class.getSimpleName(), INclMapService.class.getName(), node1.getId());
+			
+		}
+		node1 = this.createResourceNodeCategory("关于", "GSB_IGIRL_ABOUT", node.getId());
+		{
+			this.createResourceNodeVoucher(HelpBook.class.getName(), "帮助手册", "IGRIL_ABOUT_" + HelpBook.class.getSimpleName(), HelpBookService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(HelpBook.class.getName()+"administrator", "管理员篇", "IGRIL_ABOUT_ADMINISTRATOR", HelpBookService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(HelpBook.class.getName()+"_salesman", "业务员篇", "IGRIL_ABOUT_SALESMAN", HelpBookService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(HelpBook.class.getName()+"_manager", "部门负责人篇", "IGRIL_ABOUT_MANAGER", HelpBookService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(HelpBook.class.getName()+"_customer", "客户篇", "IGRIL_ABOUT_CUSTOMER", HelpBookService.class.getName(), node1.getId());
 			
 		}
 	

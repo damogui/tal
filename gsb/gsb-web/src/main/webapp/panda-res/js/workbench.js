@@ -285,6 +285,27 @@ org.netsharp.panda.Workbench = System.Object.Extends({
     	
     	$(obj).parent().addClass('selected').siblings().removeClass('selected');
     	workbench.openWorkspace(text,url,icon,true,id,openMode,width,height);
+    },
+    
+    switchWorkbench:function(result){
+    	
+    	var workbenchList = result.workbenchList;
+    	var content = '';
+	    $(workbenchList).each(function(index,item){
+	    	
+	    	content += '<div class="workbench-item"><a href="'+item.path+'">'+(index+1)+'. '+item.name+'</a></div>';
+	    });
+	    
+	    layer.open({
+	        type: 1,
+	        closeBtn:0,
+	        shadeClose : true,
+	        anim: 2,
+	        title:'切换工作台',
+	        area: ['350px', '150px'],
+	        content: content
+	      });
+    	
     }
 });
 

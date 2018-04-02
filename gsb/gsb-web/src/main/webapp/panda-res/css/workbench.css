@@ -6,7 +6,7 @@
 	background-color: #fff;
 	border-width: 0px;
     height:50px;
-	/* border-bottom: 2px #1E7CB5 solid; */
+	/* border-bottom: 2px #1E7CB5 solid;  */
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
@@ -449,4 +449,130 @@ body.okayNav-loaded {
 
 .okayNav__menu-toggle.icon--active span {
 	background: #1E7CB5
+}
+
+
+.workbench-item{
+	
+	padding:10px;
+	width:50%;
+	float:left;
+}
+
+.workbench-item a {
+    color: #1f7bb6;
+    text-decoration: none;
+}
+
+.workbench-item a:hover{
+	
+	color:red;
+}
+
+
+.nav-right .icon-option i {
+
+	/* background: url(/panda-res/images/skin_icons.png) -199px -301px no-repeat; */
+	color: #fff;
+}
+.switchbutton {
+    background: #fff;
+    border: 1px solid #fff;
+}
+
+.panel-header{
+	background-color: #f7f7f7 !important;
+	border-width:0px;
+}
+
+.panel-title{
+	height: 24px;
+    line-height: 24px;
+    font-weight: normal;
+    padding-left:10px;
+    color:#1E7CB5;
+}
+
+
+/*右边导航菜单项*/
+.nav-right .icon-option {
+	position: relative;
+	display: block;
+	cursor: pointer;
+	float: right;
+	padding: 0 14px;
+	height: 50px;
+}
+
+.nav-right .icon-option i {
+	display: block;
+	width: 20px;
+	height: 50px;
+	color:#656565;
+}
+
+.nav-right .icon-option:hover {
+	color: #186797;
+}
+
+.nav-right .icon-option:hover .drop-box {
+	display: block;
+}
+.nav-right .icon-option i {
+	display: block;
+	width: 20px;
+	height: 50px;
+	color:#656565;
+	line-height: 50px;
+	text-align: center;
+}
+
+.nav-right .icon-option:hover .drop-box {
+	display: block;
+}
+.drop-box {
+	display: none;
+	position: fixed;
+	top: 50px;
+	right: 1px;
+}
+
+.drop-box .arrow {
+	position: absolute;
+	display: block;
+	top: 0;
+	right: 15px;
+	width: 21px;
+	height: 11px;
+	text-indent: -999999px;
+	background: url(/panda-res/images/skin_icons.png) no-repeat 0 -356px;
+}
+
+.drop-box .drop-item {
+	margin-top: 10px;
+	padding: 10px;
+	border: 1px solid #b1b1b1;
+	background: #fff;
+	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.drop-box .drop-item li {
+	list-style: none;
+}
+
+.drop-box .drop-item li a {
+	display: block;
+	padding: 8px 15px;
+	color: #222;
+	font-size: 12px;
+	line-height: 1em;
+	text-align: center;
+	white-space: nowrap;
+	text-decoration: none;
+}
+
+.drop-box .drop-item li a:hover {
+	text-decoration: none;
+	background: #186797;
+	color: #ffffff;
 }
