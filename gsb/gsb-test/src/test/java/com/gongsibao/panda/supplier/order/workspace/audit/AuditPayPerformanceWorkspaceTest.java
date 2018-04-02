@@ -85,7 +85,7 @@ public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
             datagrid.setToolbar (listrowToolbarPath);
             datagrid.setAutoQuery (true);
             datagrid.setShowCheckbox (true);
-            datagrid.setSingleSelect (false);
+            datagrid.setSingleSelect (true);
         }
         PDatagridColumn column = null;
         addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 60, true);
