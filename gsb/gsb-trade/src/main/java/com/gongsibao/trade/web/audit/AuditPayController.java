@@ -9,6 +9,7 @@ import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.entity.trade.Pay;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.IOrderPayMapService;
 import com.gongsibao.trade.base.IPayService;
 import com.gongsibao.trade.web.dto.AuditLogDTO;
@@ -45,8 +46,12 @@ public class AuditPayController extends AuditBaseController {
         if (auditResult) {
             IAuditLogService auditLogService = ServiceFactory.create (IAuditLogService.class);
             IPayService payService = ServiceFactory.create (IPayService.class);
+
             AuditLog auditLog = auditLogService.byId (auditLogId);
-            Integer execNum = payService.auditPass (payTime, auditLog.getFormId ());//根据确认时间和支付时间更新
+            if (auditLog.getLevel ().equals (auditLog.getMaxLevel ())) {
+                Integer execNum = payService.auditPass (payTime, auditLog.getFormId ());//根据确认时间和支付时间更新
+            }
+
 
             //更改确认时间
         } else {
