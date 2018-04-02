@@ -12,7 +12,8 @@ import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.supplier.base.ISalesmanService;
 import com.gongsibao.supplier.base.ISupplierDepartmentService;
 
-public class PortalStatistic {
+public class PortalStatisticCtrl {
+	
    ISupplierDepartmentService departService = ServiceFactory.create(ISupplierDepartmentService.class);	
 	/**
 	 * 获取当前登录人实体
@@ -31,6 +32,7 @@ public class PortalStatistic {
 	 * @return
 	 */
 	public Integer getNewTasksCount(Integer portalLevel,Integer dateType) {
+		
 		Integer returnInteger = 0;
 		Salesman salesman = currentSalesMan();
 		if(salesman == null){
