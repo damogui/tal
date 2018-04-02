@@ -10,7 +10,7 @@ import com.gongsibao.er.base.ICustomerMessageLogService;
 public class CustomerMessageLogService extends PersistableService<CustomerMessageLog> implements ICustomerMessageLogService {
 
     public CustomerMessageLogService(){
-        super();
+        super(); 
         this.type=CustomerMessageLog.class;
     }
 }
