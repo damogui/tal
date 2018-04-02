@@ -41,6 +41,7 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
     },
     databindextra: function (entity) {
         var me = this;
+        me.bindOrderInfo(entity);
         //查看时禁用整个form
         var isAdd = System.Url.getParameter("isAdd");
         if (isAdd != 1) {
