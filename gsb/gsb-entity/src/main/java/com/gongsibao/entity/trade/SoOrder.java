@@ -123,7 +123,7 @@ public class SoOrder extends BaseEntity {
     @Exclusive
     private Integer unAllotPayPrice = 0;
 
-    @Column(name = "performance_price", header = "订单业绩已划分金额（需要审核通过之后进行回写）")
+    @Column(name = "performance_price", header = "订单业绩分配金额（需要审核通过之后进行回写）")
     private Integer performancePrice = 0;
 
     @Subs(subType = NDepReceivable.class, foreignKey = "orderId", header = "订单业绩划分表")
@@ -317,9 +317,9 @@ public class SoOrder extends BaseEntity {
     @Subs(subType = NOrderStage.class, foreignKey = "orderId", header = "分期明细")
     private List<NOrderStage> stages = new ArrayList<NOrderStage> ();
 
-    @Exclusive
-    @Column(name = "depReceivableAmount", header = "订单业绩分配金额")
-    private Integer depReceivableAmount = 0;
+//    @Exclusive
+//    @Column(name = "depReceivableAmount", header = "订单业绩分配金额")
+//    private Integer depReceivableAmount = 0;
 
     @Exclusive
     @Column(name = "depReceivableCreateTime", header = "订单业绩创建时间")
@@ -873,13 +873,6 @@ public class SoOrder extends BaseEntity {
         this.depReceivableAuditStatusId = depReceivableAuditStatusId;
     }
 
-    public Integer getDepReceivableAmount() {
-        return depReceivableAmount;
-    }
-
-    public void setDepReceivableAmount(Integer depReceivableAmount) {
-        this.depReceivableAmount = depReceivableAmount;
-    }
 
     public Date getDepReceivableCreateTime() {
         return depReceivableCreateTime;
