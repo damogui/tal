@@ -6,6 +6,7 @@ import com.gongsibao.entity.trade.dic.AuditStatusType;
 import org.netsharp.base.IPersistableService;
 
 import com.gongsibao.entity.trade.OrderPayMap;
+import org.netsharp.core.annotations.Transaction;
 
 public interface IOrderPayMapService extends IPersistableService<OrderPayMap> {
 
@@ -14,6 +15,4 @@ public interface IOrderPayMapService extends IPersistableService<OrderPayMap> {
     /*根据支付id获取payMap*/
     OrderPayMap queryByPayId(Integer payId);
 
-    /*根据支付id进行回写支付*/
-    int updateByPayId(Integer payId);
 }

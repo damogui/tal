@@ -2,6 +2,7 @@ package com.gongsibao.igirl.tm.service;
 
 import com.gongsibao.bd.base.IDictService;
 import com.gongsibao.bd.service.GsbPersistableService;
+import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.crm.Customer;
@@ -26,7 +27,7 @@ import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.CostStatus;
 import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
 import com.gongsibao.entity.trade.dic.OrderSourceType;
-import com.gongsibao.entity.uc.Account;
+import com.gongsibao.gardian.base.IAccountService;
 import com.gongsibao.igirl.base.IOrderProdCaseService;
 import com.gongsibao.igirl.tm.base.*;
 import com.gongsibao.igirl.tm.service.builder.TradeMarkCaseAttachmentBuiler;
@@ -36,10 +37,10 @@ import com.gongsibao.trade.base.ICompanyIntentionService;
 import com.gongsibao.trade.base.ICustomerService;
 import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IOrderService;
-import com.gongsibao.uc.base.IAccountService;
 import com.gongsibao.utils.NumberUtils;
 import com.gongsibao.utils.RegexUtils;
 import com.gongsibao.utils.SupplierSessionManager;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.joda.time.DateTime;
 import org.netsharp.communication.Service;
@@ -795,6 +796,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
             order.setIsInstallment(false);
             order.setInstallmentAuditStatusId(AuditStatusType.wu);
             order.setAddUserId(tradeMarkCase.getOwnerId());
+            order.setOwnerId(tradeMarkCase.getOwnerId());
             order.setCompanyId(company.getId());
             order.setPlatformSource(OrderPlatformSourceType.Gsb);
             order.setCustomerId(customer.getId());

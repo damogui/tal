@@ -4,12 +4,12 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
 /**
- * 营业期限
+ * 营业期限。4.2这里有问题
  * @author cyx
  *
  */
 public enum CorpTimeLimite implements IEnum {
-
+	// TODO 4-3工商网站正常后，修改一下。这个是错误的
 	SETUP(0, "设立"),
 	CHANGE(1, "变更"),
 	AUTH(2, "备案"),

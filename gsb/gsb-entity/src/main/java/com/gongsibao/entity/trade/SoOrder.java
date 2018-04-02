@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.gongsibao.entity.trade.dic.*;
+
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Reference;
@@ -13,6 +14,7 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.crm.dic.Important;
@@ -20,7 +22,6 @@ import com.gongsibao.entity.igirl.tm.TradeMarkCase;
 import com.gongsibao.entity.product.ProductPackage;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
-import com.gongsibao.entity.uc.Account;
 
 @Table(name = "so_order", header = "销售订单")
 public class SoOrder extends BaseEntity {
@@ -123,7 +124,7 @@ public class SoOrder extends BaseEntity {
     @Exclusive
     private Integer unAllotPayPrice = 0;
 
-    @Column(name = "performance_price", header = "订单业绩已划分金额（需要审核通过之后进行回写）")
+    @Column(name = "performance_price", header = "订单业绩分配金额（需要审核通过之后进行回写）")
     private Integer performancePrice = 0;
 
     @Subs(subType = NDepReceivable.class, foreignKey = "orderId", header = "订单业绩划分表")
@@ -317,9 +318,9 @@ public class SoOrder extends BaseEntity {
     @Subs(subType = NOrderStage.class, foreignKey = "orderId", header = "分期明细")
     private List<NOrderStage> stages = new ArrayList<NOrderStage> ();
 
-    @Exclusive
-    @Column(name = "depReceivableAmount", header = "订单业绩分配金额")
-    private Integer depReceivableAmount = 0;
+//    @Exclusive
+//    @Column(name = "depReceivableAmount", header = "订单业绩分配金额")
+//    private Integer depReceivableAmount = 0;
 
     @Exclusive
     @Column(name = "depReceivableCreateTime", header = "订单业绩创建时间")
@@ -873,13 +874,6 @@ public class SoOrder extends BaseEntity {
         this.depReceivableAuditStatusId = depReceivableAuditStatusId;
     }
 
-    public Integer getDepReceivableAmount() {
-        return depReceivableAmount;
-    }
-
-    public void setDepReceivableAmount(Integer depReceivableAmount) {
-        this.depReceivableAmount = depReceivableAmount;
-    }
 
     public Date getDepReceivableCreateTime() {
         return depReceivableCreateTime;

@@ -10,6 +10,7 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 import org.netsharp.organization.entity.Employee;
 
+import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.dic.AllocationType;
 import com.gongsibao.entity.crm.dic.ConsultWay;
@@ -18,7 +19,6 @@ import com.gongsibao.entity.crm.dic.QualityCategory;
 import com.gongsibao.entity.crm.dic.Sex;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
-import com.gongsibao.entity.uc.Account;
 
 @Table(name = "n_crm_customer", header = "客户信息")
 public class NCustomer extends Entity {

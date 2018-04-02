@@ -1,7 +1,12 @@
 package com.gongsibao.workbench.supplier;
 
+import java.util.List;
+
 import org.netsharp.authorization.UserPermission;
 import org.netsharp.authorization.UserPermissionManager;
+import org.netsharp.organization.controller.LoginController;
+import org.netsharp.organization.controller.dto.LoginResultDTO;
+import org.netsharp.organization.controller.dto.WorkbenchDTO;
 import org.netsharp.organization.entity.Employee;
 import org.netsharp.panda.controls.input.SwitchButton;
 import org.netsharp.panda.controls.other.A;
@@ -11,22 +16,23 @@ import org.netsharp.panda.controls.other.Image;
 import org.netsharp.panda.controls.other.Span;
 import org.netsharp.panda.controls.tree.Li;
 import org.netsharp.panda.controls.tree.Ul;
+import org.netsharp.util.JsonManage;
 import org.netsharp.util.StringManager;
 
-public class SupplierRightNavigation extends Div{
+public class SupplierRightNavigation extends Div {
 
 	@Override
 	public void initialize() {
-		
+
 		this.setClassName("nav-right");
 		this.getControls().add(this.getSwitchButton());
 		this.getControls().add(this.getUserInfo());
 		this.getControls().add(this.getOption());
 		super.initialize();
 	}
-	
-	private Div getSwitchButton(){
-		
+
+	private Div getSwitchButton() {
+
 		Div sbDiv = new Div();
 		sbDiv.setClassName("switch");
 		SwitchButton switchButton = new SwitchButton();
@@ -76,13 +82,13 @@ public class SupplierRightNavigation extends Div{
 	}
 
 	private Div getOption() {
-		
+
 		Div option = new Div();
 		{
 			option.setClassName("icon-option");
-			//option.innerValues.put("onclick", "workbench.exit();");
+			// option.innerValues.put("onclick", "workbench.exit();");
 			I i = new I();
-			//i.setClassName("fa fa-sign-out");
+			// i.setClassName("fa fa-sign-out");
 			option.getControls().add(i);
 
 			Div dropBox = new Div();
@@ -96,6 +102,25 @@ public class SupplierRightNavigation extends Div{
 
 			Ul dropItem = new Ul();
 			dropItem.setClassName("drop-item");
+
+			UserPermission up = UserPermissionManager.getUserPermission();
+			LoginController loginCtrl = new LoginController();
+			List<WorkbenchDTO> workbenchList = loginCtrl.getWorkbenchDTOList(up.getEmployee().getId());
+			if (workbenchList.size() > 1) {
+
+				LoginResultDTO result = new LoginResultDTO();
+				result.setWorkbenchList(workbenchList);
+				String json = JsonManage.serialize2(result).replaceAll("\"", "'");
+				Li li0 = new Li();
+				{
+					A a1 = new A();
+					a1.value = "切换视图";
+					a1.href = "javascript:workbench.switchWorkbench(" + json + ");";
+					li0.getControls().add(a1);
+					dropItem.getControls().add(li0);
+				}
+			}
+
 			Li li1 = new Li();
 			{
 
