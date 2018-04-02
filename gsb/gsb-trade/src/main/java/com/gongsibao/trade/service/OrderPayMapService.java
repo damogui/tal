@@ -46,16 +46,16 @@ public class OrderPayMapService extends PersistableService<OrderPayMap> implemen
         return this.queryFirst (oql);
     }
 
-    /*最后的回写支付挂靠到订单*/
-    @Override
-    public int updateByPayId(Integer payId) {
-        QueryParameters qpsPay = new QueryParameters ();
-        qpsPay.add ("@pkid", payId, Types.INTEGER);
-        String sqlPay = "UPDATE   so_pay SET  offline_audit_status_id=1054  WHERE  pkid=?";
-        Integer num = this.pm.executeNonQuery (sqlPay, qpsPay);//进行更新回款
-
-        return num;
-    }
+//    /*最后的回写支付挂靠到订单*/
+//    @Override
+//    public int updateByPayIdss(Integer payId) {
+//        QueryParameters qpsPay = new QueryParameters ();
+//        qpsPay.add ("@pkid", payId, Types.INTEGER);
+//        String sqlPay = "UPDATE   so_pay SET  offline_audit_status_id=1054  WHERE  pkid=?";
+//        Integer num = this.pm.executeNonQuery (sqlPay, qpsPay);//进行更新回款
+//
+//        return num;
+//    }
 
 
 }
