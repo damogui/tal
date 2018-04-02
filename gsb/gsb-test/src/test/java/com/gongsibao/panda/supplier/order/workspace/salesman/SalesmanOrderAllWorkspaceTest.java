@@ -226,8 +226,8 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 		}
 		addColumn(datagrid, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "prodName", "产品名称", ControlTypes.TEXT_BOX, 200);
-		addColumn(datagrid, "payStatus", "支付状态", ControlTypes.ENUM_BOX, 60);
-		addColumn(datagrid, "companyIntention.companyName", "签单企业", ControlTypes.TEXT_BOX, 250);
+		addColumn(datagrid, "payStatus", "付款状态", ControlTypes.ENUM_BOX, 60);
+		addColumn(datagrid, "companyIntention.companyName", "签单公司", ControlTypes.TEXT_BOX, 250);
 		column = addColumn(datagrid, "totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 80);
 		{
 			column.setAlign(DatagridAlign.RIGHT);
@@ -240,11 +240,11 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 		{
 			column.setAlign(DatagridAlign.RIGHT);
 		}
-		addColumn(datagrid, "payTime", "回款日期", ControlTypes.DATETIME_BOX, 100);
+		addColumn(datagrid, "fistPayTime", "首款审核日期", ControlTypes.DATETIME_BOX, 100);
 		addColumn(datagrid, "refundStatus", "退款状态", ControlTypes.ENUM_BOX, 60);
 		addColumn(datagrid, "isInstallment", "分期付款", ControlTypes.BOOLCOMBO_BOX, 80);
-		addColumn(datagrid, "customerName", "客户", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "accountMobile", "客户手机号", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "customerName", "下单人", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "accountMobile", "下单人电话", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "sourceType", "下单方式", ControlTypes.ENUM_BOX, 80);
 		addColumn(datagrid, "platformSource", "订单来源", ControlTypes.ENUM_BOX, 80);

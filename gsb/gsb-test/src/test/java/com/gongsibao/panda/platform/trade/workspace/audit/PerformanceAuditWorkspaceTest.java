@@ -31,16 +31,6 @@ public class PerformanceAuditWorkspaceTest extends AuditOrderPerformanceWorkspac
         meta = MtableManager.getMtable (entity);// 获取实体元数据
         formPartName = listPartName = meta.getName ();
         resourceNodeCode = "GSB_Trade_Audit_Performance";// 菜单节点码（名称）
-//
-//		formOpenMode = OpenMode.WINDOW;// 编辑框打开的形式
-//		openWindowHeight = 400;
-//		openWindowWidth = 800;
-//		listFilter = "type_id=1042 AND add_user_id='{userId}' ";
-
-		/*listPartServiceController = OrderOperationController.class.getName();
-        listPartJsController = OrderOperationController.class.getName();
-		listPartImportJs = "/gsb/platform/trade/js/orderoperation.list.part.js";
-		listToolbarPath = "/trade/manage/order/operation/toolbar";*/
     }
 
     @Test

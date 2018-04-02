@@ -1,0 +1,14 @@
+package com.gongsibao.trade.service.action.audit.orderNewSave;
+
+import org.netsharp.action.ActionContext;
+import org.netsharp.action.IAction;
+
+public class ActionAuditOrderNewSaveSendMessage implements IAction{
+
+	@Override
+	public void execute(ActionContext ctx) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

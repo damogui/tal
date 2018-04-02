@@ -1,19 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
-
+<style>
+	.cell .title{
+		color:#76838f;
+		text-align: center;
+	}
+	.cell .num{
+		    text-align: center;
+	}	
+	.cell .num span{
+		color:#000;
+		font-size:36px;
+	}
+</style>
 <div>
 		<div class="row" style="height:150px;">
         	<div class="cell cell-12">
-	        	<div id="briefing" class="easyui-panel" title="销售简报" data-options="fit:true,border:false">
-	        		<p>
-	        			<span>新增商机数：0个</span>
-	        			<span class="padding-15">未启动商机数：0个</span>
-	        			<span class="padding-15">待跟进商机数：0个</span>
-	        			<span class="padding-15">超时商机数：0个</span>
-	        		</p>
-	        		<p>
-	        			<span>异常未处理商机数：0个</span>
-	        			<span class="padding-15">公海：0个</span>
-	        		</p>
+	        	<div id="briefing" class="easyui-panel" title="销售简报" style="padding:0px 10px !important;" data-options="fit:true,border:false">
+	        	
+	        		<div class="row">
+	        			<div class="cell cell-2">
+	        				<div class="title"><span>新增商机</span></div>
+	        				<div class="num"><span id="new_count">0</span></div>
+	        			</div>
+	        			<div class="cell cell-2">
+	        				<div class="title"><span>未启动</span></div>
+	        				<div class="num"><span id="un_start_count">0</span></div>
+	        			</div>
+	        			<div class="cell cell-2">
+	        				<div class="title"><span>待跟进</span></div>
+	        				<div class="num"><span id="stay_foolow_count">0</span></div>
+	        			</div>
+	        			<div class="cell cell-2">
+	        				<div class="title"><span>超时未跟进</span></div>
+	        				<div class="num"><span id="timeout_count">0</span></div>
+	        			</div>
+	        			<div class="cell cell-2">
+	        				<div class="title"><span>异常未处理</span></div>
+	        				<div class="num"><span id="abnormal_count" style="color:red;">0</span></div>
+	        			</div>
+	        			<div class="cell cell-2">
+	        				<div class="title"><span>公海</span></div>
+	        				<div class="num"><span id="public_count">0</span></div>
+	        			</div>
+	        		</div>
 			    </div>
         	</div>	
         </div>
@@ -63,3 +92,52 @@
         	</div>
         </div>
 </div>
+<script src='/gsb/supplier/home/js/portal-statistic.js'></script>
+
+	<script>
+		//销售简报
+		var brief = new com.gongsibao.crm.web.home.BriefingCtrl();
+		//跟进统计
+		var foolow = new com.gongsibao.crm.web.home.FoolowCtrl();
+		//预估业绩
+		var forecast = new com.gongsibao.crm.web.home.ForecastCtrl();
+		//漏斗统计
+		var funnel = new com.gongsibao.crm.web.home.FunnelCtrl();
+		$(function() {
+			
+ 			//这几个数据可以用一个DTO一次性返回，这样调用次数太多
+			brief.briefingCountPars2('getNewTasksCount',2,1,function(count){
+				$("#new_count").text(count);
+			});
+			brief.briefingCountPars2('getUnStartTasksCount',2,1,function(count){
+				$("#un_start_count").text(count);
+			});
+			brief.briefingCountPars0('getUnfoolowTasksCount',function(count){
+				$("#stay_foolow_count").text(count);
+			});
+			brief.briefingCountPars0('getTimeOutTasksCount',function(count){
+				$("#timeout_count").text(count);
+			});
+			
+			
+			brief.briefingCountPars0('getExceptUntreatedTasksCount',function(count){
+				$("#abnormal_count").text(count);
+			});
+			brief.briefingCountPars0('currentSalesMan',function(entity){
+				if(entity.isLeader){
+					brief.briefingCountPars2('getHighSeasCount',2,-1,function(count){
+						$("#public_count").text(count);
+					});
+				}
+			});
+			
+			foolow.foolowCountPars0('getFoolowSatatistic');
+			
+			forecast.forecastAmountPars1('getForecastAmount',1);
+			forecast.forecastAmountPars1('getForecastAmount',2);
+			forecast.forecastAmountPars1('getForecastAmount',3);
+			
+			funnel.funnelXSCountPars0('getXSCount'); 
+			funnel.funnelCodeCountPars0('getCodeTaskCount'); 
+		});
+	</script>
