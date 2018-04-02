@@ -9,9 +9,7 @@ import com.gongsibao.entity.bd.Dict;
 
 @Table(name="uc_account_deliver_address",header="帐号交付地址")
 public class AccountDeliverAddress extends BaseEntity {
-    /**   
-	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
-	 */   
+ 
 	private static final long serialVersionUID = -2295070304488625040L;
 	@Column(name="account_id",header="帐号Id")
     private Integer accountId;

@@ -11,9 +11,7 @@ import com.gongsibao.entity.BaseEntity;
 
 @Table(name="uc_account_dingtalk",header="钉钉帐号关联表")
 public class AccountDingtalk extends BaseEntity {
-    /**   
-	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
-	 */   
+
 	private static final long serialVersionUID = -5946061479514587599L;
 	@Column(name="account_id")
     private Integer accountId;

@@ -9,9 +9,7 @@ import com.gongsibao.entity.yj.Company;
 
 @Table(name="uc_account_unfollow_company",header="用户取消关注企业表")
 public class AccountUnfollowCompany extends BaseEntity {
-    /**   
-	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
-	 */   
+
 	private static final long serialVersionUID = 6799905202142736661L;
 	@Column(name="account_id",header="会员id")
     private Integer accountId;

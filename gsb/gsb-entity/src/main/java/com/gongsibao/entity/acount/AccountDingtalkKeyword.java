@@ -9,9 +9,7 @@ import com.gongsibao.entity.yj.Company;
 
 @Table(name="uc_account_dingtalk_keyword")
 public class AccountDingtalkKeyword extends BaseEntity {
-    /**   
-	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
-	 */   
+ 
 	private static final long serialVersionUID = 7610680175372603328L;
 	@Column(name="account_id",header="官网会员ID")
     private Integer accountId;
