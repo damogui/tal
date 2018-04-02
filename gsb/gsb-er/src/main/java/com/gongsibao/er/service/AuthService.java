@@ -11,6 +11,6 @@ public class AuthService extends PersistableService<Auth> implements IAuthServic
 
     public AuthService(){
         super();
-        this.type=Auth.class; 
+        this.type=Auth.class;
     }
 }
