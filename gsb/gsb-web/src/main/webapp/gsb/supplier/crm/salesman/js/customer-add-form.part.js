@@ -39,9 +39,14 @@ com.gongsibao.crm.web.SalesmanNCustomerAddFormPart =com.gongsibao.crm.web.NCusto
     	entity.notifys = [];
     	entity.changes = [];
     	
+    	$("#controllernCustomersave").linkbutton("disable");
     	//提高效率，将明细全部置空
         return true;
     },
+    databindextra: function (entity) {
+
+    	$("#controllernCustomersave").linkbutton("enable");
+    }
 });
 
 com.gongsibao.crm.web.SalesmanNCustomerTaskDetailPart = com.gongsibao.crm.web.NCustomerTaskDetailPart.Extends( {
