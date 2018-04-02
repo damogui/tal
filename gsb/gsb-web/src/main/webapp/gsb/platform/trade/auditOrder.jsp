@@ -6,7 +6,7 @@
 	<jsp:include page="/gsb/platform/trade/include/meta.jsp"></jsp:include>
 </head>
     <body class="easyui-layout">
-        <div data-options="region:'north',split:false,collapsible:false,closed:false,height:375">
+        <div data-options="region:'north',split:false,collapsible:false,closed:false,height:240">
         	 <div class="formContent">
 		        <fieldset style="margin-bottom:0px;">
 		        	<legend>订单信息</legend>
@@ -27,7 +27,7 @@
 </body>
 
 <script src='/gsb/platform/trade/js/audit-base.ctrl.js'></script>
-<script src='/gsb/platform/trade/js/audit.order-ctrl.js'></script>
+<script src='/gsb/platform/trade/js/audit-order.ctrl.js'></script>
 <script>
 
 	var auditOrderCtrl = null;

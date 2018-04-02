@@ -25,7 +25,7 @@ public class AuditOrderNewSaveActionTest extends BaseActionTest{
 	@Test
 	public void save() {
 		
-		String pathName = "gsb/crm/audit/order";
+		String pathName = "gsb/crm/audit/changeOrderPrice";
 		BeanPath beanPath = new BeanPath();
 		{
 			beanPath.toNew();

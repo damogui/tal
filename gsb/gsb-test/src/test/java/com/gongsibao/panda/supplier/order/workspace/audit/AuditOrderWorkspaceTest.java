@@ -81,7 +81,7 @@ public class AuditOrderWorkspaceTest  extends WorkspaceCreationBase {
         PDatagrid datagrid = super.createDatagrid (node);
         {
             datagrid.setName ("订单审核");
-            datagrid.setToolbar ("panda/datagrid/row/edit");
+            datagrid.setToolbar (listrowToolbarPath);
             datagrid.setAutoQuery (true);
             datagrid.setShowCheckbox (false);
         }
@@ -101,7 +101,7 @@ public class AuditOrderWorkspaceTest  extends WorkspaceCreationBase {
         
         addColumn (datagrid, "soOrder.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn (datagrid, "soOrder.payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
-        addColumn (datagrid, "soOrder.changePriceAuditStatus", "审核状态", ControlTypes.ENUM_BOX, 100);
+        addColumn (datagrid, "status", "审核状态", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "soOrder.createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);
         addColumn(datagrid, "soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
         
@@ -122,9 +122,9 @@ public class AuditOrderWorkspaceTest  extends WorkspaceCreationBase {
         }
 
         addQueryItem (queryProject, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "soOrder.changePriceAuditStatus", "审核状态", ControlTypes.ENUM_BOX);
+        addQueryItem (queryProject, "status", "审核状态", ControlTypes.ENUM_BOX);
         addQueryItem (queryProject, "soOrder.owner.name", "订单创建人", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "soOrder.addTime", "创建日期", ControlTypes.DATE_BOX);
+        addQueryItem (queryProject, "soOrder.createTime", "创建日期", ControlTypes.DATE_BOX);
 
         return queryProject;
     }

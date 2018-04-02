@@ -83,7 +83,7 @@ public class AuditOrderPerformanceWorkspaceTest extends WorkspaceCreationBase {
 
             datagrid.setAutoQuery (true);
             datagrid.setShowCheckbox (true);
-            datagrid.setSingleSelect (false);
+            datagrid.setSingleSelect (true);
         }
         PDatagridColumn column = null;
         addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);

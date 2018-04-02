@@ -27,14 +27,11 @@ public class ActionSaveOrderChangePriceAudit implements IAction{
 	public void execute(ActionContext ctx) {
 		
 		SoOrder soOrder = (SoOrder) ctx.getItem();
-		
-		AbstractAuditLogService auditLogService = AuditFactory.getAudit(ChangeOrderPriceAudit.class);
-		//后期发送通知用
-		List<AuditLog> auditLogList = auditLogService.execute(soOrder.getId());
-		
-//		if (soOrder.getIsChangePrice()) {
-//			
-//		}
+		if (soOrder.getIsChangePrice()) {
+			AbstractAuditLogService auditLogService = AuditFactory.getAudit(ChangeOrderPriceAudit.class);
+			//后期发送通知用
+			List<AuditLog> auditLogList = auditLogService.execute(soOrder.getId());
+		}
 	}
 
 }

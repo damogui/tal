@@ -161,10 +161,10 @@ public class PayService extends PersistableService<Pay> implements IPayService {
         if (orderIdFirstAmount.size () > 0) {
             whereStr = StringManager.join (",", orderIdFirstAmount);
         }
-        String sql = String.format ("UPDATE   `so_order`  SET  pay_status_id=3012,fist_pay_time=?   WHERE pkid IN (%s)", whereStr);
+        String sql = String.format ("UPDATE   `so_order`  SET  pay_status_id=3012,fist_pay_time=now()   WHERE pkid IN (%s)", whereStr);
 
         QueryParameters qps = new QueryParameters ();
-        qps.add ("@fist_pay_time", payTime, Types.DATE);
+//        qps.add ("@fist_pay_time", payTime, Types.DATE);
         Integer num = this.pm.executeNonQuery (sql, qps);//进行更新  //如果回款和订单金额相等的话还要修改支付时间
 
         return num;

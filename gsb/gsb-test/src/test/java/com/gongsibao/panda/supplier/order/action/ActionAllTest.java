@@ -22,6 +22,7 @@ import org.junit.runners.Suite.SuiteClasses;
         AuditContractActionTest.class,
         AuditCostActionTest.class,
         AuditInvoiceActionTest.class,
+        AuditOrderNewSaveActionTest.class,
         OrderApplyContractActionTest.class,
         AuditPayActionTest.class,
         AuditPayPerformanceActionTest.class,//回款业绩审核
