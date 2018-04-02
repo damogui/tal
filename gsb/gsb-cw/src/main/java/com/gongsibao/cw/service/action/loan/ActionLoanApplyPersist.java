@@ -39,6 +39,26 @@ public class ActionLoanApplyPersist implements IAction {
     	 loan.setCode(getLoanCode());
     	 Loan temp = loanService.save(loan);
     	 ctx.setItem(temp);
+         if (temp != null && temp.getId() != null) {
+        	 
+        	 List<CostDetail> costDetailList = loan.getCostDetailItem();
+        	 for(CostDetail item : costDetailList){
+        		 item.toNew();
+        		 item.setFormId(temp.getId());
+        		 costDetailService.save(item);
+        	 }
+        	 //保存附件
+        	 List<File> fileList = loan.getFiles();
+        	 if(fileList != null && fileList.size() > 0 ){
+        		 for(File fileItem : fileList){
+        			 fileItem.toNew();
+        			 fileItem.setCreateTime(loan.getCreateTime());
+        			 fileItem.setCreator(loan.getCreator());
+        			 fileItem.setFormId(temp.getId());
+        			 fileService.save(fileItem);
+        		 }
+        	 }
+         }
     }
     
     //生成借款单据
