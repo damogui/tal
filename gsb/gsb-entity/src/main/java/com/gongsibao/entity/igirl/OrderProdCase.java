@@ -1,17 +1,17 @@
 package com.gongsibao.entity.igirl;
 
-import com.gongsibao.entity.igirl.tm.TradeMark;
-import com.gongsibao.entity.igirl.tm.dict.CaseType;
-import com.gongsibao.entity.trade.OrderProd;
-import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.entity.uc.Account;
+import java.math.BigDecimal;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
-import java.math.BigDecimal;
+import com.gongsibao.entity.acount.Account;
+import com.gongsibao.entity.igirl.tm.dict.CaseType;
+import com.gongsibao.entity.trade.OrderProd;
+import com.gongsibao.entity.trade.SoOrder;
 
 /**
  * 明细订单与方案关联
@@ -19,7 +19,12 @@ import java.math.BigDecimal;
 @Table(name = "so_order_prod_case", header = "明细订单与方案关联表")
 public class OrderProdCase extends Entity {
 
-    @Column(name = "order_prod_id", header = "明细订单id")
+    /**   
+	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
+	 */   
+	private static final long serialVersionUID = -5094866607283608480L;
+
+	@Column(name = "order_prod_id", header = "明细订单id")
     private Integer orderProdId;
 
     @JsonIgnore
