@@ -8,7 +8,7 @@ import org.netsharp.base.IEnum;
  * @author cyx
  *
  */
-public enum CorpZone implements IEnum {
+public enum CorpBjZone implements IEnum {
 
 	DONGCHENG(0, "东城区"),
 	XICHENG(1, "西城区"),
@@ -26,20 +26,19 @@ public enum CorpZone implements IEnum {
 	HUAIROU(13, "怀柔区"),
 	MIYUN(14, "密云区"),
 	YANQING(15, "延庆区"),
-	KAIFAQU(16, "北京经济技术开发区"),
-	;
+	KAIFAQU(16, "北京经济技术开发区");
 	private int value;
 	private String text;
 
-	CorpZone(int value, String text) {
+	CorpBjZone(int value, String text) {
 		this.value = value;
 		this.text = text;
 	}
 
 	@JsonCreator
-	public static CorpZone getItem(int value) {
+	public static CorpBjZone getItem(int value) {
 
-		for (CorpZone item : values()) {
+		for (CorpBjZone item : values()) {
 
 			if (item.getValue() == value) {
 				return item;

@@ -13,4 +13,6 @@ public interface IPayService extends IPersistableService<Pay> {
 
     @Transaction
     void updateStatus(Integer id, AuditStatusType bhsh);
+    @Transaction
+    Integer auditPass(String payTime, Integer formId);
 }

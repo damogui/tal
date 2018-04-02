@@ -47,13 +47,14 @@ public class AuditPayController extends AuditBaseController {
             //IPersister<AuditLog> auditLogIPersister = PersisterFactory.create ();
             IAuditLogService auditLogService = ServiceFactory.create (IAuditLogService.class);
 
+            IPayService payService = ServiceFactory.create (IPayService.class);
             AuditLog auditLog = auditLogService.byId (auditLogId);
-            String sql = "  UPDATE  so_pay  SET  confirm_time=? WHERE  pkid=?  ";
-
-            QueryParameters qps = new QueryParameters ();
-            qps.add ("@confirm_time", payTime, Types.DATE);
-            qps.add ("@pkid", auditLog.getFormId (), Types.DATE);
-            payIPersister.executeNonQuery (sql, qps);
+            Integer execNum = payService.auditPass (payTime, auditLog.getFormId ());//根据确认时间和支付时间更新
+//            String sql = "  UPDATE  so_pay  SET  confirm_time=? WHERE  pkid=?  ";
+//            QueryParameters qps = new QueryParameters ();
+//            qps.add ("@confirm_time", payTime, Types.DATE);
+//            qps.add ("@pkid", auditLog.getFormId (), Types.Integer);
+//            payIPersister.executeNonQuery (sql, qps);
             //更改确认时间
         } else {
 
@@ -87,7 +88,7 @@ public class AuditPayController extends AuditBaseController {
                 ) {
             AuditLogDTO auditLogDTO = new AuditLogDTO ();
             auditLogDTO.setId (item.getId ());
-            auditLogDTO.setCreator (item.getEmployee ()==null?"":item.getEmployee ().getName ());
+            auditLogDTO.setCreator (item.getEmployee () == null ? "" : item.getEmployee ().getName ());
             auditLogDTO.setOption (item.getStatus ().getText ());
             auditLogDTO.setRemark (item.getContent ());
             auditLogDTO.setCreateTime (item.getCreateTime ().toString ());

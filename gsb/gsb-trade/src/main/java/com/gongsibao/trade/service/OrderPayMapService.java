@@ -62,7 +62,7 @@ public class OrderPayMapService extends PersistableService<OrderPayMap> implemen
         for (OrderPayMap item:orderPayMapList
              ) {
 
-            String  sql=String.format ("UPDATE so_order SET  paid_price=paid_price+%s  WHERE  pkid=?",item.getOrderPrice ()/100);
+            String  sql=String.format ("UPDATE so_order SET  paid_price=paid_price+%s  WHERE  pkid=?",item.getOrderPrice ());//应该以分进行相加
 
             QueryParameters qps=new QueryParameters ();
             qps.add ("@pkid",item.getOrderId (),Types.INTEGER);
