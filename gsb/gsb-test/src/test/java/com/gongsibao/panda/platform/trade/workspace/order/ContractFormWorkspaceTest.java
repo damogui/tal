@@ -42,11 +42,6 @@ public class ContractFormWorkspaceTest extends WorkspaceCreationBase {
         formToolbarPath = "";
     }
 
-    @Test
-    public void run() {
-        createFormWorkspace();
-    }
-
     protected PForm createForm(ResourceNode node) {
 
         PForm form = super.createForm(node);
