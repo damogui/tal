@@ -244,7 +244,9 @@ $(function(){
 				  				 
 				  				 var ctlServiceStr2="com.gongsibao.igirl.tm.web.TradeMarkCasePart";
 				  				 var me=this;
+				  				 console.log(sourceInfo.casecode);
 				  				 siteCtl.invoke(ctlServiceStr2,"fetchUnconfirmedCaseInfoByCode",[sourceInfo.casecode],function(d){
+				  					 console.log(d);
 				  					 me.caseinfo=d;
 				  				
 				  					 if(d.tmcState==0 || d.tmcState==1){//待确认
