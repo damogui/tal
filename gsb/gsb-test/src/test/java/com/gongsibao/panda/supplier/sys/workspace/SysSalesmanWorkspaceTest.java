@@ -49,8 +49,8 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		listPartName = "员工管理";
 		resourceNodeCode = "GSB_CRM_SYS_SALESMAN";
 		formOpenMode = OpenMode.WINDOW;
-		openWindowHeight = 700;
-		openWindowWidth = 900;
+		openWindowHeight = 550;
+		openWindowWidth = 1020;
 		listPartImportJs = "/gsb/supplier/sys/organization/js/sys-salesman-list-part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
 		listPartJsController = SysSalesmanListPart.class.getName();
 		listPartServiceController = SysSalesmanListPart.class.getName();
@@ -119,8 +119,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		PForm form = super.createForm(node);
 		form.setColumnCount(3);
 
-		String groupName = null;
-		// String groupName = "基本信息 ";
+		String groupName = "基本信息 ";
 		PFormField formField = addFormField(form, "name", "姓名", groupName, ControlTypes.TEXT_BOX, true);{
 			
 			formField.setTroikaValidation("['maxLength[50]']");
@@ -130,14 +129,13 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		{
 
 			formField.setReadonly(true);
-			formField.setTooltip("自动生成");
+			formField.setTooltip("根据手机号自动生成");
 		}
 		addFormField(form, "email", "邮箱", groupName, ControlTypes.TEXT_BOX, false);
 		addFormField(form, "entryDate", "入职日期", groupName, ControlTypes.DATE_BOX, false);
 		addFormField(form, "quitDate", "离职日期", groupName, ControlTypes.DATE_BOX, false);
-		addFormField(form, "disabled", "停用", groupName, ControlTypes.SWITCH_BUTTON, false, true);
 
-		// groupName = "属性设置";
+		groupName = "属性设置";
 		addFormField(form, "dayMax", "日分配上限", groupName, ControlTypes.NUMBER_BOX, false, false);
 
 		addFormField(form, "weekMax", "周分配上限", groupName, ControlTypes.NUMBER_BOX, false, false);
@@ -147,7 +145,21 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 		addFormField(form, "receiving", "自动接受商机", groupName, ControlTypes.SWITCH_BUTTON, false, false);
 
 		addFormField(form, "isLeader", "主管", groupName, ControlTypes.SWITCH_BUTTON, false, false);
+		
+		addFormField(form, "disabled", "停用", groupName, ControlTypes.SWITCH_BUTTON, false, true);
 
+		groupName = "设置密码";
+		formField = addFormField(form, "newPassword", "设置密码", groupName, ControlTypes.PASSWORDTEXT_BOX, false, false);{
+			
+			formField.setTroikaValidation("['minLength[6]','maxLength[10]']");
+		}
+
+		formField = addFormField(form, "confirmPassword", "确认密码", groupName, ControlTypes.PASSWORDTEXT_BOX, false, false);{
+			
+			formField.setTroikaValidation("['equals[\\'#newPassword\\']']");
+		}
+
+		
 		// 这里还有很多属性，
 
 		return form;
@@ -212,8 +224,8 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
 			part.setResourceNode(node2);
 			part.setUrl(urlForm);
 			part.setOpenMode(formOpenMode);
-			part.setWindowHeight(700);
-			part.setWindowWidth(1000);
+			part.setWindowHeight(550);
+			part.setWindowWidth(1020);
 			part.setToolbar(listToolbarPath);
 			part.setJsController(listPartJsController);
 			part.setServiceController(listPartServiceController);
