@@ -28,6 +28,6 @@ public class ChangeOrderPriceAudit extends AbstractAuditLogService{
 
 	@Override
 	protected String setActionPath() {
-		return "gsb/crm/audit/order";
+		return "gsb/crm/audit/changeOrderPrice";
 	}
 }
