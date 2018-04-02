@@ -17,6 +17,8 @@ public interface ITradeMarkCaseService extends IPersistableService<TradeMarkCase
 	public TradeMarkCase updateOwner(Integer ttmId,Integer ownerId);
 	public int fetchCaseState(String casecode);
 	public int updateCaseState(String casecode,int state);
+
+
 	public List<TradeMark> findTradeMarksByCode(String caseCode);
     /**
      * 商标注册方案，生成转化为订单
@@ -26,4 +28,14 @@ public interface ITradeMarkCaseService extends IPersistableService<TradeMarkCase
      */
     @Transaction
 	ConvertToOrderResult convertToOrder(String caseid);
+
+	/**
+	 * 商标注册方案，输入订单号，关联方案
+	 * @param caseid
+	 * @param orderNo
+	 * @return
+	 */
+	@Transaction
+	ConvertToOrderResult convertToOrder(String caseid, String orderNo);
+
 }

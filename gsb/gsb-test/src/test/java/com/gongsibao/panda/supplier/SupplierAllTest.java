@@ -1,5 +1,6 @@
 package com.gongsibao.panda.supplier;
 
+import com.gongsibao.panda.supplier.settle.SettleAllTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -19,6 +20,7 @@ import com.gongsibao.panda.supplier.sys.SysAllTest;
 		OrderAllTest.class,
 		IgirlAllTest.class,
 		SysAllTest.class,
+		SettleAllTest.class,
 		})
 		
 public class SupplierAllTest {
