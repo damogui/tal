@@ -54,7 +54,6 @@ public class OrderPayMapService extends PersistableService<OrderPayMap> implemen
         String sqlPay = "UPDATE   so_pay SET  offline_audit_status_id=1054  WHERE  pkid=?";
         Integer num = this.pm.executeNonQuery (sqlPay, qpsPay);//进行更新回款
 
-
         return num;
     }
 
