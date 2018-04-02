@@ -23,19 +23,19 @@
 	        				<div class="num"><span id="add_count">0</span></div>
 	        			</div>
 	        			<div class="cell cell-2">
-	        				<div class="title"><span>未启动商机</span></div>
+	        				<div class="title"><span>未启动</span></div>
 	        				<div class="num"><span id="un_start_count">0</span></div>
 	        			</div>
 	        			<div class="cell cell-2">
-	        				<div class="title"><span>待跟进商机</span></div>
+	        				<div class="title"><span>待跟进</span></div>
 	        				<div class="num"><span id="stay_foolow_count">0</span></div>
 	        			</div>
 	        			<div class="cell cell-2">
-	        				<div class="title"><span>超时商机</span></div>
+	        				<div class="title"><span>超时未跟进</span></div>
 	        				<div class="num"><span id="timeout_count">0</span></div>
 	        			</div>
 	        			<div class="cell cell-2">
-	        				<div class="title"><span>异常未处理商机</span></div>
+	        				<div class="title"><span>异常未处理</span></div>
 	        				<div class="num"><span id="abnormal_count" style="color:red;">0</span></div>
 	        			</div>
 	        			<div class="cell cell-2">
