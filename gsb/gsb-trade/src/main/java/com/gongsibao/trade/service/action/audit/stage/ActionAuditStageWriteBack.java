@@ -1,6 +1,5 @@
 package com.gongsibao.trade.service.action.audit.stage;
 
-import java.util.List;
 import java.util.Map;
 
 import org.netsharp.action.ActionContext;
@@ -13,10 +12,8 @@ import org.netsharp.util.sqlbuilder.UpdateBuilder;
 import com.gongsibao.bd.service.auditLog.AuditContext;
 import com.gongsibao.bd.service.auditLog.AuditState;
 import com.gongsibao.entity.bd.AuditLog;
-import com.gongsibao.entity.trade.NOrderStage;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
-import com.gongsibao.entity.trade.dic.OrderPayStatusType;
 import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.trade.base.INOrderStageService;
 import com.gongsibao.u8.base.ISoOrderService;
