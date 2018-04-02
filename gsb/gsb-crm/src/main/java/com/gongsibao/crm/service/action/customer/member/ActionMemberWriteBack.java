@@ -6,8 +6,8 @@ import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
+import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.crm.NCustomer;
-import com.gongsibao.entity.uc.Account;
 
 /**
  * @author hw
