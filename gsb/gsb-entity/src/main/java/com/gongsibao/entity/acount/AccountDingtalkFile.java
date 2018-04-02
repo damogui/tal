@@ -11,9 +11,7 @@ import com.gongsibao.entity.yj.Company;
 
 @Table(name="uc_account_dingtalk_file",header="钉钉用户文件")
 public class AccountDingtalkFile extends BaseEntity {
-    /**   
-	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
-	 */   
+
 	private static final long serialVersionUID = -4437525361302235641L;
 	@Column(name="file_id",header="文件id")
     private Integer fileId;

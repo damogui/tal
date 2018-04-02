@@ -7,9 +7,7 @@ import com.gongsibao.entity.BaseEntity;
 
 @Table(name="uc_account_recommend",header="为您推荐")
 public class AccountRecommend extends BaseEntity {
-    /**   
-	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
-	 */   
+  
 	private static final long serialVersionUID = 2216763942421232094L;
 	
 	@Column(name = "title", header = "推荐标题")

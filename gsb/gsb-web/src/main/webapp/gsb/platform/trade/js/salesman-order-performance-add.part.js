@@ -101,31 +101,9 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
 
         me.saveAfter();
 
-    },
-
-    detail: function (id) {
-
-        this.edit(id);
-    },
-    doubleClickRow: function (index, row) {
-        this.edit(row.id);
-    },
-    edit: function (id) {
-
-        $('#' + this.context.id).datagrid('unselectAll');
-        $('#' + this.context.id).datagrid('selectRecord', id);
-        var selectRow = this.getSelectedItem();
-        var url = this.editUrl + "?taskId=" + id + "&customerId=" + selectRow.customerId;
-        layer.open({
-            type: 2,
-            title: '编辑商机',
-            fixed: false,
-            maxmin: true,
-            shadeClose: true,
-            area: ['90%', '90%'],
-            content: url
-        });
     }
+
+  
 
 });
 
