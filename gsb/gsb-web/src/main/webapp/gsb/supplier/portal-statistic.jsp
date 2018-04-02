@@ -1,19 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
-
+<style>
+	.cell .title{
+		color:#76838f;
+		text-align: center;
+	}
+	.cell .num{
+		    text-align: center;
+	}	
+	.cell .num span{
+		color:#000;
+		font-size:36px;
+	}
+</style>
 <div>
 		<div class="row" style="height:150px;">
         	<div class="cell cell-12">
-	        	<div id="briefing" class="easyui-panel" title="销售简报" data-options="fit:true,border:false">
-	        		<p>
-	        			<span>新增商机数：0个</span>
-	        			<span class="padding-15">未启动商机数：0个</span>
-	        			<span class="padding-15">待跟进商机数：0个</span>
-	        			<span class="padding-15">超时商机数：0个</span>
-	        		</p>
-	        		<p>
-	        			<span>异常未处理商机数：0个</span>
-	        			<span class="padding-15">公海：0个</span>
-	        		</p>
+	        	<div id="briefing" class="easyui-panel" title="销售简报" style="padding:0px 10px !important;" data-options="fit:true,border:false">
+	        	
+	        		<div class="row">
+	        			<div class="cell cell-2">
+	        				<div class="title"><span>新增商机</span></div>
+	        				<div class="num"><span id="add_count">0</span></div>
+	        			</div>
+	        			<div class="cell cell-2">
+	        				<div class="title"><span>未启动商机</span></div>
+	        				<div class="num"><span id="un_start_count">0</span></div>
+	        			</div>
+	        			<div class="cell cell-2">
+	        				<div class="title"><span>待跟进商机</span></div>
+	        				<div class="num"><span id="stay_foolow_count">0</span></div>
+	        			</div>
+	        			<div class="cell cell-2">
+	        				<div class="title"><span>超时商机</span></div>
+	        				<div class="num"><span id="timeout_count">0</span></div>
+	        			</div>
+	        			<div class="cell cell-2">
+	        				<div class="title"><span>异常未处理商机</span></div>
+	        				<div class="num"><span id="abnormal_count" style="color:red;">0</span></div>
+	        			</div>
+	        			<div class="cell cell-2">
+	        				<div class="title"><span>公海</span></div>
+	        				<div class="num"><span id="public_count">0</span></div>
+	        			</div>
+	        		</div>
 			    </div>
         	</div>	
         </div>

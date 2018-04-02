@@ -37,27 +37,29 @@
 		//漏斗统计
 		var funnel = new com.gongsibao.crm.web.home.Funnel();
 		$(function() {
+			
+ 			//这几个数据可以用一个DTO一次性返回，这样调用次数太多
 			brief.briefingCountPars2('getNewTasksCount',2,1,function(count){
-				$("#briefing p").eq(0).find('span').eq(0).text("新增商机数：" + count + "个");
+				$("#add_count").text(count);
 			});
 			brief.briefingCountPars2('getUnStartTasksCount',2,1,function(count){
-				$("#briefing p").eq(0).find('span').eq(1).text("未启动商机数：" + count + "个");
+				$("#un_start_count").text(count);
 			});
 			brief.briefingCountPars0('getUnfoolowTasksCount',function(count){
-				$("#briefing p").eq(0).find('span').eq(2).text("待跟进商机数：" + count + "个");
+				$("#stay_foolow_count").text(count);
 			});
 			brief.briefingCountPars0('getTimeOutTasksCount',function(count){
-				$("#briefing p").eq(0).find('span').eq(3).text("超时商机数：" + count + "个");
+				$("#timeout_count").text(count);
 			});
 			
 			
 			brief.briefingCountPars0('getExceptUntreatedTasksCount',function(count){
-				$("#briefing p").eq(1).find('span').eq(0).text("异常未处理商机数：" + count + "个");
+				$("#abnormal_count").text(count);
 			});
 			brief.briefingCountPars0('currentSalesMan',function(entity){
 				if(entity.isLeader){
 					brief.briefingCountPars2('getHighSeasCount',2,-1,function(count){
-						$("#briefing p").eq(1).find('span').eq(1).text("公海：" + count + "个");
+						$("#public_count").text(count);
 					});
 				}
 			});
@@ -69,7 +71,7 @@
 			forecast.forecastAmountPars1('getForecastAmount',3);
 			
 			funnel.funnelXSCountPars0('getXSCount'); 
-			funnel.funnelCodeCountPars0('getCodeTaskCount');
+			funnel.funnelCodeCountPars0('getCodeTaskCount'); 
 		});
 	</script>
 </html>
