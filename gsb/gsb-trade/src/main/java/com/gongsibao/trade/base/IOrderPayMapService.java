@@ -15,7 +15,4 @@ public interface IOrderPayMapService extends IPersistableService<OrderPayMap> {
     /*根据支付id获取payMap*/
     OrderPayMap queryByPayId(Integer payId);
 
-    /*根据支付id进行回写支付*/
-     @Transaction
-    int updateByPayId(Integer payId);
 }

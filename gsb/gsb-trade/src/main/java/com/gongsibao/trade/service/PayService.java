@@ -19,6 +19,7 @@ import org.netsharp.service.PersistableService;
 
 import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.trade.base.IPayService;
+import org.netsharp.util.Result;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
@@ -82,7 +83,7 @@ public class PayService extends PersistableService<Pay> implements IPayService {
     /*审核通过之后进行处理*/
     @Override
     public Integer auditPass(String payTime, Integer payId) {
-        String sql = "  UPDATE  so_pay  SET  confirm_time=? WHERE  pkid=?  ";
+        String sql = "  UPDATE  so_pay  SET  offline_audit_status_id=1054,confirm_time=? WHERE  pkid=?  ";
 
         QueryParameters qps = new QueryParameters ();
         qps.add ("@confirm_time", payTime, Types.DATE);
@@ -92,8 +93,8 @@ public class PayService extends PersistableService<Pay> implements IPayService {
         Oql oql = new Oql ();
         oql.setType (OrderPayMap.class);
         oql.setFilter ("pay_id=?");
-        oql.setSelects ("OrderPayMap.*,");
-        oql.setSelects ("OrderPayMap.soOrder");
+        oql.setSelects ("OrderPayMap.*,OrderPayMap.soOrder.*");
+        oql.getParameters ().add ("@pay_id", payId, Types.INTEGER);
         List<OrderPayMap> orderPayMapList = new ArrayList<> ();
         orderPayMapList = orderPayMapService.queryList (oql);
         List<Integer> orderIds = new ArrayList<> ();//回款累加

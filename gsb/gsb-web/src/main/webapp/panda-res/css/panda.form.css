@@ -24,10 +24,15 @@
 }
 
 .tabs-panels .panel .toolbar{
-	position:absolute;
+	/* position:absolute; */
 	width:100%;
 	z-index: 1000;
 	border-top-width:0px;
+	-moz-box-sizing: border-box;  /*Firefox3.5+*/
+	-webkit-box-sizing: border-box; /*Safari3.2+*/
+	-o-box-sizing: border-box; /*Opera9.6*/
+	-ms-box-sizing: border-box; /*IE8*/
+	box-sizing: border-box;
 }
 
 .tabs{
