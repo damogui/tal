@@ -59,6 +59,8 @@ public class Account extends BaseEntity {
 	@Reference(foreignKey="companyId",header="关联公司：默认最后一次关联")
 	private CompanyIntention company;
 	
+	@Column(name = "openid", header = "openid")
+	private String openid;
 	
 	public String getName() {
 		return name;
@@ -178,5 +180,13 @@ public class Account extends BaseEntity {
 
 	public void setCompanyId(Integer companyId) {
 		this.companyId = companyId;
+	}
+
+	public String getOpenid() {
+		return openid;
+	}
+
+	public void setOpenid(String openid) {
+		this.openid = openid;
 	}
 }

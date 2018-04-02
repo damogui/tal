@@ -9,9 +9,6 @@ import com.gongsibao.entity.BaseEntity;
 @Table(name = "uc_account_cooperation", header = "合作公司帐号中间表")
 public class AccountCooperation extends BaseEntity {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	@Column(name = "account_id", header = "合作帐号Id")
