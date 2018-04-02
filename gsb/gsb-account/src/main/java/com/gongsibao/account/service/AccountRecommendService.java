@@ -1,10 +1,10 @@
-package com.gongsibao.gardian.service;
+package com.gongsibao.account.service;
 
 import org.netsharp.communication.Service;
 import org.netsharp.service.PersistableService;
 
+import com.gongsibao.account.base.IAccountRecommendService;
 import com.gongsibao.entity.acount.AccountRecommend;
-import com.gongsibao.gardian.base.IAccountRecommendService;
 
 @Service
 public class AccountRecommendService extends PersistableService<AccountRecommend> implements IAccountRecommendService {
