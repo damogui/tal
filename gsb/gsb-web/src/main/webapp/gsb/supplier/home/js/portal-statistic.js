@@ -1,7 +1,7 @@
 System.Declare("com.gongsibao.crm.web.home");
-com.gongsibao.crm.web.home.PortalStatistic = System.Object.Extends({
+com.gongsibao.crm.web.home.PortalStatisticCtrl = System.Object.Extends({
 	ctor : function() {
-		this.service = "com.gongsibao.crm.web.home.PortalStatistic";
+		this.service = "com.gongsibao.crm.web.home.PortalStatisticCtrl";
 	},
 	invoke : function(method, pars, callback) {
 		if (this.jServiceLocator == null) {
@@ -11,7 +11,7 @@ com.gongsibao.crm.web.home.PortalStatistic = System.Object.Extends({
 	}
 });
 //销售简报
-com.gongsibao.crm.web.home.Briefing = com.gongsibao.crm.web.home.PortalStatistic.Extends({
+com.gongsibao.crm.web.home.BriefingCtrl = com.gongsibao.crm.web.home.PortalStatisticCtrl.Extends({
 	briefingCountPars0 : function(method,callback){
 		this.invoke(method,null,callback);
 	},
@@ -23,7 +23,7 @@ com.gongsibao.crm.web.home.Briefing = com.gongsibao.crm.web.home.PortalStatistic
 	}
 });
 //跟进统计
-com.gongsibao.crm.web.home.Foolow = com.gongsibao.crm.web.home.PortalStatistic.Extends({
+com.gongsibao.crm.web.home.FoolowCtrl = com.gongsibao.crm.web.home.PortalStatisticCtrl.Extends({
 	foolowCountPars0 : function(method){
 		this.invoke(method,null,function(message){
 			$.each(message, function(key, value) {
@@ -33,7 +33,7 @@ com.gongsibao.crm.web.home.Foolow = com.gongsibao.crm.web.home.PortalStatistic.E
 	}
 });
 //预估业绩
-com.gongsibao.crm.web.home.Forecast = com.gongsibao.crm.web.home.PortalStatistic.Extends({
+com.gongsibao.crm.web.home.ForecastCtrl = com.gongsibao.crm.web.home.PortalStatisticCtrl.Extends({
 	forecastAmountPars1 : function(method,pars){
 		this.invoke(method,[pars],function(message){
 			var pContent = "<p>";
@@ -56,7 +56,7 @@ com.gongsibao.crm.web.home.Forecast = com.gongsibao.crm.web.home.PortalStatistic
 	}
 });
 //漏斗统计
-com.gongsibao.crm.web.home.Funnel = com.gongsibao.crm.web.home.PortalStatistic.Extends({
+com.gongsibao.crm.web.home.FunnelCtrl = com.gongsibao.crm.web.home.PortalStatisticCtrl.Extends({
 	funnelXSCountPars0 : function(method,pars){
 		this.invoke(method,null,function(message){
 			$.each(message, function(key, value) {
