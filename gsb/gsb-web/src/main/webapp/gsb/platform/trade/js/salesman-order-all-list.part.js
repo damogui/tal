@@ -96,7 +96,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
 
         });
     },
-    addReceived: function (id) {//创建回款业绩
+    addReceived: function (id) {//创建回款
 
         var me = this;
         var row = this.getSelectedItem();
@@ -105,32 +105,43 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             IMessageBox.info('请先选择订单数据');
             return false;
         }
+       
+        /*校验是不是存在订单的改价审核和回款审核，存在不弹窗*/
+        me.invokeService("checkCanPay", [parseFloat(row.id)], function (data) {
+             if(data>0){
+                 layer.msg("订单改价审核没通过不允许创建回款");
+                 return;
+             }else{
+                 var urlEnd = this.addReceivedUrl + "?no=" + row.no;
+                 layer.open({
+                     type: 2,//1是字符串 2是内容
+                     title: '创建回款',
+                     fixed: false,
+                     maxmin: true,
+                     shadeClose: false,
+                     area: ['80%', '80%'],
+                     zIndex: 100000,
+                     id: "addReceivedIframe",
+                     content: urlEnd,
+                     btn: ['保存', '取消'],
+                     yes: function (index, layero) {
 
-        var urlEnd = this.addReceivedUrl + "?no=" + row.no;
-        layer.open({
-            type: 2,//1是字符串 2是内容
-            title: '创建回款',
-            fixed: false,
-            maxmin: true,
-            shadeClose: false,
-            area: ['80%', '80%'],
-            zIndex: 100000,
-            id: "addReceivedIframe",
-            content: urlEnd,
-            btn: ['保存', '取消'],
-            yes: function (index, layero) {
+                         var payCtrl = document.getElementById('addReceivedIframe').firstElementChild.contentWindow.payCtrl;
+                         var isSave = payCtrl.save();
+                         if (isSave === true) {
 
-                var payCtrl = document.getElementById('addReceivedIframe').firstElementChild.contentWindow.payCtrl;
-                var isSave = payCtrl.save();
-                if (isSave === true) {
+                             layer.msg('保存成功！', function () {
 
-                    layer.msg('保存成功！', function () {
+                                 layer.closeAll();
+                             });
+                         }
+                     }
+                 });
+             }
 
-                        layer.closeAll();
-                    });
-                }
-            }
         });
+
+
     },
     addRefund: function (id) {//创建退款
 
@@ -259,7 +270,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                 IMessageBox.info('当该订单的改价状态不是审核通过，禁止提交合同');
                 return;
             }
-            
+
             layer.open({
                 id: "contractCreateIframe",
                 type: 2,
