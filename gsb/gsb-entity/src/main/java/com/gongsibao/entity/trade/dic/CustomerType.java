@@ -2,42 +2,43 @@ package com.gongsibao.entity.trade.dic;
 
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
+
 /**
  * 客户类型
- * @author angang
  *
+ * @author angang
  */
-public enum CustomerType  implements IEnum{
+public enum CustomerType implements IEnum {
 
-	GR(1, "个人"), QY(2, "企业");
-	
-	private int value;
-	private String text;
+    WU(0, "无"), GR(1, "个人"), QY(2, "企业");
 
-	CustomerType(int value, String text) {
-		this.value = value;
-		this.text = text;
-	}
+    private int value;
+    private String text;
 
-	@JsonCreator
-	public static CustomerType getItem(int value) {
+    CustomerType(int value, String text) {
+        this.value = value;
+        this.text = text;
+    }
 
-		for (CustomerType item : values()) {
+    @JsonCreator
+    public static CustomerType getItem(int value) {
 
-			if (item.getValue() == value) {
-				return item;
-			}
-		}
-		return null;
-	}
+        for (CustomerType item : values()) {
 
-	public String getText() {
-		return this.text;
-	}
+            if (item.getValue() == value) {
+                return item;
+            }
+        }
+        return null;
+    }
 
-	@Override
-	public Integer getValue() {
+    public String getText() {
+        return this.text;
+    }
 
-		return this.value;
-	}
+    @Override
+    public Integer getValue() {
+
+        return this.value;
+    }
 }
