@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
+import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.product.WorkflowNode;
 import com.gongsibao.entity.trade.dic.OrderProdTraceOperatorType;
 import com.gongsibao.entity.trade.dic.OrderProdTraceType;
 
@@ -20,6 +23,9 @@ public class OrderProdTrace extends BaseEntity {
 
 	@Column(name = "order_prod_status_id", header = "产品状态")
 	private Integer orderProdStatusId;
+	
+    @Reference(foreignKey = "orderProdStatusId", header = "产品状态")
+    private WorkflowNode orderProdStatus;
 
 	@Column(name = "type_id", header = "产品类型")
 	private OrderProdTraceType typeId = OrderProdTraceType.wu;
@@ -30,8 +36,11 @@ public class OrderProdTrace extends BaseEntity {
 	@Column(header = "说明")
 	private String info;
 
-	@Column(name = "operator_id", header = "操作人")
+	@Column(name = "operator_id", header = "操作人Id")
 	private Integer operatorId;
+	
+    @Reference(foreignKey = "operatorId", header = "操作人")
+    private Employee operator;
 
 	@Column(name = "is_bbk", header = "IsBbk")
 	private String isBbk = "0";
@@ -201,4 +210,22 @@ public class OrderProdTrace extends BaseEntity {
 	public void setFiles(List<OrderProdTraceFile> files) {
 		this.files = files;
 	}
+
+	public Employee getOperator() {
+		return operator;
+	}
+
+	public void setOperator(Employee operator) {
+		this.operator = operator;
+	}
+
+	public WorkflowNode getOrderProdStatus() {
+		return orderProdStatus;
+	}
+
+	public void setOrderProdStatus(WorkflowNode orderProdStatus) {
+		this.orderProdStatus = orderProdStatus;
+	}
+	
+	
 }
