@@ -244,7 +244,11 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "refundStatus", "退款状态", ControlTypes.ENUM_BOX, 60);
 		addColumn(datagrid, "isInstallment", "分期付款", ControlTypes.BOOLCOMBO_BOX, 80);
 		addColumn(datagrid, "customerName", "下单人", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "accountMobile", "下单人电话", ControlTypes.TEXT_BOX, 100);
+        column=addColumn(datagrid, "accountMobile", "下单人电话", ControlTypes.TEXT_BOX, 100);{
+
+            column.setFormatter(" var ctrl=workspace.parts.byIndex(0).key; return eval(ctrl+'.contactFormatter(value,row,index,\\'手机号\\')');");
+
+        }
 		addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "sourceType", "下单方式", ControlTypes.ENUM_BOX, 80);
 		addColumn(datagrid, "platformSource", "订单来源", ControlTypes.ENUM_BOX, 80);
@@ -270,10 +274,11 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 		addQueryItem(queryProject, "platformSource", "订单来源", ControlTypes.ENUM_BOX);
 		addQueryItem(queryProject, "payStatus", "付款状态", ControlTypes.ENUM_BOX);
 		addQueryItem(queryProject, "sourceType", "下单方式", ControlTypes.ENUM_BOX);
-		addQueryItem(queryProject, "owner.name", "业务员", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "ywyName", "业务员", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "isInstallment", "分期付款", ControlTypes.BOOLCOMBO_BOX);
+        addQueryItem(queryProject, "fistPayTime", "首款审核日期", ControlTypes.DATE_BOX);
 		addQueryItem(queryProject, "createTime", "订单创建日期", ControlTypes.DATE_BOX);
-		addQueryItem(queryProject, "payTime", "回款日期", ControlTypes.DATE_BOX);
+
 		return queryProject;
 	}
 

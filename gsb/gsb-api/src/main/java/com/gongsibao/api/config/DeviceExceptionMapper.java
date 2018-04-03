@@ -8,7 +8,7 @@ import com.gongsibao.api.dto.ma.MaResponseCodeEnum;
 import com.gongsibao.api.util.ResponseResult;
 
 /**
- * Created by win on 2018/2/5.
+ * 股转接口自定义异常，处理股转的code返回和message返回，（需要手动注册）
  */
 public class DeviceExceptionMapper implements ExceptionMapper<Exception> {
     @Override
