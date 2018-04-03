@@ -32,7 +32,7 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_My_Order_Detail", "我的订单明细(老)", "/trade/manage/orderdetail/my/list", 3);
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Order_Pool", "订单明细(老)", "/trade/manage/order/pool/list", 4);
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Order_Operation", "订单操作(老)", "/trade/manage/order/operation/list", 5);
-			
+
             createPTreeNode(tree, parentNodeCode, null, "Operation_Order_All", "全部订单", "/operation/order/all/list", 11);
             createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Pool", "订单池", "/operation/order/pool/list", 21);
             createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Performance", "运营订单业绩", "/operation/order/performance/list", 31);
@@ -55,7 +55,7 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Order_Audit", "订单审核", "/trade/operation/order/audit/list", 3);
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Monitoring_Pool", "订单流量监控", "/trade/operation/monitoring/pool/list", 4);
 		}*/
-		
+
 		parentNodeCode = ResourceTest.resourcePrefix + "_Audit";
 		createPTreeNode(tree, null, "fa fa-check-square-o fa-fw", parentNodeCode, "审核中心", "", 3);
 		{
