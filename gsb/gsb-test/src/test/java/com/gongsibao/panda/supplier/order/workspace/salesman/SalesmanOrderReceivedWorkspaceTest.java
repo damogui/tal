@@ -36,7 +36,7 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
         listPartImportJs = "/gsb/platform/trade/js/salesman-order-pay-performance-list.part.js";
         listPartJsController = SalesmanOrderReceivedListPart.class.getName ();
         listPartServiceController = SalesmanOrderReceivedListPart.class.getName ();//设置查询的列
-        listFilter = "salesman_id = '{userId}'  or creator_id = '{userId}'";//我创建和别人分配给我
+        listFilter = "(salesman_id = '{userId}'  or creator_id = '{userId}')";//我创建和别人分配给我
         listToolbarPath = "";
     }
 
@@ -121,7 +121,7 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
 
         addQueryItem (queryProject, "statusType", "审核状态", ControlTypes.ENUM_BOX);
         // addQueryItem (queryProject, "payForOrderCount", "是否一笔多单", ControlTypes.ENUM_BOX);//已经去掉中间表
-        addQueryItem (queryProject, "order.isOnlinePay", "是否在线支付", ControlTypes.BOOLCOMBO_BOX);
+        addQueryItem (queryProject, "isOnlinePay", "是否在线支付", ControlTypes.BOOLCOMBO_BOX);
 
         addQueryItem (queryProject, "creator", "回款业绩创建人", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "createTime", "回款业绩创建时间", ControlTypes.DATE_BOX);

@@ -41,7 +41,7 @@ public class NDepReceivable extends Entity {
 
     @JsonIgnore
     @Reference(foreignKey = "orderId", primaryKey = "pkid")
-    private SoOrder order;
+    private SoOrder soOrder;
 
     @Column(name = "salesman_id", header = "员工Id")
     private Integer salesmanId;
@@ -51,6 +51,8 @@ public class NDepReceivable extends Entity {
 
     @Column(name = "status", header = "审核状态")
     private AuditStatusType statusType = AuditStatusType.Dsh;
+
+
 
     public Integer getAmount() {
         return amount;
@@ -66,14 +68,6 @@ public class NDepReceivable extends Entity {
 
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
-    }
-
-    public SoOrder getOrder() {
-        return order;
-    }
-
-    public void setOrder(SoOrder order) {
-        this.order = order;
     }
 
 
@@ -131,5 +125,13 @@ public class NDepReceivable extends Entity {
 
     public void setSalesman(Employee salesman) {
         this.salesman = salesman;
+    }
+
+    public SoOrder getSoOrder() {
+        return soOrder;
+    }
+
+    public void setSoOrder(SoOrder soOrder) {
+        this.soOrder = soOrder;
     }
 }
