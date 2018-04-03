@@ -103,8 +103,8 @@ public class Pay extends BaseEntity {
 	@Column(name = "pay_for_order_count", header = "支付订单数量（0:一笔单单 1:一笔多单）")
 	private PayForOrderCountType payForOrderCount = PayForOrderCountType.Ybdd;
 
-	@Column(name = "dep_pay_audit_pass_time", header = "回款业绩审核通过时间")
-	private Date depPayAuditPassTime = new Date();
+	@Column(name = "pay_audit_pass_time", header = "回款审核通过时间")
+	private Date payAuditPassTime;
 
 	@Exclusive
 	@Column(header = "订单编号拼接")
@@ -276,13 +276,7 @@ public class Pay extends BaseEntity {
 		this.files = files;
 	}
 
-	public Date getDepPayAuditPassTime() {
-		return depPayAuditPassTime;
-	}
 
-	public void setDepPayAuditPassTime(Date depPayAuditPassTime) {
-		this.depPayAuditPassTime = depPayAuditPassTime;
-	}
 
 	public Integer getSetOfBooksId() {
 		return setOfBooksId;
@@ -339,4 +333,12 @@ public class Pay extends BaseEntity {
 	public void setOrderPayMaps(List<OrderPayMap> orderPayMaps) {
 		this.orderPayMaps = orderPayMaps;
 	}
+
+    public Date getPayAuditPassTime() {
+        return payAuditPassTime;
+    }
+
+    public void setPayAuditPassTime(Date payAuditPassTime) {
+        this.payAuditPassTime = payAuditPassTime;
+    }
 }

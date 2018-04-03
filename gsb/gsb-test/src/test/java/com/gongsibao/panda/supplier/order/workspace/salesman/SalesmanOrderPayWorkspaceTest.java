@@ -122,8 +122,10 @@ public class SalesmanOrderPayWorkspaceTest  extends WorkspaceCreationBase {
         addQueryItem (queryProject, "payForOrderCount", "是否一笔多单", ControlTypes.ENUM_BOX);
         addQueryItem (queryProject, "payWayType", "是否在线支付", ControlTypes.ENUM_BOX);
 
-        addQueryItem (queryProject, "creator", "回款业绩创建人", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "createTime", "回款业绩创建时间", ControlTypes.DATE_BOX);
+        addQueryItem (queryProject, "creator", "回款创建人", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "confirmTime", "回款日期", ControlTypes.DATE_BOX);
+        addQueryItem (queryProject, "payAuditPassTime", "审核通过日期", ControlTypes.DATE_BOX);
+        addQueryItem (queryProject, "createTime", "回款创建时间", ControlTypes.DATE_BOX);
 
 
         return queryProject;
