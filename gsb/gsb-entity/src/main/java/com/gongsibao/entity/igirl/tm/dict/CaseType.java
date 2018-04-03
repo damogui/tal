@@ -4,6 +4,7 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
 public enum  CaseType implements IEnum {
+    WU(0, "无方案"),
     TRADEMARK_REG(1, "商标注册方案");
 
     private int value;

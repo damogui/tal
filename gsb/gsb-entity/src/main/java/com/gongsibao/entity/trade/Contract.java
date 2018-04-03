@@ -102,14 +102,13 @@ public class Contract extends BaseEntity {
     private String companyName;
 
     @Column(name = "contract_type", header = "客户类型  1：个人；2：企业")
-    private CustomerType contractType = CustomerType.QY;
+    private CustomerType contractType = CustomerType.WU;
 
     @Column(name = "contract_sign", header = "合同签署状态0：平台没签署；1：平台签署")
     private Integer contractSign = 0;
 
     @Column(name = "is_electronics", header = "合同类型   0：纸质；1：电子")
-    private ContractType electronics = ContractType.DZ;
-
+    private ContractType electronics = ContractType.ZZ;
 
     @Column(name = "supplier_id", header = "服务商Id")
     private Integer supplierId;

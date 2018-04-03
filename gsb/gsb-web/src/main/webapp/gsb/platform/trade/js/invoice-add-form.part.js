@@ -29,7 +29,6 @@ com.gongsibao.trade.web.InvoiceFormPart = org.netsharp.panda.commerce.FormPart.E
         var me = this;
         me.bandOrderInfo(entity.soOrder);
         //查看时禁用整个form
-        //var isAdd = System.Url.getParameter("isAdd");
         if (me.isAdd != 1) {
             me.disable();
         }
@@ -50,7 +49,7 @@ com.gongsibao.trade.web.InvoiceFormPart = org.netsharp.panda.commerce.FormPart.E
     },
     doSave: function (entity) {
         var me = this;
-        IMessageBox.confirm('确定提交申请吗？', function (r) {
+        IMessageBox.confirm('订单只允许开一次发票，确定提交申请吗？', function (r) {
             if (r) {
                 me.invokeService("applyInvoice", [entity, entity.orderId], function (data) {
                     IMessageBox.info('申请成功，请等待审核!', function (s) {
