@@ -18,4 +18,14 @@ public interface IOrderProdTraceService extends IPersistableService<OrderProdTra
 	
 	Map<Integer, String> getLastInfoByOrderIdType(List<Integer> orderIdList, Integer type);
 
+	/**   
+	 * @Title: updateTraceTipColor   
+	 * @Description: TODO(根据订单明细Id查询订单明细跟进)   
+	 * @param: @param traceId
+	 * @param: @param tipColor
+	 * @param: @return      
+	 * @return: Boolean      
+	 * @throws   
+	 */
+	Boolean updateTraceTipColor(Integer traceId,String tipColor);
 }

@@ -8,7 +8,7 @@ import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.crm.Customer;
 import com.gongsibao.entity.crm.dic.*;
-import com.gongsibao.entity.igirl.OrderProdCase;
+import com.gongsibao.entity.igirl.settle.OrderProdCase;
 import com.gongsibao.entity.igirl.dict.CaseConvertType;
 import com.gongsibao.entity.igirl.res.ConvertToOrderResult;
 import com.gongsibao.entity.igirl.tm.DownloadAttachment;
@@ -17,7 +17,7 @@ import com.gongsibao.entity.igirl.tm.TradeMarkCase;
 import com.gongsibao.entity.igirl.tm.UploadAttachment;
 import com.gongsibao.entity.igirl.tm.baseinfo.IGirlConfig;
 import com.gongsibao.entity.igirl.tm.dict.ApplierType;
-import com.gongsibao.entity.igirl.tm.dict.CaseType;
+import com.gongsibao.entity.igirl.settle.dict.CaseType;
 import com.gongsibao.entity.igirl.tm.dict.ConfigType;
 import com.gongsibao.entity.igirl.tm.dict.TMCState;
 import com.gongsibao.entity.supplier.Supplier;
@@ -689,6 +689,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 				orderProdCase.setCaseItemId(tradeMark.getId());
 				orderProdCase.setCreatorId(order.getAccountId());
 				orderProdCase.setAccountId(order.getAccountId());
+				orderProdCase.setSupplierId(tradeMarkCase.getSupplierId());
 
 				orderProdCase.setMemo(tradeMark.getMemo());
 				orderProdCase.setCost(tradeMark.getCost());

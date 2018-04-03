@@ -1,6 +1,7 @@
 package com.gongsibao.trade.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import org.netsharp.core.Oql;
 import org.netsharp.core.Row;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.StringManager;
+import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.entity.trade.OrderProdTrace;
 import com.gongsibao.trade.base.IOrderProdService;
@@ -110,6 +112,19 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
 		}
 
 		return resMap;
+	}
+
+	@Override
+	public Boolean updateTraceTipColor(Integer traceId, String tipColor) {
+		
+		UpdateBuilder updateSql = UpdateBuilder.getInstance();
+		{
+			updateSql.update("so_order_prod_trace");
+			updateSql.set("tip_color", tipColor);
+			updateSql.where("pkid=" + traceId);
+		}
+		String cmdText = updateSql.toSQL();
+		return this.pm.executeNonQuery(cmdText, null) > 0;
 	}
 
 }

@@ -24,6 +24,20 @@ public class Action5RefreshtOrder extends AbstractActionService {
 		// 再更新supplier_id、department_id
 		cmdText = "UPDATE so_order so LEFT JOIN sp_salesman sa ON so.owner_id = sa.employee_id SET so.supplier_id = sa.supplier_id, so.department_id = sa.department_id;";
 		dao.executeInsert(cmdText, null);
+
+		//跟新so_order_prod的业务员id，和供应商id,部门id
+		cmdText = "UPDATE so_order oi,so_order_prod od SET od.owner_id = oi.owner_id ,od.department_id = oi.department_id,od.supplier_id = oi.supplier_id WHERE oi.pkid=od.order_id;";
+		dao.executeInsert(cmdText, null);
+
+		//跟新so_contract的业务员id，和供应商id,部门id
+		cmdText = "UPDATE so_order oi,so_contract con SET con.salesman_id = oi.owner_id ,con.department_id = oi.department_id,con.supplier_id = oi.supplier_id WHERE oi.pkid=con.order_id;";
+		dao.executeInsert(cmdText, null);
+
+		//跟新so_invoice的业务员id，和供应商id,部门id
+		cmdText = "UPDATE so_order oi,so_order_invoice_map iom,so_invoice inv SET inv.salesman_id = oi.owner_id ,inv.department_id = oi.department_id,inv.supplier_id = oi.supplier_id WHERE oi.pkid = iom.order_id AND iom.invoice_id = inv.pkid;";
+		dao.executeInsert(cmdText, null);
+
+
 	}
 }
 

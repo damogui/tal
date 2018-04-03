@@ -1,6 +1,6 @@
 package com.gongsibao.igirl.service;
 
-import com.gongsibao.entity.igirl.OrderProdCase;
+import com.gongsibao.entity.igirl.settle.OrderProdCase;
 import com.gongsibao.entity.trade.dic.SettleStatus;
 import com.gongsibao.igirl.base.IOrderProdCaseService;
 import com.gongsibao.trade.base.IOrderProdService;

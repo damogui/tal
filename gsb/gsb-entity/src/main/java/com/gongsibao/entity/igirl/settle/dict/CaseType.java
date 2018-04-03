@@ -1,4 +1,4 @@
-package com.gongsibao.entity.igirl.tm.dict;
+package com.gongsibao.entity.igirl.settle.dict;
 
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;

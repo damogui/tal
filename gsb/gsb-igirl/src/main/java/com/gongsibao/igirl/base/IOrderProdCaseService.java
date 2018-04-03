@@ -1,6 +1,6 @@
 package com.gongsibao.igirl.base;
 
-import com.gongsibao.entity.igirl.OrderProdCase;
+import com.gongsibao.entity.igirl.settle.OrderProdCase;
 import org.netsharp.base.IPersistableService;
 
 import java.util.List;
