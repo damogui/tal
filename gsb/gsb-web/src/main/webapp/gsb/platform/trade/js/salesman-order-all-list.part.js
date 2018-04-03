@@ -289,7 +289,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         //增加订单是否创建发票
         serviceLocator.invoke("com.gongsibao.trade.web.InvoiceFormPart", "checkInvoice", [row.id], function (data) {
             if (data) {
-                IMessageBox.info('该订单已经创建支票了');
+                IMessageBox.info('该订单已经创建发票了');
             } else {
                 layer.open({
                     id: "invoiceCreateIframe",
