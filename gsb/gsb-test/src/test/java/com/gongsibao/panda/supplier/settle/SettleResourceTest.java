@@ -22,8 +22,8 @@ public class SettleResourceTest extends ResourceCreationBase {
         {
             ResourceNode menuNode1 = this.createResourceNodeCategory("我的结算", "Gsb_Supplier_Settle_My", menuNode.getId());
             {
-                this.createResourceNodeVoucher(OrderProdCase.class.getName(), "未结算列表", "Gsb_Supplier_My_Unsettle", IOrderProdCaseService.class.getName(), menuNode1.getId());
-                this.createResourceNodeCategory("结算列表", "Gsb_Supplier_MySettled", menuNode1.getId());
+                this.createResourceNodeVoucher(OrderProdCase.class.getName(), "待结算列表", "Gsb_Supplier_My_Unsettle", IOrderProdCaseService.class.getName(), menuNode1.getId());
+                this.createResourceNodeCategory("结算单列表", "Gsb_Supplier_MySettled", menuNode1.getId());
             }
         }
     }

@@ -24,7 +24,7 @@ public class UnSettleWorkspaceTest extends WorkspaceCreationBase {
 //        urlForm = "/igirl/settle/unSettle/form";
         entity = OrderProdCase.class;
         meta = MtableManager.getMtable(entity);
-        formPartName = listPartName = "未结算列表";
+        formPartName = listPartName = "待结算列表";
         resourceNodeCode = "Gsb_Supplier_My_Unsettle";
         listPartServiceController = UnSettleListPart.class.getName();
 //        formServiceController = TradeMarkCasePart.class.getName();

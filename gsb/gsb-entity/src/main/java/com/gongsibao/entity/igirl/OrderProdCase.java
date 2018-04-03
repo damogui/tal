@@ -2,6 +2,8 @@ package com.gongsibao.entity.igirl;
 
 import java.math.BigDecimal;
 
+import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.trade.dic.SettleStatus;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
@@ -28,21 +30,21 @@ public class OrderProdCase extends Entity {
     private Integer orderProdId;
 
     @JsonIgnore
-    @Reference(foreignKey = "orderProdId", header = "明细订单")
+    @Reference(foreignKey = "orderProdId", primaryKey = "pkid", header = "明细订单")
     private OrderProd orderProd;
 
     @Column(name = "order_id", header = "订单id")
     private Integer orderId;
 
     @JsonIgnore
-    @Reference(foreignKey = "orderId", header = "订单")
+    @Reference(foreignKey = "orderId", primaryKey = "pkid", header = "订单")
     private SoOrder soOrder;
 
     @Column(name = "account_id", header = "会员id")
     private Integer accountId;
 
     @JsonIgnore
-    @Reference(foreignKey = "accountId", header = "会员")
+    @Reference(foreignKey = "accountId", primaryKey = "pkid", header = "会员")
     private Account account;
 
     @Column(name = "case_type", header = "方案类型（1商标注册...）")
