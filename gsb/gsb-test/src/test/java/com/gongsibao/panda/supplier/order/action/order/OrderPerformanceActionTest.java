@@ -11,14 +11,7 @@ import com.gongsibao.trade.service.action.order.performance.ActionApplyOrderPerf
 import com.gongsibao.trade.service.action.order.performance.ActionApplyOrderPerformanceSendMessage;
 import com.gongsibao.trade.service.action.order.performance.ActionApplyOrderPerformanceVerify;
 
-/**   
- * @ClassName:  OrderPerformanceActionTest   
- * @Description:TODO 订单业绩
- * @author: 韩伟
- * @date:   2018年3月12日 下午5:02:57   
- *     
- * @Copyright: 2018 www.yikuaxiu.com Inc. All rights reserved. 
- */
+/*创建订单业绩action*/
 public class OrderPerformanceActionTest extends BaseActionTest{
 
 	@Before

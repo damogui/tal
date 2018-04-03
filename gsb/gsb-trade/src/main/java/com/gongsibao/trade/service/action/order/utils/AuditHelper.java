@@ -25,7 +25,7 @@ public class AuditHelper {
 
     public static Integer getRecode(Integer formId, Integer typeId) {
 
-        String sql = String.format ("SELECT  IFNULL(MAX(form_id),0) FROM  bd_audit_log  WHERE  type_id=%s  and  status_id=1051  AND     form_id=? ", typeId);//查询是否存在订单业绩审核状态
+        String sql = String.format ("SELECT  IFNULL(MAX(form_id),0) FROM  bd_audit_log  WHERE  type_id=%s  and  status_id in (1051,1054)  AND     form_id=? ", typeId);//查询是否存在订单业绩审核状态或者审核状态
         QueryParameters qps = new QueryParameters ();
         qps.add ("@form_id", formId, Types.INTEGER);
         Integer execNum = auditLogService.executeInt (sql, qps);

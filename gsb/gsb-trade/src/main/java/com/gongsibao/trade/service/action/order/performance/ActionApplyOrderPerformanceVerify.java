@@ -36,7 +36,7 @@ public class ActionApplyOrderPerformanceVerify implements IAction {
         Integer execNum = AuditHelper.getRecode (entity.getId (), AuditLogType.DdYjSq.getValue ());
         if (execNum > 0) {
 
-            throw new BusinessException ("订单正处于订单业绩审核状态");//execNum
+            throw new BusinessException ("订单业绩已经创建");//execNum
 
         }
 
