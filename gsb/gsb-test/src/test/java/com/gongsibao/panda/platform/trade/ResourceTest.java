@@ -52,7 +52,8 @@ public class ResourceTest extends ResourceCreationBase {
             this.createResourceNodeVoucher(NOrderCarryover.class.getName(), "结转订单", "Operation_Order_Carryover", INOrderCarryoverService.class.getName(), node1.getId());
 			
 			this.createResourceNodeVoucher(Contract.class.getName(), "合同管理", "Operation_Order_Contract", IContractService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(Invoice.class.getName(), "申请发票", "Operation_Order_Invoice", IInvoiceService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(OrderInvoiceMap.class.getName(), "发票管理", "Operation_Order_Invoice", IOrderInvoiceMapService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(Invoice.class.getName(), "申请发票", "Operation_Order_Add_Invoice", IOrderInvoiceMapService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(SoOrder.class.getName(), "日统计", "Operation_Order_Day_Report", IOrderService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(SoOrder.class.getName(), "周统计", "Operation_Order_Week_Report", IOrderService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(SoOrder.class.getName(), "月统计", "Operation_Order_Month_Report", IOrderService.class.getName(), node1.getId());

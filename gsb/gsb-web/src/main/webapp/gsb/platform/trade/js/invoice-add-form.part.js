@@ -6,6 +6,7 @@ com.gongsibao.trade.web.InvoiceFormPart = org.netsharp.panda.commerce.FormPart.E
         this.orderPlatformSourceEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderPlatformSourceType');
         this.orderPayStatusTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderPayStatusType');
         this.serviceLocator = new org.netsharp.core.JServiceLocator();
+        this.isAdd = System.Url.getParameter("isAdd");
     },
     init: function () {
 
@@ -28,8 +29,8 @@ com.gongsibao.trade.web.InvoiceFormPart = org.netsharp.panda.commerce.FormPart.E
         var me = this;
         me.bandOrderInfo(entity.soOrder);
         //查看时禁用整个form
-        var isAdd = System.Url.getParameter("isAdd");
-        if (isAdd != 1) {
+        //var isAdd = System.Url.getParameter("isAdd");
+        if (me.isAdd != 1) {
             me.disable();
         }
     },
@@ -92,6 +93,10 @@ com.gongsibao.trade.web.InvoiceFormPart = org.netsharp.panda.commerce.FormPart.E
     },
     changeInvoiceType: function (el) { //增值转票
         var invoiceType = $(el).val();
+        var me = this;
+        if (me.isAdd != 1) {
+            return;
+        }
         if ("3082" == invoiceType) {
             $('#vatAddress').textbox({disabled: false});
             $('#vatPhone').textbox({disabled: false});
