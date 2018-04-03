@@ -7,6 +7,7 @@ import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.ContractType;
 import com.gongsibao.entity.trade.dic.CustomerType;
 import com.gongsibao.trade.base.IContractService;
+import com.gongsibao.u8.base.ISoOrderService;
 import com.gongsibao.utils.NumberUtils;
 import com.gongsibao.utils.RegexUtils;
 import org.netsharp.action.ActionContext;
@@ -24,6 +25,8 @@ import java.sql.Types;
 public class ActionApplyContractVerify implements IAction {
 
     IContractService contractService = ServiceFactory.create(IContractService.class);
+
+    ISoOrderService soOrderService = ServiceFactory.create(ISoOrderService.class);
 
     @Override
     public void execute(ActionContext ctx) {
@@ -65,6 +68,13 @@ public class ActionApplyContractVerify implements IAction {
         if (NumberUtils.toInt(contract.getRealAmount()) == 0) {
             throw new BusinessException("合同总额不能为空！");
         }
+
+        SoOrder order = soOrderService.getByOrderId(contract.getOrderId());
+        //当该订单是改价订单时，并且改价状态不是【审核通过】
+        if (order.getIsChangePrice() && !order.getChangePriceAuditStatus().equals(AuditStatusType.Shtg)) {
+            throw new BusinessException("当该订单的改价状态不是审核通过，禁止提交合同");
+        }
+
 
         Oql oql = new Oql();
         {
