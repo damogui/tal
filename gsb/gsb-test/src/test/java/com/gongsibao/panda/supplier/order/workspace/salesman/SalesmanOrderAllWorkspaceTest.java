@@ -240,6 +240,10 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 		{
 			column.setAlign(DatagridAlign.RIGHT);
 		}
+		column = addColumn(datagrid, "balance", "余额", ControlTypes.DECIMAL_FEN_BOX, 80);
+		{
+			column.setAlign(DatagridAlign.RIGHT);
+		}
 		addColumn(datagrid, "fistPayTime", "首款审核日期", ControlTypes.DATETIME_BOX, 100);
 		addColumn(datagrid, "refundStatus", "退款状态", ControlTypes.ENUM_BOX, 60);
 		addColumn(datagrid, "isInstallment", "分期付款", ControlTypes.BOOLCOMBO_BOX, 80);

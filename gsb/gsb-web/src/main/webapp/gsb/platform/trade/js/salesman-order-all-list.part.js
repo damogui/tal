@@ -251,29 +251,32 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         var url = this.addContractUrl + '?fk=orderId:' + row.id + "&isAdd=1";
         //增加订单是否创建合同
         serviceLocator.invoke("com.gongsibao.trade.web.OrderAllListPart", "checkContract", [row.id], function (data) {
-
-            if (data) {
-                IMessageBox.info('该订单已经创建合同');
-            } else {
-
-                layer.open({
-                    id: "contractCreateIframe",
-                    type: 2,
-                    title: '合同信息',
-                    fixed: false,
-                    maxmin: true,
-                    shadeClose: true,
-                    area: ['60%', '90%'],
-                    content: url,
-                    btn: ['提交', '取消'],
-                    success: function (layero, index) {
-
-                    },
-                    yes: function () {
-                        document.getElementById('contractCreateIframe').firstElementChild.contentWindow.controllercontract.save();
-                    }
-                });
+            if (data == -1) {
+                IMessageBox.info('该订单已经创建合同，禁止提交合同');
+                return;
             }
+            if (data == -2) {
+                IMessageBox.info('当该订单的改价状态不是审核通过，禁止提交合同');
+                return;
+            }
+            
+            layer.open({
+                id: "contractCreateIframe",
+                type: 2,
+                title: '合同信息',
+                fixed: false,
+                maxmin: true,
+                shadeClose: true,
+                area: ['60%', '90%'],
+                content: url,
+                btn: ['提交', '取消'],
+                success: function (layero, index) {
+
+                },
+                yes: function () {
+                    document.getElementById('contractCreateIframe').firstElementChild.contentWindow.controllercontract.save();
+                }
+            });
         }, null, false);
     },
     addInvoice: function (id) {//申请发票
@@ -284,7 +287,8 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             IMessageBox.info('请先选择订单数据');
             return false;
         }
-        var url = this.addInvoiceUrl + '?fk=orderId:' + row.id + "&isAdd=1";;
+        var url = this.addInvoiceUrl + '?fk=orderId:' + row.id + "&isAdd=1";
+        ;
         var serviceLocator = new org.netsharp.core.JServiceLocator();
         //增加订单是否创建发票
         serviceLocator.invoke("com.gongsibao.trade.web.InvoiceFormPart", "checkInvoice", [row.id], function (data) {
@@ -414,18 +418,18 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         }
         me.doTransfer(id);
     },
-    contactFormatter:function(value,row,index,typeName){
+    contactFormatter: function (value, row, index, typeName) {
 
-        if(value){
+        if (value) {
             var ctrl = workspace.parts.byIndex(0).key;
-            return '<sapn>'+PandaHelper.dimString(value)+'</span><i class="fa fa-eye" onclick="'+ctrl+'.showPlaintext(\''+row.customerId+'\',\''+value+'\',\''+typeName+'\',this);"></i>';
+            return '<sapn>' + PandaHelper.dimString(value) + '</span><i class="fa fa-eye" onclick="' + ctrl + '.showPlaintext(\'' + row.customerId + '\',\'' + value + '\',\'' + typeName + '\',this);"></i>';
         }
-    },showPlaintext:function(customerId,value,typeName,obj){
+    }, showPlaintext: function (customerId, value, typeName, obj) {
         $(obj).parent().text(value);
         //var serviceLocator = new org.netsharp.core.JServiceLocator();
         //serviceLocator.invoke(this.context.service, "recordLookLog",[customerId,typeName]);
     }
-    
+
 });
 
 

@@ -17,7 +17,7 @@ public class Action3UserImportEmployee extends AbstractActionService {
 
 		// 1.将 uc_user 数据导入 sys_permission_employee(字段尽量对应上)
 		String cmdText = "INSERT INTO sys_permission_employee " + "(id,NAME,email,qq,weixin,mobile,login_name,pwd,disabled) "
-				+ "SELECT pkid,real_name,email,qq,weixin,mobile_phone,mobile_phone,passwd,(is_enabled - 1) AS disabled FROM uc_user;";
+				+ "SELECT pkid,real_name,email,qq,weixin,mobile_phone,mobile_phone,passwd,(case when is_enabled = 1 then 0 else 1 end) AS disabled FROM uc_user;";
 
 		dao.executeInsert(cmdText, null);
 
