@@ -44,7 +44,7 @@ public class NDepPay extends Entity {
     private Integer orderId;
     
     @Reference(foreignKey = "orderId",primaryKey = "pkid")
-    private SoOrder order;
+    private SoOrder soOrder;
 
 
     /*必须冗余回款业绩审核状态*/
@@ -53,7 +53,7 @@ public class NDepPay extends Entity {
 
 
     @Column(name = "audit_time", header = "审核通过时间")
-    private Date auditTime = null;
+    private Date auditTime;
 
 
 
@@ -108,13 +108,7 @@ public class NDepPay extends Entity {
         this.orderId = orderId;
     }
 
-    public SoOrder getOrder() {
-        return order;
-    }
 
-    public void setOrder(SoOrder order) {
-        this.order = order;
-    }
     
     public Integer getSalesmanId() {
         return salesmanId;
@@ -146,5 +140,13 @@ public class NDepPay extends Entity {
 
     public void setAuditTime(Date auditTime) {
         this.auditTime = auditTime;
+    }
+
+    public SoOrder getSoOrder() {
+        return soOrder;
+    }
+
+    public void setSoOrder(SoOrder soOrder) {
+        this.soOrder = soOrder;
     }
 }

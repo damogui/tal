@@ -1,9 +1,7 @@
 package com.gongsibao.entity.igirl.ic.baseinfo;
+import com.gongsibao.entity.gardian.baseinfo.ProvidesEnv;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.netsharp.core.annotations.Column;
-import org.netsharp.core.annotations.Exclusive;
-import org.netsharp.core.annotations.Reference;
-import org.netsharp.core.annotations.Table;
+import org.netsharp.core.annotations.*;
 import org.netsharp.entity.Entity;
 
 import java.util.ArrayList;
@@ -14,13 +12,15 @@ public class AreaOne extends Entity {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -7045611896623763208L;
+//	private static final long serialVersionUID = -7045611896623763333L;
 
 	@Column(name="code",header="编码")
     private String code;
 	
     @Column(name="name",header="标题")
     private String name;
+
+//    @Subs(foreignKey="areaOneId",header="地市id",subType=AreaTwo.class)
 
     @Exclusive
     @JsonIgnore

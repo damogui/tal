@@ -39,7 +39,7 @@ public class SalesmanOrderPayWorkspaceTest  extends WorkspaceCreationBase {
         listPartServiceController = SalesmanOrderPayController.class.getName ();
         //listFilter = "salesman_id = '{userId}'";
         listToolbarPath="";
-        listFilter = " pkid IN (SELECT pay_id FROM so_order_pay_map WHERE order_id IN (SELECT pkid FROM so_order WHERE owner_id = '{userId}' ORDER BY pkid DESC)) OR add_user_id = '{userId}' ";
+        listFilter = " (pkid IN (SELECT pay_id FROM so_order_pay_map WHERE order_id IN (SELECT pkid FROM so_order WHERE owner_id = '{userId}' ORDER BY pkid DESC)) OR add_user_id = '{userId}' )";
     }
 
 
@@ -94,7 +94,8 @@ public class SalesmanOrderPayWorkspaceTest  extends WorkspaceCreationBase {
         addColumn (datagrid, "offlineAuditStatus", "审核状态", ControlTypes.ENUM_BOX, 100);
         addColumn (datagrid, "confirmTime", "回款日期", ControlTypes.DATE_BOX, 100);
         addColumn (datagrid, "createTime", "回款创建时间", ControlTypes.DATETIME_BOX, 100);
-        addColumn (datagrid, "creator", "回款业绩创建人", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "payAuditPassTime", "审核通过时间", ControlTypes.DATETIME_BOX, 100);
+        addColumn (datagrid, "creator", "回款创建人", ControlTypes.TEXT_BOX, 100);
 
 
         return datagrid;
@@ -122,8 +123,10 @@ public class SalesmanOrderPayWorkspaceTest  extends WorkspaceCreationBase {
         addQueryItem (queryProject, "payForOrderCount", "是否一笔多单", ControlTypes.ENUM_BOX);
         addQueryItem (queryProject, "payWayType", "是否在线支付", ControlTypes.ENUM_BOX);
 
-        addQueryItem (queryProject, "creator", "回款业绩创建人", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "createTime", "回款业绩创建时间", ControlTypes.DATE_BOX);
+        addQueryItem (queryProject, "creator", "回款创建人", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "confirmTime", "回款日期", ControlTypes.DATE_BOX);
+        addQueryItem (queryProject, "payAuditPassTime", "审核通过日期", ControlTypes.DATE_BOX);
+        addQueryItem (queryProject, "createTime", "回款创建时间", ControlTypes.DATE_BOX);
 
 
         return queryProject;

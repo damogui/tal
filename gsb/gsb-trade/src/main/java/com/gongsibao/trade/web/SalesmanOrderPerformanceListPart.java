@@ -17,13 +17,14 @@ import org.netsharp.util.StringManager;
 public class SalesmanOrderPerformanceListPart extends AdvancedListPart {
 
     INDepReceivableService nDepReceivableService = ServiceFactory.create (INDepReceivableService.class);
+
     @Override
     public List<?> doQuery(Oql oql) {
 
         StringBuilder sb = new StringBuilder ();
-        sb.append ("NDepReceivable.order.*,");
-        sb.append ("NDepReceivable.order.companyIntention.name");
-        sb.append ("NDepReceivable.order.owner.name");
+        sb.append ("NDepReceivable.soOrder.*,");
+        sb.append ("NDepReceivable.soOrder.companyIntention.name,");
+        sb.append ("NDepReceivable.soOrder.owner.name");
 
         oql.setSelects (sb.toString ());
         List<?> rows = nDepReceivableService.queryList (oql);
@@ -32,19 +33,38 @@ public class SalesmanOrderPerformanceListPart extends AdvancedListPart {
 
     @Override
     public String getFilterByParameter(FilterParameter parameter) {
-        ArrayList<String> filters = new ArrayList<String>();
+        ArrayList<String> filters = new ArrayList<String> ();
         //当是关键字时(订单编号、渠道订单编号、下单人、下单人电话、关联公司)
-        String keyword = parameter.getValue1().toString();
-        if (parameter.getKey().equals("keyword")) {
-
-            filters.add("order.no ='" + keyword + "'");
-            filters.add("order.channel_order_no = '" + keyword + "'");
-            filters.add("order.account_mobile = '" + keyword + "'");
-            filters.add("order.account_name = '" + keyword + "'");
-            filters.add("order.company_id in( select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' )  )");
-            return "(" + StringManager.join(" or ", filters) + ")";
+        String keyword = parameter.getValue1 ().toString ();
+        String keyword2 = "";
+        if (parameter.getValue2 () != null) {
+            keyword2 = parameter.getValue2 ().toString ();//时间
         }
 
-        return parameter.getFilter();
+        if (parameter.getKey ().equals ("keyword")) {
+
+            filters.add ("soOrder.no ='" + keyword + "'");
+            filters.add ("soOrder.channel_order_no = '" + keyword + "'");
+            filters.add ("soOrder.account_mobile = '" + keyword + "'");
+            filters.add ("soOrder.account_name = '" + keyword + "'");
+            filters.add ("soOrder.company_id in( select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' )  )");
+            return "(" + StringManager.join (" or ", filters) + ")";
+        }
+        if (parameter.getKey ().equals ("payStatus")) {//付款状态
+
+            return "soOrder.pay_status_id ='" + keyword + "'";
+
+        }
+        if (parameter.getKey ().equals ("name")) {//业务员
+
+            return "soOrder.owner.name  like '%" + keyword + "%' ";
+        }
+        if (parameter.getKey ().equals ("orderCreateTime")) {//订单创建时间
+
+            return   String.format ("soOrder.add_time >='%s' and  soOrder.add_time <'%s'",keyword,keyword2);
+
+
+        }
+        return parameter.getFilter ();
     }
 }

@@ -24,7 +24,7 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
     private String listrowToolbarPath = "/crm/row/order/per/toolbar";
     @Before
     public void setup() {
-    	
+
         super.setup();
         entity = NDepReceivable.class;
         urlList = "/crm/order/salesman/performance/list";
@@ -78,26 +78,26 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
             datagrid.setAutoQuery(true);
         }
         PDatagridColumn column = null;
-        addColumn(datagrid, "order.id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-        addColumn(datagrid, "order.no", "订单编号", ControlTypes.TEXT_BOX, 80);
-        addColumn(datagrid, "order.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "order.prodName", "产品名称", ControlTypes.TEXT_BOX, 250);
-        addColumn(datagrid, "order.companyIntention.companyName", "签单公司", ControlTypes.TEXT_BOX, 250);
-        column = addColumn(datagrid, "order.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn(datagrid, "soOrder.id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+        addColumn(datagrid, "soOrder.no", "订单编号", ControlTypes.TEXT_BOX, 80);
+        addColumn(datagrid, "soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX, 250);
+        addColumn(datagrid, "soOrder.companyIntention.companyName", "签单公司", ControlTypes.TEXT_BOX, 250);
+        column = addColumn(datagrid, "soOrder.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         {
             column.setAlign(DatagridAlign.RIGHT);
         }
-        column = addColumn(datagrid, "order.payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        column = addColumn(datagrid, "soOrder.payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         {
             column.setAlign(DatagridAlign.RIGHT);
         }
-        column = addColumn(datagrid, "order.paidPrice", "已付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        column = addColumn(datagrid, "soOrder.paidPrice", "已付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         {
             column.setAlign(DatagridAlign.RIGHT);
         }
-        addColumn(datagrid, "order.payStatus", "付款状态", ControlTypes.ENUM_BOX, 100);
+        addColumn(datagrid, "soOrder.payStatus", "付款状态", ControlTypes.ENUM_BOX, 100);
 
-        addColumn(datagrid, "order.createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);
+        addColumn(datagrid, "soOrder.createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);
         column = addColumn(datagrid, "amount", "我的订单业绩额", ControlTypes.DECIMAL_FEN_BOX, 100);
         {
             column.setAlign(DatagridAlign.RIGHT);
@@ -105,7 +105,7 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
         addColumn(datagrid, "statusType", "审核状态", ControlTypes.ENUM_BOX, 80);
         addColumn(datagrid, "createTime", "订单业绩创建时间", ControlTypes.DATETIME_BOX, 100);
         addColumn(datagrid, "creator", "订单业绩创建人", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "order.owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
         return datagrid;
     }
 
@@ -121,13 +121,13 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
             item.setTooltip("订单编号、渠道订单编号、下单人、下单人电话、签单企业");
             item.setWidth(350);
         }
-        addQueryItem(queryProject, "order.prodName", "产品名称", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "keyword", "产品名称", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "statusType", "审核状态", ControlTypes.ENUM_BOX);
-        addQueryItem(queryProject, "order.payStatus", "付款状态", ControlTypes.ENUM_BOX);
-        addQueryItem(queryProject, "order.owner.name", "业务员", ControlTypes.TEXT_BOX);
+       addQueryItem(queryProject, "soOrder.payStatus", "付款状态", ControlTypes.ENUM_BOX);
+        addQueryItem(queryProject, "name", "业务员", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "creator", "订单业绩创建人", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "createTime", "业绩创建时间", ControlTypes.DATE_BOX);
-        addQueryItem(queryProject, "order.createTime", "订单创建时间", ControlTypes.DATE_BOX);
+        addQueryItem(queryProject, "orderCreateTime", "订单创建时间", ControlTypes.DATE_BOX);
         return queryProject;
     }
 

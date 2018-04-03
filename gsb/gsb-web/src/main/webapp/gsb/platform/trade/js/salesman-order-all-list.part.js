@@ -106,7 +106,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             return false;
         }
 
-        var urlEnd = this.addReceivedUrl + "?id=" + row.id;
+        var urlEnd = this.addReceivedUrl + "?no=" + row.no;
         layer.open({
             type: 2,//1是字符串 2是内容
             title: '创建回款',

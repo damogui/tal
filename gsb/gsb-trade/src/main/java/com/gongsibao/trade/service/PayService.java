@@ -83,7 +83,8 @@ public class PayService extends PersistableService<Pay> implements IPayService {
     /*审核通过之后进行处理*/
     @Override
     public Integer auditPass(String payTime, Integer payId) {
-        String sql = "  UPDATE  so_pay  SET  offline_audit_status_id=1054,confirm_time=? WHERE  pkid=?  ";
+        String sql = "  UPDATE  so_pay  SET  offline_audit_status_id=1054,confirm_time=?,pay_audit_pass_time=now() WHERE" +
+                "  pkid=?  ";
 
         QueryParameters qps = new QueryParameters ();
         qps.add ("@confirm_time", payTime, Types.DATE);

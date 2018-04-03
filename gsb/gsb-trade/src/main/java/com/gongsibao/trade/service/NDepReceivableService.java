@@ -10,6 +10,7 @@ import com.gongsibao.trade.base.INDepReceivableService;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import java.sql.Types;
+import java.util.Date;
 
 /**
  * Created by win on 2018/2/27.
@@ -30,6 +31,7 @@ public class NDepReceivableService extends PersistableService<NDepReceivable> im
         {
             updateBuilder.update ("n_dep_receivable");
             updateBuilder.set ("status", auditStatusType.getValue ());
+            updateBuilder.set ("audit_time", new Date ());//回款审核通过时间
             updateBuilder.where ("order_id=?");
         }
         String sql = updateBuilder.toSQL ();

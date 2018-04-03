@@ -1,4 +1,6 @@
 package com.gongsibao.panda.supplier.igirl;
+import com.gongsibao.entity.igirl.ic.baseinfo.AreaOne;
+import com.gongsibao.entity.igirl.ic.baseinfo.AreaTwo;
 import com.gongsibao.entity.igirl.tm.ChangeTradeMark;
 import com.gongsibao.entity.igirl.tm.DownloadAttachment;
 import com.gongsibao.entity.igirl.tm.HelpBook;
@@ -110,7 +112,15 @@ public class NavigationTest extends NavigationBase {
 			}
 			
 		}
-		
+		createPTreeNode(tree, null, null, "GSB_IC_AI", "智能工商", "", 2);
+		{
+			createPTreeNode(tree, "GSB_IC_AI", null, "GSB_IGIRL_IC_BASE", "基础信息", "",4);
+			{
+				createPTreeNode(tree, "GSB_IGIRL_IC_BASE", null, "IGRIL_IC_BASE_" + AreaOne.class.getSimpleName(), "省级列表", "/igirl/ic/areaone/all/list", 1);
+				createPTreeNode(tree, "GSB_IGIRL_IC_BASE", null, "IGRIL_IC_BASE_" + AreaTwo.class.getSimpleName(), "地市列表", "/igirl/ic/areatwo/all/list", 2);
+			}
+
+		}
 		
 	}
 }

@@ -24,8 +24,8 @@ public class DeviceExceptionMapper implements ExceptionMapper<Exception> {
             //throw new WebApplicationException(response);//处理在response
 
         } else {
-
-            //ResponseBuilder = Response.ok(e, MediaType.APPLICATION_JSON);
+            ResponseBuilder = Response.ok("false").status(500).type(MediaType.APPLICATION_JSON);
+            return ResponseBuilder.build ();
         }
         return ResponseBuilder.build();
     }

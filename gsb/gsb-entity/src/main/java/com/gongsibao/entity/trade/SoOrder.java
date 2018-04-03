@@ -123,7 +123,12 @@ public class SoOrder extends BaseEntity {
      */
     @Exclusive
     private Integer unAllotPayPrice = 0;
-
+    /**
+     * 订单余额 = paidPrice+carryIntoAmount-refundPrice-carryAmount
+     */
+    @Exclusive
+    private Integer balance = 0;
+    
     @Column(name = "performance_price", header = "订单业绩分配金额（需要审核通过之后进行回写）")
     private Integer performancePrice = 0;
 
@@ -993,7 +998,20 @@ public class SoOrder extends BaseEntity {
         this.unAllotPayPrice = unAllotPayPrice;
     }
 
-    public AuditStatusType getDepPayPerAuditStatusId() {
+	public Integer getBalance() {
+		paidPrice = this.paidPrice == null ? 0 : this.paidPrice;
+    	carryIntoAmount = this.carryIntoAmount == null ? 0 : this.carryIntoAmount;
+    	refundPrice = this.refundPrice == null ? 0 : this.refundPrice;
+        carryAmount = this.carryAmount == null ? 0 : this.carryAmount;
+        this.balance = paidPrice + carryIntoAmount - refundPrice - carryAmount;
+		return this.balance;
+	}
+
+	public void setBalance(Integer balance) {
+		this.balance = balance;
+	}
+
+	public AuditStatusType getDepPayPerAuditStatusId() {
         return depPayPerAuditStatusId;
     }
 

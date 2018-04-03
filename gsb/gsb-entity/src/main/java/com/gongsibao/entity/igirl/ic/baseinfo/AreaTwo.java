@@ -10,7 +10,7 @@ public class AreaTwo extends Entity {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 6388786836663106011L;
+//	private static final long serialVersionUID = 6388786836663106011L;
 
 
 	@Column(name="code",header="编码分组")
@@ -21,6 +21,9 @@ public class AreaTwo extends Entity {
 
     @Column(name="level",header="层次")
     private int level=2;
+
+    @Column(name="p_code",header="上级代码")
+    private String pCode;
 
     @Column(name="areaone_id",header="省级ID")
     private Integer areaOneId = -1;
@@ -68,5 +71,13 @@ public class AreaTwo extends Entity {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public String getpCode() {
+        return pCode;
+    }
+
+    public void setpCode(String pCode) {
+        this.pCode = pCode;
     }
 }

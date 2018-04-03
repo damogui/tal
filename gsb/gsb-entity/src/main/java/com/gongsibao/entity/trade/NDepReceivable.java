@@ -11,6 +11,8 @@ import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 
+import java.util.Date;
+
 /**
  * Created by win on 2018/2/26.
  */
@@ -41,7 +43,7 @@ public class NDepReceivable extends Entity {
 
     @JsonIgnore
     @Reference(foreignKey = "orderId", primaryKey = "pkid")
-    private SoOrder order;
+    private SoOrder soOrder;
 
     @Column(name = "salesman_id", header = "员工Id")
     private Integer salesmanId;
@@ -51,6 +53,10 @@ public class NDepReceivable extends Entity {
 
     @Column(name = "status", header = "审核状态")
     private AuditStatusType statusType = AuditStatusType.Dsh;
+
+    @Column(name = "audit_time", header = "审核通过时间")
+    private Date auditTime;
+
 
     public Integer getAmount() {
         return amount;
@@ -66,14 +72,6 @@ public class NDepReceivable extends Entity {
 
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
-    }
-
-    public SoOrder getOrder() {
-        return order;
-    }
-
-    public void setOrder(SoOrder order) {
-        this.order = order;
     }
 
 
@@ -131,5 +129,21 @@ public class NDepReceivable extends Entity {
 
     public void setSalesman(Employee salesman) {
         this.salesman = salesman;
+    }
+
+    public SoOrder getSoOrder() {
+        return soOrder;
+    }
+
+    public void setSoOrder(SoOrder soOrder) {
+        this.soOrder = soOrder;
+    }
+
+    public Date getAuditTime() {
+        return auditTime;
+    }
+
+    public void setAuditTime(Date auditTime) {
+        this.auditTime = auditTime;
     }
 }

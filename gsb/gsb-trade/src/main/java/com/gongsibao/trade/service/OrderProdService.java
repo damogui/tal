@@ -1,24 +1,21 @@
 package com.gongsibao.trade.service;
 
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.gongsibao.entity.trade.OrderProd;
+import com.gongsibao.entity.trade.dic.SettleStatus;
+import com.gongsibao.trade.base.IOrderProdService;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.Service;
-import org.netsharp.core.DataTable;
-import org.netsharp.core.IRow;
-import org.netsharp.core.Oql;
-import org.netsharp.core.Row;
+import org.netsharp.core.*;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.NumUtil;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
-import com.gongsibao.entity.trade.OrderProd;
-import com.gongsibao.trade.base.IOrderProdService;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class OrderProdService extends PersistableService<OrderProd> implements IOrderProdService {
@@ -128,5 +125,21 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
 			oql.getParameters().add("orderId", orderId, Types.INTEGER);
 		}
 		return this.queryList(oql);
+	}
+
+	@Override
+	public boolean updateSettleStatus(List<Integer> orderProdIds, SettleStatus settleStatus) {
+		if (null == orderProdIds || orderProdIds.isEmpty()) {
+			return false;
+		}
+
+		if (null == settleStatus) {
+			return false;
+		}
+		UpdateBuilder build = UpdateBuilder.getInstance();
+		build.update(MtableManager.getMtable(this.type).getTableName());
+		build.set("settle_status", settleStatus.getValue());
+		build.where("pkid IN ( " + StringManager.join(",", orderProdIds) + " ) ");
+		return this.pm.executeNonQuery(build.toSQL(), null) > 0;
 	}
 }
