@@ -25,8 +25,8 @@ public class ActionSaveOrderPrice implements IAction {
 	public void execute(ActionContext ctx) {
 
 		SoOrder soOrder = (SoOrder) ctx.getItem();
-		Integer totalPrice = 0;
-		Integer payablePrice = 0;
+		Integer totalPrice = 0;//原价
+		Integer payablePrice = 0;//应付金额
 
 		List<OrderProd> prodList = soOrder.getProducts();
 		for (OrderProd prod : prodList) {
@@ -42,8 +42,8 @@ public class ActionSaveOrderPrice implements IAction {
 			prod.setPrice(prodPrice);
 			prod.setPriceOriginal(prodPriceOriginal);
 
-			totalPrice += prodPrice;
-			payablePrice += prodPriceOriginal;
+			totalPrice += prodPriceOriginal;//原价
+			payablePrice += prodPrice;//应付金额
 		}
 
 		soOrder.setTotalPrice(totalPrice);
