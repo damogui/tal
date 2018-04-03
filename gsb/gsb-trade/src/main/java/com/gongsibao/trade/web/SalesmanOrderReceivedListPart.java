@@ -28,7 +28,7 @@ public class SalesmanOrderReceivedListPart extends AdvancedListPart {
         String keyword = parameter.getValue1 ().toString ();
         if (parameter.getKey ().equals ("keyword")) {
 
-            filters.add ("order.no  like  '%" + keyword + "%' ");
+            filters.add ("soOrder.no  like  '%" + keyword + "%' ");
 //            filters.add ("order.channel_order_no = '" + keyword + "'");
 //            filters.add ("order.account_mobile = '" + keyword + "'");
 //            filters.add ("order.account_name = '" + keyword + "'");
@@ -37,7 +37,7 @@ public class SalesmanOrderReceivedListPart extends AdvancedListPart {
         }
         if (parameter.getKey ().equals ("isOnlinePay")) {
 
-            filters.add ("order.is_online_pay ='" + keyword + "'");
+            filters.add ("soOrder.is_online_pay ='" + keyword + "'");
 
 
         }
@@ -50,7 +50,7 @@ public class SalesmanOrderReceivedListPart extends AdvancedListPart {
     public List<?> doQuery(Oql oql) {
         StringBuilder selects = new StringBuilder ();
         selects.append ("nDepPay.*,");
-        selects.append ("nDepPay.order.*");
+        selects.append ("nDepPay.soOrder.*");
         //selects.append ("auditLog.soOrder.depReceivable.*");
 
         INDepPayService nDepPayService = ServiceFactory.create (INDepPayService.class);
