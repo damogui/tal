@@ -1,9 +1,8 @@
-package com.gongsibao.entity.igirl;
+package com.gongsibao.entity.igirl.settle;
 
 import java.math.BigDecimal;
 
-import com.gongsibao.entity.BaseEntity;
-import com.gongsibao.entity.trade.dic.SettleStatus;
+import com.gongsibao.entity.supplier.Supplier;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
@@ -11,7 +10,7 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
 import com.gongsibao.entity.acount.Account;
-import com.gongsibao.entity.igirl.tm.dict.CaseType;
+import com.gongsibao.entity.igirl.settle.dict.CaseType;
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.SoOrder;
 
@@ -64,6 +63,13 @@ public class OrderProdCase extends Entity {
 
     @Column(name = "charge", size = 10, precition = 2, header = "冗余字段-服务费")
     private BigDecimal charge;
+
+    @Column(name = "supplier_id", header = "服务商Id")
+    private Integer supplierId = -1;
+
+    @JsonIgnore
+    @Reference(foreignKey = "supplierId", header = "服务商")
+    private Supplier supplier;
 
     public Integer getOrderProdId() {
         return orderProdId;
@@ -159,5 +165,21 @@ public class OrderProdCase extends Entity {
 
     public void setCharge(BigDecimal charge) {
         this.charge = charge;
+    }
+
+    public Integer getSupplierId() {
+        return supplierId;
+    }
+
+    public void setSupplierId(Integer supplierId) {
+        this.supplierId = supplierId;
+    }
+
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
     }
 }
