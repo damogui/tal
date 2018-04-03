@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
+import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.DockType;
@@ -34,7 +35,7 @@ public class ContractFormWorkspaceTest extends WorkspaceCreationBase {
         urlForm = "/trade/order/contract/form";
         listPartName = formPartName = "合同信息";
         meta = MtableManager.getMtable(entity);
-        resourceNodeCode = "Operation_Order_Contract";
+        resourceNodeCode = "Operation_Order_Contract_Add";
 
         formJsImport = "/gsb/platform/trade/js/contract-add-form.part.js|/gsb/platform/trade/js/audit-detail-part.js|/package/qiniu/plupload.full.min.js";
         formServiceController = ContractFormPart.class.getName();
@@ -205,5 +206,13 @@ public class ContractFormWorkspaceTest extends WorkspaceCreationBase {
 
         }
         workspace.getParts().add(part);
+    }
+    // 默认的表单操作
+    @Override
+    protected void doOperation() {
+
+        ResourceNode node = this.getResourceNode();
+        operationService.addOperation(node, OperationTypes.view);
+        //operationService.addOperation(node, OperationTypes.add);
     }
 }

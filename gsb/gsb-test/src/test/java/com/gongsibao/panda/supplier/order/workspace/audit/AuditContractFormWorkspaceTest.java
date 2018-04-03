@@ -11,6 +11,7 @@ import org.netsharp.panda.entity.*;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,16 +33,23 @@ public class AuditContractFormWorkspaceTest extends ContractFormWorkspaceTest {
     }
 
     protected PForm createForm(ResourceNode node) {
-
         PForm form = super.createForm(node);
         List<PFormField> fieldList = form.getFields();
         for (PFormField field : fieldList) {
-            if (!field.getControlType().equals(ControlTypes.ENUM_BOX) && !field.getControlType().equals(ControlTypes.DECIMAL_FEN_BOX)) {
+            if (!getNotToLab().contains(field.getControlType())) {
                 field.setControlType(ControlTypes.LABEL);
             }
             field.setRequired(false);
         }
         return form;
+    }
+
+    private List<ControlTypes> getNotToLab() {
+        List<ControlTypes> controlTypesList = new ArrayList();
+        controlTypesList.add(ControlTypes.ENUM_BOX);
+        controlTypesList.add(ControlTypes.DECIMAL_FEN_BOX);
+        controlTypesList.add(ControlTypes.SWITCH_BUTTON);
+        return controlTypesList;
     }
 
     protected void addDetailGridPart(PWorkspace workspace) {

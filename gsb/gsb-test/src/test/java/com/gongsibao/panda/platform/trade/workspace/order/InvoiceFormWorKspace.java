@@ -28,7 +28,7 @@ public class InvoiceFormWorKspace extends WorkspaceCreationBase {
 		urlForm = "/trade/order/invoice/form";
 		listPartName = formPartName = "发票信息";
 		meta = MtableManager.getMtable(entity);
-		resourceNodeCode = "Operation_Order_Invoice";
+		resourceNodeCode = "Operation_Order_Invoice_Add";
 
 		formJsImport = "/gsb/platform/trade/js/invoice-add-form.part.js|/gsb/platform/trade/js/audit-detail-part.js|/package/qiniu/plupload.full.min.js";
 		formServiceController = InvoiceFormPart.class.getName();
@@ -114,7 +114,7 @@ public class InvoiceFormWorKspace extends WorkspaceCreationBase {
 
 	private void createOrderFileListPart(PWorkspace workspace) {
 
-		ResourceNode node = this.resourceService.byCode(resourceNodeCode);// "Operation_Order_Invoice_File"
+		ResourceNode node = this.resourceService.byCode(resourceNodeCode);
 		PDatagrid datagrid = new PDatagrid(node, "发票附件");
 		{
 			datagrid.setReadOnly(true);

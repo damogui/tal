@@ -256,8 +256,8 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
             part.setDockStyle (DockType.DOCUMENTHOST);
             part.setToolbar (listToolbarPath);
             part.setForm (form);
-//            part.setWindowWidth (400);
-//            part.setWindowHeight (450);
+            part.setWindowWidth (400);
+            part.setWindowHeight (450);
             part.setStyle ("  width: 50%;height60%");
 
 //         part.setServiceController (OrderPerformanceDetailPart.class.getName ());

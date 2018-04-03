@@ -15,7 +15,6 @@ com.gongsibao.trade.web.SalesmanOrderContractListPart = org.netsharp.panda.comme
             maxmin: true,
             shadeClose: false,
             area: ['60%', '90%'],
-            zIndex: 100000,
             content: contentUrl
         });
     }

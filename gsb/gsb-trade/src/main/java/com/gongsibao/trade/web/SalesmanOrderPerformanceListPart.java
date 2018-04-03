@@ -1,7 +1,12 @@
 package com.gongsibao.trade.web;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import com.gongsibao.trade.base.INDepReceivableService;
+import com.gongsibao.u8.base.ISoOrderService;
+import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
 import org.netsharp.util.StringManager;
@@ -10,6 +15,20 @@ import org.netsharp.util.StringManager;
  * Created by zhangchao on 2018/3/12.
  */
 public class SalesmanOrderPerformanceListPart extends AdvancedListPart {
+
+    INDepReceivableService nDepReceivableService = ServiceFactory.create (INDepReceivableService.class);
+    @Override
+    public List<?> doQuery(Oql oql) {
+
+        StringBuilder sb = new StringBuilder ();
+        sb.append ("NDepReceivable.order.*,");
+        sb.append ("NDepReceivable.order.companyIntention.name");
+        sb.append ("NDepReceivable.order.owner.name");
+
+        oql.setSelects (sb.toString ());
+        List<?> rows = nDepReceivableService.queryList (oql);
+        return rows;
+    }
 
     @Override
     public String getFilterByParameter(FilterParameter parameter) {

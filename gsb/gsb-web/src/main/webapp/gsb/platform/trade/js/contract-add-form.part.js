@@ -5,6 +5,7 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         //订单下单方式枚举
         this.orderPlatformSourceEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderPlatformSourceType');
         this.serviceLocator = new org.netsharp.core.JServiceLocator();
+        this.isAdd = System.Url.getParameter("isAdd");
     },
     init: function () {
 
@@ -43,8 +44,7 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         var me = this;
         me.bindOrderInfo(entity);
         //查看时禁用整个form
-        var isAdd = System.Url.getParameter("isAdd");
-        if (isAdd != 1) {
+        if (me.isAdd != 1) {
             me.disable();
         }
     },
@@ -62,6 +62,10 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         }
     },
     contractTypeChange: function (el) {  //合同类型
+        var me = this;
+        if (me.isAdd != 1) {
+            return;
+        }
         if ($(el).val() == 0) {
             $('#idNumber').textbox({value: ""});
             $('#idNumber').textbox({disabled: true});
@@ -70,6 +74,10 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         }
     },
     customerTypeChange: function (el) {  //客户类型
+        var me = this;
+        if (me.isAdd != 1) {
+            return;
+        }
         if ($(el).val() == 1) {
             $('#businessLicenseNo').textbox({value: ""});
             $('#businessLicenseNo').textbox({disabled: true});
@@ -78,6 +86,10 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         }
     },
     hasDataFeeChange: function (el) {  //有/无材料费
+        var me = this;
+        if (me.isAdd != 1) {
+            return;
+        }
         var me = this;
         if ($(el).val() == 0) {
             $('#dataFee').textbox({value: ""});
@@ -108,6 +120,10 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         $("#realAmount").numberbox('setValue', payablePrice + dataFee);
     },
     hasLiquidatedDamagesChange: function (el) { //有/无违约金
+        var me = this;
+        if (me.isAdd != 1) {
+            return;
+        }
         if ($(el).val() == 0) {
             $('#liquidatedDamages').textbox({value: ""});
             $('#liquidatedDamages').textbox({disabled: true});
@@ -116,6 +132,10 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         }
     },
     hasBreachChange: function (el) { //有/无违约事项
+        var me = this;
+        if (me.isAdd != 1) {
+            return;
+        }
         if ($(el).val() == 0) {
             $('#breachInfo').textbox({value: ""});
             $('#breachInfo').textbox({disabled: true});
