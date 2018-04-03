@@ -114,7 +114,7 @@ public class InvoiceFormWorKspace extends WorkspaceCreationBase {
 
 	private void createOrderFileListPart(PWorkspace workspace) {
 
-		ResourceNode node = this.resourceService.byCode(resourceNodeCode);// "Operation_Order_Invoice_File"
+		ResourceNode node = this.resourceService.byCode(resourceNodeCode);
 		PDatagrid datagrid = new PDatagrid(node, "发票附件");
 		{
 			datagrid.setReadOnly(true);

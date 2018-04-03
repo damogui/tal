@@ -3,7 +3,7 @@ package com.gongsibao.api.config;
 import java.io.IOException;
 
 /**
- * Created by win on 2018/2/5.
+ * 股转接口自定义异常，处理股转的code返回和message返回
  */
 public class DeviceException  extends IOException {
     /**

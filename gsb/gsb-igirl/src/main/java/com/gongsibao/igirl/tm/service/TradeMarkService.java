@@ -468,6 +468,8 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 				//只有待提交、填报异常的状态可以改为材料准备
 				tmc = tm.getTradeMarkCase();
 				List<UploadAttachment> uas = tmc.getUploadAttachments();
+				if(uas.size()!=0)
+				{
 				for (UploadAttachment ua : uas) {
 					if (ua.getNeeded() && StringManager.isNullOrEmpty(ua.getFileUrl())) {
 						boo = false;
@@ -477,6 +479,10 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 						boo = true;
 					}
 				}
+				}else{
+					boo = false;
+				}
+
 			}else{
 				boo = false;
 			}
