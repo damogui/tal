@@ -123,7 +123,7 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
         }
         addQueryItem(queryProject, "keyword", "产品名称", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "statusType", "审核状态", ControlTypes.ENUM_BOX);
-//        addQueryItem(queryProject, "payStatus", "付款状态", ControlTypes.ENUM_BOX);
+       addQueryItem(queryProject, "soOrder.payStatus", "付款状态", ControlTypes.ENUM_BOX);
         addQueryItem(queryProject, "name", "业务员", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "creator", "订单业绩创建人", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "createTime", "业绩创建时间", ControlTypes.DATE_BOX);
