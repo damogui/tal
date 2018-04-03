@@ -44,7 +44,7 @@ public class Pay extends BaseEntity {
 	private PaySuccessStatus successStatus = PaySuccessStatus.Weizhifu;
 
 	@Column(name = "confirm_time", header = "确认时间")
-	private Date confirmTime;
+	private Date confirmTime = new Date();
 
 	@Column(name = "offline_way_type_id", header = "线下类型")
 	private OfflineWayType offlineWayType = OfflineWayType.SK;
