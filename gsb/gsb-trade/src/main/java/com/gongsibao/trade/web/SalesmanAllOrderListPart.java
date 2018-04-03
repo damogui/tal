@@ -8,8 +8,11 @@ import com.gongsibao.entity.trade.dto.DepPayMapDTO;
 import org.netsharp.base.IPersistableService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
+import org.netsharp.core.QueryParameters;
 import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
+import org.netsharp.persistence.IPersister;
+import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.trade.SoOrder;
@@ -20,7 +23,7 @@ import com.gongsibao.u8.base.ISoOrderService;
  */
 public class SalesmanAllOrderListPart extends AdvancedListPart {
     ISoOrderService orderService = ServiceFactory.create (ISoOrderService.class);
-
+    IPersister<SoOrder> oService = PersisterFactory.create ();//执行sql
 
     @Override
     public List<?> doQuery(Oql oql) {
@@ -132,6 +135,24 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
             reusltValue = -1;
         }
         return reusltValue;
+    }
+
+    /*校验是不是存在订单的改价审核和回款审核，存在不弹窗*/
+    public Integer checkCanPay(Integer orderId) {
+        String sql = "SELECT IFNULL(MAX(change_price_audit_status_id),0)   FROM so_order  WHERE  change_price_audit_status_id  IN (1051,1052) AND  pkid=?";//有没有待审核、审核中
+
+        QueryParameters qps = new QueryParameters ();
+        qps.add ("@pkid", orderId, Types.INTEGER);
+        int num = oService.executeInt (sql, qps);
+        if (num > 0) {
+            return 1;
+
+        } else {
+            return 0;
+
+        }
+
+
     }
 
 }
