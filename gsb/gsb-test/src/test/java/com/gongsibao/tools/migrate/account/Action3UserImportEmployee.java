@@ -31,7 +31,7 @@ public class Action3UserImportEmployee extends AbstractActionService {
 		dao.executeUpdate(cmdText, null);
 		
 		//已有的salesman 同步 employee_id
-		cmdText = "UPDATE sp_salesman s LEFT JOIN sys_permission_employee e ON e.mobile = e.login_name SET s.employee_id = e.id;";
+		cmdText = "UPDATE sp_salesman s LEFT JOIN sys_permission_employee e ON s.mobile = e.mobile SET s.employee_id = e.id;";
 		dao.executeUpdate(cmdText, null);
 		
 		//后期：要保证salesman的id与employee_id相同
