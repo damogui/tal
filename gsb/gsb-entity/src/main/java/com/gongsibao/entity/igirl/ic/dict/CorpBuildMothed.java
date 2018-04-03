@@ -4,30 +4,28 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
 /**
- * 营业期限。4.2这里有问题
+ * 产生方式
  * @author cyx
  *
  */
-public enum CorpTimeLimite implements IEnum {
-	// TODO 4-3工商网站正常后，修改一下。这个是错误的
-	SETUP(0, "设立"),
-	CHANGE(1, "变更"),
-	AUTH(2, "备案"),
-	ADDMOD(3, "增减补换照"),
-	PLEDGE(4, "股权出质"),
-	LOGOUT(5, "注销");
+public enum CorpBuildMothed implements IEnum {
+
+	VOTE(0, "选举（适用于普通有限公司）"),
+	APPOINT(1, "委派（适用于国有独资）");
+
+
 	private int value;
 	private String text;
 
-	CorpTimeLimite(int value, String text) {
+	CorpBuildMothed(int value, String text) {
 		this.value = value;
 		this.text = text;
 	}
 
 	@JsonCreator
-	public static CorpTimeLimite getItem(int value) {
+	public static CorpBuildMothed getItem(int value) {
 
-		for (CorpTimeLimite item : values()) {
+		for (CorpBuildMothed item : values()) {
 
 			if (item.getValue() == value) {
 				return item;

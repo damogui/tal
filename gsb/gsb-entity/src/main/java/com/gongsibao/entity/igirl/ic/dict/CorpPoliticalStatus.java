@@ -4,7 +4,7 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
 /**
- * 政治面膜
+ * 政治面目
  * @author cyx
  *
  */
