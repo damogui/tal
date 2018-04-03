@@ -246,7 +246,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "customerName", "下单人", ControlTypes.TEXT_BOX, 100);
         column=addColumn(datagrid, "accountMobile", "下单人电话", ControlTypes.TEXT_BOX, 100);{
 
-            //column.setFormatter(" var ctrl=workspace.parts.byIndex(0).key; return eval(ctrl+'.contactFormatter(value,row,index,\\'手机号\\')');");
+            column.setFormatter(" var ctrl=workspace.parts.byIndex(0).key; return eval(ctrl+'.contactFormatter(value,row,index,\\'手机号\\')');");
 
         }
 		addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 80);
