@@ -52,8 +52,9 @@
 					</div>
 			    </div>
 			     
-			    <div title="合同信息">
-			         
+			    <div title="合同信息" id ="removDiv">
+			        <!-- <iframe id="iframe_contractInfo" scrolling="auto" frameborder="0" style="width:100%;height:100%;"></iframe> -->
+			        <table id="contract_info_grid"></table>   
 			    </div>
 			     
 			    <div title="商机信息">

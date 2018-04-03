@@ -126,8 +126,8 @@ public class OrderProd extends BaseEntity {
 	@Column(name = "settle_price", header = "结算价格")
 	private Integer settlePrice = 0;
 
-	@Column(name = "settle_status", header = "结算状态 0未结算 1部分结算 2已结算")
-	private SettleStatus settleStatus = SettleStatus.NO_SETTLEMENT;
+	@Column(name = "settle_status", header = "结算状态 0待确认 1 2已结算")
+	private SettleStatus settleStatus = SettleStatus.CONFIRM_SETTLEMENT;
 
 	@Column(name = "settle_time", header = "结算时间")
 	private Date settleTime;

@@ -58,17 +58,17 @@ public class ContractFormWorkspaceTest extends WorkspaceCreationBase {
         addFormField(form, "soOrder.department.name", "所在部门", groupName, ControlTypes.LABEL, false, true);
 
         addFormField(form, "companyName", "公司名称", groupName, ControlTypes.TEXT_BOX, true, false);
-        formField = addFormField(form, "electronics", "合同类型", groupName, ControlTypes.ENUM_BOX, true, false);
+        formField = addFormField(form, "electronics", "合同类型", groupName, ControlTypes.ENUM_BOX, true, true);
         {
             formField.setTroikaTrigger("controllercontract.contractTypeChange(this);");
         }
-        formField = addFormField(form, "contractType", "客户类型", groupName, ControlTypes.ENUM_BOX, true, false);
+        formField = addFormField(form, "contractType", "客户类型", groupName, ControlTypes.ENUM_BOX, true, true);
         {
             formField.setTroikaTrigger("controllercontract.customerTypeChange(this);");
         }
-        addFormField(form, "businessLicenseNo", "营业执照号", groupName, ControlTypes.TEXT_BOX, false, false);
-        addFormField(form, "idNumber", "身份证号", groupName, ControlTypes.TEXT_BOX, false, false);
-        addFormField(form, "contractTitle", "合同标题", groupName, ControlTypes.TEXT_BOX, true, false);
+        addFormField(form, "businessLicenseNo", "营业执照号", groupName, ControlTypes.TEXT_BOX, false, true);
+        addFormField(form, "idNumber", "身份证号", groupName, ControlTypes.TEXT_BOX, false, true);
+        addFormField(form, "contractTitle", "合同标题", groupName, ControlTypes.TEXT_BOX, true, true);
         addFormField(form, "sginingTime", "签约日期", groupName, ControlTypes.DATE_BOX, true, false);
         addFormField(form, "urgeney", "是否加急", groupName, ControlTypes.SWITCH_BUTTON, false, false);
         addFormField(form, "sginingCompanyId", "我方签约公司", groupName, ControlTypes.ENUM_BOX, false, false);

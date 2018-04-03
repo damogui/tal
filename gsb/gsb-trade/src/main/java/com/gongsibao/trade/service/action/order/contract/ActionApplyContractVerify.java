@@ -58,9 +58,9 @@ public class ActionApplyContractVerify implements IAction {
             throw new BusinessException("签约日期不能为空！");
         }
         //合同标题
-        if (StringManager.isNullOrEmpty(contract.getContractTitle())) {
+        /*if (StringManager.isNullOrEmpty(contract.getContractTitle())) {
             throw new BusinessException("合同标题不能为空！");
-        }
+        }*/
         //合同总额
         if (NumberUtils.toInt(contract.getRealAmount()) == 0) {
             throw new BusinessException("合同总额不能为空！");

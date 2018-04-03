@@ -1,6 +1,7 @@
 package com.gongsibao.trade.service;
 
 import java.sql.Types;
+import java.util.Date;
 import java.util.List;
 
 import com.gongsibao.entity.trade.dic.AuditStatusType;
@@ -45,6 +46,7 @@ public class NDepPayService extends PersistableService<NDepPay> implements INDep
         {
             updateBuilder.update("n_dep_pay");
             updateBuilder.set("status", auditStatusType.getValue());
+            updateBuilder.set ("audit_time",new Date ());
             updateBuilder.where("order_id=?");
         }
         String sql = updateBuilder.toSQL();

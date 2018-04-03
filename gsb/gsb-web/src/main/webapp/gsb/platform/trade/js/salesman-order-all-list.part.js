@@ -106,7 +106,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             return false;
         }
 
-        var urlEnd = this.addReceivedUrl + "?id=" + row.id;
+        var urlEnd = this.addReceivedUrl + "?no=" + row.no;
         layer.open({
             type: 2,//1是字符串 2是内容
             title: '创建回款',
@@ -289,7 +289,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         //增加订单是否创建发票
         serviceLocator.invoke("com.gongsibao.trade.web.InvoiceFormPart", "checkInvoice", [row.id], function (data) {
             if (data) {
-                IMessageBox.info('该订单已经创建支票了');
+                IMessageBox.info('该订单已经创建发票了');
             } else {
                 layer.open({
                     id: "invoiceCreateIframe",

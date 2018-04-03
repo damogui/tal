@@ -7,6 +7,7 @@ import java.util.List;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 
+import com.gongsibao.entity.trade.Contract;
 import com.gongsibao.entity.trade.NOrderExchangeLog;
 import com.gongsibao.entity.trade.OrderDiscount;
 import com.gongsibao.entity.trade.OrderPayMap;
@@ -14,6 +15,7 @@ import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.trade.base.IContractService;
 import com.gongsibao.trade.base.INOrderExchangeLogService;
 import com.gongsibao.trade.base.IOrderDiscountService;
 import com.gongsibao.trade.base.IOrderPayMapService;
@@ -24,6 +26,26 @@ import com.gongsibao.trade.web.dto.ChangePriceDTO;
 
 public class OrderDetailController {
 
+	/**
+	 * 根据订单Id获取合同实体
+	 * @param id
+	 * @return
+	 */
+	public Contract queryContractFirst(Integer id) {
+
+		Oql oql = new Oql();
+		{
+			oql.setType(Contract.class);
+			oql.setSelects("Contract.*");
+			oql.setFilter("orderId=?");
+			oql.setOrderby("createTime desc");
+			oql.getParameters().add("orderId", id, Types.INTEGER);
+		}
+		IContractService contractService = ServiceFactory.create(IContractService.class);
+		Contract entity = contractService.queryFirst(oql);
+		return entity;
+	}
+	
 	/**
 	 * @Title: getSoOrder
 	 * @Description: TODO(这里用一句话描述这个方法的作用)
