@@ -205,7 +205,7 @@ public class TradeMarkCasePart extends FormPart {
 	}
 
 	@Authorization(is = false)
-	public ResultDto convertToOrder(String caseid, String orderNo) {
+	public ResultDto convertToOrderConfirm(String caseid, String orderNo) {
 		ConvertToOrderResult result = tradeMarkCaseService.convertToOrder(caseid, orderNo);
 		return ResultDto.getConvertToOrderResultDto(result);
 	}
