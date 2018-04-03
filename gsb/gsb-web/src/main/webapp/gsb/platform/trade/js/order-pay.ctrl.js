@@ -14,7 +14,6 @@ com.gongsibao.trade.web.OrderPayCtrl = org.netsharp.panda.core.CustomCtrl.Extend
     	this.payForOrderCount = false;
     },
     init:function(){
-
 		$('#detail_tabs').tabs({
 			fit:true,
 			tabHeight:35
@@ -285,6 +284,9 @@ com.gongsibao.trade.web.OrderRelevancePerformanceCtrl = org.netsharp.panda.core.
 			
 			return;
 		}
+        var  orderNo = this.queryString('no');//订单编号
+
+
 		
 		if(payCtrl.payForOrderCount===false){
 			
@@ -299,7 +301,7 @@ com.gongsibao.trade.web.OrderRelevancePerformanceCtrl = org.netsharp.panda.core.
 		}
 		
 		var me = this;
-		var url = '/nav/gsb/platform/trade/orderPayMap';
+		var url = '/nav/gsb/platform/trade/orderPayMap?no='+orderNo;
         layer.open({
             type: 2,
             title: '关联订单',
