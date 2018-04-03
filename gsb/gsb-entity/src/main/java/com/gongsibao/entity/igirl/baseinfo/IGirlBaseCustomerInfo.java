@@ -1,5 +1,6 @@
 package com.gongsibao.entity.igirl.baseinfo;
 
+import com.gongsibao.entity.igirl.dict.IGirlServiceType;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
@@ -12,6 +13,9 @@ public class IGirlBaseCustomerInfo extends Entity{
 
     @Column(name = "phone",header = "电话号码")
     private String phone;
+
+    @Column(name = "service_type",header = "服务类型")
+    private IGirlServiceType serviceType;
 
     public String getName() {
         return name;
@@ -27,5 +31,13 @@ public class IGirlBaseCustomerInfo extends Entity{
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public IGirlServiceType getServiceType() {
+        return serviceType;
+    }
+
+    public void setServiceType(IGirlServiceType serviceType) {
+        this.serviceType = serviceType;
     }
 }
