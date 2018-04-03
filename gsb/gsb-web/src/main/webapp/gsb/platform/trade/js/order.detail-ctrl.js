@@ -20,14 +20,41 @@ com.gongsibao.trade.web.BaseCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
  * 订单表单
  */
 com.gongsibao.trade.web.OrderFormCtrl = com.gongsibao.trade.web.BaseCtrl.Extends({
+	
     ctor: function () {
     	
     	this.base();
     	this.initializeDetailList = new System.Dictionary();
     },
-    init:function(){
-    	
+    init:function(){    	
+    	//1.过滤‘合同信息’页签显示
+    	var orderId = this.queryString('id');
+    	this.invokeService ("queryContractFirst", [orderId], function(data){    		
+    		if(data == null){
+    			$('#tabs >.tabs-header >.tabs-wrap ul>li').eq(1).remove();
+    		}
+    	});
     	var me = this;
+    	//tab页签
+    	$('#tabs').tabs({    
+			tabHeight:30,
+		    onSelect:function(title){
+		    	var detailCtrl = me.initializeDetailList.byKey(title);
+		    	if(detailCtrl){
+		    		//已经初始化过的不再执行
+		    		return;
+		    	}
+		    	if(title=='合同信息'){
+			    	var contractCtrl = new com.gongsibao.trade.web.ContractCollectionDetailCtrl();
+			    	contractCtrl.init();
+			    	me.initializeDetailList.add(title,contractCtrl);
+			    	
+		    	}else if(title=='商机信息'){
+		    		alert('商机信息');
+		    	}
+		    }   
+		});
+    	//详情页签
 		$('#detail_tabs').tabs({    
 			tabHeight:30,
 		    onSelect:function(title){    
@@ -77,8 +104,79 @@ com.gongsibao.trade.web.OrderFormCtrl = com.gongsibao.trade.web.BaseCtrl.Extends
     	productDetailCtrl.init();
     	me.initializeDetailList.add('产品信息',productDetailCtrl);
     	
+    },
+    contractInfo:function(){
+    	//合同信息
     }
 });
+
+/*
+ * 合同详情记录
+ */
+function showContract(contractId){	
+	var contentUrl = "/panda/trade/audit/contract/form?id=" + contractId + "";
+     layer.open({
+         id: "contractCreateIframe",
+         type: 2,//1是字符串 2是内容
+         title: '合同信息',
+         fixed: false,
+         maxmin: true,
+         shadeClose: false,
+         area: ['60%', '90%'],
+         zIndex: 100000,
+         content: contentUrl
+     });
+} 
+com.gongsibao.trade.web.ContractCollectionDetailCtrl = com.gongsibao.trade.web.BaseCtrl.Extends({
+    ctor: function () {    	
+    	this.base();
+    },
+    init:function(){    	
+    	var me = this;
+    	var orderId = this.queryString('id');
+    	this.invokeService ("queryContractFirst", [orderId], function(data){    		
+    		me.initGrid(data);
+    	});
+    },
+    initGrid:function(data){
+    	var me = this;
+    	var contractId = data.id;
+		$('#contract_info_grid').datagrid({
+			idField:'id',
+			emptyMsg:'暂无记录',
+			striped:true,
+			pagination:false,
+			showFooter:true,
+			singleSelect:true,
+			height:'100%',
+			data:[data],
+		    columns:[[
+		        {field:'a',title:'操作',width:80,align:'center',formatter:function(value,row,index){		        	
+		        	return '<a class="grid-btn" href="javascript:" onclick="showContract('+ contractId +')";>查看</a>';
+		        }},
+		        {field:'id',title:'合同审核编号',width:80,align:'center'},
+		        {field:'dataFee',title:'材料撰写费',width:100,align:'center',formatter: function(value,row,index){		        	
+		        	return (value/100).toFixed(2);
+		        }},
+		        {field:'liquidatedDamages',title:'违约金',width:100,align:'center',formatter: function(value,row,index){		        	
+		        	return (value/100).toFixed(2);
+		        }},
+		        {field:'liquidatedDamages',title:'订单金额',width:80,align:'center',formatter: function(value,row,index){		        	
+		        	return (value/100).toFixed(2);
+		        }},
+		        {field:'realAmount',title:'合同总额',width:100,align:'center',formatter: function(value,row,index){		        	
+		        	return (value/100).toFixed(2);
+		        }},
+		        {field:'creator',title:'创建人',width:100},
+		        {field:'createTime',title:'创建时间',width:130,align:'center'},
+		        {field:'auditStatusId',title:'审核状态',width:100,align:'center',formatter:function(value,row,index){	        		
+		        	return me.auditStatusTypeEnum[value];
+		        }}
+		    ]]
+		});    	
+    }
+});
+
 
 
 /*
