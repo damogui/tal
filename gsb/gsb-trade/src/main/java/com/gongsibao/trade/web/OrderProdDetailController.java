@@ -8,14 +8,32 @@ import org.netsharp.core.BusinessException;
 import org.netsharp.core.Oql;
 
 import com.gongsibao.entity.product.WorkflowNode;
+import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.OrderProdTrace;
 import com.gongsibao.product.base.IWorkflowNodeService;
+import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IOrderProdTraceService;
 
 public class OrderProdDetailController {
 
+	IOrderProdService orderProdService = ServiceFactory.create(IOrderProdService.class);
 	IOrderProdTraceService traceService = ServiceFactory.create(IOrderProdTraceService.class);
 
+	
+	/**   
+	 * @Title: getOrderProdById   
+	 * @Description: TODO(根据Id查询订单明细)   
+	 * @param: @param id
+	 * @param: @return      
+	 * @return: OrderProd      
+	 * @throws   
+	 */
+	public OrderProd getOrderProdById(Integer id){
+		
+		return orderProdService.byId(id);
+	}
+	
+	
 	/**
 	 * @Title: queryProdTraceList
 	 * @Description: TODO(根据订单明细Id查询订单明细跟进)
@@ -75,19 +93,19 @@ public class OrderProdDetailController {
 		return workflowNodeService.queryWorkflowNodeList(prodId, cityId, version);
 	}
 
-	/**   
-	 * @Title: updateProcessStatus   
-	 * @Description: TODO(更新订单、订单明细进度状态,并创建跟进记录)   
+	/**
+	 * @Title: updateProcessStatus
+	 * @Description: TODO(更新订单、订单明细进度状态,并创建跟进记录)
 	 * @param: @param orderProdId
 	 * @param: @param processStatusId
 	 * @param: @param processStatusText
-	 * @param: @return      
-	 * @return: Boolean      
-	 * @throws   
+	 * @param: @return
+	 * @return: Boolean
+	 * @throws
 	 */
-	public Boolean updateProcessStatus(Integer orderProdId, Boolean isSendMessage,Integer processStatusId, String processStatusText) {
+	public Boolean updateProcessStatus(OrderProdTrace trace) {
 
-		
+		traceService.create(trace);
 		return true;
 	}
 }

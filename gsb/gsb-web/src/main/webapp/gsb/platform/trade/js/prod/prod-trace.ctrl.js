@@ -5,6 +5,7 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     	this.$gridCtrlId = '#order_prod_trace_grid';
     	this.service = 'com.gongsibao.trade.web.OrderProdDetailController';
     	this.orderProdId = null;
+    	this.mainCtrl = null;
     },
     init:function(orderProdId){
 
@@ -107,9 +108,12 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     updateProcessStatus(){
     	
     	var me = this;
-    	var productId = 1040;
-    	var cityId = 101440106;
-    	var version = null;
+    	//var version = this.mainCtrl.orderProd.version;//要更新老数据至version（根据order_prod_status_id到prod_workflow_node表里冗余version）
+    	//var productId = this.mainCtrl.orderProd.productId;
+    	//var cityId = this.mainCtrl.orderProd.cityId;
+    	productId = 1040;
+    	cityId = 101440106;
+    	version = 8;
     	this.invokeService("queryWorkflowNodeList", [productId,cityId,version], function(data){
     		
     		if(data){
@@ -158,8 +162,19 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     					
     					var processStatusText = $('#processStatus').combobox('getText');
     					var isSendMessage = $('#isSendMessage').prop('checked');
+    					
+    					
+    					
+    					var trace = new Object();
+    					trace.orderProdId = me.orderProdId;
+    					trace.orderProdStatusId = processStatusId;
+    					trace.info = "更新状态:" + processStatusText;
+    					trace.isSendMessage = isSendMessage;
+    					trace.version = data[0].version;
+    					alert(trace.version);
+    					
     					//更新状态:网提
-    					me.invokeService("updateProcessStatus", [me.orderProdId,isSendMessage,processStatusId,processStatusText], function(data){
+    					me.invokeService("updateProcessStatus", [trace], function(data){
     						
     						layer.close(index);
     						me.init(me.orderProdId);

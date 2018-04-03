@@ -14,9 +14,9 @@ import com.gongsibao.entity.trade.dic.InvoiceState;
 import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
 import com.gongsibao.entity.trade.dic.SettleStatus;
 import com.gongsibao.entity.yj.Trademark;
-
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Exclusive;
@@ -25,6 +25,7 @@ import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
+
 import org.netsharp.organization.entity.Employee;
 
 @Table(name = "so_order_prod")
@@ -37,6 +38,9 @@ public class OrderProd extends BaseEntity {
 
 	@Column(name = "order_id", header = "订单")
 	private Integer orderId = 0;
+	
+	@Column(name = "version", header = "流程模版版本号")
+	private Integer version;
 
 	@JsonIgnore
 	@Reference(foreignKey = "orderId", header = "销售订单", primaryKey = "pkid")
@@ -536,5 +540,13 @@ public class OrderProd extends BaseEntity {
 
 	public void setSettleStatus(SettleStatus settleStatus) {
 		this.settleStatus = settleStatus;
+	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
 }

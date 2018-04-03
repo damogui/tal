@@ -94,7 +94,7 @@ public class OrderOperationService extends SoOrderDTOService implements IOrderOp
 			orderProdTrace.setTypeId(OrderProdTraceType.Ghywy);
 			orderProdTrace.setInfo(info);
 			orderProdTrace.setRemark("");
-			orderProdTrace.setIsSendSms(0);
+			orderProdTrace.setIsSendSms(false);
 			orderProdTrace.setOperatorId(employee.getId());
 			orderProdTraceList.add(orderProdTrace);
 		}

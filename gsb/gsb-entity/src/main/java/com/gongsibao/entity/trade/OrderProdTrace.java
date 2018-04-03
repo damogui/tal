@@ -22,7 +22,10 @@ public class OrderProdTrace extends BaseEntity {
 	private Integer orderProdId;
 
 	@Column(name = "order_prod_status_id", header = "产品状态")
-	private Integer orderProdStatusId;
+	private Integer orderProdStatusId = 0;
+	
+	@Column(name = "version", header = "流程模版版本号")
+	private Integer version;
 	
     @Reference(foreignKey = "orderProdStatusId", header = "产品状态")
     private WorkflowNode orderProdStatus;
@@ -34,10 +37,10 @@ public class OrderProdTrace extends BaseEntity {
 	private OrderProdTraceOperatorType operatorType = OrderProdTraceOperatorType.wu;
 
 	@Column(header = "说明")
-	private String info;
+	private String info = "";
 
 	@Column(name = "operator_id", header = "操作人Id")
-	private Integer operatorId;
+	private Integer operatorId = 0;
 	
     @Reference(foreignKey = "operatorId", header = "操作人")
     private Employee operator;
@@ -46,31 +49,31 @@ public class OrderProdTrace extends BaseEntity {
 	private String isBbk = "0";
 
 	@Column(header = "remark")
-	private String remark;
+	private String remark = "";
 
 	@Column(name = "is_send_sms", header = "短信发送")
-	private Integer isSendSms;
+	private Boolean isSendSms = false;
 
 	@Column(name = "express_content", header = "发送内容")
-	private String expressContent;
+	private String expressContent = "";
 
 	@Column(name = "express_to", header = "接收人")
-	private String expressTo;
+	private String expressTo = "";
 
 	@Column(name = "express_company_name", header = "发送公司名称")
-	private String expressCompanyName;
+	private String expressCompanyName= "";
 
 	@Column(name = "express_no", header = "发送编号")
-	private String expressNo;
+	private String expressNo= "";
 
 	@Column(name = "processd_days", header = "已处理天数")
-	private Integer processdDays;
+	private Integer processdDays = 0;
 
 	@Column(name = "timeout_days", header = "待处理天数")
-	private Integer timeoutDays;
+	private Integer timeoutDays=0;
 
 	@Column(name = "tip_color", header = "提醒颜色")
-	private String tipColor;
+	private String tipColor = "text-default";
 
 	@Subs(subType = OrderProdTraceFile.class, foreignKey = "orderProdTraceId", primaryKey = "pkid")
 	private List<OrderProdTraceFile> files = new ArrayList<OrderProdTraceFile>();
@@ -139,11 +142,12 @@ public class OrderProdTrace extends BaseEntity {
 		this.remark = remark;
 	}
 
-	public Integer getIsSendSms() {
-		return isSendSms == null ? 0 : isSendSms;
+	public Boolean getIsSendSms() {
+		
+		return isSendSms;
 	}
 
-	public void setIsSendSms(Integer isSendSms) {
+	public void setIsSendSms(Boolean isSendSms) {
 		this.isSendSms = isSendSms;
 	}
 
@@ -226,6 +230,12 @@ public class OrderProdTrace extends BaseEntity {
 	public void setOrderProdStatus(WorkflowNode orderProdStatus) {
 		this.orderProdStatus = orderProdStatus;
 	}
-	
-	
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
 }
