@@ -53,7 +53,7 @@ public class NDepPay extends Entity {
 
 
     @Column(name = "audit_time", header = "审核通过时间")
-    private Date auditTime = null;
+    private Date auditTime;
 
 
 

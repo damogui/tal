@@ -94,7 +94,8 @@ public class SalesmanOrderPayWorkspaceTest  extends WorkspaceCreationBase {
         addColumn (datagrid, "offlineAuditStatus", "审核状态", ControlTypes.ENUM_BOX, 100);
         addColumn (datagrid, "confirmTime", "回款日期", ControlTypes.DATE_BOX, 100);
         addColumn (datagrid, "createTime", "回款创建时间", ControlTypes.DATETIME_BOX, 100);
-        addColumn (datagrid, "creator", "回款业绩创建人", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "payAuditPassTime", "审核通过时间", ControlTypes.DATETIME_BOX, 100);
+        addColumn (datagrid, "creator", "回款创建人", ControlTypes.TEXT_BOX, 100);
 
 
         return datagrid;

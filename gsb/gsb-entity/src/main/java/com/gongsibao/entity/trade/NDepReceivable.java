@@ -11,6 +11,8 @@ import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 
+import java.util.Date;
+
 /**
  * Created by win on 2018/2/26.
  */
@@ -52,6 +54,8 @@ public class NDepReceivable extends Entity {
     @Column(name = "status", header = "审核状态")
     private AuditStatusType statusType = AuditStatusType.Dsh;
 
+    @Column(name = "audit_time", header = "审核通过时间")
+    private Date auditTime;
 
 
     public Integer getAmount() {
@@ -133,5 +137,13 @@ public class NDepReceivable extends Entity {
 
     public void setSoOrder(SoOrder soOrder) {
         this.soOrder = soOrder;
+    }
+
+    public Date getAuditTime() {
+        return auditTime;
+    }
+
+    public void setAuditTime(Date auditTime) {
+        this.auditTime = auditTime;
     }
 }
