@@ -298,7 +298,16 @@ com.gongsibao.trade.web.OrderRelevancePerformanceCtrl = org.netsharp.panda.core.
 				layer.msg('【一笔一单】情况下只允许关联1张订单！');
 				return;
 			}
-		}
+		}else{
+            
+            var relevanceRows = this.getRows();
+            if(relevanceRows.length>=1){//只带过去一次
+
+                orderNo=0;
+            }
+
+
+        }
 		
 		var me = this;
 		var url = '/nav/gsb/platform/trade/orderPayMap?no='+orderNo;

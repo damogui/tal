@@ -11,8 +11,13 @@ com.gongsibao.trade.web.OrderPayMapCtrl = org.netsharp.panda.core.CustomCtrl.Ext
         var centerHeight = $('body').height() - 60;
         $('#center').height(centerHeight);
         var orderNo = this.queryString('no');//订单编号
-        $("#orderNo").val(orderNo);
-        this.orderNoBlur("#orderNo");
+        
+        if (orderNo!="0"){
+
+            $("#orderNo").val(orderNo);
+            this.orderNoBlur("#orderNo");
+        }
+
     },
     orderNoBlur: function (e) {
 
