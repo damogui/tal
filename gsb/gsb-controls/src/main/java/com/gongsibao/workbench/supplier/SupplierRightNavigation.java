@@ -41,6 +41,7 @@ public class SupplierRightNavigation extends Div {
 		switchButton.handleText = "接单";
 		switchButton.handleWidth = 40;
 		switchButton.width = 70;
+		switchButton.onChange = "function(checked){workbench.switchReceiving(checked);}";
 		sbDiv.getControls().add(switchButton);
 		return sbDiv;
 	}

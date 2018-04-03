@@ -4,6 +4,12 @@ org.netsharp.panda.Workbench = System.Object.Extends({
 		
 		this.isTabs = $('body').attr('isTabs')=='true';
 	},
+	invokeService : function(service,month, pars, callback) {
+		if (this.jServiceLocator == null) {
+			this.jServiceLocator = new org.netsharp.core.JServiceLocator();
+		}
+		this.jServiceLocator.invoke(service, month, pars, callback);
+	},
 	init:function(){
 		
 		//创建右击菜单
