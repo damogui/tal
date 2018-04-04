@@ -211,7 +211,7 @@ public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
 		item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
 		{
 			item.setTooltip("输入商机ID、客户ID、商机名称、客户名称、联系方式等");
-			item.setWidth(250);
+			item.setWidth(350);
 		}
 		item = addQueryItem(queryProject, "source.name", "商机来源", ControlTypes.CUSTOM);{
 			
