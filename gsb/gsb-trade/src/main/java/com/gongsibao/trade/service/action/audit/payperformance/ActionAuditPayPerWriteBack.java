@@ -47,7 +47,7 @@ public class ActionAuditPayPerWriteBack implements IAction {
         switch (state.getValue ()) {
             case 0://驳回审核
                 auditService.auditRejected (auditLog.getId (), remark);
-                orderService.updateStatus("dep_payper_audit_status_id",order.getId(), AuditStatusType.Bhsh);
+                //orderService.updateStatus("dep_payper_audit_status_id",order.getId(), AuditStatusType.Bhsh);
                 depPayService.updateStatus (order.getId (), AuditStatusType.Bhsh);
                 break;
             case 1://通过审核
