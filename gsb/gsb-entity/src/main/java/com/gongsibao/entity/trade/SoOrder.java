@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.gongsibao.entity.trade.dic.*;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Reference;
@@ -17,11 +15,21 @@ import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.crm.NCustomer;
-import com.gongsibao.entity.crm.dic.Important;
-import com.gongsibao.entity.igirl.tm.TradeMarkCase;
+import com.gongsibao.entity.crm.dic.Important; 
 import com.gongsibao.entity.product.ProductPackage;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
+import com.gongsibao.entity.trade.dic.OrderAccountType;
+import com.gongsibao.entity.trade.dic.OrderIsManualVoucherType;
+import com.gongsibao.entity.trade.dic.OrderManualVoucherStatus;
+import com.gongsibao.entity.trade.dic.OrderPayStatusType;
+import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
+import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
+import com.gongsibao.entity.trade.dic.OrderRefundStatusType;
+import com.gongsibao.entity.trade.dic.OrderSourceType;
+import com.gongsibao.entity.trade.dic.OrderStageNum;
+import com.gongsibao.entity.trade.dic.OrderType;
 
 @Table(name = "so_order", header = "销售订单")
 public class SoOrder extends BaseEntity {
@@ -110,6 +118,12 @@ public class SoOrder extends BaseEntity {
 
     @Column(name = "paid_price", header = "已支付金额")
     private Integer paidPrice = 0;
+
+    /**
+     * 临时字段-可开发票额
+     */
+    @Exclusive
+    private Integer toBeInvoicePrice = 0;
 
     /**
      * 临时字段-待支付
@@ -1082,5 +1096,13 @@ public class SoOrder extends BaseEntity {
 
     public void setFistPayTime(Date fistPayTime) {
         this.fistPayTime = fistPayTime;
+    }
+
+    public Integer getToBeInvoicePrice() {
+        return toBeInvoicePrice;
+    }
+
+    public void setToBeInvoicePrice(Integer toBeInvoicePrice) {
+        this.toBeInvoicePrice = toBeInvoicePrice;
     }
 }

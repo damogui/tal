@@ -26,12 +26,24 @@ com.gongsibao.trade.web.OrderFormCtrl = com.gongsibao.trade.web.BaseCtrl.Extends
     	this.base();
     	this.initializeDetailList = new System.Dictionary();
     },
-    init:function(){    	
-    	//1.过滤‘合同信息’页签显示
+    init:function(){
+    	//1.添加‘合同信息’页签显示
     	var orderId = this.queryString('id');
     	this.invokeService ("queryContractFirst", [orderId], function(data){    		
-    		if(data == null){
-    			$('#tabs >.tabs-header >.tabs-wrap ul>li').eq(1).remove();
+    		if(data != null){
+    			var content = '<iframe id="iframe_contractInfo" scrolling="auto" frameborder="0" style="width:100%;height:100%;"></iframe>';
+    			addTab("合同信息",content);
+    		}
+    	});
+    	//2.添加‘商机信息’页签显示
+    	var taskId = 0;
+    	var customerId = 0;
+    	this.invokeService ("queryTaskInfo", [orderId], function(data){
+    		if(data != null){
+    			taskId = data.id;
+    			customerId = data.customerId;
+    			var content = '<iframe id="iframe_taskInfo" scrolling="auto" frameborder="0" style="width:100%;height:100%;"></iframe>';
+    			addTab("商机信息",content);
     		}
     	});
     	var me = this;
@@ -50,7 +62,8 @@ com.gongsibao.trade.web.OrderFormCtrl = com.gongsibao.trade.web.BaseCtrl.Extends
 			    	me.initializeDetailList.add(title,contractCtrl);
 			    	
 		    	}else if(title=='商机信息'){
-		    		alert('商机信息');
+		    		var url = '/nav/gsb/supplier/crm/salesman/task?taskId='+ taskId +'&customerId='+ customerId;
+		    		$('#iframe_taskInfo').attr('src',url);
 		    	}
 		    }   
 		});
@@ -60,38 +73,31 @@ com.gongsibao.trade.web.OrderFormCtrl = com.gongsibao.trade.web.BaseCtrl.Extends
 		    onSelect:function(title){    
 
 		    	var detailCtrl = me.initializeDetailList.byKey(title);
-		    	if(detailCtrl){
-		    		
+		    	if(detailCtrl){		    		
 		    		//已经初始化过的不再执行
 		    		return;
-		    	}
-		    	
+		    	}		    	
 		    	if(title=='回款记录'){
-
 			    	var paymentCollectionDetailCtrl = new com.gongsibao.trade.web.OrderPaymentCollectionDetailCtrl();
 			    	paymentCollectionDetailCtrl.init();
 			    	me.initializeDetailList.add(title,paymentCollectionDetailCtrl);
 			    	
 		    	}else if(title=='退款记录'){
-
 			    	var refundDetailCtrl = new com.gongsibao.trade.web.OrderRefundDetailCtrl();
 			    	refundDetailCtrl.init();
 			    	me.initializeDetailList.add(title,refundDetailCtrl);
 			    	
 		    	}else if(title=='改价记录'){
-
 			    	var changePriceDetailCtrl = new com.gongsibao.trade.web.OrderChangePriceDetailCtrl();
 			    	changePriceDetailCtrl.init();
 			    	me.initializeDetailList.add(title,changePriceDetailCtrl);
 			    	
 		    	}else if(title=='优惠明细'){
-
 			    	var discountDetailCtrl = new com.gongsibao.trade.web.OrderDiscountDetailCtrl();
 			    	discountDetailCtrl.init();
 			    	me.initializeDetailList.add(title,discountDetailCtrl);
 			    	
 		    	}else if(title=='流转日志'){
-
 			    	var fllowDetailCtrl = new com.gongsibao.trade.web.OrderFollowDetailCtrl();
 			    	fllowDetailCtrl.init();
 			    	me.initializeDetailList.add(title,fllowDetailCtrl);
@@ -103,13 +109,21 @@ com.gongsibao.trade.web.OrderFormCtrl = com.gongsibao.trade.web.BaseCtrl.Extends
     	var productDetailCtrl = new com.gongsibao.trade.web.OrderProductDetailCtrl();
     	productDetailCtrl.init();
     	me.initializeDetailList.add('产品信息',productDetailCtrl);
-    	
-    },
-    contractInfo:function(){
-    	//合同信息
     }
 });
-
+//动态添加tab标签
+function addTab(title, content){
+	if ($('#tabs').tabs('exists', title)){
+		$('#tabs').tabs('select', title);
+	} else {
+		$('#tabs').tabs('add',{
+			title:title,
+			selected: false,
+			content:content,
+			closable:false
+		});
+	}
+}
 /*
  * 合同详情记录
  */
@@ -141,7 +155,7 @@ com.gongsibao.trade.web.ContractCollectionDetailCtrl = com.gongsibao.trade.web.B
     initGrid:function(data){
     	var me = this;
     	var contractId = data.id;
-		$('#contract_info_grid').datagrid({
+		$('#iframe_contractInfo').datagrid({
 			idField:'id',
 			emptyMsg:'暂无记录',
 			striped:true,

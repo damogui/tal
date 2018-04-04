@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.netsharp.base.IPersistableService;
+import org.netsharp.core.annotations.Transaction;
 
 import com.gongsibao.entity.trade.OrderProdTrace;
 
@@ -28,4 +29,15 @@ public interface IOrderProdTraceService extends IPersistableService<OrderProdTra
 	 * @throws   
 	 */
 	Boolean updateTraceTipColor(Integer traceId,String tipColor);
+	
+	/**   
+	 * @Title: create   
+	 * @Description: TODO(创建跟进)   
+	 * @param: @param entity
+	 * @param: @return      
+	 * @return: OrderProdTrace      
+	 * @throws   
+	 */
+	@Transaction
+	OrderProdTrace create(OrderProdTrace entity);
 }

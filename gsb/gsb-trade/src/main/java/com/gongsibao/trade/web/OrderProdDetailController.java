@@ -6,15 +6,33 @@ import java.util.List;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
 import org.netsharp.core.Oql;
+import org.netsharp.core.Paging;
+import org.netsharp.panda.commerce.EasyuiDatagridResult;
 
 import com.gongsibao.entity.product.WorkflowNode;
+import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.OrderProdTrace;
 import com.gongsibao.product.base.IWorkflowNodeService;
+import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IOrderProdTraceService;
 
 public class OrderProdDetailController {
 
+	IOrderProdService orderProdService = ServiceFactory.create(IOrderProdService.class);
 	IOrderProdTraceService traceService = ServiceFactory.create(IOrderProdTraceService.class);
+
+	/**
+	 * @Title: getOrderProdById
+	 * @Description: TODO(根据Id查询订单明细)
+	 * @param: @param id
+	 * @param: @return
+	 * @return: OrderProd
+	 * @throws
+	 */
+	public OrderProd getOrderProdById(Integer id) {
+
+		return orderProdService.byId(id);
+	}
 
 	/**
 	 * @Title: queryProdTraceList
@@ -24,7 +42,13 @@ public class OrderProdDetailController {
 	 * @return: List<OrderProdTrace>
 	 * @throws
 	 */
-	public List<OrderProdTrace> queryProdTraceList(Integer orderProdId) {
+	public EasyuiDatagridResult queryProdTraceList(Integer orderProdId, Integer pageIndex, Integer pageSize) {
+
+		Paging paging = new Paging();
+		{
+			paging.setPageNo(pageIndex);
+			paging.setPageSize(pageSize);
+		}
 
 		Oql oql = new Oql();
 		{
@@ -32,9 +56,19 @@ public class OrderProdDetailController {
 			oql.setSelects("OrderProdTrace.*,operator.{id,name},orderProdStatus.{id,name}");
 			oql.setFilter("orderProdId=?");
 			oql.setOrderby("createTime DESC");
+			oql.setPaging(paging);
 			oql.getParameters().add("orderProdId", orderProdId, Types.INTEGER);
 		}
-		return traceService.queryList(oql);
+		List<OrderProdTrace> list = traceService.queryList(oql);
+		EasyuiDatagridResult result = new EasyuiDatagridResult();
+		{
+			result.setRows(list);
+			if (oql.getPaging() != null) {
+
+				result.setTotal(oql.getPaging().getTotalCount());
+			}
+		}
+		return result;
 	}
 
 	/**
@@ -75,19 +109,19 @@ public class OrderProdDetailController {
 		return workflowNodeService.queryWorkflowNodeList(prodId, cityId, version);
 	}
 
-	/**   
-	 * @Title: updateProcessStatus   
-	 * @Description: TODO(更新订单、订单明细进度状态,并创建跟进记录)   
+	/**
+	 * @Title: updateProcessStatus
+	 * @Description: TODO(更新订单、订单明细进度状态,并创建跟进记录)
 	 * @param: @param orderProdId
 	 * @param: @param processStatusId
 	 * @param: @param processStatusText
-	 * @param: @return      
-	 * @return: Boolean      
-	 * @throws   
+	 * @param: @return
+	 * @return: Boolean
+	 * @throws
 	 */
-	public Boolean updateProcessStatus(Integer orderProdId, Boolean isSendMessage,Integer processStatusId, String processStatusText) {
+	public Boolean updateProcessStatus(OrderProdTrace trace) {
 
-		
+		traceService.create(trace);
 		return true;
 	}
 }

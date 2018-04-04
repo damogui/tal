@@ -37,6 +37,14 @@
 		    color: #1E7CB5;
 		}
 
+		.orderProd span{
+		
+			margin:0 5px;
+		}
+		
+		.datagrid-pager{
+			border-top-width:0px !important;
+		}
 	</style>
 	<script src='/package/easyui/jquery.min.js'></script>
 	<script src='/package/layer/layer.js'></script>
@@ -61,7 +69,7 @@
 					handler:function(){alert('下一条')}
 				}]">
 		   
-		    <p>订单号：10001307 订单明细：608 公司：暂无  办理名称：暂无 申请号：暂无</p>
+		    <p class="orderProd">订单号：<span id="orderNo"></span> 订单明细：<span id="orderProdNo"></span> 公司：<span id="companyName"></span>  办理名称：<span id="handleName"></span>  申请号：暂无</p>
 		</div>
 		<div class="easyui-panel" style="height:210px;border-top-width: 0px;">
 			<div style="width:50%;float:left;">
@@ -77,17 +85,18 @@
 			   			 	<tbody>
 				   			 	<tr>
 					   			 	<td>
-		   								<a href="javascript:traceCtrl.updateProcessStatus();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-refresh'">更改状态</a>
+		   								<a id="btn_processStatus" href="javascript:traceCtrl.updateProcessStatus();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-refresh'">更改状态</a>
 					   			 	</td>
 					   			 	<td><div class="datagrid-btn-separator"></div></td>
 					   			 	<td>
-					   			 		<a id="btn2" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-edit'">备注</a>
+					   			 		<a id="btn_remark" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-edit'">备注</a>
 					   			 	</td>
 					   			 	<td><div class="datagrid-btn-separator"></div></td>
 					   			 	<td>
-		   								<a id="btn11" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-cloud-upload'">上传</a>
+		   								<a id="btn_upload" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-cloud-upload'">上传</a>
 					   			 	</td>
-<!--					   			 	<td><div class="datagrid-btn-separator"></div></td>
+					   			 	
+<!--					   			<td><div class="datagrid-btn-separator"></div></td>
  					   			 	<td>
 					   			 		<a id="btn3" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-paint-brush'">标记投诉</a>
 					   			 	</td>

@@ -44,6 +44,7 @@ public class InvoiceFormWorKspace extends WorkspaceCreationBase {
 		addFormField(form, "soOrderNo", "订单编号", groupName, ControlTypes.LABEL, false, true);
 		addFormField(form, "payablePrice", "订单金额", groupName, ControlTypes.LABEL, false, true);
 		addFormField(form, "paidPrice", "已付金额", groupName, ControlTypes.LABEL, false, true);
+		addFormField(form, "toBeInvoicePrice", "可开发票额", groupName, ControlTypes.LABEL, false, true);
 		addFormField(form, "customerName", "客户姓名", groupName, ControlTypes.LABEL, false, true);
 		addFormField(form, "accountMobile", "客户电话", groupName, ControlTypes.LABEL, false, true);
 		addFormField(form, "createTime", "下单时间", groupName, ControlTypes.LABEL, false, true);

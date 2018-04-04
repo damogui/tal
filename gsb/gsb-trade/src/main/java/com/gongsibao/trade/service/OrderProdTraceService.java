@@ -1,7 +1,6 @@
 package com.gongsibao.trade.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +12,7 @@ import org.netsharp.core.DataTable;
 import org.netsharp.core.IRow;
 import org.netsharp.core.Oql;
 import org.netsharp.core.Row;
+import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
@@ -116,7 +116,7 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
 
 	@Override
 	public Boolean updateTraceTipColor(Integer traceId, String tipColor) {
-		
+
 		UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("so_order_prod_trace");
@@ -127,4 +127,78 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
 		return this.pm.executeNonQuery(cmdText, null) > 0;
 	}
 
+	@Override
+	public OrderProdTrace create(OrderProdTrace entity) {
+
+		entity.toNew();
+		entity.setOperatorId(SessionManager.getUserId());
+		entity = this.save(entity);
+
+		if (entity.getOrderProdStatusId() != null && entity.getOrderProdStatusId().compareTo(0) == 1) {
+
+			// 更新订单和订单明细的状态
+			updateOrderProdProcessStatus(entity);
+
+			// 更新订单状态
+			updateOrderProcessStatus(entity);
+		}
+		
+		//发送短信
+		if(entity.getIsSendSms()){
+			
+			
+		}
+
+		return entity;
+	}
+
+	/**
+	 * @Title: updateOrderProdProcessStatus
+	 * @Description: TODO(更新订单明细进度状态)
+	 * @param: @param orderProdStatusId
+	 * @param: @param orderProdId
+	 * @param: @return
+	 * @return: Boolean
+	 * @throws
+	 */
+	private Boolean updateOrderProdProcessStatus(OrderProdTrace entity) {
+
+		UpdateBuilder updateSql = UpdateBuilder.getInstance();
+		{
+			updateSql.update("so_order_prod");
+			updateSql.set("process_status_id", entity.getOrderProdStatusId());
+			updateSql.set("version", entity.getVersion());
+			updateSql.where("pkid=" + entity.getOrderProdId());
+		}
+		return this.pm.executeNonQuery(updateSql.toSQL(), null) > 0;
+	}
+
+	/**
+	 * @Title: updateOrderProcessStatus
+	 * @Description: TODO(更新订单进度状态)
+	 * @param: @param orderProdStatusId
+	 * @param: @param orderProdId
+	 * @param: @return
+	 * @return: Boolean
+	 * @throws
+	 */
+	private Boolean updateOrderProcessStatus(OrderProdTrace entity) {
+
+		//这里好像是取的type，hw。
+		//这里有个系统的帐号
+		UpdateBuilder updateSql = UpdateBuilder.getInstance();
+		{
+			updateSql.update("so_order");
+			updateSql.set("process_status_id", entity.getOrderProdStatusId());
+			updateSql.where("pkid in (SELECT order_id from so_order_prod where pkid="+entity.getOrderProdId()+")");
+		}
+		return this.pm.executeNonQuery(updateSql.toSQL(), null) > 0;
+	}
 }
+
+// 【admin】添加【admin】为负责人 admin 内容服务 2018-01-05 16:02:26
+// 更新状态:内容服务 admin 内容服务 2018-01-05 16:02:14
+// 办理名称修改（订单开始操作【汉唐】） admin 咨询下单 2018-01-05 16:01:44
+// 设置办理名称为【234324234】 admin 咨询下单 2018-01-05 16:01:44
+// 公司名称修改（订单开始操作【汉唐】） admin 咨询下单 2018-01-05 16:01:44
+// 线上支付0.01元 2018-01-05 15:56:19

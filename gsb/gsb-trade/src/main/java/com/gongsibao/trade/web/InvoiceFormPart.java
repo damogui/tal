@@ -37,6 +37,8 @@ public class InvoiceFormPart extends FormPart {
 
     IAuditService auditService = ServiceFactory.create(IAuditService.class);
 
+    ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
+
     /**
      * 订单id 查询订单信息
      *
@@ -49,7 +51,8 @@ public class InvoiceFormPart extends FormPart {
      */
     public SoOrder querySoOrderById(Integer orderId) {
         ISoOrderService soOrderService = ServiceFactory.create(ISoOrderService.class);
-        SoOrder soOrder = soOrderService.byId(orderId);
+        SoOrder soOrder = soOrderService.getByOrderId(orderId);
+        soOrder.setToBeInvoicePrice(soOrder.getPaidPrice() - NumberUtils.toInt(soOrder.getRefundPrice()));
         return soOrder;
     }
 
@@ -89,7 +92,10 @@ public class InvoiceFormPart extends FormPart {
     /*
     *检查该订单是否已经有发票了
     * */
-    public boolean checkInvoice(Integer orderId) {
+    public int checkInvoice(Integer orderId) {
+
+        int res = 0;
+
         Oql oql = new Oql();
         {
             oql.setType(Invoice.class);
@@ -103,10 +109,14 @@ public class InvoiceFormPart extends FormPart {
 
         List<Invoice> invoices = invoiceService.queryList(oql);
         if (CollectionUtils.isNotEmpty(invoices)) {
-            return true;
+            res = -1;
         } else {
-            return false;
+            SoOrder order = orderService.getByOrderId(orderId);
+            if (order.getPaidPrice() <= NumberUtils.toInt(order.getRefundPrice())) {
+                res = -2;
+            }
         }
+        return res;
     }
 
     /**

@@ -5,28 +5,36 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     	this.$gridCtrlId = '#order_prod_trace_grid';
     	this.service = 'com.gongsibao.trade.web.OrderProdDetailController';
     	this.orderProdId = null;
+    	this.mainCtrl = null;
     },
     init:function(orderProdId){
 
     	this.orderProdId = orderProdId;
     	var me = this;
-    	this.invokeService ("queryProdTraceList", [orderProdId], function(data){
+    	this.initGrid();
+    	this.query(1,10);
+    },
+    query:function(pageIndex,pageSize){
+    	
+    	var me = this;
+    	this.invokeService ("queryProdTraceList", [this.orderProdId,pageIndex,pageSize], function(data){
     		
-    		me.initGrid(data);
+    		$(me.$gridCtrlId).datagrid('loadData',data);
     	});
     },
-    initGrid:function(data){
+    initGrid:function(){
+    	
     	var me = this;
 		$(this.$gridCtrlId).datagrid({
 			idField:'id',
 			emptyMsg:'暂无记录',
+			height:380,
 			striped:true,
 			rownumbers:true,
-			pagination:false,
+			pagination:true,
 			showFooter:true,
 			singleSelect:true,
-			height:'100%',
-			data:data,
+			pageSize:10,
 			rowStyler: function(index,row){
 				
 				switch(row.tipColor){
@@ -44,6 +52,14 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
 					default:
 						return 'color: ##404040;';
 				}
+			},
+			onLoadSuccess:function(data){
+				
+				var pager = $(this).datagrid('getPager');
+				$(pager).pagination('options').onSelectPage = function(pageNumber, pageSize){
+					
+					me.query(pageNumber,pageSize);
+				}; 
 			},
 		    columns:[[
 		        {field:'info',title:'操作信息',width:250},
@@ -107,9 +123,12 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     updateProcessStatus(){
     	
     	var me = this;
-    	var productId = 1040;
-    	var cityId = 101440106;
-    	var version = null;
+    	//var version = this.mainCtrl.orderProd.version;//要更新老数据至version（根据order_prod_status_id到prod_workflow_node表里冗余version）
+    	//var productId = this.mainCtrl.orderProd.productId;
+    	//var cityId = this.mainCtrl.orderProd.cityId;
+    	productId = 1040;
+    	cityId = 101440106;
+    	version = 8;
     	this.invokeService("queryWorkflowNodeList", [productId,cityId,version], function(data){
     		
     		if(data){
@@ -158,8 +177,16 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     					
     					var processStatusText = $('#processStatus').combobox('getText');
     					var isSendMessage = $('#isSendMessage').prop('checked');
+    					
+    					var trace = new Object();
+    					trace.orderProdId = me.orderProdId;
+    					trace.orderProdStatusId = processStatusId;
+    					trace.info = "更新状态:" + processStatusText;
+    					trace.isSendMessage = isSendMessage;
+    					trace.version = data[0].version;
+    					
     					//更新状态:网提
-    					me.invokeService("updateProcessStatus", [me.orderProdId,isSendMessage,processStatusId,processStatusText], function(data){
+    					me.invokeService("updateProcessStatus", [trace], function(data){
     						
     						layer.close(index);
     						me.init(me.orderProdId);
