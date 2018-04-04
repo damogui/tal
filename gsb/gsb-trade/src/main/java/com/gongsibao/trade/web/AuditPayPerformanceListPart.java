@@ -58,6 +58,9 @@ public class AuditPayPerformanceListPart extends AdvancedListPart {
         StringBuilder selects = new StringBuilder ();
         selects.append ("auditLog.*,");
         selects.append ("auditLog.soOrder.*,");
+        selects.append ("auditLog.employee.name,");
+        selects.append ("auditLog.soOrder.owner.name");
+
        // selects.append ("auditLog.soOrder.nDepPay.*");
 
         IAuditLogService auditLogService = ServiceFactory.create (IAuditLogService.class);

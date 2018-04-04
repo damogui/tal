@@ -106,7 +106,7 @@ public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
         addColumn (datagrid, "updateTime", "审核通过时间", ControlTypes.DATETIME_BOX, 100);
 
         addColumn (datagrid, "soOrder.createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);
-        addColumn (datagrid, "creator", "回款业绩创建人", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "employee.name", "回款业绩创建人", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
 
 
