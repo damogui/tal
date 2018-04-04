@@ -15,7 +15,8 @@ com.gongsibao.trade.web.OrderStageCtrl = org.netsharp.panda.core.CustomCtrl.Exte
     	var orderId = this.queryString('id');
     	this.invokeService ("getSoOrder", [orderId], function(data){
     		
-    		var stageAmount = ((data.payablePrice - data.paidPrice)/100).toFixed(2);
+    		//var stageAmount = ((data.payablePrice - data.paidPrice)/100).toFixed(2);
+    		var stageAmount = (data.payablePrice/100).toFixed(2);
     		$('#stageAmount').numberbox('setValue',stageAmount);
     		$('#stageNum').combobox('setValue','2');
     	});
@@ -43,15 +44,32 @@ com.gongsibao.trade.web.OrderStageCtrl = org.netsharp.panda.core.CustomCtrl.Exte
     	// 还有一些联动未处理 hw
     },
     stageAmountChange:function(newValue,oldValue,numIndex){
-    	
+    	debugger;
+    	var stageNum = parseInt($('#stageNum').combobox('getValue'));
+    	var totalStageAmount =  (parseFloat($('#stageAmount').numberbox('getValue'))*100);
+    	//验证输入分期金额是否合法
+    	var getAllAmout = 0;
+    	for(var i=1;i<=stageNum -1 ;i++){
+    		getAllAmout += parseFloat($('#stageAmount'+i).val())*100;
+    		if(getAllAmout == totalStageAmount){
+    			$('#stageAmount'+numIndex).numberbox('clear');
+        		layer.msg('最后一期无金额，请核实分期期数');
+        		return false;
+    		}else if(getAllAmout > totalStageAmount){
+    			$('#stageAmount'+numIndex).numberbox('clear');
+        		layer.msg('分期总额不等于订单应付金额，请核实');
+        		return false;
+    		}
+    	}
+    	var currentStageAmount = parseFloat(newValue)*100;
     	var stageAmountCtrlId = '#stageAmount'+numIndex;
     	var stagepercentageCtrlId = '#stagePercentage'+numIndex;
-    	var totalStageAmount =  (parseFloat($('#stageAmount').numberbox('getValue'))*100);
-    	var currentStageAmount = parseFloat(newValue)*100;
+    	
+    	
     	var percentage = (currentStageAmount/totalStageAmount)*100;
     	$(stagepercentageCtrlId).numberbox('setValue',percentage);
     	
-    	var stageNum = parseInt($('#stageNum').combobox('getValue'));
+    	
     	if(stageNum==2 && numIndex==1){
     		
     		var surplusAmount = ((totalStageAmount-currentStageAmount)/100).toFixed(2);

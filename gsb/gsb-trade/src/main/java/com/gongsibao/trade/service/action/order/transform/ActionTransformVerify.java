@@ -8,6 +8,7 @@ import org.netsharp.core.BusinessException;
 
 import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.trade.SoOrder;
+import org.netsharp.persistence.session.SessionManager;
 
 /**
  * Created by zhangchao on 2018/3/8.
@@ -19,6 +20,8 @@ public class ActionTransformVerify implements IAction {
     public void execute(ActionContext ctx) {
         //订单
         SoOrder entity = (SoOrder) ctx.getItem();
+
+        Integer currentUserId = SessionManager.getUserId();
 
         // 验证非空
         if (entity == null) {
@@ -37,6 +40,10 @@ public class ActionTransformVerify implements IAction {
 
         if (toUser == null) {
             throw new BusinessException("目标业务员不存在！");
+        }
+
+        if (!currentUserId.equals(toUser.getId())) {
+            throw new BusinessException("订单不能自己转给自己！");
         }
     }
 }
