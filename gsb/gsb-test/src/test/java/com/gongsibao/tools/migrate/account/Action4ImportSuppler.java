@@ -1,12 +1,11 @@
 package com.gongsibao.tools.migrate.account;
 
-import java.util.List;
-
+import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.supplier.base.ISupplierService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 
-import com.gongsibao.entity.supplier.Supplier;
-import com.gongsibao.supplier.base.ISupplierService;
+import java.util.List;
 
 /**
  * @ClassName: Action6ImportSuppler
