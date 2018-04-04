@@ -28,12 +28,7 @@ public class SalesmanOrderReceivedListPart extends AdvancedListPart {
         String keyword = parameter.getValue1 ().toString ();
         if (parameter.getKey ().equals ("keyword")) {
          return  "soOrder.no like '%" + keyword + "%'";
-           // filters.add ("soOrder.no  like  '%" + keyword + "%' ");
-//            filters.add ("order.channel_order_no = '" + keyword + "'");
-//            filters.add ("order.account_mobile = '" + keyword + "'");
-//            filters.add ("order.account_name = '" + keyword + "'");
-//            filters.add ("order.company_id in( select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' )  )");
-           // return "(" + StringManager.join (" or ", filters) + ")";
+
         }
         if (parameter.getKey ().equals ("isOnlinePay")) {
 

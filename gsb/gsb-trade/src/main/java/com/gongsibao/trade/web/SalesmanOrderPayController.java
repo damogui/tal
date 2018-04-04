@@ -26,8 +26,10 @@ public class SalesmanOrderPayController extends AdvancedListPart {
         //当是关键字时(订单编号、渠道订单编号、下单人、下单人电话、关联公司)
         String keyword = parameter.getValue1 ().toString ();
         if (parameter.getKey ().equals ("keyword")) {
-filters.add (String.format (" FIND_IN_SET(%s,orderNo) ",keyword));
-            return "(" + StringManager.join (" or ", filters) + ")";
+//filters.add (String.format (" FIND_IN_SET(%s,orderNo) ",keyword));
+//            return "(" + StringManager.join (" or ", filters) + ")";
+
+            return  "orderNo  like '%" + keyword + "%'";
         }
 
         return parameter.getFilter ();
