@@ -75,7 +75,7 @@ public class ContractFormWorkspaceTest extends WorkspaceCreationBase {
 
         groupName = "合同款项";
         addFormField(form, "soOrder.payablePrice", "订单金额", groupName, ControlTypes.LABEL, false, true);
-        addFormField(form, "realAmount", "合同总额", groupName, ControlTypes.DECIMAL_FEN_BOX, true, true);
+        addFormField(form, "realAmount", "合同总额", groupName, ControlTypes.DECIMAL_FEN_BOX, false, true);
         groupName = "撰写材料费";
         formField = addFormField(form, "hasDataFee", "有/无材料费", groupName, ControlTypes.ENUM_BOX, false, false);
         {
