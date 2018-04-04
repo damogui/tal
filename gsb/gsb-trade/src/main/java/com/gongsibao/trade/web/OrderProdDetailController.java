@@ -6,6 +6,8 @@ import java.util.List;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
 import org.netsharp.core.Oql;
+import org.netsharp.core.Paging;
+import org.netsharp.panda.commerce.EasyuiDatagridResult;
 
 import com.gongsibao.entity.product.WorkflowNode;
 import com.gongsibao.entity.trade.OrderProd;
@@ -19,21 +21,19 @@ public class OrderProdDetailController {
 	IOrderProdService orderProdService = ServiceFactory.create(IOrderProdService.class);
 	IOrderProdTraceService traceService = ServiceFactory.create(IOrderProdTraceService.class);
 
-	
-	/**   
-	 * @Title: getOrderProdById   
-	 * @Description: TODO(根据Id查询订单明细)   
+	/**
+	 * @Title: getOrderProdById
+	 * @Description: TODO(根据Id查询订单明细)
 	 * @param: @param id
-	 * @param: @return      
-	 * @return: OrderProd      
-	 * @throws   
+	 * @param: @return
+	 * @return: OrderProd
+	 * @throws
 	 */
-	public OrderProd getOrderProdById(Integer id){
-		
+	public OrderProd getOrderProdById(Integer id) {
+
 		return orderProdService.byId(id);
 	}
-	
-	
+
 	/**
 	 * @Title: queryProdTraceList
 	 * @Description: TODO(根据订单明细Id查询订单明细跟进)
@@ -42,7 +42,13 @@ public class OrderProdDetailController {
 	 * @return: List<OrderProdTrace>
 	 * @throws
 	 */
-	public List<OrderProdTrace> queryProdTraceList(Integer orderProdId) {
+	public EasyuiDatagridResult queryProdTraceList(Integer orderProdId, Integer pageIndex, Integer pageSize) {
+
+		Paging paging = new Paging();
+		{
+			paging.setPageNo(pageIndex);
+			paging.setPageSize(pageSize);
+		}
 
 		Oql oql = new Oql();
 		{
@@ -50,9 +56,19 @@ public class OrderProdDetailController {
 			oql.setSelects("OrderProdTrace.*,operator.{id,name},orderProdStatus.{id,name}");
 			oql.setFilter("orderProdId=?");
 			oql.setOrderby("createTime DESC");
+			oql.setPaging(paging);
 			oql.getParameters().add("orderProdId", orderProdId, Types.INTEGER);
 		}
-		return traceService.queryList(oql);
+		List<OrderProdTrace> list = traceService.queryList(oql);
+		EasyuiDatagridResult result = new EasyuiDatagridResult();
+		{
+			result.setRows(list);
+			if (oql.getPaging() != null) {
+
+				result.setTotal(oql.getPaging().getTotalCount());
+			}
+		}
+		return result;
 	}
 
 	/**
