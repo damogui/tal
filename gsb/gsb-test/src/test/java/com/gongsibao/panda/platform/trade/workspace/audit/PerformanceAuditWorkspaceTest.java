@@ -1,6 +1,7 @@
 package com.gongsibao.panda.platform.trade.workspace.audit;
 
 import com.gongsibao.panda.supplier.order.workspace.audit.AuditOrderPerformanceWorkspaceTest;
+import com.gongsibao.trade.web.AuditOrderPerformanceListPart;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
@@ -31,6 +32,7 @@ public class PerformanceAuditWorkspaceTest extends AuditOrderPerformanceWorkspac
         meta = MtableManager.getMtable (entity);// 获取实体元数据
         formPartName = listPartName = meta.getName ();
         resourceNodeCode = "GSB_Trade_Audit_Performance";// 菜单节点码（名称）
+        listPartServiceController = AuditOrderPerformanceListPart.class.getName ();
     }
 
     @Test

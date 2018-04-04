@@ -129,12 +129,13 @@ public class AuditOrderPerformanceWorkspaceTest extends WorkspaceCreationBase {
         }
 
         addQueryItem (queryProject, "prodName", "产品名称", ControlTypes.TEXT_BOX);
-//        addQueryItem (queryProject, "nDepReceivable.statusType", "审核状态", ControlTypes.ENUM_BOX);//addQueryItem (queryProject, "nDepReceivable.order.payStatus", "付款状态", ControlTypes.ENUM_BOX);
-        addQueryItem (queryProject, "soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "status", "审核状态", ControlTypes.ENUM_BOX);
+        addQueryItem (queryProject, "soOrder.payStatus", "付款状态", ControlTypes.ENUM_BOX);
+        addQueryItem (queryProject, "name", "业务员", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "creator", "订单业绩创建人", ControlTypes.TEXT_BOX);
 
         addQueryItem (queryProject, "createTime", "订单业绩创建时间", ControlTypes.DATE_BOX);
-        addQueryItem (queryProject, "soOrder.createTime", "订单创建时间", ControlTypes.DATE_BOX);
+        addQueryItem (queryProject, "orderCreateTime", "订单创建时间", ControlTypes.DATE_BOX);
 
 
         return queryProject;

@@ -30,20 +30,6 @@ public class AuditLogService extends PersistableService<AuditLog> implements IAu
 	@Override
 	public List<AuditLog> queryList(Oql oql) {
 
-		StringBuilder selects = new StringBuilder();
-		selects.append("AuditLog.*,");
-		selects.append("AuditLog.soOrder.*,");
-		selects.append("AuditLog.contract.*,");
-		selects.append("AuditLog.contract.soOrder.*,");
-		selects.append("AuditLog.contract.soOrder.products.*,");
-		selects.append("AuditLog.invoice.*,");
-		selects.append("AuditLog.invoice.orderInvoiceMaps.*,");
-		selects.append("AuditLog.invoice.orderInvoiceMaps.soOrder.*");
-		// selects.append("AuditLog.pay.*,");
-		// selects.append("AuditLog.pay.orderPayMaps.*,");
-		// selects.append("AuditLog.pay.orderPayMaps.soOrder.*");
-		// oql.setSelects(selects.toString());
-
 		List<AuditLog> resList = super.queryList(oql);
 
 		if (CollectionUtils.isNotEmpty(resList)) {
@@ -70,7 +56,7 @@ public class AuditLogService extends PersistableService<AuditLog> implements IAu
 		}
 
 		// return super.queryList(oql);
-		return resList;
+	return resList;
 	}
 
 	@Override
