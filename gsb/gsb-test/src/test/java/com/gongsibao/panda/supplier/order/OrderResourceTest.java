@@ -76,7 +76,9 @@ public class OrderResourceTest extends ResourceCreationBase {
                 this.createResourceNodeVoucher(SoOrder.class.getName(), "分期订单", "Gsb_Supplier_Order_Department_Staging", IOrderService.class.getName(), node3.getId());
                 this.createResourceNodeVoucher(NOrderCarryover.class.getName(), "结转订单", "Gsb_Supplier_Order_Department_Carryover", INOrderCarryoverService.class.getName(), node3.getId());
                 this.createResourceNodeVoucher(Contract.class.getName(), "合同管理", "Gsb_Supplier_Order_Department_Contract", IContractService.class.getName(), node3.getId());
+                this.createResourceNodeVoucher(Contract.class.getName(), "合同审核界面", "GSB_Trade_Audit_Contract_Form", IContractService.class.getName(), node3.getId());
                 this.createResourceNodeVoucher(OrderInvoiceMap.class.getName(), "发票管理", "Gsb_Supplier_Order_Department_Invoice", IOrderInvoiceMapService.class.getName(), node3.getId());
+                this.createResourceNodeVoucher(Invoice.class.getName(), "发票审核界面", "GSB_Trade_Audit_Invoice_Form", IInvoiceService.class.getName(), node3.getId());
 
 //                this.createResourceNodeVoucher(SoOrder.class.getName(), "日统计", "Gsb_Supplier_Order_Department_Day_Report", IOrderService.class.getName(), node1.getId());
 //                this.createResourceNodeVoucher(SoOrder.class.getName(), "周统计", "Gsb_Supplier_Order_Department_Week_Report", IOrderService.class.getName(), node1.getId());
