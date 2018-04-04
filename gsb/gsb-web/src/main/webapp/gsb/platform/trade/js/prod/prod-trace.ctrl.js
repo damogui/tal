@@ -11,23 +11,30 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
 
     	this.orderProdId = orderProdId;
     	var me = this;
-    	this.invokeService ("queryProdTraceList", [orderProdId], function(data){
+    	this.initGrid();
+    	this.query(1,10);
+    },
+    query:function(pageIndex,pageSize){
+    	
+    	var me = this;
+    	this.invokeService ("queryProdTraceList", [this.orderProdId,pageIndex,pageSize], function(data){
     		
-    		me.initGrid(data);
+    		$(me.$gridCtrlId).datagrid('loadData',data);
     	});
     },
-    initGrid:function(data){
+    initGrid:function(){
+    	
     	var me = this;
 		$(this.$gridCtrlId).datagrid({
 			idField:'id',
 			emptyMsg:'暂无记录',
+			height:380,
 			striped:true,
 			rownumbers:true,
-			pagination:false,
+			pagination:true,
 			showFooter:true,
 			singleSelect:true,
-			height:'100%',
-			data:data,
+			pageSize:10,
 			rowStyler: function(index,row){
 				
 				switch(row.tipColor){
@@ -45,6 +52,14 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
 					default:
 						return 'color: ##404040;';
 				}
+			},
+			onLoadSuccess:function(data){
+				
+				var pager = $(this).datagrid('getPager');
+				$(pager).pagination('options').onSelectPage = function(pageNumber, pageSize){
+					
+					me.query(pageNumber,pageSize);
+				}; 
 			},
 		    columns:[[
 		        {field:'info',title:'操作信息',width:250},
@@ -163,15 +178,12 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     					var processStatusText = $('#processStatus').combobox('getText');
     					var isSendMessage = $('#isSendMessage').prop('checked');
     					
-    					
-    					
     					var trace = new Object();
     					trace.orderProdId = me.orderProdId;
     					trace.orderProdStatusId = processStatusId;
     					trace.info = "更新状态:" + processStatusText;
     					trace.isSendMessage = isSendMessage;
     					trace.version = data[0].version;
-    					alert(trace.version);
     					
     					//更新状态:网提
     					me.invokeService("updateProcessStatus", [trace], function(data){
