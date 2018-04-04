@@ -68,7 +68,7 @@ public class ContractFormWorkspaceTest extends WorkspaceCreationBase {
         }
         addFormField(form, "businessLicenseNo", "营业执照号", groupName, ControlTypes.TEXT_BOX, false, true);
         addFormField(form, "idNumber", "身份证号", groupName, ControlTypes.TEXT_BOX, false, true);
-        addFormField(form, "contractTitle", "合同标题", groupName, ControlTypes.TEXT_BOX, true, true);
+        addFormField(form, "contractTitle", "合同标题", groupName, ControlTypes.TEXT_BOX, false, true);
         addFormField(form, "sginingTime", "签约日期", groupName, ControlTypes.DATE_BOX, true, false);
         addFormField(form, "urgeney", "是否加急", groupName, ControlTypes.SWITCH_BUTTON, false, false);
         addFormField(form, "sginingCompanyId", "我方签约公司", groupName, ControlTypes.ENUM_BOX, false, false);
