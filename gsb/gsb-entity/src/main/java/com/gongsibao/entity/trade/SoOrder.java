@@ -15,7 +15,7 @@ import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.crm.NCustomer;
-import com.gongsibao.entity.crm.dic.Important;
+import com.gongsibao.entity.crm.dic.Important; 
 import com.gongsibao.entity.product.ProductPackage;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
