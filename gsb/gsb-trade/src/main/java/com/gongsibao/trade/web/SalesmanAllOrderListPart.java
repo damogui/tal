@@ -25,7 +25,6 @@ import com.gongsibao.u8.base.ISoOrderService;
  */
 public class SalesmanAllOrderListPart extends AdvancedListPart {
     ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
-    IPersister<SoOrder> oService = PersisterFactory.create();//执行sql
 
     @Override
     public List<?> doQuery(Oql oql) {
@@ -154,20 +153,16 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
 
     /*校验是不是存在订单的改价审核和回款审核，存在不弹窗*/
     public Integer checkCanPay(Integer orderId) {
-        String sql = "SELECT IFNULL(COUNT(change_price_audit_status_id),0)   FROM so_order  WHERE  change_price_audit_status_id<>1054  AND  is_change_price=1 AND  pkid=?";//有没有待审核、审核中
+       return orderService.checkCanPay(orderId);
 
-        QueryParameters qps = new QueryParameters();
-        qps.add("@pkid", orderId, Types.INTEGER);
-        int num = oService.executeInt(sql, qps);
-        if (num > 0) {
-            return 1;
-
-        } else {
-            return 0;
-
-        }
 
 
     }
+
+    /*创建订单业绩是不是已经存在存在的话不能创建*/
+    public Integer checkCanOrderPer(Integer orderId) {
+        return orderService.checkCanOrderPer(orderId);
+    }
+
 
 }

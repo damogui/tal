@@ -68,33 +68,44 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         }
 
         var urlEnd = this.addOrderReceivedUrl + "?id=" + row.id;
+debugger;
+        /*创建订单业绩是不是已经存在存在的话不能创建*/
+        me.invokeService("checkCanOrderPer", [parseInt(row.id)], function (data) {
+            if (data > 0) {
+                layer.msg("订单业绩已经创建");
+                return;
+            } else {
+                layer.open({
+                    type: 2,//1是字符串 2是内容
+                    title: '订单信息',
+                    fixed: false,
+                    maxmin: true,
+                    shadeClose: false,
+                    area: ['60%', '60%'],
+                    zIndex: 100000,
+                    id: "addOrderReceivedIframe",
+                    content: urlEnd,
+                    btn: ['保存', '取消'],// 可以无限个按钮
+                    success: function (layero, index) {
 
-        layer.open({
-            type: 2,//1是字符串 2是内容
-            title: '订单信息',
-            fixed: false,
-            maxmin: true,
-            shadeClose: false,
-            area: ['60%', '60%'],
-            zIndex: 100000,
-            id: "addOrderReceivedIframe",
-            content: urlEnd,
-            btn: ['保存', '取消'],// 可以无限个按钮
-            success: function (layero, index) {
-
-            },
-            yes: function (index, layero) {
+                    },
+                    yes: function (index, layero) {
 
 
-                document.getElementById('addOrderReceivedIframe').firstElementChild.contentWindow.controllerdepReceivable.savebase();//保存
-                //IMessageBox.toast('保存成功');
-                //layer.closeAll();
+                        document.getElementById('addOrderReceivedIframe').firstElementChild.contentWindow.controllerdepReceivable.savebase();//保存
+                        //IMessageBox.toast('保存成功');
+                        //layer.closeAll();
 
+
+                    }
+
+
+                });
 
             }
-
-
         });
+
+
     },
     addReceived: function (id) {//创建回款
 
