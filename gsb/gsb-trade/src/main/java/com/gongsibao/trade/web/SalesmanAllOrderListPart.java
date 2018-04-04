@@ -154,7 +154,7 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
 
     /*校验是不是存在订单的改价审核和回款审核，存在不弹窗*/
     public Integer checkCanPay(Integer orderId) {
-        String sql = "SELECT IFNULL(MAX(change_price_audit_status_id),0)   FROM so_order  WHERE  change_price_audit_status_id  IN (1051,1052) AND  pkid=?";//有没有待审核、审核中
+        String sql = "SELECT IFNULL(COUNT(change_price_audit_status_id),0)   FROM so_order  WHERE  change_price_audit_status_id<>1054  AND  is_change_price=1 AND  pkid=?";//有没有待审核、审核中
 
         QueryParameters qps = new QueryParameters();
         qps.add("@pkid", orderId, Types.INTEGER);

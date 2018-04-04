@@ -112,7 +112,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                 layer.msg("订单改价审核没通过不允许创建回款");
                 return;
             } else {
-                var urlEnd = this.addReceivedUrl + "?no=" + row.no;
+                var urlEnd = me.addReceivedUrl + "?no=" + row.no;
                 layer.open({
                     type: 2,//1是字符串 2是内容
                     title: '创建回款',
