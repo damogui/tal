@@ -90,7 +90,7 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
         addColumn (datagrid, "soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "soOrder.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn (datagrid, "soOrder.payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
-        addColumn (datagrid, "soOrder.paidPrice", "已经付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn (datagrid, "soOrder.paidPrice", "已付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn (datagrid, "amount", "我的回款业绩额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn (datagrid, "statusType", "审核状态", ControlTypes.ENUM_BOX, 100);
         addColumn (datagrid, "createTime", "回款业绩创建时间", ControlTypes.DATETIME_BOX, 100);
