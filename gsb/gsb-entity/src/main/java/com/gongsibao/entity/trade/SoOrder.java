@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.gongsibao.entity.trade.dic.*;
-
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Reference;
@@ -18,10 +16,20 @@ import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.crm.dic.Important;
-import com.gongsibao.entity.igirl.tm.TradeMarkCase;
 import com.gongsibao.entity.product.ProductPackage;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
+import com.gongsibao.entity.trade.dic.OrderAccountType;
+import com.gongsibao.entity.trade.dic.OrderIsManualVoucherType;
+import com.gongsibao.entity.trade.dic.OrderManualVoucherStatus;
+import com.gongsibao.entity.trade.dic.OrderPayStatusType;
+import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
+import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
+import com.gongsibao.entity.trade.dic.OrderRefundStatusType;
+import com.gongsibao.entity.trade.dic.OrderSourceType;
+import com.gongsibao.entity.trade.dic.OrderStageNum;
+import com.gongsibao.entity.trade.dic.OrderType;
 
 @Table(name = "so_order", header = "销售订单")
 public class SoOrder extends BaseEntity {
