@@ -112,6 +112,12 @@ public class SoOrder extends BaseEntity {
     private Integer paidPrice = 0;
 
     /**
+     * 临时字段-可开发票额
+     */
+    @Exclusive
+    private Integer toBeInvoicePrice = 0;
+
+    /**
      * 临时字段-待支付
      */
     @Exclusive
@@ -1082,5 +1088,13 @@ public class SoOrder extends BaseEntity {
 
     public void setFistPayTime(Date fistPayTime) {
         this.fistPayTime = fistPayTime;
+    }
+
+    public Integer getToBeInvoicePrice() {
+        return toBeInvoicePrice;
+    }
+
+    public void setToBeInvoicePrice(Integer toBeInvoicePrice) {
+        this.toBeInvoicePrice = toBeInvoicePrice;
     }
 }
