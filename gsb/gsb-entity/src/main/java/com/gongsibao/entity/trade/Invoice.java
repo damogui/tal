@@ -102,7 +102,6 @@ public class Invoice extends BaseEntity {
     @Subs(subType = File.class, foreignKey = "formId", header = "上传图片表（一个支付可以多个凭证）")
     private List<File> files = new ArrayList<>();
 
-    @JsonIgnore
     @Exclusive
     @Subs(subType = AuditLog.class, foreignKey = "formId", header = "审核记录")
     private List<AuditLog> auditLogs = new ArrayList<AuditLog>();

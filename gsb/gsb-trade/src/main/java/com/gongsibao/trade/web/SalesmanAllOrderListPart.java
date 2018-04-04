@@ -32,8 +32,9 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
 
         StringBuilder sb = new StringBuilder();
         sb.append("SoOrder.*,");
-        sb.append("SoOrder.companyIntention.name,");
-        sb.append("SoOrder.customer.realName");
+        sb.append("SoOrder.companyIntention.{pkid,name,full_name,company_name},");
+        sb.append("SoOrder.customer.realName,");
+        sb.append("SoOrder.owner.{id,name}");
         oql.setSelects(sb.toString());
         List<?> rows = orderService.queryList(oql);
         return rows;
