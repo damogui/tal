@@ -17,6 +17,12 @@ public class IGirlBaseCustomerInfo extends Entity{
     @Column(name = "service_type",header = "服务类型")
     private IGirlServiceType serviceType;
 
+    @Column(name = "owner_id",header = "客户所属人ID")
+    private Integer ownerId;
+
+    @Column(name = "owner_name",header = "客户所属人名称")
+    private String ownerName;
+
     public String getName() {
         return name;
     }
@@ -39,5 +45,21 @@ public class IGirlBaseCustomerInfo extends Entity{
 
     public void setServiceType(IGirlServiceType serviceType) {
         this.serviceType = serviceType;
+    }
+
+    public Integer getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Integer ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 }
