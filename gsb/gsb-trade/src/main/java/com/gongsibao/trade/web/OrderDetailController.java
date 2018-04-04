@@ -7,6 +7,12 @@ import java.util.List;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 
+
+import org.netsharp.persistence.IPersister;
+import org.netsharp.persistence.PersisterFactory;
+
+import com.gongsibao.entity.crm.NCustomerTask;
+import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.trade.Contract;
 import com.gongsibao.entity.trade.NOrderExchangeLog;
 import com.gongsibao.entity.trade.OrderDiscount;
@@ -45,7 +51,34 @@ public class OrderDetailController {
 		Contract entity = contractService.queryFirst(oql);
 		return entity;
 	}
-	
+	/**
+	 * 根据订单Id获取关联的商机
+	 * @param id
+	 * @return
+	 */
+	public NCustomerTask queryTaskInfo(Integer id) {
+		//1.获取商机Id
+		Oql oql = new Oql();
+		{
+			oql.setType(SoOrder.class);
+			oql.setSelects("*");
+			oql.setFilter("id=?");
+			oql.getParameters().add("id", id, Types.INTEGER);
+		}
+		IOrderService orderService = ServiceFactory.create(IOrderService.class);
+		SoOrder orderEntity = orderService.queryFirst(oql);
+		//2.根据商机Id,获取商机实体
+		Oql oqlTask = new Oql();
+		{
+			oqlTask.setType(NCustomerTask.class);
+			oqlTask.setSelects("NCustomerTask.id,NCustomerTask.customerId");
+			oqlTask.setFilter("id=?");
+			oqlTask.getParameters().add("id", orderEntity.getTaskId(), Types.INTEGER);
+		}
+		IPersister<NCustomerTask> pm = PersisterFactory.create();
+		NCustomerTask taskEntity = pm.queryFirst(oqlTask);
+		return taskEntity;
+	}
 	/**
 	 * @Title: getSoOrder
 	 * @Description: TODO(这里用一句话描述这个方法的作用)
