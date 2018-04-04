@@ -4,14 +4,12 @@ import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
-@Table(name="ig_base_areatwo",header="县级地区",orderBy="code asc")
+@Table(name="ig_base_area_two",header="县级地区",orderBy="code asc")
 public class AreaTwo extends Entity {
 
     /**
 	 * 
 	 */
-//	private static final long serialVersionUID = 6388786836663106011L;
-
 
 	@Column(name="code",header="编码分组")
     private String code;
@@ -20,12 +18,12 @@ public class AreaTwo extends Entity {
     private String name;
 
     @Column(name="level",header="层次")
-    private int level=2;
+    private Integer level=2;
 
-    @Column(name="p_code",header="上级代码")
-    private String pCode;
+    @Column(name="parent_id",header="上级代码")
+    private Integer parentId;
 
-    @Column(name="areaone_id",header="省级ID")
+    @Column(name="area_one_id",header="省级ID")
     private Integer areaOneId = -1;
 
     @Reference(foreignKey="areaOneId",header="省级ID")
@@ -65,19 +63,19 @@ public class AreaTwo extends Entity {
         this.areaOne = areaOne;
     }
 
-    public int getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
 
-    public String getpCode() {
-        return pCode;
+    public Integer getParentId() {
+        return parentId;
     }
 
-    public void setpCode(String pCode) {
-        this.pCode = pCode;
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
     }
 }

@@ -1,19 +1,18 @@
 package com.gongsibao.u8.service;
 
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.gongsibao.entity.bd.dic.AuditLogType;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.BusinessException;
-import org.netsharp.core.DataTable;
-import org.netsharp.core.IRow;
-import org.netsharp.core.Oql;
+import org.netsharp.core.*;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
@@ -29,50 +28,51 @@ import com.gongsibao.utils.NumberUtils;
 public class SoOrderService extends PersistableService<SoOrder> implements ISoOrderService {
 
     //业务员接口服务
-    ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
+    ISalesmanService salesmanService = ServiceFactory.create (ISalesmanService.class);
 
-    ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
+    ISoOrderService orderService = ServiceFactory.create (ISoOrderService.class);
+
     public SoOrderService() {
-        super();
+        super ();
         this.type = SoOrder.class;
     }
 
     @Override
     public Boolean updateManuaVoucherStatus(Integer orderId, OrderManualVoucherStatus status) {
 
-        UpdateBuilder updateBuilder = UpdateBuilder.getInstance();
+        UpdateBuilder updateBuilder = UpdateBuilder.getInstance ();
         {
-            updateBuilder.update("so_order");
-            updateBuilder.set("manual_voucher_status", status.getValue());
-            updateBuilder.where("pkid=" + orderId);
+            updateBuilder.update ("so_order");
+            updateBuilder.set ("manual_voucher_status", status.getValue ());
+            updateBuilder.where ("pkid=" + orderId);
         }
 
-        String cmdText = updateBuilder.toSQL();
-        return this.pm.executeNonQuery(cmdText, null) > 0;
+        String cmdText = updateBuilder.toSQL ();
+        return this.pm.executeNonQuery (cmdText, null) > 0;
     }
 
     @Override
     public Map<Integer, String> getCustNameByOrderIdList(List<Integer> orderIdList) {
 
-        Map<Integer, String> map = new HashMap<Integer, String>();
-        String orderIds = StringManager.join(",", orderIdList);
+        Map<Integer, String> map = new HashMap<Integer, String> ();
+        String orderIds = StringManager.join (",", orderIdList);
 
-        StringBuffer sqlBuffer = new StringBuffer();
-        sqlBuffer.append("SELECT oi.pkid 'orderId', ");
-        sqlBuffer.append("(CASE WHEN (cri1.`pkid` IS NOT NULL AND cri1.`company_name`!='' ) THEN cri1.`company_name`   ");
-        sqlBuffer.append("WHEN (c.pkid IS NULL) THEN (CASE WHEN a.real_name='' THEN a.name ELSE a.real_name END) ");
-        sqlBuffer.append("WHEN (ccm.pkid IS NULL OR cri.company_name='') THEN (CASE WHEN c.real_name='' THEN c.`mobile` ELSE c.real_name END) ELSE cri.company_name END) 'custName' FROM so_order oi  ");
-        sqlBuffer.append("JOIN uc_account a ON a.pkid = oi.account_id ");
-        sqlBuffer.append("LEFT JOIN crm_customer c ON c.account_id = a.pkid ");
-        sqlBuffer.append("LEFT JOIN crm_customer_company_map ccm ON ccm.customer_id = c.pkid ");
-        sqlBuffer.append("LEFT JOIN crm_company_intention cri ON cri.pkid = ccm.company_id ");
-        sqlBuffer.append("LEFT JOIN crm_company_intention cri1 ON cri1.pkid = oi.company_id ");
-        sqlBuffer.append("WHERE oi.pkid IN(" + orderIds + ") ");
+        StringBuffer sqlBuffer = new StringBuffer ();
+        sqlBuffer.append ("SELECT oi.pkid 'orderId', ");
+        sqlBuffer.append ("(CASE WHEN (cri1.`pkid` IS NOT NULL AND cri1.`company_name`!='' ) THEN cri1.`company_name`   ");
+        sqlBuffer.append ("WHEN (c.pkid IS NULL) THEN (CASE WHEN a.real_name='' THEN a.name ELSE a.real_name END) ");
+        sqlBuffer.append ("WHEN (ccm.pkid IS NULL OR cri.company_name='') THEN (CASE WHEN c.real_name='' THEN c.`mobile` ELSE c.real_name END) ELSE cri.company_name END) 'custName' FROM so_order oi  ");
+        sqlBuffer.append ("JOIN uc_account a ON a.pkid = oi.account_id ");
+        sqlBuffer.append ("LEFT JOIN crm_customer c ON c.account_id = a.pkid ");
+        sqlBuffer.append ("LEFT JOIN crm_customer_company_map ccm ON ccm.customer_id = c.pkid ");
+        sqlBuffer.append ("LEFT JOIN crm_company_intention cri ON cri.pkid = ccm.company_id ");
+        sqlBuffer.append ("LEFT JOIN crm_company_intention cri1 ON cri1.pkid = oi.company_id ");
+        sqlBuffer.append ("WHERE oi.pkid IN(" + orderIds + ") ");
 
-        DataTable executeTable = this.pm.executeTable(sqlBuffer.toString(), null);
+        DataTable executeTable = this.pm.executeTable (sqlBuffer.toString (), null);
 
         for (IRow row : executeTable) {
-            map.put(row.getInteger("orderId"), row.getString("custName"));
+            map.put (row.getInteger ("orderId"), row.getString ("custName"));
         }
         return map;
     }
@@ -82,34 +82,34 @@ public class SoOrderService extends PersistableService<SoOrder> implements ISoOr
     public void orderTran(List<Integer> orderIdList, Integer toUserId) {
 
         //订单id集合
-        String orderIds = StringManager.join(",", orderIdList);
+        String orderIds = StringManager.join (",", orderIdList);
 
-        Oql oql = new Oql();
+        Oql oql = new Oql ();
         {
-            oql.setType(this.type);
-            oql.setSelects("*");
-            oql.setFilter("pkid in (" + orderIds + ")");
-            oql.setOrderby("add_time Desc");
+            oql.setType (this.type);
+            oql.setSelects ("*");
+            oql.setFilter ("pkid in (" + orderIds + ")");
+            oql.setOrderby ("add_time Desc");
         }
-        List<SoOrder> soOrderList = this.pm.queryList(oql);
+        List<SoOrder> soOrderList = this.pm.queryList (oql);
         //转移的目标业务员
-        Salesman toUser = salesmanService.byEmployeeId(toUserId);
+        Salesman toUser = salesmanService.byEmployeeId (toUserId);
         //根据订单id集合获取，对应的业务员信息
-        Map<Integer, Salesman> salesmanMap = getSalesmanMapByOrderList(soOrderList);
+        Map<Integer, Salesman> salesmanMap = getSalesmanMapByOrderList (soOrderList);
 
         for (SoOrder order : soOrderList) {
-            Map<String, Object> setMap = new HashMap<String, Object>();
-            setMap.put("toUser", toUser);//转移的目标业务员
-            setMap.put("formUser", salesmanMap.get(order.getId()));//转移的来自业务员
-            ActionContext ctx = new ActionContext();
+            Map<String, Object> setMap = new HashMap<String, Object> ();
+            setMap.put ("toUser", toUser);//转移的目标业务员
+            setMap.put ("formUser", salesmanMap.get (order.getId ()));//转移的来自业务员
+            ActionContext ctx = new ActionContext ();
             {
-                ctx.setPath("gsb/crm/order/transform");
-                ctx.setItem(order);
-                ctx.setState(order.getEntityState());
-                ctx.setStatus(setMap);
+                ctx.setPath ("gsb/crm/order/transform");
+                ctx.setItem (order);
+                ctx.setState (order.getEntityState ());
+                ctx.setStatus (setMap);
             }
-            ActionManager action = new ActionManager();
-            action.execute(ctx);
+            ActionManager action = new ActionManager ();
+            action.execute (ctx);
         }
     }
 
@@ -117,24 +117,24 @@ public class SoOrderService extends PersistableService<SoOrder> implements ISoOr
     @Override
     public Map<Integer, Salesman> getSalesmanMapByOrderIdList(List<Integer> orderIdList) {
 
-        if (CollectionUtils.isEmpty(orderIdList)) {
-            throw new BusinessException("订单id集合不能为空");
+        if (CollectionUtils.isEmpty (orderIdList)) {
+            throw new BusinessException ("订单id集合不能为空");
         }
 
         //订单id集合
-        String orderIds = StringManager.join(",", orderIdList);
+        String orderIds = StringManager.join (",", orderIdList);
 
-        Oql oql = new Oql();
+        Oql oql = new Oql ();
         {
-            oql.setType(this.type);
-            oql.setSelects("*");
-            oql.setFilter("pkid in (" + orderIds + ")");
-            oql.setOrderby("add_time Desc");
+            oql.setType (this.type);
+            oql.setSelects ("*");
+            oql.setFilter ("pkid in (" + orderIds + ")");
+            oql.setOrderby ("add_time Desc");
         }
 
-        List<SoOrder> soOrderList = this.pm.queryList(oql);
+        List<SoOrder> soOrderList = this.pm.queryList (oql);
 
-        Map<Integer, Salesman> res = getSalesmanMapByOrderList(soOrderList);
+        Map<Integer, Salesman> res = getSalesmanMapByOrderList (soOrderList);
 
         return res;
     }
@@ -146,38 +146,38 @@ public class SoOrderService extends PersistableService<SoOrder> implements ISoOr
     * */
     private Map<Integer, Salesman> getSalesmanMapByOrderList(List<SoOrder> soOrderList) {
 
-        Map<Integer, Salesman> res = new HashMap<>();
+        Map<Integer, Salesman> res = new HashMap<> ();
 
-        if (CollectionUtils.isEmpty(soOrderList)) {
+        if (CollectionUtils.isEmpty (soOrderList)) {
             return res;
         }
 
-        List<Integer> employeeIdList = new ArrayList<>();
+        List<Integer> employeeIdList = new ArrayList<> ();
         for (SoOrder order : soOrderList) {
-            if (NumberUtils.toInt(order.getOwnerId()) != 0) {
-                employeeIdList.add(order.getOwnerId());
+            if (NumberUtils.toInt (order.getOwnerId ()) != 0) {
+                employeeIdList.add (order.getOwnerId ());
             }
         }
 
-        if (CollectionUtils.isEmpty(employeeIdList)) {
+        if (CollectionUtils.isEmpty (employeeIdList)) {
             return res;
         }
 
-        String employeeIds = StringManager.join(",", employeeIdList);
+        String employeeIds = StringManager.join (",", employeeIdList);
 
-        Oql saleManOql = new Oql();
+        Oql saleManOql = new Oql ();
         {
-            saleManOql.setType(Salesman.class);
-            saleManOql.setSelects("Salesman.*,Salesman.supplier.{id,name},Salesman.department.{id,name},Salesman.employee.{id,name}");
-            saleManOql.setFilter("employee_id in (" + employeeIds + ")");
+            saleManOql.setType (Salesman.class);
+            saleManOql.setSelects ("Salesman.*,Salesman.supplier.{id,name},Salesman.department.{id,name},Salesman.employee.{id,name}");
+            saleManOql.setFilter ("employee_id in (" + employeeIds + ")");
         }
 
-        List<Salesman> salesmenlist = salesmanService.queryList(saleManOql);
+        List<Salesman> salesmenlist = salesmanService.queryList (saleManOql);
 
         for (SoOrder order : soOrderList) {
             for (Salesman sale : salesmenlist) {
-                if (NumberUtils.toInt(order.getOwnerId()) != 0 && NumberUtils.toInt(order.getOwnerId()) == NumberUtils.toInt(sale.getEmployeeId())) {
-                    res.put(order.getId(), sale);
+                if (NumberUtils.toInt (order.getOwnerId ()) != 0 && NumberUtils.toInt (order.getOwnerId ()) == NumberUtils.toInt (sale.getEmployeeId ())) {
+                    res.put (order.getId (), sale);
                 }
             }
         }
@@ -185,41 +185,74 @@ public class SoOrderService extends PersistableService<SoOrder> implements ISoOr
     }
     // endregion
 
-	@Override
-	public SoOrder getByOrderId(Integer orderId) {
-		Oql oql = new Oql();
-        {
-        	oql.setType(this.type);
-        	oql.setSelects("*");
-        	oql.setFilter("pkid =" + orderId);
-        }
-       SoOrder entity = orderService.queryFirst(oql);
-		return entity;
-	}
-
     @Override
-    public SoOrder getOrderWithOrderProdsByOrderId(Integer orderId) {
-        Oql oql = new Oql();
+    public SoOrder getByOrderId(Integer orderId) {
+        Oql oql = new Oql ();
         {
-            oql.setType(this.type);
-            oql.setSelects("soOrder.*,products.*");
-            oql.setFilter("pkid =" + orderId);
+            oql.setType (this.type);
+            oql.setSelects ("*");
+            oql.setFilter ("pkid =" + orderId);
         }
-        SoOrder entity = orderService.queryFirst(oql);
+        SoOrder entity = orderService.queryFirst (oql);
         return entity;
     }
 
-	@Override
-	public SoOrder getByOrderNo(String orderNo) {
-		Oql oql = new Oql();
+    @Override
+    public SoOrder getOrderWithOrderProdsByOrderId(Integer orderId) {
+        Oql oql = new Oql ();
         {
-        	oql.setType(this.type);
-        	oql.setSelects("*");
-        	oql.setFilter("no =" + orderNo);
+            oql.setType (this.type);
+            oql.setSelects ("soOrder.*,products.*");
+            oql.setFilter ("pkid =" + orderId);
         }
-       SoOrder entity = orderService.queryFirst(oql);
-		return entity;
-	}
+        SoOrder entity = orderService.queryFirst (oql);
+        return entity;
+    }
+
+    @Override
+    public SoOrder getByOrderNo(String orderNo) {
+        Oql oql = new Oql ();
+        {
+            oql.setType (this.type);
+            oql.setSelects ("*");
+            oql.setFilter ("no =" + orderNo);
+        }
+        SoOrder entity = orderService.queryFirst (oql);
+        return entity;
+    }
+
+    /*是否可以创建回款*/
+    @Override
+    public Integer checkCanPay(Integer orderId) {
+        String sql = "SELECT COUNT(change_price_audit_status_id)  FROM so_order  WHERE  change_price_audit_status_id<>1054  AND  is_change_price=1 AND  pkid=?";//有没有待审核、审核中
+
+        QueryParameters qps = new QueryParameters();
+        qps.add("@pkid", orderId, Types.INTEGER);
+        int num =   this.pm.executeInt(sql, qps);
+        if (num > 0) {
+            return 1;
+
+        } else {
+            return 0;
+
+        }
+    }
+    /*是否可以创建订单业绩*/
+    @Override
+    public Integer checkCanOrderPer(Integer orderId) {
+        String sql = String.format ("SELECT  COUNT(1)  FROM bd_audit_log        WHERE    type_id=%s   and  status_id  NOT IN (0,1053) and form_id=?", AuditLogType.DdYjSq.getValue ());//有没有待审核、审核中
+
+        QueryParameters qps = new QueryParameters();
+        qps.add("@form_id", orderId, Types.INTEGER);
+        int num = this.pm.executeInt(sql, qps);
+        if (num > 0) {
+            return 1;
+
+        } else {
+            return 0;
+
+        }
+    }
 
 
 }
