@@ -1,9 +1,14 @@
 package com.gongsibao.trade.service;
 
+import com.gongsibao.entity.bd.dic.AuditLogType;
+import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
+import com.gongsibao.trade.base.IPayService;
+import com.gongsibao.trade.service.action.order.utils.AuditHelper;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
+import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.core.QueryParameters;
 import org.netsharp.persistence.IPersister;
@@ -14,9 +19,12 @@ import com.gongsibao.entity.trade.NOrderCarryover;
 import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.base.IOrderService;
+import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class OrderService extends PersistableService<SoOrder> implements IOrderService {
@@ -136,7 +144,7 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
                 sql = String.format ("update  so_order  set returned_price=paid_price-refund_price-carry_amount,%s=%s  where  pkid=? ", status_id, shzt.getValue ());
             }
         }
-        if (sql.length () > 0){
+        if (sql.length () > 0) {
             QueryParameters qps = new QueryParameters ();
             qps.add ("@pkid", id, Types.INTEGER);
             this.pm.executeNonQuery (sql, qps);
@@ -144,6 +152,76 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
         }
 
 
+    }
+
+    /*是否可以创建回款*/
+    @Override
+    public Integer checkCanPay(Integer orderId) {
+        String sql = "SELECT COUNT(change_price_audit_status_id)  FROM so_order  WHERE  change_price_audit_status_id<>1054  AND  is_change_price=1 AND  pkid=?";//有没有待审核、审核中
+
+        QueryParameters qps = new QueryParameters ();
+        qps.add ("@pkid", orderId, Types.INTEGER);
+        int num = this.pm.executeInt (sql, qps);
+        if (num > 0) {
+
+            return 1;
+
+        } else {
+            SoOrder order = byId (orderId);
+            num = checkCanPayByOrderId (orderId);//订单是否存在已经支付的待审核
+            return num;
+
+        }
+    }
+
+    /*订单是否存在已经支付的待审核*/
+    private int checkCanPayByOrderId(Integer orderId) {
+        SoOrder sorder = byId (orderId);
+        List<Integer> listPayId = new ArrayList<> ();
+        for (OrderPayMap item : sorder.getPays ()
+                ) {
+            listPayId.add (item.getPayId ());
+        }
+
+
+        if (listPayId.size () > 0) {
+            String payIds = StringManager.join (",", listPayId);
+            String sql = String.format ("SELECT  COUNT(1)  FROM bd_audit_log        WHERE    type_id=%s   and  status_id   IN (1051,1052) and form_id in (%s)", AuditLogType.Sksq.getValue (), payIds);//待审核和审核中的
+
+            int num = this.pm.executeInt (sql, null);
+            if (num > 0) {
+                return 1;
+
+            } else {
+                return 0;
+
+            }
+        }
+
+        return 0;
+
+
+    }
+
+    /*是否可以创建   type=0（订单业绩），=1(回款业绩)*/
+    @Override
+    public Integer checkCanOrderPer(Integer orderId, Integer type) {
+        String sql = String.format ("SELECT  COUNT(1)  FROM bd_audit_log        WHERE    type_id=%s   and  status_id  NOT IN (0,1053) and form_id=?", AuditLogType.DdYjSq.getValue ());//无审核状态和驳回审核的不在查询列
+        if (type == 1) {
+
+            sql = String.format ("SELECT  COUNT(1)  FROM bd_audit_log        WHERE    type_id=%s   and  status_id   IN (1051,1052) and form_id=?", AuditLogType.Skyjsh.getValue ());//待审核和审核中的
+        }
+
+        QueryParameters qps = new QueryParameters ();
+        qps.add ("@form_id", orderId, Types.INTEGER);
+        int num = this.pm.executeInt (sql, qps);
+        if (num > 0) {
+            return 1;
+
+        } else {
+            return 0;
+
+        }
     }
 
 

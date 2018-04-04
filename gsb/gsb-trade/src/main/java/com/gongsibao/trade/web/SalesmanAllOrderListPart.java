@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.gongsibao.entity.trade.dto.DepPayMapDTO;
+import com.gongsibao.trade.base.IOrderService;
 import com.gongsibao.utils.NumberUtils;
 import org.netsharp.base.IPersistableService;
 import org.netsharp.communication.ServiceFactory;
@@ -25,6 +26,7 @@ import com.gongsibao.u8.base.ISoOrderService;
  */
 public class SalesmanAllOrderListPart extends AdvancedListPart {
     ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
+    IOrderService noService = ServiceFactory.create(IOrderService.class);
 
     @Override
     public List<?> doQuery(Oql oql) {
@@ -154,7 +156,7 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
 
     /*校验是不是存在订单的改价审核和回款审核，存在不弹窗*/
     public Integer checkCanPay(Integer orderId) {
-       return orderService.checkCanPay(orderId);
+       return noService.checkCanPay(orderId);
 
 
 
@@ -162,8 +164,16 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
 
     /*创建订单业绩是不是已经存在存在的话不能创建*/
     public Integer checkCanOrderPer(Integer orderId) {
-        return orderService.checkCanOrderPer(orderId);
+        return noService.checkCanOrderPer(orderId,0);
     }
+
+
+
+    /*创建回款业绩是不是已经存待审核在存在的话不能创建*/
+    public Integer checkCanOrderPayPer(Integer orderId) {
+        return noService.checkCanOrderPer(orderId,1);
+    }
+
 
 
 }

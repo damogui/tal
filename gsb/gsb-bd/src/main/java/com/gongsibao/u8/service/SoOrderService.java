@@ -6,13 +6,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.dic.AuditLogType;
+import com.gongsibao.entity.trade.OrderPayMap;
+import com.gongsibao.entity.trade.Pay;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.*;
+import org.netsharp.persistence.IPersister;
+import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
@@ -221,38 +226,11 @@ public class SoOrderService extends PersistableService<SoOrder> implements ISoOr
         return entity;
     }
 
-    /*是否可以创建回款*/
-    @Override
-    public Integer checkCanPay(Integer orderId) {
-        String sql = "SELECT COUNT(change_price_audit_status_id)  FROM so_order  WHERE  change_price_audit_status_id<>1054  AND  is_change_price=1 AND  pkid=?";//有没有待审核、审核中
 
-        QueryParameters qps = new QueryParameters();
-        qps.add("@pkid", orderId, Types.INTEGER);
-        int num =   this.pm.executeInt(sql, qps);
-        if (num > 0) {
-            return 1;
 
-        } else {
-            return 0;
 
-        }
-    }
-    /*是否可以创建订单业绩*/
-    @Override
-    public Integer checkCanOrderPer(Integer orderId) {
-        String sql = String.format ("SELECT  COUNT(1)  FROM bd_audit_log        WHERE    type_id=%s   and  status_id  NOT IN (0,1053) and form_id=?", AuditLogType.DdYjSq.getValue ());//有没有待审核、审核中
 
-        QueryParameters qps = new QueryParameters();
-        qps.add("@form_id", orderId, Types.INTEGER);
-        int num = this.pm.executeInt(sql, qps);
-        if (num > 0) {
-            return 1;
 
-        } else {
-            return 0;
-
-        }
-    }
 
 
 }
