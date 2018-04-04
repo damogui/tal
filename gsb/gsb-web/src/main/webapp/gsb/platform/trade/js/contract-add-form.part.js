@@ -145,10 +145,16 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
     },
     validate: function () {
         var me = this;
+        //当前实体
+        var entity = me.viewModel.getEntity();
         var isValidate = $("#" + this.context.formName).form('validate');
+
+        if(System.isnull(entity.sginingTime)){
+            IMessageBox.error("【签约日期】不能为空");
+            return false;
+        }
+
         if (isValidate) {
-            //当前实体
-            var entity = me.viewModel.getEntity();
             //合同类型，选为电子时，身份证号显示，为必填
             if (entity.electronics == 1) {
                 if (System.isnull(entity.idNumber)) {
