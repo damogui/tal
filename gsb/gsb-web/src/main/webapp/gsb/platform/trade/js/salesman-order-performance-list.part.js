@@ -3,7 +3,7 @@ System.Declare("com.gongsibao.trade.web");
 com.gongsibao.trade.web.SalesmanOrderPerformanceListPart = org.netsharp.panda.commerce.ListPart.Extends({
     ctor: function () {
         this.base();
-        this.auditPerformanceUrl="/nav/gsb/platform/trade/auditPerformance";
+        this.auditPerformanceUrl = "/nav/gsb/platform/trade/auditPerformance";
     },
     detail: function (id) {
 
@@ -23,7 +23,7 @@ com.gongsibao.trade.web.SalesmanOrderPerformanceListPart = org.netsharp.panda.co
             //id = rows[0].order_id;//订单id
         }
 
-        var urlEnd = this.auditPerformanceUrl + "?id=" + rows[0].order_id;
+        var urlEnd = this.auditPerformanceUrl + "?id=" + rows[0].soOrder_id;
 
         layer.open({
             type: 2,//1是字符串 2是内容
@@ -35,7 +35,7 @@ com.gongsibao.trade.web.SalesmanOrderPerformanceListPart = org.netsharp.panda.co
             zIndex: 100000,
             id: "orderperIframe",
             content: urlEnd,
-           // btn: ['保存', '取消'],// 可以无限个按钮
+            // btn: ['保存', '取消'],// 可以无限个按钮
             success: function (layero, index) {
 
 
