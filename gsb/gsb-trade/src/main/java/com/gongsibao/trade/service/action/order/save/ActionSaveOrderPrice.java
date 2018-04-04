@@ -49,7 +49,7 @@ public class ActionSaveOrderPrice implements IAction {
 		soOrder.setTotalPrice(totalPrice);
 
 		// 原金额大于应付金额时,设置订单改价格状态为true
-		if (totalPrice.compareTo(payablePrice) == 1) {
+		if (!totalPrice.equals (payablePrice)) {//不相等就是改价
 
 			soOrder.setIsChangePrice(true);
 		}

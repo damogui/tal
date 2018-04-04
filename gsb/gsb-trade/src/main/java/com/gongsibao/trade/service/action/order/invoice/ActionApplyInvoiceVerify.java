@@ -111,8 +111,8 @@ public class ActionApplyInvoiceVerify implements IAction {
         }
 
         SoOrder order = soOrderService.getByOrderId(orderId);
-        if (invoice.getAmount() > order.getPaidPrice()) {
-            throw new BusinessException("发票金额不能大于订单已付金额！");
+        if (invoice.getAmount() > (order.getPaidPrice() - NumberUtils.toInt(order.getRefundPrice()))) {
+            throw new BusinessException("发票金额不能大于订单可开发票额！");
         }
 
 

@@ -41,6 +41,10 @@
 		
 			margin:0 5px;
 		}
+		
+		.datagrid-pager{
+			border-top-width:0px !important;
+		}
 	</style>
 	<script src='/package/easyui/jquery.min.js'></script>
 	<script src='/package/layer/layer.js'></script>

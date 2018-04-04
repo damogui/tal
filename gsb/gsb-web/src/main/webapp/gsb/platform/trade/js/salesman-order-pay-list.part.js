@@ -11,7 +11,7 @@ com.gongsibao.trade.web.SalesmanOrderPayController = org.netsharp.panda.commerce
     detail: function (id) {
 
         var rows = this.getSelections();
-        debugger;
+       
         if (System.isnull(id)) {
 
             if (rows.length > 1) {

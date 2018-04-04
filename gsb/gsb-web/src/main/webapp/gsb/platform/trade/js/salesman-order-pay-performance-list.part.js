@@ -29,7 +29,7 @@ com.gongsibao.trade.web.SalesmanOrderReceivedListPart = org.netsharp.panda.comme
        
         var rowCurrent = this.getSelectedItem()
         //var row = this.getSelected();
-        var urlEnd = this.auditPayUrl + "?id=" + rowCurrent.order_id;//传递订单id
+        var urlEnd = this.auditPayUrl + "?id=" + rowCurrent.soOrder_id;//传递订单id
 
         layer.open({
             type: 2,//1是字符串 2是内容

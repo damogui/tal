@@ -36,8 +36,9 @@ com.gongsibao.trade.web.InvoiceFormPart = org.netsharp.panda.commerce.FormPart.E
     bandOrderInfo: function (soOrder) {
         var me = this;
         $("#soOrderNo").text(soOrder.no);
-        $("#payablePrice").text((soOrder.payablePrice / 100).toFixed(2));
-        $("#paidPrice").text((soOrder.paidPrice / 100).toFixed(2));
+        $("#payablePrice").text(System.RMB.fenToYuan(soOrder.payablePrice));
+        $("#toBeInvoicePrice").text(System.RMB.fenToYuan(soOrder.toBeInvoicePrice));
+        $("#paidPrice").text(System.RMB.fenToYuan(soOrder.paidPrice));
         $("#customerName").text(soOrder.customerName == null ? "" : soOrder.customerName);
         $("#accountMobile").text(soOrder.accountMobile);
         $("#createTime").text(soOrder.createTime);
