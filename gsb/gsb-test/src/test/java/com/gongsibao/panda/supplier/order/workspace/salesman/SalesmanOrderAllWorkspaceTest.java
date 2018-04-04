@@ -245,7 +245,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 			column.setAlign(DatagridAlign.RIGHT);
 		}
 		addColumn(datagrid, "fistPayTime", "首款审核日期", ControlTypes.DATETIME_BOX, 100);
-		addColumn(datagrid, "refundStatus", "退款状态", ControlTypes.ENUM_BOX, 60);
+		addColumn(datagrid, "changePriceAuditStatus", "订单审核状态", ControlTypes.ENUM_BOX, 60);
 		addColumn(datagrid, "isInstallment", "分期付款", ControlTypes.BOOLCOMBO_BOX, 80);
 		addColumn(datagrid, "customerName", "下单人", ControlTypes.TEXT_BOX, 100);
         column=addColumn(datagrid, "accountMobile", "下单人电话", ControlTypes.TEXT_BOX, 100);{

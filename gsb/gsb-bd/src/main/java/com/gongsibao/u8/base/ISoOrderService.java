@@ -41,8 +41,9 @@ public interface ISoOrderService extends IPersistableService<SoOrder> {
      * */
     public SoOrder getByOrderNo(String orderNo);
 
-    /*是否可以创建回款*/
-    Integer checkCanPay(Integer orderId);
-    /*是否可以订单业绩*/
-    Integer checkCanOrderPer(Integer orderId);
+//    /*是否可以创建回款*/
+//    Integer checkCanPay(Integer orderId);
+//    /*是否可以订单业绩type=0   是否可以创建回款业绩  type=1*/
+//    Integer checkCanOrderPer(Integer orderId,Integer type);
+
 }

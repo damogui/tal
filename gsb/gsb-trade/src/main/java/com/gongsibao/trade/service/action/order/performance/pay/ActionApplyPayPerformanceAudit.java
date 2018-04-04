@@ -22,7 +22,7 @@ public class ActionApplyPayPerformanceAudit implements IAction {
 		@SuppressWarnings("unchecked")
 		List<NDepPay> depPayList = (List<NDepPay>) ctx.getItem();
 		AbstractAuditLogService auditLogHandler = AuditFactory.getAudit(PayPerformanceAudit.class);
-		List<AuditLog> auditLogList = auditLogHandler.execute(depPayList.get(0).getId());
+		List<AuditLog> auditLogList = auditLogHandler.execute(depPayList.get(0).getOrderId ());//插入的是订单id
 		
 		/****
 		 * 

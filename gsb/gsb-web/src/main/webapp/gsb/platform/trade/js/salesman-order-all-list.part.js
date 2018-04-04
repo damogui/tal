@@ -29,30 +29,43 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         }
 
         var urlEnd = this.addPayPerformanceUrl + "?id=" + row.id;
-        layer.open({
-            type: 2,//1是字符串 2是内容
-            title: '创建回款业绩',
-            fixed: false,
-            maxmin: true,
-            shadeClose: false,
-            area: ['80%', '80%'],
-            zIndex: 100000,
-            id: "addReceivedIframe",
-            content: urlEnd,
-            btn: ['保存', '取消'],
-            yes: function (index, layero) {
 
-                var payPerformanceCtrl = document.getElementById('addReceivedIframe').firstElementChild.contentWindow.payPerformanceCtrl;
-                var isSave = payPerformanceCtrl.save();
-                if (isSave === true) {
+        /*创建回款业绩是不是已经存在待审核*/
+        me.invokeService("checkCanOrderPayPer", [parseInt(row.id)], function (data) {
+            if (data > 0) {
+                layer.msg("此订单回款业绩待审核");
+                return;
+            } else {
+                layer.open({
+                    type: 2,//1是字符串 2是内容
+                    title: '创建回款业绩',
+                    fixed: false,
+                    maxmin: true,
+                    shadeClose: false,
+                    area: ['80%', '80%'],
+                    zIndex: 100000,
+                    id: "addReceivedIframe",
+                    content: urlEnd,
+                    btn: ['保存', '取消'],
+                    yes: function (index, layero) {
 
-                    layer.msg('保存成功！', function () {
+                        var payPerformanceCtrl = document.getElementById('addReceivedIframe').firstElementChild.contentWindow.payPerformanceCtrl;
+                        var isSave = payPerformanceCtrl.save();
+                        if (isSave === true) {
 
-                        layer.closeAll();
-                    });
-                }
+                            layer.msg('保存成功！', function () {
+
+                                layer.closeAll();
+                            });
+                        }
+                    }
+                });
+
             }
         });
+
+
+
     },
     addOrderReceived: function () {//创建订单业绩
         var me = this;
@@ -124,7 +137,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         /*校验是不是存在订单的改价审核和回款审核，存在不弹窗*/
         me.invokeService("checkCanPay", [parseFloat(row.id)], function (data) {
             if (data > 0) {
-                layer.msg("订单改价审核没通过不允许创建回款");
+                layer.msg("订单改价和已存在回款审核没通过不允许创建回款");
                 return;
             } else {
                 var urlEnd = me.addReceivedUrl + "?no=" + row.no;
