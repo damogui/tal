@@ -57,6 +57,8 @@
 	
 	<script src='/gsb/platform/trade/js/prod/prod-main.ctrl.js'></script>
 	<script src='/gsb/platform/trade/js/prod/prod-trace.ctrl.js'></script>
+	<script src='/gsb/platform/trade/js/prod/prod-principal.ctrl.js'></script>
+	
 </head>
     <body class="easyui-layout">
 		<div class="easyui-panel" title="订单信息" style="height:70px;padding-left:10px;" data-options="tools:[{
@@ -89,7 +91,7 @@
 					   			 	</td>
 					   			 	<td><div class="datagrid-btn-separator"></div></td>
 					   			 	<td>
-					   			 		<a id="btn_remark" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-edit'">备注</a>
+					   			 		<a id="btn_remark" href="javascript:traceCtrl.remark();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-edit'">备注</a>
 					   			 	</td>
 					   			 	<td><div class="datagrid-btn-separator"></div></td>
 					   			 	<td>
@@ -127,13 +129,7 @@
 				</div>
 			</div>
 			<div style="width:50%;float:left;">
-				<div class="easyui-panel" title="负责人" style="height:209px;border-top-width: 0px;border-left-width: 0px;border-bottom-width: 0px;" data-options="tools:[{
-					iconCls:'fa fa-plus',
-					title:'添加负责人',
-					handler:function(){alert('添加负责人')}
-				}]">
-		   			<table id="order_prod_principal_grid">添加负责人</table>
-				</div>
+		   		<table id="order_prod_principal_grid"></table>
 			</div>
 		</div>
 		<div id="detail_tabs" class="easyui-tabs" tabHeight="30" style="height:100%;">   
@@ -149,22 +145,23 @@
 		    <div title="客户信息">   
 		        
 		    </div>  
-		    <div title="企业信息">   
+		    <div title="企业信息">
 		       
 		    </div>
 		    <div title="材料预览">   
 		       
 		    </div>
-		    <div title="自动进度">   
+<!-- 		    <div title="自动进度">   
 		         <table id="order_prod_trail_grid">7</table>
-		    </div>
+		    </div> -->
 		</div>
 </body>
 
 <script>
 
-	var traceCtrl = null;
 	var prodMainCtrl = null;
+	var traceCtrl = null;
+	var principalCtrl = null;
  	$(function(){
 		
  		prodMainCtrl = new com.gongsibao.trade.web.ProdMainCtrl();

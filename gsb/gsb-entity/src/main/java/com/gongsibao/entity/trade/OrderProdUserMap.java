@@ -3,10 +3,10 @@ package com.gongsibao.entity.trade;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
+import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.Dict;
-import com.gongsibao.entity.uc.User;
 
 @Table(name="so_order_prod_user_map")
 public class OrderProdUserMap extends BaseEntity {
@@ -14,11 +14,17 @@ public class OrderProdUserMap extends BaseEntity {
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = 5651659159306865523L;
+//	@Column(name="user_id",header="负责人")
+//    private Integer userId;
+//	
+//    @Reference(foreignKey="userId",header="负责人")
+//    private User user;
+    
 	@Column(name="user_id",header="负责人")
-    private Integer userId;
+    private Integer principalId;
 	
-    @Reference(foreignKey="userId",header="负责人")
-    private User user;
+    @Reference(foreignKey="principalId",header="负责人")
+    private Employee principal;
 
     @Column(name="order_prod_id",header="订单明细")
     private Integer orderProdId;
@@ -30,6 +36,7 @@ public class OrderProdUserMap extends BaseEntity {
     private Integer typeId;
 //    业务：好像是销售人员 3061业务员
 //    操作：非销售人员，比如外勤和材料编写
+//关系类型序号，type=306，3061业务、3062客服（关注）、3063操作
     @Reference(foreignKey="typeId",header="人员类型")
     private Dict type;
 
@@ -39,17 +46,20 @@ public class OrderProdUserMap extends BaseEntity {
     @Reference(foreignKey="statusId",header="办理状态")
     private Dict status;
 
-    @Column(name="add_time",header="AddTime")
-    private java.sql.Timestamp addTime;
-    @Column(name="is_bbk",header="IsBbk")
-    private String isBbk="0";
+//    public Integer getUserId() {
+//        return userId;
+//    }
+//    public void setUserId(Integer userId) {
+//        this.userId = userId;
+//    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
-    public Integer getUserId() {
-        return userId;
-    }
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
     public Integer getOrderProdId() {
         return orderProdId;
     }
@@ -67,26 +77,6 @@ public class OrderProdUserMap extends BaseEntity {
     }
     public void setStatusId(Integer statusId) {
         this.statusId = statusId;
-    }
-    public java.sql.Timestamp getAddTime() {
-        return addTime;
-    }
-    public void setAddTime(java.sql.Timestamp addTime) {
-        this.addTime = addTime;
-    }
-    public String getIsBbk() {
-        return isBbk;
-    }
-    public void setIsBbk(String isBbk) {
-        this.isBbk = isBbk;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public OrderProd getOrderProd() {
@@ -112,4 +102,16 @@ public class OrderProdUserMap extends BaseEntity {
     public void setStatus(Dict status) {
         this.status = status;
     }
+	public Integer getPrincipalId() {
+		return principalId;
+	}
+	public void setPrincipalId(Integer principalId) {
+		this.principalId = principalId;
+	}
+	public Employee getPrincipal() {
+		return principal;
+	}
+	public void setPrincipal(Employee principal) {
+		this.principal = principal;
+	}
 }

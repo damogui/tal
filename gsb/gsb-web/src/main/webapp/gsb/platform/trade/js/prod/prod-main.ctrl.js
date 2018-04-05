@@ -18,6 +18,12 @@ com.gongsibao.trade.web.ProdMainCtrl = org.netsharp.panda.core.CustomCtrl.Extend
 		traceCtrl.mainCtrl = this;
 		traceCtrl.init(this.orderProdId);
 		
+		//3.负责人
+		principalCtrl = new com.gongsibao.trade.web.ProdPrincipalCtrl();
+		principalCtrl.mainCtrl = this;
+		principalCtrl.init(this.orderProdId);
+		
+		
     },
     initOrderProd:function(orderProdId){
     	

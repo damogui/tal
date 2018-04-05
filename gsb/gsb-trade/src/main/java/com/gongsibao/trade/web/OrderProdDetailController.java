@@ -12,15 +12,18 @@ import org.netsharp.panda.commerce.EasyuiDatagridResult;
 import com.gongsibao.entity.product.WorkflowNode;
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.OrderProdTrace;
+import com.gongsibao.entity.trade.OrderProdUserMap;
 import com.gongsibao.product.base.IWorkflowNodeService;
 import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IOrderProdTraceService;
+import com.gongsibao.trade.base.IOrderProdUserMapService;
 
 public class OrderProdDetailController {
 
 	IOrderProdService orderProdService = ServiceFactory.create(IOrderProdService.class);
 	IOrderProdTraceService traceService = ServiceFactory.create(IOrderProdTraceService.class);
-
+	IOrderProdUserMapService prodUserMapService = ServiceFactory.create(IOrderProdUserMapService.class);
+	
 	/**
 	 * @Title: getOrderProdById
 	 * @Description: TODO(根据Id查询订单明细)
@@ -124,4 +127,19 @@ public class OrderProdDetailController {
 		traceService.create(trace);
 		return true;
 	}
+	
+	public List<OrderProdUserMap> queryProdPrincipalList(Integer orderProdId) {
+
+		Oql oql = new Oql();
+		{
+			oql.setType(OrderProdUserMap.class);
+			oql.setSelects("OrderProdUserMap.*,principal.{id,name},status.{id,name}");
+			oql.setFilter("orderProdId=?");
+			oql.setOrderby("createTime DESC");
+			oql.getParameters().add("orderProdId", orderProdId, Types.INTEGER);
+		}
+		List<OrderProdUserMap> list = prodUserMapService.queryList(oql);
+		return list;
+	}
+	
 }

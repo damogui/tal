@@ -28,7 +28,7 @@ public class WorkflowNodeService extends PersistableService<WorkflowNode> implem
 		sqlBuilder.append("SELECT MAX(version) as version FROM prod_workflow_node WHERE ");
 		sqlBuilder.append("workflow_id IN ( ");
 		sqlBuilder.append("SELECT w.pkid FROM prod_workflow w ");
-		sqlBuilder.append("LEFT JOIN prod_workflow_bd_dict_map m ON w.pkid = m.workflow_id ");
+		sqlBuilder.append("LEFT JOIN prod_workflow_bd_dict_map m ON w.pkid = m.workflow_id where w.is_enabled = 1");
 		sqlBuilder.append("WHERE w.product_id = ? AND m.city_id = ? )");
 		QueryParameters qps = new QueryParameters();
 		{
@@ -42,7 +42,6 @@ public class WorkflowNodeService extends PersistableService<WorkflowNode> implem
 			for (IRow row : dataTable) {
 
 				version = row.getInteger("version");
-
 			}
 		} catch (Exception e) {
 
@@ -56,7 +55,7 @@ public class WorkflowNodeService extends PersistableService<WorkflowNode> implem
 		String filter = "	workflow_id IN "
 				+ "( SELECT w.pkid FROM prod_workflow w "
 				+ "LEFT JOIN prod_workflow_bd_dict_map m ON w.pkid = m.workflow_id "
-				+ " WHERE w.product_id = ? AND m.city_id = ? )"
+				+ " WHERE w.is_enabled = 1 and w.product_id = ? AND m.city_id = ? )"
 				+ " and version=?";
 		Oql oql = new Oql();
 		{
