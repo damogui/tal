@@ -45,6 +45,10 @@
 		.datagrid-pager{
 			border-top-width:0px !important;
 		}
+		
+		.principal-panel .datagrid-wrap{
+			border-width:0px !important;
+		}
 	</style>
 	<script src='/package/easyui/jquery.min.js'></script>
 	<script src='/package/layer/layer.js'></script>
@@ -76,13 +80,8 @@
 		<div class="easyui-panel" style="height:210px;border-top-width: 0px;">
 			<div style="width:50%;float:left;">
 				<div class="easyui-panel" style="height:209px;border-top-width: 0px;border-bottom-width: 0px;">
-		   			<div style="padding-left:10px;height: 162px;background-color: #fff;">
-			   			<p>订单用时：681/9天</p>
-			   			<p>等待客户提供材料 0/3天</p>
-						<p>办理名称：点击编辑</p>
-						<p>申请号：点击编辑</p>
-		   			</div>
-		   			 <div class="toolbar" style="border-top: 1px solid #eee;border-bottom-width:0px;background-color: #fff;">
+
+		   			 <div class="toolbar" style="border-bottom: 1px solid #eee;border-top-width:0px;background-color: #fff;">
 		   			 	<table cellspacing="0" cellpadding="0">
 			   			 	<tbody>
 				   			 	<tr>
@@ -98,7 +97,7 @@
 		   								<a id="btn_upload" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-cloud-upload'">上传</a>
 					   			 	</td>
 					   			 	
-<!--					   			<td><div class="datagrid-btn-separator"></div></td>
+					   				<td><div class="datagrid-btn-separator"></div></td>
  					   			 	<td>
 					   			 		<a id="btn3" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-paint-brush'">标记投诉</a>
 					   			 	</td>
@@ -121,14 +120,20 @@
 					   			 	<td><div class="datagrid-btn-separator"></div></td>
 					   			 	<td>
 					   			 		<a id="btn8" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-file-o'">资质维护</a>
-					   			 	</td> -->
+					   			 	</td>
 				   			 	</tr>
 			   			 	</tbody>
 		   			 	</table>
 		   			</div>
+		   			<div style="padding-left:10px;height: 162px;background-color: #fff;">
+			   			<p>订单用时：681/9天</p>
+			   			<p>等待客户提供材料 0/3天</p>
+						<p>办理名称：点击编辑</p>
+						<p>申请号：点击编辑</p>
+		   			</div>
 				</div>
 			</div>
-			<div style="width:50%;float:left;">
+			<div class="principal-panel" style="width:50%;float:left;">
 		   		<table id="order_prod_principal_grid"></table>
 			</div>
 		</div>

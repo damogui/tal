@@ -1,6 +1,7 @@
 package com.gongsibao.trade.web;
 
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.netsharp.communication.ServiceFactory;
@@ -9,8 +10,10 @@ import org.netsharp.core.Oql;
 import org.netsharp.core.Paging;
 import org.netsharp.panda.commerce.EasyuiDatagridResult;
 import org.netsharp.persistence.session.SessionManager;
+import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.product.WorkflowNode;
+import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.OrderProdTrace;
 import com.gongsibao.entity.trade.OrderProdUserMap;
@@ -18,6 +21,7 @@ import com.gongsibao.entity.trade.dic.OrderProdTraceOperatorType;
 import com.gongsibao.entity.trade.dic.OrderProdTraceType;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapStatusType;
 import com.gongsibao.product.base.IWorkflowNodeService;
+import com.gongsibao.supplier.base.ISalesmanService;
 import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IOrderProdTraceService;
 import com.gongsibao.trade.base.IOrderProdUserMapService;
@@ -184,7 +188,6 @@ public class OrderProdDetailController {
 	public Boolean remindPrincipal(Integer soOrderProdId, Integer orderProdStatusId, String principalName, String principalMobile, String orderNo, String info, Boolean isSendSms) {
 
 		// 1.添加跟进
-
 		OrderProdTrace trace = new OrderProdTrace();
 		trace.toNew();
 		trace.setOrderProdId(soOrderProdId);
@@ -205,8 +208,85 @@ public class OrderProdDetailController {
 		return true;
 	}
 
+	/**
+	 * @Title: finishPrincipal
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @param: @param orderProdStatusId
+	 * @param: @return
+	 * @return: Boolean
+	 * @throws
+	 */
 	public Boolean finishPrincipal(Integer orderProdStatusId) {
 
 		return prodUserMapService.updateStatus(orderProdStatusId, OrderProdUserMapStatusType.Cjfz, OrderProdUserMapStatusType.Zzfz);
+	}
+
+	/**
+	 * @Title: querySalesmans
+	 * @Description: TODO(查询业务员)
+	 * @param: @param keyWord 关键字（服务商名称、部门名称、业务员姓名）
+	 * @param: @return
+	 * @return: List<Salesman>
+	 * @throws
+	 */
+	public List<Salesman> querySalesmans(String keyWord) {
+
+		List<String> ss = new ArrayList<String>();
+		ss.add("salesman.name like '%" + keyWord + "%'");
+		ss.add("supplier.name like '%" + keyWord + "%'");
+		ss.add("department.name like '%" + keyWord + "%'");
+		String filter = StringManager.join(" or ", ss);
+		Oql oql = new Oql();
+		{
+			oql.setType(Salesman.class);
+			oql.setSelects("salesman.{id,name,receiving,disabled},supplier.{id,name},department.{id,name}");
+			oql.setFilter(filter);
+		}
+		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
+		return salesmanService.queryList(oql);
+	}
+
+	/**
+	 * @Title: addPrincipal
+	 * @Description: TODO(添加负责人)
+	 * @param: @param principalIds
+	 * @param: @param principalNames
+	 * @param: @return
+	 * @return: Boolean
+	 * @throws
+	 */
+	public Boolean addPrincipal(Integer orderProdId, String principalIds, String principalNames) {
+
+		String[] ss = principalIds.split(",");
+
+		// 1.创建负责人
+		OrderProdUserMap orderProdUserMap = null;
+		List<OrderProdUserMap> mapList = new ArrayList<OrderProdUserMap>();
+		for (String principalId : ss) {
+
+			orderProdUserMap = new OrderProdUserMap();
+			{
+				orderProdUserMap.toNew();
+				orderProdUserMap.setOrderProdId(orderProdId);
+				orderProdUserMap.setPrincipalId(Integer.parseInt(principalId));
+				orderProdUserMap.setTypeId(3063);
+				orderProdUserMap.setStatus(OrderProdUserMapStatusType.Zzfz);
+			}
+			mapList.add(orderProdUserMap);
+		}
+
+		prodUserMapService.saves(mapList);
+
+		// 2.添加跟进
+		OrderProdTrace trace = new OrderProdTrace();
+		trace.toNew();
+		trace.setOrderProdId(orderProdId);
+		trace.setTypeId(OrderProdTraceType.Txfzr);
+		trace.setInfo("【" + SessionManager.getUserName() + "】添加【" + principalNames + "】为负责人");
+		trace.setOperatorId(SessionManager.getUserId());
+		traceService.create(trace);
+
+		// 3.要发短信吗？
+		return true;
 	}
 }
