@@ -6,12 +6,15 @@ import org.netsharp.base.IEnum;
 public enum OrderProdTraceOperatorType implements IEnum {
 
 	wu(0, "无"), 
-	Ztth(315101, "状态回退"), 
-	Czrbz(315201, "操作人备注"), 
-	Jkrbz(315202, "监控人备注"), 
-	Clshtg(315301, "材料审核通过"), 
-	Clshbtg(315302, "材料审核不通过");
-	
+	Ztth(3151, "更改状态"), 
+	Czrbz(3152, "备注"), 
+	Jkrbz(3153, "上传材料"), 
+	Clshtg(3154, "提示客户"), 
+	Clshbtg(3155, "快递"),
+	Zhmm(3156, "帐号密码"),
+	Bjts(3157, "标记投诉"),
+	Txfzr(3158, "提醒负责人");
+		
 	private int value;
 	private String text;
 

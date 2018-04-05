@@ -7,6 +7,7 @@ import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.Dict;
+import com.gongsibao.entity.trade.dic.OrderProdUserMapStatusType;
 
 @Table(name="so_order_prod_user_map")
 public class OrderProdUserMap extends BaseEntity {
@@ -41,10 +42,7 @@ public class OrderProdUserMap extends BaseEntity {
     private Dict type;
 
     @Column(name="status_id",header="办理状态")
-    private Integer statusId;
-//    3141正在负责 3142 曾经负责
-    @Reference(foreignKey="statusId",header="办理状态")
-    private Dict status;
+    private OrderProdUserMapStatusType status;
 
 //    public Integer getUserId() {
 //        return userId;
@@ -72,12 +70,7 @@ public class OrderProdUserMap extends BaseEntity {
     public void setTypeId(Integer typeId) {
         this.typeId = typeId;
     }
-    public Integer getStatusId() {
-        return statusId;
-    }
-    public void setStatusId(Integer statusId) {
-        this.statusId = statusId;
-    }
+
 
     public OrderProd getOrderProd() {
         return orderProd;
@@ -95,13 +88,6 @@ public class OrderProdUserMap extends BaseEntity {
         this.type = type;
     }
 
-    public Dict getStatus() {
-        return status;
-    }
-
-    public void setStatus(Dict status) {
-        this.status = status;
-    }
 	public Integer getPrincipalId() {
 		return principalId;
 	}
@@ -114,4 +100,12 @@ public class OrderProdUserMap extends BaseEntity {
 	public void setPrincipal(Employee principal) {
 		this.principal = principal;
 	}
+	public OrderProdUserMapStatusType getStatus() {
+		return status;
+	}
+	public void setStatus(OrderProdUserMapStatusType status) {
+		this.status = status;
+	}
+	
+	
 }

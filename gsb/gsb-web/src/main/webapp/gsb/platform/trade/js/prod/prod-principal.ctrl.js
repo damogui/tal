@@ -49,31 +49,93 @@ com.gongsibao.trade.web.ProdPrincipalCtrl = org.netsharp.panda.core.CustomCtrl.E
 		        	}
 		        }},
 		        {field:'createTime',title:'开始时间',width:130,align:'center'},
-		        {field:'orderProdStatusId',title:'状态',width:80,align:'center',formatter:function(value,row,index){
+		        {field:'status',title:'状态',width:80,align:'center',formatter:function(value,row,index){
 
-		        	if(row.status){
-		        		
-		        		return row.status.name;
-		        	}
+		        	return value == 3141 ?'正在负责':'曾经负责';
 		        }},
 		        {field:'id',title:'操作',width:80,align:'center',formatter:function(value,row,index){
 
-		        	return '[&nbsp;<a href="javascript:principalCtrl.finish('+value+')" >我已完成</a>&nbsp;]';
-		        	//return '[&nbsp;<a href="javascript:principalCtrl.remind('+value+','+row.principalId+')" >提醒Ta</a>&nbsp;]';
+		        	if(me.mainCtrl.loginUserId == row.principalId){
+		        		
+		        		if(row.status == 3141){
+
+			        		return '[&nbsp;<a href="javascript:principalCtrl.finishPrincipal('+value+')" >我已完成</a>&nbsp;]';
+		        		}
+		        	}else{
+		        		
+			        	return '[&nbsp;<a href="javascript:principalCtrl.remindPrincipal(\''+row.principal.name+'\',\''+row.principal.mobile+'\')" >提醒Ta</a>&nbsp;]';
+		        	}
 		        }}
 		    ]]
+		});
+    },
+    finishPrincipal:function(orderProdUserMapId){
+    	
+    	var me = this;
+    	this.invokeService ("finishPrincipal", [orderProdUserMapId], function(data){
+    		
+    		me.query();
+    	});
+    },
+    remindPrincipal:function(principalName,principalMobile){
+    	
+    	var me = this;
+		var builder = new System.StringBuilder();
+		builder.append('<form id="dynamicForm">');
+		builder.append('<div style="margin:10px;">');
+		builder.append('	<table cellpadding="5" cellspacing="10" class="form-panel">');
+		builder.append('		<tr><td><textarea id="remind_principal_remark" placeholder="请填写内容..." style="width: 450px; height:130px;"></textarea></td></tr>');
+		builder.append('		<tr><td><input id="remind_principal_isSendMessage" type="checkbox" style="vertical-align: middle;"/><label for="isSendMessage" style="vertical-align: middle;">短信通知Ta</label></td></tr>');
+		builder.append('	</table>');
+		builder.append('</div>');
+		builder.append('</form>');
+		//短信通知客户
+		layer.open({
+			type : 1,
+			title : '提醒负责人',
+			fixed : false,
+			maxmin : false,
+			shadeClose : true,
+			zIndex : 100000,
+			area : [ '500px', '320px' ],
+			content : builder.toString(),
+			btn : [ '确定', '取消' ],
+			success : function(layero, index) {
+
+			},
+			btn1 : function(index, layero) {
+
+				//提交更新状态
+				var remark = $('#remind_principal_remark').val();
+				if(System.isnull(remark)){
+					
+					layer.msg('请填写内容');
+					return;
+				}
+				
+				var isSendMessage = $('#remind_principal_isSendMessage').prop('checked');
+				
+				var pars = [];
+				pars.push(me.orderProdId);
+				pars.push(me.mainCtrl.orderProd.processStatusId);
+				pars.push(principalName);
+				pars.push(principalMobile);
+				
+				var orderNo = 100000000 + me.mainCtrl.orderProd.orderId;
+				pars.push(orderNo);
+				pars.push(remark);
+				pars.push(isSendMessage);
+				me.invokeService("remindPrincipal", pars, function(data){
+					
+					layer.close(index);
+					layer.msg('操作成功');
+					traceCtrl.query();
+				});
+			}
 		});
     },
     addPrincipal:function(){
     	
     	alert('添加负责人');
-    },
-    finish:function(OrderProdUserMapId){
-    	
-    	alert(OrderProdUserMapId);
-    },
-    remind:function(OrderProdUserMapId,principalId){
-    	
-    	alert(OrderProdUserMapId);
     }
 });

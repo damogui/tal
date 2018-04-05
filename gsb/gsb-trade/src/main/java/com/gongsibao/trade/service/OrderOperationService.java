@@ -65,8 +65,8 @@ public class OrderOperationService extends SoOrderDTOService implements IOrderOp
 			OrderProdUserMap orderProdUserMap = new OrderProdUserMap();
 			orderProdUserMap.toNew();
 			orderProdUserMap.setOrderProdId(orderProdId);
-			orderProdUserMap.setStatusId(OrderProdUserMapStatusType.Zzfz.getValue());
-			orderProdUserMap.setUserId(ywyUserId);
+			orderProdUserMap.setStatus(OrderProdUserMapStatusType.Zzfz);
+			orderProdUserMap.setPrincipalId(ywyUserId);
 			orderProdUserMap.setTypeId(OrderProdUserMapType.Ywy.getValue());
 			orderProdUserMapList.add(orderProdUserMap);
 		}

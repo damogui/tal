@@ -23,12 +23,12 @@ public class OrderProdTrace extends BaseEntity {
 
 	@Column(name = "order_prod_status_id", header = "产品状态")
 	private Integer orderProdStatusId = 0;
-	
+
 	@Column(name = "version", header = "流程模版版本号")
 	private Integer version;
-	
-    @Reference(foreignKey = "orderProdStatusId", header = "产品状态")
-    private WorkflowNode orderProdStatus;
+
+	@Reference(foreignKey = "orderProdStatusId", header = "产品状态")
+	private WorkflowNode orderProdStatus;
 
 	@Column(name = "type_id", header = "产品类型")
 	private OrderProdTraceType typeId = OrderProdTraceType.wu;
@@ -41,9 +41,9 @@ public class OrderProdTrace extends BaseEntity {
 
 	@Column(name = "operator_id", header = "操作人Id")
 	private Integer operatorId = 0;
-	
-    @Reference(foreignKey = "operatorId", header = "操作人")
-    private Employee operator;
+
+	@Reference(foreignKey = "operatorId", header = "操作人")
+	private Employee operator;
 
 	@Column(name = "is_bbk", header = "IsBbk")
 	private String isBbk = "0";
@@ -61,16 +61,16 @@ public class OrderProdTrace extends BaseEntity {
 	private String expressTo = "";
 
 	@Column(name = "express_company_name", header = "发送公司名称")
-	private String expressCompanyName= "";
+	private String expressCompanyName = "";
 
 	@Column(name = "express_no", header = "发送编号")
-	private String expressNo= "";
+	private String expressNo = "";
 
 	@Column(name = "processd_days", header = "已处理天数")
 	private Integer processdDays = 0;
 
 	@Column(name = "timeout_days", header = "待处理天数")
-	private Integer timeoutDays=0;
+	private Integer timeoutDays = 0;
 
 	@Column(name = "tip_color", header = "提醒颜色")
 	private String tipColor = "text-default";
@@ -143,7 +143,7 @@ public class OrderProdTrace extends BaseEntity {
 	}
 
 	public Boolean getIsSendSms() {
-		
+
 		return isSendSms;
 	}
 
