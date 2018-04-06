@@ -241,10 +241,16 @@ com.gongsibao.igirl.tm.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Det
 
 		entity.cost = $("#cost").parent().find("span > input").eq(0).val();
 	},
-
+	editBefore:function(){
+		this.viewModel.clear();
+	},
 	nclOneChange: function (newValue, oldValue) {
 		$("#selectedTwoStr").val("");
-
+		$("#spandiv").remove();
+//		if($('#ncltwogrid')){
+//			$('#ncltwogrid').datagrid('clearSelections');
+//		}
+		//$("#selectedTwoStr").hide();
 		function DeleteFromArrayByFilter(attrs, field, fieldvalue, filter) {
 			var index = -1;
 			for (var i = 0; i < attrs.length; i++) {
@@ -271,9 +277,9 @@ com.gongsibao.igirl.tm.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Det
 			})
 			var rtnStr = tmpArray.join("\n")
 			$("#selectedTwoStr").val(rtnStr)
-
-
+			showInSpan();
 		}
+		
 
 		function push(arr, obj) {
 			var exist = false;
@@ -307,6 +313,29 @@ com.gongsibao.igirl.tm.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Det
 			}
 
 		}
+		function showInSpan(){
+			$("#spandiv").remove();
+			var $t = $("#selectedTwoStr");
+			$t.hide();
+			$("<div id='spandiv'></div>").insertAfter($t);
+			var $t2 = $("#spandiv");
+			var selectStr = $t.val();
+			if (selectStr) {
+				selectStrs = selectStr.split('\n');
+				selectStrs.forEach(function (str) {
+					var index = str.lastIndexOf(":");
+					var id = "span_"+str.substring(index + 1);
+					$t2.append("<i class='fa fa-window-close-o' style='display:block;'>&nbsp<span id="+id+" name = 'selected_span' style ='font:400 13.3333px Arial;color: black;'>"+str+"</span></i>");
+				});
+			}
+			$("[name='selected_span']").dblclick(function(){
+				var id =this.id.split("span_")[1];
+				var rowIndex = $("[value="+id+"]:checkbox").parent().parent().parent().attr("datagrid-row-index");
+				$('#ncltwogrid').datagrid("unselectRow",rowIndex); 
+				this.remove();
+			});
+		}
+		
 
 		// 计算成本
 		function countCost() {
@@ -393,6 +422,7 @@ com.gongsibao.igirl.tm.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Det
 					if($.trim($("#selectedTwoStr").val())=="" && data!=""){
 						$("#selectedTwoStr").val(data);
 					}
+					showInSpan();
 					backSelect();
 				});
 
@@ -416,6 +446,7 @@ com.gongsibao.igirl.tm.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Det
 					data: tmpDatas
 				});
 				//根据文本框内的值反选择grid
+				showInSpan();
 				backSelect();
 			}, 1000)
 		});
