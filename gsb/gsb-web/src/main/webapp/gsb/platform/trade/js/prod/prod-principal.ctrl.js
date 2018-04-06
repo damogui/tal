@@ -14,7 +14,7 @@ com.gongsibao.trade.web.ProdPrincipalCtrl = org.netsharp.panda.core.CustomCtrl.E
 		this.initGrid();
 		this.query();
     },
-    query:function(pageIndex,pageSize){
+    query:function(){
     	
     	var me = this;
     	this.invokeService ("queryProdPrincipalList", [this.orderProdId], function(data){
@@ -31,7 +31,7 @@ com.gongsibao.trade.web.ProdPrincipalCtrl = org.netsharp.panda.core.CustomCtrl.E
 			height:209,
 			striped:true,
 			pagination:false,
-			showFooter:true,
+			showFooter:false,
 			singleSelect:true,
 			toolbar: [{
 				iconCls: 'fa fa-user-plus',
@@ -135,7 +135,31 @@ com.gongsibao.trade.web.ProdPrincipalCtrl = org.netsharp.panda.core.CustomCtrl.E
 		});
     },
     addPrincipal:function(){
-    	
-    	alert('添加负责人');
+
+    	var me = this;
+    	var salesmanCtrl = new com.gongsibao.trade.web.SelectSalesmanCtrl();
+    	salesmanCtrl.open('添加负责人',true,function(salesmans){
+    		
+    		var idArr = new Array();
+    		var nameArr = new Array();
+    		$(salesmans).each(function(index,item){
+    			
+    			idArr.push(item.employeeId);
+    			nameArr.push(item.name);
+    		});
+    		
+    		var principalIds = idArr.join();
+    		var principalNames = nameArr.join();
+    		
+			var pars = [];
+			pars.push(me.orderProdId);
+			pars.push(principalIds);
+			pars.push(principalNames);
+			me.invokeService("addPrincipal", pars, function(data){
+				
+				me.query();
+				layer.msg('添加负责人成功');
+			});
+    	});
     }
 });

@@ -223,14 +223,20 @@ public class OrderProdDetailController {
 
 	/**
 	 * @Title: querySalesmans
-	 * @Description: TODO(查询业务员)
+	 * @Description: TODO(查询业务员：要改成使用DTO)
 	 * @param: @param keyWord 关键字（服务商名称、部门名称、业务员姓名）
 	 * @param: @return
 	 * @return: List<Salesman>
 	 * @throws
 	 */
-	public List<Salesman> querySalesmans(String keyWord) {
+	public EasyuiDatagridResult querySalesmans(String keyWord, Integer pageIndex, Integer pageSize) {
 
+		Paging paging = new Paging();
+		{
+			paging.setPageNo(pageIndex);
+			paging.setPageSize(pageSize);
+		}
+		
 		List<String> ss = new ArrayList<String>();
 		ss.add("salesman.name like '%" + keyWord + "%'");
 		ss.add("supplier.name like '%" + keyWord + "%'");
@@ -239,11 +245,21 @@ public class OrderProdDetailController {
 		Oql oql = new Oql();
 		{
 			oql.setType(Salesman.class);
-			oql.setSelects("salesman.{id,name,receiving,disabled},supplier.{id,name},department.{id,name}");
+			oql.setSelects("salesman.{id,employeeId,name,receiving,disabled},supplier.{id,name},department.{id,name}");
 			oql.setFilter(filter);
+			oql.setPaging(paging);
 		}
 		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
-		return salesmanService.queryList(oql);
+		List<Salesman> list = salesmanService.queryList(oql);
+		EasyuiDatagridResult result = new EasyuiDatagridResult();
+		{
+			result.setRows(list);
+			if (oql.getPaging() != null) {
+
+				result.setTotal(oql.getPaging().getTotalCount());
+			}
+		}
+		return result;
 	}
 
 	/**

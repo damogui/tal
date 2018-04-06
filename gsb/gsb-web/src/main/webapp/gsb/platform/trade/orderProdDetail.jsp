@@ -59,6 +59,7 @@
 	<script src='/panda-res/js/panda.core.js'></script>
 	<script src='/panda-res/js/panda.js'></script>
 	
+	<script src='/gsb/platform/trade/js/prod/select-salesman.ctrl.js'></script>
 	<script src='/gsb/platform/trade/js/prod/prod-main.ctrl.js'></script>
 	<script src='/gsb/platform/trade/js/prod/prod-trace.ctrl.js'></script>
 	<script src='/gsb/platform/trade/js/prod/prod-principal.ctrl.js'></script>
