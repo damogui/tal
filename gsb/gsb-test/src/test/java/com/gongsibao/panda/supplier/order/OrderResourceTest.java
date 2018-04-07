@@ -96,7 +96,9 @@ public class OrderResourceTest extends ResourceCreationBase {
                 this.createResourceNodeVoucher(AuditLog.class.getName(), "分期审核", "Gsb_Supplier_Order_Audit_Staging", IAuditLogService.class.getName(), node4.getId());
                 this.createResourceNodeVoucher(AuditLog.class.getName(), "结转审核", "Gsb_Supplier_Order_Audit_Carryover", IAuditLogService.class.getName(), node4.getId());
                 this.createResourceNodeVoucher(AuditLog.class.getName(), "合同审核", "Gsb_Supplier_Order_Audit_Contract", IAuditLogService.class.getName(), node4.getId());
+                this.createResourceNodeVoucher(Contract.class.getName(), "合同审核界面", "GSB_Trade_Audit_Contract_Form", IContractService.class.getName(), node3.getId());
                 this.createResourceNodeVoucher(AuditLog.class.getName(), "发票审核", "Gsb_Supplier_Order_Audit_Invoice", IAuditLogService.class.getName(), node4.getId());
+                this.createResourceNodeVoucher(Invoice.class.getName(), "发票审核界面", "GSB_Trade_Audit_Invoice_Form", IInvoiceService.class.getName(), node3.getId());
 
             }
         }

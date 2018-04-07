@@ -1,5 +1,6 @@
 package com.gongsibao.trade.service;
 
+import java.sql.Types;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.core.DataTable;
+import org.netsharp.core.QueryParameters;
 import org.netsharp.core.Row;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.StringManager;
@@ -32,7 +34,8 @@ public class OrderProdUserMapService extends PersistableService<OrderProdUserMap
 		{
 			updateBuilder.update("so_order_prod_user_map ");
 			updateBuilder.set("status_id", OrderProdUserMapStatusType.getItem(newStatus).getValue());
-			updateBuilder.where("order_prod_id in (" + orderProdIdsString + ") AND type_id = " + OrderProdUserMapType.getItem(typeId).getValue() + " AND status_id = " + OrderProdUserMapStatusType.getItem(oldStatus).getValue() + " ");
+			updateBuilder.where("order_prod_id in (" + orderProdIdsString + ") AND type_id = " + OrderProdUserMapType.getItem(typeId).getValue() + " AND status_id = "
+					+ OrderProdUserMapStatusType.getItem(oldStatus).getValue() + " ");
 		}
 		String sql = updateBuilder.toSQL();
 		return this.pm.executeNonQuery(sql, null);
@@ -44,7 +47,8 @@ public class OrderProdUserMapService extends PersistableService<OrderProdUserMap
 		String idString = StringManager.join(",", pkidList);
 		StringBuffer sql = new StringBuffer("SELECT opum.order_prod_id 'orderProdId',u.real_name 'realName' FROM so_order_prod_user_map opum ");
 		sql.append("JOIN uc_user u ON u.pkid = opum.user_id ");
-		sql.append("WHERE opum.type_id=" + OrderProdUserMapType.getItem(typeId).getValue() + " AND opum.status_id=" + OrderProdUserMapStatusType.getItem(statusId).getValue() + " AND opum.order_prod_id IN(" + idString + ") ");
+		sql.append("WHERE opum.type_id=" + OrderProdUserMapType.getItem(typeId).getValue() + " AND opum.status_id=" + OrderProdUserMapStatusType.getItem(statusId).getValue()
+				+ " AND opum.order_prod_id IN(" + idString + ") ");
 		DataTable executeTable = this.pm.executeTable(sql.toString(), null);
 		for (Row row : executeTable) {
 			Integer orderProdId = row.getInteger("orderProdId");
@@ -66,7 +70,8 @@ public class OrderProdUserMapService extends PersistableService<OrderProdUserMap
 		String orderIds = StringManager.join(",", orderIdList);
 
 		sql.append("SELECT od.order_id,u.`real_name` FROM uc_user u ");
-		sql.append("JOIN (SELECT * FROM so_order_prod_user_map WHERE pkid IN(SELECT MAX(pkid) FROM so_order_prod_user_map WHERE status_id=" + statusId + " AND type_id = " + typeId + " GROUP BY order_prod_id)) odum ON u.`pkid`=odum.user_id ");
+		sql.append("JOIN (SELECT * FROM so_order_prod_user_map WHERE pkid IN(SELECT MAX(pkid) FROM so_order_prod_user_map WHERE status_id=" + statusId + " AND type_id = " + typeId
+				+ " GROUP BY order_prod_id)) odum ON u.`pkid`=odum.user_id ");
 		sql.append("JOIN so_order_prod od ON od.`pkid`=odum.`order_prod_id` ");
 		sql.append("WHERE od.order_id IN(" + orderIds + ") ");
 		sql.append("GROUP BY od.order_id ");
@@ -77,6 +82,26 @@ public class OrderProdUserMapService extends PersistableService<OrderProdUserMap
 		}
 
 		return resMap;
+	}
+
+	@Override
+	public Boolean updateStatus(Integer id, OrderProdUserMapStatusType newStatus, OrderProdUserMapStatusType oldStatus) {
+
+		StringBuffer sql = new StringBuffer();
+		sql.append("UPDATE ");
+		sql.append("so_order_prod_user_map ");
+		sql.append("SET ");
+		sql.append("status_id = ? ");
+		sql.append("WHERE ");
+		sql.append("pkid = ? ");
+		sql.append("AND ");
+		sql.append("status_id = ? ");
+		QueryParameters qps = new QueryParameters();
+		qps.add("newStatus", newStatus.getValue(), Types.INTEGER);
+		qps.add("id", id, Types.INTEGER);
+		qps.add("oldStatus", oldStatus.getValue(), Types.INTEGER);
+
+		return this.pm.executeNonQuery(sql.toString(), qps) > 0;
 	}
 
 }

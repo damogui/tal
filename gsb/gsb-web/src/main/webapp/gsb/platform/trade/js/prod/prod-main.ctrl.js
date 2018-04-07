@@ -5,8 +5,12 @@ com.gongsibao.trade.web.ProdMainCtrl = org.netsharp.panda.core.CustomCtrl.Extend
     	this.service = 'com.gongsibao.trade.web.OrderProdDetailController';
     	this.orderProdId = null;
     	this.orderProd = null;
+    	this.loginUserId = null;
     },
     init:function(){
+    	
+    	//
+    	this.getLoginUserId();
     	
  		this.orderProdId = System.Url.getParameter('id');
  		
@@ -18,6 +22,20 @@ com.gongsibao.trade.web.ProdMainCtrl = org.netsharp.panda.core.CustomCtrl.Extend
 		traceCtrl.mainCtrl = this;
 		traceCtrl.init(this.orderProdId);
 		
+		//3.负责人
+		principalCtrl = new com.gongsibao.trade.web.ProdPrincipalCtrl();
+		principalCtrl.mainCtrl = this;
+		principalCtrl.init(this.orderProdId);
+		
+		
+    },
+    getLoginUserId:function(){
+    	
+    	var me = this;
+    	this.invokeService ("getLoginUserId", [], function(data){
+    		
+    		me.loginUserId = data;
+    	});
     },
     initOrderProd:function(orderProdId){
     	

@@ -16,6 +16,8 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     },
     query:function(pageIndex,pageSize){
     	
+    	pageIndex = pageIndex || 1;
+    	pageSize = pageSize || 10;
     	var me = this;
     	this.invokeService ("queryProdTraceList", [this.orderProdId,pageIndex,pageSize], function(data){
     		
@@ -62,19 +64,22 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
 				}; 
 			},
 		    columns:[[
-		        {field:'info',title:'操作信息',width:250},
+		        {field:'info',title:'操作信息',width:250,formatter:function(value,row,index){
+
+		        	return '<span title="'+value+'">'+value+'</span>';
+		        }},
 		        {field:'operatorId',title:'操作人',width:60,align:'center',formatter:function(value,row,index){
 
 		        	if(row.operator){
 		        		
-		        		return row.operator.name
+		        		return row.operator.name;
 		        	}
 		        }},
 		        {field:'orderProdStatusId',title:'订单状态',width:80,align:'center',formatter:function(value,row,index){
 
 		        	if(row.orderProdStatus){
 		        		
-		        		return row.orderProdStatus.name
+		        		return row.orderProdStatus.name;
 		        	}
 		        }},
 		        {field:'createTime',title:'操作时间',width:130,align:'center'},   
@@ -195,6 +200,59 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     			});
     		}
     	});
+    },
+    remark:function(){
+    	
+    	var me = this;
+		var builder = new System.StringBuilder();
+		builder.append('<form id="dynamicForm">');
+		builder.append('<div style="margin:10px;">');
+		builder.append('	<table cellpadding="5" cellspacing="10" class="form-panel">');
+		builder.append('		<tr><td>备注信息:<span style="color:#009688;">客户不会看到此备注记录，如需客户知悉请点击“发送提示”</span></td></tr>');
+		builder.append('		<tr><td><textarea id="remark" placeholder="请填写内容..." style="width: 100%; height:130px;"></textarea></td></tr>');
+		builder.append('		<tr><td><input id="isSendMessage" type="checkbox" style="vertical-align: middle;"/><label for="isSendMessage" style="vertical-align: middle;">短信通知客户</label></td></tr>');
+		builder.append('	</table>');
+		builder.append('</div>');
+		builder.append('</form>');
+		//短信通知客户
+		layer.open({
+			type : 1,
+			title : '添加备注',
+			fixed : false,
+			maxmin : false,
+			shadeClose : true,
+			zIndex : 100000,
+			area : [ '500px', '345px' ],
+			content : builder.toString(),
+			btn : [ '确定', '取消' ],
+			success : function(layero, index) {
+
+			},
+			btn1 : function(index, layero) {
+
+				//提交更新状态
+				var remark = $('#remark').val();
+				if(System.isnull(remark)){
+					
+					layer.msg('请填写内容');
+					return;
+				}
+				
+				var isSendMessage = $('#isSendMessage').prop('checked');
+				
+				var trace = new Object();
+				trace.orderProdId = me.orderProdId;
+				trace.info = remark;
+				trace.isSendMessage = isSendMessage;
+				
+				//更新状态:网提
+				me.invokeService("updateProcessStatus", [trace], function(data){
+					
+					layer.close(index);
+					me.query();
+				});
+			}
+		});
     }
 });
 

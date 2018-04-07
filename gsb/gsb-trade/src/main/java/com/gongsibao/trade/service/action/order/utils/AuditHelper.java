@@ -1,6 +1,7 @@
 package com.gongsibao.trade.service.action.order.utils;
 
 import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.trade.base.IOrderPayMapService;
@@ -20,12 +21,26 @@ import java.util.List;
  * Created by guojia on 2018/3/30.
  */
 public class AuditHelper {
-    /*查询是否存在已经审核的记录*/
+
     private static IPersister<AuditLog> auditLogService = PersisterFactory.create ();
 
+    /*查询是否存在已经审核的记录*/
     public static Integer getRecode(Integer formId, Integer typeId) {
+        String sql="";
+        switch (typeId){
+            case 1050://订单业绩申请
+                 sql = String.format ("SELECT  IFNULL(MAX(form_id),0) FROM  bd_audit_log  WHERE  type_id=%s  and  status_id in (1051,1054)  AND     form_id=? ", typeId);//查询是否存在订单业绩审核状态或者审核状态
+            break;
 
-        String sql = String.format ("SELECT  IFNULL(MAX(form_id),0) FROM  bd_audit_log  WHERE  type_id=%s  and  status_id in (1051,1054)  AND     form_id=? ", typeId);//查询是否存在订单业绩审核状态或者审核状态
+            case  1051://回款业绩申请
+                 sql = String.format ("SELECT  IFNULL(MAX(form_id),0) FROM  bd_audit_log  WHERE  type_id=%s  and  status_id in (1051,1052)  AND     form_id=? ", typeId);//查询是否存在订单业绩审核状态或者审核状态
+                break;
+
+
+        }
+
+
+
         QueryParameters qps = new QueryParameters ();
         qps.add ("@form_id", formId, Types.INTEGER);
         Integer execNum = auditLogService.executeInt (sql, qps);

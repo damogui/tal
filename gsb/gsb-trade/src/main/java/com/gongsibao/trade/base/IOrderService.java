@@ -61,4 +61,8 @@ public interface IOrderService extends IPersistableService<SoOrder> {
     /*更新状态值根据字段名、订单id、和状态值*/
     @Transaction
     void updateStatus(String status_id, Integer id, AuditStatusType shzt);
+    /*是否可以创建回款*/
+    Integer checkCanPay(Integer orderId);
+    /*是否可以订单业绩type=0   是否可以创建回款业绩  type=1*/
+    Integer checkCanOrderPer(Integer orderId,Integer type);
 }

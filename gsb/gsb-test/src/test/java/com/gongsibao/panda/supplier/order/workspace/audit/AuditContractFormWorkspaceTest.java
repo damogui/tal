@@ -24,7 +24,7 @@ public class AuditContractFormWorkspaceTest extends ContractFormWorkspaceTest {
     public void setup() {
         super.setup();
         urlForm = "/trade/audit/contract/form";
-        resourceNodeCode = "GSB_Trade_Audit_Form_Contract";
+        resourceNodeCode = "GSB_Trade_Audit_Contract_Form";
     }
 
     @Test

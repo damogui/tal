@@ -29,7 +29,7 @@ public class AuditInvoiceFormWorkspaceTest extends InvoiceFormWorKspace {
     public void setup() {
         super.setup();
         urlForm = "/trade/audit/invoice/form";
-        resourceNodeCode = "GSB_Trade_Audit_Form_Invoice";
+        resourceNodeCode = "GSB_Trade_Audit_Invoice_Form";
         invoiceFileToolbarPath = null;
     }
 

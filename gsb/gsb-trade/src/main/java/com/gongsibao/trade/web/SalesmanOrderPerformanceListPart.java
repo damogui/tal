@@ -22,6 +22,7 @@ public class SalesmanOrderPerformanceListPart extends AdvancedListPart {
     public List<?> doQuery(Oql oql) {
 
         StringBuilder sb = new StringBuilder ();
+        sb.append ("NDepReceivable.*,");
         sb.append ("NDepReceivable.soOrder.*,");
         sb.append ("NDepReceivable.soOrder.companyIntention.name,");
         sb.append ("NDepReceivable.soOrder.owner.name");
