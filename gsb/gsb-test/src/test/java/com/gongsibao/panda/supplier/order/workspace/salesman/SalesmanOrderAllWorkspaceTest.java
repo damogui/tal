@@ -11,6 +11,7 @@ import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
+import org.netsharp.panda.dic.OrderbyMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
@@ -216,6 +217,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 			datagrid.setToolbar(toolbarPath);
 			datagrid.setShowCheckbox(true);
 			datagrid.setSingleSelect(false);
+            //datagrid.setOrderby (" createTime  desc");
 		}
 
 		PDatagridColumn column = null;
@@ -223,6 +225,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 		column = addColumn(datagrid, "no", "订单编号", ControlTypes.TEXT_BOX, 80);
 		{
 			column.setAlign(DatagridAlign.CENTER);
+
 		}
 		addColumn(datagrid, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "prodName", "产品名称", ControlTypes.TEXT_BOX, 200);
@@ -258,6 +261,14 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "platformSource", "订单来源", ControlTypes.ENUM_BOX, 80);
 		addColumn(datagrid, "createTime", "下单时间", ControlTypes.DATETIME_BOX, 100);
 		addColumn(datagrid, "accountType", "新老客户", ControlTypes.ENUM_BOX, 80);
+        column=addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 60);{
+
+            column.setSystem (true);
+            column.setVisible (false);
+            column.setOrderbyMode (OrderbyMode.DESC);
+
+
+        }
 		return datagrid;
 	}
 

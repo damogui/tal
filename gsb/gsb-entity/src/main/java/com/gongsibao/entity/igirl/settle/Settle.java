@@ -15,9 +15,6 @@ import java.util.List;
 @Table(name = "ig_settle", header = "结算单列表")
 public class Settle extends Entity {
 
-    @Column(name = "settle_no", header = "结算单号")
-    private String settleNo;
-
     @Column(name = "memo", header = "结算说明")
     private String memo;
 
@@ -49,16 +46,8 @@ public class Settle extends Entity {
     @Subs(foreignKey = "settleId", header = "审核日志", subType = SettleHandleLog.class)
     private List<SettleHandleLog> handleLogList;
 
-    @Subs(foreignKey = "settleId", header = "审核日志", subType = SettleHandleLog.class)
+    @Subs(foreignKey = "settleId", header = "审核日志", subType = SettleOrder.class)
     private List<SettleOrder> settleOrderList;
-
-    public String getSettleNo() {
-        return settleNo;
-    }
-
-    public void setSettleNo(String settleNo) {
-        this.settleNo = settleNo;
-    }
 
     public String getMemo() {
         return memo;

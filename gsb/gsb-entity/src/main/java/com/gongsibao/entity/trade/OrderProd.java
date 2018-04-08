@@ -4,29 +4,27 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.gongsibao.entity.bd.Dict;
-import com.gongsibao.entity.crm.CompanyIntention;
-import com.gongsibao.entity.crm.NCustomer;
-import com.gongsibao.entity.product.Product;
-import com.gongsibao.entity.trade.dic.AuditStatusType;
-import com.gongsibao.entity.trade.dic.CostStatus;
-import com.gongsibao.entity.trade.dic.InvoiceState;
-import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
-import com.gongsibao.entity.trade.dic.SettleStatus;
-import com.gongsibao.entity.yj.Trademark;
-import com.gongsibao.entity.supplier.Supplier;
-import com.gongsibao.entity.supplier.SupplierDepartment;
-
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
+import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.BaseEntity;
-
-import org.netsharp.organization.entity.Employee;
+import com.gongsibao.entity.bd.Dict;
+import com.gongsibao.entity.crm.CompanyIntention;
+import com.gongsibao.entity.crm.NCustomer;
+import com.gongsibao.entity.product.Product;
+import com.gongsibao.entity.product.WorkflowNode;
+import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.entity.supplier.SupplierDepartment;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
+import com.gongsibao.entity.trade.dic.CostStatus;
+import com.gongsibao.entity.trade.dic.InvoiceState;
+import com.gongsibao.entity.trade.dic.SettleStatus;
+import com.gongsibao.entity.yj.Trademark;
 
 @Table(name = "so_order_prod")
 public class OrderProd extends BaseEntity {
@@ -76,8 +74,11 @@ public class OrderProd extends BaseEntity {
 	@Reference(foreignKey = "trademarkId", header = "商标信息")
 	private Trademark trademark;
 
-	@Column(name = "process_status_id", header = "进度")
-	private OrderProcessStatusType processStatusId = OrderProcessStatusType.Dbl;
+	@Column(name = "process_status_id", header = "进度状态")
+	private Integer processStatusId = 0;
+	
+	@Reference(foreignKey = "processStatusId", header = "进度状态")
+	private WorkflowNode processStatus;
 
 	@Column(name = "audit_status_id", header = "审核状态：type=105")
 	private AuditStatusType auditStatus = AuditStatusType.wu;
@@ -502,14 +503,6 @@ public class OrderProd extends BaseEntity {
 		this.trademark = trademark;
 	}
 
-	public OrderProcessStatusType getProcessStatusId() {
-		return processStatusId;
-	}
-
-	public void setProcessStatusId(OrderProcessStatusType processStatusId) {
-		this.processStatusId = processStatusId;
-	}
-
 	public AuditStatusType getAuditStatus() {
 		return auditStatus;
 	}
@@ -549,4 +542,22 @@ public class OrderProd extends BaseEntity {
 	public void setVersion(Integer version) {
 		this.version = version;
 	}
+
+	public Integer getProcessStatusId() {
+		return processStatusId;
+	}
+
+	public void setProcessStatusId(Integer processStatusId) {
+		this.processStatusId = processStatusId;
+	}
+
+	public WorkflowNode getProcessStatus() {
+		return processStatus;
+	}
+
+	public void setProcessStatus(WorkflowNode processStatus) {
+		this.processStatus = processStatus;
+	}
+	
+	
 }

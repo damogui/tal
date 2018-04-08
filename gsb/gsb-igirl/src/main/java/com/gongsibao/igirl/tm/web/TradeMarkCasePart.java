@@ -11,6 +11,7 @@ import com.gongsibao.igirl.tm.base.ITradeMarkService;
 import com.gongsibao.igirl.tm.base.IUploadAttachmentService;
 import com.gongsibao.igirl.tm.dto.CompanyDto;
 import com.gongsibao.igirl.tm.dto.ResultDto;
+import com.gongsibao.igirl.tm.dto.SysAttachmentDto;
 import com.gongsibao.igirl.tm.dto.TradeMarkDto;
 import com.gongsibao.taurus.message.ResponseMessage;
 import com.gongsibao.taurus.service.TaurusApiService;
@@ -194,7 +195,7 @@ public class TradeMarkCasePart extends FormPart {
 	@SuppressWarnings("rawtypes")
 	@Authorization(is=false)
 	public ResultDto findUrlByCaseId(int  caseId) {
-		List<String> urlList=tradeMarkService.findUrlById(caseId);
+		List<SysAttachmentDto> urlList=tradeMarkService.findUrlById(caseId);
 		return ResultDto.getEntityListResultDto(urlList);//
 	}
 

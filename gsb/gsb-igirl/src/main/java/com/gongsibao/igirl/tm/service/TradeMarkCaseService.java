@@ -28,7 +28,7 @@ import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.CostStatus;
 import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
 import com.gongsibao.entity.trade.dic.OrderSourceType;
-import com.gongsibao.igirl.base.IOrderProdCaseService;
+import com.gongsibao.igirl.settle.base.IOrderProdCaseService;
 import com.gongsibao.igirl.tm.base.*;
 import com.gongsibao.igirl.tm.service.builder.TradeMarkCaseAttachmentBuiler;
 import com.gongsibao.supplier.base.ISupplierService;
@@ -45,13 +45,11 @@ import org.apache.commons.collections.CollectionUtils;
 import org.joda.time.DateTime;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.BusinessException;
-import org.netsharp.core.EntityState;
-import org.netsharp.core.Oql;
-import org.netsharp.core.Paging;
+import org.netsharp.core.*;
 import org.netsharp.organization.base.IEmployeeService;
 import org.netsharp.organization.entity.Employee;
 import org.netsharp.persistence.session.SessionManager;
+import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
@@ -474,6 +472,8 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		return tradeMarkCase.getTmcState().getValue();
 	}
 
+
+
 	@Override
 	public int updateCaseState(String casecode,int state) {
 		// TODO Auto-generated method stub
@@ -493,15 +493,45 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		}
 	}
 
-    @Override
-    public ConvertToOrderResult convertToOrder(String caseid) {
-        TradeMarkCase tradeMarkCase = byId(caseid);
-        if (null == tradeMarkCase) {
-            // 方案不存在
-            return new ConvertToOrderResult(CaseConvertType.ERROR_0);
-        }
+	@Override
+	public boolean updateOrderCode(Integer caseId, String orderCode) {
 
-        // 是否已下单，已下单直接返回
+		UpdateBuilder builder = UpdateBuilder.getInstance();
+		{
+			builder.update(MtableManager.getMtable(this.type).getTableName());
+			builder.set("order_code", orderCode);
+			builder.where(" id = " + caseId);
+		}
+		return this.pm.executeNonQuery(builder.toSQL(), null) > 0;
+	}
+
+	@Override
+    public ConvertToOrderResult convertToOrder(String caseid) {
+		TradeMarkCase tradeMarkCase = byId(caseid);
+		if (null == tradeMarkCase) {
+			// 方案不存在
+			return new ConvertToOrderResult(CaseConvertType.ERROR_0);
+		}
+
+		SoOrder order = null;
+		String orderCode = tradeMarkCase.getOrderCode();
+		if (!StringManager.isNullOrEmpty(orderCode)) {
+			order = orderService.getByOrderNo(orderCode);
+			if (null == order) {
+				return new ConvertToOrderResult(CaseConvertType.ERROR_5);
+			}
+
+			if (order.getIsDelete()) {
+				// 已付款订单不允许删除关联关系
+				if (order.getPaidPrice() > 0) {
+					return new ConvertToOrderResult(CaseConvertType.ERROR_12);
+				}
+				// 如果订单被删除, 删除关联关系
+				orderProdCaseService.deleteByCaseId(tradeMarkCase.getId());
+			}
+		}
+
+		// 是否已下单，已下单直接返回
 		List<OrderProdCase> caseList = orderProdCaseService.byCaseId(tradeMarkCase.getId());
 		if (null != caseList && caseList.size() > 0) {
 			OrderProdCase orderProdCase = caseList.get(0);
@@ -564,7 +594,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
         }
 
         // 转换订单实体
-        SoOrder order = convertToOrderEntity(tradeMarkCase, account, customer, company, dict);
+        order = convertToOrderEntity(tradeMarkCase, account, customer, company, dict);
 
         // 保存订单
         order = orderService.save(order);
@@ -572,6 +602,9 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
         // 订单信息关联方案回写
         List<OrderProdCase> orderProdCaseList = convertToOrderProdCaseList(tradeMarkCase, order);
         orderProdCaseService.saves(orderProdCaseList);
+
+        // 回写订单id
+		updateOrderCode(tradeMarkCase.getId(), order.getNo());
 
 		ConvertToOrderResult result = new ConvertToOrderResult(CaseConvertType.SUCCESS);
 		{
@@ -584,7 +617,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
     @Override
 	public ConvertToOrderResult convertToOrder(String caseid, String orderNo) {
 		SoOrder order = orderService.getByOrderNo(orderNo);
-		if (null == order) {
+		if (null == order || order.getIsDelete()) {
 			// 订单不存在
 			return new ConvertToOrderResult(CaseConvertType.ERROR_5);
 		}
@@ -655,6 +688,9 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 			}
 		}
 
+		// 回写订单id
+		updateOrderCode(tradeMarkCase.getId(), order.getNo());
+
 		// 返回正确结果
 		ConvertToOrderResult result = new ConvertToOrderResult(CaseConvertType.SUCCESS);
 		{
@@ -694,6 +730,9 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 				orderProdCase.setMemo(tradeMark.getMemo());
 				orderProdCase.setCost(tradeMark.getCost());
 				orderProdCase.setCharge(tradeMark.getCharge());
+
+				orderProdCase.setCreateTime(new Date());
+				orderProdCase.setCreator(order.getAccountName());
             }
             orderProdCaseList.add(orderProdCase);
         }
@@ -900,16 +939,16 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
                 company.setOrderContactName(tradeMarkCase.getContactName());
                 company.setOrderContactMobile(tradeMarkCase.getMobile());
                 company.setOrderContactEmail("");
-                company.setSetupStatus(1);
+                company.setSetupStatus(true);
                 company.setCityId(cityId);
-                company.setIsSelfAddress(1);
+                company.setIsSelfAddress(true);
                 company.setAddress(tradeMarkCase.getApplierAddress());
                 company.setCapitalType(CapitalType.CapitalType_1);
                 company.setRegisterCapital(0);
                 company.setRegisterCapitalType(RegisterCapitalType.CompanyType_0);
-                company.setIsSelfCapital(1);
-                company.setIsExpress(0);
-                company.setIsNameVerify(0);
+                company.setIsSelfCapital(true);
+                company.setIsExpress(false);
+                company.setIsNameVerify(false);
                 company.setNameVerifyFileId(0);
                 company.setVerifyNo("");
                 company.setBusinessTypeId(0);

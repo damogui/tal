@@ -46,6 +46,7 @@ public class ResourceTest extends ResourceCreationBase {
             this.createResourceNodeVoucher(SoOrder.class.getName(), "订单池", "Operation_Order_Pool", ISoOrderService.class.getName(), node1.getId());
 
             this.createResourceNodeVoucher(NDepReceivable.class.getName(), "运营平台订单业绩", "Operation_Order_Performance", INDepReceivableService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(Pay.class.getName(), "运营平台回款", "Operation_Order_Pay", IPayService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(NDepPay.class.getName(), "运营平台回款业绩", "Operation_Order_Received", INDepPayService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(Refund.class.getName(), "退款订单", "Operation_Order_Refund", IRefundService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(SoOrder.class.getName(), "分期订单", "Operation_Order_Staging", IOrderService.class.getName(), node1.getId());

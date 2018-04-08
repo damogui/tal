@@ -1,6 +1,8 @@
 package com.gongsibao.trade.service;
 
+import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,23 +10,34 @@ import java.util.Map;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.BusinessException;
 import org.netsharp.core.DataTable;
 import org.netsharp.core.IRow;
 import org.netsharp.core.Oql;
 import org.netsharp.core.Row;
+import org.netsharp.organization.base.IEmployeeService;
+import org.netsharp.organization.entity.Employee;
 import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
+import com.gongsibao.entity.product.WorkflowFile;
+import com.gongsibao.entity.product.WorkflowNode;
 import com.gongsibao.entity.trade.OrderProdTrace;
 import com.gongsibao.entity.trade.OrderProdUserMap;
-import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
+import com.gongsibao.entity.trade.dic.OrderProdTraceOperatorType;
+import com.gongsibao.entity.trade.dic.OrderProdTraceType;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapType;
+import com.gongsibao.product.base.IWorkflowNodeService;
 import com.gongsibao.trade.base.IOrderProdService;
+import com.gongsibao.trade.base.IOrderProdTraceFileService;
 import com.gongsibao.trade.base.IOrderProdTraceService;
 import com.gongsibao.trade.base.IOrderProdUserMapService;
+import com.gongsibao.trade.base.IOrderService;
+import com.gongsibao.utils.SmsHelper;
 
 @Service
 public class OrderProdTraceService extends PersistableService<OrderProdTrace> implements IOrderProdTraceService {
@@ -138,22 +151,42 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
 		entity.toNew();
 		entity.setOperatorId(SessionManager.getUserId());
 		entity = this.save(entity);
-
-		if (entity.getOrderProdStatusId() != null && entity.getOrderProdStatusId().compareTo(0) == 1) {
-
-			// 更新订单和订单明细的状态
-			updateOrderProdProcessStatus(entity);
-
-			// 更新订单状态
-			updateOrderProcessStatus(entity);
-		}
-
-		// 发送短信
-		if (entity.getIsSendSms()) {
-
-		}
-
+//
+//		if (entity.getOrderProdStatusId() != null && entity.getOrderProdStatusId().compareTo(0) == 1) {
+//
+//			// 更新订单和订单明细的状态
+//			updateOrderProdProcessStatus(entity);
+//
+//			// 更新订单状态
+//			updateOrderProcessStatus(entity);
+//		}
 		return entity;
+	}
+
+	@Override
+	public Boolean remindCustomer(OrderProdTrace trace) {
+
+		trace.toNew();
+		trace.setTypeId(OrderProdTraceType.Tskf);
+		trace.setOperatorId(SessionManager.getUserId());
+		trace = this.save(trace);
+
+		if (trace.getIsSendSms()) {
+			// 发短信
+			IOrderService orderService = ServiceFactory.create(IOrderService.class);
+			String mobile = orderService.getCustomerMobile(trace.getOrderId());
+			String smsString = "【公司宝】尊敬的公司宝用户您好：" + trace.getInfo() + "。如需帮助，请拨打服务热线：4006-798-999。";
+			// 发送短信
+			new Thread() {
+				@Override
+				public void run() {
+
+					SmsHelper.send(mobile, smsString);
+				}
+			}.start();
+		}
+
+		return true;
 	}
 
 	/**
@@ -203,32 +236,46 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
 	public Boolean markComplaint(OrderProdTrace trace, Boolean isFocus) {
 
 		trace = this.create(trace);
+		IOrderProdUserMapService orderProdUserMapService = ServiceFactory.create(IOrderProdUserMapService.class);
 		if (trace.getIsSendSms()) {
 
-//			Map<String, Object> userWhere = new HashMap();
-//			userWhere.put("order_prod_id", soOrderProd.getPkid());
-//			userWhere.put("type_id", 3061);
-//			List<SoOrderProdUserMap> soOrderProdUserMapList = soOrderProdUserMapService.findByProperties(userWhere, 0, Integer.MAX_VALUE);
-//			if (soOrderProdUserMapList.size() > 0) {
-//				List<Integer> userIds = new ArrayList();
-//				for (SoOrderProdUserMap item : soOrderProdUserMapList) {
-//					userIds.add(item.getUserId());
-//				}
-//				List<UcUser> ucusers = ucUserService.findByIds(userIds);
-//				// 给这些业务员们发短信
-//				for (UcUser ucUser : ucusers) {
-//					// 发短信
-//					SoOrder soOrder = soOrderService.findById(soOrderProd.getOrderId());
-//					String smsString = "【公司宝】" + ucUser.getRealName() + "，您好！" + user.getUcUser().getRealName() + "给您发了一条订单（订单号：" + soOrder.getNo() + "）提醒：" + info + "。如需帮助，请拨打服务热线：4006-798-999。";
-//					// 发送短信
-//					new Thread() {
-//						@Override
-//						public void run() {
-//							smsService.send(2, ucUser.getMobilePhone(), smsString);
-//						}
-//					}.start();
-//				}
-//			}
+			// 给所有业务员发送短信
+
+			List<OrderProdUserMap> orderProdUserMapList = orderProdUserMapService.queryList(trace.getOrderProdId(), OrderProdUserMapType.Ywy);
+			if (orderProdUserMapList.size() > 0) {
+
+				List<Integer> ss = new ArrayList<Integer>();
+				for (OrderProdUserMap item : orderProdUserMapList) {
+
+					ss.add(item.getPrincipalId());
+				}
+
+				IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
+				Oql oql = new Oql();
+				{
+					oql.setType(Employee.class);
+					oql.setSelects("id,name,mobile");
+					oql.setFilter("id in (" + StringManager.join(",", ss) + ")");
+				}
+
+				List<Employee> employees = employeeService.queryList(oql);
+
+				// 给这些业务员们发短信
+				for (Employee employee : employees) {
+
+					String smsString = "【公司宝】" + employee.getName() + "，您好！" + SessionManager.getUserName() + "给您发了一条订单（订单号：" + trace.getOrderNo() + "）提醒：" + trace.getInfo()
+							+ "。如需帮助，请拨打服务热线：4006-798-999。";
+					// 发送短信
+					new Thread() {
+
+						@Override
+						public void run() {
+
+							SmsHelper.send(employee.getMobile(), smsString);
+						}
+					}.start();
+				}
+			}
 		}
 
 		// 重点关注(没看懂有啥用)
@@ -242,7 +289,6 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
 				orderProdUserMap.setType(OrderProdUserMapType.Kfy);
 				orderProdUserMap.setStatus(OrderProdUserMapStatus.Zzfz);
 			}
-			IOrderProdUserMapService orderProdUserMapService = ServiceFactory.create(IOrderProdUserMapService.class);
 			orderProdUserMapService.save(orderProdUserMap);
 		}
 
@@ -250,6 +296,201 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
 		IOrderProdService orderProdService = ServiceFactory.create(IOrderProdService.class);
 		orderProdService.updateIsComplaint(trace.getOrderProdId());
 		return true;
+	}
+
+	@Override
+	public Boolean markAbnormal(OrderProdTrace trace) {
+
+		// 1.创建跟进记录
+		trace = this.create(trace);
+
+		// 2.更新跟进记录的操作类型(操作员情况下)
+		// Map<String, Object> userMap = new HashMap<>();
+		// userMap.put("orderProdId", soOrderProd.getPkid());
+		// userMap.put("userId", user.getUcUser().getPkid());
+		// List<SoOrderProdUserMap> soOrderProdUserMapList =
+		// soOrderProdUserMapService.findByProperties(new HashMap<>(), 0,
+		// 1);---老代码，看着好像没处理啥
+		// SoOrderProdUserMap soOrderProdUserMap =
+		// soOrderProdUserMapList.get(0);
+		// if (soOrderProdUserMap.getTypeId() == 3063) {
+		// soOrderProdTrace.setOperatorType(315201);
+		// } else if (soOrderProdUserMap.getTypeId() == 3061 ||
+		// soOrderProdUserMap.getTypeId() == 3062) {
+		// soOrderProdTrace.setOperatorType(315202);
+		// } else {
+		// soOrderProdTrace.setOperatorType(0);
+		return true;
+	}
+
+	@Override
+	public Boolean sendExpress(OrderProdTrace trace) {
+
+		trace = this.create(trace);
+		if (trace.getIsSendSms()) {
+
+			IOrderService orderService = ServiceFactory.create(IOrderService.class);
+			String mobile = orderService.getCustomerMobile(trace.getOrderId());
+			String smsString = "【公司宝】您的订单：" + trace.getOrderNo() + "有一条新快递信息。快递清单：" + trace.getExpressContent() + "。快递公司：" + trace.getExpressCompanyName() + "。" + "快递单号：" + trace.getExpressNo()
+					+ "。发件人留言：" + trace.getInfo() + "。如需帮助，请拨打服务热线：4006-798-999。";
+			// 发送短信
+			new Thread() {
+				@Override
+				public void run() {
+
+					SmsHelper.send(mobile, smsString);
+				}
+			}.start();
+
+		}
+		return true;
+	}
+
+	@Override
+	public Boolean remindPrincipal(Integer soOrderProdId, Integer orderProdStatusId, String principalName, String principalMobile, String orderNo, String info, Boolean isSendSms) {
+
+		// 1.添加跟进
+		OrderProdTrace trace = new OrderProdTrace();
+		trace.toNew();
+		trace.setOrderProdId(soOrderProdId);
+		trace.setOrderProdStatusId(orderProdStatusId);
+		trace.setOperatorType(OrderProdTraceOperatorType.Txfzr);
+		trace.setInfo(info);
+		trace.setIsSendSms(isSendSms);
+		trace.setTypeId(OrderProdTraceType.wu);
+		trace.setOperatorId(SessionManager.getUserId());
+		this.create(trace);
+
+		// 2.发送信息
+		if (isSendSms) {
+
+			String content = "【公司宝】" + principalName + "，您好！" + SessionManager.getUserName() + "给您发了一条订单（订单号：" + orderNo + "）提醒：" + info;
+			SmsHelper.send(principalMobile, content);
+		}
+		return true;
+	}
+
+	@Override
+	public Boolean updateProcessStatus(OrderProdTrace trace) {
+
+		// 这里有很多校验
+		Integer orderProdId = trace.getOrderProdId();
+		Integer oldProcessStatusId = orderProdService.getProcessStatusId(orderProdId);
+		Integer newProcessStatusId = trace.getOrderProdStatusId();
+
+		trace.setTypeId(OrderProdTraceType.Ggzt);
+		trace.setOperatorId(SessionManager.getUserId());
+
+		IWorkflowNodeService workflowNodeService = ServiceFactory.create(IWorkflowNodeService.class);
+		WorkflowNode oldWorkflowNode = workflowNodeService.byId(oldProcessStatusId);
+		WorkflowNode newWorkflowNode = workflowNodeService.byId(newProcessStatusId);
+
+		trace.setInfo("更新状态:" + newWorkflowNode.getName());
+		if (null != oldWorkflowNode && null != newWorkflowNode && oldWorkflowNode.getSort() > newWorkflowNode.getSort()) {
+			trace.setOperatorType(OrderProdTraceOperatorType.Ztth);
+			trace.setInfo("更新状态(回退): " + newWorkflowNode.getName());
+		}
+
+		List<WorkflowNode> workflowNodeList = orderProdService.getWorkflowNodeList(orderProdId);
+
+		//最后一个节点
+		WorkflowNode lastWorkflowNode = workflowNodeList.get(workflowNodeList.size() - 1);
+		if (newProcessStatusId.compareTo(lastWorkflowNode.getId()) == 0) {
+
+			List<WorkflowFile> WorkflowFileList = orderProdService.queryWorkflowFileList(trace.getOrderProdId());
+			List<Integer> isMustWorkflowFilelist = new ArrayList<Integer>();
+			if (CollectionUtils.isNotEmpty(WorkflowFileList)) {
+				for (WorkflowFile workflowFile : WorkflowFileList) {
+					if (workflowFile.getNecessary()) {
+						isMustWorkflowFilelist.add(workflowFile.getId());
+					}
+				}
+			}
+
+			if (!CollectionUtils.isNotEmpty(isMustWorkflowFilelist)) {
+
+				List<OrderProdTrace> orderProdTraceList = this.queryList(orderProdId, OrderProdTraceType.Sccl);
+				if (CollectionUtils.isEmpty(orderProdTraceList)) {
+
+					throw new BusinessException("必须材料没有上传完！");
+				}
+
+				List<Integer> orderProdTraceIds = new ArrayList<Integer>();
+				for (OrderProdTrace item : orderProdTraceList) {
+					orderProdTraceIds.add(item.getId());
+				}
+
+				IOrderProdTraceFileService orderProdTraceFileService = ServiceFactory.create(IOrderProdTraceFileService.class);
+				List<Integer> orderProdTraceFileList = orderProdTraceFileService.queryWorkflowFileId(orderProdTraceIds);
+				isMustWorkflowFilelist.removeAll(orderProdTraceFileList);
+				if (CollectionUtils.isNotEmpty(isMustWorkflowFilelist)) {
+
+					throw new BusinessException("必须材料没有上传完！");
+				}
+			}
+
+			//哪些需要完善资质信息？没看懂，参数5是啥意思？
+//			List<BdServiceProduct> productList = bdServiceService.findProductList(5);
+//			boolean isQualify = false;
+//			for (BdServiceProduct bdServiceProduct : productList) {
+//				if (soOrderProd.getProductId().compareTo(bdServiceProduct.getProductId()) == 0) {
+//					isQualify = true;
+//					break;
+//				}
+//			}
+//
+//			if (isQualify) {
+//				
+//				UcAccountCompanyQualify qualify = ucAccountCompanyQualifyService.findByOrderProdId(NumberUtils.toInt(soOrderProd.getPkid()));
+//				if (null == qualify || StringUtils.isBlank(qualify.getCode()) || null == qualify.getBeginDate() || null == qualify.getEndDate()) {
+//					data.setMsg("请先完善资质信息");
+//					data.setCode(402);
+//					return data;
+//				}
+//			}
+
+			//这里先不处理内外部，全部要审核
+			orderProdService.updateStatus(orderProdId, newProcessStatusId, AuditStatusType.Shz);
+			// 内部人员并且设置了不审核属性 则直接审核通过
+//			if (!internal_check && NumberUtils.toInt(user.getUcUser().getIsInner()) == 1) {
+//				
+//				orderProdService.updateStatus(orderProdId, newProcessStatusId, AuditStatusType.Shtg);
+//			}else{
+//				
+//				orderProdService.updateStatus(orderProdId, newProcessStatusId, AuditStatusType.Shz);
+//			}
+		}
+		this.create(trace);
+
+		if (trace.getIsSendSms()) {
+
+			Calendar now = Calendar.getInstance();
+			IOrderService orderService = ServiceFactory.create(IOrderService.class);
+			String mobile = orderService.getCustomerMobile(trace.getOrderId());
+			String smsString = "【公司宝】您的订单：" + trace.getOrderNo() + ",已于" + now.get(Calendar.YEAR) + "年" + (now.get(Calendar.MONTH) + 1) + "月" + now.get(Calendar.DAY_OF_MONTH) + "日变更为“"
+					+ newWorkflowNode.getName() + "”状态。如需帮助，请拨打服务热线：4006-798-999。";
+			new Thread() {
+				@Override
+				public void run() {
+					SmsHelper.send(mobile, smsString);
+				}
+			}.start();
+		}
+		return true;
+	}
+	
+	
+	public List<OrderProdTrace> queryList(Integer orderProdId,OrderProdTraceType type) {
+		
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects("*");
+			oql.setFilter("orderProdId =? and typeId = ?");
+			oql.getParameters().add("orderProdId", orderProdId, Types.INTEGER);
+			oql.getParameters().add("typeId", type.getValue(), Types.INTEGER);
+		}
+		return this.pm.queryList(oql);
 	}
 }
 

@@ -1,5 +1,5 @@
 System.Declare("com.gongsibao.trade.web");
-com.gongsibao.trade.web.TrailCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
+com.gongsibao.trade.web.FilePreviewCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
     ctor: function () {
     	this.base();
     	this.service = 'com.gongsibao.trade.web.OrderProdDetailController';
@@ -7,6 +7,6 @@ com.gongsibao.trade.web.TrailCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
     },
     init:function(orderProdId){
 
-    	alert(orderProdId);
+		alert(orderProdId);
     }
 });

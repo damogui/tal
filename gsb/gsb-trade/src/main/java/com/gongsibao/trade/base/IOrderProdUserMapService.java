@@ -7,6 +7,7 @@ import org.netsharp.base.IPersistableService;
 
 import com.gongsibao.entity.trade.OrderProdUserMap;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
+import com.gongsibao.entity.trade.dic.OrderProdUserMapType;
 
 public interface IOrderProdUserMapService extends IPersistableService<OrderProdUserMap> {
 
@@ -29,4 +30,38 @@ public interface IOrderProdUserMapService extends IPersistableService<OrderProdU
 	 * @throws   
 	 */
 	Boolean updateStatus(Integer id, OrderProdUserMapStatus newStatus, OrderProdUserMapStatus oldStatus);
+	
+	/**   
+	 * @Title: queryList   
+	 * @Description: TODO(根据明细订单Id，人员类型查询)   
+	 * @param: @param orderProdId
+	 * @param: @param type
+	 * @param: @return      
+	 * @return: List<OrderProdUserMap>      
+	 * @throws   
+	 */
+	List<OrderProdUserMap> queryList(Integer orderProdId,OrderProdUserMapType type);
+	
+	
+	/**   
+	 * @Title: queryProdPrincipalList   
+	 * @Description: TODO(根据明细订单Id)   
+	 * @param: @param orderProdId
+	 * @param: @return      
+	 * @return: List<OrderProdUserMap>      
+	 * @throws   
+	 */
+	List<OrderProdUserMap> queryProdPrincipalList(Integer orderProdId);
+	
+	/**   
+	 * @Title: addPrincipal   
+	 * @Description: TODO(添加跟进人)   
+	 * @param: @param orderProdId
+	 * @param: @param principalIds
+	 * @param: @param principalNames
+	 * @param: @return      
+	 * @return: Boolean      
+	 * @throws   
+	 */
+	Boolean addPrincipal(Integer orderProdId, String principalIds, String principalNames);
 }

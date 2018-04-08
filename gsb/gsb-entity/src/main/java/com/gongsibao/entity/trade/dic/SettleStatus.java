@@ -6,7 +6,8 @@ import org.netsharp.base.IEnum;
 public enum SettleStatus implements IEnum {
     CONFIRM_SETTLEMENT(0, "待确认"),
     NO_SETTLEMENT(1, "待结算"),
-    PORTION_SETTLEMENT(2, "已结算");
+    DO_SETTLEMENT(2, "结算中"),
+    PORTION_SETTLEMENT(3, "已结算");
     //	FINISHED_SETTLEMENT(3, "部分结算");
     private int value;
     private String text;
@@ -37,4 +38,6 @@ public enum SettleStatus implements IEnum {
 
         return this.value;
     }
+
+    
 }

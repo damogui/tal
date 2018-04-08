@@ -1,30 +1,28 @@
 package com.gongsibao.trade.service;
 
-import com.gongsibao.entity.bd.dic.AuditLogType;
-import com.gongsibao.entity.trade.OrderPayMap;
-import com.gongsibao.entity.trade.dic.AuditStatusType;
-import com.gongsibao.trade.base.IPayService;
-import com.gongsibao.trade.service.action.order.utils.AuditHelper;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
-import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.core.QueryParameters;
 import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.service.PersistableService;
-
-import com.gongsibao.entity.trade.NOrderCarryover;
-import com.gongsibao.entity.trade.Refund;
-import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.trade.base.IOrderService;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.List;
+import com.gongsibao.entity.bd.dic.AuditLogType;
+import com.gongsibao.entity.crm.NCustomer;
+import com.gongsibao.entity.trade.NOrderCarryover;
+import com.gongsibao.entity.trade.OrderPayMap;
+import com.gongsibao.entity.trade.Refund;
+import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
+import com.gongsibao.trade.base.IOrderService;
 
 @Service
 public class OrderService extends PersistableService<SoOrder> implements IOrderService {
@@ -107,6 +105,10 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
 
     @Override
     public SoOrder getByOrderNo(String orderNo) {
+        if (StringManager.isNullOrEmpty(orderNo)) {
+            return null;
+        }
+
         Oql oql = new Oql ();
         {
             oql.setType (this.type);
@@ -223,6 +225,38 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
 
         }
     }
+
+	@Override
+	public String getCustomerMobile(Integer orderId) {
+
+        Oql oql = new Oql ();
+        {
+            oql.setType (this.type);
+            oql.setSelects ("id,accountMobile");
+            oql.setFilter ("pkid =" + orderId);
+        }
+        SoOrder entity = super.queryFirst(oql);
+        
+        return entity.getAccountMobile();
+	}
+
+	@Override
+	public NCustomer getCustomerByOrderId(Integer orderId) {
+		
+        Oql oql = new Oql ();
+        {
+            oql.setType (this.type);
+            oql.setSelects ("id,customerId,customer.{id,realName,mobile,telephone,email,qq,weixin,addr}");
+            oql.setFilter ("id =?");
+            oql.getParameters().add ("@orderId", orderId, Types.INTEGER);
+        }
+        SoOrder entity = super.queryFirst(oql);
+        if(entity != null){
+        	
+        	return entity.getCustomer();
+        }
+		return null;
+	}
 
 
 }

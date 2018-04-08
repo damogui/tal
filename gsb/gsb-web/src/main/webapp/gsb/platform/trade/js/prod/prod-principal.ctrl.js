@@ -61,7 +61,7 @@ com.gongsibao.trade.web.ProdPrincipalCtrl = org.netsharp.panda.core.CustomCtrl.E
 
 			        		return '[&nbsp;<a href="javascript:principalCtrl.finishPrincipal('+value+')" >我已完成</a>&nbsp;]';
 		        		}
-		        	}else{
+		        	}else if(row.principalId != null && row.principalId >0){
 		        		
 			        	return '[&nbsp;<a href="javascript:principalCtrl.remindPrincipal(\''+row.principal.name+'\',\''+row.principal.mobile+'\')" >提醒Ta</a>&nbsp;]';
 		        	}
@@ -74,7 +74,17 @@ com.gongsibao.trade.web.ProdPrincipalCtrl = org.netsharp.panda.core.CustomCtrl.E
     	var me = this;
     	this.invokeService ("finishPrincipal", [orderProdUserMapId], function(data){
     		
-    		me.query();
+    		layer.msg('操作成功');
+    		
+    		//关闭窗口
+    		
+    		setTimeout(function(){
+
+        		window.top.layer.closeAll();
+    			
+    		},1000);
+    		
+    		//me.query();
     	});
     },
     remindPrincipal:function(principalName,principalMobile){
@@ -159,6 +169,7 @@ com.gongsibao.trade.web.ProdPrincipalCtrl = org.netsharp.panda.core.CustomCtrl.E
 				
 				me.query();
 				layer.msg('添加负责人成功');
+				traceCtrl.query();
 			});
     	});
     }

@@ -10,6 +10,7 @@ import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
+import org.netsharp.panda.dic.OrderbyMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
@@ -101,6 +102,14 @@ public class AuditPayWorkspaceTest  extends WorkspaceCreationBase {
         addColumn (datagrid, "pay.confirmTime", "回款日期", ControlTypes.DATE_BOX, 100);
         addColumn (datagrid, "pay.createTime", "回款创建时间", ControlTypes.DATETIME_BOX, 100);
         addColumn (datagrid, "pay.creator", "回款业绩创建人", ControlTypes.TEXT_BOX, 100);
+        column=addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 60);{
+
+            column.setSystem (true);
+            column.setVisible (false);
+            column.setOrderbyMode (OrderbyMode.DESC);
+
+
+        }
 
 
         return datagrid;

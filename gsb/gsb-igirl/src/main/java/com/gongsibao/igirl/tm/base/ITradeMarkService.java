@@ -6,6 +6,7 @@ import org.netsharp.base.IPersistableService;
 
 import com.gongsibao.entity.igirl.tm.TradeMark;
 import com.gongsibao.entity.igirl.tm.UploadAttachment;
+import com.gongsibao.igirl.tm.dto.SysAttachmentDto;
 import com.gongsibao.igirl.tm.dto.TradeMark.TradeMarkApplyInfo;
 
 
@@ -22,5 +23,5 @@ public interface ITradeMarkService extends IPersistableService<TradeMark> {
       
       public void updateMarkStateByUploadFiles(Attachment entity,String markcode,String state);
       
-      List<String> findUrlById(int caseId);
+      List<SysAttachmentDto> findUrlById(int caseId);
 }

@@ -41,6 +41,40 @@ public interface IOrderProdTraceService extends IPersistableService<OrderProdTra
 	@Transaction
 	OrderProdTrace create(OrderProdTrace entity);
 	
+	/**   
+	 * @Title: updateProcessStatus   
+	 * @Description: TODO(更新状态)   
+	 * @param: @param trace
+	 * @param: @return      
+	 * @return: Boolean      
+	 * @throws   
+	 */
+	@Transaction
+	Boolean updateProcessStatus(OrderProdTrace trace);
+	
+	/**   
+	 * @Title: remindCustomer   
+	 * @Description: TODO(提醒客户)   
+	 * @param: @param trace
+	 * @param: @return      
+	 * @return: Boolean      
+	 * @throws   
+	 */
+	@Transaction
+	Boolean remindCustomer(OrderProdTrace trace);
+	
+	
+	/**   
+	 * @Title: sendExpress   
+	 * @Description: TODO(发快递)   
+	 * @param: @param trace
+	 * @param: @return      
+	 * @return: Boolean      
+	 * @throws   
+	 */
+	@Transaction
+	Boolean sendExpress(OrderProdTrace trace);
+	
 	
 	/**   
 	 * @Title: markComplaint   
@@ -53,4 +87,34 @@ public interface IOrderProdTraceService extends IPersistableService<OrderProdTra
 	 */
 	@Transaction
 	Boolean markComplaint(OrderProdTrace trace, Boolean isFocus);
+	
+	/**   
+	 * @Title: markAbnormal   
+	 * @Description: TODO(标记异常)   
+	 * @param: @param trace
+	 * @param: @param isFocus
+	 * @param: @return      
+	 * @return: Boolean      
+	 * @throws   
+	 */
+	@Transaction
+	Boolean markAbnormal(OrderProdTrace trace);
+	
+	
+	/**   
+	 * @Title: remindPrincipal   
+	 * @Description: TODO(提醒负责人)   
+	 * @param: @param soOrderProdId
+	 * @param: @param orderProdStatusId
+	 * @param: @param principalName
+	 * @param: @param principalMobile
+	 * @param: @param orderNo
+	 * @param: @param info
+	 * @param: @param isSendSms
+	 * @param: @return      
+	 * @return: Boolean      
+	 * @throws   
+	 */
+	@Transaction
+	Boolean remindPrincipal(Integer soOrderProdId, Integer orderProdStatusId, String principalName, String principalMobile, String orderNo, String info, Boolean isSendSms);
 }
