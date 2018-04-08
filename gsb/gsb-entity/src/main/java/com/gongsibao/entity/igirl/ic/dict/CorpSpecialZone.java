@@ -8,10 +8,11 @@ import org.netsharp.base.IEnum;
  * @author cyx
  *
  */
-public enum CorpSpecialZone implements IEnum {
+public enum CorpSpecialZone  implements IEnum {
 
 	NONE(0, "不在以下区域"),
-	TIANANMEN(1, "天安门地区");
+	TIANANMEN(1, "天安门地区"),
+	XIKEZHAN(2, "西客站地区");
 
 
 	private int value;

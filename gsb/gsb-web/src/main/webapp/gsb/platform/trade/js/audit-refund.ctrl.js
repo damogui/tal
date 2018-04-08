@@ -74,7 +74,7 @@ com.gongsibao.trade.web.AuditRefundCtrl = com.gongsibao.trade.web.AuditBaseCtrl.
     		        	return (value/100).toFixed(2);
     		        }},
     		        {field:'refundAmount',title:'退款金额',width:100,align:'right',editor:{type:'numberbox',options:{precision:0,height:31,min:1,required:true}},formatter:function(value,row,index){
-    	        		
+    		        	
     		        	if(value){
     			        	return (value/100).toFixed(2);
     		        	}

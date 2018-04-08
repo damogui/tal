@@ -78,13 +78,13 @@ public class ActionApplyContractUpdateOrder implements IAction {
             companyIntention.setOrderContactName("");
             companyIntention.setOrderContactMobile("");
             companyIntention.setOrderContactEmail("");
-            companyIntention.setSetupStatus(0);
+            companyIntention.setSetupStatus(false);
             companyIntention.setIsSelfAddress(3);//是否自有地址（1是、2否(收费地址)、3否(免费地址)、4否(全部地址)）
             companyIntention.setCityId(0);
             companyIntention.setOrderProdId(0);
-            companyIntention.setIsSelfCapital(0);
-            companyIntention.setIsExpress(0);
-            companyIntention.setIsNameVerify(0);
+            companyIntention.setIsSelfCapital(false);
+            companyIntention.setIsExpress(false);
+            companyIntention.setIsNameVerify(false);
             companyIntention.setNameVerifyFileId(0);
             companyIntention.setVerifyNo("");
             companyIntention.setOwnedBusinessType("");

@@ -208,11 +208,11 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
 	@Override
 	public List<WorkflowNode> getWorkflowNodeList(Integer orderProdId) {
 
-		Integer version = null;
 		OrderProd orderProd = this.byId(orderProdId);
 
+		Integer version = orderProd.getVersion();
 		IWorkflowNodeService workflowNodeService = ServiceFactory.create(IWorkflowNodeService.class);
-		if (orderProd.getVersion() == null) {
+		if (version == null) {
 
 			version = workflowNodeService.getWorkflowNodeMaxVersion(orderProd.getProductId(), orderProd.getCityId());
 		}
@@ -229,7 +229,25 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
 	public List<WorkflowFile> queryWorkflowFileList(Integer orderProdId) {
 		
 		
-		
 		return null;
+	}
+
+	@Override
+	public Boolean cancelRelevanceCompany(Integer orderProdId) {
+
+		String sql = "update `so_order_prod` set `company_id` = 0 where pkid = ?";
+		QueryParameters qps = new QueryParameters();
+		qps.add("pkid", orderProdId, Types.INTEGER);
+		return this.pm.executeNonQuery(sql, qps) > 0;
+	}
+
+	@Override
+	public Boolean addRelevanceCompany(Integer orderProdId, Integer companyId) {
+
+		String sql = "update `so_order_prod` set `company_id` =? where pkid = ?";
+		QueryParameters qps = new QueryParameters();
+		qps.add("companyId", companyId, Types.INTEGER);
+		qps.add("pkid", orderProdId, Types.INTEGER);
+		return this.pm.executeNonQuery(sql, qps) > 0;
 	}
 }

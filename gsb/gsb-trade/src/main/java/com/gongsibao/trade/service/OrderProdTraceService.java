@@ -31,17 +31,13 @@ import com.gongsibao.entity.trade.dic.OrderProdTraceOperatorType;
 import com.gongsibao.entity.trade.dic.OrderProdTraceType;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapType;
-import com.gongsibao.product.base.IWorkflowFileService;
 import com.gongsibao.product.base.IWorkflowNodeService;
-import com.gongsibao.product.service.WorkflowFileService;
 import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IOrderProdTraceFileService;
 import com.gongsibao.trade.base.IOrderProdTraceService;
 import com.gongsibao.trade.base.IOrderProdUserMapService;
 import com.gongsibao.trade.base.IOrderService;
-import com.gongsibao.utils.NumberUtils;
 import com.gongsibao.utils.SmsHelper;
-import com.mysql.jdbc.StringUtils;
 
 @Service
 public class OrderProdTraceService extends PersistableService<OrderProdTrace> implements IOrderProdTraceService {
@@ -401,40 +397,39 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
 		WorkflowNode lastWorkflowNode = workflowNodeList.get(workflowNodeList.size() - 1);
 		if (newProcessStatusId.compareTo(lastWorkflowNode.getId()) == 0) {
 
-			IWorkflowFileService workflowFileService = ServiceFactory.create(WorkflowFileService.class);
 			List<WorkflowFile> WorkflowFileList = orderProdService.queryWorkflowFileList(trace.getOrderProdId());
-			List<Integer> ismustWorkflowFilelist = new ArrayList<Integer>();
+			List<Integer> isMustWorkflowFilelist = new ArrayList<Integer>();
 			if (CollectionUtils.isNotEmpty(WorkflowFileList)) {
 				for (WorkflowFile workflowFile : WorkflowFileList) {
 					if (workflowFile.getNecessary()) {
-						ismustWorkflowFilelist.add(workflowFile.getId());
+						isMustWorkflowFilelist.add(workflowFile.getId());
 					}
 				}
 			}
 
-			if (!CollectionUtils.isNotEmpty(ismustWorkflowFilelist)) {
+			if (!CollectionUtils.isNotEmpty(isMustWorkflowFilelist)) {
 
-				List<OrderProdTrace> soOrderProdTraceList = this.queryList(orderProdId, OrderProdTraceType.Sccl);
-				if (CollectionUtils.isEmpty(soOrderProdTraceList)) {
+				List<OrderProdTrace> orderProdTraceList = this.queryList(orderProdId, OrderProdTraceType.Sccl);
+				if (CollectionUtils.isEmpty(orderProdTraceList)) {
 
 					throw new BusinessException("必须材料没有上传完！");
 				}
 
-				List<Integer> soOrderProdTraceIds = new ArrayList<Integer>();
-				for (OrderProdTrace item : soOrderProdTraceList) {
-					soOrderProdTraceIds.add(item.getId());
+				List<Integer> orderProdTraceIds = new ArrayList<Integer>();
+				for (OrderProdTrace item : orderProdTraceList) {
+					orderProdTraceIds.add(item.getId());
 				}
 
-//				IOrderProdTraceFileService orderProdTraceFileService = ServiceFactory.create(IOrderProdTraceFileService.class);
-//				List<Integer> soOrderProdTraceFileList = orderProdTraceFileService.findWorkflowFileIdByOrderProdTraceId(soOrderProdTraceIds);
-//
-//				ismustWorkflowFilelist.removeAll(soOrderProdTraceFileList);
-//				if (CollectionUtils.isNotEmpty(ismustWorkflowFilelist)) {
-//
-//					throw new BusinessException("必须材料没有上传完！");
-//				}
+				IOrderProdTraceFileService orderProdTraceFileService = ServiceFactory.create(IOrderProdTraceFileService.class);
+				List<Integer> orderProdTraceFileList = orderProdTraceFileService.queryWorkflowFileId(orderProdTraceIds);
+				isMustWorkflowFilelist.removeAll(orderProdTraceFileList);
+				if (CollectionUtils.isNotEmpty(isMustWorkflowFilelist)) {
+
+					throw new BusinessException("必须材料没有上传完！");
+				}
 			}
 
+			//哪些需要完善资质信息？没看懂，参数5是啥意思？
 //			List<BdServiceProduct> productList = bdServiceService.findProductList(5);
 //			boolean isQualify = false;
 //			for (BdServiceProduct bdServiceProduct : productList) {
@@ -454,6 +449,7 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
 //				}
 //			}
 
+			//这里先不处理内外部，全部要审核
 			orderProdService.updateStatus(orderProdId, newProcessStatusId, AuditStatusType.Shz);
 			// 内部人员并且设置了不审核属性 则直接审核通过
 //			if (!internal_check && NumberUtils.toInt(user.getUcUser().getIsInner()) == 1) {

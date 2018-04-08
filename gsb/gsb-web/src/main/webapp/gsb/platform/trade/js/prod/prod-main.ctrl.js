@@ -3,13 +3,14 @@ com.gongsibao.trade.web.ProdMainCtrl = org.netsharp.panda.core.CustomCtrl.Extend
     ctor: function () {
     	this.base();
     	this.service = 'com.gongsibao.trade.web.OrderProdDetailController';
+    	this.initializeDetailList = new System.Dictionary();
     	this.orderProdId = null;
     	this.orderProd = null;
     	this.loginUserId = null;
     },
     init:function(){
     	
-    	//
+    	var me = this;
     	this.getLoginUserId();
     	
  		this.orderProdId = System.Url.getParameter('id');
@@ -28,6 +29,59 @@ com.gongsibao.trade.web.ProdMainCtrl = org.netsharp.panda.core.CustomCtrl.Extend
 		principalCtrl.init(this.orderProdId);
 		
 		
+    	$('#detail_tabs').tabs({    
+			tabHeight:30,
+		    onSelect:function(title){
+		    	
+		    	var detailCtrl = me.initializeDetailList.byKey(title);
+		    	if(detailCtrl){
+		    		//已经初始化过的不再执行
+		    		return;
+		    	}
+		    	if(title=='材料信息'){
+		    		
+			    	var fileCtrl = new com.gongsibao.trade.web.FileCtrl();
+			    	fileCtrl.mainCtrl = me;
+			    	fileCtrl.init(me.orderProdId);
+			    	me.initializeDetailList.add(title,fileCtrl);
+			    	
+		    	}else if(title=='订单信息'){
+		    		
+			    	var orderCtrl = new com.gongsibao.trade.web.OrderCtrl();
+			    	orderCtrl.mainCtrl = me;
+			    	orderCtrl.init(me.orderProdId);
+			    	me.initializeDetailList.add(title,orderCtrl);
+
+		    	}else if(title=='客户信息'){
+		    		
+			    	var customerCtrl = new com.gongsibao.trade.web.CustomerCtrl();
+			    	customerCtrl.mainCtrl = me;
+			    	customerCtrl.init(me.orderProdId);
+			    	me.initializeDetailList.add(title,customerCtrl);
+			    	
+		    	}else if(title=='企业信息'){
+
+			    	companyCtrl = new com.gongsibao.trade.web.CompanyCtrl();
+			    	companyCtrl.mainCtrl = me;
+			    	companyCtrl.init(me.orderProdId);
+			    	me.initializeDetailList.add(title,companyCtrl);
+			    	
+		    	}else if(title=='材料预览'){
+
+			    	var filePreviewCtrl = new com.gongsibao.trade.web.FilePreviewCtrl();
+			    	filePreviewCtrl.mainCtrl = me;
+			    	filePreviewCtrl.init(me.orderProdId);
+			    	me.initializeDetailList.add(title,filePreviewCtrl);
+			    	
+		    	}else if(title=='自动进度'){
+
+			    	var trailCtrl = new com.gongsibao.trade.web.TrailCtrl();
+			    	trailCtrl.mainCtrl = me;
+			    	trailCtrl.init(me.orderProdId);
+			    	me.initializeDetailList.add(title,trailCtrl);
+		    	}
+		    }   
+		});
     },
     getLoginUserId:function(){
     	
@@ -56,19 +110,19 @@ com.gongsibao.trade.web.ProdMainCtrl = org.netsharp.panda.core.CustomCtrl.Extend
     	$("#orderProdNo").text(data.orderId);
     	
     	//公司名称
-    	var companyName = data.companyIntention != null ? data.companyIntention.name :'暂无';
+    	var companyName = data.companyIntention != null ? data.companyIntention.companyName :'-';
     	$("#companyName").text(companyName);
     	
     	//办理名称
-    	$("#handleName").text(data.handleName || '暂无');
+    	$("#handleName").text(data.handleName || '-');
     	
     	//申请号
-       	$("#applyNo").text(data.applyNo || '暂无');
+       	$("#applyNo").text(data.applyNo || '-');
        	
        	
        	if(data.processStatus){
        		
-       		$("#processStatus").text(data.processStatus.name || '暂无');
+       		$("#processStatus").text(data.processStatus.name || '-');
        	}
        	
        	//已经进行天数是怎么计算的？ hw
