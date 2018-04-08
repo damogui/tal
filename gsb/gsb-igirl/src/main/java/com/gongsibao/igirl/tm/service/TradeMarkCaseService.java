@@ -24,10 +24,7 @@ import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.OrderProdItem;
 import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.entity.trade.dic.AuditStatusType;
-import com.gongsibao.entity.trade.dic.CostStatus;
-import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
-import com.gongsibao.entity.trade.dic.OrderSourceType;
+import com.gongsibao.entity.trade.dic.*;
 import com.gongsibao.igirl.settle.base.IOrderProdCaseService;
 import com.gongsibao.igirl.tm.base.*;
 import com.gongsibao.igirl.tm.service.builder.TradeMarkCaseAttachmentBuiler;
@@ -788,6 +785,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
                 orderProd.setSupplierId(tradeMarkCase.getSupplierId());
                 orderProd.setDepartmentId(tradeMarkCase.getDepartmentId());
                 orderProd.setCustomerId(customer.getId());
+                orderProd.setSettleStatus(SettleStatus.NO_SETTLEMENT);
             }
 
 

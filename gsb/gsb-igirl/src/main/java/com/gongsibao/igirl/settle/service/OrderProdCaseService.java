@@ -36,7 +36,7 @@ public class OrderProdCaseService extends PersistableService<OrderProdCase> impl
         Oql oql = new Oql();
         {
             oql.setType(OrderProdCase.class);
-            oql.setSelects("OrderProdCase.*, OrderProdCase.orderProd.* ");
+            oql.setSelects("OrderProdCase.*, OrderProdCase.orderProd.*, OrderProdCase.soOrder.* ");
             oql.setFilter("id IN (" + StringManager.join(",", ids) + ") ");
         }
         return this.queryList(oql);

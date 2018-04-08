@@ -27,7 +27,10 @@ public class UnSettleListPart extends ListPart {
         return StringManager.join(" AND ", filterList);
     }
 
-    public Object submitSettle(List<Integer> orderProdIds) {
+    public Object submitSettle(List<Integer> orderProdCaseIds) {
+
+
+
         return null;
     }
 }
