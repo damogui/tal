@@ -1,23 +1,29 @@
 package com.gongsibao.trade.service;
 
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.Service;
+import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.DataTable;
 import org.netsharp.core.Oql;
 import org.netsharp.core.QueryParameters;
 import org.netsharp.core.Row;
+import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
+import com.gongsibao.entity.trade.OrderProdTrace;
 import com.gongsibao.entity.trade.OrderProdUserMap;
+import com.gongsibao.entity.trade.dic.OrderProdTraceType;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapType;
+import com.gongsibao.trade.base.IOrderProdTraceService;
 import com.gongsibao.trade.base.IOrderProdUserMapService;
 
 @Service
@@ -117,5 +123,55 @@ public class OrderProdUserMapService extends PersistableService<OrderProdUserMap
 			oql.getParameters().add("type", type, Types.INTEGER);
 		}
 		return this.pm.queryList(oql);
+	}
+
+	@Override
+	public List<OrderProdUserMap> queryProdPrincipalList(Integer orderProdId) {
+
+		Oql oql = new Oql();
+		{
+			oql.setType(OrderProdUserMap.class);
+			oql.setSelects("OrderProdUserMap.*,principal.{id,name,mobile}");
+			oql.setFilter("orderProdId=?");
+			oql.setOrderby("createTime DESC");
+			oql.getParameters().add("orderProdId", orderProdId, Types.INTEGER);
+		}
+		return this.queryList(oql);
+	}
+
+	@Override
+	public Boolean addPrincipal(Integer orderProdId, String principalIds, String principalNames) {
+		
+		String[] ss = principalIds.split(",");
+
+		// 1.创建负责人
+		OrderProdUserMap orderProdUserMap = null;
+		List<OrderProdUserMap> mapList = new ArrayList<OrderProdUserMap>();
+		for (String principalId : ss) {
+
+			orderProdUserMap = new OrderProdUserMap();
+			{
+				orderProdUserMap.toNew();
+				orderProdUserMap.setOrderProdId(orderProdId);
+				orderProdUserMap.setPrincipalId(Integer.parseInt(principalId));
+				orderProdUserMap.setType(OrderProdUserMapType.Czy);
+				orderProdUserMap.setStatus(OrderProdUserMapStatus.Zzfz);
+			}
+			mapList.add(orderProdUserMap);
+		}
+
+		this.saves(mapList);
+
+		// 2.添加跟进
+		OrderProdTrace trace = new OrderProdTrace();
+		trace.toNew();
+		trace.setOrderProdId(orderProdId);
+		trace.setTypeId(OrderProdTraceType.Txfzr);
+		trace.setInfo("【" + SessionManager.getUserName() + "】添加【" + principalNames + "】为负责人");
+		trace.setOperatorId(SessionManager.getUserId());
+		
+		IOrderProdTraceService traceService = ServiceFactory.create(IOrderProdTraceService.class);
+		traceService.create(trace);
+		return true;
 	}
 }

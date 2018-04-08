@@ -16,7 +16,7 @@ com.gongsibao.igirl.settle.web.UnSettleListPart = org.netsharp.panda.commerce.Li
         var cost = 0;
         var charge = 0;
         rows.forEach(function (v, i) {
-            ids.push(v.orderProdId);
+            ids.push(v.id);
             charge = charge + Number(v.charge);
             cost = cost + Number(v.cost);
         });

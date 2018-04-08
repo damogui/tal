@@ -5,6 +5,7 @@ import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.IPayService;
 import com.gongsibao.trade.service.action.order.utils.AuditHelper;
+
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
@@ -19,6 +20,7 @@ import com.gongsibao.entity.trade.NOrderCarryover;
 import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.base.IOrderService;
+
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
@@ -107,6 +109,10 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
 
     @Override
     public SoOrder getByOrderNo(String orderNo) {
+        if (StringManager.isNullOrEmpty(orderNo)) {
+            return null;
+        }
+
         Oql oql = new Oql ();
         {
             oql.setType (this.type);
@@ -223,6 +229,20 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
 
         }
     }
+
+	@Override
+	public String getCustomerMobile(Integer orderId) {
+
+        Oql oql = new Oql ();
+        {
+            oql.setType (this.type);
+            oql.setSelects ("id,accountMobile");
+            oql.setFilter ("pkid =" + orderId);
+        }
+        SoOrder entity = super.queryFirst(oql);
+        
+        return entity.getAccountMobile();
+	}
 
 
 }
