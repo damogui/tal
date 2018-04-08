@@ -343,7 +343,7 @@ com.gongsibao.trade.web.OrderRelevancePerformanceCtrl = org.netsharp.panda.core.
 		
 		var row = $(this.$gridId).datagrid('getSelected');
 		if(row == null){
-			
+			layer.msg("请选择数据记录");
 			return;
 		}
 		
