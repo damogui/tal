@@ -17,7 +17,7 @@ public class SettleHandleLog extends Entity {
     @Column(name = "previous_status", size = 1, header = "操作前状态")
     private SettleHandleStatus previousStatus;
 
-    @Column(name = "memo", header = "审核说明")
+    @Column(name = "memo", header = "操作说明")
     private String memo;
 
     public Integer getSettleId() {

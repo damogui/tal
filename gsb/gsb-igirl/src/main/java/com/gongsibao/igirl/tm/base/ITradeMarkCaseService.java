@@ -18,6 +18,7 @@ public interface ITradeMarkCaseService extends IPersistableService<TradeMarkCase
 	public int fetchCaseState(String casecode);
 	public int updateCaseState(String casecode,int state);
 
+	boolean updateOrderCode(Integer caseId, String orderCode);
 
 	public List<TradeMark> findTradeMarksByCode(String caseCode);
     /**

@@ -1,7 +1,7 @@
 package com.gongsibao.panda.supplier.settle;
 
 import com.gongsibao.entity.igirl.settle.OrderProdCase;
-import com.gongsibao.igirl.base.IOrderProdCaseService;
+import com.gongsibao.igirl.settle.base.IOrderProdCaseService;
 import org.junit.Test;
 import org.netsharp.meta.base.ResourceCreationBase;
 import org.netsharp.resourcenode.entity.ResourceNode;
