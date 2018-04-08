@@ -115,22 +115,23 @@
 					   			 		<a id="btn6" href="javascript:traceCtrl.sendExpress();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-send mr-sm'">发快递</a>
 					   			 	</td>
 					   			 	<td><div class="datagrid-btn-separator"></div></td>
-					   			 	<td>
+<!-- 					   			 	<td>
 					   			 		<a id="btn7" href="javascript:traceCtrl.setAccount();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-user-o'">帐号密码</a>
 					   			 	</td>
 					   			 	<td><div class="datagrid-btn-separator"></div></td>
 					   			 	<td>
 					   			 		<a id="btn8" href="javascript:traceCtrl.setQualification();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-file-o'">资质维护</a>
-					   			 	</td>
+					   			 	</td> -->
 				   			 	</tr>
 			   			 	</tbody>
 		   			 	</table>
 		   			</div>
-		   			<div style="padding-left:10px;height: 162px;background-color: #fff;">
-			   			<p>订单用时：681/9天</p>
-			   			<p><span id="processStatus"></span> 0/3天</p>
-						<p>办理名称：点击编辑</p>
-						<p>申请号：点击编辑</p>
+		   			<div style="padding-left:30px;height: 162px;background-color: #fff;">
+			   			<p>订单用时： <span id="processdDays"></span> / <span id="needDays"></span> 天</p>
+			   			<p style="font-size:24px;"><span id="processStatus" style="color:#009688;"></span> <span id="nodeDayCount"></span> / <span id="weekdayCount"></span>天</p>
+			   			
+						<p id="handle_panel">办理名称：<span id="editHandleName" style="color:#428bca">点击编辑</span></p>
+						<p id="applyNo_panel">申请号：<span id="editApplyNo" style="color:#428bca">点击编辑</span></p>
 		   			</div>
 				</div>
 			</div>

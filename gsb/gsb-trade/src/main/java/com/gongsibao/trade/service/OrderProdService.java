@@ -1,11 +1,16 @@
 package com.gongsibao.trade.service;
 
+import com.gongsibao.entity.product.WorkflowFile;
+import com.gongsibao.entity.product.WorkflowNode;
 import com.gongsibao.entity.trade.OrderProd;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.SettleStatus;
+import com.gongsibao.product.base.IWorkflowNodeService;
 import com.gongsibao.trade.base.IOrderProdService;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.Service;
+import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.*;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.NumUtil;
@@ -149,5 +154,82 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
 		QueryParameters qps = new QueryParameters();
 		qps.add("pkid", orderProdId, Types.INTEGER);
 		return this.pm.executeNonQuery(sql, qps) > 0;
+	}
+
+	@Override
+	public Boolean editApplyNo(Integer orderProdId, String applyNo) {
+
+		String sql = "update `so_order_prod` set `apply_no` = ? where pkid = ?";
+		QueryParameters qps = new QueryParameters();
+		qps.add("applyNo", applyNo, Types.VARCHAR);
+		qps.add("pkid", orderProdId, Types.INTEGER);
+		return this.pm.executeNonQuery(sql, qps) > 0;
+	}
+
+	public Boolean updateStatus(Integer orderProdId, Integer processStatusId, AuditStatusType auditStatus) {
+
+		String sql = "update `so_order_prod` set `process_status_id` = ?, `audit_status_id` = ? where pkid = ?";
+		QueryParameters qps = new QueryParameters();
+		qps.add("processStatusId", processStatusId, Types.INTEGER);
+		qps.add("auditStatus", auditStatus.getValue(), Types.INTEGER);
+		qps.add("pkid", orderProdId, Types.INTEGER);
+		return this.pm.executeNonQuery(sql, qps) > 0;
+	}
+
+	@Override
+	public Boolean editHandleName(Integer orderProdId, String handleName) {
+
+		String sql = "update `so_order_prod` set `handle_name` = ? where pkid = ?";
+		QueryParameters qps = new QueryParameters();
+		qps.add("handleName", handleName, Types.VARCHAR);
+		qps.add("pkid", orderProdId, Types.INTEGER);
+		return this.pm.executeNonQuery(sql, qps) > 0;
+	}
+
+	@Override
+	public Integer getProcessStatusId(Integer orderProdId) {
+
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects("id,processStatusId");
+			oql.setFilter("id=?");
+			oql.getParameters().add("id", orderProdId, Types.INTEGER);
+		}
+
+		OrderProd entity = this.queryFirst(oql);
+		if (entity != null) {
+
+			return entity.getProcessStatusId();
+		}
+		return 0;
+	}
+
+	@Override
+	public List<WorkflowNode> getWorkflowNodeList(Integer orderProdId) {
+
+		Integer version = null;
+		OrderProd orderProd = this.byId(orderProdId);
+
+		IWorkflowNodeService workflowNodeService = ServiceFactory.create(IWorkflowNodeService.class);
+		if (orderProd.getVersion() == null) {
+
+			version = workflowNodeService.getWorkflowNodeMaxVersion(orderProd.getProductId(), orderProd.getCityId());
+		}
+
+		if (version == null) {
+
+			throw new BusinessException("交付流程模版未设置，请联系管理！");
+		}
+
+		return workflowNodeService.queryWorkflowNodeList(orderProd.getProductId(), orderProd.getCityId(), version);
+	}
+
+	@Override
+	public List<WorkflowFile> queryWorkflowFileList(Integer orderProdId) {
+		
+		
+		
+		return null;
 	}
 }

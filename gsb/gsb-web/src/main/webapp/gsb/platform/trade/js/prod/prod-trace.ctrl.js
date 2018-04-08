@@ -75,7 +75,7 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
 		        		return row.operator.name;
 		        	}
 		        }},
-		        {field:'orderProdStatusId',title:'订单状态',width:80,align:'center',formatter:function(value,row,index){
+		        {field:'orderProdStatusId',title:'订单状态',width:150,align:'center',formatter:function(value,row,index){
 
 		        	if(row.orderProdStatus){
 		        		
@@ -128,26 +128,22 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     updateProcessStatus(){
     	
     	var me = this;
-    	//var version = this.mainCtrl.orderProd.version;//要更新老数据至version（根据order_prod_status_id到prod_workflow_node表里冗余version）
-    	//var productId = this.mainCtrl.orderProd.productId;
-    	//var cityId = this.mainCtrl.orderProd.cityId;
-    	productId = 1040;
-    	cityId = 101440106;
-    	version = 8;
+    	var version = this.mainCtrl.orderProd.version;//要更新老数据至version（根据order_prod_status_id到prod_workflow_node表里冗余version）
+    	var productId = this.mainCtrl.orderProd.productId;
+    	var cityId = this.mainCtrl.orderProd.cityId;
+//    	productId = 1040;
+//    	cityId = 101440106;
+//    	version = 8;
     	this.invokeService("queryWorkflowNodeList", [productId,cityId,version], function(data){
     		
     		if(data){
     			
     			var builder = new System.StringBuilder();
-    			builder.append('<form id="dynamicForm">');
-    			builder.append('<div style="margin:10px;">');
     			builder.append('	<table cellpadding="5" cellspacing="10" class="form-panel">');
     			builder.append('		<tr><td>提示:状态回退将被<span style="color:red;">标红</span>，请谨慎操作。如当地办理流程有变化，请与系统管理员及时联系修改流程。</td></tr>');
-    			builder.append('		<tr><td><input id="processStatus"/></td></tr>');
+    			builder.append('		<tr><td><input id="traceProcessStatus"/></td></tr>');
     			builder.append('		<tr><td><input id="isSendMessage" type="checkbox" style="vertical-align: middle;"/><label for="isSendMessage" style="vertical-align: middle;">短信通知客户</label></td></tr>');
     			builder.append('	</table>');
-    			builder.append('</div>');
-    			builder.append('</form>');
     			
     			//短信通知客户
     			layer.open({
@@ -162,7 +158,7 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     				btn : [ '确定', '取消' ],
     				success : function(layero, index) {
     					
-    					$("#processStatus").combobox({
+    					$("#traceProcessStatus").combobox({
     						width:600,
     						editable:false,
     						panelHeight:250,
@@ -173,14 +169,14 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     				btn1 : function(index, layero) {
 
     					//提交更新状态
-    					var processStatusId = $('#processStatus').combobox('getValue');
+    					var processStatusId = $('#traceProcessStatus').combobox('getValue');
     					if(System.isnull(processStatusId)){
     						
     						layer.msg('请选择状态');
     						return;
     					}
     					
-    					var processStatusText = $('#processStatus').combobox('getText');
+    					var processStatusText = $('#traceProcessStatus').combobox('getText');
     					var isSendMessage = $('#isSendMessage').prop('checked');
     					
     					var trace = new Object();
@@ -195,6 +191,7 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     					//更新状态:网提
     					me.invokeService("updateProcessStatus", [trace], function(data){
     						
+    						layer.msg('更新成功');
     						layer.close(index);
     						me.init(me.orderProdId);
     					});
@@ -207,15 +204,11 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     	
     	var me = this;
 		var builder = new System.StringBuilder();
-		builder.append('<form id="dynamicForm">');
-		builder.append('<div style="margin:10px;">');
 		builder.append('	<table cellpadding="5" cellspacing="10" class="form-panel">');
 		builder.append('		<tr><td>备注信息:<span style="color:#009688;">客户不会看到此备注记录，如需客户知悉请点击“发送提示”</span></td></tr>');
 		builder.append('		<tr><td><textarea id="remark" placeholder="请填写内容..." style="width: 100%; height:130px;"></textarea></td></tr>');
 		builder.append('		<tr><td><input id="isSendMessage" type="checkbox" style="vertical-align: middle;"/><label for="isSendMessage" style="vertical-align: middle;">短信通知客户</label></td></tr>');
 		builder.append('	</table>');
-		builder.append('</div>');
-		builder.append('</form>');
 
 		layer.open({
 			type : 1,
@@ -251,7 +244,7 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
 				trace.isSendMessage = isSendMessage;
 				
 				//更新状态:网提
-				me.invokeService("updateProcessStatus", [trace], function(data){
+				me.invokeService("remark", [trace], function(data){
 					
 					layer.close(index);
 					me.query();
@@ -320,15 +313,11 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     	//提醒客户
     	var me = this;
 		var builder = new System.StringBuilder();
-		builder.append('<form id="dynamicForm">');
-		builder.append('<div style="margin:10px;">');
 		builder.append('	<table cellpadding="5" cellspacing="10" class="form-panel">');
 		builder.append('		<tr><td>提示内容:<span style="color:#009688;">此提示内容会通知给客户</span></td></tr>');
 		builder.append('		<tr><td><textarea id="remark" placeholder="请填写内容..." style="width: 100%; height:130px;"></textarea></td></tr>');
 		builder.append('		<tr><td><input id="isSendMessage" type="checkbox" style="vertical-align: middle;"/><label for="isSendMessage" style="vertical-align: middle;">提示内容短信通知客户</label></td></tr>');
 		builder.append('	</table>');
-		builder.append('</div>');
-		builder.append('</form>');
 
 		layer.open({
 			type : 1,
@@ -429,7 +418,94 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     },
     sendExpress:function(){
     	
-    	//发快递
+    	//发快递 快递: 3232332，宅急送：323232。补充说明：32322323323223
+    	var me = this;
+		var builder = new System.StringBuilder();
+		builder.append('<form id="dynamicForm">');
+		builder.append('<div style="margin:10px;">');
+		builder.append('	<table cellpadding="5" cellspacing="10" class="form-panel">');
+		builder.append('		<tr><td>快递清单：</td><td><input type="text" id="expressContent" style="width:155px;" class="easyui-validatebox nsInput"/></td>');
+		builder.append('		<td>收件人：</td><td><input type="text" id="expressTo" style="width:155px;" class="easyui-validatebox nsInput"/></td></tr>');
+		builder.append('		<tr><td>快递公司：</td><td><input type="text" id="expressCompanyName" style="width:155px;" class="easyui-validatebox nsInput"/></td>');
+		builder.append('		<td>快递单号：</td><td><input type="text" id="expressNo" style="width:155px;" class="easyui-validatebox nsInput"/></td></tr>');
+		builder.append('		<tr><td colspan="4"><textarea id="remark" placeholder="请填写内容..." style="width: 492px; height:130px;"></textarea></td></tr>');
+		builder.append('		<tr><td colspan="4"><input id="isSendMessage" type="checkbox" style="vertical-align: middle;"/><label for="isSendMessage" style="vertical-align: middle;">快递信息短信通知客户</label></td></tr>');
+		builder.append('	</table>');
+		builder.append('</div>');
+		builder.append('</form>');
+
+		layer.open({
+			type : 1,
+			title : '发送快递',
+			fixed : false,
+			maxmin : false,
+			shadeClose : true,
+			zIndex : 100000,
+			area : [ '550px', '400px' ],
+			content : builder.toString(),
+			btn : [ '确定', '取消' ],
+			success : function(layero, index) {
+
+			},
+			btn1 : function(index, layero) {
+
+				var expressContent = $('#expressContent').val();
+				if(System.isnull(expressContent)){
+					
+					layer.msg('请填写快递清单');
+					return;
+				}
+				
+				var expressTo = $('#expressTo').val();
+				if(System.isnull(expressTo)){
+					
+					layer.msg('请填写收件人');
+					return;
+				}
+				
+				var expressCompanyName = $('#expressCompanyName').val();
+				if(System.isnull(expressCompanyName)){
+					
+					layer.msg('请填写快递公司');
+					return;
+				}
+				
+				var expressNo = $('#expressNo').val();
+				if(System.isnull(expressNo)){
+					
+					layer.msg('请填写快递单号');
+					return;
+				}
+
+				var remark = $('#remark').val();
+				if(System.isnull(remark)){
+					
+					layer.msg('请填写内容');
+					return;
+				}
+				
+				var isSendMessage = $('#isSendMessage').prop('checked');
+				var trace = new Object();
+				trace.orderId = me.mainCtrl.orderProd.orderId;
+				trace.orderNo = 100000000 + me.mainCtrl.orderProd.orderId;
+				trace.orderProdId = me.orderProdId;
+				trace.orderProdStatusId = me.mainCtrl.orderProd.processStatusId;
+				trace.expressContent = expressContent;
+				trace.expressTo = expressTo;
+				trace.expressCompanyName = expressCompanyName;
+				trace.expressNo = expressNo;
+				trace.info = "快递:" + expressContent + "，" + expressCompanyName + "：" + expressNo + "。补充说明：" + remark;
+				trace.isSendMessage = isSendMessage;
+				
+				//更新状态:网提
+				me.invokeService("sendExpress", [trace], function(data){
+					
+					layer.close(index);
+					me.query();
+				});
+			}
+		});
+    	
     },
     setAccount:function(){
     	
