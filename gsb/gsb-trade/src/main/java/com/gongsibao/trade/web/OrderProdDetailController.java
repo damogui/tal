@@ -214,7 +214,7 @@ public class OrderProdDetailController {
 	 * @return: Boolean
 	 * @throws
 	 */
-	public Boolean remindPrincipal(OrderProdTrace trace) {
+	public Boolean remindCustomer(OrderProdTrace trace) {
 
 		return traceService.remindCustomer(trace);
 	}
