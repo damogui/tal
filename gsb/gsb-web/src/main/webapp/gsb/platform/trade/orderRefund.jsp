@@ -47,26 +47,32 @@
 				          <td class="control_td">
 				          		<input id="u8BankId" class="easyui-combobox nsInput" data-options="editable:false,width:200"/>
 				          </td>
-				          <td class="label_td"><label style="color:Red">*</label><label>退款类别：</label></td>
+				          <!-- <td class="label_td"><label style="color:Red">*</label><label>退款类别：</label></td>
 				          <td class="control_td">
 								<input id="refundType" class="easyui-combobox" 
 								data-options="editable:false,width:150,onChange:function(newValue,oldValue){refundCtrl.refundTypeChange(newValue,oldValue);},
 								method:'get',url:'/panda/rest/enum?name=com.gongsibao.entity.trade.dic.RefundType'"/> 
-				          </td>
-				   </tr>
-				      <tr>
-				          <td class="label_td"><label style="color:Red">*</label><label>退款账户名称：</label></td>
+				          </td> -->
+				          <td class="label_td" style="width:120px;"><label style="color:Red">*</label><label>退款账户名称：</label></td>
 				          <td class="control_td">
 				          		<input id="payerName" class="easyui-validatebox nsInput" style="width:150px"
 				          			data-options="required:true"/></td>
+				   </tr>
+				     <tr>
 				          <td class="label_td"><label style="color:Red">*</label><label>退款账号：</label></td>
 				          <td class="control_td">
 				          		<input id="bankNo" class="easyui-validatebox nsInput"   style="width:150px"
 									data-options="width:150,required:true"/></td>
 				          <td class="label_td"><label style="color:Red">*</label><label>退款金额：</label></td>
 				          <td class="control_td">
+				          		<input type="hidden" id ="refundPrice_hidd">
 				          		<input id="amount" class="easyui-numberbox nsInput"
-				          			data-options="precision:2,width:150,min:1,required:true,onChange:function(newValue,oldValue){refundCtrl.amountChange(newValue,oldValue);}"/>
+				          			data-options="precision:2,width:150,min:1,required:false,disabled:true,onChange:function(newValue,oldValue){refundCtrl.amountChange(newValue,oldValue);}"/>
+				          </td>
+				          <td class="label_td"><label>可退款金额：</label></td>
+				          <td class="control_td">
+				          		<input id="ableRefundAmount" class="easyui-numberbox nsInput"
+				          			data-options="precision:2,width:150,min:1,required:false,disabled:true"/>
 				          </td>
 					</tr>
 				      <tr>

@@ -23,11 +23,8 @@ public class ActionApplyRefundVerify  implements IAction{
 		//已退金额的总和
 		Integer refundPrice = order.getRefundPrice() == null ? 0 : order.getRefundPrice().intValue();
 		Integer refundAmount = refundPrice.intValue() + refund.getAmount().intValue();
-		//结转金额
-		Integer carryAmount = order.getCarryAmount() == null ? 0 : order.getCarryAmount().intValue();
-		Integer allAmount = refundAmount.intValue() + carryAmount.intValue(); 
-		//1.验证退款总金额是否超出
-		if(allAmount > paidAmount){
+		//1.验证可退款金额(可退款金额=已付金额-已退金额  yyk提供公式)总金额是否超出
+		if(refundAmount > paidAmount){
 			throw new BusinessException("该订单无可退款金额，请知悉");
 		}
 		//2.验证退款类型
