@@ -244,16 +244,42 @@ public class OrderDetailController {
     }
 
     /*回款业绩详情*/
-    public List<NDepPay> queryOrderPayPerList(Integer orderId) {
+    public List<AuditLogDTO> queryOrderPayPerList(Integer orderId) {
 
-        List<NDepPay> nDepPays = new ArrayList<NDepPay> ();
+        List<AuditLogDTO> auditLogDTOList = new ArrayList<AuditLogDTO> ();
         INDepPayService nDepPayService = ServiceFactory.create (INDepPayService.class);
         Oql oql = new Oql ();
         oql.setType (NDepPay.class);
-        oql.setSelects ("*");
-        nDepPays = nDepPayService.queryList (oql);
+        StringBuilder sb = new StringBuilder ();
+        sb.append ("NDepPay.*,");
+        sb.append ("NDepPay.soOrder.*,");
+//        sb.append ("NDepReceivable.soOrder.companyIntention.name,");
+        sb.append ("NDepPay.soOrder.owner.name");
+        oql.setSelects (sb.toString ());
+//        oql.setSelects (selects.toString ());
+        oql.setFilter (String.format ("salesman_id=%s or creator_id =%s ", SessionManager.getUserId (),SessionManager.getUserId ()));
+        List<NDepPay>     nDepPays = nDepPayService.queryList (oql);
+        for ( NDepPay item:nDepPays
+                ) {
+            AuditLogDTO  auditLogDTO=new AuditLogDTO ();
+            auditLogDTO.setOrderId (item.getOrderId ());
+            // auditLogDTO.setAuditNo (item.getId ().toString ());
+            auditLogDTO.setTotalPrice (item.getSoOrder ().getTotalPrice ());
+            auditLogDTO.setPayablePrice (item.getSoOrder ().getPayablePrice ());
+            auditLogDTO.setAmount (item.getSoOrder ().getPayablePrice ());
+            auditLogDTO.setStatusType (item.getStatusType ().getText ());
+            auditLogDTO.setCreateTime (item.getCreateTime ().toString ());
+            if (item.getStatusType ().equals (AuditLogStatusType.AUDITPASS)){
+                auditLogDTO.setConfirmTime (item.getAuditTime ().toString ());
+            }else{
+                auditLogDTO.setConfirmTime ("");
+            }
 
-        return nDepPays;
+            auditLogDTO.setCreator (item.getCreator ());
+            auditLogDTOList.add (auditLogDTO);
+        }
+
+        return auditLogDTOList;
     }
 
 }
