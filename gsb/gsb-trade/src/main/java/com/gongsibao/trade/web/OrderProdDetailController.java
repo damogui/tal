@@ -347,4 +347,17 @@ public class OrderProdDetailController {
 		
 		return orderService.getCustomerByOrderId(orderId);
 	}
+	
+	/**   
+	 * @Title: cancelRelevanceCompany   
+	 * @Description: TODO(取消订单明细关联企业信息)   
+	 * @param: @param orderProdId
+	 * @param: @return      
+	 * @return: Boolean      
+	 * @throws   
+	 */
+	public Boolean cancelRelevanceCompany(Integer orderProdId){
+		
+		return orderProdService.cancelRelevanceCompany(orderProdId);
+	}
 }

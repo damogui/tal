@@ -941,7 +941,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
                 company.setOrderContactEmail("");
                 company.setSetupStatus(true);
                 company.setCityId(cityId);
-                company.setIsSelfAddress(true);
+                company.setIsSelfAddress(1);
                 company.setAddress(tradeMarkCase.getApplierAddress());
                 company.setCapitalType(CapitalType.CapitalType_1);
                 company.setRegisterCapital(0);

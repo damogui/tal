@@ -229,7 +229,15 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
 	public List<WorkflowFile> queryWorkflowFileList(Integer orderProdId) {
 		
 		
-		
 		return null;
+	}
+
+	@Override
+	public Boolean cancelRelevanceCompany(Integer orderProdId) {
+
+		String sql = "update `so_order_prod` set `customer_id` = 0 where pkid = ?";
+		QueryParameters qps = new QueryParameters();
+		qps.add("pkid", orderProdId, Types.INTEGER);
+		return this.pm.executeNonQuery(sql, qps) > 0;
 	}
 }

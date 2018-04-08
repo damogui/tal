@@ -62,7 +62,7 @@ public class CompanyIntention extends BaseEntity {
     private Integer cityId;
     
     @Column(name="is_self_address",header="是否自有地址（1是、2否(收费地址)、3否(免费地址)、4否(全部地址)）")
-    private Boolean isSelfAddress;
+    private Integer isSelfAddress;
     
     @Column(name="address",header="地址")
     private String address;
@@ -306,11 +306,11 @@ public class CompanyIntention extends BaseEntity {
 		this.cityId = cityId;
 	}
 
-	public Boolean getIsSelfAddress() {
+	public Integer getIsSelfAddress() {
 		return isSelfAddress;
 	}
 
-	public void setIsSelfAddress(Boolean isSelfAddress) {
+	public void setIsSelfAddress(Integer isSelfAddress) {
 		this.isSelfAddress = isSelfAddress;
 	}
 

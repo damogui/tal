@@ -101,4 +101,14 @@ public interface IOrderProdService extends IPersistableService<OrderProd> {
      * @throws   
      */
     List<WorkflowFile> queryWorkflowFileList(Integer orderProdId);
+    
+	/**   
+	 * @Title: cancelRelevanceCompany   
+	 * @Description: TODO(取消订单明细关联企业信息)   
+	 * @param: @param orderProdId
+	 * @param: @return      
+	 * @return: Boolean      
+	 * @throws   
+	 */
+	Boolean cancelRelevanceCompany(Integer orderProdId);
 }
