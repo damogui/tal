@@ -45,7 +45,8 @@ public class SalesmanOrderReceivedListPart extends AdvancedListPart {
     public List<?> doQuery(Oql oql) {
         StringBuilder selects = new StringBuilder ();
         selects.append ("nDepPay.*,");
-        selects.append ("nDepPay.soOrder.*");
+        selects.append ("nDepPay.soOrder.*,");
+        selects.append ("nDepPay.salesman.name");
         //selects.append ("auditLog.soOrder.depReceivable.*");
 
         INDepPayService nDepPayService = ServiceFactory.create (INDepPayService.class);
