@@ -8,7 +8,7 @@ com.gongsibao.trade.web.CompanyCtrl = org.netsharp.panda.core.CustomCtrl.Extends
     init:function(orderProdId){
 
     	var orderProd = this.mainCtrl.orderProd;
-    	var companyName = orderProd.companyIntention != null ? orderProd.companyIntention.name :'-';
+    	var companyName = orderProd.companyIntention != null ? orderProd.companyIntention.companyName :'-';
     	$("#relevance_companyName").text(companyName);
     	
     	if(orderProd.companyIntention != null){
@@ -34,13 +34,30 @@ com.gongsibao.trade.web.CompanyCtrl = org.netsharp.panda.core.CustomCtrl.Extends
     },
     addRelevanceCompany:function(){
     	
+    	var me = this;
     	//添加关联公司
-    	this.showBtn();
+    	var companyCtrl = new com.gongsibao.trade.web.SelectCompanyCtrl();
+    	companyCtrl.open('添加关联公司',false,function(companys){
+    		
+    		if(companys.size == 0){
+    			
+    			return;
+    		}
+    		var company = companys[0];
+    		me.invokeService ("addRelevanceCompany", [me.mainCtrl.orderProd.id,company.id], function(data){
+        		
+    			me.mainCtrl.orderProd.companyIntention = company;
+    			me.mainCtrl.orderProd.companyId= company.id;
+    			me.mainCtrl.bindData(me.mainCtrl.orderProd);
+    			me.init();
+        	});
+    		
+    	});
     },
     editCompany:function(){
     	
     	//编辑公司(未实现)
-    	
+    	IMessageBox.info("开发中...");
     },
     cancelRelevanceCompany:function(){
 
@@ -53,8 +70,9 @@ com.gongsibao.trade.web.CompanyCtrl = org.netsharp.panda.core.CustomCtrl.Extends
         		me.invokeService ("cancelRelevanceCompany", [me.mainCtrl.orderProd.id], function(data){
             		
         			me.mainCtrl.orderProd.companyIntention = null;
-        			me.mainCtrl.orderProd.companyId= 0 ;
-        			me.hideBtn();
+        			me.mainCtrl.orderProd.companyId= 0;
+        			me.mainCtrl.bindData(me.mainCtrl.orderProd);
+        			me.init();
             	});
     		}
     	});

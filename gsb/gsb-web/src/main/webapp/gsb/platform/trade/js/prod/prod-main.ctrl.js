@@ -110,7 +110,7 @@ com.gongsibao.trade.web.ProdMainCtrl = org.netsharp.panda.core.CustomCtrl.Extend
     	$("#orderProdNo").text(data.orderId);
     	
     	//公司名称
-    	var companyName = data.companyIntention != null ? data.companyIntention.name :'-';
+    	var companyName = data.companyIntention != null ? data.companyIntention.companyName :'-';
     	$("#companyName").text(companyName);
     	
     	//办理名称
