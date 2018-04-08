@@ -164,8 +164,36 @@
 		    <div title="材料信息">   
 		         <table id="order_prod_trace_file_grid"></table>
 		    </div>   
-		    <div title="订单信息">   
-		         
+		    <div title="订单信息">
+
+			      <table cellpadding="3" cellspacing="0" class="form-panel" style="margin:10px;">
+				    <tr>
+				          <td class="label_td"><label>订单编号：</label></td>
+				          <td class="control_td" id="order_info_order_no"></td>
+				          <td class="label_td"><label>业务员：</label></td>
+				          <td class="control_td" id="order_info_salesman"></td>
+				          <td class="label_td"><label>地区：</label></td>
+				          <td class="control_td" id="order_info_salesman"></td>
+				   </tr>
+				   <tr>
+				          <td class="label_td"><label>支付金额：</label></td>
+				          <td class="control_td" id="order_info_payablePrice"></td>
+				          <td class="label_td"><label>下单时间：</label></td>
+				          <td class="control_td" id="order_info_createTime"></td>
+				          <td class="label_td"><label>付款状态：</label></td>
+				          <td class="control_td" id="order_info_payStatus"></td>
+				   </tr>
+				   <tr>
+				          <td colspan="6" class="control_td">
+				          	<table id="service_item_grid"></table>
+				          </td>
+				   </tr>
+				   <tr>
+				          <td colspan="6" class="control_td">
+				          	<table id="other_prod_grid"></table>
+				          </td>
+				   </tr>  
+				</table>
 		    </div>
 		    <div title="客户信息">
 			      <table cellpadding="3" cellspacing="0" class="form-panel" style="margin:10px;">
@@ -205,9 +233,9 @@
 		    <div title="材料预览">   
 		       
 		    </div>
- 		    <div title="自动进度">   
+<!--  		    <div title="自动进度">   
 		         <table id="order_prod_trail_grid">7</table>
-		    </div>
+		    </div> -->
 		</div>
 </body>
 
