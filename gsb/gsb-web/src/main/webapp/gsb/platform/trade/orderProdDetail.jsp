@@ -173,7 +173,7 @@
 				          <td class="label_td"><label>业务员：</label></td>
 				          <td class="control_td" id="order_info_salesman"></td>
 				          <td class="label_td"><label>地区：</label></td>
-				          <td class="control_td" id="order_info_salesman"></td>
+				          <td class="control_td" id="order_info_city"></td>
 				   </tr>
 				   <tr>
 				          <td class="label_td"><label>支付金额：</label></td>
@@ -189,7 +189,7 @@
 				          </td>
 				   </tr>
 				   <tr>
-				          <td colspan="6" class="control_td">
+				          <td colspan="6" class="control_td" style="padding-top:10px;">
 				          	<table id="other_prod_grid"></table>
 				          </td>
 				   </tr>  

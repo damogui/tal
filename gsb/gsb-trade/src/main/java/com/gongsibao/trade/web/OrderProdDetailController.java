@@ -19,6 +19,7 @@ import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.OrderProdTrace;
 import com.gongsibao.entity.trade.OrderProdUserMap;
+import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
 import com.gongsibao.product.base.IWorkflowNodeService;
 import com.gongsibao.supplier.base.ISalesmanService;
@@ -46,6 +47,11 @@ public class OrderProdDetailController {
 	public OrderProd getOrderProdById(Integer id) {
 
 		return orderProdService.byId(id);
+	}
+	
+	public SoOrder getOrderById(Integer id) {
+
+		return orderService.byId(id);
 	}
 
 	/**
