@@ -11,11 +11,24 @@ com.gongsibao.trade.web.OrderPayMapCtrl = org.netsharp.panda.core.CustomCtrl.Ext
         var centerHeight = $('body').height() - 60;
         $('#center').height(centerHeight);
         var orderNo = this.queryString('no');//订单编号
-        
-        if (orderNo!="0"){
+        var typeOpen = this.queryString('typeOpen');//新增还是编辑
+        if (orderNo != "0"&&typeOpen != "1") {
 
             $("#orderNo").val(orderNo);
             this.orderNoBlur("#orderNo");
+        } else {
+           
+            if (typeOpen == "1") {//1代表新增
+                $("#orderNo").val(orderNo);
+                this.initEdit(orderNo);//初始化
+                var offlineInstallmentType =this.queryString('offlineInstallmentType');//编辑的行
+                $("#offlineInstallmentType").combobox("setValue",offlineInstallmentType);
+                var amount =this.queryString('amount');//分配的金额
+                $("#amount").numberbox("setValue",parseFloat(amount)/100);
+               
+
+            }
+
         }
 
     },
@@ -146,5 +159,36 @@ com.gongsibao.trade.web.OrderPayMapCtrl = org.netsharp.panda.core.CustomCtrl.Ext
         var amount = $('#amount').numberbox('getValue');
         payMap.orderPrice = System.RMB.yuanToFen(amount);
         return payMap;
+    },
+    initEdit:function (no) {//初始化编辑
+
+        var me = this;
+        if (!System.isnull(no)) {
+
+            //调用后台验证orderNo是否存在
+            this.invokeService("getOrderByNo", [no], function (data) {
+
+                if (data == null) {
+
+                    layer.msg('订单号【' + no + '】不存在或已付全款');
+                    return;
+                }
+
+                me.soOrder = data;
+                var unpaidAmount = me.getUnpaidAmount();
+                unpaidAmount = System.RMB.fenToYuan(unpaidAmount);
+                $('#unpaidAmount').numberbox('setValue', unpaidAmount);
+                //付款类别和订单分配金额赋值
+                
+                
+
+            }, false);
+
+        } else {
+
+            //有些需要置空
+        }
+
+
     }
 });

@@ -13,12 +13,21 @@ com.gongsibao.trade.web.OrderRefundCtrl = org.netsharp.panda.core.CustomCtrl.Ext
 		});
 		
 		this.bindSetOfBooks();
-		
+		this.bindAbleRefundAmount();
 		this.productDetailCtrl = new com.gongsibao.trade.web.OrderProductDetailCtrl();
 		this.productDetailCtrl.init();
     	
     	this.refundPerformanceCtrl = new com.gongsibao.trade.web.OrderRefundPerformanceCtrl();
     	this.refundPerformanceCtrl.init();
+    },
+    bindAbleRefundAmount:function(){
+    	var orderId = this.queryString('id');
+    	this.invokeService ("getSoOrder", [orderId], function(data){
+    		var paidPrice = data.paidPrice;
+      		var refundPrice = data.refundPrice;
+      		var getFinals = parseFloat(paidPrice - refundPrice);
+      		$('#ableRefundAmount').numberbox('setValue',(getFinals/100).toFixed(2));
+    	});
     },
     bindSetOfBooks:function(){    	
     	this.invokeService ("querySetOfBooksList", [], function(data){			
@@ -32,13 +41,13 @@ com.gongsibao.trade.web.OrderRefundCtrl = org.netsharp.panda.core.CustomCtrl.Ext
 		});
     },
     amountChange:function(newValue,oldValue){
-    	//验证 退款总额是否≤订单可退款额
+    	//验证 退款总额是否≤订单可退款额(可退款金额=已付金额-已退金额 yyk提供公式)
     	var orderId = this.queryString('id');
     	this.invokeService ("getSoOrder", [orderId], function(data){
     		var paidPrice = data.paidPrice;
       		var refundPrice = data.refundPrice;
-      		var carryAmount = data.carryAmount;
-      		var getFinals = paidPrice - refundPrice - carryAmount;
+      		var getFinals = parseFloat(paidPrice - refundPrice);
+      		$("#refundPrice_hidd").val(getFinals);
       		var getNewValue = parseFloat(newValue)*100;
         	if((getFinals - getNewValue) < 0){
         		$('#amount').numberbox('clear');
@@ -46,7 +55,7 @@ com.gongsibao.trade.web.OrderRefundCtrl = org.netsharp.panda.core.CustomCtrl.Ext
         	}
     	});
     },
-    refundTypeChange:function(newValue,oldValue){
+   /* refundTypeChange:function(newValue,oldValue){
     	//全款退
     	if(newValue==='1'){
     		//这里有很多种情况判断，如：结转，已存在退款
@@ -60,31 +69,39 @@ com.gongsibao.trade.web.OrderRefundCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     			$('#amount').numberbox('readonly',false);
     		}
     	}else{
-    		$('#amount').numberbox('readonly',false);
+    		//$('#amount').numberbox('readonly',false);
     		$('#amount').numberbox('clear');
     	}
-    },
+    },*/
     save:function(){
 
     	var booksId = $('#setOfBooksId').combogrid('getValue');
     	var u8BankId = $("#u8BankId").combogrid('getValue');
-    	var refundType = $('#refundType').combobox('getValue');
+    	//var refundType = $('#refundType').combobox('getValue');
     	var payerName = $('#payerName').val();
     	var bankNo = $('#bankNo').val();
     	var amount = parseFloat($('#amount').numberbox('getValue'))*100;
     	var refundRemark = $('#refundRemark').val();
     	//验证
-    	if(isEmpty(booksId) || isEmpty(u8BankId) || isEmpty(refundType) || isEmpty(payerName) || isEmpty(bankNo) || isNaN(amount) || isEmpty(refundRemark)){
+    	if(isEmpty(booksId) || isEmpty(u8BankId) || isEmpty(payerName) || isEmpty(bankNo) || isNaN(amount) || isEmpty(refundRemark)){
     		layer.msg('请输入必填项');
     		return false;
     	}
     	
-    	var orderId = this.queryString('id');
+    	var orderId = this.queryString('id'); 
+    	var refundPrice = parseFloat($("#refundPrice_hidd").val());
+    	var setType;
+    	//判断退款类型
+    	if(refundPrice === amount){        		
+    		setType = 1;
+    	}else{
+    		setType = 0;
+    	}    	
     	var refund = new Object();
     	refund.orderId = orderId;
     	refund.setOfBooksId = booksId;
     	refund.u8BankId = u8BankId;
-    	refund.refundType = refundType;
+    	refund.refundType = setType;
     	refund.payerName = payerName;
     	refund.bankNo = bankNo;
     	refund.amount = amount;
@@ -94,11 +111,11 @@ com.gongsibao.trade.web.OrderRefundCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     	//退款产品
     	var refundProductRows = this.productDetailCtrl.getProductRows();
     	var itemList = [];
+    	
+    	
     	for(var i=0;i<refundProductRows.length;i++){
-    		
     		var prod = refundProductRows[i];
     		if(!System.isnull(prod.refundAmount) && parseFloat(prod.refundAmount) >0){
-
         		var item = new Object();
         		item.orderId = orderId;
         		item.orderProdId = prod.id;
@@ -107,7 +124,6 @@ com.gongsibao.trade.web.OrderRefundCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     		}
     	}
     	refund.refunds = itemList;
-    	
     	//退款业绩分配
     	var depRefunds = this.refundPerformanceCtrl.getDepRefundRows();
     	
@@ -194,8 +210,16 @@ com.gongsibao.trade.web.OrderProductDetailCtrl = org.netsharp.panda.core.CustomC
 		        }},
 		        {field:'refundAmount',title:'退款金额',width:100,align:'right',editor:{type:'numberbox',options:{precision:0,height:31,min:1,required:true}},formatter:function(value,row,index){
 	        		
-		        	if(value){
-	
+		        	if(value){		        		
+		        		$('#amount').numberbox('clear');
+		        		var rows = $("#order_product_grid").datagrid("getRows");
+		        		var total = 0;  
+		        	    for (var i = 0; i < rows.length; i++) {  
+		        	    	if(!isNaN(rows[i]['refundAmount'])){
+		        	    		total += parseFloat(rows[i]['refundAmount']);
+		        	    	}
+		        	    }  
+		        	    $('#amount').numberbox('setValue',(total/100).toFixed(2));
 			        	return (value/100).toFixed(2);
 		        	}
 		        }},
@@ -220,10 +244,16 @@ com.gongsibao.trade.web.OrderProductDetailCtrl = org.netsharp.panda.core.CustomC
 	        		}
 		        }}
 		    ]],
-		    onBeginEdit:function(index, row){
-	
+		    onBeginEdit:function(index, row){		    		
 			     var ed = $(this).datagrid('getEditor', {index:index,field:'refundAmount'});
-			     var refundType = $('#refundType').combobox('getValue');
+			     var refundAmount = row.refundAmount/100;
+		    	 $(ed.target).numberbox('setValue',refundAmount);
+			     var editCtrl = $(ed.target[0]).next().children()[0];
+			     $(editCtrl).bind('blur',function(){				    	 
+			    	 //结束编辑
+			    	 $(me.$gridId ).datagrid('endEdit',index);
+			     });
+			     /*var refundType = $('#refundType').combobox('getValue');
 			     if(refundType==='1'){
 			    	 $(me.$gridId).datagrid('endEdit',index);
 			    	 return false;
@@ -232,25 +262,26 @@ com.gongsibao.trade.web.OrderProductDetailCtrl = org.netsharp.panda.core.CustomC
 			    	 var refundAmount = row.refundAmount/100;
 			    	 $(ed.target).numberbox('setValue',refundAmount);
 				     var editCtrl = $(ed.target[0]).next().children()[0];
-				     $(editCtrl).bind('blur',function(){
-				    	 
+				     $(editCtrl).bind('blur',function(){				    	 
 				    	 //结束编辑
 				    	 $(me.$gridId ).datagrid('endEdit',index);
 				     });
 				     
-			     }
+			     }*/
 			},
-			onEndEdit:function(index,row,changes){
-				
-			     var refundType = $('#refundType').combobox('getValue');
-			     if(refundType==='1'){
+			onEndEdit:function(index,row,changes){				
+			     //var refundType = $('#refundType').combobox('getValue');
+			     var ed = $(this).datagrid('getEditor', {index:index,field:'refundAmount'});
+					var refundAmount = $(ed.target).numberbox('getValue');
+					row.refundAmount = parseFloat(refundAmount)*100;
+			     /*if(refundType==='1'){
 			    	 
 			     }else{
 
 					var ed = $(this).datagrid('getEditor', {index:index,field:'refundAmount'});
 					var refundAmount = $(ed.target).numberbox('getValue');
 					row.refundAmount = parseFloat(refundAmount)*100;
-			     }
+			     }*/
 			}
 		});
 		$(this.$gridId).datagrid('enableCellEditing');

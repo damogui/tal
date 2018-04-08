@@ -35,25 +35,33 @@ public class TmAutoSubmitController {
 	@GET
 	@Path("/tm/updatestate/{proxyCode}/{stateCode}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String updateState(@PathParam("proxyCode") String proxyCode,@PathParam("stateCode") Integer stateCode){
-		TradeMark tm = tmService.tmRobotUpdateMarkState(proxyCode,stateCode);
-		if (tm!=null){
-			return "success";
+	public ResponseResult updateState(@PathParam("proxyCode") String proxyCode,@PathParam("stateCode") Integer stateCode){
+		int count = tmService.tmRobotUpdateMarkState(proxyCode,stateCode);
+		ResponseResult result = new ResponseResult();
+		result.setCode("200");
+		if (count>0){
+			result.setMessage("success");
+		}else{
+			result.setMessage("error");
 		}
-		return "error";
+		return result;
 	}
 
     @GET
     @Path("/tm/updateTradeMarkCode/{proxyCode}/{code}/{stateCode}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String updateTradeMarkCode(@PathParam("proxyCode") String proxyCode,
+    public ResponseResult updateTradeMarkCode(@PathParam("proxyCode") String proxyCode,
                                       @PathParam("code") String code,
                                       @PathParam("stateCode") Integer stateCode){
-	    TradeMark tm = tmService.tmRobotUpdateMarkCode(proxyCode,code,stateCode);
-	    if (tm!=null){
-	        return "success";
-        }
-	    return "error";
+	    int count = tmService.tmRobotUpdateMarkCode(proxyCode,code,stateCode);
+		ResponseResult result = new ResponseResult();
+		result.setCode("200");
+		if (count>0){
+			result.setMessage("success");
+		}else{
+			result.setMessage("error");
+		}
+		return result;
     }
 
 }

@@ -34,6 +34,7 @@ import com.gongsibao.igirl.tm.base.IDownloadAttachmentService;
 import com.gongsibao.igirl.tm.base.IGirlRobotService;
 import com.gongsibao.igirl.tm.base.ITradeMarkService;
 import com.gongsibao.igirl.tm.base.IUploadAttachmentService;
+import com.gongsibao.igirl.tm.dto.SysAttachmentDto;
 import com.gongsibao.igirl.tm.dto.TradeMark.Goods;
 import com.gongsibao.igirl.tm.dto.TradeMark.Step1;
 import com.gongsibao.igirl.tm.dto.TradeMark.Step2;
@@ -419,37 +420,29 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		return goodsList;
 	}
 
-	public TradeMark tmRobotUpdateMarkState(String proxyCode, Integer stateCode) {
+	public Integer tmRobotUpdateMarkState(String proxyCode, Integer stateCode) {
+		String sql = "update ig_trade_mark set mark_state=? where proxy_code=?";
 		Oql oql = new Oql();
-		oql.setSelects("TradeMark.*");
-		oql.setType(TradeMark.class);
-		oql.setFilter("proxyCode = ?");
-		oql.getParameters().add("proxyCode", proxyCode, Types.INTEGER);
-		TradeMark tm = this.queryFirst(oql);
-		if (tm!=null){
-			tm.setMarkState(MarkState.getItem(stateCode));
-			tm.setMarkSubmitTime(new Date());
-			tm.toPersist();
-			tm = this.save(tm);
-		}
-		return tm;
+		oql.setFilter("mark_state=?");
+		oql.setFilter("proxy_code=?");
+		oql.getParameters().add("mark_state", stateCode, Types.INTEGER);
+		oql.getParameters().add("proxy_code", proxyCode, Types.VARCHAR);
+		int count = this.pm.executeNonQuery(sql,oql.getParameters());
+		return count;
 	}
 
 	@Override
-	public TradeMark tmRobotUpdateMarkCode(String proxyCode, String code, Integer stateCode) {
+	public Integer tmRobotUpdateMarkCode(String proxyCode, String code, Integer stateCode) {
+		String sql = "update ig_trade_mark set mark_state=?,code=? where proxy_code=?";
 		Oql oql = new Oql();
-		oql.setSelects("TradeMark.*");
-		oql.setType(TradeMark.class);
-		oql.setFilter("proxyCode = ?");
-		oql.getParameters().add("proxyCode", proxyCode, Types.INTEGER);
-		TradeMark tm = this.queryFirst(oql);
-		if (tm!=null){
-			tm.setCode(code);
-			tm.setMarkState(MarkState.getItem(stateCode));
-			tm.toPersist();
-			tm = this.save(tm);
-		}
-		return tm;
+		oql.setFilter("mark_state=?");
+		oql.setFilter("code=?");
+		oql.setFilter("proxy_code=?");
+		oql.getParameters().add("mark_state", stateCode, Types.INTEGER);
+		oql.getParameters().add("code", code, Types.VARCHAR);
+		oql.getParameters().add("proxy_code", proxyCode, Types.VARCHAR);
+		int count = this.pm.executeNonQuery(sql,oql.getParameters());
+		return count;
 	}
 
 	public String updateMarkState(String ids, Integer type) {
@@ -550,15 +543,19 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 	}
 
 	@Override
-	public List<String> findUrlById(int caseId) {
+	public List<SysAttachmentDto> findUrlById(int caseId) {
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT path FROM sys_attachment WHERE foreign_key ="+caseId+" and entity_id = 'com.gongsibao.entity.igirl.tm.TradeMark'");
+		sql.append("SELECT name,path FROM sys_attachment WHERE foreign_key ="+caseId+" and entity_id = 'com.gongsibao.entity.igirl.tm.TradeMark'");
 	    DataTable dataTable = this.pm.executeTable(sql.toString(), null);
-	    List<String> urlList = new ArrayList(); 
+	    List<SysAttachmentDto> urlList = new ArrayList<SysAttachmentDto>(); 
 	    for (IRow row : dataTable) {
+	    	SysAttachmentDto sa =new SysAttachmentDto();
 	    	String url = row.getString("path");
-	    	if (!urlList.contains(url)) {
-	    		urlList.add(url);
+	    	String name = row.getString("name");
+	    	sa.setName(name);
+	    	sa.setUrl(url);
+	    	if (!urlList.contains(sa)) {
+	    		urlList.add(sa);
 	    	}
 	    }
 

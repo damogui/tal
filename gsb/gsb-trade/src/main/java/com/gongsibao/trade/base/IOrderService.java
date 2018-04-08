@@ -1,6 +1,8 @@
 package com.gongsibao.trade.base;
 
+import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
+
 import org.netsharp.base.IPersistableService;
 import org.netsharp.core.annotations.Transaction;
 
@@ -77,4 +79,14 @@ public interface IOrderService extends IPersistableService<SoOrder> {
      * @throws   
      */
     String getCustomerMobile(Integer orderId);
+    
+    /**   
+     * @Title: getCustomerByOrderId   
+     * @Description: TODO(根据订单Id获取NCustomer)   
+     * @param: @param orderId
+     * @param: @return      
+     * @return: NCustomer      
+     * @throws   
+     */
+    NCustomer getCustomerByOrderId(Integer orderId);
 }
