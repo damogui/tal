@@ -128,7 +128,7 @@
 		   			</div>
 		   			<div style="padding-left:10px;height: 162px;background-color: #fff;">
 			   			<p>订单用时：681/9天</p>
-			   			<p>等待客户提供材料 0/3天</p>
+			   			<p><span id="processStatus"></span> 0/3天</p>
 						<p>办理名称：点击编辑</p>
 						<p>申请号：点击编辑</p>
 		   			</div>

@@ -184,8 +184,8 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     					var isSendMessage = $('#isSendMessage').prop('checked');
     					
     					var trace = new Object();
-    					trace.orderId = me.manCtrl.orderProd.orderId;
-    					trace.orderNo = 100000000 + me.manCtrl.orderProd.orderId;
+    					trace.orderId = me.mainCtrl.orderProd.orderId;
+    					trace.orderNo = 100000000 + me.mainCtrl.orderProd.orderId;
     					trace.orderProdId = me.orderProdId;
     					trace.orderProdStatusId = processStatusId;
     					trace.info = "更新状态:" + processStatusText;
@@ -243,9 +243,10 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
 				var isSendMessage = $('#isSendMessage').prop('checked');
 				
 				var trace = new Object();
-				trace.orderId = me.manCtrl.orderProd.orderId;
-				trace.orderNo = 100000000 + me.manCtrl.orderProd.orderId;
+				trace.orderId = me.mainCtrl.orderProd.orderId;
+				trace.orderNo = 100000000 + me.mainCtrl.orderProd.orderId;
 				trace.orderProdId = me.orderProdId;
+				trace.orderProdStatusId = me.mainCtrl.orderProd.processStatusId;
 				trace.info = "备注修改为：" + remark;
 				trace.isSendMessage = isSendMessage;
 				
@@ -300,8 +301,9 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
 				var isFocus = $('#isFocus').prop('checked');
 				var trace = new Object();
 				trace.orderProdId = me.orderProdId;
-				trace.orderId = me.manCtrl.orderProd.orderId;
-				trace.orderNo = 100000000 + me.manCtrl.orderProd.orderId;
+				trace.orderId = me.mainCtrl.orderProd.orderId;
+				trace.orderNo = 100000000 + me.mainCtrl.orderProd.orderId;
+				trace.orderProdStatusId = me.mainCtrl.orderProd.processStatusId;
 				trace.info = "投诉：" + remark;
 				trace.isSendMessage = isSendMessage;
 				
@@ -314,8 +316,60 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
 		});
     },
     remindCustomer:function(){
-    	
+
     	//提醒客户
+    	var me = this;
+		var builder = new System.StringBuilder();
+		builder.append('<form id="dynamicForm">');
+		builder.append('<div style="margin:10px;">');
+		builder.append('	<table cellpadding="5" cellspacing="10" class="form-panel">');
+		builder.append('		<tr><td>提示内容:<span style="color:#009688;">此提示内容会通知给客户</span></td></tr>');
+		builder.append('		<tr><td><textarea id="remark" placeholder="请填写内容..." style="width: 100%; height:130px;"></textarea></td></tr>');
+		builder.append('		<tr><td><input id="isSendMessage" type="checkbox" style="vertical-align: middle;"/><label for="isSendMessage" style="vertical-align: middle;">提示内容短信通知客户</label></td></tr>');
+		builder.append('	</table>');
+		builder.append('</div>');
+		builder.append('</form>');
+
+		layer.open({
+			type : 1,
+			title : '提示客户',
+			fixed : false,
+			maxmin : false,
+			shadeClose : true,
+			zIndex : 100000,
+			area : [ '500px', '345px' ],
+			content : builder.toString(),
+			btn : [ '确定', '取消' ],
+			success : function(layero, index) {
+
+			},
+			btn1 : function(index, layero) {
+
+				//提交更新状态
+				var remark = $('#remark').val();
+				if(System.isnull(remark)){
+					
+					layer.msg('请填写内容');
+					return;
+				}
+				
+				var isSendMessage = $('#isSendMessage').prop('checked');
+				var trace = new Object();
+				trace.orderId = me.mainCtrl.orderProd.orderId;
+				trace.orderNo = 100000000 + me.mainCtrl.orderProd.orderId;
+				trace.orderProdId = me.orderProdId;
+				trace.orderProdStatusId = me.mainCtrl.orderProd.processStatusId;
+				trace.info = "提醒内容:" + remark;
+				trace.isSendMessage = isSendMessage;
+				
+				//更新状态:网提
+				me.invokeService("remindCustomer", [trace], function(data){
+					
+					layer.close(index);
+					me.query();
+				});
+			}
+		});
     },
     markAbnormal:function(){
     	
