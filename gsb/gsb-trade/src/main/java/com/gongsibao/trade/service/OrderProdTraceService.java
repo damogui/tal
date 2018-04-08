@@ -12,6 +12,8 @@ import org.netsharp.core.DataTable;
 import org.netsharp.core.IRow;
 import org.netsharp.core.Oql;
 import org.netsharp.core.Row;
+import org.netsharp.organization.base.IEmployeeService;
+import org.netsharp.organization.entity.Employee;
 import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.StringManager;
@@ -19,12 +21,12 @@ import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.entity.trade.OrderProdTrace;
 import com.gongsibao.entity.trade.OrderProdUserMap;
-import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapType;
 import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IOrderProdTraceService;
 import com.gongsibao.trade.base.IOrderProdUserMapService;
+import com.gongsibao.utils.SmsHelper;
 
 @Service
 public class OrderProdTraceService extends PersistableService<OrderProdTrace> implements IOrderProdTraceService {
@@ -203,32 +205,48 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
 	public Boolean markComplaint(OrderProdTrace trace, Boolean isFocus) {
 
 		trace = this.create(trace);
+		
+		IOrderProdUserMapService orderProdUserMapService = ServiceFactory.create(IOrderProdUserMapService.class);
 		if (trace.getIsSendSms()) {
 
-//			Map<String, Object> userWhere = new HashMap();
-//			userWhere.put("order_prod_id", soOrderProd.getPkid());
-//			userWhere.put("type_id", 3061);
-//			List<SoOrderProdUserMap> soOrderProdUserMapList = soOrderProdUserMapService.findByProperties(userWhere, 0, Integer.MAX_VALUE);
-//			if (soOrderProdUserMapList.size() > 0) {
-//				List<Integer> userIds = new ArrayList();
-//				for (SoOrderProdUserMap item : soOrderProdUserMapList) {
-//					userIds.add(item.getUserId());
-//				}
-//				List<UcUser> ucusers = ucUserService.findByIds(userIds);
-//				// 给这些业务员们发短信
-//				for (UcUser ucUser : ucusers) {
-//					// 发短信
-//					SoOrder soOrder = soOrderService.findById(soOrderProd.getOrderId());
-//					String smsString = "【公司宝】" + ucUser.getRealName() + "，您好！" + user.getUcUser().getRealName() + "给您发了一条订单（订单号：" + soOrder.getNo() + "）提醒：" + info + "。如需帮助，请拨打服务热线：4006-798-999。";
-//					// 发送短信
-//					new Thread() {
-//						@Override
-//						public void run() {
-//							smsService.send(2, ucUser.getMobilePhone(), smsString);
-//						}
-//					}.start();
-//				}
-//			}
+			//给所有业务员发送短信
+
+			List<OrderProdUserMap> orderProdUserMapList = orderProdUserMapService.queryList(trace.getOrderProdId(), OrderProdUserMapType.Ywy);
+			if (orderProdUserMapList.size() > 0) {
+				
+				List<Integer> ss = new ArrayList<Integer>();
+				for (OrderProdUserMap item : orderProdUserMapList) {
+					
+					ss.add(item.getPrincipalId());
+				}
+				
+				IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
+				Oql oql = new Oql();
+				{
+					oql.setType(Employee.class);
+					oql.setSelects("id,name,mobile");
+					oql.setFilter("id in ("+StringManager.join(",", ss)+")");
+				}
+				
+				List<Employee> employees = employeeService.queryList(oql);
+				
+				// 给这些业务员们发短信
+				for (Employee employee : employees) {
+
+					String smsString = "【公司宝】" + employee.getName() + "，您好！" + SessionManager.getUserName() 
+							+ "给您发了一条订单（订单号：" + trace.getOrderNo() + "）提醒：" + trace.getInfo() 
+							+ "。如需帮助，请拨打服务热线：4006-798-999。";
+					// 发送短信
+					new Thread() {
+						
+						@Override
+						public void run() {
+							
+							SmsHelper.send(employee.getMobile(), smsString);
+						}
+					}.start();
+				}
+			}
 		}
 
 		// 重点关注(没看懂有啥用)
@@ -242,7 +260,6 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
 				orderProdUserMap.setType(OrderProdUserMapType.Kfy);
 				orderProdUserMap.setStatus(OrderProdUserMapStatus.Zzfz);
 			}
-			IOrderProdUserMapService orderProdUserMapService = ServiceFactory.create(IOrderProdUserMapService.class);
 			orderProdUserMapService.save(orderProdUserMap);
 		}
 

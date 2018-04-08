@@ -49,7 +49,7 @@ com.gongsibao.trade.web.ProdMainCtrl = org.netsharp.panda.core.CustomCtrl.Extend
     bindData:function(data){
     	
     	//订单编号
-    	var orderNo = 100000000+data.orderId;
+    	var orderNo = 100000000 + data.orderId;
     	$("#orderNo").text(orderNo);
     	
     	//订单明细编号

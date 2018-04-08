@@ -18,6 +18,13 @@ import com.gongsibao.entity.trade.dic.OrderProdTraceType;
 public class OrderProdTrace extends BaseEntity {
 
 	private static final long serialVersionUID = -5637326992812474888L;
+	
+	@Column(name = "order_id", header = "订单Id(冗余)")
+	private Integer orderId;
+	
+	@Column(name = "order_no", header = "订单编号(冗余)")
+	private Integer orderNo;
+	
 	@Column(name = "order_prod_id", header = "产品")
 	private Integer orderProdId;
 
@@ -237,5 +244,21 @@ public class OrderProdTrace extends BaseEntity {
 
 	public void setVersion(Integer version) {
 		this.version = version;
+	}
+
+	public Integer getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
+	}
+
+	public Integer getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(Integer orderNo) {
+		this.orderNo = orderNo;
 	}
 }

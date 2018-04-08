@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.core.DataTable;
+import org.netsharp.core.Oql;
 import org.netsharp.core.QueryParameters;
 import org.netsharp.core.Row;
 import org.netsharp.service.PersistableService;
@@ -104,4 +105,17 @@ public class OrderProdUserMapService extends PersistableService<OrderProdUserMap
 		return this.pm.executeNonQuery(sql.toString(), qps) > 0;
 	}
 
+	@Override
+	public List<OrderProdUserMap> queryList(Integer orderProdId, OrderProdUserMapType type) {
+
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects("*");
+			oql.setFilter("orderProdId = ? and type=?");
+			oql.getParameters().add("orderProdId", orderProdId, Types.INTEGER);
+			oql.getParameters().add("type", type, Types.INTEGER);
+		}
+		return this.pm.queryList(oql);
+	}
 }

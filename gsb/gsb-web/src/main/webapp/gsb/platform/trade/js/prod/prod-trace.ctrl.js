@@ -184,6 +184,8 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     					var isSendMessage = $('#isSendMessage').prop('checked');
     					
     					var trace = new Object();
+    					trace.orderId = me.manCtrl.orderProd.orderId;
+    					trace.orderNo = 100000000 + me.manCtrl.orderProd.orderId;
     					trace.orderProdId = me.orderProdId;
     					trace.orderProdStatusId = processStatusId;
     					trace.info = "更新状态:" + processStatusText;
@@ -241,6 +243,8 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
 				var isSendMessage = $('#isSendMessage').prop('checked');
 				
 				var trace = new Object();
+				trace.orderId = me.manCtrl.orderProd.orderId;
+				trace.orderNo = 100000000 + me.manCtrl.orderProd.orderId;
 				trace.orderProdId = me.orderProdId;
 				trace.info = "备注修改为：" + remark;
 				trace.isSendMessage = isSendMessage;
@@ -296,6 +300,8 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
 				var isFocus = $('#isFocus').prop('checked');
 				var trace = new Object();
 				trace.orderProdId = me.orderProdId;
+				trace.orderId = me.manCtrl.orderProd.orderId;
+				trace.orderNo = 100000000 + me.manCtrl.orderProd.orderId;
 				trace.info = "投诉：" + remark;
 				trace.isSendMessage = isSendMessage;
 				
