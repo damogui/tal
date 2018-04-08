@@ -40,4 +40,17 @@ public interface IOrderProdTraceService extends IPersistableService<OrderProdTra
 	 */
 	@Transaction
 	OrderProdTrace create(OrderProdTrace entity);
+	
+	
+	/**   
+	 * @Title: markComplaint   
+	 * @Description: TODO(标记投诉)   
+	 * @param: @param trace
+	 * @param: @param isFocus
+	 * @param: @return      
+	 * @return: Boolean      
+	 * @throws   
+	 */
+	@Transaction
+	Boolean markComplaint(OrderProdTrace trace, Boolean isFocus);
 }

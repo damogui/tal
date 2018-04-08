@@ -214,7 +214,7 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
 		builder.append('	</table>');
 		builder.append('</div>');
 		builder.append('</form>');
-		//短信通知客户
+
 		layer.open({
 			type : 1,
 			title : '添加备注',
@@ -242,7 +242,7 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
 				
 				var trace = new Object();
 				trace.orderProdId = me.orderProdId;
-				trace.info = remark;
+				trace.info = "备注修改为：" + remark;
 				trace.isSendMessage = isSendMessage;
 				
 				//更新状态:网提
@@ -253,6 +253,79 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
 				});
 			}
 		});
+    },
+    markComplaint:function(){
+    	
+    	//标记投诉
+    	
+    	var me = this;
+		var builder = new System.StringBuilder();
+		builder.append('	<table cellpadding="5" cellspacing="10" class="form-panel">');
+		builder.append('		<tr><td>投诉说明:</td></tr>');
+		builder.append('		<tr><td><textarea id="remark" placeholder="请填写内容..." style="width: 470px; height:130px;"></textarea></td></tr>');
+		builder.append('		<tr><td>');
+		builder.append('			<input id="isSendMessage" type="checkbox" style="vertical-align: middle;"/><label for="isSendMessage" style="vertical-align: middle;">短信通知业务员</label>');
+		builder.append('			<input id="isFocus" type="checkbox" style="vertical-align: middle;"/><label for="isFocus" style="vertical-align: middle;">重点关注</label>');
+		builder.append('		</td></tr>');
+		builder.append('	</table>');
+
+		layer.open({
+			type : 1,
+			title : '标记投诉',
+			fixed : false,
+			maxmin : false,
+			shadeClose : true,
+			zIndex : 100000,
+			area : [ '500px', '345px' ],
+			content : builder.toString(),
+			btn : [ '确定标记为投诉订单', '取消' ],
+			success : function(layero, index) {
+
+			},
+			btn1 : function(index, layero) {
+
+				//提交更新状态
+				var remark = $('#remark').val();
+				if(System.isnull(remark)){
+					
+					layer.msg('请填写内容');
+					return;
+				}
+				
+				var isSendMessage = $('#isSendMessage').prop('checked');
+				var isFocus = $('#isFocus').prop('checked');
+				var trace = new Object();
+				trace.orderProdId = me.orderProdId;
+				trace.info = "投诉：" + remark;
+				trace.isSendMessage = isSendMessage;
+				
+				me.invokeService("markComplaint", [trace,isFocus], function(data){
+					
+					layer.close(index);
+					me.query();
+				});
+			}
+		});
+    },
+    remindCustomer:function(){
+    	
+    	//提醒客户
+    },
+    markAbnormal:function(){
+    	
+    	//标记异常
+    },
+    sendExpress:function(){
+    	
+    	//发快递
+    },
+    setAccount:function(){
+    	
+    	//帐号密码
+    },
+    setQualification:function(){
+    	
+    	//资质维护
     }
 });
 

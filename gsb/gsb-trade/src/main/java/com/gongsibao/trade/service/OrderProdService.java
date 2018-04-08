@@ -3,6 +3,7 @@ package com.gongsibao.trade.service;
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.dic.SettleStatus;
 import com.gongsibao.trade.base.IOrderProdService;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.core.*;
@@ -44,7 +45,6 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
 		for (IRow row : executeTable) {
 			Integer orderId = row.getInteger("orderId");
 
-			
 			List<Map<String, Object>> tempList = new ArrayList<Map<String, Object>>();
 
 			for (Map<String, Object> map : valueMapList) {
@@ -116,7 +116,7 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
 
 	@Override
 	public List<OrderProd> queryByOrderId(Integer orderId) {
-		
+
 		Oql oql = new Oql();
 		{
 			oql.setType(this.type);
@@ -141,5 +141,13 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
 		build.set("settle_status", settleStatus.getValue());
 		build.where("pkid IN ( " + StringManager.join(",", orderProdIds) + " ) ");
 		return this.pm.executeNonQuery(build.toSQL(), null) > 0;
+	}
+
+	@Override
+	public boolean updateIsComplaint(Integer orderProdId) {
+		String sql = "update `so_order_prod` set `is_complaint` = 1 where pkid = ?";
+		QueryParameters qps = new QueryParameters();
+		qps.add("pkid", orderProdId, Types.INTEGER);
+		return this.pm.executeNonQuery(sql, qps) > 0;
 	}
 }

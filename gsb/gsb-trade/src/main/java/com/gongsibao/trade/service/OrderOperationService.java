@@ -15,7 +15,7 @@ import org.netsharp.util.StringManager;
 import com.gongsibao.entity.trade.OrderProdTrace;
 import com.gongsibao.entity.trade.OrderProdUserMap;
 import com.gongsibao.entity.trade.dic.OrderProdTraceType;
-import com.gongsibao.entity.trade.dic.OrderProdUserMapStatusType;
+import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapType;
 import com.gongsibao.entity.trade.dto.SoOrderDTO;
 import com.gongsibao.entity.uc.User;
@@ -54,10 +54,10 @@ public class OrderOperationService extends SoOrderDTOService implements IOrderOp
 		List<Integer> orderProdIdList = orderProdService.getIdsByOrderIds(orderIdList);
 
 		// 获取该产品订单对应的业务员
-		Map<Integer, String> orderUserByIdsMap = orderProdUserMapService.getOrderUserByIds(orderProdIdList, OrderProdUserMapType.Ywy.getValue(), OrderProdUserMapStatusType.Zzfz.getValue());
+		Map<Integer, String> orderUserByIdsMap = orderProdUserMapService.getOrderUserByIds(orderProdIdList, OrderProdUserMapType.Ywy.getValue(), OrderProdUserMapStatus.Zzfz.getValue());
 
 		// 将该产品订单之前的业务员的状态改为【曾经负责】
-		orderProdUserMapService.updateStatusByOrderProdId(orderProdIdList, OrderProdUserMapType.Ywy.getValue(), OrderProdUserMapStatusType.Cjfz.getValue(), OrderProdUserMapStatusType.Zzfz.getValue());
+		orderProdUserMapService.updateStatusByOrderProdId(orderProdIdList, OrderProdUserMapType.Ywy.getValue(), OrderProdUserMapStatus.Cjfz.getValue(), OrderProdUserMapStatus.Zzfz.getValue());
 
 		List<OrderProdUserMap> orderProdUserMapList = new ArrayList<OrderProdUserMap>();
 		// 插入新的【正在负责】的中间表
@@ -65,9 +65,9 @@ public class OrderOperationService extends SoOrderDTOService implements IOrderOp
 			OrderProdUserMap orderProdUserMap = new OrderProdUserMap();
 			orderProdUserMap.toNew();
 			orderProdUserMap.setOrderProdId(orderProdId);
-			orderProdUserMap.setStatus(OrderProdUserMapStatusType.Zzfz);
+			orderProdUserMap.setStatus(OrderProdUserMapStatus.Zzfz);
 			orderProdUserMap.setPrincipalId(ywyUserId);
-			orderProdUserMap.setTypeId(OrderProdUserMapType.Ywy.getValue());
+			orderProdUserMap.setType(OrderProdUserMapType.Ywy);
 			orderProdUserMapList.add(orderProdUserMap);
 		}
 		// 添加订单和业务员的中间表

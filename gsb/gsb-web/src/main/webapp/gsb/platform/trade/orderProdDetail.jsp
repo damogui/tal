@@ -76,7 +76,7 @@
 					handler:function(){alert('下一条')}
 				}]">
 		   
-		    <p class="orderProd">订单号：<span id="orderNo"></span> 订单明细：<span id="orderProdNo"></span> 公司：<span id="companyName"></span>  办理名称：<span id="handleName"></span>  申请号：暂无</p>
+		    <p class="orderProd">订单号：<span id="orderNo"></span> 订单明细：<span id="orderProdNo"></span> 公司：<span id="companyName"></span>  办理名称：<span id="handleName"></span>  申请号：<span id="applyNo"></span></p>
 		</div>
 		<div class="easyui-panel" style="height:210px;border-top-width: 0px;">
 			<div style="width:50%;float:left;">
@@ -100,27 +100,27 @@
 					   			 	
 					   				<td><div class="datagrid-btn-separator"></div></td>
  					   			 	<td>
-					   			 		<a id="btn3" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-paint-brush'">标记投诉</a>
+					   			 		<a id="btn3" href="javascript:traceCtrl.markComplaint();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-paint-brush'">标记投诉</a>
 					   			 	</td>
 					   			 	<td><div class="datagrid-btn-separator"></div></td>
 					   			 	<td>
-					   			 		<a id="btn4" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-meh-o'">提示客户</a>
+					   			 		<a id="btn4" href="javascript:traceCtrl.remindCustomer();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-meh-o'">提示客户</a>
 					   			 	</td>
 					   			 	<td><div class="datagrid-btn-separator"></div></td>
 					   			 	<td>
-					   			 		<a id="btn5" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-fire'">标记异常</a>
+					   			 		<a id="btn5" href="javascript:traceCtrl.markAbnormal();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-fire'">标记异常</a>
 					   			 	</td>
 					   			 	<td><div class="datagrid-btn-separator"></div></td>
 					   			 	<td>
-					   			 		<a id="btn6" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-send mr-sm'">发快递</a>
+					   			 		<a id="btn6" href="javascript:traceCtrl.sendExpress();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-send mr-sm'">发快递</a>
 					   			 	</td>
 					   			 	<td><div class="datagrid-btn-separator"></div></td>
 					   			 	<td>
-					   			 		<a id="btn7" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-user-o'">帐号密码</a>
+					   			 		<a id="btn7" href="javascript:traceCtrl.setAccount();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-user-o'">帐号密码</a>
 					   			 	</td>
 					   			 	<td><div class="datagrid-btn-separator"></div></td>
 					   			 	<td>
-					   			 		<a id="btn8" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-file-o'">资质维护</a>
+					   			 		<a id="btn8" href="javascript:traceCtrl.setQualification();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-file-o'">资质维护</a>
 					   			 	</td>
 				   			 	</tr>
 			   			 	</tbody>

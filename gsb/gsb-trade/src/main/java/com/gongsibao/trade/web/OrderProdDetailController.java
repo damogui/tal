@@ -19,7 +19,8 @@ import com.gongsibao.entity.trade.OrderProdTrace;
 import com.gongsibao.entity.trade.OrderProdUserMap;
 import com.gongsibao.entity.trade.dic.OrderProdTraceOperatorType;
 import com.gongsibao.entity.trade.dic.OrderProdTraceType;
-import com.gongsibao.entity.trade.dic.OrderProdUserMapStatusType;
+import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
+import com.gongsibao.entity.trade.dic.OrderProdUserMapType;
 import com.gongsibao.product.base.IWorkflowNodeService;
 import com.gongsibao.supplier.base.ISalesmanService;
 import com.gongsibao.trade.base.IOrderProdService;
@@ -150,6 +151,20 @@ public class OrderProdDetailController {
 	}
 
 	/**
+	 * @Title: markComplaint
+	 * @Description: TODO(标记投诉)
+	 * @param: @param trace
+	 * @param: @param isFocus
+	 * @param: @return
+	 * @return: Boolean
+	 * @throws
+	 */
+	public Boolean markComplaint(OrderProdTrace trace, Boolean isFocus) {
+
+		return traceService.markComplaint(trace, isFocus);
+	}
+
+	/**
 	 * @Title: queryProdPrincipalList
 	 * @Description: TODO(查询负责人)
 	 * @param: @param orderProdId
@@ -218,7 +233,7 @@ public class OrderProdDetailController {
 	 */
 	public Boolean finishPrincipal(Integer orderProdStatusId) {
 
-		return prodUserMapService.updateStatus(orderProdStatusId, OrderProdUserMapStatusType.Cjfz, OrderProdUserMapStatusType.Zzfz);
+		return prodUserMapService.updateStatus(orderProdStatusId, OrderProdUserMapStatus.Cjfz, OrderProdUserMapStatus.Zzfz);
 	}
 
 	/**
@@ -236,7 +251,7 @@ public class OrderProdDetailController {
 			paging.setPageNo(pageIndex);
 			paging.setPageSize(pageSize);
 		}
-		
+
 		List<String> ss = new ArrayList<String>();
 		ss.add("salesman.name like '%" + keyWord + "%'");
 		ss.add("supplier.name like '%" + keyWord + "%'");
@@ -285,8 +300,8 @@ public class OrderProdDetailController {
 				orderProdUserMap.toNew();
 				orderProdUserMap.setOrderProdId(orderProdId);
 				orderProdUserMap.setPrincipalId(Integer.parseInt(principalId));
-				orderProdUserMap.setTypeId(3063);
-				orderProdUserMap.setStatus(OrderProdUserMapStatusType.Zzfz);
+				orderProdUserMap.setType(OrderProdUserMapType.Czy);
+				orderProdUserMap.setStatus(OrderProdUserMapStatus.Zzfz);
 			}
 			mapList.add(orderProdUserMap);
 		}

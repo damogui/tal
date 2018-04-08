@@ -62,5 +62,7 @@ com.gongsibao.trade.web.ProdMainCtrl = org.netsharp.panda.core.CustomCtrl.Extend
     	//办理名称
     	$("#handleName").text(data.handleName || '暂无');
     	
+    	//申请号
+       	$("#applyNo").text(data.applyNo || '暂无');
     }
 });

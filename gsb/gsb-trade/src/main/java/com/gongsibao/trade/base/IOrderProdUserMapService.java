@@ -6,7 +6,7 @@ import java.util.Map;
 import org.netsharp.base.IPersistableService;
 
 import com.gongsibao.entity.trade.OrderProdUserMap;
-import com.gongsibao.entity.trade.dic.OrderProdUserMapStatusType;
+import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
 
 public interface IOrderProdUserMapService extends IPersistableService<OrderProdUserMap> {
 
@@ -28,5 +28,5 @@ public interface IOrderProdUserMapService extends IPersistableService<OrderProdU
 	 * @return: Boolean      
 	 * @throws   
 	 */
-	Boolean updateStatus(Integer id, OrderProdUserMapStatusType newStatus, OrderProdUserMapStatusType oldStatus);
+	Boolean updateStatus(Integer id, OrderProdUserMapStatus newStatus, OrderProdUserMapStatus oldStatus);
 }

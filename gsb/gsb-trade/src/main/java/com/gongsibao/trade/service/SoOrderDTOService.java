@@ -24,7 +24,7 @@ import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
 import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
 import com.gongsibao.entity.trade.dic.OrderProdTraceType;
-import com.gongsibao.entity.trade.dic.OrderProdUserMapStatusType;
+import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapType;
 import com.gongsibao.entity.trade.dic.OrderRefundStatusType;
 import com.gongsibao.entity.trade.dic.OrderStatusType;
@@ -122,9 +122,9 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
         // 批量转移客户的最后一条跟进记录
         Map<Integer, String> lastInfoMap = orderProdTraceService.getLastInfoByOrderIdType(orderIdList, OrderProdTraceType.Ghywy.getValue());
         // 获取最后的【曾经跟进】的业务员
-        Map<Integer, String> lastOperatorMap = orderProdUserMapService.getLastOperatorByOrderIdsStatusType(orderIdList, OrderProdUserMapType.Ywy.getValue(), OrderProdUserMapStatusType.Cjfz.getValue());
+        Map<Integer, String> lastOperatorMap = orderProdUserMapService.getLastOperatorByOrderIdsStatusType(orderIdList, OrderProdUserMapType.Ywy.getValue(), OrderProdUserMapStatus.Cjfz.getValue());
         // 获取最后的【正在跟进】的业务员
-        Map<Integer, String> operatorMap = orderProdUserMapService.getLastOperatorByOrderIdsStatusType(orderIdList, OrderProdUserMapType.Ywy.getValue(), OrderProdUserMapStatusType.Zzfz.getValue());
+        Map<Integer, String> operatorMap = orderProdUserMapService.getLastOperatorByOrderIdsStatusType(orderIdList, OrderProdUserMapType.Ywy.getValue(), OrderProdUserMapStatus.Zzfz.getValue());
         // 根据订单id获取该订单对应的公司名称
         Map<Integer, String> companyByOrderIdListMap = companyIntentionService.getCompanyByOrderIdList(orderIdList);
         // 根据订单id获取该订单对应的客户名称
@@ -207,13 +207,13 @@ public class SoOrderDTOService extends PersistableService<SoOrderDTO> implements
 
         // 业务员
         if (!StringManager.isNullOrEmpty(mapFilters.get("operator"))) {
-            sql.append("LEFT JOIN so_order_prod_user_map odum ON odum.`order_prod_id` = od.`pkid` AND odum.type_id = " + OrderProdUserMapType.Ywy.getValue() + "  AND odum.status_id = " + OrderProdUserMapStatusType.Zzfz.getValue() + "  ");
+            sql.append("LEFT JOIN so_order_prod_user_map odum ON odum.`order_prod_id` = od.`pkid` AND odum.type_id = " + OrderProdUserMapType.Ywy.getValue() + "  AND odum.status_id = " + OrderProdUserMapStatus.Zzfz.getValue() + "  ");
             sql.append("LEFT JOIN uc_user u ON u.`pkid`=odum.`user_id`");
         }
 
         // 原业务员(最近的【曾经跟进】的跟进人)
         if (!StringManager.isNullOrEmpty(mapFilters.get("oldOperator"))) {
-            sql.append("LEFT JOIN (SELECT * FROM so_order_prod_user_map WHERE pkid IN(SELECT MAX(pkid) FROM so_order_prod_user_map WHERE status_id=" + OrderProdUserMapStatusType.Cjfz.getValue() + " AND type_id = " + OrderProdUserMapType.Ywy.getValue() + " GROUP BY order_prod_id)) odum1 ON odum1.`order_prod_id` = od.`pkid` ");
+            sql.append("LEFT JOIN (SELECT * FROM so_order_prod_user_map WHERE pkid IN(SELECT MAX(pkid) FROM so_order_prod_user_map WHERE status_id=" + OrderProdUserMapStatus.Cjfz.getValue() + " AND type_id = " + OrderProdUserMapType.Ywy.getValue() + " GROUP BY order_prod_id)) odum1 ON odum1.`order_prod_id` = od.`pkid` ");
             sql.append("LEFT JOIN uc_user u1 ON u1.`pkid`=odum1.`user_id` ");
         }
 

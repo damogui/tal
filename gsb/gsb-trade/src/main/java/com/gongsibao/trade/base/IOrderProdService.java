@@ -20,4 +20,14 @@ public interface IOrderProdService extends IPersistableService<OrderProd> {
 	List<OrderProd> queryByOrderId(Integer orderId);
 
     boolean updateSettleStatus(List<Integer> orderProdIds, SettleStatus settleStatus);
+    
+    /**   
+     * @Title: updateIsComplaint   
+     * @Description: TODO(标记为投诉)   
+     * @param: @param orderProdId
+     * @param: @return      
+     * @return: boolean      
+     * @throws   
+     */
+    boolean updateIsComplaint(Integer orderProdId);
 }

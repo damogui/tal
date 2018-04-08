@@ -6,8 +6,8 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.BaseEntity;
-import com.gongsibao.entity.bd.Dict;
-import com.gongsibao.entity.trade.dic.OrderProdUserMapStatusType;
+import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
+import com.gongsibao.entity.trade.dic.OrderProdUserMapType;
 
 @Table(name="so_order_prod_user_map")
 public class OrderProdUserMap extends BaseEntity {
@@ -22,7 +22,7 @@ public class OrderProdUserMap extends BaseEntity {
 //    private User user;
     
 	@Column(name="user_id",header="负责人")
-    private Integer principalId;
+    private Integer principalId = 0;
 	
     @Reference(foreignKey="principalId",header="负责人")
     private Employee principal;
@@ -32,17 +32,14 @@ public class OrderProdUserMap extends BaseEntity {
     
     @Reference(foreignKey="orderProdId",header="订单明细")
     private OrderProd orderProd;
-
-    @Column(name="type_id",header="人员类型")
-    private Integer typeId;
-//    业务：好像是销售人员 3061业务员
-//    操作：非销售人员，比如外勤和材料编写
+//  业务：好像是销售人员 3061业务员
+//  操作：非销售人员，比如外勤和材料编写
 //关系类型序号，type=306，3061业务、3062客服（关注）、3063操作
-    @Reference(foreignKey="typeId",header="人员类型")
-    private Dict type;
+    @Column(name="type_id",header="人员类型")
+    private OrderProdUserMapType type;
 
     @Column(name="status_id",header="办理状态")
-    private OrderProdUserMapStatusType status;
+    private OrderProdUserMapStatus status;
 
 //    public Integer getUserId() {
 //        return userId;
@@ -64,13 +61,6 @@ public class OrderProdUserMap extends BaseEntity {
     public void setOrderProdId(Integer orderProdId) {
         this.orderProdId = orderProdId;
     }
-    public Integer getTypeId() {
-        return typeId;
-    }
-    public void setTypeId(Integer typeId) {
-        this.typeId = typeId;
-    }
-
 
     public OrderProd getOrderProd() {
         return orderProd;
@@ -78,14 +68,6 @@ public class OrderProdUserMap extends BaseEntity {
 
     public void setOrderProd(OrderProd orderProd) {
         this.orderProd = orderProd;
-    }
-
-    public Dict getType() {
-        return type;
-    }
-
-    public void setType(Dict type) {
-        this.type = type;
     }
 
 	public Integer getPrincipalId() {
@@ -100,11 +82,17 @@ public class OrderProdUserMap extends BaseEntity {
 	public void setPrincipal(Employee principal) {
 		this.principal = principal;
 	}
-	public OrderProdUserMapStatusType getStatus() {
+	public OrderProdUserMapStatus getStatus() {
 		return status;
 	}
-	public void setStatus(OrderProdUserMapStatusType status) {
+	public void setStatus(OrderProdUserMapStatus status) {
 		this.status = status;
+	}
+	public OrderProdUserMapType getType() {
+		return type;
+	}
+	public void setType(OrderProdUserMapType type) {
+		this.type = type;
 	}
 	
 	
