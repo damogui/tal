@@ -1,8 +1,9 @@
-package com.gongsibao.igirl.service;
+package com.gongsibao.igirl.settle.service;
 
 import com.gongsibao.entity.igirl.settle.OrderProdCase;
 import com.gongsibao.entity.trade.dic.SettleStatus;
-import com.gongsibao.igirl.base.IOrderProdCaseService;
+import com.gongsibao.igirl.settle.base.IOrderProdCaseService;
+import com.gongsibao.taurus.util.StringManager;
 import com.gongsibao.trade.base.IOrderProdService;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
@@ -21,6 +22,21 @@ public class OrderProdCaseService extends PersistableService<OrderProdCase> impl
     public OrderProdCaseService() {
         super();
         this.type = OrderProdCase.class;
+    }
+
+    @Override
+    public List<OrderProdCase> byIds(List<Integer> ids) {
+        if (null == ids || ids.isEmpty()) {
+            return null;
+        }
+
+        Oql oql = new Oql();
+        {
+            oql.setType(OrderProdCase.class);
+            oql.setSelects("OrderProdCase.*, OrderProdCase.orderProd.* ");
+            oql.setFilter("id IN (" + StringManager.join(",", ids) + ") ");
+        }
+        return this.queryList(oql);
     }
 
     @Override

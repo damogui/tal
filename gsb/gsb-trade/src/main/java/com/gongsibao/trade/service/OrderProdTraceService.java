@@ -21,11 +21,14 @@ import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.entity.trade.OrderProdTrace;
 import com.gongsibao.entity.trade.OrderProdUserMap;
+import com.gongsibao.entity.trade.dic.OrderProdTraceOperatorType;
+import com.gongsibao.entity.trade.dic.OrderProdTraceType;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapType;
 import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IOrderProdTraceService;
 import com.gongsibao.trade.base.IOrderProdUserMapService;
+import com.gongsibao.trade.base.IOrderService;
 import com.gongsibao.utils.SmsHelper;
 
 @Service
@@ -157,6 +160,35 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
 
 		return entity;
 	}
+	
+	@Override
+	public Boolean remindCustomer(OrderProdTrace trace){
+		
+		trace.toNew();
+		trace.setTypeId(OrderProdTraceType.Tskf);
+		trace.setOperatorId(SessionManager.getUserId());
+		trace = this.save(trace);
+		
+        if (trace.getIsSendSms()) {
+            //发短信
+        	
+        	
+        	IOrderService orderService = ServiceFactory.create(IOrderService.class);
+            String mobile = orderService.getCustomerMobile(trace.getOrderId());
+            String smsString = "【公司宝】尊敬的公司宝用户您好：" + trace.getInfo() + "。如需帮助，请拨打服务热线：4006-798-999。";
+            //发送短信
+            new Thread() {
+                @Override
+                public void run() {
+                	
+                	SmsHelper.send(mobile, smsString);
+                }
+            }.start();
+        }
+        
+        return true;
+	}
+	
 
 	/**
 	 * @Title: updateOrderProdProcessStatus
@@ -205,7 +237,6 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
 	public Boolean markComplaint(OrderProdTrace trace, Boolean isFocus) {
 
 		trace = this.create(trace);
-		
 		IOrderProdUserMapService orderProdUserMapService = ServiceFactory.create(IOrderProdUserMapService.class);
 		if (trace.getIsSendSms()) {
 
@@ -268,6 +299,53 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
 		orderProdService.updateIsComplaint(trace.getOrderProdId());
 		return true;
 	}
+	
+
+	@Override
+	public Boolean markAbnormal(OrderProdTrace trace) {
+
+		//1.创建跟进记录
+		trace = this.create(trace);
+		
+		//2.更新跟进记录的操作类型(操作员情况下)
+//        Map<String, Object> userMap = new HashMap<>();
+//        userMap.put("orderProdId", soOrderProd.getPkid());
+//        userMap.put("userId", user.getUcUser().getPkid());
+//        List<SoOrderProdUserMap> soOrderProdUserMapList = soOrderProdUserMapService.findByProperties(new HashMap<>(), 0, 1);---老代码，看着好像没处理啥
+//        SoOrderProdUserMap soOrderProdUserMap = soOrderProdUserMapList.get(0);
+//        if (soOrderProdUserMap.getTypeId() == 3063) {
+//            soOrderProdTrace.setOperatorType(315201);
+//        } else if (soOrderProdUserMap.getTypeId() == 3061 || soOrderProdUserMap.getTypeId() == 3062) {
+//            soOrderProdTrace.setOperatorType(315202);
+//        } else {
+//            soOrderProdTrace.setOperatorType(0);
+        return true;
+	}
+
+	@Override
+	public Boolean remindPrincipal(Integer soOrderProdId, Integer orderProdStatusId, String principalName, String principalMobile, String orderNo, String info, Boolean isSendSms) {
+
+		// 1.添加跟进
+		OrderProdTrace trace = new OrderProdTrace();
+		trace.toNew();
+		trace.setOrderProdId(soOrderProdId);
+		trace.setOrderProdStatusId(orderProdStatusId);
+		trace.setOperatorType(OrderProdTraceOperatorType.Txfzr);
+		trace.setInfo(info);
+		trace.setIsSendSms(isSendSms);
+		trace.setTypeId(OrderProdTraceType.wu);
+		trace.setOperatorId(SessionManager.getUserId());
+		this.create(trace);
+
+		// 2.发送信息
+		if (isSendSms) {
+
+			String content = "【公司宝】" + principalName + "，您好！" + SessionManager.getUserName() + "给您发了一条订单（订单号：" + orderNo + "）提醒：" + info;
+			SmsHelper.send(principalMobile, content);
+		}
+		return true;
+	}
+
 }
 
 // 【admin】添加【admin】为负责人 admin 内容服务 2018-01-05 16:02:26

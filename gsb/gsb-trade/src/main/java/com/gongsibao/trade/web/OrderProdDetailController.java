@@ -17,16 +17,12 @@ import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.OrderProdTrace;
 import com.gongsibao.entity.trade.OrderProdUserMap;
-import com.gongsibao.entity.trade.dic.OrderProdTraceOperatorType;
-import com.gongsibao.entity.trade.dic.OrderProdTraceType;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
-import com.gongsibao.entity.trade.dic.OrderProdUserMapType;
 import com.gongsibao.product.base.IWorkflowNodeService;
 import com.gongsibao.supplier.base.ISalesmanService;
 import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IOrderProdTraceService;
 import com.gongsibao.trade.base.IOrderProdUserMapService;
-import com.gongsibao.utils.SmsHelper;
 
 public class OrderProdDetailController {
 
@@ -163,6 +159,33 @@ public class OrderProdDetailController {
 
 		return traceService.markComplaint(trace, isFocus);
 	}
+	
+	/**   
+	 * @Title: markAbnormal   
+	 * @Description: TODO(标记异常)   
+	 * @param: @param trace
+	 * @param: @return      
+	 * @return: Boolean      
+	 * @throws   
+	 */
+	public Boolean markAbnormal(OrderProdTrace trace) {
+
+		return traceService.markAbnormal(trace);
+	}
+	
+
+	/**   
+	 * @Title: remindPrincipal   
+	 * @Description: TODO(提醒客户)   
+	 * @param: @param trace
+	 * @param: @return      
+	 * @return: Boolean      
+	 * @throws   
+	 */
+	public Boolean remindPrincipal(OrderProdTrace trace){
+		
+		return traceService.remindCustomer(trace);
+	}
 
 	/**
 	 * @Title: queryProdPrincipalList
@@ -174,16 +197,7 @@ public class OrderProdDetailController {
 	 */
 	public List<OrderProdUserMap> queryProdPrincipalList(Integer orderProdId) {
 
-		Oql oql = new Oql();
-		{
-			oql.setType(OrderProdUserMap.class);
-			oql.setSelects("OrderProdUserMap.*,principal.{id,name,mobile}");
-			oql.setFilter("orderProdId=?");
-			oql.setOrderby("createTime DESC");
-			oql.getParameters().add("orderProdId", orderProdId, Types.INTEGER);
-		}
-		List<OrderProdUserMap> list = prodUserMapService.queryList(oql);
-		return list;
+		return prodUserMapService.queryProdPrincipalList(orderProdId);
 	}
 
 	/**
@@ -202,26 +216,9 @@ public class OrderProdDetailController {
 	 */
 	public Boolean remindPrincipal(Integer soOrderProdId, Integer orderProdStatusId, String principalName, String principalMobile, String orderNo, String info, Boolean isSendSms) {
 
-		// 1.添加跟进
-		OrderProdTrace trace = new OrderProdTrace();
-		trace.toNew();
-		trace.setOrderProdId(soOrderProdId);
-		trace.setOrderProdStatusId(orderProdStatusId);
-		trace.setOperatorType(OrderProdTraceOperatorType.Txfzr);
-		trace.setInfo(info);
-		trace.setIsSendSms(isSendSms);
-		trace.setTypeId(OrderProdTraceType.wu);
-		trace.setOperatorId(SessionManager.getUserId());
-		traceService.create(trace);
-
-		// 2.发送信息
-		if (isSendSms) {
-
-			String content = "【公司宝】" + principalName + "，您好！" + SessionManager.getUserName() + "给您发了一条订单（订单号：" + orderNo + "）提醒：" + info;
-			SmsHelper.send(principalMobile, content);
-		}
-		return true;
+		return traceService.remindPrincipal(soOrderProdId, orderProdStatusId, principalName, principalMobile, orderNo, info, isSendSms);
 	}
+	
 
 	/**
 	 * @Title: finishPrincipal
@@ -288,36 +285,6 @@ public class OrderProdDetailController {
 	 */
 	public Boolean addPrincipal(Integer orderProdId, String principalIds, String principalNames) {
 
-		String[] ss = principalIds.split(",");
-
-		// 1.创建负责人
-		OrderProdUserMap orderProdUserMap = null;
-		List<OrderProdUserMap> mapList = new ArrayList<OrderProdUserMap>();
-		for (String principalId : ss) {
-
-			orderProdUserMap = new OrderProdUserMap();
-			{
-				orderProdUserMap.toNew();
-				orderProdUserMap.setOrderProdId(orderProdId);
-				orderProdUserMap.setPrincipalId(Integer.parseInt(principalId));
-				orderProdUserMap.setType(OrderProdUserMapType.Czy);
-				orderProdUserMap.setStatus(OrderProdUserMapStatus.Zzfz);
-			}
-			mapList.add(orderProdUserMap);
-		}
-
-		prodUserMapService.saves(mapList);
-
-		// 2.添加跟进
-		OrderProdTrace trace = new OrderProdTrace();
-		trace.toNew();
-		trace.setOrderProdId(orderProdId);
-		trace.setTypeId(OrderProdTraceType.Txfzr);
-		trace.setInfo("【" + SessionManager.getUserName() + "】添加【" + principalNames + "】为负责人");
-		trace.setOperatorId(SessionManager.getUserId());
-		traceService.create(trace);
-
-		// 3.要发短信吗？
-		return true;
+		return prodUserMapService.addPrincipal(orderProdId, principalIds, principalNames);
 	}
 }

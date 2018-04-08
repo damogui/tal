@@ -28,7 +28,7 @@ import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.CostStatus;
 import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
 import com.gongsibao.entity.trade.dic.OrderSourceType;
-import com.gongsibao.igirl.base.IOrderProdCaseService;
+import com.gongsibao.igirl.settle.base.IOrderProdCaseService;
 import com.gongsibao.igirl.tm.base.*;
 import com.gongsibao.igirl.tm.service.builder.TradeMarkCaseAttachmentBuiler;
 import com.gongsibao.supplier.base.ISupplierService;
@@ -45,13 +45,11 @@ import org.apache.commons.collections.CollectionUtils;
 import org.joda.time.DateTime;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.BusinessException;
-import org.netsharp.core.EntityState;
-import org.netsharp.core.Oql;
-import org.netsharp.core.Paging;
+import org.netsharp.core.*;
 import org.netsharp.organization.base.IEmployeeService;
 import org.netsharp.organization.entity.Employee;
 import org.netsharp.persistence.session.SessionManager;
+import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
@@ -474,6 +472,8 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		return tradeMarkCase.getTmcState().getValue();
 	}
 
+
+
 	@Override
 	public int updateCaseState(String casecode,int state) {
 		// TODO Auto-generated method stub
@@ -493,7 +493,19 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		}
 	}
 
-    @Override
+	@Override
+	public boolean updateOrderCode(Integer caseId, String orderCode) {
+
+		UpdateBuilder builder = UpdateBuilder.getInstance();
+		{
+			builder.update(MtableManager.getMtable(this.type).getTableName());
+			builder.set("order_code", orderCode);
+			builder.where(" id = " + caseId);
+		}
+		return this.pm.executeNonQuery(builder.toSQL(), null) > 0;
+	}
+
+	@Override
     public ConvertToOrderResult convertToOrder(String caseid) {
         TradeMarkCase tradeMarkCase = byId(caseid);
         if (null == tradeMarkCase) {
@@ -572,6 +584,9 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
         // 订单信息关联方案回写
         List<OrderProdCase> orderProdCaseList = convertToOrderProdCaseList(tradeMarkCase, order);
         orderProdCaseService.saves(orderProdCaseList);
+
+        // 回写订单id
+		updateOrderCode(tradeMarkCase.getId(), order.getNo());
 
 		ConvertToOrderResult result = new ConvertToOrderResult(CaseConvertType.SUCCESS);
 		{
@@ -654,6 +669,9 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 				return new ConvertToOrderResult(CaseConvertType.ERROR_7);
 			}
 		}
+
+		// 回写订单id
+		updateOrderCode(tradeMarkCase.getId(), order.getNo());
 
 		// 返回正确结果
 		ConvertToOrderResult result = new ConvertToOrderResult(CaseConvertType.SUCCESS);
