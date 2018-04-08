@@ -33,10 +33,16 @@
 						    <div title="产品信息">   
 						          <table id="order_product_grid"></table>
 						    </div>   
-						    <div title="回款记录">   
-						         <table id="order_payment_grid"></table>
-						    </div>   
-						    <div title="退款记录">   
+						    <div title="订单业绩分配">
+						         <table id="order_per"></table>
+						    </div>
+                            <div title="回款记录">
+                                <table id="order_payment_grid"></table>
+                            </div>
+                            <div title="回款业绩记录">
+                                <table id="order_pay_per"></table>
+                            </div>
+                            <div title="退款记录">
 						         <table id="order_refund_grid"></table>
 						    </div>
 						    <div title="改价记录">   
