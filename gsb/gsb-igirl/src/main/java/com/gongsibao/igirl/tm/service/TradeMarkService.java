@@ -562,7 +562,7 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 	    	String name = row.getString("name");
 	    	sa.setName(name);
 	    	sa.setUrl(url);
-	    	if (!urlList.contains(url)) {
+	    	if (!urlList.contains(sa)) {
 	    		urlList.add(sa);
 	    	}
 	    }
