@@ -66,6 +66,19 @@ public interface IOrderProdTraceService extends IPersistableService<OrderProdTra
 	Boolean markComplaint(OrderProdTrace trace, Boolean isFocus);
 	
 	/**   
+	 * @Title: markAbnormal   
+	 * @Description: TODO(标记异常)   
+	 * @param: @param trace
+	 * @param: @param isFocus
+	 * @param: @return      
+	 * @return: Boolean      
+	 * @throws   
+	 */
+	@Transaction
+	Boolean markAbnormal(OrderProdTrace trace);
+	
+	
+	/**   
 	 * @Title: remindPrincipal   
 	 * @Description: TODO(提醒负责人)   
 	 * @param: @param soOrderProdId

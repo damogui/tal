@@ -299,6 +299,28 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
 		orderProdService.updateIsComplaint(trace.getOrderProdId());
 		return true;
 	}
+	
+
+	@Override
+	public Boolean markAbnormal(OrderProdTrace trace) {
+
+		//1.创建跟进记录
+		trace = this.create(trace);
+		
+		//2.更新跟进记录的操作类型(操作员情况下)
+//        Map<String, Object> userMap = new HashMap<>();
+//        userMap.put("orderProdId", soOrderProd.getPkid());
+//        userMap.put("userId", user.getUcUser().getPkid());
+//        List<SoOrderProdUserMap> soOrderProdUserMapList = soOrderProdUserMapService.findByProperties(new HashMap<>(), 0, 1);---老代码，看着好像没处理啥
+//        SoOrderProdUserMap soOrderProdUserMap = soOrderProdUserMapList.get(0);
+//        if (soOrderProdUserMap.getTypeId() == 3063) {
+//            soOrderProdTrace.setOperatorType(315201);
+//        } else if (soOrderProdUserMap.getTypeId() == 3061 || soOrderProdUserMap.getTypeId() == 3062) {
+//            soOrderProdTrace.setOperatorType(315202);
+//        } else {
+//            soOrderProdTrace.setOperatorType(0);
+        return true;
+	}
 
 	@Override
 	public Boolean remindPrincipal(Integer soOrderProdId, Integer orderProdStatusId, String principalName, String principalMobile, String orderNo, String info, Boolean isSendSms) {
@@ -323,6 +345,7 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
 		}
 		return true;
 	}
+
 }
 
 // 【admin】添加【admin】为负责人 admin 内容服务 2018-01-05 16:02:26

@@ -160,6 +160,19 @@ public class OrderProdDetailController {
 		return traceService.markComplaint(trace, isFocus);
 	}
 	
+	/**   
+	 * @Title: markAbnormal   
+	 * @Description: TODO(标记异常)   
+	 * @param: @param trace
+	 * @param: @return      
+	 * @return: Boolean      
+	 * @throws   
+	 */
+	public Boolean markAbnormal(OrderProdTrace trace) {
+
+		return traceService.markAbnormal(trace);
+	}
+	
 
 	/**   
 	 * @Title: remindPrincipal   
