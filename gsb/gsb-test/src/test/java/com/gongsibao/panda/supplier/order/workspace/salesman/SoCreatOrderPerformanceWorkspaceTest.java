@@ -121,12 +121,12 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
             formField.setReadonly (true);
 
         }
-        formField = addFormField (form, "customer.realName", "客户", groupName, ControlTypes.TEXT_BOX, false);
+        formField = addFormField (form, "accountName", "客户", groupName, ControlTypes.TEXT_BOX, false);
         {
             formField.setReadonly (true);
 
         }
-        formField = addFormField (form, "customer.mobile", "客户电话", groupName, ControlTypes.TEXT_BOX, false);
+        formField = addFormField (form, "accountMobile", "客户电话", groupName, ControlTypes.TEXT_BOX, false);
         {
             formField.setReadonly (true);
 
