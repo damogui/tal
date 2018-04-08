@@ -1,6 +1,7 @@
 /build/
 /.gradle
 /.settings
+/.classpath
 .idea
 /gsb-bd/.settings
 /gsb-cms/.settings

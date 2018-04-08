@@ -15,19 +15,13 @@ repositories {
 }
 
 dependencies {
-    compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
 
     compile project(':gsb-entity')
-    compile project(':gsb-taurus')
     compile project(':gsb-igirl')
-    compile project(':gsb-ma')
-    compile project(':gsb-taurus-sdk')
-    compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-grizzly2-servlet', version: '2.13'
-    compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet-core', version: '2.13'//javax.ws.rs
-    compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.0.1'
-    compile group:'org.glassfish.jersey.containers',name:'jersey-container-grizzly2-http',version:'2.17'
-    compile group:'org.glassfish.jersey.media',name:'jersey-media-json-jackson',version:'2.17'
-    //compile group:'org.codehaus.jackson',name:'jackson-jaxrs',version:'1.9.13'
+    
+	compile group:'org.springframework.boot',name:'spring-boot-starter',version:'2.0.1.RELEASE'
+	compile group:'org.springframework.boot',name:'spring-boot-starter-web',version:'2.0.1.RELEASE'
+	    
 }
 
 test {
