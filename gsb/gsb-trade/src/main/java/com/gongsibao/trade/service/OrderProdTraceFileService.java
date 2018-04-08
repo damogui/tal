@@ -7,6 +7,7 @@ import org.netsharp.communication.Service;
 import org.netsharp.core.Oql;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.StringManager;
+import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.entity.trade.OrderProdTraceFile;
 import com.gongsibao.trade.base.IOrderProdTraceFileService;
@@ -35,5 +36,38 @@ public class OrderProdTraceFileService extends PersistableService<OrderProdTrace
 			idList.add(file.getFileId());
 		}
 		return idList;
+	}
+
+	@Override
+	public List<OrderProdTraceFile> queryOrderProdTraceFiles(Integer orderProdId) {
+
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects("OrderProdTraceFile.*,file.*");
+			oql.setFilter("order_prod_trace_id in (select pkid from so_order_prod_trace where order_prod_id = " + orderProdId + ")");
+			oql.setOrderby(" isTop DESC");
+		}
+		return this.queryList(oql);
+	}
+
+	@Override
+	public Boolean topTraceFile(Integer orderProdId, Integer traceFileId) {
+		
+		UpdateBuilder updateSql = UpdateBuilder.getInstance();
+		{
+			updateSql.update("so_order_prod_trace_file");
+			updateSql.set("is_top", 0);
+			updateSql.where("order_prod_trace_id in (select pkid from so_order_prod_trace where order_prod_id = " + orderProdId + ")");
+		}
+		this.pm.executeNonQuery(updateSql.toSQL(), null);
+		
+		updateSql = UpdateBuilder.getInstance();
+		{
+			updateSql.update("so_order_prod_trace_file");
+			updateSql.set("is_top", 1);
+			updateSql.where("pkid =" + traceFileId);
+		}
+		return this.pm.executeNonQuery(updateSql.toSQL(), null) > 0;
 	}
 }

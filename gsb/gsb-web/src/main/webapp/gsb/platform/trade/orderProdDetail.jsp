@@ -62,6 +62,43 @@
 			
 			min-width: 150px;
 		}
+		
+		.file-preview-item{
+			float:left;
+			width:250px;
+			margin:15px;
+		}
+		
+		.file-preview-item p{
+		
+			margin:5px 0;
+		}
+		
+		.btn_top{
+		
+			position: absolute; 
+			left: 0px; 
+			top: 0px;
+			border-radius: 3px;
+			padding:4px 12px;
+			cursor: pointer;
+			color:transparent;
+		}
+		
+		.btn_top:hover{
+		    color: #fff;
+    		background-color: #1E7CB5;
+		}
+		
+		.file-preview-item img{
+			width:250px;
+			height:150px;
+			border: 1px solid #eee;
+		}
+		
+		.file-preview-item img:hover{
+			border: 1px solid #1E7CB5;
+		}
 	</style>
 	<script src='/package/easyui/jquery.min.js'></script>
 	<script src='/package/layer/layer.js'></script>
@@ -231,7 +268,8 @@
 		       </p>
 		    </div>
 		    <div title="材料预览">   
-		       
+		       <div id="file_preview_panel" style="width:100%;">
+		       </div>
 		    </div>
 <!--  		    <div title="自动进度">   
 		         <table id="order_prod_trail_grid">7</table>
@@ -245,6 +283,7 @@
 	var traceCtrl = null;
 	var principalCtrl = null;
 	var companyCtrl = null;
+	var filePreviewCtrl = null;
  	$(function(){
 		
  		prodMainCtrl = new com.gongsibao.trade.web.ProdMainCtrl();

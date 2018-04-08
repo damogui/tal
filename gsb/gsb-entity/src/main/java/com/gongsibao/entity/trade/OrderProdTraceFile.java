@@ -1,9 +1,11 @@
 package com.gongsibao.entity.trade;
 
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.bd.File;
 
 @Table(name="so_order_prod_trace_file")
 public class OrderProdTraceFile extends BaseEntity {
@@ -21,6 +23,9 @@ public class OrderProdTraceFile extends BaseEntity {
     
     @Column(name="file_id",header="上传材料序号")
     private Integer fileId;
+    
+	@Reference(foreignKey = "fileId", header = "上传材料")
+	private File file;
     
     @Column(name="is_new",header="上传材料是否最新(1:最新;2:历史)")
     private Integer isNew;
@@ -82,4 +87,10 @@ public class OrderProdTraceFile extends BaseEntity {
     public void setIsTop(Integer isTop) {
         this.isTop = isTop;
     }
+	public File getFile() {
+		return file;
+	}
+	public void setFile(File file) {
+		this.file = file;
+	}
 }
