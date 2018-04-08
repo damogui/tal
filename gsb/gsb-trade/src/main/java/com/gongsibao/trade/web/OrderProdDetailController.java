@@ -44,6 +44,34 @@ public class OrderProdDetailController {
 	}
 
 	/**
+	 * @Title: editApplyNo
+	 * @Description: TODO(编辑申请号)
+	 * @param: @param orderProdId
+	 * @param: @param applyNo
+	 * @param: @return
+	 * @return: Boolean
+	 * @throws
+	 */
+	public Boolean editApplyNo(Integer orderProdId, String applyNo) {
+
+		return orderProdService.editApplyNo(orderProdId, applyNo);
+	}
+
+	/**
+	 * @Title: editHandleName
+	 * @Description: TODO(编辑办理名称)
+	 * @param: @param orderProdId
+	 * @param: @param handleName
+	 * @param: @return
+	 * @return: Boolean
+	 * @throws
+	 */
+	public Boolean editHandleName(Integer orderProdId, String handleName) {
+
+		return orderProdService.editHandleName(orderProdId, handleName);
+	}
+
+	/**
 	 * @Title: getLoginUserId
 	 * @Description: TODO(获取当前登录人Id)
 	 * @param: @return
@@ -142,6 +170,11 @@ public class OrderProdDetailController {
 	 */
 	public Boolean updateProcessStatus(OrderProdTrace trace) {
 
+		return traceService.updateProcessStatus(trace);
+	}
+
+	public Boolean remark(OrderProdTrace trace) {
+
 		traceService.create(trace);
 		return true;
 	}
@@ -159,32 +192,44 @@ public class OrderProdDetailController {
 
 		return traceService.markComplaint(trace, isFocus);
 	}
-	
-	/**   
-	 * @Title: markAbnormal   
-	 * @Description: TODO(标记异常)   
+
+	/**
+	 * @Title: markAbnormal
+	 * @Description: TODO(标记异常)
 	 * @param: @param trace
-	 * @param: @return      
-	 * @return: Boolean      
-	 * @throws   
+	 * @param: @return
+	 * @return: Boolean
+	 * @throws
 	 */
 	public Boolean markAbnormal(OrderProdTrace trace) {
 
 		return traceService.markAbnormal(trace);
 	}
-	
 
-	/**   
-	 * @Title: remindPrincipal   
-	 * @Description: TODO(提醒客户)   
+	/**
+	 * @Title: remindPrincipal
+	 * @Description: TODO(提醒客户)
 	 * @param: @param trace
-	 * @param: @return      
-	 * @return: Boolean      
-	 * @throws   
+	 * @param: @return
+	 * @return: Boolean
+	 * @throws
 	 */
-	public Boolean remindPrincipal(OrderProdTrace trace){
-		
+	public Boolean remindPrincipal(OrderProdTrace trace) {
+
 		return traceService.remindCustomer(trace);
+	}
+
+	/**
+	 * @Title: sendExpress
+	 * @Description: TODO(发快递)
+	 * @param: @param trace
+	 * @param: @return
+	 * @return: Boolean
+	 * @throws
+	 */
+	public Boolean sendExpress(OrderProdTrace trace) {
+
+		return traceService.sendExpress(trace);
 	}
 
 	/**
@@ -218,7 +263,6 @@ public class OrderProdDetailController {
 
 		return traceService.remindPrincipal(soOrderProdId, orderProdStatusId, principalName, principalMobile, orderNo, info, isSendSms);
 	}
-	
 
 	/**
 	 * @Title: finishPrincipal

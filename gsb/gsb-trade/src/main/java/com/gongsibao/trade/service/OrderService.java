@@ -109,6 +109,10 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
 
     @Override
     public SoOrder getByOrderNo(String orderNo) {
+        if (StringManager.isNullOrEmpty(orderNo)) {
+            return null;
+        }
+
         Oql oql = new Oql ();
         {
             oql.setType (this.type);

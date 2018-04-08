@@ -7,8 +7,11 @@ import com.gongsibao.taurus.util.StringManager;
 import com.gongsibao.trade.base.IOrderProdService;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.MtableManager;
 import org.netsharp.core.Oql;
+import org.netsharp.core.QueryParameters;
 import org.netsharp.service.PersistableService;
+import org.netsharp.util.sqlbuilder.DeleteBuilder;
 
 import java.sql.Types;
 import java.util.ArrayList;
@@ -81,4 +84,16 @@ public class OrderProdCaseService extends PersistableService<OrderProdCase> impl
 
         return orderProdService.updateSettleStatus(orderProdIds, SettleStatus.NO_SETTLEMENT);
     }
+
+    @Override
+    public boolean deleteByCaseId(Integer caseId) {
+        DeleteBuilder deleteBuilder = DeleteBuilder.getInstance();
+        {
+            deleteBuilder.deleteFrom(MtableManager.getMtable(this.type).getTableName());
+            deleteBuilder.where(" case_id = " + caseId);
+        }
+        return this.pm.executeNonQuery(deleteBuilder.toSQL(), null) > 0;
+    }
+
+
 }

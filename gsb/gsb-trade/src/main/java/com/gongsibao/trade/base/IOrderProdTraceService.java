@@ -42,6 +42,17 @@ public interface IOrderProdTraceService extends IPersistableService<OrderProdTra
 	OrderProdTrace create(OrderProdTrace entity);
 	
 	/**   
+	 * @Title: updateProcessStatus   
+	 * @Description: TODO(更新状态)   
+	 * @param: @param trace
+	 * @param: @return      
+	 * @return: Boolean      
+	 * @throws   
+	 */
+	@Transaction
+	Boolean updateProcessStatus(OrderProdTrace trace);
+	
+	/**   
 	 * @Title: remindCustomer   
 	 * @Description: TODO(提醒客户)   
 	 * @param: @param trace
@@ -51,6 +62,18 @@ public interface IOrderProdTraceService extends IPersistableService<OrderProdTra
 	 */
 	@Transaction
 	Boolean remindCustomer(OrderProdTrace trace);
+	
+	
+	/**   
+	 * @Title: sendExpress   
+	 * @Description: TODO(发快递)   
+	 * @param: @param trace
+	 * @param: @return      
+	 * @return: Boolean      
+	 * @throws   
+	 */
+	@Transaction
+	Boolean sendExpress(OrderProdTrace trace);
 	
 	
 	/**   

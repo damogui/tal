@@ -28,8 +28,8 @@ public class WorkflowNodeService extends PersistableService<WorkflowNode> implem
 		sqlBuilder.append("SELECT MAX(version) as version FROM prod_workflow_node WHERE ");
 		sqlBuilder.append("workflow_id IN ( ");
 		sqlBuilder.append("SELECT w.pkid FROM prod_workflow w ");
-		sqlBuilder.append("LEFT JOIN prod_workflow_bd_dict_map m ON w.pkid = m.workflow_id where w.is_enabled = 1");
-		sqlBuilder.append("WHERE w.product_id = ? AND m.city_id = ? )");
+		sqlBuilder.append("LEFT JOIN prod_workflow_bd_dict_map m ON w.pkid = m.workflow_id where w.is_enabled = 1 ");
+		sqlBuilder.append("and w.product_id = ? AND m.city_id = ? )");
 		QueryParameters qps = new QueryParameters();
 		{
 			qps.add("prodId", prodId, Types.INTEGER);
@@ -37,7 +37,7 @@ public class WorkflowNodeService extends PersistableService<WorkflowNode> implem
 		}
 		DataTable dataTable = this.pm.executeTable(sqlBuilder.toString(), qps);
 
-		Integer version = null;
+		Integer version = null;;
 		try {
 			for (IRow row : dataTable) {
 
