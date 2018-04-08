@@ -34,6 +34,7 @@ import com.gongsibao.igirl.tm.base.IDownloadAttachmentService;
 import com.gongsibao.igirl.tm.base.IGirlRobotService;
 import com.gongsibao.igirl.tm.base.ITradeMarkService;
 import com.gongsibao.igirl.tm.base.IUploadAttachmentService;
+import com.gongsibao.igirl.tm.dto.SysAttachmentDto;
 import com.gongsibao.igirl.tm.dto.TradeMark.Goods;
 import com.gongsibao.igirl.tm.dto.TradeMark.Step1;
 import com.gongsibao.igirl.tm.dto.TradeMark.Step2;
@@ -550,15 +551,19 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 	}
 
 	@Override
-	public List<String> findUrlById(int caseId) {
+	public List<SysAttachmentDto> findUrlById(int caseId) {
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT path FROM sys_attachment WHERE foreign_key ="+caseId+" and entity_id = 'com.gongsibao.entity.igirl.tm.TradeMark'");
+		sql.append("SELECT name,path FROM sys_attachment WHERE foreign_key ="+caseId+" and entity_id = 'com.gongsibao.entity.igirl.tm.TradeMark'");
 	    DataTable dataTable = this.pm.executeTable(sql.toString(), null);
-	    List<String> urlList = new ArrayList(); 
+	    List<SysAttachmentDto> urlList = new ArrayList<SysAttachmentDto>(); 
 	    for (IRow row : dataTable) {
+	    	SysAttachmentDto sa =new SysAttachmentDto();
 	    	String url = row.getString("path");
+	    	String name = row.getString("name");
+	    	sa.setName(name);
+	    	sa.setUrl(url);
 	    	if (!urlList.contains(url)) {
-	    		urlList.add(url);
+	    		urlList.add(sa);
 	    	}
 	    }
 
