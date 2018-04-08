@@ -30,7 +30,7 @@ public class PerformanceWorkspaceTest extends SalesmanOrderPerformanceWorspaceTe
         {
             toolbar.toNew ();
             toolbar.setPath (listrowToolbarPath);
-            toolbar.setName ("回款查看");
+            toolbar.setName ("订单业绩查看");
             toolbar.setResourceNode (node);
             toolbar.setToolbarType (ToolbarType.BASE);
         }

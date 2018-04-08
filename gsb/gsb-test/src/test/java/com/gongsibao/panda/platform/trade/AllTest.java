@@ -1,6 +1,7 @@
 package com.gongsibao.panda.platform.trade;
 
 import com.gongsibao.panda.platform.trade.workspace.audit.*;
+import com.gongsibao.panda.platform.trade.workspace.order.*;
 import com.gongsibao.panda.supplier.order.workspace.audit.AuditContractFormWorkspaceTest;
 import com.gongsibao.panda.supplier.order.workspace.audit.AuditInvoiceFormWorkspaceTest;
 import org.junit.runner.RunWith;
@@ -8,23 +9,6 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import com.gongsibao.panda.platform.trade.workspace.audit.StagingAuditWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.AllOrderWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.CarryoverWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.ContractFormWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.ContractWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.InvoiceFormWorKspace;
-import com.gongsibao.panda.platform.trade.workspace.order.InvoiceWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.MyOrderWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.OrderALLWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.OrderOperationWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.OrderPoolWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.PerformanceWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.ReceivedWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.RefundWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.ReportDayWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.ReportMonthWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.ReportWeekWorkspaceTest;
-import com.gongsibao.panda.platform.trade.workspace.order.StagingWorkspaceTest;
 import com.gongsibao.panda.platform.trade.workspace.payment.PaymentLogWorkspaceTest;
 
 
@@ -48,6 +32,7 @@ import com.gongsibao.panda.platform.trade.workspace.payment.PaymentLogWorkspaceT
         ContractWorkspaceTest.class,
         InvoiceWorkspaceTest.class,
         PerformanceWorkspaceTest.class,
+        PayWorkspaceTest.class,
         ReceivedWorkspaceTest.class,
         RefundWorkspaceTest.class,
         StagingWorkspaceTest.class,
@@ -55,7 +40,7 @@ import com.gongsibao.panda.platform.trade.workspace.payment.PaymentLogWorkspaceT
         ReportWeekWorkspaceTest.class,
         ReportMonthWorkspaceTest.class,
     /*//订单操作:操作订单池,我负责的订单,订单审核,订单流量监控
-	OperationOrderPoolWorkspaceTest.class,
+    OperationOrderPoolWorkspaceTest.class,
 	MyResponsibleOrderWorkspaceTest.class,
 	OrderAuditWorkspaceTest.class,
 	OrderMonitoringWorkspaceTest.class,*/
