@@ -169,7 +169,7 @@
 		    </div>
 		    <div title="客户信息">
 			      <table cellpadding="3" cellspacing="0" class="form-panel" style="margin:10px;">
-				      <tr>
+				    <tr>
 				          <td class="label_td"><label>联系人姓名：</label></td>
 				          <td class="control_td" id="customer_name"></td>
 				          <td class="label_td"><label>联系人手机：</label></td>
@@ -179,7 +179,7 @@
 				   </tr>
 				      <tr>
 				          <td class="label_td"><label>固定电话：</label></td>
-				          <td class="control_td" id="customer_tel"></td>
+				          <td class="control_td" id="customer_telephone"></td>
 				          <td class="label_td"><label>QQ：</label></td>
 				          <td class="control_td" id="customer_qq"></td>
 				          <td class="label_td"><label>邮箱：</label></td>
@@ -188,7 +188,7 @@
 				   <tr>
 				          <td class="label_td"><label>收货地址：</label></td>
 				          <td colspan="5" class="control_td" id="customer_address"></td>
-					</tr>
+				   </tr>
 				</table>
 		    </div>  
 		    <div title="企业信息">

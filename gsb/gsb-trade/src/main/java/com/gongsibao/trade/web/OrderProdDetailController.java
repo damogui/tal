@@ -12,6 +12,7 @@ import org.netsharp.panda.commerce.EasyuiDatagridResult;
 import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.util.StringManager;
 
+import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.product.WorkflowNode;
 import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.trade.OrderProd;
@@ -23,9 +24,11 @@ import com.gongsibao.supplier.base.ISalesmanService;
 import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IOrderProdTraceService;
 import com.gongsibao.trade.base.IOrderProdUserMapService;
+import com.gongsibao.trade.base.IOrderService;
 
 public class OrderProdDetailController {
 
+	IOrderService orderService = ServiceFactory.create(IOrderService.class);
 	IOrderProdService orderProdService = ServiceFactory.create(IOrderProdService.class);
 	IOrderProdTraceService traceService = ServiceFactory.create(IOrderProdTraceService.class);
 	IOrderProdUserMapService prodUserMapService = ServiceFactory.create(IOrderProdUserMapService.class);
@@ -330,5 +333,18 @@ public class OrderProdDetailController {
 	public Boolean addPrincipal(Integer orderProdId, String principalIds, String principalNames) {
 
 		return prodUserMapService.addPrincipal(orderProdId, principalIds, principalNames);
+	}
+	
+	/**   
+	 * @Title: getCustomerByOrderId   
+	 * @Description: TODO(根据订单Id获取NCustomer)   
+	 * @param: @param orderId
+	 * @param: @return      
+	 * @return: NCustomer      
+	 * @throws   
+	 */
+	public NCustomer getCustomerByOrderId(Integer orderId){
+		
+		return orderService.getCustomerByOrderId(orderId);
 	}
 }

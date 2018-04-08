@@ -41,42 +41,42 @@ com.gongsibao.trade.web.ProdMainCtrl = org.netsharp.panda.core.CustomCtrl.Extend
 		    	if(title=='材料信息'){
 		    		
 			    	var fileCtrl = new com.gongsibao.trade.web.FileCtrl();
-			    	principalCtrl.mainCtrl = me;
+			    	fileCtrl.mainCtrl = me;
 			    	fileCtrl.init(me.orderProdId);
 			    	me.initializeDetailList.add(title,fileCtrl);
 			    	
 		    	}else if(title=='订单信息'){
 		    		
 			    	var orderCtrl = new com.gongsibao.trade.web.OrderCtrl();
-			    	principalCtrl.mainCtrl = me;
+			    	orderCtrl.mainCtrl = me;
 			    	orderCtrl.init(me.orderProdId);
 			    	me.initializeDetailList.add(title,orderCtrl);
 
 		    	}else if(title=='客户信息'){
 		    		
 			    	var customerCtrl = new com.gongsibao.trade.web.CustomerCtrl();
-			    	principalCtrl.mainCtrl = me;
+			    	customerCtrl.mainCtrl = me;
 			    	customerCtrl.init(me.orderProdId);
 			    	me.initializeDetailList.add(title,customerCtrl);
 			    	
 		    	}else if(title=='企业信息'){
 
 			    	var companyCtrl = new com.gongsibao.trade.web.CompanyCtrl();
-			    	principalCtrl.mainCtrl = me;
+			    	companyCtrl.mainCtrl = me;
 			    	companyCtrl.init(me.orderProdId);
 			    	me.initializeDetailList.add(title,companyCtrl);
 			    	
 		    	}else if(title=='材料预览'){
 
 			    	var filePreviewCtrl = new com.gongsibao.trade.web.FilePreviewCtrl();
-			    	principalCtrl.mainCtrl = me;
+			    	filePreviewCtrl.mainCtrl = me;
 			    	filePreviewCtrl.init(me.orderProdId);
 			    	me.initializeDetailList.add(title,filePreviewCtrl);
 			    	
 		    	}else if(title=='自动进度'){
 
 			    	var trailCtrl = new com.gongsibao.trade.web.TrailCtrl();
-			    	principalCtrl.mainCtrl = me;
+			    	trailCtrl.mainCtrl = me;
 			    	trailCtrl.init(me.orderProdId);
 			    	me.initializeDetailList.add(title,trailCtrl);
 		    	}
@@ -110,19 +110,19 @@ com.gongsibao.trade.web.ProdMainCtrl = org.netsharp.panda.core.CustomCtrl.Extend
     	$("#orderProdNo").text(data.orderId);
     	
     	//公司名称
-    	var companyName = data.companyIntention != null ? data.companyIntention.name :'暂无';
+    	var companyName = data.companyIntention != null ? data.companyIntention.name :'-';
     	$("#companyName").text(companyName);
     	
     	//办理名称
-    	$("#handleName").text(data.handleName || '暂无');
+    	$("#handleName").text(data.handleName || '-');
     	
     	//申请号
-       	$("#applyNo").text(data.applyNo || '暂无');
+       	$("#applyNo").text(data.applyNo || '-');
        	
        	
        	if(data.processStatus){
        		
-       		$("#processStatus").text(data.processStatus.name || '暂无');
+       		$("#processStatus").text(data.processStatus.name || '-');
        	}
        	
        	//已经进行天数是怎么计算的？ hw
