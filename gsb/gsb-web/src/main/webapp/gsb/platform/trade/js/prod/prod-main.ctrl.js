@@ -61,7 +61,7 @@ com.gongsibao.trade.web.ProdMainCtrl = org.netsharp.panda.core.CustomCtrl.Extend
 			    	
 		    	}else if(title=='企业信息'){
 
-			    	var companyCtrl = new com.gongsibao.trade.web.CompanyCtrl();
+			    	companyCtrl = new com.gongsibao.trade.web.CompanyCtrl();
 			    	companyCtrl.mainCtrl = me;
 			    	companyCtrl.init(me.orderProdId);
 			    	me.initializeDetailList.add(title,companyCtrl);

@@ -102,36 +102,35 @@
 
 		   			 <div class="toolbar" style="border-bottom: 1px solid #eee;border-top-width:0px;background-color: #fff;">
 		   			 	<table cellspacing="0" cellpadding="0">
-			   			 	<tbody>
-				   			 	<tr>
+			   			 	<tr>
+				   			 	<td>
+	   								<a id="btn_processStatus" href="javascript:traceCtrl.updateProcessStatus();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-refresh'">更改状态</a>
+				   			 	</td>
+				   			 	<td><div class="datagrid-btn-separator"></div></td>
+				   			 	<td>
+				   			 		<a id="btn_remark" href="javascript:traceCtrl.remark();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-edit'">备注</a>
+				   			 	</td>
+				   			 	<td><div class="datagrid-btn-separator"></div></td>
+				   			 	<td>
+	   								<a id="btn_upload" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-cloud-upload'">上传</a>
+				   			 	</td>
+				   			 	
+				   				<td><div class="datagrid-btn-separator"></div></td>
 					   			 	<td>
-		   								<a id="btn_processStatus" href="javascript:traceCtrl.updateProcessStatus();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-refresh'">更改状态</a>
-					   			 	</td>
-					   			 	<td><div class="datagrid-btn-separator"></div></td>
-					   			 	<td>
-					   			 		<a id="btn_remark" href="javascript:traceCtrl.remark();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-edit'">备注</a>
-					   			 	</td>
-					   			 	<td><div class="datagrid-btn-separator"></div></td>
-					   			 	<td>
-		   								<a id="btn_upload" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-cloud-upload'">上传</a>
-					   			 	</td>
-					   			 	
-					   				<td><div class="datagrid-btn-separator"></div></td>
- 					   			 	<td>
-					   			 		<a id="btn3" href="javascript:traceCtrl.markComplaint();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-paint-brush'">标记投诉</a>
-					   			 	</td>
-					   			 	<td><div class="datagrid-btn-separator"></div></td>
-					   			 	<td>
-					   			 		<a id="btn4" href="javascript:traceCtrl.remindCustomer();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-meh-o'">提示客户</a>
-					   			 	</td>
-					   			 	<td><div class="datagrid-btn-separator"></div></td>
-					   			 	<td>
-					   			 		<a id="btn5" href="javascript:traceCtrl.markAbnormal();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-fire'">标记异常</a>
-					   			 	</td>
-					   			 	<td><div class="datagrid-btn-separator"></div></td>
-					   			 	<td>
-					   			 		<a id="btn6" href="javascript:traceCtrl.sendExpress();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-send mr-sm'">发快递</a>
-					   			 	</td>
+				   			 		<a id="btn3" href="javascript:traceCtrl.markComplaint();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-paint-brush'">标记投诉</a>
+				   			 	</td>
+				   			 	<td><div class="datagrid-btn-separator"></div></td>
+				   			 	<td>
+				   			 		<a id="btn4" href="javascript:traceCtrl.remindCustomer();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-meh-o'">提示客户</a>
+				   			 	</td>
+				   			 	<td><div class="datagrid-btn-separator"></div></td>
+				   			 	<td>
+				   			 		<a id="btn5" href="javascript:traceCtrl.markAbnormal();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-fire'">标记异常</a>
+				   			 	</td>
+				   			 	<td><div class="datagrid-btn-separator"></div></td>
+				   			 	<td>
+				   			 		<a id="btn6" href="javascript:traceCtrl.sendExpress();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-send mr-sm'">发快递</a>
+				   			 	</td>
 <!--					   			 	<td><div class="datagrid-btn-separator"></div></td>
  					   			 	<td>
 					   			 		<a id="btn7" href="javascript:traceCtrl.setAccount();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-user-o'">帐号密码</a>
@@ -140,8 +139,7 @@
 					   			 	<td>
 					   			 		<a id="btn8" href="javascript:traceCtrl.setQualification();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-file-o'">资质维护</a>
 					   			 	</td> -->
-				   			 	</tr>
-			   			 	</tbody>
+			   			 	</tr>
 		   			 	</table>
 		   			</div>
 		   			<div style="padding-left:30px;height: 162px;background-color: #fff;">
@@ -192,7 +190,15 @@
 				</table>
 		    </div>  
 		    <div title="企业信息">
-		       <p style="padding-left:30px;">订单明细（产品）关联公司：无</p>
+		        <div class="toolbar" style="border-bottom: 1px solid #eee;border-top-width:0px;border-top: 1px solid #eee;background-color: #fff;">
+		       		<a id="btn_add_relevance_company" href="javascript:companyCtrl.addRelevanceCompany();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-plus'">添加关联公司</a>
+		       		<a id="btn_edit_company" href="javascript:companyCtrl.editCompany();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-edit'">编辑公司信息</a>
+		       		<a id="btn_cancel_relevance_company" href="javascript:companyCtrl.cancelRelevanceCompany();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-trash-o'">取消关联<span style="color:red;">(慎用)</span></a>
+		        </div>
+		       <p style="padding-left:30px;">
+		       
+		       		订单明细（产品）关联公司：<span id="relevance_companyName"></span>
+		       </p>
 		    </div>
 		    <div title="材料预览">   
 		       
@@ -208,6 +214,7 @@
 	var prodMainCtrl = null;
 	var traceCtrl = null;
 	var principalCtrl = null;
+	var companyCtrl = null;
  	$(function(){
 		
  		prodMainCtrl = new com.gongsibao.trade.web.ProdMainCtrl();

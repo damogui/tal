@@ -56,13 +56,13 @@ public class CompanyIntention extends BaseEntity {
     private String orderContactEmail;
     
     @Column(name="setup_status",header="设立状态(0.未设立;1.设立)")
-    private Integer setupStatus;
+    private Boolean setupStatus;
     
     @Column(name="city_id",header="省市区序号")
     private Integer cityId;
     
     @Column(name="is_self_address",header="是否自有地址（1是、2否(收费地址)、3否(免费地址)、4否(全部地址)）")
-    private Integer isSelfAddress;
+    private Boolean isSelfAddress;
     
     @Column(name="address",header="地址")
     private String address;
@@ -77,13 +77,13 @@ public class CompanyIntention extends BaseEntity {
     private RegisterCapitalType registerCapitalType;
     
     @Column(name="is_self_capital",header="是否自有资金（0否，1是）")
-    private Integer isSelfCapital;
+    private Boolean isSelfCapital;
     
     @Column(name="is_express",header="是否快递结果材料")
-    private Integer isExpress;
+    private Boolean isExpress;
     
     @Column(name="is_name_verify",header="是否已核名")
-    private Integer isNameVerify;
+    private Boolean isNameVerify;
     
     @Column(name="name_verify_file_id",header="核名材料文件ID")
     private Integer nameVerifyFileId;
@@ -290,11 +290,11 @@ public class CompanyIntention extends BaseEntity {
 		this.orderContactEmail = orderContactEmail;
 	}
 
-	public Integer getSetupStatus() {
+	public Boolean getSetupStatus() {
 		return setupStatus;
 	}
 
-	public void setSetupStatus(Integer setupStatus) {
+	public void setSetupStatus(Boolean setupStatus) {
 		this.setupStatus = setupStatus;
 	}
 
@@ -306,11 +306,11 @@ public class CompanyIntention extends BaseEntity {
 		this.cityId = cityId;
 	}
 
-	public Integer getIsSelfAddress() {
+	public Boolean getIsSelfAddress() {
 		return isSelfAddress;
 	}
 
-	public void setIsSelfAddress(Integer isSelfAddress) {
+	public void setIsSelfAddress(Boolean isSelfAddress) {
 		this.isSelfAddress = isSelfAddress;
 	}
 
@@ -347,27 +347,27 @@ public class CompanyIntention extends BaseEntity {
 	}
 
 
-	public Integer getIsSelfCapital() {
+	public Boolean getIsSelfCapital() {
 		return isSelfCapital;
 	}
 
-	public void setIsSelfCapital(Integer isSelfCapital) {
+	public void setIsSelfCapital(Boolean isSelfCapital) {
 		this.isSelfCapital = isSelfCapital;
 	}
 
-	public Integer getIsExpress() {
+	public Boolean getIsExpress() {
 		return isExpress;
 	}
 
-	public void setIsExpress(Integer isExpress) {
+	public void setIsExpress(Boolean isExpress) {
 		this.isExpress = isExpress;
 	}
 
-	public Integer getIsNameVerify() {
+	public Boolean getIsNameVerify() {
 		return isNameVerify;
 	}
 
-	public void setIsNameVerify(Integer isNameVerify) {
+	public void setIsNameVerify(Boolean isNameVerify) {
 		this.isNameVerify = isNameVerify;
 	}
 
