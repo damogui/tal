@@ -192,9 +192,7 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
             datagrid.setReadOnly (false);
             datagrid.setShowTitle (true);
             datagrid.setToolbar (listToolbarPath);//新增和删除
-
-
-
+            datagrid.setFit (true);
             PDatagridColumn column = null;
 
 
