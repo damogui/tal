@@ -8,5 +8,7 @@ com.gongsibao.trade.web.FilePreviewCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     init:function(orderProdId){
 
 		alert(orderProdId);
+		
+		//http://gsb-public.oss-cn-beijing.aliyuncs.com/hive/8234e2f5d93bdf436d3ea8d671ab7699.jpg
     }
 });

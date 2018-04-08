@@ -82,7 +82,7 @@
 	<script src='/gsb/platform/trade/js/prod/prod-company.ctrl.js'></script>
 	<script src='/gsb/platform/trade/js/prod/prod-customer.ctrl.js'></script>
 	<script src='/gsb/platform/trade/js/prod/prod-order.ctrl.js'></script>
-	<script src='/gsb/platform/trade/js/prod/file-preview.ctrl.js'></script>
+	<script src='/gsb/platform/trade/js/prod/prod-file-preview.ctrl.js'></script>
 	<script src='/gsb/platform/trade/js/prod/prod-trail.ctrl.js'></script>
 </head>
     <body class="easyui-layout">
