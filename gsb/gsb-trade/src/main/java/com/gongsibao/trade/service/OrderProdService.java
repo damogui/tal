@@ -208,11 +208,11 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
 	@Override
 	public List<WorkflowNode> getWorkflowNodeList(Integer orderProdId) {
 
-		Integer version = null;
 		OrderProd orderProd = this.byId(orderProdId);
 
+		Integer version = orderProd.getVersion();
 		IWorkflowNodeService workflowNodeService = ServiceFactory.create(IWorkflowNodeService.class);
-		if (orderProd.getVersion() == null) {
+		if (version == null) {
 
 			version = workflowNodeService.getWorkflowNodeMaxVersion(orderProd.getProductId(), orderProd.getCityId());
 		}

@@ -74,6 +74,7 @@ com.gongsibao.trade.web.ProdPrincipalCtrl = org.netsharp.panda.core.CustomCtrl.E
     	var me = this;
     	this.invokeService ("finishPrincipal", [orderProdUserMapId], function(data){
     		
+    		layer.msg('操作成功');
     		me.query();
     	});
     },
@@ -159,6 +160,7 @@ com.gongsibao.trade.web.ProdPrincipalCtrl = org.netsharp.panda.core.CustomCtrl.E
 				
 				me.query();
 				layer.msg('添加负责人成功');
+				traceCtrl.query();
 			});
     	});
     }
