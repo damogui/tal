@@ -235,8 +235,18 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
 	@Override
 	public Boolean cancelRelevanceCompany(Integer orderProdId) {
 
-		String sql = "update `so_order_prod` set `customer_id` = 0 where pkid = ?";
+		String sql = "update `so_order_prod` set `company_id` = 0 where pkid = ?";
 		QueryParameters qps = new QueryParameters();
+		qps.add("pkid", orderProdId, Types.INTEGER);
+		return this.pm.executeNonQuery(sql, qps) > 0;
+	}
+
+	@Override
+	public Boolean addRelevanceCompany(Integer orderProdId, Integer companyId) {
+
+		String sql = "update `so_order_prod` set `company_id` =? where pkid = ?";
+		QueryParameters qps = new QueryParameters();
+		qps.add("companyId", companyId, Types.INTEGER);
 		qps.add("pkid", orderProdId, Types.INTEGER);
 		return this.pm.executeNonQuery(sql, qps) > 0;
 	}

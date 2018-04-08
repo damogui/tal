@@ -12,6 +12,7 @@ import org.netsharp.panda.commerce.EasyuiDatagridResult;
 import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.util.StringManager;
 
+import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.product.WorkflowNode;
 import com.gongsibao.entity.supplier.Salesman;
@@ -21,6 +22,7 @@ import com.gongsibao.entity.trade.OrderProdUserMap;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
 import com.gongsibao.product.base.IWorkflowNodeService;
 import com.gongsibao.supplier.base.ISalesmanService;
+import com.gongsibao.trade.base.ICompanyIntentionService;
 import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IOrderProdTraceService;
 import com.gongsibao.trade.base.IOrderProdUserMapService;
@@ -320,6 +322,50 @@ public class OrderProdDetailController {
 		}
 		return result;
 	}
+	
+	/**   
+	 * @Title: queryCompanys   
+	 * @Description: TODO(查询公司信息)   
+	 * @param: @param keyWord
+	 * @param: @param pageIndex
+	 * @param: @param pageSize
+	 * @param: @return      
+	 * @return: EasyuiDatagridResult      
+	 * @throws   
+	 */
+	public EasyuiDatagridResult queryCompanys(String keyWord, Integer pageIndex, Integer pageSize) {
+
+		Paging paging = new Paging();
+		{
+			paging.setPageNo(pageIndex);
+			paging.setPageSize(pageSize);
+		}
+
+		List<String> ss = new ArrayList<String>();
+		ss.add("name like '%" + keyWord + "%'");
+		ss.add("fullName like '%" + keyWord + "%'");
+		ss.add("companyName like '%" + keyWord + "%'");
+		String filter = StringManager.join(" or ", ss);
+		Oql oql = new Oql();
+		{
+			oql.setType(CompanyIntention.class);
+			oql.setSelects("id,name,fullName,companyName");
+			oql.setFilter(filter);
+			oql.setPaging(paging);
+		}
+		ICompanyIntentionService companyService = ServiceFactory.create(ICompanyIntentionService.class);
+		List<CompanyIntention> list = companyService.queryList(oql);
+		EasyuiDatagridResult result = new EasyuiDatagridResult();
+		{
+			result.setRows(list);
+			if (oql.getPaging() != null) {
+
+				result.setTotal(oql.getPaging().getTotalCount());
+			}
+		}
+		return result;
+	}
+	
 
 	/**
 	 * @Title: addPrincipal
@@ -360,4 +406,19 @@ public class OrderProdDetailController {
 		
 		return orderProdService.cancelRelevanceCompany(orderProdId);
 	}
+	
+	
+	/**   
+	 * @Title: cancelRelevanceCompany   
+	 * @Description: TODO(添加订单明细关联企业信息)   
+	 * @param: @param orderProdId
+	 * @param: @return      
+	 * @return: Boolean      
+	 * @throws   
+	 */
+	public Boolean addRelevanceCompany(Integer orderProdId,Integer companyId){
+		
+		return orderProdService.addRelevanceCompany(orderProdId,companyId);
+	}
+	
 }
