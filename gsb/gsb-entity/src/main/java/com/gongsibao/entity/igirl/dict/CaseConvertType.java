@@ -17,6 +17,7 @@ public enum CaseConvertType implements IEnum {
     ERROR_9(-9, "方案与订单产品数量不符"),
     ERROR_10(-10, "方案与订单产品不符"),
     ERROR_11(-11, "订单已经关联其他方案"),
+    ERROR_12(-12, "该订单已付款，不允许重新生成"),
     SUCCESS(1, "成功");
 
     private int value;

@@ -17,4 +17,6 @@ public interface IOrderProdCaseService extends IPersistableService<OrderProdCase
 
     boolean updateToSettle(Integer caseId);
 
+    boolean deleteByCaseId(Integer caseId);
+
 }

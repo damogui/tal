@@ -507,13 +507,31 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 
 	@Override
     public ConvertToOrderResult convertToOrder(String caseid) {
-        TradeMarkCase tradeMarkCase = byId(caseid);
-        if (null == tradeMarkCase) {
-            // 方案不存在
-            return new ConvertToOrderResult(CaseConvertType.ERROR_0);
-        }
+		TradeMarkCase tradeMarkCase = byId(caseid);
+		if (null == tradeMarkCase) {
+			// 方案不存在
+			return new ConvertToOrderResult(CaseConvertType.ERROR_0);
+		}
 
-        // 是否已下单，已下单直接返回
+		SoOrder order = null;
+		String orderCode = tradeMarkCase.getOrderCode();
+		if (!StringManager.isNullOrEmpty(orderCode)) {
+			order = orderService.getByOrderNo(orderCode);
+			if (null == order) {
+				return new ConvertToOrderResult(CaseConvertType.ERROR_5);
+			}
+
+			if (order.getIsDelete()) {
+				// 已付款订单不允许删除关联关系
+				if (order.getPaidPrice() > 0) {
+					return new ConvertToOrderResult(CaseConvertType.ERROR_12);
+				}
+				// 如果订单被删除, 删除关联关系
+				orderProdCaseService.deleteByCaseId(tradeMarkCase.getId());
+			}
+		}
+
+		// 是否已下单，已下单直接返回
 		List<OrderProdCase> caseList = orderProdCaseService.byCaseId(tradeMarkCase.getId());
 		if (null != caseList && caseList.size() > 0) {
 			OrderProdCase orderProdCase = caseList.get(0);
@@ -576,7 +594,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
         }
 
         // 转换订单实体
-        SoOrder order = convertToOrderEntity(tradeMarkCase, account, customer, company, dict);
+        order = convertToOrderEntity(tradeMarkCase, account, customer, company, dict);
 
         // 保存订单
         order = orderService.save(order);
@@ -599,7 +617,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
     @Override
 	public ConvertToOrderResult convertToOrder(String caseid, String orderNo) {
 		SoOrder order = orderService.getByOrderNo(orderNo);
-		if (null == order) {
+		if (null == order || order.getIsDelete()) {
 			// 订单不存在
 			return new ConvertToOrderResult(CaseConvertType.ERROR_5);
 		}
@@ -712,6 +730,9 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 				orderProdCase.setMemo(tradeMark.getMemo());
 				orderProdCase.setCost(tradeMark.getCost());
 				orderProdCase.setCharge(tradeMark.getCharge());
+
+				orderProdCase.setCreateTime(new Date());
+				orderProdCase.setCreator(order.getAccountName());
             }
             orderProdCaseList.add(orderProdCase);
         }

@@ -18,12 +18,12 @@ public class CaseConvertToOrderTest {
     ISettleService settleService = ServiceFactory.create(ISettleService.class);
     @Test
     public void testConvertToOrder() {
-//        ConvertToOrderResult result = tradeMarkCaseService.convertToOrder("7");
+        ConvertToOrderResult result = tradeMarkCaseService.convertToOrder("9");
 //        ConvertToOrderResult result = tradeMarkCaseService.convertToOrder("3", "100264343");
-//        System.out.println(result);
+        System.out.println(result);
 
-        boolean b = orderProdService.updateSettleStatus(Arrays.asList(1), SettleStatus.NO_SETTLEMENT);
-        settleService.saveSettle(Arrays.asList(1, 2, 3));
+//        boolean b = orderProdService.updateSettleStatus(Arrays.asList(1), SettleStatus.NO_SETTLEMENT);
+//        settleService.saveSettle(Arrays.asList(1, 2, 3));
 
     }
 }
