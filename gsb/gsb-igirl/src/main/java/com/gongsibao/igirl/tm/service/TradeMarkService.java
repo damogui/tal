@@ -419,37 +419,29 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		return goodsList;
 	}
 
-	public TradeMark tmRobotUpdateMarkState(String proxyCode, Integer stateCode) {
+	public Integer tmRobotUpdateMarkState(String proxyCode, Integer stateCode) {
+		String sql = "update ig_trade_mark set mark_state=? where proxy_code=?";
 		Oql oql = new Oql();
-		oql.setSelects("TradeMark.*");
-		oql.setType(TradeMark.class);
-		oql.setFilter("proxyCode = ?");
-		oql.getParameters().add("proxyCode", proxyCode, Types.INTEGER);
-		TradeMark tm = this.queryFirst(oql);
-		if (tm!=null){
-			tm.setMarkState(MarkState.getItem(stateCode));
-			tm.setMarkSubmitTime(new Date());
-			tm.toPersist();
-			tm = this.save(tm);
-		}
-		return tm;
+		oql.setFilter("mark_state=?");
+		oql.setFilter("proxy_code=?");
+		oql.getParameters().add("mark_state", stateCode, Types.INTEGER);
+		oql.getParameters().add("proxy_code", proxyCode, Types.VARCHAR);
+		int count = this.pm.executeNonQuery(sql,oql.getParameters());
+		return count;
 	}
 
 	@Override
-	public TradeMark tmRobotUpdateMarkCode(String proxyCode, String code, Integer stateCode) {
+	public Integer tmRobotUpdateMarkCode(String proxyCode, String code, Integer stateCode) {
+		String sql = "update ig_trade_mark set mark_state=?,code=? where proxy_code=?";
 		Oql oql = new Oql();
-		oql.setSelects("TradeMark.*");
-		oql.setType(TradeMark.class);
-		oql.setFilter("proxyCode = ?");
-		oql.getParameters().add("proxyCode", proxyCode, Types.INTEGER);
-		TradeMark tm = this.queryFirst(oql);
-		if (tm!=null){
-			tm.setCode(code);
-			tm.setMarkState(MarkState.getItem(stateCode));
-			tm.toPersist();
-			tm = this.save(tm);
-		}
-		return tm;
+		oql.setFilter("mark_state=?");
+		oql.setFilter("code=?");
+		oql.setFilter("proxy_code=?");
+		oql.getParameters().add("mark_state", stateCode, Types.INTEGER);
+		oql.getParameters().add("code", code, Types.VARCHAR);
+		oql.getParameters().add("proxy_code", proxyCode, Types.VARCHAR);
+		int count = this.pm.executeNonQuery(sql,oql.getParameters());
+		return count;
 	}
 
 	public String updateMarkState(String ids, Integer type) {
