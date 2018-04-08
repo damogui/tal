@@ -23,6 +23,7 @@ import com.gongsibao.entity.trade.OrderProdUserMap;
 import com.gongsibao.entity.trade.dic.OrderProdTraceType;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapType;
+import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IOrderProdTraceService;
 import com.gongsibao.trade.base.IOrderProdUserMapService;
 
@@ -143,7 +144,7 @@ public class OrderProdUserMapService extends PersistableService<OrderProdUserMap
 	public Boolean addPrincipal(Integer orderProdId, String principalIds, String principalNames) {
 		
 		String[] ss = principalIds.split(",");
-
+		
 		// 1.创建负责人
 		OrderProdUserMap orderProdUserMap = null;
 		List<OrderProdUserMap> mapList = new ArrayList<OrderProdUserMap>();
@@ -163,9 +164,13 @@ public class OrderProdUserMapService extends PersistableService<OrderProdUserMap
 		this.saves(mapList);
 
 		// 2.添加跟进
+
+		IOrderProdService prderProdService = ServiceFactory.create(IOrderProdService.class);
+		Integer processStatusId = prderProdService.getProcessStatusId(orderProdId);
 		OrderProdTrace trace = new OrderProdTrace();
 		trace.toNew();
 		trace.setOrderProdId(orderProdId);
+		trace.setOrderProdStatusId(processStatusId);
 		trace.setTypeId(OrderProdTraceType.Txfzr);
 		trace.setInfo("【" + SessionManager.getUserName() + "】添加【" + principalNames + "】为负责人");
 		trace.setOperatorId(SessionManager.getUserId());

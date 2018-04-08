@@ -3,13 +3,14 @@ com.gongsibao.trade.web.ProdMainCtrl = org.netsharp.panda.core.CustomCtrl.Extend
     ctor: function () {
     	this.base();
     	this.service = 'com.gongsibao.trade.web.OrderProdDetailController';
+    	this.initializeDetailList = new System.Dictionary();
     	this.orderProdId = null;
     	this.orderProd = null;
     	this.loginUserId = null;
     },
     init:function(){
     	
-    	//
+    	var me = this;
     	this.getLoginUserId();
     	
  		this.orderProdId = System.Url.getParameter('id');
@@ -28,6 +29,59 @@ com.gongsibao.trade.web.ProdMainCtrl = org.netsharp.panda.core.CustomCtrl.Extend
 		principalCtrl.init(this.orderProdId);
 		
 		
+    	$('#detail_tabs').tabs({    
+			tabHeight:30,
+		    onSelect:function(title){
+		    	
+		    	var detailCtrl = me.initializeDetailList.byKey(title);
+		    	if(detailCtrl){
+		    		//已经初始化过的不再执行
+		    		return;
+		    	}
+		    	if(title=='材料信息'){
+		    		
+			    	var fileCtrl = new com.gongsibao.trade.web.FileCtrl();
+			    	principalCtrl.mainCtrl = me;
+			    	fileCtrl.init(me.orderProdId);
+			    	me.initializeDetailList.add(title,fileCtrl);
+			    	
+		    	}else if(title=='订单信息'){
+		    		
+			    	var orderCtrl = new com.gongsibao.trade.web.OrderCtrl();
+			    	principalCtrl.mainCtrl = me;
+			    	orderCtrl.init(me.orderProdId);
+			    	me.initializeDetailList.add(title,orderCtrl);
+
+		    	}else if(title=='客户信息'){
+		    		
+			    	var customerCtrl = new com.gongsibao.trade.web.CustomerCtrl();
+			    	principalCtrl.mainCtrl = me;
+			    	customerCtrl.init(me.orderProdId);
+			    	me.initializeDetailList.add(title,customerCtrl);
+			    	
+		    	}else if(title=='企业信息'){
+
+			    	var companyCtrl = new com.gongsibao.trade.web.CompanyCtrl();
+			    	principalCtrl.mainCtrl = me;
+			    	companyCtrl.init(me.orderProdId);
+			    	me.initializeDetailList.add(title,companyCtrl);
+			    	
+		    	}else if(title=='材料预览'){
+
+			    	var filePreviewCtrl = new com.gongsibao.trade.web.FilePreviewCtrl();
+			    	principalCtrl.mainCtrl = me;
+			    	filePreviewCtrl.init(me.orderProdId);
+			    	me.initializeDetailList.add(title,filePreviewCtrl);
+			    	
+		    	}else if(title=='自动进度'){
+
+			    	var trailCtrl = new com.gongsibao.trade.web.TrailCtrl();
+			    	principalCtrl.mainCtrl = me;
+			    	trailCtrl.init(me.orderProdId);
+			    	me.initializeDetailList.add(title,trailCtrl);
+		    	}
+		    }   
+		});
     },
     getLoginUserId:function(){
     	

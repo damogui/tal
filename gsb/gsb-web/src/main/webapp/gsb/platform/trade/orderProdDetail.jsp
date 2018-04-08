@@ -15,6 +15,14 @@
 			text-decoration: none;
 		}
 		
+/* 		.toolbar a{
+			background-color: #1E7CB5;
+		    color: #fff;
+		    font-size: 12px;
+		} */
+		.toolbar{
+			padding:1px 0;
+		}
 		.text-default {
 		    color: #404040;
 		}
@@ -49,6 +57,11 @@
 		.principal-panel .datagrid-wrap{
 			border-width:0px !important;
 		}
+		
+		table.form-panel td.control_td {
+			
+			min-width: 150px;
+		}
 	</style>
 	<script src='/package/easyui/jquery.min.js'></script>
 	<script src='/package/layer/layer.js'></script>
@@ -63,7 +76,12 @@
 	<script src='/gsb/platform/trade/js/prod/prod-main.ctrl.js'></script>
 	<script src='/gsb/platform/trade/js/prod/prod-trace.ctrl.js'></script>
 	<script src='/gsb/platform/trade/js/prod/prod-principal.ctrl.js'></script>
-	
+	<script src='/gsb/platform/trade/js/prod/prod-file.ctrl.js'></script>
+	<script src='/gsb/platform/trade/js/prod/prod-company.ctrl.js'></script>
+	<script src='/gsb/platform/trade/js/prod/prod-customer.ctrl.js'></script>
+	<script src='/gsb/platform/trade/js/prod/prod-order.ctrl.js'></script>
+	<script src='/gsb/platform/trade/js/prod/file-preview.ctrl.js'></script>
+	<script src='/gsb/platform/trade/js/prod/prod-trail.ctrl.js'></script>
 </head>
     <body class="easyui-layout">
 		<div class="easyui-panel" title="订单信息" style="height:70px;padding-left:10px;" data-options="tools:[{
@@ -114,8 +132,8 @@
 					   			 	<td>
 					   			 		<a id="btn6" href="javascript:traceCtrl.sendExpress();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-send mr-sm'">发快递</a>
 					   			 	</td>
-					   			 	<td><div class="datagrid-btn-separator"></div></td>
-<!-- 					   			 	<td>
+<!--					   			 	<td><div class="datagrid-btn-separator"></div></td>
+ 					   			 	<td>
 					   			 		<a id="btn7" href="javascript:traceCtrl.setAccount();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-user-o'">帐号密码</a>
 					   			 	</td>
 					   			 	<td><div class="datagrid-btn-separator"></div></td>
@@ -128,7 +146,7 @@
 		   			</div>
 		   			<div style="padding-left:30px;height: 162px;background-color: #fff;">
 			   			<p>订单用时： <span id="processdDays"></span> / <span id="needDays"></span> 天</p>
-			   			<p style="font-size:24px;"><span id="processStatus" style="color:#009688;"></span> <span id="nodeDayCount"></span> / <span id="weekdayCount"></span>天</p>
+			   			<p style="font-size:24px;margin: 10px 0;"><span id="processStatus" style="color:#009688;"></span> <span id="nodeDayCount"></span> / <span id="weekdayCount"></span>天</p>
 			   			
 						<p id="handle_panel">办理名称：<span id="editHandleName" style="color:#428bca">点击编辑</span></p>
 						<p id="applyNo_panel">申请号：<span id="editApplyNo" style="color:#428bca">点击编辑</span></p>
@@ -149,18 +167,39 @@
 		    <div title="订单信息">   
 		         
 		    </div>
-		    <div title="客户信息">   
-		        
+		    <div title="客户信息">
+			      <table cellpadding="3" cellspacing="0" class="form-panel" style="margin:10px;">
+				      <tr>
+				          <td class="label_td"><label>联系人姓名：</label></td>
+				          <td class="control_td" id="customer_name"></td>
+				          <td class="label_td"><label>联系人手机：</label></td>
+				          <td class="control_td" id="customer_mobile"></td>
+				          <td class="label_td"><label>微信：</label></td>
+				          <td class="control_td" id="customer_weixin"></td>
+				   </tr>
+				      <tr>
+				          <td class="label_td"><label>固定电话：</label></td>
+				          <td class="control_td" id="customer_tel"></td>
+				          <td class="label_td"><label>QQ：</label></td>
+				          <td class="control_td" id="customer_qq"></td>
+				          <td class="label_td"><label>邮箱：</label></td>
+				          <td class="control_td" id="customer_email"></td>
+				   </tr>
+				   <tr>
+				          <td class="label_td"><label>收货地址：</label></td>
+				          <td colspan="5" class="control_td" id="customer_address"></td>
+					</tr>
+				</table>
 		    </div>  
 		    <div title="企业信息">
-		       
+		       <p style="padding-left:30px;">订单明细（产品）关联公司：无</p>
 		    </div>
 		    <div title="材料预览">   
 		       
 		    </div>
-<!-- 		    <div title="自动进度">   
+ 		    <div title="自动进度">   
 		         <table id="order_prod_trail_grid">7</table>
-		    </div> -->
+		    </div>
 		</div>
 </body>
 
