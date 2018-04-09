@@ -311,19 +311,19 @@ public class ImNCustomer extends Persistable implements IEntity {
     @Column(name = "addr", header = "客户地址")
     private String addr;
 
-    @Column(name = "province_id")
+    @Column(name = "f_province_id")
     private Integer provinceId;
 
     @Reference(foreignKey = "provinceId", header = "省份")
     private Dict province;
 
-    @Column(name = "city_id")
+    @Column(name = "f_city_id")
     private Integer cityId;
 
     @Reference(foreignKey = "cityId", header = "城市")
     private Dict city;
 
-    @Column(name = "county_id")
+    @Column(name = "f_county_id")
     private Integer countyId;
 
     @Reference(foreignKey = "countyId", header = "区/县")
