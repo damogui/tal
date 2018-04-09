@@ -62,6 +62,43 @@
 			
 			min-width: 150px;
 		}
+		
+		.file-preview-item{
+			float:left;
+			width:250px;
+			margin:15px;
+		}
+		
+		.file-preview-item p{
+		
+			margin:5px 0;
+		}
+		
+		.btn_top{
+		
+			position: absolute; 
+			left: 0px; 
+			top: 0px;
+			border-radius: 3px;
+			padding:4px 12px;
+			cursor: pointer;
+			color:transparent;
+		}
+		
+		.btn_top:hover{
+		    color: #fff;
+    		background-color: #1E7CB5;
+		}
+		
+		.file-preview-item img{
+			width:250px;
+			height:150px;
+			border: 1px solid #eee;
+		}
+		
+		.file-preview-item img:hover{
+			border: 1px solid #1E7CB5;
+		}
 	</style>
 	<script src='/package/easyui/jquery.min.js'></script>
 	<script src='/package/layer/layer.js'></script>
@@ -82,7 +119,7 @@
 	<script src='/gsb/platform/trade/js/prod/prod-company.ctrl.js'></script>
 	<script src='/gsb/platform/trade/js/prod/prod-customer.ctrl.js'></script>
 	<script src='/gsb/platform/trade/js/prod/prod-order.ctrl.js'></script>
-	<script src='/gsb/platform/trade/js/prod/file-preview.ctrl.js'></script>
+	<script src='/gsb/platform/trade/js/prod/prod-file-preview.ctrl.js'></script>
 	<script src='/gsb/platform/trade/js/prod/prod-trail.ctrl.js'></script>
 </head>
     <body class="easyui-layout">
@@ -164,8 +201,36 @@
 		    <div title="材料信息">   
 		         <table id="order_prod_trace_file_grid"></table>
 		    </div>   
-		    <div title="订单信息">   
-		         
+		    <div title="订单信息">
+
+			      <table cellpadding="3" cellspacing="0" class="form-panel" style="margin:10px;">
+				    <tr>
+				          <td class="label_td"><label>订单编号：</label></td>
+				          <td class="control_td" id="order_info_order_no"></td>
+				          <td class="label_td"><label>业务员：</label></td>
+				          <td class="control_td" id="order_info_salesman"></td>
+				          <td class="label_td"><label>地区：</label></td>
+				          <td class="control_td" id="order_info_city"></td>
+				   </tr>
+				   <tr>
+				          <td class="label_td"><label>支付金额：</label></td>
+				          <td class="control_td" id="order_info_payablePrice"></td>
+				          <td class="label_td"><label>下单时间：</label></td>
+				          <td class="control_td" id="order_info_createTime"></td>
+				          <td class="label_td"><label>付款状态：</label></td>
+				          <td class="control_td" id="order_info_payStatus"></td>
+				   </tr>
+				   <tr>
+				          <td colspan="6" class="control_td">
+				          	<table id="service_item_grid"></table>
+				          </td>
+				   </tr>
+				   <tr>
+				          <td colspan="6" class="control_td" style="padding-top:10px;">
+				          	<table id="other_prod_grid"></table>
+				          </td>
+				   </tr>  
+				</table>
 		    </div>
 		    <div title="客户信息">
 			      <table cellpadding="3" cellspacing="0" class="form-panel" style="margin:10px;">
@@ -203,11 +268,12 @@
 		       </p>
 		    </div>
 		    <div title="材料预览">   
-		       
+		       <div id="file_preview_panel" style="width:100%;">
+		       </div>
 		    </div>
- 		    <div title="自动进度">   
+<!--  		    <div title="自动进度">   
 		         <table id="order_prod_trail_grid">7</table>
-		    </div>
+		    </div> -->
 		</div>
 </body>
 
@@ -217,6 +283,7 @@
 	var traceCtrl = null;
 	var principalCtrl = null;
 	var companyCtrl = null;
+	var filePreviewCtrl = null;
  	$(function(){
 		
  		prodMainCtrl = new com.gongsibao.trade.web.ProdMainCtrl();

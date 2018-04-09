@@ -72,7 +72,7 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
        
         if (totalAmount!=parseFloat(payablePrice)) {
 
-            layer.msg("订单业绩分配金额必须个订单金额相等");
+            layer.msg("分配金额必须和订单金额相等");
             return  false;
 
         } else {

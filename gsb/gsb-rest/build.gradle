@@ -1,0 +1,37 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 1.8
+version = '1.0'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Quickstart',
+                   'Implementation-Version': version
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    compile project(':gsb-entity')
+    compile project(':gsb-igirl')
+    
+	compile group:'org.springframework.boot',name:'spring-boot-starter',version:'2.0.1.RELEASE'
+	compile group:'org.springframework.boot',name:'spring-boot-starter-web',version:'2.0.1.RELEASE'
+	    
+}
+
+test {
+    systemProperties 'property': 'value'
+}
+
+uploadArchives {
+    repositories {
+       flatDir {
+           dirs 'repos'
+       }
+    }
+}
