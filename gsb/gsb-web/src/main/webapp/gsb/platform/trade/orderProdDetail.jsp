@@ -3,7 +3,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>订单详情</title>
+	<title>明细订单</title>
 	<link href='/package/font-awesome/css/font-awesome.min.css' rel='stylesheet' type='text/css' />
 	<link href='/package/easyui/themes/material/easyui.css' rel='stylesheet' type='text/css' />
 	<link href='/package/easyui/themes/easyui.extend.css' rel='stylesheet' type='text/css' />

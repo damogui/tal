@@ -4,29 +4,29 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
 /**
- * 产生方式
+ * 职务
  * @author cyx
  *
  */
-public enum CorpBuildMothed implements IEnum {
+public enum CorpPosition implements IEnum {
 
-	VOTE(0, "选举（适用于普通有限公司）"),
-	APPOINT(1, "委派（适用于国有独资）"),
-	ENGAGE(2, "聘任")	;
 
+	EXECUTIVE(0, "执行董事"),
+	CHAIRMAN(1, "董事长"),
+	DIRECTOR(2, "董事");
 
 	private int value;
 	private String text;
 
-	CorpBuildMothed(int value, String text) {
+	CorpPosition(int value, String text) {
 		this.value = value;
 		this.text = text;
 	}
 
 	@JsonCreator
-	public static CorpBuildMothed getItem(int value) {
+	public static CorpPosition getItem(int value) {
 
-		for (CorpBuildMothed item : values()) {
+		for (CorpPosition item : values()) {
 
 			if (item.getValue() == value) {
 				return item;

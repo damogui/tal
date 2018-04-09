@@ -24,10 +24,11 @@ import org.netsharp.util.ReflectManager;
 import com.gongsibao.entity.trade.Contract;
 import com.gongsibao.trade.web.ContractFormPart;
 import com.gongsibao.trade.web.OrderProdItemDetailPart;
+import org.netsharp.util.StringManager;
 
 /*合同管理*/
 public class ContractFormWorkspaceTest extends WorkspaceCreationBase {
-
+    protected String fileToolBarPath = "contract/file/toolbar";
     @Before
     @Override
     public void setup() {
@@ -134,7 +135,6 @@ public class ContractFormWorkspaceTest extends WorkspaceCreationBase {
             item.setSeq(1);
             toolbar.getItems().add(item);
         }
-
         toolbarService.save(toolbar);
     }
 
@@ -163,7 +163,7 @@ public class ContractFormWorkspaceTest extends WorkspaceCreationBase {
             part.setResourceNode(node);
             part.setPartTypeId(PartType.DETAIL_PART.getId());
             part.setDatagrid(datagrid);
-            part.setToolbar("contract/file/toolbar");
+            part.setToolbar(fileToolBarPath);
             part.setDockStyle(DockType.DOCUMENTHOST);
             part.setJsController("com.gongsibao.trade.web.OrderContractFileDetailPart");
         }

@@ -20,14 +20,14 @@ com.gongsibao.trade.web.FileCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
 			pagination:false,
 			showFooter:false,
 			singleSelect:true,
-			toolbar: [{
-				iconCls: 'fa fa-cloud-download',
-				text:'一键下载',
-				handler: function(){
-					
-					alert('一键下载');
-				}
-			}],
+//			toolbar: [{
+//				iconCls: 'fa fa-cloud-download',
+//				text:'一键下载',
+//				handler: function(){
+//					
+//					alert('一键下载');
+//				}
+//			}],
 		    columns:[[
 
 		        {field:'status',title:'状态',width:80,align:'center',formatter:function(value,row,index){

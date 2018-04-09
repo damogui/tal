@@ -107,7 +107,8 @@ com.gongsibao.trade.web.ProdMainCtrl = org.netsharp.panda.core.CustomCtrl.Extend
     	$("#orderNo").text(orderNo);
     	
     	//订单明细编号
-    	$("#orderProdNo").text(data.orderId);
+    	$("#orderProdNo").text(data.id);
+    	document.title = "明细订单["+data.id+"]";
     	
     	//公司名称
     	var companyName = data.companyIntention != null ? data.companyIntention.companyName :'-';
