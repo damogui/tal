@@ -1,4 +1,4 @@
-packagecom.gongsibao.rest.demo;
+package com.gongsibao.rest.demo;
 
 import java.math.BigDecimal;
 import java.util.Date;

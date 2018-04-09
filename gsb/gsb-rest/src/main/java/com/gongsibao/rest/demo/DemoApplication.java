@@ -1,4 +1,4 @@
-packagecom.gongsibao.rest.demo;
+package com.gongsibao.rest.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
