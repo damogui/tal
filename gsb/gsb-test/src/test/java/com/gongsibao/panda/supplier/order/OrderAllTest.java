@@ -37,7 +37,7 @@ import com.gongsibao.panda.supplier.reference.SupplierU8BankReferenceTest;
 //        SalesmanReportMonthWorkspaceTest.class,
         SoCreatOrderPerformanceWorkspaceTest.class,
         SalesmanOrderInvoiceWorkspaceTest.class,
-
+        SalesmanOrderDetailWorkspaceTest.class,
 
         //部门订单
         DepartmentOrderAllWorkspaceTest.class,
