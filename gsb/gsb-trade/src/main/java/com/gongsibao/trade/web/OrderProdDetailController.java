@@ -14,6 +14,7 @@ import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.crm.NCustomer;
+import com.gongsibao.entity.product.WorkflowFile;
 import com.gongsibao.entity.product.WorkflowNode;
 import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.trade.OrderProd;
@@ -22,6 +23,8 @@ import com.gongsibao.entity.trade.OrderProdTraceFile;
 import com.gongsibao.entity.trade.OrderProdUserMap;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
+import com.gongsibao.entity.trade.dic.TraceFileStatus;
+import com.gongsibao.product.base.IWorkflowFileService;
 import com.gongsibao.product.base.IWorkflowNodeService;
 import com.gongsibao.supplier.base.ISalesmanService;
 import com.gongsibao.trade.base.ICompanyIntentionService;
@@ -30,6 +33,7 @@ import com.gongsibao.trade.base.IOrderProdTraceFileService;
 import com.gongsibao.trade.base.IOrderProdTraceService;
 import com.gongsibao.trade.base.IOrderProdUserMapService;
 import com.gongsibao.trade.base.IOrderService;
+import com.gongsibao.trade.web.dto.TraceFileDTO;
 
 public class OrderProdDetailController {
 
@@ -437,23 +441,74 @@ public class OrderProdDetailController {
 	 * @return: List<OrderProdTraceFile>
 	 * @throws
 	 */
-	public List<OrderProdTraceFile> queryOrderProdTraceFiles(Integer orderProdId) {
+	public List<OrderProdTraceFile> queryPreviewOrderProdTraceFiles(Integer orderProdId) {
 
 		return traceFileService.queryOrderProdTraceFiles(orderProdId);
 	}
 
-	
-	/**   
-	 * @Title: topTraceFile   
-	 * @Description: TODO(跟进文件置顶)   
+	/**
+	 * @Title: queryOrderProdTraceFiles
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @param: @param orderProdId
+	 * @param: @return
+	 * @return: TraceFileDTO
+	 * @throws
+	 */
+	public TraceFileDTO queryOrderProdTraceFiles(Integer orderProdId) {
+
+		TraceFileDTO dto = new TraceFileDTO();
+		List<OrderProdTraceFile> alreadyFileList = traceFileService.queryList(orderProdId);
+		OrderProd orderProd = orderProdService.byId(orderProdId);
+
+		// 必须上传的全部文件
+		IWorkflowFileService workflowFileService = ServiceFactory.create(IWorkflowFileService.class);
+		List<WorkflowFile> totalMustFileList = workflowFileService.queryWorkflowMustFileList(orderProd.getProductId(), orderProd.getCityId());
+
+		int totalMustCount = totalMustFileList.size();
+		int alreadyUploadCount = 0;
+		
+		List<WorkflowFile> alreadyMustFileList = new ArrayList<WorkflowFile>();
+		for (OrderProdTraceFile traceFile : alreadyFileList) {
+
+			WorkflowFile workflowFile = traceFile.getWorkflowFile();
+			if (workflowFile != null && workflowFile.getMust() && traceFile.getStatus() == TraceFileStatus.NEWEST) {
+				
+				//计算已经上传的必须文件数量
+				alreadyUploadCount++;
+				alreadyMustFileList.add(workflowFile);
+			}
+		}
+		
+		//删除已经上传的
+		totalMustFileList.removeAll(alreadyMustFileList);
+
+		List<String> ss = new ArrayList<String>();
+		for (WorkflowFile file : totalMustFileList) {
+			
+			ss.add(file.getName());
+		}
+
+		String notUploadFileNames = StringManager.join("、", ss);
+		int notUploadCount = totalMustCount - alreadyUploadCount;
+
+		dto.setFileList(alreadyFileList);
+		dto.setAlreadyUploadCount(alreadyUploadCount);
+		dto.setNotUploadCount(notUploadCount);
+		dto.setNotUploadFileNames(notUploadFileNames);
+		return dto;
+	}
+
+	/**
+	 * @Title: topTraceFile
+	 * @Description: TODO(跟进文件置顶)
 	 * @param: @param orderProdId
 	 * @param: @param traceFileId
-	 * @param: @return      
-	 * @return: Boolean      
-	 * @throws   
+	 * @param: @return
+	 * @return: Boolean
+	 * @throws
 	 */
-	public Boolean topTraceFile(Integer orderProdId,Integer traceFileId){
-		
-		return traceFileService.topTraceFile(orderProdId,traceFileId);
+	public Boolean topTraceFile(Integer orderProdId, Integer traceFileId) {
+
+		return traceFileService.topTraceFile(orderProdId, traceFileId);
 	}
 }

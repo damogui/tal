@@ -21,7 +21,7 @@ public interface IOrderProdTraceFileService extends IPersistableService<OrderPro
 
 	/**
 	 * @Title: queryOrderProdTraceFile
-	 * @Description: TODO(根据订单明细Id查询跟进文件)
+	 * @Description: TODO(根据订单明细Id查询跟进文件，根据isTop排序)
 	 * @param: @param orderProdId
 	 * @param: @return
 	 * @return: List<OrderProdTraceFile>
@@ -29,6 +29,16 @@ public interface IOrderProdTraceFileService extends IPersistableService<OrderPro
 	 */
 	List<OrderProdTraceFile> queryOrderProdTraceFiles(Integer orderProdId);
 	
+	
+	/**   
+	 * @Title: queryList   
+	 * @Description: TODO(查询)   
+	 * @param: @param orderProdId
+	 * @param: @return      
+	 * @return: List<OrderProdTraceFile>      
+	 * @throws   
+	 */
+	List<OrderProdTraceFile> queryList(Integer orderProdId);
 	
 	/**   
 	 * @Title: topTraceFile   
@@ -40,4 +50,5 @@ public interface IOrderProdTraceFileService extends IPersistableService<OrderPro
 	 * @throws   
 	 */
 	Boolean topTraceFile(Integer orderProdId,Integer traceFileId);
+	
 }

@@ -52,6 +52,19 @@ public class OrderProdTraceFileService extends PersistableService<OrderProdTrace
 	}
 
 	@Override
+	public List<OrderProdTraceFile> queryList(Integer orderProdId) {
+
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects("OrderProdTraceFile.*,file.*,workflowFile.*");
+			oql.setFilter("order_prod_trace_id in (select pkid from so_order_prod_trace where order_prod_id = " + orderProdId + ")");
+			oql.setOrderby(" createTime DESC");
+		}
+		return this.queryList(oql);
+	}
+	
+	@Override
 	public Boolean topTraceFile(Integer orderProdId, Integer traceFileId) {
 		
 		UpdateBuilder updateSql = UpdateBuilder.getInstance();

@@ -19,7 +19,7 @@ public class WorkflowFile extends BaseEntity {
 	private String name;
 
 	@Column(name = "is_must", header = "是否必须提供")
-	private Boolean necessary = true;
+	private Boolean must = true;
 
 	@Column(name = "sort", header = "排序")
 	private Double sort = 1D;
@@ -43,12 +43,13 @@ public class WorkflowFile extends BaseEntity {
 		this.name = name;
 	}
 
-	public Boolean getNecessary() {
-		return necessary;
+
+	public Boolean getMust() {
+		return must;
 	}
 
-	public void setNecessary(Boolean necessary) {
-		this.necessary = necessary;
+	public void setMust(Boolean must) {
+		this.must = must;
 	}
 
 	public Double getSort() {

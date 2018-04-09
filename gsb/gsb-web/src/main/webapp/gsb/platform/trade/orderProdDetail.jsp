@@ -112,7 +112,7 @@
 		    padding:0;
 		}
 		
-		.file_panel #un_upload_count{
+		.file_panel #notUploadCount{
 			color:red;
 		}
 	</style>
@@ -216,8 +216,8 @@
 		    </div>   
 		    <div title="材料信息">
 		      <div class="file_panel">
-		      	<p>您还需要上传<span id="un_upload_count">7</span>个必传文件：</p>
-		      	<p id="un_upload_files">托管协议原件彩色扫描件及托管商IDC证书复印件、域名注册证书原件彩色扫描件、公司概况、公司章程工商调档原件扫描件、法人及股东身份证原件彩色扫描件、公司主要管理、技术人员身份证原件彩色扫描件和学历证书复印件、公司近期为员工所上的社保证明原件</p>		      	
+		      	<p>您还需要上传<span id="notUploadCount">0</span>个必传文件：</p>
+		      	<p id="notUploadFileNames"></p>		      	
 		      </div>
 		      <div class="file_panel" style="border-bottom-width: 0px;">
 		      	<table id="order_prod_trace_file_grid"></table>
