@@ -51,5 +51,27 @@ com.gongsibao.trade.web.AuditInvoiceListPart = org.netsharp.panda.commerce.ListP
                 return false;
             }
         });
+    },
+    show: function (id) {
+        var contentUrl = this.auditInvoiceUrl + "?id=" + id;
+        layer.open({
+            id: "invoiceCreateIframe",
+            type: 2,//1是字符串 2是内容
+            title: '发票信息',
+            fixed: false,
+            maxmin: true,
+            shadeClose: false,
+            area: ['60%', '90%'],
+            zIndex: 100000,
+            content: contentUrl
+        });
+    },
+    optionFormatter: function (value, row, index) {
+        var me = this;
+        if (me.auditLogStatusTypeEnum[1051] != row.status) {
+            return "<a class='grid-btn' href='javascript:controllerauditLogList.show(" + value + ");'>查看</a>";
+        } else {
+            return "<a class='grid-btn' href='javascript:controllerauditLogList.addAudit(" + value + ");'>审核</a>";
+        }
     }
 });
