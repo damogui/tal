@@ -114,7 +114,7 @@ public class ImportOldDataToNewData {
 
         StringBuilder filterBuilder = new StringBuilder ();
         //读取最大的id，然后根据节点插入
-        String sql = "SELECT  IFNULL(MAX(id),0) id  FROM n_crm_customer";
+        String sql = "SELECT  IFNULL(MIN(pkid),0) id  FROM   crm_customer  WHERE  f_province_id IS NULL"; //"SELECT  IFNULL(MAX(id),0) id  FROM n_crm_customer";//导入从pkid 1开始 每次续导从 省id为null的开始
         IPersister<ImNCustomer> pm = PersisterFactory.create ();
         int idMax = Convert.toInteger (pm.executeScalar (sql, null));
 
@@ -124,7 +124,16 @@ public class ImportOldDataToNewData {
         };
         oql1.setOrderby (" pkid ");
         oql1.setFilter (filterBuilder.toString ());
-        int totalCustomerPage = serviceCustomer.queryCount (oql1) / pageSize + 1;
+        int countData = serviceCustomer.queryCount (oql1);
+        int totalCustomerPage = 0;
+        if ((countData % pageSize) == 0) {//判断是不是有剩余
+            totalCustomerPage = countData / pageSize;
+
+        } else {
+
+            totalCustomerPage = countData / pageSize + 1;
+        }
+
 
         for (int i = 1; i < totalCustomerPage + 1; i++) {
             Oql oql2 = new Oql () {
@@ -138,7 +147,6 @@ public class ImportOldDataToNewData {
             //sb.append ("Customer.prodDetails.*");
             sb.append ("Customer.prodDetails.*,");
             sb.append ("Customer.prodDetails.product.*");
-
 
 
             oql2.setSelects (sb.toString ());//设置要查询的列
@@ -166,8 +174,8 @@ public class ImportOldDataToNewData {
                 nCustomer.setAddr (item.getAddr ());
 
                 //需要处理省市县的id进行配对
-                ProvinceCityAndCountry  provinceCityAndCountry=getProvinceCityAndCountry (item.getCityId ());
-                if (provinceCityAndCountry!=null){
+                ProvinceCityAndCountry provinceCityAndCountry = getProvinceCityAndCountry (item.getCityId ());
+                if (provinceCityAndCountry != null) {
                     nCustomer.setProvinceId (provinceCityAndCountry.getProvinceId ());
                     nCustomer.setCityId (provinceCityAndCountry.getCityId ());
                     nCustomer.setCountyId (provinceCityAndCountry.getCountryId ());
@@ -221,11 +229,10 @@ public class ImportOldDataToNewData {
                 nCustomer.setFollows (getFollowsByCustomer (nCustomer, item.getFollowStatus ()));
                 //顾客关联企业
                 nCustomer.setCompanys (getCompanysByCustomer (item));
-                nCustomer.toNew ();
+                nCustomer.toPersist ();//变成修改
                 try {
                     serviceNewCustomer.save (nCustomer);
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     System.out.println (e.getMessage ());
 
                 }
@@ -343,15 +350,15 @@ public class ImportOldDataToNewData {
         nCustomerTask.setCustomerId (item.getId ());
         nCustomerTask.setTaskType (item.getAccountId () > 0 ? TaskCustomerType.OLD : TaskCustomerType.NEW);//全部都是老客户  有订单的是老客户
         String productName = "";//产品名称
-        ProvinceCityAndCountry  provinceCityAndCountry=new ProvinceCityAndCountry ();
-        String areaName="";
+        ProvinceCityAndCountry provinceCityAndCountry = new ProvinceCityAndCountry ();
+        String areaName = "";
         if (item.getProdDetails () != null && item.getProdDetails ().size () > 0) {
             CustomerProdMap customerProdMap = item.getProdDetails ().get (0);//都会有意向产品
             productName = customerProdMap.getProduct ().getName ();
             provinceCityAndCountry = getProvinceCityAndCountry (customerProdMap.getCityId ());//从意向产品中读取
-            if (provinceCityAndCountry!=null){
+            if (provinceCityAndCountry != null) {
 
-                areaName=provinceCityAndCountry.getAreaName ();//从实体中读取拼接的地区的名称
+                areaName = provinceCityAndCountry.getAreaName ();//从实体中读取拼接的地区的名称
             }
 
         }
@@ -366,13 +373,12 @@ public class ImportOldDataToNewData {
             taskName = "";//无意向产品没地区
 
         } else {
-            if (provinceCityAndCountry.getProvinceId ()==0){
-                taskName =productName;
-            }else   {
+            if (provinceCityAndCountry.getProvinceId () == 0) {
+                taskName = productName;
+            } else {
                 taskName = String.format ("%s-%s", productName, areaName);
 
             }
-
 
 
         }
@@ -399,11 +405,11 @@ public class ImportOldDataToNewData {
         IPersister<SoOrder> pm = PersisterFactory.create ();
 
         String sql = "SELECT  IFNULL(MAX(paid_price),0)  FROM   so_order  WHERE  paid_price>0  AND  account_id=?";
-        QueryParameters  qps=new QueryParameters ();
+        QueryParameters qps = new QueryParameters ();
 
-        qps.add ("@account_id",item.getAccountId (),Types.INTEGER);
+        qps.add ("@account_id", item.getAccountId (), Types.INTEGER);
         int payNum = Convert.toInteger (pm.executeScalar (sql, qps));
-        if (payNum>0){
+        if (payNum > 0) {
 
             nCustomerTask.setFoolowStatus (CustomerFollowStatus.SIGNED);//已经签订订单
         }
@@ -466,7 +472,7 @@ public class ImportOldDataToNewData {
             nCustomerTask2.setCreator (share.getCreator ());
             nCustomerTask2.setUpdateTime (share.getUpdateTime ());
             nCustomerTask2.setCreateTime (share.getCreateTime ());
-            if (payNum>0){
+            if (payNum > 0) {
 
                 nCustomerTask2.setFoolowStatus (CustomerFollowStatus.SIGNED);//已经签订订单
             }
@@ -515,8 +521,8 @@ public class ImportOldDataToNewData {
                 nCustomerProduct.setProductId (item.getProductId ());
                 //根据之前的ciyid进行推断出来省县的id
 
-                ProvinceCityAndCountry  provinceCityAndCountry=getProvinceCityAndCountry (item.getCityId ());
-                if (provinceCityAndCountry!=null){
+                ProvinceCityAndCountry provinceCityAndCountry = getProvinceCityAndCountry (item.getCityId ());
+                if (provinceCityAndCountry != null) {
                     nCustomerProduct.setProvinceId (provinceCityAndCountry.getProvinceId ());
                     nCustomerProduct.setCityId (provinceCityAndCountry.getCityId ());
                     nCustomerProduct.setCountyId (provinceCityAndCountry.getCountryId ());
@@ -593,7 +599,7 @@ public class ImportOldDataToNewData {
 
     /*获取地区名称根据旧的cityId*/
     private ProvinceCityAndCountry getProvinceCityAndCountry(Integer cityId) {
-        ProvinceCityAndCountry provinceCityAndCountry=new ProvinceCityAndCountry ();
+        ProvinceCityAndCountry provinceCityAndCountry = new ProvinceCityAndCountry ();
 
         if (cityId <= 0) {
 
@@ -622,7 +628,7 @@ public class ImportOldDataToNewData {
                 List<Dict> list3 = serviceDict.byParentId (dict1.getParentId ());
                 if (list3 != null && list3.size () > 0) {
                     dict3 = list3.get (0);
-                   // pName = dict3.getName ();//省
+                    // pName = dict3.getName ();//省
                     provinceCityAndCountry.setProvinceName (dict3.getName ());
                     provinceCityAndCountry.setProvinceId (dict3.getId ());
                 }
@@ -668,8 +674,6 @@ public class ImportOldDataToNewData {
                 }
 
             }
-
-
 
 
         }
@@ -779,7 +783,7 @@ class ProvinceCityAndCountry {
     private int countryId;
     private String countryName;
     /*拼写的地区名称*/
-    private  String areaName;
+    private String areaName;
 
 
     public int getProvinceId() {

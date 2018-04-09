@@ -43,6 +43,45 @@ com.gongsibao.trade.web.AuditPayPerformanceListPart = org.netsharp.panda.commerc
         });
 
 
+    },
+    show: function (id) {//审核
+        var me = this;
+        var row = this.getSelectedItem();
+        var rows = this.getSelections();
+        // if (rows.length <= 0) {
+        //     IMessageBox.info('请先选择订单数据');
+        //     return false;
+        // }
+        //115763722
+
+        var contentUrl = this.auditUrl + "?id=" + row.soOrder_id+"&auditId="+row.id;
+        layer.open({
+            type: 2,//1是字符串 2是内容
+            title: '回款业绩审核',
+            fixed: false,
+            maxmin: true,
+            shadeClose: false,
+            area: ['70%', '95%'],
+            zIndex: 100000,
+            id: "auditPayPerIframe",
+            content: contentUrl,
+
+        });
+
+
+    },
+
+    optionFormatter:function (value,row,index) {
+
+        if(row.status!="待审核"){
+
+            return  "<a class='grid-btn' href='javascript:controllerauditLogList.show("+value+");'>查看</a>";
+        }else{
+
+            return  "<a class='grid-btn' href='javascript:controllerauditLogList.audit("+value+");'>审核</a>";
+        }
+
+
     }
 
 

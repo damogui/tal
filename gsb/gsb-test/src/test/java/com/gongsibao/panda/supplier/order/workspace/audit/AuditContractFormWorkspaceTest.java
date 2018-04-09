@@ -8,6 +8,9 @@ import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.*;
+import org.netsharp.panda.plugin.dic.ToolbarType;
+import org.netsharp.panda.plugin.entity.PToolbar;
+import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
@@ -25,11 +28,7 @@ public class AuditContractFormWorkspaceTest extends ContractFormWorkspaceTest {
         super.setup();
         urlForm = "/trade/audit/contract/form";
         resourceNodeCode = "GSB_Trade_Audit_Contract_Form";
-    }
-
-    @Test
-    public void createDetailRowToolbar() {
-
+        fileToolBarPath = "";
     }
 
     protected PForm createForm(ResourceNode node) {
@@ -43,6 +42,11 @@ public class AuditContractFormWorkspaceTest extends ContractFormWorkspaceTest {
         }
         return form;
     }
+
+    @Override
+    public void createDetailRowToolbar() {
+    }
+
 
     private List<ControlTypes> getNotToLab() {
         List<ControlTypes> controlTypesList = new ArrayList();

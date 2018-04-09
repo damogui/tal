@@ -10,7 +10,7 @@ com.gongsibao.trade.web.FilePreviewCtrl = org.netsharp.panda.core.CustomCtrl.Ext
 
     	this.orderProdId = orderProdId;
     	var me = this;
-    	this.invokeService ("queryOrderProdTraceFiles", [orderProdId], function(list){
+    	this.invokeService ("queryPreviewOrderProdTraceFiles", [orderProdId], function(list){
     		
     		me.bindData(list);
     	});

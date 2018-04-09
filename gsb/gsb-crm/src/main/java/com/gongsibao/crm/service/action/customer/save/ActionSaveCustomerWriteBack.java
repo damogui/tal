@@ -29,7 +29,7 @@ public class ActionSaveCustomerWriteBack implements IAction {
 		// 1.更新NCustomer
 		StringBuilder builer = new StringBuilder();
 		{
-			builer.append("UPDATE n_crm_customer c ");
+			builer.append("UPDATE crm_customer c ");
 			builer.append("LEFT JOIN ( ");
 			builer.append("SELECT customer_id, company_id FROM crm_customer_company_map ");
 			builer.append("WHERE customer_id = ? ORDER BY add_time DESC LIMIT 1 ");
@@ -47,7 +47,7 @@ public class ActionSaveCustomerWriteBack implements IAction {
 
 			builer = new StringBuilder();
 			builer.append("UPDATE uc_account a ");
-			builer.append("LEFT JOIN n_crm_customer c ON a.pkid = c.account_id ");
+			builer.append("LEFT JOIN  crm_customer c ON a.pkid = c.account_id ");
 			builer.append("SET a.company_id = c.company_id ");
 			builer.append("WHERE c.id = ? AND c.company_id IS NOT NULL");
 			pm.executeNonQuery(builer.toString(), qps);

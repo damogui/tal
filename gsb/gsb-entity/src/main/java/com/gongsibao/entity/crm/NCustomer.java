@@ -3,6 +3,7 @@ package com.gongsibao.entity.crm;
 import java.util.Date;
 import java.util.List;
 
+import com.gongsibao.entity.BaseEntity;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
@@ -20,11 +21,11 @@ import com.gongsibao.entity.crm.dic.Sex;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
-@Table(name = "n_crm_customer", header = "客户信息")
-public class NCustomer extends Entity {
+@Table(name = "crm_customer", header = "客户信息(新)")
+public class NCustomer extends BaseEntity {
 
 	/**
-	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
+	 * @Fields serialVersionUID : n_crm_customer  还用crm_customer  多加字段
 	 */
 	private static final long serialVersionUID = -1451778506769623188L;
 
@@ -64,19 +65,19 @@ public class NCustomer extends Entity {
 	@Column(name = "addr", header = "客户地址")
 	private String addr;
 
-	@Column(name = "province_id")
+	@Column(name = "f_province_id")
 	private Integer provinceId;
 
 	@Reference(foreignKey = "provinceId", header = "省份")
 	private Dict province;
 
-	@Column(name = "city_id")
+	@Column(name = "f_city_id")
 	private Integer cityId;
 
 	@Reference(foreignKey = "cityId", header = "城市")
 	private Dict city;
 
-	@Column(name = "county_id")
+	@Column(name = "f_county_id")
 	private Integer countyId;
 
 	@Reference(foreignKey = "countyId", header = "区/县")

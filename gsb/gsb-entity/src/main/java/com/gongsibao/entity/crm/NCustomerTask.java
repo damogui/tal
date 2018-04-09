@@ -32,7 +32,7 @@ public class NCustomerTask extends Entity {
 	private static final long serialVersionUID = 4684375504055933956L;
 
 	@JsonIgnore
-	@Reference(foreignKey = "customerId", header = "客户")
+	@Reference(foreignKey = "customerId", header = "客户",primaryKey="pkid")
 	private NCustomer customer;
 
 	@Column(name = "customer_id", header = "客户")

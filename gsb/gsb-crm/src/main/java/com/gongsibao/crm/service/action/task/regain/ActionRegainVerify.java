@@ -1,26 +1,20 @@
 package com.gongsibao.crm.service.action.task.regain;
 
-import java.sql.Types;
 import java.util.Map;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.BusinessException;
-import org.netsharp.core.DataTable;
-import org.netsharp.core.IRow;
-import org.netsharp.core.QueryParameters;
 import org.netsharp.organization.entity.RoleGroup;
 import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.persistence.session.SessionManager;
-import org.netsharp.util.StringManager;
 
 import com.gongsibao.crm.base.ICustomerServiceConfigService;
 import com.gongsibao.entity.crm.NCustomerTask;
-import com.gongsibao.entity.crm.dic.AllocationState;
-import com.gongsibao.entity.crm.dic.ServiceType;
-import com.gongsibao.utils.NumberUtils;
+import com.gongsibao.supplier.base.ISupplierDepartmentService;
+import com.gongsibao.utils.SalesmanOrganization;
+import com.gongsibao.utils.SupplierSessionManager;
 
 /**
  * @author hw
@@ -33,13 +27,34 @@ public class ActionRegainVerify implements IAction {
 
     IPersister<RoleGroup> pmRole = PersisterFactory.create();
 
-    @SuppressWarnings("unused")
-	@Override
+    @Override
     public void execute(ActionContext ctx) {
     	
         Map<String, Object> setMap = ctx.getStatus();
         NCustomerTask taskEntity = (NCustomerTask) ctx.getItem();
-        //服务商id
+        //yxb收回级别：1.业务员：当前商机的ownerId等于当前登录人，退回到业务员当前的部门公海、2.部门负责人或平台（售前）：当前商机的ownerId所在部门的上级部门不为空退回上级部门公海，上级部门为空是平台公海
+        if (taskEntity.getOwnerId() != null && taskEntity.getOwnerId().equals(SessionManager.getUserId())) {
+            setMap.put("ownerId", SessionManager.getUserId());
+            taskEntity.setOwnerId(null);
+        } else {
+            Integer currentOwner = taskEntity.getOwnerId() != null ? taskEntity.getOwnerId() : SessionManager.getUserId();
+            setMap.put("ownerId", currentOwner);
+            SalesmanOrganization organization = SupplierSessionManager.getSalesmanOrganization(currentOwner);
+            ISupplierDepartmentService departmentService = ServiceFactory.create(ISupplierDepartmentService.class);
+            Integer currentDepartmentSupId = departmentService.getSupDepartmentId(organization.getDepartmentId());
+            //当前部门的上级为空，进入平台公海。否则进入上级部门公海
+            if (currentDepartmentSupId == null) {
+                taskEntity.setSupplierId(null);
+                taskEntity.setDepartmentId(null); 
+            } else {
+                taskEntity.setDepartmentId(currentDepartmentSupId);
+            }
+        }
+        
+        
+        
+        /*zhaochao
+         * //服务商id
         int supplierId = NumberUtils.toInt(taskEntity.getSupplierId());
         //部门id
         int departmentId = NumberUtils.toInt(taskEntity.getDepartmentId());
@@ -133,28 +148,11 @@ public class ActionRegainVerify implements IAction {
                 //当是售前时，则将
                 throw new BusinessException("当前商机已经是大公海商机了，禁止收回！");
             }
-        }
-        //收回级别：业务员（当前商机的ownerId等于当前登录人，退回到业务员当前的部门公海）、上级部门或平台（当前商机的ownerId所在部门的上级部门不为空退回上级部门公海，上级部门为空是平台公海）
-        /*if (taskEntity.getOwnerId() != null && taskEntity.getOwnerId().equals(SessionManager.getUserId())) {
-            setMap.put("ownerId", SessionManager.getUserId());
-            taskEntity.setOwnerId(null);
-        } else {
-            Integer currentOwner = taskEntity.getOwnerId() != null ? taskEntity.getOwnerId() : SessionManager.getUserId();
-            setMap.put("ownerId", currentOwner);
-            SalesmanOrganization organization = SupplierSessionManager.getSalesmanOrganization(currentOwner);
-            ISupplierDepartmentService departmentService = ServiceFactory.create(ISupplierDepartmentService.class);
-            Integer currentDepartmentSupId = departmentService.getSupDepartmentId(organization.getDepartmentId());
-            //当前部门的上级为空，进入平台公海。否则进入上级部门公海
-            if (currentDepartmentSupId == null) {
-                taskEntity.setSupplierId(null);
-                taskEntity.setDepartmentId(null);
-            } else {
-                taskEntity.setDepartmentId(currentDepartmentSupId);
-            }
         }*/
+        
     }
 
-    private DataTable getRoleMapList(int userId) {
+    /*private DataTable getRoleMapList(int userId) {
         // 角色
        
         StringBuffer sqlRole = new StringBuffer();
@@ -168,5 +166,5 @@ public class ActionRegainVerify implements IAction {
         qsRole.add("@employee_id", userId, Types.INTEGER);
         DataTable roleList = pmRole.executeTable(sqlRole.toString(), qsRole);
         return roleList;
-    }
+    }*/
 }

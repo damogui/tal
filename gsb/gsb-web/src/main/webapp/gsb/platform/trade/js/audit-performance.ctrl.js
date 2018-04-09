@@ -26,7 +26,7 @@ com.gongsibao.trade.web.AuditPerformanceCtrl = com.gongsibao.trade.web.AuditBase
                 data: data,
                 columns: [[
                     // {field: 'id', checkbox: true},
-                    {field: 'suppliername', title: '服务商', width: 100, align: 'center'},
+                    {field: 'suppliername', title: '服务商', width: 180, align: 'center'},
                     {field: 'departmentname', title: '部门', width: 150},
 
                     {field: 'salesmanname', title: '业务员', width: 150},

@@ -40,10 +40,14 @@ com.gongsibao.trade.web.AuditInvoiceListPart = org.netsharp.panda.commerce.ListP
             content: url,
             btn: ['审核通过', '审核驳回'],// 可以无限个按钮
             btn1: function (index, layero) {
-                document.getElementById('invoiceCreateIframe').firstElementChild.contentWindow.controllerinvoice.approved(id);
+                document.getElementById('invoiceCreateIframe').firstElementChild.contentWindow.controllerinvoice.approved(id, function (data) {
+                    me.reload();
+                });
             },
             btn2: function (index, layero) {
-                document.getElementById('invoiceCreateIframe').firstElementChild.contentWindow.controllerinvoice.rejected(id);
+                document.getElementById('invoiceCreateIframe').firstElementChild.contentWindow.controllerinvoice.rejected(id, function (data) {
+                    me.reload();
+                });
                 return false;
             }
         });
