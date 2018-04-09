@@ -33,9 +33,14 @@ public class AuditInvoiceFormWorkspaceTest extends InvoiceFormWorKspace {
         invoiceFileToolbarPath = null;
     }
 
-    @Test
+    @Override
     public void createDetailRowToolbar() {
+    }
 
+
+    @Override
+    public String fileToolBarPath() {
+        return "";
     }
 
     protected PForm createForm(ResourceNode node) {
