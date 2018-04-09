@@ -173,7 +173,7 @@ public class OrderProd extends BaseEntity {
 	@Column(name = "customer_id", header = "客户Id")
 	private Integer customerId;
 
-	@Reference(foreignKey = "customerId", header = "客户")
+	@Reference(foreignKey = "customerId", header = "客户",primaryKey ="pkid" )
 	private NCustomer customer;
 
 	public Integer getQuantity() {

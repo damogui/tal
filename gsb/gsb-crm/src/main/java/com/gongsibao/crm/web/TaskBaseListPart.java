@@ -28,7 +28,7 @@ public class TaskBaseListPart extends AdvancedListPart {
 			filters.add("telephone='" + keyword + "'");
 			filters.add("qq='" + keyword + "'");
 			filters.add("weixin='" + keyword + "'");
-			return "customer_id in ( select id from n_crm_customer where " + StringManager.join(" or ", filters) + ")";
+			return "customer_id in ( select id from  crm_customer where " + StringManager.join(" or ", filters) + ")";
 		}else if(parameter.getKey().equals("unFollowDayCount")){
 			
 			//未跟进天数：当前时间-上次跟进时间

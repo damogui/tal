@@ -3,6 +3,7 @@ package com.gongsibao.entity.crm;
 import java.util.Date;
 import java.util.List;
 
+import com.gongsibao.entity.BaseEntity;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
@@ -20,11 +21,11 @@ import com.gongsibao.entity.crm.dic.Sex;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
-@Table(name = "n_crm_customer", header = "客户信息")
-public class NCustomer extends Entity {
+@Table(name = "crm_customer", header = "客户信息(新)")
+public class NCustomer extends BaseEntity {
 
 	/**
-	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
+	 * @Fields serialVersionUID : n_crm_customer  还用crm_customer  多加字段
 	 */
 	private static final long serialVersionUID = -1451778506769623188L;
 
