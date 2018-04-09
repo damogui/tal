@@ -136,10 +136,13 @@ com.gongsibao.trade.web.OrderPayCtrl = org.netsharp.panda.core.CustomCtrl.Extend
         var isSave = false;
         this.invokeService("applyPay", [pay], function (data) {
 
-            isSave = data;
+            isSave=data;
 
-        }, false);
+
+
+        },false);
         return isSave;
+
     }
 });
 

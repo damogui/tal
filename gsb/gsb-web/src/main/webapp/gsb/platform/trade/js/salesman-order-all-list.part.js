@@ -51,12 +51,12 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
 
                         var payPerformanceCtrl = document.getElementById('addReceivedIframe').firstElementChild.contentWindow.payPerformanceCtrl;
                         var isSave = payPerformanceCtrl.save();
-                        if (isSave === true) {
+                        if (isSave) {
 
-                            layer.msg('保存成功！', function () {
-
-                                layer.closeAll();
-                            });
+                            IMessageBox.toast('保存成功');
+                            layer.closeAll();
+                            //刷新
+                            reloadPage();
                         }
                     }
                 });
@@ -156,12 +156,12 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
 
                         var payCtrl = document.getElementById('addReceivedIframe').firstElementChild.contentWindow.payCtrl;
                         var isSave = payCtrl.save();
-                        if (isSave === true) {
+                        if (isSave) {
 
-                            layer.msg('保存成功！', function () {
-
-                                layer.closeAll();
-                            });
+                            IMessageBox.toast('保存成功');
+                            layer.closeAll();
+                            //刷新
+                            reloadPage();
                         }
                     }
                 });
