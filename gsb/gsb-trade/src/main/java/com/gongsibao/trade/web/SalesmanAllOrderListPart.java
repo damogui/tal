@@ -5,22 +5,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.gongsibao.entity.trade.dto.DepPayMapDTO;
-import com.gongsibao.trade.base.IOrderService;
-import com.gongsibao.utils.NumberUtils;
-import org.netsharp.base.IPersistableService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
-import org.netsharp.core.QueryParameters;
 import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
-import org.netsharp.persistence.IPersister;
-import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
+import com.gongsibao.trade.base.IOrderService;
 import com.gongsibao.u8.base.ISoOrderService;
-
+import com.gongsibao.utils.NumberUtils;
 /**
  * Created by win on 2018/3/2.
  */
@@ -119,7 +114,32 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
         SoOrder entity = orderService.queryFirst(oql);
         return entity.getIsInstallment() == null ? false : entity.getIsInstallment();
     }
-
+    /*
+     * 是否是改价的订单
+     * @param id
+     * @return 0-审核通过、未审核；1-驳回；2-审核中
+     */
+     public Integer isChangePriceOrde(Integer id) {
+    	 Integer resultValueInteger = 0;
+         Oql oql = new Oql();
+         {
+             oql.setType(SoOrder.class);
+             oql.setSelects("*");
+             oql.setFilter("id=?");
+             oql.getParameters().add("id", id, Types.INTEGER);
+         }
+         SoOrder entity = orderService.queryFirst(oql);
+         if(entity.getIsChangePrice() && entity.getChangePriceAuditStatus().getValue().equals(AuditStatusType.Shtg.getValue())){
+        	 resultValueInteger = 0;
+         }else if(entity.getIsChangePrice() && entity.getChangePriceAuditStatus().getValue().equals(AuditStatusType.Bhsh.getValue())){
+        	 resultValueInteger = 1;
+         }else if(!entity.getIsChangePrice()){
+        	 resultValueInteger = 0;
+         }else {
+        	 resultValueInteger = 2;
+		}
+         return resultValueInteger;
+     }
     /**
      * 获取订单的退款(结转)状态、退款(结转)金额判断
      *
