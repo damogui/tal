@@ -22,10 +22,10 @@ public class ActionMemberWriteBack implements IAction {
 		Account account = (Account)ctx.getStatus().get("account");
 		UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
-			updateSql.update("n_crm_customer");
+			updateSql.update("crm_customer");
 			updateSql.set("is_member", 1);
 			updateSql.set("account_id", account.getId());
-			updateSql.where("id=" + customer.getId());
+			updateSql.where("pkid=" + customer.getId());
 		}
 		
 		IPersister<NCustomer> pm = PersisterFactory.create();

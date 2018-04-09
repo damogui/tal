@@ -28,10 +28,10 @@ import java.util.List;
 /**
  * Created by win on 2018/2/10.
  */
-@Table(name = "n_crm_customer", header = "客户信息")
+@Table(name = "crm_customer", header = "客户信息")
 public class ImNCustomer extends Persistable implements IEntity {
     /**
-     * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
+     * @Fields serialVersionUID : n_crm_customer  已经换为crm_customer
      */
     private static final long serialVersionUID = -1451778506769623188L;
     @Exclusive
@@ -184,26 +184,26 @@ public class ImNCustomer extends Persistable implements IEntity {
     }
     @Id
 
-    @Column(name = "id", header = "主键")
+    @Column(name = "pkid", header = "主键")
     private Integer id;
 
-    @Column(name = "creator_id", header = "创建人ID")
-    private Integer creatorId;
+    @Column(name="add_user_id",header="添加人")
+    private Integer creatorId = 0;
+
+    @Column(name="add_time",header="创建时间")
+    private Date createTime;
+
+    @Column(name="upd_user_id",header="修改人")
+    private Integer updatorId = 0;
+
+    @Column(name="upd_time",header="修改时间")
+    private Date updateTime;
 
     @Column(name = "creator", header = "创建人名称")
     private String creator;
 
-    @Column(name = "create_time", header = "创建时间")
-    private Date createTime;
-
-    @Column(name = "updator_id", header = "更新人ID")
-    private Integer updatorId;
-
     @Column(name = "updator", header = "更新人名称")
     private String updator;
-
-    @Column(name = "update_time", header = "更新时间")
-    private Date updateTime;
 
     //private Date ts;
 
