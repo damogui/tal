@@ -161,7 +161,7 @@ public class NCustomer extends BaseEntity {
 	@Reference(foreignKey = "customerSourceId", header = "客户来源")
 	private Dict customerSource;
 
-	@Column(name = "customer_source_id", header = "客户来源")
+	@Column(name = "customer_source", header = "客户来源")
 	private Integer customerSourceId;
 
 	// @Column(name = "crm_source_type", header = "是不是招商渠道来源")
