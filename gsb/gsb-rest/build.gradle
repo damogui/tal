@@ -37,3 +37,16 @@ dependencies {
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
+
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java']
+        }
+        resources {
+            srcDirs = ['src/main/resources']
+        }
+    }
+
+}
