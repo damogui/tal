@@ -30,17 +30,11 @@ public class AuditInvoiceFormWorkspaceTest extends InvoiceFormWorKspace {
         super.setup();
         urlForm = "/trade/audit/invoice/form";
         resourceNodeCode = "GSB_Trade_Audit_Invoice_Form";
-        invoiceFileToolbarPath = null;
+        invoiceFileToolbarPath = "";
     }
 
     @Override
     public void createDetailRowToolbar() {
-    }
-
-
-    @Override
-    public String fileToolBarPath() {
-        return "";
     }
 
     protected PForm createForm(ResourceNode node) {

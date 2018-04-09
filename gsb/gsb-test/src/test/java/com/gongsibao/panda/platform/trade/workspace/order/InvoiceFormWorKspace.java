@@ -88,10 +88,6 @@ public class InvoiceFormWorKspace extends WorkspaceCreationBase {
         createOrderFileListPart(workspace);
     }
 
-    public String fileToolBarPath() {
-        return invoiceFileToolbarPath;
-    }
-
     @Test
     public void createDetailRowToolbar() {
 
@@ -142,7 +138,7 @@ public class InvoiceFormWorKspace extends WorkspaceCreationBase {
             part.setResourceNode(node);
             part.setPartTypeId(PartType.DETAIL_PART.getId());
             part.setDatagrid(datagrid);
-            part.setToolbar(fileToolBarPath());
+            part.setToolbar(invoiceFileToolbarPath);
             part.setDockStyle(DockType.DOCUMENTHOST);
             part.setJsController("com.gongsibao.trade.web.OrderInvoiceFileDetailPart");
         }
