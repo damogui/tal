@@ -1,9 +1,11 @@
 package com.gongsibao.entity.igirl.tm.baseinfo;
 
-import org.joda.time.DateTime;
+import java.util.Date;
+
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
+import org.netsharp.util.DateManage;
 
 @Table(name = "ig_base_ncl_batch",header = "尼斯数据批次")
 public class NclBatch extends Entity{
@@ -14,7 +16,7 @@ public class NclBatch extends Entity{
 
 	@Column(name = "code",header = "编号")
 
-    private String code = DateTime.now().toString("yyyyMMdd");
+    private String code = DateManage.toString(new Date(),"yyyyMMdd");
 
     @Column(name = "context",header = "说明")
     private String context;
