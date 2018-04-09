@@ -28,7 +28,7 @@ import org.netsharp.util.StringManager;
 
 /*合同管理*/
 public class ContractFormWorkspaceTest extends WorkspaceCreationBase {
-
+    protected String fileToolBarPath = "contract/file/toolbar";
     @Before
     @Override
     public void setup() {
@@ -114,10 +114,6 @@ public class ContractFormWorkspaceTest extends WorkspaceCreationBase {
         createOrderFileListPart(workspace);
     }
 
-    public String fileToolBarPath(){
-        return "contract/file/toolbar";
-    }
-
     @Test
     public void createDetailRowToolbar() {
 
@@ -167,7 +163,7 @@ public class ContractFormWorkspaceTest extends WorkspaceCreationBase {
             part.setResourceNode(node);
             part.setPartTypeId(PartType.DETAIL_PART.getId());
             part.setDatagrid(datagrid);
-            part.setToolbar(fileToolBarPath());
+            part.setToolbar(fileToolBarPath);
             part.setDockStyle(DockType.DOCUMENTHOST);
             part.setJsController("com.gongsibao.trade.web.OrderContractFileDetailPart");
         }

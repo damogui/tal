@@ -28,6 +28,7 @@ public class AuditContractFormWorkspaceTest extends ContractFormWorkspaceTest {
         super.setup();
         urlForm = "/trade/audit/contract/form";
         resourceNodeCode = "GSB_Trade_Audit_Contract_Form";
+        fileToolBarPath = "";
     }
 
     protected PForm createForm(ResourceNode node) {
@@ -46,11 +47,6 @@ public class AuditContractFormWorkspaceTest extends ContractFormWorkspaceTest {
     public void createDetailRowToolbar() {
     }
 
-
-    @Override
-    public String fileToolBarPath() {
-        return "";
-    }
 
     private List<ControlTypes> getNotToLab() {
         List<ControlTypes> controlTypesList = new ArrayList();
