@@ -13,7 +13,6 @@ import com.gongsibao.entity.bd.Dict;
 
 public class CityComboBoxController {
 
-
 	public List<Dict> queryPcc(Integer parentId) {
 
 		Oql oql = new Oql();
@@ -21,20 +20,20 @@ public class CityComboBoxController {
 			oql.setType(Dict.class);
 			oql.setSelects("id,name");
 		}
-		
+
 		List<String> ss = new ArrayList<String>();
 		ss.add("type='101'");
-		if(parentId != null){
+		if (parentId != null) {
 			ss.add("pid=?");
 			oql.getParameters().add("parentId", parentId, Types.INTEGER);
-		}else{
-			
+		} else {
+
 			ss.add("(pid is null or pid = 0)");
 		}
 
-		String filter = StringManager.join(" and ",ss);
+		String filter = StringManager.join(" and ", ss);
 		oql.setFilter(filter);
-		 IPersister<Dict> pm = PersisterFactory.create();
+		IPersister<Dict> pm = PersisterFactory.create();
 		return pm.queryList(oql);
 	}
 }
