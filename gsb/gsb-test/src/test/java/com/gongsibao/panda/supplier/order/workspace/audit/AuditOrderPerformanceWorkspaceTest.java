@@ -28,7 +28,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
  */
 /*订单业绩审核*/
 public class AuditOrderPerformanceWorkspaceTest extends WorkspaceCreationBase {
-    private String listrowToolbarPath = "/crm/audit/row/orderper/toolbar";
+    //private String listrowToolbarPath = "/crm/audit/row/orderper/toolbar";
 
     @Before
     public void setup() {
@@ -47,31 +47,31 @@ public class AuditOrderPerformanceWorkspaceTest extends WorkspaceCreationBase {
 
     }
 
-    @Test
-    public void createRowToolbar() {
-
-        ResourceNode node = this.resourceService.byCode (resourceNodeCode);
-        PToolbar toolbar = new PToolbar ();
-        {
-            toolbar.toNew ();
-            toolbar.setPath (listrowToolbarPath);
-            toolbar.setName ("审核");
-            toolbar.setResourceNode (node);
-            toolbar.setToolbarType (ToolbarType.BASE);
-        }
-        PToolbarItem item = new PToolbarItem ();
-        {
-            item.toNew ();
-            item.setCode ("audit");
-            item.setName ("审核");
-            item.setSeq (1);
-            item.setCommand ("{controller}.audit();");
-            toolbar.getItems ().add (item);
-        }
-
-
-        toolbarService.save (toolbar);
-    }
+//    @Test
+//    public void createRowToolbar() {
+//
+//        ResourceNode node = this.resourceService.byCode (resourceNodeCode);
+//        PToolbar toolbar = new PToolbar ();
+//        {
+//            toolbar.toNew ();
+//            toolbar.setPath (listrowToolbarPath);
+//            toolbar.setName ("审核");
+//            toolbar.setResourceNode (node);
+//            toolbar.setToolbarType (ToolbarType.BASE);
+//        }
+//        PToolbarItem item = new PToolbarItem ();
+//        {
+//            item.toNew ();
+//            item.setCode ("audit");
+//            item.setName ("审核");
+//            item.setSeq (1);
+//            item.setCommand ("{controller}.audit();");
+//            toolbar.getItems ().add (item);
+//        }
+//
+//
+//        toolbarService.save (toolbar);
+//    }
 
 
     @Override
@@ -79,7 +79,7 @@ public class AuditOrderPerformanceWorkspaceTest extends WorkspaceCreationBase {
 
         PDatagrid datagrid = super.createDatagrid (node);
         {
-            datagrid.setToolbar (listrowToolbarPath);
+            //datagrid.setToolbar (listrowToolbarPath);
             datagrid.setName ("订单业绩审核");
 
             datagrid.setAutoQuery (true);
@@ -87,7 +87,10 @@ public class AuditOrderPerformanceWorkspaceTest extends WorkspaceCreationBase {
             datagrid.setSingleSelect (true);
         }
         PDatagridColumn column = null;
-        addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+        column=addColumn (datagrid, "id", "操作", ControlTypes.TEXT_BOX, 60, true);{
+            column.setFormatter("return controllerauditLogList.optionFormatter(value,row,index);");
+
+        }
         column = addColumn (datagrid, "soOrder.id", "订单id", ControlTypes.TEXT_BOX, 80);
         {
             column.setSystem (true);

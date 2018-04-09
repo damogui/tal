@@ -30,30 +30,30 @@ public class PayAuditWorkspaceTest extends AuditPayWorkspaceTest {
         listToolbarPath="";
 
     }
-    @Test
-    public void createRowToolbar() {
-
-        ResourceNode node = this.resourceService.byCode(resourceNodeCode);
-        PToolbar toolbar = new PToolbar();
-        {
-            toolbar.toNew();
-            toolbar.setPath(listrowToolbarPath);
-            toolbar.setName("审核");
-            toolbar.setResourceNode(node);
-            toolbar.setToolbarType(ToolbarType.BASE);
-        }
-        PToolbarItem item = new PToolbarItem();
-        {
-            item.toNew();
-            item.setCode("audit");
-            item.setName("审核");
-            item.setSeq(1);
-            item.setCommand("{controller}.audit();");
-            toolbar.getItems().add(item);
-        }
-
-
-        toolbarService.save(toolbar);
-    }
+//    @Test
+//    public void createRowToolbar() {
+//
+//        ResourceNode node = this.resourceService.byCode(resourceNodeCode);
+//        PToolbar toolbar = new PToolbar();
+//        {
+//            toolbar.toNew();
+//            toolbar.setPath(listrowToolbarPath);
+//            toolbar.setName("审核");
+//            toolbar.setResourceNode(node);
+//            toolbar.setToolbarType(ToolbarType.BASE);
+//        }
+//        PToolbarItem item = new PToolbarItem();
+//        {
+//            item.toNew();
+//            item.setCode("audit");
+//            item.setName("审核");
+//            item.setSeq(1);
+//            item.setCommand("{controller}.audit();");
+//            toolbar.getItems().add(item);
+//        }
+//
+//
+//        toolbarService.save(toolbar);
+//    }
 
 }

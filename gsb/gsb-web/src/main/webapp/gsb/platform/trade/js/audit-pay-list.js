@@ -43,6 +43,43 @@ com.gongsibao.trade.web.AuditPayListPart = org.netsharp.panda.commerce.ListPart.
         });
 
 
+    },
+    show: function (id) {//查看
+        var me = this;
+        var row = this.getSelectedItem();
+        var rows = this.getSelections();
+        // if (rows.length <= 0) {
+        //     IMessageBox.info('请先选择订单数据');
+        //     return false;
+        // }
+        // row.nDepPay_orderId+"&auditId="+row.id;
+        var contentUrl = this.auditUrl + "?id=" + row.pay_id + "&auditId=" + row.id;
+        ;
+        layer.open({
+            type: 2,//1是字符串 2是内容
+            title: '回款审核',
+            fixed: false,
+            maxmin: true,
+            shadeClose: false,
+            area: ['70%', '95%'],
+            zIndex: 100000,
+            id: "addAuditPayIframe",
+            content: contentUrl
+
+        });
+
+
+    },
+    optionFormatter:function (value,row,index) {
+        if(row.status!="待审核"){
+
+            return  "<a class='grid-btn' href='javascript:controllerauditLogList.show("+value+");'>查看</a>";
+        }else{
+
+            return  "<a class='grid-btn' href='javascript:controllerauditLogList.audit("+value+");'>审核</a>";
+        }
+
+        
     }
 
 
