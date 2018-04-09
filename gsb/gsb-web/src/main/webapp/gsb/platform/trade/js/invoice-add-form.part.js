@@ -163,6 +163,7 @@ com.gongsibao.trade.web.OrderInvoiceFileDetailPart = org.netsharp.panda.commerce
 
     ctor: function () {
         this.base();
+        this.isAdd = System.Url.getParameter("isAdd");
     },
     initUpload: function () {
 
@@ -184,10 +185,10 @@ com.gongsibao.trade.web.OrderInvoiceFileDetailPart = org.netsharp.panda.commerce
         this.initUpload();
     },
     urlFormatter: function (value, row, index) {
-
-        var str = '<a class="grid-btn" href="javascript:window.open(\'' + row.url + '\');">查看</a> \
-		   <a class="grid-btn" href="javascript:controllerfiles.remove(' + index + ');">删除</a>';
-        return str;
+        var me = this;
+        var strView = '<a class="grid-btn" href="javascript:window.open(\'' + row.url + '\');">查看</a>';
+        var strDelete = me.isAdd != 1 ? "" : '<a class="grid-btn" href="javascript:controllerfiles.remove(' + index + ');">删除</a>';
+        return strView + strDelete;
     },
     remove: function (index) {
 
