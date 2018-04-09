@@ -147,7 +147,7 @@ com.gongsibao.trade.web.AuditPayCtrl = com.gongsibao.trade.web.AuditBaseCtrl.Ext
                 var payTime = $("#payTime").val();
                 if (payTime.length < 8) {
 
-                    layer.msg("回日期格式不对");
+                    layer.msg("请选择回款时间");
 
                 } else {
                     me.doApproved(getAuditRemark, payTime, function (s) {
