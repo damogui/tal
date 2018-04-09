@@ -65,7 +65,6 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         });
 
 
-
     },
     addOrderReceived: function () {//创建订单业绩
         var me = this;
@@ -481,7 +480,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
 
 /*重新调取下请求方法*/
 function reloadPage() {
-   controllersoOrderList.query();
+    controllersoOrderList.query();
 
 }
 

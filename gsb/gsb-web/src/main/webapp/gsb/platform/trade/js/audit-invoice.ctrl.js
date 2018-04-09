@@ -41,13 +41,12 @@ com.gongsibao.trade.web.AuditInvoiceListPart = org.netsharp.panda.commerce.ListP
             btn: ['审核通过', '审核驳回'],// 可以无限个按钮
             btn1: function (index, layero) {
                 document.getElementById('invoiceCreateIframe').firstElementChild.contentWindow.controllerinvoice.approved(id, function (data) {
-                    //me.reload();
-                    window.location.reload();
+                    me.reload();
                 });
             },
             btn2: function (index, layero) {
                 document.getElementById('invoiceCreateIframe').firstElementChild.contentWindow.controllerinvoice.rejected(id, function (data) {
-                    window.location.reload();
+                    me.reload();
                 });
                 return false;
             }

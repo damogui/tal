@@ -57,6 +57,7 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
             IMessageBox.toast("保存成功！");
             this.databind();
             window.parent.layer.closeAll();
+            window.parent.location.reload();
         } else {
             IMessageBox.error("保存失败！");
         }
