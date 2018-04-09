@@ -130,12 +130,12 @@ public class AuditPayWorkspaceTest  extends WorkspaceCreationBase {
         }
 
 
-        addQueryItem (queryProject, "pay.offlineAuditStatus", "审核状态", ControlTypes.ENUM_BOX);
+        addQueryItem (queryProject, "status", "审核状态", ControlTypes.ENUM_BOX);
         addQueryItem (queryProject, "pay.payForOrderCount", "是否一笔多单", ControlTypes.ENUM_BOX);
         addQueryItem (queryProject, "pay.payWayType", "是否在线支付", ControlTypes.ENUM_BOX);
 
-        addQueryItem (queryProject, "pay.creator", "回款业绩创建人", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "pay.createTime", "回款业绩创建时间", ControlTypes.DATE_BOX);
+        addQueryItem (queryProject, "creator", "回款业绩创建人", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "createTime", "回款业绩创建时间", ControlTypes.DATE_BOX);
 
 
         return queryProject;

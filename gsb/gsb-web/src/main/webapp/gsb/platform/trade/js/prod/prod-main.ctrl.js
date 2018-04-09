@@ -68,7 +68,7 @@ com.gongsibao.trade.web.ProdMainCtrl = org.netsharp.panda.core.CustomCtrl.Extend
 			    	
 		    	}else if(title=='材料预览'){
 
-			    	var filePreviewCtrl = new com.gongsibao.trade.web.FilePreviewCtrl();
+			    	filePreviewCtrl = new com.gongsibao.trade.web.FilePreviewCtrl();
 			    	filePreviewCtrl.mainCtrl = me;
 			    	filePreviewCtrl.init(me.orderProdId);
 			    	me.initializeDetailList.add(title,filePreviewCtrl);

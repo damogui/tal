@@ -361,6 +361,17 @@ com.gongsibao.trade.web.OrderPaymentCollectionDetailCtrl = com.gongsibao.trade.w
 
             me.initGrid(data);
         });
+        $("body").off("click", ".show");
+        $("body").on("click", ".show", function () {
+
+            var orderId = $(this).attr("data-id");
+            var url = $(this).attr("data-url");
+            var urlEnd=url+"?id="+orderId;
+            showDetail("orderPay","回款信息",urlEnd);
+
+
+
+        });
 
     },
     initGrid: function (data) {
@@ -378,9 +389,10 @@ com.gongsibao.trade.web.OrderPaymentCollectionDetailCtrl = com.gongsibao.trade.w
             columns: [[
 
                 {
-                    field: 'a', title: '操作', width: 80, align: 'center', formatter: function (value, row, index) {
+                    field: 'id', title: '操作', width: 80, align: 'center', formatter: function (value, row, index) {
 
-                    return '<a class="grid-btn" href="javascript:;">查看</a>';
+
+                    return '<a class="grid-btn show"   data-id="' + value + '"  data-url="/nav/gsb/platform/trade/auditPay"    href="javascript:void(0)">查看</a>';
                 }
                 },
                 {
@@ -464,7 +476,7 @@ com.gongsibao.trade.web.OrderPerCollectionDetailCtrl = com.gongsibao.trade.web.B
             var orderId = $(this).attr("data-id");
             var url = $(this).attr("data-url");
             var urlEnd=url+"?id="+orderId;
-            showDetail(urlEnd);
+            showDetail("orderPer","订单业绩信息",urlEnd);
 
 
 
@@ -487,7 +499,7 @@ com.gongsibao.trade.web.OrderPerCollectionDetailCtrl = com.gongsibao.trade.web.B
 
                 {
                     field: 'orderId', title: '操作', width: 80, align: 'center', formatter: function (value, row, index) {
-                    return '<a class="grid-btn show"   data-id="' + value + '"  data-url="/nav/gsb_platform_trade_auditPerformance"    href="javascript:void(0)">查看</a>';
+                    return '<a class="grid-btn show"   data-id="' + value + '"  data-url="/nav/gsb/platform/trade/auditPerformance"    href="javascript:void(0)">查看</a>';
                 }
                 },
                 // {field: 'auditNo', title: '审核编号', width: 100},
@@ -556,6 +568,18 @@ com.gongsibao.trade.web.OrderPayPerCollectionDetailCtrl = com.gongsibao.trade.we
             me.initGrid(data);
         });
 
+        $("body").off("click", ".show");
+        $("body").on("click", ".show", function () {
+
+            var orderId = $(this).attr("data-id");
+            var url = $(this).attr("data-url");
+            var urlEnd=url+"?id="+orderId;
+            showDetail("orderPayPer","回款业绩信息",urlEnd);
+
+
+
+        });
+
     },
     initGrid: function (data) {
 
@@ -572,9 +596,9 @@ com.gongsibao.trade.web.OrderPayPerCollectionDetailCtrl = com.gongsibao.trade.we
             columns: [[
 
                 {
-                    field: 'a', title: '操作', width: 80, align: 'center', formatter: function (value, row, index) {
+                    field: 'orderId', title: '操作', width: 80, align: 'center', formatter: function (value, row, index) {
 
-                    return '<a class="grid-btn" href="javascript:;">查看</a>';
+                    return '<a class="grid-btn show"   data-id="' + value + '"  data-url="/nav/gsb/platform/trade/auditPayPerformance"    href="javascript:void(0)">查看</a>';
                 }
                 },
                 // {field: 'auditNo', title: '审核编号', width: 100},
@@ -842,7 +866,7 @@ com.gongsibao.trade.web.OrderDiscountDetailCtrl = com.gongsibao.trade.web.BaseCt
             data: data,
             columns: [[
 
-                {field: 'no', title: '优惠卷码', width: 200},
+                {field: 'no', title: '优惠券码', width: 200},
                 {
                     field: 'amount', title: '优惠金额', width: 80, align: 'right', formatter: function (value, row, index) {
                     return (value / 100).toFixed(2);
@@ -933,20 +957,16 @@ com.gongsibao.trade.web.OrderTaskDetailCtrl = com.gongsibao.trade.web.BaseCtrl.E
 
 
 /*进行显示查看详情*/
-function showDetail(url) {
-   
-
-    url = url.replace(/_/g, '/');
-   
+function showDetail(id,title,url) {
     layer.open({
         type: 2,//1是字符串 2是内容
-        title: '订单业绩信息',
+        title: title,
         fixed: false,
         maxmin: true,
         shadeClose: false,
         area: ['60%', '60%'],
         zIndex: 100000,
-        id: "addOrderReceivedIframe",
+        id: id,
         content: url,
         // btn: ['保存', '取消'],// 可以无限个按钮
         success: function (layero, index) {

@@ -18,12 +18,15 @@ import com.gongsibao.entity.product.WorkflowNode;
 import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.OrderProdTrace;
+import com.gongsibao.entity.trade.OrderProdTraceFile;
 import com.gongsibao.entity.trade.OrderProdUserMap;
+import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
 import com.gongsibao.product.base.IWorkflowNodeService;
 import com.gongsibao.supplier.base.ISalesmanService;
 import com.gongsibao.trade.base.ICompanyIntentionService;
 import com.gongsibao.trade.base.IOrderProdService;
+import com.gongsibao.trade.base.IOrderProdTraceFileService;
 import com.gongsibao.trade.base.IOrderProdTraceService;
 import com.gongsibao.trade.base.IOrderProdUserMapService;
 import com.gongsibao.trade.base.IOrderService;
@@ -46,6 +49,11 @@ public class OrderProdDetailController {
 	public OrderProd getOrderProdById(Integer id) {
 
 		return orderProdService.byId(id);
+	}
+
+	public SoOrder getOrderById(Integer id) {
+
+		return orderService.byId(id);
 	}
 
 	/**
@@ -322,16 +330,16 @@ public class OrderProdDetailController {
 		}
 		return result;
 	}
-	
-	/**   
-	 * @Title: queryCompanys   
-	 * @Description: TODO(查询公司信息)   
+
+	/**
+	 * @Title: queryCompanys
+	 * @Description: TODO(查询公司信息)
 	 * @param: @param keyWord
 	 * @param: @param pageIndex
 	 * @param: @param pageSize
-	 * @param: @return      
-	 * @return: EasyuiDatagridResult      
-	 * @throws   
+	 * @param: @return
+	 * @return: EasyuiDatagridResult
+	 * @throws
 	 */
 	public EasyuiDatagridResult queryCompanys(String keyWord, Integer pageIndex, Integer pageSize) {
 
@@ -365,7 +373,6 @@ public class OrderProdDetailController {
 		}
 		return result;
 	}
-	
 
 	/**
 	 * @Title: addPrincipal
@@ -380,45 +387,73 @@ public class OrderProdDetailController {
 
 		return prodUserMapService.addPrincipal(orderProdId, principalIds, principalNames);
 	}
-	
-	/**   
-	 * @Title: getCustomerByOrderId   
-	 * @Description: TODO(根据订单Id获取NCustomer)   
+
+	/**
+	 * @Title: getCustomerByOrderId
+	 * @Description: TODO(根据订单Id获取NCustomer)
 	 * @param: @param orderId
-	 * @param: @return      
-	 * @return: NCustomer      
-	 * @throws   
+	 * @param: @return
+	 * @return: NCustomer
+	 * @throws
 	 */
-	public NCustomer getCustomerByOrderId(Integer orderId){
-		
+	public NCustomer getCustomerByOrderId(Integer orderId) {
+
 		return orderService.getCustomerByOrderId(orderId);
 	}
-	
-	/**   
-	 * @Title: cancelRelevanceCompany   
-	 * @Description: TODO(取消订单明细关联企业信息)   
+
+	/**
+	 * @Title: cancelRelevanceCompany
+	 * @Description: TODO(取消订单明细关联企业信息)
 	 * @param: @param orderProdId
-	 * @param: @return      
-	 * @return: Boolean      
-	 * @throws   
+	 * @param: @return
+	 * @return: Boolean
+	 * @throws
 	 */
-	public Boolean cancelRelevanceCompany(Integer orderProdId){
-		
+	public Boolean cancelRelevanceCompany(Integer orderProdId) {
+
 		return orderProdService.cancelRelevanceCompany(orderProdId);
 	}
-	
+
+	/**
+	 * @Title: cancelRelevanceCompany
+	 * @Description: TODO(添加订单明细关联企业信息)
+	 * @param: @param orderProdId
+	 * @param: @return
+	 * @return: Boolean
+	 * @throws
+	 */
+	public Boolean addRelevanceCompany(Integer orderProdId, Integer companyId) {
+
+		return orderProdService.addRelevanceCompany(orderProdId, companyId);
+	}
+
+	IOrderProdTraceFileService traceFileService = ServiceFactory.create(IOrderProdTraceFileService.class);
+
+	/**
+	 * @Title: queryOrderProdTraceFile
+	 * @Description: TODO(根据订单明细Id查询跟进文件)
+	 * @param: @param orderProdId
+	 * @param: @return
+	 * @return: List<OrderProdTraceFile>
+	 * @throws
+	 */
+	public List<OrderProdTraceFile> queryOrderProdTraceFiles(Integer orderProdId) {
+
+		return traceFileService.queryOrderProdTraceFiles(orderProdId);
+	}
+
 	
 	/**   
-	 * @Title: cancelRelevanceCompany   
-	 * @Description: TODO(添加订单明细关联企业信息)   
+	 * @Title: topTraceFile   
+	 * @Description: TODO(跟进文件置顶)   
 	 * @param: @param orderProdId
+	 * @param: @param traceFileId
 	 * @param: @return      
 	 * @return: Boolean      
 	 * @throws   
 	 */
-	public Boolean addRelevanceCompany(Integer orderProdId,Integer companyId){
+	public Boolean topTraceFile(Integer orderProdId,Integer traceFileId){
 		
-		return orderProdService.addRelevanceCompany(orderProdId,companyId);
+		return traceFileService.topTraceFile(orderProdId,traceFileId);
 	}
-	
 }

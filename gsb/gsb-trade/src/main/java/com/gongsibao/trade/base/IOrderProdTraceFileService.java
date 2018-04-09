@@ -17,4 +17,27 @@ public interface IOrderProdTraceFileService extends IPersistableService<OrderPro
 	 * @throws   
 	 */
 	List<Integer> queryWorkflowFileId(List<Integer> orderProdTraceIds);
+	
+
+	/**
+	 * @Title: queryOrderProdTraceFile
+	 * @Description: TODO(根据订单明细Id查询跟进文件)
+	 * @param: @param orderProdId
+	 * @param: @return
+	 * @return: List<OrderProdTraceFile>
+	 * @throws
+	 */
+	List<OrderProdTraceFile> queryOrderProdTraceFiles(Integer orderProdId);
+	
+	
+	/**   
+	 * @Title: topTraceFile   
+	 * @Description: TODO(跟进文件置顶)   
+	 * @param: @param orderProdId
+	 * @param: @param traceFileId
+	 * @param: @return      
+	 * @return: Boolean      
+	 * @throws   
+	 */
+	Boolean topTraceFile(Integer orderProdId,Integer traceFileId);
 }

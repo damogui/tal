@@ -15,8 +15,8 @@ com.gongsibao.trade.web.AuditPayPerformanceCtrl = com.gongsibao.trade.web.AuditB
         me.invokeService("getOrderInfo", [id], function (data) {
             //订单信息
             $("#no").html(data.orderNo);
-            $("#payablePrice").html(data.payablePrice);
-            $("#paidPrice").html(data.paidPrice);
+            $("#payablePrice").html( (data.payablePrice/100).toFixed(2));
+            $("#paidPrice").html((data.paidPrice/100).toFixed(2));
             $("#accountName").html(data.accountName);
             $("#accountMobile").html(data.accountMobile);
             $("#addTime").html(data.addTime);
@@ -24,7 +24,7 @@ com.gongsibao.trade.web.AuditPayPerformanceCtrl = com.gongsibao.trade.web.AuditB
             $("#payStatus").html(data.payStatus);
             $("#installmentCount").html(data.installmentCount);
             $("#channelOrderNo").html(data.channelOrderNo);
-            $("#unAllotPayPrice").html(data.unAllotPayPrice);
+            $("#unAllotPayPrice").html((data.unAllotPayPrice/100).toFixed(2));
             $("#remark").html(data.remark);
             me.initGridPer(id);//等上一个请求完渲染第二个
         });

@@ -37,28 +37,24 @@ public class AuditPayListPart extends AdvancedListPart {
 
         if (parameter.getKey ().equals ("keyword")) {
 
-            filters.add ("soOrder.no ='" + keyword + "'");
-            filters.add ("soOrder.channel_order_no = '" + keyword + "'");
-            filters.add ("soOrder.account_mobile = '" + keyword + "'");
-            filters.add ("soOrder.account_name = '" + keyword + "'");
-            filters.add ("soOrder.company_id in( select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' )  )");
-            return " soOrder.pkid>0  and (" + StringManager.join (" or ", filters) + ")";
+
+            return " orderNo like '%" + keyword + "%'";
         }
-        if (parameter.getKey ().equals ("payStatus")) {//付款状态
-
-            return "soOrder.pay_status_id ='" + keyword + "'";
-
-        }
-        if (parameter.getKey ().equals ("name")) {//业务员
-
-            return "soOrder.owner.name  like '%" + keyword + "%' ";
-        }
-        if (parameter.getKey ().equals ("orderCreateTime")) {//订单创建时间
-
-            return   String.format ("soOrder.add_time >='%s' and  soOrder.add_time <'%s'",keyword,keyword2);
-
-
-        }
+//        if (parameter.getKey ().equals ("payStatus")) {//付款状态
+//
+//            return "soOrder.pay_status_id ='" + keyword + "'";
+//
+//        }
+//        if (parameter.getKey ().equals ("name")) {//业务员
+//
+//            return "soOrder.owner.name  like '%" + keyword + "%' ";
+//        }
+//        if (parameter.getKey ().equals ("orderCreateTime")) {//订单创建时间
+//
+//            return   String.format ("soOrder.add_time >='%s' and  soOrder.add_time <'%s'",keyword,keyword2);
+//
+//
+//        }
         return parameter.getFilter ();
     }
 

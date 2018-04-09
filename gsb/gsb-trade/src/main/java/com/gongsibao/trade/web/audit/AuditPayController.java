@@ -124,7 +124,7 @@ public class AuditPayController extends AuditBaseController {
         orderPayInfoDTO.setBankNo (pay.getOfflineBankNo ());
         orderPayInfoDTO.setIsMoreOrder (pay.getPayForOrderCount ().getText ());
 
-        orderPayInfoDTO.setAmount (NumberUtils.getRealMoney (pay.getAmount ()).toString ());//转换为元
+        orderPayInfoDTO.setAmount (NumberUtils.getRealMoney (pay.getAmount ()));//转换为元
         orderPayInfoDTO.setMark (pay.getOfflineRemark ());
         orderPayInfoDTO.setFiles (pay.getFiles ());
         // orderPayInfoDTO.setOrderInfos (getOrderInfosByMap (pay.getOrderPayMaps ()));
@@ -154,7 +154,7 @@ public class AuditPayController extends AuditBaseController {
                 ) {
             OrderInfoDTO orderInfoDTO = new OrderInfoDTO ();
             orderInfoDTO.setOrderNo (item.getSoOrder ().getNo ());
-            orderInfoDTO.setOrderCut (NumberUtils.getRealMoney (item.getOrderPrice ()).toString ());
+            orderInfoDTO.setOrderCut (NumberUtils.getRealMoney (item.getOrderPrice ()));
             orderInfoDTO.setPayType (item.getOfflineInstallmentType ().getText ());
             orderInfoDTOs.add (orderInfoDTO);
         }
