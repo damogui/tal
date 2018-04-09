@@ -45,7 +45,7 @@ public class ActionRegainVerify implements IAction {
             //当前部门的上级为空，进入平台公海。否则进入上级部门公海
             if (currentDepartmentSupId == null) {
                 taskEntity.setSupplierId(null);
-                taskEntity.setDepartmentId(null);
+                taskEntity.setDepartmentId(null); 
             } else {
                 taskEntity.setDepartmentId(currentDepartmentSupId);
             }
