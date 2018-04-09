@@ -24,7 +24,7 @@ com.gongsibao.trade.web.AuditPayPerformanceCtrl = com.gongsibao.trade.web.AuditB
             $("#payStatus").html(data.payStatus);
             $("#installmentCount").html(data.installmentCount);
             $("#channelOrderNo").html(data.channelOrderNo);
-            $("#unAllotPayPrice").html(data.unAllotPayPrice);
+            $("#unAllotPayPrice").html((data.unAllotPayPrice/100).toFixed(2));
             $("#remark").html(data.remark);
             me.initGridPer(id);//等上一个请求完渲染第二个
         });
