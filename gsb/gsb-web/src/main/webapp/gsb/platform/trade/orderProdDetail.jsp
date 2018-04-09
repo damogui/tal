@@ -99,6 +99,22 @@
 		.file-preview-item img:hover{
 			border: 1px solid #1E7CB5;
 		}
+		
+		.file_panel{
+			width:750px;
+			padding:10px 15px;
+			border-bottom: 1px solid #eee;
+		}
+		
+		.file_panel p{
+		    line-height:20px;
+		    margin:0;
+		    padding:0;
+		}
+		
+		.file_panel #un_upload_count{
+			color:red;
+		}
 	</style>
 	<script src='/package/easyui/jquery.min.js'></script>
 	<script src='/package/layer/layer.js'></script>
@@ -198,8 +214,14 @@
 		    <div title="跟进记录">   
 		          <table id="order_prod_trace_grid"></table>
 		    </div>   
-		    <div title="材料信息">   
-		         <table id="order_prod_trace_file_grid"></table>
+		    <div title="材料信息">
+		      <div class="file_panel">
+		      	<p>您还需要上传<span id="un_upload_count">7</span>个必传文件：</p>
+		      	<p id="un_upload_files">托管协议原件彩色扫描件及托管商IDC证书复印件、域名注册证书原件彩色扫描件、公司概况、公司章程工商调档原件扫描件、法人及股东身份证原件彩色扫描件、公司主要管理、技术人员身份证原件彩色扫描件和学历证书复印件、公司近期为员工所上的社保证明原件</p>		      	
+		      </div>
+		      <div class="file_panel" style="border-bottom-width: 0px;">
+		      	<table id="order_prod_trace_file_grid"></table>
+		      </div>
 		    </div>   
 		    <div title="订单信息">
 
