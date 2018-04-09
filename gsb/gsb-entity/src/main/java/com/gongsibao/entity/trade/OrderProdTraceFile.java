@@ -6,6 +6,7 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.File;
+import com.gongsibao.entity.product.WorkflowFile;
 import com.gongsibao.entity.trade.dic.TraceFileAuditStatus;
 import com.gongsibao.entity.trade.dic.TraceFileStatus;
 
@@ -19,6 +20,9 @@ public class OrderProdTraceFile extends BaseEntity {
 	
     @Column(name="prod_workflow_file_id",header="订单处理流程材料序号")
     private Integer prodWorkflowFileId;
+    
+	@Reference(foreignKey = "prodWorkflowFileId", header = "订单处理流程材料")
+	private WorkflowFile workflowFile;
     
     @Column(name="prod_workflow_file_name",header="订单处理流程材料名称")
     private String prodWorkflowFileName;
@@ -97,7 +101,10 @@ public class OrderProdTraceFile extends BaseEntity {
 	public void setIsTop(Boolean isTop) {
 		this.isTop = isTop;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public WorkflowFile getWorkflowFile() {
+		return workflowFile;
+	}
+	public void setWorkflowFile(WorkflowFile workflowFile) {
+		this.workflowFile = workflowFile;
 	}
 }

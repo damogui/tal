@@ -401,7 +401,7 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
 			List<Integer> isMustWorkflowFilelist = new ArrayList<Integer>();
 			if (CollectionUtils.isNotEmpty(WorkflowFileList)) {
 				for (WorkflowFile workflowFile : WorkflowFileList) {
-					if (workflowFile.getNecessary()) {
+					if (workflowFile.getMust()) {
 						isMustWorkflowFilelist.add(workflowFile.getId());
 					}
 				}
