@@ -1,5 +1,6 @@
 package com.gongsibao.entity.crm;
 
+import com.gongsibao.entity.BaseEntity;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
@@ -10,11 +11,11 @@ import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.supplier.Supplier;
 
-@Table(name = "n_crm_customer_product_map", header = "客户意向产品")
-public class NCustomerProduct extends Entity {
+@Table(name = "crm_customer_prod_map", header = "客户意向产品")
+public class NCustomerProduct extends BaseEntity {
 
 	/**
-	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
+	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)//n_crm_customer_product_map
 	 */
 	private static final long serialVersionUID = 4684375504055933956L;
 
@@ -56,19 +57,19 @@ public class NCustomerProduct extends Entity {
 	@Reference(foreignKey = "productId", header = "产品")
 	private Product product;
 
-	@Column(name = "province_id")
+	@Column(name = "d_province_id")
 	private Integer provinceId;
 
 	@Reference(foreignKey = "provinceId", header = "省份")
 	private Dict province;
 
-	@Column(name = "city_id")
+	@Column(name = "d_city_id")
 	private Integer cityId;
 
 	@Reference(foreignKey = "cityId", header = "城市")
 	private Dict city;
 
-	@Column(name = "county_id")
+	@Column(name = "d_county_id")
 	private Integer countyId;
 
 	@Reference(foreignKey = "countyId",header = "区/县")

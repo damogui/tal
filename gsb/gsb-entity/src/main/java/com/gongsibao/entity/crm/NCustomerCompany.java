@@ -1,5 +1,6 @@
 package com.gongsibao.entity.crm;
 
+import com.gongsibao.entity.BaseEntity;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
@@ -9,11 +10,11 @@ import org.netsharp.entity.Entity;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
-@Table(name="n_crm_customer_company_map",header="客户关联企业")
-public class NCustomerCompany extends Entity{
+@Table(name="crm_customer_company_map",header="客户关联企业")
+public class NCustomerCompany extends BaseEntity {
 
 	/**   
-	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
+	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)n_crm_customer_company_map
 	 */   
 	private static final long serialVersionUID = 4684375504055933956L;
 

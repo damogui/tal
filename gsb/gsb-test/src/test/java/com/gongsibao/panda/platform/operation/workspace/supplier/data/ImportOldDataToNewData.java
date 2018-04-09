@@ -36,9 +36,10 @@ import java.util.List;
  */
 /*从旧表导入新表*/
     /*旧表*/
-/* crm_customer （客户）  crm_customer_prod_map（意向产品）   crm_customer_share（分享记录）  crm_customer_follow（沟通日志） crm_customer_company_map（顾客关联企业） */
+/* crm_customer  Customer（客户）  crm_customer_prod_map CustomerProdMap（意向产品）   crm_customer_share（分享记录）  crm_customer_follow CustomerFollow（沟通日志） crm_customer_company_map CustomerCompanyMap（顾客关联企业） */
 /*新表*/
-/* n_crm_customer（客户）   n_crm_customer_task（客户商机） n_crm_customer_product_map（意向产品）  n_crm_task_foolow（跟进日志）  n_crm_customer_company_map（顾客关联企业）*/
+/* n_crm_customer NCustomer（客户 用旧表）   n_crm_customer_task NCustomerTask（客户商机---- 新表）
+ n_crm_customer_product_map   NCustomerProduct（意向产品 用旧表）  n_crm_task_foolow NCustomerTaskFoolow（跟进日志----- 新表）  n_crm_customer_company_map NCustomerCompany（顾客关联企业 用旧表）*/
     /*Service*/
 /*old  CustomerService  客户   CustomerProdMapService 意向产品  CustomerShareService  分享记录 CustomerFollowService 沟通日志  CustomerCompanyMapService  顾客关联企业*/
 /*new    NCustomerService  客户    NCustomerTaskService  客户商机   NCustomerProductService 意向产品   NCustomerTaskFoolowService  跟进日志  NCustomerCompanyService  顾客关联企业*/
@@ -119,7 +120,7 @@ public class ImportOldDataToNewData {
         int idMax = Convert.toInteger (pm.executeScalar (sql, null));
 
 
-        filterBuilder.append (" follow_status <>4017 and pkid>" + idMax);//过滤掉招商渠道的
+        filterBuilder.append (" follow_status <>4017 and pkid>=" + idMax);//过滤掉招商渠道的和进行续导
         Oql oql1 = new Oql () {
         };
         oql1.setOrderby (" pkid ");
@@ -157,21 +158,21 @@ public class ImportOldDataToNewData {
             for (Customer item : customerList
                     ) {
                 ImNCustomer nCustomer = new ImNCustomer ();
-                nCustomer.setId (item.getId ());
-                nCustomer.setAccountId (item.getAccountId ());
-                nCustomer.setRealName (item.getRealName ());
-                nCustomer.setSex (item.getSex ());
-                nCustomer.setMobile (item.getMobile ());
+//                nCustomer.setId (item.getId ());
+//                nCustomer.setAccountId (item.getAccountId ());
+//                nCustomer.setRealName (item.getRealName ());
+//                nCustomer.setSex (item.getSex ());
+//                nCustomer.setMobile (item.getMobile ());
 
                 //是否会员 根据订单id是否大于0判断是不是会员
                 nCustomer.setIsMember (item.getAccountId () > 0 ? true : false);
 
-                nCustomer.setTelephone (item.getTelephone ());
-                nCustomer.setEmail (item.getEmail ());
-                nCustomer.setQq (item.getQq ());
-                nCustomer.setWeixin (item.getWeixin ());
-                nCustomer.setBirdthday (item.getBirdthday ());
-                nCustomer.setAddr (item.getAddr ());
+//                nCustomer.setTelephone (item.getTelephone ());
+//                nCustomer.setEmail (item.getEmail ());
+//                nCustomer.setQq (item.getQq ());
+//                nCustomer.setWeixin (item.getWeixin ());
+//                nCustomer.setBirdthday (item.getBirdthday ());
+//                nCustomer.setAddr (item.getAddr ());
 
                 //需要处理省市县的id进行配对
                 ProvinceCityAndCountry provinceCityAndCountry = getProvinceCityAndCountry (item.getCityId ());
@@ -184,22 +185,22 @@ public class ImportOldDataToNewData {
 //                nCustomer.setProvinceId (item.getfProvinceId ());
 //                nCustomer.setCityId (item.getCityId ());
 //                nCustomer.setCountyId (item.getfCountyId ());
-                nCustomer.setUnvalidRemark (item.getUnvalidRemark ());
-                nCustomer.setMaybeRemark (item.getMaybeRemark ());
-                nCustomer.setCustomerSourceOther (item.getCustomerSourceOther ());
-                nCustomer.setIntroducerUserId (item.getIntroducerUserId ());
-                nCustomer.setConsultWay (item.getConsultWay ());
-                nCustomer.setConsultWayOther (item.getConsultWayOther ());
-                nCustomer.setImportant (item.getImportant ());
-                nCustomer.setInvalid (item.getInvalid ());
-                nCustomer.setIntroducerId (item.getIntroducerId ());
-                nCustomer.setRemark (item.getRemark ());
-
-                nCustomer.setAllocationType (item.getAllocationType ());
-                nCustomer.setSupplierId (0);//回写供应商id和部门id
-                nCustomer.setDepartmentId (0);
-                nCustomer.setSwtCustomerId (item.getSwtCustomerId ());
-                nCustomer.setSwtServiceId (item.getSwtServiceId ());
+//                nCustomer.setUnvalidRemark (item.getUnvalidRemark ());
+//                nCustomer.setMaybeRemark (item.getMaybeRemark ());
+//                nCustomer.setCustomerSourceOther (item.getCustomerSourceOther ());
+//                nCustomer.setIntroducerUserId (item.getIntroducerUserId ());
+//                nCustomer.setConsultWay (item.getConsultWay ());
+//                nCustomer.setConsultWayOther (item.getConsultWayOther ());
+//                nCustomer.setImportant (item.getImportant ());
+//                nCustomer.setInvalid (item.getInvalid ());
+//                nCustomer.setIntroducerId (item.getIntroducerId ());
+//                nCustomer.setRemark (item.getRemark ());
+//
+//                nCustomer.setAllocationType (item.getAllocationType ());
+//                nCustomer.setSupplierId (0);//回写供应商id和部门id
+//                nCustomer.setDepartmentId (0);
+//                nCustomer.setSwtCustomerId (item.getSwtCustomerId ());
+//                nCustomer.setSwtServiceId (item.getSwtServiceId ());
 //                if (item.getFollowStatus().getValue() == 4017) {
 //
 //                    nCustomer.setCrmSourceType(1);//招商渠道 区分
@@ -207,18 +208,18 @@ public class ImportOldDataToNewData {
                 QualityInfo qualityInfo = getQualityInfoByCode (item.getFollowStatus ());
                 nCustomer.setIntentionCategory (qualityInfo.getBigCategory ());//质量分类
                 nCustomer.setQualityId (qualityInfo.getSmallCategory ());//
-                nCustomer.setLastFollowTime (item.getLastFollowTime ());
+                //nCustomer.setLastFollowTime (item.getLastFollowTime ());
                 nCustomer.setLastFoolowUserId (item.getFollowUserId ());
                 nCustomer.setLastContent ("");//可以考虑回写
                 // nCustomer.setNextFoolowTime(new Date());//下次跟进时间
-                nCustomer.setCustomerSourceId (item.getCustomerSourceId ());
+                nCustomer.setCustomerSourceId (item.getCustomerSourceId ());//需要注意
 
-                nCustomer.setCreatorId (item.getCreatorId ());
-                nCustomer.setCreator (item.getCreator ());
-                nCustomer.setCreateTime (item.getCreateTime ());
-                nCustomer.setUpdatorId (item.getUpdatorId ());
-                nCustomer.setUpdator (item.getUpdator ());
-                nCustomer.setUpdateTime (item.getUpdateTime ());
+//                nCustomer.setCreatorId (item.getCreatorId ());
+//                nCustomer.setCreator (item.getCreator ());
+//                nCustomer.setCreateTime (item.getCreateTime ());
+//                nCustomer.setUpdatorId (item.getUpdatorId ());
+//                nCustomer.setUpdator (item.getUpdator ());
+//                nCustomer.setUpdateTime (item.getUpdateTime ());
                 //商机
                 List<NCustomerTask> listTask = getTasksByCustomerId (item);
                 nCustomer.setTasks (listTask);//商机里面进行意向产品
@@ -231,7 +232,7 @@ public class ImportOldDataToNewData {
                 nCustomer.setCompanys (getCompanysByCustomer (item));
                 nCustomer.toPersist ();//变成修改
                 try {
-                    serviceNewCustomer.save (nCustomer);
+                    //serviceNewCustomer.save (nCustomer);//进行手动更新通过sql
                 } catch (Exception e) {
                     System.out.println (e.getMessage ());
 
