@@ -35,36 +35,9 @@ public class AuditContractWorkspaceTest extends WorkspaceCreationBase {
         meta = MtableManager.getMtable(entity);
         resourceNodeCode = "Gsb_Supplier_Order_Audit_Contract";
         listPartImportJs = "/gsb/platform/trade/js/audit-contract.ctrl.js|/gsb/panda-extend/gsb.custom.query.controls.js";
-        listToolbarPath = "crm/audit/ordercontract/edit";
         listPartServiceController = AuditContractListPart.class.getName();
         listPartJsController = AuditContractListPart.class.getName();
         listFilter = "type_id=" + AuditLogType.Htsq.getValue() + " and add_user_id = '{userId}' ";
-    }
-
-    @Test
-    public void createListToolbar() {
-        ResourceNode node = resourceService.byCode(resourceNodeCode);
-        PToolbar toolbar = new PToolbar();
-        {
-            toolbar.toNew();
-            toolbar.setPath(listToolbarPath);
-            toolbar.setName("审核");
-            toolbar.setResourceNode(node);
-            toolbar.setToolbarType(ToolbarType.BASE);
-        }
-
-        PToolbarItem item = new PToolbarItem();
-        {
-            item.toNew();
-            item.setCode("addAudit");
-            item.setIcon(PToolbarHelper.iconCheck);
-            item.setName("审核");
-            item.setSeq(2);
-            item.setCommand("{controller}.addAudit();");
-            toolbar.getItems().add(item);
-        }
-
-        toolbarService.save(toolbar);
     }
 
     @Test
@@ -104,7 +77,10 @@ public class AuditContractWorkspaceTest extends WorkspaceCreationBase {
 
         }
         PDatagridColumn column = null;
-        addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+        column = addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+        {
+            column.setFormatter("return controllerauditLogList.optionFormatter(value,row,index);");
+        }
         addColumn(datagrid, "contract.soOrder.no", "订单编号", ControlTypes.TEXT_BOX, 80);
         column = addColumn(datagrid, "formId", "formId", ControlTypes.TEXT_BOX, 80);
         {
