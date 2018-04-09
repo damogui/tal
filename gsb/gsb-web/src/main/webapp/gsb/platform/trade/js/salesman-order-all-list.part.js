@@ -88,11 +88,11 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             } else {
                 layer.open({
                     type: 2,//1是字符串 2是内容
-                    title: '订单信息',
+                    title: '订单业绩信息',
                     fixed: false,
                     maxmin: true,
                     shadeClose: false,
-                    area: ['60%', '60%'],
+                    area: ['60%', '80%'],
                     zIndex: 100000,
                     id: "addOrderReceivedIframe",
                     content: urlEnd,
