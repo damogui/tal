@@ -26,11 +26,7 @@ repositories {
 
 dependencies {
 
-	compile group: 'org.netsharp', name: 'netsharp-core', version: "$netsharpVersion"
-	compile group: 'org.netsharp', name: 'netsharp-communication', version: "$netsharpVersion"
-	compile group: 'org.netsharp', name: 'netsharp-cache-base', version: "$netsharpVersion"
-	compile group: 'org.netsharp', name: 'netsharp-cache-service', version: "$netsharpVersion"
-	compile group: 'org.netsharp', name: 'netsharp-persistence', version: "$netsharpVersion"
+    compile project(':gsb-entity')
 
 	compile group:'org.springframework.boot',name:'spring-boot-starter',version:'2.0.1.RELEASE'
 	compile(group:'org.springframework.boot',name:'spring-boot-starter-web',version:'2.0.1.RELEASE')

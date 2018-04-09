@@ -1,19 +1,33 @@
 package com.gongsibao.rest.demo;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.netsharp.core.Mtable;
+import org.netsharp.core.MtableManager;
+import org.netsharp.db.DbFactory;
+import org.netsharp.db.IDb;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 
 @RestController
 @RequestMapping("/order")
 public class OrderController {
+	
+	/*控制器要先执行次方法,进行初始化*/
+	@RequestMapping(value = "/init",method = RequestMethod.GET)
+	public void init() {
+		
+		Mtable meta = MtableManager.getMtable(Order.class);
+		
+		IDb db = DbFactory.create();
+		db.reCreateTable(meta);
+		
+	}
 
 	@RequestMapping(value = "/query_count",method = RequestMethod.GET)
 	public Integer queryCount(@RequestParam("status") String status) {
@@ -28,9 +42,8 @@ public class OrderController {
 		for(int i=0;i<10;i++) {
 			Order order = new Order();
 			{
-				order.setId(Double.valueOf(i));
+				order.setId(Integer.valueOf(i));
 				order.setCode("001");
-				order.setDate(new Date());
 			}
 			
 			orders.add(order);
@@ -40,13 +53,11 @@ public class OrderController {
 	}
 
 	@RequestMapping(value="/byid",method = RequestMethod.GET)
-	public Order byId(@RequestParam("id") Double id) throws InterruptedException {
+	public Order byId(@RequestParam("id") Integer id) throws InterruptedException {
 		
 		Order order = new Order();
 		{
-			order.setId(1d);
 			order.setCode("001");
-			order.setDate(new Date());
 		}
 		
 		Thread.sleep(1000);
