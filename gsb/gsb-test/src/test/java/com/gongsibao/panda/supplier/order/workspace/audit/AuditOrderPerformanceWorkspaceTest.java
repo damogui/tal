@@ -133,7 +133,7 @@ public class AuditOrderPerformanceWorkspaceTest extends WorkspaceCreationBase {
         PQueryItem item = null;
         item = addQueryItem (queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
         {
-            item.setTooltip ("订单编号、渠道订单编号、下单人、下单人电话、关联公司");
+            item.setTooltip ("订单编号、渠道订单编号、关联公司");
             item.setWidth (350);
         }
 

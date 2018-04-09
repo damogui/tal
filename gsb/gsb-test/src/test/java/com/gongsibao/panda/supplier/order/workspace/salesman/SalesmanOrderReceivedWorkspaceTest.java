@@ -123,7 +123,7 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
         PQueryItem item = null;
         item = addQueryItem (queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
         {
-            item.setTooltip ("订单编号");
+            item.setTooltip ("订单编号、渠道订单编号");
             item.setWidth (350);
         }
 

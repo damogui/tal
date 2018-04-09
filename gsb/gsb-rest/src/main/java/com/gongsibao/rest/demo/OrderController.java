@@ -1,4 +1,4 @@
-packagecom.gongsibao.rest.demo;
+package com.gongsibao.rest.demo;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
