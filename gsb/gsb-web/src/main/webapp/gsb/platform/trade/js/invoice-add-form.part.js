@@ -113,17 +113,18 @@ com.gongsibao.trade.web.InvoiceFormPart = org.netsharp.panda.commerce.FormPart.E
             $('#vatBankNo').textbox({disabled: true});
         }
     },
-    approved: function (auditId) {//审核通过
+    approved: function (auditId, callback) {//审核通过
         var me = this;
         //审批意见
         var auditRemark = $("#auditRemark").val();
         me.serviceLocator.invoke("com.gongsibao.trade.web.audit.AuditInvoiceController", "approved", [auditId, auditRemark], function (data) {
             IMessageBox.toast('操作成功！');
             window.parent.layer.closeAll();
-            //me.reload();
+            if (callback)
+                callback(data);
         }, null, false);
     },
-    rejected: function (auditId) {//审核驳回
+    rejected: function (auditId, callback) {//审核驳回
         var me = this;
         PandaHelper.openDynamicForm({
             title: '审核不通过原因',
@@ -148,6 +149,8 @@ com.gongsibao.trade.web.InvoiceFormPart = org.netsharp.panda.commerce.FormPart.E
                 me.serviceLocator.invoke("com.gongsibao.trade.web.audit.AuditInvoiceController", "rejected", [auditId, auditRemark], function (data) {
                     IMessageBox.toast('操作成功！');
                     window.parent.layer.closeAll();
+                    if (callback)
+                        callback(data);
                 }, null, false);
             }
         });
