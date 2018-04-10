@@ -73,7 +73,7 @@ public class ActionPaymentApplyAudit  implements IAction{
 	* @Description: TODO
 	* @param @param list
 	* @param @return    参数  
-	* @return Boolean    返回类型  
+	* @return Boolean    返回类型   
 	* @throws
 	 */
 	public Boolean isEmployee(List<Employee> list){
