@@ -18,7 +18,7 @@ import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PPart;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.entity.PWorkspace;
-import org.netsharp.panda.utils.EnumUtil;
+import org.netsharp.panda.utils.enums.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 

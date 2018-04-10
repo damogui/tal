@@ -11,9 +11,6 @@ import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.gongsibao.sms.base.ISmsService;
 import com.gongsibao.sms.base.cache.ICacheService;
@@ -27,13 +24,10 @@ import com.gongsibao.sms.utils.constant.ConstantCache;
 import com.gongsibao.sms.utils.security.NumberUtils;
 import com.gongsibao.sms.utils.security.StringUtils;
 
-
-@Service("smsService")
-public class SmsServiceImpl implements ISmsService, InitializingBean {
+public class SmsServiceImpl implements ISmsService {
 
     Log log = LogFactory.getLog(ISmsService.class);
 
-    @Autowired
     private ICacheService cacheService;
 
 	// Read from config(sms_api_url)
@@ -91,9 +85,7 @@ public class SmsServiceImpl implements ISmsService, InitializingBean {
         try {
             Map<String, String> map = getCommonHearsMap();
             String sendUrl = smsApiUrl + "/Send";
-            //log.info("\n============================sendUrl[" + sendUrl + "]==============================================================");
             result = HttpClientUtil.httpPost(sendUrl, map, contentJson, "utf-8");
-            //log.info("\n============================result[" + result + "]==============================================================");
             if (StringUtils.isNotBlank(result)) {
                 smsResponse = JsonUtils.jsonToObject(result, SmsResponse.class);
             }
