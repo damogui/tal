@@ -250,4 +250,33 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
 		qps.add("pkid", orderProdId, Types.INTEGER);
 		return this.pm.executeNonQuery(sql, qps) > 0;
 	}
+
+	@Override
+	public Boolean updateOrderDetail(Integer orderProdId, Integer supplierId,
+			String handleName, Integer companyId) {
+		UpdateBuilder updateBuilder = UpdateBuilder.getInstance();
+		{
+			updateBuilder.update("so_order_prod");
+			updateBuilder.set("supplier_id", supplierId);
+			updateBuilder.set("handle_name", handleName);
+			if(!companyId.equals(0)){
+				updateBuilder.set("company_id", companyId);
+			}
+			updateBuilder.where("pkid =" + orderProdId );
+		}
+		String sql = updateBuilder.toSQL();
+		return this.pm.executeNonQuery(sql, null)>0;
+	}
+
+	@Override
+	public Boolean updateOrderDetail(Integer orderProdId, Integer supplierId) {
+		UpdateBuilder updateBuilder = UpdateBuilder.getInstance();
+		{
+			updateBuilder.update("so_order_prod");
+			updateBuilder.set("supplier_id", supplierId);
+			updateBuilder.where("pkid =" + orderProdId );
+		}
+		String sql = updateBuilder.toSQL();
+		return this.pm.executeNonQuery(sql, null)>0;
+	}
 }

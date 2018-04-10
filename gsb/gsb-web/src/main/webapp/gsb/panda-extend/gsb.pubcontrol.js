@@ -8,27 +8,29 @@ org.netsharp.controls.PubControlList = org.netsharp.controls.Control.Extends({
     clear: function () {
 
     },
-    getSupplierCombogrid: function (supplierId, departmentId, employeeId) {//获取【服务商】下拉grid
+    getSupplierCombogrid: function (supplierId, departmentId, employeeId,titleName) {//获取【服务商】下拉grid
         supplierId = supplierId == null ? "supplier_name" : supplierId;
         departmentId = departmentId == null ? "department_name" : departmentId;
         employeeId = employeeId == null ? "employee_name" : employeeId;
+        titleName = titleName == null ? "服务商" : titleName;
         var supplierOption = getSupplierOption(departmentId, employeeId);
         var supplierCombogrid = {
             id: supplierId,
-            title: '服务商',
+            title: titleName,
             type: 'combogrid',
             className: '',
             option: supplierOption
         };
         return supplierCombogrid;
     },
-    getDepartmentCombogrid: function (departmentId, employeeId) {//获取【部门】下拉grid
+    getDepartmentCombogrid: function (departmentId, employeeId ,titleName) {//获取【部门】下拉grid
         departmentId = departmentId == null ? "department_name" : departmentId;
         employeeId = employeeId == null ? "employee_name" : employeeId;
+        titleName = titleName == null ? "部门" : titleName;
         var departmentOption = getDepartmentOption(employeeId);
         var departmentCombogrid = {
             id: departmentId,
-            title: '部门',
+            title: titleName,
             type: 'combogrid',
             className: '',
             option: departmentOption
