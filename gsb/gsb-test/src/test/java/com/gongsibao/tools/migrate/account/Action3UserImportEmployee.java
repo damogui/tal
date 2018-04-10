@@ -27,7 +27,7 @@ public class Action3UserImportEmployee extends AbstractActionService {
 		dao.executeInsert(cmdText, null);
 
 		//处理sys_permission_organization_employee关系（岗位）
-		cmdText = "UPDATE sys_permission_organization_employee oe LEFT JOIN ( SELECT eb.id, eb.login_name, e.id AS newid FROM sys_permission_employee_back eb LEFT JOIN sys_permission_employee e ON eb.login_name = e.login_name WHERE eb.id IN ( SELECT employee_id FROM sys_permission_organization_employee ) ) c ON oe.employee_id = c.id SET oe.employee_id = c.newid";
+		cmdText = "UPDATE sys_permission_organization_employee oe LEFT JOIN ( SELECT eb.id, eb.login_name, e.id AS newid FROM sys_permission_employee_back eb LEFT JOIN sys_permission_employee e ON eb.login_name = e.login_name) c ON oe.employee_id = c.id SET oe.employee_id = c.newid;";
 		dao.executeUpdate(cmdText, null);
 		
 		//已有的salesman 同步 employee_id
