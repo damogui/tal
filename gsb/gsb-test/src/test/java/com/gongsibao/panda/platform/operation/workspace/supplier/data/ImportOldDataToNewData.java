@@ -115,7 +115,7 @@ public class ImportOldDataToNewData {
 
         StringBuilder filterBuilder = new StringBuilder ();
         //读取最大的id，然后根据节点插入
-        String sql = "SELECT  IFNULL(MIN(pkid),0) id  FROM   crm_customer  WHERE  f_province_id IS NULL"; //"SELECT  IFNULL(MAX(id),0) id  FROM n_crm_customer";//导入从pkid 1开始 每次续导从 省id为null的开始
+        String sql = "SELECT  IFNULL(MIN(pkid),0) id  FROM   crm_customer  WHERE  is_member IS NULL"; //"SELECT  IFNULL(MAX(id),0) id  FROM n_crm_customer";//导入从pkid 1开始 每次续导从 省id为null的开始
         IPersister<ImNCustomer> pm = PersisterFactory.create ();
         int idMax = Convert.toInteger (pm.executeScalar (sql, null));
 
@@ -158,22 +158,8 @@ public class ImportOldDataToNewData {
             for (Customer item : customerList
                     ) {
                 ImNCustomer nCustomer = new ImNCustomer ();
-//                nCustomer.setId (item.getId ());
-//                nCustomer.setAccountId (item.getAccountId ());
-//                nCustomer.setRealName (item.getRealName ());
-//                nCustomer.setSex (item.getSex ());
-//                nCustomer.setMobile (item.getMobile ());
-
                 //是否会员 根据订单id是否大于0判断是不是会员
                 nCustomer.setIsMember (item.getAccountId () > 0 ? true : false);
-
-//                nCustomer.setTelephone (item.getTelephone ());
-//                nCustomer.setEmail (item.getEmail ());
-//                nCustomer.setQq (item.getQq ());
-//                nCustomer.setWeixin (item.getWeixin ());
-//                nCustomer.setBirdthday (item.getBirdthday ());
-//                nCustomer.setAddr (item.getAddr ());
-
                 //需要处理省市县的id进行配对
                 ProvinceCityAndCountry provinceCityAndCountry = getProvinceCityAndCountry (item.getCityId ());
                 if (provinceCityAndCountry != null) {
@@ -182,6 +168,49 @@ public class ImportOldDataToNewData {
                     nCustomer.setCountyId (provinceCityAndCountry.getCountryId ());
 
                 }
+                QualityInfo qualityInfo = getQualityInfoByCode (item.getFollowStatus ());
+                nCustomer.setIntentionCategory (qualityInfo.getBigCategory ());//质量分类
+                nCustomer.setQualityId (qualityInfo.getSmallCategory ());//
+                //nCustomer.setLastFollowTime (item.getLastFollowTime ());
+                nCustomer.setLastFoolowUserId (item.getFollowUserId ());
+                nCustomer.setLastContent ("");//可以考虑回写
+                // nCustomer.setNextFoolowTime(new Date());//下次跟进时间
+                nCustomer.setCustomerSourceId (item.getCustomerSourceId ());//需要注意
+                //商机
+                List<NCustomerTask> listTask = getTasksByCustomerId (item);
+                nCustomer.setTasks (listTask);//商机里面进行意向产品
+                nCustomer.setTaskCount (listTask.size ());//0商机数量回写
+                //意向产品
+                // nCustomer.setProducts(getProductsByCustomerId(item));
+                //跟进日志，流转日志暂时不考虑
+                nCustomer.setFollows (getFollowsByCustomer (nCustomer, item.getFollowStatus ()));
+                //顾客关联企业
+                // nCustomer.setCompanys (getCompanysByCustomer (item));//用旧表
+                nCustomer.toPersist ();//变成修改
+                try {
+                    //serviceNewCustomer.save (nCustomer);//进行手动更新通过sql
+                    saveNCustomer (nCustomer);//通过sql进行保存
+
+                } catch (Exception e) {
+                    System.out.println (e.getMessage ());
+
+                }
+                totalCountExce += 1;
+
+//                nCustomer.setId (item.getId ());
+//                nCustomer.setAccountId (item.getAccountId ());
+//                nCustomer.setRealName (item.getRealName ());
+//                nCustomer.setSex (item.getSex ());
+//                nCustomer.setMobile (item.getMobile ());
+
+//                nCustomer.setTelephone (item.getTelephone ());
+//                nCustomer.setEmail (item.getEmail ());
+//                nCustomer.setQq (item.getQq ());
+//                nCustomer.setWeixin (item.getWeixin ());
+//                nCustomer.setBirdthday (item.getBirdthday ());
+//                nCustomer.setAddr (item.getAddr ());
+
+
 //                nCustomer.setProvinceId (item.getfProvinceId ());
 //                nCustomer.setCityId (item.getCityId ());
 //                nCustomer.setCountyId (item.getfCountyId ());
@@ -205,14 +234,7 @@ public class ImportOldDataToNewData {
 //
 //                    nCustomer.setCrmSourceType(1);//招商渠道 区分
 //                }
-                QualityInfo qualityInfo = getQualityInfoByCode (item.getFollowStatus ());
-                nCustomer.setIntentionCategory (qualityInfo.getBigCategory ());//质量分类
-                nCustomer.setQualityId (qualityInfo.getSmallCategory ());//
-                //nCustomer.setLastFollowTime (item.getLastFollowTime ());
-                nCustomer.setLastFoolowUserId (item.getFollowUserId ());
-                nCustomer.setLastContent ("");//可以考虑回写
-                // nCustomer.setNextFoolowTime(new Date());//下次跟进时间
-                nCustomer.setCustomerSourceId (item.getCustomerSourceId ());//需要注意
+
 
 //                nCustomer.setCreatorId (item.getCreatorId ());
 //                nCustomer.setCreator (item.getCreator ());
@@ -220,30 +242,20 @@ public class ImportOldDataToNewData {
 //                nCustomer.setUpdatorId (item.getUpdatorId ());
 //                nCustomer.setUpdator (item.getUpdator ());
 //                nCustomer.setUpdateTime (item.getUpdateTime ());
-                //商机
-                List<NCustomerTask> listTask = getTasksByCustomerId (item);
-                nCustomer.setTasks (listTask);//商机里面进行意向产品
-                nCustomer.setTaskCount (listTask.size ());//0商机数量回写
-                //意向产品
-                // nCustomer.setProducts(getProductsByCustomerId(item));
-                //跟进日志，流转日志暂时不考虑
-                nCustomer.setFollows (getFollowsByCustomer (nCustomer, item.getFollowStatus ()));
-                //顾客关联企业
-                nCustomer.setCompanys (getCompanysByCustomer (item));
-                nCustomer.toPersist ();//变成修改
-                try {
-                    //serviceNewCustomer.save (nCustomer);//进行手动更新通过sql
-                } catch (Exception e) {
-                    System.out.println (e.getMessage ());
 
-                }
-                totalCountExce += 1;
             }
 
 
         }
 
         return totalCountExce;
+    }
+
+    /*进行保存要添加的字段*/
+    private void saveNCustomer(ImNCustomer nCustomer) {
+        String  sql="";
+
+
     }
 
     /*获取关联企业*/
