@@ -209,6 +209,7 @@ public class ImportOldDataToNewData {
 
                 }
                 totalCountExce += 1;
+                System.out.println (String.format ("已经处理%S条",totalCountExce));
 
 
             }

@@ -90,10 +90,10 @@ public class NumberUtils {
 
     /*进行除以100的操作并且两位小数*/
     public static String getRealMoney(Integer money) {
-        Double m = (money / 100d);
         if (money == 0) {
             return "0";
         }
+        Double m = (money / 100d);
         DecimalFormat df = new DecimalFormat ("0.00");//######0.00
         String st = df.format (m);
         return st;
