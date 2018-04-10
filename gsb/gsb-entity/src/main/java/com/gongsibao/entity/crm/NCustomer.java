@@ -179,10 +179,10 @@ public class NCustomer extends BaseEntity {
 	@Subs(foreignKey = "customerId", header = "客户商机", subType = NCustomerTask.class)
 	private List<NCustomerTask> tasks;
 
-	@Subs(foreignKey = "customerId", header = "意向产品", subType = NCustomerProduct.class,primaryKey = "pkid")
+	@Subs(foreignKey = "customerId", header = "意向产品", subType = NCustomerProduct.class)
 	private List<NCustomerProduct> products;
 
-	@Subs(foreignKey = "customerId", header = "关联企业", subType = NCustomerCompany.class,primaryKey ="pkid")
+	@Subs(foreignKey = "customerId", header = "关联企业", subType = NCustomerCompany.class)
 	private List<NCustomerCompany> companys;
 
 	@Subs(foreignKey = "customerId", header = "跟进日志", subType = NCustomerTaskFoolow.class)

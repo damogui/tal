@@ -82,7 +82,7 @@ public class OrderProdTrace extends BaseEntity {
 	@Column(name = "tip_color", header = "提醒颜色")
 	private String tipColor = "text-default";
 
-	@Subs(subType = OrderProdTraceFile.class, foreignKey = "orderProdTraceId", primaryKey = "pkid")
+	@Subs(subType = OrderProdTraceFile.class, foreignKey = "orderProdTraceId")
 	private List<OrderProdTraceFile> files = new ArrayList<OrderProdTraceFile>();
 
 	public Integer getOrderProdId() {

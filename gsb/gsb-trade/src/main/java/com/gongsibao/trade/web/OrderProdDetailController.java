@@ -44,7 +44,7 @@ public class OrderProdDetailController {
 
 	/**
 	 * @Title: getOrderProdById
-	 * @Description: TODO(根据Id查询订单明细)
+	 * @Description: TODO(根据Id查询订单明细--要优化，查询字段太多)
 	 * @param: @param id
 	 * @param: @return
 	 * @return: OrderProd
@@ -55,6 +55,14 @@ public class OrderProdDetailController {
 		return orderProdService.byId(id);
 	}
 
+	/**   
+	 * @Title: getOrderById   
+	 * @Description: TODO(根据Id查询订单--要优化，查询字段太多)   
+	 * @param: @param id
+	 * @param: @return      
+	 * @return: SoOrder      
+	 * @throws   
+	 */
 	public SoOrder getOrderById(Integer id) {
 
 		return orderService.byId(id);
