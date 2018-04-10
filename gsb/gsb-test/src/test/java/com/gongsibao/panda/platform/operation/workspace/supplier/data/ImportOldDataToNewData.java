@@ -48,13 +48,14 @@ import java.util.List;
 // 备注：渠道商 状态不导入新库
 public class ImportOldDataToNewData {
     INCustomerTaskQualityService serviceQuality = ServiceFactory.create (INCustomerTaskQualityService.class);//客户质量
-    IPersister<NCustomer>   nCustomerService = PersisterFactory.create();//进行执行sql
+    IPersister<NCustomer> nCustomerService = PersisterFactory.create ();//进行执行sql
+    INCustomerTaskService nCustomerTaskService = ServiceFactory.create (INCustomerTaskService.class);//任务保存需要
+   // ImNCustomerTaskFoolowService nCustomerTaskService = ServiceFactory.create (INCustomerTaskService.class);//任务保存需要
 
     @Test
     public void run() {
 
-        int num1 = handleCustomerOld ();//Customer 里面赋值处理
-
+        int num1 = handleCustomerOld ();
         String msg = String.format ("处理数据共%s条", num1);
         System.out.println (msg);
 
@@ -150,7 +151,6 @@ public class ImportOldDataToNewData {
             sb.append ("Customer.prodDetails.*,");
             sb.append ("Customer.prodDetails.product.*");
 
-
             oql2.setSelects (sb.toString ());//设置要查询的列
 
 
@@ -172,22 +172,22 @@ public class ImportOldDataToNewData {
                 QualityInfo qualityInfo = getQualityInfoByCode (item.getFollowStatus ());
                 nCustomer.setIntentionCategory (qualityInfo.getBigCategory ());//质量分类
                 nCustomer.setQualityId (qualityInfo.getSmallCategory ());//
-                //nCustomer.setLastFollowTime (item.getLastFollowTime ());
+
                 nCustomer.setLastFoolowUserId (item.getFollowUserId ());
                 nCustomer.setLastContent ("");//可以考虑回写
                 // nCustomer.setNextFoolowTime(new Date());//下次跟进时间
                 nCustomer.setCustomerSourceId (item.getCustomerSourceId ());//需要注意
                 //商机
-                List<NCustomerTask> listTask = getTasksByCustomerId (item);
-                nCustomer.setTasks (listTask);//商机里面进行意向产品
+                List<NCustomerTask> listTask = getTasksByCustomerId (item);//直接进行保存
+//                nCustomer.setTasks (listTask);//商机里面进行意向产品
                 nCustomer.setTaskCount (listTask.size ());//0商机数量回写
                 //意向产品
                 // nCustomer.setProducts(getProductsByCustomerId(item));
                 //跟进日志，流转日志暂时不考虑
-                nCustomer.setFollows (getFollowsByCustomer (nCustomer, item.getFollowStatus ()));
+                nCustomer.setFollows (getFollowsByCustomer (item,listTask));//item.getFollowStatus ()
                 //顾客关联企业
                 // nCustomer.setCompanys (getCompanysByCustomer (item));//用旧表
-                nCustomer.toPersist ();//变成修改
+                //nCustomer.toPersist ();//变成修改
                 try {
                     //serviceNewCustomer.save (nCustomer);//进行手动更新通过sql
                     saveNCustomer (nCustomer);//通过sql进行保存
@@ -198,51 +198,6 @@ public class ImportOldDataToNewData {
                 }
                 totalCountExce += 1;
 
-//                nCustomer.setId (item.getId ());
-//                nCustomer.setAccountId (item.getAccountId ());
-//                nCustomer.setRealName (item.getRealName ());
-//                nCustomer.setSex (item.getSex ());
-//                nCustomer.setMobile (item.getMobile ());
-
-//                nCustomer.setTelephone (item.getTelephone ());
-//                nCustomer.setEmail (item.getEmail ());
-//                nCustomer.setQq (item.getQq ());
-//                nCustomer.setWeixin (item.getWeixin ());
-//                nCustomer.setBirdthday (item.getBirdthday ());
-//                nCustomer.setAddr (item.getAddr ());
-
-
-//                nCustomer.setProvinceId (item.getfProvinceId ());
-//                nCustomer.setCityId (item.getCityId ());
-//                nCustomer.setCountyId (item.getfCountyId ());
-//                nCustomer.setUnvalidRemark (item.getUnvalidRemark ());
-//                nCustomer.setMaybeRemark (item.getMaybeRemark ());
-//                nCustomer.setCustomerSourceOther (item.getCustomerSourceOther ());
-//                nCustomer.setIntroducerUserId (item.getIntroducerUserId ());
-//                nCustomer.setConsultWay (item.getConsultWay ());
-//                nCustomer.setConsultWayOther (item.getConsultWayOther ());
-//                nCustomer.setImportant (item.getImportant ());
-//                nCustomer.setInvalid (item.getInvalid ());
-//                nCustomer.setIntroducerId (item.getIntroducerId ());
-//                nCustomer.setRemark (item.getRemark ());
-//
-//                nCustomer.setAllocationType (item.getAllocationType ());
-//                nCustomer.setSupplierId (0);//回写供应商id和部门id
-//                nCustomer.setDepartmentId (0);
-//                nCustomer.setSwtCustomerId (item.getSwtCustomerId ());
-//                nCustomer.setSwtServiceId (item.getSwtServiceId ());
-//                if (item.getFollowStatus().getValue() == 4017) {
-//
-//                    nCustomer.setCrmSourceType(1);//招商渠道 区分
-//                }
-
-
-//                nCustomer.setCreatorId (item.getCreatorId ());
-//                nCustomer.setCreator (item.getCreator ());
-//                nCustomer.setCreateTime (item.getCreateTime ());
-//                nCustomer.setUpdatorId (item.getUpdatorId ());
-//                nCustomer.setUpdator (item.getUpdator ());
-//                nCustomer.setUpdateTime (item.getUpdateTime ());
 
             }
 
@@ -253,14 +208,11 @@ public class ImportOldDataToNewData {
     }
 
     /*进行保存要添加的字段*/
-    private void saveNCustomer(ImNCustomer nCustomer) {
+    private int saveNCustomer(ImNCustomer nCustomer) {
 
         //更新字段  随后更新  `supplier_id`=, `department_id`=,
-        String  sql=String.format ("UPDATE crm_customer SET is_member=%s,f_province_id=%s,f_city_id=%s,f_county_id=%s,`allocation_type`=%s, `intention_category`=%s, `quality_id`=%s, `last_foolow_user_id`=%s, `last_content`=%s, `next_foolow_time`=%s, `customer_source_id`=%s, `task_count`=%s, `company_id`=%s  WHERE pkid=%s",nCustomer.getIsMember (),nCustomer.getProvinceId (),nCustomer.getCityId (),nCustomer.getCountyId (),nCustomer.getAllocationType (),nCustomer.getIntentionCategory (),nCustomer.getQualityId (),nCustomer.getLastFoolowUserId (),nCustomer.getLastContent (),nCustomer.getNextFoolowTime (),nCustomer.getCustomerSourceId (),nCustomer.getTaskCount (),nCustomer.getCompanyId ());//company_id  问下
-
-        nCustomerService.executeNonQuery (sql,null);
-
-
+        String sql = String.format ("UPDATE crm_customer SET is_member=%s,f_province_id=%s,f_city_id=%s,f_county_id=%s,`allocation_type`=%s, `intention_category`=%s, `quality_id`=%s, `last_foolow_user_id`=%s, `last_content`=%s, `next_foolow_time`=%s, `customer_source_id`=%s, `task_count`=%s  WHERE pkid=%s", nCustomer.getIsMember (), nCustomer.getProvinceId (), nCustomer.getCityId (), nCustomer.getCountyId (), nCustomer.getAllocationType (), nCustomer.getIntentionCategory (), nCustomer.getQualityId (), nCustomer.getLastFoolowUserId (), nCustomer.getLastContent (), nCustomer.getNextFoolowTime (), nCustomer.getCustomerSourceId (), nCustomer.getTaskCount ());
+        return nCustomerService.executeNonQuery (sql, null);
     }
 
     /*获取关联企业*/
@@ -294,8 +246,8 @@ public class ImportOldDataToNewData {
         return listNCustomerCompany;
     }
 
-    /*获取跟进日志*/
-    private List<ImNCustomerTaskFoolow> getFollowsByCustomer(ImNCustomer customer, FollowStatus oldFollowStatus) {
+    /*获取跟进日志转换为新的跟进*/
+    private List<ImNCustomerTaskFoolow> getFollowsByCustomer(Customer customer,List<NCustomerTask> tasks) {
         ICustomerFollowService serviceCustomerFollow = ServiceFactory.create (ICustomerFollowService.class);//日志服务
         List<ImNCustomerTaskFoolow> list = new ArrayList<> ();
         int totalCountExce = 0;//插入条数
@@ -329,12 +281,12 @@ public class ImportOldDataToNewData {
 //        nCustomerTaskFoolow.setTaskType(item.getAccountId() > 0 ? TaskCustomerType.OLD : TaskCustomerType.NEW);//全部都是老客户  有订单的是老客户
                 nCustomerTaskFoolow.setId (item.getId ());
                 nCustomerTaskFoolow.setCustomerId (customer.getId ());
-                List<NCustomerTask> listTask = customer.getTasks ();
+                List<NCustomerTask> listTask = tasks;//直接传值过来
                 if (listTask != null && listTask.size () > 0) {
 
                     nCustomerTaskFoolow.setTaskId (listTask.get (0).getId ());
                 }
-                QualityInfo qualityInfo = getQualityInfoByCode (oldFollowStatus);//通过旧的顾客的跟进状态获取质量
+                QualityInfo qualityInfo = getQualityInfoByCode (customer.getFollowStatus ());//通过旧的顾客的跟进状态获取质量
                 nCustomerTaskFoolow.setQualityCategory (qualityInfo.getBigCategory ());
                 nCustomerTaskFoolow.setQualityId (qualityInfo.getSmallCategory ());
                 nCustomerTaskFoolow.setQualityProgress (TaskQualityProgress.INVARIABILITY);
@@ -498,7 +450,7 @@ public class ImportOldDataToNewData {
             list.add (nCustomerTask2);
         }
 
-
+        nCustomerTaskService.saves (list);//直接保存然后返回获取数量
         return list;
 
     }
