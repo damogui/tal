@@ -98,5 +98,14 @@ public class NavigationTest extends NavigationBase {
 
             createPTreeNode(tree, "Operation_IGIRL", null, "Operation_IGIRL_All_TradeMark", "申请进度跟进", "/operation/igirl/all/progress/list", 2);
         }
+
+        createPTreeNode(tree, null, null, "Operation_CRM_STATISTICAL", "统计分析", "", 7);
+        {
+            createPTreeNode(tree, "Operation_CRM_STATISTICAL", null, "Operation_CRM_STATISTICAL_Comprehen", "综合统计", "/operation/statistical/comprehen/list", 1);
+            createPTreeNode(tree, "Operation_CRM_STATISTICAL", null, "Operation_CRM_STATISTICAL_Funnel", "漏斗统计", "/operation/statistical/funnel/list", 2);
+            createPTreeNode(tree, "Operation_CRM_STATISTICAL", null, "Operation_CRM_STATISTICAL_Follow", "跟进统计", "/operation/statistical/follow/list", 3);
+            createPTreeNode(tree, "Operation_CRM_STATISTICAL", null, "Operation_CRM_STATISTICAL_CustomerService", "客服统计", "/operation/statistical/customer/list", 4);
+        }
+
     }
 }
