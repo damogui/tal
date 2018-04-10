@@ -53,9 +53,11 @@ public class ImportOldDataToNewData {
     INCustomerTaskService nCustomerTaskService = ServiceFactory.create (INCustomerTaskService.class);//任务保存需要
     ImNCustomerTaskFoolowService nCustomerTaskFoolowService = ServiceFactory.create (ImNCustomerTaskFoolowService.class);//任务跟进
 
+    IPersister<NCustomerProduct> nCustomerProductService = PersisterFactory.create ();//意向产品
+
     @Test
     public void run() {
-
+/*第一步*/
         int num1 = handleCustomerOld ();
         String msg = String.format ("处理数据共%s条", num1);
         System.out.println (msg);
@@ -185,7 +187,8 @@ public class ImportOldDataToNewData {
                 //意向产品
                 // nCustomer.setProducts(getProductsByCustomerId(item));
                 //跟进日志，流转日志暂时不考虑
-                nCustomer.setFollows (getFollowsByCustomer (item,listTask));//item.getFollowStatus ()
+               // nCustomer.setFollows (getFollowsByCustomer (item, listTask));//item.getFollowStatus ()
+                getFollowsByCustomer (item, listTask);//直接手动保存不通过持久化
                 //顾客关联企业
                 // nCustomer.setCompanys (getCompanysByCustomer (item));//用旧表
                 //nCustomer.toPersist ();//变成修改
@@ -248,10 +251,10 @@ public class ImportOldDataToNewData {
     }
 
     /*获取跟进日志转换为新的跟进*/
-    private List<ImNCustomerTaskFoolow> getFollowsByCustomer(Customer customer,List<NCustomerTask> tasks) {
+    private List<ImNCustomerTaskFoolow> getFollowsByCustomer(Customer customer, List<NCustomerTask> tasks) {
         ICustomerFollowService serviceCustomerFollow = ServiceFactory.create (ICustomerFollowService.class);//日志服务
-        List<ImNCustomerTaskFoolow> list = new ArrayList<> ();
-       // List<NCustomerTaskFoolow> listNCustomerTaskFoolow = new ArrayList<> ();
+        List<ImNCustomerTaskFoolow> listImNCustomerTaskFoolow = new ArrayList<> ();
+        // List<NCustomerTaskFoolow> listNCustomerTaskFoolow = new ArrayList<> ();
         int totalCountExce = 0;//插入条数
         int pageSize = 100;//每100条进行处理一次
 
@@ -305,14 +308,15 @@ public class ImportOldDataToNewData {
                 nCustomerTaskFoolow.setUpdator (item.getUpdator ());
                 nCustomerTaskFoolow.setUpdateTime (item.getUpdateTime ());
                 nCustomerTaskFoolow.toNew ();
-                list.add (nCustomerTaskFoolow);
+                listImNCustomerTaskFoolow.add (nCustomerTaskFoolow);
             }
 
 
         }
+//添加完之后进行保存
+        nCustomerTaskFoolowService.saves (listImNCustomerTaskFoolow);
 
-
-        return list;
+        return listImNCustomerTaskFoolow;
     }
 
 
@@ -425,8 +429,8 @@ public class ImportOldDataToNewData {
         nCustomerTask.setUpdateTime (item.getUpdateTime ());
 
         nCustomerTask.toNew ();//新增
-
-        nCustomerTask.setProducts (getProductsByTask (nCustomerTask));//设置意向产品集合
+        getProductsByTask (nCustomerTask);//直接去保存
+        //nCustomerTask.setProducts ();//设置意向产品集合
         list.add (nCustomerTask);
         //当客户有分享的时候再添加商机
         ICustomerShareService serviceCustomerShare = ServiceFactory.create (ICustomerShareService.class);
@@ -459,10 +463,10 @@ public class ImportOldDataToNewData {
 
     }
 
-    /*根据商机获取意向产品赋值*/
+    /*根据商机获取意向产品赋值 NCustomerProduct  还用CustomerProdMap*/
     private List<NCustomerProduct> getProductsByTask(NCustomerTask nCustomerTask) {
         ICustomerProdMapService serviceCustomerProdMap = ServiceFactory.create (ICustomerProdMapService.class);
-        INCustomerProductService serviceNewCustomerProdMap = ServiceFactory.create (INCustomerProductService.class);//意向产品
+//        INCustomerProductService serviceNewCustomerProdMap = ServiceFactory.create (INCustomerProductService.class);//意向产品
         List<NCustomerProduct> nCustomerProdMapList = new ArrayList<> ();
         int totalCountExce = 0;//插入条数
         int pageSize = 100;//每100条进行处理一次
@@ -484,33 +488,22 @@ public class ImportOldDataToNewData {
             for (CustomerProdMap item : customerProdMapList
                     ) {
                 NCustomerProduct nCustomerProduct = new NCustomerProduct ();
-                nCustomerProduct.setId (item.getId ());
-                //nCustomerProduct.setSupplierId(0);//回写
-                nCustomerProduct.setCustomerId (item.getCustomerId ());
                 nCustomerProduct.setTaskId (nCustomerTask.getId ());//商机
                 nCustomerProduct.setProductCategoryId1 (1);//分类  产品表对应typeid 二级分类 一级分类从字典表取值
-                //nCustomerProduct.setProductCategory1(item.get());
                 nCustomerProduct.setProductCategoryId2 (1);
-                //nCustomerProduct.setProductCategory2(item.get());
-                nCustomerProduct.setProductId (item.getProductId ());
-                //根据之前的ciyid进行推断出来省县的id
-
                 ProvinceCityAndCountry provinceCityAndCountry = getProvinceCityAndCountry (item.getCityId ());
                 if (provinceCityAndCountry != null) {
                     nCustomerProduct.setProvinceId (provinceCityAndCountry.getProvinceId ());
+
                     nCustomerProduct.setCityId (provinceCityAndCountry.getCityId ());
                     nCustomerProduct.setCountyId (provinceCityAndCountry.getCountryId ());
 
                 }
+                //更新下字段  setTaskId
+                String sql=String.format ("UPDATE `crm_customer_prod_map` SET `d_province_id` =%s, `d_city_id` = %s, `d_county_id` = %s,  `task_id` = %s WHERE `pkid` = %s ;",nCustomerProduct.getProvinceId (),nCustomerProduct.getCityId (),nCustomerProduct.getCountyId (),nCustomerProduct.getTaskId (),item.getId ());
+                nCustomerProductService.executeNonQuery (sql,null);
+//                nCustomerProdMapList.add (nCustomerProduct);//通过sql更新
 
-                nCustomerProduct.setCreatorId (item.getCreatorId ());
-                nCustomerProduct.setCreator (item.getCreator ());
-                nCustomerProduct.setCreateTime (item.getCreateTime ());
-                nCustomerProduct.setUpdatorId (item.getUpdatorId ());
-                nCustomerProduct.setUpdator (item.getUpdator ());
-                nCustomerProduct.setUpdateTime (item.getUpdateTime ());
-                nCustomerProduct.toNew ();//新增
-                nCustomerProdMapList.add (nCustomerProduct);
             }
 
 
