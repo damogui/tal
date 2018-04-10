@@ -6,8 +6,6 @@ import java.text.Format;
 import org.apache.commons.lang.StringUtils;
 import org.netsharp.util.StringManager;
 
-import static org.apache.commons.lang.math.NumberUtils.toDouble;
-
 /**
  * Created by zhangchao on 2018/2/6.
  */

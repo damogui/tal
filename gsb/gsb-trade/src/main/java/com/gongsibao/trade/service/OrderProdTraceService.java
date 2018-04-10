@@ -37,7 +37,7 @@ import com.gongsibao.trade.base.IOrderProdTraceFileService;
 import com.gongsibao.trade.base.IOrderProdTraceService;
 import com.gongsibao.trade.base.IOrderProdUserMapService;
 import com.gongsibao.trade.base.IOrderService;
-import com.gongsibao.utils.SmsHelper;
+import com.gongsibao.utils.sms.SmsHelper;
 
 @Service
 public class OrderProdTraceService extends PersistableService<OrderProdTrace> implements IOrderProdTraceService {
