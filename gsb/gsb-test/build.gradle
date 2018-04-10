@@ -1,6 +1,7 @@
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
-
+    testCompile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
+    compile project(':gsb-account')    
     compile project(':gsb-entity')
     compile project(':gsb-ma')
     compile project(':gsb-er')
@@ -16,7 +17,6 @@ dependencies {
     compile project(':gsb-gardian')
     compile project(':gsb-cw')
     compile project(':gsb-account')    
-    
 }
 
 apply plugin: 'java'
