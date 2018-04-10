@@ -4,9 +4,9 @@ import org.netsharp.communication.Service;
 import org.netsharp.service.PersistableService;
 
 @Service
-public class SsalesOrderService extends PersistableService<SalesOrder> implements ISalesOrderService {
+public class SalesOrderService extends PersistableService<SalesOrder> implements ISalesOrderService {
 	
-	public SsalesOrderService() {
+	public SalesOrderService() {
 		super();
 		
 		this.type = SalesOrder.class;
