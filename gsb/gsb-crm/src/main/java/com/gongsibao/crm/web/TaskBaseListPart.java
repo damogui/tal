@@ -20,7 +20,7 @@ public class TaskBaseListPart extends AdvancedListPart {
 			// 这里全匹配
 			ArrayList<String> filters = new ArrayList<String>();
 			String keyword = parameter.getValue1().toString();
-			filters.add("id='" + keyword + "'");
+			filters.add("pkid='" + keyword + "'");
 			filters.add("name='" + keyword + "'");
 			filters.add("id='" + keyword + "'");
 			filters.add("real_name='" + keyword + "'");
@@ -28,7 +28,7 @@ public class TaskBaseListPart extends AdvancedListPart {
 			filters.add("telephone='" + keyword + "'");
 			filters.add("qq='" + keyword + "'");
 			filters.add("weixin='" + keyword + "'");
-			return "customer_id in ( select id from  crm_customer where " + StringManager.join(" or ", filters) + ")";
+			return "customer_id in ( select pkid from  crm_customer where " + StringManager.join(" or ", filters) + ")";
 		}else if(parameter.getKey().equals("unFollowDayCount")){
 			
 			//未跟进天数：当前时间-上次跟进时间

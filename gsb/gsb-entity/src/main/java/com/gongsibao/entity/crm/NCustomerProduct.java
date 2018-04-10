@@ -1,6 +1,7 @@
 package com.gongsibao.entity.crm;
 
 import com.gongsibao.entity.BaseEntity;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
@@ -62,6 +63,9 @@ public class NCustomerProduct extends BaseEntity {
 
 	@Reference(foreignKey = "provinceId", header = "省份")
 	private Dict province;
+	
+    @Column(name="city_id")
+    private Integer oldCityId = 0;
 
 	@Column(name = "d_city_id")
 	private Integer cityId;
@@ -75,7 +79,13 @@ public class NCustomerProduct extends BaseEntity {
 	@Reference(foreignKey = "countyId",header = "区/县")
 	private Dict county;
 	
-	
+	public Integer getOldCityId() {
+		return oldCityId;
+	}
+
+	public void setOldCityId(Integer oldCityId) {
+		this.oldCityId = oldCityId;
+	}
 
 	public Integer getSupplierId() {
 		return supplierId;
