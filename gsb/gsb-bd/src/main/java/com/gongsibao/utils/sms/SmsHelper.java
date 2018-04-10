@@ -65,6 +65,7 @@ public class SmsHelper {
 	 */
 	public static SmsResponse send(String mobile, String content) {
 
+		String charset = "utf-8";
 		String result = null;
 		HttpPost post = new HttpPost(smsApiUrl);
 		post.addHeader("accept", "application/json");
@@ -75,12 +76,12 @@ public class SmsHelper {
 		request.setMobilePhone(mobile);
 		request.setContent(content);
 		String body = JsonManage.serialize2(request);
-		post.setEntity(new StringEntity(body, "utf-8"));
+		post.setEntity(new StringEntity(body,charset));
 		SmsResponse smsResponse = new SmsResponse();
 		try {
 			CloseableHttpResponse response = client.execute(post);
 			HttpEntity entity = response.getEntity();
-			result = EntityUtils.toString(entity, "utf-8");
+			result = EntityUtils.toString(entity, charset);
 			if (!StringManager.isNullOrEmpty(result)) {
 				smsResponse = (SmsResponse) JsonManage.deSerialize2(SmsResponse.class, result);
 			}
