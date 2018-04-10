@@ -50,7 +50,7 @@ public class NCustomerTaskFoolow extends Entity {
 	@Column(name = "next_foolow_time", header = "下次跟进时间")
 	private Date nextFoolowTime;
 	
-	@Column(name = "content", size = 1000, header = "跟进内容")
+	@Column(name = "content", size = 2000, header = "跟进内容")
 	private String content;
 	
 	@Column(name = "signing_amount", header = "估计签单金额")
