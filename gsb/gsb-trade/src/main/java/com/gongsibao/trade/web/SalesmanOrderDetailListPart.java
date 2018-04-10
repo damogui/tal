@@ -9,8 +9,6 @@ import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
 import org.netsharp.util.StringManager;
 
-import sun.management.counter.Variability;
-
 import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.product.base.IProductService;
