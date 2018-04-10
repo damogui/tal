@@ -1,15 +1,18 @@
 package com.gongsibao.panda.supplier.igirl.workspace.tm.common;
 
-import com.gongsibao.entity.igirl.tm.baseinfo.IGirlConfig;
-import com.gongsibao.entity.igirl.tm.dict.ConfigType;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.OpenMode;
-import org.netsharp.panda.entity.*;
-import org.netsharp.panda.utils.EnumUtil;
+import org.netsharp.panda.entity.PDatagrid;
+import org.netsharp.panda.entity.PDatagridColumn;
+import org.netsharp.panda.entity.PForm;
+import org.netsharp.panda.entity.PFormField;
+import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
+
+import com.gongsibao.entity.igirl.tm.baseinfo.IGirlConfig;
 
 public class ConfigWorkspaceTest extends WorkspaceCreationBase {
 

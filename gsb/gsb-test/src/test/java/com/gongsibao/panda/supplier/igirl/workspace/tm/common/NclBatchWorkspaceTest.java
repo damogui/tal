@@ -1,8 +1,5 @@
 package com.gongsibao.panda.supplier.igirl.workspace.tm.common;
 
-import com.gongsibao.entity.igirl.tm.baseinfo.NclBatch;
-import com.gongsibao.entity.igirl.tm.dict.ConfigType;
-import com.gongsibao.igirl.tm.web.NclBatchListPart;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
@@ -12,12 +9,20 @@ import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.dic.PartType;
-import org.netsharp.panda.entity.*;
+import org.netsharp.panda.entity.PDatagrid;
+import org.netsharp.panda.entity.PDatagridColumn;
+import org.netsharp.panda.entity.PForm;
+import org.netsharp.panda.entity.PFormField;
+import org.netsharp.panda.entity.PPart;
+import org.netsharp.panda.entity.PQueryProject;
+import org.netsharp.panda.entity.PWorkspace;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
-import org.netsharp.panda.utils.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
+
+import com.gongsibao.entity.igirl.tm.baseinfo.NclBatch;
+import com.gongsibao.igirl.tm.web.NclBatchListPart;
 
 public class NclBatchWorkspaceTest extends WorkspaceCreationBase {
     @Override

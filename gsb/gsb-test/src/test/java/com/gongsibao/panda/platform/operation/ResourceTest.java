@@ -1,5 +1,9 @@
 package com.gongsibao.panda.platform.operation;
 
+import com.gongsibao.entity.crm.report.ComprehenReportEntity;
+import com.gongsibao.entity.crm.report.CustomerServiceReportEntity;
+import com.gongsibao.entity.crm.report.FollowReportEntity;
+import com.gongsibao.entity.crm.report.FunnelReportEntity;
 import org.junit.Before;
 import org.netsharp.base.IPersistableService;
 import org.netsharp.communication.ServiceFactory;
@@ -223,6 +227,14 @@ public class ResourceTest extends ResourceCreationBase {
             this.createResourceNodeVoucher(TradeMark.class.getName(), "进度跟进", "Operation_IGIRL_All_TradeMark", ITradeMarkService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(UploadAttachment.class.getName(), "上传附件", "Operation_IGIRL_UPLOAD_" + UploadAttachment.class.getSimpleName(), IUploadAttachmentService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(DownloadAttachment.class.getName(), "下载附件", "Operation_IGIRL_DOWNLOAD_" + DownloadAttachment.class.getSimpleName(), IDownloadAttachmentService.class.getName(), node1.getId());
+        }
+
+        node1 = this.createResourceNodeCategory("统计分析", "Operation_CRM_STATISTICAL", node.getId());
+        {
+            this.createResourceNodeVoucher(ComprehenReportEntity.class.getName(), "综合统计", "Operation_CRM_STATISTICAL_Comprehen", IPersistableService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(FunnelReportEntity.class.getName(), "漏斗统计", "Operation_CRM_STATISTICAL_Funnel", IPersistableService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(FollowReportEntity.class.getName(), "跟进统计", "Operation_CRM_STATISTICAL_Follow", IPersistableService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(CustomerServiceReportEntity.class.getName(), "客服统计", "Operation_CRM_STATISTICAL_CustomerService", IPersistableService.class.getName(), node1.getId());
         }
     }
 }

@@ -10,6 +10,7 @@ import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportData
 import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportData.Enity.ImNCustomer;
 import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportData.Enity.ImNCustomerCompany;
 import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportData.Enity.ImNCustomerTaskFoolow;
+import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportData.IMNCustomerTaskService;
 import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportData.ImNCustomerTaskFoolowService;
 import com.gongsibao.taurus.util.StringManager;
 import com.gongsibao.u8.base.ISoOrderService;
@@ -50,14 +51,18 @@ import java.util.List;
 public class ImportOldDataToNewData {
     INCustomerTaskQualityService serviceQuality = ServiceFactory.create (INCustomerTaskQualityService.class);//客户质量
     IPersister<NCustomer> nCustomerService = PersisterFactory.create ();//进行执行sql
-    INCustomerTaskService nCustomerTaskService = ServiceFactory.create (INCustomerTaskService.class);//任务保存需要
+    IMNCustomerTaskService nCustomerTaskService = ServiceFactory.create (IMNCustomerTaskService.class);//任务保存需要
     ImNCustomerTaskFoolowService nCustomerTaskFoolowService = ServiceFactory.create (ImNCustomerTaskFoolowService.class);//任务跟进
 
     IPersister<NCustomerProduct> nCustomerProductService = PersisterFactory.create ();//意向产品
 
+
+    INCustomerService nCustomerService2 = ServiceFactory.create (INCustomerService.class);//任务保存需要
+
     @Test
     public void run() {
 /*第一步*/
+
         int num1 = handleCustomerOld ();
         String msg = String.format ("处理数据共%s条", num1);
         System.out.println (msg);
@@ -163,6 +168,7 @@ public class ImportOldDataToNewData {
                     ) {
                 ImNCustomer nCustomer = new ImNCustomer ();
                 //是否会员 根据订单id是否大于0判断是不是会员
+                nCustomer.setId (item.getId ());
                 nCustomer.setIsMember (item.getAccountId () > 0 ? true : false);
                 //需要处理省市县的id进行配对
                 ProvinceCityAndCountry provinceCityAndCountry = getProvinceCityAndCountry (item.getCityId ());
@@ -182,12 +188,13 @@ public class ImportOldDataToNewData {
                 nCustomer.setCustomerSourceId (item.getCustomerSourceId ());//需要注意
                 //商机
                 List<NCustomerTask> listTask = getTasksByCustomerId (item);//直接进行保存
-//                nCustomer.setTasks (listTask);//商机里面进行意向产品
+                //通过Customer保存
+                // nCustomer.setTasks (listTask);//商机里面进行意向产品
                 nCustomer.setTaskCount (listTask.size ());//0商机数量回写
                 //意向产品
                 // nCustomer.setProducts(getProductsByCustomerId(item));
                 //跟进日志，流转日志暂时不考虑
-               // nCustomer.setFollows (getFollowsByCustomer (item, listTask));//item.getFollowStatus ()
+                // nCustomer.setFollows (getFollowsByCustomer (item, listTask));//item.getFollowStatus ()
                 getFollowsByCustomer (item, listTask);//直接手动保存不通过持久化
                 //顾客关联企业
                 // nCustomer.setCompanys (getCompanysByCustomer (item));//用旧表
@@ -214,9 +221,15 @@ public class ImportOldDataToNewData {
     /*进行保存要添加的字段*/
     private int saveNCustomer(ImNCustomer nCustomer) {
 
-        //更新字段  随后更新  `supplier_id`=, `department_id`=,
-        String sql = String.format ("UPDATE crm_customer SET is_member=%s,f_province_id=%s,f_city_id=%s,f_county_id=%s,`allocation_type`=%s, `intention_category`=%s, `quality_id`=%s, `last_foolow_user_id`=%s, `last_content`=%s, `next_foolow_time`=%s, `customer_source_id`=%s, `task_count`=%s  WHERE pkid=%s", nCustomer.getIsMember (), nCustomer.getProvinceId (), nCustomer.getCityId (), nCustomer.getCountyId (), nCustomer.getAllocationType (), nCustomer.getIntentionCategory (), nCustomer.getQualityId (), nCustomer.getLastFoolowUserId (), nCustomer.getLastContent (), nCustomer.getNextFoolowTime (), nCustomer.getCustomerSourceId (), nCustomer.getTaskCount ());
-        return nCustomerService.executeNonQuery (sql, null);
+        //更新字段  随后更新  `supplier_id`=, `department_id`=, `last_content`=%s, , nCustomer.getLastContent ()
+        String sql = String.format ("UPDATE crm_customer SET is_member=%s,f_province_id=%s,f_city_id=%s,f_county_id=%s,`allocation_type`=%s, `intention_category`=%s, `quality_id`=%s, `last_foolow_user_id`=%s,  `next_foolow_time`=%s, `customer_source_id`=%s, `task_count`=%s  WHERE pkid=%s", nCustomer.getIsMember () == true ? 1 : 0, nCustomer.getProvinceId (), nCustomer.getCityId (), nCustomer.getCountyId (), nCustomer.getAllocationType ().getValue (), nCustomer.getIntentionCategory ().getValue (), nCustomer.getQualityId (), nCustomer.getLastFoolowUserId (), nCustomer.getNextFoolowTime (), nCustomer.getCustomerSourceId (), nCustomer.getTaskCount (), nCustomer.getId ());
+
+        int num = nCustomerService.executeNonQuery (sql, null);
+//        NCustomer nCustomerSave = nCustomerService2.byId (nCustomer.getId ());
+//        nCustomerSave.toPersist ();//更新
+//        nCustomerSave.setTasks (nCustomer.getTasks ());
+//        nCustomerService2.save (nCustomerSave);
+        return num;
     }
 
     /*获取关联企业*/
@@ -500,8 +513,8 @@ public class ImportOldDataToNewData {
 
                 }
                 //更新下字段  setTaskId
-                String sql=String.format ("UPDATE `crm_customer_prod_map` SET `d_province_id` =%s, `d_city_id` = %s, `d_county_id` = %s,  `task_id` = %s WHERE `pkid` = %s ;",nCustomerProduct.getProvinceId (),nCustomerProduct.getCityId (),nCustomerProduct.getCountyId (),nCustomerProduct.getTaskId (),item.getId ());
-                nCustomerProductService.executeNonQuery (sql,null);
+                String sql = String.format ("UPDATE `crm_customer_prod_map` SET `d_province_id` =%s, `d_city_id` = %s, `d_county_id` = %s,  `task_id` = %s WHERE `pkid` = %s ;", nCustomerProduct.getProvinceId (), nCustomerProduct.getCityId (), nCustomerProduct.getCountyId (), nCustomerProduct.getTaskId (), item.getId ());
+                nCustomerProductService.executeNonQuery (sql, null);
 //                nCustomerProdMapList.add (nCustomerProduct);//通过sql更新
 
             }

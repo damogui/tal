@@ -19,13 +19,13 @@ public class OrderProdTraceFile extends BaseEntity {
     private Integer orderProdTraceId;
 	
     @Column(name="prod_workflow_file_id",header="订单处理流程材料序号")
-    private Integer prodWorkflowFileId;
+    private Integer workflowFileId;
     
-	@Reference(foreignKey = "prodWorkflowFileId", header = "订单处理流程材料")
+	@Reference(foreignKey = "workflowFileId", header = "订单处理流程材料")
 	private WorkflowFile workflowFile;
     
     @Column(name="prod_workflow_file_name",header="订单处理流程材料名称")
-    private String prodWorkflowFileName;
+    private String workflowFileName;
     
     @Column(name="file_id",header="上传材料序号")
     private Integer fileId;
@@ -43,7 +43,7 @@ public class OrderProdTraceFile extends BaseEntity {
     private String remark;
     
     @Column(name="is_top",header="是否置顶：0否 1是")
-    private Boolean isTop;
+    private Boolean isTop = false;
 
     public Integer getOrderProdTraceId() {
         return orderProdTraceId;
@@ -51,19 +51,22 @@ public class OrderProdTraceFile extends BaseEntity {
     public void setOrderProdTraceId(Integer orderProdTraceId) {
         this.orderProdTraceId = orderProdTraceId;
     }
-    public Integer getProdWorkflowFileId() {
-        return prodWorkflowFileId;
-    }
-    public void setProdWorkflowFileId(Integer prodWorkflowFileId) {
-        this.prodWorkflowFileId = prodWorkflowFileId;
-    }
-    public String getProdWorkflowFileName() {
-        return prodWorkflowFileName;
-    }
-    public void setProdWorkflowFileName(String prodWorkflowFileName) {
-        this.prodWorkflowFileName = prodWorkflowFileName;
-    }
-    public Integer getFileId() {
+
+    public Integer getWorkflowFileId() {
+		return workflowFileId;
+	}
+	public void setWorkflowFileId(Integer workflowFileId) {
+		this.workflowFileId = workflowFileId;
+	}
+
+	
+    public String getWorkflowFileName() {
+		return workflowFileName;
+	}
+	public void setWorkflowFileName(String workflowFileName) {
+		this.workflowFileName = workflowFileName;
+	}
+	public Integer getFileId() {
         return fileId;
     }
     public void setFileId(Integer fileId) {

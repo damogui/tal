@@ -121,10 +121,12 @@
 	<script src='/package/easyui/jquery.easyui.min.js'></script>
 	<script src='/package/easyui/locale/easyui-lang-zh_CN.js'></script>
 	<script src='/package/easyui/jquery.easyui.extend.js'></script>
+	<script src='/package/qiniu/plupload.full.min.js'></script>
 	<script src='/panda-res/js/system.js'></script>
 	<script src='/panda-res/js/panda.core.js'></script>
 	<script src='/panda-res/js/panda.js'></script>
-	
+	<script src='/panda-res/js/panda.controls.js'></script>
+		
 	<script src='/gsb/platform/trade/js/prod/select-salesman.ctrl.js'></script>
 	<script src='/gsb/platform/trade/js/prod/select-company.ctrl.js'></script>
 	
@@ -167,7 +169,7 @@
 				   			 	</td>
 				   			 	<td><div class="datagrid-btn-separator"></div></td>
 				   			 	<td>
-	   								<a id="btn_upload" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-cloud-upload'">上传</a>
+	   								<a id="btn_upload" href="javascript:fileCtrl.openUploadWindow();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-cloud-upload'">上传</a>
 				   			 	</td>
 				   			 	
 				   				<td><div class="datagrid-btn-separator"></div></td>
@@ -305,6 +307,7 @@
 	var traceCtrl = null;
 	var principalCtrl = null;
 	var companyCtrl = null;
+	var fileCtrl = null;
 	var filePreviewCtrl = null;
  	$(function(){
 		

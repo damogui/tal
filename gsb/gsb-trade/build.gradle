@@ -21,7 +21,8 @@ dependencies {
     compile project(':gsb-bd')
     compile project(':gsb-uc')
     compile project(':gsb-product')
-    compile project(':gsb-account')    
+    compile project(':gsb-account') 
+    compile project(':gsb-sms')       
 }
 
 test {
