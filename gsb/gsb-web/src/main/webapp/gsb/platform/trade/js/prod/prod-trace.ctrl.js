@@ -191,6 +191,7 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     						layer.msg('更新成功');
     						layer.close(index);
     						me.init(me.orderProdId);
+    						me.mainCtrl.initOrderProd(me.orderProdId);
     					});
     				}
     			});

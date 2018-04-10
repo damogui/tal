@@ -33,8 +33,10 @@ public class SmsHelper {
 
 	private static Log log = LogFactory.getLog(SmsHelper.class);
 
-	private static String smsApiUrl = "http://192.168.16.52:2102/api/Send";
-
+	// private static String smsApiUrl = "http://192.168.16.52:2102/api/Send";
+	//private static String smsApiUrl = "http://www.gongsibao.com/ceren/quiet/usink/cdmn/qvus";
+	
+	private static String smsApiUrl = "http://123.57.156.109:4103/api/send";
 	private static Registry<ConnectionSocketFactory> socketFactoryRegistry = null;
 	static {
 		try {
@@ -54,14 +56,14 @@ public class SmsHelper {
 	private static PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager(socketFactoryRegistry);
 	private static CloseableHttpClient client = HttpClients.custom().setConnectionManager(cm).setDefaultCookieStore(new BasicCookieStore()).build();
 
-	/**   
-	 * @Title: send   
-	 * @Description: TODO(发送短信)   
+	/**
+	 * @Title: send
+	 * @Description: TODO(发送短信)
 	 * @param: @param mobile
 	 * @param: @param content
-	 * @param: @return      
-	 * @return: SmsResponse      
-	 * @throws   
+	 * @param: @return
+	 * @return: SmsResponse
+	 * @throws
 	 */
 	public static SmsResponse send(String mobile, String content) {
 
@@ -76,7 +78,7 @@ public class SmsHelper {
 		request.setMobilePhone(mobile);
 		request.setContent(content);
 		String body = JsonManage.serialize2(request);
-		post.setEntity(new StringEntity(body,charset));
+		post.setEntity(new StringEntity(body, charset));
 		SmsResponse smsResponse = new SmsResponse();
 		try {
 			CloseableHttpResponse response = client.execute(post);
@@ -85,6 +87,7 @@ public class SmsHelper {
 			if (!StringManager.isNullOrEmpty(result)) {
 				smsResponse = (SmsResponse) JsonManage.deSerialize2(SmsResponse.class, result);
 			}
+			//System.out.println(result);
 			log.debug("httppost respose=" + result);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -100,13 +103,13 @@ public class SmsHelper {
 		return smsResponse;
 	}
 
-	/**   
-	 * @Title: send   
-	 * @Description: TODO(批量发送)   
+	/**
+	 * @Title: send
+	 * @Description: TODO(批量发送)
 	 * @param: @param mobiles
-	 * @param: @param content      
-	 * @return: void      
-	 * @throws   
+	 * @param: @param content
+	 * @return: void
+	 * @throws
 	 */
 	public static void send(String[] mobiles, String content) {
 

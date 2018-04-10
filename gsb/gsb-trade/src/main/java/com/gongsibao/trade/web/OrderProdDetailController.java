@@ -186,6 +186,20 @@ public class OrderProdDetailController {
 		return workflowNodeService.queryWorkflowNodeList(prodId, cityId, version);
 	}
 
+	/**   
+	 * @Title: getLastUpdateProcessTrace   
+	 * @Description: TODO(获取最后一条更改状态的跟进记录)   
+	 * @param: @param orderProdId
+	 * @param: @param orderProdStatusId
+	 * @param: @return      
+	 * @return: OrderProdTrace      
+	 * @throws   
+	 */
+	public OrderProdTrace getLastUpdateProcessTrace(Integer orderProdId,Integer orderProdStatusId) {
+
+		return traceService.getLastUpdateProcessTrace( orderProdId,orderProdStatusId);
+	}
+
 	/**
 	 * @Title: updateProcessStatus
 	 * @Description: TODO(更新订单、订单明细进度状态,并创建跟进记录)
@@ -201,6 +215,14 @@ public class OrderProdDetailController {
 		return traceService.updateProcessStatus(trace);
 	}
 
+	/**
+	 * @Title: remark
+	 * @Description: TODO(备注)
+	 * @param: @param trace
+	 * @param: @return
+	 * @return: Boolean
+	 * @throws
+	 */
 	public Boolean remark(OrderProdTrace trace) {
 
 		traceService.create(trace);
@@ -560,8 +582,8 @@ public class OrderProdDetailController {
 		}
 		List<OrderProdTraceFile> traceFileList = new ArrayList<>();
 		List<File> files = dto.getFiles();
-		for(File file :files){
-			
+		for (File file : files) {
+
 			file.toNew();
 			OrderProdTraceFile traceFile = new OrderProdTraceFile();
 			traceFile.toNew();

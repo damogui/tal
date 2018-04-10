@@ -200,8 +200,8 @@
 		   			 	</table>
 		   			</div>
 		   			<div style="padding-left:30px;height: 162px;background-color: #fff;">
-			   			<p>订单用时： <span id="processdDays"></span> / <span id="needDays"></span> 天</p>
-			   			<p style="font-size:24px;margin: 10px 0;"><span id="processStatus" style="color:#009688;"></span> <span id="nodeDayCount"></span> / <span id="weekdayCount"></span>天</p>
+			   			<p>订单用时： <span id="processdDays">0</span> / <span id="needDays">0</span> 天</p>
+			   			<p style="font-size:24px;margin: 10px 0;"><span id="processStatus" style="color:#009688;">0</span> <span id="nodeDayCount">0</span> / <span id="weekdayCount">0</span>天</p>
 			   			
 						<p id="handle_panel">办理名称：<span id="editHandleName" style="color:#428bca">点击编辑</span></p>
 						<p id="applyNo_panel">申请号：<span id="editApplyNo" style="color:#428bca">点击编辑</span></p>

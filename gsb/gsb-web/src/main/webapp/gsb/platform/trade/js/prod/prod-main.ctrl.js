@@ -134,9 +134,14 @@ com.gongsibao.trade.web.ProdMainCtrl = org.netsharp.panda.core.CustomCtrl.Extend
        	$("#processdDays").text(data.processdDays || '0');
        	$("#needDays").text(data.needDays || '0');
        	
-       	
-       	
-    	$("#nodeDayCount").text('0');
+    	this.invokeService ("getLastUpdateProcessTrace", [data.id,data.processStatusId], function(data){
+    		
+    		if(data){
+
+        		$("#nodeDayCount").text(data.processdDays);
+    		}
+    	});
+    	
        	var weekdayCount = data.processStatus != null ? data.processStatus.weekdayCount:0;
        	$("#weekdayCount").text(weekdayCount);
        	

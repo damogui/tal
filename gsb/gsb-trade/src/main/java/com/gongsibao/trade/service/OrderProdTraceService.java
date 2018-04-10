@@ -204,6 +204,7 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
 		{
 			updateSql.update("so_order_prod");
 			updateSql.set("process_status_id", entity.getOrderProdStatusId());
+			updateSql.set("audit_status_id", AuditStatusType.Shz.getValue());
 			updateSql.set("version", entity.getVersion());
 			updateSql.where("pkid=" + entity.getOrderProdId());
 		}
@@ -450,7 +451,6 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
 //			}
 
 			//这里先不处理内外部，全部要审核
-			orderProdService.updateStatus(orderProdId, newProcessStatusId, AuditStatusType.Shz);
 			// 内部人员并且设置了不审核属性 则直接审核通过
 //			if (!internal_check && NumberUtils.toInt(user.getUcUser().getIsInner()) == 1) {
 //				
@@ -460,6 +460,13 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
 //				orderProdService.updateStatus(orderProdId, newProcessStatusId, AuditStatusType.Shz);
 //			}
 		}
+		
+		// 更新订单和订单明细的状态
+		updateOrderProdProcessStatus(trace);
+
+		// 更新订单状态
+		updateOrderProcessStatus(trace);
+		
 		this.create(trace);
 
 		if (trace.getIsSendSms()) {
@@ -491,6 +498,21 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
 			oql.getParameters().add("typeId", type.getValue(), Types.INTEGER);
 		}
 		return this.pm.queryList(oql);
+	}
+
+	@Override
+	public OrderProdTrace getLastUpdateProcessTrace(Integer orderProdId, Integer orderProdStatusId) {
+
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects("*");
+			oql.setFilter("orderProdId =? and orderProdStatusId=? and typeId = ?");
+			oql.getParameters().add("orderProdId", orderProdId, Types.INTEGER);
+			oql.getParameters().add("orderProdStatusId", orderProdStatusId, Types.INTEGER);
+			oql.getParameters().add("typeId", OrderProdTraceType.Ggzt.getValue(), Types.INTEGER);
+		}
+		return this.pm.queryFirst(oql);
 	}
 }
 
