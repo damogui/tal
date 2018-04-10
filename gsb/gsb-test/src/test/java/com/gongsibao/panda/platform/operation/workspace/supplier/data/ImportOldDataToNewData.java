@@ -10,6 +10,7 @@ import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportData
 import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportData.Enity.ImNCustomer;
 import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportData.Enity.ImNCustomerCompany;
 import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportData.Enity.ImNCustomerTaskFoolow;
+import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportData.ImNCustomerTaskFoolowService;
 import com.gongsibao.taurus.util.StringManager;
 import com.gongsibao.u8.base.ISoOrderService;
 import com.gongsibao.utils.NumberUtils;
@@ -50,7 +51,7 @@ public class ImportOldDataToNewData {
     INCustomerTaskQualityService serviceQuality = ServiceFactory.create (INCustomerTaskQualityService.class);//客户质量
     IPersister<NCustomer> nCustomerService = PersisterFactory.create ();//进行执行sql
     INCustomerTaskService nCustomerTaskService = ServiceFactory.create (INCustomerTaskService.class);//任务保存需要
-   // ImNCustomerTaskFoolowService nCustomerTaskService = ServiceFactory.create (INCustomerTaskService.class);//任务保存需要
+    ImNCustomerTaskFoolowService nCustomerTaskFoolowService = ServiceFactory.create (ImNCustomerTaskFoolowService.class);//任务跟进
 
     @Test
     public void run() {
@@ -250,6 +251,7 @@ public class ImportOldDataToNewData {
     private List<ImNCustomerTaskFoolow> getFollowsByCustomer(Customer customer,List<NCustomerTask> tasks) {
         ICustomerFollowService serviceCustomerFollow = ServiceFactory.create (ICustomerFollowService.class);//日志服务
         List<ImNCustomerTaskFoolow> list = new ArrayList<> ();
+       // List<NCustomerTaskFoolow> listNCustomerTaskFoolow = new ArrayList<> ();
         int totalCountExce = 0;//插入条数
         int pageSize = 100;//每100条进行处理一次
 
@@ -274,7 +276,7 @@ public class ImportOldDataToNewData {
 
             for (CustomerFollow item : customerFollowList
                     ) {
-                NCustomerTaskFoolow nCustomerTaskFoolow = new NCustomerTaskFoolow ();
+                ImNCustomerTaskFoolow nCustomerTaskFoolow = new ImNCustomerTaskFoolow ();//把自增去掉
 
 //                nCustomerTaskFoolow.setId();
 //        nCustomerTaskFoolow.setCustomerId(item.getId());
@@ -303,10 +305,12 @@ public class ImportOldDataToNewData {
                 nCustomerTaskFoolow.setUpdator (item.getUpdator ());
                 nCustomerTaskFoolow.setUpdateTime (item.getUpdateTime ());
                 nCustomerTaskFoolow.toNew ();
+                list.add (nCustomerTaskFoolow);
             }
 
 
         }
+
 
         return list;
     }
