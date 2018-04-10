@@ -33,7 +33,7 @@ public class SmsHelper {
 
 	private static Log log = LogFactory.getLog(SmsHelper.class);
 
-	// private static String smsApiUrl = "http://192.168.16.52:2102/api/Send";
+	//private static String smsApiUrl = "http://192.168.16.52:2102/api/Send";
 	//private static String smsApiUrl = "http://www.gongsibao.com/ceren/quiet/usink/cdmn/qvus";
 	
 	private static String smsApiUrl = "http://123.57.156.109:4103/api/send";
