@@ -40,7 +40,7 @@ com.gongsibao.trade.web.SalesmanOrderDetailListPart = org.netsharp.panda.commerc
     	//静态表单(是否有办理名称、关联公司名称、操作公司名称、关联公司Id)
     	var me = this;
     	var pubControlList = new org.netsharp.controls.PubControlList();
-        var items = pubControlList.getSupplierCombogrid(null,null,null,'操作组');        
+        var items = pubControlList.getSupplierCombogrid();        
         var builder = new System.StringBuilder();    	
     	builder.append('<form id="dynamicForm">');
     	builder.append('<div style="margin:10px;">');
@@ -110,7 +110,7 @@ com.gongsibao.trade.web.SalesmanOrderDetailListPart = org.netsharp.panda.commerc
             width: 450,
             height: 300,
             items: [
-                pubControlList.getSupplierCombogrid(null,null,null,'操作组')
+                pubControlList.getSupplierCombogrid()
             ],
             callback: function (index, layero) {                
             	var supplierId = $('#supplier_name').combogrid('getValue');
