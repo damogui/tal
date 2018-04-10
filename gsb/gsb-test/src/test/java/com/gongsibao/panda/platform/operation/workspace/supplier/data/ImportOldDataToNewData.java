@@ -48,6 +48,7 @@ import java.util.List;
 // 备注：渠道商 状态不导入新库
 public class ImportOldDataToNewData {
     INCustomerTaskQualityService serviceQuality = ServiceFactory.create (INCustomerTaskQualityService.class);//客户质量
+    IPersister<NCustomer>   nCustomerService = PersisterFactory.create();//进行执行sql
 
     @Test
     public void run() {
@@ -253,7 +254,11 @@ public class ImportOldDataToNewData {
 
     /*进行保存要添加的字段*/
     private void saveNCustomer(ImNCustomer nCustomer) {
-        String  sql="";
+
+        //更新字段  随后更新  `supplier_id`=, `department_id`=,
+        String  sql=String.format ("UPDATE crm_customer SET is_member=%s,f_province_id=%s,f_city_id=%s,f_county_id=%s,`allocation_type`=%s, `intention_category`=%s, `quality_id`=%s, `last_foolow_user_id`=%s, `last_content`=%s, `next_foolow_time`=%s, `customer_source_id`=%s, `task_count`=%s, `company_id`=%s  WHERE pkid=%s",nCustomer.getIsMember (),nCustomer.getProvinceId (),nCustomer.getCityId (),nCustomer.getCountyId (),nCustomer.getAllocationType (),nCustomer.getIntentionCategory (),nCustomer.getQualityId (),nCustomer.getLastFoolowUserId (),nCustomer.getLastContent (),nCustomer.getNextFoolowTime (),nCustomer.getCustomerSourceId (),nCustomer.getTaskCount (),nCustomer.getCompanyId ());//company_id  问下
+
+        nCustomerService.executeNonQuery (sql,null);
 
 
     }

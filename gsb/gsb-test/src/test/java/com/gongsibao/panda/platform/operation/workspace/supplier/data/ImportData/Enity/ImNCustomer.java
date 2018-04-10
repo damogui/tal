@@ -414,8 +414,10 @@ public class ImNCustomer extends Persistable implements IEntity {
     //    @Column(name = "crm_source_type", header = "是不是招商渠道来源")
 //    private Integer crmSourceType=0;//1是招商渠道  FollowStatus  区分 4017  渠道合作
 //
-    @Column(name = "task_count", header = "任务数量：创建任务，删除任务时更新此值")
+    @Column(name = "task_count", header = "商机数量：创建商机，删除商机时更新此值")
     private Integer taskCount = 0;
+    @Column(name = "company_id", header = "关联公司Id")//新增的id是后来
+    private Integer companyId=0;
 
     @Subs(foreignKey = "customerId", header = "客户任务", subType = NCustomerTask.class)
     private List<NCustomerTask> tasks;
@@ -849,5 +851,13 @@ public class ImNCustomer extends Persistable implements IEntity {
 
     public void setIsMember(Boolean isMember) {
         this.isMember = isMember;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 }
