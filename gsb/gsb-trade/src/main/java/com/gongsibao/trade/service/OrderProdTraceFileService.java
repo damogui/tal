@@ -1,16 +1,25 @@
 package com.gongsibao.trade.service;
 
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.netsharp.communication.Service;
+import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
+import org.netsharp.core.QueryParameters;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
+import com.gongsibao.bd.base.IFileService;
+import com.gongsibao.entity.bd.File;
+import com.gongsibao.entity.trade.OrderProdTrace;
 import com.gongsibao.entity.trade.OrderProdTraceFile;
+import com.gongsibao.entity.trade.dic.OrderProdTraceType;
+import com.gongsibao.entity.trade.dic.TraceFileStatus;
 import com.gongsibao.trade.base.IOrderProdTraceFileService;
+import com.gongsibao.trade.base.IOrderProdTraceService;
 
 @Service
 public class OrderProdTraceFileService extends PersistableService<OrderProdTraceFile> implements IOrderProdTraceFileService {
@@ -63,10 +72,10 @@ public class OrderProdTraceFileService extends PersistableService<OrderProdTrace
 		}
 		return this.queryList(oql);
 	}
-	
+
 	@Override
 	public Boolean topTraceFile(Integer orderProdId, Integer traceFileId) {
-		
+
 		UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("so_order_prod_trace_file");
@@ -74,7 +83,7 @@ public class OrderProdTraceFileService extends PersistableService<OrderProdTrace
 			updateSql.where("order_prod_trace_id in (select pkid from so_order_prod_trace where order_prod_id = " + orderProdId + ")");
 		}
 		this.pm.executeNonQuery(updateSql.toSQL(), null);
-		
+
 		updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("so_order_prod_trace_file");
@@ -82,5 +91,44 @@ public class OrderProdTraceFileService extends PersistableService<OrderProdTrace
 			updateSql.where("pkid =" + traceFileId);
 		}
 		return this.pm.executeNonQuery(updateSql.toSQL(), null) > 0;
+	}
+
+	@Override
+	public Boolean addTraceFile(OrderProdTrace orderProdTrace, List<OrderProdTraceFile> traceFileList) {
+
+		// 1.保存跟进
+		IOrderProdTraceService traceService = ServiceFactory.create(IOrderProdTraceService.class);
+		orderProdTrace = traceService.save(orderProdTrace);
+
+		// 2.更新同类文件为历史
+		this.updateStatus(orderProdTrace.getOrderProdId(), TraceFileStatus.HISTORY);
+
+		// 3.保存跟进文件
+		IFileService fileService = ServiceFactory.create(IFileService.class);
+		for (OrderProdTraceFile traceFile : traceFileList) {
+
+			File file = fileService.save(traceFile.getFile());
+			traceFile.setFile(null);
+			traceFile.setFileId(file.getId());
+			traceFile.setOrderProdTraceId(orderProdTrace.getId());
+		}
+		this.saves(traceFileList);
+
+		return true;
+	}
+
+	private void updateStatus(Integer orderProdId, TraceFileStatus status) {
+
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("UPDATE so_order_prod_trace_file set is_new = ? ");
+		buffer.append("WHERE order_prod_trace_id IN ( ");
+		buffer.append("	SELECT pkid FROM so_order_prod_trace WHERE order_prod_id = ? AND type_id = ? ");
+		buffer.append(")");
+
+		QueryParameters qps = new QueryParameters();
+		qps.add("status", status.getValue(), Types.INTEGER);
+		qps.add("orderProdId", orderProdId, Types.INTEGER);
+		qps.add("Type", OrderProdTraceType.Sccl.getValue(), Types.INTEGER);
+		this.pm.executeNonQuery(buffer.toString(), qps);
 	}
 }

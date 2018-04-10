@@ -3,7 +3,9 @@ package com.gongsibao.trade.base;
 import java.util.List;
 
 import org.netsharp.base.IPersistableService;
+import org.netsharp.core.annotations.Transaction;
 
+import com.gongsibao.entity.trade.OrderProdTrace;
 import com.gongsibao.entity.trade.OrderProdTraceFile;
 
 public interface IOrderProdTraceFileService extends IPersistableService<OrderProdTraceFile> {
@@ -50,5 +52,17 @@ public interface IOrderProdTraceFileService extends IPersistableService<OrderPro
 	 * @throws   
 	 */
 	Boolean topTraceFile(Integer orderProdId,Integer traceFileId);
+	
+	/**   
+	 * @Title: addTraceFile   
+	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @param: @param orderProdTrace
+	 * @param: @param traceFileList
+	 * @param: @return      
+	 * @return: Boolean      
+	 * @throws   
+	 */
+	@Transaction
+	Boolean addTraceFile(OrderProdTrace orderProdTrace, List<OrderProdTraceFile> traceFileList);
 	
 }

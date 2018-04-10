@@ -28,6 +28,14 @@ com.gongsibao.trade.web.ProdMainCtrl = org.netsharp.panda.core.CustomCtrl.Extend
 		principalCtrl.mainCtrl = this;
 		principalCtrl.init(this.orderProdId);
 		
+		//4.文件
+		fileCtrl = new com.gongsibao.trade.web.FileCtrl();
+		fileCtrl.mainCtrl = me;
+		fileCtrl.orderProdId = this.orderProdId;
+		
+		//4.文件预览
+    	filePreviewCtrl = new com.gongsibao.trade.web.FilePreviewCtrl();
+    	filePreviewCtrl.mainCtrl = me;
 		
     	$('#detail_tabs').tabs({    
 			tabHeight:30,
@@ -40,9 +48,7 @@ com.gongsibao.trade.web.ProdMainCtrl = org.netsharp.panda.core.CustomCtrl.Extend
 		    	}
 		    	if(title=='材料信息'){
 		    		
-			    	var fileCtrl = new com.gongsibao.trade.web.FileCtrl();
-			    	fileCtrl.mainCtrl = me;
-			    	fileCtrl.init(me.orderProdId);
+		    		fileCtrl.init(me.orderProdId);
 			    	me.initializeDetailList.add(title,fileCtrl);
 			    	
 		    	}else if(title=='订单信息'){
@@ -68,8 +74,6 @@ com.gongsibao.trade.web.ProdMainCtrl = org.netsharp.panda.core.CustomCtrl.Extend
 			    	
 		    	}else if(title=='材料预览'){
 
-			    	filePreviewCtrl = new com.gongsibao.trade.web.FilePreviewCtrl();
-			    	filePreviewCtrl.mainCtrl = me;
 			    	filePreviewCtrl.init(me.orderProdId);
 			    	me.initializeDetailList.add(title,filePreviewCtrl);
 			    	
