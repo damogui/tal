@@ -13,6 +13,7 @@ import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportData
 import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportData.IMNCustomerTaskService;
 import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportData.ImNCustomerTaskFoolowService;
 import com.gongsibao.taurus.util.StringManager;
+import com.gongsibao.tools.TimeUtils;
 import com.gongsibao.u8.base.ISoOrderService;
 import com.gongsibao.utils.NumberUtils;
 
@@ -125,7 +126,7 @@ public class ImportOldDataToNewData {
 
         StringBuilder filterBuilder = new StringBuilder ();
         //读取最大的id，然后根据节点插入
-        String sql = "SELECT  IFNULL(MIN(pkid),0) id  FROM   crm_customer  WHERE  is_member IS NULL"; //"SELECT  IFNULL(MAX(id),0) id  FROM n_crm_customer";//导入从pkid 1开始 每次续导从 省id为null的开始
+        String sql = "SELECT  IFNULL(MIN(pkid),0) id  FROM   crm_customer  WHERE  is_member IS NULL and follow_status <>4017"; //"SELECT  IFNULL(MAX(id),0) id  FROM n_crm_customer";//导入从pkid 1开始 每次续导从 省id为null的开始
         IPersister<ImNCustomer> pm = PersisterFactory.create ();
         int idMax = Convert.toInteger (pm.executeScalar (sql, null));
 
@@ -321,13 +322,18 @@ public class ImportOldDataToNewData {
                 nCustomerTaskFoolow.setUpdator (item.getUpdator ());
                 nCustomerTaskFoolow.setUpdateTime (item.getUpdateTime ());
                 nCustomerTaskFoolow.toNew ();
+                String sql = String.format ("INSERT INTO n_crm_task_foolow(creator_id,creator,create_time,updator_id,updator,update_time,customer_id,task_id,quality_category,quality_id,quality_progress,next_foolow_time,content,signing_amount,returned_amount) VALUES(%s,%s,'%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,'%s',%s,%s); ", nCustomerTaskFoolow.getCreatorId (), nCustomerTaskFoolow.getCreator (), TimeUtils.getDateFormat (nCustomerTaskFoolow.getCreateTime ()), nCustomerTaskFoolow.getUpdatorId (), nCustomerTaskFoolow.getUpdator (), nCustomerTaskFoolow.getUpdateTime (), nCustomerTaskFoolow.getCustomerId (), nCustomerTaskFoolow.getTaskId (), nCustomerTaskFoolow.getQualityCategory ().getValue (), nCustomerTaskFoolow.getQualityId (), nCustomerTaskFoolow.getQualityProgress ().getValue (), nCustomerTaskFoolow.getNextFoolowTime (), nCustomerTaskFoolow.getContent (), nCustomerTaskFoolow.getSigningAmount (), nCustomerTaskFoolow.getReturnedAmount ());//使用自增id
+
+                Integer numTask = nCustomerService.executeNonQuery (sql, null);
+
+
                 listImNCustomerTaskFoolow.add (nCustomerTaskFoolow);
             }
 
 
         }
 //添加完之后进行保存
-        nCustomerTaskFoolowService.saves (listImNCustomerTaskFoolow);
+        //nCustomerTaskFoolowService.saves (listImNCustomerTaskFoolow);
 
         return listImNCustomerTaskFoolow;
     }
@@ -442,8 +448,10 @@ public class ImportOldDataToNewData {
         nCustomerTask.setUpdateTime (item.getUpdateTime ());
 
         nCustomerTask.toNew ();//新增
+        nCustomerTask = nCustomerTaskService.save (nCustomerTask);
         getProductsByTask (nCustomerTask);//直接去保存
         //nCustomerTask.setProducts ();//设置意向产品集合
+
         list.add (nCustomerTask);
         //当客户有分享的时候再添加商机
         ICustomerShareService serviceCustomerShare = ServiceFactory.create (ICustomerShareService.class);
@@ -468,10 +476,11 @@ public class ImportOldDataToNewData {
                 nCustomerTask2.setFoolowStatus (CustomerFollowStatus.SIGNED);//已经签订订单
             }
             nCustomerTask2.toNew ();
+            nCustomerTaskService.save (nCustomerTask2);
             list.add (nCustomerTask2);
         }
 
-        nCustomerTaskService.saves (list);//直接保存然后返回获取数量
+        //nCustomerTaskService.saves (list);//直接保存然后返回获取数量
         return list;
 
     }
