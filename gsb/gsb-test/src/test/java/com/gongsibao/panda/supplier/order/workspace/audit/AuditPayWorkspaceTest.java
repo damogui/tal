@@ -35,7 +35,7 @@ public class AuditPayWorkspaceTest  extends WorkspaceCreationBase {
         meta = MtableManager.getMtable (entity);
         resourceNodeCode = "Gsb_Supplier_Pay_Audit";
         listToolbarPath = "";
-        listPartImportJs = "/gsb/platform/trade/js/audit-pay-list.js";
+        listPartImportJs = "/gsb/platform/trade/js/audit/audit-pay-list.js";
         listPartJsController = AuditPayListPart.class.getName ();
         listPartServiceController = AuditPayListPart.class.getName ();
 

@@ -34,7 +34,7 @@ public class AuditContractWorkspaceTest extends WorkspaceCreationBase {
         listPartName = formPartName = "合同审核";
         meta = MtableManager.getMtable(entity);
         resourceNodeCode = "Gsb_Supplier_Order_Audit_Contract";
-        listPartImportJs = "/gsb/platform/trade/js/audit-contract.ctrl.js|/gsb/panda-extend/gsb.custom.query.controls.js";
+        listPartImportJs = "/gsb/platform/trade/js/audit/audit/audit-contract.ctrl.js|/gsb/panda-extend/gsb.custom.query.controls.js";
         listPartServiceController = AuditContractListPart.class.getName();
         listPartJsController = AuditContractListPart.class.getName();
         listFilter = "type_id=" + AuditLogType.Htsq.getValue() + " and add_user_id = '{userId}' ";

@@ -39,7 +39,7 @@ public class AuditCarryoverWorkspaceTest extends WorkspaceCreationBase{
         resourceNodeCode = "Gsb_Supplier_Order_Audit_Carryover";
         
         List<String> ss = new ArrayList<String>();
-		ss.add("/gsb/platform/trade/js/audit-carryover-list.part.js");
+		ss.add("/gsb/platform/trade/js/audit/audit-carryover-list.part.js");
 		ss.add("/gsb/panda-extend/gsb.custom.query.controls.js");
 		listPartImportJs = StringManager.join("|", ss);
 		listPartJsController = AuditCarryoverListPart.class.getName();

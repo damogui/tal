@@ -39,7 +39,7 @@ public class AuditOrderPerformanceWorkspaceTest extends WorkspaceCreationBase {
         meta = MtableManager.getMtable (entity);
         resourceNodeCode = "Gsb_Supplier_Order_Audit_Performance";
         listToolbarPath = "";//crm/audit/orderp/edit
-        listPartImportJs = "/gsb/platform/trade/js/audit-order-performance.js";
+        listPartImportJs = "/gsb/platform/trade/js/audit/audit-order-performance.js";
         listPartJsController = AuditOrderPerformanceListPart.class.getName ();
         listPartServiceController = AuditOrderPerformanceListPart.class.getName ();
 

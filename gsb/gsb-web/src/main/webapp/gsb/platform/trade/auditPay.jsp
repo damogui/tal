@@ -74,8 +74,8 @@
 
 </body>
 
-<script src='/gsb/platform/trade/js/audit-base.ctrl.js'></script>
-<script src='/gsb/platform/trade/js/audit-pay.ctrl.js'></script>
+<script src='/gsb/platform/trade/js/audit/audit-base.ctrl.js'></script>
+<script src='/gsb/platform/trade/js/audit/audit-pay.ctrl.js'></script>
 <script>
 
 	var auditPayCtrl = null;
