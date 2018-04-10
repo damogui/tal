@@ -4,10 +4,15 @@ com.gongsibao.cw.web.ExpenseBillFormPart = org.netsharp.panda.commerce.FormPart.
         this.base();
     },
     added: function (currentItem) {
-    	$('#amount').numberbox('setValue', 0);
-    	$('#amount').numberbox('readonly',true);
-    	//$('#subsidyAmount').numberbox('setValue', 0);
-    	//$('#subsidyAmount').numberbox('readonly',true);
+    	
+    	$('#loanAmount').numberbox('readonly',true);
+    	$('#totalAmount').numberbox('setValue', 0);
+    	$('#totalAmount').numberbox('readonly',true);
+    	
+    	//$('#amount').numberbox('setValue', 0);
+    	//$('#amount').numberbox('setValue', 0);
+    	 $('#amount').textbox({value: 0});
+    	 $('#amount').textbox({readonly: true});
     },
     paymentMethodChange:function (el){
     	 if ($(el).val() == 2) {
@@ -73,25 +78,52 @@ com.gongsibao.cw.web.ExpenseBillFormPart = org.netsharp.panda.commerce.FormPart.
 com.gongsibao.cw.web.CostDetailListPart = org.netsharp.panda.commerce.DetailPart.Extends({
 	ctor: function () {
         this.base();
+        this.costType = PandaHelper.Enum.get('com.gongsibao.entity.cw.dict.FinanceDict$CostType');
     },
-    saveAfter: function () { //计算明细金额
-        var rows = this.getGrid().datagrid('getRows');
-        var totalAmount = 0;
-
-        $(rows).each(function (i, item) {
-
-            totalAmount += parseInt(item.detailMoney)/100;
-
-        });
-        var amount =$('#amount').numberbox('getValue');
-        $('#amount').numberbox('setValue',parseInt(amount)+totalAmount);
+    saveBefore:function (entity){
+    	entity.pathName = entity.organization.pathName
+    	entity.formType = 2;  //报销单
+    },
+    saveAfter: function () { 
+    	this.sumAmount();
+    },
+    costTypeFormatter : function (value,row,index){
+    	var me = this;
+		return me.costType[value];
+    },
+	doRemove : function (){
+		this.remove();
+		this.sumAmount();
+	},
+    sumAmount : function (){ //计算明细金额
+    	 var costRows = this.getGrid().datagrid('getRows');
+         var costSumAmount = 0;
+         $(costRows).each(function (i, item) {
+        	 costSumAmount += parseInt(item.detailMoney)/100;
+         });
+         
+         var subsidyRows = controllersubsidyItem.getGrid().datagrid('getRows');
+         var subsidySumAmount = 0 ;
+         $(subsidyRows).each(function (i, item) {
+        	 subsidySumAmount += parseInt(item.subsidyAmount)/100;
+         });
+         
+        $('#totalAmount').numberbox('setValue',costSumAmount + subsidySumAmount);
+         
+         //报销合计减去借款金额等于报销金额
+        var loanAmount = $("#loanAmount").numberbox('getValue');
+  	    var totalAmount = $("#totalAmount").numberbox('getValue');
+  	    $('#amount').textbox('setValue',totalAmount - loanAmount);
     }
 });
 //行程明细
 com.gongsibao.cw.web.TripRecordListPart= org.netsharp.panda.commerce.DetailPart.Extends({
 	ctor: function () {
         this.base();
-    }
+    },
+    doRemove : function (){
+		this.remove();
+	}
 });
 //补助明细
 com.gongsibao.cw.web.SubsidyRecordListPart= org.netsharp.panda.commerce.DetailPart.Extends({
@@ -114,15 +146,29 @@ com.gongsibao.cw.web.SubsidyRecordListPart= org.netsharp.panda.commerce.DetailPa
 		return me.subsidyType[value];
 	},
 	saveAfter : function (){
-		 var rows = this.getGrid().datagrid('getRows');
-	     var totalAmount = 0;
-	     $(rows).each(function (i, item) {
-            totalAmount += parseInt(item.subsidyAmount)/100;
-
-        });
-	   var amount =  $('#amount').numberbox('getValue');
-	   $('#amount').numberbox('setValue',parseInt(amount)+totalAmount);
+		this.sumAmount();
+	},
+	doRemove : function (){
+		this.remove();
+		this.sumAmount();
+	},
+	sumAmount : function (){
+		 var costRows = controllercostDetailItem.getGrid().datagrid('getRows');
+         var costSumAmount = 0;
+         $(costRows).each(function (i, item) {
+        	 costSumAmount += parseInt(item.detailMoney)/100;
+         });
+         
+         var subsidyRows = this.getGrid().datagrid('getRows');
+         var subsidySumAmount = 0 ;
+         $(subsidyRows).each(function (i, item) {
+        	 subsidySumAmount += parseInt(item.subsidyAmount)/100;
+         });
+        $('#totalAmount').numberbox('setValue',costSumAmount + subsidySumAmount);
 	   
+	   var loanAmount = $("#loanAmount").numberbox('getValue');
+	   var totalAmount = $("#totalAmount").numberbox('getValue');
+	   $('#amount').textbox('setValue',totalAmount - loanAmount);
 	}
 });
 

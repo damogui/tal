@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
+import org.netsharp.authorization.UserPermission;
+import org.netsharp.authorization.UserPermissionManager;
 import org.netsharp.communication.ServiceFactory;
 
 import com.gongsibao.cw.base.IExpenseService;
@@ -21,11 +23,19 @@ public class ActionExpenseApplyPersist implements IAction {
     public void execute(ActionContext ctx) {
     
     	 Expense expense = (Expense) ctx.getItem();
-    	 expense.toNew();
+    	 if(expense.getId() == null){
+    		 expense.toNew();
+    	 }else{
+    		 expense.toPersist();
+    	 }
     	 //审核状态
     	 expense.setStatus(AuditStatus.Status_1);
     	 //审核步骤
     	 expense.setAuditStep(1);
+    	//创建人 所属部门
+    	 UserPermission up = UserPermissionManager.getUserPermission();
+    	 expense.setDepartmentId(up.getDepartmentId());
+    	 expense.setAmount(expense.getAmount()*100);
     	 expense.setCode(getExpenseCode());
     	 Expense temp = expenseService.save(expense);
     	 ctx.setItem(temp);

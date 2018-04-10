@@ -1,19 +1,14 @@
 package com.gongsibao.cw.web;
 
-import java.sql.Types;
-
 import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.Oql;
-import org.netsharp.wx.pa.dic.FansStatus;
 
+import com.gongsibao.cw.base.IAllocationService;
 import com.gongsibao.cw.base.IAuditRecordService;
 import com.gongsibao.cw.base.IExpenseService;
 import com.gongsibao.cw.base.ILoanService;
 import com.gongsibao.cw.base.IPaymentService;
+import com.gongsibao.cw.service.ExpenseService;
 import com.gongsibao.entity.cw.AuditRecord;
-import com.gongsibao.entity.cw.Expense;
-import com.gongsibao.entity.cw.Loan;
-import com.gongsibao.entity.cw.Payment;
 import com.gongsibao.entity.cw.dict.FinanceDict;
 
 public class AuditBillFormController {
@@ -23,6 +18,8 @@ public class AuditBillFormController {
 	IExpenseService expenseService = ServiceFactory.create(IExpenseService.class);
 	//付款服务
 	IPaymentService paymentService = ServiceFactory.create(IPaymentService.class);
+	//调拨服务
+	IAllocationService allocationService = ServiceFactory.create(IAllocationService.class);
 	//审批记录服务
 	IAuditRecordService auditRecordService = ServiceFactory.create(IAuditRecordService.class);
 
@@ -40,32 +37,16 @@ public class AuditBillFormController {
 	@SuppressWarnings("unchecked")
 	public <T> T getBillByFormId(Integer formId, Integer formType) {
 		T t = null;
-		Oql oql = new Oql();
-		if (formType == 1) { // 查询借款单据
-			oql.setType(Loan.class);
-			oql.setSelects("loan.*,loan.costDetailItem.*,loan.files.*,loan.auditItem.*,loan.setOfBooks.name");
-			oql.setFilter("id=?");
-			oql.getParameters().add("id", formId, Types.INTEGER);
-			Loan entity = loanService.queryFirst(oql);
-			t = (T) entity;
+		if(formType == FinanceDict.FormType.JKD.getValue()){ //借款单
+			t = (T)loanService.getBillByFormId(formId);
+		} else if(formType == FinanceDict.FormType.BXD.getValue()){ //报销单
+			t = (T)expenseService.getBillByFormId(formId);
+		}else if (formType == FinanceDict.FormType.FKD.getValue()){ //付款单
+			t = (T)paymentService.getBillByFormId(formId);
+		}else if(formType == FinanceDict.FormType.DBD.getValue()){ //调拨单
+			t = (T)allocationService.getBillByFormId(formId);
 		}
-		if (formType == 2) { //查询报销单据
-			oql.setType(Expense.class);
-			oql.setSelects("*");
-			oql.setFilter("id=?");
-			oql.getParameters().add("id", formId, Types.INTEGER);
-			Expense entity = expenseService.queryFirst(oql);
-			t = (T) entity;
-		}
-		if (formType == 3) { //查询付款单据
-			oql.setType(Payment.class);
-			oql.setSelects("*");
-			oql.setFilter("id=?");
-			oql.getParameters().add("id", formId, Types.INTEGER);
-			Payment entity = paymentService.queryFirst(oql);
-			t = (T) entity;
-		}
-		return t;
+		return t ;
 	}
 	/**
 	 * 保存审核信息
@@ -76,7 +57,29 @@ public class AuditBillFormController {
 	* @return Boolean    返回类型  
 	* @throws
 	 */
-	public Boolean saveAudit(AuditRecord auditRecord,Integer formId){
+	public Boolean saveAudit(AuditRecord auditRecord){
 		return auditRecordService.saveAudit(auditRecord);
+	}
+	/**
+	 * 保存财务办理意见 并修改单据状态
+	* @Title: saveFinance  
+	* @Description: TODO
+	* @param @param auditRecord
+	* @param @return    参数  
+	* @return Boolean    返回类型  
+	* @throws
+	 */
+	public Boolean saveFinance(AuditRecord auditRecord){
+		Boolean bool = false;
+		if(auditRecord.getFormType().getValue() == FinanceDict.FormType.JKD.getValue()){ //借款单
+			bool = loanService.updateStatus(auditRecord);
+		} else if(auditRecord.getFormType().getValue() == FinanceDict.FormType.BXD.getValue()){ //报销单
+			bool = expenseService.updateStatus(auditRecord);
+		}else if (auditRecord.getFormType().getValue() == FinanceDict.FormType.FKD.getValue()){ //付款单
+			bool = paymentService.updateStatus(auditRecord);
+		}else if(auditRecord.getFormType().getValue() == FinanceDict.FormType.DBD.getValue()){ //调拨单
+			bool = allocationService.updateStatus(auditRecord);
+		}
+		return bool;
 	}
 }

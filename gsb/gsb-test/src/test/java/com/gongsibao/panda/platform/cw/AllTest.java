@@ -6,6 +6,8 @@ import org.junit.runners.Suite.SuiteClasses;
 
 import com.gongsibao.panda.platform.cw.workspace.expense.ExpenseBillWorkspaceTest;
 import com.gongsibao.panda.platform.cw.workspace.loans.LoansBillWorkspaceTest;
+import com.gongsibao.panda.platform.cw.workspace.other.AllBillsWorkspaceTest;
+import com.gongsibao.panda.platform.cw.workspace.other.AllocationBillWorkspaceTest;
 import com.gongsibao.panda.platform.cw.workspace.other.CCBillWorkspaceTest;
 import com.gongsibao.panda.platform.cw.workspace.other.DoneBillWorkspaceTest;
 import com.gongsibao.panda.platform.cw.workspace.other.FinanceBillWorkspaceTest;
@@ -27,7 +29,8 @@ import com.gongsibao.panda.platform.cw.action.ActionAllTest;
 	LoansBillWorkspaceTest.class,
 	ExpenseBillWorkspaceTest.class,
 	PaymentBillWorkspaceTest.class,
-	
+	AllocationBillWorkspaceTest.class,
+	AllBillsWorkspaceTest.class,
 	
 	ActionAllTest.class,
 	NavigationTest.class

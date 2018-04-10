@@ -36,14 +36,18 @@ public class Expense extends BizEntity{
 	@Column(name="amount",header="报销金额")
 	private Integer amount;
 	
-	@Column(name="reason",header="报销理由")
-	private String reason;
+	@Column(name="loan_amount",header="借款金额")
+	private Integer loanAmount;
+	
+	
+	@Column(name="total_amount",header="报销总金额")
+	private Integer totalAmount;
+	
+	@Column(name="is_offset",header="是否冲抵借款")
+	private Boolean isOffset;
 	
 	@Column(name="type",header="报销类型  1：市场费报销，2：招待费报销，3：差旅费报销")
 	private FinanceDict.ExpenseBillType  type = FinanceDict.ExpenseBillType.ExpenseType_1;
-	
-	@Column(name="form_number",header="单据数量")
-	private Integer formNumber;
 	
 	
 	@Column(name = "set_of_books_id", header = "付款单位（对应套帐）")
@@ -80,6 +84,9 @@ public class Expense extends BizEntity{
 	@Column(name = "audit_step", header = "审核步骤")
 	private Integer auditStep;
 	
+	@Column(name = "department_id", header = "创建人所属部门id")
+	private Integer departmentId;
+	
 	@Column(name = "status", header = "状态 1:待审核 ，2：审核中 ，3：已通过")
 	private FinanceDict.AuditStatus status = FinanceDict.AuditStatus.Status_1;
 
@@ -111,28 +118,12 @@ public class Expense extends BizEntity{
 		this.amount = amount;
 	}
 
-	public String getReason() {
-		return reason;
-	}
-
-	public void setReason(String reason) {
-		this.reason = reason;
-	}
-
 	public FinanceDict.ExpenseBillType getType() {
 		return type;
 	}
 
 	public void setType(FinanceDict.ExpenseBillType type) {
 		this.type = type;
-	}
-
-	public Integer getFormNumber() {
-		return formNumber;
-	}
-
-	public void setFormNumber(Integer formNumber) {
-		this.formNumber = formNumber;
 	}
 
 	public Integer getSetOfBooksId() {
@@ -271,5 +262,38 @@ public class Expense extends BizEntity{
 	public void setSubsidyItem(List<SubsidyRecord> subsidyItem) {
 		this.subsidyItem = subsidyItem;
 	}
+
+	public Integer getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(Integer departmentId) {
+		this.departmentId = departmentId;
+	}
+
+	public Integer getLoanAmount() {
+		return loanAmount;
+	}
+
+	public void setLoanAmount(Integer loanAmount) {
+		this.loanAmount = loanAmount;
+	}
+
+	public Integer getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(Integer totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
+	public Boolean getIsOffset() {
+		return isOffset;
+	}
+
+	public void setIsOffset(Boolean isOffset) {
+		this.isOffset = isOffset;
+	}
+	
 	
 }

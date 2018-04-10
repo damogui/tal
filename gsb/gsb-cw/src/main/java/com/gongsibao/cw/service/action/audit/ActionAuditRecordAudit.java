@@ -1,33 +1,163 @@
 package com.gongsibao.cw.service.action.audit;
 
+import java.util.List;
+
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
+import org.netsharp.authorization.UserPermission;
+import org.netsharp.authorization.UserPermissionManager;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.organization.entity.Employee;
+import org.netsharp.persistence.IPersister;
+import org.netsharp.persistence.PersisterFactory;
+import org.netsharp.persistence.session.SessionManager;
+import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.cw.base.IAuditRecordService;
+import com.gongsibao.cw.base.IEmployeeService;
+import com.gongsibao.entity.cw.Allocation;
 import com.gongsibao.entity.cw.AuditRecord;
+import com.gongsibao.entity.cw.Expense;
 import com.gongsibao.entity.cw.Loan;
+import com.gongsibao.entity.cw.Payment;
 import com.gongsibao.entity.cw.dict.FinanceDict;
 
 public class ActionAuditRecordAudit  implements IAction{
 
 	//审核记录服务
 	IAuditRecordService auditRecordService = ServiceFactory.create(IAuditRecordService.class);
-		
+	//获取上级领导
+	IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class); 
+			
+	
 	@Override
 	public void execute(ActionContext ctx) {
 		AuditRecord auditRecord = (AuditRecord) ctx.getItem();
 		 if(auditRecord != null && auditRecord.getId() != null){
-			 //TODO 梳理完组织机构补充审批逻辑
-			//保存创建人上级主管审核信息
-		   	 AuditRecord au = new AuditRecord();
-		   	 au.toNew();
-		   	 au.setAuditUserId(3619);    //获取上级主管id
-		   	 au.setFormType(FinanceDict.FormType.JKD);
-		   	 au.setFormId(auditRecord.getFormId());
-		   	 au.setStatus(FinanceDict.AuditDetailStatus.WAIT); //待审核
-		   	 auditRecordService.save(au);
+			 UserPermission up = UserPermissionManager.getUserPermission();
+			 //审核通过
+			 if(auditRecord.getStatus()== FinanceDict.AuditDetailStatus.AGREE){
+				 //当审核人为财务主管 通过将状态给为财务办理
+				 if(SessionManager.getUserId() == 1678){
+					 updateBillStatus(auditRecord.getFormId(),auditRecord.getFormType().getValue(),FinanceDict.AuditStatus.Status_4.getValue());
+				 }else{
+					 List<Employee> leaderList  = this.getEmployeeList(up.getEmployee().getDepartmentId());
+					 if(leaderList != null && leaderList.size() >0){
+						 for(Employee employee : leaderList){
+							 saveAudit(employee,auditRecord);
+						 }
+					 }else{
+						 //没有上级领导 财务主管审批 （郝舰）
+						 Employee  employee = new Employee();
+						 employee.setId(1678); //根据线上数据修改成郝总的 id  
+						 saveAudit(employee,auditRecord);
+					 }
+				 }
+			 }else{  //驳回
+				 //删除上一次审核记录 将单据状态修改为被驳回
+				 updateBillStatus(auditRecord.getFormId(),auditRecord.getFormType().getValue(),FinanceDict.AuditStatus.Status_6.getValue());
+				 auditRecordService.deleteAuditByFormId(auditRecord.getFormId(),auditRecord.getFormType().getValue());
+			 }
 		 }
+	}
+	
+	
+	private void saveAudit( Employee employee,AuditRecord auditRecord){
+		//保存创建人上级主管审核信息
+	   	 AuditRecord au = new AuditRecord();
+	   	 au.toNew();
+	   	 au.setAuditUserId(employee.getId());    //获取上级主管id
+	   	 au.setFormType(auditRecord.getFormType());
+	   	 au.setFormId(auditRecord.getFormId());
+	   	 au.setApplyUserId(auditRecord.getApplyUserId());
+	   	 au.setApplyDepartmentId(auditRecord.getApplyDepartmentId());
+	   	 au.setStatus(FinanceDict.AuditDetailStatus.WAIT); //待审核
+	   	 auditRecordService.save(au);
+	}
+	/**
+	 * 修改单据状态  财务办理状态
+	* @Title: updateBillStatus  
+	* @Description: TODO(这里用一句话描述这个方法的作用)  
+	* @param @param formId    参数  
+	* @return void    返回类型  
+	* @throws
+	 */
+	private void updateBillStatus(Integer formId ,Integer formType,Integer auditStatus){
 		
+		UpdateBuilder updateSql = UpdateBuilder.getInstance();
+		String cmdText = "";
+		if(formType == FinanceDict.FormType.JKD.getValue()){
+			updateSql.update("cw_loan");
+			updateSql.set("status", auditStatus);
+			updateSql.where("id =" + formId);
+		    cmdText = updateSql.toSQL();
+			IPersister<Loan> pm = PersisterFactory.create();
+			pm.executeNonQuery(cmdText, null);
+		}else if(formType == FinanceDict.FormType.BXD.getValue()){
+			updateSql.update("cw_expense");
+			updateSql.set("status", auditStatus);
+			updateSql.where("id =" + formId);
+		    cmdText = updateSql.toSQL();
+			IPersister<Expense> pm = PersisterFactory.create();
+			pm.executeNonQuery(cmdText, null);
+		} else if(formType == FinanceDict.FormType.FKD.getValue()){
+			updateSql.update("cw_payment");
+			updateSql.set("status", auditStatus);
+			updateSql.where("id =" + formId);
+		    cmdText = updateSql.toSQL();
+			IPersister<Payment> pm = PersisterFactory.create();
+			pm.executeNonQuery(cmdText, null);
+		}else if(formType == FinanceDict.FormType.DBD.getValue()){
+			updateSql.update("cw_allocation");
+			updateSql.set("status", auditStatus);
+			updateSql.where("id =" + formId);
+		    cmdText = updateSql.toSQL();
+			IPersister<Allocation> pm = PersisterFactory.create();
+			pm.executeNonQuery(cmdText, null);
+		}
+		
+		
+		
+	}
+	
+	/**
+	 * 获取所有上级主管
+	* @Title: getEmployeeList  
+	* @Description: TODO(这里用一句话描述这个方法的作用)  
+	* @param @return    参数  
+	* @return List<Employee>    返回类型  
+	* @throws
+	 */
+	private List<Employee>  getEmployeeList(Integer departmentId){
+		List<Employee> leaderList = employeeService.getEmployeeByLeader(departmentId);
+		if(isEmployee(leaderList)){
+			return leaderList;
+		}else{
+			return employeeService.getEmployeeByParentLeader(departmentId);
+		}
+		
+	}
+	/**
+	 * 判断登录人和主管领导是否同一人
+	* @Title: isEmployee  
+	* @Description: TODO
+	* @param @param list
+	* @param @return    参数  
+	* @return Boolean    返回类型  
+	* @throws
+	 */
+	public Boolean isEmployee(List<Employee> list){
+		Boolean result = true;
+		if(list != null && list.size()>0){
+			Integer userId = SessionManager.getUserId();
+			for(Employee employee : list){
+				if(userId.intValue() == employee.getId().intValue()){
+					result = false;
+				}
+			}
+		}else{
+			result = false;
+		}
+		return result;
 	}
 }

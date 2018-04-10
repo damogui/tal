@@ -5,10 +5,12 @@ import java.util.Date;
 import org.netsharp.core.annotations.Auto;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Id;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Persistable;
 
 import com.gongsibao.entity.cw.dict.FinanceDict;
+import com.gongsibao.entity.u8.SetOfBooks;
 
 
 /**
@@ -36,7 +38,9 @@ public class BillAuditDTO extends Persistable{
 	private Integer id;
 	
 	//单据类型
-	private FinanceDict.FormType formType = FinanceDict.FormType.JKD;
+	private FinanceDict.FormType formType ;
+	//单据类型value
+	private Integer formTypeValue;
 	//单据id
 	private Integer formId ;
 	//订单编号
@@ -54,7 +58,15 @@ public class BillAuditDTO extends Persistable{
 	//备注
     private String memoto;
     
+    //付款单位（对应套帐
+	private Integer setOfBooksId;
+	
+	@Reference(foreignKey = "setOfBooksId")
+	private SetOfBooks setOfBooks;
     
+	//状态 1:待审核 ，2：审核中 ，3：已通过，4：财务办理，5：驳回
+	private FinanceDict.AuditStatus status = FinanceDict.AuditStatus.Status_1;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -115,7 +127,30 @@ public class BillAuditDTO extends Persistable{
 	public void setMemoto(String memoto) {
 		this.memoto = memoto;
 	}
-	
-    
+	public Integer getFormTypeValue() {
+		return formTypeValue;
+	}
+	public void setFormTypeValue(Integer formTypeValue) {
+		this.formTypeValue = formTypeValue;
+	}
+	public Integer getSetOfBooksId() {
+		return setOfBooksId;
+	}
+	public void setSetOfBooksId(Integer setOfBooksId) {
+		this.setOfBooksId = setOfBooksId;
+	}
+	public SetOfBooks getSetOfBooks() {
+		return setOfBooks;
+	}
+	public void setSetOfBooks(SetOfBooks setOfBooks) {
+		this.setOfBooks = setOfBooks;
+	}
+	public FinanceDict.AuditStatus getStatus() {
+		return status;
+	}
+	public void setStatus(FinanceDict.AuditStatus status) {
+		this.status = status;
+	}
+
     
 }

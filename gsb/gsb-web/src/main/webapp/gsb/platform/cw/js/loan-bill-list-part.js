@@ -23,22 +23,34 @@ com.gongsibao.cw.web.LoansBillListPart = org.netsharp.panda.commerce.ListPart.Ex
 			}
 		});
 	},
-	checkLoan : function(){
+	updateLoan : function(){
+		
+		var rows = this.getSelections();
+        if (rows.length <= 0) {
+            IMessageBox.info('请先选择借款单据');
+            return false;
+        }
+        var row = this.getSelectedItem();
+        if(row.status != "被驳回"){
+        	IMessageBox.info('单据被驳回才可以修改');
+            return false;
+        }
+		var loanUrl = "/panda/cw/bill/loan/form?id=" + row.id;
 		layer.open({
-   		 id: "checkBillIframe",
+   		    id: "updateBillIframe",
             type: 2,
-            title: '新建借款单',
+            title: '修改借款单',
             fixed: false,
             maxmin: true,
             shadeClose:true,
             area: ['60%','90%'],
-            content: "/gsb/platform/cw/check_bill_form.jsp",
+            content: loanUrl,
             btn : [ '提交', '取消' ],
             success: function (layero, index) {
            	
             },
             yes:function (){
-           	 document.getElementById('checkBillIframe').firstElementChild.contentWindow.controllercontract.save();
+            	document.getElementById('updateBillIframe').firstElementChild.contentWindow.controllerloan.save();
             }
         });
 	}

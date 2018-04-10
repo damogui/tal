@@ -28,6 +28,7 @@ com.gongsibao.cw.web.LoansBillFormPart = org.netsharp.panda.commerce.FormPart.Ex
                 me.invokeService("saveLoan", [entity], function (data) {
                     IMessageBox.info('申请成功，请等待审核!', function (s) {
                         window.parent.layer.closeAll();
+                        window.parent.controllerloanList.reload();
                     });
                 });
             }
@@ -53,21 +54,30 @@ com.gongsibao.cw.web.LoansBillFormPart = org.netsharp.panda.commerce.FormPart.Ex
 com.gongsibao.cw.web.CostDetailListPart = org.netsharp.panda.commerce.DetailPart.Extends({
 	ctor: function () {
         this.base();
+        this.costType = PandaHelper.Enum.get('com.gongsibao.entity.cw.dict.FinanceDict$CostType');
+    },
+    costTypeFormat : function (value,row,index){
+    	return this.costType[value];
     },
     saveBefore:function (entity){
     	entity.pathName = entity.organization.pathName
     	entity.detailMoney = parseInt(entity.detailMoney)/100; 
+    	entity.formType = 1;  //借款单
     },
-    saveAfter: function () { //计算明细金额
-        var rows = this.getGrid().datagrid('getRows');
-        var totalAmount = 0;
-
-        $(rows).each(function (i, item) {
-
-            totalAmount += parseInt(item.detailMoney);
-
-        });
-        $('#amount').numberbox('setValue', totalAmount);
+    saveAfter: function () { 
+    	this.sumAmount();
+    },
+    doRemove : function (){
+    	this.remove();
+    	this.sumAmount();
+    },
+    sumAmount : function (){//计算明细金额
+    	 var rows = this.getGrid().datagrid('getRows');
+         var totalAmount = 0;
+         $(rows).each(function (i, item) {
+             totalAmount += parseInt(item.detailMoney);
+         });
+         $('#amount').numberbox('setValue', totalAmount);
     }
 });
 

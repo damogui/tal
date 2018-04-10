@@ -58,10 +58,12 @@ public class LoansBillWorkspaceTest extends WorkspaceCreationBase {
         listPartImportJs = "/gsb/platform/cw/js/loan-bill-list-part.js";
 		listPartJsController = LoansBillListPart.class.getName();
 		listPartServiceController = LoansBillListPart.class.getName();
+		listFilter = " creator_id = '{userId}'";
 		
 		formJsImport = "/gsb/platform/cw/js/loan-bill-form.part.js|/package/qiniu/plupload.full.min.js";
 		formServiceController = LoansBillFormPart.class.getName();
 	    formJsController = LoansBillFormPart.class.getName();
+	    formToolbarPath = "";
 	     
     }
     
@@ -94,6 +96,16 @@ public class LoansBillWorkspaceTest extends WorkspaceCreationBase {
             item.setCommand("{controller}.applyLoan();");
             toolbar.getItems().add(item);
         } 
+        item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("createLoan");
+            item.setIcon(PToolbarHelper.iconEdit);
+            item.setName("修改借款");
+            item.setSeq(7);
+            item.setCommand("{controller}.updateLoan();");
+            toolbar.getItems().add(item);
+        } 
         toolbarService.save(toolbar);
         
         //费用明细toobar
@@ -108,7 +120,7 @@ public class LoansBillWorkspaceTest extends WorkspaceCreationBase {
         }
         PToolbarItem costItem = PToolbarHelper.getPToolbarItem (EntityState.New, "costDetailAdd", PToolbarHelper.iconAdd,"新增", null, 1, "{controller}.add();");
         toolbarCost.getItems ().add (costItem);
-        costItem = PToolbarHelper.getPToolbarItem (EntityState.New, "costDetailDel", PToolbarHelper.iconDel, "删除", null, 1, "{controller}.remove();");
+        costItem = PToolbarHelper.getPToolbarItem (EntityState.New, "costDetailDel", PToolbarHelper.iconDel, "删除", null, 1, "{controller}.doRemove();");
         toolbarCost.getItems ().add (costItem);
         toolbarService.save (toolbarCost);
         
@@ -143,7 +155,6 @@ public class LoansBillWorkspaceTest extends WorkspaceCreationBase {
 		{
 			datagrid.setName("借款单");
 		}
-		PDatagridColumn column = null;
 		addColumn(datagrid, "code", "借款单号", ControlTypes.TEXT_BOX, 150);
 		addColumn(datagrid, "type", "借款类型", ControlTypes.ENUM_BOX, 150);
 		addColumn(datagrid, "amount", "借款金额", ControlTypes.DECIMAL_FEN_BOX, 100);
@@ -165,6 +176,7 @@ public class LoansBillWorkspaceTest extends WorkspaceCreationBase {
 		addQueryItem(queryProject, "type", "借款类型", ControlTypes.ENUM_BOX);
 		addQueryItem(queryProject, "status", "审批状态", ControlTypes.ENUM_BOX);
 		
+		
 		return queryProject;
 	}
     
@@ -178,7 +190,7 @@ public class LoansBillWorkspaceTest extends WorkspaceCreationBase {
           addFormFieldRefrence(form, "setOfBooks.name", "付款单位",null,  SetOfBooks.class.getSimpleName(), true, false);
           formField =  addFormField(form, "paymentMethod", "付款方式", ControlTypes.ENUM_BOX, true, false);
           {
-        	  formField.setTroikaTrigger("controllerloan .paymentMethodChange(this);");
+        	  formField.setTroikaTrigger("controllerloan.paymentMethodChange(this);");
           }
           addFormField(form, "companyName", "公司名称", ControlTypes.TEXT_BOX, true, true);
           addFormField(form, "companyBank", "公司开户行", ControlTypes.TEXT_BOX, true, true);
@@ -212,7 +224,10 @@ public class LoansBillWorkspaceTest extends WorkspaceCreationBase {
             PDatagridColumn column = null;
             
         	addColumn(datagrid, "organization.pathName", "费用归属部门", ControlTypes.TEXT_BOX, 250);
-            addColumn(datagrid, "costType", "费用类型", ControlTypes.ENUM_BOX, 250);
+        	column =  addColumn(datagrid, "costType", "费用类型", ControlTypes.ENUM_BOX, 250);
+            {
+				column.setFormatter("return controllercostDetailItem.costTypeFormat(value,row,index);");
+			}
             addColumn(datagrid, "detailMoney", "金额", ControlTypes.TEXT_BOX, 100);
             addColumn(datagrid, "memoto", "说明", ControlTypes.TEXT_BOX, 300);
         }
@@ -224,9 +239,8 @@ public class LoansBillWorkspaceTest extends WorkspaceCreationBase {
 			form.setColumnCount(1);
 			form.setName("新增费用明细");
 
-			PFormField formField = null;
-			addFormFieldRefrence(form, "organization.pathName", "费用归属部门",null,"Organization-Department-Filter", true, false);
-			addFormField(form, "costType", "费用类型", null, ControlTypes.ENUM_BOX, true, false);
+			addFormFieldRefrence(form, "organization.pathName", "费用归属部门",null,"Organization-Department", true, false);
+		    addFormField(form, "costType", "费用类型", null, ControlTypes.ENUM_BOX, true, false);
 			addFormField(form, "detailMoney", "金额", null, ControlTypes.DECIMAL_FEN_BOX, true, false);
 			addFormField(form, "memoto", "说明", null, ControlTypes.TEXTAREA, true, false);
 		}
@@ -245,7 +259,7 @@ public class LoansBillWorkspaceTest extends WorkspaceCreationBase {
             part.setJsController(CostDetailListPart.class.getName());
             part.setToolbar(costToolbarPath);
             part.setWindowWidth(400);
-			 part.setWindowHeight(400);
+		    part.setWindowHeight(400);
             part.setForm(form);
         }
         

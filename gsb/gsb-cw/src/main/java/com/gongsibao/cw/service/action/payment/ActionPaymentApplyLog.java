@@ -6,7 +6,7 @@ import org.netsharp.action.IAction;
 public class ActionPaymentApplyLog implements IAction{
 
 	@Override
-	public void execute(ActionContext ctx) { 
+	public void execute(ActionContext ctx) {
 		// TODO Auto-generated method stub
 		
 	}
