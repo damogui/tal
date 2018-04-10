@@ -20,7 +20,7 @@ import org.netsharp.panda.entity.PWorkspace;
 import org.netsharp.panda.plugin.dic.ToolbarType;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
-import org.netsharp.panda.utils.EnumUtil;
+import org.netsharp.panda.utils.enums.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 import org.netsharp.util.StringManager;

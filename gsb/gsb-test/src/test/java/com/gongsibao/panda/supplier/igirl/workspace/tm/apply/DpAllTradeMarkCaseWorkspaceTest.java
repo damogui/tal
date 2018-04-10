@@ -1,11 +1,5 @@
 package com.gongsibao.panda.supplier.igirl.workspace.tm.apply;
 
-import com.gongsibao.entity.igirl.tm.TradeMarkCase;
-import com.gongsibao.entity.igirl.tm.dict.AttachmentCat;
-import com.gongsibao.entity.igirl.tm.dict.FileType;
-import com.gongsibao.entity.igirl.tm.dict.MarkState;
-import com.gongsibao.entity.igirl.tm.dict.ShareGroup;
-import com.gongsibao.igirl.tm.web.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
@@ -15,12 +9,28 @@ import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.PartType;
-import org.netsharp.panda.entity.*;
+import org.netsharp.panda.entity.PDatagrid;
+import org.netsharp.panda.entity.PDatagridColumn;
+import org.netsharp.panda.entity.PForm;
+import org.netsharp.panda.entity.PFormField;
+import org.netsharp.panda.entity.PPart;
+import org.netsharp.panda.entity.PQueryProject;
+import org.netsharp.panda.entity.PWorkspace;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
-import org.netsharp.panda.utils.EnumUtil;
+import org.netsharp.panda.utils.enums.EnumUtil;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
+
+import com.gongsibao.entity.igirl.tm.TradeMarkCase;
+import com.gongsibao.entity.igirl.tm.dict.AttachmentCat;
+import com.gongsibao.entity.igirl.tm.dict.FileType;
+import com.gongsibao.entity.igirl.tm.dict.MarkState;
+import com.gongsibao.entity.igirl.tm.dict.ShareGroup;
+import com.gongsibao.igirl.tm.web.DepartmentTradeMarkCaseListPart;
+import com.gongsibao.igirl.tm.web.TradeMarkCasePart;
+import com.gongsibao.igirl.tm.web.TradeMarkDetailPart;
+import com.gongsibao.igirl.tm.web.UploadAttachmentDetailPart;
 
 public class DpAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 
