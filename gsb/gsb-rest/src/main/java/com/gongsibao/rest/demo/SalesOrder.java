@@ -6,7 +6,7 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.BizEntity;
 
 @Table(name="test_order",header="测试订单")
-public class Order extends BizEntity {
+public class SalesOrder extends BizEntity {
 	
 	private static final long serialVersionUID = -9031132521069429671L;
 	

@@ -174,7 +174,7 @@ public class NCustomerTask extends Entity {
 	@Column(name = "quality_progress", header = "质量进度")
 	private TaskQualityProgress qualityProgress = TaskQualityProgress.INVARIABILITY;
 
-	@Subs(foreignKey = "taskId", header = "意向产品", subType = NCustomerProduct.class,primaryKey = "pkid")
+	@Subs(foreignKey = "taskId", header = "意向产品", subType = NCustomerProduct.class)
 	private List<NCustomerProduct> products;
 
 	@Subs(foreignKey = "taskId", header = "跟进日志", subType = NCustomerTaskFoolow.class)
