@@ -28,4 +28,15 @@ public interface IEmployeeService extends IPersistableService<Employee>{
 	* @throws
 	 */
 	public List<Employee> getEmployeeByParentLeader(Integer departmentId);
+	
+	/**
+	 * 获取财务主管
+	* @Title: getEmployeeByFinanceLeader  
+	* @Description: TODO(这里用一句话描述这个方法的作用)  
+	* @param @param code
+	* @param @return    参数  
+	* @return Employee    返回类型  
+	* @throws
+	 */
+	public Employee  getEmployeeByFinanceLeader(String code);
 }

@@ -10,9 +10,11 @@ import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
 import org.netsharp.organization.entity.Employee;
 import org.netsharp.persistence.session.SessionManager;
+import org.netsharp.wx.ea.base.IEaMessageService;
 
 import com.gongsibao.cw.base.IAuditRecordService;
 import com.gongsibao.cw.base.IEmployeeService;
+import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.cw.AuditRecord;
 import com.gongsibao.entity.cw.Payment;
 import com.gongsibao.entity.cw.dict.FinanceDict;
@@ -23,6 +25,8 @@ public class ActionPaymentApplyAudit  implements IAction{
 	IAuditRecordService auditRecordService = ServiceFactory.create(IAuditRecordService.class);
 	//获取上级领导
 	IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class); 
+	
+	IEaMessageService eMessageService = ServiceFactory.create(IEaMessageService.class);
 	
 	@Override
 	public void execute(ActionContext ctx) {
@@ -42,6 +46,8 @@ public class ActionPaymentApplyAudit  implements IAction{
 					 au.setApplyDepartmentId(up.getDepartmentId());
 				   	 au.setApplyUserId(SessionManager.getUserId());
 				   	 auditRecordService.save(au);
+				   	 String  content = "【财务报销】"+payment.getCreator()+"提交了付款申请，单据编号："+payment.getCode()+" 请您尽快处理。";
+				   	 eMessageService.send("CRM", content, employee.getMobile());
 				 }
 			 }else{
 				 throw new BusinessException("您当前的组织机构错误，请联系管理员。");
@@ -88,4 +94,5 @@ public class ActionPaymentApplyAudit  implements IAction{
 		}
 		return result;
 	}
+
 }

@@ -12,9 +12,13 @@ import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
+import org.netsharp.wx.ea.base.IEaMessageService;
 
 import com.gongsibao.cw.base.IAuditRecordService;
 import com.gongsibao.cw.base.IEmployeeService;
+import com.gongsibao.cw.base.IExpenseService;
+import com.gongsibao.cw.base.ILoanService;
+import com.gongsibao.cw.base.IPaymentService;
 import com.gongsibao.entity.cw.Allocation;
 import com.gongsibao.entity.cw.AuditRecord;
 import com.gongsibao.entity.cw.Expense;
@@ -24,11 +28,13 @@ import com.gongsibao.entity.cw.dict.FinanceDict;
 
 public class ActionAuditRecordAudit  implements IAction{
 
+	
 	//审核记录服务
 	IAuditRecordService auditRecordService = ServiceFactory.create(IAuditRecordService.class);
 	//获取上级领导
 	IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class); 
 			
+	IEaMessageService eMessageService = ServiceFactory.create(IEaMessageService.class);
 	
 	@Override
 	public void execute(ActionContext ctx) {
@@ -38,7 +44,8 @@ public class ActionAuditRecordAudit  implements IAction{
 			 //审核通过
 			 if(auditRecord.getStatus()== FinanceDict.AuditDetailStatus.AGREE){
 				 //当审核人为财务主管 通过将状态给为财务办理
-				 if(SessionManager.getUserId() == 1678){
+				 Employee financeEmployee = employeeService.getEmployeeByFinanceLeader("Finance");
+				 if(SessionManager.getUserId() == financeEmployee.getId()){
 					 updateBillStatus(auditRecord.getFormId(),auditRecord.getFormType().getValue(),FinanceDict.AuditStatus.Status_4.getValue());
 				 }else{
 					 List<Employee> leaderList  = this.getEmployeeList(up.getEmployee().getDepartmentId());
@@ -49,7 +56,7 @@ public class ActionAuditRecordAudit  implements IAction{
 					 }else{
 						 //没有上级领导 财务主管审批 （郝舰）
 						 Employee  employee = new Employee();
-						 employee.setId(1678); //根据线上数据修改成郝总的 id  
+						 employee.setId(financeEmployee.getId()); //根据线上数据修改成郝总的 id  
 						 saveAudit(employee,auditRecord);
 					 }
 				 }
@@ -73,6 +80,29 @@ public class ActionAuditRecordAudit  implements IAction{
 	   	 au.setApplyDepartmentId(auditRecord.getApplyDepartmentId());
 	   	 au.setStatus(FinanceDict.AuditDetailStatus.WAIT); //待审核
 	   	 auditRecordService.save(au);
+	   	 sendWxMessage(employee,auditRecord);
+	}
+	//微信发送消息
+	private void sendWxMessage(Employee employee,AuditRecord auditRecord) {
+		 String  content = "【财务报销】";
+	   	 if(auditRecord.getFormType().getValue() == FinanceDict.FormType.JKD.getValue()){
+	   		 ILoanService loanService =   ServiceFactory.create(ILoanService.class);
+	   		  Loan loan =  loanService.byId(auditRecord.getFormId());
+	   		 content += loan.getCreator()+"提交了借款申请，单据编号："+loan.getCode()+" 请您尽快处理。";
+	   	 }
+	   	 
+	   	 if(auditRecord.getFormType().getValue() == FinanceDict.FormType.BXD.getValue()){
+	   		 IExpenseService expenseService =   ServiceFactory.create(IExpenseService.class);
+	   		 Expense expense =  expenseService.byId(auditRecord.getFormId());
+	   		 content += expense.getCreator()+"提交了报销申请，单据编号："+expense.getCode()+" 请您尽快处理。";
+	   	 }
+	   	 
+	   	 if(auditRecord.getFormType().getValue() == FinanceDict.FormType.FKD.getValue()){
+	   		 IPaymentService paymentService =   ServiceFactory.create(IPaymentService.class);
+	   		 Payment payment =  paymentService.byId(auditRecord.getFormId());
+	   		 content += payment.getCreator()+"提交了付款申请，单据编号："+payment.getCode()+" 请您尽快处理。";
+	   	 }
+	   	 eMessageService.send("CRM", content, employee.getMobile());
 	}
 	/**
 	 * 修改单据状态  财务办理状态
@@ -115,9 +145,6 @@ public class ActionAuditRecordAudit  implements IAction{
 			IPersister<Allocation> pm = PersisterFactory.create();
 			pm.executeNonQuery(cmdText, null);
 		}
-		
-		
-		
 	}
 	
 	/**
@@ -159,5 +186,18 @@ public class ActionAuditRecordAudit  implements IAction{
 			result = false;
 		}
 		return result;
+	}
+	/**
+	 * 获取财务主管
+	* @Title: getEmployeeByFinanceLeader  
+	* @Description: TODO
+	* @param @param code  业务类型 Finance表示财务部
+	* @param @return    参数  
+	* @return Employee    返回类型  
+	* @throws
+	 */
+	public Employee getEmployeeByFinanceLeader(String code){
+		
+		return null;
 	}
 }
