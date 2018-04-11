@@ -353,9 +353,14 @@ com.gongsibao.igirl.tm.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Det
 		}
 
 		if ($("#ncltwogrid").length <= 0) {
-			var $t = $("[name='nclOne_name']")
+			var $t = $("[name='nclOne_name']");
+			$("<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><input type='button' id='cancleAllSelect'  value='取消全部' width='30px'/>").insertAfter($t.parent());
 			$("<input id='filterinput' width='30px'/>").insertAfter($t.parent());
-			$("<table id='ncltwogrid' style='margin-top:5px;padding-top:3px;'></table>").insertBefore("#selectedTwoStr")
+			$("<table id='ncltwogrid' style='margin-top:5px;padding-top:3px;'></table>").insertBefore("#selectedTwoStr");
+			$("#cancleAllSelect").on("click", function () {
+//				alert("a");
+				$('#ncltwogrid').datagrid('clearSelections');
+			});
 		}
 		var selectedItems = [];
 		var rtnData = null;
