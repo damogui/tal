@@ -105,7 +105,7 @@ public class Customer extends BaseEntity {
 //    @Column(name="customer_source",header="411 CRM客户来源: 4111 58同城推广、 4112百度广告投放、 4113地推活动、 4114老客户介绍、 4115 企业信息关联、 4116 渠道商、 4117 外呼拓客")
 //    private CustomerSource customerSource = CustomerSource.CUSTOMER_SOURCE_0;
     
-    @Column(name="customer_source",header="退回次数")
+    @Column(name="customer_source",header="客户来源")
     private Integer customerSourceId = 0;
     
     @Reference(foreignKey="customerSourceId",header="CRM客户来源")

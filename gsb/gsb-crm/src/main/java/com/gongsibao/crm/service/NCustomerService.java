@@ -9,6 +9,8 @@ import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.core.MtableManager;
 import org.netsharp.core.Oql;
+import org.netsharp.persistence.IPersister;
+import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
@@ -150,6 +152,19 @@ public class NCustomerService extends SupplierPersistableService<NCustomer> impl
 			oql.getParameters().add("id", taskId, Types.INTEGER);
 		}
 
+		return this.queryFirst(oql);
+	}
+
+	@Override
+	public NCustomer getByMobile(String mobile) {
+		if(StringManager.isNullOrEmpty(mobile)){
+			return null;
+		}
+		Oql oql = new Oql();
+		oql.setType(NCustomer.class);
+		oql.setSelects("*");
+		oql.setFilter("mobile=?");
+		oql.getParameters().add("mobile", mobile, Types.VARCHAR);
 		return this.queryFirst(oql);
 	}
 }

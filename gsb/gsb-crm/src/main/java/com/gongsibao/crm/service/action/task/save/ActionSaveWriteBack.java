@@ -34,7 +34,7 @@ public class ActionSaveWriteBack implements IAction {
 	private void updateCustomerTaskCount(Integer customerId) {
 
 		String tableName = MtableManager.getMtable(NCustomer.class).getTableName();
-		String cmdText = String.format("update %s set task_count=task_count+1 where id=%d", tableName, customerId);
+		String cmdText = String.format("update %s set task_count=task_count+1 where pkid=%d", tableName, customerId);
 		IPersister<NCustomerTask> pm = PersisterFactory.create();
 		pm.executeNonQuery(cmdText, null);
 	}

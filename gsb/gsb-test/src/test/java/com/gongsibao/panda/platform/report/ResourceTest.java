@@ -68,10 +68,10 @@ public class ResourceTest extends ResourceCreationBase{
 			this.createResourceNodeVoucher(CustomerDistrictReport.class.getName(), "意向地区统计", node1.getCode() + "_District", IPersistableService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(CustomerStatusReport.class.getName(), "客户状态统计", node1.getCode() + "_Status", IPersistableService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(CustomerSourceReport.class.getName(), "客户来源统计", node1.getCode() + "_Source", IPersistableService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(ComprehenReportEntity.class.getName(), "综合统计", "Operation_CRM_STATISTICAL_Comprehen", IPersistableService.class.getName(), node1.getId());
+            /*this.createResourceNodeVoucher(ComprehenReportEntity.class.getName(), "综合统计", "Operation_CRM_STATISTICAL_Comprehen", IPersistableService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(FunnelReportEntity.class.getName(), "漏斗统计", "Operation_CRM_STATISTICAL_Funnel", IPersistableService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(FollowReportEntity.class.getName(), "跟进统计", "Operation_CRM_STATISTICAL_Follow", IPersistableService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(CustomerServiceReportEntity.class.getName(), "客服统计", "Operation_CRM_STATISTICAL_CustomerService", IPersistableService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(CustomerServiceReportEntity.class.getName(), "客服统计", "Operation_CRM_STATISTICAL_CustomerService", IPersistableService.class.getName(), node1.getId());*/
 
 		}
 		

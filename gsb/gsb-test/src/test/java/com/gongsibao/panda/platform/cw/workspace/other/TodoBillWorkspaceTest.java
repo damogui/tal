@@ -12,6 +12,7 @@ import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.cw.web.TodoBillListPart;
+import com.gongsibao.entity.cw.dict.FinanceDict;
 import com.gongsibao.entity.cw.dto.BillAuditDTO;
 
 /**
@@ -39,8 +40,10 @@ public class TodoBillWorkspaceTest extends WorkspaceCreationBase {
 	        listPartImportJs = "/gsb/platform/cw/js/todo-bill-list-part.js";
 			listPartJsController = TodoBillListPart.class.getName();
 			listPartServiceController = TodoBillListPart.class.getName();
+			listToolbarPath = "";
+			
 			//待办理
-		    listFilter = " a.status = 1  ";
+		    listFilter = " a.status = " +FinanceDict.AuditDetailStatus.WAIT.getValue() +" ";
 	    }
 	 
 	 @Override
@@ -51,7 +54,12 @@ public class TodoBillWorkspaceTest extends WorkspaceCreationBase {
 				datagrid.setName("我的待办");
 			}
 			PDatagridColumn column = null;
-			column = addColumn(datagrid, "formId", "单据", ControlTypes.ENUM_BOX, 150);
+			column = addColumn(datagrid, "formId", "单据", ControlTypes.TEXT_BOX, 150);
+			{
+				column.setSystem(true);
+				column.setVisible(false);
+			}
+			column = addColumn(datagrid, "formTypeValue", "单据类型值", ControlTypes.TEXT_BOX, 150);
 			{
 				column.setSystem(true);
 				column.setVisible(false);
@@ -60,9 +68,9 @@ public class TodoBillWorkspaceTest extends WorkspaceCreationBase {
 			{
 				column.setFormatter("return controllerbillAuditDTOList.operationFormatter(value,row,index);");
 			}
-			addColumn(datagrid, "formType", "单据类型", ControlTypes.ENUM_BOX, 150);
-			addColumn(datagrid, "code", "借款单号", ControlTypes.TEXT_BOX, 250);
-			addColumn(datagrid, "amount", "金额", ControlTypes.TEXT_BOX, 150);
+			addColumn(datagrid, "formType", "单据类型", ControlTypes.ENUM_BOX, 200);
+			addColumn(datagrid, "code", "单据编号", ControlTypes.TEXT_BOX, 250);
+			addColumn(datagrid, "amount", "金额", ControlTypes.DECIMAL_FEN_BOX, 200);
 			addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 200);
 			addColumn(datagrid, "createTime", "创建时间", ControlTypes.TEXT_BOX, 200);
 			addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 400);

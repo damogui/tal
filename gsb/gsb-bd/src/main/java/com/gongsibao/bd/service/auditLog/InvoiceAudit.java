@@ -28,7 +28,7 @@ public class InvoiceAudit extends AbstractAuditLogService {
         //财务_发票专员
         List<Integer> fbzyIds = salesmanService.getEmployeeIdListByRoleCodes(Arrays.asList("Platform_Finance_FPZY"));
         for (Integer fbzyId : fbzyIds) {
-            addAuditLog(formId, "发票专员审核", fbzyId, level);
+            auditLogList.add(addAuditLog(formId, "发票专员审核", fbzyId, level));
         }
         return auditLogList;
     }

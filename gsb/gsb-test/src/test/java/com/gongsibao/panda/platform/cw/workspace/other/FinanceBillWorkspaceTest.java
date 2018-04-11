@@ -10,6 +10,9 @@ import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
+import com.gongsibao.cw.web.FinanceBillListPart;
+import com.gongsibao.cw.web.TodoBillListPart;
+import com.gongsibao.entity.cw.dict.FinanceDict;
 import com.gongsibao.entity.cw.dto.BillAuditDTO;
 
 /**
@@ -34,8 +37,15 @@ public class FinanceBillWorkspaceTest extends WorkspaceCreationBase {
         formPartName = listPartName = meta.getName();
         resourceNodeCode = "GSB_CW_Manage_Finance_Bills";
 	     
+        listPartImportJs = "/gsb/platform/cw/js/finance-bill-list-part.js";
+		listPartJsController = FinanceBillListPart.class.getName();
+		listPartServiceController = FinanceBillListPart.class.getName();
+		listToolbarPath = "";
+		
+		//待财务办理
+	    listFilter = " t.status = "+FinanceDict.AuditStatus.Status_4.getValue() +" ";
     }
- 
+
  @Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
 
@@ -43,13 +53,28 @@ public class FinanceBillWorkspaceTest extends WorkspaceCreationBase {
 		{
 			datagrid.setName("财务办理");
 		}
+		
 		PDatagridColumn column = null;
-		addColumn(datagrid, "formType", "单据类型", ControlTypes.ENUM_BOX, 150);
-		addColumn(datagrid, "code", "借款单号", ControlTypes.TEXT_BOX, 150);
-		addColumn(datagrid, "amount", "金额", ControlTypes.TEXT_BOX, 150);
-		addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 150);
-		addColumn(datagrid, "createTime", "创建时间", ControlTypes.TEXT_BOX, 150);
-		addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 300);
+		column = addColumn(datagrid, "formId", "单据", ControlTypes.TEXT_BOX, 150);
+		{
+			column.setSystem(true);
+			column.setVisible(false);
+		}
+		column = addColumn(datagrid, "formTypeValue", "单据类型值", ControlTypes.TEXT_BOX, 150);
+		{
+			column.setSystem(true);
+			column.setVisible(false);
+		}
+		column = addColumn(datagrid, "operation", "操作", ControlTypes.TEXT_BOX, 150);
+		{
+			column.setFormatter("return controllerbillAuditDTOList.operationFormatter(value,row,index);");
+		}
+		addColumn(datagrid, "formType", "单据类型", ControlTypes.ENUM_BOX, 200);
+		addColumn(datagrid, "code", "单据号", ControlTypes.TEXT_BOX, 200);
+		addColumn(datagrid, "amount", "金额", ControlTypes.DECIMAL_FEN_BOX, 200);
+		addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 200);
+		addColumn(datagrid, "createTime", "创建时间", ControlTypes.TEXT_BOX, 200);
+		addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 400);
 		return datagrid;
 	}
     

@@ -3,6 +3,7 @@ package com.gongsibao.entity.crm;
 import java.util.Date;
 import java.util.List;
 
+import com.gongsibao.entity.BaseEntity;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
@@ -20,16 +21,16 @@ import com.gongsibao.entity.crm.dic.Sex;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 
-@Table(name = "n_crm_customer", header = "客户信息")
-public class NCustomer extends Entity {
+@Table(name = "crm_customer", header = "客户信息(新)")
+public class NCustomer extends BaseEntity {
 
 	/**
-	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
+	 * @Fields serialVersionUID : n_crm_customer  还用crm_customer  多加字段
 	 */
 	private static final long serialVersionUID = -1451778506769623188L;
 
 	@Column(name = "account_id", header = "帐号Id")
-	private Integer accountId;
+	private Integer accountId=0;
 
 	@Reference(foreignKey = "accountId")
 	private Account account;
@@ -62,43 +63,43 @@ public class NCustomer extends Entity {
 	private Date birdthday;
 
 	@Column(name = "addr", header = "客户地址")
-	private String addr;
+	private String addr="";
 
-	@Column(name = "province_id")
+	@Column(name = "f_province_id")
 	private Integer provinceId;
 
 	@Reference(foreignKey = "provinceId", header = "省份")
 	private Dict province;
 
-	@Column(name = "city_id")
+	@Column(name = "f_city_id")
 	private Integer cityId;
 
 	@Reference(foreignKey = "cityId", header = "城市")
 	private Dict city;
 
-	@Column(name = "county_id")
+	@Column(name = "f_county_id")
 	private Integer countyId;
 
 	@Reference(foreignKey = "countyId", header = "区/县")
 	private Dict county;
 
 	@Column(name = "unvalid_remark", header = "沟通无效原因")
-	private String unvalidRemark;
+	private String unvalidRemark="";
 
 	@Column(name = "maybe_remark", header = "潜在原因")
-	private String maybeRemark;
+	private String maybeRemark="";
 
 	@Column(name = "customer_source_other", header = "客户来源选择其他时填写的详情")
-	private String customerSourceOther;
+	private String customerSourceOther="";
 
 	@Column(name = "introducer_user_id", header = "介绍人id(内部人员)")
-	private Integer introducerUserId;
+	private Integer introducerUserId=0;
 
 	@Column(name = "consult_way", header = "421 CRM咨询途径: 4211 400电话、 4212 在线客服、 4213企业QQ、 4214 PC官网、 4215 H5官网、 4216 手机APP")
-	private ConsultWay consultWay;
+	private ConsultWay consultWay=ConsultWay.CONSULT_WAY_4219;
 
 	@Column(name = "consult_way_other", header = "咨询途径选择其他时填写的详情")
-	private String consultWayOther;
+	private String consultWayOther="";
 
 	@Column(name = "important", header = "402 重要程度: 4021普通、 4022中级、 4023高级、 4024VIP")
 	private Important important = Important.COMMON;
@@ -107,7 +108,7 @@ public class NCustomer extends Entity {
 	private Integer invalid = 0;
 
 	@Column(name = "introducer_id", header = "介绍人id")
-	private Integer introducerId;
+	private Integer introducerId=0;
 
 	@Column(name = "remark", size = 500, header = "备注信息")
 	private String remark;
@@ -128,40 +129,40 @@ public class NCustomer extends Entity {
 	private SupplierDepartment department;
 
 	@Column(name = "swt_customer_id", header = "商务通客Id")
-	private String swtCustomerId;
+	private String swtCustomerId="";
 
 	@Column(name = "swt_service_id", header = "商务通客服Id")
-	private String swtServiceId;
+	private String swtServiceId="";
 
 	@Column(name = "intention_category", header = "质量分类")
-	private QualityCategory intentionCategory;
+	private QualityCategory intentionCategory=QualityCategory.A;
 
 	@Column(name = "quality_id", header = "质量Id")
-	private Integer qualityId;
+	private Integer qualityId=0;
 
 	@Reference(foreignKey = "qualityId", header = "质量")
 	private NCustomerTaskQuality quality;
 
 	@Column(name = "last_follow_time", header = "最近跟进时间")
-	private Date lastFollowTime;
+	private Date lastFollowTime=new Date ();
 
 	@Column(name = "last_foolow_user_id", header = "最后跟进人Id")
-	private Integer lastFoolowUserId;
+	private Integer lastFoolowUserId=0;
 
 	@Reference(foreignKey = "lastFoolowUserId", header = "最后跟进人")
 	private Employee lastFoolowUser;
 
 	@Column(name = "last_content", size = 1000, header = "最后跟进内容")
-	private String lastContent;
+	private String lastContent="";
 
 	@Column(name = "next_foolow_time", header = "下次跟进时间")
-	private Date nextFoolowTime;
+	private Date nextFoolowTime=new Date ();
 
 	@Reference(foreignKey = "customerSourceId", header = "客户来源")
 	private Dict customerSource;
 
-	@Column(name = "customer_source_id", header = "客户来源")
-	private Integer customerSourceId;
+	@Column(name = "customer_source", header = "客户来源")
+	private Integer customerSourceId=0;
 
 	// @Column(name = "crm_source_type", header = "是不是招商渠道来源")
 	// private Integer crmSourceType=0;//1是招商渠道 FollowStatus 区分 4017 渠道合作
@@ -170,7 +171,7 @@ public class NCustomer extends Entity {
 	private Integer taskCount = 0;
 
 	@Column(name = "company_id", header = "关联公司Id")
-	private Integer companyId;
+	private Integer companyId=0;
 
 	@Reference(foreignKey = "companyId", header = "关联公司：默认最后一次关联")
 	private CompanyIntention company;

@@ -51,19 +51,18 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
 
                         var payPerformanceCtrl = document.getElementById('addReceivedIframe').firstElementChild.contentWindow.payPerformanceCtrl;
                         var isSave = payPerformanceCtrl.save();
-                        if (isSave === true) {
+                        if (isSave) {
 
-                            layer.msg('保存成功！', function () {
-
-                                layer.closeAll();
-                            });
+                            IMessageBox.toast('保存成功');
+                            layer.closeAll();
+                            //刷新
+                            reloadPage();
                         }
                     }
                 });
 
             }
         });
-
 
 
     },
@@ -88,11 +87,11 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             } else {
                 layer.open({
                     type: 2,//1是字符串 2是内容
-                    title: '订单信息',
+                    title: '订单业绩信息',
                     fixed: false,
                     maxmin: true,
                     shadeClose: false,
-                    area: ['60%', '60%'],
+                    area: ['60%', '80%'],
                     zIndex: 100000,
                     id: "addOrderReceivedIframe",
                     content: urlEnd,
@@ -156,12 +155,12 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
 
                         var payCtrl = document.getElementById('addReceivedIframe').firstElementChild.contentWindow.payCtrl;
                         var isSave = payCtrl.save();
-                        if (isSave === true) {
+                        if (isSave) {
 
-                            layer.msg('保存成功！', function () {
-
-                                layer.closeAll();
-                            });
+                            IMessageBox.toast('保存成功');
+                            layer.closeAll();
+                            //刷新
+                            reloadPage();
                         }
                     }
                 });
@@ -253,30 +252,45 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             IMessageBox.info('请先选择订单数据');
             return false;
         }
-        var contentUrl = this.addStagingUrl + "?id=" + row.id;
-        //判断是否已经分期付款了（先支持1次分期）
-        me.invokeService("isStaged", [row.id], function (data) {
-            if (data) {
-                layer.msg('该订单已申请分期，并审核通过，请知悉');
-            } else {
-                layer.open({
-                    type: 2,//1是字符串 2是内容
-                    title: '申请分期',
-                    fixed: false,
-                    maxmin: true,
-                    shadeClose: false,
-                    area: ['60%', '70%'],
-                    zIndex: 100000,
-                    id: "addStagingIframe",
-                    content: contentUrl,
-                    btn: ['保存', '取消'],// 可以无限个按钮
-                    yes: function (index, layero) {
-                        document.getElementById('addStagingIframe').firstElementChild.contentWindow.stagetrl.save();
-                    },
-                });
-            }
+      //判断是否改价订单（审核中，不允许分期）。0-审核通过、未审核；1-驳回；2-审核中
+        me.invokeService("isChangePriceOrde", [row.id], function (data) {        	
+        	if(data == 1){
+        		layer.msg('订单改价审核未通过，请核实');
+        		return false;
+        	}else if(data == 2){
+        		layer.msg('订单改价还未审核通过，请审核通过后再创建');
+        		return false;       		
+        	}else{
+        		me.validIsStaged(row.id);
+        	}
         });
-
+    },
+    validIsStaged:function(orderId){
+    	//判断是否已经分期付款了（先支持1次分期）
+    	var me = this;
+    	var contentUrl = this.addStagingUrl + "?id=" + orderId;
+    	me.invokeService("isStaged", [orderId], function (data) {
+    		if(data){
+    			layer.msg('该订单已申请分期，并审核通过，请知悉');
+                return false;
+    		}else{
+    			layer.open({
+    	            type: 2,//1是字符串 2是内容
+    	            title: '申请分期',
+    	            fixed: false,
+    	            maxmin: true,
+    	            shadeClose: false,
+    	            area: ['60%', '70%'],
+    	            zIndex: 100000,
+    	            id: "addStagingIframe",
+    	            content: contentUrl,
+    	            btn: ['保存', '取消'],// 可以无限个按钮
+    	            yes: function (index, layero) {
+    	                document.getElementById('addStagingIframe').firstElementChild.contentWindow.stagetrl.save();
+    	            },
+    	        });
+    		}
+        });
     },
     addContract: function (id) {//创建合同
         var me = this;
@@ -481,7 +495,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
 
 /*重新调取下请求方法*/
 function reloadPage() {
-   controllersoOrderList.query();
+    controllersoOrderList.query();
 
 }
 

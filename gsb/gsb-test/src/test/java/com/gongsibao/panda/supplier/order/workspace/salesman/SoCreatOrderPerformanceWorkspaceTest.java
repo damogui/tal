@@ -214,10 +214,11 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
             form.toNew ();
             form.setResourceNode (node);
             form.setColumnCount (1);
-            form.setName ("业绩划分金额表");
+            form.setName ("业绩划分金额");
 
             // form.setTag ();//设置提示
             form.setLabelWidth (100);
+
             PFormField formField = null;
             formField = addFormFieldRefrence (form, "supplier.name", "服务商", null,"OrderSupplier", true, false);
             {
@@ -256,8 +257,8 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
             part.setToolbar (listToolbarPath);
             part.setForm (form);
             part.setWindowWidth (400);
-            part.setWindowHeight (450);
-            part.setStyle ("  width: 50%;height60%");
+            part.setWindowHeight (300);
+           // part.setStyle ("  width: 50%;height60%");
 
 //         part.setServiceController (OrderPerformanceDetailPart.class.getName ());
             part.setJsController (OrderPerformanceDetailPart.class.getName ());

@@ -3,7 +3,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>订单详情</title>
+	<title>明细订单</title>
 	<link href='/package/font-awesome/css/font-awesome.min.css' rel='stylesheet' type='text/css' />
 	<link href='/package/easyui/themes/material/easyui.css' rel='stylesheet' type='text/css' />
 	<link href='/package/easyui/themes/easyui.extend.css' rel='stylesheet' type='text/css' />
@@ -99,16 +99,34 @@
 		.file-preview-item img:hover{
 			border: 1px solid #1E7CB5;
 		}
+		
+		.file_panel{
+			width:750px;
+			padding:10px 15px;
+			border-bottom: 1px solid #eee;
+		}
+		
+		.file_panel p{
+		    line-height:20px;
+		    margin:0;
+		    padding:0;
+		}
+		
+		.file_panel #notUploadCount{
+			color:red;
+		}
 	</style>
 	<script src='/package/easyui/jquery.min.js'></script>
 	<script src='/package/layer/layer.js'></script>
 	<script src='/package/easyui/jquery.easyui.min.js'></script>
 	<script src='/package/easyui/locale/easyui-lang-zh_CN.js'></script>
 	<script src='/package/easyui/jquery.easyui.extend.js'></script>
+	<script src='/package/qiniu/plupload.full.min.js'></script>
 	<script src='/panda-res/js/system.js'></script>
 	<script src='/panda-res/js/panda.core.js'></script>
 	<script src='/panda-res/js/panda.js'></script>
-	
+	<script src='/panda-res/js/panda.controls.js'></script>
+		
 	<script src='/gsb/platform/trade/js/prod/select-salesman.ctrl.js'></script>
 	<script src='/gsb/platform/trade/js/prod/select-company.ctrl.js'></script>
 	
@@ -151,7 +169,7 @@
 				   			 	</td>
 				   			 	<td><div class="datagrid-btn-separator"></div></td>
 				   			 	<td>
-	   								<a id="btn_upload" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-cloud-upload'">上传</a>
+	   								<a id="btn_upload" href="javascript:fileCtrl.openUploadWindow();" class="easyui-linkbutton" data-options="plain:true,iconCls:'fa fa-cloud-upload'">上传</a>
 				   			 	</td>
 				   			 	
 				   				<td><div class="datagrid-btn-separator"></div></td>
@@ -182,8 +200,8 @@
 		   			 	</table>
 		   			</div>
 		   			<div style="padding-left:30px;height: 162px;background-color: #fff;">
-			   			<p>订单用时： <span id="processdDays"></span> / <span id="needDays"></span> 天</p>
-			   			<p style="font-size:24px;margin: 10px 0;"><span id="processStatus" style="color:#009688;"></span> <span id="nodeDayCount"></span> / <span id="weekdayCount"></span>天</p>
+			   			<p>订单用时： <span id="processdDays">0</span> / <span id="needDays">0</span> 天</p>
+			   			<p style="font-size:24px;margin: 10px 0;"><span id="processStatus" style="color:#009688;">0</span> <span id="nodeDayCount">0</span> / <span id="weekdayCount">0</span>天</p>
 			   			
 						<p id="handle_panel">办理名称：<span id="editHandleName" style="color:#428bca">点击编辑</span></p>
 						<p id="applyNo_panel">申请号：<span id="editApplyNo" style="color:#428bca">点击编辑</span></p>
@@ -198,8 +216,14 @@
 		    <div title="跟进记录">   
 		          <table id="order_prod_trace_grid"></table>
 		    </div>   
-		    <div title="材料信息">   
-		         <table id="order_prod_trace_file_grid"></table>
+		    <div title="材料信息">
+		      <div class="file_panel">
+		      	<p>您还需要上传<span id="notUploadCount">0</span>个必传文件：</p>
+		      	<p id="notUploadFileNames"></p>		      	
+		      </div>
+		      <div class="file_panel" style="border-bottom-width: 0px;">
+		      	<table id="order_prod_trace_file_grid"></table>
+		      </div>
 		    </div>   
 		    <div title="订单信息">
 
@@ -283,6 +307,7 @@
 	var traceCtrl = null;
 	var principalCtrl = null;
 	var companyCtrl = null;
+	var fileCtrl = null;
 	var filePreviewCtrl = null;
  	$(function(){
 		

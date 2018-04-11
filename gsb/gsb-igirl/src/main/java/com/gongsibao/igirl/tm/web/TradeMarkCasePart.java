@@ -1,5 +1,20 @@
 package com.gongsibao.igirl.tm.web;
 
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.EntityState;
+import org.netsharp.core.Oql;
+import org.netsharp.entity.IPersistable;
+import org.netsharp.panda.annotation.Authorization;
+import org.netsharp.panda.commerce.FormPart;
+import org.netsharp.panda.core.HttpContext;
+import org.netsharp.util.DateManage;
+import org.netsharp.util.StringManager;
+
 import com.gongsibao.entity.igirl.res.ConvertToOrderResult;
 import com.gongsibao.entity.igirl.tm.DownloadAttachment;
 import com.gongsibao.entity.igirl.tm.TradeMark;
@@ -16,19 +31,6 @@ import com.gongsibao.igirl.tm.dto.TradeMarkDto;
 import com.gongsibao.taurus.message.ResponseMessage;
 import com.gongsibao.taurus.service.TaurusApiService;
 import com.gongsibao.utils.SupplierSessionManager;
-import org.joda.time.DateTime;
-import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.EntityState;
-import org.netsharp.core.Oql;
-import org.netsharp.entity.IPersistable;
-import org.netsharp.panda.annotation.Authorization;
-import org.netsharp.panda.commerce.FormPart;
-import org.netsharp.panda.core.HttpContext;
-import org.netsharp.util.StringManager;
-
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TradeMarkCasePart extends FormPart {
 	ITradeMarkCaseService tradeMarkCaseService = ServiceFactory.create(ITradeMarkCaseService.class);
@@ -44,7 +46,7 @@ public class TradeMarkCasePart extends FormPart {
 		Integer departmentId = SupplierSessionManager.getDepartmentId();
 		entity1.setDepartmentId(departmentId);
 		if (entity1.getEntityState() == EntityState.New) {
-			entity1.setCode(DateTime.now().toString("yyyyMMddHHmmss"));
+			entity1.setCode(DateManage.toString(new Date(),"yyyyMMddHHmmss"));
 			String urlstr = this.fetchQrCodeUrl(entity1.getCode());
 			entity1.setTokenImgUrl(urlstr);
 		}

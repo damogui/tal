@@ -55,6 +55,7 @@ com.gongsibao.trade.web.InvoiceFormPart = org.netsharp.panda.commerce.FormPart.E
                 me.invokeService("applyInvoice", [entity, entity.orderId], function (data) {
                     IMessageBox.info('申请成功，请等待审核!', function (s) {
                         window.parent.layer.closeAll();
+                        window.parent.location.reload();
                     });
                 });
             }
@@ -113,17 +114,18 @@ com.gongsibao.trade.web.InvoiceFormPart = org.netsharp.panda.commerce.FormPart.E
             $('#vatBankNo').textbox({disabled: true});
         }
     },
-    approved: function (auditId) {//审核通过
+    approved: function (auditId, callback) {//审核通过
         var me = this;
         //审批意见
         var auditRemark = $("#auditRemark").val();
         me.serviceLocator.invoke("com.gongsibao.trade.web.audit.AuditInvoiceController", "approved", [auditId, auditRemark], function (data) {
             IMessageBox.toast('操作成功！');
             window.parent.layer.closeAll();
-            //me.reload();
+            if (callback)
+                callback(data);
         }, null, false);
     },
-    rejected: function (auditId) {//审核驳回
+    rejected: function (auditId, callback) {//审核驳回
         var me = this;
         PandaHelper.openDynamicForm({
             title: '审核不通过原因',
@@ -148,6 +150,8 @@ com.gongsibao.trade.web.InvoiceFormPart = org.netsharp.panda.commerce.FormPart.E
                 me.serviceLocator.invoke("com.gongsibao.trade.web.audit.AuditInvoiceController", "rejected", [auditId, auditRemark], function (data) {
                     IMessageBox.toast('操作成功！');
                     window.parent.layer.closeAll();
+                    if (callback)
+                        callback(data);
                 }, null, false);
             }
         });
@@ -159,6 +163,7 @@ com.gongsibao.trade.web.OrderInvoiceFileDetailPart = org.netsharp.panda.commerce
 
     ctor: function () {
         this.base();
+        this.isAdd = System.Url.getParameter("isAdd");
     },
     initUpload: function () {
 
@@ -180,10 +185,10 @@ com.gongsibao.trade.web.OrderInvoiceFileDetailPart = org.netsharp.panda.commerce
         this.initUpload();
     },
     urlFormatter: function (value, row, index) {
-
-        var str = '<a class="grid-btn" href="javascript:window.open(\'' + row.url + '\');">查看</a> \
-		   <a class="grid-btn" href="javascript:controllerfiles.remove(' + index + ');">删除</a>';
-        return str;
+        var me = this;
+        var strView = '<a class="grid-btn" href="javascript:window.open(\'' + row.url + '\');">查看</a>';
+        var strDelete = me.isAdd != 1 ? "" : '<a class="grid-btn" href="javascript:controllerfiles.remove(' + index + ');">删除</a>';
+        return strView + strDelete;
     },
     remove: function (index) {
 

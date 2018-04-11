@@ -1,5 +1,9 @@
 package com.gongsibao.panda.platform.operation;
 
+import com.gongsibao.panda.platform.report.workspace.customer.ComprehenStatisticalWorkspaceTest;
+import com.gongsibao.panda.platform.report.workspace.customer.FollowStatisticalWorkspaceTest;
+import com.gongsibao.panda.platform.report.workspace.customer.FunnelStatisticalWorkspaceTest;
+import com.gongsibao.panda.platform.report.workspace.customer.StatisticalCustomerServiceWorkspaceTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -117,8 +121,6 @@ import com.gongsibao.panda.platform.operation.workspace.wanda.WanDaSoOrderWorksp
         QualityWorkspaceTest.class,
 
 
-        
-
         ImportTaskQualityDataTest.class,
 //        ImportTaskRoleAndFunctionTest.class,
         // ImportOldDataToNewData.class,
@@ -126,6 +128,12 @@ import com.gongsibao.panda.platform.operation.workspace.wanda.WanDaSoOrderWorksp
         //智能商标在运营下面的列表
         TradeMarkCaseAllWorkspaceTest.class,
         TradeMarkFollowWorkspaceTest.class,
+
+        //统计分析
+        ComprehenStatisticalWorkspaceTest.class,
+        FollowStatisticalWorkspaceTest.class,
+        FunnelStatisticalWorkspaceTest.class,
+        StatisticalCustomerServiceWorkspaceTest.class,
 
         NavigationTest.class
 

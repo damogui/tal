@@ -23,7 +23,7 @@ import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.supplier.dict.SupplierType;
 
-@Table(name = "n_crm_customer_task", header = "客户商机")
+@Table(name = "n_crm_customer_task", header = "客户商机", orderBy = "create_time DESC")
 public class NCustomerTask extends Entity {
 
 	/**
@@ -32,7 +32,7 @@ public class NCustomerTask extends Entity {
 	private static final long serialVersionUID = 4684375504055933956L;
 
 	@JsonIgnore
-	@Reference(foreignKey = "customerId", header = "客户")
+	@Reference(foreignKey = "customerId", header = "客户", primaryKey = "pkid")
 	private NCustomer customer;
 
 	@Column(name = "customer_id", header = "客户")
@@ -119,13 +119,13 @@ public class NCustomerTask extends Entity {
 
 	@Column(name = "last_inspection_content", size = 1000, header = "最后抽查内容")
 	private String lastInspectionContent;
-	
-	@Column(name = "remark", header = "备注信息",size = 1000)
+
+	@Column(name = "remark", header = "备注信息", size = 1000)
 	private String remark;
-	
-	@Column(name = "sms_remark", header = "短信备注",size = 1000)
+
+	@Column(name = "sms_remark", header = "短信备注", size = 1000)
 	private String smsRemark;
-	
+
 	@Column(name = "cost_supplier_id", header = "费用服务商Id")
 	private Integer costSupplierId;
 
@@ -134,10 +134,10 @@ public class NCustomerTask extends Entity {
 
 	@Column(name = "costed", header = "是否市场费用投放")
 	private Boolean costed = false;
-	
+
 	@Column(name = "distribut", header = "是否被分配过(只修改一次，过滤未分配)")
 	private Boolean distribut = false;
-	
+
 	@Column(name = "allocation_type", header = "分配方式")
 	private NAllocationType allocationType = NAllocationType.AUTO;
 
@@ -164,7 +164,7 @@ public class NCustomerTask extends Entity {
 
 	@Column(name = "consult_way_other", header = "咨询途径选择其他时填写的详情")
 	private String consultWayOther;
-	
+
 	@Column(name = "swt_customer_id", header = "商务通客Id")
 	private String swtCustomerId;
 
@@ -236,7 +236,7 @@ public class NCustomerTask extends Entity {
 	public void setCostSupplier(Supplier costSupplier) {
 		this.costSupplier = costSupplier;
 	}
-	
+
 	public Boolean getDistribut() {
 		return distribut;
 	}
@@ -597,6 +597,5 @@ public class NCustomerTask extends Entity {
 	public void setSwtServiceId(String swtServiceId) {
 		this.swtServiceId = swtServiceId;
 	}
-	
-	
+
 }

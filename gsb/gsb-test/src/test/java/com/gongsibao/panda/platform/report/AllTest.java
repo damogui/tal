@@ -61,10 +61,10 @@ import com.gongsibao.panda.platform.report.workspace.customer.YearReportWorkspac
 	 SourceReportWorkspaceTest.class,
 	 StatusReportWorkspaceTest.class,
 	 
-     ComprehenStatisticalWorkspaceTest.class,
+     /*ComprehenStatisticalWorkspaceTest.class,
      FollowStatisticalWorkspaceTest.class,
      FunnelStatisticalWorkspaceTest.class,
-     StatisticalCustomerServiceWorkspaceTest.class,
+     StatisticalCustomerServiceWorkspaceTest.class,*/
      
 	 NavigationTest.class
 	

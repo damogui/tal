@@ -36,37 +36,10 @@ public class AuditInvoiceWorkspaceTest extends WorkspaceCreationBase {
         listPartName = formPartName = "发票审核";
         meta = MtableManager.getMtable(entity);
         resourceNodeCode = "Gsb_Supplier_Order_Audit_Invoice";
-        listPartImportJs = "/gsb/platform/trade/js/audit-invoice.ctrl.js|/gsb/panda-extend/gsb.custom.query.controls.js";
-        listToolbarPath = "crm/audit/orderinvoice/edit";
+        listPartImportJs = "/gsb/platform/trade/js/audit/audit-invoice.ctrl.js|/gsb/panda-extend/gsb.custom.query.controls.js";
         listPartServiceController = AuditInvoiceListPart.class.getName();
         listPartJsController = AuditInvoiceListPart.class.getName();
         listFilter = "type_id=" + AuditLogType.Fbsq.getValue() + " and add_user_id = '{userId}' ";
-    }
-
-    @Test
-    public void createListToolbar() {
-        ResourceNode node = resourceService.byCode(resourceNodeCode);
-        PToolbar toolbar = new PToolbar();
-        {
-            toolbar.toNew();
-            toolbar.setPath(listToolbarPath);
-            toolbar.setName("审核");
-            toolbar.setResourceNode(node);
-            toolbar.setToolbarType(ToolbarType.BASE);
-        }
-
-        PToolbarItem item = new PToolbarItem();
-        {
-            item.toNew();
-            item.setCode("addAudit");
-            item.setIcon(PToolbarHelper.iconCheck);
-            item.setName("审核");
-            item.setSeq(2);
-            item.setCommand("{controller}.addAudit();");
-            toolbar.getItems().add(item);
-        }
-
-        toolbarService.save(toolbar);
     }
 
     @Test
@@ -105,7 +78,10 @@ public class AuditInvoiceWorkspaceTest extends WorkspaceCreationBase {
             datagrid.setShowCheckbox(true);
         }
         PDatagridColumn column = null;
-        addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+        column = addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+        {
+            column.setFormatter("return controllerauditLogList.optionFormatter(value,row,index);");
+        }
         column = addColumn(datagrid, "formId", "formId", ControlTypes.OPERATION_COLUMN, 100, true);
         {
             column.setVisible(false);

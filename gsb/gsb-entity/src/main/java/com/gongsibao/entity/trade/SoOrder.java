@@ -219,7 +219,7 @@ public class SoOrder extends BaseEntity {
     @Column(name = "customer_id", header = "客户Id")
     private Integer customerId;
 
-    @Reference(foreignKey = "customerId", header = "客户")
+    @Reference(foreignKey = "customerId", header = "客户",primaryKey ="pkid")
     private NCustomer customer;
 
     @Column(name = "customer_name", header = "客户名称")

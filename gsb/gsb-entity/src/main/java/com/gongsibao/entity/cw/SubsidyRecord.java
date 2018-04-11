@@ -26,7 +26,7 @@ public class SubsidyRecord extends BizEntity{
 	private static final long serialVersionUID = 2341409435968446219L;
 
 	@Column(name="expense_id",header="报销id")
-	private String expenseId;
+	private Integer expenseId;
 	
 	@Column(name="type",header="补贴类型")
 	private FinanceDict.SubsidyType type = FinanceDict.SubsidyType.SubsidyType_1;
@@ -40,11 +40,11 @@ public class SubsidyRecord extends BizEntity{
 	@Column(name = "standard", header = "补贴标准")
 	private Integer standard;
 
-	public String getExpenseId() {
+	public Integer getExpenseId() {
 		return expenseId;
 	}
 
-	public void setExpenseId(String expenseId) {
+	public void setExpenseId(Integer expenseId) {
 		this.expenseId = expenseId;
 	}
 

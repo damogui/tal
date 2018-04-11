@@ -26,9 +26,9 @@ dependencies {
 	compile group: 'org.netsharp', name: 'weixin-qy-sdk', version: "$netsharpVersion"
 	compile group: 'org.netsharp', name: 'weixin-mp-sdk', version: "$netsharpVersion"
 	compile group: 'org.netsharp', name: 'netsharp-weixin', version: "$netsharpVersion"
-	compile group: 'org.netsharp', name: 'netsharp-scrum', version: "$netsharpVersion"
 	compile group: 'org.netsharp', name: 'netsharp-cache-plugin', version: "$netsharpVersion"
 	compile group: 'org.netsharp', name: 'netsharp-persistence', version: "$netsharpVersion"
+	compile group: 'org.netsharp', name: 'netsharp-scrum', version: "$netsharpVersion"
 }
 test {
     systemProperties 'property': 'value'

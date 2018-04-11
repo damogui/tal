@@ -6,6 +6,9 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.File;
+import com.gongsibao.entity.product.WorkflowFile;
+import com.gongsibao.entity.trade.dic.TraceFileAuditStatus;
+import com.gongsibao.entity.trade.dic.TraceFileStatus;
 
 @Table(name="so_order_prod_trace_file")
 public class OrderProdTraceFile extends BaseEntity {
@@ -16,10 +19,13 @@ public class OrderProdTraceFile extends BaseEntity {
     private Integer orderProdTraceId;
 	
     @Column(name="prod_workflow_file_id",header="订单处理流程材料序号")
-    private Integer prodWorkflowFileId;
+    private Integer workflowFileId;
+    
+	@Reference(foreignKey = "workflowFileId", header = "订单处理流程材料")
+	private WorkflowFile workflowFile;
     
     @Column(name="prod_workflow_file_name",header="订单处理流程材料名称")
-    private String prodWorkflowFileName;
+    private String workflowFileName;
     
     @Column(name="file_id",header="上传材料序号")
     private Integer fileId;
@@ -28,16 +34,16 @@ public class OrderProdTraceFile extends BaseEntity {
 	private File file;
     
     @Column(name="is_new",header="上传材料是否最新(1:最新;2:历史)")
-    private Integer isNew;
+    private TraceFileStatus status = TraceFileStatus.NEWEST;
     
     @Column(name="audit_status_id",header="审核状态序号，type=105，1051 待审核、1053 驳回审核、1054 审核通过")
-    private Integer auditStatusId;
+    private TraceFileAuditStatus auditStatus = TraceFileAuditStatus.TOAUDIT;
     
     @Column(name="remark",header="说明")
     private String remark;
     
     @Column(name="is_top",header="是否置顶：0否 1是")
-    private Integer isTop;
+    private Boolean isTop = false;
 
     public Integer getOrderProdTraceId() {
         return orderProdTraceId;
@@ -45,52 +51,63 @@ public class OrderProdTraceFile extends BaseEntity {
     public void setOrderProdTraceId(Integer orderProdTraceId) {
         this.orderProdTraceId = orderProdTraceId;
     }
-    public Integer getProdWorkflowFileId() {
-        return prodWorkflowFileId;
-    }
-    public void setProdWorkflowFileId(Integer prodWorkflowFileId) {
-        this.prodWorkflowFileId = prodWorkflowFileId;
-    }
-    public String getProdWorkflowFileName() {
-        return prodWorkflowFileName;
-    }
-    public void setProdWorkflowFileName(String prodWorkflowFileName) {
-        this.prodWorkflowFileName = prodWorkflowFileName;
-    }
-    public Integer getFileId() {
+
+    public Integer getWorkflowFileId() {
+		return workflowFileId;
+	}
+	public void setWorkflowFileId(Integer workflowFileId) {
+		this.workflowFileId = workflowFileId;
+	}
+
+	
+    public String getWorkflowFileName() {
+		return workflowFileName;
+	}
+	public void setWorkflowFileName(String workflowFileName) {
+		this.workflowFileName = workflowFileName;
+	}
+	public Integer getFileId() {
         return fileId;
     }
     public void setFileId(Integer fileId) {
         this.fileId = fileId;
     }
-    public Integer getIsNew() {
-        return isNew;
-    }
-    public void setIsNew(Integer isNew) {
-        this.isNew = isNew;
-    }
-    public Integer getAuditStatusId() {
-        return auditStatusId;
-    }
-    public void setAuditStatusId(Integer auditStatusId) {
-        this.auditStatusId = auditStatusId;
-    }
+
     public String getRemark() {
         return remark;
     }
     public void setRemark(String remark) {
         this.remark = remark;
     }
-    public Integer getIsTop() {
-        return isTop;
-    }
-    public void setIsTop(Integer isTop) {
-        this.isTop = isTop;
-    }
+
 	public File getFile() {
 		return file;
 	}
 	public void setFile(File file) {
 		this.file = file;
+	}
+	public TraceFileStatus getStatus() {
+		return status;
+	}
+	public void setStatus(TraceFileStatus status) {
+		this.status = status;
+	}
+	public TraceFileAuditStatus getAuditStatus() {
+		return auditStatus;
+	}
+	public void setAuditStatus(TraceFileAuditStatus auditStatus) {
+		this.auditStatus = auditStatus;
+	}
+	public Boolean getIsTop() {
+		return isTop;
+	}
+	public void setIsTop(Boolean isTop) {
+		this.isTop = isTop;
+	}
+	public WorkflowFile getWorkflowFile() {
+		return workflowFile;
+	}
+	public void setWorkflowFile(WorkflowFile workflowFile) {
+		this.workflowFile = workflowFile;
 	}
 }

@@ -402,17 +402,20 @@ org.netsharp.controls.OSSUpload = org.netsharp.controls.QiNiuUpload.Extends({
 
 					FilesAdded: function(up, files) {
 
+						me.filesAdded(up, files);
 						me.setUploadParam(up);
 						uploader.start();
 					},
 
 					UploadProgress: function(up, file) {
-						IMessageBox.loading.show();
+						//IMessageBox.loading.show();
+						me.uploadProgress(up, file);
 					},
 
 					FileUploaded: function(up, file, info) {
 
-						IMessageBox.loading.hide();
+						me.fileUploaded(up, file, info);
+						//IMessageBox.loading.hide();
 			            if (info.status == 200)
 			            {
 			            	var path = up.getOption().url+'/'+ up.getOption().multipart_params.key;
@@ -438,6 +441,18 @@ org.netsharp.controls.OSSUpload = org.netsharp.controls.QiNiuUpload.Extends({
 
 		var uploader = new plupload.Uploader(options);
 		uploader.init();
+	},
+	filesAdded:function(up, files){
+		
+		
+	},
+	uploadProgress:function(up, files){
+		
+		
+	},
+	fileUploaded:function(up, file, info){
+		
+		
 	},
 	setUploadParam:function (up)
 	{

@@ -68,7 +68,11 @@ public class Loan extends BizEntity {
 	@Column(name = "audit_step", header = "审核步骤")
 	private Integer auditStep;
 	
-	@Column(name = "status", header = "状态 1:待审核 ，2：审核中 ，3：已通过，4：财务办理")
+	@Column(name = "department_id", header = "创建人所属部门id")
+	private Integer departmentId;
+
+	
+	@Column(name = "status", header = "状态 1:待审核 ，2：审核中 ，3：已通过，4：财务办理，5：驳回")
 	private FinanceDict.AuditStatus status = FinanceDict.AuditStatus.Status_1;
 
 	
@@ -231,6 +235,16 @@ public class Loan extends BizEntity {
 
 	public void setAuditItem(List<AuditRecord> auditItem) {
 		this.auditItem = auditItem;
+	}
+
+
+	public Integer getDepartmentId() {
+		return departmentId;
+	}
+
+
+	public void setDepartmentId(Integer departmentId) {
+		this.departmentId = departmentId;
 	}
 
 	

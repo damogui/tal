@@ -271,7 +271,7 @@ com.gongsibao.trade.web.OrderProductDetailCtrl = com.gongsibao.trade.web.BaseCtr
                 {
                     field: 'a', title: '操作', width: 80, align: 'center', formatter: function (value, row, index) {
 
-                    return '<a class="grid-btn" href="javascript:;">查看</a>';
+                    return '<a class="grid-btn" target="_blank" href="/nav/gsb/platform/trade/orderProdDetail?id='+row.id+'">查看</a>';
                 }
                 },
                 {field: 'id', title: '订单明细编号', width: 100, align: 'center'},
@@ -866,7 +866,7 @@ com.gongsibao.trade.web.OrderDiscountDetailCtrl = com.gongsibao.trade.web.BaseCt
             data: data,
             columns: [[
 
-                {field: 'no', title: '优惠卷码', width: 200},
+                {field: 'no', title: '优惠券码', width: 200},
                 {
                     field: 'amount', title: '优惠金额', width: 80, align: 'right', formatter: function (value, row, index) {
                     return (value / 100).toFixed(2);

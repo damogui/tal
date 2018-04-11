@@ -28,10 +28,10 @@ import java.util.List;
 /**
  * Created by win on 2018/2/10.
  */
-@Table(name = "n_crm_customer", header = "客户信息")
+@Table(name = "crm_customer", header = "客户信息")
 public class ImNCustomer extends Persistable implements IEntity {
     /**
-     * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)
+     * @Fields serialVersionUID : n_crm_customer  已经换为crm_customer
      */
     private static final long serialVersionUID = -1451778506769623188L;
     @Exclusive
@@ -184,26 +184,26 @@ public class ImNCustomer extends Persistable implements IEntity {
     }
     @Id
 
-    @Column(name = "id", header = "主键")
+    @Column(name = "pkid", header = "主键")
     private Integer id;
 
-    @Column(name = "creator_id", header = "创建人ID")
-    private Integer creatorId;
+    @Column(name="add_user_id",header="添加人")
+    private Integer creatorId = 0;
+
+    @Column(name="add_time",header="创建时间")
+    private Date createTime;
+
+    @Column(name="upd_user_id",header="修改人")
+    private Integer updatorId = 0;
+
+    @Column(name="upd_time",header="修改时间")
+    private Date updateTime;
 
     @Column(name = "creator", header = "创建人名称")
     private String creator;
 
-    @Column(name = "create_time", header = "创建时间")
-    private Date createTime;
-
-    @Column(name = "updator_id", header = "更新人ID")
-    private Integer updatorId;
-
     @Column(name = "updator", header = "更新人名称")
     private String updator;
-
-    @Column(name = "update_time", header = "更新时间")
-    private Date updateTime;
 
     //private Date ts;
 
@@ -311,19 +311,19 @@ public class ImNCustomer extends Persistable implements IEntity {
     @Column(name = "addr", header = "客户地址")
     private String addr;
 
-    @Column(name = "province_id")
+    @Column(name = "f_province_id")
     private Integer provinceId;
 
     @Reference(foreignKey = "provinceId", header = "省份")
     private Dict province;
 
-    @Column(name = "city_id")
+    @Column(name = "f_city_id")
     private Integer cityId;
 
     @Reference(foreignKey = "cityId", header = "城市")
     private Dict city;
 
-    @Column(name = "county_id")
+    @Column(name = "f_county_id")
     private Integer countyId;
 
     @Reference(foreignKey = "countyId", header = "区/县")
@@ -414,8 +414,10 @@ public class ImNCustomer extends Persistable implements IEntity {
     //    @Column(name = "crm_source_type", header = "是不是招商渠道来源")
 //    private Integer crmSourceType=0;//1是招商渠道  FollowStatus  区分 4017  渠道合作
 //
-    @Column(name = "task_count", header = "任务数量：创建任务，删除任务时更新此值")
+    @Column(name = "task_count", header = "商机数量：创建商机，删除商机时更新此值")
     private Integer taskCount = 0;
+    @Column(name = "company_id", header = "关联公司Id")//新增的id是后来
+    private Integer companyId=0;
 
     @Subs(foreignKey = "customerId", header = "客户任务", subType = NCustomerTask.class)
     private List<NCustomerTask> tasks;
@@ -849,5 +851,13 @@ public class ImNCustomer extends Persistable implements IEntity {
 
     public void setIsMember(Boolean isMember) {
         this.isMember = isMember;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 }

@@ -140,15 +140,6 @@ public class OrderProd extends BaseEntity {
 	@Reference(foreignKey = "productId", header = "产品")
 	private Product product;
 
-	@Subs(subType = OrderProdItem.class, foreignKey = "orderProdId", header = "服务明细")
-	private List<OrderProdItem> items = new ArrayList<OrderProdItem>();
-
-	@Subs(subType = OrderProdTrace.class, foreignKey = "orderProdId", header = "跟进记录")
-	private List<OrderProdTrace> traces = new ArrayList<OrderProdTrace>();
-
-	@Subs(subType = OrderProdCost.class, foreignKey = "orderProdId", header = "订单成本")
-	private List<OrderProdCost> costs = new ArrayList<OrderProdCost>();
-
 	@Column(name = "owner_id", header = "业务员Id")
 	private Integer ownerId;
 
@@ -173,8 +164,18 @@ public class OrderProd extends BaseEntity {
 	@Column(name = "customer_id", header = "客户Id")
 	private Integer customerId;
 
-	@Reference(foreignKey = "customerId", header = "客户")
+	@Reference(foreignKey = "customerId", header = "客户",primaryKey ="pkid" )
 	private NCustomer customer;
+	
+	@Subs(subType = OrderProdItem.class, foreignKey = "orderProdId", header = "服务明细")
+	private List<OrderProdItem> items = new ArrayList<OrderProdItem>();
+
+	@Subs(subType = OrderProdTrace.class, foreignKey = "orderProdId", header = "跟进记录")
+	private List<OrderProdTrace> traces = new ArrayList<OrderProdTrace>();
+
+	@Subs(subType = OrderProdCost.class, foreignKey = "orderProdId", header = "订单成本")
+	private List<OrderProdCost> costs = new ArrayList<OrderProdCost>();
+
 
 	public Integer getQuantity() {
 		return quantity;

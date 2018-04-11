@@ -68,4 +68,10 @@ public interface INCustomerService extends IPersistableService<NCustomer> {
 	 */
 	NCustomer getById(Integer taskId);
 
+
+	/**
+	 * 通过电话查找客户信息
+	 */
+	NCustomer getByMobile(String mobile);
+
 }

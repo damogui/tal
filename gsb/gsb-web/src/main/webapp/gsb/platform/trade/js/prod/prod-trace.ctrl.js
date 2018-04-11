@@ -131,9 +131,6 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     	var version = this.mainCtrl.orderProd.version;//要更新老数据至version（根据order_prod_status_id到prod_workflow_node表里冗余version）
     	var productId = this.mainCtrl.orderProd.productId;
     	var cityId = this.mainCtrl.orderProd.cityId;
-//    	productId = 1040;
-//    	cityId = 101440106;
-//    	version = 8;
     	this.invokeService("queryWorkflowNodeList", [productId,cityId,version], function(data){
     		
     		if(data){
@@ -194,6 +191,7 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     						layer.msg('更新成功');
     						layer.close(index);
     						me.init(me.orderProdId);
+    						me.mainCtrl.initOrderProd(me.orderProdId);
     					});
     				}
     			});
@@ -369,7 +367,7 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
 		builder.append('<div style="margin:10px;">');
 		builder.append('	<table cellpadding="5" cellspacing="10" class="form-panel">');
 		builder.append('		<tr><td>办理异常:</td></tr>');
-		builder.append('		<tr><td><textarea id="remark" placeholder="请填写内容..." style="width: 100%; height:130px;"></textarea></td></tr>');
+		builder.append('		<tr><td><textarea id="remark" placeholder="请填写内容..." style="width: 450px; height:130px;"></textarea></td></tr>');
 		builder.append('		<tr><td><input id="isSendMessage" type="checkbox" style="vertical-align: middle;"/><label for="isSendMessage" style="vertical-align: middle;">提示内容短信通知客户</label></td></tr>');
 		builder.append('	</table>');
 		builder.append('</div>');

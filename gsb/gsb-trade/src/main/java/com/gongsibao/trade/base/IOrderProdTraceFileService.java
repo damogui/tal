@@ -3,7 +3,9 @@ package com.gongsibao.trade.base;
 import java.util.List;
 
 import org.netsharp.base.IPersistableService;
+import org.netsharp.core.annotations.Transaction;
 
+import com.gongsibao.entity.trade.OrderProdTrace;
 import com.gongsibao.entity.trade.OrderProdTraceFile;
 
 public interface IOrderProdTraceFileService extends IPersistableService<OrderProdTraceFile> {
@@ -21,7 +23,7 @@ public interface IOrderProdTraceFileService extends IPersistableService<OrderPro
 
 	/**
 	 * @Title: queryOrderProdTraceFile
-	 * @Description: TODO(根据订单明细Id查询跟进文件)
+	 * @Description: TODO(根据订单明细Id查询跟进文件，根据isTop排序)
 	 * @param: @param orderProdId
 	 * @param: @return
 	 * @return: List<OrderProdTraceFile>
@@ -29,6 +31,16 @@ public interface IOrderProdTraceFileService extends IPersistableService<OrderPro
 	 */
 	List<OrderProdTraceFile> queryOrderProdTraceFiles(Integer orderProdId);
 	
+	
+	/**   
+	 * @Title: queryList   
+	 * @Description: TODO(查询)   
+	 * @param: @param orderProdId
+	 * @param: @return      
+	 * @return: List<OrderProdTraceFile>      
+	 * @throws   
+	 */
+	List<OrderProdTraceFile> queryList(Integer orderProdId);
 	
 	/**   
 	 * @Title: topTraceFile   
@@ -40,4 +52,17 @@ public interface IOrderProdTraceFileService extends IPersistableService<OrderPro
 	 * @throws   
 	 */
 	Boolean topTraceFile(Integer orderProdId,Integer traceFileId);
+	
+	/**   
+	 * @Title: addTraceFile   
+	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @param: @param orderProdTrace
+	 * @param: @param traceFileList
+	 * @param: @return      
+	 * @return: Boolean      
+	 * @throws   
+	 */
+	@Transaction
+	Boolean addTraceFile(OrderProdTrace orderProdTrace, List<OrderProdTraceFile> traceFileList);
+	
 }

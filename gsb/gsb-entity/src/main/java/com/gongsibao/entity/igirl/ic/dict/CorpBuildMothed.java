@@ -11,7 +11,8 @@ import org.netsharp.base.IEnum;
 public enum CorpBuildMothed implements IEnum {
 
 	VOTE(0, "选举（适用于普通有限公司）"),
-	APPOINT(1, "委派（适用于国有独资）");
+	APPOINT(1, "委派（适用于国有独资）"),
+	ENGAGE(2, "聘任")	;
 
 
 	private int value;

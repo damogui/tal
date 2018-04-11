@@ -497,7 +497,7 @@ public class PortalStatisticCtrl {
 		
 		StringBuilder strSql=new StringBuilder();
 		strSql.append("SELECT COUNT(*) notTaskCount");
-		strSql.append(" from n_crm_customer");
+		strSql.append(" from  crm_customer");
 		strSql.append(" where id not IN(");
 		strSql.append("SELECT distinct customer_id");
 		strSql.append(" from n_crm_customer_task");

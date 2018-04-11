@@ -30,6 +30,9 @@ public class CostDetail extends BizEntity{
 	@Column(name="form_id",header="单据id")
 	private Integer formId ;
 	
+	@Column(name="form_type",header="单据类型")
+	private FinanceDict.FormType formType  ;
+	
 	@Column(name="cost_type",header="费用类型")
 	private FinanceDict.CostType costType = FinanceDict.CostType.BGYP;
 	
@@ -104,6 +107,14 @@ public class CostDetail extends BizEntity{
 
 	public void setOrganization(Organization organization) {
 		this.organization = organization;
+	}
+
+	public FinanceDict.FormType getFormType() {
+		return formType;
+	}
+
+	public void setFormType(FinanceDict.FormType formType) {
+		this.formType = formType;
 	}
 	
 	

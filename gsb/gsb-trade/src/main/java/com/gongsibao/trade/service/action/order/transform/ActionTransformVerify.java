@@ -42,7 +42,7 @@ public class ActionTransformVerify implements IAction {
             throw new BusinessException("目标业务员不存在！");
         }
 
-        if (!currentUserId.equals(toUser.getId())) {
+        if (currentUserId.equals(toUser.getEmployeeId())) {
             throw new BusinessException("订单不能自己转给自己！");
         }
     }

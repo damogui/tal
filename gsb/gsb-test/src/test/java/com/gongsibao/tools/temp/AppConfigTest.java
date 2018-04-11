@@ -6,7 +6,7 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.junit.Test;
 import org.netsharp.organization.dic.PostType;
-import org.netsharp.panda.utils.EnumUtil;
+import org.netsharp.panda.utils.enums.EnumUtil;
 
 public class AppConfigTest {
 

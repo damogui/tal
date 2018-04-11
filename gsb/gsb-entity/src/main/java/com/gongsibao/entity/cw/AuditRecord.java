@@ -35,6 +35,12 @@ public class AuditRecord extends BizEntity{
 	@Column(name="audit_user_id",header="审核人id")
 	private Integer auditUserId;
 	
+	@Column(name="apply_user_id",header="申请人id")
+	private Integer applyUserId;
+	
+	@Column(name="apply_department_id",header="申请人部门id")
+	private Integer applyDepartmentId;
+	
 	@Reference(foreignKey = "auditUserId" ,header="审核人信息" )
 	private Employee employee;
 
@@ -91,7 +97,21 @@ public class AuditRecord extends BizEntity{
 	public void setStatus(FinanceDict.AuditDetailStatus status) {
 		this.status = status;
 	}
-	
-	
+
+	public Integer getApplyUserId() {
+		return applyUserId;
+	}
+
+	public void setApplyUserId(Integer applyUserId) {
+		this.applyUserId = applyUserId;
+	}
+
+	public Integer getApplyDepartmentId() {
+		return applyDepartmentId;
+	}
+
+	public void setApplyDepartmentId(Integer applyDepartmentId) {
+		this.applyDepartmentId = applyDepartmentId;
+	}
 	
 }

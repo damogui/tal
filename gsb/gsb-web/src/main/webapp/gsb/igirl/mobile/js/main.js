@@ -171,6 +171,17 @@ $(function(){
             })
 
         }))
+     var demo=()=>Promise.resolve(new Promise(function(resolve,reject){
+            //异步加载组件
+            axios.get(ip+"/vue/comp/demo").then(function(res){
+                var obj=eval("("+res.data+")");
+                //console.log(obj)
+                resolve(obj);
+            }).catch(function(reason){
+                console.log(reason)
+            })
+
+        }))
 		var routes=[
 			{path:'/',component:def},
 			{path:'/tms',component:tms},
@@ -186,6 +197,7 @@ $(function(){
       {path:'/attachments',component:attachments},//商标进度列表
 			{path:'/pt',component:tmc},
 			{path:'/cr',component:cr},
+			{path:'/demo',component:demo},
 		]
 		var router=new VueRouter({
 			routes:routes,
@@ -245,7 +257,9 @@ $(function(){
 				  				 var ctlServiceStr2="com.gongsibao.igirl.tm.web.TradeMarkCasePart";
 				  				 var me=this;
 				  				 console.log(sourceInfo.casecode);
+				  				 console.log("xxxxxxxxxxxxxxxxxxxxxx");
 				  				 siteCtl.invoke(ctlServiceStr2,"fetchUnconfirmedCaseInfoByCode",[sourceInfo.casecode],function(d){
+				  					console.log("yyyyyyyyyyyyyyyyy");
 				  					 console.log(d);
 				  					 me.caseinfo=d;
 				  				

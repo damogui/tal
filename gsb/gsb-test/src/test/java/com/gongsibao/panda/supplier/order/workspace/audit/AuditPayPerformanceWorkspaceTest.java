@@ -29,7 +29,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
  */
 /*回款业绩审核*/
 public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
-    private String listrowToolbarPath="/crm/order/audit/roworderrec/toolbar";
+    //private String listrowToolbarPath="/crm/order/audit/roworderrec/toolbar";
     @Before
     public void setup() {
         super.setup ();
@@ -39,7 +39,7 @@ public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
         meta = MtableManager.getMtable (entity);
         resourceNodeCode = "Gsb_Supplier_Pay_Audit_Performance";
         listToolbarPath = "";
-        listPartImportJs = "/gsb/platform/trade/js/audit-pay-performance-list.js";
+        listPartImportJs = "/gsb/platform/trade/js/audit/audit-pay-performance-list.js";
         listPartJsController = AuditPayPerformanceListPart.class.getName ();
         listPartServiceController = AuditPayPerformanceListPart.class.getName ();
         listFilter = "type_id=" + AuditLogType.Skyjsh.getValue() + " and add_user_id = '{userId}' ";
@@ -50,31 +50,31 @@ public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
 
 
 
-    @Test
-    public void createRowToolbar() {
-
-        ResourceNode node = this.resourceService.byCode(resourceNodeCode);
-        PToolbar toolbar = new PToolbar();
-        {
-            toolbar.toNew();
-            toolbar.setPath(listrowToolbarPath);
-            toolbar.setName("审核");
-            toolbar.setResourceNode(node);
-            toolbar.setToolbarType(ToolbarType.BASE);
-        }
-        PToolbarItem item = new PToolbarItem();
-        {
-            item.toNew();
-            item.setCode("audit");
-            item.setName("审核");
-            item.setSeq(1);
-            item.setCommand("{controller}.audit();");
-            toolbar.getItems().add(item);
-        }
-
-
-        toolbarService.save(toolbar);
-    }
+//    @Test
+//    public void createRowToolbar() {
+//
+//        ResourceNode node = this.resourceService.byCode(resourceNodeCode);
+//        PToolbar toolbar = new PToolbar();
+//        {
+//            toolbar.toNew();
+//            toolbar.setPath(listrowToolbarPath);
+//            toolbar.setName("审核");
+//            toolbar.setResourceNode(node);
+//            toolbar.setToolbarType(ToolbarType.BASE);
+//        }
+//        PToolbarItem item = new PToolbarItem();
+//        {
+//            item.toNew();
+//            item.setCode("audit");
+//            item.setName("审核");
+//            item.setSeq(1);
+//            item.setCommand("{controller}.audit();");
+//            toolbar.getItems().add(item);
+//        }
+//
+//
+//        toolbarService.save(toolbar);
+//    }
 
 
     @Override
@@ -83,13 +83,15 @@ public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
         PDatagrid datagrid = super.createDatagrid (node);
         {
             datagrid.setName ("回款业绩");
-            datagrid.setToolbar (listrowToolbarPath);
+           // datagrid.setToolbar (listrowToolbarPath);
             datagrid.setAutoQuery (true);
             datagrid.setShowCheckbox (true);
             datagrid.setSingleSelect (true);
         }
         PDatagridColumn column = null;
-        addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 60, true);
+        column=addColumn (datagrid, "id", "操作", ControlTypes.TEXT_BOX, 60, true);{
+            column.setFormatter("return controllerauditLogList.optionFormatter(value,row,index);");
+        }
         column = addColumn (datagrid, "soOrder.id", "订单Id", ControlTypes.TEXT_BOX, 120);//需要拼接
         {
             column.setSystem (true);
@@ -101,7 +103,7 @@ public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
         addColumn (datagrid, "soOrder.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn (datagrid, "soOrder.payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn (datagrid, "soOrder.paidPrice", "已经付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
-        addColumn (datagrid, "amount", "我的回款业绩额", ControlTypes.DECIMAL_FEN_BOX, 100);
+//        addColumn (datagrid, "amount", "我的回款业绩额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn (datagrid, "status", "审核状态", ControlTypes.ENUM_BOX, 100);
         addColumn (datagrid, "createTime", "回款业绩创建时间", ControlTypes.DATETIME_BOX, 100);
         addColumn (datagrid, "updateTime", "审核通过时间", ControlTypes.DATETIME_BOX, 100);

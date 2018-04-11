@@ -56,13 +56,15 @@ public class ExpenseBillWorkspaceTest extends WorkspaceCreationBase {
         resourceNodeCode = "GSB_CW_Manage_Expense_Bill";
         listToolbarPath = "/cw/bill/expense/toolbar";
         
-        listPartImportJs = "/gsb/platform/cw/js/expense-bill-list-part.js|";
+        listPartImportJs = "/gsb/platform/cw/js/expense-bill-list-part.js";
 		listPartJsController = ExpenseBillListPart.class.getName();
 		listPartServiceController = ExpenseBillListPart.class.getName();
+		listFilter = " creator_id = '{userId}'";
 		
 		formJsImport = "/gsb/platform/cw/js/expense-bill-form.part.js|/package/qiniu/plupload.full.min.js";
 		formServiceController = ExpenseBillFormPart.class.getName();
 	    formJsController = ExpenseBillFormPart.class.getName();
+	    formToolbarPath = "";
     }
     
     public PToolbar createListToolbar() {
@@ -87,6 +89,16 @@ public class ExpenseBillWorkspaceTest extends WorkspaceCreationBase {
             item.setCommand("{controller}.applyExpense();");
             toolbar.getItems().add(item);
         } 
+        item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("createContract");
+            item.setIcon(PToolbarHelper.iconEdit);
+            item.setName("修改报销");
+            item.setSeq(7);
+            item.setCommand("{controller}.updateExpense();");
+            toolbar.getItems().add(item);
+        } 
         return toolbar;
     }
     @Test
@@ -105,16 +117,15 @@ public class ExpenseBillWorkspaceTest extends WorkspaceCreationBase {
 			datagrid.setName("报销单");
 			datagrid.setToolbar("panda/datagrid/row/edit");
 		}
-		PDatagridColumn column = null;
 		
 		addColumn(datagrid, "type", "报销类型", ControlTypes.ENUM_BOX, 200, true);
 		addColumn(datagrid, "code", "报销单号", ControlTypes.TEXT_BOX, 200, true);
-		addColumn(datagrid, "amount", "报销金额", ControlTypes.DECIMAL_FEN_BOX, 100);
-		addColumn(datagrid, "formNumber", "单据数量", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "reason", "报销理由", ControlTypes.TEXT_BOX, 300);
-		addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 300);
-		addColumn(datagrid, "creator", "创建日期", ControlTypes.DATE_BOX, 300);  
-		addColumn(datagrid, "status", "审批状态", ControlTypes.ENUM_BOX, 300);
+		addColumn(datagrid, "totalAmount", "报销合计", ControlTypes.DECIMAL_FEN_BOX, 200);
+		addColumn(datagrid, "loanAmount", "借款金额", ControlTypes.DECIMAL_FEN_BOX, 200);
+		addColumn(datagrid, "amount", "报销金额", ControlTypes.DECIMAL_FEN_BOX, 200);
+		addColumn(datagrid, "createTime", "创建日期", ControlTypes.DATE_BOX, 200);  
+		addColumn(datagrid, "status", "审批状态", ControlTypes.ENUM_BOX, 200);
+		addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 400);
 		return datagrid;
 	}
     
@@ -131,8 +142,10 @@ public class ExpenseBillWorkspaceTest extends WorkspaceCreationBase {
         {
       	  formField.setTroikaTrigger("controllerexpense.paymentMethodChange(this);");
         }
-        addFormField(form, "amount", "报销金额", ControlTypes.DECIMAL_FEN_BOX, true, false);
-        addFormField(form, "formNumber", "单据数量", ControlTypes.NUMBER_BOX, true, false);
+        addFormField(form, "totalAmount", "报销合计", ControlTypes.DECIMAL_FEN_BOX, false, false);
+        addFormField(form, "loanAmount", "借款金额", ControlTypes.DECIMAL_FEN_BOX, false, false);
+        addFormField(form, "amount", "报销金额", ControlTypes.TEXT_BOX, false, false);
+        addFormField(form, "isOffset", "冲抵借款", ControlTypes.SWITCH_BUTTON, true, false);
         addFormField(form, "companyName", "公司名称", ControlTypes.TEXT_BOX, true, true);
         addFormField(form, "companyBank", "公司开户行", ControlTypes.TEXT_BOX, true, true);
         addFormField(form, "companyAccount", "公司银行账号", ControlTypes.TEXT_BOX, true, true);
@@ -140,8 +153,6 @@ public class ExpenseBillWorkspaceTest extends WorkspaceCreationBase {
         addFormField(form, "entertainCompany", "招待公司名", ControlTypes.TEXT_BOX, true, true);
         addFormField(form, "entertainCustomer", "招待客户姓名", ControlTypes.TEXT_BOX, true, true);
         addFormField(form, "entertainPlace", "招待地点", ControlTypes.TEXT_BOX, true, true);
-       
-        addFormField(form, "reason", "报销理由", ControlTypes.TEXTAREA, true, false);
         addFormField(form, "memoto", "备注", ControlTypes.TEXTAREA, true, false);
    
 		return form;
@@ -153,9 +164,6 @@ public class ExpenseBillWorkspaceTest extends WorkspaceCreationBase {
     	createTripDetailPart(workspace);
     	createSubsidyDetailPart(workspace);
     	createUploadAttamentDetailPart(workspace);
-    	
-    	//借款冲正明细
-    	createLoanListPart(workspace);
 	}
     
    //费用明细
@@ -168,9 +176,11 @@ public class ExpenseBillWorkspaceTest extends WorkspaceCreationBase {
             datagrid.setShowCheckbox(false);
             datagrid.setShowTitle(false);
             PDatagridColumn column = null;
-            
         	addColumn(datagrid, "organization.pathName", "费用归属部门", ControlTypes.TEXT_BOX, 250);
-            addColumn(datagrid, "costType", "费用类型", ControlTypes.ENUM_BOX, 250);
+        	column = addColumn(datagrid, "costType", "费用类型", ControlTypes.ENUM_BOX, 250);
+            {
+				column.setFormatter("return controllercostDetailItem.costTypeFormatter(value,row,index);");
+			}
             addColumn(datagrid, "detailMoney", "金额", ControlTypes.DECIMAL_FEN_BOX, 100);
             addColumn(datagrid, "memoto", "说明", ControlTypes.TEXT_BOX, 300);
         }
@@ -183,7 +193,7 @@ public class ExpenseBillWorkspaceTest extends WorkspaceCreationBase {
 			form.setName("新增费用明细");
 
 			PFormField formField = null;
-			addFormFieldRefrence(form, "organization.pathName", "费用归属部门",null,"Organization-Department-Filter", true, false);
+			addFormFieldRefrence(form, "organization.pathName", "费用归属部门",null,"Organization-Department", true, false);
 			addFormField(form, "costType", "费用类型", null, ControlTypes.ENUM_BOX, true, false);
 			addFormField(form, "detailMoney", "金额", null, ControlTypes.DECIMAL_FEN_BOX, true, false);
 			addFormField(form, "memoto", "说明", null, ControlTypes.TEXTAREA, true, false);
@@ -206,7 +216,6 @@ public class ExpenseBillWorkspaceTest extends WorkspaceCreationBase {
 			part.setWindowHeight(400);
             part.setForm(form);
         }
-        
       
         workspace.getParts().add(part);
         PPart topPart = workspace.getParts().get(0);
@@ -361,12 +370,6 @@ public class ExpenseBillWorkspaceTest extends WorkspaceCreationBase {
 
 	}
    
-	//借款冲正列表
-	private void createLoanListPart(PWorkspace workspace){
-		
-	}
-	
-	
 	@Override
 	protected PQueryProject createQueryProject(ResourceNode node) {
 		PQueryProject queryProject = super.createQueryProject(node);

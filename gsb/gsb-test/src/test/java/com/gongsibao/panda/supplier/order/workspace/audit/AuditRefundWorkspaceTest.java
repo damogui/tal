@@ -38,7 +38,7 @@ public class AuditRefundWorkspaceTest extends WorkspaceCreationBase{
         resourceNodeCode = "Gsb_Supplier_Order_Audit_Refund";
 		
 		List<String> ss = new ArrayList<String>();
-		ss.add("/gsb/platform/trade/js/audit-refund-list.part.js");
+		ss.add("/gsb/platform/trade/js/audit/audit-refund-list.part.js");
 		ss.add("/gsb/panda-extend/gsb.custom.query.controls.js");
 		listPartImportJs = StringManager.join("|", ss);
 		listPartJsController = AuditRefundListPart.class.getName();

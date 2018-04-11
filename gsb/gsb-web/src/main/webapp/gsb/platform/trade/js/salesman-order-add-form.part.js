@@ -98,22 +98,21 @@ com.gongsibao.trade.web.SalesmanAddOrderFormPart = org.netsharp.panda.commerce.F
 
     },
     onSaving: function (entity) {
-        
+
         if (entity.products.length > 0) {
-
             $(entity.products).each(function (i, item) {
-
                 item.price = parseFloat(item.price);
-
                 $(item.items).each(function (j,item2) {
-                    item2.price=parseFloat(item2.price);
-                    
+                    item2.price=parseFloat(item2.price);                    
                 });
             });
-
-
+        }else{
+        	
+        	IMessageBox.toast('没有选择产品服务项', 2);
+        	return false;
         }
-        
+        //添加完刷新
+        window.location.href='/panda/crm/order/salesman/add';
         return true;
     }
 });
