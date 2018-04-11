@@ -1,14 +1,12 @@
 package com.gongsibao.entity.acount;
-
-import com.gongsibao.entity.BaseEntity;
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Table;
-
+import org.netsharp.entity.Entity;
 import java.util.Date;
-import java.util.List;
 
 @Table(name="uc_account_company")
-public class AccountCompany extends BaseEntity {
+public class AccountCompany extends Entity {
     private static final long serialVersionUID = -1L;
 
     @Column(name="account_id",header="会员id")
@@ -29,6 +27,7 @@ public class AccountCompany extends BaseEntity {
     @Column(name="industry_id",header="主营行业id")
     private int industryId;
 
+    @Exclusive
     private String industryName;
 
     @Column(name="order_prod_id",header="明细订单id")
@@ -45,14 +44,6 @@ public class AccountCompany extends BaseEntity {
     private Date auditTime;
     @Column(name="reject_reason",header="驳回原因")
     private String rejectReason;
-    @Column(name="add_time" )
-    private Date addTime;
-    @Column(name="upd_time")
-    private Date updTime;
-    @Column(name="creator")
-    private String creator;
-    @Column(name="updator")
-    private String updator;
 
     public int getAccountId() {
         return accountId;
@@ -180,41 +171,5 @@ public class AccountCompany extends BaseEntity {
 
     public void setRejectReason(String rejectReason) {
         this.rejectReason = rejectReason;
-    }
-
-    public Date getAddTime() {
-        return addTime;
-    }
-
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
-    }
-
-    public Date getUpdTime() {
-        return updTime;
-    }
-
-    public void setUpdTime(Date updTime) {
-        this.updTime = updTime;
-    }
-
-    @Override
-    public String getCreator() {
-        return creator;
-    }
-
-    @Override
-    public void setCreator(String creator) {
-        this.creator = creator;
-    }
-
-    @Override
-    public String getUpdator() {
-        return updator;
-    }
-
-    @Override
-    public void setUpdator(String updator) {
-        this.updator = updator;
     }
 }
