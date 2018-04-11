@@ -54,12 +54,12 @@ public class ImportOldDataToNewData {
     INCustomerTaskQualityService serviceQuality = ServiceFactory.create (INCustomerTaskQualityService.class);//客户质量
     IPersister<NCustomer> nCustomerService = PersisterFactory.create ();//进行执行sql
     IMNCustomerTaskService nCustomerTaskService = ServiceFactory.create (IMNCustomerTaskService.class);//任务保存需要
-    ImNCustomerTaskFoolowService nCustomerTaskFoolowService = ServiceFactory.create (ImNCustomerTaskFoolowService.class);//任务跟进
+//    ImNCustomerTaskFoolowService nCustomerTaskFoolowService = ServiceFactory.create (ImNCustomerTaskFoolowService.class);//任务跟进
 
     IPersister<NCustomerProduct> nCustomerProductService = PersisterFactory.create ();//意向产品
 
 
-    INCustomerService nCustomerService2 = ServiceFactory.create (INCustomerService.class);//任务保存需要
+//    INCustomerService nCustomerService2 = ServiceFactory.create (INCustomerService.class);//任务保存需要
 
     @Test
     public void run() {
