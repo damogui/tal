@@ -163,7 +163,10 @@ public class OrderProd extends BaseEntity {
 
 	@Column(name = "customer_id", header = "客户Id")
 	private Integer customerId;
-
+	
+	@Column(name = "begin_option", header = "是否显示开始操作（我的明细订单-控制显示那个操作）0-开始操作；1-变更操作组")
+	private Boolean beginOption = false;
+	
 	@Reference(foreignKey = "customerId", header = "客户",primaryKey ="pkid" )
 	private NCustomer customer;
 	
@@ -479,6 +482,14 @@ public class OrderProd extends BaseEntity {
 
 	public void setCustomerId(Integer customerId) {
 		this.customerId = customerId;
+	}
+	
+	public Boolean getBeginOption() {
+		return beginOption;
+	}
+
+	public void setBeginOption(Boolean beginOption) {
+		this.beginOption = beginOption;
 	}
 
 	public NCustomer getCustomer() {
