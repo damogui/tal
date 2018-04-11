@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/wx/{v}/user")
 @Api(4)
 public class ApiController {
-
     @RequestMapping(value="/hello",method=RequestMethod.GET)
     public String helloV1() throws Exception {
         return"hello world v4";

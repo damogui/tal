@@ -15,6 +15,9 @@ public class ApiSeController {
 
     @Value("${server.port}")
     private String port;
+
+    @Value("${jdbc.password}")
+    private String password;
     @RequestMapping(value="/hello",method=RequestMethod.GET)
     public String helloV1() throws Exception {
         return port+"find data v5"+appId;
@@ -22,7 +25,7 @@ public class ApiSeController {
 
     @RequestMapping(value="/hello2",method=RequestMethod.GET)
     public String helloV2() throws Exception {
-        return"find data v5 hello2";
+        return"find data v5 hello2"+password;
     }
 
     @RequestMapping(value="/hello3",method= RequestMethod.GET)
