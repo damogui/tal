@@ -5,7 +5,6 @@ com.gongsibao.igirl.settle.web.UnSettleListPart = org.netsharp.panda.commerce.Li
     },
     doSettle: function () {
         var me = this;
-        debugger;
         var rows = me.getSelections();
         if (rows.length <= 0) {
             IMessageBox.info('请先选择未结算订单');
@@ -23,11 +22,20 @@ com.gongsibao.igirl.settle.web.UnSettleListPart = org.netsharp.panda.commerce.Li
         var msg = "您选择了" + rows.length + "个订单，总额" + (cost + charge) +"元, 成本" + cost +"元, 服务费" + charge +"元, 确定要结算吗？";
         IMessageBox.confirm(msg, function (bool) {
             if(bool) {
-                me.invokeService("submitSettle", [taskId, supplierId, departmentId, toUserId], function (data) {
+                me.invokeService("submitSettle", [ids.join(",")], function (data) {
                     //me.reload();
-                    IMessageBox.toast('分配成功');
-                    layer.closeAll();
-                    return;
+                    data = data || {};
+                    var s = data.status || -1;
+                    var m = data.msg || "提交失败";
+
+                    if(s == 1) {
+                        layer.msg("结算提交成功", null, function () {
+                            window.location.reload();
+                        });
+                        layer.closeAll();
+                    } else {
+                        layer.msg(m);
+                    }
                 });
             }
         })

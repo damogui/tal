@@ -7,6 +7,7 @@ import com.gongsibao.entity.igirl.settle.Settle;
 import com.gongsibao.entity.igirl.settle.SettleHandleLog;
 import com.gongsibao.entity.igirl.settle.SettleOrder;
 import com.gongsibao.entity.igirl.settle.dict.SettleHandleStatus;
+import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.SettleStatus;
@@ -59,7 +60,13 @@ public class SettleService extends PersistableService<Settle> implements ISettle
         // 总服务费
         double totalCharge = 0d;
 
-        Integer supplierId = SupplierSessionManager.getSupplierId();
+        Supplier supplier = SupplierSessionManager.getSupplier();
+        if (null == supplier) {
+            return new Result<>(ResponseStatus.FAILED, "请重新登录");
+        }
+
+        Integer supplierId = supplier.getId();
+
         if (null == supplierId || supplierId == 0) {
             return new Result<>(ResponseStatus.FAILED, "请重新登录");
         }
@@ -118,23 +125,44 @@ public class SettleService extends PersistableService<Settle> implements ISettle
             settle.setMemo("结算单" + dateStr);
             settle.setCreateTime(today);
             settle.setUpdateTime(today);
+            settle.setCreator(supplier.getName());
             settle.setHandleStatus(SettleHandleStatus.PLATFORM_AUDITING);
         }
 
         // 构建明细订单关联id实体
         List<SettleOrder> settleOrderList = new ArrayList<>();
-        for (OrderProdCase orderProdCase : orderProdCaseList) {
+        double tmpCommission = 0d;
+        for (int i = 0; i < orderProdCaseList.size(); i++) {
+            OrderProdCase orderProdCase = orderProdCaseList.get(i);
+            double orderProdCommission = 0d;
+            if (i == orderProdCaseList.size() - 1) {
+                // 前面损失的精度，在最后一个产品处补全
+                orderProdCommission = AmountUtils.sub(commission, tmpCommission);
+            } else {
+                orderProdCommission = AmountUtils.div(AmountUtils.mul((1 - taxRate), orderProdCase.getCharge().doubleValue()), 1, 2);
+            }
+
             SettleOrder settleOrder = new SettleOrder();
             {
                 settleOrder.toNew();
                 settleOrder.setOrderId(orderProdCase.getOrderId());
                 settleOrder.setOrderProdId(orderProdCase.getOrderProdId());
+                settleOrder.setCost(orderProdCase.getCost());
+                settleOrder.setCharge(orderProdCase.getCharge());
+                settleOrder.setCommission(BigDecimal.valueOf(orderProdCommission));
+
                 settleOrder.setCreatorId(supplierId);
                 settleOrder.setCreateTime(today);
                 settleOrder.setUpdateTime(today);
+                settleOrder.setCreator(supplier.getName());
             }
 
             settleOrderList.add(settleOrder);
+
+
+        }
+        for (OrderProdCase orderProdCase : orderProdCaseList) {
+
         }
         settle.setSettleOrderList(settleOrderList);
 
@@ -146,7 +174,7 @@ public class SettleService extends PersistableService<Settle> implements ISettle
             log.setAfterStatus(SettleHandleStatus.FINANCIAL_AUDITING);
             log.setMemo("提交结算申请");
             log.setCreatorId(supplierId);
-            log.setCreator(SupplierSessionManager.getSupplier().getName());
+            log.setCreator(supplier.getName());
             log.setCreateTime(today);
             log.setUpdateTime(today);
         }
