@@ -23,7 +23,7 @@ public class TimeUtils {
     public static Date getDateByStr(String str, Integer type) {
         String strDate = "2005年04月22日";
         //注意：SimpleDateFormat构造函数的样式与strDate的样式必须相符
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat ("yyyy年MM月dd日 ");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat ();
         SimpleDateFormat sDateFormat = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss"); //加上时间
         //必须捕获异常
         Date date = new Date ();

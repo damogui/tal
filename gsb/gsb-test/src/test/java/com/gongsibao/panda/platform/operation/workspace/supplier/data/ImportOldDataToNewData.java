@@ -116,7 +116,7 @@ public class ImportOldDataToNewData {
 
 
     /*处理顾客表旧数据*/
-    @Transaction
+
     private int handleCustomerOld() {
 
            /*客户表 crm_customer->n_crm_customer*/
