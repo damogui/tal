@@ -164,7 +164,7 @@ public class FinanceDict {
 		JKD(1,"借款单"),
 		BXD(2,"报销单"),
 		FKD(3,"付款单"),
-		DBD(3,"调拨单");
+		DBD(4,"调拨单");
 		
 		private int value;
 		private String text;
