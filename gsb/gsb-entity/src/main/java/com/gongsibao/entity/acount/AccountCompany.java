@@ -33,6 +33,7 @@ public class AccountCompany extends Entity {
     @Column(name="order_prod_id",header="明细订单id")
     private int orderProdId;
 
+    @Exclusive
     private String orderProdIdStr;
     @Column(name="in_use",header="是否在使用")
     private int inUse;
