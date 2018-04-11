@@ -325,14 +325,14 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 			return;
 		});
 	},
-	openMember : function(customerId){
+	openMember : function(customerId,isSendSms){
 
 		var me = this;
 		IMessageBox.confirm("您确定要开通会员吗？",function(r){
 			
 			if(r===true){
 
-				me.invokeService("openMember", [customerId],function(data) {
+				me.invokeService("openMember", [customerId,isSendSms],function(data) {
 					if(data){
 						IMessageBox.toast('开通成功');
 						me.reload();

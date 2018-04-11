@@ -2,7 +2,9 @@ package com.gongsibao.crm.service;
 
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
@@ -125,7 +127,7 @@ public class NCustomerService extends SupplierPersistableService<NCustomer> impl
 	}
 
 	@Override
-	public boolean openMember(Integer customerId) {
+	public boolean openMember(Integer customerId, Boolean isSendSms) {
 		
 		NCustomer customer = this.byId(customerId);
 		ActionContext ctx = new ActionContext();
@@ -133,6 +135,10 @@ public class NCustomerService extends SupplierPersistableService<NCustomer> impl
 			ctx.setPath("gsb/crm/customer/member");
 			ctx.setItem(customer);
 			ctx.setState(customer.getEntityState());
+			
+			Map<String, Object> status = new HashMap<String, Object>();
+			status.put("isSendSms", isSendSms);
+			ctx.setStatus(status);
 		}
 		ActionManager action = new ActionManager();
 		action.execute(ctx);
