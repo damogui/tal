@@ -71,21 +71,36 @@ public class SalesmanOrderDetailListPart extends AdvancedListPart {
         return entity.getCompanyIntention() == null ? "" : entity.getCompanyIntention().getName();
     }
     /**
-     * 开始操作前置条件（1.订单余额=订单金额、2.订单余额＞0）
+     * 开始操作前置条件：
+     * 1.全额：订单余额=订单金额
+     * 2.分期：订单余额＞0 && 已付金额＋结转转入额≥一期款
      * 订单余额 = paidPrice+carryIntoAmount-refundPrice-carryAmount
      * @param orderId
-     * @return
+     * @return -1：订单信息为空、0：不满足全款、1：不满足分期、2：都满足
      */
-    public Boolean meetBegOption(Integer orderId){
-    	Boolean retuValue = false;
+    public Integer meetBegOption(Integer orderId){
+    	Integer retuValue = 2;
     	SoOrder orderEntity = orderService.getByOrderId(orderId);
     	if(orderEntity != null){
+    		//获取订单余额
     		Integer balance = NumberUtils.toInt(orderEntity.getPaidPrice()) + NumberUtils.toInt(orderEntity.getCarryIntoAmount()) - NumberUtils.toInt(orderEntity.getRefundPrice()) - NumberUtils.toInt(orderEntity.getCarryAmount());        	
-        	if(balance.equals(orderEntity.getPayablePrice()) || balance >0){
-        		retuValue = true;
+        	//false:全款、true:分期
+    		if(orderEntity.getIsInstallment()){
+    			//获取一期款
+    			Integer firstPhase = Integer.valueOf(StringManager.isNullOrEmpty(orderEntity.getInstallmentMode()) ? "0" : orderEntity.getInstallmentMode().split("|")[0]);
+    			//获取现有金额（已付金额＋结转转入额）
+    			Integer existAmount = NumberUtils.toInt(orderEntity.getPaidPrice()) + NumberUtils.toInt(orderEntity.getCarryIntoAmount());
+    			if(balance <= 0 || existAmount < firstPhase){
+            		retuValue = 1;
+            	}
+        	}else{
+        		if(!balance.equals(orderEntity.getPayablePrice())){
+            		retuValue = 0;
+            	}
         	}
+    	}else{
+    		retuValue = -1;
     	}
-    	
     	return retuValue;
     }
     /**

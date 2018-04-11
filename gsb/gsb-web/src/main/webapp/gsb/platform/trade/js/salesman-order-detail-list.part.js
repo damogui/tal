@@ -23,12 +23,18 @@ com.gongsibao.trade.web.SalesmanOrderDetailListPart = org.netsharp.panda.commerc
     	var companyId = row.soOrder_companyId;//关联公司Id
     	var operateCompaneName = row.companyIntention_name;//获取订单产品表中叫操作公司(订单表中叫关联公司)
     	
-    	//1.操作前提
+    	//1.开始操作前提
     	me.invokeService("meetBegOption", [orderId], function (data) {
-    		if(data){
+    		if(data == 2){
     			me.isHandle(id,productId,orderId,operateCompaneName,companyId);
+    		}else if(data == 0){
+    			IMessageBox.info('请付全款或者申请分期，才能开始操作！');
+                return false;
+    		}else if(data == 1){
+    			IMessageBox.info('订单余额大于一期款时，才能开始操作！');
+                return false;
     		}else{
-    			IMessageBox.info('不满足开始操作条件');
+    			IMessageBox.info('请核实订单信息！');
                 return false;
     		}
         });
