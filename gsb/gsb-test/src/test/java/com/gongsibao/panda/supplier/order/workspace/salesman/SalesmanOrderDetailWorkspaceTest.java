@@ -23,9 +23,13 @@ import org.netsharp.util.StringManager;
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.trade.web.SalesmanOrderDetailListPart;
 
-/*全部订单*/
+/**
+ * 业务员/我的明细订单
+ * @author Administrator
+ *
+ */
 public class SalesmanOrderDetailWorkspaceTest extends WorkspaceCreationBase {        
-	private String listrowToolbarPath = "/crm/roworderdetail/toolbar";
+	public String listrowToolbarPath = "/crm/roworderdetail/toolbar";
 
 	@Override
 	@Before
