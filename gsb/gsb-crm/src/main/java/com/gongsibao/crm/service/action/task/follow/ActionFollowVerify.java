@@ -94,7 +94,7 @@ public class ActionFollowVerify implements IAction {
 		Oql oql = new Oql();
 		{
 			oql.setType(NCustomerProduct.class);
-			oql.setFilter("task_id=? and (province_id is not null or city_id is not null or county_id is not null)");
+			oql.setFilter("task_id=? and (d_province_id is not null or d_city_id is not null or d_county_id is not null)");
 			oql.getParameters().add("task_id", taskId, Types.INTEGER);
 		}
 		IPersister<NCustomerProduct> pm = PersisterFactory.create();

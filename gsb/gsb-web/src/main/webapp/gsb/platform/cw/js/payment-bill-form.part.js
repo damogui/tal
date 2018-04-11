@@ -29,6 +29,7 @@ com.gongsibao.cw.web.PaymentBillFormPart =  org.netsharp.panda.commerce.FormPart
 	                me.invokeService("savePayment", [entity], function (data) {
 	                    IMessageBox.info('申请成功，请等待审核!', function (s) {
 	                        window.parent.layer.closeAll();
+	                        window.parent.controllerpaymentList.reload();
 	                    });
 	                });
 	            }
@@ -60,6 +61,7 @@ com.gongsibao.cw.web.CostDetailListPart = org.netsharp.panda.commerce.DetailPart
   saveBefore:function (entity){
   	entity.pathName = entity.organization.pathName
   	entity.detailMoney = parseInt(entity.detailMoney)/100; 
+  	entity.formType = 3;  //付款单
   },
   saveAfter: function () { //计算明细金额
       var rows = this.getGrid().datagrid('getRows');
@@ -105,7 +107,6 @@ com.gongsibao.cw.web.AttachmentListPart = org.netsharp.panda.commerce.DetailPart
       return str;
   },
   remove: function (index) {
-
       $('#' + this.context.id).datagrid('deleteRow', index);
   }
 });

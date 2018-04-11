@@ -2,6 +2,8 @@ package com.gongsibao.cw.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.netsharp.communication.Service;
 import org.netsharp.core.DataTable;
@@ -51,7 +53,11 @@ public class BillAuditDTOService  extends PersistableService<BillAuditDTO> imple
 			dto.setCreateTime(row.getDate("createTime"));
 			dto.setCreator(row.getString("creator"));
 			dto.setFormId(row.getInteger("formId"));
-			dto.setFormType(FinanceDict.FormType.getItem(row.getInteger("formType")));
+			String formType = row.getString("formType");
+			if(formType!=null && !"".equals(formType)){
+				dto.setFormTypeValue(Integer.parseInt(formType));
+				dto.setFormType(FinanceDict.FormType.getItem(Integer.parseInt(formType)));
+			}
 			dto.setMemoto(row.getString("memoto"));
 			reslis.add(dto);
 		}
@@ -59,23 +65,23 @@ public class BillAuditDTOService  extends PersistableService<BillAuditDTO> imple
 		return reslis;
 	}
 
-	// type：0查询sql 1获取页码sql
 	protected StringBuffer getsql(int type, String strWhere, int startIndex, int pageSize) {
 		SessionManager.getUserId();
 		StringBuffer sql = new StringBuffer();
 
 		if (type == 0) {
-			sql.append("SELECT a.id,a.form_id AS formId,a.form_type AS formType,a.audit_user_id AS auditUserId,t.code AS code, t.amount AS amount, ");
-			sql.append(" t.code AS code, t.creator AS  creator, t.create_time AS createTime, t.memoto AS memoto, a.content AS content ");
+			sql.append("SELECT a.id,a.form_id AS formId,a.form_type AS formType,a.audit_user_id AS auditUserId, t.amount AS amount, ");
+			sql.append(" t.code AS code, t.creator AS  creator, t.create_time AS createTime, t.memoto AS memoto ");
 		} else {
 			sql.append("SELECT COUNT(a.id) 'rcount' ");
 		}
 		sql.append("FROM cw_audit_record AS a ");
-		sql.append("LEFT JOIN ( SELECT id,code,amount,creator,create_time,memoto FROM cw_loan ");
-		sql.append("UNION SELECT id,code,amount,creator,create_time,memoto FROM cw_expense ");
-		sql.append("UNION SELECT id,code,amount,creator,create_time,memoto FROM cw_payment ) AS t ");
-		sql.append("ON t.id = a.form_id ");
+		sql.append("LEFT JOIN ( SELECT id,code,amount,creator,create_time,memoto, 1 AS form_type  FROM cw_loan ");
+		sql.append("UNION SELECT id,code,amount,creator,create_time,memoto, 2 AS form_type  FROM cw_expense ");
+		sql.append("UNION SELECT id,code,amount,creator,create_time,memoto, 3 AS form_type  FROM cw_payment ) AS t ");
+		sql.append("ON t.id = a.form_id  AND t.form_type = a.form_type ");
 		sql.append("WHERE  a.audit_user_id =  " + SessionManager.getUserId()+" ");
+	
 		//拼接前台传入参数
 		if(strWhere != null && !"".equals(strWhere) ){
 			sql.append("AND   " + strWhere);
@@ -97,5 +103,5 @@ public class BillAuditDTOService  extends PersistableService<BillAuditDTO> imple
 		count = Integer.parseInt(rcount.toString());
 		return count;
 	}
-
+	
 }

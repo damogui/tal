@@ -63,7 +63,7 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
 	
 	
 	//放在最后处理
-	//AuthAllTest.class
+	AuthAllTest.class
 	})
 public class DevAllTest {
 

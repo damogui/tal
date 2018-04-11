@@ -39,7 +39,7 @@ public class AuditPayPerformanceWorkspaceTest extends WorkspaceCreationBase {
         meta = MtableManager.getMtable (entity);
         resourceNodeCode = "Gsb_Supplier_Pay_Audit_Performance";
         listToolbarPath = "";
-        listPartImportJs = "/gsb/platform/trade/js/audit-pay-performance-list.js";
+        listPartImportJs = "/gsb/platform/trade/js/audit/audit-pay-performance-list.js";
         listPartJsController = AuditPayPerformanceListPart.class.getName ();
         listPartServiceController = AuditPayPerformanceListPart.class.getName ();
         listFilter = "type_id=" + AuditLogType.Skyjsh.getValue() + " and add_user_id = '{userId}' ";

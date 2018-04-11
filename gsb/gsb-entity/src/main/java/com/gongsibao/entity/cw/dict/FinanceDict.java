@@ -12,7 +12,9 @@ public class FinanceDict {
 		Status_1(1, "待审批"),
 		Status_2(2, "审批中"),
 		Status_3(3, "审批通过"),
-		Status_4(4, "被驳回");
+		Status_4(4, "待财务办理"),
+		Status_5(5, "财务办理完成"),
+		Status_6(6, "被驳回");
 		private int value;
 		private String text;
 
@@ -161,7 +163,8 @@ public class FinanceDict {
 	public static enum FormType implements IEnum{
 		JKD(1,"借款单"),
 		BXD(2,"报销单"),
-		FKD(3,"借款单");
+		FKD(3,"付款单"),
+		DBD(3,"调拨单");
 		
 		private int value;
 		private String text;
@@ -192,7 +195,8 @@ public class FinanceDict {
 		public static enum AuditDetailStatus implements IEnum{
 			WAIT(1,"待审核"),
 			AGREE(2,"通过"),
-			REJECT(3,"驳回");
+			REJECT(3,"驳回"),
+			DONE(4,"办理完成");
 			
 			private int value;
 			private String text;
@@ -320,4 +324,36 @@ public class FinanceDict {
 				return this.value;
 			}
 		}
+		//调拨单资金用途
+		public static enum PurposeType implements IEnum {
+			GZ(1, "工资"),
+			BY(2, "备用金"),
+			QT(3, "其它");
+			
+			private int value;
+			private String text;
+
+			PurposeType(int value, String text) {
+				this.value = value;
+				this.text = text;
+			}
+			@JsonCreator
+			public static PurposeType getItem(int value) {
+				for (PurposeType item : values()) {
+					if (item.getValue() == value) {
+						return item;
+					}
+				}
+				return null;
+			}
+
+			public String getText() {
+				return this.text;
+			}
+			public Integer getValue() {
+				return this.value;
+			}
+		}
+		
+		
 }

@@ -75,7 +75,7 @@ public class ActionFollowWriteBack implements IAction {
 			updateBuilder.set("next_foolow_time", taskFoolow.getNextFoolowTime());
 			updateBuilder.set("last_follow_time", new Date());
 			updateBuilder.set("last_foolow_user_id", taskFoolow.getCreatorId());
-			updateBuilder.where("id =" + taskFoolow.getCustomerId());
+			updateBuilder.where("pkid =" + taskFoolow.getCustomerId());
 		}
 		IPersister<NCustomer> pm = PersisterFactory.create();
 		pm.executeNonQuery(updateBuilder.toSQL(), null);

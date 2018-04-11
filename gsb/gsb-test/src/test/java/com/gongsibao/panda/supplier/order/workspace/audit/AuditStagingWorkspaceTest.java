@@ -38,7 +38,7 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
         resourceNodeCode = "Gsb_Supplier_Order_Audit_Staging";
         
         List<String> ss = new ArrayList<String>();
-		ss.add("/gsb/platform/trade/js/audit-stage-list.part.js");
+		ss.add("/gsb/platform/trade/js/audit/audit-stage-list.part.js");
 		ss.add("/gsb/panda-extend/gsb.custom.query.controls.js");
 		listPartImportJs = StringManager.join("|", ss);
 		listPartJsController = AuditStagingListPart.class.getName();

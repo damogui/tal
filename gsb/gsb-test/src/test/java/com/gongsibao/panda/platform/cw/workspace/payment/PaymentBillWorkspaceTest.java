@@ -57,10 +57,12 @@ public class PaymentBillWorkspaceTest extends WorkspaceCreationBase {
         listPartImportJs = "/gsb/platform/cw/js/payment-bill-list-part.js";
 		listPartJsController = PaymentBillListPart.class.getName();
 		listPartServiceController = PaymentBillListPart.class.getName();
+		listFilter = " creator_id = '{userId}'";
 		
 		formJsImport = "/gsb/platform/cw/js/payment-bill-form.part.js|/package/qiniu/plupload.full.min.js";
 		formServiceController = PaymentBillFormPart.class.getName();
 	    formJsController = PaymentBillFormPart.class.getName();
+	    formToolbarPath = "";
     }
     
     
@@ -92,6 +94,16 @@ public class PaymentBillWorkspaceTest extends WorkspaceCreationBase {
             item.setCommand("{controller}.applyPayment();");
             toolbar.getItems().add(item);
         } 
+        item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("createContract");
+            item.setIcon(PToolbarHelper.iconEdit);
+            item.setName("修改付款");
+            item.setSeq(7);
+            item.setCommand("{controller}.updatePayment();");
+            toolbar.getItems().add(item);
+        } 
         return toolbar;
     }
     @Test
@@ -110,12 +122,12 @@ public class PaymentBillWorkspaceTest extends WorkspaceCreationBase {
 			datagrid.setName("付款单");
 			datagrid.setToolbar("panda/datagrid/row/edit");
 		}
-		addColumn(datagrid, "code", "付款单号", ControlTypes.OPERATION_COLUMN, 100, true);
-		addColumn(datagrid, "businessType", "业务类型", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "amount", "付款金额", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "code", "付款单号", ControlTypes.TEXT_BOX, 200, true);
+		addColumn(datagrid, "businessType", "业务类型", ControlTypes.TEXT_BOX, 200);
+		addColumn(datagrid, "amount", "付款金额", ControlTypes.DECIMAL_FEN_BOX, 200);
 		addColumn(datagrid, "setOfBooks.name", "付款单位", ControlTypes.TEXT_BOX, 300);
 		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATE_BOX, 200);
-		addColumn(datagrid, "status", "审核状态", ControlTypes.ENUM_BOX, 150);
+		addColumn(datagrid, "status", "审核状态", ControlTypes.ENUM_BOX, 200);
 		addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 400);
 		return datagrid;
 	}
@@ -134,7 +146,7 @@ public class PaymentBillWorkspaceTest extends WorkspaceCreationBase {
         addFormField(form, "companyBank", "公司开户行", ControlTypes.TEXT_BOX, true, true);
         formField =  addFormField(form, "companyAccount", "公司银行账号", ControlTypes.TEXT_BOX, true, true);
         
-        addFormField(form, "amount", "借款金额", ControlTypes.DECIMAL_FEN_BOX, true, false);
+        addFormField(form, "amount", "付款金额", ControlTypes.DECIMAL_FEN_BOX, true, false);
         addFormField(form, "collectInvoiceDate", "收发票日期", ControlTypes.DATE_BOX, false, false);
         addFormField(form, "memoto", "备注", ControlTypes.TEXTAREA, true, false);
         
@@ -157,8 +169,8 @@ public class PaymentBillWorkspaceTest extends WorkspaceCreationBase {
             datagrid.setShowCheckbox(false);
             datagrid.setShowTitle(false);
             
-        	addColumn(datagrid, "organization.pathName", "费用归属部门", ControlTypes.TEXT_BOX, 250);
-            addColumn(datagrid, "detailMoney", "金额", ControlTypes.TEXT_BOX, 100);
+        	addColumn(datagrid, "organization.pathName", "费用归属部门", ControlTypes.TEXT_BOX, 300);
+            addColumn(datagrid, "detailMoney", "金额", ControlTypes.TEXT_BOX, 200);
             addColumn(datagrid, "memoto", "说明", ControlTypes.TEXT_BOX, 300);
         }
         
@@ -169,7 +181,7 @@ public class PaymentBillWorkspaceTest extends WorkspaceCreationBase {
 			form.setColumnCount(1);
 			form.setName("新增费用明细");
 
-			addFormFieldRefrence(form, "organization.pathName", "费用归属部门",null,"Organization-Department-Filter", true, false);
+			addFormFieldRefrence(form, "organization.pathName", "费用归属部门",null,"Organization-Department", true, false);
 			addFormField(form, "detailMoney", "金额", null, ControlTypes.DECIMAL_FEN_BOX, true, false);
 			addFormField(form, "memoto", "说明", null, ControlTypes.TEXTAREA, true, false);
 		}

@@ -40,7 +40,7 @@ public class AuditOrderWorkspaceTest  extends WorkspaceCreationBase {
         resourceNodeCode = "Gsb_Supplier_Order_Audit_Order";
         
         List<String> ss = new ArrayList<String>();
-		ss.add("/gsb/platform/trade/js/audit-order-list.part.js");
+		ss.add("/gsb/platform/trade/js/audit/audit-order-list.part.js");
 		ss.add("/gsb/panda-extend/gsb.custom.query.controls.js");
 		listPartImportJs = StringManager.join("|", ss);
 		listPartJsController = AuditOrderListPart.class.getName();

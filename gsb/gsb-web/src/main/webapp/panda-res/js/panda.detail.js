@@ -456,6 +456,10 @@ org.netsharp.panda.commerce.DetailPart = org.netsharp.panda.core.View.Extends({
 		var height = this.context.height;
 		var title = this.context.title;
         var formName = me.context.formName;
+        if($('#'+formName).length==0){
+        	
+        	return;
+        }
         $('#'+formName).attr("style","");
     	layer.open({
 		  type:1,

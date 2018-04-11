@@ -2,21 +2,17 @@ package com.gongsibao.cw.service.action.loan;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
+import org.netsharp.authorization.UserPermission;
+import org.netsharp.authorization.UserPermissionManager;
 import org.netsharp.communication.ServiceFactory;
 
-import com.gongsibao.cw.base.IAuditRecordService;
 import com.gongsibao.cw.base.ICostDetailService;
 import com.gongsibao.cw.base.IFileService;
 import com.gongsibao.cw.base.ILoanService;
-import com.gongsibao.entity.bd.File;
-import com.gongsibao.entity.cw.AuditRecord;
-import com.gongsibao.entity.cw.CostDetail;
 import com.gongsibao.entity.cw.Loan;
-import com.gongsibao.entity.cw.dict.FinanceDict;
 import com.gongsibao.entity.cw.dict.FinanceDict.AuditStatus;
 
 public class ActionLoanApplyPersist implements IAction {
@@ -29,36 +25,23 @@ public class ActionLoanApplyPersist implements IAction {
 	
     @Override
     public void execute(ActionContext ctx) {
-    
     	 Loan loan = (Loan) ctx.getItem();
-    	 loan.toNew();
+    	 if(loan.getId()==null){
+    		 loan.toNew(); 
+    	 }else{
+    		 loan.toPersist();
+    	 }
     	 //审核状态
     	 loan.setStatus(AuditStatus.Status_1);
     	 //审核步骤
     	 loan.setAuditStep(1);
     	 loan.setCode(getLoanCode());
+    	 //创建人 所属部门
+    	 UserPermission up = UserPermissionManager.getUserPermission();
+    	 loan.setDepartmentId(up.getDepartmentId());
+    	 loan.setArrearsAmount(loan.getAmount());
     	 Loan temp = loanService.save(loan);
     	 ctx.setItem(temp);
-         if (temp != null && temp.getId() != null) {
-        	 
-        	 List<CostDetail> costDetailList = loan.getCostDetailItem();
-        	 for(CostDetail item : costDetailList){
-        		 item.toNew();
-        		 item.setFormId(temp.getId());
-        		 costDetailService.save(item);
-        	 }
-        	 //保存附件
-        	 List<File> fileList = loan.getFiles();
-        	 if(fileList != null && fileList.size() > 0 ){
-        		 for(File fileItem : fileList){
-        			 fileItem.toNew();
-        			 fileItem.setCreateTime(loan.getCreateTime());
-        			 fileItem.setCreator(loan.getCreator());
-        			 fileItem.setFormId(temp.getId());
-        			 fileService.save(fileItem);
-        		 }
-        	 }
-         }
     }
     
     //生成借款单据

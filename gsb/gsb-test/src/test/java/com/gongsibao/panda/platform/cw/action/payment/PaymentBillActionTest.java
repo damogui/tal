@@ -11,13 +11,13 @@ import com.gongsibao.cw.service.action.payment.ActionPaymentApplySendMessage;
 import com.gongsibao.cw.service.action.payment.ActionPaymentApplyVerify;
 import com.gongsibao.panda.supplier.crm.action.BaseActionTest;
 
+public class PaymentBillActionTest extends BaseActionTest{
 
-public class PaymentBillActionTest  extends BaseActionTest{
-
+	
 	@Before
 	public void setup() {
 
-		resourceNodeCode = "GSB_CW_Manage_Loan_Bill";
+		resourceNodeCode = "GSB_CW_Manage_Payment_Bill";
 		super.setup();
 	}
 
@@ -30,7 +30,7 @@ public class PaymentBillActionTest  extends BaseActionTest{
 			beanPath.toNew();
 			beanPath.setPath(pathName);
 			beanPath.setResourceNode(resourceNode);
-			beanPath.setName("付款申请");
+			beanPath.setName("借款申请");
 		}
 		createBean(beanPath, "1.验证", ActionPaymentApplyVerify.class.getName(), resourceNode, 100);
 		createBean(beanPath, "2.保存", ActionPaymentApplyPersist.class.getName(), resourceNode, 200);

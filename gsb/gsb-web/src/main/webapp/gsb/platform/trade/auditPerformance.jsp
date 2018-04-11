@@ -25,8 +25,8 @@
     </div>
 </div>
 </body>
-<script src='/gsb/platform/trade/js/audit-base.ctrl.js'></script>
-<script src='/gsb/platform/trade/js/audit-performance.ctrl.js'></script>
+<script src='/gsb/platform/trade/js/audit/audit-base.ctrl.js'></script>
+<script src='/gsb/platform/trade/js/audit/audit-performance.ctrl.js'></script>
 <script>
     var id = 0;
     var auditPerformanceCtrl = null;
