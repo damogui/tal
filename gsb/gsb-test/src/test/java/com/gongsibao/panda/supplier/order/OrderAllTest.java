@@ -49,6 +49,7 @@ import com.gongsibao.panda.supplier.reference.SupplierU8BankReferenceTest;
         DepartmentOrderContractWorkspaceTest.class,
         DepartmentOrderInvoiceWorkspaceTest.class,
         DepartmentOrderStagingWorkspaceTest.class,
+        DepartmentOrderDetailWorkspaceTest.class,
 //        DepartmentReportDayWorkspaceTest.class,
 //        DepartmentReportWeekWorkspaceTest.class,
 //        DepartmentReportMonthWorkspaceTest.class,

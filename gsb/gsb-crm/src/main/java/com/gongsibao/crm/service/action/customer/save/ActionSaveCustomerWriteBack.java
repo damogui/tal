@@ -33,7 +33,7 @@ public class ActionSaveCustomerWriteBack implements IAction {
 			builer.append("LEFT JOIN ( ");
 			builer.append("SELECT customer_id, company_id FROM crm_customer_company_map ");
 			builer.append("WHERE customer_id = ? ORDER BY add_time DESC LIMIT 1 ");
-			builer.append(") a ON c.id = a.customer_id ");
+			builer.append(") a ON c.pkid = a.customer_id ");
 			builer.append("SET c.company_id = a.company_id");
 		}
 		QueryParameters qps = new QueryParameters();
@@ -49,7 +49,7 @@ public class ActionSaveCustomerWriteBack implements IAction {
 			builer.append("UPDATE uc_account a ");
 			builer.append("LEFT JOIN  crm_customer c ON a.pkid = c.account_id ");
 			builer.append("SET a.company_id = c.company_id ");
-			builer.append("WHERE c.id = ? AND c.company_id IS NOT NULL");
+			builer.append("WHERE c.pkid = ? AND c.company_id IS NOT NULL");
 			pm.executeNonQuery(builer.toString(), qps);
 		}
 	}

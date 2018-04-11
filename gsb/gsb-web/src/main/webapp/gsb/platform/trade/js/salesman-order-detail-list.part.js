@@ -4,6 +4,16 @@ com.gongsibao.trade.web.SalesmanOrderDetailListPart = org.netsharp.panda.commerc
     ctor: function () {
         this.base();
     },
+    operateFormatter:function(value,row,index){
+    	var builder = new System.StringBuilder();
+    	builder.append("<a class='grid-btn' href='javascript:controllerorderProdList.detail(" + value + ")';>查看</a>");
+    	if(row.beginOption == null || row.beginOption == false){    		
+    		builder.append("<a class='grid-btn' href='javascript:controllerorderProdList.begOption(" + value + ")';>开始操作</a>");
+    	}else{    		
+    		builder.append("<a class='grid-btn' href='javascript:controllerorderProdList.operateGroup(" + value + ")';>变更操作组</a>");
+    	}
+    	return builder.toString();
+    },
     begOption: function (id) {
     	//开始操作
     	var me = this;
@@ -13,18 +23,25 @@ com.gongsibao.trade.web.SalesmanOrderDetailListPart = org.netsharp.panda.commerc
     	var companyId = row.soOrder_companyId;//关联公司Id
     	var operateCompaneName = row.companyIntention_name;//获取订单产品表中叫操作公司(订单表中叫关联公司)
     	
-    	//1.操作前提
+    	//1.开始操作前提
     	me.invokeService("meetBegOption", [orderId], function (data) {
-    		if(data){
-    			me.isHandle(productId);
+    		if(data == 2){
+    			me.isHandle(id,productId,orderId,operateCompaneName,companyId);
+    		}else if(data == 0){
+    			IMessageBox.info('请付全款或者申请分期，才能开始操作！');
+                return false;
+    		}else if(data == 1){
+    			IMessageBox.info('订单余额大于一期款时，才能开始操作！');
+                return false;
     		}else{
-    			IMessageBox.info('不满足开始操作条件');
+    			IMessageBox.info('请核实订单信息！');
                 return false;
     		}
         });
     },
-    isHandle:function(productId){
+    isHandle:function(id,productId,orderId,operateCompaneName,companyId){
     	//判断是否有办理名称 
+    	var me = this;
     	me.invokeService("isHandle", [productId], function (data) {
     		me.companiesName(id,data,orderId,operateCompaneName,companyId);
         });
@@ -51,7 +68,7 @@ com.gongsibao.trade.web.SalesmanOrderDetailListPart = org.netsharp.panda.commerc
     		builder.append('<tr><td class="title">办理名称 </td><td><textarea id="txtHandle" style="width:300px;height:31px;" class="" ></textarea></td></tr>'); 
     	}
     	//是否显示操作公司
-    	if(companeName != null || companeName != ""){
+    	if(companeName != null && companeName != ""){
     		builder.append('<tr><td class="title"></td><td style="color:red;">订单明细（产品）操作公司：</td></tr>');
     		if(operateCompaneName == null || operateCompaneName == ""){
     			builder.append('<tr><td class="title"></td><td><input type="radio" name="czgs" checked="true" value="'+companyId+'"/>使用订单签约公司【' + companeName + '】</td></tr>');
@@ -82,14 +99,14 @@ com.gongsibao.trade.web.SalesmanOrderDetailListPart = org.netsharp.panda.commerc
 					eval(expression);
     			});
     		},
-    		btn1 : function(index, layero) {  
+    		btn1 : function(index, layero) {
     			var supplierId = $('#supplier_name').combogrid('getValue');
                 if (System.isnull(supplierId)) {
-                    IMessageBox.info('请选择操作组');
+                    IMessageBox.info('请选择服务商');
                     return;
                 }
-                var txtHandle = $("#txtHandle").val();
-                var seleValue = $('input[name="czgs"]:checked ').val();
+                var txtHandle = typeof($("#txtHandle").val()) == "undefined" ? "" : $("#txtHandle").val();
+                var seleValue = typeof($('input[name="czgs"]:checked ').val())  == "undefined" ? 0 : $('input[name="czgs"]:checked ').val();
                 
                //更新订单明细
                 me.invokeService("begOption", [id,supplierId,txtHandle,seleValue], function (data) {
@@ -115,7 +132,7 @@ com.gongsibao.trade.web.SalesmanOrderDetailListPart = org.netsharp.panda.commerc
             callback: function (index, layero) {                
             	var supplierId = $('#supplier_name').combogrid('getValue');
                 if (System.isnull(supplierId)) {
-                    IMessageBox.info('请选择操作组');
+                    IMessageBox.info('请选择服务商');
                     return;
                 }
                 

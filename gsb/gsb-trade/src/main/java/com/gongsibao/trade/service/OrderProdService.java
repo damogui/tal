@@ -258,6 +258,7 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
 		{
 			updateBuilder.update("so_order_prod");
 			updateBuilder.set("supplier_id", supplierId);
+			updateBuilder.set("begin_option", 1);
 			updateBuilder.set("handle_name", handleName);
 			if(!companyId.equals(0)){
 				updateBuilder.set("company_id", companyId);

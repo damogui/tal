@@ -21,6 +21,7 @@ td{
 input{
   display:inline
 }
+
 </style>
 </head>
 <body>
@@ -33,7 +34,7 @@ input{
 				           <td style="font-size:0.8rem" colspan="2">
 				               &nbsp; &nbsp;&nbsp;&nbsp;委托人
 				               <span style="text-decoration:underline">
-				                    <span id="client"></span><span id="clientblank"></span>
+				                    <span id="client" style="font-size:0.6rem"></span>
 				               </span>
 				               <span>是</span>
 				               <span style="text-decoration:underline">
@@ -50,7 +51,7 @@ input{
 				               </span>
 				               <br/><br/><br/>
 				               <p style="float:left;">代理</p>
-				               <img id="img" style="float:left;width:80px;height:80px;margin-left:80px;margin-top:-50px;" src="http://gsb-public.oss-cn-beijing.aliyuncs.com/netsharp_frmjmPrCthfEp4CSErDS4XQPwHSAiA8t.jpg"/>
+				               <img id="img" style="width:80px;height:80;float:left;margin-left:80px;margin-top:-50px;" src="http://gsb-public.oss-cn-beijing.aliyuncs.com/netsharp_frmjmPrCthfEp4CSErDS4XQPwHSAiA8t.jpg"/>
 				               <span style="float:left;text-decoration:underline;z-index:1000;margin-left:-140px;margin-top:15px">
 				                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				                &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -202,6 +203,9 @@ input{
 		var casecode=getHashParameter("casecode");
 		var imgurl=getHashParameter("imgurl");
 		 siteCtl.invoke(ctlServiceStr2,"fetchUnconfirmedCaseInfoByCode",[casecode],function(d){
+			  if(d.identityCode!=null && d.identityCode!=""){
+				  d.applier=d.applier+d.identityCode;
+			    }
 			  var len= d.applier.length;
 			  var lenhalf=Math.round((32-len)/2);
 			  $("#client").html(repeat("&nbsp;",lenhalf)+d.applier+repeat("&nbsp;",lenhalf));

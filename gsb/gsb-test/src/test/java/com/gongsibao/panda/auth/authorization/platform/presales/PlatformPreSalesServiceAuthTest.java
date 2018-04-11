@@ -6,20 +6,19 @@ import com.gongsibao.panda.auth.authorization.AuthBaseTest;
 
 
 /*售前客服*/
-public class PlatformPreSalesServiceAuthTest extends AuthBaseTest{
-	@Before
-	public void setup() {
+public class PlatformPreSalesServiceAuthTest extends AuthBaseTest {
+    @Before
+    public void setup() {
         roleCode = "Platform_PreSales_Service";
-		super.setup();
+        super.setup ();
 
-	}
+    }
 
     protected void getResourceCodeList() {
-
-        this.resourceNodeCodeList.add("GSB_CRM");//客户管理
-        this.resourceNodeCodeList.add("GSB_Trade_Manage");//订单管理
-        this.resourceNodeCodeList.add("GSB_CRM_MY");//客户管理 我的商机
-        //this.resourceNodeCodeList.add("CRM_STATISTICAL_CustomerService");//客服统计（好像还没人做）
+//客户管理、订单管理（全部订单）、统计分析（客服统计）
+        this.resourceNodeCodeList.add ("Operation_CRM");//客户管理
+        this.resourceNodeCodeList.add ("GSB_Trade_Manage_All_Order");//订单管理(全部订单)
+        this.resourceNodeCodeList.add ("Operation_CRM_STATISTICAL_CustomerService");//客服统计（好像还没人做）
 
     }
 }
