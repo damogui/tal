@@ -58,11 +58,11 @@ public class ActionSaveCustomerVerify implements IAction {
 
 	private boolean hasMobile(Integer id, String mobile) {
 
-		if(StringManager.isNullOrEmpty(mobile)){
-			
+		if (StringManager.isNullOrEmpty(mobile) || StringManager.isNullOrEmpty(mobile.trim())) {
+
 			return false;
 		}
-		
+
 		Oql oql = new Oql();
 		{
 			oql.setType(NCustomer.class);
