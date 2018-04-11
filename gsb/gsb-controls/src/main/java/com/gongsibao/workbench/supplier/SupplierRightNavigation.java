@@ -121,25 +121,33 @@ public class SupplierRightNavigation extends Div {
 					dropItem.getControls().add(li0);
 				}
 			}
-
 			Li li1 = new Li();
+			{
+
+				A a1 = new A();
+				a1.value = "意见反馈";
+				a1.href = "javascript:workbench.feedback();";
+				li1.getControls().add(a1);
+				dropItem.getControls().add(li1);
+			}
+			Li li2 = new Li();
 			{
 
 				A a1 = new A();
 				a1.value = "修改密码";
 				a1.href = "javascript:workbench.changePassword();";
-				li1.getControls().add(a1);
-				dropItem.getControls().add(li1);
+				li2.getControls().add(a1);
+				dropItem.getControls().add(li2);
 			}
 
-			Li li2 = new Li();
+			Li li3 = new Li();
 			{
 
 				A a2 = new A();
 				a2.value = "注销登录";
 				a2.href = "javascript:workbench.exit();";
-				li2.getControls().add(a2);
-				dropItem.getControls().add(li2);
+				li3.getControls().add(a2);
+				dropItem.getControls().add(li3);
 			}
 			dropBox.getControls().add(dropItem);
 			option.getControls().add(dropBox);

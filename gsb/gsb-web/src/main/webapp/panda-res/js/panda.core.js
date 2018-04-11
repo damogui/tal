@@ -365,7 +365,7 @@ PandaHelper.openDynamicForm = function(option){
 					+item.width+'px;height:'+item.height+'px;" class="'+(item.className||'')+'" ></textarea></td></tr>');
 		}else{
 
-			builder.append('<tr><td class="title">'+item.title+'</td><td><input id="'+item.id+'" style="'+item.style+'"/></td></tr>');
+			builder.append('<tr><td class="title">'+item.title+'</td><td><input id="'+item.id+'" class="'+(item.className||'')+'" style="'+(item.style||"")+'"/></td></tr>');
 		}
 	});
 	if(!System.isnull(option.notice)){
@@ -401,6 +401,11 @@ PandaHelper.openDynamicForm = function(option){
 					
 				}
 			});
+			
+			if(option.success){
+				
+				option.success(layero, index);
+			}
 		},
 		btn1 : function(index, layero) {
 			

@@ -312,6 +312,25 @@ org.netsharp.panda.Workbench = System.Object.Extends({
 	        content: content
 	      });
     	
+    },
+    feedback:function(){
+    	
+    	layer.open({
+    		  type: 2,
+    		  title: '意见反馈',
+    		  id:"feedback",
+    		  fixed: false,
+    		  maxmin: false,
+    		  shadeClose:true,
+    		  area: ['600px','450px'],
+    		  content: '/nav/panda-platform/feedback/feedback',
+    		  btn : [ '提交', '取消' ],
+    		  btn1 : function(index, layero) {
+    			  
+    			  $(layero).find("iframe")[0].contentWindow.ctrl.save();
+    			  
+    		  }
+    	 });
     }
 });
 
