@@ -13,8 +13,7 @@ public class DepartmentOrderDetailWorkspaceTest extends SalesmanOrderDetailWorks
 	@Before
 	public void setup() {
 		super.setup();
-		urlList = "/crm/order/department/detail/list";
-		listrowToolbarPath = "/crm/depart/roworderdetail/toolbar";
+		urlList = "/crm/order/department/detail/list";		
 		resourceNodeCode = "Gsb_Supplier_Order_Department_OrderProd";
 		listFilter = "department_id in(SELECT department_id FROM so_order_prod where owner_id = '{userId}')";
 	}

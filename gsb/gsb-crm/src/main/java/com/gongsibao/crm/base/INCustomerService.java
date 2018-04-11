@@ -24,7 +24,7 @@ public interface INCustomerService extends IPersistableService<NCustomer> {
 	 * @return
 	 */
 	@Transaction
-	public boolean openMember(Integer customerId);
+	public boolean openMember(Integer customerId,Boolean isSendSms);
 
 	/**
 	 * @Title: validationContactWay
