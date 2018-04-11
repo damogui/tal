@@ -25,6 +25,7 @@ import org.netsharp.core.Oql;
 import org.netsharp.core.Paging;
 import org.netsharp.core.QueryParameter;
 import org.netsharp.core.QueryParameters;
+import org.netsharp.core.annotations.Transaction;
 import org.netsharp.organization.base.IRoleGroupService;
 import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
@@ -115,6 +116,7 @@ public class ImportOldDataToNewData {
 
 
     /*处理顾客表旧数据*/
+    @Transaction
     private int handleCustomerOld() {
 
            /*客户表 crm_customer->n_crm_customer*/
@@ -209,7 +211,7 @@ public class ImportOldDataToNewData {
 
                 }
                 totalCountExce += 1;
-                System.out.println (String.format ("已经处理%S条",totalCountExce));
+                System.out.println (String.format ("已经处理%S条", totalCountExce));
 
 
             }
@@ -323,9 +325,10 @@ public class ImportOldDataToNewData {
                 nCustomerTaskFoolow.setUpdator (item.getUpdator ());
                 nCustomerTaskFoolow.setUpdateTime (item.getUpdateTime ());
                 nCustomerTaskFoolow.toNew ();
-                String sql = String.format ("INSERT INTO n_crm_task_foolow(creator_id,creator,create_time,updator_id,updator,update_time,customer_id,task_id,quality_category,quality_id,quality_progress,next_foolow_time,content,signing_amount,returned_amount) VALUES(%s,%s,'%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,'%s',%s,%s); ", nCustomerTaskFoolow.getCreatorId (), nCustomerTaskFoolow.getCreator (), TimeUtils.getDateFormat (nCustomerTaskFoolow.getCreateTime ()), nCustomerTaskFoolow.getUpdatorId (), nCustomerTaskFoolow.getUpdator (), nCustomerTaskFoolow.getUpdateTime (), nCustomerTaskFoolow.getCustomerId (), nCustomerTaskFoolow.getTaskId (), nCustomerTaskFoolow.getQualityCategory ().getValue (), nCustomerTaskFoolow.getQualityId (), nCustomerTaskFoolow.getQualityProgress ().getValue (), nCustomerTaskFoolow.getNextFoolowTime (), nCustomerTaskFoolow.getContent (), nCustomerTaskFoolow.getSigningAmount (), nCustomerTaskFoolow.getReturnedAmount ());//使用自增id
-
-                Integer numTask = nCustomerService.executeNonQuery (sql, null);
+                String sql = String.format ("INSERT INTO n_crm_task_foolow(creator_id,creator,create_time,updator_id,updator,update_time,customer_id,task_id,quality_category,quality_id,quality_progress,next_foolow_time,content,signing_amount,returned_amount) VALUES(%s,%s,'%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,?,%s,%s); ", nCustomerTaskFoolow.getCreatorId (), nCustomerTaskFoolow.getCreator (), TimeUtils.getDateFormat (nCustomerTaskFoolow.getCreateTime ()), nCustomerTaskFoolow.getUpdatorId (), nCustomerTaskFoolow.getUpdator (), nCustomerTaskFoolow.getUpdateTime (), nCustomerTaskFoolow.getCustomerId (), nCustomerTaskFoolow.getTaskId (), nCustomerTaskFoolow.getQualityCategory ().getValue (), nCustomerTaskFoolow.getQualityId (), nCustomerTaskFoolow.getQualityProgress ().getValue (), nCustomerTaskFoolow.getNextFoolowTime (), nCustomerTaskFoolow.getSigningAmount (), nCustomerTaskFoolow.getReturnedAmount ());//使用自增id nCustomerTaskFoolow.getContent ().re
+                QueryParameters qps = new QueryParameters ();
+                qps.add ("@content",nCustomerTaskFoolow.getContent (),Types.VARCHAR);
+                Integer numTask = nCustomerService.executeNonQuery (sql, qps);
 
 
                 listImNCustomerTaskFoolow.add (nCustomerTaskFoolow);
