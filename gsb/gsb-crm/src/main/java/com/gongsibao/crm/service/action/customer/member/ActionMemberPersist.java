@@ -32,8 +32,7 @@ public class ActionMemberPersist implements IAction {
 			account.setHeadThumbFileId(0);
 			account.setSourceClientId(1035);
 			account.setIdentityCard("");
-			Random random = new Random(7);
-			Long randomPwd = random.nextLong();
+			int randomPwd = Math.abs(new Random(7).nextInt());
 			String pwd = EncrypUtil.md5(randomPwd + "user!@#123").substring(8, 24);
 			account.setPasswd(pwd);
 			account.setTicket("");
@@ -43,7 +42,7 @@ public class ActionMemberPersist implements IAction {
 
 			// 放到map中，回写时使用
 			ctx.getStatus().put("account", account);
-			ctx.getStatus().put("pwd", randomPwd.toString());
+			ctx.getStatus().put("pwd", String.valueOf(randomPwd));
 		}
 	}
 
