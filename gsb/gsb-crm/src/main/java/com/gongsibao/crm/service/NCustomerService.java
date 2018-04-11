@@ -2,15 +2,15 @@ package com.gongsibao.crm.service;
 
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.core.MtableManager;
 import org.netsharp.core.Oql;
-import org.netsharp.persistence.IPersister;
-import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
@@ -95,8 +95,8 @@ public class NCustomerService extends SupplierPersistableService<NCustomer> impl
 	}
 
 	@Override
-	public NCustomer save(NCustomer entity) {
-
+	public NCustomer create(NCustomer entity) {
+		
 		ActionContext ctx = new ActionContext();
 		{
 			ctx.setPath("gsb/crm/customer/save");
@@ -127,7 +127,7 @@ public class NCustomerService extends SupplierPersistableService<NCustomer> impl
 	}
 
 	@Override
-	public boolean openMember(Integer customerId) {
+	public boolean openMember(Integer customerId, Boolean isSendSms) {
 		
 		NCustomer customer = this.byId(customerId);
 		ActionContext ctx = new ActionContext();
@@ -135,6 +135,10 @@ public class NCustomerService extends SupplierPersistableService<NCustomer> impl
 			ctx.setPath("gsb/crm/customer/member");
 			ctx.setItem(customer);
 			ctx.setState(customer.getEntityState());
+			
+			Map<String, Object> status = new HashMap<String, Object>();
+			status.put("isSendSms", isSendSms);
+			ctx.setStatus(status);
 		}
 		ActionManager action = new ActionManager();
 		action.execute(ctx);
