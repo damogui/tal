@@ -16,15 +16,16 @@ com.gongsibao.trade.web.SalesmanOrderDetailListPart = org.netsharp.panda.commerc
     	//1.操作前提
     	me.invokeService("meetBegOption", [orderId], function (data) {
     		if(data){
-    			me.isHandle(productId);
+    			me.isHandle(id,productId,orderId,operateCompaneName,companyId);
     		}else{
     			IMessageBox.info('不满足开始操作条件');
                 return false;
     		}
         });
     },
-    isHandle:function(productId){
+    isHandle:function(id,productId,orderId,operateCompaneName,companyId){
     	//判断是否有办理名称 
+    	var me = this;
     	me.invokeService("isHandle", [productId], function (data) {
     		me.companiesName(id,data,orderId,operateCompaneName,companyId);
         });
@@ -51,7 +52,7 @@ com.gongsibao.trade.web.SalesmanOrderDetailListPart = org.netsharp.panda.commerc
     		builder.append('<tr><td class="title">办理名称 </td><td><textarea id="txtHandle" style="width:300px;height:31px;" class="" ></textarea></td></tr>'); 
     	}
     	//是否显示操作公司
-    	if(companeName != null || companeName != ""){
+    	if(companeName != null && companeName != ""){
     		builder.append('<tr><td class="title"></td><td style="color:red;">订单明细（产品）操作公司：</td></tr>');
     		if(operateCompaneName == null || operateCompaneName == ""){
     			builder.append('<tr><td class="title"></td><td><input type="radio" name="czgs" checked="true" value="'+companyId+'"/>使用订单签约公司【' + companeName + '】</td></tr>');

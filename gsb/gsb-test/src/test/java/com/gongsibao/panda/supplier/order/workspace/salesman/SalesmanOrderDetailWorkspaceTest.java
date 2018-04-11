@@ -21,12 +21,15 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.trade.OrderProd;
-import com.gongsibao.trade.web.SalesmanAllOrderListPart;
 import com.gongsibao.trade.web.SalesmanOrderDetailListPart;
 
-/*全部订单*/
+/**
+ * 业务员/我的明细订单
+ * @author Administrator
+ *
+ */
 public class SalesmanOrderDetailWorkspaceTest extends WorkspaceCreationBase {        
-	private String listrowToolbarPath = "/crm/roworderdetail/toolbar";
+	public String listrowToolbarPath = "/crm/roworderdetail/toolbar";
 
 	@Override
 	@Before
@@ -159,11 +162,13 @@ public class SalesmanOrderDetailWorkspaceTest extends WorkspaceCreationBase {
 
 		item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
 		{
-			item.setTooltip("订单明细编号、订单编号、下单人、下单人电话、关联公司");
+			item.setTooltip("订单明细编号、订单编号、下单人、下单人电话、操作公司");
 			item.setWidth(350);
 		}
-		addQueryItem(queryProject, "prodName", "产品名称", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "createTime", "订单创建日期", ControlTypes.DATE_BOX);
+		addQueryItem(queryProject, "productName", "产品名称", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "cityName", "产品地区", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "owner.name", "当前操作员", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "soOrder.createTime", "订单创建日期", ControlTypes.DATE_BOX);
 		return queryProject;
 	}
 

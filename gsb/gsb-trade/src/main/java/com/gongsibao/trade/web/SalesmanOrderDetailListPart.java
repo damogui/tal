@@ -26,13 +26,13 @@ public class SalesmanOrderDetailListPart extends AdvancedListPart {
     @Override
     public String getFilterByParameter(FilterParameter parameter) {
         ArrayList<String> filters = new ArrayList<String>();
-        //当是关键字时(订单明细编号、订单编号、下单人、下单人电话、关联公司)
+        //当是关键字时(订单明细编号、订单编号、下单人、下单人电话、操作公司)
         String keyword = parameter.getValue1().toString();
         if (parameter.getKey().equals("keyword")) {
 
             filters.add("no like '%" + keyword + "%'");
             filters.add("order_id in(select pkid from so_order where(no like '%" + keyword + "%' or customer_name like '%" + keyword + "%' or account_mobile like '%" + keyword + "%'))");
-            filters.add("order_id in( select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' )  )");
+            filters.add("company_id in( select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' )  )");
             return "(" + StringManager.join(" or ", filters) + ")";
         }
         return parameter.getFilter();
@@ -79,11 +79,13 @@ public class SalesmanOrderDetailListPart extends AdvancedListPart {
     public Boolean meetBegOption(Integer orderId){
     	Boolean retuValue = false;
     	SoOrder orderEntity = orderService.getByOrderId(orderId);
-    	Integer balance = NumberUtils.toInt(orderEntity.getPaidPrice()) + NumberUtils.toInt(orderEntity.getCarryIntoAmount()) - NumberUtils.toInt(orderEntity.getRefundPrice()) - NumberUtils.toInt(orderEntity.getCarryAmount());
-    	
-    	if(balance.equals(orderEntity.getPayablePrice()) || balance >0){
-    		retuValue = true;
+    	if(orderEntity != null){
+    		Integer balance = NumberUtils.toInt(orderEntity.getPaidPrice()) + NumberUtils.toInt(orderEntity.getCarryIntoAmount()) - NumberUtils.toInt(orderEntity.getRefundPrice()) - NumberUtils.toInt(orderEntity.getCarryAmount());        	
+        	if(balance.equals(orderEntity.getPayablePrice()) || balance >0){
+        		retuValue = true;
+        	}
     	}
+    	
     	return retuValue;
     }
     /**
