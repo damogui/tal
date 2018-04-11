@@ -46,4 +46,11 @@ public class NCustomerFormPart extends FormPart{
 
 		return navigation;
 	}
+	
+	public NCustomer save(NCustomer entity) {
+
+		entity = customerService.create(entity);
+		entity = customerService.byId(entity);
+		return entity;
+	}
 }
