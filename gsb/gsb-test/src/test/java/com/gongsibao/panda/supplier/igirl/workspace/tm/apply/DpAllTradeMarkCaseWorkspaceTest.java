@@ -125,7 +125,7 @@ public class DpAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "urgency", "紧急(小时)", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "ownerName", "业务员", ControlTypes.TEXT_BOX, 50);
 		addColumn(datagrid, "orderCode", "订单号", ControlTypes.TEXT_BOX, 80);
-		addColumn(datagrid, "caseAmount", "金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+		addColumn(datagrid, "caseAmount", "金额", ControlTypes.DECIMAL_BOX, 100);
 		addColumn(datagrid, "tmcState", "状态", ControlTypes.ENUM_BOX, 100);
 		addColumn(datagrid, "tradeOptions", "商标选项", ControlTypes.TEXT_BOX, 100);
 	
@@ -189,7 +189,7 @@ public class DpAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 		
 		
 		addFormField(form, "orderCode", "订单号", "案件信息", ControlTypes.TEXT_BOX, false, false);
-		addFormField(form, "caseAmount", "方案金额", "案件信息", ControlTypes.DECIMAL_FEN_BOX, true, false);
+		addFormField(form, "caseAmount", "方案金额", "案件信息", ControlTypes.DECIMAL_BOX, true, false);
 		addFormField(form, "tokenImgUrl", "二维码", "案件信息", ControlTypes.IMAGE, false, true);
 		addFormField(form, "tmcState", "方案状态", "案件信息", ControlTypes.ENUM_BOX, true, false).setVisible(false);
 		
