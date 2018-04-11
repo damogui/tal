@@ -9,6 +9,7 @@ import org.netsharp.core.Oql;
 import org.netsharp.service.PersistableService;
 
 import java.sql.Types;
+import java.util.List;
 
 @Service
 public class AccountCompanyService extends PersistableService<AccountCompany> implements IAccountCompanyService {
@@ -23,10 +24,18 @@ public class AccountCompanyService extends PersistableService<AccountCompany> im
 		Oql oql = new Oql();
 		{
 			oql.setType(type);
-			oql.setFilter("accountId= " + accountId + "  and inUse=" + inUse);
+			oql.setFilter("account_id= " + accountId + "  and inUse=" + inUse);
 		}
 		return this.queryCount(oql);
 	}
 
-
+	@Override
+	public List<AccountCompany> findByAccount(int accountId, int inUse) {
+		Oql oql = new Oql();
+		{
+			oql.setType(type);
+			oql.setFilter("accountId= " + accountId + "  and inUse=" + inUse);
+		}
+		return this.queryList(oql);
+	}
 }

@@ -1,13 +1,13 @@
 package com.gongsibao.entity.acount;
-import org.netsharp.core.annotations.Column;
-import org.netsharp.core.annotations.Exclusive;
-import org.netsharp.core.annotations.Table;
+import com.gongsibao.entity.BaseEntity;
+import org.netsharp.core.annotations.*;
 import org.netsharp.entity.Entity;
 import java.util.Date;
 
 @Table(name="uc_account_company")
-public class AccountCompany extends Entity {
+public class AccountCompany extends BaseEntity {
     private static final long serialVersionUID = -1L;
+
 
     @Column(name="account_id",header="会员id")
     private int accountId;
@@ -173,4 +173,5 @@ public class AccountCompany extends Entity {
     public void setRejectReason(String rejectReason) {
         this.rejectReason = rejectReason;
     }
+
 }

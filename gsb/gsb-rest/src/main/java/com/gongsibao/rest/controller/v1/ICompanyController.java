@@ -3,13 +3,11 @@ package com.gongsibao.rest.controller.v1;
 import com.gongsibao.bd.base.IBdServiceProductService;
 import com.gongsibao.bd.base.IBdServiceService;
 import com.gongsibao.cms.base.IProductService;
-import com.gongsibao.entity.Result;
 import com.gongsibao.entity.bd.BdService;
 import com.gongsibao.entity.bd.BdServiceProduct;
 import com.gongsibao.entity.cms.Product;
-import com.gongsibao.entity.dict.ResponseStatus;
 import com.gongsibao.rest.common.apiversion.Api;
-import com.gongsibao.rest.common.web.WebResult;
+import com.gongsibao.rest.common.web.ResponseData;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,9 +33,9 @@ public class ICompanyController {
      * @date 2018/4/11 13:30
      */
     @RequestMapping(value = "/lstService", method = RequestMethod.GET)
-    public WebResult lstService() {
+    public ResponseData lstService() {
         IBdServiceService bdServiceService = ServiceFactory.create(IBdServiceService.class);
-        WebResult data = new WebResult();
+        ResponseData data = new ResponseData();
         try {
             List<BdService> list = bdServiceService.findServiceList();
             if (CollectionUtils.isEmpty(list)) {
@@ -62,11 +60,11 @@ public class ICompanyController {
                 }
                 bdService.setProductList(productList);
             }
-            data.setStatus(WebResult.SUCCESS);
+            data.setCode(ResponseData.SUCCESS);
             data.setData(list);
         } catch (Exception e) {
             e.printStackTrace();
-            data.setStatus(WebResult.FAIL);
+            data.setCode(ResponseData.FAIL);
             data.setMsg("您的网络不稳定，请稍后再试。");
         }
         return data;
