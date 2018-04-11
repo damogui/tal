@@ -7,6 +7,16 @@ import com.gongsibao.entity.crm.NCustomer;
 
 public interface INCustomerService extends IPersistableService<NCustomer> {
 
+	/**   
+	 * @Title: create   
+	 * @Description: TODO(创建客户)   
+	 * @param: @param entity
+	 * @param: @return      
+	 * @return: NCustomer      
+	 * @throws   
+	 */
+	NCustomer create(NCustomer entity);
+	
 	/**
 	 * 开通会员
 	 * 

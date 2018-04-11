@@ -9,8 +9,6 @@ import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.core.MtableManager;
 import org.netsharp.core.Oql;
-import org.netsharp.persistence.IPersister;
-import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
@@ -95,8 +93,8 @@ public class NCustomerService extends SupplierPersistableService<NCustomer> impl
 	}
 
 	@Override
-	public NCustomer save(NCustomer entity) {
-
+	public NCustomer create(NCustomer entity) {
+		
 		ActionContext ctx = new ActionContext();
 		{
 			ctx.setPath("gsb/crm/customer/save");

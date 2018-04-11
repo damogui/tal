@@ -72,8 +72,8 @@ public class ActionSaveCustomerVerify implements IAction {
 		ss.add("mobile=?");
 		oql.getParameters().add("mobile", mobile, Types.VARCHAR);
 		if (id != null) {
-			ss.add("id<>?");
-			oql.getParameters().add("id", id, Types.INTEGER);
+			ss.add("pkid<>?");
+			oql.getParameters().add("pkid", id, Types.INTEGER);
 		}
 		String filter = StringManager.join(" AND ", ss);
 		oql.setFilter(filter);
