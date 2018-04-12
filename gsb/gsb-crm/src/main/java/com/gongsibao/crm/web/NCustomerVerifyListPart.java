@@ -15,8 +15,6 @@ public class NCustomerVerifyListPart extends AdvancedListPart{
 			
 			//这里全匹配
 			String keyword = parameter.getValue1().toString();
-			filters.add("pkid='"+keyword+"'");
-			filters.add("real_name='"+keyword+"'");
 			filters.add("mobile='"+keyword+"'");
 			filters.add("telephone='"+keyword+"'");
 			filters.add("qq='"+keyword+"'");
