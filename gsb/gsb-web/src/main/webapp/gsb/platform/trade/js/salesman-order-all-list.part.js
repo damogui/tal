@@ -181,7 +181,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         }
         var contentUrl = this.addRefundUrl + "?id=" + row.id;
         //验证金额 和一些退款的状态
-        me.invokeService("refundCarryValidate", [row.id, 0], function (data) {
+        me.invokeService("refundValidate", [row.id], function (data) {
             if (data < 0) {
                 layer.msg('该订单无可退款金额，请知悉');
             } else if (data == 1051) {
@@ -217,7 +217,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             return false;
         }
         var contentUrl = this.addCarryoverUrl + "?id=" + row.id;
-        me.invokeService("refundCarryValidate", [row.id, 1], function (data) {
+        me.invokeService("carryValidate", [row.id], function (data) {
             if (data < 0) {
                 layer.msg('该订单无可结转金额，请知悉');
             } else if (data == 1051) {

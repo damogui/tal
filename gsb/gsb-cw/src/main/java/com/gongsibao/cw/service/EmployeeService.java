@@ -36,7 +36,7 @@ public class EmployeeService extends PersistableService<Employee> implements IEm
 		sql.append("SELECT e.id ,e.mobile,e.name,e.login_name FROM sys_permission_employee e ");
 		sql.append("LEFT JOIN sys_permission_organization o ON o.id = e.post_id  ");
 		sql.append("LEFT JOIN sys_permission_position p ON  o.position_id  = p.id   ");
-		sql.append("WHERE e.department_id = '"+departmentId+"' AND o.position_id =3 ");
+		sql.append("WHERE e.department_id = '"+departmentId+"' AND o.position_id = 3 ");
 		DataTable dataTable = this.pm.executeTable(sql.toString(), null);
 		for (IRow row : dataTable) {
 			Employee employee = new Employee();
@@ -73,6 +73,30 @@ public class EmployeeService extends PersistableService<Employee> implements IEm
 			}
 		}
 		return resultList;
+	}
+
+	@Override
+	public Employee getEmployeeByFinanceLeader(String code) {
+		Employee employee = new Employee();
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT e.id ,e.mobile,e.name,e.login_name FROM sys_permission_employee e ");
+		sql.append("LEFT JOIN sys_permission_organization o ON o.id = e.post_id  ");
+		sql.append("LEFT JOIN sys_permission_position p ON  o.position_id  = p.id   ");
+		sql.append("WHERE  o.position_id = 3  AND e.department_id IN ( ");
+		sql.append("SELECT o.id FROM sys_permission_organization_function  f ");
+		sql.append("LEFT JOIN sys_permission_organization  o  ON f.id = o.organization_function_id  ");
+		sql.append("WHERE f.code = 'Finance' ");
+		sql.append(") ");
+		DataTable dataTable = this.pm.executeTable(sql.toString(), null);
+		if(dataTable != null && dataTable.size()>0){
+			for (IRow row : dataTable) {
+				employee.setId(row.getInteger("id"));
+				employee.setMobile(row.getString("mobile"));
+				employee.setName(row.getString("name"));
+				break;
+			}
+		}
+		return employee;
 	}
 
 }

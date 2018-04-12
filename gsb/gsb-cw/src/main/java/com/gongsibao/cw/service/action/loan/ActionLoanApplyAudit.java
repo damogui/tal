@@ -10,6 +10,7 @@ import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
 import org.netsharp.organization.entity.Employee;
 import org.netsharp.persistence.session.SessionManager;
+import org.netsharp.wx.ea.base.IEaMessageService;
 
 import com.gongsibao.cw.base.IAuditRecordService;
 import com.gongsibao.cw.base.IEmployeeService;
@@ -23,7 +24,9 @@ public class ActionLoanApplyAudit  implements IAction{
 	IAuditRecordService auditRecordService = ServiceFactory.create(IAuditRecordService.class);
 	//获取上级领导
 	IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class); 
-		
+	
+	IEaMessageService eMessageService = ServiceFactory.create(IEaMessageService.class);
+	
 	@Override
 	public void execute(ActionContext ctx) {
 		 Loan loan = (Loan) ctx.getItem();
@@ -42,6 +45,8 @@ public class ActionLoanApplyAudit  implements IAction{
 				   	 au.setApplyUserId(SessionManager.getUserId());
 				   	 au.setStatus(FinanceDict.AuditDetailStatus.WAIT); //待审核
 				   	 auditRecordService.save(au);
+					 String  content = "【财务报销】"+loan.getCreator()+"提交了借款申请，单据编号："+loan.getCode()+" 请您尽快处理。";
+				   	 eMessageService.send("CRM", content, employee.getMobile());
 				 }
 			 }else{
 				 throw new BusinessException("您当前的组织机构错误，请联系管理员。");

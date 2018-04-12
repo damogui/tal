@@ -2,8 +2,11 @@ package com.gongsibao.entity.cms;
 
 
 import java.util.Date;
+import java.util.List;
 
+import com.gongsibao.entity.bd.File;
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
@@ -92,6 +95,50 @@ public class Product extends BaseEntity {
     @Column(name="remark",header="备注")
     private String remark;
 
+    /*产品加密ID*/
+    @Exclusive
+    private String prodIdStr;
+
+    /*手机产品图id(加密)*/
+    @Exclusive
+    private String appPordImgUrlIdStr;
+    /*手机产品图地址*/
+    @Exclusive
+    private String appPordImgUrl;
+
+    /*未选中手机产品图id(加密)*/
+    @Exclusive
+    private String unAppPordImgUrlIdStr;
+    /*未选中手机产品图地址*/
+    @Exclusive
+    private String unAppPordImgUrl;
+
+    /*产品小图标id(加密)*/
+    @Exclusive
+    private String prodIconImgUrlIdStr;
+    /*产品小图标地址*/
+    @Exclusive
+    private String prodIconImgUrl;
+
+    /*套餐里面产品的icon小图id(加密)*/
+    @Exclusive
+    private String packageProdIconUrlIdStr;
+    /*套餐里面产品的icon小图地址*/
+    @Exclusive
+    private String packageProdIconUrl;
+    /**
+     * PC产品图
+     */
+    @Exclusive
+    private List<File> pcProductImgList;
+
+    public List<File> getPcProductImgList() {
+        return pcProductImgList;
+    }
+
+    public void setPcProductImgList(List<File> pcProductImgList) {
+        this.pcProductImgList = pcProductImgList;
+    }
 
     public Integer getProductId() {
         return productId;
@@ -252,4 +299,75 @@ public class Product extends BaseEntity {
         this.remark = remark;
     }
 
+    public String getProdIdStr() {
+        return prodIdStr;
+    }
+
+    public void setProdIdStr(String prodIdStr) {
+        this.prodIdStr = prodIdStr;
+    }
+
+    public String getAppPordImgUrlIdStr() {
+        return appPordImgUrlIdStr;
+    }
+
+    public void setAppPordImgUrlIdStr(String appPordImgUrlIdStr) {
+        this.appPordImgUrlIdStr = appPordImgUrlIdStr;
+    }
+
+    public String getAppPordImgUrl() {
+        return appPordImgUrl;
+    }
+
+    public void setAppPordImgUrl(String appPordImgUrl) {
+        this.appPordImgUrl = appPordImgUrl;
+    }
+
+    public String getUnAppPordImgUrlIdStr() {
+        return unAppPordImgUrlIdStr;
+    }
+
+    public void setUnAppPordImgUrlIdStr(String unAppPordImgUrlIdStr) {
+        this.unAppPordImgUrlIdStr = unAppPordImgUrlIdStr;
+    }
+
+    public String getUnAppPordImgUrl() {
+        return unAppPordImgUrl;
+    }
+
+    public void setUnAppPordImgUrl(String unAppPordImgUrl) {
+        this.unAppPordImgUrl = unAppPordImgUrl;
+    }
+
+    public String getProdIconImgUrlIdStr() {
+        return prodIconImgUrlIdStr;
+    }
+
+    public void setProdIconImgUrlIdStr(String prodIconImgUrlIdStr) {
+        this.prodIconImgUrlIdStr = prodIconImgUrlIdStr;
+    }
+
+    public String getProdIconImgUrl() {
+        return prodIconImgUrl;
+    }
+
+    public void setProdIconImgUrl(String prodIconImgUrl) {
+        this.prodIconImgUrl = prodIconImgUrl;
+    }
+
+    public String getPackageProdIconUrlIdStr() {
+        return packageProdIconUrlIdStr;
+    }
+
+    public void setPackageProdIconUrlIdStr(String packageProdIconUrlIdStr) {
+        this.packageProdIconUrlIdStr = packageProdIconUrlIdStr;
+    }
+
+    public String getPackageProdIconUrl() {
+        return packageProdIconUrl;
+    }
+
+    public void setPackageProdIconUrl(String packageProdIconUrl) {
+        this.packageProdIconUrl = packageProdIconUrl;
+    }
 }

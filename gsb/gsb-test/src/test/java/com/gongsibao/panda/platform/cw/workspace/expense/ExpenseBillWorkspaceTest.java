@@ -118,14 +118,14 @@ public class ExpenseBillWorkspaceTest extends WorkspaceCreationBase {
 			datagrid.setToolbar("panda/datagrid/row/edit");
 		}
 		
-		addColumn(datagrid, "type", "报销类型", ControlTypes.ENUM_BOX, 200, true);
-		addColumn(datagrid, "code", "报销单号", ControlTypes.TEXT_BOX, 200, true);
+		addColumn(datagrid, "type", "报销类型", ControlTypes.ENUM_BOX, 200);
+		addColumn(datagrid, "code", "报销单号", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "totalAmount", "报销合计", ControlTypes.DECIMAL_FEN_BOX, 200);
 		addColumn(datagrid, "loanAmount", "借款金额", ControlTypes.DECIMAL_FEN_BOX, 200);
 		addColumn(datagrid, "amount", "报销金额", ControlTypes.DECIMAL_FEN_BOX, 200);
 		addColumn(datagrid, "createTime", "创建日期", ControlTypes.DATE_BOX, 200);  
 		addColumn(datagrid, "status", "审批状态", ControlTypes.ENUM_BOX, 200);
-		addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 400);
+		addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 300);
 		return datagrid;
 	}
     
@@ -149,7 +149,7 @@ public class ExpenseBillWorkspaceTest extends WorkspaceCreationBase {
         addFormField(form, "companyName", "公司名称", ControlTypes.TEXT_BOX, true, true);
         addFormField(form, "companyBank", "公司开户行", ControlTypes.TEXT_BOX, true, true);
         addFormField(form, "companyAccount", "公司银行账号", ControlTypes.TEXT_BOX, true, true);
-        addFormField(form, "entertainDate", "招待时间", ControlTypes.TEXT_BOX, true, true);
+        addFormField(form, "entertainDate", "招待时间", ControlTypes.DATE_BOX, true, true);
         addFormField(form, "entertainCompany", "招待公司名", ControlTypes.TEXT_BOX, true, true);
         addFormField(form, "entertainCustomer", "招待客户姓名", ControlTypes.TEXT_BOX, true, true);
         addFormField(form, "entertainPlace", "招待地点", ControlTypes.TEXT_BOX, true, true);

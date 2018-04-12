@@ -44,7 +44,7 @@ com.gongsibao.trade.web.OrderStageCtrl = org.netsharp.panda.core.CustomCtrl.Exte
     	// 还有一些联动未处理 hw
     },
     stageAmountChange:function(newValue,oldValue,numIndex){
-    	debugger;
+
     	var stageNum = parseInt($('#stageNum').combobox('getValue'));
     	var totalStageAmount =  (parseFloat($('#stageAmount').numberbox('getValue'))*100);
     	//验证输入分期金额是否合法
@@ -89,7 +89,7 @@ com.gongsibao.trade.web.OrderStageCtrl = org.netsharp.panda.core.CustomCtrl.Exte
     	}
     },
     save:function(){
-    	debugger;
+
     	var stageList = [];
     	var orderId = this.queryString('id');
     	var num = parseInt($('#stageNum').combobox('getValue'));

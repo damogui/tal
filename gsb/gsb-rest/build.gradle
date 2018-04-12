@@ -27,9 +27,17 @@ repositories {
 dependencies {
 
     compile project(':gsb-entity')
+    compile project(':gsb-bd')
+    compile project(':gsb-cms')
+	compile project(':gsb-account')
 
 	compile group:'org.springframework.boot',name:'spring-boot-starter',version:'2.0.1.RELEASE'
-	compile(group:'org.springframework.boot',name:'spring-boot-starter-web',version:'2.0.1.RELEASE')
+	compile group:'org.springframework.boot',name:'spring-boot-starter-web',version:'2.0.1.RELEASE'
+	compile group:'org.springframework.boot',name:'spring-boot-starter-data-redis',version:'2.0.1.RELEASE'
+	compile group:'com.github.binarywang',name:'weixin-java-mp',version:'2.9.0'
+	compile group:'com.github.binarywang',name:'weixin-java-pay',version:'2.9.0'
+	compile group:'org.projectlombok',name:'lombok-maven',version:'1.16.20.0'
+
 //            {
 //                exclude module: "spring-boot-starter-tomcat"
 //            }

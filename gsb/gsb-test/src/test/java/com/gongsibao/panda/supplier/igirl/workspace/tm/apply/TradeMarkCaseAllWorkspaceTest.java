@@ -303,11 +303,11 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
         addColumn(datagrid, "orderCode", "订单号", ControlTypes.TEXT_BOX, 80);
         addColumn(datagrid, "ownerName", "业务员", ControlTypes.TEXT_BOX, 50);
 
-        addColumn(datagrid, "caseAmount", "金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        addColumn(datagrid, "caseAmount", "金额", ControlTypes.DECIMAL_BOX, 100);
         addColumn(datagrid, "tmcState", "状态", ControlTypes.ENUM_BOX, 60);
         addColumn(datagrid, "tradeOptions", "商标选项", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "orderCode", "订单号", ControlTypes.TEXT_BOX, 100);
-
+        datagrid.setSortName("createTime Desc");
         return datagrid;
     }
 

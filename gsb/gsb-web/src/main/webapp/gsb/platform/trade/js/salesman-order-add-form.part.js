@@ -111,9 +111,26 @@ com.gongsibao.trade.web.SalesmanAddOrderFormPart = org.netsharp.panda.commerce.F
         	IMessageBox.toast('没有选择产品服务项', 2);
         	return false;
         }
-        //添加完刷新
-        window.location.href='/panda/crm/order/salesman/add';
         return true;
+    },
+    onSaved: function (jmessage) {
+        this.currentItem = jmessage;
+        if (this.currentItem != null) {
+
+            IMessageBox.toast("保存成功！");
+
+            setTimeout(function(){
+
+                //添加完刷新
+                window.location.reload();
+            	
+            },1000);
+            this.currentItem.entityState = EntityState.Persist;
+            this.viewModel.currentItem = this.currentItem;
+            this.databind();
+        } else {
+            IMessageBox.error("保存失败！");
+        }
     }
 });
 
@@ -307,7 +324,7 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
             maxmin: false,
             shadeClose: true,
             zIndex: 100000,
-            area: ['50%', '70%'],
+            area: ['80%', '90%'],
             content: builder.toString(),
             btn: ['提交', '取消'],
             success: function (layero, index) {
@@ -334,7 +351,7 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
         var rows = $('#serviceItems').datagrid('getChecked');
         if (rows == null || rows.length == 0) {
 
-            layer.msg('请选择服务项目！');
+            layer.msg('请选择产品名称和产品地区！');
             return null;
         }
         var productId = $('#product').combogrid('getValue');

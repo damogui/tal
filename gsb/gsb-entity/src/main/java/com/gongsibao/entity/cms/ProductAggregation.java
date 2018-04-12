@@ -1,9 +1,12 @@
 package com.gongsibao.entity.cms;
 
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
+
+import java.util.List;
 
 @Table(name="cms_product_aggregation",header="")
 public class ProductAggregation extends BaseEntity {
@@ -26,6 +29,28 @@ public class ProductAggregation extends BaseEntity {
     
     @Column(name="remark",header="")
     private String remark;
+
+    /*cms表和聚合表的中间集合*/
+    @Exclusive
+    private List<ProductAggregationMap> cmsProductAggregationMapList;
+    @Exclusive
+    private List<ProductAggregation> children;
+
+    public List<ProductAggregationMap> getCmsProductAggregationMapList() {
+        return cmsProductAggregationMapList;
+    }
+
+    public void setCmsProductAggregationMapList(List<ProductAggregationMap> cmsProductAggregationMapList) {
+        this.cmsProductAggregationMapList = cmsProductAggregationMapList;
+    }
+
+    public List<ProductAggregation> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<ProductAggregation> children) {
+        this.children = children;
+    }
 
     public Integer getParentId() {
         return parentId;

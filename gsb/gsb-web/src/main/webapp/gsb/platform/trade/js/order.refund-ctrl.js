@@ -46,12 +46,14 @@ com.gongsibao.trade.web.OrderRefundCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     	this.invokeService ("getSoOrder", [orderId], function(data){
     		var paidPrice = data.paidPrice;
       		var refundPrice = data.refundPrice;
+      		//订单可退款额
       		var getFinals = parseFloat(paidPrice - refundPrice);
       		$("#refundPrice_hidd").val(getFinals);
+      		//退款总额(页面中获取得到)
       		var getNewValue = parseFloat(newValue)*100;
-        	if((getFinals - getNewValue) < 0){
+        	if((getNewValue - getFinals) > 0){
         		$('#amount').numberbox('clear');
-        		layer.msg('退款业绩总额不等于退款总额，请核实');
+        		layer.msg('退款总额大于订单可退款额，请核实');
         	}
     	});
     },
@@ -74,7 +76,6 @@ com.gongsibao.trade.web.OrderRefundCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     	}
     },*/
     save:function(){
-
     	var booksId = $('#setOfBooksId').combogrid('getValue');
     	var u8BankId = $("#u8BankId").combogrid('getValue');
     	//var refundType = $('#refundType').combobox('getValue');
@@ -82,7 +83,7 @@ com.gongsibao.trade.web.OrderRefundCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     	var bankNo = $('#bankNo').val();
     	var amount = parseFloat($('#amount').numberbox('getValue'))*100;
     	var refundRemark = $('#refundRemark').val();
-    	//验证
+    	//验证必填项
     	if(isEmpty(booksId) || isEmpty(u8BankId) || isEmpty(payerName) || isEmpty(bankNo) || isNaN(amount) || isEmpty(refundRemark)){
     		layer.msg('请输入必填项');
     		return false;
@@ -123,12 +124,29 @@ com.gongsibao.trade.web.OrderRefundCtrl = org.netsharp.panda.core.CustomCtrl.Ext
         		itemList.push(item);
     		}
     	}
-    	refund.refunds = itemList;
+    	refund.refunds = itemList;    	
     	//退款业绩分配
     	var depRefunds = this.refundPerformanceCtrl.getDepRefundRows();
+    	//验证退款业绩
+    	if(depRefunds == null || depRefunds == ""){
+    		layer.msg('退款业绩还未创建，请创建后再保存！');
+    		return false;
+    	}
+    	//退款业绩总额
+    	var totalRefundPerf = 0;
+    	for(var i=0;i<depRefunds.length;i++){
+    		var refundPerf = depRefunds[i];
+    		if(!System.isnull(refundPerf.amount) && parseFloat(refundPerf.amount) >0){
+    			totalRefundPerf += parseFloat(refundPerf.amount);
+    		}
+    	}
+    	//验证退款业绩总额是否等于退款总额
+    	if(totalRefundPerf != amount){
+    		layer.msg('退款业绩总额不等于退款总额，请核实！');
+    		return false;
+    	}
     	
     	refund.depRefunds = depRefunds;
-    	
     	var me = this;
     	IMessageBox.confirm('确定提交申请吗？',function(r){    		
     		if(r){

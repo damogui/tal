@@ -69,6 +69,7 @@ public class AuditRecordService extends PersistableService<AuditRecord> implemen
 	   	 au.setApplyUserId(auditRecord.getApplyUserId());
 	   	 au.setApplyDepartmentId(auditRecord.getApplyDepartmentId());
 	   	 au.setMemoto(auditRecord.getMemoto());
+	   	 au.setUpdateTime(new Date());
 	   	 au.setStatus(FinanceDict.AuditDetailStatus.DONE); //财务办理完成
 	   	 this.save(au);
 	}

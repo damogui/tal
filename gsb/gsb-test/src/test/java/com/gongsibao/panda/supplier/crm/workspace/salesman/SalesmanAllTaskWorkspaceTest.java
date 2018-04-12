@@ -85,7 +85,7 @@ public class SalesmanAllTaskWorkspaceTest extends TaskALLWorkspaceTest {
 		queryProject.setName(listPartName);
 		PQueryItem item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
 		{
-			item.setTooltip("输入客户ID、客户名称、联系方式等");
+			item.setTooltip("输入客户ID、客户名称、联系方式");
 			item.setWidth(250);
 		}
 		item = addQueryItem(queryProject, "source.name", "商机来源", ControlTypes.CUSTOM);{

@@ -91,16 +91,17 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "realName", "客户名称", ControlTypes.TEXT_BOX, 120);
 		
 		//公司名称
-		column = addColumn(datagrid, "isMember", "是否会员", ControlTypes.TEXT_BOX, 60);{
+		column = addColumn(datagrid, "isMember", "是否会员", ControlTypes.TEXT_BOX, 100);{
 
 			StringBuilder builder = new StringBuilder();
 			builder.append("if(value===true){return '是   ';}");
 			builder.append("else{");
 			builder.append("if(row.mobile){");
 			builder.append("var ctrl = workspace.parts.byIndex(0).key;");
-			builder.append("return '否<a title=\\'开通会员\\' class=\\'grid-btn\\' href=javascript:'+ctrl+'.openMember('+row.id+');>");
-			builder.append("<i style=\\'font-size: 12px;\\' class=\\'fa fa-user-plus\\'></i>");
-			builder.append("<a>';");
+			builder.append("return '否<a title=\\'开通会员\\' class=\\'grid-btn\\' href=javascript:'+ctrl+'.openMember('+row.id+',true);>");
+			builder.append("<i style=\\'font-size: 12px;color:red;\\' class=\\'fa fa-user-plus\\'></i><a>");
+			builder.append("<a title=\\'静默开通\\' class=\\'grid-btn\\' href=javascript:'+ctrl+'.openMember('+row.id+',false);>");
+			builder.append("<i style=\\'font-size: 12px;\\' class=\\'fa fa-user-plus\\'></i><a>';");
 			builder.append("}else{return '否';}");
 			builder.append("}");
 			column.setFormatter(builder.toString());
@@ -143,7 +144,7 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 		queryProject.toNew();
 		PQueryItem item = null;
 		item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);{
-			item.setTooltip("输入客户ID、客户名称、联系方式等");
+			item.setTooltip("输入客户ID、客户名称、联系方式");
 			item.setWidth(250);
 		}
 		addQueryItem(queryProject, "createTime", "创建时间", ControlTypes.DATE_BOX);
