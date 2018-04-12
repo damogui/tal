@@ -2,11 +2,10 @@ package com.gongsibao.panda.supplier.order.workspace.audit;
 
 import java.util.List;
 
-import com.gongsibao.panda.platform.trade.workspace.order.InvoiceFormWorKspace;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderInvoiceFormWorkspaceTest;
 import com.gongsibao.trade.web.AuditLogDetailPart;
 
 import org.junit.Before;
-import org.junit.Test;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.PartType;
@@ -22,7 +21,7 @@ import org.netsharp.util.ReflectManager;
 /**
  * Created by zhangchao on 2018/3/27.
  */
-public class AuditInvoiceFormWorkspaceTest extends InvoiceFormWorKspace {
+public class AuditSalesmanOrderInvoiceFormWorkspaceTest extends SalesmanOrderInvoiceFormWorkspaceTest {
 
     // 发票审核界面
     @Before

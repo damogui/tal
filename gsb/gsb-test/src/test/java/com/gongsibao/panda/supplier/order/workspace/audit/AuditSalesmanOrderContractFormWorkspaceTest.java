@@ -1,16 +1,12 @@
 package com.gongsibao.panda.supplier.order.workspace.audit;
 
-import com.gongsibao.panda.platform.trade.workspace.order.ContractFormWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderContractFormWorkspaceTest;
 import com.gongsibao.trade.web.AuditLogDetailPart;
 import org.junit.Before;
-import org.junit.Test;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.*;
-import org.netsharp.panda.plugin.dic.ToolbarType;
-import org.netsharp.panda.plugin.entity.PToolbar;
-import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
@@ -20,7 +16,7 @@ import java.util.List;
 /**
  * Created by zhangchao on 2018/3/26.
  */
-public class AuditContractFormWorkspaceTest extends ContractFormWorkspaceTest {
+public class AuditSalesmanOrderContractFormWorkspaceTest extends SalesmanOrderContractFormWorkspaceTest {
 
     //合同审核界面
     @Before
