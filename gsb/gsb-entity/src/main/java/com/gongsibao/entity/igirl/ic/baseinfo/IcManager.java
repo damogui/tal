@@ -1,4 +1,4 @@
-package com.gongsibao.entity.igirl.ic;
+package com.gongsibao.entity.igirl.ic.baseinfo;
 
 import com.gongsibao.entity.crm.dic.Sex;
 import com.gongsibao.entity.igirl.ic.baseinfo.AreaOne;

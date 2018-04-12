@@ -10,30 +10,36 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Table(name = "ig_settle", header = "结算单列表")
 public class Settle extends Entity {
 
+    public static final BigDecimal TAX_RATE = new BigDecimal(6.72);
+
     @Column(name = "memo", header = "结算说明")
     private String memo;
 
     @Column(name = "handle_status", header = "结算单处理状态")
-    private SettleHandleStatus handleStatus;
+    private SettleHandleStatus handleStatus = SettleHandleStatus.PLATFORM_AUDITING;
 
-    @Column(name = "total_amount", size = 10, precition = 2,header = "总金额")
+    @Column(name = "total_amount", size = 10, precition = 2, header = "总金额")
     private BigDecimal totalAmount;
 
-    @Column(name = "total_cost", size = 10, precition = 2,header = "成本")
+    @Column(name = "total_cost", size = 10, precition = 2, header = "成本")
     private BigDecimal totalCost;
 
-    @Column(name = "total_charge", size = 10, precition = 2,header = "服务费")
+    @Column(name = "total_charge", size = 10, precition = 2, header = "服务费")
     private BigDecimal totalCharge;
 
-    @Column(name = "tax", size = 10, precition = 2,header = "税额")
+    @Column(name = "tax_rate", size = 10, precition = 2, header = "税率")
+    private BigDecimal taxRate = new BigDecimal(TAX_RATE.doubleValue());
+
+    @Column(name = "tax", size = 10, precition = 2, header = "税额")
     private BigDecimal tax;
 
-    @Column(name = "commission", size = 10, precition = 2,header = "佣金")
+    @Column(name = "commission", size = 10, precition = 2, header = "佣金")
     private BigDecimal commission;
 
     @Column(name = "supplier_id", header = "服务商Id")
@@ -44,7 +50,7 @@ public class Settle extends Entity {
     private Supplier supplier;
 
     @Subs(foreignKey = "settleId", header = "审核日志", subType = SettleHandleLog.class)
-    private List<SettleHandleLog> handleLogList;
+    private List<SettleHandleLog> handleLogList = new ArrayList<>();
 
     @Subs(foreignKey = "settleId", header = "审核日志", subType = SettleOrder.class)
     private List<SettleOrder> settleOrderList;
@@ -66,7 +72,7 @@ public class Settle extends Entity {
     }
 
     public BigDecimal getTotalAmount() {
-        return totalAmount;
+        return null == totalAmount ? BigDecimal.ZERO : totalAmount;
     }
 
     public void setTotalAmount(BigDecimal totalAmount) {
@@ -74,7 +80,7 @@ public class Settle extends Entity {
     }
 
     public BigDecimal getTotalCost() {
-        return totalCost;
+        return null == totalCost ? BigDecimal.ZERO : totalCost;
     }
 
     public void setTotalCost(BigDecimal totalCost) {
@@ -82,15 +88,23 @@ public class Settle extends Entity {
     }
 
     public BigDecimal getTotalCharge() {
-        return totalCharge;
+        return null == totalCharge ? BigDecimal.ZERO : totalCharge;
     }
 
     public void setTotalCharge(BigDecimal totalCharge) {
         this.totalCharge = totalCharge;
     }
 
+    public BigDecimal getTaxRate() {
+        return null == taxRate ? BigDecimal.ZERO : taxRate;
+    }
+
+    public void setTaxRate(BigDecimal taxRate) {
+        this.taxRate = taxRate;
+    }
+
     public BigDecimal getTax() {
-        return tax;
+        return null == tax ? BigDecimal.ZERO : tax;
     }
 
     public void setTax(BigDecimal tax) {
@@ -98,7 +112,7 @@ public class Settle extends Entity {
     }
 
     public BigDecimal getCommission() {
-        return commission;
+        return null == commission ? BigDecimal.ZERO : commission;
     }
 
     public void setCommission(BigDecimal commission) {

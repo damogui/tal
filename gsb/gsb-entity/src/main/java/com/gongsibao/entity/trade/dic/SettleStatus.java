@@ -16,7 +16,6 @@ public enum SettleStatus implements IEnum {
         this.value = value;
         this.text = text;
     }
-
     @JsonCreator
     public static SettleStatus getItem(int value) {
 

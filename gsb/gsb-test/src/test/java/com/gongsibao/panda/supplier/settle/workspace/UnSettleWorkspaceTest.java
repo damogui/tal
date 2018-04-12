@@ -76,10 +76,9 @@ public class UnSettleWorkspaceTest extends WorkspaceCreationBase {
         datagrid.setShowCheckbox(true);
         datagrid.setSingleSelect(false);
         datagrid.setFit(true);
-        addColumn(datagrid, "orderProdId", "订单明细id", ControlTypes.TEXT_BOX, 200).setAlign(DatagridAlign.CENTER);
-        addColumn(datagrid, "orderId", "订单id", ControlTypes.TEXT_BOX, 150).setAlign(DatagridAlign.CENTER);
+        addColumn(datagrid, "orderProdId", "订单明细编号", ControlTypes.TEXT_BOX, 200).setAlign(DatagridAlign.CENTER);
         addColumn(datagrid, "soOrder.no", "订单号", ControlTypes.TEXT_BOX, 100).setAlign(DatagridAlign.CENTER);
-        addColumn(datagrid, "caseId", "方案id", ControlTypes.TEXT_BOX, 100).setAlign(DatagridAlign.CENTER);
+        addColumn(datagrid, "caseId", "案件编号", ControlTypes.TEXT_BOX, 100).setAlign(DatagridAlign.CENTER);
         addColumn(datagrid, "caseType", "方案类型", ControlTypes.ENUM_BOX, 100).setAlign(DatagridAlign.CENTER);
         addColumn(datagrid, "orderProd.productName", "产品名称", ControlTypes.TEXT_BOX, 150).setAlign(DatagridAlign.CENTER);
         addColumn(datagrid, "account.mobilePhone", "客户手机", ControlTypes.TEXT_BOX, 150).setAlign(DatagridAlign.CENTER);
@@ -96,9 +95,8 @@ public class UnSettleWorkspaceTest extends WorkspaceCreationBase {
 
         PQueryProject queryProject = super.createQueryProject(node);
         queryProject.toNew();
-        addQueryItem(queryProject, "orderId", "订单id", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "soOrder.no", "订单号", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "orderProdId", "订单明细id", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "orderProdId", "订单明细ID", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "orderProd.productName", "产品名称", ControlTypes.TEXT_BOX);
 
         return queryProject;

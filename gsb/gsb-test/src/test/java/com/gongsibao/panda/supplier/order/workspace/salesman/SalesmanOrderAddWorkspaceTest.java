@@ -86,10 +86,9 @@ public class SalesmanOrderAddWorkspaceTest extends WorkspaceCreationBase {
 //		addFormField(form, "discountPrice", "优惠金额", groupName, ControlTypes.DECIMAL_FEN_BOX, false, true);
 		addFormField(form, "payablePrice", "应付金额", groupName, ControlTypes.DECIMAL_FEN_BOX, false, true);
 		
-		
 		formField = addFormField(form, "remark", "备注", groupName, ControlTypes.TEXTAREA, false, false);
 		{
-			formField.setFullColumn(true);
+			formField.setFullColumn(false);
 			formField.setHeight(50);
 		}
 
@@ -111,7 +110,7 @@ public class SalesmanOrderAddWorkspaceTest extends WorkspaceCreationBase {
 			datagrid.setShowCheckbox(false);
 			datagrid.setSingleSelect(true);
 			datagrid.setReadOnly(true);
-			datagrid.setShowTitle(true);
+			datagrid.setShowTitle(false);
 			datagrid.setRownumbers(false);
 			PDatagridColumn column = null;
 			column = addColumn(datagrid, "index", "", ControlTypes.TEXT_BOX, 40);{
@@ -184,7 +183,7 @@ public class SalesmanOrderAddWorkspaceTest extends WorkspaceCreationBase {
 		{
 			toolbar.toNew();
 			toolbar.setPath("order/product/detail");
-			toolbar.setName("新增");
+			toolbar.setName("新增产品");
 			toolbar.setResourceNode(node);
 			toolbar.setToolbarType(ToolbarType.BASE);
 		}
@@ -192,7 +191,7 @@ public class SalesmanOrderAddWorkspaceTest extends WorkspaceCreationBase {
 		{
 			item.toNew();
 			item.setCode("add");
-			item.setName("新增");
+			item.setName("新增产品信息");
 			item.setIcon("fa fa-plus fa-fw");
 			item.setSeq(1);
 			item.setCommand("{controller}.add();");

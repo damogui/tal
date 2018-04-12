@@ -5,7 +5,7 @@ import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
-@Table(name = "ig_order_settle_handle_log", header = "结算单处理日志")
+@Table(name = "ig_settle_handle_log", header = "结算单处理日志")
 public class SettleHandleLog extends Entity {
 
     @Column(name = "settle_id", header = "结算单id")

@@ -34,8 +34,8 @@
 	<script src='/gsb/platform/trade/js/pay-performance.ctrl.js'></script>
 </head>
      <body class="easyui-layout">
-        <div data-options="region:'north',split:false,collapsible:false,closed:false,height:220">
-        	 <div class="formContent">
+        <div data-options="region:'north',split:false,collapsible:false,closed:false,height:180">
+        	 <div class="formContent" style="padding:5px 0 0 0;">
 				  <table cellpadding="3" cellspacing="0" class="form-panel">
 				      <tr>
 				          <td class="label_td"><label>订单编号：</label></td>

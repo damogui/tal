@@ -16,7 +16,7 @@ com.gongsibao.trade.web.OrderPayCtrl = org.netsharp.panda.core.CustomCtrl.Extend
     init: function () {
         $('#detail_tabs').tabs({
             fit: true,
-            tabHeight: 35
+            tabHeight: 30
         });
 
         this.bindSetOfBooks();
@@ -137,12 +137,8 @@ com.gongsibao.trade.web.OrderPayCtrl = org.netsharp.panda.core.CustomCtrl.Extend
         this.invokeService("applyPay", [pay], function (data) {
 
             isSave=data;
-
-
-
         },false);
         return isSave;
-
     }
 });
 

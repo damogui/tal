@@ -8,10 +8,8 @@ com.gongsibao.trade.web.OrderStageCtrl = org.netsharp.panda.core.CustomCtrl.Exte
     init:function(){
 		
 		$('#stage_panel').panel('resize',{
-			height: $('body').height()-220
+			height: $('body').height()-190
 		});
-
-
     	var orderId = this.queryString('id');
     	this.invokeService ("getSoOrder", [orderId], function(data){
     		

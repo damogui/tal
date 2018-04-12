@@ -1,7 +1,5 @@
-package com.gongsibao.entity.igirl.ic;
+package com.gongsibao.entity.igirl.ic.baseinfo;
 
-import com.gongsibao.entity.igirl.ic.baseinfo.AreaOne;
-import com.gongsibao.entity.igirl.ic.baseinfo.AreaTwo;
 import com.gongsibao.entity.igirl.ic.dict.CorpNation;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;

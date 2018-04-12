@@ -7,38 +7,41 @@ com.gongsibao.trade.web.OrderCarryoverCtrl = org.netsharp.panda.core.CustomCtrl.
     },
     init:function(){
 		
-		$('#detail_tabs').tabs({
-			fit:true,
-			tabHeight:35
-		});
-		
     	var orderId = this.queryString('id');
     	this.invokeService ("getSoOrder", [orderId], function(data){
+    		
     		$("payablePrice_hidden").val(data.payablePrice);
       		$("#paidPrice_hidden").val(data.paidPrice);
       		$("#refundPrice_hidden").val(data.refundPrice);
       		$("#carryAmount_hidden").val(data.carryAmount);
+      		$("#carryIntoAmount_hidden").val(data.carryIntoAmount);
       		
     		$('#formOrderNo').val(data.no);
     	});
     },
     amountChange:function(newValue,oldValue){
-    	//1.判断结转转出额是否大于订单可结转金额
+    	//1.判断结转转出额是否大于订单余额
+    	
     	var payAblePrice = $("payablePrice_hidden").val();
     	var paidPrice = $("#paidPrice_hidden").val();
     	var refundPrice = $("#refundPrice_hidden").val();
     	var carryAmount = $("#carryAmount_hidden").val();
-    	var rollOutAmout = paidPrice - refundPrice - carryAmount;
+    	var carryIntoAmount = $("#carryIntoAmount_hidden").val();
+    	
+    	var balance = paidPrice + carryIntoAmount -refundPrice - carryAmount;
     	var getNewValue = parseFloat(newValue)*100;
-    	if((rollOutAmout - getNewValue) < 0){
+    	
+    	if((balance - getNewValue) < 0){
     		$('#amount').numberbox('clear');
-    		layer.msg('结转转出额大于订单可结转金额，请核实');
+    		layer.msg('结转金额大于订单余额，请核实');
+    		return false;
     	}
+    	
+    	var carryIntoAmount = payAblePrice - paidPrice;
     	//2.判断结转转入额是否大于待付款金额
-    	var intoAmount = payAblePrice - paidPrice;
-    	if((intoAmount - getNewValue) > 0){
+    	if((carryIntoAmount - getNewValue) > 0){
     		$('#amount').numberbox('clear');
-    		layer.msg('结转转入额大于待付金额，请核实');
+    		layer.msg('结转金额大于转入订单待付款金额，请核实');
     	}
     },
     toOrderNoBlur:function(){

@@ -39,7 +39,7 @@ public class SettleNavigationTest extends NavigationBase {
             createPTreeNode(tree, "Gsb_Supplier_Settle", null, "Gsb_Supplier_Settle_My", "我的结算", "", 1);
             {
                 createPTreeNode(tree, "Gsb_Supplier_Settle_My", null, "Gsb_Supplier_My_Unsettle", "待结算订单", "/igirl/settle/unSettle/list", 1);
-                createPTreeNode(tree, "Gsb_Supplier_Settle_My", null, "Gsb_Supplier_MySettled", "结算单列表", "/igirl/settle/settleOrder/list", 2);
+                createPTreeNode(tree, "Gsb_Supplier_Settle_My", null, "Gsb_Supplier_MySettled", "我的结算单", "/igirl/settle/settleOrder/myList", 2);
             }
         }
     }

@@ -1,15 +1,16 @@
-package com.gongsibao.entity.igirl.ic;
+package com.gongsibao.entity.igirl.ic.baseinfo;
 
+import com.gongsibao.entity.crm.dic.Sex;
 import com.gongsibao.entity.igirl.ic.baseinfo.AreaOne;
 import com.gongsibao.entity.igirl.ic.baseinfo.AreaTwo;
+import com.gongsibao.entity.igirl.ic.baseinfo.Nationality;
 import com.gongsibao.entity.igirl.ic.dict.*;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
-import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
-@Table(name = "ic_director",header = "董事")
-public class IcDirector extends Entity{
+public class IcConductor extends Entity{
+
     @Column(name = "name",header = "姓名")
     private String name;
 
@@ -19,8 +20,14 @@ public class IcDirector extends Entity{
     @Column(name = "cer_type",header = "证件类型")
     private CorpLicenceType cerType;
 
-    @Column(name = "cer_no",header = "移动电话号码")
+    @Column(name = "cer_no",header = "证件号码")
     private String cerNo;
+
+    @Column(name = "country",header = "国籍")
+    private Nationality country;
+
+    @Column(name = "sex",header = "性别")
+    private Sex sex;
 
     @Column(name = "mob_tel",header = "移动电话号码")
     private String mobTel;
@@ -37,17 +44,11 @@ public class IcDirector extends Entity{
     @Column(name = "nat_date",header = "出生日期")
     private String natDate;
 
-    @Column(name = "position",header = "职务")
-    private CorpPosition position;
-
     @Column(name = "pos_br_form",header = "产生方式")
     private CorpBuildMothed posBrForm;
 
     @Column(name = "off_years",header = "任职期限")
     private CorpDeadline offYears;
-
-    @Column(name = "is_manager",header = "是否兼任经理")
-    private CorpBoolean isManager;
 
     @Column(name = "area_one_id",header = "户籍登记地址Id")
     private Integer areaOneId;
@@ -63,6 +64,9 @@ public class IcDirector extends Entity{
 
     @Column(name = "house_add_other",header = "户籍登记地址详细信息二")
     private String houseAddOther;
+
+    @Column(name = "sups_type",header = "监事类型")
+    private CorpSupervisor supsType;
 
     public String getName() {
         return name;
@@ -94,6 +98,22 @@ public class IcDirector extends Entity{
 
     public void setCerNo(String cerNo) {
         this.cerNo = cerNo;
+    }
+
+    public Nationality getCountry() {
+        return country;
+    }
+
+    public void setCountry(Nationality country) {
+        this.country = country;
+    }
+
+    public Sex getSex() {
+        return sex;
+    }
+
+    public void setSex(Sex sex) {
+        this.sex = sex;
     }
 
     public String getMobTel() {
@@ -136,14 +156,6 @@ public class IcDirector extends Entity{
         this.natDate = natDate;
     }
 
-    public CorpPosition getPosition() {
-        return position;
-    }
-
-    public void setPosition(CorpPosition position) {
-        this.position = position;
-    }
-
     public CorpBuildMothed getPosBrForm() {
         return posBrForm;
     }
@@ -158,14 +170,6 @@ public class IcDirector extends Entity{
 
     public void setOffYears(CorpDeadline offYears) {
         this.offYears = offYears;
-    }
-
-    public CorpBoolean getIsManager() {
-        return isManager;
-    }
-
-    public void setIsManager(CorpBoolean isManager) {
-        this.isManager = isManager;
     }
 
     public Integer getAreaOneId() {
@@ -206,5 +210,13 @@ public class IcDirector extends Entity{
 
     public void setHouseAddOther(String houseAddOther) {
         this.houseAddOther = houseAddOther;
+    }
+
+    public CorpSupervisor getSupsType() {
+        return supsType;
+    }
+
+    public void setSupsType(CorpSupervisor supsType) {
+        this.supsType = supsType;
     }
 }

@@ -24,7 +24,7 @@
 	<script src='/gsb/platform/trade/js/order.stage-ctrl.js'></script>
 </head>
     <body class="easyui-layout">
-	    <div class="easyui-panel" title="订单信息"  data-options="height:220" style="padding:10px;"> 
+	    <div class="easyui-panel" title="订单信息"  data-options="height:190"> 
 	        <jsp:include page="/gsb/platform/trade/include/orderInfo.jsp"></jsp:include>
 		</div>
 	       <div id="stage_panel" class="easyui-panel" title="分期信息"  style="padding:10px;"> 

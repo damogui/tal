@@ -41,8 +41,8 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                     title: '创建回款业绩',
                     fixed: false,
                     maxmin: true,
-                    shadeClose: false,
-                    area: ['80%', '80%'],
+                    shadeClose: true,
+                    area: ['90%', '90%'],
                     zIndex: 100000,
                     id: "addReceivedIframe",
                     content: urlEnd,
@@ -90,8 +90,8 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                     title: '订单业绩信息',
                     fixed: false,
                     maxmin: true,
-                    shadeClose: false,
-                    area: ['60%', '80%'],
+                    shadeClose: true,
+                    area: ['90%', '90%'],
                     zIndex: 100000,
                     id: "addOrderReceivedIframe",
                     content: urlEnd,
@@ -145,8 +145,8 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                     title: '创建回款',
                     fixed: false,
                     maxmin: true,
-                    shadeClose: false,
-                    area: ['80%', '80%'],
+                    shadeClose: true,
+                    area: ['90%', '90%'],
                     zIndex: 100000,
                     id: "addReceivedIframe",
                     content: urlEnd,
@@ -181,7 +181,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         }
         var contentUrl = this.addRefundUrl + "?id=" + row.id;
         //验证金额 和一些退款的状态
-        me.invokeService("refundCarryValidate", [row.id, 0], function (data) {
+        me.invokeService("refundValidate", [row.id], function (data) {
             if (data < 0) {
                 layer.msg('该订单无可退款金额，请知悉');
             } else if (data == 1051) {
@@ -194,8 +194,8 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                     title: '申请退款',
                     fixed: false,
                     maxmin: true,
-                    shadeClose: false,
-                    area: ['65%', '80%'],
+                    shadeClose: true,
+                    area: ['90%', '90%'],
                     zIndex: 100000,
                     id: "addRefundIframe",
                     content: contentUrl,
@@ -217,7 +217,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             return false;
         }
         var contentUrl = this.addCarryoverUrl + "?id=" + row.id;
-        me.invokeService("refundCarryValidate", [row.id, 1], function (data) {
+        me.invokeService("carryValidate", [row.id], function (data) {
             if (data < 0) {
                 layer.msg('该订单无可结转金额，请知悉');
             } else if (data == 1051) {
@@ -230,8 +230,8 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                     title: '创建结转',
                     fixed: false,
                     maxmin: true,
-                    shadeClose: false,
-                    area: ['60%', '70%'],
+                    shadeClose: true,
+                    area: ['90%', '90%'],
                     zIndex: 100000,
                     id: "addCarryoverIframe",
                     content: contentUrl,
@@ -279,8 +279,8 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
     	            title: '申请分期',
     	            fixed: false,
     	            maxmin: true,
-    	            shadeClose: false,
-    	            area: ['60%', '70%'],
+    	            shadeClose: true,
+    	            area: ['90%', '90%'],
     	            zIndex: 100000,
     	            id: "addStagingIframe",
     	            content: contentUrl,
@@ -320,7 +320,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                 fixed: false,
                 maxmin: true,
                 shadeClose: true,
-                area: ['60%', '90%'],
+                area: ['90%', '90%'],
                 content: url,
                 btn: ['提交', '取消'],
                 success: function (layero, index) {
@@ -356,11 +356,11 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                 layer.open({
                     id: "invoiceCreateIframe",
                     type: 2,
-                    title: '基本信息',
+                    title: '申请发票',
                     fixed: false,
                     maxmin: true,
                     shadeClose: true,
-                    area: ['60%', '90%'],
+                    area: ['90%', '90%'],
                     content: url,
                     btn: ['提交', '取消'],
                     success: function (layero, index) {

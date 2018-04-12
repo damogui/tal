@@ -26,7 +26,7 @@
 	<script src='/gsb/platform/trade/js/order-pay.ctrl.js'></script>
 </head>
      <body class="easyui-layout">
-        <div data-options="region:'north',split:false,collapsible:false,closed:false,height:220">
+        <div data-options="region:'north',split:false,collapsible:false,closed:false,height:155">
         	 <div class="formContent">
 				  <table cellpadding="3" cellspacing="0" class="form-panel">
 					  <tr>
@@ -38,18 +38,16 @@
 				          <td class="control_td">
 				          		<input id="u8BankId" class="easyui-combobox nsInput" data-options="editable:false,width:200"/>
 				          </td>
-					  </tr>
-				      <tr>
 				          <td class="label_td"><label>付款账户名称：</label></td>
 				          <td class="control_td">
 				          		<input id="offlinePayerName" class="easyui-validatebox nsInput" style="width:200px;"/>
 				          </td>
+					  </tr>
+				      <tr>
 				          <td class="label_td"><label>付款账号：</label></td>
 				          <td class="control_td">
 				          		<input id="offlineBankNo" class="easyui-validatebox nsInput" style="width:200px;"/>
 				          </td>
-					</tr>
-				      <tr>
 				          <td class="label_td"><label>一笔多单：</label></td>
 				          <td class="control_td">
 									<input id="payForOrderCount" class="easyui-switchbutton" data-options="width:60,height:28,onText:'是',offText:'否',onChange:function(checked){payCtrl.payForOrderCount=checked;}"/>

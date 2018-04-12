@@ -12,7 +12,7 @@ com.gongsibao.trade.web.AuditContractListPart = org.netsharp.panda.commerce.List
 
         $('#detail_tabs').tabs({
             fit: true,
-            tabHeight: 35
+            tabHeight: 30
         });
     },
     initData: function () {

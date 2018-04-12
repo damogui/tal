@@ -167,8 +167,6 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
         formField = addFormField (form, "remark", "备注", groupName, ControlTypes.TEXT_BOX, false);
         {
             formField.setReadonly (true);
-            formField.setWidth (120);
-
         }
 
         return form;
