@@ -2,6 +2,8 @@ package com.gongsibao.uc.service;
 
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.netsharp.communication.Service;
@@ -139,6 +141,19 @@ public class OrganizationService extends PersistableService<Organization> implem
 			}
 
 			childList.add(o);
+		}
+		return childList;
+	}
+
+	@Override
+	public List<Integer> getChildIdsByParentIds(Collection<Integer> organizationIds) {
+		List<Integer> childList = new ArrayList<Integer>();
+		Iterator iterator=organizationIds.iterator();
+		while(iterator.hasNext()){
+			Integer id = (Integer) iterator.next();
+			for(Organization organization:this.getChildList(id)){
+				childList.add(organization.getId());
+			}
 		}
 		return childList;
 	}

@@ -89,11 +89,11 @@ public class NCustomerProductService extends SupplierPersistableService<NCustome
 			}
 			selectBuilder.append(" ) ");
 		}
-		
+
 		DataTable dataTable = this.pm.executeTable(selectBuilder.toString(), null);
 		for (IRow row : dataTable) {
-			
-			 amount = new BigDecimal(row.getString("amount"));
+
+			amount = new BigDecimal(row.getString("amount"));
 		}
 
 		//数据库中是分，要除以100

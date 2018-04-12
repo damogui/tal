@@ -9,9 +9,12 @@ import com.gongsibao.entity.cms.Product;
 import com.gongsibao.rest.common.apiversion.Api;
 import com.gongsibao.rest.common.util.ProductUtils;
 import com.gongsibao.rest.common.web.ResponseData;
+import com.gongsibao.rest.service.product.IProductPriceService;
 import com.gongsibao.utils.NumberUtils;
 import org.netsharp.communication.ServiceFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,16 +28,17 @@ import java.util.Map;
 public class ICompanyProductController {
     IProductService cmsProductService = ServiceFactory.create(IProductService.class);
     IFileService bdFileService =ServiceFactory.create(IFileService.class);
+
+    @Autowired
+    IProductPriceService productPriceService;
     /**
      * 包含产品cms信息，产品聚合信息，产品流程信息
      *
      * @param request
-     * @param response
-     * @param ucAccount
      * @return
      */
-    @RequestMapping("/cmsInfo")
-    private ResponseData cmsInfo(HttpServletRequest request, HttpServletResponse response, Account ucAccount) {
+    @RequestMapping(value = "/cmsInfo",method = RequestMethod.GET)
+    private ResponseData cmsInfo(HttpServletRequest request) {
         ResponseData data = new ResponseData();
         Map<String, Object> result = new HashMap<>();
 
@@ -73,6 +77,33 @@ public class ICompanyProductController {
             result.put("showprice", cmsProduct.getShowprice());
 
             data.setData(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            data.setCode(-1);
+            data.setMsg("您的网络不稳定，请稍后再试。");
+        }
+        return data;
+    }
+
+
+    /**
+     * 获取地区省/市/区
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/cities",method=RequestMethod.GET)
+    public ResponseData cities(HttpServletRequest request) {
+        ResponseData data = new ResponseData();
+
+        try {
+            int productId = NumberUtils.toInt(request.getParameter("productId"));
+            if (productId == 0) {
+                data.setMsg("产品不能为空");
+                return data;
+            }
+
+            data.setData(productPriceService.findProductCities(productId, null));
         } catch (Exception e) {
             e.printStackTrace();
             data.setCode(-1);

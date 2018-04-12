@@ -1,6 +1,8 @@
 package com.gongsibao.entity.cms;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
@@ -23,6 +25,18 @@ public class ProductAggregationMap extends BaseEntity {
     
     @Column(name="product_name",header="")
     private String productName;
+
+    @JsonIgnore
+    @Reference(foreignKey = "cmsProductId", primaryKey = "id", header = "")
+    private Product product;
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
     public Integer getCmsProductAggregationId() {
         return cmsProductAggregationId;
