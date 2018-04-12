@@ -1,4 +1,4 @@
-package com.gongsibao.entity.igirl.ic;
+package com.gongsibao.entity.igirl.ic.baseinfo;
 
 
 import org.netsharp.core.annotations.Column;

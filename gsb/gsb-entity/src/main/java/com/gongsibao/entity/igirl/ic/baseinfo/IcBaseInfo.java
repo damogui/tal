@@ -13,7 +13,7 @@ public class IcBaseInfo extends Entity{
     @Column(name = "reg_cap",header = "注册资本")
     private String regCap;
 
-    @Column(name = "trade_term",header = "注册资本")
+    @Column(name = "trade_term",header = "营业期限")
     private String tradeTerm;
 
     @Column(name = "spec_industry",header = "是否属于特殊行业")
