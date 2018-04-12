@@ -5,9 +5,10 @@ import com.gongsibao.entity.igirl.ic.dict.CorpJyMark;
 import com.gongsibao.entity.igirl.ic.dict.CorpJyType;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
+import org.netsharp.entity.Entity;
 
 @Table(name = "ic_crjjyjyjbjqyba",header = "补充信息")
-public class IcCrjjyjyjbjqyba {
+public class IcCrjjyjyjbjqyba extends Entity{
     @Column(name = "qylb",header = "进境植物产品运输单位")
     private CorpJyType qylb;
 
