@@ -32,20 +32,20 @@
     <body class="easyui-layout">
         <div data-options="region:'north',split:false,collapsible:false,closed:false,height:425">
 
-		    <div class="easyui-panel" title="订单信息" data-options="height:220,bodyCls:'no-border'" style="padding:10px;"> 
+		    <div class="easyui-panel" title="订单信息" data-options="height:200,bodyCls:'no-border'" > 
 		        <jsp:include page="/gsb/platform/trade/include/orderInfo.jsp"></jsp:include>
 			</div>
-			<div class="easyui-panel" title="退款信息" data-options="height:190,bodyCls:'no-border'" style="padding:10px;">
+			<div class="easyui-panel" title="退款信息" data-options="height:210,bodyCls:'no-border'" style="padding:10px;">
 				  <table cellpadding="3" cellspacing="0" class="form-panel">
 				      <tr>
 				          <td class="label_td"><label style="color:Red">*</label><label>退款账套：</label></td>
 				          <td class="control_td">
 								<input id="setOfBooksId" class="easyui-combobox" 
-								data-options="editable:false,width:200,onChange:function(newValue,oldValue){refundCtrl.setOfBooksIdChange(newValue,oldValue);}"/>
+								data-options="editable:false,width:180,onChange:function(newValue,oldValue){refundCtrl.setOfBooksIdChange(newValue,oldValue);}"/>
 				          </td>
 				          <td class="label_td"><label style="color:Red">*</label><label>付款方式：</label></td>
 				          <td class="control_td">
-				          		<input id="u8BankId" class="easyui-combobox nsInput" data-options="editable:false,width:200"/>
+				          		<input id="u8BankId" class="easyui-combobox nsInput" data-options="editable:false,width:180"/>
 				          </td>
 				          <!-- <td class="label_td"><label style="color:Red">*</label><label>退款类别：</label></td>
 				          <td class="control_td">
@@ -55,24 +55,24 @@
 				          </td> -->
 				          <td class="label_td" style="width:120px;"><label style="color:Red">*</label><label>退款账户名称：</label></td>
 				          <td class="control_td">
-				          		<input id="payerName" class="easyui-validatebox nsInput" style="width:150px"
+				          		<input id="payerName" class="easyui-validatebox nsInput" style="width:180px"
 				          			data-options="required:true"/></td>
 				   </tr>
 				     <tr>
 				          <td class="label_td"><label style="color:Red">*</label><label>退款账号：</label></td>
 				          <td class="control_td">
-				          		<input id="bankNo" class="easyui-validatebox nsInput"   style="width:150px"
+				          		<input id="bankNo" class="easyui-validatebox nsInput"   style="width:180px"
 									data-options="width:150,required:true"/></td>
 				          <td class="label_td"><label style="color:Red">*</label><label>退款金额：</label></td>
 				          <td class="control_td">
 				          		<input type="hidden" id ="refundPrice_hidd">
 				          		<input id="amount" class="easyui-numberbox nsInput"
-				          			data-options="precision:2,width:150,min:1,required:false,disabled:true,onChange:function(newValue,oldValue){refundCtrl.amountChange(newValue,oldValue);}"/>
+				          			data-options="precision:2,width:180,min:1,required:false,disabled:true,onChange:function(newValue,oldValue){refundCtrl.amountChange(newValue,oldValue);}"/>
 				          </td>
 				          <td class="label_td"><label>可退款金额：</label></td>
 				          <td class="control_td">
 				          		<input id="ableRefundAmount" class="easyui-numberbox nsInput"
-				          			data-options="precision:2,width:150,min:1,required:false,disabled:true"/>
+				          			data-options="precision:2,width:180,min:1,required:false,disabled:true"/>
 				          </td>
 					</tr>
 				      <tr>

@@ -86,10 +86,9 @@ public class SalesmanOrderAddWorkspaceTest extends WorkspaceCreationBase {
 //		addFormField(form, "discountPrice", "优惠金额", groupName, ControlTypes.DECIMAL_FEN_BOX, false, true);
 		addFormField(form, "payablePrice", "应付金额", groupName, ControlTypes.DECIMAL_FEN_BOX, false, true);
 		
-		
 		formField = addFormField(form, "remark", "备注", groupName, ControlTypes.TEXTAREA, false, false);
 		{
-			formField.setFullColumn(true);
+			formField.setFullColumn(false);
 			formField.setHeight(50);
 		}
 
