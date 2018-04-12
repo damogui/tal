@@ -1,4 +1,4 @@
-package com.gongsibao.panda.platform.trade.workspace.order;
+package com.gongsibao.panda.supplier.order.workspace.salesman;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +27,7 @@ import com.gongsibao.trade.web.OrderProdItemDetailPart;
 import org.netsharp.util.StringManager;
 
 /*合同管理*/
-public class ContractFormWorkspaceTest extends WorkspaceCreationBase {
+public class SalesmanOrderContractFormWorkspaceTest extends WorkspaceCreationBase {
     protected String fileToolBarPath = "contract/file/toolbar";
     @Before
     @Override

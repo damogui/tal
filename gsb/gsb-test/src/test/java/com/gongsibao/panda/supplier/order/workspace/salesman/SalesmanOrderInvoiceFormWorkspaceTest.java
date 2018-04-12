@@ -1,4 +1,4 @@
-package com.gongsibao.panda.platform.trade.workspace.order;
+package com.gongsibao.panda.supplier.order.workspace.salesman;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +18,7 @@ import com.gongsibao.entity.trade.Invoice;
 import com.gongsibao.trade.web.InvoiceFormPart;
 import org.netsharp.util.ReflectManager;
 
-public class InvoiceFormWorKspace extends WorkspaceCreationBase {
+public class SalesmanOrderInvoiceFormWorkspaceTest extends WorkspaceCreationBase {
 
     protected String invoiceFileToolbarPath = "invoice/file/toolbar";
 
