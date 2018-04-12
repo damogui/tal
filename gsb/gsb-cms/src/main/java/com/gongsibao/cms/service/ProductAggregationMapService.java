@@ -9,6 +9,7 @@ import com.gongsibao.cms.base.IProductAggregationMapService;
 import com.gongsibao.entity.cms.ProductAggregationMap;
 import org.netsharp.util.StringManager;
 
+import java.sql.Types;
 import java.util.*;
 
 @Service
@@ -47,8 +48,9 @@ public class ProductAggregationMapService extends PersistableService<ProductAggr
         {
             //SELECT DISTINCT pam.* FROM `cms_product_aggregation_map` pam JOIN cms_product cp ON pam.prod_product_id=cp.product_id WHERE pam.`cms_product_aggregation_id` = ? AND cp.is_show=1 AND cp.status=1
             oql.setType(this.type);
-            oql.setSelects("*");
-            oql.setFilter("cmsProductAggregationId = "+aggregationId);
+            oql.setSelects("ProductAggregationMap.*");
+            oql.setFilter("cmsProductAggregationId=?");
+            oql.getParameters().add("cmsProductAggregationId", aggregationId, Types.INTEGER);
         }
         return this.queryList(oql);
     }

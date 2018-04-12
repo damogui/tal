@@ -1,5 +1,6 @@
 package com.gongsibao.uc.base;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.netsharp.base.IPersistableService;
@@ -59,8 +60,8 @@ public interface IOrganizationService extends IPersistableService<Organization> 
 	 * @throws   
 	 */
 	List<Organization> getChildList(Integer departmentId);
-	
-	
+
+
 	/**   
 	 * @Title: getLeafIdList   
 	 * @Description: TODO(这里用一句话描述这个方法的作用)   
@@ -70,4 +71,14 @@ public interface IOrganizationService extends IPersistableService<Organization> 
 	 * @throws   
 	 */
 	List<Integer> getLeafIdList(Integer departmentId);
+
+	/**
+	 * @Title: getLeafIdList
+	 * @Description: TODO(获取所有部门子部门集合，递归)
+	 * @param: @param organizationIds
+	 * @param: @return
+	 * @return: List<Integer>
+	 * @throws
+	 */
+	List<Integer> getChildIdsByParentIds(Collection<Integer> organizationIds);
 }

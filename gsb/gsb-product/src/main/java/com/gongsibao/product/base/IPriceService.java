@@ -1,5 +1,6 @@
 package com.gongsibao.product.base;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.netsharp.base.IPersistableService;
@@ -18,4 +19,15 @@ public interface IPriceService extends IPersistableService<Price> {
 	 * @throws   
 	 */
 	List<Price> queryServicePriceItem(Integer productId,Integer cityId);
+
+	/**
+	 * @Title: findCityIdsByProductIdAndOrganizationIds
+	 * @Description: TODO(根据产品Id、部门Id查询服务项目)
+	 * @param: @param productId
+	 * @param: @param organizationIds
+	 * @param: @return
+	 * @return: List<Integer>
+	 * @throws
+	 */
+	List<Integer> findCityIdsByProductIdAndOrganizationIds(int productId, Collection<Integer> organizationIds);
 }
