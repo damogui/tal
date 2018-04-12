@@ -7,11 +7,6 @@ com.gongsibao.trade.web.OrderCarryoverCtrl = org.netsharp.panda.core.CustomCtrl.
     },
     init:function(){
 		
-		$('#detail_tabs').tabs({
-			fit:true,
-			tabHeight:35
-		});
-		
     	var orderId = this.queryString('id');
     	this.invokeService ("getSoOrder", [orderId], function(data){
     		
