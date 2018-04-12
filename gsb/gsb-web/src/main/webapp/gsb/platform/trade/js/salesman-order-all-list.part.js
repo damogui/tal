@@ -184,10 +184,8 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         me.invokeService("refundValidate", [row.id], function (data) {
             if (data < 0) {
                 layer.msg('该订单无可退款金额，请知悉');
-            } else if (data == 1051) {
-                layer.msg('有笔退款或结转目前待审核中，请审核通过后，再创建');
-            } else if (data == 1052) {
-                layer.msg('有笔退款或结转目前退款中，请审核通过后，再创建 ');
+            } else if (data != 0 && data != 1054) {
+                layer.msg('有笔退款或结转目前审核中，请审核通过后，再创建');
             } else {
                 layer.open({
                     type: 2,//1是字符串 2是内容
@@ -220,10 +218,8 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         me.invokeService("carryValidate", [row.id], function (data) {
             if (data < 0) {
                 layer.msg('该订单无可结转金额，请知悉');
-            } else if (data == 1051) {
-                layer.msg('有笔退款或结转目前待审核中，请审核通过后，再创建');
-            } else if (data == 1052) {
-                layer.msg('有笔退款或结转目前结转中，请审核通过后，再创建');
+            } else if (data != 0 && data != 1054) {
+                layer.msg('有笔退款或结转目前审核中，请审核通过后，再创建');
             } else {
                 layer.open({
                     type: 2,//1是字符串 2是内容
