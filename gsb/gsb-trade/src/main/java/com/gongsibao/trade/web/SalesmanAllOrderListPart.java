@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.lang.model.element.VariableElement;
+
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.AdvancedListPart;
@@ -141,13 +143,12 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
          return resultValueInteger;
      }
     /**
-     * 获取订单的退款(结转)状态、退款(结转)金额判断
+     * 获取订单的结转状态、结转金额判断
      *
      * @param id   订单Id
-     * @param type 0-退款、1-结转
-     * @return -1 金额不足
+     * @return -1 订单余额不足(订单余额 = paidPrice+carryIntoAmount-refundPrice-carryAmount yyk提供公式)
      */
-    public Integer refundCarryValidate(Integer id, Integer type) {
+    public Integer carryValidate(Integer id) {
         Integer reusltValue = 0;
         Oql oql = new Oql();
         {
@@ -157,23 +158,49 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
             oql.getParameters().add("id", id, Types.INTEGER);
         }
         SoOrder entity = orderService.queryFirst(oql);
-        //退款金额
+        
+        Integer paidPrice = entity.getPaidPrice() == null ? 0 : entity.getPaidPrice().intValue();
+        Integer carryIntoAmount = entity.getCarryIntoAmount() == null ? 0 : entity.getCarryIntoAmount().intValue();
         Integer refundPrice = entity.getRefundPrice() == null ? 0 : entity.getRefundPrice().intValue();
-        //结转金额
         Integer carryAmount = entity.getCarryAmount() == null ? 0 : entity.getCarryAmount().intValue();
-        Integer allAmount = refundPrice.intValue() + carryAmount.intValue();
-        if ((entity.getPaidPrice().intValue() - allAmount.intValue()) > 0) {
-            if (type.equals(0)) {
-                reusltValue = entity.getRefundStatus() == null ? 0 : entity.getRefundStatus().getValue();
-            } else {
-                reusltValue = entity.getCarryStatus() == null ? 0 : entity.getCarryStatus().getValue();
-            }
+        //订单余额
+        Integer balance = paidPrice + carryIntoAmount - refundPrice - carryAmount;
+        if (balance > 0) {
+        	reusltValue = entity.getCarryStatus() == null ? 0 : entity.getCarryStatus().getValue();
         } else {
             reusltValue = -1;
         }
         return reusltValue;
     }
-
+    /**
+     * 获取订单的退款状态或退款金额验证
+     *
+     * @param id   订单Id  
+     * @return -1 可退款金额不足(可退款金额=已付金额-已退金额 yyk提供公式)
+     */
+    public Integer refundValidate(Integer id) {
+        Integer reusltValue = 0;
+        Oql oql = new Oql();
+        {
+            oql.setType(SoOrder.class);
+            oql.setSelects("*");
+            oql.setFilter("id=?");
+            oql.getParameters().add("id", id, Types.INTEGER);
+        }
+        SoOrder entity = orderService.queryFirst(oql);
+        //已付金额
+        Integer paidPrice = entity.getPaidPrice() == null ? 0 : entity.getPaidPrice().intValue();
+        //已退金额
+        Integer refundPrice = entity.getRefundPrice() == null ? 0 : entity.getRefundPrice().intValue();
+        //可退金额
+        Integer canRefundAmount = paidPrice - refundPrice;
+        if (canRefundAmount > 0) {
+        	reusltValue = entity.getRefundStatus() == null ? 0 : entity.getRefundStatus().getValue();
+        } else {
+            reusltValue = -1;
+        }
+        return reusltValue;
+    }
     /*校验是不是存在订单的改价审核和回款审核，存在不弹窗*/
     public Integer checkCanPay(Integer orderId) {
        return noService.checkCanPay(orderId);
