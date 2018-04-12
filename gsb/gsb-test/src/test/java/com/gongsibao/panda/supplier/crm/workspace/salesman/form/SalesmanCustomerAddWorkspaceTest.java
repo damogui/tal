@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.panda.platform.operation.workspace.crm.form.CustomerAddWorkspaceTest;
-
+/*业务员新增客户*/
 public class SalesmanCustomerAddWorkspaceTest extends CustomerAddWorkspaceTest{
 
 	@Before

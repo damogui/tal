@@ -43,6 +43,16 @@ com.gongsibao.crm.web.SalesmanNCustomerAddFormPart =com.gongsibao.crm.web.NCusto
     	//提高效率，将明细全部置空
         return true;
     },
+    doSave: function (entity) {
+
+        var me = this;
+        this.invokeService("save", [entity], function (jmessage) {
+            me.onSaved(jmessage);
+        }, true,function () {
+            $("#controllernCustomersave").linkbutton("enable");//不放开的话业务异常抛出来没法保存
+
+        });
+    },
     databindextra: function (entity) {
 
     	$("#controllernCustomersave").linkbutton("enable");

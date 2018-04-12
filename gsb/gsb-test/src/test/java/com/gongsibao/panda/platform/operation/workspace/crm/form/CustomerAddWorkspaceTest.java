@@ -31,7 +31,7 @@ import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.TaskCustomerType;
-
+/*新增客户*/
 public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 
 	protected String taskDetailResourceNodeCode = "Operation_CRM_Task_ALL";

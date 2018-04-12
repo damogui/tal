@@ -48,7 +48,8 @@
 									          		<input type="hidden" id ="payablePrice_hidden">
 									          		<input type="hidden" id ="paidPrice_hidden">
 									          		<input type="hidden" id ="refundPrice_hidden">
-									          		<input type="hidden" id ="carryAmount_hidden">  
+									          		<input type="hidden" id ="carryAmount_hidden">
+									          		<input type="hidden" id ="carryIntoAmount_hidden">    
 									          		<input id="toOrderNo" class="easyui-validatebox nsInput" onblur="carryoverCtrl.toOrderNoBlur();"
 														data-options="width:150,required:true"/></td>
 									          <td class="label_td"><label style="color:Red">*</label><label>结转金额：</label></td>
