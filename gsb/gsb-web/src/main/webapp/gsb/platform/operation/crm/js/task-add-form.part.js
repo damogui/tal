@@ -118,7 +118,8 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
 
         var me = this;
     	var isPlatform = this.queryString("isPlatform");
-    	if(isPlatform ==='1' || System.isnull(isPlatform)){
+    	var id =  this.queryString("id");
+    	if(!System.isnull(id)){
     		
     		//平台售前新增：直接保存
             this.invokeService("save", [entity], function (jmessage) {
@@ -126,7 +127,7 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
              	  me.onSaved(jmessage);
             });	
             
-    	}else if(isPlatform ==='0'){
+    	}else{
     		
     		//服务商新增：返回父页面
     		var parentCtrl = this.queryString("ctrl");
@@ -152,6 +153,23 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
         }else{
         	
         	IMessageBox.error("保存失败！");
+        }
+    },
+    onload: function () {
+
+        var id = this.queryString("id");
+        var parentCtrl = this.queryString("ctrl");
+        var type = this.queryString("type");
+        if(!System.isnull(parentCtrl)&&type=='edit'){
+        	
+        	return;
+        }
+        
+        if (System.isnull(id)) {
+
+            this.add();
+        } else {
+            this.byId(id);
         }
     },
     setEntity:function(entity){

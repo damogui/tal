@@ -64,6 +64,38 @@ com.gongsibao.crm.web.SalesmanNCustomerTaskDetailPart = com.gongsibao.crm.web.NC
         this.base();
         this.isPlatform = 0;
         this.addUrl = "/panda/crm/salesman/task/add";
-        this.editUrl = "/panda/crm/salesman/task/edit";
-    }
+        this.editUrl = "/panda/crm/salesman/task/add";
+    },
+	doubleClickRow : function(rowIndex, rowData) {
+		
+		var url='';
+
+    	if(rowData.entityState != EntityState.New){
+    		
+        	url = this.editUrl+'?id='+rowData.id;
+    	}else{
+    		
+        	url = this.editUrl+'?isPlatform=0&type=edit&ctrl='+this.context.instanceName;
+    	}
+    	
+    	layer.open({
+  		  type: 2,
+  		  title: '商机信息',
+  		  fixed: false,
+  		  maxmin: true,
+  		  shadeClose:true,
+  		  area: ['90%','90%'],
+  		  content: url,
+          success: function(layero, index){
+        	  
+              var body = layer.getChildFrame('body',index);
+              var iframeWin = window[layero.find('iframe')[0]['name']];
+              var subMainCtrl = iframeWin.workspace.parts.byIndex(0).value;//得到子页面的主控制器对象
+              subMainCtrl.setEntity(rowData);
+          },
+  		  cancel: function(){ 
+
+		  }
+  	    });
+	}
 });
