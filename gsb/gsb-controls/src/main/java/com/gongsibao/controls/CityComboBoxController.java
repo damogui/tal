@@ -24,6 +24,7 @@ public class CityComboBoxController {
 		List<String> ss = new ArrayList<String>();
 		ss.add("type='101'");
 		if (parentId != null) {
+			
 			ss.add("pid=?");
 			oql.getParameters().add("parentId", parentId, Types.INTEGER);
 		} else {
