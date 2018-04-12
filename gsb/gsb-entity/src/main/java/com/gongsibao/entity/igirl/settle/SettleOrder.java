@@ -19,14 +19,12 @@ public class SettleOrder extends Entity {
     @Column(name = "order_prod_id", header = "明细订单id")
     private Integer orderProdId;
 
-    @JsonIgnore
     @Reference(foreignKey = "orderProdId", primaryKey = "pkid", header = "明细订单")
     private OrderProd orderProd;
 
     @Column(name = "order_id", header = "订单id")
     private Integer orderId;
 
-    @JsonIgnore
     @Reference(foreignKey = "orderId", primaryKey = "pkid", header = "订单")
     private SoOrder soOrder;
 

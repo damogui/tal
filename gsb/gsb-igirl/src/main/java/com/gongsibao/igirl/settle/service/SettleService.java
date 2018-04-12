@@ -7,6 +7,7 @@ import com.gongsibao.entity.igirl.settle.Settle;
 import com.gongsibao.entity.igirl.settle.SettleHandleLog;
 import com.gongsibao.entity.igirl.settle.SettleOrder;
 import com.gongsibao.entity.igirl.settle.dict.SettleHandleStatus;
+import com.gongsibao.entity.igirl.tm.TradeMarkCase;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.SoOrder;
@@ -17,11 +18,14 @@ import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.utils.AmountUtils;
 import com.gongsibao.utils.DateUtils;
 import com.gongsibao.utils.SupplierSessionManager;
+import org.junit.Before;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.Oql;
 import org.netsharp.service.PersistableService;
 
 import java.math.BigDecimal;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +36,11 @@ public class SettleService extends PersistableService<Settle> implements ISettle
     private IOrderProdCaseService orderProdCaseService = ServiceFactory.create(IOrderProdCaseService.class);
 
     private IOrderProdService orderProdService = ServiceFactory.create(IOrderProdService.class);
+
+    public SettleService() {
+        super();
+        this.type = Settle.class;
+    }
 
     @Override
     public Result<Settle> saveSettle(List<Integer> orderProdCaseIds) {
@@ -171,7 +180,7 @@ public class SettleService extends PersistableService<Settle> implements ISettle
         {
             log.toNew();
             log.setPreviousStatus(SettleHandleStatus.WU);
-            log.setAfterStatus(SettleHandleStatus.FINANCIAL_AUDITING);
+            log.setAfterStatus(SettleHandleStatus.PLATFORM_AUDITING);
             log.setMemo("提交结算申请");
             log.setCreatorId(supplierId);
             log.setCreator(supplier.getName());

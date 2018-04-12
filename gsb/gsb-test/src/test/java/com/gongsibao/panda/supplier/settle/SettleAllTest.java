@@ -13,7 +13,6 @@ import org.junit.runners.Suite.SuiteClasses;
         SettleNavigationTest.class,
         UnSettleWorkspaceTest.class,
         MySettleWorkspaceTest.class,
-        SettleFormWorkspaceTest.class,
 })
 
 public class SettleAllTest {
