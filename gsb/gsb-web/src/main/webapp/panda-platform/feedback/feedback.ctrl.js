@@ -19,8 +19,8 @@ org.netsharp.core.FeedbackCtrl = System.Object.Extends({
 				
 				return;
 			}
-			var a = '<a target="_blank" href="'+path+'">'+file.name+'</a>';
-			$("#files").append(a);
+			var file = '<a target="_blank" href="'+path+'">'+file.name+'</a><i title="删除" onclick="$(\'#files\').empty();" class="fa fa-remove"></i>';
+			$("#files").html(file);
 		}
 		upload.init();
 	},

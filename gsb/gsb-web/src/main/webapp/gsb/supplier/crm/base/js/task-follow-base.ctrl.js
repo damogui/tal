@@ -259,7 +259,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
 		    	var signingAmount = $("#signingAmount").numberbox('getValue');
 		    	
 				var content = $("#follow_content").val();
-				debugger;
+
 				var taskFollowObj = {
 						
 						taskId:taskId,

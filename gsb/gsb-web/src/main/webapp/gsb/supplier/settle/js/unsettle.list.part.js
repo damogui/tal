@@ -5,7 +5,6 @@ com.gongsibao.igirl.settle.web.UnSettleListPart = org.netsharp.panda.commerce.Li
     },
     doSettle: function () {
         var me = this;
-        debugger;
         var rows = me.getSelections();
         if (rows.length <= 0) {
             IMessageBox.info('请先选择未结算订单');
