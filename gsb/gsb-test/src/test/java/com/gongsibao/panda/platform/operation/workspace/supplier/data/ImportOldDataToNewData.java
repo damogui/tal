@@ -134,6 +134,10 @@ public class ImportOldDataToNewData {
 
 
         filterBuilder.append (" follow_status <>4017 and pkid>=" + idMax);//过滤掉招商渠道的和进行续导
+        if (idMax==0){
+
+            return 0 ;//代表已经处理完毕
+        }
         Oql oql1 = new Oql () {
         };
         oql1.setOrderby (" pkid ");
