@@ -356,7 +356,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                 layer.open({
                     id: "invoiceCreateIframe",
                     type: 2,
-                    title: '基本信息',
+                    title: '申请发票',
                     fixed: false,
                     maxmin: true,
                     shadeClose: true,
