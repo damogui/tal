@@ -211,6 +211,8 @@ $(function(){
 		   if(to.path!="/"){
 			      $("#content").height($(window).height())
 			      $("#content").show()
+			      console.log("cccccccccccccccccccccc");
+			            console.log(to);
 			      $("#navDiv").hide();
 		      }else{
 		    	  $("#content").hide();
@@ -237,7 +239,6 @@ $(function(){
 					  },
 					 created:function(){
 						  console.log("root vue created...");
-	
 						  $("#navDiv").height($(window).height());
 						  this.siteInfo=d;
 						  this.sourceInfo=sourceInfo;
@@ -256,11 +257,7 @@ $(function(){
 				  				 
 				  				 var ctlServiceStr2="com.gongsibao.igirl.tm.web.TradeMarkCasePart";
 				  				 var me=this;
-				  				 console.log(sourceInfo.casecode);
-				  				 console.log("xxxxxxxxxxxxxxxxxxxxxx");
 				  				 siteCtl.invoke(ctlServiceStr2,"fetchUnconfirmedCaseInfoByCode",[sourceInfo.casecode],function(d){
-				  					console.log("yyyyyyyyyyyyyyyyy");
-				  					 console.log(d);
 				  					 me.caseinfo=d;
 				  				
 				  					 if(d.tmcState==0 || d.tmcState==1){//待确认
