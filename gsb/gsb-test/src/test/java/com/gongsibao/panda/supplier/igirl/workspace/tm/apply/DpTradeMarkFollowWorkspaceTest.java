@@ -153,6 +153,7 @@ public class DpTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		column=addColumn(datagrid, "id","操作", ControlTypes.TEXT_BOX, 200);{
 			column.setFormatter("return controllertradeMarkList.markPic(value,row,index);");
 		}
+		datagrid.setSortName("createTime Desc");
 		return datagrid;
 	}
 
