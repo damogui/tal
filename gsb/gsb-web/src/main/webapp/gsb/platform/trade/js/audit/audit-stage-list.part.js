@@ -22,7 +22,7 @@ com.gongsibao.trade.web.AuditStagingListPart = org.netsharp.panda.commerce.ListP
             title: '分期审核',
             fixed: false,
             maxmin: true,
-            shadeClose: false,
+            shadeClose: true,
             area: ['50%', '70%'],
             zIndex: 1000,
             id: "auditStageIframe",
