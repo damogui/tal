@@ -5,6 +5,14 @@ com.gongsibao.trade.web.AuditStagingListPart = org.netsharp.panda.commerce.ListP
         this.base();
         this.auditStageUrl = '/nav/gsb/platform/trade/auditStage';//分期审核jsp
     },
+    operateFormatter:function(value,row,index){
+    	if(row.status!="待审核"){ 
+    		return "<a class='grid-btn' href='javascript:controllerauditLogList.detail(" + value + ");'>查看</a>";
+    	}else{    		
+    		return "<a class='grid-btn' href='javascript:controllerauditLogList.auditStage(" + value + ");'>审核</a>";
+    	}
+    	
+    },
     auditStage: function (id) {//订单审核-分期审核
     	var me = this;
     	var row = this.getSelectedItem();

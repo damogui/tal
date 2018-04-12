@@ -26,7 +26,7 @@ import com.gongsibao.trade.web.AuditStagingListPart;
 
 /*分期审核*/
 public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
-	protected String listrowToolbarPath = "/audit/rowStag/toolbar";
+	
 	@Override
 	@Before
     public void setup() {
@@ -46,33 +46,6 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
 		
 		listFilter = "type_id=" + AuditLogType.Fqsq.getValue()+ " AND add_user_id='{userId}' ";
     }
-
-    @Test
-	public void createRowToolbar() {
-
-		ResourceNode node = this.resourceService.byCode(resourceNodeCode);
-		PToolbar toolbar = new PToolbar();
-		{
-			toolbar.toNew();
-			toolbar.setBasePath("panda/datagrid/row/edit");
-			toolbar.setPath(listrowToolbarPath);
-			toolbar.setName("审核");
-			toolbar.setResourceNode(node);
-			toolbar.setToolbarType(ToolbarType.BASE);
-		}
-		PToolbarItem item = new PToolbarItem();
-		{
-			item.toNew();
-			item.setCode("auditStage");
-			item.setName("审核");
-			item.setSeq(2);
-			item.setCommand("{controller}.auditStage();");
-			toolbar.getItems().add(item);
-		}
-
-		toolbarService.save(toolbar);
-	}
-    
     
     @Override
     protected PDatagrid createDatagrid(ResourceNode node) {
@@ -80,11 +53,14 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
         PDatagrid datagrid = super.createDatagrid (node);
         {
             datagrid.setName ("分期审核");
-            datagrid.setToolbar (listrowToolbarPath);
+            datagrid.setToolbar ("");
             datagrid.setAutoQuery (true);
         }
         PDatagridColumn column = null;
-        addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+        column = addColumn (datagrid, "id", "操作", ControlTypes.TEXT_BOX, 100, true);{
+        	column.setAlign(DatagridAlign.CENTER);
+        	column.setFormatter("return controllerauditLogList.operateFormatter(value,row,index)");
+        }
         column = addColumn(datagrid, "formId", "来源Id", ControlTypes.NUMBER_BOX, 100, true);{
         	column.setVisible(false);
         }
