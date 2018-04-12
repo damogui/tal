@@ -24,55 +24,45 @@
 	<script src='/gsb/platform/trade/js/order-carryover.ctrl.js'></script>
 </head>
     <body class="easyui-layout">
-        <div data-options="region:'center',split:false,collapsible:false,closed:false" style="height:100%;" >
-            <div id="tabs" class="easyui-tabs" style="height:100%;" data-options="fit:true,plain:false,tabPosition:'top',tabWidth:0,tabHeight:35">
-			    <div title="订单信息">
-			        <div data-options="region:'north',split:false,collapsible:false,closed:false,height:200">
-						<jsp:include page="/gsb/platform/trade/include/orderInfo.jsp"></jsp:include>
-					</div>
-					<div id="center" data-options="region:'center'">
-						<div id="detail_tabs">
-						    <div title="结转信息">   
-						        <div style=" border:0px;padding:10px;">
-						           <form id="form1" style="padding-top: 0px;">
-									   <table cellpadding="3" cellspacing="0" class="form-panel">
-									      <tr>
-									          <td class="label_td"><label style="color:Red">*</label><label>来源订单号：</label></td>
-									          <td class="control_td">
-									          		<input id="formOrderNo" class="easyui-validatebox nsInput"
-									          			data-options="required:true,disabled:true"/></td>
-									          <td class="label_td"><label style="color:Red">*</label><label>去向订单号：</label></td>
-									          <td class="control_td">
-									          		<!-- 存储临时值 -->
-									          		<input type="hidden" id ="orderId_hidden">
-									          		<input type="hidden" id ="payablePrice_hidden">
-									          		<input type="hidden" id ="paidPrice_hidden">
-									          		<input type="hidden" id ="refundPrice_hidden">
-									          		<input type="hidden" id ="carryAmount_hidden">
-									          		<input type="hidden" id ="carryIntoAmount_hidden">    
-									          		<input id="toOrderNo" class="easyui-validatebox nsInput" onblur="carryoverCtrl.toOrderNoBlur();"
-														data-options="width:150,required:true"/></td>
-									          <td class="label_td"><label style="color:Red">*</label><label>结转金额：</label></td>
-									          <td class="control_td">
-									          		<input id="amount" class="easyui-numberbox nsInput"
-									          			data-options="precision:2,width:150,min:1,required:true,onChange:function(newValue,oldValue){carryoverCtrl.amountChange(newValue,oldValue);}"/>
-									          </td>
-										</tr>
-									      <tr>
-									          <td class="label_td"><label style="color:Red">*</label><label>结转说明：</label></td>
-									          <td colspan="5" class="control_td">
-													<textarea id="carryRemark" style="width:100%;height:50px;" class="easyui-validatebox nsInput" data-options="width:150,required:true"></textarea>
-									          </td>
-										</tr>
-									</table>
-									</form>
-								</div>
-						    </div>
-						</div>
-					</div>
-			    </div>
-			</div>
-    	</div>
+    
+    	<div class="easyui-panel" title="订单信息" data-options="height:200,bodyCls:'no-border'" > 
+		        <jsp:include page="/gsb/platform/trade/include/orderInfo.jsp"></jsp:include>
+		</div>
+		<div class="easyui-panel" title="结转信息" data-options="height:210,bodyCls:'no-border'" style="padding:10px;">
+
+          <form id="form1" style="padding-top: 0px;">
+		   <table cellpadding="3" cellspacing="0" class="form-panel">
+		      <tr>
+		          <td class="label_td"><label style="color:Red">*</label><label>来源订单号：</label></td>
+		          <td class="control_td">
+		          		<input id="formOrderNo" class="easyui-validatebox nsInput"
+		          			data-options="required:true,disabled:true"/></td>
+		          <td class="label_td"><label style="color:Red">*</label><label>去向订单号：</label></td>
+		          <td class="control_td">
+		          		<!-- 存储临时值 -->
+		          		<input type="hidden" id ="orderId_hidden">
+		          		<input type="hidden" id ="payablePrice_hidden">
+		          		<input type="hidden" id ="paidPrice_hidden">
+		          		<input type="hidden" id ="refundPrice_hidden">
+		          		<input type="hidden" id ="carryAmount_hidden">
+		          		<input type="hidden" id ="carryIntoAmount_hidden">    
+		          		<input id="toOrderNo" class="easyui-validatebox nsInput" onblur="carryoverCtrl.toOrderNoBlur();"
+							data-options="width:150,required:true"/></td>
+		          <td class="label_td"><label style="color:Red">*</label><label>结转金额：</label></td>
+		          <td class="control_td">
+		          		<input id="amount" class="easyui-numberbox nsInput"
+		          			data-options="precision:2,width:150,min:1,required:true,onChange:function(newValue,oldValue){carryoverCtrl.amountChange(newValue,oldValue);}"/>
+		          </td>
+			</tr>
+		      <tr>
+		          <td class="label_td"><label style="color:Red">*</label><label>结转说明：</label></td>
+		          <td colspan="5" class="control_td">
+						<textarea id="carryRemark" style="width:100%;height:50px;" class="easyui-validatebox nsInput" data-options="width:150,required:true"></textarea>
+		          </td>
+			</tr>
+		</table>
+		</form>
+		</div>
 </body>
 
 <script>
