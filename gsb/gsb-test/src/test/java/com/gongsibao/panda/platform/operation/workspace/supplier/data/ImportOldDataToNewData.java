@@ -286,9 +286,15 @@ public class ImportOldDataToNewData {
         oql1.setOrderby (" pkid ");
         oql1.setFilter (filterBuilder.toString ());
 
-        int totalCustomerPage = serviceCustomerFollow.queryCount (oql1) / pageSize + 1;
+        int countData = serviceCustomerFollow.queryCount (oql1) / pageSize + 1;
+        int totalPage=0;
+        if ((countData % pageSize) == 0){//刚好整除
+            totalPage = countData / pageSize;
+        }else{
+            totalPage = countData / pageSize + 1;
+        }
 
-        for (int i = 1; i < totalCustomerPage + 1; i++) {
+        for (int i = 1; i < totalPage + 1; i++) {
             Oql oql2 = new Oql () {
             };
             oql2.setOrderby (" pkid ");
@@ -504,8 +510,18 @@ public class ImportOldDataToNewData {
         };
         oql1.setOrderby (" pkid ");
         oql1.setFilter (" customer_id=" + nCustomerTask.getCustomerId ());//只弄一条
-        int totalCustomerPage = serviceCustomerProdMap.queryCount (oql1) / pageSize + 1;
-        for (int i = 1; i < totalCustomerPage + 1; i++) {
+        int countData = serviceCustomerProdMap.queryCount (oql1) / pageSize + 1;
+        int totalPage=0;
+
+        if ((countData % pageSize) == 0) {//判断是不是有剩余
+            totalPage = countData / pageSize;
+
+        } else {
+
+            totalPage = countData / pageSize + 1;
+        }
+
+        for (int i = 1; i < totalPage + 1; i++) {
             Oql oql2 = new Oql () {
             };
             oql2.setOrderby (" pkid ");
@@ -551,8 +567,17 @@ public class ImportOldDataToNewData {
         Oql oql1 = new Oql () {
         };
         oql1.setOrderby (" pkid ");
-        int totalCustomerPage = serviceCustomerProdMap.queryCount (oql1) / pageSize + 1;
-        for (int i = 1; i < totalCustomerPage + 1; i++) {
+        int countData = serviceCustomerProdMap.queryCount (oql1) / pageSize + 1;
+        int totalPage = 0;
+        if ((countData % pageSize) == 0) {//判断是不是有剩余
+            totalPage = countData / pageSize;
+
+        } else {
+
+            totalPage = countData / pageSize + 1;
+        }
+
+        for (int i = 1; i < totalPage + 1; i++) {
             Oql oql2 = new Oql () {
             };
             oql2.setOrderby (" pkid ");
