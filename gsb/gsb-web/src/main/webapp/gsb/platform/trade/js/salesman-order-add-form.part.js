@@ -334,7 +334,7 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
         var rows = $('#serviceItems').datagrid('getChecked');
         if (rows == null || rows.length == 0) {
 
-            layer.msg('请选择服务项目！');
+            layer.msg('请选择产品名称和产品地区！');
             return null;
         }
         var productId = $('#product').combogrid('getValue');
