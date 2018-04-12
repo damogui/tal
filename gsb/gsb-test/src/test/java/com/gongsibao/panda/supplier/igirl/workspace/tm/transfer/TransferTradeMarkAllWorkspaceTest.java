@@ -148,6 +148,7 @@ public class TransferTradeMarkAllWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "agentFileNum", "代理文号", ControlTypes.TEXT_BOX, 120, true);
 		//addColumn(datagrid, "assigneeCnName", "转让人名称", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid,"transferTradeMarkState","状态",ControlTypes.ENUM_BOX,100);
+		datagrid.setSortName("createTime Desc");
 		return datagrid;
 	}
 
