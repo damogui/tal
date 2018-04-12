@@ -38,7 +38,7 @@ public class AuditPayListPart extends AdvancedListPart {
         if (parameter.getKey ().equals ("keyword")) {
 
 
-            return " orderNo like '%" + keyword + "%'";
+            return " pay.orderNo like '%" + keyword + "%'";
         }
 //        if (parameter.getKey ().equals ("payStatus")) {//付款状态
 //
