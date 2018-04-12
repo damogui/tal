@@ -29,7 +29,7 @@ public class LoginController {
     private RedisClient redisClient;
     /**
      * @Description:TODO 登录验证
-     * @param  [openId]
+     * @param  openId
      * @return com.gongsibao.rest.common.web.ResponseData
      * @author bhpeng <bhpeng@gongsibao.com>
      * @date 2018/4/12 19:17
@@ -49,7 +49,7 @@ public class LoginController {
 
     /**
      * @Description:TODO 发送验证码
-     * @param  [mobilePhone]
+     * @param  mobilePhone
      * @return com.gongsibao.rest.common.web.ResponseData
      * @author bhpeng <bhpeng@gongsibao.com>
      * @date 2018/4/12 19:17
@@ -66,7 +66,7 @@ public class LoginController {
         }
         //生成验证码并保存至缓存中;
         String code = RandomStringUtils.randomNumeric(6);
-        redisClient.set(mobilePhone, code,120L);
+        redisClient.set(mobilePhone, code,60*15L);
         logger.info("code=" + code + "| mobilePhone : " + mobilePhone);
         //发送验证码至指定手机号
         data.setCode(200);
@@ -84,7 +84,7 @@ public class LoginController {
 
     /**
      * @Description:TODO 账号绑定手机
-     * @param  [mobilePhone, openId, code]
+     * @param  mobilePhone, openId, code
      * @return com.gongsibao.rest.common.web.ResponseData
      * @author bhpeng <bhpeng@gongsibao.com>
      * @date 2018/4/12 19:18
