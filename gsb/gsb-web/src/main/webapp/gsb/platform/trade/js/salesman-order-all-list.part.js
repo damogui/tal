@@ -136,7 +136,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         /*校验是不是存在订单的改价审核和回款审核，存在不弹窗*/
         me.invokeService("checkCanPay", [parseFloat(row.id)], function (data) {
             if (data > 0) {
-                layer.msg("订单改价和已存在回款审核没通过不允许创建回款");
+                layer.msg("订单改价、已存在回款审核没通过、回款已完成不允许创建回款");
                 return;
             } else {
                 var urlEnd = me.addReceivedUrl + "?no=" + row.no;

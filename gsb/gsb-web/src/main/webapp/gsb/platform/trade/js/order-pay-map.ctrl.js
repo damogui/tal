@@ -12,20 +12,20 @@ com.gongsibao.trade.web.OrderPayMapCtrl = org.netsharp.panda.core.CustomCtrl.Ext
         $('#center').height(centerHeight);
         var orderNo = this.queryString('no');//订单编号
         var typeOpen = this.queryString('typeOpen');//新增还是编辑
-        if (orderNo != "0"&&typeOpen != "1") {
+        if (orderNo != "0" && typeOpen != "1") {
 
             $("#orderNo").val(orderNo);
             this.orderNoBlur("#orderNo");
         } else {
-           
+
             if (typeOpen == "1") {//1代表新增
                 $("#orderNo").val(orderNo);
                 this.initEdit(orderNo);//初始化
-                var offlineInstallmentType =this.queryString('offlineInstallmentType');//编辑的行
-                $("#offlineInstallmentType").combobox("setValue",offlineInstallmentType);
-                var amount =this.queryString('amount');//分配的金额
-                $("#amount").numberbox("setValue",parseFloat(amount)/100);
-               
+                var offlineInstallmentType = this.queryString('offlineInstallmentType');//编辑的行
+                $("#offlineInstallmentType").combobox("setValue", offlineInstallmentType);
+                var amount = this.queryString('amount');//分配的金额
+                $("#amount").numberbox("setValue", parseFloat(amount) / 100);
+
 
             }
 
@@ -63,7 +63,12 @@ com.gongsibao.trade.web.OrderPayMapCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     getUnpaidAmount: function () {
 
         //待支付=应付-已支付-退款-结转
-        var unpaidAmount = this.soOrder.payablePrice - this.soOrder.paidPrice - this.soOrder.refundPrice - this.soOrder.carryAmount;
+        //应付金额-余额
+
+        var unpaidAmount = this.soOrder.payablePrice - this.soOrder.balance;
+       
+
+        //this.soOrder.payablePrice - this.soOrder.paidPrice - this.soOrder.refundPrice - this.soOrder.carryAmount;
         return unpaidAmount;
     },
     offlineInstallmentTypeChange: function (newValue, oldValue) {
@@ -160,7 +165,7 @@ com.gongsibao.trade.web.OrderPayMapCtrl = org.netsharp.panda.core.CustomCtrl.Ext
         payMap.orderPrice = System.RMB.yuanToFen(amount);
         return payMap;
     },
-    initEdit:function (no) {//初始化编辑
+    initEdit: function (no) {//初始化编辑
 
         var me = this;
         if (!System.isnull(no)) {
@@ -179,8 +184,7 @@ com.gongsibao.trade.web.OrderPayMapCtrl = org.netsharp.panda.core.CustomCtrl.Ext
                 unpaidAmount = System.RMB.fenToYuan(unpaidAmount);
                 $('#unpaidAmount').numberbox('setValue', unpaidAmount);
                 //付款类别和订单分配金额赋值
-                
-                
+
 
             }, false);
 
