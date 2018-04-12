@@ -76,7 +76,6 @@ com.gongsibao.trade.web.OrderRefundCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     	}
     },*/
     save:function(){
-
     	var booksId = $('#setOfBooksId').combogrid('getValue');
     	var u8BankId = $("#u8BankId").combogrid('getValue');
     	//var refundType = $('#refundType').combobox('getValue');
@@ -138,7 +137,7 @@ com.gongsibao.trade.web.OrderRefundCtrl = org.netsharp.panda.core.CustomCtrl.Ext
     	for(var i=0;i<depRefunds.length;i++){
     		var refundPerf = depRefunds[i];
     		if(!System.isnull(refundPerf.amount) && parseFloat(refundPerf.amount) >0){
-    			totalRefundPerf += parseFloat(item.amount);
+    			totalRefundPerf += parseFloat(refundPerf.amount);
     		}
     	}
     	//验证退款业绩总额是否等于退款总额
