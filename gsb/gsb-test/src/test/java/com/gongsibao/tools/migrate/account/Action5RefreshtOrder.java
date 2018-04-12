@@ -17,7 +17,6 @@ public class Action5RefreshtOrder extends AbstractActionService {
 		//修改订单字段【是否是改价订单】的字段长度为1，为了满足框架布尔类型的兼容
 		pm.executeNonQuery("ALTER TABLE `gsb`.`so_order` CHANGE `is_change_price` `is_change_price` TINYINT(1) DEFAULT 0 NOT NULL COMMENT '是否改价订单，默认否';", null);
 
-
 		// 11.更新so_order 中 owner_id = add_user_id，
 		//so_order_prod_user_map
 		//关系类型序号，type=306，3061业务、3062客服（关注）、3063操作
@@ -55,6 +54,14 @@ public class Action5RefreshtOrder extends AbstractActionService {
 
 		//跟新发票创建人
 		cmdText = "UPDATE so_invoice c, sys_permission_employee em SET c.creator = em.name WHERE c.add_user_id= em.id;";
+		dao.executeInsert(cmdText, null);
+
+		//跟新历史数据的支付记录的账套id和支付方式id
+		cmdText = "UPDATE so_pay p,u8_bank_so_pay_map pm SET p.set_of_books_id = pm.set_of_books_id,p.u8_bank_id = pm.u8_bank_id WHERE p.pkid=pm.pay_id AND pm.type = 0;";
+		dao.executeInsert(cmdText, null);
+
+		//跟新历史数据的退款记录的账套id和支付方式id
+		cmdText = "UPDATE so_refund r,u8_bank_so_pay_map pm SET r.set_of_books_id = pm.set_of_books_id,r.u8_bank_id = pm.u8_bank_id WHERE r.pkid=pm.pay_id AND pm.type = 1;";
 		dao.executeInsert(cmdText, null);
 
 

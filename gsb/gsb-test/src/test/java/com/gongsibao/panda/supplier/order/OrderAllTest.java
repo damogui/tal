@@ -38,6 +38,9 @@ import com.gongsibao.panda.supplier.reference.SupplierU8BankReferenceTest;
         SoCreatOrderPerformanceWorkspaceTest.class,
         SalesmanOrderInvoiceWorkspaceTest.class,
         SalesmanOrderDetailWorkspaceTest.class,
+        SalesmanOrderContractFormWorkspaceTest.class,
+        SalesmanOrderInvoiceFormWorkspaceTest.class,
+
 
         //部门订单
         DepartmentOrderAllWorkspaceTest.class,
@@ -65,6 +68,8 @@ import com.gongsibao.panda.supplier.reference.SupplierU8BankReferenceTest;
         AuditStagingWorkspaceTest.class,
         AuditContractWorkspaceTest.class,
         AuditInvoiceWorkspaceTest.class,
+        AuditSalesmanOrderContractFormWorkspaceTest.class,
+        AuditSalesmanOrderInvoiceFormWorkspaceTest.class,
 
         ActionAllTest.class,
         OrderNavigationTest.class,
