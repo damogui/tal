@@ -26,7 +26,7 @@ public class NavigationTest extends NavigationBase {
 
 	public void createAccodions() {
 
-		this.doCreateAccodions(ResourceTest.resourcePrefix, "财务报销", "fa fa-recycle fa-fw", 1);
+		this.doCreateAccodions(ResourceTest.resourcePrefix, "财务报销", "fa fa-diamond fa-fw", 1);
 	}
 
 	// 创建菜单树节点
@@ -34,7 +34,7 @@ public class NavigationTest extends NavigationBase {
 	protected void doCreateTree(PNavigation tree) {
 
 		String parentNodeCode = ResourceTest.resourcePrefix + "_Manage";
-		createPTreeNode(tree, null, "fa fa-file-text-o fa-fw", parentNodeCode, "财务审批", "", 1);
+		createPTreeNode(tree, null, "fa fa-diamond fa-fw", parentNodeCode, "财务审批", "", 1);
 		{
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Todo_Bills", "我的待办", "/cw/bill/todo/list", 1);
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Done_Bills", "我的已办", "/cw/bill/done/list", 2);

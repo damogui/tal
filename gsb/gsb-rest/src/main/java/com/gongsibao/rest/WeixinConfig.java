@@ -17,7 +17,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix="wechat")
 @ComponentScan("com.gongsibao.rest")
-@Data
 public class WeixinConfig {
     private String url;
     private String appid;
@@ -54,5 +53,77 @@ public class WeixinConfig {
         wxPayConfig.setKeyPath(keyPath);
         wxPayService.setConfig(wxPayConfig);
         return wxPayService;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getAppid() {
+        return appid;
+    }
+
+    public void setAppid(String appid) {
+        this.appid = appid;
+    }
+
+    public String getAppsecret() {
+        return appsecret;
+    }
+
+    public void setAppsecret(String appsecret) {
+        this.appsecret = appsecret;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getPartnerId() {
+        return partnerId;
+    }
+
+    public void setPartnerId(String partnerId) {
+        this.partnerId = partnerId;
+    }
+
+    public String getPartnerKey() {
+        return partnerKey;
+    }
+
+    public void setPartnerKey(String partnerKey) {
+        this.partnerKey = partnerKey;
+    }
+
+    public String getKeyPath() {
+        return keyPath;
+    }
+
+    public void setKeyPath(String keyPath) {
+        this.keyPath = keyPath;
+    }
+
+    public String getPayNotifyUrl() {
+        return payNotifyUrl;
+    }
+
+    public void setPayNotifyUrl(String payNotifyUrl) {
+        this.payNotifyUrl = payNotifyUrl;
+    }
+
+    public RedisClient getRedisClient() {
+        return redisClient;
+    }
+
+    public void setRedisClient(RedisClient redisClient) {
+        this.redisClient = redisClient;
     }
 }

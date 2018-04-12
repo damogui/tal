@@ -401,7 +401,7 @@ org.netsharp.controls.OSSUpload = org.netsharp.controls.QiNiuUpload.Extends({
 					},
 
 					FilesAdded: function(up, files) {
-
+						debugger;
 						me.filesAdded(up, files);
 						me.setUploadParam(up);
 						uploader.start();

@@ -83,7 +83,7 @@ public class FinanceBillWorkspaceTest extends WorkspaceCreationBase {
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
 		addQueryItem(queryProject, "code", "单据号", ControlTypes.TEXT_BOX);
-		
+		addQueryItem(queryProject, "formType", "单据类型", ControlTypes.ENUM_BOX);
 		return queryProject;
 	}
     

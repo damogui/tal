@@ -6,8 +6,11 @@ import java.util.Date;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.organization.entity.Employee;
+import org.netsharp.wx.ea.base.IEaMessageService;
 
 import com.gongsibao.cw.base.IPaymentService;
+import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.cw.Payment;
 import com.gongsibao.entity.cw.dict.FinanceDict.AuditStatus;
 
@@ -37,4 +40,6 @@ public class ActionPaymentApplyPersist implements IAction {
     	String code = "FK"+format.format(dt)+temp;
         return code;
     } 
+    
+	
 }

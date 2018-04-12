@@ -8,7 +8,14 @@ import java.util.List;
 
 public interface IFileService extends IPersistableService<File> {
 
-    //根据表名和formId获取集合
+    /**
+     * @Description:TODO 根据表名和formId获取集合
+     * @param
+     * @return
+     * @author bhpeng <bhpeng@gongsibao.com>
+     * @date 2018/4/11 19:40
+     */
     List<File> getByTabNameFormId(String tabName, Integer formId);
+
 
 }

@@ -157,7 +157,6 @@ org.netsharp.controls.AttachmentUpload = org.netsharp.controls.OSSUpload.Extends
 		if(System.isnull(path)){
 			return;
 		}
-		debugger;
 		this.parent.save(path,file.type,file.name);
 	}
 });
