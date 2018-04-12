@@ -166,4 +166,17 @@ public class ProductService extends PersistableService<Product> implements IProd
         }
         return str.trim();
     }
+
+
+    @Override
+    public Product getLastCmsByProdId(Integer productId) {
+        Oql oql = new Oql();
+        {
+            oql.setType(this.type);
+            oql.setSelects("*");
+            oql.setFilter("productId = "+productId+" AND attributeCategory=0");
+            oql.setOrderby("id DESC");
+        }
+        return this.queryFirst(oql);
+    }
 }

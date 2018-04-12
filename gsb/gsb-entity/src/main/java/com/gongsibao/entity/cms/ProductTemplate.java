@@ -1,6 +1,7 @@
 package com.gongsibao.entity.cms;
 
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
@@ -14,6 +15,7 @@ public class ProductTemplate extends BaseEntity {
 	private String name;
     @Column(name="is_default",header="")
     private Integer isDefault;
+    @Column(name="content",header="")
     private String content;
     @Column(name="add_user_id",header="")
     private Integer addUserId;
@@ -21,6 +23,9 @@ public class ProductTemplate extends BaseEntity {
     private Integer productId;
     @Column(name="cms_product_id",header="")
     private Integer cmsProductId;
+    @Exclusive
+    private String cmsProductIdStr;
+    @Column(name="title",header="")
     private String title;
     private String keyword;
     @Column(name="page_description",header="")
@@ -29,6 +34,13 @@ public class ProductTemplate extends BaseEntity {
     private String productName;
     private String remark;
 
+    public String getCmsProductIdStr() {
+        return cmsProductIdStr;
+    }
+
+    public void setCmsProductIdStr(String cmsProductIdStr) {
+        this.cmsProductIdStr = cmsProductIdStr;
+    }
 
     public String getName() {
         return name;
