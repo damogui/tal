@@ -94,6 +94,7 @@ public class MyChangeTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		addColumn(datagrid, "txt_sqrmyzw", "申请人名称", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid,"changeTradeMarkState","状态",ControlTypes.TEXT_BOX,100);
 		addColumn(datagrid,"ownerName","所属人",ControlTypes.TEXT_BOX,100);
+		datagrid.setSortName("createTime Desc");
 		return datagrid;
 	}
 

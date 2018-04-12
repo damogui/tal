@@ -1,12 +1,12 @@
 package com.gongsibao.panda.supplier.igirl;
 import com.gongsibao.entity.igirl.ic.baseinfo.AreaTwo;
+import com.gongsibao.entity.igirl.ic.baseinfo.Nationality;
 import com.gongsibao.panda.supplier.igirl.reference.NCLBatchReferenceTest;
 import com.gongsibao.panda.supplier.igirl.reference.NCLOneReferenceTest;
 import com.gongsibao.panda.supplier.igirl.reference.NCLTwoReferenceTest;
 import com.gongsibao.panda.supplier.igirl.reference.TradeMarkProductReferenceTest;
 
-import com.gongsibao.panda.supplier.igirl.workspace.ic.common.AreaOneWorkspaceTest;
-import com.gongsibao.panda.supplier.igirl.workspace.ic.common.AreaTwoWorkspaceTest;
+import com.gongsibao.panda.supplier.igirl.workspace.ic.common.*;
 import com.gongsibao.panda.supplier.igirl.workspace.tm.apply.*;
 import com.gongsibao.panda.supplier.igirl.workspace.tm.change.ChangeTradeMarkAllWorkspaceTest;
 import com.gongsibao.panda.supplier.igirl.workspace.tm.change.DpChangeTradeMarkFollowWorkspaceTest;
@@ -52,6 +52,10 @@ import org.junit.runners.Suite.SuiteClasses;
 		HelpCustomerWorkspaceTest.class,
 		AreaOneWorkspaceTest.class,
 		AreaTwoWorkspaceTest.class,
+		ChapterOneWorkspaceTest.class,
+		ChapterTwoWorkspaceTest.class,
+		EntLicTypeWorkspaceTest.class,
+		NationalityWorkspaceTest.class,
 		NavigationTest.class
 		})
 		
