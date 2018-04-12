@@ -39,14 +39,16 @@
 		          			data-options="required:true,disabled:true"/></td>
 		          <td class="label_td"><label style="color:Red">*</label><label>去向订单号：</label></td>
 		          <td class="control_td">
-		          		<!-- 存储临时值 -->
-		          		<input type="hidden" id ="orderId_hidden">
-		          		<input type="hidden" id ="payablePrice_hidden">
-		          		<input type="hidden" id ="paidPrice_hidden">
-		          		<input type="hidden" id ="refundPrice_hidden">
-		          		<input type="hidden" id ="carryAmount_hidden">
-		          		<input type="hidden" id ="carryIntoAmount_hidden">    
-		          		<input id="toOrderNo" class="easyui-validatebox nsInput" onblur="carryoverCtrl.toOrderNoBlur();"
+		          		<!-- 存储临时来源订单值 -->
+					<input type="hidden" id ="payablePrice_hidden">
+					<input type="hidden" id ="paidPrice_hidden">
+					<input type="hidden" id ="refundPrice_hidden">
+					<input type="hidden" id ="carryAmount_hidden">
+					<input type="hidden" id ="carryIntoAmount_hidden"> 
+					<!-- 存储临时去向订单值 -->
+					<input type="hidden" id ="toOrderId_hidden">
+					<input type="hidden" id ="toPayAmount_hidden">  		          		
+					<input id="toOrderNo" class="easyui-validatebox nsInput" onblur="carryoverCtrl.toOrderNoBlur();"
 							data-options="width:150,required:true"/></td>
 		          <td class="label_td"><label style="color:Red">*</label><label>结转金额：</label></td>
 		          <td class="control_td">
