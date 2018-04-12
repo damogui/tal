@@ -2,9 +2,10 @@ package com.gongsibao.entity.igirl.ic.baseinfo;
 
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
+import org.netsharp.entity.Entity;
 
 @Table(name = "ic_fund_ba",header = "补充信息")
-public class IcFundBa {
+public class IcFundBa extends Entity{
     @Column(name = "dwdz",header = "单位地址")
     private String dwdz;
 

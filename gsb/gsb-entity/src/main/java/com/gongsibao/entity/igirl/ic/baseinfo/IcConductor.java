@@ -7,8 +7,9 @@ import com.gongsibao.entity.igirl.ic.baseinfo.Nationality;
 import com.gongsibao.entity.igirl.ic.dict.*;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
+import org.netsharp.entity.Entity;
 
-public class IcConductor {
+public class IcConductor extends Entity{
 
     @Column(name = "name",header = "姓名")
     private String name;
