@@ -13,6 +13,16 @@
 		#files{
 			padding:0 5px;
 		}
+		
+		#files .fa{
+			color:#1E7CB5;
+			cursor: pointer;
+			margin-left: 2px;
+		}
+		
+		#files .fa:hover{
+			color:red;
+		}
 	</style>
 </head>
 <body id="bodyLayout" class="easyui-layout" style="background-color:#fff;">

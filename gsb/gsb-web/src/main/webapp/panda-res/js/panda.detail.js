@@ -516,6 +516,8 @@ org.netsharp.panda.commerce.DetailPart = org.netsharp.panda.core.View.Extends({
 		
 		var rows = this.getSelections();
 		if (rows.length == 0) {
+			
+			IMessageBox.toast("请选择行记录");
 			return;
 		}
 		
