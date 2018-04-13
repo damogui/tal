@@ -59,8 +59,8 @@ import org.junit.runners.Suite.SuiteClasses;
 		ChapterTwoWorkspaceTest.class,
 		EntLicTypeWorkspaceTest.class,
 		NationalityWorkspaceTest.class,
-		NavigationTest.class,
 		IcRegisterCaseWorkspaceTest.class,
+		NavigationTest.class,
 		})
 		
 public class IgirlAllTest {

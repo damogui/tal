@@ -13,6 +13,7 @@ import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
+import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.OrderbyMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
@@ -88,7 +89,9 @@ public class AuditOrderPerformanceWorkspaceTest extends WorkspaceCreationBase {
         }
         PDatagridColumn column = null;
         column=addColumn (datagrid, "id", "操作", ControlTypes.TEXT_BOX, 60, true);{
+
             column.setFormatter("return controllerauditLogList.optionFormatter(value,row,index);");
+            column.setAlign(DatagridAlign.CENTER);
 
         }
         column = addColumn (datagrid, "soOrder.id", "订单id", ControlTypes.TEXT_BOX, 80);

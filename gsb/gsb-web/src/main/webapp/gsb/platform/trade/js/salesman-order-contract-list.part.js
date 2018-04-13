@@ -13,7 +13,7 @@ com.gongsibao.trade.web.SalesmanOrderContractListPart = org.netsharp.panda.comme
             title: '合同信息',
             fixed: false,
             maxmin: true,
-            shadeClose: false,
+            shadeClose: true,
             area: ['60%', '90%'],
             content: contentUrl
         });

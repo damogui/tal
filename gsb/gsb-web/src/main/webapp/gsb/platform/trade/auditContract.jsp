@@ -7,7 +7,7 @@
 </head>
     <body class="easyui-layout">
 		<div id="center" data-options="region:'center'">
-			<div id="detail_tabs" style="height:100%;">   
+			<div id="detail_tabs" class="easyui-tabs" style="height:100%;" data-options="fit:true,tabHeight:30">
 			    <div title="合同信息">   
 			         	这里可以嵌套一个iframe
 			    </div>   

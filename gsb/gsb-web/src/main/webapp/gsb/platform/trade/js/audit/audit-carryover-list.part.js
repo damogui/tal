@@ -57,7 +57,7 @@ com.gongsibao.trade.web.AuditCarryoverListPart = org.netsharp.panda.commerce.Lis
              title: '查看结转',
              fixed: false,
              maxmin: true,
-             shadeClose: false,
+             shadeClose: true,
              area: ['70%', '70%'],
              zIndex: 100000,
              id: "carryOverIframe",
