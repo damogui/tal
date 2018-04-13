@@ -119,7 +119,12 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
         var me = this;
     	var isPlatform = this.queryString("isPlatform");
     	var id =  this.queryString("id");
-    	if(!System.isnull(id)){
+		//平台售前新增：直接保存
+		this.invokeService("save", [entity], function (jmessage) {
+
+			me.onSaved(jmessage);
+		});
+		/*if(!System.isnull(id)){
     		
     		//平台售前新增：直接保存
             this.invokeService("save", [entity], function (jmessage) {
@@ -134,7 +139,7 @@ com.gongsibao.crm.web.NCustomerTaskAddFormPart = org.netsharp.panda.commerce.For
     		eval("window.parent."+parentCtrl+".save(entity);");
     		//关闭当前窗口
     		window.parent.layer.closeAll();
-    	}
+    	}*/
 
     },
     onSaved: function (jmessage) {
