@@ -1,10 +1,12 @@
 package com.gongsibao.bd.service.auditLog;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import com.gongsibao.entity.bd.dic.AuditLogStatusType;
+
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.ServiceFactory;
@@ -14,6 +16,9 @@ import org.netsharp.persistence.session.SessionManager;
 import com.gongsibao.bd.base.IAuditLogService;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.dic.AuditLogType;
+import com.gongsibao.entity.supplier.Salesman;
+import com.gongsibao.entity.supplier.dict.SupplierType;
+import com.gongsibao.supplier.base.ISalesmanService;
 import com.gongsibao.utils.SalesmanOrganization;
 import com.gongsibao.utils.SupplierSessionManager;
 
@@ -83,6 +88,7 @@ public abstract class AbstractAuditLogService {
         AuditLog userAudit = this.getUserAuditLog(formId, addUserId);
         AuditLog directLeader = this.getDirectLeaderAudit(formId, addUserId);
         AuditLog superiorLeader = this.getSuperiorLeaderAudit(formId, addUserId);
+        List<AuditLog> platformAuditList = this.getPlatformOperationAudit(formId, addUserId);
         List<AuditLog> extenAuditList = this.getExtenAuditLogList(formId, addUserId);
 
         if (userAudit != null) {
@@ -93,6 +99,9 @@ public abstract class AbstractAuditLogService {
         }
         if (superiorLeader != null) {
             allList.add(superiorLeader);
+        }
+        if (platformAuditList != null && platformAuditList.size() > 0) {
+            allList.addAll(platformAuditList);
         }
         if (extenAuditList != null && extenAuditList.size() > 0) {
             allList.addAll(extenAuditList);
@@ -148,7 +157,25 @@ public abstract class AbstractAuditLogService {
         }
         return null;
     }
-
+    /**
+     * 添加平台运营审核（xl部门用）
+     * @param formId
+     * @param addUserId
+     * @return
+     */
+    protected List<AuditLog> getPlatformOperationAudit(Integer formId, Integer addUserId) {
+    	List<AuditLog> auditLogList = new ArrayList<AuditLog>();
+    	ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
+    	Salesman salesmanEntity = salesmanService.byId(SessionManager.getUserId());
+    	if(salesmanEntity.getType().equals(SupplierType.PLATFORM)){
+    		List<Integer> yyIds = salesmanService.getEmployeeIdListByRoleCodes(Arrays.asList("Platform_Operation_Leader"));
+            for (Integer item : yyIds) {
+            	Integer level = getCurrentLevel() + 1;
+            	auditLogList.add(addAuditLog(formId, "运营审核审核", item, level));
+            }
+    	}
+        return auditLogList;
+    }
     /**
      * 扩展审核 例如退款需要法务审核
      *
