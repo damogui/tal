@@ -1,39 +1,52 @@
-package com.gongsibao.panda.platform.operation.workspace.supplier.data;
-
-import com.gongsibao.bd.base.IDictService;
-import com.gongsibao.crm.base.*;
-import com.gongsibao.entity.bd.Dict;
-import com.gongsibao.entity.crm.*;
-import com.gongsibao.entity.crm.dic.*;
-import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportData.IImportNCustomerService;
-import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportData.Enity.ImNCustomer;
-import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportData.Enity.ImNCustomerCompany;
-import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportData.Enity.ImNCustomerTaskFoolow;
-import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportData.IMNCustomerTaskService;
-import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportData.ImNCustomerTaskFoolowService;
-import com.gongsibao.taurus.util.StringManager;
-import com.gongsibao.tools.TimeUtils;
-import com.gongsibao.u8.base.ISoOrderService;
-import com.gongsibao.utils.NumberUtils;
-
-import jodd.typeconverter.Convert;
-
-import org.junit.Test;
-import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.Oql;
-import org.netsharp.core.Paging;
-import org.netsharp.core.QueryParameter;
-import org.netsharp.core.QueryParameters;
-import org.netsharp.core.annotations.Transaction;
-import org.netsharp.organization.base.IRoleGroupService;
-import org.netsharp.persistence.IPersister;
-import org.netsharp.persistence.PersisterFactory;
+package com.gongsibao.crm.test;
 
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import jodd.typeconverter.Convert;
+
+import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.Oql;
+import org.netsharp.core.Paging;
+import org.netsharp.core.QueryParameters;
+import org.netsharp.persistence.IPersister;
+import org.netsharp.persistence.PersisterFactory;
+import org.netsharp.util.StringManager;
+
+import com.gongsibao.bd.base.IDictService;
+import com.gongsibao.crm.base.ICustomerCompanyMapService;
+import com.gongsibao.crm.base.ICustomerFollowService;
+import com.gongsibao.crm.base.ICustomerProdMapService;
+import com.gongsibao.crm.base.ICustomerService;
+import com.gongsibao.crm.base.ICustomerShareService;
+import com.gongsibao.crm.base.INCustomerProductService;
+import com.gongsibao.crm.base.INCustomerTaskQualityService;
+import com.gongsibao.crm.test.ImportData.IImportNCustomerService;
+import com.gongsibao.crm.test.ImportData.IMNCustomerTaskService;
+import com.gongsibao.crm.test.ImportData.TimeUtils;
+import com.gongsibao.crm.test.ImportData.Enity.ImNCustomer;
+import com.gongsibao.crm.test.ImportData.Enity.ImNCustomerCompany;
+import com.gongsibao.crm.test.ImportData.Enity.ImNCustomerTaskFoolow;
+import com.gongsibao.entity.bd.Dict;
+import com.gongsibao.entity.crm.Customer;
+import com.gongsibao.entity.crm.CustomerCompanyMap;
+import com.gongsibao.entity.crm.CustomerFollow;
+import com.gongsibao.entity.crm.CustomerProdMap;
+import com.gongsibao.entity.crm.CustomerShare;
+import com.gongsibao.entity.crm.NCustomer;
+import com.gongsibao.entity.crm.NCustomerProduct;
+import com.gongsibao.entity.crm.NCustomerTask;
+import com.gongsibao.entity.crm.NCustomerTaskQuality;
+import com.gongsibao.entity.crm.dic.AllocationState;
+import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
+import com.gongsibao.entity.crm.dic.FollowStatus;
+import com.gongsibao.entity.crm.dic.NAllocationType;
+import com.gongsibao.entity.crm.dic.QualityCategory;
+import com.gongsibao.entity.crm.dic.TaskCustomerType;
+import com.gongsibao.entity.crm.dic.TaskQualityProgress;
+import com.gongsibao.entity.trade.SoOrder;
 
 /**
  * Created by win on 2018/2/8.
@@ -61,7 +74,6 @@ public class ImportOldDataToNewData {
 
 //    INCustomerService nCustomerService2 = ServiceFactory.create (INCustomerService.class);//任务保存需要
 
-    @Test
     public void run() {
 /*第一步*/
 
