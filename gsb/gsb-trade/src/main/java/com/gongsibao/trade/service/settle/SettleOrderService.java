@@ -1,7 +1,7 @@
-package com.gongsibao.igirl.settle.service;
+package com.gongsibao.trade.service.settle;
 
-import com.gongsibao.entity.igirl.settle.SettleOrder;
-import com.gongsibao.igirl.settle.base.ISettleOrderService;
+import com.gongsibao.entity.trade.settle.SettleOrder;
+import com.gongsibao.trade.base.settle.ISettleOrderService;
 import org.netsharp.communication.Service;
 import org.netsharp.core.Oql;
 import org.netsharp.service.PersistableService;

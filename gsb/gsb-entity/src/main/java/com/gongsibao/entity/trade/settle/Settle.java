@@ -1,7 +1,8 @@
-package com.gongsibao.entity.igirl.settle;
+package com.gongsibao.entity.trade.settle;
 
-import com.gongsibao.entity.igirl.settle.dict.SettleHandleStatus;
+import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.entity.trade.settle.dict.SettleHandleStatus;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
@@ -13,7 +14,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-@Table(name = "ig_settle", header = "结算单列表")
+@Table(name = "so_settle", header = "结算单列表")
 public class Settle extends Entity {
 
     public static final BigDecimal TAX_RATE = new BigDecimal(6.72);
@@ -49,8 +50,9 @@ public class Settle extends Entity {
     @Reference(foreignKey = "supplierId", header = "服务商")
     private Supplier supplier;
 
-    @Subs(foreignKey = "settleId", header = "审核日志", subType = SettleHandleLog.class)
-    private List<SettleHandleLog> handleLogList = new ArrayList<>();
+    @JsonIgnore
+    @Subs(foreignKey = "formId", header = "审核记录", subType = AuditLog.class)
+    private List<AuditLog> auditLogList = new ArrayList<>();
 
     @Subs(foreignKey = "settleId", header = "审核日志", subType = SettleOrder.class)
     private List<SettleOrder> settleOrderList;
@@ -135,19 +137,19 @@ public class Settle extends Entity {
         this.supplier = supplier;
     }
 
-    public List<SettleHandleLog> getHandleLogList() {
-        return handleLogList;
-    }
-
-    public void setHandleLogList(List<SettleHandleLog> handleLogList) {
-        this.handleLogList = handleLogList;
-    }
-
     public List<SettleOrder> getSettleOrderList() {
         return settleOrderList;
     }
 
     public void setSettleOrderList(List<SettleOrder> settleOrderList) {
         this.settleOrderList = settleOrderList;
+    }
+
+    public List<AuditLog> getAuditLogList() {
+        return auditLogList;
+    }
+
+    public void setAuditLogList(List<AuditLog> auditLogList) {
+        this.auditLogList = auditLogList;
     }
 }

@@ -1,8 +1,7 @@
-package com.gongsibao.entity.igirl.settle;
+package com.gongsibao.entity.trade.settle;
 
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.SoOrder;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
@@ -10,7 +9,7 @@ import org.netsharp.entity.Entity;
 
 import java.math.BigDecimal;
 
-@Table(name = "ig_settle_order", header = "结算单关联订单")
+@Table(name = "so_settle_order", header = "结算单关联订单")
 public class SettleOrder extends Entity {
 
     @Column(name = "settle_id", header = "结算单id")

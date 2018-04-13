@@ -1,6 +1,6 @@
-package com.gongsibao.igirl.settle.base;
+package com.gongsibao.trade.base.settle;
 
-import com.gongsibao.entity.igirl.settle.SettleOrder;
+import com.gongsibao.entity.trade.settle.SettleOrder;
 import org.netsharp.base.IPersistableService;
 
 import java.util.List;

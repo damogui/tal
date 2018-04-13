@@ -1,15 +1,17 @@
 
-System.Declare("com.gongsibao.igirl.settle.web");
-com.gongsibao.igirl.settle.web.SettleFormPart = org.netsharp.panda.core.CustomCtrl.Extends({
+System.Declare("com.gongsibao.trade.web.settle");
+com.gongsibao.trade.web.settle.SettleFormPart = org.netsharp.panda.core.CustomCtrl.Extends({
     ctor: function () {
         this.base();
-        this.service = 'com.gongsibao.igirl.settle.web.SettleFormPart';
-        this.handleStatusEnum = PandaHelper.Enum.get('com.gongsibao.entity.igirl.settle.dict.SettleHandleStatus');
+        this.service = 'com.gongsibao.trade.web.settle.SettleFormPart';
+        this.handleStatusEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.settle.dict.SettleHandleStatus');
+        this.auditStatusEnum = PandaHelper.Enum.get('com.gongsibao.entity.bd.dic.AuditLogStatusType');
     },
     init: function () {
         var id = this.queryString('id');
         this.initStyle();
         this.getDetail(id);
+        this.getLogs(id);
     },
     initStyle:function(){
 
@@ -25,8 +27,13 @@ com.gongsibao.igirl.settle.web.SettleFormPart = org.netsharp.panda.core.CustomCt
         var me = this;
         me.invokeService("settleDetail", [id], function (data) {
             me.buildBaseInfo(data);
-            me.buildLog(data.handleLogList);
             me.buildOrder(data.settleOrderList)
+        });
+    },
+    getLogs: function (id) {
+        var me = this;
+        me.invokeService("getLogs", [id], function (data) {
+            me.buildLog(data);
         });
     },
     buildBaseInfo: function (data) {
@@ -61,7 +68,7 @@ com.gongsibao.igirl.settle.web.SettleFormPart = org.netsharp.panda.core.CustomCt
                 // {field: 'id', checkbox: true},
                 {field:'afterStatus',title:'状态',width:150,align:'center',formatter:function(value,row,index){
                         if(value){
-                        return me.handleStatusEnum[value];
+                        return me.auditStatusEnum[value];
                     }
                     return '-';
                 }},

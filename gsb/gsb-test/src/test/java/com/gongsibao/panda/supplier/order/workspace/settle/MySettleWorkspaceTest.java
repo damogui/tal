@@ -1,7 +1,7 @@
-package com.gongsibao.panda.supplier.settle.workspace;
+package com.gongsibao.panda.supplier.order.workspace.settle;
 
-import com.gongsibao.entity.igirl.settle.Settle;
-import com.gongsibao.igirl.settle.web.SettleListPart;
+import com.gongsibao.entity.trade.settle.Settle;
+import com.gongsibao.trade.web.settle.SettleListPart;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
@@ -10,9 +10,7 @@ import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.entity.PDatagrid;
-import org.netsharp.panda.entity.PForm;
 import org.netsharp.panda.entity.PQueryProject;
-import org.netsharp.panda.entity.PWorkspace;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
@@ -21,7 +19,7 @@ public class MySettleWorkspaceTest extends WorkspaceCreationBase {
     @Override
     @Before
     public void setup() {
-        urlList = "/igirl/settle/settleOrder/myList";
+        urlList = "/supplier/settle/settleOrder/myList";
 
         entity = Settle.class;
         meta = MtableManager.getMtable(entity);
@@ -33,7 +31,7 @@ public class MySettleWorkspaceTest extends WorkspaceCreationBase {
         listPartJsController = SettleListPart.class.getName();
 
         listPartImportJs = "/gsb/supplier/settle/js/settle.list.part.js";
-        listToolbarPath="/igirl/settle/list";
+        listToolbarPath="/supplier/settle/list";
     }
 
     @Test

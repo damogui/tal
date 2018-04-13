@@ -1,6 +1,6 @@
-package com.gongsibao.igirl.settle.web;
+package com.gongsibao.trade.web.settle;
 
-import com.gongsibao.igirl.settle.base.ISettleService;
+import com.gongsibao.trade.base.settle.ISettleService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.panda.commerce.ListPart;
 

@@ -1,7 +1,7 @@
-package com.gongsibao.panda.supplier.settle.workspace;
+package com.gongsibao.panda.supplier.order.workspace.settle;
 
-import com.gongsibao.entity.igirl.settle.OrderProdCase;
-import com.gongsibao.igirl.settle.web.UnSettleListPart;
+import com.gongsibao.entity.trade.settle.OrderProdSettle;
+import com.gongsibao.trade.web.settle.UnSettleListPart;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
@@ -21,9 +21,9 @@ public class UnSettleWorkspaceTest extends WorkspaceCreationBase {
     @Override
     @Before
     public void setup() {
-        urlList = "/igirl/settle/unSettle/list";
+        urlList = "/supplier/settle/unSettle/list";
 //        urlForm = "/igirl/settle/unSettle/form";
-        entity = OrderProdCase.class;
+        entity = OrderProdSettle.class;
         meta = MtableManager.getMtable(entity);
         formPartName = listPartName = "待结算列表";
         resourceNodeCode = "Gsb_Supplier_My_Unsettle";
@@ -34,7 +34,7 @@ public class UnSettleWorkspaceTest extends WorkspaceCreationBase {
 //        formJsController = TradeMarkCasePart.class.getName();
 //        formJsImport = "/gsb/igirl/js/markcase.form.part.js";
         //formJsImport = "/gsb/supplier/settle/js/unsettle.list.part.js";
-        listToolbarPath = "/igirl/settle/unSettle/toolbar";
+        listToolbarPath = "/supplier/settle/unSettle/toolbar";
     }
 
     @Test

@@ -2,10 +2,14 @@ package com.gongsibao.panda.supplier.order;
 
 import com.gongsibao.bd.base.IAuditLogService;
 import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.trade.settle.OrderProdSettle;
+import com.gongsibao.entity.trade.settle.Settle;
 import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.trade.*;
+import com.gongsibao.trade.base.settle.IOrderProdSettleService;
+import com.gongsibao.trade.base.settle.ISettleService;
 import com.gongsibao.supplier.base.ISalesmanService;
 import com.gongsibao.supplier.base.ISupplierDepartmentService;
 import com.gongsibao.supplier.base.ISupplierService;
@@ -101,6 +105,15 @@ public class OrderResourceTest extends ResourceCreationBase {
                 this.createResourceNodeVoucher(AuditLog.class.getName(), "发票审核", "Gsb_Supplier_Order_Audit_Invoice", IAuditLogService.class.getName(), node4.getId());
                 this.createResourceNodeVoucher(Invoice.class.getName(), "发票审核界面", "GSB_Trade_Audit_Invoice_Form", IInvoiceService.class.getName(), node3.getId());
 
+            }
+
+            ResourceNode node5 = this.createResourceNodeCategory("结算管理", "Gsb_Supplier_Settle_My", node1.getId());
+            {
+                this.createResourceNodeVoucher(OrderProdSettle.class.getName(), "待结算列表", "Gsb_Supplier_My_Unsettle", IOrderProdSettleService.class.getName(), node5.getId());
+                this.createResourceNodeVoucher(Settle.class.getName(), "我的结算单", "Gsb_Supplier_MySettled", ISettleService.class.getName(), node5.getId());
+                this.createResourceNodeVoucher(Settle.class.getName(), "提交结算单", "Gsb_Supplier_Add_Settle", ISettleService.class.getName(), node5.getId());
+//                this.createResourceNodeVoucher(SoOrder.class.getName(), "创建订单", "Gsb_Supplier_Order_Salesman_Add", IOrderService.class.getName(), node2.getId());
+                this.createResourceNodeVoucher(Settle.class.getName(), "结算单信息", "Gsb_Supplier_Settle_form", ISettleService.class.getName(), node5.getId());
             }
         }
     }

@@ -1,18 +1,17 @@
-package com.gongsibao.igirl.settle.web;
+package com.gongsibao.trade.web.settle;
 
 import com.gongsibao.entity.Result;
 import com.gongsibao.entity.dict.ResponseStatus;
-import com.gongsibao.entity.igirl.settle.Settle;
+import com.gongsibao.entity.trade.settle.Settle;
 import com.gongsibao.entity.trade.dic.SettleStatus;
-import com.gongsibao.igirl.settle.base.ISettleService;
+import com.gongsibao.trade.base.settle.ISettleService;
 import com.gongsibao.utils.NumberUtils;
 import com.gongsibao.utils.SupplierSessionManager;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.BusinessException;
 import org.netsharp.panda.commerce.ListPart;
-import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.util.StringManager;
 
-import javax.xml.ws.Response;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +28,7 @@ public class UnSettleListPart extends ListPart {
         // 产品id过滤, 目前只支持商标结算
         filterList.add(" orderProd.productId IN (1137, 1177, 1823, 1514) ");
         filterList.add(" orderProd.settleStatus = " + SettleStatus.NO_SETTLEMENT.getValue());
+        filterList.add(" orderProd.soOrder.payablePrice <= orderProd.soOrder.paidPrice ");
 
         // TODO 订单金额条件判断
         filterList.add(" supplierId = " + SupplierSessionManager.getSupplierId() + " ");
@@ -51,6 +51,15 @@ public class UnSettleListPart extends ListPart {
             }
         }
 
-        return settleService.saveSettle(idList);
+        Result<Settle> result = null;
+        try {
+            result = settleService.saveSettle(idList);
+        } catch (BusinessException e) {
+            result = new Result<>(ResponseStatus.FAILED, e.getMessage());
+        } catch (Exception e) {
+            result = new Result<>(ResponseStatus.FAILED, "您的网络不稳定，请稍后再试。");
+            e.printStackTrace();
+        }
+        return result;
     }
 }

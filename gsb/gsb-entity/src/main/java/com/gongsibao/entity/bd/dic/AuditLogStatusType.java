@@ -5,7 +5,6 @@ import org.netsharp.base.IEnum;
 
 public enum AuditLogStatusType implements IEnum  {	
 	
-	
 	TOAUDIT(1051, "待审核"),
 	AUDITING(1052, "审核中"), 
 	AUDITREJECT(1053, "驳回审核"),

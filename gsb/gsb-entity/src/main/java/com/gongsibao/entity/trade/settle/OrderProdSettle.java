@@ -1,4 +1,4 @@
-package com.gongsibao.entity.igirl.settle;
+package com.gongsibao.entity.trade.settle;
 
 import java.math.BigDecimal;
 
@@ -10,17 +10,17 @@ import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
 import com.gongsibao.entity.acount.Account;
-import com.gongsibao.entity.igirl.settle.dict.CaseType;
+import com.gongsibao.entity.trade.settle.dict.CaseType;
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.SoOrder;
 
 /**
- * 明细订单与方案关联
+ * 明细订单结算表
  */
-@Table(name = "so_order_prod_case", header = "明细订单与方案关联表")
-public class OrderProdCase extends Entity {
+@Table(name = "so_order_prod_settle", header = "明细订单结算表（方案生成订单时，自动生成此关联关系）")
+public class OrderProdSettle extends Entity {
 
-    /**   
+    /**
 	 * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么)   
 	 */   
 	private static final long serialVersionUID = -5094866607283608480L;
