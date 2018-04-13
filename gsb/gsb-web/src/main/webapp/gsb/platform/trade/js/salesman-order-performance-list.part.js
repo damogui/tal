@@ -30,7 +30,7 @@ com.gongsibao.trade.web.SalesmanOrderPerformanceListPart = org.netsharp.panda.co
             title: '订单业绩信息',
             fixed: false,
             maxmin: true,
-            shadeClose: false,
+            shadeClose: true,
             area: ['60%', '60%'],
             zIndex: 100000,
             id: "orderperIframe",
