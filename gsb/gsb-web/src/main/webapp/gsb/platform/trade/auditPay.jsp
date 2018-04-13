@@ -62,7 +62,7 @@
             <div title="关联订单">
                 <table id="order_relevance_grid"></table>
             </div>
-            <div title="审批进度1">
+            <div title="审批进度">
                 <table id="audit_progress_grid"></table>
             </div>
         </div>

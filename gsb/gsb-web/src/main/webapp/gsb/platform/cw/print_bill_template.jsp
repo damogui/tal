@@ -19,7 +19,7 @@
 	  	   <input type="hidden" id="apply_department_id"  value=""  >
 		   <h5 class="page-header" style="margin-top: 0px;" ><span class="glyphicon glyphicon-list-alt" ></span> 单据信息</h5>
 		   <div class="row">
-		   		 <div class="col-sm-4 col-xs-4"> 
+		   		 <div class="col-sm-4 col-xs-4">  
 		   		 	 <div class="form-group">   
 					        <label for="firstname" class="col-sm-4 control-label">单据号:</label>   
 					        <div class="col-sm-8">  
