@@ -185,6 +185,12 @@ public interface INCustomerTaskService extends IPersistableService<NCustomerTask
 	 * @return
 	 */
 	public List<NCustomerTask> getNoStartList(Date time);
+	/**
+	 * 获取商机信息和质量信息
+	 * @param id
+	 * @return
+	 */
+	public NCustomerTask getTaskQualityByTaskId(Integer id);
 
 	/*
 	* 修改商机的分配状态
