@@ -8,30 +8,45 @@ import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
+import java.util.List;
+
 @Table(name = "ic_director",header = "董事")
 public class IcDirector extends Entity{
+
+    @Column(name = "member_id",header = "主要成员Id")
+    private Integer  memberId;
+
+    @Reference(foreignKey = "memberId",header = "主要成员")
+    private IcMember member;
+
     @Column(name = "name",header = "姓名")
     private String name;
 
     @Column(name = "name_eng",header = "姓名(英文)")
     private String nameEng;
 
-    @Column(name = "cer_type",header = "证件类型")
+    @Column(name = "cerType",header = "证件类型")
     private CorpLicenceType cerType;
 
-    @Column(name = "cer_no",header = "移动电话号码")
+    @Column(name = "cer_no",header = "证件号码")
     private String cerNo;
+
+    @Column(name = "country",header = "国籍")
+    private String country;
+
+    @Column(name = "sex",header = "性别")
+    private String sex;
 
     @Column(name = "mob_tel",header = "移动电话号码")
     private String mobTel;
 
-    @Column(name = "lite_deg",header = "文化程度")
+    @Column(name = "liteDeg",header = "文化程度")
     private CorpEducationalLevel liteDeg;
 
     @Column(name = "nation",header = "民族")
     private CorpNation nation;
 
-    @Column(name = "pol_stand",header = "政治面貌")
+    @Column(name = "polStand",header = "政治面貌")
     private CorpPoliticalStatus polStand;
 
     @Column(name = "nat_date",header = "出生日期")
@@ -40,13 +55,13 @@ public class IcDirector extends Entity{
     @Column(name = "position",header = "职务")
     private CorpPosition position;
 
-    @Column(name = "pos_br_form",header = "产生方式")
+    @Column(name = "posBrForm",header = "产生方式")
     private CorpBuildMothed posBrForm;
 
-    @Column(name = "off_years",header = "任职期限")
+    @Column(name = "offYears",header = "任职期限")
     private CorpDeadline offYears;
 
-    @Column(name = "is_manager",header = "是否兼任经理")
+    @Column(name = "isManager",header = "是否兼任经理")
     private CorpBoolean isManager;
 
     @Column(name = "area_one_id",header = "户籍登记地址Id")
@@ -63,6 +78,22 @@ public class IcDirector extends Entity{
 
     @Column(name = "house_add_other",header = "户籍登记地址详细信息二")
     private String houseAddOther;
+
+    public Integer getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(Integer memberId) {
+        this.memberId = memberId;
+    }
+
+    public IcMember getMember() {
+        return member;
+    }
+
+    public void setMember(IcMember member) {
+        this.member = member;
+    }
 
     public String getName() {
         return name;
@@ -94,6 +125,22 @@ public class IcDirector extends Entity{
 
     public void setCerNo(String cerNo) {
         this.cerNo = cerNo;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     public String getMobTel() {
