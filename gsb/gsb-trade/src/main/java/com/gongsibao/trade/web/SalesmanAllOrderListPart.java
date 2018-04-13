@@ -101,11 +101,12 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
 
 
     /*
-    * 是否是分期付款的订单
+    * 验证分期付款的订单
     * @param id
-    * @return
+    * @return 0-已经分期；1-审核中；2-可以审核
     */
-    public Boolean isStaged(Integer id) {
+    public Integer ValidateStaged(Integer id) {
+    	Integer resultValueInteger = 2;
         Oql oql = new Oql();
         {
             oql.setType(SoOrder.class);
@@ -114,7 +115,14 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
             oql.getParameters().add("id", id, Types.INTEGER);
         }
         SoOrder entity = orderService.queryFirst(oql);
-        return entity.getIsInstallment() == null ? false : entity.getIsInstallment();
+        if(entity.getIsInstallment()){
+        	return 0;
+ 	   }else{
+ 		  if(entity.getInstallmentAuditStatusId().getValue().equals(AuditStatusType.Shz.getValue())){
+			   return 1; 
+		   } 
+ 	   }
+        return resultValueInteger;
     }
     /*
      * 是否是改价的订单
@@ -131,15 +139,15 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
              oql.getParameters().add("id", id, Types.INTEGER);
          }
          SoOrder entity = orderService.queryFirst(oql);
-         if(entity.getIsChangePrice() && entity.getChangePriceAuditStatus().getValue().equals(AuditStatusType.Shtg.getValue())){
-        	 resultValueInteger = 0;
-         }else if(entity.getIsChangePrice() && entity.getChangePriceAuditStatus().getValue().equals(AuditStatusType.Bhsh.getValue())){
-        	 resultValueInteger = 1;
-         }else if(!entity.getIsChangePrice()){
-        	 resultValueInteger = 0;
-         }else {
-        	 resultValueInteger = 2;
-		}
+         if(entity.getIsChangePrice()){
+        	 if(entity.getChangePriceAuditStatus().getValue().equals(AuditStatusType.Shtg.getValue())){
+            	 resultValueInteger = 0;
+             }else if(entity.getChangePriceAuditStatus().getValue().equals(AuditStatusType.Bhsh.getValue())){
+            	 resultValueInteger = 1;
+             }else if(entity.getChangePriceAuditStatus().getValue().equals(AuditStatusType.Shz.getValue())){
+            	 resultValueInteger = 2;
+    		} 
+         }
          return resultValueInteger;
      }
     /**

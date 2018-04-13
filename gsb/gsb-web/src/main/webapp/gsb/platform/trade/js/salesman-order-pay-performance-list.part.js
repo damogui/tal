@@ -36,7 +36,7 @@ com.gongsibao.trade.web.SalesmanOrderReceivedListPart = org.netsharp.panda.comme
             title: '我的回款信息',
             fixed: false,
             maxmin: true,
-            shadeClose: false,
+            shadeClose: true,
             area: ['60%', '60%'],
             zIndex: 100000,
             id: "myorderpay",

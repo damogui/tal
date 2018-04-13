@@ -38,7 +38,9 @@ com.gongsibao.trade.web.AuditRefundCtrl = com.gongsibao.trade.web.AuditBaseCtrl.
     	//退款信息
     	var me = this;
     	this.invokeService("getRefundById", [id], function(data){
-    		$("#setOfBooks_name").text(data.setOfBooks.name);
+    		
+    		var setOfBooksName = data.setOfBooks == null?'':data.setOfBooks.name; 
+    		$("#setOfBooks_name").text(setOfBooksName);
     		$("#refundType").text((data.refundType==0?'部分退款':'全额退款'));
     		$("#payerName").text(data.payerName);
     		$("#bankNo").text(data.bankNo);

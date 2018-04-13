@@ -437,11 +437,12 @@ PandaHelper.dimString = function(str){
 PandaHelper.Enum = {
 		
 	get:function(enumName){
-		
-		var str = sessionStorage[enumName];
-		if(str){
-			return JSON.parse(str);
-		}
+
+//暂时先不启用，等版本号方案完成后再启用
+//		var str = sessionStorage[enumName];
+//		if(str){
+//			return JSON.parse(str);
+//		}
 		this.invoke(enumName,function(data){
 			
 			obj = JSON.parse(data);

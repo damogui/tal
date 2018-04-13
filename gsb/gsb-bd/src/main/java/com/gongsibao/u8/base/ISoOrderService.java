@@ -35,7 +35,10 @@ public interface ISoOrderService extends IPersistableService<SoOrder> {
      *根据订单id获取订单实体，包含该订单下所有的产品订单
      * */
     SoOrder getOrderWithOrderProdsByOrderId(Integer orderId);
-
+    /*
+     *根据订单id获取订单实体，包含该订单下所有分期信息
+     * */
+    SoOrder getOrderStageByOrderId(Integer orderId);
     /*
      *根据订单no获取订单实体
      * */

@@ -31,7 +31,7 @@ com.gongsibao.trade.web.AuditStagingListPart = org.netsharp.panda.commerce.ListP
             fixed: false,
             maxmin: true,
             shadeClose: true,
-            area: ['50%', '70%'],
+            area: ['70%', '70%'],
             zIndex: 1000,
             id: "auditStageIframe",
             content: contentUrl,
@@ -60,8 +60,8 @@ com.gongsibao.trade.web.AuditStagingListPart = org.netsharp.panda.commerce.ListP
               title: '查看',
               fixed: false,
               maxmin: true,
-              shadeClose: false,
-              area: ['50%', '70%'],
+              shadeClose: true,
+              area: ['70%', '70%'],
               zIndex: 100000,
               content: contentUrl
           });

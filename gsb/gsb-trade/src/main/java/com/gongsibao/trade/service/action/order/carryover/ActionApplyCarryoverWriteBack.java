@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
-import org.netsharp.communication.ServiceFactory;
 import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
@@ -13,9 +12,8 @@ import org.netsharp.util.sqlbuilder.UpdateBuilder;
 import com.gongsibao.entity.trade.NOrderCarryover;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
-import com.gongsibao.u8.base.ISoOrderService;
 /**
- * 回写订单的退款状态(其他的回写信息在审核通过后回写)
+ * 回写订单的结转状态(其他的回写信息在审核通过后回写)
  * @author Administrator
  *
  */
