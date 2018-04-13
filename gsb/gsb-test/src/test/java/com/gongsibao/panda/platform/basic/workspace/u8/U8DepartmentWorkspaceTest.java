@@ -9,10 +9,7 @@ import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.OpenMode;
-import org.netsharp.panda.entity.PDatagrid;
-import org.netsharp.panda.entity.PDatagridColumn;
-import org.netsharp.panda.entity.PForm;
-import org.netsharp.panda.entity.PFormField;
+import org.netsharp.panda.entity.*;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 /**
@@ -57,14 +54,27 @@ public class U8DepartmentWorkspaceTest extends WorkspaceCreationBase {
 
     // 默认的表单配置信息
     protected PForm createForm(ResourceNode node) {
-
         PForm form = super.createForm(node);
         PFormField formField = null;
         form.setColumnCount(2);
         addFormField(form, "code", "编号", null, ControlTypes.TEXT_BOX, true, false);
         addFormField(form, "name", "名称", null, ControlTypes.TEXT_BOX, false, false);
-        formField = addFormFieldRefrence(form, "salesman.name", "业务员", null, "CRM_Employee", true, false);
+        addFormFieldRefrence(form, "salesman.name", "业务员", null, "CRM_Employee", true, false);
         return form;
+    }
+
+    @Override
+    protected PQueryProject createQueryProject(ResourceNode node) {
+
+        PQueryProject queryProject = super.createQueryProject(node);
+        queryProject.toNew();
+        PQueryItem item = null;
+        queryProject.setColumnCount(3);
+
+        addQueryItem(queryProject, "code", "编号", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "name", "名称", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "salesman.name", "业务员", ControlTypes.TEXT_BOX);
+        return queryProject;
     }
 
     // 默认的表单操作
