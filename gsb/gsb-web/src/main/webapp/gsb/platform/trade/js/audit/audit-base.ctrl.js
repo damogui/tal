@@ -11,13 +11,8 @@ com.gongsibao.trade.web.AuditBaseCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     },
     initStyle:function(){
     	
-		var centerHeight = $('body').height() - 240;
-		$('#center').height(centerHeight);	
-		
-		$('#detail_tabs').tabs({
-			fit:true,
-			tabHeight:35
-		});	
+		var centerHeight = $('body').height() - 200;
+		$('#center').height(centerHeight);
     },
     initData:function(){
     	
