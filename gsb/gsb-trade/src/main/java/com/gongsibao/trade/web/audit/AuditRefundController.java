@@ -7,12 +7,14 @@ import com.gongsibao.bd.service.auditLog.AbstractAuditLogService;
 import com.gongsibao.bd.service.auditLog.AuditFactory;
 import com.gongsibao.bd.service.auditLog.AuditState;
 import com.gongsibao.bd.service.auditLog.RefundAudit;
+
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 
 import com.gongsibao.entity.trade.NDepRefund;
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.Refund;
+import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.base.INDepRefundService;
 import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IRefundService;

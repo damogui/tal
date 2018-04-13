@@ -9,6 +9,7 @@ import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
+import org.netsharp.panda.dic.OrderbyMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
@@ -75,15 +76,18 @@ public class AuditRefundWorkspaceTest extends WorkspaceCreationBase{
         column = addColumn(datagrid, "fefund.soOrder.paidPrice", "已付金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
         	column.setAlign(DatagridAlign.RIGHT);
         }
-        column = addColumn (datagrid, "fefund.soOrder.toBePaidPrice", "待付金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
-        }
+        //订单待付款金额 = 订单应付金额 - 订单余额(paidPrice+carryIntoAmount-refundPrice-carryAmount)
+        addColumn (datagrid, "fefund.soOrder.toBePaidPrice", "待付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         column = addColumn(datagrid, "fefund.amount", "退款金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
         	column.setAlign(DatagridAlign.RIGHT);
+        	column.setFormatter("return (value/100).toFixed(2);");
         }
         addColumn(datagrid, "fefund.refundType", "退款类别", ControlTypes.ENUM_BOX, 100);
-        addColumn(datagrid, "fefund.amount", "==退款业绩分配金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        //addColumn(datagrid, "fefund.amount", "==退款业绩分配金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn(datagrid, "status", "审核状态", ControlTypes.ENUM_BOX, 100);
-        addColumn(datagrid, "fefund.createTime", "退款创建时间", ControlTypes.DATETIME_BOX, 100);
+        column = addColumn(datagrid, "fefund.createTime", "退款创建时间", ControlTypes.DATETIME_BOX, 100);{
+        	column.setOrderbyMode (OrderbyMode.DESC);
+        }
         addColumn(datagrid, "fefund.soOrder.createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);
         addColumn(datagrid, "fefund.creator", "退款创建人", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "fefund.soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
