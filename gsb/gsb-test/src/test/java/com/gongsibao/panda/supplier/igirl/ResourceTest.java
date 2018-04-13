@@ -1,5 +1,6 @@
 package com.gongsibao.panda.supplier.igirl;
 
+import com.gongsibao.entity.igirl.ic.IcRegisterCase;
 import com.gongsibao.entity.igirl.ic.baseinfo.AreaOne;
 import com.gongsibao.entity.igirl.ic.baseinfo.AreaTwo;
 import com.gongsibao.entity.igirl.tm.*;
@@ -13,6 +14,7 @@ import com.gongsibao.entity.igirl.tm.baseinfo.SupplierSiteInfo;
 import com.gongsibao.entity.product.Product;
 import com.gongsibao.igirl.ic.base.IAreaOneService;
 import com.gongsibao.igirl.ic.base.IAreaTwoService;
+import com.gongsibao.igirl.ic.base.IRegisterCaseService;
 import com.gongsibao.igirl.tm.base.*;
 import com.gongsibao.igirl.tm.service.HelpBookService;
 import com.gongsibao.product.base.IProductService;
@@ -108,6 +110,12 @@ public class ResourceTest extends ResourceCreationBase {
 		{
 			this.createResourceNodeVoucher(AreaOne.class.getName(), "省级列表", "IGRIL_IC_BASE_" + AreaOne.class.getSimpleName(), IAreaOneService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(AreaTwo.class.getName(), "地市列表", "IGRIL_IC_BASE_" +AreaTwo.class.getSimpleName(), IAreaTwoService.class.getName(), node1.getId());
+		}
+
+		node1 = this.createResourceNodeCategory("工商注册", "GSB_IGIRL_IC_REGIST", node.getId());
+		{
+			this.createResourceNodeVoucher(IcRegisterCase.class.getName(), "注册申请", "IGRIL_IC_REGIST_" + IcRegisterCase.class.getSimpleName(), IRegisterCaseService.class.getName(), node1.getId());
+
 		}
 	}
 }
