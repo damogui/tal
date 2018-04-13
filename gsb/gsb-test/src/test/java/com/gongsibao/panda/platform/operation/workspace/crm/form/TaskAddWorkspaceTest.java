@@ -114,7 +114,7 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 		
 		formField = addFormFieldRefrence(form, "owner.name", "分配业务员", null, Employee.class.getSimpleName(), false, true);
 
-		formField = addFormField(form, "remark", "售前备注", groupName, ControlTypes.TEXTAREA, true, false);{
+		formField = addFormField(form, "remark", "售前备注", groupName, ControlTypes.TEXTAREA, false, false);{
 			formField.setHeight(50);
 			formField.setFullColumn(false);
 			formField.setTroikaValidation("[\'maxLength[500]\']");

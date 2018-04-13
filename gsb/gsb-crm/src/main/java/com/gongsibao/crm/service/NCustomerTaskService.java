@@ -613,4 +613,17 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		int res = this.pm.executeNonQuery(cmdText, qps);
 		return res;
 	}
+
+	@Override
+	public NCustomerTask getTaskQualityByTaskId(Integer id) {
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects("NCustomerTask.*,NCustomerTask.customer.*,NCustomerTask.quality.*,");
+			oql.setFilter("id = ?");
+			oql.getParameters().add("@id", id, Types.INTEGER);
+		}
+		NCustomerTask taskEntity = this.pm.queryFirst(oql);
+		return taskEntity;
+	}
 }

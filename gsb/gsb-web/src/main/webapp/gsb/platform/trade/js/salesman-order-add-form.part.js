@@ -341,8 +341,6 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
                 }
             },
             cancel:function(){
-            	
-            	alert(1);
             	layer.closeAll();
             }
         });

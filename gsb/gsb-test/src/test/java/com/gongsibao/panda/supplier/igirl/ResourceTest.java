@@ -122,6 +122,9 @@ public class ResourceTest extends ResourceCreationBase {
 		node1 = this.createResourceNodeCategory("工商注册", "GSB_IGIRL_IC_REGIST", node.getId());
 		{
 			this.createResourceNodeVoucher(IcRegisterCase.class.getName(), "注册申请", "IGRIL_IC_REGIST_" + IcRegisterCase.class.getSimpleName(), IRegisterCaseService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(IcBaseInfo.class.getName(),"基础信息","IGRIL_IC_REGIST_"+IcBaseInfo.class.getSimpleName(),IBaseInfoService.class.getName(),node1.getId());
+			this.createResourceNodeVoucher(IcUnPerson.class.getName(),"非自然人股东基本信息","IGRIL_IC_REGIST_"+IcUnPerson.class.getSimpleName(),IUnPersonService.class.getName(),node1.getId());
+			this.createResourceNodeVoucher(IcDirector.class.getName(),"董事信息","IGRIL_IC_REGIST_"+IcDirector.class.getSimpleName(),IDirectorService.class.getName(),node1.getId());
 
 		}
 	}
