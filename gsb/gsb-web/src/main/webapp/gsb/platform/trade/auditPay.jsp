@@ -12,7 +12,7 @@
     <body class="easyui-layout">
 
 
-    <div data-options="region:'north',split:false,collapsible:false,closed:false,height:220">
+    <div data-options="region:'north',split:false,collapsible:false,closed:false,height:200">
         <div class="formContent">
             <table cellpadding="3" cellspacing="0" class="form-panel">
                 <tr>
@@ -55,23 +55,18 @@
         </div>
     </div>
     <div id="center" data-options="region:'center'">
-        <div id="detail_tabs" style="height:100%;">
+        <div id="detail_tabs" class="easyui-tabs" style="height:100%;" data-options="fit:true,tabHeight:30">
             <div title="付款凭证">
                 <table id="pay_voucher_grid"></table>
             </div>
             <div title="关联订单">
                 <table id="order_relevance_grid"></table>
             </div>
-            <div title="审批进度">
+            <div title="审批进度1">
                 <table id="audit_progress_grid"></table>
             </div>
         </div>
-
-
     </div>
-
-
-
 </body>
 
 <script src='/gsb/platform/trade/js/audit/audit-base.ctrl.js'></script>
