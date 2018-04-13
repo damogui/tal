@@ -175,10 +175,9 @@ public class ImportOldDataToNewData {
             oql2.setPaging (new Paging (i, pageSize));
             oql2.setType (Customer.class);
             StringBuilder sb = new StringBuilder ();
-            sb.append ("Customer.*");
-//            sb.append ("Customer.*,");
-//            sb.append ("Customer.prodDetails.*,");
-//            sb.append ("Customer.prodDetails.product.{id,name}");
+            sb.append ("Customer.*,");
+            sb.append ("Customer.prodDetails.*,");
+            sb.append ("Customer.prodDetails.product.{id,name}");
 
             oql2.setSelects (sb.toString ());//设置要查询的列
 
@@ -224,7 +223,7 @@ public class ImportOldDataToNewData {
                  * 50分钟只执行了1000条。
                  * 
                  */
-                //getFollowsByCustomer (item, listTask);//直接手动保存不通过持久化
+                getFollowsByCustomer (item, listTask);//直接手动保存不通过持久化
                 
                 //顾客关联企业
                 // nCustomer.setCompanys (getCompanysByCustomer (item));//用旧表
