@@ -1,6 +1,8 @@
 package com.gongsibao.panda.supplier.igirl;
+import com.gongsibao.entity.igirl.ic.IcRegisterCase;
 import com.gongsibao.entity.igirl.ic.baseinfo.AreaOne;
 import com.gongsibao.entity.igirl.ic.baseinfo.AreaTwo;
+import com.gongsibao.entity.igirl.ic.baseinfo.*;
 import com.gongsibao.entity.igirl.tm.ChangeTradeMark;
 import com.gongsibao.entity.igirl.tm.DownloadAttachment;
 import com.gongsibao.entity.igirl.tm.HelpBook;
@@ -114,13 +116,24 @@ public class NavigationTest extends NavigationBase {
 		}
 		createPTreeNode(tree, null, null, "GSB_IC_AI", "智能工商", "", 2);
 		{
-			createPTreeNode(tree, "GSB_IC_AI", null, "GSB_IGIRL_IC_BASE", "基础信息", "",4);
+			createPTreeNode(tree, "GSB_IC_AI", null, "GSB_IGIRL_IC_BASE", "基础信息", "",6);
 			{
 				createPTreeNode(tree, "GSB_IGIRL_IC_BASE", null, "IGRIL_IC_BASE_" + AreaOne.class.getSimpleName(), "省级列表", "/igirl/ic/areaone/all/list", 1);
 				createPTreeNode(tree, "GSB_IGIRL_IC_BASE", null, "IGRIL_IC_BASE_" + AreaTwo.class.getSimpleName(), "地市列表", "/igirl/ic/areatwo/all/list", 2);
+				createPTreeNode(tree, "GSB_IGIRL_IC_BASE", null, "IGRIL_IC_BASE_" + ChapterOne.class.getSimpleName(), "刻章区", "/igirl/ic/chapterone/all/list", 3);
+				createPTreeNode(tree, "GSB_IGIRL_IC_BASE", null, "IGRIL_IC_BASE_" + ChapterTwo.class.getSimpleName(), "刻章公司", "/igirl/ic/chaptertwo/all/list", 4);
+                createPTreeNode(tree, "GSB_IGIRL_IC_BASE", null, "IGRIL_IC_BASE_" + EntLicType.class.getSimpleName(), "证照类型", "/igirl/ic/entlictype/all/list", 5);
+                createPTreeNode(tree, "GSB_IGIRL_IC_BASE", null, "IGRIL_IC_BASE_" + Nationality.class.getSimpleName(), "国籍", "/igirl/ic/nationality/all/list", 6);
+
+			}
+
+			createPTreeNode(tree, "GSB_IC_AI", null, "GSB_IGIRL_IC_REGIST", "工商注册", "",4);
+			{
+				createPTreeNode(tree, "GSB_IGIRL_IC_REGIST", null, "IGRIL_IC_REGIST_" + IcRegisterCase.class.getSimpleName(), "注册申请", "/igirl/ic/IcRegisterCase/all/list", 1);
 			}
 
 		}
-		
+
+
 	}
 }

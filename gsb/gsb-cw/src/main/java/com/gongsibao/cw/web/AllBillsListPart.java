@@ -4,4 +4,5 @@ import org.netsharp.panda.commerce.ListPart;
 
 public class AllBillsListPart extends ListPart{
 
+	
 }

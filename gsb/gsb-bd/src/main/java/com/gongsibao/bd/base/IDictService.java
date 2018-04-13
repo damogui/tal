@@ -1,5 +1,6 @@
 package com.gongsibao.bd.base;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.netsharp.base.IPersistableService;
@@ -29,5 +30,11 @@ public interface IDictService extends IPersistableService<Dict> {
 	List<Dict> byParentId(Integer parentId);
 
 	boolean delete(String ids);
+
+	List<Integer> findParentIds(Collection<Integer> dictIds);
+
+	List<Integer> findChildIds(Collection<Integer> dictIds);
+
+	List<Dict> findByIds(Collection<Integer> ids);
 
 }

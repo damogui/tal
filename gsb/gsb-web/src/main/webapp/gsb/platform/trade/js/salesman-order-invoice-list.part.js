@@ -13,7 +13,7 @@ com.gongsibao.trade.web.SalesmanOrderInvoiceListPart = org.netsharp.panda.commer
             title: '发票信息',
             fixed: false,
             maxmin: true,
-            shadeClose: false,
+            shadeClose: true,
             area: ['60%', '90%'],
             zIndex: 100000,
             content: contentUrl

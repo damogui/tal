@@ -14,10 +14,16 @@ public class IcUnPerson extends Entity {
     @Column(name = "inv_type",header = "单位类型")
     private CorpType invType;
 
-    @Column(name = "entLic_type",header = "证照类型")
+    @Column(name = "entLic_type_id",header = "证照类型Id")
+    private Integer entLicTypeId;
+
+    @Reference(foreignKey = "entLicTypeId",header = "证照类型")
     private EntLicType entLicType;
 
-    @Column(name = "nationality",header = "国别和地区")
+    @Column(name = "nationalityId",header = "国别和地区Id")
+    private Integer nationalityId;
+
+    @Reference(foreignKey = "nationalityId",header = "国别和地区")
     private Nationality nationality;
 
     @Column(name = "corp_rpt",header = "法定代表人")
@@ -149,5 +155,21 @@ public class IcUnPerson extends Entity {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public Integer getEntLicTypeId() {
+        return entLicTypeId;
+    }
+
+    public void setEntLicTypeId(Integer entLicTypeId) {
+        this.entLicTypeId = entLicTypeId;
+    }
+
+    public Integer getNationalityId() {
+        return nationalityId;
+    }
+
+    public void setNationalityId(Integer nationalityId) {
+        this.nationalityId = nationalityId;
     }
 }

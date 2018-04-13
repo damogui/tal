@@ -19,10 +19,13 @@ import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.trade.base.IRefundService;
+import com.gongsibao.u8.base.ISoOrderService;
 
 public class ActionAuditRefundWriteBack implements IAction{
 	IAuditService auditService = ServiceFactory.create(IAuditService.class);
 	IRefundService refundService = ServiceFactory.create(IRefundService.class);
+	ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
+	
 	@Override
 	public void execute(ActionContext ctx) {
 		AuditContext auditContext = (AuditContext) ctx.getItem();
@@ -43,13 +46,13 @@ public class ActionAuditRefundWriteBack implements IAction{
             case 0://驳回审核
                 auditService.auditRejected(auditLog.getId(), remark);
                 writeBackRefund(auditLog.getFormId(),AuditStatusType.Bhsh);
-                writeBackOrder(orderId,AuditStatusType.Bhsh);
+                writeBackOrder(orderId,auditLog.getFormId(),AuditStatusType.Bhsh);
                 break;
             case 1://通过审核
                 auditService.auditApproved(auditLog.getId(),remark);
                 if (auditLog.getLevel().equals(auditLog.getMaxLevel())) {
                 	writeBackRefund(auditLog.getFormId(),AuditStatusType.Shtg);
-                    writeBackOrder(orderId,AuditStatusType.Shtg);
+                    writeBackOrder(orderId,auditLog.getFormId(),AuditStatusType.Shtg);
                 }
                 break;
         }
@@ -73,24 +76,34 @@ public class ActionAuditRefundWriteBack implements IAction{
 	} 
 	/**
 	 * 回写订单
+	 @param orderId 订单Id
 	 * @param formId 来源Id
 	 * @param state 审核状态
 	 */
-	private void writeBackOrder(Integer orderId, AuditStatusType state){
-		//1.审核成功，获取订单退款金额
-		Integer allAmout = 0;
-		if(state.equals(AuditStatusType.Shtg)){
-			List<Refund> refundList = refundService.queryByOrderId(orderId);
-			for (Refund item : refundList) {
-				allAmout += item.getAmount();
-			}
-		}
-		//2.回写订单:退款审核状态、退款金额
+	private void writeBackOrder(Integer orderId,Integer formId, AuditStatusType state){
+		//回写订单:退款审核状态、退款金额
         UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("so_order");
 			updateSql.set("refund_status_id", state.getValue());
-			updateSql.set("refund_price", allAmout);
+			//审核通过-回写退款金额
+			if(state.equals(AuditStatusType.Shtg)){
+				//1.获取退款金额
+				Integer allAmout = 0;
+				Refund refund = refundService.queryById(formId);
+				if(refund != null){
+					allAmout = refund.getAmount() == null ? 0 : refund.getAmount().intValue();
+				}
+				 
+				//2.获取原订单的已退金额
+				Integer refundAmount = 0;
+				SoOrder order = orderService.getByOrderId(orderId);
+				if(order !=null){
+					refundAmount = order.getRefundPrice() == null ? 0 : order.getRefundPrice().intValue();
+				}
+				updateSql.set("refund_price", refundAmount + allAmout);
+			}
+			
 			updateSql.set("upd_time", new Date());
 			updateSql.where("pkid =" + orderId);
 		}

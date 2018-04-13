@@ -27,7 +27,7 @@ public class SalesmanOrderReceivedListPart extends AdvancedListPart {
         //当是关键字时(订单编号、渠道订单编号、下单人、下单人电话、关联公司)
         String keyword = parameter.getValue1 ().toString ();
         if (parameter.getKey ().equals ("keyword")) {
-         return  "soOrder.pkid>0 and (soOrder.no like '%" + keyword + "%' or soOrder.channelOrderNo like '%" + keyword + "%')";
+         return  "soOrder.pkid>0 and (soOrder.no like '%" + keyword + "%' or soOrder.channel_order_no like '%" + keyword + "%')";
 
         }
         if (parameter.getKey ().equals ("isOnlinePay")) {

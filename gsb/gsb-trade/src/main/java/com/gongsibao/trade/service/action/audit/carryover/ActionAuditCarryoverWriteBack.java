@@ -17,10 +17,12 @@ import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.trade.base.INOrderCarryoverService;
+import com.gongsibao.u8.base.ISoOrderService;
 
 public class ActionAuditCarryoverWriteBack implements IAction{
 	IAuditService auditService = ServiceFactory.create(IAuditService.class);
 	INOrderCarryoverService carryoverService = ServiceFactory.create(INOrderCarryoverService.class);
+	ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
 	
 	@Override
 	public void execute(ActionContext ctx) {
@@ -84,24 +86,41 @@ public class ActionAuditCarryoverWriteBack implements IAction{
 			allAmout = carryover.getAmount();
 			toOrderId = carryover.getToOrderId();
 		}
-		//2.回写订单:结转审核状态、结转转出额
+		//2.获取来源订单的已转出金额
+		Integer carryAmount = 0;
+		SoOrder carryOrder = orderService.getByOrderId(orderId);
+		if(carryOrder != null){
+			carryAmount = carryOrder.getCarryAmount() == null ? 0 : carryOrder.getCarryAmount().intValue();
+		}
+		 
+		//3.获取去向订单的已转入金额
+		Integer carryIntoAmount = 0;
+		SoOrder carryIntoOrder = orderService.getByOrderId(orderId);
+		if(carryIntoOrder != null){
+			carryIntoAmount = carryIntoOrder.getCarryIntoAmount() == null ? 0 : carryIntoOrder.getCarryIntoAmount().intValue();
+		}
+		//4.回写转出订单:结转审核状态、结转转出额
         UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("so_order");
 			updateSql.set("carry_status_id", state.getValue());
-			updateSql.set("carry_amount", allAmout);
+			if(state.equals(AuditStatusType.Shtg)){
+				updateSql.set("carry_amount", allAmout + carryAmount);
+			}
 			updateSql.where("pkid =" + orderId);
 		}
 		String cmdText = updateSql.toSQL();
 		IPersister<SoOrder> pm = PersisterFactory.create();
 		pm.executeNonQuery(cmdText, null);
-		//3.回写订单:结转审核状态、结转转入额
+		//5.回写转入订单:结转审核状态、结转转入额
         UpdateBuilder updateSqlTwo = UpdateBuilder.getInstance();
 		{
-			updateSql.update("so_order");
-			updateSql.set("carry_status_id", state.getValue());
-			updateSql.set("carry_into_amount", allAmout);
-			updateSql.where("pkid =" + toOrderId);
+			updateSqlTwo.update("so_order");
+			updateSqlTwo.set("carry_status_id", state.getValue());
+			if(state.equals(AuditStatusType.Shtg)){
+				updateSqlTwo.set("carry_into_amount", allAmout + carryIntoAmount);
+			}
+			updateSqlTwo.where("pkid =" + toOrderId);
 		}
 		String cmdTextTwo = updateSqlTwo.toSQL();
 		IPersister<SoOrder> pmTwo = PersisterFactory.create();

@@ -5,4 +5,5 @@ import org.netsharp.base.IPersistableService;
 import com.gongsibao.entity.cms.ProductTemplate;
 
 public interface IProductTemplateService extends IPersistableService<ProductTemplate> {
+    ProductTemplate getProductTemplateByCmsIdAndCityId(Integer cmsId, Integer cityId);
 }

@@ -159,6 +159,7 @@ public class ChangeTradeMarkAllWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "agentFileNum", "代理文号", ControlTypes.TEXT_BOX, 120, true);
 		addColumn(datagrid, "txt_sqrmyzw", "申请人名称", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid,"changeTradeMarkState","状态",ControlTypes.TEXT_BOX,100);
+		datagrid.setSortName("createTime Desc");
 		return datagrid;
 	}
 

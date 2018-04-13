@@ -121,7 +121,7 @@ public class CustomerVerifyWorkspaceTest extends WorkspaceCreationBase{
 		PQueryItem item = null;
 		item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);{
 			item.setWidth(400);
-			item.setTooltip("客户Id / 客户名称 / 手机号 / 座机 / QQ / 微信");
+			item.setTooltip("手机号 / 座机 / QQ / 微信");
 			item.setRequired(true);
 		}
 		return queryProject;

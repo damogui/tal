@@ -1,6 +1,7 @@
 package com.gongsibao.bd.service.auditLog;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.gongsibao.entity.bd.dic.AuditLogStatusType;
@@ -102,6 +103,9 @@ public abstract class AbstractAuditLogService {
             item.toNew();
             item.setMaxLevel(getCurrentLevel());
             item.setRemark("");
+            if (item.getStatus().equals(AuditLogStatusType.AUDITPASS)) {
+                item.setAuditTime(new Date());
+            }
             logService.save(item);
         }
         return allList;

@@ -5,6 +5,14 @@ com.gongsibao.trade.web.AuditRefundListPart = org.netsharp.panda.commerce.ListPa
         this.base();
         this.addRefundUrl = '/nav/gsb/platform/trade/auditRefund';//创建退款jsp
     },
+    operateFormatter:function(value,row,index){
+    	if(row.status!="待审核"){ 
+    		return "<a class='grid-btn' href='javascript:controllerauditLogList.detail(" + value + ");'>查看</a>";
+    	}else{    		
+    		return "<a class='grid-btn' href='javascript:controllerauditLogList.auditRefund(" + value + ");'>审核</a>";
+    	}
+    	
+    },
     auditRefund: function (id) {//订单审核-退款审核
     	var me = this;
     	var row = this.getSelectedItem();
@@ -22,7 +30,7 @@ com.gongsibao.trade.web.AuditRefundListPart = org.netsharp.panda.commerce.ListPa
             title: '退款审核',
             fixed: false,
             maxmin: true,
-            shadeClose: false,
+            shadeClose: true,
             area: ['60%', '70%'],
             zIndex: 100000,
             id: "auditRefundIframe",
@@ -53,7 +61,7 @@ com.gongsibao.trade.web.AuditRefundListPart = org.netsharp.panda.commerce.ListPa
              title: '查看退款',
              fixed: false,
              maxmin: true,
-             shadeClose: false,
+             shadeClose: true,
              area: ['70%', '70%'],
              zIndex: 100000,
              id: "auditRefundIframe",

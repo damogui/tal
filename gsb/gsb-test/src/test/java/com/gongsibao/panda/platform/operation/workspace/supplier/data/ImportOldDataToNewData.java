@@ -66,7 +66,7 @@ public class ImportOldDataToNewData {
 /*第一步*/
 
         int num1 = handleCustomerOld ();
-        String msg = String.format ("处理数据共%s条", num1);
+        String msg = String.format ("处理数据共%s条,时间%s", num1,TimeUtils.getDateFormat (new Date()));
         System.out.println (msg);
 
 
@@ -127,13 +127,15 @@ public class ImportOldDataToNewData {
         int pageSize = 100;//每100条进行处理一次
 
         StringBuilder filterBuilder = new StringBuilder ();
+        StringBuilder filterBuilder2 = new StringBuilder ();
         //读取最大的id，然后根据节点插入
         String sql = "SELECT  IFNULL(MIN(pkid),0) id  FROM   crm_customer  WHERE  is_member IS NULL and follow_status <>4017"; //"SELECT  IFNULL(MAX(id),0) id  FROM n_crm_customer";//导入从pkid 1开始 每次续导从 省id为null的开始
         IPersister<ImNCustomer> pm = PersisterFactory.create ();
-        int idMax = Convert.toInteger (pm.executeScalar (sql, null));
+        int idMax =Convert.toInteger (pm.executeScalar (sql, null));
 
 
-        filterBuilder.append (" follow_status <>4017 and pkid>=" + idMax);//过滤掉招商渠道的和进行续导
+        filterBuilder.append (" follow_status <>4017 and is_member IS NULL and pkid>=" + idMax);//过滤掉招商渠道的和进行续导
+        filterBuilder2.append (" follow_status <>4017  and pkid>=" + idMax);//过滤掉招商渠道的和进行续导
         if (idMax==0){
 
             return 0 ;//代表已经处理完毕
@@ -156,8 +158,8 @@ public class ImportOldDataToNewData {
         for (int i = 1; i < totalCustomerPage + 1; i++) {
             Oql oql2 = new Oql () {
             };
-            oql2.setOrderby (" pkid ");
-            oql2.setFilter (filterBuilder.toString ());
+            oql2.setOrderby (" pkid asc ");
+            oql2.setFilter (filterBuilder2.toString ());
             oql2.setPaging (new Paging (i, pageSize));
             oql2.setType (Customer.class);
             StringBuilder sb = new StringBuilder ();
@@ -215,7 +217,7 @@ public class ImportOldDataToNewData {
 
                 }
                 totalCountExce += 1;
-                System.out.println (String.format ("已经处理%S条", totalCountExce));
+                System.out.println (String.format ("已经处理%s条,时间%s,客户id:%s", totalCountExce,TimeUtils.getDateFormat (new Date()),nCustomer.getId ()));
 
 
             }
@@ -384,7 +386,7 @@ public class ImportOldDataToNewData {
             taskName = "";//无意向产品没地区
 
         } else {
-            if (provinceCityAndCountry.getProvinceId () == 0) {
+            if (provinceCityAndCountry==null||provinceCityAndCountry.getProvinceId () == 0) {
                 taskName = productName;
             } else {
                 taskName = String.format ("%s-%s", productName, areaName);

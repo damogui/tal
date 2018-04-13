@@ -66,15 +66,25 @@ com.gongsibao.trade.web.settle.SettleFormPart = org.netsharp.panda.core.CustomCt
             data: logList,
             columns: [[
                 // {field: 'id', checkbox: true},
-                {field:'afterStatus',title:'状态',width:150,align:'center',formatter:function(value,row,index){
+                {field:'status',title:'状态',width:150,align:'center',formatter:function(value,row,index){
                         if(value){
                         return me.auditStatusEnum[value];
                     }
                     return '-';
                 }},
-                {field: 'memo', title: '备注', width: 250, align: 'center'},
-                {field: 'creator', title: '操作人', width: 150, align: 'center'},
-                {field: 'createTime', title: '操作时间', width: 150, align: 'center'},
+                {field: 'content', title: '备注', width: 250, align: 'center'},
+                {field: 'creatorId', title: '操作人', width: 150, align: 'center', formatter:function(value,row,index){
+                    if(value){
+                        return row.employee.name;
+                    }
+                    return '-';
+                }},
+                {field: 'auditTime', title: '操作时间', width: 150, align: 'center', formatter:function(value,row,index){
+                    if(value){
+                        return value;
+                    }
+                    return '-';
+                }},
             ]]
         });
     },

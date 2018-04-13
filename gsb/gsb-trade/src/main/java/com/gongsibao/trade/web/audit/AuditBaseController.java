@@ -11,6 +11,7 @@ import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.trade.base.INOrderCarryoverService;
 import com.gongsibao.u8.base.ISoOrderService;
+import org.netsharp.organization.entity.Employee;
 
 public abstract class AuditBaseController {
 
@@ -46,6 +47,16 @@ public abstract class AuditBaseController {
 			oql.getParameters().add("type", auditLogType, Types.INTEGER);
 		}
 		logList = auditService.queryList(oql);
+        for (AuditLog item:logList
+             ) {
+            if (item.getEmployee ()==null){
+                Employee  em=new Employee ();
+                em.setName ("");
+                item.setEmployee (em);
+            }
+
+        }
+
 		return logList;
 	}
 }

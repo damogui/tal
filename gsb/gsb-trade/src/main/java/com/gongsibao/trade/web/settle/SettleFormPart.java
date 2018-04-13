@@ -2,6 +2,7 @@ package com.gongsibao.trade.web.settle;
 
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.dic.AuditLogType;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.settle.Settle;
 import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.trade.base.settle.ISettleService;
@@ -28,7 +29,7 @@ public class SettleFormPart extends FormPart {
             return null;
         }
 
-//        return auditService.(id, AuditLogType.Jssh);
+        return auditService.getByTypeIdFormId(AuditLogType.Jssh, id);
     }
 
 

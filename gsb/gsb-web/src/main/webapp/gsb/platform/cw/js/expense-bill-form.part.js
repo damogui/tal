@@ -45,6 +45,17 @@ com.gongsibao.cw.web.ExpenseBillFormPart = org.netsharp.panda.commerce.FormPart.
              $('#entertainDate').textbox({disabled: true});
          }
     },
+    correctChange :function (el){ //冲正借款开关
+    	var isCorrect = $(el).switchbutton("options").checked;
+    	if(isCorrect){
+    		 var loanAmount = $("#loanAmount").numberbox('getValue');
+    	  	 var totalAmount = $("#totalAmount").numberbox('getValue');
+    	  	 $('#amount').textbox('setValue',totalAmount - loanAmount);
+    	}else{
+    		 var totalAmount = $("#totalAmount").numberbox('getValue');
+    	  	 $('#amount').textbox('setValue',totalAmount);
+    	}
+    },
     doSave: function (entity) {
         var me = this;
         IMessageBox.confirm('确定提交申请吗？', function (r) {
@@ -110,10 +121,17 @@ com.gongsibao.cw.web.CostDetailListPart = org.netsharp.panda.commerce.DetailPart
          
         $('#totalAmount').numberbox('setValue',costSumAmount + subsidySumAmount);
          
-         //报销合计减去借款金额等于报销金额
+        //报销合计减去借款金额等于报销金额
         var loanAmount = $("#loanAmount").numberbox('getValue');
   	    var totalAmount = $("#totalAmount").numberbox('getValue');
-  	    $('#amount').textbox('setValue',totalAmount - loanAmount);
+  	    
+  	    var isCorrect = $("#isOffset").switchbutton("options").checked;
+	    if(isCorrect){
+	    	$('#amount').textbox('setValue',totalAmount - loanAmount);
+	    }else{
+	    	$('#amount').textbox('setValue',totalAmount);
+	    }
+  	   
     }
 });
 //行程明细
@@ -168,7 +186,14 @@ com.gongsibao.cw.web.SubsidyRecordListPart= org.netsharp.panda.commerce.DetailPa
 	   
 	   var loanAmount = $("#loanAmount").numberbox('getValue');
 	   var totalAmount = $("#totalAmount").numberbox('getValue');
-	   $('#amount').textbox('setValue',totalAmount - loanAmount);
+	   
+	   
+	   var isCorrect = $("#isOffset").switchbutton("options").checked;
+ 	    if(isCorrect){
+ 	    	$('#amount').textbox('setValue',totalAmount - loanAmount);
+ 	    }else{
+ 	    	$('#amount').textbox('setValue',totalAmount);
+ 	    }
 	}
 });
 

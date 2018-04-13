@@ -1,5 +1,7 @@
 package com.gongsibao.trade.web.dto;
 
+import java.util.Date;
+
 /**
  * Created by win on 2018/3/22.
  */
@@ -9,7 +11,7 @@ public class AuditLogDTO {
     private String creator;
     private String option;
     private String remark;
-    private String createTime;
+    private Date createTime;
 /*订单id*/
     private Integer orderId;
     //订单详情用
@@ -62,11 +64,11 @@ public class AuditLogDTO {
         this.remark = remark;
     }
 
-    public String getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 

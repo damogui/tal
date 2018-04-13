@@ -33,7 +33,7 @@ public class AuditPayController extends AuditBaseController {
 
 
     // 收款（回款）审核
-    AbstractAuditLogService auditLogService = AuditFactory.getAudit (PayAudit.class);
+    AbstractAuditLogService auditLogService = AuditFactory.getAudit(PayAudit.class);
 
     /**
      * 审核通过 注：参数未定
@@ -41,15 +41,15 @@ public class AuditPayController extends AuditBaseController {
      * @return
      */
     public Boolean approvedPay(Integer auditLogId, String remark, String payTime) {
-        boolean auditResult = auditLogService.audit (AuditState.PASS, auditLogId, remark);
+        boolean auditResult = auditLogService.audit(AuditState.PASS, auditLogId, remark);
 
         if (auditResult) {
-            IAuditLogService auditLogService = ServiceFactory.create (IAuditLogService.class);
-            IPayService payService = ServiceFactory.create (IPayService.class);
+            IAuditLogService auditLogService = ServiceFactory.create(IAuditLogService.class);
+            IPayService payService = ServiceFactory.create(IPayService.class);
 
-            AuditLog auditLog = auditLogService.byId (auditLogId);
-            if (auditLog.getLevel ().equals (auditLog.getMaxLevel ())) {
-                Integer execNum = payService.auditPass (payTime, auditLog.getFormId ());//根据确认时间和支付时间更新
+            AuditLog auditLog = auditLogService.byId(auditLogId);
+            if (auditLog.getLevel().equals(auditLog.getMaxLevel())) {
+                Integer execNum = payService.auditPass(payTime, auditLog.getFormId());//根据确认时间和支付时间更新
             }
 
 
@@ -73,24 +73,24 @@ public class AuditPayController extends AuditBaseController {
      * @return
      */
     public Boolean rejected(Integer auditLogId, String remark) {
-        return auditLogService.audit (AuditState.NOTPASS, auditLogId, remark);
+        return auditLogService.audit(AuditState.NOTPASS, auditLogId, remark);
     }
 
     /*回款审核流程*/
     public List<AuditLogDTO> getAuditLogList(Integer id) {
-        List<AuditLog> logList = new ArrayList<AuditLog> ();
-        List<AuditLogDTO> logDtos = new ArrayList<AuditLogDTO> ();
+        List<AuditLog> logList = new ArrayList<AuditLog>();
+        List<AuditLogDTO> logDtos = new ArrayList<AuditLogDTO>();
 
-        logList = super.getAuditLogList (id, AuditLogType.Sksq.getValue ());
+        logList = super.getAuditLogList(id, AuditLogType.Sksq.getValue());
         for (AuditLog item : logList
                 ) {
-            AuditLogDTO auditLogDTO = new AuditLogDTO ();
-            auditLogDTO.setId (item.getId ());
-            auditLogDTO.setCreator (item.getEmployee () == null ? "" : item.getEmployee ().getName ());
-            auditLogDTO.setOption (item.getStatus ().getText ());
-            auditLogDTO.setRemark (item.getContent ());
-            auditLogDTO.setCreateTime (item.getCreateTime ().toString ());
-            logDtos.add (auditLogDTO);
+            AuditLogDTO auditLogDTO = new AuditLogDTO();
+            auditLogDTO.setId(item.getId());
+            auditLogDTO.setCreator(item.getEmployee() == null ? "" : item.getEmployee().getName());
+            auditLogDTO.setOption(item.getStatus().getText());
+            auditLogDTO.setRemark(item.getContent());
+            auditLogDTO.setCreateTime(item.getCreateTime());
+            logDtos.add(auditLogDTO);
         }
         return logDtos;
     }
@@ -98,35 +98,35 @@ public class AuditPayController extends AuditBaseController {
     /*获取订单信息、付款凭证、关联订单*/
     public OrderPayInfoDTO getOrderCutPerformanceByPayId(Integer id) {
 
-        IPayService payService = ServiceFactory.create (IPayService.class);
-        OrderPayInfoDTO orderPayInfoDTO = new OrderPayInfoDTO ();
-        Oql oql = new Oql ();
+        IPayService payService = ServiceFactory.create(IPayService.class);
+        OrderPayInfoDTO orderPayInfoDTO = new OrderPayInfoDTO();
+        Oql oql = new Oql();
         {
-            oql.setType (Pay.class);
-            StringBuilder sb = new StringBuilder ();
+            oql.setType(Pay.class);
+            StringBuilder sb = new StringBuilder();
 
-            sb.append ("pay.*,");
-            sb.append ("pay.u8Bank.name,");
-            sb.append ("pay.setOfBooks.name,");
+            sb.append("pay.*,");
+            sb.append("pay.u8Bank.name,");
+            sb.append("pay.setOfBooks.name,");
 //            oql.setSelects("setOfBooksId,setOfBooks.name,u8Bank.name,offlinePayerName,offlineBankNo,payForOrderCount,amount,offlineRemark,files,");//,orderPayMaps.{soOrder,orderPrice,offlineInstallmentType}
-            sb.append ("pay.files.*");
-            oql.setSelects (sb.toString ());
+            sb.append("pay.files.*");
+            oql.setSelects(sb.toString());
 
-            oql.setFilter ("id=?");
-            oql.getParameters ().add ("@id", id, Types.INTEGER);
+            oql.setFilter("id=?");
+            oql.getParameters().add("@id", id, Types.INTEGER);
 
         }
-        Pay pay = payService.queryFirst (oql);
+        Pay pay = payService.queryFirst(oql);
 
-        orderPayInfoDTO.setAccountName (pay.getSetOfBooks () == null ? "" : pay.getSetOfBooks ().getName ());
-        orderPayInfoDTO.setPayWay (pay.getPayWayType () == null ? "" : pay.getPayWayType ().getText ());
-        orderPayInfoDTO.setBankName (pay.getOfflinePayerName ());
-        orderPayInfoDTO.setBankNo (pay.getOfflineBankNo ());
-        orderPayInfoDTO.setIsMoreOrder (pay.getPayForOrderCount ().getText ());
+        orderPayInfoDTO.setAccountName(pay.getSetOfBooks() == null ? "" : pay.getSetOfBooks().getName());
+        orderPayInfoDTO.setPayWay(pay.getPayWayType() == null ? "" : pay.getPayWayType().getText());
+        orderPayInfoDTO.setBankName(pay.getOfflinePayerName());
+        orderPayInfoDTO.setBankNo(pay.getOfflineBankNo());
+        orderPayInfoDTO.setIsMoreOrder(pay.getPayForOrderCount().getText());
 
-        orderPayInfoDTO.setAmount (NumberUtils.getRealMoney (pay.getAmount ()));//转换为元
-        orderPayInfoDTO.setMark (pay.getOfflineRemark ());
-        orderPayInfoDTO.setFiles (pay.getFiles ());
+        orderPayInfoDTO.setAmount(NumberUtils.getRealMoney(pay.getAmount()));//转换为元
+        orderPayInfoDTO.setMark(pay.getOfflineRemark());
+        orderPayInfoDTO.setFiles(pay.getFiles());
         // orderPayInfoDTO.setOrderInfos (getOrderInfosByMap (pay.getOrderPayMaps ()));
 
 
@@ -136,27 +136,27 @@ public class AuditPayController extends AuditBaseController {
     /*获取关联订单的信息*/
     public List<OrderInfoDTO> getOrderInfosById(Integer id) {
 
-        IOrderPayMapService orderPayMapService = ServiceFactory.create (IOrderPayMapService.class);
+        IOrderPayMapService orderPayMapService = ServiceFactory.create(IOrderPayMapService.class);
 
-        Oql oql = new Oql ();
+        Oql oql = new Oql();
         {
-            oql.setType (OrderPayMap.class);
-            oql.setSelects ("soOrder.no,orderPrice,offlineInstallmentType");//,orderPayMaps.{soOrder,orderPrice,offlineInstallmentType}
-            oql.setFilter ("payId=?");
-            oql.getParameters ().add ("@payId", id, Types.INTEGER);
+            oql.setType(OrderPayMap.class);
+            oql.setSelects("soOrder.no,orderPrice,offlineInstallmentType");//,orderPayMaps.{soOrder,orderPrice,offlineInstallmentType}
+            oql.setFilter("payId=?");
+            oql.getParameters().add("@payId", id, Types.INTEGER);
 
         }
 
-        List<OrderPayMap> orderPayMaps = new ArrayList<> ();
-        orderPayMaps = orderPayMapService.queryList (oql);
-        List<OrderInfoDTO> orderInfoDTOs = new ArrayList<> ();
+        List<OrderPayMap> orderPayMaps = new ArrayList<>();
+        orderPayMaps = orderPayMapService.queryList(oql);
+        List<OrderInfoDTO> orderInfoDTOs = new ArrayList<>();
         for (OrderPayMap item : orderPayMaps
                 ) {
-            OrderInfoDTO orderInfoDTO = new OrderInfoDTO ();
-            orderInfoDTO.setOrderNo (item.getSoOrder ().getNo ());
-            orderInfoDTO.setOrderCut (NumberUtils.getRealMoney (item.getOrderPrice ()));
-            orderInfoDTO.setPayType (item.getOfflineInstallmentType ().getText ());
-            orderInfoDTOs.add (orderInfoDTO);
+            OrderInfoDTO orderInfoDTO = new OrderInfoDTO();
+            orderInfoDTO.setOrderNo(item.getSoOrder().getNo());
+            orderInfoDTO.setOrderCut(NumberUtils.getRealMoney(item.getOrderPrice()));
+            orderInfoDTO.setPayType(item.getOfflineInstallmentType().getText());
+            orderInfoDTOs.add(orderInfoDTO);
         }
         return orderInfoDTOs;
 

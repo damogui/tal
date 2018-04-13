@@ -35,6 +35,8 @@ public class Customer extends BaseEntity {
     
     @Column(name="mobile",header="手机号码")
     private String mobile;
+    @Column(name = "is_member", header = "是否是会员：0-否；1-是(新的系统产生到时候根据是不是null区分)")
+    private Boolean isMember = null;
     
     @Column(name="telephone",header="座机")
     private String telephone;
@@ -559,6 +561,14 @@ public class Customer extends BaseEntity {
 	public void setProdDetails(List<CustomerProdMap> prodDetails) {
 		this.prodDetails = prodDetails;
 	}
+
+    public Boolean getMember() {
+        return isMember;
+    }
+
+    public void setMember(Boolean member) {
+        isMember = member;
+    }
 
 //	public List<SoOrder> getOrders() {
 //		return orders;

@@ -243,7 +243,7 @@ org.netsharp.organization.controller.RoleAuthorizationListPart = org.netsharp.pa
         var pars = [this.authorizationPrincipalId,7, ids.join("_"), operationType];
         this.invokeService("updatePrincipalOperation", pars, function (data) {
 
-            if (operationType == "add") {
+            if (operationType == UiOperationType.add) {
 
                 for (var i = 0; i < images.length; i++) {
                     var image = images[i];
