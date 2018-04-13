@@ -67,7 +67,7 @@
 				          <td class="control_td">
 				          		<input type="hidden" id ="refundPrice_hidd">
 				          		<input id="amount" class="easyui-numberbox nsInput"
-				          			data-options="precision:2,width:180,min:1,required:false,disabled:true,onChange:function(newValue,oldValue){refundCtrl.amountChange(newValue,oldValue);}"/>
+				          			data-options="precision:2,width:180,min:0,required:false,disabled:true,onChange:function(newValue,oldValue){refundCtrl.amountChange(newValue,oldValue);}"/>
 				          </td>
 				          <td class="label_td"><label>可退款金额：</label></td>
 				          <td class="control_td">

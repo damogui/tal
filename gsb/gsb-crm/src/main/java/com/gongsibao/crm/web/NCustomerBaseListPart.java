@@ -15,7 +15,7 @@ public class NCustomerBaseListPart  extends AdvancedListPart{
 			
 			//这里全匹配
 			String keyword = parameter.getValue1().toString();
-			filters.add("id='"+keyword+"'");
+			filters.add("pkid='"+keyword+"'");
 			filters.add("real_name='"+keyword+"'");
 			filters.add("mobile='"+keyword+"'");
 			filters.add("telephone='"+keyword+"'");

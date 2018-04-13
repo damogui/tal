@@ -403,7 +403,7 @@ org.netsharp.panda.commerce.DetailPart = org.netsharp.panda.core.View.Extends({
 		this.invokeService("newInstance", [], function(data) {
 
 			//处理关联
-			eval('data.'+me.context.foreignKey+'='+me.referenceId);
+			eval('data.'+me.context.foreignKey+'='+(me.referenceId||null));
 			me.viewModel.setEntity(data);
 			//me.getDialog().dialog('open');
 

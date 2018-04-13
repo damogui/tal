@@ -91,6 +91,7 @@ public class MyTransferTradeMarkFollowWorkspaceTest extends WorkspaceCreationBas
 		addColumn(datagrid, "agentFileNum", "代理文号", ControlTypes.TEXT_BOX, 120, true);
 		addColumn(datagrid,"transferTradeMarkState","状态",ControlTypes.TEXT_BOX,100);
 		addColumn(datagrid,"ownerName","所属人",ControlTypes.TEXT_BOX,100);
+		datagrid.setSortName("createTime Desc");
 		return datagrid;
 	}
 

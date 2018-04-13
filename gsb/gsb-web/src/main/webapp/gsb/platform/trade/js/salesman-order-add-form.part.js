@@ -339,6 +339,11 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
                     callback(orderProd);
                     layer.closeAll();
                 }
+            },
+            cancel:function(){
+            	
+            	alert(1);
+            	layer.closeAll();
             }
         });
     },
@@ -529,6 +534,8 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
 
                 $('#serviceItems').datagrid('highlightRow', index);
                 me.calculateTotalPrice();
+                $('#serviceItems').datagrid('beginEdit', index);
+                $('.datagrid-editable input').css('background-color','#ffd7d7').focus();
             },
             onBeforeUncheck: function (index, row) {
 
@@ -630,7 +637,7 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
                     title: '现售价',
                     width: 100,
                     align: 'right',
-                    editor: {type: 'numberbox', options: {precision: 2, height: 31}},
+                    editor: {type: 'numberbox', options: {precision: 2,min:0,height:31, required:true}},
                     formatter: function (value, row, index) {
 
                         return System.RMB.fenToYuan(value);

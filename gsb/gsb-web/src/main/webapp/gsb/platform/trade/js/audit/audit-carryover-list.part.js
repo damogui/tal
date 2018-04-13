@@ -5,6 +5,14 @@ com.gongsibao.trade.web.AuditCarryoverListPart = org.netsharp.panda.commerce.Lis
         this.base();
         this.addCarryOverUrl = '/nav/gsb/platform/trade/auditCarryover';//结转审核jsp
     },
+    operateFormatter:function(value,row,index){
+    	if(row.status!="待审核"){ 
+    		return "<a class='grid-btn' href='javascript:controllerauditLogList.detail(" + value + ");'>查看</a>";
+    	}else{    		
+    		return "<a class='grid-btn' href='javascript:controllerauditLogList.auditCarryOver(" + value + ");'>审核</a>";
+    	}
+    	
+    },
     auditCarryOver : function (id){
     	var me = this;
     	var row = this.getSelectedItem();
@@ -20,7 +28,7 @@ com.gongsibao.trade.web.AuditCarryoverListPart = org.netsharp.panda.commerce.Lis
             title: '查看结转',
             fixed: false,
             maxmin: true,
-            shadeClose: false,
+            shadeClose: true,
             area: ['50%', '70%'],
             zIndex: 100000,
             id: "carryOverIframe",

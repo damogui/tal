@@ -1,4 +1,4 @@
-package com.gongsibao.rest.controller.v1;
+package com.gongsibao.rest.controller.v1.product;
 
 import com.gongsibao.bd.base.IBdServiceProductService;
 import com.gongsibao.bd.base.IBdServiceService;

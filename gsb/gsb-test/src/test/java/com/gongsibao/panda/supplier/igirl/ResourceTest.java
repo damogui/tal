@@ -3,6 +3,7 @@ package com.gongsibao.panda.supplier.igirl;
 import com.gongsibao.entity.igirl.ic.IcRegisterCase;
 import com.gongsibao.entity.igirl.ic.baseinfo.AreaOne;
 import com.gongsibao.entity.igirl.ic.baseinfo.AreaTwo;
+import com.gongsibao.entity.igirl.ic.baseinfo.*;
 import com.gongsibao.entity.igirl.tm.*;
 import com.gongsibao.entity.igirl.tm.baseinfo.IGirlConfig;
 import com.gongsibao.entity.igirl.tm.baseinfo.NCLOne;
@@ -12,6 +13,7 @@ import com.gongsibao.entity.igirl.tm.baseinfo.NclMap;
 import com.gongsibao.entity.igirl.tm.baseinfo.SupplierNewInfo;
 import com.gongsibao.entity.igirl.tm.baseinfo.SupplierSiteInfo;
 import com.gongsibao.entity.product.Product;
+import com.gongsibao.igirl.ic.base.*;
 import com.gongsibao.igirl.ic.base.IAreaOneService;
 import com.gongsibao.igirl.ic.base.IAreaTwoService;
 import com.gongsibao.igirl.ic.base.IRegisterCaseService;
@@ -110,6 +112,11 @@ public class ResourceTest extends ResourceCreationBase {
 		{
 			this.createResourceNodeVoucher(AreaOne.class.getName(), "省级列表", "IGRIL_IC_BASE_" + AreaOne.class.getSimpleName(), IAreaOneService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(AreaTwo.class.getName(), "地市列表", "IGRIL_IC_BASE_" +AreaTwo.class.getSimpleName(), IAreaTwoService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(ChapterOne.class.getName(), "刻章区", "IGRIL_IC_BASE_" +ChapterOne.class.getSimpleName(), IChapterOneService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(ChapterTwo.class.getName(), "刻章公司", "IGRIL_IC_BASE_" +ChapterTwo.class.getSimpleName(), IChapterTwoService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(EntLicType.class.getName(), "证照类型", "IGRIL_IC_BASE_" +EntLicType.class.getSimpleName(), IEntLicTypeService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(Nationality.class.getName(), "国籍", "IGRIL_IC_BASE_" +Nationality.class.getSimpleName(), INationalityService.class.getName(), node1.getId());
+
 		}
 
 		node1 = this.createResourceNodeCategory("工商注册", "GSB_IGIRL_IC_REGIST", node.getId());

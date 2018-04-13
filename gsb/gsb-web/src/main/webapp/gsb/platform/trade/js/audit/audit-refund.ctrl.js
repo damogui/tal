@@ -38,14 +38,12 @@ com.gongsibao.trade.web.AuditRefundCtrl = com.gongsibao.trade.web.AuditBaseCtrl.
     	//退款信息
     	var me = this;
     	this.invokeService("getRefundById", [id], function(data){
-    		$("#refund_info_grid tr").eq(0).find("td").eq(1).html(data.setOfBooks.name);
-    		$("#refund_info_grid tr").eq(0).find("td").eq(3).html(data.refundType);
-    		
-    		$("#refund_info_grid tr").eq(1).find("td").eq(1).html(data.payerName);
-    		$("#refund_info_grid tr").eq(1).find("td").eq(3).html(data.bankNo);
-    		$("#refund_info_grid tr").eq(1).find("td").eq(5).html((data.amount/100).toFixed(2));
-    		
-    		$("#refund_info_grid tr").eq(2).find("td").eq(1).html(data.remark);
+    		$("#setOfBooks_name").text(data.setOfBooks.name);
+    		$("#refundType").text((data.refundType==0?'部分退款':'全额退款'));
+    		$("#payerName").text(data.payerName);
+    		$("#bankNo").text(data.bankNo);
+    		$("#amount").text((data.amount/100).toFixed(2));
+    		$("#remark").text(data.remark);
     		
     		//加载默认第一项‘退款产品’
     		me.initializeDetailList.add('退款产品',me.refundProductInfor($("#tempOrderId").val()));
