@@ -7,14 +7,18 @@ import com.gongsibao.bd.service.auditLog.AbstractAuditLogService;
 import com.gongsibao.bd.service.auditLog.AuditFactory;
 import com.gongsibao.bd.service.auditLog.AuditState;
 import com.gongsibao.bd.service.auditLog.RefundAudit;
+
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 
 import com.gongsibao.entity.trade.NDepRefund;
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.Refund;
+import com.gongsibao.entity.trade.RefundItem;
+import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.base.INDepRefundService;
 import com.gongsibao.trade.base.IOrderProdService;
+import com.gongsibao.trade.base.IRefundItemService;
 import com.gongsibao.trade.base.IRefundService;
 
 public class AuditRefundController extends AuditBaseController{
@@ -52,6 +56,19 @@ public class AuditRefundController extends AuditBaseController{
 
 		IOrderProdService prodService = ServiceFactory.create(IOrderProdService.class);
 		return prodService.queryByOrderId(orderId);
+	}
+	
+	/**
+	 * @Title: queryProductList
+	 * @Description: TODO(查询退单项列表)
+	 * @param: @param orderId
+	 * @param: @return
+	 * @return: List<OrderProd>
+	 * @throws
+	 */
+	public List<RefundItem> querySoRefundItemList(Integer refundId) {
+		IRefundItemService refundItemService = ServiceFactory.create(IRefundItemService.class);
+		return refundItemService.queryByRefundId(refundId);
 	}
 	
 	/**

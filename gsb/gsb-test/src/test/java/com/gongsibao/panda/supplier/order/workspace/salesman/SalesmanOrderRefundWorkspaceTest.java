@@ -77,15 +77,15 @@ public class SalesmanOrderRefundWorkspaceTest extends WorkspaceCreationBase {
         	column.setAlign(DatagridAlign.RIGHT);
         }
         column = addColumn(datagrid, "amount", "退款金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
-        	
         	column.setAlign(DatagridAlign.RIGHT);
+        	column.setFormatter("return (value/100).toFixed(2);");
         }
         addColumn(datagrid, "refundType", "退款类别", ControlTypes.ENUM_BOX, 100);
         //退款业绩额表中计算出来
-        column = addColumn(datagrid, "amount", "我的退款业绩额", ControlTypes.DECIMAL_FEN_BOX, 100);{
+        /*column = addColumn(datagrid, "amount", "我的退款业绩额", ControlTypes.DECIMAL_FEN_BOX, 100);{
         	
         	column.setAlign(DatagridAlign.RIGHT);
-        }
+        }*/
         addColumn(datagrid, "auditStatus", "审核状态", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "createTime", "退款创建时间", ControlTypes.DATETIME_BOX, 100);
         addColumn(datagrid, "updateTime", "退款审核通过时间", ControlTypes.DATETIME_BOX, 100);

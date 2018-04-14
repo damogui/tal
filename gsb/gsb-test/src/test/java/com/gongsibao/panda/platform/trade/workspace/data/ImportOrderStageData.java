@@ -34,12 +34,8 @@ public class ImportOrderStageData {
             Double totalpercentage = 0d;
             try {
                 List<NOrderStage> orderStageList = getOrderStageListByInstallmentMode(installmentMode, totalpercentage, order.getId());
-               /* boolean ishasOrderStage = IshasOrderStageByOrderId(order.getId());
-                //防止插入重复的记录
-                if (!ishasOrderStage)*/
                 orderStageService.saves(orderStageList);
             } catch (Exception e) {
-                //e.printStackTrace();
             }
 
         }
@@ -77,13 +73,13 @@ public class ImportOrderStageData {
         if (StringManager.isNullOrEmpty(installmentMode)) return orderStageList;
         List<String> installmentModeList = Arrays.asList(installmentMode.split("\\|"));
         Integer totalPrice = getTotalPrice(installmentModeList);
+        Integer index = 0;
         for (String installmentModeItem : installmentModeList) {
             NOrderStage orderStage = new NOrderStage();
-            Integer index = installmentModeList.indexOf(installmentModeItem);
             installmentModeItem = installmentModeItem.contains(".") ? installmentModeItem.split("\\.")[0] : installmentModeItem;
             Integer amount = NumberUtils.toInt(installmentModeItem);
+            index++;
             //最后一个比例，就是1减去其他比例的和
-            //Double percentage = installmentModeList.size() - 1 <= index ? 1 - totalpercentage : AmountUtils.div(amount, totalPrice);
             Double percentage = getPercentage(installmentModeList.size(), index, totalpercentage, amount, totalPrice);
             orderStage.setEntityState(EntityState.New);
             orderStage.setAmount(amount);
@@ -102,7 +98,7 @@ public class ImportOrderStageData {
         if (totalPrice <= 0) {
             return res;
         }
-        if (tatalCount - 1 <= index) {
+        if (tatalCount <= index) {
             res = 1 - totalpercentage;
         } else {
             res = AmountUtils.div(amount, totalPrice);
