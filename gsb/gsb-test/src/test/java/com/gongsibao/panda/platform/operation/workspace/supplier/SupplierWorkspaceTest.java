@@ -17,6 +17,7 @@ import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PForm;
 import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PPart;
+import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.entity.PWorkspace;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.resourcenode.entity.ResourceNode;
@@ -138,6 +139,19 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 
 		workspaceService.save(workspace);
 	}
+	
+	@Override
+	protected PQueryProject createQueryProject(ResourceNode node) {
+
+		PQueryProject queryProject = super.createQueryProject(node);
+		queryProject.toNew();
+
+		addQueryItem(queryProject, "name", "名称", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "contact", "联系人", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "mobilePhone", "手机号", ControlTypes.TEXT_BOX);
+
+		return queryProject;
+	}
 
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
@@ -182,30 +196,30 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		PFormField field = null;
 
 		String groupName = "基本信息";
-		field = addFormFieldRefrence(form, "category.name", "分类", groupName, SupplierCategory.class.getSimpleName(), true, false);{
+		field = addFormFieldRefrence(form, "category.name", "分类", groupName, SupplierCategory.class.getSimpleName(), false, false);{
 			
 			field.setControlType(ControlTypes.COMBOTREE_BOX);
 			field.setWidth(300);
 		}
 		
-		field = addFormField(form, "name", "服务商名称", groupName, ControlTypes.TEXT_BOX, true);
+		field = addFormField(form, "name", "服务商名称", groupName, ControlTypes.TEXT_BOX, false);
 		{
 			field.setWidth(300);
 		}
-		field = addFormField(form, "contact", "姓名", groupName, ControlTypes.TEXT_BOX, true, false);
+		field = addFormField(form, "contact", "姓名", groupName, ControlTypes.TEXT_BOX, false, false);
 		{
 			field.setWidth(300);
 		}
-		field = addFormField(form, "mobilePhone", "手机号", groupName, ControlTypes.TEXT_BOX, true, false);
+		field = addFormField(form, "mobilePhone", "手机号", groupName, ControlTypes.TEXT_BOX, false, false);
 		{
-			field.setTroikaValidation("['mobile']");
+			//field.setTroikaValidation("['mobile']");
 			field.setWidth(300);
 		}
 		field = addFormField(form, "address", "地址", groupName, ControlTypes.TEXT_BOX, false, false);
 		{
 			field.setWidth(300);
 		}
-		field = addFormField(form, "sex", "性别", groupName, ControlTypes.RADIO_BOX_GROUP, true, false);
+		field = addFormField(form, "sex", "性别", groupName, ControlTypes.RADIO_BOX_GROUP, false, false);
 		{
 			field.setWidth(300);
 		}
@@ -215,7 +229,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		}
 		field = addFormField(form, "postCode", "邮编", groupName, ControlTypes.TEXT_BOX, false, false);
 		{
-			field.setTroikaValidation("['ZIP']");
+			//field.setTroikaValidation("['ZIP']");
 			field.setWidth(300);
 		}
 		field = addFormField(form, "fax", "传真", groupName, ControlTypes.TEXT_BOX, false, false);
@@ -225,7 +239,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		field = addFormField(form, "qq", "QQ", groupName, ControlTypes.TEXT_BOX, false, false);
 		{
 			field.setWidth(300);
-			field.setTroikaValidation("['qq']");
+			//field.setTroikaValidation("['qq']");
 		}
 		field = addFormField(form, "weixin", "微信", groupName, ControlTypes.TEXT_BOX, false, false);
 		{
@@ -234,7 +248,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		field = addFormField(form, "email", "邮箱", groupName, ControlTypes.TEXT_BOX, false, false);
 		{
 			field.setWidth(300);
-			field.setTroikaValidation("['email']");
+			//field.setTroikaValidation("['email']");
 		}
 		field = addFormField(form, "headPortrait", "头像", groupName, ControlTypes.OSS_UPLOAD, false, false);
 		{
@@ -270,7 +284,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		}
 		field = addFormField(form, "identityCard", "身份证号", groupName, ControlTypes.TEXT_BOX, false, false);
 		{
-			field.setTroikaValidation("['idcard']");
+			//field.setTroikaValidation("['idcard']");
 			field.setWidth(300);
 		}
 		field = addFormField(form, "identityCardPhotoFont", "身份证照片正面", groupName, ControlTypes.OSS_UPLOAD, false, false);
@@ -323,15 +337,15 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		field = addFormField(form, "bankNum", "银行卡号", groupName, ControlTypes.TEXT_BOX, false, false);
 		{
 			field.setWidth(300);
-			field.setTroikaValidation("['bankNum']");
+			//field.setTroikaValidation("['bankNum']");
 		}
 
 		groupName = "系统设置";
-		field = addFormField(form, "status", "状态", groupName, ControlTypes.ENUM_BOX, true, true);
+		field = addFormField(form, "status", "状态", groupName, ControlTypes.ENUM_BOX, false, true);
 		{
 			field.setWidth(300);
 		}
-		field = addFormField(form, "type", "类型", groupName, ControlTypes.RADIO_BOX_GROUP, true, false);
+		field = addFormField(form, "type", "类型", groupName, ControlTypes.RADIO_BOX_GROUP, false, false);
 		{
 			field.setWidth(300);
 		}		

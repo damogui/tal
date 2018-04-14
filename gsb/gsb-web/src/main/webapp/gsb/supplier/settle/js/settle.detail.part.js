@@ -72,7 +72,8 @@ com.gongsibao.trade.web.settle.SettleFormPart = org.netsharp.panda.core.CustomCt
                     }
                     return '-';
                 }},
-                {field: 'content', title: '备注', width: 250, align: 'center'},
+                {field: 'content', title: '审核内容', width: 150, align: 'center'},
+                {field: 'remark', title: '审核备注', width: 250, align: 'center'},
                 {field: 'creatorId', title: '操作人', width: 150, align: 'center', formatter:function(value,row,index){
                     if(value){
                         return row.employee.name;
@@ -115,7 +116,7 @@ com.gongsibao.trade.web.settle.SettleFormPart = org.netsharp.panda.core.CustomCt
                 {field: 'charge', title: '服务费', width: 120, align: 'center'},
                 {field: 'commission', title: '佣金', width: 120, align: 'center'},
                 {field: 'orderProd.price', title: '订单明细价格', width: 120, align: 'center',formatter: function(value,row,index){
-                    return row.orderProd.price;
+                    return (row.orderProd.price / 100).toFixed(2);
                 }},
             ]]
         });

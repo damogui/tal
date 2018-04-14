@@ -9,7 +9,16 @@
     </style>
 </head>
     <body class="easyui-layout">
+
         <%@ include file="/gsb/supplier/settle/include/settleData.jsp"%>
     </body>
-
+    <script src='/gsb/platform/trade/js/audit/audit-base.ctrl.js'></script>
+    <script src='/gsb/platform/trade/js/audit/audit-settle.ctrl.js'></script>
+    <script type="text/javascript">
+        var auditSettleCtrl = null;
+        $(function(){
+            auditSettleCtrl = new com.gongsibao.trade.web.AuditSettleCtrl();
+            auditSettleCtrl.init();
+        });
+    </script>
 </html>
