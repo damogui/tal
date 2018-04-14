@@ -88,7 +88,7 @@ public abstract class AbstractAuditLogService {
         AuditLog userAudit = this.getUserAuditLog(formId, addUserId);
         AuditLog directLeader = this.getDirectLeaderAudit(formId, addUserId);
         AuditLog superiorLeader = this.getSuperiorLeaderAudit(formId, addUserId);
-        List<AuditLog> platformAuditList = this.getPlatformOperationAudit(formId, addUserId);
+        List<AuditLog> platformAuditList = this.getPlatformOperationAudit(formId);
         List<AuditLog> extenAuditList = this.getExtenAuditLogList(formId, addUserId);
 
         if (userAudit != null) {
@@ -163,17 +163,17 @@ public abstract class AbstractAuditLogService {
      * @param addUserId
      * @return
      */
-    protected List<AuditLog> getPlatformOperationAudit(Integer formId, Integer addUserId) {
+    protected List<AuditLog> getPlatformOperationAudit(Integer formId) {
     	List<AuditLog> auditLogList = new ArrayList<AuditLog>();
     	ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
-    	Salesman salesmanEntity = salesmanService.byId(SessionManager.getUserId());
-    	if(salesmanEntity.getType().equals(SupplierType.PLATFORM)){
-    		List<Integer> yyIds = salesmanService.getEmployeeIdListByRoleCodes(Arrays.asList("Platform_Operation_Leader"));
-            for (Integer item : yyIds) {
-            	Integer level = getCurrentLevel() + 1;
+    	List<Integer> yyIds = salesmanService.getEmployeeIdListByRoleCodes(Arrays.asList("Platform_Operation_Leader"));
+        for (Integer item : yyIds) {
+        	Salesman salesmanEntity = salesmanService.byEmployeeId(item);
+        	if(salesmanEntity.getType().equals(SupplierType.PLATFORM)){
+        		Integer level = getCurrentLevel() + 1;
             	auditLogList.add(addAuditLog(formId, "运营审核审核", item, level));
-            }
-    	}
+        	}
+        }
         return auditLogList;
     }
     /**

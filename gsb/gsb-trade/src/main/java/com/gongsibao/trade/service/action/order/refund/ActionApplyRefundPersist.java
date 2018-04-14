@@ -17,7 +17,7 @@ import com.gongsibao.trade.base.IRefundService;
 public class ActionApplyRefundPersist implements IAction {
 
     INU8BankSoPayMapService nU8BankSoPayMapService = ServiceFactory.create(INU8BankSoPayMapService.class);
-
+    INDepRefundService depRefundService = ServiceFactory.create(INDepRefundService.class);
     @Override
     public void execute(ActionContext ctx) {
         Refund refund = (Refund) ctx.getItem();
@@ -29,26 +29,36 @@ public class ActionApplyRefundPersist implements IAction {
         //目前给默认值
         refund.setNo("");
         refund.setCost(0);
+        //保存退款同时，把退款业绩也保存了
         refund = refundService.save(refund);
         ctx.setItem(refund);
         //2.保存退款表和u8的中间表
         saveU8BankSoPayMap(refund);
 
         //3.添加退款业绩
-        INDepRefundService depRefundService = ServiceFactory.create(INDepRefundService.class);
-        for (NDepRefund item : refund.getDepRefunds()) {
-            NDepRefund entity = new NDepRefund();
-            entity.toNew();
-            entity.setOrderId(refund.getOrderId());
-            entity.setAmount(item.getAmount());
-            entity.setRefundId(item.getRefundId());
-            entity.setSupplierId(item.getSupplierId());
-            entity.setDepartmentId(item.getDepartmentId());
-            entity.setSalesmanId(item.getSalesmanId());
-            depRefundService.save(entity);
-        }
+        //saveDepRefund(refund);
+        
     }
 
+    /**
+     * 保存退款业绩
+     * @param refund
+     */
+   /* private void saveDepRefund(Refund refund){
+    	
+    	for (NDepRefund item : refund.getDepRefunds()) {
+            NDepRefund entity = new NDepRefund();{
+            	entity.toNew();
+                entity.setOrderId(refund.getOrderId());
+                entity.setAmount(item.getAmount());
+                entity.setRefundId(item.getRefundId());
+                entity.setSupplierId(item.getSupplierId());
+                entity.setDepartmentId(item.getDepartmentId());
+                entity.setSalesmanId(item.getSalesmanId());
+            }
+            depRefundService.save(entity);
+        }
+    }*/
     //保存退款表和u8的中间表
     private void saveU8BankSoPayMap(Refund refund) {
 
