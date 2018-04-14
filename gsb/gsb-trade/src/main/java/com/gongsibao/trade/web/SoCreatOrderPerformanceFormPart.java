@@ -43,7 +43,7 @@ public class SoCreatOrderPerformanceFormPart extends FormPart {
         Oql oql = new Oql ();
         this.getService ();
         StringBuilder sb = new StringBuilder ();
-        sb.append ("SoOrder.*,");
+        sb.append ("SoOrder.*");
         oql.setSelects (sb.toString ());
         oql.setType (SoOrder.class);
         oql.setFilter ("pkid=?");
