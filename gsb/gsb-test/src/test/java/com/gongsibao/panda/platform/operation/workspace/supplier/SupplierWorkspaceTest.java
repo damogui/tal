@@ -149,7 +149,7 @@ public class SupplierWorkspaceTest extends WorkspaceCreationBase {
 		addQueryItem(queryProject, "name", "名称", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "contact", "联系人", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "mobilePhone", "手机号", ControlTypes.TEXT_BOX);
-
+		addQueryItem(queryProject, "status", "状态", ControlTypes.ENUM_BOX);
 		return queryProject;
 	}
 
