@@ -27,11 +27,11 @@ public class NavigationTest extends NavigationBase {
 		String parentNodeCode = ResourceTest.resourcePrefix + "_Manage";
 		createPTreeNode(tree, null, "fa fa-file-text-o fa-fw", parentNodeCode, "订单管理", "", 1);
 		{
-			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_All_Order", "全部订单(老)", "/trade/manage/order/all/list", 1);
-			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_My_Order", "我的订单(老)", "/trade/manage/order/my/list", 2);
-			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_My_Order_Detail", "我的订单明细(老)", "/trade/manage/orderdetail/my/list", 3);
-			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Order_Pool", "订单明细(老)", "/trade/manage/order/pool/list", 4);
-			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Order_Operation", "订单操作(老)", "/trade/manage/order/operation/list", 5);
+//			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_All_Order", "全部订单(老)", "/trade/manage/order/all/list", 1);
+//			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_My_Order", "我的订单(老)", "/trade/manage/order/my/list", 2);
+//			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_My_Order_Detail", "我的订单明细(老)", "/trade/manage/orderdetail/my/list", 3);
+//			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Order_Pool", "订单明细(老)", "/trade/manage/order/pool/list", 4);
+//			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Order_Operation", "订单操作(老)", "/trade/manage/order/operation/list", 5);
 
             createPTreeNode(tree, parentNodeCode, null, "Operation_Order_All", "全部订单", "/operation/order/all/list", 11);
             createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Pool", "订单池", "/operation/order/pool/list", 21);
