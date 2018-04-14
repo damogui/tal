@@ -1,4 +1,7 @@
 package com.gongsibao.panda.supplier.igirl;
+import com.gongsibao.entity.igirl.ic.IcRegisterCase;
+import com.gongsibao.entity.igirl.ic.baseinfo.AreaOne;
+import com.gongsibao.entity.igirl.ic.baseinfo.AreaTwo;
 import com.gongsibao.entity.igirl.ic.baseinfo.*;
 import com.gongsibao.entity.igirl.tm.ChangeTradeMark;
 import com.gongsibao.entity.igirl.tm.DownloadAttachment;
@@ -124,7 +127,13 @@ public class NavigationTest extends NavigationBase {
 
 			}
 
+			createPTreeNode(tree, "GSB_IC_AI", null, "GSB_IGIRL_IC_REGIST", "工商注册", "",4);
+			{
+				createPTreeNode(tree, "GSB_IGIRL_IC_REGIST", null, "IGRIL_IC_REGIST_" + IcRegisterCase.class.getSimpleName(), "注册申请", "/igirl/ic/IcRegisterCase/all/list", 1);
+			}
+
 		}
-		
+
+
 	}
 }

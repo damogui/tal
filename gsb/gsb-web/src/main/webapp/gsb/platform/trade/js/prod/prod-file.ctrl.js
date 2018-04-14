@@ -65,7 +65,7 @@ com.gongsibao.trade.web.FileCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
     		$(me.$gridId).datagrid('loadData',data.fileList);
     		$('#alreadyUploadCount').text(data.alreadyUploadCount);
     		$('#notUploadCount').text(data.notUploadCount);
-    		$('#notUploadFileNames').text(data.notUploadFileNames);
+    		$('#notUploadFileNames').text(data.notUploadFileNames ||"");
     	});
     },
     openUploadWindow:function(){

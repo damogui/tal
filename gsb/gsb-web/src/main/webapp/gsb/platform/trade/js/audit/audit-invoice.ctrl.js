@@ -69,9 +69,9 @@ com.gongsibao.trade.web.AuditInvoiceListPart = org.netsharp.panda.commerce.ListP
     optionFormatter: function (value, row, index) {
         var me = this;
         if (me.auditLogStatusTypeEnum[1051] != row.status) {
-            return "<a class='grid-btn' href='javascript:controllerauditLogList.show(" + value + ");'>查看</a>";
+            return "<a class='grid-btn' href='javascript:controllerauditLogList.show(" + row.formId + ");'>查看</a>";
         } else {
-            return "<a class='grid-btn' href='javascript:controllerauditLogList.addAudit(" + value + ");'>审核</a>";
+            return "<a class='grid-btn' href='javascript:controllerauditLogList.addAudit(" + row.formId + ");'>审核</a>";
         }
     }
 });

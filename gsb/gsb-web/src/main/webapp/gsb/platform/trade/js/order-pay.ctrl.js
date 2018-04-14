@@ -14,10 +14,6 @@ com.gongsibao.trade.web.OrderPayCtrl = org.netsharp.panda.core.CustomCtrl.Extend
         this.payForOrderCount = false;
     },
     init: function () {
-        $('#detail_tabs').tabs({
-            fit: true,
-            tabHeight: 30
-        });
 
         this.bindSetOfBooks();
 

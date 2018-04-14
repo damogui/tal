@@ -341,8 +341,6 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
                 }
             },
             cancel:function(){
-            	
-            	alert(1);
             	layer.closeAll();
             }
         });
@@ -352,17 +350,28 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
         //构建订单产品明细
 
         //校验未做
+        var productId = $('#product').combogrid('getValue');
+        var productName = $('#product').combogrid('getText');
+        if (System.isnull(productId)) {
 
+            layer.msg('请选择产品名称！');
+            return null;
+        }
+        
+        var cityId = $('#county').combobox('getValue');
+        var cityName = $('#province').combobox('getText') + '-' + $('#city').combobox('getText') + '-' + $('#county').combobox('getText');
+        if (System.isnull(cityId)) {
+
+            layer.msg('请选择产品地区！');
+            return null;
+        }
+        
         var rows = $('#serviceItems').datagrid('getChecked');
         if (rows == null || rows.length == 0) {
 
-            layer.msg('请选择产品名称和产品地区！');
+            layer.msg('请选择服务项目！');
             return null;
         }
-        var productId = $('#product').combogrid('getValue');
-        var productName = $('#product').combogrid('getText');
-        var cityId = $('#county').combobox('getValue');
-        var cityName = $('#province').combobox('getText') + '-' + $('#city').combobox('getText') + '-' + $('#county').combobox('getText');
         var orderProd = {};
         orderProd.productId = productId;
         orderProd.productName = productName;

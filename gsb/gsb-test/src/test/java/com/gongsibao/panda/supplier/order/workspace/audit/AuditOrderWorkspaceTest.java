@@ -9,6 +9,7 @@ import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
+import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
@@ -28,8 +29,6 @@ import com.gongsibao.trade.web.AuditOrderListPart;
  */
 /*订单审核(改价审核)*/
 public class AuditOrderWorkspaceTest  extends WorkspaceCreationBase {
-	private String listrowToolbarPath = "/audit/rowOrderAdd/toolbar";
-	
 	@Before
     public void setup() {
         super.setup ();
@@ -48,32 +47,6 @@ public class AuditOrderWorkspaceTest  extends WorkspaceCreationBase {
         //过滤的就是订单改价审核
         listFilter = "type_id=" + AuditLogType.Ddgj.getValue()+ " AND add_user_id='{userId}' ";
     }
-   
-	@Test
-	public void createRowToolbar() {
-
-		ResourceNode node = this.resourceService.byCode(resourceNodeCode);
-		PToolbar toolbar = new PToolbar();
-		{
-			toolbar.toNew();
-			toolbar.setBasePath("panda/datagrid/row/edit");
-			toolbar.setPath(listrowToolbarPath);
-			toolbar.setName("审核");
-			toolbar.setResourceNode(node);
-			toolbar.setToolbarType(ToolbarType.BASE);
-		}
-		PToolbarItem item = new PToolbarItem();
-		{
-			item.toNew();
-			item.setCode("auditOrder");
-			item.setName("审核");
-			item.setSeq(2);
-			item.setCommand("{controller}.auditOrder();");
-			toolbar.getItems().add(item);
-		}
-
-		toolbarService.save(toolbar);
-	}
 	
     @Override
     protected PDatagrid createDatagrid(ResourceNode node) {
@@ -81,12 +54,15 @@ public class AuditOrderWorkspaceTest  extends WorkspaceCreationBase {
         PDatagrid datagrid = super.createDatagrid (node);
         {
             datagrid.setName ("订单审核");
-            datagrid.setToolbar (listrowToolbarPath);
+            datagrid.setToolbar ("");
             datagrid.setAutoQuery (true);
             datagrid.setShowCheckbox (false);
         }
         PDatagridColumn column = null;
-        addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+        column =addColumn (datagrid, "id", "操作", ControlTypes.TEXT_BOX, 100, true);{
+        	column.setAlign(DatagridAlign.CENTER);
+        	column.setFormatter("return controllerauditLogList.operateFormatter(value,row,index)");
+        }
         column = addColumn(datagrid, "formId", "来源Id", ControlTypes.NUMBER_BOX, 100, true);{
         	column.setVisible(false);
         }

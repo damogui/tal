@@ -38,7 +38,7 @@ public class SalesmanOrderPerformanceWorspaceTest extends WorkspaceCreationBase 
 		listPartImportJs = "/gsb/platform/trade/js/salesman-order-performance-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
 		listPartServiceController = SalesmanOrderPerformanceListPart.class.getName();
 		listPartJsController = SalesmanOrderPerformanceListPart.class.getName();
-		listFilter = "salesman_id = '{userId}'";
+		listFilter = "salesman_id = '{userId}'  and  creator_id='{userId}'";//添加人和业务员
 		listToolbarPath = "";
 	}
 

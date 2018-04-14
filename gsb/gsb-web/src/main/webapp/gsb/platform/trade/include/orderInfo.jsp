@@ -11,7 +11,7 @@
 		font-weight: bold;
 	}
 </style>
-  <table cellpadding="3" cellspacing="0" class="form-panel" style="width:1000px;margin:10px 0;">
+  <table cellpadding="3" cellspacing="0" class="form-panel" style="width:1000px;margin:5px 0;">
       <tr>
           <td class="label_td"><label>订单编号：</label></td>
           <td class="control_td" id="no"></td>

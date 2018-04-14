@@ -1,11 +1,9 @@
 package com.gongsibao.panda.supplier.igirl.service;
 
 import com.gongsibao.entity.Result;
-import com.gongsibao.entity.igirl.res.ConvertToOrderResult;
-import com.gongsibao.entity.igirl.settle.Settle;
-import com.gongsibao.entity.trade.dic.SettleStatus;
-import com.gongsibao.igirl.settle.base.IOrderProdCaseService;
-import com.gongsibao.igirl.settle.base.ISettleService;
+import com.gongsibao.entity.trade.settle.Settle;
+import com.gongsibao.trade.base.settle.IOrderProdSettleService;
+import com.gongsibao.trade.base.settle.ISettleService;
 import com.gongsibao.igirl.tm.base.ITradeMarkCaseService;
 import com.gongsibao.trade.base.IOrderProdService;
 import org.junit.Test;
@@ -19,7 +17,7 @@ import java.util.Arrays;
 public class SettleServiceTest {
     ITradeMarkCaseService tradeMarkCaseService = ServiceFactory.create(ITradeMarkCaseService.class);
     IOrderProdService orderProdService = ServiceFactory.create(IOrderProdService.class);
-    IOrderProdCaseService orderProdCaseService = ServiceFactory.create(IOrderProdCaseService.class);
+    IOrderProdSettleService orderProdSettleService = ServiceFactory.create(IOrderProdSettleService.class);
     ISettleService settleService = ServiceFactory.create(ISettleService.class);
     @Test
     public void testConvertToOrder() {

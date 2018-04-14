@@ -145,7 +145,10 @@ public class ExpenseBillWorkspaceTest extends WorkspaceCreationBase {
         addFormField(form, "totalAmount", "报销合计", ControlTypes.DECIMAL_FEN_BOX, false, false);
         addFormField(form, "loanAmount", "借款金额", ControlTypes.DECIMAL_FEN_BOX, false, false);
         addFormField(form, "amount", "报销金额", ControlTypes.TEXT_BOX, false, false);
-        addFormField(form, "isOffset", "冲抵借款", ControlTypes.SWITCH_BUTTON, true, false);
+        formField =   addFormField(form, "isOffset", "冲抵借款", ControlTypes.SWITCH_BUTTON, true, false);
+        {
+        	 formField.setTroikaTrigger("controllerexpense.correctChange(this);");
+        }
         addFormField(form, "companyName", "公司名称", ControlTypes.TEXT_BOX, true, true);
         addFormField(form, "companyBank", "公司开户行", ControlTypes.TEXT_BOX, true, true);
         addFormField(form, "companyAccount", "公司银行账号", ControlTypes.TEXT_BOX, true, true);

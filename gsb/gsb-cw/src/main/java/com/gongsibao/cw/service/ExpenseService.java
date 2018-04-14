@@ -1,6 +1,7 @@
 package com.gongsibao.cw.service;
 
 import java.sql.Types;
+import java.util.List;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
@@ -13,6 +14,7 @@ import com.gongsibao.cw.base.IAuditRecordService;
 import com.gongsibao.cw.base.ICostDetailService;
 import com.gongsibao.cw.base.IExpenseService;
 import com.gongsibao.cw.base.IFileService;
+import com.gongsibao.cw.base.ILoanService;
 import com.gongsibao.cw.base.ISubsidyRecordService;
 import com.gongsibao.cw.base.ITripRecordService;
 import com.gongsibao.entity.cw.AuditRecord;
@@ -32,6 +34,8 @@ public class ExpenseService extends PersistableService<Expense> implements IExpe
 	ITripRecordService tripRecordService = ServiceFactory.create(ITripRecordService.class);
 	//补助明细
 	ISubsidyRecordService subsidyRecordService= ServiceFactory.create(ISubsidyRecordService.class);
+	//借款服务
+	ILoanService loanService = ServiceFactory.create(ILoanService.class);
 	
 	public ExpenseService() {
 		super();
@@ -80,9 +84,44 @@ public class ExpenseService extends PersistableService<Expense> implements IExpe
 		Boolean bool =  this.pm.executeNonQuery(sql, null) > 0;
 		if(bool){
 			auditRecordService.saveFinance(auditRecord);
+			//冲正借款金额
+			correctLoan(auditRecord.getFormId());
 		}
 		return bool;
 	}
-	
+	/**
+	 * 冲正借款
+	* @Title: correctLoan  
+	* @Description: TODO
+	* @param @param formId    参数  
+	* @return void    返回类型  
+	* @throws
+	 */
+	private void correctLoan(Integer formId){
+		Oql oql = new Oql();
+		oql.setType(Expense.class);
+		oql.setSelects("expense.*");
+		oql.setFilter("id=?");
+		oql.getParameters().add("id", formId, Types.INTEGER);
+		Expense entity = this.queryFirst(oql);
+		if(entity != null && entity.getIsOffset()){
+			Integer expenseAmount = entity.getTotalAmount();
+			List<Loan> loanList =  loanService.getLoanByUserId(entity.getCreatorId());
+			for(Loan loan : loanList){
+				expenseAmount = expenseAmount - loan.getAmount();
+				loan.toPersist();
+				if(expenseAmount>=0){  //报销金额大于借款  金额   证明可以冲正所有借款 
+					loan.setRepaymentAmount(loan.getAmount()); //还款金额
+					loan.setArrearsAmount(0);  //未还金额
+				}else{  
+					//公式 还款金额=借款金额 + （报销金额-借款金额） 如：报销金额5000  借款金额6000  还款金额为：5000
+					Integer tempAmount = loan.getAmount()+expenseAmount;
+					loan.setRepaymentAmount(tempAmount); //还款金额
+					loan.setArrearsAmount(loan.getAmount()-tempAmount);  //未还金额
+				}
+				loanService.save(loan);
+			}
+		}
+	}
 
 }

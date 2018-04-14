@@ -90,7 +90,6 @@ public class OrderNavigationTest extends NavigationBase {
                 createPTreeNode(tree, "Gsb_Supplier_Order_Audit", nodeIcon, "Gsb_Supplier_Pay_Audit", "回款审核", "/crm/order/audit/pay/list", 3);
                 createPTreeNode(tree, "Gsb_Supplier_Order_Audit", nodeIcon, "Gsb_Supplier_Pay_Audit_Performance", "回款业绩审核", "/crm/order/audit/payper/list", 4);
 
-
 				createPTreeNode(tree, "Gsb_Supplier_Order_Audit", nodeIcon, "Gsb_Supplier_Order_Audit_Pricing", "定价审核", "/crm/order/audit/pricing/list", 5);
 				createPTreeNode(tree, "Gsb_Supplier_Order_Audit", nodeIcon, "Gsb_Supplier_Order_Audit_Refund", "退款审核", "/crm/order/audit/refund/list", 6);
 				createPTreeNode(tree, "Gsb_Supplier_Order_Audit", nodeIcon, "Gsb_Supplier_Order_Audit_Staging", "分期审核", "/crm/order/audit/staging/list", 7);
@@ -99,6 +98,14 @@ public class OrderNavigationTest extends NavigationBase {
 				createPTreeNode(tree, "Gsb_Supplier_Order_Audit", nodeIcon, "Gsb_Supplier_Order_Audit_Contract", "合同审核", "/crm/order/audit/contract/list", 9);
 				createPTreeNode(tree, "Gsb_Supplier_Order_Audit", nodeIcon, "Gsb_Supplier_Order_Audit_Invoice", "发票审核", "/crm/order/audit/invoice/list", 10);
 			}
+
+			createPTreeNode(tree, "Gsb_Supplier_Order", null, "Gsb_Supplier_Settle_My", "结算管理", "", 4);
+			{
+				createPTreeNode(tree, "Gsb_Supplier_Settle_My", null, "Gsb_Supplier_My_Unsettle", "待结算订单", "/supplier/settle/unSettle/list", 1);
+				createPTreeNode(tree, "Gsb_Supplier_Settle_My", null, "Gsb_Supplier_MySettled", "我的结算单", "/supplier/settle/settleOrder/myList", 2);
+
+			}
+
 		}
 	}
 }
