@@ -25,7 +25,7 @@ public class RefundItemService extends PersistableService<RefundItem> implements
 		Oql oql = new Oql();
 		{
 			oql.setType(this.type);
-			oql.setSelects("RefundItem.*,orderProd.*");
+			oql.setSelects("RefundItem.*,orderProd.*,orderProd.owner.name");
 			oql.setFilter("refundId=?");
 			oql.getParameters().add("refundId", refundId, Types.INTEGER);
 		}
