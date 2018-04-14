@@ -22,6 +22,7 @@
 /bin/
 /classes/
 classes/
+gsb.iml
 
 /gsb-web/src/main/resources/dev/conf/configuration.properties
 local.properties
