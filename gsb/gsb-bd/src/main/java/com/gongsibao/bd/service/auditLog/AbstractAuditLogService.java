@@ -112,8 +112,13 @@ public abstract class AbstractAuditLogService {
             item.toNew();
             item.setMaxLevel(getCurrentLevel());
             item.setRemark("");
-            if (item.getStatus().equals(AuditLogStatusType.AUDITPASS)) {
-                item.setAuditTime(new Date());
+            //当没有其他审核流程（自己审核通过即全部审核通过），需要设置审核为待审核（否则审核流程不走，无法走审核回写）
+            if(allList.size() ==1){
+            	item.setStatus(AuditLogStatusType.TOAUDIT);
+            }else{
+            	if (item.getStatus().equals(AuditLogStatusType.AUDITPASS)) {
+                    item.setAuditTime(new Date());
+                }
             }
             logService.save(item);
         }
