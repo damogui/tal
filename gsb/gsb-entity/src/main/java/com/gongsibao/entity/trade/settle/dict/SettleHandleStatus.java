@@ -11,8 +11,9 @@ public enum SettleHandleStatus implements IEnum {
     PLATFORM_REJECT(2, "平台驳回"),
     FINANCIAL_AUDITING(3, "财务审核中"),
     FINANCIAL_REJECT(4, "财务驳回"),
-    UN_CASH(5, "未提现"),
-    ALREADY_CASH(6, "已提现");
+    AUDIT_PASS(5, "财务驳回"),
+    UN_CASH(6, "未提现"),
+    ALREADY_CASH(7, "已提现");
 
     private int value;
     private String text;
