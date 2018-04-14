@@ -34,3 +34,5 @@ logs
 /gsb-*/.classpath
 /gsb-*/.project
 /gsb-*/.gitignore
+/gsb-*/out/
+
