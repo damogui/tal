@@ -5,4 +5,6 @@ import org.netsharp.base.IPersistableService;
 import com.gongsibao.entity.trade.OrderProdOrganizationMap;
 
 public interface IOrderProdOrganizationMapService extends IPersistableService<OrderProdOrganizationMap> {
+	
+	public Boolean updateOrganizationMap(Integer orderProdId, Integer supplierId);
 }

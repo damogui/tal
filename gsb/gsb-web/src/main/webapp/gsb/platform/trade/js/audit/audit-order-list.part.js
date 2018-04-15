@@ -46,7 +46,7 @@ com.gongsibao.trade.web.AuditOrderListPart = org.netsharp.panda.commerce.ListPar
             }
         });
     },
-    detail : function(id){
+    detail : function(id){    	
     	var row = this.getSelectedItem();
     	var orderId = row.soOrder_id;
     	var contentUrl = this.addOrderUrl + "?id=" + orderId;

@@ -43,9 +43,9 @@ public class NavigationTest extends NavigationBase {
             createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Carryover", "结转订单", "/operation/order/carryover/list", 71);
             createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Contract", "合同管理", "/operation/order/contract/list", 81);
             createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Invoice", "发票管理", "/operation/order/invoice/list", 91);
-            createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Day_Report", "日统计", "/operation/order/report/day", 101);
-            createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Week_Report", "周统计", "/operation/order/report/week", 111);
-            createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Month_Report", "月统计", "/operation/order/report/month", 121);
+//            createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Day_Report", "日统计", "/operation/order/report/day", 101);
+//            createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Week_Report", "周统计", "/operation/order/report/week", 111);
+//            createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Month_Report", "月统计", "/operation/order/report/month", 121);
 		}
 
 		/*parentNodeCode = ResourceTest.resourcePrefix + "_Operation";
@@ -79,6 +79,8 @@ public class NavigationTest extends NavigationBase {
                     "/trade/audit/change/list", 9);
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Staging", "分期审核",
                     "/trade/audit/staging/list", 10);
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Settle", "结算审核",
+                    "/trade/audit/settle/list", 11);
 		}
 
 		/*parentNodeCode = ResourceTest.resourcePrefix + "_Cost";

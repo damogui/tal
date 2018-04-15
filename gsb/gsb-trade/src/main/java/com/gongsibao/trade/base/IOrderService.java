@@ -46,8 +46,8 @@ public interface IOrderService extends IPersistableService<SoOrder> {
     Boolean applyCarryover(NOrderCarryover orderCarryover);
 
     /*
-    *根据订单id获取订单实体
-    * */
+     *根据订单id获取订单实体
+     * */
     SoOrder getByOrderId(Integer orderId);
 
     /*
@@ -63,30 +63,33 @@ public interface IOrderService extends IPersistableService<SoOrder> {
     /*更新状态值根据字段名、订单id、和状态值*/
     @Transaction
     void updateStatus(String status_id, Integer id, AuditStatusType shzt);
-    
+
     /*是否可以创建回款*/
     Integer checkCanPay(Integer orderId);
-    
+
     /*是否可以订单业绩type=0   是否可以创建回款业绩  type=1*/
-    Integer checkCanOrderPer(Integer orderId,Integer type);
-    
-    /**   
-     * @Title: getCustomerMobile   
-     * @Description: TODO(根据订单Id获取客户手机号)   
+    Integer checkCanOrderPer(Integer orderId, Integer type);
+
+    /**
+     * @throws
+     * @Title: getCustomerMobile
+     * @Description: TODO(根据订单Id获取客户手机号)
      * @param: @param orderId
-     * @param: @return      
-     * @return: String      
-     * @throws   
+     * @param: @return
+     * @return: String
      */
     String getCustomerMobile(Integer orderId);
-    
-    /**   
-     * @Title: getCustomerByOrderId   
-     * @Description: TODO(根据订单Id获取NCustomer)   
+
+    /**
+     * @throws
+     * @Title: getCustomerByOrderId
+     * @Description: TODO(根据订单Id获取NCustomer)
      * @param: @param orderId
-     * @param: @return      
-     * @return: NCustomer      
-     * @throws   
+     * @param: @return
+     * @return: NCustomer
      */
     NCustomer getCustomerByOrderId(Integer orderId);
+
+    /*orderId 订单id selects设置查询项*/
+    SoOrder getSoOrderById(Object orderId, String selects);
 }

@@ -187,13 +187,19 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
             // 直接取部门的
             SupplierDepartmentService departmentService = new SupplierDepartmentService();
             SupplierDepartment department = departmentService.byId(entity.getDepartmentId());
+            Integer supplierId = department.getSupplierId();//
+            int checkNum = checkIsCurrent(supplierId, entity.getMobile());
+            if (checkNum>0){
+
+                throw new BusinessException(String.format("服务商下面已存在手机号:%s的业务员",entity.getMobile()));
+            }
 
             if (department == null) {
                 throw new BusinessException("部门属性不正确");
             }
             entity.setType(department.getType());// 设置平台属性
             entity.setCustomerType(department.getCustomerType());// 设置分组属性
-
+            entity.setSupplierId(department.getSupplierId());
             if (state == EntityState.New) {
 
                 this.createEmployee(entity);
@@ -218,6 +224,34 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
         }
 
         return entity;
+    }
+
+    /*根据服务商id和电话查询是不是服务商下面存在salemsId*/
+    private int checkIsCurrent(Integer supplierId, String mobile) {
+        IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
+        Oql oql = new Oql();
+        {
+            oql.setType(Employee.class);
+            oql.setSelects("Employee.*");
+            oql.setFilter("login_name =?");
+            oql.getParameters().add("@login_name", mobile, Types.VARCHAR);
+        }
+        Employee employee = employeeService.queryFirst(oql);
+        if (employee == null) {
+
+            return 0;
+        } else {
+
+            String sqlQ = "SELECT  COUNT(1) FROM  sp_salesman   WHERE   supplier_id=?  AND    employee_id=?";
+
+            QueryParameters qps = new QueryParameters();
+            qps.add("@supplier_id", supplierId, Types.INTEGER);
+            qps.add("@employee_id", employee.getId(), Types.INTEGER);
+            int num = this.pm.executeInt(sqlQ, qps);
+            return num;
+        }
+
+
     }
 
     // /删除的时候校验员工下面是否存在商机
@@ -283,15 +317,15 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
      * @return: void
      */
     private void createEmployee(Salesman entity) {
-    	
-    	if(StringManager.isNullOrEmpty(entity.getNewPassword())){
-    		
-    		throw new BusinessException("请设置密码");
-    	}
-    	
-    	String pwd = EncrypUtil.md5(entity.getNewPassword() + "user!@#123").substring(8,24);
+
+        if (StringManager.isNullOrEmpty(entity.getNewPassword())) {
+
+            throw new BusinessException("请设置密码");
+        }
+
+        String pwd = EncrypUtil.md5(entity.getNewPassword() + "user!@#123").substring(8, 24);
         IEmployeeService service = ServiceFactory.create(IEmployeeService.class);
-        Employee employee = service.byPhone(entity.getMobile());
+        Employee employee = service.byPhone(entity.getMobile().trim());
         if (employee == null) {
 
             employee = new Employee();
@@ -304,9 +338,9 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
             employee.setQuitDate(entity.getQuitDate());
             employee.setDisabled(entity.getDisabled());
             employee.setPwd(pwd);
-        }else{
-        	
-        	
+        } else {
+
+            employee.setPwd(pwd);
         }
 
         RoleEmployee roleEmployee = null;
@@ -338,14 +372,14 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 
         IEmployeeService service = ServiceFactory.create(IEmployeeService.class);
         Employee employee = service.byId(entity.getEmployeeId());
-        
-    	if(!StringManager.isNullOrEmpty(entity.getNewPassword())){
-    		
-        	String pwd = EncrypUtil.md5(entity.getNewPassword() + "user!@#123").substring(8,24);
-        	employee.setPwd(pwd);
-    	}
-    	
-    	
+
+        if (!StringManager.isNullOrEmpty(entity.getNewPassword())) {
+
+            String pwd = EncrypUtil.md5(entity.getNewPassword() + "user!@#123").substring(8, 24);
+            employee.setPwd(pwd);
+        }
+
+
         employee.setName(entity.getName());
         employee.setMobile(entity.getMobile());
         employee.setLoginName(entity.getLoginName());
@@ -452,10 +486,10 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
     @Override
     public List<Integer> getEmployeeIdListByRoleCodes(List<String> roleCodes) {
 
-        List<Integer> employeeIdList = new ArrayList<Integer>(); 
+        List<Integer> employeeIdList = new ArrayList<Integer>();
         StringBuffer sql = new StringBuffer();
 
-        if (CollectionUtils.isEmpty(roleCodes)) { 
+        if (CollectionUtils.isEmpty(roleCodes)) {
             return new ArrayList<Integer>();
         }
 

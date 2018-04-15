@@ -3,6 +3,8 @@ package com.gongsibao.entity.bd;
 import com.gongsibao.entity.bd.dic.AuditLogStatusType;
 
 import com.gongsibao.entity.trade.*;
+import com.gongsibao.entity.trade.settle.OrderProdSettle;
+import com.gongsibao.entity.trade.settle.Settle;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
@@ -72,6 +74,9 @@ public class AuditLog extends BaseEntity {
     // 退单记录
     @Reference(foreignKey = "formId", primaryKey = "pkid")
     private Refund fefund;
+
+    @Reference(foreignKey = "formId")
+    private Settle settle;
 
     // 结转记录
     @Reference(foreignKey = "formId")
@@ -204,4 +209,12 @@ public class AuditLog extends BaseEntity {
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
+
+    public Settle getSettle() {
+        return settle;
+    }
+
+    public void setSettle(Settle settle) {
+        this.settle = settle;
+    }
 }

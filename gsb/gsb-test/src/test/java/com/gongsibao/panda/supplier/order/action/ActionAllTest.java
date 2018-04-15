@@ -30,7 +30,7 @@ import org.junit.runners.Suite.SuiteClasses;
         AuditPerformanceActionTest.class,
         AuditRefundActionTest.class,
         AuditStageActionTest.class,
-
+        AuditSettleActionTest.class,
         SettleApplyActionTest.class     // 结算申请
 })
 

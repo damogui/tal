@@ -6,12 +6,14 @@ import com.gongsibao.bd.service.auditLog.SettleAudit;
 import com.gongsibao.entity.Result;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.settle.Settle;
+import com.gongsibao.entity.trade.settle.dict.SettleHandleStatus;
 import com.gongsibao.trade.base.settle.ISettleService;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.core.EntityState;
 import org.netsharp.service.PersistableService;
+import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import java.util.List;
 
@@ -180,6 +182,18 @@ public class SettleService extends PersistableService<Settle> implements ISettle
 //        Result<Settle> result = new Result<>();
 //        result.setObj(settle);
 //        return result;
+    }
+
+    @Override
+    public Boolean updateStatusHandleStatus(int settleId, SettleHandleStatus handleStatus) {
+        UpdateBuilder builder = UpdateBuilder.getInstance();
+        {
+            builder.update("so_settle");
+            builder.set("so_settle.`handle_status`", handleStatus.getValue());
+            builder.where("id=" + settleId + "");
+        }
+
+        return this.pm.executeNonQuery(builder.toSQL(), null) > 0;
     }
 
     //合同申请审批流：提交人（级别:0,状态:审核通过）-》部门领导（级别:1,状态:待审核）->服务商管理员(级别:2,状态:等待)->合同采购专员(级别:3,状态:等待)->法务专员(级别:4,状态:等待)

@@ -1,9 +1,15 @@
 package com.gongsibao.entity.trade;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Reference;
+import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.u8.U8Bank;
 
 @Table(name="so_refund_item",header="退单项")
 public class RefundItem extends BaseEntity {
@@ -18,6 +24,9 @@ public class RefundItem extends BaseEntity {
     
     @Column(name="order_prod_id",header="产品订单序号")
     private Integer orderProdId;
+    
+    @Reference(foreignKey = "orderProdId", header = "产品订单明细")
+    private OrderProd orderProd;
     
     @Column(name="amount",header="退款金额")
     private Integer amount;
@@ -43,7 +52,15 @@ public class RefundItem extends BaseEntity {
     public void setOrderProdId(Integer orderProdId) {
         this.orderProdId = orderProdId;
     }
-    public Integer getAmount() {
+    
+    
+	public OrderProd getOrderProd() {
+		return orderProd;
+	}
+	public void setOrderProd(OrderProd orderProd) {
+		this.orderProd = orderProd;
+	}
+	public Integer getAmount() {
         return amount;
     }
     public void setAmount(Integer amount) {
