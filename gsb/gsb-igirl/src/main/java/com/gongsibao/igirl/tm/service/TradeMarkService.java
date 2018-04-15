@@ -332,7 +332,7 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 			}
 
 			// TODO(?)
-			if (tm.getWhetherColorGroup()) {
+			if (tm.getHasColor()) {
 				step3.setColourSign("colourSign2");
 			} else {
 				step3.setColourSign("colourSign1");
