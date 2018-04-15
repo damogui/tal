@@ -35,7 +35,7 @@ com.gongsibao.trade.web.SalesmanOrderPayController = org.netsharp.panda.commerce
             title: '我的回款信息',
             fixed: false,
             maxmin: true,
-            shadeClose: false,
+            shadeClose: true,
             area: ['60%', '60%'],
             zIndex: 100000,
             id: "myorderpay",

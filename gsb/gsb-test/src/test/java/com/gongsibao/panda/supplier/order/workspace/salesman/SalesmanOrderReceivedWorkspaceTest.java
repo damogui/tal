@@ -37,7 +37,7 @@ public class SalesmanOrderReceivedWorkspaceTest extends WorkspaceCreationBase {
         listPartImportJs = "/gsb/platform/trade/js/salesman-order-pay-performance-list.part.js";
         listPartJsController = SalesmanOrderReceivedListPart.class.getName ();
         listPartServiceController = SalesmanOrderReceivedListPart.class.getName ();//设置查询的列
-        listFilter = "(salesman_id = '{userId}'  or creator_id = '{userId}')";//我创建和别人分配给我
+        listFilter = "(NDepPay.salesman_id = '{userId}'  or NDepPay.creator_id = '{userId}')";//我创建和别人分配给我
         listToolbarPath = "";
     }
 

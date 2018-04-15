@@ -74,7 +74,6 @@ public class RoleTest {
 		this.create("IGIRL_Leader", "Igirl_部门负责人", "Supplier_Trademark", workbench);
 		this.create("IGIRL_Salesman", "Igirl_业务员", "Supplier_Trademark", workbench);
 		this.create("IGIRL_Audit", "Igirl_后期", "Supplier_Trademark", workbench);
-
 	}
 
 	private RoleWorkbench createWorkbench(String name, String path) {

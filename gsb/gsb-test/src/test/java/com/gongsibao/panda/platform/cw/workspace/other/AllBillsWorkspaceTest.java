@@ -41,8 +41,10 @@ public class AllBillsWorkspaceTest extends WorkspaceCreationBase {
         listPartImportJs = "/gsb/platform/cw/js/all-bill-list-part.js";
 		listPartJsController = AllBillsListPart.class.getName();
 		listPartServiceController = AllBillsListPart.class.getName();
+		listToolbarPath = "";
 		//待办理
 	    listFilter = " t.status = " +FinanceDict.AuditStatus.Status_5.getValue() +" ";
+	    
 	    
     }
 	@Override

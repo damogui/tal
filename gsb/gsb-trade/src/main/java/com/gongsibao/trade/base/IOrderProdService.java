@@ -125,17 +125,10 @@ public interface IOrderProdService extends IPersistableService<OrderProd> {
 	/**
 	 * 订单明细操作-修改服务商、办理名称、操作公司
 	 * @param orderProdId 订单产品Id
-	 * @param supplierId 服务商Id
 	 * @param handleName 办理名称
 	 * @param companyId 关联公司Id或者0
 	 * @return
 	 */
-	Boolean updateOrderDetail(Integer orderProdId, Integer supplierId, String handleName,Integer companyId);
-	/**
-	 * 订单明细操作-修改服务商
-	 * @param orderProdId
-	 * @param supplierId
-	 * @return
-	 */
-	Boolean updateOrderDetail(Integer orderProdId, Integer supplierId);
+	Boolean updateOrderDetail(Integer orderProdId, String handleName,Integer companyId);
+	
 }

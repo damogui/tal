@@ -129,12 +129,19 @@ public class OrderPayController {
 		Oql oql = new Oql();
 		{
 			oql.setType(SoOrder.class);
-			oql.setSelects("id,no,totalPrice,payablePrice,refundPrice,paidPrice,carryAmount");
-			oql.setFilter("no=? and paid_price < payable_price");
+			oql.setSelects("id,no,totalPrice,payablePrice,refundPrice,paidPrice,carryAmount,carry_into_amount");
+			oql.setFilter("no=? ");//and paid_price < payable_price
 			oql.getParameters().add("no", orderNo, Types.INTEGER);
 		}
 		ISoOrderService service = ServiceFactory.create(ISoOrderService.class);
-		return service.queryFirst(oql);
+        SoOrder order=service.queryFirst(oql);
+        if (order.getBalance () < order.getPayablePrice ()) {//可以创建
+            return order;
+
+        } else {
+            return null;//给提示
+
+        }
 	}
 
 	/**   

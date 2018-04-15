@@ -1,5 +1,6 @@
 System.Declare("com.gongsibao.trade.web");
 //所有订单
+
 com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.ListPart.Extends({
     ctor: function () {
         this.base();
@@ -47,6 +48,12 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                     id: "addReceivedIframe",
                     content: urlEnd,
                     btn: ['保存', '取消'],
+                    success: function (layero, index) {
+                        layerIndex = index; //获取当前窗口的索引
+                        layerInitWidth = $("#layui-layer"+layerIndex).width(); //获取layer的宽度
+                        layerInitHeight = $("#layui-layer"+layerIndex).height(); //获取layer的高度
+                        resizeLayer(layerIndex,layerInitWidth,layerInitHeight); //调用resizeLayer方法
+                    },
                     yes: function (index, layero) {
 
                         var payPerformanceCtrl = document.getElementById('addReceivedIframe').firstElementChild.contentWindow.payPerformanceCtrl;
@@ -97,7 +104,10 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                     content: urlEnd,
                     btn: ['保存', '取消'],// 可以无限个按钮
                     success: function (layero, index) {
-
+                        layerIndex = index; //获取当前窗口的索引
+                        layerInitWidth = $("#layui-layer"+layerIndex).width(); //获取layer的宽度
+                        layerInitHeight = $("#layui-layer"+layerIndex).height(); //获取layer的高度
+                        resizeLayer(layerIndex,layerInitWidth,layerInitHeight); //调用resizeLayer方法
                     },
                     yes: function (index, layero) {
 
@@ -136,7 +146,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         /*校验是不是存在订单的改价审核和回款审核，存在不弹窗*/
         me.invokeService("checkCanPay", [parseFloat(row.id)], function (data) {
             if (data > 0) {
-                layer.msg("订单改价和已存在回款审核没通过不允许创建回款");
+                layer.msg("订单改价、已存在回款审核没通过、回款已完成不允许创建回款");
                 return;
             } else {
                 var urlEnd = me.addReceivedUrl + "?no=" + row.no;
@@ -151,6 +161,12 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                     id: "addReceivedIframe",
                     content: urlEnd,
                     btn: ['保存', '取消'],
+                    success: function (layero, index) {
+                        layerIndex = index; //获取当前窗口的索引
+                        layerInitWidth = $("#layui-layer"+layerIndex).width(); //获取layer的宽度
+                        layerInitHeight = $("#layui-layer"+layerIndex).height(); //获取layer的高度
+                        resizeLayer(layerIndex,layerInitWidth,layerInitHeight); //调用resizeLayer方法
+                    },
                     yes: function (index, layero) {
 
                         var payCtrl = document.getElementById('addReceivedIframe').firstElementChild.contentWindow.payCtrl;
@@ -184,10 +200,8 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         me.invokeService("refundValidate", [row.id], function (data) {
             if (data < 0) {
                 layer.msg('该订单无可退款金额，请知悉');
-            } else if (data == 1051) {
-                layer.msg('有笔退款或结转目前待审核中，请审核通过后，再创建');
-            } else if (data == 1052) {
-                layer.msg('有笔退款或结转目前退款中，请审核通过后，再创建 ');
+            } else if (data != 0 && data != 1054) {
+                layer.msg('有笔退款或结转目前审核中，请审核通过后，再创建');
             } else {
                 layer.open({
                     type: 2,//1是字符串 2是内容
@@ -200,6 +214,12 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                     id: "addRefundIframe",
                     content: contentUrl,
                     btn: ['保存', '取消'],// 可以无限个按钮
+                    success: function (layero, index) {
+                        layerIndex = index; //获取当前窗口的索引
+                        layerInitWidth = $("#layui-layer"+layerIndex).width(); //获取layer的宽度
+                        layerInitHeight = $("#layui-layer"+layerIndex).height(); //获取layer的高度
+                        resizeLayer(layerIndex,layerInitWidth,layerInitHeight); //调用resizeLayer方法
+                    },
                     yes: function (index, layero) {
                         document.getElementById('addRefundIframe').firstElementChild.contentWindow.refundCtrl.save();
                     },
@@ -220,10 +240,8 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         me.invokeService("carryValidate", [row.id], function (data) {
             if (data < 0) {
                 layer.msg('该订单无可结转金额，请知悉');
-            } else if (data == 1051) {
-                layer.msg('有笔退款或结转目前待审核中，请审核通过后，再创建');
-            } else if (data == 1052) {
-                layer.msg('有笔退款或结转目前结转中，请审核通过后，再创建');
+            } else if (data != 0 && data != 1054) {
+                layer.msg('有笔退款或结转目前审核中，请审核通过后，再创建');
             } else {
                 layer.open({
                     type: 2,//1是字符串 2是内容
@@ -236,6 +254,12 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                     id: "addCarryoverIframe",
                     content: contentUrl,
                     btn: ['保存', '取消'],// 可以无限个按钮
+                    success: function (layero, index) {
+                        layerIndex = index; //获取当前窗口的索引
+                        layerInitWidth = $("#layui-layer"+layerIndex).width(); //获取layer的宽度
+                        layerInitHeight = $("#layui-layer"+layerIndex).height(); //获取layer的高度
+                        resizeLayer(layerIndex,layerInitWidth,layerInitHeight); //调用resizeLayer方法
+                    },
                     yes: function (index, layero) {
                         document.getElementById('addCarryoverIframe').firstElementChild.contentWindow.carryoverCtrl.save();
                     },
@@ -269,9 +293,12 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
     	//判断是否已经分期付款了（先支持1次分期）
     	var me = this;
     	var contentUrl = this.addStagingUrl + "?id=" + orderId;
-    	me.invokeService("isStaged", [orderId], function (data) {
-    		if(data){
+    	me.invokeService("ValidateStaged", [orderId], function (data) {
+    		if(data == 0){
     			layer.msg('该订单已申请分期，并审核通过，请知悉');
+                return false;
+    		}else if(data == 1){
+    			layer.msg('该订单已申请分期，目前待审核，请知悉');
                 return false;
     		}else{
     			layer.open({
@@ -285,6 +312,12 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
     	            id: "addStagingIframe",
     	            content: contentUrl,
     	            btn: ['保存', '取消'],// 可以无限个按钮
+                    success: function (layero, index) {
+                        layerIndex = index; //获取当前窗口的索引
+                        layerInitWidth = $("#layui-layer"+layerIndex).width(); //获取layer的宽度
+                        layerInitHeight = $("#layui-layer"+layerIndex).height(); //获取layer的高度
+                        resizeLayer(layerIndex,layerInitWidth,layerInitHeight); //调用resizeLayer方法
+                    },
     	            yes: function (index, layero) {
     	                document.getElementById('addStagingIframe').firstElementChild.contentWindow.stagetrl.save();
     	            },
@@ -324,7 +357,10 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                 content: url,
                 btn: ['提交', '取消'],
                 success: function (layero, index) {
-
+                    layerIndex = index; //获取当前窗口的索引
+                    layerInitWidth = $("#layui-layer"+layerIndex).width(); //获取layer的宽度
+                    layerInitHeight = $("#layui-layer"+layerIndex).height(); //获取layer的高度
+                    resizeLayer(layerIndex,layerInitWidth,layerInitHeight); //调用resizeLayer方法
                 },
                 yes: function () {
                     document.getElementById('contractCreateIframe').firstElementChild.contentWindow.controllercontract.save();
@@ -364,8 +400,12 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                     content: url,
                     btn: ['提交', '取消'],
                     success: function (layero, index) {
-
+                        layerIndex = index; //获取当前窗口的索引
+                        layerInitWidth = $("#layui-layer"+layerIndex).width(); //获取layer的宽度
+                        layerInitHeight = $("#layui-layer"+layerIndex).height(); //获取layer的高度
+                        resizeLayer(layerIndex,layerInitWidth,layerInitHeight); //调用resizeLayer方法
                     },
+                   
                     yes: function () {
                         document.getElementById('invoiceCreateIframe').firstElementChild.contentWindow.controllerinvoice.save();
                     }
@@ -498,6 +538,8 @@ function reloadPage() {
     controllersoOrderList.query();
 
 }
+
+
 
 
 

@@ -1,10 +1,18 @@
 package com.gongsibao.trade.web;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
+import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
 import org.netsharp.util.StringManager;
+
+
+import com.gongsibao.entity.trade.Refund;
+import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.utils.NumberUtils;
 
 /**
  * Created by zhangchao on 2018/3/14.
@@ -26,5 +34,27 @@ public class OrderSalesmanRefundListPart extends AdvancedListPart {
             return "order_id in ( select pkid from so_order where " + StringManager.join(" or ", filters) + ")";
         }
         return parameter.getFilter();
+    }
+    @Override
+    public List<?> doQuery(Oql oql) {
+        //oql.setSelects("fefund.*,fefund.soOrder.*");
+        oql.setSelects("Refund.*,Refund.soOrder.*");
+        List<Refund> resList = (List<Refund>) super.doQuery(oql);
+        return resList;
+    }
+
+    @Override
+    protected Object serialize(List<?> list, Oql oql) {
+        HashMap<String, Object> json = (HashMap<String, Object>) super.serialize(list, oql);
+        ArrayList<HashMap<String, Object>> ob2 = (ArrayList<HashMap<String, Object>>) json.get("rows");
+        for (int i = 0; i < ob2.size(); i++) {
+        	
+        	Refund refund = ((Refund) list.get(i));
+        	SoOrder soOrder  = refund.getSoOrder();
+            Integer balance = NumberUtils.toInt(soOrder.getPaidPrice()) + NumberUtils.toInt(soOrder.getCarryIntoAmount()) - NumberUtils.toInt(soOrder.getRefundPrice()) - NumberUtils.toInt(soOrder.getCarryAmount());
+            Integer toBePaidPrice = soOrder.getPayablePrice().intValue() - balance;
+            ob2.get(i).put("soOrder_toBePaidPrice", toBePaidPrice);
+        }
+        return json;
     }
 }

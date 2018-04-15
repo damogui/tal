@@ -430,12 +430,12 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
             form.setColumnCount(2);
             String groupName = null;
             PFormField formField = null;
-            addFormField(form, "tradeMarkType", "商标类型", groupName, ControlTypes.ENUM_BOX, false, false);
-            addFormField(form, "whetherThirdSpace", "三维商标", groupName, ControlTypes.SWITCH_BUTTON, true, false);
-            addFormField(form, "whetherColorGroup", "颜色组合", groupName, ControlTypes.SWITCH_BUTTON, true, false);
-            addFormField(form, "hasColor", "指定颜色", groupName, ControlTypes.SWITCH_BUTTON, true, false);
-            addFormField(form, "whetherSound", "声音商标", groupName, ControlTypes.SWITCH_BUTTON, true, false);
-            addFormField(form, "whetherPersonPhoto", "以肖像注册", groupName, ControlTypes.SWITCH_BUTTON, true, false);
+            addFormField(form, "tradeMarkType", "商标类型", groupName, ControlTypes.ENUM_BOX, false, true);
+            addFormField(form, "whetherThirdSpace", "三维商标", groupName, ControlTypes.SWITCH_BUTTON, true, true);
+            addFormField(form, "whetherColorGroup", "颜色组合", groupName, ControlTypes.SWITCH_BUTTON, true, true);
+            addFormField(form, "hasColor", "彩色商标", groupName, ControlTypes.SWITCH_BUTTON, true, false);
+            addFormField(form, "whetherSound", "声音商标", groupName, ControlTypes.SWITCH_BUTTON, true, true);
+            addFormField(form, "whetherPersonPhoto", "以肖像注册", groupName, ControlTypes.SWITCH_BUTTON, true, true);
             formField = addFormField(form, "memo", "商标说明", groupName, ControlTypes.TEXT_BOX, true, false);
             {
             	formField.setTroikaTrigger("controllertradeMarks.checkMemo(this);");

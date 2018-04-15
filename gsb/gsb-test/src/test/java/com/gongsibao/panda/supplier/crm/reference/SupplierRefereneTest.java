@@ -1,5 +1,6 @@
 package com.gongsibao.panda.supplier.crm.reference;
 
+import com.gongsibao.entity.supplier.dict.SupplierStatus;
 import org.junit.Before;
 import org.netsharp.meta.base.ReferenceCreationBase;
 import org.netsharp.panda.controls.ControlTypes;
@@ -16,6 +17,7 @@ public class SupplierRefereneTest extends ReferenceCreationBase{
 		referenceCode = "CRM_Supplier";
 		intelligentMode = IntelligentMode.LIKE;
 		intelligentFields = "name";
+        gridFilter="status="+ SupplierStatus.OPEND.getValue();
 	}
 
 	public PDatagrid createDatagrid(ResourceNode node) {

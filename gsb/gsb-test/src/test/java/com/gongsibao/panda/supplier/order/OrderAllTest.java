@@ -1,8 +1,11 @@
 package com.gongsibao.panda.supplier.order;
 
+import com.gongsibao.panda.supplier.order.action.settle.SettleApplyActionTest;
 import com.gongsibao.panda.supplier.order.workspace.audit.*;
 import com.gongsibao.panda.supplier.order.workspace.department.*;
 import com.gongsibao.panda.supplier.order.workspace.salesman.*;
+import com.gongsibao.panda.supplier.order.workspace.settle.MySettleWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.settle.UnSettleWorkspaceTest;
 import com.gongsibao.panda.supplier.reference.OrderDepartmentReferenceTest;
 import com.gongsibao.panda.supplier.reference.OrderSalesmanReferenceTest;
 import com.gongsibao.panda.supplier.reference.OrderSupplierReferenceTest;
@@ -38,6 +41,9 @@ import com.gongsibao.panda.supplier.reference.SupplierU8BankReferenceTest;
         SoCreatOrderPerformanceWorkspaceTest.class,
         SalesmanOrderInvoiceWorkspaceTest.class,
         SalesmanOrderDetailWorkspaceTest.class,
+        SalesmanOrderContractFormWorkspaceTest.class,
+        SalesmanOrderInvoiceFormWorkspaceTest.class,
+
 
         //部门订单
         DepartmentOrderAllWorkspaceTest.class,
@@ -65,6 +71,12 @@ import com.gongsibao.panda.supplier.reference.SupplierU8BankReferenceTest;
         AuditStagingWorkspaceTest.class,
         AuditContractWorkspaceTest.class,
         AuditInvoiceWorkspaceTest.class,
+        AuditSalesmanOrderContractFormWorkspaceTest.class,
+        AuditSalesmanOrderInvoiceFormWorkspaceTest.class,
+
+        // 结算
+        UnSettleWorkspaceTest.class,
+        MySettleWorkspaceTest.class,
 
         ActionAllTest.class,
         OrderNavigationTest.class,

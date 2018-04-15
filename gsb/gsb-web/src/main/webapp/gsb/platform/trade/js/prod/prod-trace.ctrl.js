@@ -313,7 +313,7 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
 		var builder = new System.StringBuilder();
 		builder.append('	<table cellpadding="5" cellspacing="10" class="form-panel">');
 		builder.append('		<tr><td>提示内容:<span style="color:#009688;">此提示内容会通知给客户</span></td></tr>');
-		builder.append('		<tr><td><textarea id="remark" placeholder="请填写内容..." style="width: 100%; height:130px;"></textarea></td></tr>');
+		builder.append('		<tr><td><textarea id="remark" placeholder="请填写内容..." style="width: 470px; height:130px;"></textarea></td></tr>');
 		builder.append('		<tr><td><input id="isSendMessage" type="checkbox" style="vertical-align: middle;"/><label for="isSendMessage" style="vertical-align: middle;">提示内容短信通知客户</label></td></tr>');
 		builder.append('	</table>');
 

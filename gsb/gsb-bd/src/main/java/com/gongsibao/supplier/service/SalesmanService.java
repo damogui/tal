@@ -193,7 +193,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
             }
             entity.setType(department.getType());// 设置平台属性
             entity.setCustomerType(department.getCustomerType());// 设置分组属性
-
+            entity.setSupplierId(department.getSupplierId());
             if (state == EntityState.New) {
 
                 this.createEmployee(entity);
@@ -291,7 +291,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
     	
     	String pwd = EncrypUtil.md5(entity.getNewPassword() + "user!@#123").substring(8,24);
         IEmployeeService service = ServiceFactory.create(IEmployeeService.class);
-        Employee employee = service.byPhone(entity.getMobile());
+        Employee employee = service.byPhone(entity.getMobile().trim());
         if (employee == null) {
 
             employee = new Employee();
@@ -306,7 +306,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
             employee.setPwd(pwd);
         }else{
         	
-        	
+        	employee.setPwd(pwd);
         }
 
         RoleEmployee roleEmployee = null;

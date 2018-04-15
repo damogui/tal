@@ -29,4 +29,16 @@ public class RefundService extends PersistableService<Refund> implements IRefund
 		}
 		return this.queryList(oql);
 	}
+
+	@Override
+	public Refund queryById(Integer id) {
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects("Refund.*");
+			oql.setFilter("id=?");
+			oql.getParameters().add("id", id, Types.INTEGER);
+		}
+		return this.queryFirst(oql);
+	}
 }

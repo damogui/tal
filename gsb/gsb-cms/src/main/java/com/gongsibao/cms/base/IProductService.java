@@ -28,4 +28,6 @@ public interface IProductService extends IPersistableService<Product> {
     Product getLastCmsDataByProdId(Integer productId);
 
     AggregationResponse findAggregationByProductId(int productId);
+
+    Product getLastCmsByProdId(Integer productId);
 }

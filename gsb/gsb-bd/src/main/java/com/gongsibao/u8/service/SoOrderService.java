@@ -10,6 +10,7 @@ import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.entity.trade.Pay;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
@@ -226,11 +227,15 @@ public class SoOrderService extends PersistableService<SoOrder> implements ISoOr
         return entity;
     }
 
-
-
-
-
-
-
-
+	@Override
+	public SoOrder getOrderStageByOrderId(Integer orderId) {
+		Oql oql = new Oql ();
+        {
+            oql.setType (this.type);
+            oql.setSelects ("soOrder.*,stages.*");
+            oql.setFilter ("pkid =" + orderId);
+        }
+        SoOrder entity = orderService.queryFirst (oql);
+        return entity;
+	}
 }

@@ -269,14 +269,17 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 			form.setColumnCount(2);
 			String groupName = null;
 			PFormField formField = null;
-			addFormField(form, "tradeMarkType", "商标类型", groupName, ControlTypes.ENUM_BOX, false, false);
-			addFormField(form, "whetherThirdSpace", "三维商标", groupName, ControlTypes.SWITCH_BUTTON, true, false);
-			addFormField(form, "whetherColorGroup", "颜色组合", groupName, ControlTypes.SWITCH_BUTTON, true, false);
-			addFormField(form, "hasColor", "指定颜色", groupName, ControlTypes.SWITCH_BUTTON, true, false);
-			addFormField(form, "whetherSound", "声音商标", groupName, ControlTypes.SWITCH_BUTTON, true, false);
-			addFormField(form, "whetherPersonPhoto", "以肖像注册", groupName, ControlTypes.SWITCH_BUTTON, true, false);
-			addFormField(form, "memo", "商标说明", groupName, ControlTypes.TEXT_BOX, true, false);
-			addFormField(form, "shareGroup", "附件共享", groupName, ControlTypes.ENUM_BOX, true, false);
+			addFormField(form, "tradeMarkType", "商标类型", groupName, ControlTypes.ENUM_BOX, false, true);
+			addFormField(form, "whetherThirdSpace", "三维商标", groupName, ControlTypes.SWITCH_BUTTON, true, true);
+			addFormField(form, "whetherColorGroup", "颜色组合", groupName, ControlTypes.SWITCH_BUTTON, true, true);
+			addFormField(form, "hasColor", "彩色商标", groupName, ControlTypes.SWITCH_BUTTON, true, false);
+			addFormField(form, "whetherSound", "声音商标", groupName, ControlTypes.SWITCH_BUTTON, true, true);
+			addFormField(form, "whetherPersonPhoto", "以肖像注册", groupName, ControlTypes.SWITCH_BUTTON, true, true);
+			formField = addFormField(form, "memo", "商标说明", groupName, ControlTypes.TEXT_BOX, true, false);
+	        {
+	           formField.setTroikaTrigger("controllertradeMarks.checkMemo(this);");
+	        }
+	        addFormField(form, "shareGroup", "附件共享", groupName, ControlTypes.ENUM_BOX, true, false);
 			formField = addFormField(form, "whetherShare", "是否共同申请", groupName, ControlTypes.SWITCH_BUTTON, false,
 					false);
 			formField.setVisible(false);
@@ -342,6 +345,10 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 				// column.setFormatter("return '<a
 				// href=\"url\">name</a>'.replace('name',row.name).replace('url',row.fileUrl)");
 			}
+			column = addColumn(datagrid, "shareGroup", "共享组", ControlTypes.ENUM_BOX, 150);{
+            	 String formatter = EnumUtil.getColumnFormatter(ShareGroup.class);
+                 column.setFormatter(formatter);
+            }
 			column = addColumn(datagrid, "needed", "是否需要上传", ControlTypes.TEXT_BOX, 150);
 			{
 				column.setFormatter("if( row.needed==1  ){ return '需要上传' } else{ return '无需上传' }");

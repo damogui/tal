@@ -21,6 +21,8 @@ public class PlatformFinanceSTKZYAuditTest extends AuthBaseTest {
         this.resourceNodeCodeList.add ("GSB_Trade_Audit_Received");//回款审核
         this.resourceNodeCodeList.add ("GSB_Trade_Audit_ReceivedPer");//回款业绩审核
         this.resourceNodeCodeList.add ("GSB_Trade_Audit_Refund");//退款审核
+        this.resourceNodeCodeList.add ("GSB_Trade_Audit_Carryover");//结转审核
+
 
     }
 }

@@ -1,11 +1,17 @@
 package com.gongsibao.panda.supplier.order;
 
 import com.gongsibao.bd.base.IAuditLogService;
+import com.gongsibao.bd.base.IFileService;
 import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.trade.settle.OrderProdSettle;
+import com.gongsibao.entity.trade.settle.Settle;
+import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.trade.*;
+import com.gongsibao.trade.base.settle.IOrderProdSettleService;
+import com.gongsibao.trade.base.settle.ISettleService;
 import com.gongsibao.supplier.base.ISalesmanService;
 import com.gongsibao.supplier.base.ISupplierDepartmentService;
 import com.gongsibao.supplier.base.ISupplierService;
@@ -57,6 +63,11 @@ public class OrderResourceTest extends ResourceCreationBase {
                 this.createResourceNodeVoucher(NOrderCarryover.class.getName(), "我的结转", "Gsb_Supplier_Order_Salesman_Carryover", INOrderCarryoverService.class.getName(), node2.getId());
                 this.createResourceNodeVoucher(Contract.class.getName(), "合同管理", "Gsb_Supplier_Order_Salesman_Contract", IContractService.class.getName(), node2.getId());
                 this.createResourceNodeVoucher(OrderInvoiceMap.class.getName(), "发票管理", "Gsb_Supplier_Order_Salesman_Invoice", IOrderInvoiceMapService.class.getName(), node2.getId());
+                this.createResourceNodeVoucher(Contract.class.getName(), "申请合同", "Operation_Order_Contract_Add", IContractService.class.getName(), node2.getId());
+                this.createResourceNodeVoucher(Invoice.class.getName(), "申请发票", "Operation_Order_Invoice_Add", IOrderInvoiceMapService.class.getName(), node2.getId());
+                this.createResourceNodeVoucher(Contract.class.getName(), "合同审核界面", "GSB_Trade_Audit_Form_Contract", IContractService.class.getName(), node2.getId());
+                this.createResourceNodeVoucher(Invoice.class.getName(), "发票审核界面", "GSB_Trade_Audit_Form_Invoice", IInvoiceService.class.getName(), node2.getId());
+                this.createResourceNodeVoucher(File.class.getName(), "合同附件", "Operation_Order_Contract_File", IFileService.class.getName(), node2.getId());
                 
 //                this.createResourceNodeVoucher(SoOrder.class.getName(), "日统计", "Gsb_Supplier_Order_Salesman_Day_Report", IOrderService.class.getName(), node1.getId());
 //                this.createResourceNodeVoucher(SoOrder.class.getName(), "周统计", "Gsb_Supplier_Order_Salesman_Week_Report", IOrderService.class.getName(), node1.getId());
@@ -78,7 +89,7 @@ public class OrderResourceTest extends ResourceCreationBase {
                 this.createResourceNodeVoucher(NOrderCarryover.class.getName(), "结转订单", "Gsb_Supplier_Order_Department_Carryover", INOrderCarryoverService.class.getName(), node3.getId());
                 this.createResourceNodeVoucher(Contract.class.getName(), "合同管理", "Gsb_Supplier_Order_Department_Contract", IContractService.class.getName(), node3.getId());
                 this.createResourceNodeVoucher(OrderInvoiceMap.class.getName(), "发票管理", "Gsb_Supplier_Order_Department_Invoice", IOrderInvoiceMapService.class.getName(), node3.getId());
-                this.createResourceNodeVoucher(OrderProd.class.getName(), "订单明细", "Gsb_Supplier_Order_Department_OrderProd", IOrderProdService.class.getName(), node2.getId());
+                this.createResourceNodeVoucher(OrderProd.class.getName(), "订单明细", "Gsb_Supplier_Order_Department_OrderProd", IOrderProdService.class.getName(), node3.getId());
 //                this.createResourceNodeVoucher(SoOrder.class.getName(), "日统计", "Gsb_Supplier_Order_Department_Day_Report", IOrderService.class.getName(), node1.getId());
 //                this.createResourceNodeVoucher(SoOrder.class.getName(), "周统计", "Gsb_Supplier_Order_Department_Week_Report", IOrderService.class.getName(), node1.getId());
 //                this.createResourceNodeVoucher(SoOrder.class.getName(), "月统计", "Gsb_Supplier_Order_Department_Month_Report", IOrderService.class.getName(), node1.getId());
@@ -97,10 +108,15 @@ public class OrderResourceTest extends ResourceCreationBase {
                 this.createResourceNodeVoucher(AuditLog.class.getName(), "分期审核", "Gsb_Supplier_Order_Audit_Staging", IAuditLogService.class.getName(), node4.getId());
                 this.createResourceNodeVoucher(AuditLog.class.getName(), "结转审核", "Gsb_Supplier_Order_Audit_Carryover", IAuditLogService.class.getName(), node4.getId());
                 this.createResourceNodeVoucher(AuditLog.class.getName(), "合同审核", "Gsb_Supplier_Order_Audit_Contract", IAuditLogService.class.getName(), node4.getId());
-                this.createResourceNodeVoucher(Contract.class.getName(), "合同审核界面", "GSB_Trade_Audit_Contract_Form", IContractService.class.getName(), node3.getId());
                 this.createResourceNodeVoucher(AuditLog.class.getName(), "发票审核", "Gsb_Supplier_Order_Audit_Invoice", IAuditLogService.class.getName(), node4.getId());
-                this.createResourceNodeVoucher(Invoice.class.getName(), "发票审核界面", "GSB_Trade_Audit_Invoice_Form", IInvoiceService.class.getName(), node3.getId());
 
+            }
+
+            ResourceNode node5 = this.createResourceNodeCategory("结算管理", "Gsb_Supplier_Settle_My", node1.getId());
+            {
+                this.createResourceNodeVoucher(OrderProdSettle.class.getName(), "待结算列表", "Gsb_Supplier_My_Unsettle", IOrderProdSettleService.class.getName(), node5.getId());
+                this.createResourceNodeVoucher(Settle.class.getName(), "我的结算单", "Gsb_Supplier_MySettled", ISettleService.class.getName(), node5.getId());
+                this.createResourceNodeVoucher(Settle.class.getName(), "结算单信息", "Gsb_Supplier_Settle_form", ISettleService.class.getName(), node5.getId());
             }
         }
     }

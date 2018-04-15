@@ -242,7 +242,7 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
     },
     toNewUrl:function(entity){
     	
-    	window.location.href=this.addUrl+'?id='+entity.id;
+    	window.location.href=this.editUrl+'?id='+entity.id;
     },
     verify:function(){
     	
@@ -310,7 +310,7 @@ com.gongsibao.crm.web.NCustomerTaskDetailPart = org.netsharp.panda.commerce.Deta
 //        	url=this.addUrl+'?isPlatform=0&ctrl='+this.context.instanceName;
 //    	}
     	
-    	var url = this.addUrl+'?isPlatform=0&ctrl='+this.context.instanceName;
+    	var url = this.addUrl+'?isPlatform=0&type=add&ctrl='+this.context.instanceName;
     	if(this.parent.viewModel.currentItem.entityState != EntityState.New){
 			
     		var customerId = this.parent.viewModel.currentItem.id;
@@ -353,12 +353,13 @@ com.gongsibao.crm.web.NCustomerTaskDetailPart = org.netsharp.panda.commerce.Deta
 	doubleClickRow : function(rowIndex, rowData) {
 		
 		var url='';
+
     	if(this.isPlatform==1){
     		
         	url = this.editUrl+'?id='+rowData.id;
     	}else{
     		
-        	url = this.editUrl+'?isPlatform=0&ctrl='+this.context.instanceName;
+        	url = this.editUrl+'?isPlatform=0&type=edit&ctrl='+this.context.instanceName;
     	}
     	
     	layer.open({

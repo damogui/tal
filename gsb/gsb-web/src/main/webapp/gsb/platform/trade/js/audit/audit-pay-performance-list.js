@@ -25,7 +25,7 @@ com.gongsibao.trade.web.AuditPayPerformanceListPart = org.netsharp.panda.commerc
             title: '回款业绩审核',
             fixed: false,
             maxmin: true,
-            shadeClose: false,
+            shadeClose: true,
             area: ['70%', '95%'],
             zIndex: 100000,
             id: "auditPayPerIframe",

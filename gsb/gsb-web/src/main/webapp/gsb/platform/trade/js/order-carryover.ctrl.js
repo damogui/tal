@@ -6,7 +6,7 @@ com.gongsibao.trade.web.OrderCarryoverCtrl = org.netsharp.panda.core.CustomCtrl.
     	this.service = 'com.gongsibao.trade.web.OrderCarryoverController';
     },
     init:function(){
-		
+	
     	var orderId = this.queryString('id');
     	this.invokeService ("getSoOrder", [orderId], function(data){
     		
@@ -21,14 +21,13 @@ com.gongsibao.trade.web.OrderCarryoverCtrl = org.netsharp.panda.core.CustomCtrl.
     },
     amountChange:function(newValue,oldValue){
     	//1.判断结转转出额是否大于订单余额
-    	
     	var payAblePrice = $("payablePrice_hidden").val();
     	var paidPrice = $("#paidPrice_hidden").val();
     	var refundPrice = $("#refundPrice_hidden").val();
     	var carryAmount = $("#carryAmount_hidden").val();
     	var carryIntoAmount = $("#carryIntoAmount_hidden").val();
     	
-    	var balance = paidPrice + carryIntoAmount -refundPrice - carryAmount;
+    	var balance = parseInt(paidPrice) + parseInt(carryIntoAmount) - parseInt(refundPrice) - parseInt(carryAmount);    	
     	var getNewValue = parseFloat(newValue)*100;
     	
     	if((balance - getNewValue) < 0){
@@ -37,9 +36,9 @@ com.gongsibao.trade.web.OrderCarryoverCtrl = org.netsharp.panda.core.CustomCtrl.
     		return false;
     	}
     	
-    	var carryIntoAmount = payAblePrice - paidPrice;
-    	//2.判断结转转入额是否大于待付款金额
-    	if((carryIntoAmount - getNewValue) > 0){
+    	//2.判断结转转入额是否大于转入订单待付款金额(订单待付款金额 = 订单应付金额 - 订单余额)
+    	var toPayAmount = $("#toPayAmount_hidden").val();
+    	if(!isEmpty($("#toOrderNo").val()) && (parseInt(toPayAmount) - getNewValue) < 0){
     		$('#amount').numberbox('clear');
     		layer.msg('结转金额大于转入订单待付款金额，请核实');
     	}
@@ -52,13 +51,21 @@ com.gongsibao.trade.web.OrderCarryoverCtrl = org.netsharp.panda.core.CustomCtrl.
     			$('#toOrderNo').val("");
     			layer.msg('去向订单号输入有误，请重新输入');
     		}else{
-    			$("#orderId_hidden").val(data.id);
-    			if(data.carryStatus == 1051){
+    			if(data.carryStatus != 0 && data.carryStatus != 1054){
     				$('#toOrderNo').val("");
     				layer.msg('去向订单待审核中，暂不能操作！');
-    			}else if(data.carryStatus == 1052){
-    				$('#toOrderNo').val("");
-            		layer.msg('去向订单结转中，暂不能操作！');
+    			}else{
+    				$("#toOrderId_hidden").val(data.id);
+    				
+    				var toPayablePrice = data.payablePrice;
+    	      		var toPaidPrice = data.paidPrice;
+    	      		var toRefundPrice = data.refundPrice;
+    	      		var toCarryAmount = data.carryAmount;
+    	      		var toCarryIntoAmount = data.carryIntoAmount;
+    	      		
+    	      		var balance = parseInt(toPaidPrice) + parseInt(toCarryIntoAmount) - parseInt(toRefundPrice) - parseInt(toCarryAmount);
+    	      		var toPayAmount = parseInt(toPayablePrice) - parseInt(balance);    	      		
+    	      		$("#toPayAmount_hidden").val(toPayAmount);
     			}
     		}
     	});
@@ -67,7 +74,7 @@ com.gongsibao.trade.web.OrderCarryoverCtrl = org.netsharp.panda.core.CustomCtrl.
     	
     	var formOrderId = this.queryString('id');
     	var formOrderNo = $('#formOrderNo').val();
-    	var toOrderId = $("#orderId_hidden").val();
+    	var toOrderId = $("#toOrderId_hidden").val();
     	var toOrderNo = $('#toOrderNo').val();
     	var remark = $('#carryRemark').val();
     	

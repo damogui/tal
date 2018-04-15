@@ -105,7 +105,7 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
 
     @Override
     public SoOrder getByOrderNo(String orderNo) {
-        if (StringManager.isNullOrEmpty(orderNo)) {
+        if (StringManager.isNullOrEmpty (orderNo)) {
             return null;
         }
 
@@ -159,26 +159,49 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
     /*是否可以创建回款*/
     @Override
     public Integer checkCanPay(Integer orderId) {
+        //校验余额是否小于应付金额 0是1不是
+        int num = 0;
+        num = checkIsBancleLessOrder (orderId);
+        if (num > 0) {
+            return num;//回款已经创建完毕
+        }
+
+
         String sql = "SELECT COUNT(change_price_audit_status_id)  FROM so_order  WHERE  change_price_audit_status_id<>1054  AND  is_change_price=1 AND  pkid=?";//有没有待审核、审核中
 
         QueryParameters qps = new QueryParameters ();
         qps.add ("@pkid", orderId, Types.INTEGER);
-        int num = this.pm.executeInt (sql, qps);
+        num = this.pm.executeInt (sql, qps);
         if (num > 0) {
 
             return 1;
 
         } else {
-            SoOrder order = byId (orderId);
+//            SoOrder order = byId (orderId);
             num = checkCanPayByOrderId (orderId);//订单是否存在已经支付的待审核
             return num;
 
         }
     }
 
+    /*校验余额是否小于应付金额 0是1不是  等于也不行*/
+    private int checkIsBancleLessOrder(Integer orderId) {
+
+        SoOrder order = getSoOrderById (orderId,null);
+        if (order.getBalance () < order.getPayablePrice ()) {
+            return 0;
+
+        } else {
+            return 1;
+
+        }
+
+
+    }
+
     /*订单是否存在已经支付的待审核*/
     private int checkCanPayByOrderId(Integer orderId) {
-        SoOrder sorder = byId (orderId);
+        SoOrder sorder = getSoOrderById (orderId,"SoOrder.*,SoOrder.pays.*");
         List<Integer> listPayId = new ArrayList<> ();
         for (OrderPayMap item : sorder.getPays ()
                 ) {
@@ -226,8 +249,8 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
         }
     }
 
-	@Override
-	public String getCustomerMobile(Integer orderId) {
+    @Override
+    public String getCustomerMobile(Integer orderId) {
 
         Oql oql = new Oql ();
         {
@@ -235,28 +258,53 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
             oql.setSelects ("id,accountMobile");
             oql.setFilter ("pkid =" + orderId);
         }
-        SoOrder entity = super.queryFirst(oql);
-        
-        return entity.getAccountMobile();
-	}
+        SoOrder entity = super.queryFirst (oql);
 
-	@Override
-	public NCustomer getCustomerByOrderId(Integer orderId) {
-		
+        return entity.getAccountMobile ();
+    }
+
+    @Override
+    public NCustomer getCustomerByOrderId(Integer orderId) {
+
         Oql oql = new Oql ();
         {
             oql.setType (this.type);
             oql.setSelects ("id,customerId,customer.{id,realName,mobile,telephone,email,qq,weixin,addr}");
             oql.setFilter ("id =?");
-            oql.getParameters().add ("@orderId", orderId, Types.INTEGER);
+            oql.getParameters ().add ("@orderId", orderId, Types.INTEGER);
         }
-        SoOrder entity = super.queryFirst(oql);
-        if(entity != null){
-        	
-        	return entity.getCustomer();
+        SoOrder entity = super.queryFirst (oql);
+        if (entity != null) {
+
+            return entity.getCustomer ();
         }
-		return null;
-	}
+        return null;
+    }
+
+    /*只是查询soorder的基础字段，不多查，效率高*/
+    public SoOrder getSoOrderById(Object id, String selects) {
+
+        if (id == null) {
+
+            id = "0";
+        }
+        Oql oql = new Oql ();
+
+        StringBuilder sb = new StringBuilder ();
+        sb.append ("SoOrder.*");
+        if (!StringManager.isNullOrEmpty (selects)) {
+            oql.setSelects (selects);
+        } else {
+            oql.setSelects (sb.toString ());
+        }
+
+        oql.setType (SoOrder.class);
+        oql.setFilter ("pkid=?");
+        oql.getParameters ().add ("@pkid", id, Types.INTEGER);
+        SoOrder obj = queryFirst (oql);
+        return obj;
+
+    }
 
 
 }

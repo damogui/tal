@@ -1,7 +1,9 @@
 package com.gongsibao.panda.supplier.igirl;
 
+import com.gongsibao.entity.igirl.ic.IcRegisterCase;
 import com.gongsibao.entity.igirl.ic.baseinfo.AreaOne;
 import com.gongsibao.entity.igirl.ic.baseinfo.AreaTwo;
+import com.gongsibao.entity.igirl.ic.baseinfo.*;
 import com.gongsibao.entity.igirl.tm.*;
 import com.gongsibao.entity.igirl.tm.baseinfo.IGirlConfig;
 import com.gongsibao.entity.igirl.tm.baseinfo.NCLOne;
@@ -11,8 +13,10 @@ import com.gongsibao.entity.igirl.tm.baseinfo.NclMap;
 import com.gongsibao.entity.igirl.tm.baseinfo.SupplierNewInfo;
 import com.gongsibao.entity.igirl.tm.baseinfo.SupplierSiteInfo;
 import com.gongsibao.entity.product.Product;
+import com.gongsibao.igirl.ic.base.*;
 import com.gongsibao.igirl.ic.base.IAreaOneService;
 import com.gongsibao.igirl.ic.base.IAreaTwoService;
+import com.gongsibao.igirl.ic.base.IRegisterCaseService;
 import com.gongsibao.igirl.tm.base.*;
 import com.gongsibao.igirl.tm.service.HelpBookService;
 import com.gongsibao.product.base.IProductService;
@@ -108,6 +112,20 @@ public class ResourceTest extends ResourceCreationBase {
 		{
 			this.createResourceNodeVoucher(AreaOne.class.getName(), "省级列表", "IGRIL_IC_BASE_" + AreaOne.class.getSimpleName(), IAreaOneService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(AreaTwo.class.getName(), "地市列表", "IGRIL_IC_BASE_" +AreaTwo.class.getSimpleName(), IAreaTwoService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(ChapterOne.class.getName(), "刻章区", "IGRIL_IC_BASE_" +ChapterOne.class.getSimpleName(), IChapterOneService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(ChapterTwo.class.getName(), "刻章公司", "IGRIL_IC_BASE_" +ChapterTwo.class.getSimpleName(), IChapterTwoService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(EntLicType.class.getName(), "证照类型", "IGRIL_IC_BASE_" +EntLicType.class.getSimpleName(), IEntLicTypeService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(Nationality.class.getName(), "国籍", "IGRIL_IC_BASE_" +Nationality.class.getSimpleName(), INationalityService.class.getName(), node1.getId());
+
+		}
+
+		node1 = this.createResourceNodeCategory("工商注册", "GSB_IGIRL_IC_REGIST", node.getId());
+		{
+			this.createResourceNodeVoucher(IcRegisterCase.class.getName(), "注册申请", "IGRIL_IC_REGIST_" + IcRegisterCase.class.getSimpleName(), IRegisterCaseService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(IcBaseInfo.class.getName(),"基础信息","IGRIL_IC_REGIST_"+IcBaseInfo.class.getSimpleName(),IBaseInfoService.class.getName(),node1.getId());
+			this.createResourceNodeVoucher(IcUnPerson.class.getName(),"非自然人股东基本信息","IGRIL_IC_REGIST_"+IcUnPerson.class.getSimpleName(),IUnPersonService.class.getName(),node1.getId());
+			this.createResourceNodeVoucher(IcDirector.class.getName(),"董事信息","IGRIL_IC_REGIST_"+IcDirector.class.getSimpleName(),IDirectorService.class.getName(),node1.getId());
+
 		}
 	}
 }
