@@ -244,6 +244,14 @@ com.gongsibao.igirl.tm.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Det
 	editBefore:function(){
 		this.viewModel.clear();
 	},
+	checkMemo: function (value) {
+		var momo=$("#memo").val();
+		var result=momo.match(/^[\u4e00-\u9fa5_a-zA-Z0-9%&',.@;=?$]+$/); 
+		if(result==null){
+			IMessageBox.error("【商标说明】只能输入中文、英文、数字和常用标点符号!");
+			$("#memo").val("");
+		}
+	},
 	nclOneChange: function (newValue, oldValue) {
 		$("#selectedTwoStr").val("");
 		$("#spandiv").remove();
