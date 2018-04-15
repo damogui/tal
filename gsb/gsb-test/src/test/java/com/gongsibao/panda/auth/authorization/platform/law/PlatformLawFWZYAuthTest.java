@@ -18,6 +18,7 @@ public class PlatformLawFWZYAuthTest extends AuthBaseTest {
 //        审核中心（合同审核、退款审核）
         this.resourceNodeCodeList.add("GSB_Trade_Audit_Contract");
         this.resourceNodeCodeList.add("GSB_Trade_Audit_Refund");
+        this.resourceNodeCodeList.add ("ChangePassword");//密码权限
 
     }
 }

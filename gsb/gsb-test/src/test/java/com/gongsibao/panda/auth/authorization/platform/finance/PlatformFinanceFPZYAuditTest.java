@@ -17,5 +17,6 @@ public class PlatformFinanceFPZYAuditTest extends AuthBaseTest {
     protected void getResourceCodeList() {
 //        审核中心（发票审核）
         this.resourceNodeCodeList.add("GSB_Trade_Audit_Invoice");
+        this.resourceNodeCodeList.add ("ChangePassword");//密码权限
     }
 }
