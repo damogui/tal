@@ -68,6 +68,7 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(TradeMark.class.getName(), "部门跟进", "IGIRL_Dp_"+TradeMark.class.getSimpleName(), ITradeMarkService.class.getName(), node1.getId());
 
 			this.createResourceNodeVoucher(Product.class.getName(), "商标注册产品参照", "IGIRL_Product_" + TradeMarkCase.class.getSimpleName(), IProductService.class.getName(), node1.getId());
+			this.createResourceNodeVoucher(TradeMark.class.getName(), "异常商标", "IGIRL_FollowNotice_"+TradeMark.class.getSimpleName(), ITradeMarkService.class.getName(), node1.getId());
 		}
 
 		node1 = this.createResourceNodeCategory("商标变更", "GSB_IGIRL_CTM", node.getId());
