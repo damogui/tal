@@ -94,7 +94,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             IMessageBox.toast('必须有付款才能创建订单业绩', 2);
             return false;
         }
-        var urlEnd = this.addOrderReceivedUrl + "?id=" + row.id;
+        var urlEnd = this.addOrderReceivedUrl + "?id=" + row.id + "&ownerId=" + row.ownerId + "&supplierId=" + row.supplierId + "&departmentId=" + row.departmentId;
         /*创建订单业绩是不是已经存在存在的话不能创建*/
         me.invokeService("checkCanOrderPer", [parseInt(row.id)], function (data) {
             if (data > 0) {
