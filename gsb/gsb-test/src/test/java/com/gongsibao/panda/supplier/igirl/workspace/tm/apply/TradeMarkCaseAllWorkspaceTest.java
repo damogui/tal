@@ -405,7 +405,9 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
         {
             addColumn(datagrid, "nclOne.code", "编码", ControlTypes.TEXT_BOX, 100);
             addColumn(datagrid, "memo", "商标说明", ControlTypes.TEXT_BOX, 150);
-            addColumn(datagrid, "selectedTwoStr", "商标小类", ControlTypes.TEXTAREA, 400);
+            column = addColumn(datagrid, "selectedTwoStr", "商标小类", ControlTypes.TEXTAREA, 400);{
+            	//column.set
+            }
             column = addColumn(datagrid, "markState", "申请状态", ControlTypes.ENUM_BOX, 150);
             {
                 String formatter = EnumUtil.getColumnFormatter(MarkState.class);
@@ -434,7 +436,10 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
             addFormField(form, "hasColor", "彩色商标", groupName, ControlTypes.SWITCH_BUTTON, true, false);
             addFormField(form, "whetherSound", "声音商标", groupName, ControlTypes.SWITCH_BUTTON, true, true);
             addFormField(form, "whetherPersonPhoto", "以肖像注册", groupName, ControlTypes.SWITCH_BUTTON, true, true);
-            addFormField(form, "memo", "商标说明", groupName, ControlTypes.TEXT_BOX, true, false);
+            formField = addFormField(form, "memo", "商标说明", groupName, ControlTypes.TEXT_BOX, true, false);
+            {
+            	formField.setTroikaTrigger("controllertradeMarks.checkMemo(this);");
+            }
             addFormField(form, "shareGroup", "附件共享", groupName, ControlTypes.ENUM_BOX, true, false);
             formField = addFormField(form, "whetherShare", "是否共同申请", groupName, ControlTypes.SWITCH_BUTTON, false,
                     false);
@@ -502,6 +507,10 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
             {
                 // column.setFormatter("return '<a
                 // href=\"url\">name</a>'.replace('name',row.name).replace('url',row.fileUrl)");
+            }
+            column = addColumn(datagrid, "shareGroup", "共享组", ControlTypes.ENUM_BOX, 150);{
+            	 String formatter = EnumUtil.getColumnFormatter(ShareGroup.class);
+                 column.setFormatter(formatter);
             }
             column = addColumn(datagrid, "needed", "是否需要上传", ControlTypes.TEXT_BOX, 150);
             {
