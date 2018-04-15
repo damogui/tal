@@ -79,6 +79,8 @@ public class NavigationTest extends NavigationBase {
                     "/trade/audit/change/list", 9);
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Staging", "分期审核",
                     "/trade/audit/staging/list", 10);
+			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Settle", "结算审核",
+                    "/trade/audit/settle/list", 11);
 		}
 
 		/*parentNodeCode = ResourceTest.resourcePrefix + "_Cost";

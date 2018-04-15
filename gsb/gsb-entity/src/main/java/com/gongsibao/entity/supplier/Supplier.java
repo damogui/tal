@@ -72,7 +72,7 @@ public class Supplier extends Entity {
 	private String email;
 
 	// 头像:
-	@Column(name = "head_portrait", header = "头像")
+	@Column(name = "head_portrait", size = 256, header = "头像")
 	private String headPortrait;
 
 	@Column(name = "province_id")
@@ -101,16 +101,16 @@ public class Supplier extends Entity {
 	@Column(name = "identity_card", header = "身份证号")
 	private String identityCard;
 
-	@Column(name = "identity_card_photo_front", header = "身份证照片正面")
+	@Column(name = "identity_card_photo_front", size = 256, header = "身份证照片正面")
 	private String identityCardPhotoFont;
 
-	@Column(name = "identity_card_photo_reverse", header = "身份证照片反面")
+	@Column(name = "identity_card_photo_reverse", size = 256, header = "身份证照片反面")
 	private String identityCardPhotoReverse;
 
 	@Column(name = "start_business", header = "从业开始时间")
 	private Date startBusiness;
 
-	@Column(name = "license_photo", header = "执业资质照片")
+	@Column(name = "license_photo", size = 256, header = "执业资质照片")
 	private String licensePhoto;
 
 	// 3、服务信息:
@@ -139,11 +139,11 @@ public class Supplier extends Entity {
 	// 4、财务信息:
 
 	// 银行账户类型:单位账户
-	
+
 	// 开户行:招商银行北京海淀黄庄支行
 	@Column(name = "bank_account_type", header = "帐户类别")
 	private BankAccountType bankAccountType = BankAccountType.ENTERPRISE;
-	
+
 	// 开户行:招商银行北京海淀黄庄支行
 	@Column(name = "bank_name", header = "开户行")
 	private String bankName;
