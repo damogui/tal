@@ -44,15 +44,6 @@ $(function(){
 				created:function(){		
 				}
 		}
-		var pt={template:'<gsb-accordion :items="tms"></gsb-accordion>',
-			data:function(){
-				return {
-					tms:[
-						{id:"1",name:"商标选项1",desc:"okokok"},{id:"2",name:"商标选项2",desc:"okokok"},
-					]
-				}
-			}
-		}
 		var cr={template:'<div>copyright</div>'}
 		var def={
 				template:'<div></div>',
@@ -61,127 +52,61 @@ $(function(){
 					
 				}
 		}
-		var tm=()=>Promise.resolve(new Promise(function(resolve,reject){
-			//异步加载组件
-			axios.get(ip+"/vue/comp/tm").then(function(res){	
-				 var obj=eval("("+res.data+")");
-				 //console.log(obj)
-				 resolve(obj);
-			}).catch(function(reason){
-				console.log(reason)
-			})
-			
-		}))
-		var tmc=()=>Promise.resolve(new Promise(function(resolve,reject){
-			//异步加载组件
-			axios.get(ip+"/vue/comp/tmconfirm").then(function(res){	
-				 var obj=eval("("+res.data+")");
-				 //console.log(obj)
-				 resolve(obj);
-			}).catch(function(reason){
-				console.log(reason)
-			})
-			
-		}))
-		var payment=()=>Promise.resolve(new Promise(function(resolve,reject){
-			//异步加载组件
-			axios.get(ip+"/vue/comp/payment").then(function(res){	
-				 var obj=eval("("+res.data+")");
-				 //console.log(obj)
-				 resolve(obj);
-			}).catch(function(reason){
-				console.log(reason)
-			})
-			
-		}))
-		var zzty=()=>Promise.resolve(new Promise(function(resolve,reject){
-			//异步加载组件
-			axios.get(ip+"/vue/comp/zzty").then(function(res){	
-				 var obj=eval("("+res.data+")");
-				 //console.log(obj)
-				 resolve(obj);
-			}).catch(function(reason){
-				console.log(reason)
-			})
-			
-		}))
-		var viewimg=()=>Promise.resolve(new Promise(function(resolve,reject){
-			//异步加载组件
-			axios.get(ip+"/vue/comp/viewimg").then(function(res){	
-				 var obj=eval("("+res.data+")");
-				 //console.log(obj)
-				 resolve(obj);
-			}).catch(function(reason){
-				console.log(reason)
-			})
-			
-		}))
-	  var downdele=()=>Promise.resolve(new Promise(function(resolve,reject){
-			//异步加载组件
-			axios.get(ip+"/vue/comp/downdele").then(function(res){	
-				 var obj=eval("("+res.data+")");
-				 //console.log(obj)
-				 resolve(obj);
-			}).catch(function(reason){
-				console.log(reason)
-			})
-			
-		}))
-	  var downup=()=>Promise.resolve(new Promise(function(resolve,reject){
-			//异步加载组件
-			axios.get(ip+"/vue/comp/downup").then(function(res){	
-				 var obj=eval("("+res.data+")");
-				 //console.log(obj)
-				 resolve(obj);
-			}).catch(function(reason){
-				console.log(reason)
-			})
-			
-		}))
-        var noticeqr=()=>Promise.resolve(new Promise(function(resolve,reject){
-            //异步加载组件
-            axios.get(ip+"/vue/comp/noticeqr").then(function(res){
-                var obj=eval("("+res.data+")");
-                //console.log(obj)
-                resolve(obj);
-            }).catch(function(reason){
-                console.log(reason)
-            })
-
-        }))
-    var progresslist=()=>Promise.resolve(new Promise(function(resolve,reject){
-            //异步加载组件
-            axios.get(ip+"/vue/comp/progresslist").then(function(res){
-                var obj=eval("("+res.data+")");
-                //console.log(obj)
-                resolve(obj);
-            }).catch(function(reason){
-                console.log(reason)
-            })
-
-        }))
-     var attachments=()=>Promise.resolve(new Promise(function(resolve,reject){
-            //异步加载组件
-            axios.get(ip+"/vue/comp/attachments").then(function(res){
-                var obj=eval("("+res.data+")");
-                //console.log(obj)
-                resolve(obj);
-            }).catch(function(reason){
-                console.log(reason)
-            })
-
-        }))
-     var demo=()=>Promise.resolve(new Promise(function(resolve,reject){
-            //异步加载组件
-            axios.get(ip+"/vue/comp/demo").then(function(res){
-                var obj=eval("("+res.data+")");
-                //console.log(obj)
-                resolve(obj);
-            }).catch(function(reason){
-                console.log(reason)
-            })
-
-        }))
+	   function buildPromise(compath){
+			  return Promise.resolve(new Promise(function(resolve,reject){
+					//异步加载组件
+					axios.get(ip+compath).then(function(res){	
+						 var obj=eval("("+res.data+")");
+						 //console.log(obj)
+						 resolve(obj);
+					}).catch(function(reason){
+						console.log(reason)
+					})
+					
+				}));
+		    }
+//		var tm=()=>Promise.resolve(new Promise(function(resolve,reject){
+//			//异步加载组件
+//			axios.get(ip+"/vue/comp/tm").then(function(res){	
+//				 var obj=eval("("+res.data+")");
+//				 //console.log(obj)
+//				 resolve(obj);
+//			}).catch(function(reason){
+//				console.log(reason)
+//			})
+//			
+//		}))
+		var tm=function(){
+			return buildPromise("/vue/comp/tm");
+		}
+		var tmc=function(){
+			return buildPromise("/vue/comp/tmconfirm");
+		}
+		var payment=function(){
+			return buildPromise("/vue/comp/payment");
+		}
+		var zzty=function(){
+			return buildPromise("/vue/comp/zzty");
+		}
+		var viewimg=function(){
+			return buildPromise("/vue/comp/viewimg");
+		}
+		var downdele=function(){
+			return buildPromise("/vue/comp/downdele");
+		}
+		var downup=function(){
+			return buildPromise("/vue/comp/downup");
+		}
+  
+   var noticeqr=function(){
+		return buildPromise("/vue/comp/noticeqr");
+	  }
+   var progresslist=function(){
+		return buildPromise("/vue/comp/progresslist");
+	  }
+   var attachments=function(){
+ 		return buildPromise("/vue/comp/attachments");
+ 	  }
 		var routes=[
 			{path:'/',component:def},
 			{path:'/tms',component:tms},
@@ -195,9 +120,7 @@ $(function(){
       {path:'/noticeqr',component:noticeqr},//提醒关注
       {path:'/progresslist',component:progresslist},//商标进度列表
       {path:'/attachments',component:attachments},//商标进度列表
-			{path:'/pt',component:tmc},
 			{path:'/cr',component:cr},
-			{path:'/demo',component:demo},
 		]
 		var router=new VueRouter({
 			routes:routes,
