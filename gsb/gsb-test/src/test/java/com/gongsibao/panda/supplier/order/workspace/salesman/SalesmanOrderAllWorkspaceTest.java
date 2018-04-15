@@ -43,6 +43,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 		
 		
 		List<String> ss = new ArrayList<String>();
+        ss.add("/gsb/layerutil/layerresize.js");//弹窗兼容性
 		ss.add("/gsb/platform/trade/js/salesman-order-all-list.part.js");
 		ss.add("/gsb/panda-extend/gsb.custom.query.controls.js");
 		ss.add("/gsb/panda-extend/gsb.pubcontrol.js");

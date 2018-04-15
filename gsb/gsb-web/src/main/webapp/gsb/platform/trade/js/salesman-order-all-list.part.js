@@ -1,5 +1,6 @@
 System.Declare("com.gongsibao.trade.web");
 //所有订单
+
 com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.ListPart.Extends({
     ctor: function () {
         this.base();
@@ -97,7 +98,10 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                     content: urlEnd,
                     btn: ['保存', '取消'],// 可以无限个按钮
                     success: function (layero, index) {
-
+                        layerIndex = index; //获取当前窗口的索引
+                        layerInitWidth = $("#layui-layer"+layerIndex).width(); //获取layer的宽度
+                        layerInitHeight = $("#layui-layer"+layerIndex).height(); //获取layer的高度
+                        resizeLayer(layerIndex,layerInitWidth,layerInitHeight); //调用resizeLayer方法
                     },
                     yes: function (index, layero) {
 
@@ -497,6 +501,8 @@ function reloadPage() {
     controllersoOrderList.query();
 
 }
+
+
 
 
 
