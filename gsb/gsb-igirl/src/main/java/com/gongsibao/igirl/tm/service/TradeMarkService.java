@@ -34,6 +34,7 @@ import com.gongsibao.igirl.tm.base.IDownloadAttachmentService;
 import com.gongsibao.igirl.tm.base.IGirlRobotService;
 import com.gongsibao.igirl.tm.base.ITradeMarkService;
 import com.gongsibao.igirl.tm.base.IUploadAttachmentService;
+import com.gongsibao.igirl.tm.dto.AbnormalNoticeDto;
 import com.gongsibao.igirl.tm.dto.SysAttachmentDto;
 import com.gongsibao.igirl.tm.dto.TradeMark.Goods;
 import com.gongsibao.igirl.tm.dto.TradeMark.Step1;
@@ -560,5 +561,43 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 	    }
 
 	    return urlList;
+	}
+
+	@Override
+	public List<AbnormalNoticeDto> getAbnormalNotice(Integer ownerId) {
+		List<AbnormalNoticeDto> anList = new ArrayList<AbnormalNoticeDto>(); 
+		List<String> stateList = new ArrayList<String>(); 
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT count(a.id) AS count, a.mark_state AS state")
+		.append(" from ( ")
+			.append(" SELECT tm.id,tm.mark_state,tmc.owner_id ")
+			.append(" from ig_trade_mark tm ")
+			.append(" RIGHT JOIN ")
+			.append(" ig_trade_mark_case tmc ")
+			.append(" ON tm.trade_mark_caseid =tmc.id ")
+			.append(" WHERE tmc.owner_id ="+ ownerId )
+		.append(" ) a ")
+		.append(" GROUP BY a.mark_state ");
+	    
+		DataTable dataTable = this.pm.executeTable(sql.toString(), null);
+	    for (IRow row : dataTable) {
+	    	AbnormalNoticeDto an =new AbnormalNoticeDto();
+	    	String count = row.getString("count");
+	    	String state = row.getString("state");
+	    	an.setCount(count);;
+	    	an.setTmState(state);;
+	    	anList.add(an);
+	    	stateList.add(state);
+	    }
+	    String[] array = {"6","7","13","15","17","18","20","21"};
+	    for(int i=0;i<array.length;i++) {
+	    	if(!stateList.contains(array[i])){
+	    		AbnormalNoticeDto an =new AbnormalNoticeDto();
+		    	an.setCount("0");
+		    	an.setTmState(array[i]);
+		    	anList.add(an);
+	    	}
+	    }
+	    return anList;
 	}
 }
