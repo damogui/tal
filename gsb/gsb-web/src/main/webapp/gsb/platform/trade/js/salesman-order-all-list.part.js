@@ -48,6 +48,12 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                     id: "addReceivedIframe",
                     content: urlEnd,
                     btn: ['保存', '取消'],
+                    success: function (layero, index) {
+                        layerIndex = index; //获取当前窗口的索引
+                        layerInitWidth = $("#layui-layer"+layerIndex).width(); //获取layer的宽度
+                        layerInitHeight = $("#layui-layer"+layerIndex).height(); //获取layer的高度
+                        resizeLayer(layerIndex,layerInitWidth,layerInitHeight); //调用resizeLayer方法
+                    },
                     yes: function (index, layero) {
 
                         var payPerformanceCtrl = document.getElementById('addReceivedIframe').firstElementChild.contentWindow.payPerformanceCtrl;
@@ -155,6 +161,12 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                     id: "addReceivedIframe",
                     content: urlEnd,
                     btn: ['保存', '取消'],
+                    success: function (layero, index) {
+                        layerIndex = index; //获取当前窗口的索引
+                        layerInitWidth = $("#layui-layer"+layerIndex).width(); //获取layer的宽度
+                        layerInitHeight = $("#layui-layer"+layerIndex).height(); //获取layer的高度
+                        resizeLayer(layerIndex,layerInitWidth,layerInitHeight); //调用resizeLayer方法
+                    },
                     yes: function (index, layero) {
 
                         var payCtrl = document.getElementById('addReceivedIframe').firstElementChild.contentWindow.payCtrl;
@@ -202,6 +214,12 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                     id: "addRefundIframe",
                     content: contentUrl,
                     btn: ['保存', '取消'],// 可以无限个按钮
+                    success: function (layero, index) {
+                        layerIndex = index; //获取当前窗口的索引
+                        layerInitWidth = $("#layui-layer"+layerIndex).width(); //获取layer的宽度
+                        layerInitHeight = $("#layui-layer"+layerIndex).height(); //获取layer的高度
+                        resizeLayer(layerIndex,layerInitWidth,layerInitHeight); //调用resizeLayer方法
+                    },
                     yes: function (index, layero) {
                         document.getElementById('addRefundIframe').firstElementChild.contentWindow.refundCtrl.save();
                     },
@@ -236,6 +254,12 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                     id: "addCarryoverIframe",
                     content: contentUrl,
                     btn: ['保存', '取消'],// 可以无限个按钮
+                    success: function (layero, index) {
+                        layerIndex = index; //获取当前窗口的索引
+                        layerInitWidth = $("#layui-layer"+layerIndex).width(); //获取layer的宽度
+                        layerInitHeight = $("#layui-layer"+layerIndex).height(); //获取layer的高度
+                        resizeLayer(layerIndex,layerInitWidth,layerInitHeight); //调用resizeLayer方法
+                    },
                     yes: function (index, layero) {
                         document.getElementById('addCarryoverIframe').firstElementChild.contentWindow.carryoverCtrl.save();
                     },
@@ -288,6 +312,12 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
     	            id: "addStagingIframe",
     	            content: contentUrl,
     	            btn: ['保存', '取消'],// 可以无限个按钮
+                    success: function (layero, index) {
+                        layerIndex = index; //获取当前窗口的索引
+                        layerInitWidth = $("#layui-layer"+layerIndex).width(); //获取layer的宽度
+                        layerInitHeight = $("#layui-layer"+layerIndex).height(); //获取layer的高度
+                        resizeLayer(layerIndex,layerInitWidth,layerInitHeight); //调用resizeLayer方法
+                    },
     	            yes: function (index, layero) {
     	                document.getElementById('addStagingIframe').firstElementChild.contentWindow.stagetrl.save();
     	            },
@@ -327,7 +357,10 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                 content: url,
                 btn: ['提交', '取消'],
                 success: function (layero, index) {
-
+                    layerIndex = index; //获取当前窗口的索引
+                    layerInitWidth = $("#layui-layer"+layerIndex).width(); //获取layer的宽度
+                    layerInitHeight = $("#layui-layer"+layerIndex).height(); //获取layer的高度
+                    resizeLayer(layerIndex,layerInitWidth,layerInitHeight); //调用resizeLayer方法
                 },
                 yes: function () {
                     document.getElementById('contractCreateIframe').firstElementChild.contentWindow.controllercontract.save();
@@ -367,8 +400,12 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                     content: url,
                     btn: ['提交', '取消'],
                     success: function (layero, index) {
-
+                        layerIndex = index; //获取当前窗口的索引
+                        layerInitWidth = $("#layui-layer"+layerIndex).width(); //获取layer的宽度
+                        layerInitHeight = $("#layui-layer"+layerIndex).height(); //获取layer的高度
+                        resizeLayer(layerIndex,layerInitWidth,layerInitHeight); //调用resizeLayer方法
                     },
+                   
                     yes: function () {
                         document.getElementById('invoiceCreateIframe').firstElementChild.contentWindow.controllerinvoice.save();
                     }
