@@ -1,14 +1,20 @@
 System.Declare("com.gongsibao.trade.web");
 com.gongsibao.trade.web.AuditRefundCtrl = com.gongsibao.trade.web.AuditBaseCtrl.Extends({
     ctor: function () {
-    	
+    	var me = this;
     	this.base();
+    	this.service = 'com.gongsibao.trade.web.audit.AuditRefundController';
     	this.initializeDetailList = new System.Dictionary();
     	//获取枚举
     	this.processStatusEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderProcessStatusType');
     	this.auditLogStatusEnum = PandaHelper.Enum.get('com.gongsibao.entity.bd.dic.AuditLogStatusType');
-    	this.service = 'com.gongsibao.trade.web.audit.AuditRefundController';
-    },
+    	//判断审核退款的当前登录人是否是收退款专员的角色
+    	this.invokeService("isFinancialRole", [], function(data){
+    		if(data){
+    			me.auditType = 'refund';
+    		}
+    	});
+    },    
     initData:function(){
     	var me = this;
     	var refundId = this.queryString('fefundId');
