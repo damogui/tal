@@ -229,6 +229,9 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
             }
 
             formField = addFormFieldRefrence (form, "salesman.name", "业务员", null, "OrderSalesman", true, false);
+            {
+                formField.setTroikaTrigger("controllerdepReceivable.salesmanChange(newValue,oldValue);");
+            }
 
             formField = addFormField (form, "amount", "分配金额", null, ControlTypes.DECIMAL_FEN_BOX, true, false);
 
