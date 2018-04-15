@@ -25,7 +25,7 @@ public class OrderProdTrace extends BaseEntity {
 	@Column(name = "order_no", header = "订单编号(冗余)")
 	private String orderNo;
 	
-	@Column(name = "order_prod_id", header = "产品")
+	@Column(name = "order_prod_id", header = "产 品")
 	private Integer orderProdId;
 
 	@Column(name = "order_prod_status_id", header = "产品状态")
