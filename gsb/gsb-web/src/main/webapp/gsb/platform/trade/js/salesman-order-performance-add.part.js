@@ -131,15 +131,26 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
 
     },
     addAfter: function () {
-        //当前实体
         var paidPrice = $("#paidPrice").val();
         var ownerId = System.Url.getParameter("ownerId");
-        var supplierId = System.Url.getParameter("supplierId");
-        var departmentId = System.Url.getParameter("departmentId");
-        $('#supplier_name').combogrid('setValue', supplierId);
-        $('#department_name').combogrid('setValue', departmentId);
-        $('#salesman_name').combogrid('setValue', ownerId);
-        $("#amount").numberbox('setValue', paidPrice);
+        var rows = this.getDetails();
+        var isHasCurrent = "";
+        var hasAmount = 0;
+        $(rows).each(function (k, v) {
+            var salesmanId = v.salesmanId;
+            if (ownerId == salesmanId) {
+                isHasCurrent += "t";
+            }
+            hasAmount = hasAmount + System.RMB.fenToYuan(v.amount);
+        });
+        if (isHasCurrent.indexOf("t") <= -1) {
+            var supplierId = System.Url.getParameter("supplierId");
+            var departmentId = System.Url.getParameter("departmentId");
+            $('#supplier_name').combogrid('setValue', supplierId);
+            $('#department_name').combogrid('setValue', departmentId);
+            $('#salesman_name').combogrid('setValue', ownerId);
+        }
+        $("#amount").numberbox('setValue', paidPrice - hasAmount);
     }
 });
 
