@@ -30,12 +30,12 @@ public class ActionSaveCustomerPersist implements IAction {
 		customer.setTasks(null);
 		customer = service.save(customer);
 
-//		INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
-//		for (NCustomerTask task : taskList) {
-//
-//			task.setCustomerId(customer.getId());
-//			taskService.save(task);
-//		}
-//		ctx.setItem(customer);
+		INCustomerTaskService taskService = ServiceFactory.create(INCustomerTaskService.class);
+		for (NCustomerTask task : taskList) {
+
+			task.setCustomerId(customer.getId());
+			taskService.save(task);
+		}
+		ctx.setItem(customer);
 	}
 }
