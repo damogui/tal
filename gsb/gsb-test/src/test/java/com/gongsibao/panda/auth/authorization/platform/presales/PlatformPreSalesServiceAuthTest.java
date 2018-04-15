@@ -19,6 +19,7 @@ public class PlatformPreSalesServiceAuthTest extends AuthBaseTest {
         this.resourceNodeCodeList.add ("Operation_CRM");//客户管理
         this.resourceNodeCodeList.add ("Operation_Order_All");//订单管理(全部订单)
         this.resourceNodeCodeList.add ("Operation_CRM_STATISTICAL_CustomerService");//客服统计（好像还没人做）
+        this.resourceNodeCodeList.add ("ChangePassword");//密码权限
 
     }
 }

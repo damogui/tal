@@ -26,5 +26,6 @@ public class SupplierCrmLeaderAuthTest extends AuthBaseTest{
         this.resourceNodeCodeList.add("Gsb_Supplier_Order_Audit_Order");//订单审核
         this.resourceNodeCodeList.add("Gsb_Supplier_Order_Audit_Contract");//合同审核：
         this.resourceNodeCodeList.add("GSB_CRM_STATISTICAL");//统计分析：
+        this.resourceNodeCodeList.add ("ChangePassword");//密码权限
 	}
 }
