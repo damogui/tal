@@ -34,9 +34,11 @@
 <div>
 		 <div class="row" style="height:150px;">
         	<div class="cell cell-12">
-	        	<div id="briefing" class="easyui-panel" title="商标异常统计" style="padding:0px 10px !important;" data-options="fit:true,border:false">
-	        	
-	        		<div class="row" onclick="window.open('/panda/igirl/notice/follow/list')">
+	        	<div id="sbyctj" class="easyui-panel" title="商标异常统计"  style="padding:0px 10px !important;" data-options="tools:'#refreshtool'" >
+				<div id="refreshtool">
+					<a href="#" class="icon-reload" onclick="getAbnorvalNotice()"></a>
+				</div> 
+				<div class="row" onclick="window.open('/panda/igirl/notice/follow/list')">
 	        			<div class="cell" style="width:12.5%;">
 	        				<div class="title"><span>部分驳回</span></div>
 	        				<div class="num" id="bfbh" name="abnormal"><span id="new_count">0</span></div>
@@ -70,7 +72,7 @@
 	        				<div class="num" id="trsqbszj" name="abnormal"><span id="public_count" ">0</span></div>
 	        			</div>
 	        		</div>
-			    </div>
+			   </div> 
         	</div>	
         </div>
 		<div class="row" style="height:150px;">
