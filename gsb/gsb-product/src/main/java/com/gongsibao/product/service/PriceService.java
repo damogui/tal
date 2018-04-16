@@ -60,4 +60,23 @@ public class PriceService extends PersistableService<Price> implements IPriceSer
 		}
 		return list;
 	}
+
+	@Override
+	public List<Integer> findProductPropertyIds(int productId, int cityid) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT prod_service.`property_id` FROM `prod_price` ");
+		sql.append("INNER JOIN `prod_service` ON prod_price.`service_id` = prod_service.`pkid` ");
+		sql.append("INNER JOIN `prod_price_audit` ON prod_price.`price_audit_id` = prod_price_audit.`pkid` ");
+		sql.append("WHERE prod_price.`is_on_sale` = 1  AND prod_service.`is_enabled` = 1 ");
+		sql.append("AND prod_price_audit.product_id = "+productId+" AND prod_price.`city_id` =  "+cityid);
+		sql.append("AND prod_price_audit.audit_status_id = 1054 ");
+
+		sql.append("GROUP BY prod_service.`property_id` ");
+		DataTable dataTable = this.pm.executeTable(sql.toString(), null);
+		List<Integer> list=new ArrayList<>();
+		for (IRow row : dataTable) {
+			list.add(row.getInteger("property_id"));
+		}
+		return list;
+	}
 }

@@ -30,4 +30,14 @@ public interface IPriceService extends IPersistableService<Price> {
 	 * @throws
 	 */
 	List<Integer> findCityIdsByProductIdAndOrganizationIds(int productId, Collection<Integer> organizationIds);
+	/**
+	 * @Title: findCityIdsByProductIdAndOrganizationIds
+	 * @Description: TODO(根据产品Id、地区Id查询服务项目)
+	 * @param: @param productId
+	 * @param: @param cityId
+	 * @param: @return
+	 * @return: List<Integer>
+	 * @throws
+	 */
+	List<Integer> findProductPropertyIds(int productId, int cityId);
 }

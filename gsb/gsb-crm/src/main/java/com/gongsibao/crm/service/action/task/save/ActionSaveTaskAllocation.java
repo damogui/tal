@@ -40,21 +40,21 @@ public class ActionSaveTaskAllocation implements IAction {
             return;
         }
 
-        if (allocationType == NAllocationType.AUTO || allocationType == NAllocationType.SemiAutomatic) {
-            if (!task.getCustomerId().equals(0)) {
-                NCustomer customer = nCustomerService.getById(task.getCustomerId());
-                task.setCustomer(customer);
-            }
-            // 自动分配，半自动分配，立即分配时调用
-            ActionContext autoCtx = new ActionContext();
-            {
-                autoCtx.setPath("gsb/crm/task/allocation/auto");
-                autoCtx.setItem(task);
-                autoCtx.setState(task.getEntityState());
-            }
-
-            ActionManager action = new ActionManager();
-            action.execute(autoCtx);
-        }
+//        if (allocationType == NAllocationType.AUTO || allocationType == NAllocationType.SemiAutomatic) {
+//            if (!task.getCustomerId().equals(0)) {
+//                NCustomer customer = nCustomerService.getById(task.getCustomerId());
+//                task.setCustomer(customer);
+//            }
+//            // 自动分配，半自动分配，立即分配时调用
+//            ActionContext autoCtx = new ActionContext();
+//            {
+//                autoCtx.setPath("gsb/crm/task/allocation/auto");
+//                autoCtx.setItem(task);
+//                autoCtx.setState(task.getEntityState());
+//            }
+//
+//            ActionManager action = new ActionManager();
+//            action.execute(autoCtx);
+//        }
     }
 }
