@@ -22,4 +22,11 @@ public interface IAuditService extends IPersistableService<AuditLog> {
     * 根据类别id和formid获取审批记录集合
     * */
     List<AuditLog> getByTypeIdFormId(AuditLogType auditLogType, Integer formId);
+
+/**
+ * 根据主键获取审核实体
+ * @param id
+ * @return
+ */
+    AuditLog getById(Integer id);
 }

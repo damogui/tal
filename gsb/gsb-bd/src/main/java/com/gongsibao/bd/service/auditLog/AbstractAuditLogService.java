@@ -178,8 +178,8 @@ public abstract class AbstractAuditLogService {
     		//2.获取平台运营领导
     		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
         	List<Integer> yyIds = salesmanService.getEmployeeIdListByRoleCodes(Arrays.asList("Platform_Operation_Leader"));
-            for (Integer item : yyIds) {
-            	Integer level = getCurrentLevel() + 1;
+        	Integer level = getCurrentLevel() + 1;
+        	for (Integer item : yyIds) {
             	auditLogList.add(addAuditLog(formId, "运营审核", item, level));
             }
     	}
