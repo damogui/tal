@@ -126,4 +126,6 @@ public interface IOrderProdTraceService extends IPersistableService<OrderProdTra
 	 * @throws
 	 */
 	OrderProdTrace getLastUpdateProcessTrace(Integer orderProdId, Integer orderProdStatusId);
+
+	Integer addFollowUp(Integer orderProdId, String followContent);
 }

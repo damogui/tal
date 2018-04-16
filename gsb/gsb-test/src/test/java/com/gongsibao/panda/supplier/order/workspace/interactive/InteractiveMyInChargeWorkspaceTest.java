@@ -80,6 +80,10 @@ public class InteractiveMyInChargeWorkspaceTest extends WorkspaceCreationBase {
         }
         PDatagridColumn column = null;
         addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+        column = addColumn(datagrid, "orderId", "订单id", ControlTypes.OPERATION_COLUMN, 100, true);
+        {
+            column.setVisible(false);
+        }
         addColumn(datagrid, "processStatus.name", "办理状态", ControlTypes.TEXT_BOX, 80);
         addColumn(datagrid, "soOrder.refundStatus", "退款状态", ControlTypes.ENUM_BOX, 80);
         addColumn(datagrid, "isUrgent", "是否加急", ControlTypes.BOOLCOMBO_BOX, 80);
@@ -88,7 +92,10 @@ public class InteractiveMyInChargeWorkspaceTest extends WorkspaceCreationBase {
         addColumn(datagrid, "productName", "产品名称", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "cityName", "产品地区", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "soOrder.customer.realName", "联系人", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "soOrder.accountMobile", "联系人电话", ControlTypes.TEXT_BOX, 100);
+        column = addColumn(datagrid, "soOrder.accountMobile", "联系人电话", ControlTypes.TEXT_BOX, 100);
+        {
+            column.setFormatter(" var ctrl=workspace.parts.byIndex(0).key; return eval(ctrl+'.contactFormatter(value,row,index,\\'手机号\\')');");
+        }
         addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "operator", "操作员", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "soOrder.companyIntention.companyName", "明细订单公司", ControlTypes.TEXT_BOX, 100);
