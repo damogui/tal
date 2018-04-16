@@ -7,6 +7,7 @@ import com.gongsibao.entity.trade.dic.AuditStatusType;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
+import org.netsharp.core.Oql;
 import org.netsharp.core.QueryParameters;
 import org.netsharp.service.PersistableService;
 
@@ -48,5 +49,18 @@ public class InvoiceService extends PersistableService<Invoice> implements IInvo
         QueryParameters qps = new QueryParameters();
         qps.add("id", id, Types.INTEGER);
         this.pm.executeNonQuery(sql, qps);
+    }
+
+    @Override
+    public Invoice getById(Integer id) {
+        Oql oql = new Oql();
+        {
+            oql.setType(this.type);
+            oql.setSelects("*");
+            oql.setFilter("pkid=?");
+            oql.getParameters().add("id",id,Types.INTEGER);
+        }
+        Invoice invoice = this.pm.queryFirst(oql);
+        return invoice;
     }
 }

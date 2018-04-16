@@ -51,7 +51,7 @@ public class ActionAuditInvoiceVerify implements IAction {
         }
 
         Integer formId = auditLog.getFormId();
-        Invoice invoice = invoiceService.byId(formId);
+        Invoice invoice = invoiceService.getById(formId);
         if (invoice == null) {
             throw new BusinessException("该发票信息不存在");
         }
