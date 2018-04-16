@@ -24,9 +24,9 @@ import com.gongsibao.panda.auth.authorization.platform.presales.PlatformPreSales
         PlatformPreSalesServiceAuthTest.class,//售前客服
         PlatformPreSalesLeaderAuthTest.class,//售前经理
 
-        PlatformFranchiseeAdminAuthTest.class,
-        PlatformFranchiseeLeaderAuthTest.class,
-        PlatformFranchiseeSalesmanAuthTest.class,
+        PlatformFranchiseeAdminAuthTest.class,//招商部门总监（管理员）
+        PlatformFranchiseeLeaderAuthTest.class,//招商部门负责人
+        PlatformFranchiseeSalesmanAuthTest.class,//招商业务员
 
         PlatformMaAdminAuthTest.class,
         PlatformMaLeaderAuthTest.class,

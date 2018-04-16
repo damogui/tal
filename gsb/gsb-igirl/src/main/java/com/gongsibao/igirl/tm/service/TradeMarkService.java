@@ -426,8 +426,10 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 		Oql oql = new Oql();
 		oql.setFilter("mark_state=?");
 		oql.setFilter("proxy_code=?");
+		oql.setFilter("mark_submit_time=?");
 		oql.getParameters().add("mark_state", stateCode, Types.INTEGER);
 		oql.getParameters().add("proxy_code", proxyCode, Types.VARCHAR);
+		oql.getParameters().add("mark_submit_time", new Date(), Types.DATE);
 		int count = this.pm.executeNonQuery(sql,oql.getParameters());
 		return count;
 	}

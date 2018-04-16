@@ -31,17 +31,20 @@ public class LoginController {
      * @Description:TODO 登录验证
      * @param  openId
      * @return com.gongsibao.rest.common.web.ResponseData
-     * @author bhpeng <bhpeng@gongsibao.com>
+     * @author hbpeng <hbpeng@gongsibao.com>
      * @date 2018/4/12 19:17
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ResponseData login(@RequestParam("openId") String openId){
-
         ResponseData data = new ResponseData();
         try {
-            data.setData(accountService.login(openId)); //null 未绑定过手机
-            if(accountService.login(openId)==null){
-                data.setCode(500);
+            Account account=accountService.login(openId);
+            if(null==account){
+                data.setCode(-1);
+                data.setMsg("未绑定手机号！");
+            }else{
+                data.setCode(200);
+                data.setData(account);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,12 +57,11 @@ public class LoginController {
      * @Description:TODO 发送验证码
      * @param  mobilePhone
      * @return com.gongsibao.rest.common.web.ResponseData
-     * @author bhpeng <bhpeng@gongsibao.com>
+     * @author hbpeng <hbpeng@gongsibao.com>
      * @date 2018/4/12 19:17
      */
     @RequestMapping(value = "/sendCode", method = RequestMethod.GET)
     public ResponseData sendCode(@RequestParam("mobilePhone") String mobilePhone) {
-
         ResponseData data = new ResponseData();
         //手机号校验
         if (!checkMobilePhone(mobilePhone)) {
@@ -89,7 +91,7 @@ public class LoginController {
      * @Description:TODO 账号绑定手机
      * @param  mobilePhone, openId, code
      * @return com.gongsibao.rest.common.web.ResponseData
-     * @author bhpeng <bhpeng@gongsibao.com>
+     * @author hbpeng <hbpeng@gongsibao.com>
      * @date 2018/4/12 19:18
      */
     @RequestMapping(value = "/bandMobile", method = RequestMethod.GET)
@@ -114,7 +116,7 @@ public class LoginController {
         //更新数据库记录
         accountService.updateAccount(mobilePhone,openId);
         data.setCode(200);
-        data.setMsg("修改成功");
+        data.setMsg("绑定成功！");
         return data;
     }
 
@@ -124,5 +126,31 @@ public class LoginController {
             return false;
         }
         return true;
+    }
+
+    /**
+     * @Description:TODO 获取code
+     * @param   code
+     * @return com.gongsibao.rest.common.web.ResponseData
+     * @author hbpeng <hbpeng@gongsibao.com>
+     * @date 2018/4/12 19:18
+     */
+    @RequestMapping(value = "/code", method = RequestMethod.GET)
+    public ResponseData changeMobile(
+            @RequestParam("code") String code,
+            @RequestParam("state") String state
+    ) {
+
+        ResponseData data = new ResponseData();
+        //手机号校验
+        if (StringUtils.isBlank(code)) {
+            data.setCode(500);
+            data.setMsg("code is null");
+            return data;
+        }
+        data.setCode(200);
+        data.setData(code);
+        data.setMsg("获取code成功,状态"+state);
+        return data;
     }
 }

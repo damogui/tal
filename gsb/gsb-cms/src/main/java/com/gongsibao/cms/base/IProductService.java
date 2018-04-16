@@ -22,7 +22,7 @@ public interface IProductService extends IPersistableService<Product> {
      * @Description:TODO 根据产品id获取，该产品的最新显示且发布的cms信息
      * @param
      * @return
-     * @author bhpeng <bhpeng@gongsibao.com>
+     * @author hbpeng <hbpeng@gongsibao.com>
      * @date 2018/4/11 19:36
      */
     Product getLastCmsDataByProdId(Integer productId);

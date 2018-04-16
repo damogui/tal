@@ -119,7 +119,7 @@ public class AuditPayController extends AuditBaseController {
         Pay pay = payService.queryFirst(oql);
 
         orderPayInfoDTO.setAccountName(pay.getSetOfBooks() == null ? "" : pay.getSetOfBooks().getName());
-        orderPayInfoDTO.setPayWay(pay.getPayWayType() == null ? "" : pay.getPayWayType().getText());
+        orderPayInfoDTO.setPayWay(pay.getU8Bank() == null ? "" : pay.getU8Bank().getName());
         orderPayInfoDTO.setBankName(pay.getOfflinePayerName());
         orderPayInfoDTO.setBankNo(pay.getOfflineBankNo());
         orderPayInfoDTO.setIsMoreOrder(pay.getPayForOrderCount().getText());
