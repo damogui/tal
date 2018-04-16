@@ -122,8 +122,8 @@ com.gongsibao.trade.web.SalesmanAddOrderFormPart = org.netsharp.panda.commerce.F
             setTimeout(function(){
 
                 //添加完刷新
-                window.location.reload();
-            	
+                //window.location.reload();
+            	window.location.href="/nav/gsb/platform/trade/orderDetail?id="+jmessage.id;
             },1000);
             this.currentItem.entityState = EntityState.Persist;
             this.viewModel.currentItem = this.currentItem;
