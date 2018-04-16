@@ -38,7 +38,7 @@ public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "Operation_CRM_Customer_OpenSea";
 
-		listFilter = "( (owner_id is null or owner_id =0) and (department_id is null or department_id = 0) and (supplier_id is null or supplier_id = 0))";
+		listFilter = "distribut=1 and ( (owner_id is null or owner_id =0) and (department_id is null or department_id = 0) and (supplier_id is null or supplier_id = 0))";
 		listToolbarPath = "task/batch/allocation";
 		listPartJsController = TaskAllListPart.class.getName();
 		listPartServiceController = TaskAllListPart.class.getName();
