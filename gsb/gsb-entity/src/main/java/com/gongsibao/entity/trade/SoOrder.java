@@ -260,11 +260,11 @@ public class SoOrder extends BaseEntity {
     @Column(name = "is_bbk", header = "IsBbk")
     private String isBbk = "0";
 
-    @Column(name = "add_user_id", header = "创建人")
-    private Integer addUserId = 0;
-
-    @Reference(foreignKey = "addUserId", header = "创建人")
-    private Employee addUser;
+//    @Column(name = "add_user_id", header = "创建人")
+//    private Integer addUserId = 0;
+//
+//    @Reference(foreignKey = "creatorId", header = "创建人")
+//    private Employee addUser;
 
     @Column(name = "owner_id", header = "业务员Id")
     private Integer ownerId;
@@ -527,13 +527,13 @@ public class SoOrder extends BaseEntity {
         this.isBbk = isBbk;
     }
 
-    public Integer getAddUserId() {
-        return addUserId;
-    }
-
-    public void setAddUserId(Integer addUserId) {
-        this.addUserId = addUserId;
-    }
+//    public Integer getAddUserId() {
+//        return addUserId;
+//    }
+//
+//    public void setAddUserId(Integer addUserId) {
+//        this.addUserId = addUserId;
+//    }
 
     public String getProdName() {
         return prodName;
@@ -615,13 +615,13 @@ public class SoOrder extends BaseEntity {
         this.products = products;
     }
 
-    public Employee getAddUser() {
-        return addUser;
-    }
-
-    public void setAddUser(Employee addUser) {
-        this.addUser = addUser;
-    }
+//    public Employee getAddUser() {
+//        return addUser;
+//    }
+//
+//    public void setAddUser(Employee addUser) {
+//        this.addUser = addUser;
+//    }
 
     public Integer getOwnerId() {
         return ownerId;
