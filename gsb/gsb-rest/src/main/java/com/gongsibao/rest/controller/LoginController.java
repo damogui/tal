@@ -41,6 +41,7 @@ public class LoginController {
             Account account=accountService.login(openId);
             if(null==account){
                 data.setCode(-1);
+                data.setMsg("未绑定手机号！");
             }else{
                 data.setCode(200);
                 data.setData(account);
@@ -125,5 +126,31 @@ public class LoginController {
             return false;
         }
         return true;
+    }
+
+    /**
+     * @Description:TODO 获取code
+     * @param   code
+     * @return com.gongsibao.rest.common.web.ResponseData
+     * @author hbpeng <hbpeng@gongsibao.com>
+     * @date 2018/4/12 19:18
+     */
+    @RequestMapping(value = "/code", method = RequestMethod.GET)
+    public ResponseData changeMobile(
+            @RequestParam("code") String code,
+            @RequestParam("state") String state
+    ) {
+
+        ResponseData data = new ResponseData();
+        //手机号校验
+        if (StringUtils.isBlank(code)) {
+            data.setCode(500);
+            data.setMsg("code is null");
+            return data;
+        }
+        data.setCode(200);
+        data.setData(code);
+        data.setMsg("获取code成功,状态"+state);
+        return data;
     }
 }

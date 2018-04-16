@@ -17,4 +17,6 @@ public interface IAccountService {
     Boolean createAccount(String openId);
 
     void sendTextMessage(String content, String openId,String originalId);
+
+    Account queryByMobile(String mobile);
 }

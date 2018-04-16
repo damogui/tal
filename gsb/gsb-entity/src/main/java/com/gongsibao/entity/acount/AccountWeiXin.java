@@ -47,13 +47,13 @@ public class AccountWeiXin extends BaseEntity {
 	private String subscribeScene;
 
 	@Column(name = "account_id", header = "account表id")
-	private String accountId;
+	private Integer accountId;
 
-	public String getAccountId() {
+	public Integer getAccountId() {
 		return accountId;
 	}
 
-	public void setAccountId(String accountId) {
+	public void setAccountId(Integer accountId) {
 		this.accountId = accountId;
 	}
 
