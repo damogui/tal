@@ -4,7 +4,7 @@ import com.gongsibao.entity.acount.Account;
 /**
  * ClassName: AccountService
  * @Description: TODO 微信用户登录验证
- * @author bhpeng <bhpeng@gongsibao.com>
+ * @author hbpeng <hbpeng@gongsibao.com>
  * @date 2018/4/12 18:33
  */
 public interface IAccountService {
@@ -14,5 +14,7 @@ public interface IAccountService {
 
     void updateAccount(String mobile,String openId);
 
-    void createAccount(String openId);
+    Boolean createAccount(String openId);
+
+    void sendTextMessage(String content, String openId,String originalId);
 }

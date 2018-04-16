@@ -18,7 +18,7 @@ import java.util.*;
 /**
  * ClassName: ICompanyController
  * @Description: TODO 微信我的服务接口
- * @author bhpeng <bhpeng@gongsibao.com>
+ * @author hbpeng <hbpeng@gongsibao.com>
  * @date 2018/4/11 13:29
  */
 @RestController
@@ -29,7 +29,7 @@ public class ICompanyController {
     /**
      * @Description:TODO 我的服务
      * @return Result
-     * @author bhpeng <bhpeng@gongsibao.com>
+     * @author hbpeng <hbpeng@gongsibao.com>
      * @date 2018/4/11 13:30
      */
     @RequestMapping(value = "/lstService", method = RequestMethod.GET)
@@ -75,7 +75,7 @@ public class ICompanyController {
      * @param
      * @return
      * @throws
-     * @author bhpeng <bhpeng@gongsibao.com>
+     * @author hbpeng <hbpeng@gongsibao.com>
      * @date 2018/4/11 13:30
      */
     public Map<Integer, List<BdServiceProduct>> findProductMapByServiceIds(Collection<Integer> serviceIds) {
