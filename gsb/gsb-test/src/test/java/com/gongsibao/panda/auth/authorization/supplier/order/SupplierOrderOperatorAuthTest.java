@@ -4,6 +4,7 @@ import org.junit.Before;
 
 import com.gongsibao.panda.auth.authorization.AuthBaseTest;
 
+/*订单_操作员*/
 public class SupplierOrderOperatorAuthTest extends AuthBaseTest{
 	
     @Before
