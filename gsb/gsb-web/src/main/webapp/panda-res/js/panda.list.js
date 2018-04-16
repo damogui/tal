@@ -203,7 +203,8 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 	// -----------------------
 	reload : function() {
 		
-		$("#" + this.context.id).datagrid('unselectAll').datagrid('load');
+		$("#" + this.context.id).datagrid('load');
+		$("#" + this.context.id).datagrid('unselectAll');
 	},
 	
 	detail:function(id){
