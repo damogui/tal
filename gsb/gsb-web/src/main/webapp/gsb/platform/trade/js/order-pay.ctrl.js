@@ -61,11 +61,11 @@ com.gongsibao.trade.web.OrderPayCtrl = org.netsharp.panda.core.CustomCtrl.Extend
         }
 
         var offlineBankNo = $('#offlineBankNo').val();
-        if (System.isnull(offlineBankNo)) {
-
-            layer.msg('请填写【付款账号】！');
-            return null;
-        }
+        // if (System.isnull(offlineBankNo)) {
+        //
+        //     layer.msg('请填写【付款账号】！');
+        //     return null;
+        // }//改成非必填
 
         var amount = $('#amount').numberbox('getValue');
         if (System.isnull(amount)) {
