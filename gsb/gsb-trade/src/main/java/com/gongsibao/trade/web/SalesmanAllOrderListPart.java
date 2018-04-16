@@ -61,6 +61,7 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
         if (parameter.getKey().equals("keyword")) {
 
             filters.add("no like '%" + keyword + "%'");
+            filters.add("account_mobile like '%" + keyword + "%'");
             filters.add("channel_order_no like '%" + keyword + "%'");
             filters.add("account_mobile like '%" + keyword + "%'");
             filters.add("customer_name like '%" + keyword + "%'");

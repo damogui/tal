@@ -66,7 +66,7 @@ public class NavigationTest extends NavigationBase {
 	@Override
 	protected void doCreateTree(PNavigation tree) {
 
-		createPTreeNode(tree, null, null, "GSB_TRADE_AI", "智能商标", "", 1);{
+		createPTreeNode(tree, null, "fa fa-file-text-o", "GSB_TRADE_AI", "智能商标", "", 1);{
 			createPTreeNode(tree, "GSB_TRADE_AI", null, "GSB_IGIRL_TM", "商标申请", "", 1);
 			{
 				createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_All_" + TradeMarkCase.class.getSimpleName(), "方案生成", "/igirl/trademarkcase/all/list", 1);
