@@ -9,6 +9,7 @@ import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
+import org.netsharp.panda.dic.OrderbyMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
@@ -71,7 +72,9 @@ public class AuditCarryoverWorkspaceTest extends WorkspaceCreationBase{
         	column.setAlign(DatagridAlign.RIGHT);
         }
         addColumn(datagrid, "status", "审核状态", ControlTypes.ENUM_BOX, 100);
-        addColumn(datagrid, "carryover.createTime", "创建结转时间", ControlTypes.DATETIME_BOX, 100);
+        column = addColumn(datagrid, "carryover.createTime", "创建结转时间", ControlTypes.DATETIME_BOX, 100);{
+        	column.setOrderbyMode (OrderbyMode.DESC);
+        }
         addColumn(datagrid, "carryover.creator", "结转创建人", ControlTypes.TEXT_BOX, 100);
 
         return datagrid;
