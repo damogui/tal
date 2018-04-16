@@ -20,7 +20,7 @@ public class TaskUndistributedWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 		listPartImportJs = "/gsb/supplier/crm/base/js/task-base-list.part.js|/gsb/platform/operation/crm/js/task-all-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
 		listToolbarPath = "task/undistributed/list";
 		//未分配条件
-		listFilter = " distribut is NULL or distribut = 0";
+		listFilter = "(distribut is NULL or distribut = 0)";
 	}
 
 	public PToolbar createRowToolbar() {
