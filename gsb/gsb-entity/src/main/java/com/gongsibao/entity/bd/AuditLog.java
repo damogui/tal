@@ -3,6 +3,8 @@ package com.gongsibao.entity.bd;
 import com.gongsibao.entity.bd.dic.AuditLogStatusType;
 
 import com.gongsibao.entity.trade.*;
+import com.gongsibao.entity.trade.settle.OrderProdSettle;
+import com.gongsibao.entity.trade.settle.Settle;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
@@ -10,6 +12,8 @@ import org.netsharp.core.annotations.Table;
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import org.netsharp.organization.entity.Employee;
+
+import java.util.Date;
 
 @Table(name = "bd_audit_log")
 public class AuditLog extends BaseEntity {
@@ -40,9 +44,12 @@ public class AuditLog extends BaseEntity {
 	@Column(name = "max_level", header = "最高审核层级（用于在审核通过时，和当前级别比较下，相等时进行修改主实体状态等操作）")
 	private Integer maxLevel;
 
-	// 订单
-	@Reference(foreignKey = "creatorId")
-	private Employee employee;
+    @Column(name = "audit_time", header = "审核操作时间")
+    private Date auditTime;
+
+    // 订单
+    @Reference(foreignKey = "creatorId")
+    private Employee employee;
 	
 	// 订单
     @Reference(foreignKey = "formId", primaryKey = "pkid")
@@ -67,6 +74,9 @@ public class AuditLog extends BaseEntity {
     // 退单记录
     @Reference(foreignKey = "formId", primaryKey = "pkid")
     private Refund fefund;
+
+    @Reference(foreignKey = "formId")
+    private Settle settle;
 
     // 结转记录
     @Reference(foreignKey = "formId")
@@ -110,6 +120,14 @@ public class AuditLog extends BaseEntity {
 
     public void setLevel(Integer level) {
         this.level = level;
+    }
+
+    public Date getAuditTime() {
+        return auditTime;
+    }
+
+    public void setAuditTime(Date auditTime) {
+        this.auditTime = auditTime;
     }
 
     public Integer getMaxLevel() {
@@ -191,4 +209,12 @@ public class AuditLog extends BaseEntity {
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
+
+    public Settle getSettle() {
+        return settle;
+    }
+
+    public void setSettle(Settle settle) {
+        this.settle = settle;
+    }
 }

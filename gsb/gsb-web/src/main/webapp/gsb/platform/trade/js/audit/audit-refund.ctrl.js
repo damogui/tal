@@ -1,14 +1,20 @@
 System.Declare("com.gongsibao.trade.web");
 com.gongsibao.trade.web.AuditRefundCtrl = com.gongsibao.trade.web.AuditBaseCtrl.Extends({
     ctor: function () {
-    	
+    	var me = this;
     	this.base();
+    	this.service = 'com.gongsibao.trade.web.audit.AuditRefundController';
     	this.initializeDetailList = new System.Dictionary();
     	//获取枚举
     	this.processStatusEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderProcessStatusType');
     	this.auditLogStatusEnum = PandaHelper.Enum.get('com.gongsibao.entity.bd.dic.AuditLogStatusType');
-    	this.service = 'com.gongsibao.trade.web.audit.AuditRefundController';
-    },
+    	//判断审核退款的当前登录人是否是收退款专员的角色
+    	this.invokeService("isFinancialRole", [], function(data){
+    		if(data){
+    			me.auditType = 'refund';
+    		}
+    	});
+    },    
     initData:function(){
     	var me = this;
     	var refundId = this.queryString('fefundId');
@@ -38,7 +44,9 @@ com.gongsibao.trade.web.AuditRefundCtrl = com.gongsibao.trade.web.AuditBaseCtrl.
     	//退款信息
     	var me = this;
     	this.invokeService("getRefundById", [id], function(data){
-    		$("#setOfBooks_name").text(data.setOfBooks.name);
+    		
+    		var setOfBooksName = data.setOfBooks == null?'':data.setOfBooks.name; 
+    		$("#setOfBooks_name").text(setOfBooksName);
     		$("#refundType").text((data.refundType==0?'部分退款':'全额退款'));
     		$("#payerName").text(data.payerName);
     		$("#bankNo").text(data.bankNo);
@@ -46,13 +54,13 @@ com.gongsibao.trade.web.AuditRefundCtrl = com.gongsibao.trade.web.AuditBaseCtrl.
     		$("#remark").text(data.remark);
     		
     		//加载默认第一项‘退款产品’
-    		me.initializeDetailList.add('退款产品',me.refundProductInfor($("#tempOrderId").val()));
+    		me.initializeDetailList.add('退款产品',me.refundProductInfor(id));
     	});
     },
-    refundProductInfor: function(id){
+    refundProductInfor: function(refundId){
     	//tab-退款产品
     	var me = this;
-    	this.invokeService ("queryProductList", [id], function(data){
+    	this.invokeService ("querySoRefundItemList", [refundId], function(data){
     		$("#audit_product_grid").datagrid({
     			idField:'id',
     			emptyMsg:'暂无记录',
@@ -63,31 +71,35 @@ com.gongsibao.trade.web.AuditRefundCtrl = com.gongsibao.trade.web.AuditBaseCtrl.
     			height:'100%',
     			data:data,
     		    columns:[[
-    		        {field:'productName',title:'产品名称',width:150},
-    		        {field:'cityName',title:'产品地区',width:150},   
-    		        {field:'priceOriginal',title:'原价',width:100,align:'right',formatter:function(value,row,index){
-    		        	return (value/100).toFixed(2);
+    		        {field:'orderProd_productName',title:'产品名称',width:150,formatter: function(value,row,index){
+    		        	return row.orderProd.productName;
     		        }},
-    		        {field:'price',title:'售价',width:100,align:'right',formatter:function(value,row,index){
-    		        	return (value/100).toFixed(2);
+    		        {field:'orderProd.cityName',title:'产品地区',width:150,formatter: function(value,row,index){
+    		        	return row.orderProd.cityName;
+    		        }}, 
+    		        {field:'orderProd_priceOriginal',title:'原价',width:100,align:'right',formatter:function(value,row,index){
+    		        	return (row.orderProd.priceOriginal/100).toFixed(2);
     		        }},
-    		        {field:'refundAmount',title:'退款金额',width:100,align:'right',editor:{type:'numberbox',options:{precision:0,height:31,min:1,required:true}},formatter:function(value,row,index){
+    		        {field:'orderProd_price',title:'售价',width:100,align:'right',formatter:function(value,row,index){
+    		        	return (row.orderProd.price/100).toFixed(2);
+    		        }},
+    		        {field:'amount',title:'退款金额',width:100,align:'right',editor:{type:'numberbox',options:{precision:0,height:31,min:1,required:true}},formatter:function(value,row,index){
     		        	
     		        	if(value){
     			        	return (value/100).toFixed(2);
     		        	}
     		        }},
-    		        {field:'processStatusId',title:'办理进度',width:100,align:'center',formatter:function(value,row,index){
+    		        {field:'orderProd_process',title:'办理进度',width:100,align:'center',formatter:function(value,row,index){
     	        		
     	        		if(value){
     	        		
-    	        			return me.processStatusEnum[value];
+    	        			return me.processStatusEnum[row.orderProd.processStatusId];
     	        		}
     	        		return '-';
     		        }},
-    		        {field:'ownerId',title:'业务员',width:80,align:'center',formatter:function(value,row,index){
-    	        		if(row.owner){
-    	        			return row.owner.name;
+    		        {field:'orderProd_owner_name',title:'业务员',width:80,align:'center',formatter:function(value,row,index){
+    	        		if(row.orderProd.owner){
+    	        			return row.orderProd.owner.name;
     	        		}else {
     	        			return '-';
     	        		}

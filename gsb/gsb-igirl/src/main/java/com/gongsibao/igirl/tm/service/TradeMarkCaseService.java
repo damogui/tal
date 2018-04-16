@@ -40,8 +40,8 @@ import com.gongsibao.entity.crm.dic.RegisterCapitalType;
 import com.gongsibao.entity.crm.dic.Sex;
 import com.gongsibao.entity.igirl.dict.CaseConvertType;
 import com.gongsibao.entity.igirl.res.ConvertToOrderResult;
-import com.gongsibao.entity.igirl.settle.OrderProdCase;
-import com.gongsibao.entity.igirl.settle.dict.CaseType;
+import com.gongsibao.entity.trade.settle.OrderProdSettle;
+import com.gongsibao.entity.trade.settle.dict.CaseType;
 import com.gongsibao.entity.igirl.tm.DownloadAttachment;
 import com.gongsibao.entity.igirl.tm.TradeMark;
 import com.gongsibao.entity.igirl.tm.TradeMarkCase;
@@ -55,7 +55,7 @@ import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.OrderProdItem;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.*;
-import com.gongsibao.igirl.settle.base.IOrderProdCaseService;
+import com.gongsibao.trade.base.settle.IOrderProdSettleService;
 import com.gongsibao.igirl.tm.base.IDownloadAttachmentService;
 import com.gongsibao.igirl.tm.base.IGirlConfigService;
 import com.gongsibao.igirl.tm.base.ITradeMarkCaseService;
@@ -84,7 +84,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 
     IAccountService accountService = ServiceFactory.create(IAccountService.class);
 
-    IOrderProdCaseService orderProdCaseService = ServiceFactory.create(IOrderProdCaseService.class);
+    IOrderProdSettleService orderProdSettleService = ServiceFactory.create(IOrderProdSettleService.class);
 
     ICustomerService customerService = ServiceFactory.create(ICustomerService.class);
 
@@ -539,14 +539,14 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 					return new ConvertToOrderResult(CaseConvertType.ERROR_12);
 				}
 				// 如果订单被删除, 删除关联关系
-				orderProdCaseService.deleteByCaseId(tradeMarkCase.getId());
+				orderProdSettleService.deleteByCaseId(tradeMarkCase.getId());
 			}
 		}
 
 		// 是否已下单，已下单直接返回
-		List<OrderProdCase> caseList = orderProdCaseService.byCaseId(tradeMarkCase.getId());
+		List<OrderProdSettle> caseList = orderProdSettleService.byCaseId(tradeMarkCase.getId());
 		if (null != caseList && caseList.size() > 0) {
-			OrderProdCase orderProdCase = caseList.get(0);
+			OrderProdSettle orderProdCase = caseList.get(0);
 			ConvertToOrderResult result = new ConvertToOrderResult(CaseConvertType.SUCCESS);
 			result.getExtend().put("accountId", orderProdCase.getAccountId());
 			result.getExtend().put("orderId", orderProdCase.getOrderId());
@@ -612,8 +612,8 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
         order = orderService.save(order);
 
         // 订单信息关联方案回写
-        List<OrderProdCase> orderProdCaseList = convertToOrderProdCaseList(tradeMarkCase, order);
-        orderProdCaseService.saves(orderProdCaseList);
+        List<OrderProdSettle> orderProdCaseList = convertToOrderProdCaseList(tradeMarkCase, order);
+        orderProdSettleService.saves(orderProdCaseList);
 
         // 回写订单id
 		updateOrderCode(tradeMarkCase.getId(), order.getNo());
@@ -635,7 +635,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		}
 
 		// 验证订单是否与其他方案关联
-		List<OrderProdCase> orderProdCaseList = orderProdCaseService.byOrderId(order.getId());
+		List<OrderProdSettle> orderProdCaseList = orderProdSettleService.byOrderId(order.getId());
 		if (null != orderProdCaseList && !orderProdCaseList.isEmpty()) {
 			return new ConvertToOrderResult(CaseConvertType.ERROR_11);
 		}
@@ -688,13 +688,13 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		}
 
 		// 查询方案子选项
-		orderProdCaseList = orderProdCaseService.byCaseId(Integer.parseInt(caseid));
+		orderProdCaseList = orderProdSettleService.byCaseId(Integer.parseInt(caseid));
 		if (null == orderProdCaseList || orderProdCaseList.isEmpty()) {
 			orderProdCaseList = convertToOrderProdCaseList(tradeMarkCase, order);
-			orderProdCaseService.saves(orderProdCaseList);
+			orderProdSettleService.saves(orderProdCaseList);
 		} else {
 			// 如果存在方案子选项，比对一下订单id是否是现有订单id
-			OrderProdCase orderProdCase = orderProdCaseList.get(0);
+			OrderProdSettle orderProdCase = orderProdCaseList.get(0);
 			if (!orderProdCase.getOrderId().equals(order.getId())) {
 				return new ConvertToOrderResult(CaseConvertType.ERROR_7);
 			}
@@ -719,15 +719,15 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
      * @param order
      * @return
      */
-    private List<OrderProdCase> convertToOrderProdCaseList(TradeMarkCase tradeMarkCase, SoOrder order) {
+    private List<OrderProdSettle> convertToOrderProdCaseList(TradeMarkCase tradeMarkCase, SoOrder order) {
         List<TradeMark> tradeMarks = tradeMarkCase.getTradeMarks();
         List<OrderProd> products = order.getProducts();
-        List<OrderProdCase> orderProdCaseList = new ArrayList<>();
+        List<OrderProdSettle> orderProdCaseList = new ArrayList<>();
         for (int i = 0; i < products.size(); i++) {
             OrderProd orderProd = products.get(i);
             TradeMark tradeMark = tradeMarks.get(i);
 
-            OrderProdCase orderProdCase = new OrderProdCase();
+			OrderProdSettle orderProdCase = new OrderProdSettle();
             {
                 orderProdCase.toNew();
 				orderProdCase.setOrderId(order.getId());

@@ -1,5 +1,5 @@
-System.Declare("com.gongsibao.igirl.settle.web");
-com.gongsibao.igirl.settle.web.SettleListPart = org.netsharp.panda.commerce.ListPart.Extends({
+System.Declare("com.gongsibao.trade.web.settle");
+com.gongsibao.trade.web.settle.SettleListPart = org.netsharp.panda.commerce.ListPart.Extends({
     ctor: function () {
         this.base();
         this.detailUrl = '/nav/gsb/supplier/settle/settleDetail';

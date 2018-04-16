@@ -68,8 +68,6 @@
     </div>
 </div>
 
-
-
 <script src='/package/easyui/jquery.min.js'></script>
 <script src='/package/layer/layer.js'></script>
 <script src='/package/easyui/jquery.easyui.min.js'></script>
@@ -84,7 +82,7 @@
 
     var settleCtrl = null;
     $(function(){
-        settleCtrl = new com.gongsibao.igirl.settle.web.SettleFormPart();
+        settleCtrl = new com.gongsibao.trade.web.settle.SettleFormPart();
         settleCtrl.init();
     });
 </script>

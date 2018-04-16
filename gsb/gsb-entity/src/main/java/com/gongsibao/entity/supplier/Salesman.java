@@ -74,7 +74,7 @@ public class Salesman extends Entity {
 	private List<SalesmanProduct> products;
 
     @Column(name = "customer_type", header = "所属分组类别（1：新客户  2：老客户）")
-    private TaskCustomerType customerType;
+    private TaskCustomerType customerType = TaskCustomerType.All;
     
     @Column(name = "type", header = "类型：1自营，2平台;3不限")
 	private SupplierType type = SupplierType.UNLIMITED;

@@ -30,12 +30,12 @@
 	<script src='/gsb/platform/trade/js/order.refund-ctrl.js'></script>
 </head>
     <body class="easyui-layout">
-        <div data-options="region:'north',split:false,collapsible:false,closed:false,height:425">
+        <div data-options="region:'north',split:false,collapsible:false,closed:false,height:390">
 
 		    <div class="easyui-panel" title="订单信息" data-options="height:200,bodyCls:'no-border'" > 
 		        <jsp:include page="/gsb/platform/trade/include/orderInfo.jsp"></jsp:include>
 			</div>
-			<div class="easyui-panel" title="退款信息" data-options="height:210,bodyCls:'no-border'" style="padding:10px;">
+			<div class="easyui-panel" title="退款信息" data-options="height:180,bodyCls:'no-border'" style="padding:10px;">
 				  <table cellpadding="3" cellspacing="0" class="form-panel">
 				      <tr>
 				          <td class="label_td"><label style="color:Red">*</label><label>退款账套：</label></td>
@@ -47,12 +47,6 @@
 				          <td class="control_td">
 				          		<input id="u8BankId" class="easyui-combobox nsInput" data-options="editable:false,width:180"/>
 				          </td>
-				          <!-- <td class="label_td"><label style="color:Red">*</label><label>退款类别：</label></td>
-				          <td class="control_td">
-								<input id="refundType" class="easyui-combobox" 
-								data-options="editable:false,width:150,onChange:function(newValue,oldValue){refundCtrl.refundTypeChange(newValue,oldValue);},
-								method:'get',url:'/panda/rest/enum?name=com.gongsibao.entity.trade.dic.RefundType'"/> 
-				          </td> -->
 				          <td class="label_td" style="width:120px;"><label style="color:Red">*</label><label>退款账户名称：</label></td>
 				          <td class="control_td">
 				          		<input id="payerName" class="easyui-validatebox nsInput" style="width:180px"
@@ -67,7 +61,7 @@
 				          <td class="control_td">
 				          		<input type="hidden" id ="refundPrice_hidd">
 				          		<input id="amount" class="easyui-numberbox nsInput"
-				          			data-options="precision:2,width:180,min:1,required:false,disabled:true,onChange:function(newValue,oldValue){refundCtrl.amountChange(newValue,oldValue);}"/>
+				          			data-options="precision:2,width:180,min:0,required:false,disabled:true,onChange:function(newValue,oldValue){refundCtrl.amountChange(newValue,oldValue);}"/>
 				          </td>
 				          <td class="label_td"><label>可退款金额：</label></td>
 				          <td class="control_td">
@@ -85,7 +79,7 @@
 			</div>
 		</div>
 		<div id="center" data-options="region:'center'">
-			<div id="detail_tabs" style="height:100%;">   
+			<div id="detail_tabs" class="easyui-tabs" style="height:100%;" data-options="fit:true,tabHeight:30">   
 			    <div title="退款产品">   
 			          <table id="order_product_grid"></table>
 			    </div>   

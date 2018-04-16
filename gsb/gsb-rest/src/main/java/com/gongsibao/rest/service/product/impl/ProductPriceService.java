@@ -1,8 +1,8 @@
 package com.gongsibao.rest.service.product.impl;
 
 import com.gongsibao.bd.base.IDictService;
-import com.gongsibao.bd.service.DictService;
 import com.gongsibao.entity.bd.Dict;
+
 import com.gongsibao.product.base.IPriceService;
 import com.gongsibao.rest.common.web.BdCity;
 import com.gongsibao.rest.service.product.IProductPriceService;

@@ -15,6 +15,7 @@ import com.gongsibao.trade.base.IAuditService;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import java.sql.Types;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -82,6 +83,7 @@ public class AuditService extends PersistableService<AuditLog> implements IAudit
         {
             updateBuilder.update("bd_audit_log");
             updateBuilder.set("status_id", auditLogStatusType.getValue());
+            updateBuilder.set("audit_time", new Date());
             updateBuilder.set("remark", remark);
             updateBuilder.where("pkid=?");
         }

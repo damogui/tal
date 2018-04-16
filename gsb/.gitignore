@@ -22,9 +22,8 @@
 /bin/
 /classes/
 classes/
+gsb.iml
 
-/gradle.properties
-gradle.properties
 /gsb-web/src/main/resources/dev/conf/configuration.properties
 local.properties
 logs
@@ -34,3 +33,5 @@ logs
 /gsb-*/.classpath
 /gsb-*/.project
 /gsb-*/.gitignore
+/gsb-*/out/
+

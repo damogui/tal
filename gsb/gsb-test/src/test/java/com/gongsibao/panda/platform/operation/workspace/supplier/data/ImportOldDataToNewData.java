@@ -48,7 +48,7 @@ import java.util.List;
 /*old  CustomerService  客户   CustomerProdMapService 意向产品  CustomerShareService  分享记录 CustomerFollowService 沟通日志  CustomerCompanyMapService  顾客关联企业*/
 /*new    NCustomerService  客户    NCustomerTaskService  客户商机   NCustomerProductService 意向产品   NCustomerTaskFoolowService  跟进日志  NCustomerCompanyService  顾客关联企业*/
 
-
+//生产库合计:278593
 // 备注：渠道商 状态不导入新库
 public class ImportOldDataToNewData {
     INCustomerTaskQualityService serviceQuality = ServiceFactory.create (INCustomerTaskQualityService.class);//客户质量
@@ -127,6 +127,7 @@ public class ImportOldDataToNewData {
         int pageSize = 100;//每100条进行处理一次
 
         StringBuilder filterBuilder = new StringBuilder ();
+        StringBuilder filterBuilder2 = new StringBuilder ();
         //读取最大的id，然后根据节点插入
         String sql = "SELECT  IFNULL(MIN(pkid),0) id  FROM   crm_customer  WHERE  is_member IS NULL and follow_status <>4017"; //"SELECT  IFNULL(MAX(id),0) id  FROM n_crm_customer";//导入从pkid 1开始 每次续导从 省id为null的开始
         IPersister<ImNCustomer> pm = PersisterFactory.create ();
@@ -134,6 +135,7 @@ public class ImportOldDataToNewData {
 
 
         filterBuilder.append (" follow_status <>4017 and is_member IS NULL and pkid>=" + idMax);//过滤掉招商渠道的和进行续导
+        filterBuilder2.append (" follow_status <>4017  and pkid>=" + idMax);//过滤掉招商渠道的和进行续导
         if (idMax==0){
 
             return 0 ;//代表已经处理完毕
@@ -156,15 +158,15 @@ public class ImportOldDataToNewData {
         for (int i = 1; i < totalCustomerPage + 1; i++) {
             Oql oql2 = new Oql () {
             };
-            oql2.setOrderby (" pkid ");
-            oql2.setFilter (filterBuilder.toString ());
+            oql2.setOrderby (" pkid asc ");
+            oql2.setFilter (filterBuilder2.toString ());
             oql2.setPaging (new Paging (i, pageSize));
             oql2.setType (Customer.class);
             StringBuilder sb = new StringBuilder ();
-            sb.append ("Customer.*,");
-            //sb.append ("Customer.prodDetails.*");
-            sb.append ("Customer.prodDetails.*,");
-            sb.append ("Customer.prodDetails.product.*");
+            sb.append ("Customer.*");
+//            sb.append ("Customer.*,");
+//            sb.append ("Customer.prodDetails.*,");
+//            sb.append ("Customer.prodDetails.product.{id,name}");
 
             oql2.setSelects (sb.toString ());//设置要查询的列
 
@@ -202,7 +204,16 @@ public class ImportOldDataToNewData {
                 // nCustomer.setProducts(getProductsByCustomerId(item));
                 //跟进日志，流转日志暂时不考虑
                 // nCustomer.setFollows (getFollowsByCustomer (item, listTask));//item.getFollowStatus ()
-                getFollowsByCustomer (item, listTask);//直接手动保存不通过持久化
+                
+                
+                /**
+                 * 同步customer的getFollowsByCustomer方法，有点慢先不执行。
+                 * 等customer,执行完成后，直接从crm_customer_follow导入至n_crm_task_foolow，然后再通过sql语句拿到task_id相关信息进行更新。
+                 * 50分钟只执行了1000条。
+                 * 
+                 */
+                //getFollowsByCustomer (item, listTask);//直接手动保存不通过持久化
+                
                 //顾客关联企业
                 // nCustomer.setCompanys (getCompanysByCustomer (item));//用旧表
                 //nCustomer.toPersist ();//变成修改
@@ -215,7 +226,7 @@ public class ImportOldDataToNewData {
 
                 }
                 totalCountExce += 1;
-                System.out.println (String.format ("已经处理%s条,时间%s", totalCountExce,TimeUtils.getDateFormat (new Date())));
+                System.out.println (String.format ("已经处理%s条,时间%s,客户id:%s", totalCountExce,TimeUtils.getDateFormat (new Date()),nCustomer.getId ()));
 
 
             }
@@ -329,13 +340,41 @@ public class ImportOldDataToNewData {
                 //nCustomerTaskFoolow.setSupplierId(item.get());
                 //nCustomerTaskFoolow.setDepartmentId(item.get());
                 nCustomerTaskFoolow.setCreatorId (item.getCreatorId ());
+                
+                if(StringManager.isNullOrEmpty(item.getCreator ())){
+                	item.setCreator("");
+                }
                 nCustomerTaskFoolow.setCreator (item.getCreator ());
                 nCustomerTaskFoolow.setCreateTime (item.getCreateTime ());
                 nCustomerTaskFoolow.setUpdatorId (item.getUpdatorId ());
+                
+                if(StringManager.isNullOrEmpty(item.getUpdator ())){
+                	item.setUpdator("");
+                }
                 nCustomerTaskFoolow.setUpdator (item.getUpdator ());
+                
+                if(item.getUpdateTime () == null){
+                	
+                	item.setUpdateTime(item.getCreateTime());
+                }
                 nCustomerTaskFoolow.setUpdateTime (item.getUpdateTime ());
                 nCustomerTaskFoolow.toNew ();
-                String sql = String.format ("INSERT INTO n_crm_task_foolow(creator_id,creator,create_time,updator_id,updator,update_time,customer_id,task_id,quality_category,quality_id,quality_progress,next_foolow_time,content,signing_amount,returned_amount) VALUES(%s,%s,'%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,?,%s,%s); ", nCustomerTaskFoolow.getCreatorId (), nCustomerTaskFoolow.getCreator (), TimeUtils.getDateFormat (nCustomerTaskFoolow.getCreateTime ()), nCustomerTaskFoolow.getUpdatorId (), nCustomerTaskFoolow.getUpdator (), nCustomerTaskFoolow.getUpdateTime (), nCustomerTaskFoolow.getCustomerId (), nCustomerTaskFoolow.getTaskId (), nCustomerTaskFoolow.getQualityCategory ().getValue (), nCustomerTaskFoolow.getQualityId (), nCustomerTaskFoolow.getQualityProgress ().getValue (), nCustomerTaskFoolow.getNextFoolowTime (), nCustomerTaskFoolow.getSigningAmount (), nCustomerTaskFoolow.getReturnedAmount ());//使用自增id nCustomerTaskFoolow.getContent ().re
+                String sql = String.format ("INSERT INTO n_crm_task_foolow(creator_id,creator,create_time,updator_id,updator,update_time,customer_id,task_id,quality_category,quality_id,quality_progress,next_foolow_time,content,signing_amount,returned_amount) VALUES(%s,'%s','%s',%s,'%s','%s',%s,%s,%s,%s,%s,%s,?,%s,%s); ",
+                		
+                		nCustomerTaskFoolow.getCreatorId (),
+                		nCustomerTaskFoolow.getCreator (), 
+                		TimeUtils.getDateFormat (nCustomerTaskFoolow.getCreateTime ()),
+                		nCustomerTaskFoolow.getUpdatorId (),
+                		nCustomerTaskFoolow.getUpdator (), 
+                		nCustomerTaskFoolow.getUpdateTime (), 
+                		nCustomerTaskFoolow.getCustomerId (), 
+                		nCustomerTaskFoolow.getTaskId (), 
+                		nCustomerTaskFoolow.getQualityCategory ().getValue (), 
+                		nCustomerTaskFoolow.getQualityId (), 
+                		nCustomerTaskFoolow.getQualityProgress ().getValue (), 
+                		nCustomerTaskFoolow.getNextFoolowTime (), 
+                		nCustomerTaskFoolow.getSigningAmount (), 
+                		nCustomerTaskFoolow.getReturnedAmount ());//使用自增id nCustomerTaskFoolow.getContent ().re
                 QueryParameters qps = new QueryParameters ();
                 qps.add ("@content",nCustomerTaskFoolow.getContent (),Types.VARCHAR);
                 Integer numTask = nCustomerService.executeNonQuery (sql, qps);

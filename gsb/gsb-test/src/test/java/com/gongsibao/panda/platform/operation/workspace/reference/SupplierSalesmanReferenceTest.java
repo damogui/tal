@@ -27,7 +27,9 @@ public class SupplierSalesmanReferenceTest extends ReferenceCreationBase{
 		PDatagrid datagrid = super.createDatagrid(node);
 		
 		addColumn( datagrid,"supplier.name", "服务商", ControlTypes.TEXT_BOX,150,null,false);
+		addColumn( datagrid,"supplierId", "服务商id", ControlTypes.TEXT_BOX,150,null,false);
 		addColumn( datagrid,"department.name", "部门", ControlTypes.TEXT_BOX,100,null,false);
+		addColumn( datagrid,"departmentId", "部门id", ControlTypes.TEXT_BOX,100,null,false);
 		addColumn( datagrid,"employee.name", "名称", ControlTypes.TEXT_BOX,100,null,false);
 		PDatagridColumn column = addColumn( datagrid,"receiving", "接收商机", ControlTypes.BOOLCOMBO_BOX,60,null,false);{
 			column.setFormatter(" return value===false?'否':'是';");

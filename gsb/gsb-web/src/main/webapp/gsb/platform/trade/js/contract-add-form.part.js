@@ -248,7 +248,7 @@ com.gongsibao.trade.web.OrderContractFileDetailPart = org.netsharp.panda.commerc
         $('#' + this.context.id).datagrid('appendRow', row);
     },
     onload: function () {
-
+        var me = this;
         this.resize();
         this.initUpload();
         if (me.isAdd != 1)

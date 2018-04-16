@@ -647,11 +647,10 @@ com.gongsibao.trade.web.OrderRefundDetailCtrl = com.gongsibao.trade.web.BaseCtrl
         var me = this;
         var orderId = this.queryString('id');
         this.invokeService("queryRefundList", [orderId], function (data) {
-
-            me.initGrid(data);
+            me.initGrid(data,orderId);
         });
     },
-    initGrid: function (data) {
+    initGrid: function (data,orderId) {
 
         var me = this;
         $('#order_refund_grid').datagrid({
@@ -667,8 +666,7 @@ com.gongsibao.trade.web.OrderRefundDetailCtrl = com.gongsibao.trade.web.BaseCtrl
 
                 {
                     field: 'a', title: '操作', width: 80, align: 'center', formatter: function (value, row, index) {
-
-                    return '<a class="grid-btn" href="javascript:;">查看</a>';
+                    return '<a class="grid-btn" target="_blank" href="/nav/gsb/platform/trade/auditRefund?fefundId='+row.id+'&id='+orderId+'">查看</a>';
                 }
                 },
                 {field: 'no', title: '退款记录编号', width: 100},
@@ -763,10 +761,10 @@ com.gongsibao.trade.web.OrderChangePriceDetailCtrl = com.gongsibao.trade.web.Bas
         var orderId = this.queryString('id');
         this.invokeService("queryChangePriceList", [orderId], function (data) {
 
-            me.initGrid(data);
+            me.initGrid(data,orderId);
         });
     },
-    initGrid: function (data) {
+    initGrid: function (data,orderId) {
 
         var me = this;
         $('#order_change_price_grid').datagrid({
@@ -781,9 +779,8 @@ com.gongsibao.trade.web.OrderChangePriceDetailCtrl = com.gongsibao.trade.web.Bas
             columns: [[
 
                 {
-                    field: 'a', title: '操作', width: 80, align: 'center', formatter: function (value, row, index) {
-
-                    return '<a class="grid-btn" href="javascript:;">查看</a>';
+                    field: 'a', title: '操作', width: 80, align: 'center', formatter: function (value, row, index) {                    	
+                    return '<a class="grid-btn" target="_blank" href="/nav/gsb/platform/trade/auditOrder?id='+orderId+'">查看</a>';
                 }
                 },
                 {field: 'no', title: '改价审核编号', width: 100, align: 'center'},

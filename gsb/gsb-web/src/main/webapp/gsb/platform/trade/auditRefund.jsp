@@ -32,16 +32,17 @@
 					          <td class="label_td"><label>退款金额：</label></td>
 					          <td class="control_td" id="amount"></td>
 						</tr>
-					      <tr>
+					     <tr>
 					          <td class="label_td"><label>退款说明：</label></td>
 					          <td colspan="5" class="control_td" id="remark"></td>
 						</tr>
+						
 					</table>
 				</fieldset>
         	 </div>
 		</div>
 		<div id="center" data-options="region:'center'">
-			<div id="detail_tabs" style="height:100%;">   
+			<div id="detail_tabs" class="easyui-tabs" style="height:100%;" data-options="fit:true,tabHeight:30">
 			    <div title="退款产品">   
 			          <table id="audit_product_grid"></table>
 			    </div>   

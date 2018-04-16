@@ -136,7 +136,7 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
             formField.setReadonly (true);
 
         }
-        formField = addFormField (form, "sourceType", "订单来源", groupName, ControlTypes.ENUM_BOX, false);
+        formField = addFormField (form, "platformSource", "订单来源", groupName, ControlTypes.ENUM_BOX, false);
         {
             formField.setReadonly (true);
 
@@ -229,6 +229,9 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
             }
 
             formField = addFormFieldRefrence (form, "salesman.name", "业务员", null, "OrderSalesman", true, false);
+            {
+                formField.setTroikaTrigger("controllerdepReceivable.salesmanChange(newValue,oldValue);");
+            }
 
             formField = addFormField (form, "amount", "分配金额", null, ControlTypes.DECIMAL_FEN_BOX, true, false);
 

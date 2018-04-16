@@ -8,6 +8,7 @@ import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.core.Oql;
+import org.netsharp.core.QueryParameter;
 import org.netsharp.core.QueryParameters;
 import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
@@ -97,7 +98,8 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
         {
             oql.setType (this.type);
             oql.setSelects ("*");
-            oql.setFilter ("pkid =" + orderId);
+            oql.setFilter ("pkid =?");
+            oql.getParameters().add("@pkid",orderId,Types.INTEGER);
         }
         SoOrder entity = super.queryFirst (oql);
         return entity;
@@ -113,7 +115,8 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
         {
             oql.setType (this.type);
             oql.setSelects ("*");
-            oql.setFilter ("no =" + orderNo);
+            oql.setFilter ("no =?");
+            oql.getParameters().add("@no",orderNo,Types.VARCHAR);
         }
         SoOrder entity = super.queryFirst (oql);
         return entity;
@@ -177,7 +180,7 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
             return 1;
 
         } else {
-            SoOrder order = byId (orderId);
+//            SoOrder order = byId (orderId);
             num = checkCanPayByOrderId (orderId);//订单是否存在已经支付的待审核
             return num;
 
@@ -186,7 +189,8 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
 
     /*校验余额是否小于应付金额 0是1不是  等于也不行*/
     private int checkIsBancleLessOrder(Integer orderId) {
-        SoOrder order = byId (orderId);
+
+        SoOrder order = getSoOrderById (orderId,null);
         if (order.getBalance () < order.getPayablePrice ()) {
             return 0;
 
@@ -200,7 +204,7 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
 
     /*订单是否存在已经支付的待审核*/
     private int checkCanPayByOrderId(Integer orderId) {
-        SoOrder sorder = byId (orderId);
+        SoOrder sorder = getSoOrderById (orderId,"SoOrder.*,SoOrder.pays.*");
         List<Integer> listPayId = new ArrayList<> ();
         for (OrderPayMap item : sorder.getPays ()
                 ) {
@@ -278,6 +282,32 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
             return entity.getCustomer ();
         }
         return null;
+    }
+
+    /*只是查询soorder的基础字段，不多查，效率高*/
+    @Override
+    public SoOrder getSoOrderById(Object id, String selects) {
+
+        if (id == null) {
+
+            id = "0";
+        }
+        Oql oql = new Oql ();
+
+        StringBuilder sb = new StringBuilder ();
+        sb.append ("SoOrder.*");
+        if (!StringManager.isNullOrEmpty (selects)) {
+            oql.setSelects (selects);
+        } else {
+            oql.setSelects (sb.toString ());
+        }
+
+        oql.setType (SoOrder.class);
+        oql.setFilter ("pkid=?");
+        oql.getParameters ().add ("@pkid", id, Types.INTEGER);
+        SoOrder obj = queryFirst (oql);
+        return obj;
+
     }
 
 

@@ -61,22 +61,31 @@ public class SalesmanOrderRefundWorkspaceTest extends WorkspaceCreationBase {
         addColumn(datagrid, "soOrder.payStatus", "付款状态", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "soOrder.companyIntention.name", "签单公司", ControlTypes.TEXT_BOX, 250);
         column = addColumn(datagrid, "soOrder.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
+        	
         	column.setAlign(DatagridAlign.RIGHT);
         }
         column = addColumn(datagrid, "soOrder.payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
+        	
         	column.setAlign(DatagridAlign.RIGHT);
         }
         column = addColumn(datagrid, "soOrder.paidPrice", "已付金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
+        	
         	column.setAlign(DatagridAlign.RIGHT);
         }
         column = addColumn (datagrid, "soOrder.toBePaidPrice", "待付金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
+        	
+        	column.setAlign(DatagridAlign.RIGHT);
         }
         column = addColumn(datagrid, "amount", "退款金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
         	column.setAlign(DatagridAlign.RIGHT);
+        	column.setFormatter("return (value/100).toFixed(2);");
         }
         addColumn(datagrid, "refundType", "退款类别", ControlTypes.ENUM_BOX, 100);
         //退款业绩额表中计算出来
-        addColumn(datagrid, "amount", "我的退款业绩额", ControlTypes.DECIMAL_FEN_BOX, 100);
+        /*column = addColumn(datagrid, "amount", "我的退款业绩额", ControlTypes.DECIMAL_FEN_BOX, 100);{
+        	
+        	column.setAlign(DatagridAlign.RIGHT);
+        }*/
         addColumn(datagrid, "auditStatus", "审核状态", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "createTime", "退款创建时间", ControlTypes.DATETIME_BOX, 100);
         addColumn(datagrid, "updateTime", "退款审核通过时间", ControlTypes.DATETIME_BOX, 100);

@@ -10,9 +10,13 @@ import org.netsharp.panda.commerce.FilterParameter;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.product.Product;
+import com.gongsibao.entity.trade.OrderProdOrganizationMap;
+import com.gongsibao.entity.trade.OrderProdUserMap;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.product.base.IProductService;
+import com.gongsibao.trade.base.IOrderProdOrganizationMapService;
 import com.gongsibao.trade.base.IOrderProdService;
+import com.gongsibao.trade.base.IOrderProdUserMapService;
 import com.gongsibao.u8.base.ISoOrderService;
 import com.gongsibao.utils.NumberUtils;
 /**
@@ -22,7 +26,8 @@ public class SalesmanOrderDetailListPart extends AdvancedListPart {
 	IProductService productService = ServiceFactory.create(IProductService.class);
 	ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
 	IOrderProdService orderProdService = ServiceFactory.create(IOrderProdService.class);
-
+	IOrderProdOrganizationMapService organizationService = ServiceFactory.create(IOrderProdOrganizationMapService.class);
+	
     @Override
     public String getFilterByParameter(FilterParameter parameter) {
         ArrayList<String> filters = new ArrayList<String>();
@@ -87,7 +92,7 @@ public class SalesmanOrderDetailListPart extends AdvancedListPart {
         	//false:全款、true:分期
     		if(orderEntity.getIsInstallment()){
     			//获取一期款
-    			Integer firstPhase = Integer.valueOf(StringManager.isNullOrEmpty(orderEntity.getInstallmentMode()) ? "0" : orderEntity.getInstallmentMode().split("|")[0]);
+    			Integer firstPhase = Integer.valueOf(StringManager.isNullOrEmpty(orderEntity.getInstallmentMode()) ? "0" : orderEntity.getInstallmentMode().split("\\|")[0]);
     			//获取现有金额（已付金额＋结转转入额）
     			Integer existAmount = NumberUtils.toInt(orderEntity.getPaidPrice()) + NumberUtils.toInt(orderEntity.getCarryIntoAmount());
     			if(balance <= 0 || existAmount < firstPhase){
@@ -104,7 +109,8 @@ public class SalesmanOrderDetailListPart extends AdvancedListPart {
     	return retuValue;
     }
     /**
-	 * 订单明细操作-修改服务商、办理名称、操作公司
+	 * 订单明细操作-办理名称、操作公司
+	 * OrderProdOrganizationMap 表中添加一条数据
 	 * @param orderProdId 订单产品Id
 	 * @param supplierId 服务商Id
 	 * @param handleName 办理名称
@@ -112,15 +118,26 @@ public class SalesmanOrderDetailListPart extends AdvancedListPart {
 	 * @return
 	 */
     public Boolean begOption(Integer orderProdId, Integer supplierId, String handleName,Integer companyId){
-    	return orderProdService.updateOrderDetail(orderProdId, supplierId, handleName, companyId);
+    	//1.修改订单明细
+    	orderProdService.updateOrderDetail(orderProdId, handleName, companyId);
+    	//2.添加数据OrderProdOrganizationMap
+    	OrderProdOrganizationMap organizateMap = new OrderProdOrganizationMap();{
+    		organizateMap.toNew();
+    		organizateMap.setOrderProdId(orderProdId);
+    		organizateMap.setOrganizationId(supplierId);
+    		organizateMap.setSupplierId(supplierId);
+    	}
+    	organizationService.save(organizateMap);
+    	
+    	return true;
     }
     /**
-     * 订单明细操作-修改服务商
+     * 订单明细操作-变更服务商
      * @param orderProdId 订单产品Id
      * @param supplierId 服务商Id
      * @return
      */
     public Boolean operateGroup(Integer orderProdId, Integer supplierId){
-    	return orderProdService.updateOrderDetail(orderProdId, supplierId);
+    	return organizationService.updateOrganizationMap(orderProdId, supplierId);
     }
 }

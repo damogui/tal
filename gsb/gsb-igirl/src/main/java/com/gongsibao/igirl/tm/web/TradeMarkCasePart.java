@@ -24,6 +24,7 @@ import com.gongsibao.igirl.tm.base.IDownloadAttachmentService;
 import com.gongsibao.igirl.tm.base.ITradeMarkCaseService;
 import com.gongsibao.igirl.tm.base.ITradeMarkService;
 import com.gongsibao.igirl.tm.base.IUploadAttachmentService;
+import com.gongsibao.igirl.tm.dto.AbnormalNoticeDto;
 import com.gongsibao.igirl.tm.dto.CompanyDto;
 import com.gongsibao.igirl.tm.dto.ResultDto;
 import com.gongsibao.igirl.tm.dto.SysAttachmentDto;
@@ -212,5 +213,19 @@ public class TradeMarkCasePart extends FormPart {
 		ConvertToOrderResult result = tradeMarkCaseService.convertToOrder(caseid, orderNo);
 		return ResultDto.getConvertToOrderResultDto(result);
 	}
+	
+//	@SuppressWarnings("rawtypes")
+//	@Authorization(is=false)
+//	public ResultDto getAbnormalNotice() {
+//		String a ="'{userId}'";
+//		System.out.println(a);
+//		return null;//
+//	}
 
+	@SuppressWarnings("rawtypes")
+	@Authorization(is=false)
+	public ResultDto getAbnormalNotice(Integer ownerId) {
+		List<AbnormalNoticeDto> noticeList=tradeMarkService.getAbnormalNotice(ownerId);
+		return ResultDto.getEntityListResultDto(noticeList);
+	}
 }

@@ -5,6 +5,7 @@ import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
+import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.uc.Organization;
 
 @Table(name="so_order_prod_organization_map")
@@ -24,7 +25,13 @@ public class OrderProdOrganizationMap extends BaseEntity {
     
     @Reference(foreignKey="organizationId",header="组织机构")
     private Organization organization;
+    
+    @Column(name = "supplier_id", header = "服务商Id")
+    private Integer supplierId;
 
+    @Reference(foreignKey = "supplierId", header = "服务商")
+    private Supplier supplier;
+    
     @Column(name="is_bbk",header="是否是八百客的数据")
     private String isBbk="0";
 
@@ -63,4 +70,17 @@ public class OrderProdOrganizationMap extends BaseEntity {
     public void setOrganization(Organization organization) {
         this.organization = organization;
     }
+	public Integer getSupplierId() {
+		return supplierId;
+	}
+	public void setSupplierId(Integer supplierId) {
+		this.supplierId = supplierId;
+	}
+	public Supplier getSupplier() {
+		return supplier;
+	}
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
+	}
+    
 }

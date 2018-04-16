@@ -1,5 +1,7 @@
 package com.gongsibao.trade.web;
 
+import com.gongsibao.trade.base.IOrderService;
+import com.gongsibao.utils.NumberUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.entity.IPersistable;
 import org.netsharp.organization.entity.Employee;
@@ -14,44 +16,54 @@ import com.gongsibao.utils.SupplierSessionManager;
 
 public class SalesmanAddOrderFormPart extends FormPart {
 
-	public IPersistable newInstance(Object par) {
+    IOrderService orderService = ServiceFactory.create(IOrderService.class);
+    @Override
+    public IPersistable save(IPersistable entity) {//
 
-		SoOrder entity = (SoOrder) super.newInstance(par);
+        this.getService();
+        entity = this.service.save(entity);
+        entity = orderService.getByOrderId(NumberUtils.toInt(entity.get("pkid")));//进行重写 要不然太慢
+        return entity;
+    }
 
-		// 处理服务商、部门、业务员
-		Employee owner = new Employee();
-		{
-			owner.setId(SessionManager.getUserId());
-			owner.setName(SessionManager.getUserName());
-		}
-		entity.setOwnerId(SessionManager.getUserId());
-		entity.setOwner(owner);
+    public IPersistable newInstance(Object par) {
 
-		SupplierDepartment department = SupplierSessionManager.getDepartment();
-		entity.setDepartmentId(department.getId());
-		entity.setDepartment(department);
+        SoOrder entity = (SoOrder) super.newInstance(par);
 
-		if (department.getSupplier() != null) {
+        // 处理服务商、部门、业务员
+        Employee owner = new Employee();
+        {
+            owner.setId(SessionManager.getUserId());
+            owner.setName(SessionManager.getUserName());
+        }
+        entity.setOwnerId(SessionManager.getUserId());
+        entity.setOwner(owner);
 
-			entity.setSupplierId(department.getSupplierId());
-			entity.setSupplier(department.getSupplier());
-		}
-		return entity;
-	}
+        SupplierDepartment department = SupplierSessionManager.getDepartment();
+        entity.setDepartmentId(department.getId());
+        entity.setDepartment(department);
 
-	/**
-	 * @Title: getAccount
-	 * @Description: TODO(根据手机号获取会员信息)
-	 * @param: @param mobile
-	 * @param: @return
-	 * @return: Account
-	 * @throws
-	 */
-	public Account getAccount(String mobile) {
+        if (department.getSupplier() != null) {
 
-		IAccountService accountService = ServiceFactory.create(IAccountService.class);
-		Account account = accountService.byMobile(mobile);
-		return account;
-	}
+            entity.setSupplierId(department.getSupplierId());
+            entity.setSupplier(department.getSupplier());
+        }
+        return entity;
+    }
+
+    /**
+     * @throws
+     * @Title: getAccount
+     * @Description: TODO(根据手机号获取会员信息)
+     * @param: @param mobile
+     * @param: @return
+     * @return: Account
+     */
+    public Account getAccount(String mobile) {
+
+        IAccountService accountService = ServiceFactory.create(IAccountService.class);
+        Account account = accountService.byMobile(mobile);
+        return account;
+    }
 
 }

@@ -19,6 +19,7 @@ public class PlatformPreSalesLeaderAuthTest extends AuthBaseTest{
         this.resourceNodeCodeList.add("GSB_Trade_Manage");//订单管理
         this.resourceNodeCodeList.add("Operation_CRM_STATISTICAL");//统计分析
         this.resourceNodeCodeList.add("GSB_Supplier");//服务商管理
+        this.resourceNodeCodeList.add ("ChangePassword");//密码权限
 
 
 

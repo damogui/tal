@@ -1,4 +1,7 @@
 package com.gongsibao.panda.supplier.igirl;
+import com.gongsibao.entity.igirl.ic.IcRegisterCase;
+import com.gongsibao.entity.igirl.ic.baseinfo.AreaOne;
+import com.gongsibao.entity.igirl.ic.baseinfo.AreaTwo;
 import com.gongsibao.entity.igirl.ic.baseinfo.*;
 import com.gongsibao.entity.igirl.tm.ChangeTradeMark;
 import com.gongsibao.entity.igirl.tm.DownloadAttachment;
@@ -72,6 +75,7 @@ public class NavigationTest extends NavigationBase {
 				createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_My_"  +  TradeMark.class.getSimpleName(),    "我的跟进", "/igirl/my/progress/list", 4);
 				createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_Dp_"  + TradeMarkCase.class.getSimpleName(), "部门方案", "/igirl/dp/case/list", 5);
 				createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_Dp_"  + TradeMark.class.getSimpleName(),    "部门跟进", "/igirl/dp/progress/list", 6);
+				createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_FollowNotice_"  +  TradeMark.class.getSimpleName(),    "异常商标", "/igirl/notice/follow/list", 7);
 
 			}
 			createPTreeNode(tree, "GSB_TRADE_AI", null, "GSB_IGIRL_CTM", "商标变更", "", 2);
@@ -124,7 +128,13 @@ public class NavigationTest extends NavigationBase {
 
 			}
 
+			createPTreeNode(tree, "GSB_IC_AI", null, "GSB_IGIRL_IC_REGIST", "工商注册", "",4);
+			{
+				createPTreeNode(tree, "GSB_IGIRL_IC_REGIST", null, "IGRIL_IC_REGIST_" + IcRegisterCase.class.getSimpleName(), "注册申请", "/igirl/ic/IcRegisterCase/all/list", 1);
+			}
+
 		}
-		
+
+
 	}
 }
