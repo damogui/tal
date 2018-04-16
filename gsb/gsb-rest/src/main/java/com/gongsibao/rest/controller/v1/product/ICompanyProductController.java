@@ -152,4 +152,38 @@ public class ICompanyProductController {
         return data;
     }
 
+
+    /**
+     * @Description:TODO 根据服务地区和产品服务,获取行业特点
+     * @param
+     * @return
+     * @author bhpeng <bhpeng@gongsibao.com>
+     * @date 2018/4/13 10:24
+     */
+    @RequestMapping(value = "/properties",method = RequestMethod.GET)
+    public ResponseData properties(HttpServletRequest request) {
+        ResponseData data = new ResponseData();
+        data.setCode(-1);
+        try {
+            int productId = NumberUtils.toInt(request.getParameter("productId"));
+            int cityId = NumberUtils.toInt(request.getParameter("cityId"));
+
+            if (productId == 0) {
+                data.setMsg("产品不能为空");
+                return data;
+            }
+            if (cityId == 0) {
+                data.setMsg("城市不能为空");
+                return data;
+            }
+            data.setData(productPriceService.findProductPropertyIds(productId, cityId));
+            data.setCode(200);
+        } catch (Exception e) {
+            e.printStackTrace();
+            data.setCode(-1);
+            data.setMsg("您的网络不稳定，请稍后再试。");
+        }
+        return data;
+    }
+
 }

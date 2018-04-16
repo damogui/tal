@@ -35,11 +35,14 @@ public class LoginController {
      * @date 2018/4/12 19:17
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ResponseData login(@RequestParam("mobilePhone") String openId){
+    public ResponseData login(@RequestParam("openId") String openId){
 
         ResponseData data = new ResponseData();
         try {
             data.setData(accountService.login(openId)); //null 未绑定过手机
+            if(accountService.login(openId)==null){
+                data.setCode(500);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             data.setCode(500);
