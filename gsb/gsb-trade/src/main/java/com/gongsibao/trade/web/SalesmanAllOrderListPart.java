@@ -70,7 +70,7 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
         }
         //业务员
         if (parameter.getKey().equals("ywyName")) {
-            return "owner_id in (select id from sys_permission_employee where name = '" + keyword + "')";
+            return "owner_id in (select id from sys_permission_employee where name like '%" + keyword + "%')";
         }
 
         //分期申请时间
