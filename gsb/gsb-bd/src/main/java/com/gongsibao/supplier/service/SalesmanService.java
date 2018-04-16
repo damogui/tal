@@ -188,11 +188,24 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
             SupplierDepartmentService departmentService = new SupplierDepartmentService();
             SupplierDepartment department = departmentService.byId(entity.getDepartmentId());
             Integer supplierId = department.getSupplierId();//
-            int checkNum = checkIsCurrent(supplierId, entity.getMobile());
-            if (checkNum>0){
+            if (state.equals(EntityState.Persist)) {
+                int checkNum = checkIsCurrent(supplierId, entity.getMobile(), entity.getId());
 
-                throw new BusinessException(String.format("服务商下面已存在手机号:%s的业务员",entity.getMobile()));
+                if (checkNum > 0) {
+
+                    throw new BusinessException(String.format("服务商下面已存在手机号:%s的业务员", entity.getMobile()));
+                }
+
+            } else {
+                int checkNum = checkIsCurrent(supplierId, entity.getMobile(), 0);
+
+                if (checkNum > 0) {
+
+                    throw new BusinessException(String.format("服务商下面已存在手机号:%s的业务员", entity.getMobile()));
+                }
+
             }
+
 
             if (department == null) {
                 throw new BusinessException("部门属性不正确");
@@ -226,8 +239,8 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
         return entity;
     }
 
-    /*根据服务商id和电话查询是不是服务商下面存在salemsId*/
-    private int checkIsCurrent(Integer supplierId, String mobile) {
+    /*根据服务商id和电话查询是不是服务商下面存在salemsId  manId 0新增，有值的话为修改 */
+    private int checkIsCurrent(Integer supplierId, String mobile, Integer manId) {
         IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
         Oql oql = new Oql();
         {
@@ -241,12 +254,16 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 
             return 0;
         } else {
+            String sqlQ = "SELECT  COUNT(1) FROM  sp_salesman   WHERE   supplier_id=?  AND    employee_id=? ";
 
-            String sqlQ = "SELECT  COUNT(1) FROM  sp_salesman   WHERE   supplier_id=?  AND    employee_id=?";
+            if (manId != 0) {
+                sqlQ = "SELECT  COUNT(1) FROM  sp_salesman   WHERE   supplier_id=?  AND    employee_id=? and id<>" + manId;
+            }
 
             QueryParameters qps = new QueryParameters();
             qps.add("@supplier_id", supplierId, Types.INTEGER);
             qps.add("@employee_id", employee.getId(), Types.INTEGER);
+//            qps.add("@id", manId, Types.INTEGER);
             int num = this.pm.executeInt(sqlQ, qps);
             return num;
         }
