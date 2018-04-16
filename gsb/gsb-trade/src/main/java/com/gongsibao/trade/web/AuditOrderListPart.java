@@ -26,7 +26,8 @@ public class AuditOrderListPart extends AdvancedListPart{
             filters.add("soOrder.account_mobile = '" + keyword + "'");
             filters.add("soOrder.account_name = '" + keyword + "'");
             filters.add("soOrder.company_id in( select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' )  )");
-            return "(" + StringManager.join(" or ", filters) + ")";
+            return " soOrder.pkid>0  and (" + StringManager.join (" or ", filters) + ")";
+           // return "(" + StringManager.join(" or ", filters) + ")";
         }
 
         return parameter.getFilter();
