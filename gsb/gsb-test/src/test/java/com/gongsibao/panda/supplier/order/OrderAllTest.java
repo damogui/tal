@@ -3,6 +3,8 @@ package com.gongsibao.panda.supplier.order;
 import com.gongsibao.panda.supplier.order.action.settle.SettleApplyActionTest;
 import com.gongsibao.panda.supplier.order.workspace.audit.*;
 import com.gongsibao.panda.supplier.order.workspace.department.*;
+import com.gongsibao.panda.supplier.order.workspace.interactive.InteractiveMyInChargeWorkspaceTest;
+import com.gongsibao.panda.supplier.order.workspace.interactive.InteractiveOperationPoolWorkspaceTest;
 import com.gongsibao.panda.supplier.order.workspace.salesman.*;
 import com.gongsibao.panda.supplier.order.workspace.settle.MySettleWorkspaceTest;
 import com.gongsibao.panda.supplier.order.workspace.settle.UnSettleWorkspaceTest;
@@ -77,6 +79,10 @@ import com.gongsibao.panda.supplier.reference.SupplierU8BankReferenceTest;
         // 结算
         UnSettleWorkspaceTest.class,
         MySettleWorkspaceTest.class,
+
+        //交互管理
+        InteractiveMyInChargeWorkspaceTest.class,
+        InteractiveOperationPoolWorkspaceTest.class,
 
         ActionAllTest.class,
         OrderNavigationTest.class,
