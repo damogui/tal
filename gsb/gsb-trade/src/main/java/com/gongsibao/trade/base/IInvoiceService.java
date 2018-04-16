@@ -23,4 +23,6 @@ public interface IInvoiceService extends IPersistableService<Invoice> {
     public Boolean applyInvoice(Invoice invoice, Map<String, Object> paraMap);
 
     void updateStatus(Integer id, AuditStatusType auditStatusType);
+
+    Invoice getById(Integer id);
 }

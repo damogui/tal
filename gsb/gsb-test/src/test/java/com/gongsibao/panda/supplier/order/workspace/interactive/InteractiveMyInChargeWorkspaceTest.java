@@ -79,7 +79,7 @@ public class InteractiveMyInChargeWorkspaceTest extends WorkspaceCreationBase {
             datagrid.setAutoQuery(true);
         }
         PDatagridColumn column = null;
-        addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+        addColumn(datagrid, "no", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
         column = addColumn(datagrid, "orderId", "订单id", ControlTypes.OPERATION_COLUMN, 100, true);
         {
             column.setVisible(false);
@@ -87,7 +87,7 @@ public class InteractiveMyInChargeWorkspaceTest extends WorkspaceCreationBase {
         addColumn(datagrid, "processStatus.name", "办理状态", ControlTypes.TEXT_BOX, 80);
         addColumn(datagrid, "soOrder.refundStatus", "退款状态", ControlTypes.ENUM_BOX, 80);
         addColumn(datagrid, "isUrgent", "是否加急", ControlTypes.BOOLCOMBO_BOX, 80);
-        //addColumn(datagrid, "id", "订单明细号", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "id", "订单明细号", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "soOrder.No", "订单号", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "productName", "产品名称", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "cityName", "产品地区", ControlTypes.TEXT_BOX, 100);
