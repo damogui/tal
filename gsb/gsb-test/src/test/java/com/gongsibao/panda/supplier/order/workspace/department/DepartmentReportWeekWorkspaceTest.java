@@ -76,7 +76,7 @@ public class DepartmentReportWeekWorkspaceTest extends WorkspaceCreationBase {
         addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
         addColumn (datagrid, "no", "订单编号", ControlTypes.TEXT_BOX, 80);
         addColumn (datagrid, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "addTime", "回款日期", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "createTime", "回款日期", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "prodName", "产品名称", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "no", "办理名称", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "payStatus.name", "订单状态", ControlTypes.TEXT_BOX, 100);
@@ -118,10 +118,10 @@ public class DepartmentReportWeekWorkspaceTest extends WorkspaceCreationBase {
         addQueryItem (queryProject, "no", "产品分类", ControlTypes.TEXT_BOX);
 
         addQueryItem (queryProject, "no", "下单方式", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "addTime", "回款日期", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "createTime", "回款日期", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "no", "分期付款", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "no", "开发票", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "addTime", "创建日期", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "createTime", "创建日期", ControlTypes.TEXT_BOX);
 //        addQueryItem (queryProject, "no", "组织机构", ControlTypes.TEXT_BOX);
 //        addQueryItem (queryProject, "no", "组织机构", ControlTypes.TEXT_BOX);
         //今天 昨天 本周 本月
