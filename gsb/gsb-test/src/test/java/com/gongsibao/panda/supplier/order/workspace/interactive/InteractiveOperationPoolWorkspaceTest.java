@@ -1,6 +1,7 @@
 package com.gongsibao.panda.supplier.order.workspace.interactive;
 
 import com.gongsibao.entity.trade.OrderProd;
+import com.gongsibao.taurus.util.StringManager;
 import com.gongsibao.tools.PToolbarHelper;
 import com.gongsibao.trade.web.department.DepartmentOrderInvoiceListPart;
 import com.gongsibao.trade.web.interactive.MyInChargeListPart;
@@ -21,6 +22,9 @@ import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class InteractiveOperationPoolWorkspaceTest extends InteractiveMyInChargeWorkspaceTest {
 
     @Before
@@ -30,8 +34,13 @@ public class InteractiveOperationPoolWorkspaceTest extends InteractiveMyInCharge
         urlList = "/crm/order/interactive/operation/pool/list";
         resourceNodeCode = "Gsb_Supplier_Order_Interactive_Operation_Pool";
         listToolbarPath = "/crm/order/operationpool/list";
-        /*listPartServiceController = OperationPoolListPart.class.getName();
-        listPartServiceController = OperationPoolListPart.class.getName();*/
+        List<String> ss = new ArrayList<>();
+        ss.add("/gsb/platform/trade/js/interactive-myincharge-list.part.js");
+        ss.add("/gsb/platform/trade/js/interactive-operation-pool-list.part.js");
+        ss.add("/gsb/panda-extend/gsb.custom.query.controls.js");
+        listPartImportJs = StringManager.join("|", ss);
+        listPartServiceController = OperationPoolListPart.class.getName();
+        listPartJsController = OperationPoolListPart.class.getName();
     }
 
     @Test
