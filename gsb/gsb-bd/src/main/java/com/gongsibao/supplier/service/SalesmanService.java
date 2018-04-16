@@ -188,7 +188,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
             SupplierDepartmentService departmentService = new SupplierDepartmentService();
             SupplierDepartment department = departmentService.byId(entity.getDepartmentId());
             Integer supplierId = department.getSupplierId();//
-            if (state.equals(EntityState.Persist)) {
+            if (state.equals(EntityState.Persist)) {//修改的时候排除id
                 int checkNum = checkIsCurrent(supplierId, entity.getMobile(), entity.getId());
 
                 if (checkNum > 0) {
