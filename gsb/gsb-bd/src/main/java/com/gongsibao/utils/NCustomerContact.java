@@ -17,13 +17,17 @@ public class NCustomerContact {
 	public static String handleContact(NCustomer customer){
 		String getContact = "";
 		if(customer.getMobile() != null && !customer.getMobile().isEmpty()){
+			
 			getContact = customer.getMobile().substring(0,4) + "****" + customer.getMobile().substring(customer.getMobile().length()-3,customer.getMobile().length());
 		}else if(customer.getTelephone() != null && !customer.getTelephone().isEmpty()){
-			getContact = customer.getTelephone().substring(0,2) + "****" + customer.getTelephone().substring(customer.getTelephone().length()-2,customer.getTelephone().length());
+			
+			getContact = customer.getTelephone().substring(0,1) + "****" + customer.getTelephone().substring(customer.getTelephone().length()-1,customer.getTelephone().length());
 		}else if(customer.getWeixin() != null && !customer.getWeixin().isEmpty()){
-			getContact = customer.getWeixin().substring(0,2) + "****" + customer.getWeixin().substring(customer.getWeixin().length()-2,customer.getWeixin().length());
+			
+			getContact = customer.getWeixin().substring(0,1) + "****" + customer.getWeixin().substring(customer.getWeixin().length()-1,customer.getWeixin().length());
 		}else if(customer.getQq() != null && !customer.getQq().isEmpty()){
-			getContact = customer.getQq().substring(0,2) + "****" + customer.getQq().substring(customer.getQq().length()-2,customer.getQq().length());
+			
+			getContact = customer.getQq().substring(0,1) + "****" + customer.getQq().substring(customer.getQq().length()-1,customer.getQq().length());
 		}
 		return getContact;
 	}
