@@ -2,7 +2,7 @@ package com.gongsibao.rest.common.web;
 /**
  * ClassName: ResponseData
  * @Description: TODO 返回结果
- * @author bhpeng <bhpeng@gongsibao.com>
+ * @author hbpeng <hbpeng@gongsibao.com>
  * @date 2018/4/11 15:25
  */
 public class ResponseData {

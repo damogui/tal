@@ -117,7 +117,7 @@ public class ICompanyProductController {
      * @Description:TODO 根据服务地区和产品服务,获取行业特点
      * @param  request
      * @return com.gongsibao.rest.common.web.ResponseData
-     * @author bhpeng <bhpeng@gongsibao.com>
+     * @author hbpeng <hbpeng@gongsibao.com>
      * @date 2018/4/12 20:32
      */
     @RequestMapping(value = "/cmsTemplate",method = RequestMethod.GET)
@@ -157,7 +157,7 @@ public class ICompanyProductController {
      * @Description:TODO 根据服务地区和产品服务,获取行业特点
      * @param
      * @return
-     * @author bhpeng <bhpeng@gongsibao.com>
+     * @author hbpeng <hbpeng@gongsibao.com>
      * @date 2018/4/13 10:24
      */
     @RequestMapping(value = "/properties",method = RequestMethod.GET)

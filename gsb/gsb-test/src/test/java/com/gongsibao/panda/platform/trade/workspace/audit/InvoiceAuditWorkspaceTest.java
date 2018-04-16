@@ -72,7 +72,7 @@ public class InvoiceAuditWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "invoice.orderInvoiceMaps.soOrder.accountName", "下单人", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "invoice.orderInvoiceMaps.soOrder.accountMobile", "下单人电话", ControlTypes.TEXT_BOX, 100);
 		//addColumn(datagrid, "", "关联企业", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "invoice.orderInvoiceMaps.soOrder.addTime", "下单时间", ControlTypes.DATETIME_BOX, 100);
+		addColumn(datagrid, "invoice.orderInvoiceMaps.soOrder.createTime", "下单时间", ControlTypes.DATETIME_BOX, 100);
 		addColumn(datagrid, "statusId", "审核状态", ControlTypes.ENUM_BOX, 80);
 		
 		return datagrid;
