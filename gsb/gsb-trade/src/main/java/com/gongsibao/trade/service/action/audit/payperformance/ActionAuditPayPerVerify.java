@@ -56,7 +56,7 @@ public class ActionAuditPayPerVerify implements IAction{
             throw new BusinessException ("该审核类别不是【" + AuditLogType.Skyjsh.getText () + "】,禁止审核");
         }
 
-        SoOrder soOrder = orderService.byId (auditLog.getFormId ());
+        SoOrder soOrder = orderService.getByOrderId (auditLog.getFormId ());
         if (soOrder == null) {
             throw new BusinessException ("该回款业绩信息不存在");
         }
