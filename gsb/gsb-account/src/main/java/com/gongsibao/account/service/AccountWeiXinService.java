@@ -63,4 +63,16 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
 		}
 		return fansService.queryFirst(oql);
 	}
+
+	@Override
+	public AccountWeiXin queryByAccountId(String accountId) {
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects("AccountWeiXin.*");
+			oql.setFilter("accountId=?");
+			oql.getParameters().add("accountId", accountId, Types.VARCHAR);
+		}
+		return this.queryFirst(oql);
+	}
 }

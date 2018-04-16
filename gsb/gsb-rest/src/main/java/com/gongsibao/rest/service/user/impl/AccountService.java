@@ -75,7 +75,7 @@ public class AccountService implements IAccountService{
             account.setRealName("");
             account.setCreateTime(new Date());
             account.setIsBbk("");
-            account.setName(fans.getNickname());
+            account.setName("");
             //来源微信
             account.setSourceClientId(1036);
             account.setHeadThumbFileId(0);
@@ -109,4 +109,20 @@ public class AccountService implements IAccountService{
     public void sendTextMessage(String content, String openId, String originalId) {
         customService.sendTextMessage(content,openId,originalId);
     }
+
+    @Override
+    public Account queryByMobile(String mobile) {
+        Account account=accountService.byMobile(mobile);
+        if(null==account){
+            return null;
+        }
+        AccountWeiXin weiXin=accountWeiXinService.queryByAccountId(account.getId().toString());
+        if(null==weiXin){
+            return null;
+        }
+        account.setOpenid(weiXin.getOpenid());
+        return account;
+    }
+
+
 }
