@@ -32,7 +32,7 @@ public class ActionAuditInvoiceVerify implements IAction {
             throw new BusinessException("审核信息不能为空");
         }
 
-        AuditLog auditLog = auditService.byId(auditContext.getAuditLogId());
+        AuditLog auditLog = auditService.getById(auditContext.getAuditLogId());
 
         if (auditLog == null) {
             throw new BusinessException("审核信息不能为空");
