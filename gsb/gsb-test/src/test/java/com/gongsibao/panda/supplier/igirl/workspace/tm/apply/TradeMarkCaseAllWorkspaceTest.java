@@ -440,13 +440,16 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
             {
             	formField.setTroikaTrigger("controllertradeMarks.checkMemo(this);");
             }
-            addFormField(form, "shareGroup", "附件共享", groupName, ControlTypes.ENUM_BOX, true, false);
+            formField = addFormField(form, "shareGroup", "附件共享", groupName, ControlTypes.ENUM_BOX, true, false);
+            {
+            	formField.setTroikaTrigger("controllertradeMarks.checkShareGroup();");
+            }
             formField = addFormField(form, "whetherShare", "是否共同申请", groupName, ControlTypes.SWITCH_BUTTON, false,
                     false);
             formField.setVisible(false);
             formField = addFormField(form, "priorityType", "是否优先权", groupName, ControlTypes.ENUM_BOX, false, false);
             formField.setVisible(false);
-
+            
             // 成本
             addFormField(form, "cost", "成本", groupName, ControlTypes.DECIMAL_BOX, true, true);
             // 服务费

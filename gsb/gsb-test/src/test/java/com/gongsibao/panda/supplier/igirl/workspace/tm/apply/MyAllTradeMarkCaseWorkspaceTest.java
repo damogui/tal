@@ -279,7 +279,10 @@ public class MyAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 	        {
 	           formField.setTroikaTrigger("controllertradeMarks.checkMemo(this);");
 	        }
-	        addFormField(form, "shareGroup", "附件共享", groupName, ControlTypes.ENUM_BOX, true, false);
+	        formField = addFormField(form, "shareGroup", "附件共享", groupName, ControlTypes.ENUM_BOX, true, false);
+	        {
+            	formField.setTroikaTrigger("controllertradeMarks.checkShareGroup();");
+            }
 			formField = addFormField(form, "whetherShare", "是否共同申请", groupName, ControlTypes.SWITCH_BUTTON, false,
 					false);
 			formField.setVisible(false);

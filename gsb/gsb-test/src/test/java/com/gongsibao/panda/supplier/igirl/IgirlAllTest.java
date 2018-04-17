@@ -11,6 +11,8 @@ import com.gongsibao.panda.supplier.igirl.workspace.ic.common.AreaTwoWorkspaceTe
 import com.gongsibao.panda.supplier.igirl.workspace.ic.common.IcRegisterCaseWorkspaceTest;
 import com.gongsibao.panda.supplier.igirl.workspace.ic.common.*;
 import com.gongsibao.panda.supplier.igirl.workspace.tm.apply.*;
+import com.gongsibao.panda.supplier.igirl.workspace.tm.apply.notice.AllFollowNoticeWorkspaceTest;
+import com.gongsibao.panda.supplier.igirl.workspace.tm.apply.notice.DpFollowNoticeWorkspaceTest;
 import com.gongsibao.panda.supplier.igirl.workspace.tm.apply.notice.MyFollowNoticeWorkspaceTest;
 import com.gongsibao.panda.supplier.igirl.workspace.tm.change.ChangeTradeMarkAllWorkspaceTest;
 import com.gongsibao.panda.supplier.igirl.workspace.tm.change.DpChangeTradeMarkFollowWorkspaceTest;
@@ -62,6 +64,8 @@ import org.junit.runners.Suite.SuiteClasses;
 		NationalityWorkspaceTest.class,
 		IcRegisterCaseWorkspaceTest.class,
 		MyFollowNoticeWorkspaceTest.class,
+		DpFollowNoticeWorkspaceTest.class,
+		AllFollowNoticeWorkspaceTest.class,
 		NavigationTest.class,
 		})
 		
