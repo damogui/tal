@@ -1,10 +1,11 @@
 package com.gongsibao.bd.base;
 
+import com.gongsibao.entity.bd.File;
 import org.netsharp.base.IPersistableService;
 
-import com.gongsibao.entity.bd.File;
-
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 public interface IFileService extends IPersistableService<File> {
 
@@ -17,5 +18,9 @@ public interface IFileService extends IPersistableService<File> {
      */
     List<File> getByTabNameFormId(String tabName, Integer formId);
 
+    List<File> getByTabNameFormIds(String tabName, Collection<Integer> formIds);
+
+
+    Map<Integer, List<File>> getMapByFormIds(String tabName, Collection<Integer> formIds);
 
 }
