@@ -6,6 +6,8 @@ import com.gongsibao.tools.PToolbarHelper;
 import com.gongsibao.trade.web.department.DepartmentOrderInvoiceListPart;
 import com.gongsibao.trade.web.interactive.MyInChargeListPart;
 import com.gongsibao.trade.web.interactive.OperationPoolListPart;
+import com.gongsibao.utils.SalesmanOrganization;
+import com.gongsibao.utils.SupplierSessionManager;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
@@ -20,6 +22,7 @@ import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.plugin.dic.ToolbarType;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
+import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import java.util.ArrayList;
@@ -30,6 +33,10 @@ public class InteractiveOperationPoolWorkspaceTest extends InteractiveMyInCharge
     @Before
     public void setup() {
         super.setup();
+
+        //当前登录用户服务商和部门信息
+        SalesmanOrganization organization = SupplierSessionManager.getSalesmanOrganization(SessionManager.getUserId());
+
         listPartName = formPartName = "操作订单池";
         urlList = "/crm/order/interactive/operation/pool/list";
         resourceNodeCode = "Gsb_Supplier_Order_Interactive_Operation_Pool";
@@ -43,6 +50,7 @@ public class InteractiveOperationPoolWorkspaceTest extends InteractiveMyInCharge
         listPartServiceController = OperationPoolListPart.class.getName();
         listPartJsController = OperationPoolListPart.class.getName();
         isSingleSelect = false;
+        listFilter = "supplier_id = " + organization.getSupplierId() + "";
     }
 
     @Test
