@@ -3,9 +3,14 @@ package com.gongsibao.trade.web;
 import com.gongsibao.bd.base.IAuditLogService;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.OrderPayMap;
+import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.Pay;
+import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.base.IOrderService;
+import com.gongsibao.u8.base.ISoOrderService;
+import com.gongsibao.utils.NumberUtils;
+
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.AdvancedListPart;
@@ -23,7 +28,7 @@ import java.util.List;
  */
 /*回款审核*/
 public class AuditPayListPart extends AdvancedListPart {
-
+	ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);  
 
     @Override
     public String getFilterByParameter(FilterParameter parameter) {
@@ -63,7 +68,8 @@ public class AuditPayListPart extends AdvancedListPart {
     public List<?> doQuery(Oql oql) {
         StringBuilder selects = new StringBuilder ();
         selects.append ("auditLog.*,");
-        selects.append ("auditLog.pay.*");
+        selects.append ("auditLog.pay.*,");
+        selects.append ("auditLog.pay.setOfBooks.name");
         //selects.append ("auditLog.pay.order.*");
 
         IAuditLogService auditLogService = ServiceFactory.create (IAuditLogService.class);
@@ -71,7 +77,25 @@ public class AuditPayListPart extends AdvancedListPart {
         List<AuditLog> auditLogs = auditLogService.queryList (oql);
         return auditLogs;
     }
-
+    @Override
+    protected Object serialize(List<?> list, Oql oql) {
+        HashMap<String, Object> json = (HashMap<String, Object>) super.serialize(list, oql);
+        ArrayList<HashMap<String, Object>> ob2 = (ArrayList<HashMap<String, Object>>) json.get("rows");
+        for (int i = 0; i < ob2.size(); i++) {
+        	
+        	AuditLog auditLog = ((AuditLog) list.get(i));
+        	String soOrderNo  = auditLog.getPay().getOrderNo();
+        	SoOrder soOrder = orderService.getOrderWithOrderProdsByOrderNo(soOrderNo);
+        	List<OrderProd> products = soOrder.getProducts();
+        	String productName = "";
+        	for (OrderProd item : products) {
+        		productName += item.getProductName();
+			}
+        	
+            ob2.get(i).put("pay_productName", productName);
+        }
+        return json;
+    }
 
 
     //@Override

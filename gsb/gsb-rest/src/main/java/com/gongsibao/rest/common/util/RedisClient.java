@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * ClassName: RedisClient
  * @Description: TODO redis 工具类
- * @author bhpeng <bhpeng@gongsibao.com>
+ * @author hbpeng <hbpeng@gongsibao.com>
  * @date 2018/4/11 15:21
  */
 @SuppressWarnings("unchecked")

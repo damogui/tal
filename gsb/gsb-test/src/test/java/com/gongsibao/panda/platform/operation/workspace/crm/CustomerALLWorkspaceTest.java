@@ -6,6 +6,7 @@ import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
+import org.netsharp.panda.dic.OrderbyMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
@@ -133,7 +134,9 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 //		最近商机跟进人
 //		最近商机费用部门
 		addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 20);
+		column = addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 20);{
+			column.setOrderbyMode(OrderbyMode.DESC);
+		}
 
 		return datagrid;
 	}

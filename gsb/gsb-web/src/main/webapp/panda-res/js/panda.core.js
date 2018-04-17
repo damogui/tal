@@ -432,6 +432,14 @@ PandaHelper.dimString = function(str){
 	return value;
 }
 
+PandaHelper.Storage = {
+		
+	byKey:function(key){
+		
+		return sessionStorage[key];
+	}
+}
+
 //-------------------------------------------------------------------------------------------------------------------------------
 //处理枚举
 PandaHelper.Enum = {
@@ -439,10 +447,10 @@ PandaHelper.Enum = {
 	get:function(enumName){
 
 //暂时先不启用，等版本号方案完成后再启用
-//		var str = sessionStorage[enumName];
-//		if(str){
-//			return JSON.parse(str);
-//		}
+		var str = sessionStorage[enumName];
+		if(str){
+			return JSON.parse(str);
+		}
 		this.invoke(enumName,function(data){
 			
 			obj = JSON.parse(data);

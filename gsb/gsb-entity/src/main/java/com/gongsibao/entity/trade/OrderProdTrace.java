@@ -23,9 +23,9 @@ public class OrderProdTrace extends BaseEntity {
 	private Integer orderId;
 	
 	@Column(name = "order_no", header = "订单编号(冗余)")
-	private Integer orderNo;
+	private String orderNo;
 	
-	@Column(name = "order_prod_id", header = "产品")
+	@Column(name = "order_prod_id", header = "产 品")
 	private Integer orderProdId;
 
 	@Column(name = "order_prod_status_id", header = "产品状态")
@@ -254,11 +254,11 @@ public class OrderProdTrace extends BaseEntity {
 		this.orderId = orderId;
 	}
 
-	public Integer getOrderNo() {
+	public String getOrderNo() {
 		return orderNo;
 	}
 
-	public void setOrderNo(Integer orderNo) {
+	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
 }

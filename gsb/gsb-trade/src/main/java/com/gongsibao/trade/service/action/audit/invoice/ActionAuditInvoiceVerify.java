@@ -32,7 +32,7 @@ public class ActionAuditInvoiceVerify implements IAction {
             throw new BusinessException("审核信息不能为空");
         }
 
-        AuditLog auditLog = auditService.byId(auditContext.getAuditLogId());
+        AuditLog auditLog = auditService.getById(auditContext.getAuditLogId());
 
         if (auditLog == null) {
             throw new BusinessException("审核信息不能为空");
@@ -51,7 +51,7 @@ public class ActionAuditInvoiceVerify implements IAction {
         }
 
         Integer formId = auditLog.getFormId();
-        Invoice invoice = invoiceService.byId(formId);
+        Invoice invoice = invoiceService.getById(formId);
         if (invoice == null) {
             throw new BusinessException("该发票信息不存在");
         }

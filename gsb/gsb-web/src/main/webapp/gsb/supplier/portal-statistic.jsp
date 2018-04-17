@@ -34,43 +34,45 @@
 <div>
 		 <div class="row" style="height:150px;">
         	<div class="cell cell-12">
-	        	<div id="briefing" class="easyui-panel" title="商标异常统计" style="padding:0px 10px !important;" data-options="fit:true,border:false">
-	        	
-	        		<div class="row" onclick="window.open('/panda/igirl/notice/follow/list')">
+	        	<div id="sbyctj" class="easyui-panel" title="商标异常统计"  style="padding:0px 10px !important;" data-options="tools:'#refreshtool'" >
+				<div id="refreshtool">
+					<a href="#" class="icon-reload" onclick="getAbnorvalNotice()"></a>
+				</div> 
+				<div class="row" >
 	        			<div class="cell" style="width:12.5%;">
 	        				<div class="title"><span>部分驳回</span></div>
-	        				<div class="num" id="bfbh" name="abnormal"><span id="new_count">0</span></div>
+	        				<div class="num" id="bfbh" name="abnormal" onclick="window.open('/panda/igirl/notice/follow/list?markState=6')"><span id="new_count">0</span></div>
 	        			</div>
 	        			<div class="cell" style="width:12.5%;">
 	        				<div class="title"><span>全部驳回</span></div>
-	        				<div class="num" id="qbbh" name="abnormal"><span id="un_start_count">0</span></div>
+	        				<div class="num" id="qbbh" name="abnormal" onclick="window.open('/panda/igirl/notice/follow/list?markState=7')"><span id="un_start_count">0</span></div>
 	        			</div>
 	        			<div class="cell" style="width:12.5%;">
 	        				<div class="title"><span>不予受理</span></div>
-	        				<div class="num" id="bysl" name="abnormal"><span id="stay_foolow_count">0</span></div>
+	        				<div class="num" id="bysl" name="abnormal" onclick="window.open('/panda/igirl/notice/follow/list?markState=13')"><span id="stay_foolow_count">0</span></div>
 	        			</div>
 	        			<div class="cell" style="width:12.5%;">
 	        				<div class="title"><span>补证通知</span></div>
-	        				<div class="num" id="bztz" name="abnormal"><span id="timeout_count">0</span></div>
+	        				<div class="num" id="bztz" name="abnormal" onclick="window.open('/panda/igirl/notice/follow/list?markState=15')"><span id="timeout_count">0</span></div>
 	        			</div>
 	        			<div class="cell" style="width:12.5%;">
 	        				<div class="title"><span>裁定通知</span></div>
-	        				<div class="num" id="cdtz" name="abnormal"><span id="abnormal_count" >0</span></div>
+	        				<div class="num" id="cdtz" name="abnormal" onclick="window.open('/panda/igirl/notice/follow/list?markState=17')"><span id="abnormal_count" >0</span></div>
 	        			</div>
 	        			<div class="cell" style="width:12.5%;">
 	        				<div class="title"><span>不予核准</span></div>
-	        				<div class="num" id="byhz" name="abnormal"><span id="public_count">0</span></div>
+	        				<div class="num" id="byhz" name="abnormal" onclick="window.open('/panda/igirl/notice/follow/list?markState=18')"><span id="public_count">0</span></div>
 	        			</div>
 	        			<div class="cell" style="width:12.5%;">
 	        				<div class="title"><span>同日申请协商</span></div>
-	        				<div class="num" id="trsqxs" name="abnormal"><span id="abnormal_count" ">0</span></div>
+	        				<div class="num" id="trsqxs" name="abnormal" onclick="window.open('/panda/igirl/notice/follow/list?markState=20')"><span id="abnormal_count" ">0</span></div>
 	        			</div>
 	        			<div class="cell" style="width:12.5%;">
 	        				<div class="title"><span>同日申请补送证据</span></div>
-	        				<div class="num" id="trsqbszj" name="abnormal"><span id="public_count" ">0</span></div>
+	        				<div class="num" id="trsqbszj" name="abnormal" onclick="window.open('/panda/igirl/notice/follow/list?markState=21')"><span id="public_count" ">0</span></div>
 	        			</div>
 	        		</div>
-			    </div>
+			   </div> 
         	</div>	
         </div>
 		<div class="row" style="height:150px;">

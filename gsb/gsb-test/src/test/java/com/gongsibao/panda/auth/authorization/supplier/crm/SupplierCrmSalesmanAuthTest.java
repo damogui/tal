@@ -19,5 +19,7 @@ public class SupplierCrmSalesmanAuthTest extends AuthBaseTest{
 		this.resourceNodeCodeList.add("GSB_CRM_MY");
         this.resourceNodeCodeList.add ("Gsb_Supplier_Order_Salesman");//我的订单
         this.resourceNodeCodeList.add("GSB_CRM_STATISTICAL");//统计分析：
+		this.resourceNodeCodeList.add ("ChangePassword");//密码权限
+		this.resourceNodeCodeList.add ("CRM_CompanyIntention");//新增企业信息
 	}
 }

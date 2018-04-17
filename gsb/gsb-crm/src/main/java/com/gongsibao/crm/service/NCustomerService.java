@@ -145,6 +145,21 @@ public class NCustomerService extends SupplierPersistableService<NCustomer> impl
 		return true;
 	}
 	
+	
+	@Override
+	public NCustomer byId(NCustomer entity) {
+
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects(getSelectFullFields());
+			oql.setFilter("id=?");//{userId}替换当前登录人id.
+			oql.getParameters().add("id", entity.getId(), Types.INTEGER);
+		}
+
+		return this.queryFirst(oql);
+	}
+	
 	@Override
 	public NCustomer getById(Integer taskId) {
 		

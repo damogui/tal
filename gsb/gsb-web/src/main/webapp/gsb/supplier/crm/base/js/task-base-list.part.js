@@ -411,6 +411,17 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		$(obj).parent().text(value);
 		var serviceLocator = new org.netsharp.core.JServiceLocator();
 		serviceLocator.invoke(this.context.service, "recordLookLog",[customerId,typeName]);
+	},
+	getRowrollbackState:function(){
+		
+		//控制【释放】按钮的显示状态：平台 类型的服务商不显示，自营显示
+		var supplierType= PandaHelper.Storage.byKey('SupplierType');//此值会在登录时存在sessionStorage中
+		if(supplierType == 2){
+			
+			return UiElementState.Hide;
+		}
+	
+		return UiElementState.Empty;
 	}
 });
 

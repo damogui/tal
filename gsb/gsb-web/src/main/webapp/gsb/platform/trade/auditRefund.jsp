@@ -32,10 +32,11 @@
 					          <td class="label_td"><label>退款金额：</label></td>
 					          <td class="control_td" id="amount"></td>
 						</tr>
-					      <tr>
+					     <tr>
 					          <td class="label_td"><label>退款说明：</label></td>
 					          <td colspan="5" class="control_td" id="remark"></td>
 						</tr>
+						
 					</table>
 				</fieldset>
         	 </div>

@@ -25,6 +25,8 @@ import com.gongsibao.utils.SupplierSessionManager;
 public abstract class AbstractAuditLogService {
     IOrganizationService organizationService = ServiceFactory.create(IOrganizationService.class);
     IAuditLogService logService = ServiceFactory.create(IAuditLogService.class);
+    ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
+    
     private Integer currentLevel;
 
     /**
@@ -88,7 +90,7 @@ public abstract class AbstractAuditLogService {
         AuditLog userAudit = this.getUserAuditLog(formId, addUserId);
         AuditLog directLeader = this.getDirectLeaderAudit(formId, addUserId);
         AuditLog superiorLeader = this.getSuperiorLeaderAudit(formId, addUserId);
-        List<AuditLog> platformAuditList = this.getPlatformOperationAudit(formId);
+        List<AuditLog> platformAuditList = this.getPlatformOperationAudit(formId,addUserId);
         List<AuditLog> extenAuditList = this.getExtenAuditLogList(formId, addUserId);
 
         if (userAudit != null) {
@@ -168,17 +170,20 @@ public abstract class AbstractAuditLogService {
      * @param addUserId
      * @return
      */
-    protected List<AuditLog> getPlatformOperationAudit(Integer formId) {
+    protected List<AuditLog> getPlatformOperationAudit(Integer formId, Integer addUserId) {
     	List<AuditLog> auditLogList = new ArrayList<AuditLog>();
-    	ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
-    	List<Integer> yyIds = salesmanService.getEmployeeIdListByRoleCodes(Arrays.asList("Platform_Operation_Leader"));
-        for (Integer item : yyIds) {
-        	Salesman salesmanEntity = salesmanService.byEmployeeId(item);
-        	if(salesmanEntity.getType().equals(SupplierType.PLATFORM)){
-        		Integer level = getCurrentLevel() + 1;
-            	auditLogList.add(addAuditLog(formId, "运营审核审核", item, level));
-        	}
-        }
+    	//1.判断当前提交审核的业务员 是否属于平台
+    	Salesman salesmanEntity = salesmanService.byEmployeeId(addUserId);
+    	if(salesmanEntity != null && salesmanEntity.getType().equals(SupplierType.PLATFORM)){
+    		//2.获取平台运营领导
+    		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
+        	List<Integer> yyIds = salesmanService.getEmployeeIdListByRoleCodes(Arrays.asList("Platform_Operation_Leader"));
+        	Integer level = getCurrentLevel() + 1;
+        	for (Integer item : yyIds) {
+            	auditLogList.add(addAuditLog(formId, "运营审核", item, level));
+            }
+    	}
+    	
         return auditLogList;
     }
     /**

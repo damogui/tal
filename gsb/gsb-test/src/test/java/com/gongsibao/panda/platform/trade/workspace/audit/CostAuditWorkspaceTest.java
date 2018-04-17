@@ -79,7 +79,7 @@ public class CostAuditWorkspaceTest extends WorkspaceCreationBase{
 		addColumn(datagrid, "soOrder.accountName", "下单人", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "soOrder.accountMobile", "下单人电话", ControlTypes.TEXT_BOX, 100);
 		//addColumn(datagrid, "", "关联企业", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "soOrder.addTime", "下单时间", ControlTypes.DATETIME_BOX, 100);
+		addColumn(datagrid, "soOrder.createTime", "下单时间", ControlTypes.DATETIME_BOX, 100);
 		addColumn(datagrid, "soOrder.sourceType.name", "下单方式", ControlTypes.TEXT_BOX, 100);		
 		addColumn(datagrid, "statusId", "审核状态", ControlTypes.ENUM_BOX, 80);
 		addColumn(datagrid, "soOrder.accountType", "新老客户签单", ControlTypes.ENUM_BOX, 80);

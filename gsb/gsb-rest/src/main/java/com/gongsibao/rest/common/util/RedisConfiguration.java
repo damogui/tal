@@ -20,7 +20,7 @@ import redis.clients.jedis.JedisPoolConfig;
 /**
  * ClassName: RedisConfig
  * @Description: TODO redis配置
- * @author bhpeng <bhpeng@gongsibao.com>
+ * @author hbpeng <hbpeng@gongsibao.com>
  * @date 2018/4/11 14:34
  */
 @Configuration

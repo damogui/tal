@@ -131,10 +131,10 @@ public class SalesmanReportWeekWorkspaceTest extends WorkspaceCreationBase {
         addQueryItem (queryProject, "no", "产品分类", ControlTypes.TEXT_BOX);
 
         addQueryItem (queryProject, "no", "下单方式", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "addTime", "回款日期", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "createTime", "回款日期", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "no", "分期付款", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "no", "开发票", ControlTypes.TEXT_BOX);
-        addQueryItem (queryProject, "addTime", "创建日期", ControlTypes.TEXT_BOX);
+        addQueryItem (queryProject, "createTime", "创建日期", ControlTypes.TEXT_BOX);
 //        addQueryItem (queryProject, "no", "组织机构", ControlTypes.TEXT_BOX);
 //        addQueryItem (queryProject, "no", "组织机构", ControlTypes.TEXT_BOX);
         //今天 昨天 本周 本月

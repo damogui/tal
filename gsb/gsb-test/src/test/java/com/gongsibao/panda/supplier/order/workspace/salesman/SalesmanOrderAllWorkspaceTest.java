@@ -49,7 +49,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 		ss.add("/gsb/panda-extend/gsb.pubcontrol.js");
 		listPartImportJs = StringManager.join("|", ss);
 
-		listFilter = "owner_id = '{userId}'";
+		listFilter = " (owner_id = '{userId}'  or  add_user_id='{userId}')";
 		listPartJsController = SalesmanAllOrderListPart.class.getName();
 		listPartServiceController = SalesmanAllOrderListPart.class.getName();
 	}
@@ -218,89 +218,102 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 			datagrid.setToolbar(toolbarPath);
 			datagrid.setShowCheckbox(true);
 			datagrid.setSingleSelect(false);
-            //datagrid.setOrderby (" createTime  desc");
-		}
+        }
 
-		PDatagridColumn column = null;
-		addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-		column = addColumn(datagrid, "no", "订单编号", ControlTypes.TEXT_BOX, 80);
-		{
-			column.setAlign(DatagridAlign.CENTER);
+        PDatagridColumn column = null;
+        addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
+        column = addColumn(datagrid, "no", "订单编号", ControlTypes.TEXT_BOX, 80);
+        {
+            column.setAlign(DatagridAlign.CENTER);
 
-		}
-		addColumn(datagrid, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "prodName", "产品名称", ControlTypes.TEXT_BOX, 250);
-		addColumn(datagrid, "payStatus", "付款状态", ControlTypes.ENUM_BOX, 60);
-		addColumn(datagrid, "companyIntention.companyName", "签单公司", ControlTypes.TEXT_BOX, 250);
-		column = addColumn(datagrid, "totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 80);
-		{
-			column.setAlign(DatagridAlign.RIGHT);
-		}
-		column = addColumn(datagrid, "payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 80);
-		{
-			column.setAlign(DatagridAlign.RIGHT);
-		}
-		column = addColumn(datagrid, "paidPrice", "已付金额", ControlTypes.DECIMAL_FEN_BOX, 80);
-		{
-			column.setAlign(DatagridAlign.RIGHT);
-		}
-		column = addColumn(datagrid, "balance", "余额", ControlTypes.DECIMAL_FEN_BOX, 80);
-		{
-			column.setAlign(DatagridAlign.RIGHT);
-		}
-		addColumn(datagrid, "fistPayTime", "首款审核日期", ControlTypes.DATETIME_BOX, 100);
-		addColumn(datagrid, "changePriceAuditStatus", "订单审核状态", ControlTypes.ENUM_BOX, 60);
-		addColumn(datagrid, "isInstallment", "分期付款", ControlTypes.BOOLCOMBO_BOX, 80);
-		addColumn(datagrid, "customerName", "下单人", ControlTypes.TEXT_BOX, 100);
-        column=addColumn(datagrid, "accountMobile", "下单人电话", ControlTypes.TEXT_BOX, 100);{
+        }
+        addColumn(datagrid, "channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "prodName", "产品名称", ControlTypes.TEXT_BOX, 250);
+        addColumn(datagrid, "payStatus", "付款状态", ControlTypes.ENUM_BOX, 60);
+        addColumn(datagrid, "companyIntention.companyName", "签单公司", ControlTypes.TEXT_BOX, 250);
+        column = addColumn(datagrid, "totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 80);
+        {
+            column.setAlign(DatagridAlign.RIGHT);
+        }
+        column = addColumn(datagrid, "payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 80);
+        {
+            column.setAlign(DatagridAlign.RIGHT);
+        }
+        column = addColumn(datagrid, "paidPrice", "已付金额", ControlTypes.DECIMAL_FEN_BOX, 80);
+        {
+            column.setAlign(DatagridAlign.RIGHT);
+        }
+        column = addColumn(datagrid, "balance", "余额", ControlTypes.DECIMAL_FEN_BOX, 80);
+        {
+            column.setAlign(DatagridAlign.RIGHT);
+        }
+        addColumn(datagrid, "fistPayTime", "首款审核日期", ControlTypes.DATETIME_BOX, 100);
+        addColumn(datagrid, "changePriceAuditStatus", "订单审核状态", ControlTypes.ENUM_BOX, 60);
+        addColumn(datagrid, "isInstallment", "分期付款", ControlTypes.BOOLCOMBO_BOX, 80);
+        addColumn(datagrid, "customerName", "下单人", ControlTypes.TEXT_BOX, 100);
+        column = addColumn(datagrid, "accountMobile", "下单人电话", ControlTypes.TEXT_BOX, 100);
+        {
 
             column.setFormatter(" var ctrl=workspace.parts.byIndex(0).key; return eval(ctrl+'.contactFormatter(value,row,index,\\'手机号\\')');");
 
         }
-		addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 80);
-		addColumn(datagrid, "sourceType", "下单方式", ControlTypes.ENUM_BOX, 80);
-		addColumn(datagrid, "platformSource", "订单来源", ControlTypes.ENUM_BOX, 80);
-		addColumn(datagrid, "createTime", "下单时间", ControlTypes.DATETIME_BOX, 100);
-		addColumn(datagrid, "accountType", "新老客户", ControlTypes.ENUM_BOX, 80);
-        column=addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 60);{
+        addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 80);
+        column = addColumn(datagrid, "ownerId", "业务员id", ControlTypes.TEXT_BOX, 80);
+        {
+            column.setVisible(false);
+        }
+        column = addColumn(datagrid, "supplierId", "服务商id", ControlTypes.TEXT_BOX, 80);
+        {
+            column.setVisible(false);
+        }
+        column = addColumn(datagrid, "departmentId", "部门id", ControlTypes.TEXT_BOX, 80);
+        {
+            column.setVisible(false);
+        }
+        addColumn(datagrid, "sourceType", "下单方式", ControlTypes.ENUM_BOX, 80);
+        addColumn(datagrid, "platformSource", "订单来源", ControlTypes.ENUM_BOX, 80);
+        addColumn(datagrid, "createTime", "下单时间", ControlTypes.DATETIME_BOX, 100);
+        addColumn(datagrid, "accountType", "新老客户", ControlTypes.ENUM_BOX, 80);
+        column = addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 60);
+        {
 
-            column.setSystem (true);
-            column.setVisible (false);
-            column.setOrderbyMode (OrderbyMode.DESC);
+            column.setSystem(true);
+            column.setVisible(false);
+            column.setOrderbyMode(OrderbyMode.DESC);
 
 
         }
-		return datagrid;
-	}
+        return datagrid;
+    }
 
-	@Override
-	protected PQueryProject createQueryProject(ResourceNode node) {
+    @Override
+    protected PQueryProject createQueryProject(ResourceNode node) {
 
-		PQueryProject queryProject = super.createQueryProject(node);
-		queryProject.toNew();
-		PQueryItem item = null;
-		queryProject.setColumnCount(3);
+        PQueryProject queryProject = super.createQueryProject(node);
+        queryProject.toNew();
+        PQueryItem item = null;
+        queryProject.setColumnCount(3);
 
-		item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
-		{
-			item.setTooltip("订单编号、渠道订单编号、签单公司");
-			item.setWidth(350);
-		}
-		addQueryItem(queryProject, "prodName", "产品名称", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "platformSource", "订单来源", ControlTypes.ENUM_BOX);
-		addQueryItem(queryProject, "payStatus", "付款状态", ControlTypes.ENUM_BOX);
-		addQueryItem(queryProject, "sourceType", "下单方式", ControlTypes.ENUM_BOX);
-		addQueryItem(queryProject, "ywyName", "业务员", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "isInstallment", "分期付款", ControlTypes.BOOLCOMBO_BOX);
+        item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
+        {
+            item.setTooltip("订单编号、渠道订单编号、下单人电话、签单公司");
+            item.setWidth(350);
+        }
+        addQueryItem(queryProject, "prodName", "产品名称", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "platformSource", "订单来源", ControlTypes.ENUM_BOX);
+        addQueryItem(queryProject, "payStatus", "付款状态", ControlTypes.ENUM_BOX);
+        addQueryItem(queryProject, "sourceType", "下单方式", ControlTypes.ENUM_BOX);
+        addQueryItem(queryProject, "ywyName", "业务员", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "isInstallment", "分期付款", ControlTypes.BOOLCOMBO_BOX);
         addQueryItem(queryProject, "fistPayTime", "首款审核日期", ControlTypes.DATE_BOX);
-		addQueryItem(queryProject, "createTime", "订单创建日期", ControlTypes.DATE_BOX);
+        addQueryItem(queryProject, "createTime", "订单创建日期", ControlTypes.DATE_BOX);
 
-		return queryProject;
-	}
+        return queryProject;
+    }
 
-	@Override
-	protected void doOperation() {
-		ResourceNode node = this.getResourceNode();
-		operationService.addOperation(node, OperationTypes.view);
-	}
+    @Override
+    protected void doOperation() {
+        ResourceNode node = this.getResourceNode();
+        operationService.addOperation(node, OperationTypes.view);
+    }
 }

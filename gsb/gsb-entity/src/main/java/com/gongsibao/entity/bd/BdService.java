@@ -13,11 +13,6 @@ public class BdService extends BaseEntity {
      */
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @Auto
-    @Column(name="pkid",header="id")
-    private Long pkid;
-
     @Column(name = "name", header = "服务名称")
     private String name;
 
@@ -52,14 +47,6 @@ public class BdService extends BaseEntity {
 
     public void setIsEnabled(Integer isEnabled) {
         this.isEnabled = isEnabled;
-    }
-
-    public Long getPkid() {
-        return pkid;
-    }
-
-    public void setPkid(Long pkid) {
-        this.pkid = pkid;
     }
 
     public List<BdServiceProduct> getProductList() {

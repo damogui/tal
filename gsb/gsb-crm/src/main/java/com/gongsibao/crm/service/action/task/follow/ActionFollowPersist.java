@@ -6,8 +6,9 @@ import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
+import org.netsharp.persistence.IPersister;
+import org.netsharp.persistence.PersisterFactory;
 
-import com.gongsibao.crm.base.INCustomerTaskFoolowService;
 import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.entity.crm.NCustomerTask;
 import com.gongsibao.entity.crm.NCustomerTaskFoolow;
@@ -23,8 +24,8 @@ public class ActionFollowPersist implements IAction {
 	public void execute(ActionContext ctx) {
 
 		NCustomerTaskFoolow taskFoolow = (NCustomerTaskFoolow) ctx.getItem();
-		INCustomerTaskFoolowService foolowService = ServiceFactory.create(INCustomerTaskFoolowService.class);
-
+		IPersister<NCustomerTaskFoolow> pm = PersisterFactory.create();
+		
 		// 获取当前质量的分值
 		NCustomerTaskQuality taskQuality = taskFoolow.getQuality();
 		Integer currentScore = taskQuality == null ? 0 : taskQuality.getScore();
@@ -43,7 +44,7 @@ public class ActionFollowPersist implements IAction {
 
 			taskFoolow.setQualityProgress(TaskQualityProgress.INVARIABILITY);
 		}
-		foolowService.save(taskFoolow);
+		pm.save(taskFoolow);
 	}
 
 	/**

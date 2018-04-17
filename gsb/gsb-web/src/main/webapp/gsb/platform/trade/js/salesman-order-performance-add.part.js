@@ -11,7 +11,6 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
         var employeeOption = getEmployeeOption();//重新制定
         $('#salesman_name').combogrid(employeeOption);
 
-
     },
     onload: function () {
 
@@ -26,6 +25,7 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
         this.getGrid().datagrid('resize', {'height': subheight});
 
         this.setState();
+
     },
     supplierChange: function (newValue, oldValue) {//进行联动
 
@@ -41,7 +41,7 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
         $('#salesman_name').combogrid('clear');
         var grid = $('#salesman_name').combogrid('grid');
         var options = $(grid).datagrid('options');
-        var filter = ' department_id ____ ----' + newValue + '----';
+        var filter = ' supplier_id ____ ----' + newValue + '----';
         options.url = '\/panda\/rest\/reference?code=Salesman&filter=' + filter;
         $(grid).datagrid(options);
 
@@ -55,6 +55,12 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
         var filter = ' department_id ____ ----' + newValue + '----';
         options.url = '\/panda\/rest\/reference?code=Salesman&filter=' + filter;
         $(grid).datagrid(options);
+
+    },
+    salesmanChange: function () {
+        var grid = $('#salesman_name').combogrid('grid');
+        var row = $(grid).datagrid('getSelected');
+        alert(row.id)
     },
     savebase: function () {
         //校验业绩分配金额是否跟订单金额相等不相等给提示
@@ -69,14 +75,14 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
         });
         totalAmount = totalAmount / 100;
         var payablePrice = $("#payablePrice").val();
-       
-        if (totalAmount!=parseFloat(payablePrice)) {
+
+        if (totalAmount != parseFloat(payablePrice)) {
 
             layer.msg("分配金额必须和订单金额相等");
-            return  false;
+            return false;
 
         } else {
-             this.parent.save();
+            this.parent.save();
             return true;
             // layer.closeAll();
             //IMessageBox.toast('保存成功');
@@ -123,9 +129,29 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
 
         me.saveAfter();
 
+    },
+    addAfter: function () {
+        var paidPrice = $("#paidPrice").val();
+        var ownerId = System.Url.getParameter("ownerId");
+        var rows = this.getDetails();
+        var isHasCurrent = "";
+        var hasAmount = 0;
+        $(rows).each(function (k, v) {
+            var salesmanId = v.salesmanId;
+            if (ownerId == salesmanId) {
+                isHasCurrent += "t";
+            }
+            hasAmount = hasAmount + System.RMB.fenToYuan(v.amount);
+        });
+        if (isHasCurrent.indexOf("t") <= -1) {
+            var supplierId = System.Url.getParameter("supplierId");
+            var departmentId = System.Url.getParameter("departmentId");
+            $('#supplier_name').combogrid('setValue', supplierId);
+            $('#department_name').combogrid('setValue', departmentId);
+            $('#salesman_name').combogrid('setValue', ownerId);
+        }
+        $("#amount").numberbox('setValue', paidPrice - hasAmount);
     }
-
-
 });
 
 function getEmployeeOption() {
@@ -152,8 +178,12 @@ function getEmployeeOption() {
         mode: 'remote',
         multiple: false,
         onChange: function (newValue, oldValue) {
-            /*if(oldValue!="" && newValue != oldValue){
-             }*/
+            /*var grid = $('#salesman_name').combogrid('grid');
+            var row = $(grid).datagrid('getSelected');
+            if (row) {
+                $('#supplier_name').combogrid('setValue', row.supplierId);
+                $('#department_name').combogrid('setValue', row.departmentId);
+            }*/
         }
     };
 

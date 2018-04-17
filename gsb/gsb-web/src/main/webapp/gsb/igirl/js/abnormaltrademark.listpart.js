@@ -153,3 +153,14 @@ com.gongsibao.igirl.tm.web.TradeMarkListPart = org.netsharp.panda.commerce.ListP
 		}
 
 });
+$(function() {
+	var url = location.search;
+	if(url!=null && url!=""){
+		var markState = url.split("markState=")[1];
+		if(markState!=undefined){
+			$('#markState').combobox('select',markState);
+			controllertradeMarkList.query();
+		}
+	}
+});
+

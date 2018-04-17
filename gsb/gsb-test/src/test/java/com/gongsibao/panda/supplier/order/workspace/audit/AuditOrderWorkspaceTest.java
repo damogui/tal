@@ -10,6 +10,7 @@ import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
+import org.netsharp.panda.dic.OrderbyMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
@@ -73,12 +74,14 @@ public class AuditOrderWorkspaceTest  extends WorkspaceCreationBase {
         addColumn (datagrid, "soOrder.no", "订单编号", ControlTypes.TEXT_BOX, 80);
         addColumn (datagrid, "soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX, 300);
-        addColumn (datagrid, "soOrder.companyIntention.name", "关联企业", ControlTypes.TEXT_BOX, 200);
+        addColumn (datagrid, "soOrder.companyIntention.companyName", "关联企业", ControlTypes.TEXT_BOX, 200);
         
         addColumn (datagrid, "soOrder.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn (datagrid, "soOrder.payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn (datagrid, "status", "审核状态", ControlTypes.ENUM_BOX, 100);
-        addColumn(datagrid, "soOrder.createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);
+        column = addColumn(datagrid, "soOrder.createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);{
+        	column.setOrderbyMode(OrderbyMode.DESC);
+        }
         addColumn(datagrid, "soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
         
         return datagrid;
