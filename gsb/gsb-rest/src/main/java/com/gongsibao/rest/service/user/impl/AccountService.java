@@ -62,27 +62,33 @@ public class AccountService implements IAccountService{
     @Override
     public void updateAccount(String mobile,String openId) {
         Fans fans=accountWeiXinService.queryFansByOpenId(openId);
-        //更新uc_account 新增一条
-        Account account = new Account();{
-            account.toNew();
-            account.setPasswd("");
-            account.setCreateTime(new Date());
-            account.setMobilePhone(mobile);
-            account.setTicket("");
-            account.setEmail("");
-            account.setIdentityCard("");
-            account.setTelephone("");
-            account.setRealName("");
-            account.setCreateTime(new Date());
-            account.setIsBbk("");
-            account.setName("");
-            //来源微信
-            account.setSourceClientId(1036);
-            account.setHeadThumbFileId(0);
+        Account accountOld=accountService.byMobile(mobile);
+        if(null==accountOld){
+            //更新uc_account 新增一条
+            Account account = new Account();{
+                account.toNew();
+                account.setPasswd("");
+                account.setCreateTime(new Date());
+                account.setMobilePhone(mobile);
+                account.setTicket("");
+                account.setEmail("");
+                account.setIdentityCard("");
+                account.setTelephone("");
+                account.setRealName("");
+                account.setCreateTime(new Date());
+                account.setIsBbk("");
+                account.setName("");
+                //来源微信
+                account.setSourceClientId(1036);
+                account.setHeadThumbFileId(0);
+            }
+            Account result = accountService.save(account);
+            //更新uc_account_weixin 表 更新 account_id
+            accountWeiXinService.bandMobile(result.getId(),openId);
+        }else{
+            //更新uc_account_weixin 表 更新 account_id
+            accountWeiXinService.bandMobile(accountOld.getId(),openId);
         }
-        Account result = accountService.save(account);
-        //更新uc_account_weixin 表 更新 account_id
-        accountWeiXinService.bandMobile(result.getId(),openId);
     }
 
     @Override
