@@ -32,7 +32,15 @@ public class NCustomerTaskNotifyService extends SupplierPersistableService<NCust
 		entity = super.save(entity);
 		if (state == EntityState.New) {
 
-			this.sendMessage(entity);
+			try {
+
+				this.sendMessage(entity);
+
+			} catch (Exception ex) {
+
+				//还需要设置一些原因
+				System.out.println("SendMessage：消息发送失败!");
+			}
 		}
 		return entity;
 	}
@@ -46,53 +54,50 @@ public class NCustomerTaskNotifyService extends SupplierPersistableService<NCust
 	 */
 	private void sendMessage(NCustomerTaskNotify entity) {
 
-		if(!entity.getIsSend()){
-			
+		if (!entity.getIsSend()) {
+
 			return;
 		}
-		
+
 		NotifyType notifyType = this.getNotifyType(entity.getReceivedId());
-		if(notifyType == null){
-			
+		if (notifyType == null) {
+
 			return;
 		}
-		
+
 		if (notifyType == NotifyType.WEIXIN) {
 
 			this.sendWxMessage(entity);
-			
-		}  else if (notifyType == NotifyType.SMS) {
+
+		} else if (notifyType == NotifyType.SMS) {
 
 			this.sendSMSMessage(entity);
-			
+
 		} else if (notifyType == NotifyType.SYSTEM) {
 
-			//PC端通知
-			
-		}else if (notifyType == NotifyType.DINGDING) {
+			// PC端通知
 
-			
-		}else if (notifyType == NotifyType.ALL) {
+		} else if (notifyType == NotifyType.DINGDING) {
+
+		} else if (notifyType == NotifyType.ALL) {
 
 			this.sendWxMessage(entity);
-			
+
 			this.sendSMSMessage(entity);
 		}
 	}
-	
-	
-	private NotifyType getNotifyType(Integer employeeId){
-		
+
+	private NotifyType getNotifyType(Integer employeeId) {
+
 		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
 		return salesmanService.getNotifyType(employeeId);
 	}
-	
-	
+
 	private void sendSMSMessage(NCustomerTaskNotify entity) {
-		
+
 		Employee received = this.getEmployee(entity.getReceivedId());
-		
-		if(received != null && !StringManager.isNullOrEmpty(received.getMobile())&& received.getMobile().length() == 11){
+
+		if (received != null && !StringManager.isNullOrEmpty(received.getMobile()) && received.getMobile().length() == 11) {
 
 			SmsHelper.send(received.getMobile(), entity.getContent());
 		}
@@ -109,9 +114,9 @@ public class NCustomerTaskNotifyService extends SupplierPersistableService<NCust
 
 		Employee received = this.getEmployee(entity.getReceivedId());
 		IEaMessageService eMessageService = ServiceFactory.create(IEaMessageService.class);
-		if(received == null){
+		if (received == null) {
 			eMessageService.send("CRM", entity.getContent(), "");
-		}else{
+		} else {
 			eMessageService.send("CRM", entity.getContent(), received.getMobile());
 		}
 	}

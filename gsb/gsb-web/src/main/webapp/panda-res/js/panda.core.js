@@ -432,6 +432,14 @@ PandaHelper.dimString = function(str){
 	return value;
 }
 
+PandaHelper.Storage = {
+		
+	byKey:function(key){
+		
+		return sessionStorage[key];
+	}
+}
+
 //-------------------------------------------------------------------------------------------------------------------------------
 //处理枚举
 PandaHelper.Enum = {

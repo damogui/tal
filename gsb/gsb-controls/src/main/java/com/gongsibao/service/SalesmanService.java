@@ -7,6 +7,7 @@ import org.netsharp.core.Oql;
 import org.netsharp.service.PersistableService;
 
 import com.gongsibao.entity.supplier.Salesman;
+import com.gongsibao.entity.supplier.dict.SupplierType;
 
 @Service
 public class SalesmanService extends PersistableService<Salesman> implements ISalesmanService {
@@ -33,5 +34,23 @@ public class SalesmanService extends PersistableService<Salesman> implements ISa
         }
         return entity.getReceiving();
     }
+
+	@Override
+	public SupplierType getSupplierType(Integer employeeId) {
+
+        Oql oql = new Oql();
+        {
+            oql.setType(this.type);
+            oql.setSelects("id,type");
+            oql.setFilter("employeeId=?");
+            oql.getParameters().add("@employeeId", employeeId, Types.INTEGER);
+        }
+        Salesman entity = this.queryFirst(oql);
+        if(entity == null){
+        	
+        	return SupplierType.PLATFORM;
+        }
+        return entity.getType();
+	}
 
 }

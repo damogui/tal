@@ -740,7 +740,7 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 		
 		  return '';
 	  }
-	  
+	  var me = this;
 	  var builder = new System.StringBuilder();
 	  var ss = config.split(';');
 	  $(ss).each(function(i,s){
@@ -749,10 +749,34 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 		  var code = s2[0];
 		  var css = s2[1];
 		  var text = s2[2];
-		  var btn = '<a class="grid-btn" href="javascript:{1}.{2}(\'{3}\');">{4}</a>'.format(css,controller,code,row.id,text);
+
+		  var className = 'grid-btn';
+          var methodName = "getRow" + code + "State";
+          var state = null;
+          var expression = "if (me." + methodName + " != null && me." + methodName + " != undefined) {state=me." + methodName + "();}";
+          eval(expression);
+          if (state != null) {
+        	  
+        	  if(state == UiElementState.Hide){
+        		  
+        		  className = 'grid-btn-hide';
+        	  }
+          }
+
+		  var btn = '<a class="'+className+'" id="row_toolbar_'+ code +'_'+index+'" href="javascript:{1}.{2}(\'{3}\');">{4}</a>'.format(css,controller,code,row.id,text);
 		  builder.append(btn);
+          
 	  });
 	  return builder.toString();
+	  
+//	  var UiElementState =
+//	    {
+//	        Empty: 1,
+//	        Hide: 2,
+//	        Show: 3,
+//	        Disable: 4,
+//	        Enable: 5
+//	    };
 	},
 	resetQuery:function(){
 		
