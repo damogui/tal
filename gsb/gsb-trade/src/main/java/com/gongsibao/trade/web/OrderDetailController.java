@@ -218,7 +218,12 @@ public class OrderDetailController {
         sb.append("NDepReceivable.soOrder.owner.name");
         oql.setSelects(sb.toString());
 //        oql.setSelects (selects.toString ());
-        oql.setFilter(String.format("salesman_id=%s ", SessionManager.getUserId()));
+        //oql.setFilter(String.format("salesman_id=%s  ", SessionManager.getUserId()));
+        oql.setFilter("order_id=?");
+
+        oql.getParameters().add("@order_id",orderId,Types.INTEGER);
+
+
         List<NDepReceivable> ndepRevs = nDepReceivableService.queryList(oql);
         for (NDepReceivable item : ndepRevs
                 ) {
@@ -257,7 +262,10 @@ public class OrderDetailController {
         sb.append("NDepPay.soOrder.owner.name");
         oql.setSelects(sb.toString());
 //        oql.setSelects (selects.toString ());
-        oql.setFilter(String.format("salesman_id=%s or creator_id =%s ", SessionManager.getUserId(), SessionManager.getUserId()));
+//        oql.setFilter(String.format("salesman_id=%s or creator_id =%s ", SessionManager.getUserId(), SessionManager.getUserId()));
+
+        oql.setFilter("order_id=?");
+        oql.getParameters().add("@order_id",orderId,Types.INTEGER);
         List<NDepPay> nDepPays = nDepPayService.queryList(oql);
         for (NDepPay item : nDepPays
                 ) {
