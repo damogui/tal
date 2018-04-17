@@ -98,7 +98,7 @@ public class LoginController {
         new Thread() {
             @Override
             public void run() {
-                accountService.sendSms(mobilePhone, smsString);
+                accountService.sendSms(mobilePhone.trim(), smsString);
             }
         }.start();
         return data;
