@@ -361,17 +361,17 @@ com.gongsibao.trade.web.OrderPaymentCollectionDetailCtrl = com.gongsibao.trade.w
 
             me.initGrid(data);
         });
-        $("body").off("click", ".show");
-        $("body").on("click", ".show", function () {
-
-            var orderId = $(this).attr("data-id");
-            var url = $(this).attr("data-url");
-            var urlEnd=url+"?id="+orderId;
-            showDetail("orderPay","回款信息",urlEnd);
-
-
-
-        });
+        // $("body").off("click", ".show");
+        // $("body").on("click", ".show", function () {
+        //
+        //     var orderId = $(this).attr("data-id");
+        //     var url = $(this).attr("data-url");
+        //     var urlEnd=url+"?id="+orderId;
+        //     showDetail("orderPay","回款信息",urlEnd);
+        //
+        //
+        //
+        // });
 
     },
     initGrid: function (data) {
@@ -392,7 +392,7 @@ com.gongsibao.trade.web.OrderPaymentCollectionDetailCtrl = com.gongsibao.trade.w
                     field: 'id', title: '操作', width: 80, align: 'center', formatter: function (value, row, index) {
 
 
-                    return '<a class="grid-btn show"   data-id="' + value + '"  data-url="/nav/gsb/platform/trade/auditPay"    href="javascript:void(0)">查看</a>';
+                    return '<a class="grid-btn show"  data-iframe="auditPay" data-title="回款信息"   data-id="' + value + '"  data-url="/nav/gsb/platform/trade/auditPay"    href="javascript:void(0)">查看</a>';
                 }
                 },
                 {
@@ -470,17 +470,17 @@ com.gongsibao.trade.web.OrderPerCollectionDetailCtrl = com.gongsibao.trade.web.B
 
             me.initGrid(data);
         });
-        $("body").off("click", ".show");
-        $("body").on("click", ".show", function () {
-
-            var orderId = $(this).attr("data-id");
-            var url = $(this).attr("data-url");
-            var urlEnd=url+"?id="+orderId;
-            showDetail("orderPer","订单业绩信息",urlEnd);
-
-
-
-        });
+        // $("body").off("click", ".show");
+        // $("body").on("click", ".show", function () {
+        //
+        //     var orderId = $(this).attr("data-id");
+        //     var url = $(this).attr("data-url");
+        //     var urlEnd=url+"?id="+orderId;
+        //     showDetail("orderPer","订单业绩信息",urlEnd);
+        //
+        //
+        //
+        // });
 
     },
     initGrid: function (data) {
@@ -499,7 +499,7 @@ com.gongsibao.trade.web.OrderPerCollectionDetailCtrl = com.gongsibao.trade.web.B
 
                 {
                     field: 'orderId', title: '操作', width: 80, align: 'center', formatter: function (value, row, index) {
-                    return '<a class="grid-btn show"   data-id="' + value + '"  data-url="/nav/gsb/platform/trade/auditPerformance"    href="javascript:void(0)">查看</a>';
+                    return '<a class="grid-btn show"  data-iframe="auditPerformance" data-title="订单业绩信息"  data-id="' + value + '"  data-url="/nav/gsb/platform/trade/auditPerformance"    href="javascript:void(0)">查看</a>';
                 }
                 },
                 // {field: 'auditNo', title: '审核编号', width: 100},
@@ -573,10 +573,10 @@ com.gongsibao.trade.web.OrderPayPerCollectionDetailCtrl = com.gongsibao.trade.we
 
             var orderId = $(this).attr("data-id");
             var url = $(this).attr("data-url");
+            var title = $(this).attr("data-title");
+            var  idFraeam = $(this).attr("data-iframe");
             var urlEnd=url+"?id="+orderId;
-            showDetail("orderPayPer","回款业绩信息",urlEnd);
-
-
+            showDetail(idFraeam,title,urlEnd);
 
         });
 
@@ -598,7 +598,7 @@ com.gongsibao.trade.web.OrderPayPerCollectionDetailCtrl = com.gongsibao.trade.we
                 {
                     field: 'orderId', title: '操作', width: 80, align: 'center', formatter: function (value, row, index) {
 
-                    return '<a class="grid-btn show"   data-id="' + value + '"  data-url="/nav/gsb/platform/trade/auditPayPerformance"    href="javascript:void(0)">查看</a>';
+                    return '<a class="grid-btn show"  data-iframe="auditPayPerformance"  data-title="回款业绩信息"  data-id="' + value + '"  data-url="/nav/gsb/platform/trade/auditPayPerformance"    href="javascript:void(0)">查看</a>';
                 }
                 },
                 // {field: 'auditNo', title: '审核编号', width: 100},

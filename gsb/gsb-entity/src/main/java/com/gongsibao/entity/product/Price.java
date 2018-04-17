@@ -28,8 +28,11 @@ public class Price extends BaseEntity {
 	
     @Column(name="price_audit_id",header="定价审核序号")
     private Integer priceAuditId;
-    
-    @Column(name="original_price",header="原价，单位“分”")
+
+	@Reference(foreignKey="priceAuditId",header="服务",primaryKey="pkid")
+	private PriceAudit priceAudit;
+
+	@Column(name="original_price",header="原价，单位“分”")
     private Integer originalPrice;
     
     @Column(name="platform_price",header="平台内价格,单位分")
@@ -89,6 +92,14 @@ public class Price extends BaseEntity {
 
 	public void setPriceAuditId(Integer priceAuditId) {
 		this.priceAuditId = priceAuditId;
+	}
+
+	public PriceAudit getPriceAudit() {
+		return priceAudit;
+	}
+
+	public void setPriceAudit(PriceAudit priceAudit) {
+		this.priceAudit = priceAudit;
 	}
 
 	public Integer getOriginalPrice() {
