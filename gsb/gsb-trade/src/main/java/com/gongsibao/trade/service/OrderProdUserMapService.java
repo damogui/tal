@@ -48,16 +48,30 @@ public class OrderProdUserMapService extends PersistableService<OrderProdUserMap
     public Map<Integer, String> getOrderUserByIds(List<Integer> pkidList, int typeId, int statusId) {
         Map<Integer, String> resMap = new HashMap<Integer, String>();
         String idString = StringManager.join(",", pkidList);
-        StringBuffer sql = new StringBuffer("SELECT opum.order_prod_id 'orderProdId',u.real_name 'realName' FROM so_order_prod_user_map opum ");
-        sql.append("JOIN uc_user u ON u.pkid = opum.user_id ");
-        sql.append("WHERE opum.type_id=" + OrderProdUserMapType.getItem(typeId).getValue() + " AND opum.status_id=" + OrderProdUserMapStatus.getItem(statusId).getValue()
+        StringBuffer sql = new StringBuffer("SELECT opum.order_prod_id 'orderProdId',em.name 'realName' FROM so_order_prod_user_map opum ");
+        sql.append("JOIN sys_permission_employee em ON em.id = opum.user_id ");
+        sql.append(" WHERE opum.type_id=" + OrderProdUserMapType.getItem(typeId).getValue()
+                + " AND opum.status_id=" + OrderProdUserMapStatus.getItem(statusId).getValue()
                 + " AND opum.order_prod_id IN(" + idString + ") ");
         DataTable executeTable = this.pm.executeTable(sql.toString(), null);
         for (Row row : executeTable) {
             Integer orderProdId = row.getInteger("orderProdId");
             String realName = row.getString("realName");
-            resMap.put(orderProdId, realName);
+            if (resMap.get(orderProdId) != null) {
+                resMap.put(orderProdId, resMap.get(orderProdId) + "," + realName);
+            } else {
+                resMap.put(orderProdId, realName);
+            }
         }
+        //去掉最后一个","
+        for (Integer id : pkidList) {
+            String name = resMap.get(id);
+            if (name.endsWith(",")) {
+                name = name.substring(0, name.length() - 1);
+                resMap.put(id, name);
+            }
+        }
+
         return resMap;
     }
 

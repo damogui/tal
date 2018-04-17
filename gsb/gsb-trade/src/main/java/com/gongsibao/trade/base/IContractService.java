@@ -6,6 +6,9 @@ import org.netsharp.base.IPersistableService;
 import com.gongsibao.entity.trade.Contract;
 import org.netsharp.core.annotations.Transaction;
 
+import java.util.List;
+import java.util.Map;
+
 public interface IContractService extends IPersistableService<Contract> {
 
     @Transaction
@@ -15,5 +18,8 @@ public interface IContractService extends IPersistableService<Contract> {
     void updateStatus(Integer id, AuditStatusType auditStatusType);
 
     Contract getById(Integer id);
+
+    //根据明细订单id获取否加急
+    Map<Integer, Boolean> getIsUrgeneyByOrderProdIdList(List<Integer> orderProdIdList);
 
 }

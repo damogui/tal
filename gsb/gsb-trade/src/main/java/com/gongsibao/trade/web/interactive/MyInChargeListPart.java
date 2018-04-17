@@ -1,21 +1,93 @@
 package com.gongsibao.trade.web.interactive;
 
-import com.gongsibao.entity.trade.OrderProdTrace;
-import com.gongsibao.trade.base.IOrderProdService;
+import com.gongsibao.entity.trade.OrderProd;
+import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
+import com.gongsibao.entity.trade.dic.OrderProdUserMapType;
+import com.gongsibao.trade.base.IContractService;
+import com.gongsibao.trade.base.INCostReceiptMapService;
 import com.gongsibao.trade.base.IOrderProdTraceService;
+import com.gongsibao.trade.base.IOrderProdUserMapService;
 import com.gongsibao.utils.NumberUtils;
-import org.apache.commons.lang.StringUtils;
 import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.BusinessException;
+import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.AdvancedListPart;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MyInChargeListPart extends AdvancedListPart {
     IOrderProdTraceService orderProdTraceService = ServiceFactory.create(IOrderProdTraceService.class);
+    IContractService contractService = ServiceFactory.create(IContractService.class);
+    IOrderProdUserMapService orderProdUserMapService = ServiceFactory.create(IOrderProdUserMapService.class);
+
+
+    @Override
+    public List<?> doQuery(Oql oql) {
+        StringBuffer sqlSb = new StringBuffer();
+        sqlSb.append("orderProd.*,");
+        sqlSb.append("soOrder.*");
+        oql.setSelects(sqlSb.toString());
+        List<OrderProd> resList = (List<OrderProd>) super.doQuery(oql);
+        List<Integer> orderProdIdList = getOrderProdIdList(resList);
+        //设置是否加急
+        setIsUrgeney(orderProdIdList, resList);
+        //设置操作员
+        setOperator(orderProdIdList, resList);
+        //设置剩余天数
+        setSurplusDays(resList);
+        return resList;
+    }
+
+
+    protected Object serialize(List<?> list, Oql oql) {
+        HashMap<String, Object> json = (HashMap<String, Object>) super.serialize(list, oql);
+        ArrayList<HashMap<String, Object>> ob2 = (ArrayList<HashMap<String, Object>>) json.get("rows");
+        for (int i = 0; i < ob2.size(); i++) {
+            OrderProd orderProd = ((OrderProd) list.get(i));
+            ob2.get(i).put("isUrgent", orderProd.getUrgent());
+            ob2.get(i).put("operator", orderProd.getOperator());
+        }
+        return json;
+    }
+
     //添加跟进
     public void addFollowUp(Integer orderProdId, String followContent) {
         orderProdTraceService.addFollowUp(orderProdId, followContent);
+    }
+
+    private List<Integer> getOrderProdIdList(List<OrderProd> resList) {
+        List<Integer> orderProdIdList = new ArrayList<>();
+        for (OrderProd orderProd : resList) {
+            orderProdIdList.add(orderProd.getId());
+        }
+        return orderProdIdList;
+    }
+
+    //设置是否加急
+    private void setIsUrgeney(List<Integer> orderProdIdList, List<OrderProd> resList) {
+        Map<Integer, Boolean> isUrgeneyMap = contractService.getIsUrgeneyByOrderProdIdList(orderProdIdList);
+        for (OrderProd orderProd : resList) {
+            orderProd.setUrgent(isUrgeneyMap.get(orderProd.getId()));
+        }
+    }
+
+    //设置操作员
+    private void setOperator(List<Integer> orderProdIdList, List<OrderProd> resList) {
+        Map<Integer, String> operatorMap = orderProdUserMapService.getOrderUserByIds(orderProdIdList, OrderProdUserMapType.Czy.getValue(), OrderProdUserMapStatus.Zzfz.getValue());
+        for (OrderProd orderProd : resList) {
+            orderProd.setOperator(operatorMap.get(orderProd.getId()));
+        }
+    }
+
+    //设置剩余天数
+    private void setSurplusDays(List<OrderProd> resList) {
+        for (OrderProd orderProd : resList) {
+            Integer surplusDays = orderProd.getNeedDays() - orderProd.getProcessedDays();
+            orderProd.setSurplusDays(surplusDays <= 0 ? 0 : surplusDays);
+        }
     }
 
 }
