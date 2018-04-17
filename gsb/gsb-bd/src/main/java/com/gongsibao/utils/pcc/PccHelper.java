@@ -1,10 +1,12 @@
 package com.gongsibao.utils.pcc;
 
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.netsharp.core.DataTable;
 import org.netsharp.core.IRow;
+import org.netsharp.core.QueryParameters;
 import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.util.StringManager;
@@ -90,5 +92,23 @@ public class PccHelper {
 		for (PccDTO child : children) {
 			listToTree(child, list);
 		}
+	}
+	
+	public static String getFullName(Integer cityId){
+		
+		String sql = "SELECT GROUP_CONCAT(T3.NAME SEPARATOR '-') AS cityName "
+				+ "FROM ( SELECT T2.pkid, T2.`name` FROM ( SELECT @r AS _id , ( SELECT @r := pid FROM `bd_dict` WHERE pkid = _id ) AS parent_id, @l := @l + 1 AS lvl "
+				+ "FROM ( SELECT @r := ?, @l := 0 ) vars, `bd_dict` h WHERE @r <> 0 ) T1 JOIN `bd_dict` T2 ON T1._id = T2.pkid ORDER BY T1.lvl DESC ) T3;";
+		QueryParameters qps = new QueryParameters();
+		qps.add("cityId", cityId, Types.INTEGER);
+		IPersister<Dict> pm = PersisterFactory.create();
+		DataTable dataTable = pm.executeTable(sql, qps);
+		String cityName = "";
+		for (IRow row : dataTable) {
+
+			cityName = row.getString("cityName");
+		}
+		
+		return cityName;
 	}
 }
