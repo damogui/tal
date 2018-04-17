@@ -3,6 +3,7 @@ package com.gongsibao.entity.bd;
 import java.util.Date;
 
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
@@ -15,6 +16,8 @@ public class PreferentialCode extends BaseEntity {
 	private static final long serialVersionUID = -7099033472190066232L;
 	@Column(name="preferential_id",header="PreferentialId")
     private Integer preferentialId;
+	@Reference(foreignKey = "preferentialId")
+	private Preferential preferential;
     @Column(header="no")
     private String no;
     @Column(header="status，状态（0：未激活，1：已激活，2：已使用）")
@@ -36,6 +39,15 @@ public class PreferentialCode extends BaseEntity {
     public void setPreferentialId(Integer preferentialId) {
         this.preferentialId = preferentialId;
     }
+
+    public Preferential getPreferential() {
+        return preferential;
+    }
+
+    public void setPreferential(Preferential preferential) {
+        this.preferential = preferential;
+    }
+
     public String getNo() {
         return no;
     }
