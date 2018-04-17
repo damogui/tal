@@ -1,9 +1,13 @@
 package com.gongsibao.rest.common.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -22,6 +26,51 @@ public class RedisClient {
     @SuppressWarnings("rawtypes")
     @Autowired
     private RedisTemplate redisTemplate;
+
+    /**
+     * 自增 step:1
+     * @param key 键
+     * @return
+     */
+    public Long incr(final String key) {
+        return (Long) redisTemplate.execute(new RedisCallback() {
+            @Nullable
+            @Override
+            public Long doInRedis(RedisConnection connection) throws DataAccessException {
+                return connection.incr(key.getBytes());
+            }
+        });
+    }
+    /**
+     * 自增 step:1
+     * @param key 键
+     * @param expire 失效时间秒
+     * @return
+     */
+    public Long incr(final String key,long expire) {
+        Long incr = (Long) redisTemplate.execute(new RedisCallback() {
+            @Nullable
+            @Override
+            public Long doInRedis(RedisConnection connection) throws DataAccessException {
+                return connection.incr(key.getBytes());
+            }
+        });
+        redisTemplate.expire(key,expire,TimeUnit.SECONDS);
+        return incr;
+    }
+
+    /**
+     * 自减 step:1
+     * @param key 键
+     */
+    public Long decr(final String key) {
+        return (Long) redisTemplate.execute(new RedisCallback() {
+            public Long doInRedis(RedisConnection connection) throws DataAccessException {
+                return connection.decr(key.getBytes());
+            }
+        });
+    }
+
     /**
      * 批量删除对应的value
      *
