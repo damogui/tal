@@ -3,12 +3,15 @@ package com.gongsibao.rest.controller.v1.product;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.cms.Product;
 import com.gongsibao.rest.common.apiversion.Api;
+import com.gongsibao.rest.common.util.JsonUtils;
 import com.gongsibao.rest.common.web.ResponseData;
+import com.gongsibao.rest.dto.order.OrderAddDTO;
 import com.gongsibao.rest.service.product.IProductPriceService;
 import com.gongsibao.rest.service.product.IProductService;
 import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -66,7 +69,7 @@ public class ICompanyProductController {
         try {
             int productId = NumberUtils.toInt(request.getParameter("productId"));
             if (productId == 0) {
-                data.setMsg("产品不能为空");
+                data.setMsg("商品不能为空");
                 return data;
             }
 
@@ -95,7 +98,7 @@ public class ICompanyProductController {
             int cityId = NumberUtils.toInt(request.getParameter("cityId"));
 
             if (productId == 0) {
-                data.setMsg("产品不能为空");
+                data.setMsg("商品不能为空");
                 return data;
             }
             if (cityId == 0) {
@@ -135,7 +138,7 @@ public class ICompanyProductController {
             int cityId = NumberUtils.toInt(request.getParameter("cityId"));
 
             if (productId == 0) {
-                data.setMsg("产品不能为空");
+                data.setMsg("商品不能为空");
                 return data;
             }
             if (cityId == 0) {
@@ -166,7 +169,7 @@ public class ICompanyProductController {
             int cityId = NumberUtils.toInt(request.getParameter("cityId"));
             int propertyId = NumberUtils.toInt(request.getParameter("propertyId"));
             if (productId == 0) {
-                data.setMsg("产品不能为空");
+                data.setMsg("商品不能为空");
                 return data;
             }
 
@@ -191,5 +194,18 @@ public class ICompanyProductController {
         }
 
         return data;
+    }
+
+    @RequestMapping(value = "/addOrder", method = RequestMethod.POST)
+    public ResponseData addOrder(HttpServletRequest request, @RequestBody String req) {
+        ResponseData data = new ResponseData();
+        OrderAddDTO orderAddDTO = JsonUtils.jsonToObject(req, OrderAddDTO.class);
+        if (null == orderAddDTO) {
+            data.setMsg("操作失败，参数错误");
+            return data;
+        }
+
+
+        return null;
     }
 }

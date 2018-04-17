@@ -931,14 +931,18 @@ div.h10{
 	min-height: 22px
 }
 
-.grid-btn{
+.grid-btn,.grid-btn-hide{
 	color: #1E7BB6;
 	margin:0 2px;
 	text-decoration: none;
 }
 
+.grid-btn-hide{
+	
+	display:none;
+}
 
-.grid-btn:hover{
+.grid-btn:hover,.grid-btn-hide:hover{
 	color: red;
 	text-decoration: underline;
 }

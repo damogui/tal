@@ -25,4 +25,6 @@ public interface IAccountService extends IPersistableService<Account> {
 	 * @throws   
 	 */
 	Account byMobile(String mobile);
+
+	Integer updateTicket(Integer accountPkid, String ticket);
 }

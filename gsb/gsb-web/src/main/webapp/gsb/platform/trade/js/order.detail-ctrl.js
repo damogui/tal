@@ -78,7 +78,7 @@ com.gongsibao.trade.web.OrderFormCtrl = com.gongsibao.trade.web.BaseCtrl.Extends
                     return;
                 }
                 if (title == '回款记录') {
-                   
+
                     var paymentCollectionDetailCtrl = new com.gongsibao.trade.web.OrderPaymentCollectionDetailCtrl();
                     paymentCollectionDetailCtrl.init();
                     me.initializeDetailList.add(title, paymentCollectionDetailCtrl);
@@ -117,6 +117,11 @@ com.gongsibao.trade.web.OrderFormCtrl = com.gongsibao.trade.web.BaseCtrl.Extends
                     fllowDetailCtrl.init();
                     me.initializeDetailList.add(title, fllowDetailCtrl);
                 }
+                else if (title == '签单公司') {
+                    var fllowDetailCtrl = new com.gongsibao.trade.web.OrderCompanysCtrl();
+                    fllowDetailCtrl.init();
+                    me.initializeDetailList.add(title, fllowDetailCtrl);
+                }
             }
         });
 
@@ -126,6 +131,7 @@ com.gongsibao.trade.web.OrderFormCtrl = com.gongsibao.trade.web.BaseCtrl.Extends
         me.initializeDetailList.add('产品信息', productDetailCtrl);
     }
 });
+
 //动态添加tab标签
 function addTab(title, content) {
     if ($('#tabs').tabs('exists', title)) {
@@ -139,6 +145,7 @@ function addTab(title, content) {
         });
     }
 }
+
 /*
  * 合同详情记录
  */
@@ -156,6 +163,7 @@ function showContract(contractId) {
         content: contentUrl
     });
 }
+
 com.gongsibao.trade.web.ContractCollectionDetailCtrl = com.gongsibao.trade.web.BaseCtrl.Extends({
     ctor: function () {
         this.base();
@@ -182,8 +190,8 @@ com.gongsibao.trade.web.ContractCollectionDetailCtrl = com.gongsibao.trade.web.B
             columns: [[
                 {
                     field: 'a', title: '操作', width: 80, align: 'center', formatter: function (value, row, index) {
-                    return '<a class="grid-btn" href="javascript:" onclick="showContract(' + contractId + ')";>查看</a>';
-                }
+                        return '<a class="grid-btn" href="javascript:" onclick="showContract(' + contractId + ')";>查看</a>';
+                    }
                 },
                 {field: 'id', title: '合同审核编号', width: 80, align: 'center'},
                 {
@@ -271,34 +279,34 @@ com.gongsibao.trade.web.OrderProductDetailCtrl = com.gongsibao.trade.web.BaseCtr
                 {
                     field: 'a', title: '操作', width: 80, align: 'center', formatter: function (value, row, index) {
 
-                    return '<a class="grid-btn" target="_blank" href="/nav/gsb/platform/trade/orderProdDetail?id='+row.id+'">查看</a>';
-                }
+                        return '<a class="grid-btn" target="_blank" href="/nav/gsb/platform/trade/orderProdDetail?id=' + row.id + '">查看</a>';
+                    }
                 },
                 {field: 'id', title: '订单明细编号', width: 100, align: 'center'},
                 {field: 'productName', title: '产品名称', width: 150},
                 {
                     field: 'serviceName', title: '服务名称', width: 200, formatter: function (value, row, index) {
 
-                    var items = row.items;
-                    if (items && items.length > 0) {
+                        var items = row.items;
+                        if (items && items.length > 0) {
 
-                        var len = items.length;
-                        if (len == 1) {
-                            return items[0].serviceName;
-                        } else {
+                            var len = items.length;
+                            if (len == 1) {
+                                return items[0].serviceName;
+                            } else {
 
-                            var serviceName = items[0].serviceName + '...';
-                            var ss = [];
-                            $(items).each(function (i, item) {
+                                var serviceName = items[0].serviceName + '...';
+                                var ss = [];
+                                $(items).each(function (i, item) {
 
-                                ss.push(item.serviceName);
-                            });
-                            var fullServiceName = ss.join(',');
-                            var tipId = 'tip' + row.id;
-                            return '<a id="' + tipId + '" onmouseover="layer.tips(\'' + fullServiceName + '\',\'#' + tipId + '\',{tips: [1, \'#1E7BB6\']})">' + serviceName + '</a>';
+                                    ss.push(item.serviceName);
+                                });
+                                var fullServiceName = ss.join(',');
+                                var tipId = 'tip' + row.id;
+                                return '<a id="' + tipId + '" onmouseover="layer.tips(\'' + fullServiceName + '\',\'#' + tipId + '\',{tips: [1, \'#1E7BB6\']})">' + serviceName + '</a>';
+                            }
                         }
                     }
-                }
                 },
                 {field: 'cityName', title: '产品地区', width: 150},
                 {
@@ -313,8 +321,8 @@ com.gongsibao.trade.web.OrderProductDetailCtrl = com.gongsibao.trade.web.BaseCtr
                 {
                     field: 'price', title: '售价', width: 100, align: 'right', formatter: function (value, row, index) {
 
-                    return (value / 100).toFixed(2);
-                }
+                        return (value / 100).toFixed(2);
+                    }
                 },
                 {
                     field: 'processStatusId',
@@ -392,8 +400,8 @@ com.gongsibao.trade.web.OrderPaymentCollectionDetailCtrl = com.gongsibao.trade.w
                     field: 'id', title: '操作', width: 80, align: 'center', formatter: function (value, row, index) {
 
 
-                    return '<a class="grid-btn show"  data-iframe="auditPay" data-title="回款信息"   data-id="' + value + '"  data-url="/nav/gsb/platform/trade/auditPay"    href="javascript:void(0)">查看</a>';
-                }
+                        return '<a class="grid-btn show"  data-iframe="auditPay" data-title="回款信息"   data-id="' + value + '"  data-url="/nav/gsb/platform/trade/auditPay"    href="javascript:void(0)">查看</a>';
+                    }
                 },
                 {
                     field: 'payForOrderCount',
@@ -410,8 +418,8 @@ com.gongsibao.trade.web.OrderPaymentCollectionDetailCtrl = com.gongsibao.trade.w
                 {
                     field: 'amount', title: '支付金额', width: 80, align: 'right', formatter: function (value, row, index) {
 
-                    return (value / 100).toFixed(2);
-                }
+                        return (value / 100).toFixed(2);
+                    }
                 },
                 {field: 'offlinePayerName', title: '账户名称', width: 100},
                 {field: 'offlineBankNo', title: '付款账号', width: 100},
@@ -499,8 +507,8 @@ com.gongsibao.trade.web.OrderPerCollectionDetailCtrl = com.gongsibao.trade.web.B
 
                 {
                     field: 'orderId', title: '操作', width: 80, align: 'center', formatter: function (value, row, index) {
-                    return '<a class="grid-btn show"  data-iframe="auditPerformance" data-title="订单业绩信息"  data-id="' + value + '"  data-url="/nav/gsb/platform/trade/auditPerformance"    href="javascript:void(0)">查看</a>';
-                }
+                        return '<a class="grid-btn show"  data-iframe="auditPerformance" data-title="订单业绩信息"  data-id="' + value + '"  data-url="/nav/gsb/platform/trade/auditPerformance"    href="javascript:void(0)">查看</a>';
+                    }
                 },
                 // {field: 'auditNo', title: '审核编号', width: 100},
                 {
@@ -574,9 +582,9 @@ com.gongsibao.trade.web.OrderPayPerCollectionDetailCtrl = com.gongsibao.trade.we
             var orderId = $(this).attr("data-id");
             var url = $(this).attr("data-url");
             var title = $(this).attr("data-title");
-            var  idFraeam = $(this).attr("data-iframe");
-            var urlEnd=url+"?id="+orderId;
-            showDetail(idFraeam,title,urlEnd);
+            var idFraeam = $(this).attr("data-iframe");
+            var urlEnd = url + "?id=" + orderId;
+            showDetail(idFraeam, title, urlEnd);
 
         });
 
@@ -598,8 +606,8 @@ com.gongsibao.trade.web.OrderPayPerCollectionDetailCtrl = com.gongsibao.trade.we
                 {
                     field: 'orderId', title: '操作', width: 80, align: 'center', formatter: function (value, row, index) {
 
-                    return '<a class="grid-btn show"  data-iframe="auditPayPerformance"  data-title="回款业绩信息"  data-id="' + value + '"  data-url="/nav/gsb/platform/trade/auditPayPerformance"    href="javascript:void(0)">查看</a>';
-                }
+                        return '<a class="grid-btn show"  data-iframe="auditPayPerformance"  data-title="回款业绩信息"  data-id="' + value + '"  data-url="/nav/gsb/platform/trade/auditPayPerformance"    href="javascript:void(0)">查看</a>';
+                    }
                 },
                 // {field: 'auditNo', title: '审核编号', width: 100},
 
@@ -647,10 +655,10 @@ com.gongsibao.trade.web.OrderRefundDetailCtrl = com.gongsibao.trade.web.BaseCtrl
         var me = this;
         var orderId = this.queryString('id');
         this.invokeService("queryRefundList", [orderId], function (data) {
-            me.initGrid(data,orderId);
+            me.initGrid(data, orderId);
         });
     },
-    initGrid: function (data,orderId) {
+    initGrid: function (data, orderId) {
 
         var me = this;
         $('#order_refund_grid').datagrid({
@@ -666,8 +674,8 @@ com.gongsibao.trade.web.OrderRefundDetailCtrl = com.gongsibao.trade.web.BaseCtrl
 
                 {
                     field: 'a', title: '操作', width: 80, align: 'center', formatter: function (value, row, index) {
-                    return '<a class="grid-btn" target="_blank" href="/nav/gsb/platform/trade/auditRefund?fefundId='+row.id+'&id='+orderId+'">查看</a>';
-                }
+                        return '<a class="grid-btn" target="_blank" href="/nav/gsb/platform/trade/auditRefund?fefundId=' + row.id + '&id=' + orderId + '">查看</a>';
+                    }
                 },
                 {field: 'no', title: '退款记录编号', width: 100},
                 // {field: 'serviceName', title: '审核编号', width: 100},
@@ -684,7 +692,7 @@ com.gongsibao.trade.web.OrderRefundDetailCtrl = com.gongsibao.trade.web.BaseCtrl
                 {
                     field: 'orderProdId', title: '退款产品', width: 150, formatter: function (value, row, index) {
 
-                }
+                    }
                 },
                 {
                     field: 'cityName',
@@ -761,10 +769,10 @@ com.gongsibao.trade.web.OrderChangePriceDetailCtrl = com.gongsibao.trade.web.Bas
         var orderId = this.queryString('id');
         this.invokeService("queryChangePriceList", [orderId], function (data) {
 
-            me.initGrid(data,orderId);
+            me.initGrid(data, orderId);
         });
     },
-    initGrid: function (data,orderId) {
+    initGrid: function (data, orderId) {
 
         var me = this;
         $('#order_change_price_grid').datagrid({
@@ -779,9 +787,9 @@ com.gongsibao.trade.web.OrderChangePriceDetailCtrl = com.gongsibao.trade.web.Bas
             columns: [[
 
                 {
-                    field: 'a', title: '操作', width: 80, align: 'center', formatter: function (value, row, index) {                    	
-                    return '<a class="grid-btn" target="_blank" href="/nav/gsb/platform/trade/auditOrder?id='+orderId+'">查看</a>';
-                }
+                    field: 'a', title: '操作', width: 80, align: 'center', formatter: function (value, row, index) {
+                        return '<a class="grid-btn" target="_blank" href="/nav/gsb/platform/trade/auditOrder?id=' + orderId + '">查看</a>';
+                    }
                 },
                 {field: 'no', title: '改价审核编号', width: 100, align: 'center'},
                 {
@@ -866,17 +874,17 @@ com.gongsibao.trade.web.OrderDiscountDetailCtrl = com.gongsibao.trade.web.BaseCt
                 {field: 'no', title: '优惠券码', width: 200},
                 {
                     field: 'amount', title: '优惠金额', width: 80, align: 'right', formatter: function (value, row, index) {
-                    return (value / 100).toFixed(2);
-                }
+                        return (value / 100).toFixed(2);
+                    }
                 },
                 {
                     field: 'preferentialId', title: '优惠券制作人', width: 100, formatter: function (value, row, index) {
 
-                    if (row.preferential) {
+                        if (row.preferential) {
 
-                        return row.preferential.creator;
+                            return row.preferential.creator;
+                        }
                     }
-                }
                 },
                 {field: 'createTime', title: '使用时间', width: 130, align: 'center'}
             ]]
@@ -926,6 +934,181 @@ com.gongsibao.trade.web.OrderFollowDetailCtrl = com.gongsibao.trade.web.BaseCtrl
 
 
 /*
+ * 订单关联公司  签单公司
+ */
+var orderId=0;
+com.gongsibao.trade.web.OrderCompanysCtrl = com.gongsibao.trade.web.BaseCtrl.Extends({
+    ctor: function () {
+
+        this.base();
+    },
+    init: function () {
+
+        var me = this;
+         orderId = this.queryString('id');
+        this.invokeService("getCompanyInfo", [orderId], function (data) {
+
+            me.initGrid(data);
+        });
+    },
+    initGrid: function (data) {
+       
+        var me = this;
+        $('#order_bill_company').datagrid({
+            idField: 'id',
+            emptyMsg: '暂无记录',
+            striped: true,
+            pagination: false,
+            showFooter: true,
+            singleSelect: true,
+            height: '100%',
+            toolbar: [{
+                iconCls: 'fa fa-plus',
+                text: '新增',
+                handler: function () {
+
+                    me.add();
+                }
+            }, '-', {
+                iconCls: 'fa fa-remove',
+                text: '删除',
+                handler: function () {
+
+                    me.remove();
+                }
+            }],
+            data: data,
+            columns: [[
+                {field: 'companyId', title: 'ID', width: 100, align: 'center'},
+                {
+                    field: 'companyName',
+                    title: '公司名称',
+                    width: 100,
+                    align: 'center'
+
+                }
+
+
+            ]]
+        });
+    },
+    add: function () {
+
+        var rows = $("#order_bill_company").datagrid('getRows');
+
+        if (rows.length > 0) {
+
+            layer.msg("已经添加签单公司");
+            return;
+        }
+
+        //添加进行关联
+        var me = this;
+        var builder = new System.StringBuilder();
+        builder.append(' <form id="companys_form" style="" class="layui-layer-wrap"><div class="formContent">');
+        builder.append('	<table cellpadding="5" cellspacing="5" class="form-panel">');
+        builder.append('		<tr> <td  class="label_td"> <label style="color:Red">*</label> <label for="companyName">公司名称：</label></td>');
+        builder.append('		<td><input id="company_companyName"  name="companyName" type="combogrid"/></td></tr></table></div></form>');
+
+        layer.open({
+            type: 1,
+            title: '添加签单公司',
+            fixed: false,
+            maxmin: true,
+            shadeClose: false,
+            area: ['20%', '20%'],
+            zIndex: 100000,
+            id: "ordercom",
+            content: builder.toString(),
+            btn: ['确定', '取消'],
+            success: function (layero, index) {
+                $("#company_companyName").combogrid(me.getComOption());
+
+            },
+            yes: function (index, layero) {
+
+               
+
+                var g = $('#company_companyName').combogrid('grid');	// 获取数据表格对象
+                var row = g.datagrid('getSelected');	// 获取选择的行
+               
+
+                var obj = {companyId: row.id, companyName: row.companyName};
+                me.invokeService("optCompanyInfoByorderId", [orderId,row.id], function (data) {//删除
+
+
+                });
+
+                //进行追加
+                $("#order_bill_company").datagrid('appendRow', obj);//然后保存
+
+                layer.closeAll();
+
+
+            }
+        });
+    },
+
+
+    getRows: function () {
+
+        var rows = $("#order_bill_company").datagrid('getRows');
+        return rows;
+    },
+    remove: function () {
+
+       
+        var row = $("#order_bill_company").datagrid('getSelected');
+        if (row == null) {
+            layer.msg("请选择数据记录");
+            return;
+        }
+
+        //提示确认
+        var index = $("#order_bill_company").datagrid('getRowIndex', row);
+
+        this.invokeService("optCompanyInfoByorderId", [row.id,0], function (data) {//删除
+            $("#order_bill_company").datagrid('deleteRow', index);
+        });
+    },
+    getComOption: function () {//配置options
+       
+
+        var comOption = {
+            columns: [[{
+                field: 'companyName',
+                title: '名称',
+                width: 100
+            }]],
+            url: '\/panda\/rest\/reference?code=CompanyIntention', //+ filter,
+            idField: 'id',
+            textField: 'companyName',
+            width: 300,
+            fitColumns: true,
+            panelWidth: 450,
+            panelHeight: 310,
+            pagination: true,
+            pageSize: 10,
+            mode: 'remote',
+            multiple: false,
+            onChange: function (newValue, oldValue) {
+                //
+                // //var filter = ' id IN ( SELECT employee_id FROM sp_salesman WHERE supplier_id ____ ----'+ newValue + '----)';
+                // var grid = this.grid;
+                // filter = ' companyName ____ ----' + newValue + '----';
+                // grid.options.url = '\/panda\/rest\/reference?code=CompanyIntention&filter=' + filter;
+                // $(grid).datagrid(options);
+
+            }
+        };
+
+        return comOption;
+
+    }
+});
+
+
+/*
  * 订单合同
  */
 com.gongsibao.trade.web.OrderContractCtrl = com.gongsibao.trade.web.BaseCtrl.Extends({
@@ -954,7 +1137,7 @@ com.gongsibao.trade.web.OrderTaskDetailCtrl = com.gongsibao.trade.web.BaseCtrl.E
 
 
 /*进行显示查看详情*/
-function showDetail(id,title,url) {
+function showDetail(id, title, url) {
     layer.open({
         type: 2,//1是字符串 2是内容
         title: title,

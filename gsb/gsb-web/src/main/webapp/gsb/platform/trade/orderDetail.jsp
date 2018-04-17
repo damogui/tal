@@ -51,6 +51,9 @@
 						    <%--<div title="优惠明细">   --%>
 						         <%--<table id="order_discount_grid"></table>--%>
 						    <%--</div>--%>
+							<div title="签单公司">
+								<table id="order_bill_company"></table>
+							</div>
 						    <div title="流转日志">   
 						         <table id="order_follow_grid"></table>
 						    </div>
