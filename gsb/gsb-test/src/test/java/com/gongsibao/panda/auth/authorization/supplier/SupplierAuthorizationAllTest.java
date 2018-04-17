@@ -14,6 +14,7 @@ import com.gongsibao.panda.auth.authorization.supplier.igirl.SupplierIgirlSalesm
 import com.gongsibao.panda.auth.authorization.supplier.order.SupplierOrderAdminAuthTest;
 import com.gongsibao.panda.auth.authorization.supplier.order.SupplierOrderLeaderAuthTest;
 import com.gongsibao.panda.auth.authorization.supplier.order.SupplierOrderOperatorAuthTest;
+import com.gongsibao.panda.auth.authorization.supplier.order.SupplierOrderOperatorLeaderAuthTest;
 import com.gongsibao.panda.auth.authorization.supplier.order.SupplierOrderSalesmanAuthTest;
 
 @RunWith(Suite.class)
@@ -26,6 +27,7 @@ import com.gongsibao.panda.auth.authorization.supplier.order.SupplierOrderSalesm
 	SupplierOrderAdminAuthTest.class,
 	SupplierOrderLeaderAuthTest.class,
 	SupplierOrderSalesmanAuthTest.class,
+	SupplierOrderOperatorLeaderAuthTest.class,
 	SupplierOrderOperatorAuthTest.class,
 
 	SupplierIgirlAdminAuthTest.class,

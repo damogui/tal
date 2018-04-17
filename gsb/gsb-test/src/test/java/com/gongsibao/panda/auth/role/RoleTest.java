@@ -68,6 +68,7 @@ public class RoleTest {
 		this.create("Supplier_Order_Admin", "订单_管理员", "Supplier_Order", workbench);
 		this.create("Supplier_Order_Leader", "订单_部门负责人", "Supplier_Order", workbench);
 		this.create("Supplier_Order_Salesman", "订单_业务员", "Supplier_Order", workbench);
+		this.create("Supplier_Order_Operator_Leader", "订单_操作组长", "Supplier_Order", workbench);
 		this.create("Supplier_Order_Operator", "订单_操作员", "Supplier_Order", workbench);
 		
 		// 2.3 服务商-商标
