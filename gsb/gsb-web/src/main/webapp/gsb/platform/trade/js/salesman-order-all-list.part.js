@@ -208,6 +208,11 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             IMessageBox.info('请先选择订单数据');
             return false;
         }
+        
+        if (rows.length > 1) {
+            return false;
+        }
+        
         var contentUrl = this.addRefundUrl + "?id=" + row.id;
         //验证金额 和一些退款的状态
         me.invokeService("refundValidate", [row.id], function (data) {
@@ -249,6 +254,11 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             IMessageBox.info('请先选择订单数据');
             return false;
         }
+        
+        if (rows.length > 1) {
+            return false;
+        }
+        
         var contentUrl = this.addCarryoverUrl + "?id=" + row.id;
         me.invokeService("carryValidate", [row.id], function (data) {
             if (data < 0) {
@@ -289,6 +299,11 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             IMessageBox.info('请先选择订单数据');
             return false;
         }
+        
+        if (rows.length > 1) {
+            return false;
+        }
+        
         //判断是否改价订单（审核中，不允许分期）。0-审核通过、未审核；1-驳回；2-审核中
         me.invokeService("isChangePriceOrde", [row.id], function (data) {
             if (data == 1) {
@@ -346,6 +361,11 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             IMessageBox.info('请先选择订单数据');
             return false;
         }
+        
+        if (rows.length > 1) {
+            return false;
+        }
+        
         var serviceLocator = new org.netsharp.core.JServiceLocator();
         var url = this.addContractUrl + '?fk=orderId:' + row.id + "&isAdd=1";
         //增加订单是否创建合同
@@ -389,8 +409,13 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             IMessageBox.info('请先选择订单数据');
             return false;
         }
+        
+        if (rows.length > 1) {
+            return false;
+        }
+        
         var url = this.addInvoiceUrl + '?fk=orderId:' + row.id + "&isAdd=1";
-        ;
+
         var serviceLocator = new org.netsharp.core.JServiceLocator();
         //增加订单是否创建发票
         serviceLocator.invoke("com.gongsibao.trade.web.InvoiceFormPart", "checkInvoice", [row.id], function (data) {

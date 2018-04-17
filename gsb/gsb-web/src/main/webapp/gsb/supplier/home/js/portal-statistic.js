@@ -37,16 +37,16 @@ com.gongsibao.crm.web.home.ForecastCtrl = com.gongsibao.crm.web.home.PortalStati
 	forecastAmountPars1 : function(method,pars){
 		this.invoke(method,[pars],function(message){
 			var pContent = "<p>";
-			$.each(message, function(key, value) {
+			$.each(message, function(key, value) {				
 				switch(pars){
 					case 1:
-						pContent += "<span style='padding-left: 50px;'>今日" + key + "：" + value + "元</span>";
+						pContent += "<span style='padding-left: 50px;'>今日" + key + "：" + (value/100).toFixed(2) + "元</span>";
 						break;
 					case 2:
-						pContent += "<span style='padding-left: 50px;'>本周" + key + "：" + value + "元</span>";
+						pContent += "<span style='padding-left: 50px;'>本周" + key + "：" + (value/100).toFixed(2) + "元</span>";
 						break;
 					case 3:
-						pContent += "<span style='padding-left: 50px;'>本月" + key + "：" + value + "元</span>";
+						pContent += "<span style='padding-left: 50px;'>本月" + key + "：" + (value/100).toFixed(2) + "元</span>";
 						break;	
 				}
 			});

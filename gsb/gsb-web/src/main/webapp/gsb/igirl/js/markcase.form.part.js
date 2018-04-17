@@ -245,12 +245,13 @@ com.gongsibao.igirl.tm.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Det
 		this.viewModel.clear();
 	},
 	checkMemo: function (value) {
-		var momo=$("#memo").val();
-		var result=momo.match(/^[\u4e00-\u9fa5_a-zA-Z0-9%&',.+-@;=?$]+$/); 
-		if(result==null){
-			IMessageBox.error("【商标说明】只能输入中文、英文、数字和常用标点符号!");
-			$("#memo").val("");
-		}
+//		var momo=$("#memo").val();
+//		//var result=momo.match(/^[\u4e00-\u9fa5_a-zA-Z0-9%&',.+-@;=?$]+$/); 
+//		var result=momo.match(/^(\s*[，。！,.\-@!+$￥\u4e00-\u9fa5_a-zA-Z0-9])*$/); 
+//		if(result==null){
+//			IMessageBox.error("【商标说明】只能输入中文、英文、数字和常用标点符号!");
+//			$("#memo").val("");
+//		}
 	},
 	nclOneChange: function (newValue, oldValue) {
 		$("#selectedTwoStr").val("");
@@ -366,8 +367,13 @@ com.gongsibao.igirl.tm.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Det
 			$("<input id='filterinput' width='30px'/>").insertAfter($t.parent());
 			$("<table id='ncltwogrid' style='margin-top:5px;padding-top:3px;'></table>").insertBefore("#selectedTwoStr");
 			$("#cancleAllSelect").on("click", function () {
-//				alert("a");
-				$('#ncltwogrid').datagrid('clearSelections');
+				IMessageBox.confirm("确定要取消全部小类吗？",function(istrue){
+					if (istrue) {
+						$('#ncltwogrid').datagrid('clearSelections');
+					}
+				});
+				
+//				$('#ncltwogrid').datagrid('clearSelections');
 			});
 		}
 		var selectedItems = [];

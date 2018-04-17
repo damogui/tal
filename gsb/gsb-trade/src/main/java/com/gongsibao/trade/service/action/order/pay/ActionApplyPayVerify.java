@@ -54,10 +54,10 @@ public class ActionApplyPayVerify implements IAction {
             throw new BusinessException ("请填写【付款账户名称】！");
         }
 
-        if (StringManager.isNullOrEmpty (pay.getOfflineBankNo ())) {
-
-            throw new BusinessException ("请填写【付款账号】！");
-        }
+//        if (StringManager.isNullOrEmpty (pay.getOfflineBankNo ())) {
+//
+//            throw new BusinessException ("请填写【付款账号】！");
+//        }
 
         Integer payAmount = pay.getAmount ();
         if (payAmount == null || payAmount.equals (0)) {

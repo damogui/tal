@@ -42,6 +42,4 @@ public class ICompanyController {
         }
         return data;
     }
-
-
 }

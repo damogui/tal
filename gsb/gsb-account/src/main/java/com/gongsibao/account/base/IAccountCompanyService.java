@@ -11,7 +11,7 @@ public interface IAccountCompanyService extends IPersistableService<AccountCompa
 	 * @Description:TODO
 	 * @param
 	 * @return
-	 * @author bhpeng <bhpeng@gongsibao.com>
+	 * @author hbpeng <hbpeng@gongsibao.com>
 	 * @date 2018/4/11 17:33
 	 */
 	int countByAccount(int accountId, int inUse);

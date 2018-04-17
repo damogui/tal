@@ -2,6 +2,7 @@ package com.gongsibao.trade.service;
 
 import com.gongsibao.entity.bd.dic.AuditLogStatusType;
 import com.gongsibao.entity.bd.dic.AuditLogType;
+
 import org.apache.commons.lang.StringUtils;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
@@ -12,6 +13,7 @@ import org.netsharp.service.PersistableService;
 
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.trade.base.IAuditService;
+
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import java.sql.Types;
@@ -124,6 +126,20 @@ public class AuditService extends PersistableService<AuditLog> implements IAudit
             this.pm.executeNonQuery(sql, null);
         }
     }
+
+	@Override
+	public AuditLog getById(Integer id) {
+		Oql oql = new Oql();
+        {
+            oql.setType(this.type);
+            oql.setSelects("*");
+            oql.setFilter("pkid = ?");
+            oql.getParameters().add("pkid", id, Types.INTEGER);
+        }
+
+       AuditLog auditLogs = this.pm.queryFirst(oql);
+        return auditLogs;
+	}
 
     // endregion
 

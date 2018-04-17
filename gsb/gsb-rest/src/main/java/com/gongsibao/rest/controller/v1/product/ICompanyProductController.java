@@ -184,37 +184,6 @@ public class ICompanyProductController {
             }
             data.setCode(200);
             data.setData(productPriceService.productPriceList(productId, cityId, propertyId));
-
-//            Map<String, Object> params = new HashMap<>();
-//            params.put("city_id", cityId);
-//            params.put("product_id", productId);
-//            if (productId > 0) {
-//                params.put("property_id", propertyId);
-//            }
-//
-//            List<ProdPriceAuditWebRequest> webRequests = prodPriceAuditService.getOrganizationInfo(params);
-//            if (CollectionUtils.isEmpty(webRequests)) {
-//                data.setMsg("该地区没有服务项");
-//                return data;
-//            }
-//
-//            result = new ArrayList<>();
-//            Set<Integer> orgIds = webRequests.stream().map(ProdPriceAuditWebRequest::getOrganizationId).collect(Collectors.toSet());
-//
-//            int curOrgId = 4;
-//            if (!orgIds.contains(4)) {
-//                curOrgId = webRequests.get(0).getOrganizationId();
-//            }
-//
-//            for (ProdPriceAuditWebRequest webRequest : webRequests) {
-//                Integer organizationId = webRequest.getOrganizationId();
-//                if (organizationId.compareTo(curOrgId) == 0) {
-//                    result.add(webRequest);
-//                }
-//            }
-//
-//            data.setCode(200);
-//            data.setData(result);
         } catch (Exception e) {
             e.printStackTrace();
             data.setCode(-1);

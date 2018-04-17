@@ -28,7 +28,7 @@ public class ActionAuditStageVerify implements IAction{
 	        if (auditContext == null) {
 	            throw new BusinessException("审核信息不能为空");
 	        }
-	        AuditLog auditLog = auditService.byId(auditContext.getAuditLogId());
+	        AuditLog auditLog = auditService.getById(auditContext.getAuditLogId());
 	        if (auditLog == null) {
 	            throw new BusinessException("审核信息不能为空");
 	        }
@@ -44,7 +44,7 @@ public class ActionAuditStageVerify implements IAction{
 	            throw new BusinessException("该审核类别不是【" + AuditLogType.Fqsq.getText() + "】,禁止审核");
 	        }
 
-	        SoOrder order = orderService.byId(auditLog.getFormId());
+	        SoOrder order = orderService.getByOrderId(auditLog.getFormId());
 	        if (order == null) {
 	            throw new BusinessException("该分期信息不存在");
 	        }

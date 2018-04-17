@@ -848,7 +848,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
             order.setSourceType(OrderSourceType.IGIRL_TM);
             order.setIsInstallment(false);
             order.setInstallmentAuditStatusId(AuditStatusType.wu);
-            order.setAddUserId(tradeMarkCase.getOwnerId());
+            order.setCreatorId(tradeMarkCase.getOwnerId());
             order.setOwnerId(tradeMarkCase.getOwnerId());
             order.setCompanyId(company.getId());
             order.setPlatformSource(OrderPlatformSourceType.Gsb);

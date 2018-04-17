@@ -61,6 +61,7 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
         if (parameter.getKey().equals("keyword")) {
 
             filters.add("no like '%" + keyword + "%'");
+            filters.add("account_mobile like '%" + keyword + "%'");
             filters.add("channel_order_no like '%" + keyword + "%'");
             filters.add("account_mobile like '%" + keyword + "%'");
             filters.add("customer_name like '%" + keyword + "%'");
@@ -69,7 +70,7 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
         }
         //业务员
         if (parameter.getKey().equals("ywyName")) {
-            return "owner_id in (select id from sys_permission_employee where name = '" + keyword + "')";
+            return "owner_id in (select id from sys_permission_employee where name like '%" + keyword + "%')";
         }
 
         //分期申请时间

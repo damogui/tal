@@ -10,16 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/wx/{v}/user")
 @Api(5)
 public class ApiSeController {
-    @Value("${wechat.appid}")
-    private String appId;
+
 
     @Value("${server.port}")
     private String port;
 
-    @RequestMapping(value="/hello",method=RequestMethod.GET)
-    public String helloV1() throws Exception {
-        return port+"find data v5"+appId;
-    }
+
 
     @RequestMapping(value="/hello2",method=RequestMethod.GET)
     public String helloV2() throws Exception {

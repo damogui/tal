@@ -68,7 +68,7 @@ public class OrderResourceTest extends ResourceCreationBase {
                 this.createResourceNodeVoucher(Contract.class.getName(), "合同审核界面", "GSB_Trade_Audit_Form_Contract", IContractService.class.getName(), node2.getId());
                 this.createResourceNodeVoucher(Invoice.class.getName(), "发票审核界面", "GSB_Trade_Audit_Form_Invoice", IInvoiceService.class.getName(), node2.getId());
                 this.createResourceNodeVoucher(File.class.getName(), "合同附件", "Operation_Order_Contract_File", IFileService.class.getName(), node2.getId());
-                
+
 //                this.createResourceNodeVoucher(SoOrder.class.getName(), "日统计", "Gsb_Supplier_Order_Salesman_Day_Report", IOrderService.class.getName(), node1.getId());
 //                this.createResourceNodeVoucher(SoOrder.class.getName(), "周统计", "Gsb_Supplier_Order_Salesman_Week_Report", IOrderService.class.getName(), node1.getId());
 //                this.createResourceNodeVoucher(SoOrder.class.getName(), "月统计", "Gsb_Supplier_Order_Salesman_Month_Report", IOrderService.class.getName(), node1.getId());
@@ -117,6 +117,12 @@ public class OrderResourceTest extends ResourceCreationBase {
                 this.createResourceNodeVoucher(OrderProdSettle.class.getName(), "待结算列表", "Gsb_Supplier_My_Unsettle", IOrderProdSettleService.class.getName(), node5.getId());
                 this.createResourceNodeVoucher(Settle.class.getName(), "我的结算单", "Gsb_Supplier_MySettled", ISettleService.class.getName(), node5.getId());
                 this.createResourceNodeVoucher(Settle.class.getName(), "结算单信息", "Gsb_Supplier_Settle_form", ISettleService.class.getName(), node5.getId());
+            }
+
+            ResourceNode node6 = this.createResourceNodeCategory("交付管理", "Gsb_Supplier_Order_Interactive", node1.getId());
+            {
+                this.createResourceNodeVoucher(OrderProd.class.getName(), "我负责的订单", "Gsb_Supplier_Order_Interactive_My_In_Charge", IOrderProdService.class.getName(), node6.getId());
+                this.createResourceNodeVoucher(OrderProd.class.getName(), "订单操作池", "Gsb_Supplier_Order_Interactive_Operation_Pool", IOrderProdService.class.getName(), node6.getId());
             }
         }
     }
