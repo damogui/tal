@@ -30,13 +30,11 @@
 	<script src='/gsb/platform/trade/js/order.refund-ctrl.js'></script>
 </head>
     <body class="easyui-layout">
-        <div data-options="region:'north',split:false,collapsible:false,closed:false,height:390">
-
-		    <div class="easyui-panel" title="订单信息" data-options="height:200,bodyCls:'no-border'" > 
-		        <jsp:include page="/gsb/platform/trade/include/orderInfo.jsp"></jsp:include>
-			</div>
-			<div class="easyui-panel" title="退款信息" data-options="height:180,bodyCls:'no-border'" style="padding:10px;">
-				  <table cellpadding="3" cellspacing="0" class="form-panel">
+        <div data-options="region:'north',split:false,collapsible:false,closed:false,height:200">
+			<div class="easyui-tabs" style="height:100%;" data-options="fit:true,tabHeight:30">   
+			    <div title="退款信息">   
+			    
+				  <table cellpadding="3" cellspacing="0" class="form-panel" style="margin-top: 10px;">
 				      <tr>
 				          <td class="label_td"><label style="color:Red">*</label><label>退款账套：</label></td>
 				          <td class="control_td">
@@ -76,6 +74,11 @@
 				          </td>
 					</tr>
 				</table>
+			    </div>   
+			    <div title="订单信息">   
+
+			      <jsp:include page="/gsb/platform/trade/include/orderInfo.jsp"></jsp:include>
+			    </div>
 			</div>
 		</div>
 		<div id="center" data-options="region:'center'">
@@ -95,7 +98,7 @@
 	var refundCtrl = null;
 	$(function(){
 		
-		var centerHeight = $('body').height() - 240;
+		var centerHeight = $('body').height() - 200;
 		$('#center').height(centerHeight);
 		
 		refundCtrl = new com.gongsibao.trade.web.OrderRefundCtrl();
