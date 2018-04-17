@@ -131,6 +131,7 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 	},
 	onLoadSuccess:function(data){
 
+		$("#" + this.context.id).datagrid('unselectAll');
 	},
 	onSelect : function(rowIndex, rowData) {
 
