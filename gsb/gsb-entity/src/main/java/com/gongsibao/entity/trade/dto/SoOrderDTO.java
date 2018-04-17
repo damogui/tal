@@ -35,6 +35,8 @@ public class SoOrderDTO extends Persistable {
 	private String productName;
 	//订单状态
 	private OrderStatusType orderStatus = OrderStatusType.Ddfk;
+	/*公司id*/
+	private  Integer companyId;
 	//关联企业
 	private String companyName ;
 	//退单状态
@@ -202,6 +204,13 @@ public class SoOrderDTO extends Persistable {
 	public void setOldOperator(String oldOperator) {
 		this.oldOperator = oldOperator;
 	}
-	
-	
+
+
+	public Integer getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
+	}
 }
