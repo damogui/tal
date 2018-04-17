@@ -1,6 +1,7 @@
 package com.gongsibao.rest.common.web;
 
-import com.gongsibao.taurus.util.DateUtils;
+
+import com.gongsibao.utils.DateUtils;
 
 import java.io.Serializable;
 import java.util.Date;

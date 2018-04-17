@@ -1,7 +1,7 @@
 package com.gongsibao.rest.dto;
 
 import com.gongsibao.rest.common.security.SecurityUtils;
-import com.gongsibao.taurus.util.NumberUtils;
+import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
