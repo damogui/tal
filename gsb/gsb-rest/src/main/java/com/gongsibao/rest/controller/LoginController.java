@@ -2,6 +2,7 @@ package com.gongsibao.rest.controller;
 
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.rest.common.apiversion.Api;
+import com.gongsibao.rest.common.apiversion.LoginCheck;
 import com.gongsibao.rest.common.util.RedisClient;
 import com.gongsibao.rest.common.util.WebUtils;
 import com.gongsibao.rest.common.web.Constant;
