@@ -34,7 +34,7 @@
 			<div class="easyui-tabs" style="height:100%;" data-options="fit:true,tabHeight:30">   
 			    <div title="退款信息">   
 			    
-				  <table cellpadding="3" cellspacing="0" class="form-panel" style="margin-top: 10px;">
+				  <table cellpadding="3" cellspacing="3" class="form-panel" style="margin-top: 10px;">
 				      <tr>
 				          <td class="label_td"><label style="color:Red">*</label><label>退款账套：</label></td>
 				          <td class="control_td">
