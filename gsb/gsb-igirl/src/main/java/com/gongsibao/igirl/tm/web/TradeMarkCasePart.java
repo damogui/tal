@@ -12,6 +12,7 @@ import org.netsharp.entity.IPersistable;
 import org.netsharp.panda.annotation.Authorization;
 import org.netsharp.panda.commerce.FormPart;
 import org.netsharp.panda.core.HttpContext;
+import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.util.DateManage;
 import org.netsharp.util.StringManager;
 
@@ -189,7 +190,7 @@ public class TradeMarkCasePart extends FormPart {
 		for(TradeMark tm :tradeMarks) {
 			TradeMarkDto tmd =new TradeMarkDto();
 			tmd.setTmId(tm.getId());
-			tmd.setTmName(tm.getMemo());
+			tmd.setTmName(tm.getMemo()+":"+tm.getNclOne().getCode()+"类");
 			tmd.setTmState(tm.getMarkState().getText());
 			tmds.add(tmd);
 		}
@@ -224,8 +225,9 @@ public class TradeMarkCasePart extends FormPart {
 
 	@SuppressWarnings("rawtypes")
 	@Authorization(is=false)
-	public ResultDto getAbnormalNotice(Integer ownerId) {
-		List<AbnormalNoticeDto> noticeList=tradeMarkService.getAbnormalNotice(ownerId);
+	public ResultDto getAbnormalNotice() {
+		List<AbnormalNoticeDto> noticeList=tradeMarkService.getAbnormalNotice();
 		return ResultDto.getEntityListResultDto(noticeList);
 	}
+	
 }

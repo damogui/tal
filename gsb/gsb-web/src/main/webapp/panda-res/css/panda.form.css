@@ -84,7 +84,7 @@
 .toolbar {
 	padding-top: 1px;
 	padding-bottom: 1px;
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid #eee;
 	padding-left: 2px;
 	background: #fafafa;
 }
@@ -95,7 +95,7 @@
     bottom: 0;
     width: 100%;
     z-index: 10000;
-    border-top: 1px solid #ddd;
+    border-top: 1px solid #eee;
     background-color: #fff;
 }
 

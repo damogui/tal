@@ -177,6 +177,7 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 			
 			
 			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
+			addColumn(datagrid, "creator", "创建人", ControlTypes.DATETIME_BOX, 100);
 			PDatagridColumn column = addColumn(datagrid, "taskType", "类型", ControlTypes.ENUM_BOX, 100, false);{
 				
 				String formatter = EnumUtil.getColumnFormatter(TaskCustomerType.class);
@@ -207,6 +208,7 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar("panda/datagrid/detail");
+			
 			part.setJsController(taskDetailJsController);
 		}
 		workspace.getParts().add(part);
@@ -225,7 +227,8 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 		PDatagrid datagrid = new PDatagrid(node, "关联企业");
 		{	
 			datagrid.setShowCheckbox(false);
-			addColumn(datagrid, "createTime", "关联时间", ControlTypes.DATETIME_BOX, 130);
+			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
+			addColumn(datagrid, "creator", "创建人", ControlTypes.DATETIME_BOX, 100);
 			addColumn(datagrid, "company.companyName", "公司名称", ControlTypes.TEXT_BOX, 300);
 		}
 

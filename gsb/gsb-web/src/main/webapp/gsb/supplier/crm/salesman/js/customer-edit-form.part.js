@@ -18,5 +18,9 @@ com.gongsibao.crm.web.SalesmanTaskDetailPart = com.gongsibao.crm.web.NCustomerTa
         this.base();
         this.addUrl = '/panda/crm/salesman/task/add';
         this.editUrl = '/panda/crm/salesman/task/edit';
+    },
+    getremoveState:function(){
+    	
+    	return UiElementState.Hide;
     }
 });

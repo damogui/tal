@@ -16,7 +16,7 @@ public class SupplierOrderOperatorAuthTest extends AuthBaseTest{
 
     protected void getResourceCodeList() {
 
-        this.resourceNodeCodeList.add("Gsb_Supplier_Order_Interactive");
+        this.resourceNodeCodeList.add("Gsb_Supplier_Order_Interactive_My_In_Charge");
 
     }
 }

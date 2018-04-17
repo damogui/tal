@@ -35,12 +35,14 @@ public class InteractiveOperationPoolWorkspaceTest extends InteractiveMyInCharge
         resourceNodeCode = "Gsb_Supplier_Order_Interactive_Operation_Pool";
         listToolbarPath = "/crm/order/operationpool/list";
         List<String> ss = new ArrayList<>();
-        ss.add("/gsb/platform/trade/js/interactive-myincharge-list.part.js");
-        ss.add("/gsb/platform/trade/js/interactive-operation-pool-list.part.js");
+        ss.add("/gsb/platform/trade/js/prod/interactive-myincharge-list.part.js");
+        ss.add("/gsb/platform/trade/js/prod/select-salesman.ctrl.js");
+        ss.add("/gsb/platform/trade/js/prod/interactive-operation-pool-list.part.js");
         ss.add("/gsb/panda-extend/gsb.custom.query.controls.js");
         listPartImportJs = StringManager.join("|", ss);
         listPartServiceController = OperationPoolListPart.class.getName();
         listPartJsController = OperationPoolListPart.class.getName();
+        isSingleSelect = false;
     }
 
     @Test
@@ -73,10 +75,10 @@ public class InteractiveOperationPoolWorkspaceTest extends InteractiveMyInCharge
             item.toNew();
             item.setCode("addFollowUp");
             item.setIcon(PToolbarHelper.iconAdd);
-            item.setName("批量分配");
+            item.setName("批量添加负责人");
             item.setSeq(3);
             item.setOperationType(ot1);
-            item.setCommand("{controller}.batchOrderTran();");
+            item.setCommand("{controller}.addBatchPrincipal();");
             toolbar.getItems().add(item);
         }
 

@@ -9,12 +9,16 @@ import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.dic.AuditLogStatusType;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.*;
+import com.gongsibao.entity.trade.dto.SoOrderDTO;
 import com.gongsibao.trade.base.*;
+import com.gongsibao.trade.service.OrderService;
 import com.gongsibao.trade.web.dto.AuditLogDTO;
+import com.gongsibao.u8.base.ISoOrderService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 
 
+import org.netsharp.core.QueryParameters;
 import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
 
@@ -221,7 +225,7 @@ public class OrderDetailController {
         //oql.setFilter(String.format("salesman_id=%s  ", SessionManager.getUserId()));
         oql.setFilter("order_id=?");
 
-        oql.getParameters().add("@order_id",orderId,Types.INTEGER);
+        oql.getParameters().add("@order_id", orderId, Types.INTEGER);
 
 
         List<NDepReceivable> ndepRevs = nDepReceivableService.queryList(oql);
@@ -265,7 +269,7 @@ public class OrderDetailController {
 //        oql.setFilter(String.format("salesman_id=%s or creator_id =%s ", SessionManager.getUserId(), SessionManager.getUserId()));
 
         oql.setFilter("order_id=?");
-        oql.getParameters().add("@order_id",orderId,Types.INTEGER);
+        oql.getParameters().add("@order_id", orderId, Types.INTEGER);
         List<NDepPay> nDepPays = nDepPayService.queryList(oql);
         for (NDepPay item : nDepPays
                 ) {
@@ -289,5 +293,39 @@ public class OrderDetailController {
 
         return auditLogDTOList;
     }
+
+
+    /*获取订单的公司信息*/
+    public List<SoOrderDTO> getCompanyInfo(Integer orderId) {
+
+        IOrderService orderService = ServiceFactory.create(IOrderService.class);
+        String sels = "SoOrder.{pkid,companyId},SoOrder.companyIntention.*";
+        SoOrder soOrder = orderService.getSoOrderById(orderId, sels);
+        List<SoOrderDTO> list = new ArrayList<>();
+        if (soOrder != null&&soOrder.getCompanyId()!=0) {
+            SoOrderDTO soOrderDTO = new SoOrderDTO();
+            soOrderDTO.setId(soOrder.getId());
+            soOrderDTO.setCompanyId(soOrder.getCompanyId());
+            soOrderDTO.setCompanyName(soOrder.getCompanyIntention() == null ? "" : soOrder.getCompanyIntention().getCompanyName());
+            list.add(soOrderDTO);
+        }
+        return list;
+
+    }
+
+    /*操作公司信息orderId 订单id  comId >0添加0删除*/
+    public int optCompanyInfoByorderId(Integer orderId, Integer comId) {
+
+        IPersister<SoOrder> orderService = PersisterFactory.create();
+        String sql = "UPDATE  so_order  SET  company_id=?  WHERE  pkid=?";
+        QueryParameters qps = new QueryParameters();
+
+        qps.add("@company_id", comId, Types.INTEGER);
+        qps.add("@pkid", orderId, Types.INTEGER);
+        int num = orderService.executeNonQuery(sql, qps);
+        return num;
+
+    }
+
 
 }

@@ -147,6 +147,8 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 				datagrid.setShowTitle(true);
 				datagrid.setName("意向产品");
 			}
+			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
+			addColumn(datagrid, "creator", "创建人", ControlTypes.DATETIME_BOX, 100);
 			addColumn(datagrid, "productCategory1.name", "一级分类", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "productCategory2.name", "二级分类", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "product.name", "产品", ControlTypes.TEXT_BOX, 200, false);
@@ -166,6 +168,8 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 			formField = addFormField(form, "productCategory1.name", "一级分类", null, ControlTypes.CUSTOM, false, true);
 			{
 				formField.setWidth(200);
+				addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
+				addColumn(datagrid, "creator", "创建人", ControlTypes.DATETIME_BOX, 100);
 				formField.setCustomControlType(DictComboBox.class.getName());
 				formField.setTroikaTrigger("controllerproducts.productCategory1Select(newValue,oldValue);");
 				formField.setRefFilter("type=201 and pid=0");

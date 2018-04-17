@@ -3,12 +3,24 @@ package com.gongsibao.rest.controller;
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.rest.common.apiversion.Api;
 import com.gongsibao.rest.common.util.RedisClient;
+import com.gongsibao.rest.common.util.WebUtils;
+import com.gongsibao.rest.common.web.Constant;
 import com.gongsibao.rest.common.web.ResponseData;
 import com.gongsibao.rest.service.user.IAccountService;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.NetsharpException;
+import org.netsharp.wx.mp.api.oauth.OAuthRequest;
+import org.netsharp.wx.mp.api.oauth.OAuthResponse;
+import org.netsharp.wx.pa.base.IFansService;
+import org.netsharp.wx.pa.base.IPublicAccountService;
+import org.netsharp.wx.pa.entity.Fans;
+import org.netsharp.wx.pa.entity.PublicAccount;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +28,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/wx/{v}")
@@ -27,6 +41,9 @@ public class LoginController {
     IAccountService accountService;
     @Autowired
     private RedisClient redisClient;
+
+    @Value("${weixin.oid}")
+    private String oid;
     /**
      * @Description:TODO 登录验证
      * @param  openId
@@ -71,6 +88,7 @@ public class LoginController {
         }
         //生成验证码并保存至缓存中;
         String code = RandomStringUtils.randomNumeric(6);
+        redisClient.remove(mobilePhone);
         redisClient.set(mobilePhone, code,60*15L);
         logger.info("code=" + code + "| mobilePhone : " + mobilePhone);
         //发送验证码至指定手机号
@@ -81,7 +99,7 @@ public class LoginController {
         new Thread() {
             @Override
             public void run() {
-                accountService.sendSms(mobilePhone, smsString);
+                accountService.sendSms(mobilePhone.trim(), smsString);
             }
         }.start();
         return data;
@@ -108,7 +126,7 @@ public class LoginController {
             return data;
         }
         //验证码校验
-        if (null==redisClient.get(mobilePhone)||!redisClient.get(mobilePhone).equals(code)) {
+        if (null==redisClient.get(mobilePhone)||!redisClient.get(mobilePhone).contains(code)) {
             data.setCode(500);
             data.setMsg("验证码错误");
             return data;
@@ -140,7 +158,6 @@ public class LoginController {
             @RequestParam("code") String code,
             @RequestParam("state") String state
     ) {
-
         ResponseData data = new ResponseData();
         //手机号校验
         if (StringUtils.isBlank(code)) {
@@ -153,4 +170,62 @@ public class LoginController {
         data.setMsg("获取code成功,状态"+state);
         return data;
     }
+
+    @RequestMapping(value = "/user/query/openId", method = RequestMethod.GET)
+    public ResponseData getOpenIdByCode(@RequestParam("code") String code){
+        ResponseData data = new ResponseData();
+        IPublicAccountService wcService = ServiceFactory.create(IPublicAccountService.class);
+        IFansService fansService = ServiceFactory.create(IFansService.class);
+        PublicAccount pa = wcService.byOriginalId(oid);
+        if (pa == null) {
+            throw new NetsharpException("没有找到公众号，原始id：" + oid);
+        }
+        OAuthRequest oauth = new OAuthRequest();
+        {
+            oauth.setAppId(pa.getAppId());
+            oauth.setAppSecret(pa.getAppSecret());
+            oauth.setScope(OAuthRequest.OauthScope.snsapi_base);
+            oauth.setCode(code);
+        }
+        Fans fans = null;
+        try {
+            OAuthResponse response = oauth.getResponse();
+            String openId = response.getOpenid();
+            fans =  fansService.byOpenId(openId);
+            data.setCode(200);
+            data.setData(fans);
+            data.setMsg("获取成功");
+        } catch (Exception ex) {
+            logger.error("", ex);
+        }
+        return data;
+    }
+    
+    @RequestMapping(value = "/login/icompany", method = RequestMethod.GET)
+    public ResponseData loginIcompany(
+            @RequestParam("openId") String openId,
+            HttpServletRequest request, HttpServletResponse response){
+        ResponseData data = new ResponseData();
+        // 清cookie
+        WebUtils.removeCookieCom(response, Constant.COOKIE_ACCOUNT_LOGIN_TICKET);
+        Account ucAccount=accountService.queryByOpenId(openId);
+        if (null != ucAccount) {
+            data.setCode(200);
+            String ticket = ucAccount.getTicket();
+            // 未单点登录
+            if (StringUtils.isBlank(ticket)) {
+                ticket = UUID.randomUUID().toString();
+                ucAccount.setTicket(ticket);
+                accountService.updateTicket(ucAccount.getId(), ticket);
+            }
+            data.setData(ucAccount);
+            WebUtils.setCookieCom(response, Constant.COOKIE_ACCOUNT_LOGIN_TICKET, ticket, Constant.TIME_ONE_YEAR);
+        }else{
+            data.setCode(-1);
+            data.setMsg("未绑定手机号，登录失败！");
+        }
+        return data;
+    }
+    
+    
 }

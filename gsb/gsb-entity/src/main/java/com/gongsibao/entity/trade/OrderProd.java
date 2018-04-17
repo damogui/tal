@@ -41,7 +41,7 @@ public class OrderProd extends BaseEntity {
     private Integer version;
 
     @JsonIgnore
-    @Reference(foreignKey = "orderId", header = "销售订单", primaryKey = "pkid")
+    @Reference(foreignKey = "orderId", header = "订单", primaryKey = "pkid")
     private SoOrder soOrder;
 
     @Column(name = "product_id", header = "产品")
@@ -77,7 +77,7 @@ public class OrderProd extends BaseEntity {
     @Column(name = "process_status_id", header = "进度状态")
     private Integer processStatusId = 0;
 
-    @Reference(foreignKey = "processStatusId", header = "进度状态")
+    @Reference(foreignKey = "processStatusId", header = "进度状态", primaryKey = "pkid")
     private WorkflowNode processStatus;
 
     @Column(name = "audit_status_id", header = "审核状态：type=105")
@@ -201,6 +201,9 @@ public class OrderProd extends BaseEntity {
     @Column(name = "brand_type_name", header = "商标类型")
     private String brandTypeName;
 
+    @Exclusive
+    @Column(name = "allocation_operator_date", header = "分配操作员日期")
+    private Date allocationOperatorDate;
 
     public Integer getQuantity() {
         return quantity;
@@ -616,5 +619,29 @@ public class OrderProd extends BaseEntity {
 
     public void setSurplusDays(Integer surplusDays) {
         this.surplusDays = surplusDays;
+    }
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
+    public String getBrandTypeName() {
+        return brandTypeName;
+    }
+
+    public void setBrandTypeName(String brandTypeName) {
+        this.brandTypeName = brandTypeName;
+    }
+
+    public Date getAllocationOperatorDate() {
+        return allocationOperatorDate;
+    }
+
+    public void setAllocationOperatorDate(Date allocationOperatorDate) {
+        this.allocationOperatorDate = allocationOperatorDate;
     }
 }

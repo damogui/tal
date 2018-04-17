@@ -140,13 +140,13 @@ public class DpTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		addColumn(datagrid, "markSubmitTime", "商标提交时间", ControlTypes.DATETIME_BOX, 120);
 		addColumn(datagrid, "tradeMarkCase.ownerName", "业务人员", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "nclOne.code", "商标大类", ControlTypes.TEXT_BOX, 50);
+		addColumn(datagrid, "markState", "状态", ControlTypes.ENUM_BOX, 100);
 		addColumn(datagrid, "tradeMarkCase.orderCode", "订单号", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "code", "商标号", ControlTypes.TEXT_BOX, 120);
 		addColumn(datagrid, "proxyCode", "代理号", ControlTypes.TEXT_BOX, 120);
 		addColumn(datagrid, "tradeMarkCase.companyName", "公司名称", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "tradeMarkCase.applier", "申请人", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "memo", "商标说明", ControlTypes.TEXT_BOX, 120);
-		addColumn(datagrid, "markState", "状态", ControlTypes.ENUM_BOX, 100);
 		addColumn(datagrid, "tradeMarkCaseId", "案件id", ControlTypes.TEXT_BOX, 200).setVisible(false);
 		column = addColumn(datagrid, "tradeMarkCase.urgency", "紧急(小时)", ControlTypes.TEXT_BOX, 100);
 		column.setOrderbyMode(OrderbyMode.ASC);

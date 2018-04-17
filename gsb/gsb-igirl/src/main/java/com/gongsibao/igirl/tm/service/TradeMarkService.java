@@ -18,6 +18,7 @@ import org.netsharp.core.IRow;
 import org.netsharp.core.Oql;
 import org.netsharp.organization.base.IEmployeeService;
 import org.netsharp.organization.entity.Employee;
+import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.SelectBuilder;
 import org.netsharp.wx.ea.base.IEaMessageService;
@@ -566,7 +567,8 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 	}
 
 	@Override
-	public List<AbnormalNoticeDto> getAbnormalNotice(Integer ownerId) {
+	public List<AbnormalNoticeDto> getAbnormalNotice() {
+		int ownerId = SessionManager.getUserId();
 		List<AbnormalNoticeDto> anList = new ArrayList<AbnormalNoticeDto>(); 
 		List<String> stateList = new ArrayList<String>(); 
 		StringBuffer sql = new StringBuffer();

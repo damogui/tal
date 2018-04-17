@@ -233,6 +233,8 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 		PDatagrid datagrid = new PDatagrid(node, "意向产品");
 		{
 			datagrid.setShowCheckbox(false);
+			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
+			addColumn(datagrid, "creator", "创建人", ControlTypes.DATETIME_BOX, 100);
 			addColumn(datagrid, "productCategory1.name", "一级分类", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "productCategory2.name", "二级分类", ControlTypes.TEXT_BOX, 100, false);
 			addColumn(datagrid, "product.name", "产品", ControlTypes.TEXT_BOX, 300);
@@ -265,6 +267,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 		{
 			datagrid.setShowCheckbox(false);
 			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
+			addColumn(datagrid, "creator", "创建人", ControlTypes.DATETIME_BOX, 100);
 			PDatagridColumn column = addColumn(datagrid, "foolowStatus", "跟进状态", ControlTypes.ENUM_BOX, 100);
 			{
 				String formatter = EnumUtil.getColumnFormatter(CustomerFollowStatus.class);
@@ -298,6 +301,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 		{
 			datagrid.setShowCheckbox(false);
 			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
+			addColumn(datagrid, "creator", "创建人", ControlTypes.DATETIME_BOX, 100);
 			PDatagridColumn column = addColumn(datagrid, "type", "通知类型", ControlTypes.ENUM_BOX, 100);
 			{
 				String formatter = EnumUtil.getColumnFormatter(NotifyType.class);
@@ -327,7 +331,8 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 		{
 			datagrid.setShowCheckbox(false);
 			// 子页面枚举显示需要格式化一下
-			addColumn(datagrid, "createTime", "操作时间", ControlTypes.DATETIME_BOX, 130);
+			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
+			addColumn(datagrid, "creator", "创建人", ControlTypes.DATETIME_BOX, 100);
 			PDatagridColumn column = addColumn(datagrid, "changeType", "操作类型", ControlTypes.ENUM_BOX, 100);
 			{
 				String formatter = EnumUtil.getColumnFormatter(ChangeType.class);

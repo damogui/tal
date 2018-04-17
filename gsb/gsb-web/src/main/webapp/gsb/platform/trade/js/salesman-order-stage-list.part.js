@@ -13,7 +13,7 @@ com.gongsibao.trade.web.SalesmanStagingListPart = org.netsharp.panda.commerce.Li
               fixed: false,
               maxmin: true,
               shadeClose: true,
-              area: ['50%', '70%'],
+              area: ['95%', '95%'],
               zIndex: 100000,
               content: contentUrl
           });

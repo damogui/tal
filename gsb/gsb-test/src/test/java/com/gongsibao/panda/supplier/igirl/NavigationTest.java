@@ -71,11 +71,13 @@ public class NavigationTest extends NavigationBase {
 			{
 				createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_All_" + TradeMarkCase.class.getSimpleName(), "方案生成", "/igirl/trademarkcase/all/list", 1);
 				createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_All_" + TradeMark.class.getSimpleName(),     "进度跟进", "/igirl/all/progress/list", 2);
-				createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_My_"  + TradeMarkCase.class.getSimpleName(), "我的方案", "/igirl/my/case/list", 3);
-				createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_My_"  +  TradeMark.class.getSimpleName(),    "我的跟进", "/igirl/my/progress/list", 4);
-				createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_Dp_"  + TradeMarkCase.class.getSimpleName(), "部门方案", "/igirl/dp/case/list", 5);
-				createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_Dp_"  + TradeMark.class.getSimpleName(),    "部门跟进", "/igirl/dp/progress/list", 6);
-				createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_FollowNotice_"  +  TradeMark.class.getSimpleName(),    "异常商标", "/igirl/notice/follow/list", 7);
+				createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_My_"  + TradeMarkCase.class.getSimpleName(), "我的方案", "/igirl/my/case/list", 4);
+				createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_My_"  +  TradeMark.class.getSimpleName(),    "我的跟进", "/igirl/my/progress/list", 5);
+				createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_Dp_"  + TradeMarkCase.class.getSimpleName(), "部门方案", "/igirl/dp/case/list", 7);
+				createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_Dp_"  + TradeMark.class.getSimpleName(),    "部门跟进", "/igirl/dp/progress/list", 8);
+				createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_AllFollowNotice_"  +  TradeMark.class.getSimpleName(),    "异常商标", "/igirl/notice/allfollow/list", 3);
+				createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_DpFollowNotice_"  +  TradeMark.class.getSimpleName(),    "部门异常", "/igirl/notice/dpfollow/list", 9);
+				createPTreeNode(tree, "GSB_IGIRL_TM", null, "IGIRL_FollowNotice_"  +  TradeMark.class.getSimpleName(),    "我的异常", "/igirl/notice/follow/list", 6);
 
 			}
 			createPTreeNode(tree, "GSB_TRADE_AI", null, "GSB_IGIRL_CTM", "商标变更", "", 2);

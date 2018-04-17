@@ -17,6 +17,9 @@ public class U8Department extends Entity {
     @Column(name = "code", header = "部门编号")
     private String code;
 
+    @Column(name = "personnel_code", header = "个人编号")
+    private String personnelCode;
+
     @Column(name = "name", header = "部门名称")
     private String name;
 
@@ -100,5 +103,13 @@ public class U8Department extends Entity {
 
     public void setSalesman(Employee salesman) {
         this.salesman = salesman;
+    }
+
+    public String getPersonnelCode() {
+        return personnelCode;
+    }
+
+    public void setPersonnelCode(String personnelCode) {
+        this.personnelCode = personnelCode;
     }
 }

@@ -66,7 +66,7 @@ public class AuditRefundWorkspaceTest extends WorkspaceCreationBase{
         addColumn(datagrid, "fefund.soOrder.no", "订单编号", ControlTypes.TEXT_BOX, 80);
         addColumn(datagrid, "fefund.soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "fefund.soOrder.payStatus", "付款状态", ControlTypes.ENUM_BOX, 100);
-        addColumn(datagrid, "fefund.soOrder.companyIntention.name", "签单公司", ControlTypes.TEXT_BOX, 250);
+        addColumn(datagrid, "fefund.soOrder.companyIntention.companyName", "签单公司", ControlTypes.TEXT_BOX, 250);
         column = addColumn(datagrid, "fefund.soOrder.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
         	column.setAlign(DatagridAlign.RIGHT);
         }
@@ -102,11 +102,11 @@ public class AuditRefundWorkspaceTest extends WorkspaceCreationBase{
          queryProject.toNew();
          PQueryItem item = null;
          queryProject.setColumnCount(3);
-         /*item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
+         item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
          {
-             item.setTooltip("订单编号、渠道订单编号、下单人、下单人电话、签单企业");
+             item.setTooltip("订单编号、渠道订单编号、签单公司");
              item.setWidth(350);
-         }*/
+         }
          /*addQueryItem(queryProject, "fefund.soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX);*/
          addQueryItem(queryProject, "status", "审核状态", ControlTypes.ENUM_BOX);
          /*addQueryItem(queryProject, "fefund.soOrder.payStatus", "订单付款状态", ControlTypes.ENUM_BOX);*/

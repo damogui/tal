@@ -69,7 +69,7 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
         addColumn (datagrid, "soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "soOrder.payStatus", "付款状态", ControlTypes.ENUM_BOX, 100);
         addColumn (datagrid, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX, 200);
-        addColumn (datagrid, "soOrder.companyIntention.name", "签单公司", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "soOrder.companyIntention.companyName", "签单公司", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "soOrder.totalPrice", "原价金额", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "soOrder.payablePrice", "应付金额", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "soOrder.paidPrice", "已付金额", ControlTypes.TEXT_BOX, 100);
@@ -96,11 +96,11 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
         PQueryItem item = null;
         queryProject.setColumnCount(3);
 
-        /*item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
+        item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
         {
-            item.setTooltip("订单编号、渠道订单编号、下单人、下单人电话、签单企业");
+            item.setTooltip("订单编号、渠道订单编号、签单公司");
             item.setWidth(350);
-        }*/
+        }
         /*addQueryItem(queryProject, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX);*/
         addQueryItem(queryProject, "soOrder.installmentAuditStatusId", "审核状态", ControlTypes.ENUM_BOX);
         addQueryItem(queryProject, "soOrder.payStatus", "付款状态", ControlTypes.ENUM_BOX);

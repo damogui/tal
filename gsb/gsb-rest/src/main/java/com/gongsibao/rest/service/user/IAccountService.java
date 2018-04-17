@@ -19,4 +19,8 @@ public interface IAccountService {
     void sendTextMessage(String content, String openId,String originalId);
 
     Account queryByMobile(String mobile);
+
+    Account queryByOpenId(String openId);
+
+    void updateTicket(Integer id,String ticket);
 }

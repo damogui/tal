@@ -4,6 +4,7 @@ import com.gongsibao.entity.igirl.ic.dict.CorpBjZone;
 import com.gongsibao.entity.igirl.ic.dict.CorpPropertyRight;
 import com.gongsibao.entity.igirl.ic.dict.CorpResidenceProvision;
 import com.gongsibao.entity.igirl.ic.dict.CorpSpecial;
+import com.gongsibao.entity.igirl.ic.ex.dict.BooleanType;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
@@ -63,6 +64,13 @@ public class IcBaseInfo extends Entity{
 
     @Column(name = "custom_scope",header = "经营范围")
     private String customScope;
+
+    @Column(name = "executive",header = "是否设立董事会")
+    private BooleanType executive = BooleanType.NO;
+
+    //supervisorNotSet:不设立监事会,监事人数1-2人     supervisorYesSet:设立监事会,监事人数至少为3人,其中设监事会主席1人
+    @Column(name = "supervisor",header = "是否设立监事会")
+    private BooleanType supervisor = BooleanType.NO;
 
     public String getRegCap() {
         return regCap;

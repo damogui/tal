@@ -1,10 +1,14 @@
 package com.gongsibao.entity.igirl.ic.baseinfo;
 
+import com.gongsibao.entity.igirl.ic.IcRegisterCase;
 import com.gongsibao.entity.igirl.ic.dict.CorpType;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
+import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
+
+import java.util.List;
 
 @Table(name = "ic_un_person",header = "非自然人股东")
 public class IcUnPerson extends Entity {
@@ -44,14 +48,14 @@ public class IcUnPerson extends Entity {
     @Column(name = "dom_other",header = "身份证登记住址街道")
     private String domOther;
 
-     @Column(name = "money",header = "出资金额")
-     private String money;
+    @Column(name = "ic_register_case_id",header = "工商注册案子Id")
+    private Integer registerCaseId;
 
-    @Column(name = "way",header = "出资方式")
-    private String way;
+    @Reference(foreignKey = "registerCaseId",header = "工商注册案子")
+    private IcRegisterCase registerCase;
 
-    @Column(name = "time",header = "出资时间")
-    private String time;
+    @Subs(foreignKey = "unPersonId",header = "非自然人股东",subType = IcCost.class)
+    private List<IcCost> costs;
 
     public String getName() {
         return name;
@@ -133,30 +137,6 @@ public class IcUnPerson extends Entity {
         this.domOther = domOther;
     }
 
-    public String getMoney() {
-        return money;
-    }
-
-    public void setMoney(String money) {
-        this.money = money;
-    }
-
-    public String getWay() {
-        return way;
-    }
-
-    public void setWay(String way) {
-        this.way = way;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
     public Integer getEntLicTypeId() {
         return entLicTypeId;
     }
@@ -171,5 +151,29 @@ public class IcUnPerson extends Entity {
 
     public void setNationalityId(Integer nationalityId) {
         this.nationalityId = nationalityId;
+    }
+
+    public List<IcCost> getCosts() {
+        return costs;
+    }
+
+    public void setCosts(List<IcCost> costs) {
+        this.costs = costs;
+    }
+
+    public Integer getRegisterCaseId() {
+        return registerCaseId;
+    }
+
+    public void setRegisterCaseId(Integer registerCaseId) {
+        this.registerCaseId = registerCaseId;
+    }
+
+    public IcRegisterCase getRegisterCase() {
+        return registerCase;
+    }
+
+    public void setRegisterCase(IcRegisterCase registerCase) {
+        this.registerCase = registerCase;
     }
 }

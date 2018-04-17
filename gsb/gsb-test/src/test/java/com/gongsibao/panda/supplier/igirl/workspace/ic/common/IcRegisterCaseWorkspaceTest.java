@@ -1,10 +1,7 @@
 package com.gongsibao.panda.supplier.igirl.workspace.ic.common;
 
 import com.gongsibao.entity.igirl.ic.IcRegisterCase;
-import com.gongsibao.igirl.ic.web.BaseInfoDetailPart;
-import com.gongsibao.igirl.ic.web.DirectorDetailPart;
-import com.gongsibao.igirl.ic.web.IcRegisterCasePart;
-import com.gongsibao.igirl.ic.web.UnPersonDetailPart;
+import com.gongsibao.igirl.ic.web.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
@@ -117,7 +114,19 @@ public class IcRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 			item.setCommand(null);
 			item.setOperationType(ot1);
 			item.setSeq(4000);
-			item.setCommand("{controller}.saveP();");
+			item.setCommand("{controller}.save();");
+			toolbar.getItems().add(item);
+		}
+		item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("add");
+			item.setIcon("fa fa-plus");
+			item.setName("新增");
+			item.setCommand(null);
+			item.setOperationType(ot1);
+			item.setSeq(3000);
+			item.setCommand("{controller}.add();");
 			toolbar.getItems().add(item);
 		}
 		toolbarService.save(toolbar);
@@ -165,18 +174,13 @@ public class IcRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 	protected void addDetailGridPart(PWorkspace workspace) {
 		createSecDetailPart(workspace);
 		createThiDetailPart(workspace);
-		createFouDetailPart(workspace);
+		//createFouDetailPart(workspace);
 	}
 	/*新增页第二页效果*/
 	private void createSecDetailPart(PWorkspace workspace) {
 
 		/*这个service名字不用改*/
 		ResourceNode node = this.resourceService.byCode("IGRIL_IC_REGIST_IcBaseInfo");
-		PDatagridColumn column = null;
-		PDatagrid datagrid = new PDatagrid(node, "基础信息");
-		{
-			addColumn(datagrid, "regCap", "注册资本", ControlTypes.TEXT_BOX, 100);
-		}
 		/*写成弹窗的形式，进行单独保存*/
 		PForm form = new PForm();
 		{
@@ -214,13 +218,10 @@ public class IcRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 			part.setRelationRole("baseInfo");
 			part.setResourceNode(node);
 			part.setPartTypeId(PartType.FORM_PART.getId());
-			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar(icFormToolbarPath);
 			part.setJsController("com.gongsibao.igirl.ic.web.BaseInfoDetailPart");
 			part.setServiceController(BaseInfoDetailPart.class.getName());
-			part.setWindowWidth(800);
-			part.setWindowHeight(600);
 			part.setForm(form);
 
 		}
@@ -235,8 +236,6 @@ public class IcRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 		{
 			addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 100);
 			addColumn(datagrid, "invType", "单位类型", ControlTypes.ENUM_BOX, 100);
-			addColumn(datagrid, "entLicType", "证照类型", ControlTypes.TEXT_BOX, 100);
-			addColumn(datagrid, "nationality", "国别和地区", ControlTypes.TEXT_BOX, 100);
 		}
 		/*表单形式，单独保存*/
 		PForm form = new PForm();
@@ -255,20 +254,16 @@ public class IcRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 			addFormField(form, "prov.name", "身份证登记住址,省", null, ControlTypes.TEXT_BOX, false,false);
 			addFormField(form, "city.name", "身份证登记住址区域", null, ControlTypes.TEXT_BOX, false,false);
 			addFormField(form, "domOther", "身份证登记住址街道", null, ControlTypes.TEXT_BOX, false,false);
-			addFormField(form, "money", "出资金额", null, ControlTypes.TEXT_BOX, false,false);
-			addFormField(form, "way", "出资方式", null, ControlTypes.TEXT_BOX, false,false);
-			addFormField(form, "time", "出资时间", null, ControlTypes.TEXT_BOX, false,false);
-
 		}
 		PPart part = new PPart();
 		{
 			part.toNew();
 			part.setName("非自然人股东基本信息");
-			part.setCode("unPerson");
+			part.setCode("unPersons");
 			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
-			part.setRelationRole("unPerson");
+			part.setRelationRole("unPersons");
 			part.setResourceNode(node);
-			part.setPartTypeId(PartType.FORM_PART.getId());
+			part.setPartTypeId(PartType.DETAIL_PART.getId());
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar(icFormToolbarPath);
@@ -282,7 +277,7 @@ public class IcRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 		workspace.getParts().add(part);
 	}
 
-	/*新增页第四页效果*/
+	/*新增页第四页效果*//*
 	private void createFouDetailPart(PWorkspace workspace) {
 		ResourceNode node = this.resourceService.byCode("IGRIL_IC_REGIST_IcDirector");
 		PDatagridColumn column = null;
@@ -308,7 +303,7 @@ public class IcRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 			addColumn(datagrid, "houseAddOther", "董事户籍登记地址详细信息二", ControlTypes.TEXT_BOX, 100);
 
 		}
-		/*表单形式，单独保存*/
+		*//*表单形式，单独保存*//*
 		PForm form = new PForm();
 		{
 			form.toNew();
@@ -317,6 +312,8 @@ public class IcRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 			form.setColumnCount(2);
 			String groupName = null;
 			PFormField formField = null;
+
+			addFormField(form, "executive", "是否设立董事会", null, ControlTypes.TEXT_BOX, false,false);
 			addFormField(form, "name", "董事名字", null, ControlTypes.TEXT_BOX, false,false);
 			addFormField(form, "nameEng", "董事英文名字", null, ControlTypes.TEXT_BOX, false,false);
 			addFormField(form, "cerType", "董事证件类型", null, ControlTypes.ENUM_BOX, false,false);
@@ -335,29 +332,28 @@ public class IcRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 			addFormField(form, "houseAddProv.name", "董事户籍登记地址", null, ControlTypes.TEXT_BOX, false,false);
 			addFormField(form, "houseAddCity.name", "董事户籍登记地址详细信息一", null, ControlTypes.TEXT_BOX, false,false);
 			addFormField(form, "houseAddOther", "董事户籍登记地址详细信息二", null, ControlTypes.TEXT_BOX, false,false);
-
 		}
 		PPart part = new PPart();
 		{
 			part.toNew();
-			part.setName("董事信息");
-			part.setCode("director");
+			part.setName("主要成员信息");
+			part.setCode("member");
 			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
-			part.setRelationRole("director");
+			part.setRelationRole("member");
 			part.setResourceNode(node);
-			part.setPartTypeId(PartType.FORM_PART.getId());
+			part.setPartTypeId(PartType.FORM_DETAIL_PART.getId());
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
 			part.setToolbar(icFormToolbarPath);
-			part.setJsController("com.gongsibao.igirl.ic.web.DirectorDetailPart");
-			part.setServiceController(DirectorDetailPart.class.getName());
+			part.setJsController("com.gongsibao.igirl.ic.web.MemberDetailPart");
+			part.setServiceController(MemberDetailPart.class.getName());
 			part.setWindowWidth(800);
 			part.setWindowHeight(600);
 			part.setForm(form);
 
 		}
 		workspace.getParts().add(part);
-	}
+	}*/
 
 	/*显示查询框*/
 	@Override
@@ -370,7 +366,7 @@ public class IcRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 
 	@Override
 	protected void doOperation() {
-		
+
 		ResourceNode node = this.getResourceNode();
 		operationService.addOperation(node,OperationTypes.view);
 		operationService.addOperation(node,OperationTypes.add);

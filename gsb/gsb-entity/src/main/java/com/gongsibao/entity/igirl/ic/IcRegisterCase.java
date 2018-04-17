@@ -4,8 +4,11 @@ import com.gongsibao.entity.crm.Customer;
 import com.gongsibao.entity.igirl.ic.baseinfo.*;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
+import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
+
+import java.util.List;
 
 @Table(name = "ic_register_case",header = "工商注册案子")
 public class IcRegisterCase extends Entity{
@@ -30,17 +33,11 @@ public class IcRegisterCase extends Entity{
     @Reference(foreignKey = "baseInfoId",header = "基础信息")
     private IcBaseInfo baseInfo;
 
-    @Column(name = "person_id",header = "自然人股东Id")
-    private Integer personId;
+    @Subs(foreignKey = "registerCaseId",header = "自然人股东",subType = IcPerson.class)
+    private List<IcPerson> persons;
 
-    @Reference(foreignKey = "personId",header = "自然人股东")
-    private IcPerson person;
-
-    @Column(name = "un_person_id",header = "非自然人股东Id")
-    private Integer unPersonId;
-
-    @Reference(foreignKey = "unPersonId",header = "非自然人股东")
-    private IcUnPerson unPerson;
+    @Subs(foreignKey = "registerCaseId",header = "非自然人股东",subType = IcUnPerson.class)
+    private List<IcUnPerson> unPersons;
 
     @Column(name = "member_id",header = "主要成员信息Id")
     private Integer memberId;
@@ -54,11 +51,8 @@ public class IcRegisterCase extends Entity{
     @Reference(foreignKey = "contactId",header = "联系人")
     private IcContact contact;
 
-    @Column(name = "file_upload_id",header = "文件上传ID")
-    private Integer fileUploadId;
-
-    @Reference(foreignKey = "fileUploadId",header = "文件上传")
-    private IcFileUpload fileUpload;
+    @Subs(foreignKey = "fileUploadId",header = "文件上传",subType = IcFileUpload.class)
+    private List<IcFileUpload> fileUploads;
 
     @Column(name = "extra_info_id",header = "补充信息Id")
     private Integer extraInfoId;
@@ -128,38 +122,6 @@ public class IcRegisterCase extends Entity{
         this.baseInfo = baseInfo;
     }
 
-    public Integer getPersonId() {
-        return personId;
-    }
-
-    public void setPersonId(Integer personId) {
-        this.personId = personId;
-    }
-
-    public IcPerson getPerson() {
-        return person;
-    }
-
-    public void setPerson(IcPerson person) {
-        this.person = person;
-    }
-
-    public Integer getUnPersonId() {
-        return unPersonId;
-    }
-
-    public void setUnPersonId(Integer unPersonId) {
-        this.unPersonId = unPersonId;
-    }
-
-    public IcUnPerson getUnPerson() {
-        return unPerson;
-    }
-
-    public void setUnPerson(IcUnPerson unPerson) {
-        this.unPerson = unPerson;
-    }
-
     public Integer getMemberId() {
         return memberId;
     }
@@ -192,20 +154,28 @@ public class IcRegisterCase extends Entity{
         this.contact = contact;
     }
 
-    public Integer getFileUploadId() {
-        return fileUploadId;
+    public List<IcPerson> getPersons() {
+        return persons;
     }
 
-    public void setFileUploadId(Integer fileUploadId) {
-        this.fileUploadId = fileUploadId;
+    public void setPersons(List<IcPerson> persons) {
+        this.persons = persons;
     }
 
-    public IcFileUpload getFileUpload() {
-        return fileUpload;
+    public List<IcUnPerson> getUnPersons() {
+        return unPersons;
     }
 
-    public void setFileUpload(IcFileUpload fileUpload) {
-        this.fileUpload = fileUpload;
+    public void setUnPersons(List<IcUnPerson> unPersons) {
+        this.unPersons = unPersons;
+    }
+
+    public List<IcFileUpload> getFileUploads() {
+        return fileUploads;
+    }
+
+    public void setFileUploads(List<IcFileUpload> fileUploads) {
+        this.fileUploads = fileUploads;
     }
 
     public Integer getExtraInfoId() {

@@ -2,6 +2,7 @@ System.Declare("com.gongsibao.workbench.SupplierWorkbench");
 com.gongsibao.workbench.SupplierWorkbench = org.netsharp.panda.Workbench.Extends({
 	ctor: function() {
 		this.base();
+		this.context = null;
 	},
 	openHomePage:function(){
 		
@@ -13,6 +14,7 @@ com.gongsibao.workbench.SupplierWorkbench = org.netsharp.panda.Workbench.Extends
 		var service = "com.gongsibao.workbench.supplier.SupplierWorkbench";
 		this.invokeService(service,"setReceiving", [checked], function(data) {
 
+			layer.msg("操作成功");
 		});
 	}
 });

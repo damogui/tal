@@ -18,11 +18,17 @@ public class IcCost extends Entity{
     @Column(name = "time",header = "出资时间")
     private String time;
 
-    @Column(name = "person_id",header = "股东id")
+    @Column(name = "person_id",header = "自然人股东id")
     private Integer personId;
 
     @Reference(foreignKey = "personId",header = "股东")
-    private IcPerson icPerson;
+    private IcPerson Person;
+
+    @Column(name = "un_person_id",header = "股东id")
+    private Integer unPersonId;
+
+    @Reference(foreignKey = "unPersonId",header = "股东")
+    private IcUnPerson unPerson;
 
     public Double getMoney() {
         return money;
@@ -56,11 +62,27 @@ public class IcCost extends Entity{
         this.personId = personId;
     }
 
-    public IcPerson getIcPerson() {
-        return icPerson;
+    public IcPerson getPerson() {
+        return Person;
     }
 
-    public void setIcPerson(IcPerson icPerson) {
-        this.icPerson = icPerson;
+    public void setPerson(IcPerson person) {
+        Person = person;
+    }
+
+    public Integer getUnPersonId() {
+        return unPersonId;
+    }
+
+    public void setUnPersonId(Integer unPersonId) {
+        this.unPersonId = unPersonId;
+    }
+
+    public IcUnPerson getUnPerson() {
+        return unPerson;
+    }
+
+    public void setUnPerson(IcUnPerson unPerson) {
+        this.unPerson = unPerson;
     }
 }

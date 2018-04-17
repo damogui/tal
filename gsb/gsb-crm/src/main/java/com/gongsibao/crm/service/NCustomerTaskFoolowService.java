@@ -1,5 +1,7 @@
 package com.gongsibao.crm.service;
 
+import org.netsharp.action.ActionContext;
+import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.core.EntityState;
 
@@ -20,9 +22,8 @@ public class NCustomerTaskFoolowService extends
 	public NCustomerTaskFoolow save(NCustomerTaskFoolow entity) {
 		
 		if (entity.getEntityState() == EntityState.New) {
-			entity = super.save(entity);
-			//为何添加这些
-			/*ActionContext ctx = new ActionContext();
+
+			ActionContext ctx = new ActionContext();
 			{
 				ctx.setPath("gsb/crm/task/follow");
 				ctx.setItem(entity);
@@ -31,7 +32,7 @@ public class NCustomerTaskFoolowService extends
 			ActionManager action = new ActionManager();
 			action.execute(ctx);
 			
-			entity = (NCustomerTaskFoolow) ctx.getItem();*/
+			entity = (NCustomerTaskFoolow) ctx.getItem();
 		}else{
 
 			entity = super.save(entity);

@@ -67,6 +67,12 @@ public class IcManager extends Entity{
     @Column(name = "house_add_other",header = "户籍登记地址详细信息二")
     private String houseAddOther;
 
+    @Column(name = "member_id",header = "主要成员Id")
+    private Integer  memberId;
+
+    @Reference(foreignKey = "memberId",header = "主要成员")
+    private IcMember member;
+
     public String getName() {
         return name;
     }
@@ -209,5 +215,21 @@ public class IcManager extends Entity{
 
     public void setHouseAddOther(String houseAddOther) {
         this.houseAddOther = houseAddOther;
+    }
+
+    public Integer getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(Integer memberId) {
+        this.memberId = memberId;
+    }
+
+    public IcMember getMember() {
+        return member;
+    }
+
+    public void setMember(IcMember member) {
+        this.member = member;
     }
 }
