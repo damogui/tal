@@ -151,4 +151,14 @@ public interface ISalesmanService extends IPersistableService<Salesman> {
 	 * @throws   
 	 */
 	NotifyType getNotifyType(Integer employeeId);
+	
+	/**   
+	 * @Title: getReceiving   
+	 * @Description: TODO(获取业务员的接单状态)   
+	 * @param: @param employeeId
+	 * @param: @return      
+	 * @return: boolean      
+	 * @throws   
+	 */
+	boolean getReceiving(Integer employeeId);
 }

@@ -178,6 +178,24 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
         qps.add("salesmanId", salesmanId, Types.INTEGER);
         return this.pm.executeNonQuery(updateBuilder.toSQL(), qps) > 0;
     }
+    
+    @Override
+    public boolean getReceiving(Integer employeeId) {
+
+        Oql oql = new Oql();
+        {
+            oql.setType(type);
+            oql.setSelects("{id,receiving}");
+            oql.setFilter("employeeId=?");
+            oql.getParameters().add("@employeeId", employeeId, Types.INTEGER);
+        }
+        Salesman entity = this.queryFirst(oql);
+        if(entity == null){
+        	
+        	return false;
+        }
+        return entity.getReceiving();
+    }
 
     @Override
     public Salesman save(Salesman entity) {
