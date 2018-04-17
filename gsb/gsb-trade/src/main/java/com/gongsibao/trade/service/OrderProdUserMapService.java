@@ -5,6 +5,7 @@ import java.util.*;
 
 import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.*;
@@ -65,7 +66,7 @@ public class OrderProdUserMapService extends PersistableService<OrderProdUserMap
         }
         //去掉最后一个","
         for (Integer id : pkidList) {
-            String name = resMap.get(id);
+            String name = StringUtils.trimToEmpty(resMap.get(id));
             if (name.endsWith(",")) {
                 name = name.substring(0, name.length() - 1);
                 resMap.put(id, name);

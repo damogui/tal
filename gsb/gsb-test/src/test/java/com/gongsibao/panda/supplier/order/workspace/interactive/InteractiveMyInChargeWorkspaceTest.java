@@ -94,7 +94,7 @@ public class InteractiveMyInChargeWorkspaceTest extends WorkspaceCreationBase {
         addColumn(datagrid, "soOrder.refundStatus", "退款状态", ControlTypes.ENUM_BOX, 80);
         addColumn(datagrid, "isUrgent", "是否加急", ControlTypes.BOOLCOMBO_BOX, 80);
         addColumn(datagrid, "id", "订单明细号", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "soOrder.No", "订单号", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "soOrder.no", "订单号", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "productName", "产品名称", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "cityName", "产品地区", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "soOrder.customer.realName", "联系人", ControlTypes.TEXT_BOX, 100);
@@ -145,59 +145,3 @@ public class InteractiveMyInChargeWorkspaceTest extends WorkspaceCreationBase {
     }
 }
 
-/*public class InteractiveMyInChargeWorkspaceTest extends WorkspaceCreationBase {
-
-    @Before
-    public void setup() {
-        super.setup();
-        entity = OrderProd.class;
-        urlList = "/crm/order/interactive/myincharge/list";
-        listPartName = formPartName = "我负责的订单";
-        meta = MtableManager.getMtable(entity);
-        listToolbarPath = "/crm/order/myincharge/list";
-        resourceNodeCode = "Gsb_Supplier_Order_Interactive_My_In_Charge";
-        listFilter = "soOrder.owner_id = '{userId}'";
-        listPartImportJs = "/gsb/platform/trade/js/interactive-myincharge-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
-        listPartServiceController = MyInChargeListPart.class.getName();
-        listPartJsController = MyInChargeListPart.class.getName();
-    }
-
-
-    @Override
-    protected PDatagrid createDatagrid(ResourceNode node) {
-
-        PDatagrid datagrid = super.createDatagrid(node);
-        {
-            datagrid.setName("我负责的订单");
-            datagrid.setToolbar("panda/datagrid/row/edit");
-            datagrid.setAutoQuery(true);
-        }
-        PDatagridColumn column = null;
-        addColumn(datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 100, true);
-        addColumn(datagrid, "soOrder.no", "订单编号", ControlTypes.TEXT_BOX, 80);
-        return datagrid;
-    }
-
-    @Override
-    protected PQueryProject createQueryProject(ResourceNode node) {
-
-        PQueryProject queryProject = super.createQueryProject(node);
-        queryProject.toNew();
-        PQueryItem item = null;
-        queryProject.setColumnCount(3);
-
-        item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
-        {
-            item.setTooltip("订单编号、渠道订单编号、关联公司");
-            item.setWidth(350);
-        }
-        addQueryItem(queryProject, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX);
-        return queryProject;
-    }
-
-    @Override
-    protected void doOperation() {
-        ResourceNode node = this.getResourceNode();
-        operationService.addOperation(node, OperationTypes.view);
-    }
-}*/
