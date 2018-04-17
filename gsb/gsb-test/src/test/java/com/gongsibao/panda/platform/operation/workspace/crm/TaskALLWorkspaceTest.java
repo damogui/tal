@@ -98,7 +98,7 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 			builder.append("else{");
 			builder.append("if(row.customer_mobile){");
 			builder.append("var ctrl = workspace.parts.byIndex(0).key;");
-			builder.append("return '否<a title=\\'开通会员\\' class=\\'grid-btn\\' href=javascript:'+ctrl+'.openMember('+row.customerId+',true));>");
+			builder.append("return '否<a title=\\'开通会员\\' class=\\'grid-btn\\' href=javascript:'+ctrl+'.openMember('+row.customerId+',true);>");
 			builder.append("<i style=\\'font-size: 12px;color:red;\\' class=\\'fa fa-user-plus\\'></i><a>");
 			builder.append("<a title=\\'静默开通\\' class=\\'grid-btn\\' href=javascript:'+ctrl+'.openMember('+row.customerId+',false);>");
 			builder.append("<i style=\\'font-size: 12px;\\' class=\\'fa fa-user-plus\\'></i><a>';");

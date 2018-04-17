@@ -207,7 +207,8 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 			part.setPartTypeId(PartType.DETAIL_PART.getId());
 			part.setDatagrid(datagrid);
 			part.setDockStyle(DockType.DOCUMENTHOST);
-			part.setToolbar("");
+			part.setToolbar("panda/datagrid/detail");
+			
 			part.setJsController(taskDetailJsController);
 		}
 		workspace.getParts().add(part);

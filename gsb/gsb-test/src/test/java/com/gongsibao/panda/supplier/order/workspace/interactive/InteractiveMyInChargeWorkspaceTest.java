@@ -79,7 +79,7 @@ public class InteractiveMyInChargeWorkspaceTest extends WorkspaceCreationBase {
             datagrid.setName("我负责的订单");
             datagrid.setToolbar("panda/datagrid/row/edit");
             datagrid.setAutoQuery(true);
-            if(!isSingleSelect){
+            if (!isSingleSelect) {
                 datagrid.setShowCheckbox(true);
                 datagrid.setSingleSelect(false);
             }
@@ -95,8 +95,8 @@ public class InteractiveMyInChargeWorkspaceTest extends WorkspaceCreationBase {
         addColumn(datagrid, "isUrgent", "是否加急", ControlTypes.BOOLCOMBO_BOX, 80);
         addColumn(datagrid, "id", "订单明细号", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "soOrder.no", "订单号", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "productName", "产品名称", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "cityName", "产品地区", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "productName", "产品名称", ControlTypes.TEXT_BOX, 180);
+        addColumn(datagrid, "cityName", "产品地区", ControlTypes.TEXT_BOX, 220);
         addColumn(datagrid, "soOrder.customer.realName", "联系人", ControlTypes.TEXT_BOX, 100);
         column = addColumn(datagrid, "soOrder.accountMobile", "联系人电话", ControlTypes.TEXT_BOX, 100);
         {
@@ -107,6 +107,7 @@ public class InteractiveMyInChargeWorkspaceTest extends WorkspaceCreationBase {
         addColumn(datagrid, "soOrder.companyIntention.companyName", "明细订单公司", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "companyIntention.companyName", "订单关联公司", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "soOrder.createTime", "下单日期", ControlTypes.DATETIME_BOX, 100);
+        addColumn(datagrid, "allocationOperatorDate", "分配日期", ControlTypes.DATETIME_BOX, 100);
         addColumn(datagrid, "surplusDays", "剩余天数", ControlTypes.DECIMAL_BOX, 80);
         addColumn(datagrid, "handleName", "办理名称", ControlTypes.TEXT_BOX, 100);
 
@@ -126,11 +127,11 @@ public class InteractiveMyInChargeWorkspaceTest extends WorkspaceCreationBase {
             item.setTooltip("订单编号、订单明细号、联系人姓名、联系人电话、关联企业");
             item.setWidth(350);
         }
-        addQueryItem(queryProject, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "productName", "产品名称", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "handleName", "办理名称", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "owner.name", "业务员", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "operator", "操作员", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "productName", "产品地区", ControlTypes.TEXT_BOX);
+        addQueryItem(queryProject, "cityName", "产品地区", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "processStatus.name", "办理状态", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "soOrder.createTime", "下单日期", ControlTypes.DATE_BOX);
         addQueryItem(queryProject, "soOrder.processStatus", "订单总体进度", ControlTypes.ENUM_BOX);

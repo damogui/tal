@@ -1,6 +1,7 @@
 package com.gongsibao.igirl.ic.web;
 
-import org.netsharp.panda.commerce.FormPart;
+import org.netsharp.panda.commerce.DetailPart;
 
-public class UnPersonDetailPart extends FormPart{
+public class UnPersonDetailPart extends DetailPart{
 }
+

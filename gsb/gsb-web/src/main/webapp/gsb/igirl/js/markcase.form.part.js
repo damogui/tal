@@ -173,9 +173,10 @@ com.gongsibao.igirl.tm.web.UploadAttachmentDetailPart = org.netsharp.panda.comme
 
 });
 com.gongsibao.igirl.tm.web.TradeMarkDetailPart = org.netsharp.panda.commerce.DetailPart.Extends({
-
+	tmFlag: "",//商标选项打开时状态 add or update
 	ctor: function () {
 		this.base();
+		tmFlag="";
 	},
 	copy: function () {
 		var row = controllertradeMarks.datagrid.datagrid('getSelected');
@@ -222,6 +223,7 @@ com.gongsibao.igirl.tm.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Det
 				}
 			}
 		}
+		tmFlag="add";
 	},
 	addBefore: function () {
 		//检查当前案件
@@ -234,6 +236,7 @@ com.gongsibao.igirl.tm.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Det
 //		}
 	},
 	saveBefore: function (entity) {
+		tmFlag="";
 		var g = $('#nclOne_name').combogrid('grid');	// get datagrid object
 		var r = g.datagrid('getSelected');	// get the selected row
 
@@ -243,15 +246,43 @@ com.gongsibao.igirl.tm.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Det
 	},
 	editBefore:function(){
 		this.viewModel.clear();
+		tmFlag="update";
 	},
 	checkMemo: function (value) {
 //		var momo=$("#memo").val();
-//		//var result=momo.match(/^[\u4e00-\u9fa5_a-zA-Z0-9%&',.+-@;=?$]+$/); 
 //		var result=momo.match(/^(\s*[，。！,.\-@!+$￥\u4e00-\u9fa5_a-zA-Z0-9])*$/); 
 //		if(result==null){
 //			IMessageBox.error("【商标说明】只能输入中文、英文、数字和常用标点符号!");
 //			$("#memo").val("");
+//		}else{
+//			momo.replace(/(^\s*)|(\s*$)/g,"")
+//			$("#memo").val(momo);
 //		}
+	},
+	checkShareGroup: function(){
+//		var rows = $('#datagridtradeMarks').datagrid('getRows');
+//		var rowIndex=-1;
+//		var shareGroupValue = $('#shareGroup').combobox('getValue');
+//		var originalValue=1;
+//		var hasBeforeGroup=false;
+//		if(tmFlag=="update"){//修改时要获取修改的index值以排除自身 
+//			originalValue = $('#datagridtradeMarks').datagrid('getSelected').shareGroup;
+//			rowIndex=$('#datagridtradeMarks').datagrid('getRowIndex',$('#datagridtradeMarks').datagrid('getSelected'));  
+//		}
+//		
+//		if(shareGroupValue>1){
+//			for(var i=0;i<rows.length;i++){
+//				if(i!=rowIndex && rows[i].shareGroup == (shareGroupValue-1)){
+//					hasBeforeGroup=true;
+//					break;
+//				}
+//			}
+//			if(!hasBeforeGroup){
+//				IMessageBox.error("【共享分组】要按顺序选择!");
+//				$('#shareGroup').combobox('select',originalValue);
+//			}
+//		}
+		
 	},
 	nclOneChange: function (newValue, oldValue) {
 		$("#selectedTwoStr").val("");

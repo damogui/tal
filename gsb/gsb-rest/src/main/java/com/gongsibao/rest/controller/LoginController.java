@@ -2,6 +2,7 @@ package com.gongsibao.rest.controller;
 
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.rest.common.apiversion.Api;
+import com.gongsibao.rest.common.apiversion.LoginCheck;
 import com.gongsibao.rest.common.util.RedisClient;
 import com.gongsibao.rest.common.util.WebUtils;
 import com.gongsibao.rest.common.web.Constant;
@@ -88,6 +89,7 @@ public class LoginController {
         }
         //生成验证码并保存至缓存中;
         String code = RandomStringUtils.randomNumeric(6);
+        redisClient.remove(mobilePhone);
         redisClient.set(mobilePhone, code,60*15L);
         logger.info("code=" + code + "| mobilePhone : " + mobilePhone);
         //发送验证码至指定手机号
@@ -98,7 +100,7 @@ public class LoginController {
         new Thread() {
             @Override
             public void run() {
-                accountService.sendSms(mobilePhone, smsString);
+                accountService.sendSms(mobilePhone.trim(), smsString);
             }
         }.start();
         return data;
@@ -125,7 +127,7 @@ public class LoginController {
             return data;
         }
         //验证码校验
-        if (null==redisClient.get(mobilePhone)||!redisClient.get(mobilePhone).equals(code)) {
+        if (null==redisClient.get(mobilePhone)||!redisClient.get(mobilePhone).contains(code)) {
             data.setCode(500);
             data.setMsg("验证码错误");
             return data;

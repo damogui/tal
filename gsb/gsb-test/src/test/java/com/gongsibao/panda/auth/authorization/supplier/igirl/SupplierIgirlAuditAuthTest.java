@@ -15,5 +15,6 @@ public class SupplierIgirlAuditAuthTest extends AuthBaseTest{
 	protected void getResourceCodeList() {
 		this.resourceNodeCodeList.add("IGIRL_All_TradeMarkCase");//方案生成
 		this.resourceNodeCodeList.add("IGIRL_All_TradeMark");//进度跟进
+		this.resourceNodeCodeList.add("IGIRL_AllFollowNotice_TradeMark");//异常商标
 	}
 }

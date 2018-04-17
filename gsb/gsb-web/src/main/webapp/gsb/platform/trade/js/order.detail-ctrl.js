@@ -983,7 +983,7 @@ com.gongsibao.trade.web.OrderCompanysCtrl = com.gongsibao.trade.web.BaseCtrl.Ext
                 {
                     field: 'companyName',
                     title: '公司名称',
-                    width: 100,
+                    width: 300,
                     align: 'center'
 
                 }
@@ -1007,8 +1007,8 @@ com.gongsibao.trade.web.OrderCompanysCtrl = com.gongsibao.trade.web.BaseCtrl.Ext
         var builder = new System.StringBuilder();
         builder.append(' <form id="companys_form" style="" class="layui-layer-wrap"><div class="formContent">');
         builder.append('	<table cellpadding="5" cellspacing="5" class="form-panel">');
-        builder.append('		<tr> <td  class="label_td"> <label style="color:Red">*</label> <label for="companyName">公司名称：</label></td>');
-        builder.append('		<td><input id="company_companyName"  name="companyName" type="combogrid"/></td></tr></table></div></form>');
+        builder.append('		<tr class="label_tr"> <td  class="label_td"> <label style="color:Red">*</label> <label for="companyName">公司名称：</label></td>');
+        builder.append('		<td class="label_td"><input id="company_companyName"  name="companyName" type="combogrid"/></td></tr></table></div></form>');
 
         layer.open({
             type: 1,
@@ -1016,7 +1016,7 @@ com.gongsibao.trade.web.OrderCompanysCtrl = com.gongsibao.trade.web.BaseCtrl.Ext
             fixed: false,
             maxmin: true,
             shadeClose: false,
-            area: ['20%', '20%'],
+            area: ['25%', '20%'],
             zIndex: 100000,
             id: "ordercom",
             content: builder.toString(),

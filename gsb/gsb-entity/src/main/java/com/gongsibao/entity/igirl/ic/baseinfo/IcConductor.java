@@ -7,8 +7,10 @@ import com.gongsibao.entity.igirl.ic.baseinfo.Nationality;
 import com.gongsibao.entity.igirl.ic.dict.*;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
+import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
+@Table(name = "ic_conductor",header = "监事")
 public class IcConductor extends Entity{
 
     @Column(name = "name",header = "姓名")
@@ -67,6 +69,12 @@ public class IcConductor extends Entity{
 
     @Column(name = "sups_type",header = "监事类型")
     private CorpSupervisor supsType;
+
+    @Column(name = "member_id",header = "主要成员Id")
+    private Integer  memberId;
+
+    @Reference(foreignKey = "memberId",header = "主要成员")
+    private IcMember member;
 
     public String getName() {
         return name;
@@ -218,5 +226,21 @@ public class IcConductor extends Entity{
 
     public void setSupsType(CorpSupervisor supsType) {
         this.supsType = supsType;
+    }
+
+    public Integer getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(Integer memberId) {
+        this.memberId = memberId;
+    }
+
+    public IcMember getMember() {
+        return member;
+    }
+
+    public void setMember(IcMember member) {
+        this.member = member;
     }
 }

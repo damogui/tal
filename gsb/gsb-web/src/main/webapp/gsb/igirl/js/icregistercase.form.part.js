@@ -1,13 +1,19 @@
-System.Declare("com.gongsibao.igirl.tm.web");
-com.gongsibao.igirl.tm.web.ChangeTradeMarkPart = org.netsharp.panda.commerce.FormPart.Extends({
+System.Declare("com.gongsibao.igirl.ic.web");
+com.gongsibao.igirl.ic.web.IcRegisterCasePart = org.netsharp.panda.commerce.FormPart.Extends({
+    ctor: function () {
+        this.base();
+    },
+});
 
-    function IsVain(s)
-{
-    if ($.trim(s) == '') {
-        return true;
-    } else {
-        return false;
-    }
-}
-)
-;
+com.gongsibao.igirl.ic.web.BaseInfoDetailPart = org.netsharp.panda.commerce.FormPart.Extends({
+    ctor: function () {
+        this.base();
+    },
+});
+
+com.gongsibao.igirl.ic.web.UnPersonDetailPart = org.netsharp.panda.commerce.DetailPart.Extends({
+    ctor: function () {
+        this.base();
+    },
+});
+
