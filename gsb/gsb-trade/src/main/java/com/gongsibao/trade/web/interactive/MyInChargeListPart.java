@@ -15,10 +15,7 @@ import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
 import org.netsharp.util.StringManager;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MyInChargeListPart extends AdvancedListPart {
 
@@ -41,6 +38,11 @@ public class MyInChargeListPart extends AdvancedListPart {
             filters.add("soOrder.company_id in( select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' )  )");
 
             return "(" + StringManager.join(" or ", filters) + ") ";
+        }
+        //操作员
+        if (parameter.getKey().equals("operator")) {
+            String operatorWhere = "pkid IN(SELECT order_prod_id FROM so_order_prod_user_map opm JOIN sys_permission_employee em ON opm.user_id = em.id AND opm.`status_id` = " + OrderProdUserMapStatus.Zzfz.getValue() + " AND opm.`type_id`=" + OrderProdUserMapType.Czy.getValue() + " WHERE em.name LIKE '%" + keyword + "%')";
+            return operatorWhere;
         }
 
         return parameter.getFilter();
@@ -66,6 +68,8 @@ public class MyInChargeListPart extends AdvancedListPart {
         setOperator(orderProdIdList, resList);
         //设置剩余天数
         setSurplusDays(resList);
+        //设置分配日期
+        setAllocationOperatorDate(orderProdIdList, resList);
         return resList;
     }
 
@@ -78,6 +82,7 @@ public class MyInChargeListPart extends AdvancedListPart {
             ob2.get(i).put("isUrgent", orderProd.getUrgent());
             ob2.get(i).put("operator", orderProd.getOperator());
             ob2.get(i).put("surplusDays", orderProd.getSurplusDays());
+            ob2.get(i).put("allocationOperatorDate", orderProd.getAllocationOperatorDate());
         }
         return json;
     }
@@ -116,6 +121,14 @@ public class MyInChargeListPart extends AdvancedListPart {
         for (OrderProd orderProd : resList) {
             Integer surplusDays = orderProd.getNeedDays() - orderProd.getProcessedDays();
             orderProd.setSurplusDays(surplusDays <= 0 ? 0 : surplusDays);
+        }
+    }
+
+    //设置分配日期
+    private void setAllocationOperatorDate(List<Integer> orderProdIdList, List<OrderProd> resList) {
+        Map<Integer, Date> allocationDate = orderProdUserMapService.getAllocationDate(orderProdIdList, OrderProdUserMapType.Czy.getValue(), OrderProdUserMapStatus.Zzfz.getValue());
+        for (OrderProd orderProd : resList) {
+            orderProd.setAllocationOperatorDate(allocationDate.get(orderProd.getId()));
         }
     }
 
