@@ -1,8 +1,10 @@
 package com.gongsibao.entity.igirl.ic.baseinfo;
 
+import com.gongsibao.entity.igirl.ic.IcRegisterCase;
 import com.gongsibao.entity.igirl.ic.dict.CorpNation;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
+import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
@@ -34,7 +36,14 @@ public class IcPerson extends Entity {
     @Column(name = "dom_other",header = "身份证登记住址街道")
     private String domOther;
 
-    private List<IcCost> cost;
+    @Column(name = "ic_register_case_id",header = "工商注册案子Id")
+    private Integer registerCaseId;
+
+    @Reference(foreignKey = "registerCaseId",header = "工商注册案子")
+    private IcRegisterCase registerCase;
+
+    @Subs(foreignKey = "personId",header = "出资情况",subType = IcCost.class)
+    private List<IcCost> costs;
 
     public String getName() {
         return name;
@@ -100,11 +109,27 @@ public class IcPerson extends Entity {
         this.domOther = domOther;
     }
 
-    public List<IcCost> getCost() {
-        return cost;
+    public Integer getRegisterCaseId() {
+        return registerCaseId;
     }
 
-    public void setCost(List<IcCost> cost) {
-        this.cost = cost;
+    public void setRegisterCaseId(Integer registerCaseId) {
+        this.registerCaseId = registerCaseId;
+    }
+
+    public IcRegisterCase getRegisterCase() {
+        return registerCase;
+    }
+
+    public void setRegisterCase(IcRegisterCase registerCase) {
+        this.registerCase = registerCase;
+    }
+
+    public List<IcCost> getCosts() {
+        return costs;
+    }
+
+    public void setCosts(List<IcCost> costs) {
+        this.costs = costs;
     }
 }

@@ -1,7 +1,9 @@
 package com.gongsibao.entity.igirl.ic.baseinfo;
 
+import com.gongsibao.entity.igirl.ic.IcRegisterCase;
 import com.gongsibao.entity.igirl.ic.dict.IcFileType;
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
@@ -15,6 +17,12 @@ public class IcFileUpload extends Entity{
 
     @Column(name = "file_type",header = "文件上传类型")
     private IcFileType fileType;
+
+    @Column(name = "ic_register_case_id",header = "工商注册案子Id")
+    private Integer registerCaseId;
+
+    @Reference(foreignKey = "registerCaseId",header = "工商注册案子")
+    private IcRegisterCase registerCase;
 
     public String getFileName() {
         return fileName;
@@ -38,5 +46,21 @@ public class IcFileUpload extends Entity{
 
     public void setFileType(IcFileType fileType) {
         this.fileType = fileType;
+    }
+
+    public Integer getRegisterCaseId() {
+        return registerCaseId;
+    }
+
+    public void setRegisterCaseId(Integer registerCaseId) {
+        this.registerCaseId = registerCaseId;
+    }
+
+    public IcRegisterCase getRegisterCase() {
+        return registerCase;
+    }
+
+    public void setRegisterCase(IcRegisterCase registerCase) {
+        this.registerCase = registerCase;
     }
 }

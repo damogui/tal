@@ -2,6 +2,7 @@ package com.gongsibao.entity.igirl.ic.baseinfo;
 
 
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
@@ -9,14 +10,13 @@ import java.util.List;
 
 @Table(name = "ic_member",header = "主要成员信息")
 public class IcMember extends Entity{
-    //noSet不设董事会,仅设立执行董事1人，yesSet设立董事会,董事会成员3-13人,其中董事长1人
     @Column(name = "executive",header = "是否设立董事会")
     private String executive;
 
-    //董事
+    @Subs(foreignKey = "memberId",header = "董事",subType = IcDirector.class)
     private List<IcDirector> directors;
 
-    //经理
+    @Subs(foreignKey = "memberId",header = "经理",subType = IcManager.class)
     private List<IcManager> managers;
 
     @Column(name = "name",header = "法人名字")
@@ -26,7 +26,7 @@ public class IcMember extends Entity{
     @Column(name = "supervisor",header = "是否设立监事会")
     private String supervisor;
 
-    //监事
+    @Subs(foreignKey = "memberId",header = "监事",subType = IcConductor.class)
     private List<IcConductor> conductors;
 
     public String getExecutive() {
