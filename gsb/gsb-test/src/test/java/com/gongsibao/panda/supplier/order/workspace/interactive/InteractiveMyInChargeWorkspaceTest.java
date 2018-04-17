@@ -2,6 +2,8 @@ package com.gongsibao.panda.supplier.order.workspace.interactive;
 
 import com.gongsibao.entity.trade.Contract;
 import com.gongsibao.entity.trade.OrderProd;
+import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
+import com.gongsibao.entity.trade.dic.OrderProdUserMapType;
 import com.gongsibao.tools.PToolbarHelper;
 import com.gongsibao.trade.web.SalesmanOrderContractListPart;
 import com.gongsibao.trade.web.interactive.MyInChargeListPart;
@@ -38,7 +40,7 @@ public class InteractiveMyInChargeWorkspaceTest extends WorkspaceCreationBase {
         listPartImportJs = "/gsb/platform/trade/js/prod/interactive-myincharge-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
         listPartServiceController = MyInChargeListPart.class.getName();
         listPartJsController = MyInChargeListPart.class.getName();
-        //listFilter = "";
+        listFilter = "pkid IN(SELECT distinct order_prod_id FROM so_order_prod_user_map WHERE type_id=" + OrderProdUserMapType.Czy.getValue() + " AND status_id=" + OrderProdUserMapStatus.Zzfz.getValue() + " AND user_id = '{userId}')";
     }
 
     @Test
@@ -135,7 +137,7 @@ public class InteractiveMyInChargeWorkspaceTest extends WorkspaceCreationBase {
         addQueryItem(queryProject, "processStatus.name", "办理状态", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "soOrder.createTime", "下单日期", ControlTypes.DATE_BOX);
         addQueryItem(queryProject, "soOrder.processStatus", "订单总体进度", ControlTypes.ENUM_BOX);
-        //addQueryItem(queryProject, "soOrder.processStatus", "负责状态", ControlTypes.ENUM_BOX);
+        //addQueryItem(queryProject, "inChargeStatus", "负责状态", ControlTypes.ENUM_BOX);
         return queryProject;
     }
 

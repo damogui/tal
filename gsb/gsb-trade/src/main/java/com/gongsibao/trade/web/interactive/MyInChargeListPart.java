@@ -45,6 +45,12 @@ public class MyInChargeListPart extends AdvancedListPart {
             return operatorWhere;
         }
 
+        //负责状态
+        if (parameter.getKey().equals("inChargeStatus")) {
+            String inChargeStatusWhere = "pkid IN(SELECT distinct order_prod_id FROM so_order_prod_user_map WHERE type_id=" + OrderProdUserMapType.Czy.getValue() + " AND status_id=" + keyword + " AND user_id = '{userId}')";
+            return inChargeStatusWhere;
+        }
+
         return parameter.getFilter();
     }
 
