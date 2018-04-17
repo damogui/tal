@@ -74,7 +74,7 @@ public class AuditOrderWorkspaceTest  extends WorkspaceCreationBase {
         addColumn (datagrid, "soOrder.no", "订单编号", ControlTypes.TEXT_BOX, 80);
         addColumn (datagrid, "soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX, 300);
-        addColumn (datagrid, "soOrder.companyIntention.name", "关联企业", ControlTypes.TEXT_BOX, 200);
+        addColumn (datagrid, "soOrder.companyIntention.companyName", "关联企业", ControlTypes.TEXT_BOX, 200);
         
         addColumn (datagrid, "soOrder.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn (datagrid, "soOrder.payablePrice", "应付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
