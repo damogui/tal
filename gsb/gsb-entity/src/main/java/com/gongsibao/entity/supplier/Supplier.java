@@ -11,7 +11,7 @@ import org.netsharp.entity.Entity;
 import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.bd.Dict;
-import com.gongsibao.entity.crm.dic.NotifiedType;
+import com.gongsibao.entity.crm.dic.NotifyType;
 import com.gongsibao.entity.crm.dic.Sex;
 import com.gongsibao.entity.crm.dic.TaskCustomerType;
 import com.gongsibao.entity.supplier.dict.BankAccountType;
@@ -186,7 +186,7 @@ public class Supplier extends Entity {
 	private Boolean pushReport = true;
 
 	@Column(name = "notified_type", header = "消息通知类型 ")
-	private NotifiedType notifiedType = NotifiedType.Wx;
+	private NotifyType notifiedType = NotifyType.WEIXIN;
 
 	@Column(name = "is_auto_assign", header = "是否推自动分配  0否, 1是")
 	private Boolean autoAssign = true;
@@ -540,11 +540,11 @@ public class Supplier extends Entity {
 		this.pushReport = pushReport;
 	}
 
-	public NotifiedType getNotifiedType() {
+	public NotifyType getNotifiedType() {
 		return notifiedType;
 	}
 
-	public void setNotifiedType(NotifiedType notifiedType) {
+	public void setNotifiedType(NotifyType notifiedType) {
 		this.notifiedType = notifiedType;
 	}
 

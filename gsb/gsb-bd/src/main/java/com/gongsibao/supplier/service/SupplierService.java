@@ -10,6 +10,7 @@ import org.netsharp.core.Oql;
 import org.netsharp.core.QueryParameters;
 import org.netsharp.service.PersistableService;
 
+import com.gongsibao.entity.crm.dic.NotifyType;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.supplier.base.ISupplierService;
 
@@ -146,5 +147,25 @@ public class SupplierService extends PersistableService<Supplier> implements ISu
 		builder.append("Supplier.modules.*,");
 		builder.append("Supplier.modules.functionModule.*");
 		return builder.toString();
+	}
+
+	@Override
+	public NotifyType getNotifyType(Integer supplierId) {
+		
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects("id,notifiedType");
+			oql.setFilter("id=?");
+			oql.getParameters().add("id", supplierId, Types.INTEGER);
+		}
+
+		Supplier entity = this.queryFirst(oql);
+		if(entity == null){
+
+			return null;
+		}
+		
+		return entity.getNotifiedType();
 	}
 }

@@ -15,6 +15,7 @@ import com.gongsibao.bd.service.SupplierPersistableService;
 import com.gongsibao.crm.base.INCustomerTaskNotifyService;
 import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.crm.dic.NotifyType;
+import com.gongsibao.supplier.base.ISalesmanService;
 import com.gongsibao.utils.sms.SmsHelper;
 
 @Service
@@ -50,26 +51,50 @@ public class NCustomerTaskNotifyService extends SupplierPersistableService<NCust
 			return;
 		}
 		
-		if (entity.getType() == NotifyType.WEIXIN) {
+		NotifyType notifyType = this.getNotifyType(entity.getReceivedId());
+		if(notifyType == null){
+			
+			return;
+		}
+		
+		if (notifyType == NotifyType.WEIXIN) {
 
 			this.sendWxMessage(entity);
 			
-		} else if (entity.getType() == NotifyType.DINGDING) {
+		}  else if (notifyType == NotifyType.SMS) {
 
+			this.sendSMSMessage(entity);
 			
-		} else if (entity.getType() == NotifyType.SMS) {
-
-			Employee received = this.getEmployee(entity.getReceivedId());
-			
-			if(received != null && !StringManager.isNullOrEmpty(received.getMobile())&& received.getMobile().length() == 11){
-
-				SmsHelper.send(received.getMobile(), entity.getContent());
-			}
-			
-		} else if (entity.getType() == NotifyType.SYSTEM) {
+		} else if (notifyType == NotifyType.SYSTEM) {
 
 			//PC端通知
 			
+		}else if (notifyType == NotifyType.DINGDING) {
+
+			
+		}else if (notifyType == NotifyType.ALL) {
+
+			this.sendWxMessage(entity);
+			
+			this.sendSMSMessage(entity);
+		}
+	}
+	
+	
+	private NotifyType getNotifyType(Integer employeeId){
+		
+		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
+		return salesmanService.getNotifyType(employeeId);
+	}
+	
+	
+	private void sendSMSMessage(NCustomerTaskNotify entity) {
+		
+		Employee received = this.getEmployee(entity.getReceivedId());
+		
+		if(received != null && !StringManager.isNullOrEmpty(received.getMobile())&& received.getMobile().length() == 11){
+
+			SmsHelper.send(received.getMobile(), entity.getContent());
 		}
 	}
 

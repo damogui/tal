@@ -130,7 +130,6 @@ public class ActionAutoAllocationRecordLog implements IAction {
         notifyEntity.toNew();
         notifyEntity.setCustomerId(entity.getCustomerId());
         notifyEntity.setTaskId(entity.getId());
-        notifyEntity.setType(NotifyType.SYSTEM);
         notifyEntity.setSupplierId(entity.getSupplierId());
         notifyEntity.setDepartmentId(entity.getDepartmentId());
         notifyEntity.setReceivedId(receiveUserId);

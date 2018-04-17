@@ -3,6 +3,7 @@ package com.gongsibao.supplier.base;
 import org.netsharp.base.IPersistableService;
 import org.netsharp.core.annotations.Transaction;
 
+import com.gongsibao.entity.crm.dic.NotifyType;
 import com.gongsibao.entity.supplier.Supplier;
 
 public interface ISupplierService  extends IPersistableService<Supplier>{
@@ -38,4 +39,15 @@ public interface ISupplierService  extends IPersistableService<Supplier>{
 	 * @throws   
 	 */
 	Integer getSupplierCount(Integer categoryId);
+	
+
+    /**   
+     * @Title: getNotifyType   
+     * @Description: TODO(获取服务商的通知类型)   
+     * @param: @param supplierId
+     * @param: @return      
+     * @return: NotifyType      
+     * @throws   
+     */
+    NotifyType getNotifyType(Integer supplierId);
 }

@@ -22,11 +22,13 @@ import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.bd.service.SupplierPersistableService;
+import com.gongsibao.entity.crm.dic.NotifyType;
 import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.supplier.SalesmanRole;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.supplier.base.ISalesmanService;
 import com.gongsibao.supplier.base.ISupplierDepartmentService;
+import com.gongsibao.supplier.base.ISupplierService;
 
 @Service
 public class SalesmanService extends SupplierPersistableService<Salesman> implements ISalesmanService {
@@ -187,6 +189,10 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
             // 直接取部门的
             SupplierDepartmentService departmentService = new SupplierDepartmentService();
             SupplierDepartment department = departmentService.byId(entity.getDepartmentId());
+            if (department == null) {
+                throw new BusinessException("部门属性不正确");
+            }
+            
             Integer supplierId = department.getSupplierId();//
             if (state.equals(EntityState.Persist)) {//修改的时候排除id
                 int checkNum = checkIsCurrent(supplierId, entity.getMobile(), entity.getId());
@@ -206,10 +212,6 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
 
             }
 
-
-            if (department == null) {
-                throw new BusinessException("部门属性不正确");
-            }
             entity.setType(department.getType());// 设置平台属性
             entity.setCustomerType(department.getCustomerType());// 设置分组属性
             entity.setSupplierId(department.getSupplierId());
@@ -529,6 +531,14 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
         }
 
         return employeeIdList;
-
     }
+
+	@Override
+	public NotifyType getNotifyType(Integer employeeId) {
+
+		Integer supplierId = getSupplierId(employeeId);
+		ISupplierService ISupplierService = ServiceFactory.create(ISupplierService.class);
+		return ISupplierService.getNotifyType(supplierId);
+	}
+    
 }
