@@ -37,7 +37,7 @@ com.gongsibao.trade.web.SalesmanOrderReceivedListPart = org.netsharp.panda.comme
             fixed: false,
             maxmin: true,
             shadeClose: true,
-            area: ['60%', '60%'],
+            area: ['95%', '95%'],
             zIndex: 100000,
             id: "myorderpay",
             content: urlEnd,

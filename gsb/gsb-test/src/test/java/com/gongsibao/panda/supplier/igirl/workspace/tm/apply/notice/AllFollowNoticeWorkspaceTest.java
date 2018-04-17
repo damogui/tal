@@ -1,8 +1,5 @@
-package com.gongsibao.panda.supplier.igirl.workspace.tm.apply;
+package com.gongsibao.panda.supplier.igirl.workspace.tm.apply.notice;
 
-import com.gongsibao.entity.igirl.tm.TradeMark;
-import com.gongsibao.igirl.tm.web.DepartmentTradeMarkListPart;
-import com.gongsibao.igirl.tm.web.TradeMarkListPart;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
@@ -12,31 +9,42 @@ import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.dic.OrderbyMode;
-import org.netsharp.panda.entity.*;
+import org.netsharp.panda.entity.PDatagrid;
+import org.netsharp.panda.entity.PDatagridColumn;
+import org.netsharp.panda.entity.PForm;
+import org.netsharp.panda.entity.PFormField;
+import org.netsharp.panda.entity.PQueryItem;
+import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
+import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-public class DpTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
+import com.gongsibao.entity.igirl.tm.TradeMark;
+import com.gongsibao.igirl.tm.web.DepartmentTradeMarkListPart;
+import com.gongsibao.igirl.tm.web.TradeMarkListPart;
+import com.gongsibao.utils.SupplierSessionManager;
 
+public class AllFollowNoticeWorkspaceTest extends WorkspaceCreationBase {
 	@Before
 	public void setup() {
-
 		super.setup();
-		urlList = "/igirl/dp/progress/list";
-		urlForm = "/igirl/dp/progress/form";
+		urlList = "/igirl/notice/allfollow/list";
+		urlForm = "/igirl/notice/allfollow/form";
 		entity = TradeMark.class;
 		meta = MtableManager.getMtable(entity);
-		resourceNodeCode = "IGIRL_Dp_TradeMark";
+		resourceNodeCode = "IGIRL_AllFollowNotice_TradeMark";
 		formPartName = listPartName = meta.getName();
 		formOpenMode = OpenMode.WINDOW;
 		openWindowWidth = 800;
 		openWindowHeight = 600;
-		listToolbarPath="/igirl/dp/tradeMark/list";
-		listPartServiceController = DepartmentTradeMarkListPart.class.getName();
+		listToolbarPath="/igirl/notice/allfollow/list";
+		listPartServiceController = TradeMarkListPart.class.getName();
 		listPartJsController=TradeMarkListPart.class.getName();
-		listPartImportJs="/gsb/igirl/js/trademark.listpart.js";
+		listPartImportJs="/gsb/igirl/js/abnormaltrademark.listpart.js";
+		listFilter = "markState in ('6','7','13','15','17','18','20','21') ";
 	}
+
 
 	@Test
 	public void fromToolbar() {
@@ -55,15 +63,7 @@ public class DpTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		}
 		PToolbarItem item = new PToolbarItem();
 		{
-//			item.toNew();
-//			item.setCode("edit");
-//			item.setIcon("fa fa-edit");
-//			item.setName("状态");
-//			item.setCommand(null);
-//			item.setOperationType(ot1);
-//			item.setSeq(3000);
-//			item.setCommand("{controller}.edit(1);");
-//			toolbar.getItems().add(item);
+			
 		}
 		item = new PToolbarItem();
 		{
@@ -110,18 +110,18 @@ public class DpTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 			item.setCommand("{controller}.edit();");
 			toolbar.getItems().add(item);
 		}
-		 item = new PToolbarItem();
-	        {
-	            item.toNew();
-	            item.setCode("exportExcel");
-	            item.setIcon("fa fa-download");
-	            item.setName("导出");
-	            item.setCommand(null);
-	            item.setOperationType(ot1);
-	            item.setSeq(4000);
-	            item.setCommand("{controller}.exportExcel();");
-	            toolbar.getItems().add(item);
-	        }
+		item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("exportExcel");
+			item.setIcon("fa fa-download");
+			item.setName("导出");
+			item.setCommand(null);
+			item.setOperationType(ot1);
+			item.setSeq(4000);
+			item.setCommand("{controller}.exportExcel();");
+			toolbar.getItems().add(item);
+		}
 		toolbarService.save(toolbar);
 	}
 
@@ -140,13 +140,17 @@ public class DpTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		addColumn(datagrid, "markSubmitTime", "商标提交时间", ControlTypes.DATETIME_BOX, 120);
 		addColumn(datagrid, "tradeMarkCase.ownerName", "业务人员", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "nclOne.code", "商标大类", ControlTypes.TEXT_BOX, 50);
-		addColumn(datagrid, "markState", "状态", ControlTypes.ENUM_BOX, 100);
 		addColumn(datagrid, "tradeMarkCase.orderCode", "订单号", ControlTypes.TEXT_BOX, 80);
 		addColumn(datagrid, "code", "商标号", ControlTypes.TEXT_BOX, 120);
 		addColumn(datagrid, "proxyCode", "代理号", ControlTypes.TEXT_BOX, 120);
 		addColumn(datagrid, "tradeMarkCase.companyName", "公司名称", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "tradeMarkCase.applier", "申请人", ControlTypes.TEXT_BOX, 200);
 		addColumn(datagrid, "memo", "商标说明", ControlTypes.TEXT_BOX, 120);
+		addColumn(datagrid, "markState", "状态", ControlTypes.ENUM_BOX, 100);
+//		column = addColumn(datagrid, "markState", "状态", ControlTypes.ENUM_BOX, 0);
+//		{
+//			column.setFormatter("return controllertradeMarkList.filterMarkState();");
+//		}
 		addColumn(datagrid, "tradeMarkCaseId", "案件id", ControlTypes.TEXT_BOX, 200).setVisible(false);
 		column = addColumn(datagrid, "tradeMarkCase.urgency", "紧急(小时)", ControlTypes.TEXT_BOX, 100);
 		column.setOrderbyMode(OrderbyMode.ASC);
@@ -184,11 +188,11 @@ public class DpTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		addQueryItem(queryProject, "markState", "状态", ControlTypes.ENUM_BOX);
 		addQueryItem(queryProject, "createTime", "时间", ControlTypes.DATE_BOX).setWidth(400);
 		addQueryItem(queryProject, "markSubmitTime", "商标提交时间", ControlTypes.DATE_BOX).setWidth(400);
-//		PQueryItem item =addQueryItem(queryProject, "mobilePhone", "销售方式", ControlTypes.CUSTOMER);{
-//			
-//			item.setCustomerControlType(DictComboBox.class.getName());
-//			item.setRefFilter("type=8");
-//		}
+		//		PQueryItem item =addQueryItem(queryProject, "mobilePhone", "销售方式", ControlTypes.CUSTOMER);{
+		//			
+		//			item.setCustomerControlType(DictComboBox.class.getName());
+		//			item.setRefFilter("type=8");
+		//		}
 		//addQueryItem(queryProject, "enabled", "启用/禁用", ControlTypes.BOOLCOMBO_BOX);
 		return queryProject;
 	}
@@ -201,4 +205,6 @@ public class DpTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		operationService.addOperation(node,OperationTypes.add);
 		operationService.addOperation(node,OperationTypes.update);
 	}
+
+
 }

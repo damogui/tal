@@ -41,7 +41,7 @@ public class OrderProd extends BaseEntity {
     private Integer version;
 
     @JsonIgnore
-    @Reference(foreignKey = "orderId", header = "销售订单", primaryKey = "pkid")
+    @Reference(foreignKey = "orderId", header = "订单", primaryKey = "pkid")
     private SoOrder soOrder;
 
     @Column(name = "product_id", header = "产品")

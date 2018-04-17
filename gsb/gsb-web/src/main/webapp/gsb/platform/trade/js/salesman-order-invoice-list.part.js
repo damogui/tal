@@ -14,7 +14,7 @@ com.gongsibao.trade.web.SalesmanOrderInvoiceListPart = org.netsharp.panda.commer
             fixed: false,
             maxmin: true,
             shadeClose: true,
-            area: ['60%', '90%'],
+            area: ['95%', '95%'],
             zIndex: 100000,
             content: contentUrl
         });

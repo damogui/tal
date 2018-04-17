@@ -17,7 +17,7 @@ com.gongsibao.trade.web.OrderSalesmanRefundListPart = org.netsharp.panda.commerc
              fixed: false,
              maxmin: true,
              shadeClose: true,
-             area: ['70%', '70%'],
+             area: ['95%', '95%'],
              zIndex: 100000,
              id: "auditRefundIframe",
              content: contentUrl

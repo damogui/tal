@@ -26,5 +26,6 @@ public interface ITradeMarkService extends IPersistableService<TradeMark> {
       
       List<SysAttachmentDto> findUrlById(int caseId);
       
-      List<AbnormalNoticeDto> getAbnormalNotice(Integer ownerId);
+      List<AbnormalNoticeDto> getAbnormalNotice();
+
 }

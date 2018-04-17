@@ -8,6 +8,7 @@ import org.netsharp.service.PersistableService;
 
 import com.gongsibao.account.base.IAccountService;
 import com.gongsibao.entity.acount.Account;
+import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 @Service
 public class AccountService extends PersistableService<Account> implements IAccountService {
@@ -40,5 +41,17 @@ public class AccountService extends PersistableService<Account> implements IAcco
 			oql.getParameters().add("@mobile", mobile, Types.VARCHAR);
 		}
 		return this.queryFirst(oql);
+	}
+
+	@Override
+	public Integer updateTicket(Integer accountPkid, String ticket) {
+		UpdateBuilder updateBuilder = UpdateBuilder.getInstance ();
+		{
+			updateBuilder.update ("uc_account");
+			updateBuilder.set ("ticket", ticket);
+			updateBuilder.where ("pkid=" + accountPkid);
+		}
+		String cmdText = updateBuilder.toSQL ();
+		return this.pm.executeNonQuery (cmdText, null) ;
 	}
 }

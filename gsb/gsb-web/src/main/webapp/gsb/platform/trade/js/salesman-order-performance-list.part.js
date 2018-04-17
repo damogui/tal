@@ -31,7 +31,7 @@ com.gongsibao.trade.web.SalesmanOrderPerformanceListPart = org.netsharp.panda.co
             fixed: false,
             maxmin: true,
             shadeClose: true,
-            area: ['60%', '60%'],
+            area: ['95%', '95%'],
             zIndex: 100000,
             id: "orderperIframe",
             content: urlEnd,
