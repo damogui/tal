@@ -38,7 +38,7 @@ com.gongsibao.trade.web.interactive.MyInChargeListPart = org.netsharp.panda.comm
 
                 me.invokeService("addFollowUp", [orderProdId, followContent], function (data) {
                     me.reload();
-                    IMessageBox.toast(zyStr + '成功');
+                    IMessageBox.toast('操作成功');
                     layer.closeAll();
                     return;
                 });
