@@ -109,8 +109,6 @@ public class InteractiveMyInChargeWorkspaceTest extends WorkspaceCreationBase {
         addColumn(datagrid, "soOrder.createTime", "下单日期", ControlTypes.DATETIME_BOX, 100);
         addColumn(datagrid, "surplusDays", "剩余天数", ControlTypes.DECIMAL_BOX, 80);
         addColumn(datagrid, "handleName", "办理名称", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "brandName", "商标名称", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "brandTypeName", "商标类型", ControlTypes.TEXT_BOX, 100);
 
         return datagrid;
     }

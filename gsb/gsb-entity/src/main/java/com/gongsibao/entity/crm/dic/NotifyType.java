@@ -5,7 +5,7 @@ import org.netsharp.base.IEnum;
 
 public enum NotifyType implements IEnum {
 
-	WEIXIN(1, "微信"), DINGDING(2, "钉钉"), SMS(3, "短信"), SYSTEM(4, "系统");
+	WEIXIN(1, "微信"), DINGDING(2, "钉钉"), SMS(3, "短信"), SYSTEM(4, "系统"), ALL(5, "全部");
 
 	private int value;
 	private String text;

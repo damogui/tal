@@ -5,6 +5,7 @@ import java.util.List;
 import org.netsharp.base.IPersistableService;
 import org.netsharp.core.annotations.Transaction;
 
+import com.gongsibao.entity.crm.dic.NotifyType;
 import com.gongsibao.entity.supplier.Salesman;
 
 public interface ISalesmanService extends IPersistableService<Salesman> {
@@ -141,4 +142,23 @@ public interface ISalesmanService extends IPersistableService<Salesman> {
     //根据角色Code获取该角色下所有的employeeId集合
     List<Integer> getEmployeeIdListByRoleCodes(List<String> roleCodes);
 
+	/**   
+	 * @Title: getNotifyType   
+	 * @Description: TODO(获取通知消息)   
+	 * @param: @param supplierId
+	 * @param: @return      
+	 * @return: NotifyType      
+	 * @throws   
+	 */
+	NotifyType getNotifyType(Integer employeeId);
+	
+	/**   
+	 * @Title: getReceiving   
+	 * @Description: TODO(获取业务员的接单状态)   
+	 * @param: @param employeeId
+	 * @param: @return      
+	 * @return: boolean      
+	 * @throws   
+	 */
+	boolean getReceiving(Integer employeeId);
 }

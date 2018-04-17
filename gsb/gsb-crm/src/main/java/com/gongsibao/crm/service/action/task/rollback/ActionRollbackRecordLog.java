@@ -79,7 +79,6 @@ public class ActionRollbackRecordLog implements IAction {
 			notify.toNew();
 			notify.setTaskId(task.getId());
 			notify.setContent(copyWriter);
-			notify.setType(NotifyType.WEIXIN);
 			notify.setCustomerId(task.getCustomerId());
 			notify.setSupplierId(organization.getSupplierId());
 			notify.setDepartmentId(organization.getDepartmentId());

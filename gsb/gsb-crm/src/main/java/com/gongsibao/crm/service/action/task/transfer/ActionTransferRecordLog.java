@@ -275,7 +275,6 @@ public class ActionTransferRecordLog implements IAction {
 			notify.toNew();
 			notify.setTaskId(task.getId());
 			notify.setContent(copyWriter);
-			notify.setType(NotifyType.WEIXIN);
 			notify.setCustomerId(task.getCustomerId());
 			notify.setSupplierId(task.getSupplierId());
 			notify.setDepartmentId(task.getDepartmentId());
