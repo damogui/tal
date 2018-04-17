@@ -80,8 +80,8 @@ public class MessageController {
         PublicAccount weixinConfig=publicAccountService.byOriginalId(oid);
         Account account =accountService.queryByMobile(mobile);
         String content =  "您的订单状态有变化请及时查看。\n\r" +
-                "<a href=\"" + Constant.SYSINQUIRY_CONTINUE_CALLBACK_URL_PREFIX + weixinConfig.getAppId() + "&redirect_uri=" +
-                weixinConfig.getHost() + "/index.html?orderId="+orderId + Constant.SYSINQUIRY_CONTINUE_CALLBACK_URL_AFTERFIX+"\">点此查看>></a>";
+                "<a href=\"" + Constant.SYSINQUIRY_CONTINUE_CALLBACK_URL_PREFIX + weixinConfig.getAppId() + "&redirect_uri=http://" +
+                weixinConfig.getHost() + "/index.html?originalId=gh_29f5a8b8da16&orderId="+orderId + Constant.SYSINQUIRY_CONTINUE_CALLBACK_URL_AFTERFIX+"\">点此查看>></a>";
         accountService.sendTextMessage(content,account.getOpenid(),oid);
         data.setCode(200);
         data.setMsg("发送成功");
