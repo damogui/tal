@@ -14,6 +14,7 @@ import org.netsharp.wx.pa.entity.Fans;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Service
 public class AccountService implements IAccountService{
@@ -70,7 +71,7 @@ public class AccountService implements IAccountService{
                 account.setPasswd("");
                 account.setCreateTime(new Date());
                 account.setMobilePhone(mobile);
-                account.setTicket("");
+                account.setTicket(UUID.randomUUID().toString());
                 account.setEmail("");
                 account.setIdentityCard("");
                 account.setTelephone("");
@@ -130,5 +131,22 @@ public class AccountService implements IAccountService{
         return account;
     }
 
+    @Override
+    public Account queryByOpenId(String openId) {
+        AccountWeiXin weiXin=accountWeiXinService.queryByOpenId(openId);
+        if(null==weiXin || null==weiXin.getAccountId()){
+            return null;
+        }
+        Account account=accountService.byId(weiXin.getAccountId());
+        if(null==account){
+            return null;
+        }
+        account.setOpenid(weiXin.getOpenid());
+        return account;
+    }
 
+    @Override
+    public void updateTicket(Integer id, String ticket) {
+        accountService.updateTicket(id,ticket);
+    }
 }
