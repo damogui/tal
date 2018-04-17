@@ -81,6 +81,7 @@ public class ActionFollowRecordLog implements IAction{
 		NCustomerTaskNotify notify = new NCustomerTaskNotify();
 		{
 			notify.toNew();
+			notify.setIsSend(false);//自己跟进的没必要发送消息 hw 2018-04-17
 			notify.setTaskId(task.getId());
 			notify.setContent(copyWriter);
 			notify.setType(NotifyType.WEIXIN);
