@@ -21,7 +21,8 @@ dependencies {
     compile project(':gsb-bd')
     compile project(':gsb-uc')
     compile project(':gsb-product')
-    compile project(':gsb-account')   
+    compile project(':gsb-account')
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
 }
 
 test {
