@@ -33,8 +33,11 @@ public class ActionMemberPersist implements IAction {
 			account.setSourceClientId(1035);
 			account.setIdentityCard("");
 			int randomPwd = Math.abs(new Random(7).nextInt());
-			String pwd = EncrypUtil.md5(randomPwd + "user!@#123").substring(8, 24);
-			account.setPasswd(pwd);
+			String pwdMD5 = EncrypUtil.md5(randomPwd + "abc!@#123");
+	        pwdMD5 = pwdMD5.substring(8);
+	        pwdMD5 = pwdMD5.substring(0, 16);
+	        
+			account.setPasswd(pwdMD5);
 			account.setTicket("");
 
 			IAccountService accountService = ServiceFactory.create(IAccountService.class);

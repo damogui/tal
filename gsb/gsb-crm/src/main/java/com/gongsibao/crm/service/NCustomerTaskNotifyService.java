@@ -8,12 +8,15 @@ import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
 import org.netsharp.organization.base.IEmployeeService;
 import org.netsharp.organization.entity.Employee;
+import org.netsharp.util.StringManager;
 import org.netsharp.wx.ea.base.IEaMessageService;
 
 import com.gongsibao.bd.service.SupplierPersistableService;
 import com.gongsibao.crm.base.INCustomerTaskNotifyService;
 import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.crm.dic.NotifyType;
+import com.gongsibao.supplier.base.ISalesmanService;
+import com.gongsibao.utils.sms.SmsHelper;
 
 @Service
 public class NCustomerTaskNotifyService extends SupplierPersistableService<NCustomerTaskNotify> implements INCustomerTaskNotifyService {
@@ -43,19 +46,55 @@ public class NCustomerTaskNotifyService extends SupplierPersistableService<NCust
 	 */
 	private void sendMessage(NCustomerTaskNotify entity) {
 
-		if (entity.getType() == NotifyType.WEIXIN) {
+		if(!entity.getIsSend()){
+			
+			return;
+		}
+		
+		NotifyType notifyType = this.getNotifyType(entity.getReceivedId());
+		if(notifyType == null){
+			
+			return;
+		}
+		
+		if (notifyType == NotifyType.WEIXIN) {
 
 			this.sendWxMessage(entity);
 			
-		} else if (entity.getType() == NotifyType.DINGDING) {
+		}  else if (notifyType == NotifyType.SMS) {
+
+			this.sendSMSMessage(entity);
+			
+		} else if (notifyType == NotifyType.SYSTEM) {
+
+			//PC端通知
+			
+		}else if (notifyType == NotifyType.DINGDING) {
 
 			
-		} else if (entity.getType() == NotifyType.SMS) {
+		}else if (notifyType == NotifyType.ALL) {
 
+			this.sendWxMessage(entity);
 			
-		} else if (entity.getType() == NotifyType.SYSTEM) {
+			this.sendSMSMessage(entity);
+		}
+	}
+	
+	
+	private NotifyType getNotifyType(Integer employeeId){
+		
+		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
+		return salesmanService.getNotifyType(employeeId);
+	}
+	
+	
+	private void sendSMSMessage(NCustomerTaskNotify entity) {
+		
+		Employee received = this.getEmployee(entity.getReceivedId());
+		
+		if(received != null && !StringManager.isNullOrEmpty(received.getMobile())&& received.getMobile().length() == 11){
 
-			
+			SmsHelper.send(received.getMobile(), entity.getContent());
 		}
 	}
 

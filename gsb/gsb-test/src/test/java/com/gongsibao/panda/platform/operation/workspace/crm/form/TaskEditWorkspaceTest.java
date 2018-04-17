@@ -113,7 +113,10 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 		ResourceNode node = this.resourceService.byCode(foolowDetailResourceNodeCode);
 		PDatagrid datagrid = new PDatagrid(node, "跟进日志");
 		{
+			datagrid.setShowCheckbox(true);
+			datagrid.setSingleSelect(false);
 			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
+			addColumn(datagrid, "creator", "创建人", ControlTypes.DATETIME_BOX, 100);
 			PDatagridColumn column = addColumn(datagrid, "qualityCategory", "质量分类", ControlTypes.ENUM_BOX, 180);
 			{
 				String formatter = EnumUtil.getColumnFormatter(QualityCategory.class);
@@ -152,7 +155,9 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 		ResourceNode node = this.resourceService.byCode(notifyDetailResourceNodeCode);
 		PDatagrid datagrid = new PDatagrid(node, "通知日志");
 		{
-			addColumn(datagrid, "createTime", "通知时间", ControlTypes.DATETIME_BOX, 130);
+			datagrid.setShowCheckbox(false);
+			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
+			addColumn(datagrid, "creator", "创建人", ControlTypes.DATETIME_BOX, 100);
 			PDatagridColumn column = addColumn(datagrid, "type", "通知类型", ControlTypes.ENUM_BOX, 100);
 			{
 				String formatter = EnumUtil.getColumnFormatter(NotifyType.class);
@@ -198,7 +203,9 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 
 		PDatagrid datagrid = new PDatagrid(node, "操作日志");
 		{
-			addColumn(datagrid, "createTime", "操作时间", ControlTypes.DATETIME_BOX, 130);
+			datagrid.setShowCheckbox(false);
+			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
+			addColumn(datagrid, "creator", "创建人", ControlTypes.DATETIME_BOX, 100);
 			// 子页面枚举显示需要格式化一下
 			PDatagridColumn column = addColumn(datagrid, "changeType", "操作类型", ControlTypes.ENUM_BOX, 100);
 			{
@@ -249,7 +256,9 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 
 		PDatagrid datagrid = new PDatagrid(node, "抽查日志");
 		{
+			datagrid.setShowCheckbox(false);
 			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
+			addColumn(datagrid, "creator", "创建人", ControlTypes.DATETIME_BOX, 100);
 			// 子页面枚举显示需要格式化一下
 			PDatagridColumn column = addColumn(datagrid, "inspectionType", "抽查类型", ControlTypes.ENUM_BOX, 100);
 			{

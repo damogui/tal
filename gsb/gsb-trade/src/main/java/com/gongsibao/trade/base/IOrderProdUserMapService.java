@@ -64,4 +64,17 @@ public interface IOrderProdUserMapService extends IPersistableService<OrderProdU
 	 * @throws   
 	 */
 	Boolean addPrincipal(Integer orderProdId, String principalIds, String principalNames);
+
+	/**
+	 * @Title: addPrincipal
+	 * @Description: TODO(批量添加跟进人)
+	 * @param: @param orderProdId
+	 * @param: @param principalIds
+	 * @param: @param principalNames
+	 * @param: @return
+	 * @return: Boolean
+	 * @throws
+	 */
+	Boolean addBatchPrincipal(List<Integer> orderProdIdList, List<Integer> principalIds, String principalNames);
+
 }

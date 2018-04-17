@@ -56,6 +56,9 @@ public class NCustomerTaskNotify extends Entity{
 
 	@Reference(foreignKey = "receivedId", header = "接收人")
 	private Employee received;
+	
+	@Column(name = "is_send", header = "是否发送")
+	private Boolean isSend = true;
 
 	public Integer getSupplierId() {
 		return supplierId;
@@ -150,5 +153,13 @@ public class NCustomerTaskNotify extends Entity{
 
 	public void setReceived(Employee received) {
 		this.received = received;
+	}
+
+	public Boolean getIsSend() {
+		return isSend;
+	}
+
+	public void setIsSend(Boolean isSend) {
+		this.isSend = isSend;
 	}
 }

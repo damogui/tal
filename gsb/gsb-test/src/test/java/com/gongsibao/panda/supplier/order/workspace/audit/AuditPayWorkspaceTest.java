@@ -103,6 +103,9 @@ public class AuditPayWorkspaceTest  extends WorkspaceCreationBase {
 
         }
         addColumn (datagrid, "pay.payForOrderCount", "是否一笔多单", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "pay.setOfBooks.name", "付款账套", ControlTypes.TEXT_BOX, 200);
+        addColumn (datagrid, "pay.productName", "产品名称", ControlTypes.TEXT_BOX, 150);
+        
         addColumn (datagrid, "pay.payWayType", "是否在线支付", ControlTypes.ENUM_BOX, 100);
         addColumn (datagrid, "pay.amount", "付款金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn (datagrid, "status", "审核状态", ControlTypes.ENUM_BOX, 100);
@@ -141,6 +144,7 @@ public class AuditPayWorkspaceTest  extends WorkspaceCreationBase {
         addQueryItem (queryProject, "pay.payForOrderCount", "是否一笔多单", ControlTypes.ENUM_BOX);
         addQueryItem (queryProject, "pay.payWayType", "是否在线支付", ControlTypes.ENUM_BOX);
 
+        addQueryItem (queryProject, "pay.setOfBooks.name", "付款账套", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "creator", "回款业绩创建人", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "createTime", "回款业绩创建时间", ControlTypes.DATE_BOX);
 

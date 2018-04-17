@@ -109,7 +109,10 @@ public class Pay extends BaseEntity {
 	@Exclusive
 	@Column(header = "订单编号拼接")
 	private String orderIds = "";// 拼接订单Id
-
+	
+	@Exclusive
+	private String productName = "";
+	
 	@Exclusive
 	@Subs(subType = OrderPayMap.class, foreignKey = "payId", header = "支付明细")
 	private List<OrderPayMap> orderPayMaps = new ArrayList<>();
@@ -341,4 +344,13 @@ public class Pay extends BaseEntity {
     public void setPayAuditPassTime(Date payAuditPassTime) {
         this.payAuditPassTime = payAuditPassTime;
     }
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+    
 }

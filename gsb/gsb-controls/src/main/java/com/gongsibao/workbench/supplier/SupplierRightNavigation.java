@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.netsharp.authorization.UserPermission;
 import org.netsharp.authorization.UserPermissionManager;
+import org.netsharp.communication.ServiceFactory;
 import org.netsharp.organization.controller.LoginController;
 import org.netsharp.organization.controller.dto.LoginResultDTO;
 import org.netsharp.organization.controller.dto.WorkbenchDTO;
@@ -16,8 +17,11 @@ import org.netsharp.panda.controls.other.Image;
 import org.netsharp.panda.controls.other.Span;
 import org.netsharp.panda.controls.tree.Li;
 import org.netsharp.panda.controls.tree.Ul;
+import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.util.JsonManage;
 import org.netsharp.util.StringManager;
+
+import com.gongsibao.service.ISalesmanService;
 
 public class SupplierRightNavigation extends Div {
 
@@ -42,6 +46,12 @@ public class SupplierRightNavigation extends Div {
 		switchButton.handleWidth = 40;
 		switchButton.width = 70;
 		switchButton.onChange = "function(checked){workbench.switchReceiving(checked);}";
+		
+		//控制开关状态
+		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
+		boolean receiving = salesmanService.getReceiving(SessionManager.getUserId());
+		switchButton.checked = receiving;
+		
 		sbDiv.getControls().add(switchButton);
 		return sbDiv;
 	}

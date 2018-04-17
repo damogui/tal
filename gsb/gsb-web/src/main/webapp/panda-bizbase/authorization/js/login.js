@@ -114,3 +114,6 @@ org.netsharp.core.LoginController = System.Object.Extends({
 		});
 	}
 });
+
+//清除，提升效率
+sessionStorage.clear();
