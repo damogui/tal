@@ -6,15 +6,11 @@
 	<jsp:include page="/gsb/platform/trade/include/meta.jsp"></jsp:include>
 </head>
     <body class="easyui-layout">
-        <div data-options="region:'north',split:false,collapsible:false,closed:false,height:335">
-        	 <div class="formContent">
-		        <fieldset style="margin-bottom:0px;">
-		        	<legend>订单信息</legend>
-					<jsp:include page="/gsb/platform/trade/include/orderInfo.jsp"></jsp:include>
-				</fieldset>
-		        <fieldset style="margin-bottom:0px;">
-		        	<legend>退款信息</legend>
-					  <table cellpadding="3" id = "refund_info_grid" cellspacing="0" class="form-panel" style="width:1000px;">
+        <div data-options="region:'north',split:false,collapsible:false,closed:false,height:200">
+        
+        	<div class="easyui-tabs" style="height:100%;" data-options="fit:true,tabHeight:30">   
+			    <div title="退款信息"> 
+					  <table cellpadding="3" id = "refund_info_grid" cellspacing="0" class="form-panel" style="width:1000px;margin:10px;">
 					      <tr>
 					          <td class="label_td">
 					          	<input type="hidden" id="tempOrderId">
@@ -38,8 +34,11 @@
 						</tr>
 						
 					</table>
-				</fieldset>
-        	 </div>
+			    </div>
+			    <div title="订单信息"> 
+			    	<jsp:include page="/gsb/platform/trade/include/orderInfo.jsp"></jsp:include>
+			    </div>
+			</div>
 		</div>
 		<div id="center" data-options="region:'center'">
 			<div id="detail_tabs" class="easyui-tabs" style="height:100%;" data-options="fit:true,tabHeight:30">

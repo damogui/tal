@@ -190,7 +190,7 @@ public class TradeMarkCasePart extends FormPart {
 		for(TradeMark tm :tradeMarks) {
 			TradeMarkDto tmd =new TradeMarkDto();
 			tmd.setTmId(tm.getId());
-			tmd.setTmName(tm.getMemo());
+			tmd.setTmName(tm.getMemo()+":"+tm.getNclOne().getCode()+"类");
 			tmd.setTmState(tm.getMarkState().getText());
 			tmds.add(tmd);
 		}
