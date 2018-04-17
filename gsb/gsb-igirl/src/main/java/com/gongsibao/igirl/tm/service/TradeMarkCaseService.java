@@ -1000,7 +1000,7 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 		Oql oql=new Oql();
 		{
 			oql.setType(TradeMarkCase.class);
-			oql.setSelects("TradeMarkCase.tradeMarks.*");
+			oql.setSelects("TradeMarkCase.tradeMarks.*,TradeMarkCase.tradeMarks.nclOne.code");
 			oql.setFilter("code=?");
 			oql.getParameters().add("code",caseCode,Types.VARCHAR);
 		}
