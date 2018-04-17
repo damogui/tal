@@ -24,6 +24,8 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 public class InteractiveMyInChargeWorkspaceTest extends WorkspaceCreationBase {
 
+    protected Boolean isSingleSelect = true;
+
     @Before
     public void setup() {
         super.setup();
@@ -33,7 +35,7 @@ public class InteractiveMyInChargeWorkspaceTest extends WorkspaceCreationBase {
         meta = MtableManager.getMtable(entity);
         listToolbarPath = "/crm/order/myincharge/list";
         resourceNodeCode = "Gsb_Supplier_Order_Interactive_My_In_Charge";
-        listPartImportJs = "/gsb/platform/trade/js/interactive-myincharge-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
+        listPartImportJs = "/gsb/platform/trade/js/prod/interactive-myincharge-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
         listPartServiceController = MyInChargeListPart.class.getName();
         listPartJsController = MyInChargeListPart.class.getName();
         //listFilter = "";
@@ -77,6 +79,10 @@ public class InteractiveMyInChargeWorkspaceTest extends WorkspaceCreationBase {
             datagrid.setName("我负责的订单");
             datagrid.setToolbar("panda/datagrid/row/edit");
             datagrid.setAutoQuery(true);
+            if(!isSingleSelect){
+                datagrid.setShowCheckbox(true);
+                datagrid.setSingleSelect(false);
+            }
         }
         PDatagridColumn column = null;
         addColumn(datagrid, "no", "操作", ControlTypes.OPERATION_COLUMN, 100, true);

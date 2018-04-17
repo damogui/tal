@@ -44,7 +44,8 @@ public class U8DepartmentWorkspaceTest extends WorkspaceCreationBase {
         }
 
         PDatagridColumn column = null;
-        addColumn(datagrid, "code", "编号", ControlTypes.TEXT_BOX, 80);
+        addColumn(datagrid, "code", "部门编号", ControlTypes.TEXT_BOX, 80);
+        addColumn(datagrid, "personnelCode", "个人编号", ControlTypes.TEXT_BOX, 80);
         addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 200);
         addColumn(datagrid, "salesman.name", "业务员名称", ControlTypes.TEXT_BOX, 150);
         addColumn(datagrid, "creator", "添加人", ControlTypes.TEXT_BOX, 100);
@@ -57,8 +58,9 @@ public class U8DepartmentWorkspaceTest extends WorkspaceCreationBase {
         PForm form = super.createForm(node);
         PFormField formField = null;
         form.setColumnCount(2);
-        addFormField(form, "code", "编号", null, ControlTypes.TEXT_BOX, true, false);
+        addFormField(form, "code", "部门编号", null, ControlTypes.TEXT_BOX, true, false);
         addFormField(form, "name", "名称", null, ControlTypes.TEXT_BOX, false, false);
+        addFormField(form, "personnelCode", "个人编号", null, ControlTypes.TEXT_BOX, false, false);
         addFormFieldRefrence(form, "salesman.name", "业务员", null, "CRM_Employee", true, false);
         return form;
     }
