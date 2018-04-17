@@ -103,6 +103,26 @@ public class OrderProdUserMapService extends PersistableService<OrderProdUserMap
     }
 
     @Override
+    public Map<Integer, Date> getAllocationDate(List<Integer> orderProdIdList, Integer typeId, Integer statusId) {
+
+        String orderProdIds = StringManager.join(",", orderProdIdList);
+
+        Map<Integer, Date> resMap = new HashMap<>();
+        Oql oql = new Oql();
+        {
+            oql.setType(this.type);
+            oql.setSelects("*");
+            oql.setFilter("order_prod_id in(" + orderProdIds + ") AND type_id = " + OrderProdUserMapType.getItem(typeId).getValue() + " AND status_id = " + OrderProdUserMapStatus.getItem(statusId).getValue() + "");
+            oql.setOrderby("add_time ASC");
+        }
+        List<OrderProdUserMap> orderProdUserMapList = this.pm.queryList(oql);
+        for (OrderProdUserMap orderProdUserMap : orderProdUserMapList) {
+            resMap.put(orderProdUserMap.getOrderProdId(), orderProdUserMap.getCreateTime());
+        }
+        return resMap;
+    }
+
+    @Override
     public Boolean updateStatus(Integer id, OrderProdUserMapStatus newStatus, OrderProdUserMapStatus oldStatus) {
 
         StringBuffer sql = new StringBuffer();
