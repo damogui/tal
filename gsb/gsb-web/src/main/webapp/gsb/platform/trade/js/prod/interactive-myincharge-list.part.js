@@ -50,6 +50,9 @@ com.gongsibao.trade.web.interactive.MyInChargeListPart = org.netsharp.panda.comm
             var ctrl = workspace.parts.byIndex(0).key;
             return '<sapn>' + PandaHelper.dimString(value) + '</span><i class="fa fa-eye" onclick="' + ctrl + '.showPlaintext(\'' + row.customerId + '\',\'' + value + '\',\'' + typeName + '\',this);"></i>';
         }
+    },
+    showPlaintext: function (customerId, value, typeName, obj) {
+        $(obj).parent().text(value);
     }
 });
 
