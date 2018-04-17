@@ -79,7 +79,7 @@ public class ContractService extends PersistableService<Contract> implements ICo
         StringBuffer sqlSb = new StringBuffer();
         sqlSb.append("SELECT od.`pkid` 'orderProdId', c.`is_urgeney` 'isUrgeney' FROM so_contract c ");
         sqlSb.append("JOIN so_order_prod od ON od.order_id = c.order_id ");
-        sqlSb.append("WHERE od.order_id IN (" + orderProdIds + ") ");
+        sqlSb.append("WHERE od.pkid IN (" + orderProdIds + ") ");
         DataTable rows = this.pm.executeTable(sqlSb.toString(), null);
         Map<Integer, Boolean> resMap = new HashMap<>();
         for (IRow row : rows) {

@@ -12,6 +12,8 @@ import com.gongsibao.utils.NumberUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.AdvancedListPart;
+import org.netsharp.panda.commerce.FilterParameter;
+import org.netsharp.util.StringManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,16 +21,42 @@ import java.util.List;
 import java.util.Map;
 
 public class MyInChargeListPart extends AdvancedListPart {
+
     IOrderProdTraceService orderProdTraceService = ServiceFactory.create(IOrderProdTraceService.class);
     IContractService contractService = ServiceFactory.create(IContractService.class);
     IOrderProdUserMapService orderProdUserMapService = ServiceFactory.create(IOrderProdUserMapService.class);
+
+    @Override
+    public String getFilterByParameter(FilterParameter parameter) {
+        ArrayList<String> filters = new ArrayList<String>();
+        //当是关键字时(订单编号、渠道订单编号、下单人、下单人电话、关联公司)
+        String keyword = parameter.getValue1().toString();
+        if (parameter.getKey().equals("keyword")) {
+
+            filters.add("soOrder.no = '" + keyword + "'");
+            filters.add("pkid = '" + keyword + "'");
+            filters.add("soOrder.account_name like '%" + keyword + "%'");
+            filters.add("soOrder.account_mobile like '%" + keyword + "%'");
+            filters.add("companyIntention.company_name like '%" + keyword + "%'");
+            filters.add("soOrder.company_id in( select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' )  )");
+
+            return "(" + StringManager.join(" or ", filters) + ") ";
+        }
+
+        return parameter.getFilter();
+    }
 
 
     @Override
     public List<?> doQuery(Oql oql) {
         StringBuffer sqlSb = new StringBuffer();
         sqlSb.append("orderProd.*,");
-        sqlSb.append("soOrder.*");
+        sqlSb.append("processStatus.{pkid,name},");
+        sqlSb.append("owner.{id,name},");
+        sqlSb.append("companyIntention.{pkid,name,full_name,company_name},");
+        sqlSb.append("soOrder.*,");
+        sqlSb.append("soOrder.customer.{pkid,realName},");
+        sqlSb.append("soOrder.companyIntention.{pkid,name,full_name,company_name}");
         oql.setSelects(sqlSb.toString());
         List<OrderProd> resList = (List<OrderProd>) super.doQuery(oql);
         List<Integer> orderProdIdList = getOrderProdIdList(resList);
@@ -49,6 +77,7 @@ public class MyInChargeListPart extends AdvancedListPart {
             OrderProd orderProd = ((OrderProd) list.get(i));
             ob2.get(i).put("isUrgent", orderProd.getUrgent());
             ob2.get(i).put("operator", orderProd.getOperator());
+            ob2.get(i).put("surplusDays", orderProd.getSurplusDays());
         }
         return json;
     }
