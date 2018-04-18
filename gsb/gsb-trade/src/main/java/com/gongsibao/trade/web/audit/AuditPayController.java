@@ -41,23 +41,18 @@ public class AuditPayController extends AuditBaseController {
      * @return
      */
     public Boolean approvedPay(Integer auditLogId, String remark, String payTime) {
-        boolean auditResult = auditLogService.audit(AuditState.PASS, auditLogId, remark);
-
-        if (auditResult) {
-            IAuditLogService auditLogService = ServiceFactory.create(IAuditLogService.class);
-            IPayService payService = ServiceFactory.create(IPayService.class);
-
-            AuditLog auditLog = auditLogService.byId(auditLogId);
-            if (auditLog.getLevel().equals(auditLog.getMaxLevel())) {
-                Integer execNum = payService.auditPass(payTime, auditLog.getFormId());//根据确认时间和支付时间更新
-            }
-
-
-            //更改确认时间
+        IPayService payService = ServiceFactory.create(IPayService.class);
+        IAuditLogService auditLogBLL = ServiceFactory.create(IAuditLogService.class);
+        AuditLog auditLog = auditLogBLL.byId(auditLogId);
+        boolean auditResult = false;
+        if (auditLog.getLevel().equals(auditLog.getMaxLevel())) {//审核完毕
+            //Integer execNum = payService.auditPass(payTime, auditLog.getFormId());//根据确认时间和支付时间更新
+            auditResult = auditLogService.audit(AuditState.PASS, auditLogId, remark,payTime);
         } else {
-
+            auditResult = auditLogService.audit(AuditState.PASS, auditLogId, remark);
 
         }
+
 
         return auditResult;
     }

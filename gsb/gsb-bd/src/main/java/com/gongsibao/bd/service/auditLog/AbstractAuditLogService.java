@@ -22,11 +22,11 @@ import com.gongsibao.supplier.base.ISalesmanService;
 import com.gongsibao.utils.SalesmanOrganization;
 import com.gongsibao.utils.SupplierSessionManager;
 
-public abstract class AbstractAuditLogService {
+public abstract class AbstractAuditLogService<T> {
     IOrganizationService organizationService = ServiceFactory.create(IOrganizationService.class);
     IAuditLogService logService = ServiceFactory.create(IAuditLogService.class);
     ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
-    
+
     private Integer currentLevel;
 
     /**
@@ -54,8 +54,8 @@ public abstract class AbstractAuditLogService {
     }
 
     /*
-    * 审核
-    * */
+     * 审核
+     * */
     public boolean audit(AuditState state, Integer auditLogId, String remark) {
 
         String actionPath = setActionPath();
@@ -66,6 +66,35 @@ public abstract class AbstractAuditLogService {
             auditContext.setState(state);
             auditContext.setAuditLogId(auditLogId);
             auditContext.setremark(remark);
+
+        }
+        ActionContext ctx = new ActionContext();
+        {
+            ctx.setPath(actionPath);
+            ctx.setItem(auditContext);
+        }
+        ActionManager action = new ActionManager();
+        action.execute(ctx);
+        return true;
+    }
+
+    /*
+     * 审核(扩展参数)
+     * */
+    public boolean audit(AuditState state, Integer auditLogId, String remark, T obj) {
+
+        String actionPath = setActionPath();
+
+        AuditContext auditContext = new AuditContext();
+        {
+            // 这里根据传入的参数构造;
+            auditContext.setState(state);
+            auditContext.setAuditLogId(auditLogId);
+            auditContext.setremark(remark);
+            if (obj != null) {
+                auditContext.setOtherInfo(obj);
+
+            }
 
         }
         ActionContext ctx = new ActionContext();
@@ -90,7 +119,7 @@ public abstract class AbstractAuditLogService {
         AuditLog userAudit = this.getUserAuditLog(formId, addUserId);
         AuditLog directLeader = this.getDirectLeaderAudit(formId, addUserId);
         AuditLog superiorLeader = this.getSuperiorLeaderAudit(formId, addUserId);
-        List<AuditLog> platformAuditList = this.getPlatformOperationAudit(formId,addUserId);
+        List<AuditLog> platformAuditList = this.getPlatformOperationAudit(formId, addUserId);
         List<AuditLog> extenAuditList = this.getExtenAuditLogList(formId, addUserId);
 
         if (userAudit != null) {
@@ -115,10 +144,10 @@ public abstract class AbstractAuditLogService {
             item.setMaxLevel(getCurrentLevel());
             item.setRemark("");
             //当没有其他审核流程（自己审核通过即全部审核通过），需要设置审核为待审核（否则审核流程不走，无法走审核回写）
-            if(allList.size() ==1){
-            	item.setStatus(AuditLogStatusType.TOAUDIT);
-            }else{
-            	if (item.getStatus().equals(AuditLogStatusType.AUDITPASS)) {
+            if (allList.size() == 1) {
+                item.setStatus(AuditLogStatusType.TOAUDIT);
+            } else {
+                if (item.getStatus().equals(AuditLogStatusType.AUDITPASS)) {
                     item.setAuditTime(new Date());
                 }
             }
@@ -159,33 +188,36 @@ public abstract class AbstractAuditLogService {
         //2.隔级领导
         if (organization.getSuperiorLeaderId() != null && !organization.getSuperiorLeaderId().equals(addUserId)) {
             Integer level = getCurrentLevel() + 1;
-            AuditLog logEntity = addAuditLog(formId, "服务商领导人审核", organization.getSuperiorLeaderId(),level);
+            AuditLog logEntity = addAuditLog(formId, "服务商领导人审核", organization.getSuperiorLeaderId(), level);
             return logEntity;
         }
         return null;
     }
+
     /**
      * 添加平台运营审核（xl部门用）
+     *
      * @param formId
      * @param addUserId
      * @return
      */
     protected List<AuditLog> getPlatformOperationAudit(Integer formId, Integer addUserId) {
-    	List<AuditLog> auditLogList = new ArrayList<AuditLog>();
-    	//1.判断当前提交审核的业务员 是否属于平台
-    	Salesman salesmanEntity = salesmanService.byEmployeeId(addUserId);
-    	if(salesmanEntity != null && salesmanEntity.getType().equals(SupplierType.PLATFORM)){
-    		//2.获取平台运营领导
-    		ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
-        	List<Integer> yyIds = salesmanService.getEmployeeIdListByRoleCodes(Arrays.asList("Platform_Operation_Leader"));
-        	Integer level = getCurrentLevel() + 1;
-        	for (Integer item : yyIds) {
-            	auditLogList.add(addAuditLog(formId, "运营审核", item, level));
+        List<AuditLog> auditLogList = new ArrayList<AuditLog>();
+        //1.判断当前提交审核的业务员 是否属于平台
+        Salesman salesmanEntity = salesmanService.byEmployeeId(addUserId);
+        if (salesmanEntity != null && salesmanEntity.getType().equals(SupplierType.PLATFORM)) {
+            //2.获取平台运营领导
+            ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
+            List<Integer> yyIds = salesmanService.getEmployeeIdListByRoleCodes(Arrays.asList("Platform_Operation_Leader"));
+            Integer level = getCurrentLevel() + 1;
+            for (Integer item : yyIds) {
+                auditLogList.add(addAuditLog(formId, "运营审核", item, level));
             }
-    	}
-    	
+        }
+
         return auditLogList;
     }
+
     /**
      * 扩展审核 例如退款需要法务审核
      *
@@ -206,9 +238,9 @@ public abstract class AbstractAuditLogService {
     protected abstract String setActionPath();
 
     /*
-    * 添加审核记录
-    * */
-    protected AuditLog addAuditLog(Integer formId, String content, Integer creatorId,Integer level) {
+     * 添加审核记录
+     * */
+    protected AuditLog addAuditLog(Integer formId, String content, Integer creatorId, Integer level) {
         AuditLog auditLog = new AuditLog();
         AuditLogStatusType auditLogStatus = getAuditLogStatusType(level);
         auditLog.setType(setAuditLogType());
