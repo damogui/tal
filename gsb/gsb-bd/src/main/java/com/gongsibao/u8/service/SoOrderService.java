@@ -245,7 +245,9 @@ public class SoOrderService extends PersistableService<SoOrder> implements ISoOr
         {
             oql.setType (this.type);
             oql.setSelects ("soOrder.*,products.*");
-            oql.setFilter ("no =" + orderNo);
+            oql.setFilter ("no =?");
+
+            oql.getParameters().add("@no",orderNo,Types.VARCHAR);
         }
         SoOrder entity = orderService.queryFirst (oql);
         return entity;

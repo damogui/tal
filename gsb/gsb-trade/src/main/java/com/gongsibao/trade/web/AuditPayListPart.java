@@ -85,7 +85,9 @@ public class AuditPayListPart extends AdvancedListPart {
         	
         	AuditLog auditLog = ((AuditLog) list.get(i));
         	String soOrderNo  = auditLog.getPay().getOrderNo();
-        	SoOrder soOrder = orderService.getOrderWithOrderProdsByOrderNo(soOrderNo);
+
+        	String orderNoF=soOrderNo.split(",")[0];
+        	SoOrder soOrder = orderService.getOrderWithOrderProdsByOrderNo(orderNoF);
         	List<OrderProd> products = soOrder.getProducts();
         	String productName = "";
         	for (OrderProd item : products) {
