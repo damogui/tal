@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class Constant {
     //微信支付成功提醒
-    public static final String ORDER_BUY_SUCCESS="您的商品 %s 已支付成功，我们将立刻为您办理。";
+    public static final String ORDER_BUY_SUCCESS="您的订单( %s ) 已支付成功，我们将立即为您办理。%s";
 
     /**
      * 微信回调url前缀
