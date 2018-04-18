@@ -38,7 +38,7 @@ public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "Operation_CRM_Customer_OpenSea";
 
-		listFilter = "distribut=1 and ( (owner_id is null or owner_id =0) and (department_id is null or department_id = 0) and (supplier_id is null or supplier_id = 0))";
+		listFilter = "distribut=1 and ( (owner_id is null or owner_id =0) and (NCustomerTask.department_id is null or NCustomerTask.department_id = 0) and (NCustomerTask.supplier_id is null or NCustomerTask.supplier_id = 0))";
 		listToolbarPath = "task/batch/allocation";
 		listPartJsController = TaskAllListPart.class.getName();
 		listPartServiceController = TaskAllListPart.class.getName();
@@ -160,6 +160,7 @@ public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "allocationDispositon", "自营/平台", ControlTypes.ENUM_BOX, 100, false);
 		addColumn(datagrid, "customer.important", "客户等级", ControlTypes.ENUM_BOX, 100, false);
 		addColumn(datagrid, "owner.name", "业务员", ControlTypes.ENUM_BOX, 100, false);
+		addColumn(datagrid, "customer.company.companyName", "关联公司", ControlTypes.TEXT_BOX, 100);
 		// addColumn(datagrid, "customer.realName", "公司名称",
 		// ControlTypes.TEXT_BOX, 100, true);
 		column = addColumn(datagrid, "customer.isMember", "是否会员", ControlTypes.TEXT_BOX, 100, false);{
@@ -217,6 +218,7 @@ public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
 			item.setWidth(350);
 		}
 		addQueryItem(queryProject, "owner.name", "业务员", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "customer.company.companyName", "关联企业", ControlTypes.TEXT_BOX);
 		item = addQueryItem(queryProject, "source.name", "商机来源", ControlTypes.CUSTOM);{
 			
 			item.setCustomControlType(PropertyQueryDictComboBox.class.getName());

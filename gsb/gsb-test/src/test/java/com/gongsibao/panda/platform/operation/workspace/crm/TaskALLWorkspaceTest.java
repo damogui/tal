@@ -84,6 +84,7 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 		addColumn(datagrid, "allocationState", "分配状态", ControlTypes.ENUM_BOX, 100, false);
 		addColumn(datagrid, "owner.name", "业务员", ControlTypes.ENUM_BOX, 100, false);
 		addColumn(datagrid, "name", "商机名称", ControlTypes.TEXT_BOX, 250, false);
+		addColumn(datagrid, "customer.company.companyName", "关联公司", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "customerId", "客户ID", ControlTypes.TEXT_BOX, 60, false);
 		addColumn(datagrid, "customer.realName", "客户名称", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "allocationDispositon", "自营/平台", ControlTypes.ENUM_BOX, 100, false);
@@ -174,6 +175,7 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 			item.setInterzone(true);
 		}
 		addQueryItem(queryProject, "owner.name", "业务员", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "customer.company.companyName", "关联企业", ControlTypes.TEXT_BOX);
 		return queryProject;
 	}
 }
