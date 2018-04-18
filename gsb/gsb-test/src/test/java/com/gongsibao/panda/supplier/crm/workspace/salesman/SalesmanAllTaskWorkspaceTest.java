@@ -95,7 +95,6 @@ public class SalesmanAllTaskWorkspaceTest extends TaskALLWorkspaceTest {
 		}
 //		addRefrenceQueryItem(queryProject, "supplier.name", "服务商", Supplier.class.getSimpleName());
 		addQueryItem(queryProject, "creator", "创建人", ControlTypes.TEXT_BOX);
-		
 		addRefrenceQueryItem(queryProject, "quality.name", "客户质量", NCustomerTaskQuality.class.getSimpleName());
 
 		//意向产品

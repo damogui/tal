@@ -159,6 +159,7 @@ public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "customer.realName", "客户名称", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "allocationDispositon", "自营/平台", ControlTypes.ENUM_BOX, 100, false);
 		addColumn(datagrid, "customer.important", "客户等级", ControlTypes.ENUM_BOX, 100, false);
+		addColumn(datagrid, "owner.name", "业务员", ControlTypes.ENUM_BOX, 100, false);
 		// addColumn(datagrid, "customer.realName", "公司名称",
 		// ControlTypes.TEXT_BOX, 100, true);
 		column = addColumn(datagrid, "customer.isMember", "是否会员", ControlTypes.TEXT_BOX, 100, false);{
@@ -215,6 +216,7 @@ public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
 			item.setTooltip("输入商机ID、客户ID、商机名称、客户名称、联系方式");
 			item.setWidth(350);
 		}
+		addQueryItem(queryProject, "owner.name", "业务员", ControlTypes.TEXT_BOX);
 		item = addQueryItem(queryProject, "source.name", "商机来源", ControlTypes.CUSTOM);{
 			
 			item.setCustomControlType(PropertyQueryDictComboBox.class.getName());
