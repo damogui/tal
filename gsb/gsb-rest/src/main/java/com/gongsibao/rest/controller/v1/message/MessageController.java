@@ -71,10 +71,10 @@ public class MessageController {
     @RequestMapping(value = "/stateChange", method = RequestMethod.GET)
     public ResponseData stateChange(
             @RequestParam("mobile") String mobile,
-            @RequestParam("orderPorudctId") String orderPorudctId
+            @RequestParam("orderPorudctId") Integer orderPorudctId
     ) {
         ResponseData data = new ResponseData();
-        if (StringUtils.isBlank(orderPorudctId)) {
+        if (null == orderPorudctId) {
             data.setCode(500);
             data.setMsg("orderId 为空！");
             return data;
@@ -84,15 +84,7 @@ public class MessageController {
             data.setMsg("mobile 为空！");
             return data;
         }
-        IPublicAccountService publicAccountService = ServiceFactory.create(IPublicAccountService.class);
-        PublicAccount weixinConfig = publicAccountService.byOriginalId(oid);
-        Account account = accountService.queryByMobile(mobile);
-        String redirectUrl = UrlHelper.encode("http://"+weixinConfig.getHost() + UrlHelper.join("/index.html#/mine/order", "originalId=" + oid));
-        String url = Constant.SYSINQUIRY_CONTINUE_CALLBACK_URL_PREFIX;
-        url = String.format(url, weixinConfig.getAppId(), redirectUrl, "snsapi_base", "123");
-        String proName="test";
-        String content =String.format(Constant.ORDER_CHANGE_STATE_MSG,proName,"办理中",url);
-        accountService.sendTextMessage(content, account.getOpenid(), oid);
+        accountService.pushOrderStateMsg(mobile,orderPorudctId);
         data.setCode(200);
         data.setMsg("发送成功");
         return data;
