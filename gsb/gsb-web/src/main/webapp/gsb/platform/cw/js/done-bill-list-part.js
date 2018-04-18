@@ -13,9 +13,9 @@ com.gongsibao.cw.web.DoneBillListPart = org.netsharp.panda.commerce.ListPart.Ext
     showBill:function (formId,formType){ //打开单据详情
     	var contentUrl = this.seeUrl +"?formId="+formId +"&formType="+formType;
     	var title = "";
-    	if(formType == 1)title = "借款单";
-    	if(formType == 2)title = "报销单";
-    	if(formType == 3)title = "付款单";
+    	if(formType == 3)title = "借款单";
+    	if(formType == 4)title = "报销单";
+    	if(formType == 5)title = "付款单";
     	layer.open({
     		id: "auditBillIframe",
             type: 2,

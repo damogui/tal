@@ -25,6 +25,7 @@ import org.netsharp.util.ReflectManager;
 import com.gongsibao.cw.web.CostDetailListPart;
 import com.gongsibao.cw.web.LoansBillFormPart;
 import com.gongsibao.cw.web.LoansBillListPart;
+import com.gongsibao.entity.cw.CostType;
 import com.gongsibao.entity.cw.Loan;
 import com.gongsibao.entity.u8.SetOfBooks;
 import com.gongsibao.tools.PToolbarHelper;
@@ -184,11 +185,11 @@ public class LoansBillWorkspaceTest extends WorkspaceCreationBase {
     protected PForm createForm(ResourceNode node) {
 
     	  PForm form = super.createForm(node);
-          String groupName = "";
           PFormField formField = null;
           addFormField(form, "type", "借款类型", ControlTypes.ENUM_BOX, true, false);
+          
           addFormFieldRefrence(form, "setOfBooks.name", "付款单位",null,  SetOfBooks.class.getSimpleName(), true, false);
-          formField =  addFormField(form, "paymentMethod", "付款方式", ControlTypes.ENUM_BOX, true, false);
+          formField =  addFormField(form, "paymentMethod", "借款方式", ControlTypes.ENUM_BOX, true, false);
           {
         	  formField.setTroikaTrigger("controllerloan.paymentMethodChange(this);");
           }
@@ -224,10 +225,7 @@ public class LoansBillWorkspaceTest extends WorkspaceCreationBase {
             PDatagridColumn column = null;
             
         	addColumn(datagrid, "organization.pathName", "费用归属部门", ControlTypes.TEXT_BOX, 250);
-        	column =  addColumn(datagrid, "costType", "费用类型", ControlTypes.ENUM_BOX, 250);
-            {
-				column.setFormatter("return controllercostDetailItem.costTypeFormat(value,row,index);");
-			}
+        	addColumn(datagrid, "costTypeName", "费用类型", ControlTypes.TEXT_BOX, 250);
             addColumn(datagrid, "detailMoney", "金额", ControlTypes.TEXT_BOX, 100);
             addColumn(datagrid, "memoto", "说明", ControlTypes.TEXT_BOX, 300);
         }
@@ -238,9 +236,12 @@ public class LoansBillWorkspaceTest extends WorkspaceCreationBase {
 			form.setResourceNode(node);
 			form.setColumnCount(1);
 			form.setName("新增费用明细");
-
+			PFormField formField = null;
 			addFormFieldRefrence(form, "organization.pathName", "费用归属部门",null,"Organization-Department", true, false);
-		    addFormField(form, "costType", "费用类型", null, ControlTypes.ENUM_BOX, true, false);
+			formField =  addFormFieldRefrence(form, "costType.name", "费用类型",null,  CostType.class.getSimpleName(), true, false);
+	        {
+	        	formField.setRefFilter("form_type =3"); //设置参照参数
+	        }
 			addFormField(form, "detailMoney", "金额", null, ControlTypes.DECIMAL_FEN_BOX, true, false);
 			addFormField(form, "memoto", "说明", null, ControlTypes.TEXTAREA, true, false);
 		}

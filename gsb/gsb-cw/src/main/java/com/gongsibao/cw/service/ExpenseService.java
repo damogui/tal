@@ -79,8 +79,13 @@ public class ExpenseService extends PersistableService<Expense> implements IExpe
 
 	@Override
 	public Boolean updateStatus(AuditRecord auditRecord){
-		//但需要冲正借款 报销金额 大于0   冲正所有借款 
-		String sql = "UPDATE cw_expense SET status ="+FinanceDict.AuditStatus.Status_5.getValue() +"   WHERE id = "+auditRecord.getFormId();
+		int status = 0;
+		if(auditRecord.getStatus().getValue().intValue() != FinanceDict.AuditDetailStatus.AGREE.getValue().intValue()){
+			status = FinanceDict.AuditStatus.Status_6.getValue();
+		}else{
+			status = FinanceDict.AuditStatus.Status_5.getValue();
+		}
+		String sql = "UPDATE cw_expense SET status ="+status +" , bank_id = "+auditRecord.getBankId()+"  WHERE id = "+auditRecord.getFormId();
 		Boolean bool =  this.pm.executeNonQuery(sql, null) > 0;
 		if(bool){
 			auditRecordService.saveFinance(auditRecord);

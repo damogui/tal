@@ -54,15 +54,12 @@ com.gongsibao.cw.web.LoansBillFormPart = org.netsharp.panda.commerce.FormPart.Ex
 com.gongsibao.cw.web.CostDetailListPart = org.netsharp.panda.commerce.DetailPart.Extends({
 	ctor: function () {
         this.base();
-        this.costType = PandaHelper.Enum.get('com.gongsibao.entity.cw.dict.FinanceDict$CostType');
-    },
-    costTypeFormat : function (value,row,index){
-    	return this.costType[value];
     },
     saveBefore:function (entity){
-    	entity.pathName = entity.organization.pathName
+    	entity.pathName = entity.organization.pathName ;
+    	entity.costTypeName = entity.costType.name;
     	entity.detailMoney = parseInt(entity.detailMoney)/100; 
-    	entity.formType = 1;  //借款单
+    	entity.formType = 3;  //借款单
     },
     saveAfter: function () { 
     	this.sumAmount();

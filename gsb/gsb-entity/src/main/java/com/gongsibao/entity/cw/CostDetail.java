@@ -33,11 +33,26 @@ public class CostDetail extends BizEntity{
 	@Column(name="form_type",header="单据类型")
 	private FinanceDict.FormType formType  ;
 	
-	@Column(name="cost_type",header="费用类型")
-	private FinanceDict.CostType costType = FinanceDict.CostType.BGYP;
+	@Column(name="cost_type_id",header="费用类型id")
+	private Integer costTypeId ;
+	
+	@Column(name="cost_type_name",header="费用类型名称")
+	private String costTypeName;
+	
+	@Reference(foreignKey = "costTypeId")
+	private CostType costType ;
+	
+	@Column(name="invoice_type",header="发票类型")
+	private FinanceDict.InvoiceType invoiceType = FinanceDict.InvoiceType.GI ;
 	
 	@Column(name="detail_money",header="费用金额")
 	private Integer detailMoney;
+	
+	@Column(name="tax_rate",header="费率")
+	private FinanceDict.TaxRateType taxRate =FinanceDict.TaxRateType.TaxRate_1 ;
+	
+	@Column(name="detail_taxation",header="税费金额")
+	private Integer detailTaxation;
 	
 	@Column(name = "organization_id", header = "费用归属部门（组织机构id）")
 	private Integer organizationId;
@@ -61,11 +76,21 @@ public class CostDetail extends BizEntity{
 		this.formId = formId;
 	}
 
-	public FinanceDict.CostType getCostType() {
+
+
+	public Integer getCostTypeId() {
+		return costTypeId;
+	}
+
+	public void setCostTypeId(Integer costTypeId) {
+		this.costTypeId = costTypeId;
+	}
+
+	public CostType getCostType() {
 		return costType;
 	}
 
-	public void setCostType(FinanceDict.CostType costType) {
+	public void setCostType(CostType costType) {
 		this.costType = costType;
 	}
 
@@ -116,6 +141,42 @@ public class CostDetail extends BizEntity{
 	public void setFormType(FinanceDict.FormType formType) {
 		this.formType = formType;
 	}
+
+	public FinanceDict.TaxRateType getTaxRate() {
+		return taxRate;
+	}
+
+	public void setTaxRate(FinanceDict.TaxRateType taxRate) {
+		this.taxRate = taxRate;
+	}
+
+	public Integer getDetailTaxation() {
+		return detailTaxation;
+	}
+
+	public void setDetailTaxation(Integer detailTaxation) {
+		this.detailTaxation = detailTaxation;
+	}
+
+	public FinanceDict.InvoiceType getInvoiceType() {
+		return invoiceType;
+	}
+
+	public void setInvoiceType(FinanceDict.InvoiceType invoiceType) {
+		this.invoiceType = invoiceType;
+	}
+
+	public String getCostTypeName() {
+		return costTypeName;
+	}
+
+	public void setCostTypeName(String costTypeName) {
+		this.costTypeName = costTypeName;
+	}
+
+	
+
+	
 	
 	
 }

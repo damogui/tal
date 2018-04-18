@@ -7,7 +7,6 @@ com.gongsibao.cw.web.AuditBillFormCtrl = org.netsharp.panda.core.CustomCtrl.Exte
     	this.loanBillType = PandaHelper.Enum.get('com.gongsibao.entity.cw.dict.FinanceDict$LoanBillType');
     	this.expenseBillType = PandaHelper.Enum.get('com.gongsibao.entity.cw.dict.FinanceDict$ExpenseBillType');
     	
-    	this.costType = PandaHelper.Enum.get('com.gongsibao.entity.cw.dict.FinanceDict$CostType');
     	this.auditDetailStatus = PandaHelper.Enum.get('com.gongsibao.entity.cw.dict.FinanceDict$AuditDetailStatus');
     	this.service = 'com.gongsibao.cw.web.AuditBillFormController';
     	
@@ -20,11 +19,12 @@ com.gongsibao.cw.web.AuditBillFormCtrl = org.netsharp.panda.core.CustomCtrl.Exte
     		 me.bindForm(data);
     		 me.bindCostTable(data);
     		 me.bindAuditTable(data);
-    		if(me.formType == 2){ //报销单据
+    		if(me.formType == 4){ //报销单据
     			me.bindTripTable(data);
     			me.bindSubsidyTable(data);
     		}
-    		 me.bindFileTable(data);
+    		me.bindFileTable(data);
+    		me.bindU8BankSelect(data.setOfBooksId);
     	});
     },
     bindForm : function (billData){ // 绑定form数据
@@ -39,10 +39,10 @@ com.gongsibao.cw.web.AuditBillFormCtrl = org.netsharp.panda.core.CustomCtrl.Exte
     	$("#amount").text(billData.amount);
     	$("#books_name").text(billData.setOfBooks.name);
     	$("#payment_method").text(me.paymentMethod[billData.paymentMethod]);
-    	if(me.formType == 1){
+    	if(me.formType == 3){
     		$("#bill_type").text(me.loanBillType[billData.type]);
     	}
-    	if(me.formType == 2){
+    	if(me.formType == 4){
     		$("#bill_type").text(me.expenseBillType[billData.type]);
     	}
     	$("#memoto_txt").text(billData.memoto);
@@ -73,7 +73,7 @@ com.gongsibao.cw.web.AuditBillFormCtrl = org.netsharp.panda.core.CustomCtrl.Exte
     			var cost_html = "<tr> ";
     		    cost_html +="<th scope='row'>"+number+"</th>";
     		    cost_html +="<td>"+costItem.pathName+"</td>";
-    		    cost_html +="<td>"+me.costType[costItem.costType]+"</td>";
+    		    cost_html +="<td>"+costItem.costTypeName+"</td>";
     		    cost_html +="<td>"+costItem.detailMoney+"</td>";
     		    cost_html +="<td>"+costItem.memoto+"</td>";
     		    cost_html +="</tr>";
@@ -220,6 +220,15 @@ com.gongsibao.cw.web.AuditBillFormCtrl = org.netsharp.panda.core.CustomCtrl.Exte
     	});
     	
     },
+    bindU8BankSelect: function (setOfBooksId){
+    	this.invokeService("getU8BankList", [setOfBooksId], function(data){  
+    		var dataArr =[];  
+    		for(var i =0;i<data.length;i++){
+    			dataArr.push({"text":data[i].name,"id":data[i].id});  
+    		}
+    		 $("#bankItem").combobox("loadData", dataArr);  
+	   	});
+    },
     addTab : function (options){  //添加选项卡
     	var li = $("<li />").append($("<a />",{
     			"href": "#" + options.divId,
@@ -265,13 +274,19 @@ com.gongsibao.cw.web.AuditBillFormCtrl = org.netsharp.panda.core.CustomCtrl.Exte
     	});
     },
     saveFinance:function (){
+    	var bankId = $('#bankItem').combobox('getValue');
+    	if(System.isnull(bankId)){
+    		IMessageBox.toast('请选择支付方式!',2);
+			return;
+    	}
     	var memoto = $("#finance_memoto").val();
     	if(System.isnull(memoto)){
 			IMessageBox.toast('财务办理意见不能为空!',2);
 			return;
 		}
     	var auditRecord = {};
-    	auditRecord.status = "5";
+    	auditRecord.bankId =bankId;
+    	auditRecord.status = $("input[name='financeStatus']:checked").val();
     	auditRecord.memoto =memoto;
     	auditRecord.formId = $("#formId").val();
     	auditRecord.formType = this.formType;

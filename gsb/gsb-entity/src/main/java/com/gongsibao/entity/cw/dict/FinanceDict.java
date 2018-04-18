@@ -108,7 +108,6 @@ public class FinanceDict {
 	public static enum CostType implements IEnum{
 		FGSBYJ(1, "分公司备用金"),
 		BGYP(2, "办公用品"),
-		FGSSBGJJ(3, "分公司社保、公积金"),
 		CGJK(4, "采购借款"),
 		JTF(5, "交通费"),
 		SDF(6, "水电费"),
@@ -117,10 +116,21 @@ public class FinanceDict {
 		BMHDF(9, "部门活动费"),
 		LDF(10, "劳务费"),
 		ZPF(11, "招聘费"),
-		ZJF(12, "中介费"),
+		
+		SJF(12, "审计费"),
+		LSF(12, "律师费"),
+		FWF(12, "服务费"),
+		
+		
+		
 		ZXF(13, "咨询费"),
 		SSF(14, "诉讼费"),
-		FZWYCN(15, "房租、物业、采暖"),
+		
+		FZF(15, "房租费"),
+		WYF(15, "物业费"),
+		CNF(15, "采暖费"),
+		
+
 		WF(16, "网费"),
 		KDF(17, "快递费"),
 		HYF(18, "会议费"),
@@ -131,7 +141,7 @@ public class FinanceDict {
 		CAZSGBF(23, "CA证书工本费"),
 		TJF(24, "团建费"),
 		ZXF1(25, "装修费"),
-		XBGJJ(26, "社保、公积金"),
+		SBGJJ(26, "社保、公积金"),
 		RJFWF(27, "软件服务费"),
 		WBFWF(28, "外包服务费"),
 		QT(29, "其他");
@@ -151,7 +161,14 @@ public class FinanceDict {
 			}
 			return null;
 		}
-
+		public static Integer getTranscoding(CostType costType){
+			//商业保险费、团建费、社保、公积金
+			if(CostType.SYBXF == SYBXF || CostType.TJF == TJF || CostType.SBGJJ == SBGJJ ){
+				return 5;
+			}else{
+				return 7;
+			}
+		}
 		public String getText() {
 			return this.text;
 		}
@@ -161,10 +178,10 @@ public class FinanceDict {
 	}
 	//单据类型
 	public static enum FormType implements IEnum{
-		JKD(1,"借款单"),
-		BXD(2,"报销单"),
-		FKD(3,"付款单"),
-		DBD(4,"调拨单");
+		JKD(3,"借款单"),
+		BXD(4,"报销单"),
+		FKD(5,"付款单"),
+		DBD(6,"调拨单");
 		
 		private int value;
 		private String text;
@@ -354,6 +371,68 @@ public class FinanceDict {
 				return this.value;
 			}
 		}
+		
+		//费率
+		public static enum TaxRateType implements IEnum {
+			TaxRate_1(3, "3%"),
+			TaxRate_2(6, "6%"),
+			TaxRate_3(16, "16%");
+		
+			
+			private int value;
+			private String text;
+
+			TaxRateType(int value, String text) {
+				this.value = value;
+				this.text = text;
+			}
+			@JsonCreator
+			public static TaxRateType getItem(int value) {
+				for (TaxRateType item : values()) {
+					if (item.getValue() == value) {
+						return item;
+					}
+				}
+				return null;
+			}
+
+			public String getText() {
+				return this.text;
+			}
+			public Integer getValue() {
+				return this.value;
+			}
+		}
+		public static enum InvoiceType implements IEnum {
+			GI(1, "普通发票"),
+			VAT(2, "增值税发票");
+			
+			
+			private int value;
+			private String text;
+			
+			InvoiceType(int value, String text) {
+				this.value = value;
+				this.text = text;
+			}
+			@JsonCreator
+			public static InvoiceType getItem(int value) {
+				for (InvoiceType item : values()) {
+					if (item.getValue() == value) {
+						return item;
+					}
+				}
+				return null;
+			}
+			
+			public String getText() {
+				return this.text;
+			}
+			public Integer getValue() {
+				return this.value;
+			}
+		}
+		
 		
 		
 }

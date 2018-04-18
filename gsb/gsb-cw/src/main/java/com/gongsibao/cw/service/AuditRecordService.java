@@ -61,16 +61,22 @@ public class AuditRecordService extends PersistableService<AuditRecord> implemen
 
 	@Override
 	public void saveFinance(AuditRecord auditRecord) {
-		 AuditRecord au = new AuditRecord();
-	   	 au.toNew();
-	   	 au.setAuditUserId(SessionManager.getUserId());  
-	   	 au.setFormType(auditRecord.getFormType());
-	   	 au.setFormId(auditRecord.getFormId());
-	   	 au.setApplyUserId(auditRecord.getApplyUserId());
-	   	 au.setApplyDepartmentId(auditRecord.getApplyDepartmentId());
-	   	 au.setMemoto(auditRecord.getMemoto());
-	   	 au.setUpdateTime(new Date());
-	   	 au.setStatus(FinanceDict.AuditDetailStatus.DONE); //财务办理完成
-	   	 this.save(au);
+		//财务办理审核通过
+		if(auditRecord.getStatus().getValue().intValue() == FinanceDict.AuditDetailStatus.AGREE.getValue().intValue()){
+			 AuditRecord au = new AuditRecord();
+		   	 au.toNew();
+		   	 au.setAuditUserId(SessionManager.getUserId());  
+		   	 au.setFormType(auditRecord.getFormType());
+		   	 au.setFormId(auditRecord.getFormId());
+		   	 au.setApplyUserId(auditRecord.getApplyUserId());
+		   	 au.setApplyDepartmentId(auditRecord.getApplyDepartmentId());
+		   	 au.setMemoto(auditRecord.getMemoto());
+		   	 au.setUpdateTime(new Date());
+		   	 au.setStatus(FinanceDict.AuditDetailStatus.DONE); //财务办理完成
+		   	 this.save(au);
+		}else{
+		    this.deleteAuditByFormId(auditRecord.getFormId(), auditRecord.getFormType().getValue());	
+		}
+		
 	}
 }

@@ -76,9 +76,9 @@ public class BillAuditDTOService  extends PersistableService<BillAuditDTO> imple
 			sql.append("SELECT COUNT(a.id) 'rcount' ");
 		}
 		sql.append("FROM cw_audit_record AS a ");
-		sql.append("LEFT JOIN ( SELECT id,code,amount,creator,create_time,memoto, 1 AS form_type  FROM cw_loan ");
-		sql.append("UNION SELECT id,code,amount,creator,create_time,memoto, 2 AS form_type  FROM cw_expense ");
-		sql.append("UNION SELECT id,code,amount,creator,create_time,memoto, 3 AS form_type  FROM cw_payment ) AS t ");
+		sql.append("LEFT JOIN ( SELECT id,code,amount,creator,create_time,memoto, 3 AS form_type  FROM cw_loan ");
+		sql.append("UNION SELECT id,code,amount,creator,create_time,memoto, 4 AS form_type  FROM cw_expense ");
+		sql.append("UNION SELECT id,code,amount,creator,create_time,memoto, 5 AS form_type  FROM cw_payment ) AS t ");
 		sql.append("ON t.id = a.form_id  AND t.form_type = a.form_type ");
 		sql.append("WHERE  a.audit_user_id =  " + SessionManager.getUserId()+" ");
 	

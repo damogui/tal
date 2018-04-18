@@ -9,6 +9,7 @@ import com.gongsibao.cw.base.IAllocationService;
 import com.gongsibao.cw.base.IAuditRecordService;
 import com.gongsibao.cw.base.IBillAuditDTOService;
 import com.gongsibao.cw.base.ICostDetailService;
+import com.gongsibao.cw.base.ICostTypeService;
 import com.gongsibao.cw.base.IExpenseService;
 import com.gongsibao.cw.base.IFinanceBillDTOService;
 import com.gongsibao.cw.base.ILoanService;
@@ -18,6 +19,7 @@ import com.gongsibao.cw.base.ITripRecordService;
 import com.gongsibao.entity.cw.Allocation;
 import com.gongsibao.entity.cw.AuditRecord;
 import com.gongsibao.entity.cw.CostDetail;
+import com.gongsibao.entity.cw.CostType;
 import com.gongsibao.entity.cw.Expense;
 import com.gongsibao.entity.cw.Loan;
 import com.gongsibao.entity.cw.Payment;
@@ -73,7 +75,11 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(CostDetail.class.getName(), "费用明细", node1.getCode() + "_Cost_Detail", ICostDetailService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(AuditRecord.class.getName(), "审批记录",  node1.getCode() + "_Audit_Record", IAuditRecordService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(TripRecord.class.getName(), "行程明细",  node1.getCode() + "_Trip_Record", ITripRecordService.class.getName(), node1.getId());
+			
 			this.createResourceNodeVoucher(SubsidyRecord.class.getName(), "补助明细",  node1.getCode() + "_Subsidy_Record", ISubsidyRecordService.class.getName(), node1.getId());
+			
+			
+			this.createResourceNodeVoucher(CostType.class.getName(), "费用类型",  node1.getCode() + "_Cost_Type", ICostTypeService.class.getName(), node1.getId());
 		}
 		
 	}

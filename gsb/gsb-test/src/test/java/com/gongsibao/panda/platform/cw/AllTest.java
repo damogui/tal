@@ -4,6 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import com.gongsibao.panda.platform.cw.reference.CostTypeReferenceTest;
 import com.gongsibao.panda.platform.cw.workspace.expense.ExpenseBillWorkspaceTest;
 import com.gongsibao.panda.platform.cw.workspace.loans.LoansBillWorkspaceTest;
 import com.gongsibao.panda.platform.cw.workspace.other.AllBillsWorkspaceTest;
@@ -19,7 +20,11 @@ import com.gongsibao.panda.platform.cw.action.ActionAllTest;
 @RunWith(Suite.class)
 @SuiteClasses({
 
-	ResourceTest.class, 
+	ResourceTest.class,
+	
+	
+	//参照
+	CostTypeReferenceTest.class,
 	//财务报销工作区
 	TodoBillWorkspaceTest.class,
 	DoneBillWorkspaceTest.class,

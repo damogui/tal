@@ -14,9 +14,9 @@ com.gongsibao.cw.web.TodoBillListPart = org.netsharp.panda.commerce.ListPart.Ext
     showAudit:function (formId,formType){ //打开审核页面
     	var contentUrl = this.auditUrl +"?formId="+formId +"&formType="+formType;
     	var title = "";
-    	if(formType == 1)title = "借款单";
-    	if(formType == 2)title = "报销单";
-    	if(formType == 3)title = "付款单";
+    	if(formType == 3)title = "借款单";
+    	if(formType == 4)title = "报销单";
+    	if(formType == 5)title = "付款单";
     	layer.open({
     		id: "auditBillIframe",
             type: 2,

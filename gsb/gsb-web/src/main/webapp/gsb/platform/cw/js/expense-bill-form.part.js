@@ -90,10 +90,23 @@ com.gongsibao.cw.web.CostDetailListPart = org.netsharp.panda.commerce.DetailPart
 	ctor: function () {
         this.base();
         this.costType = PandaHelper.Enum.get('com.gongsibao.entity.cw.dict.FinanceDict$CostType');
+        this.InvoiceType = PandaHelper.Enum.get('com.gongsibao.entity.cw.dict.FinanceDict$InvoiceType');
+        this.TaxRateType = PandaHelper.Enum.get('com.gongsibao.entity.cw.dict.FinanceDict$TaxRateType');
+    },
+    invoiceTypeChange : function (el){
+    	 if ($(el).val() == 2) { 
+    		 $('#taxRate').combobox({disabled: false});
+    		 $('#detailTaxation').combobox({disabled: false});
+    	 }else{
+    		 $('#taxRate').combobox('setValue', '3');
+    		 $('#taxRate').combobox({disabled: true});
+    		 $('#detailTaxation').val(0);
+    		 $('#detailTaxation').numberbox({disabled: true});
+    	 }
     },
     saveBefore:function (entity){
     	entity.pathName = entity.organization.pathName
-    	entity.formType = 2;  //报销单
+    	entity.formType = 4;  //报销单
     },
     saveAfter: function () { 
     	this.sumAmount();
@@ -102,6 +115,34 @@ com.gongsibao.cw.web.CostDetailListPart = org.netsharp.panda.commerce.DetailPart
     	var me = this;
 		return me.costType[value];
     },
+    invoiceTypeFormatter : function (value,row,index){
+    	var me = this;
+    	return me.InvoiceType[value];
+    },
+    taxRateTypeFormatter : function (value,row,index){
+    	var me = this;
+    	var invoiceType =  $("#invoiceType").val();
+    	if(invoiceType == 1){
+    		return me.TaxRateType[value];
+    	}else{
+    		return 0;
+    	}
+    },
+    taxRateTypeChange : function (el){
+    	var detailMoney =  $("#detailMoney").val();
+    	var taxRate = $(el).val();
+    	var detailTaxation = (detailMoney * taxRate)/100;
+    	$('#detailTaxation').numberbox('setValue', detailTaxation);
+    },
+    detailMoneyChange : function (el){
+    	var invoiceType = $("#invoiceType").val();
+    	if(invoiceType == 2){
+    		var detailMoney =  $(el).val();
+        	var taxRate = $("#taxRate").val();
+        	var detailTaxation = (detailMoney * taxRate)/100;
+        	$('#detailTaxation').numberbox('setValue', detailTaxation);
+    	}
+    },
 	doRemove : function (){
 		this.remove();
 		this.sumAmount();
@@ -109,8 +150,10 @@ com.gongsibao.cw.web.CostDetailListPart = org.netsharp.panda.commerce.DetailPart
     sumAmount : function (){ //计算明细金额
     	 var costRows = this.getGrid().datagrid('getRows');
          var costSumAmount = 0;
+         var taxationSumAmount = 0 ;
          $(costRows).each(function (i, item) {
         	 costSumAmount += parseInt(item.detailMoney)/100;
+        	 taxationSumAmount += parseInt(item.detailTaxation);
          });
          
          var subsidyRows = controllersubsidyItem.getGrid().datagrid('getRows');
@@ -131,8 +174,8 @@ com.gongsibao.cw.web.CostDetailListPart = org.netsharp.panda.commerce.DetailPart
 	    }else{
 	    	$('#amount').textbox('setValue',totalAmount);
 	    }
-  	   
     }
+	
 });
 //行程明细
 com.gongsibao.cw.web.TripRecordListPart= org.netsharp.panda.commerce.DetailPart.Extends({

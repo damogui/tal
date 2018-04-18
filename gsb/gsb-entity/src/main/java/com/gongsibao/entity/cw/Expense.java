@@ -12,6 +12,8 @@ import org.netsharp.entity.BizEntity;
 import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.cw.dict.FinanceDict;
 import com.gongsibao.entity.u8.SetOfBooks;
+import com.gongsibao.entity.u8.U8Bank;
+import com.gongsibao.entity.u8.U8Department;
 
 /**
  * 
@@ -46,6 +48,9 @@ public class Expense extends BizEntity{
 	@Column(name="is_offset",header="是否冲抵借款")
 	private Boolean isOffset;
 	
+	@Column(name="total_taxation",header="税费合计金额")
+	private Integer totalTaxation;
+	
 	@Column(name="type",header="报销类型  1：市场费报销，2：招待费报销，3：差旅费报销")
 	private FinanceDict.ExpenseBillType  type = FinanceDict.ExpenseBillType.ExpenseType_1;
 	
@@ -55,6 +60,15 @@ public class Expense extends BizEntity{
 	
 	@Reference(foreignKey = "setOfBooksId")
 	private SetOfBooks setOfBooks;
+	
+	@Column(name = "bank_id", header = "银行/科目id")
+	private Integer bankId ;
+	
+	@Reference(foreignKey = "bankId")
+	private U8Bank u8Bank ;
+	
+	@Reference(foreignKey = "creatorId",header="U8系统部门表" )
+	private U8Department u8Department ;
 	
 	@Column(name = "payment_method", header = "付款方式 1:现金 ，2：转账 ，3：支票")
 	private FinanceDict.PaymentMethod paymentMethod = FinanceDict.PaymentMethod.XJ;
@@ -86,6 +100,9 @@ public class Expense extends BizEntity{
 	
 	@Column(name = "department_id", header = "创建人所属部门id")
 	private Integer departmentId;
+	
+	@Column(name = "department_name", header = "创建人所属部门名称")
+	private String departmentName;
 	
 	@Column(name = "status", header = "状态 1:待审核 ，2：审核中 ，3：已通过")
 	private FinanceDict.AuditStatus status = FinanceDict.AuditStatus.Status_1;
@@ -294,6 +311,46 @@ public class Expense extends BizEntity{
 	public void setIsOffset(Boolean isOffset) {
 		this.isOffset = isOffset;
 	}
-	
+
+	public Integer getTotalTaxation() {
+		return totalTaxation;
+	}
+
+	public void setTotalTaxation(Integer totalTaxation) {
+		this.totalTaxation = totalTaxation;
+	}
+
+	public Integer getBankId() {
+		return bankId;
+	}
+
+	public void setBankId(Integer bankId) {
+		this.bankId = bankId;
+	}
+
+	public U8Bank getU8Bank() {
+		return u8Bank;
+	}
+
+	public void setU8Bank(U8Bank u8Bank) {
+		this.u8Bank = u8Bank;
+	}
+
+	public String getDepartmentName() {
+		return departmentName;
+	}
+
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
+
+	public U8Department getU8Department() {
+		return u8Department;
+	}
+
+	public void setU8Department(U8Department u8Department) {
+		this.u8Department = u8Department;
+	}
+
 	
 }

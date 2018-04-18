@@ -49,7 +49,7 @@ public class LoanService extends PersistableService<Loan> implements ILoanServic
 	public Loan getBillByFormId(Integer formId ) {
 		Oql oql = new Oql();
 		oql.setType(Loan.class);
-		oql.setSelects("loan.*,loan.setOfBooks.name");
+		oql.setSelects("loan.*,loan.setOfBooks.name,loan.u8Bank.code,loan.u8Department.code,loan.u8Department.personnelCode");
 		oql.setFilter("id=?");
 		oql.getParameters().add("id", formId, Types.INTEGER);
 		Loan entity = this.queryFirst(oql);
@@ -64,7 +64,13 @@ public class LoanService extends PersistableService<Loan> implements ILoanServic
 	}
 	@Override
 	public Boolean updateStatus(AuditRecord auditRecord){
-		String sql = "UPDATE cw_loan SET status ="+FinanceDict.AuditStatus.Status_5.getValue() +"   WHERE id = "+auditRecord.getFormId();
+		int status = 0;
+		if(auditRecord.getStatus().getValue().intValue() != FinanceDict.AuditDetailStatus.AGREE.getValue().intValue()){
+			status = FinanceDict.AuditStatus.Status_6.getValue();
+		}else{
+			status = FinanceDict.AuditStatus.Status_5.getValue();
+		}
+		String sql = "UPDATE cw_loan SET status ="+ status +" , bank_id = "+auditRecord.getBankId()+"  WHERE id = "+auditRecord.getFormId();
 		Boolean bool =  this.pm.executeNonQuery(sql, null) > 0;
 		if(bool){
 			auditRecordService.saveFinance(auditRecord);

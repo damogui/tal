@@ -1,6 +1,7 @@
 package com.gongsibao.entity.cw;
 
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.BizEntity;
@@ -49,6 +50,10 @@ public class AuditRecord extends BizEntity{
 	
 	@Column(name = "status", header = "状态 1:待审核 ，2：通过 ，3：驳回")
 	private FinanceDict.AuditDetailStatus status = FinanceDict.AuditDetailStatus.WAIT;
+
+	
+	@Exclusive
+	private String bankId;
 
 	public Integer getFormId() {
 		return formId;
@@ -113,5 +118,15 @@ public class AuditRecord extends BizEntity{
 	public void setApplyDepartmentId(Integer applyDepartmentId) {
 		this.applyDepartmentId = applyDepartmentId;
 	}
+
+	public String getBankId() {
+		return bankId;
+	}
+
+	public void setBankId(String bankId) {
+		this.bankId = bankId;
+	}
+
+	
 	
 }

@@ -61,7 +61,7 @@ com.gongsibao.cw.web.CostDetailListPart = org.netsharp.panda.commerce.DetailPart
   saveBefore:function (entity){
   	entity.pathName = entity.organization.pathName
   	entity.detailMoney = parseInt(entity.detailMoney)/100; 
-  	entity.formType = 3;  //付款单
+  	entity.formType = 5;  //付款单
   },
   saveAfter: function () { //计算明细金额
       var rows = this.getGrid().datagrid('getRows');

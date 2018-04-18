@@ -8,6 +8,9 @@ import org.netsharp.action.IAction;
 import org.netsharp.authorization.UserPermission;
 import org.netsharp.authorization.UserPermissionManager;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.organization.base.IOrganizationService;
+import org.netsharp.organization.entity.Organization;
+import org.netsharp.persistence.session.SessionManager;
 
 import com.gongsibao.cw.base.ICostDetailService;
 import com.gongsibao.cw.base.IFileService;
@@ -22,6 +25,8 @@ public class ActionLoanApplyPersist implements IAction {
 	ICostDetailService costDetailService =  ServiceFactory.create(ICostDetailService.class);
 	//附件服务
 	IFileService fileService = ServiceFactory.create(IFileService.class);
+	
+	IOrganizationService organizationService = ServiceFactory.create(IOrganizationService.class); 
 	
     @Override
     public void execute(ActionContext ctx) {
@@ -38,7 +43,9 @@ public class ActionLoanApplyPersist implements IAction {
     	 loan.setCode(getLoanCode());
     	 //创建人 所属部门
     	 UserPermission up = UserPermissionManager.getUserPermission();
+    	 Organization organization = organizationService.getMainDepartment(SessionManager.getUserId());
     	 loan.setDepartmentId(up.getDepartmentId());
+    	 loan.setDepartmentName(organization.getName());
     	 loan.setArrearsAmount(loan.getAmount());
     	 Loan temp = loanService.save(loan);
     	 ctx.setItem(temp);
