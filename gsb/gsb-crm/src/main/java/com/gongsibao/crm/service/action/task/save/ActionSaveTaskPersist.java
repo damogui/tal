@@ -31,10 +31,10 @@ public class ActionSaveTaskPersist implements IAction {
 		EntityState state = task.getEntityState();
 
 		// 如果商机名称为空，则自动生成（默认取客户意向产品、意向地区，支持手动填写/修改）
-		if (StringManager.isNullOrEmpty(task.getName())) {
+		// if (StringManager.isNullOrEmpty(task.getName())) {
 
-			createTaskName(task);
-		}
+		createTaskName(task);// 每次取第最后一个意向产品命名
+		// }
 
 		// 新增状态下，如果是市场投放则自动代入费用部门
 		if (state == EntityState.New && task.getCosted()) {
@@ -62,7 +62,7 @@ public class ActionSaveTaskPersist implements IAction {
 		}
 
 		this.relevanceProductCustomerId(task);
-		
+
 		@SuppressWarnings("unchecked")
 		IPersistableService<NCustomerTask> service = (IPersistableService<NCustomerTask>) ReflectManager.newInstance(NCustomerService.class.getSuperclass());
 		task = service.save(task);
@@ -75,6 +75,7 @@ public class ActionSaveTaskPersist implements IAction {
 		List<NCustomerProduct> productList = task.getProducts();
 		if (productList != null && productList.size() > 0) {
 
+			//int lastIndex = productList.size() - 1;//这里要区分
 			NCustomerProduct nCustomerProduct = productList.get(0);
 			if (nCustomerProduct.getProduct() != null) {
 
@@ -85,16 +86,19 @@ public class ActionSaveTaskPersist implements IAction {
 			if (nCustomerProduct.getProvinceId() != null && nCustomerProduct.getProvince() != null) {
 
 				countyList.add(nCustomerProduct.getProvince().getName());
+				nCustomerProduct.setOldCityId(nCustomerProduct.getProvinceId());
 			}
 
 			if (nCustomerProduct.getCityId() != null && nCustomerProduct.getCity() != null) {
 
 				countyList.add(nCustomerProduct.getCity().getName());
+				nCustomerProduct.setOldCityId(nCustomerProduct.getCityId());
 			}
 
 			if (nCustomerProduct.getCountyId() != null && nCustomerProduct.getCounty() != null) {
 
 				countyList.add(nCustomerProduct.getCounty().getName());
+				nCustomerProduct.setOldCityId(nCustomerProduct.getCountyId());
 			}
 
 			if (countyList.size() > 0) {
@@ -107,12 +111,12 @@ public class ActionSaveTaskPersist implements IAction {
 		}
 	}
 
-	/**   
-	 * @Title: relevanceProductCustomerId   
-	 * @Description: TODO(关联意向产品的customerId)   
-	 * @param: @param task      
-	 * @return: void      
-	 * @throws   
+	/**
+	 * @Title: relevanceProductCustomerId
+	 * @Description: TODO(关联意向产品的customerId)
+	 * @param: @param task
+	 * @return: void
+	 * @throws
 	 */
 	private void relevanceProductCustomerId(NCustomerTask task) {
 
