@@ -30,7 +30,7 @@ public class OrderProdUserMap extends BaseEntity {
     @Column(name="order_prod_id",header="订单明细")
     private Integer orderProdId;
     
-    @Reference(foreignKey="orderProdId",header="订单明细")
+    @Reference(foreignKey="orderProdId",header="订单明细",primaryKey="pkid")
     private OrderProd orderProd;
 //  业务：好像是销售人员 3061业务员
 //  操作：非销售人员，比如外勤和材料编写

@@ -64,7 +64,7 @@ public class SoOrder extends BaseEntity {
     @Column(name = "account_id", header = "客户")
     private Integer accountId;
 
-    @Reference(foreignKey = "accountId", header = "客户")
+    @Reference(foreignKey = "accountId", header = "客户",primaryKey="pkid")
     private Account account;
 
     @Column(name = "account_name", header = "账户名称")

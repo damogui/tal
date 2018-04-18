@@ -50,7 +50,7 @@ public class OrderProd extends BaseEntity {
     @Column(name = "city_id", header = "城市")
     private Integer cityId = 0;
 
-    @Reference(foreignKey = "cityId", header = "产品地区")
+    @Reference(foreignKey = "cityId", header = "产品地区",primaryKey="pkid")
     private Dict city;
 
     @Column(name = "city_name", header = "地区名称(冗余)")

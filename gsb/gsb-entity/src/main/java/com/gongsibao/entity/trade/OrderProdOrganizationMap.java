@@ -17,13 +17,13 @@ public class OrderProdOrganizationMap extends BaseEntity {
 	@Column(name="order_prod_id",header="产品订单序号")
     private Integer orderProdId;
 
-    @Reference(foreignKey="orderProdId",header="组织序号")
+    @Reference(foreignKey="orderProdId",header="组织序号",primaryKey="pkid")
     private OrderProd orderProd;
 
     @Column(name="organization_id",header="OrganizationId")
     private Integer organizationId;
     
-    @Reference(foreignKey="organizationId",header="组织机构")
+    @Reference(foreignKey="organizationId",header="组织机构",primaryKey="pkid")
     private Organization organization;
     
     @Column(name = "supplier_id", header = "服务商Id")

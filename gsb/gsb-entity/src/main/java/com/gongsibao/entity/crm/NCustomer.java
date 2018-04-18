@@ -32,7 +32,7 @@ public class NCustomer extends BaseEntity {
 	@Column(name = "account_id", header = "帐号Id")
 	private Integer accountId=0;
 
-	@Reference(foreignKey = "accountId")
+	@Reference(foreignKey = "accountId",primaryKey="pkid")
 	private Account account;
 
 	@Column(name = "real_name", header = "姓名")
