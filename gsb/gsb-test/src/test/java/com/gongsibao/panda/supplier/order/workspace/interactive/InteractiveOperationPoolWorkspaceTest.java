@@ -3,10 +3,15 @@ package com.gongsibao.panda.supplier.order.workspace.interactive;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gongsibao.entity.trade.dic.OrderProdOperationAllocationStatus;
+import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.OperationType;
+import org.netsharp.panda.controls.ControlTypes;
+import org.netsharp.panda.entity.PQueryItem;
+import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.plugin.dic.ToolbarType;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
@@ -76,6 +81,18 @@ public class InteractiveOperationPoolWorkspaceTest extends InteractiveMyInCharge
         }
 
         toolbarService.save(toolbar);
+    }
+
+    @Override
+    protected PQueryProject createQueryProject(ResourceNode node) {
+        PQueryProject queryProject = super.createQueryProject(node);
+        PQueryItem item = null;
+        queryProject.setColumnCount(3);
+        item = addQueryItem(queryProject, "operationAllocationStatus", "分配状态", ControlTypes.ENUM_BOX);
+        {
+            item.setAppconfigCondition(OrderProdOperationAllocationStatus.class.getName());
+        }
+        return queryProject;
     }
 
 }
