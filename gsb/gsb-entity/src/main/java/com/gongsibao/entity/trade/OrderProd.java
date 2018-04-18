@@ -62,7 +62,7 @@ public class OrderProd extends BaseEntity {
     @Column(name = "company_id", header = "公司")
     private Integer companyId = 0;
 
-    @Reference(foreignKey = "companyId", header = "公司")
+    @Reference(foreignKey = "companyId", header = "公司",primaryKey="pkid")
     private CompanyIntention companyIntention;
 
     @Column(name = "yj_trademark_id", header = "商标信息Id")

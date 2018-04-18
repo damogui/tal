@@ -56,7 +56,7 @@ public class Account extends BaseEntity {
     @Column(name="company_id",header="关联公司Id")
     private Integer companyId;
     
-	@Reference(foreignKey="companyId",header="关联公司：默认最后一次关联")
+	@Reference(foreignKey="companyId",header="关联公司：默认最后一次关联",primaryKey="pkid")
 	private CompanyIntention company;
 	
 	@Column(name = "openid", header = "openid")

@@ -28,7 +28,7 @@ public class NCustomerCompany extends BaseEntity {
     @Column(name="company_id",header="")
     private Integer companyId;
     
-    @Reference(foreignKey="companyId",header="")
+    @Reference(foreignKey="companyId",header="",primaryKey="pkid")
     private CompanyIntention company;
     
 	@Column(name = "supplier_id", header = "分配服务商Id")
