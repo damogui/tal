@@ -37,7 +37,7 @@ public class MyInChargeListPart extends AdvancedListPart {
             filters.add("account_name like '%" + keyword + "%'");
             filters.add("account_mobile = '" + keyword + "'");
             filters.add("company_id in( select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' )  )");
-            
+
             return "((OrderProd.pkid = '" + keyword + "') or order_id in ( select pkid from so_order where " + StringManager.join(" or ", filters) + "))";
         }
         //操作员
@@ -52,13 +52,20 @@ public class MyInChargeListPart extends AdvancedListPart {
             return inChargeStatusWhere;
         }
 
+        //分配状态(0:未分配 1：已分配)
+        if (parameter.getKey().equals("operationAllocationStatus")) {
+            String isNotIn = keyword.equals("'1'") ? "" : " NOT ";
+            String inChargeStatusWhere = "OrderProd.pkid " + isNotIn + " IN (SELECT DISTINCT order_prod_id FROM so_order_prod_user_map WHERE type_id = " + OrderProdUserMapType.Czy.getValue() + " ) ";
+            return inChargeStatusWhere;
+        }
+
         return parameter.getFilter();
     }
 
 
     @Override
     public List<?> doQuery(Oql oql) {
-    	
+
         StringBuffer sqlSb = new StringBuffer();
         sqlSb.append("orderProd.*,");
         sqlSb.append("orderProd.processStatus.{pkid,name},");
