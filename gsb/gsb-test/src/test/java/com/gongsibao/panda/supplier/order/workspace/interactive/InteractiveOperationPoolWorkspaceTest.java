@@ -25,9 +25,6 @@ public class InteractiveOperationPoolWorkspaceTest extends InteractiveMyInCharge
     public void setup() {
         super.setup();
 
-        //当前登录用户服务商和部门信息
-        SalesmanOrganization organization = SupplierSessionManager.getSalesmanOrganization(SessionManager.getUserId());
-
         listPartName = formPartName = "操作订单池";
         urlList = "/crm/order/interactive/operation/pool/list";
         resourceNodeCode = "Gsb_Supplier_Order_Interactive_Operation_Pool";
@@ -41,7 +38,7 @@ public class InteractiveOperationPoolWorkspaceTest extends InteractiveMyInCharge
         listPartServiceController = OperationPoolListPart.class.getName();
         listPartJsController = OperationPoolListPart.class.getName();
         isSingleSelect = false;
-        listFilter = "supplier_id = " + organization.getSupplierId() + "";
+        listFilter = "supplier_id = (select supplier_id from sp_salesman where employee_id = '{userId}' ) ";
     }
 
     @Test
