@@ -4,11 +4,6 @@ import com.gongsibao.utils.SupplierSessionManager;
 
 public class OperationPoolListPart extends MyInChargeListPart {
 
-	// 批量转移操作员
-	public void batchOrderTran() {
-
-	}
-
 	public String getDefaultFilter() {
 
 		// 子查询比较慢
@@ -16,4 +11,5 @@ public class OperationPoolListPart extends MyInChargeListPart {
 		String filter = "pkid in (select order_prod_id from so_order_prod_organization_map where supplier_id =" + supplierId + ") ";
 		return filter;
 	}
+
 }

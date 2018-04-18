@@ -26,6 +26,7 @@ import com.gongsibao.cw.web.ExpenseBillFormPart;
 import com.gongsibao.cw.web.ExpenseBillListPart;
 import com.gongsibao.cw.web.SubsidyRecordListPart;
 import com.gongsibao.cw.web.TripRecordListPart;
+import com.gongsibao.entity.cw.CostType;
 import com.gongsibao.entity.cw.Expense;
 import com.gongsibao.entity.u8.SetOfBooks;
 import com.gongsibao.tools.PToolbarHelper;
@@ -151,9 +152,9 @@ public class ExpenseBillWorkspaceTest extends WorkspaceCreationBase {
         	 formField.setTroikaTrigger("controllerexpense.correctChange(this);");
         }
         
-        addFormField(form, "companyName", "公司名称", ControlTypes.TEXT_BOX, true, true);
-        addFormField(form, "companyBank", "公司开户行", ControlTypes.TEXT_BOX, true, true);
-        addFormField(form, "companyAccount", "公司银行账号", ControlTypes.TEXT_BOX, true, true);
+        addFormField(form, "companyName", "收款人", ControlTypes.TEXT_BOX, true, true);
+        addFormField(form, "companyBank", "开户行", ControlTypes.TEXT_BOX, true, true);
+        addFormField(form, "companyAccount", "银行账号", ControlTypes.TEXT_BOX, true, true);
         addFormField(form, "entertainDate", "招待时间", ControlTypes.DATE_BOX, true, true);
         addFormField(form, "entertainCompany", "招待公司名", ControlTypes.TEXT_BOX, true, true);
         addFormField(form, "entertainCustomer", "招待客户姓名", ControlTypes.TEXT_BOX, true, true);
@@ -207,7 +208,10 @@ public class ExpenseBillWorkspaceTest extends WorkspaceCreationBase {
 			form.setName("新增费用明细");
 			PFormField field = null;
 			addFormFieldRefrence(form, "organization.pathName", "费用归属部门",null,"Organization-Department", true, false);
-			addFormField(form, "costType", "费用类型", null, ControlTypes.ENUM_BOX, true, false);
+			field =  addFormFieldRefrence(form, "costType.name", "费用类型",null,  CostType.class.getSimpleName(), true, false);
+	        {
+	        	field.setRefFilter("form_type = 4"); //设置参照参数
+	        }
 			field = addFormField(form, "invoiceType", "发票类型", null, ControlTypes.ENUM_BOX, true, false);
 			{
 				field.setTroikaTrigger("controllercostDetailItem.invoiceTypeChange(this);");

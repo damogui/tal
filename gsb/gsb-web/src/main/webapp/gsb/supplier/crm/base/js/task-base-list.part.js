@@ -77,7 +77,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		var me = this;
 		var ids = this.getSelectionIds();
 		if(ids == "" || ids == null ){
-			IMessageBox.info('请选择记录');
+			IMessageBox.info('您没有选择记录!');
 			return;
 	    }
 		me.doAllot(ids);
@@ -164,7 +164,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		var me = this;
 		var id = this.getSelectionIds();
 		if(id == "" || id == null ){
-			IMessageBox.info('请选择记录');
+			IMessageBox.info('您没有选择记录!');
 			return;
 	    }
 		me.doRegain(id);
@@ -258,7 +258,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		var me = this;
 		var id = this.getSelectionIds();
 		if(id == "" || id == null ){
-			IMessageBox.info('请选择记录');
+			IMessageBox.info('您没有选择记录!');
 			return;
 	    }
 		me.doTransfer(id);
@@ -268,7 +268,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		var me = this;
 		var row = this.getSelectedItem();
 		if (row == null) {
-			IMessageBox.info('请选择记录');
+			IMessageBox.info('您没有选择记录!');
 			return;
 		}
 		me.doTransfer(id);

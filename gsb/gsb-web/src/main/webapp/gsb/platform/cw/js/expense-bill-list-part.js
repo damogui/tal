@@ -13,7 +13,7 @@ com.gongsibao.cw.web.ExpenseBillListPart = org.netsharp.panda.commerce.ListPart.
              fixed: false,
              maxmin: true,
              shadeClose:true,
-             area: ['60%','90%'],
+             area: ['90%','90%'],
              content: "/panda/cw/bill/expense/form",
              btn : [ '提交', '取消' ],
              success: function (layero, index) {
@@ -43,7 +43,7 @@ com.gongsibao.cw.web.ExpenseBillListPart = org.netsharp.panda.commerce.ListPart.
             fixed: false,
             maxmin: true,
             shadeClose:true,
-            area: ['60%','90%'],
+            area: ['90%','90%'],
             content: expenseUrl,
             btn : [ '提交', '取消' ],
             success: function (layero, index) {
