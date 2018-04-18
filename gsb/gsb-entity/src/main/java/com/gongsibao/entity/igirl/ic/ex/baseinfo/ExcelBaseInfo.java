@@ -6,11 +6,12 @@ import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
+import org.netsharp.entity.Entity;
 
 import java.util.List;
 
 @Table(name = "ic_ex_base_info",header = "注册申请单基础内容")
-public class ExcelBaseInfo {
+public class ExcelBaseInfo extends Entity{
     @Subs(foreignKey = "icExRegisterCaseId",header = "备选公司名称",subType = CompanyName.class)
     private List<CompanyName> companyNames;
 
