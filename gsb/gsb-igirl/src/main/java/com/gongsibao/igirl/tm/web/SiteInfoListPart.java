@@ -5,6 +5,7 @@ import org.netsharp.panda.commerce.ListPart;
 import org.netsharp.panda.core.HttpContext;
 import com.gongsibao.igirl.tm.base.ISupplierSiteInfoService;
 import com.gongsibao.igirl.tm.dto.SiteInfoDto;
+import com.gongsibao.utils.SupplierSessionManager;
 /**
  * 我的任务列表操作功能集合
  * @author Administrator
@@ -19,5 +20,11 @@ public class SiteInfoListPart extends ListPart{
 		  sid.setDomain(url);
     	return sid;
 	}
-    
+  @Override
+  protected String getExtraFilter() {
+	  // TODO Auto-generated method stub
+	  String filter=" supplierId = "+SupplierSessionManager.getSupplierId();
+	  return filter;
+  }
+
 }
