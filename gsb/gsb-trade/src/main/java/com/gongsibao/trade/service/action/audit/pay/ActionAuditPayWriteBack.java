@@ -51,7 +51,7 @@ public class ActionAuditPayWriteBack<T> implements IAction {
 
     }
 
-    @Transaction
+
     private void audit(AuditState state, AuditLog auditLog, Pay pay, String remark,String payTime) {
         switch (state.getValue()) {
             case 0://驳回审核
