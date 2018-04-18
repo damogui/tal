@@ -39,7 +39,7 @@ public class MessageController {
     @Autowired
     IAccountService accountService;
     @RequestMapping(value = "/buySuccess", method = RequestMethod.GET)
-    public ResponseData changeMobile(
+    public ResponseData buySuccess(
             @RequestParam("openId") String openId,
             @RequestParam("productName") String productName
             ) {
@@ -60,7 +60,7 @@ public class MessageController {
         return data;
     }
     @RequestMapping(value = "/stateChange", method = RequestMethod.GET)
-    public ResponseData changeMobile(
+    public ResponseData stateChange(
             @RequestParam("mobile") String mobile,
             @RequestParam("status") String status,
             @RequestParam("orderId") String orderId

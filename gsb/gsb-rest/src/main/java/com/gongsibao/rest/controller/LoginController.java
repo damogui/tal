@@ -123,7 +123,7 @@ public class LoginController {
      * @date 2018/4/12 19:18
      */
     @RequestMapping(value = "/bandMobile", method = RequestMethod.GET)
-    public ResponseData changeMobile(
+    public ResponseData bandMobile(
             @RequestParam("mobilePhone") String mobilePhone,
             @RequestParam("openId") String openId,
             @RequestParam("code") String code) {
@@ -185,7 +185,7 @@ public class LoginController {
      * @date 2018/4/12 19:18
      */
     @RequestMapping(value = "/code", method = RequestMethod.GET)
-    public ResponseData changeMobile(
+    public ResponseData code(
             @RequestParam("code") String code,
             @RequestParam("state") String state
     ) {
