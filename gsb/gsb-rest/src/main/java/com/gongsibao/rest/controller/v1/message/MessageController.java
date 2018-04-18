@@ -39,7 +39,7 @@ public class MessageController {
     @Autowired
     IAccountService accountService;
     @RequestMapping(value = "/buySuccess", method = RequestMethod.GET)
-    public ResponseData changeMobile(
+    public ResponseData buySuccess(
             @RequestParam("openId") String openId,
             @RequestParam("productName") String productName
             ) {
@@ -60,13 +60,12 @@ public class MessageController {
         return data;
     }
     @RequestMapping(value = "/stateChange", method = RequestMethod.GET)
-    public ResponseData changeMobile(
+    public ResponseData stateChange(
             @RequestParam("mobile") String mobile,
-            @RequestParam("status") String status,
-            @RequestParam("orderId") String orderId
+            @RequestParam("orderPorudctId") String orderPorudctId
             ) {
         ResponseData data = new ResponseData();
-        if(StringUtils.isBlank(orderId)){
+        if(StringUtils.isBlank(orderPorudctId)){
             data.setCode(500);
             data.setMsg("orderId 为空！");
             return data;
@@ -81,7 +80,7 @@ public class MessageController {
         Account account =accountService.queryByMobile(mobile);
         String content =  "您的订单状态有变化请及时查看。\n\r" +
                 "<a href=\"" + Constant.SYSINQUIRY_CONTINUE_CALLBACK_URL_PREFIX + weixinConfig.getAppId() + "&redirect_uri=http://" +
-                weixinConfig.getHost() + "/index.html?originalId=gh_29f5a8b8da16&orderId="+orderId + Constant.SYSINQUIRY_CONTINUE_CALLBACK_URL_AFTERFIX+"\">点此查看>></a>";
+                weixinConfig.getHost() + "/index.html?originalId=gh_29f5a8b8da16&orderPorudctId="+orderPorudctId + Constant.SYSINQUIRY_CONTINUE_CALLBACK_URL_AFTERFIX+"\">点此查看>></a>";
         accountService.sendTextMessage(content,account.getOpenid(),oid);
         data.setCode(200);
         data.setMsg("发送成功");

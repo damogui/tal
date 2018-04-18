@@ -1,13 +1,13 @@
 package com.gongsibao.rest.dto.user;
 
-import com.gongsibao.rest.dto.PkId;
-import com.gongsibao.taurus.util.NumberUtils;
-import com.gongsibao.utils.AmountUtils;
-import org.apache.commons.lang3.StringUtils;
-
 import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.Date;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.gongsibao.utils.AmountUtils;
+import com.gongsibao.utils.NumberUtils;
 
 /**
  * @author ffli <ffli@gongsibao.com>
