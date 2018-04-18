@@ -6,7 +6,7 @@ package com.gongsibao.bd.service.auditLog;
  * 
  * 其它具体内容根据实际情况增加
  */
-public class AuditContext {
+public class AuditContext<T> {
 
 	/**
 	 * 审核状态
@@ -22,6 +22,8 @@ public class AuditContext {
 	 * 审核记录Id
 	 */
 	private Integer auditLogId;
+
+	private T OtherInfo;
 
 	public AuditState getState() {
 		return state;
@@ -45,5 +47,13 @@ public class AuditContext {
 
 	public void setAuditLogId(Integer auditLogId) {
 		this.auditLogId = auditLogId;
+	}
+
+	public T getOtherInfo() {
+		return OtherInfo;
+	}
+
+	public void setOtherInfo(T otherInfo) {
+		OtherInfo = otherInfo;
 	}
 }
