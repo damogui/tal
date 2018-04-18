@@ -19,7 +19,7 @@ public class Constant {
     /**
      * 微信回调url前缀
      */
-    public final static String SYSINQUIRY_CONTINUE_CALLBACK_URL_PREFIX = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=";
+    public final static String SYSINQUIRY_CONTINUE_CALLBACK_URL_PREFIX = "https://open.weixin.qq.com/connect/oauth2/authorize?from=weixin&appid=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s#wechat_redirect";
     /**
      * 微信回调url后缀（snsapi_base）
      */
