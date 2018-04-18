@@ -41,7 +41,7 @@ public class MessageController {
     @RequestMapping(value = "/buySuccess", method = RequestMethod.GET)
     public ResponseData buySuccess(
             @RequestParam("openId") String openId,
-            @RequestParam("productName") String productName
+            @RequestParam("orderNo") String orderNo
             ) {
         ResponseData data = new ResponseData();
         if(StringUtils.isBlank(openId)){
@@ -49,12 +49,15 @@ public class MessageController {
             data.setMsg("openId 为空！");
             return data;
         }
-        if(StringUtils.isBlank(productName)){
+        if(StringUtils.isBlank(orderNo)){
             data.setCode(500);
-            data.setMsg("购买产品为空！");
+            data.setMsg("订单号为空！");
             return data;
         }
-        accountService.sendTextMessage(String.format(Constant.ORDER_BUY_SUCCESS,productName),openId,oid);
+        IPublicAccountService publicAccountService= ServiceFactory.create(IPublicAccountService.class);
+        PublicAccount weixinConfig=publicAccountService.byOriginalId(oid);
+        accountService.sendTextMessage(String.format(Constant.ORDER_BUY_SUCCESS,orderNo,"<a href=\"" + Constant.SYSINQUIRY_CONTINUE_CALLBACK_URL_PREFIX + weixinConfig.getAppId() + "&redirect_uri=http://" +
+                weixinConfig.getHost() + "/index.html?originalId=gh_29f5a8b8da16&orderPorudctId="+orderNo + Constant.SYSINQUIRY_CONTINUE_CALLBACK_URL_AFTERFIX+"\">点此查看详情>></a>"),openId,oid);
         data.setCode(200);
         data.setMsg("发送成功！");
         return data;
@@ -78,9 +81,9 @@ public class MessageController {
         IPublicAccountService publicAccountService= ServiceFactory.create(IPublicAccountService.class);
         PublicAccount weixinConfig=publicAccountService.byOriginalId(oid);
         Account account =accountService.queryByMobile(mobile);
-        String content =  "您的订单状态有变化请及时查看。\n\r" +
+        String content =  "您购买的服务。\n\r" +
                 "<a href=\"" + Constant.SYSINQUIRY_CONTINUE_CALLBACK_URL_PREFIX + weixinConfig.getAppId() + "&redirect_uri=http://" +
-                weixinConfig.getHost() + "/index.html?originalId=gh_29f5a8b8da16&orderPorudctId="+orderPorudctId + Constant.SYSINQUIRY_CONTINUE_CALLBACK_URL_AFTERFIX+"\">点此查看>></a>";
+                weixinConfig.getHost() + "/index.html?originalId=gh_29f5a8b8da16&orderPorudctId="+orderPorudctId + Constant.SYSINQUIRY_CONTINUE_CALLBACK_URL_AFTERFIX+"\">点此查看详情>></a>";
         accountService.sendTextMessage(content,account.getOpenid(),oid);
         data.setCode(200);
         data.setMsg("发送成功");

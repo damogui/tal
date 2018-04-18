@@ -423,7 +423,7 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 	}
 
 	public Integer tmRobotUpdateMarkState(String proxyCode, Integer stateCode) {
-		String sql = "update ig_trade_mark set mark_state=? where proxy_code=?";
+		String sql = "update ig_trade_mark set mark_state=?,mark_submit_time=? where proxy_code=?";
 		Oql oql = new Oql();
 		oql.setFilter("mark_state=?");
 		oql.setFilter("proxy_code=?");
