@@ -73,6 +73,7 @@ com.gongsibao.igirl.tm.web.TradeMarkListPart = org.netsharp.panda.commerce.ListP
         this.invokeService("updateMarkState",[ids,type],function (message) {
             if(message.length===0){
                 that.reload();
+//                IMessageBox.info('操作成功.');
             }else{
                 IMessageBox.info("案件："+message+"材料不齐，请联系客户.");
             }
