@@ -57,7 +57,7 @@ public class MessageController {
         IPublicAccountService publicAccountService= ServiceFactory.create(IPublicAccountService.class);
         PublicAccount weixinConfig=publicAccountService.byOriginalId(oid);
         accountService.sendTextMessage(String.format(Constant.ORDER_BUY_SUCCESS,orderNo,"<a href=\"" + Constant.SYSINQUIRY_CONTINUE_CALLBACK_URL_PREFIX + weixinConfig.getAppId() + "&redirect_uri=http://" +
-                weixinConfig.getHost() + "/index.html?originalId=gh_29f5a8b8da16&orderPorudctId="+orderNo + Constant.SYSINQUIRY_CONTINUE_CALLBACK_URL_AFTERFIX+"\">点此查看详情>></a>"),openId,oid);
+                weixinConfig.getHost() + "/index.html#/mine/order/2?originalId=gh_29f5a8b8da16" + Constant.SYSINQUIRY_CONTINUE_CALLBACK_URL_AFTERFIX+"\">点此查看详情>></a>"),openId,oid);
         data.setCode(200);
         data.setMsg("发送成功！");
         return data;
