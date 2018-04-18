@@ -24,7 +24,7 @@ import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.trade.web.SalesmanOrderDetailListPart;
 
 /**
- * 业务员/我的明细订单
+ * 业务员/我的明细订单 
  * @author Administrator
  *
  */
