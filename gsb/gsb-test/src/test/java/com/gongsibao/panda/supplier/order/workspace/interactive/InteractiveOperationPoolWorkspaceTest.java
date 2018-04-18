@@ -35,7 +35,7 @@ public class InteractiveOperationPoolWorkspaceTest extends InteractiveMyInCharge
         listPartServiceController = OperationPoolListPart.class.getName();
         listPartJsController = OperationPoolListPart.class.getName();
         isSingleSelect = false;
-        
+        listFilter = "";
     }
 
     @Test
