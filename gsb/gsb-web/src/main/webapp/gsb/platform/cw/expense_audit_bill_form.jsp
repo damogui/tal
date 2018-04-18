@@ -55,7 +55,7 @@
 		   		 </div>
 		   		 <div class="col-sm-4"> 
 		   		 	 <div class="form-group">   
-					        <label for="firstname" class="col-sm-4 control-label">付款方式:</label>   
+					        <label for="firstname" class="col-sm-4 control-label">收款方式:</label>   
 					        <div class="col-sm-8">  
 					          <p class="form-control-static" id="payment_method" ></p>
 					       </div>  
@@ -131,6 +131,7 @@
 		  	    <h5 class="page-header" > <span class="glyphicon glyphicon-list-alt"  ></span> 审批信息</h5>
 		  	    <div class="panel panel-default">
 		  	    	<input type="hidden" id="audit_id"  value=""  >
+		  	    	
 				    <div class="panel-body">
 				    	<div class="row" style="padding-left: 20px;" >
 				  	       <label class="radio-inline">
@@ -139,7 +140,6 @@
 							<label class="radio-inline">
 							  <input type="radio" name="auditDetailStatus" id="reject" value="3"> 驳回
 							</label>
-							
 				  	    </div>
 				  	    <div class="row" style="padding: 20px;">
 				  	    	<textarea class="form-control" rows="3" id="memoto"  placeholder="请填写审批意见"></textarea>
@@ -150,30 +150,7 @@
 	  	    
 	  	    <div id="finance_panel"  style="display: none" >
 		  	    <h5 class="page-header" > <span class="glyphicon glyphicon-list-alt"  ></span> 财务办理</h5>
-		  	    
-		  	    <div class="panel panel-default">
-				    <div class="panel-body">
-				    	<div class="row" style="padding-left: 20px;" >
-					  	   <div class="col-sm-2">   
-					  	       <label class="radio-inline">
-								  <input type="radio" name="financeStatus" id="agree" value="2" checked="checked"> 财务办结
-								</label>
-								<label class="radio-inline">
-								  <input type="radio" name="financeStatus" id="reject" value="3"> 驳回
-								</label>
-							</div>
-							 <div class="col-sm-10"> 
-							 	  <span  >支付方式：</span>   	
-						  	      <input id="bankItem" class="easyui-combobox" style="width:200px;" data-options="editable:false,valueField:'id', textField:'text'" />  
-							</div>
-				  	    </div>
-				  	    <div class="row" style="padding: 20px;">
-				  	    	<textarea class="form-control" rows="3" id="finance_memoto" placeholder="请填写财务办理意见"></textarea>
-				  	    </div>
-				    </div>
-				</div>
-		  	    
-		  	    
+		  	    <textarea class="form-control" rows="3" id="finance_memoto" placeholder="请填写财务办理意见"></textarea>
 	  	    </div>
 	  	    
 	  	    <h5 class="page-header "> <span class="glyphicon glyphicon-list-alt" ></span> 审批记录</h5>
@@ -197,12 +174,12 @@
 </div>
 </body>
 
-<script src='/gsb/platform/cw/js/audit-bill-form.ctrl.js'></script>
+<script src='/gsb/platform/cw/js/expense-audit-bill-form.ctrl.js'></script>
 <script src='/package/bootstrap/js/bootstrap.min.js'></script>
 <script>
 	var auditBillFormCtrl = null;
 	$(function(){
-		auditBillFormCtrl = new com.gongsibao.cw.web.AuditBillFormCtrl();
+		auditBillFormCtrl = new com.gongsibao.cw.web.ExpenseAuditBillFormCtrl();
 		auditBillFormCtrl.init(); 
 	});
 </script>

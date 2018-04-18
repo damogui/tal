@@ -8,6 +8,7 @@ import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.BizEntity;
+import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.cw.dict.FinanceDict;
@@ -20,7 +21,7 @@ import com.gongsibao.entity.u8.U8Department;
 *  报销单实体  
 * 项目名称：gsb-entity   
 * 类名称：Expense   
-* 类描述：   
+* 类描述：   创建人为经办人
 * 创建人：angang
 * 创建时间：2018年3月20日 下午2:53:30   
 * @version
@@ -86,14 +87,20 @@ public class Expense extends BizEntity{
 	@Column(name = "entertain_place", header = "招待地点")
 	private String entertainPlace;
 	
-	@Column(name = "company_account", header = "接收公司帐号")
+	@Column(name = "company_account", header = "银行帐号")
 	private String companyAccount;
 	
-	@Column(name = "company_bank", header = "接收公司开户行")
+	@Column(name = "company_bank", header = "开户行")
 	private String companyBank;
 	
-	@Column(name = "company_name", header = "接收公司名称")
-	private String companyName;
+	@Column(name = "payee_name", header = "收款人名称、公司名称")
+	private String payeeName;
+	
+	@Column(name = "expense_id", header = "报销人id")
+	private Integer expenseId;
+	
+	@Reference(foreignKey = "expenseId",header="报销人实体" )
+	private Employee expenseEmployee ;
 	
 	@Column(name = "audit_step", header = "审核步骤")
 	private Integer auditStep;
@@ -208,12 +215,12 @@ public class Expense extends BizEntity{
 		this.companyBank = companyBank;
 	}
 
-	public String getCompanyName() {
-		return companyName;
+	public String getPayeeName() {
+		return payeeName;
 	}
 
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
+	public void setPayeeName(String payeeName) {
+		this.payeeName = payeeName;
 	}
 
 	public Integer getAuditStep() {
@@ -352,5 +359,22 @@ public class Expense extends BizEntity{
 		this.u8Department = u8Department;
 	}
 
+	public Integer getExpenseId() {
+		return expenseId;
+	}
+
+	public void setExpenseId(Integer expenseId) {
+		this.expenseId = expenseId;
+	}
+
+	public Employee getExpenseEmployee() {
+		return expenseEmployee;
+	}
+
+	public void setExpenseEmployee(Employee expenseEmployee) {
+		this.expenseEmployee = expenseEmployee;
+	}
+
+	
 	
 }

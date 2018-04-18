@@ -12,7 +12,7 @@ com.gongsibao.cw.web.LoansBillListPart = org.netsharp.panda.commerce.ListPart.Ex
 			fixed: false,
 			maxmin: true,
 			shadeClose:true,
-			area: ['60%','90%'],
+			area: ['90%','90%'],
 			content: "/panda/cw/bill/loan/form",
 			btn : [ '提交', '取消' ],
 			success: function (layero, index) {
@@ -43,7 +43,7 @@ com.gongsibao.cw.web.LoansBillListPart = org.netsharp.panda.commerce.ListPart.Ex
             fixed: false,
             maxmin: true,
             shadeClose:true,
-            area: ['60%','90%'],
+            area: ['90%','90%'],
             content: loanUrl,
             btn : [ '提交', '取消' ],
             success: function (layero, index) {
