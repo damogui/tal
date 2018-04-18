@@ -173,7 +173,7 @@ public class NCustomer extends BaseEntity {
 	@Column(name = "company_id", header = "关联公司Id")
 	private Integer companyId=0;
 
-	@Reference(foreignKey = "companyId", header = "关联公司：默认最后一次关联")
+	@Reference(foreignKey = "companyId", header = "关联公司：默认最后一次关联",primaryKey="pkid")
 	private CompanyIntention company;
 
 	@Subs(foreignKey = "customerId", header = "客户商机", subType = NCustomerTask.class)
