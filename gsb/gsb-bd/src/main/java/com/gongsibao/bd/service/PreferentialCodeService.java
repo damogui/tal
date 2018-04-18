@@ -52,7 +52,7 @@ public class PreferentialCodeService extends PersistableService<PreferentialCode
     }
 
     @Override
-    public List<PreferentialCode> pageActive(Integer accountId, Integer status, int currentPage, int pageSize) {
+    public List<PreferentialCode> queryActiveList(Integer accountId, Integer status) {
         List<PreferentialCode> list = new ArrayList<>();
         StringBuilder sql = new StringBuilder();
         QueryParameters queryParameters = new QueryParameters();
@@ -74,7 +74,6 @@ public class PreferentialCodeService extends PersistableService<PreferentialCode
         sql.append(" AND bd_preferential_code.is_enabled = 1 AND bd_preferential.is_enabled = 1 ");
         DataTable rows = this.pm.executeTable(sql.toString(), queryParameters);
         sql.append("ORDER BY bd_preferential_code.activate_time DESC ");
-        sql.append(String.format(" limit %s,%s",currentPage,pageSize));
         System.out.println(sql.toString());
         DataTable table = this.pm.executeTable(sql.toString(), queryParameters);
         table.forEach(row -> {
