@@ -56,6 +56,7 @@ public class SetOfBooksWorkspaceTest extends WorkspaceCreationBase {
 		}
 		addColumn(datagrid, "sort", "排序编号", ControlTypes.NUMBER_BOX, 100);
 		addColumn(datagrid, "accountCode", "科目编码", ControlTypes.TEXT_BOX, 150);
+		addColumn(datagrid, "enterId", "默认的制单人id", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "enterName", "默认的制单人", ControlTypes.TEXT_BOX, 100);
 		column = addColumn(datagrid, "abbreviation", "简称", ControlTypes.TEXT_BOX, 200);
 		{
@@ -82,6 +83,7 @@ public class SetOfBooksWorkspaceTest extends WorkspaceCreationBase {
 		}
 		addFormField(form, "sort", "排序编号", null, ControlTypes.NUMBER_BOX, true, false);
 		addFormField(form, "accountCode", "科目编码", null, ControlTypes.TEXT_BOX, false, false);
+		addFormField(form, "enterId", "默认的制单人id", null, ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "enterName", "默认的制单人", null, ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "abbreviation", "简称", null, ControlTypes.TEXT_BOX, true, false);
 		addFormField(form, "isCreateVoucher", "是否生成凭证", null, ControlTypes.SWITCH_BUTTON, true, false);
