@@ -10,14 +10,11 @@ import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.plugin.dic.ToolbarType;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
-import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.taurus.util.StringManager;
 import com.gongsibao.tools.PToolbarHelper;
 import com.gongsibao.trade.web.interactive.OperationPoolListPart;
-import com.gongsibao.utils.SalesmanOrganization;
-import com.gongsibao.utils.SupplierSessionManager;
 
 public class InteractiveOperationPoolWorkspaceTest extends InteractiveMyInChargeWorkspaceTest {
 
@@ -38,7 +35,7 @@ public class InteractiveOperationPoolWorkspaceTest extends InteractiveMyInCharge
         listPartServiceController = OperationPoolListPart.class.getName();
         listPartJsController = OperationPoolListPart.class.getName();
         isSingleSelect = false;
-        listFilter = "supplier_id = (select supplier_id from sp_salesman where employee_id = '{userId}' ) ";
+        
     }
 
     @Test

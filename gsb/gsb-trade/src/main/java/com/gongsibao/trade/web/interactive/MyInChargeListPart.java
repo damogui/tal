@@ -58,6 +58,7 @@ public class MyInChargeListPart extends AdvancedListPart {
 
     @Override
     public List<?> doQuery(Oql oql) {
+    	
         StringBuffer sqlSb = new StringBuffer();
         sqlSb.append("orderProd.*,");
         sqlSb.append("orderProd.processStatus.{pkid,name},");
