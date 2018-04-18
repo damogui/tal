@@ -42,8 +42,8 @@ import com.gongsibao.tools.PToolbarHelper;
  */
 public class LoansBillWorkspaceTest extends WorkspaceCreationBase {
 	
-	private final static String costToolbarPath = "/cw/bill/loan/costToolbar";
 	public static final String uploadloadToolbarPath = "/cw/bill/load/uploadToolbar";
+	private final static String costToolbarPath = "/cw/bill/loan/costToolbar";
 	public static final String loadFormToolbarPath = "";
     @Before
     public void setup() {
@@ -86,7 +86,6 @@ public class LoansBillWorkspaceTest extends WorkspaceCreationBase {
             toolbar.setResourceNode(node);
             toolbar.setToolbarType(ToolbarType.BASE);
         }
-
         PToolbarItem item = new PToolbarItem();
         {
             item.toNew();
@@ -109,6 +108,7 @@ public class LoansBillWorkspaceTest extends WorkspaceCreationBase {
         } 
         toolbarService.save(toolbar);
         
+		        
         //费用明细toobar
         PToolbar toolbarCost = new PToolbar ();
         {
@@ -119,10 +119,27 @@ public class LoansBillWorkspaceTest extends WorkspaceCreationBase {
         	toolbarCost.setToolbarType (ToolbarType.BASE);
 
         }
-        PToolbarItem costItem = PToolbarHelper.getPToolbarItem (EntityState.New, "costDetailAdd", PToolbarHelper.iconAdd,"新增", null, 1, "{controller}.add();");
-        toolbarCost.getItems ().add (costItem);
-        costItem = PToolbarHelper.getPToolbarItem (EntityState.New, "costDetailDel", PToolbarHelper.iconDel, "删除", null, 1, "{controller}.doRemove();");
-        toolbarCost.getItems ().add (costItem);
+        
+        PToolbarItem costItem = new PToolbarItem();
+		{
+			costItem.toNew();
+			costItem.setCode("costDetailAdd");
+			costItem.setIcon(PToolbarHelper.iconAdd);
+			costItem.setName("新增");
+			costItem.setSeq(1);
+			costItem.setCommand("{controller}.add();");
+			toolbarCost.getItems().add(costItem);
+		}
+		costItem = new PToolbarItem();
+		{
+			costItem.toNew();
+			costItem.setCode("costDetailDel");
+			costItem.setIcon(PToolbarHelper.iconDel);
+			costItem.setName("删除");
+			costItem.setSeq(1);
+			costItem.setCommand("{controller}.doRemove();");
+			toolbarCost.getItems().add(costItem);
+		}
         toolbarService.save (toolbarCost);
         
         //附件toobar
@@ -133,7 +150,6 @@ public class LoansBillWorkspaceTest extends WorkspaceCreationBase {
         	toolbarFile.setName ("上传附件操作");
         	toolbarFile.setResourceNode (node);
         	toolbarFile.setToolbarType (ToolbarType.BASE);
-
         }
         PToolbarItem fileItem = new PToolbarItem();
 		{
@@ -162,7 +178,7 @@ public class LoansBillWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "repaymentAmount", "已还金额", ControlTypes.DECIMAL_FEN_BOX, 100);
 		addColumn(datagrid, "arrearsAmount", "未还金额", ControlTypes.DECIMAL_FEN_BOX, 100);
 		addColumn(datagrid, "setOfBooks.name", "付款单位", ControlTypes.TEXT_BOX, 300);
-		addColumn(datagrid, "creator", "申请人", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "creator", "经办人", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATE_BOX, 200);
 		addColumn(datagrid, "status", "审核状态", ControlTypes.ENUM_BOX, 150);
 		addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 400);
@@ -186,92 +202,31 @@ public class LoansBillWorkspaceTest extends WorkspaceCreationBase {
 
     	  PForm form = super.createForm(node);
           PFormField formField = null;
-          addFormField(form, "type", "借款类型", ControlTypes.ENUM_BOX, true, false);
-          
-          addFormFieldRefrence(form, "setOfBooks.name", "付款单位",null,  SetOfBooks.class.getSimpleName(), true, false);
-          formField =  addFormField(form, "paymentMethod", "借款方式", ControlTypes.ENUM_BOX, true, false);
+          String groupName = "基本信息";
+          addFormField(form, "type", "借款类型",groupName, ControlTypes.ENUM_BOX, true, false);
+          addFormFieldRefrence(form, "setOfBooks.name", "付款单位",groupName,  SetOfBooks.class.getSimpleName(), true, false);
+          formField =  addFormField(form, "paymentMethod", "借款方式",groupName, ControlTypes.ENUM_BOX, true, false);
           {
         	  formField.setTroikaTrigger("controllerloan.paymentMethodChange(this);");
           }
-          addFormField(form, "companyName", "公司名称", ControlTypes.TEXT_BOX, true, true);
-          addFormField(form, "companyBank", "公司开户行", ControlTypes.TEXT_BOX, true, true);
-          formField =  addFormField(form, "companyAccount", "公司银行账号", ControlTypes.TEXT_BOX, true, true);
-          addFormField(form, "amount", "借款金额", ControlTypes.DECIMAL_FEN_BOX, true, false);
-          formField = addFormField(form, "memoto", "备注", ControlTypes.TEXTAREA, true, false);
-          {
-        	  formField.setColumnSpan(3);
-        	  formField.setFullColumn(false);
-        	  formField.setWidth(520);
-          }
-          
+          addFormField(form, "amount", "借款金额",groupName, ControlTypes.DECIMAL_FEN_BOX, true, false);
+          addFormField(form, "creator", "经办人",groupName, ControlTypes.TEXT_BOX, true, false);
+          addFormFieldRefrence(form, "borrowerEmployee.name", "借款人",groupName, "CRM_Employee" , true, false);
+          groupName = "收款信息";
+          addFormField(form, "companyName", "收款人",groupName, ControlTypes.TEXT_BOX, true, false);
+          addFormField(form, "companyBank", "开户行",groupName, ControlTypes.TEXT_BOX, true, true);
+          addFormField(form, "companyAccount", "银行账号",groupName, ControlTypes.TEXT_BOX, true, true);
+          groupName = "备注信息";
+          addFormField(form, "memoto", "备注",groupName, ControlTypes.TEXTAREA, true, false);
 		  return form;
 	}
     
     
     //重写父类方法
     protected void addDetailGridPart(PWorkspace workspace) {
-    	createCostDateilPart(workspace);
     	createUploadAttamentDetailPart(workspace);
 	}
-    //费用明细
-    private void createCostDateilPart(PWorkspace workspace){
-    	ResourceNode node = this.resourceService.byCode("GSB_CW_Manage_Cost_Detail");
-        PDatagrid datagrid = new PDatagrid(node, "费用明细");
-        {
-            datagrid.setReadOnly(true);
-            datagrid.setResourceNode(node);
-            datagrid.setShowCheckbox(false);
-            datagrid.setShowTitle(false);
-            PDatagridColumn column = null;
-            
-        	addColumn(datagrid, "organization.pathName", "费用归属部门", ControlTypes.TEXT_BOX, 250);
-        	addColumn(datagrid, "costTypeName", "费用类型", ControlTypes.TEXT_BOX, 250);
-            addColumn(datagrid, "detailMoney", "金额", ControlTypes.TEXT_BOX, 100);
-            addColumn(datagrid, "memoto", "说明", ControlTypes.TEXT_BOX, 300);
-        }
-        
-        PForm form = new PForm();
-		{
-			form.toNew();
-			form.setResourceNode(node);
-			form.setColumnCount(1);
-			form.setName("新增费用明细");
-			PFormField formField = null;
-			addFormFieldRefrence(form, "organization.pathName", "费用归属部门",null,"Organization-Department", true, false);
-			formField =  addFormFieldRefrence(form, "costType.name", "费用类型",null,  CostType.class.getSimpleName(), true, false);
-	        {
-	        	formField.setRefFilter("form_type =3"); //设置参照参数
-	        }
-			addFormField(form, "detailMoney", "金额", null, ControlTypes.DECIMAL_FEN_BOX, true, false);
-			addFormField(form, "memoto", "说明", null, ControlTypes.TEXTAREA, true, false);
-		}
-		
-        PPart part = new PPart();
-        {
-            part.toNew();
-            part.setName("费用明细");
-            part.setCode("costDetailItem");
-            part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
-            part.setRelationRole("costDetailItem");
-            part.setResourceNode(node);
-            part.setPartTypeId(PartType.DETAIL_PART.getId());
-            part.setDatagrid(datagrid);
-            part.setDockStyle(DockType.DOCUMENTHOST);
-            part.setJsController(CostDetailListPart.class.getName());
-            part.setToolbar(costToolbarPath);
-            part.setWindowWidth(400);
-		    part.setWindowHeight(400);
-            part.setForm(form);
-        }
-        
-      
-        workspace.getParts().add(part);
-        PPart topPart = workspace.getParts().get(0);
-        topPart.setDockStyle(DockType.TOP);
-        topPart.setStyle("height:280px");
-        
-        
-    }
+    
     //附件
 	private void createUploadAttamentDetailPart(PWorkspace workspace) {
 

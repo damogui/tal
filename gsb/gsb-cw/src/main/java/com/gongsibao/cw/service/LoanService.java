@@ -49,12 +49,12 @@ public class LoanService extends PersistableService<Loan> implements ILoanServic
 	public Loan getBillByFormId(Integer formId ) {
 		Oql oql = new Oql();
 		oql.setType(Loan.class);
-		oql.setSelects("loan.*,loan.setOfBooks.name,loan.u8Bank.code,loan.u8Department.code,loan.u8Department.personnelCode");
+		oql.setSelects("loan.*,loan.setOfBooks.name,loan.u8Bank.code,loan.u8Department.code,loan.u8Department.personnelCode,loan.borrowerEmployee.name");
 		oql.setFilter("id=?");
 		oql.getParameters().add("id", formId, Types.INTEGER);
 		Loan entity = this.queryFirst(oql);
 		if(entity != null){
-			entity.setCostDetailItem(costDetailService.getCostDetailItem(formId, FinanceDict.FormType.JKD.getValue()));
+			//entity.setCostDetailItem(costDetailService.getCostDetailItem(formId, FinanceDict.FormType.JKD.getValue()));
 			//附件信息
 			entity.setFiles(fileService.getByTabNameFormId("cw_loan", formId));
 			//审核信息

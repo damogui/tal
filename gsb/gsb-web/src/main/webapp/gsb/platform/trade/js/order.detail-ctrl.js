@@ -1091,7 +1091,7 @@ com.gongsibao.trade.web.OrderCompanysCtrl = com.gongsibao.trade.web.BaseCtrl.Ext
             toolbar: [{
             	text:'新增',iconCls:'fa fa-plus',handler:function(){
             		
-            		IMessageBox.open('新增', '/panda/panda/crm/company/form?openType=window', 1000, 600, function(){});
+            		IMessageBox.open('新增', '/panda/crm/company/form?openType=window', 1000, 600, function(){});
             		
             		}
             	}

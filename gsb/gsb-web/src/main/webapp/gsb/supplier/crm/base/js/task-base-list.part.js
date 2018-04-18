@@ -6,8 +6,9 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		this.addUrl = null;
 		this.editUrl = null;
 		this.followUrl = null;
-		
 		this.addCustomerUrl = null;
+		//区分那个账号角色登录（默认平台-2；服务商-1）
+		this.isPlatform = 2;
 	},
 	addCustomer:function(){
 		
@@ -77,7 +78,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		var me = this;
 		var ids = this.getSelectionIds();
 		if(ids == "" || ids == null ){
-			IMessageBox.info('请选择记录');
+			IMessageBox.info('您没有选择记录!');
 			return;
 	    }
 		me.doAllot(ids);
@@ -164,9 +165,9 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		var me = this;
 		var id = this.getSelectionIds();
 		if(id == "" || id == null ){
-			IMessageBox.info('请选择记录');
+			IMessageBox.info('您没有选择记录!');
 			return;
-	    }
+	    }		
 		me.doRegain(id);
 	},
 	doRegain : function(id) {
@@ -197,8 +198,18 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 					IMessageBox.info('请输入内容');
 					return false;
 				}
-				me.doRollBackService(id,getNote,'regain');
+				me.doRegainService(id,getNote);
 			}
+		});
+	},
+	doRegainService : function(id,getNote) {
+		var me = this;
+		var isPlatform =this.isPlatform;
+		this.invokeService("regain", [id,getNote,isPlatform],function(data) {
+			me.reload();
+			IMessageBox.toast('操作成功');
+			layer.closeAll();
+			return;
 		});
 	},
 	rollback : function(id){
@@ -240,13 +251,13 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 					IMessageBox.info('请输入内容');
 					return false;
 				}
-				me.doRollBackService(id,getNote,'rollback');
+				me.doRollBackService(id,getNote);
 			}
 		});
 	},
-	doRollBackService : function(id,getNote,functionName) {
+	doRollBackService : function(id,getNote) {
 		var me = this;
-		this.invokeService(functionName, [id,getNote],function(data) {
+		this.invokeService("rollback", [id,getNote],function(data) {
 			me.reload();
 			IMessageBox.toast('操作成功');
 			layer.closeAll();
@@ -258,7 +269,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		var me = this;
 		var id = this.getSelectionIds();
 		if(id == "" || id == null ){
-			IMessageBox.info('请选择记录');
+			IMessageBox.info('您没有选择记录!');
 			return;
 	    }
 		me.doTransfer(id);
@@ -268,7 +279,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		var me = this;
 		var row = this.getSelectedItem();
 		if (row == null) {
-			IMessageBox.info('请选择记录');
+			IMessageBox.info('您没有选择记录!');
 			return;
 		}
 		me.doTransfer(id);
