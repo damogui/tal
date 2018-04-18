@@ -7,6 +7,7 @@ import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
+import org.netsharp.panda.dic.OrderbyMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
@@ -106,7 +107,10 @@ public class InteractiveMyInChargeWorkspaceTest extends WorkspaceCreationBase {
 		addColumn(datagrid, "operator", "操作员", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "soOrder.companyIntention.companyName", "明细订单公司", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "companyIntention.companyName", "订单关联公司", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "soOrder.createTime", "下单日期", ControlTypes.DATETIME_BOX, 100);
+		column = addColumn(datagrid, "soOrder.createTime", "下单日期", ControlTypes.DATETIME_BOX, 100);{
+			
+			column.setOrderbyMode(OrderbyMode.DESC);
+		}
 		addColumn(datagrid, "allocationOperatorDate", "分配日期", ControlTypes.DATETIME_BOX, 100);
 		addColumn(datagrid, "surplusDays", "剩余天数", ControlTypes.DECIMAL_BOX, 80);
 		addColumn(datagrid, "handleName", "办理名称", ControlTypes.TEXT_BOX, 100);

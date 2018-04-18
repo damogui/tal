@@ -59,8 +59,7 @@ public class MessageController {
         }
         IPublicAccountService publicAccountService = ServiceFactory.create(IPublicAccountService.class);
         PublicAccount weixinConfig = publicAccountService.byOriginalId(oid);
-        String redirectUrl = UrlHelper.join("/index.html#/mine/order/2", "originalId=" + oid);
-        redirectUrl = UrlHelper.getFullUrl(redirectUrl);
+        String redirectUrl =UrlHelper.encode( "http://"+weixinConfig.getHost() + UrlHelper.join("/index.html#/mine/order/2", "originalId=" + oid));
         String url = Constant.SYSINQUIRY_CONTINUE_CALLBACK_URL_PREFIX;
         url = String.format(url, weixinConfig.getAppId(), redirectUrl, "snsapi_base", "123");
         accountService.sendTextMessage(String.format(Constant.ORDER_BUY_SUCCESS, orderNo, "<a href=\"" + url + "\">点此查看详情>></a>"), openId, oid);
@@ -88,9 +87,11 @@ public class MessageController {
         IPublicAccountService publicAccountService = ServiceFactory.create(IPublicAccountService.class);
         PublicAccount weixinConfig = publicAccountService.byOriginalId(oid);
         Account account = accountService.queryByMobile(mobile);
-        String content = "您购买的服务。\n\r" +
-                "<a href=\"" + Constant.SYSINQUIRY_CONTINUE_CALLBACK_URL_PREFIX + weixinConfig.getAppId() + "&redirect_uri=http://" +
-                weixinConfig.getHost() + "/index.html?originalId=gh_29f5a8b8da16&orderPorudctId=" + orderPorudctId + Constant.SYSINQUIRY_CONTINUE_CALLBACK_URL_AFTERFIX + "\">点此查看详情>></a>";
+        String redirectUrl = UrlHelper.encode("http://"+weixinConfig.getHost() + UrlHelper.join("/index.html#/mine/order", "originalId=" + oid));
+        String url = Constant.SYSINQUIRY_CONTINUE_CALLBACK_URL_PREFIX;
+        url = String.format(url, weixinConfig.getAppId(), redirectUrl, "snsapi_base", "123");
+        String proName="test";
+        String content =String.format(Constant.ORDER_CHANGE_STATE_MSG,proName,"办理中",url);
         accountService.sendTextMessage(content, account.getOpenid(), oid);
         data.setCode(200);
         data.setMsg("发送成功");
