@@ -15,15 +15,11 @@ import java.util.Date;
 public class Constant {
     //微信支付成功提醒
     public static final String ORDER_BUY_SUCCESS="您的订单( %s ) 已支付成功，我们将立即为您办理。%s";
-
+    public static final String ORDER_CHANGE_STATE_MSG="您购买的服务\"%s\" 办理进度变更为 \"%s\" \n\r" +"<a href=\"%s\">点此查看详情>></a>";
     /**
      * 微信回调url前缀
      */
-    public final static String SYSINQUIRY_CONTINUE_CALLBACK_URL_PREFIX = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=";
-    /**
-     * 微信回调url后缀（snsapi_base）
-     */
-    public final static String SYSINQUIRY_CONTINUE_CALLBACK_URL_AFTERFIX = "&response_type=code&scope=snsapi_base&state=123&connect_redirect=1#wechat_redirect";
+    public final static String SYSINQUIRY_CONTINUE_CALLBACK_URL_PREFIX = "https://open.weixin.qq.com/connect/oauth2/authorize?from=weixin&appid=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s#wechat_redirect";
 
     public static final String COOKIE_ACCOUNT_LOGIN_TICKET = "COOKIE_ACCOUNT_LOGIN_TICKET";
 

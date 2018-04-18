@@ -23,11 +23,9 @@ public interface IPreferentialCodeService extends IPersistableService<Preferenti
      *
      * @param accountId   账号ID
      * @param status      状态
-     * @param currentPage 当前页
-     * @param pageSize    每页显示条数
      * @return List<PreferentialCode>
      */
-    List<PreferentialCode> pageActive(Integer accountId, Integer status, int currentPage, int pageSize);
+    List<PreferentialCode> queryActiveList(Integer accountId, Integer status);
 
     /**
      * 根据优惠码获取一个对象

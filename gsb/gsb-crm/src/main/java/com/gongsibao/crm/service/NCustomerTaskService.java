@@ -307,18 +307,25 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 	}
 
 	@Override
-	public Boolean batchRegain(String[] taskIdArray, String content) {
+	public Boolean batchRegain(String[] taskIdArray, String content,Integer isPlatform) {
 
 		// 商机批量收回
 		for (String taskId : taskIdArray) {
 
-			this.regain(Integer.valueOf(taskId), content);
+			this.regain(Integer.valueOf(taskId), content,isPlatform);
 		}
 		return true;
 	}
 
+	/**
+	 * 收回操作
+	 * @param taskId 商机id
+	 * @param content 内容
+	 * @param isPlatform 账号角色登录（默认平台-2；服务商-1）
+	 * @return
+	 */
 	@Override
-	public Boolean regain(Integer taskId, String content) {
+	public Boolean regain(Integer taskId, String content,Integer isPlatform) {
 		// 商机收回
 		ActionManager action = new ActionManager();
 		Map<String, Object> setMap = new HashMap<String, Object>();
@@ -329,7 +336,8 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 		setMap.put("formUserId", entity.getOwnerId());
 		setMap.put("formDepartmentId", entity.getDepartmentId());
 		setMap.put("formSupplier", entity.getSupplierId());
-
+		setMap.put("isPlatform", isPlatform);
+		
 		ActionContext ctx = new ActionContext();
 		{
 			ctx.setPath("gsb/crm/task/regain");

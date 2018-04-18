@@ -139,7 +139,7 @@ public class PreferentialCodeDTO implements Serializable {
             return statusName;
         }
 
-        if (getIsEnabled() == 0 || getIsDisabled() == 0) {
+        if (getIsEnabled() == 0) {
             statusName = "已禁用";
         } else {
             if (getStatus() == 2) {

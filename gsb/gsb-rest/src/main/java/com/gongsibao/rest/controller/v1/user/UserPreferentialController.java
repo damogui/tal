@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author ffli <ffli@gongsibao.com>
@@ -57,18 +58,15 @@ public class UserPreferentialController extends BaseController {
      * @return Result<PreferentialCodeDTO>
      */
     @RequestMapping(value = "/myList", method = RequestMethod.GET)
-    public Result<Pager<PreferentialCodeDTO>> myList(HttpServletRequest request,
-                                                     @RequestParam(value = "status") Integer status,
-                                                     @RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
-                                                     @RequestParam(value = "pageSize", defaultValue = "0") int pageSize) {
+    public Result<List<PreferentialCodeDTO>> myList(HttpServletRequest request,
+                                                    @RequestParam(value = "status") Integer status) {
         return Result.build(() -> {
             String openId = openId(request);
             hasText(openId, "尚未登录!");
             AccountWeiXin accountWeiXin = accountWeiXinService.queryByOpenId(openId);
             notNull(accountWeiXin, "账号未绑定");
             notNull(accountWeiXin.getAccountId(), "账号未绑定");
-            return userPreferentialService.pageActiveByCondition(accountWeiXin.getAccountId(),
-                    status, currentPage,pageSize);
+            return userPreferentialService.pageActiveByCondition(accountWeiXin.getAccountId(),status);
         });
     }
 

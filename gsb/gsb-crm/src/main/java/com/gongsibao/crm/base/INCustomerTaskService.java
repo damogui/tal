@@ -119,7 +119,7 @@ public interface INCustomerTaskService extends IPersistableService<NCustomerTask
 	 * 商机收回(主管等操作)
 	 */
 	@Transaction
-	public Boolean batchRegain(String[] taskIdArray, String content);
+	public Boolean batchRegain(String[] taskIdArray, String content,Integer isPlatform);
 
 	/**
 	 * @Title: regain
@@ -131,7 +131,7 @@ public interface INCustomerTaskService extends IPersistableService<NCustomerTask
 	 * @throws
 	 */
 	@Transaction
-	public Boolean regain(Integer taskId, String content);
+	public Boolean regain(Integer taskId, String content,Integer isPlatform);
 
 	/**
 	 * 商机回退(业务员主动操作)

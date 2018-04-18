@@ -222,9 +222,9 @@ public class LoginController {
         try {
             OAuthResponse response = oauth.getResponse();
             String openId = response.getOpenid();
-            fans =  fansService.byOpenId(openId);
+//            fans =  fansService.byOpenId(openId);
             data.setCode(200);
-            data.setData(fans);
+            data.setData(openId);
             data.setMsg("获取成功");
         } catch (Exception ex) {
             logger.error("", ex);

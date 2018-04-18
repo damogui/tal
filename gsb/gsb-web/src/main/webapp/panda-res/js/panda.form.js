@@ -66,7 +66,6 @@
         return fkParam;
     },
     doSave: function (entity) {
-
         var me = this;
         this.invokeService("save", [entity], function (jmessage) {
 

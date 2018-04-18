@@ -6,6 +6,8 @@ import com.gongsibao.rest.dto.user.PreferentialCodeDTO;
 import com.gongsibao.rest.dto.user.PreferentialUsageDTO;
 import org.netsharp.core.Paging;
 
+import java.util.List;
+
 /**
  * @author ffli <ffli@gongsibao.com>
  * @Description: 我的 - 我的优惠券
@@ -26,11 +28,9 @@ public interface UserPreferentialService {
      *
      * @param accountId   账号ID
      * @param status      状态
-     * @param currentPage 当前页
-     * @param pageSize    每页大小
-     * @return Pager<PreferentialCode>
+     * @return List<PreferentialCode>
      */
-    Pager<PreferentialCodeDTO> pageActiveByCondition(Integer accountId, Integer status, int currentPage, int pageSize);
+    List<PreferentialCodeDTO> pageActiveByCondition(Integer accountId, Integer status);
 
     /**
      * 激活优惠码

@@ -16,6 +16,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,15 +48,13 @@ public class UserPreferentialServiceImpl implements UserPreferentialService{
     }
 
     @Override
-    public Pager<PreferentialCodeDTO> pageActiveByCondition(Integer accountId, Integer status,
-                                                            int currentPage, int pageSize) {
+    public List<PreferentialCodeDTO> pageActiveByCondition(Integer accountId, Integer status) {
         int count = preferentialCodeService.countActiveByStatus(accountId, status);
         if (count <= 0) {
-            return new Pager<>(0, currentPage, pageSize);
+            return new ArrayList<>();
         }
-        List<PreferentialCode> preferentialCodes = preferentialCodeService.pageActive(accountId, status, currentPage,
-                pageSize);
-        List<PreferentialCodeDTO> list = preferentialCodes.stream().map(preferentialCode -> {
+        List<PreferentialCode> preferentialCodes = preferentialCodeService.queryActiveList(accountId, status);
+        return preferentialCodes.stream().map(preferentialCode -> {
             PreferentialCodeDTO dto = new PreferentialCodeDTO();
             Preferential preferential = preferentialCode.getPreferential();
             BeanUtils.copyProperties(preferentialCode, dto,"isEnabled");
@@ -63,7 +62,6 @@ public class UserPreferentialServiceImpl implements UserPreferentialService{
             dto.setIsEnabled(preferentialCode.getIsEnabled());
             return dto;
         }).collect(Collectors.toList());
-        return new Pager<>(count, currentPage, pageSize, list);
     }
 
     @Override

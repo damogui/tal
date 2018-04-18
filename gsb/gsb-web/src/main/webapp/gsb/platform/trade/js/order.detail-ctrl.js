@@ -1027,12 +1027,9 @@ com.gongsibao.trade.web.OrderCompanysCtrl = com.gongsibao.trade.web.BaseCtrl.Ext
             },
             yes: function (index, layero) {
 
-               
-
                 var g = $('#company_companyName').combogrid('grid');	// 获取数据表格对象
                 var row = g.datagrid('getSelected');	// 获取选择的行
                
-
                 var obj = {companyId: row.id, companyName: row.companyName};
                 me.invokeService("optCompanyInfoByorderId", [orderId,row.id], function (data) {//删除
 
@@ -1085,12 +1082,20 @@ com.gongsibao.trade.web.OrderCompanysCtrl = com.gongsibao.trade.web.BaseCtrl.Ext
             textField: 'companyName',
             width: 300,
             fitColumns: true,
-            panelWidth: 450,
+            panelWidth: 500,
             panelHeight: 310,
             pagination: true,
             pageSize: 10,
             mode: 'remote',
             multiple: false,
+            toolbar: [{
+            	text:'新增',iconCls:'fa fa-plus',handler:function(){
+            		
+            		IMessageBox.open('新增', '/panda/crm/company/form?openType=window', 1000, 600, function(){});
+            		
+            		}
+            	}
+            ],
             onChange: function (newValue, oldValue) {
                 //
                 // //var filter = ' id IN ( SELECT employee_id FROM sp_salesman WHERE supplier_id ____ ----'+ newValue + '----)';
