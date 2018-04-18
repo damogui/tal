@@ -1,32 +1,23 @@
 package com.gongsibao.panda.supplier.order.workspace.interactive;
 
-import com.gongsibao.entity.trade.OrderProd;
-import com.gongsibao.taurus.util.StringManager;
-import com.gongsibao.tools.PToolbarHelper;
-import com.gongsibao.trade.web.department.DepartmentOrderInvoiceListPart;
-import com.gongsibao.trade.web.interactive.MyInChargeListPart;
-import com.gongsibao.trade.web.interactive.OperationPoolListPart;
-import com.gongsibao.utils.SalesmanOrganization;
-import com.gongsibao.utils.SupplierSessionManager;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
-import org.netsharp.core.MtableManager;
-import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.OperationType;
-import org.netsharp.panda.controls.ControlTypes;
-import org.netsharp.panda.entity.PDatagrid;
-import org.netsharp.panda.entity.PDatagridColumn;
-import org.netsharp.panda.entity.PQueryItem;
-import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.plugin.dic.ToolbarType;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.gongsibao.taurus.util.StringManager;
+import com.gongsibao.tools.PToolbarHelper;
+import com.gongsibao.trade.web.interactive.OperationPoolListPart;
+import com.gongsibao.utils.SalesmanOrganization;
+import com.gongsibao.utils.SupplierSessionManager;
 
 public class InteractiveOperationPoolWorkspaceTest extends InteractiveMyInChargeWorkspaceTest {
 
