@@ -14,8 +14,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.NetsharpException;
+import org.netsharp.wx.mp.api.jssdk.JsSdkManager;
 import org.netsharp.wx.mp.api.oauth.OAuthRequest;
 import org.netsharp.wx.mp.api.oauth.OAuthResponse;
+import org.netsharp.wx.mp.sdk.AesException;
 import org.netsharp.wx.pa.base.IFansService;
 import org.netsharp.wx.pa.base.IPublicAccountService;
 import org.netsharp.wx.pa.entity.Fans;
@@ -121,7 +123,7 @@ public class LoginController {
      * @date 2018/4/12 19:18
      */
     @RequestMapping(value = "/bandMobile", method = RequestMethod.GET)
-    public ResponseData changeMobile(
+    public ResponseData bandMobile(
             @RequestParam("mobilePhone") String mobilePhone,
             @RequestParam("openId") String openId,
             @RequestParam("code") String code) {
@@ -183,7 +185,7 @@ public class LoginController {
      * @date 2018/4/12 19:18
      */
     @RequestMapping(value = "/code", method = RequestMethod.GET)
-    public ResponseData changeMobile(
+    public ResponseData code(
             @RequestParam("code") String code,
             @RequestParam("state") String state
     ) {
@@ -255,6 +257,33 @@ public class LoginController {
         }
         return data;
     }
-    
-    
+
+    /**
+     * @Description:TODO 获取签名 支付前
+     * @param  url
+     * @return com.gongsibao.rest.common.web.ResponseData
+     * @author hbpeng <hbpeng@gongsibao.com>
+     * @date 2018/4/18 10:43
+     */
+    @RequestMapping(value = "/jsSignature", method = RequestMethod.GET)
+    public ResponseData jsSignature(
+            @RequestParam("url") String url
+            )  {
+        ResponseData data = new ResponseData();
+        try{
+            if(null==url){
+                data.setCode(500);
+                data.setMsg("url 为空!");
+                return data;
+            }
+            data.setData(JsSdkManager.getConfig(url,oid));
+            data.setCode(200);
+        }catch (AesException e ){
+            logger.info("获取签名失败" + e.getMessage());
+            data.setCode(500);
+        }
+        return data;
+    }
+
+
 }
