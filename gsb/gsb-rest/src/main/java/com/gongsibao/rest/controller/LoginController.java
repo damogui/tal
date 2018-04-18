@@ -31,6 +31,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping(value = "/wx/{v}")
@@ -81,10 +83,15 @@ public class LoginController {
     @RequestMapping(value = "/sendCode", method = RequestMethod.GET)
     public ResponseData sendCode(@RequestParam("mobilePhone") String mobilePhone) {
         ResponseData data = new ResponseData();
+        if (StringUtils.isBlank(mobilePhone)) {
+            data.setCode(500);
+            data.setMsg("手机号不能为空!");
+            return data;
+        }
         //手机号校验
         if (!checkMobilePhone(mobilePhone)) {
             data.setCode(500);
-            data.setMsg("手机号错误");
+            data.setMsg("手机号格式错误!");
             return data;
         }
         //生成验证码并保存至缓存中;
@@ -120,10 +127,15 @@ public class LoginController {
             @RequestParam("code") String code) {
 
         ResponseData data = new ResponseData();
+        if (StringUtils.isBlank(mobilePhone)) {
+            data.setCode(500);
+            data.setMsg("手机号不能为空!");
+            return data;
+        }
         //手机号校验
         if (!checkMobilePhone(mobilePhone)) {
             data.setCode(500);
-            data.setMsg("手机号错误");
+            data.setMsg("手机号格式错误!");
             return data;
         }
         //验证码校验
@@ -143,6 +155,22 @@ public class LoginController {
     private boolean checkMobilePhone(String mobilePhone) {
         if (StringUtils.isBlank(mobilePhone)) {
             return false;
+        }else if(mobilePhone.length()!=11){
+            return false;
+        }else{
+            String regex = "^((16[6])|(13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(17[013678])|(18[0,5-9]))\\d{8}$";
+            if(mobilePhone.length() != 11){
+                System.out.println("手机号应为11位数");
+            }else{
+                Pattern p = Pattern.compile(regex);
+                Matcher m = p.matcher(mobilePhone);
+                boolean isMatch = m.matches();
+                if(isMatch){
+                    return true;
+                } else {
+                    return false;
+                }
+            }
         }
         return true;
     }

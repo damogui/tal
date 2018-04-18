@@ -4,6 +4,7 @@ import com.gongsibao.rest.common.interceptor.LoginCheckInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
@@ -13,7 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * @date 2018/4/17 19:07
  */
 @Configuration
-public class WebConfig extends WebMvcConfigurerAdapter {
+public class WebConfig implements WebMvcConfigurer {
     @Bean
     LoginCheckInterceptor newSessionInterceptor() {
         return new LoginCheckInterceptor();
@@ -22,7 +23,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //登陆拦截器
-        registry.addInterceptor(newSessionInterceptor()).addPathPatterns("/**");
-        super.addInterceptors(registry);
+        registry.addInterceptor(newSessionInterceptor())
+                .addPathPatterns("/**");
     }
 }

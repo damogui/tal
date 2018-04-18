@@ -1,5 +1,6 @@
 package com.gongsibao.entity.igirl.ic.baseinfo;
 import org.netsharp.core.annotations.Column;
+import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
 
@@ -68,6 +69,9 @@ public class ChapterTwo extends Entity {
     @Column(name="area",header="地区ID")
     private String area;
 
+    @Reference(foreignKey="area",header="地区")
+    private ChapterOne chapterOne;
+
 	@Column(name="sid",header="原数据ID")
     private Integer sid;
 
@@ -117,6 +121,15 @@ public class ChapterTwo extends Entity {
 
     @Column(name="updated_time",header="updatedTime")
     private String updatedTime;
+
+    public ChapterOne getChapterOne() {
+        return chapterOne;
+    }
+
+
+    public void setChapterOne(ChapterOne chapterOne) {
+        this.chapterOne = chapterOne;
+    }
 
     public String getCode() {
         return code;
