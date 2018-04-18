@@ -499,7 +499,8 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                 }
 
                 me.invokeService("orderTran", [orderList, toUserId], function (data) {
-                    me.reload();
+
+                    realodCurrentPage("datagridsoOrderList");
                     IMessageBox.toast(zyStr + '成功');
                     layer.closeAll();
                     return;
@@ -575,6 +576,10 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
 function reloadPage() {
     controllersoOrderList.query();
 
+}
+/*传递过来进行刷新当前页面*/
+function realodCurrentPage(gridId) {
+    $('#'+gridId).datagrid('reload');
 }
 
 

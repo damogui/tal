@@ -1,21 +1,23 @@
 package com.gongsibao.trade.web.interactive;
 
-import com.gongsibao.entity.trade.OrderProd;
-import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
-import com.gongsibao.entity.trade.dic.OrderProdUserMapType;
-import com.gongsibao.trade.base.IContractService;
-import com.gongsibao.trade.base.INCostReceiptMapService;
-import com.gongsibao.trade.base.IOrderProdTraceService;
-import com.gongsibao.trade.base.IOrderProdUserMapService;
-import com.gongsibao.utils.NumberUtils;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
 import org.netsharp.util.StringManager;
 
-import java.util.*;
+import com.gongsibao.entity.trade.OrderProd;
+import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
+import com.gongsibao.entity.trade.dic.OrderProdUserMapType;
+import com.gongsibao.trade.base.IContractService;
+import com.gongsibao.trade.base.IOrderProdTraceService;
+import com.gongsibao.trade.base.IOrderProdUserMapService;
 
 public class MyInChargeListPart extends AdvancedListPart {
 
@@ -30,24 +32,23 @@ public class MyInChargeListPart extends AdvancedListPart {
         String keyword = parameter.getValue1().toString();
         if (parameter.getKey().equals("keyword")) {
 
-            filters.add("soOrder.no = '" + keyword + "'");
-            filters.add("pkid = '" + keyword + "'");
-            filters.add("soOrder.account_name like '%" + keyword + "%'");
-            filters.add("soOrder.account_mobile like '%" + keyword + "%'");
-            filters.add("companyIntention.company_name like '%" + keyword + "%'");
-            filters.add("soOrder.company_id in( select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' )  )");
-
-            return "(" + StringManager.join(" or ", filters) + ") ";
+            filters.add("no = '" + keyword + "'");
+            filters.add("channel_order_no = '" + keyword + "'");
+            filters.add("account_name like '%" + keyword + "%'");
+            filters.add("account_mobile = '" + keyword + "'");
+            filters.add("company_id in( select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' )  )");
+            
+            return "((OrderProd.pkid = '" + keyword + "') or order_id in ( select pkid from so_order where " + StringManager.join(" or ", filters) + "))";
         }
         //操作员
         if (parameter.getKey().equals("operator")) {
-            String operatorWhere = "pkid IN(SELECT order_prod_id FROM so_order_prod_user_map opm JOIN sys_permission_employee em ON opm.user_id = em.id AND opm.`status_id` = " + OrderProdUserMapStatus.Zzfz.getValue() + " AND opm.`type_id`=" + OrderProdUserMapType.Czy.getValue() + " WHERE em.name LIKE '%" + keyword + "%')";
+            String operatorWhere = "soOrder.pkid IN(SELECT order_prod_id FROM so_order_prod_user_map opm JOIN sys_permission_employee em ON opm.user_id = em.id AND opm.`status_id` = " + OrderProdUserMapStatus.Zzfz.getValue() + " AND opm.`type_id`=" + OrderProdUserMapType.Czy.getValue() + " WHERE em.name LIKE '%" + keyword + "%')";
             return operatorWhere;
         }
 
         //负责状态
         if (parameter.getKey().equals("inChargeStatus")) {
-            String inChargeStatusWhere = "pkid IN(SELECT distinct order_prod_id FROM so_order_prod_user_map WHERE type_id=" + OrderProdUserMapType.Czy.getValue() + " AND status_id=" + keyword + " AND user_id = '{userId}')";
+            String inChargeStatusWhere = "OrderProd.pkid IN(SELECT distinct order_prod_id FROM so_order_prod_user_map WHERE type_id=" + OrderProdUserMapType.Czy.getValue() + " AND status_id=" + keyword + " AND user_id = '{userId}')";
             return inChargeStatusWhere;
         }
 
@@ -57,14 +58,15 @@ public class MyInChargeListPart extends AdvancedListPart {
 
     @Override
     public List<?> doQuery(Oql oql) {
+    	
         StringBuffer sqlSb = new StringBuffer();
         sqlSb.append("orderProd.*,");
-        sqlSb.append("processStatus.{pkid,name},");
-        sqlSb.append("owner.{id,name},");
-        sqlSb.append("companyIntention.{pkid,name,full_name,company_name},");
-        sqlSb.append("soOrder.*,");
-        sqlSb.append("soOrder.customer.{pkid,realName},");
-        sqlSb.append("soOrder.companyIntention.{pkid,name,full_name,company_name}");
+        sqlSb.append("orderProd.processStatus.{pkid,name},");
+        sqlSb.append("orderProd.owner.{id,name},");
+        sqlSb.append("orderProd.companyIntention.{pkid,name,full_name,company_name},");
+        sqlSb.append("orderProd.soOrder.*,");
+        sqlSb.append("orderProd.soOrder.customer.{pkid,realName},");
+        sqlSb.append("orderProd.soOrder.companyIntention.{pkid,name,full_name,company_name}");
         oql.setSelects(sqlSb.toString());
         List<OrderProd> resList = (List<OrderProd>) super.doQuery(oql);
         List<Integer> orderProdIdList = getOrderProdIdList(resList);
