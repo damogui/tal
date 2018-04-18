@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class CustomerListPart extends AdvancedListPart {
 
     public String getFilterByParameter(FilterParameter parameter) {
-
+        System.out.println(parameter.getFilter());
         ArrayList<String> filters = new ArrayList<String>();
         if (parameter.getKey().equals("addOrderDate")) {
 

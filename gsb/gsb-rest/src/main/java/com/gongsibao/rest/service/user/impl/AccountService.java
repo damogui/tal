@@ -149,4 +149,15 @@ public class AccountService implements IAccountService{
     public void updateTicket(Integer id, String ticket) {
         accountService.updateTicket(id,ticket);
     }
+    /**
+     * @Description:TODO
+     * @param  mobile, orderPorudctId
+     * @return void
+     * @author hbpeng <hbpeng@gongsibao.com>
+     * @date 2018/4/18 17:25
+     */
+    @Override
+    public void pushOrderStateMsg(String mobile, Integer orderPorudctId) {
+        accountWeiXinService.pushOrderStateMsg(mobile,orderPorudctId);
+    }
 }
