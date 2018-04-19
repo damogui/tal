@@ -3,10 +3,10 @@ com.gongsibao.trade.web.interactive.OperationPoolListPart = com.gongsibao.trade.
     ctor: function () {
         this.base();
     },
-    detail:function(id){
+    detail: function (id) {
 
-    	var url = '/nav/gsb/platform/trade/orderProdDetail?id='+id;
-    	window.open(url);
+        var url = '/nav/gsb/platform/trade/orderProdDetail?id=' + id;
+        window.open(url);
     },
     addBatchPrincipal: function () {
         var me = this;
@@ -44,7 +44,8 @@ com.gongsibao.trade.web.interactive.OperationPoolListPart = com.gongsibao.trade.
                 }, null, false
             );
         });
-
-
+    },
+    queryOperation: function () {
+        alert("123");
     }
 });
