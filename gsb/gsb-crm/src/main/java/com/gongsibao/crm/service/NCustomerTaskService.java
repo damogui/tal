@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.gongsibao.crm.base.INCustomerService;
+import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.supplier.base.ISupplierDepartmentService;
 import edu.emory.mathcs.backport.java.util.Arrays;
@@ -45,6 +47,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
 
     ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
     ISupplierDepartmentService supplierDepartmentService = ServiceFactory.create(ISupplierDepartmentService.class);
+    INCustomerService customerService = ServiceFactory.create(INCustomerService.class);
 
     public NCustomerTaskService() {
         super();
@@ -268,33 +271,11 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
         ActionManager action = new ActionManager();
         action.execute(ctx);
         return true;
-        /*for (String taskId : taskIdArray) {
-            this.allocation(Integer.valueOf(taskId), supplierId, departmentId, toUserId, taskIdCount, isNotify);
-            isNotify = true;
-        }*/
     }
 
     @Override
     public Boolean allocation(Integer taskId, Integer supplierId, Integer departmentId, Integer toUserId, int alloCount, boolean isNotify) {
         // 商机分配
-        /*Map<String, Object> setMap = new HashMap<String, Object>();
-        NCustomerTask entity = this.byId(taskId);
-        setMap.put("formDepartmentId", entity.getDepartmentId());
-        setMap.put("formSupplier", entity.getSupplierId());
-        // 区别批量分配
-        setMap.put("alloCount", alloCount);
-        // 批量分配是否已经发送通知
-        setMap.put("isNotify", isNotify);
-        entity.setSupplierId(supplierId);
-        entity.setDepartmentId(departmentId);
-        entity.setOwnerId(toUserId);
-        ActionContext ctx = new ActionContext();
-        {
-            ctx.setPath("gsb/crm/task/allocation/manual");
-            ctx.setItem(entity);
-            ctx.setStatus(setMap);
-        }*/
-
         NCustomerTask entity = this.getById(taskId);
         ActionContext ctx = getAllocationTaskAction(java.util.Arrays.asList(entity), 1, isNotify, supplierId, departmentId, toUserId);
         ActionManager action = new ActionManager();
@@ -302,6 +283,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
         return true;
     }
 
+    //获取分配商机action
     private ActionContext getAllocationTaskAction(List<NCustomerTask> taskList, int alloCount, Boolean isNotify, Integer supplierId, Integer departmentId, Integer toUserId) {
         // 商机分配
         Map<String, Object> setMap = new HashMap<String, Object>();
@@ -318,7 +300,6 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
                 supplierId = supplierDepartment.getSupplierId();
             }
         }
-        //NCustomerTask entity = this.byId(taskId);
         setMap.put("toDepartmentId", departmentId);
         setMap.put("toSupplier", supplierId);
         setMap.put("toUserId", toUserId);
@@ -326,9 +307,6 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
         setMap.put("alloCount", alloCount);
         // 批量分配是否已经发送通知
         setMap.put("isNotify", isNotify);
-        /*entity.setSupplierId(supplierId);
-        entity.setDepartmentId(departmentId);
-        entity.setOwnerId(toUserId);*/
         ActionContext ctx = new ActionContext();
         {
             ctx.setPath("gsb/crm/task/allocation/manual");
@@ -692,7 +670,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
         Oql oql = new Oql();
         {
             oql.setType(this.type);
-            oql.setSelects("*");
+            oql.setSelects("nCustomerTask.*,customer.*");
             oql.setFilter("id = ?");
             oql.getParameters().add("@id", id, Types.INTEGER);
         }
@@ -706,7 +684,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
         Oql oql = new Oql();
         {
             oql.setType(this.type);
-            oql.setSelects("*");
+            oql.setSelects("nCustomerTask.*,customer.*");
             oql.setFilter("id IN (" + ids + ")");
         }
         List<NCustomerTask> nCustomerTasks = this.pm.queryList(oql);

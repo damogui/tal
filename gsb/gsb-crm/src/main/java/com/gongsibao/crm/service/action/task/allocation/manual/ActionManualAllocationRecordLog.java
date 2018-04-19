@@ -81,6 +81,7 @@ public class ActionManualAllocationRecordLog implements IAction {
      * @param task
      */
     private void allocation(NCustomerTask task, Integer toSupplier, Integer toDepartmentId, Integer toUserId) {
+
         String getContact = NCustomerContact.handleContact(task.getCustomer());
         String copyWriter = null;
 
