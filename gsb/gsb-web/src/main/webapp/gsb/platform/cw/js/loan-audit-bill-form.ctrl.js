@@ -30,7 +30,7 @@ com.gongsibao.cw.web.LoanAuditBillFormCtrl = org.netsharp.panda.core.CustomCtrl.
     	
     	$("#borrower_name").text(billData.borrowerEmployee.name);
     	$("#creator").text(billData.creator);
-    	$("#payee").text(billData.payee);
+    	$("#payee").text(billData.payeeName);
     	$("#books_name").text(billData.setOfBooks.name);
     	$("#payment_method").text(me.paymentMethod[billData.paymentMethod]);
     	$("#bill_type").text(me.loanBillType[billData.type]);

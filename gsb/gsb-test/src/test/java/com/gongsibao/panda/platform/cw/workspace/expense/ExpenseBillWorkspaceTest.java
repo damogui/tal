@@ -152,7 +152,11 @@ public class ExpenseBillWorkspaceTest extends WorkspaceCreationBase {
         	 formField.setTroikaTrigger("controllerexpense.correctChange(this);");
         }
         
-        addFormField(form, "companyName", "收款人", ControlTypes.TEXT_BOX, true, true);
+        addFormField(form, "creator", "经办人", ControlTypes.TEXT_BOX, true, false);
+        addFormField(form, "payeeName", "报销人", ControlTypes.TEXT_BOX, true, false);
+        addFormFieldRefrence(form, "expenseEmployee.name", "借款人",null, "CRM_Employee" , true, false);
+        
+        addFormField(form, "payeeName", "收款人", ControlTypes.TEXT_BOX, true, false);
         addFormField(form, "companyBank", "开户行", ControlTypes.TEXT_BOX, true, true);
         addFormField(form, "companyAccount", "银行账号", ControlTypes.TEXT_BOX, true, true);
         addFormField(form, "entertainDate", "招待时间", ControlTypes.DATE_BOX, true, true);
@@ -183,10 +187,8 @@ public class ExpenseBillWorkspaceTest extends WorkspaceCreationBase {
             datagrid.setShowTitle(false);
             PDatagridColumn column = null;
         	addColumn(datagrid, "organization.pathName", "费用归属部门", ControlTypes.TEXT_BOX, 150);
-        	column = addColumn(datagrid, "costType", "费用类型", ControlTypes.ENUM_BOX, 150);
-            {
-				column.setFormatter("return controllercostDetailItem.costTypeFormatter(value,row,index);");
-			}
+        	addColumn(datagrid, "costType.name", "费用类型", ControlTypes.ENUM_BOX, 150);
+        
             column = addColumn(datagrid, "invoiceType", "发票类型", ControlTypes.ENUM_BOX, 100);
             {
             	column.setFormatter("return controllercostDetailItem.invoiceTypeFormatter(value,row,index);");

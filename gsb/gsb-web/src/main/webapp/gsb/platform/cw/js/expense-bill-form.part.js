@@ -105,15 +105,12 @@ com.gongsibao.cw.web.CostDetailListPart = org.netsharp.panda.commerce.DetailPart
     	 }
     },
     saveBefore:function (entity){
-    	entity.pathName = entity.organization.pathName
+    	entity.pathName = entity.organization.pathName;
+    	entity.costTypeName = entity.costType.name;
     	entity.formType = 4;  //报销单
     },
     saveAfter: function () { 
     	this.sumAmount();
-    },
-    costTypeFormatter : function (value,row,index){
-    	var me = this;
-		return me.costType[value];
     },
     invoiceTypeFormatter : function (value,row,index){
     	var me = this;
