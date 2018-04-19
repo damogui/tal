@@ -33,7 +33,7 @@ public class OrderProdOrganizationMap extends BaseEntity {
     private Supplier supplier;
 
     @Column(name = "is_bbk", header = "是否是八百客的数据")
-    private String isBbk;
+    private String isBbk = "";
 
     public Integer getOrderProdId() {
         return orderProdId;
