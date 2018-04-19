@@ -19,6 +19,7 @@ import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
 import org.netsharp.organization.base.IEmployeeService;
+import org.netsharp.organization.entity.Employee;
 import org.netsharp.persistence.session.SessionManager;
 
 import java.sql.Types;
@@ -146,9 +147,28 @@ public class ExRegisterService extends GsbPersistableService<IcExRegisterCase> i
         IcExRegisterCase icCase = this.pm.queryFirst(oql);
         if (icCase!=null){
             icCase.setCorpRegStatue(CorpRegStatue.getItem(state));
-            icCase.setEntityState(EntityState.Persist);
+            icCase.toPersist();
             super.save(icCase);
         }
         return null;
+    }
+
+    @Override
+    public IcExRegisterCase updateOwner(Integer id, Integer toUserId) {
+        IEmployeeService employeeService = ServiceFactory.create(IEmployeeService.class);
+        Oql oql = new Oql();
+        oql.setSelects("IcExRegisterCase.*");
+        oql.setType(IcExRegisterCase.class);
+        oql.setFilter("id=?");
+        oql.getParameters().add("id",id,Types.INTEGER);
+        IcExRegisterCase icCase =this.queryFirst(oql);
+        if (icCase!=null){
+            icCase.setOwnerId(toUserId);
+            Employee employee = employeeService.byId(toUserId);
+            icCase.setOwner(employee.getName());
+            icCase.toPersist();
+            icCase = super.save(icCase);
+        }
+        return icCase;
     }
 }
