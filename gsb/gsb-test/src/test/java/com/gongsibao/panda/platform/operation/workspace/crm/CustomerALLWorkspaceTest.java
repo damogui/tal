@@ -154,6 +154,7 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 		}
 		addQueryItem(queryProject, "createTime", "创建时间", ControlTypes.DATE_BOX);
 		addQueryItem(queryProject, "company.companyName", "关联企业", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "lastCustomerSource.name", "客户来源", ControlTypes.TEXT_BOX);
 		return queryProject;
 	}
 
