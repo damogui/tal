@@ -1,13 +1,18 @@
 package com.gongsibao.product.service;
 
 import java.sql.Types;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 import org.netsharp.communication.Service;
+import org.netsharp.core.Oql;
 import org.netsharp.core.QueryParameters;
 import org.netsharp.service.PersistableService;
 
 import com.gongsibao.entity.product.Product;
 import com.gongsibao.product.base.IProductService;
+import org.netsharp.util.StringManager;
 
 @Service
 public class ProductService extends PersistableService<Product> implements IProductService {
@@ -33,5 +38,17 @@ public class ProductService extends PersistableService<Product> implements IProd
 		qps.add("id", id, Types.INTEGER);
 		return this.pm.executeNonQuery(cmdText, qps) > 0;
 	}
-    
+
+	@Override
+	public List<Product> byIds(Collection<Integer> ids) {
+		if (null == ids || ids.isEmpty()) {
+			return null;
+		}
+		Oql oql = new Oql();
+		oql.setType(this.type);
+		oql.setSelects("*");
+		oql.setFilter("id IN (" + StringManager.join(",", Arrays.asList(ids.toArray())) +") ");
+		return this.queryList(oql);
+	}
+
 }

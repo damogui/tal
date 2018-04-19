@@ -1,26 +1,26 @@
 package com.gongsibao.bd.service;
 
+import com.gongsibao.bd.base.IPreferentialCodeService;
 import com.gongsibao.entity.bd.Preferential;
+import com.gongsibao.entity.bd.PreferentialCode;
 import org.netsharp.communication.Service;
 import org.netsharp.core.DataTable;
 import org.netsharp.core.Oql;
-import org.netsharp.core.Paging;
 import org.netsharp.core.QueryParameters;
 import org.netsharp.service.PersistableService;
-
-import com.gongsibao.bd.base.IPreferentialCodeService;
-import com.gongsibao.entity.bd.PreferentialCode;
+import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
 public class PreferentialCodeService extends PersistableService<PreferentialCode> implements IPreferentialCodeService {
 
-    public PreferentialCodeService(){
+    public PreferentialCodeService() {
         super();
-        this.type=PreferentialCode.class;
+        this.type = PreferentialCode.class;
     }
 
     @Override
@@ -74,11 +74,12 @@ public class PreferentialCodeService extends PersistableService<PreferentialCode
         sql.append(" AND bd_preferential_code.is_enabled = 1 AND bd_preferential.is_enabled = 1 ");
         DataTable rows = this.pm.executeTable(sql.toString(), queryParameters);
         sql.append("ORDER BY bd_preferential_code.activate_time DESC ");
-        sql.append(String.format(" limit %s,%s",currentPage,pageSize));
+        sql.append(String.format(" limit %s,%s", currentPage, pageSize));
         System.out.println(sql.toString());
         DataTable table = this.pm.executeTable(sql.toString(), queryParameters);
         table.forEach(row -> {
-            Preferential preferential = new Preferential();{
+            Preferential preferential = new Preferential();
+            {
                 preferential.setCategory(row.getInteger("category"));
                 preferential.setDiscount(row.getDouble("discount"));
                 preferential.setPreferentialAmount(row.getInteger("preferential_amount"));
@@ -92,7 +93,8 @@ public class PreferentialCodeService extends PersistableService<PreferentialCode
                 preferential.setUserDescription(row.getString("user_description"));
                 preferential.setUsePlatform(row.getString("use_platform"));
             }
-            PreferentialCode code = new PreferentialCode();{
+            PreferentialCode code = new PreferentialCode();
+            {
                 code.setId(row.getInteger("pkid"));
                 code.setPreferentialId(row.getInteger("preferential_id"));
                 code.setNo(row.getString("no"));
@@ -114,7 +116,7 @@ public class PreferentialCodeService extends PersistableService<PreferentialCode
         oql.setType(this.type);
         oql.setSelects("*");
         oql.setFilter(" no=? ");
-        oql.getParameters().add("@no",no,Types.VARCHAR);
+        oql.getParameters().add("@no", no, Types.VARCHAR);
         return this.pm.queryFirst(oql);
     }
 
@@ -122,8 +124,55 @@ public class PreferentialCodeService extends PersistableService<PreferentialCode
     public int updateActive(String no, Integer accountId) {
         String sql = "UPDATE bd_preferential_code SET account_id = ?, status = 1, activate_time = NOW() WHERE `no` = ? AND account_id = 0 ";
         QueryParameters queryParameters = new QueryParameters();
-        queryParameters.add("accountId",accountId,Types.INTEGER);
-        queryParameters.add("no",no,Types.VARCHAR);
-        return this.pm.executeNonQuery(sql,queryParameters);
+        queryParameters.add("accountId", accountId, Types.INTEGER);
+        queryParameters.add("no", no, Types.VARCHAR);
+        return this.pm.executeNonQuery(sql, queryParameters);
+    }
+
+    @Override
+    public List<PreferentialCode> byNos(Collection<String> noList) {
+        if (null == noList || noList.isEmpty()) {
+            return null;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (String no : noList) {
+            sb.append("'").append(no).append("'").append(",");
+        }
+
+        if (sb.length() == 0) {
+            return null;
+        }
+
+        Oql oql = new Oql();
+        {
+            oql.setType(this.type);
+            oql.setSelects("PreferentialCode.*, PreferentialCode.preferential.*");
+            oql.setFilter(" no IN (" + sb.substring(0, sb.length() - 1) + ") ");
+        }
+        return this.queryList(oql);
+    }
+
+    @Override
+    public boolean updateCodeStatus(Collection<String> noList, Integer status, Integer orderId) {
+        if (null == noList || noList.isEmpty()) {
+            return false;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (String no : noList) {
+            sb.append("'").append(no).append("'").append(",");
+        }
+
+        UpdateBuilder builder = new UpdateBuilder();
+        builder.update("bd_preferential_code");
+        builder.set("order_id", orderId);
+        builder.set("status", status);
+        if (null != orderId) {
+            builder.set("order_id", orderId);
+        }
+        builder.where(" no IN (" + sb.substring(0, sb.length() - 1) + ")");
+
+        return this.pm.executeNonQuery(builder.toSQL(), null) > 0;
     }
 }

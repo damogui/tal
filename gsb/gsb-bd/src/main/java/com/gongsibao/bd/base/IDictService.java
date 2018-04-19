@@ -40,4 +40,6 @@ public interface IDictService extends IPersistableService<Dict> {
 
 	Map<Integer, Dict> findMapByIds(Collection<Integer> ids);
 
+	Map<Integer, Dict> mapByType(Integer type);
+
 }

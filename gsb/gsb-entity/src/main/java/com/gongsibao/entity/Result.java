@@ -76,4 +76,8 @@ public class Result<T> {
         }
         return result.getStatus().getValue() == ResponseStatus.SUCCESS.getValue();
     }
+
+    public static boolean isFailed(Result result) {
+        return !isSuccess(result);
+    }
 }

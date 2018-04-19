@@ -1,6 +1,5 @@
 package com.gongsibao.trade.service;
 
-import com.gongsibao.entity.trade.SoOrder;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.core.Oql;
@@ -69,5 +68,11 @@ public class OrderInvoiceMapService extends PersistableService<OrderInvoiceMap> 
         }
 
         return this.pm.queryList(oql);
+    }
+
+    @Override
+    public boolean delByInvoiceId(Integer invoiceId) {
+        String sql = "DELETE FROM so_order_invoice_map WHERE invoice_id = " + invoiceId;
+        return this.pm.executeNonQuery(sql, null) > 0;
     }
 }

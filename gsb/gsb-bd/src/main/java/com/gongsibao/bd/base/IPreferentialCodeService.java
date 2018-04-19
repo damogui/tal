@@ -1,10 +1,12 @@
 package com.gongsibao.bd.base;
 
+import net.sf.json.util.JSONStringer;
 import org.netsharp.base.IPersistableService;
 
 import com.gongsibao.entity.bd.PreferentialCode;
 
 import java.beans.Transient;
+import java.util.Collection;
 import java.util.List;
 
 public interface IPreferentialCodeService extends IPersistableService<PreferentialCode> {
@@ -44,4 +46,15 @@ public interface IPreferentialCodeService extends IPersistableService<Preferenti
      */
     @Transient
     int updateActive(String no, Integer accountId);
+
+    /**
+     * @Description: 通过优惠码查询
+     * @param
+     * @return java.util.List<com.gongsibao.entity.bd.PreferentialCode>
+     * @author wangkun <wangkun@gongsibao.com>
+     * @date 2018/4/17
+     */
+    List<PreferentialCode> byNos(Collection<String> noList);
+
+    boolean updateCodeStatus(Collection<String> noList, Integer status, Integer orderId);
 }

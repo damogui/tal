@@ -4,7 +4,7 @@ import com.gongsibao.entity.bd.BdService;
 import com.gongsibao.entity.bd.BdServiceProduct;
 import com.gongsibao.entity.cms.Product;
 import com.gongsibao.entity.cms.ProductTemplate;
-import com.gongsibao.rest.dto.product.ProdPriceDTO;
+import com.gongsibao.entity.product.Price;
 import com.gongsibao.rest.dto.product.ProductCmsDTO;
 
 import java.util.Collection;
@@ -56,4 +56,8 @@ public interface IProductService {
      * @date 2018/4/16
      */
     ProductCmsDTO cmsInfo(Integer productId);
+
+    Map<Integer, com.gongsibao.entity.product.Product> mapByIds(Collection<Integer> productIds);
+
+    Map<Integer, Price> mapPriceByIds(Collection<Integer> priceIds);
 }

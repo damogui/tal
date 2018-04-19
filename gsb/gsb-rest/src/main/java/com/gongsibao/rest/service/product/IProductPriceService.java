@@ -2,7 +2,7 @@ package com.gongsibao.rest.service.product;
 
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.rest.common.web.BdCity;
-import com.gongsibao.rest.dto.product.ProdPriceDTO;
+import com.gongsibao.rest.dto.product.ProductPriceDTO;
 
 import java.util.Collection;
 import java.util.List;
@@ -20,5 +20,5 @@ public interface IProductPriceService {
      * @author wangkun <wangkun@gongsibao.com>
      * @date 2018/4/16
      */
-    List<ProdPriceDTO> productPriceList(Integer productId, Integer cityId, Integer propertyId);
+    List<ProductPriceDTO> productPriceList(Integer productId, Integer cityId, Integer propertyId);
 }

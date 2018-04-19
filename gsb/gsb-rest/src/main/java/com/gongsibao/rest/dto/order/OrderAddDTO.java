@@ -1,6 +1,9 @@
 package com.gongsibao.rest.dto.order;
 
-import com.gongsibao.rest.dto.product.ProdPriceDTO;
+import com.gongsibao.entity.acount.Account;
+import com.gongsibao.entity.bd.dic.CouponPlatformType;
+import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
+import com.gongsibao.rest.dto.product.ProductPriceDTO;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,35 +18,52 @@ import java.util.List;
 public class OrderAddDTO implements Serializable {
     private static final long serialVersionUID = -5008091677949699970L;
 
+    private String openId;
+
     /* 订单归属业务员id */
     private Integer ownerId;
     /* 套餐id */
     private Integer packageId;
     /* 来源id */
-    private Integer sourceTypeId;
+    private OrderPlatformSourceType orderPlatformSourceType = OrderPlatformSourceType.Gsb;
+
+    /* 订单当前平台，默认微信 */
+    private CouponPlatformType platformType = CouponPlatformType.WEIXIN;
+
     /* 优惠打折信息 */
     private String orderDiscount;
 
     /* 下单的产品id，适用于单个产品下单 */
-    private int productId;
+    private Integer productId;
 
     // crm companyId
-    private int companyId;
+    private Integer companyId;
 
     /* 商标类别id(多个) */
     private String categoryIds;
 
     /* 收货地址 */
-    private int deliverId;
+    private Integer deliverId;
 
     /* 发票id */
-    private int invoiceId;
+    private Integer invoiceId;
 
-    /* 定价信息id */
-    private List<ProdPriceDTO> priceList;
+    /* 会员 */
+    private Account account;
+
+    /* 产品信息 */
+    private List<OrderProdAddDto> productList;
 
     public Integer getOwnerId() {
         return ownerId;
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
     }
 
     public void setOwnerId(Integer ownerId) {
@@ -58,12 +78,20 @@ public class OrderAddDTO implements Serializable {
         this.packageId = packageId;
     }
 
-    public Integer getSourceTypeId() {
-        return sourceTypeId;
+    public OrderPlatformSourceType getOrderPlatformSourceType() {
+        return orderPlatformSourceType;
     }
 
-    public void setSourceTypeId(Integer sourceTypeId) {
-        this.sourceTypeId = sourceTypeId;
+    public void setOrderPlatformSourceType(OrderPlatformSourceType orderPlatformSourceType) {
+        this.orderPlatformSourceType = orderPlatformSourceType;
+    }
+
+    public CouponPlatformType getPlatformType() {
+        return platformType;
+    }
+
+    public void setPlatformType(CouponPlatformType platformType) {
+        this.platformType = platformType;
     }
 
     public String getOrderDiscount() {
@@ -74,19 +102,19 @@ public class OrderAddDTO implements Serializable {
         this.orderDiscount = orderDiscount;
     }
 
-    public int getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 
-    public int getCompanyId() {
+    public Integer getCompanyId() {
         return companyId;
     }
 
-    public void setCompanyId(int companyId) {
+    public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
     }
 
@@ -98,27 +126,35 @@ public class OrderAddDTO implements Serializable {
         this.categoryIds = categoryIds;
     }
 
-    public int getDeliverId() {
+    public Integer getDeliverId() {
         return deliverId;
     }
 
-    public void setDeliverId(int deliverId) {
+    public void setDeliverId(Integer deliverId) {
         this.deliverId = deliverId;
     }
 
-    public int getInvoiceId() {
+    public Integer getInvoiceId() {
         return invoiceId;
     }
 
-    public void setInvoiceId(int invoiceId) {
+    public void setInvoiceId(Integer invoiceId) {
         this.invoiceId = invoiceId;
     }
 
-    public List<ProdPriceDTO> getPriceList() {
-        return priceList;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setPriceList(List<ProdPriceDTO> priceList) {
-        this.priceList = priceList;
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public List<OrderProdAddDto> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<OrderProdAddDto> productList) {
+        this.productList = productList;
     }
 }

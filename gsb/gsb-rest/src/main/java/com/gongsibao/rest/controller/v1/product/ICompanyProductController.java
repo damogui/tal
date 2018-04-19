@@ -1,13 +1,18 @@
 package com.gongsibao.rest.controller.v1.product;
 
+import com.gongsibao.entity.Result;
+import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.cms.Product;
+import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.rest.common.apiversion.Api;
 import com.gongsibao.rest.common.util.JsonUtils;
 import com.gongsibao.rest.common.web.ResponseData;
 import com.gongsibao.rest.dto.order.OrderAddDTO;
+import com.gongsibao.rest.service.order.IOrderService;
 import com.gongsibao.rest.service.product.IProductPriceService;
 import com.gongsibao.rest.service.product.IProductService;
+import com.gongsibao.rest.service.user.IAccountService;
 import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +33,12 @@ public class ICompanyProductController {
     IProductPriceService productPriceService;
     @Autowired
     IProductService productService;
+
+    @Autowired
+    IAccountService accountService;
+
+    @Autowired
+    IOrderService orderService;
 
     /**
      * 包含产品cms信息，产品聚合信息，产品流程信息
@@ -205,7 +216,18 @@ public class ICompanyProductController {
             return data;
         }
 
+        // TODO 获取当前登录用户
+        Account account = accountService.queryByOpenId(orderAddDTO.getOpenId());
+        orderAddDTO.setAccount(account);
+        orderAddDTO.setCompanyId(0);
 
-        return null;
+        Result<SoOrder> result = orderService.saveOrder(orderAddDTO);
+        if (Result.isSuccess(result)) {
+            data.setData(result.getObj());
+        } else {
+            data.setMsg(result.getMsg());
+            data.setCode(-1);
+        }
+        return data;
     }
 }

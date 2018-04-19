@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 
-/**
- * Created by oupeng on 16/10/21.
- */
-public class ProdPriceDTO implements Serializable {
+public class ProductPriceDTO implements Serializable {
 
     private static final long serialVersionUID = -1L;
 
