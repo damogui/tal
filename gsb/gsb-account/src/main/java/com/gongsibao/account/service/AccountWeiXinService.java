@@ -50,24 +50,25 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
     public Boolean bandMobile(int accountId, String openId) {
         UpdateBuilder updateBuilder = UpdateBuilder.getInstance();
         {
-            updateBuilder.update("uc_account_wx");
-            updateBuilder.set("account_id", accountId);
-            updateBuilder.where("open_id='" + openId + "'");
+            updateBuilder.update("wx_pa_fans");
+            updateBuilder.set("user_id", accountId);
+            updateBuilder.where("openid='" + openId + "'");
         }
         String cmdText = updateBuilder.toSQL();
         return this.pm.executeNonQuery(cmdText, null) > 0;
     }
 
     @Override
-    public AccountWeiXin queryByOpenId(String openId) {
+    public Account queryByOpenId(String openId) {
+        Fans fans=this.queryFansByOpenId(openId);
         Oql oql = new Oql();
         {
-            oql.setType(this.type);
-            oql.setSelects("AccountWeiXin.*");
-            oql.setFilter("openId=?");
-            oql.getParameters().add("openId", openId, Types.VARCHAR);
+            oql.setType(Account.class);
+            oql.setSelects("*");
+            oql.setFilter("pkid=?");
+            oql.getParameters().add("pkid", fans.getUserId(), Types.INTEGER);
         }
-        return this.queryFirst(oql);
+        return accountService.queryFirst(oql);
     }
 
     @Override
@@ -81,17 +82,32 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
         }
         return fansService.queryFirst(oql);
     }
+    /**
+     * @Description:TODO 新增粉丝
+     * @param  openId
+     * @return org.netsharp.wx.pa.entity.Fans
+     * @author hbpeng <hbpeng@gongsibao.com>
+     * @date 2018/4/19 11:43
+     */
+    @Override
+    public Fans createFans(String openId) {
+        Fans fans=new Fans();{
+            fans.toNew();
+            fans.setOpenId(openId);
+        }
+        return fansService.save(fans);
+    }
 
     @Override
-    public AccountWeiXin queryByAccountId(String accountId) {
+    public Fans queryFansByUserId(Integer userId) {
         Oql oql = new Oql();
         {
-            oql.setType(this.type);
-            oql.setSelects("AccountWeiXin.*");
-            oql.setFilter("accountId=?");
-            oql.getParameters().add("accountId", accountId, Types.VARCHAR);
+            oql.setType(Fans.class);
+            oql.setSelects("Fans.*");
+            oql.setFilter("user_id=?");
+            oql.getParameters().add("user_id", userId, Types.INTEGER);
         }
-        return this.queryFirst(oql);
+        return fansService.queryFirst(oql);
     }
 
     /**
@@ -127,14 +143,14 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
                 //取用户信息
                 Account account = accountService.byMobile(mobile);
                 //取微信用户openid
-                AccountWeiXin accountWeiXin=this.queryByAccountId(account.getId().toString());
+                Fans accountWeiXin=this.queryFansByUserId(account.getId());
                 //拼接消息内容
                 String redirectUrl = UrlHelper.encode("http://" + weixinConfig.getHost() + UrlHelper.join("/index.html#/mine/order", "originalId=" + OID));
                 String url = SYSINQUIRY_CONTINUE_CALLBACK_URL_PREFIX;
                 url = String.format(url, weixinConfig.getAppId(), redirectUrl, "snsapi_base", "123");
                 String content = String.format(ORDER_CHANGE_STATE_MSG, proName, proTrace, url);
                 //发送消息
-                customService.sendTextMessage(content, accountWeiXin.getOpenid(), OID);
+                customService.sendTextMessage(content, accountWeiXin.getOpenId(), OID);
             }
         } catch (SQLException e) {
             e.printStackTrace();

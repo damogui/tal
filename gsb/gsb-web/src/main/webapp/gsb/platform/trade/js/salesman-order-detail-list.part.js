@@ -6,11 +6,11 @@ com.gongsibao.trade.web.SalesmanOrderDetailListPart = org.netsharp.panda.commerc
     },
     operateFormatter:function(value,row,index){
     	var builder = new System.StringBuilder();
-    	builder.append("<a class='grid-btn' href='javascript:controllerorderProdList.detail(" + value + ")';>查看</a>");
+    	builder.append("<a class='grid-btn' href='javascript:controllerorderProdList.detail(" + row.id + ")';>查看</a>");
     	if(row.beginOption == null || row.beginOption == false){    		
-    		builder.append("<a class='grid-btn' href='javascript:controllerorderProdList.begOption(" + value + ")';>开始操作</a>");
+    		builder.append("<a class='grid-btn' href='javascript:controllerorderProdList.begOption(" + row.id + ")';>开始操作</a>");
     	}else{    		
-    		builder.append("<a class='grid-btn' href='javascript:controllerorderProdList.operateGroup(" + value + ")';>变更操作组</a>");
+    		builder.append("<a class='grid-btn' href='javascript:controllerorderProdList.operateGroup(" + row.id + ")';>变更操作组</a>");
     	}
     	return builder.toString();
     },

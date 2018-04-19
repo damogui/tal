@@ -14,13 +14,11 @@ public interface IAccountService {
 
     void updateAccount(String mobile,String openId);
 
-    Boolean createAccount(String openId);
+    Boolean createFans(String openId);
 
     void sendTextMessage(String content, String openId,String originalId);
 
     Account queryByMobile(String mobile);
-
-    Account queryByOpenId(String openId);
 
     void updateTicket(Integer id,String ticket);
 

@@ -71,7 +71,9 @@ com.gongsibao.trade.web.AuditCarryoverCtrl = com.gongsibao.trade.web.AuditBaseCt
     			height:'100%',
     			data:data,
     		    columns:[[
-    		        {field:'creator',title:'创建人名称',width:80,align:'center'},
+    		        {field:'creator',title:'创建人名称',width:80,align:'center',formatter: function(value,row,index){
+    		        	return row.employee.name;
+    		        }},
     		        {field:'status',title:'审核状态',width:80,align:'center',formatter: function(value,row,index){
     		        	return me.auditLogStatusEnum[value];
     		        }},

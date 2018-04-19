@@ -174,8 +174,6 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 		{
 			item.setInterzone(true);
 		}
-		addQueryItem(queryProject, "owner.name", "业务员", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "customer.company.companyName", "关联企业", ControlTypes.TEXT_BOX);
 		return queryProject;
 	}
 }

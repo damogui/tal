@@ -1,6 +1,7 @@
 package com.gongsibao.rest.web.controller.v1.user;
 
 import com.gongsibao.account.base.IAccountWeiXinService;
+import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.acount.AccountWeiXin;
 import com.gongsibao.rest.web.common.apiversion.Api;
 import static com.gongsibao.rest.web.common.util.Assert.*;
@@ -12,6 +13,7 @@ import com.gongsibao.rest.web.dto.user.PreferentialUsageDTO;
 import com.gongsibao.rest.base.user.IUserPreferentialService;
 import org.apache.commons.lang3.StringUtils;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.wx.pa.entity.Fans;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,10 +45,10 @@ public class UserPreferentialController extends BaseController {
         return Result.build(() -> {
             String openId = openId(request);
             hasText(openId, "尚未登录!");
-            AccountWeiXin accountWeiXin = accountWeiXinService.queryByOpenId(openId);
+            Account accountWeiXin = accountWeiXinService.queryByOpenId(openId);
             notNull(accountWeiXin, "账号未绑定");
-            notNull(accountWeiXin.getAccountId(), "账号未绑定");
-            return userPreferentialService.usage(accountWeiXin.getAccountId());
+            notNull(accountWeiXin.getId(), "账号未绑定");
+            return userPreferentialService.usage(accountWeiXin.getId());
         });
     }
 
@@ -63,10 +65,10 @@ public class UserPreferentialController extends BaseController {
         return Result.build(() -> {
             String openId = openId(request);
             hasText(openId, "尚未登录!");
-            AccountWeiXin accountWeiXin = accountWeiXinService.queryByOpenId(openId);
+            Account accountWeiXin = accountWeiXinService.queryByOpenId(openId);
             notNull(accountWeiXin, "账号未绑定");
-            notNull(accountWeiXin.getAccountId(), "账号未绑定");
-            return userPreferentialService.pageActiveByCondition(accountWeiXin.getAccountId(),status);
+            notNull(accountWeiXin.getId(), "账号未绑定");
+            return userPreferentialService.pageActiveByCondition(accountWeiXin.getId(),status);
         });
     }
 
@@ -84,9 +86,9 @@ public class UserPreferentialController extends BaseController {
             hasText(openId, "尚未登录!");
             hasText(no, "请输入优惠码!");
             isTrue(StringUtils.trimToEmpty(no).length() <= 50, "您输入的优惠码过长!");
-            AccountWeiXin accountWeiXin = accountWeiXinService.queryByOpenId(openId);
-            notNull(accountWeiXin.getAccountId(), "账号未绑定");
-            userPreferentialService.saveActive(accountWeiXin.getAccountId(), no);
+            Account accountWeiXin = accountWeiXinService.queryByOpenId(openId);
+            notNull(accountWeiXin.getId(), "账号未绑定");
+            userPreferentialService.saveActive(accountWeiXin.getId(), no);
             return "激活成功!";
         }).resetOkMsgFromData();
     }
