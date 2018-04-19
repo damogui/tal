@@ -75,10 +75,12 @@ com.gongsibao.trade.web.OrderPerformanceDetailPart = org.netsharp.panda.commerce
         });
         totalAmount = totalAmount / 100;
         var payablePrice = $("#payablePrice").val();
+        var unPerformance=$("#unPerformance").val();
 
-        if (totalAmount != parseFloat(payablePrice)) {
 
-            layer.msg("分配金额必须和订单金额相等");
+        if (totalAmount != parseFloat(unPerformance)) {
+
+            layer.msg("分配金额必须和未划分订单业绩相等");
             return false;
 
         } else {
