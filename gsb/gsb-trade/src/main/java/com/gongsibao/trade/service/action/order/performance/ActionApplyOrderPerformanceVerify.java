@@ -59,10 +59,10 @@ public class ActionApplyOrderPerformanceVerify implements IAction {
             throw new BusinessException ("订单业绩必须分配！");
         }
 
-        if (entity.getTotalPrice () < totalAmount) {
+        if (totalAmount>entity.getPayablePrice() ) {//等于和
 
 
-            throw new BusinessException ("订单业绩必须小于订单额！");
+            throw new BusinessException ("订单业绩必须等于订单额！");
         }
         //entity.setPerformancePrice (totalAmount);
         ctx.setItem (entity);
