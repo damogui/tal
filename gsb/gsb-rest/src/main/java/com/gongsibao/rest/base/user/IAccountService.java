@@ -1,6 +1,17 @@
 package com.gongsibao.rest.base.user;
 
 import com.gongsibao.entity.acount.Account;
+import com.gongsibao.entity.trade.OrderPayMap;
+import com.gongsibao.rest.web.common.web.Pager;
+import com.gongsibao.rest.web.dto.order.OrderPayMapDTO;
+import org.jdom.JDOMException;
+import org.netsharp.wx.pa.entity.PublicAccount;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedMap;
+
 /**
  * ClassName: AccountService
  * @Description: TODO 微信用户登录验证
@@ -29,4 +40,10 @@ public interface IAccountService {
     void buySuccessSendMsg(String originalId,Integer accountId,String moeny,String productName,String first,String url);
 
     Account queryByOpenId(String openId);
+
+    Integer getWxPayH5Param(String oid,String openId, String orderNoStr, Integer totalFee, String body, Integer userChannel, SortedMap<Object, Object> resMap);
+
+    String wxpay(PublicAccount account, String out_trade_no, Integer order_price, String body, Integer clientType, String openId, Integer userChannel) throws JDOMException, IOException;
+
+    List<OrderPayMap> pageByProperties(Integer orderId, Integer payId);
 }

@@ -1,13 +1,20 @@
 package com.gongsibao.rest.web.controller;
 
 import com.gongsibao.entity.acount.Account;
+import com.gongsibao.entity.trade.OrderPayMap;
+import com.gongsibao.entity.trade.Pay;
+import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.rest.web.common.apiversion.Api;
+import com.gongsibao.rest.web.common.security.SecurityUtils;
 import com.gongsibao.rest.web.common.util.JsSdkManager;
 import com.gongsibao.rest.web.common.util.RedisClient;
-import com.gongsibao.rest.web.common.util.WebUtils;
-import com.gongsibao.rest.web.common.web.Constant;
+import com.gongsibao.rest.web.common.web.Pager;
 import com.gongsibao.rest.web.common.web.ResponseData;
 import com.gongsibao.rest.base.user.IAccountService;
+import com.gongsibao.rest.web.dto.order.OrderPayMapDTO;
+import com.gongsibao.u8.base.IPayService;
+import com.gongsibao.u8.base.ISoOrderService;
+import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -16,12 +23,10 @@ import org.netsharp.core.NetsharpException;
 import org.netsharp.wx.mp.api.oauth.OAuthRequest;
 import org.netsharp.wx.mp.api.oauth.OAuthResponse;
 import org.netsharp.wx.mp.sdk.AesException;
-import org.netsharp.wx.pa.base.IFansService;
 import org.netsharp.wx.pa.base.IPublicAccountService;
 import org.netsharp.wx.pa.entity.Fans;
 import org.netsharp.wx.pa.entity.PublicAccount;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,15 +34,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.UUID;
+import java.util.HashMap;
+import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping(value = "/wx/{v}")
 @Api(1)
-public class LoginController extends BaseController{
-    private Logger logger = Logger.getLogger(LoginController.class);
+public class UserController extends BaseController{
+    private Logger logger = Logger.getLogger(UserController.class);
 
     @Autowired
     IAccountService accountService;
@@ -257,5 +265,75 @@ public class LoginController extends BaseController{
         return data;
     }
 
-
+    /*获取微信公众号支付（H5）的参数*/
+    @RequestMapping("/getWxPayMP")
+    public ResponseData getWxPayMP(HttpServletRequest request, HttpServletResponse response) {
+        ResponseData data = new ResponseData();
+        //微信授权回调的code凭证，用来获取openid的
+        String openId = StringUtils.trimToEmpty(request.getParameter("openId"));
+        String state = StringUtils.trimToEmpty(request.getParameter("state"));
+        //订单编号
+        String orderNoStr = StringUtils.trimToEmpty(request.getParameter("orderNoStr"));
+        if (StringUtils.isBlank(openId)) {
+            data.setCode(-1);
+            data.setMsg("openId参数不能为空");
+            return data;
+        }
+        ISoOrderService soOrderService=ServiceFactory.create(ISoOrderService.class);
+        String orderNo = StringUtils.trimToEmpty(orderNoStr.split("_")[0]);
+        Integer orderId = NumberUtils.toInt(SecurityUtils.rc4Decrypt(orderNoStr.substring(orderNoStr.indexOf("_") + 1, orderNoStr.lastIndexOf("_"))));
+        Integer payId = NumberUtils.toInt(orderNoStr.substring(orderNoStr.lastIndexOf("_") + 1, orderNoStr.length()));
+        SoOrder order = soOrderService.byId(orderId);
+        if (order == null) {
+            data.setCode(-1);
+            data.setMsg("该订单不存在");
+            return data;
+        }
+        if (!order.getNo().equals(orderNo)) {
+            data.setCode(-1);
+            data.setMsg("该订单id与订单编号不相符");
+            return data;
+        }
+        List<OrderPayMap> listOrder = accountService.pageByProperties(orderId,payId);
+        if (listOrder.isEmpty()) {
+            data.setCode(-1);
+            data.setMsg("该支付信息不属于该订单");
+            return data;
+        }
+        //回调传过来的参数
+        int orderIdParam = NumberUtils.toInt(SecurityUtils.rc4Decrypt(request.getParameter("orderIdStr")));
+        //回调传过来的参数
+        int payIdParam = NumberUtils.toInt(SecurityUtils.rc4Decrypt(request.getParameter("payIdStr")));
+        if (!orderId.equals(orderIdParam)) {
+            data.setCode(-1);
+            data.setMsg("回调订单id参数不一致");
+            return data;
+        }
+        if (!payId.equals(payIdParam)) {
+            data.setCode(-1);
+            data.setMsg("回调支付id参数不一致");
+            return data;
+        }
+        IPayService payService=ServiceFactory.create(IPayService.class);
+        // 支付信息
+        Pay pay = payService.byId(payId);
+        //本次付款金额
+        Integer totalFee = pay.getAmount();
+        //付款内容（产品名称等）
+        String body = order.getProdName();
+        SortedMap<Object, Object> resMap = new TreeMap<Object, Object>();
+        Integer resId = accountService.getWxPayH5Param(originalId(request),openId, orderNoStr, totalFee, body, 0, resMap);
+        if (resId.equals(-1)) {
+            data.setCode(-1);
+            data.setMsg("获取openid失败");
+            return data;
+        }
+        if (resId.equals(-2)) {
+            data.setCode(-1);
+            data.setMsg("获取prepay_id失败");
+            return data;
+        }
+        data.setData(resMap);
+        return data;
+    }
 }

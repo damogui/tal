@@ -21,6 +21,8 @@ public class Constant {
      */
     public final static String SYSINQUIRY_CONTINUE_CALLBACK_URL_PREFIX = "https://open.weixin.qq.com/connect/oauth2/authorize?from=weixin&appid=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s#wechat_redirect";
 
+    public static String PAY_API = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+
     public static final String COOKIE_ACCOUNT_LOGIN_TICKET = "COOKIE_ACCOUNT_LOGIN_TICKET";
 
     public static final String ICOMPANY_ACCOUNT_COMPANY = "ICOMPANY_ACCOUNT_COMPANY_";
