@@ -4,16 +4,12 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
 /**
- * 工商注册核准状态
+ * 工商注册核准开关
  */
 public enum ApprovalType implements IEnum{
-    UNSUBMIT(0,"未提交"),
-    WIATAUDIT(1,"待审核"),
-    APPROVED(2,"已核准"),
-    REVERSION(3,"退回修改"),
-    INADMISSIBLE(4,"不予受理"),
-    PRE_NUCLEAR_PASS(5,"预核通过"),
-    PRE_NUCLEAR_NOT_PASS(6,"预核不通过");
+    WAIT(0,"待审核"),
+    WAITED(1,"已审核");
+
 
     private Integer value;
     private String text;

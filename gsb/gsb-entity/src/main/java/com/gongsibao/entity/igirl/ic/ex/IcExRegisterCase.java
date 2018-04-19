@@ -1,6 +1,7 @@
 package com.gongsibao.entity.igirl.ic.ex;
 
 import com.gongsibao.entity.crm.NCustomer;
+import com.gongsibao.entity.igirl.ic.dict.CorpRegStatue;
 import com.gongsibao.entity.igirl.ic.ex.dict.ApprovalType;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
@@ -23,8 +24,10 @@ public class IcExRegisterCase extends Entity {
     private String approvalName;
 
     @Column(name = "approval_type",header = "审核状态")
-    private ApprovalType approvalType;
+    private ApprovalType approvalType = ApprovalType.WAIT;
 
+    @Column(name = "corp_reg_statue",header = "工商业务状态")
+    private CorpRegStatue corpRegStatue;
 
     public Integer getCustomerId() {
         return customerId;
@@ -56,6 +59,14 @@ public class IcExRegisterCase extends Entity {
 
     public void setApprovalType(ApprovalType approvalType) {
         this.approvalType = approvalType;
+    }
+
+    public CorpRegStatue getCorpRegStatue() {
+        return corpRegStatue;
+    }
+
+    public void setCorpRegStatue(CorpRegStatue corpRegStatue) {
+        this.corpRegStatue = corpRegStatue;
     }
 
     public String getCustomerMobile() {
