@@ -1,5 +1,7 @@
 package com.gongsibao.trade.web;
 
+import com.gongsibao.entity.crm.Customer;
+import com.gongsibao.trade.base.ICustomerService;
 import com.gongsibao.trade.base.IOrderService;
 import com.gongsibao.utils.NumberUtils;
 import org.netsharp.communication.ServiceFactory;
@@ -17,6 +19,8 @@ import com.gongsibao.utils.SupplierSessionManager;
 public class SalesmanAddOrderFormPart extends FormPart {
 
     IOrderService orderService = ServiceFactory.create(IOrderService.class);
+    ICustomerService customerService = ServiceFactory.create(ICustomerService.class);
+
     @Override
     public IPersistable save(IPersistable entity) {//
 
@@ -63,6 +67,12 @@ public class SalesmanAddOrderFormPart extends FormPart {
 
         IAccountService accountService = ServiceFactory.create(IAccountService.class);
         Account account = accountService.byMobile(mobile);
+
+        if (account != null) {
+            Customer customer = customerService.byAccountId(account.getId());
+            account.setCustomerName(customer.getRealName());
+        }
+
         return account;
     }
 
