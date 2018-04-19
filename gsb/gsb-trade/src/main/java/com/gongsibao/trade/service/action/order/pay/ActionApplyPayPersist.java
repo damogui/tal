@@ -41,6 +41,7 @@ public class ActionApplyPayPersist implements IAction {
 
         Pay pay = (Pay) ctx.getItem();
         pay.setOfflineAuditStatus (AuditStatusType.Dsh);
+        pay.setOfflineAddUserId(SessionManager.getUserId());
         pay.toNew();
         
         //冗余：supplierId，departmentId、ownerId
