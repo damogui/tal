@@ -1,5 +1,7 @@
 package com.gongsibao.entity.acount;
 
+import com.gongsibao.entity.igirl.ic.ex.dict.BooleanType;
+import org.apache.commons.lang.BooleanUtils;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
@@ -39,7 +41,7 @@ public class AccountDeliverAddress extends BaseEntity {
     private Integer postcode;
     
     @Column(name="is_default",header="默认")
-    private Boolean defaulted =false;
+    private BooleanType defaulted = BooleanType.YES;
     
     @Column(name="remark",header="备注")
     private String remark;
@@ -116,11 +118,11 @@ public class AccountDeliverAddress extends BaseEntity {
 		this.postcode = postcode;
 	}
 
-	public Boolean getDefaulted() {
+	public BooleanType getDefaulted() {
 		return defaulted;
 	}
 
-	public void setDefaulted(Boolean defaulted) {
+	public void setDefaulted(BooleanType defaulted) {
 		this.defaulted = defaulted;
 	}
 
