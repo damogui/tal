@@ -98,7 +98,16 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         /*创建订单业绩是不是已经存在存在的话不能创建*/
         me.invokeService("checkCanOrderPer", [parseInt(row.id)], function (data) {
             if (data > 0) {
-                layer.msg("订单业绩已经创建");
+                if(data==1){
+                    layer.msg("订单业绩已经创建");
+                }else if(data==2){
+
+
+                    layer.msg("【该订单有笔结转转入额还在审核中，请审核通过后再创建】");
+                }else if(data==3){
+                    layer.msg("【该订单无业绩可创建，请核实】");
+                }
+
                 return;
             } else {
                 layer.open({

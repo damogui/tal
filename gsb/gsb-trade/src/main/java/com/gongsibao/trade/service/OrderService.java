@@ -8,6 +8,7 @@ import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.IInvoiceService;
 import com.gongsibao.trade.base.IOrderInvoiceMapService;
 import com.gongsibao.trade.base.IOrderService;
+import com.gongsibao.trade.service.action.order.utils.AuditHelper;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
@@ -250,6 +251,19 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
             return 1;
 
         } else {
+            if (type == 0) {//订单业绩金额
+                //校验
+                Integer execNum2 = AuditHelper.getCarryRecode(orderId, AuditStatusType.Dsh);
+                if (execNum2 > 0) {
+                    return 2;//有结转
+                } else {
+                    SoOrder order = getByOrderId(orderId);
+                    if ((order.getPayablePrice() - order.getCarryIntoAmount()) <= 0) {//
+                        return 3;//订单业绩已经分配完毕
+                    }
+                }
+
+            }
             return 0;
 
         }
