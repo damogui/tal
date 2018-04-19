@@ -1,9 +1,11 @@
 package com.gongsibao.rest.web.controller.v1.message;
 
+import com.gongsibao.entity.acount.Account;
 import com.gongsibao.rest.web.common.apiversion.Api;
 import com.gongsibao.rest.web.common.web.Constant;
 import com.gongsibao.rest.web.common.web.ResponseData;
 import com.gongsibao.rest.base.user.IAccountService;
+import com.gongsibao.rest.web.controller.BaseController;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.netsharp.communication.ServiceFactory;
@@ -17,19 +19,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping(value = "/wx/{v}/message")
 @Api(1)
-public class MessageController {
+public class MessageController extends BaseController{
     private Logger logger = Logger.getLogger(MessageController.class);
-    @Value("${weixin.oid}")
-    private String oid;
+
     @Autowired
     IAccountService accountService;
 
     @RequestMapping(value = "/buySuccess", method = RequestMethod.GET)
     public ResponseData buySuccess(
+            HttpServletRequest request,
             @RequestParam("openId") String openId,
+            @RequestParam("money") String money,
+            @RequestParam("productName") String productName,
             @RequestParam("orderNo") String orderNo
     ) {
         ResponseData data = new ResponseData();
@@ -37,18 +43,28 @@ public class MessageController {
             data.setCode(500);
             data.setMsg("openId 为空！");
             return data;
+        }  if (StringUtils.isBlank(money)) {
+            data.setCode(500);
+            data.setMsg("money 为空！");
+            return data;
         }
         if (StringUtils.isBlank(orderNo)) {
             data.setCode(500);
             data.setMsg("订单号为空！");
             return data;
         }
-        IPublicAccountService publicAccountService = ServiceFactory.create(IPublicAccountService.class);
-        PublicAccount weixinConfig = publicAccountService.byOriginalId(oid);
-        String redirectUrl =UrlHelper.encode( "http://"+weixinConfig.getHost() + UrlHelper.join("/index.html#/mine/order/2", "originalId=" + oid));
-        String url = Constant.SYSINQUIRY_CONTINUE_CALLBACK_URL_PREFIX;
-        url = String.format(url, weixinConfig.getAppId(), redirectUrl, "snsapi_base", "123");
-        accountService.sendTextMessage(String.format(Constant.ORDER_BUY_SUCCESS, orderNo, "<a href=\"" + url + "\">点此查看详情>></a>"), openId, oid);
+        if (StringUtils.isBlank(productName)) {
+            data.setCode(500);
+            data.setMsg("productName为空！");
+            return data;
+        }
+        if (StringUtils.isBlank(originalId(request))) {
+            data.setCode(500);
+            data.setMsg("originalId 为空！");
+            return data;
+        }
+        Account account=accountService.queryByOpenId(openId);
+        accountService.buySuccessSendMsg(originalId(request),account.getId(),money,productName,"您的订单"+orderNo+"支付成功,我们将立即为您办理","/index.html#/mine/order/2");
         data.setCode(200);
         data.setMsg("发送成功！");
         return data;
@@ -56,6 +72,7 @@ public class MessageController {
 
     @RequestMapping(value = "/stateChange", method = RequestMethod.GET)
     public ResponseData stateChange(
+            HttpServletRequest request,
             @RequestParam("mobile") String mobile,
             @RequestParam("orderPorudctId") Integer orderPorudctId
     ) {
@@ -70,7 +87,12 @@ public class MessageController {
             data.setMsg("mobile 为空！");
             return data;
         }
-        accountService.pushOrderStateMsg(mobile,orderPorudctId);
+        if (StringUtils.isBlank(originalId(request))) {
+            data.setCode(500);
+            data.setMsg("originalId 为空！");
+            return data;
+        }
+        accountService.pushOrderStateMsg(originalId(request),mobile,orderPorudctId);
         data.setCode(200);
         data.setMsg("发送成功");
         return data;

@@ -106,4 +106,32 @@ public class DeliverController extends BaseController {
             return accountDeliverAddressService.saveUpdate(addressRequest);
         });
     }
+
+    /**
+     * 设置默认收货地址
+     *
+     * @return Result<String>
+     */
+    @RequestMapping(value = "/setDefault", method = RequestMethod.POST)
+    public Result<String> setDefault(@RequestParam("pkid") Integer pkid, HttpServletRequest request) {
+        return Result.build(() -> {
+            accountDeliverAddressService.updateDefault(validateReturnAccountId(request),pkid);
+            return "设置成功!";
+        }).resetOkMsgFromData();
+    }
+
+    /**
+     * 删除收货地址
+     *
+     * @param pkid 主键
+     * @param request HttpServletRequest
+     * @return Result<String>
+     */
+    @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    public Result<String> remove(@RequestParam("pkid") Integer pkid, HttpServletRequest request){
+        return Result.build(()->{
+            accountDeliverAddressService.remove(validateReturnAccountId(request),pkid);
+           return "删除成功!";
+        }).resetOkMsgFromData();
+    }
 }

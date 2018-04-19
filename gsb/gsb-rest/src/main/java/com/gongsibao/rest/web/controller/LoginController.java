@@ -36,16 +36,13 @@ import java.util.regex.Pattern;
 @RestController
 @RequestMapping(value = "/wx/{v}")
 @Api(1)
-public class LoginController {
+public class LoginController extends BaseController{
     private Logger logger = Logger.getLogger(LoginController.class);
 
     @Autowired
     IAccountService accountService;
     @Autowired
     private RedisClient redisClient;
-
-    @Value("${weixin.oid}")
-    private String oid;
     /**
      * @Description:TODO 登录验证
      * @param  openId
@@ -200,13 +197,12 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/user/query/openId", method = RequestMethod.GET)
-    public ResponseData getOpenIdByCode(@RequestParam("code") String code){
+    public ResponseData getOpenIdByCode(HttpServletRequest request,@RequestParam("code") String code){
         ResponseData data = new ResponseData();
         IPublicAccountService wcService = ServiceFactory.create(IPublicAccountService.class);
-        IFansService fansService = ServiceFactory.create(IFansService.class);
-        PublicAccount pa = wcService.byOriginalId(oid);
+        PublicAccount pa = wcService.byOriginalId(originalId(request));
         if (pa == null) {
-            throw new NetsharpException("没有找到公众号，原始id：" + oid);
+            throw new NetsharpException("没有找到公众号，原始id：" + originalId(request));
         }
         OAuthRequest oauth = new OAuthRequest();
         {
@@ -219,7 +215,6 @@ public class LoginController {
         try {
             OAuthResponse response = oauth.getResponse();
             String openId = response.getOpenid();
-//            fans =  fansService.byOpenId(openId);
             data.setCode(200);
             data.setData(openId);
             data.setMsg("获取成功");
@@ -238,6 +233,7 @@ public class LoginController {
      */
     @RequestMapping(value = "/jsSignature", method = RequestMethod.GET)
     public ResponseData jsSignature(
+            HttpServletRequest request,
             @RequestParam("url") String url
             )  {
         ResponseData data = new ResponseData();
@@ -247,7 +243,12 @@ public class LoginController {
                 data.setMsg("url 为空!");
                 return data;
             }
-            data.setData(JsSdkManager.getConfig(url,oid));
+            if(null==originalId(request)){
+                data.setCode(500);
+                data.setMsg("originalId 为空!");
+                return data;
+            }
+            data.setData(JsSdkManager.getConfig(url,originalId(request)));
             data.setCode(200);
         }catch (AesException e ){
             logger.info("获取签名失败" + e.getMessage());

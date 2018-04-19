@@ -44,4 +44,20 @@ public interface AccountDeliverAddressService {
      * @return
      */
     Integer saveUpdate(DeliverAddressRequest request);
+
+    /**
+     * 设置默认收货地址
+     *
+     * @param accountId 账号ID
+     * @param pkid      收货地址主键
+     */
+    void updateDefault(Integer accountId, Integer pkid);
+
+    /**
+     * 删除收货地址
+     *
+     * @param accountId 账号ID
+     * @param pkid      收货地址主键
+     */
+    void remove(Integer accountId, Integer pkid);
 }

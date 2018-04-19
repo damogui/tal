@@ -1,7 +1,9 @@
 package com.gongsibao.account.service;
 
+import com.gongsibao.entity.igirl.ic.ex.dict.BooleanType;
 import org.netsharp.communication.Service;
 import org.netsharp.core.Oql;
+import org.netsharp.core.QueryParameters;
 import org.netsharp.service.PersistableService;
 
 import com.gongsibao.account.base.IAccountDeliverAddressService;
@@ -52,5 +54,31 @@ public class AccountDeliverAddressService extends PersistableService<AccountDeli
         oql.getParameters().add("cityId",accountDeliverAddress.getCityId(),Types.INTEGER);
         oql.getParameters().add("address",accountDeliverAddress.getAddress(),Types.VARCHAR);
         return this.pm.queryCount(oql);
+    }
+
+    @Override
+    public void updateDefault(Integer accountId, Integer pkid) {
+        QueryParameters queryParameters = new QueryParameters();
+        queryParameters.add("account_id",accountId,Types.INTEGER);
+        String sql = String.format("update uc_account_deliver_address address set address.is_default = if(pkid=%s,1,0) where account_id = ? ",pkid);
+        this.pm.executeNonQuery(sql,queryParameters);
+    }
+
+    @Override
+    public AccountDeliverAddress byPidAccountId(Integer accountId, Integer pkid) {
+        Oql oql = new Oql();
+        oql.setType(this.type);
+        oql.setSelects("AccountDeliverAddress.*");
+        oql.setFilter(" accountId = ? and id = ? ");
+        oql.getParameters().add("accountId",accountId,Types.INTEGER);
+        oql.getParameters().add("id",pkid,Types.INTEGER);
+        return this.pm.queryFirst(oql);
+    }
+
+    @Override
+    public void delete(Integer pkid) {
+        QueryParameters queryParameters = new QueryParameters();
+        queryParameters.add("pkid",pkid,Types.INTEGER);
+        this.pm.executeNonQuery("delete from uc_account_deliver_address where pkid = ? ",queryParameters);
     }
 }

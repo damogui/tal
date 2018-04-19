@@ -47,7 +47,7 @@ public class ActionExpenseApplyAudit  implements IAction{
 				   	 auditRecordService.save(au);
 				   	 
 				   	 String  content = "【财务报销】"+expense.getCreator()+"提交了报销申请，单据编号："+expense.getCode()+" 请您尽快处理。";
-				   	 eMessageService.send("CRM", content, employee.getMobile());
+				   	 eMessageService.send(FinanceDict.WX_MSG_CODE, content, employee.getMobile());
 				 }
 			 }else{
 				 throw new BusinessException("您当前的组织机构错误，请联系管理员。");

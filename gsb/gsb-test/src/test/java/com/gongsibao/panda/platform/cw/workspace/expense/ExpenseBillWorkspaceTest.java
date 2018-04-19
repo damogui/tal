@@ -134,36 +134,38 @@ public class ExpenseBillWorkspaceTest extends WorkspaceCreationBase {
 
   	  PForm form = super.createForm(node);
         PFormField formField = null;
-        formField =  addFormField(form, "type", "报销类型", ControlTypes.ENUM_BOX, true, false);
+        String groupName = "基本信息";
+        formField =  addFormField(form, "type", "报销类型",groupName, ControlTypes.ENUM_BOX, true, false);
         {
         	formField.setTroikaTrigger("controllerexpense.expenseChange(this);");
         }
-        addFormFieldRefrence(form, "setOfBooks.name", "付款单位",null,  SetOfBooks.class.getSimpleName(), true, false);
-        formField =  addFormField(form, "paymentMethod", "付款方式", ControlTypes.ENUM_BOX, true, false);
+        addFormFieldRefrence(form, "setOfBooks.name", "付款单位",groupName,  SetOfBooks.class.getSimpleName(), true, false);
+        formField =  addFormField(form, "paymentMethod", "付款方式",groupName, ControlTypes.ENUM_BOX, true, false);
         {
       	  formField.setTroikaTrigger("controllerexpense.paymentMethodChange(this);");
         }
-        addFormField(form, "totalAmount", "报销合计", ControlTypes.DECIMAL_FEN_BOX, false, false);
-        addFormField(form, "loanAmount", "借款金额", ControlTypes.DECIMAL_FEN_BOX, false, false);
-        addFormField(form, "amount", "报销金额", ControlTypes.TEXT_BOX, false, false);
-        addFormField(form, "totalTaxation", "税费合计", ControlTypes.DECIMAL_FEN_BOX, true, true);
-        formField =   addFormField(form, "isOffset", "冲抵借款", ControlTypes.SWITCH_BUTTON, true, false);
+        addFormField(form, "totalAmount", "报销合计", groupName,ControlTypes.DECIMAL_FEN_BOX, false, false);
+        addFormField(form, "loanAmount", "借款金额",groupName, ControlTypes.DECIMAL_FEN_BOX, false, false);
+        addFormField(form, "amount", "报销金额",groupName, ControlTypes.DECIMAL_FEN_BOX, false, false);
+        addFormField(form, "totalTaxation", "税费合计",groupName, ControlTypes.DECIMAL_FEN_BOX, true, true);
+        formField =   addFormField(form, "isOffset", "冲抵借款",groupName, ControlTypes.SWITCH_BUTTON, true, false);
         {
         	 formField.setTroikaTrigger("controllerexpense.correctChange(this);");
         }
         
-        addFormField(form, "creator", "经办人", ControlTypes.TEXT_BOX, true, false);
-        addFormField(form, "payeeName", "报销人", ControlTypes.TEXT_BOX, true, false);
-        addFormFieldRefrence(form, "expenseEmployee.name", "借款人",null, "CRM_Employee" , true, false);
-        
-        addFormField(form, "payeeName", "收款人", ControlTypes.TEXT_BOX, true, false);
-        addFormField(form, "companyBank", "开户行", ControlTypes.TEXT_BOX, true, true);
-        addFormField(form, "companyAccount", "银行账号", ControlTypes.TEXT_BOX, true, true);
-        addFormField(form, "entertainDate", "招待时间", ControlTypes.DATE_BOX, true, true);
-        addFormField(form, "entertainCompany", "招待公司名", ControlTypes.TEXT_BOX, true, true);
-        addFormField(form, "entertainCustomer", "招待客户姓名", ControlTypes.TEXT_BOX, true, true);
-        addFormField(form, "entertainPlace", "招待地点", ControlTypes.TEXT_BOX, true, true);
-        addFormField(form, "memoto", "备注", ControlTypes.TEXTAREA, true, false);
+        addFormField(form, "creator", "经办人",groupName, ControlTypes.TEXT_BOX, false, false);
+        addFormFieldRefrence(form, "expenseEmployee.name", "报销人",groupName, "CRM_Employee" , true, false);
+        groupName = "收款信息";
+        addFormField(form, "payeeName", "收款人", groupName,ControlTypes.TEXT_BOX, true, false);
+        addFormField(form, "companyBank", "开户行",groupName, ControlTypes.TEXT_BOX, true, true);
+        addFormField(form, "companyAccount", "银行账号",groupName, ControlTypes.TEXT_BOX, true, true);
+        groupName = "招待信息";
+        addFormField(form, "entertainDate", "招待时间",groupName, ControlTypes.DATE_BOX, true, true);
+        addFormField(form, "entertainCompany", "招待公司名",groupName, ControlTypes.TEXT_BOX, true, true);
+        addFormField(form, "entertainCustomer", "招待客户姓名",groupName, ControlTypes.TEXT_BOX, true, true);
+        addFormField(form, "entertainPlace", "招待地点",groupName, ControlTypes.TEXT_BOX, true, true);
+        groupName = "备注信息";
+        addFormField(form, "memoto", "备注",groupName, ControlTypes.TEXTAREA, true, false);
    
 		return form;
 	}

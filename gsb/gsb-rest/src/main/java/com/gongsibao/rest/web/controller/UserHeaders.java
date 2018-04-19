@@ -8,4 +8,6 @@ package com.gongsibao.rest.web.controller;
 public class UserHeaders {
     /** 微信OpenId **/
     public static final String openId= "openId";
+    /** 公众号id **/
+    public static final String originalId= "originalId";
 }

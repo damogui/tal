@@ -3,7 +3,9 @@ package com.gongsibao.account.base;
 import org.netsharp.base.IPersistableService;
 
 import com.gongsibao.entity.acount.AccountDeliverAddress;
+import org.netsharp.core.annotations.Transaction;
 
+import java.beans.Transient;
 import java.util.List;
 
 public interface IAccountDeliverAddressService extends IPersistableService<AccountDeliverAddress> {
@@ -31,4 +33,30 @@ public interface IAccountDeliverAddressService extends IPersistableService<Accou
      * @return
      */
     int exists(AccountDeliverAddress accountDeliverAddress);
+
+    /**
+     * 更新默认
+     *
+     * @param accountId 账号ID
+     * @param pkid 住址ID
+     */
+    @Transaction
+    void updateDefault(Integer accountId,Integer pkid);
+
+    /**
+     * 查询一条记录
+     *
+     * @param accountId 账号ID
+     * @param pkid 住址ID
+     * @return
+     */
+    AccountDeliverAddress byPidAccountId(Integer accountId,Integer pkid);
+
+    /**
+     * 删除收货地址
+     *
+     * @param pkid 主键
+     */
+    @Transaction
+    void delete(Integer pkid);
 }

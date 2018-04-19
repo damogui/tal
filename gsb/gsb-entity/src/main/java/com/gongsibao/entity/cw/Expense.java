@@ -114,6 +114,9 @@ public class Expense extends BizEntity{
 	@Column(name = "status", header = "状态 1:待审核 ，2：审核中 ，3：已通过")
 	private FinanceDict.AuditStatus status = FinanceDict.AuditStatus.Status_1;
 
+	@Column(name = "is_voucher", header = "是否可生成凭证（0：否 1：是）")
+	private Boolean isVoucher = true;
+	
 	@Subs(subType = CostDetail.class, foreignKey = "formId", header = "费用明细")
 	private List<CostDetail> costDetailItem = new ArrayList<CostDetail>();
 	
@@ -373,6 +376,14 @@ public class Expense extends BizEntity{
 
 	public void setExpenseEmployee(Employee expenseEmployee) {
 		this.expenseEmployee = expenseEmployee;
+	}
+
+	public Boolean getIsVoucher() {
+		return isVoucher;
+	}
+
+	public void setIsVoucher(Boolean isVoucher) {
+		this.isVoucher = isVoucher;
 	}
 
 	

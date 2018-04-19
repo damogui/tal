@@ -2,13 +2,14 @@ package com.gongsibao.account.base;
 
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.acount.AccountWeiXin;
+import com.gongsibao.entity.acount.AccountWxMsg;
 import org.netsharp.base.IPersistableService;
 import org.netsharp.wx.pa.entity.Fans;
 
 public interface IAccountWeiXinService extends IPersistableService<AccountWeiXin> {
 	Boolean bandMobile(int accountId,String openId);
 	Account queryByOpenId(String openId);
-	public Fans queryFansByUserId(Integer userId);
+	Fans queryFansByUserId(Integer userId);
 	Fans queryFansByOpenId(String openId);
 	Fans createFans(String openId);
 	/**
@@ -18,5 +19,8 @@ public interface IAccountWeiXinService extends IPersistableService<AccountWeiXin
 	 * @author hbpeng <hbpeng@gongsibao.com>
 	 * @date 2018/4/18 16:47
 	 */
-	void pushOrderStateMsg(String mobile,Integer orderPorudctId );
+	void pushOrderStateMsg(String originalId,String mobile,Integer orderPorudctId );
+
+	void pushTextMsg(Integer accountId, String first, String keyword1, String keyword2, String date,String url, String remark, AccountWxMsg tmpId);
+	void pushTextMsgByOriginalId(String originalId,Integer accountId, String first, String keyword1, String keyword2, String date,String url, String remark, AccountWxMsg tmpId);
 }

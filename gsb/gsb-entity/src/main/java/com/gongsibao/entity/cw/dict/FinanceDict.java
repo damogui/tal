@@ -4,6 +4,10 @@ import org.codehaus.jackson.annotate.JsonCreator;
 import org.netsharp.base.IEnum;
 
 public class FinanceDict {
+	//微信消息发送code
+	public static final String WX_MSG_CODE = "Finance";
+	//U8凭证生成接口地址
+	public static final String U8_VOUCHER_ = "http://t1.gongsibao.com/gongsibao-sys/u8/voucher/addVoucher";
 
 	/*
 	 * 财务单据审批
@@ -45,7 +49,8 @@ public class FinanceDict {
 	public static enum LoanBillType implements IEnum{
 		LoanType_1(1, "日常借款"),
 		LoanType_2(2, "招待费借款"),
-		LoanType_3(3, "差旅费借款");
+		LoanType_3(3, "差旅费借款"),
+		LoanType_4(4, "其他借款");
 		private int value;
 		private String text;
 

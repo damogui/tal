@@ -172,8 +172,6 @@
 				  	    </div>
 				    </div>
 				</div>
-		  	    
-		  	    
 	  	    </div>
 	  	    
 	  	    <h5 class="page-header "> <span class="glyphicon glyphicon-list-alt" ></span> 审批记录</h5>

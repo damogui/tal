@@ -1,5 +1,6 @@
 package com.gongsibao.rest.web.controller;
 
+import com.gongsibao.rest.web.common.web.Constant;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.weixin.pa.WeixinTestConfiguration;
@@ -20,16 +21,7 @@ public class TemplateMessageTest {
         token = listner.getAccessToken("gh_29f5a8b8da16");
     }
 
-    @Test
-    public void getPrivateTemplates(){
 
-        GetAllPrivateTemplateRequest request = new GetAllPrivateTemplateRequest();
-        {
-            request.setTokenInfo(token);
-        }
-
-        request.getResponse();
-    }
 
 
     @Test
@@ -45,11 +37,10 @@ public class TemplateMessageTest {
 
         SendTemplateData data = new SendTemplateData();
         {
-            data.getFirst().setValue("上课通知");//这个模板下没有使用这个关键字
-            data.getKeynotes().put("userName",new KeyNote("张三"));
-            data.getKeynotes().put("courseName",new KeyNote("书法欣赏"));
-            data.getKeynotes().put("date",new KeyNote("下周二下午3:00"));
-            data.getRemark().setValue("请准时参加，谢谢！");
+            data.getFirst().setValue("您的订单支付成功,我们将立即为您办理！");//这个模板下没有使用这个关键字
+            data.getKeynotes().put("orderMoneySum",new KeyNote("700元"));
+            data.getKeynotes().put("orderProductName",new KeyNote("注册公司"));
+            data.getKeynotes().put("Remark",new KeyNote("请准时参加，谢谢！"));
         }
 
         SendTemplateMessageRequest request = new SendTemplateMessageRequest();
@@ -69,7 +60,8 @@ public class TemplateMessageTest {
         AddTemplateRequest request = new AddTemplateRequest();
         {
             request.setTokenInfo(token);
-            request.setTemplate_id_short("TM00080");
+            //OPENTM415261101 办理进度提醒
+            request.setTemplate_id_short("TM00015");
         }
         AddTemplateResponse response = request.getResponse();
         System.out.println(response.getTemplate_id());

@@ -114,4 +114,20 @@ public class AccountDeliverAddressServiceImpl implements AccountDeliverAddressSe
             return accountDeliverAddress.getId();
         }
     }
+
+    @Override
+    public void updateDefault(Integer accountId, Integer pkid) {
+        AccountDeliverAddress accountDeliverAddress = accountDeliverAddressService.byPidAccountId(accountId, pkid);
+        Assert.notNull(accountDeliverAddress,"设置默认地址失败!");
+        accountDeliverAddressService.updateDefault(accountId,pkid);
+    }
+
+    @Override
+    public void remove(Integer accountId, Integer pkid) {
+        AccountDeliverAddress accountDeliverAddress = accountDeliverAddressService.byId(pkid);
+        Assert.notNull(accountDeliverAddress,"该地址不存在!");
+        Assert.notNull(accountDeliverAddress.getAccountId(),"删除失败,该地址不属于你!");
+        Assert.isTrue(accountDeliverAddress.getAccountId().equals(accountId),"删除失败,该地址不属于你!");
+        accountDeliverAddressService.delete(pkid);
+    }
 }
