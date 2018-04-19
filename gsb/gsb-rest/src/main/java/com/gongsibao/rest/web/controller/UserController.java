@@ -4,9 +4,11 @@ import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.trade.dic.*;
 import com.gongsibao.rest.web.common.apiversion.Api;
 import com.gongsibao.rest.web.common.security.SecurityUtils;
 import com.gongsibao.rest.web.common.util.JsSdkManager;
+import com.gongsibao.rest.web.common.util.JsonUtils;
 import com.gongsibao.rest.web.common.util.RedisClient;
 import com.gongsibao.rest.web.common.web.Pager;
 import com.gongsibao.rest.web.common.web.ResponseData;
@@ -15,6 +17,7 @@ import com.gongsibao.rest.web.dto.order.OrderPayMapDTO;
 import com.gongsibao.u8.base.IPayService;
 import com.gongsibao.u8.base.ISoOrderService;
 import com.gongsibao.utils.NumberUtils;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -27,17 +30,11 @@ import org.netsharp.wx.pa.base.IPublicAccountService;
 import org.netsharp.wx.pa.entity.Fans;
 import org.netsharp.wx.pa.entity.PublicAccount;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.List;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -51,6 +48,8 @@ public class UserController extends BaseController{
     IAccountService accountService;
     @Autowired
     private RedisClient redisClient;
+    ISoOrderService soOrderService=ServiceFactory.create(ISoOrderService.class);
+    IPayService payService=ServiceFactory.create(IPayService.class);
     /**
      * @Description:TODO 登录验证
      * @param  openId
@@ -266,7 +265,7 @@ public class UserController extends BaseController{
     }
 
     /*获取微信公众号支付（H5）的参数*/
-    @RequestMapping("/getWxPayMP")
+    @RequestMapping(value = "/getWxPayMP",method = RequestMethod.GET)
     public ResponseData getWxPayMP(HttpServletRequest request, HttpServletResponse response) {
         ResponseData data = new ResponseData();
         //微信授权回调的code凭证，用来获取openid的
@@ -287,6 +286,11 @@ public class UserController extends BaseController{
         if (order == null) {
             data.setCode(-1);
             data.setMsg("该订单不存在");
+            return data;
+        }
+        if (originalId(request) == null) {
+            data.setCode(-1);
+            data.setMsg("公众号不存在");
             return data;
         }
         if (!order.getNo().equals(orderNo)) {
@@ -335,5 +339,199 @@ public class UserController extends BaseController{
         }
         data.setData(resMap);
         return data;
+    }
+
+    //region 公共方法
+    @RequestMapping(value = "/pay",method = RequestMethod.POST)
+    public ResponseData pay(HttpServletRequest request,
+                            HttpServletResponse response,
+                            Account account,
+                            @RequestBody String json) {
+        ResponseData data = new ResponseData();
+        //region 获取参数
+        if (StringUtils.isBlank(json)) {
+            data.setCode(-1);
+            data.setMsg("参数为空");
+            return data;
+        }
+
+        Map<String, Object> map = (Map<String, Object>) JsonUtils.jsonToObject(json, Map.class);
+        if (MapUtils.isEmpty(map)) {
+            data.setCode(-1);
+            data.setMsg("参数错误");
+            return data;
+        }
+        // 订单ID
+        String orderIdStr = StringUtils.trimToEmpty((String) map.get("orderIdStr"));
+        Integer orderId = NumberUtils.toInt(SecurityUtils.rc4Decrypt(orderIdStr), -1);
+        if (orderId <= 0) {
+            data.setCode(-1);
+            data.setMsg("订单ID错误");
+            return data;
+        }
+        // 支付方式 1：快捷支付 2：网银支付 3：企业网银支付 4：线下支付
+        String payMethod = StringUtils.trimToEmpty((String) map.get("payMethod"));
+        if (NumberUtils.toInt(payMethod, -1) <= 0 || NumberUtils.toInt(payMethod, -1) > 4) {
+            data.setCode(-1);
+            data.setMsg("支付方式错误");
+            return data;
+        }
+        // 支付金额
+        Integer totalFee = NumberUtils.toInt(StringUtils.trimToEmpty(map.get("totalFee").toString()));
+        if (NumberUtils.toInt(totalFee, -1) <= 0) {
+            data.setCode(-1);
+            data.setMsg("支付金额错误");
+            return data;
+        }
+        // 支付途径（1:微信；2:支付宝；3：个人网银;4：企业网银）
+        Integer paymentChannels = NumberUtils.toInt(StringUtils.trimToEmpty(map.get("paymentChannels").toString()));
+        // 支付渠道 wx zfbwy zfbjs
+        String payChannels = StringUtils.trimToEmpty((String) map.get("payChannels"));
+//        payChannels = chanpayService.getActualPayChannel(payChannels, paymentChannels);
+        // 是否分次 0：不分次 1：分次
+        String isInstallment = StringUtils.trimToEmpty((String) map.get("isInstallment"));
+        // 银行代码
+        String bankCode = StringUtils.trimToEmpty((String) map.get("bankCode"));
+//        bankCode = getBankName(payChannels, bankCode, paymentChannels);
+        // 线下付款方名称
+        String offlinePayerName = StringUtils.trimToEmpty((String) map.get("offlinePayerName"));
+        // 线下付款银行帐号
+        String offlineBankNo = StringUtils.trimToEmpty((String) map.get("offlineBankNo"));
+        // 线下支付留言
+        String offlineRemark = StringUtils.trimToEmpty((String) map.get("offlineRemark"));
+        // 上传付款凭证
+        String uploadPayVoucher = StringUtils.trimToEmpty((String) map.get("uploadPayVoucher"));
+        // 客户端类别（0:网页端；1:H5（公众号）端；2：APP端）
+        Integer clientType = NumberUtils.toInt(StringUtils.trimToEmpty(map.get("clientType").toString()));
+        // 是否是中关村银行（0:不是、1:是）
+        Integer isZgcBank = NumberUtils.toInt(StringUtils.trimToEmpty((String) map.get("isZgcBank")));
+
+        // 调用方（0:原H5、1:万达、2:ICompany）
+        //===============================万达=============================================
+        Integer callType = NumberUtils.toInt(StringUtils.trimToEmpty(map.get("callType").toString()));
+        //万达传过来的openId,不为空给它返回去，为空不处理
+        String openId = StringUtils.trimToEmpty((String) map.get("Openid"));
+
+
+        // endregion
+        //region 订单信息的验证
+        // 查询订单并验证
+        SoOrder order = soOrderService.byId(orderId);
+        if (order == null) {
+            data.setCode(-1);
+            data.setMsg("订单不存在");
+            return data;
+        }
+        /** 301 订单付款状态：3011 待付款、3012 已付部分款（根据“是否分期”判断处理流程）、3013 已付款 */
+        if (order.getPayStatus().getValue() == 3013) {
+            data.setCode(-1);
+            data.setMsg("订单已付款");
+            return data;
+        }
+        if (NumberUtils.toInt(totalFee) > NumberUtils.toInt(order.getPayablePrice()) || NumberUtils.toInt(order.getPaidPrice()) + NumberUtils.toInt(totalFee) > NumberUtils.toInt(order.getPayablePrice())) {
+            data.setCode(-1);
+            data.setMsg("订单价格有变动，请刷新重试");
+            return data;
+        }
+        /** 当该订单是改价订单时，但是改价审核未通过时，禁止付款 */
+        if (order.getIsChangePrice().equals(1) && order.getChangePriceAuditStatus().getValue()==1054) {
+            data.setCode(-1);
+            data.setMsg("改价审核未通过，禁止付款");
+            return data;
+        }
+        //合同订单不让付款
+        if (order.getType().equals(2)) {
+            data.setCode(-1);
+            data.setMsg("合同订单，禁止付款");
+            return data;
+        }
+        //非付款状态，禁止付款
+        if (order.getProcessStatus().getValue() == 3023 || order.getProcessStatus().getValue() == 3024 || order.getPayStatus().getValue() == 3013) {
+            data.setCode(-1);
+            data.setMsg("非付款状态，禁止付款");
+            return data;
+        }
+        // endregion
+        //region 生成支付信息
+        Map<String, String> resultMap = new HashMap<>();
+        try {
+            //region 生成支付记录
+            //订单名称，必填
+            String subject = StringUtils.trimToEmpty(order.getProdName()).replace("/", " ");
+            //商品描述，可空
+            String body = StringUtils.trimToEmpty(order.getProdName());
+            Pay soPay = new Pay();
+            soPay.setNo("");
+            soPay.setAmount(NumberUtils.toInt(totalFee));
+            /** 311 线下付款方式：3111 对公转账、3112 现金、3113 刷卡、3114 个人转账 */
+            soPay.setOfflineWayType(OfflineWayType.getItem(3114));
+            soPay.setOfflineInstallmentType(PayOfflineInstallmentType.getItem(1));
+            /** 310 支付付款方式：3101 在线支付、3102 线下支付、3103 内部结转 */
+            if (NumberUtils.toInt(payMethod, -1) == 4) {
+                soPay.setPayWayType(PayWayType.OFFLINE_PAYMENT);
+                soPay.setOnlineBankCodeId("");
+            } else {
+                soPay.setPayWayType(PayWayType.ONLINE_PAYMENT);
+                soPay.setOnlineBankCodeId(bankCode);
+            }
+            /** 312 支付成功状态：3121 未支付、3122 待审核、3123 成功、3124 失败 */
+            soPay.setSuccessStatus(PaySuccessStatus.getItem(3121));
+            soPay.setConfirmTime(new Date());
+            soPay.setOnlineTradeNo("");
+            soPay.setOfflineBankNo(offlineBankNo);
+            soPay.setOfflinePayerName(offlinePayerName);
+            soPay.setOfflineRemark(offlineRemark);
+            soPay.setOfflineAuditStatus(AuditStatusType.Dsh);
+            soPay.setOfflineAddUserId(account.getId());
+            soPay.setCreateTime(new Date());
+            Integer payId = payService.addPay(soPay, orderId, uploadPayVoucher);
+            resultMap.put("payIdStr", SecurityUtils.rc4Encrypt(payId));
+            // endregion
+            //region 调用支付第三方接口，获取返回值
+            //调用第三方支付接口
+            Map<String, Object> payDataMap = getPayData(payChannels, clientType, order, orderIdStr, payId, totalFee, body, subject, bankCode, paymentChannels, isZgcBank,callType,openId);
+            if (NumberUtils.toInt(payDataMap.get("code")) != 200) {
+                data.setCode(-1);
+                data.setMsg(StringUtils.trimToEmpty(payDataMap.get("msg").toString()));
+                return data;
+            }
+            String result = StringUtils.trimToEmpty(payDataMap.get("result").toString());
+            if (!("4".equals(payMethod)) && StringUtils.isBlank(result)) {
+                data.setCode(-1);
+                data.setMsg("请求第三方支付接口失败！");
+                return data;
+            }
+            resultMap.put("result", result);
+            data.setData(resultMap);
+            // endregion
+        } catch (Exception e) {
+            logger.error("==========pay error orderId is:==========" + orderId);
+            e.getMessage();
+        }
+        // endregion
+        return data;
+    }
+
+    /*调用支付第三方接口*/
+    private Map<String, Object> getPayData(String payChannels, Integer clientType, SoOrder order, String orderIdStr, Integer payId, Integer totalFee, String body, String subject, String bankCode, Integer paymentChannels, Integer isZgcBank, Integer callType,String openId) throws Exception {
+        String result = "";
+        Map<String, Object> resultMap = new HashMap<>();
+        //默认成功
+        resultMap.put("code", 200);
+        switch (payChannels) {
+            case "wx":
+                // 单位是分
+                if (clientType.equals(1)) {//当是微信公众号（H5）支付时，返回微信授权的url链接（获取code值）
+                    /*String returnUrl = URLEncoder.encode(PayConfigUtil.Call_MP_URL + "?orderNoStr=" + order.getNo() + "_" + orderIdStr + "_" + payId + "&orderIdStr=" + orderIdStr + "&payIdStr=" + SecurityUtils.rc4Encrypt(payId) + "", "UTF-8");
+                    result = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + PayConfigUtil.getAppid() + "&redirect_uri=" + returnUrl + "&response_type=code&scope=snsapi_base&state=WeiXin";*/
+//                    result = weiXinPayService.getAuthorizeUrl(order.getNo(), orderIdStr, payId, callType,openId);
+                } else {
+                    //result = wxpay(StringUtils.trimToEmpty(order.getNo()) + "_" + orderIdStr + "_" + payId, NumberUtils.toInt(totalFee), body, clientType, "", 0);
+//                    result = weiXinPayService.wxpay(StringUtils.trimToEmpty(order.getNo()) + "_" + orderIdStr + "_" + payId, NumberUtils.toInt(totalFee), body, clientType, "", 0);
+                }
+                break;
+        }
+        resultMap.put("result", result);
+        return resultMap;
     }
 }
