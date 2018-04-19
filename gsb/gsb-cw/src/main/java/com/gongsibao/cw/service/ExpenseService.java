@@ -59,7 +59,7 @@ public class ExpenseService extends PersistableService<Expense> implements IExpe
 	public Expense getBillByFormId(Integer formId) {
 		Oql oql = new Oql();
 		oql.setType(Expense.class);
-		oql.setSelects("expense.*,expense.setOfBooks.name");
+		oql.setSelects("expense.*,expense.setOfBooks.name,expense.expenseEmployee.name");
 		oql.setFilter("id=?");
 		oql.getParameters().add("id", formId, Types.INTEGER);
 		Expense entity = this.queryFirst(oql);

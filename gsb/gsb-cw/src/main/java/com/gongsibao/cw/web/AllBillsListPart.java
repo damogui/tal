@@ -20,7 +20,6 @@ import com.gongsibao.entity.cw.dict.FinanceDict;
 
 public class AllBillsListPart extends ListPart{
 
-	private  static final String VOUCHERURL = "http://t1.gongsibao.com/gongsibao-sys/u8/voucher/addVoucher";
 	 //借款服务
 	ILoanService loanService = ServiceFactory.create(ILoanService.class);
 	//报销服务
@@ -43,7 +42,7 @@ public class AllBillsListPart extends ListPart{
 		if(formType == FinanceDict.FormType.JKD.getValue()){ //借款单
 			Loan loan = loanService.getBillByFormId(formId);
 			JSONObject jsonObject = loanVoucher(loan);
-			result = HttpClientUtil.doPost(VOUCHERURL, jsonObject);
+			result = HttpClientUtil.doPost(FinanceDict.U8_VOUCHER_, jsonObject);
 		}
 		return result;
 	}

@@ -4,8 +4,7 @@ com.gongsibao.cw.web.LoansBillFormPart = org.netsharp.panda.commerce.FormPart.Ex
         this.base();
     },
     added: function (currentItem) {
-    	//$('#amount').numberbox('setValue', 0);
-    	//$('#amount').numberbox('readonly',true);
+    	$('#creator').attr('readonly',true); 
     },
     paymentMethodChange:function (el){
     	 if ($(el).val() == 2) {
@@ -30,6 +29,21 @@ com.gongsibao.cw.web.LoansBillFormPart = org.netsharp.panda.commerce.FormPart.Ex
                 });
             }
         });
+    },
+    validate: function () {
+        var isValidate = $("#" + this.context.formName).form('validate');
+        if(isValidate){
+        	 //var rows = $("#datagridcostDetailItem").datagrid('getRows');
+        	 var amount = $('#amount').numberbox('getValue');
+        	 if(amount == 0){
+        		  IMessageBox.error("借款金额不能为零！");
+        		  return false;
+        	 }
+        	 return true; 
+        }else{
+        	return false;
+        }
+        
     }
 });
 
