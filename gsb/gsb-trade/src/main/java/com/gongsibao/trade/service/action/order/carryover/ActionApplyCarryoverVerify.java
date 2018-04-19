@@ -1,13 +1,9 @@
 package com.gongsibao.trade.service.action.order.carryover;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
-import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.trade.NOrderCarryover;
 import com.gongsibao.entity.trade.SoOrder;
@@ -25,6 +21,15 @@ public class ActionApplyCarryoverVerify  implements IAction{
 		SoOrder formOrder = orderService.getByOrderId(carryOver.getFormOrderId());
 		//根据订单去向No 获取去向订单Id
 		SoOrder toOrder = orderService.getByOrderNo(carryOver.getToOrderNo());
+		//=====去向订单验证======
+		if(toOrder == null){
+			throw new BusinessException("去向订单号输入有误，请重新输入");
+		}
+		Integer getToCarryStatus = toOrder.getCarryStatus().getValue();
+		if(!getToCarryStatus.equals(AuditStatusType.wu.getValue()) && !getToCarryStatus.equals(AuditStatusType.Shtg.getValue()) && !getToCarryStatus.equals(AuditStatusType.Bhsh.getValue())){			
+			throw new BusinessException("有笔退款或结转目前审核中，请审核通过后，再创建");
+		}
+		
 		carryOver.setToOrderId(toOrder.getId());		
 		//来源金额
 		Integer paidPrice = formOrder.getPaidPrice() == null ? 0 : formOrder.getPaidPrice().intValue();
@@ -46,7 +51,8 @@ public class ActionApplyCarryoverVerify  implements IAction{
 			throw new BusinessException("该订单无可结转金额，请知悉");
 		}
 		//2.验证状态
-		if(!formOrder.getCarryStatus().getValue().equals(AuditStatusType.wu.getValue()) && !formOrder.getCarryStatus().getValue().equals(AuditStatusType.Shtg.getValue())){			
+		Integer getCarryStatus = formOrder.getCarryStatus().getValue();
+		if(!getCarryStatus.equals(AuditStatusType.wu.getValue()) && !getCarryStatus.equals(AuditStatusType.Shtg.getValue()) && !getCarryStatus.equals(AuditStatusType.Bhsh.getValue())){			
 			throw new BusinessException("有笔退款或结转目前审核中，请审核通过后，再创建");
 		}
 		//3.验证结转金额大于订单余额
@@ -57,14 +63,6 @@ public class ActionApplyCarryoverVerify  implements IAction{
 		Integer toPayAmount = toOrder.getPayablePrice() - toBalance;
     	if((toPayAmount - carryOver.getAmount()) < 0){
     		throw new BusinessException("结转金额大于转入订单待付款金额，请核实");
-    	}
-    	//=====去向订单验证======
-		//5.去向订单号是否存在
-		if(toOrder == null || StringManager.isNullOrEmpty(toOrder.getNo())){
-			throw new BusinessException("去向订单号输入有误，请重新输入");
-		}
-		if(!toOrder.getCarryStatus().getValue().equals(AuditStatusType.wu.getValue()) && !toOrder.getCarryStatus().getValue().equals(AuditStatusType.Shtg.getValue())){			
-			throw new BusinessException("有笔退款或结转目前审核中，请审核通过后，再创建");
-		}
+    	}    	
 	}
 }
