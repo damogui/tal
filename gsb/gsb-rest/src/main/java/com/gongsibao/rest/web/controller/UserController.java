@@ -341,7 +341,13 @@ public class UserController extends BaseController{
         return data;
     }
 
-    //region 公共方法
+    /**
+     * @Description:TODO 支付調起
+     * @param
+     * @return
+     * @author hbpeng <hbpeng@gongsibao.com>
+     * @date 2018/4/19 20:21
+     */
     @RequestMapping(value = "/pay",method = RequestMethod.POST)
     public ResponseData pay(HttpServletRequest request,
                             HttpServletResponse response,
@@ -387,33 +393,32 @@ public class UserController extends BaseController{
         Integer paymentChannels = NumberUtils.toInt(StringUtils.trimToEmpty(map.get("paymentChannels").toString()));
         // 支付渠道 wx zfbwy zfbjs
         String payChannels = StringUtils.trimToEmpty((String) map.get("payChannels"));
-//        payChannels = chanpayService.getActualPayChannel(payChannels, paymentChannels);
-        // 是否分次 0：不分次 1：分次
-        String isInstallment = StringUtils.trimToEmpty((String) map.get("isInstallment"));
+        // 支付渠道 wx zfbwy zfbjs
         // 银行代码
-        String bankCode = StringUtils.trimToEmpty((String) map.get("bankCode"));
-//        bankCode = getBankName(payChannels, bankCode, paymentChannels);
+        String bankCode = payChannels.equals("1") ? "微信支付-WXPAY" : "支付宝-ALIPAY";
         // 线下付款方名称
-        String offlinePayerName = StringUtils.trimToEmpty((String) map.get("offlinePayerName"));
+        String offlinePayerName = "";
         // 线下付款银行帐号
-        String offlineBankNo = StringUtils.trimToEmpty((String) map.get("offlineBankNo"));
+        String offlineBankNo = "";
         // 线下支付留言
-        String offlineRemark = StringUtils.trimToEmpty((String) map.get("offlineRemark"));
+        String offlineRemark = "";
         // 上传付款凭证
-        String uploadPayVoucher = StringUtils.trimToEmpty((String) map.get("uploadPayVoucher"));
+        String uploadPayVoucher = "";
         // 客户端类别（0:网页端；1:H5（公众号）端；2：APP端）
-        Integer clientType = NumberUtils.toInt(StringUtils.trimToEmpty(map.get("clientType").toString()));
+        Integer clientType = 1;
         // 是否是中关村银行（0:不是、1:是）
-        Integer isZgcBank = NumberUtils.toInt(StringUtils.trimToEmpty((String) map.get("isZgcBank")));
-
+        Integer isZgcBank = 0;
         // 调用方（0:原H5、1:万达、2:ICompany）
         //===============================万达=============================================
         Integer callType = NumberUtils.toInt(StringUtils.trimToEmpty(map.get("callType").toString()));
         //万达传过来的openId,不为空给它返回去，为空不处理
-        String openId = StringUtils.trimToEmpty((String) map.get("Openid"));
-
-
+        String openId = StringUtils.trimToEmpty((String) map.get("openId"));
         // endregion
+        if (openId == null) {
+            data.setCode(-1);
+            data.setMsg("openid 不存在");
+            return data;
+        }
         //region 订单信息的验证
         // 查询订单并验证
         SoOrder order = soOrderService.byId(orderId);
@@ -467,13 +472,8 @@ public class UserController extends BaseController{
             soPay.setOfflineWayType(OfflineWayType.getItem(3114));
             soPay.setOfflineInstallmentType(PayOfflineInstallmentType.getItem(1));
             /** 310 支付付款方式：3101 在线支付、3102 线下支付、3103 内部结转 */
-            if (NumberUtils.toInt(payMethod, -1) == 4) {
-                soPay.setPayWayType(PayWayType.OFFLINE_PAYMENT);
-                soPay.setOnlineBankCodeId("");
-            } else {
-                soPay.setPayWayType(PayWayType.ONLINE_PAYMENT);
-                soPay.setOnlineBankCodeId(bankCode);
-            }
+            soPay.setPayWayType(PayWayType.ONLINE_PAYMENT);
+            soPay.setOnlineBankCodeId(bankCode);
             /** 312 支付成功状态：3121 未支付、3122 待审核、3123 成功、3124 失败 */
             soPay.setSuccessStatus(PaySuccessStatus.getItem(3121));
             soPay.setConfirmTime(new Date());
@@ -486,7 +486,6 @@ public class UserController extends BaseController{
             soPay.setCreateTime(new Date());
             Integer payId = payService.addPay(soPay, orderId, uploadPayVoucher);
             resultMap.put("payIdStr", SecurityUtils.rc4Encrypt(payId));
-            // endregion
             //region 调用支付第三方接口，获取返回值
             //调用第三方支付接口
             Map<String, Object> payDataMap = getPayData(payChannels, clientType, order, orderIdStr, payId, totalFee, body, subject, bankCode, paymentChannels, isZgcBank,callType,openId);
@@ -503,12 +502,61 @@ public class UserController extends BaseController{
             }
             resultMap.put("result", result);
             data.setData(resultMap);
-            // endregion
         } catch (Exception e) {
             logger.error("==========pay error orderId is:==========" + orderId);
             e.getMessage();
         }
-        // endregion
+        return data;
+    }
+
+
+    /**
+     * @Description:TODO 微信支付后定时刷新，是否付完全款
+     * @param
+     * @return
+     * @author hbpeng <hbpeng@gongsibao.com>
+     * @date 2018/4/19 20:21
+     */
+    @RequestMapping(value = "/checkOrder",method = RequestMethod.POST)
+    public ResponseData igirlCheckOrder(HttpServletRequest request, HttpServletResponse response) {
+        ResponseData data = new ResponseData();
+        // 订单ID
+        String orderIdStr = StringUtils.trimToEmpty(request.getParameter("orderIdStr"));
+        // 订单支付ID
+        String payIdStr = StringUtils.trimToEmpty(request.getParameter("payIdStr"));
+//        log.info("==========checkOrder payIdStr==========" + payIdStr);
+        payIdStr = SecurityUtils.rc4Decrypt(payIdStr);
+        Integer payId = NumberUtils.toInt(payIdStr, -1);
+        logger.info("==========checkOrder orderIdStr==========" + orderIdStr);
+        if(StringUtils.isNotEmpty(orderIdStr)){
+            orderIdStr = SecurityUtils.rc4Decrypt(orderIdStr);
+            Integer orderId = NumberUtils.toInt(orderIdStr, -1);
+            SoOrder order = soOrderService.byId(orderId);
+            Pay pay = payService.byId(payId);
+
+            /** 301 订单付款状态：3011 待付款、3012 已付部分款（根据“是否分期”判断处理流程）、3013 已付款 */
+            if (order == null || NumberUtils.toInt(order.getPayStatus().getValue()) == 3011
+                    || pay == null || NumberUtils.toInt(pay.getSuccessStatus().getValue()) != 3123) {
+                logger.info("==========checkOrder getPayStatusId==========" + order.getPayStatus().getValue());
+                logger.info("==========checkOrder getSuccessStatusId==========" + pay.getSuccessStatus().getValue());
+                data.setCode(-1);
+                data.setMsg("未付款");
+            }else{
+                data.setCode(200);
+                data.setMsg("已付款");
+            }
+        }else{
+            Pay pay = payService.byId(payId);
+            if (pay == null || NumberUtils.toInt(pay.getSuccessStatus().getValue()) != 3123) {
+//                log.info("==========checkOrder getPayStatusId==========" + order.getPayStatusId());
+//                log.info("==========checkOrder getSuccessStatusId==========" + pay.getSuccessStatusId());
+                data.setCode(-1);
+                data.setMsg("未付款");
+            }else{
+                data.setCode(200);
+                data.setMsg("已付款");
+            }
+        }
         return data;
     }
 

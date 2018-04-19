@@ -43,80 +43,6 @@ com.gongsibao.report.web.PayReportCtrl = org.netsharp.panda.core.CustomCtrl.Exte
     		IMessageBox.loading.hide();
     	});
     },
-    getData:function(){
-    	
-    	var rows = [];
-    	for(var i= 1;i<=30;i++){
-    		
-    		var name = '部门'+i;
-    		var item = {id:i,
-    				isTotal:false,
-    				isSubtotal:false,
-    				departmentName:name,
-    				listprice1:10,
-    				unitcost1:10,
-    				listprice2:10,
-    				unitcost2:10,
-    				listprice3:10,
-    				unitcost3:10,
-    				listprice4:10,
-    				unitcost4:10,
-    				listprice5:10,
-    				unitcost5:10,
-    				listprice6:10,
-    				unitcost6:10,
-    				listprice7:10,
-    				unitcost7:10,
-    				listprice8:10,
-    				unitcost8:10,
-    				listprice9:10,
-    				unitcost9:10,
-    				listprice10:10,
-    				unitcost10:10
-    		};
-    		
-    		if(i==10 || i == 20 || i==30){
-    			
-    			item.isSubtotal = true;
-    			item.departmentName = "小计：";
-    		}
-    		
-    		rows.push(item);
-    	}
-    	
-    	var data = {};
-    	data.total = 30;
-    	data.rows = rows;
-    	data.footer = [{
-    		isFooter:true,
-    		isSubtotal:false,
-			departmentName:"合计",
-			listprice1:10,
-			unitcost1:10,
-			listprice2:10,
-			unitcost2:10,
-			listprice3:10,
-			unitcost3:10,
-			listprice4:10,
-			unitcost4:10,
-			listprice5:10,
-			unitcost5:10,
-			listprice6:10,
-			unitcost6:10,
-			listprice7:10,
-			unitcost7:10,
-			listprice8:10,
-			unitcost8:10,
-			listprice9:10,
-			unitcost9:10,
-			listprice10:10,
-			unitcost10:10
-    		
-    	}];
-    	
-    	return data;
-    	
-    },
     initGrid:function(rows){
 
     	var data = new Object();
@@ -161,7 +87,7 @@ com.gongsibao.report.web.PayReportCtrl = org.netsharp.panda.core.CustomCtrl.Exte
         			
         			eval('if (!footer.'+fieldName+') {eval("footer.'+fieldName+'=0;")}');
         			var val = parseInt(item[fieldName]);
-        			eval('footer["'+fieldName+'"]+=10');
+        			eval('footer["'+fieldName+'"]+=val');
         		}
     		}
     	});
@@ -170,7 +96,7 @@ com.gongsibao.report.web.PayReportCtrl = org.netsharp.panda.core.CustomCtrl.Exte
     },
     isCalculateColumn:function(name){
     	
-    	if(name !='name' && name != 'id' && name != 'category_id'){
+    	if(name !='name' && name != 'id' && name != 'category_id' && name != 'type'){
     		
     		return true;
     	}
@@ -195,7 +121,15 @@ com.gongsibao.report.web.PayReportCtrl = org.netsharp.panda.core.CustomCtrl.Exte
     	//排序
     	var compareIndex = function (item1, item2) {
     		
-    		return parseInt(item1.index) - parseInt(item2.index);
+    		var ce = parseInt(item1.index) - parseInt(item2.index);
+    		if(ce==0){
+    			
+    			if(item1.name.indexOf('audit') !=-1){
+    				
+    				return 1;
+    			}
+    		}
+    		return ce;
     	}   
     	fieldList.sort(compareIndex);
     	

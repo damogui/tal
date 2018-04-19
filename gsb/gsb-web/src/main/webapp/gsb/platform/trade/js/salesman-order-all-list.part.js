@@ -17,7 +17,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         this.addRefundUrl = '/nav/gsb/platform/trade/orderRefund';//创建退款
         this.addCarryoverUrl = '/nav/gsb/platform/trade/orderCarryover';//创建结转
         this.addContractUrl = '/panda/trade/order/contract/form';//创建合同
-        this.addInvoiceUrl = '/panda/trade/order/invoice/form';//创建发票
+        this.addInvoiceUrl = '/panda/trade/order/invoice/form';//创建发票 
     },
     addPayPerformance: function () {
 

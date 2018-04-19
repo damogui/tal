@@ -53,7 +53,7 @@ public class PayReportController {
 		List<String> fieldList = new ArrayList<String>();
 		List<String> joinList = new ArrayList<String>();
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("SELECT  supplier.id, supplier.name, supplier.category_id,");
+		buffer.append("SELECT  supplier.id, supplier.name, supplier.category_id,supplier.type, ");
 		for (int i = 0; i < dayCount; i++) {
 
 			Date date = DateManage.addDays(startDate, i);
@@ -76,7 +76,7 @@ public class PayReportController {
 		buffer.append(StringManager.join(",", fieldList));
 		buffer.append("   FROM sp_supplier supplier ");
 		buffer.append(StringManager.join(" ", joinList));
-		buffer.append("  WHERE supplier. STATUS = 2 and type=1");// 优化点：先取出开户状态的服务商,并且是自营的
+		buffer.append("  WHERE supplier.STATUS = 2 and supplier.type=1 order by supplier.category_id,supplier.type");// 优化点：先取出开户状态的服务商,并且是自营的
 
 		return buffer.toString();
 
@@ -100,11 +100,13 @@ public class PayReportController {
 		buffer.append(" LEFT JOIN ( ");
 		buffer.append(String.format(" SELECT supplier_id, SUM(amount) AS %s ", asName));
 		buffer.append(" FROM so_pay ");
-		buffer.append(" WHERE supplier_id IS NOT NULL ");
+		buffer.append(" WHERE supplier_id IS NOT NULL and pay_way_type_id in (3101,3102) ");
 		if (isAudit) {
-			buffer.append("  and offline_audit_status_id = 1054 ");
+			buffer.append(" and offline_audit_status_id = 1054 ");
 			buffer.append(String.format("AND pay_audit_pass_time >= '%s' AND pay_audit_pass_time < '%s' ", dateStr, nextDateStr));
 		} else {
+			
+			buffer.append("  and offline_audit_status_id <> 1053 ");//不等于驳回的
 			buffer.append(String.format("AND add_time >= '%s' AND add_time < '%s' ", dateStr, nextDateStr));
 		}
 		buffer.append(" GROUP BY supplier_id ) ");

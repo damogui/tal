@@ -49,6 +49,9 @@
 						href="javascript:payReportCtrl.downloadExl();"
 						class="easyui-linkbutton btn"
 						data-options="plain:false,iconCls:'fa fa-file-excel-o'"> 导出</a></li>
+					<li class="item">
+					
+					</li>
 				</ul>
 			</form>
 			<table id="datagrid"></table>
