@@ -159,7 +159,7 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
      /*end*/
 
 
-        formField = addFormField (form, "unPerformance", "未划分订单业绩额", groupName, ControlTypes.DECIMAL_FEN_BOX, false);
+        formField = addFormField (form, "unPerformance", "未划分业绩额", groupName, ControlTypes.DECIMAL_FEN_BOX, false);
         {
             formField.setReadonly (true);
 
