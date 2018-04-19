@@ -217,8 +217,13 @@ public class ICompanyProductController extends BaseController {
             return data;
         }
 
-        // TODO 获取当前登录用户
+        // 获取当前登录用户
         Account account = accountService.queryByOpenId(openId(request));
+        if (null == account) {
+            data.setCode(-1);
+            data.setMsg("请先绑定用户");
+            return data;
+        }
         orderAddDTO.setAccount(account);
         orderAddDTO.setCompanyId(0);
 
