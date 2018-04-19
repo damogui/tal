@@ -1,14 +1,52 @@
 package com.gongsibao.trade.web.department;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.FilterParameter;
 import org.netsharp.util.StringManager;
+
+import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.trade.base.IOrderService;
+import com.gongsibao.u8.base.ISoOrderService;
+import com.gongsibao.utils.NumberUtils;
 
 
 public class DepartmentOrderAllListPart extends BaseDepartmentListPart{
 
+	ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
+    IOrderService noService = ServiceFactory.create(IOrderService.class);
+
+    @Override
+    public List<?> doQuery(Oql oql) {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("SoOrder.*,");
+        sb.append("SoOrder.companyIntention.{pkid,name,full_name,company_name},");
+        sb.append("SoOrder.customer.realName,");
+        sb.append("SoOrder.owner.{id,name}");
+        oql.setSelects(sb.toString());
+        List<?> rows = orderService.queryList(oql);
+        return rows;
+    }
+
+
+    protected Object serialize(List<?> list, Oql oql) {
+        HashMap<String, Object> json = (HashMap<String, Object>) super.serialize(list, oql);
+        ArrayList<HashMap<String, Object>> ob2 = (ArrayList<HashMap<String, Object>>) json.get("rows");
+        for (int i = 0; i < ob2.size(); i++) {
+            SoOrder soOrder = ((SoOrder) list.get(i));
+            //this.balance = paidPrice + carryIntoAmount - refundPrice - carryAmount;
+            Integer balance = NumberUtils.toInt(soOrder.getPaidPrice()) + NumberUtils.toInt(soOrder.getCarryIntoAmount()) - NumberUtils.toInt(soOrder.getRefundPrice()) - NumberUtils.toInt(soOrder.getCarryAmount());
+            ob2.get(i).put("balance", balance);
+        }
+        return json;
+    }
+	
+	
     @Override
     public String getFilterByParameter(FilterParameter parameter) {
 

@@ -59,7 +59,7 @@ public class OrderCarryoverController {
 			}
 			//2.判断去向订单的业绩审核状态
 			Integer depReceivableAuditStatus = entity.getDepReceivableAuditStatusId().getValue();
-			if(depReceivableAuditStatus.equals(0) || depReceivableAuditStatus.equals(1054)){
+			if(depReceivableAuditStatus.equals(1051) || depReceivableAuditStatus.equals(1054)){
 				return 3;
 			}
 			//3.判断去向订单的改价审核状态
