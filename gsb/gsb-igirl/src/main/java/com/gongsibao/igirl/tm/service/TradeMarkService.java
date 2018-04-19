@@ -1,6 +1,7 @@
 package com.gongsibao.igirl.tm.service;
 
 import java.sql.Types;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -423,14 +424,19 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 	}
 
 	public Integer tmRobotUpdateMarkState(String proxyCode, Integer stateCode) {
-		String sql = "update ig_trade_mark set mark_state=? where proxy_code=?";
+		String sql = "update ig_trade_mark set mark_state=?,mark_submit_time=? where proxy_code=?";
 		Oql oql = new Oql();
 		oql.setFilter("mark_state=?");
-		oql.setFilter("proxy_code=?");
 		oql.setFilter("mark_submit_time=?");
+		oql.setFilter("proxy_code=?");
+
+		Date date = new Date();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String dateString = formatter.format(date);
+
 		oql.getParameters().add("mark_state", stateCode, Types.INTEGER);
+		oql.getParameters().add("mark_submit_time", dateString, Types.DATE);
 		oql.getParameters().add("proxy_code", proxyCode, Types.VARCHAR);
-		oql.getParameters().add("mark_submit_time", new Date(), Types.DATE);
 		int count = this.pm.executeNonQuery(sql,oql.getParameters());
 		return count;
 	}

@@ -1,5 +1,7 @@
 package com.gongsibao.cw.web;
 
+import java.util.List;
+
 import org.netsharp.communication.ServiceFactory;
 
 import com.gongsibao.cw.base.IAllocationService;
@@ -7,9 +9,10 @@ import com.gongsibao.cw.base.IAuditRecordService;
 import com.gongsibao.cw.base.IExpenseService;
 import com.gongsibao.cw.base.ILoanService;
 import com.gongsibao.cw.base.IPaymentService;
-import com.gongsibao.cw.service.ExpenseService;
+import com.gongsibao.cw.base.IU8BankService;
 import com.gongsibao.entity.cw.AuditRecord;
 import com.gongsibao.entity.cw.dict.FinanceDict;
+import com.gongsibao.entity.u8.U8Bank;
 
 public class AuditBillFormController {
     //借款服务
@@ -22,7 +25,8 @@ public class AuditBillFormController {
 	IAllocationService allocationService = ServiceFactory.create(IAllocationService.class);
 	//审批记录服务
 	IAuditRecordService auditRecordService = ServiceFactory.create(IAuditRecordService.class);
-
+	//u8科目
+	IU8BankService u8BankService = ServiceFactory.create(IU8BankService.class);
 	/**
 	 * 单据id查询单据信息
 	 * 
@@ -81,5 +85,17 @@ public class AuditBillFormController {
 			bool = allocationService.updateStatus(auditRecord);
 		}
 		return bool;
+	}
+	/**
+	 * 获取付款科目
+	* @Title: getU8BankList  
+	* @Description: TODO(这里用一句话描述这个方法的作用)  
+	* @param @param setOfBooksId
+	* @param @return    参数  
+	* @return List<U8Bank>    返回类型  
+	* @throws
+	 */
+	public List<U8Bank> getU8BankList(Integer setOfBooksId ){
+		return u8BankService.getU8BankList(setOfBooksId);
 	}
 }

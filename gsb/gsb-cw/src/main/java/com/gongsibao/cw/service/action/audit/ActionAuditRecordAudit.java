@@ -42,7 +42,7 @@ public class ActionAuditRecordAudit  implements IAction{
 		 if(auditRecord != null && auditRecord.getId() != null){
 			 UserPermission up = UserPermissionManager.getUserPermission();
 			 //审核通过
-			 if(auditRecord.getStatus()== FinanceDict.AuditDetailStatus.AGREE){
+			 if(auditRecord.getStatus().getValue().intValue()== FinanceDict.AuditDetailStatus.AGREE.getValue().intValue()){
 				 //当审核人为财务主管 通过将状态给为财务办理
 				 Employee financeEmployee = employeeService.getEmployeeByFinanceLeader("Finance");
 				 if(SessionManager.getUserId().intValue() == financeEmployee.getId().intValue()){
@@ -102,7 +102,7 @@ public class ActionAuditRecordAudit  implements IAction{
 	   		 Payment payment =  paymentService.byId(auditRecord.getFormId());
 	   		 content += payment.getCreator()+"提交了付款申请，单据编号："+payment.getCode()+" 请您尽快处理。";
 	   	 }
-	   	 eMessageService.send("CRM", content, employee.getMobile());
+	   	 eMessageService.send(FinanceDict.WX_MSG_CODE, content, employee.getMobile());
 	}
 	/**
 	 * 修改单据状态  财务办理状态
@@ -187,17 +187,5 @@ public class ActionAuditRecordAudit  implements IAction{
 		}
 		return result;
 	}
-	/**
-	 * 获取财务主管
-	* @Title: getEmployeeByFinanceLeader  
-	* @Description: TODO
-	* @param @param code  业务类型 Finance表示财务部
-	* @param @return    参数  
-	* @return Employee    返回类型  
-	* @throws
-	 */
-	public Employee getEmployeeByFinanceLeader(String code){
-		
-		return null;
-	}
+
 }

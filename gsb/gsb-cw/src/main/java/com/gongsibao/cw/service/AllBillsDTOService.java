@@ -72,9 +72,9 @@ public class AllBillsDTOService extends PersistableService<BillAuditDTO>  implem
 			sql.append("SELECT COUNT(t.id) 'rcount' ");
 		}
 		sql.append("FROM (");
-		sql.append("SELECT id, 1 AS formType, code, amount, creator , create_time, memoto, status FROM cw_loan ");
-		sql.append("UNION SELECT id, 2 AS formType, code, amount, creator , create_time, memoto, status FROM cw_expense ");
-		sql.append("UNION SELECT id, 3 AS formType, code, amount, creator , create_time, memoto, status FROM cw_payment ) AS t ");
+		sql.append("SELECT id, 3 AS formType, code, amount, creator , create_time, memoto, status FROM cw_loan ");
+		sql.append("UNION SELECT id, 4 AS formType, code, amount, creator , create_time, memoto, status FROM cw_expense ");
+		sql.append("UNION SELECT id, 5 AS formType, code, amount, creator , create_time, memoto, status FROM cw_payment ) AS t ");
 		sql.append("WHERE  1 = 1 ");
 		
 		//拼接前台传入参数

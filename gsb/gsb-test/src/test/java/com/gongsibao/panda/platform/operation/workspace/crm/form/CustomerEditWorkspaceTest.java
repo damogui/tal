@@ -30,6 +30,7 @@ import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.crm.dic.ChangeType;
 import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.NotifyType;
+import com.gongsibao.entity.crm.dic.TaskCustomerType;
 
 public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 
@@ -84,6 +85,7 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 
 			formField.setTroikaValidation("['maxLength[50]']");
 		}
+		addFormField(form, "id", "客户Id", groupName, ControlTypes.TEXT_BOX, false, true);
 		addFormField(form, "sex", "性别", groupName, ControlTypes.ENUM_BOX, false, false);
 		formField = addFormField(form, "mobile", "手机", groupName, ControlTypes.ENCRYPTION_BOX, false, false);
 		{
@@ -225,7 +227,61 @@ public class CustomerEditWorkspaceTest extends CustomerAddWorkspaceTest {
 		createCompanysDetailPart(workspace);
 
 	}
+	// 重新父类客户商机
+	public void createTasksPart(PWorkspace workspace) {
 
+		ResourceNode node = this.resourceService.byCode(taskDetailResourceNodeCode);
+		PDatagrid datagrid = new PDatagrid(node, "商机信息");
+		{
+			datagrid.setShowCheckbox(false);
+			datagrid.setSingleSelect(true);
+			datagrid.setReadOnly(true);
+			
+			addColumn(datagrid, "id", "商机Id", ControlTypes.DATETIME_BOX, 130);
+			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
+			addColumn(datagrid, "creator", "创建人", ControlTypes.DATETIME_BOX, 100);
+			PDatagridColumn column = addColumn(datagrid, "taskType", "类型", ControlTypes.ENUM_BOX, 100, false);{
+				
+				String formatter = EnumUtil.getColumnFormatter(TaskCustomerType.class);
+				column.setFormatter(formatter);
+			}
+			addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 200, false);
+			addColumn(datagrid, "supplier.name", "分配服务商", ControlTypes.TEXT_BOX, 100, false);
+			addColumn(datagrid, "department.name", "分配部门", ControlTypes.TEXT_BOX, 100, false);
+			addColumn(datagrid, "owner.name", "分配业务员", ControlTypes.TEXT_BOX, 100, false);
+			column = addColumn(datagrid, "foolowStatus", "跟进状态", ControlTypes.ENUM_BOX, 100, false);{
+				
+				String formatter = EnumUtil.getColumnFormatter(CustomerFollowStatus.class);
+				column.setFormatter(formatter);
+			}
+			addColumn(datagrid, "remark", "售前备注", ControlTypes.TEXT_BOX, 300, false);
+			addColumn(datagrid, "smsRemark", "短信备注", ControlTypes.TEXT_BOX, 300, false);
+		}
+
+		PPart part = new PPart();
+		{
+			part.toNew();
+			part.setName("商机信息");
+			part.setCode("tasks");
+			part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
+			part.setRelationRole("tasks");
+			part.setResourceNode(node);
+			part.setPartTypeId(PartType.DETAIL_PART.getId());
+			part.setDatagrid(datagrid);
+			part.setDockStyle(DockType.DOCUMENTHOST);
+			part.setToolbar("panda/datagrid/detail");
+			
+			part.setJsController(taskDetailJsController);
+		}
+		workspace.getParts().add(part);
+		
+		part = workspace.getParts().get(0);
+		{
+			part.setName("新增客户");
+			part.setDockStyle(DockType.TOP);
+			part.setHeight(500);
+		}
+	}	
 	// 意向产品
 	private void addIntenProductPart(PWorkspace workspace) {
 		// 需要配置NCustomerProduct资 源

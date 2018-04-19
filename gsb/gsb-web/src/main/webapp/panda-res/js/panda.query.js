@@ -424,9 +424,20 @@ org.netsharp.controls.EnumBoxQueryItem=org.netsharp.controls.Control.Extends({
 
         var filter = "";
         $(propertyValue).each(function(i,item){
-        	filter+="'"+item+"',";
+        	
+        	if(!System.isnull(item)){
+
+            	filter+="'"+item+"',";
+        	}
         });
-        qp.Filter = this.propertyName.replace("_",".") + " in (" + filter.substring(0,filter.length-1) + ")";
+
+        if(!System.isnull(filter)){
+
+            qp.Filter = this.propertyName.replace("_",".") + " in (" + filter.substring(0,filter.length-1) + ")";
+        }else{
+        	
+        	return null;
+        }
         return qp;
     },
     getFilter:function(){
@@ -440,10 +451,20 @@ org.netsharp.controls.EnumBoxQueryItem=org.netsharp.controls.Control.Extends({
         
         var filter = "";
         $(propertyValue).each(function(i,item){
-        	filter+="'"+item+"',";
+        	
+        	if(!System.isnull(item)){
+
+            	filter+="'"+item+"',";
+        	}
         });
-        
-        qp.value1 =  filter.substring(0,filter.length-1);
+
+        if(!System.isnull(filter)){
+
+            qp.value1 =  filter.substring(0,filter.length-1);
+        }else{
+        	
+        	return null;
+        }
   	    qp.intelligentMode1 = org.netsharp.core.intelligentMode.IN;
         return qp;
     },

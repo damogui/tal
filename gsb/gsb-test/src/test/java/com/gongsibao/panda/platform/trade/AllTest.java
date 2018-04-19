@@ -21,7 +21,7 @@ import com.gongsibao.panda.platform.trade.workspace.payment.PaymentLogWorkspaceT
         AllOrderWorkspaceTest.class,
         MyOrderWorkspaceTest.class,
 //	MyOrderDetailWorkspaceTest.class,
-        OrderPoolWorkspaceTest.class,
+//        OrderPoolWorkspaceTest.class,
 
         //订单操作
         OrderALLWorkspaceTest.class,

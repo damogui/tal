@@ -32,7 +32,7 @@ public class NCustomer extends BaseEntity {
 	@Column(name = "account_id", header = "帐号Id")
 	private Integer accountId=0;
 
-	@Reference(foreignKey = "accountId")
+	@Reference(foreignKey = "accountId",primaryKey="pkid")
 	private Account account;
 
 	@Column(name = "real_name", header = "姓名")
@@ -163,6 +163,12 @@ public class NCustomer extends BaseEntity {
 
 	@Column(name = "customer_source", header = "客户来源")
 	private Integer customerSourceId=0;
+	
+	@Reference(foreignKey = "lastCustomerSourceId", header = "最后一次客户来源-商机中回写",primaryKey="pkid")
+	private Dict lastCustomerSource;
+
+	@Column(name = "last_customer_source", header = "最后一次客户来源-商机中回写")
+	private Integer lastCustomerSourceId=0;
 
 	// @Column(name = "crm_source_type", header = "是不是招商渠道来源")
 	// private Integer crmSourceType=0;//1是招商渠道 FollowStatus 区分 4017 渠道合作
@@ -173,7 +179,7 @@ public class NCustomer extends BaseEntity {
 	@Column(name = "company_id", header = "关联公司Id")
 	private Integer companyId=0;
 
-	@Reference(foreignKey = "companyId", header = "关联公司：默认最后一次关联")
+	@Reference(foreignKey = "companyId", header = "关联公司：默认最后一次关联",primaryKey="pkid")
 	private CompanyIntention company;
 
 	@Subs(foreignKey = "customerId", header = "客户商机", subType = NCustomerTask.class)
@@ -625,4 +631,21 @@ public class NCustomer extends BaseEntity {
 	public void setCompany(CompanyIntention company) {
 		this.company = company;
 	}
+
+	public Dict getLastCustomerSource() {
+		return lastCustomerSource;
+	}
+
+	public void setLastCustomerSource(Dict lastCustomerSource) {
+		this.lastCustomerSource = lastCustomerSource;
+	}
+
+	public Integer getLastCustomerSourceId() {
+		return lastCustomerSourceId;
+	}
+
+	public void setLastCustomerSourceId(Integer lastCustomerSourceId) {
+		this.lastCustomerSourceId = lastCustomerSourceId;
+	}
+	
 }

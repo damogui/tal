@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.gongsibao.entity.trade.dic.*;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Exclusive;
@@ -20,10 +21,6 @@ import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.product.WorkflowNode;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
-import com.gongsibao.entity.trade.dic.AuditStatusType;
-import com.gongsibao.entity.trade.dic.CostStatus;
-import com.gongsibao.entity.trade.dic.InvoiceState;
-import com.gongsibao.entity.trade.dic.SettleStatus;
 import com.gongsibao.entity.yj.Trademark;
 
 @Table(name = "so_order_prod")
@@ -53,7 +50,7 @@ public class OrderProd extends BaseEntity {
     @Column(name = "city_id", header = "城市")
     private Integer cityId = 0;
 
-    @Reference(foreignKey = "cityId", header = "产品地区")
+    @Reference(foreignKey = "cityId", header = "产品地区",primaryKey="pkid")
     private Dict city;
 
     @Column(name = "city_name", header = "地区名称(冗余)")
@@ -65,7 +62,7 @@ public class OrderProd extends BaseEntity {
     @Column(name = "company_id", header = "公司")
     private Integer companyId = 0;
 
-    @Reference(foreignKey = "companyId", header = "公司")
+    @Reference(foreignKey = "companyId", header = "公司",primaryKey="pkid")
     private CompanyIntention companyIntention;
 
     @Column(name = "yj_trademark_id", header = "商标信息Id")
@@ -644,4 +641,5 @@ public class OrderProd extends BaseEntity {
     public void setAllocationOperatorDate(Date allocationOperatorDate) {
         this.allocationOperatorDate = allocationOperatorDate;
     }
+
 }

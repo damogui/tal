@@ -66,7 +66,13 @@ public class PaymentService extends PersistableService<Payment> implements IPaym
 
 	@Override
 	public Boolean updateStatus(AuditRecord auditRecord){
-		String sql = "UPDATE cw_payment SET status ="+FinanceDict.AuditStatus.Status_5.getValue() +"   WHERE id = "+auditRecord.getFormId();
+		int status = 0;
+		if(auditRecord.getStatus().getValue().intValue() != FinanceDict.AuditDetailStatus.AGREE.getValue().intValue()){
+			status = FinanceDict.AuditStatus.Status_6.getValue();
+		}else{
+			status = FinanceDict.AuditStatus.Status_5.getValue();
+		}
+		String sql = "UPDATE cw_payment SET status ="+ status +" , bank_id = "+auditRecord.getBankId()+"  WHERE id = "+auditRecord.getFormId();
 		Boolean bool =  this.pm.executeNonQuery(sql, null) > 0;
 		if(bool){
 			auditRecordService.saveFinance(auditRecord);

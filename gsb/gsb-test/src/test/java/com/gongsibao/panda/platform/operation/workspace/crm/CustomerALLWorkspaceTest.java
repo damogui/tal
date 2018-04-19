@@ -129,6 +129,8 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 		//其他联系方式
 
 		addColumn(datagrid, "important", "客户等级", ControlTypes.ENUM_BOX, 100);
+		addColumn(datagrid, "company.companyName", "关联公司", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "lastCustomerSource.name", "客户来源", ControlTypes.TEXT_BOX, 100);
 		
 //		最近商机来源
 //		最近商机跟进人
@@ -151,6 +153,8 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 			item.setWidth(250);
 		}
 		addQueryItem(queryProject, "createTime", "创建时间", ControlTypes.DATE_BOX);
+		addQueryItem(queryProject, "company.companyName", "关联企业", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "lastCustomerSource.name", "客户来源", ControlTypes.TEXT_BOX);
 		return queryProject;
 	}
 

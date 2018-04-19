@@ -30,28 +30,37 @@ public class ActionRegainVerify implements IAction {
     @Override
     public void execute(ActionContext ctx) {
     	
-        Map<String, Object> setMap = ctx.getStatus();
+        Map<String, Object> getMap = ctx.getStatus();
+        Integer isPlatform = (Integer) getMap.get("isPlatform");
         NCustomerTask taskEntity = (NCustomerTask) ctx.getItem();
-        //yxb收回级别：1.业务员：当前商机的ownerId等于当前登录人，退回到业务员当前的部门公海、2.部门负责人或平台（售前）：当前商机的ownerId所在部门的上级部门不为空退回上级部门公海，上级部门为空是平台公海
-        if (taskEntity.getOwnerId() != null && taskEntity.getOwnerId().equals(SessionManager.getUserId())) {
-            setMap.put("ownerId", SessionManager.getUserId());
-            taskEntity.setOwnerId(null);
-        } else {
-            Integer currentOwner = taskEntity.getOwnerId() != null ? taskEntity.getOwnerId() : SessionManager.getUserId();
-            setMap.put("ownerId", currentOwner);
-            SalesmanOrganization organization = SupplierSessionManager.getSalesmanOrganization(currentOwner);
-            ISupplierDepartmentService departmentService = ServiceFactory.create(ISupplierDepartmentService.class);
-            Integer currentDepartmentSupId = departmentService.getSupDepartmentId(organization.getDepartmentId());
-            //当前部门的上级为空，进入平台公海。否则进入上级部门公海
-            if (currentDepartmentSupId == null) {
-                taskEntity.setSupplierId(null);
-                taskEntity.setDepartmentId(null); 
-            } else {
-                taskEntity.setDepartmentId(currentDepartmentSupId);
-            }
-        }
+        /*收回逻辑：服务商收回和平台角色的收回（业务员只有退回没有收回）         
+         * 1.服务商：当前商机的ownerId不为空设置为空。 如果ownerId为空,递归当前商机的departmentId的上级部门，如果上级部门为空则到平台公海
+         * 2.平台（售前）：当前商机的服务商、部门、业务员都为空
+        */
         
-        
+        //区分那个账号角色登录（默认平台-2；服务商-1）
+       if(isPlatform.equals(2)){
+    	   taskEntity.setSupplierId(null);
+           taskEntity.setDepartmentId(null); 
+           taskEntity.setOwnerId(null);
+       }else{
+    	   if(taskEntity.getOwnerId()!=null){
+    		   taskEntity.setOwnerId(null); 
+    	   }else{
+    		   if(taskEntity.getDepartmentId() != null){
+    			   ISupplierDepartmentService departmentService = ServiceFactory.create(ISupplierDepartmentService.class);
+        		   Integer currentDepartmentSupId = departmentService.getSupDepartmentId(taskEntity.getDepartmentId());
+        		 //当前商机部门的上级为空，进入平台公海(服务商、部门、业务员都为空)。否则进入上级部门公海
+                   if (currentDepartmentSupId == null) {
+                       taskEntity.setSupplierId(null);
+                       taskEntity.setDepartmentId(null); 
+                       taskEntity.setOwnerId(null);
+                   } else {
+                       taskEntity.setDepartmentId(currentDepartmentSupId);
+                   }
+    		   }
+    	   }
+       }
         
         /*zhaochao
          * //服务商id

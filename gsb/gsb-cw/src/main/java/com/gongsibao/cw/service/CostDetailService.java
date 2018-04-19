@@ -24,7 +24,7 @@ public class CostDetailService extends PersistableService<CostDetail> implements
 		//费用明细
 		Oql oql = new Oql();
 		oql.setType(CostDetail.class);
-		oql.setSelects("costDetail.*");
+		oql.setSelects("costDetail.*,costType.code,costType.cashItem");
 		oql.setFilter("formId=? and formType= ?");
 		oql.getParameters().add("formId", formId, Types.INTEGER);
 		oql.getParameters().add("formType", formType, Types.INTEGER);

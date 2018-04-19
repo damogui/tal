@@ -26,6 +26,7 @@ import com.gongsibao.cw.web.ExpenseBillFormPart;
 import com.gongsibao.cw.web.ExpenseBillListPart;
 import com.gongsibao.cw.web.SubsidyRecordListPart;
 import com.gongsibao.cw.web.TripRecordListPart;
+import com.gongsibao.entity.cw.CostType;
 import com.gongsibao.entity.cw.Expense;
 import com.gongsibao.entity.u8.SetOfBooks;
 import com.gongsibao.tools.PToolbarHelper;
@@ -133,30 +134,38 @@ public class ExpenseBillWorkspaceTest extends WorkspaceCreationBase {
 
   	  PForm form = super.createForm(node);
         PFormField formField = null;
-        formField =  addFormField(form, "type", "报销类型", ControlTypes.ENUM_BOX, true, false);
+        String groupName = "基本信息";
+        formField =  addFormField(form, "type", "报销类型",groupName, ControlTypes.ENUM_BOX, true, false);
         {
         	formField.setTroikaTrigger("controllerexpense.expenseChange(this);");
         }
-        addFormFieldRefrence(form, "setOfBooks.name", "付款单位",null,  SetOfBooks.class.getSimpleName(), true, false);
-        formField =  addFormField(form, "paymentMethod", "付款方式", ControlTypes.ENUM_BOX, true, false);
+        addFormFieldRefrence(form, "setOfBooks.name", "付款单位",groupName,  SetOfBooks.class.getSimpleName(), true, false);
+        formField =  addFormField(form, "paymentMethod", "付款方式",groupName, ControlTypes.ENUM_BOX, true, false);
         {
       	  formField.setTroikaTrigger("controllerexpense.paymentMethodChange(this);");
         }
-        addFormField(form, "totalAmount", "报销合计", ControlTypes.DECIMAL_FEN_BOX, false, false);
-        addFormField(form, "loanAmount", "借款金额", ControlTypes.DECIMAL_FEN_BOX, false, false);
-        addFormField(form, "amount", "报销金额", ControlTypes.TEXT_BOX, false, false);
-        formField =   addFormField(form, "isOffset", "冲抵借款", ControlTypes.SWITCH_BUTTON, true, false);
+        addFormField(form, "totalAmount", "报销合计", groupName,ControlTypes.DECIMAL_FEN_BOX, false, false);
+        addFormField(form, "loanAmount", "借款金额",groupName, ControlTypes.DECIMAL_FEN_BOX, false, false);
+        addFormField(form, "amount", "报销金额",groupName, ControlTypes.DECIMAL_FEN_BOX, false, false);
+        addFormField(form, "totalTaxation", "税费合计",groupName, ControlTypes.DECIMAL_FEN_BOX, true, true);
+        formField =   addFormField(form, "isOffset", "冲抵借款",groupName, ControlTypes.SWITCH_BUTTON, true, false);
         {
         	 formField.setTroikaTrigger("controllerexpense.correctChange(this);");
         }
-        addFormField(form, "companyName", "公司名称", ControlTypes.TEXT_BOX, true, true);
-        addFormField(form, "companyBank", "公司开户行", ControlTypes.TEXT_BOX, true, true);
-        addFormField(form, "companyAccount", "公司银行账号", ControlTypes.TEXT_BOX, true, true);
-        addFormField(form, "entertainDate", "招待时间", ControlTypes.DATE_BOX, true, true);
-        addFormField(form, "entertainCompany", "招待公司名", ControlTypes.TEXT_BOX, true, true);
-        addFormField(form, "entertainCustomer", "招待客户姓名", ControlTypes.TEXT_BOX, true, true);
-        addFormField(form, "entertainPlace", "招待地点", ControlTypes.TEXT_BOX, true, true);
-        addFormField(form, "memoto", "备注", ControlTypes.TEXTAREA, true, false);
+        
+        addFormField(form, "creator", "经办人",groupName, ControlTypes.TEXT_BOX, false, false);
+        addFormFieldRefrence(form, "expenseEmployee.name", "报销人",groupName, "CRM_Employee" , true, false);
+        groupName = "收款信息";
+        addFormField(form, "payeeName", "收款人", groupName,ControlTypes.TEXT_BOX, true, false);
+        addFormField(form, "companyBank", "开户行",groupName, ControlTypes.TEXT_BOX, true, true);
+        addFormField(form, "companyAccount", "银行账号",groupName, ControlTypes.TEXT_BOX, true, true);
+        groupName = "招待信息";
+        addFormField(form, "entertainDate", "招待时间",groupName, ControlTypes.DATE_BOX, true, true);
+        addFormField(form, "entertainCompany", "招待公司名",groupName, ControlTypes.TEXT_BOX, true, true);
+        addFormField(form, "entertainCustomer", "招待客户姓名",groupName, ControlTypes.TEXT_BOX, true, true);
+        addFormField(form, "entertainPlace", "招待地点",groupName, ControlTypes.TEXT_BOX, true, true);
+        groupName = "备注信息";
+        addFormField(form, "memoto", "备注",groupName, ControlTypes.TEXTAREA, true, false);
    
 		return form;
 	}
@@ -179,12 +188,19 @@ public class ExpenseBillWorkspaceTest extends WorkspaceCreationBase {
             datagrid.setShowCheckbox(false);
             datagrid.setShowTitle(false);
             PDatagridColumn column = null;
-        	addColumn(datagrid, "organization.pathName", "费用归属部门", ControlTypes.TEXT_BOX, 250);
-        	column = addColumn(datagrid, "costType", "费用类型", ControlTypes.ENUM_BOX, 250);
+        	addColumn(datagrid, "organization.pathName", "费用归属部门", ControlTypes.TEXT_BOX, 150);
+        	addColumn(datagrid, "costType.name", "费用类型", ControlTypes.ENUM_BOX, 150);
+        
+            column = addColumn(datagrid, "invoiceType", "发票类型", ControlTypes.ENUM_BOX, 100);
             {
-				column.setFormatter("return controllercostDetailItem.costTypeFormatter(value,row,index);");
-			}
+            	column.setFormatter("return controllercostDetailItem.invoiceTypeFormatter(value,row,index);");
+            }
+            column =  addColumn(datagrid, "taxRate", "税率", ControlTypes.ENUM_BOX, 100);
+            {
+            	column.setFormatter("return controllercostDetailItem.taxRateTypeFormatter(value,row,index);");
+            }
             addColumn(datagrid, "detailMoney", "金额", ControlTypes.DECIMAL_FEN_BOX, 100);
+            addColumn(datagrid, "detailTaxation", "税费", ControlTypes.DECIMAL_FEN_BOX, 100);
             addColumn(datagrid, "memoto", "说明", ControlTypes.TEXT_BOX, 300);
         }
         
@@ -194,11 +210,25 @@ public class ExpenseBillWorkspaceTest extends WorkspaceCreationBase {
 			form.setResourceNode(node);
 			form.setColumnCount(1);
 			form.setName("新增费用明细");
-
-			PFormField formField = null;
+			PFormField field = null;
 			addFormFieldRefrence(form, "organization.pathName", "费用归属部门",null,"Organization-Department", true, false);
-			addFormField(form, "costType", "费用类型", null, ControlTypes.ENUM_BOX, true, false);
-			addFormField(form, "detailMoney", "金额", null, ControlTypes.DECIMAL_FEN_BOX, true, false);
+			field =  addFormFieldRefrence(form, "costType.name", "费用类型",null,  CostType.class.getSimpleName(), true, false);
+	        {
+	        	field.setRefFilter("form_type = 4"); //设置参照参数
+	        }
+			field = addFormField(form, "invoiceType", "发票类型", null, ControlTypes.ENUM_BOX, true, false);
+			{
+				field.setTroikaTrigger("controllercostDetailItem.invoiceTypeChange(this);");
+			}
+			field = addFormField(form, "detailMoney", "金额", null, ControlTypes.DECIMAL_FEN_BOX, true, false);
+			{
+				field.setTroikaTrigger("controllercostDetailItem.detailMoneyChange(this);");
+			}
+			field = addFormField(form, "taxRate", "费率", null, ControlTypes.ENUM_BOX, true, true);
+			{
+				field.setTroikaTrigger("controllercostDetailItem.taxRateTypeChange(this);");
+			}
+			addFormField(form, "detailTaxation", "税费", ControlTypes.DECIMAL_FEN_BOX, true, true);
 			addFormField(form, "memoto", "说明", null, ControlTypes.TEXTAREA, true, false);
 		}
 		
@@ -216,7 +246,7 @@ public class ExpenseBillWorkspaceTest extends WorkspaceCreationBase {
             part.setJsController(CostDetailListPart.class.getName());
             part.setToolbar(costToolbarPath);
             part.setWindowWidth(400);
-			part.setWindowHeight(400);
+			part.setWindowHeight(450);
             part.setForm(form);
         }
       

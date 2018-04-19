@@ -9,10 +9,13 @@ import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.BizEntity;
+import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.cw.dict.FinanceDict;
 import com.gongsibao.entity.u8.SetOfBooks;
+import com.gongsibao.entity.u8.U8Bank;
+import com.gongsibao.entity.u8.U8Department;
 
 /**
  * 
@@ -53,23 +56,45 @@ public class Loan extends BizEntity {
 	@Reference(foreignKey = "setOfBooksId")
 	private SetOfBooks setOfBooks;
 	
+	@Column(name = "bank_id", header = "银行/科目id")
+	private Integer bankId ;
+	
+	@Reference(foreignKey = "bankId")
+	private U8Bank u8Bank ;
+	
+	@Reference(foreignKey = "creatorId",header="U8系统部门表" )
+	private U8Department u8Department ;
+	
 	@Column(name = "payment_method", header = "付款方式 1:现金 ，2：转账 ，3：支票")
 	private FinanceDict.PaymentMethod paymentMethod = FinanceDict.PaymentMethod.XJ;
 	
-	@Column(name = "company_account", header = "接收公司帐号")
+	@Column(name = "company_account", header = "银行帐号")
 	private String companyAccount;
 	
-	@Column(name = "company_bank", header = "接收公司开户行")
+	@Column(name = "company_bank", header = "开户行")
 	private String companyBank;
 	
-	@Column(name = "company_name", header = "接收公司名称")
-	private String companyName;
+	@Column(name = "payee_name", header = "收款人名称、公司名称")
+	private String payeeName;
+	
+	@Column(name = "borrower_id", header = "借款人id")
+	private Integer borrowerId;
+	
+	@Reference(foreignKey = "borrowerId",header="借款人实体" )
+	private Employee borrowerEmployee ;
 	
 	@Column(name = "audit_step", header = "审核步骤")
 	private Integer auditStep;
 	
 	@Column(name = "department_id", header = "创建人所属部门id")
 	private Integer departmentId;
+	
+	@Column(name = "department_name", header = "创建人所属部门名称")
+	private String departmentName;
+
+	@Column(name = "is_voucher", header = "是否可生成凭证（0：否 1：是）")
+	private Boolean isVoucher ;
+	
 
 	
 	@Column(name = "status", header = "状态 1:待审核 ，2：审核中 ，3：已通过，4：财务办理，5：驳回")
@@ -93,8 +118,6 @@ public class Loan extends BizEntity {
 	public void setAmount(Integer amount) {
 		this.amount = amount;
 	}
-
-
 
 
 	public Integer getArrearsAmount() {
@@ -176,15 +199,36 @@ public class Loan extends BizEntity {
 	public void setCompanyBank(String companyBank) {
 		this.companyBank = companyBank;
 	}
+	
 
 
-	public String getCompanyName() {
-		return companyName;
+	public String getPayeeName() {
+		return payeeName;
 	}
 
 
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
+	public void setPayeeName(String payeeName) {
+		this.payeeName = payeeName;
+	}
+
+
+	public Integer getBorrowerId() {
+		return borrowerId;
+	}
+
+
+	public void setBorrowerId(Integer borrowerId) {
+		this.borrowerId = borrowerId;
+	}
+
+
+	public Employee getBorrowerEmployee() {
+		return borrowerEmployee;
+	}
+
+
+	public void setBorrowerEmployee(Employee borrowerEmployee) {
+		this.borrowerEmployee = borrowerEmployee;
 	}
 
 
@@ -245,6 +289,56 @@ public class Loan extends BizEntity {
 
 	public void setDepartmentId(Integer departmentId) {
 		this.departmentId = departmentId;
+	}
+
+
+	public Integer getBankId() {
+		return bankId;
+	}
+
+
+	public void setBankId(Integer bankId) {
+		this.bankId = bankId;
+	}
+
+
+	public U8Bank getU8Bank() {
+		return u8Bank;
+	}
+
+
+	public void setU8Bank(U8Bank u8Bank) {
+		this.u8Bank = u8Bank;
+	}
+
+
+	public Boolean getIsVoucher() {
+		return isVoucher;
+	}
+
+
+	public void setIsVoucher(Boolean isVoucher) {
+		this.isVoucher = isVoucher;
+	}
+
+
+	public U8Department getU8Department() {
+		return u8Department;
+	}
+
+
+	public void setU8Department(U8Department u8Department) {
+		this.u8Department = u8Department;
+	}
+
+
+	public String getDepartmentName() {
+		return departmentName;
+	}
+
+
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
 	}
 
 	

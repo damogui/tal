@@ -78,9 +78,9 @@ public class FinanceBillDTOService  extends PersistableService<BillAuditDTO> imp
 			sql.append("SELECT COUNT(t.id) 'rcount' ");
 		}
 		sql.append("FROM (");
-		sql.append("( SELECT id, 1 AS form_type, code, amount, creator , create_time, memoto, status FROM cw_loan  "+strWhereId+") ");
-		sql.append("UNION ALL (SELECT id, 2 AS form_type, code, amount, creator , create_time, memoto, status FROM cw_expense "+strWhereId+" )");
-		sql.append("UNION ALL (SELECT id, 3 AS form_type, code, amount, creator , create_time, memoto, status FROM cw_payment "+strWhereId+" )");
+		sql.append("( SELECT id, 3 AS form_type, code, amount, creator , create_time, memoto, status FROM cw_loan  "+strWhereId+") ");
+		sql.append("UNION ALL (SELECT id, 4 AS form_type, code, amount, creator , create_time, memoto, status FROM cw_expense "+strWhereId+" )");
+		sql.append("UNION ALL (SELECT id, 5 AS form_type, code, amount, creator , create_time, memoto, status FROM cw_payment "+strWhereId+" )");
 		sql.append(" ) AS t ");
 		sql.append("WHERE  1 = 1 ");
 		

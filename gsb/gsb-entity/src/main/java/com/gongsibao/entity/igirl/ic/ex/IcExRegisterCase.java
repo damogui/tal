@@ -1,63 +1,58 @@
 package com.gongsibao.entity.igirl.ic.ex;
 
-import com.gongsibao.entity.crm.Customer;
-import com.gongsibao.entity.igirl.ic.ex.baseinfo.CompanyAddress;
-import com.gongsibao.entity.igirl.ic.ex.baseinfo.CompanyName;
-import com.gongsibao.entity.igirl.ic.ex.baseinfo.Member;
-import com.gongsibao.entity.igirl.ic.ex.baseinfo.Shareholder;
+import com.gongsibao.entity.crm.NCustomer;
+import com.gongsibao.entity.igirl.ic.dict.CorpRegStatue;
 import com.gongsibao.entity.igirl.ic.ex.dict.ApprovalType;
-import com.gongsibao.entity.igirl.ic.ex.dict.BooleanType;
+import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.entity.supplier.SupplierDepartment;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
-import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.Entity;
-
-import java.util.List;
 
 @Table(name = "ic_ex_register_case",header = "公司注册信息登记表")
 public class IcExRegisterCase extends Entity {
     @Column(name = "customer_id",header = "客户ID")
     private Integer customerId;
 
+    @JsonIgnore
     @Reference(foreignKey = "customerId",header = "客户")
-    private Customer customer;
+    private NCustomer customer;
+
+    @Column(name = "customer_mobile",header = "客户电话")
+    private String customerMobile;
+
+    @Column(name = "customer_name",header = "客户姓名")
+    private String customerName;
+
+    @Column(name = "owner",header = "所属人")
+    private String owner;
+
+    @Column(name = "owner_id",header = "所属人ID")
+    private Integer ownerId;
+
+    @Column(name = "supplier_id", header = "服务商Id")
+    private Integer supplierId = -1;
+
+    @JsonIgnore
+    @Reference(foreignKey = "supplierId", header = "服务商")
+    private Supplier supplier;
+
+    @Column(name = "department_id",header = "部门Id")
+    private Integer departmentId;
+
+    @Reference(foreignKey = "departmentId",header = "部门")
+    private SupplierDepartment department;
 
     @Column(name = "approval_name",header = "核准公司名称")
     private String approvalName;
 
     @Column(name = "approval_type",header = "审核状态")
-    private ApprovalType approvalType;
+    private ApprovalType approvalType = ApprovalType.WAIT;
 
-    @Subs(foreignKey = "icExRegisterCaseId",header = "备选公司名称",subType = CompanyName.class)
-    private List<CompanyName> companyNames;
-
-    @Column(name = "capital",header = "注册资金(万元)")
-    private Integer capital;
-
-    @Column(name = "period",header = "经营期限")
-    private Integer period;
-
-    @Column(name = "pay_date",header = "注册资本实缴日期")
-    private Integer payDate = 20;
-
-    @Subs(foreignKey = "icExRegisterCaseId",header = "股东信息",subType = Shareholder.class)
-    private List<Shareholder> shareholders;
-
-    @Column(name = "own_land_type",header = "是否为自有地")
-    private BooleanType ownLandType = BooleanType.YES;
-
-    @Column(name = "domicile_id",header = "企业住所Id")
-    private Integer domicileId;
-
-    @Reference(foreignKey = "domicileId",header = "企业住所")
-    private CompanyAddress domicile;
-
-    @Reference(foreignKey = "icExRegisterCaseId",header = "内部成员")
-    private List<Member> members;
-
-    @Column(name = "operation_scope",header = "经营范围")
-    private String operationScope;
+    @Column(name = "corp_reg_statue",header = "工商业务状态")
+    private CorpRegStatue corpRegStatue;
 
     public Integer getCustomerId() {
         return customerId;
@@ -67,92 +62,12 @@ public class IcExRegisterCase extends Entity {
         this.customerId = customerId;
     }
 
-    public Customer getCustomer() {
+    public NCustomer getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    public void setCustomer(NCustomer customer) {
         this.customer = customer;
-    }
-
-    public List<CompanyName> getCompanyNames() {
-        return companyNames;
-    }
-
-    public void setCompanyNames(List<CompanyName> companyNames) {
-        this.companyNames = companyNames;
-    }
-
-    public Integer getCapital() {
-        return capital;
-    }
-
-    public void setCapital(Integer capital) {
-        this.capital = capital;
-    }
-
-    public Integer getPeriod() {
-        return period;
-    }
-
-    public void setPeriod(Integer period) {
-        this.period = period;
-    }
-
-    public Integer getPayDate() {
-        return payDate;
-    }
-
-    public void setPayDate(Integer payDate) {
-        this.payDate = payDate;
-    }
-
-    public List<Shareholder> getShareholders() {
-        return shareholders;
-    }
-
-    public void setShareholders(List<Shareholder> shareholders) {
-        this.shareholders = shareholders;
-    }
-
-    public BooleanType getOwnLandType() {
-        return ownLandType;
-    }
-
-    public void setOwnLandType(BooleanType ownLandType) {
-        this.ownLandType = ownLandType;
-    }
-
-    public Integer getDomicileId() {
-        return domicileId;
-    }
-
-    public void setDomicileId(Integer domicileId) {
-        this.domicileId = domicileId;
-    }
-
-    public CompanyAddress getDomicile() {
-        return domicile;
-    }
-
-    public void setDomicile(CompanyAddress domicile) {
-        this.domicile = domicile;
-    }
-
-    public List<Member> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<Member> members) {
-        this.members = members;
-    }
-
-    public String getOperationScope() {
-        return operationScope;
-    }
-
-    public void setOperationScope(String operationScope) {
-        this.operationScope = operationScope;
     }
 
     public String getApprovalName() {
@@ -169,5 +84,77 @@ public class IcExRegisterCase extends Entity {
 
     public void setApprovalType(ApprovalType approvalType) {
         this.approvalType = approvalType;
+    }
+
+    public CorpRegStatue getCorpRegStatue() {
+        return corpRegStatue;
+    }
+
+    public void setCorpRegStatue(CorpRegStatue corpRegStatue) {
+        this.corpRegStatue = corpRegStatue;
+    }
+
+    public String getCustomerMobile() {
+        return customerMobile;
+    }
+
+    public void setCustomerMobile(String customerMobile) {
+        this.customerMobile = customerMobile;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public Integer getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Integer ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public Integer getSupplierId() {
+        return supplierId;
+    }
+
+    public void setSupplierId(Integer supplierId) {
+        this.supplierId = supplierId;
+    }
+
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
+
+    public Integer getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public SupplierDepartment getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(SupplierDepartment department) {
+        this.department = department;
     }
 }

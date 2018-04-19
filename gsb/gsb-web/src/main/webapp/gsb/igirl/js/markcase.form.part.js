@@ -5,6 +5,52 @@ com.gongsibao.igirl.tm.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormP
 	ctor: function () {
 		this.base();
 	},
+	save: function(){
+		if(this.checkShareGroups()){
+			this.base();
+		}
+	},
+	checkShareGroups:function(){
+		var rows = $('#datagridtradeMarks').datagrid('getRows');
+		var hasGroup1 = false;
+		var maxValue=0;
+		var isOrderBy=true;
+		for(var i=0;i<rows.length;i++){
+			if(rows[i].shareGroup>maxValue){
+				maxValue=rows[i].shareGroup;
+			}
+			if(rows[i].shareGroup==1){
+				hasGroup1=true;
+			}
+			if(rows[i].shareGroup==0){
+				IMessageBox.error("【商标选项】编码为"+rows[i].nclOne_code+"的商标未选择共享分组！");
+				return false;
+			}
+		}
+		if(hasGroup1){
+			for(var i=maxValue;i>1;i--){
+				if(!this.isHasBeforeGroup(i,rows)){
+					IMessageBox.error("【商标选项】附件共享要按顺序选择分组.");
+					isOrderBy=false;
+					break
+				}
+			}
+			if(isOrderBy){
+				return true;
+			}
+		}else{
+			IMessageBox.error("【商标选项】附件共享要有共享分组1.");
+		}
+		return false;
+	},
+	isHasBeforeGroup:function(maxValue,rows){
+		for(var i=0;i<rows.length;i++){
+			if(rows[i].shareGroup==(maxValue-1)){
+				return true;
+			}
+		}
+		return false;
+	},
 	companyNameChange: function (newValue) {
 		var name = $(newValue).val();
 		// name=encodeURIComponent(name);
@@ -249,40 +295,15 @@ com.gongsibao.igirl.tm.web.TradeMarkDetailPart = org.netsharp.panda.commerce.Det
 		tmFlag="update";
 	},
 	checkMemo: function (value) {
-//		var momo=$("#memo").val();
-//		var result=momo.match(/^(\s*[，。！,.\-@!+$￥\u4e00-\u9fa5_a-zA-Z0-9])*$/); 
-//		if(result==null){
-//			IMessageBox.error("【商标说明】只能输入中文、英文、数字和常用标点符号!");
-//			$("#memo").val("");
-//		}else{
-//			momo.replace(/(^\s*)|(\s*$)/g,"")
-//			$("#memo").val(momo);
-//		}
-	},
-	checkShareGroup: function(){
-//		var rows = $('#datagridtradeMarks').datagrid('getRows');
-//		var rowIndex=-1;
-//		var shareGroupValue = $('#shareGroup').combobox('getValue');
-//		var originalValue=1;
-//		var hasBeforeGroup=false;
-//		if(tmFlag=="update"){//修改时要获取修改的index值以排除自身 
-//			originalValue = $('#datagridtradeMarks').datagrid('getSelected').shareGroup;
-//			rowIndex=$('#datagridtradeMarks').datagrid('getRowIndex',$('#datagridtradeMarks').datagrid('getSelected'));  
-//		}
-//		
-//		if(shareGroupValue>1){
-//			for(var i=0;i<rows.length;i++){
-//				if(i!=rowIndex && rows[i].shareGroup == (shareGroupValue-1)){
-//					hasBeforeGroup=true;
-//					break;
-//				}
-//			}
-//			if(!hasBeforeGroup){
-//				IMessageBox.error("【共享分组】要按顺序选择!");
-//				$('#shareGroup').combobox('select',originalValue);
-//			}
-//		}
-		
+		var momo=$("#memo").val();
+		momo=momo.replace(/(^\s*)|(\s*$)/g,"")
+		var result=momo.match(/^(\s*[·，、。！,.\-@!+$￥\u4e00-\u9fa5_a-zA-Z0-9])*$/); 
+		if(result==null){
+			IMessageBox.error("【商标说明】只能输入中文、英文、数字和常用标点符号!");
+			$("#memo").val("");
+		}else{
+			$("#memo").val(momo);
+		}
 	},
 	nclOneChange: function (newValue, oldValue) {
 		$("#selectedTwoStr").val("");

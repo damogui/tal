@@ -17,13 +17,13 @@ public class CustomerCompanyMap extends BaseEntity {
     private Integer customerId;
 	
 	@JsonIgnore
-    @Reference(foreignKey="customerId",header="")
+    @Reference(foreignKey="customerId",header="",primaryKey="pkid")
     private Customer customer;
     
     @Column(name="company_id",header="")
     private Integer companyId;
     
-    @Reference(foreignKey="companyId",header="")
+    @Reference(foreignKey="companyId",header="",primaryKey="pkid")
     private CompanyIntention company;
     
     @Column(name="is_bbk",header="")

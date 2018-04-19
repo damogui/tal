@@ -1,6 +1,8 @@
 package com.gongsibao.panda.supplier.igirl.workspace.tm.common;
 import com.gongsibao.entity.igirl.tm.baseinfo.SupplierNewInfo;
 import com.gongsibao.entity.igirl.tm.baseinfo.SupplierSiteInfo;
+import com.gongsibao.igirl.tm.web.SiteInfoListPart;
+import com.gongsibao.igirl.tm.web.TradeMarkListPart;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -39,6 +41,7 @@ public class SupplierSiteInfoWorkspaceTest extends WorkspaceCreationBase{
 		openWindowWidth = 800;
 		openWindowHeight = 600;
 		listToolbarPath="/igirl/siteinfo/list";
+		listPartServiceController = SiteInfoListPart.class.getName();
 	}
 
 	@Test

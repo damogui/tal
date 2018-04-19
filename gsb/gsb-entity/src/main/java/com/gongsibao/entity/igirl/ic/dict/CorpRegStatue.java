@@ -14,18 +14,24 @@ public enum CorpRegStatue implements IEnum {
 	UNAUDIT(1, "待审核"),
 	AUDITPASS(2, "内容审查通过"),
 	AUDITUNPASS(3, "内容审查未通过"),
-	WAITCHECK(4, "等待材料审查"),
-	CHECKPASS(5, "材料审查通过"),
-	CHECKUNPASS(6, "材料审查未通过"),
-	ACCEPTED(7, "工商机关已受理"),
-	TOBECONFIRMED(8, "待确认"),
-	APPROVED(9, "已核准"),
-	DISMISSAL(10, "已驳回"),
-	TERMINATION(11, "业务终止");
-	private int value;
-	private String text;
+	WAITCHECKLIST(4, "等待材料审查"),
+	WAITCHECKCONTENT(5, "等待内容审查"),
+    AUDITING(6, "审查中"),
+    ROLLBACK(7, "退回修改"),
+	CHECKPASS(8, "材料审查通过"),
+    ASSISTAUDITPASS(9, "辅助审查通过"),
+	CHECKUNPASS(10, "材料审查未通过"),
+	ACCEPTED(11, "工商机关已受理"),
+	TOBECONFIRMED(12, "待确认"),
+	APPROVED(13, "已核准"),
+	DISMISSAL(14, "已驳回"),
+    ENDED(15, "已终止"),
+    TERMINATION(16, "业务终止");
 
-	CorpRegStatue(int value, String text) {
+	private int value;
+	private String text;    
+
+    CorpRegStatue(int value, String text) {
 		this.value = value;
 		this.text = text;
 	}

@@ -3,9 +3,12 @@ package com.gongsibao.igirl.tm.web;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.netsharp.attachment.Attachment;
+import org.netsharp.communication.ServiceFactory;
 import org.netsharp.panda.commerce.ListPart;
 import org.netsharp.util.StringManager;
 
+import com.gongsibao.igirl.tm.base.ITradeMarkService;
 import com.gongsibao.utils.SupplierSessionManager;
 
 /**
@@ -14,6 +17,7 @@ import com.gongsibao.utils.SupplierSessionManager;
  *
  */
 public class DepartmentTradeMarkListPart extends ListPart{
+	ITradeMarkService service = ServiceFactory.create(ITradeMarkService.class);
 	@Override
 	protected String getExtraFilter() {
 		List<String> ss = new ArrayList<String>();
@@ -32,4 +36,8 @@ public class DepartmentTradeMarkListPart extends ListPart{
 		}
 		return StringManager.join(" and ", ss);
 	}
+	
+	public String updateMarkState(String[] ids,Integer type){
+        return service.updateMarkState(String.join(",", ids),type);
+    }
 }

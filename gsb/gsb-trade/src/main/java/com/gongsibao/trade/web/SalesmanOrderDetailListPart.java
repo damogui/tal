@@ -68,12 +68,12 @@ public class SalesmanOrderDetailListPart extends AdvancedListPart {
     	Oql oql = new Oql();
         {
             oql.setType(SoOrder.class);
-            oql.setSelects("SoOrder.companyId,SoOrder.companyIntention.name");
+            oql.setSelects("SoOrder.companyId,SoOrder.companyIntention.companyName");
             oql.setFilter("id=?");
             oql.getParameters().add("id", orderId, Types.INTEGER);
         }
         SoOrder entity = orderService.queryFirst(oql);
-        return entity.getCompanyIntention() == null ? "" : entity.getCompanyIntention().getName();
+        return entity.getCompanyIntention() == null ? "" : entity.getCompanyIntention().getCompanyName();
     }
     /**
      * 开始操作前置条件：

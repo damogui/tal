@@ -8,17 +8,20 @@ import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Subs;
 import org.netsharp.core.annotations.Table;
 import org.netsharp.entity.BizEntity;
+import org.netsharp.organization.entity.Employee;
 
 import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.cw.dict.FinanceDict;
 import com.gongsibao.entity.u8.SetOfBooks;
+import com.gongsibao.entity.u8.U8Bank;
+import com.gongsibao.entity.u8.U8Department;
 
 /**
  * 
 *  报销单实体  
 * 项目名称：gsb-entity   
 * 类名称：Expense   
-* 类描述：   
+* 类描述：   创建人为经办人
 * 创建人：angang
 * 创建时间：2018年3月20日 下午2:53:30   
 * @version
@@ -46,6 +49,9 @@ public class Expense extends BizEntity{
 	@Column(name="is_offset",header="是否冲抵借款")
 	private Boolean isOffset;
 	
+	@Column(name="total_taxation",header="税费合计金额")
+	private Integer totalTaxation;
+	
 	@Column(name="type",header="报销类型  1：市场费报销，2：招待费报销，3：差旅费报销")
 	private FinanceDict.ExpenseBillType  type = FinanceDict.ExpenseBillType.ExpenseType_1;
 	
@@ -55,6 +61,15 @@ public class Expense extends BizEntity{
 	
 	@Reference(foreignKey = "setOfBooksId")
 	private SetOfBooks setOfBooks;
+	
+	@Column(name = "bank_id", header = "银行/科目id")
+	private Integer bankId ;
+	
+	@Reference(foreignKey = "bankId")
+	private U8Bank u8Bank ;
+	
+	@Reference(foreignKey = "creatorId",header="U8系统部门表" )
+	private U8Department u8Department ;
 	
 	@Column(name = "payment_method", header = "付款方式 1:现金 ，2：转账 ，3：支票")
 	private FinanceDict.PaymentMethod paymentMethod = FinanceDict.PaymentMethod.XJ;
@@ -72,14 +87,20 @@ public class Expense extends BizEntity{
 	@Column(name = "entertain_place", header = "招待地点")
 	private String entertainPlace;
 	
-	@Column(name = "company_account", header = "接收公司帐号")
+	@Column(name = "company_account", header = "银行帐号")
 	private String companyAccount;
 	
-	@Column(name = "company_bank", header = "接收公司开户行")
+	@Column(name = "company_bank", header = "开户行")
 	private String companyBank;
 	
-	@Column(name = "company_name", header = "接收公司名称")
-	private String companyName;
+	@Column(name = "payee_name", header = "收款人名称、公司名称")
+	private String payeeName;
+	
+	@Column(name = "expense_id", header = "报销人id")
+	private Integer expenseId;
+	
+	@Reference(foreignKey = "expenseId",header="报销人实体" )
+	private Employee expenseEmployee ;
 	
 	@Column(name = "audit_step", header = "审核步骤")
 	private Integer auditStep;
@@ -87,9 +108,15 @@ public class Expense extends BizEntity{
 	@Column(name = "department_id", header = "创建人所属部门id")
 	private Integer departmentId;
 	
+	@Column(name = "department_name", header = "创建人所属部门名称")
+	private String departmentName;
+	
 	@Column(name = "status", header = "状态 1:待审核 ，2：审核中 ，3：已通过")
 	private FinanceDict.AuditStatus status = FinanceDict.AuditStatus.Status_1;
 
+	@Column(name = "is_voucher", header = "是否可生成凭证（0：否 1：是）")
+	private Boolean isVoucher = true;
+	
 	@Subs(subType = CostDetail.class, foreignKey = "formId", header = "费用明细")
 	private List<CostDetail> costDetailItem = new ArrayList<CostDetail>();
 	
@@ -191,12 +218,12 @@ public class Expense extends BizEntity{
 		this.companyBank = companyBank;
 	}
 
-	public String getCompanyName() {
-		return companyName;
+	public String getPayeeName() {
+		return payeeName;
 	}
 
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
+	public void setPayeeName(String payeeName) {
+		this.payeeName = payeeName;
 	}
 
 	public Integer getAuditStep() {
@@ -294,6 +321,71 @@ public class Expense extends BizEntity{
 	public void setIsOffset(Boolean isOffset) {
 		this.isOffset = isOffset;
 	}
+
+	public Integer getTotalTaxation() {
+		return totalTaxation;
+	}
+
+	public void setTotalTaxation(Integer totalTaxation) {
+		this.totalTaxation = totalTaxation;
+	}
+
+	public Integer getBankId() {
+		return bankId;
+	}
+
+	public void setBankId(Integer bankId) {
+		this.bankId = bankId;
+	}
+
+	public U8Bank getU8Bank() {
+		return u8Bank;
+	}
+
+	public void setU8Bank(U8Bank u8Bank) {
+		this.u8Bank = u8Bank;
+	}
+
+	public String getDepartmentName() {
+		return departmentName;
+	}
+
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
+
+	public U8Department getU8Department() {
+		return u8Department;
+	}
+
+	public void setU8Department(U8Department u8Department) {
+		this.u8Department = u8Department;
+	}
+
+	public Integer getExpenseId() {
+		return expenseId;
+	}
+
+	public void setExpenseId(Integer expenseId) {
+		this.expenseId = expenseId;
+	}
+
+	public Employee getExpenseEmployee() {
+		return expenseEmployee;
+	}
+
+	public void setExpenseEmployee(Employee expenseEmployee) {
+		this.expenseEmployee = expenseEmployee;
+	}
+
+	public Boolean getIsVoucher() {
+		return isVoucher;
+	}
+
+	public void setIsVoucher(Boolean isVoucher) {
+		this.isVoucher = isVoucher;
+	}
+
 	
 	
 }

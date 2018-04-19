@@ -13,6 +13,7 @@ import org.netsharp.entity.BizEntity;
 import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.cw.dict.FinanceDict;
 import com.gongsibao.entity.u8.SetOfBooks;
+import com.gongsibao.entity.u8.U8Bank;
 
 /**
  * 
@@ -46,6 +47,14 @@ public class Payment extends BizEntity{
 	
 	@Reference(foreignKey = "setOfBooksId")
 	private SetOfBooks setOfBooks;
+	
+	
+	@Column(name = "bank_id", header = "银行/科目id")
+	private Integer bankId ;
+	
+	@Reference(foreignKey = "bankId")
+	private U8Bank u8Bank ;
+	
 	
 	@Column(name = "collect_invoice_date", header = "收发票日期")
 	private Date collectInvoiceDate ;
@@ -198,6 +207,22 @@ public class Payment extends BizEntity{
 
 	public void setDepartmentId(Integer departmentId) {
 		this.departmentId = departmentId;
+	}
+
+	public Integer getBankId() {
+		return bankId;
+	}
+
+	public void setBankId(Integer bankId) {
+		this.bankId = bankId;
+	}
+
+	public U8Bank getU8Bank() {
+		return u8Bank;
+	}
+
+	public void setU8Bank(U8Bank u8Bank) {
+		this.u8Bank = u8Bank;
 	}
 	
 	

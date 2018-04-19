@@ -39,7 +39,13 @@ public class ActionApplyOrderPerformanceVerify implements IAction {
             throw new BusinessException ("订单业绩已经创建");//execNum
 
         }
+        //判断是不是存在订单结转转入
+        Integer execNum2 = AuditHelper.getCarryRecode (entity.getId (),AuditStatusType.Dsh);
+        if (execNum2 > 0) {
 
+            throw new BusinessException ("【该订单有笔结转转入额还在审核中，请审核通过后再创建】");//execNum
+
+        }
 
 
         List<NDepReceivable> depList = entity.getDepReceivable ();
@@ -59,10 +65,10 @@ public class ActionApplyOrderPerformanceVerify implements IAction {
             throw new BusinessException ("订单业绩必须分配！");
         }
 
-        if (entity.getTotalPrice () < totalAmount) {
+        if ((entity.getPayablePrice()-entity.getCarryIntoAmount())>0) {//
 
 
-            throw new BusinessException ("订单业绩必须小于订单额！");
+            throw new BusinessException ("【该订单无业绩可创建，请核实】");
         }
         //entity.setPerformancePrice (totalAmount);
         ctx.setItem (entity);
