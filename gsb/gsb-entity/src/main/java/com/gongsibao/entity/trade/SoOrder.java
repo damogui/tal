@@ -143,8 +143,11 @@ public class SoOrder extends BaseEntity {
     @Exclusive
     private Integer balance = 0;
     
-    @Column(name = "performance_price", header = "订单业绩分配金额（需要审核通过之后进行回写）")
+    @Column(name = "performance_price", header = "订单业绩已分配金额（需要审核通过之后进行回写）")
     private Integer performancePrice = 0;
+    @Exclusive
+    @Column( header = "订单业绩未划分金额）")
+    private Integer unPerformance = 0;//应付金额-结转转入金额
 
     @Subs(subType = NDepReceivable.class, foreignKey = "orderId", header = "订单业绩划分表")
     private List<NDepReceivable> depReceivable = new ArrayList<> ();
@@ -1104,5 +1107,22 @@ public class SoOrder extends BaseEntity {
 
     public void setToBeInvoicePrice(Integer toBeInvoicePrice) {
         this.toBeInvoicePrice = toBeInvoicePrice;
+    }
+
+
+    public Integer getUnPerformance() {
+        payablePrice = payablePrice == null ? 0 : payablePrice;//应付金额
+        carryIntoAmount = carryIntoAmount == null ? 0 : carryIntoAmount;//结转转入金额
+        performancePrice = performancePrice == null ? 0 : performancePrice;//订单业绩
+        if (performancePrice.equals(payablePrice)){
+
+            return 0;//已经划分完
+        }
+
+        return payablePrice-carryIntoAmount;
+    }
+
+    public void setUnPerformance(Integer unPerformance) {
+        this.unPerformance = unPerformance;
     }
 }
