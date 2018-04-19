@@ -52,7 +52,13 @@ public class ActionSaveCustomerWriteBack implements IAction {
 			builerSource.append(" WHERE pkid = ?");
 		}
 		QueryParameters qpsSource = new QueryParameters();
-		qpsSource.add("@last_customer_source", lastCustSourceId, Types.INTEGER);
+		//如果没有商机，取注册时的客户来源
+		if(lastCustSourceId == null){
+			qpsSource.add("@last_customer_source", lastCustSourceId, Types.INTEGER);
+		}else{
+			qpsSource.add("@last_customer_source", customer.getCustomerSourceId(), Types.INTEGER);
+		}
+		
 		qpsSource.add("@pkid", customerId, Types.INTEGER);
 		pm.executeNonQuery(builerSource.toString(), qpsSource);
 		
