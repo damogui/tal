@@ -1,6 +1,7 @@
 package com.gongsibao.rest.web.controller.v1.user;
 
 import com.gongsibao.account.base.IAccountWeiXinService;
+import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.acount.AccountWeiXin;
 import com.gongsibao.rest.dto.user.AccountDeliverAddressDTO;
 import com.gongsibao.rest.service.user.AccountDeliverAddressService;
@@ -78,10 +79,10 @@ public class DeliverController extends BaseController {
     private Integer validateReturnAccountId(HttpServletRequest request) {
         String openId = openId(request);
         Assert.hasText(openId, "当前用户尚未绑定!");
-        AccountWeiXin accountWeiXin = accountWeiXinService.queryByOpenId(openId);
+        Account accountWeiXin = accountWeiXinService.queryByOpenId(openId);
         Assert.notNull(accountWeiXin, "当前用户尚未绑定!");
-        Assert.notNull(accountWeiXin.getAccountId(), "获取用户信息失败!");
-        return accountWeiXin.getAccountId();
+        Assert.notNull(accountWeiXin.getId(), "获取用户信息失败!");
+        return accountWeiXin.getId();
     }
 
     /**
