@@ -22,7 +22,7 @@ import org.junit.runners.Suite.SuiteClasses;
     //5.运营管理
 	com.gongsibao.panda.platform.operation.AllTest.class,
 
-    //8.交易中心
+    //8. 交易中心
 	com.gongsibao.panda.platform.trade.AllTest.class,
 	
     //9.报表中心
