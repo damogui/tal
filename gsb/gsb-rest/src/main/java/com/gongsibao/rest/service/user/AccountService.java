@@ -28,15 +28,15 @@ public class AccountService implements IAccountService{
      */
     @Override
     public Account login(String openId) {
-        AccountWeiXin weiXin=accountWeiXinService.queryByOpenId(openId);
+        Fans weiXin=accountWeiXinService.queryFansByOpenId(openId);
         if(null==weiXin){
             //创建微信账号
-            this.createAccount(openId);
+            this.createFans(openId);
             return null;
-        }else if(null==weiXin.getAccountId()){
+        }else if(null==weiXin.getUserId()){
             return null;
         }else{
-            return accountService.byId(weiXin.getAccountId());
+            return accountService.byId(weiXin.getUserId());
         }
     }
     /**
@@ -59,7 +59,6 @@ public class AccountService implements IAccountService{
 
     @Override
     public void updateAccount(String mobile,String openId) {
-        Fans fans=accountWeiXinService.queryFansByOpenId(openId);
         Account accountOld=accountService.byMobile(mobile);
         if(null==accountOld){
             //更新uc_account 新增一条
@@ -90,23 +89,10 @@ public class AccountService implements IAccountService{
     }
 
     @Override
-    public Boolean createAccount(String openId) {
-        //根据粉丝表  新增记录 uc_account_weixin
-        Fans fans=accountWeiXinService.queryFansByOpenId(openId);
-        if(null==fans){
-            return false;
-        }
-        AccountWeiXin accountWeiXin=new AccountWeiXin();
-        {
-            accountWeiXin.toNew();
-            accountWeiXin.setOpenid(openId);
-            accountWeiXin.setNickName(fans.getNickname());
-            accountWeiXin.setSex(Integer.valueOf(fans.getSex()));
-            accountWeiXin.setHeadImgurl(fans.getHeadImgUrl());
-            accountWeiXin.setSubscribeTime(fans.getSubscribeDate());
-        }
-        AccountWeiXin account=accountWeiXinService.save(accountWeiXin);
-        return account.getId()==null?false:true;
+    public Boolean createFans(String openId) {
+        //新增粉丝表数据
+        Fans fans=accountWeiXinService.createFans(openId);
+        return fans.getId()==null?false:true;
     }
 
     @Override
@@ -120,25 +106,11 @@ public class AccountService implements IAccountService{
         if(null==account){
             return null;
         }
-        AccountWeiXin weiXin=accountWeiXinService.queryByAccountId(account.getId().toString());
+        Fans weiXin=accountWeiXinService.queryFansByUserId(account.getId());
         if(null==weiXin){
             return null;
         }
-        account.setOpenid(weiXin.getOpenid());
-        return account;
-    }
-
-    @Override
-    public Account queryByOpenId(String openId) {
-        AccountWeiXin weiXin=accountWeiXinService.queryByOpenId(openId);
-        if(null==weiXin || null==weiXin.getAccountId()){
-            return null;
-        }
-        Account account=accountService.byId(weiXin.getAccountId());
-        if(null==account){
-            return null;
-        }
-        account.setOpenid(weiXin.getOpenid());
+        account.setOpenid(weiXin.getOpenId());
         return account;
     }
 
