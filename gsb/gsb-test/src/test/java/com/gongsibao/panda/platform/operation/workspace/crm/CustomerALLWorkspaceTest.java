@@ -130,6 +130,7 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 
 		addColumn(datagrid, "important", "客户等级", ControlTypes.ENUM_BOX, 100);
 		addColumn(datagrid, "company.companyName", "关联公司", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "lastCustomerSource.name", "客户来源", ControlTypes.TEXT_BOX, 100);
 		
 //		最近商机来源
 //		最近商机跟进人
