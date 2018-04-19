@@ -1,24 +1,20 @@
 package com.gongsibao.entity.trade;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
-
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.netsharp.core.annotations.*;
-
-import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.InvoiceOpenBallotCompanyType;
 import com.gongsibao.entity.trade.dic.InvoiceTitleType;
 import com.gongsibao.entity.trade.dic.InvoiceType;
-
+import org.netsharp.core.annotations.*;
 import org.netsharp.organization.entity.Employee;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Table(name = "so_invoice", header = "发票")
 public class Invoice extends BaseEntity {
@@ -78,7 +74,7 @@ public class Invoice extends BaseEntity {
     @Column(name = "remark", header = "说明", required = false)
     private String remark;
 
-    @Subs(foreignKey = "invoiceId", header = "订单和发票的中间表", subType = OrderInvoiceMap.class)
+    @Subs(foreignKey = "invoiceId", primaryKey = "pkid", header = "订单和发票的中间表", subType = OrderInvoiceMap.class)
     private List<OrderInvoiceMap> orderInvoiceMaps;
 
     @Column(name = "supplier_id", header = "服务商Id")
@@ -114,32 +110,32 @@ public class Invoice extends BaseEntity {
     @Exclusive
     @Column(name = "soOrderNo")
     private String soOrderNo;
-    
+
     //渠道编号
     @Exclusive
     @Column(name = "channelOrderNo")
     private String channelOrderNo;
-    
+
     //产品名称
     @Exclusive
     @Column(name = "prodName")
     private String prodName;
-    
+
     //新老客户签单
     @Exclusive
     @Column(name = "accountTypeName")
     private String accountTypeName;
-    
+
     //订单金额
     @Exclusive
     @Column(name = "orderPayablePrice")
     private Integer orderPayablePrice;
-    
+
     //订单付款金额
     @Exclusive
     @Column(name = "orderPaidPrice")
     private Integer orderPaidPrice;
-    
+
     //订单创建时间
     @Exclusive
     @Column(name = "orderCreateTime")

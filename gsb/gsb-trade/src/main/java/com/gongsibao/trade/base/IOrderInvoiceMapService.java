@@ -13,4 +13,6 @@ public interface IOrderInvoiceMapService extends IPersistableService<OrderInvoic
     List<OrderInvoiceMap> getByOrderId(Integer orderId);
 
     List<OrderInvoiceMap> getByInvoiceIdList(List<Integer> invoiceIdList);
+
+    boolean delByInvoiceId(Integer invoiceId);
 }

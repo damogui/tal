@@ -362,6 +362,10 @@ public class SoOrder extends BaseEntity {
     @Column(name = "is_online_pay", header = "是否线上支付")
     private Boolean isOnlinePay = false;
 
+    // 发票id
+    @Exclusive
+    private Integer invoiceId;
+
     public List<NOrderStage> getStages() {
         return stages;
     }
@@ -1109,6 +1113,13 @@ public class SoOrder extends BaseEntity {
         this.toBeInvoicePrice = toBeInvoicePrice;
     }
 
+    public Integer getInvoiceId() {
+        return invoiceId;
+    }
+
+    public void setInvoiceId(Integer invoiceId) {
+        this.invoiceId = invoiceId;
+    }
 
     public Integer getUnPerformance() {
         payablePrice = payablePrice == null ? 0 : payablePrice;//应付金额

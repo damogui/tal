@@ -133,5 +133,16 @@ public class PriceService extends PersistableService<Price> implements IPriceSer
 		return list;
 	}
 
+	@Override
+	public List<Price> byIds(Collection<Integer> ids) {
+		if (null == ids || ids.isEmpty()) {
+			return null;
+		}
+		Oql oql = new Oql();
+		oql.setType(this.type);
+		oql.setSelects("*");
+		oql.setFilter("id IN (" + StringManager.join(",", Arrays.asList(ids.toArray())) +") ");
+		return this.queryList(oql);
+	}
 
 }

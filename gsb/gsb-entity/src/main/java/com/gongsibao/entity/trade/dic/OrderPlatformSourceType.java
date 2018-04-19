@@ -18,8 +18,9 @@ public enum OrderPlatformSourceType implements IEnum  {
 	Jdzc(32110, "京东众筹"),
 	Wd(32111, "万达"),
 	Jdys(32112, "京东益世"),
-	Bbk(32113, "八百客");
-	
+	Bbk(32113, "八百客"),
+	Gsb_Wx(32114, "公司宝微信");
+
 	private int value;
 	private String text;
 

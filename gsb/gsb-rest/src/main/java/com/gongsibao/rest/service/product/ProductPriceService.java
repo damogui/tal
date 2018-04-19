@@ -4,9 +4,9 @@ import com.gongsibao.bd.base.IDictService;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.product.Price;
 import com.gongsibao.product.base.IPriceService;
-import com.gongsibao.rest.web.common.web.BdCity;
-import com.gongsibao.rest.web.dto.product.ProdPriceDTO;
 import com.gongsibao.rest.base.product.IProductPriceService;
+import com.gongsibao.rest.dto.product.ProductPriceDTO;
+import com.gongsibao.rest.web.common.web.BdCity;
 import com.gongsibao.uc.base.IOrganizationService;
 import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -66,8 +66,8 @@ public class ProductPriceService implements IProductPriceService {
     }
 
     @Override
-    public List<ProdPriceDTO> productPriceList(Integer productId, Integer cityId, Integer propertyId) {
-        List<ProdPriceDTO> dtoList = new ArrayList<>();
+    public List<ProductPriceDTO> productPriceList(Integer productId, Integer cityId, Integer propertyId) {
+        List<ProductPriceDTO> dtoList = new ArrayList<>();
         // 查询产品 + 城市 + 特性的定价信息
         List<Price> prices = priceService.productServicePrice(productId, cityId, propertyId);
         if (prices.isEmpty()) {
@@ -101,7 +101,7 @@ public class ProductPriceService implements IProductPriceService {
             Integer unitId = price.getService().getUnitId();
             Integer typeId = price.getService().getTypeId();
 
-            ProdPriceDTO dto = new ProdPriceDTO();
+            ProductPriceDTO dto = new ProductPriceDTO();
             {
                 dto.setPriceId(price.getId());
                 dto.setIsMust(price.getNecessary() ? 1 : 0);

@@ -166,6 +166,28 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         return list;
     }
 
+    public static List<String> stringToList(Object strings) {
+        if (null == strings) {
+            return null;
+        }
+        return stringToList(StringUtils.trimToEmpty(strings));
+    }
+
+    public static List<String> stringToList(String strings) {
+        if (StringUtils.isEmpty(strings)) {
+            return null;
+        }
+
+        List<String> list = new ArrayList<>();
+        for (String str : strings.split(",")) {
+            if (isNotBlank(str)) {
+                list.add(str);
+            }
+        }
+        return list;
+    }
+
+
     public static String bytesToHexString(byte[] src) {
         StringBuilder stringBuilder = new StringBuilder("");
         if (src == null || src.length <= 0) {

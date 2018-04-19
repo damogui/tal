@@ -152,4 +152,17 @@ public class DictService extends PersistableService<Dict> implements IDictServic
         }
         return result;
     }
+
+    @Override
+    public Map<Integer, Dict> mapByType(Integer type) {
+        Map<Integer, Dict> result = new HashMap<>();
+        List<Dict> dicts = byType(type);
+        if (null == dicts) {
+            return result;
+        }
+        for (Dict dict : dicts) {
+            result.put(dict.getId(), dict);
+        }
+        return result;
+    }
 }

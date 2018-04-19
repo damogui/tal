@@ -12,6 +12,9 @@ com.gongsibao.igirl.tm.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormP
 	},
 	checkShareGroups:function(){
 		var rows = $('#datagridtradeMarks').datagrid('getRows');
+		if(rows.length==0){
+			return true;
+		}
 		var hasGroup1 = false;
 		var maxValue=0;
 		var isOrderBy=true;
@@ -50,6 +53,14 @@ com.gongsibao.igirl.tm.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormP
 			}
 		}
 		return false;
+	},
+	checkMailCode:function(mailCode){
+		mailCode = mailCode.value;
+		var result=mailCode.match(/^\d{6}$/); 
+		if(result==null){
+			IMessageBox.error("【邮编】格式错误!");
+			$("#mailCode").textbox('setValue','');
+		}
 	},
 	companyNameChange: function (newValue) {
 		var name = $(newValue).val();

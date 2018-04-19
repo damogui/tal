@@ -10,9 +10,11 @@ import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.cms.AggregationResponse;
 import com.gongsibao.entity.cms.Product;
 import com.gongsibao.entity.cms.ProductTemplate;
+import com.gongsibao.entity.product.Price;
+import com.gongsibao.product.base.IPriceService;
+import com.gongsibao.rest.base.product.IProductService;
 import com.gongsibao.rest.web.common.util.ProductUtils;
 import com.gongsibao.rest.web.dto.product.ProductCmsDTO;
-import com.gongsibao.rest.base.product.IProductService;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.springframework.stereotype.Service;
@@ -22,15 +24,25 @@ import java.util.*;
 @Service("productService")
 public class ProductService implements IProductService {
 
+    // cms产品服务
     com.gongsibao.cms.base.IProductService cmsProductService = ServiceFactory.create(com.gongsibao.cms.base.IProductService.class);
 
+    // cms产品模板服务
     IProductTemplateService productTemplateService = ServiceFactory.create(IProductTemplateService.class);
 
+    // 双子座产品类别服务
     IBdServiceService bdServiceService = ServiceFactory.create(IBdServiceService.class);
 
+    // 双子座产品类别关联产品服务
     IBdServiceProductService bdServiceProductService = ServiceFactory.create(IBdServiceProductService.class);
 
+    // 图片服务
     IFileService bdFileService = ServiceFactory.create(IFileService.class);
+
+    // 产品服务
+    com.gongsibao.product.base.IProductService productService = ServiceFactory.create(com.gongsibao.product.base.IProductService.class);
+
+    IPriceService iPriceService = ServiceFactory.create(IPriceService.class);
 
     @Override
     public Product getLastCmsByProdId(Integer productId) {
@@ -153,5 +165,40 @@ public class ProductService implements IProductService {
             dto.setShowprice(cmsProduct.getShowprice());
         }
         return dto;
+    }
+
+    @Override
+    public Map<Integer, com.gongsibao.entity.product.Product> mapByIds(Collection<Integer> productIds) {
+        Map<Integer, com.gongsibao.entity.product.Product> result = new HashMap<>();
+        if (CollectionUtils.isEmpty(productIds)) {
+            return result;
+        }
+
+        List<com.gongsibao.entity.product.Product> products = productService.byIds(productIds);
+        if (CollectionUtils.isEmpty(productIds)) {
+            return result;
+        }
+
+        for (com.gongsibao.entity.product.Product product : products) {
+            result.put(product.getId(), product);
+        }
+        return result;
+    }
+
+    @Override
+    public Map<Integer, Price> mapPriceByIds(Collection<Integer> priceIds) {
+        Map<Integer, Price> result = new HashMap<>();
+        if (CollectionUtils.isEmpty(priceIds)) {
+            return result;
+        }
+
+        List<Price> prices = iPriceService.byIds(priceIds);
+        if (CollectionUtils.isEmpty(prices)) {
+            return result;
+        }
+        for (Price price : prices) {
+            result.put(price.getId(), price);
+        }
+        return result;
     }
 }

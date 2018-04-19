@@ -20,7 +20,7 @@ public class OrderDiscount extends BaseEntity {
     private Integer orderId;
 	
 	@JsonIgnore
-	@Reference(foreignKey = "orderId")
+	@Reference(foreignKey = "orderId", primaryKey = "pkid")
 	private SoOrder soOrder;
 	
 //	3091	后台优惠

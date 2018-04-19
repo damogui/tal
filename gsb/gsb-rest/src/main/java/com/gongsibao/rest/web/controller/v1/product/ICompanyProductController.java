@@ -1,10 +1,16 @@
 package com.gongsibao.rest.web.controller.v1.product;
 
+import com.gongsibao.entity.Result;
+import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.cms.Product;
+import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.rest.base.user.IAccountService;
+import com.gongsibao.rest.base.order.IOrderService;
 import com.gongsibao.rest.web.common.apiversion.Api;
 import com.gongsibao.rest.web.common.util.JsonUtils;
 import com.gongsibao.rest.web.common.web.ResponseData;
+import com.gongsibao.rest.web.controller.BaseController;
 import com.gongsibao.rest.web.dto.order.OrderAddDTO;
 import com.gongsibao.rest.base.product.IProductPriceService;
 import com.gongsibao.rest.base.product.IProductService;
@@ -22,12 +28,18 @@ import java.util.List;
 @RestController
 @RequestMapping("/wx/{v}/icompany/product")
 @Api(1)
-public class ICompanyProductController {
+public class ICompanyProductController extends BaseController {
 
     @Autowired
     IProductPriceService productPriceService;
     @Autowired
     IProductService productService;
+
+    @Autowired
+    IAccountService accountService;
+
+    @Autowired
+    IOrderService orderService;
 
     /**
      * 包含产品cms信息，产品聚合信息，产品流程信息
@@ -205,7 +217,23 @@ public class ICompanyProductController {
             return data;
         }
 
+        // 获取当前登录用户
+        Account account = accountService.queryByOpenId(openId(request));
+        if (null == account) {
+            data.setCode(-1);
+            data.setMsg("请先绑定用户");
+            return data;
+        }
+        orderAddDTO.setAccount(account);
+        orderAddDTO.setCompanyId(0);
 
-        return null;
+        Result<SoOrder> result = orderService.saveOrder(orderAddDTO);
+        if (Result.isSuccess(result)) {
+            data.setData(result.getObj().getId());
+        } else {
+            data.setMsg(result.getMsg());
+            data.setCode(-1);
+        }
+        return data;
     }
 }

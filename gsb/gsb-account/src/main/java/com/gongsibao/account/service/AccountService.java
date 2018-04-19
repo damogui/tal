@@ -3,15 +3,19 @@ package com.gongsibao.account.service;
 import java.sql.Types;
 
 import org.netsharp.communication.Service;
+import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.service.PersistableService;
 
 import com.gongsibao.account.base.IAccountService;
 import com.gongsibao.entity.acount.Account;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
+import org.netsharp.wx.pa.base.ICustomService;
 
 @Service
 public class AccountService extends PersistableService<Account> implements IAccountService {
+
+	ICustomService customService = ServiceFactory.create(ICustomService.class);
 
 	public AccountService() {
 		super();
