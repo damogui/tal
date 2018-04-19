@@ -23,4 +23,8 @@ public interface IAccountService {
     void updateTicket(Integer id,String ticket);
 
     void pushOrderStateMsg(String mobile, Integer orderPorudctId);
+
+    void buySuccessSendMsg(Integer accountId,String moeny,String productName,String first,String url);
+
+    Account queryByOpenId(String openId);
 }
