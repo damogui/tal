@@ -2,9 +2,8 @@ package com.gongsibao.rest.web.controller.v1.user;
 
 import com.gongsibao.account.base.IAccountWeiXinService;
 import com.gongsibao.entity.acount.Account;
-import com.gongsibao.entity.acount.AccountWeiXin;
-import com.gongsibao.rest.dto.user.AccountDeliverAddressDTO;
-import com.gongsibao.rest.service.user.AccountDeliverAddressService;
+import com.gongsibao.rest.web.dto.user.AccountDeliverAddressDTO;
+import com.gongsibao.rest.base.user.IUserDeliverAddressService;
 import com.gongsibao.rest.web.common.apiversion.Api;
 import com.gongsibao.rest.web.common.util.Assert;
 import com.gongsibao.rest.web.common.web.Result;
@@ -15,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,10 +24,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/wx/{v}/account/deliver")
 @Api(1)
-public class DeliverController extends BaseController {
+public class UserDeliverController extends BaseController {
 
     @Autowired
-    private AccountDeliverAddressService accountDeliverAddressService;
+    private IUserDeliverAddressService accountDeliverAddressService;
     private IAccountWeiXinService accountWeiXinService = ServiceFactory.create(IAccountWeiXinService.class);
 
     /**

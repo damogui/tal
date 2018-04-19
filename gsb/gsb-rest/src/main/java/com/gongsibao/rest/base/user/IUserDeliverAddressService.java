@@ -1,9 +1,8 @@
-package com.gongsibao.rest.service.user;
+package com.gongsibao.rest.base.user;
 
-import com.gongsibao.rest.dto.user.AccountDeliverAddressDTO;
+import com.gongsibao.rest.web.dto.user.AccountDeliverAddressDTO;
 import com.gongsibao.rest.web.request.DeliverAddressRequest;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -11,7 +10,7 @@ import java.util.List;
  * @Description: TODO 用户收货地址管理
  * @date 2018/4/18 16:49
  */
-public interface AccountDeliverAddressService {
+public interface IUserDeliverAddressService {
 
     /**
      * 根据账号ID查询用户默认的收货地址
