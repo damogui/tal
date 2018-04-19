@@ -126,7 +126,7 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
      * @date 2018/4/18 16:57
      */
     @Override
-    public void pushOrderStateMsg(String mobile, Integer orderPorudctId) {
+    public void pushOrderStateMsg(String originalId,String mobile, Integer orderPorudctId) {
         String sql = "select * from so_order_prod where pkid=? ";
         QueryParameters qps = new QueryParameters();
         qps.add("@pkid", orderPorudctId, Types.INTEGER);
@@ -149,7 +149,7 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
                 Account account = accountService.byMobile(mobile);
                 //取微信用户openid
                 Fans accountWeiXin = this.queryFansByUserId(account.getId());
-                this.pushTextMsg(account.getId(),"尊敬的"+accountWeiXin.getNickname()+":",proName,proTrace,null,"/index.html#/mine/order",null,AccountWxMsg.ORDER_STATE_CHANGE);
+                this.pushTextMsgByOriginalId(originalId,account.getId(),"尊敬的"+accountWeiXin.getNickname()+":",proName,proTrace,null,"/index.html#/mine/order",null,AccountWxMsg.ORDER_STATE_CHANGE);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -181,6 +181,62 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
         IPublicAccountService publicAccountService = ServiceFactory.create(IPublicAccountService.class);
         //取公众号配置
         PublicAccount weixinConfig = publicAccountService.byOriginalId(OID);
+        //取微信用户openid
+        Fans fans = this.queryFansByUserId(accountId);
+        //获取token
+        AccessToken token = token(weixinConfig);
+        String template_id = this.getTemplateId(token, tmpId.getEmpId());
+        SendTemplateData data = new SendTemplateData();
+        {
+            if (tmpId.getEmpId().equals(AccountWxMsg.BUY_SUCCESS.getEmpId())) {
+                data.getFirst().setValue(first);
+                data.getKeynotes().put("orderMoneySum", new KeyNote(keyword1));
+                data.getKeynotes().put("orderProductName", new KeyNote(keyword2));
+                if(StringUtils.isNotEmpty(remark))
+                    data.getKeynotes().put("Remark", new KeyNote(remark));
+                else
+                    data.getKeynotes().put("Remark",new KeyNote(""));
+            } else if (tmpId.getEmpId().equals(AccountWxMsg.ORDER_STATE_CHANGE.getEmpId())) {
+                data.getFirst().setValue(first);
+                data.getKeynotes().put("OrderSn", new KeyNote(keyword1));
+                data.getKeynotes().put("OrderStatus", new KeyNote(keyword2));
+                if(StringUtils.isNotEmpty(remark)){
+                    data.getKeynotes().put("remark", new KeyNote(remark));
+                }else{
+                    data.getKeynotes().put("remark",new KeyNote(""));
+                    data.setRemark(new KeyNote(""));
+                }
+            } else if (tmpId.getEmpId().equals(AccountWxMsg.WORK_PROCESS_CHANGE.getEmpId())) {
+                data.getFirst().setValue(first);
+                data.getKeynotes().put("keyword1", new KeyNote(keyword1));
+                data.getKeynotes().put("keyword2", new KeyNote(keyword2));
+                data.getKeynotes().put("keyword3", new KeyNote(date));
+                if(StringUtils.isNotEmpty(remark)){
+                    data.getKeynotes().put("remark", new KeyNote(remark));
+                }else{
+                    data.getKeynotes().put("remark",new KeyNote(""));
+                    data.setRemark(new KeyNote(""));
+                }
+            }
+        }
+        //拼接消息内容
+        String redirectUrl = UrlHelper.encode("http://" + weixinConfig.getHost() + UrlHelper.join(url, "originalId=" + OID));
+        SendTemplateMessageRequest request = new SendTemplateMessageRequest();
+        {
+            request.setTokenInfo(token);
+            request.setTouser(fans.getOpenId());
+            request.setTemplate_id(template_id);
+            request.setPageUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + weixinConfig.getAppId() + "&redirect_uri="+redirectUrl+"&response_type=code&scope=snsapi_base&state=111echat_redirect&connect_redirect=1#wechat_redirect");
+            request.setData(data);
+        }
+        request.getResponse();
+    }
+
+    @Override
+    public void pushTextMsgByOriginalId(String originalId, Integer accountId, String first, String keyword1, String keyword2, String date, String url, String remark, AccountWxMsg tmpId) {
+        IPublicAccountService publicAccountService = ServiceFactory.create(IPublicAccountService.class);
+        //取公众号配置
+        PublicAccount weixinConfig = publicAccountService.byOriginalId(originalId);
         //取微信用户openid
         Fans fans = this.queryFansByUserId(accountId);
         //获取token

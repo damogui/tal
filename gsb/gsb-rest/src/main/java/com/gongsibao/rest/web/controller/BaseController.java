@@ -12,4 +12,7 @@ public class BaseController {
     protected String openId(HttpServletRequest request){
         return request.getHeader(UserHeaders.openId);
     }
+    protected String originalId(HttpServletRequest request){
+        return request.getHeader(UserHeaders.originalId);
+    }
 }
