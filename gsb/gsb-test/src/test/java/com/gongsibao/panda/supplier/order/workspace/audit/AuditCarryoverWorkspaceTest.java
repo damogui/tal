@@ -103,6 +103,5 @@ public class AuditCarryoverWorkspaceTest extends WorkspaceCreationBase{
     protected void doOperation() {
         ResourceNode node = this.getResourceNode ();
         operationService.addOperation (node, OperationTypes.view);
-        operationService.addOperation (node, OperationTypes.add);
     }
 }
