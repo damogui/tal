@@ -1,5 +1,8 @@
 package com.gongsibao.trade.service.action.order.carryover;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;
@@ -22,7 +25,7 @@ public class ActionApplyCarryoverVerify  implements IAction{
 		SoOrder formOrder = orderService.getByOrderId(carryOver.getFormOrderId());
 		//根据订单去向No 获取去向订单Id
 		SoOrder toOrder = orderService.getByOrderNo(carryOver.getToOrderNo());
-		
+		carryOver.setToOrderId(toOrder.getId());		
 		//来源金额
 		Integer paidPrice = formOrder.getPaidPrice() == null ? 0 : formOrder.getPaidPrice().intValue();
 		Integer carryIntoAmount = formOrder.getCarryIntoAmount() == null ? 0 : formOrder.getCarryIntoAmount().intValue();
