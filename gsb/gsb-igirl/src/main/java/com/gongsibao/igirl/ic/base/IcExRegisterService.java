@@ -12,4 +12,6 @@ public interface IcExRegisterService extends IPersistableService<IcExRegisterCas
     List<IcExRegisterCase> getIcCaseByType(ApprovalType wait);
 
     IcExRegisterCase updateIcCase(String name, Integer state);
+
+    IcExRegisterCase updateOwner(Integer id, Integer toUserId);
 }

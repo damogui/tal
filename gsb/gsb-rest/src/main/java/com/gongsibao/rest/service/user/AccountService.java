@@ -139,12 +139,17 @@ public class AccountService implements IAccountService{
      * @date 2018/4/18 17:25
      */
     @Override
-    public void pushOrderStateMsg(String mobile, Integer orderPorudctId) {
-        accountWeiXinService.pushOrderStateMsg(mobile,orderPorudctId);
+    public void pushOrderStateMsg(String originalId,String mobile, Integer orderPorudctId) {
+        accountWeiXinService.pushOrderStateMsg(originalId,mobile,orderPorudctId);
     }
 
     @Override
     public void buySuccessSendMsg(Integer accountId, String moeny, String productName, String first, String url) {
         accountWeiXinService.pushTextMsg(accountId,first,moeny,productName,null,url,null, AccountWxMsg.BUY_SUCCESS);
+    }
+
+    @Override
+    public void buySuccessSendMsg(String originalId, Integer accountId, String moeny, String productName, String first, String url) {
+        accountWeiXinService.pushTextMsgByOriginalId(originalId,accountId,first,moeny,productName,null,url,null, AccountWxMsg.BUY_SUCCESS);
     }
 }

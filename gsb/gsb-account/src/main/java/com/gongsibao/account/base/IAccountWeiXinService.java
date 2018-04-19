@@ -19,7 +19,8 @@ public interface IAccountWeiXinService extends IPersistableService<AccountWeiXin
 	 * @author hbpeng <hbpeng@gongsibao.com>
 	 * @date 2018/4/18 16:47
 	 */
-	void pushOrderStateMsg(String mobile,Integer orderPorudctId );
+	void pushOrderStateMsg(String originalId,String mobile,Integer orderPorudctId );
 
 	void pushTextMsg(Integer accountId, String first, String keyword1, String keyword2, String date,String url, String remark, AccountWxMsg tmpId);
+	void pushTextMsgByOriginalId(String originalId,Integer accountId, String first, String keyword1, String keyword2, String date,String url, String remark, AccountWxMsg tmpId);
 }

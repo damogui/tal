@@ -35,7 +35,6 @@ public class ActionExpenseApplyPersist implements IAction {
     	//创建人 所属部门
     	 UserPermission up = UserPermissionManager.getUserPermission();
     	 expense.setDepartmentId(up.getDepartmentId());
-    	 expense.setAmount(expense.getAmount()*100);
     	 expense.setCode(getExpenseCode());
     	 Expense temp = expenseService.save(expense);
     	 ctx.setItem(temp);

@@ -20,37 +20,37 @@ import com.gongsibao.supplier.base.ISupplierDepartmentService;
 public class SupplierDepartmentService extends SupplierPersistableService<SupplierDepartment> implements ISupplierDepartmentService {
 
     public SupplierDepartmentService() {
-        super ();
+        super();
         this.type = SupplierDepartment.class;
     }
 
     public SupplierDepartment save(SupplierDepartment entity) {
 
-        EntityState state = entity.getEntityState ();
+        EntityState state = entity.getEntityState();
 
         if (state == EntityState.Deleted) {
 
-            int salesmanCount = this.deleteVerify (entity);
+            int salesmanCount = this.deleteVerify(entity);
             if (salesmanCount > 0) {//校验能不能删除
 
-                throw new BusinessException ("部门下面有员工不能删除");
+                throw new BusinessException("部门下面有员工不能删除");
 
             } else {//为0的能删除
 
-                entity = super.save (entity);
+                entity = super.save(entity);
             }
 
         } else {
 
-            SupplierService supplierService = new SupplierService ();
-            Supplier supplier = supplierService.byId (entity.getSupplierId ());
+            SupplierService supplierService = new SupplierService();
+            Supplier supplier = supplierService.byId(entity.getSupplierId());
             if (supplier == null) {
-                throw new BusinessException ("服务商属性不正确");
+                throw new BusinessException("服务商属性不正确");
             }
-            entity.setType (supplier.getType ());//设置平台属性
+            entity.setType(supplier.getType());//设置平台属性
 
-            entity = super.save (entity);
-            this.updateIsLeaf (entity);
+            entity = super.save(entity);
+            this.updateIsLeaf(entity);
 
         }
 
@@ -71,9 +71,9 @@ public class SupplierDepartmentService extends SupplierPersistableService<Suppli
 
 
         String sql = "SELECT  COUNT(1) FROM sp_salesman  WHERE  department_id  =?";
-        QueryParameters qps = new QueryParameters ();
-        qps.add ("@department_id", entity.getId (), Types.INTEGER);
-        int num = Integer.parseInt (this.pm.executeScalar (sql, qps).toString ());
+        QueryParameters qps = new QueryParameters();
+        qps.add("@department_id", entity.getId(), Types.INTEGER);
+        int num = Integer.parseInt(this.pm.executeScalar(sql, qps).toString());
         return num;
 
     }
@@ -87,38 +87,38 @@ public class SupplierDepartmentService extends SupplierPersistableService<Suppli
      */
     private void updateIsLeaf(SupplierDepartment entity) {
 
-        if (entity.getParentId () != null) {
+        if (entity.getParentId() != null) {
 
-            UpdateBuilder updateSql = UpdateBuilder.getInstance ();
+            UpdateBuilder updateSql = UpdateBuilder.getInstance();
             {
-                updateSql.update ("sp_department");
-                updateSql.set ("is_leaf", false);
-                updateSql.where ("id =" + entity.getParentId ());
+                updateSql.update("sp_department");
+                updateSql.set("is_leaf", false);
+                updateSql.where("id =" + entity.getParentId());
             }
-            String cmdText = updateSql.toSQL ();
-            pm.executeNonQuery (cmdText, null);
+            String cmdText = updateSql.toSQL();
+            pm.executeNonQuery(cmdText, null);
         }
     }
 
     @Override
     public List<Integer> getSubDepartmentIdList(Integer departmentId) {
 
-        List<Integer> idList = new ArrayList<Integer> ();
-        Oql oql = new Oql ();
+        List<Integer> idList = new ArrayList<Integer>();
+        Oql oql = new Oql();
         {
-            oql.setType (this.type);
-            oql.setSelects ("id");
-            oql.setFilter ("parentId=?");
-            oql.getParameters ().add ("@parentId", departmentId, Types.INTEGER);
+            oql.setType(this.type);
+            oql.setSelects("id");
+            oql.setFilter("parentId=?");
+            oql.getParameters().add("@parentId", departmentId, Types.INTEGER);
         }
 
-        List<SupplierDepartment> list = this.queryList (oql);
+        List<SupplierDepartment> list = this.queryList(oql);
         for (SupplierDepartment entity : list) {
 
-            idList.add (entity.getId ());
-            List<Integer> subIdList = getSubDepartmentIdList (entity.getId ());
-            if (idList.size () > 0) {
-                idList.addAll (subIdList);
+            idList.add(entity.getId());
+            List<Integer> subIdList = getSubDepartmentIdList(entity.getId());
+            if (idList.size() > 0) {
+                idList.addAll(subIdList);
             }
         }
 
@@ -128,17 +128,17 @@ public class SupplierDepartmentService extends SupplierPersistableService<Suppli
     @Override
     public Integer getSupDepartmentId(Integer departmentId) {
         Integer id = null;
-        Oql oql = new Oql ();
+        Oql oql = new Oql();
         {
-            oql.setType (this.type);
-            oql.setSelects ("parent_id");
-            oql.setFilter ("id=?");
-            oql.getParameters ().add ("@id", departmentId, Types.INTEGER);
+            oql.setType(this.type);
+            oql.setSelects("parent_id");
+            oql.setFilter("id=?");
+            oql.getParameters().add("@id", departmentId, Types.INTEGER);
         }
 
-        List<SupplierDepartment> list = this.queryList (oql);
+        List<SupplierDepartment> list = this.queryList(oql);
         for (SupplierDepartment entity : list) {
-            id = entity.getParentId ();
+            id = entity.getParentId();
         }
         return id;
     }
@@ -146,23 +146,36 @@ public class SupplierDepartmentService extends SupplierPersistableService<Suppli
     @Override
     public Integer getBegDepartmentId(Integer superId) {//获取一级部门id
 
-        Oql oql = new Oql ();
+        Oql oql = new Oql();
         {
-            oql.setType (this.type);
-            oql.setSelects ("id");
-            oql.setFilter ("supplier_id=?");
-            oql.setOrderby ("id asc");
-            oql.getParameters ().add ("@supplier_id", superId, Types.INTEGER);
+            oql.setType(this.type);
+            oql.setSelects("id");
+            oql.setFilter("supplier_id=?");
+            oql.setOrderby("id asc");
+            oql.getParameters().add("@supplier_id", superId, Types.INTEGER);
         }
 
-        List<SupplierDepartment> list = this.queryList (oql);
-        if (list.size () > 0) {
+        List<SupplierDepartment> list = this.queryList(oql);
+        if (list.size() > 0) {
 
-            return list.get (0).getId ();
+            return list.get(0).getId();
         } else {
             return 0;
 
         }
 
+    }
+
+    @Override
+    public SupplierDepartment getById(Integer id) {
+        Oql oql = new Oql();
+        {
+            oql.setType(this.type);
+            oql.setSelects("*");
+            oql.setFilter("id=?");
+            oql.getParameters().add("@id", id, Types.INTEGER);
+        }
+        SupplierDepartment supplierDepartment = this.pm.queryFirst(oql);
+        return supplierDepartment;
     }
 }

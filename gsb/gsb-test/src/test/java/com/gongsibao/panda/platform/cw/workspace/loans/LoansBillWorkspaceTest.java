@@ -210,7 +210,7 @@ public class LoansBillWorkspaceTest extends WorkspaceCreationBase {
         	  formField.setTroikaTrigger("controllerloan.paymentMethodChange(this);");
           }
           addFormField(form, "amount", "借款金额",groupName, ControlTypes.DECIMAL_FEN_BOX, true, false);
-          addFormField(form, "creator", "经办人",groupName, ControlTypes.TEXT_BOX, true, false);
+          addFormField(form, "creator", "经办人",groupName, ControlTypes.TEXT_BOX, false, false);
           addFormFieldRefrence(form, "borrowerEmployee.name", "借款人",groupName, "CRM_Employee" , true, false);
           groupName = "收款信息";
           addFormField(form, "payeeName", "收款人",groupName, ControlTypes.TEXT_BOX, true, false);
