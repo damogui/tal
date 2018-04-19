@@ -22,7 +22,8 @@ dependencies {
     compile project(':gsb-taurus-sdk')
     compile project(':gsb-controls')
     compile project(':gsb-trade')
-    compile project(':gsb-account')    
+    compile project(':gsb-account')
+    compile project(':gsb-crm')
 }
 
 test {

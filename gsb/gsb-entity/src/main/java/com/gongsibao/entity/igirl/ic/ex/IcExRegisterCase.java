@@ -1,6 +1,6 @@
 package com.gongsibao.entity.igirl.ic.ex;
 
-import com.gongsibao.entity.crm.Customer;
+import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.igirl.ic.ex.dict.ApprovalType;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
@@ -13,7 +13,11 @@ public class IcExRegisterCase extends Entity {
     private Integer customerId;
 
     @Reference(foreignKey = "customerId",header = "客户")
-    private Customer customer;
+    private NCustomer customer;
+
+    private String customerMobile;
+
+    private String customerName;
 
     @Column(name = "approval_name",header = "核准公司名称")
     private String approvalName;
@@ -30,11 +34,11 @@ public class IcExRegisterCase extends Entity {
         this.customerId = customerId;
     }
 
-    public Customer getCustomer() {
+    public NCustomer getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    public void setCustomer(NCustomer customer) {
         this.customer = customer;
     }
 
@@ -52,5 +56,21 @@ public class IcExRegisterCase extends Entity {
 
     public void setApprovalType(ApprovalType approvalType) {
         this.approvalType = approvalType;
+    }
+
+    public String getCustomerMobile() {
+        return customerMobile;
+    }
+
+    public void setCustomerMobile(String customerMobile) {
+        this.customerMobile = customerMobile;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 }

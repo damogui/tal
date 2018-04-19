@@ -44,13 +44,13 @@ public class ActionAuditCarryoverWriteBack implements IAction{
             case 0://驳回审核
                 auditService.auditRejected(auditLog.getId(), remark);
                 writeBackCarryover(auditLog.getFormId(),AuditStatusType.Bhsh);
-                writeBackOrder(orderId,AuditStatusType.Bhsh);
+                writeBackBhshOrder(orderId,AuditStatusType.Bhsh);
                 break;
             case 1://通过审核
                 auditService.auditApproved(auditLog.getId(),remark);
                 if (auditLog.getLevel().equals(auditLog.getMaxLevel())) {
                 	writeBackCarryover(auditLog.getFormId(),AuditStatusType.Shtg);
-                    writeBackOrder(orderId,AuditStatusType.Shtg);
+                	writeBackShtgOrder(orderId,AuditStatusType.Shtg);
                 }
                 break;
         }
@@ -73,19 +73,18 @@ public class ActionAuditCarryoverWriteBack implements IAction{
 		pm.executeNonQuery(cmdText, null);
 	} 
 	/**
-	 * 回写订单
+	 * 通过审核回写订单
 	 * @param formId 来源Id
 	 * @param state 审核状态
 	 */
-	private void writeBackOrder(Integer orderId, AuditStatusType state){
+	private void writeBackShtgOrder(Integer orderId, AuditStatusType state){
 		//1.审核成功，获取来源订单的结转金额 
 		Integer allAmout = 0;
 		Integer toOrderId = 0;
-		if(state.equals(AuditStatusType.Shtg)){
-			NOrderCarryover carryover = carryoverService.queryByFormOrderId(orderId);
-			allAmout = carryover.getAmount();
-			toOrderId = carryover.getToOrderId();
-		}
+		NOrderCarryover carryover = carryoverService.queryByFormOrderId(orderId);
+		allAmout = carryover.getAmount();
+		toOrderId = carryover.getToOrderId();
+		
 		//2.获取来源订单的已转出金额
 		Integer carryAmount = 0;
 		SoOrder carryOrder = orderService.getByOrderId(orderId);
@@ -95,7 +94,7 @@ public class ActionAuditCarryoverWriteBack implements IAction{
 		 
 		//3.获取去向订单的已转入金额
 		Integer carryIntoAmount = 0;
-		SoOrder carryIntoOrder = orderService.getByOrderId(orderId);
+		SoOrder carryIntoOrder = orderService.getByOrderId(toOrderId);
 		if(carryIntoOrder != null){
 			carryIntoAmount = carryIntoOrder.getCarryIntoAmount() == null ? 0 : carryIntoOrder.getCarryIntoAmount().intValue();
 		}
@@ -104,9 +103,7 @@ public class ActionAuditCarryoverWriteBack implements IAction{
 		{
 			updateSql.update("so_order");
 			updateSql.set("carry_status_id", state.getValue());
-			if(state.equals(AuditStatusType.Shtg)){
-				updateSql.set("carry_amount", allAmout + carryAmount);
-			}
+			updateSql.set("carry_amount", allAmout + carryAmount);
 			updateSql.where("pkid =" + orderId);
 		}
 		String cmdText = updateSql.toSQL();
@@ -117,9 +114,39 @@ public class ActionAuditCarryoverWriteBack implements IAction{
 		{
 			updateSqlTwo.update("so_order");
 			updateSqlTwo.set("carry_status_id", state.getValue());
-			if(state.equals(AuditStatusType.Shtg)){
-				updateSqlTwo.set("carry_into_amount", allAmout + carryIntoAmount);
-			}
+			updateSqlTwo.set("carry_into_amount", allAmout + carryIntoAmount);
+			
+			updateSqlTwo.where("pkid =" + toOrderId);
+		}
+		String cmdTextTwo = updateSqlTwo.toSQL();
+		IPersister<SoOrder> pmTwo = PersisterFactory.create();
+		pmTwo.executeNonQuery(cmdTextTwo, null);
+	}
+	/**
+	 * 驳回审核回写订单
+	 * @param formId 来源Id
+	 * @param state 审核状态
+	 */
+	private void writeBackBhshOrder(Integer orderId, AuditStatusType state){
+		//1.审核驳回，获取转入id		
+		Integer toOrderId = 0;
+		NOrderCarryover carryover = carryoverService.queryByFormOrderId(orderId);
+		toOrderId = carryover.getToOrderId();
+		//2.回写转出订单:结转审核状态
+        UpdateBuilder updateSql = UpdateBuilder.getInstance();
+		{
+			updateSql.update("so_order");
+			updateSql.set("carry_status_id", state.getValue());
+			updateSql.where("pkid =" + orderId);
+		}
+		String cmdText = updateSql.toSQL();
+		IPersister<SoOrder> pm = PersisterFactory.create();
+		pm.executeNonQuery(cmdText, null);
+		//3.回写转入订单:结转审核状态
+        UpdateBuilder updateSqlTwo = UpdateBuilder.getInstance();
+		{
+			updateSqlTwo.update("so_order");
+			updateSqlTwo.set("carry_status_id", state.getValue());
 			updateSqlTwo.where("pkid =" + toOrderId);
 		}
 		String cmdTextTwo = updateSqlTwo.toSQL();

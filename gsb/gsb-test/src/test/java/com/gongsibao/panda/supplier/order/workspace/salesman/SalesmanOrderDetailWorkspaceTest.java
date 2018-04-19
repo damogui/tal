@@ -24,7 +24,7 @@ import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.trade.web.SalesmanOrderDetailListPart;
 
 /**
- * 业务员/我的明细订单
+ * 业务员/我的明细订单 
  * @author Administrator
  *
  */
@@ -63,11 +63,11 @@ public class SalesmanOrderDetailWorkspaceTest extends WorkspaceCreationBase {
 		}
 
 		PDatagridColumn column = null;
-		column = addColumn(datagrid, "id", "操作", ControlTypes.TEXT_BOX, 120, true);{
+		column = addColumn(datagrid, "no", "操作", ControlTypes.TEXT_BOX, 120, true);{
 			column.setFormatter("return controllerorderProdList.operateFormatter(value,row,index)");
 			column.setAlign(DatagridAlign.CENTER);
 		}
-		column = addColumn(datagrid, "no", "订单明细编号", ControlTypes.TEXT_BOX, 80);
+		column = addColumn(datagrid, "id", "订单明细编号", ControlTypes.TEXT_BOX, 80);
 		{
 			column.setAlign(DatagridAlign.CENTER);
 		}

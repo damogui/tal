@@ -20,7 +20,7 @@ public class CustomerFollow extends BaseEntity {
     private Integer customerId;
 	
 	@JsonIgnore
-    @Reference(foreignKey="customerId",header="")
+    @Reference(foreignKey="customerId",header="",primaryKey="pkid")
     private Customer customer;
 	
     private String content;

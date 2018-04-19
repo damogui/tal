@@ -4,6 +4,7 @@ import com.gongsibao.entity.igirl.ic.IcRegisterCase;
 import com.gongsibao.entity.igirl.ic.baseinfo.AreaOne;
 import com.gongsibao.entity.igirl.ic.baseinfo.AreaTwo;
 import com.gongsibao.entity.igirl.ic.baseinfo.*;
+import com.gongsibao.entity.igirl.ic.ex.IcExRegisterCase;
 import com.gongsibao.entity.igirl.tm.*;
 import com.gongsibao.entity.igirl.tm.baseinfo.IGirlConfig;
 import com.gongsibao.entity.igirl.tm.baseinfo.NCLOne;
@@ -129,6 +130,10 @@ public class ResourceTest extends ResourceCreationBase {
 			this.createResourceNodeVoucher(IcUnPerson.class.getName(),"非自然人股东基本信息","IGRIL_IC_REGIST_"+IcUnPerson.class.getSimpleName(),IUnPersonService.class.getName(),node1.getId());
 			this.createResourceNodeVoucher(IcDirector.class.getName(),"董事信息","IGRIL_IC_REGIST_"+IcDirector.class.getSimpleName(),IDirectorService.class.getName(),node1.getId());
 
+		}
+		node1 = this.createResourceNodeCategory("工商状态", "GSB_IGIRL_IC_STATE", node.getId());
+		{
+			this.createResourceNodeVoucher(IcExRegisterCase.class.getName(), "工商状态", "IGRIL_IC_STATE_" + IcExRegisterCase.class.getSimpleName(), IcExRegisterService.class.getName(), node1.getId());
 		}
 	}
 }
