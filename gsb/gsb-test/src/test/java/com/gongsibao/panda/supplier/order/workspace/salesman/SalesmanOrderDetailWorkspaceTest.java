@@ -102,7 +102,7 @@ public class SalesmanOrderDetailWorkspaceTest extends WorkspaceCreationBase {
 			column.setFormatter("return '<span title='+value+'>'+value+'</span>'");
 		}
 		addColumn(datagrid, "handleName", "办理名称", ControlTypes.TEXT_BOX, 250);
-		addColumn(datagrid, "companyIntention.name", "操作公司", ControlTypes.TEXT_BOX, 250);
+		addColumn(datagrid, "companyIntention.companyName", "操作公司", ControlTypes.TEXT_BOX, 250);
 		
 		addColumn(datagrid, "soOrder.customerName", "下单人", ControlTypes.TEXT_BOX, 100);
         column=addColumn(datagrid, "soOrder.accountMobile", "下单人电话", ControlTypes.TEXT_BOX, 100);{
