@@ -39,4 +39,18 @@ public class AccountDeliverAddressService extends PersistableService<AccountDeli
         oql.getParameters().add("accountId",accountId, Types.INTEGER);
         return this.pm.queryList(oql);
     }
+
+    @Override
+    public int exists(AccountDeliverAddress accountDeliverAddress) {
+        Oql oql = new Oql();
+        oql.setType(this.type);
+        oql.setSelects("AccountDeliverAddress.*");
+        oql.setFilter(" accountId = ? and contacts = ? and mobilePhone = ? and cityId = ? and address = ? ");
+        oql.getParameters().add("accountId",accountDeliverAddress.getAccountId(),Types.INTEGER);
+        oql.getParameters().add("contacts",accountDeliverAddress.getContacts(),Types.VARCHAR);
+        oql.getParameters().add("mobilePhone",accountDeliverAddress.getMobilePhone(),Types.VARCHAR);
+        oql.getParameters().add("cityId",accountDeliverAddress.getCityId(),Types.INTEGER);
+        oql.getParameters().add("address",accountDeliverAddress.getAddress(),Types.VARCHAR);
+        return this.pm.queryCount(oql);
+    }
 }

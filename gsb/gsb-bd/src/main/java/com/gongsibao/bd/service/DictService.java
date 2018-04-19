@@ -3,6 +3,7 @@ package com.gongsibao.bd.service;
 import com.gongsibao.bd.base.IDictService;
 import com.gongsibao.entity.bd.Dict;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.core.Oql;
 import org.netsharp.service.PersistableService;
@@ -40,7 +41,7 @@ public class DictService extends PersistableService<Dict> implements IDictServic
             oql.setType(this.type);
             oql.setSelects("*");
             oql.setFilter("parentId=? and enabled=1");
-            oql.getParameters().add("parentId", parentId, Types.INTEGER);
+            oql.getParameters().add("parenetId", parentId, Types.INTEGER);
         }
         return this.queryList(oql);
     }
@@ -52,11 +53,11 @@ public class DictService extends PersistableService<Dict> implements IDictServic
         oql.setType(this.type);
         oql.setSelects("*");
         if(parentIds!=null&&parentIds.size()>0){
-            sql.append(" and pid in(?) ");
-            oql.getParameters().add("@pid",parentIds,Types.JAVA_OBJECT);
+            sql.append(String.format(" and pid in(%s) ", StringUtils.join(parentIds,",")));
         }
         oql.setFilter(sql.toString());
         oql.getParameters().add("type",type,Types.INTEGER);
+        oql.setOrderby(" pid ASC, pkid ASC ");
         return this.pm.queryList(oql);
     }
 

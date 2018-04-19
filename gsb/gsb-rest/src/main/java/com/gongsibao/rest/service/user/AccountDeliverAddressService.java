@@ -1,7 +1,9 @@
 package com.gongsibao.rest.service.user;
 
 import com.gongsibao.rest.dto.user.AccountDeliverAddressDTO;
+import com.gongsibao.rest.web.request.DeliverAddressRequest;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -34,4 +36,12 @@ public interface AccountDeliverAddressService {
      * @return
      */
     AccountDeliverAddressDTO byId(Integer pkId);
+
+    /**
+     * 更新或保存收货地址
+     *
+     * @param request DeliverAddressRequest
+     * @return
+     */
+    Integer saveUpdate(DeliverAddressRequest request);
 }

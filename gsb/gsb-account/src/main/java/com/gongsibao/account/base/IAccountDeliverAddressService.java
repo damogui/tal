@@ -23,4 +23,12 @@ public interface IAccountDeliverAddressService extends IPersistableService<Accou
      * @return
      */
     List<AccountDeliverAddress> queryList(Integer accountId);
+
+    /**
+     * 判断是否存在
+     *
+     * @param accountDeliverAddress AccountDeliverAddress
+     * @return
+     */
+    int exists(AccountDeliverAddress accountDeliverAddress);
 }
