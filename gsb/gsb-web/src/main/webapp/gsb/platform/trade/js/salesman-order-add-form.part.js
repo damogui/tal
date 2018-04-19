@@ -35,7 +35,7 @@ com.gongsibao.trade.web.SalesmanAddOrderFormPart = org.netsharp.panda.commerce.F
             if (account) {
 
                 //会员名称
-                $('#accountName').val(account.realName);
+                $('#accountName').val(System.isnull(account.customerName) ? account.realName : account.customerName);
 
                 //会员邮箱
                 $('#email').val(account.email);
@@ -102,14 +102,14 @@ com.gongsibao.trade.web.SalesmanAddOrderFormPart = org.netsharp.panda.commerce.F
         if (entity.products.length > 0) {
             $(entity.products).each(function (i, item) {
                 item.price = parseFloat(item.price);
-                $(item.items).each(function (j,item2) {
-                    item2.price=parseFloat(item2.price);                    
+                $(item.items).each(function (j, item2) {
+                    item2.price = parseFloat(item2.price);
                 });
             });
-        }else{
-        	
-        	IMessageBox.toast('没有选择产品服务项', 2);
-        	return false;
+        } else {
+
+            IMessageBox.toast('没有选择产品服务项', 2);
+            return false;
         }
         return true;
     },
@@ -119,12 +119,12 @@ com.gongsibao.trade.web.SalesmanAddOrderFormPart = org.netsharp.panda.commerce.F
 
             IMessageBox.toast("保存成功！");
 
-            setTimeout(function(){
+            setTimeout(function () {
 
                 //添加完刷新
                 //window.location.reload();
-            	window.location.href="/nav/gsb/platform/trade/orderDetail?id="+jmessage.id;
-            },1000);
+                window.location.href = "/nav/gsb/platform/trade/orderDetail?id=" + jmessage.id;
+            }, 1000);
             this.currentItem.entityState = EntityState.Persist;
             this.viewModel.currentItem = this.currentItem;
             this.databind();
@@ -340,8 +340,8 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
                     layer.closeAll();
                 }
             },
-            cancel:function(){
-            	layer.closeAll();
+            cancel: function () {
+                layer.closeAll();
             }
         });
     },
@@ -357,7 +357,7 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
             layer.msg('请选择产品名称！');
             return null;
         }
-        
+
         var cityId = $('#county').combobox('getValue');
         var cityName = $('#province').combobox('getText') + '-' + $('#city').combobox('getText') + '-' + $('#county').combobox('getText');
         if (System.isnull(cityId)) {
@@ -365,7 +365,7 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
             layer.msg('请选择产品地区！');
             return null;
         }
-        
+
         var rows = $('#serviceItems').datagrid('getChecked');
         if (rows == null || rows.length == 0) {
 
@@ -544,7 +544,7 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
                 $('#serviceItems').datagrid('highlightRow', index);
                 me.calculateTotalPrice();
                 $('#serviceItems').datagrid('beginEdit', index);
-                $('.datagrid-editable input').css('background-color','#ffd7d7').focus();
+                $('.datagrid-editable input').css('background-color', '#ffd7d7').focus();
             },
             onBeforeUncheck: function (index, row) {
 
@@ -610,26 +610,26 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
                 {
                     field: 'name', title: '服务名称', width: 200, formatter: function (value, row, index) {
 
-                    if (row.service && row.service.type) {
+                        if (row.service && row.service.type) {
 
-                        var name = row.service.type.name;
-                        if (row.service.property) {
+                            var name = row.service.type.name;
+                            if (row.service.property) {
 
-                            name = row.service.property.name + '-' + name;
+                                name = row.service.property.name + '-' + name;
+                            }
+                            return name;
                         }
-                        return name;
                     }
-                }
                 },
                 {
                     field: 'unit', title: '单位', width: 50, align: 'center', formatter: function (value, row, index) {
 
-                    if (row.service && row.service.unit) {
+                        if (row.service && row.service.unit) {
 
-                        return row.service.unit.name;
+                            return row.service.unit.name;
+                        }
+                        return value;
                     }
-                    return value;
-                }
                 },
                 {
                     field: 'originalPrice',
@@ -646,7 +646,7 @@ com.gongsibao.trade.web.SelectServiceItemCtrl = System.Object.Extends({
                     title: '现售价',
                     width: 100,
                     align: 'right',
-                    editor: {type: 'numberbox', options: {precision: 2,min:0,height:31, required:true}},
+                    editor: {type: 'numberbox', options: {precision: 2, min: 0, height: 31, required: true}},
                     formatter: function (value, row, index) {
 
                         return System.RMB.fenToYuan(value);
