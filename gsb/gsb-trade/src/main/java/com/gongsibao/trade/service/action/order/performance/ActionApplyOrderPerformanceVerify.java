@@ -65,7 +65,7 @@ public class ActionApplyOrderPerformanceVerify implements IAction {
             throw new BusinessException ("订单业绩必须分配！");
         }
 
-        if ((entity.getPayablePrice()-entity.getCarryIntoAmount())>0) {//
+        if ((entity.getPayablePrice()-entity.getCarryIntoAmount())<=0) {//
 
 
             throw new BusinessException ("【该订单无业绩可创建，请核实】");
