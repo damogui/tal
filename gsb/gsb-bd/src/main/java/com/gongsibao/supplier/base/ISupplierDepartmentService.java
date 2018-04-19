@@ -27,4 +27,6 @@ public interface ISupplierDepartmentService  extends IPersistableService<Supplie
      * @return
      */
     Integer getBegDepartmentId(Integer superId);
+
+	SupplierDepartment getById(Integer id);
 }
