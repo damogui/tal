@@ -30,6 +30,14 @@ public interface IDictService extends IPersistableService<Dict> {
 	 */
 	List<Dict> byParentId(Integer parentId);
 
+	/**
+	 * 根据字典类型 & 父ID查询相关数据字典(默认只查询激活状态)
+	 * @param type 字典类型 *
+	 * @param parentId 父ID
+	 * @return List<Dict>
+	 */
+	List<Dict> byTypeParentId(Integer type,Collection<Integer> parentId);
+
 	boolean delete(String ids);
 
 	List<Integer> findParentIds(Collection<Integer> dictIds);

@@ -88,13 +88,18 @@ public class AuditPayListPart extends AdvancedListPart {
 
         	String orderNoF=soOrderNo.split(",")[0];
         	SoOrder soOrder = orderService.getOrderWithOrderProdsByOrderNo(orderNoF);
-        	List<OrderProd> products = soOrder.getProducts();
-        	String productName = "";
-        	for (OrderProd item : products) {
-        		productName += item.getProductName();
-			}
-        	
-            ob2.get(i).put("pay_productName", productName);
+        	if (soOrder!=null){
+
+                List<OrderProd> products = soOrder.getProducts();
+                String productName = "";
+                for (OrderProd item : products) {
+                    productName += item.getProductName();
+                }
+
+                ob2.get(i).put("pay_productName", productName);
+
+            }
+
         }
         return json;
     }
