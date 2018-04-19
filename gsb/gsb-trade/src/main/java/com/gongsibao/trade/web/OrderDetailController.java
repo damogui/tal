@@ -93,7 +93,7 @@ public class OrderDetailController {
         Oql oql = new Oql();
         {
             oql.setType(SoOrder.class);
-            oql.setSelects("SoOrder.*");
+            oql.setSelects("SoOrder.*,customer.{pkid,real_name,email}");
             oql.setFilter("id=?");
             oql.getParameters().add("id", id, Types.INTEGER);
         }
@@ -302,7 +302,7 @@ public class OrderDetailController {
         String sels = "SoOrder.{pkid,companyId},SoOrder.companyIntention.*";
         SoOrder soOrder = orderService.getSoOrderById(orderId, sels);
         List<SoOrderDTO> list = new ArrayList<>();
-        if (soOrder != null&&soOrder.getCompanyId()!=0) {
+        if (soOrder != null && soOrder.getCompanyId() != 0) {
             SoOrderDTO soOrderDTO = new SoOrderDTO();
             soOrderDTO.setId(soOrder.getId());
             soOrderDTO.setCompanyId(soOrder.getCompanyId());
