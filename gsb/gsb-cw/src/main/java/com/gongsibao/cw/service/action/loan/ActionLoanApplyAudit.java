@@ -46,7 +46,7 @@ public class ActionLoanApplyAudit  implements IAction{
 				   	 au.setStatus(FinanceDict.AuditDetailStatus.WAIT); //待审核
 				   	 auditRecordService.save(au);
 					 String  content = "【财务报销】"+loan.getCreator()+"提交了借款申请，单据编号："+loan.getCode()+" 请您尽快处理。";
-				   	 eMessageService.send("CRM", content, employee.getMobile());
+				   	 eMessageService.send(FinanceDict.WX_MSG_CODE, content, employee.getMobile());
 				 }
 			 }else{
 				 throw new BusinessException("您当前的组织机构错误，请联系管理员。");
@@ -89,6 +89,8 @@ public class ActionLoanApplyAudit  implements IAction{
 					result = false;
 				}
 			}
+		}else{
+			result = false;
 		}
 		return result;
 	}

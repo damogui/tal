@@ -47,7 +47,7 @@ public class ActionPaymentApplyAudit  implements IAction{
 				   	 au.setApplyUserId(SessionManager.getUserId());
 				   	 auditRecordService.save(au);
 				   	 String  content = "【财务报销】"+payment.getCreator()+"提交了付款申请，单据编号："+payment.getCode()+" 请您尽快处理。";
-				   	 eMessageService.send("CRM", content, employee.getMobile());
+				   	 eMessageService.send(FinanceDict.WX_MSG_CODE, content, employee.getMobile());
 				 }
 			 }else{
 				 throw new BusinessException("您当前的组织机构错误，请联系管理员。");

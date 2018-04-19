@@ -17,6 +17,13 @@ com.gongsibao.cw.web.LoanAuditBillFormCtrl = org.netsharp.panda.core.CustomCtrl.
     		 me.bindAuditTable(data);
     		 me.bindFileTable(data);
     		 me.bindU8BankSelect(data.setOfBooksId);
+    		 //禁用支付方式
+    		 if(data.paymentMethod == 1){
+	    		$("#bankItem").combobox({ disabled: true });  
+	    	 }else{
+	    	 	$("#bankItem").combobox({ disabled: false });  
+	    	 }
+    		 $("#paymentMethodId").val(data.paymentMethod);
     	});
     },
     bindForm : function (billData){ // 绑定form数据
@@ -30,11 +37,16 @@ com.gongsibao.cw.web.LoanAuditBillFormCtrl = org.netsharp.panda.core.CustomCtrl.
     	
     	$("#borrower_name").text(billData.borrowerEmployee.name);
     	$("#creator").text(billData.creator);
-    	$("#payee").text(billData.payeeName);
+    	$("#payeeName").text(billData.payeeName);
     	$("#books_name").text(billData.setOfBooks.name);
     	$("#payment_method").text(me.paymentMethod[billData.paymentMethod]);
+    	
     	$("#bill_type").text(me.loanBillType[billData.type]);
     	$("#memoto_txt").text(billData.memoto);
+    	
+    	$("#companyAccount").text((System.isnull(billData.companyAccount))?"无":billData.companyAccount);
+    	$("#companyBank").text((System.isnull(billData.companyBank))?"无":billData.companyBank);
+    	
     	//判断是否财务办理
     	if(billData.status == 4){
     		$("#audit_panel").hide();
@@ -128,10 +140,13 @@ com.gongsibao.cw.web.LoanAuditBillFormCtrl = org.netsharp.panda.core.CustomCtrl.
     	});
     },
     saveFinance:function (){
-    	var bankId = $('#bankItem').combobox('getValue');
-    	if(System.isnull(bankId)){
-    		IMessageBox.toast('请选择支付方式!',2);
-			return;
+    	var paymentMethodId = $("#paymentMethodId").val();
+    	if(paymentMethodId == 2){
+    		var bankId = $('#bankItem').combobox('getValue');
+        	if(System.isnull(bankId)){
+        		IMessageBox.toast('请选择支付方式!',2);
+    			return;
+        	}
     	}
     	var memoto = $("#finance_memoto").val();
     	if(System.isnull(memoto)){

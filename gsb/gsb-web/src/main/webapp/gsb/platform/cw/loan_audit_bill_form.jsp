@@ -15,6 +15,8 @@
 		   <input type="hidden" id="formId"  value=""  > 
 		   <input type="hidden" id="apply_user_id"  value=""  >
 	  	   <input type="hidden" id="apply_department_id"  value=""  >
+	  	   <input type="hidden" id="paymentMethodId"  value=""  >
+	  	   
 		   <h5 class="page-header" style="margin-top: 0px;" ><span class="glyphicon glyphicon-list-alt" ></span> 单据信息</h5>
 		   <div class="row">
 		   		 <div class="col-sm-4"> 
@@ -76,7 +78,7 @@
 		   		 	 <div class="form-group">   
 					        <label for="firstname" class="col-sm-4 control-label">收款人:</label>   
 					        <div class="col-sm-8">  
-					           <p class="form-control-static" id="payee" ></p>
+					           <p class="form-control-static" id="payeeName" ></p>
 					       </div>  
 				       </div>  
 		   		 	
