@@ -3,10 +3,14 @@ com.gongsibao.trade.web.interactive.MyInChargeListPart = org.netsharp.panda.comm
     ctor: function () {
         this.base();
     },
-    detail:function(id){
-    	
-    	var url = '/nav/gsb/platform/trade/orderProdDetail?id='+id;
-    	window.open(url);
+    onload: function () {
+        $("#inChargeStatus").combobox("setValue", 3141);
+        controllerorderProdList.query();
+    },
+    detail: function (id) {
+
+        var url = '/nav/gsb/platform/trade/orderProdDetail?id=' + id;
+        window.open(url);
     },
     addFollowUp: function () {
         var me = this;
@@ -60,6 +64,4 @@ com.gongsibao.trade.web.interactive.MyInChargeListPart = org.netsharp.panda.comm
         $(obj).parent().text(value);
     }
 });
-
-
 
