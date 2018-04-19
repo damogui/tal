@@ -52,13 +52,13 @@ com.gongsibao.trade.web.OrderCarryoverCtrl = org.netsharp.panda.core.CustomCtrl.
     			layer.msg('去向订单号输入有误，请重新输入');
     		}else if(data == 2){
     			$('#toOrderNo').val("");
-    			layer.msg('结转去向订单号待审核中，暂不能操作！');
+    			layer.msg('结转去向订单号还处于结转审核中，请审核通过后，再创建');
     		}else if(data == 3){
     			$('#toOrderNo').val("");
     			layer.msg('结转去向订单号已创建订单业绩，不允许结转转入，请知悉');
     		}else if(data == 4){
     			$('#toOrderNo').val("");
-    			layer.msg('结转去向订单号分期审核中，不允许结转转入，请知悉');
+    			layer.msg('结转去向订单号还处于改价审核中，请审核通过后，再创建');
     		}else{
     			$("#toOrderId_hidden").val(data.id);				
 				var toPayablePrice = data.payablePrice;

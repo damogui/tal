@@ -37,7 +37,7 @@ public class OrderCarryoverController {
 	/**
 	 * 根据订单编号获取订单实体
 	 * @param orderNo
-	 * @return 0-通过;1-去向订单号输入有误;2-去向订单待审核状态;3-去向订单号已创建订单业绩审核状态;4-去向订单号改价审核状态
+	 * @return 0-通过;1-去向订单号输入有误;2-去向订单结转审核状态;3-去向订单号已创建订单业绩审核状态;4-去向订单号改价审核状态
 	 */
 	public Integer getSoOrderByNo(String orderNo) {
 		Integer resultValueInteger = 0;
