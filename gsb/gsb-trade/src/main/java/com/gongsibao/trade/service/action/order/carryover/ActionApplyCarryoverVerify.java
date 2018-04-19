@@ -20,7 +20,9 @@ public class ActionApplyCarryoverVerify  implements IAction{
 		//根据订单Id获取订单实体
 		ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
 		SoOrder formOrder = orderService.getByOrderId(carryOver.getFormOrderId());
-		SoOrder toOrder = orderService.getByOrderId(carryOver.getToOrderId());
+		//根据订单去向No 获取去向订单Id
+		SoOrder toOrder = orderService.getByOrderNo(carryOver.getToOrderNo());
+		
 		//来源金额
 		Integer paidPrice = formOrder.getPaidPrice() == null ? 0 : formOrder.getPaidPrice().intValue();
 		Integer carryIntoAmount = formOrder.getCarryIntoAmount() == null ? 0 : formOrder.getCarryIntoAmount().intValue();
