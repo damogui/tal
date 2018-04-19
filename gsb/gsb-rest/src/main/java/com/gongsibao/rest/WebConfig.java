@@ -1,6 +1,6 @@
 package com.gongsibao.rest;
 
-import com.gongsibao.rest.common.interceptor.LoginCheckInterceptor;
+import com.gongsibao.rest.web.common.interceptor.LoginCheckInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
