@@ -3,6 +3,7 @@ package com.gongsibao.bd.base;
 import org.netsharp.base.IPersistableService;
 
 import com.gongsibao.entity.bd.PreferentialCode;
+import org.netsharp.core.annotations.Transaction;
 
 import java.beans.Transient;
 import java.util.List;
@@ -40,6 +41,6 @@ public interface IPreferentialCodeService extends IPersistableService<Preferenti
      * @param no        优惠码
      * @param accountId 账号ID
      */
-    @Transient
+    @Transaction
     int updateActive(String no, Integer accountId);
 }

@@ -62,7 +62,7 @@ public class ContractFormPart extends FormPart {
         Oql oql = new Oql();
         {
             oql.setType(Contract.class);
-            oql.setSelects("contract.*,soOrder.*,soOrder.products.*,soOrder.products.items.*,soOrder.companyIntention.{pkid,name,full_name,company_name}");
+            oql.setSelects("contract.*,soOrder.*,soOrder.customer.{pkid,real_name,email,mobile},soOrder.products.*,soOrder.products.items.*,soOrder.companyIntention.{pkid,name,full_name,company_name}");
             oql.setFilter("id=?");
             oql.getParameters().add("id", NumberUtils.toInt(id), Types.INTEGER);
         }

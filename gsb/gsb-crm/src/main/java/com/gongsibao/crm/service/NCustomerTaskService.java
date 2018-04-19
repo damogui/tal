@@ -295,7 +295,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
             }
         }
         if (NumberUtils.toInt(departmentId) != 0 && NumberUtils.toInt(toUserId) == 0) {
-            SupplierDepartment supplierDepartment = supplierDepartmentService.byId(departmentId);
+            SupplierDepartment supplierDepartment = supplierDepartmentService.getById(departmentId);
             if (supplierDepartment != null) {
                 supplierId = supplierDepartment.getSupplierId();
             }

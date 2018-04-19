@@ -164,7 +164,7 @@ public class NCustomer extends BaseEntity {
 	@Column(name = "customer_source", header = "客户来源")
 	private Integer customerSourceId=0;
 	
-	@Reference(foreignKey = "lastCustomerSourceId", header = "最后一次客户来源-商机中回写")
+	@Reference(foreignKey = "lastCustomerSourceId", header = "最后一次客户来源-商机中回写",primaryKey="pkid")
 	private Dict lastCustomerSource;
 
 	@Column(name = "last_customer_source", header = "最后一次客户来源-商机中回写")

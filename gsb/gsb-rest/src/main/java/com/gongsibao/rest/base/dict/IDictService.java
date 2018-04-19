@@ -9,7 +9,7 @@ import java.util.List;
  * @Description: TODO 数据字典
  * @date 2018/4/19 10:31
  */
-public interface DictService {
+public interface IDictService {
 
     /**
      * 查询省市区列表

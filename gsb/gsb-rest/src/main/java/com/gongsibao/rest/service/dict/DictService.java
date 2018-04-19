@@ -1,19 +1,14 @@
 package com.gongsibao.rest.service.dict;
 
 
-import com.gongsibao.bd.base.IDictService;
 import com.gongsibao.entity.bd.Dict;
-import com.gongsibao.rest.base.dict.DictService;
-import com.gongsibao.rest.web.common.util.StringUtils;
-import com.gongsibao.rest.web.common.web.BdCity;
+import com.gongsibao.rest.base.dict.IDictService;
 import com.gongsibao.rest.web.dto.dict.CityDTO;
-import org.apache.commons.lang3.ObjectUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,9 +18,9 @@ import java.util.stream.Collectors;
  * @date 2018/4/19 10:34
  */
 @Service
-public class DictServiceImpl implements DictService{
+public class DictService implements IDictService {
 
-    private IDictService dictService = ServiceFactory.create(IDictService.class);
+    private com.gongsibao.bd.base.IDictService dictService = ServiceFactory.create(com.gongsibao.bd.base.IDictService.class);
 
 
     @Override

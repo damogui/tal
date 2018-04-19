@@ -221,7 +221,7 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
     	
         return true;
     },
-    onSaved: function (jmessage) {    	
+    onSaved: function (jmessage) {
         this.currentItem = jmessage;
         if(this.currentItem!=null){
         	

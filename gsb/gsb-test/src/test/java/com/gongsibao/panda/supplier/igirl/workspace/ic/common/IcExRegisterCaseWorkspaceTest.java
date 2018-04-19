@@ -1,10 +1,7 @@
 package com.gongsibao.panda.supplier.igirl.workspace.ic.common;
 
 import com.gongsibao.entity.igirl.ic.ex.IcExRegisterCase;
-import com.gongsibao.igirl.ic.web.BaseInfoDetailPart;
-import com.gongsibao.igirl.ic.web.IcExRegisterCasePart;
-import com.gongsibao.igirl.ic.web.IcRegisterCasePart;
-import com.gongsibao.igirl.ic.web.UnPersonDetailPart;
+import com.gongsibao.igirl.ic.web.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
@@ -40,10 +37,14 @@ public class IcExRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 		meta = MtableManager.getMtable(entity);
 		resourceNodeCode = "IGRIL_IC_STATE_IcExRegisterCase";
 		formPartName = listPartName = meta.getName();
-		listToolbarPath="/igirl/IcExRegisterCase/list";
+		formJsImport = "/gsb/igirl/js/icexregistercase.form.part.js";
 		formServiceController = IcExRegisterCasePart.class.getName();
 		formJsController = IcExRegisterCasePart.class.getName();
-		formJsImport = "/gsb/igirl/js/icexregistercase.form.part.js";
+
+		listToolbarPath="/igirl/state/IcExRegisterCase/list";
+		listPartImportJs = "/gsb/igirl/js/icexregistercase.list.part.js";
+		listPartServiceController = IcExRegisterCaseListPart.class.getName();
+		listPartJsController = IcExRegisterCaseListPart.class.getName();
 	}
 
 	public static final String icFormToolbarPath = "/igirl/ic/toolbar";
@@ -99,6 +100,18 @@ public class IcExRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 			item.setCommand("{controller}.remove();");
 			toolbar.getItems().add(item);
 		}
+		item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("doAllot");
+			item.setIcon("fa fa-link");
+			item.setName("分配");
+			item.setCommand(null);
+			item.setOperationType(ot1);
+			item.setSeq(4000);
+			item.setCommand("{controller}.doAllot();");
+			toolbar.getItems().add(item);
+		}
 		toolbarService.save(toolbar);
 
 		ot1 = operationTypeService.byCode(OperationTypes.add);
@@ -134,6 +147,8 @@ public class IcExRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 			item.setCommand("{controller}.add();");
 			toolbar.getItems().add(item);
 		}
+
+
 		toolbarService.save(toolbar);
 	}
 
@@ -144,8 +159,12 @@ public class IcExRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 		PDatagrid datagrid = super.createDatagrid(node);
 		PDatagridColumn column = null;
 		column = addColumn(datagrid, "approvalName", "核准公司名称", ControlTypes.TEXT_BOX, 300);
+		column = addColumn(datagrid, "approvalType", "审核状态", ControlTypes.ENUM_BOX, 300);
+		column = addColumn(datagrid, "corpRegStatue", "工商业务状态", ControlTypes.ENUM_BOX, 300);
+
 		column = addColumn(datagrid, "customer.mobile", "客户电话", ControlTypes.TEXT_BOX, 300, true);
 		column = addColumn(datagrid, "customer.realName", "客户姓名", ControlTypes.TEXT_BOX, 300);
+
 		return datagrid;
 	}
 
@@ -158,10 +177,23 @@ public class IcExRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 		{
 			form.setColumnCount(1);
 		}
-		PFormField field = null;
-		addFormField(form, "customerMobile", "客户电话", null, ControlTypes.TEXT_BOX, true,false);
+		PFormField formField = null;
+		formField = addFormField(form, "customerMobile", "客户电话", null, ControlTypes.TEXT_BOX, true,false);
+		{
+			formField.setTroikaTrigger("controllericExRegisterCase.isTel(this);");
+		}
+		addFormField(form, "approvalType", "审核状态", null, ControlTypes.ENUM_BOX, true,false);
+		addFormField(form, "corpRegStatue", "工商业务状态", null, ControlTypes.ENUM_BOX, true,false);
+
 		addFormField(form, "customerName", "客户姓名", null, ControlTypes.TEXT_BOX, true,false);
-		addFormField(form, "approvalName", "核准公司名称", null, ControlTypes.TEXT_BOX, true,false);
+		formField = addFormField(form, "approvalName", "核准公司名称", null, ControlTypes.TEXT_BOX, true,false);
+		{
+			formField.setTroikaTrigger("controllericExRegisterCase.isCom(this);");
+		}
+			/*手机号码 判断
+		 * 公司名称 字符串里包含北京
+		 *
+		 * */
 		return form;
 	}
 

@@ -12,6 +12,8 @@ import org.netsharp.core.annotations.Table;
 
 import com.gongsibao.entity.BaseEntity;
 import com.gongsibao.entity.bd.File;
+import com.gongsibao.entity.supplier.Supplier;
+import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.OfflineWayType;
 import com.gongsibao.entity.trade.dic.PayForOrderCountType;
@@ -117,6 +119,15 @@ public class Pay extends BaseEntity {
 	@Subs(subType = OrderPayMap.class, foreignKey = "payId", header = "支付明细")
 	private List<OrderPayMap> orderPayMaps = new ArrayList<>();
 	
+    @Column(name = "supplier_id", header = "服务商Id")
+    private Integer supplierId;
+
+    @Column(name = "department_id", header = "部门Id")
+    private Integer departmentId;
+
+    @Column(name = "owner_id", header = "业务员Id")
+    private Integer ownerId;
+
 	/* new end */
 
 	public String getNo() {
@@ -352,5 +363,28 @@ public class Pay extends BaseEntity {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
-    
+
+	public Integer getSupplierId() {
+		return supplierId;
+	}
+
+	public void setSupplierId(Integer supplierId) {
+		this.supplierId = supplierId;
+	}
+
+	public Integer getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(Integer departmentId) {
+		this.departmentId = departmentId;
+	}
+
+	public Integer getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(Integer ownerId) {
+		this.ownerId = ownerId;
+	}
 }
