@@ -32,7 +32,7 @@ public class ActionExpenseApplyAudit  implements IAction{
 		Expense expense = (Expense) ctx.getItem();
 		 if(expense != null && expense.getId() != null){
 			 UserPermission up = UserPermissionManager.getUserPermissionWithoutException();
-			 List<Employee> leaderList  = this.getEmployeeList(up.getDepartmentId());
+			 List<Employee> leaderList  = this.getEmployeeList(up.getEmployee().getDepartmentId());
 			 if(leaderList != null && leaderList.size() >0){
 				 for(Employee employee : leaderList){
 					 //保存创建人上级主管审核信息
@@ -42,7 +42,7 @@ public class ActionExpenseApplyAudit  implements IAction{
 				   	 au.setFormType(FinanceDict.FormType.BXD);
 				   	 au.setFormId(expense.getId());
 				   	 au.setStatus(FinanceDict.AuditDetailStatus.WAIT); //待审核
-					 au.setApplyDepartmentId(up.getDepartmentId());
+					 au.setApplyDepartmentId(up.getEmployee().getDepartmentId());
 				   	 au.setApplyUserId(SessionManager.getUserId());
 				   	 auditRecordService.save(au);
 				   	 

@@ -41,7 +41,7 @@ public class ActionLoanApplyAudit  implements IAction{
 				   	 au.setAuditUserId(employee.getId());    //获取上级主管id
 				   	 au.setFormType(FinanceDict.FormType.JKD);
 				   	 au.setFormId(loan.getId());
-				   	 au.setApplyDepartmentId(up.getDepartmentId());
+				   	 au.setApplyDepartmentId(up.getEmployee().getDepartmentId());
 				   	 au.setApplyUserId(SessionManager.getUserId());
 				   	 au.setStatus(FinanceDict.AuditDetailStatus.WAIT); //待审核
 				   	 auditRecordService.save(au);
