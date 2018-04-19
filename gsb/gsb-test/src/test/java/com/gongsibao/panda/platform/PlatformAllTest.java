@@ -28,7 +28,7 @@ import org.junit.runners.Suite.SuiteClasses;
     //9.报表中心
 	 com.gongsibao.panda.platform.report.AllTest.class,
 
-
+     com.gongsibao.panda.platform.cw.AllTest.class,
 	})
 public class PlatformAllTest {
 
