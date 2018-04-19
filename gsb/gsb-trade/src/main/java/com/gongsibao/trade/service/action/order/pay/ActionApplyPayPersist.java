@@ -7,10 +7,13 @@ import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.OfflineWayType;
 import com.gongsibao.entity.u8.U8Bank;
 import com.gongsibao.u8.base.IU8BankService;
+import com.gongsibao.utils.SupplierSessionManager;
+
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.base.IPersistableService;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.util.ReflectManager;
 import org.netsharp.util.StringManager;
 
@@ -39,7 +42,13 @@ public class ActionApplyPayPersist implements IAction {
         Pay pay = (Pay) ctx.getItem();
         pay.setOfflineAuditStatus (AuditStatusType.Dsh);
         pay.toNew();
-
+        
+        //冗余：supplierId，departmentId、ownerId
+        pay.setOwnerId(SessionManager.getUserId());
+        pay.setSupplierId(SupplierSessionManager.getSupplierId());
+        pay.setDepartmentId(SupplierSessionManager.getDepartmentId());
+        
+        
         // 处理付款凭证
         String tableName = "so_pay";
         List<File> fileList = pay.getFiles();
