@@ -80,6 +80,18 @@ public class InteractiveOperationPoolWorkspaceTest extends InteractiveMyInCharge
             toolbar.getItems().add(item);
         }
 
+        item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("queryOperation");
+            item.setIcon(PToolbarHelper.iconPermission);
+            item.setName("操作组查询");
+            item.setSeq(4);
+            item.setOperationType(ot1);
+            item.setCommand("{controller}.queryOperation();");
+            toolbar.getItems().add(item);
+        }
+
         toolbarService.save(toolbar);
     }
 

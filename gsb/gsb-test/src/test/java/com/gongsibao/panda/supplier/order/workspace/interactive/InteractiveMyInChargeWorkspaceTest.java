@@ -39,8 +39,7 @@ public class InteractiveMyInChargeWorkspaceTest extends WorkspaceCreationBase {
 		listPartImportJs = "/gsb/platform/trade/js/prod/interactive-myincharge-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
 		listPartServiceController = MyInChargeListPart.class.getName();
 		listPartJsController = MyInChargeListPart.class.getName();
-		listFilter = "OrderProd.pkid IN(SELECT distinct order_prod_id FROM so_order_prod_user_map WHERE type_id=" + OrderProdUserMapType.Czy.getValue() + " AND status_id="
-				+ OrderProdUserMapStatus.Zzfz.getValue() + " AND user_id = '{userId}')";
+		listFilter = "OrderProd.pkid IN(SELECT distinct order_prod_id FROM so_order_prod_user_map WHERE type_id=" + OrderProdUserMapType.Czy.getValue() + " AND user_id = '{userId}')";
 	}
 
 	@Test
@@ -79,7 +78,7 @@ public class InteractiveMyInChargeWorkspaceTest extends WorkspaceCreationBase {
 		{
 			datagrid.setName("我负责的订单");
 			datagrid.setToolbar("panda/datagrid/row/edit");
-			datagrid.setAutoQuery(true);
+			datagrid.setAutoQuery(false);
 			if (!isSingleSelect) {
 				datagrid.setShowCheckbox(true);
 				datagrid.setSingleSelect(false);
