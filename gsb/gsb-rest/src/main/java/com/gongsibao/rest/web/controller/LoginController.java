@@ -229,32 +229,6 @@ public class LoginController {
         return data;
     }
     
-    @RequestMapping(value = "/login/icompany", method = RequestMethod.GET)
-    public ResponseData loginIcompany(
-            @RequestParam("openId") String openId,
-            HttpServletRequest request, HttpServletResponse response){
-        ResponseData data = new ResponseData();
-        // 清cookie
-        WebUtils.removeCookieCom(response, Constant.COOKIE_ACCOUNT_LOGIN_TICKET);
-        Account ucAccount=accountService.queryByOpenId(openId);
-        if (null != ucAccount) {
-            data.setCode(200);
-            String ticket = ucAccount.getTicket();
-            // 未单点登录
-            if (StringUtils.isBlank(ticket)) {
-                ticket = UUID.randomUUID().toString();
-                ucAccount.setTicket(ticket);
-                accountService.updateTicket(ucAccount.getId(), ticket);
-            }
-            data.setData(ucAccount);
-            WebUtils.setCookieCom(response, Constant.COOKIE_ACCOUNT_LOGIN_TICKET, ticket, Constant.TIME_ONE_YEAR);
-        }else{
-            data.setCode(-1);
-            data.setMsg("未绑定手机号，登录失败！");
-        }
-        return data;
-    }
-
     /**
      * @Description:TODO 获取签名 支付前
      * @param  url
