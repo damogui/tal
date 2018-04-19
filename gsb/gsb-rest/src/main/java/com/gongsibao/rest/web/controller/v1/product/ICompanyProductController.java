@@ -229,7 +229,7 @@ public class ICompanyProductController extends BaseController {
 
         Result<SoOrder> result = orderService.saveOrder(orderAddDTO);
         if (Result.isSuccess(result)) {
-            data.setData(result.getObj());
+            data.setData(result.getObj().getId());
         } else {
             data.setMsg(result.getMsg());
             data.setCode(-1);
