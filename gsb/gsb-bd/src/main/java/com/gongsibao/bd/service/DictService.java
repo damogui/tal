@@ -46,6 +46,21 @@ public class DictService extends PersistableService<Dict> implements IDictServic
     }
 
     @Override
+    public List<Dict> byTypeParentId(Integer type, Collection<Integer> parentIds) {
+        StringBuffer sql = new StringBuffer(" type = ? and enabled = 1 ");
+        Oql oql = new Oql();
+        oql.setType(this.type);
+        oql.setSelects("*");
+        if(parentIds!=null&&parentIds.size()>0){
+            sql.append(" and pid in(?) ");
+            oql.getParameters().add("@pid",parentIds,Types.JAVA_OBJECT);
+        }
+        oql.setFilter(sql.toString());
+        oql.getParameters().add("type",type,Types.INTEGER);
+        return this.pm.queryList(oql);
+    }
+
+    @Override
     public boolean delete(String ids) {
         String[] idsarr = ids.split("_");
         String isList = StringManager.join(",", idsarr);

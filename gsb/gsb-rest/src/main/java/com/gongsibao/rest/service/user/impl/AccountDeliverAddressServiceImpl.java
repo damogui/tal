@@ -2,10 +2,9 @@ package com.gongsibao.rest.service.user.impl;
 
 import com.gongsibao.account.base.IAccountDeliverAddressService;
 import com.gongsibao.entity.acount.AccountDeliverAddress;
-import com.gongsibao.rest.common.util.Assert;
 import com.gongsibao.rest.dto.user.AccountDeliverAddressDTO;
 import com.gongsibao.rest.service.user.AccountDeliverAddressService;
-import org.apache.commons.lang.BooleanUtils;
+import com.gongsibao.rest.web.common.util.Assert;
 import org.netsharp.communication.ServiceFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;

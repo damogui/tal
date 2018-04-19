@@ -1,13 +1,14 @@
 package com.gongsibao.rest.dto.user;
 
-import com.gongsibao.rest.dto.PkId;
+
+import com.gongsibao.rest.web.dto.PkId;
 
 /**
  * @author ffli <ffli@gongsibao.com>
  * @Description: TODO 用户收货地址DTO
  * @date 2018/4/18 16:59
  */
-public class AccountDeliverAddressDTO extends PkId{
+public class AccountDeliverAddressDTO extends PkId {
 
     /** 会员id */
     private Integer accountId;
