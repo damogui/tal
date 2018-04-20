@@ -57,6 +57,10 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
 
         //12.财务报销
         com.gongsibao.panda.platform.cw.AllTest.class,
+
+		// 13Rest接口
+		com.gongsibao.panda.rest.RestAllTest.class,
+
         //处理资源Id
         org.netsharp.meta.end.AllTests.class,
 
