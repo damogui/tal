@@ -2,6 +2,7 @@ package com.gongsibao.rest.servlet.response;
 
 import org.netsharp.wx.mp.message.ResponseMessage;
 import org.netsharp.wx.mp.message.request.event.EventRequest;
+import org.netsharp.wx.mp.message.request.event.SubscribeEvent;
 import org.netsharp.wx.mp.message.response.Article;
 import org.netsharp.wx.mp.message.response.NewsResponse;
 import org.netsharp.wx.mp.message.response.TextResponse;
@@ -11,6 +12,8 @@ import org.netsharp.wx.pa.response.subscribe.IWeixinSubscriber;
 
 public class SubscribeTrademark implements IWeixinSubscriber {
     public boolean validate(EventRequest request, Fans fans, PublicAccount publicAccount){
+        SubscribeEvent eventRequest = (SubscribeEvent) request;
+        Integer sceneStr=eventRequest.getSceneId();
 //        String sceneStr=fans.getMemoto();
 //        if(sceneStr==null){
 //            return false;
