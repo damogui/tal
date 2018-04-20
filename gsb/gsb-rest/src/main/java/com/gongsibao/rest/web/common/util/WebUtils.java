@@ -114,7 +114,7 @@ public abstract class WebUtils {
         }
         return result;
     }
-
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public static String getParaStr(HttpServletRequest request) {
         StringBuffer para = new StringBuffer("");
         Enumeration parameterNames = request.getParameterNames();

@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @date 2018/4/19 10:29
  */
 public class CityDTO implements Serializable{
-
+    private static final long serialVersionUID = 7447938651449258944L;
     private String name;
     private String value;
     private String parent;

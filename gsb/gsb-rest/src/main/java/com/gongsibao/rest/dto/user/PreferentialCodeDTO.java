@@ -16,7 +16,7 @@ import java.util.List;
  * @date 2018/4/17 11:51
  */
 public class PreferentialCodeDTO implements Serializable {
-
+    private static final long serialVersionUID = 7447938651449258944L;
     /**
      * 优惠券序号
      */

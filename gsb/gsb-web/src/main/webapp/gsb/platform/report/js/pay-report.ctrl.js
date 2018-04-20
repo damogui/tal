@@ -3,7 +3,7 @@ com.gongsibao.report.web.PayReportCtrl = org.netsharp.panda.core.CustomCtrl.Exte
     ctor: function () {
     	this.base();
     	this.service = 'com.gongsibao.report.web.pay.PayReportController';
-    	this.data = null;
+    	this.rows = null;
     },
     init:function(){
     	
@@ -11,26 +11,29 @@ com.gongsibao.report.web.PayReportCtrl = org.netsharp.panda.core.CustomCtrl.Exte
     },
     setDefault:function(){
     	
-    	
+    	var today = new Date().format('yyyy-MM-dd');
+    	$('#start_date').datebox('setValue',today);
+    	$('#end_date').datebox('setValue',today);
+    	this.query();
     },
     query:function(){
     	
     	var startDate = $('#start_date').datebox('getValue');
     	if(System.isnull(startDate)){
     		
-    		layer.msg('请选择统计【开始时间】');
+    		layer.msg('请输入统计【开始时间】');
     		return;
     	}
     	var endDate = $('#end_date').datebox('getValue');
     	if(System.isnull(endDate)){
     		
-    		layer.msg('请选择统计【结束时间】');
+    		layer.msg('请输入统计【结束时间】');
     		return;
     	}
     	
     	if (new Date(Date.parse(startDate)) > new Date(Date.parse(endDate))){
     		
-    		layer.msg('请选择统计【结束时间】不可小于【开始时间】');
+    		layer.msg('请【结束时间】不能小于【开始时间】');
     		return;
     	}
     	
@@ -176,42 +179,44 @@ com.gongsibao.report.web.PayReportCtrl = org.netsharp.panda.core.CustomCtrl.Exte
     	return columns;
     },
     downloadExl:function(type){
-    	
-    	if(this.data == null){
+
+    	if(this.rows == null){
     		
     		layer.msg('没有数据可导出');
     		return;
     	}
-    	var json = [{ //测试数据
-             "保质期临期预警(天)": "adventLifecycle",
-             "商品标题": "title",
-             "建议零售价": "defaultPrice",
-             "高(cm)": "height",
-             "商品描述": "Description",
-             "保质期禁售(天)": "lockupLifecycle",
-             "商品名称": "skuName",
-             "商品简介": "brief",
-             "宽(cm)": "width",
-             "阿达": "asdz",
-             "货号": "goodsNo",
-             "商品条码": "skuNo",
-             "商品品牌": "brand",
-             "净容积(cm^3)": "netVolume",
-             "是否保质期管理": "isShelfLifeMgmt",
-             "是否串号管理": "isSNMgmt",
-             "商品颜色": "color",
-             "尺码": "size",
-             "是否批次管理": "isBatchMgmt",
-             "商品编号": "skuCode",
-             "商品简称": "shortName",
-             "毛重(g)": "grossWeight",
-             "长(cm)": "length",
-             "英文名称": "englishName",
-             "净重(g)": "netWeight",
-             "商品分类": "categoryId",
-             "这里超过了": 1111.0,
-             "保质期(天)": "expDate"
-         }];
+
+    	var json = [];
+    	var ordinaryColumns = $("#datagrid").datagrid('getColumnFields');
+    	var freezeColumns = $("#datagrid").datagrid('getColumnFields',true);
+    	var columns = ordinaryColumns.concat(freezeColumns);
+    	columns.push(freezeColumns);
+    	columns.push(ordinaryColumns);
+    	
+    	var rows = $("#datagrid").datagrid('getRows');
+
+    	var header = new Object();
+    	var object = new Object();
+    	var row = this.rows[0];
+    	for(name in row){
+    		
+    		var col = getCol(columns,name);
+    		if(col != null){
+
+            	header[col.title] = '';
+    		}
+    	}
+    	json.push(header);
+
+    	function getCol(columns,field){
+    		
+        	for(var i=0;i<columns.length;i++){
+
+        		return $("#datagrid").datagrid('getColumnOption',field);
+        	}
+        	return null;
+    	}
+
 
              var tmpdata = json[0];
              json.unshift({});
@@ -229,9 +234,9 @@ com.gongsibao.report.web.PayReportCtrl = org.netsharp.panda.core.CustomCtrl.Exte
                  });
                  var outputPos = Object.keys(tmpdata); //设置区域,比如表格从A1到D10
                  var tmpWB = {
-                     SheetNames: ['mySheet'], //保存的表标题
+                     SheetNames: ['回款统计'], //保存的表标题
                      Sheets: {
-                         'mySheet': Object.assign({},
+                         '回款统计': Object.assign({},
                              tmpdata, //内容
                              {
                                  '!ref': outputPos[0] + ':' + outputPos[outputPos.length - 1] //设置填充区域

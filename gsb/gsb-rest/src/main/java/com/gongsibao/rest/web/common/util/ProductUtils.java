@@ -482,6 +482,7 @@ public class ProductUtils {
      * @param type   1所需材料 2办理步骤, 31什么是xx 32什么是xx内容 41为什么办理xx 42为什么办理xx内容
      * @return
      */
+    @SuppressWarnings({ "fallthrough", "unchecked" })
     public static List<String> getTaskFlow(Integer prodId, int type) {
         List<String> res = new ArrayList<>();
         switch (prodId) {

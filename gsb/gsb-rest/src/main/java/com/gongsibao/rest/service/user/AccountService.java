@@ -195,7 +195,7 @@ public class AccountService implements IAccountService{
         resMap.put("paySign", paySign);
         return 1;
     }
-
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public String wxpay(PublicAccount account, String out_trade_no, Integer order_price, String body, Integer clientType, String openId, Integer userChannel) throws JDOMException, IOException {
         // 账号信息

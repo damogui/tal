@@ -11,6 +11,7 @@ import java.io.Serializable;
  * @date 2018/4/16 15:51
  */
 public class Result<T extends Object> implements Serializable{
+    private static final long serialVersionUID = 7447938651449258944L;
     private static int SUCCESS = 200;
     private static int FAIL = -1;
     /** 系统未登录 **/
@@ -36,6 +37,7 @@ public class Result<T extends Object> implements Serializable{
      * @param message 返回消息
      * @return
      */
+    @SuppressWarnings({ "unchecked" })
     public <T> Result<T> resetOkMsg(String message) {
         if (this.isSuccess() && SUCCESS == this.getCode()) {
             this.setMsg(message);
@@ -48,6 +50,7 @@ public class Result<T extends Object> implements Serializable{
      *
      * @return
      */
+    @SuppressWarnings({ "unchecked" })
     public <T> Result<T> resetOkMsgFromData() {
         if (this.isSuccess() && SUCCESS == this.getCode()) {
             if (this.getData() != null && this.getData() instanceof String) {
