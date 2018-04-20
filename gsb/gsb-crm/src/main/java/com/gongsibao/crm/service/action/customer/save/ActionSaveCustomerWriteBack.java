@@ -54,9 +54,9 @@ public class ActionSaveCustomerWriteBack implements IAction {
 		QueryParameters qpsSource = new QueryParameters();
 		//如果没有商机，取注册时的客户来源
 		if(lastCustSourceId == null){
-			qpsSource.add("@last_customer_source", lastCustSourceId, Types.INTEGER);
-		}else{
 			qpsSource.add("@last_customer_source", customer.getCustomerSourceId(), Types.INTEGER);
+		}else{
+			qpsSource.add("@last_customer_source", lastCustSourceId, Types.INTEGER);
 		}
 		
 		qpsSource.add("@pkid", customerId, Types.INTEGER);
