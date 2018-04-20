@@ -29,8 +29,14 @@ com.gongsibao.trade.web.OrderInfoCtrl = org.netsharp.panda.core.CustomCtrl.Exten
 
         var paidPrice = (soOrder.paidPrice / 100).toFixed(2);
         $('#paidPrice').text(paidPrice);
+        try {
+            $('#accountName').text(System.isnull(soOrder.customer.realName) ? soOrder.accountName : soOrder.customer.realName);
+        }
+        catch (error) {
+            console.log(error);
 
-        $('#accountName').text(System.isnull(soOrder.customer.realName) ? soOrder.accountName : soOrder.customer.realName);
+        }
+
         $('#accountMobile').text(soOrder.accountMobile);
         $('#addTime').text(soOrder.createTime || '-');
 

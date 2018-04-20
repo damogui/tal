@@ -73,6 +73,7 @@ public class OrderService implements IOrderService {
     IInvoiceService invoiceService;
 
     @Override
+    @SuppressWarnings({"unchecked"})
     @Transaction
     public Result<SoOrder> saveOrder(OrderAddDTO orderAddDTO) {
         // 1. 处理订单信息
@@ -156,9 +157,9 @@ public class OrderService implements IOrderService {
         }
         return null;
     }
-
+    @SuppressWarnings({ "unchecked" })
     private Result doCoupon(SoOrder order, OrderAddDTO orderAddDTO) {
-        Result result = new Result();
+        Result<SoOrder> result = new Result<SoOrder>();
         // 订单原价
         double payablePrice = order.getPayablePrice();
 

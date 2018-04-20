@@ -10,6 +10,7 @@ import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
+import org.netsharp.panda.dic.OrderbyMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
@@ -94,7 +95,11 @@ public class AuditContractWorkspaceTest extends WorkspaceCreationBase {
         addColumn(datagrid, "contract.dataFee", "材料撰写费", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn(datagrid, "contract.liquidatedDamages", "违约金", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn(datagrid, "contract.creator", "合同创建人", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "contract.createTime", "合同创建时间", ControlTypes.DATETIME_BOX, 100);
+        column=addColumn(datagrid, "contract.createTime", "合同创建时间", ControlTypes.DATETIME_BOX, 100);{
+
+            column.setOrderbyMode (OrderbyMode.DESC);//降序排列
+
+        }
         addColumn(datagrid, "status", "审核状态", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "contract.soOrder.createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);
         addColumn(datagrid, "contract.salesman.name", "业务员", ControlTypes.TEXT_BOX, 100);

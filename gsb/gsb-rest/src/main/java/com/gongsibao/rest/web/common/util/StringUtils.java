@@ -306,7 +306,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 
         return StringUtils.isBlank(res) ? source : res;
     }
-
+    @SuppressWarnings({ "unchecked" })
     private static String includeStr(String source, String word, String punctuation) {
         if (!AlgorithmUtils.KMP(source, word)) {
             return source;

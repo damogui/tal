@@ -45,19 +45,20 @@
 					<li class="item btn"><a
 						href="javascript:payReportCtrl.query();"
 						class="easyui-linkbutton btn"
-						data-options="plain:false,iconCls:'fa fa-search'"> 查 询 </a> <a
-						href="javascript:payReportCtrl.downloadExl();"
+						data-options="plain:false,iconCls:'fa fa-search'"> 查 询 </a>
+						
+<!-- 						<a href="javascript:payReportCtrl.downloadExl();"
 						class="easyui-linkbutton btn"
-						data-options="plain:false,iconCls:'fa fa-file-excel-o'"> 导出</a></li>
-					<li class="item">
-					
-					</li>
+						data-options="plain:false,iconCls:'fa fa-file-excel-o'"> 导出</a> -->
+						
+						</li>
+					<li class="item"></li>
 				</ul>
 			</form>
 			<table id="datagrid"></table>
 		</div>
 	</div>
-<a href="" download="这里是下载的文件名.xlsx" id="hf"></a>
+	<a href="" download="回款统计.xlsx" id="hf"></a>
 </body>
 <script src='/package/easyui/jquery.min.js'></script>
 <script src='/package/layer/layer.js'></script>
@@ -70,10 +71,7 @@
 <script src='/panda-res/js/panda.js'></script>
 <script src='/gsb/platform/report/js/pay-report.ctrl.js'></script>
 <script>
-
-
-
-var tmpDown; //导出的二进制对象
+	var tmpDown; //导出的二进制对象
 	var payReportCtrl = null;
 	$(function() {
 

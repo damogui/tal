@@ -28,12 +28,17 @@ public class QrCodeController extends BaseController {
      * @date 2018/4/20 9:37
      */
     @RequestMapping(value = "/qrcode",method = RequestMethod.GET)
-    public String qrcode(HttpServletRequest request,@RequestParam("mobile") String mobile){
+    public String qrcode(HttpServletRequest request,
+                         @RequestParam("mobile") String mobile,
+                         @RequestParam("businessId") String businessId,
+                         @RequestParam("source") String source
+    ){
         PAccount pa = PaConfiguration.get(originalId(request));
         AccessToken at = AccessTokenManage.getTokenByAppId( pa.getAppId() );
         QrCodeRequest requestQ = new QrCodeRequest();
+        StringBuffer senceStr=new StringBuffer(mobile);
         requestQ.setTokenInfo(at);
-        requestQ.setSenceStr(mobile);
+        requestQ.setSenceStr(senceStr.append("|").append(businessId).append("|").append(source).toString());
         // 过期时间，为0表示是持久的二维码，否则是临时二维码
         requestQ.setExpireSeconds(60*60*24*30);
         QrCodeResponse response = requestQ.getResponse();

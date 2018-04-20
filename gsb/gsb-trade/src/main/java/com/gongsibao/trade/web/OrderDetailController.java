@@ -306,7 +306,19 @@ public class OrderDetailController {
             SoOrderDTO soOrderDTO = new SoOrderDTO();
             soOrderDTO.setId(soOrder.getId());
             soOrderDTO.setCompanyId(soOrder.getCompanyId());
-            soOrderDTO.setCompanyName(soOrder.getCompanyIntention() == null ? "" : soOrder.getCompanyIntention().getCompanyName());
+            if (soOrder.getCompanyIntention() != null){
+                if (soOrder.getCompanyIntention().getCompanyName()!=null){
+                    soOrderDTO.setCompanyName(soOrder.getCompanyIntention().getCompanyName());
+                }else{
+                    soOrderDTO.setCompanyName("");
+                }
+
+
+            } else  {
+
+                soOrderDTO.setCompanyName("");
+            }
+
             list.add(soOrderDTO);
         }
         return list;

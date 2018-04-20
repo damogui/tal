@@ -33,6 +33,7 @@ public class RedisClient {
      * @param key 键
      * @return
      */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public Long incr(final String key) {
         return (Long) redisTemplate.execute(new RedisCallback() {
             @Nullable
@@ -48,6 +49,7 @@ public class RedisClient {
      * @param expire 失效时间秒
      * @return
      */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public Long incr(final String key,long expire) {
         Long incr = (Long) redisTemplate.execute(new RedisCallback() {
             @Nullable
@@ -64,6 +66,7 @@ public class RedisClient {
      * 自减 step:1
      * @param key 键
      */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public Long decr(final String key) {
         return (Long) redisTemplate.execute(new RedisCallback() {
             public Long doInRedis(RedisConnection connection) throws DataAccessException {

@@ -45,7 +45,7 @@ com.gongsibao.trade.web.PayPerformanceCtrl = org.netsharp.panda.core.CustomCtrl.
     	
     	$('#accountName').text(soOrder.accountName);
     	$('#accountMobile').text(soOrder.accountMobile);
-    	$('#addTime').text(soOrder.addTime);
+    	$('#addTime').text(soOrder.createTime);
     	
     	$('#platformSource').text(this.platformSourceTypeEnum[soOrder.platformSource]);
     	$('#payStatus').text(this.payStatusTypeEnum[soOrder.payStatus]);

@@ -21,6 +21,7 @@ public class XMLUtil {
      * @throws JDOMException
      * @throws IOException
      */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public static Map doXMLParse(String strxml) throws JDOMException, IOException {
         strxml = strxml.replaceFirst("encoding=\".*\"", "encoding=\"UTF-8\"");
 
@@ -68,6 +69,7 @@ public class XMLUtil {
      * @param children
      * @return String
      */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public static String getChildrenText(List children) {
         StringBuffer sb = new StringBuffer();
         if(!children.isEmpty()) {

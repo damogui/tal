@@ -98,20 +98,36 @@ public class PayReportController {
 		String asName = isAudit == true ? "auditAmount" : "submitAmount";
 		StringBuffer buffer = new StringBuffer();
 		buffer.append(" LEFT JOIN ( ");
-		buffer.append(String.format(" SELECT supplier_id, SUM(amount) AS %s ", asName));
-		buffer.append(" FROM so_pay ");
-		buffer.append(" WHERE supplier_id IS NOT NULL and pay_way_type_id in (3101,3102) ");
+		buffer.append(String.format(" SELECT so.supplier_id, SUM(map.order_price) AS %s ", asName));
+		buffer.append(" FROM ( ");
+		buffer.append(" SELECT order_id, order_price ");
+		buffer.append(" FROM so_order_pay_map map ");
+		buffer.append(" WHERE order_price > 0 ");
+		buffer.append(" AND pay_id IN ( ");
+		buffer.append(" SELECT pkid FROM so_pay WHERE ");
 		if (isAudit) {
-			buffer.append(" and offline_audit_status_id = 1054 ");
-			buffer.append(String.format("AND pay_audit_pass_time >= '%s' AND pay_audit_pass_time < '%s' ", dateStr, nextDateStr));
+
+			buffer.append(" success_status_id = 3123 ");
+			buffer.append(" AND ( ");
+			buffer.append(String.format(" (pay_way_type_id = 3101 AND confirm_time >= '%s' AND confirm_time < '%s') ", dateStr, nextDateStr));
+			buffer.append(" OR  ");
+			buffer.append(String.format(" (pay_way_type_id = 3102 AND pay_audit_pass_time >= '%s' AND pay_audit_pass_time < '%s') ", dateStr, nextDateStr));
+			buffer.append(" )");
 		} else {
 			
-			buffer.append("  and offline_audit_status_id <> 1053 ");//不等于驳回的
-			buffer.append(String.format("AND add_time >= '%s' AND add_time < '%s' ", dateStr, nextDateStr));
+			buffer.append(" success_status_id in (3122,3123) ");// 不等于驳回的
+			buffer.append(String.format("AND confirm_time >= '%s' AND confirm_time < '%s' ", dateStr, nextDateStr));
 		}
-		buffer.append(" GROUP BY supplier_id ) ");
+		
+		//线上支付取confirm_time时间，线下支付取pay_audit_pass_time时间，老数据需要更新pay_audit_pass_time字段
+		buffer.append(" ) ");
+		buffer.append(" ) map ");
+		buffer.append(" LEFT JOIN so_order so ON map.order_id = so.pkid ");
+		buffer.append(" WHERE so.supplier_id IS NOT NULL AND so.supplier_id <> 0 ");
+		buffer.append(" GROUP BY so.supplier_id )");
 		buffer.append(String.format("%s ON %s.supplier_id = supplier.id ", tableName, tableName));
 		return buffer.toString();
+
 	}
 
 	/**

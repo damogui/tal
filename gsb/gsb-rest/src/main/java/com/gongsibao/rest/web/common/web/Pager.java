@@ -32,6 +32,7 @@ public class Pager<T> implements java.io.Serializable {
      * @param currentPage 当前页码
      * @param pageSize    每页显示记录数
      */
+    @SuppressWarnings({ "unchecked" })
     public Pager(int totalRows, int currentPage, int pageSize) {
         this(totalRows,currentPage,pageSize,new ArrayList());
     }

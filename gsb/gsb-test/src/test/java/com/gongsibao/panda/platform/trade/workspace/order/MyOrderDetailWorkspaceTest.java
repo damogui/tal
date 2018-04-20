@@ -1,6 +1,8 @@
 package com.gongsibao.panda.platform.trade.workspace.order;
 
-import org.netsharp.meta.base.WorkspaceCreationBase;
+import org.junit.Before;
+
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderDetailWorkspaceTest;
 
 /**   
  * @ClassName:  MyOrderDetailWorkspaceTest   
@@ -10,6 +12,12 @@ import org.netsharp.meta.base.WorkspaceCreationBase;
  *     
  * @Copyright: 2017 www.yikuaxiu.com Inc. All rights reserved. 
  */
-public class MyOrderDetailWorkspaceTest  extends WorkspaceCreationBase{
-
+public class MyOrderDetailWorkspaceTest  extends SalesmanOrderDetailWorkspaceTest{
+	@Before
+	public void setup() {
+		super.setup();
+		urlList = "/operation/order/detail/list";		
+		resourceNodeCode = "Operation_Order_OrderProd";
+		listFilter = "owner_id = '{userId}'";
+	}
 }
