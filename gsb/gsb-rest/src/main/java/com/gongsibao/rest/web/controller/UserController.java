@@ -21,17 +21,21 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.NetsharpException;
+import org.netsharp.panda.controls.utility.UrlHelper;
 import org.netsharp.wx.mp.api.oauth.OAuthRequest;
 import org.netsharp.wx.mp.api.oauth.OAuthResponse;
 import org.netsharp.wx.mp.sdk.AesException;
 import org.netsharp.wx.pa.base.IPublicAccountService;
 import org.netsharp.wx.pa.entity.Fans;
 import org.netsharp.wx.pa.entity.PublicAccount;
+import org.netsharp.wx.pa.response.PublicAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -46,6 +50,8 @@ public class UserController extends BaseController{
     IAccountService accountService;
     @Autowired
     private RedisClient redisClient;
+    @Value("${icmppay_domain}")
+    private String icompanyDomain;
     ISoOrderService soOrderService=ServiceFactory.create(ISoOrderService.class);
     IPayService payService=ServiceFactory.create(IPayService.class);
     /**
@@ -352,6 +358,7 @@ public class UserController extends BaseController{
                             HttpServletResponse response,
                             Account account,
                             @RequestBody String json) {
+        String oid=originalId(request);
         ResponseData data = new ResponseData();
         //region 获取参数
         if (StringUtils.isBlank(json)) {
@@ -487,7 +494,7 @@ public class UserController extends BaseController{
             resultMap.put("payIdStr", SecurityUtils.rc4Encrypt(payId));
             //region 调用支付第三方接口，获取返回值
             //调用第三方支付接口
-            Map<String, Object> payDataMap = getPayData(payChannels, clientType, order, orderIdStr, payId, totalFee, body, subject, bankCode, paymentChannels, isZgcBank,callType,openId);
+            Map<String, Object> payDataMap = getPayData(oid,payChannels, clientType, order, orderIdStr, payId, totalFee, body, subject, bankCode, paymentChannels, isZgcBank,callType,openId);
             if (NumberUtils.toInt(payDataMap.get("code")) != 200) {
                 data.setCode(-1);
                 data.setMsg(StringUtils.trimToEmpty(payDataMap.get("msg").toString()));
@@ -560,7 +567,7 @@ public class UserController extends BaseController{
     }
 
     /*调用支付第三方接口*/
-    private Map<String, Object> getPayData(String payChannels, Integer clientType, SoOrder order, String orderIdStr, Integer payId, Integer totalFee, String body, String subject, String bankCode, Integer paymentChannels, Integer isZgcBank, Integer callType,String openId) throws Exception {
+    private Map<String, Object> getPayData(String oid,String payChannels, Integer clientType, SoOrder order, String orderIdStr, Integer payId, Integer totalFee, String body, String subject, String bankCode, Integer paymentChannels, Integer isZgcBank, Integer callType,String openId) throws Exception {
         String result = "";
         Map<String, Object> resultMap = new HashMap<>();
         //默认成功
@@ -571,7 +578,7 @@ public class UserController extends BaseController{
                 if (clientType.equals(1)) {//当是微信公众号（H5）支付时，返回微信授权的url链接（获取code值）
                     /*String returnUrl = URLEncoder.encode(PayConfigUtil.Call_MP_URL + "?orderNoStr=" + order.getNo() + "_" + orderIdStr + "_" + payId + "&orderIdStr=" + orderIdStr + "&payIdStr=" + SecurityUtils.rc4Encrypt(payId) + "", "UTF-8");
                     result = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + PayConfigUtil.getAppid() + "&redirect_uri=" + returnUrl + "&response_type=code&scope=snsapi_base&state=WeiXin";*/
-//                    result = weiXinPayService.getAuthorizeUrl(order.getNo(), orderIdStr, payId, callType,openId);
+                    result = getAuthorizeUrl(oid,order.getNo(), orderIdStr, payId, callType,openId);
                 } else {
                     //result = wxpay(StringUtils.trimToEmpty(order.getNo()) + "_" + orderIdStr + "_" + payId, NumberUtils.toInt(totalFee), body, clientType, "", 0);
 //                    result = weiXinPayService.wxpay(StringUtils.trimToEmpty(order.getNo()) + "_" + orderIdStr + "_" + payId, NumberUtils.toInt(totalFee), body, clientType, "", 0);
@@ -580,5 +587,33 @@ public class UserController extends BaseController{
         }
         resultMap.put("result", result);
         return resultMap;
+    }
+
+    public String getAuthorizeUrl(String oid,String orderNo, String orderIdStr, Integer payId, Integer callType, String openId) {
+        String url = "";
+        String returnUrl = "";
+        String getAppid = "";
+        IPublicAccountService wcService = ServiceFactory.create(IPublicAccountService.class);
+        PublicAccount pa = wcService.byOriginalId(oid);
+        try {
+            //万达调用
+            if (callType.equals(1)) {
+                /*---http://m.gongsibao.com/mwandat1/#/wxPay/my/wxpay.html---*/
+                String getWdUrl = icompanyDomain;
+                String finalUrl;
+                if (openId.equals("")) {
+                    finalUrl = getWdUrl;
+                } else {
+                    String[] getWdUrlSplit = getWdUrl.split("#");
+                    finalUrl = getWdUrlSplit[0] + "?Openid=" + openId + "#" + getWdUrlSplit[1];
+                }
+                returnUrl = UrlHelper.encode(finalUrl + "?orderNoStr=" + orderNo + "_" + orderIdStr + "_" + payId + "&orderIdStr=" + orderIdStr + "&payIdStr=" + SecurityUtils.rc4Encrypt(payId) + "");
+                getAppid = pa.getAppId();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + getAppid + "&redirect_uri=" + returnUrl + "&response_type=code&scope=snsapi_base&state=WeiXin";
+        return url;
     }
 }

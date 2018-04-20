@@ -34,7 +34,7 @@ public class SubscribeTrademark implements IWeixinSubscriber {
         if(sceneStr==null){
             return true;
         }else{
-            String[] param=sceneStr.split("|");
+            String[] param=sceneStr.split("\\|");
             if(param[2].equals("SB")){
                 Account account=accountService.byMobile(param[1]);
                 fans.setUserId(account.getId());
@@ -63,4 +63,6 @@ public class SubscribeTrademark implements IWeixinSubscriber {
 
         return news;
     }
+
+
 }
