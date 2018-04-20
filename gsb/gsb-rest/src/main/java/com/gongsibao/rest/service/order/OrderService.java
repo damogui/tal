@@ -11,8 +11,10 @@ import com.gongsibao.entity.crm.Customer;
 import com.gongsibao.entity.dict.ResponseStatus;
 import com.gongsibao.entity.product.Price;
 import com.gongsibao.entity.product.Product;
+import com.gongsibao.entity.product.WorkflowNode;
 import com.gongsibao.entity.trade.*;
 import com.gongsibao.entity.trade.dic.*;
+import com.gongsibao.product.base.IWorkflowNodeService;
 import com.gongsibao.rest.base.product.IProductService;
 import com.gongsibao.rest.dto.coupon.CouponValidateDTO;
 import com.gongsibao.rest.dto.order.OrderProdAddDto;
@@ -21,18 +23,26 @@ import com.gongsibao.rest.base.bd.ICouponService;
 import com.gongsibao.rest.base.customer.ICustomerService;
 import com.gongsibao.rest.base.order.IInvoiceService;
 import com.gongsibao.rest.base.order.IOrderService;
+import com.gongsibao.rest.web.common.security.SecurityUtils;
 import com.gongsibao.rest.web.common.util.AmountUtils;
 import com.gongsibao.rest.web.common.util.NumberUtils;
 import com.gongsibao.rest.web.common.util.StringUtils;
+import com.gongsibao.rest.web.common.web.Pager;
 import com.gongsibao.rest.web.dto.order.OrderAddDTO;
+import com.gongsibao.rest.web.dto.order.OrderDTO;
+import com.gongsibao.rest.web.dto.order.OrderProductDTO;
+import com.gongsibao.utils.DateUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.BooleanUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.annotations.Transaction;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 /**
  * ClassName: $
@@ -50,6 +60,7 @@ public class OrderService implements IOrderService {
 
     // 字典服务
     IDictService dictService = ServiceFactory.create(IDictService.class);
+    IWorkflowNodeService workflowNodeService = ServiceFactory.create(IWorkflowNodeService.class);
 
     // 产品服务
     @Autowired
@@ -93,6 +104,120 @@ public class OrderService implements IOrderService {
 
         result.setObj(order);
         return result;
+    }
+
+    @Override
+    public Pager<OrderDTO> pageMyOrder(Integer accountId, Integer status, int currentPage, int pageSize) {
+        int total = tradeOrderService.countOrderAccountIdStatus(accountId, status);
+        if (total <= 0) {
+            return new Pager<>(total, currentPage, pageSize);
+        }
+        Pager<OrderDTO> pager = new Pager<OrderDTO>(total, currentPage, pageSize);
+        List<SoOrder> soOrders = tradeOrderService.pageOrderListByAccountIdStatus(accountId, status, currentPage,
+                pageSize);
+        if(soOrders!=null){
+            List<OrderDTO> orderDtoList = soOrders.stream().map(soOrder -> {
+                OrderDTO orderDTO = new OrderDTO();
+                {
+                    orderDTO.setPkid(soOrder.getId());
+                    orderDTO.setNo(soOrder.getNo());
+                    orderDTO.setAddTime(soOrder.getCreateTime());
+                    orderDTO.setAdd_time(soOrder.getCreateTime());
+                    orderDTO.setProcessStatusId(soOrder.getProcessStatus().getValue());
+                    orderDTO.setPayStatusId(soOrder.getPayStatus().getValue());
+                    orderDTO.setPayablePrice(soOrder.getPayablePrice());
+                    orderDTO.setPaidPrice(soOrder.getPaidPrice());
+                    orderDTO.setIsChangePrice(BooleanUtils.toInteger(soOrder.getIsChangePrice(),1,0));
+                    orderDTO.setChangePriceAuditStatusId(soOrder.getChangePriceAuditStatus().getValue());
+                    orderDTO.setType(soOrder.getType().getValue());
+                    orderDTO.setIsInstallment(BooleanUtils.toInteger(soOrder.getIsInstallment(),1,0));
+                    orderDTO.setInstallmentAuditStatusId(soOrder.getInstallmentAuditStatusId().getValue());
+                    List<OrderProd> products = soOrder.getProducts().stream().sorted((o1, o2) -> {
+                        Long first = o1.getCreateTime() == null ? 0 : o1.getCreateTime().getTime();
+                        Long next = o2.getCreateTime() == null ? 0 : o2.getCreateTime().getTime();
+                        return first.compareTo(next);
+                    }).collect(Collectors.toList());
+                    orderDTO.setOrderProdListWebs(products.stream().map(orderProd -> {
+                        return convertTo(soOrder,orderProd);
+                    }).collect(Collectors.toList()));
+
+                }
+                return orderDTO;
+            }).collect(Collectors.toList());
+            pager.setList(orderDtoList);
+        }
+        return pager;
+    }
+
+    private OrderProductDTO convertTo(SoOrder soOrder,OrderProd orderProd){
+        OrderProductDTO orderProductDTO = new OrderProductDTO();
+        orderProductDTO.setAccountMobile(soOrder.getAccountMobile());
+        orderProductDTO.setAccountName(soOrder.getAccountName());
+        orderProductDTO.setAddTime(soOrder.getCreateTime());
+        orderProductDTO.setAuditStatusId(orderProd.getAuditStatus().getValue());
+        orderProductDTO.setAuditStatusName(orderProd.getAuditStatus().getText());
+        orderProductDTO.setCityName(dictService.byId(orderProd.getCityId()).getName());
+        orderProductDTO.setIsComplaint(BooleanUtils.toInteger(orderProd.getIsComplaint(),1,0));
+        orderProductDTO.setIsPackage(BooleanUtils.toInteger(soOrder.getIsPackage(),1,0));
+        orderProductDTO.setIsRefund(BooleanUtils.toInteger(orderProd.getIsRefund(),1,0));
+        orderProductDTO.setIsinstallment(BooleanUtils.toInteger(soOrder.getIsInstallment(),1,0));
+        orderProductDTO.setNeedDays(orderProd.getNeedDays());
+        orderProductDTO.setNo(orderProd.getNo());
+        orderProductDTO.setOrderId(orderProd.getOrderId());
+        orderProductDTO.setOrderNo(soOrder.getNo());
+        orderProductDTO.setOrderProdIdStr(SecurityUtils.rc4Encrypt(soOrder.getId()));
+        orderProductDTO.setPkid(0);
+        orderProductDTO.setPrice(orderProd.getPrice());
+        orderProductDTO.setPriceOriginal(orderProd.getPriceOriginal());
+        orderProductDTO.setProcessedDays(orderProd.getProcessedDays());
+        orderProductDTO.setProductIdStr(SecurityUtils.rc4Encrypt(orderProd.getProductId()));
+        orderProductDTO.setProductName(orderProd.getProductName());
+        orderProductDTO.setShowProcess(0);//TODO 不显示
+        orderProductDTO.setSoOrderAddtime(soOrder.getCreateTime());
+        orderProductDTO.setSoOrderPaidPrice(soOrder.getPaidPrice());
+        orderProductDTO.setSoOrderPayStatusId(soOrder.getPayStatus().getValue());
+        orderProductDTO.setSoOrderPrice(soOrder.getPayablePrice());
+        orderProductDTO.setSoOrderPriceOriginal(soOrder.getTotalPrice());
+        orderProductDTO.setTimeoutDays(orderProd.getTimeoutDays());
+        orderProductDTO.setType(soOrder.getType().getValue());
+        if (orderProductDTO.getSoOrderPaidPrice().compareTo(orderProductDTO.getSoOrderPriceOriginal()) == 0 || orderProd.getProcessStatusId() > 0) {
+            orderProductDTO.setShowProcess(1);
+        }
+        if(soOrder.getPayStatus().getValue().equals(3011)){
+            if(soOrder.getPayStatus().getValue().equals(3023)){
+                orderProductDTO.setSoOrderProcessStatusName("已取消");
+            }else{
+                orderProductDTO.setSoOrderProcessStatusName("待付款");
+            }
+        }else if(soOrder.getPayStatus().getValue().equals(3012)){
+            if (orderProductDTO.getIsinstallment() == 1) {
+                WorkflowNode workflowNode = workflowNodeService.byId(orderProd.getProcessStatusId());
+                if(workflowNode==null){
+                    orderProductDTO.setSoOrderProcessStatusName("待办理");
+                }else{
+                    orderProductDTO.setSoOrderProcessStatusName(workflowNode.getName());
+                }
+            } else {
+                orderProductDTO.setSoOrderProcessStatusName("已付部分款");
+            }
+        }else {
+            WorkflowNode workflowNode = workflowNodeService.byId(orderProd.getProcessStatusId());
+            if (null == workflowNode) {
+                orderProductDTO.setSoOrderProcessStatusName("待办理");
+            } else {
+                orderProductDTO.setSoOrderProcessStatusName(workflowNode.getName());
+            }
+        }
+        orderProductDTO.setOrderIdStr(SecurityUtils.rc4Encrypt(orderProd.getOrderId()));
+        orderProductDTO.setCityId(0);
+        orderProductDTO.setOrderId(0);
+        orderProductDTO.setSoOrderProcessStatusId(0);
+        orderProductDTO.setProcessStatusId(0);
+        orderProductDTO.setOrderProdIdStr(SecurityUtils.rc4Encrypt(orderProd.getId()));
+        orderProductDTO.setPkid(0);
+        orderProductDTO.setAuditStatusId(0);
+        orderProductDTO.setIsAssign(0);
+        return orderProductDTO;
     }
 
     private Invoice doInvoice(SoOrder order, OrderAddDTO orderAddDTO) {
