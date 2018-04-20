@@ -1,9 +1,8 @@
-package com.gongsibao.rest.web.dto.order;
+package com.gongsibao.rest.dto.order;
 
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.bd.dic.CouponPlatformType;
 import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
-import com.gongsibao.rest.dto.order.OrderProdAddDTO;
 
 import java.io.Serializable;
 import java.util.List;

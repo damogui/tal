@@ -19,7 +19,7 @@ import com.gongsibao.rest.dto.coupon.CouponUseDTO;
 import com.gongsibao.rest.dto.coupon.CouponValidateDTO;
 import com.gongsibao.rest.web.common.util.AmountUtils;
 import com.gongsibao.rest.web.common.util.StringUtils;
-import com.gongsibao.rest.web.dto.user.PreferentialCodeDTO;
+import com.gongsibao.rest.dto.user.PreferentialCodeDTO;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.springframework.beans.BeanUtils;

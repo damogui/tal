@@ -15,7 +15,7 @@ import com.gongsibao.rest.web.common.apiversion.Api;
 import com.gongsibao.rest.web.common.util.JsonUtils;
 import com.gongsibao.rest.web.common.web.ResponseData;
 import com.gongsibao.rest.web.controller.BaseController;
-import com.gongsibao.rest.web.dto.order.OrderAddDTO;
+import com.gongsibao.rest.dto.order.OrderAddDTO;
 import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;

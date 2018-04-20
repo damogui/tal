@@ -3,7 +3,7 @@ package com.gongsibao.rest.base.order;
 import com.gongsibao.entity.Result;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.rest.dto.coupon.CouponUseDTO;
-import com.gongsibao.rest.web.dto.order.OrderAddDTO;
+import com.gongsibao.rest.dto.order.OrderAddDTO;
 import org.netsharp.core.annotations.Transaction;
 
 /**

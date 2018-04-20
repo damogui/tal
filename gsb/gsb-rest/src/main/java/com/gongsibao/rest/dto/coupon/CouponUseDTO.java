@@ -1,6 +1,6 @@
 package com.gongsibao.rest.dto.coupon;
 
-import com.gongsibao.rest.web.dto.user.PreferentialCodeDTO;
+import com.gongsibao.rest.dto.user.PreferentialCodeDTO;
 
 import java.io.Serializable;
 import java.util.List;

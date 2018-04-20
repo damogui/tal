@@ -1,19 +1,16 @@
 package com.gongsibao.rest.web.controller.v1.user;
 
 import com.gongsibao.account.base.IAccountWeiXinService;
-import com.gongsibao.entity.acount.Account;
-import com.gongsibao.entity.acount.AccountWeiXin;
 import com.gongsibao.rest.web.common.apiversion.Api;
 import static com.gongsibao.rest.web.common.util.Assert.*;
 
 import com.gongsibao.rest.web.common.web.Result;
 import com.gongsibao.rest.web.controller.BaseController;
-import com.gongsibao.rest.web.dto.user.PreferentialCodeDTO;
-import com.gongsibao.rest.web.dto.user.PreferentialUsageDTO;
+import com.gongsibao.rest.dto.user.PreferentialCodeDTO;
+import com.gongsibao.rest.dto.user.PreferentialUsageDTO;
 import com.gongsibao.rest.base.user.IUserPreferentialService;
 import org.apache.commons.lang3.StringUtils;
 import org.netsharp.communication.ServiceFactory;
-import org.netsharp.wx.pa.entity.Fans;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

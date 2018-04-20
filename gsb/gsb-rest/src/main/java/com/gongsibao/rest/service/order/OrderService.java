@@ -25,7 +25,7 @@ import com.gongsibao.rest.dto.product.ProductPriceDTO;
 import com.gongsibao.rest.web.common.util.AmountUtils;
 import com.gongsibao.rest.web.common.util.NumberUtils;
 import com.gongsibao.rest.web.common.util.StringUtils;
-import com.gongsibao.rest.web.dto.order.OrderAddDTO;
+import com.gongsibao.rest.dto.order.OrderAddDTO;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.annotations.Transaction;

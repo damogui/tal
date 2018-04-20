@@ -1,4 +1,4 @@
-package com.gongsibao.rest.web.dto.order;
+package com.gongsibao.rest.dto.order;
 
 import com.gongsibao.rest.web.common.security.SecurityUtils;
 import com.gongsibao.utils.NumberUtils;
