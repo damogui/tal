@@ -921,7 +921,7 @@ com.gongsibao.trade.web.OrderFollowDetailCtrl = com.gongsibao.trade.web.BaseCtrl
 /*
  * 订单关联公司  签单公司
  */
-var orderId=0;
+
 com.gongsibao.trade.web.OrderCompanysCtrl = com.gongsibao.trade.web.BaseCtrl.Extends({
     ctor: function () {
 
@@ -930,7 +930,7 @@ com.gongsibao.trade.web.OrderCompanysCtrl = com.gongsibao.trade.web.BaseCtrl.Ext
     init: function () {
 
         var me = this;
-         orderId = this.queryString('id');
+        var  orderId = this.queryString('id');
         this.invokeService("getCompanyInfo", [orderId], function (data) {
 
             me.initGrid(data);
@@ -994,7 +994,8 @@ com.gongsibao.trade.web.OrderCompanysCtrl = com.gongsibao.trade.web.BaseCtrl.Ext
         builder.append('	<table cellpadding="5" cellspacing="5" class="form-panel">');
         builder.append('		<tr class="label_tr"> <td  class="label_td"> <label style="color:Red">*</label> <label for="companyName">公司名称：</label></td>');
         builder.append('		<td class="label_td"><input id="company_companyName"  name="companyName" type="combogrid"/></td></tr></table></div></form>');
-
+        
+        var  orderId = me.queryString('id');
         layer.open({
             type: 1,
             title: '添加签单公司',
