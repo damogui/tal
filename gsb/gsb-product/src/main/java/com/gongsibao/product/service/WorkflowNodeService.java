@@ -128,7 +128,7 @@ public class WorkflowNodeService extends PersistableService<WorkflowNode> implem
             oql.setType(this.type);
             oql.setSelects("*");
             oql.setFilter("pkid in(" + ids + ")");
-            oql.setOrderby("version desc ");
+            oql.setOrderby("version Asc ,sort asc");
         }
         List<WorkflowNode> workflowNodes = this.pm.queryList(oql);
         return workflowNodes;
