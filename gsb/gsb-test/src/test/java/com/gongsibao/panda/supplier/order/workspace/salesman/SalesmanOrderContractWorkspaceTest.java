@@ -48,11 +48,11 @@ public class SalesmanOrderContractWorkspaceTest extends WorkspaceCreationBase {
         addColumn(datagrid, "soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "soOrder.accountType", "新老客户签单", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX, 100);
-        column = addColumn(datagrid, "soOrder.payablePrice", "合同总额", ControlTypes.DECIMAL_FEN_BOX, 100);{
+        column = addColumn(datagrid, "realAmount", "合同总额", ControlTypes.DECIMAL_FEN_BOX, 100);{
         	column.setAlign(DatagridAlign.RIGHT);
         }
         
-        column = addColumn(datagrid, "contractPrice", "业绩总额", ControlTypes.DECIMAL_FEN_BOX, 100);{
+        column = addColumn(datagrid, "achievementAmount", "业绩总额", ControlTypes.DECIMAL_FEN_BOX, 100);{
         	column.setAlign(DatagridAlign.RIGHT);
         }
         
