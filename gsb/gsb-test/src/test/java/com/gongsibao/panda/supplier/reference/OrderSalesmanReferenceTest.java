@@ -19,6 +19,7 @@ public class OrderSalesmanReferenceTest extends ReferenceCreationBase{
 		referenceCode = "OrderSalesman";
 		intelligentMode = IntelligentMode.LIKE;
 		intelligentFields = "name";
+		gridFilter="disabled=0";//停用的不显示
 	}
 
 	public PDatagrid createDatagrid(ResourceNode node) {

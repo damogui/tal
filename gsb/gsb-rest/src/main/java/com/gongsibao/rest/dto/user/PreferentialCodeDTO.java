@@ -1,13 +1,14 @@
 package com.gongsibao.rest.dto.user;
 
+import com.gongsibao.utils.AmountUtils;
+import com.gongsibao.utils.NumberUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.Date;
-
-import org.apache.commons.lang3.StringUtils;
-
-import com.gongsibao.utils.AmountUtils;
-import com.gongsibao.utils.NumberUtils;
+import java.util.List;
 
 /**
  * @author ffli <ffli@gongsibao.com>
@@ -92,6 +93,17 @@ public class PreferentialCodeDTO implements Serializable {
 
     private String usePlatform;
 
+    /* 优惠券产品id限制 */
+    @JsonIgnore
+    List<Integer> prodIdList;
+    /* 优惠券套餐id限制 */
+    @JsonIgnore
+    List<Integer> packageIdList;
+    /* 优惠券使用地区限制 */
+    @JsonIgnore
+    List<Integer> cityIdList;
+
+
     public int getPreferentialId() {
         return NumberUtils.toInt(preferentialId);
     }
@@ -139,7 +151,7 @@ public class PreferentialCodeDTO implements Serializable {
             return statusName;
         }
 
-        if (getIsEnabled() == 0 || getIsDisabled() == 0) {
+        if (getIsEnabled() == 0) {
             statusName = "已禁用";
         } else {
             if (getStatus() == 2) {
@@ -342,5 +354,29 @@ public class PreferentialCodeDTO implements Serializable {
 
     public void setUsePlatform(String usePlatform) {
         this.usePlatform = usePlatform;
+    }
+
+    public List<Integer> getProdIdList() {
+        return prodIdList;
+    }
+
+    public void setProdIdList(List<Integer> prodIdList) {
+        this.prodIdList = prodIdList;
+    }
+
+    public List<Integer> getPackageIdList() {
+        return packageIdList;
+    }
+
+    public void setPackageIdList(List<Integer> packageIdList) {
+        this.packageIdList = packageIdList;
+    }
+
+    public List<Integer> getCityIdList() {
+        return cityIdList;
+    }
+
+    public void setCityIdList(List<Integer> cityIdList) {
+        this.cityIdList = cityIdList;
     }
 }

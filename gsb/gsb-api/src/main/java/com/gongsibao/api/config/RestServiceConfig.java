@@ -2,6 +2,7 @@ package com.gongsibao.api.config;
 
 import javax.ws.rs.ApplicationPath;
 
+import com.gongsibao.api.conroller.igirl.ic.IcExRegisterController;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.server.ResourceConfig;
 
@@ -28,6 +29,7 @@ public class RestServiceConfig extends ResourceConfig {
 		register(TmAutoSubmitController.class);
 		register(CtmAutoSubmitController.class);
 		register(TtmAutoSubmitController.class);
+		register(IcExRegisterController.class);
         register(SellingController.class);
 
 

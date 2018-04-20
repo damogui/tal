@@ -14,4 +14,6 @@ public interface IPayService extends IPersistableService<Pay> {
 
     @Transaction
     int updateAuditStatus(int payId, int auditStatusId, int oldStatusId, int successStatusId);
+
+    Integer addPay(Pay soPay, Integer orderId, String uploadPayVoucher);
 }

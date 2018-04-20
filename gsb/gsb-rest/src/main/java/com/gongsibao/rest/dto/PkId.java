@@ -1,15 +1,17 @@
 package com.gongsibao.rest.dto;
 
-import com.gongsibao.rest.common.security.SecurityUtils;
+import com.gongsibao.rest.web.common.security.SecurityUtils;
 import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
+
+import java.io.Serializable;
 
 /**
  * @author ffli <ffli@gongsibao.com>
  * @Description: TODO （沿用之前的类）
  * @date 2018/4/17 16:27
  */
-public abstract class PkId {
+public abstract class PkId implements Serializable{
     protected String pkidStr;
     protected Integer pkid;
 

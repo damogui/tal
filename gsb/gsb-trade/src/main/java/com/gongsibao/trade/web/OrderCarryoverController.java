@@ -37,10 +37,10 @@ public class OrderCarryoverController {
 	/**
 	 * 根据订单编号获取订单实体
 	 * @param orderNo
-	 * @return
+	 * @return 0-通过;1-去向订单号输入有误;2-去向订单结转审核状态;3-去向订单号已创建订单业绩审核状态;4-去向订单号改价审核状态
 	 */
-	public SoOrder getSoOrderByNo(String orderNo) {
-
+	public Integer getSoOrderByNo(String orderNo) {
+		Integer resultValueInteger = 0;
 		Oql oql = new Oql();
 		{
 			oql.setType(SoOrder.class);
@@ -49,7 +49,26 @@ public class OrderCarryoverController {
 			oql.getParameters().add("no", orderNo, Types.VARCHAR);
 		}
 		SoOrder entity = orderService.queryFirst(oql);
-		return entity;
+		if(entity == null){
+			return 1;
+		}else{
+			//1.判断去向订单的审核状态
+			Integer carryStatus = entity.getCarryStatus().getValue();
+			if(!carryStatus.equals(0) && !carryStatus.equals(1054) && !carryStatus.equals(1053)){
+				return 2;
+			}
+			//2.判断去向订单的业绩审核状态
+			Integer depReceivableAuditStatus = entity.getDepReceivableAuditStatusId().getValue();
+			if(depReceivableAuditStatus.equals(1051) || depReceivableAuditStatus.equals(1054)){
+				return 3;
+			}
+			//3.判断去向订单的改价审核状态
+			Integer changePriceAuditStatus = entity.getChangePriceAuditStatus().getValue();
+			if(!changePriceAuditStatus.equals(0) && !changePriceAuditStatus.equals(1054) && !changePriceAuditStatus.equals(1053)){
+				return 4;
+			}
+		}
+		return resultValueInteger;
 	}
 	
 	/**

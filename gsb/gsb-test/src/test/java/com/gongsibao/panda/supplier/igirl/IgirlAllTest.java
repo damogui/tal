@@ -66,6 +66,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		MyFollowNoticeWorkspaceTest.class,
 		DpFollowNoticeWorkspaceTest.class,
 		AllFollowNoticeWorkspaceTest.class,
+		IcExRegisterCaseWorkspaceTest.class,
 		NavigationTest.class,
 		})
 		

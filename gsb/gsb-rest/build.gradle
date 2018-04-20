@@ -31,6 +31,7 @@ dependencies {
     compile project(':gsb-cms')
 	compile project(':gsb-account')
 	compile project(':gsb-product')
+	compile project(':gsb-trade')
 	compile project(':gsb-taurus')
 	compile project(':gsb-taurus-sdk')
 

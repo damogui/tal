@@ -42,7 +42,7 @@ public class ActionAuditCarryoverVerify implements IAction{
         }
 
         if (auditLog.getType().equals(AuditLogType.Jzsh.getText())) {
-            throw new BusinessException("该审核类别不是【" + AuditLogType.Fqsq.getText() + "】,禁止审核");
+            throw new BusinessException("该审核类别不是【" + AuditLogType.Jzsh.getText() + "】,禁止审核");
         }
 
         NOrderCarryover carryover = carryoverService.byId(auditLog.getFormId());

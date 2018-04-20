@@ -3,6 +3,7 @@ import com.gongsibao.entity.igirl.ic.IcRegisterCase;
 import com.gongsibao.entity.igirl.ic.baseinfo.AreaOne;
 import com.gongsibao.entity.igirl.ic.baseinfo.AreaTwo;
 import com.gongsibao.entity.igirl.ic.baseinfo.*;
+import com.gongsibao.entity.igirl.ic.ex.IcExRegisterCase;
 import com.gongsibao.entity.igirl.tm.ChangeTradeMark;
 import com.gongsibao.entity.igirl.tm.DownloadAttachment;
 import com.gongsibao.entity.igirl.tm.HelpBook;
@@ -119,7 +120,7 @@ public class NavigationTest extends NavigationBase {
 		}
 		createPTreeNode(tree, null, null, "GSB_IC_AI", "智能工商", "", 2);
 		{
-			createPTreeNode(tree, "GSB_IC_AI", null, "GSB_IGIRL_IC_BASE", "基础信息", "",6);
+			createPTreeNode(tree, "GSB_IC_AI", null, "GSB_IGIRL_IC_BASE", "基础信息", "",1);
 			{
 				createPTreeNode(tree, "GSB_IGIRL_IC_BASE", null, "IGRIL_IC_BASE_" + AreaOne.class.getSimpleName(), "省级列表", "/igirl/ic/areaone/all/list", 1);
 				createPTreeNode(tree, "GSB_IGIRL_IC_BASE", null, "IGRIL_IC_BASE_" + AreaTwo.class.getSimpleName(), "地市列表", "/igirl/ic/areatwo/all/list", 2);
@@ -130,9 +131,14 @@ public class NavigationTest extends NavigationBase {
 
 			}
 
-			createPTreeNode(tree, "GSB_IC_AI", null, "GSB_IGIRL_IC_REGIST", "工商注册", "",4);
+			createPTreeNode(tree, "GSB_IC_AI", null, "GSB_IGIRL_IC_REGIST", "工商注册", "",2);
 			{
 				createPTreeNode(tree, "GSB_IGIRL_IC_REGIST", null, "IGRIL_IC_REGIST_" + IcRegisterCase.class.getSimpleName(), "注册申请", "/igirl/ic/IcRegisterCase/all/list", 1);
+			}
+
+			createPTreeNode(tree, "GSB_IC_AI", null, "GSB_IGIRL_IC_STATE", "工商状态", "",3);
+			{
+				createPTreeNode(tree, "GSB_IGIRL_IC_STATE", null, "IGRIL_IC_STATE_" + IcExRegisterCase.class.getSimpleName(), "工商状态", "/igirl/ic/IcExRegisterCase/all/list", 1);
 			}
 
 		}

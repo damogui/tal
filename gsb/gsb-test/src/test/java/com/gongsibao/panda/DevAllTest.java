@@ -16,7 +16,7 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
         org.netsharp.meta.basebiz.AllTests.class,
 
 
-//	org.netsharp.wx.meta.AllTests.class,
+	org.netsharp.wx.meta.AllTests.class,
 //  org.netsharp.cache.plugin.AllTests.class,
 //    org.netsharp.scrum.meta.AllTests.class,
 

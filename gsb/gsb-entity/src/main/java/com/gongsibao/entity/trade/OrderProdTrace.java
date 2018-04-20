@@ -31,7 +31,7 @@ public class OrderProdTrace extends BaseEntity {
 	@Column(name = "order_prod_status_id", header = "产品状态")
 	private Integer orderProdStatusId = 0;
 
-	@Reference(foreignKey = "orderProdStatusId", header = "产品状态")
+	@Reference(foreignKey = "orderProdStatusId", header = "产品状态",primaryKey="pkid")
 	private WorkflowNode orderProdStatus;
 
 	@Column(name = "version", header = "流程模版版本号")

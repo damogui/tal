@@ -49,4 +49,6 @@ public interface IPriceService extends IPersistableService<Price> {
 	 * @date 2018/4/16
 	 */
 	List<Price> productServicePrice(Integer productId, Integer cityId, Integer propertyId);
+
+	List<Price> byIds(Collection<Integer> priceIds);
 }

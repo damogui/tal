@@ -47,26 +47,28 @@ com.gongsibao.trade.web.OrderCarryoverCtrl = org.netsharp.panda.core.CustomCtrl.
     	var me = this;
     	var orderNo = $('#toOrderNo').val();
     	me.invokeService("getSoOrderByNo", [orderNo], function(data){
-    		if(data == null){
+    		if(data == 1){
     			$('#toOrderNo').val("");
     			layer.msg('去向订单号输入有误，请重新输入');
+    		}else if(data == 2){
+    			$('#toOrderNo').val("");
+    			layer.msg('结转去向订单号还处于结转审核中，请审核通过后，再创建');
+    		}else if(data == 3){
+    			$('#toOrderNo').val("");
+    			layer.msg('结转去向订单号已创建订单业绩，不允许结转转入，请知悉');
+    		}else if(data == 4){
+    			$('#toOrderNo').val("");
+    			layer.msg('结转去向订单号还处于改价审核中，请审核通过后，再创建');
     		}else{
-    			if(data.carryStatus != 0 && data.carryStatus != 1054){
-    				$('#toOrderNo').val("");
-    				layer.msg('去向订单待审核中，暂不能操作！');
-    			}else{
-    				$("#toOrderId_hidden").val(data.id);
-    				
-    				var toPayablePrice = data.payablePrice;
-    	      		var toPaidPrice = data.paidPrice;
-    	      		var toRefundPrice = data.refundPrice;
-    	      		var toCarryAmount = data.carryAmount;
-    	      		var toCarryIntoAmount = data.carryIntoAmount;
-    	      		
-    	      		var balance = parseInt(toPaidPrice) + parseInt(toCarryIntoAmount) - parseInt(toRefundPrice) - parseInt(toCarryAmount);
-    	      		var toPayAmount = parseInt(toPayablePrice) - parseInt(balance);    	      		
-    	      		$("#toPayAmount_hidden").val(toPayAmount);
-    			}
+    			$("#toOrderId_hidden").val(data.id);				
+				var toPayablePrice = data.payablePrice;
+	      		var toPaidPrice = data.paidPrice;
+	      		var toRefundPrice = data.refundPrice;
+	      		var toCarryAmount = data.carryAmount;
+	      		var toCarryIntoAmount = data.carryIntoAmount;	      		
+	      		var balance = parseInt(toPaidPrice) + parseInt(toCarryIntoAmount) - parseInt(toRefundPrice) - parseInt(toCarryAmount);
+	      		var toPayAmount = parseInt(toPayablePrice) - parseInt(balance);    	      		
+	      		$("#toPayAmount_hidden").val(toPayAmount);
     		}
     	});
     },

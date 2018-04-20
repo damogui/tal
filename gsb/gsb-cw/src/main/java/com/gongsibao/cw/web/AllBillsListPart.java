@@ -20,7 +20,6 @@ import com.gongsibao.entity.cw.dict.FinanceDict;
 
 public class AllBillsListPart extends ListPart{
 
-	private  static final String VOUCHERURL = "http://t1.gongsibao.com/gongsibao-sys/u8/voucher/addVoucher";
 	 //借款服务
 	ILoanService loanService = ServiceFactory.create(ILoanService.class);
 	//报销服务
@@ -43,7 +42,8 @@ public class AllBillsListPart extends ListPart{
 		if(formType == FinanceDict.FormType.JKD.getValue()){ //借款单
 			Loan loan = loanService.getBillByFormId(formId);
 			JSONObject jsonObject = loanVoucher(loan);
-			result = HttpClientUtil.doPost(VOUCHERURL, jsonObject);
+			System.out.println("凭证请求参数："+jsonObject.toString());
+			result = HttpClientUtil.doPost(FinanceDict.U8_VOUCHER_, jsonObject);
 		}
 		return result;
 	}
@@ -62,32 +62,28 @@ public class AllBillsListPart extends ListPart{
 		//josnObject.put("senderNo", loan.getSetOfBooks().getSenderNo());
 		josnObject.put("enterName",loan.getSetOfBooks().getEnterName());
 		josnObject.put("setOfBooksId", loan.getSetOfBooksId());
-		josnObject.put("type", loan.getType().getValue().intValue());
+		josnObject.put("type", 3);
 		josnObject.put("payId", loan.getId());
 		
 		String abstractStr = loan.getDepartmentName()+"部门，"+loan.getCreator()+"申请";
 		//借方分录
 		JSONArray inEntryList = new JSONArray();
-		List<CostDetail> costList=loan.getCostDetailItem();
-		if(costList != null && costList.size()>0){
-			for(CostDetail costDetail : costList){
-				JSONObject inEntryJson = new JSONObject();
-				inEntryJson.put("accountCode", costDetail.getCostType().getCode());
-				inEntryJson.put("naturalDebitCurrency", costDetail.getDetailMoney()/100);
-				if(loan.getU8Department() != null){
-					inEntryJson.put("operator",loan.getU8Department().getSalesmanId());
-					inEntryJson.put("deptId", loan.getU8Department().getCode());
-					inEntryJson.put("personnelId",loan.getU8Department().getPersonnelCode());
-				}else{
-					throw new BusinessException("申请人未在U8部门表配置部门code");
-				}
-				inEntryJson.put("cashItem", costDetail.getCostType().getCashItem());
-				inEntryJson.put("remarkIId", costDetail.getCostType().getCode());
-				inEntryJson.put("cashFlowNaturalDebitCurrency", "0");
-				inEntryList.add(inEntryJson);
-				abstractStr +=costDetail.getCostTypeName()+","; //摘要凭借科目名称
-			}
+		
+		JSONObject inEntryJson = new JSONObject();
+		inEntryJson.put("accountCode", "");
+		inEntryJson.put("naturalDebitCurrency", loan.getAmount()/100);
+		if(loan.getU8Department() !=null){
+			inEntryJson.put("operator",loan.getU8Department().getSalesmanId());
+			inEntryJson.put("deptId", loan.getU8Department().getCode());
+			inEntryJson.put("personnelId",loan.getU8Department().getPersonnelCode());
+		}else{
+			 throw new BusinessException("U8系统部门信息为空！");
 		}
+		inEntryJson.put("cashItem", "12210201"); //写死
+		inEntryJson.put("remarkIId", "07");
+		inEntryJson.put("cashFlowNaturalDebitCurrency", "0");
+		inEntryList.add(inEntryJson);
+		
 		josnObject.put("inEntryList", inEntryList);
 		//贷方分录
 		JSONArray outEntryList = new JSONArray();
@@ -106,7 +102,7 @@ public class AllBillsListPart extends ListPart{
 		outEntryJson.put("cashFlowNaturalCreditCurrency", loan.getAmount()/100);
 		outEntryList.add(outEntryJson);
 		josnObject.put("outEntryList", outEntryList);
-		
+		abstractStr +=loan.getType().getText()+","; //摘要凭借科目名称
 		josnObject.put("abstractStr", abstractStr +"借款。"); //摘要
 		return josnObject;
 	}

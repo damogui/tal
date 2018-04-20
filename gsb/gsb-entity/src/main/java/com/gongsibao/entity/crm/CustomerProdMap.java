@@ -19,13 +19,13 @@ public class CustomerProdMap extends BaseEntity {
     private Integer customerId;
 	
 	@JsonIgnore
-    @Reference(foreignKey="customerId")
+    @Reference(foreignKey="customerId",primaryKey="pkid")
     private Customer customer;
     
     @Column(name="product_id")
     private Integer productId;
     
-    @Reference(foreignKey="productId",header="产品")
+    @Reference(foreignKey="productId",header="产品",primaryKey="pkid")
     private Product product;
     
     @Column(name="city_id")
@@ -34,19 +34,19 @@ public class CustomerProdMap extends BaseEntity {
 	@Column(name="d_province_id")
 	private Integer dProvinceId;
 	
-	@Reference(foreignKey="dProvinceId",header="省份")
+	@Reference(foreignKey="dProvinceId",header="省份",primaryKey="pkid")
 	private Dict dProvince;
 	
 	@Column(name="d_city_id")
 	private Integer dCityId;
 	
-	@Reference(foreignKey="dCityId",header="城市")
+	@Reference(foreignKey="dCityId",header="城市",primaryKey="pkid")
 	private Dict dCity;
 	
 	@Column(name="d_county_id")
 	private Integer dCountyId;
 	
-	@Reference(foreignKey="dCountyId",header="区/县")
+	@Reference(foreignKey="dCountyId",header="区/县",primaryKey="pkid")
 	private Dict dCounty;
 
     public Integer getCustomerId() {

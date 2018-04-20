@@ -43,7 +43,7 @@ public class NavigationTest extends NavigationBase {
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_All_Bills", "单据查询", "/cw/bill/all/list", 5);
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Loan_Bill", "借款单", "/cw/bill/loan/list", 6);
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Expense_Bill", "报销单", "/cw/bill/expense/list", 7);
-			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Payment_Bill", "付款单", "/cw/bill/payment/list", 8);
+			//createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Payment_Bill", "付款单", "/cw/bill/payment/list", 8);
 			//createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Allocation_Bill", "调拨单", "/cw/bill/allocation/list", 9);
 			
 		}

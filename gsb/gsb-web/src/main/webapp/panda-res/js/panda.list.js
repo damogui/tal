@@ -131,8 +131,15 @@ org.netsharp.panda.commerce.ListPart = org.netsharp.panda.core.View.Extends({
 	},
 	onLoadSuccess:function(data){
 
-		$("#" + this.context.id).datagrid('unselectAll');
+		$("#" + this.context.id).datagrid('clearSelections');
+		$("#" + this.context.id).datagrid('clearChecked');
 	},
+//	onBeforeLoad:function(param){
+//		
+//		$("#" + this.context.id).datagrid('unselectAll');
+//		$("#" + this.context.id).datagrid('uncheckAll');
+//		return true;
+//	},
 	onSelect : function(rowIndex, rowData) {
 
 	},

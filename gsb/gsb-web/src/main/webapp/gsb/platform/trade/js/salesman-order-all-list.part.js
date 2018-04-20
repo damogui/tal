@@ -17,7 +17,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         this.addRefundUrl = '/nav/gsb/platform/trade/orderRefund';//创建退款
         this.addCarryoverUrl = '/nav/gsb/platform/trade/orderCarryover';//创建结转
         this.addContractUrl = '/panda/trade/order/contract/form';//创建合同
-        this.addInvoiceUrl = '/panda/trade/order/invoice/form';//创建发票
+        this.addInvoiceUrl = '/panda/trade/order/invoice/form';//创建发票 
     },
     addPayPerformance: function () {
 
@@ -98,7 +98,16 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         /*创建订单业绩是不是已经存在存在的话不能创建*/
         me.invokeService("checkCanOrderPer", [parseInt(row.id)], function (data) {
             if (data > 0) {
-                layer.msg("订单业绩已经创建");
+                if(data==1){
+                    layer.msg("订单业绩已经创建");
+                }else if(data==2){
+
+
+                    layer.msg("【该订单有笔结转转入额还在审核中，请审核通过后再创建】");
+                }else if(data==3){
+                    layer.msg("【该订单无业绩可创建，请核实】");
+                }
+
                 return;
             } else {
                 layer.open({
@@ -218,7 +227,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         me.invokeService("refundValidate", [row.id], function (data) {
             if (data < 0) {
                 layer.msg('该订单无可退款金额，请知悉');
-            } else if (data != 0 && data != 1054) {
+            } else if (data != 0 && data != 1054 && data != 1053) {
                 layer.msg('有笔退款或结转目前审核中，请审核通过后，再创建');
             } else {
                 layer.open({
@@ -263,7 +272,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         me.invokeService("carryValidate", [row.id], function (data) {
             if (data < 0) {
                 layer.msg('该订单无可结转金额，请知悉');
-            } else if (data != 0 && data != 1054) {
+            } else if (data != 0 && data != 1054 && data != 1053) {
                 layer.msg('有笔退款或结转目前审核中，请审核通过后，再创建');
             } else {
                 layer.open({
@@ -499,7 +508,8 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                 }
 
                 me.invokeService("orderTran", [orderList, toUserId], function (data) {
-                    me.reload();
+
+                    realodCurrentPage("datagridsoOrderList");
                     IMessageBox.toast(zyStr + '成功');
                     layer.closeAll();
                     return;
@@ -575,6 +585,10 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
 function reloadPage() {
     controllersoOrderList.query();
 
+}
+/*传递过来进行刷新当前页面*/
+function realodCurrentPage(gridId) {
+    $('#'+gridId).datagrid('reload');
 }
 
 

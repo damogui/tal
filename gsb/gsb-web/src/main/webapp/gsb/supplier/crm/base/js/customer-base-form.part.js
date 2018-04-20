@@ -222,7 +222,6 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
         return true;
     },
     onSaved: function (jmessage) {
-    	
         this.currentItem = jmessage;
         if(this.currentItem!=null){
         	
@@ -241,8 +240,8 @@ com.gongsibao.crm.web.NCustomerFormPart = org.netsharp.panda.commerce.FormPart.E
         }
     },
     toNewUrl:function(entity){
-    	
     	window.location.href=this.editUrl+'?id='+entity.id;
+    	
     },
     verify:function(){
     	

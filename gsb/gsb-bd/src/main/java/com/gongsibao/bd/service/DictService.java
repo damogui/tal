@@ -3,6 +3,7 @@ package com.gongsibao.bd.service;
 import com.gongsibao.bd.base.IDictService;
 import com.gongsibao.entity.bd.Dict;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.core.Oql;
 import org.netsharp.service.PersistableService;
@@ -40,9 +41,24 @@ public class DictService extends PersistableService<Dict> implements IDictServic
             oql.setType(this.type);
             oql.setSelects("*");
             oql.setFilter("parentId=? and enabled=1");
-            oql.getParameters().add("parentId", parentId, Types.INTEGER);
+            oql.getParameters().add("parenetId", parentId, Types.INTEGER);
         }
         return this.queryList(oql);
+    }
+
+    @Override
+    public List<Dict> byTypeParentId(Integer type, Collection<Integer> parentIds) {
+        StringBuffer sql = new StringBuffer(" type = ? and enabled = 1 ");
+        Oql oql = new Oql();
+        oql.setType(this.type);
+        oql.setSelects("*");
+        if(parentIds!=null&&parentIds.size()>0){
+            sql.append(String.format(" and pid in(%s) ", StringUtils.join(parentIds,",")));
+        }
+        oql.setFilter(sql.toString());
+        oql.getParameters().add("type",type,Types.INTEGER);
+        oql.setOrderby(" pid ASC, pkid ASC ");
+        return this.pm.queryList(oql);
     }
 
     @Override
@@ -132,6 +148,19 @@ public class DictService extends PersistableService<Dict> implements IDictServic
         }
 
         for (Dict dict : list) {
+            result.put(dict.getId(), dict);
+        }
+        return result;
+    }
+
+    @Override
+    public Map<Integer, Dict> mapByType(Integer type) {
+        Map<Integer, Dict> result = new HashMap<>();
+        List<Dict> dicts = byType(type);
+        if (null == dicts) {
+            return result;
+        }
+        for (Dict dict : dicts) {
             result.put(dict.getId(), dict);
         }
         return result;

@@ -44,7 +44,7 @@ public class ActionLoanApplyPersist implements IAction {
     	 //创建人 所属部门
     	 UserPermission up = UserPermissionManager.getUserPermission();
     	 Organization organization = organizationService.getMainDepartment(SessionManager.getUserId());
-    	 loan.setDepartmentId(up.getDepartmentId());
+    	 loan.setDepartmentId(up.getEmployee().getDepartmentId());
     	 loan.setDepartmentName(organization.getName());
     	 loan.setArrearsAmount(loan.getAmount());
     	 Loan temp = loanService.save(loan);

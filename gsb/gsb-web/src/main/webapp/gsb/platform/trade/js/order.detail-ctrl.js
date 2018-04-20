@@ -13,6 +13,21 @@ com.gongsibao.trade.web.BaseCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
         this.auditLogStatusTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.bd.dic.AuditLogStatusType');
         this.platformSourceTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderPlatformSourceType');
         this.payStatusTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderPayStatusType');
+        this.initBtn();//初始化按钮
+    },
+    initBtn:function () {
+        $("body").off("click", ".show");
+        $("body").on("click", ".show", function () {
+
+            var orderId = $(this).attr("data-id");
+            var url = $(this).attr("data-url");
+            var title = $(this).attr("data-title");
+            var idFraeam = $(this).attr("data-iframe");
+            var urlEnd = url + "?id=" + orderId;
+            showDetail(idFraeam, title, urlEnd);
+
+        });
+
     }
 });
 
@@ -369,17 +384,7 @@ com.gongsibao.trade.web.OrderPaymentCollectionDetailCtrl = com.gongsibao.trade.w
 
             me.initGrid(data);
         });
-        // $("body").off("click", ".show");
-        // $("body").on("click", ".show", function () {
-        //
-        //     var orderId = $(this).attr("data-id");
-        //     var url = $(this).attr("data-url");
-        //     var urlEnd=url+"?id="+orderId;
-        //     showDetail("orderPay","回款信息",urlEnd);
-        //
-        //
-        //
-        // });
+
 
     },
     initGrid: function (data) {
@@ -478,17 +483,7 @@ com.gongsibao.trade.web.OrderPerCollectionDetailCtrl = com.gongsibao.trade.web.B
 
             me.initGrid(data);
         });
-        // $("body").off("click", ".show");
-        // $("body").on("click", ".show", function () {
-        //
-        //     var orderId = $(this).attr("data-id");
-        //     var url = $(this).attr("data-url");
-        //     var urlEnd=url+"?id="+orderId;
-        //     showDetail("orderPer","订单业绩信息",urlEnd);
-        //
-        //
-        //
-        // });
+
 
     },
     initGrid: function (data) {
@@ -576,17 +571,7 @@ com.gongsibao.trade.web.OrderPayPerCollectionDetailCtrl = com.gongsibao.trade.we
             me.initGrid(data);
         });
 
-        $("body").off("click", ".show");
-        $("body").on("click", ".show", function () {
 
-            var orderId = $(this).attr("data-id");
-            var url = $(this).attr("data-url");
-            var title = $(this).attr("data-title");
-            var idFraeam = $(this).attr("data-iframe");
-            var urlEnd = url + "?id=" + orderId;
-            showDetail(idFraeam, title, urlEnd);
-
-        });
 
     },
     initGrid: function (data) {
@@ -936,7 +921,7 @@ com.gongsibao.trade.web.OrderFollowDetailCtrl = com.gongsibao.trade.web.BaseCtrl
 /*
  * 订单关联公司  签单公司
  */
-var orderId=0;
+
 com.gongsibao.trade.web.OrderCompanysCtrl = com.gongsibao.trade.web.BaseCtrl.Extends({
     ctor: function () {
 
@@ -945,7 +930,7 @@ com.gongsibao.trade.web.OrderCompanysCtrl = com.gongsibao.trade.web.BaseCtrl.Ext
     init: function () {
 
         var me = this;
-         orderId = this.queryString('id');
+        var  orderId = this.queryString('id');
         this.invokeService("getCompanyInfo", [orderId], function (data) {
 
             me.initGrid(data);
@@ -1009,7 +994,8 @@ com.gongsibao.trade.web.OrderCompanysCtrl = com.gongsibao.trade.web.BaseCtrl.Ext
         builder.append('	<table cellpadding="5" cellspacing="5" class="form-panel">');
         builder.append('		<tr class="label_tr"> <td  class="label_td"> <label style="color:Red">*</label> <label for="companyName">公司名称：</label></td>');
         builder.append('		<td class="label_td"><input id="company_companyName"  name="companyName" type="combogrid"/></td></tr></table></div></form>');
-
+        
+        var  orderId = me.queryString('id');
         layer.open({
             type: 1,
             title: '添加签单公司',
@@ -1027,12 +1013,9 @@ com.gongsibao.trade.web.OrderCompanysCtrl = com.gongsibao.trade.web.BaseCtrl.Ext
             },
             yes: function (index, layero) {
 
-               
-
                 var g = $('#company_companyName').combogrid('grid');	// 获取数据表格对象
                 var row = g.datagrid('getSelected');	// 获取选择的行
                
-
                 var obj = {companyId: row.id, companyName: row.companyName};
                 me.invokeService("optCompanyInfoByorderId", [orderId,row.id], function (data) {//删除
 
@@ -1085,12 +1068,20 @@ com.gongsibao.trade.web.OrderCompanysCtrl = com.gongsibao.trade.web.BaseCtrl.Ext
             textField: 'companyName',
             width: 300,
             fitColumns: true,
-            panelWidth: 450,
+            panelWidth: 500,
             panelHeight: 310,
             pagination: true,
             pageSize: 10,
             mode: 'remote',
             multiple: false,
+            toolbar: [{
+            	text:'新增',iconCls:'fa fa-plus',handler:function(){
+            		
+            		IMessageBox.open('新增', '/panda/crm/company/form?openType=window', 1000, 600, function(){});
+            		
+            		}
+            	}
+            ],
             onChange: function (newValue, oldValue) {
                 //
                 // //var filter = ' id IN ( SELECT employee_id FROM sp_salesman WHERE supplier_id ____ ----'+ newValue + '----)';

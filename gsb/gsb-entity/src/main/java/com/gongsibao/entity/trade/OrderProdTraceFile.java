@@ -21,7 +21,7 @@ public class OrderProdTraceFile extends BaseEntity {
     @Column(name="prod_workflow_file_id",header="订单处理流程材料序号")
     private Integer workflowFileId;
     
-	@Reference(foreignKey = "workflowFileId", header = "订单处理流程材料")
+	@Reference(foreignKey = "workflowFileId", header = "订单处理流程材料",primaryKey="pkid")
 	private WorkflowFile workflowFile;
     
     @Column(name="prod_workflow_file_name",header="订单处理流程材料名称")
@@ -30,7 +30,7 @@ public class OrderProdTraceFile extends BaseEntity {
     @Column(name="file_id",header="上传材料序号")
     private Integer fileId;
     
-	@Reference(foreignKey = "fileId", header = "上传材料")
+	@Reference(foreignKey = "fileId", header = "上传材料",primaryKey="pkid")
 	private File file;
     
     @Column(name="is_new",header="上传材料是否最新(1:最新;2:历史)")

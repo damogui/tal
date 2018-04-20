@@ -13,6 +13,8 @@ com.gongsibao.cw.web.ExpenseBillFormPart = org.netsharp.panda.commerce.FormPart.
     	//$('#amount').numberbox('setValue', 0);
     	 $('#amount').textbox({value: 0});
     	 $('#amount').textbox({readonly: true});
+    	 
+    	 $('#creator').attr('readonly',true); 
     },
     paymentMethodChange:function (el){
     	 if ($(el).val() == 2) {
@@ -50,10 +52,10 @@ com.gongsibao.cw.web.ExpenseBillFormPart = org.netsharp.panda.commerce.FormPart.
     	if(isCorrect){
     		 var loanAmount = $("#loanAmount").numberbox('getValue');
     	  	 var totalAmount = $("#totalAmount").numberbox('getValue');
-    	  	 $('#amount').textbox('setValue',totalAmount - loanAmount);
+    	  	 $('#amount').numberbox('setValue',totalAmount - loanAmount);
     	}else{
     		 var totalAmount = $("#totalAmount").numberbox('getValue');
-    	  	 $('#amount').textbox('setValue',totalAmount);
+    	  	 $('#amount').numberbox('setValue',totalAmount);
     	}
     },
     doSave: function (entity) {
@@ -105,15 +107,16 @@ com.gongsibao.cw.web.CostDetailListPart = org.netsharp.panda.commerce.DetailPart
     	 }
     },
     saveBefore:function (entity){
-    	entity.pathName = entity.organization.pathName
+    	entity.pathName = entity.organization.pathName;
+    	entity.costTypeName = entity.costType.name;
     	entity.formType = 4;  //报销单
+    	if(entity.costType.isManual == 0){
+    		var expenseEntity  = this.parent.currentItem;
+    		expenseEntity.isVoucher = 0; //不能生成凭证
+    	}
     },
     saveAfter: function () { 
     	this.sumAmount();
-    },
-    costTypeFormatter : function (value,row,index){
-    	var me = this;
-		return me.costType[value];
     },
     invoiceTypeFormatter : function (value,row,index){
     	var me = this;
@@ -170,9 +173,9 @@ com.gongsibao.cw.web.CostDetailListPart = org.netsharp.panda.commerce.DetailPart
   	    
   	    var isCorrect = $("#isOffset").switchbutton("options").checked;
 	    if(isCorrect){
-	    	$('#amount').textbox('setValue',totalAmount - loanAmount);
+	    	$('#amount').numberbox('setValue',totalAmount - loanAmount);
 	    }else{
-	    	$('#amount').textbox('setValue',totalAmount);
+	    	$('#amount').numberbox('setValue',totalAmount);
 	    }
     }
 	
@@ -233,9 +236,9 @@ com.gongsibao.cw.web.SubsidyRecordListPart= org.netsharp.panda.commerce.DetailPa
 	   
 	   var isCorrect = $("#isOffset").switchbutton("options").checked;
  	    if(isCorrect){
- 	    	$('#amount').textbox('setValue',totalAmount - loanAmount);
+ 	    	$('#amount').numberbox('setValue',totalAmount - loanAmount);
  	    }else{
- 	    	$('#amount').textbox('setValue',totalAmount);
+ 	    	$('#amount').numberbox('setValue',totalAmount);
  	    }
 	}
 });

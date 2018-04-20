@@ -9,6 +9,7 @@ import com.gongsibao.entity.trade.OrderDiscount;
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.OrderProdItem;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.entity.trade.dic.AuditStatusType;
 
 /**
  * @ClassName: ActionSaveOrderPrice
@@ -50,8 +51,8 @@ public class ActionSaveOrderPrice implements IAction {
 
 		// 原金额大于应付金额时,设置订单改价格状态为true
 		if (!totalPrice.equals (payablePrice)) {//不相等就是改价
-
 			soOrder.setIsChangePrice(true);
+			soOrder.setChangePriceAuditStatus(AuditStatusType.Shz);
 		}
 
 		// 处理优惠劵优惠金额(放在最后处理)

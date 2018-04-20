@@ -1,6 +1,7 @@
 package com.gongsibao.trade.base;
 
 import com.gongsibao.entity.crm.NCustomer;
+import com.gongsibao.entity.trade.Invoice;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 
 import org.netsharp.base.IPersistableService;
@@ -9,6 +10,8 @@ import org.netsharp.core.annotations.Transaction;
 import com.gongsibao.entity.trade.NOrderCarryover;
 import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
+
+import java.util.List;
 
 public interface IOrderService extends IPersistableService<SoOrder> {
 
@@ -92,4 +95,18 @@ public interface IOrderService extends IPersistableService<SoOrder> {
 
     /*orderId 订单id selects设置查询项*/
     SoOrder getSoOrderById(Object orderId, String selects);
+
+    /**
+     * @Description: 查询会员订单数量
+     * @param   accountId 会员id; isPaid 是否已支付
+     * @return
+     * @author wangkun <wangkun@gongsibao.com>
+     * @date 2018/4/18
+     */
+    Integer countByAccountId(Integer accountId, boolean isPaid);
+
+    @Transaction
+    SoOrder saveWebOrder(SoOrder order, Invoice invoice, List<String> couponNo);
+
+    void updateNo(SoOrder soOrder);
 }

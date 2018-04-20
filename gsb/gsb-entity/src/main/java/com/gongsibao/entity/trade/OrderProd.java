@@ -50,7 +50,7 @@ public class OrderProd extends BaseEntity {
     @Column(name = "city_id", header = "城市")
     private Integer cityId = 0;
 
-    @Reference(foreignKey = "cityId", header = "产品地区")
+    @Reference(foreignKey = "cityId", header = "产品地区",primaryKey="pkid")
     private Dict city;
 
     @Column(name = "city_name", header = "地区名称(冗余)")
@@ -62,7 +62,7 @@ public class OrderProd extends BaseEntity {
     @Column(name = "company_id", header = "公司")
     private Integer companyId = 0;
 
-    @Reference(foreignKey = "companyId", header = "公司")
+    @Reference(foreignKey = "companyId", header = "公司",primaryKey="pkid")
     private CompanyIntention companyIntention;
 
     @Column(name = "yj_trademark_id", header = "商标信息Id")

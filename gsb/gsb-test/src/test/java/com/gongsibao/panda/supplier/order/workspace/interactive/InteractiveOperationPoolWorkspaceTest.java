@@ -1,41 +1,31 @@
 package com.gongsibao.panda.supplier.order.workspace.interactive;
 
-import com.gongsibao.entity.trade.OrderProd;
-import com.gongsibao.taurus.util.StringManager;
-import com.gongsibao.tools.PToolbarHelper;
-import com.gongsibao.trade.web.department.DepartmentOrderInvoiceListPart;
-import com.gongsibao.trade.web.interactive.MyInChargeListPart;
-import com.gongsibao.trade.web.interactive.OperationPoolListPart;
-import com.gongsibao.utils.SalesmanOrganization;
-import com.gongsibao.utils.SupplierSessionManager;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.gongsibao.entity.trade.dic.OrderProdOperationAllocationStatus;
+import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
 import org.junit.Before;
 import org.junit.Test;
-import org.netsharp.core.MtableManager;
-import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
-import org.netsharp.panda.entity.PDatagrid;
-import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.plugin.dic.ToolbarType;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
-import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.gongsibao.taurus.util.StringManager;
+import com.gongsibao.tools.PToolbarHelper;
+import com.gongsibao.trade.web.interactive.OperationPoolListPart;
 
 public class InteractiveOperationPoolWorkspaceTest extends InteractiveMyInChargeWorkspaceTest {
 
     @Before
     public void setup() {
         super.setup();
-
-        //当前登录用户服务商和部门信息
-        SalesmanOrganization organization = SupplierSessionManager.getSalesmanOrganization(SessionManager.getUserId());
 
         listPartName = formPartName = "操作订单池";
         urlList = "/crm/order/interactive/operation/pool/list";
@@ -50,7 +40,7 @@ public class InteractiveOperationPoolWorkspaceTest extends InteractiveMyInCharge
         listPartServiceController = OperationPoolListPart.class.getName();
         listPartJsController = OperationPoolListPart.class.getName();
         isSingleSelect = false;
-        listFilter = "supplier_id = " + organization.getSupplierId() + "";
+        listFilter = "";
     }
 
     @Test
@@ -90,7 +80,31 @@ public class InteractiveOperationPoolWorkspaceTest extends InteractiveMyInCharge
             toolbar.getItems().add(item);
         }
 
+        item = new PToolbarItem();
+        {
+            item.toNew();
+            item.setCode("queryOperation");
+            item.setIcon(PToolbarHelper.iconPermission);
+            item.setName("操作组查询");
+            item.setSeq(4);
+            item.setOperationType(ot1);
+            item.setCommand("{controller}.queryOperation();");
+            toolbar.getItems().add(item);
+        }
+
         toolbarService.save(toolbar);
+    }
+
+    @Override
+    protected PQueryProject createQueryProject(ResourceNode node) {
+        PQueryProject queryProject = super.createQueryProject(node);
+        PQueryItem item = null;
+        queryProject.setColumnCount(3);
+        item = addQueryItem(queryProject, "operationAllocationStatus", "分配状态", ControlTypes.ENUM_BOX);
+        {
+            item.setAppconfigCondition(OrderProdOperationAllocationStatus.class.getName());
+        }
+        return queryProject;
     }
 
 }

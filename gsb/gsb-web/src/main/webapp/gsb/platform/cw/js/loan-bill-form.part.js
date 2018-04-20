@@ -4,17 +4,13 @@ com.gongsibao.cw.web.LoansBillFormPart = org.netsharp.panda.commerce.FormPart.Ex
         this.base();
     },
     added: function (currentItem) {
-    	$('#amount').numberbox('setValue', 0);
-    	$('#amount').numberbox('readonly',true);
+    	$('#creator').attr('readonly',true); 
     },
     paymentMethodChange:function (el){
     	 if ($(el).val() == 2) {
-    		 $('#companyName').textbox({disabled: false});
     		 $('#companyBank').textbox({disabled: false});
     		 $('#companyAccount').textbox({disabled: false});
          } else {
-        	 $('#companyName').textbox({value: ""});
-             $('#companyName').textbox({disabled: true});
              $('#companyBank').textbox({value: ""});
              $('#companyBank').textbox({disabled: true});
              $('#companyAccount').textbox({value: ""});
@@ -37,16 +33,17 @@ com.gongsibao.cw.web.LoansBillFormPart = org.netsharp.panda.commerce.FormPart.Ex
     validate: function () {
         var isValidate = $("#" + this.context.formName).form('validate');
         if(isValidate){
-        	 var rows = $("#datagridcostDetailItem").datagrid('getRows');
+        	 //var rows = $("#datagridcostDetailItem").datagrid('getRows');
         	 var amount = $('#amount').numberbox('getValue');
-        	 if(rows.length == 0 || amount == 0){
-        		  IMessageBox.error("至少需要添加一条借款明细");
+        	 if(amount == 0){
+        		  IMessageBox.error("借款金额不能为零！");
         		  return false;
         	 }
-        	 return true;
+        	 return true; 
         }else{
         	return false;
         }
+        
     }
 });
 

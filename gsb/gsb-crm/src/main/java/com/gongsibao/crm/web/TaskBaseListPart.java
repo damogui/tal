@@ -59,10 +59,10 @@ public class TaskBaseListPart extends AdvancedListPart {
 	 * @param getNote
 	 * @return
 	 */
-	public boolean regain(String taskIds, String getNote){
+	public boolean regain(String taskIds, String getNote,Integer isPlatform){
 		
 		String[] taskIdArray = taskIds.split("_");
-		return taskService.batchRegain(taskIdArray, getNote);
+		return taskService.batchRegain(taskIdArray, getNote,isPlatform);
 	}
 	/**
 	 * 商机退回

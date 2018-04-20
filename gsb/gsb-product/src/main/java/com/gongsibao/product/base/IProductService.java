@@ -1,8 +1,10 @@
 package com.gongsibao.product.base;
 
+import com.gongsibao.entity.product.Product;
 import org.netsharp.base.IPersistableService;
 
-import com.gongsibao.entity.product.Product;
+import java.util.Collection;
+import java.util.List;
 
 public interface IProductService extends IPersistableService<Product> {
 	/**   
@@ -15,4 +17,6 @@ public interface IProductService extends IPersistableService<Product> {
 	 * @throws   
 	 */
 	Boolean updateEnabled(Integer id, Boolean state);
+
+	List<Product> byIds(Collection<Integer> ids);
 }

@@ -1,6 +1,7 @@
 package com.gongsibao.crm.service.action.customer.save;
 
 import java.sql.Types;
+import java.util.Map;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
@@ -25,6 +26,8 @@ public class ActionSaveCustomerWriteBack implements IAction {
 
 		NCustomer customer = (NCustomer) ctx.getItem();
 		Integer customerId = customer.getId();
+		Map<String, Object> getMap =ctx.getStatus();
+		Integer lastCustSourceId = (Integer) getMap.get("lastCustomerSourceId");
 
 		// 1.更新NCustomer
 		StringBuilder builer = new StringBuilder();
@@ -40,8 +43,26 @@ public class ActionSaveCustomerWriteBack implements IAction {
 		qps.add("@customerId", customerId, Types.INTEGER);
 		IPersister<NCustomer> pm = PersisterFactory.create();
 		pm.executeNonQuery(builer.toString(), qps);
-
-		// 2.更新Acount
+		
+		// 2.更新NCustomer的最近的商机来源
+		StringBuilder builerSource = new StringBuilder();
+		{
+			builerSource.append("UPDATE crm_customer ");
+			builerSource.append("SET last_customer_source = ?");
+			builerSource.append(" WHERE pkid = ?");
+		}
+		QueryParameters qpsSource = new QueryParameters();
+		//如果没有商机，取注册时的客户来源
+		if(lastCustSourceId == null){
+			qpsSource.add("@last_customer_source", customer.getCustomerSourceId(), Types.INTEGER);
+		}else{
+			qpsSource.add("@last_customer_source", lastCustSourceId, Types.INTEGER);
+		}
+		
+		qpsSource.add("@pkid", customerId, Types.INTEGER);
+		pm.executeNonQuery(builerSource.toString(), qpsSource);
+		
+		// 3.更新Acount
 		Integer accountId = customer.getAccountId();
 		if (accountId != null) {
 
