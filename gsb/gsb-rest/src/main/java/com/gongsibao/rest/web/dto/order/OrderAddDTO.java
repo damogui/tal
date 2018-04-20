@@ -3,7 +3,7 @@ package com.gongsibao.rest.web.dto.order;
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.bd.dic.CouponPlatformType;
 import com.gongsibao.entity.trade.dic.OrderPlatformSourceType;
-import com.gongsibao.rest.dto.order.OrderProdAddDto;
+import com.gongsibao.rest.dto.order.OrderProdAddDTO;
 
 import java.io.Serializable;
 import java.util.List;
@@ -27,8 +27,8 @@ public class OrderAddDTO implements Serializable {
     /* 来源id */
     private OrderPlatformSourceType orderPlatformSourceType = OrderPlatformSourceType.Gsb;
 
-    /* 订单当前平台，默认微信 */
-    private CouponPlatformType platformType = CouponPlatformType.WEIXIN;
+    /* 订单优惠券平台，默认微信 */
+    private CouponPlatformType couponPlatformType = CouponPlatformType.WEIXIN;
 
     /* 优惠打折信息 */
     private String orderDiscount;
@@ -52,7 +52,7 @@ public class OrderAddDTO implements Serializable {
     private Account account;
 
     /* 产品信息 */
-    private List<OrderProdAddDto> productList;
+    private List<OrderProdAddDTO> productList;
 
     public Integer getOwnerId() {
         return ownerId;
@@ -86,12 +86,12 @@ public class OrderAddDTO implements Serializable {
         this.orderPlatformSourceType = orderPlatformSourceType;
     }
 
-    public CouponPlatformType getPlatformType() {
-        return platformType;
+    public CouponPlatformType getCouponPlatformType() {
+        return couponPlatformType;
     }
 
-    public void setPlatformType(CouponPlatformType platformType) {
-        this.platformType = platformType;
+    public void setCouponPlatformType(CouponPlatformType couponPlatformType) {
+        this.couponPlatformType = couponPlatformType;
     }
 
     public String getOrderDiscount() {
@@ -150,11 +150,11 @@ public class OrderAddDTO implements Serializable {
         this.account = account;
     }
 
-    public List<OrderProdAddDto> getProductList() {
+    public List<OrderProdAddDTO> getProductList() {
         return productList;
     }
 
-    public void setProductList(List<OrderProdAddDto> productList) {
+    public void setProductList(List<OrderProdAddDTO> productList) {
         this.productList = productList;
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
  * @Description: TODO
  * @date $ $
  */
-public class OrderProdAddDto implements Serializable {
+public class OrderProdAddDTO implements Serializable {
 
     private static final long serialVersionUID = 85986305035205911L;
 

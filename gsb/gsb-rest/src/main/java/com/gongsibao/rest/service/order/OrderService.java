@@ -13,14 +13,15 @@ import com.gongsibao.entity.product.Price;
 import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.trade.*;
 import com.gongsibao.entity.trade.dic.*;
-import com.gongsibao.rest.base.product.IProductService;
-import com.gongsibao.rest.dto.coupon.CouponValidateDTO;
-import com.gongsibao.rest.dto.order.OrderProdAddDto;
-import com.gongsibao.rest.dto.product.ProductPriceDTO;
 import com.gongsibao.rest.base.bd.ICouponService;
 import com.gongsibao.rest.base.customer.ICustomerService;
 import com.gongsibao.rest.base.order.IInvoiceService;
 import com.gongsibao.rest.base.order.IOrderService;
+import com.gongsibao.rest.base.product.IProductService;
+import com.gongsibao.rest.dto.coupon.CouponUseDTO;
+import com.gongsibao.rest.dto.coupon.CouponValidateDTO;
+import com.gongsibao.rest.dto.order.OrderProdAddDTO;
+import com.gongsibao.rest.dto.product.ProductPriceDTO;
 import com.gongsibao.rest.web.common.util.AmountUtils;
 import com.gongsibao.rest.web.common.util.NumberUtils;
 import com.gongsibao.rest.web.common.util.StringUtils;
@@ -95,6 +96,29 @@ public class OrderService implements IOrderService {
         return result;
     }
 
+    @Override
+    public Result<CouponUseDTO> findOrderCoupon(OrderAddDTO orderAddDTO) {
+        Result<CouponUseDTO> result = new Result<>();
+
+        Result<SoOrder> orderResult = doOrder(orderAddDTO);
+        if (Result.isFailed(orderResult)) {
+            result.setMsg(orderResult.getMsg());
+            result.setStatus(orderResult.getStatus());
+            return result;
+        }
+
+        SoOrder order = orderResult.getObj();
+
+        CouponUseDTO couponDto = couponService.findAccountCoupons(orderAddDTO.getAccount().getId(), orderAddDTO.getCouponPlatformType(), order);
+        result.setObj(couponDto);
+        return result;
+    }
+
+    @Override
+    public Integer countByAccountId(Integer accountId, boolean isPaid) {
+        return tradeOrderService.countByAccountId(accountId, isPaid);
+    }
+
     private Invoice doInvoice(SoOrder order, OrderAddDTO orderAddDTO) {
         // 发票信息处理
         Integer invoiceId = orderAddDTO.getInvoiceId();
@@ -107,7 +131,7 @@ public class OrderService implements IOrderService {
                 {
                     invoice.toPersist();
                     invoice.setAmount(order.getPayablePrice());
-                    invoice.setContent(orderAddDTO.getPlatformType().getText() + "下单发票");
+                    invoice.setContent(orderAddDTO.getCouponPlatformType().getText() + "下单发票");
                 }
 
                 // 订单关联发票
@@ -131,7 +155,7 @@ public class OrderService implements IOrderService {
         List<String> couponNoList = StringUtils.stringToList(orderAddDTO.getOrderDiscount());
         if (CollectionUtils.isNotEmpty(couponNoList)) {
             // 查询历史订单数量
-            Integer orderCount = tradeOrderService.countByAccountId(orderAddDTO.getAccount().getId(), true);
+            Integer orderCount = countByAccountId(orderAddDTO.getAccount().getId(), true);
 
             // 优惠券查询
             Map<String, PreferentialCode> couponMap = couponService.mapByNos(couponNoList);
@@ -152,7 +176,7 @@ public class OrderService implements IOrderService {
                     validateDTO.setOrder(order);
                     validateDTO.setCouponNo(no);
                     validateDTO.setOrderCount(orderCount);
-                    validateDTO.setPlatformType(orderAddDTO.getPlatformType());
+                    validateDTO.setPlatformType(orderAddDTO.getCouponPlatformType());
                     validateDTO.setPreferentialCode(code);
                     validateDTO.setPlatformMap(platformMap);
                 }
@@ -175,7 +199,7 @@ public class OrderService implements IOrderService {
                     orderDiscount.setPreferentialId(coupon.getId());
                     orderDiscount.setNo(no);
                     orderDiscount.setSqlid("");
-                    orderDiscount.setRemark(orderAddDTO.getPlatformType().getText() + "下单使用");
+                    orderDiscount.setRemark(orderAddDTO.getCouponPlatformType().getText() + "下单使用");
                 }
                 orderDiscountList.add(orderDiscount);
             }
@@ -196,7 +220,7 @@ public class OrderService implements IOrderService {
     private Result<SoOrder> doOrder(OrderAddDTO orderAddDTO) {
         Account account = orderAddDTO.getAccount();
         // 组建order对象
-        List<OrderProdAddDto> prodDtoList = orderAddDTO.getProductList();
+        List<OrderProdAddDTO> prodDtoList = orderAddDTO.getProductList();
         if (CollectionUtils.isEmpty(prodDtoList)) {
             return new Result<>(ResponseStatus.FAILED, "商品不能为空");
         }
@@ -213,7 +237,7 @@ public class OrderService implements IOrderService {
         List<Integer> dictIds = new ArrayList<>();
         // 定价id
         List<Integer> priceIds = new ArrayList<>();
-        for (OrderProdAddDto orderProdAddDto : prodDtoList) {
+        for (OrderProdAddDTO orderProdAddDto : prodDtoList) {
             List<ProductPriceDTO> priceList = orderProdAddDto.getPriceList();
             if (CollectionUtils.isEmpty(priceList)) {
                 return new Result<>(ResponseStatus.FAILED, "定价不能为空");
@@ -237,7 +261,7 @@ public class OrderService implements IOrderService {
         // 封装orderProd 对象
         List<OrderProd> orderProdList = new ArrayList<>();
         Map<String, Integer> productNumMap = new HashMap<>();
-        for (OrderProdAddDto orderProdAddDto : prodDtoList) {
+        for (OrderProdAddDTO orderProdAddDto : prodDtoList) {
             Integer productId = orderProdAddDto.getProductId();
             Product product = productMap.get(productId);
             if (null == product) {
