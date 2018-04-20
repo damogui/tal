@@ -149,12 +149,11 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 		queryProject.toNew();
 		PQueryItem item = null;
 		item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);{
-			item.setTooltip("输入客户ID、客户名称、联系方式");
-			item.setWidth(250);
+			item.setTooltip("输入客户ID、客户名称、联系方式、客户来源");
+			item.setWidth(270);
 		}
 		addQueryItem(queryProject, "createTime", "创建时间", ControlTypes.DATE_BOX);
-		addQueryItem(queryProject, "company.companyName", "关联企业", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "lastCustomerSource.name", "客户来源", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "company.companyName", "关联企业", ControlTypes.TEXT_BOX);		
 		return queryProject;
 	}
 

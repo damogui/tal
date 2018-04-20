@@ -61,7 +61,7 @@ public class NavigationTest  extends NavigationBase{
 		}
 		
 		parentNodeCode = ResourceTest.resourcePrefix + "_Pay";
-		createPTreeNode(tree, null, "fa fa-bar-chart-o fa-fw", parentNodeCode, "客户统计", "", 4);
+		createPTreeNode(tree, null, "fa fa-bar-chart-o fa-fw", parentNodeCode, "回款统计", "", 4);
 		{
 
 			createPTreeNode(tree, parentNodeCode, null, parentNodeCode + "_Pay", "每日回款", "/report/pay/day", 1);
