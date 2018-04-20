@@ -212,7 +212,12 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 					m++;
 				}
 				if(sid!=null && sid!=-1){
-					tm.setSupplierId(sid);
+					if(SessionManager.getUserId().equals(entity.getOwnerId())) {
+						tm.setSupplierId(sid);
+					}else {
+						tm.setSupplierId(entity.getSupplierId());
+					}
+					
 				}
 				if(departmentId!=null && departmentId!=-1) {
 					tm.setDepartmentId(departmentId);
