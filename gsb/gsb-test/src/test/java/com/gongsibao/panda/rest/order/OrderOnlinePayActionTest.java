@@ -20,17 +20,12 @@ public class OrderOnlinePayActionTest extends BaseActionTest {
     public void setup() {
         resourceNodeCode = "Gsb_Rest_Interface_Order_Pay";
         super.setup();
-
-
     }
 
     @Test
     public void save() {
-
         this.resourceNode = this.resourceNodeService.byCode(this.resourceNodeCode);
         Assert.assertNotNull(this.resourceNode);
-
-
 
         String pathName = "gsb/rest/order/onlinePay";
         BeanPath beanPath = new BeanPath();
