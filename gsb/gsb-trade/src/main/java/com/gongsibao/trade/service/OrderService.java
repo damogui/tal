@@ -9,11 +9,14 @@ import com.gongsibao.trade.base.IInvoiceService;
 import com.gongsibao.trade.base.IOrderInvoiceMapService;
 import com.gongsibao.trade.base.IOrderService;
 import com.gongsibao.trade.service.action.order.utils.AuditHelper;
+import com.gongsibao.trade.web.dto.OrderPayDTO;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.EntityState;
 import org.netsharp.core.Oql;
+import org.netsharp.core.Paging;
 import org.netsharp.core.QueryParameters;
 import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
@@ -23,6 +26,7 @@ import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -386,5 +390,102 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
         IPersister<SoOrder> pm = PersisterFactory.create();
         pm.executeNonQuery(cmdText, qps);
         soOrder.setNo(no);
+    }
+
+    @Override
+    public void updateOnlinePay(OrderPayDTO orderPayDTO) {
+        ActionContext ctx = new ActionContext();
+        {
+            ctx.setPath("gsb/rest/order/onlinePay");
+            ctx.setItem(orderPayDTO);
+            ctx.setState(EntityState.Persist);
+        }
+        ActionManager action = new ActionManager();
+        action.execute(ctx);
+    }
+
+    @Override
+    public Boolean addPaidPrice(Integer id, Integer paidPrice) {
+        String sql = "UPDATE `so_order` SET paid_price = paid_price + " + paidPrice + " WHERE pkid = " + id;
+        return this.pm.executeNonQuery(sql, null) > 0;
+    }
+
+    @Override
+    public Boolean updateProcessStatusId(Integer id, Integer processStatusId) {
+        String sql = "UPDATE `so_order` SET process_status_id = " + processStatusId + " WHERE pkid = " + id;
+        return this.pm.executeNonQuery(sql, null) > 0;
+    }
+
+    @Override
+    public Boolean updatePayStatus(int id, Integer payStatusId) {
+        String sql = "UPDATE `so_order` SET pay_status_id = " + payStatusId + " WHERE `pkid` =  " + id;
+        if (payStatusId == 3013) {
+            sql = sql + " AND paid_price >= payable_price ";
+        }
+        return this.pm.executeNonQuery(sql, null) > 0;
+    }
+
+    @Override
+    public Boolean updateFistPayTime(Integer id, Date fistPayTime) {
+        UpdateBuilder builder = UpdateBuilder.getInstance();
+        {
+            builder.update("so_order");
+            builder.set("fist_pay_time", fistPayTime);
+            builder.set("pkid", id);
+            builder.where("pkid = " + id);
+        }
+        return this.pm.executeNonQuery(builder.toSQL(), null) > 0;
+    }
+
+    @Override
+    public Boolean updatePayTime(Integer id, Date payTime) {
+        UpdateBuilder builder = UpdateBuilder.getInstance();
+        {
+            builder.update("so_order");
+            builder.set("pay_time", payTime);
+            builder.where("pkid = " + id);
+        }
+        return this.pm.executeNonQuery(builder.toSQL(), null) > 0;
+    }
+
+    @Override
+    public int countOrderAccountIdStatus(Integer accountId, Integer status) {
+        StringBuffer sql = new StringBuffer("");
+        Oql oql = new Oql();
+        oql.setType(this.type);
+        oql.setSelects("*");
+        sql.append(" account_id = ? and change_price_audit_status_id not in (1051,1052,1053) ");
+        if (status == 1) {//未付款
+            sql.append(" and so_order.pay_status_id in (3011, 3012) AND so_order.process_status_id <> 3023 ");
+        } else if (status == 2) {//办理中3022
+            sql.append(" and so_order.process_status_id = 3022 AND so_order.pay_status_id = 3013 ");
+        } else if (status == 3) {//办理完成
+            sql.append(" and so_order.process_status_id = 3024 AND so_order.pay_status_id = 3013 ");
+        }
+        oql.setFilter(sql.toString());
+        oql.getParameters().add("account_id", accountId, Types.INTEGER);
+        return this.pm.queryCount(oql);
+    }
+
+    @Override
+    public List<SoOrder> pageOrderListByAccountIdStatus(Integer accountId, Integer status, int currentPage, int
+            pageSize) {
+        StringBuffer sql = new StringBuffer("");
+        Oql oql = new Oql();
+        oql.setType(this.type);
+        oql.setSelects("SoOrder.*,products.*");
+        sql.append(" account_id = ? and change_price_audit_status_id not in (1051,1052,1053) ");
+        if (status == 1) {//未付款
+            sql.append(" and so_order.pay_status_id in (3011, 3012) and so_order.process_status_id <> 3023 ");
+        } else if (status == 2) {//办理中3022
+            sql.append(" and so_order.process_status_id = 3022 and so_order.pay_status_id = 3013 ");
+        } else if (status == 3) {//办理完成
+            sql.append(" and so_order.process_status_id = 3024 and so_order.pay_status_id = 3013 ");
+        }
+        oql.setFilter(sql.toString());
+        oql.setOrderby(" add_time desc ");
+        oql.setPaging(new Paging(currentPage, pageSize));
+        oql.getParameters().add("account_id", accountId, Types.INTEGER);
+        return this.pm.queryList(oql);
     }
 }

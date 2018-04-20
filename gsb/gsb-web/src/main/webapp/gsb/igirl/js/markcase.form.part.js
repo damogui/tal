@@ -54,14 +54,6 @@ com.gongsibao.igirl.tm.web.TradeMarkCasePart = org.netsharp.panda.commerce.FormP
 		}
 		return false;
 	},
-	checkMailCode:function(mailCode){
-		mailCode = mailCode.value;
-		var result=mailCode.match(/^\d{6}$/); 
-		if(result==null){
-			IMessageBox.error("【邮编】格式错误!");
-			$("#mailCode").textbox('setValue','');
-		}
-	},
 	companyNameChange: function (newValue) {
 		var name = $(newValue).val();
 		// name=encodeURIComponent(name);

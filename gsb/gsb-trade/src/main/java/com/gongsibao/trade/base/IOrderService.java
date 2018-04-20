@@ -4,6 +4,7 @@ import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.trade.Invoice;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 
+import com.gongsibao.trade.web.dto.OrderPayDTO;
 import org.netsharp.base.IPersistableService;
 import org.netsharp.core.annotations.Transaction;
 
@@ -11,6 +12,7 @@ import com.gongsibao.entity.trade.NOrderCarryover;
 import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
 
+import java.util.Date;
 import java.util.List;
 
 public interface IOrderService extends IPersistableService<SoOrder> {
@@ -109,4 +111,38 @@ public interface IOrderService extends IPersistableService<SoOrder> {
     SoOrder saveWebOrder(SoOrder order, Invoice invoice, List<String> couponNo);
 
     void updateNo(SoOrder soOrder);
+
+    @Transaction
+    void updateOnlinePay(OrderPayDTO orderPayDTO);
+
+    Boolean addPaidPrice(Integer id, Integer paidPrice);
+
+    Boolean updateProcessStatusId(Integer id, Integer processStatusId);
+
+    Boolean updatePayStatus(int id, Integer payStatusId);
+
+    Boolean updateFistPayTime(Integer id, Date fistPayTime);
+
+    Boolean updatePayTime(Integer orderId, Date payTime);
+
+    /**
+     * 根据账号ID查询特定状态下的订单数量
+     *
+     * @param accountId 账号ID
+     * @param status  订单状态
+     * @return
+     */
+    int countOrderAccountIdStatus(Integer accountId, Integer status);
+
+    /**
+     * 根据账号ID查询特定状态下的订单数量（分页）
+     *
+     * @param accountId   账号ID
+     * @param status      订单状态
+     * @param currentPage 起始页
+     * @param pageSize    每页显示条数
+     * @return
+     */
+    List<SoOrder> pageOrderListByAccountIdStatus(Integer accountId, Integer status,
+                                                 int currentPage, int pageSize);
 }

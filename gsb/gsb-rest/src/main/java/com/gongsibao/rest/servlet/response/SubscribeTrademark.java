@@ -2,6 +2,8 @@ package com.gongsibao.rest.servlet.response;
 
 import com.gongsibao.account.base.IAccountService;
 import com.gongsibao.entity.acount.Account;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.wx.mp.message.ResponseMessage;
 import org.netsharp.wx.mp.message.request.event.EventRequest;
@@ -13,19 +15,26 @@ import org.netsharp.wx.pa.base.IFansService;
 import org.netsharp.wx.pa.entity.Fans;
 import org.netsharp.wx.pa.entity.PublicAccount;
 import org.netsharp.wx.pa.response.subscribe.IWeixinSubscriber;
-
+/**
+ * ClassName: SubscribeTrademark
+ * @Description: TODO 商标用户扫码关注处理
+ * @author hbpeng <hbpeng@gongsibao.com>
+ * @date 2018/4/20 17:53
+ */
 public class SubscribeTrademark implements IWeixinSubscriber {
+    protected static Log logger = LogFactory.getLog(SubscribeEvent.class);
     public boolean validate(EventRequest request, Fans fans, PublicAccount publicAccount){
         SubscribeEvent eventRequest = (SubscribeEvent) request;
         String  sceneStr=eventRequest.getSceneStr();
+        logger.error("微信关注商标sceneStr：" + sceneStr);
+        logger.error("微信关注商标eventKey：" + eventRequest.getEventKey());
         IFansService fansService= ServiceFactory.create(IFansService.class);
         IAccountService accountService=ServiceFactory.create(IAccountService.class);
         //需要业务处理粉丝与账户关联 wx_pa_fans
-//        String sceneStr=fans.getMemoto();
         if(sceneStr==null){
             return true;
         }else{
-            String[] param=sceneStr.split("|");
+            String[] param=sceneStr.split("\\|");
             if(param[2].equals("SB")){
                 Account account=accountService.byMobile(param[1]);
                 fans.setUserId(account.getId());
@@ -54,4 +63,6 @@ public class SubscribeTrademark implements IWeixinSubscriber {
 
         return news;
     }
+
+
 }

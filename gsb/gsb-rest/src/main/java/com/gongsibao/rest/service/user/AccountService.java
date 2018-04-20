@@ -21,6 +21,8 @@ import org.netsharp.wx.pa.entity.PublicAccount;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.*;
 
 @Service
@@ -265,4 +267,5 @@ public class AccountService implements IAccountService{
     public List<OrderPayMap> pageByProperties(Integer orderId, Integer payId) {
         return orderPayMapService.queryByOrderIdPayId(orderId,payId);
     }
+
 }

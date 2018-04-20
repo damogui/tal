@@ -69,7 +69,10 @@ public class ChapterTwo extends Entity {
     @Column(name="area",header="地区ID")
     private String area;
 
-    @Reference(foreignKey="area",header="地区")
+    @Column(name = "chaper_one_id",header = "ChapterOne外键")
+    private Integer chaperOneId;
+
+    @Reference(foreignKey="chaperOneId",header="地区")
     private ChapterOne chapterOne;
 
 	@Column(name="sid",header="原数据ID")
@@ -121,15 +124,6 @@ public class ChapterTwo extends Entity {
 
     @Column(name="updated_time",header="updatedTime")
     private String updatedTime;
-
-    public ChapterOne getChapterOne() {
-        return chapterOne;
-    }
-
-
-    public void setChapterOne(ChapterOne chapterOne) {
-        this.chapterOne = chapterOne;
-    }
 
     public String getCode() {
         return code;
@@ -267,7 +261,6 @@ public class ChapterTwo extends Entity {
         this.artificialPersionIdcard = artificialPersionIdcard;
     }
 
-
     public String getArtificialPersionAddress() {
         return artificialPersionAddress;
     }
@@ -290,6 +283,22 @@ public class ChapterTwo extends Entity {
 
     public void setArea(String area) {
         this.area = area;
+    }
+
+    public Integer getChaperOneId() {
+        return chaperOneId;
+    }
+
+    public void setChaperOneId(Integer chaperOneId) {
+        this.chaperOneId = chaperOneId;
+    }
+
+    public ChapterOne getChapterOne() {
+        return chapterOne;
+    }
+
+    public void setChapterOne(ChapterOne chapterOne) {
+        this.chapterOne = chapterOne;
     }
 
     public Integer getSid() {

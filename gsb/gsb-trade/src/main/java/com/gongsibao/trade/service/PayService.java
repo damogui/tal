@@ -1,8 +1,7 @@
 package com.gongsibao.trade.service;
 
 import java.sql.Types;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
@@ -134,6 +133,40 @@ public class PayService extends PersistableService<Pay> implements IPayService {
 
     }
 
+    @Override
+    public Boolean updatePayStatus(Integer payId, Integer successStatusId, Integer oldSuccessStatusId, Date confirmTime, String onlineTradeNo) {
+        if (payId <= 0 || successStatusId <= 0 || oldSuccessStatusId <= 0) {
+            return false;
+        }
+        UpdateBuilder builder = UpdateBuilder.getInstance();
+        builder.update("so_pay");
+        builder.set("confirm_time", confirmTime);
+        builder.set("success_status_id", successStatusId);
+        builder.set("online_trade_no", onlineTradeNo);
+        builder.set("offline_audit_status_id", successStatusId.equals(3123) ? 1054 : 1051);
+
+        String where = " pkid = " + payId;
+        if (oldSuccessStatusId > 0) {
+            where = where + " AND success_status_id = " + oldSuccessStatusId;
+        }
+
+        builder.where(where);
+        return this.pm.executeNonQuery(builder.toSQL(), null) > 0;
+    }
+
+    @Override
+    public int countByOrderIds(Collection<Integer> orderIds) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT ");
+        sql.append("COUNT(1) ");
+        sql.append("FROM `so_pay` ");
+        sql.append("INNER JOIN `so_order_pay_map` ON so_pay.`pkid` = so_order_pay_map.`pay_id` ");
+        sql.append("WHERE so_order_pay_map.`order_id` IN (" + StringManager.join(",", Arrays.asList(orderIds)) + ") AND success_status_id = 3123 ");
+        sql.append("ORDER BY so_pay.confirm_time ASC ");
+
+        return this.pm.executeInt(sql.toString(), null);
+    }
+
     /*支付完成所有的订单金额*/
     private Integer updateAllPayInfo(List<Integer> orderIdFirstAmount, String payTime) {
         String whereStr = "";
@@ -181,8 +214,6 @@ public class PayService extends PersistableService<Pay> implements IPayService {
 
         }
         return num;
-
-
     }
 
 }
