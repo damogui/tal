@@ -13,6 +13,21 @@ com.gongsibao.trade.web.BaseCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
         this.auditLogStatusTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.bd.dic.AuditLogStatusType');
         this.platformSourceTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderPlatformSourceType');
         this.payStatusTypeEnum = PandaHelper.Enum.get('com.gongsibao.entity.trade.dic.OrderPayStatusType');
+        this.initBtn();//初始化按钮
+    },
+    initBtn:function () {
+        $("body").off("click", ".show");
+        $("body").on("click", ".show", function () {
+
+            var orderId = $(this).attr("data-id");
+            var url = $(this).attr("data-url");
+            var title = $(this).attr("data-title");
+            var idFraeam = $(this).attr("data-iframe");
+            var urlEnd = url + "?id=" + orderId;
+            showDetail(idFraeam, title, urlEnd);
+
+        });
+
     }
 });
 
@@ -369,17 +384,7 @@ com.gongsibao.trade.web.OrderPaymentCollectionDetailCtrl = com.gongsibao.trade.w
 
             me.initGrid(data);
         });
-        // $("body").off("click", ".show");
-        // $("body").on("click", ".show", function () {
-        //
-        //     var orderId = $(this).attr("data-id");
-        //     var url = $(this).attr("data-url");
-        //     var urlEnd=url+"?id="+orderId;
-        //     showDetail("orderPay","回款信息",urlEnd);
-        //
-        //
-        //
-        // });
+
 
     },
     initGrid: function (data) {
@@ -478,17 +483,7 @@ com.gongsibao.trade.web.OrderPerCollectionDetailCtrl = com.gongsibao.trade.web.B
 
             me.initGrid(data);
         });
-        // $("body").off("click", ".show");
-        // $("body").on("click", ".show", function () {
-        //
-        //     var orderId = $(this).attr("data-id");
-        //     var url = $(this).attr("data-url");
-        //     var urlEnd=url+"?id="+orderId;
-        //     showDetail("orderPer","订单业绩信息",urlEnd);
-        //
-        //
-        //
-        // });
+
 
     },
     initGrid: function (data) {
@@ -576,17 +571,7 @@ com.gongsibao.trade.web.OrderPayPerCollectionDetailCtrl = com.gongsibao.trade.we
             me.initGrid(data);
         });
 
-        $("body").off("click", ".show");
-        $("body").on("click", ".show", function () {
 
-            var orderId = $(this).attr("data-id");
-            var url = $(this).attr("data-url");
-            var title = $(this).attr("data-title");
-            var idFraeam = $(this).attr("data-iframe");
-            var urlEnd = url + "?id=" + orderId;
-            showDetail(idFraeam, title, urlEnd);
-
-        });
 
     },
     initGrid: function (data) {
