@@ -43,12 +43,7 @@ public class UserPreferentialController extends BaseController {
     @RequestMapping(value = "/usage", method = RequestMethod.GET)
     public Result<PreferentialUsageDTO> usage(HttpServletRequest request) {
         return Result.build(() -> {
-            String openId = openId(request);
-            hasText(openId, "尚未登录!");
-            Account accountWeiXin = accountWeiXinService.queryByOpenId(openId);
-            notNull(accountWeiXin, "账号未绑定");
-            notNull(accountWeiXin.getId(), "账号未绑定");
-            return userPreferentialService.usage(accountWeiXin.getId());
+            return userPreferentialService.usage(accountIdByOpenId(request));
         });
     }
 
@@ -63,12 +58,7 @@ public class UserPreferentialController extends BaseController {
     public Result<List<PreferentialCodeDTO>> myList(HttpServletRequest request,
                                                     @RequestParam(value = "status") Integer status) {
         return Result.build(() -> {
-            String openId = openId(request);
-            hasText(openId, "尚未登录!");
-            Account accountWeiXin = accountWeiXinService.queryByOpenId(openId);
-            notNull(accountWeiXin, "账号未绑定");
-            notNull(accountWeiXin.getId(), "账号未绑定");
-            return userPreferentialService.pageActiveByCondition(accountWeiXin.getId(),status);
+            return userPreferentialService.pageActiveByCondition(accountIdByOpenId(request),status);
         });
     }
 
@@ -82,13 +72,9 @@ public class UserPreferentialController extends BaseController {
     @RequestMapping(value = "/active/{no}", method = RequestMethod.POST)
     public Result<String> active(HttpServletRequest request, @PathVariable("no") String no) {
         return Result.build(() -> {
-            String openId = openId(request);
-            hasText(openId, "尚未登录!");
             hasText(no, "请输入优惠码!");
             isTrue(StringUtils.trimToEmpty(no).length() <= 50, "您输入的优惠码过长!");
-            Account accountWeiXin = accountWeiXinService.queryByOpenId(openId);
-            notNull(accountWeiXin.getId(), "账号未绑定");
-            userPreferentialService.saveActive(accountWeiXin.getId(), no);
+            userPreferentialService.saveActive(accountIdByOpenId(request), no);
             return "激活成功!";
         }).resetOkMsgFromData();
     }

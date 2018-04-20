@@ -39,7 +39,7 @@ public class UserDeliverController extends BaseController {
     @RequestMapping(value = "/getDefault", method = RequestMethod.GET)
     public Result<AccountDeliverAddressDTO> getDefault(HttpServletRequest request) {
         return Result.build(() -> {
-            return accountDeliverAddressService.queryDefault(validateReturnAccountId(request));
+            return accountDeliverAddressService.queryDefault(accountIdByOpenId(request));
         });
     }
 
@@ -69,17 +69,8 @@ public class UserDeliverController extends BaseController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public Result<List<AccountDeliverAddressDTO>> list(HttpServletRequest request) {
         return Result.build(() -> {
-            return accountDeliverAddressService.queryList(validateReturnAccountId(request));
+            return accountDeliverAddressService.queryList(accountIdByOpenId(request));
         });
-    }
-
-    private Integer validateReturnAccountId(HttpServletRequest request) {
-        String openId = openId(request);
-        Assert.hasText(openId, "当前用户尚未绑定!");
-        Account accountWeiXin = accountWeiXinService.queryByOpenId(openId);
-        Assert.notNull(accountWeiXin, "当前用户尚未绑定!");
-        Assert.notNull(accountWeiXin.getId(), "获取用户信息失败!");
-        return accountWeiXin.getId();
     }
 
     /**
@@ -90,7 +81,7 @@ public class UserDeliverController extends BaseController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public Result<Integer> save(@RequestBody DeliverAddressRequest addressRequest, HttpServletRequest request) {
         return Result.build(() -> {
-            Integer accountId = validateReturnAccountId(request);
+            Integer accountId = accountIdByOpenId(request);
             Assert.hasText(addressRequest.getContacts(), "请填写收货人!");
             Assert.isTrue(addressRequest.getContacts().length() <= 20, "收货人不能超过20字!");
             Assert.hasText(addressRequest.getMobilePhone(), "请填写联系方式!");
@@ -112,7 +103,7 @@ public class UserDeliverController extends BaseController {
     @RequestMapping(value = "/setDefault", method = RequestMethod.POST)
     public Result<String> setDefault(@RequestParam("pkid") Integer pkid, HttpServletRequest request) {
         return Result.build(() -> {
-            accountDeliverAddressService.updateDefault(validateReturnAccountId(request),pkid);
+            accountDeliverAddressService.updateDefault(accountIdByOpenId(request),pkid);
             return "设置成功!";
         }).resetOkMsgFromData();
     }
@@ -127,7 +118,7 @@ public class UserDeliverController extends BaseController {
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
     public Result<String> remove(@RequestParam("pkid") Integer pkid, HttpServletRequest request){
         return Result.build(()->{
-            accountDeliverAddressService.remove(validateReturnAccountId(request),pkid);
+            accountDeliverAddressService.remove(accountIdByOpenId(request),pkid);
            return "删除成功!";
         }).resetOkMsgFromData();
     }
