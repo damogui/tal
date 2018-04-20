@@ -1,4 +1,4 @@
-package com.gongsibao.rest.web.dto.product;
+package com.gongsibao.rest.dto.product;
 
 import com.gongsibao.entity.cms.AggregationResponse;
 import com.gongsibao.entity.cms.Product;

@@ -3,6 +3,9 @@ package com.gongsibao.rest.base.bd;
 import com.gongsibao.entity.Result;
 import com.gongsibao.entity.bd.Preferential;
 import com.gongsibao.entity.bd.PreferentialCode;
+import com.gongsibao.entity.bd.dic.CouponPlatformType;
+import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.rest.dto.coupon.CouponUseDTO;
 import com.gongsibao.rest.dto.coupon.CouponValidateDTO;
 
 import java.util.Collection;
@@ -44,5 +47,12 @@ public interface ICouponService {
      */
     Double couponPrice(Double price, Preferential coupon);
 
-    boolean updateCodeStatus(Collection<String> noList, Integer status, Integer orderId);
+    /* *
+     * @Description:TODO
+     * @param  [accountId, platformType, order]
+     * @return com.gongsibao.entity.Result<java.util.Map<java.lang.String,java.lang.Object>> 
+     * @author wangkun <wangkun@gongsibao.com>
+     * @date 2018/4/20
+     */
+    CouponUseDTO findAccountCoupons(Integer accountId, CouponPlatformType platformType, SoOrder order);
 }

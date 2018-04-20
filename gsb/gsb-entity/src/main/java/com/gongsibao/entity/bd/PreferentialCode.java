@@ -1,12 +1,11 @@
 package com.gongsibao.entity.bd;
 
-import java.util.Date;
-
+import com.gongsibao.entity.BaseEntity;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Reference;
 import org.netsharp.core.annotations.Table;
 
-import com.gongsibao.entity.BaseEntity;
+import java.util.Date;
 
 @Table(name="bd_preferential_code")
 public class PreferentialCode extends BaseEntity {

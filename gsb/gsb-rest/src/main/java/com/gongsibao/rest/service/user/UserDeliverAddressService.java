@@ -4,7 +4,7 @@ import com.gongsibao.account.base.IAccountDeliverAddressService;
 import com.gongsibao.entity.acount.AccountDeliverAddress;
 import com.gongsibao.entity.igirl.ic.ex.dict.BooleanType;
 import com.gongsibao.rest.base.user.IUserDeliverAddressService;
-import com.gongsibao.rest.web.dto.user.AccountDeliverAddressDTO;
+import com.gongsibao.rest.dto.user.AccountDeliverAddressDTO;
 import com.gongsibao.rest.web.common.util.Assert;
 import com.gongsibao.rest.web.request.DeliverAddressRequest;
 import org.apache.commons.lang3.ObjectUtils;
