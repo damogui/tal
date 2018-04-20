@@ -23,10 +23,17 @@ import com.gongsibao.rest.base.bd.ICouponService;
 import com.gongsibao.rest.base.customer.ICustomerService;
 import com.gongsibao.rest.base.order.IInvoiceService;
 import com.gongsibao.rest.base.order.IOrderService;
-import com.gongsibao.rest.web.common.security.SecurityUtils;
+import com.gongsibao.rest.base.product.IProductService;
+import com.gongsibao.rest.dto.coupon.CouponUseDTO;
+import com.gongsibao.rest.dto.coupon.CouponValidateDTO;
+import com.gongsibao.rest.dto.order.OrderProdAddDTO;
+import com.gongsibao.rest.dto.product.ProductPriceDTO;
 import com.gongsibao.rest.web.common.util.AmountUtils;
 import com.gongsibao.rest.web.common.util.NumberUtils;
 import com.gongsibao.rest.web.common.util.StringUtils;
+import com.gongsibao.rest.dto.order.OrderAddDTO;
+import com.gongsibao.trade.base.IPayService;
+import com.gongsibao.trade.web.dto.OrderPayDTO;
 import com.gongsibao.rest.web.common.web.Pager;
 import com.gongsibao.rest.web.dto.order.OrderAddDTO;
 import com.gongsibao.rest.web.dto.order.OrderDTO;
@@ -35,6 +42,7 @@ import com.gongsibao.utils.DateUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.BusinessException;
 import org.netsharp.core.annotations.Transaction;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +66,8 @@ public class OrderService implements IOrderService {
     // 订单服务
     com.gongsibao.trade.base.IOrderService tradeOrderService = ServiceFactory.create(com.gongsibao.trade.base.IOrderService.class);
 
+    IPayService payService = ServiceFactory.create(IPayService.class);
+
     // 字典服务
     IDictService dictService = ServiceFactory.create(IDictService.class);
     IWorkflowNodeService workflowNodeService = ServiceFactory.create(IWorkflowNodeService.class);
@@ -78,6 +88,7 @@ public class OrderService implements IOrderService {
     IInvoiceService invoiceService;
 
     @Override
+    @SuppressWarnings({"unchecked"})
     @Transaction
     public Result<SoOrder> saveOrder(OrderAddDTO orderAddDTO) {
         // 1. 处理订单信息
@@ -104,6 +115,34 @@ public class OrderService implements IOrderService {
 
         result.setObj(order);
         return result;
+    }
+
+    @Override
+    public Result<CouponUseDTO> findOrderCoupon(OrderAddDTO orderAddDTO) {
+        Result<CouponUseDTO> result = new Result<>();
+
+        Result<SoOrder> orderResult = doOrder(orderAddDTO);
+        if (Result.isFailed(orderResult)) {
+            result.setMsg(orderResult.getMsg());
+            result.setStatus(orderResult.getStatus());
+            return result;
+        }
+
+        SoOrder order = orderResult.getObj();
+
+        CouponUseDTO couponDto = couponService.findAccountCoupons(orderAddDTO.getAccount().getId(), orderAddDTO.getCouponPlatformType(), order);
+        result.setObj(couponDto);
+        return result;
+    }
+
+    @Override
+    public Integer countByAccountId(Integer accountId, boolean isPaid) {
+        return tradeOrderService.countByAccountId(accountId, isPaid);
+    }
+
+    @Override
+    public void updateOnlinePay(OrderPayDTO orderPayDTO) {
+        tradeOrderService.updateOnlinePay(orderPayDTO);
     }
 
     @Override
@@ -232,7 +271,7 @@ public class OrderService implements IOrderService {
                 {
                     invoice.toPersist();
                     invoice.setAmount(order.getPayablePrice());
-                    invoice.setContent(orderAddDTO.getPlatformType().getText() + "下单发票");
+                    invoice.setContent(orderAddDTO.getCouponPlatformType().getText() + "下单发票");
                 }
 
                 // 订单关联发票
@@ -247,16 +286,16 @@ public class OrderService implements IOrderService {
         }
         return null;
     }
-
+    @SuppressWarnings({ "unchecked" })
     private Result doCoupon(SoOrder order, OrderAddDTO orderAddDTO) {
-        Result result = new Result();
+        Result<SoOrder> result = new Result<SoOrder>();
         // 订单原价
         double payablePrice = order.getPayablePrice();
 
         List<String> couponNoList = StringUtils.stringToList(orderAddDTO.getOrderDiscount());
         if (CollectionUtils.isNotEmpty(couponNoList)) {
             // 查询历史订单数量
-            Integer orderCount = tradeOrderService.countByAccountId(orderAddDTO.getAccount().getId(), true);
+            Integer orderCount = countByAccountId(orderAddDTO.getAccount().getId(), true);
 
             // 优惠券查询
             Map<String, PreferentialCode> couponMap = couponService.mapByNos(couponNoList);
@@ -277,7 +316,7 @@ public class OrderService implements IOrderService {
                     validateDTO.setOrder(order);
                     validateDTO.setCouponNo(no);
                     validateDTO.setOrderCount(orderCount);
-                    validateDTO.setPlatformType(orderAddDTO.getPlatformType());
+                    validateDTO.setPlatformType(orderAddDTO.getCouponPlatformType());
                     validateDTO.setPreferentialCode(code);
                     validateDTO.setPlatformMap(platformMap);
                 }
@@ -321,7 +360,7 @@ public class OrderService implements IOrderService {
     private Result<SoOrder> doOrder(OrderAddDTO orderAddDTO) {
         Account account = orderAddDTO.getAccount();
         // 组建order对象
-        List<OrderProdAddDto> prodDtoList = orderAddDTO.getProductList();
+        List<OrderProdAddDTO> prodDtoList = orderAddDTO.getProductList();
         if (CollectionUtils.isEmpty(prodDtoList)) {
             return new Result<>(ResponseStatus.FAILED, "商品不能为空");
         }
@@ -362,7 +401,7 @@ public class OrderService implements IOrderService {
         // 封装orderProd 对象
         List<OrderProd> orderProdList = new ArrayList<>();
         Map<String, Integer> productNumMap = new HashMap<>();
-        for (OrderProdAddDto orderProdAddDto : prodDtoList) {
+        for (OrderProdAddDTO orderProdAddDto : prodDtoList) {
             Integer productId = orderProdAddDto.getProductId();
             Product product = productMap.get(productId);
             if (null == product) {

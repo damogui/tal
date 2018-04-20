@@ -3,7 +3,7 @@ package com.gongsibao.rest.web.controller.v1.dict;
 import com.gongsibao.rest.base.dict.IDictService;
 import com.gongsibao.rest.web.common.apiversion.Api;
 import com.gongsibao.rest.web.common.web.Result;
-import com.gongsibao.rest.web.dto.dict.CityDTO;
+import com.gongsibao.rest.dto.dict.CityDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

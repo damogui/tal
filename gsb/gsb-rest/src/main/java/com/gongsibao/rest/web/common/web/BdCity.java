@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BdCity implements Serializable {
+    private static final long serialVersionUID = 7447938651449258944L;
     private String name;
     private String value;
     private String parent;

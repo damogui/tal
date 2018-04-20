@@ -27,6 +27,8 @@ public interface IOrderProdService extends IPersistableService<OrderProd> {
 
     boolean updateSettleStatus(List<Integer> orderProdIds, SettleStatus settleStatus);
 
+    OrderProd getById(Integer Id);
+
     /**
      * @throws
      * @Title: updateIsComplaint

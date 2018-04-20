@@ -4,6 +4,9 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gongsibao.product.base.IWorkflowService;
+import com.gongsibao.utils.NumberUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
 import org.netsharp.core.Oql;
@@ -44,6 +47,8 @@ public class OrderProdDetailController {
     IOrderProdService orderProdService = ServiceFactory.create(IOrderProdService.class);
     IOrderProdTraceService traceService = ServiceFactory.create(IOrderProdTraceService.class);
     IOrderProdUserMapService prodUserMapService = ServiceFactory.create(IOrderProdUserMapService.class);
+    IWorkflowNodeService workflowNodeService = ServiceFactory.create(IWorkflowNodeService.class);
+    IWorkflowService workflowService = ServiceFactory.create(IWorkflowService.class);
 
     /**
      * @throws
@@ -170,20 +175,9 @@ public class OrderProdDetailController {
      * @param: @return
      * @return: List<WorkflowNode>
      */
-    public List<WorkflowNode> queryWorkflowNodeList(Integer prodId, Integer cityId, Integer version) {
-
-        IWorkflowNodeService workflowNodeService = ServiceFactory.create(IWorkflowNodeService.class);
-        if (version == null) {
-
-            version = workflowNodeService.getWorkflowNodeMaxVersion(prodId, cityId);
-        }
-
-        if (version == null) {
-
-            throw new BusinessException("交付流程模版未设置，请联系管理！");
-        }
-
-        return workflowNodeService.queryWorkflowNodeList(prodId, cityId, version);
+    public List<WorkflowNode> queryWorkflowNodeList(Integer id) {
+        List<WorkflowNode> resList = workflowNodeService.getListByOrderProdId(id);
+        return resList;
     }
 
     /**

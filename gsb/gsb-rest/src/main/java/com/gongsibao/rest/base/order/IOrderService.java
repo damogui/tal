@@ -2,6 +2,9 @@ package com.gongsibao.rest.base.order;
 
 import com.gongsibao.entity.Result;
 import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.rest.dto.coupon.CouponUseDTO;
+import com.gongsibao.rest.dto.order.OrderAddDTO;
+import com.gongsibao.trade.web.dto.OrderPayDTO;
 import com.gongsibao.rest.web.common.web.Pager;
 import com.gongsibao.rest.web.dto.order.OrderAddDTO;
 import com.gongsibao.rest.web.dto.order.OrderDTO;
@@ -19,6 +22,11 @@ public interface IOrderService {
     @Transaction
     Result<SoOrder> saveOrder(OrderAddDTO orderAddDTO);
 
+    Result<CouponUseDTO> findOrderCoupon(OrderAddDTO orderAddDTO);
+
+    Integer countByAccountId(Integer accountId, boolean isPaid);
+
+    void updateOnlinePay(OrderPayDTO orderPayDTO);
     /**
      * 分页查询我的订单
      *

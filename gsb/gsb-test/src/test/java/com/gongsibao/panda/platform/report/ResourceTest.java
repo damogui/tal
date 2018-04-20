@@ -75,5 +75,10 @@ public class ResourceTest extends ResourceCreationBase{
 
 		}
 		
+		node1 = this.createResourceNodeCategory("回款统计", prefix + "_Pay", node.getId());
+		{
+			this.createResourceNodeVoucher(BaseCustomerReportEntity.class.getName(), "每日回款", node1.getCode() + "_Pay", IPersistableService.class.getName(), node1.getId());
+			
+		}
 	}
 }

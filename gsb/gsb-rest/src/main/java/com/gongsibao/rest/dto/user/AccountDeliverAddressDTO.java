@@ -1,7 +1,7 @@
-package com.gongsibao.rest.web.dto.user;
+package com.gongsibao.rest.dto.user;
 
 
-import com.gongsibao.rest.web.dto.PkId;
+import com.gongsibao.rest.dto.PkId;
 
 /**
  * @author ffli <ffli@gongsibao.com>
@@ -9,6 +9,7 @@ import com.gongsibao.rest.web.dto.PkId;
  * @date 2018/4/18 16:59
  */
 public class AccountDeliverAddressDTO extends PkId {
+    private static final long serialVersionUID = 7447938651449258944L;
 
     /** 会员id */
     private Integer accountId;

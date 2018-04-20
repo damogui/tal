@@ -3,17 +3,19 @@ package com.gongsibao.rest.web.controller.v1.product;
 import com.gongsibao.entity.Result;
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.bd.Dict;
+import com.gongsibao.entity.bd.dic.CouponPlatformType;
 import com.gongsibao.entity.cms.Product;
 import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.rest.base.user.IAccountService;
 import com.gongsibao.rest.base.order.IOrderService;
+import com.gongsibao.rest.base.product.IProductPriceService;
+import com.gongsibao.rest.base.product.IProductService;
+import com.gongsibao.rest.base.user.IAccountService;
+import com.gongsibao.rest.dto.coupon.CouponUseDTO;
 import com.gongsibao.rest.web.common.apiversion.Api;
 import com.gongsibao.rest.web.common.util.JsonUtils;
 import com.gongsibao.rest.web.common.web.ResponseData;
 import com.gongsibao.rest.web.controller.BaseController;
-import com.gongsibao.rest.web.dto.order.OrderAddDTO;
-import com.gongsibao.rest.base.product.IProductPriceService;
-import com.gongsibao.rest.base.product.IProductService;
+import com.gongsibao.rest.dto.order.OrderAddDTO;
 import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -208,6 +210,43 @@ public class ICompanyProductController extends BaseController {
         return data;
     }
 
+    /**
+     * @Description: 针对当前下单信息，获取用户可用优惠券
+     * @param
+     * @return
+     * @author wangkun <wangkun@gongsibao.com>
+     * @date 2018/4/19
+     */
+    @RequestMapping(value = "/preferential", method = RequestMethod.POST)
+    public ResponseData preferential(HttpServletRequest request, @RequestBody String req) {
+        ResponseData data = new ResponseData();
+        OrderAddDTO orderAddDTO = JsonUtils.jsonToObject(req, OrderAddDTO.class);
+        if (null == orderAddDTO) {
+            data.setMsg("操作失败，参数错误");
+            return data;
+        }
+
+        // 获取当前登录用户
+        Account account = accountService.queryByOpenId(openId(request));
+        if (null == account) {
+            data.setCode(-1);
+            data.setMsg("请先绑定用户");
+            return data;
+        }
+        orderAddDTO.setAccount(account);
+        orderAddDTO.setCompanyId(0);
+        orderAddDTO.setCouponPlatformType(CouponPlatformType.WEIXIN);
+
+        Result<CouponUseDTO> result = orderService.findOrderCoupon(orderAddDTO);
+        if (Result.isSuccess(result)) {
+            data.setData(result.getObj());
+        } else {
+            data.setMsg(result.getMsg());
+            data.setCode(-1);
+        }
+        return data;
+    }
+
     @RequestMapping(value = "/addOrder", method = RequestMethod.POST)
     public ResponseData addOrder(HttpServletRequest request, @RequestBody String req) {
         ResponseData data = new ResponseData();
@@ -226,6 +265,7 @@ public class ICompanyProductController extends BaseController {
         }
         orderAddDTO.setAccount(account);
         orderAddDTO.setCompanyId(0);
+        orderAddDTO.setCouponPlatformType(CouponPlatformType.WEIXIN);
 
         Result<SoOrder> result = orderService.saveOrder(orderAddDTO);
         if (Result.isSuccess(result)) {

@@ -1,10 +1,7 @@
 package com.gongsibao.rest.base.user;
 
-import com.gongsibao.entity.bd.PreferentialCode;
-import com.gongsibao.rest.web.common.web.Pager;
-import com.gongsibao.rest.web.dto.user.PreferentialCodeDTO;
-import com.gongsibao.rest.web.dto.user.PreferentialUsageDTO;
-import org.netsharp.core.Paging;
+import com.gongsibao.rest.dto.user.PreferentialCodeDTO;
+import com.gongsibao.rest.dto.user.PreferentialUsageDTO;
 
 import java.util.List;
 

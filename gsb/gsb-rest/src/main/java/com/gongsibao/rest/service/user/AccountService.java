@@ -2,16 +2,12 @@ package com.gongsibao.rest.service.user;
 
 import com.gongsibao.account.base.IAccountWeiXinService;
 import com.gongsibao.entity.acount.Account;
-import com.gongsibao.entity.acount.AccountWeiXin;
 import com.gongsibao.entity.acount.AccountWxMsg;
 import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.rest.base.user.IAccountService;
 import com.gongsibao.rest.web.common.util.*;
 import com.gongsibao.rest.web.common.web.Constant;
-import com.gongsibao.rest.web.common.web.Pager;
-import com.gongsibao.rest.web.dto.order.OrderPayMapDTO;
 import com.gongsibao.u8.base.IOrderPayMapService;
-import com.gongsibao.u8.base.ISoOrderService;
 import com.gongsibao.utils.NumberUtils;
 import com.gongsibao.utils.sms.SmsHelper;
 import org.apache.commons.lang.StringUtils;
@@ -25,6 +21,8 @@ import org.netsharp.wx.pa.entity.PublicAccount;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.*;
 
 @Service
@@ -199,7 +197,7 @@ public class AccountService implements IAccountService{
         resMap.put("paySign", paySign);
         return 1;
     }
-
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public String wxpay(PublicAccount account, String out_trade_no, Integer order_price, String body, Integer clientType, String openId, Integer userChannel) throws JDOMException, IOException {
         // 账号信息
@@ -269,4 +267,5 @@ public class AccountService implements IAccountService{
     public List<OrderPayMap> pageByProperties(Integer orderId, Integer payId) {
         return orderPayMapService.queryByOrderIdPayId(orderId,payId);
     }
+
 }
