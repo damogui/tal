@@ -40,13 +40,13 @@
 				          </td>
 				          <td class="label_td"><label>付款账户名称：</label></td>
 				          <td class="control_td">
-				          		<input id="offlinePayerName" class="easyui-validatebox nsInput" style="width:200px;"/>
+				          		<input id="offlinePayerName" maxlength="30" class="easyui-validatebox nsInput" style="width:200px;"/>
 				          </td>
 					  </tr>
 				      <tr>
 				          <td class="label_td"><label>付款账号：</label></td>
 				          <td class="control_td">
-				          		<input id="offlineBankNo" class="easyui-validatebox nsInput" style="width:200px;"/>
+				          		<input id="offlineBankNo" maxlength="30" class="easyui-validatebox nsInput" style="width:200px;"/>
 				          </td>
 				          <td class="label_td"><label>一笔多单：</label></td>
 				          <td class="control_td">
@@ -54,14 +54,14 @@
 				          </td>
 				          <td class="label_td"><label>付款金额：</label></td>
 				          <td class="control_td">
-					          		<input id="amount" class="easyui-numberbox nsInput"
-				          			data-options="precision:2,width:200,min:1"/>
+					          		<input id="amount"  class="easyui-numberbox nsInput"
+				          			data-options="precision:2,width:200,min:1,max:10000000"/>
 						  </td>
 					</tr>
 				      <tr>
 				          <td class="label_td"><label>付款说明：</label></td>
 				          <td colspan="3" class="control_td">
-								<textarea id="offlineRemark" style="width:100%;height:50px;" class="easyui-validatebox nsInput"></textarea>
+								<textarea id="offlineRemark" style="width:100%;height:50px;" maxlength="200" class="easyui-validatebox nsInput"></textarea>
 				          </td>
 					</tr>
 				</table>
