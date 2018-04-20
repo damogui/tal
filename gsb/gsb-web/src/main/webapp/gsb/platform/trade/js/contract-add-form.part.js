@@ -36,7 +36,7 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         $("#soOrder_payablePrice").text(payablePrice);
         //合同来源
         $("#soOrder_platformSource").text(me.orderPlatformSourceEnum[jmessage.soOrder.platformSource]);
-        //合同金额
+        //合同总额
         $("#realAmount").numberbox('setValue', payablePrice);
         // endregion
     },
