@@ -32,4 +32,21 @@ public class U8BankService extends PersistableService<U8Bank> implements IU8Bank
         return entity;
     }
 
+    @Override
+    public U8Bank getByOnlineBankCode(String onlineBankCodeId) {
+        return byId(getByOnlineBankCode(onlineBankCodeId));
+    }
+
+    private Integer getOnlinePayBank(String onlineBankCode) {
+        Integer u8bankId = 0;
+        if (onlineBankCode.indexOf("支付宝") > -1 && onlineBankCode.indexOf("畅捷支付") < 0) {
+            u8bankId = 6;
+        } else if (onlineBankCode.indexOf("微信支付") > -1 && onlineBankCode.indexOf("畅捷支付") < 0) {
+            u8bankId = 10;
+        } else if (onlineBankCode.indexOf("畅捷支付") > -1) {
+            u8bankId = 13;
+        }
+        return u8bankId;
+    }
+
 }

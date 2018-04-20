@@ -6,6 +6,9 @@ import org.netsharp.core.annotations.Transaction;
 
 import com.gongsibao.entity.trade.Pay;
 
+import java.util.Collection;
+import java.util.Date;
+
 public interface IPayService extends IPersistableService<Pay> {
 
     @Transaction
@@ -15,4 +18,8 @@ public interface IPayService extends IPersistableService<Pay> {
     void updateStatus(Integer id, AuditStatusType bhsh);
     @Transaction
     Integer auditPass(String payTime, Integer formId);
+
+    Boolean updatePayStatus(Integer payId, Integer successStatusId, Integer oldSuccessStatusId, Date confirmTime, String onlineTradeNo);
+
+    int countByOrderIds(Collection<Integer> orderIds);
 }

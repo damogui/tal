@@ -26,8 +26,11 @@ import com.gongsibao.rest.web.common.util.AmountUtils;
 import com.gongsibao.rest.web.common.util.NumberUtils;
 import com.gongsibao.rest.web.common.util.StringUtils;
 import com.gongsibao.rest.dto.order.OrderAddDTO;
+import com.gongsibao.trade.base.IPayService;
+import com.gongsibao.trade.web.dto.OrderPayDTO;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.BusinessException;
 import org.netsharp.core.annotations.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,6 +51,8 @@ public class OrderService implements IOrderService {
 
     // 订单服务
     com.gongsibao.trade.base.IOrderService tradeOrderService = ServiceFactory.create(com.gongsibao.trade.base.IOrderService.class);
+
+    IPayService payService = ServiceFactory.create(IPayService.class);
 
     // 字典服务
     IDictService dictService = ServiceFactory.create(IDictService.class);
@@ -117,6 +122,11 @@ public class OrderService implements IOrderService {
     @Override
     public Integer countByAccountId(Integer accountId, boolean isPaid) {
         return tradeOrderService.countByAccountId(accountId, isPaid);
+    }
+
+    @Override
+    public void updateOnlinePay(OrderPayDTO orderPayDTO) {
+        tradeOrderService.updateOnlinePay(orderPayDTO);
     }
 
     private Invoice doInvoice(SoOrder order, OrderAddDTO orderAddDTO) {

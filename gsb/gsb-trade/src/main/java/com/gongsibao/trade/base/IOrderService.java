@@ -4,6 +4,7 @@ import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.trade.Invoice;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 
+import com.gongsibao.trade.web.dto.OrderPayDTO;
 import org.netsharp.base.IPersistableService;
 import org.netsharp.core.annotations.Transaction;
 
@@ -11,6 +12,7 @@ import com.gongsibao.entity.trade.NOrderCarryover;
 import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
 
+import java.util.Date;
 import java.util.List;
 
 public interface IOrderService extends IPersistableService<SoOrder> {
@@ -109,4 +111,17 @@ public interface IOrderService extends IPersistableService<SoOrder> {
     SoOrder saveWebOrder(SoOrder order, Invoice invoice, List<String> couponNo);
 
     void updateNo(SoOrder soOrder);
+
+    @Transaction
+    void updateOnlinePay(OrderPayDTO orderPayDTO);
+
+    Boolean addPaidPrice(Integer id, Integer paidPrice);
+
+    Boolean updateProcessStatusId(Integer id, Integer processStatusId);
+
+    Boolean updatePayStatus(int id, Integer payStatusId);
+
+    Boolean updateFistPayTime(Integer id, Date fistPayTime);
+
+    Boolean updatePayTime(Integer orderId, Date payTime);
 }
