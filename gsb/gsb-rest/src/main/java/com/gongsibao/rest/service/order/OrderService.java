@@ -17,17 +17,14 @@ import com.gongsibao.entity.trade.dic.*;
 import com.gongsibao.product.base.IWorkflowNodeService;
 import com.gongsibao.rest.base.product.IProductService;
 import com.gongsibao.rest.dto.coupon.CouponValidateDTO;
-import com.gongsibao.rest.dto.order.OrderProdAddDto;
+import com.gongsibao.rest.dto.order.OrderProdAddDTO;
 import com.gongsibao.rest.dto.product.ProductPriceDTO;
 import com.gongsibao.rest.base.bd.ICouponService;
 import com.gongsibao.rest.base.customer.ICustomerService;
 import com.gongsibao.rest.base.order.IInvoiceService;
 import com.gongsibao.rest.base.order.IOrderService;
-import com.gongsibao.rest.base.product.IProductService;
 import com.gongsibao.rest.dto.coupon.CouponUseDTO;
-import com.gongsibao.rest.dto.coupon.CouponValidateDTO;
-import com.gongsibao.rest.dto.order.OrderProdAddDTO;
-import com.gongsibao.rest.dto.product.ProductPriceDTO;
+import com.gongsibao.rest.web.common.security.SecurityUtils;
 import com.gongsibao.rest.web.common.util.AmountUtils;
 import com.gongsibao.rest.web.common.util.NumberUtils;
 import com.gongsibao.rest.web.common.util.StringUtils;
@@ -35,16 +32,13 @@ import com.gongsibao.rest.dto.order.OrderAddDTO;
 import com.gongsibao.trade.base.IPayService;
 import com.gongsibao.trade.web.dto.OrderPayDTO;
 import com.gongsibao.rest.web.common.web.Pager;
-import com.gongsibao.rest.web.dto.order.OrderAddDTO;
+import com.gongsibao.rest.dto.order.OrderAddDTO;
 import com.gongsibao.rest.web.dto.order.OrderDTO;
 import com.gongsibao.rest.web.dto.order.OrderProductDTO;
-import com.gongsibao.utils.DateUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.netsharp.communication.ServiceFactory;
-import org.netsharp.core.BusinessException;
 import org.netsharp.core.annotations.Transaction;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -339,7 +333,7 @@ public class OrderService implements IOrderService {
                     orderDiscount.setPreferentialId(coupon.getId());
                     orderDiscount.setNo(no);
                     orderDiscount.setSqlid("");
-                    orderDiscount.setRemark(orderAddDTO.getPlatformType().getText() + "下单使用");
+                    orderDiscount.setRemark(orderAddDTO.getOrderPlatformSourceType().getText() + "下单使用");
                 }
                 orderDiscountList.add(orderDiscount);
             }
@@ -377,14 +371,14 @@ public class OrderService implements IOrderService {
         List<Integer> dictIds = new ArrayList<>();
         // 定价id
         List<Integer> priceIds = new ArrayList<>();
-        for (OrderProdAddDto orderProdAddDto : prodDtoList) {
-            List<ProductPriceDTO> priceList = orderProdAddDto.getPriceList();
+        for (OrderProdAddDTO OrderProdAddDTO : prodDtoList) {
+            List<ProductPriceDTO> priceList = OrderProdAddDTO.getPriceList();
             if (CollectionUtils.isEmpty(priceList)) {
                 return new Result<>(ResponseStatus.FAILED, "定价不能为空");
             }
 
-            productIds.add(orderProdAddDto.getProductId());
-            dictIds.add(orderProdAddDto.getCityId());
+            productIds.add(OrderProdAddDTO.getProductId());
+            dictIds.add(OrderProdAddDTO.getCityId());
 
             for (ProductPriceDTO productPriceDTO : priceList) {
                 priceIds.add(productPriceDTO.getPriceId());
@@ -401,13 +395,13 @@ public class OrderService implements IOrderService {
         // 封装orderProd 对象
         List<OrderProd> orderProdList = new ArrayList<>();
         Map<String, Integer> productNumMap = new HashMap<>();
-        for (OrderProdAddDTO orderProdAddDto : prodDtoList) {
-            Integer productId = orderProdAddDto.getProductId();
+        for (OrderProdAddDTO OrderProdAddDTO : prodDtoList) {
+            Integer productId = OrderProdAddDTO.getProductId();
             Product product = productMap.get(productId);
             if (null == product) {
                 return new Result<>(ResponseStatus.FAILED, "商品不能为空");
             }
-            Dict city = dictMap.get(orderProdAddDto.getCityId());
+            Dict city = dictMap.get(OrderProdAddDTO.getCityId());
             if (null == city) {
                 return new Result<>(ResponseStatus.FAILED, "请选择城市");
             }
@@ -415,7 +409,7 @@ public class OrderService implements IOrderService {
             if (StringUtils.isNotBlank(orderAddDTO.getCategoryIds())) {
                 quantity = StringUtils.idsToList(orderAddDTO.getCategoryIds()).size();
             } else {
-                quantity = orderProdAddDto.getQuantity();
+                quantity = OrderProdAddDTO.getQuantity();
             }
 
             if (quantity == 0) {
@@ -429,7 +423,7 @@ public class OrderService implements IOrderService {
                 int opOriginalPrice = 0;
 
                 List<OrderProdItem> itemList = new ArrayList<>();
-                for (ProductPriceDTO productPriceDTO : orderProdAddDto.getPriceList()) {
+                for (ProductPriceDTO productPriceDTO : OrderProdAddDTO.getPriceList()) {
                     Price price = priceMap.get(productPriceDTO.getPriceId());
                     if (null == price) {
                         return new Result<>(ResponseStatus.FAILED, "定价不存在");
@@ -459,7 +453,7 @@ public class OrderService implements IOrderService {
                     orderProd.setOrderId(0);
                     orderProd.setProductId(productId);
                     orderProd.setProductName(product.getName());
-                    orderProd.setCityId(orderProdAddDto.getCityId());
+                    orderProd.setCityId(OrderProdAddDTO.getCityId());
                     orderProd.setCity(city);
                     orderProd.setCityName(city.getName());
                     orderProd.setQuantity(1);

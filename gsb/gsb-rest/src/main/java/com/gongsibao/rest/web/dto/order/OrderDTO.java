@@ -2,7 +2,7 @@ package com.gongsibao.rest.web.dto.order;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
-import com.gongsibao.rest.web.dto.PkId;
+import com.gongsibao.rest.dto.PkId;
 
 import java.io.Serializable;
 import java.util.Date;

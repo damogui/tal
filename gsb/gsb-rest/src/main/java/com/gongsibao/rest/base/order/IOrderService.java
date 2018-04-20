@@ -6,7 +6,6 @@ import com.gongsibao.rest.dto.coupon.CouponUseDTO;
 import com.gongsibao.rest.dto.order.OrderAddDTO;
 import com.gongsibao.trade.web.dto.OrderPayDTO;
 import com.gongsibao.rest.web.common.web.Pager;
-import com.gongsibao.rest.web.dto.order.OrderAddDTO;
 import com.gongsibao.rest.web.dto.order.OrderDTO;
 import org.netsharp.core.annotations.Transaction;
 
