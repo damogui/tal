@@ -150,11 +150,11 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     updateProcessStatus: function () {
 
         var me = this;
-        var version = this.mainCtrl.orderProd.version;//要更新老数据至version（根据order_prod_status_id到prod_workflow_node表里冗余version）
+        /*var version = this.mainCtrl.orderProd.version;//要更新老数据至version（根据order_prod_status_id到prod_workflow_node表里冗余version）
         var productId = this.mainCtrl.orderProd.productId;
-        var cityId = this.mainCtrl.orderProd.cityId;
+        var cityId = this.mainCtrl.orderProd.cityId;*/
         var id = this.mainCtrl.orderProd.id;
-        this.invokeService("queryWorkflowNodeList", [id, productId, cityId, version], function (data) {
+        this.invokeService("queryWorkflowNodeList", [id], function (data) {
 
             if (data) {
 

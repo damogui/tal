@@ -175,7 +175,7 @@ public class OrderProdDetailController {
      * @param: @return
      * @return: List<WorkflowNode>
      */
-    public List<WorkflowNode> queryWorkflowNodeList(Integer id, Integer prodId, Integer cityId, Integer version) {
+    public List<WorkflowNode> queryWorkflowNodeList(Integer id) {
         List<WorkflowNode> resList = workflowNodeService.getListByOrderProdId(id);
         return resList;
     }
