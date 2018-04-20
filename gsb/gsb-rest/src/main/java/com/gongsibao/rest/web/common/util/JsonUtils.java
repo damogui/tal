@@ -70,34 +70,7 @@ public class JsonUtils {
         return null;
     }
 
-    public static <T> List<T> jsonToList(String json, Class classType, String... dateFormat) {
-        if (StringUtils.isBlank(json)) {
-            return null;
-        }
-        try {
-            setDataFormat(dateFormat);
-            JavaType javaType = getObjectMapper().getTypeFactory().constructParametrizedType(ArrayList.class, List.class, classType);
-            return getObjectMapper().readValue(json, javaType);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
-    public static <K, V> Map<K, V> jsonToMap(String json, Class<K> keyClassType, Class<V> valueClassType, String... dateFormat) {
-        if (StringUtils.isBlank(json)) {
-            return null;
-        }
-
-        try {
-            setDataFormat(dateFormat);
-            JavaType javaType = getObjectMapper().getTypeFactory().constructParametrizedType(HashMap.class, Map.class, keyClassType, valueClassType);
-            return getObjectMapper().readValue(json, javaType);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     /**
      * 设置日期格式

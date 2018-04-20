@@ -346,6 +346,7 @@ public class UserController extends BaseController{
      * @author hbpeng <hbpeng@gongsibao.com>
      * @date 2018/4/19 20:21
      */
+    @SuppressWarnings({ "unchecked" })
     @RequestMapping(value = "/pay",method = RequestMethod.POST)
     public ResponseData pay(HttpServletRequest request,
                             HttpServletResponse response,
