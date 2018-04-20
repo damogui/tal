@@ -36,6 +36,7 @@ public interface ICouponService {
      * @author wangkun <wangkun@gongsibao.com>
      * @date 2018/4/18
      */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     Result validOrderCoupon(CouponValidateDTO dto);
 
     /**

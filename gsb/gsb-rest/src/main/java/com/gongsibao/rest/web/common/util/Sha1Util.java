@@ -16,6 +16,7 @@ public class Sha1Util {
     }
 
     //创建签名SHA1
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public static String createSHA1Sign(SortedMap<String, String> signParams) throws Exception {
         StringBuffer sb = new StringBuffer();
         Set es = signParams.entrySet();

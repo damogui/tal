@@ -55,7 +55,7 @@ import com.gongsibao.panda.platform.trade.workspace.payment.PaymentLogWorkspaceT
         StagingAuditWorkspaceTest.class,
         PayAuditWorkspaceTest.class,//回款审核
         SettleAuditWorkspaceTest.class, // 结算审核
-
+        MyOrderDetailWorkspaceTest.class,//我的订单明细
         //成本管理:成本管理,收款方管理,请款审核,请款审核,供应商发票审核
 	/*CostManageWorkspaceTest.class,
 	CashOutAuditWorkspaceTest.class,

@@ -43,6 +43,7 @@ public class NavigationTest extends NavigationBase {
             createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Carryover", "结转订单", "/operation/order/carryover/list", 71);
             createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Contract", "合同管理", "/operation/order/contract/list", 81);
             createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Invoice", "发票管理", "/operation/order/invoice/list", 91);
+            createPTreeNode(tree, parentNodeCode, null, "Operation_Order_OrderProd", "订单明细", "/operation/order/detail/list", 95);
 //            createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Day_Report", "日统计", "/operation/order/report/day", 101);
 //            createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Week_Report", "周统计", "/operation/order/report/week", 111);
 //            createPTreeNode(tree, parentNodeCode, null, "Operation_Order_Month_Report", "月统计", "/operation/order/report/month", 121);
