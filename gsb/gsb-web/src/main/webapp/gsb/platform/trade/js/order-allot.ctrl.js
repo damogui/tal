@@ -38,7 +38,6 @@ com.gongsibao.trade.web.OrderAllotCtrl = System.Object.Extends({
                     option:{width:300,precision:2,min:1,required:true}}
             ],
             callback:function(index, layero){
-            	debugger;
                 var supplierId = $('#allot_supplier_name').combogrid('getValue');
                 var departmentId = $('#allot_department_name').combogrid('getValue');
                 var salesmanId = $('#allot_salesman_name').combogrid('getValue');
@@ -121,11 +120,7 @@ com.gongsibao.trade.web.OrderAllotCtrl = System.Object.Extends({
             pageSize : 10,
             mode : 'remote',
             multiple : false,           
-            onChange : function(newValue, oldValue) {            	
-            	//验证是选中项，手动输入作废
-            	/*if(isNaN(newValue)) { 
-            	　　　$('#allot_supplier_name').combogrid('clear');            		
-            	　} 　*/
+            onChange : function(newValue, oldValue) {
                 //改变部门的查询条件
                 $('#allot_department_name').combogrid('clear');
                 var grid = $('#allot_department_name').combogrid('grid');
