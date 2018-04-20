@@ -16,6 +16,7 @@ import com.gongsibao.panda.platform.report.workspace.customer.StatisticalCustome
 import com.gongsibao.panda.platform.report.workspace.customer.StatusReportWorkspaceTest;
 import com.gongsibao.panda.platform.report.workspace.customer.WeekReportWorkspaceTest;
 import com.gongsibao.panda.platform.report.workspace.customer.YearReportWorkspaceTest;
+import com.gongsibao.panda.platform.report.workspace.pay.PayReportWorkspaceTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({
@@ -66,6 +67,7 @@ import com.gongsibao.panda.platform.report.workspace.customer.YearReportWorkspac
      FunnelStatisticalWorkspaceTest.class,
      StatisticalCustomerServiceWorkspaceTest.class,*/
      
+	 PayReportWorkspaceTest.class,
 	 NavigationTest.class
 	
 })
