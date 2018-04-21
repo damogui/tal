@@ -49,6 +49,7 @@ public class OrderProdDetailController {
     IOrderProdUserMapService prodUserMapService = ServiceFactory.create(IOrderProdUserMapService.class);
     IWorkflowNodeService workflowNodeService = ServiceFactory.create(IWorkflowNodeService.class);
     IWorkflowService workflowService = ServiceFactory.create(IWorkflowService.class);
+    IWorkflowFileService workflowFileService = ServiceFactory.create(IWorkflowFileService.class);
 
     /**
      * @throws
@@ -487,10 +488,8 @@ public class OrderProdDetailController {
      * @param: @return
      * @return: List<OrderProdTraceFile>
      */
-    public List<WorkflowFile> queryWorkflowFileList(Integer prodId, Integer cityId) {
-
-        IWorkflowFileService workflowFileService = ServiceFactory.create(IWorkflowFileService.class);
-        List<WorkflowFile> fileList = workflowFileService.queryWorkflowFileList(prodId, cityId);
+    public List<WorkflowFile> queryWorkflowFileList(Integer id) {
+        List<WorkflowFile> fileList = workflowFileService.getListByOrderProdId(id);
         return fileList;
     }
 

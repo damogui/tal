@@ -395,7 +395,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                 fixed: false,
                 maxmin: true,
                 shadeClose: true,
-                area: ['95%', '95%'],
+                area: ['70%', '95%'],
                 content: url,
                 btn: ['提交', '取消'],
                 success: function (layero, index) {
@@ -443,7 +443,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
                     fixed: false,
                     maxmin: true,
                     shadeClose: true,
-                    area: ['95%', '95%'],
+                    area: ['70%', '95%'],
                     content: url,
                     btn: ['提交', '取消'],
                     success: function (layero, index) {

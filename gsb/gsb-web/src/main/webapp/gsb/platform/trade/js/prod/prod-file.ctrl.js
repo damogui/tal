@@ -95,10 +95,8 @@ com.gongsibao.trade.web.FileCtrl = org.netsharp.panda.core.CustomCtrl.Extends({
 				$('#btn_select_file').linkbutton({    
 				    iconCls: 'fa fa-file'
 				});
-				
-				var prodId = me.mainCtrl.orderProd.productId;
-				var cityId = me.mainCtrl.orderProd.cityId;
-				me.invokeService("queryWorkflowFileList", [prodId,cityId], function(data){
+                var id = me.mainCtrl.orderProd.id;
+				me.invokeService("queryWorkflowFileList", [id], function(data){
 
 					$("#workflowFile").combobox({
 						width:200,

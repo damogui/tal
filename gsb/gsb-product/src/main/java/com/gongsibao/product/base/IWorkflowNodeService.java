@@ -1,6 +1,7 @@
 package com.gongsibao.product.base;
 
 import java.util.List;
+import java.util.Map;
 
 import org.netsharp.base.IPersistableService;
 
@@ -53,5 +54,7 @@ public interface IWorkflowNodeService extends IPersistableService<WorkflowNode> 
     List<WorkflowNode> getListByOrderProdId(Integer orderProdId);
 
     List<WorkflowNode> getListByWorkFlowIdList(List<Integer> workFlowIdList);
+
+    Map<String, Object> getFlowIdListAndVersionByOrderProdId(Integer orderProdId);
 
 }

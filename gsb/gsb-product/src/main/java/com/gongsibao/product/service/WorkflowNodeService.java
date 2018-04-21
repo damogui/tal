@@ -1,14 +1,12 @@
 package com.gongsibao.product.service;
 
 import java.sql.Types;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.product.base.IOrderProdService;
 import com.gongsibao.product.base.IWorkflowService;
+import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
@@ -174,8 +172,33 @@ public class WorkflowNodeService extends PersistableService<WorkflowNode> implem
     }
 
     @Override
-    public List<WorkflowNode> getListByOrderProdId(Integer orderProdId) {
+    public Map<String, Object> getFlowIdListAndVersionByOrderProdId(Integer orderProdId) {
+        Map<String, Object> resMap = new HashMap<>();
+        resMap.put("version", null);
+        resMap.put("workflowIdList", null);
+        if (NumberUtils.toInt(orderProdId) == 0) {
+            return resMap;
+        }
+        Integer version = null;
+        List<Integer> workflowIdList = new ArrayList<>();
         OrderProd orderProd = orderProdService.getById(orderProdId);
+        WorkflowNode node = getByOrderProdId(orderProdId);
+        if (node != null) {
+            version = node.getVersion();
+            workflowIdList.add(node.getWorkflowId());
+        }
+        if (version == null) {
+            workflowIdList = workflowService.getIdsrodIdCityId(orderProd.getProductId(), orderProd.getCityId());
+            version = getMaxVersion(workflowIdList);
+        }
+        resMap.put("version", version);
+        resMap.put("workflowIdList", workflowIdList);
+        return resMap;
+    }
+
+    @Override
+    public List<WorkflowNode> getListByOrderProdId(Integer orderProdId) {
+        /*OrderProd orderProd = orderProdService.getById(orderProdId);
         List<WorkflowNode> reslist = new ArrayList<>();
         if (orderProd == null) {
             return reslist;
@@ -190,7 +213,12 @@ public class WorkflowNodeService extends PersistableService<WorkflowNode> implem
         if (version == null) {
             workflowIdList = workflowService.getIdsrodIdCityId(orderProd.getProductId(), orderProd.getCityId());
             version = getMaxVersion(workflowIdList);
-        }
+        }*/
+
+        List<WorkflowNode> reslist;
+        Map<String, Object> flowIdListAndVersionMap = getFlowIdListAndVersionByOrderProdId(orderProdId);
+        Integer version = (Integer) flowIdListAndVersionMap.get("version");
+        List<Integer> workflowIdList = (List<Integer>) flowIdListAndVersionMap.get("workflowIdList");
         if (version == null || CollectionUtils.isEmpty(workflowIdList)) {
             throw new BusinessException("交付流程模版未设置，请联系管理！");
         }
