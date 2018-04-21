@@ -18,6 +18,7 @@ import org.netsharp.wx.pa.base.ICustomService;
 import org.netsharp.wx.pa.base.IPublicAccountService;
 import org.netsharp.wx.pa.entity.Fans;
 import org.netsharp.wx.pa.entity.PublicAccount;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -31,6 +32,8 @@ public class AccountService implements IAccountService{
     IAccountWeiXinService accountWeiXinService=ServiceFactory.create(IAccountWeiXinService.class);
     ICustomService customService=ServiceFactory.create(ICustomService.class);
     IOrderPayMapService orderPayMapService=ServiceFactory.create(IOrderPayMapService.class);
+    @Value("{wx_notify_key}")
+    private String notifyKey;
     /*日志*/
     private static Logger log = Logger.getLogger(AccountService.class);
     /**
@@ -193,7 +196,7 @@ public class AccountService implements IAccountService{
         resMap.put("package", "prepay_id=" + prepay_id);
         resMap.put("signType", "MD5");
         //生成支付签名,这个签名给 微信支付的调用使用
-        String paySign = PayCommonUtil.createSign("UTF-8", resMap, publicAccount.getToken());
+        String paySign = PayCommonUtil.createSign("UTF-8", resMap, notifyKey);
         resMap.put("paySign", paySign);
         return 1;
     }
