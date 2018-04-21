@@ -1,10 +1,9 @@
-package com.gongsibao.rest.dto.product;
+package com.gongsibao.rest.web.dto.product;
 
 import com.gongsibao.entity.cms.AggregationResponse;
 import com.gongsibao.entity.cms.Product;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.List;
 
 /**

@@ -5,7 +5,7 @@ import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.product.Price;
 import com.gongsibao.product.base.IPriceService;
 import com.gongsibao.rest.base.product.IProductPriceService;
-import com.gongsibao.rest.dto.product.ProductPriceDTO;
+import com.gongsibao.rest.web.dto.product.ProductPriceDTO;
 import com.gongsibao.rest.web.common.web.BdCity;
 import com.gongsibao.uc.base.IOrganizationService;
 import com.gongsibao.utils.NumberUtils;

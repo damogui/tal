@@ -1,6 +1,6 @@
-package com.gongsibao.rest.dto.order;
+package com.gongsibao.rest.web.dto.order;
 
-import com.gongsibao.rest.dto.product.ProductPriceDTO;
+import com.gongsibao.rest.web.dto.product.ProductPriceDTO;
 
 import java.io.Serializable;
 import java.util.List;

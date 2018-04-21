@@ -14,7 +14,7 @@ import com.gongsibao.entity.product.Price;
 import com.gongsibao.product.base.IPriceService;
 import com.gongsibao.rest.base.product.IProductService;
 import com.gongsibao.rest.web.common.util.ProductUtils;
-import com.gongsibao.rest.dto.product.ProductCmsDTO;
+import com.gongsibao.rest.web.dto.product.ProductCmsDTO;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.springframework.stereotype.Service;

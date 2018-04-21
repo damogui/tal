@@ -1,4 +1,4 @@
-package com.gongsibao.rest.dto.user;
+package com.gongsibao.rest.web.dto.user;
 
 import com.gongsibao.utils.AmountUtils;
 import com.gongsibao.utils.NumberUtils;

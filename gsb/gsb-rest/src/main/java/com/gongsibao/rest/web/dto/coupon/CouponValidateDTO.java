@@ -1,7 +1,6 @@
-package com.gongsibao.rest.dto.coupon;
+package com.gongsibao.rest.web.dto.coupon;
 
 import com.gongsibao.entity.bd.Dict;
-import com.gongsibao.entity.bd.Preferential;
 import com.gongsibao.entity.bd.PreferentialCode;
 import com.gongsibao.entity.bd.dic.CouponPlatformType;
 import com.gongsibao.entity.trade.SoOrder;

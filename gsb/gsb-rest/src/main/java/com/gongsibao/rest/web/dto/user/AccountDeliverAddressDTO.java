@@ -1,7 +1,7 @@
-package com.gongsibao.rest.dto.user;
+package com.gongsibao.rest.web.dto.user;
 
 
-import com.gongsibao.rest.dto.PkId;
+import com.gongsibao.rest.web.dto.PkId;
 
 /**
  * @author ffli <ffli@gongsibao.com>

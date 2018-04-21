@@ -1,6 +1,6 @@
 package com.gongsibao.rest.web.dto.order;
 
-import com.gongsibao.rest.dto.PkId;
+import com.gongsibao.rest.web.dto.PkId;
 import com.gongsibao.rest.web.common.security.SecurityUtils;
 import com.gongsibao.rest.web.common.util.NumberUtils;
 import com.gongsibao.rest.web.common.util.StringUtils;

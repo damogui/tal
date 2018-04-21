@@ -1,4 +1,4 @@
-package com.gongsibao.rest.dto.dict;
+package com.gongsibao.rest.web.dto.dict;
 
 import java.io.Serializable;
 

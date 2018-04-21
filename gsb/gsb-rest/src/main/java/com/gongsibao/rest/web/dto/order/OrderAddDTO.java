@@ -1,4 +1,4 @@
-package com.gongsibao.rest.dto.order;
+package com.gongsibao.rest.web.dto.order;
 
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.bd.dic.CouponPlatformType;

@@ -1,4 +1,4 @@
-package com.gongsibao.rest.dto.product;
+package com.gongsibao.rest.web.dto.product;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

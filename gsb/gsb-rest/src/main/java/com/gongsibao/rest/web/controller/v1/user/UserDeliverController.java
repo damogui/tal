@@ -1,7 +1,7 @@
 package com.gongsibao.rest.web.controller.v1.user;
 
 import com.gongsibao.account.base.IAccountWeiXinService;
-import com.gongsibao.rest.dto.user.AccountDeliverAddressDTO;
+import com.gongsibao.rest.web.dto.user.AccountDeliverAddressDTO;
 import com.gongsibao.rest.base.user.IUserDeliverAddressService;
 import com.gongsibao.rest.web.common.apiversion.Api;
 import com.gongsibao.rest.web.common.util.Assert;

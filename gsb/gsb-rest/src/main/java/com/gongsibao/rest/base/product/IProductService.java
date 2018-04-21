@@ -5,7 +5,7 @@ import com.gongsibao.entity.bd.BdServiceProduct;
 import com.gongsibao.entity.cms.Product;
 import com.gongsibao.entity.cms.ProductTemplate;
 import com.gongsibao.entity.product.Price;
-import com.gongsibao.rest.dto.product.ProductCmsDTO;
+import com.gongsibao.rest.web.dto.product.ProductCmsDTO;
 
 import java.util.Collection;
 import java.util.List;

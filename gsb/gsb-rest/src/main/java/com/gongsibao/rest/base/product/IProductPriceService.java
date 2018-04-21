@@ -1,7 +1,7 @@
 package com.gongsibao.rest.base.product;
 
 import com.gongsibao.entity.bd.Dict;
-import com.gongsibao.rest.dto.product.ProductPriceDTO;
+import com.gongsibao.rest.web.dto.product.ProductPriceDTO;
 import com.gongsibao.rest.web.common.web.BdCity;
 
 import java.util.Collection;
