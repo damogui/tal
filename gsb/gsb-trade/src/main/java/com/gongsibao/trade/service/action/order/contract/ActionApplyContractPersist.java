@@ -37,14 +37,17 @@ public class ActionApplyContractPersist implements IAction {
         contract.setAuditStatusId(AuditStatusType.Dsh);
         SoOrder order = soOrderService.getOrderWithOrderProdsByOrderId(contract.getOrderId());
         //合同业绩额
-        Integer dataFee = 0;
+        Integer realAmount = 0;
+        Integer achievementAmount = 0;
         for (OrderProd orderProd : order.getProducts()) {
-            dataFee = dataFee + orderProd.getPrice();
+            achievementAmount = achievementAmount + orderProd.getPrice();
         }
-        contract.setDataFee(dataFee);
+        contract.setAchievementAmount(achievementAmount);
         //当有材料撰写情况
         if (contract.getHasDataFee().equals(BreachType.YOU)) {
-            contract.setAchievementAmount(contract.getRealAmount() - dataFee);
+            //合同金额=订单金额+材料撰写费
+            realAmount = contract.getDataFee() + order.getPayablePrice();
+            contract.setRealAmount(realAmount);
         }
         //分配合同跟进人
         contract.setSupplierId(order.getSupplierId());

@@ -4,7 +4,7 @@ com.gongsibao.trade.web.OrderAllotCtrl = System.Object.Extends({
 
     },
     show: function (title,callback) {
-
+    	debugger;
         var me = this;
         var supplierOption = this.getSupplierOption();
         var departmentOption = this.getDepartmentOption();
@@ -38,12 +38,22 @@ com.gongsibao.trade.web.OrderAllotCtrl = System.Object.Extends({
                     option:{width:300,precision:2,min:1,required:true}}
             ],
             callback:function(index, layero){
-
                 var supplierId = $('#allot_supplier_name').combogrid('getValue');
                 var departmentId = $('#allot_department_name').combogrid('getValue');
                 var salesmanId = $('#allot_salesman_name').combogrid('getValue');
                 var amount = $('#allot_amount').numberbox('getValue');
-                
+                if(isNaN(supplierId)){                	
+                	layer.msg('请选择有效的服务商！');
+                    return;
+                }
+                if(isNaN(departmentId)){
+                	layer.msg('请选择有效的部门！');
+                    return;
+                }
+                if(isNaN(salesmanId)){
+                	layer.msg('请选择有效的业务员！');
+                    return;
+                }
                 if (System.isnull(supplierId)) {
                     IMessageBox.info('请选择服务商');
                     return;
@@ -109,7 +119,7 @@ com.gongsibao.trade.web.OrderAllotCtrl = System.Object.Extends({
             pagination : true,
             pageSize : 10,
             mode : 'remote',
-            multiple : false,
+            multiple : false,           
             onChange : function(newValue, oldValue) {
                 //改变部门的查询条件
                 $('#allot_department_name').combogrid('clear');

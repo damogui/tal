@@ -1,8 +1,4 @@
 package com.gongsibao.igirl.ic.web;
-
-import com.gongsibao.entity.igirl.ic.baseinfo.ChapterOne;
-import com.gongsibao.entity.igirl.ic.baseinfo.ChapterTwo;
-import com.gongsibao.igirl.ic.base.IChapterOneService;
 import com.gongsibao.igirl.ic.base.IChapterTwoService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;

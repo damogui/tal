@@ -131,25 +131,38 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
         QueryParameters qps = new QueryParameters();
         qps.add("@pkid", orderPorudctId, Types.INTEGER);
         ResultSet rs = this.pm.executeReader(sql, qps);
+
+
         String sqlTrace = "select * from so_order_prod_trace where order_prod_id=? order by add_time desc limit 1";
         QueryParameters qpsTrace = new QueryParameters();
         qpsTrace.add("@order_prod_id", orderPorudctId, Types.INTEGER);
         ResultSet rsTrace = this.pm.executeReader(sqlTrace, qpsTrace);
         String proName = null;
+        Integer orderId = null;
         String proTrace = null;
+        String orderNo = null;
         try {
             if (rs.next()) {
                 proName = rs.getString("product_name");
+                orderId = rs.getInt("order_id");
             }
             if (rsTrace.next()) {
                 proTrace = rsTrace.getString("info");
+            }
+            //查询订单
+            String sqlOrder = "select no from so_order where pkid=? ";
+            QueryParameters qpsOrder = new QueryParameters();
+            qpsOrder.add("@pkid", orderId, Types.INTEGER);
+            ResultSet rsOrder = this.pm.executeReader(sqlOrder, qpsOrder);
+            if (rsOrder.next()) {
+                orderNo = rsOrder.getString("no");
             }
             if (null != proName && null != proTrace) {
                 //取用户信息
                 Account account = accountService.byMobile(mobile);
                 //取微信用户openid
                 Fans accountWeiXin = this.queryFansByUserId(account.getId());
-                this.pushTextMsgByOriginalId(originalId,account.getId(),"尊敬的"+accountWeiXin.getNickname()+":",proName,proTrace,null,"/index.html#/mine/order",null,AccountWxMsg.ORDER_STATE_CHANGE);
+                this.pushTextMsgByOriginalId(originalId,account.getId(),"尊敬的"+accountWeiXin.getNickname()+":",orderNo,proTrace,null,"/index.html#/mine/order",null,AccountWxMsg.ORDER_STATE_CHANGE);
             }
         } catch (SQLException e) {
             e.printStackTrace();

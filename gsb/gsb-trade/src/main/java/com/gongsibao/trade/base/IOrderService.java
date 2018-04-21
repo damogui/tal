@@ -124,4 +124,25 @@ public interface IOrderService extends IPersistableService<SoOrder> {
     Boolean updateFistPayTime(Integer id, Date fistPayTime);
 
     Boolean updatePayTime(Integer orderId, Date payTime);
+
+    /**
+     * 根据账号ID查询特定状态下的订单数量
+     *
+     * @param accountId 账号ID
+     * @param status  订单状态
+     * @return
+     */
+    int countOrderAccountIdStatus(Integer accountId, Integer status);
+
+    /**
+     * 根据账号ID查询特定状态下的订单数量（分页）
+     *
+     * @param accountId   账号ID
+     * @param status      订单状态
+     * @param currentPage 起始页
+     * @param pageSize    每页显示条数
+     * @return
+     */
+    List<SoOrder> pageOrderListByAccountIdStatus(Integer accountId, Integer status,
+                                                 int currentPage, int pageSize);
 }

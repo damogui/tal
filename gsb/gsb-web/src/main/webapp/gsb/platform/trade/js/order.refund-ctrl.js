@@ -235,9 +235,8 @@ com.gongsibao.trade.web.OrderProductDetailCtrl = org.netsharp.panda.core.CustomC
 		        	return (value/100).toFixed(2);
 		        }},
 		        {field:'refundAmount',title:'退款金额',width:100,align:'right',editor:{type:'numberbox',options:{precision:0,height:31,min:0,required:true}},formatter:function(value,row,index){
-	        		
-		        	if(value){
-		        		
+		        	
+		        	if(parseFloat(value)>=0){
 		        		$('#amount').numberbox('clear');
 		        		var rows = $("#order_product_grid").datagrid("getRows");
 		        		var total = 0;  
@@ -357,7 +356,6 @@ com.gongsibao.trade.web.OrderRefundPerformanceCtrl = org.netsharp.panda.core.Cus
 			}],
 		    columns:[[
 		        {field:'supplierId',title:'服务商',align:'center',width:150,formatter:function(value,row,index){
-	
 		        	if(row.supplier){
 		        		
 		        		return row.supplier.name;
