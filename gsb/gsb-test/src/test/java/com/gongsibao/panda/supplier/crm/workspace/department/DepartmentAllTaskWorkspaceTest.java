@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.netsharp.organization.entity.Employee;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
@@ -99,7 +100,12 @@ public class DepartmentAllTaskWorkspaceTest extends TaskALLWorkspaceTest{
 		}
 //		addRefrenceQueryItem(queryProject, "supplier.name", "费用部门", Supplier.class.getSimpleName());
 		addQueryItem(queryProject, "creator", "创建人", ControlTypes.TEXT_BOX);
-		addQueryItem(queryProject, "owner.name", "业务员", ControlTypes.TEXT_BOX);
+//		addQueryItem(queryProject, "owner.name", "业务员", ControlTypes.TEXT_BOX);
+		item = addRefrenceQueryItem(queryProject, "owner.name", "业务员", Employee.class.getSimpleName());
+		{
+			item.setRefFilter(" id in (select employee_id from sp_salesman)");
+		}
+		
 		addQueryItem(queryProject, "customer.company.companyName", "关联企业", ControlTypes.TEXT_BOX);
 		addRefrenceQueryItem(queryProject, "quality.name", "客户质量", NCustomerTaskQuality.class.getSimpleName());
 

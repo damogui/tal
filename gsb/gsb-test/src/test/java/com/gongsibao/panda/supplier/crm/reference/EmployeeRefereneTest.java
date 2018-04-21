@@ -19,8 +19,10 @@ public class EmployeeRefereneTest extends ReferenceCreationBase{
 	}
 
 	public PDatagrid createDatagrid(ResourceNode node) {
+		
 		PDatagrid datagrid = super.createDatagrid(node);
 		addColumn(datagrid, "name", "员工名称", ControlTypes.TEXT_BOX, 150, null, false);
+		addColumn( datagrid,"shorthand", "助记码", ControlTypes.TEXT_BOX,150,null,false);
 		return datagrid;
 	}
 }
