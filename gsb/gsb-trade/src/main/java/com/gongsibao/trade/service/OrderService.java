@@ -473,17 +473,17 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
         StringBuffer sql = new StringBuffer("");
         Oql oql = new Oql();
         oql.setType(this.type);
-        oql.setSelects("SoOrder.*,products.*");
-        sql.append(" account_id = ? and change_price_audit_status_id not in (1051,1052,1053) ");
+        oql.setSelects("SoOrder.*, products.*");
+        sql.append(" SoOrder.accountId = ? and SoOrder.changePriceAuditStatus not in (1051,1052,1053) ");
         if (status == 1) {//未付款
-            sql.append(" and so_order.pay_status_id in (3011, 3012) and so_order.process_status_id <> 3023 ");
+            sql.append(" and SoOrder.payStatus in (3011, 3012) and SoOrder.processStatus <> 3023 ");
         } else if (status == 2) {//办理中3022
-            sql.append(" and so_order.process_status_id = 3022 and so_order.pay_status_id = 3013 ");
+            sql.append(" and SoOrder.processStatus = 3022 and SoOrder.payStatus = 3013 ");
         } else if (status == 3) {//办理完成
-            sql.append(" and so_order.process_status_id = 3024 and so_order.pay_status_id = 3013 ");
+            sql.append(" and SoOrder.processStatus = 3024 and SoOrder.payStatus = 3013 ");
         }
         oql.setFilter(sql.toString());
-        oql.setOrderby(" add_time desc ");
+        oql.setOrderby(" SoOrder.createTime DESC ");
         oql.setPaging(new Paging(currentPage, pageSize));
         oql.getParameters().add("account_id", accountId, Types.INTEGER);
         return this.pm.queryList(oql);
