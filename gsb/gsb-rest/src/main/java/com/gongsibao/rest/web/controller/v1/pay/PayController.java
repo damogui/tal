@@ -115,34 +115,27 @@ public class PayController extends BaseController {
             packageParams.put(parameter, v);
         }
 
-        // 账号信息
-        String out_trade_no = StringUtils.trimToEmpty(packageParams.get("out_trade_no"));
 
-        String payId = out_trade_no.substring(out_trade_no.lastIndexOf("_") + 1, out_trade_no.length());
-
-        out_trade_no = out_trade_no.substring(out_trade_no.indexOf("_") + 1, out_trade_no.lastIndexOf("_"));
-        out_trade_no = SecurityUtils.rc4Decrypt(out_trade_no);
-        int orderId = NumberUtils.toInt(out_trade_no);
-
-        String key = "";
-        SoOrder order = orderService.getById(orderId);
-        if (null != order && NumberUtils.toInt(order.getAccountId()) > 0) {
-            Fans fans = accountWeiXinService.queryFansByUserId(order.getAccountId());
-            if (null != fans) {
-                key = fans.getOpenId();
-            }
-        }
 
         log.info("==========packageParams:==========" + packageParams);
         //判断签名是否正确
-        if (PayCommonUtil.isTenpaySign("UTF-8", packageParams, key)) {
+        if (PayCommonUtil.isTenpaySign("UTF-8", packageParams, wxNotifyKey)) {
             // ------------------------------
             // 处理业务开始
             // ------------------------------
             String total_fee = StringUtils.trimToEmpty(packageParams.get("total_fee"));
             boolean isSuccess = false;
-            if ("SUCCESS".equals(String.valueOf(packageParams.get("result_code")).toUpperCase())) {
 
+            // 账号信息
+            String out_trade_no = StringUtils.trimToEmpty(packageParams.get("out_trade_no"));
+
+            String payId = out_trade_no.substring(out_trade_no.lastIndexOf("_") + 1, out_trade_no.length());
+
+            out_trade_no = out_trade_no.substring(out_trade_no.indexOf("_") + 1, out_trade_no.lastIndexOf("_"));
+            out_trade_no = SecurityUtils.rc4Decrypt(out_trade_no);
+            int orderId = NumberUtils.toInt(out_trade_no);
+
+            if ("SUCCESS".equals(String.valueOf(packageParams.get("result_code")).toUpperCase())) {
                 isSuccess = true;
             }
             // 微信支付订单号流水号
