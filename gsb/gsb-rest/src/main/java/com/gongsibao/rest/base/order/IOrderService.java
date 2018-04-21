@@ -6,6 +6,7 @@ import com.gongsibao.rest.web.dto.coupon.CouponUseDTO;
 import com.gongsibao.rest.web.dto.order.OrderAddDTO;
 import com.gongsibao.rest.web.common.web.Pager;
 import com.gongsibao.rest.web.dto.order.OrderDTO;
+import com.gongsibao.rest.web.dto.order.OrderMessageDTO;
 import com.gongsibao.trade.web.dto.OrderPayDTO;
 import org.netsharp.core.annotations.Transaction;
 
@@ -39,6 +40,15 @@ public interface IOrderService {
      */
     Pager<OrderDTO> pageMyOrder(Integer accountId,Integer status, int currentPage, int pageSize);
 
+    /* *
+     * @Description: 推送消息处，查看订单详情
+     * @param
+     * @return
+     * @author wangkun <wangkun@gongsibao.com>
+     * @date 2018/4/21
+     */
+    OrderMessageDTO getOrderMessage(Integer orderProdId);
+
     /**
      * 取消订单
      *
@@ -48,5 +58,4 @@ public interface IOrderService {
      */
     @Transaction
     void updateToCancel(Integer accountId, Integer orderId, int orderCancelStatus);
-
 }

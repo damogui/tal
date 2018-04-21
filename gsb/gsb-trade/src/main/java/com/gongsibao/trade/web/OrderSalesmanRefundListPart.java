@@ -38,7 +38,7 @@ public class OrderSalesmanRefundListPart extends AdvancedListPart {
     @Override
     public List<?> doQuery(Oql oql) {
         //oql.setSelects("fefund.*,fefund.soOrder.*");
-        oql.setSelects("Refund.*,Refund.soOrder.*");
+        oql.setSelects("Refund.*,Refund.soOrder.*,Refund.soOrder.companyIntention.{pkid,name,full_name,company_name}");
         List<Refund> resList = (List<Refund>) super.doQuery(oql);
         return resList;
     }

@@ -36,6 +36,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -271,6 +273,12 @@ public class UserController extends BaseController{
     /*获取微信公众号支付（H5）的参数*/
     @RequestMapping(value = "/getWxPayMP",method = RequestMethod.GET)
     public ResponseData getWxPayMP(HttpServletRequest request, HttpServletResponse response) {
+        String ipAddress = null;
+        try {
+            ipAddress = getIpAddr(request);
+        } catch (Exception e) {
+            logger.error("get server host Exception e:", e);
+        }
         ResponseData data = new ResponseData();
         //微信授权回调的code凭证，用来获取openid的
         String openId = StringUtils.trimToEmpty(request.getParameter("openId"));
@@ -330,7 +338,7 @@ public class UserController extends BaseController{
         //付款内容（产品名称等）
         String body = order.getProdName();
         SortedMap<Object, Object> resMap = new TreeMap<Object, Object>();
-        Integer resId = accountService.getWxPayH5Param(originalId(request),openId, orderNoStr, totalFee, body, 0, resMap);
+        Integer resId = accountService.getWxPayH5Param(ipAddress,originalId(request),openId, orderNoStr, totalFee, body, 0, resMap);
         if (resId.equals(-1)) {
             data.setCode(-1);
             data.setMsg("获取openid失败");
@@ -356,7 +364,7 @@ public class UserController extends BaseController{
     @RequestMapping(value = "/pay",method = RequestMethod.POST)
     public ResponseData pay(HttpServletRequest request,
                             HttpServletResponse response,
-                            Account account,
+
                             @RequestBody String json) {
         String oid=originalId(request);
         ResponseData data = new ResponseData();
@@ -401,7 +409,7 @@ public class UserController extends BaseController{
         String payChannels = StringUtils.trimToEmpty((String) map.get("payChannels"));
         // 支付渠道 wx zfbwy zfbjs
         // 银行代码
-        String bankCode = payChannels.equals("1") ? "微信支付-WXPAY" : "支付宝-ALIPAY";
+        String bankCode = payChannels.equals("wx") ? "微信支付-WXPAY" : "支付宝-ALIPAY";
         // 线下付款方名称
         String offlinePayerName = "";
         // 线下付款银行帐号
@@ -419,6 +427,7 @@ public class UserController extends BaseController{
         Integer callType = NumberUtils.toInt(StringUtils.trimToEmpty(map.get("callType").toString()));
         //万达传过来的openId,不为空给它返回去，为空不处理
         String openId = StringUtils.trimToEmpty((String) map.get("openId"));
+        Account account=accountService.queryByOpenId(openId);
         // endregion
         if (openId == null) {
             data.setCode(-1);
@@ -427,7 +436,7 @@ public class UserController extends BaseController{
         }
         //region 订单信息的验证
         // 查询订单并验证
-        SoOrder order = soOrderService.byId(orderId);
+        SoOrder order = soOrderService.getByOrderId(orderId);
         if (order == null) {
             data.setCode(-1);
             data.setMsg("订单不存在");
@@ -471,27 +480,28 @@ public class UserController extends BaseController{
             String subject = StringUtils.trimToEmpty(order.getProdName()).replace("/", " ");
             //商品描述，可空
             String body = StringUtils.trimToEmpty(order.getProdName());
-            Pay soPay = new Pay();
-            soPay.setNo("");
-            soPay.setAmount(NumberUtils.toInt(totalFee));
-            /** 311 线下付款方式：3111 对公转账、3112 现金、3113 刷卡、3114 个人转账 */
-            soPay.setOfflineWayType(OfflineWayType.getItem(3114));
-            soPay.setOfflineInstallmentType(PayOfflineInstallmentType.getItem(1));
-            /** 310 支付付款方式：3101 在线支付、3102 线下支付、3103 内部结转 */
-            soPay.setPayWayType(PayWayType.ONLINE_PAYMENT);
-            soPay.setOnlineBankCodeId(bankCode);
-            /** 312 支付成功状态：3121 未支付、3122 待审核、3123 成功、3124 失败 */
-            soPay.setSuccessStatus(PaySuccessStatus.getItem(3121));
-            soPay.setConfirmTime(new Date());
-            soPay.setOnlineTradeNo("");
-            soPay.setOfflineBankNo(offlineBankNo);
-            soPay.setOfflinePayerName(offlinePayerName);
-            soPay.setOfflineRemark(offlineRemark);
-            soPay.setOfflineAuditStatus(AuditStatusType.Dsh);
-            soPay.setOfflineAddUserId(account.getId());
-            soPay.setCreateTime(new Date());
+            Pay soPay = new Pay();{
+                soPay.toNew();
+                soPay.setNo("");
+                soPay.setAmount(NumberUtils.toInt(totalFee));
+                /** 311 线下付款方式：3111 对公转账、3112 现金、3113 刷卡、3114 个人转账 */
+                soPay.setOfflineWayType(OfflineWayType.getItem(3114));
+                soPay.setOfflineInstallmentType(PayOfflineInstallmentType.getItem(1));
+                /** 310 支付付款方式：3101 在线支付、3102 线下支付、3103 内部结转 */
+                soPay.setPayWayType(PayWayType.ONLINE_PAYMENT);
+                soPay.setOnlineBankCodeId(bankCode);
+                /** 312 支付成功状态：3121 未支付、3122 待审核、3123 成功、3124 失败 */
+                soPay.setSuccessStatus(PaySuccessStatus.getItem(3121));
+                soPay.setConfirmTime(new Date());
+                soPay.setOnlineTradeNo("");
+                soPay.setOfflineBankNo(offlineBankNo);
+                soPay.setOfflinePayerName(offlinePayerName);
+                soPay.setOfflineRemark(offlineRemark);
+                soPay.setOfflineAuditStatus(AuditStatusType.Dsh);
+                soPay.setOfflineAddUserId(account.getId());
+                soPay.setCreateTime(new Date());
+            }
             Integer payId = payService.addPay(soPay, orderId, uploadPayVoucher);
-            logger.info("payId userController"+payId);
             resultMap.put("payIdStr", SecurityUtils.rc4Encrypt(payId));
             //region 调用支付第三方接口，获取返回值
             //调用第三方支付接口
