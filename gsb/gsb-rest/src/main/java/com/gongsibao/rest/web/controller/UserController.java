@@ -492,6 +492,7 @@ public class UserController extends BaseController{
             soPay.setCreateTime(new Date());
             Integer payId = payService.addPay(soPay, orderId, uploadPayVoucher);
             logger.info("payId userController"+payId);
+            resultMap.put("payId", "payid:"+payId);
             resultMap.put("payIdStr", SecurityUtils.rc4Encrypt(payId));
             //region 调用支付第三方接口，获取返回值
             //调用第三方支付接口
