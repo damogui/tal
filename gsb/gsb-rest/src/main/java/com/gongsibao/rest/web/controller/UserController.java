@@ -604,10 +604,9 @@ public class UserController extends BaseController{
                 if (openId.equals("")) {
                     finalUrl = getWdUrl;
                 } else {
-                    String[] getWdUrlSplit = getWdUrl.split("#");
-                    finalUrl = getWdUrlSplit[0] + "?Openid=" + openId + "#" + getWdUrlSplit[1];
+                    finalUrl = getWdUrl+ "?openId=" + openId;
                 }
-                returnUrl = UrlHelper.encode(finalUrl + "?orderNoStr=" + orderNo + "_" + orderIdStr + "_" + payId + "&orderIdStr=" + orderIdStr + "&payIdStr=" + SecurityUtils.rc4Encrypt(payId) + "");
+                returnUrl = UrlHelper.encode(finalUrl + "&orderNoStr=" + orderNo + "_" + orderIdStr + "_" + payId + "&orderIdStr=" + orderIdStr + "&payIdStr=" + SecurityUtils.rc4Encrypt(payId) + "");
                 getAppid = pa.getAppId();
             }
         } catch (Exception e) {
