@@ -243,12 +243,14 @@ public class AccountService implements IAccountService{
         if (trade_type == "JSAPI")
             packageParams.put("openid", openId);
         log.error("==========out_trade_no is:==========" + out_trade_no);
+        log.error("packageParams:"+packageParams);
         String sign = PayCommonUtil.createSign("UTF-8", packageParams, key);
+        log.error("sign:"+sign);
         packageParams.put("sign", sign);
         String requestXML = PayCommonUtil.getRequestXml(packageParams);
-
+        log.error(requestXML);
         String resXml = HttpUtil.postData(Constant.PAY_API, requestXML);
-
+        log.error(resXml);
         Map map = XMLUtil.doXMLParse(resXml);
         log.error("==========map:==========" + map);
         String return_msg = new String(((String) map.get("return_msg")).getBytes("ISO-8859-1"), "UTF-8");
