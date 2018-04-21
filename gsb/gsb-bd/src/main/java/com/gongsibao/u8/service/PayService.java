@@ -12,6 +12,7 @@ import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.bd.dic.AuditLogStatusType;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.OrderPayMap;
+import com.gongsibao.entity.trade.dic.PayOfflineInstallmentType;
 import com.gongsibao.u8.base.IOrderPayMapService;
 import com.gongsibao.u8.base.IUserService;
 import org.apache.commons.collections.CollectionUtils;
@@ -79,6 +80,9 @@ public class PayService extends PersistableService<Pay> implements IPayService {
 			soOrderPayMap.toNew();
 			soOrderPayMap.setOrderId(orderId);
 			soOrderPayMap.setPayId(payId);
+			soOrderPayMap.setOfflineInstallmentType(PayOfflineInstallmentType.qk);
+			soOrderPayMap.setU8BankId(0);
+			soOrderPayMap.setOrderPrice(soPay.getAmount());
 		}
 		soOrderPayMapService.save(soOrderPayMap);
 		return payId;
