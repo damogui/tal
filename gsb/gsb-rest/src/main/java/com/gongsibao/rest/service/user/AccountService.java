@@ -207,7 +207,7 @@ public class AccountService implements IAccountService{
         String appid = account.getAppId();
         //String appsecret = PayConfigUtil.APP_SECRET; // appsecret
         String mch_id = account.getMch_id();// 商业号
-        String key = account.getToken();// key PayConfigUtil.getKey()
+        String key =  notifyKey;// key PayConfigUtil.getKey()
         //随机字符串
         String nonce_str = getNonceStr();
 
@@ -219,7 +219,7 @@ public class AccountService implements IAccountService{
 //        String spbill_create_ip = PayConfigUtil.getIP();
         // 回调接口
         String notify_url =account.getMchNotifyUrl();
-
+        log.error("notify_url="+notify_url);
         // clientType 客户端类别（0:网页端（扫码：NATIVE）；1:H5（公众号）端（JSAPI）；2：APP端（APP））
         String trade_type = "JSAPI";
         // body 类型：String(128),当body长度过长时，会报错"return_msg=body参数长度有误, return_code=FAIL"
@@ -238,7 +238,7 @@ public class AccountService implements IAccountService{
         //当是公众号支付时“openid”必传
         if (trade_type == "JSAPI")
             packageParams.put("openid", openId);
-        log.info("==========out_trade_no is:==========" + out_trade_no);
+        log.error("==========out_trade_no is:==========" + out_trade_no);
         String sign = PayCommonUtil.createSign("UTF-8", packageParams, key);
         packageParams.put("sign", sign);
         String requestXML = PayCommonUtil.getRequestXml(packageParams);
@@ -246,14 +246,14 @@ public class AccountService implements IAccountService{
         String resXml = HttpUtil.postData(Constant.PAY_API, requestXML);
 
         Map map = XMLUtil.doXMLParse(resXml);
-        log.info("==========map:==========" + map);
+        log.error("==========map:==========" + map);
         String return_msg = new String(((String) map.get("return_msg")).getBytes("ISO-8859-1"), "UTF-8");
-        log.info("==========return_msg:==========" + return_msg);
+        log.error("==========return_msg:==========" + return_msg);
         //String return_code = (String) map.get("return_code");
         //String prepay_id = (String) map.get("prepay_id");
         // H5支付时:统一下单接口返回支付相关参数给商户后台，如支付跳转url（参数名“mweb_url”，前端访问中转页面“mweb_url”主动唤起微信支付收银台）【此h5支付接口，腾讯暂时不受理了，申请不了了】
         String urlCode = StringUtils.trimToEmpty(map.get("prepay_id").toString()) ;
-        log.info("==========urlCode:==========" + urlCode);
+        log.error("==========urlCode:==========" + urlCode);
         return urlCode;
     }
 
