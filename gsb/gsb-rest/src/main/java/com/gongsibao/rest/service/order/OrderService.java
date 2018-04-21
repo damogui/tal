@@ -195,6 +195,11 @@ public class OrderService implements IOrderService {
         return pager;
     }
 
+    @Override
+    public void updateToCancel(Integer accountId, Integer orderId, int orderCancelStatus) {
+
+    }
+
     private OrderProductDTO convertTo(SoOrder soOrder,OrderProd orderProd){
         OrderProductDTO orderProductDTO = new OrderProductDTO();
         orderProductDTO.setAccountMobile(soOrder.getAccountMobile());

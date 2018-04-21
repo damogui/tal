@@ -541,6 +541,21 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
 
         return orderProdTrace.getId();
     }
+
+    @Override
+    public List<OrderProdTrace> byOrderProdIdTypeIds(Integer orderProdId, List<Integer> typeIds) {
+        StringBuffer sql = new StringBuffer(" order_prod_id = ? ");
+        Oql oql = new Oql();
+        oql.setType(this.type);
+        oql.setSelects("OrderProdTrace.*,orderProdStatus.*,operator.{name}");
+        if(typeIds!=null&&typeIds.size()>0){
+            sql.append(String.format(" and type_id in(%s) ",StringUtils.join(typeIds,",")));
+        }
+        oql.setFilter(sql.toString());
+        oql.setOrderby(" pkid DESC, add_time DESC ");
+        oql.getParameters().add("order_prod_id",orderProdId,Types.INTEGER);
+        return this.pm.queryList(oql);
+    }
 }
 
 // 【admin】添加【admin】为负责人 admin 内容服务 2018-01-05 16:02:26

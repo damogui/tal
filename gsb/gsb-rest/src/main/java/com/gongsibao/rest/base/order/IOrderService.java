@@ -39,4 +39,14 @@ public interface IOrderService {
      */
     Pager<OrderDTO> pageMyOrder(Integer accountId,Integer status, int currentPage, int pageSize);
 
+    /**
+     * 取消订单
+     *
+     * @param accountId         账号ID
+     * @param orderId           订单ID
+     * @param orderCancelStatus 订单取消状态
+     */
+    @Transaction
+    void updateToCancel(Integer accountId, Integer orderId, int orderCancelStatus);
+
 }
