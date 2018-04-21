@@ -195,8 +195,10 @@ public class OrderService implements IOrderService {
 
     @Override
     public OrderMessageDTO getOrderMessage(Integer orderProdId) {
-
         OrderProd orderProd = orderProdService.getById(orderProdId);
+        if (null == orderProd) {
+            return null;
+        }
         SoOrder order = getById(orderProd.getOrderId());
 
         List<OrderProdTraceDTO> traceList = orderProdTraceService.queryTraceByCondition(orderProdId, Arrays.asList(3151, 3153, 31501));
