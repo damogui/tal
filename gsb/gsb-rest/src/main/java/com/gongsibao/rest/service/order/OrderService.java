@@ -17,7 +17,7 @@ import com.gongsibao.entity.trade.dic.*;
 import com.gongsibao.product.base.IWorkflowNodeService;
 import com.gongsibao.rest.base.product.IProductService;
 import com.gongsibao.rest.web.dto.coupon.CouponValidateDTO;
-import com.gongsibao.rest.web.dto.order.OrderProdAddDTO;
+import com.gongsibao.rest.web.dto.order.*;
 import com.gongsibao.rest.web.dto.product.ProductPriceDTO;
 import com.gongsibao.rest.base.bd.ICouponService;
 import com.gongsibao.rest.base.customer.ICustomerService;
@@ -28,14 +28,11 @@ import com.gongsibao.rest.web.common.security.SecurityUtils;
 import com.gongsibao.rest.web.common.util.AmountUtils;
 import com.gongsibao.rest.web.common.util.NumberUtils;
 import com.gongsibao.rest.web.common.util.StringUtils;
-import com.gongsibao.rest.web.dto.order.OrderAddDTO;
 import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IOrderProdTraceService;
 import com.gongsibao.trade.base.IPayService;
 import com.gongsibao.trade.web.dto.OrderPayDTO;
 import com.gongsibao.rest.web.common.web.Pager;
-import com.gongsibao.rest.web.dto.order.OrderDTO;
-import com.gongsibao.rest.web.dto.order.OrderProductDTO;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.netsharp.communication.ServiceFactory;
@@ -193,6 +190,18 @@ public class OrderService implements IOrderService {
             pager.setList(orderDtoList);
         }
         return pager;
+    }
+
+    @Override
+    public OrderMessageDTO getOrderMessage(Integer orderProdId) {
+
+        OrderProd orderProd = orderProdService.getById(orderProdId);
+        SoOrder order = getById(orderProd.getOrderId());
+
+//        orderProdTraceService.getByOrderIdAndType(orderProdId);
+
+
+        return null;
     }
 
     private OrderProductDTO convertTo(SoOrder soOrder,OrderProd orderProd){

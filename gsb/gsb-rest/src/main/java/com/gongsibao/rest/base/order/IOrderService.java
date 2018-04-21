@@ -6,6 +6,7 @@ import com.gongsibao.rest.web.dto.coupon.CouponUseDTO;
 import com.gongsibao.rest.web.dto.order.OrderAddDTO;
 import com.gongsibao.rest.web.common.web.Pager;
 import com.gongsibao.rest.web.dto.order.OrderDTO;
+import com.gongsibao.rest.web.dto.order.OrderMessageDTO;
 import com.gongsibao.trade.web.dto.OrderPayDTO;
 import org.netsharp.core.annotations.Transaction;
 
@@ -39,4 +40,5 @@ public interface IOrderService {
      */
     Pager<OrderDTO> pageMyOrder(Integer accountId,Integer status, int currentPage, int pageSize);
 
+    OrderMessageDTO getOrderMessage(Integer orderProdId);
 }

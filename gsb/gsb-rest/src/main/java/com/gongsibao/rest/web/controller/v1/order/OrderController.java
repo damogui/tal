@@ -44,7 +44,7 @@ public class OrderController extends BaseController {
             return data;
         }
 
-//        orderService.getOrderProdInfo(orderProdId);
+        orderService.getOrderMessage(orderProdId);
 
         return data;
 
