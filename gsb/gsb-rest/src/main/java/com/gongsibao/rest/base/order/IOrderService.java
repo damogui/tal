@@ -5,10 +5,13 @@ import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.rest.dto.coupon.CouponUseDTO;
 import com.gongsibao.rest.dto.order.OrderAddDTO;
+import com.gongsibao.rest.web.dto.order.OrderProdTraceDTO;
 import com.gongsibao.trade.web.dto.OrderPayDTO;
 import com.gongsibao.rest.web.common.web.Pager;
 import com.gongsibao.rest.web.dto.order.OrderDTO;
 import org.netsharp.core.annotations.Transaction;
+
+import java.util.List;
 
 /**
  * ClassName: IOrderService
@@ -40,5 +43,4 @@ public interface IOrderService {
      */
     Pager<OrderDTO> pageMyOrder(Integer accountId,Integer status, int currentPage, int pageSize);
 
-    OrderProd getOrderProdInfo(Integer orderProdId);
 }
