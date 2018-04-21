@@ -40,5 +40,22 @@ public interface IOrderService {
      */
     Pager<OrderDTO> pageMyOrder(Integer accountId,Integer status, int currentPage, int pageSize);
 
+    /* *
+     * @Description: 推送消息处，查看订单详情
+     * @param
+     * @return
+     * @author wangkun <wangkun@gongsibao.com>
+     * @date 2018/4/21
+     */
     OrderMessageDTO getOrderMessage(Integer orderProdId);
+
+    /**
+     * 取消订单
+     *
+     * @param accountId         账号ID
+     * @param orderId           订单ID
+     * @param orderCancelStatus 订单取消状态
+     */
+    @Transaction
+    void updateToCancel(Integer accountId, Integer orderId, int orderCancelStatus);
 }

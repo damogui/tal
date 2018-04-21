@@ -1,5 +1,7 @@
 package com.gongsibao.rest.web.controller.v1.user;
 
+import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
+import com.gongsibao.rest.base.order.IOrderProdTraceService;
 import com.gongsibao.rest.base.order.IOrderService;
 import com.gongsibao.rest.web.common.apiversion.Api;
 import com.gongsibao.rest.web.common.security.SecurityUtils;
@@ -11,12 +13,10 @@ import com.gongsibao.rest.web.controller.BaseController;
 import com.gongsibao.rest.web.dto.order.OrderDTO;
 import com.gongsibao.rest.web.dto.order.OrderProdTraceDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -31,6 +31,9 @@ public class UserOrderController extends BaseController{
 
     @Autowired
     private IOrderService orderService;
+    @Autowired
+    private IOrderProdTraceService orderProdTraceService;
+
 
     /**
      * 查询全部
@@ -112,7 +115,24 @@ public class UserOrderController extends BaseController{
         return Result.build(() -> {
             Assert.hasText(orderProdIdStr,"产品订单信息错误");
             Integer orderProdId = NumberUtils.toInt(SecurityUtils.rc4Decrypt(orderProdIdStr));
-            return null;
+            return orderProdTraceService.queryTraceByCondition(orderProdId, Arrays.asList(3151, 3153, 31501));
         });
+    }
+
+    /**
+     * 取消订单
+     *
+     * @param request    HttpServletRequest
+     * @param orderIdStr 订单ID加密串
+     * @return
+     */
+    @RequestMapping(value = "/cancel/{orderIdStr}", method = RequestMethod.POST)
+    public Result<String> cancel(HttpServletRequest request, @PathVariable("orderIdStr") String orderIdStr) {
+        return Result.build(() -> {
+            Assert.hasText(orderIdStr, "订单ID不能为空!");
+            orderService.updateToCancel(accountIdByOpenId(request), Integer.valueOf(SecurityUtils.rc4Decrypt
+                    (orderIdStr)), OrderProcessStatusType.Yqx.getValue());
+            return "取消成功";
+        }).resetOkMsgFromData();
     }
 }

@@ -1,5 +1,7 @@
 package com.gongsibao.rest.web.dto.order;
 
+import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -21,16 +23,16 @@ public class OrderMessageDTO implements Serializable {
     private String productName;
     /* 商品区域 */
     private String cityName;
+    /* 明细订单价格 */
+    private BigDecimal orderProdPrice;
     /* 订单价格 */
-    private String orderPrice;
+    private BigDecimal orderPrice;
     /* 下单人 */
     private String accountName;
     /* 状态 */
-    private String statusName;
-    /*  */
-    private BigDecimal orderProdPrice;
-    /*  */
-    private Date addTime;
+    private OrderProcessStatusType processStatus;
+    /* 下单时间 */
+    private Date createTime;
 
     private List<OrderProdTraceDTO> traceList;
 
@@ -58,11 +60,11 @@ public class OrderMessageDTO implements Serializable {
         this.cityName = cityName;
     }
 
-    public String getOrderPrice() {
+    public BigDecimal getOrderPrice() {
         return orderPrice;
     }
 
-    public void setOrderPrice(String orderPrice) {
+    public void setOrderPrice(BigDecimal orderPrice) {
         this.orderPrice = orderPrice;
     }
 
@@ -74,12 +76,12 @@ public class OrderMessageDTO implements Serializable {
         this.accountName = accountName;
     }
 
-    public String getStatusName() {
-        return statusName;
+    public OrderProcessStatusType getProcessStatus() {
+        return processStatus;
     }
 
-    public void setStatusName(String statusName) {
-        this.statusName = statusName;
+    public void setProcessStatus(OrderProcessStatusType processStatus) {
+        this.processStatus = processStatus;
     }
 
     public BigDecimal getOrderProdPrice() {
@@ -90,12 +92,12 @@ public class OrderMessageDTO implements Serializable {
         this.orderProdPrice = orderProdPrice;
     }
 
-    public Date getAddTime() {
-        return addTime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public List<OrderProdTraceDTO> getTraceList() {

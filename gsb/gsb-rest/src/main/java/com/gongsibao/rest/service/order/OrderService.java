@@ -15,24 +15,24 @@ import com.gongsibao.entity.product.WorkflowNode;
 import com.gongsibao.entity.trade.*;
 import com.gongsibao.entity.trade.dic.*;
 import com.gongsibao.product.base.IWorkflowNodeService;
-import com.gongsibao.rest.base.product.IProductService;
-import com.gongsibao.rest.web.dto.coupon.CouponValidateDTO;
-import com.gongsibao.rest.web.dto.order.*;
-import com.gongsibao.rest.web.dto.product.ProductPriceDTO;
 import com.gongsibao.rest.base.bd.ICouponService;
 import com.gongsibao.rest.base.customer.ICustomerService;
 import com.gongsibao.rest.base.order.IInvoiceService;
+import com.gongsibao.rest.base.order.IOrderProdTraceService;
 import com.gongsibao.rest.base.order.IOrderService;
-import com.gongsibao.rest.web.dto.coupon.CouponUseDTO;
+import com.gongsibao.rest.base.product.IProductService;
 import com.gongsibao.rest.web.common.security.SecurityUtils;
 import com.gongsibao.rest.web.common.util.AmountUtils;
 import com.gongsibao.rest.web.common.util.NumberUtils;
 import com.gongsibao.rest.web.common.util.StringUtils;
+import com.gongsibao.rest.web.common.web.Pager;
+import com.gongsibao.rest.web.dto.coupon.CouponUseDTO;
+import com.gongsibao.rest.web.dto.coupon.CouponValidateDTO;
+import com.gongsibao.rest.web.dto.order.*;
+import com.gongsibao.rest.web.dto.product.ProductPriceDTO;
 import com.gongsibao.trade.base.IOrderProdService;
-import com.gongsibao.trade.base.IOrderProdTraceService;
 import com.gongsibao.trade.base.IPayService;
 import com.gongsibao.trade.web.dto.OrderPayDTO;
-import com.gongsibao.rest.web.common.web.Pager;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.netsharp.communication.ServiceFactory;
@@ -40,6 +40,7 @@ import org.netsharp.core.annotations.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
@@ -60,9 +61,6 @@ public class OrderService implements IOrderService {
 
     // 明细订单服务
     IOrderProdService orderProdService = ServiceFactory.create(IOrderProdService.class);
-
-    // 明细订单操作日志服务
-    IOrderProdTraceService orderProdTraceService = ServiceFactory.create(IOrderProdTraceService.class);
 
     // so_pay支付服务
     IPayService payService = ServiceFactory.create(IPayService.class);
@@ -85,6 +83,9 @@ public class OrderService implements IOrderService {
 
     @Autowired
     IInvoiceService invoiceService;
+
+    @Autowired
+    IOrderProdTraceService orderProdTraceService;
 
     @Override
     public SoOrder getById(Integer orderId) {
@@ -198,10 +199,30 @@ public class OrderService implements IOrderService {
         OrderProd orderProd = orderProdService.getById(orderProdId);
         SoOrder order = getById(orderProd.getOrderId());
 
-//        orderProdTraceService.getByOrderIdAndType(orderProdId);
+        List<OrderProdTraceDTO> traceList = orderProdTraceService.queryTraceByCondition(orderProdId, Arrays.asList(3151, 3153, 31501));
+        Dict city = dictService.byId(orderProd.getCityId());
+        String cityName = null == city ? "" : city.getName();
 
+        OrderMessageDTO dto = new OrderMessageDTO();
+        // 订单内信息
+        dto.setAccountName(order.getAccountName());
+        dto.setOrderNo(order.getNo());
+        dto.setCreateTime(order.getCreateTime());
+        dto.setOrderPrice(BigDecimal.valueOf(NumberUtils.getRealMoney(order.getPayablePrice())));
+        dto.setProcessStatus(order.getProcessStatus());
 
-        return null;
+        // 明细订单内信息
+        dto.setProductName(orderProd.getProductName());
+        dto.setOrderProdPrice(BigDecimal.valueOf(NumberUtils.getRealMoney(orderProd.getPrice())));
+        dto.setCityName(cityName);
+
+        // 操作日志
+        dto.setTraceList(traceList);
+        return dto;
+    }
+
+    public void updateToCancel(Integer accountId, Integer orderId, int orderCancelStatus) {
+
     }
 
     private OrderProductDTO convertTo(SoOrder soOrder,OrderProd orderProd){

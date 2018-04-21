@@ -70,11 +70,20 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
         addColumn (datagrid, "soOrder.payStatus", "付款状态", ControlTypes.ENUM_BOX, 100);
         addColumn (datagrid, "soOrder.prodName", "产品名称", ControlTypes.TEXT_BOX, 200);
         addColumn (datagrid, "soOrder.companyIntention.companyName", "签单公司", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "soOrder.totalPrice", "原价金额", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "soOrder.payablePrice", "应付金额", ControlTypes.TEXT_BOX, 100);
-        addColumn (datagrid, "soOrder.paidPrice", "已付金额", ControlTypes.TEXT_BOX, 100);
-        column = addColumn (datagrid, "soOrder.toBePaidPrice", "待付金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
+        column = addColumn (datagrid, "soOrder.totalPrice", "原价金额", ControlTypes.TEXT_BOX, 100);{
+        	column.setAlign(DatagridAlign.RIGHT);
+        	column.setFormatter("return (value/100).toFixed(2);");
         }
+        column = addColumn (datagrid, "soOrder.payablePrice", "应付金额", ControlTypes.TEXT_BOX, 100);{
+        	column.setAlign(DatagridAlign.RIGHT);
+        	column.setFormatter("return (value/100).toFixed(2);");
+        }
+        column = addColumn (datagrid, "soOrder.paidPrice", "已付金额", ControlTypes.TEXT_BOX, 100);{
+        	column.setAlign(DatagridAlign.RIGHT);
+        	column.setFormatter("return (value/100).toFixed(2);");
+        }
+        //订单待付款金额 = 订单应付金额 - 订单余额(paidPrice+carryIntoAmount-refundPrice-carryAmount)
+        addColumn (datagrid, "soOrder.toBePaidPrice", "待付金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn (datagrid, "soOrder.stageNum", "分期次数", ControlTypes.ENUM_BOX, 100);
         addColumn (datagrid, "status", "审核状态", ControlTypes.ENUM_BOX, 100);
         column = addColumn (datagrid, "soOrder.stageCreateTime", "分期申请时间", ControlTypes.DATETIME_BOX, 350);

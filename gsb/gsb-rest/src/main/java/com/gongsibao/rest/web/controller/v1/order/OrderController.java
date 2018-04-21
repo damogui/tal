@@ -35,7 +35,6 @@ public class OrderController extends BaseController {
      */
     @RequestMapping("/messageInfo")
     public ResponseData lstService(HttpServletRequest request) {
-
         ResponseData data = new ResponseData();
         int orderProdId = NumberUtils.toInt(request.getParameter("orderProdId"));
         if (orderProdId == 0) {
@@ -43,9 +42,7 @@ public class OrderController extends BaseController {
             data.setMsg("订单不存在");
             return data;
         }
-
-        orderService.getOrderMessage(orderProdId);
-
+        data.setData(orderService.getOrderMessage(orderProdId));
         return data;
 
     }

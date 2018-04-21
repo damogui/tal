@@ -128,4 +128,13 @@ public interface IOrderProdTraceService extends IPersistableService<OrderProdTra
 	OrderProdTrace getLastUpdateProcessTrace(Integer orderProdId, Integer orderProdStatusId);
 
 	Integer addFollowUp(Integer orderProdId, String followContent);
+
+	/**
+	 * 返回跟进列表
+	 *
+	 * @param orderProdId 订单商品ID
+	 * @param typeIds 订单项记录类型序号
+	 * @return
+	 */
+	List<OrderProdTrace> byOrderProdIdTypeIds(Integer orderProdId,List<Integer> typeIds);
 }
