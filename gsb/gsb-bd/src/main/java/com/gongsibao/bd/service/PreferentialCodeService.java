@@ -174,4 +174,11 @@ public class PreferentialCodeService extends PersistableService<PreferentialCode
 
         return this.pm.executeNonQuery(builder.toSQL(), null) > 0;
     }
+
+    @Override
+    public int updateUseRevert(int preferentialId, String no) {
+        String sql = String.format("UPDATE bd_preferential_code SET status = 1,use_time = NULL, order_id = 0 WHERE " +
+                "preferential_id = %s AND `no` = %s ", preferentialId, no);
+        return this.pm.executeNonQuery(sql, null);
+    }
 }

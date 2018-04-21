@@ -1,6 +1,7 @@
 package com.gongsibao.rest.service.order;
 
 import com.gongsibao.bd.base.IDictService;
+import com.gongsibao.bd.base.IPreferentialCodeService;
 import com.gongsibao.entity.Result;
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.bd.Dict;
@@ -29,6 +30,7 @@ import com.gongsibao.rest.web.common.util.AmountUtils;
 import com.gongsibao.rest.web.common.util.NumberUtils;
 import com.gongsibao.rest.web.common.util.StringUtils;
 import com.gongsibao.rest.web.dto.order.OrderAddDTO;
+import com.gongsibao.trade.base.IOrderDiscountService;
 import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IOrderProdTraceService;
 import com.gongsibao.trade.base.IPayService;
@@ -38,6 +40,7 @@ import com.gongsibao.rest.web.dto.order.OrderDTO;
 import com.gongsibao.rest.web.dto.order.OrderProductDTO;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.annotations.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +76,8 @@ public class OrderService implements IOrderService {
     // 字典服务
     IDictService dictService = ServiceFactory.create(IDictService.class);
     IWorkflowNodeService workflowNodeService = ServiceFactory.create(IWorkflowNodeService.class);
+    IOrderDiscountService orderDiscountService = ServiceFactory.create(IOrderDiscountService.class);
+    IPreferentialCodeService preferentialCodeService = ServiceFactory.create(IPreferentialCodeService.class);
 
     // 产品服务
     @Autowired
@@ -197,7 +202,28 @@ public class OrderService implements IOrderService {
 
     @Override
     public void updateToCancel(Integer accountId, Integer orderId, int orderCancelStatus) {
-
+        int effectNum = tradeOrderService.updateOrderStatus(accountId, orderId, orderCancelStatus);
+        if (effectNum > 0 && orderCancelStatus == 3023) {
+            List<OrderProd> orderProds = orderProdService.byOrderId(orderId);
+            if (orderProds != null) {
+                List<Integer> orderProdIds = orderProds.stream().map(OrderProd::getId).collect(Collectors.toList());
+                orderProdService.removeCompanyQualifyByOrderProdIds(orderProdIds);
+                List<OrderDiscount> orderDiscounts = orderDiscountService.queryByOrderId(orderId);
+                if (orderDiscounts != null) {
+                    final int[] amount = {0};
+                    orderDiscounts.stream().forEach(orderDiscount -> {
+                        amount[0] += ObjectUtils.defaultIfNull(orderDiscount.getAmount(), 0);
+                        // 优惠券使用记录，更新为用户取消
+                        orderDiscountService.updateNo(orderDiscount.getId(), orderDiscount.getNo().concat("-用户取消"));
+                        // 优惠券使用状态还原
+                        preferentialCodeService.updateUseRevert(orderDiscount.getPreferentialId(), orderDiscount
+                                .getNo());
+                    });
+                    // 复原订单价格
+                    tradeOrderService.updatePayablePriceRevert(orderId, amount[0]);
+                }
+            }
+        }
     }
 
     private OrderProductDTO convertTo(SoOrder soOrder,OrderProd orderProd){

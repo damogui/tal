@@ -11,6 +11,7 @@ import com.gongsibao.entity.trade.dic.SettleStatus;
 import org.netsharp.base.IPersistableService;
 
 import com.gongsibao.entity.trade.OrderProd;
+import org.netsharp.core.annotations.Transaction;
 
 public interface IOrderProdService extends IPersistableService<OrderProd> {
 
@@ -136,5 +137,22 @@ public interface IOrderProdService extends IPersistableService<OrderProd> {
      * @return
      */
     Boolean updateOrderDetail(Integer orderProdId, String handleName, Integer companyId);
+
+    /**
+     * 根据订单产品ID集合删除资质
+     *
+     * @param orderProdIds 订单产品ID集合
+     * @return
+     */
+    @Transaction
+    int removeCompanyQualifyByOrderProdIds(List<Integer> orderProdIds);
+
+    /**
+     * 根据订单ID返回订单下产品
+     *
+     * @param orderId 订单ID
+     * @return
+     */
+    List<OrderProd> byOrderId(Integer orderId);
 
 }

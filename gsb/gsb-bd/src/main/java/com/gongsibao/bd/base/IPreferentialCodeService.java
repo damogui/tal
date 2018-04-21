@@ -56,4 +56,13 @@ public interface IPreferentialCodeService extends IPersistableService<Preferenti
     List<PreferentialCode> byNos(Collection<String> noList);
 
     boolean updateCodeStatus(Collection<String> noList, Integer status, Integer orderId);
+
+    /**
+     * 优惠券使用状态还原
+     * @param preferentialId
+     * @param no
+     * @return
+     */
+    @Transaction
+    int updateUseRevert(int preferentialId, String no);
 }

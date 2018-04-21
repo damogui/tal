@@ -488,4 +488,20 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
         oql.getParameters().add("account_id", accountId, Types.INTEGER);
         return this.pm.queryList(oql);
     }
+
+    @Override
+    public int updateOrderStatus(Integer accountId, Integer orderId, Integer status) {
+        String sql = "update so_order set so_order.process_status_id = ? where pkid = ? and account_id = ? ";
+        QueryParameters queryParameters = new QueryParameters();
+        queryParameters.add("process_status_id",status,Types.INTEGER);
+        queryParameters.add("pkid",orderId,Types.INTEGER);
+        queryParameters.add("account_id",accountId,Types.INTEGER);
+        return this.pm.executeNonQuery(sql, queryParameters);
+    }
+
+    @Override
+    public int updatePayablePriceRevert(int pkid, int price) {
+        String sql = String.format("UPDATE so_order SET payable_price = payable_price + %s WHERE pkid = %s ",price,pkid);
+        return this.pm.executeNonQuery(sql, null);
+    }
 }

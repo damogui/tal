@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.gongsibao.product.base.IWorkflowService;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
@@ -332,5 +333,22 @@ public class OrderProdService extends PersistableService<OrderProd> implements I
         }
         String sql = updateBuilder.toSQL();
         return this.pm.executeNonQuery(sql, null) > 0;
+    }
+
+    @Override
+    public int removeCompanyQualifyByOrderProdIds(List<Integer> orderProdIds) {
+        String sql = String.format("delete from uc_account_company_qualify WHERE order_prod_id IN (%s)", StringUtils
+                .join(orderProdIds, ","));
+        return this.pm.executeNonQuery(sql,null);
+    }
+
+    @Override
+    public List<OrderProd> byOrderId(Integer orderId) {
+        Oql oql = new Oql();
+        oql.setType(this.type);
+        oql.setSelects("*");
+        oql.setFilter(" orderId = ? ");
+        oql.getParameters().add("orderId",orderId,Types.INTEGER);
+        return this.pm.queryList(oql);
     }
 }

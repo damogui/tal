@@ -145,4 +145,16 @@ public interface IOrderService extends IPersistableService<SoOrder> {
      */
     List<SoOrder> pageOrderListByAccountIdStatus(Integer accountId, Integer status,
                                                  int currentPage, int pageSize);
+
+    @Transaction
+    int updateOrderStatus(Integer accountId,Integer orderId,Integer status);
+
+    /**
+     * 复原订单价格
+     * @param pkid
+     * @param price
+     * @return
+     */
+    @Transaction
+    int updatePayablePriceRevert(int pkid, int price);
 }

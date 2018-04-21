@@ -29,4 +29,10 @@ public class OrderDiscountService extends PersistableService<OrderDiscount> impl
 		}
 		return this.queryList(oql);
 	}
+
+	@Override
+	public int updateNo(Integer pkid, String no) {
+		String sql = String.format("UPDATE so_order_discount SET `no` = %s WHERE pkid = %s ",pkid,no);
+		return this.pm.executeNonQuery(sql,null);
+	}
 }

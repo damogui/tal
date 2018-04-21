@@ -1,5 +1,6 @@
 package com.gongsibao.rest.web.dto.order;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.gongsibao.rest.web.dto.PkId;
 import com.gongsibao.rest.web.common.security.SecurityUtils;
 import com.gongsibao.rest.web.common.util.NumberUtils;
@@ -33,6 +34,7 @@ public class OrderProdTraceDTO extends PkId{
     private Integer operatorId;
 
     /** 创建时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date addTime;
 
     /** 备注、上传材料备注、提示客户、快递补充说明、帐号密码备注、提醒内容、投诉内容 */
