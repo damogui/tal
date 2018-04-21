@@ -1,6 +1,7 @@
 package com.gongsibao.rest.base.order;
 
 import com.gongsibao.entity.Result;
+import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.rest.dto.coupon.CouponUseDTO;
 import com.gongsibao.rest.dto.order.OrderAddDTO;
@@ -39,4 +40,5 @@ public interface IOrderService {
      */
     Pager<OrderDTO> pageMyOrder(Integer accountId,Integer status, int currentPage, int pageSize);
 
+    OrderProd getOrderProdInfo(Integer orderProdId);
 }

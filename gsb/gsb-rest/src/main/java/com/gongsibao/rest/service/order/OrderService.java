@@ -29,6 +29,8 @@ import com.gongsibao.rest.web.common.util.AmountUtils;
 import com.gongsibao.rest.web.common.util.NumberUtils;
 import com.gongsibao.rest.web.common.util.StringUtils;
 import com.gongsibao.rest.dto.order.OrderAddDTO;
+import com.gongsibao.trade.base.IOrderProdService;
+import com.gongsibao.trade.base.IOrderProdTraceService;
 import com.gongsibao.trade.base.IPayService;
 import com.gongsibao.trade.web.dto.OrderPayDTO;
 import com.gongsibao.rest.web.common.web.Pager;
@@ -60,6 +62,13 @@ public class OrderService implements IOrderService {
     // 订单服务
     com.gongsibao.trade.base.IOrderService tradeOrderService = ServiceFactory.create(com.gongsibao.trade.base.IOrderService.class);
 
+    // 明细订单服务
+    IOrderProdService orderProdService = ServiceFactory.create(IOrderProdService.class);
+
+    // 明细订单操作日志服务
+    IOrderProdTraceService orderProdTraceService = ServiceFactory.create(IOrderProdTraceService.class);
+
+    // so_pay支付服务
     IPayService payService = ServiceFactory.create(IPayService.class);
 
     // 字典服务
@@ -185,6 +194,13 @@ public class OrderService implements IOrderService {
             pager.setList(orderDtoList);
         }
         return pager;
+    }
+
+    @Override
+    public OrderProd getOrderProdInfo(Integer orderProdId) {
+
+
+        return null;
     }
 
     private OrderProductDTO convertTo(SoOrder soOrder,OrderProd orderProd){

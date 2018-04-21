@@ -12,6 +12,7 @@ import com.gongsibao.rest.base.product.IProductService;
 import com.gongsibao.rest.base.user.IAccountService;
 import com.gongsibao.rest.dto.coupon.CouponUseDTO;
 import com.gongsibao.rest.web.common.apiversion.Api;
+import com.gongsibao.rest.web.common.apiversion.LoginCheck;
 import com.gongsibao.rest.web.common.security.SecurityUtils;
 import com.gongsibao.rest.web.common.util.JsonUtils;
 import com.gongsibao.rest.web.common.web.ResponseData;
@@ -221,6 +222,7 @@ public class ICompanyProductController extends BaseController {
      * @date 2018/4/19
      */
     @RequestMapping(value = "/preferential", method = RequestMethod.POST)
+    @LoginCheck
     public ResponseData preferential(HttpServletRequest request, @RequestBody String req) {
         ResponseData data = new ResponseData();
         OrderAddDTO orderAddDTO = JsonUtils.jsonToObject(req, OrderAddDTO.class);
@@ -251,6 +253,7 @@ public class ICompanyProductController extends BaseController {
     }
 
     @RequestMapping(value = "/addOrder", method = RequestMethod.POST)
+    @LoginCheck
     public ResponseData addOrder(HttpServletRequest request, @RequestBody String req) {
         ResponseData data = new ResponseData();
         OrderAddDTO orderAddDTO = JsonUtils.jsonToObject(req, OrderAddDTO.class);
