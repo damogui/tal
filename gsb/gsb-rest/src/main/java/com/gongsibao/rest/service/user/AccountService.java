@@ -14,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.panda.controls.utility.UrlHelper;
 import org.netsharp.wx.pa.base.ICustomService;
 import org.netsharp.wx.pa.base.IPublicAccountService;
 import org.netsharp.wx.pa.entity.Fans;
@@ -230,13 +231,13 @@ public class AccountService implements IAccountService{
         body = com.gongsibao.rest.web.common.util.StringUtils.getSubStr(body, 100);
         SortedMap<Object, Object> packageParams = new TreeMap<Object, Object>();
         packageParams.put("appid", appid);
+        packageParams.put("body", body);
         packageParams.put("mch_id", mch_id);
         packageParams.put("nonce_str", nonce_str);
-        packageParams.put("body", body);
+        packageParams.put("notify_url", UrlHelper.encode(notify_url));
         packageParams.put("out_trade_no", StringUtils.trimToEmpty(out_trade_no));
-        packageParams.put("total_fee", StringUtils.trimToEmpty(order_price.toString()));
         packageParams.put("spbill_create_ip", ipAddress);
-        packageParams.put("notify_url", notify_url);
+        packageParams.put("total_fee", StringUtils.trimToEmpty(order_price.toString()));
         packageParams.put("trade_type", trade_type);
         //当是公众号支付时“openid”必传
         if (trade_type == "JSAPI")
