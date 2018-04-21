@@ -21,6 +21,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.igirl.tm.TradeMark;
 import com.gongsibao.igirl.tm.web.DepartmentTradeMarkListPart;
+import com.gongsibao.igirl.tm.web.TradeMarkFormPart;
 import com.gongsibao.igirl.tm.web.TradeMarkListPart;
 
 public class MyFollowNoticeWorkspaceTest extends WorkspaceCreationBase {
@@ -41,6 +42,8 @@ public class MyFollowNoticeWorkspaceTest extends WorkspaceCreationBase {
 		listPartJsController=TradeMarkListPart.class.getName();
 		listPartImportJs="/gsb/igirl/js/abnormaltrademark.listpart.js";
 		listFilter = "tradeMarkCase.ownerID = '{userId}' and markState in ('6','7','13','15','17','18','20','21') ";
+		formJsController=TradeMarkFormPart.class.getName();
+		formJsImport = "/gsb/igirl/js/mytrademark.form.js";
 	}
 
 
@@ -168,7 +171,10 @@ public class MyFollowNoticeWorkspaceTest extends WorkspaceCreationBase {
 		}
 		PFormField field = null;
 		addFormField(form, "code", "商标号", null, ControlTypes.TEXT_BOX, false,false);
-		addFormField(form, "markState", "申请状态", null, ControlTypes.ENUM_BOX, true,false);
+		field=addFormField(form, "markState", "申请状态", null, ControlTypes.ENUM_BOX, true,false);
+		{
+			field.setTroikaTrigger("controllertradeMark.filterTradeMarkState();");
+		}
 		return form;
 	}
 

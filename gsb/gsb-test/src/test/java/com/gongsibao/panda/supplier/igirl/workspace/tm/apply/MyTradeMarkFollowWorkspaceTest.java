@@ -1,6 +1,7 @@
 package com.gongsibao.panda.supplier.igirl.workspace.tm.apply;
 
 import com.gongsibao.entity.igirl.tm.TradeMark;
+import com.gongsibao.igirl.tm.web.TradeMarkFormPart;
 import com.gongsibao.igirl.tm.web.TradeMarkListPart;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,6 +45,8 @@ public class MyTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		listPartServiceController = TradeMarkListPart.class.getName();
 		listPartJsController=TradeMarkListPart.class.getName();
 		listPartImportJs="/gsb/igirl/js/trademark.listpart.js";
+		formJsController=TradeMarkFormPart.class.getName();
+		formJsImport = "/gsb/igirl/js/mytrademark.form.js";
 	}
 
 	@Test
@@ -177,7 +180,10 @@ public class MyTradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		}
 		PFormField field = null;
 		addFormField(form, "code", "商标号", null, ControlTypes.TEXT_BOX, false,false);
-		addFormField(form, "markState", "申请状态", null, ControlTypes.ENUM_BOX, true,false);
+		field=addFormField(form, "markState", "申请状态", null, ControlTypes.ENUM_BOX, true,false);
+		{
+			field.setTroikaTrigger("controllertradeMark.filterTradeMarkState();");
+		}
 		return form;
 	}
 
