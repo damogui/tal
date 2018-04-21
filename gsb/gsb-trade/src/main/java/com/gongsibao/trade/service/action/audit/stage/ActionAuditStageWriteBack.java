@@ -47,42 +47,48 @@ public class ActionAuditStageWriteBack implements IAction{
         switch (state.getValue()) {
             case 0://驳回审核
                 auditService.auditRejected(auditLog.getId(), remark);
-                writeBackOrder(auditLog.getFormId(),AuditStatusType.Bhsh);
+                writeBackBhshOrder(auditLog.getFormId(),AuditStatusType.Bhsh);
                 break;
             case 1://通过审核
                 auditService.auditApproved(auditLog.getId(),remark);
                 if (auditLog.getLevel().equals(auditLog.getMaxLevel())) {
-                	writeBackOrder(auditLog.getFormId(),AuditStatusType.Shtg);
+                	writeBackShtgOrder(auditLog.getFormId(),AuditStatusType.Shtg);
                 }
                 break;
         }
     }
 	/**
-	 * 回写订单分期的信息
+	 * 回写审核通过的订单分期的信息
 	 * @param formId 来源Id
 	 * @param state 审核状态
 	 */
-	private void writeBackOrder(Integer formId, AuditStatusType state){
-		
+	private void writeBackShtgOrder(Integer formId, AuditStatusType state){
 		//1.回写订单：分期审核状态、是否分期
         UpdateBuilder updateSql = UpdateBuilder.getInstance();
 		{
 			updateSql.update("so_order");
 			updateSql.set("installment_audit_status_id", state.getValue());
-			updateSql.set("stage_creator",SessionManager.getUserName());
-			updateSql.set("stage_create_time",new Date());
 			updateSql.set("is_installment", true);
-			//审核通过回写订单相关的信息
-			if(state.equals(AuditStatusType.Shtg)){
-				String installmentMode = ""; 
-				SoOrder order = orderService.getOrderStageByOrderId(formId);
-				for (NOrderStage item : order.getStages()) {
-					installmentMode += item.getAmount().intValue() + "|";
-				}
-				updateSql.set("installment_mode", installmentMode.substring(0,installmentMode.length()-1));
-				updateSql.set("stage_num", order.getStages().size());
-			}
+			//回写可能有其他的回写？？？
 			
+			//审核通过回写订单相关的信息
+			updateSql.where("pkid =" + formId);
+		}
+		String cmdText = updateSql.toSQL();
+		IPersister<SoOrder> pm = PersisterFactory.create();
+		pm.executeNonQuery(cmdText, null);
+	}
+	/**
+	 * 回写驳回审核的订单分期的信息
+	 * @param formId 来源Id
+	 * @param state 审核状态
+	 */
+	private void writeBackBhshOrder(Integer formId, AuditStatusType state){
+		//1.回写订单：分期审核状态
+        UpdateBuilder updateSql = UpdateBuilder.getInstance();
+		{
+			updateSql.update("so_order");
+			updateSql.set("installment_audit_status_id", state.getValue());
 			updateSql.where("pkid =" + formId);
 		}
 		String cmdText = updateSql.toSQL();
