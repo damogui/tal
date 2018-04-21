@@ -12,6 +12,7 @@ import com.gongsibao.rest.base.product.IProductService;
 import com.gongsibao.rest.base.user.IAccountService;
 import com.gongsibao.rest.dto.coupon.CouponUseDTO;
 import com.gongsibao.rest.web.common.apiversion.Api;
+import com.gongsibao.rest.web.common.security.SecurityUtils;
 import com.gongsibao.rest.web.common.util.JsonUtils;
 import com.gongsibao.rest.web.common.web.ResponseData;
 import com.gongsibao.rest.web.controller.BaseController;
@@ -25,7 +26,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/wx/{v}/icompany/product")
@@ -269,7 +272,10 @@ public class ICompanyProductController extends BaseController {
 
         Result<SoOrder> result = orderService.saveOrder(orderAddDTO);
         if (Result.isSuccess(result)) {
-            data.setData(result.getObj().getId());
+            Map<String, Object> orderInfo = new HashMap<>();
+            orderInfo.put("orderId", result.getObj().getId());
+            orderInfo.put("orderIdStr", SecurityUtils.rc4Encrypt(result.getObj().getId()));
+            data.setData(orderInfo);
         } else {
             data.setMsg(result.getMsg());
             data.setCode(-1);
