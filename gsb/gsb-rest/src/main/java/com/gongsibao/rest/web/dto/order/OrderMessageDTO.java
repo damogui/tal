@@ -30,7 +30,7 @@ public class OrderMessageDTO implements Serializable {
     /* 下单人 */
     private String accountName;
     /* 状态 */
-    private OrderProcessStatusType processStatus;
+    private Integer processStatus;
     /* 下单时间 */
     private Date createTime;
 
@@ -76,11 +76,11 @@ public class OrderMessageDTO implements Serializable {
         this.accountName = accountName;
     }
 
-    public OrderProcessStatusType getProcessStatus() {
+    public Integer getProcessStatus() {
         return processStatus;
     }
 
-    public void setProcessStatus(OrderProcessStatusType processStatus) {
+    public void setProcessStatus(Integer processStatus) {
         this.processStatus = processStatus;
     }
 

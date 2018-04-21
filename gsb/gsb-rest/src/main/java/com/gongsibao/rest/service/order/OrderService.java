@@ -209,7 +209,7 @@ public class OrderService implements IOrderService {
         dto.setOrderNo(order.getNo());
         dto.setCreateTime(order.getCreateTime());
         dto.setOrderPrice(BigDecimal.valueOf(NumberUtils.getRealMoney(order.getPayablePrice())));
-        dto.setProcessStatus(order.getProcessStatus());
+        dto.setProcessStatus(null == order.getProcessStatus() ? 0 : order.getProcessStatus().getValue());
 
         // 明细订单内信息
         dto.setProductName(orderProd.getProductName());

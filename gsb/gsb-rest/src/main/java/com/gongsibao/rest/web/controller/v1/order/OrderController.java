@@ -2,6 +2,7 @@ package com.gongsibao.rest.web.controller.v1.order;
 
 import com.gongsibao.rest.base.order.IOrderService;
 import com.gongsibao.rest.web.common.apiversion.Api;
+import com.gongsibao.rest.web.common.util.JsonUtils;
 import com.gongsibao.rest.web.common.util.NumberUtils;
 import com.gongsibao.rest.web.common.web.ResponseData;
 import com.gongsibao.rest.web.controller.BaseController;
@@ -43,6 +44,7 @@ public class OrderController extends BaseController {
             return data;
         }
         data.setData(orderService.getOrderMessage(orderProdId));
+
         return data;
 
     }
