@@ -155,7 +155,7 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
             qpsOrder.add("@pkid", orderId, Types.INTEGER);
             ResultSet rsOrder = this.pm.executeReader(sqlOrder, qpsOrder);
             if (rsOrder.next()) {
-                orderNo = rsTrace.getString("no");
+                orderNo = rsOrder.getString("no");
             }
             if (null != proName && null != proTrace) {
                 //取用户信息
