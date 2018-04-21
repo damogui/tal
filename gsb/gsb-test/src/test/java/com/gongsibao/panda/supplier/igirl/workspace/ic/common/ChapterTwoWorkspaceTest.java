@@ -1,7 +1,7 @@
 package com.gongsibao.panda.supplier.igirl.workspace.ic.common;
 
 import com.gongsibao.entity.igirl.ic.baseinfo.ChapterTwo;
-import com.gongsibao.igirl.ic.web.ChapterTwoListPart;
+//import com.gongsibao.igirl.ic.web.ChapterTwoListPart;
 import com.gongsibao.igirl.ic.web.ChapterTwoPart;
 import com.gongsibao.igirl.tm.web.NclMapPart;
 import com.gongsibao.igirl.tm.web.TradeMarkListPart;

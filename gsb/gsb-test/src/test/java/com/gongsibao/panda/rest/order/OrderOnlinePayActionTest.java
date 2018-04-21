@@ -37,10 +37,10 @@ public class OrderOnlinePayActionTest extends BaseActionTest {
         }
 
         createBean(beanPath, "1.验证", ActionOnlinePayVerify.class.getName(), resourceNode, 100);
-        createBean(beanPath, "2.状态修改", ActionOnlinePayPersist.class.getName(), resourceNode, 200);
-        createBean(beanPath, "3.U8回写", ActionOnlinePayU8.class.getName(), resourceNode, 300);
-        createBean(beanPath, "4.记录修改", ActionOnlinePayTrace.class.getName(), resourceNode, 400);
-        createBean(beanPath, "5.状态修改", ActionOnlinePaySendMessage.class.getName(), resourceNode, 500);
+        createBean(beanPath, "2.状态", ActionOnlinePayPersist.class.getName(), resourceNode, 200);
+        createBean(beanPath, "3.U8", ActionOnlinePayU8.class.getName(), resourceNode, 300);
+        createBean(beanPath, "4.进度", ActionOnlinePayTrace.class.getName(), resourceNode, 400);
+        createBean(beanPath, "5.消息", ActionOnlinePaySendMessage.class.getName(), resourceNode, 500);
         beanPathService.save(beanPath);
     }
 }

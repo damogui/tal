@@ -65,7 +65,7 @@ public class ActionOnlinePayPersist implements IAction {
         //该订单成功的付款记录信息
         int successCount = payService.countByOrderIds(Arrays.asList(orderId));
         //当付的款是第一笔款项时，更新订单的首款审核日期
-        if (successCount == 0) {
+        if (successCount > 0) {
             orderService.updateFistPayTime(orderId, today);
         }
     }

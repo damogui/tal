@@ -16,6 +16,8 @@ import org.netsharp.core.annotations.Transaction;
  */
 public interface IOrderService {
 
+    SoOrder getById(Integer orderId);
+
     @Transaction
     Result<SoOrder> saveOrder(OrderAddDTO orderAddDTO);
 

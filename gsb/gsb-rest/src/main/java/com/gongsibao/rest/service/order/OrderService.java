@@ -73,6 +73,11 @@ public class OrderService implements IOrderService {
     IInvoiceService invoiceService;
 
     @Override
+    public SoOrder getById(Integer orderId) {
+        return tradeOrderService.getByOrderId(orderId);
+    }
+
+    @Override
     @SuppressWarnings({"unchecked"})
     @Transaction
     public Result<SoOrder> saveOrder(OrderAddDTO orderAddDTO) {

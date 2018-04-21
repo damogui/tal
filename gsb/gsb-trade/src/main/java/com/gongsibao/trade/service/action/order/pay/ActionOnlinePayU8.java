@@ -26,6 +26,7 @@ public class ActionOnlinePayU8 implements IAction{
 			U8Bank u8Bank = u8BankService.getByOnlineBankCode(pay.getOnlineBankCodeId());
 			if (null != u8Bank) {
 				NU8BankSoPayMap u8BankSoPayMap = new NU8BankSoPayMap();
+				u8BankSoPayMap.toNew();
 				u8BankSoPayMap.setPrice(pay.getAmount());
 				u8BankSoPayMap.setPayId(pay.getId());
 				u8BankSoPayMap.setType(0);//类别（0：支付 1：退款）
