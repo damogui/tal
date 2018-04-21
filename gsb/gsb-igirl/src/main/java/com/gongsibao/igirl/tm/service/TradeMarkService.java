@@ -562,6 +562,21 @@ public class TradeMarkService extends GsbPersistableService<TradeMark> implement
 	    	SysAttachmentDto sa =new SysAttachmentDto();
 	    	String url = row.getString("path");
 	    	String name = row.getString("name");
+	    	String[] namePart = name.split("-");
+	    	int len=namePart.length;
+	    	String state=namePart[len-1].split(".pdf")[0];
+	    	MarkState ms = MarkState.getItemByCode(state);
+	    	if(ms!=null) {
+	    		name="";
+	    		for(int i=0;i<len-1;i++) {
+	    			if(i==0) {
+	    				name=namePart[i];
+	    			}else {
+	    				name=name+"-"+namePart[i];
+	    			}
+	    		}
+	    		name=name+"-"+ms.getText()+".pdf";
+	    	}
 	    	sa.setName(name);
 	    	sa.setUrl(url);
 	    	if (!urlList.contains(sa)) {
