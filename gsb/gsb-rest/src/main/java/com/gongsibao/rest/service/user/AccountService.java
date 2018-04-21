@@ -227,8 +227,7 @@ public class AccountService implements IAccountService{
         // clientType 客户端类别（0:网页端（扫码：NATIVE）；1:H5（公众号）端（JSAPI）；2：APP端（APP））
         String trade_type = "JSAPI";
         // body 类型：String(128),当body长度过长时，会报错"return_msg=body参数长度有误, return_code=FAIL"
-        body = StringUtils.substring(body, 100);
-
+        body = com.gongsibao.rest.web.common.util.StringUtils.getSubStr(body, 100);
         SortedMap<Object, Object> packageParams = new TreeMap<Object, Object>();
         packageParams.put("appid", appid);
         packageParams.put("mch_id", mch_id);
