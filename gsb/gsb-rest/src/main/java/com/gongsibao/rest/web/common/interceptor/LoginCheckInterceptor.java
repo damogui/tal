@@ -1,9 +1,10 @@
 package com.gongsibao.rest.web.common.interceptor;
 
 import com.gongsibao.entity.acount.Account;
+import com.gongsibao.rest.base.user.IAccountService;
 import com.gongsibao.rest.web.common.apiversion.LoginCheck;
 import com.gongsibao.rest.web.common.web.ResponseData;
-import com.gongsibao.rest.base.user.IAccountService;
+import com.gongsibao.rest.web.controller.UserHeaders;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +46,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
             HandlerMethod method = (HandlerMethod) handler;
             LoginCheck hostCheck = method.getMethodAnnotation(LoginCheck.class);
             if (null != hostCheck) {
-                String openId = request.getParameter("openId");
+                String openId = request.getHeader(UserHeaders.openId);
                 if(null==openId){
                     log.info("微信验证登录，openid为null");
                     ResponseData webResult = ResponseData.getError(-1, "openId为空！");
