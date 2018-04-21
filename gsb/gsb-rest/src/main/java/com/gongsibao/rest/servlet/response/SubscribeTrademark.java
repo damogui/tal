@@ -36,7 +36,7 @@ public class SubscribeTrademark implements IWeixinSubscriber {
         }else{
             String[] param=sceneStr.split("\\|");
             if(param[2].equals("SB")){
-                Account account=accountService.byMobile(param[1]);
+                Account account=accountService.byMobile(param[0]);
                 fans.setUserId(account.getId());
                 fansService.updateFans(fans);
                 return true;
