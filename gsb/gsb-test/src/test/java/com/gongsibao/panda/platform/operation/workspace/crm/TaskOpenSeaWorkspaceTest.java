@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
+import org.netsharp.organization.entity.Employee;
 import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.entity.PDatagrid;
@@ -217,7 +218,10 @@ public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
 			item.setTooltip("输入商机ID、客户ID、商机名称、客户名称、联系方式");
 			item.setWidth(350);
 		}
-		addQueryItem(queryProject, "owner.name", "业务员", ControlTypes.TEXT_BOX);
+		item = addRefrenceQueryItem(queryProject, "owner.name", "业务员", Employee.class.getSimpleName());
+		{
+			item.setRefFilter(" id in (select employee_id from sp_salesman)");
+		}
 		addQueryItem(queryProject, "customer.company.companyName", "关联企业", ControlTypes.TEXT_BOX);
 		item = addQueryItem(queryProject, "source.name", "商机来源", ControlTypes.CUSTOM);{
 			

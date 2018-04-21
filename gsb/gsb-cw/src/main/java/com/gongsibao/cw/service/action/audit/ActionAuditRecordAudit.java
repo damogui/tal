@@ -44,8 +44,8 @@ public class ActionAuditRecordAudit  implements IAction{
 			 //审核通过
 			 if(auditRecord.getStatus().getValue().intValue()== FinanceDict.AuditDetailStatus.AGREE.getValue().intValue()){
 				 //当审核人为财务主管 通过将状态给为财务办理
-				 Employee financeEmployee = employeeService.getEmployeeByFinanceLeader("Finance");
-				 if(SessionManager.getUserId().intValue() == financeEmployee.getId().intValue()){
+				 Employee financeEmployee = employeeService.getEmployeeByFinanceLeader(FinanceDict.WX_MSG_CODE);
+				 if(financeEmployee != null && SessionManager.getUserId().intValue() == financeEmployee.getId().intValue()){
 					 updateBillStatus(auditRecord.getFormId(),auditRecord.getFormType().getValue(),FinanceDict.AuditStatus.Status_4.getValue());
 				 }else{
 					 List<Employee> leaderList  = this.getEmployeeList(up.getEmployee().getDepartmentId());

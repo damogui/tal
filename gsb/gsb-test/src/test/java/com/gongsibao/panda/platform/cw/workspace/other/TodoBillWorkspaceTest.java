@@ -43,7 +43,7 @@ public class TodoBillWorkspaceTest extends WorkspaceCreationBase {
 			listToolbarPath = "";
 			
 			//待办理
-		    listFilter = " a.status = " +FinanceDict.AuditDetailStatus.WAIT.getValue() +" ";
+		    listFilter = " a.audit_user_id ='{userId}'  AND  a.status = " +FinanceDict.AuditDetailStatus.WAIT.getValue() +" ";
 	    }
 	 
 	 @Override

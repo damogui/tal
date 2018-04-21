@@ -80,7 +80,7 @@ public class BillAuditDTOService  extends PersistableService<BillAuditDTO> imple
 		sql.append("UNION SELECT id,code,amount,creator,create_time,memoto, 4 AS form_type  FROM cw_expense ");
 		sql.append("UNION SELECT id,code,amount,creator,create_time,memoto, 5 AS form_type  FROM cw_payment ) AS t ");
 		sql.append("ON t.id = a.form_id  AND t.form_type = a.form_type ");
-		sql.append("WHERE  a.audit_user_id =  " + SessionManager.getUserId()+" ");
+		sql.append("WHERE  1 = 1  ");
 	
 		//拼接前台传入参数
 		if(strWhere != null && !"".equals(strWhere) ){
