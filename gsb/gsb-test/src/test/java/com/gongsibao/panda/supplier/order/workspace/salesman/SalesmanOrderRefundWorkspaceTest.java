@@ -59,7 +59,7 @@ public class SalesmanOrderRefundWorkspaceTest extends WorkspaceCreationBase {
         }
         addColumn(datagrid, "soOrder.channelOrderNo", "渠道订单编号", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "soOrder.payStatus", "付款状态", ControlTypes.ENUM_BOX, 100);
-        addColumn(datagrid, "soOrder.companyIntention.name", "签单公司", ControlTypes.TEXT_BOX, 250);
+        addColumn(datagrid, "soOrder.companyIntention.companyName", "签单公司", ControlTypes.TEXT_BOX, 250);
         column = addColumn(datagrid, "soOrder.totalPrice", "原价金额", ControlTypes.DECIMAL_FEN_BOX, 100);{
         	
         	column.setAlign(DatagridAlign.RIGHT);

@@ -7,6 +7,7 @@ import java.util.List;
 import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
+import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.bd.AuditLog;
@@ -42,11 +43,14 @@ public class AuditStagingListPart extends AdvancedListPart{
 	        ArrayList<HashMap<String, Object>> ob2 = (ArrayList<HashMap<String, Object>>) json.get("rows");
 	        for (int i = 0; i < ob2.size(); i++) {	        	
 	        	AuditLog auditLog = ((AuditLog) list.get(i));
-	        	SoOrder soOrder  = auditLog.getFefund().getSoOrder();
+	        	SoOrder soOrder  = auditLog.getSoOrder();
 	            //this.balance = paidPrice + carryIntoAmount - refundPrice - carryAmount;
 	            Integer balance = NumberUtils.toInt(soOrder.getPaidPrice()) + NumberUtils.toInt(soOrder.getCarryIntoAmount()) - NumberUtils.toInt(soOrder.getRefundPrice()) - NumberUtils.toInt(soOrder.getCarryAmount());
 	            Integer toBePaidPrice = soOrder.getPayablePrice().intValue() - balance;
 	            ob2.get(i).put("soOrder_toBePaidPrice", toBePaidPrice);
+	            /*if(soOrder.getCompanyIntention() != null){
+	            	ob2.get(i).put("soOrder_companyIntention_companyName", soOrder.getCompanyIntention().getCompanyName());
+	            }*/
 	        }
 	        return json;
 	    }   
