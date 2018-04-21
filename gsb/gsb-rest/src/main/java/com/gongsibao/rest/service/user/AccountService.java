@@ -234,7 +234,7 @@ public class AccountService implements IAccountService{
         packageParams.put("body", body);
         packageParams.put("mch_id", mch_id);
         packageParams.put("nonce_str", nonce_str);
-        packageParams.put("notify_url", UrlHelper.encode(notify_url));
+        packageParams.put("notify_url", notify_url);
         packageParams.put("out_trade_no", StringUtils.trimToEmpty(out_trade_no));
         packageParams.put("spbill_create_ip", ipAddress);
         packageParams.put("total_fee", StringUtils.trimToEmpty(order_price.toString()));
