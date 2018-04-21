@@ -196,13 +196,6 @@ public class OrderService implements IOrderService {
         return pager;
     }
 
-    @Override
-    public OrderProd getOrderProdInfo(Integer orderProdId) {
-
-
-        return null;
-    }
-
     private OrderProductDTO convertTo(SoOrder soOrder,OrderProd orderProd){
         OrderProductDTO orderProductDTO = new OrderProductDTO();
         orderProductDTO.setAccountMobile(soOrder.getAccountMobile());
