@@ -78,7 +78,7 @@ public class PayCommonUtil {
             Map.Entry entry = (Map.Entry) it.next();
             String k = (String) entry.getKey();
             String v = (String) entry.getValue();
-            if ("attach".equalsIgnoreCase(k) || "detail".equalsIgnoreCase(k)) {
+            if ("attach".equalsIgnoreCase(k) || "body".equalsIgnoreCase(k) || "sign".equalsIgnoreCase(k)) {
                 sb.append("<" + k + ">" + "<![CDATA[" + v + "]]></" + k + ">");
             } else {
                 sb.append("<" + k + ">" + v + "</" + k + ">");
