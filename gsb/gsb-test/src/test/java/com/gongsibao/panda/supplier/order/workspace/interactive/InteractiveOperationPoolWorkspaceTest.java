@@ -34,6 +34,7 @@ public class InteractiveOperationPoolWorkspaceTest extends InteractiveMyInCharge
         List<String> ss = new ArrayList<>();
         ss.add("/gsb/platform/trade/js/prod/interactive-myincharge-list.part.js");
         ss.add("/gsb/platform/trade/js/prod/select-salesman.ctrl.js");
+        ss.add("/gsb/platform/trade/js/prod/query-interaction-group.ctrl.js");
         ss.add("/gsb/platform/trade/js/prod/interactive-operation-pool-list.part.js");
         ss.add("/gsb/panda-extend/gsb.custom.query.controls.js");
         listPartImportJs = StringManager.join("|", ss);

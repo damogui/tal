@@ -46,6 +46,9 @@ com.gongsibao.trade.web.interactive.OperationPoolListPart = com.gongsibao.trade.
         });
     },
     queryOperation: function () {
-        alert("123");
+
+        var queryInteractionGroup = new com.gongsibao.trade.web.QueryInteractionGroupCtrl();
+        queryInteractionGroup.open('订单操作组查询', false);
+
     }
 });
