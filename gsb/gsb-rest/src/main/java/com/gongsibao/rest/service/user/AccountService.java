@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.InetAddress;
 import java.net.URLEncoder;
 import java.util.*;
 
@@ -170,7 +171,7 @@ public class AccountService implements IAccountService{
     }
 
     @Override
-    public Integer getWxPayH5Param(String oid,String openId, String orderNoStr, Integer totalFee, String body, Integer userChannel, SortedMap<Object, Object> resMap) {
+    public Integer getWxPayH5Param(String ipAddress,String oid,String openId, String orderNoStr, Integer totalFee, String body, Integer userChannel, SortedMap<Object, Object> resMap) {
         //获取openID
         String openid =openId;
         IPublicAccountService publicAccountService=ServiceFactory.create(IPublicAccountService.class);
@@ -181,7 +182,7 @@ public class AccountService implements IAccountService{
         //预支付id
         String prepay_id;
         try {
-            prepay_id = wxpay(publicAccount,orderNoStr, NumberUtils.toInt(totalFee), body, 1, openid, userChannel);
+            prepay_id = wxpay(ipAddress,publicAccount,orderNoStr, NumberUtils.toInt(totalFee), body, 1, openid, userChannel);
         } catch (Exception e) {
             prepay_id = "";
         }
@@ -202,7 +203,10 @@ public class AccountService implements IAccountService{
     }
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
-    public String wxpay(PublicAccount account, String out_trade_no, Integer order_price, String body, Integer clientType, String openId, Integer userChannel) throws JDOMException, IOException {
+    public String wxpay(String ipAddress,PublicAccount account, String out_trade_no, Integer order_price, String body, Integer clientType, String openId, Integer userChannel) throws JDOMException, IOException {
+        if(StringUtils.isBlank(ipAddress)){
+            ipAddress= InetAddress.getLocalHost().getHostAddress();
+        }
         // 账号信息
         String appid = account.getAppId();
         //String appsecret = PayConfigUtil.APP_SECRET; // appsecret
@@ -232,7 +236,7 @@ public class AccountService implements IAccountService{
         packageParams.put("body", body);
         packageParams.put("out_trade_no", StringUtils.trimToEmpty(out_trade_no));
         packageParams.put("total_fee", StringUtils.trimToEmpty(order_price.toString()));
-        packageParams.put("spbill_create_ip", "");
+        packageParams.put("spbill_create_ip", ipAddress);
         packageParams.put("notify_url", notify_url);
         packageParams.put("trade_type", trade_type);
         //当是公众号支付时“openid”必传

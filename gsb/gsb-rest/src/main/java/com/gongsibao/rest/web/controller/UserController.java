@@ -36,6 +36,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -271,6 +273,12 @@ public class UserController extends BaseController{
     /*获取微信公众号支付（H5）的参数*/
     @RequestMapping(value = "/getWxPayMP",method = RequestMethod.GET)
     public ResponseData getWxPayMP(HttpServletRequest request, HttpServletResponse response) {
+        String ipAddress = null;
+        try {
+            ipAddress = getIpAddr(request);
+        } catch (Exception e) {
+            logger.error("get server host Exception e:", e);
+        }
         ResponseData data = new ResponseData();
         //微信授权回调的code凭证，用来获取openid的
         String openId = StringUtils.trimToEmpty(request.getParameter("openId"));
@@ -330,7 +338,7 @@ public class UserController extends BaseController{
         //付款内容（产品名称等）
         String body = order.getProdName();
         SortedMap<Object, Object> resMap = new TreeMap<Object, Object>();
-        Integer resId = accountService.getWxPayH5Param(originalId(request),openId, orderNoStr, totalFee, body, 0, resMap);
+        Integer resId = accountService.getWxPayH5Param(ipAddress,originalId(request),openId, orderNoStr, totalFee, body, 0, resMap);
         if (resId.equals(-1)) {
             data.setCode(-1);
             data.setMsg("获取openid失败");
