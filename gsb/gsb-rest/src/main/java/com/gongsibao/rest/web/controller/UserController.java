@@ -491,6 +491,7 @@ public class UserController extends BaseController{
             soPay.setOfflineAddUserId(account.getId());
             soPay.setCreateTime(new Date());
             Integer payId = payService.addPay(soPay, orderId, uploadPayVoucher);
+            logger.info("payId userController"+payId);
             resultMap.put("payIdStr", SecurityUtils.rc4Encrypt(payId));
             //region 调用支付第三方接口，获取返回值
             //调用第三方支付接口
@@ -604,10 +605,9 @@ public class UserController extends BaseController{
                 if (openId.equals("")) {
                     finalUrl = getWdUrl;
                 } else {
-                    String[] getWdUrlSplit = getWdUrl.split("#");
-                    finalUrl = getWdUrlSplit[0] + "?Openid=" + openId + "#" + getWdUrlSplit[1];
+                    finalUrl = getWdUrl+ "?openId=" + openId;
                 }
-                returnUrl = UrlHelper.encode(finalUrl + "?orderNoStr=" + orderNo + "_" + orderIdStr + "_" + payId + "&orderIdStr=" + orderIdStr + "&payIdStr=" + SecurityUtils.rc4Encrypt(payId) + "");
+                returnUrl = UrlHelper.encode(finalUrl + "&orderNoStr=" + orderNo + "_" + orderIdStr + "_" + payId + "&orderIdStr=" + orderIdStr + "&payIdStr=" + SecurityUtils.rc4Encrypt(payId) + "");
                 getAppid = pa.getAppId();
             }
         } catch (Exception e) {

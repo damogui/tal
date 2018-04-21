@@ -4,6 +4,7 @@ import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
+import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.entity.trade.SoOrder;
@@ -21,6 +22,10 @@ public class ActionApplyStageWriteBack implements IAction{
 		{
 			updateSql.update("so_order");
 			updateSql.set("installment_audit_status_id", AuditStatusType.Shz.getValue());
+			updateSql.set("stage_create_time", order.getStageCreateTime());
+			updateSql.set("installment_mode", order.getInstallmentMode());			
+			updateSql.set("stage_creator",SessionManager.getUserName());
+			updateSql.set("stage_num", order.getStages().size());
 			updateSql.where("pkid =" + order.getId());
 		}
 		String cmdText = updateSql.toSQL();

@@ -1,6 +1,7 @@
 package com.gongsibao.trade.web;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.netsharp.core.Oql;
@@ -9,6 +10,8 @@ import org.netsharp.panda.commerce.FilterParameter;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.entity.bd.AuditLog;
+import com.gongsibao.entity.trade.SoOrder;
+import com.gongsibao.utils.NumberUtils;
 
 public class AuditStagingListPart extends AdvancedListPart{
 	@Override
@@ -32,6 +35,19 @@ public class AuditStagingListPart extends AdvancedListPart{
         oql.setSelects("auditLog.*,soOrder.*,soOrder.companyIntention.*");
         List<AuditLog> resList = (List<AuditLog>) super.doQuery(oql);
         return resList;
-    }
-
+    }	
+	 @Override
+	 protected Object serialize(List<?> list, Oql oql) {
+	        HashMap<String, Object> json = (HashMap<String, Object>) super.serialize(list, oql);
+	        ArrayList<HashMap<String, Object>> ob2 = (ArrayList<HashMap<String, Object>>) json.get("rows");
+	        for (int i = 0; i < ob2.size(); i++) {	        	
+	        	AuditLog auditLog = ((AuditLog) list.get(i));
+	        	SoOrder soOrder  = auditLog.getFefund().getSoOrder();
+	            //this.balance = paidPrice + carryIntoAmount - refundPrice - carryAmount;
+	            Integer balance = NumberUtils.toInt(soOrder.getPaidPrice()) + NumberUtils.toInt(soOrder.getCarryIntoAmount()) - NumberUtils.toInt(soOrder.getRefundPrice()) - NumberUtils.toInt(soOrder.getCarryAmount());
+	            Integer toBePaidPrice = soOrder.getPayablePrice().intValue() - balance;
+	            ob2.get(i).put("soOrder_toBePaidPrice", toBePaidPrice);
+	        }
+	        return json;
+	    }   
 }

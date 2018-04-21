@@ -378,9 +378,11 @@ public class OrderService implements IOrderService {
         }
 
         int customerId = 0;
+        String customerName = "";
         Customer customer = customerService.byAccountId(account.getId());
         if (null != customer) {
             customerId = customer.getId();
+            customerName = customer.getRealName();
         }
 
         // 产品id
@@ -533,8 +535,8 @@ public class OrderService implements IOrderService {
             order.setInstallmentAuditStatusId(AuditStatusType.wu);
             order.setCompanyId(orderAddDTO.getCompanyId());
             order.setPlatformSource(OrderPlatformSourceType.Gsb);
-            order.setCustomerId(customer.getId());
-            order.setCustomerName(customer.getRealName());
+            order.setCustomerId(customerId);
+            order.setCustomerName(customerName);
             order.setDeliverId(orderAddDTO.getDeliverId());
             order.setCompanyId(orderAddDTO.getCompanyId());
             order.setCreatorId(0);
