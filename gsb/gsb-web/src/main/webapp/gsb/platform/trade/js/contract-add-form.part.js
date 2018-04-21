@@ -20,6 +20,8 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
             me.viewModel.currentItem = me.currentItem;
             me.currentItem.entityState = EntityState.New;
             me.currentItem.companyName = jmessage.soOrder.companyIntention == null ? "" : jmessage.soOrder.companyIntention.companyName;
+            //新建时合同总额等于订单应付额
+            me.currentItem.realAmount = jmessage.soOrder.payablePrice;
             if (me.currentItem == null) {
                 me.viewModel.clear();
             } else {
@@ -37,7 +39,7 @@ com.gongsibao.trade.web.ContractFormPart = org.netsharp.panda.commerce.FormPart.
         //合同来源
         $("#soOrder_platformSource").text(me.orderPlatformSourceEnum[jmessage.soOrder.platformSource]);
         //合同总额
-        $("#realAmount").numberbox('setValue', payablePrice);
+        //$("#realAmount").numberbox('setValue', payablePrice);
         // endregion
     },
     databindextra: function (entity) {
