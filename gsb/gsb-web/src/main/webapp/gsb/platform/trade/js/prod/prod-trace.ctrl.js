@@ -65,7 +65,7 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
             },
             columns: [[
                 {
-                    field: 'info', title: '操作信息', width: 250, formatter: function (value, row, index) {
+                    field: 'info', title: '操作信息', width: 300, formatter: function (value, row, index) {
 
                         return '<span title="' + value + '">' + value + '</span>';
                     }
@@ -73,7 +73,7 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
                 {
                     field: 'operatorId',
                     title: '操作人',
-                    width: 60,
+                    width: 100,
                     align: 'center',
                     formatter: function (value, row, index) {
 
