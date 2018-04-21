@@ -34,6 +34,7 @@ public class ActionOnlinePayTrace implements IAction{
 			List<OrderProdTrace> itemList = new ArrayList<>();
 			for (Integer orderProdId : orderProdIds) {
 				OrderProdTrace orderProdTrace = new OrderProdTrace();
+				orderProdTrace.toNew();
 				orderProdTrace.setOrderProdId(orderProdId);
 				orderProdTrace.setOrderProdStatusId(0);
 				orderProdTrace.setTypeId(OrderProdTraceType.Ggzt); // 支付成功

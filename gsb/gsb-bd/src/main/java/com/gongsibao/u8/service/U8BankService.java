@@ -34,7 +34,7 @@ public class U8BankService extends PersistableService<U8Bank> implements IU8Bank
 
     @Override
     public U8Bank getByOnlineBankCode(String onlineBankCodeId) {
-        return byId(getByOnlineBankCode(onlineBankCodeId));
+        return byId(getOnlinePayBank(onlineBankCodeId));
     }
 
     private Integer getOnlinePayBank(String onlineBankCode) {

@@ -21,6 +21,8 @@ import java.util.List;
  */
 public interface IOrderService {
 
+    SoOrder getById(Integer orderId);
+
     @Transaction
     Result<SoOrder> saveOrder(OrderAddDTO orderAddDTO);
 

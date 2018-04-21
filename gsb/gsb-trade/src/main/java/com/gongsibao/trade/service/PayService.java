@@ -161,7 +161,7 @@ public class PayService extends PersistableService<Pay> implements IPayService {
         sql.append("COUNT(1) ");
         sql.append("FROM `so_pay` ");
         sql.append("INNER JOIN `so_order_pay_map` ON so_pay.`pkid` = so_order_pay_map.`pay_id` ");
-        sql.append("WHERE so_order_pay_map.`order_id` IN (" + StringManager.join(",", Arrays.asList(orderIds)) + ") AND success_status_id = 3123 ");
+        sql.append("WHERE so_order_pay_map.`order_id` IN (" + StringManager.join(",", Arrays.asList(orderIds.toArray())) + ") AND success_status_id = 3123 ");
         sql.append("ORDER BY so_pay.confirm_time ASC ");
 
         return this.pm.executeInt(sql.toString(), null);

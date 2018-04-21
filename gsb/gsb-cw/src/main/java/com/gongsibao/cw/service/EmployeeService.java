@@ -11,6 +11,7 @@ import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.service.PersistableService;
 
 import com.gongsibao.cw.base.IEmployeeService;
+import com.gongsibao.entity.cw.dict.FinanceDict;
 
 @Service
 public class EmployeeService extends PersistableService<Employee> implements IEmployeeService{
@@ -82,10 +83,10 @@ public class EmployeeService extends PersistableService<Employee> implements IEm
 		sql.append("SELECT e.id ,e.mobile,e.name,e.login_name FROM sys_permission_employee e ");
 		sql.append("LEFT JOIN sys_permission_organization o ON o.id = e.post_id  ");
 		sql.append("LEFT JOIN sys_permission_position p ON  o.position_id  = p.id   ");
-		sql.append("WHERE  o.position_id = 3  AND e.department_id IN ( ");
+		sql.append("WHERE  (o.position_id = 3 OR o.position_id = 5) AND e.department_id IN ( ");
 		sql.append("SELECT o.id FROM sys_permission_organization_function  f ");
 		sql.append("LEFT JOIN sys_permission_organization  o  ON f.id = o.organization_function_id  ");
-		sql.append("WHERE f.code = 'Finance' ");
+		sql.append("WHERE f.code = '"+ code +"' ");
 		sql.append(") ");
 		DataTable dataTable = this.pm.executeTable(sql.toString(), null);
 		if(dataTable != null && dataTable.size()>0){
