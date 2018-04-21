@@ -132,9 +132,12 @@ public class WorkflowFileService extends PersistableService<WorkflowFile> implem
         Integer version = (Integer) flowIdListAndVersionMap.get("version");
         List<Integer> workflowIdList = (List<Integer>) flowIdListAndVersionMap.get("workflowIdList");
         if (version == null || CollectionUtils.isEmpty(workflowIdList)) {
-            return resList;
+            throw new BusinessException("未设置上传文件，请联系管理！");
         }
         resList = getListByFlowIdsAndVersion(workflowIdList, version);
+        if (CollectionUtils.isEmpty(resList)) {
+            throw new BusinessException("未设置上传文件，请联系管理！");
+        }
         return resList;
     }
 }
