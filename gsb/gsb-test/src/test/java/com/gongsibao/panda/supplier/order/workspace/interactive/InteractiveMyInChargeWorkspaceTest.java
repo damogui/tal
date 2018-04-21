@@ -90,13 +90,13 @@ public class InteractiveMyInChargeWorkspaceTest extends WorkspaceCreationBase {
 		{
 			column.setVisible(false);
 		}
+		addColumn(datagrid, "productName", "产品名称", ControlTypes.TEXT_BOX, 180);
+		addColumn(datagrid, "cityName", "产品地区", ControlTypes.TEXT_BOX, 220);
 		addColumn(datagrid, "processStatus.name", "办理状态", ControlTypes.TEXT_BOX, 150);
 		addColumn(datagrid, "soOrder.refundStatus", "退款状态", ControlTypes.ENUM_BOX, 80);
 		addColumn(datagrid, "isUrgent", "是否加急", ControlTypes.BOOLCOMBO_BOX, 80);
 		addColumn(datagrid, "id", "订单明细号", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "soOrder.no", "订单号", ControlTypes.TEXT_BOX, 100);
-		addColumn(datagrid, "productName", "产品名称", ControlTypes.TEXT_BOX, 180);
-		addColumn(datagrid, "cityName", "产品地区", ControlTypes.TEXT_BOX, 220);
 		addColumn(datagrid, "soOrder.customer.realName", "联系人", ControlTypes.TEXT_BOX, 100);
 		column = addColumn(datagrid, "soOrder.accountMobile", "联系人电话", ControlTypes.TEXT_BOX, 100);
 		{
