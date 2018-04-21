@@ -53,7 +53,7 @@
 			           </td>
 			           <td class="label_td"><label>付款比例：</label></td>
 			           <td class="control_td">
-			           		<input id="stagePercentage1" class="easyui-numberbox" data-options="precision:4,width:100,min:0,max:100,suffix:'%',disabled:true"/>
+			           		<input id="stagePercentage1" class="easyui-numberbox" data-options="precision:2,width:100,min:0,max:100,suffix:'%',disabled:true"/>
 			           </td>
 				   </tr>
 			       <tr class="stage" num="2">
@@ -64,7 +64,7 @@
 			           </td>
 			           <td class="label_td"><label>付款比例：</label></td>
 			           <td class="control_td">
-			           		<input id="stagePercentage2" class="easyui-numberbox" data-options="precision:4,width:100,min:0,max:100,suffix:'%',disabled:true"/>
+			           		<input id="stagePercentage2" class="easyui-numberbox" data-options="precision:2,width:100,min:0,max:100,suffix:'%',disabled:true"/>
 			           </td>
 				   </tr>
 			       <tr class="stage" num="3">
@@ -75,7 +75,7 @@
 			           </td>
 			           <td class="label_td"><label>付款比例：</label></td>
 			           <td class="control_td">
-			           		<input id="stagePercentage3" class="easyui-numberbox" data-options="precision:4,width:100,min:0,max:100,suffix:'%',disabled:true"/>
+			           		<input id="stagePercentage3" class="easyui-numberbox" data-options="precision:2,width:100,min:0,max:100,suffix:'%',disabled:true"/>
 			           </td>
 				   </tr>
 			       <tr class="stage" num="4">
@@ -86,7 +86,7 @@
 			           </td>
 			           <td class="label_td"><label>付款比例：</label></td>
 			           <td class="control_td">
-			           		<input id="stagePercentage4" class="easyui-numberbox" data-options="precision:4,width:100,min:0,max:100,suffix:'%',disabled:true"/>
+			           		<input id="stagePercentage4" class="easyui-numberbox" data-options="precision:2,width:100,min:0,max:100,suffix:'%',disabled:true"/>
 			           </td>
 				   </tr>
 				</table>
