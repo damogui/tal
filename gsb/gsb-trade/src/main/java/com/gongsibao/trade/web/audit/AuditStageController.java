@@ -23,7 +23,7 @@ public class AuditStageController extends AuditBaseController{
 	 * @throws
 	 */
 	public SoOrder getSoOrder(Integer id) {
-		Oql oql = new Oql();
+		Oql oql = new Oql(); 
 		{
 			oql.setType(SoOrder.class);
 			oql.setSelects("id,payablePrice,paidPrice,stageNum,stages.{id,instalmentIndex,percentage,amount}");
