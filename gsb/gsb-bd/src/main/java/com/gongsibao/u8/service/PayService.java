@@ -74,6 +74,7 @@ public class PayService extends PersistableService<Pay> implements IPayService {
 	@Override
 	public Integer addPay(Pay soPay, Integer orderId, String uploadPayVoucher) {
 		Integer payId = this.save(soPay).getId();
+		logger.info("payId save："+payId);
 		IOrderPayMapService soOrderPayMapService=ServiceFactory.create(IOrderPayMapService.class);
 		OrderPayMap soOrderPayMap = new OrderPayMap();
 		soOrderPayMap.setOrderId(orderId);
