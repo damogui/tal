@@ -77,6 +77,7 @@ public class SalesmanOrderPayWorkspaceTest  extends WorkspaceCreationBase {
         {
             datagrid.setName ("我的回款");
             datagrid.setToolbar (listrowToolbarPath);
+            datagrid.setNowrap(false);
             datagrid.setAutoQuery (true);
             datagrid.setShowCheckbox (true);
             datagrid.setSingleSelect (false);
@@ -84,7 +85,7 @@ public class SalesmanOrderPayWorkspaceTest  extends WorkspaceCreationBase {
         PDatagridColumn column = null;
         addColumn (datagrid, "id", "操作", ControlTypes.OPERATION_COLUMN, 60, true);
         // addColumn (datagrid, "u8Bank.name", "姓名", ControlTypes.TEXT_BOX, 100);
-        column = addColumn (datagrid, "orderIds", "订单编号", ControlTypes.TEXT_BOX, 120);//需要拼接
+        column = addColumn (datagrid, "orderNo", "订单编号", ControlTypes.TEXT_BOX, 180);//需要拼接
         {
             // column.setFormatter("return controllerpayList.orderNameFormatter(value,row,index);");
 
