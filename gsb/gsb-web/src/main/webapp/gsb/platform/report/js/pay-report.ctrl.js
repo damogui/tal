@@ -58,7 +58,11 @@ com.gongsibao.report.web.PayReportCtrl = org.netsharp.panda.core.CustomCtrl.Exte
     	$('#content').height(contentHeight);
 		$("#datagrid").datagrid({
 			idField:'id',
+			emptyMsg:'当日没有回款记录',
+			title:'<span style="font-weight: normal;color: red;">统计说明：【线上支付】-当日支付成功的记录，【线下支付】-为当日审核通过的记录</span>',
+			rownumbers:true,
 			pagination:false,
+			striped:true,
 			showFooter:true,
 			singleSelect:true,
 			height:contentHeight - 60,
@@ -152,29 +156,34 @@ com.gongsibao.report.web.PayReportCtrl = org.netsharp.panda.core.CustomCtrl.Exte
 			var date = item.index;
 			var key = date.substring(4,date.length);
 			var title = getTitle(date);
-			var mergeColumn = {title:title,colspan:2};
+			//var mergeColumn = {title:title,colspan:2};//2018-04-22 hw 暂时不做
+			var mergeColumn = {title:title};
 			if(dictionary.byKey(key) == null){
 				
 				dictionary.add(key,mergeColumn);
 			}
-			var title = item.name.indexOf('submit')>=0?'已提交':'审核通过';
+			//var title = item.name.indexOf('submit')>=0?'已提交':'金额';//2018-04-22 hw 暂时不做
 			var col = {field:item.name,title:title,width:100,align:'right',formatter:function(value,row,index){
         		
-	        	return System.RMB.fenToYuan(value);
+				if(value>0){
+
+		        	return System.RMB.fenToYuan(value);
+				}else{
+					
+					return '-';
+				}
 	        }};
 			ordinaryColumns.push(col);
     	});
     	
     	//普通列：排序
-    	
-    	
     	var mergeColumns = [];
 	    for(var i = 0;i<dictionary.getLength();i++){
 	    	
 	    	var mc = dictionary.byIndex(i);
 	    	mergeColumns.push(mc.value);
 	    }
-	    columns.push(mergeColumns);
+	    //columns.push(mergeColumns);
 	    columns.push(ordinaryColumns);
     	return columns;
     },

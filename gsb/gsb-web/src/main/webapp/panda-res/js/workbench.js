@@ -328,7 +328,6 @@ org.netsharp.panda.Workbench = System.Object.Extends({
     		  btn1 : function(index, layero) {
     			  
     			  $(layero).find("iframe")[0].contentWindow.ctrl.save();
-    			  
     		  }
     	 });
     }

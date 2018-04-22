@@ -52,6 +52,7 @@ public class PayReportController {
 		int dayCount = this.daysBetween(startDate, endDate) + 1;
 		List<String> fieldList = new ArrayList<String>();
 		List<String> joinList = new ArrayList<String>();
+		List<String> whereList = new ArrayList<String>();
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("SELECT  supplier.id, supplier.name, supplier.category_id,supplier.type, ");
 		for (int i = 0; i < dayCount; i++) {
@@ -60,24 +61,31 @@ public class PayReportController {
 			Date nextDate = DateManage.addDays(date, 1);
 			String dateStr = DateManage.toString(date);
 			String nextDateStr = DateManage.toString(nextDate);
-			String tableName = "submitTable_" + dateStr.replaceAll("-", "");
-			fieldList.add(String.format("IFNULL(%s.submitAmount, 0) AS '%s_submitAmount'", tableName, tableName));
-
+			
 			// 提交sql
-			String submitSql = this.getDaySql(dateStr, nextDateStr, tableName, false);
-			joinList.add(submitSql);
+//			String tableName = "submitTable_" + dateStr.replaceAll("-", "");
+//			fieldList.add(String.format("IFNULL(%s.submitAmount, 0) AS '%s_submitAmount'", tableName, tableName));
+//			String submitSql = this.getDaySql(dateStr, nextDateStr, tableName, false);
+//			joinList.add(submitSql);
 
 			// 审核sql
-			tableName = "auditTable_" + dateStr.replaceAll("-", "");
+			String tableName = "auditTable_" + dateStr.replaceAll("-", "");
 			fieldList.add(String.format("IFNULL(%s.auditAmount, 0) AS '%s_auditAmount'", tableName, tableName));
 			String auditSql = this.getDaySql(dateStr, nextDateStr, tableName, true);
 			joinList.add(auditSql);
+			
+			whereList.add(String.format(" %s.auditAmount>0 ", tableName));
 		}
 		buffer.append(StringManager.join(",", fieldList));
-		buffer.append("   FROM sp_supplier supplier ");
+		buffer.append(" FROM sp_supplier supplier ");
 		buffer.append(StringManager.join(" ", joinList));
-		buffer.append("  WHERE supplier.STATUS = 2 and supplier.type=1 order by supplier.category_id,supplier.type");// 优化点：先取出开户状态的服务商,并且是自营的
-
+		buffer.append(" WHERE ");// 优化点：先取出开户状态的服务商,并且是自营的
+		buffer.append(" ("+StringManager.join(" OR ", whereList)+") ");
+		
+		buffer.append(" AND supplier.id<> 1039");
+//		buffer.append(" and supplier.type=1");
+		buffer.append(" AND supplier.STATUS = 2 ");
+		buffer.append(" ORDER BY supplier.type,supplier.category_id");
 		return buffer.toString();
 
 	}
