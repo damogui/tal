@@ -15,7 +15,7 @@ public class Action1BackEmployee extends AbstractActionService {
 	public void run() {
 
 		// 1.删除 sys_permission_employee_back
-		pm.executeNonQuery("drop table IF EXISTS sys_permission_employee_back;", null);
+		//pm.executeNonQuery("drop table IF EXISTS sys_permission_employee_back;", null);
 
 		// 创建 sys_permission_employee_back
 		String cmdText = "CREATE TABLE `sys_permission_employee_back` (" + " `email` varchar(50) DEFAULT NULL," + "`nationality` varchar(50) DEFAULT NULL," + "`address` varchar(50) DEFAULT NULL,"
