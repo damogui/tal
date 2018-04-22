@@ -73,6 +73,10 @@ com.gongsibao.report.web.PayReportCtrl = org.netsharp.panda.core.CustomCtrl.Exte
 					return 'background-color:#f9f9f9;color:blue;';
 				}else if (row.isFooter){
 					return 'background-color:#f9f9f9;color:red;';
+				}else if (row.type ==2){
+					
+					//type=2:平台服务商
+					return 'color:#1E7CB5;';
 				}
 			},
 			frozenColumns:[[{field:'name',title:'部门',width:200}]],
