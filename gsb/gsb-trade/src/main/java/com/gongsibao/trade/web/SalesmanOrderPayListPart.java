@@ -1,24 +1,19 @@
 package com.gongsibao.trade.web;
 
-import com.gongsibao.entity.trade.OrderPayMap;
-import com.gongsibao.entity.trade.Pay;
-import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.trade.base.IOrderService;
-import org.netsharp.communication.ServiceFactory;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
-import org.netsharp.util.StringManager;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import com.gongsibao.entity.trade.Pay;
 
 /**
  * Created by win on 2018/3/23.
  */
 //我的回款
-public class SalesmanOrderPayController extends AdvancedListPart {
+public class SalesmanOrderPayListPart extends AdvancedListPart {
     @Override
     public String getFilterByParameter(FilterParameter parameter) {
 
@@ -38,6 +33,7 @@ public class SalesmanOrderPayController extends AdvancedListPart {
 
     @Override
     public List<?> doQuery(Oql oql) {
+    	
         oql.setSelects ("id,orderNo,payForOrderCount,payWayType,amount,offlineAuditStatus,createTime,creator,orderPayMaps.*");
         List<Pay> resList = (List<Pay>) super.doQuery (oql);
 

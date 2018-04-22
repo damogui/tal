@@ -3,6 +3,8 @@ package com.gongsibao.panda.platform.trade.workspace.order;
 import org.junit.Before;
 
 import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderDetailWorkspaceTest;
+import com.gongsibao.trade.web.SalesmanOrderDetailListPart;
+import com.gongsibao.trade.web.platform.OrderDetailListPart;
 
 /**   
  * @ClassName:  MyOrderDetailWorkspaceTest   
@@ -19,5 +21,6 @@ public class OrderDetailWorkspaceTest  extends SalesmanOrderDetailWorkspaceTest{
 		urlList = "/operation/order/detail/list";		
 		resourceNodeCode = "Operation_Order_OrderProd";
 		listFilter = "";
+		listPartServiceController = OrderDetailListPart.class.getName();
 	}
 }

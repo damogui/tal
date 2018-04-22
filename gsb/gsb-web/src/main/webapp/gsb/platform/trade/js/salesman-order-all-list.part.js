@@ -471,7 +471,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
         var serviceLocator = new org.netsharp.core.JServiceLocator();
         var url = this.addContractUrl + '?fk=orderId:' + row.id + "&isAdd=1";
         //增加订单是否创建合同
-        serviceLocator.invoke("com.gongsibao.trade.web.OrderAllListPart", "checkContract", [row.id], function (data) {
+        serviceLocator.invoke("com.gongsibao.trade.web.platform.AllOrderListPart", "checkContract", [row.id], function (data) {
             if (data == -1) {
                 IMessageBox.info('该订单已经创建合同，禁止提交合同');
                 return;

@@ -17,7 +17,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.tools.PToolbarHelper;
-import com.gongsibao.trade.web.OrderAllListPart;
+import com.gongsibao.trade.web.platform.AllOrderListPart;
 
 /**   
  * @ClassName:  AllOrderWorkspaceTest   
@@ -40,8 +40,8 @@ public class AllOrderWorkspaceTest extends WorkspaceCreationBase{
 		resourceNodeCode = "GSB_Trade_Manage_All_Order";
 		listToolbarPath = "/crm/order/all/edit";
 		listPartImportJs = "/gsb/platform/trade/js/salesman-order-all-list.part.js|/gsb/platform/trade/js/order/order-all-list-part.js";
-		listPartJsController = OrderAllListPart.class.getName();
-		listPartServiceController = OrderAllListPart.class.getName();
+		listPartJsController = AllOrderListPart.class.getName();
+		listPartServiceController = AllOrderListPart.class.getName();
 	}
 	
     public PToolbar createListToolbar() {

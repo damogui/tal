@@ -8,6 +8,7 @@ import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderPayWorkspaceTest;
+import com.gongsibao.trade.web.platform.PayListPart;
 
 /**
  * Created by guojia on 2018/4/8.
@@ -22,6 +23,7 @@ public class PayWorkspaceTest  extends SalesmanOrderPayWorkspaceTest {
         urlList = "/operation/order/pay/list";
         resourceNodeCode = "Operation_Order_Pay";
         listFilter = "";
+        listPartServiceController = PayListPart.class.getName ();
     }
     @Override
     @Test

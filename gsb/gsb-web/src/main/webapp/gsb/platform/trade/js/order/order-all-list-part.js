@@ -1,6 +1,6 @@
 /*平台的所有订单*/
-System.Declare("com.gongsibao.trade.web");
-com.gongsibao.trade.web.OrderAllListPart = com.gongsibao.trade.web.SalesmanAllOrderListPart.Extends({
+System.Declare("com.gongsibao.trade.web.platform");
+com.gongsibao.trade.web.platform.AllOrderListPart = com.gongsibao.trade.web.SalesmanAllOrderListPart.Extends({
     ctor: function () {
         this.base();
         this.originType = 1;//来源类型（0或null：业务员跳转过来的；1：平台跳转过来的）

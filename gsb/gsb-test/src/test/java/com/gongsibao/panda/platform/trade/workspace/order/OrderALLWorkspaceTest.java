@@ -10,7 +10,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderAllWorkspaceTest;
 import com.gongsibao.tools.PToolbarHelper;
-import com.gongsibao.trade.web.OrderAllListPart;
+import com.gongsibao.trade.web.platform.AllOrderListPart;
 
 /**
  * Created by zhangchao on 2018/3/9.
@@ -30,8 +30,8 @@ public class OrderALLWorkspaceTest extends SalesmanOrderAllWorkspaceTest {
 		resourceNodeCode = "Operation_Order_All";
 		listToolbarPath = "operation/order/orderall/edit";
 		listPartImportJs = "/gsb/platform/trade/js/salesman-order-all-list.part.js|/gsb/platform/trade/js/order/order-all-list-part.js|/gsb/panda-extend/gsb.custom.query.controls.js|/gsb/panda-extend/gsb.pubcontrol.js";
-		listPartJsController = OrderAllListPart.class.getName();
-		listPartServiceController = OrderAllListPart.class.getName();
+		listPartJsController = AllOrderListPart.class.getName();
+		listPartServiceController = AllOrderListPart.class.getName();
 		listFilter = "";
 		// listPartName = formPartName = "全部订单";
 		// meta = MtableManager.getMtable(entity);// 获取实体元数据
