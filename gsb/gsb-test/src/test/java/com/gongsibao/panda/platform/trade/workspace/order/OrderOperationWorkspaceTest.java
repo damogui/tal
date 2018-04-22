@@ -10,7 +10,6 @@ import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PForm;
-import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.resourcenode.entity.ResourceNode;
@@ -118,7 +117,7 @@ public class OrderOperationWorkspaceTest extends WorkspaceCreationBase {
 	protected PForm createForm(ResourceNode node) {
 		PForm form = super.createForm(node);
 		form.setColumnCount(3);
-		PFormField field = null;
+//		PFormField field = null;
 
 		addFormField(form, "orderNo", "订单号", ControlTypes.TEXT_BOX, true, false);
 

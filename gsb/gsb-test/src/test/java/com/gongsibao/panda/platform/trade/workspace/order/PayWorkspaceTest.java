@@ -1,13 +1,13 @@
 package com.gongsibao.panda.platform.trade.workspace.order;
 
-import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderPayWorkspaceTest;
 import org.junit.Before;
 import org.junit.Test;
-import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.panda.plugin.dic.ToolbarType;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
+
+import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderPayWorkspaceTest;
 
 /**
  * Created by guojia on 2018/4/8.

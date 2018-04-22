@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
+import org.netsharp.organization.entity.Employee;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.OpenMode;
@@ -71,7 +72,10 @@ public class SupplierCategoryWorkspaceTest extends WorkspaceCreationBase{
 		column = addColumn(datagrid, "id", "id", ControlTypes.TEXT_BOX, 120);{
 			column.setAlign(DatagridAlign.CENTER);
 		}
-		
+		column = addColumn(datagrid, "owner.name", "运营专员", ControlTypes.TEXT_BOX, 80);{
+			
+			column.setAlign(DatagridAlign.CENTER);
+		}
 		addColumn(datagrid, "pathName", "路径", ControlTypes.TEXT_BOX, 400);
 		addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 300);
 		column = addColumn(datagrid, "parentId", "parentId", ControlTypes.TEXT_BOX, 100);
@@ -108,11 +112,18 @@ public class SupplierCategoryWorkspaceTest extends WorkspaceCreationBase{
 		}
 
 		PFormField formField = null;
-		addFormField(form, "name", "名称", ControlTypes.TEXT_BOX, true, false);
+		formField = addFormField(form, "name", "名称", ControlTypes.TEXT_BOX, true, false);{
+			
+			formField.setWidth(300);
+		}
+		formField = addFormFieldRefrence(form, "owner.name", "运营专员", null, Employee.class.getSimpleName(), false, false);{
+			formField.setWidth(300);
+		}
 		formField = addFormField(form, "memoto", "备注", ControlTypes.TEXTAREA, false, false);{
 			
 			formField.setHeight(100);
-			formField.setFullColumn(true);
+			formField.setWidth(300);
+			formField.setFullColumn(false);
 		}
 		return form;
 	}

@@ -34,19 +34,23 @@ com.gongsibao.trade.web.InvoiceFormPart = org.netsharp.panda.commerce.FormPart.E
         }
     },
     bandOrderInfo: function (soOrder) {
+    	
         var me = this;
-        $("#soOrderNo").text(soOrder.no);
-        $("#payablePrice").text(System.RMB.fenToYuan(soOrder.payablePrice));
-        $("#toBeInvoicePrice").text(System.RMB.fenToYuan(soOrder.toBeInvoicePrice));
-        $("#paidPrice").text(System.RMB.fenToYuan(soOrder.paidPrice));
-        $("#customerName").text(soOrder.customerName == null ? "" : soOrder.customerName);
-        $("#accountMobile").text(soOrder.accountMobile);
-        $("#createTime").text(soOrder.createTime);
-        $("#platformSource").text(me.orderPlatformSourceEnum[soOrder.platformSource]);
-        $("#payStatus").text(me.orderPayStatusTypeEnum[soOrder.payStatus]);
-        $("#stageNum").text(soOrder.stageNum);
-        $("#channelOrderNo").text(soOrder.channelOrderNo);
-        $("#remark").text(soOrder.remark);
+        if(soOrder){
+
+            $("#soOrderNo").text(soOrder.no);
+            $("#payablePrice").text(System.RMB.fenToYuan(soOrder.payablePrice));
+            $("#toBeInvoicePrice").text(System.RMB.fenToYuan(soOrder.toBeInvoicePrice));
+            $("#paidPrice").text(System.RMB.fenToYuan(soOrder.paidPrice));
+            $("#customerName").text(soOrder.customerName == null ? "" : soOrder.customerName);
+            $("#accountMobile").text(soOrder.accountMobile);
+            $("#createTime").text(soOrder.createTime);
+            $("#platformSource").text(me.orderPlatformSourceEnum[soOrder.platformSource]);
+            $("#payStatus").text(me.orderPayStatusTypeEnum[soOrder.payStatus]);
+            $("#stageNum").text(soOrder.stageNum);
+            $("#channelOrderNo").text(soOrder.channelOrderNo);
+            $("#remark").text(soOrder.remark);
+        }
     },
     doSave: function (entity) {
         var me = this;

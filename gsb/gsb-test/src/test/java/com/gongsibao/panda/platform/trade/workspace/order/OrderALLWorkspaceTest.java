@@ -56,18 +56,18 @@ public class OrderALLWorkspaceTest extends SalesmanOrderAllWorkspaceTest {
 			toolbar.setToolbarType(ToolbarType.BASE);
 		}
 
-		PToolbarItem item = new PToolbarItem();
-		{
-			item.toNew();
-			item.setCode("detail");
-			item.setIcon(PToolbarHelper.iconExtr);
-			item.setName("订单详情");
-			item.setSeq(1);
-			item.setCommand("{controller}.detail();");
-			toolbar.getItems().add(item);
-		}
+//		PToolbarItem item = new PToolbarItem();
+//		{
+//			item.toNew();
+//			item.setCode("detail");
+//			item.setIcon(PToolbarHelper.iconExtr);
+//			item.setName("订单详情");
+//			item.setSeq(1);
+//			item.setCommand("{controller}.detail();");
+//			toolbar.getItems().add(item);
+//		}
 
-		item = new PToolbarItem();
+		PToolbarItem item = new PToolbarItem();
 		{
 			item.toNew();
 			item.setCode("batchOrderTran");
