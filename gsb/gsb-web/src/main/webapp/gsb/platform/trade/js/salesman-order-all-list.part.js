@@ -27,8 +27,7 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
     },
     getSupplierType:function(){
     	
-    	return 2;
-    	//return PandaHelper.Storage.byKey('SupplierType');//此值会在登录时存在sessionStorage中
+    	return PandaHelper.Storage.byKey('SupplierType');//此值会在登录时存在sessionStorage中
     },
     //以下控制操作按钮状态，代理服务商不可使用，隐藏
     getaddOrderReceivedState:function(){
