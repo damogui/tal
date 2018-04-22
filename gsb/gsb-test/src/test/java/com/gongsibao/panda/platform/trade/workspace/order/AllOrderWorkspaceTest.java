@@ -42,7 +42,7 @@ public class AllOrderWorkspaceTest extends WorkspaceCreationBase{
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_Trade_Manage_All_Order";
 		listToolbarPath = "/crm/order/all/edit";
-		listPartImportJs = "/gsb/platform/trade/js/salesman-order-all-list.part.js|/gsb/platform/trade/js/order-all-list-part.js";
+		listPartImportJs = "/gsb/platform/trade/js/salesman-order-all-list.part.js|/gsb/platform/trade/js/order/order-all-list-part.js";
 		listPartJsController = OrderAllListPart.class.getName();
 		listPartServiceController = OrderAllListPart.class.getName();
 	}

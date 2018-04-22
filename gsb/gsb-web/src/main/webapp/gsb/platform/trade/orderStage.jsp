@@ -21,7 +21,7 @@
 	<script src='/panda-res/js/system.js'></script>
 	<script src='/panda-res/js/panda.core.js'></script>
 	<script src='/panda-res/js/panda.js'></script>
-	<script src='/gsb/platform/trade/js/order.stage-ctrl.js'></script>
+	<script src='/gsb/platform/trade/js/order/order-stage.ctrl.js'></script>
 </head>
     <body class="easyui-layout">
 	    <div class="easyui-panel" title="订单信息"  data-options="height:190"> 

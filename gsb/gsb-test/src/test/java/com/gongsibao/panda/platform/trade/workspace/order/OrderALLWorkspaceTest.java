@@ -29,7 +29,7 @@ public class OrderALLWorkspaceTest extends SalesmanOrderAllWorkspaceTest {
 		urlList = "/operation/order/all/list";// 列表的url
 		resourceNodeCode = "Operation_Order_All";
 		listToolbarPath = "operation/order/orderall/edit";
-		listPartImportJs = "/gsb/platform/trade/js/salesman-order-all-list.part.js|/gsb/platform/trade/js/order-all-list-part.js|/gsb/panda-extend/gsb.custom.query.controls.js|/gsb/panda-extend/gsb.pubcontrol.js";
+		listPartImportJs = "/gsb/platform/trade/js/salesman-order-all-list.part.js|/gsb/platform/trade/js/order/order-all-list-part.js|/gsb/panda-extend/gsb.custom.query.controls.js|/gsb/panda-extend/gsb.pubcontrol.js";
 		listPartJsController = OrderAllListPart.class.getName();
 		listPartServiceController = OrderAllListPart.class.getName();
 		listFilter = "";
