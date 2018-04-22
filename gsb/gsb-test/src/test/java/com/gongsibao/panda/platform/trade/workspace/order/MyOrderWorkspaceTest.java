@@ -36,7 +36,7 @@ public class MyOrderWorkspaceTest  extends WorkspaceCreationBase{
 		//查询用---自定义控件
 		listPartImportJs = "/gsb/panda-extend/gsb.custom.query.controls.js";
 		//当前登录人的userId=3590;
-		listFilter = "accountId='{userId}'";
+		//listFilter = "accountId='{userId}'";
 	}
 
 	@Override

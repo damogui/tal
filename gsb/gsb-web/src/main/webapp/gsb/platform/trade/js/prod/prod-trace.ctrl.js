@@ -27,15 +27,17 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     initGrid: function () {
 
         var me = this;
+        var _height = $('body').height() - 311;
         $(this.$gridCtrlId).datagrid({
             idField: 'id',
             emptyMsg: '暂无记录',
-            height: 380,
+            height: _height,
             striped: true,
-            rownumbers: true,
+            rownumbers: false,
             pagination: true,
             showFooter: true,
             singleSelect: true,
+            nowrap:false,
             pageSize: 10,
             rowStyler: function (index, row) {
 
@@ -65,7 +67,7 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
             },
             columns: [[
                 {
-                    field: 'info', title: '操作信息', width: 250, formatter: function (value, row, index) {
+                    field: 'info', title: '操作信息', width: 400, formatter: function (value, row, index) {
 
                         return '<span title="' + value + '">' + value + '</span>';
                     }
@@ -73,7 +75,7 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
                 {
                     field: 'operatorId',
                     title: '操作人',
-                    width: 60,
+                    width: 80,
                     align: 'center',
                     formatter: function (value, row, index) {
 
