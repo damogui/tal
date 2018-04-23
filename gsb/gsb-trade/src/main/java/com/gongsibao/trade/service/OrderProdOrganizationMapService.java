@@ -47,8 +47,9 @@ public class OrderProdOrganizationMapService extends PersistableService<OrderPro
         return this.pm.executeNonQuery(sql, null) > 0;
     }
 
+    //根据订单编号查询操作组及操作员
     @Override
-    public List<OrderProdOrganizationMap> getListByOrderNo(String orderNo) {
+    public List<OrderProdOrganizationMap> getListByOrderNo(String orderNo, int startIndex, int pageSize) {
         List<OrderProdOrganizationMap> resList = new ArrayList<>();
         if (StringManager.isNullOrEmpty(orderNo)) {
             return resList;
@@ -64,6 +65,7 @@ public class OrderProdOrganizationMapService extends PersistableService<OrderPro
         sql.append("LEFT JOIN sys_permission_employee em ON em.id = sm.employee_id ");
         sql.append("WHERE oi.no='" + orderNo + "' ");
         sql.append("GROUP BY opom.supplier_id ");
+        sql.append("LIMIT " + startIndex + ", " + pageSize + " ");
         DataTable rows = this.pm.executeTable(sql.toString(), null);
         for (IRow row : rows) {
             Integer orderProdId = NumberUtils.toInt(row.getInteger("orderProdId"));
@@ -89,5 +91,15 @@ public class OrderProdOrganizationMapService extends PersistableService<OrderPro
 		}
 		return this.queryList(oql);
 	}
+
+    @Override
+    public Integer getCountByOrderNo(String orderNo) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT COUNT(od.pkid) 'rcount' FROM so_order_prod od ");
+        sql.append("JOIN so_order oi ON oi.pkid = od.order_id ");
+        sql.append("WHERE oi.no='" + orderNo + "' ");
+        int count = NumberUtils.toInt(this.pm.executeScalar(sql.toString(), null));
+        return count;
+    }
 
 }

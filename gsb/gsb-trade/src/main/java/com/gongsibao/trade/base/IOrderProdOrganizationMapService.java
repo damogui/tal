@@ -9,9 +9,11 @@ import java.util.List;
 public interface IOrderProdOrganizationMapService extends IPersistableService<OrderProdOrganizationMap> {
 
     public Boolean updateOrganizationMap(Integer orderProdId, Integer supplierId);
-
-    List<OrderProdOrganizationMap> getListByOrderNo(String orderNo);
     
     public List<OrderProdOrganizationMap> getListByOrderProdId(Integer orderProdId);
+
+    List<OrderProdOrganizationMap> getListByOrderNo(String orderNo, int startIndex, int pageSize);
+
+    Integer getCountByOrderNo(String orderNo);
 
 }
