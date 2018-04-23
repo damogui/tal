@@ -13,6 +13,7 @@ import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
+import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.entity.*;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.panda.plugin.entity.PToolbarItem;
@@ -82,8 +83,11 @@ public class IcExLogWorkspaceTest extends WorkspaceCreationBase{
 		PDatagrid datagrid = super.createDatagrid(node);
 		PDatagridColumn column = null;
 		column = addColumn(datagrid, "title", "标题", ControlTypes.TEXT_BOX, 300);
+		column.setAlign(DatagridAlign.CENTER);
 		column = addColumn(datagrid, "content", "内容", ControlTypes.TEXT_BOX, 300);
+		column.setAlign(DatagridAlign.CENTER);
 		column = addColumn(datagrid, "companyName", "公司名称", ControlTypes.TEXT_BOX, 300);
+		column.setAlign(DatagridAlign.CENTER);
 		column = addColumn(datagrid, "corpRegStatue", "状态", ControlTypes.ENUM_BOX, 300);
 		return datagrid;
 	}
@@ -95,6 +99,8 @@ public class IcExLogWorkspaceTest extends WorkspaceCreationBase{
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
 		addQueryItem(queryProject, "title", "标题", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "content", "内容", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "companyName", "公司名称", ControlTypes.TEXT_BOX);
 		return queryProject;
 	}
 
