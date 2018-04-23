@@ -5,19 +5,21 @@ import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.bd.Dict;
 import com.gongsibao.entity.bd.dic.CouponPlatformType;
 import com.gongsibao.entity.cms.Product;
+import com.gongsibao.entity.cms.ProductTemplate;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.rest.base.order.IOrderService;
 import com.gongsibao.rest.base.product.IProductPriceService;
 import com.gongsibao.rest.base.product.IProductService;
 import com.gongsibao.rest.base.user.IAccountService;
-import com.gongsibao.rest.web.dto.coupon.CouponUseDTO;
 import com.gongsibao.rest.web.common.apiversion.Api;
 import com.gongsibao.rest.web.common.apiversion.LoginCheck;
 import com.gongsibao.rest.web.common.security.SecurityUtils;
 import com.gongsibao.rest.web.common.util.JsonUtils;
 import com.gongsibao.rest.web.common.web.ResponseData;
 import com.gongsibao.rest.web.controller.BaseController;
+import com.gongsibao.rest.web.dto.coupon.CouponUseDTO;
 import com.gongsibao.rest.web.dto.order.OrderAddDTO;
+import com.gongsibao.rest.web.dto.product.ProductPriceDTO;
 import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,22 +57,17 @@ public class ICompanyProductController extends BaseController {
      */
     @RequestMapping(value = "/cmsInfo", method = RequestMethod.GET)
     private ResponseData cmsInfo(HttpServletRequest request) {
-        ResponseData data = new ResponseData();
         int productId = NumberUtils.toInt(request.getParameter("productId"));
         if (0 == productId) {
-            data.setCode(-1);
-            data.setMsg("商品不存在");
-            return data;
+            return ResponseData.getError(ResponseData.FAIL, "商品不存在");
         }
         try {
             // 获取cms基础信息
-            data.setData(productService.cmsInfo(productId));
+            return ResponseData.getSuccess(productService.cmsInfo(productId), "");
         } catch (Exception e) {
             e.printStackTrace();
-            data.setCode(-1);
-            data.setMsg("您的网络不稳定，请稍后再试。");
+            return ResponseData.getError(ResponseData.EXCEPTION, "您的网络不稳定，请稍后再试。");
         }
-        return data;
     }
 
 
@@ -82,22 +79,17 @@ public class ICompanyProductController extends BaseController {
      */
     @RequestMapping(value = "/cities", method = RequestMethod.GET)
     public ResponseData cities(HttpServletRequest request) {
-        ResponseData data = new ResponseData();
-
         try {
             int productId = NumberUtils.toInt(request.getParameter("productId"));
             if (productId == 0) {
-                data.setMsg("商品不能为空");
-                return data;
+                return ResponseData.getError(ResponseData.FAIL, "商品不能为空");
             }
 
-            data.setData(productPriceService.findProductCities(productId, null));
+            return ResponseData.getSuccess(productPriceService.findProductCities(productId, null), "");
         } catch (Exception e) {
             e.printStackTrace();
-            data.setCode(-1);
-            data.setMsg("您的网络不稳定，请稍后再试。");
+            return ResponseData.getError(ResponseData.EXCEPTION, "您的网络不稳定，请稍后再试。");
         }
-        return data;
     }
 
     /**
@@ -109,34 +101,28 @@ public class ICompanyProductController extends BaseController {
      */
     @RequestMapping(value = "/cmsTemplate", method = RequestMethod.GET)
     public ResponseData cmsTemplate(HttpServletRequest request) {
-        ResponseData data = new ResponseData();
-        data.setCode(-1);
         try {
             int productId = NumberUtils.toInt(request.getParameter("productId"));
             int cityId = NumberUtils.toInt(request.getParameter("cityId"));
 
             if (productId == 0) {
-                data.setMsg("商品不能为空");
-                return data;
+                return ResponseData.getError(ResponseData.FAIL, "商品不能为空");
             }
             if (cityId == 0) {
-                data.setMsg("城市不能为空");
-                return data;
+                return ResponseData.getError(ResponseData.FAIL, "城市不能为空");
             }
             Product cmsProduct = productService.getLastCmsByProdId(productId);
             if (null == cmsProduct) {
-                data.setMsg("产品不存在");
-                return data;
+                return ResponseData.getError(ResponseData.FAIL, "商品不存在");
             }
 
-            data.setData(productService.getProductTemplateByCmsIdAndCityId(cmsProduct.getId(), cityId));
-            data.setCode(200);
+
+            ProductTemplate template = productService.getProductTemplateByCmsIdAndCityId(cmsProduct.getId(), cityId);
+            return ResponseData.getSuccess(template, "");
         } catch (Exception e) {
             e.printStackTrace();
-            data.setCode(-1);
-            data.setMsg("您的网络不稳定，请稍后再试。");
+            return ResponseData.getError(ResponseData.EXCEPTION, "您的网络不稳定，请稍后再试。");
         }
-        return data;
     }
 
 
@@ -149,28 +135,23 @@ public class ICompanyProductController extends BaseController {
      */
     @RequestMapping(value = "/properties", method = RequestMethod.GET)
     public ResponseData properties(HttpServletRequest request) {
-        ResponseData data = new ResponseData();
-        data.setCode(-1);
         try {
             int productId = NumberUtils.toInt(request.getParameter("productId"));
             int cityId = NumberUtils.toInt(request.getParameter("cityId"));
 
             if (productId == 0) {
-                data.setMsg("商品不能为空");
-                return data;
+                return ResponseData.getError(ResponseData.FAIL, "商品不能为空");
             }
             if (cityId == 0) {
-                data.setMsg("城市不能为空");
-                return data;
+                return ResponseData.getError(ResponseData.FAIL, "城市不能为空");
             }
-            data.setData(productPriceService.findProductPropertyIds(productId, cityId));
-            data.setCode(200);
+
+            List<Dict> propertyList = productPriceService.findProductPropertyIds(productId, cityId);
+            return ResponseData.getSuccess(propertyList, "");
         } catch (Exception e) {
             e.printStackTrace();
-            data.setCode(-1);
-            data.setMsg("您的网络不稳定，请稍后再试。");
+            return ResponseData.getError(ResponseData.EXCEPTION, "您的网络不稳定，请稍后再试。");
         }
-        return data;
     }
 
     /**
@@ -181,37 +162,31 @@ public class ICompanyProductController extends BaseController {
      */
     @RequestMapping("/priceList")
     public ResponseData priceList(HttpServletRequest request) {
-        ResponseData data = new ResponseData();
         try {
             int productId = NumberUtils.toInt(request.getParameter("productId"));
             int cityId = NumberUtils.toInt(request.getParameter("cityId"));
             int propertyId = NumberUtils.toInt(request.getParameter("propertyId"));
             if (productId == 0) {
-                data.setMsg("商品不能为空");
-                return data;
+                return ResponseData.getError(ResponseData.FAIL, "商品不能为空");
             }
 
             if (cityId == 0) {
-                data.setMsg("城市不能为空");
-                return data;
+                return ResponseData.getError(ResponseData.FAIL, "城市不能为空");
             }
 
             if (propertyId == 0) {
                 List<Dict> propertyList = productPriceService.findProductPropertyIds(productId, cityId);
                 if (CollectionUtils.isNotEmpty(propertyList)) {
-                    data.setMsg("请选择产品特性");
-                    return data;
+                    return ResponseData.getError(ResponseData.FAIL, "请选择产品特性");
                 }
             }
-            data.setCode(200);
-            data.setData(productPriceService.productPriceList(productId, cityId, propertyId));
+
+            List<ProductPriceDTO> priceList = productPriceService.productPriceList(productId, cityId, propertyId);
+            return ResponseData.getSuccess(priceList, "");
         } catch (Exception e) {
             e.printStackTrace();
-            data.setCode(-1);
-            data.setMsg("您的网络不稳定，请稍后再试。");
+            return ResponseData.getError(ResponseData.EXCEPTION, "您的网络不稳定，请稍后再试。");
         }
-
-        return data;
     }
 
     /**
@@ -224,65 +199,62 @@ public class ICompanyProductController extends BaseController {
     @RequestMapping(value = "/preferential", method = RequestMethod.POST)
     @LoginCheck
     public ResponseData preferential(HttpServletRequest request, @RequestBody String req) {
-        ResponseData data = new ResponseData();
-        OrderAddDTO orderAddDTO = JsonUtils.jsonToObject(req, OrderAddDTO.class);
-        if (null == orderAddDTO) {
-            data.setMsg("操作失败，参数错误");
-            return data;
-        }
+        try {
+            OrderAddDTO orderAddDTO = JsonUtils.jsonToObject(req, OrderAddDTO.class);
+            if (null == orderAddDTO) {
+                return ResponseData.getError(ResponseData.FAIL, "操作失败，参数错误");
+            }
 
-        // 获取当前登录用户
-        Account account = accountService.queryByOpenId(openId(request));
-        if (null == account) {
-            data.setCode(-1);
-            data.setMsg("请先绑定用户");
-            return data;
-        }
-        orderAddDTO.setAccount(account);
-        orderAddDTO.setCompanyId(0);
-        orderAddDTO.setCouponPlatformType(CouponPlatformType.WEIXIN);
+            // 获取当前登录用户
+            Account account = accountService.queryByOpenId(openId(request));
+            if (null == account) {
+                return ResponseData.getError(ResponseData.FAIL, "请先绑定用户");
+            }
+            orderAddDTO.setAccount(account);
+            orderAddDTO.setCompanyId(0);
+            orderAddDTO.setCouponPlatformType(CouponPlatformType.WEIXIN);
 
-        Result<CouponUseDTO> result = orderService.findOrderCoupon(orderAddDTO);
-        if (Result.isSuccess(result)) {
-            data.setData(result.getObj());
-        } else {
-            data.setMsg(result.getMsg());
-            data.setCode(-1);
+            Result<CouponUseDTO> result = orderService.findOrderCoupon(orderAddDTO);
+            if (Result.isSuccess(result)) {
+                return ResponseData.getSuccess(result.getObj(), "");
+            } else {
+                return ResponseData.getError(ResponseData.FAIL, result.getMsg());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseData.getError(ResponseData.EXCEPTION, "您的网络不稳定，请稍后再试。");
         }
-        return data;
     }
 
     @RequestMapping(value = "/addOrder", method = RequestMethod.POST)
     @LoginCheck
     public ResponseData addOrder(HttpServletRequest request, @RequestBody String req) {
-        ResponseData data = new ResponseData();
         OrderAddDTO orderAddDTO = JsonUtils.jsonToObject(req, OrderAddDTO.class);
         if (null == orderAddDTO) {
-            data.setMsg("操作失败，参数错误");
-            return data;
+            return ResponseData.getError(ResponseData.FAIL, "操作失败，参数错误");
         }
 
-        // 获取当前登录用户
-        Account account = accountService.queryByOpenId(openId(request));
-        if (null == account) {
-            data.setCode(-1);
-            data.setMsg("请先绑定用户");
-            return data;
-        }
-        orderAddDTO.setAccount(account);
-        orderAddDTO.setCompanyId(0);
-        orderAddDTO.setCouponPlatformType(CouponPlatformType.WEIXIN);
+        try {
+            // 获取当前登录用户
+            Account account = accountService.queryByOpenId(openId(request));
+            if (null == account) {
+                return ResponseData.getError(ResponseData.FAIL, "请先绑定用户");
+            }
+            orderAddDTO.setAccount(account);
+            orderAddDTO.setCompanyId(0);
+            orderAddDTO.setCouponPlatformType(CouponPlatformType.WEIXIN);
 
-        Result<SoOrder> result = orderService.saveOrder(orderAddDTO);
-        if (Result.isSuccess(result)) {
-            Map<String, Object> orderInfo = new HashMap<>();
-            orderInfo.put("orderId", result.getObj().getId());
-            orderInfo.put("orderIdStr", SecurityUtils.rc4Encrypt(result.getObj().getId()));
-            data.setData(orderInfo);
-        } else {
-            data.setMsg(result.getMsg());
-            data.setCode(-1);
+            Result<SoOrder> result = orderService.saveOrder(orderAddDTO);
+            if (Result.isSuccess(result)) {
+                Map<String, Object> orderInfo = new HashMap<>();
+                orderInfo.put("orderId", result.getObj().getId());
+                orderInfo.put("orderIdStr", SecurityUtils.rc4Encrypt(result.getObj().getId()));
+                return ResponseData.getSuccess(orderInfo, "");
+            } else {
+                return ResponseData.getError(ResponseData.FAIL, result.getMsg());
+            }
+        } catch (Exception e) {
+            return ResponseData.getError(ResponseData.EXCEPTION, "您的网络不稳定，请稍后再试。");
         }
-        return data;
     }
 }
