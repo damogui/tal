@@ -88,14 +88,8 @@ public class WXPay {
      * @throws Exception
      */
     public SortedMap<String, String> fillRequestData(SortedMap<String, String> reqData) throws Exception {
-        if (SignType.MD5.equals(this.signType)) {
-            reqData.put("sign_type", WXPayConstants.MD5);
-        }
-        else if (SignType.HMACSHA256.equals(this.signType)) {
-            reqData.put("sign_type", WXPayConstants.HMACSHA256);
-        }
-        reqData.put("sign", WXPayUtil.generateSignature(reqData, config.getKey(), this.signType));
-
+        reqData.put("sign_type", WXPayConstants.HMACSHA256);
+        reqData.put("sign", WXPayUtil.generateSignature(reqData, config.getKey(), WXPayConstants.SignType.HMACSHA256));
         return reqData;
     }
 

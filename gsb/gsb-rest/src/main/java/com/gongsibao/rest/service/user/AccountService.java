@@ -8,6 +8,8 @@ import com.gongsibao.rest.base.user.IAccountService;
 import com.gongsibao.rest.web.common.util.*;
 import com.gongsibao.rest.web.common.util.wxpay.WXPay;
 import com.gongsibao.rest.web.common.util.wxpay.WXPayConfig;
+import com.gongsibao.rest.web.common.util.wxpay.WXPayConstants;
+import com.gongsibao.rest.web.common.util.wxpay.WXPayUtil;
 import com.gongsibao.rest.web.common.web.Constant;
 import com.gongsibao.u8.base.IOrderPayMapService;
 import com.gongsibao.utils.NumberUtils;
@@ -181,7 +183,7 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public Integer getWxPayH5Param(String ipAddress, String oid, String openId, String orderNoStr, Integer totalFee, String body, Integer userChannel, SortedMap<String, String> resMap) {
+    public Integer getWxPayH5Param(String ipAddress, String oid, String openId, String orderNoStr, Integer totalFee, String body, Integer userChannel, SortedMap<String, String> resMap) throws Exception {
         //获取openID
         String openid = openId;
         IPublicAccountService publicAccountService = ServiceFactory.create(IPublicAccountService.class);
@@ -207,7 +209,7 @@ public class AccountService implements IAccountService {
         resMap.put("package", "prepay_id=" + prepay_id);
         resMap.put("signType", "HMAC-SHA256");
         //生成支付签名,这个签名给 微信支付的调用使用
-        String paySign = PayCommonUtil.createSign("UTF-8", resMap, notifyKey);
+        String paySign = WXPayUtil.generateSignature(resMap, notifyKey, WXPayConstants.SignType.HMACSHA256);
         resMap.put("paySign", paySign);
         return 1;
     }
