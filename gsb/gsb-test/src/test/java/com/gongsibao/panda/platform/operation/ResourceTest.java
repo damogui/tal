@@ -1,9 +1,5 @@
 package com.gongsibao.panda.platform.operation;
 
-import com.gongsibao.entity.crm.report.ComprehenReportEntity;
-import com.gongsibao.entity.crm.report.CustomerServiceReportEntity;
-import com.gongsibao.entity.crm.report.FollowReportEntity;
-import com.gongsibao.entity.crm.report.FunnelReportEntity;
 import org.junit.Before;
 import org.netsharp.base.IPersistableService;
 import org.netsharp.communication.ServiceFactory;
@@ -46,6 +42,10 @@ import com.gongsibao.entity.crm.NCustomerTaskFoolow;
 import com.gongsibao.entity.crm.NCustomerTaskInspection;
 import com.gongsibao.entity.crm.NCustomerTaskNotify;
 import com.gongsibao.entity.crm.NCustomerTaskQuality;
+import com.gongsibao.entity.crm.report.ComprehenReportEntity;
+import com.gongsibao.entity.crm.report.CustomerServiceReportEntity;
+import com.gongsibao.entity.crm.report.FollowReportEntity;
+import com.gongsibao.entity.crm.report.FunnelReportEntity;
 import com.gongsibao.entity.igirl.tm.DownloadAttachment;
 import com.gongsibao.entity.igirl.tm.TradeMark;
 import com.gongsibao.entity.igirl.tm.TradeMarkCase;
@@ -59,6 +59,7 @@ import com.gongsibao.entity.supplier.SalesmanProduct;
 import com.gongsibao.entity.supplier.SalesmanRole;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierCategory;
+import com.gongsibao.entity.supplier.SupplierCategoryOwnerMap;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.entity.supplier.SupplierFunctionModule;
 import com.gongsibao.entity.supplier.SupplierProduct;
@@ -88,6 +89,7 @@ import com.gongsibao.supplier.base.IFunctionModuleService;
 import com.gongsibao.supplier.base.ISalesmanProductService;
 import com.gongsibao.supplier.base.ISalesmanRoleService;
 import com.gongsibao.supplier.base.ISalesmanService;
+import com.gongsibao.supplier.base.ISupplierCategoryOwnerMapService;
 import com.gongsibao.supplier.base.ISupplierCategoryService;
 import com.gongsibao.supplier.base.ISupplierDepartmentService;
 import com.gongsibao.supplier.base.ISupplierFunctionModuleService;
@@ -169,6 +171,8 @@ public class ResourceTest extends ResourceCreationBase {
             this.createResourceNodeVoucher(SalesmanRole.class.getName(), "添加角色", "GSB_Operation_Supplier_SALESMAN_ADDROLE", ISalesmanRoleService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(SalesmanProduct.class.getName(), "业务员服务范围", "GSB_Operation_Supplier_SALESMAN_Product", ISalesmanProductService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(DepartmentProduct.class.getName(), "部门服务范围", "GSB_Operation_Supplier_Department_Product", IDepartmentProductService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(SupplierCategoryOwnerMap.class.getName(), "部门服务范围", "GSB_Operation_Supplier_CategoryOwnerMap", ISupplierCategoryOwnerMapService.class.getName(), node1.getId());
+            
 
         }
         node1 = this.createResourceNodeCategory("客户管理（旧）", "GSB_CRM_Manager", node.getId());

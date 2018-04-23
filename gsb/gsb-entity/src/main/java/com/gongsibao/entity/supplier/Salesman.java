@@ -67,6 +67,9 @@ public class Salesman extends Entity {
 	@Column(name = "is_leader", header = "是否主管")
 	private Boolean isLeader;
 	
+	@Column(name = "is_notify", header = "是否接受通知")
+	private Boolean isNotify = true;
+	
 	@Subs(subType = SalesmanRole.class, foreignKey = "salesmanId", header = "用户角色")
 	private List<SalesmanRole> roles;
 	
@@ -300,5 +303,12 @@ public class Salesman extends Entity {
 	public void setDayAllocatedCount(Integer dayAllocatedCount) {
 		this.dayAllocatedCount = dayAllocatedCount;
 	}
-    
+
+	public Boolean getIsNotify() {
+		return isNotify;
+	}
+
+	public void setIsNotify(Boolean isNotify) {
+		this.isNotify = isNotify;
+	}
 }
