@@ -102,7 +102,7 @@ public class MyInChargeListPart extends AdvancedListPart {
             //订单余额：paidPrice+carryIntoAmount-refundPrice-carryAmount
             Integer balance = NumberUtils.toInt(orderProd.getSoOrder().getPaidPrice()) + NumberUtils.toInt(orderProd.getSoOrder().getCarryIntoAmount()) -
                     NumberUtils.toInt(orderProd.getSoOrder().getRefundPrice()) - NumberUtils.toInt(orderProd.getSoOrder().getCarryAmount());
-            ob2.get(i).put("sorder_balance", balance);
+            ob2.get(i).put("soOrder_balance", balance);
             ob2.get(i).put("allocationOperatorDate", orderProd.getAllocationOperatorDate());
         }
         return json;
