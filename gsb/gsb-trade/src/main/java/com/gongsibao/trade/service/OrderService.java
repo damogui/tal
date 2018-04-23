@@ -463,7 +463,7 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
             sql.append(" and SoOrder.processStatus = 3024 and SoOrder.payStatus = 3013 ");
         }
         oql.setFilter(sql.toString());
-        oql.getParameters().add("account_id", accountId, Types.INTEGER);
+        oql.getParameters().add("accountId", accountId, Types.INTEGER);
         return this.pm.queryCount(oql);
     }
 
@@ -485,7 +485,7 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
         oql.setFilter(sql.toString());
         oql.setOrderby(" createTime DESC ");
         oql.setPaging(new Paging(currentPage, pageSize));
-        oql.getParameters().add("account_id", accountId, Types.INTEGER);
+        oql.getParameters().add("accountId", accountId, Types.INTEGER);
         return this.pm.queryList(oql);
     }
 
