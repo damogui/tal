@@ -265,6 +265,7 @@ public class AccountService implements IAccountService {
             WXPay wxpay = new WXPay(config);
             String sign = PayCommonUtil.createSign("UTF-8", packageParams, config.getKey());
             log.error("sign:"+sign);
+            packageParams.put("sign",sign);
             Map<String, String> res = wxpay.unifiedOrder(packageParams);
             System.out.println(res);
             log.error("==========map:==========" + packageParams);
