@@ -205,15 +205,7 @@ public class WXPayUtil {
                 sb.append(k).append("=").append(data.get(k).trim()).append("&");
         }
         sb.append("key=").append(key);
-        if (SignType.MD5.equals(signType)) {
-            return MD5(sb.toString()).toUpperCase();
-        }
-        else if (SignType.HMACSHA256.equals(signType)) {
-            return HMACSHA256(sb.toString(), key);
-        }
-        else {
-            throw new Exception(String.format("Invalid sign_type: %s", signType));
-        }
+        return MD5(sb.toString()).toUpperCase();
     }
 
 

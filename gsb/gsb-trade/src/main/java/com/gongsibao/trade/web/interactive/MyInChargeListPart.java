@@ -37,9 +37,9 @@ public class MyInChargeListPart extends AdvancedListPart {
             filters.add("channel_order_no = '" + keyword + "'");
             filters.add("account_name like '%" + keyword + "%'");
             filters.add("account_mobile = '" + keyword + "'");
-            filters.add("company_id in( select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' )  )");
-
-            return "((OrderProd.pkid = '" + keyword + "') or order_id in ( select pkid from so_order where " + StringManager.join(" or ", filters) + "))";
+            String compamyWhere = "company_id in( select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' )  )";
+            filters.add(compamyWhere);
+            return "((OrderProd.pkid = '" + keyword + "' or OrderProd." + compamyWhere + " ) or order_id in ( select pkid from so_order where " + StringManager.join(" or ", filters) + "))";
         }
         //操作员
         if (parameter.getKey().equals("operator")) {

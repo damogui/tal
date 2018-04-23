@@ -106,7 +106,7 @@ public class WXPayReport {
 
     }
 
-    private static final String REPORT_URL = "http://report.mch.weixin.qq.com/wxpay/report/default";
+    private static final String REPORT_URL = "http://icompany.gongsibao.net/wxpay/report/default";
     // private static final String REPORT_URL = "http://127.0.0.1:5000/test";
 
 
