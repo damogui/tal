@@ -9,10 +9,14 @@ import org.netsharp.core.Paging;
 import org.netsharp.panda.annotation.Authorization;
 import org.netsharp.panda.commerce.EasyuiDatagridResult;
 
+import com.gongsibao.cw.base.IAuditRecordService;
 import com.gongsibao.cw.base.IBillAuditDTOService;
 import com.gongsibao.cw.base.IExpenseService;
+import com.gongsibao.cw.base.IFileService;
 import com.gongsibao.cw.base.ILoanService;
 import com.gongsibao.cw.base.IU8BankService;
+import com.gongsibao.entity.bd.File;
+import com.gongsibao.entity.cw.AuditRecord;
 import com.gongsibao.entity.cw.dict.FinanceDict;
 import com.gongsibao.entity.cw.dto.BillAuditDTO;
 import com.gongsibao.entity.u8.U8Bank;
@@ -30,9 +34,12 @@ public class TodoListController {
 	ILoanService loanService = ServiceFactory.create(ILoanService.class);
 	
 	IExpenseService expenseService  = ServiceFactory.create(IExpenseService.class);
-	
 	//u8科目
 	IU8BankService u8BankService = ServiceFactory.create(IU8BankService.class);
+	
+	IAuditRecordService auditRecordService = ServiceFactory.create(IAuditRecordService.class);
+	
+	IFileService fileService = ServiceFactory.create(IFileService.class);
 	/**
 	 * 我的待办
 	 * @param employeeId
@@ -64,6 +71,26 @@ public class TodoListController {
 		return expenseService.getBillByFormId(formId);
 	}
 	
+	/**
+	 * 审核记录
+	 * @param formId
+	 * @param formType
+	 * @return
+	 */
+	@Authorization(is = false)
+	public List<AuditRecord> getAuditByFormId(Integer formId,Integer formType){
+		return auditRecordService.getAuditRecordList(formId, formType);
+	}
+	/**
+	 * 附近信息
+	 * @param tabName
+	 * @param formId
+	 * @return
+	 */
+	@Authorization(is = false)
+	public List<File> getByTabNameFormId(String tabName, Integer formId){
+		return fileService.getByTabNameFormId(tabName, formId);
+	}
 	
 	/**
 	 * 获取付款科目
