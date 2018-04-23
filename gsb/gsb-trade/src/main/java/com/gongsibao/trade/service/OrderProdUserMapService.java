@@ -154,7 +154,7 @@ public class OrderProdUserMapService extends PersistableService<OrderProdUserMap
             oql.setSelects("*");
             oql.setFilter("orderProdId = ? and type=?");
             oql.getParameters().add("orderProdId", orderProdId, Types.INTEGER);
-            oql.getParameters().add("type", type, Types.INTEGER);
+            oql.getParameters().add("type", type.getValue(), Types.INTEGER);
         }
         return this.pm.queryList(oql);
     }

@@ -11,5 +11,7 @@ public interface IOrderProdOrganizationMapService extends IPersistableService<Or
     public Boolean updateOrganizationMap(Integer orderProdId, Integer supplierId);
 
     List<OrderProdOrganizationMap> getListByOrderNo(String orderNo);
+    
+    public List<OrderProdOrganizationMap> getListByOrderProdId(Integer orderProdId);
 
 }

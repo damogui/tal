@@ -4,6 +4,7 @@ import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.base.IOrderProdUserMapService;
 import com.gongsibao.trade.base.IOrderService;
 import com.gongsibao.utils.NumberUtils;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
@@ -17,6 +18,7 @@ import org.netsharp.util.sqlbuilder.UpdateBuilder;
 import com.gongsibao.entity.trade.OrderProdOrganizationMap;
 import com.gongsibao.trade.base.IOrderProdOrganizationMapService;
 
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -75,5 +77,17 @@ public class OrderProdOrganizationMapService extends PersistableService<OrderPro
         }
         return resList;
     }
+    
+    @Override
+	public List<OrderProdOrganizationMap> getListByOrderProdId(Integer orderProdId) {
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects("OrderProdOrganizationMap.supplierId,OrderProdOrganizationMap.supplier.name");
+			oql.setFilter("order_prod_id=?");
+			oql.getParameters().add("order_prod_id", orderProdId, Types.INTEGER);
+		}
+		return this.queryList(oql);
+	}
 
 }
