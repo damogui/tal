@@ -202,7 +202,7 @@ public class AccountService implements IAccountService {
         resMap.put("timeStamp", timestamp);
         resMap.put("nonceStr", noncestr);
         resMap.put("package", "prepay_id=" + prepay_id);
-        resMap.put("signType", "MD5");
+        resMap.put("signType", "HMAC-SHA256");
         //生成支付签名,这个签名给 微信支付的调用使用
         String paySign = PayCommonUtil.createSign("UTF-8", resMap, notifyKey);
         resMap.put("paySign", paySign);
@@ -219,7 +219,6 @@ public class AccountService implements IAccountService {
         String appid = account.getAppId();
         //String appsecret = PayConfigUtil.APP_SECRET; // appsecret
         String mch_id = account.getMch_id();// 商业号
-        String key = notifyKey;// key PayConfigUtil.getKey()
         //随机字符串
         String nonce_str = getNonceStr();
 
