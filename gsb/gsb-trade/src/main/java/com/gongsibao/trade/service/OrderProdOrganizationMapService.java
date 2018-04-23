@@ -56,7 +56,7 @@ public class OrderProdOrganizationMapService extends PersistableService<OrderPro
         }
         StringBuffer sql = new StringBuffer();
         sql.append("SELECT DISTINCT od.pkid 'orderProdId',sp.name 'supplierName', ");
-        sql.append("GROUP_CONCAT( DISTINCT em.name ORDER BY opum.order_prod_id DESC) 'operator' FROM so_order_prod od ");
+        sql.append("em.name 'operator' FROM so_order_prod od ");
         sql.append("JOIN so_order oi ON oi.pkid = od.order_id ");
         sql.append("LEFT JOIN so_order_prod_organization_map opom ON opom.order_prod_id=od.pkid ");
         sql.append("LEFT JOIN sp_supplier sp ON sp.id = opom.supplier_id ");
@@ -64,7 +64,7 @@ public class OrderProdOrganizationMapService extends PersistableService<OrderPro
         sql.append("LEFT JOIN sp_salesman sm ON sm.employee_id = opum.user_id ");
         sql.append("LEFT JOIN sys_permission_employee em ON em.id = sm.employee_id ");
         sql.append("WHERE oi.no='" + orderNo + "' ");
-        sql.append("GROUP BY opom.supplier_id ");
+        sql.append("ORDER BY od.pkid ASC ");
         sql.append("LIMIT " + startIndex + ", " + pageSize + " ");
         DataTable rows = this.pm.executeTable(sql.toString(), null);
         for (IRow row : rows) {
