@@ -441,10 +441,6 @@ public class OrderService implements IOrderService {
             }
             order.setPayablePrice(NumberUtils.doubleRoundInt(payablePrice));
             order.setDiscounts(orderDiscountList);
-
-
-
-
         }
 
 
