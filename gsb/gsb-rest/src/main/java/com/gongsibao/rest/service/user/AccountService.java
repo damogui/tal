@@ -219,7 +219,6 @@ public class AccountService implements IAccountService {
         String appid = account.getAppId();
         //String appsecret = PayConfigUtil.APP_SECRET; // appsecret
         String mch_id = account.getMch_id();// 商业号
-        String key = notifyKey;// key PayConfigUtil.getKey()
         //随机字符串
         String nonce_str = getNonceStr();
 

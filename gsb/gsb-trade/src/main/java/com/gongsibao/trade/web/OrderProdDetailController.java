@@ -4,7 +4,9 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gongsibao.entity.trade.*;
 import com.gongsibao.product.base.IWorkflowService;
+import com.gongsibao.trade.base.*;
 import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.ServiceFactory;
@@ -21,23 +23,12 @@ import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.product.WorkflowFile;
 import com.gongsibao.entity.product.WorkflowNode;
 import com.gongsibao.entity.supplier.Salesman;
-import com.gongsibao.entity.trade.OrderProd;
-import com.gongsibao.entity.trade.OrderProdTrace;
-import com.gongsibao.entity.trade.OrderProdTraceFile;
-import com.gongsibao.entity.trade.OrderProdUserMap;
-import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.OrderProdTraceType;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
 import com.gongsibao.entity.trade.dic.TraceFileStatus;
 import com.gongsibao.product.base.IWorkflowFileService;
 import com.gongsibao.product.base.IWorkflowNodeService;
 import com.gongsibao.supplier.base.ISalesmanService;
-import com.gongsibao.trade.base.ICompanyIntentionService;
-import com.gongsibao.trade.base.IOrderProdService;
-import com.gongsibao.trade.base.IOrderProdTraceFileService;
-import com.gongsibao.trade.base.IOrderProdTraceService;
-import com.gongsibao.trade.base.IOrderProdUserMapService;
-import com.gongsibao.trade.base.IOrderService;
 import com.gongsibao.trade.web.dto.AddTraceFileDTO;
 import com.gongsibao.trade.web.dto.TraceFileDTO;
 
@@ -50,6 +41,7 @@ public class OrderProdDetailController {
     IWorkflowNodeService workflowNodeService = ServiceFactory.create(IWorkflowNodeService.class);
     IWorkflowService workflowService = ServiceFactory.create(IWorkflowService.class);
     IWorkflowFileService workflowFileService = ServiceFactory.create(IWorkflowFileService.class);
+    IOrderProdOrganizationMapService orderProdOrganizationMapService = ServiceFactory.create(IOrderProdOrganizationMapService.class);
 
     /**
      * @throws
@@ -362,6 +354,27 @@ public class OrderProdDetailController {
         }
         return result;
     }
+
+
+    //根据订单编号查询明细订单操作组
+    public EasyuiDatagridResult queryInteractionGroup(String keyWord, Integer pageIndex, Integer pageSize) {
+        Paging paging = new Paging();
+        {
+            paging.setPageNo(pageIndex);
+            paging.setPageSize(pageSize);
+        }
+        //Oql oql = new Oql();
+        List<OrderProdOrganizationMap> list = orderProdOrganizationMapService.getListByOrderNo(keyWord);
+        EasyuiDatagridResult result = new EasyuiDatagridResult();
+        {
+            result.setRows(list);
+            /*if (oql.getPaging() != null) {
+                result.setTotal(oql.getPaging().getTotalCount());
+            }*/
+        }
+        return result;
+    }
+
 
     /**
      * @throws
