@@ -198,23 +198,6 @@ public class WorkflowNodeService extends PersistableService<WorkflowNode> implem
 
     @Override
     public List<WorkflowNode> getListByOrderProdId(Integer orderProdId) {
-        /*OrderProd orderProd = orderProdService.getById(orderProdId);
-        List<WorkflowNode> reslist = new ArrayList<>();
-        if (orderProd == null) {
-            return reslist;
-        }
-        WorkflowNode node = getByOrderProdId(orderProdId);
-        Integer version = null;
-        List<Integer> workflowIdList = new ArrayList<>();
-        if (node != null) {
-            version = node.getVersion();
-            workflowIdList.add(node.getWorkflowId());
-        }
-        if (version == null) {
-            workflowIdList = workflowService.getIdsrodIdCityId(orderProd.getProductId(), orderProd.getCityId());
-            version = getMaxVersion(workflowIdList);
-        }*/
-
         List<WorkflowNode> reslist;
         Map<String, Object> flowIdListAndVersionMap = getFlowIdListAndVersionByOrderProdId(orderProdId);
         Integer version = (Integer) flowIdListAndVersionMap.get("version");

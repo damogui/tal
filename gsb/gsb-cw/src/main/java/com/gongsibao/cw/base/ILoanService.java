@@ -33,7 +33,8 @@ public interface ILoanService extends IPersistableService<Loan> {
 	* @return T    返回类型  
 	* @throws
 	 */
-	public  Loan  getBillByFormId(Integer formId);
+	public  Loan  getBillByFormId(Integer formId ,Boolean isSubset);
+	
 	/**
 	 * 财务办理完成修改订单状态
 	* @Title: updateStatus  

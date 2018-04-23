@@ -46,6 +46,7 @@ com.gongsibao.trade.web.OrderCarryoverCtrl = org.netsharp.panda.core.CustomCtrl.
     toOrderNoBlur:function(){
     	var me = this;
     	var orderNo = $('#toOrderNo').val();
+    	var formOrderNo = $('#formOrderNo').val();
     	me.invokeService("getSoOrderByNo", [orderNo], function(data){
     		if(data == 1){
     			$('#toOrderNo').val("");
@@ -59,6 +60,9 @@ com.gongsibao.trade.web.OrderCarryoverCtrl = org.netsharp.panda.core.CustomCtrl.
     		}else if(data == 4){
     			$('#toOrderNo').val("");
     			layer.msg('结转去向订单号还处于改价审核中，请审核通过后，再创建');
+    		}else if(orderNo === formOrderNo){
+    			$('#toOrderNo').val("");
+    			layer.msg('结转去向订单号不能等于结转来源订单号');
     		}else{
     			$("#toOrderId_hidden").val(data.id);				
 				var toPayablePrice = data.payablePrice;

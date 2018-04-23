@@ -92,6 +92,8 @@ public class OrderService implements IOrderService {
 
     @Autowired
     IOrderProdTraceService orderProdTraceService;
+    @Autowired
+    private com.gongsibao.rest.base.dict.IDictService dictRestService;
 
     @Override
     public SoOrder getById(Integer orderId) {
@@ -165,8 +167,19 @@ public class OrderService implements IOrderService {
         Pager<OrderDTO> pager = new Pager<OrderDTO>(total, currentPage, pageSize);
         List<SoOrder> soOrders = tradeOrderService.pageOrderListByAccountIdStatus(accountId, status, currentPage,
                 pageSize);
-        if(soOrders!=null){
-            List<OrderDTO> orderDtoList = soOrders.stream().map(soOrder -> {
+        if (soOrders != null) {
+            List<Integer> cityIds = new ArrayList<>();
+            soOrders.stream().forEach(soOrder -> {
+                soOrder.getProducts().stream().forEach(orderProd -> {
+                    cityIds.add(orderProd.getCityId());
+                });
+            });
+            Map<Integer, String> cityIdNames = dictRestService.queryDictNames(101, cityIds);
+            List<OrderDTO> orderDtoList = soOrders.stream().sorted((order1, order2) -> {
+                Long first = order1.getCreateTime() == null ? 0 : order1.getCreateTime().getTime();
+                Long next = order2.getCreateTime() == null ? 0 : order2.getCreateTime().getTime();
+                return next.compareTo(first);
+            }).map(soOrder -> {
                 OrderDTO orderDTO = new OrderDTO();
                 {
                     orderDTO.setPkid(soOrder.getId());
@@ -177,19 +190,24 @@ public class OrderService implements IOrderService {
                     orderDTO.setPayStatusId(soOrder.getPayStatus().getValue());
                     orderDTO.setPayablePrice(soOrder.getPayablePrice());
                     orderDTO.setPaidPrice(soOrder.getPaidPrice());
-                    orderDTO.setIsChangePrice(BooleanUtils.toInteger(soOrder.getIsChangePrice(),1,0));
+                    orderDTO.setIsChangePrice(BooleanUtils.toInteger(soOrder.getIsChangePrice(), 1, 0));
                     orderDTO.setChangePriceAuditStatusId(soOrder.getChangePriceAuditStatus().getValue());
                     orderDTO.setType(soOrder.getType().getValue());
-                    orderDTO.setIsInstallment(BooleanUtils.toInteger(soOrder.getIsInstallment(),1,0));
+                    orderDTO.setIsInstallment(BooleanUtils.toInteger(soOrder.getIsInstallment(), 1, 0));
                     orderDTO.setInstallmentAuditStatusId(soOrder.getInstallmentAuditStatusId().getValue());
-                    List<OrderProd> products = soOrder.getProducts().stream().sorted((o1, o2) -> {
-                        Long first = o1.getCreateTime() == null ? 0 : o1.getCreateTime().getTime();
-                        Long next = o2.getCreateTime() == null ? 0 : o2.getCreateTime().getTime();
-                        return first.compareTo(next);
+                    List<OrderProd> products = soOrder.getProducts().stream().sorted((orderProd1, orderProd2) -> {
+                        Long first = orderProd1.getCreateTime() == null ? 0 : orderProd1.getCreateTime().getTime();
+                        Long next = orderProd2.getCreateTime() == null ? 0 : orderProd2.getCreateTime().getTime();
+                        return next.compareTo(first);
                     }).collect(Collectors.toList());
                     orderDTO.setOrderProdListWebs(products.stream().map(orderProd -> {
-                        return convertTo(soOrder,orderProd);
+                        OrderProductDTO orderProductDTO = convertTo(soOrder, orderProd);
+                        orderProductDTO.setCityName(cityIdNames.get(orderProd.getCityId()));
+                        return orderProductDTO;
                     }).collect(Collectors.toList()));
+                    if (!soOrder.getIsInstallment() && soOrder.getPaidPrice() < soOrder.getPayablePrice()) {
+                        orderDTO.setPayBtn(1);
+                    }
 
                 }
                 return orderDTO;
@@ -357,7 +375,10 @@ public class OrderService implements IOrderService {
     private Result doCoupon(SoOrder order, OrderAddDTO orderAddDTO) {
         Result<SoOrder> result = new Result<SoOrder>();
         // 订单原价
-        double payablePrice = order.getPayablePrice();
+        int payablePrice = order.getPayablePrice();
+
+        // 优惠总额
+        Integer couponTotalPrice = 0;
 
         List<String> couponNoList = StringUtils.stringToList(orderAddDTO.getOrderDiscount());
         if (CollectionUtils.isNotEmpty(couponNoList)) {
@@ -395,9 +416,10 @@ public class OrderService implements IOrderService {
                 }
 
                 // 计算订单价格
-                Double couponPrice = couponService.couponPrice(payablePrice, coupon);
-                payablePrice = AmountUtils.sub(payablePrice, couponPrice);
+                int couponPrice = couponService.couponPrice(payablePrice, coupon);
+                payablePrice = payablePrice - couponPrice;
 
+                couponTotalPrice = couponTotalPrice + couponPrice;
                 // 设置订单关联优惠券
                 OrderDiscount orderDiscount = new OrderDiscount();
                 {
@@ -413,12 +435,32 @@ public class OrderService implements IOrderService {
 
             // 特么的不会优惠到负值吧！
             if (payablePrice < 0) {
-                payablePrice = 0d;
+                payablePrice = 0;
             }
 
+            // 计算OrderProd价格
+            List<OrderProd> products = order.getProducts();
+
+            // 计算逻辑: 订单优惠价格/订单应付价格 = 明细订单优惠价格/明细订单价格
+            int couponPriceUse = 0;
+            for (int i = 0; i < products.size(); i++) {
+                OrderProd orderProd = products.get(i);
+                if (i == products.size() - 1) {
+                    int lastCouponPrice = couponTotalPrice - couponPriceUse;
+                    lastCouponPrice = lastCouponPrice < 0 ? 0 : lastCouponPrice;
+                    orderProd.setPrice(orderProd.getPrice() - (lastCouponPrice));
+                } else {
+                    // 明细订单优惠价格
+                    int orderProdCouponPrice = NumberUtils.doubleRoundInt(AmountUtils.div(AmountUtils.mul(couponTotalPrice, orderProd.getPrice()), order.getPayablePrice(), 2));
+                    // 设置明细订单真实价格
+                    orderProd.setPrice(orderProd.getPrice() - orderProdCouponPrice);
+                    couponPriceUse = couponPriceUse + orderProdCouponPrice;
+                }
+            }
             order.setPayablePrice(NumberUtils.doubleRoundInt(payablePrice));
             order.setDiscounts(orderDiscountList);
         }
+
 
         return result;
     }

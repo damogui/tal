@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.gongsibao.utils.NumberUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.AdvancedListPart;
@@ -36,9 +37,9 @@ public class MyInChargeListPart extends AdvancedListPart {
             filters.add("channel_order_no = '" + keyword + "'");
             filters.add("account_name like '%" + keyword + "%'");
             filters.add("account_mobile = '" + keyword + "'");
-            filters.add("company_id in( select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' )  )");
-
-            return "((OrderProd.pkid = '" + keyword + "') or order_id in ( select pkid from so_order where " + StringManager.join(" or ", filters) + "))";
+            String compamyWhere = "company_id in( select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' )  )";
+            filters.add(compamyWhere);
+            return "((OrderProd.pkid = '" + keyword + "' or OrderProd." + compamyWhere + " ) or order_id in ( select pkid from so_order where " + StringManager.join(" or ", filters) + "))";
         }
         //操作员
         if (parameter.getKey().equals("operator")) {
@@ -97,6 +98,10 @@ public class MyInChargeListPart extends AdvancedListPart {
             ob2.get(i).put("isUrgent", orderProd.getUrgent());
             ob2.get(i).put("operator", orderProd.getOperator());
             ob2.get(i).put("surplusDays", orderProd.getSurplusDays());
+            //订单余额：paidPrice+carryIntoAmount-refundPrice-carryAmount
+            Integer balance = NumberUtils.toInt(orderProd.getSoOrder().getPaidPrice()) + NumberUtils.toInt(orderProd.getSoOrder().getCarryIntoAmount()) -
+                    NumberUtils.toInt(orderProd.getSoOrder().getRefundPrice()) - NumberUtils.toInt(orderProd.getSoOrder().getCarryAmount());
+            ob2.get(i).put("sorder_balance", balance);
             ob2.get(i).put("allocationOperatorDate", orderProd.getAllocationOperatorDate());
         }
         return json;

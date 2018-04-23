@@ -46,14 +46,14 @@ public class LoanService extends PersistableService<Loan> implements ILoanServic
 	}
 
 	@Override
-	public Loan getBillByFormId(Integer formId ) {
+	public Loan getBillByFormId(Integer formId ,Boolean isSubset) {
 		Oql oql = new Oql();
 		oql.setType(Loan.class);
 		oql.setSelects("loan.*,loan.setOfBooks.name,loan.u8Bank.code,loan.u8Department.code,loan.u8Department.personnelCode,loan.borrowerEmployee.name");
 		oql.setFilter("id=?");
 		oql.getParameters().add("id", formId, Types.INTEGER);
 		Loan entity = this.queryFirst(oql);
-		if(entity != null){
+		if(entity != null && isSubset){
 			//entity.setCostDetailItem(costDetailService.getCostDetailItem(formId, FinanceDict.FormType.JKD.getValue()));
 			//附件信息
 			entity.setFiles(fileService.getByTabNameFormId("cw_loan", formId));

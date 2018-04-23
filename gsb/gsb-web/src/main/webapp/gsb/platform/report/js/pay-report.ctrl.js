@@ -59,7 +59,7 @@ com.gongsibao.report.web.PayReportCtrl = org.netsharp.panda.core.CustomCtrl.Exte
 		$("#datagrid").datagrid({
 			idField:'id',
 			emptyMsg:'当日没有回款记录',
-			title:'<span style="font-weight: normal;color: red;">统计说明：【线上支付】-当日支付成功的记录，【线下支付】-为当日审核通过的记录</span>',
+			title:'<span style="font-weight: normal;color: red;">统计说明：【线上支付】-当日支付成功的记录，【线下支付】-当日审核通过的记录，【平台事业部】包括所有平台服务商数据</span>',
 			rownumbers:true,
 			pagination:false,
 			striped:true,

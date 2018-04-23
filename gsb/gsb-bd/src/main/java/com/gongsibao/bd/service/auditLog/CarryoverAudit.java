@@ -32,17 +32,7 @@ public class CarryoverAudit extends AbstractAuditLogService {
         }
         return auditLogList;
     }
-
-    @Override
-    protected AuditLog getDirectLeaderAudit(Integer formId, Integer addUserId) {
-        return null;
-    }
-
-    @Override
-    protected AuditLog getSuperiorLeaderAudit(Integer formId, Integer addUserId) {
-        return null;
-    }
-
+    
     @Override
     protected AuditLogType setAuditLogType() {
         return AuditLogType.Jzsh;

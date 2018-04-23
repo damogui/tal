@@ -29,13 +29,14 @@ org.netsharp.we.core.TodoListCtrl = org.netsharp.we.core.listCtrl.Extends({
     	var me = this;
     	var html = '';
     	var billUrl = "";
+    	var employeeId = this.queryString('employeeId');
     	$(rows).each(function(i,item){
     		var formTypeText = formTypeDict.byKey(item.formType);
     		if(item.formType == 3 ){
-    			billUrl = "loanDetail?id="+item.formId;
+    			billUrl = "loanDetail?employeeId="+employeeId+"&id="+item.formId;
     		}
     		if(item.formType == 4 ){
-    			billUrl = "expenseDetail?id="+item.formId;
+    			billUrl = "expenseDetail?employeeId="+employeeId+"&id="+item.formId;
     		}
     		html += me.template.format(billUrl,formTypeText,item.code);
     	});
