@@ -150,6 +150,15 @@ public interface IOrderService extends IPersistableService<SoOrder> {
     int updateOrderStatus(Integer accountId,Integer orderId,Integer status);
 
     /**
+     * 取消订单 - 含有业务,外面事物不起作用
+     * @param accountId
+     * @param orderId
+     * @return
+     */
+    @Transaction
+    int updateCancelOrder(Integer accountId,Integer orderId);
+
+    /**
      * 复原订单价格
      * @param pkid
      * @param price

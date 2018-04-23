@@ -131,7 +131,7 @@ public class UserOrderController extends BaseController{
         return Result.build(() -> {
             Assert.hasText(orderIdStr, "订单ID不能为空!");
             orderService.updateToCancel(accountIdByOpenId(request), Integer.valueOf(SecurityUtils.rc4Decrypt
-                    (orderIdStr)), OrderProcessStatusType.Yqx.getValue());
+                    (orderIdStr)));
             return "取消成功";
         }).resetOkMsgFromData();
     }
