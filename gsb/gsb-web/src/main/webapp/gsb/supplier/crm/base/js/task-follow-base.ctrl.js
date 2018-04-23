@@ -76,7 +76,7 @@ com.gongsibao.crm.web.TaskFollowCtrl = System.Object.Extends({
                     $('#follow_content').validatebox('enableValidation');
                 } else {
                     $('#follow_content').validatebox('disableValidation');
-                    $('#follow_content').val('');
+                    //$('#follow_content').val('');
                 }
 
                 //校验意向产品
