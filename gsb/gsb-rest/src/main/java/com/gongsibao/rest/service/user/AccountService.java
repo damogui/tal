@@ -248,6 +248,7 @@ public class AccountService implements IAccountService {
         log.error("packageParams:" + packageParams);
         String sign = PayCommonUtil.createSign("UTF-8", packageParams, notifyKey);
         log.error("sign:"+sign);
+        packageParams.put("sign", sign);
         String requestXML = PayCommonUtil.getRequestXml(packageParams);
         log.error(requestXML);
         String resXml = HttpUtil.postData(Constant.PAY_API, requestXML);
