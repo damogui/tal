@@ -17,25 +17,26 @@ public class SalesmanOrderPayListPart extends AdvancedListPart {
     @Override
     public String getFilterByParameter(FilterParameter parameter) {
 
-        ArrayList<String> filters = new ArrayList<String> ();
+        ArrayList<String> filters = new ArrayList<String>();
         //当是关键字时(订单编号、渠道订单编号、下单人、下单人电话、关联公司)
-        String keyword = parameter.getValue1 ().toString ();
-        if (parameter.getKey ().equals ("keyword")) {
+        String keyword = parameter.getValue1().toString();
+        if (parameter.getKey().equals("keyword")) {
 //filters.add (String.format (" FIND_IN_SET(%s,orderNo) ",keyword));
 //            return "(" + StringManager.join (" or ", filters) + ")";
 
-            return  "orderNo  like '%" + keyword + "%'";
+            return "orderNo  like '%" + keyword + "%'";
         }
 
-        return parameter.getFilter ();
+        return parameter.getFilter();
     }
 
 
     @Override
     public List<?> doQuery(Oql oql) {
-    	
-        oql.setSelects ("id,orderNo,payForOrderCount,payWayType,amount,offlineAuditStatus,createTime,creator,orderPayMaps.*");
-        List<Pay> resList = (List<Pay>) super.doQuery (oql);
+
+        oql.setSelects("id,orderNo,payForOrderCount,payWayType,amount,offlineAuditStatus,createTime,creator,orderPayMaps.*");
+        oql.setOrderby("add_time DESC");
+        List<Pay> resList = (List<Pay>) super.doQuery(oql);
 
         return resList;
     }
