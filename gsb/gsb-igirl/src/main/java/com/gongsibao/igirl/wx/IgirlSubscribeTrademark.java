@@ -35,7 +35,7 @@ public class IgirlSubscribeTrademark implements IWeixinSubscriber {
         IAccountService accountService=ServiceFactory.create(IAccountService.class);
         //需要业务处理粉丝与账户关联 wx_pa_fans
         if(sceneStr==null){
-            return true;
+            return false;
         }else{
             String[] param=sceneStr.split("\\|");
             if(param[2].equals("SB")){
