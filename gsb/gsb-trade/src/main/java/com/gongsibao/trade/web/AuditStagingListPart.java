@@ -34,6 +34,7 @@ public class AuditStagingListPart extends AdvancedListPart{
 	@Override
     public List<?> doQuery(Oql oql) {
         oql.setSelects("auditLog.*,soOrder.*,soOrder.companyIntention.*");
+		oql.setOrderby("add_time DESC");
         List<AuditLog> resList = (List<AuditLog>) super.doQuery(oql);
         return resList;
     }	

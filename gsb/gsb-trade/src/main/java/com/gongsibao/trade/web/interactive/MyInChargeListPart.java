@@ -76,6 +76,7 @@ public class MyInChargeListPart extends AdvancedListPart {
         sqlSb.append("orderProd.soOrder.customer.{pkid,realName},");
         sqlSb.append("orderProd.soOrder.companyIntention.{pkid,name,full_name,company_name}");
         oql.setSelects(sqlSb.toString());
+        oql.setOrderby("pkid DESC");
         List<OrderProd> resList = (List<OrderProd>) super.doQuery(oql);
         List<Integer> orderProdIdList = getOrderProdIdList(resList);
         //设置是否加急

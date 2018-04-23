@@ -69,6 +69,7 @@ public class AuditOrderPerformanceListPart extends AdvancedListPart {
 
         IAuditLogService auditLogService = ServiceFactory.create (IAuditLogService.class);
         oql.setSelects (selects.toString ());
+        oql.setOrderby("add_time DESC");
         List<AuditLog> auditLogs = auditLogService.queryList (oql);
 
         // List<AuditLog> auditLogs2 = (List<AuditLog>) super.doQuery (oql);

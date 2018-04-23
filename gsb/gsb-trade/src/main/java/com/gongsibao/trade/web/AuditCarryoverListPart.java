@@ -1,7 +1,10 @@
 package com.gongsibao.trade.web;
 
+import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
+
+import java.util.List;
 
 public class AuditCarryoverListPart extends AdvancedListPart{
 
@@ -17,5 +20,11 @@ public class AuditCarryoverListPart extends AdvancedListPart{
         }
 
         return parameter.getFilter();
+    }
+
+    @Override
+    public List<?> doQuery(Oql oql) {
+        oql.setOrderby("add_time DESC");
+        return super.doQuery(oql);
     }
 }
