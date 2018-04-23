@@ -1,6 +1,6 @@
 package com.gongsibao.rest.web.common.util.wxpay;
 
-import com.github.wxpay.sdk.WXPayConstants.SignType;
+import com.gongsibao.rest.web.common.util.wxpay.WXPayConstants.SignType;
 
 import java.util.HashMap;
 import java.util.Map;
