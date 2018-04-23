@@ -18,6 +18,7 @@ import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.IOrderService;
 import com.gongsibao.u8.base.ISoOrderService;
 import com.gongsibao.utils.NumberUtils;
+
 /**
  * Created by win on 2018/3/2.
  */
@@ -34,6 +35,7 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
         sb.append("SoOrder.customer.realName,");
         sb.append("SoOrder.owner.{id,name}");
         oql.setSelects(sb.toString());
+        oql.setOrderby("add_time DESC");
         List<?> rows = orderService.queryList(oql);
         return rows;
     }
@@ -102,12 +104,12 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
 
 
     /*
-    * 验证分期付款的订单
-    * @param id
-    * @return 0-已经分期；1-审核中；2-可以审核
-    */
+     * 验证分期付款的订单
+     * @param id
+     * @return 0-已经分期；1-审核中；2-可以审核
+     */
     public Integer ValidateStaged(Integer id) {
-    	Integer resultValueInteger = 2;
+        Integer resultValueInteger = 2;
         Oql oql = new Oql();
         {
             oql.setType(SoOrder.class);
@@ -116,45 +118,47 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
             oql.getParameters().add("id", id, Types.INTEGER);
         }
         SoOrder entity = orderService.queryFirst(oql);
-        if(entity.getIsInstallment()){
-        	return 0;
- 	   }else{
- 		  if(entity.getInstallmentAuditStatusId().getValue().equals(AuditStatusType.Shz.getValue())){
-			   return 1; 
-		   } 
- 	   }
+        if (entity.getIsInstallment()) {
+            return 0;
+        } else {
+            if (entity.getInstallmentAuditStatusId().getValue().equals(AuditStatusType.Shz.getValue())) {
+                return 1;
+            }
+        }
         return resultValueInteger;
     }
+
     /*
      * 是否是改价的订单
      * @param id
      * @return 0-审核通过、未审核；1-驳回；2-审核中
      */
-     public Integer isChangePriceOrde(Integer id) {
-    	 Integer resultValueInteger = 0;
-         Oql oql = new Oql();
-         {
-             oql.setType(SoOrder.class);
-             oql.setSelects("*");
-             oql.setFilter("id=?");
-             oql.getParameters().add("id", id, Types.INTEGER);
-         }
-         SoOrder entity = orderService.queryFirst(oql);
-         if(entity.getIsChangePrice()){
-        	 if(entity.getChangePriceAuditStatus().getValue().equals(AuditStatusType.Shtg.getValue())){
-            	 resultValueInteger = 0;
-             }else if(entity.getChangePriceAuditStatus().getValue().equals(AuditStatusType.Bhsh.getValue())){
-            	 resultValueInteger = 1;
-             }else if(entity.getChangePriceAuditStatus().getValue().equals(AuditStatusType.Shz.getValue())){
-            	 resultValueInteger = 2;
-    		} 
-         }
-         return resultValueInteger;
-     }
+    public Integer isChangePriceOrde(Integer id) {
+        Integer resultValueInteger = 0;
+        Oql oql = new Oql();
+        {
+            oql.setType(SoOrder.class);
+            oql.setSelects("*");
+            oql.setFilter("id=?");
+            oql.getParameters().add("id", id, Types.INTEGER);
+        }
+        SoOrder entity = orderService.queryFirst(oql);
+        if (entity.getIsChangePrice()) {
+            if (entity.getChangePriceAuditStatus().getValue().equals(AuditStatusType.Shtg.getValue())) {
+                resultValueInteger = 0;
+            } else if (entity.getChangePriceAuditStatus().getValue().equals(AuditStatusType.Bhsh.getValue())) {
+                resultValueInteger = 1;
+            } else if (entity.getChangePriceAuditStatus().getValue().equals(AuditStatusType.Shz.getValue())) {
+                resultValueInteger = 2;
+            }
+        }
+        return resultValueInteger;
+    }
+
     /**
      * 获取订单的结转状态、结转金额判断
      *
-     * @param id   订单Id
+     * @param id 订单Id
      * @return -1 订单余额不足(订单余额 = paidPrice+carryIntoAmount-refundPrice-carryAmount yyk提供公式)
      */
     public Integer carryValidate(Integer id) {
@@ -167,7 +171,7 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
             oql.getParameters().add("id", id, Types.INTEGER);
         }
         SoOrder entity = orderService.queryFirst(oql);
-        
+
         Integer paidPrice = entity.getPaidPrice() == null ? 0 : entity.getPaidPrice().intValue();
         Integer carryIntoAmount = entity.getCarryIntoAmount() == null ? 0 : entity.getCarryIntoAmount().intValue();
         Integer refundPrice = entity.getRefundPrice() == null ? 0 : entity.getRefundPrice().intValue();
@@ -175,16 +179,17 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
         //订单余额
         Integer balance = paidPrice + carryIntoAmount - refundPrice - carryAmount;
         if (balance > 0) {
-        	reusltValue = entity.getCarryStatus() == null ? 0 : entity.getCarryStatus().getValue();
+            reusltValue = entity.getCarryStatus() == null ? 0 : entity.getCarryStatus().getValue();
         } else {
             reusltValue = -1;
         }
         return reusltValue;
     }
+
     /**
      * 获取订单的退款状态或退款金额验证
      *
-     * @param id   订单Id  
+     * @param id 订单Id
      * @return -1 可退款金额不足(可退款金额=已付金额-已退金额 yyk提供公式)
      */
     public Integer refundValidate(Integer id) {
@@ -204,32 +209,35 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
         //可退金额
         Integer canRefundAmount = paidPrice - refundPrice;
         if (canRefundAmount > 0) {
-        	reusltValue = entity.getRefundStatus() == null ? 0 : entity.getRefundStatus().getValue();
+            reusltValue = entity.getRefundStatus() == null ? 0 : entity.getRefundStatus().getValue();
         } else {
             reusltValue = -1;
         }
         return reusltValue;
     }
+
     /*校验是不是存在订单的改价审核和回款审核，存在不弹窗*/
     public Integer checkCanPay(Integer orderId) {
-       return noService.checkCanPay(orderId);
-
+        return noService.checkCanPay(orderId);
 
 
     }
 
     /*创建订单业绩是不是已经存在存在的话不能创建*/
     public Integer checkCanOrderPer(Integer orderId) {
-        return noService.checkCanOrderPer(orderId,0);
+        return noService.checkCanOrderPer(orderId, 0);
     }
-
 
 
     /*创建回款业绩是不是已经存待审核在存在的话不能创建*/
     public Integer checkCanOrderPayPer(Integer orderId) {
-        return noService.checkCanOrderPer(orderId,1);
+        return noService.checkCanOrderPer(orderId, 1);
     }
 
+    /*根据订单id获取订单信息*/
+    public SoOrder getOrderByOrderNo(String orderno) {
+        return orderService.getByOrderNo(orderno);
+    }
 
 
 }

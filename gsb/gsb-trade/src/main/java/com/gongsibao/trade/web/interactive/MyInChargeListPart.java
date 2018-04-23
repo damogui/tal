@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.gongsibao.utils.NumberUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.AdvancedListPart;
@@ -97,6 +98,10 @@ public class MyInChargeListPart extends AdvancedListPart {
             ob2.get(i).put("isUrgent", orderProd.getUrgent());
             ob2.get(i).put("operator", orderProd.getOperator());
             ob2.get(i).put("surplusDays", orderProd.getSurplusDays());
+            //订单余额：paidPrice+carryIntoAmount-refundPrice-carryAmount
+            Integer balance = NumberUtils.toInt(orderProd.getSoOrder().getPaidPrice()) + NumberUtils.toInt(orderProd.getSoOrder().getCarryIntoAmount()) -
+                    NumberUtils.toInt(orderProd.getSoOrder().getRefundPrice()) - NumberUtils.toInt(orderProd.getSoOrder().getCarryAmount());
+            ob2.get(i).put("sorder_balance", balance);
             ob2.get(i).put("allocationOperatorDate", orderProd.getAllocationOperatorDate());
         }
         return json;
