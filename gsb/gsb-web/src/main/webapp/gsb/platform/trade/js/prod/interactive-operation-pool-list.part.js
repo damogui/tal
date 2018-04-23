@@ -4,7 +4,6 @@ com.gongsibao.trade.web.interactive.OperationPoolListPart = com.gongsibao.trade.
         this.base();
     },
     detail: function (id) {
-
         var url = '/nav/gsb/platform/trade/orderProdDetail?id=' + id;
         window.open(url);
     },
@@ -15,12 +14,10 @@ com.gongsibao.trade.web.interactive.OperationPoolListPart = com.gongsibao.trade.
             IMessageBox.info('请先选择订单数据');
             return false;
         }
-
         var orderProdIdList = [];
         $.each(rows, function (k, v) {
             orderProdIdList.push(v.id);
         });
-
         var salesmanCtrl = new com.gongsibao.trade.web.SelectSalesmanCtrl();
         salesmanCtrl.open('添加负责人', false, function (salesmans) {
             var principalIds = new Array();
@@ -30,12 +27,10 @@ com.gongsibao.trade.web.interactive.OperationPoolListPart = com.gongsibao.trade.
                 nameArr.push(item.name);
             });
             var principalNames = nameArr.join();
-
             var pars = [];
             pars.push(orderProdIdList);
             pars.push(principalIds);
             pars.push(principalNames);
-
             var serviceLocator = new org.netsharp.core.JServiceLocator();
             serviceLocator.invoke("com.gongsibao.trade.web.OrderProdDetailController", "addBatchPrincipal", pars, function (data) {
                     me.reload();
@@ -46,7 +41,6 @@ com.gongsibao.trade.web.interactive.OperationPoolListPart = com.gongsibao.trade.
         });
     },
     queryOperation: function () {
-
         var queryInteractionGroup = new com.gongsibao.trade.web.QueryInteractionGroupCtrl();
         queryInteractionGroup.open('订单操作组查询', false);
 

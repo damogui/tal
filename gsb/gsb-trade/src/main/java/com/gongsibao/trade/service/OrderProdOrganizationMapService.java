@@ -65,7 +65,7 @@ public class OrderProdOrganizationMapService extends PersistableService<OrderPro
         DataTable rows = this.pm.executeTable(sql.toString(), null);
         for (IRow row : rows) {
             Integer orderProdId = NumberUtils.toInt(row.getInteger("orderProdId"));
-            String supplierName = row.getString("supplierId");
+            String supplierName = row.getString("supplierName");
             String operator = row.getString("operator");
             OrderProdOrganizationMap map = new OrderProdOrganizationMap();
             map.setOrderProdId(orderProdId);
