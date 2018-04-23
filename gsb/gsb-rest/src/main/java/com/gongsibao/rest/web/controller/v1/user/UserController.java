@@ -302,28 +302,7 @@ public class UserController extends BaseController {
         }
         ResponseData data = new ResponseData();
         //微信授权回调的code凭证，用来获取openid的
-        String code = StringUtils.trimToEmpty(request.getParameter("code"));
-        IPublicAccountService wcService = ServiceFactory.create(IPublicAccountService.class);
-        PublicAccount pa = wcService.byOriginalId(originalId(request));
-        logger.error("code:"+code);
-        if (pa == null) {
-            throw new NetsharpException("没有找到公众号，原始id：" + originalId(request));
-        }
-        OAuthRequest oauth = new OAuthRequest();
-        {
-            oauth.setAppId(pa.getAppId());
-            oauth.setAppSecret(pa.getAppSecret());
-            oauth.setScope(OAuthRequest.OauthScope.snsapi_base);
-            oauth.setCode(code);
-        }
-        String openId=null;
-        try {
-            OAuthResponse responseCode = oauth.getResponse();
-              openId = responseCode.getOpenid();
-
-        } catch (Exception ex) {
-            logger.error("", ex);
-        }
+        String openId = StringUtils.trimToEmpty(request.getParameter("openId"));
         //订单编号
         String orderNoStr = StringUtils.trimToEmpty(request.getParameter("orderNoStr"));
         if (StringUtils.isBlank(openId)) {
