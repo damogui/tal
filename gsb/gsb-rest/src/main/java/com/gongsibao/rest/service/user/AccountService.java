@@ -16,8 +16,10 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.Oql;
 import org.netsharp.panda.controls.utility.UrlHelper;
 import org.netsharp.wx.pa.base.ICustomService;
+import org.netsharp.wx.pa.base.IFansService;
 import org.netsharp.wx.pa.base.IPublicAccountService;
 import org.netsharp.wx.pa.entity.Fans;
 import org.netsharp.wx.pa.entity.PublicAccount;
@@ -28,6 +30,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.URLEncoder;
+import java.sql.Types;
 import java.util.*;
 
 @Service
@@ -292,4 +295,18 @@ public class AccountService implements IAccountService {
         return orderPayMapService.queryByOrderIdPayId(orderId, payId);
     }
 
+    @Override
+    public boolean matchOpenIdOid(String openId, Integer accountId) {
+        IFansService fansService= ServiceFactory.create(IFansService.class);
+        Oql oql = new Oql();
+        {
+            oql.setType(Fans.class);
+            oql.setSelects("Fans.*");
+            oql.setFilter("openId=?");
+            oql.setFilter("publicAccountId=?");
+            oql.getParameters().add("@openId", openId, Types.VARCHAR);
+            oql.getParameters().add("@publicAccountId", accountId, Types.INTEGER);
+        }
+        return fansService.queryFirst(oql)!=null?true:false;
+    }
 }
