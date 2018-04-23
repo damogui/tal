@@ -41,7 +41,7 @@ public class AccountService implements IAccountService {
     IAccountWeiXinService accountWeiXinService = ServiceFactory.create(IAccountWeiXinService.class);
     ICustomService customService = ServiceFactory.create(ICustomService.class);
     IOrderPayMapService orderPayMapService = ServiceFactory.create(IOrderPayMapService.class);
-    @Value("{wx_notify_key}")
+    @Value("${wx_notify_key}")
     private String notifyKey;
     /*日志*/
     private static Logger log = Logger.getLogger(AccountService.class);
