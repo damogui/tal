@@ -4,11 +4,12 @@ com.gongsibao.trade.web.interactive.MyInChargeListPart = org.netsharp.panda.comm
         this.base();
     },
     onload: function () {
+        var me = this;
         $("#inChargeStatus").combobox("setValue", 3141);
         controllerorderProdList.query();
+        me.bindKeyupEvent();
     },
     detail: function (id) {
-
         var url = '/nav/gsb/platform/trade/orderProdDetail?id=' + id;
         window.open(url);
     },
