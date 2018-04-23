@@ -305,6 +305,7 @@ public class UserController extends BaseController {
         String code = StringUtils.trimToEmpty(request.getParameter("code"));
         IPublicAccountService wcService = ServiceFactory.create(IPublicAccountService.class);
         PublicAccount pa = wcService.byOriginalId(originalId(request));
+        logger.error("code:"+code);
         if (pa == null) {
             throw new NetsharpException("没有找到公众号，原始id：" + originalId(request));
         }
