@@ -293,7 +293,7 @@ public class UserController extends BaseController {
 
     /*获取微信公众号支付（H5）的参数*/
     @RequestMapping(value = "/getWxPayMP",method = RequestMethod.GET)
-    public ResponseData getWxPayMP(HttpServletRequest request, HttpServletResponse response) {
+    public ResponseData getWxPayMP(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String ipAddress = null;
         try {
             ipAddress = getIpAddr(request);
