@@ -44,19 +44,21 @@ public class PayCommonUtil {
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public static String createSign(String characterEncoding, SortedMap<String, String> packageParams, String key) {
-        StringBuffer sb = new StringBuffer();
-        Set es = packageParams.entrySet();
-        Iterator it = es.iterator();
-        while (it.hasNext()) {
-            Map.Entry entry = (Map.Entry) it.next();
-            String k = (String) entry.getKey();
-            String v = (String) entry.getValue();
-            if (null != v && !"".equals(v) && !"sign".equals(k) && !"key".equals(k)) {
-                sb.append(k + "=" + v + "&");
-            }
+        Set<String> keySet = packageParams.keySet();
+        String[] str = new String[packageParams.size()];
+        StringBuilder tmp = new StringBuilder();
+        // 进行字典排序
+        str = keySet.toArray(str);
+        Arrays.sort(str);
+        for (int i = 0; i < str.length; i++) {
+            String t = str[i] + "=" + packageParams.get(str[i]) + "&";
+            tmp.append(t);
         }
-        sb.append("key=" + key);
-        String sign = MD5Util.MD5Encode(sb.toString(), characterEncoding).toUpperCase();
+        if (null != key) {
+            tmp.append("key=" + key);
+        }
+        System.out.println("tmp:"+tmp.toString());
+        String sign = MD5Util.MD5Encode(tmp.toString(), characterEncoding).toUpperCase();
         return sign;
     }
 

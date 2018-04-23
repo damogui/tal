@@ -191,7 +191,7 @@ public class SoOrder extends BaseEntity {
     // 1053 驳回审核
     // 1054 审核通过
     @Column(name = "installment_audit_status_id", header = "分期支付审核状态：type=105")
-    private AuditStatusType installmentAuditStatusId = AuditStatusType.Dsh;
+    private AuditStatusType installmentAuditStatusId = AuditStatusType.wu;
 
 	/*
 	 * @Reference(foreignKey = "installmentAuditStatusId", header = "多次支付状态")
