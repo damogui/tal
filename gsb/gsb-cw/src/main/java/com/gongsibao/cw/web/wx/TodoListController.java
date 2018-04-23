@@ -59,7 +59,7 @@ public class TodoListController {
 	 */
 	@Authorization(is = false)
 	public Object getLoanById(Integer formId){
-		return loanService.getBillByFormId(formId);
+		return loanService.getBillByFormId(formId,false);
 	}
 	/**
 	 * 报销单详情
@@ -143,5 +143,25 @@ public class TodoListController {
 			}
 		}
 		return result;
+	}
+	
+	/**
+	 * 保存审核信息
+	* @Title: saveAudit  
+	* @Description: TODO
+	* @param @param auditRecord
+	* @param @return    参数  
+	* @return Boolean    返回类型  
+	* @throws
+	 */
+	@Authorization(is = false)
+	public Boolean saveAudit(AuditRecord auditRecord){
+		Integer fromType = auditRecord.getFormType().getValue();
+		Integer status = auditRecord.getStatus().getValue();
+		//获取待审核记录
+		AuditRecord auditTemp = auditRecordService.getAuditRecordByParam(auditRecord.getFormId(), fromType, auditRecord.getApplyUserId(),status );
+		auditRecord.setId(auditTemp.getId());
+		auditRecord.setFormType(auditRecord.getFormType());
+		return auditRecordService.saveAudit(auditRecord);
 	}
 }
