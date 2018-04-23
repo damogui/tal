@@ -91,7 +91,6 @@ com.gongsibao.cw.web.ExpenseBillFormPart = org.netsharp.panda.commerce.FormPart.
 com.gongsibao.cw.web.CostDetailListPart = org.netsharp.panda.commerce.DetailPart.Extends({
 	ctor: function () {
         this.base();
-        this.costType = PandaHelper.Enum.get('com.gongsibao.entity.cw.dict.FinanceDict$CostType');
         this.InvoiceType = PandaHelper.Enum.get('com.gongsibao.entity.cw.dict.FinanceDict$InvoiceType');
         this.TaxRateType = PandaHelper.Enum.get('com.gongsibao.entity.cw.dict.FinanceDict$TaxRateType');
     },
