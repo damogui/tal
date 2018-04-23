@@ -165,8 +165,12 @@ public class OrderService implements IOrderService {
         Pager<OrderDTO> pager = new Pager<OrderDTO>(total, currentPage, pageSize);
         List<SoOrder> soOrders = tradeOrderService.pageOrderListByAccountIdStatus(accountId, status, currentPage,
                 pageSize);
-        if(soOrders!=null){
-            List<OrderDTO> orderDtoList = soOrders.stream().map(soOrder -> {
+        if (soOrders != null) {
+            List<OrderDTO> orderDtoList = soOrders.stream().sorted((order1, order2) -> {
+                Long first = order1.getCreateTime() == null ? 0 : order1.getCreateTime().getTime();
+                Long next = order2.getCreateTime() == null ? 0 : order2.getCreateTime().getTime();
+                return next.compareTo(first);
+            }).map(soOrder -> {
                 OrderDTO orderDTO = new OrderDTO();
                 {
                     orderDTO.setPkid(soOrder.getId());
@@ -177,18 +181,18 @@ public class OrderService implements IOrderService {
                     orderDTO.setPayStatusId(soOrder.getPayStatus().getValue());
                     orderDTO.setPayablePrice(soOrder.getPayablePrice());
                     orderDTO.setPaidPrice(soOrder.getPaidPrice());
-                    orderDTO.setIsChangePrice(BooleanUtils.toInteger(soOrder.getIsChangePrice(),1,0));
+                    orderDTO.setIsChangePrice(BooleanUtils.toInteger(soOrder.getIsChangePrice(), 1, 0));
                     orderDTO.setChangePriceAuditStatusId(soOrder.getChangePriceAuditStatus().getValue());
                     orderDTO.setType(soOrder.getType().getValue());
-                    orderDTO.setIsInstallment(BooleanUtils.toInteger(soOrder.getIsInstallment(),1,0));
+                    orderDTO.setIsInstallment(BooleanUtils.toInteger(soOrder.getIsInstallment(), 1, 0));
                     orderDTO.setInstallmentAuditStatusId(soOrder.getInstallmentAuditStatusId().getValue());
-                    List<OrderProd> products = soOrder.getProducts().stream().sorted((o1, o2) -> {
-                        Long first = o1.getCreateTime() == null ? 0 : o1.getCreateTime().getTime();
-                        Long next = o2.getCreateTime() == null ? 0 : o2.getCreateTime().getTime();
-                        return first.compareTo(next);
+                    List<OrderProd> products = soOrder.getProducts().stream().sorted((orderProd1, orderProd2) -> {
+                        Long first = orderProd1.getCreateTime() == null ? 0 : orderProd1.getCreateTime().getTime();
+                        Long next = orderProd2.getCreateTime() == null ? 0 : orderProd2.getCreateTime().getTime();
+                        return next.compareTo(first);
                     }).collect(Collectors.toList());
                     orderDTO.setOrderProdListWebs(products.stream().map(orderProd -> {
-                        return convertTo(soOrder,orderProd);
+                        return convertTo(soOrder, orderProd);
                     }).collect(Collectors.toList()));
 
                 }

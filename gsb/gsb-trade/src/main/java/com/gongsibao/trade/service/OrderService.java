@@ -473,7 +473,7 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
         StringBuffer sql = new StringBuffer("");
         Oql oql = new Oql();
         oql.setType(this.type);
-        oql.setSelects("SoOrder.*, products.*");
+        oql.setSelects("SoOrder.*,SoOrder.products.*");
         sql.append(" SoOrder.accountId = ? and SoOrder.changePriceAuditStatus not in (1051,1052,1053) ");
         if (status == 1) {//未付款
             sql.append(" and SoOrder.payStatus in (3011, 3012) and SoOrder.processStatus <> 3023 ");
@@ -483,7 +483,7 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
             sql.append(" and SoOrder.processStatus = 3024 and SoOrder.payStatus = 3013 ");
         }
         oql.setFilter(sql.toString());
-        oql.setOrderby(" createTime DESC ");
+        //oql.setOrderby(" createTime DESC ");
         oql.setPaging(new Paging(currentPage, pageSize));
         oql.getParameters().add("accountId", accountId, Types.INTEGER);
         return this.pm.queryList(oql);
