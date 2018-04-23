@@ -84,7 +84,6 @@ public class UserController extends BaseController {
     public ResponseData match(HttpServletRequest request){
         ResponseData data = new ResponseData();
         try {
-
             IPublicAccountService wcService = ServiceFactory.create(IPublicAccountService.class);
             PublicAccount pa = wcService.byOriginalId(originalId(request));
             if (pa == null) {
