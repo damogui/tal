@@ -67,7 +67,7 @@ public class WXPayUtil {
      * @return XML格式的字符串
      * @throws Exception
      */
-    public static String mapToXml(Map<String, String> data) throws Exception {
+    public static String mapToXml(SortedMap<String, String> data) throws Exception {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder= documentBuilderFactory.newDocumentBuilder();
         org.w3c.dom.Document document = documentBuilder.newDocument();
@@ -108,7 +108,7 @@ public class WXPayUtil {
      * @param key API密钥
      * @return 含有sign字段的XML
      */
-    public static String generateSignedXml(final Map<String, String> data, String key) throws Exception {
+    public static String generateSignedXml(final SortedMap<String, String> data, String key) throws Exception {
         return generateSignedXml(data, key, SignType.MD5);
     }
 
@@ -120,7 +120,7 @@ public class WXPayUtil {
      * @param signType 签名类型
      * @return 含有sign字段的XML
      */
-    public static String generateSignedXml(final Map<String, String> data, String key, SignType signType) throws Exception {
+    public static String generateSignedXml(final SortedMap<String, String> data, String key, SignType signType) throws Exception {
         String sign = generateSignature(data, key, signType);
         data.put(WXPayConstants.FIELD_SIGN, sign);
         return mapToXml(data);

@@ -181,7 +181,7 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public Integer getWxPayH5Param(String ipAddress, String oid, String openId, String orderNoStr, Integer totalFee, String body, Integer userChannel, SortedMap<Object, Object> resMap) {
+    public Integer getWxPayH5Param(String ipAddress, String oid, String openId, String orderNoStr, Integer totalFee, String body, Integer userChannel, SortedMap<String, String> resMap) {
         //获取openID
         String openid = openId;
         IPublicAccountService publicAccountService = ServiceFactory.create(IPublicAccountService.class);
@@ -238,7 +238,7 @@ public class AccountService implements IAccountService {
         String trade_type = "JSAPI";
         // body 类型：String(128),当body长度过长时，会报错"return_msg=body参数长度有误, return_code=FAIL"
         body = com.gongsibao.rest.web.common.util.StringUtils.getSubStr(body, 100);
-        HashMap<String, String> packageParams = new HashMap<String, String>();
+        SortedMap<String, String> packageParams = new TreeMap<String, String>();
         packageParams.put("appid", appid);
         packageParams.put("body", body);
         packageParams.put("mch_id", mch_id);
@@ -263,7 +263,7 @@ public class AccountService implements IAccountService {
         try {
             WXPayConfig config = WXPayConfig.getInstance(account.getOriginalId());
             WXPay wxpay = new WXPay(config);
-            SortedMap<Object, Object> param = new TreeMap<Object, Object>();
+            SortedMap<String, String> param = new TreeMap<String, String>();
             param.put("appid", appid);
             param.put("body", body);
             param.put("mch_id", mch_id);

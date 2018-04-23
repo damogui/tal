@@ -357,7 +357,7 @@ public class UserController extends BaseController {
         Integer totalFee = pay.getAmount();
         //付款内容（产品名称等）
         String body = order.getProdName();
-        SortedMap<Object, Object> resMap = new TreeMap<Object, Object>();
+        SortedMap<String, String> resMap = new TreeMap<String, String>();
         Integer resId = accountService.getWxPayH5Param(ipAddress,originalId(request),openId, orderNoStr, totalFee, body, 0, resMap);
         if (resId.equals(-1)) {
             data.setCode(-1);

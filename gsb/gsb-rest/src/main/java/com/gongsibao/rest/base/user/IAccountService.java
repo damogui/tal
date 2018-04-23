@@ -38,7 +38,7 @@ public interface IAccountService {
 
     Account queryByOpenId(String openId);
 
-    Integer getWxPayH5Param(String ipAddress,String oid,String openId, String orderNoStr, Integer totalFee, String body, Integer userChannel, SortedMap<Object, Object> resMap);
+    Integer getWxPayH5Param(String ipAddress,String oid,String openId, String orderNoStr, Integer totalFee, String body, Integer userChannel, SortedMap<String, String> resMap);
 
     String wxpay(String ipAddress,PublicAccount account, String out_trade_no, Integer order_price, String body, Integer clientType, String openId, Integer userChannel) throws JDOMException, IOException;
 
