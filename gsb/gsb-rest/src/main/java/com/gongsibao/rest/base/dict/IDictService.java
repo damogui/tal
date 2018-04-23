@@ -2,7 +2,9 @@ package com.gongsibao.rest.base.dict;
 
 import com.gongsibao.rest.web.dto.dict.CityDTO;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author ffli <ffli@gongsibao.com>
@@ -17,4 +19,12 @@ public interface IDictService {
      * @return List<CityDTO>
      */
     List<CityDTO> queryCityList(Integer listType);
+
+    /**
+     * 查询字典名称
+     * @param type 字典类型
+     * @param ids pkid
+     * @return
+     */
+    Map<Integer, String> queryDictNames(int type, Collection<Integer> ids);
 }

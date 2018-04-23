@@ -92,6 +92,8 @@ public class OrderService implements IOrderService {
 
     @Autowired
     IOrderProdTraceService orderProdTraceService;
+    @Autowired
+    private com.gongsibao.rest.base.dict.IDictService dictRestService;
 
     @Override
     public SoOrder getById(Integer orderId) {
@@ -186,14 +188,23 @@ public class OrderService implements IOrderService {
                     orderDTO.setType(soOrder.getType().getValue());
                     orderDTO.setIsInstallment(BooleanUtils.toInteger(soOrder.getIsInstallment(), 1, 0));
                     orderDTO.setInstallmentAuditStatusId(soOrder.getInstallmentAuditStatusId().getValue());
+                    List<Integer> cityIds = soOrder.getProducts().stream().map(orderProd -> {
+                        return orderProd.getCityId();
+                    }).collect(Collectors.toList());
+                    Map<Integer, String> integerStringMap = dictRestService.queryDictNames(101, cityIds);
                     List<OrderProd> products = soOrder.getProducts().stream().sorted((orderProd1, orderProd2) -> {
                         Long first = orderProd1.getCreateTime() == null ? 0 : orderProd1.getCreateTime().getTime();
                         Long next = orderProd2.getCreateTime() == null ? 0 : orderProd2.getCreateTime().getTime();
                         return next.compareTo(first);
                     }).collect(Collectors.toList());
                     orderDTO.setOrderProdListWebs(products.stream().map(orderProd -> {
-                        return convertTo(soOrder, orderProd);
+                        OrderProductDTO orderProductDTO = convertTo(soOrder, orderProd);
+                        orderProductDTO.setCityName(integerStringMap.get(orderProd.getCityId()));
+                        return orderProductDTO;
                     }).collect(Collectors.toList()));
+                    if (!soOrder.getIsInstallment() && soOrder.getPaidPrice() < soOrder.getPayablePrice()) {
+                        orderDTO.setPayBtn(1);
+                    }
 
                 }
                 return orderDTO;
