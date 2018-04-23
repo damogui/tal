@@ -7,7 +7,6 @@ import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.*;
 import com.gongsibao.rest.web.common.apiversion.Api;
 import com.gongsibao.rest.web.common.security.SecurityUtils;
-import com.gongsibao.rest.web.common.util.HttpUtil;
 import com.gongsibao.rest.web.common.util.JsSdkManager;
 import com.gongsibao.rest.web.common.util.JsonUtils;
 import com.gongsibao.rest.web.common.util.RedisClient;
@@ -315,12 +314,13 @@ public class UserController extends BaseController {
             oauth.setAppId(pa.getAppId());
             oauth.setAppSecret(pa.getAppSecret());
             oauth.setScope(OAuthRequest.OauthScope.snsapi_base);
-//            oauth.setCode(code);
+            oauth.setCode(code);
         }
         String openId=null;
         try {
-//            OAuthResponse responseCode = oauth.getResponse();
-              openId = getOpenId(code,pa);
+            OAuthResponse responseCode = oauth.getResponse();
+              openId = responseCode.getOpenid();
+
         } catch (Exception ex) {
             logger.error("", ex);
         }
@@ -666,20 +666,5 @@ public class UserController extends BaseController {
         }
         url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + getAppid + "&redirect_uri=" + returnUrl + "&response_type=code&scope=snsapi_base&state=WeiXin";
         return url;
-    }
-
-    /**
-     * 获取openID
-     *
-     * @param code 用户授权返回的code
-     * @return
-     */
-    public String getOpenId(String code,PublicAccount account) {
-        String openParam = "appid=" + account.getAppId() + "&secret=" + account.getAppSecret() + "&code=" + code + "&grant_type=authorization_code";
-        String openJsonStr = HttpUtil.SendGET("https://api.weixin.qq.com/sns/oauth2/access_token", openParam);
-        logger.error("微信公众号支付获取openid:" + openJsonStr + "");
-        Map openMap = JsonUtils.jsonToObject(openJsonStr, Map.class);
-        logger.error(openMap);
-        return (String) openMap.get("openid");
     }
 }
