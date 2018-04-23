@@ -41,7 +41,7 @@ public class WXPay {
         this.config = config;
         this.notifyUrl = notifyUrl;
         this.autoReport = autoReport;
-        this.signType = SignType.MD5; // 沙箱环境
+        this.signType = SignType.HMACSHA256; // 沙箱环境
         this.wxPayRequest = new WXPayRequest(config);
     }
 
@@ -88,9 +88,14 @@ public class WXPay {
      * @throws Exception
      */
     public SortedMap<String, String> fillRequestData(SortedMap<String, String> reqData) throws Exception {
-        reqData.put("sign", PayCommonUtil.createSign("UTF-8",reqData, config.getKey()));
-        System.out.print(reqData);
-        System.out.print("sign====="+reqData.get("sign"));
+        if (SignType.MD5.equals(this.signType)) {
+            reqData.put("sign_type", WXPayConstants.MD5);
+        }
+        else if (SignType.HMACSHA256.equals(this.signType)) {
+            reqData.put("sign_type", WXPayConstants.HMACSHA256);
+        }
+        reqData.put("sign", WXPayUtil.generateSignature(reqData, config.getKey(), this.signType));
+
         return reqData;
     }
 
@@ -234,7 +239,7 @@ public class WXPay {
      */
     public Map<String, String> unifiedOrder(SortedMap<String, String> reqData,  int connectTimeoutMs, int readTimeoutMs) throws Exception {
         String  url= WXPayConstants.UNIFIEDORDER_URL_SUFFIX;
-        String respXml = this.requestWithoutCert(url, reqData, connectTimeoutMs, readTimeoutMs);
+        String respXml = this.requestWithoutCert(url, fillRequestData(reqData), connectTimeoutMs, readTimeoutMs);
         return this.processResponseXml(respXml);
     }
 

@@ -205,7 +205,7 @@ public class AccountService implements IAccountService {
         resMap.put("timeStamp", timestamp);
         resMap.put("nonceStr", noncestr);
         resMap.put("package", "prepay_id=" + prepay_id);
-        resMap.put("signType", "MD5");
+        resMap.put("signType", "HMAC-SHA256");
         //生成支付签名,这个签名给 微信支付的调用使用
         String paySign = PayCommonUtil.createSign("UTF-8", resMap, notifyKey);
         resMap.put("paySign", paySign);
@@ -263,9 +263,9 @@ public class AccountService implements IAccountService {
         try {
             WXPayConfig config = WXPayConfig.getInstance(account.getOriginalId());
             WXPay wxpay = new WXPay(config);
-            String sign = PayCommonUtil.createSign("UTF-8", packageParams, config.getKey());
-            log.error("sign:"+sign);
-            packageParams.put("sign",sign);
+//            String sign = PayCommonUtil.createSign("UTF-8", packageParams, config.getKey());
+//            log.error("sign:"+sign);
+//            packageParams.put("sign",sign);
             Map<String, String> res = wxpay.unifiedOrder(packageParams);
             System.out.println(res);
             log.error("==========map:==========" + packageParams);
