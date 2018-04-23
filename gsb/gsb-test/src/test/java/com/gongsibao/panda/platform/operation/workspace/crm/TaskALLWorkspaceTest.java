@@ -145,8 +145,12 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 		addColumn(datagrid, "source.name", "商机来源", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "lastContent", "最后跟进内容", ControlTypes.TEXT_BOX, 300, false);
 		addColumn(datagrid, "lastFollowTime", "最后跟进时间", ControlTypes.DATETIME_BOX, 130, false);
-
-		// 未跟进天数
+		//未跟进天数:最近跟进时间距离当天的天数
+		column = addColumn(datagrid, "unFollowDays", "未跟进天数", ControlTypes.TEXT_BOX, 130, false);{
+			column.setNotPersist(true);
+			column.setFormatter(" var ctrl=workspace.parts.byIndex(0).key; return eval(ctrl+'.unFollowDaysFormatter(value,row,index)');");
+		}
+		
 		// 费用部门
 		addColumn(datagrid, "creator", "创建人", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130, false);
