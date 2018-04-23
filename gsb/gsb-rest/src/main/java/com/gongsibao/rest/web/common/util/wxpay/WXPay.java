@@ -15,7 +15,7 @@ public class WXPay {
     private WXPayRequest wxPayRequest;
 
     public WXPay(final IWXPayConfig config) throws Exception {
-        this(config, null, true, false);
+        this(config, null, true, true);
     }
 
     public WXPay(final IWXPayConfig config, final boolean autoReport) throws Exception {
