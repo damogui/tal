@@ -34,9 +34,9 @@ com.gongsibao.trade.web.InvoiceFormPart = org.netsharp.panda.commerce.FormPart.E
         }
     },
     bandOrderInfo: function (soOrder) {
-    	
+
         var me = this;
-        if(soOrder){
+        if (soOrder) {
 
             $("#soOrderNo").text(soOrder.no);
             $("#payablePrice").text(System.RMB.fenToYuan(soOrder.payablePrice));
@@ -66,16 +66,25 @@ com.gongsibao.trade.web.InvoiceFormPart = org.netsharp.panda.commerce.FormPart.E
         });
     },
     validate: function () {
+        //当前实体
+        var me = this;
+        var entity = me.viewModel.getEntity();
         var isValidate = $("#" + this.context.formName).form('validate');
         if (isValidate) {
             var mobile = $("#receiverMobilePhone").val();
-            if (!/^(1[0-9])\d{9}$/.test(mobile)) {
+            if (!System.isnull(mobile) && !/^(1[0-9])\d{9}$/.test(mobile)) {
                 IMessageBox.error('【手机号】格式错误');
                 return false;
             }
             var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
             var receiverEmail = $("#receiverEmail").val();
-            if (!reg.test(receiverEmail)) {
+
+            if (entity.typeId == 3083 && System.isnull(receiverEmail)) {//电子发票时，邮箱必填
+                IMessageBox.error('发票类型为电子发票时，邮箱不能为空');
+                return false;
+            }
+
+            if (!System.isnull(receiverEmail) && !reg.test(receiverEmail)) {
                 IMessageBox.error('【邮箱】格式错误');
                 return false;
             }
