@@ -96,8 +96,8 @@ public class NCustomerTaskNotifyService extends SupplierPersistableService<NCust
 	private void sendSMSMessage(NCustomerTaskNotify entity) {
 
 		Employee received = this.getEmployee(entity.getReceivedId());
-
-		if (received != null && !StringManager.isNullOrEmpty(received.getMobile()) && received.getMobile().length() == 11) {
+		
+		if (!received.getDisabled() && received != null && !StringManager.isNullOrEmpty(received.getMobile()) && received.getMobile().length() == 11) {
 
 			SmsHelper.send(received.getMobile(), entity.getContent());
 		}
@@ -126,7 +126,7 @@ public class NCustomerTaskNotifyService extends SupplierPersistableService<NCust
 		Oql oql = new Oql();
 		{
 			oql.setType(Employee.class);
-			oql.setSelects("id,loginName,mobile,email");
+			oql.setSelects("id,loginName,mobile,email,disabled");
 			oql.setFilter("id=?");
 			oql.getParameters().add("id", id, Types.INTEGER);
 		}
