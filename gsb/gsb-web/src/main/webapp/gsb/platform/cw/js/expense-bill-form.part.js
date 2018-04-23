@@ -219,7 +219,7 @@ com.gongsibao.cw.web.SubsidyRecordListPart= org.netsharp.panda.commerce.DetailPa
 		 var costRows = controllercostDetailItem.getGrid().datagrid('getRows');
          var costSumAmount = 0;
          $(costRows).each(function (i, item) {
-        	 costSumAmount += parseInt(item.detailMoney)/100;
+        	 costSumAmount += parseInt(item.detailMoney)/100; 
          });
          
          var subsidyRows = this.getGrid().datagrid('getRows');
