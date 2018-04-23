@@ -168,6 +168,13 @@ public class OrderService implements IOrderService {
         List<SoOrder> soOrders = tradeOrderService.pageOrderListByAccountIdStatus(accountId, status, currentPage,
                 pageSize);
         if (soOrders != null) {
+            List<Integer> cityIds = new ArrayList<>();
+            soOrders.stream().forEach(soOrder -> {
+                soOrder.getProducts().stream().forEach(orderProd -> {
+                    cityIds.add(orderProd.getCityId());
+                });
+            });
+            Map<Integer, String> cityIdNames = dictRestService.queryDictNames(101, cityIds);
             List<OrderDTO> orderDtoList = soOrders.stream().sorted((order1, order2) -> {
                 Long first = order1.getCreateTime() == null ? 0 : order1.getCreateTime().getTime();
                 Long next = order2.getCreateTime() == null ? 0 : order2.getCreateTime().getTime();
@@ -188,10 +195,6 @@ public class OrderService implements IOrderService {
                     orderDTO.setType(soOrder.getType().getValue());
                     orderDTO.setIsInstallment(BooleanUtils.toInteger(soOrder.getIsInstallment(), 1, 0));
                     orderDTO.setInstallmentAuditStatusId(soOrder.getInstallmentAuditStatusId().getValue());
-                    List<Integer> cityIds = soOrder.getProducts().stream().map(orderProd -> {
-                        return orderProd.getCityId();
-                    }).collect(Collectors.toList());
-                    Map<Integer, String> integerStringMap = dictRestService.queryDictNames(101, cityIds);
                     List<OrderProd> products = soOrder.getProducts().stream().sorted((orderProd1, orderProd2) -> {
                         Long first = orderProd1.getCreateTime() == null ? 0 : orderProd1.getCreateTime().getTime();
                         Long next = orderProd2.getCreateTime() == null ? 0 : orderProd2.getCreateTime().getTime();
@@ -199,7 +202,7 @@ public class OrderService implements IOrderService {
                     }).collect(Collectors.toList());
                     orderDTO.setOrderProdListWebs(products.stream().map(orderProd -> {
                         OrderProductDTO orderProductDTO = convertTo(soOrder, orderProd);
-                        orderProductDTO.setCityName(integerStringMap.get(orderProd.getCityId()));
+                        orderProductDTO.setCityName(cityIdNames.get(orderProd.getCityId()));
                         return orderProductDTO;
                     }).collect(Collectors.toList()));
                     if (!soOrder.getIsInstallment() && soOrder.getPaidPrice() < soOrder.getPayablePrice()) {
