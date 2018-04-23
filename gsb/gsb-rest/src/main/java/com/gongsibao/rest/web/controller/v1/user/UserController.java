@@ -293,7 +293,7 @@ public class UserController extends BaseController {
 
     /*获取微信公众号支付（H5）的参数*/
     @RequestMapping(value = "/getWxPayMP",method = RequestMethod.GET)
-    public ResponseData getWxPayMP(HttpServletRequest request, HttpServletResponse response) {
+    public ResponseData getWxPayMP(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String ipAddress = null;
         try {
             ipAddress = getIpAddr(request);
@@ -357,7 +357,7 @@ public class UserController extends BaseController {
         Integer totalFee = pay.getAmount();
         //付款内容（产品名称等）
         String body = order.getProdName();
-        SortedMap<Object, Object> resMap = new TreeMap<Object, Object>();
+        SortedMap<String, String> resMap = new TreeMap<String, String>();
         Integer resId = accountService.getWxPayH5Param(ipAddress,originalId(request),openId, orderNoStr, totalFee, body, 0, resMap);
         if (resId.equals(-1)) {
             data.setCode(-1);

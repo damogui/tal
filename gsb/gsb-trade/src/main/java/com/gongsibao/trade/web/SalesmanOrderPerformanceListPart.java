@@ -28,6 +28,7 @@ public class SalesmanOrderPerformanceListPart extends AdvancedListPart {
         sb.append ("NDepReceivable.soOrder.owner.name");
 
         oql.setSelects (sb.toString ());
+        oql.setOrderby("create_time DESC");
         List<?> rows = nDepReceivableService.queryList (oql);
         return rows;
     }

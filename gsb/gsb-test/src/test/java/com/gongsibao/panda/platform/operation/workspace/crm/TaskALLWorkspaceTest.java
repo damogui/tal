@@ -11,6 +11,7 @@ import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.crm.web.TaskAllListPart;
+import com.gongsibao.crm.web.platform.PlatformTaskAllListPart;
 
 public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 
@@ -23,7 +24,7 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 		listPartName = formPartName = "全部商机";
 		resourceNodeCode = "Operation_CRM_Task_ALL";
 		listPartJsController = TaskAllListPart.class.getName();
-		listPartServiceController = TaskAllListPart.class.getName();
+		listPartServiceController = PlatformTaskAllListPart.class.getName();
 		listPartImportJs = "/gsb/supplier/crm/base/js/task-base-list.part.js|/gsb/platform/operation/crm/js/task-all-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
 		listToolbarPath = "task/all/list";
 		listFilter = null;
@@ -84,7 +85,7 @@ public class TaskALLWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 		addColumn(datagrid, "allocationState", "分配状态", ControlTypes.ENUM_BOX, 100, false);
 		addColumn(datagrid, "owner.name", "业务员", ControlTypes.ENUM_BOX, 100, false);
 		addColumn(datagrid, "name", "商机名称", ControlTypes.TEXT_BOX, 250, false);
-		addColumn(datagrid, "customer.company.companyName", "关联公司", ControlTypes.TEXT_BOX, 100);
+		addColumn(datagrid, "customer.companyName", "关联公司", ControlTypes.TEXT_BOX, 100);
 		addColumn(datagrid, "customerId", "客户ID", ControlTypes.TEXT_BOX, 60, false);
 		addColumn(datagrid, "customer.realName", "客户名称", ControlTypes.TEXT_BOX, 100, false);
 		addColumn(datagrid, "allocationDispositon", "自营/平台", ControlTypes.ENUM_BOX, 100, false);

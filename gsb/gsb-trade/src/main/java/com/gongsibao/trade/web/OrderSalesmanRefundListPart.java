@@ -35,10 +35,12 @@ public class OrderSalesmanRefundListPart extends AdvancedListPart {
         }
         return parameter.getFilter();
     }
+
     @Override
     public List<?> doQuery(Oql oql) {
         //oql.setSelects("fefund.*,fefund.soOrder.*");
         oql.setSelects("Refund.*,Refund.soOrder.*,Refund.soOrder.companyIntention.{pkid,name,full_name,company_name}");
+        oql.setOrderby("add_time DESC");
         List<Refund> resList = (List<Refund>) super.doQuery(oql);
         return resList;
     }
@@ -48,9 +50,9 @@ public class OrderSalesmanRefundListPart extends AdvancedListPart {
         HashMap<String, Object> json = (HashMap<String, Object>) super.serialize(list, oql);
         ArrayList<HashMap<String, Object>> ob2 = (ArrayList<HashMap<String, Object>>) json.get("rows");
         for (int i = 0; i < ob2.size(); i++) {
-        	
-        	Refund refund = ((Refund) list.get(i));
-        	SoOrder soOrder  = refund.getSoOrder();
+
+            Refund refund = ((Refund) list.get(i));
+            SoOrder soOrder = refund.getSoOrder();
             Integer balance = NumberUtils.toInt(soOrder.getPaidPrice()) + NumberUtils.toInt(soOrder.getCarryIntoAmount()) - NumberUtils.toInt(soOrder.getRefundPrice()) - NumberUtils.toInt(soOrder.getCarryAmount());
             Integer toBePaidPrice = soOrder.getPayablePrice().intValue() - balance;
             ob2.get(i).put("soOrder_toBePaidPrice", toBePaidPrice);

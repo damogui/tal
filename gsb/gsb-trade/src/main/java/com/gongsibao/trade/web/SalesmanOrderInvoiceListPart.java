@@ -1,7 +1,9 @@
 package com.gongsibao.trade.web;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
 import org.netsharp.util.StringManager;
@@ -29,4 +31,9 @@ public class SalesmanOrderInvoiceListPart extends AdvancedListPart {
         return parameter.getFilter();
     }
 
+    @Override
+    public List<?> doQuery(Oql oql) {
+        oql.setOrderby("add_time DESC");
+        return super.doQuery(oql);
+    }
 }

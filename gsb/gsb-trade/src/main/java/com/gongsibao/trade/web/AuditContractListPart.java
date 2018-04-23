@@ -3,6 +3,7 @@ package com.gongsibao.trade.web;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.u8.base.ISoOrderService;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
 import org.netsharp.util.StringManager;
@@ -31,6 +32,12 @@ public class AuditContractListPart extends AdvancedListPart {
             return " type_id = "+ AuditLogType.Htsq.getValue()+" and form_id in (select pkid from so_contract where order_id in ( select pkid from so_order where " + StringManager.join(" or ", filters) + "))";
         }
         return parameter.getFilter();
+    }
+
+    @Override
+    public List<?> doQuery(Oql oql) {
+        oql.setOrderby("add_time DESC");
+        return super.doQuery(oql);
     }
 
 }

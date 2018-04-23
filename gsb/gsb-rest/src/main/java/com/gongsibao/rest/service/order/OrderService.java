@@ -43,6 +43,7 @@ import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.annotations.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -248,29 +249,8 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public void updateToCancel(Integer accountId, Integer orderId, int orderCancelStatus) {
-        int effectNum = tradeOrderService.updateOrderStatus(accountId, orderId, orderCancelStatus);
-        if (effectNum > 0 && orderCancelStatus == 3023) {
-            List<OrderProd> orderProds = orderProdService.byOrderId(orderId);
-            if (orderProds != null) {
-                List<Integer> orderProdIds = orderProds.stream().map(OrderProd::getId).collect(Collectors.toList());
-                orderProdService.removeCompanyQualifyByOrderProdIds(orderProdIds);
-                List<OrderDiscount> orderDiscounts = orderDiscountService.queryByOrderId(orderId);
-                if (orderDiscounts != null) {
-                    final int[] amount = {0};
-                    orderDiscounts.stream().forEach(orderDiscount -> {
-                        amount[0] += ObjectUtils.defaultIfNull(orderDiscount.getAmount(), 0);
-                        // 优惠券使用记录，更新为用户取消
-                        orderDiscountService.updateNo(orderDiscount.getId(), orderDiscount.getNo().concat("-用户取消"));
-                        // 优惠券使用状态还原
-                        preferentialCodeService.updateUseRevert(orderDiscount.getPreferentialId(), orderDiscount
-                                .getNo());
-                    });
-                    // 复原订单价格
-                    tradeOrderService.updatePayablePriceRevert(orderId, amount[0]);
-                }
-            }
-        }
+    public void updateToCancel(Integer accountId, Integer orderId) {
+        tradeOrderService.updateCancelOrder(accountId, orderId);
     }
 
     private OrderProductDTO convertTo(SoOrder soOrder,OrderProd orderProd){

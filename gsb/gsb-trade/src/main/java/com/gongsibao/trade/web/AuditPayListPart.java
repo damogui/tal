@@ -74,6 +74,7 @@ public class AuditPayListPart extends AdvancedListPart {
 
         IAuditLogService auditLogService = ServiceFactory.create (IAuditLogService.class);
         oql.setSelects (selects.toString ());
+        oql.setOrderby("add_time DESC");
         List<AuditLog> auditLogs = auditLogService.queryList (oql);
         return auditLogs;
     }

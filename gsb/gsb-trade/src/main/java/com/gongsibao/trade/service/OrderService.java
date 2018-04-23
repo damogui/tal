@@ -5,11 +5,11 @@ import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.trade.*;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
-import com.gongsibao.trade.base.IInvoiceService;
-import com.gongsibao.trade.base.IOrderInvoiceMapService;
-import com.gongsibao.trade.base.IOrderService;
+import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
+import com.gongsibao.trade.base.*;
 import com.gongsibao.trade.service.action.order.utils.AuditHelper;
 import com.gongsibao.trade.web.dto.OrderPayDTO;
+import org.apache.commons.lang3.ObjectUtils;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
@@ -28,6 +28,7 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderService extends PersistableService<SoOrder> implements IOrderService {
@@ -35,6 +36,9 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
     IPreferentialCodeService preferentialCodeService = ServiceFactory.create(IPreferentialCodeService.class);
     IInvoiceService invoiceService = ServiceFactory.create(IInvoiceService.class);
     IOrderInvoiceMapService orderInvoiceMapService = ServiceFactory.create(IOrderInvoiceMapService.class);
+    IOrderProdService orderProdService = ServiceFactory.create(IOrderProdService.class);
+    IOrderDiscountService orderDiscountService = ServiceFactory.create(IOrderDiscountService.class);
+    IOrderService tradeOrderService = ServiceFactory.create(IOrderService.class);
 
     public OrderService() {
         super();
@@ -497,6 +501,33 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
         queryParameters.add("pkid",orderId,Types.INTEGER);
         queryParameters.add("account_id",accountId,Types.INTEGER);
         return this.pm.executeNonQuery(sql, queryParameters);
+    }
+
+    @Override
+    public int updateCancelOrder(Integer accountId, Integer orderId) {
+        int effectNum = updateOrderStatus(accountId,orderId, OrderProcessStatusType.Yqx.getValue());
+        if (effectNum > 0) {
+            List<OrderProd> orderProds = orderProdService.byOrderId(orderId);
+            if (orderProds != null) {
+                List<Integer> orderProdIds = orderProds.stream().map(OrderProd::getId).collect(Collectors.toList());
+                orderProdService.removeCompanyQualifyByOrderProdIds(orderProdIds);
+                List<OrderDiscount> orderDiscounts = orderDiscountService.queryByOrderId(orderId);
+                if (orderDiscounts != null) {
+                    final int[] amount = {0};
+                    orderDiscounts.stream().forEach(orderDiscount -> {
+                        amount[0] += ObjectUtils.defaultIfNull(orderDiscount.getAmount(), 0);
+                        // 优惠券使用记录，更新为用户取消
+                        orderDiscountService.updateNo(orderDiscount.getId(), orderDiscount.getNo().concat("-用户取消"));
+                        // 优惠券使用状态还原
+                        preferentialCodeService.updateUseRevert(orderDiscount.getPreferentialId(), orderDiscount
+                                .getNo());
+                    });
+                    // 复原订单价格
+                    tradeOrderService.updatePayablePriceRevert(orderId, amount[0]);
+                }
+            }
+        }
+        return effectNum;
     }
 
     @Override

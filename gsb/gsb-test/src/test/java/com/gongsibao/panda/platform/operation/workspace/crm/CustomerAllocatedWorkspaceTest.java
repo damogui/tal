@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.netsharp.core.MtableManager;
 
 import com.gongsibao.crm.web.NCustomerAllListPart;
+import com.gongsibao.crm.web.platform.PlatformCustomerAllListPart;
 import com.gongsibao.entity.crm.NCustomer;
 
 public class CustomerAllocatedWorkspaceTest extends CustomerALLWorkspaceTest {
@@ -23,7 +24,7 @@ public class CustomerAllocatedWorkspaceTest extends CustomerALLWorkspaceTest {
 		listPartImportJs = "/gsb/supplier/crm/base/js/customer-base-list.part.js|/gsb/platform/operation/crm/js/customer-all-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
 		listFilter = "id in (SELECT customer_id from n_crm_customer_task where owner_id is not null and owner_id>0)";//已分配客户
 		listPartJsController = NCustomerAllListPart.class.getName();
-		listPartServiceController = NCustomerAllListPart.class.getName();
+		listPartServiceController = PlatformCustomerAllListPart.class.getName();
 	}
 	
 	@Test
