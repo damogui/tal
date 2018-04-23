@@ -53,7 +53,7 @@ public class IcExRegisterCase extends Entity {
     private ApprovalType approvalType = ApprovalType.WAIT;
 
     @Column(name = "corp_reg_statue",header = "工商业务状态")
-    private CorpRegStatue corpRegStatue;
+    private CorpRegStatue corpRegStatue = CorpRegStatue.UNCOMMITTED;
 
     @Column(name = "operator",header = "操作者")
     private Operator operator;
