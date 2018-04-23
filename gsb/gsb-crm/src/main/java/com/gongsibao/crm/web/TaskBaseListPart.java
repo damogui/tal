@@ -25,9 +25,7 @@ public class TaskBaseListPart extends AdvancedListPart {
     ICustomerCompanyMapService customerCompanyMapService = ServiceFactory.create(ICustomerCompanyMapService.class);
 
     public String getFilterByParameter(FilterParameter parameter) {
-
         if (parameter.getKey().equals("keyword")) {
-
             // 这里全匹配
             ArrayList<String> filters = new ArrayList<String>();
             String keyword = parameter.getValue1().toString();
@@ -41,8 +39,7 @@ public class TaskBaseListPart extends AdvancedListPart {
             filters.add("weixin='" + keyword + "'");
             filters.add("pkid in (select customer_id from crm_customer_company_map where company_id in(select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' ) ))");
             return "customer_id in ( select pkid from crm_customer where (" + StringManager.join(" or ", filters) + "))";
-        }
-        else if (parameter.getKey().equals("unFollowDayCount")) {
+        } else if (parameter.getKey().equals("unFollowDayCount")) {
 
             //未跟进天数：当前时间-上次跟进时间
             return String.format("(datediff(now(),last_follow_time)>%s and (datediff(now(),last_follow_time) )<%s)", parameter.getValue1(), parameter.getValue2());
@@ -64,24 +61,11 @@ public class TaskBaseListPart extends AdvancedListPart {
         oql.setOrderby("create_time DESC");
         List<NCustomerTask> taskList = (List<NCustomerTask>) super.doQuery(oql);
         List<Integer> customerIdList = getCustomerIdList(taskList);
-        Map<Integer, String> companyNameByCustomerIdMap = customerCompanyMapService.getCompanyNameByCustomerIdList(customerIdList);
-        for (NCustomerTask task : taskList) {
-            NCustomer customer = task.getCustomer();
-            customer.setCompanyName(companyNameByCustomerIdMap.get(customer.getId()));
-        }
+        setCompanyName(taskList, customerIdList);
         return taskList;
+
     }
 
-    //获取客户id集合
-    private List<Integer> getCustomerIdList(List<NCustomerTask> taskList) {
-        List<Integer> customerIdList = new ArrayList<>();
-        for (NCustomerTask task : taskList) {
-            if (!customerIdList.contains(task.getCustomerId())) {
-                customerIdList.add(task.getCustomerId());
-            }
-        }
-        return customerIdList;
-    }
 
 
     protected Object serialize(List<?> list, Oql oql) {
@@ -189,4 +173,25 @@ public class TaskBaseListPart extends AdvancedListPart {
         INCustomerOperationLogService changeService = ServiceFactory.create(INCustomerOperationLogService.class);
         return changeService.recordLookLog(customerId, typeName);
     }
+
+    //region 私有方法
+    private void setCompanyName(List<NCustomerTask> taskList, List<Integer> customerIdList) {
+        Map<Integer, String> companyNameByCustomerIdMap = customerCompanyMapService.getCompanyNameByCustomerIdList(customerIdList);
+        for (NCustomerTask task : taskList) {
+            NCustomer customer = task.getCustomer();
+            customer.setCompanyName(companyNameByCustomerIdMap.get(customer.getId()));
+        }
+    }
+
+    //获取客户id集合
+    private List<Integer> getCustomerIdList(List<NCustomerTask> taskList) {
+        List<Integer> customerIdList = new ArrayList<>();
+        for (NCustomerTask task : taskList) {
+            if (!customerIdList.contains(task.getCustomerId())) {
+                customerIdList.add(task.getCustomerId());
+            }
+        }
+        return customerIdList;
+    }
+    //endregion
 }
