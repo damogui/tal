@@ -43,4 +43,6 @@ public interface IAccountService {
     String wxpay(String ipAddress,PublicAccount account, String out_trade_no, Integer order_price, String body, Integer clientType, String openId, Integer userChannel) throws JDOMException, IOException;
 
     List<OrderPayMap> pageByProperties(Integer orderId, Integer payId);
+
+    boolean matchOpenIdOid(String openId, Integer accountId);
 }
