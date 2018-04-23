@@ -88,7 +88,6 @@ public class WXPay {
      * @throws Exception
      */
     public SortedMap<String, String> fillRequestData(SortedMap<String, String> reqData) throws Exception {
-        reqData.put("sign_type", WXPayConstants.MD5);
         reqData.put("sign", PayCommonUtil.createSign("UTF-8",reqData, config.getKey()));
         System.out.print(reqData);
         System.out.print("sign====="+reqData.get("sign"));
@@ -235,7 +234,7 @@ public class WXPay {
      */
     public Map<String, String> unifiedOrder(SortedMap<String, String> reqData,  int connectTimeoutMs, int readTimeoutMs) throws Exception {
         String  url= WXPayConstants.UNIFIEDORDER_URL_SUFFIX;
-        String respXml = this.requestWithoutCert(url, this.fillRequestData(reqData), connectTimeoutMs, readTimeoutMs);
+        String respXml = this.requestWithoutCert(url, reqData, connectTimeoutMs, readTimeoutMs);
         return this.processResponseXml(respXml);
     }
 
