@@ -10,6 +10,7 @@ import com.gongsibao.rest.web.common.security.SecurityUtils;
 import com.gongsibao.rest.web.common.util.JsSdkManager;
 import com.gongsibao.rest.web.common.util.JsonUtils;
 import com.gongsibao.rest.web.common.util.RedisClient;
+import com.gongsibao.rest.web.common.util.StringUtils;
 import com.gongsibao.rest.web.common.web.ResponseData;
 import com.gongsibao.rest.base.user.IAccountService;
 import com.gongsibao.rest.web.controller.BaseController;
@@ -18,7 +19,6 @@ import com.gongsibao.u8.base.ISoOrderService;
 import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.NetsharpException;
@@ -555,12 +555,12 @@ public class UserController extends BaseController {
      * @date 2018/4/19 20:21
      */
     @RequestMapping(value = "/checkOrder",method = RequestMethod.POST)
-    public ResponseData igirlCheckOrder(HttpServletRequest request, HttpServletResponse response) {
+    public ResponseData igirlCheckOrder(HttpServletRequest request, HttpServletResponse response, @RequestBody Map<String, Object> req) {
         ResponseData data = new ResponseData();
         // 订单ID
-        String orderIdStr = StringUtils.trimToEmpty(request.getParameter("orderIdStr"));
+        String orderIdStr = StringUtils.trimToEmpty(req.get("orderIdStr"));
         // 订单支付ID
-        String payIdStr = StringUtils.trimToEmpty(request.getParameter("payIdStr"));
+        String payIdStr = StringUtils.trimToEmpty(req.get("payIdStr"));
 //        log.info("==========checkOrder payIdStr==========" + payIdStr);
         payIdStr = SecurityUtils.rc4Decrypt(payIdStr);
         Integer payId = NumberUtils.toInt(payIdStr, -1);
@@ -568,7 +568,7 @@ public class UserController extends BaseController {
         if(StringUtils.isNotEmpty(orderIdStr)){
             orderIdStr = SecurityUtils.rc4Decrypt(orderIdStr);
             Integer orderId = NumberUtils.toInt(orderIdStr, -1);
-            SoOrder order = soOrderService.byId(orderId);
+            SoOrder order = soOrderService.getByOrderId(orderId);
             Pay pay = payService.byId(payId);
 
             /** 301 订单付款状态：3011 待付款、3012 已付部分款（根据“是否分期”判断处理流程）、3013 已付款 */
