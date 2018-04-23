@@ -355,7 +355,10 @@ public class OrderService implements IOrderService {
     private Result doCoupon(SoOrder order, OrderAddDTO orderAddDTO) {
         Result<SoOrder> result = new Result<SoOrder>();
         // 订单原价
-        double payablePrice = order.getPayablePrice();
+        int payablePrice = order.getPayablePrice();
+
+        // 优惠总额
+        Integer couponTotalPrice = 0;
 
         List<String> couponNoList = StringUtils.stringToList(orderAddDTO.getOrderDiscount());
         if (CollectionUtils.isNotEmpty(couponNoList)) {
@@ -393,9 +396,10 @@ public class OrderService implements IOrderService {
                 }
 
                 // 计算订单价格
-                Double couponPrice = couponService.couponPrice(payablePrice, coupon);
-                payablePrice = AmountUtils.sub(payablePrice, couponPrice);
+                int couponPrice = couponService.couponPrice(payablePrice, coupon);
+                payablePrice = payablePrice - couponPrice;
 
+                couponTotalPrice = couponTotalPrice + couponPrice;
                 // 设置订单关联优惠券
                 OrderDiscount orderDiscount = new OrderDiscount();
                 {
@@ -411,12 +415,32 @@ public class OrderService implements IOrderService {
 
             // 特么的不会优惠到负值吧！
             if (payablePrice < 0) {
-                payablePrice = 0d;
+                payablePrice = 0;
             }
 
+            // 计算OrderProd价格
+            List<OrderProd> products = order.getProducts();
+
+            // 计算逻辑: 订单优惠价格/订单应付价格 = 明细订单优惠价格/明细订单价格
+            int couponPriceUse = 0;
+            for (int i = 0; i < products.size(); i++) {
+                OrderProd orderProd = products.get(i);
+                if (i == products.size() - 1) {
+                    int lastCouponPrice = couponTotalPrice - couponPriceUse;
+                    lastCouponPrice = lastCouponPrice < 0 ? 0 : lastCouponPrice;
+                    orderProd.setPrice(orderProd.getPrice() - (lastCouponPrice));
+                } else {
+                    // 明细订单优惠价格
+                    int orderProdCouponPrice = NumberUtils.doubleRoundInt(AmountUtils.div(AmountUtils.mul(couponTotalPrice, orderProd.getPrice()), order.getPayablePrice(), 2));
+                    // 设置明细订单真实价格
+                    orderProd.setPrice(orderProd.getPrice() - orderProdCouponPrice);
+                    couponPriceUse = couponPriceUse + orderProdCouponPrice;
+                }
+            }
             order.setPayablePrice(NumberUtils.doubleRoundInt(payablePrice));
             order.setDiscounts(orderDiscountList);
         }
+
 
         return result;
     }

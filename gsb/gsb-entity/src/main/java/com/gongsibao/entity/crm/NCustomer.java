@@ -4,10 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.gongsibao.entity.BaseEntity;
-import org.netsharp.core.annotations.Column;
-import org.netsharp.core.annotations.Reference;
-import org.netsharp.core.annotations.Subs;
-import org.netsharp.core.annotations.Table;
+import org.netsharp.core.annotations.*;
 import org.netsharp.entity.Entity;
 import org.netsharp.organization.entity.Employee;
 
@@ -199,6 +196,10 @@ public class NCustomer extends BaseEntity {
 
 	@Subs(foreignKey = "customerId", header = "流转日志", subType = NCustomerOperationLog.class)
 	private List<NCustomerOperationLog> changes;
+
+	@Exclusive
+	@Column(name = "companyName", header = "关联公司名称")
+	private String companyName;
 
 	public Integer getTaskCount() {
 		return taskCount;
@@ -647,5 +648,12 @@ public class NCustomer extends BaseEntity {
 	public void setLastCustomerSourceId(Integer lastCustomerSourceId) {
 		this.lastCustomerSourceId = lastCustomerSourceId;
 	}
-	
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
 }

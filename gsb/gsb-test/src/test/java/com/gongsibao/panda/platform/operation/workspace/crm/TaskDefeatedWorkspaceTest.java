@@ -7,6 +7,7 @@ import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.crm.web.TaskAllListPart;
+import com.gongsibao.crm.web.platform.PlatformTaskAllListPart;
 
 public class TaskDefeatedWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 
@@ -19,7 +20,7 @@ public class TaskDefeatedWorkspaceTest extends TaskOpenSeaWorkspaceTest {
 		listPartName = formPartName = "无法签单";
 		resourceNodeCode = "Operation_CRM_Task_Defeated";
 		listPartJsController = TaskAllListPart.class.getName();
-		listPartServiceController = TaskAllListPart.class.getName();
+		listPartServiceController = PlatformTaskAllListPart.class.getName();
 		listPartImportJs = "/gsb/supplier/crm/base/js/task-base-list.part.js|/gsb/platform/operation/crm/js/task-all-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
 		listToolbarPath = null;
 		rowToolbaPath = "/operation/task/lostOrder/toolbar";

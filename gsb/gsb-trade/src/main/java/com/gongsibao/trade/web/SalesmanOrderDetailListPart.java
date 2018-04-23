@@ -2,6 +2,7 @@ package com.gongsibao.trade.web;
 
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
@@ -42,7 +43,13 @@ public class SalesmanOrderDetailListPart extends AdvancedListPart {
         }
         return parameter.getFilter();
     }
-    
+
+    @Override
+    public List<?> doQuery(Oql oql) {
+        oql.setOrderby("pkid DESC");
+        return super.doQuery(oql);
+    }
+
     /**
      * 根据产品Id获取是否有办理名称 
      * @param productId

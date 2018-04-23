@@ -70,6 +70,7 @@ public class AuditInvoiceListPart extends AdvancedListPart {
     @Override
     public List<?> doQuery(Oql oql) {
         oql.setSelects("auditLog.*,invoice.*,invoice.salesman.{id,name}");
+        oql.setOrderby("pkid DESC");
         List<AuditLog> resList = (List<AuditLog>) super.doQuery(oql);
         List<Integer> invoiceIdList = getInvoiceIdList(resList);
         List<OrderInvoiceMap> orderInvoiceMapList = orderInvoiceMapService.getByInvoiceIdList(invoiceIdList);

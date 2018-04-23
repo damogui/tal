@@ -8,6 +8,8 @@ import com.gongsibao.rest.base.user.IAccountService;
 import com.gongsibao.rest.web.common.util.*;
 import com.gongsibao.rest.web.common.util.wxpay.WXPay;
 import com.gongsibao.rest.web.common.util.wxpay.WXPayConfig;
+import com.gongsibao.rest.web.common.util.wxpay.WXPayConstants;
+import com.gongsibao.rest.web.common.util.wxpay.WXPayUtil;
 import com.gongsibao.rest.web.common.web.Constant;
 import com.gongsibao.u8.base.IOrderPayMapService;
 import com.gongsibao.utils.NumberUtils;
@@ -181,7 +183,7 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public Integer getWxPayH5Param(String ipAddress, String oid, String openId, String orderNoStr, Integer totalFee, String body, Integer userChannel, SortedMap<Object, Object> resMap) {
+    public Integer getWxPayH5Param(String ipAddress, String oid, String openId, String orderNoStr, Integer totalFee, String body, Integer userChannel, SortedMap<String, String> resMap) throws Exception {
         //获取openID
         String openid = openId;
         IPublicAccountService publicAccountService = ServiceFactory.create(IPublicAccountService.class);
@@ -205,9 +207,9 @@ public class AccountService implements IAccountService {
         resMap.put("timeStamp", timestamp);
         resMap.put("nonceStr", noncestr);
         resMap.put("package", "prepay_id=" + prepay_id);
-        resMap.put("signType", "MD5");
+        resMap.put("signType", "HMAC-SHA256");
         //生成支付签名,这个签名给 微信支付的调用使用
-        String paySign = PayCommonUtil.createSign("UTF-8", resMap, notifyKey);
+        String paySign = WXPayUtil.generateSignature(resMap, notifyKey, WXPayConstants.SignType.HMACSHA256);
         resMap.put("paySign", paySign);
         return 1;
     }
@@ -238,7 +240,7 @@ public class AccountService implements IAccountService {
         String trade_type = "JSAPI";
         // body 类型：String(128),当body长度过长时，会报错"return_msg=body参数长度有误, return_code=FAIL"
         body = com.gongsibao.rest.web.common.util.StringUtils.getSubStr(body, 100);
-        HashMap<String, String> packageParams = new HashMap<String, String>();
+        SortedMap<String, String> packageParams = new TreeMap<String, String>();
         packageParams.put("appid", appid);
         packageParams.put("body", body);
         packageParams.put("mch_id", mch_id);
@@ -253,9 +255,8 @@ public class AccountService implements IAccountService {
             packageParams.put("openid", openId);
         log.error("==========out_trade_no is:==========" + out_trade_no);
         log.error("packageParams:" + packageParams);
-//        String sign = PayCommonUtil.createSign("UTF-8", packageParams, key);
+
 //        log.error("sign:"+sign);
-//        packageParams.put("sign", sign);
 //        String requestXML = PayCommonUtil.getRequestXml(packageParams);
 //        log.error(requestXML);
 //        String resXml = HttpUtil.postData(Constant.PAY_API, requestXML);
@@ -264,6 +265,9 @@ public class AccountService implements IAccountService {
         try {
             WXPayConfig config = WXPayConfig.getInstance(account.getOriginalId());
             WXPay wxpay = new WXPay(config);
+//            String sign = PayCommonUtil.createSign("UTF-8", packageParams, config.getKey());
+//            log.error("sign:"+sign);
+//            packageParams.put("sign",sign);
             Map<String, String> res = wxpay.unifiedOrder(packageParams);
             System.out.println(res);
             log.error("==========map:==========" + packageParams);

@@ -3,6 +3,7 @@ package com.gongsibao.entity.igirl.ic.ex;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.igirl.ic.dict.CorpRegStatue;
 import com.gongsibao.entity.igirl.ic.ex.dict.ApprovalType;
+import com.gongsibao.entity.igirl.ic.ex.dict.Operator;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -53,6 +54,10 @@ public class IcExRegisterCase extends Entity {
 
     @Column(name = "corp_reg_statue",header = "工商业务状态")
     private CorpRegStatue corpRegStatue;
+
+    @Column(name = "operator",header = "操作者")
+    private Operator operator;
+
 
     public Integer getCustomerId() {
         return customerId;
@@ -156,5 +161,13 @@ public class IcExRegisterCase extends Entity {
 
     public void setDepartment(SupplierDepartment department) {
         this.department = department;
+    }
+
+    public Operator getOperator() {
+        return operator;
+    }
+
+    public void setOperator(Operator operator) {
+        this.operator = operator;
     }
 }

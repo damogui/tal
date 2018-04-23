@@ -46,7 +46,7 @@ public interface ICouponService {
      * @author wangkun <wangkun@gongsibao.com>
      * @date 2018/4/18
      */
-    Double couponPrice(Double price, Preferential coupon);
+    Integer couponPrice(Integer price, Preferential coupon);
 
     /* *
      * @Description:TODO

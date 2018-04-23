@@ -17,6 +17,7 @@ import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.crm.web.NCustomerAllListPart;
+import com.gongsibao.crm.web.platform.PlatformCustomerAllListPart;
 import com.gongsibao.entity.crm.NCustomer;
 
 public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
@@ -33,7 +34,7 @@ public class CustomerALLWorkspaceTest extends WorkspaceCreationBase {
 		listPartImportJs = "/gsb/supplier/crm/base/js/customer-base-list.part.js|/gsb/platform/operation/crm/js/customer-all-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
 
 		listPartJsController = NCustomerAllListPart.class.getName();
-		listPartServiceController = NCustomerAllListPart.class.getName();
+		listPartServiceController = PlatformCustomerAllListPart.class.getName();
 		
 		listToolbarPath = "crm/operation/customer/edit";
 	}

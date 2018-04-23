@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.netsharp.panda.plugin.entity.PToolbar;
 
 import com.gongsibao.crm.web.TaskAllListPart;
+import com.gongsibao.crm.web.platform.PlatformTaskAllListPart;
 
 public class TaskCheckAbnormalWorkspaceTest extends TaskOpenSeaWorkspaceTest{
 
@@ -17,7 +18,7 @@ public class TaskCheckAbnormalWorkspaceTest extends TaskOpenSeaWorkspaceTest{
 		resourceNodeCode = "Operation_CRM_Task_Anomaly_Detection";
 		listFilter="inspectionState in (3,4)";	
 		listPartJsController = TaskAllListPart.class.getName();
-		listPartServiceController = TaskAllListPart.class.getName();
+		listPartServiceController = PlatformTaskAllListPart.class.getName();
 		listPartImportJs = "/gsb/supplier/crm/base/js/task-base-list.part.js|/gsb/platform/operation/crm/js/task-all-list.part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
 		listToolbarPath = "task/anomalydetection/list";
 		rowToolbaPath = "panda/datagrid/row/edit";

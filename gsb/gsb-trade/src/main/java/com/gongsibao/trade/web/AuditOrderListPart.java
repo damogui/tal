@@ -1,19 +1,21 @@
 package com.gongsibao.trade.web;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
 import org.netsharp.util.StringManager;
 
 /**
- * 订单审核 
- * @author yxb
+ * 订单审核
  *
+ * @author yxb
  */
-public class AuditOrderListPart extends AdvancedListPart{
+public class AuditOrderListPart extends AdvancedListPart {
 
-	@Override
+    @Override
     public String getFilterByParameter(FilterParameter parameter) {
 
         ArrayList<String> filters = new ArrayList<String>();
@@ -26,10 +28,16 @@ public class AuditOrderListPart extends AdvancedListPart{
             filters.add("soOrder.account_mobile = '" + keyword + "'");
             filters.add("soOrder.account_name = '" + keyword + "'");
             filters.add("soOrder.company_id in( select pkid from crm_company_intention where (name like '%" + keyword + "%' or full_name like '%" + keyword + "%' or company_name like '%" + keyword + "%' )  )");
-            return " soOrder.pkid>0  and (" + StringManager.join (" or ", filters) + ")";
-           // return "(" + StringManager.join(" or ", filters) + ")";
+            return " soOrder.pkid>0  and (" + StringManager.join(" or ", filters) + ")";
+            // return "(" + StringManager.join(" or ", filters) + ")";
         }
 
         return parameter.getFilter();
+    }
+
+    @Override
+    public List<?> doQuery(Oql oql) {
+        oql.setOrderby("add_time DESC");
+        return super.doQuery(oql);
     }
 }

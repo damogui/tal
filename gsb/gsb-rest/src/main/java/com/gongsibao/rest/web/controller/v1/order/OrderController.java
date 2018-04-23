@@ -5,7 +5,6 @@ import com.gongsibao.rest.base.order.IOrderService;
 import com.gongsibao.rest.web.common.apiversion.Api;
 import com.gongsibao.rest.web.common.apiversion.LoginCheck;
 import com.gongsibao.rest.web.common.security.SecurityUtils;
-import com.gongsibao.rest.web.common.util.JsonUtils;
 import com.gongsibao.rest.web.common.util.NumberUtils;
 import com.gongsibao.rest.web.common.web.ResponseData;
 import com.gongsibao.rest.web.controller.BaseController;
@@ -40,39 +39,38 @@ public class OrderController extends BaseController {
      */
     @RequestMapping("/messageInfo")
     public ResponseData lstService(HttpServletRequest request) {
-        ResponseData data = new ResponseData();
         int orderProdId = NumberUtils.toInt(request.getParameter("orderProdId"));
 
-        OrderMessageDTO dto = orderService.getOrderMessage(orderProdId);
-        if (null == dto) {
-            data.setCode(-1);
-            data.setMsg("订单不存在");
-            return data;
+        try {
+            OrderMessageDTO dto = orderService.getOrderMessage(orderProdId);
+            if (null == dto) {
+                return ResponseData.getError(ResponseData.FAIL, "订单不存在");
+            }
+            return ResponseData.getSuccess(dto, "");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseData.getError(ResponseData.EXCEPTION, "您的网络不稳定，请稍后再试。");
         }
-        data.setData(dto);
-
-        return data;
     }
 
     @RequestMapping("/info")
     @LoginCheck
     public ResponseData info(HttpServletRequest request) {
-        ResponseData data = new ResponseData();
         int orderId = NumberUtils.toInt(SecurityUtils.rc4Decrypt(request.getParameter("orderIdStr")));
         if (orderId == 0) {
-            data.setCode(-1);
-            data.setMsg("订单不存在");
-            return data;
+            return ResponseData.getError(ResponseData.FAIL, "订单不存在");
         }
 
-        SoOrder order = orderService.getById(orderId);
-        if (null == order) {
-            data.setCode(-1);
-            data.setMsg("订单不存在");
-            return data;
-        }
+        try {
+            SoOrder order = orderService.getById(orderId);
+            if (null == order) {
+                return ResponseData.getError(ResponseData.FAIL, "订单不存在");
+            }
 
-        data.setData(order);
-        return data;
+            return ResponseData.getSuccess(order, "");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseData.getError(ResponseData.EXCEPTION, "您的网络不稳定，请稍后再试。");
+        }
     }
 }

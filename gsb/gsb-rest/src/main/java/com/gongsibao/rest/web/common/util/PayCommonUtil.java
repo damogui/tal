@@ -43,7 +43,7 @@ public class PayCommonUtil {
      * @Description：sign签名
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public static String createSign(String characterEncoding, SortedMap<Object, Object> packageParams, String key) {
+    public static String createSign(String characterEncoding, SortedMap<String, String> packageParams, String key) {
         StringBuffer sb = new StringBuffer();
         Set es = packageParams.entrySet();
         Iterator it = es.iterator();
@@ -69,7 +69,7 @@ public class PayCommonUtil {
      * @Description：将请求参数转换为xml格式的string
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public static String getRequestXml(SortedMap<Object, Object> parameters) {
+    public static String getRequestXml(SortedMap<String, String> parameters) {
         StringBuffer sb = new StringBuffer();
         sb.append("<xml>");
         Set es = parameters.entrySet();

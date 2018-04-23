@@ -6,17 +6,22 @@ import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.organization.entity.Employee;
+import org.netsharp.organization.entity.Role;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
+import org.netsharp.panda.dic.DockType;
 import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.dic.PartType;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PForm;
 import org.netsharp.panda.entity.PFormField;
+import org.netsharp.panda.entity.PPart;
 import org.netsharp.panda.entity.PQueryProject;
+import org.netsharp.panda.entity.PWorkspace;
 import org.netsharp.panda.plugin.entity.PToolbar;
 import org.netsharp.resourcenode.entity.ResourceNode;
+import org.netsharp.util.ReflectManager;
 
 import com.gongsibao.entity.supplier.SupplierCategory;
 import com.gongsibao.supplier.web.SupplierCategoryTreegridPart;
@@ -42,6 +47,8 @@ public class SupplierCategoryWorkspaceTest extends WorkspaceCreationBase {
 		listToolbarPath = "/operation/supplier/category/toolbar";
 
 		formOpenMode = OpenMode.WINDOW;
+		openWindowHeight = 600;
+		openWindowWidth = 800;
 	}
 
 	@Test
@@ -72,11 +79,6 @@ public class SupplierCategoryWorkspaceTest extends WorkspaceCreationBase {
 		{
 			column.setAlign(DatagridAlign.CENTER);
 		}
-		column = addColumn(datagrid, "owner.name", "运营专员", ControlTypes.TEXT_BOX, 80);
-		{
-
-			column.setAlign(DatagridAlign.CENTER);
-		}
 		addColumn(datagrid, "pathName", "路径", ControlTypes.TEXT_BOX, 400);
 		addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 300);
 		column = addColumn(datagrid, "parentId", "parentId", ControlTypes.TEXT_BOX, 100);
@@ -97,7 +99,7 @@ public class SupplierCategoryWorkspaceTest extends WorkspaceCreationBase {
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
 		addQueryItem(queryProject, "name", "名称", ControlTypes.TEXT_BOX);
-		addRefrenceQueryItem(queryProject, "owner.name", "运营专员", Employee.class.getSimpleName());
+		addRefrenceQueryItem(queryProject, "ownerMaps.owner.name", "运营专员", Employee.class.getSimpleName());
 		return queryProject;
 	}
 
@@ -118,11 +120,7 @@ public class SupplierCategoryWorkspaceTest extends WorkspaceCreationBase {
 
 			formField.setWidth(300);
 		}
-		formField = addFormFieldRefrence(form, "owner.name", "运营专员", null, Employee.class.getSimpleName(), false, false);
-		{
 
-			formField.setWidth(300);
-		}
 		formField = addFormField(form, "memoto", "备注", ControlTypes.TEXTAREA, false, false);
 		{
 
@@ -132,6 +130,66 @@ public class SupplierCategoryWorkspaceTest extends WorkspaceCreationBase {
 		}
 		return form;
 	}
+	
+    // 创建明细里面的弹窗操作
+    @Override
+    protected void addDetailGridPart(PWorkspace workspace) {
+
+        // 添加角色
+        addOwnerMapDetailPart(workspace);
+    }
+    
+    // 添加角色
+    private void addOwnerMapDetailPart(PWorkspace workspace) {
+
+        ResourceNode node = this.resourceService.byCode("GSB_Operation_Supplier_CategoryOwnerMap");
+        PDatagrid datagrid = new PDatagrid(node, "角色信息");
+        datagrid.setShowCheckbox(true);
+        datagrid.setSingleSelect(false);
+        datagrid.setReadOnly(true);
+
+        PDatagridColumn column = null;
+
+        addColumn(datagrid, "owner.name", "运营专员", ControlTypes.TEXT_BOX, 100);
+
+        PForm form = new PForm();// 添加表单
+        {
+            form.setResourceNode(node);
+            form.toNew();
+            form.setColumnCount(2);
+            form.setName("运营专员");
+
+            PFormField field = null;
+            field = addFormFieldRefrence(form, "owner.name", "运营专员", null, Employee.class.getSimpleName(), false, false);
+    		{
+    		}
+        }
+
+        PPart part = new PPart();
+        {
+            part.toNew();
+            part.setName("运营专员");
+            part.setCode("ownerMaps");
+            part.setParentCode(ReflectManager.getFieldName(meta.getCode()));
+            part.setRelationRole("ownerMaps");
+            part.setResourceNode(node);
+            part.setPartTypeId(PartType.DETAIL_PART.getId());
+            part.setDatagrid(datagrid);
+            part.setDockStyle(DockType.DOCUMENTHOST);
+            part.setToolbar("panda/datagrid/detail");
+            part.setWindowWidth(600);
+            part.setWindowHeight(400);
+            part.setForm(form);
+        }
+        workspace.getParts().add(part);
+
+        part = workspace.getParts().get(0);
+        {
+            part.setName("基本信息");
+			part.setDockStyle(DockType.TOP);
+			part.setHeight(160);
+        }
+    }
 
 	@Override
 	protected void doOperation() {
