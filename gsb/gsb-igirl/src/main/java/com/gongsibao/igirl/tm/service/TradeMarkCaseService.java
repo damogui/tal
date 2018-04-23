@@ -220,7 +220,12 @@ public class TradeMarkCaseService extends GsbPersistableService<TradeMarkCase> i
 					
 				}
 				if(departmentId!=null && departmentId!=-1) {
-					tm.setDepartmentId(departmentId);
+//					tm.setDepartmentId(departmentId);
+					if(departmentId.equals(entity.getDepartmentId())) {
+						tm.setDepartmentId(departmentId);
+					}else {
+						tm.setDepartmentId(entity.getDepartmentId());
+					}
 				}
 				if (tm.getEntityState() != EntityState.Deleted) {
 					tmp+=tm.getNclOne().getCode()+" ";

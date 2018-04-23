@@ -14,3 +14,9 @@ loanBillTypeDict.add(1, "日常借款");
 loanBillTypeDict.add(2, "招待费借款");
 loanBillTypeDict.add(3, "差旅费借款");
 loanBillTypeDict.add(4, "其他借款");
+
+var auditStatusDict = new System.Dictionary();
+auditStatusDict.add(1,"待审核");
+auditStatusDict.add(2,"通过");
+auditStatusDict.add(3,"驳回");
+

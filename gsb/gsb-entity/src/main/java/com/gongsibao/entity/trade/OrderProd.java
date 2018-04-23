@@ -202,6 +202,10 @@ public class OrderProd extends BaseEntity {
     @Column(name = "allocation_operator_date", header = "分配操作员日期")
     private Date allocationOperatorDate;
 
+    @Exclusive
+    @Column(name = "operations_group", header = "显示操作组")
+    private String operationsGroup;
+    
     public Integer getQuantity() {
         return quantity;
     }
@@ -641,5 +645,13 @@ public class OrderProd extends BaseEntity {
     public void setAllocationOperatorDate(Date allocationOperatorDate) {
         this.allocationOperatorDate = allocationOperatorDate;
     }
+
+	public String getOperationsGroup() {
+		return operationsGroup;
+	}
+
+	public void setOperationsGroup(String operationsGroup) {
+		this.operationsGroup = operationsGroup;
+	}
 
 }

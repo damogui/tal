@@ -40,7 +40,6 @@ public class IcExRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 		formJsImport = "/gsb/igirl/js/icexregistercase.form.part.js";
 		formServiceController = IcExRegisterCasePart.class.getName();
 		formJsController = IcExRegisterCasePart.class.getName();
-
 		listToolbarPath="/igirl/state/IcExRegisterCase/list";
 		listPartImportJs = "/gsb/igirl/js/icexregistercase.list.part.js";
 		listPartServiceController = IcExRegisterCaseListPart.class.getName();
@@ -158,12 +157,15 @@ public class IcExRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 
 		PDatagrid datagrid = super.createDatagrid(node);
 		PDatagridColumn column = null;
+		column = addColumn(datagrid, "customer.realName", "客户姓名", ControlTypes.TEXT_BOX, 300);
+		column.setAlign(DatagridAlign.CENTER);
+		column = addColumn(datagrid, "customer.mobile", "客户电话", ControlTypes.TEXT_BOX, 300, true);
+		column.setAlign(DatagridAlign.CENTER);
 		column = addColumn(datagrid, "approvalName", "核准公司名称", ControlTypes.TEXT_BOX, 300);
+		column.setAlign(DatagridAlign.CENTER);
 		column = addColumn(datagrid, "approvalType", "审核状态", ControlTypes.ENUM_BOX, 300);
 		column = addColumn(datagrid, "corpRegStatue", "工商业务状态", ControlTypes.ENUM_BOX, 300);
 
-		column = addColumn(datagrid, "customer.mobile", "客户电话", ControlTypes.TEXT_BOX, 300, true);
-		column = addColumn(datagrid, "customer.realName", "客户姓名", ControlTypes.TEXT_BOX, 300);
 
 		return datagrid;
 	}
@@ -178,22 +180,17 @@ public class IcExRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 			form.setColumnCount(1);
 		}
 		PFormField formField = null;
+		addFormField(form, "customerName", "客户姓名", null, ControlTypes.TEXT_BOX, true,false);
 		formField = addFormField(form, "customerMobile", "客户电话", null, ControlTypes.TEXT_BOX, true,false);
 		{
 			formField.setTroikaTrigger("controllericExRegisterCase.isTel(this);");
 		}
-		addFormField(form, "approvalType", "审核状态", null, ControlTypes.ENUM_BOX, true,false);
-		addFormField(form, "corpRegStatue", "工商业务状态", null, ControlTypes.ENUM_BOX, true,false);
-
-		addFormField(form, "customerName", "客户姓名", null, ControlTypes.TEXT_BOX, true,false);
 		formField = addFormField(form, "approvalName", "核准公司名称", null, ControlTypes.TEXT_BOX, true,false);
 		{
 			formField.setTroikaTrigger("controllericExRegisterCase.isCom(this);");
 		}
-			/*手机号码 判断
-		 * 公司名称 字符串里包含北京
-		 *
-		 * */
+		addFormField(form, "approvalType", "审核状态", null, ControlTypes.ENUM_BOX, true,false);
+		addFormField(form, "corpRegStatue", "工商业务状态", null, ControlTypes.ENUM_BOX, true,false);
 		return form;
 	}
 

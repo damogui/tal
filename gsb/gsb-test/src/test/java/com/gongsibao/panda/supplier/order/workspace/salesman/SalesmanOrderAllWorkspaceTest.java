@@ -264,7 +264,10 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 
         addColumn(datagrid, "sourceType", "下单方式", ControlTypes.ENUM_BOX, 80);
         addColumn(datagrid, "platformSource", "订单来源", ControlTypes.ENUM_BOX, 80);
-        addColumn(datagrid, "createTime", "下单时间", ControlTypes.DATETIME_BOX, 100);
+        column = addColumn(datagrid, "createTime", "下单时间", ControlTypes.DATETIME_BOX, 100);{
+        	
+        	column.setOrderbyMode(OrderbyMode.DESC);
+        }
         addColumn(datagrid, "accountType", "新老客户", ControlTypes.ENUM_BOX, 80);        
         column = addColumn(datagrid, "ownerId", "业务员id", ControlTypes.TEXT_BOX, 80);
         {

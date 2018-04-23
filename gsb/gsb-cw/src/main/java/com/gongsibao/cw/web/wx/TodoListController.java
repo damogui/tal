@@ -157,9 +157,9 @@ public class TodoListController {
 	@Authorization(is = false)
 	public Boolean saveAudit(AuditRecord auditRecord){
 		Integer fromType = auditRecord.getFormType().getValue();
-		Integer status = auditRecord.getStatus().getValue();
+		Integer status = FinanceDict.AuditDetailStatus.WAIT.getValue();
 		//获取待审核记录
-		AuditRecord auditTemp = auditRecordService.getAuditRecordByParam(auditRecord.getFormId(), fromType, auditRecord.getApplyUserId(),status );
+		AuditRecord auditTemp = auditRecordService.getAuditRecordByParam(auditRecord.getFormId(), fromType, auditRecord.getAuditUserId(),status );
 		auditRecord.setId(auditTemp.getId());
 		auditRecord.setFormType(auditRecord.getFormType());
 		return auditRecordService.saveAudit(auditRecord);

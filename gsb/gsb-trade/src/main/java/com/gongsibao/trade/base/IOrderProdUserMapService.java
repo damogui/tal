@@ -45,8 +45,7 @@ public interface IOrderProdUserMapService extends IPersistableService<OrderProdU
      * @return: List<OrderProdUserMap>
      */
     List<OrderProdUserMap> queryList(Integer orderProdId, OrderProdUserMapType type);
-
-
+    
     /**
      * @throws
      * @Title: queryProdPrincipalList

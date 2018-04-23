@@ -206,7 +206,7 @@ public abstract class AbstractAuditLogService<T> {
         //1.判断当前提交审核的业务员 是否属于平台
         Salesman salesmanEntity = salesmanService.byEmployeeId(addUserId);
         if (salesmanEntity != null && salesmanEntity.getType().equals(SupplierType.PLATFORM)) {
-            //2.获取平台运营领导,并且没有离职的？
+            //2.获取平台运营领导,并且没有离职
             ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
             List<Integer> yyIds = salesmanService.getEmployeeIdListByRoleCodes(Arrays.asList("Platform_Operation_Leader"));
             Integer level = getCurrentLevel() + 1;

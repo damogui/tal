@@ -90,13 +90,13 @@
 
 	    
 		<div class="weui-panel__ft">
-		    <a href="javascript:ctrl.toTrackList();" class="weui-cell weui-cell_access weui-cell_link">
+		    <a href="javascript:ctrl.toAuditList();" class="weui-cell weui-cell_access weui-cell_link">
 		      <div class="weui-cell__bd">审批记录</div>
 		      <span class="weui-cell__ft"></span>
 		    </a>    
 	  	</div>
 		<div class="weui-panel__ft">
-		    <a href="javascript:ctrl.toLinkmanList();" class="weui-cell weui-cell_access weui-cell_link">
+		    <a href="javascript:ctrl.toFileList();" class="weui-cell weui-cell_access weui-cell_link">
 		      <div class="weui-cell__bd">附件信息</div>
 		      <span class="weui-cell__ft"></span>
 		    </a>    
@@ -106,7 +106,7 @@
 		<div class="weui-cells weui-cells_checkbox">
 		  <label class="weui-cell weui-check__label" for="agree">
 		    <div class="weui-cell__hd">
-		      <input type="radio" class="weui-check" name="auditDetailStatus" id="agree" checked="checked">
+		      <input type="radio" class="weui-check" name="auditDetailStatus" value="2"  id="agree" checked="checked">
 		      <i class="weui-icon-checked"></i>
 		    </div>
 		    <div class="weui-cell__bd">
@@ -115,7 +115,7 @@
 		  </label>
 		  <label class="weui-cell weui-check__label" for="reject">
 		    <div class="weui-cell__hd">
-		      <input type="radio" name="auditDetailStatus" class="weui-check" id="reject">
+		      <input type="radio" name="auditDetailStatus" class="weui-check" value="3"  id="reject">
 		      <i class="weui-icon-checked"></i>
 		    </div>
 		    <div class="weui-cell__bd">
@@ -126,7 +126,7 @@
 		</div>
 		
 		
-		<div class="weui-cell weui-cell_select">
+		<div class="weui-cell weui-cell_select" id="payBankDiv" >
 		    <div class="weui-cell__bd" >
 			    <select class="weui-select" name="payBank" id="payBank" >
 	          </select>

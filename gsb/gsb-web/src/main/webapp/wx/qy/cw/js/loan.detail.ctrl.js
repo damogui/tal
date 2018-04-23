@@ -13,7 +13,13 @@ org.netsharp.we.core.LoanDetailCtrl = org.netsharp.we.core.detailCtrl.Extends({
     	var pars = [this.id];
     	this.invokeService('getLoanById', pars, function(result){
     		me.bindData(result);
-    		me.bindU8BankSelect(result.setOfBooksId);
+    		if(result.paymentMethod == 1){
+    			$("#payBank").attr("disabled","disabled");  
+    			$("#payBankDiv").hide();
+    		}else{
+    			me.bindU8BankSelect(result.setOfBooksId);
+    		}
+    		
     	});
     },
     bindData:function(entity){
@@ -47,6 +53,7 @@ org.netsharp.we.core.LoanDetailCtrl = org.netsharp.we.core.detailCtrl.Extends({
     },
     saveAudit:function (){
     	var me = this;
+    	var employeeId = me.queryString('employeeId');
     	var memoto = $("#memoto").val();
     	if(System.isnull(memoto)){
     		$.toptip('审批意见不能为空', 'warning');
@@ -56,13 +63,21 @@ org.netsharp.we.core.LoanDetailCtrl = org.netsharp.we.core.detailCtrl.Extends({
     	auditRecord.status = $("input[name='auditDetailStatus']:checked").val();
     	auditRecord.memoto =memoto;
     	auditRecord.formId = $("#formId").val();
+    	auditRecord.auditUserId = employeeId;
     	auditRecord.applyUserId = $("#apply_user_id").val();
     	auditRecord.applyDepartmentId = $("#apply_department_id").val();
-    	this.invokeService("saveAudit", auditRecord, function(data){  
+    	this.invokeService("saveAudit", [auditRecord], function(data){  
     		$.toptip('提交成功', 'success');
-			var employeeId = me.queryString('employeeId');
 			window.location.href = 'todoList?employeeId=' + employeeId;
 	   	});
+    },
+    toAuditList : function (){
+    	var formId = this.queryString('id');
+    	window.location.href = 'auditList?formId=' + formId +"&formType="+3;
+    },
+    toFileList : function (){
+    	var formId = this.queryString('id');
+    	window.location.href = 'filesList?formId=' + formId +"&formType="+3;
     }
 });
 

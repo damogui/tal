@@ -242,7 +242,7 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
         IOrderProdUserMapService orderProdUserMapService = ServiceFactory.create(IOrderProdUserMapService.class);
         if (trace.getIsSendSms()) {
 
-            // 给所有业务员发送短信
+            // 给所有业务员(过滤离职人员)发送短信
 
             List<OrderProdUserMap> orderProdUserMapList = orderProdUserMapService.queryList(trace.getOrderProdId(), OrderProdUserMapType.Ywy);
             if (orderProdUserMapList.size() > 0) {
@@ -258,7 +258,7 @@ public class OrderProdTraceService extends PersistableService<OrderProdTrace> im
                 {
                     oql.setType(Employee.class);
                     oql.setSelects("id,name,mobile");
-                    oql.setFilter("id in (" + StringManager.join(",", ss) + ")");
+                    oql.setFilter("id in (" + StringManager.join(",", ss) + ") and disabled = 0");
                 }
 
                 List<Employee> employees = employeeService.queryList(oql);

@@ -4,19 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
+import org.netsharp.panda.dic.OrderbyMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
-import org.netsharp.panda.plugin.dic.ToolbarType;
-import org.netsharp.panda.plugin.entity.PToolbar;
-import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.StringManager;
 
@@ -109,9 +106,15 @@ public class SalesmanOrderDetailWorkspaceTest extends WorkspaceCreationBase {
             column.setFormatter(" var ctrl=workspace.parts.byIndex(0).key; return eval(ctrl+'.contactFormatter(value,row,index,\\'手机号\\')');");
         }
 		
-        addColumn(datagrid, "soOrder.createTime", "下单时间", ControlTypes.DATETIME_BOX, 100);
+        column = addColumn(datagrid, "soOrder.createTime", "下单时间", ControlTypes.DATETIME_BOX, 100);{
+        	column.setOrderbyMode(OrderbyMode.DESC);
+        }
 		addColumn(datagrid, "processStatus", "办理进度", ControlTypes.ENUM_BOX, 100);
-		addColumn(datagrid, "owner.name", "当前操作员", ControlTypes.TEXT_BOX, 80);	
+			
+		column = addColumn(datagrid, "operator", "当前操作员", ControlTypes.TEXT_BOX, 110);{
+			column.setFormatter("return '<span title='+value+'>'+value+'</span>'");
+		}
+		addColumn(datagrid, "operationsGroup", "操作组", ControlTypes.TEXT_BOX, 100);
         
 		return datagrid;
 	}
