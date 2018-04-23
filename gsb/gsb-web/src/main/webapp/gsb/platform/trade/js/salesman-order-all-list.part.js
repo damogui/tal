@@ -39,15 +39,15 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
 		}
     	return UiElementState.Empty;
     },
-    getaddReceivedState:function(){
-    	
-    	var supplierType= this.getSupplierType();
-		if(supplierType == 2){
-			
-			return UiElementState.Hide;
-		}
-    	return UiElementState.Empty;
-    },
+//    getaddReceivedState:function(){
+//    	
+//    	var supplierType= this.getSupplierType();
+//		if(supplierType == 2){
+//			
+//			return UiElementState.Hide;
+//		}
+//    	return UiElementState.Empty;
+//    },
     getaddPayPerformanceState:function(){
     	
     	var supplierType= this.getSupplierType();
@@ -57,15 +57,15 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
 		}
     	return UiElementState.Empty;
     },
-    getaddCarryoverState:function(){
-    	
-    	var supplierType= this.getSupplierType();
-		if(supplierType == 2){
-			
-			return UiElementState.Hide;
-		}
-    	return UiElementState.Empty;
-    },
+//    getaddCarryoverState:function(){
+//    	
+//    	var supplierType= this.getSupplierType();
+//		if(supplierType == 2){
+//			
+//			return UiElementState.Hide;
+//		}
+//    	return UiElementState.Empty;
+//    },
     getaddContractState:function(){
     	
     	var supplierType= this.getSupplierType();
@@ -75,24 +75,24 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
 		}
     	return UiElementState.Empty;
     },
-    getaddRefundState:function(){
-    	
-    	var supplierType= this.getSupplierType();
-		if(supplierType == 2){
-			
-			return UiElementState.Hide;
-		}
-    	return UiElementState.Empty;
-    },
-    getaddStagingState:function(){
-    	
-    	var supplierType= this.getSupplierType();
-		if(supplierType == 2){
-			
-			return UiElementState.Hide;
-		}
-    	return UiElementState.Empty;
-    },
+//    getaddRefundState:function(){
+//    	
+//    	var supplierType= this.getSupplierType();
+//		if(supplierType == 2){
+//			
+//			return UiElementState.Hide;
+//		}
+//    	return UiElementState.Empty;
+//    },
+//    getaddStagingState:function(){
+//    	
+//    	var supplierType= this.getSupplierType();
+//		if(supplierType == 2){
+//			
+//			return UiElementState.Hide;
+//		}
+//    	return UiElementState.Empty;
+//    },
     getaddInvoiceState:function(){
     	
     	var supplierType= this.getSupplierType();
