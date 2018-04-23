@@ -113,6 +113,8 @@ public class MyInChargeListPart extends AdvancedListPart {
         orderProdTraceService.addFollowUp(orderProdId, followContent);
     }
 
+
+    //region 私有方法
     private List<Integer> getOrderProdIdList(List<OrderProd> resList) {
         List<Integer> orderProdIdList = new ArrayList<>();
         for (OrderProd orderProd : resList) {
@@ -152,5 +154,6 @@ public class MyInChargeListPart extends AdvancedListPart {
             orderProd.setAllocationOperatorDate(allocationDate.get(orderProd.getId()));
         }
     }
+    //endregion
 
 }
