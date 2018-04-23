@@ -71,4 +71,7 @@ public class Constant {
             return prefix(serializable).concat("#").concat(DateUtils.formatDate(new Date(),"yyyyMMdd"));
         }
     }
+
+    public static final String SUBSCRIBE ="1";
+    public static final String UNSUBSCRIBE ="0";
 }

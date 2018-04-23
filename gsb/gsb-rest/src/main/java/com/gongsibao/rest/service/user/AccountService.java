@@ -96,6 +96,7 @@ public class AccountService implements IAccountService {
     @Override
     public void updateAccount(String mobile, String openId) {
         Account accountOld = accountService.byMobile(mobile);
+        Fans fans=accountWeiXinService.queryFansByOpenId(openId);
         if (null == accountOld) {
             //更新uc_account 新增一条
             Account account = new Account();
@@ -112,6 +113,12 @@ public class AccountService implements IAccountService {
                 account.setCreateTime(new Date());
                 account.setIsBbk("");
                 account.setName("");
+                if(fans!=null){
+                    account.setIsWeiXin(Constant.SUBSCRIBE);
+                    account.setFansId(fans.getId());
+                }else{
+                    account.setIsWeiXin(Constant.UNSUBSCRIBE);
+                }
                 //来源微信
                 account.setSourceClientId(1036);
                 account.setHeadThumbFileId(0);
@@ -120,6 +127,13 @@ public class AccountService implements IAccountService {
             //更新uc_account_weixin 表 更新 account_id
             accountWeiXinService.bandMobile(result.getId(), openId);
         } else {
+            if(fans!=null){
+                accountOld.setIsWeiXin(Constant.SUBSCRIBE);
+                accountOld.setFansId(fans.getId());
+            }else{
+                accountOld.setIsWeiXin(Constant.UNSUBSCRIBE);
+            }
+            accountService.save(accountOld);
             //更新uc_account_weixin 表 更新 account_id
             accountWeiXinService.bandMobile(accountOld.getId(), openId);
         }
