@@ -280,6 +280,9 @@ public class AccountService implements IAccountService {
             log.error("param:"+param);
             String sign = PayCommonUtil.createSign("UTF-8", param, config.getKey());
             log.error("sign:"+sign);
+            String requestXML = PayCommonUtil.getRequestXml(param);
+            String resXml = HttpUtil.postData(Constant.PAY_API, requestXML);
+            log.error("resXml=="+resXml);
             Map<String, String> res = wxpay.unifiedOrder(packageParams);
             System.out.println(res);
             log.error("==========map:==========" + packageParams);
