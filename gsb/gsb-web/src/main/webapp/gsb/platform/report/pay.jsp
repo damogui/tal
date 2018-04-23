@@ -29,7 +29,7 @@
 			<form id="queryFrom">
 				<ul class="query-panel">
 					<li class="item">
-						<div class="label">起始时间：</div>
+						<div class="label" style="text-align: left;">起始时间：</div>
 						<div class="ctrl">
 							<table cellpadding="0" cellspacing="0" id="createTime">
 								<tr>
@@ -52,7 +52,6 @@
 						data-options="plain:false,iconCls:'fa fa-file-excel-o'"> 导出</a> -->
 						
 						</li>
-					<li class="item"></li>
 				</ul>
 			</form>
 			<table id="datagrid"></table>

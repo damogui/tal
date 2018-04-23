@@ -403,7 +403,7 @@ org.netsharp.controls.OSSUpload = org.netsharp.controls.QiNiuUpload.Extends({
 					FilesAdded: function(up, files) {
 
 						me.filesAdded(up, files);
-						me.setUploadParam(up);
+//						me.setUploadParam(up);
 						uploader.start();
 					},
 
@@ -411,7 +411,10 @@ org.netsharp.controls.OSSUpload = org.netsharp.controls.QiNiuUpload.Extends({
 						//IMessageBox.loading.show();
 						me.uploadProgress(up, file);
 					},
-
+					BeforeUpload: function(up, file) {
+						
+						me.setUploadParam(up);
+					},
 					FileUploaded: function(up, file, info) {
 
 						me.fileUploaded(up, file, info);
@@ -427,7 +430,9 @@ org.netsharp.controls.OSSUpload = org.netsharp.controls.QiNiuUpload.Extends({
 			            	IMessageBox.info(info.response);
 			            } 
 					},
-
+					UploadComplete:function(uploader,files){
+						
+					},
 					Error: function(up, err) {
 
 						IMessageBox.error(err.response);
@@ -441,6 +446,19 @@ org.netsharp.controls.OSSUpload = org.netsharp.controls.QiNiuUpload.Extends({
 
 		var uploader = new plupload.Uploader(options);
 		uploader.init();
+	},
+	get_uploaded_object_name:function(filename)
+	{
+	    if (g_object_name_type == 'local_name')
+	    {
+	        tmp_name = g_object_name
+	        tmp_name = tmp_name.replace("${filename}", filename);
+	        return tmp_name
+	    }
+	    else if(g_object_name_type == 'random_name')
+	    {
+	        return g_object_name
+	    }
 	},
 	filesAdded:function(up, files){
 		

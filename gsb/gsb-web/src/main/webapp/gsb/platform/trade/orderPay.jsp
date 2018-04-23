@@ -23,7 +23,7 @@
 	<script src='/panda-res/js/panda.core.js'></script>
 	<script src='/panda-res/js/panda.js'></script>
 	<script src='/panda-res/js/panda.controls.js'></script>
-	<script src='/gsb/platform/trade/js/order-pay.ctrl.js'></script>
+	<script src='/gsb/platform/trade/js/order/order-pay.ctrl.js'></script>
 </head>
      <body class="easyui-layout">
         <div data-options="region:'north',split:false,collapsible:false,closed:false,height:155">

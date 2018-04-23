@@ -65,8 +65,7 @@ com.gongsibao.trade.web.OrderStageCtrl = org.netsharp.panda.core.CustomCtrl.Exte
     	
     	
     	var percentage = (currentStageAmount/totalStageAmount)*100;
-    	$(stagepercentageCtrlId).numberbox('setValue',percentage);
-    	
+    	$(stagepercentageCtrlId).numberbox('setValue',percentage);    	
     	
     	if(stageNum==2 && numIndex==1){
     		

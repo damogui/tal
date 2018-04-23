@@ -77,7 +77,7 @@ public class UserOrderController extends BaseController{
      * @param pageSize    每页显示条数
      * @return Result<Pager<OrderDTO>>
      */
-    @RequestMapping(value = "/done", method = RequestMethod.GET)
+    @RequestMapping(value = "/processing", method = RequestMethod.GET)
     public Result<Pager<OrderDTO>> processing(HttpServletRequest request,
                                               @RequestParam(name = "currentPage", defaultValue = "1") int currentPage,
                                               @RequestParam(name = "pageSize", defaultValue = "10") int pageSize) {

@@ -224,7 +224,6 @@ public class UserController extends BaseController{
             oauth.setScope(OAuthRequest.OauthScope.snsapi_base);
             oauth.setCode(code);
         }
-        Fans fans = null;
         try {
             OAuthResponse response = oauth.getResponse();
             String openId = response.getOpenid();

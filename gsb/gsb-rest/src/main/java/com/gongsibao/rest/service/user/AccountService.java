@@ -14,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 import org.netsharp.communication.ServiceFactory;
+import org.netsharp.panda.controls.utility.UrlHelper;
 import org.netsharp.wx.pa.base.ICustomService;
 import org.netsharp.wx.pa.base.IPublicAccountService;
 import org.netsharp.wx.pa.entity.Fans;
@@ -227,28 +228,29 @@ public class AccountService implements IAccountService{
         // clientType 客户端类别（0:网页端（扫码：NATIVE）；1:H5（公众号）端（JSAPI）；2：APP端（APP））
         String trade_type = "JSAPI";
         // body 类型：String(128),当body长度过长时，会报错"return_msg=body参数长度有误, return_code=FAIL"
-        body = StringUtils.substring(body, 100);
-
+        body = com.gongsibao.rest.web.common.util.StringUtils.getSubStr(body, 100);
         SortedMap<Object, Object> packageParams = new TreeMap<Object, Object>();
         packageParams.put("appid", appid);
+        packageParams.put("body", body);
         packageParams.put("mch_id", mch_id);
         packageParams.put("nonce_str", nonce_str);
-        packageParams.put("body", body);
-        packageParams.put("out_trade_no", StringUtils.trimToEmpty(out_trade_no));
-        packageParams.put("total_fee", StringUtils.trimToEmpty(order_price.toString()));
-        packageParams.put("spbill_create_ip", ipAddress);
         packageParams.put("notify_url", notify_url);
+        packageParams.put("out_trade_no", StringUtils.trimToEmpty(out_trade_no));
+        packageParams.put("spbill_create_ip", ipAddress);
+        packageParams.put("total_fee", StringUtils.trimToEmpty(order_price.toString()));
         packageParams.put("trade_type", trade_type);
         //当是公众号支付时“openid”必传
         if (trade_type == "JSAPI")
             packageParams.put("openid", openId);
         log.error("==========out_trade_no is:==========" + out_trade_no);
+        log.error("packageParams:"+packageParams);
         String sign = PayCommonUtil.createSign("UTF-8", packageParams, key);
+        log.error("sign:"+sign);
         packageParams.put("sign", sign);
         String requestXML = PayCommonUtil.getRequestXml(packageParams);
-
+        log.error(requestXML);
         String resXml = HttpUtil.postData(Constant.PAY_API, requestXML);
-
+        log.error(resXml);
         Map map = XMLUtil.doXMLParse(resXml);
         log.error("==========map:==========" + map);
         String return_msg = new String(((String) map.get("return_msg")).getBytes("ISO-8859-1"), "UTF-8");

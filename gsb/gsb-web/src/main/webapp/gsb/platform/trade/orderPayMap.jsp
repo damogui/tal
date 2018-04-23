@@ -21,8 +21,8 @@
 	<script src='/panda-res/js/system.js'></script>
 	<script src='/panda-res/js/panda.core.js'></script>
 	<script src='/panda-res/js/panda.js'></script>
-	<script src='/gsb/platform/trade/js/order-allot.ctrl.js'></script>
-	<script src='/gsb/platform/trade/js/order-pay-map.ctrl.js'></script>
+	<script src='/gsb/platform/trade/js/order/order-allot.ctrl.js'></script>
+	<script src='/gsb/platform/trade/js/order/order-pay-map.ctrl.js'></script>
 </head>
      <body class="easyui-layout">
         <div data-options="region:'north',split:false,collapsible:false,closed:false,height:300">

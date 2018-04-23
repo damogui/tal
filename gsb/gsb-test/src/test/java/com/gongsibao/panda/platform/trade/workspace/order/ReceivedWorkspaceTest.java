@@ -3,6 +3,9 @@ package com.gongsibao.panda.platform.trade.workspace.order;
 import org.junit.Before;
 
 import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderReceivedWorkspaceTest;
+import com.gongsibao.trade.web.SalesmanOrderPayListPart;
+import com.gongsibao.trade.web.platform.PayPerformanceListPart;
+
 import org.junit.Test;
 import org.netsharp.panda.plugin.dic.ToolbarType;
 import org.netsharp.panda.plugin.entity.PToolbar;
@@ -20,6 +23,7 @@ public class ReceivedWorkspaceTest extends SalesmanOrderReceivedWorkspaceTest {
 		urlList = "/operation/order/received/list";
 		resourceNodeCode = "Operation_Order_Received";
 		listFilter = "";
+		listPartServiceController = PayPerformanceListPart.class.getName ();
 	}
 
     @Test

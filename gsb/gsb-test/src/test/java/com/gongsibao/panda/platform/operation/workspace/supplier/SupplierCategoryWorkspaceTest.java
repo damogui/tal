@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
+import org.netsharp.organization.entity.Employee;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
 import org.netsharp.panda.dic.OpenMode;
@@ -20,7 +21,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 import com.gongsibao.entity.supplier.SupplierCategory;
 import com.gongsibao.supplier.web.SupplierCategoryTreegridPart;
 
-public class SupplierCategoryWorkspaceTest extends WorkspaceCreationBase{
+public class SupplierCategoryWorkspaceTest extends WorkspaceCreationBase {
 
 	@Override
 	@Before
@@ -35,14 +36,14 @@ public class SupplierCategoryWorkspaceTest extends WorkspaceCreationBase{
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_Operation_Supplier_Category";
 		listPartType = PartType.TREEGRID_PART.getId();
-		listPartImportJs="/gsb/supplier/sys/organization/js/supplier-category-list-part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
+		listPartImportJs = "/gsb/supplier/sys/organization/js/supplier-category-list-part.js|/gsb/panda-extend/gsb.custom.query.controls.js";
 		listPartJsController = SupplierCategoryTreegridPart.class.getName();
 		listPartServiceController = SupplierCategoryTreegridPart.class.getName();
 		listToolbarPath = "/operation/supplier/category/toolbar";
-		
+
 		formOpenMode = OpenMode.WINDOW;
 	}
-	
+
 	@Test
 	public void createToolbar() {
 		ResourceNode node = this.getResourceNode();
@@ -59,19 +60,23 @@ public class SupplierCategoryWorkspaceTest extends WorkspaceCreationBase{
 		toolbarService.save(toolbar);
 	}
 
-
 	@Override
 	protected PDatagrid createDatagrid(ResourceNode node) {
 
 		PDatagrid datagrid = super.createDatagrid(node);
-		
+
 		PDatagridColumn column = null;
 
 		addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 200);
-		column = addColumn(datagrid, "id", "id", ControlTypes.TEXT_BOX, 120);{
+		column = addColumn(datagrid, "id", "id", ControlTypes.TEXT_BOX, 120);
+		{
 			column.setAlign(DatagridAlign.CENTER);
 		}
-		
+		column = addColumn(datagrid, "owner.name", "运营专员", ControlTypes.TEXT_BOX, 80);
+		{
+
+			column.setAlign(DatagridAlign.CENTER);
+		}
 		addColumn(datagrid, "pathName", "路径", ControlTypes.TEXT_BOX, 400);
 		addColumn(datagrid, "memoto", "备注", ControlTypes.TEXT_BOX, 300);
 		column = addColumn(datagrid, "parentId", "parentId", ControlTypes.TEXT_BOX, 100);
@@ -92,7 +97,7 @@ public class SupplierCategoryWorkspaceTest extends WorkspaceCreationBase{
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
 		addQueryItem(queryProject, "name", "名称", ControlTypes.TEXT_BOX);
-
+		addRefrenceQueryItem(queryProject, "owner.name", "运营专员", Employee.class.getSimpleName());
 		return queryProject;
 	}
 
@@ -108,11 +113,22 @@ public class SupplierCategoryWorkspaceTest extends WorkspaceCreationBase{
 		}
 
 		PFormField formField = null;
-		addFormField(form, "name", "名称", ControlTypes.TEXT_BOX, true, false);
-		formField = addFormField(form, "memoto", "备注", ControlTypes.TEXTAREA, false, false);{
-			
+		formField = addFormField(form, "name", "名称", ControlTypes.TEXT_BOX, true, false);
+		{
+
+			formField.setWidth(300);
+		}
+		formField = addFormFieldRefrence(form, "owner.name", "运营专员", null, Employee.class.getSimpleName(), false, false);
+		{
+
+			formField.setWidth(300);
+		}
+		formField = addFormField(form, "memoto", "备注", ControlTypes.TEXTAREA, false, false);
+		{
+
 			formField.setHeight(100);
-			formField.setFullColumn(true);
+			formField.setWidth(300);
+			formField.setFullColumn(false);
 		}
 		return form;
 	}

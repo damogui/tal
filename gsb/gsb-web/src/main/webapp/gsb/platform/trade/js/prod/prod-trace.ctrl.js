@@ -27,15 +27,17 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
     initGrid: function () {
 
         var me = this;
+        var _height = $('body').height() - 311;
         $(this.$gridCtrlId).datagrid({
             idField: 'id',
             emptyMsg: '暂无记录',
-            height: 380,
+            height: _height,
             striped: true,
-            rownumbers: true,
+            rownumbers: false,
             pagination: true,
             showFooter: true,
             singleSelect: true,
+            nowrap: false,
             pageSize: 10,
             rowStyler: function (index, row) {
 
@@ -56,17 +58,14 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
                 }
             },
             onLoadSuccess: function (data) {
-
                 var pager = $(this).datagrid('getPager');
                 $(pager).pagination('options').onSelectPage = function (pageNumber, pageSize) {
-
                     me.query(pageNumber, pageSize);
                 };
             },
             columns: [[
                 {
-                    field: 'info', title: '操作信息', width: 300, formatter: function (value, row, index) {
-
+                    field: 'info', title: '操作信息', width: 400, formatter: function (value, row, index) {
                         return '<span title="' + value + '">' + value + '</span>';
                     }
                 },
@@ -76,9 +75,7 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
                     width: 100,
                     align: 'center',
                     formatter: function (value, row, index) {
-
                         if (row.operator) {
-
                             return row.operator.name;
                         }
                     }
@@ -89,9 +86,7 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
                     width: 150,
                     align: 'center',
                     formatter: function (value, row, index) {
-
                         if (row.orderProdStatus) {
-
                             return row.orderProdStatus.name;
                         }
                     }
@@ -103,7 +98,6 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
                     width: 60,
                     align: 'center',
                     formatter: function (value, row, index) {
-
                         var builder = new System.StringBuilder();
                         builder.append('<select style="width:53px;" class="' + row.tipColor + '" onchange="traceCtrl.updateTraceTipColor(' + row.id + ',this);">');
                         builder.append('<option value="text-default" class="text-default" ' + (value == 'text-default' ? 'selected' : '') + ' >默认</option>');
@@ -118,7 +112,6 @@ com.gongsibao.trade.web.ProdTraceCtrl = org.netsharp.panda.core.CustomCtrl.Exten
                 },
                 {
                     field: 'id', title: '操作', width: 60, align: 'center', formatter: function (value, row, index) {
-
                         //原系统中：类型为异常的才能删除
                         //return '<a class="grid-btn" href="javascript:;">删除</a>';
                     }

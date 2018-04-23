@@ -248,7 +248,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
             column.setAlign(DatagridAlign.RIGHT);
         }
         addColumn(datagrid, "fistPayTime", "首款审核日期", ControlTypes.DATETIME_BOX, 100);
-        addColumn(datagrid, "changePriceAuditStatus", "订单审核状态", ControlTypes.ENUM_BOX, 60);
+        addColumn(datagrid, "changePriceAuditStatus", "审核状态", ControlTypes.ENUM_BOX, 60);
         addColumn(datagrid, "isInstallment", "分期付款", ControlTypes.BOOLCOMBO_BOX, 80);
         addColumn(datagrid, "customerName", "下单人", ControlTypes.TEXT_BOX, 100);
         column = addColumn(datagrid, "accountMobile", "下单人电话", ControlTypes.TEXT_BOX, 100);
@@ -257,7 +257,15 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
             column.setFormatter(" var ctrl=workspace.parts.byIndex(0).key; return eval(ctrl+'.contactFormatter(value,row,index,\\'手机号\\')');");
 
         }
-        addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 80);
+        column = addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 80);{
+        	
+        	column.setAlign(DatagridAlign.CENTER);
+        }
+
+        addColumn(datagrid, "sourceType", "下单方式", ControlTypes.ENUM_BOX, 80);
+        addColumn(datagrid, "platformSource", "订单来源", ControlTypes.ENUM_BOX, 80);
+        addColumn(datagrid, "createTime", "下单时间", ControlTypes.DATETIME_BOX, 100);
+        addColumn(datagrid, "accountType", "新老客户", ControlTypes.ENUM_BOX, 80);        
         column = addColumn(datagrid, "ownerId", "业务员id", ControlTypes.TEXT_BOX, 80);
         {
             column.setVisible(false);
@@ -269,19 +277,6 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         column = addColumn(datagrid, "departmentId", "部门id", ControlTypes.TEXT_BOX, 80);
         {
             column.setVisible(false);
-        }
-        addColumn(datagrid, "sourceType", "下单方式", ControlTypes.ENUM_BOX, 80);
-        addColumn(datagrid, "platformSource", "订单来源", ControlTypes.ENUM_BOX, 80);
-        addColumn(datagrid, "createTime", "下单时间", ControlTypes.DATETIME_BOX, 100);
-        addColumn(datagrid, "accountType", "新老客户", ControlTypes.ENUM_BOX, 80);
-        column = addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 60);
-        {
-
-            column.setSystem(true);
-            column.setVisible(false);
-            column.setOrderbyMode(OrderbyMode.DESC);
-
-
         }
         return datagrid;
     }
@@ -306,7 +301,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
         addQueryItem(queryProject, "ywyName", "业务员", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "isInstallment", "分期付款", ControlTypes.BOOLCOMBO_BOX);
         addQueryItem(queryProject, "fistPayTime", "首款审核日期", ControlTypes.DATE_BOX);
-        addQueryItem(queryProject, "createTime", "订单创建日期", ControlTypes.DATE_BOX);
+        addQueryItem(queryProject, "createTime", "创建日期", ControlTypes.DATE_BOX);
 
         return queryProject;
     }

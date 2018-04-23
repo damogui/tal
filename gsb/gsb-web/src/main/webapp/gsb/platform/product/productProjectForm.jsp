@@ -21,7 +21,7 @@
 	<script src='/panda-res/js/system.js'></script>
 	<script src='/panda-res/js/panda.core.js'></script>
 	<script src='/panda-res/js/panda.js'></script>
-	<script src='/gsb/platform/trade/js/order-carryover.ctrl.js'></script>
+	<script src='/gsb/platform/trade/js/order/order-carryover.ctrl.js'></script>
 	<script type="text/javascript">
 		$('inputp[type=checkbox]').click(function(){
 		 	$(this).attr('checked','checked').siblings().removeAttr('checked');

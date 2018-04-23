@@ -3,6 +3,8 @@ package com.gongsibao.panda.platform.trade.workspace.order;
 import org.junit.Before;
 
 import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderPerformanceWorspaceTest;
+import com.gongsibao.trade.web.platform.OrderPerformanceListPart;
+
 import org.junit.Test;
 import org.netsharp.panda.plugin.dic.ToolbarType;
 import org.netsharp.panda.plugin.entity.PToolbar;
@@ -19,6 +21,7 @@ public class PerformanceWorkspaceTest extends SalesmanOrderPerformanceWorspaceTe
         super.setup();
         urlList = "/operation/order/performance/list";
         resourceNodeCode = "Operation_Order_Performance";
+        listPartServiceController = OrderPerformanceListPart.class.getName();
         listFilter = "";
     }
     @Override

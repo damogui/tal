@@ -119,10 +119,8 @@ public class PriceService extends PersistableService<Price> implements IPriceSer
 
 			Price price = new Price();
 			{
-				boolean necessary = false;
-				row.getInteger("is_must");
 				price.setId(row.getInteger("pkid"));
-				price.setNecessary(row.getInteger("is_must") == 1);
+				price.setNecessary(row.getBoolean("is_must"));
 				price.setPrice(row.getInteger("price"));
 				price.setService(service);
 				price.setPriceAudit(audit);

@@ -2,6 +2,7 @@ package com.gongsibao.panda.platform.trade.workspace.order;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.plugin.dic.ToolbarType;
 import org.netsharp.panda.plugin.entity.PToolbar;
@@ -9,6 +10,7 @@ import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.tools.PToolbarHelper;
+import com.gongsibao.trade.web.SalesmanAllOrderListPart;
 
 /**
  * Created by zhangchao on 2018/3/9.
@@ -27,6 +29,7 @@ public class OrderPoolWorkspaceTest extends OrderALLWorkspaceTest {
 		listPartName = formPartName = "订单池";
 		listToolbarPath = "operation/order/orderpool/edit";
 		listFilter = "(owner_id is null or owner_id=0)";
+		listPartServiceController = SalesmanAllOrderListPart.class.getName();
 	}
 
 	protected PDatagrid createDatagrid(ResourceNode node) {
@@ -50,17 +53,6 @@ public class OrderPoolWorkspaceTest extends OrderALLWorkspaceTest {
 		}
 
 		PToolbarItem item = new PToolbarItem();
-		{
-			item.toNew();
-			item.setCode("detail");
-			item.setIcon(PToolbarHelper.iconExtr);
-			item.setName("订单详情");
-			item.setSeq(1);
-			item.setCommand("{controller}.detail();");
-			toolbar.getItems().add(item);
-		}
-
-		item = new PToolbarItem();
 		{
 			item.toNew();
 			item.setCode("batchOrderTran");

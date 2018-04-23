@@ -30,8 +30,8 @@
 	<script src='/panda-res/js/panda.core.js'></script>
 	<script src='/panda-res/js/panda.js'></script>
 	<script src='/panda-res/js/panda.controls.js'></script>
-	<script src='/gsb/platform/trade/js/order-allot.ctrl.js'></script>
-	<script src='/gsb/platform/trade/js/pay-performance.ctrl.js'></script>
+	<script src='/gsb/platform/trade/js/order/order-allot.ctrl.js'></script>
+	<script src='/gsb/platform/trade/js/order/pay-performance.ctrl.js'></script>
 </head>
      <body class="easyui-layout">
         <div data-options="region:'north',split:false,collapsible:false,closed:false,height:180">
