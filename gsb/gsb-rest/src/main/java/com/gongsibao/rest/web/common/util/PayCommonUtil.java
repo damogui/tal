@@ -79,17 +79,8 @@ public class PayCommonUtil {
             String k = (String) entry.getKey();
             String v = (String) entry.getValue();
             if ("attach".equalsIgnoreCase(k) || "body".equalsIgnoreCase(k) || "sign".equalsIgnoreCase(k)) {
-                if(!"sign".equalsIgnoreCase(k))
-                    sb.append("<" + k + ">" + "<![CDATA[" + v + "]]></" + k + ">");
+                sb.append("<" + k + ">" + "<![CDATA[" + v + "]]></" + k + ">");
             } else {
-                sb.append("<" + k + ">" + v + "</" + k + ">");
-            }
-        }
-        while (it.hasNext()) {
-            Map.Entry entry = (Map.Entry) it.next();
-            String k = (String) entry.getKey();
-            String v = (String) entry.getValue();
-            if ("sign".equalsIgnoreCase(k)) {
                 sb.append("<" + k + ">" + v + "</" + k + ">");
             }
         }

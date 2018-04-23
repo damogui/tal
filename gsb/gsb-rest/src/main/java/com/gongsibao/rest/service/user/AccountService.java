@@ -207,9 +207,9 @@ public class AccountService implements IAccountService {
         resMap.put("timeStamp", timestamp);
         resMap.put("nonceStr", noncestr);
         resMap.put("package", "prepay_id=" + prepay_id);
-        resMap.put("signType", "HMAC-SHA256");
+        resMap.put("signType", "MD5");
         //生成支付签名,这个签名给 微信支付的调用使用
-        String paySign = WXPayUtil.generateSignature(resMap, notifyKey, WXPayConstants.SignType.HMACSHA256);
+        String paySign = PayCommonUtil.createSign("UTF-8", resMap, notifyKey);
         resMap.put("paySign", paySign);
         return 1;
     }
@@ -222,17 +222,9 @@ public class AccountService implements IAccountService {
         }
         // 账号信息
         String appid = account.getAppId();
-        //String appsecret = PayConfigUtil.APP_SECRET; // appsecret
         String mch_id = account.getMch_id();// 商业号
         //随机字符串
         String nonce_str = getNonceStr();
-
-//        String order_price = "1"; // 价格   注意：价格的单位是分
-//        String body = "goodssssss";   // 商品名称
-//        String out_trade_no = "11338"; // 订单号
-
-        // 获取发起电脑 ip
-//        String spbill_create_ip = PayConfigUtil.getIP();
         // 回调接口
         String notify_url = account.getMchNotifyUrl();
         log.error("notify_url=" + notify_url);
@@ -242,43 +234,33 @@ public class AccountService implements IAccountService {
         body = com.gongsibao.rest.web.common.util.StringUtils.getSubStr(body, 100);
         SortedMap<String, String> packageParams = new TreeMap<String, String>();
         packageParams.put("appid", appid);
-        packageParams.put("body", body);
         packageParams.put("mch_id", mch_id);
         packageParams.put("nonce_str", nonce_str);
-        packageParams.put("notify_url", notify_url);
+        packageParams.put("body", body);
         packageParams.put("out_trade_no", StringUtils.trimToEmpty(out_trade_no));
-        packageParams.put("spbill_create_ip", ipAddress);
         packageParams.put("total_fee", StringUtils.trimToEmpty(order_price.toString()));
+        packageParams.put("spbill_create_ip", ipAddress);
+        packageParams.put("notify_url", notify_url);
         packageParams.put("trade_type", trade_type);
         //当是公众号支付时“openid”必传
         if (trade_type == "JSAPI")
             packageParams.put("openid", openId);
-        log.error("==========out_trade_no is:==========" + out_trade_no);
         log.error("packageParams:" + packageParams);
-
-//        log.error("sign:"+sign);
-//        String requestXML = PayCommonUtil.getRequestXml(packageParams);
-//        log.error(requestXML);
-//        String resXml = HttpUtil.postData(Constant.PAY_API, requestXML);
-//        log.error(resXml);
-//        Map map = XMLUtil.doXMLParse(resXml);
+        String sign = PayCommonUtil.createSign("UTF-8", packageParams, notifyKey);
+        log.error("sign:"+sign);
+        String requestXML = PayCommonUtil.getRequestXml(packageParams);
+        log.error(requestXML);
+        String resXml = HttpUtil.postData(Constant.PAY_API, requestXML);
+        log.error(resXml);
+        Map map = XMLUtil.doXMLParse(resXml);
         try {
-            WXPayConfig config = WXPayConfig.getInstance(account.getOriginalId());
-            WXPay wxpay = new WXPay(config);
-//            String sign = PayCommonUtil.createSign("UTF-8", packageParams, config.getKey());
-//            log.error("sign:"+sign);
-//            packageParams.put("sign",sign);
-            Map<String, String> res = wxpay.unifiedOrder(packageParams);
-            System.out.println(res);
-            log.error("==========map:==========" + packageParams);
-            String return_msg = new String(((String) res.get("return_msg")).getBytes("ISO-8859-1"), "UTF-8");
-            log.error("==========return_msg:==========" + return_msg);
+            log.info("==========map:==========" + map);
+            String return_msg = new String(((String) map.get("return_msg")).getBytes("ISO-8859-1"), "UTF-8");
+            log.info("==========return_msg:==========" + return_msg);
             //String return_code = (String) map.get("return_code");
             //String prepay_id = (String) map.get("prepay_id");
             // H5支付时:统一下单接口返回支付相关参数给商户后台，如支付跳转url（参数名“mweb_url”，前端访问中转页面“mweb_url”主动唤起微信支付收银台）【此h5支付接口，腾讯暂时不受理了，申请不了了】
-            String urlCode = StringUtils.trimToEmpty(res.get("prepay_id").toString());
-            log.error("==========urlCode:==========" + urlCode);
-            return urlCode;
+            return  StringUtils.trimToEmpty(map.get("prepay_id").toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
