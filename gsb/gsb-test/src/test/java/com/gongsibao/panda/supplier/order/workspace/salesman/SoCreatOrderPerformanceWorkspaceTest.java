@@ -49,7 +49,7 @@ public class SoCreatOrderPerformanceWorkspaceTest extends WorkspaceCreationBase 
         listToolbarPath = "/crm/roworderaddperformance/toolbar";
         formToolbarPath = "";
         List<String> ss = new ArrayList<String> ();
-        //ss.add ("/gsb/platform/trade/js/order-performance-form.part.js");
+        //ss.add ("/gsb/platform/trade/js/order/order-performance-form.part.js");
         ss.add ("/gsb/platform/trade/js/salesman-order-performance-add.part.js");
         ss.add ("/gsb/panda-extend/gsb.customer.controls.js");
         formJsImport = StringManager.join ("|", ss);

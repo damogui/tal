@@ -79,4 +79,18 @@ public class AuditRecordService extends PersistableService<AuditRecord> implemen
 		}
 		
 	}
+
+	@Override
+	public AuditRecord getAuditRecordByParam(Integer formId, Integer formType,
+			Integer auditUserId, Integer status) {
+		Oql oql = new Oql();
+		oql.setType(AuditRecord.class);
+		oql.setSelects("auditRecord.*,auditRecord.employee.name");
+		oql.setFilter("formId=? and formType= ? and auditUserId = ? and status = ?");
+		oql.getParameters().add("formId", formId, Types.INTEGER);
+		oql.getParameters().add("formType", formType, Types.INTEGER);
+		oql.getParameters().add("auditUserId", auditUserId, Types.INTEGER);
+		oql.getParameters().add("status", status, Types.INTEGER);
+		return this.queryFirst(oql);
+	}
 }

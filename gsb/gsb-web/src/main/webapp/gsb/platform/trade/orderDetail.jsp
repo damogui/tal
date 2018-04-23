@@ -19,7 +19,7 @@
 	<script src='/panda-res/js/system.js'></script>
 	<script src='/panda-res/js/panda.core.js'></script>
 	<script src='/panda-res/js/panda.js'></script>
-	<script src='/gsb/platform/trade/js/order.detail-ctrl.js'></script>
+	<script src='/gsb/platform/trade/js/order/order-detail.ctrl.js'></script>
 </head>
     <body class="easyui-layout">
         <div data-options="region:'center',split:false,collapsible:false,closed:false" style="height:100%;" >

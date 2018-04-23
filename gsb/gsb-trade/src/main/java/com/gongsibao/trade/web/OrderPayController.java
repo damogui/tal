@@ -166,33 +166,37 @@ public class OrderPayController {
 
     /*校验线下支付名称*/
     private void checkOfflinePayName(String offlinePayerName) {
+    	
         if (StringUtil.isBlank(offlinePayerName)){
 
             throw new BusinessException("请填写账户名称");
-
         }
+        
         if (RegexUtils.isContainsNum(offlinePayerName)){
+        	
             throw new BusinessException("付款名称不能包括含数字");
-
         }
+        
         if (RegexUtils.isContainsTeshu(offlinePayerName.replace("(","").replace("（","").replace(")","").replace("）",""))){
+        	
             throw new BusinessException("付款名称不能包含特殊字符");
-
         }
 
-        if (offlinePayerName.length()<5 || getNotLegalStrlist().stream().anyMatch(x -> offlinePayerName.indexOf(x) > -1)){
-            throw new BusinessException("付款名称应大于四个字符，且不能输入“先生”、“小姐”、“女士”、“老板”等称谓的名称");
-
+        //在length()中，中文也是1
+        if (offlinePayerName.length()<2 || getNotLegalStrlist().stream().anyMatch(x -> offlinePayerName.indexOf(x) > -1)){
+        	
+            throw new BusinessException("付款名称应大于2个中文字符，且不能输入“先生”、“小姐”、“女士”、“老板”等称谓的名称");
         }
+        
         if (offlinePayerName.matches("[a-zA-Z]+")){
+        	
             throw new BusinessException("付款名称不能为纯字母");
         }
-
-
-
     }
+    
     //获取不合法的付款名称关键词集合
     private List<String> getNotLegalStrlist() {
+    	
         List<String> resList = new ArrayList<>();
         resList.add("先生");
         resList.add("小姐");

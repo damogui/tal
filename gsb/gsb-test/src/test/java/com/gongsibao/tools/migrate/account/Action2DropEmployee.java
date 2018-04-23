@@ -15,7 +15,7 @@ public class Action2DropEmployee extends AbstractActionService{
 	public void run() {
 		
 		//1.删除 sys_permission_employee
-		pm.executeNonQuery("drop table sys_permission_employee", null);
+		//pm.executeNonQuery("drop table sys_permission_employee", null);
 		
 		//2.create sys_permission_employee
 		String cmdText = "CREATE TABLE `sys_permission_employee` (" + " `email` varchar(50) DEFAULT NULL," + "`nationality` varchar(50) DEFAULT NULL," + "`address` varchar(50) DEFAULT NULL,"

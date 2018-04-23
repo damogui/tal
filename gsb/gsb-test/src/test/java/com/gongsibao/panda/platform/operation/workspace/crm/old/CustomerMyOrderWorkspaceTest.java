@@ -7,7 +7,6 @@ import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
-import com.gongsibao.crm.web.CustomerMyOrderListPart;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.panda.platform.trade.workspace.order.AllOrderWorkspaceTest;
 
@@ -27,9 +26,9 @@ public class CustomerMyOrderWorkspaceTest extends AllOrderWorkspaceTest {
         urlList = "/crm/customer/my/order/list";
         urlForm = "/crm/customer/my/order/form";
 
-        listPartServiceController = CustomerMyOrderListPart.class.getName();
-        listPartJsController = CustomerMyOrderListPart.class.getName();
-        listPartImportJs = "/gsb/platform/operation/crm/js/old/customer.myorder.list.part.js";
+//        listPartServiceController = CustomerMyOrderListPart.class.getName();
+//        listPartJsController = CustomerMyOrderListPart.class.getName();
+//        listPartImportJs = "/gsb/platform/operation/crm/js/old/customer.myorder.list.part.js";
 
     }
 

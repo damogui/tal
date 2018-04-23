@@ -1,5 +1,7 @@
 package com.gongsibao.supplier.base;
 
+import java.util.List;
+
 import org.netsharp.base.IPersistableService;
 import org.netsharp.core.annotations.Transaction;
 
@@ -50,4 +52,15 @@ public interface ISupplierService  extends IPersistableService<Supplier>{
      * @throws   
      */
     NotifyType getNotifyType(Integer supplierId);
+    
+
+	/**   
+	 * @Title: getSupplierIdListByOwnerId   
+	 * @Description: TODO(根据运营专员Id查询所管理服务商Id)   
+	 * @param: @param ownerId
+	 * @param: @return      
+	 * @return: List<Integer>      
+	 * @throws   
+	 */
+	List<Integer> getSupplierIdListByOwnerId(Integer ownerId);
 }

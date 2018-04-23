@@ -20,7 +20,7 @@ public class NOrderCarryover extends Entity {
 	@Column(name = "form_order_id", header = "来源订单Id")
 	private Integer formOrderId;
 
-	@Reference(foreignKey = "formOrderId", header = "服务商")
+	@Reference(foreignKey = "formOrderId", header = "服务商",primaryKey="pkid")
 	private SoOrder formOrder;
 
 	@Column(name = "to_order_id", header = "去向订单Id")

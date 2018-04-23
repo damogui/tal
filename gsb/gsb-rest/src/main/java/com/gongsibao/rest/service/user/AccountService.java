@@ -6,6 +6,8 @@ import com.gongsibao.entity.acount.AccountWxMsg;
 import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.rest.base.user.IAccountService;
 import com.gongsibao.rest.web.common.util.*;
+import com.gongsibao.rest.web.common.util.wxpay.WXPay;
+import com.gongsibao.rest.web.common.util.wxpay.WXPayConfig;
 import com.gongsibao.rest.web.common.web.Constant;
 import com.gongsibao.u8.base.IOrderPayMapService;
 import com.gongsibao.utils.NumberUtils;
@@ -29,39 +31,41 @@ import java.net.URLEncoder;
 import java.util.*;
 
 @Service
-public class AccountService implements IAccountService{
-    com.gongsibao.account.base.IAccountService accountService= ServiceFactory.create(com.gongsibao.account.base.IAccountService.class);
-    IAccountWeiXinService accountWeiXinService=ServiceFactory.create(IAccountWeiXinService.class);
-    ICustomService customService=ServiceFactory.create(ICustomService.class);
-    IOrderPayMapService orderPayMapService=ServiceFactory.create(IOrderPayMapService.class);
+public class AccountService implements IAccountService {
+    com.gongsibao.account.base.IAccountService accountService = ServiceFactory.create(com.gongsibao.account.base.IAccountService.class);
+    IAccountWeiXinService accountWeiXinService = ServiceFactory.create(IAccountWeiXinService.class);
+    ICustomService customService = ServiceFactory.create(ICustomService.class);
+    IOrderPayMapService orderPayMapService = ServiceFactory.create(IOrderPayMapService.class);
     @Value("{wx_notify_key}")
     private String notifyKey;
     /*日志*/
     private static Logger log = Logger.getLogger(AccountService.class);
+
     /**
-     * @Description:TODO 登录验证
-     * @param  openId
+     * @param openId
      * @return com.gongsibao.entity.acount.Account
+     * @Description:TODO 登录验证
      * @author hbpeng <hbpeng@gongsibao.com>
      * @date 2018/4/16 14:39
      */
     @Override
     public Account login(String openId) {
-        Fans weiXin=accountWeiXinService.queryFansByOpenId(openId);
-        if(null==weiXin){
+        Fans weiXin = accountWeiXinService.queryFansByOpenId(openId);
+        if (null == weiXin) {
             //创建微信账号
             this.createFans(openId);
             return null;
-        }else if(null==weiXin.getUserId()){
+        } else if (null == weiXin.getUserId()) {
             return null;
-        }else{
+        } else {
             return accountService.byId(weiXin.getUserId());
         }
     }
+
     /**
-     * @Description:TODO 根据openid 获取用户信息
-     * @param  openId
+     * @param openId
      * @return com.gongsibao.entity.acount.Account
+     * @Description:TODO 根据openid 获取用户信息
      * @author hbpeng <hbpeng@gongsibao.com>
      * @date 2018/4/19 15:06
      */
@@ -71,9 +75,9 @@ public class AccountService implements IAccountService{
     }
 
     /**
-     * @Description:TODO 发送验证码
-     * @param  mobile, code
+     * @param mobile, code
      * @return void
+     * @Description:TODO 发送验证码
      * @author hbpeng <hbpeng@gongsibao.com>
      * @date 2018/4/12 19:00
      */
@@ -89,11 +93,12 @@ public class AccountService implements IAccountService{
     }
 
     @Override
-    public void updateAccount(String mobile,String openId) {
-        Account accountOld=accountService.byMobile(mobile);
-        if(null==accountOld){
+    public void updateAccount(String mobile, String openId) {
+        Account accountOld = accountService.byMobile(mobile);
+        if (null == accountOld) {
             //更新uc_account 新增一条
-            Account account = new Account();{
+            Account account = new Account();
+            {
                 account.toNew();
                 account.setPasswd("");
                 account.setCreateTime(new Date());
@@ -112,33 +117,33 @@ public class AccountService implements IAccountService{
             }
             Account result = accountService.save(account);
             //更新uc_account_weixin 表 更新 account_id
-            accountWeiXinService.bandMobile(result.getId(),openId);
-        }else{
+            accountWeiXinService.bandMobile(result.getId(), openId);
+        } else {
             //更新uc_account_weixin 表 更新 account_id
-            accountWeiXinService.bandMobile(accountOld.getId(),openId);
+            accountWeiXinService.bandMobile(accountOld.getId(), openId);
         }
     }
 
     @Override
     public Boolean createFans(String openId) {
         //新增粉丝表数据
-        Fans fans=accountWeiXinService.createFans(openId);
-        return fans.getId()==null?false:true;
+        Fans fans = accountWeiXinService.createFans(openId);
+        return fans.getId() == null ? false : true;
     }
 
     @Override
     public void sendTextMessage(String content, String openId, String originalId) {
-        customService.sendTextMessage(content,openId,originalId);
+        customService.sendTextMessage(content, openId, originalId);
     }
 
     @Override
     public Account queryByMobile(String mobile) {
-        Account account=accountService.byMobile(mobile);
-        if(null==account){
+        Account account = accountService.byMobile(mobile);
+        if (null == account) {
             return null;
         }
-        Fans weiXin=accountWeiXinService.queryFansByUserId(account.getId());
-        if(null==weiXin){
+        Fans weiXin = accountWeiXinService.queryFansByUserId(account.getId());
+        if (null == weiXin) {
             return null;
         }
         account.setOpenid(weiXin.getOpenId());
@@ -147,43 +152,44 @@ public class AccountService implements IAccountService{
 
     @Override
     public void updateTicket(Integer id, String ticket) {
-        accountService.updateTicket(id,ticket);
+        accountService.updateTicket(id, ticket);
     }
+
     /**
-     * @Description:TODO
-     * @param  mobile, orderPorudctId
+     * @param mobile, orderPorudctId
      * @return void
+     * @Description:TODO
      * @author hbpeng <hbpeng@gongsibao.com>
      * @date 2018/4/18 17:25
      */
     @Override
-    public void pushOrderStateMsg(String originalId,String mobile, Integer orderPorudctId) {
-        accountWeiXinService.pushOrderStateMsg(originalId,mobile,orderPorudctId);
+    public void pushOrderStateMsg(String originalId, String mobile, Integer orderPorudctId) {
+        accountWeiXinService.pushOrderStateMsg(originalId, mobile, orderPorudctId);
     }
 
     @Override
     public void buySuccessSendMsg(Integer accountId, String moeny, String productName, String first, String url) {
-        accountWeiXinService.pushTextMsg(accountId,first,moeny,productName,null,url,null, AccountWxMsg.BUY_SUCCESS);
+        accountWeiXinService.pushTextMsg(accountId, first, moeny, productName, null, url, null, AccountWxMsg.BUY_SUCCESS);
     }
 
     @Override
     public void buySuccessSendMsg(String originalId, Integer accountId, String moeny, String productName, String first, String url) {
-        accountWeiXinService.pushTextMsgByOriginalId(originalId,accountId,first,moeny,productName,null,url,null, AccountWxMsg.BUY_SUCCESS);
+        accountWeiXinService.pushTextMsgByOriginalId(originalId, accountId, first, moeny, productName, null, url, null, AccountWxMsg.BUY_SUCCESS);
     }
 
     @Override
-    public Integer getWxPayH5Param(String ipAddress,String oid,String openId, String orderNoStr, Integer totalFee, String body, Integer userChannel, SortedMap<Object, Object> resMap) {
+    public Integer getWxPayH5Param(String ipAddress, String oid, String openId, String orderNoStr, Integer totalFee, String body, Integer userChannel, SortedMap<Object, Object> resMap) {
         //获取openID
-        String openid =openId;
-        IPublicAccountService publicAccountService=ServiceFactory.create(IPublicAccountService.class);
-        PublicAccount publicAccount=publicAccountService.byOriginalId(oid);
+        String openid = openId;
+        IPublicAccountService publicAccountService = ServiceFactory.create(IPublicAccountService.class);
+        PublicAccount publicAccount = publicAccountService.byOriginalId(oid);
         if (StringUtils.isBlank(openid)) {
             return -1;//获取openid失败
         }
         //预支付id
         String prepay_id;
         try {
-            prepay_id = wxpay(ipAddress,publicAccount,orderNoStr, NumberUtils.toInt(totalFee), body, 1, openid, userChannel);
+            prepay_id = wxpay(ipAddress, publicAccount, orderNoStr, NumberUtils.toInt(totalFee), body, 1, openid, userChannel);
         } catch (Exception e) {
             prepay_id = "";
         }
@@ -202,17 +208,18 @@ public class AccountService implements IAccountService{
         resMap.put("paySign", paySign);
         return 1;
     }
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
     @Override
-    public String wxpay(String ipAddress,PublicAccount account, String out_trade_no, Integer order_price, String body, Integer clientType, String openId, Integer userChannel) throws JDOMException, IOException {
-        if(StringUtils.isBlank(ipAddress)){
-            ipAddress= InetAddress.getLocalHost().getHostAddress();
+    public String wxpay(String ipAddress, PublicAccount account, String out_trade_no, Integer order_price, String body, Integer clientType, String openId, Integer userChannel) throws JDOMException, IOException {
+        if (StringUtils.isBlank(ipAddress)) {
+            ipAddress = InetAddress.getLocalHost().getHostAddress();
         }
         // 账号信息
         String appid = account.getAppId();
         //String appsecret = PayConfigUtil.APP_SECRET; // appsecret
         String mch_id = account.getMch_id();// 商业号
-        String key =  notifyKey;// key PayConfigUtil.getKey()
+        String key = notifyKey;// key PayConfigUtil.getKey()
         //随机字符串
         String nonce_str = getNonceStr();
 
@@ -223,18 +230,18 @@ public class AccountService implements IAccountService{
         // 获取发起电脑 ip
 //        String spbill_create_ip = PayConfigUtil.getIP();
         // 回调接口
-        String notify_url =account.getMchNotifyUrl();
-        log.error("notify_url="+notify_url);
+        String notify_url = account.getMchNotifyUrl();
+        log.error("notify_url=" + notify_url);
         // clientType 客户端类别（0:网页端（扫码：NATIVE）；1:H5（公众号）端（JSAPI）；2：APP端（APP））
         String trade_type = "JSAPI";
         // body 类型：String(128),当body长度过长时，会报错"return_msg=body参数长度有误, return_code=FAIL"
         body = com.gongsibao.rest.web.common.util.StringUtils.getSubStr(body, 100);
-        SortedMap<Object, Object> packageParams = new TreeMap<Object, Object>();
+        HashMap<String, String> packageParams = new HashMap<String, String>();
         packageParams.put("appid", appid);
         packageParams.put("body", body);
         packageParams.put("mch_id", mch_id);
         packageParams.put("nonce_str", nonce_str);
-        packageParams.put("notify_url", UrlHelper.encode(notify_url));
+        packageParams.put("notify_url", notify_url);
         packageParams.put("out_trade_no", StringUtils.trimToEmpty(out_trade_no));
         packageParams.put("spbill_create_ip", ipAddress);
         packageParams.put("total_fee", StringUtils.trimToEmpty(order_price.toString()));
@@ -243,24 +250,33 @@ public class AccountService implements IAccountService{
         if (trade_type == "JSAPI")
             packageParams.put("openid", openId);
         log.error("==========out_trade_no is:==========" + out_trade_no);
-        log.error("packageParams:"+packageParams);
-        String sign = PayCommonUtil.createSign("UTF-8", packageParams, key);
-        log.error("sign:"+sign);
-        packageParams.put("sign", sign);
-        String requestXML = PayCommonUtil.getRequestXml(packageParams);
-        log.error(requestXML);
-        String resXml = HttpUtil.postData(Constant.PAY_API, requestXML);
-        log.error(resXml);
-        Map map = XMLUtil.doXMLParse(resXml);
-        log.error("==========map:==========" + map);
-        String return_msg = new String(((String) map.get("return_msg")).getBytes("ISO-8859-1"), "UTF-8");
-        log.error("==========return_msg:==========" + return_msg);
-        //String return_code = (String) map.get("return_code");
-        //String prepay_id = (String) map.get("prepay_id");
-        // H5支付时:统一下单接口返回支付相关参数给商户后台，如支付跳转url（参数名“mweb_url”，前端访问中转页面“mweb_url”主动唤起微信支付收银台）【此h5支付接口，腾讯暂时不受理了，申请不了了】
-        String urlCode = StringUtils.trimToEmpty(map.get("prepay_id").toString()) ;
-        log.error("==========urlCode:==========" + urlCode);
-        return urlCode;
+        log.error("packageParams:" + packageParams);
+//        String sign = PayCommonUtil.createSign("UTF-8", packageParams, key);
+//        log.error("sign:"+sign);
+//        packageParams.put("sign", sign);
+//        String requestXML = PayCommonUtil.getRequestXml(packageParams);
+//        log.error(requestXML);
+//        String resXml = HttpUtil.postData(Constant.PAY_API, requestXML);
+//        log.error(resXml);
+//        Map map = XMLUtil.doXMLParse(resXml);
+        try {
+            WXPayConfig config = WXPayConfig.getInstance(account.getOriginalId());
+            WXPay wxpay = new WXPay(config);
+            Map<String, String> res = wxpay.unifiedOrder(packageParams);
+            System.out.println(res);
+            log.error("==========map:==========" + packageParams);
+            String return_msg = new String(((String) res.get("return_msg")).getBytes("ISO-8859-1"), "UTF-8");
+            log.error("==========return_msg:==========" + return_msg);
+            //String return_code = (String) map.get("return_code");
+            //String prepay_id = (String) map.get("prepay_id");
+            // H5支付时:统一下单接口返回支付相关参数给商户后台，如支付跳转url（参数名“mweb_url”，前端访问中转页面“mweb_url”主动唤起微信支付收银台）【此h5支付接口，腾讯暂时不受理了，申请不了了】
+            String urlCode = StringUtils.trimToEmpty(res.get("prepay_id").toString());
+            log.error("==========urlCode:==========" + urlCode);
+            return urlCode;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     //region 是有方法
@@ -274,7 +290,7 @@ public class AccountService implements IAccountService{
 
     @Override
     public List<OrderPayMap> pageByProperties(Integer orderId, Integer payId) {
-        return orderPayMapService.queryByOrderIdPayId(orderId,payId);
+        return orderPayMapService.queryByOrderIdPayId(orderId, payId);
     }
 
 }

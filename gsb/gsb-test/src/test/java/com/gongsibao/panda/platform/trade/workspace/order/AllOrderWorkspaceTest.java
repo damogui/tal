@@ -5,10 +5,8 @@ import org.junit.Test;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
-import org.netsharp.organization.entity.OperationType;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.dic.DatagridAlign;
-import org.netsharp.panda.dic.OpenMode;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PQueryProject;
@@ -19,8 +17,7 @@ import org.netsharp.resourcenode.entity.ResourceNode;
 
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.tools.PToolbarHelper;
-import com.gongsibao.trade.web.OrderAllListPart;
-import com.gongsibao.trade.web.OrderOperationController;
+import com.gongsibao.trade.web.platform.AllOrderListPart;
 
 /**   
  * @ClassName:  AllOrderWorkspaceTest   
@@ -42,9 +39,9 @@ public class AllOrderWorkspaceTest extends WorkspaceCreationBase{
 		formPartName = listPartName = meta.getName();
 		resourceNodeCode = "GSB_Trade_Manage_All_Order";
 		listToolbarPath = "/crm/order/all/edit";
-		listPartImportJs = "/gsb/platform/trade/js/salesman-order-all-list.part.js|/gsb/platform/trade/js/order-all-list-part.js";
-		listPartJsController = OrderAllListPart.class.getName();
-		listPartServiceController = OrderAllListPart.class.getName();
+		listPartImportJs = "/gsb/platform/trade/js/salesman-order-all-list.part.js|/gsb/platform/trade/js/order/order-all-list-part.js";
+		listPartJsController = AllOrderListPart.class.getName();
+		listPartServiceController = AllOrderListPart.class.getName();
 	}
 	
     public PToolbar createListToolbar() {

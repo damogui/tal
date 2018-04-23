@@ -1,4 +1,4 @@
-package com.gongsibao.rest.web.controller;
+package com.gongsibao.rest.web.controller.v1.user;
 
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.trade.OrderPayMap;
@@ -12,6 +12,7 @@ import com.gongsibao.rest.web.common.util.JsonUtils;
 import com.gongsibao.rest.web.common.util.RedisClient;
 import com.gongsibao.rest.web.common.web.ResponseData;
 import com.gongsibao.rest.base.user.IAccountService;
+import com.gongsibao.rest.web.controller.BaseController;
 import com.gongsibao.u8.base.IPayService;
 import com.gongsibao.u8.base.ISoOrderService;
 import com.gongsibao.utils.NumberUtils;
@@ -26,18 +27,13 @@ import org.netsharp.wx.mp.api.oauth.OAuthRequest;
 import org.netsharp.wx.mp.api.oauth.OAuthResponse;
 import org.netsharp.wx.mp.sdk.AesException;
 import org.netsharp.wx.pa.base.IPublicAccountService;
-import org.netsharp.wx.pa.entity.Fans;
 import org.netsharp.wx.pa.entity.PublicAccount;
-import org.netsharp.wx.pa.response.PublicAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.UnsupportedEncodingException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -45,7 +41,7 @@ import java.util.regex.Pattern;
 @RestController
 @RequestMapping(value = "/wx/{v}")
 @Api(1)
-public class UserController extends BaseController{
+public class UserController extends BaseController {
     private Logger logger = Logger.getLogger(UserController.class);
 
     @Autowired

@@ -3,7 +3,7 @@
  */
 System.Declare("com.gongsibao.trade.web");
 //回款跳转
-com.gongsibao.trade.web.SalesmanOrderPayController = org.netsharp.panda.commerce.ListPart.Extends({
+com.gongsibao.trade.web.SalesmanOrderPayListPart = org.netsharp.panda.commerce.ListPart.Extends({
     ctor: function () {
         this.base();
         this.auditPayUrl="/nav/gsb/platform/trade/auditPay";//审核回款

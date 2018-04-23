@@ -3,6 +3,8 @@ package com.gongsibao.panda.platform.trade.workspace.order;
 import org.junit.Before;
 
 import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderDetailWorkspaceTest;
+import com.gongsibao.trade.web.SalesmanOrderDetailListPart;
+import com.gongsibao.trade.web.platform.OrderDetailListPart;
 
 /**   
  * @ClassName:  MyOrderDetailWorkspaceTest   
@@ -12,12 +14,13 @@ import com.gongsibao.panda.supplier.order.workspace.salesman.SalesmanOrderDetail
  *     
  * @Copyright: 2017 www.yikuaxiu.com Inc. All rights reserved. 
  */
-public class MyOrderDetailWorkspaceTest  extends SalesmanOrderDetailWorkspaceTest{
+public class OrderDetailWorkspaceTest  extends SalesmanOrderDetailWorkspaceTest{
 	@Before
 	public void setup() {
 		super.setup();
 		urlList = "/operation/order/detail/list";		
 		resourceNodeCode = "Operation_Order_OrderProd";
-		listFilter = "owner_id = '{userId}'";
+		listFilter = "";
+		listPartServiceController = OrderDetailListPart.class.getName();
 	}
 }

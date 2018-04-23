@@ -185,7 +185,17 @@ System.Dictionary = System.Object.Extends({
 
         this.innerValues.push(kv);
     },
+    remove:function(key){
+    	
+        for (var i = 0; i < this.innerValues.length; i++) {
 
+            var kv = this.innerValues[i];
+            if (kv.key == key) {
+
+            	this.innerValues.splice(i,1);
+            }
+        }
+    },
     tryGet: function (key, value) {
 
         for (var i = 0; i < this.innerValues.length; i++) {

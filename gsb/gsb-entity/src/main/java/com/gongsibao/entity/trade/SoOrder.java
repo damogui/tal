@@ -87,6 +87,7 @@ public class SoOrder extends BaseEntity {
 
     @Column(name = "pay_time", header = "支付时间(完全通过审核)")
     private Date payTime;
+    
     @Column(name = "fist_pay_time", header = "首款审核日期")
     private Date fistPayTime;//默认为null有回款通过的时候更新时间
 

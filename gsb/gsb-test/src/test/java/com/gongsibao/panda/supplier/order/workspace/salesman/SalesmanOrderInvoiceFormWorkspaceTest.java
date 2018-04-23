@@ -31,7 +31,7 @@ public class SalesmanOrderInvoiceFormWorkspaceTest extends WorkspaceCreationBase
         meta = MtableManager.getMtable(entity);
         resourceNodeCode = "Operation_Order_Invoice_Add";
 
-        formJsImport = "/gsb/platform/trade/js/invoice-add-form.part.js|/gsb/platform/trade/js/audit/audit-detail-part.js|/package/qiniu/plupload.full.min.js";
+        formJsImport = "/gsb/platform/trade/js/order/invoice-add-form.part.js|/gsb/platform/trade/js/audit/audit-detail-part.js|/package/qiniu/plupload.full.min.js";
         formServiceController = InvoiceFormPart.class.getName();
         formJsController = InvoiceFormPart.class.getName();
         formToolbarPath = "";

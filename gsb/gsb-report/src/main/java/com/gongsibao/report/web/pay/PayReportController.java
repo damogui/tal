@@ -52,6 +52,7 @@ public class PayReportController {
 		int dayCount = this.daysBetween(startDate, endDate) + 1;
 		List<String> fieldList = new ArrayList<String>();
 		List<String> joinList = new ArrayList<String>();
+		List<String> whereList = new ArrayList<String>();
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("SELECT  supplier.id, supplier.name, supplier.category_id,supplier.type, ");
 		for (int i = 0; i < dayCount; i++) {
@@ -60,24 +61,31 @@ public class PayReportController {
 			Date nextDate = DateManage.addDays(date, 1);
 			String dateStr = DateManage.toString(date);
 			String nextDateStr = DateManage.toString(nextDate);
-			String tableName = "submitTable_" + dateStr.replaceAll("-", "");
-			fieldList.add(String.format("IFNULL(%s.submitAmount, 0) AS '%s_submitAmount'", tableName, tableName));
-
+			
 			// 提交sql
-			String submitSql = this.getDaySql(dateStr, nextDateStr, tableName, false);
-			joinList.add(submitSql);
+//			String tableName = "submitTable_" + dateStr.replaceAll("-", "");
+//			fieldList.add(String.format("IFNULL(%s.submitAmount, 0) AS '%s_submitAmount'", tableName, tableName));
+//			String submitSql = this.getDaySql(dateStr, nextDateStr, tableName, false);
+//			joinList.add(submitSql);
 
 			// 审核sql
-			tableName = "auditTable_" + dateStr.replaceAll("-", "");
+			String tableName = "auditTable_" + dateStr.replaceAll("-", "");
 			fieldList.add(String.format("IFNULL(%s.auditAmount, 0) AS '%s_auditAmount'", tableName, tableName));
 			String auditSql = this.getDaySql(dateStr, nextDateStr, tableName, true);
 			joinList.add(auditSql);
+			
+			whereList.add(String.format(" %s.auditAmount>0 ", tableName));
 		}
 		buffer.append(StringManager.join(",", fieldList));
-		buffer.append("   FROM sp_supplier supplier ");
+		buffer.append(" FROM sp_supplier supplier ");
 		buffer.append(StringManager.join(" ", joinList));
-		buffer.append("  WHERE supplier.STATUS = 2 and supplier.type=1 order by supplier.category_id,supplier.type");// 优化点：先取出开户状态的服务商,并且是自营的
-
+		buffer.append(" WHERE ");// 优化点：先取出开户状态的服务商,并且是自营的
+		buffer.append(" ("+StringManager.join(" OR ", whereList)+") ");
+		
+		buffer.append(" AND supplier.id<> 1039");
+//		buffer.append(" and supplier.type=1");
+		buffer.append(" AND supplier.STATUS = 2 ");
+		buffer.append(" ORDER BY supplier.type,supplier.category_id");
 		return buffer.toString();
 
 	}
@@ -100,28 +108,53 @@ public class PayReportController {
 		buffer.append(" LEFT JOIN ( ");
 		buffer.append(String.format(" SELECT so.supplier_id, SUM(map.order_price) AS %s ", asName));
 		buffer.append(" FROM ( ");
+		
+		buffer.append(" SELECT order_id,order_price ");
+		buffer.append(" FROM so_order_pay_map map ");
+		buffer.append(" LEFT JOIN so_pay pay ON map.pay_id = pay.pkid ");
+		buffer.append(" WHERE order_price > 0 ");
+		buffer.append(" AND pay.success_status_id = 3123 ");
+		buffer.append(" AND pay.pay_way_type_id = 3101 ");
+		buffer.append(String.format(" AND pay.confirm_time >= '%s' AND pay.confirm_time < '%s' ", dateStr, nextDateStr));
+
+		buffer.append(" UNION ALL ");
+
 		buffer.append(" SELECT order_id, order_price ");
 		buffer.append(" FROM so_order_pay_map map ");
 		buffer.append(" WHERE order_price > 0 ");
 		buffer.append(" AND pay_id IN ( ");
-		buffer.append(" SELECT pkid FROM so_pay WHERE ");
-		if (isAudit) {
-
-			buffer.append(" success_status_id = 3123 ");
-			buffer.append(" AND ( ");
-			buffer.append(String.format(" (pay_way_type_id = 3101 AND confirm_time >= '%s' AND confirm_time < '%s') ", dateStr, nextDateStr));
-			buffer.append(" OR  ");
-			buffer.append(String.format(" (pay_way_type_id = 3102 AND pay_audit_pass_time >= '%s' AND pay_audit_pass_time < '%s') ", dateStr, nextDateStr));
-			buffer.append(" )");
-		} else {
-			
-			buffer.append(" success_status_id in (3122,3123) ");// 不等于驳回的
-			buffer.append(String.format("AND confirm_time >= '%s' AND confirm_time < '%s' ", dateStr, nextDateStr));
-		}
-		
-		//线上支付取confirm_time时间，线下支付取pay_audit_pass_time时间，老数据需要更新pay_audit_pass_time字段
+		buffer.append(" SELECT pkid FROM so_pay ");
+		buffer.append(" WHERE success_status_id = 3123 ");
+		buffer.append(" AND pay_way_type_id = 3102 ");
+		buffer.append(String.format(" AND pay_audit_pass_time >= '%s' AND pay_audit_pass_time < '%s' ", dateStr, nextDateStr));
 		buffer.append(" ) ");
 		buffer.append(" ) map ");
+
+			
+		
+//		buffer.append(" SELECT order_id, order_price ");
+//		buffer.append(" FROM so_order_pay_map map ");
+//		buffer.append(" WHERE order_price > 0 ");
+//		buffer.append(" AND pay_id IN ( ");
+//		buffer.append(" SELECT pkid FROM so_pay WHERE ");
+//		if (isAudit) {
+//
+//			buffer.append(" success_status_id = 3123 ");
+//			buffer.append(" AND ( ");
+//			buffer.append(String.format(" (pay_way_type_id = 3101 AND confirm_time >= '%s' AND confirm_time < '%s') ", dateStr, nextDateStr));
+//			buffer.append(" OR  ");
+//			buffer.append(String.format(" (pay_way_type_id = 3102 AND pay_audit_pass_time >= '%s' AND pay_audit_pass_time < '%s') ", dateStr, nextDateStr));
+//			buffer.append(" )");
+//		} else {
+//			
+//			buffer.append(" success_status_id in (3122,3123) ");// 不等于驳回的
+//			buffer.append(String.format("AND confirm_time >= '%s' AND confirm_time < '%s' ", dateStr, nextDateStr));
+//		}
+		//线上支付取confirm_time时间，线下支付取pay_audit_pass_time时间，老数据需要更新pay_audit_pass_time字段
+//		buffer.append(" ) ");
+		
+		
+		
 		buffer.append(" LEFT JOIN so_order so ON map.order_id = so.pkid ");
 		buffer.append(" WHERE so.supplier_id IS NOT NULL AND so.supplier_id <> 0 ");
 		buffer.append(" GROUP BY so.supplier_id )");

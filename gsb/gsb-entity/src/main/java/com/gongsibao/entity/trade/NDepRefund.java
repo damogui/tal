@@ -24,7 +24,7 @@ public class NDepRefund  extends Entity{
     private Integer orderId;
     
     @JsonIgnore
-    @Reference(foreignKey = "orderId")
+    @Reference(foreignKey = "orderId", primaryKey = "pkid")
     private SoOrder order;
     
 	@Column(name = "amount", header = "回款额")
