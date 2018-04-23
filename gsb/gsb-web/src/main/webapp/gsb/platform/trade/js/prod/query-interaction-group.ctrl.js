@@ -94,24 +94,30 @@ com.gongsibao.trade.web.QueryInteractionGroupCtrl = org.netsharp.panda.core.Cust
             IMessageBox.info('请输入订单编号');
             return false;
         }
+        //去掉空格
+        keyWord = keyWord.replace(/^\s+|\s+$/g, '');
         this.invokeService("queryInteractionGroup", [keyWord, pageIndex, pageSize], function (data) {
             $(me.$gridCtrlId).datagrid('loadData', data);
-            //获取订单金额信息
-            if (data.rows.length > 0) {
-                var serviceLocator = new org.netsharp.core.JServiceLocator();
-                serviceLocator.invoke("com.gongsibao.trade.web.SalesmanAllOrderListPart", "getOrderByOrderNo", [keyWord], function (data) {
-                        var payablePrice = System.RMB.fenToYuan(data.payablePrice);
-                        //balance = paidPrice + carryIntoAmount - refundPrice - carryAmount;
-                        var paidPrice = data.paidPrice == null ? 0 : data.paidPrice;
-                        var carryIntoAmount = data.carryIntoAmount == null ? 0 : data.carryIntoAmount;
-                        var refundPrice = data.refundPrice == null ? 0 : data.refundPrice;
-                        var carryAmount = data.carryAmount == null ? 0 : data.carryAmount;
-                        var balance = System.RMB.fenToYuan(paidPrice + carryIntoAmount - refundPrice - carryAmount);
-                        $("#payablePrice").text(payablePrice);
-                        $("#balance").text(balance);
-                    }, null, false
-                );
-            }
+            //设置订单金额信息
+            me.setOrderInfo(data, keyWord);
         });
+    },
+    setOrderInfo: function (orderProdData, keyWord) {//设置订单信息
+        //获取订单金额信息
+        if (orderProdData.rows.length > 0) {
+            var serviceLocator = new org.netsharp.core.JServiceLocator();
+            serviceLocator.invoke("com.gongsibao.trade.web.SalesmanAllOrderListPart", "getOrderByOrderNo", [keyWord], function (data) {
+                    var payablePrice = System.RMB.fenToYuan(data.payablePrice);
+                    //balance = paidPrice + carryIntoAmount - refundPrice - carryAmount;
+                    var paidPrice = data.paidPrice == null ? 0 : data.paidPrice;
+                    var carryIntoAmount = data.carryIntoAmount == null ? 0 : data.carryIntoAmount;
+                    var refundPrice = data.refundPrice == null ? 0 : data.refundPrice;
+                    var carryAmount = data.carryAmount == null ? 0 : data.carryAmount;
+                    var balance = System.RMB.fenToYuan(paidPrice + carryIntoAmount - refundPrice - carryAmount);
+                    $("#payablePrice").text(payablePrice);
+                    $("#balance").text(balance);
+                }, null, false
+            );
+        }
     }
 });
