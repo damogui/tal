@@ -263,26 +263,8 @@ public class AccountService implements IAccountService {
         try {
             WXPayConfig config = WXPayConfig.getInstance(account.getOriginalId());
             WXPay wxpay = new WXPay(config);
-            SortedMap<String, String> param = new TreeMap<String, String>();
-            param.put("appid", appid);
-            param.put("body", body);
-            param.put("mch_id", mch_id);
-            param.put("nonce_str", nonce_str);
-            param.put("notify_url", notify_url);
-            param.put("out_trade_no", StringUtils.trimToEmpty(out_trade_no));
-            param.put("spbill_create_ip", ipAddress);
-            param.put("total_fee", StringUtils.trimToEmpty(order_price.toString()));
-            param.put("trade_type", trade_type);
-            //当是公众号支付时“openid”必传
-            if (trade_type == "JSAPI")
-                param.put("openid", openId);
-            log.error("==========out_trade_no is:==========" + out_trade_no);
-            log.error("param:"+param);
-            String sign = PayCommonUtil.createSign("UTF-8", param, config.getKey());
+            String sign = PayCommonUtil.createSign("UTF-8", packageParams, config.getKey());
             log.error("sign:"+sign);
-            String requestXML = PayCommonUtil.getRequestXml(param);
-            String resXml = HttpUtil.postData(Constant.PAY_API, requestXML);
-            log.error("resXml=="+resXml);
             Map<String, String> res = wxpay.unifiedOrder(packageParams);
             System.out.println(res);
             log.error("==========map:==========" + packageParams);
