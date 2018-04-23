@@ -187,6 +187,7 @@ public class TradeMarkFollowWorkspaceTest extends WorkspaceCreationBase{
 		PQueryProject queryProject = super.createQueryProject(node);
 		queryProject.toNew();
 		addQueryItem(queryProject, "code", "商标号", ControlTypes.TEXT_BOX);
+		addQueryItem(queryProject, "memo", "商标说明", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "proxyCode", "代理号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "tradeMarkCase.orderCode", "订单号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "tradeMarkCase.companyName", "公司名称", ControlTypes.TEXT_BOX);
