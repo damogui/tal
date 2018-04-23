@@ -1,7 +1,9 @@
 package com.gongsibao.trade.web;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.FilterParameter;
 import org.netsharp.util.StringManager;
 
@@ -10,7 +12,7 @@ import org.netsharp.util.StringManager;
  * Created by zhangchao on 2018/3/15.
  */
 public class SalesmanStagingListPart extends SalesmanAllOrderListPart {
-	
+
     @Override
     public String getFilterByParameter(FilterParameter parameter) {
 
@@ -28,5 +30,11 @@ public class SalesmanStagingListPart extends SalesmanAllOrderListPart {
         }
 
         return parameter.getFilter();
+    }
+
+    @Override
+    public List<?> doQuery(Oql oql) {
+        oql.setOrderby("add_time DESC");
+        return super.doQuery(oql);
     }
 }

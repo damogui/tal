@@ -23,35 +23,36 @@ public class SalesmanOrderReceivedListPart extends AdvancedListPart {
     @Override
     public String getFilterByParameter(FilterParameter parameter) {
 
-        ArrayList<String> filters = new ArrayList<String> ();
+        ArrayList<String> filters = new ArrayList<String>();
         //当是关键字时(订单编号、渠道订单编号、下单人、下单人电话、关联公司)
-        String keyword = parameter.getValue1 ().toString ();
-        if (parameter.getKey ().equals ("keyword")) {
-         return  "soOrder.pkid>0 and (soOrder.no like '%" + keyword + "%' or soOrder.channel_order_no like '%" + keyword + "%')";
+        String keyword = parameter.getValue1().toString();
+        if (parameter.getKey().equals("keyword")) {
+            return "soOrder.pkid>0 and (soOrder.no like '%" + keyword + "%' or soOrder.channel_order_no like '%" + keyword + "%')";
 
         }
-        if (parameter.getKey ().equals ("isOnlinePay")) {
+        if (parameter.getKey().equals("isOnlinePay")) {
 
             //filters.add ("soOrder.is_online_pay ='" + keyword + "'");
-            return  "soOrder.is_online_pay ='" + keyword + "'";
+            return "soOrder.is_online_pay ='" + keyword + "'";
 
         }
 
 
-        return parameter.getFilter ();
+        return parameter.getFilter();
     }
 
     @Override
     public List<?> doQuery(Oql oql) {
-        StringBuilder selects = new StringBuilder ();
-        selects.append ("nDepPay.*,");
-        selects.append ("nDepPay.soOrder.*,");
-        selects.append ("nDepPay.salesman.name");
+        StringBuilder selects = new StringBuilder();
+        selects.append("nDepPay.*,");
+        selects.append("nDepPay.soOrder.*,");
+        selects.append("nDepPay.salesman.name");
         //selects.append ("auditLog.soOrder.depReceivable.*");
 
-        INDepPayService nDepPayService = ServiceFactory.create (INDepPayService.class);
-        oql.setSelects (selects.toString ());
-        List<NDepPay> depPays = nDepPayService.queryList (oql);
+        INDepPayService nDepPayService = ServiceFactory.create(INDepPayService.class);
+        oql.setSelects(selects.toString());
+        oql.setOrderby("create_time DESC");
+        List<NDepPay> depPays = nDepPayService.queryList(oql);
         return depPays;
     }
 
