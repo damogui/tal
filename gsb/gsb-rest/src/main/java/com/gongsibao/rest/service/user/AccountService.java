@@ -209,7 +209,7 @@ public class AccountService implements IAccountService {
         resMap.put("package", "prepay_id=" + prepay_id);
         resMap.put("signType", "MD5");
         //生成支付签名,这个签名给 微信支付的调用使用
-        String paySign = PayCommonUtil.createSign("UTF-8", resMap, notifyKey);
+        String paySign = PayCommonUtil.createSign("utf-8", resMap, notifyKey);
         resMap.put("paySign", paySign);
         return 1;
     }
@@ -246,7 +246,7 @@ public class AccountService implements IAccountService {
         if (trade_type == "JSAPI")
             packageParams.put("openid", openId);
         log.error("packageParams:" + packageParams);
-        String sign = PayCommonUtil.createSign("UTF-8", packageParams, notifyKey);
+        String sign = PayCommonUtil.createSign("utf-8", packageParams, notifyKey);
         log.error("sign:"+sign);
         packageParams.put("sign", sign);
         String requestXML = PayCommonUtil.getRequestXml(packageParams);
