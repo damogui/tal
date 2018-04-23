@@ -259,22 +259,6 @@ public class AccountService implements IAccountService {
 //        String resXml = HttpUtil.postData(Constant.PAY_API, requestXML);
 //        log.error(resXml);
 //        Map map = XMLUtil.doXMLParse(resXml);
-//
-//        HashMap<String, String> data = new HashMap<String, String>();
-//        data.put("body", "腾讯充值中心-QQ会员充值");
-//        data.put("out_trade_no", out_trade_no);
-//        data.put("device_info", "");
-//        data.put("fee_type", "CNY");
-//        data.put("total_fee", "1");
-//        data.put("spbill_create_ip", "123.12.12.123");
-//        data.put("notify_url", "http://test.letiantian.me/wxpay/notify");
-//        data.put("trade_type", "JSAPI");
-//        data.put("product_id", "12");
-////        data.put("mch_id", "1491626142");
-////        data.put("appid", "wxa754491a559b81fb");
-//        data.put("openid", "oJ0S30RhUrKUpMGf2RqzIDK4MqB0");
-//        // data.put("time_expire", "20170112104120");
-
         try {
             WXPayConfig config = WXPayConfig.getInstance(account.getOriginalId());
             WXPay wxpay = new WXPay(config);

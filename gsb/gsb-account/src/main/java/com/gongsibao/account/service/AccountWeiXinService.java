@@ -162,7 +162,7 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
                 Account account = accountService.byMobile(mobile);
                 //取微信用户openid
                 Fans accountWeiXin = this.queryFansByUserId(account.getId());
-                this.pushTextMsgByOriginalId(originalId,account.getId(),"尊敬的"+accountWeiXin.getNickname()+":",orderNo,proTrace,null,"/index.html#/mine/order",null,AccountWxMsg.ORDER_STATE_CHANGE);
+                this.pushTextMsgByOriginalId(originalId,account.getId(),"尊敬的"+accountWeiXin.getNickname()+":",orderNo,proTrace,null,"/index.html#/order/details/"+orderPorudctId,null,AccountWxMsg.ORDER_STATE_CHANGE);
             }
         } catch (SQLException e) {
             e.printStackTrace();
