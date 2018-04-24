@@ -57,7 +57,7 @@ public class PreferentialCodeService extends PersistableService<PreferentialCode
         StringBuilder sql = new StringBuilder();
         QueryParameters queryParameters = new QueryParameters();
         sql.append("SELECT ");
-        sql.append(" bd_preferential_code.*,bd_preferential.* ");
+        sql.append("bd_preferential_code.*,bd_preferential.* ");
         sql.append("FROM bd_preferential_code,bd_preferential  ");
         sql.append("WHERE bd_preferential_code.preferential_id = bd_preferential.pkid ");
         if (accountId > 0) {
@@ -72,8 +72,7 @@ public class PreferentialCodeService extends PersistableService<PreferentialCode
             sql.append(" AND bd_preferential_code.status = 1 AND bd_preferential.end_date < NOW() ");
         }
         sql.append(" AND bd_preferential_code.is_enabled = 1 AND bd_preferential.is_enabled = 1 ");
-        DataTable rows = this.pm.executeTable(sql.toString(), queryParameters);
-        sql.append("ORDER BY bd_preferential_code.activate_time DESC ");
+        sql.append(" ORDER BY bd_preferential_code.activate_time DESC ");
 
         DataTable table = this.pm.executeTable(sql.toString(), queryParameters);
         table.forEach(row -> {
@@ -84,13 +83,13 @@ public class PreferentialCodeService extends PersistableService<PreferentialCode
                 preferential.setPreferentialAmount(row.getInteger("preferential_amount"));
                 preferential.setIsFirstOrderUse(row.getInteger("is_first_order_use"));
                 preferential.setIsOverlay(row.getInteger("is_overlay"));
-                preferential.setIsOverlay(row.getInteger("is_overlay"));
                 preferential.setStartDate(row.getDate("start_date"));
                 preferential.setRemark(row.getString("remark"));
                 preferential.setAmountLimit(row.getInteger("amount_limit"));
                 preferential.setEndDate(row.getDate("end_date"));
                 preferential.setUserDescription(row.getString("user_description"));
                 preferential.setUsePlatform(row.getString("use_platform"));
+                preferential.setIsEnabled(1);
             }
             PreferentialCode code = new PreferentialCode();
             {

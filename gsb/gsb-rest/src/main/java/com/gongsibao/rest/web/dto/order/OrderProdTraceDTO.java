@@ -13,8 +13,8 @@ import java.util.Date;
  * @Description: TODO 查询订单产品进度
  * @date 2018/4/21 11:51
  */
+@SuppressWarnings("serial")
 public class OrderProdTraceDTO extends PkId{
-
     /** 订单项序号 */
     private Integer orderProdId;
 
