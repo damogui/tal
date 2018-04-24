@@ -886,6 +886,10 @@ public class SoOrder extends BaseEntity {
     }
 
 	public Integer getCarryIntoAmount() {
+        if (carryIntoAmount==null){
+            return 0;
+        }
+
 		return carryIntoAmount;
 	}
 
