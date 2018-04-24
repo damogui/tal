@@ -63,10 +63,15 @@ public class MessageController extends BaseController{
             data.setMsg("originalId 为空！");
             return data;
         }
-        Account account=accountService.queryByOpenId(openId);
-        accountService.buySuccessSendMsg(originalId(request),account.getId(),money,productName,"您的订单"+orderNo+"支付成功,我们将立即为您办理","/index.html#/mine/order/2");
-        data.setCode(200);
-        data.setMsg("发送成功！");
+        try{
+            Account account=accountService.queryByOpenId(openId);
+            accountService.buySuccessSendMsg(originalId(request),account.getId(),money,productName,"您的订单"+orderNo+"支付成功,我们将立即为您办理","/index.html#/mine/order/2");
+            data.setCode(200);
+            data.setMsg("发送成功！");
+        }catch (Exception e){
+            data.setCode(-1);
+            data.setMsg(e.getMessage());
+        }
         return data;
     }
 
