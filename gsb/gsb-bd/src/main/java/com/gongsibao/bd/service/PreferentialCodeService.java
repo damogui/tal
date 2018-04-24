@@ -83,13 +83,13 @@ public class PreferentialCodeService extends PersistableService<PreferentialCode
                 preferential.setPreferentialAmount(row.getInteger("preferential_amount"));
                 preferential.setIsFirstOrderUse(row.getInteger("is_first_order_use"));
                 preferential.setIsOverlay(row.getInteger("is_overlay"));
-                preferential.setIsOverlay(row.getInteger("is_overlay"));
                 preferential.setStartDate(row.getDate("start_date"));
                 preferential.setRemark(row.getString("remark"));
                 preferential.setAmountLimit(row.getInteger("amount_limit"));
                 preferential.setEndDate(row.getDate("end_date"));
                 preferential.setUserDescription(row.getString("user_description"));
                 preferential.setUsePlatform(row.getString("use_platform"));
+                preferential.setIsEnabled(1);
             }
             PreferentialCode code = new PreferentialCode();
             {

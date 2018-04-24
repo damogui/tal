@@ -57,7 +57,9 @@ public class UserPreferentialService implements IUserPreferentialService {
             Preferential preferential = preferentialCode.getPreferential();
             BeanUtils.copyProperties(preferentialCode, dto,"isEnabled");
             BeanUtils.copyProperties(preferential, dto,"isEnabled");
+
             dto.setIsEnabled(preferentialCode.getIsEnabled());
+            dto.setCouponIsEnabled(preferential.getIsEnabled());
             return dto;
         }).collect(Collectors.toList());
     }
