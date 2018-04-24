@@ -40,6 +40,8 @@ public class OrderDTO extends PkId{
      */
     private Integer installmentAuditStatusId;
 
+    private String prodName;
+
     private int payBtn;
 
     public String getNo() {
@@ -210,5 +212,13 @@ public class OrderDTO extends PkId{
 
     public void setPayBtn(int payBtn) {
         this.payBtn = payBtn;
+    }
+
+    public String getProdName() {
+        return prodName;
+    }
+
+    public void setProdName(String prodName) {
+        this.prodName = prodName;
     }
 }
