@@ -68,7 +68,10 @@ org.netsharp.we.core.LoanDetailCtrl = org.netsharp.we.core.detailCtrl.Extends({
     	auditRecord.applyDepartmentId = $("#apply_department_id").val();
     	this.invokeService("saveAudit", [auditRecord], function(data){  
     		$.toptip('提交成功', 'success');
-			window.location.href = 'todoList?employeeId=' + employeeId;
+    		setTimeout(function() {
+    			window.location.href = 'todoList?employeeId=' + employeeId;
+			}, 1000);
+			
 	   	});
     },
     toAuditList : function (){
