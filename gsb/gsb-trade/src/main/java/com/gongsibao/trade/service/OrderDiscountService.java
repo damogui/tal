@@ -32,7 +32,7 @@ public class OrderDiscountService extends PersistableService<OrderDiscount> impl
 
 	@Override
 	public int updateNo(Integer pkid, String no) {
-		String sql = String.format("UPDATE so_order_discount SET `no` = %s WHERE pkid = %s ",pkid,no);
+		String sql = String.format("UPDATE so_order_discount SET `no` = '%s' WHERE pkid = %d ",no,pkid);
 		return this.pm.executeNonQuery(sql,null);
 	}
 }
