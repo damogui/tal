@@ -16,6 +16,9 @@ public class AccountValidateDTO implements Serializable {
     private String mobile;
     private String companyName;
 
+    private Integer accountSourceClientId = 0;
+    private Integer customerSourceId = 0;
+
     public String getOpenId() {
         return openId;
     }
@@ -38,5 +41,21 @@ public class AccountValidateDTO implements Serializable {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public Integer getCustomerSourceId() {
+        return customerSourceId;
+    }
+
+    public void setCustomerSourceId(Integer customerSourceId) {
+        this.customerSourceId = customerSourceId;
+    }
+
+    public Integer getAccountSourceClientId() {
+        return accountSourceClientId;
+    }
+
+    public void setAccountSourceClientId(Integer accountSourceClientId) {
+        this.accountSourceClientId = accountSourceClientId;
     }
 }
