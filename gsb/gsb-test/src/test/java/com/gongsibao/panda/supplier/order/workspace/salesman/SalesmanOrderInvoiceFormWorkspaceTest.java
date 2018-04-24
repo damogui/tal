@@ -61,8 +61,8 @@ public class SalesmanOrderInvoiceFormWorkspaceTest extends WorkspaceCreationBase
         addFormField(form, "titleType", "抬头类型", groupName, ControlTypes.ENUM_BOX, true, false);
         if (!isAdd)
             addFormField(form, "content", "原发票内容", groupName, ControlTypes.LABEL, false, true);
-        addFormField(form, "contentType", "内容", groupName, ControlTypes.ENUM_BOX, true, false);
-        formField = addFormField(form, "remark", "内容备注", groupName, ControlTypes.TEXTAREA, false, false);
+        addFormField(form, "contentType", "发票内容", groupName, ControlTypes.ENUM_BOX, true, false);
+        formField = addFormField(form, "remark", "备注", groupName, ControlTypes.TEXTAREA, false, false);
         {
             formField.setFullColumn(true);
         }
