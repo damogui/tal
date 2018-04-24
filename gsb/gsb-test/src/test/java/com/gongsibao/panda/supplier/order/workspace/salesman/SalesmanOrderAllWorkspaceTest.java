@@ -49,7 +49,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 		ss.add("/gsb/panda-extend/gsb.pubcontrol.js");
 		listPartImportJs = StringManager.join("|", ss);
 
-		listFilter = " (owner_id = '{userId}'  or  add_user_id='{userId}')";
+		listFilter = " (owner_id = '{userId}'  or  add_user_id='{userId}') and is_delete=0";
 		listPartJsController = SalesmanAllOrderListPart.class.getName();
 		listPartServiceController = SalesmanAllOrderListPart.class.getName();
 	}
