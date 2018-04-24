@@ -106,8 +106,8 @@ public class InteractiveMyInChargeWorkspaceTest extends WorkspaceCreationBase {
         }
         addColumn(datagrid, "owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "operator", "操作员", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "soOrder.companyIntention.companyName", "明细订单公司", ControlTypes.TEXT_BOX, 100);
-        addColumn(datagrid, "companyIntention.companyName", "订单关联公司", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "soOrder.companyIntention.companyName", "订单关联公司", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "companyIntention.companyName", "明细订单公司", ControlTypes.TEXT_BOX, 100);
         column = addColumn(datagrid, "soOrder.createTime", "下单日期", ControlTypes.DATETIME_BOX, 100);
         {
 
