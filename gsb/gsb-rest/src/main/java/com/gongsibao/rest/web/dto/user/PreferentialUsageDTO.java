@@ -7,6 +7,7 @@ import java.io.Serializable;
  * @Description: TODO 我的 - 我的优惠券 - 优惠券使用情况汇总
  * @date 2018/4/17 11:51
  */
+@SuppressWarnings("serial")
 public class PreferentialUsageDTO implements Serializable {
 
     private int all;

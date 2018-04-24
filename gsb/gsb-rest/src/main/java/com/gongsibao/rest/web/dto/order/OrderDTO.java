@@ -12,7 +12,9 @@ import java.util.List;
  * @Description: TODO 订单  (沿用原有参数)
  * @date 2018/4/20 11:37
  */
+@SuppressWarnings("serial")
 public class OrderDTO extends PkId{
+
     @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date add_time;
     private String no;

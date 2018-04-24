@@ -36,6 +36,7 @@ public class DictService implements IDictService {
                     proIds.add(0);
                     return convertDto(dictService.byTypeParentId(101, proIds));
                 }
+                return new ArrayList<>();
             case 3:
                 return convertDto(dictService.byTypeParentId(101, null));
             default:

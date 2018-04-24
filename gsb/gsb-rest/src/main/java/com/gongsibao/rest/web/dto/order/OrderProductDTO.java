@@ -11,6 +11,7 @@ import java.util.Date;
  * @Description: TODO 订单下产品 (沿用原有参数)
  * @date 2018/4/20 11:39
  */
+@SuppressWarnings("serial")
 public class OrderProductDTO extends PkId{
 
     /**
