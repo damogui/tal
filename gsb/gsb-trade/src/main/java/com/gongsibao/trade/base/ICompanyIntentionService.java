@@ -13,4 +13,7 @@ public interface ICompanyIntentionService extends IPersistableService<CompanyInt
 
     CompanyIntention byCompanyName(String companyName);
 
+    CompanyIntention getById(Integer id);
+
+
 }

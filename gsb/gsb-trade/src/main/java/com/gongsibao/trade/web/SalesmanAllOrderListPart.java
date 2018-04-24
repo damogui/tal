@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.lang.model.element.VariableElement;
 
+import com.gongsibao.entity.crm.CompanyIntention;
+import com.gongsibao.trade.base.ICompanyIntentionService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.panda.commerce.AdvancedListPart;
@@ -25,6 +27,7 @@ import com.gongsibao.utils.NumberUtils;
 public class SalesmanAllOrderListPart extends AdvancedListPart {
     ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
     IOrderService noService = ServiceFactory.create(IOrderService.class);
+    ICompanyIntentionService companyIntentionService = ServiceFactory.create(ICompanyIntentionService.class);
 
     @Override
     public List<?> doQuery(Oql oql) {
@@ -236,7 +239,12 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
 
     /*根据订单id获取订单信息*/
     public SoOrder getOrderByOrderNo(String orderno) {
-        return orderService.getByOrderNo(orderno);
+        SoOrder order = orderService.getByOrderNo(orderno);
+        if (NumberUtils.toInt(order.getCompanyId()) > 0) {
+            CompanyIntention companyIntention = companyIntentionService.getById(order.getCompanyId());
+            order.setCompanyIntention(companyIntention);
+        }
+        return order;
     }
 
 
