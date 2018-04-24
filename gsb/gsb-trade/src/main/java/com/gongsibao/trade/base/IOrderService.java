@@ -166,4 +166,6 @@ public interface IOrderService extends IPersistableService<SoOrder> {
      */
     @Transaction
     int updatePayablePriceRevert(int pkid, int price);
+    @Transaction
+    String orderDel(Integer orderId);
 }

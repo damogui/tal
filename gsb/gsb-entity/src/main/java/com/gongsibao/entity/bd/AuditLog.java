@@ -51,7 +51,7 @@ public class AuditLog extends BaseEntity {
     @Reference(foreignKey = "creatorId")
     private Employee employee;
 
-	// 订单
+	// 订单（改价审核）
     @Reference(foreignKey = "formId", primaryKey = "pkid")
     private SoOrder soOrder;
 

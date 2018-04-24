@@ -240,4 +240,13 @@ public class SalesmanAllOrderListPart extends AdvancedListPart {
     }
 
 
+
+
+    /*进行删除操作*/
+    public   String  orderDel(Integer orderId) {
+        return noService.orderDel(orderId);
+
+
+    }
+
 }

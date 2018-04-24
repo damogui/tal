@@ -204,6 +204,16 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 			toolbar.getItems().add(item);
 		}
 
+		item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("orderDel");
+			item.setName("删除");
+			item.setSeq(2);
+			item.setCommand("{controller}.orderDel();");
+			toolbar.getItems().add(item);
+		}
+
 		toolbarService.save(toolbar);
 	}
 
