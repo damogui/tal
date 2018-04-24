@@ -3,6 +3,7 @@ package com.gongsibao.panda.supplier.order.workspace.audit;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.Pay;
+import com.gongsibao.entity.u8.SetOfBooks;
 import com.gongsibao.trade.web.AuditPayListPart;
 import org.junit.Before;
 import org.junit.Test;
@@ -144,7 +145,8 @@ public class AuditPayWorkspaceTest  extends WorkspaceCreationBase {
         addQueryItem (queryProject, "pay.payForOrderCount", "是否一笔多单", ControlTypes.ENUM_BOX);
 //        addQueryItem (queryProject, "pay.payWayType", "是否在线支付", ControlTypes.ENUM_BOX);
 
-        addQueryItem (queryProject, "pay.setOfBooks.name", "付款账套", ControlTypes.TEXT_BOX);
+       // addQueryItem (queryProject, "pay.setOfBooks.name", "付款账套", ControlTypes.TEXT_BOX);
+        addRefrenceQueryItem(queryProject, "pay.setOfBooks.name", "付款账套", SetOfBooks.class.getSimpleName());
         addQueryItem (queryProject, "creator", "回款业绩创建人", ControlTypes.TEXT_BOX);
         addQueryItem (queryProject, "createTime", "回款业绩创建时间", ControlTypes.DATE_BOX);
 
