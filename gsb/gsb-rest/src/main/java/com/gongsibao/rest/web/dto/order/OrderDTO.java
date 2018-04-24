@@ -42,7 +42,12 @@ public class OrderDTO extends PkId{
      */
     private Integer installmentAuditStatusId;
 
+    private String prodName;
+
     private int payBtn;
+
+    // 为了接口，冗余一个字段
+    private Date createTime;
 
     public String getNo() {
         return no;
@@ -212,5 +217,24 @@ public class OrderDTO extends PkId{
 
     public void setPayBtn(int payBtn) {
         this.payBtn = payBtn;
+    }
+
+    public String getProdName() {
+        return prodName;
+    }
+
+    public void setProdName(String prodName) {
+        this.prodName = prodName;
+    }
+
+    public Date getCreateTime() {
+        if (null == createTime) {
+            createTime = addTime;
+        }
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

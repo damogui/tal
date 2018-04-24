@@ -67,14 +67,17 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
     @Override
     public Account queryByOpenId(String openId) {
         Fans fans = this.queryFansByOpenId(openId);
-        Oql oql = new Oql();
-        {
-            oql.setType(Account.class);
-            oql.setSelects("*");
-            oql.setFilter("pkid=?");
-            oql.getParameters().add("pkid", fans.getUserId(), Types.INTEGER);
+        if(null!=fans&&null!=fans.getUserId()){
+            Oql oql = new Oql();
+            {
+                oql.setType(Account.class);
+                oql.setSelects("*");
+                oql.setFilter("pkid=?");
+                oql.getParameters().add("pkid", fans.getUserId(), Types.INTEGER);
+            }
+            return accountService.queryFirst(oql);
         }
-        return accountService.queryFirst(oql);
+        return null;
     }
 
     @Override
