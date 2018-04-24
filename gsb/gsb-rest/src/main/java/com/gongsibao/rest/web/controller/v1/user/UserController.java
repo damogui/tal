@@ -664,4 +664,24 @@ public class UserController extends BaseController {
             return ResponseData.getError(ResponseData.EXCEPTION, "您的网络不稳定，请稍后再试。");
         }
     }
+
+    /**
+     * @param request
+     * @return com.gongsibao.rest.web.common.web.ResponseData
+     * @Description: 用户验证, 通过openId, 验证用户是否存在，公司是否存在
+     * @author wangkun <wangkun@gongsibao.com>
+     * @date 2018/4/24
+     */
+    @RequestMapping("/user/account/pkLogin")
+    public ResponseData userPkLogin(HttpServletRequest request) {
+        String openId = openId(request);
+        try {
+            // 验证用户
+            AccountValidateDTO dto = accountService.validAccountByOpenId(openId);
+            return ResponseData.getSuccess(dto, "");
+        } catch (Exception ex) {
+            logger.error("", ex);
+            return ResponseData.getError(ResponseData.EXCEPTION, "您的网络不稳定，请稍后再试。");
+        }
+    }
 }
