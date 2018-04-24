@@ -325,42 +325,47 @@ public class DpAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 		PDatagridColumn column = null;
 		PDatagrid datagrid = new PDatagrid(node, "上传盖章附件");
 		{
+			datagrid.setShowCheckbox(true);
+			datagrid.setSingleSelect(true);
 
 			column = addColumn(datagrid, "name", "名称", ControlTypes.TEXT_BOX, 150);
 			{
 				// column.setFormatter("return '<a
 				// href=\"url\">name</a>'.replace('name',row.name).replace('url',row.fileUrl)");
 			}
-			 column = addColumn(datagrid, "shareGroup", "共享组", ControlTypes.ENUM_BOX, 150);{
-            	 String formatter = EnumUtil.getColumnFormatter(ShareGroup.class);
-                 column.setFormatter(formatter);
-            }
+			addColumn(datagrid, "tradeMark.proxyCode", "代理号", ControlTypes.TEXT_BOX, 180);
+			column = addColumn(datagrid, "shareGroup", "共享组", ControlTypes.ENUM_BOX, 150);{
+			String formatter = EnumUtil.getColumnFormatter(ShareGroup.class);
+			column.setFormatter(formatter);
+		}
 			column = addColumn(datagrid, "needed", "是否需要上传", ControlTypes.TEXT_BOX, 150);
 			{
 				column.setFormatter("if( row.needed==1  ){ return '需要上传' } else{ return '无需上传' }");
 			}
-			column = addColumn(datagrid, "attachmentCat", "附件类别", ControlTypes.TEXT_BOX, 100);{
-				String formatter=EnumUtil.getColumnFormatter(AttachmentCat.class);
+			column = addColumn(datagrid, "attachmentCat", "附件类别", ControlTypes.TEXT_BOX, 100);
+			{
+				String formatter = EnumUtil.getColumnFormatter(AttachmentCat.class);
 				column.setFormatter(formatter);
 			}
-			column=addColumn(datagrid, "fileType", "文件类型", ControlTypes.TEXT_BOX, 150);
+			column = addColumn(datagrid, "fileType", "文件类型", ControlTypes.TEXT_BOX, 150);
 			{
-				String formatter=EnumUtil.getColumnFormatter(FileType.class);
+				String formatter = EnumUtil.getColumnFormatter(FileType.class);
 				column.setFormatter(formatter);
 			}
-			column=addColumn(datagrid, "toFileType", "目标文件类型", ControlTypes.TEXT_BOX, 150);
+			column = addColumn(datagrid, "toFileType", "目标文件类型", ControlTypes.TEXT_BOX, 150);
 			{
-				String formatter=EnumUtil.getColumnFormatter(FileType.class);
+				String formatter = EnumUtil.getColumnFormatter(FileType.class);
 				column.setFormatter(formatter);
 			}
 			addColumn(datagrid, "minPx", "最小像素数", ControlTypes.TEXT_BOX, 100);
 			addColumn(datagrid, "maxPx", "最大像素数", ControlTypes.TEXT_BOX, 100);
 			addColumn(datagrid, "minBytes", "最小文件大小（KB）", ControlTypes.TEXT_BOX, 150);
 			addColumn(datagrid, "maxBytes", "最大文件大小（KB）", ControlTypes.TEXT_BOX, 150);
-			column=addColumn(datagrid, "fileUrl", "状态", ControlTypes.TEXT_BOX, 150);
+			column = addColumn(datagrid, "fileUrl", "状态", ControlTypes.TEXT_BOX, 150);
 			{
 				column.setFormatter("if( row.fileUrl=='' || row.fileUrl==null ){ return '待上传' } else{ return '已上传' }");
 			}
+
 
 		}
 		PForm form = new PForm();
@@ -416,7 +421,11 @@ public class DpAllTradeMarkCaseWorkspaceTest extends WorkspaceCreationBase {
 				// column.setFormatter("return '<a
 				// href=\"url\">name</a>'.replace('name',row.name).replace('url',row.fileUrl)");
 			}
-	
+			addColumn(datagrid, "tradeMark.proxyCode", "代理号", ControlTypes.TEXT_BOX, 180);
+			column = addColumn(datagrid, "shareGroup", "共享组", ControlTypes.ENUM_BOX, 150);{
+			String formatter = EnumUtil.getColumnFormatter(ShareGroup.class);
+			column.setFormatter(formatter);
+		}
 			column = addColumn(datagrid, "attachmentCat", "附件类别", ControlTypes.TEXT_BOX, 100);{
 				String formatter=EnumUtil.getColumnFormatter(AttachmentCat.class);
 				column.setFormatter(formatter);

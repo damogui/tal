@@ -1,9 +1,8 @@
 package com.gongsibao.igirl.ic.base;
 
-import com.gongsibao.entity.igirl.ic.dict.CorpRegStatue;
 import com.gongsibao.entity.igirl.ic.ex.IcExRegisterCase;
-import com.gongsibao.entity.igirl.ic.ex.baseinfo.IcExLog;
 import com.gongsibao.entity.igirl.ic.ex.dict.ApprovalType;
+import com.gongsibao.entity.igirl.ic.ex.dict.OperatorType;
 import org.netsharp.base.IPersistableService;
 
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.List;
 public interface IcExRegisterService extends IPersistableService<IcExRegisterCase> {
     Integer updateState(String id, Integer state);
 
-    List<IcExRegisterCase> getIcCaseByType(ApprovalType wait);
+    List<IcExRegisterCase> getIcCaseByType(ApprovalType wait, OperatorType operator);
 
     IcExRegisterCase updateIcCase(String name, Integer state);
 

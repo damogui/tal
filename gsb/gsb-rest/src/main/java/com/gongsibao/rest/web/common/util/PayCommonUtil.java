@@ -10,12 +10,13 @@ public class PayCommonUtil {
      *
      * @return boolean
      */
+    @SuppressWarnings("unchecked")
     public static boolean isTenpaySign(String characterEncoding, SortedMap<Object, Object> packageParams, String key) {
         StringBuffer sb = new StringBuffer();
-        Set es = packageParams.entrySet();
-        Iterator it = es.iterator();
+        Set<Map.Entry<Object, Object>> es = packageParams.entrySet();
+        Iterator<Map.Entry<Object, Object>> it = es.iterator();
         while (it.hasNext()) {
-            Map.Entry entry = (Map.Entry) it.next();
+            Map.Entry  entry = (Map.Entry) it.next();
             String k = (String) entry.getKey();
             String v = (String) entry.getValue();
             if (!"sign".equals(k) && null != v && !"".equals(v)) {
