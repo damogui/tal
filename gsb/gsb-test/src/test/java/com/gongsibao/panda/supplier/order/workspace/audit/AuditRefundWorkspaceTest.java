@@ -91,7 +91,7 @@ public class AuditRefundWorkspaceTest extends WorkspaceCreationBase{
         addColumn(datagrid, "fefund.soOrder.createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);
         addColumn(datagrid, "fefund.creator", "退款创建人", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "fefund.soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
-
+        addColumn (datagrid, "remark", "说明", ControlTypes.TEXT_BOX, 100);
         return datagrid;
     }
 
