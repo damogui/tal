@@ -229,10 +229,10 @@ public abstract class AbstractAuditLogService<T> {
 				}
         	}
         	//4.添加相应分类的运营专员审核
-        	Integer level = getCurrentLevel() + 1;
+        	Integer level = getCurrentLevel() + 1; 
         	for (Integer item : yysIdList) {
-                auditLogList.add(addAuditLog(formId, "运营审核", item, level));
-            }
+                auditLogList.add(addAuditLog(formId, "运营专员审核", item, level));
+            } 
            /* //4.获取相应分类的平台服务商领导,并且没有离职
             ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
             List<Integer> yyIds = salesmanService.getEmployeeIdListByRoleCodes(Arrays.asList("Platform_Operation_Leader"));
