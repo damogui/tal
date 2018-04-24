@@ -45,7 +45,7 @@ import com.gongsibao.panda.supplier.reference.SupplierU8BankReferenceTest;
         SalesmanOrderDetailWorkspaceTest.class,
         SalesmanOrderContractFormWorkspaceTest.class,
         SalesmanOrderInvoiceFormWorkspaceTest.class,
-
+        SalesmanOrderDelWorkspaceTest.class,//无效订单
 
         //部门订单
         DepartmentOrderAllWorkspaceTest.class,
