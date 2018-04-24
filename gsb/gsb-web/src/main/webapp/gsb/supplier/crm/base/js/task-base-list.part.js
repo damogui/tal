@@ -421,7 +421,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		debugger;
 	     var lastFollowTime = row.lastFollowTime;
 	     if(lastFollowTime == null){
-	    	 return 0;
+	    	 return "";
 	     }else{
 	    	 var sDate1 = new Date().format("yyyy-MM-dd hh:mm:ss");
 		     var sDate2 = Date.parse(lastFollowTime);
