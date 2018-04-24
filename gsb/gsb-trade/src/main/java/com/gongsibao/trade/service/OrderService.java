@@ -1,6 +1,7 @@
 package com.gongsibao.trade.service;
 
 import com.gongsibao.bd.base.IPreferentialCodeService;
+import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.trade.*;
@@ -39,7 +40,7 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
     IOrderProdService orderProdService = ServiceFactory.create(IOrderProdService.class);
     IOrderDiscountService orderDiscountService = ServiceFactory.create(IOrderDiscountService.class);
     IOrderService tradeOrderService = ServiceFactory.create(IOrderService.class);
-
+    IPersister<AuditLog> auditLogService = PersisterFactory.create();//审核
     public OrderService() {
         super();
         this.type = SoOrder.class;
@@ -497,15 +498,15 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
     public int updateOrderStatus(Integer accountId, Integer orderId, Integer status) {
         String sql = "update so_order set so_order.process_status_id = ? where pkid = ? and account_id = ? ";
         QueryParameters queryParameters = new QueryParameters();
-        queryParameters.add("process_status_id",status,Types.INTEGER);
-        queryParameters.add("pkid",orderId,Types.INTEGER);
-        queryParameters.add("account_id",accountId,Types.INTEGER);
+        queryParameters.add("process_status_id", status, Types.INTEGER);
+        queryParameters.add("pkid", orderId, Types.INTEGER);
+        queryParameters.add("account_id", accountId, Types.INTEGER);
         return this.pm.executeNonQuery(sql, queryParameters);
     }
 
     @Override
     public int updateCancelOrder(Integer accountId, Integer orderId) {
-        int effectNum = updateOrderStatus(accountId,orderId, OrderProcessStatusType.Yqx.getValue());
+        int effectNum = updateOrderStatus(accountId, orderId, OrderProcessStatusType.Yqx.getValue());
         if (effectNum > 0) {
             List<OrderProd> orderProds = orderProdService.byOrderId(orderId);
             if (orderProds != null) {
@@ -532,7 +533,62 @@ public class OrderService extends PersistableService<SoOrder> implements IOrderS
 
     @Override
     public int updatePayablePriceRevert(int pkid, int price) {
-        String sql = String.format("UPDATE so_order SET payable_price = payable_price + %s WHERE pkid = %s ",price,pkid);
+        String sql = String.format("UPDATE so_order SET payable_price = payable_price + %s WHERE pkid = %s ", price, pkid);
         return this.pm.executeNonQuery(sql, null);
+    }
+
+    @Override
+    public String orderDel(Integer orderId) {
+        //进行删除
+        //判断能不能进行删除
+        Integer num = checkOrderCanDel(orderId);
+        if (num>0){
+
+            return "改价订单、有回款、订单业绩、回款业绩、结转审核的不能删除";
+        }else {
+            //进行删除
+            String sql=" UPDATE  so_order  SET  is_delete=1 WHERE pkid=? ";
+
+            QueryParameters qps=new QueryParameters();
+            qps.add("@pkid",orderId,Types.INTEGER);
+            num=auditLogService.executeNonQuery(sql,qps);
+            if (num>0){
+                return "1";
+
+            }else  {
+                return "删除失败";
+
+            }
+
+
+
+
+
+        }
+
+    }
+
+    /*校验是不是可以删除*/
+    private Integer checkOrderCanDel(Integer orderId) {
+
+        String sql = "SELECT  COUNT(1) FROM  bd_audit_log WHERE  form_id=?  AND  type_id IN (1042,1045,1050,1051)";
+        QueryParameters qps = new QueryParameters();
+        qps.add("@form_id", orderId, Types.INTEGER);
+        int numAudit = auditLogService.executeInt(sql, qps);
+        if (numAudit > 0) {
+            return numAudit;
+        } else {
+            //结转中的订单不能删除
+            String sql2 = "SELECT  COUNT(1) FROM so_order_carryover WHERE  form_order_id=? OR to_order_id=?";
+            QueryParameters qps2 = new QueryParameters();
+            qps2.add("@form_order_id", orderId, Types.INTEGER);
+            qps2.add("@to_order_id", orderId, Types.INTEGER);
+            int num = auditLogService.executeInt(sql2, qps2);
+
+            return num;
+
+        }
+
+
     }
 }

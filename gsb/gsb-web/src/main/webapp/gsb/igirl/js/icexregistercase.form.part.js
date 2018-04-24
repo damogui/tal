@@ -14,13 +14,21 @@ com.gongsibao.igirl.ic.web.IcExRegisterCasePart = org.netsharp.panda.commerce.Fo
         return true;
     },
     isCom: function (el) {
-        var com = $(el).val();
+        var me = this;
+        var approvalName = $(el).val();
         var con = "北京";
-        if (com.indexOf(con) == -1) {
+        if (approvalName.indexOf(con) == -1) {aa4344
             IMessageBox.error("【公司名称】格式错误");
             $("#approvalName").val("");
             return false;
         }
-        return true;
+        me.invokeService("findCom",[approvalName],function (result) {
+            if(result==1){
+                IMessageBox.error("【公司】已存在");
+                $("#approvalName").val("");
+                return false;
+            }
+            return true;
+        })
     },
 });

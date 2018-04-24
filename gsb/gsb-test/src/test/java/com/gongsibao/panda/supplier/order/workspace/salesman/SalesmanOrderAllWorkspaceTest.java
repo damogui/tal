@@ -49,7 +49,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 		ss.add("/gsb/panda-extend/gsb.pubcontrol.js");
 		listPartImportJs = StringManager.join("|", ss);
 
-		listFilter = " (owner_id = '{userId}'  or  add_user_id='{userId}')";
+		listFilter = " (owner_id = '{userId}'  or  add_user_id='{userId}') and is_delete=0 and process_status_id<>3023";
 		listPartJsController = SalesmanAllOrderListPart.class.getName();
 		listPartServiceController = SalesmanAllOrderListPart.class.getName();
 	}
@@ -201,6 +201,16 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 			item.setName("转移");
 			item.setSeq(2);
 			item.setCommand("{controller}.orderTran();");
+			toolbar.getItems().add(item);
+		}
+
+		item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("orderDel");
+			item.setName("删除");
+			item.setSeq(2);
+			item.setCommand("{controller}.orderDel();");
 			toolbar.getItems().add(item);
 		}
 

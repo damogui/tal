@@ -80,6 +80,7 @@ public class OrderController extends BaseController {
                 orderDTO.setNo(order.getNo());
                 orderDTO.setAddTime(order.getCreateTime());
                 orderDTO.setAdd_time(order.getCreateTime());
+                orderDTO.setProdName(order.getProdName());
                 orderDTO.setProcessStatusId(order.getProcessStatus().getValue());
                 orderDTO.setPayStatusId(order.getPayStatus().getValue());
                 orderDTO.setPayablePrice(order.getPayablePrice());

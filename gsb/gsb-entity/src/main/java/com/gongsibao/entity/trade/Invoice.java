@@ -69,7 +69,7 @@ public class Invoice extends BaseEntity {
     private Integer fileId;
 
     @Column(name = "conent_type", header = "内容类别")
-    private InvoiceContentType contentType = InvoiceContentType.Fwf;
+    private InvoiceContentType contentType = InvoiceContentType.wu;
 
     @Column(name = "remark", header = "说明", required = false)
     private String remark;

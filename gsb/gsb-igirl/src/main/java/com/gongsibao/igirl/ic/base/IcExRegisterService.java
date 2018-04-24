@@ -16,4 +16,5 @@ public interface IcExRegisterService extends IPersistableService<IcExRegisterCas
 
     IcExRegisterCase updateOwner(Integer id, Integer toUserId);
 
+    IcExRegisterCase findCom(String approvalName);
 }
