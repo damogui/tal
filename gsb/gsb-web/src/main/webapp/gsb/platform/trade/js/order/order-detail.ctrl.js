@@ -452,13 +452,13 @@ com.gongsibao.trade.web.OrderPaymentCollectionDetailCtrl = com.gongsibao.trade.w
                 {field: 'confirmTime', title: '审核通过时间', width: 130, align: 'center'},
                 {field: 'createTime', title: '创建时间', width: 120, align: 'center'},
                 {
-                    field: 'receiptStatus',
+                    field: 'offlineAuditStatus',
                     title: '状态',
                     width: 100,
                     align: 'center',
                     formatter: function (value, row, index) {
 
-                        return me.receiptStatus[value];
+                        return me.auditStatusTypeEnum[value];
                     }
                 }
             ]]
