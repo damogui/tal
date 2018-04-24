@@ -537,10 +537,9 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
         }
 
         roleCodeStrs = roleCodeStrs.substring(0, roleCodeStrs.length() - 1);
-        sql.append("SELECT DISTINCT sa.employee_id FROM sys_permission_role_employee rem ");
-        sql.append("JOIN sp_salesman sa ON sa.employee_id = rem.employee_id  ");
-        sql.append("JOIN sys_permission_role r ON r.id = rem.role_id ");
-        sql.append("WHERE sa.disabled = 0 AND r.CODE IN(" + roleCodeStrs + ") ");
+        sql.append("SELECT employee_id FROM sys_permission_role_employee ");
+        sql.append("WHERE employee_id in(SELECT id FROM sys_permission_employee WHERE disabled = 0) ");
+        sql.append("AND role_id IN (SELECT id FROM sys_permission_role WHERE CODE in(" + roleCodeStrs + ") )");
         DataTable dataTable = this.pm.executeTable(sql.toString(), null);
 
         for (IRow row : dataTable) {
