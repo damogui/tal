@@ -68,7 +68,8 @@ com.gongsibao.trade.web.AuditPerformanceCtrl = com.gongsibao.trade.web.AuditBase
                     {field: 'creator', title: '审批人', width: 100, align: 'center'},
                     {field: 'option', title: '操作', width: 150},
                     {field: 'remark', title: '审批记录内容', width: 150},
-                    {field: 'createTime', title: '操作时间', width: 150}
+                    {field: 'createTime', title: '操作时间', width: 150},
+                    {field: 'remark', title: '说明', width: 150}
 
                 ]]
             });
