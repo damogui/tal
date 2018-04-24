@@ -103,7 +103,7 @@ public class AuditContractWorkspaceTest extends WorkspaceCreationBase {
         addColumn(datagrid, "status", "审核状态", ControlTypes.ENUM_BOX, 100);
         addColumn(datagrid, "contract.soOrder.createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 100);
         addColumn(datagrid, "contract.salesman.name", "业务员", ControlTypes.TEXT_BOX, 100);
-
+        addColumn (datagrid, "remark", "说明", ControlTypes.TEXT_BOX, 100);
         return datagrid;
     }
 

@@ -120,7 +120,7 @@ public class AuditPayWorkspaceTest  extends WorkspaceCreationBase {
 
 
         }
-
+        addColumn (datagrid, "remark", "说明", ControlTypes.TEXT_BOX, 100);
 
         return datagrid;
     }
