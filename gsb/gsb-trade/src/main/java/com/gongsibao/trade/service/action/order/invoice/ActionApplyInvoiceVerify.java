@@ -4,6 +4,7 @@ import com.gongsibao.entity.trade.Contract;
 import com.gongsibao.entity.trade.OrderInvoiceMap;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
+import com.gongsibao.entity.trade.dic.InvoiceContentType;
 import com.gongsibao.entity.trade.dic.InvoiceType;
 import com.gongsibao.trade.base.IInvoiceService;
 import com.gongsibao.trade.base.IOrderInvoiceMapService;
@@ -54,30 +55,21 @@ public class ActionApplyInvoiceVerify implements IAction {
         if (NumberUtils.toInt(invoice.getAmount()) == 0) {
             throw new BusinessException("发票金额不能为零");
         }
-        if (StringManager.isNullOrEmpty(invoice.getContent())) {
+        if (invoice.getContentType() == null || invoice.getContentType().equals(InvoiceContentType.wu)) {
             throw new BusinessException("发票内容不能为空");
         }
         if (StringManager.isNullOrEmpty(invoice.getVatTaxNo())) {
             throw new BusinessException("开票公司税号不能为空");
         }
-        if (StringManager.isNullOrEmpty(invoice.getReceiverName())) {
-            throw new BusinessException("发票接收人不能为空");
-        }
-
-        if (StringManager.isNullOrEmpty(invoice.getReceiverMobilePhone())) {
-            throw new BusinessException("手机号码不能为空");
-        }
-        if (RegexUtils.isNotPhone(invoice.getReceiverMobilePhone())) {
+        if (!StringManager.isNullOrEmpty(invoice.getReceiverMobilePhone()) && RegexUtils.isNotPhone(invoice.getReceiverMobilePhone())) {
             throw new BusinessException("手机号码格式错误");
         }
-
-        if (StringManager.isNullOrEmpty(invoice.getReceiverEmail())) {
-            throw new BusinessException("邮箱不能为空");
+        if (invoice.getTypeId().equals(InvoiceType.Dz) && StringManager.isNullOrEmpty(invoice.getReceiverEmail())) {
+            throw new BusinessException("发票类型为电子发票时，邮箱不能为空");
         }
-        if (!RegexUtils.isEmail(invoice.getReceiverEmail())) {
+        if (!StringManager.isNullOrEmpty(invoice.getReceiverEmail()) && !RegexUtils.isEmail(invoice.getReceiverEmail())) {
             throw new BusinessException("邮箱格式错误");
         }
-
         if (invoice.getTypeId().equals(InvoiceType.Zzszy)) {
             if (StringManager.isNullOrEmpty(invoice.getVatAddress())) {
                 throw new BusinessException("开票公司注册地址不能为空");

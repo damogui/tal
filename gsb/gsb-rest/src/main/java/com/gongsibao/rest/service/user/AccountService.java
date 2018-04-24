@@ -130,13 +130,12 @@ public class AccountService implements IAccountService {
         } else {
             Fans oldFans=accountWeiXinService.queryFansByUserId(accountOld.getId());
             //判断是否绑定过手机号
-            if(oldFans.getUserId()!=null){
+            if(null!=oldFans&&oldFans.getUserId()!=null){
                 //解绑
                 oldFans.setUserId(0);
                 IFansService fansService=ServiceFactory.create(IFansService.class);
                 fansService.updateFans(oldFans);
             }
-
             if(fans!=null){
                 accountOld.setIsWeiXin(Constant.SUBSCRIBE);
                 accountOld.setFansId(fans.getId());

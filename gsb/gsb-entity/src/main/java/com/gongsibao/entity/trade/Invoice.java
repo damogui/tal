@@ -5,10 +5,7 @@ import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
-import com.gongsibao.entity.trade.dic.AuditStatusType;
-import com.gongsibao.entity.trade.dic.InvoiceOpenBallotCompanyType;
-import com.gongsibao.entity.trade.dic.InvoiceTitleType;
-import com.gongsibao.entity.trade.dic.InvoiceType;
+import com.gongsibao.entity.trade.dic.*;
 import org.netsharp.core.annotations.*;
 import org.netsharp.organization.entity.Employee;
 
@@ -70,6 +67,9 @@ public class Invoice extends BaseEntity {
 
     @Column(name = "file_id", header = "附件序号")
     private Integer fileId;
+
+    @Column(name = "conent_type", header = "内容类别")
+    private InvoiceContentType contentType = InvoiceContentType.Fwf;
 
     @Column(name = "remark", header = "说明", required = false)
     private String remark;
@@ -420,5 +420,13 @@ public class Invoice extends BaseEntity {
 
     public void setSoOrder(SoOrder soOrder) {
         this.soOrder = soOrder;
+    }
+
+    public InvoiceContentType getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(InvoiceContentType contentType) {
+        this.contentType = contentType;
     }
 }
