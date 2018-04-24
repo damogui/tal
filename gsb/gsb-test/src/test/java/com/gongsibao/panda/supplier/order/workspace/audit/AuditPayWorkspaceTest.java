@@ -107,7 +107,7 @@ public class AuditPayWorkspaceTest  extends WorkspaceCreationBase {
         addColumn (datagrid, "pay.setOfBooks.name", "付款账套", ControlTypes.TEXT_BOX, 200);
         addColumn (datagrid, "pay.productName", "产品名称", ControlTypes.TEXT_BOX, 150);
         
-        addColumn (datagrid, "pay.setOfBooks.name", "付款方式", ControlTypes.ENUM_BOX, 100);
+        addColumn (datagrid, "pay.u8Bank.name", "付款方式", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "pay.amount", "付款金额", ControlTypes.DECIMAL_FEN_BOX, 100);
         addColumn (datagrid, "status", "审核状态", ControlTypes.ENUM_BOX, 100);
         addColumn (datagrid, "pay.confirmTime", "回款日期", ControlTypes.DATE_BOX, 100);
