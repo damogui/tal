@@ -3,6 +3,7 @@ package com.gongsibao.rest.web.controller.v1.order;
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.rest.base.order.IOrderService;
+import com.gongsibao.rest.service.user.AccountService;
 import com.gongsibao.rest.web.common.apiversion.Api;
 import com.gongsibao.rest.web.common.apiversion.LoginCheck;
 import com.gongsibao.rest.web.common.security.SecurityUtils;
@@ -19,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -36,6 +39,25 @@ public class OrderController extends BaseController {
 
     @Autowired
     private IOrderService orderService;
+
+    @Autowired
+    private AccountService accountService;
+
+    @RequestMapping("/test")
+    public ResponseData test(HttpServletRequest request) {
+        Map<String, Object> map = new HashMap<>();
+        try {
+            map.put("originalId", originalId(request));
+            map.put("openId", openId(request));
+            map.put("account", accountService.queryByOpenId(openId(request)));
+
+            return ResponseData.getSuccess(map, "");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseData.getError(ResponseData.EXCEPTION, "您的网络不稳定，请稍后再试。");
+        }
+    }
+
 
     /* *
      * @Description: 获取订单进度详情
@@ -60,6 +82,13 @@ public class OrderController extends BaseController {
         }
     }
 
+    /**
+     * @Description: 支付成功后查询订单信息
+     * @param  request
+     * @return com.gongsibao.rest.web.common.web.ResponseData
+     * @author wangkun <wangkun@gongsibao.com>
+     * @date 2018/4/24
+     */
     @RequestMapping("/info")
     @LoginCheck
     public ResponseData info(HttpServletRequest request) {
