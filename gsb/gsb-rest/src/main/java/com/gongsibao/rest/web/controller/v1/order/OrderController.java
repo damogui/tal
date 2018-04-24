@@ -1,5 +1,6 @@
 package com.gongsibao.rest.web.controller.v1.order;
 
+import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.rest.base.order.IOrderService;
 import com.gongsibao.rest.web.common.apiversion.Api;
@@ -8,12 +9,18 @@ import com.gongsibao.rest.web.common.security.SecurityUtils;
 import com.gongsibao.rest.web.common.util.NumberUtils;
 import com.gongsibao.rest.web.common.web.ResponseData;
 import com.gongsibao.rest.web.controller.BaseController;
+import com.gongsibao.rest.web.dto.order.OrderDTO;
 import com.gongsibao.rest.web.dto.order.OrderMessageDTO;
+import com.gongsibao.rest.web.dto.order.OrderProductDTO;
+import org.apache.commons.lang3.BooleanUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * ClassName: OrderController
@@ -67,7 +74,23 @@ public class OrderController extends BaseController {
                 return ResponseData.getError(ResponseData.FAIL, "订单不存在");
             }
 
-            return ResponseData.getSuccess(order, "");
+            OrderDTO orderDTO = new OrderDTO();
+            {
+                orderDTO.setPkid(order.getId());
+                orderDTO.setNo(order.getNo());
+                orderDTO.setAddTime(order.getCreateTime());
+                orderDTO.setAdd_time(order.getCreateTime());
+                orderDTO.setProcessStatusId(order.getProcessStatus().getValue());
+                orderDTO.setPayStatusId(order.getPayStatus().getValue());
+                orderDTO.setPayablePrice(order.getPayablePrice());
+                orderDTO.setPaidPrice(order.getPaidPrice());
+                orderDTO.setIsChangePrice(BooleanUtils.toInteger(order.getIsChangePrice(), 1, 0));
+                orderDTO.setChangePriceAuditStatusId(order.getChangePriceAuditStatus().getValue());
+                orderDTO.setType(order.getType().getValue());
+                orderDTO.setIsInstallment(BooleanUtils.toInteger(order.getIsInstallment(), 1, 0));
+                orderDTO.setInstallmentAuditStatusId(order.getInstallmentAuditStatusId().getValue());
+            }
+            return ResponseData.getSuccess(orderDTO, "");
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseData.getError(ResponseData.EXCEPTION, "您的网络不稳定，请稍后再试。");
