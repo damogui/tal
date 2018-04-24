@@ -2,6 +2,7 @@ package com.gongsibao.rest.web.controller;
 
 import com.gongsibao.account.base.IAccountWeiXinService;
 import com.gongsibao.entity.acount.Account;
+import com.gongsibao.rest.base.user.IAccountService;
 import com.gongsibao.rest.web.common.util.Assert;
 import org.netsharp.communication.ServiceFactory;
 
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class BaseController {
 
-    protected final static IAccountWeiXinService $accountWeiXinService = ServiceFactory.create(IAccountWeiXinService.class);
+    protected final static IAccountService $accountService = ServiceFactory.create(IAccountService.class);
 
     protected String openId(HttpServletRequest request){
         return request.getHeader(UserHeaders.openId);
@@ -33,7 +34,7 @@ public class BaseController {
 
     protected Account accountByOpenId(String openId){
         Assert.hasText(openId,"尚未登录!");
-        Account account = $accountWeiXinService.queryByOpenId(openId);
+        Account account = $accountService.login(openId);
         Assert.notNull(account,"账号尚未绑定!");
         return account;
     }
