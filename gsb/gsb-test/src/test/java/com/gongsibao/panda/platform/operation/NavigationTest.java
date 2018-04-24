@@ -90,6 +90,8 @@ public class NavigationTest extends NavigationBase {
             createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Anomaly_Detection", "抽查异常", "/operation/customer/task/anomalydetection/list", 10);
 
             createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Customer_OpenSea", "公海", "/operation/task/opensea/list", 11);
+
+            createPTreeNode(tree, "Operation_CRM", null, "Operation_CRM_Task_Follow", "跟进列表", "/operation/customer/task/follow/list", 12);
         }
 
         createPTreeNode(tree, null, null, "Operation_IGIRL", "智能商标", "", 6);

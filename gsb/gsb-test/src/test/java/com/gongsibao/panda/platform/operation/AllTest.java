@@ -4,6 +4,7 @@ import com.gongsibao.panda.platform.report.workspace.customer.ComprehenStatistic
 import com.gongsibao.panda.platform.report.workspace.customer.FollowStatisticalWorkspaceTest;
 import com.gongsibao.panda.platform.report.workspace.customer.FunnelStatisticalWorkspaceTest;
 import com.gongsibao.panda.platform.report.workspace.customer.StatisticalCustomerServiceWorkspaceTest;
+
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -18,6 +19,7 @@ import com.gongsibao.panda.platform.operation.workspace.crm.TaskALLWorkspaceTest
 import com.gongsibao.panda.platform.operation.workspace.crm.TaskAllocatedWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.TaskCheckAbnormalWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.TaskDefeatedWorkspaceTest;
+import com.gongsibao.panda.platform.operation.workspace.crm.TaskFollowWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.TaskOpenSeaWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.TaskUndistributedWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.TaskUnstartWorkspaceTest;
@@ -119,6 +121,7 @@ import com.gongsibao.panda.platform.operation.workspace.wanda.WanDaSoOrderWorksp
         TaskDefeatedWorkspaceTest.class,
         TaskCheckAbnormalWorkspaceTest.class,
         QualityWorkspaceTest.class,
+        TaskFollowWorkspaceTest.class,
 
 
         ImportTaskQualityDataTest.class,

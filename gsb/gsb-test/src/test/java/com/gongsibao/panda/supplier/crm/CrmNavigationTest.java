@@ -57,6 +57,7 @@ public class CrmNavigationTest extends NavigationBase{
 				createPTreeNode(tree, "CRM_SALESMAN", nodeIcon, "CRM_SALESMAN_TASK_DEFEATED", "无法签单商机", "/crm/salesman/task/defeated/list", 8);
 				createPTreeNode(tree, "CRM_SALESMAN", nodeIcon, "CRM_SALESMAN_CHECK_ABNORMAL", "抽查异常", "/crm/salesman/check/abnormal/list", 9);
 				createPTreeNode(tree, "CRM_SALESMAN", nodeIcon, "CRM_SALESMAN_TIMEOUT", "超时提醒", "/crm/salesman/task/timeout/list", 10);
+				createPTreeNode(tree, "CRM_SALESMAN", nodeIcon, "CRM_SALESMAN_TASK_Follow", "我的跟进", "/crm/salesman/task/follow/list", 11);
 			}
 
 			createPTreeNode(tree, "GSB_CRM", null, "CRM_DEPARTMENT", "部门管理", "", 2);
@@ -72,6 +73,7 @@ public class CrmNavigationTest extends NavigationBase{
 				createPTreeNode(tree, "CRM_DEPARTMENT", nodeIcon, "CRM_DEPARTMENT_TASK_DEFEATED", "无法签单", "/crm/department/defeated/list", 9);
 				createPTreeNode(tree, "CRM_DEPARTMENT", nodeIcon, "CRM_DEPARTMENT_TASK_CHECK_ABNORMAL", "抽查异常", "/crm/department/check/abnormal/list", 10);
 				createPTreeNode(tree, "CRM_DEPARTMENT", nodeIcon, "CRM_DEPARTMENT_TASK_HIGHSEAS", "公海", "/crm/department/highseas/list", 11);
+				createPTreeNode(tree, "CRM_DEPARTMENT", nodeIcon, "CRM_DEPARTMENT_TASK_Follow", "跟进列表", "/crm/department/task/follow/list", 12);
 			}
 			
 			createPTreeNode(tree, "GSB_CRM", null, "CRM_STATISTICAL", "统计分析", "", 3);
