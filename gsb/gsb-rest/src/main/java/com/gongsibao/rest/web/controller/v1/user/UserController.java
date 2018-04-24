@@ -252,7 +252,7 @@ public class UserController extends BaseController {
             data.setData(openId);
             data.setMsg("获取成功");
         } catch (Exception ex) {
-            logger.error("", ex);
+//            logger.error("", ex);
         }
         return data;
     }
