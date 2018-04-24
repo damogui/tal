@@ -15,7 +15,7 @@ com.gongsibao.trade.web.QueryInteractionGroupCtrl = org.netsharp.panda.core.Cust
         builder.append('	<table cellpadding="5" cellspacing="5" class="form-panel">');
         builder.append('		<tr><td style="color:red;">提示：填写关键字后敲回车执行查询</td></tr>');
         builder.append('		<tr><td><input id="interaction_group_keyword"/></td></tr>');
-        builder.append('		<tr><td>订单应付金额：<span id="payablePrice"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;订单余额：<span id="balance"></span></td><td></td></tr>');
+        builder.append('		<tr><td>订单应付金额：<span id="payablePrice" style="margin-right: 10px;"></span>订单余额：<span id="balance" style="margin-right: 10px;"></span>订单关联公司：<span id="companyName"></span></td><td></td></tr>');
         builder.append('		<tr><td><table id="interaction_group"></table></td></tr>');
         builder.append('	</table>');
         builder.append('</div>');
@@ -27,7 +27,7 @@ com.gongsibao.trade.web.QueryInteractionGroupCtrl = org.netsharp.panda.core.Cust
             maxmin: false,
             shadeClose: true,
             zIndex: 100000,
-            area: ['600px', '440px'],
+            area: ['850px', '440px'],
             content: builder.toString(),
             success: function (layero, index) {
                 me.initGrid();
@@ -47,7 +47,7 @@ com.gongsibao.trade.web.QueryInteractionGroupCtrl = org.netsharp.panda.core.Cust
         $(this.$gridCtrlId).datagrid({
             idField: 'id',
             height: 240,
-            width: 550,
+            width: 800,
             striped: true,
             pagination: true,
             showFooter: true,
@@ -62,24 +62,33 @@ com.gongsibao.trade.web.QueryInteractionGroupCtrl = org.netsharp.panda.core.Cust
             columns: [[
                 {field: 'id', checkbox: true, align: 'center'},
                 {
-                    field: 'orderProdId', title: '明细订单号', width: 100, formatter: function (value, row, index) {
-                        if (row.orderProdId) {
-                            return row.orderProdId;
-                        }
+                    field: 'orderProdId', title: '明细订单号', width: 80, formatter: function (value, row, index) {
+                        return row.orderProdId == null ? "无" : row.orderProdId;
                     }
                 },
                 {
-                    field: 'supplierName', title: '操作组名称', width: 200, formatter: function (value, row, index) {
-                        if (row.supplierName) {
-                            return row.supplierName;
-                        }
+                    field: 'supplierName', title: '操作组名称', width: 150, formatter: function (value, row, index) {
+                        return row.supplierName == null || row.supplierName == "" ? "无" : row.supplierName;
                     }
                 },
                 {
-                    field: 'operator', title: '操作员', width: 200, formatter: function (value, row, index) {
-                        if (row.operator) {
-                            return row.operator;
-                        }
+                    field: 'operator', title: '操作员', width: 100, formatter: function (value, row, index) {
+                        return row.operator == null || row.operator == "" ? "无" : row.operator;
+                    }
+                },
+                {
+                    field: 'productName', title: '产品名称', width: 120, formatter: function (value, row, index) {
+                        return row.orderProd == null ? "无" : row.orderProd.productName;
+                    }
+                },
+                {
+                    field: 'cityName', title: '地区', width: 150, formatter: function (value, row, index) {
+                        return row.orderProd == null ? "无" : row.orderProd.cityName;
+                    }
+                },
+                {
+                    field: 'companyName', title: '明细订单公司', width: 150, formatter: function (value, row, index) {
+                        return row.orderProd == null || row.orderProd.companyIntention == null || row.orderProd.companyIntention.companyName == null ? "无" : row.orderProd.companyIntention.companyName;
                     }
                 }
             ]]
@@ -94,6 +103,7 @@ com.gongsibao.trade.web.QueryInteractionGroupCtrl = org.netsharp.panda.core.Cust
             IMessageBox.info('请输入订单编号');
             return false;
         }
+        me.clearOrderInfo();
         //去掉空格
         keyWord = keyWord.replace(/^\s+|\s+$/g, '');
         this.invokeService("queryInteractionGroup", [keyWord, pageIndex, pageSize], function (data) {
@@ -114,10 +124,17 @@ com.gongsibao.trade.web.QueryInteractionGroupCtrl = org.netsharp.panda.core.Cust
                     var refundPrice = data.refundPrice == null ? 0 : data.refundPrice;
                     var carryAmount = data.carryAmount == null ? 0 : data.carryAmount;
                     var balance = System.RMB.fenToYuan(paidPrice + carryIntoAmount - refundPrice - carryAmount);
+                    var companyName = data.companyIntention == null ? "无" : data.companyIntention.companyName;
                     $("#payablePrice").text(payablePrice);
                     $("#balance").text(balance);
+                    $("#companyName").text(companyName);
                 }, null, false
             );
         }
+    },
+    clearOrderInfo: function () {
+        $("#payablePrice").text("");
+        $("#balance").text("");
+        $("#companyName").text("");
     }
 });
