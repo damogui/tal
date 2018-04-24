@@ -83,7 +83,8 @@ public class AuditPayController extends AuditBaseController {
             auditLogDTO.setId(item.getId());
             auditLogDTO.setCreator(item.getEmployee() == null ? "" : item.getEmployee().getName());
             auditLogDTO.setOption(item.getStatus().getText());
-            auditLogDTO.setRemark(item.getContent());
+            auditLogDTO.setRemark(item.getRemark());
+            auditLogDTO.setContent(item.getContent());
             auditLogDTO.setCreateTime(item.getCreateTime());
             logDtos.add(auditLogDTO);
         }

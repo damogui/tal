@@ -118,6 +118,7 @@ public class AuditOrderPerformanceWorkspaceTest extends WorkspaceCreationBase {
 
         addColumn (datagrid, "employee.name", "订单业绩创建人", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "remark", "说明", ControlTypes.TEXT_BOX, 100);
         column=addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 60);{
 
             column.setSystem (true);

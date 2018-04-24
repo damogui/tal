@@ -94,6 +94,7 @@ public class AuditStagingWorkspaceTest extends WorkspaceCreationBase{
         addColumn (datagrid, "soOrder.createTime", "订单创建时间", ControlTypes.DATETIME_BOX, 350);
         addColumn (datagrid, "soOrder.stageCreator", "分期申请人", ControlTypes.TEXT_BOX, 100);
         addColumn (datagrid, "soOrder.owner.name", "业务员", ControlTypes.TEXT_BOX, 100);
+        addColumn (datagrid, "remark", "说明", ControlTypes.TEXT_BOX, 100);
         return datagrid;
     }
 

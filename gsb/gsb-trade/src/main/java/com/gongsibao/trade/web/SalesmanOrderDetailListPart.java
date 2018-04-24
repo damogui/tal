@@ -19,6 +19,7 @@ import com.gongsibao.entity.trade.OrderProdOrganizationMap;
 import com.gongsibao.entity.trade.OrderProdUserMap;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
+import com.gongsibao.entity.trade.dic.OrderPayStatusType;
 import com.gongsibao.entity.trade.dic.OrderProdUserMapType;
 import com.gongsibao.product.base.IProductService;
 import com.gongsibao.trade.base.IOrderProdOrganizationMapService;
@@ -143,8 +144,8 @@ public class SalesmanOrderDetailListPart extends AdvancedListPart {
     	if(orderEntity != null){
     		//获取订单余额
     		Integer balance = NumberUtils.toInt(orderEntity.getPaidPrice()) + NumberUtils.toInt(orderEntity.getCarryIntoAmount()) - NumberUtils.toInt(orderEntity.getRefundPrice()) - NumberUtils.toInt(orderEntity.getCarryAmount());        	
-        	//根据 判断分期installmentAuditStatusId，不根据getIsInstallment（因为提交分期，该状态修改）    		
-    		if(orderEntity.getInstallmentAuditStatusId().equals(AuditStatusType.wu)){
+        	//根据是否支付全款payStatus 		
+    		if(orderEntity.getPayStatus().equals(OrderPayStatusType.Yfk)){
     			if(!balance.equals(orderEntity.getPayablePrice())){
             		retuValue = 0;
             	}    			
