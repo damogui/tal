@@ -28,19 +28,19 @@ import java.util.List;
  */
 /*回款审核*/
 public class AuditPayListPart extends AdvancedListPart {
-	ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);  
+    ISoOrderService orderService = ServiceFactory.create(ISoOrderService.class);
 
     @Override
     public String getFilterByParameter(FilterParameter parameter) {
-        ArrayList<String> filters = new ArrayList<String> ();
+        ArrayList<String> filters = new ArrayList<String>();
         //当是关键字时(订单编号、渠道订单编号、下单人、下单人电话、关联公司)
-        String keyword = parameter.getValue1 ().toString ();
+        String keyword = parameter.getValue1().toString();
         String keyword2 = "";
-        if (parameter.getValue2 () != null) {
-            keyword2 = parameter.getValue2 ().toString ();//时间
+        if (parameter.getValue2() != null) {
+            keyword2 = parameter.getValue2().toString();//时间
         }
 
-        if (parameter.getKey ().equals ("keyword")) {
+        if (parameter.getKey().equals("keyword")) {
 
 
             return " pay.orderNo like '%" + keyword + "%'";
@@ -60,36 +60,38 @@ public class AuditPayListPart extends AdvancedListPart {
 //
 //
 //        }
-        return parameter.getFilter ();
+        return parameter.getFilter();
     }
 
 
     @Override
     public List<?> doQuery(Oql oql) {
-        StringBuilder selects = new StringBuilder ();
-        selects.append ("auditLog.*,");
-        selects.append ("auditLog.pay.*,");
-        selects.append ("auditLog.pay.setOfBooks.name");
+        StringBuilder selects = new StringBuilder();
+        selects.append("auditLog.*,");
+        selects.append("auditLog.pay.*,");
+        selects.append("auditLog.pay.setOfBooks.name,");
+        selects.append("auditLog.pay.u8Bank.name");
         //selects.append ("auditLog.pay.order.*");
 
-        IAuditLogService auditLogService = ServiceFactory.create (IAuditLogService.class);
-        oql.setSelects (selects.toString ());
+        IAuditLogService auditLogService = ServiceFactory.create(IAuditLogService.class);
+        oql.setSelects(selects.toString());
         oql.setOrderby("add_time DESC");
-        List<AuditLog> auditLogs = auditLogService.queryList (oql);
+        List<AuditLog> auditLogs = auditLogService.queryList(oql);
         return auditLogs;
     }
+
     @Override
     protected Object serialize(List<?> list, Oql oql) {
         HashMap<String, Object> json = (HashMap<String, Object>) super.serialize(list, oql);
         ArrayList<HashMap<String, Object>> ob2 = (ArrayList<HashMap<String, Object>>) json.get("rows");
         for (int i = 0; i < ob2.size(); i++) {
-        	
-        	AuditLog auditLog = ((AuditLog) list.get(i));
-        	String soOrderNo  = auditLog.getPay().getOrderNo();
 
-        	String orderNoF=soOrderNo.split(",")[0];
-        	SoOrder soOrder = orderService.getOrderWithOrderProdsByOrderNo(orderNoF);
-        	if (soOrder!=null){
+            AuditLog auditLog = ((AuditLog) list.get(i));
+            String soOrderNo = auditLog.getPay().getOrderNo();
+            if (StringManager.isNullOrEmpty(soOrderNo)) continue;
+            String orderNoF = soOrderNo.split(",")[0];
+            SoOrder soOrder = orderService.getOrderWithOrderProdsByOrderNo(orderNoF);
+            if (soOrder != null) {
 
                 List<OrderProd> products = soOrder.getProducts();
                 String productName = "";
@@ -106,57 +108,32 @@ public class AuditPayListPart extends AdvancedListPart {
     }
 
 
-    //@Override
-    public List<?> doQuery11(Oql oql) {
-        oql.setSelects ("id,payForOrderCount,payWayType,amount,offlineAuditStatus,createTime,creator,orderPayMaps.*");
-        List<Pay> resList = (List<Pay>) super.doQuery (oql);
-
-        return resList;
-    }
-
-
-//    @Override
-    protected Object serialize11(List<?> list, Oql oql) {
-
-        HashMap<String, Object> json = (HashMap<String, Object>) super.serialize (list, oql);
-        ArrayList<HashMap<String, Object>> ob2 = (ArrayList<HashMap<String, Object>>) json.get ("rows");
-
-        for (int i = 0; i < ob2.size (); i++) {
-            ob2.get (i).put ("orderIds", getOrderIds (list.get (i)));
-
-
-        }
-
-
-        return json;
-    }
-
     /*获取订单号*/
     private Object getOrderIds(Object o) {
         Pay pay = (Pay) o;
-        IOrderService orderService = ServiceFactory.create (IOrderService.class);//订
+        IOrderService orderService = ServiceFactory.create(IOrderService.class);//订
         /*根据订单id获取订单编号*/
-        StringBuilder sb = new StringBuilder ();
-        if (pay.getOrderPayMaps ().size () > 0) {
+        StringBuilder sb = new StringBuilder();
+        if (pay.getOrderPayMaps().size() > 0) {
 
 
-            for (OrderPayMap item : pay.getOrderPayMaps ()
+            for (OrderPayMap item : pay.getOrderPayMaps()
                     ) {
 
 
-                if (!item.equals (pay.getOrderPayMaps ().get (pay.getOrderPayMaps ().size () - 1))) {
-                    sb.append ("<p>");
+                if (!item.equals(pay.getOrderPayMaps().get(pay.getOrderPayMaps().size() - 1))) {
+                    sb.append("<p>");
 
                 }
-                SoOrder order = orderService.getByOrderId (item.getOrderId ());
+                SoOrder order = orderService.getByOrderId(item.getOrderId());
                 if (order != null) {
 
-                    sb.append (order.getNo ());
+                    sb.append(order.getNo());
                 }
 
 
-                if (!item.equals (pay.getOrderPayMaps ().get (pay.getOrderPayMaps ().size () - 1))) {
-                    sb.append ("</p>");
+                if (!item.equals(pay.getOrderPayMaps().get(pay.getOrderPayMaps().size() - 1))) {
+                    sb.append("</p>");
 
                 }
 
@@ -165,7 +142,7 @@ public class AuditPayListPart extends AdvancedListPart {
 
 
         }
-        return sb.toString ();
+        return sb.toString();
     }
 
 
