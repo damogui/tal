@@ -5,7 +5,9 @@ import org.netsharp.base.IPersistableService;
 import com.gongsibao.entity.acount.Account;
 
 public interface IAccountService extends IPersistableService<Account> {
-	
+
+	Account getById(Integer id);
+
 	/**   
 	 * @Title: hasMobile   
 	 * @Description: TODO(手机号是否存在)   

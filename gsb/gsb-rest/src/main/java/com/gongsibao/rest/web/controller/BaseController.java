@@ -3,6 +3,7 @@ package com.gongsibao.rest.web.controller;
 import com.gongsibao.account.base.IAccountWeiXinService;
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.rest.web.common.util.Assert;
+import com.gongsibao.rest.web.common.util.StringUtils;
 import org.netsharp.communication.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,10 +18,10 @@ public class BaseController {
     protected final static IAccountWeiXinService $accountWeiXinService = ServiceFactory.create(IAccountWeiXinService.class);
 
     protected String openId(HttpServletRequest request){
-        return request.getHeader(UserHeaders.openId);
+        return StringUtils.trimToEmpty(request.getHeader(UserHeaders.openId));
     }
     protected String originalId(HttpServletRequest request){
-        return request.getHeader(UserHeaders.originalId);
+        return StringUtils.trimToEmpty(request.getHeader(UserHeaders.originalId));
     }
 
     protected Account accountByOpenId(HttpServletRequest request){

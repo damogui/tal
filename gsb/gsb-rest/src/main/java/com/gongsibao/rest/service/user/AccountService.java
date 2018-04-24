@@ -1,21 +1,23 @@
 package com.gongsibao.rest.service.user;
 
+import com.gongsibao.account.base.IAccountCompanyService;
 import com.gongsibao.account.base.IAccountWeiXinService;
 import com.gongsibao.entity.acount.Account;
+import com.gongsibao.entity.acount.AccountCompany;
 import com.gongsibao.entity.acount.AccountWxMsg;
 import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.rest.base.user.IAccountService;
 import com.gongsibao.rest.web.common.util.*;
 import com.gongsibao.rest.web.common.web.Constant;
+import com.gongsibao.rest.web.dto.user.AccountValidateDTO;
 import com.gongsibao.u8.base.IOrderPayMapService;
 import com.gongsibao.utils.NumberUtils;
 import com.gongsibao.utils.sms.SmsHelper;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
-import org.netsharp.panda.controls.utility.UrlHelper;
 import org.netsharp.wx.pa.base.ICustomService;
 import org.netsharp.wx.pa.base.IFansService;
 import org.netsharp.wx.pa.base.IPublicAccountService;
@@ -25,9 +27,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
-import java.net.URLEncoder;
 import java.sql.Types;
 import java.util.*;
 
@@ -37,6 +37,10 @@ public class AccountService implements IAccountService {
     IAccountWeiXinService accountWeiXinService = ServiceFactory.create(IAccountWeiXinService.class);
     ICustomService customService = ServiceFactory.create(ICustomService.class);
     IOrderPayMapService orderPayMapService = ServiceFactory.create(IOrderPayMapService.class);
+
+    // 会员绑定公司服务
+    IAccountCompanyService accountCompanyService = ServiceFactory.create(IAccountCompanyService.class);
+
     @Value("${wx_notify_key}")
     private String notifyKey;
     /*日志*/
@@ -306,5 +310,36 @@ public class AccountService implements IAccountService {
             oql.getParameters().add("@publicAccountId", accountId, Types.INTEGER);
         }
         return fansService.queryFirst(oql)!=null?true:false;
+    }
+
+    @Override
+    public AccountValidateDTO validAccountByOpenId(String openId) {
+        AccountValidateDTO dto = new AccountValidateDTO();
+        if (StringUtils.isBlank(openId)) {
+            return dto;
+        }
+
+        dto.setOpenId(openId);
+        Fans weiXin = accountWeiXinService.queryFansByOpenId(openId);
+        if (null == weiXin) {
+            // 创建微信账号
+            weiXin = accountWeiXinService.createFans(openId);
+        }
+
+        if (null != weiXin.getUserId()) {
+            // 查询关联会员
+            Account account = accountService.getById(weiXin.getUserId());
+            if (null != account) {
+                dto.setMobile(account.getMobilePhone());
+                // 查会员关联企业
+                List<AccountCompany> companyList = accountCompanyService.findByAccount(account.getId(), 1);
+                if (CollectionUtils.isNotEmpty(companyList)) {
+                    // TODO 暂时取第一个公司
+                    String companyName = companyList.get(0).getCompanyName();
+                    dto.setCompanyName(companyName);
+                }
+            }
+        }
+        return dto;
     }
 }

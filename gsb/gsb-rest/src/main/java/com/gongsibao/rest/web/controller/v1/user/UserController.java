@@ -5,6 +5,7 @@ import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.*;
+import com.gongsibao.rest.base.user.IAccountService;
 import com.gongsibao.rest.web.common.apiversion.Api;
 import com.gongsibao.rest.web.common.security.SecurityUtils;
 import com.gongsibao.rest.web.common.util.JsSdkManager;
@@ -12,8 +13,8 @@ import com.gongsibao.rest.web.common.util.JsonUtils;
 import com.gongsibao.rest.web.common.util.RedisClient;
 import com.gongsibao.rest.web.common.util.StringUtils;
 import com.gongsibao.rest.web.common.web.ResponseData;
-import com.gongsibao.rest.base.user.IAccountService;
 import com.gongsibao.rest.web.controller.BaseController;
+import com.gongsibao.rest.web.dto.user.AccountValidateDTO;
 import com.gongsibao.u8.base.IPayService;
 import com.gongsibao.u8.base.ISoOrderService;
 import com.gongsibao.utils.NumberUtils;
@@ -26,9 +27,7 @@ import org.netsharp.panda.controls.utility.UrlHelper;
 import org.netsharp.wx.mp.api.oauth.OAuthRequest;
 import org.netsharp.wx.mp.api.oauth.OAuthResponse;
 import org.netsharp.wx.mp.sdk.AesException;
-import org.netsharp.wx.pa.base.IFansService;
 import org.netsharp.wx.pa.base.IPublicAccountService;
-import org.netsharp.wx.pa.entity.Fans;
 import org.netsharp.wx.pa.entity.PublicAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -644,5 +643,25 @@ public class UserController extends BaseController {
         }
         url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + getAppid + "&redirect_uri=" + returnUrl + "&response_type=code&scope=snsapi_base&state=WeiXin";
         return url;
+    }
+
+    /**
+     * @param request
+     * @return com.gongsibao.rest.web.common.web.ResponseData
+     * @Description: 用户验证, 通过openId, 验证用户是否存在，公司是否存在
+     * @author wangkun <wangkun@gongsibao.com>
+     * @date 2018/4/24
+     */
+    @RequestMapping("/user/account/validate")
+    public ResponseData userValidate(HttpServletRequest request) {
+        String openId = openId(request);
+        try {
+            // 验证用户
+            AccountValidateDTO dto = accountService.validAccountByOpenId(openId);
+            return ResponseData.getSuccess(dto, "");
+        } catch (Exception ex) {
+            logger.error("", ex);
+            return ResponseData.getError(ResponseData.EXCEPTION, "您的网络不稳定，请稍后再试。");
+        }
     }
 }

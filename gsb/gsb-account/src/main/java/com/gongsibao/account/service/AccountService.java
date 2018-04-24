@@ -23,6 +23,18 @@ public class AccountService extends PersistableService<Account> implements IAcco
 	}
 
 	@Override
+	public Account getById(Integer id) {
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects("*");
+			oql.setFilter("id = ?");
+			oql.getParameters().add("id", id, Types.INTEGER);
+		}
+		return this.pm.queryFirst(oql);
+	}
+
+	@Override
 	public Boolean hasMobile(String mobile) {
 
 		Oql oql = new Oql();
