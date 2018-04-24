@@ -178,4 +178,17 @@ public class ExRegisterService extends GsbPersistableService<IcExRegisterCase> i
         }
         return icCase;
     }
+
+    /**
+     * 查找公司名*/
+    @Override
+    public IcExRegisterCase findCom(String approvalName){
+        Oql oql = new Oql();
+        oql.setSelects("IcExRegisterCase.*");
+        oql.setType(IcExRegisterCase.class);
+        oql.setFilter("approvalName=?");
+        oql.getParameters().add("approvalName",approvalName,Types.VARCHAR);
+        IcExRegisterCase icCase =this.queryFirst(oql);
+        return icCase;
+    }
 }
