@@ -15,6 +15,6 @@ public class DepartmentOrderDetailWorkspaceTest extends SalesmanOrderDetailWorks
 		super.setup();
 		urlList = "/crm/order/department/detail/list";		
 		resourceNodeCode = "Gsb_Supplier_Order_Department_OrderProd";
-		listFilter = "department_id in (SELECT department_id FROM sp_salesman WHERE employee_id = '{userId}') ";
+		listFilter = "orderProd.department_id in (SELECT department_id FROM sp_salesman WHERE employee_id = '{userId}') ";
 	}
 }
