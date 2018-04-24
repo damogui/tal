@@ -11,12 +11,17 @@ import org.netsharp.panda.commerce.EasyuiDatagridResult;
 
 import com.gongsibao.cw.base.IAuditRecordService;
 import com.gongsibao.cw.base.IBillAuditDTOService;
+import com.gongsibao.cw.base.ICostDetailService;
 import com.gongsibao.cw.base.IExpenseService;
 import com.gongsibao.cw.base.IFileService;
 import com.gongsibao.cw.base.ILoanService;
+import com.gongsibao.cw.base.ITripRecordService;
 import com.gongsibao.cw.base.IU8BankService;
+import com.gongsibao.cw.service.CostDetailService;
 import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.cw.AuditRecord;
+import com.gongsibao.entity.cw.CostDetail;
+import com.gongsibao.entity.cw.TripRecord;
 import com.gongsibao.entity.cw.dict.FinanceDict;
 import com.gongsibao.entity.cw.dto.BillAuditDTO;
 import com.gongsibao.entity.u8.U8Bank;
@@ -40,6 +45,11 @@ public class TodoListController {
 	IAuditRecordService auditRecordService = ServiceFactory.create(IAuditRecordService.class);
 	
 	IFileService fileService = ServiceFactory.create(IFileService.class);
+	
+	ICostDetailService costDetailService = ServiceFactory.create(ICostDetailService.class);
+	
+	ITripRecordService tripRecordService = ServiceFactory.create(ITripRecordService.class);
+	
 	/**
 	 * 我的待办
 	 * @param employeeId
@@ -68,7 +78,7 @@ public class TodoListController {
 	 */
 	@Authorization(is = false)
 	public Object getExpenseById(Integer formId){
-		return expenseService.getBillByFormId(formId);
+		return expenseService.getBillByFormId(formId,false);
 	}
 	
 	/**
@@ -91,7 +101,25 @@ public class TodoListController {
 	public List<File> getByTabNameFormId(String tabName, Integer formId){
 		return fileService.getByTabNameFormId(tabName, formId);
 	}
-	
+	/**
+	 * 费用明细
+	 * @param formId
+	 * @param formType
+	 * @return
+	 */
+	@Authorization(is = false)
+	public List<CostDetail> getCostByFormId(Integer formId,Integer formType){
+		return costDetailService.getCostDetailItem(formId, formType);
+	}
+	/**
+	 * 行程明细
+	 * @param formId
+	 * @return
+	 */
+	@Authorization(is = false)
+	public List<TripRecord> getTripByFormId(Integer formId,Integer formType){
+		return tripRecordService.getTripItem(formId);
+	}
 	/**
 	 * 获取付款科目
 	* @Title: getU8BankList  

@@ -40,16 +40,15 @@ public class ActionAuditRecordAudit  implements IAction{
 	public void execute(ActionContext ctx) {
 		AuditRecord auditRecord = (AuditRecord) ctx.getItem();
 		 if(auditRecord != null && auditRecord.getId() != null){
-			
+			 UserPermission up = UserPermissionManager.getUserPermission();
 			 //审核通过
 			 if(auditRecord.getStatus().getValue().intValue()== FinanceDict.AuditDetailStatus.AGREE.getValue().intValue()){
 				 //当审核人为财务主管 通过将状态给为财务办理
 				 Employee financeEmployee = employeeService.getEmployeeByFinanceLeader(FinanceDict.WX_MSG_CODE);
-				 if(financeEmployee != null && SessionManager.getUserId().intValue() == financeEmployee.getId().intValue()){
+				 if(financeEmployee != null && up.getEmployee().getId().intValue() == financeEmployee.getId().intValue()){
 					 updateBillStatus(auditRecord.getFormId(),auditRecord.getFormType().getValue(),FinanceDict.AuditStatus.Status_4.getValue());
 				 }else{
-					 UserPermission up = UserPermissionManager.getUserPermission();
-					 List<Employee> leaderList  = this.getEmployeeList(up.getEmployee().getDepartmentId());
+					 List<Employee> leaderList  = this.getEmployeeList(up.getEmployee().getDepartmentId(),up.getEmployee().getId());
 					 if(leaderList != null && leaderList.size() >0){
 						 for(Employee employee : leaderList){
 							 saveAudit(employee,auditRecord);
@@ -156,9 +155,9 @@ public class ActionAuditRecordAudit  implements IAction{
 	* @return List<Employee>    返回类型  
 	* @throws
 	 */
-	private List<Employee>  getEmployeeList(Integer departmentId){
+	private List<Employee>  getEmployeeList(Integer departmentId,Integer userId){
 		List<Employee> leaderList = employeeService.getEmployeeByLeader(departmentId);
-		if(isEmployee(leaderList)){
+		if(isEmployee(leaderList,userId)){
 			return leaderList;
 		}else{
 			return employeeService.getEmployeeByParentLeader(departmentId);
@@ -174,10 +173,9 @@ public class ActionAuditRecordAudit  implements IAction{
 	* @return Boolean    返回类型  
 	* @throws
 	 */
-	public Boolean isEmployee(List<Employee> list){
+	public Boolean isEmployee(List<Employee> list,Integer userId){
 		Boolean result = true;
 		if(list != null && list.size()>0){
-			Integer userId = SessionManager.getUserId();
 			for(Employee employee : list){
 				if(userId.intValue() == employee.getId().intValue()){
 					result = false;

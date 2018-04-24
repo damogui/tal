@@ -33,7 +33,7 @@ public interface IExpenseService extends IPersistableService<Expense> {
 	* @return T    返回类型  
 	* @throws
 	 */
-	public  Expense  getBillByFormId(Integer formId);
+	public  Expense  getBillByFormId(Integer formId,Boolean isSubset);
 	
 	/**
 	 * 财务办理完成修改订单状态
