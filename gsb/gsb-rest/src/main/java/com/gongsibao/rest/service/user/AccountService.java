@@ -95,34 +95,7 @@ public class AccountService implements IAccountService {
 
     @Override
     public void updateAccount(String mobile, String openId) {
-        Account accountOld = accountService.byMobile(mobile);
-        if (null == accountOld) {
-            //更新uc_account 新增一条
-            Account account = new Account();
-            {
-                account.toNew();
-                account.setPasswd("");
-                account.setCreateTime(new Date());
-                account.setMobilePhone(mobile);
-                account.setTicket(UUID.randomUUID().toString());
-                account.setEmail("");
-                account.setIdentityCard("");
-                account.setTelephone("");
-                account.setRealName("");
-                account.setCreateTime(new Date());
-                account.setIsBbk("");
-                account.setName("");
-                //来源微信
-                account.setSourceClientId(1036);
-                account.setHeadThumbFileId(0);
-            }
-            Account result = accountService.save(account);
-            //更新uc_account_weixin 表 更新 account_id
-            accountWeiXinService.bandMobile(result.getId(), openId);
-        } else {
-            //更新uc_account_weixin 表 更新 account_id
-            accountWeiXinService.bandMobile(accountOld.getId(), openId);
-        }
+        accountService.updateAccount(mobile,openId);
     }
 
     @Override
@@ -179,15 +152,14 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public Integer getWxPayH5Param(String ipAddress, String oid, String openId, String orderNoStr, Integer totalFee, String body, Integer userChannel, SortedMap<String, String> resMap) throws Exception {
-        //获取openID
-        String openid = openId;
+    public Integer getWxPayH5Param(String ipAddress, String oid, String openid, String orderNoStr, Integer totalFee, String body, Integer userChannel, SortedMap<String, String> resMap) throws Exception {
         IPublicAccountService publicAccountService = ServiceFactory.create(IPublicAccountService.class);
+        //获取公众号信息
         PublicAccount publicAccount = publicAccountService.byOriginalId(oid);
         if (StringUtils.isBlank(openid)) {
             return -1;//获取openid失败
         }
-        //预支付id
+        //调用微信接口获取预支付id
         String prepay_id;
         try {
             prepay_id = wxpay(ipAddress, publicAccount, orderNoStr, NumberUtils.toInt(totalFee), body, 1, openid, userChannel);
@@ -218,14 +190,12 @@ public class AccountService implements IAccountService {
         }
         // 账号信息
         String appid = account.getAppId();
-        String mch_id = account.getMch_id();// 商业号
-        //随机字符串
+        // 微信支付商户号
+        String mch_id = account.getMch_id();
+        // 随机字符串
         String nonce_str = getNonceStr();
-        // 回调接口
+        // 支付成功回调接口
         String notify_url = account.getMchNotifyUrl();
-        log.error("notify_url=" + notify_url);
-        // clientType 客户端类别（0:网页端（扫码：NATIVE）；1:H5（公众号）端（JSAPI）；2：APP端（APP））
-        String trade_type = "JSAPI";
         // body 类型：String(128),当body长度过长时，会报错"return_msg=body参数长度有误, return_code=FAIL"
         body = com.gongsibao.rest.web.common.util.StringUtils.getSubStr(body, 100);
         SortedMap<String, String> packageParams = new TreeMap<String, String>();
@@ -237,25 +207,19 @@ public class AccountService implements IAccountService {
         packageParams.put("total_fee", StringUtils.trimToEmpty(order_price.toString()));
         packageParams.put("spbill_create_ip", ipAddress);
         packageParams.put("notify_url", notify_url);
-        packageParams.put("trade_type", trade_type);
+        packageParams.put("trade_type",  "JSAPI");
         //当是公众号支付时“openid”必传
-        if (trade_type == "JSAPI")
-            packageParams.put("openid", openId);
-        log.error("packageParams:" + packageParams);
+        packageParams.put("openid", openId);
+        log.info("packageParams:" + packageParams);
         String sign = PayCommonUtil.createSign("utf-8", packageParams, notifyKey);
-        log.error("sign:"+sign);
+        // 微信支付第一次签名
         packageParams.put("sign", sign);
         String requestXML = PayCommonUtil.getRequestXml(packageParams);
-        log.error(requestXML);
+        // 获取预支付id
         String resXml = HttpUtil.postData(Constant.PAY_API, requestXML);
-        log.error(resXml);
         Map map = XMLUtil.doXMLParse(resXml);
         try {
-            log.info("==========map:==========" + map);
             String return_msg = new String(((String) map.get("return_msg")).getBytes("ISO-8859-1"), "UTF-8");
-            log.info("==========return_msg:==========" + return_msg);
-            //String return_code = (String) map.get("return_code");
-            //String prepay_id = (String) map.get("prepay_id");
             // H5支付时:统一下单接口返回支付相关参数给商户后台，如支付跳转url（参数名“mweb_url”，前端访问中转页面“mweb_url”主动唤起微信支付收银台）【此h5支付接口，腾讯暂时不受理了，申请不了了】
             return  StringUtils.trimToEmpty(map.get("prepay_id").toString());
         } catch (Exception e) {
@@ -264,7 +228,6 @@ public class AccountService implements IAccountService {
         return null;
     }
 
-    //region 是有方法
     //获取随机字符串
     private String getNonceStr() {
         String currTime = PayCommonUtil.getCurrTime();

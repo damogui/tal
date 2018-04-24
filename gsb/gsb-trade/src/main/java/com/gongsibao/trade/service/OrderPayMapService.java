@@ -29,6 +29,7 @@ public class OrderPayMapService extends PersistableService<OrderPayMap> implemen
             oql.setType (this.type);
             oql.setSelects ("OrderPayMap.*,Pay.*");
             oql.setFilter ("orderId=?");
+            oql.setOrderby(" add_time  desc ");
             oql.getParameters ().add ("orderId", orderId, Types.INTEGER);
         }
         return this.queryList (oql);

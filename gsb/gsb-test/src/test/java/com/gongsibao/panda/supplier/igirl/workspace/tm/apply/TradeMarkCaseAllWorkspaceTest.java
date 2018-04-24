@@ -403,6 +403,7 @@ public class TradeMarkCaseAllWorkspaceTest extends WorkspaceCreationBase {
         PDatagridColumn column = null;
         PDatagrid datagrid = new PDatagrid(node, "商标选项");
         {
+            addColumn(datagrid, "proxyCode", "代理号", ControlTypes.TEXT_BOX, 180);
             addColumn(datagrid, "nclOne.code", "编码", ControlTypes.TEXT_BOX, 100);
             addColumn(datagrid, "memo", "商标说明", ControlTypes.TEXT_BOX, 150);
             column = addColumn(datagrid, "selectedTwoStr", "商标小类", ControlTypes.TEXTAREA, 400);{

@@ -78,7 +78,7 @@ com.gongsibao.igirl.tm.web.TradeMarkOptListPart = org.netsharp.panda.commerce.Li
         })
 	},
 	totmcase:function(tradeMarkCaseId){
-			var formUrl = "/igirl/my/case/form";
+			var formUrl = "/operation/igirl/trademarkcase/all/form";
 			if (System.isnull(formUrl)) {
 				return;
 			}

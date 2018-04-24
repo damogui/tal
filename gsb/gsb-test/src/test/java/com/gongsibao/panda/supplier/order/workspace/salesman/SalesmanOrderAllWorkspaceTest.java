@@ -49,7 +49,7 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 		ss.add("/gsb/panda-extend/gsb.pubcontrol.js");
 		listPartImportJs = StringManager.join("|", ss);
 
-		listFilter = " (owner_id = '{userId}'  or  add_user_id='{userId}')";
+		listFilter = " (owner_id = '{userId}'  or  add_user_id='{userId}') and is_delete=0 and process_status_id<>3023";
 		listPartJsController = SalesmanAllOrderListPart.class.getName();
 		listPartServiceController = SalesmanAllOrderListPart.class.getName();
 	}
@@ -204,6 +204,16 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 			toolbar.getItems().add(item);
 		}
 
+		item = new PToolbarItem();
+		{
+			item.toNew();
+			item.setCode("orderDel");
+			item.setName("删除");
+			item.setSeq(2);
+			item.setCommand("{controller}.orderDel();");
+			toolbar.getItems().add(item);
+		}
+
 		toolbarService.save(toolbar);
 	}
 
@@ -264,7 +274,10 @@ public class SalesmanOrderAllWorkspaceTest extends WorkspaceCreationBase {
 
         addColumn(datagrid, "sourceType", "下单方式", ControlTypes.ENUM_BOX, 80);
         addColumn(datagrid, "platformSource", "订单来源", ControlTypes.ENUM_BOX, 80);
-        addColumn(datagrid, "createTime", "下单时间", ControlTypes.DATETIME_BOX, 100);
+        column = addColumn(datagrid, "createTime", "下单时间", ControlTypes.DATETIME_BOX, 100);{
+        	
+        	column.setOrderbyMode(OrderbyMode.DESC);
+        }
         addColumn(datagrid, "accountType", "新老客户", ControlTypes.ENUM_BOX, 80);        
         column = addColumn(datagrid, "ownerId", "业务员id", ControlTypes.TEXT_BOX, 80);
         {

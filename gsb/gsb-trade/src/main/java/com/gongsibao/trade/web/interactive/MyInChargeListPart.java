@@ -102,7 +102,7 @@ public class MyInChargeListPart extends AdvancedListPart {
             //订单余额：paidPrice+carryIntoAmount-refundPrice-carryAmount
             Integer balance = NumberUtils.toInt(orderProd.getSoOrder().getPaidPrice()) + NumberUtils.toInt(orderProd.getSoOrder().getCarryIntoAmount()) -
                     NumberUtils.toInt(orderProd.getSoOrder().getRefundPrice()) - NumberUtils.toInt(orderProd.getSoOrder().getCarryAmount());
-            ob2.get(i).put("sorder_balance", balance);
+            ob2.get(i).put("soOrder_balance", balance);
             ob2.get(i).put("allocationOperatorDate", orderProd.getAllocationOperatorDate());
         }
         return json;
@@ -113,6 +113,8 @@ public class MyInChargeListPart extends AdvancedListPart {
         orderProdTraceService.addFollowUp(orderProdId, followContent);
     }
 
+
+    //region 私有方法
     private List<Integer> getOrderProdIdList(List<OrderProd> resList) {
         List<Integer> orderProdIdList = new ArrayList<>();
         for (OrderProd orderProd : resList) {
@@ -152,5 +154,6 @@ public class MyInChargeListPart extends AdvancedListPart {
             orderProd.setAllocationOperatorDate(allocationDate.get(orderProd.getId()));
         }
     }
+    //endregion
 
 }

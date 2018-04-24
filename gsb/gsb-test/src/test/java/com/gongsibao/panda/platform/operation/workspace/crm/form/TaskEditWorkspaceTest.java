@@ -115,6 +115,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 		{
 			datagrid.setShowCheckbox(true);
 			datagrid.setSingleSelect(false);
+			datagrid.setNowrap(false);
 			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
 			addColumn(datagrid, "creator", "创建人", ControlTypes.DATETIME_BOX, 100);
 			PDatagridColumn column = addColumn(datagrid, "qualityCategory", "质量分类", ControlTypes.ENUM_BOX, 180);
@@ -204,6 +205,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
 		PDatagrid datagrid = new PDatagrid(node, "操作日志");
 		{
 			datagrid.setShowCheckbox(false);
+			datagrid.setNowrap(false);
 			addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
 			addColumn(datagrid, "creator", "创建人", ControlTypes.DATETIME_BOX, 100);
 			// 子页面枚举显示需要格式化一下

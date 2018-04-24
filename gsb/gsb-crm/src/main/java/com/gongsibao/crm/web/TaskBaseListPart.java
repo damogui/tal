@@ -29,9 +29,9 @@ public class TaskBaseListPart extends AdvancedListPart {
 			ArrayList<String> filters = new ArrayList<String>();
 			String keyword = parameter.getValue1().toString();
 			filters.add("pkid='" + keyword + "'");
-			filters.add("name='" + keyword + "'");
+			filters.add("name like '%" + keyword + "%'");
 			filters.add("id='" + keyword + "'");
-			filters.add("real_name='" + keyword + "'");
+			filters.add("real_name like '%" + keyword + "%'");
 			filters.add("mobile='" + keyword + "'");
 			filters.add("telephone='" + keyword + "'");
 			filters.add("qq='" + keyword + "'");

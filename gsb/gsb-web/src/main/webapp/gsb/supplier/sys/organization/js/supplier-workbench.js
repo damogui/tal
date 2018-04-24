@@ -14,7 +14,13 @@ com.gongsibao.workbench.SupplierWorkbench = org.netsharp.panda.Workbench.Extends
 		var service = "com.gongsibao.workbench.supplier.SupplierWorkbench";
 		this.invokeService(service,"setReceiving", [checked], function(data) {
 
-			layer.msg("操作成功");
+			if(checked === true){
+
+				layer.msg("接单已开启");
+			}else{
+
+				layer.msg("接单已关闭");
+			}
 		});
 	}
 });

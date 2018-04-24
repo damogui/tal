@@ -363,14 +363,13 @@ public class OrderProdDetailController {
             paging.setPageNo(pageIndex);
             paging.setPageSize(pageSize);
         }
-        //Oql oql = new Oql();
-        List<OrderProdOrganizationMap> list = orderProdOrganizationMapService.getListByOrderNo(keyWord);
+        int startIndex = (paging.getPageNo() - 1) * paging.getPageSize();
+        int count = orderProdOrganizationMapService.getCountByOrderNo(keyWord);
+        List<OrderProdOrganizationMap> list = orderProdOrganizationMapService.getListByOrderNo(keyWord, startIndex, paging.getPageSize());
         EasyuiDatagridResult result = new EasyuiDatagridResult();
         {
             result.setRows(list);
-            /*if (oql.getPaging() != null) {
-                result.setTotal(oql.getPaging().getTotalCount());
-            }*/
+            result.setTotal(count);
         }
         return result;
     }

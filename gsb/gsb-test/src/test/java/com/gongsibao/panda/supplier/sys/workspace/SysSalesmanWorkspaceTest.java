@@ -149,7 +149,7 @@ public class SysSalesmanWorkspaceTest extends WorkspaceCreationBase {
         addQueryItem(queryProject, "employee.mobile", "手机号", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "employee.loginName", "帐号", ControlTypes.TEXT_BOX);
         addQueryItem(queryProject, "creator", "创建人", ControlTypes.TEXT_BOX);
-
+        addQueryItem(queryProject, "disabled", "停用状态", ControlTypes.BOOLCOMBO_BOX);
         return queryProject;
     }
 

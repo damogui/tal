@@ -665,11 +665,32 @@ com.gongsibao.trade.web.SalesmanAllOrderListPart = org.netsharp.panda.commerce.L
             var ctrl = workspace.parts.byIndex(0).key;
             return '<sapn>' + PandaHelper.dimString(value) + '</span><i class="fa fa-eye" onclick="' + ctrl + '.showPlaintext(\'' + row.customerId + '\',\'' + value + '\',\'' + typeName + '\',this);"></i>';
         }
-    }, showPlaintext: function (customerId, value, typeName, obj) {
+    },
+    showPlaintext: function (customerId, value, typeName, obj) {
         $(obj).parent().text(value);
         //var serviceLocator = new org.netsharp.core.JServiceLocator();
         //serviceLocator.invoke(this.context.service, "recordLookLog",[customerId,typeName]);
-    }
+    },
+    orderDel: function (id) {//删除
+        var rows = this.getSelections();
+        if (id == null && rows.length != 1) {
+            IMessageBox.info('请先选择一条订单数据');
+            return false;
+        }
+        this.invokeService("orderDel", [id], function (data) {
+            if(data=="1"){
+
+                IMessageBox.toast('删除成功');
+                realodCurrentPage("datagridsoOrderList");
+            }else{
+
+                layer.msg(data);
+            }
+
+        });
+
+
+    },
 
 });
 

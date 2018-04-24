@@ -552,6 +552,10 @@ public class SoOrder extends BaseEntity {
     }
 
     public Integer getCompanyId() {
+        if (companyId==null){//防止报错
+            companyId=0;
+
+        }
         return companyId;
     }
 
@@ -886,6 +890,10 @@ public class SoOrder extends BaseEntity {
     }
 
 	public Integer getCarryIntoAmount() {
+        if (carryIntoAmount==null){
+            return 0;
+        }
+
 		return carryIntoAmount;
 	}
 

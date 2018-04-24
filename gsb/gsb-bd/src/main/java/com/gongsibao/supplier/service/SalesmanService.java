@@ -178,7 +178,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
         qps.add("salesmanId", salesmanId, Types.INTEGER);
         return this.pm.executeNonQuery(updateBuilder.toSQL(), qps) > 0;
     }
-    
+
     @Override
     public boolean getReceiving(Integer employeeId) {
 
@@ -190,9 +190,9 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
             oql.getParameters().add("@employeeId", employeeId, Types.INTEGER);
         }
         Salesman entity = this.queryFirst(oql);
-        if(entity == null){
-        	
-        	return false;
+        if (entity == null) {
+
+            return false;
         }
         return entity.getReceiving();
     }
@@ -210,7 +210,7 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
             if (department == null) {
                 throw new BusinessException("部门属性不正确");
             }
-            
+
             Integer supplierId = department.getSupplierId();//
             if (state.equals(EntityState.Persist)) {//修改的时候排除id
                 int checkNum = checkIsCurrent(supplierId, entity.getMobile(), entity.getId());
@@ -537,8 +537,9 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
         }
 
         roleCodeStrs = roleCodeStrs.substring(0, roleCodeStrs.length() - 1);
-
-        sql.append("SELECT employee_id FROM sys_permission_role_employee WHERE employee_id in(SELECT id FROM sys_permission_employee WHERE disabled = 0) AND role_id IN (SELECT id FROM sys_permission_role WHERE CODE in(" + roleCodeStrs + ") )");
+        sql.append("SELECT employee_id FROM sys_permission_role_employee ");
+        sql.append("WHERE employee_id in(SELECT id FROM sys_permission_employee WHERE disabled = 0) ");
+        sql.append("AND role_id IN (SELECT id FROM sys_permission_role WHERE CODE in(" + roleCodeStrs + ") )");
         DataTable dataTable = this.pm.executeTable(sql.toString(), null);
 
         for (IRow row : dataTable) {
@@ -551,12 +552,12 @@ public class SalesmanService extends SupplierPersistableService<Salesman> implem
         return employeeIdList;
     }
 
-	@Override
-	public NotifyType getNotifyType(Integer employeeId) {
+    @Override
+    public NotifyType getNotifyType(Integer employeeId) {
 
-		Integer supplierId = getSupplierId(employeeId);
-		ISupplierService ISupplierService = ServiceFactory.create(ISupplierService.class);
-		return ISupplierService.getNotifyType(supplierId);
-	}
-    
+        Integer supplierId = getSupplierId(employeeId);
+        ISupplierService ISupplierService = ServiceFactory.create(ISupplierService.class);
+        return ISupplierService.getNotifyType(supplierId);
+    }
+
 }

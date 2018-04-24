@@ -10,7 +10,8 @@ public class AuditLogDTO {
     private Integer id;
     private String creator;
     private String option;
-    private String remark;
+    private String remark;//审批说明
+    private String content;//内容
     private Date createTime;
 /*订单id*/
     private Integer orderId;
@@ -128,5 +129,13 @@ public class AuditLogDTO {
 
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

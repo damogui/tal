@@ -14,24 +14,11 @@
 		</div>
 	</div>
 </div>
-	<textarea id="template" class="template">
-		<div class="weui-cells">
-		  {#foreach $T as record}
-			  <a class="weui-cell weui-cell_access" href="trackDetail?id={$T.record.id}">
-			    <div class="weui-cell__bd">
-			      <p>{$T.record.content}</p>
-			      <p style="color:#cecece;">{$T.record.createTime}</p>
-			    </div>
-			    <div class="weui-cell__ft"></div>
-			  </a>
-		   {#/for}
-		</div>
-	</textarea>
-
+<div id="list" ></div>	
 	<%@include file="/wx/qy/bd/include/footer.jsp" %>
-	<script src="/wx/qy/bd/js/track.list.ctrl.js"></script>
+	<script src="/wx/qy/cw/js/file.list.ctrl.js"></script>
 	<script>
-	  var ctrl = new org.netsharp.we.core.franchiseeTrackListCtrl();
+	  var ctrl = new org.netsharp.we.core.fileListCtrl();
 	  $(function(){
 		  ctrl.init();
 	  });

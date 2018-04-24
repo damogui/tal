@@ -16,6 +16,7 @@ import com.gongsibao.entity.trade.Invoice;
 import com.gongsibao.entity.trade.OrderInvoiceMap;
 import com.gongsibao.trade.base.IInvoiceService;
 import com.gongsibao.trade.base.IOrderInvoiceMapService;
+import org.netsharp.util.StringManager;
 
 public class ActionApplyInvoicePersist implements IAction {
 
@@ -33,7 +34,8 @@ public class ActionApplyInvoicePersist implements IAction {
         IInvoiceService invoiceService = ServiceFactory.create(IInvoiceService.class);
         invoice.toNew();
         invoice.setFileId(0);
-        invoice.setRemark("");
+        invoice.setRemark(StringManager.isNullOrEmpty(invoice.getRemark()) ? "" : invoice.getRemark());
+        invoice.setContent(StringManager.isNullOrEmpty(invoice.getContent()) ? "" : invoice.getContent());
         invoice.setAuditStatusId(AuditStatusType.Dsh);//初始状态
         Integer orderId = Integer.parseInt(paraMap.get("orderId").toString());
         SoOrder order = soOrderService.getByOrderId(orderId);
