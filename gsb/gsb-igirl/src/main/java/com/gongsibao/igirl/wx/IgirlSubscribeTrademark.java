@@ -27,6 +27,7 @@ import org.netsharp.wx.pa.response.subscribe.IWeixinSubscriber;
  */
 public class IgirlSubscribeTrademark implements IWeixinSubscriber {
     protected static Log logger = LogFactory.getLog(SubscribeEvent.class);
+    IAccountService accountService = ServiceFactory.create(IAccountService.class);
     public boolean validate(EventRequest request, Fans fans, PublicAccount publicAccount){
         SubscribeEvent eventRequest = (SubscribeEvent) request;
         String  sceneStr=eventRequest.getSceneStr();
@@ -40,9 +41,8 @@ public class IgirlSubscribeTrademark implements IWeixinSubscriber {
         }else{
             String[] param=sceneStr.split("\\|");
             if(param[2].equals("SB")){
-                Account account=accountService.byMobile(param[0]);
-                fans.setUserId(account.getId());
-                fansService.updateFans(fans);
+                
+                accountService.updateAccount(param[0],fans.getOpenId());
                 return true;
             }else{
                 return false;
