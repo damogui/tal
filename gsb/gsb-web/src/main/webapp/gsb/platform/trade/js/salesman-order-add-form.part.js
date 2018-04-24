@@ -9,7 +9,7 @@ com.gongsibao.trade.web.SalesmanAddOrderFormPart = org.netsharp.panda.commerce.F
         var me = this;
         var mobile = $(el).val().trim();
 
-        //1.校验手机号格式
+        //1.校验手机号格式 
         if (System.isnull(mobile)) {
 
             me.clearAccount();
