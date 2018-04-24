@@ -65,4 +65,17 @@ public class CompanyIntentionService extends PersistableService<CompanyIntention
         CompanyIntention entity = super.queryFirst(oql);
         return entity;
     }
+
+    @Override
+    public CompanyIntention getById(Integer id) {
+        Oql oql = new Oql();
+        {
+            oql.setType(this.type);
+            oql.setSelects("*");
+            oql.setFilter("id=?");
+            oql.getParameters().add("id", id, Types.INTEGER);
+        }
+        CompanyIntention companyIntention = this.pm.queryFirst(oql);
+        return companyIntention;
+    }
 }

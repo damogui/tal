@@ -552,6 +552,10 @@ public class SoOrder extends BaseEntity {
     }
 
     public Integer getCompanyId() {
+        if (companyId==null){//防止报错
+            companyId=0;
+
+        }
         return companyId;
     }
 
