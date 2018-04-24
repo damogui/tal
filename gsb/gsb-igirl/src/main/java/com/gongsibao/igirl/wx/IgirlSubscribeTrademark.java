@@ -41,7 +41,6 @@ public class IgirlSubscribeTrademark implements IWeixinSubscriber {
         }else{
             String[] param=sceneStr.split("\\|");
             if(param[2].equals("SB")){
-                
                 accountService.updateAccount(param[0],fans.getOpenId());
                 return true;
             }else{
