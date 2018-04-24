@@ -9,11 +9,10 @@ import com.gongsibao.entity.crm.dic.*;
 import com.gongsibao.entity.igirl.ic.dict.CorpRegStatue;
 import com.gongsibao.entity.igirl.ic.ex.IcExRegisterCase;
 import com.gongsibao.entity.igirl.ic.ex.dict.ApprovalType;
+import com.gongsibao.entity.igirl.ic.ex.dict.OperatorType;
 import com.gongsibao.entity.supplier.dict.SupplierType;
 import com.gongsibao.igirl.ic.base.IcExRegisterService;
-import com.gongsibao.supplier.base.ISupplierDepartmentService;
 import com.gongsibao.utils.SupplierSessionManager;
-import org.junit.Test;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.EntityState;
@@ -108,15 +107,15 @@ public class ExRegisterService extends GsbPersistableService<IcExRegisterCase> i
                 customer.setTasks(tasks);
                 customer.setTaskCount(tasks.size());
                 customer = customerService.save(customer);
-                entity.setCustomer(customer);
-                entity.setCustomerId(customer.getId());
-                entity.setSupplier(SupplierSessionManager.getSupplier());
-                entity.setSupplierId(SupplierSessionManager.getSupplierId());
-                entity.setDepartment(SupplierSessionManager.getDepartment());
-                entity.setDepartmentId(SupplierSessionManager.getDepartmentId());
-                entity.setOwner(SessionManager.getUserName());
-                entity.setOwnerId(SessionManager.getUserId());
             }
+            entity.setCustomer(customer);
+            entity.setCustomerId(customer.getId());
+            entity.setSupplier(SupplierSessionManager.getSupplier());
+            entity.setSupplierId(SupplierSessionManager.getSupplierId());
+            entity.setDepartment(SupplierSessionManager.getDepartment());
+            entity.setDepartmentId(SupplierSessionManager.getDepartmentId());
+            entity.setOwner(SessionManager.getUserName());
+            entity.setOwnerId(SessionManager.getUserId());
         }
         return super.save(entity);
     }
@@ -131,27 +130,32 @@ public class ExRegisterService extends GsbPersistableService<IcExRegisterCase> i
     }
 
     @Override
-    public List<IcExRegisterCase> getIcCaseByType(ApprovalType wait) {
+    public List<IcExRegisterCase> getIcCaseByType(ApprovalType wait, OperatorType operator) {
         Oql oql = new Oql();
         oql.setType(IcExRegisterCase.class);
         oql.setSelects("*");
         oql.setFilter("approvalType=?");
         oql.getParameters().add("approvalType",wait.getValue(),Types.INTEGER);
+        if (operator!=null){
+            oql.setFilter("operator=?");
+            oql.getParameters().add("operator",operator.getValue(),Types.INTEGER);
+        }
         return this.pm.queryList(oql);
     }
 
     @Override
     public IcExRegisterCase updateIcCase(String name, Integer state) {
+        CorpRegStatue statue = CorpRegStatue.getItem(state);
         Oql oql = new Oql();
         oql.setType(IcExRegisterCase.class);
         oql.setSelects("*");
         oql.setFilter("approvalName=?");
         oql.getParameters().add("approvalName",name,Types.VARCHAR);
         IcExRegisterCase icCase = this.pm.queryFirst(oql);
-        if (icCase!=null){
-            icCase.setCorpRegStatue(CorpRegStatue.getItem(state));
+        if (icCase!=null&&!icCase.getEntityState().equals(statue)){
+            icCase.setCorpRegStatue(statue);
             icCase.toPersist();
-            super.save(icCase);
+            return super.save(icCase);
         }
         return null;
     }
