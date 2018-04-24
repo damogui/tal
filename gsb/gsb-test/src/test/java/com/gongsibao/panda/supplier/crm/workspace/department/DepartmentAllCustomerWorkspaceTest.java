@@ -50,8 +50,8 @@ public class DepartmentAllCustomerWorkspaceTest extends CustomerALLWorkspaceTest
 		queryProject.setName(listPartName);
 		PQueryItem item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
 		{
-			item.setTooltip("输入客户ID、客户名称、联系方式");
-			item.setWidth(250);
+			item.setTooltip("输入客户ID、客户名称、联系方式、关联公司");
+			item.setWidth(350);
 		}
 		item = addQueryItem(queryProject, "customerSource.name", "首次来源", ControlTypes.CUSTOM);{
 			
@@ -61,7 +61,6 @@ public class DepartmentAllCustomerWorkspaceTest extends CustomerALLWorkspaceTest
 		addQueryItem(queryProject, "important", "客户等级", ControlTypes.NUMBER_BOX);
 //		addRefrenceQueryItem(queryProject, "supplier.name", "服务商", Supplier.class.getSimpleName());
 		addQueryItem(queryProject, "createTime", "创建时间", ControlTypes.DATE_BOX);
-		addQueryItem(queryProject, "company.companyName", "关联企业", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "creator", "创建人", ControlTypes.TEXT_BOX);
 		return queryProject;
 	}
