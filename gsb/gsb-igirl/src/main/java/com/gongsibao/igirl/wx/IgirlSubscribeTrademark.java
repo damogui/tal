@@ -3,6 +3,7 @@ package com.gongsibao.igirl.wx;
 import com.gongsibao.account.base.IAccountService;
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.igirl.tm.TradeMarkCase;
+import com.gongsibao.igirl.tm.base.ITradeMarkCaseService;
 import com.gongsibao.igirl.tm.service.TradeMarkCaseService;
 
 import org.apache.commons.logging.Log;
@@ -52,7 +53,7 @@ public class IgirlSubscribeTrademark implements IWeixinSubscriber {
         SubscribeEvent eventRequest = (SubscribeEvent) request;
         String  sceneStr=eventRequest.getSceneStr();
         String caseId =sceneStr.split("\\|")[1];
-        TradeMarkCaseService caseService= ServiceFactory.create(TradeMarkCaseService.class);
+        ITradeMarkCaseService caseService= ServiceFactory.create(ITradeMarkCaseService.class);
         TradeMarkCase tmc=caseService.byId(caseId);
         NewsResponse news = new NewsResponse();
         {

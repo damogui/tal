@@ -40,7 +40,7 @@ public class ActionAuditRecordAudit  implements IAction{
 	public void execute(ActionContext ctx) {
 		AuditRecord auditRecord = (AuditRecord) ctx.getItem();
 		 if(auditRecord != null && auditRecord.getId() != null){
-			 UserPermission up = UserPermissionManager.getUserPermission();
+			
 			 //审核通过
 			 if(auditRecord.getStatus().getValue().intValue()== FinanceDict.AuditDetailStatus.AGREE.getValue().intValue()){
 				 //当审核人为财务主管 通过将状态给为财务办理
@@ -48,6 +48,7 @@ public class ActionAuditRecordAudit  implements IAction{
 				 if(financeEmployee != null && SessionManager.getUserId().intValue() == financeEmployee.getId().intValue()){
 					 updateBillStatus(auditRecord.getFormId(),auditRecord.getFormType().getValue(),FinanceDict.AuditStatus.Status_4.getValue());
 				 }else{
+					 UserPermission up = UserPermissionManager.getUserPermission();
 					 List<Employee> leaderList  = this.getEmployeeList(up.getEmployee().getDepartmentId());
 					 if(leaderList != null && leaderList.size() >0){
 						 for(Employee employee : leaderList){

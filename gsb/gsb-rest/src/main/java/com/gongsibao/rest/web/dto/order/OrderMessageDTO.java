@@ -1,6 +1,6 @@
 package com.gongsibao.rest.web.dto.order;
 
-import com.gongsibao.entity.trade.dic.OrderProcessStatusType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -32,6 +32,7 @@ public class OrderMessageDTO implements Serializable {
     /* 状态 */
     private Integer processStatus;
     /* 下单时间 */
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private List<OrderProdTraceDTO> traceList;

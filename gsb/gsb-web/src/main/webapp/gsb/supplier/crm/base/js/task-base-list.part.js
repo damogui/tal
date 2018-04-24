@@ -417,6 +417,20 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		  return '<sapn>'+PandaHelper.dimString(value)+'</span><i class="fa fa-eye" onclick="'+ctrl+'.showPlaintext(\''+row.customerId+'\',\''+value+'\',\''+typeName+'\',this);"></i>';
 		}
 	},
+	unFollowDaysFormatter:function(value,row,index){
+		debugger;
+	     var lastFollowTime = row.lastFollowTime;
+	     if(lastFollowTime == null){
+	    	 return 0;
+	     }else{
+	    	 var sDate1 = new Date().format("yyyy-MM-dd hh:mm:ss");
+		     var sDate2 = Date.parse(lastFollowTime);
+		     var dateSpan = sDate2 - Date.parse(sDate1);
+		     var dateSpan = Math.abs(dateSpan);
+		     var iDays = Math.floor(dateSpan / (24 * 3600 * 1000));
+		     return iDays; 
+	     }
+	},
 	showPlaintext:function(customerId,value,typeName,obj){
 		
 		$(obj).parent().text(value);

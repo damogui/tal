@@ -118,6 +118,7 @@ public class AccountService implements IAccountService {
                     account.setFansId(fans.getId());
                 }else{
                     account.setIsWeiXin(Constant.UNSUBSCRIBE);
+                    account.setFansId(0);
                 }
                 //来源微信
                 account.setSourceClientId(1036);
@@ -127,12 +128,23 @@ public class AccountService implements IAccountService {
             //更新uc_account_weixin 表 更新 account_id
             accountWeiXinService.bandMobile(result.getId(), openId);
         } else {
+            Fans oldFans=accountWeiXinService.queryFansByUserId(accountOld.getId());
+            //判断是否绑定过手机号
+            if(oldFans.getUserId()!=null){
+                //解绑
+                oldFans.setUserId(0);
+                IFansService fansService=ServiceFactory.create(IFansService.class);
+                fansService.updateFans(oldFans);
+            }
+
             if(fans!=null){
                 accountOld.setIsWeiXin(Constant.SUBSCRIBE);
                 accountOld.setFansId(fans.getId());
             }else{
                 accountOld.setIsWeiXin(Constant.UNSUBSCRIBE);
+                accountOld.setFansId(0);
             }
+            accountOld.toPersist();
             accountService.save(accountOld);
             //更新uc_account_weixin 表 更新 account_id
             accountWeiXinService.bandMobile(accountOld.getId(), openId);
