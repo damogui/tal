@@ -24,10 +24,15 @@ public class IcExRegisterController {
     @Produces(MediaType.APPLICATION_JSON)
     public ResponseResult updateState(@PathParam("id") String id,
                                       @PathParam("state") Integer state) {
-        service.updateState(id, state);
         ResponseResult result = new ResponseResult();
-        result.setCode("200");
-        result.setData(null);
+        Integer count = service.updateState(id, state);
+        if (count>0){
+            result.setCode("200");
+            result.setMessage("修改成功");
+        }else{
+            result.setCode("-1");
+            result.setMessage("修改失败");
+        }
         return result;
     }
 
@@ -60,7 +65,7 @@ public class IcExRegisterController {
             result.setCode("200");
             result.setData("");
             result.setMessage("修改成功");
-        } else {
+        }else {
             result.setCode("-1");
             result.setData("");
             result.setMessage("当前公司数据不存在");
