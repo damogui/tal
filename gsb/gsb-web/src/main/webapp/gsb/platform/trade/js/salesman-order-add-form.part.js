@@ -45,6 +45,8 @@ com.gongsibao.trade.web.SalesmanAddOrderFormPart = org.netsharp.panda.commerce.F
 
                 //会员Id
                 me.currentItem.accountId = account.id;
+                
+                me.currentItem.customerId = account.customerId;
 
                 //关联企业
                 if (account.company) {

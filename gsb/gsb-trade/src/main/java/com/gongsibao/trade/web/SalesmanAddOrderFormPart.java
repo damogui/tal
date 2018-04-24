@@ -71,6 +71,7 @@ public class SalesmanAddOrderFormPart extends FormPart {
         if (account != null) {
             Customer customer = customerService.byAccountId(account.getId());
             account.setCustomerName(customer.getRealName());
+            account.setCustomerId(customer.getId());
         }
 
         return account;
