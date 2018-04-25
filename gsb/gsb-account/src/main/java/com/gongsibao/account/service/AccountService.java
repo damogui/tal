@@ -103,7 +103,8 @@ public class AccountService extends PersistableService<Account> implements IAcco
 			//判断是否绑定过手机号
 			if(null!=oldFans&&oldFans.getUserId()!=null){
 				//解绑
-				oldFans.setUserId(0);
+				oldFans.setUserId(null);
+				oldFans.toPersist();
 				IFansService fansService=ServiceFactory.create(IFansService.class);
 				fansService.updateFans(oldFans);
 			}
