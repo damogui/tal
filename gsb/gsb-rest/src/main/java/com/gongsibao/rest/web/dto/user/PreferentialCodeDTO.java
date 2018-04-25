@@ -75,7 +75,7 @@ public class PreferentialCodeDTO implements Serializable {
 
     private String remark;
 
-    private int IsDisabled;
+    private int couponIsEnabled;
 
     private int amountlimit;
     private String amountlimitStr;
@@ -151,7 +151,7 @@ public class PreferentialCodeDTO implements Serializable {
             return statusName;
         }
 
-        if (getIsEnabled() == 0) {
+        if (getIsEnabled() == 0 || getCouponIsEnabled() == 0) {
             statusName = "已禁用";
         } else {
             if (getStatus() == 2) {
@@ -303,12 +303,12 @@ public class PreferentialCodeDTO implements Serializable {
         this.endDate = endDate;
     }
 
-    public int getIsDisabled() {
-        return IsDisabled;
+    public int getCouponIsEnabled() {
+        return couponIsEnabled;
     }
 
-    public void setIsDisabled(int isDisabled) {
-        IsDisabled = isDisabled;
+    public void setCouponIsEnabled(int couponIsEnabled) {
+        this.couponIsEnabled = couponIsEnabled;
     }
 
     public int getAmountlimit() {

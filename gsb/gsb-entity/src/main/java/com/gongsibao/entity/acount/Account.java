@@ -1,6 +1,5 @@
 package com.gongsibao.entity.acount;
 
-import org.apache.commons.lang.StringUtils;
 import org.netsharp.core.annotations.Column;
 import org.netsharp.core.annotations.Exclusive;
 import org.netsharp.core.annotations.Reference;
@@ -74,8 +73,20 @@ public class Account extends BaseEntity {
     @Exclusive
     @Column(name = "customer_name", header = "取'crm_customer'客户名称")
     private String customerName;
+    
+    @Exclusive
+    @Column(name = "customer_id", header = "取'crm_customer'客户Id")
+    private Integer customerId;
+    
+    public Integer getCustomerId() {
+		return customerId;
+	}
 
-    public String getName() {
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
+	}
+
+	public String getName() {
         return name;
     }
 

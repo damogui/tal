@@ -196,13 +196,12 @@ public class TaskOpenSeaWorkspaceTest extends WorkspaceCreationBase {
         item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
         {
             item.setTooltip("输入商机ID、客户ID、商机名称、客户名称、联系方式、关联公司");
-            item.setWidth(350);
+            item.setWidth(400);
         }
         item = addRefrenceQueryItem(queryProject, "owner.name", "业务员", Employee.class.getSimpleName());
         {
             item.setRefFilter(" id in (select employee_id from sp_salesman)");
         }
-        addQueryItem(queryProject, "customer.company.companyName", "关联企业", ControlTypes.TEXT_BOX);
         item = addQueryItem(queryProject, "source.name", "商机来源", ControlTypes.CUSTOM);
         {
 

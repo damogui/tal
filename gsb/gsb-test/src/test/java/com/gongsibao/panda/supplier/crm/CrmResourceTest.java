@@ -65,6 +65,8 @@ public class CrmResourceTest extends ResourceCreationBase{
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "跟进统计", "CRM_SALESMAN_REPORT", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "抽查异常", "CRM_SALESMAN_CHECK_ABNORMAL", INCustomerTaskService.class.getName(), node1.getId());
 
+            this.createResourceNodeVoucher(NCustomerTaskFoolow.class.getName(), "我的跟进", "CRM_SALESMAN_Task_Follow", INCustomerTaskFoolowService.class.getName(), node1.getId());
+
 			this.createResourceNodeVoucher(NCustomer.class.getName(), "客户", "CRM_SALESMAN_REFERENE_NCUSTOMER", INCustomerService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(Supplier.class.getName(), "分配服务商", "CRM_SALESMAN_REFERENE_SUPPLIER", ISupplierService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(SupplierDepartment.class.getName(), "分配服务商部门", "CRM_SALESMAN_REFERENE_SUPPLIER_DEPART", ISupplierDepartmentService.class.getName(), node1.getId());
@@ -98,6 +100,7 @@ public class CrmResourceTest extends ResourceCreationBase{
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "无法签单商机", "CRM_DEPARTMENT_TASK_DEFEATED", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "抽查异常", "CRM_DEPARTMENT_TASK_CHECK_ABNORMAL", INCustomerTaskService.class.getName(), node1.getId());
 			this.createResourceNodeVoucher(NCustomerTask.class.getName(), "公海", "CRM_DEPARTMENT_TASK_HIGHSEAS", INCustomerTaskService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(NCustomerTaskFoolow.class.getName(), "跟进列表", "CRM_DEPARTMENT_Task_Follow", INCustomerTaskFoolowService.class.getName(), node1.getId());
 
 			//======选项卡加载项
 			this.createResourceNodeVoucher(NCustomerCompany.class.getName(), "关联企业", "CRM_DEPARTMENT_Companys", INCustomerCompanyService.class.getName(), node1.getId());

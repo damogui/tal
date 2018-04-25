@@ -90,8 +90,8 @@ public class DepartmentAllTaskWorkspaceTest extends TaskALLWorkspaceTest{
 		queryProject.setName(listPartName);
 		PQueryItem item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
 		{
-			item.setTooltip("输入客户ID、客户名称、联系方式");
-			item.setWidth(250);
+			item.setTooltip("输入商机ID、客户ID、商机名称、客户名称、联系方式、关联公司");
+			item.setWidth(400);
 		}
 		item = addQueryItem(queryProject, "source.name", "商机来源", ControlTypes.CUSTOM);{
 			
@@ -105,8 +105,6 @@ public class DepartmentAllTaskWorkspaceTest extends TaskALLWorkspaceTest{
 		{
 			item.setRefFilter(" id in (select employee_id from sp_salesman)");
 		}
-		
-		addQueryItem(queryProject, "customer.company.companyName", "关联企业", ControlTypes.TEXT_BOX);
 		addRefrenceQueryItem(queryProject, "quality.name", "客户质量", NCustomerTaskQuality.class.getSimpleName());
 
 		//意向产品

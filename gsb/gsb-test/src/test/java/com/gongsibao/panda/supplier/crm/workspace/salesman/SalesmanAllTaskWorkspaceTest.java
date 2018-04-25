@@ -86,7 +86,7 @@ public class SalesmanAllTaskWorkspaceTest extends TaskALLWorkspaceTest {
         PQueryItem item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
         {
             item.setTooltip("输入客户ID、客户名称、联系方式、关联公司");
-            item.setWidth(250);
+            item.setWidth(300);
         }
         item = addQueryItem(queryProject, "source.name", "商机来源", ControlTypes.CUSTOM);
         {
@@ -96,7 +96,6 @@ public class SalesmanAllTaskWorkspaceTest extends TaskALLWorkspaceTest {
         }
 //		addRefrenceQueryItem(queryProject, "supplier.name", "服务商", Supplier.class.getSimpleName());
         addQueryItem(queryProject, "creator", "创建人", ControlTypes.TEXT_BOX);
-        addQueryItem(queryProject, "customer.company.companyName", "关联企业", ControlTypes.TEXT_BOX);
         addRefrenceQueryItem(queryProject, "quality.name", "客户质量", NCustomerTaskQuality.class.getSimpleName());
 
         //意向产品

@@ -273,7 +273,12 @@ public class CouponService implements ICouponService {
 
             BeanUtils.copyProperties(preferentialCode, dto,"isEnabled");
             BeanUtils.copyProperties(preferential, dto,"isEnabled");
+
+            dto.setIsEnabled(preferentialCode.getIsEnabled());
+            dto.setCouponIsEnabled(preferential.getIsEnabled());
+
             dto.setAmountlimit(preferential.getAmountLimit());
+            dto.setStatus(preferentialCode.getStatus());
             avaliableList.add(dto);
         }
 

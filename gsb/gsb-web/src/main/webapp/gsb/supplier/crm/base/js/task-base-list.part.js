@@ -337,9 +337,10 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		});
 	},
 	openMember : function(customerId,isSendSms){
-
+ 
+		var msg = isSendSms==true?"确定要开通会员吗？该操作会向客户发送短信":"确定要静默开通会员吗？该操作<span style='color:red;'>不会向客户发送短信</span>，客户将无法直接获取自己的账号密码";
 		var me = this;
-		IMessageBox.confirm("您确定要开通会员吗？",function(r){
+		IMessageBox.confirm(msg,function(r){
 			
 			if(r===true){
 
@@ -421,7 +422,7 @@ com.gongsibao.crm.web.BaseTaskListPart = org.netsharp.panda.commerce.ListPart.Ex
 		debugger;
 	     var lastFollowTime = row.lastFollowTime;
 	     if(lastFollowTime == null){
-	    	 return 0;
+	    	 return "";
 	     }else{
 	    	 var sDate1 = new Date().format("yyyy-MM-dd hh:mm:ss");
 		     var sDate2 = Date.parse(lastFollowTime);

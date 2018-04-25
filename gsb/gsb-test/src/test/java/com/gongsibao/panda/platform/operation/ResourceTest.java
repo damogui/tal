@@ -216,6 +216,8 @@ public class ResourceTest extends ResourceCreationBase {
             this.createResourceNodeVoucher(NCustomerTask.class.getName(), "无法签单", "Operation_CRM_Task_Defeated", INCustomerTaskService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(NCustomerTask.class.getName(), "抽查异常", "Operation_CRM_Task_Anomaly_Detection", INCustomerTaskService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(NCustomerTask.class.getName(), "公海", "Operation_CRM_Customer_OpenSea", INCustomerTaskService.class.getName(), node1.getId());
+            
+            this.createResourceNodeVoucher(NCustomerTaskFoolow.class.getName(), "跟进列表", "Operation_CRM_Task_Follow", INCustomerTaskFoolowService.class.getName(), node1.getId());
 
             this.createResourceNodeVoucher(NCustomerProduct.class.getName(), "客户意向产品", "Operation_CRM_Customer_Products", INCustomerProductService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(NCustomerCompany.class.getName(), "关联企业", "Operation_CRM_Customer_Companys", INCustomerCompanyService.class.getName(), node1.getId());

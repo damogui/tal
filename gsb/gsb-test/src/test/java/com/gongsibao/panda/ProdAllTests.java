@@ -34,7 +34,7 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
 	org.netsharp.meta.end.AllTests.class,
 	
 	//放在最后处理
-	//AuthAllTest.class
+	AuthAllTest.class
 	})
 public class ProdAllTests {
 
