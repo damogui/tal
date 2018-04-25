@@ -12,5 +12,7 @@ public interface ICustomerService extends IPersistableService<Customer> {
 	Map<Integer, String> getCustomerNameByOrderIdList(List<Integer> orderIdList);
 
 	Customer byAccountId(int accountId);
+
+	Customer byMobile(String mobile);
 }
 

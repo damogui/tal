@@ -9,16 +9,13 @@ import com.gongsibao.entity.acount.AccountCompany;
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.entity.crm.Customer;
 import com.gongsibao.entity.crm.dic.*;
-import com.gongsibao.entity.dict.ResponseStatus;
 import com.gongsibao.rest.netsharp.base.IAccountService;
 import com.gongsibao.rest.web.common.constant.ConstantKey;
 import com.gongsibao.rest.web.common.util.NumberUtils;
 import com.gongsibao.rest.web.common.util.RedisClient;
-import com.gongsibao.rest.web.common.util.RegexUtils;
 import com.gongsibao.rest.web.common.util.StringUtils;
 import com.gongsibao.rest.web.dto.user.AccountValidateDTO;
-import com.gongsibao.taurus.entity.EntRegistry;
-import com.gongsibao.taurus.service.TaurusApiService;
+import com.gongsibao.rest.web.dto.user.LoginDTO;
 import com.gongsibao.trade.base.ICustomerService;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.communication.Service;
@@ -49,9 +46,6 @@ public class AccountService extends PersistableService<Account> implements IAcco
 
     ICompanyIntentionService companyIntentionService = ServiceFactory.create(ICompanyIntentionService.class);
 
-    @Autowired
-    private RedisClient redisClient;
-
     @Override
     public AccountValidateDTO validAccountByOpenId(String openId) {
         AccountValidateDTO dto = new AccountValidateDTO();
@@ -80,51 +74,17 @@ public class AccountService extends PersistableService<Account> implements IAcco
     }
 
     @Override
-    public Result<Account> pkLogin(AccountValidateDTO dto) {
+    public Result<Account> pkLogin(LoginDTO dto) {
         String openId = dto.getOpenId();
         String companyName = dto.getCompanyName();
         String mobile = dto.getMobile();
         int accountId = 0;
+        int fansId = 0;
 
-        // 接口兼容有openId和无openId的情况
         if (StringUtils.isNotBlank(openId)) {
-            // 验证openId关联的用户信息
-            AccountValidateDTO validateDTO = validAccountByOpenId(openId);
-
-            // 当前openId是否需要手机号码
-            if (StringUtils.isBlank(validateDTO.getMobile())) {
-                if (StringUtils.isBlank(mobile)) {
-                    return new Result<>(ResponseStatus.FAILED, "请填写手机号");
-                }
-                if (RegexUtils.isNotPhone(mobile)) {
-                    return new Result<>(ResponseStatus.FAILED, "手机号码格式错误");
-                }
-            }
-
-            // 获取粉丝
-            Fans weiXin = queryFansByOpenId(openId);
-            // 获取粉丝关联用户
-            accountId = NumberUtils.toInt(weiXin.getUserId());
-        } else {
-            // 无openId时，手机号必须！
-            if (StringUtils.isBlank(mobile)) {
-                return new Result<>(ResponseStatus.FAILED, "请填写手机号");
-            }
-
-            if (RegexUtils.isNotPhone(mobile)) {
-                return new Result<>(ResponseStatus.FAILED, "手机号码格式错误");
-            }
-        }
-
-        // 公司名称必须, 如果以后公司名称，走不到这一步
-        if (StringUtils.isBlank(companyName)) {
-            return new Result<>(ResponseStatus.FAILED, "请填写公司名称");
-        }
-
-        // 验证公司名称是否存在于大数据
-        EntRegistry entRegistry = TaurusApiService.getEntRegistry(companyName);
-        if (null == entRegistry) {
-            return new Result<>(ResponseStatus.FAILED, "公司[" + companyName + "]不存在");
+            Fans fans = queryFansByOpenId(openId);
+            accountId = NumberUtils.toInt(fans.getUserId());
+            fansId = fans.getId();
         }
 
         // 处理Account和Customer信息
@@ -137,6 +97,7 @@ public class AccountService extends PersistableService<Account> implements IAcco
                 account = new Account();
                 {
                     account.toNew();
+                    account.setFansId(fansId);
                     account.setName("WX" + mobile);
                     account.setPasswd("");
                     account.setTicket(UUID.randomUUID().toString());
@@ -152,6 +113,18 @@ public class AccountService extends PersistableService<Account> implements IAcco
                 // 创建Account和Customer
                 saveWithCustomer(account, dto.getCustomerSourceId());// 4110218 微信
             }
+            accountId = account.getId();
+        }
+
+        // 更新粉丝id
+        if (fansId > 0 && NumberUtils.toInt(account.getFansId()) != fansId) {
+            baseAccountService.updateFansId(accountId, fansId);
+        }
+
+        // 重新绑定openId关联的用户id
+        if (StringUtils.isNotBlank(openId)) {
+            accountWeiXinService.unBandUserId(accountId);
+            accountWeiXinService.bandMobile(accountId, openId);
         }
 
         if (StringUtils.isNotBlank(companyName)) {
@@ -169,24 +142,23 @@ public class AccountService extends PersistableService<Account> implements IAcco
                 AccountCompany accountCompany = new AccountCompany();
                 {
                     accountCompany.toNew();
+                    accountCompany.setAccountId(account.getId());
                     accountCompany.setCompanyName(companyName);
                     accountCompany.setCrmCompanyId(crmCompany.getId());
-                    accountCompany.setAccountId(account.getId());
+                    accountCompany.setMobile(mobile);
                     accountCompany.setStatus(1);
                     accountCompany.setInUse(1);
                 }
 
                 accountCompanyService.save(accountCompany);
             }
-
-            redisClient.set(ConstantKey.ICOMPANY_CHOOSE_KEY + openId, companyName);
         }
         Result<Account> result = new Result<>();
         result.setObj(account);
         return result;
     }
 
-    private CompanyIntention getAndSaveCompany(AccountValidateDTO dto, String companyName) {
+    private CompanyIntention getAndSaveCompany(LoginDTO dto, String companyName) {
         CompanyIntention crmCompany = companyIntentionService.getByCompanyName(companyName);
         if (null == crmCompany) {
             crmCompany = new CompanyIntention();
@@ -252,43 +224,49 @@ public class AccountService extends PersistableService<Account> implements IAcco
         // 保存会员
         account = save(account);
 
-        Customer customer = new Customer();
-        {
-            customer.toNew();
-            customer.setAccountId(account.getId());
-            customer.setRealName(account.getRealName());
-            customer.setMobile(account.getMobilePhone());
-            customer.setEmail(account.getEmail());
-            customer.setSex(Sex.SECRECY);
-            customer.setTelephone("");
-            customer.setQq("");
-            customer.setWeixin("");
-
-            customer.setAddr("");
-            customer.setCityId(0);
-            customer.setFollowUserId(0);
-            customer.setFollowStatus(FollowStatus.FOLLOW_STATUS_1);
-            customer.setUnvalidRemark("");
-
-            customer.setLastFollowTime(new Date());
-            customer.setBackNum(0);
-            customer.setCustomerSourceId(customerSourceId);
-            customer.setConsultWay(ConsultWay.CONSULT_WAY_4219);
-            customer.setImportant(Important.COMMON);
-
-            customer.setIntroducerUserId(0);
-            customer.setIntroducerId(0);
-            customer.setRemark("");
-            customer.setCreatorId(0);
-            customer.setUpdatorId(0);
+        Customer customer = customerService.byAccountId(account.getId());
+        if (null == customer) {
+            customer = customerService.byMobile(account.getMobilePhone());
         }
+        if (null == customer) {
+            customer = new Customer();
+            {
+                customer.toNew();
+                customer.setAccountId(account.getId());
+                customer.setRealName(account.getRealName());
+                customer.setMobile(account.getMobilePhone());
+                customer.setEmail(account.getEmail());
+                customer.setSex(Sex.SECRECY);
+                customer.setTelephone("");
+                customer.setQq("");
+                customer.setWeixin("");
 
-        // 保存客户
-        customerService.save(customer);
+                customer.setAddr("");
+                customer.setCityId(0);
+                customer.setFollowUserId(0);
+                customer.setFollowStatus(FollowStatus.FOLLOW_STATUS_1);
+                customer.setUnvalidRemark("");
+
+                customer.setLastFollowTime(new Date());
+                customer.setBackNum(0);
+                customer.setCustomerSourceId(customerSourceId);
+                customer.setConsultWay(ConsultWay.CONSULT_WAY_4219);
+                customer.setImportant(Important.COMMON);
+
+                customer.setIntroducerUserId(0);
+                customer.setIntroducerId(0);
+                customer.setRemark("");
+                customer.setCreatorId(0);
+                customer.setUpdatorId(0);
+            }
+            // 保存客户
+            customerService.save(customer);
+        }
         return account;
     }
 
-    private Fans queryFansByOpenId(String openId) {
+    @Override
+    public Fans queryFansByOpenId(String openId) {
         Fans weiXin = accountWeiXinService.queryFansByOpenId(openId);
         if (null == weiXin) {
             // 创建微信账号
@@ -296,6 +274,4 @@ public class AccountService extends PersistableService<Account> implements IAcco
         }
         return weiXin;
     }
-
-
 }
