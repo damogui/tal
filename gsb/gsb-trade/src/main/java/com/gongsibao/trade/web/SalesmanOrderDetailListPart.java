@@ -159,7 +159,7 @@ public class SalesmanOrderDetailListPart extends AdvancedListPart {
                         retuValue = 1;
                     }
                 } else {
-                    retuValue = orderCurrentStatusType.equals(AuditStatusType.Bhsh) ? 0 : 3;
+                    retuValue = orderCurrentStatusType.equals(AuditStatusType.Bhsh)||orderCurrentStatusType.equals(AuditStatusType.wu) ? 0 : 3;
                 }
             }
         } else {
