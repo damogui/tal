@@ -10,8 +10,11 @@ import com.gongsibao.entity.igirl.ic.dict.CorpRegStatue;
 import com.gongsibao.entity.igirl.ic.ex.IcExRegisterCase;
 import com.gongsibao.entity.igirl.ic.ex.dict.ApprovalType;
 import com.gongsibao.entity.igirl.ic.ex.dict.OperatorType;
+import com.gongsibao.entity.igirl.tm.baseinfo.IGirlConfig;
+import com.gongsibao.entity.igirl.tm.dict.ConfigType;
 import com.gongsibao.entity.supplier.dict.SupplierType;
 import com.gongsibao.igirl.ic.base.IcExRegisterService;
+import com.gongsibao.igirl.tm.base.IGirlConfigService;
 import com.gongsibao.utils.SupplierSessionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
@@ -21,6 +24,8 @@ import org.netsharp.organization.base.IEmployeeService;
 import org.netsharp.organization.entity.Employee;
 import org.netsharp.persistence.session.SessionManager;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,6 +34,7 @@ import java.util.List;
 @Service
 public class ExRegisterService extends GsbPersistableService<IcExRegisterCase> implements IcExRegisterService{
     IcExRegisterService service = ServiceFactory.create(IcExRegisterService.class);
+    INCustomerService customerService = ServiceFactory.create(INCustomerService.class);
     public ExRegisterService() {
         super();
         this.type = IcExRegisterCase.class;
@@ -38,7 +44,6 @@ public class ExRegisterService extends GsbPersistableService<IcExRegisterCase> i
     public IcExRegisterCase save(IcExRegisterCase entity) {
         EntityState state = entity.getEntityState();
         if (state.equals(EntityState.New)){
-            INCustomerService customerService = ServiceFactory.create(INCustomerService.class);
             INCustomerTaskService customerTaskService = ServiceFactory.create(INCustomerTaskService.class);
             String mobile = entity.getCustomerMobile();
             NCustomer customer = customerService.getByMobile(mobile);
@@ -190,5 +195,51 @@ public class ExRegisterService extends GsbPersistableService<IcExRegisterCase> i
         oql.getParameters().add("approvalName",approvalName,Types.VARCHAR);
         IcExRegisterCase icCase =this.queryFirst(oql);
         return icCase;
+    }
+
+    @Override
+    public String fetchQrCodeUrl(String url,String casecode) {
+        // TODO Auto-generated method stub
+        IGirlConfigService girlConf=ServiceFactory.create(IGirlConfigService.class);
+        Oql oql=new Oql();{
+            oql.setType(IGirlConfig.class);
+            oql.setSelects("IGirlConfig.*");
+            oql.setFilter("configType=? or configType=?");
+            oql.getParameters().add("configType", ConfigType.IGIRL_QR_URL.getValue(),Types.INTEGER);
+            oql.getParameters().add("configType",ConfigType.IGIRL_MOBILE_TESTURL.getValue(),Types.INTEGER);
+        }
+        List<IGirlConfig> configs=girlConf.queryList(oql);
+        String qcurl="";
+        if(configs.size()==1) {
+            qcurl="{qrServiceUrl}/qc?detailLink=|{currentDomain}/gsb/igirl/mobile/main.html#/?spid="+SupplierSessionManager.getSupplierId()+"&casecode="+casecode+"&source=case";
+            qcurl=qcurl.replace("{qrServiceUrl}", configs.get(0).getConfigValue()).replace("{currentDomain}", url);
+            try {
+                qcurl=qcurl.split("\\|")[0]+ URLEncoder.encode(qcurl.split("\\|")[1],"UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        if(configs.size()==2) {
+            qcurl="{qrServiceUrl}/qc?detailLink=|{currentDomain}/gsb/igirl/mobile/main.html#/?spid="+SupplierSessionManager.getSupplierId()+"&casecode="+casecode+"&source=case";
+            qcurl=qcurl.replace("{qrServiceUrl}", configs.get(0).getConfigValue()).replace("{currentDomain}", configs.get(1).getConfigValue());
+            try {
+                qcurl=qcurl.split("\\|")[0]+URLEncoder.encode(qcurl.split("\\|")[1],"UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        return qcurl;
+    }
+
+    @Override
+    public String findMoblie(String customerMobile) {
+        NCustomer customer = customerService.getByMobile(customerMobile);
+        if (customer!=null){
+            return customer.getRealName();
+        }else{
+            return null;
+        }
     }
 }

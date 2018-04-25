@@ -58,6 +58,16 @@ public class IcExRegisterCase extends Entity {
     @Column(name = "operator",header = "操作者")
     private OperatorType operator;
 
+    @Column(name = "token_img_url", size = 256, header = "二维码")
+    private String tokenImgUrl;
+
+    public String getTokenImgUrl() {
+        return tokenImgUrl;
+    }
+
+    public void setTokenImgUrl(String tokenImgUrl) {
+        this.tokenImgUrl = tokenImgUrl;
+    }
 
     public Integer getCustomerId() {
         return customerId;

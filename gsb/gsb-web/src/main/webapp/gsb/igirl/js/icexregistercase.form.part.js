@@ -4,14 +4,21 @@ com.gongsibao.igirl.ic.web.IcExRegisterCasePart = org.netsharp.panda.commerce.Fo
         this.base();
     },
     isTel: function (el) {
-        var tel = $(el).val();
+        var me = this;
+        var customerMobile = $(el).val();
         var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
-        if (!myreg.test(tel)) {
+        if (!myreg.test(customerMobile)) {
             IMessageBox.error("【手机】格式错误");
             $("#customerMobile").val("");
             return false;
         }
+        me.invokeService("findMobile",[customerMobile],function (result) {
+            if(result!=null){
+                $("#customerName").val(result).attr('readonly',true);
+            }
+        })
         return true;
+
     },
     isCom: function (el) {
         var me = this;
@@ -30,5 +37,19 @@ com.gongsibao.igirl.ic.web.IcExRegisterCasePart = org.netsharp.panda.commerce.Fo
             }
             return true;
         })
+    },
+    /*加载二维码*/
+    onload:function(){
+        this.base();
+        $("#tokenImgUrl").click(function(){
+            var qrurl=$(this).attr("src");
+            if(qrurl && qrurl!=""){
+                var enurl=qrurl.split("=")[1];
+                window.open(decodeURIComponent(enurl));
+            }
+        });
+
+
+
     },
 });

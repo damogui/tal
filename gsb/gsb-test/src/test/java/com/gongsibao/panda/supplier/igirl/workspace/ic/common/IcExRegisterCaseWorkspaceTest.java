@@ -179,11 +179,11 @@ public class IcExRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 			form.setColumnCount(1);
 		}
 		PFormField formField = null;
-		addFormField(form, "customerName", "客户姓名", null, ControlTypes.TEXT_BOX, true,false);
 		formField = addFormField(form, "customerMobile", "客户电话", null, ControlTypes.TEXT_BOX, true,false);
 		{
 			formField.setTroikaTrigger("controllericExRegisterCase.isTel(this);");
 		}
+		addFormField(form, "customerName", "客户姓名", null, ControlTypes.TEXT_BOX, true,false);
 		formField = addFormField(form, "approvalName", "核准公司名称", null, ControlTypes.TEXT_BOX, true,false);
 		{
 			formField.setTroikaTrigger("controllericExRegisterCase.isCom(this);");
@@ -191,6 +191,7 @@ public class IcExRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 		addFormField(form, "approvalType", "审核状态", null, ControlTypes.ENUM_BOX, true,false);
 		addFormField(form, "corpRegStatue", "工商业务状态", null, ControlTypes.ENUM_BOX, true,false);
 		addFormField(form, "operator", "操作者", null, ControlTypes.ENUM_BOX, true,false);
+		addFormField(form, "tokenImgUrl", "二维码", null, ControlTypes.IMAGE, false, true);
 		return form;
 	}
 
