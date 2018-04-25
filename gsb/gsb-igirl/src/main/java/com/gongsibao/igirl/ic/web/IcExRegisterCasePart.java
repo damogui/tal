@@ -41,7 +41,7 @@ public class IcExRegisterCasePart extends FormPart {
 
     /*设置二维码url*/
     public String fetchQrCodeUrl(String casecode) {
-        String url = HttpContext.getCurrent().getRequest().getRequestURL().replace("igirl/rest/service", "");
+        String url = HttpContext.getCurrent().getRequest().getRequestURL().replace("panda/rest/service", "");
         return service.fetchQrCodeUrl(url, casecode);
     }
 
