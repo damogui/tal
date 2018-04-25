@@ -213,7 +213,7 @@
 							</label>
 				  	    </div>
 				  	    <div class="row" style="padding: 20px;">
-				  	    	<textarea class="form-control" rows="3" id="memoto"  placeholder="请填写审批意见"></textarea>
+				  	    	<textarea class="form-control" rows="3" id="memoto"  placeholder="请填写审批意见">通过</textarea>
 				  	    </div>
 				    </div>
 				</div>

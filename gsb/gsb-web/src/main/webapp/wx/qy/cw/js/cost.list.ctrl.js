@@ -61,7 +61,8 @@ org.netsharp.we.core.costListCtrl = org.netsharp.we.core.listCtrl.Extends({
     		if(item.invoiceType == 2){
     			taxRate = TaxRateTypeDict.byKey(item.taxRate);
     		}
-    		html += me.template.format(item.pathName,item.costTypeName,invoiceType,detailMoney,taxRate,item.detailTaxation);
+    		var detailTaxation = item.detailTaxation/100;
+    		html += me.template.format(item.pathName,item.costTypeName,invoiceType,detailMoney,taxRate,detailTaxation);
     	});
     	return html;
     }

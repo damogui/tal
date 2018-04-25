@@ -176,9 +176,10 @@ public class FinanceDict {
 		 * 报销单据类型
 		 */
 		public static enum ExpenseBillType implements IEnum{
-			ExpenseType_1(1, "市场费报销"),
+			ExpenseType_1(1, "日常报销"),
 			ExpenseType_2(2, "招待费报销"),
-			ExpenseType_3(3, "差旅费报销");
+			ExpenseType_3(3, "差旅费报销"),
+			ExpenseType_4(4, "市场费报销");
 			private int value;
 			private String text;
 

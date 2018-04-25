@@ -7,6 +7,7 @@ import org.netsharp.organization.dic.OperationTypes;
 import org.netsharp.panda.controls.ControlTypes;
 import org.netsharp.panda.entity.PDatagrid;
 import org.netsharp.panda.entity.PDatagridColumn;
+import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.resourcenode.entity.ResourceNode;
 
@@ -86,7 +87,10 @@ public class AllBillsWorkspaceTest extends WorkspaceCreationBase {
 		queryProject.toNew();
 		addQueryItem(queryProject, "code", "单据号", ControlTypes.TEXT_BOX);
 		addQueryItem(queryProject, "formType", "单据类型", ControlTypes.ENUM_BOX);
+		PQueryItem queryItem = addQueryItem(queryProject, "amount", "金额", ControlTypes.NUMBER_BOX);
+		queryItem.setInterzone(true);
 		addRefrenceQueryItem(queryProject, "setOfBooks.name", "付款单位", SetOfBooks.class.getSimpleName());
+		
 		return queryProject;
 	}
     

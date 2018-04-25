@@ -7,7 +7,10 @@
 </head>
 <body>
 	<div id="form" class="weui-cells weui-cells_form">
-	
+		
+	  <input type="hidden" id="formId"  value=""  > 
+	  <input type="hidden" id="apply_user_id"  value=""  >
+	  <input type="hidden" id="apply_department_id"  value=""  >	
 	  <div class="weui-cells__title">基本信息</div>
 	  <div class="weui-cell">
 	    <div class="weui-cell__hd"><label class="weui-label">单据号</label></div>
@@ -139,46 +142,49 @@
 		    </a>    
 	  	</div>
 	  	
-	    <div class="weui-cells__title">审批信息</div>
-	  	<div class="weui-cells weui-cells_checkbox">
-		  <label class="weui-cell weui-check__label" for="agree">
-		    <div class="weui-cell__hd">
-		      <input type="radio" class="weui-check" name="auditDetailStatus" value="2"  id="agree" checked="checked">
-		      <i class="weui-icon-checked"></i>
-		    </div>
-		    <div class="weui-cell__bd">
-		      <p>通过</p>
-		    </div>
-		  </label>
-		  <label class="weui-cell weui-check__label" for="reject">
-		    <div class="weui-cell__hd">
-		      <input type="radio" name="auditDetailStatus" class="weui-check" value="3"  id="reject">
-		      <i class="weui-icon-checked"></i>
-		    </div>
-		    <div class="weui-cell__bd">
-		      <p>驳回</p>
-		    </div>
-		  </label>
-		
+	  	<div id="auditDiv" >
+		    <div class="weui-cells__title">审批信息</div>
+		  	<div class="weui-cells weui-cells_checkbox">
+			  <label class="weui-cell weui-check__label" for="agree">
+			    <div class="weui-cell__hd">
+			      <input type="radio" class="weui-check" name="auditDetailStatus" value="2"  id="agree" checked="checked">
+			      <i class="weui-icon-checked"></i>
+			    </div>
+			    <div class="weui-cell__bd">
+			      <p>通过</p>
+			    </div>
+			  </label>
+			  <label class="weui-cell weui-check__label" for="reject">
+			    <div class="weui-cell__hd">
+			      <input type="radio" name="auditDetailStatus" class="weui-check" value="3"  id="reject">
+			      <i class="weui-icon-checked"></i>
+			    </div>
+			    <div class="weui-cell__bd">
+			      <p>驳回</p>
+			    </div>
+			  </label>
+			
+			</div>
+			
+			
+			<div class="weui-cell weui-cell_select" id="payBankDiv" >
+			    <div class="weui-cell__bd" >
+				    <select class="weui-select" name="payBank" id="payBank" >
+		          </select>
+			    </div>
+			 </div>
+		    <div class="weui-cells weui-cells_form" >
+			  <div class="weui-cell">
+			    <div class="weui-cell__bd" >
+			      <textarea class="weui-textarea" placeholder="输入审批意见" rows="3" id="memoto" ></textarea>
+			    </div>
+			  </div>
+			</div>
 		</div>
 		
-		
-		<div class="weui-cell weui-cell_select" id="payBankDiv" >
-		    <div class="weui-cell__bd" >
-			    <select class="weui-select" name="payBank" id="payBank" >
-	          </select>
-		    </div>
-		 </div>
-	    <div class="weui-cells weui-cells_form" >
-		  <div class="weui-cell">
-		    <div class="weui-cell__bd" >
-		      <textarea class="weui-textarea" placeholder="输入审批意见" rows="3" id="memoto" ></textarea>
-		    </div>
-		  </div>
-		</div>
 	</div>
 
-    <div class="weui-btn-area">
+    <div class="weui-btn-area" id="saveBtn" >
       <a class="weui-btn weui-btn_primary" href="javascript:ctrl.saveAudit();">提交</a>
     </div>
     

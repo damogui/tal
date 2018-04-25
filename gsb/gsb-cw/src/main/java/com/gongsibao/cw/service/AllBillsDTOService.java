@@ -22,6 +22,8 @@ public class AllBillsDTOService extends PersistableService<BillAuditDTO>  implem
 		super();
 		this.type = BillAuditDTO.class;
 	}
+	
+	
 	@Override
 	public List<BillAuditDTO> queryList(Oql oql) {
 

@@ -8,7 +8,7 @@ com.gongsibao.cw.web.ExpenseAuditBillFormCtrl = org.netsharp.panda.core.CustomCt
     	this.expenseBillType = PandaHelper.Enum.get('com.gongsibao.entity.cw.dict.FinanceDict$ExpenseBillType');
     	this.auditDetailStatus = PandaHelper.Enum.get('com.gongsibao.entity.cw.dict.FinanceDict$AuditDetailStatus');
     	this.service = 'com.gongsibao.cw.web.AuditBillFormController';
-    	
+    	this.oper = this.queryString('oper');
     },
     init:function(){
     	var me = this;
@@ -24,14 +24,26 @@ com.gongsibao.cw.web.ExpenseAuditBillFormCtrl = org.netsharp.panda.core.CustomCt
     		}
     		me.bindFileTable(data);
     		me.bindU8BankSelect(data.setOfBooksId);
-    		if(billData.paymentMethod == 1){
+    		if(data.paymentMethod == 1){
     			
         		$("bankItem").combobox({ disabled: true });  
         	}else{
         		$("bankItem").combobox({ disabled: false });  
         	}
-    		$("#paymentMethodId").val(billData.paymentMethod);
+    		$("#paymentMethodId").val(data.paymentMethod);
+    		
+    		 if(me.oper == "done"){
+    			 $("#audit_panel").hide();
+    		 }
     	});
+    	
+    	$("input[name='auditDetailStatus']").click(function (){
+	   		 if($(this).val() == 2){
+	   			 $("#memoto").text("通过");
+	   		 }else{
+	   			 $("#memoto").text("驳回");
+	   		 }
+	   	});
     },
     bindForm : function (billData){ // 绑定form数据
     	var me = this;

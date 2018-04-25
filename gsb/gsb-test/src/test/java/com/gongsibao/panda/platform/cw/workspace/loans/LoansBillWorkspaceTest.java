@@ -2,7 +2,6 @@ package com.gongsibao.panda.platform.cw.workspace.loans;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.netsharp.core.EntityState;
 import org.netsharp.core.MtableManager;
 import org.netsharp.meta.base.WorkspaceCreationBase;
 import org.netsharp.organization.dic.OperationTypes;
@@ -14,6 +13,7 @@ import org.netsharp.panda.entity.PDatagridColumn;
 import org.netsharp.panda.entity.PForm;
 import org.netsharp.panda.entity.PFormField;
 import org.netsharp.panda.entity.PPart;
+import org.netsharp.panda.entity.PQueryItem;
 import org.netsharp.panda.entity.PQueryProject;
 import org.netsharp.panda.entity.PWorkspace;
 import org.netsharp.panda.plugin.dic.ToolbarType;
@@ -22,10 +22,8 @@ import org.netsharp.panda.plugin.entity.PToolbarItem;
 import org.netsharp.resourcenode.entity.ResourceNode;
 import org.netsharp.util.ReflectManager;
 
-import com.gongsibao.cw.web.CostDetailListPart;
 import com.gongsibao.cw.web.LoansBillFormPart;
 import com.gongsibao.cw.web.LoansBillListPart;
-import com.gongsibao.entity.cw.CostType;
 import com.gongsibao.entity.cw.Loan;
 import com.gongsibao.entity.u8.SetOfBooks;
 import com.gongsibao.tools.PToolbarHelper;
