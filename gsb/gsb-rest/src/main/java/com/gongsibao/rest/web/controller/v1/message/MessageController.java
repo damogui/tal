@@ -36,6 +36,7 @@ public class MessageController extends BaseController{
             @RequestParam("openId") String openId,
             @RequestParam("money") String money,
             @RequestParam("productName") String productName,
+            @RequestParam("payStatus") String payStatus,
             @RequestParam("orderNo") String orderNo
     ) {
         ResponseData data = new ResponseData();
@@ -63,9 +64,14 @@ public class MessageController extends BaseController{
             data.setMsg("originalId 为空！");
             return data;
         }
+        if (StringUtils.isBlank(payStatus)) {
+            data.setCode(500);
+            data.setMsg("payStatus 为空！");
+            return data;
+        }
         try{
             Account account=accountService.queryByOpenId(openId);
-            accountService.buySuccessSendMsg(originalId(request),account.getId(),money,productName,"您的订单"+orderNo+"支付成功,我们将立即为您办理","/index.html#/mine/order/2");
+            accountService.buySuccessSendMsg(originalId(request),account.getId(),money,productName,"您的订单"+orderNo+"支付成功,我们将立即为您办理",payStatus.equals("1")?"/index.html#/mine/order/2":"/index.html#/mine/order/1");
             data.setCode(200);
             data.setMsg("发送成功！");
         }catch (Exception e){

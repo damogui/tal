@@ -257,7 +257,7 @@ public class AccountWeiXinService extends PersistableService<AccountWeiXin> impl
         Fans fans = this.queryFansByUserId(accountId);
         //获取token
         AccessToken token = token(weixinConfig);
-        String template_id = this.getTemplateId(token, tmpId.getEmpId());
+        String template_id = tmpId.getEmpId();
         SendTemplateData data = new SendTemplateData();
         {
             if (tmpId.getEmpId().equals(AccountWxMsg.BUY_SUCCESS.getEmpId())) {
