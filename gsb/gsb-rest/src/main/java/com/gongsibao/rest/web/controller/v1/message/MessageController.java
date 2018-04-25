@@ -6,7 +6,7 @@ import com.gongsibao.rest.web.common.web.Constant;
 import com.gongsibao.rest.web.common.web.ResponseData;
 import com.gongsibao.rest.base.user.IAccountService;
 import com.gongsibao.rest.web.controller.BaseController;
-import org.apache.commons.lang3.StringUtils;
+import com.gongsibao.rest.web.common.util.StringUtils;
 import org.apache.log4j.Logger;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.panda.controls.utility.UrlHelper;
@@ -14,12 +14,10 @@ import org.netsharp.wx.pa.base.IPublicAccountService;
 import org.netsharp.wx.pa.entity.PublicAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/wx/{v}/message")
@@ -30,14 +28,15 @@ public class MessageController extends BaseController{
     @Autowired
     IAccountService accountService;
 
-    @RequestMapping(value = "/buySuccess", method = RequestMethod.GET)
+    @RequestMapping(value = "/buySuccess", method = RequestMethod.POST)
     public ResponseData buySuccess(
-            HttpServletRequest request,
-            @RequestParam("openId") String openId,
-            @RequestParam("money") String money,
-            @RequestParam("productName") String productName,
-            @RequestParam("orderNo") String orderNo
+            HttpServletRequest request,@RequestBody Map<String, Object> req
     ) {
+        String openId =  StringUtils.trimToEmpty(req.get("openId"));
+        String money =  StringUtils.trimToEmpty(req.get("money"));
+        String productName =  StringUtils.trimToEmpty(req.get("productName"));
+        String payStatus =  StringUtils.trimToEmpty(req.get("payStatus"));
+        String orderNo = StringUtils.trimToEmpty(req.get("orderNo"));
         ResponseData data = new ResponseData();
         if (StringUtils.isBlank(openId)) {
             data.setCode(500);
@@ -63,9 +62,14 @@ public class MessageController extends BaseController{
             data.setMsg("originalId 为空！");
             return data;
         }
+        if (StringUtils.isBlank(payStatus)) {
+            data.setCode(500);
+            data.setMsg("payStatus 付款信息 1全部 0部分付 ！");
+            return data;
+        }
         try{
             Account account=accountService.queryByOpenId(openId);
-            accountService.buySuccessSendMsg(originalId(request),account.getId(),money,productName,"您的订单"+orderNo+"支付成功,我们将立即为您办理","/index.html#/mine/order/2");
+            accountService.buySuccessSendMsg(originalId(request),account.getId(),money,productName,"您的订单"+orderNo+"支付成功,我们将立即为您办理",payStatus.equals("1")?"/index.html#/mine/order/2":"/index.html#/mine/order/1");
             data.setCode(200);
             data.setMsg("发送成功！");
         }catch (Exception e){

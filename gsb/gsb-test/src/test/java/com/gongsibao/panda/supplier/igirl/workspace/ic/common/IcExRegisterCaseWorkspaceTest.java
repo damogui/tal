@@ -163,8 +163,8 @@ public class IcExRegisterCaseWorkspaceTest extends WorkspaceCreationBase{
 		column.setAlign(DatagridAlign.CENTER);
 		column = addColumn(datagrid, "approvalName", "核准公司名称", ControlTypes.TEXT_BOX, 300);
 		column.setAlign(DatagridAlign.CENTER);
-		column = addColumn(datagrid, "approvalType", "审核状态", ControlTypes.ENUM_BOX, 300);
-		column = addColumn(datagrid, "corpRegStatue", "工商业务状态", ControlTypes.ENUM_BOX, 300);
+		column = addColumn(datagrid, "approvalType", "审核状态", ControlTypes.ENUM_BOX, 200);
+		column = addColumn(datagrid, "corpRegStatue", "工商业务状态", ControlTypes.ENUM_BOX, 200);
 		column = addColumn(datagrid, "operator", "操作者", ControlTypes.ENUM_BOX, 300);
 		return datagrid;
 	}

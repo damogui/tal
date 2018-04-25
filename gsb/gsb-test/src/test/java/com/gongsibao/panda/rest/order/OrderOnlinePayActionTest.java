@@ -1,11 +1,16 @@
 package com.gongsibao.panda.rest.order;
 
-import com.gongsibao.panda.supplier.crm.action.BaseActionTest;
-import com.gongsibao.trade.service.action.order.pay.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.plugin.bean.BeanPath;
+
+import com.gongsibao.panda.action.BaseActionTest;
+import com.gongsibao.trade.service.action.order.pay.ActionOnlinePayPersist;
+import com.gongsibao.trade.service.action.order.pay.ActionOnlinePaySendMessage;
+import com.gongsibao.trade.service.action.order.pay.ActionOnlinePayTrace;
+import com.gongsibao.trade.service.action.order.pay.ActionOnlinePayU8;
+import com.gongsibao.trade.service.action.order.pay.ActionOnlinePayVerify;
 
 /**
  * ClassName: OrderOnlinePayActionTest

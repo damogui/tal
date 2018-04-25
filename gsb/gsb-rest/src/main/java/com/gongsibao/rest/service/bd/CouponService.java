@@ -37,6 +37,7 @@ import java.util.*;
  * @date $ $
  */
 @Service
+@SuppressWarnings({"rawtypes", "unchecked", "serial"})
 public class CouponService implements ICouponService {
 
     // 优惠券码服务

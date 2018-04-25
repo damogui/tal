@@ -1,5 +1,7 @@
 package com.gongsibao.rest.web.common.security;
 
+
+@SuppressWarnings({"rawtypes", "unchecked", "serial","cast"})
 public final class Base64 {
 
     static private final int     BASELENGTH           = 128;

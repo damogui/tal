@@ -3,6 +3,7 @@ package com.gongsibao.rest.web.common.util;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+@SuppressWarnings({"rawtypes", "unchecked", "serial"})
 public class PayCommonUtil {
 
     /**
