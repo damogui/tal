@@ -4,7 +4,6 @@ import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
-import org.netsharp.persistence.session.SessionManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.entity.trade.SoOrder;
