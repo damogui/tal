@@ -152,7 +152,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
         part = workspace.getParts().get(0);
         {
             part.setName("基本信息");
-            part.setStyle("height:300px;");
+            part.setStyle("height:275px;");
         }
     }
 
