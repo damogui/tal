@@ -1,7 +1,6 @@
 package com.gongsibao.trade.service.action.audit.refund;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import org.netsharp.action.ActionContext;
@@ -19,7 +18,7 @@ import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.trade.base.IRefundService;
-import com.gongsibao.u8.base.ISoOrderService;
+import com.gongsibao.trade.base.ISoOrderService;
 
 public class ActionAuditRefundWriteBack implements IAction{
 	IAuditService auditService = ServiceFactory.create(IAuditService.class);

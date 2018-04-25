@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.lang.model.element.VariableElement;
-
 import com.gongsibao.entity.crm.CompanyIntention;
 import com.gongsibao.trade.base.ICompanyIntentionService;
 import org.netsharp.communication.ServiceFactory;
@@ -18,7 +16,7 @@ import org.netsharp.util.StringManager;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.IOrderService;
-import com.gongsibao.u8.base.ISoOrderService;
+import com.gongsibao.trade.base.ISoOrderService;
 import com.gongsibao.utils.NumberUtils;
 
 /**

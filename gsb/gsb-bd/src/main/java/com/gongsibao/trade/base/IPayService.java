@@ -1,4 +1,4 @@
-package com.gongsibao.u8.base;
+package com.gongsibao.trade.base;
 
 import org.netsharp.base.IPersistableService;
 

@@ -3,7 +3,7 @@ package com.gongsibao.panda.platform.trade.workspace.data;
 import com.gongsibao.entity.trade.NOrderStage;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.base.INOrderStageService;
-import com.gongsibao.u8.base.ISoOrderService;
+import com.gongsibao.trade.base.ISoOrderService;
 import com.gongsibao.utils.AmountUtils;
 import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.collections.CollectionUtils;

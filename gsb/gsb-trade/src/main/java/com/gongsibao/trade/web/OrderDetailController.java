@@ -4,16 +4,11 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gongsibao.bd.base.IAuditLogService;
-import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.dic.AuditLogStatusType;
-import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.*;
 import com.gongsibao.entity.trade.dto.SoOrderDTO;
 import com.gongsibao.trade.base.*;
-import com.gongsibao.trade.service.OrderService;
 import com.gongsibao.trade.web.dto.AuditLogDTO;
-import com.gongsibao.u8.base.ISoOrderService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 
@@ -23,9 +18,7 @@ import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
 
 import com.gongsibao.entity.crm.NCustomerTask;
-import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.trade.web.dto.ChangePriceDTO;
-import org.netsharp.persistence.session.SessionManager;
 
 public class OrderDetailController {
 

@@ -7,7 +7,7 @@ import org.netsharp.core.BusinessException;
 
 import com.gongsibao.entity.trade.Refund;
 import com.gongsibao.entity.trade.SoOrder;
-import com.gongsibao.u8.base.ISoOrderService;
+import com.gongsibao.trade.base.ISoOrderService;
 
 public class ActionApplyRefundVerify  implements IAction{
 

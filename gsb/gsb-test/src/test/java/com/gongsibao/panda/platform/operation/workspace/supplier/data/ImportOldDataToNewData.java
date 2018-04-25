@@ -11,11 +11,8 @@ import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportData
 import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportData.Enity.ImNCustomerCompany;
 import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportData.Enity.ImNCustomerTaskFoolow;
 import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportData.IMNCustomerTaskService;
-import com.gongsibao.panda.platform.operation.workspace.supplier.data.ImportData.ImNCustomerTaskFoolowService;
 import com.gongsibao.taurus.util.StringManager;
 import com.gongsibao.tools.TimeUtils;
-import com.gongsibao.u8.base.ISoOrderService;
-import com.gongsibao.utils.NumberUtils;
 
 import jodd.typeconverter.Convert;
 
@@ -23,10 +20,7 @@ import org.junit.Test;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 import org.netsharp.core.Paging;
-import org.netsharp.core.QueryParameter;
 import org.netsharp.core.QueryParameters;
-import org.netsharp.core.annotations.Transaction;
-import org.netsharp.organization.base.IRoleGroupService;
 import org.netsharp.persistence.IPersister;
 import org.netsharp.persistence.PersisterFactory;
 

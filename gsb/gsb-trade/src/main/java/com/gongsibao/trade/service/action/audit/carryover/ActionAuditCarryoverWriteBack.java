@@ -17,7 +17,7 @@ import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.trade.base.INOrderCarryoverService;
-import com.gongsibao.u8.base.ISoOrderService;
+import com.gongsibao.trade.base.ISoOrderService;
 
 public class ActionAuditCarryoverWriteBack implements IAction{
 	IAuditService auditService = ServiceFactory.create(IAuditService.class);

@@ -1,13 +1,12 @@
 package com.gongsibao.trade.service.action.order.contract;
 
 import com.gongsibao.entity.trade.Contract;
-import com.gongsibao.entity.trade.Invoice;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.ContractType;
 import com.gongsibao.entity.trade.dic.CustomerType;
 import com.gongsibao.trade.base.IContractService;
-import com.gongsibao.u8.base.ISoOrderService;
+import com.gongsibao.trade.base.ISoOrderService;
 import com.gongsibao.utils.NumberUtils;
 import com.gongsibao.utils.RegexUtils;
 import org.netsharp.action.ActionContext;

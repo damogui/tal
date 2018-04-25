@@ -1,4 +1,4 @@
-package com.gongsibao.u8.service;
+package com.gongsibao.trade.service;
 
 import java.sql.Types;
 import java.util.ArrayList;
@@ -6,19 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.gongsibao.entity.bd.AuditLog;
-import com.gongsibao.entity.bd.dic.AuditLogType;
-import com.gongsibao.entity.trade.OrderPayMap;
-import com.gongsibao.entity.trade.Pay;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.*;
-import org.netsharp.persistence.IPersister;
-import org.netsharp.persistence.PersisterFactory;
 import org.netsharp.service.PersistableService;
 import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
@@ -27,7 +20,7 @@ import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.OrderManualVoucherStatus;
 import com.gongsibao.supplier.base.ISalesmanService;
-import com.gongsibao.u8.base.ISoOrderService;
+import com.gongsibao.trade.base.ISoOrderService;
 import com.gongsibao.utils.NumberUtils;
 
 @Service
@@ -256,4 +249,9 @@ public class SoOrderService extends PersistableService<SoOrder> implements ISoOr
         SoOrder entity = orderService.queryFirst (oql);
         return entity;
 	}
+
+    @Override
+    public List<SoOrder> findByPayTime(String beginTime, String endTime) {
+        return null;
+    }
 }

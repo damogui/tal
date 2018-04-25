@@ -1,4 +1,4 @@
-package com.gongsibao.u8.base;
+package com.gongsibao.trade.base;
 
 import java.util.List;
 import java.util.Map;
@@ -52,5 +52,7 @@ public interface ISoOrderService extends IPersistableService<SoOrder> {
 //    Integer checkCanPay(Integer orderId);
 //    /*是否可以订单业绩type=0   是否可以创建回款业绩  type=1*/
 //    Integer checkCanOrderPer(Integer orderId,Integer type);
+
+    List<SoOrder> findByPayTime(String beginTime,String endTime);
 
 }

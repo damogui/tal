@@ -10,8 +10,6 @@ import com.gongsibao.entity.trade.dic.OrderProdUserMapStatus;
 import org.apache.commons.lang.StringUtils;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
-import org.netsharp.organization.base.IEmployeeService;
-import org.netsharp.organization.entity.Employee;
 import org.netsharp.panda.commerce.AdvancedListPart;
 import org.netsharp.panda.commerce.FilterParameter;
 import org.netsharp.util.StringManager;
@@ -19,7 +17,6 @@ import org.netsharp.util.StringManager;
 import com.gongsibao.entity.product.Product;
 import com.gongsibao.entity.trade.OrderProd;
 import com.gongsibao.entity.trade.OrderProdOrganizationMap;
-import com.gongsibao.entity.trade.OrderProdUserMap;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.entity.trade.dic.OrderPayStatusType;
@@ -28,7 +25,7 @@ import com.gongsibao.product.base.IProductService;
 import com.gongsibao.trade.base.IOrderProdOrganizationMapService;
 import com.gongsibao.trade.base.IOrderProdService;
 import com.gongsibao.trade.base.IOrderProdUserMapService;
-import com.gongsibao.u8.base.ISoOrderService;
+import com.gongsibao.trade.base.ISoOrderService;
 import com.gongsibao.utils.NumberUtils;
 
 /**

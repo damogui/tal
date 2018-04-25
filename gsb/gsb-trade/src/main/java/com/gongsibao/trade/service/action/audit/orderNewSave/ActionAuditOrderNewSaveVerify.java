@@ -16,7 +16,7 @@ import com.gongsibao.entity.bd.dic.AuditLogStatusType;
 import com.gongsibao.entity.bd.dic.AuditLogType;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.base.IAuditService;
-import com.gongsibao.u8.base.ISoOrderService;
+import com.gongsibao.trade.base.ISoOrderService;
 
 public class ActionAuditOrderNewSaveVerify implements IAction{
 	IAuditService auditService = ServiceFactory.create(IAuditService.class);

@@ -2,7 +2,6 @@ package com.gongsibao.trade.service.action.order.settle;
 
 import com.gongsibao.entity.trade.dic.SettleStatus;
 import com.gongsibao.trade.base.IOrderProdService;
-import com.gongsibao.u8.base.ISoOrderService;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
 import org.netsharp.communication.ServiceFactory;

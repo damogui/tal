@@ -9,11 +9,9 @@ import com.gongsibao.bd.base.IFileService;
 import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.bd.dic.AuditLogType;
-import com.gongsibao.entity.trade.Contract;
 import com.gongsibao.entity.trade.OrderInvoiceMap;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.IAuditService;
-import com.gongsibao.trade.base.IContractService;
 import com.gongsibao.trade.base.IOrderInvoiceMapService;
 import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -25,7 +23,7 @@ import org.netsharp.panda.commerce.FormPart;
 import com.gongsibao.entity.trade.Invoice;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.trade.base.IInvoiceService;
-import com.gongsibao.u8.base.ISoOrderService;
+import com.gongsibao.trade.base.ISoOrderService;
 
 public class InvoiceFormPart extends FormPart {
 

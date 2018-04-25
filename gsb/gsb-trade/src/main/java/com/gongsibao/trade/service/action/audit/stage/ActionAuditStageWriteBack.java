@@ -20,7 +20,7 @@ import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
 import com.gongsibao.trade.base.IAuditService;
 import com.gongsibao.trade.base.INOrderStageService;
-import com.gongsibao.u8.base.ISoOrderService;
+import com.gongsibao.trade.base.ISoOrderService;
 
 public class ActionAuditStageWriteBack implements IAction{
 	

@@ -21,7 +21,7 @@ import com.gongsibao.entity.bd.AuditLog;
 import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.entity.trade.dic.PaySuccessStatus;
 import com.gongsibao.entity.trade.dto.ReceivablesAuditDTO;
-import com.gongsibao.u8.base.IPayService;
+import com.gongsibao.trade.base.IPayService;
 import com.gongsibao.u8.base.IReceivablesAuditDTOService;
 
 @Service

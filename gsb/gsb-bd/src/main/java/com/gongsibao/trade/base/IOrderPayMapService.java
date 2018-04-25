@@ -1,4 +1,4 @@
-package com.gongsibao.u8.base;
+package com.gongsibao.trade.base;
 
 import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.trade.OrderPayMap;

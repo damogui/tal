@@ -8,7 +8,7 @@ import org.netsharp.core.BusinessException;
 import com.gongsibao.entity.trade.NOrderCarryover;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
-import com.gongsibao.u8.base.ISoOrderService;
+import com.gongsibao.trade.base.ISoOrderService;
 
 public class ActionApplyCarryoverVerify  implements IAction{
 

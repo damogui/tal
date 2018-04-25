@@ -12,7 +12,7 @@ import com.gongsibao.trade.base.INDepPayService;
 import com.gongsibao.trade.web.dto.AuditLogDTO;
 import com.gongsibao.trade.web.dto.NDepReceivableDTO;
 import com.gongsibao.trade.web.dto.OrderInfoDTO;
-import com.gongsibao.u8.base.ISoOrderService;
+import com.gongsibao.trade.base.ISoOrderService;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
 

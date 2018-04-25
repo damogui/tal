@@ -2,13 +2,10 @@ package com.gongsibao.trade.service.action.order.stage;
 
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
-import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.BusinessException;
 
-import com.gongsibao.entity.trade.NOrderStage;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
-import com.gongsibao.u8.base.ISoOrderService;
 
 /**   
  * @ClassName:  ActionApplyStageVerify   

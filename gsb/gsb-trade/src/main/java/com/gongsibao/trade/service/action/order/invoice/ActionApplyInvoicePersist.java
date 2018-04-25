@@ -6,7 +6,7 @@ import com.gongsibao.bd.base.IFileService;
 import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.AuditStatusType;
-import com.gongsibao.u8.base.ISoOrderService;
+import com.gongsibao.trade.base.ISoOrderService;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.IAction;
