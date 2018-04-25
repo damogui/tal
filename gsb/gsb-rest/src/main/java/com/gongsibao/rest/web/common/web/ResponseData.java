@@ -58,6 +58,15 @@ public class ResponseData {
         return result;
     }
 
+    public static ResponseData getException() {
+        ResponseData result = new ResponseData();
+        result.setCode(EXCEPTION);
+        result.setMsg("您的网络不稳定，请稍后再试。");
+        return result;
+    }
+
+
+
     public int getCode() {
         return code;
     }

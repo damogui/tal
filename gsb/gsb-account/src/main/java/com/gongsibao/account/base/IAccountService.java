@@ -5,7 +5,9 @@ import org.netsharp.base.IPersistableService;
 import com.gongsibao.entity.acount.Account;
 
 public interface IAccountService extends IPersistableService<Account> {
-	
+
+	Account getById(Integer id);
+
 	/**   
 	 * @Title: hasMobile   
 	 * @Description: TODO(手机号是否存在)   
@@ -35,4 +37,6 @@ public interface IAccountService extends IPersistableService<Account> {
 	 * @date 2018/4/24 14:38
 	 */
 	void updateAccount(String mobile, String openId);
+
+	Boolean updateFansId(Integer id, Integer fansId);
 }

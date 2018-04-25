@@ -5,6 +5,11 @@ import java.util.Date;
 import java.util.UUID;
 
 import com.gongsibao.account.base.IAccountWeiXinService;
+import com.gongsibao.entity.crm.Customer;
+import com.gongsibao.entity.crm.dic.ConsultWay;
+import com.gongsibao.entity.crm.dic.FollowStatus;
+import com.gongsibao.entity.crm.dic.Important;
+import com.gongsibao.entity.crm.dic.Sex;
 import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.core.Oql;
@@ -20,11 +25,23 @@ import org.netsharp.wx.pa.entity.Fans;
 @Service
 public class AccountService extends PersistableService<Account> implements IAccountService {
 
-	ICustomService customService = ServiceFactory.create(ICustomService.class);
+	ICustomService customerService = ServiceFactory.create(ICustomService.class);
 	IAccountWeiXinService accountWeiXinService = ServiceFactory.create(IAccountWeiXinService.class);
 	public AccountService() {
 		super();
 		this.type = Account.class;
+	}
+
+	@Override
+	public Account getById(Integer id) {
+		Oql oql = new Oql();
+		{
+			oql.setType(this.type);
+			oql.setSelects("*");
+			oql.setFilter("id = ?");
+			oql.getParameters().add("id", id, Types.INTEGER);
+		}
+		return this.pm.queryFirst(oql);
 	}
 
 	@Override
@@ -120,5 +137,16 @@ public class AccountService extends PersistableService<Account> implements IAcco
 			//更新uc_account_weixin 表 更新 account_id
 			accountWeiXinService.bandMobile(accountOld.getId(), openId);
 		}
+	}
+
+	@Override
+	public Boolean updateFansId(Integer id, Integer fansId) {
+		UpdateBuilder builder = new UpdateBuilder();
+		builder.update("uc_account");
+		builder.set("fans_id", fansId);
+		builder.where(" pkid = " + id);
+
+		return this.pm.executeNonQuery(builder.toSQL(), null) > 0;
+
 	}
 }
