@@ -32,7 +32,7 @@ public class AuditPerformanceActionTest  extends BaseActionTest{
 
 		createBean(beanPath, "1.验证", ActionAuditPerformanceVerify.class.getName(), resourceNode, 100);
 		createBean(beanPath, "2.回写", ActionAuditPerformanceWriteBack.class.getName(), resourceNode, 200);
-		createBean(beanPath, "4.通知", ActionAuditPerformanceSendMessage.class.getName(), resourceNode, 300);
+		//createBean(beanPath, "4.通知", ActionAuditPerformanceSendMessage.class.getName(), resourceNode, 300);
 		beanPathService.save(beanPath);
 	}
 }

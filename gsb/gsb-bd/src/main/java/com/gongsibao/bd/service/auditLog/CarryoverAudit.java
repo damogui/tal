@@ -42,4 +42,19 @@ public class CarryoverAudit extends AbstractAuditLogService {
     protected String setActionPath() {
         return "gsb/crm/audit/carryover";
     }
+
+    @Override
+    public List<String> getAuditPassTel() {
+        return null;
+    }
+
+    @Override
+    public List<String> getAuditFailTel() {
+        return null;
+    }
+
+    @Override
+    public List<String> getAuditWaitTel(int level) {
+        return null;
+    }
 }

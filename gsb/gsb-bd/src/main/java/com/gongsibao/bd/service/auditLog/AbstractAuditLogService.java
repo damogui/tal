@@ -213,22 +213,22 @@ public abstract class AbstractAuditLogService<T> {
         //1.判断当前提交审核的业务员 是否属于平台
         Salesman salesmanEntity = salesmanService.byEmployeeId(addUserId);
         if (salesmanEntity != null && salesmanEntity.getType().equals(SupplierType.PLATFORM)) {
-        	//2.平台服务商属于哪个分类 
-        	List<Integer> yysIdList = new ArrayList<Integer>();
-        	Supplier supplierEntity = (Supplier) supplierService.byId(salesmanEntity.getSupplierId());        	
-        	if(supplierEntity != null){
-        		List<SupplierCategoryOwnerMap> cateList = supplierCateService.getListByCategoryId(supplierEntity.getCategoryId());
-        		for (SupplierCategoryOwnerMap item : cateList) {
-        			//3.判断运营专员(只取sys_permission_employee中专员)是否离职
-        			Employee employee =  employeeService.byId(item.getOwnerId());
-        			if(employee != null && !employee.getDisabled()){
-        				yysIdList.add(item.getOwnerId());
-        			}
-				}
-        	}
-        	//4.添加相应分类的运营专员审核
-        	Integer level = getCurrentLevel() + 1; 
-        	for (Integer item : yysIdList) {
+            //2.平台服务商属于哪个分类
+            List<Integer> yysIdList = new ArrayList<Integer>();
+            Supplier supplierEntity = (Supplier) supplierService.byId(salesmanEntity.getSupplierId());
+            if (supplierEntity != null) {
+                List<SupplierCategoryOwnerMap> cateList = supplierCateService.getListByCategoryId(supplierEntity.getCategoryId());
+                for (SupplierCategoryOwnerMap item : cateList) {
+                    //3.判断运营专员(只取sys_permission_employee中专员)是否离职
+                    Employee employee = employeeService.byId(item.getOwnerId());
+                    if (employee != null && !employee.getDisabled()) {
+                        yysIdList.add(item.getOwnerId());
+                    }
+                }
+            }
+            //4.添加相应分类的运营专员审核
+            Integer level = getCurrentLevel() + 1;
+            for (Integer item : yysIdList) {
                 auditLogList.add(addAuditLog(formId, "运营专员审核", item, level));
             } 
            /* //4.获取相应分类的平台服务商领导,并且没有离职
@@ -304,5 +304,12 @@ public abstract class AbstractAuditLogService<T> {
     public void setCurrentLevel(Integer currentLevel) {
         this.currentLevel = currentLevel;
     }
+
+    /*审核通过的电话号码*/
+    public abstract List<String> getAuditPassTel();
+    /*审核失败的电话号码*/
+    public abstract List<String> getAuditFailTel();
+    /*审核待审核的电话号码*/
+    public abstract List<String> getAuditWaitTel(int level);
 
 }
