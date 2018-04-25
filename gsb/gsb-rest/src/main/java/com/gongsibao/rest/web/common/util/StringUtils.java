@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
  * Created by luqingrun on 16/3/21.
  */
 
+@SuppressWarnings({"rawtypes", "unchecked", "serial"})
 public class StringUtils extends org.apache.commons.lang3.StringUtils {
     static Log log = LogFactory.getLog(StringUtils.class);
 

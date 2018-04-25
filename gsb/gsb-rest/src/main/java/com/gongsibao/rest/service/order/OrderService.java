@@ -58,6 +58,7 @@ import java.util.stream.Collectors;
  * @date $ $
  */
 @Service
+@SuppressWarnings({"rawtypes", "unchecked", "serial"})
 public class OrderService implements IOrderService {
     private static AtomicLong atomicLong = new AtomicLong();
 
@@ -351,7 +352,7 @@ public class OrderService implements IOrderService {
         }
         return null;
     }
-    @SuppressWarnings({ "unchecked" })
+
     private Result doCoupon(SoOrder order, OrderAddDTO orderAddDTO) {
         Result<SoOrder> result = new Result<SoOrder>();
         // 订单原价

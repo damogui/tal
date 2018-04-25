@@ -42,6 +42,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/wx/{v}/pay/")
 @Api(1)
+@SuppressWarnings({"rawtypes", "unchecked", "serial"})
 public class PayController extends BaseController {
 
     Log log = LogFactory.getLog(PayController.class);
