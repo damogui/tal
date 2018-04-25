@@ -1,31 +1,27 @@
-org.netsharp.we.core.costListCtrl = org.netsharp.we.core.listCtrl.Extends({
+org.netsharp.we.core.subsidyListCtrl = org.netsharp.we.core.listCtrl.Extends({
     ctor: function () {
     	this.base();
     	this.service = 'com.gongsibao.cw.web.wx.TodoListController';
     	this.template = '<div class="weui-form-preview__bd"> '+
     					' <div class="weui-form-preview__item"> '+
-    					' <label class="weui-form-preview__label">费用归属部门</label> '+
+    					' <label class="weui-form-preview__label">补助类型</label> '+
     					' <span class="weui-form-preview__value">{0}</span> '+
     					' </div>'+
     					' <div class="weui-form-preview__item"> '+
-    					' <label class="weui-form-preview__label">费用类型</label> '+
+    					' <label class="weui-form-preview__label">补贴天数</label> '+
     					' <span class="weui-form-preview__value">{1}</span> '+
     					' </div>'+
     					' <div class="weui-form-preview__item"> '+
-    					' <label class="weui-form-preview__label">发票类型</label> '+
+    					' <label class="weui-form-preview__label">补贴标准</label> '+
     					' <span class="weui-form-preview__value">{2}</span> '+
     					' </div>'+
     					' <div class="weui-form-preview__item"> '+
-    					' <label class="weui-form-preview__label">费用金额</label> '+
+    					' <label class="weui-form-preview__label">金额</label> '+
     					' <span class="weui-form-preview__value">{3}</span> '+
     					' </div>  '+
     					' <div class="weui-form-preview__item"> '+
-    					' <label class="weui-form-preview__label">费率</label> '+
+    					' <label class="weui-form-preview__label">说明</label> '+
     					' <span class="weui-form-preview__value">{4}</span> '+
-    					' </div>  '+
-    					' <div class="weui-form-preview__item"> '+
-    					' <label class="weui-form-preview__label">税费金额</label> '+
-    					' <span class="weui-form-preview__value">{5}</span> '+
     					' </div>  '+
     					'<div class="weui-form-preview__ft"></div>'+
     					'</div>';
@@ -41,7 +37,7 @@ org.netsharp.we.core.costListCtrl = org.netsharp.we.core.listCtrl.Extends({
     	var formType = this.queryString('formType');
     	//查询
     	var pars = [formId,formType];
-    	this.invokeService('getCostByFormId', pars, function(result){
+    	this.invokeService('getSubsidyByFormId', pars, function(result){
     		
     		if(result.length==0){
         		$('#nodata').show();
@@ -55,13 +51,11 @@ org.netsharp.we.core.costListCtrl = org.netsharp.we.core.listCtrl.Extends({
     	var html = '';
     	var me = this;
     	$(rows).each(function(i,item){
-    		var invoiceType = invoiceTypeDict.byKey(item.invoiceType);
-    		var detailMoney = item.detailMoney/100;
-    		var taxRate = 0;
-    		if(item.invoiceType == 2){
-    			taxRate = TaxRateTypeDict.byKey(item.taxRate);
-    		}
-    		html += me.template.format(item.pathName,item.costTypeName,invoiceType,detailMoney,taxRate,item.detailTaxation);
+    		var subsidyType = SubsidyTypeDict.byKey(item.type);
+    		alert(subsidyType);
+    		var standard = item.standard /100;
+    		var subsidyAmount = item.subsidyAmount /100;
+    		html += me.template.format(subsidyType,item.countDay,standard,subsidyAmount,item.memoto);
     	});
     	return html;
     }

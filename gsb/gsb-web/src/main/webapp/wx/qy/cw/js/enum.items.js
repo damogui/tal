@@ -26,12 +26,18 @@ invoiceTypeDict.add(2,"增值税发票");
 
 
 var ExpenseTypeDict = new System.Dictionary();
-loanBillTypeDict.add(1, "市场费报销");
-loanBillTypeDict.add(2, "招待费报销");
-loanBillTypeDict.add(3, "差旅费报销");
+ExpenseTypeDict.add(1, "市场费报销");
+ExpenseTypeDict.add(2, "招待费报销");
+ExpenseTypeDict.add(3, "差旅费报销");
 
 var TaxRateTypeDict = new System.Dictionary();
-loanBillTypeDict.add(3, "3%");
-loanBillTypeDict.add(6, "6%");
-loanBillTypeDict.add(16, "16%");
+TaxRateTypeDict.add(3, "3%");
+TaxRateTypeDict.add(6, "6%");
+TaxRateTypeDict.add(16, "16%");
+
+var SubsidyTypeDict = new System.Dictionary();
+SubsidyTypeDict.add(1, "出差补助");
+SubsidyTypeDict.add(2, "交通补助");
+SubsidyTypeDict.add(3, "餐补");
+SubsidyTypeDict.add(4, "话费补助");
 

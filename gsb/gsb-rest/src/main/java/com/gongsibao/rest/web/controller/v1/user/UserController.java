@@ -718,9 +718,9 @@ public class UserController extends BaseController {
                     return ResponseData.getError(ResponseData.FAIL, "请输入验证码");
                 }
 
-//                if (!sendCode.equals(code)) {
-//                    return ResponseData.getError(ResponseData.FAIL, "验证码不正确");
-//                }
+                if (!sendCode.equals(code)) {
+                    return ResponseData.getError(ResponseData.FAIL, "验证码不正确");
+                }
             } else {
                 dto.setMobile(validateDTO.getMobile());
             }
@@ -732,10 +732,10 @@ public class UserController extends BaseController {
                 }
 
                 // 验证公司名称是否存在于大数据
-//                EntRegistry entRegistry = TaurusApiService.getEntRegistry(companyName);
-//                if (null == entRegistry) {
-//                    return ResponseData.getError(ResponseData.FAIL, "公司[" + companyName + "]不存在");
-//                }
+                EntRegistry entRegistry = TaurusApiService.getEntRegistry(companyName);
+                if (null == entRegistry) {
+                    return ResponseData.getError(ResponseData.FAIL, "公司[" + companyName + "]不存在");
+                }
             } else {
                 dto.setCompanyName(companyName);
             }
@@ -748,7 +748,8 @@ public class UserController extends BaseController {
                 if (StringUtils.isBlank(chooseCompanyName)) {
                     redisClient.set(ConstantKey.ICOMPANY_CHOOSE_KEY + openId, dto.getCompanyName());
                 }
-                return ResponseData.getSuccess(result.getObj(), "");
+
+                return ResponseData.getSuccess(result.getObj().getMobilePhone(), "");
             } else {
                 return ResponseData.getError(ResponseData.FAIL, result.getMsg());
             }

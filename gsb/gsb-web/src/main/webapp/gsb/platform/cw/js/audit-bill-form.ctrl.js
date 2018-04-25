@@ -17,9 +17,10 @@ com.gongsibao.cw.web.AuditBillFormCtrl = org.netsharp.panda.core.CustomCtrl.Exte
     	this.formType = this.queryString("formType");
     	this.invokeService("getBillByFormId", [this.formId,this.formType], function(data){  
     		 me.bindForm(data);
-    		 me.bindCostTable(data);
+    		
     		 me.bindAuditTable(data);
     		if(me.formType == 4){ //报销单据
+    			me.bindCostTable(data);
     			me.bindTripTable(data);
     			me.bindSubsidyTable(data);
     		}

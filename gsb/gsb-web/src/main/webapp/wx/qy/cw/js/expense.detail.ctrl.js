@@ -4,10 +4,14 @@ org.netsharp.we.core.ExpenseDetailCtrl = org.netsharp.we.core.detailCtrl.Extends
     	this.formType = 4;
     	this.service = 'com.gongsibao.cw.web.wx.TodoListController';
     	this.id = this.queryString('id');
+    	this.oper = this.queryString('oper');
     },
     init:function(){
-    	
     	this.byId();
+    	if(this.oper == "done"){
+    		$("#auditDiv").hide();
+    		$("#saveBtn").hide();
+    	}
     },
     byId:function(){
     	
@@ -91,6 +95,7 @@ org.netsharp.we.core.ExpenseDetailCtrl = org.netsharp.we.core.detailCtrl.Extends
     	auditRecord.status = $("input[name='auditDetailStatus']:checked").val();
     	auditRecord.memoto =memoto;
     	auditRecord.formId = $("#formId").val();
+    	auditRecord.formType = 4;  //报销单
     	auditRecord.auditUserId = employeeId;
     	auditRecord.applyUserId = $("#apply_user_id").val();
     	auditRecord.applyDepartmentId = $("#apply_department_id").val();

@@ -34,6 +34,7 @@ public class AccountCompanyService extends PersistableService<AccountCompany> im
 		Oql oql = new Oql();
 		{
 			oql.setType(type);
+			oql.setSelects("*");
 			oql.setFilter("accountId= " + accountId + "  and inUse=" + inUse);
 		}
 		return this.queryList(oql);

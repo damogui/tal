@@ -3,10 +3,14 @@ org.netsharp.we.core.LoanDetailCtrl = org.netsharp.we.core.detailCtrl.Extends({
     	this.base();
     	this.service = 'com.gongsibao.cw.web.wx.TodoListController';
     	this.id = this.queryString('id');
+    	this.oper = this.queryString('oper');
     },
     init:function(){
-    	
     	this.byId();
+    	if(this.oper == "done"){
+    		$("#auditDiv").hide();
+    		$("#saveBtn").hide();
+    	}
     },
     byId:function(){
     	var me = this;
@@ -63,6 +67,7 @@ org.netsharp.we.core.LoanDetailCtrl = org.netsharp.we.core.detailCtrl.Extends({
     	auditRecord.status = $("input[name='auditDetailStatus']:checked").val();
     	auditRecord.memoto =memoto;
     	auditRecord.formId = $("#formId").val();
+    	auditRecord.formType = 3;  //借款单
     	auditRecord.auditUserId = employeeId;
     	auditRecord.applyUserId = $("#apply_user_id").val();
     	auditRecord.applyDepartmentId = $("#apply_department_id").val();

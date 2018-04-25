@@ -15,12 +15,13 @@ import com.gongsibao.cw.base.ICostDetailService;
 import com.gongsibao.cw.base.IExpenseService;
 import com.gongsibao.cw.base.IFileService;
 import com.gongsibao.cw.base.ILoanService;
+import com.gongsibao.cw.base.ISubsidyRecordService;
 import com.gongsibao.cw.base.ITripRecordService;
 import com.gongsibao.cw.base.IU8BankService;
-import com.gongsibao.cw.service.CostDetailService;
 import com.gongsibao.entity.bd.File;
 import com.gongsibao.entity.cw.AuditRecord;
 import com.gongsibao.entity.cw.CostDetail;
+import com.gongsibao.entity.cw.SubsidyRecord;
 import com.gongsibao.entity.cw.TripRecord;
 import com.gongsibao.entity.cw.dict.FinanceDict;
 import com.gongsibao.entity.cw.dto.BillAuditDTO;
@@ -50,6 +51,10 @@ public class TodoListController {
 	
 	ITripRecordService tripRecordService = ServiceFactory.create(ITripRecordService.class);
 	
+	ISubsidyRecordService subsidyRecordService = ServiceFactory.create(ISubsidyRecordService.class);
+	
+
+	
 	/**
 	 * 我的待办
 	 * @param employeeId
@@ -59,8 +64,8 @@ public class TodoListController {
 	 * @return
 	 */
 	@Authorization(is = false)
-	public Object query(Integer employeeId, String searchKeyWord, Integer pageIndex, Integer pageSize) {
-		return doQuery(employeeId,searchKeyWord,pageIndex,pageSize);
+	public Object query(Integer employeeId, String searchKeyWord, Integer pageIndex, Integer pageSize,String oper) {
+		return doQuery(employeeId,searchKeyWord,pageIndex,pageSize,oper);
 	}
 	/**
 	 * 借款订单详情
@@ -121,6 +126,16 @@ public class TodoListController {
 		return tripRecordService.getTripItem(formId);
 	}
 	/**
+	 * 补助明细
+	 * @param formId
+	 * @param formType
+	 * @return
+	 */
+	@Authorization(is = false)
+	public List<SubsidyRecord> getSubsidyByFormId(Integer formId,Integer formType){
+		return subsidyRecordService.getSubsidyItem(formId);
+	}
+	/**
 	 * 获取付款科目
 	* @Title: getU8BankList  
 	* @Description: TODO(这里用一句话描述这个方法的作用)  
@@ -145,14 +160,20 @@ public class TodoListController {
 	 * @return: Object      
 	 * @throws   
 	 */
-	private Object doQuery(Integer employeeId, String searchKeyWord, Integer pageIndex, Integer pageSize){
+	private Object doQuery(Integer employeeId, String searchKeyWord, Integer pageIndex, Integer pageSize,String oper){
 		
 		Paging paging = new Paging();
 		{
 			paging.setPageNo(pageIndex);
 			paging.setPageSize(pageSize);
 		}
-		String filter = " a.audit_user_id ="+ employeeId +"  AND  a.status = " +FinanceDict.AuditDetailStatus.WAIT.getValue() +" ";
+		String filter = " a.audit_user_id ="+ employeeId ;
+		
+		if(oper.equals("todo")){
+			filter += "  AND  a.status = " +FinanceDict.AuditDetailStatus.WAIT.getValue() +" ";
+		}else{
+			filter += "  AND  a.status <> " +FinanceDict.AuditDetailStatus.WAIT.getValue() +" ";
+		}
 		if(StringUtils.isNotEmpty(searchKeyWord)){
 			filter +=" AND t.code like '%"+searchKeyWord+"%'";
 		}

@@ -60,7 +60,7 @@ import com.gongsibao.panda.supplier.reference.SupplierU8BankReferenceTest;
         SupplierU8BankReferenceTest.class,
 
         //我的订单
-        SalesmanOrderAddWorkspaceTest.class,
+//        SalesmanOrderAddWorkspaceTest.class,
         SalesmanOrderAllWorkspaceTest.class,
         SalesmanOrderCarryoverWorkspaceTest.class,
         SalesmanOrderContractWorkspaceTest.class,
