@@ -2,6 +2,7 @@ package com.gongsibao.rest.service.user;
 
 import com.gongsibao.account.base.IAccountCompanyService;
 import com.gongsibao.account.base.IAccountWeiXinService;
+import com.gongsibao.trade.base.ICustomerService;
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.acount.AccountCompany;
 import com.gongsibao.entity.acount.AccountWxMsg;
@@ -36,10 +37,14 @@ public class AccountService implements IAccountService {
     com.gongsibao.account.base.IAccountService accountService = ServiceFactory.create(com.gongsibao.account.base.IAccountService.class);
     IAccountWeiXinService accountWeiXinService = ServiceFactory.create(IAccountWeiXinService.class);
     ICustomService customService = ServiceFactory.create(ICustomService.class);
+
     IOrderPayMapService orderPayMapService = ServiceFactory.create(IOrderPayMapService.class);
 
     // 会员绑定公司服务
     IAccountCompanyService accountCompanyService = ServiceFactory.create(IAccountCompanyService.class);
+
+    // Crm客户服务
+    ICustomerService customerService = ServiceFactory.create(ICustomerService.class);
 
     @Value("${wx_notify_key}")
     private String notifyKey;
@@ -99,7 +104,10 @@ public class AccountService implements IAccountService {
 
     @Override
     public void updateAccount(String mobile, String openId) {
-        accountService.updateAccount(mobile,openId);
+        Account account = accountService.updateAccount(mobile, openId);
+        if (null != account) {
+            customerService.saveByAccount(account, 4110218);
+        }
     }
 
     @Override

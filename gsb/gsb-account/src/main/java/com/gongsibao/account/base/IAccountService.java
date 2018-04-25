@@ -36,7 +36,7 @@ public interface IAccountService extends IPersistableService<Account> {
 	 * @author hbpeng <hbpeng@gongsibao.com>
 	 * @date 2018/4/24 14:38
 	 */
-	void updateAccount(String mobile, String openId);
+	Account updateAccount(String mobile, String openId);
 
 	Boolean updateFansId(Integer id, Integer fansId);
 }

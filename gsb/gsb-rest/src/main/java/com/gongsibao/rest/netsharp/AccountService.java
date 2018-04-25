@@ -7,12 +7,12 @@ import com.gongsibao.entity.Result;
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.acount.AccountCompany;
 import com.gongsibao.entity.crm.CompanyIntention;
-import com.gongsibao.entity.crm.Customer;
-import com.gongsibao.entity.crm.dic.*;
+import com.gongsibao.entity.crm.dic.CapitalType;
+import com.gongsibao.entity.crm.dic.CompanyOrgType;
+import com.gongsibao.entity.crm.dic.CompanyType;
+import com.gongsibao.entity.crm.dic.RegisterCapitalType;
 import com.gongsibao.rest.netsharp.base.IAccountService;
-import com.gongsibao.rest.web.common.constant.ConstantKey;
 import com.gongsibao.rest.web.common.util.NumberUtils;
-import com.gongsibao.rest.web.common.util.RedisClient;
 import com.gongsibao.rest.web.common.util.StringUtils;
 import com.gongsibao.rest.web.dto.user.AccountValidateDTO;
 import com.gongsibao.rest.web.dto.user.LoginDTO;
@@ -22,9 +22,11 @@ import org.netsharp.communication.Service;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.service.PersistableService;
 import org.netsharp.wx.pa.entity.Fans;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 /**
  * ClassName: AccountService
@@ -109,6 +111,9 @@ public class AccountService extends PersistableService<Account> implements IAcco
                     account.setSourceClientId(dto.getAccountSourceClientId()); // 微信10301
                     account.setIdentityCard("");
                     account.setCompanyId(0);
+                    if (fansId > 0) {
+                        account.setIsWeiXin("1");
+                    }
                 }
                 // 创建Account和Customer
                 saveWithCustomer(account, dto.getCustomerSourceId());// 4110218 微信
@@ -223,45 +228,7 @@ public class AccountService extends PersistableService<Account> implements IAcco
     public Account saveWithCustomer(Account account, Integer customerSourceId) {
         // 保存会员
         account = save(account);
-
-        Customer customer = customerService.byAccountId(account.getId());
-        if (null == customer) {
-            customer = customerService.byMobile(account.getMobilePhone());
-        }
-        if (null == customer) {
-            customer = new Customer();
-            {
-                customer.toNew();
-                customer.setAccountId(account.getId());
-                customer.setRealName(account.getRealName());
-                customer.setMobile(account.getMobilePhone());
-                customer.setEmail(account.getEmail());
-                customer.setSex(Sex.SECRECY);
-                customer.setTelephone("");
-                customer.setQq("");
-                customer.setWeixin("");
-
-                customer.setAddr("");
-                customer.setCityId(0);
-                customer.setFollowUserId(0);
-                customer.setFollowStatus(FollowStatus.FOLLOW_STATUS_1);
-                customer.setUnvalidRemark("");
-
-                customer.setLastFollowTime(new Date());
-                customer.setBackNum(0);
-                customer.setCustomerSourceId(customerSourceId);
-                customer.setConsultWay(ConsultWay.CONSULT_WAY_4219);
-                customer.setImportant(Important.COMMON);
-
-                customer.setIntroducerUserId(0);
-                customer.setIntroducerId(0);
-                customer.setRemark("");
-                customer.setCreatorId(0);
-                customer.setUpdatorId(0);
-            }
-            // 保存客户
-            customerService.save(customer);
-        }
+        customerService.saveByAccount(account, customerSourceId);
         return account;
     }
 

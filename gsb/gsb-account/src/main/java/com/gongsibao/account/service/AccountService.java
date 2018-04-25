@@ -82,7 +82,7 @@ public class AccountService extends PersistableService<Account> implements IAcco
 	}
 
 	@Override
-	public void updateAccount(String mobile, String openId) {
+	public Account updateAccount(String mobile, String openId) {
 		Account accountOld = this.byMobile(mobile);
 		Fans fans=accountWeiXinService.queryFansByOpenId(openId);
 		if (null == accountOld) {
@@ -115,6 +115,8 @@ public class AccountService extends PersistableService<Account> implements IAcco
 			Account result = this.save(account);
 			//更新uc_account_weixin 表 更新 account_id
 			accountWeiXinService.bandMobile(result.getId(), openId);
+
+			return result;
 		} else {
 			Fans oldFans=accountWeiXinService.queryFansByUserId(accountOld.getId());
 			//判断是否绑定过手机号
@@ -133,9 +135,11 @@ public class AccountService extends PersistableService<Account> implements IAcco
 				accountOld.setFansId(0);
 			}
 			accountOld.toPersist();
-			this.save(accountOld);
+			accountOld = this.save(accountOld);
 			//更新uc_account_weixin 表 更新 account_id
 			accountWeiXinService.bandMobile(accountOld.getId(), openId);
+
+			return accountOld;
 		}
 	}
 
