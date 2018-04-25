@@ -6,6 +6,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.netsharp.core.MtableManager;
+import org.netsharp.panda.entity.PWorkspace;
 import org.netsharp.util.StringManager;
 
 import com.gongsibao.crm.web.NCustomerFormPart;
@@ -48,5 +49,10 @@ public class SalesmanCustomerEditWorkspaceTest extends CustomerEditWorkspaceTest
 	@Test
 	public void createFormToolbar() {
 		
+	}
+	
+	@Override
+	protected void addDetailGridPart(PWorkspace workspace) {
+		createCompanysDetailPart(workspace);
 	}
 }

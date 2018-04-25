@@ -259,10 +259,17 @@ public class CustomerAddWorkspaceTest extends WorkspaceCreationBase {
 			part.setToolbar("panda/datagrid/detail");
 			part.setWindowWidth(550);
 			part.setWindowHeight(350);
+			part.setHeaderVisible(true);
 			part.setForm(form);
 		}
 
 		workspace.getParts().add(part);
+		part = workspace.getParts().get(0);
+		{
+			part.setName("关联企业");
+			part.setDockStyle(DockType.TOP);
+			part.setHeight(500);			
+		}
 	}
 
 	// 默认的表单操作

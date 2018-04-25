@@ -21,6 +21,7 @@ public class ActionApplyStageWriteBack implements IAction{
 		{
 			updateSql.update("so_order");
 			updateSql.set("installment_audit_status_id", AuditStatusType.Shz.getValue());
+			updateSql.set("is_installment", true);
 			updateSql.where("pkid =" + order.getId());
 		}
 		String cmdText = updateSql.toSQL();
