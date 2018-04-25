@@ -66,7 +66,7 @@ public class ICompanyProductController extends BaseController {
             return ResponseData.getSuccess(productService.cmsInfo(productId), "");
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseData.getError(ResponseData.EXCEPTION, "您的网络不稳定，请稍后再试。");
+            return ResponseData.getException();
         }
     }
 
@@ -88,7 +88,7 @@ public class ICompanyProductController extends BaseController {
             return ResponseData.getSuccess(productPriceService.findProductCities(productId, null), "");
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseData.getError(ResponseData.EXCEPTION, "您的网络不稳定，请稍后再试。");
+            return ResponseData.getException();
         }
     }
 
@@ -121,7 +121,7 @@ public class ICompanyProductController extends BaseController {
             return ResponseData.getSuccess(template, "");
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseData.getError(ResponseData.EXCEPTION, "您的网络不稳定，请稍后再试。");
+            return ResponseData.getException();
         }
     }
 
@@ -150,7 +150,7 @@ public class ICompanyProductController extends BaseController {
             return ResponseData.getSuccess(propertyList, "");
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseData.getError(ResponseData.EXCEPTION, "您的网络不稳定，请稍后再试。");
+            return ResponseData.getException();
         }
     }
 
@@ -185,7 +185,7 @@ public class ICompanyProductController extends BaseController {
             return ResponseData.getSuccess(priceList, "");
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseData.getError(ResponseData.EXCEPTION, "您的网络不稳定，请稍后再试。");
+            return ResponseData.getException();
         }
     }
 
@@ -222,7 +222,7 @@ public class ICompanyProductController extends BaseController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseData.getError(ResponseData.EXCEPTION, "您的网络不稳定，请稍后再试。");
+            return ResponseData.getException();
         }
     }
 
@@ -254,7 +254,7 @@ public class ICompanyProductController extends BaseController {
                 return ResponseData.getError(ResponseData.FAIL, result.getMsg());
             }
         } catch (Exception e) {
-            return ResponseData.getError(ResponseData.EXCEPTION, "您的网络不稳定，请稍后再试。");
+            return ResponseData.getException();
         }
     }
 }

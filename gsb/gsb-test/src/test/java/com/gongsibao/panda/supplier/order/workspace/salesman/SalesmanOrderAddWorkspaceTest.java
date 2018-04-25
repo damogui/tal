@@ -171,7 +171,7 @@ public class SalesmanOrderAddWorkspaceTest extends WorkspaceCreationBase {
 		{
 			part.setName("新增订单");
 			part.setDockStyle(DockType.TOP);
-			part.setHeight(500);
+			part.setStyle("height:270px");
 		}
 	}
 	

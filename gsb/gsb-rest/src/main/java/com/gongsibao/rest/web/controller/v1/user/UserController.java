@@ -1,22 +1,24 @@
 package com.gongsibao.rest.web.controller.v1.user;
 
+import com.gongsibao.entity.Result;
 import com.gongsibao.entity.acount.Account;
 import com.gongsibao.entity.trade.OrderPayMap;
 import com.gongsibao.entity.trade.Pay;
 import com.gongsibao.entity.trade.SoOrder;
 import com.gongsibao.entity.trade.dic.*;
-import com.gongsibao.rest.web.common.apiversion.Api;
-import com.gongsibao.rest.web.common.security.SecurityUtils;
-import com.gongsibao.rest.web.common.util.JsSdkManager;
-import com.gongsibao.rest.web.common.util.JsonUtils;
-import com.gongsibao.rest.web.common.util.RedisClient;
-import com.gongsibao.rest.web.common.util.StringUtils;
-import com.gongsibao.rest.web.common.web.ResponseData;
 import com.gongsibao.rest.base.user.IAccountService;
+import com.gongsibao.rest.web.common.apiversion.Api;
+import com.gongsibao.rest.web.common.constant.ConstantKey;
+import com.gongsibao.rest.web.common.security.SecurityUtils;
+import com.gongsibao.rest.web.common.util.*;
+import com.gongsibao.rest.web.common.web.ResponseData;
 import com.gongsibao.rest.web.controller.BaseController;
+import com.gongsibao.rest.web.dto.user.AccountValidateDTO;
+import com.gongsibao.rest.web.dto.user.LoginDTO;
+import com.gongsibao.taurus.entity.EntRegistry;
+import com.gongsibao.taurus.service.TaurusApiService;
 import com.gongsibao.u8.base.IPayService;
 import com.gongsibao.u8.base.ISoOrderService;
-import com.gongsibao.utils.NumberUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
@@ -26,9 +28,7 @@ import org.netsharp.panda.controls.utility.UrlHelper;
 import org.netsharp.wx.mp.api.oauth.OAuthRequest;
 import org.netsharp.wx.mp.api.oauth.OAuthResponse;
 import org.netsharp.wx.mp.sdk.AesException;
-import org.netsharp.wx.pa.base.IFansService;
 import org.netsharp.wx.pa.base.IPublicAccountService;
-import org.netsharp.wx.pa.entity.Fans;
 import org.netsharp.wx.pa.entity.PublicAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -54,6 +54,9 @@ public class UserController extends BaseController {
     private String icompanyDomain;
     ISoOrderService soOrderService=ServiceFactory.create(ISoOrderService.class);
     IPayService payService=ServiceFactory.create(IPayService.class);
+
+    // 客户服务，为了事务，按照netsharp service的注解重写一个
+    com.gongsibao.rest.netsharp.base.IAccountService netSharpAccountService = ServiceFactory.create(com.gongsibao.rest.netsharp.base.IAccountService.class);
     /**
      * @Description:TODO 登录验证
      * @param  openId
@@ -236,7 +239,9 @@ public class UserController extends BaseController {
         IPublicAccountService wcService = ServiceFactory.create(IPublicAccountService.class);
         PublicAccount pa = wcService.byOriginalId(originalId(request));
         if (pa == null) {
-            throw new NetsharpException("没有找到公众号，原始id：" + originalId(request));
+            data.setCode(500);
+            data.setMsg("没有找到公众号，原始id："+ originalId(request));
+            return data;
         }
         OAuthRequest oauth = new OAuthRequest();
         {
@@ -252,7 +257,9 @@ public class UserController extends BaseController {
             data.setData(openId);
             data.setMsg("获取成功");
         } catch (Exception ex) {
-//            logger.error("", ex);
+            data.setCode(500);
+            data.setMsg("获取失败："+ ex.getMessage());
+            return data;
         }
         return data;
     }
@@ -644,5 +651,110 @@ public class UserController extends BaseController {
         }
         url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + getAppid + "&redirect_uri=" + returnUrl + "&response_type=code&scope=snsapi_base&state=WeiXin";
         return url;
+    }
+
+    /**
+     * @param request
+     * @return com.gongsibao.rest.web.common.web.ResponseData
+     * @Description: 用户验证, 通过openId, 验证用户是否存在，公司是否存在
+     * @author wangkun <wangkun@gongsibao.com>
+     * @date 2018/4/24
+     */
+    @RequestMapping("/user/account/validate")
+    public ResponseData userValidate(HttpServletRequest request) {
+        String openId = openId(request);
+        try {
+            // 验证用户
+            AccountValidateDTO dto = accountService.validAccountByOpenId(openId);
+            return ResponseData.getSuccess(dto, "");
+        } catch (Exception ex) {
+            logger.error("", ex);
+            return ResponseData.getException();
+        }
+    }
+
+    /**
+     * @param request
+     * @return com.gongsibao.rest.web.common.web.ResponseData
+     * @Description: 用户验证, 通过openId, 验证用户是否存在，公司是否存在
+     * @author wangkun <wangkun@gongsibao.com>
+     * @date 2018/4/24
+     */
+    @RequestMapping(value = "/user/account/pkLogin", method = RequestMethod.POST)
+    public ResponseData userPkLogin(HttpServletRequest request, @RequestBody Map<String, Object> req) {
+
+        String openId = openId(request);
+
+        String mobile = StringUtils.trimToEmpty(req.get("mobile"));
+        String companyName = StringUtils.trimToEmpty(req.get("companyName"));
+        String code = StringUtils.trimToEmpty(req.get("code"));
+
+        // 构建dto对象
+        LoginDTO dto = new LoginDTO();
+        {
+            dto.setOpenId(openId);
+            dto.setMobile(mobile);
+            dto.setCompanyName(companyName);
+            dto.setAccountSourceClientId(10301);
+            dto.setCustomerSourceId(4110218);
+        }
+
+        try {
+            // 获取当前用户状态
+            AccountValidateDTO validateDTO = accountService.validAccountByOpenId(openId);
+
+            // 缺少手机号
+            if (StringUtils.isBlank(validateDTO.getMobile())) {
+                if (StringUtils.isBlank(mobile)) {
+                    return ResponseData.getError(ResponseData.FAIL, "请填写手机号");
+                }
+                if (RegexUtils.isNotPhone(mobile)) {
+                    return ResponseData.getError(ResponseData.FAIL, "手机号码格式不正确");
+                }
+
+                // 验证码判断
+                String sendCode = StringUtils.trimToEmpty(redisClient.get(mobile));
+                if (StringUtils.isBlank(code)) {
+                    return ResponseData.getError(ResponseData.FAIL, "请输入验证码");
+                }
+
+//                if (!sendCode.equals(code)) {
+//                    return ResponseData.getError(ResponseData.FAIL, "验证码不正确");
+//                }
+            } else {
+                dto.setMobile(validateDTO.getMobile());
+            }
+
+            // 缺少公司
+            if (StringUtils.isBlank(validateDTO.getCompanyName())) {
+                if (StringUtils.isBlank(companyName)) {
+                    return ResponseData.getError(ResponseData.FAIL, "请填写公司名称");
+                }
+
+                // 验证公司名称是否存在于大数据
+//                EntRegistry entRegistry = TaurusApiService.getEntRegistry(companyName);
+//                if (null == entRegistry) {
+//                    return ResponseData.getError(ResponseData.FAIL, "公司[" + companyName + "]不存在");
+//                }
+            } else {
+                dto.setCompanyName(companyName);
+            }
+
+            // 验证用户
+            Result<Account> result = netSharpAccountService.pkLogin(dto);
+            if (Result.isSuccess(result)) {
+                // 记录当前选择公司
+                String chooseCompanyName = redisClient.get(ConstantKey.ICOMPANY_CHOOSE_KEY + openId);
+                if (StringUtils.isBlank(chooseCompanyName)) {
+                    redisClient.set(ConstantKey.ICOMPANY_CHOOSE_KEY + openId, dto.getCompanyName());
+                }
+                return ResponseData.getSuccess(result.getObj(), "");
+            } else {
+                return ResponseData.getError(ResponseData.FAIL, result.getMsg());
+            }
+        } catch (Exception ex) {
+            logger.error("", ex);
+            return ResponseData.getException();
+        }
     }
 }

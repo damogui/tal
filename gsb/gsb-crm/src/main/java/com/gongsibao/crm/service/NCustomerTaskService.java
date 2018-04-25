@@ -7,11 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.gongsibao.crm.base.INCustomerService;
-import com.gongsibao.entity.crm.NCustomer;
-import com.gongsibao.entity.supplier.Salesman;
-import com.gongsibao.supplier.base.ISupplierDepartmentService;
-import edu.emory.mathcs.backport.java.util.Arrays;
 import org.apache.commons.collections.CollectionUtils;
 import org.netsharp.action.ActionContext;
 import org.netsharp.action.ActionManager;
@@ -27,6 +22,7 @@ import org.netsharp.util.StringManager;
 import org.netsharp.util.sqlbuilder.UpdateBuilder;
 
 import com.gongsibao.bd.service.SupplierPersistableService;
+import com.gongsibao.crm.base.INCustomerService;
 import com.gongsibao.crm.base.INCustomerTaskService;
 import com.gongsibao.crm.service.action.task.transfer.ProcessNoticeEnum;
 import com.gongsibao.entity.crm.NCustomerTask;
@@ -34,13 +30,17 @@ import com.gongsibao.entity.crm.NCustomerTaskFoolow;
 import com.gongsibao.entity.crm.dic.AllocationState;
 import com.gongsibao.entity.crm.dic.CustomerFollowStatus;
 import com.gongsibao.entity.crm.dic.NAllocationType;
+import com.gongsibao.entity.supplier.Salesman;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
 import com.gongsibao.supplier.base.ISalesmanService;
+import com.gongsibao.supplier.base.ISupplierDepartmentService;
 import com.gongsibao.utils.DateUtils;
 import com.gongsibao.utils.NumberUtils;
 import com.gongsibao.utils.SalesmanOrganization;
 import com.gongsibao.utils.SupplierSessionManager;
+
+import edu.emory.mathcs.backport.java.util.Arrays;
 
 @Service
 public class NCustomerTaskService extends SupplierPersistableService<NCustomerTask> implements INCustomerTaskService {
@@ -48,7 +48,8 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
     ISalesmanService salesmanService = ServiceFactory.create(ISalesmanService.class);
     ISupplierDepartmentService supplierDepartmentService = ServiceFactory.create(ISupplierDepartmentService.class);
     INCustomerService customerService = ServiceFactory.create(INCustomerService.class);
-
+    
+    
     public NCustomerTaskService() {
         super();
         this.type = NCustomerTask.class;
@@ -228,7 +229,7 @@ public class NCustomerTaskService extends SupplierPersistableService<NCustomerTa
         }
         return reusMap;
     }
-
+    
     /**
      * 抽查异常
      *

@@ -223,7 +223,7 @@ public class ExRegisterService extends GsbPersistableService<IcExRegisterCase> i
         List<IGirlConfig> configs=girlConf.queryList(oql);
         String qcurl="";
         if(configs.size()==1) {
-            qcurl="{qrServiceUrl}/qc?detailLink=|{currentDomain}/gsb/igirl/mobile/main.html#/?spid="+SupplierSessionManager.getSupplierId()+"&casecode="+casecode+"&source=case";
+            qcurl="{qrServiceUrl}/qc?detailLink=|{currentDomain}/gsb/igirl/ic/html/icExRegisterCase.html#/?spid="+SupplierSessionManager.getSupplierId()+"&casecode="+casecode+"&source=case";
             qcurl=qcurl.replace("{qrServiceUrl}", configs.get(0).getConfigValue()).replace("{currentDomain}", url);
             try {
                 qcurl=qcurl.split("\\|")[0]+ URLEncoder.encode(qcurl.split("\\|")[1],"UTF-8");
@@ -233,7 +233,7 @@ public class ExRegisterService extends GsbPersistableService<IcExRegisterCase> i
             }
         }
         if(configs.size()==2) {
-            qcurl="{qrServiceUrl}/qc?detailLink=|{currentDomain}/gsb/igirl/mobile/main.html#/?spid="+SupplierSessionManager.getSupplierId()+"&casecode="+casecode+"&source=case";
+            qcurl="{qrServiceUrl}/qc?detailLink=|{currentDomain}/gsb/igirl/ic/html/icExRegisterCase.html#/?spid="+SupplierSessionManager.getSupplierId()+"&casecode="+casecode+"&source=case";
             qcurl=qcurl.replace("{qrServiceUrl}", configs.get(0).getConfigValue()).replace("{currentDomain}", configs.get(1).getConfigValue());
             try {
                 qcurl=qcurl.split("\\|")[0]+URLEncoder.encode(qcurl.split("\\|")[1],"UTF-8");

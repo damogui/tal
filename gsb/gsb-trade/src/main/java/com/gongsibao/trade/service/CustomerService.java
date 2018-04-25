@@ -58,4 +58,16 @@ public class CustomerService extends PersistableService<Customer> implements ICu
 		}
 		return super.queryFirst (oql);
 	}
+
+	@Override
+	public Customer byMobile(String mobile) {
+		Oql oql = new Oql();
+		{
+			oql.setType (this.type);
+			oql.setSelects ("*");
+			oql.setFilter ("mobile = ? ");
+			oql.getParameters().add("mobile", mobile, Types.VARCHAR);
+		}
+		return super.queryFirst (oql);
+	}
 }

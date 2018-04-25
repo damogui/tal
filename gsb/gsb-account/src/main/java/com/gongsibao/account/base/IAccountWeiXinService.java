@@ -8,6 +8,7 @@ import org.netsharp.wx.pa.entity.Fans;
 
 public interface IAccountWeiXinService extends IPersistableService<AccountWeiXin> {
 	Boolean bandMobile(int accountId,String openId);
+	Boolean unBandUserId(int accountId);
 	Account queryByOpenId(String openId);
 	Fans queryFansByUserId(Integer userId);
 	Fans queryFansByOpenId(String openId);
