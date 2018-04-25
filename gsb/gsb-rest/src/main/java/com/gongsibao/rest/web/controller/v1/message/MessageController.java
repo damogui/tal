@@ -39,6 +39,7 @@ public class MessageController extends BaseController{
             @RequestParam("payStatus") String payStatus,
             @RequestParam("orderNo") String orderNo
     ) {
+
         ResponseData data = new ResponseData();
         if (StringUtils.isBlank(openId)) {
             data.setCode(500);
