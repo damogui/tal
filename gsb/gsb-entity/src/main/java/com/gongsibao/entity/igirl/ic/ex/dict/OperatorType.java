@@ -6,8 +6,7 @@ import org.netsharp.base.IEnum;
 public enum OperatorType implements IEnum{
     LEI_JUAN(0,"leijuan","lj123456","雷娟"),
     JIANG_KAI_NING(1,"汉唐信通（北京）登记注册代理事务所-姜凯宁","12345678ab","姜凯宁"),
-        NIU_NAN(2,"niunan","12345678ab","牛楠")
-    ;
+    NIU_NAN(2,"niunan","12345678ab","牛楠");
     private Integer value;
     private String password;
     private String username;

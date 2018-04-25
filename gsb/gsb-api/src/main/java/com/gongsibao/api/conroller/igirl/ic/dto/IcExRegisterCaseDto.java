@@ -5,7 +5,11 @@ public class IcExRegisterCaseDto {
 
     private String approvalName;
 
-    private String phone;
+    private String ownerTel;
+
+    private String operatorTel;
+
+    private String collectorTel;
 
     public Integer getId() {
         return id;
@@ -23,11 +27,27 @@ public class IcExRegisterCaseDto {
         this.approvalName = approvalName;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getOwnerTel() {
+        return ownerTel;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setOwnerTel(String ownerTel) {
+        this.ownerTel = ownerTel;
+    }
+
+    public String getOperatorTel() {
+        return operatorTel;
+    }
+
+    public void setOperatorTel(String operatorTel) {
+        this.operatorTel = operatorTel;
+    }
+
+    public String getCollectorTel() {
+        return collectorTel;
+    }
+
+    public void setCollectorTel(String collectorTel) {
+        this.collectorTel = collectorTel;
     }
 }

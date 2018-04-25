@@ -3,7 +3,7 @@ com.gongsibao.igirl.ic.web.IcExRegisterCaseListPart = org.netsharp.panda.commerc
     ctor : function() {
         this.base();
     },
-    doAllot : function(taskId) {
+    doAllot : function(type) {
         var me = this;
         var rows=me.getSelections();
         if (rows.length == 0) {
@@ -52,7 +52,7 @@ com.gongsibao.igirl.ic.web.IcExRegisterCaseListPart = org.netsharp.panda.commerc
                         return;
                     }
                     var id = rows[0].id;
-                    me.invokeService("updateOwner", [id,toUserId],function(data) {
+                    me.invokeService("updateOwner", [id,toUserId,type],function(data) {
                         me.reload();
                         IMessageBox.toast('分配成功');
                         layer.closeAll();

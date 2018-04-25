@@ -60,13 +60,27 @@ public class IcExRegisterController {
             caseDto.setId(ic.getId());
             caseDto.setApprovalName(ic.getApprovalName());
             Integer ownerId = ic.getOwnerId();
+            Integer operatorId = ic.getOperatorId();
+            Integer collectorId = ic.getCollectorId();
             if (ownerId!=null){
                 Employee employee = employeeService.byId(ownerId);
-                caseDto.setPhone(employee.getMobile());
+                caseDto.setOwnerTel(employee.getMobile());
             }else{
-                caseDto.setPhone("");
+                caseDto.setOwnerTel("");
             }
-            type = ic.getOperator();
+            if (operatorId!=null){
+                Employee employee = employeeService.byId(operatorId);
+                caseDto.setOperatorTel(employee.getMobile());
+            }else{
+                caseDto.setOperatorTel("");
+            }
+            if (collectorId!=null){
+                Employee employee = employeeService.byId(collectorId);
+                caseDto.setCollectorTel(employee.getMobile());
+            }else{
+                caseDto.setCollectorTel("");
+            }
+            type = ic.getOperatorType();
             if (type.equals(OperatorType.LEI_JUAN)){
                 lDtos.add(caseDto);
             }else if(type.equals(OperatorType.JIANG_KAI_NING)){
@@ -120,6 +134,14 @@ public class IcExRegisterController {
         ResponseResult result = new ResponseResult();
         IcExRegisterCase icCase = service.updateIcCase(name, state);
         if (icCase != null) {
+            IcExLog log = new IcExLog();
+            log.setCompanyName(name);
+            log.setCorpRegStatue(CorpRegStatue.getItem(state));
+            log.setTitle("工商日志");
+            log.setContent("更新工商状态");
+            log.setCreateTime(new Date());
+            log.toNew();
+            logService.save(log);
             result.setCode("200");
             result.setData("");
             result.setMessage("修改成功");
