@@ -116,7 +116,7 @@ public class SalesmanOrderDetailWorkspaceTest extends WorkspaceCreationBase {
 
         item = addQueryItem(queryProject, "keyword", "关键字", ControlTypes.TEXT_BOX);
         {
-            item.setTooltip("订单明细编号、订单编号、下单人、下单人电话、明细订单关联公司");
+            item.setTooltip("订单明细编号、订单编号、下单人、下单人电话、关联公司");
             item.setWidth(350);
         }
         addQueryItem(queryProject, "productName", "产品名称", ControlTypes.TEXT_BOX);
