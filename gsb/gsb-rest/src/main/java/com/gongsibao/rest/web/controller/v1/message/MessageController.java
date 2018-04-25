@@ -6,7 +6,7 @@ import com.gongsibao.rest.web.common.web.Constant;
 import com.gongsibao.rest.web.common.web.ResponseData;
 import com.gongsibao.rest.base.user.IAccountService;
 import com.gongsibao.rest.web.controller.BaseController;
-import org.apache.commons.lang3.StringUtils;
+import com.gongsibao.rest.web.common.util.StringUtils;
 import org.apache.log4j.Logger;
 import org.netsharp.communication.ServiceFactory;
 import org.netsharp.panda.controls.utility.UrlHelper;
@@ -14,12 +14,10 @@ import org.netsharp.wx.pa.base.IPublicAccountService;
 import org.netsharp.wx.pa.entity.PublicAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/wx/{v}/message")
@@ -32,14 +30,13 @@ public class MessageController extends BaseController{
 
     @RequestMapping(value = "/buySuccess", method = RequestMethod.POST)
     public ResponseData buySuccess(
-            HttpServletRequest request,
-            @RequestParam(value="openId", required=true)  String openId,
-            @RequestParam(value="money", required=true)  String money,
-            @RequestParam(value="productName", required=true)  String productName,
-            @RequestParam(value="payStatus", required=true)  String payStatus,
-            @RequestParam(value="orderNo", required=true)  String orderNo
+            HttpServletRequest request,@RequestBody Map<String, Object> req
     ) {
-
+        String openId =  StringUtils.trimToEmpty(req.get("openId"));
+        String money =  StringUtils.trimToEmpty(req.get("money"));
+        String productName =  StringUtils.trimToEmpty(req.get("productName"));
+        String payStatus =  StringUtils.trimToEmpty(req.get("payStatus"));
+        String orderNo = StringUtils.trimToEmpty(req.get("orderNo"));
         ResponseData data = new ResponseData();
         if (StringUtils.isBlank(openId)) {
             data.setCode(500);
