@@ -3,6 +3,7 @@ package com.gongsibao.entity.igirl.ic.ex;
 import com.gongsibao.entity.crm.NCustomer;
 import com.gongsibao.entity.igirl.ic.dict.CorpRegStatue;
 import com.gongsibao.entity.igirl.ic.ex.dict.ApprovalType;
+import com.gongsibao.entity.igirl.ic.ex.dict.BusinessType;
 import com.gongsibao.entity.igirl.ic.ex.dict.OperatorType;
 import com.gongsibao.entity.supplier.Supplier;
 import com.gongsibao.entity.supplier.SupplierDepartment;
@@ -27,11 +28,23 @@ public class IcExRegisterCase extends Entity {
     @Column(name = "customer_name",header = "客户姓名")
     private String customerName;
 
-    @Column(name = "owner",header = "所属人")
+    @Column(name = "owner",header = "后期")
     private String owner;
 
-    @Column(name = "owner_id",header = "所属人ID")
+    @Column(name = "owner_id",header = "后期ID")
     private Integer ownerId;
+
+    @Column(name = "operator",header = "业务")
+    private String operator;
+
+    @Column(name = "operator_id",header = "业务ID")
+    private Integer operatorId;
+
+    @Column(name = "collector",header = "材料")
+    private String collector;
+
+    @Column(name = "collector_id",header = "材料ID")
+    private Integer collectorId;
 
     @Column(name = "supplier_id", header = "服务商Id")
     private Integer supplierId = -1;
@@ -55,8 +68,11 @@ public class IcExRegisterCase extends Entity {
     @Column(name = "corp_reg_statue",header = "工商业务状态")
     private CorpRegStatue corpRegStatue = CorpRegStatue.UNCOMMITTED;
 
-    @Column(name = "operator",header = "操作者")
-    private OperatorType operator;
+    @Column(name = "operator_type",header = "填报账户")
+    private OperatorType operatorType = OperatorType.LEI_JUAN;
+
+    @Column(name = "business_type",header = "业务类型")
+    private BusinessType businessType = BusinessType.ESTABLISHMENT;
 
     @Column(name = "token_img_url", size = 256, header = "二维码")
     private String tokenImgUrl;
@@ -173,11 +189,51 @@ public class IcExRegisterCase extends Entity {
         this.department = department;
     }
 
-    public OperatorType getOperator() {
+    public String getOperator() {
         return operator;
     }
 
-    public void setOperator(OperatorType operator) {
+    public void setOperator(String operator) {
         this.operator = operator;
+    }
+
+    public Integer getOperatorId() {
+        return operatorId;
+    }
+
+    public void setOperatorId(Integer operatorId) {
+        this.operatorId = operatorId;
+    }
+
+    public String getCollector() {
+        return collector;
+    }
+
+    public void setCollector(String collector) {
+        this.collector = collector;
+    }
+
+    public Integer getCollectorId() {
+        return collectorId;
+    }
+
+    public void setCollectorId(Integer collectorId) {
+        this.collectorId = collectorId;
+    }
+
+    public OperatorType getOperatorType() {
+        return operatorType;
+    }
+
+    public void setOperatorType(OperatorType operatorType) {
+        this.operatorType = operatorType;
+    }
+
+    public BusinessType getBusinessType() {
+        return businessType;
+    }
+
+    public void setBusinessType(BusinessType businessType) {
+        this.businessType = businessType;
     }
 }
