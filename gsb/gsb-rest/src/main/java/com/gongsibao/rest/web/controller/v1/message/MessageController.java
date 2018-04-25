@@ -33,11 +33,11 @@ public class MessageController extends BaseController{
     @RequestMapping(value = "/buySuccess", method = RequestMethod.POST)
     public ResponseData buySuccess(
             HttpServletRequest request,
-            @RequestParam("openId") String openId,
-            @RequestParam("money") String money,
-            @RequestParam("productName") String productName,
-            @RequestParam("payStatus") String payStatus,
-            @RequestParam("orderNo") String orderNo
+            @RequestParam(value="openId", required=true)  String openId,
+            @RequestParam(value="money", required=true)  String money,
+            @RequestParam(value="productName", required=true)  String productName,
+            @RequestParam(value="payStatus", required=true)  String payStatus,
+            @RequestParam(value="orderNo", required=true)  String orderNo
     ) {
 
         ResponseData data = new ResponseData();
