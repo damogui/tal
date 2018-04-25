@@ -1,4 +1,4 @@
-package com.gongsibao.panda.platform.operation.workspace.crm.old;
+package com.gongsibao.panda.platform.operation.workspace.crm;
 
 import org.junit.Before;
 import org.netsharp.core.MtableManager;

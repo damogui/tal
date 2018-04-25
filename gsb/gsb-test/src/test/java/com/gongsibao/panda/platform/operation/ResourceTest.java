@@ -175,26 +175,26 @@ public class ResourceTest extends ResourceCreationBase {
             
 
         }
-        node1 = this.createResourceNodeCategory("客户管理（旧）", "GSB_CRM_Manager", node.getId());
-        {
-            this.createResourceNodeVoucher(Customer.class.getName(), "全部客户", "CRM_All_" + Customer.class.getSimpleName(), ICustomerService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(SoOrder.class.getName(), "客户订单", "CRM_My_All_" + SoOrder.class.getSimpleName(), IOrderService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(Customer.class.getName(), "我的客户", "CRM_My_" + Customer.class.getSimpleName(), ICustomerService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(Customer.class.getName(), "企业信息库", "CRM_Enterprise", ICustomerService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(Customer.class.getName(), "客户池", "CRM_Pool_" + Customer.class.getSimpleName(), ICustomerService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(Customer.class.getName(), "客户操作", "CRM_Operation_" + Customer.class.getSimpleName(), ICustomerService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(Dict.class.getName(), "城市", Dict.class.getSimpleName(), IPersistableService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(CustomerProdMap.class.getName(), "意向产品", CustomerProdMap.class.getSimpleName(), ICustomerProdMapService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(Product.class.getName(), "产品", "CRM_" + Product.class.getSimpleName(), IPersistableService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(CustomerServiceConfig.class.getName(), "客服配置", "CRM_" + CustomerServiceConfig.class.getSimpleName(), ICustomerServiceConfigService.class.getName(),
-                    node1.getId());
-            this.createResourceNodeVoucher(CompanyIntention.class.getName(), "企业信息", "CRM_" + CompanyIntention.class.getSimpleName(), ICompanyIntentionService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(CustomerCompanyMap.class.getName(), "关联企业", CustomerCompanyMap.class.getSimpleName(), ICustomerCompanyMapService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(CustomerFollow.class.getName(), "沟通日志", CustomerFollow.class.getSimpleName(), ICustomerFollowService.class.getName(), node1.getId());
-            this.createResourceNodeVoucher(SoOrder.class.getName(), "订单记录", SoOrder.class.getSimpleName(), IPersistableService.class.getName(), node1.getId());
-
-            this.createResourceNodeVoucher(CustomerOrder.class.getName(), "订单列表", "CRM_" + CustomerOrder.class.getSimpleName(), ICustomerOrderService.class.getName(), node1.getId());
-        }
+//        node1 = this.createResourceNodeCategory("客户管理（旧）", "GSB_CRM_Manager", node.getId());
+//        {
+//            this.createResourceNodeVoucher(Customer.class.getName(), "全部客户", "CRM_All_" + Customer.class.getSimpleName(), ICustomerService.class.getName(), node1.getId());
+//            this.createResourceNodeVoucher(SoOrder.class.getName(), "客户订单", "CRM_My_All_" + SoOrder.class.getSimpleName(), IOrderService.class.getName(), node1.getId());
+//            this.createResourceNodeVoucher(Customer.class.getName(), "我的客户", "CRM_My_" + Customer.class.getSimpleName(), ICustomerService.class.getName(), node1.getId());
+//            this.createResourceNodeVoucher(Customer.class.getName(), "客户池", "CRM_Pool_" + Customer.class.getSimpleName(), ICustomerService.class.getName(), node1.getId());
+//            this.createResourceNodeVoucher(Customer.class.getName(), "客户操作", "CRM_Operation_" + Customer.class.getSimpleName(), ICustomerService.class.getName(), node1.getId());
+//            this.createResourceNodeVoucher(Dict.class.getName(), "城市", Dict.class.getSimpleName(), IPersistableService.class.getName(), node1.getId());
+//            this.createResourceNodeVoucher(CustomerProdMap.class.getName(), "意向产品", CustomerProdMap.class.getSimpleName(), ICustomerProdMapService.class.getName(), node1.getId());
+//            this.createResourceNodeVoucher(Product.class.getName(), "产品", "CRM_" + Product.class.getSimpleName(), IPersistableService.class.getName(), node1.getId());
+//                 
+//            this.createResourceNodeVoucher(CompanyIntention.class.getName(), "企业信息", "CRM_" + CompanyIntention.class.getSimpleName(), ICompanyIntentionService.class.getName(), node1.getId());
+//            this.createResourceNodeVoucher(CustomerCompanyMap.class.getName(), "关联企业", CustomerCompanyMap.class.getSimpleName(), ICustomerCompanyMapService.class.getName(), node1.getId());
+//            this.createResourceNodeVoucher(CustomerFollow.class.getName(), "沟通日志", CustomerFollow.class.getSimpleName(), ICustomerFollowService.class.getName(), node1.getId());
+//            this.createResourceNodeVoucher(SoOrder.class.getName(), "订单记录", SoOrder.class.getSimpleName(), IPersistableService.class.getName(), node1.getId());
+//
+//            this.createResourceNodeVoucher(CustomerOrder.class.getName(), "订单列表", "CRM_" + CustomerOrder.class.getSimpleName(), ICustomerOrderService.class.getName(), node1.getId());
+//        }
+        
+        
         node1 = this.createResourceNodeCategory("客户管理", "Operation_CRM", node.getId());
         {
             this.createResourceNodeVoucher(NCustomer.class.getName(), "新增客户", "Operation_CRM_Customer_Add", INCustomerService.class.getName(), node1.getId());
@@ -218,6 +218,9 @@ public class ResourceTest extends ResourceCreationBase {
             this.createResourceNodeVoucher(NCustomerTask.class.getName(), "公海", "Operation_CRM_Customer_OpenSea", INCustomerTaskService.class.getName(), node1.getId());
             
             this.createResourceNodeVoucher(NCustomerTaskFoolow.class.getName(), "跟进列表", "Operation_CRM_Task_Follow", INCustomerTaskFoolowService.class.getName(), node1.getId());
+//            this.createResourceNodeVoucher(Customer.class.getName(), "企业信息库", "CRM_Enterprise", ICustomerService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(CompanyIntention.class.getName(), "企业信息", "CRM_CompanyIntention", ICompanyIntentionService.class.getName(), node1.getId());
+            this.createResourceNodeVoucher(CustomerServiceConfig.class.getName(), "客服配置", "CRM_CustomerServiceConfig", ICustomerServiceConfigService.class.getName(), node1.getId());
 
             this.createResourceNodeVoucher(NCustomerProduct.class.getName(), "客户意向产品", "Operation_CRM_Customer_Products", INCustomerProductService.class.getName(), node1.getId());
             this.createResourceNodeVoucher(NCustomerCompany.class.getName(), "关联企业", "Operation_CRM_Customer_Companys", INCustomerCompanyService.class.getName(), node1.getId());
