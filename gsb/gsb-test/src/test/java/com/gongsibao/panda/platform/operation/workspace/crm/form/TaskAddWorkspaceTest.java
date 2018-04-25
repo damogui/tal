@@ -208,8 +208,6 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 			}
 		}
 
-
-
 		PPart part = new PPart();
 		{
 			part.toNew();
@@ -236,7 +234,7 @@ public class TaskAddWorkspaceTest extends WorkspaceCreationBase {
 		{
 			part.setName("新增商机");
 			part.setDockStyle(DockType.TOP);
-			part.setHeight(500);
+			part.setStyle("height:270px;");
 		}
 	}
 

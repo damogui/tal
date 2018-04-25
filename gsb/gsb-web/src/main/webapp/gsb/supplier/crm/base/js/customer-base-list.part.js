@@ -37,7 +37,7 @@ com.gongsibao.crm.web.BaseCustomerListPart = org.netsharp.panda.commerce.ListPar
   		  fixed: false,
   		  maxmin: true,
   		  shadeClose:true,
-  		  area: ['90%','90%'],
+  		  area: ['98%','98%'],
   		  content: url,
   		  cancel: function(){ 
 
