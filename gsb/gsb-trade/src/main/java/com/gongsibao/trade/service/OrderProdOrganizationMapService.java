@@ -22,6 +22,7 @@ import com.gongsibao.trade.base.IOrderProdOrganizationMapService;
 
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -123,4 +124,36 @@ public class OrderProdOrganizationMapService extends PersistableService<OrderPro
         return count;
     }
 
+    @Override
+    public Map<Integer, String> getOrderOperationGroup(List<Integer> orderProdIdList) {
+        Map<Integer, String> resMap = new HashMap<>();
+        List<OrderProdOrganizationMap> orderProdMapList = getOrderProdIdList(orderProdIdList);
+        for (OrderProdOrganizationMap map : orderProdMapList) {
+            String organizationName = resMap.get(map.getOrderProdId());
+            if (!StringManager.isNullOrEmpty(organizationName)) {
+                resMap.put(map.getOrderProdId(), organizationName + "," + map.getSupplier().getName());
+            } else {
+                resMap.put(map.getOrderProdId(), map.getSupplier().getName());
+            }
+        }
+        return resMap;
+    }
+
+    @Override
+    public List<OrderProdOrganizationMap> getOrderProdIdList(List<Integer> orderProdIdList) {
+        List<OrderProdOrganizationMap> resList = new ArrayList<>();
+        if (CollectionUtils.isEmpty(orderProdIdList)) {
+            return resList;
+        }
+        String orderProdIds = StringManager.join(",", orderProdIdList);
+        Oql oql = new Oql();
+        {
+            oql.setType(this.type);
+            oql.setSelects("orderProdOrganizationMap.*,supplier.{id,name}");
+            oql.setFilter("order_prod_id in (" + orderProdIds + ")");
+            oql.setOrderby("pkid DESC");
+        }
+        resList = this.pm.queryList(oql);
+        return resList;
+    }
 }

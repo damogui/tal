@@ -21,7 +21,7 @@ public class SalesmanActionUpdateTest extends BaseActionTest{
 	@Test
 	public void save() {
 
-		String pathName = "gsb/operation/supplier/account/close";
+		String pathName = "gsb/supplier/salesman/update";
 		BeanPath beanPath = new BeanPath();
 		{
 			beanPath.toNew();
