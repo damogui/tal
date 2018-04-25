@@ -1,10 +1,12 @@
 package com.gongsibao.panda;
 
 import com.gongsibao.panda.rest.RestAllTest;
+
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import com.gongsibao.panda.action.ActionAllTest;
 import com.gongsibao.panda.auth.AuthAllTest;
 import com.gongsibao.panda.platform.PlatformAllTest;
 import com.gongsibao.panda.supplier.SupplierAllTest;
@@ -33,6 +35,9 @@ import com.gongsibao.panda.supplier.SupplierAllTest;
 	//处理资源Id
 	org.netsharp.meta.end.AllTests.class,
 	
+    //所有Action入口
+    ActionAllTest.class,
+    
 	//放在最后处理
 	AuthAllTest.class
 	})

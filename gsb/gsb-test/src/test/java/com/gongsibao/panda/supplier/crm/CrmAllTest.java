@@ -9,7 +9,6 @@ import com.gongsibao.panda.platform.operation.workspace.crm.old.CustomerAllWorks
 import com.gongsibao.panda.platform.operation.workspace.crm.old.CustomerMyOrderWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.old.CustomerOrderWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.crm.old.CustomerServiceConfigWorkspaceTest;
-import com.gongsibao.panda.supplier.crm.action.ActionAllTest;
 import com.gongsibao.panda.supplier.crm.reference.CityReferenceTest;
 import com.gongsibao.panda.supplier.crm.reference.CompanyIntentionReferenceTest;
 import com.gongsibao.panda.supplier.crm.reference.CustomerRefereneTest;
@@ -115,8 +114,6 @@ import com.gongsibao.panda.supplier.crm.workspace.salesman.form.SalesmanTaskFoll
 		FunnelStatisticalWorkspaceTest.class,
 		SalesmanTaskFollowWorkspaceTest.class,
 
-		// Action
-		ActionAllTest.class,
 
 		CrmNavigationTest.class })
 public class CrmAllTest {

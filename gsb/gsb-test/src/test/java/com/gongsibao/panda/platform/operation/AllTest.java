@@ -1,10 +1,5 @@
 package com.gongsibao.panda.platform.operation;
 
-import com.gongsibao.panda.platform.report.workspace.customer.ComprehenStatisticalWorkspaceTest;
-import com.gongsibao.panda.platform.report.workspace.customer.FollowStatisticalWorkspaceTest;
-import com.gongsibao.panda.platform.report.workspace.customer.FunnelStatisticalWorkspaceTest;
-import com.gongsibao.panda.platform.report.workspace.customer.StatisticalCustomerServiceWorkspaceTest;
-
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -37,7 +32,6 @@ import com.gongsibao.panda.platform.operation.workspace.reference.SupplierRefere
 import com.gongsibao.panda.platform.operation.workspace.reference.SupplierSalesmanReferenceTest;
 import com.gongsibao.panda.platform.operation.workspace.supplier.FunctionModuleWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.supplier.QualityWorkspaceTest;
-import com.gongsibao.panda.platform.operation.workspace.supplier.SupplierActionTest;
 import com.gongsibao.panda.platform.operation.workspace.supplier.SupplierCategoryWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.supplier.SupplierDepartmentWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.supplier.SupplierSalesmanWorkspaceTest;
@@ -52,6 +46,10 @@ import com.gongsibao.panda.platform.operation.workspace.taurus.UserConsumptionWo
 import com.gongsibao.panda.platform.operation.workspace.taurus.UserWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.wanda.WanDaProductWorkspaceTest;
 import com.gongsibao.panda.platform.operation.workspace.wanda.WanDaSoOrderWorkspaceTest;
+import com.gongsibao.panda.platform.report.workspace.customer.ComprehenStatisticalWorkspaceTest;
+import com.gongsibao.panda.platform.report.workspace.customer.FollowStatisticalWorkspaceTest;
+import com.gongsibao.panda.platform.report.workspace.customer.FunnelStatisticalWorkspaceTest;
+import com.gongsibao.panda.platform.report.workspace.customer.StatisticalCustomerServiceWorkspaceTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({
@@ -127,7 +125,7 @@ import com.gongsibao.panda.platform.operation.workspace.wanda.WanDaSoOrderWorksp
         ImportTaskQualityDataTest.class,
 //        ImportTaskRoleAndFunctionTest.class,
         // ImportOldDataToNewData.class,
-        SupplierActionTest.class,
+
         //智能商标在运营下面的列表
         TradeMarkCaseAllWorkspaceTest.class,
         TradeMarkFollowWorkspaceTest.class,
