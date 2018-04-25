@@ -133,7 +133,7 @@ public class OrderProdOrganizationMapService extends PersistableService<OrderPro
             if (!StringManager.isNullOrEmpty(organizationName)) {
                 resMap.put(map.getOrderProdId(), organizationName + "," + map.getSupplier().getName());
             } else {
-                resMap.put(map.getOrderProdId(), map.getSupplier().getName());
+                resMap.put(map.getOrderProdId(), map.getSupplier() != null ? map.getSupplier().getName() : "");
             }
         }
         return resMap;
