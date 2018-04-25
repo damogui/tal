@@ -117,7 +117,6 @@ public class IcExRegisterController {
     @Produces(MediaType.APPLICATION_JSON)
     public ResponseResult updateIcCase(@PathParam("name") String name,
                                        @PathParam("state") Integer state) {
-        System.out.println(name+"   "+state);
         ResponseResult result = new ResponseResult();
         IcExRegisterCase icCase = service.updateIcCase(name, state);
         if (icCase != null) {

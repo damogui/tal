@@ -157,7 +157,7 @@ public class ExRegisterService extends GsbPersistableService<IcExRegisterCase> i
         oql.setFilter("approvalName=?");
         oql.getParameters().add("approvalName",name,Types.VARCHAR);
         IcExRegisterCase icCase = this.pm.queryFirst(oql);
-        if (icCase!=null&&!icCase.getEntityState().equals(statue)){
+        if (icCase!=null&&!icCase.getCorpRegStatue().equals(statue)){
             icCase.setCorpRegStatue(statue);
             icCase.toPersist();
             return super.save(icCase);
