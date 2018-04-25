@@ -75,6 +75,9 @@ public class SalesmanOrderDetailWorkspaceTest extends WorkspaceCreationBase {
         addColumn(datagrid, "soOrder.payablePrice", "订单应付金额", ControlTypes.DECIMAL_FEN_BOX, 80);
         addColumn(datagrid, "soOrder.paidPrice", "订单已付金额", ControlTypes.DECIMAL_FEN_BOX, 80);
         addColumn(datagrid, "soOrder.payStatus", "订单付款状态", ControlTypes.ENUM_BOX, 80);
+        addColumn(datagrid, "processStatus.name", "办理进度", ControlTypes.ENUM_BOX, 100);
+        addColumn(datagrid, "operator", "当前操作员", ControlTypes.TEXT_BOX, 110);
+        addColumn(datagrid, "operationsGroup", "操作组", ControlTypes.TEXT_BOX, 100);
         column = addColumn(datagrid, "beginOption", "是否显示开始操作", ControlTypes.BOOLCOMBO_BOX, 80);
         {
             column.setSystem(true);
@@ -95,17 +98,14 @@ public class SalesmanOrderDetailWorkspaceTest extends WorkspaceCreationBase {
             column.setSystem(true);
             column.setVisible(false);
         }
-        column = addColumn(datagrid, "productName", "产品名称", ControlTypes.TEXT_BOX, 200);
-        column = addColumn(datagrid, "cityName", "产品地区", ControlTypes.TEXT_BOX, 200);
-        addColumn(datagrid, "handleName", "办理名称", ControlTypes.TEXT_BOX, 150);
-        addColumn(datagrid, "soOrder.companyIntention.companyName", "订单关联公司", ControlTypes.TEXT_BOX, 200);
-        addColumn(datagrid, "companyIntention.companyName", "明细订单关联公司", ControlTypes.TEXT_BOX, 200);
+        addColumn(datagrid, "productName", "产品名称", ControlTypes.TEXT_BOX, 120);
+        addColumn(datagrid, "cityName", "产品地区", ControlTypes.TEXT_BOX, 120);
+        addColumn(datagrid, "handleName", "办理名称", ControlTypes.TEXT_BOX, 120);
+        addColumn(datagrid, "soOrder.companyIntention.companyName", "订单关联公司", ControlTypes.TEXT_BOX, 150);
+        addColumn(datagrid, "companyIntention.companyName", "明细订单关联公司", ControlTypes.TEXT_BOX, 150);
         addColumn(datagrid, "soOrder.customer.realName", "下单人", ControlTypes.TEXT_BOX, 100);
         addColumn(datagrid, "soOrder.accountMobile", "下单人电话", ControlTypes.TEXT_BOX, 100);
-        column = addColumn(datagrid, "soOrder.createTime", "下单时间", ControlTypes.DATETIME_BOX, 100);
-        addColumn(datagrid, "processStatus.name", "办理进度", ControlTypes.ENUM_BOX, 100);
-        column = addColumn(datagrid, "operator", "当前操作员", ControlTypes.TEXT_BOX, 110);
-        addColumn(datagrid, "operationsGroup", "操作组", ControlTypes.TEXT_BOX, 100);
+        addColumn(datagrid, "soOrder.createTime", "下单时间", ControlTypes.DATETIME_BOX, 100);
         return datagrid;
     }
 
