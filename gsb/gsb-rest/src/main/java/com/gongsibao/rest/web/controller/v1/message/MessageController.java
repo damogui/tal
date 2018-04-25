@@ -30,13 +30,13 @@ public class MessageController extends BaseController{
     @Autowired
     IAccountService accountService;
 
-    @RequestMapping(value = "/buySuccess", method = RequestMethod.GET)
+    @RequestMapping(value = "/buySuccess", method = RequestMethod.POST)
     public ResponseData buySuccess(
             HttpServletRequest request,
             @RequestParam("openId") String openId,
             @RequestParam("money") String money,
             @RequestParam("productName") String productName,
-            @RequestParam("soAll") String soAll,
+            @RequestParam("payStatus") String payStatus,
             @RequestParam("orderNo") String orderNo
     ) {
 
@@ -65,14 +65,14 @@ public class MessageController extends BaseController{
             data.setMsg("originalId 为空！");
             return data;
         }
-        if (StringUtils.isBlank(soAll)) {
+        if (StringUtils.isBlank(payStatus)) {
             data.setCode(500);
-            data.setMsg("soAll 付款信息为空 1全部 0部分付 ！");
+            data.setMsg("payStatus 付款信息 1全部 0部分付 ！");
             return data;
         }
         try{
             Account account=accountService.queryByOpenId(openId);
-            accountService.buySuccessSendMsg(originalId(request),account.getId(),money,productName,"您的订单"+orderNo+"支付成功,我们将立即为您办理",soAll.equals("1")?"/index.html#/mine/order/2":"/index.html#/mine/order/1");
+            accountService.buySuccessSendMsg(originalId(request),account.getId(),money,productName,"您的订单"+orderNo+"支付成功,我们将立即为您办理",payStatus.equals("1")?"/index.html#/mine/order/2":"/index.html#/mine/order/1");
             data.setCode(200);
             data.setMsg("发送成功！");
         }catch (Exception e){
