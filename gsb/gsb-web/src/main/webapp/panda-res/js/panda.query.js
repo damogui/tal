@@ -546,7 +546,7 @@ org.netsharp.controls.NumberBoxQueryItem = org.netsharp.controls.Control.Extends
     },
     get: function () {
 
-        var propertyValue = $("#" + this.propertyName).val();
+        var propertyValue = $("#" + this.propertyName).numberbox('getValue');
         var propertyName = $("#" + this.propertyName).attr("propertyName");
         var interval = $('#' + this.propertyName).attr('interval');
 
