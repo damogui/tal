@@ -236,7 +236,9 @@ public class UserController extends BaseController {
         IPublicAccountService wcService = ServiceFactory.create(IPublicAccountService.class);
         PublicAccount pa = wcService.byOriginalId(originalId(request));
         if (pa == null) {
-            throw new NetsharpException("没有找到公众号，原始id：" + originalId(request));
+            data.setCode(500);
+            data.setMsg("没有找到公众号，原始id："+ originalId(request));
+            return data;
         }
         OAuthRequest oauth = new OAuthRequest();
         {
@@ -252,7 +254,9 @@ public class UserController extends BaseController {
             data.setData(openId);
             data.setMsg("获取成功");
         } catch (Exception ex) {
-//            logger.error("", ex);
+            data.setCode(500);
+            data.setMsg("获取失败："+ ex.getMessage());
+            return data;
         }
         return data;
     }
