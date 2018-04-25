@@ -597,7 +597,7 @@ org.netsharp.controls.NumberBoxQueryItem = org.netsharp.controls.Control.Extends
       	   var endCtrlId = '#End_' + this.propertyName;
       	   if($(endCtrlId).length>0){
 
-          	   var value2 =  $().numberbox('getValue');
+          	   var value2 =  $(endCtrlId).numberbox('getValue');
           	   if(!System.isnull(value2)){
           		   
           		  qp.value2 = value2;

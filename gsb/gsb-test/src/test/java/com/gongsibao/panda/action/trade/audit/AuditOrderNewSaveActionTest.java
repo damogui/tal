@@ -18,7 +18,7 @@ public class AuditOrderNewSaveActionTest extends BaseActionTest{
 	@Before
 	public void setup() {
 
-		resourceNodeCode = "Gsb_Supplier_Order_Salesman_Add";
+		resourceNodeCode = "Gsb_Supplier_Order_Salesman_All";
 		super.setup();
 	}
 
