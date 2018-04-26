@@ -34,7 +34,7 @@ repositories {
 //同步数据库元数据
 task syncMetaData(type: Test) {
 
-    include '**/AllTests.class'
+    include '**/ProdAllTests.class'
     reports.junitXml.destination = "$buildDir/test-results/SuiteTwo"
     reports.html.destination = test_reports_base_location
     //reports.html.destination = "$buildDir/test-results/SuiteTwo"
