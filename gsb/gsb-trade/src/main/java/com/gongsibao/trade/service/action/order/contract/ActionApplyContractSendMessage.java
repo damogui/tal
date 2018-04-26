@@ -7,6 +7,7 @@ import org.netsharp.action.IAction;
 /**
  * Created by zhangchao on 2018/3/21.
  */
+/*合同申请发送消息*/
 public class ActionApplyContractSendMessage implements IAction {
 
     @Override
