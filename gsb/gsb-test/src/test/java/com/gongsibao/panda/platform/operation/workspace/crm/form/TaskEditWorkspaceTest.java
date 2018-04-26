@@ -113,7 +113,7 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
         ResourceNode node = this.resourceService.byCode(foolowDetailResourceNodeCode);
         PDatagrid datagrid = new PDatagrid(node, "跟进日志");
         {
-            datagrid.setShowCheckbox(true);
+            datagrid.setShowCheckbox(false);
             datagrid.setSingleSelect(false);
             datagrid.setNowrap(false);
             addColumn(datagrid, "createTime", "创建时间", ControlTypes.DATETIME_BOX, 130);
@@ -129,8 +129,6 @@ public class TaskEditWorkspaceTest extends TaskAddWorkspaceTest {
             column = addColumn(datagrid, "content", "跟进内容", ControlTypes.TEXT_BOX, 400);
             {
                 column.setFormatter("return '<p title='+value+'>'+value+'</p>'");
-
-
             }
         }
 
